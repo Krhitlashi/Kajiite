@@ -8,8 +8,7 @@
     "typecheck": "node node_modules/typescript/lib/tsc.js --noEmit",
     "dev": "node server.js"
   },
-  "_note": "tsc.exe spawn fails on ARM64 Windows due to Unicode path issues; use node tsc.js instead"
-  },
+  "_note": "tsc.exe spawn fails on ARM64 Windows due to Unicode path issues; use node tsc.js instead",
   "devDependencies": {
     "@types/three": "^0.185.1",
     "three": "^0.185.1",
