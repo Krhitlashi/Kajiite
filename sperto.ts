@@ -1,0 +1,608 @@
+// Vaikorath — immersive city experience (orchestrator)
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "./assets/transporto.js";
+import { VESTOJ, kreiVestanAntauxrigardon } from "./assets/vestoj.js";
+import { animaciiFlammojn } from "./assets/lampoj.js";
+import { gxisdatigiAkvon, cxuEnAkvo } from "./assets/akvo.js";
+import { gxisdatigiNpc } from "./assets/npcoj.js";
+import type { Figuro, Vesto } from "./assets/npcoj.js";
+import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon } from "./assets/internoj.js";
+import { TIPARO, KonstruSpec } from "./assets/zigurato-konstruilo.js";
+import { riveroZ, alteco } from "./tereno.js";
+import { kreiScenon, ScenaSistemo } from "./scena.js";
+import type { UrbaSistemo } from "./urbo.js";
+import { konstruiUrbon } from "./urbo.js";
+import { traduki } from "./tradukoj.js";
+
+// ⟪ DOM-elementoj 📃 ⟫
+const kanvaso = document.getElementById("sceno") as HTMLCanvasElement;
+const kartoElemento = document.getElementById("karto")!;
+const kartoNomo = document.getElementById("kartoNomo")!;
+const kartoChip = document.getElementById("kartoChip")!;
+const kartoStatistikoj = document.getElementById("kartoStatistikoj")!;
+const kartoFlavor = document.getElementById("kartoFlavor")!;
+const kartoEniri = document.getElementById("kartoEniri")!;
+const promptoElemento = document.getElementById("prompto")!;
+const indicoElemento = document.getElementById("sugesto")!;
+const supermeta = document.getElementById("supermeta")!;
+const vestaVico = document.getElementById("vestaVico")!;
+const sxargxaElemento = document.getElementById("sxargxo")!;
+const stangoPlenigo = document.getElementById("stangoPlenigo")!;
+const sxargxaTitolo = document.getElementById("sxargxaTitolo")!;
+const nadlo = document.getElementById("nadlo")!;
+const titolaSkripto = document.getElementById("titolaSkripto") as HTMLImageElement;
+const vinjeto = document.getElementById("vinjeto")!;
+const retikulo = document.getElementById("retikulo")!;
+const balailo = document.getElementById("balailo")!;
+const svingo = document.getElementById("svingo")!;
+const fxVarma = document.getElementById("fxVarma")!;
+const fxMenta = document.getElementById("fxMenta")!;
+const tosto = document.getElementById("tosto")!;
+
+// ⟪ Krei scenon kaj urbon 📃 ⟫
+const scena: ScenaSistemo = kreiScenon(kanvaso, titolaSkripto, sxargxaElemento);
+const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo } = scena;
+
+const urbo: UrbaSistemo = konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo);
+const {
+  konstruSpecoj, kolizioj, selektajxoj,
+  riverData, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo,
+} = urbo;
+
+// ⟪ Orbit-regiloj 📃 ⟫
+const regiloj = new OrbitControls(fotilo, bildilo.domElement);
+regiloj.target.set(0, 2, 0);
+regiloj.enableDamping = true;
+regiloj.dampingFactor = 5/64;
+regiloj.maxPolarAngle = Math.PI * 31/64;
+regiloj.minDistance = 0o10;
+regiloj.maxDistance = 0o334;
+regiloj.update();
+
+// ⟪ Stato 📃 ⟫
+let rezimo: "orbit" | "walk" | "interior" = "orbit";
+let surKanoto: Kanoto | null = null;
+let elektitaSpec: KonstruSpec | null = null;
+let plejProksimaPordo: KonstruSpec | null = null;
+let direkto = 0, klinigxo = -1/16;
+const ludantaPozicio = new THREE.Vector3(0, 5/32, 0o44);
+let rapidoY = 0, estasSurTERENO = false;
+const klavoj: Record<string, boolean> = {};
+let oscilo = 0;
+let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
+
+
+// ⟪ Tosta sistemo 📃 ⟫
+function montriTost(mesagxo: string, daŭro = 0o4230) {
+  if (tostaTempilo) clearTimeout(tostaTempilo);
+  tosto.textContent = mesagxo;
+  tosto.classList.add("montri");
+  tostaTempilo = setTimeout(() => tosto.classList.remove("montri"), daŭro);
+}
+
+// ⟪ Balaila transiro 📃 ⟫
+function fariBalailon(callback: () => void, daŭro = 0o1130) {
+  balailo.style.opacity = "1";
+  setTimeout(() => {
+    callback();
+    setTimeout(() => { balailo.style.opacity = "0"; }, 0o310);
+  }, daŭro / 2);
+}
+
+// ⟪ Svingo kaj kolor-efikoj 📃 ⟫
+function pulsiEfikon() {
+  svingo.classList.remove("iru");
+  void svingo.offsetWidth;
+  svingo.classList.add("iru");
+  fxVarma.classList.remove("fxPulso");
+  void fxVarma.offsetWidth;
+  fxVarma.classList.add("fxPulso");
+  setTimeout(() => {
+    fxMenta.classList.remove("fxPulso");
+    void fxMenta.offsetWidth;
+    fxMenta.classList.add("fxPulso");
+  }, 0o310);
+}
+
+// ⟪ Enigo 📃 ⟫
+window.addEventListener("keydown", e => {
+  klavoj[e.code] = true;
+  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(e.code)) e.preventDefault();
+  if (e.code === "KeyE" && !e.repeat) proviInterakti();
+  if (e.code === "KeyM" && !e.repeat) sxaltiRezimon();
+  if (e.code === "Escape" && rezimo === "interior") eliriInternon();
+  if (e.code === "Space" && rezimo === "walk" && estasSurTERENO && !surKanoto) { rapidoY = 60/8; estasSurTERENO = false; }
+  indicoElemento.classList.add("kasxi");
+});
+window.addEventListener("keyup", e => { klavoj[e.code] = false; });
+
+// Reset key states when the window loses focus so keys don't get stuck "on"
+const resetiKlfojn = () => { for (const k in klavoj) klavoj[k] = false; };
+window.addEventListener("blur", resetiKlfojn);
+window.addEventListener("visibilitychange", () => { if (document.hidden) resetiKlfojn(); });
+document.addEventListener("pointerlockchange", () => { if (!document.pointerLockElement) resetiKlfojn(); });
+
+// ⟪ Retikula kontrolo 📃 ⟫
+function gxisdatigiRetikulon() {
+  retikulo.classList.toggle("montri", rezimo === "orbit");
+}
+
+// ⟪ Konstruajxa karto 📃 ⟫
+function montriKarton(spec: KonstruSpec, bt: { labelKey: string; chip: string; flavorKey: string; wall: number; frame: number }) {
+  elektitaSpec = spec;
+  kartoNomo.textContent = traduki(spec.name);
+  const btLabelo = traduki(bt.labelKey);
+  kartoChip.textContent = btLabelo;
+  kartoChip.style.background = bt.chip;
+  kartoStatistikoj.innerHTML = `<b>${traduki("statTieroj")}</b> ${spec.niveloj} · <b>${traduki("statDiamanto")}</b> ${spec.sube ? traduki("statJes") + " (" + spec.sube + ")" : traduki("statNe")}<br><b>${traduki("statTipo")}</b> ${btLabelo} · <b>${traduki("statPozicio")}</b> X${Math.round(spec.x)} Z${Math.round(spec.z)}`;
+  kartoFlavor.textContent = traduki(bt.flavorKey);
+  kartoElemento.classList.add("montri");
+  kartoEniri.onclick = () => eniriKonstruajxon(spec, bt);
+}
+function kasxiKarton() {
+  elektitaSpec = null;
+  kartoElemento.classList.remove("montri");
+}
+
+// ⟪ Klaku por elekti 📃 ⟫
+const radioRestilo = new THREE.Raycaster();
+kanvaso.addEventListener("click", (e) => {
+  if (rezimo !== "orbit") return;
+  const muso = new THREE.Vector2((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  radioRestilo.setFromCamera(muso, fotilo);
+  const trafoj = radioRestilo.intersectObjects(selektajxoj);
+  if (trafoj.length > 0) {
+    const data = trafoj[0].object.userData;
+    if (data && data.spec) montriKarton(data.spec, data.buildingType);
+  } else {
+    kasxiKarton();
+  }
+});
+
+// ⟪ Interna vido 📃 ⟫
+function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }) {
+  // Request pointer lock synchronously while user gesture is still active
+  if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
+  pulsiEfikon();
+  fariBalailon(() => {
+    rezimo = "interior";
+    elektitaSpec = spec;
+    const enirPunkto = eniriInternon(internaSistemo, spec, dioritaMaterialo, andezitaMaterialo, oraMaterialo, eniraMaterialo, sceno);
+    const specX = spec.x, specZ = spec.z, specH0 = spec.h0 || 0;
+    const rot = spec.rot || 0;
+    const cosR = Math.cos(rot), sinR = Math.sin(rot);
+    const eX = enirPunkto.x, eZ = enirPunkto.z;
+    const wX = specX + cosR * eX - sinR * eZ;
+    const wZ = specZ + sinR * eX + cosR * eZ;
+    fotilo.position.set(wX, specH0 + enirPunkto.y, wZ);
+    fotilo.lookAt(specX, specH0 + 1, specZ);
+    direkto = enirPunkto.direkto + rot;
+    klinigxo = 0;
+    ludantaPozicio.set(wX, specH0 + enirPunkto.y, wZ);
+    estasSurTERENO = true;
+    rapidoY = 0;
+    regiloj.enabled = false;
+    kasxiKarton();
+    montriTost(traduki("p4") + " " + traduki(spec.name));
+    gxisdatigiRetikulon();
+  });
+}
+function eliriInternon() {
+  eliriElInterno(internaSistemo, sceno);
+  pulsiEfikon();
+  fariBalailon(() => {
+    rezimo = "orbit";
+    regiloj.enabled = true;
+    if (elektitaSpec) {
+      regiloj.target.set(elektitaSpec.x, elektitaSpec.h0! + 0o14, elektitaSpec.z);
+      regiloj.update();
+    }
+    gxisdatigiRetikulon();
+  });
+}
+
+// ⟪ Rezima sxaltilo 📃 ⟫
+function sxaltiRezimon() {
+  if (rezimo === "interior") { eliriInternon(); return; }
+  if (surKanoto) { surKanoto = null; ludantaPozicio.set(fotilo.position.x, 109/64, fotilo.position.z); }
+  rezimo = rezimo === "orbit" ? "walk" : "orbit";
+  (document.getElementById("butPromeni")!).classList.toggle("aktiva", rezimo === "walk");
+  gxisdatigiRetikulon();
+  if (rezimo === "walk") {
+    regiloj.enabled = false;
+    direkto = -Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
+    ludantaPozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
+    estasSurTERENO = true;
+  } else {
+    regiloj.enabled = true;
+    regiloj.target.copy(ludantaPozicio).add(new THREE.Vector3(0, 4, 0));
+    fotilo.position.copy(ludantaPozicio).add(new THREE.Vector3(0, 4, 0o14));
+  }
+}
+document.getElementById("butPromeni")!.addEventListener("click", sxaltiRezimon);
+document.getElementById("butOrbiti")!.addEventListener("click", () => {
+  if (rezimo === "walk") sxaltiRezimon();
+  if (elektitaSpec) {
+    regiloj.target.set(elektitaSpec.x, elektitaSpec.h0! + 0o14, elektitaSpec.z);
+    regiloj.update();
+  }
+});
+
+// ⟪ Vestaro 📃 ⟫
+document.getElementById("butVesti")!.addEventListener("click", () => {
+  vestaVico.innerHTML = "";
+  VESTOJ.forEach((o, i) => {
+    const card = document.createElement("div");
+    card.className = "vestaKardo";
+    const kanvasa = kreiVestanAntauxrigardon(o);
+    card.appendChild(kanvasa);
+    const name = document.createElement("div");
+    name.className = "vn"; name.textContent = traduki(o.name);
+    card.appendChild(name);
+    card.addEventListener("click", () => {
+      supermeta.classList.remove("montri");
+      montriTost(traduki(o.name));
+    });
+    vestaVico.appendChild(card);
+  });
+  supermeta.classList.add("montri");
+});
+supermeta.addEventListener("click", (e) => {
+  if (e.target === supermeta) supermeta.classList.remove("montri");
+});
+document.getElementById("supermetaFermi")!.addEventListener("click", () => {
+  supermeta.classList.remove("montri");
+});
+
+// ⟪ Helpo 📃 ⟫
+document.getElementById("butHelpi")!.addEventListener("click", () => {
+  document.getElementById("supermetaTitolo")!.textContent = traduki("pT");
+  document.getElementById("supermetaSupra")!.textContent = traduki("pU");
+  vestaVico.innerHTML = `<div class="statistikoj" style="text-align:left;padding:8px">
+    <b>Orbit</b> · ${traduki("pL")}<br>
+    <b>Walk</b> · ${traduki("pM")}<br>
+    <b>WASD</b> · ${traduki("pN")}<br>
+    <b>E</b> · ${traduki("pO")}<br>
+    <b>M</b> · ${traduki("pP")}<br>
+    <b>Escape</b> · ${traduki("pQ")}<br>
+    <b>Click spires</b> · ${traduki("pR")}<br>
+    <b>WARD</b> · ${traduki("pS")}
+  </div>`;
+  supermeta.classList.add("montri");
+});
+
+// ⟪ Interagu (E-klavo) 📃 ⟫
+function proviInterakti() {
+  if (rezimo === "interior") { eliriInternon(); return; }
+  if (surKanoto) {
+    const exit = eliriKanoton(surKanoto);
+    ludantaPozicio.set(exit.x, 109/64, exit.z);
+    surKanoto = null;
+    promptoElemento.classList.remove("montri");
+    montriTost(traduki("pY"));
+    return;
+  }
+  if (plejProksimaPordo) {
+    const bt = TIPARO[plejProksimaPordo.type] || TIPARO.domo;
+    eniriKonstruajxon(plejProksimaPordo, bt);
+    return;
+  }
+  let plejProksima: Kanoto | null = null;
+  let minDistanco = 4;
+  for (const c of kanuoj) {
+    const d = Math.hypot(c.x - ludantaPozicio.x, c.z - ludantaPozicio.z);
+    if (d < minDistanco) { minDistanco = d; plejProksima = c; }
+  }
+  if (plejProksima) {
+    surKanoto = plejProksima;
+    plejProksima.vx = plejProksima.vz = 0;
+    promptoElemento.classList.remove("montri");
+    montriTost(traduki("pX"));
+  }
+}
+function eliriKanoton(c: Kanoto): { x: number; z: number } {
+  const fortoX = -Math.sin(c.direkto), fortoZ = -Math.cos(c.direkto);
+  return { x: c.x + fortoX * 6, z: c.z + fortoZ * 6 };
+}
+
+function solviKolizion(x: number, z: number): { x: number; z: number } {
+  for (let pass = 0; pass < 3; pass++) {
+    let pusxoX = 0, pusxoZ = 0;
+    let hit = false;
+    for (const c of kolizioj) {
+      const difX = x + pusxoX - c.x, difZ = z + pusxoZ - c.z;
+      const d = Math.hypot(difX, difZ);
+      const min = c.r + 4/8;
+      if (d < min && d > 0.0001) {
+        const pen = min - d;
+        pusxoX += (difX / d) * pen;
+        pusxoZ += (difZ / d) * pen;
+        hit = true;
+      }
+    }
+    x += pusxoX;
+    z += pusxoZ;
+    if (!hit) break;
+  }
+  return { x, z };
+}
+
+// ⟪ Animacio 📃 ⟫
+const horlogxo = new THREE.Clock();
+function animacii() {
+  requestAnimationFrame(animacii);
+  const deltaTempo = Math.min(horlogxo.getDelta(), 3/64);
+  const t = horlogxo.elapsedTime;
+
+  // Reskaligi
+  const w = innerWidth, h = innerHeight;
+  if (kanvaso.width !== Math.floor(w * devicePixelRatio) || kanvaso.height !== Math.floor(h * devicePixelRatio)) {
+    fotilo.aspect = w / h; fotilo.updateProjectionMatrix();
+    bildilo.setSize(w, h);
+  }
+
+  // Flamoj
+  animaciiFlammojn(lampSistemo, t);
+  // Akva animacio
+  gxisdatigiAkvon(riverData, t);
+
+  // Promena reximo
+  if (rezimo === "walk" && !surKanoto) {
+    let movX = (klavoj.KeyD || klavoj.ArrowRight ? 1 : 0) - (klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0);
+    let movZ = (klavoj.KeyW || klavoj.ArrowUp ? 1 : 0) - (klavoj.KeyS || klavoj.ArrowDown ? 1 : 0);
+    const longo = Math.hypot(movX, movZ);
+    if (longo > 1) { movX /= longo; movZ /= longo; }
+    const sprinto = klavoj.ShiftLeft || klavoj.ShiftRight;
+    const rapido = sprinto ? 84/8 : 173/32;
+    const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
+    const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
+    let novaX = ludantaPozicio.x + (fortoX * movZ + radX * movX) * rapido * deltaTempo;
+    let novaZ = ludantaPozicio.z + (fortoZ * movZ + radX * movX) * rapido * deltaTempo;
+    novaX = Math.max(-0o144, Math.min(0o144, novaX));
+    novaZ = Math.max(-0o106, Math.min(0o144, novaZ));
+
+    const r = solviKolizion(novaX, novaZ);
+    ludantaPozicio.x = r.x; ludantaPozicio.z = r.z;
+    const moving = Math.min(1, longo);
+
+    const teraY = alteco(ludantaPozicio.x, ludantaPozicio.z);
+    const enAkvo = cxuEnAkvo(ludantaPozicio.x, ludantaPozicio.z, riveroZ, 7);
+    const akvoY = enAkvo ? riverData.waterSurfaceY(ludantaPozicio.x, ludantaPozicio.z) : -999;
+    const superAkvo = enAkvo && ludantaPozicio.y < akvoY + 6/8;
+
+    if (enAkvo && superAkvo) {
+      const floatY = akvoY + 3/8 + Math.sin(t * 2 + ludantaPozicio.x * 0.1) * 1/16;
+      ludantaPozicio.y += (floatY - ludantaPozicio.y) * 0.15;
+      rapidoY = 0;
+      estasSurTERENO = false;
+    } else if (estasSurTERENO) {
+      if (ludantaPozicio.y > teraY + 19/64) {
+        estasSurTERENO = false;
+      } else {
+        ludantaPozicio.y = teraY;
+      }
+      rapidoY = 0;
+    } else {
+      rapidoY -= 0o22 * deltaTempo;
+      ludantaPozicio.y += rapidoY * deltaTempo;
+      if (ludantaPozicio.y <= teraY) {
+        ludantaPozicio.y = teraY;
+        rapidoY = 0;
+        estasSurTERENO = true;
+      }
+    }
+
+    oscilo += moving * rapido * deltaTempo * 12/8;
+    fotilo.position.set(
+      ludantaPozicio.x,
+      ludantaPozicio.y + 53/32 + Math.sin(oscilo * 2) * 3/64 * moving,
+      ludantaPozicio.z
+    );
+    fotilo.rotation.set(klinigxo, direkto, 0);
+
+    // Detekti pordojn kaj kanuojn
+    let proksimaPordo: KonstruSpec | null = null;
+    let proksimaPordoDist = 3;
+    for (const s of konstruSpecoj) {
+      if (s.x === 0 && s.z === 0) continue;
+      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
+      const pordoX = s.x + difX * (s.d / 2 + 12/8), pordoZ = s.z + difZ * (s.d / 2 + 12/8);
+      const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
+      if (d < proksimaPordoDist) { proksimaPordoDist = d; proksimaPordo = s; }
+    }
+    plejProksimaPordo = proksimaPordo;
+    let proksimaKanuo: Kanoto | null = null;
+    let proksimaKanuoDist = 4;
+    for (const c of kanuoj) {
+      const d = Math.hypot(c.x - ludantaPozicio.x, c.z - ludantaPozicio.z);
+      if (d < proksimaKanuoDist) { proksimaKanuoDist = d; proksimaKanuo = c; }
+    }
+    if (plejProksimaPordo) {
+      promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("p4") + ` ` + traduki(plejProksimaPordo.name);
+      promptoElemento.classList.add("montri");
+    } else if (proksimaKanuo && !surKanoto) {
+      promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("pZ");
+      promptoElemento.classList.add("montri");
+    } else if (!surKanoto) {
+      promptoElemento.classList.remove("montri");
+    }
+  }
+
+  // ⟪ Interna piedirado 📃 ⟫
+  if (rezimo === "interior" && elektitaSpec) {
+    let movX = (klavoj.KeyD || klavoj.ArrowRight ? 1 : 0) - (klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0);
+    let movZ = (klavoj.KeyW || klavoj.ArrowUp ? 1 : 0) - (klavoj.KeyS || klavoj.ArrowDown ? 1 : 0);
+    const longo = Math.hypot(movX, movZ);
+    if (longo > 1) { movX /= longo; movZ /= longo; }
+    const rapido = 141/32;
+    const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
+    const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
+    let novaX = ludantaPozicio.x + (fortoX * movZ + radX * movX) * rapido * deltaTempo;
+    let novaZ = ludantaPozicio.z + (fortoZ * movZ + radX * movX) * rapido * deltaTempo;
+
+    const specX = elektitaSpec.x, specZ = elektitaSpec.z, specH0 = elektitaSpec.h0 || 0;
+    const plankoj = internaSistemo.plankoj;
+    const ludY = ludantaPozicio.y - specH0;
+    let aktivaPlanko = plankoj[0];
+    let etapy = specH0;
+    for (const p of plankoj) {
+      if (ludY >= p.y - 0.5 && ludY < p.y + p.alto) { aktivaPlanko = p; break; }
+    }
+    if (aktivaPlanko) {
+      const margxeno = 3/8;
+      novaX = Math.max(specX - aktivaPlanko.hw + margxeno, Math.min(specX + aktivaPlanko.hw - margxeno, novaX));
+      novaZ = Math.max(specZ - aktivaPlanko.hd + margxeno, Math.min(specZ + aktivaPlanko.hd - margxeno, novaZ));
+
+      const cxeSxtuparo = novaZ - specZ < -aktivaPlanko.hd + 1.8;
+      let nunaEtagxIndekso = -1;
+      for (let i = 0; i < plankoj.length; i++) {
+        if (plankoj[i] === aktivaPlanko) { nunaEtagxIndekso = i; break; }
+      }
+      if (cxeSxtuparo && movZ > 3/8 && nunaEtagxIndekso < plankoj.length - 1) {
+        const sekva = plankoj[nunaEtagxIndekso + 1];
+        etapy = specH0 + sekva.y;
+      } else if (cxeSxtuparo && movZ < -3/8 && nunaEtagxIndekso > 0) {
+        const antauxa = plankoj[nunaEtagxIndekso - 1];
+        etapy = specH0 + antauxa.y;
+      } else {
+        etapy = specH0 + aktivaPlanko.y;
+      }
+    } else {
+      etapy = specH0;
+    }
+
+    ludantaPozicio.x = novaX;
+    ludantaPozicio.z = novaZ;
+    const moving = Math.min(1, longo);
+
+    if (estasSurTERENO) {
+      ludantaPozicio.y += (etapy - ludantaPozicio.y) * 0.2;
+      rapidoY = 0;
+      if (Math.abs(ludantaPozicio.y - etapy) < 0.01) ludantaPozicio.y = etapy;
+    } else {
+      rapidoY -= 0o22 * deltaTempo;
+      ludantaPozicio.y += rapidoY * deltaTempo;
+      if (ludantaPozicio.y <= etapy) {
+        ludantaPozicio.y = etapy;
+        rapidoY = 0;
+        estasSurTERENO = true;
+      }
+    }
+
+    oscilo += moving * rapido * deltaTempo * 12/8;
+    fotilo.position.set(
+      ludantaPozicio.x,
+      ludantaPozicio.y + 53/32 + Math.sin(oscilo * 2) * 3/64 * moving,
+      ludantaPozicio.z
+    );
+    fotilo.rotation.set(klinigxo, direkto, 0);
+
+    promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("pV");
+    promptoElemento.classList.add("montri");
+  }
+
+  // Kanota logiko
+  if (surKanoto) {
+    let movX = (klavoj.KeyD || klavoj.ArrowRight ? 1 : 0) - (klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0);
+    let movZ = (klavoj.KeyW || klavoj.ArrowUp ? 1 : 0) - (klavoj.KeyS || klavoj.ArrowDown ? 1 : 0);
+    const longo = Math.hypot(movX, movZ);
+    if (longo > 1) { movX /= longo; movZ /= longo; }
+    const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
+    const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
+    gxisdatigiKanotanFizikon(surKanoto, deltaTempo, fortoX, fortoZ, radX, radZ, movX, movZ);
+    const rapido = Math.hypot(surKanoto.vx, surKanoto.vz);
+    if (rapido > 5/32) {
+      const target = Math.atan2(-surKanoto.vz, surKanoto.vx);
+      let dy = target - surKanoto.direkto;
+      while (dy > Math.PI) dy -= Math.PI * 2;
+      while (dy < -Math.PI) dy += Math.PI * 2;
+      surKanoto.direkto += dy * Math.min(1, 4 * deltaTempo);
+    }
+    const riveroZ2 = riveroZ(surKanoto.x);
+    const drift = surKanoto.z - riveroZ2;
+    if (Math.abs(drift) > 5) {
+      surKanoto.vz -= Math.sign(drift) * 2 * deltaTempo;
+      surKanoto.z = riveroZ2 + Math.sign(drift) * 36/8;
+    }
+    surKanoto.x = Math.max(-0o170, Math.min(0o170, surKanoto.x));
+    surKanoto.z = Math.max(-0o120, Math.min(0o120, surKanoto.z));
+    surKanoto.x += surKanoto.vx * deltaTempo;
+    surKanoto.z += surKanoto.vz * deltaTempo;
+
+    fotilo.position.set(surKanoto.x, surKanoto.bazaY + 3/32 + 17/32, surKanoto.z);
+    fotilo.rotation.set(klinigxo, direkto, 0);
+    promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("pW");
+    promptoElemento.classList.add("montri");
+    ludantaPozicio.set(surKanoto.x, 109/64, surKanoto.z);
+  }
+
+  // Kanotaj animacioj
+  for (const c of kanuoj) animaciiKanoton(c, t, c === surKanoto);
+  // NPC-aj animacioj
+  for (const n of npcoj) gxisdatigiNpc(n, deltaTempo, t, alteco);
+  // Internaj animacioj
+  gxisdatigiInternon(internaSistemo, t);
+
+  // Nebula drivo
+  for (const sp of nebuloj) {
+    sp.position.x += sp.userData.rapido * deltaTempo * 4/8;
+    if (sp.position.x > 0o163) sp.position.x = -0o163;
+  }
+
+  // Kompaso
+  const fotilaDirekto = rezimo === "walk" ? direkto : -Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
+  (nadlo as HTMLElement).style.transform = `rotate(${fotilaDirekto}radiuso)`;
+
+  // WASD orbita movado
+  if (rezimo === "orbit") {
+    let panX = (klavoj.KeyD ? 1 : 0) - (klavoj.KeyA ? 1 : 0);
+    let panZ = (klavoj.KeyS ? 1 : 0) - (klavoj.KeyW ? 1 : 0);
+    if (panX || panZ) {
+      const fotilaDir = new THREE.Vector3();
+      fotilo.getWorldDirection(fotilaDir);
+      fotilaDir.y = 0; fotilaDir.normalize();
+      const side = new THREE.Vector3().crossVectors(fotilaDir, new THREE.Vector3(0, 1, 0)).normalize();
+      const rapido = 0o50 * deltaTempo;
+      const offset = new THREE.Vector3()
+        .addScaledVector(side, panX * rapido)
+        .addScaledVector(fotilaDir, -panZ * rapido);
+      regiloj.target.add(offset);
+      fotilo.position.add(offset);
+    }
+    regiloj.update();
+  }
+
+  bildilo.render(sceno, fotilo);
+}
+
+// ⟪ Loading 📃 ⟫
+let sxargxaProgreso = 0;
+const sxargxaIntervalo = setInterval(() => {
+  sxargxaProgreso += 1/8;
+  stangoPlenigo.style.width = `${Math.min(100, sxargxaProgreso * 100)}%`;
+  if (sxargxaProgreso > 19/64) sxargxaTitolo.textContent = traduki("pH");
+  if (sxargxaProgreso > 19/32) sxargxaTitolo.textContent = traduki("pI");
+  if (sxargxaProgreso > 27/32) sxargxaTitolo.textContent = traduki("pJ");
+  if (sxargxaProgreso >= 1) {
+    clearInterval(sxargxaIntervalo);
+    sxargxaElemento.classList.add("finita");
+    setTimeout(() => sxargxaElemento.remove(), 0o1604);
+    gxisdatigiRetikulon();
+  }
+}, 0o334);
+setTimeout(() => indicoElemento.classList.add("kasxi"), 14000);
+
+// ⟪ Montra-lock por piedirado ( ekstere kaj interne ) 📃 ⟫
+kanvaso.addEventListener("click", () => {
+  if (rezimo === "walk" || rezimo === "interior") kanvaso.requestPointerLock();
+});
+document.addEventListener("mousemove", (e) => {
+  if (document.pointerLockElement !== kanvaso || (rezimo !== "walk" && rezimo !== "interior")) return;
+  direkto -= e.movementX * 0.0021;
+  klinigxo -= e.movementY * 0.0021;
+  klinigxo = Math.max(-93/64, Math.min(93/64, klinigxo));
+});
+
+// ⟪ Start 📃 ⟫
+animacii();

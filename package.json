@@ -1,0 +1,18 @@
+{
+  "name": "vaikorath",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node node_modules/typescript/lib/tsc.js",
+    "typecheck": "node node_modules/typescript/lib/tsc.js --noEmit",
+    "dev": "node server.js"
+  },
+  "_note": "tsc.exe spawn fails on ARM64 Windows due to Unicode path issues; use node tsc.js instead"
+  },
+  "devDependencies": {
+    "@types/three": "^0.185.1",
+    "three": "^0.185.1",
+    "typescript": "^7.0.2"
+  }
+}
