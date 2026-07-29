@@ -458,6 +458,8 @@ function animacii() {
     let novaZ = ludantaPozicio.z + (fortoZ * movZ + radX * movX) * rapido * deltaTempo;
 
     const specX = elektitaSpec.x, specZ = elektitaSpec.z, specH0 = elektitaSpec.h0 || 0;
+    const rot = elektitaSpec.rot || 0;
+    const cosR = Math.cos(rot), sinR = Math.sin(rot);
     const plankoj = internaSistemo.plankoj;
     const ludY = ludantaPozicio.y - specH0;
     let aktivaPlanko = plankoj[0];
@@ -466,11 +468,16 @@ function animacii() {
       if (ludY >= p.y - 0.5 && ludY < p.y + p.alto) { aktivaPlanko = p; break; }
     }
     if (aktivaPlanko) {
+      // Convert to local building coordinates for clamping (handles rotation)
       const margxeno = 3/8;
-      novaX = Math.max(specX - aktivaPlanko.hw + margxeno, Math.min(specX + aktivaPlanko.hw - margxeno, novaX));
-      novaZ = Math.max(specZ - aktivaPlanko.hd + margxeno, Math.min(specZ + aktivaPlanko.hd - margxeno, novaZ));
+      let lokalX = (novaX - specX) * cosR + (novaZ - specZ) * sinR;
+      let lokalZ = -(novaX - specX) * sinR + (novaZ - specZ) * cosR;
+      lokalX = Math.max(-aktivaPlanko.hw + margxeno, Math.min(aktivaPlanko.hw - margxeno, lokalX));
+      lokalZ = Math.max(-aktivaPlanko.hd + margxeno, Math.min(aktivaPlanko.hd - margxeno, lokalZ));
+      novaX = specX + cosR * lokalX - sinR * lokalZ;
+      novaZ = specZ + sinR * lokalX + cosR * lokalZ;
 
-      const cxeSxtuparo = novaZ - specZ < -aktivaPlanko.hd + 1.8;
+      const cxeSxtuparo = lokalZ < -aktivaPlanko.hd + 1.8;
       let nunaEtagxIndekso = -1;
       for (let i = 0; i < plankoj.length; i++) {
         if (plankoj[i] === aktivaPlanko) { nunaEtagxIndekso = i; break; }
