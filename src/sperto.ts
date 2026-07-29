@@ -1,14 +1,14 @@
 // Vaikorath — immersive city experience (orchestrator)
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "./assets/transporto.js";
-import { VESTOJ, kreiVestanAntauxrigardon } from "./assets/vestoj.js";
-import { animaciiFlammojn } from "./assets/lampoj.js";
-import { gxisdatigiAkvon, cxuEnAkvo } from "./assets/akvo.js";
-import { gxisdatigiNpc } from "./assets/npcoj.js";
-import type { Figuro, Vesto } from "./assets/npcoj.js";
-import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon } from "./assets/internoj.js";
-import { TIPARO, KonstruSpec } from "./assets/zigurato-konstruilo.js";
+import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "../assets/transporto.js";
+import { VESTOJ, kreiVestanAntauxrigardon } from "../assets/vestoj.js";
+import { animaciiFlammojn } from "../assets/lampoj.js";
+import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/akvo.js";
+import { gxisdatigiNpc } from "../assets/npcoj.js";
+import type { Figuro, Vesto } from "../assets/npcoj.js";
+import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon } from "../assets/internoj.js";
+import { TIPARO, KonstruSpec } from "../assets/zigurato-konstruilo.js";
 import { riveroZ, alteco } from "./tereno.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
@@ -62,6 +62,7 @@ regiloj.update();
 
 // ⟪ Stato 📃 ⟫
 let rezimo: "orbit" | "walk" | "interior" = "orbit";
+let antauxaRezimo: "orbit" | "walk" | null = null;
 let surKanoto: Kanoto | null = null;
 let elektitaSpec: KonstruSpec | null = null;
 let plejProksimaPordo: KonstruSpec | null = null;
@@ -166,6 +167,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
   if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
   pulsiEfikon();
   fariBalailon(() => {
+    antauxaRezimo = rezimo as "orbit" | "walk";
     rezimo = "interior";
     elektitaSpec = spec;
     const enirPunkto = eniriInternon(internaSistemo, spec, dioritaMaterialo, andezitaMaterialo, oraMaterialo, eniraMaterialo, sceno);
@@ -183,7 +185,8 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
     estasSurTERENO = true;
     rapidoY = 0;
     regiloj.enabled = false;
-    kasxiKarton();
+    // Hide the card but DON'T clear elektitaSpec (needed for interior movement)
+    kartoElemento.classList.remove("montri");
     montriTost(traduki("p4") + " " + traduki(spec.name));
     gxisdatigiRetikulon();
   });
@@ -192,12 +195,25 @@ function eliriInternon() {
   eliriElInterno(internaSistemo, sceno);
   pulsiEfikon();
   fariBalailon(() => {
-    rezimo = "orbit";
-    regiloj.enabled = true;
-    if (elektitaSpec) {
-      regiloj.target.set(elektitaSpec.x, elektitaSpec.h0! + 0o14, elektitaSpec.z);
-      regiloj.update();
+    // Restore previous mode (walk or orbit)
+    const estasWalk = antauxaRezimo === "walk";
+    rezimo = antauxaRezimo || "orbit";
+    antauxaRezimo = null;
+    if (estasWalk) {
+      regiloj.enabled = false;
+      // Set up walking state from current camera position (near building door)
+      direkto = fotilo.rotation.y;
+      ludantaPozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
+      fotilo.position.y = ludantaPozicio.y + 53/32;
+      estasSurTERENO = true;
+    } else {
+      regiloj.enabled = true;
+      if (elektitaSpec) {
+        regiloj.target.set(elektitaSpec.x, elektitaSpec.h0! + 0o14, elektitaSpec.z);
+        regiloj.update();
+      }
     }
+    (document.getElementById("butPromeni")!).classList.toggle("aktiva", estasWalk);
     gxisdatigiRetikulon();
   });
 }

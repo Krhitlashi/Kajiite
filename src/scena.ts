@@ -1,7 +1,7 @@
 // Scena — renderer, scene, camera, sky, lights, materials, mountains, ground
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { generiSkriptanURL } from "./assets/skripto-rivelilo.js";
+import { generiSkriptanURL } from "../assets/skripto-rivelilo.js";
 import { alteco } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
 

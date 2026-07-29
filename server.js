@@ -20,7 +20,7 @@ const MIMEOFINOJ = {
 };
 
 const servilo = createServer(async (peto, respondo) => {
-  let url = (peto.url === "/" ? "/experience.html" : peto.url).split("?")[0];
+  let url = (peto.url === "/" ? "/index.html" : peto.url).split("?")[0];
   const vojo = normalize(join(RADIKO, url.replace(/^\//, "")));
   if (!vojo.startsWith(RADIKO)) { respondo.writeHead(0o623); respondo.end("Malpermesita"); return; }
   try {
@@ -33,7 +33,7 @@ const servilo = createServer(async (peto, respondo) => {
 });
 
 function komencu(pordo) {
-  servilo.listen(pordo, () => console.log("Servilo: http://localhost:" + pordo + "/experience.html"));
+  servilo.listen(pordo, () => console.log("Servilo: http://localhost:" + pordo + "/index.html"));
   servilo.on("error", (e) => {
     if (e.code === "EADDRINUSE" && pordo === PORD) {
       console.log("Pordo " + pordo + " jam uzata — provas " + PORD_FALLO);

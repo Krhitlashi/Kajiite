@@ -14,7 +14,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"]
   },
   "include": [
-    "sperto.ts",
+    "src/**/*.ts",
     "assets/**/*.ts",
     "types.d.ts"
   ],

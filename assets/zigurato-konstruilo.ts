@@ -109,17 +109,7 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
       }
     }
   }
-  // Aldonu flankajn pordojn por certaj konstruajxaj tipoj
-  if ( typeKey === "turo" ) {
-    // Flankaj enirejoj sur ±x flankoj (pli malgrandaj, sen ornama)
-    for ( const sX of [-1, 1] ) {
-      const flankaEnirejo = new THREE.Mesh( new THREE.BoxGeometry(19/32, Math.min(tieroAlto * 4/8, 16/8), 77/64),
-        eniraMaterialo );
-      flankaEnirejo.position.set(sX * (w / 2 - 1/64), 9/64, 0);
-      flankaEnirejo.rotation.y = sX > 0 ? -Math.PI / 2 : Math.PI / 2;
-      group.add(flankaEnirejo);
-    }
-  }
+  // Flankaj pordoj forigitaj laux peto de uzanto
   // Stacia platformo forigita laux peto de uzanto
   if ( sube > 0 ) {
     for ( const sZ of [-1, 1] ) {

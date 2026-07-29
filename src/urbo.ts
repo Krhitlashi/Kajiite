@@ -1,17 +1,17 @@
 // Urbo — city construction: buildings, roads, plazas, lamps, vegetation, fog, water, canoes
 // Modular grid system — roads and building positions derived from grid parameters.
 import * as THREE from "three";
-import { generiSkriptanURL } from "./assets/skripto-rivelilo.js";
-import { konstruiZiguraton, TIPARO, KonstruSpec } from "./assets/zigurato-konstruilo.js";
-import { kreiNebulanTeksajxon } from "./assets/teksajxoj.js";
-import { konstruiRiveron, RiverData } from "./assets/akvo.js";
-import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiLikenSxtonojn } from "./assets/vegetajxo.js";
-import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, aldoniIntersekcajnRondigojn, VojDifino } from "./assets/vojoj.js";
-import { konstruiLampojn, LampSistemo } from "./assets/lampoj.js";
-import { kreiKanoton, Kanoto } from "./assets/transporto.js";
-import { konstruiFiguron, gxisdatigiNpc } from "./assets/npcoj.js";
-import type { Figuro, Vesto } from "./assets/npcoj.js";
-import { kreiInternanSistemon, InternaSistemo } from "./assets/internoj.js";
+import { generiSkriptanURL } from "../assets/skripto-rivelilo.js";
+import { konstruiZiguraton, TIPARO, KonstruSpec } from "../assets/zigurato-konstruilo.js";
+import { kreiNebulanTeksajxon } from "../assets/teksajxoj.js";
+import { konstruiRiveron, RiverData } from "../assets/akvo.js";
+import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiLikenSxtonojn } from "../assets/vegetajxo.js";
+import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, aldoniIntersekcajnRondigojn, VojDifino } from "../assets/vojoj.js";
+import { konstruiLampojn, LampSistemo } from "../assets/lampoj.js";
+import { kreiKanoton, Kanoto } from "../assets/transporto.js";
+import { konstruiFiguron, gxisdatigiNpc } from "../assets/npcoj.js";
+import type { Figuro, Vesto } from "../assets/npcoj.js";
+import { kreiInternanSistemon, InternaSistemo } from "../assets/internoj.js";
 import { riveroZ, alteco, akvoY, montetaBazo } from "./tereno.js";
 
 export interface UrbaSistemo {

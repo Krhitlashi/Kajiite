@@ -266,10 +266,9 @@ export function eniriInternon(
   cxefaSceno.add(group);
   sys.currentGroup = group;
 
-  // Enirpunkto: antaux la pordo (uzu la teretaĝan hd)
-  const lastaHd = d / 2; // hd sen redukto (teretaĝo)
+  // Enirpunkto: ĝuste ene de la pordo (ene de la etaĝaj limoj)
   const enirX = 0;
-  const enirZ = lastaHd + 2;
+  const enirZ = Math.max(1.5, d / 2) - 0.5; // ĝuste ene de la fronta muro
   const enirY = 0.5;
   const enirDirekto = 0;
 

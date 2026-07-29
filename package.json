@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node node_modules/typescript/lib/tsc.js",
+    "watch": "node node_modules/typescript/lib/tsc.js --watch",
     "typecheck": "node node_modules/typescript/lib/tsc.js --noEmit",
     "dev": "node server.js"
   },
