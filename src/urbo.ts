@@ -226,10 +226,10 @@ export function konstruiUrbon(
     if (s.x === 0 && s.z === 0) continue;
     const rot = s.rot || 0;
     const pordoOffset = s.d / 2 + 12/8;
-    const pordoX = s.x + Math.sin(rot) * pordoOffset;
+    const pordoX = s.x - Math.sin(rot) * pordoOffset;
     const pordoZ = s.z + Math.cos(rot) * pordoOffset;
 
-    const fX = Math.sin(rot), fZ = Math.cos(rot);
+    const fX = -Math.sin(rot), fZ = Math.cos(rot);
     let vojX: number, vojZ: number;
 
     if (Math.abs(fX) > Math.abs(fZ)) {
@@ -303,10 +303,14 @@ export function konstruiUrbon(
   const lampLokoj: { x: number; z: number; y: number }[] = [];
   const addLamp = (x: number, z: number) => {
     for (const s of konstruSpecoj) {
-      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
+      const difX = -Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
       const pordoX = s.x + difX * (s.d / 2 + 12/8), pordoZ = s.z + difZ * (s.d / 2 + 12/8);
       if (Math.hypot(x - pordoX, z - pordoZ) < 4) return;
       if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 12/8) return;
+    }
+    // Avoid placing lamps on top of existing lamps (within 2 units)
+    for (const ekz of lampLokoj) {
+      if (Math.hypot(x - ekz.x, z - ekz.z) < 2) return;
     }
     lampLokoj.push({ x, z, y: alteco(x, z) });
   };

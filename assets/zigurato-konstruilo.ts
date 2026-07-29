@@ -97,11 +97,11 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
     const brownMat = new THREE.MeshStandardMaterial({ color: 0x483828, roughness: 19/32, metalness: 3/64 });
     // Eksteraj rondo-tabloj (kotatsu-stilaj)
     for ( let i = -1; i <= 1; i += 2 ) {
-      const tx = i * 5, tz = d / 2 + 6;
+      const tx = i * 5, tz = d / 2 + 3;
       // Ronda tablo surplanke (sen kolono)
-      const top = new THREE.CylinderGeometry(27/32, 29/32, 5/32, 0o20);
+      const top = new THREE.CylinderGeometry(27/32, 29/32, 12/32, 0o20);
       const tm = new THREE.Mesh(top, beigeMat);
-      tm.position.set(tx, 5/64, tz); tm.castShadow = true; group.add(tm);
+      tm.position.set(tx, 6/32, tz); tm.castShadow = true; group.add(tm);
       // Rondaj seĝoj
       for ( const [ox, oz] of [[45/32, 0], [-45/32, 0], [0, 45/32], [0, -45/32]] ) {
         const st = new THREE.Mesh(new THREE.CylinderGeometry(21/64, 27/64, 4/8, 0o12), brownMat);

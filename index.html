@@ -17,6 +17,10 @@
 </script>
 <script type="module" src="./dist/src/tradukoj.js"></script>
 
+<script>
+// ⟪ Viva reŝargo per SSE ⚡ ⟫
+(function(){var es=new EventSource('/__reload');es.addEventListener('reload',function(){location.reload();});setTimeout(function(){if(es.readyState!==1)es.close();},5000);})();
+</script>
 </head>
 <body>
 <canvas id="sceno" aria-label="Vaikorath, mergan 3D urbo en nebula betularo"></canvas>
@@ -62,13 +66,33 @@
     <button id="kartoEniri" data-oskakefani="p4">Eniri</button>
   </div>
 </thala>
-<thala id="navDoko">
+<!-- ⟪ Naviga butono ( malfermas pop-up ) 📃 ⟫ -->
+<button id="navButono" data-oskakefani-aria="ariaNavButono" aria-label="Menuo">☯</button>
+
+<!-- ⟪ Pop-up navigado 📃 ⟫ -->
+<thala id="navPopUp">
+  <button id="navPopFermi" data-oskakefani-aria="ariaNavPopFermi">✕</button>
   <button id="butPromeni" data-oskakefani="p5" data-oskakefani-aria="ariaButPromeni">PROMENI</button>
   <button id="butOrbiti" data-oskakefani="p6" data-oskakefani-aria="ariaButOrbiti">ORBITO</button>
   <button id="butVesti" data-oskakefani="p7" data-oskakefani-aria="ariaButVesti">VESTO</button>
   <button id="butHelpi" data-oskakefani="pC" data-oskakefani-aria="ariaButHelpi">?</button>
   <button id="butLingvo" data-oskakefani-aria="ariaButLingvo">AIH</button>
+  <button id="butSonoro" data-oskakefani-aria="ariaButSonoro">♬</button>
 </thala>
+<!-- ⟪ Poŝtelefonaj kontroloj 📃 ⟫ -->
+<div id="mobKontroloj" aria-hidden="true">
+  <div id="mobJoystickZono">
+    <div id="mobJoystickBazo">
+      <div id="mobJoystickTenilo"></div>
+    </div>
+  </div>
+  <div id="mobButaroj">
+    <button id="mobButInterakti" class="mobBut" data-oskakefani-aria="ariaButInterakti">E</button>
+    <button id="mobButSalti" class="mobBut" data-oskakefani-aria="ariaButSalti">⟐</button>
+    <button id="mobButRezimo" class="mobBut" data-oskakefani-aria="ariaButRezimo">M</button>
+  </div>
+</div>
+
 <div id="prompto"></div>
 <div id="sugesto" data-oskakefani="p3">ſɭc̗ᴜ ʃэ ɭʃɔȝ · ſןɔ ſ͕ɭᴜ ſɭɔ · ſɭᴜ ɭʃᴜ j͑ʃɹ ı],ᴜ ɽ͑ʃ'ᴜȝ · ſןw · E j͑ʃɹ ſɭᴜ ɭl̀ɹ</div>
 <div id="supermeta">

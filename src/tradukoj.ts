@@ -608,7 +608,7 @@ function detektiLingvon(): string {
   } catch { /* private browsing */ }
   const lang = (navigator.language || (navigator as any).userLanguage || "").split("-")[0];
   if (lang === "eo" || lang === "ja" || lang === "aih" || lang === "km") return lang;
-  return "en";
+  return "aih";
 }
 
 // ⟪ Inicializi 📃 ⟫

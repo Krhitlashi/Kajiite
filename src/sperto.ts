@@ -14,6 +14,7 @@ import { kreiScenon, ScenaSistemo } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
 import { traduki } from "./tradukoj.js";
+import { sxaltiAŭdion, cxuAŭdio, sfx, rumble } from "../assets/sonoro.js";
 
 // ⟪ DOM-elementoj 📃 ⟫
 const kanvaso = document.getElementById("sceno") as HTMLCanvasElement;
@@ -39,6 +40,26 @@ const svingo = document.getElementById("svingo")!;
 const fxVarma = document.getElementById("fxVarma")!;
 const fxMenta = document.getElementById("fxMenta")!;
 const tosto = document.getElementById("tosto")!;
+
+// ⟪ Poŝtelefonaj elementoj 📃 ⟫
+const navPopUp = document.getElementById("navPopUp")!;
+const navButono = document.getElementById("navButono")!;
+const navPopFermi = document.getElementById("navPopFermi")!;
+const butSonoro = document.getElementById("butSonoro")!;
+const mobJoystickZono = document.getElementById("mobJoystickZono")!;
+const mobJoystickBazo = document.getElementById("mobJoystickBazo")!;
+const mobJoystickTenilo = document.getElementById("mobJoystickTenilo")!;
+const mobButInterakti = document.getElementById("mobButInterakti")!;
+const mobButSalti = document.getElementById("mobButSalti")!;
+const mobButRezimo = document.getElementById("mobButRezimo")!;
+
+// ⟪ Stirstanga stato 📃 ⟫
+let joystickAktiva = false;
+let joystickID = -1;
+const JOYSTICK_R = 40;
+
+// ⟪ Sonora stato 📃 ⟫
+let pauxzaPaŝo = 0; // step sound cooldown counter
 
 // ⟪ Krei scenon kaj urbon 📃 ⟫
 const scena: ScenaSistemo = kreiScenon(kanvaso, titolaSkripto, sxargxaElemento);
@@ -74,6 +95,29 @@ let oscilo = 0;
 let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
 
 
+// ⟪ Navigada pop-up 📃 ⟫
+function sxaltiNaviganPopUp() {
+  navPopUp.classList.toggle("montri");
+}
+function fermiNaviganPopUp() {
+  navPopUp.classList.remove("montri");
+}
+navButono.addEventListener("click", sxaltiNaviganPopUp);
+navPopFermi.addEventListener("click", fermiNaviganPopUp);
+navPopUp.addEventListener("click", (e) => {
+  if (e.target === navPopUp) fermiNaviganPopUp();
+});
+
+// ⟪ Sonora butono 📃 ⟫
+if (butSonoro) {
+  butSonoro.addEventListener("click", () => {
+    const aktiva = sxaltiAŭdion();
+    butSonoro.classList.toggle("aktiva", aktiva);
+    butSonoro.textContent = aktiva ? "♫" : "♬";
+    fermiNaviganPopUp();
+  });
+}
+
 // ⟪ Tosta sistemo 📃 ⟫
 function montriTost(mesagxo: string, daŭro = 0o4230) {
   if (tostaTempilo) clearTimeout(tostaTempilo);
@@ -84,10 +128,10 @@ function montriTost(mesagxo: string, daŭro = 0o4230) {
 
 // ⟪ Balaila transiro 📃 ⟫
 function fariBalailon(callback: () => void, daŭro = 0o1130) {
-  balailo.style.opacity = "1";
+  balailo.classList.add("montri");
   setTimeout(() => {
     callback();
-    setTimeout(() => { balailo.style.opacity = "0"; }, 0o310);
+    setTimeout(() => { balailo.classList.remove("montri"); }, 0o310);
   }, daŭro / 2);
 }
 
@@ -123,6 +167,142 @@ const resetiKlfojn = () => { for (const k in klavoj) klavoj[k] = false; };
 window.addEventListener("blur", resetiKlfojn);
 window.addEventListener("visibilitychange", () => { if (document.hidden) resetiKlfojn(); });
 document.addEventListener("pointerlockchange", () => { if (!document.pointerLockElement) resetiKlfojn(); });
+
+// ⟪ Poŝtelefona stirstango ( virtuala joystick ) 📃 ⟫
+function gxisdatigiJoystick(klientoX: number, klientoY: number) {
+  const recto = mobJoystickBazo.getBoundingClientRect();
+  const cx = recto.left + recto.width / 2;
+  const cy = recto.top + recto.height / 2;
+  let dx = klientoX - cx;
+  let dy = klientoY - cy;
+  const dist = Math.hypot(dx, dy);
+  if (dist > JOYSTICK_R) { dx = (dx / dist) * JOYSTICK_R; dy = (dy / dist) * JOYSTICK_R; }
+  // Move thumb
+  mobJoystickTenilo.style.transform = `translate(${dx}px, ${dy}px)`;
+  // Map joystick to WASD keys
+  const normX = dx / JOYSTICK_R;
+  const normY = dy / JOYSTICK_R;
+  klavoj.KeyA = normX < -0.25;
+  klavoj.KeyD = normX > 0.25;
+  klavoj.KeyW = normY < -0.25;
+  klavoj.KeyS = normY > 0.25;
+}
+function resetiJoystick() {
+  klavoj.KeyA = false; klavoj.KeyD = false;
+  klavoj.KeyW = false; klavoj.KeyS = false;
+  mobJoystickTenilo.style.transform = "translate(0px, 0px)";
+  mobJoystickBazo.classList.remove("aktiva");
+  mobJoystickTenilo.classList.remove("aktiva");
+}
+
+mobJoystickZono.addEventListener("touchstart", (e) => {
+  if (joystickAktiva) return;
+  if (rezimo !== "walk" && rezimo !== "interior") return;
+  const tosxo = e.changedTouches[0];
+  joystickID = tosxo.identifier;
+  joystickAktiva = true;
+  mobJoystickBazo.classList.add("aktiva");
+  mobJoystickTenilo.classList.add("aktiva");
+  gxisdatigiJoystick(tosxo.clientX, tosxo.clientY);
+  e.preventDefault();
+}, { passive: false });
+
+mobJoystickZono.addEventListener("touchmove", (e) => {
+  if (!joystickAktiva) return;
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    if (e.changedTouches[i].identifier === joystickID) {
+      gxisdatigiJoystick(e.changedTouches[i].clientX, e.changedTouches[i].clientY);
+      e.preventDefault();
+      break;
+    }
+  }
+}, { passive: false });
+
+mobJoystickZono.addEventListener("touchend", (e) => {
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    if (e.changedTouches[i].identifier === joystickID) {
+      joystickAktiva = false;
+      joystickID = -1;
+      resetiJoystick();
+      e.preventDefault();
+      break;
+    }
+  }
+}, { passive: false });
+
+mobJoystickZono.addEventListener("touchcancel", (e) => {
+  joystickAktiva = false;
+  joystickID = -1;
+  resetiJoystick();
+  e.preventDefault();
+}, { passive: false });
+
+// ⟪ Poŝtelefona rigarda kontrolo per tuŝo 📃 ⟫
+let tuŝaRigardaID = -1;
+let lastTouchX = 0, lastTouchY = 0;
+
+kanvaso.addEventListener("touchstart", (e) => {
+  if (rezimo !== "walk" && rezimo !== "interior") return;
+  if (tuŝaRigardaID >= 0) return;
+  // Don't capture if touch is on joystick or action buttons
+  const t = e.changedTouches[0];
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  if (el && (el === mobJoystickZono || el === mobJoystickBazo || mobJoystickZono.contains(el) || el.classList.contains("mobBut") || el.closest("#mobButaroj"))) {
+    return;
+  }
+  tuŝaRigardaID = t.identifier;
+  lastTouchX = t.clientX;
+  lastTouchY = t.clientY;
+}, { passive: true });
+
+kanvaso.addEventListener("touchmove", (e) => {
+  if (tuŝaRigardaID < 0) return;
+  if (rezimo !== "walk" && rezimo !== "interior") return;
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    const t = e.changedTouches[i];
+    if (t.identifier === tuŝaRigardaID) {
+      const dx = t.clientX - lastTouchX;
+      const dy = t.clientY - lastTouchY;
+      direkto -= dx * 0.0035;
+      klinigxo -= dy * 0.0035;
+      klinigxo = Math.max(-93/64, Math.min(93/64, klinigxo));
+      lastTouchX = t.clientX;
+      lastTouchY = t.clientY;
+      e.preventDefault();
+      break;
+    }
+  }
+}, { passive: false });
+
+kanvaso.addEventListener("touchend", (e) => {
+  for (let i = 0; i < e.changedTouches.length; i++) {
+    if (e.changedTouches[i].identifier === tuŝaRigardaID) {
+      tuŝaRigardaID = -1;
+      break;
+    }
+  }
+}, { passive: true });
+
+kanvaso.addEventListener("touchcancel", () => {
+  tuŝaRigardaID = -1;
+}, { passive: true });
+
+// ⟪ Poŝtelefonaj agbutonoj 📃 ⟫
+mobButInterakti.addEventListener("click", (e) => {
+  e.stopPropagation();
+  proviInterakti();
+});
+mobButSalti.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (rezimo === "walk" && estasSurTERENO && !surKanoto) {
+    rapidoY = 60/8;
+    estasSurTERENO = false;
+  }
+});
+mobButRezimo.addEventListener("click", (e) => {
+  e.stopPropagation();
+  sxaltiRezimon();
+});
 
 // ⟪ Retikula kontrolo 📃 ⟫
 function gxisdatigiRetikulon() {
@@ -165,6 +345,7 @@ kanvaso.addEventListener("click", (e) => {
 function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }) {
   // Request pointer lock synchronously while user gesture is still active
   if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
+  if (cxuAŭdio()) sfx.door();
   pulsiEfikon();
   fariBalailon(() => {
     antauxaRezimo = rezimo as "orbit" | "walk";
@@ -193,6 +374,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
 }
 function eliriInternon() {
   eliriElInterno(internaSistemo, sceno);
+  if (cxuAŭdio()) sfx.door();
   pulsiEfikon();
   fariBalailon(() => {
     // Restore previous mode (walk or orbit)
@@ -222,6 +404,7 @@ function eliriInternon() {
 function sxaltiRezimon() {
   if (rezimo === "interior") { eliriInternon(); return; }
   if (surKanoto) { surKanoto = null; ludantaPozicio.set(fotilo.position.x, 109/64, fotilo.position.z); }
+  if (cxuAŭdio()) sfx.chime();
   rezimo = rezimo === "orbit" ? "walk" : "orbit";
   (document.getElementById("butPromeni")!).classList.toggle("aktiva", rezimo === "walk");
   gxisdatigiRetikulon();
@@ -275,7 +458,7 @@ document.getElementById("supermetaFermi")!.addEventListener("click", () => {
 document.getElementById("butHelpi")!.addEventListener("click", () => {
   document.getElementById("supermetaTitolo")!.textContent = traduki("pT");
   document.getElementById("supermetaSupra")!.textContent = traduki("pU");
-  vestaVico.innerHTML = `<div class="statistikoj" style="text-align:left;padding:8px">
+  vestaVico.innerHTML = `<div class="statistikoj helpa-listo">
     <b>Orbit</b> · ${traduki("pL")}<br>
     <b>Walk</b> · ${traduki("pM")}<br>
     <b>WASD</b> · ${traduki("pN")}<br>
@@ -315,6 +498,7 @@ function proviInterakti() {
     plejProksima.vx = plejProksima.vz = 0;
     promptoElemento.classList.remove("montri");
     montriTost(traduki("pX"));
+    if (cxuAŭdio()) sfx.splash();
   }
 }
 function eliriKanoton(c: Kanoto): { x: number; z: number } {
@@ -403,9 +587,11 @@ function animacii() {
       rapidoY -= 0o22 * deltaTempo;
       ludantaPozicio.y += rapidoY * deltaTempo;
       if (ludantaPozicio.y <= teraY) {
+        const falis = rapidoY < -3 && cxuAŭdio();
         ludantaPozicio.y = teraY;
         rapidoY = 0;
         estasSurTERENO = true;
+        if (falis) sfx.crunch();
       }
     }
 
@@ -417,12 +603,19 @@ function animacii() {
     );
     fotilo.rotation.set(klinigxo, direkto, 0);
 
+    // Paŝaj sonoj (ĉiun ~0.4 sekundojn dum movado)
+    pauxzaPaŝo += moving * deltaTempo;
+    if (pauxzaPaŝo > 0.4 && cxuAŭdio()) {
+      sfx.step();
+      pauxzaPaŝo = 0;
+    }
+
     // Detekti pordojn kaj kanuojn
     let proksimaPordo: KonstruSpec | null = null;
     let proksimaPordoDist = 3;
     for (const s of konstruSpecoj) {
       if (s.x === 0 && s.z === 0) continue;
-      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
+      const difX = -Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
       const pordoX = s.x + difX * (s.d / 2 + 12/8), pordoZ = s.z + difZ * (s.d / 2 + 12/8);
       const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
       if (d < proksimaPordoDist) { proksimaPordoDist = d; proksimaPordo = s; }
