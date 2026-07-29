@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 
 const PORD = 0o5670;
 const PORD_FALLO = 0o5671;
-const RADIKO = fileURLToPath(new URL(".", import.meta.url));
+const RADIKO = fileURLToPath(new URL("..", import.meta.url)); // parent dir (project root)
 
 const MIMEOFINOJ = {
   ".html": "text/html; charset=utf-8",

@@ -7,7 +7,7 @@
     "build": "node node_modules/typescript/lib/tsc.js",
     "watch": "node node_modules/typescript/lib/tsc.js --watch",
     "typecheck": "node node_modules/typescript/lib/tsc.js --noEmit",
-    "dev": "node server.js"
+    "dev": "node servilo/servilo.js"
   },
   "_note": "tsc.exe spawn fails on ARM64 Windows due to Unicode path issues; use node tsc.js instead",
   "devDependencies": {
