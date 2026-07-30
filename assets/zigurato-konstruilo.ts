@@ -139,6 +139,75 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   return group;
 }
 
+// ── Food/Eating system ──────────────────────────────────────
+export interface ManĝaĵDatumo { key: string; name: string; col: number; flavor: string; }
+export const FOKS: ManĝaĵDatumo[] = [
+  { key: "fok0", name: "Fok Iimasai · Lichen Crust", col: 0xdcd8c2, flavor: "Warm lichen bread, slow duck, a fold of steam." },
+  { key: "fok1", name: "Fok Iimasai · Mint Glaze", col: 0xcfe0c8, flavor: "Cool glaze against rich meat · the forest exhales." },
+  { key: "fok2", name: "Fok Iimasai · Peppered", col: 0xd6c9ae, flavor: "Dark pepper bites · the bun answers sweet." },
+];
+export const TLAS: ManĝaĵDatumo[] = [
+  { key: "tla0", name: "Tlatiiwa · Classic", col: 0xc8e6d2, flavor: "Vinegar, milk, mint, sparkle · a bright chord." },
+  { key: "tla1", name: "Tlatiiwa · Honeyed", col: 0xe6cf9e, flavor: "Amber over acid · mint underneath." },
+  { key: "tla2", name: "Tlatiiwa · Iced Birch-sap", col: 0xbfe0e6, flavor: "Birch-sap frost · the vale in a glass." },
+];
+
+export function bunMesh(f: ManĝaĵDatumo): THREE.Group {
+  const g = new THREE.Group();
+  const bun = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 10),
+    new THREE.MeshStandardMaterial({ color: f.col, roughness: 0.65 }));
+  bun.scale.set(1, 0.74, 1); bun.position.y = 0.16;
+  const pleat = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.09, 5), new THREE.MeshStandardMaterial({ color: f.col, roughness: 0.6 }));
+  pleat.scale.set(1, 1, 0.55); pleat.position.y = 0.29; pleat.rotation.y = 0.6;
+  const basket = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.07, 14), new THREE.MeshStandardMaterial({ color: 0xb99a62, roughness: 0.8 }));
+  basket.position.y = 0.035;
+  g.add(bun, pleat, basket); return g;
+}
+export function glassMesh(f: ManĝaĵDatumo): THREE.Group {
+  const g = new THREE.Group();
+  const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.07, 0.3, 12),
+    new THREE.MeshStandardMaterial({ color: 0xdfeee6, transparent: true, opacity: 22 / 64, roughness: 0.1, depthWrite: false }));
+  glass.position.y = 0.15;
+  const liq = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.058, 0.24, 12),
+    new THREE.MeshStandardMaterial({ color: f.col, transparent: true, opacity: 52 / 64, roughness: 0.3 }));
+  liq.position.y = 0.12;
+  const sprig = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.16), new THREE.MeshStandardMaterial({ color: 0x4c7a44, side: THREE.DoubleSide }));
+  sprig.position.set(0.05, 0.3, 0); sprig.rotation.z = 1.2;
+  g.add(glass, liq, sprig); return g;
+}
+
+export interface ManĝaĵItemo {
+  mesh: THREE.Group;
+  key: string;
+  f: ManĝaĵDatumo;
+  pos: THREE.Vector3;
+  dead: boolean;
+}
+export function kreiManĝaĵojn(g: THREE.Group, cx: number, cz: number): ManĝaĵItemo[] {
+  const items: ManĝaĵItemo[] = [];
+  const foods: { p: [number, number, number]; k: string }[] = [
+    { p: [cx + 0.4, 1.05, cz - 2.6], k: "fok0" }, { p: [cx + 1.1, 1.05, cz - 2.6], k: "fok2" },
+    { p: [cx + 1.9, 1.05, cz - 2.6], k: "tla2" }, { p: [cx + 3.6, 0.8, cz + 2.4], k: "fok1" }, { p: [cx + 4.2, 0.8, cz + 2.4], k: "tla0" },
+  ];
+  for (const f of foods) {
+    const meta = FOKS.find(x => x.key === f.k) || TLAS.find(x => x.key === f.k)!;
+    const m = f.k.startsWith("fok") ? bunMesh(meta) : glassMesh(meta);
+    m.position.set(f.p[0], f.p[1], f.p[2]);
+    g.add(m);
+    items.push({ mesh: m, key: f.k, f: meta, pos: new THREE.Vector3(f.p[0], f.p[1], f.p[2]), dead: false });
+  }
+  return items;
+}
+export function aldoniVaporon(g: THREE.Group, local: THREE.Vector3): { cloud: THREE.Points; basePos: THREE.Vector3 } {
+  const n = 20, pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) pos.set([(Math.random() - 0.5) * 0.5, Math.random() * 1.2, (Math.random() - 0.5) * 0.5], i * 3);
+  const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  const pts = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xe8efe9, size: 0.09, transparent: true, opacity: 22 / 64, depthWrite: false }));
+  pts.position.copy(local);
+  g.add(pts);
+  return { cloud: pts, basePos: local.clone() };
+}
+
 function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if (geos.length === 0) return new THREE.BufferGeometry();
   let tv = 0, ti = 0;

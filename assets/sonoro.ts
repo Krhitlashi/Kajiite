@@ -1,13 +1,20 @@
 // Sonoro — ambient audio engine for Aranis (ported from ornaveth-v2)
-// Brown-noise drone with lowpass LFO, harmonic sine layers, and SFX helpers.
+// Brown-noise drone with lowpass LFO, harmonic sine layers, SFX, and generative music.
+
+import { iniciati, ludi, halti } from "./muziko/ludilo.js";
 
 let AC: AudioContext | null = null;
 let master: GainNode | null = null;
 let audioOn = false;
+let unuaInterago = true;
 
 function ensureAudio() {
-  if (AC) return;
+  if (AC) {
+    if (AC.state === "suspended") AC.resume();
+    return;
+  }
   AC = new (window.AudioContext || (window as any).webkitAudioContext)();
+  if (AC.state === "suspended") AC.resume();
   master = AC.createGain();
   master.gain.value = 0;
   master.connect(AC.destination);
@@ -188,6 +195,7 @@ export function sxaltiAŭdion(): boolean {
   audioOn = !audioOn;
   if (audioOn) {
     ensureAudio();
+    iniciati(AC!, master!);
     master!.gain.setTargetAtTime(0.12, AC!.currentTime, 1.5); // fade in
     // Start periodic ambient chirps
     if (!chirpInterval) {
@@ -196,8 +204,10 @@ export function sxaltiAŭdion(): boolean {
       }, 9000);
     }
     sfx.chime(); // welcome chime on activation
+    ludi(); // start generative music
   } else {
     master!.gain.setTargetAtTime(0, AC!.currentTime, 1.0); // fade out
+    halti(); // stop generative music
     if (chirpInterval) {
       clearInterval(chirpInterval);
       chirpInterval = null;
@@ -210,4 +220,18 @@ export function sxaltiAŭdion(): boolean {
 /** Check if audio is currently active */
 export function cxuAŭdio(): boolean {
   return audioOn;
+}
+
+/** Auto-start audio on first user interaction. Updates UI if a callback is provided. */
+let postAŭdio: ((aktiva: boolean) => void) | null = null;
+export function registriPostAŭdio(fn: (aktiva: boolean) => void) {
+  postAŭdio = fn;
+}
+export function autoKomenci() {
+  if (!unuaInterago) return;
+  unuaInterago = false;
+  if (!audioOn) {
+    sxaltiAŭdion();
+    if (postAŭdio) postAŭdio(true);
+  }
 }

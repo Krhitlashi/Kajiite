@@ -157,7 +157,22 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
     const montaMaterialo = new THREE.MeshStandardMaterial({
       color: 0x687868, roughness: 29/32, metalness: 0, side: THREE.DoubleSide,
     });
+    const montaMalhela = new THREE.MeshStandardMaterial({
+      color: 0x506050, roughness: 31/32, metalness: 0, side: THREE.DoubleSide,
+    });
     const altaFunkcio = alteco;
+    function aldoniMuranSegmenton(t1: number, t2: number, z: number, pinto: number, pinto2: number, bazoY1: number, bazoY2: number, materialo: THREE.MeshStandardMaterial) {
+      const verticoj = new Float32Array([
+        t1, bazoY1, z, t1, bazoY1 + pinto, z, t2, bazoY2 + pinto2, z,
+        t1, bazoY1, z, t2, bazoY2 + pinto2, z, t2, bazoY2, z,
+      ]);
+      const geometrio = new THREE.BufferGeometry();
+      geometrio.setAttribute("position", new THREE.BufferAttribute(verticoj, 3));
+      geometrio.computeVertexNormals();
+      const mesh = new THREE.Mesh(geometrio, materialo);
+      mesh.frustumCulled = false;
+      sceno.add(mesh);
+    }
     for (const zSign of [-1, 1]) {
       const z = zSign < 0 ? -0o435 : 0o435;
       const segmentoj = 0o40;
@@ -168,9 +183,20 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
         const pinto2 = 0o62 + Math.sin(t2 * 1/32 + 83/64) * 0o26 + Math.sin(t2 * 3/64 - 19/32) * 0o16;
         const bazoY1 = altaFunkcio(t1, z);
         const bazoY2 = altaFunkcio(t2, z);
+        aldoniMuranSegmenton(t1, t2, z, pinto, pinto2, bazoY1, bazoY2, montaMaterialo);
+        // Back ridge — offset outward, shorter, darker
+        const d = 0o20;
+        const backZ = zSign > 0 ? z - d : z + d;
+        const backBazoY1 = altaFunkcio(t1, backZ);
+        const backBazoY2 = altaFunkcio(t2, backZ);
+        const skalo = 0o40 / 0o62;
+        const backPinto = pinto * skalo + 0o10 + Math.sin(t1 * 1/16 + 41/32) * 0o12;
+        const backPinto2 = pinto2 * skalo + 0o10 + Math.sin(t2 * 1/16 + 41/32) * 0o12;
+        aldoniMuranSegmenton(t1, t2, backZ, backPinto, backPinto2, backBazoY1, backBazoY2, montaMalhela);
+        // Sloped connection from front peak to back ridge
         const verticoj = new Float32Array([
-          t1, bazoY1, z, t1, bazoY1 + pinto, z, t2, bazoY2 + pinto2, z,
-          t1, bazoY1, z, t2, bazoY2 + pinto2, z, t2, bazoY2, z,
+          t1, bazoY1 + pinto, z, t1, backBazoY1 + backPinto, backZ, t2, backBazoY2 + backPinto2, backZ,
+          t1, bazoY1 + pinto, z, t2, backBazoY2 + backPinto2, backZ, t2, bazoY2 + pinto2, z,
         ]);
         const geometrio = new THREE.BufferGeometry();
         geometrio.setAttribute("position", new THREE.BufferAttribute(verticoj, 3));
@@ -190,9 +216,20 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
         const pinto2 = 0o55 + Math.sin(t2 * 1/32 + 67/32) * 0o22 + Math.sin(t2 * 1/16 + 19/64) * 0o20;
         const bazoY1 = altaFunkcio(x, t1);
         const bazoY2 = altaFunkcio(x, t2);
+        aldoniMuranSegmenton(x, x, t1, pinto, pinto2, bazoY1, bazoY2, montaMaterialo);
+        // Back ridge
+        const d = 0o20;
+        const backX = xSign > 0 ? x + d : x - d;
+        const backBazoY1 = altaFunkcio(backX, t1);
+        const backBazoY2 = altaFunkcio(backX, t2);
+        const skalo = 0o36 / 0o55;
+        const backPinto = pinto * skalo + 0o10 + Math.sin(t1 * 1/16 + 53/32) * 0o10;
+        const backPinto2 = pinto2 * skalo + 0o10 + Math.sin(t2 * 1/16 + 53/32) * 0o10;
+        aldoniMuranSegmenton(backX, backX, t1, backPinto, backPinto2, backBazoY1, backBazoY2, montaMalhela);
+        // Sloped connection
         const verticoj = new Float32Array([
-          x, bazoY1, t1, x, bazoY1 + pinto, t1, x, bazoY2 + pinto2, t2,
-          x, bazoY1, t1, x, bazoY2 + pinto2, t2, x, bazoY2, t2,
+          x, bazoY1 + pinto, t1, backX, backBazoY1 + backPinto, t1, backX, backBazoY2 + backPinto2, t2,
+          x, bazoY1 + pinto, t1, backX, backBazoY2 + backPinto2, t2, x, bazoY2 + pinto2, t2,
         ]);
         const geometrio = new THREE.BufferGeometry();
         geometrio.setAttribute("position", new THREE.BufferAttribute(verticoj, 3));

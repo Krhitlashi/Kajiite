@@ -36,11 +36,23 @@ const skakefani: Record<string, Record<string, string>> = {
     "pS": "ſ̀ȷᴜȝ · ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
     "pT": "ſɭэ ֭ſɭэ j͑ʃɔ j͐ʃɜ ɭʃᴜ",
     "pU": "ſȷɔ ſɭ,ꞇ ſɭэ ſɭᴜ ſɭɔ ʃэ j͐ʃɜ ɭʃᴜ",
-    "pV": "E · j͑ʃwc̗ · Esc",
-    "pW": "E · j͑ʃwc̗ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
+    "actEliri": "j͑ʃwc̗ · Esc",
+    "pW": "j͑ʃwc̗ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
     "pX": "j͑ʃɹ ſɭᴜ ɭl̀ɹ ſɭw ſ̀ȷᴜ · WASD ſɭʞɔƴ",
     "pY": "j͑ʃwc̗",
     "pZ": "ſɭw ſ̀ȷᴜ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
+    // Food action labels
+    "actGusti": "ſ͔ɭɔȝ ·", "actTrinketi": "ſ͔ɭɔȝ ·",
+    // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃw · Lichen Crust", "manĝFok1": "ſȷɜƽ ſɭɜ ſᶘɹᶗ‹ · Mint Glaze", "manĝFok2": "ſȷɜƽ ɭʃɹ ſɭʞᴜɔ˞ · Peppered",
+    "manĝTla0": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ · Classic", "manĝTla1": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ j͐ʃɜ ſɟɹ · Honeyed", "manĝTla2": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ j͐ʃᴜ ŋᷠɹⰱ ſɭᶗ‹ɹ ſɟɔ · Iced Birch-sap",
+    // Gustotekstoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0Flavor": "ſɭᴜ ſȷɔ˞ɹ ſᶘэ ꞁȷ̀ɹ ŋᷠᴜ ʌ ŋᷠwȝ ı],ꞇƽ ʌ ſȷэ ſȷɹ j͑ʃ'ɔ ſȷͷ̗ᴜƽ",
+    "manĝFok1Flavor": "j͑ʃɹ ɭl̀ᴜ ŋᷠɜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ ʌ ɭl̀w ŋᷠɜ j͑ʃᴜ ſɟɔƽ · ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ ſɟɔ ſ͔ɭᴜ j͑ʃɔ",
+    "manĝFok2Flavor": "֭ſɭw }ʃᴜ ɭʃɹ ſɭʞᴜɔ˞ ſ͔ɭɔ ſןɹ · ſᶘэ ſᶘɔⅎ ı],ɜ ı],ꞇͷ̗",
+    "manĝTla0Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ʌ ſ̀ȷᴜ ſɭɔͷ̗ ʌ ſɭɜ ſᶘɹᶗ‹ ʌ ɭ(ᴜ̭ꞇ · ɭʃэʞ ſɭɔ˞ɜⅎ",
+    "manĝTla1Flavor": "ɭʃэ ſɭᶗ‹ɹ ſɟɔ ʌ ſɭᶗ‹ɹ ſɟɹ ᶅſᴜ · ſɭɜ ſᶘɹᶗ‹",
+    "manĝTla2Flavor": "j͐ʃᴜ ŋᷠɹⰱ ſɭᶗ‹ɹ ſɟɔ ſɟɹ ſɟɹɔ˞ · j͐ʃɜ ɭʃᴜ ſȷᴜɔ˞ ᶅſɹ",
     // Building card labels from zigurato-konstruilo.ts TIPARO
     "tipDomo": "ſɭᴜ ſɭw ʃᴜ ſɭᴜ ſɭw ſɭэ",
     "tipMangxejo": "ſɭᴜ ſ͔ɭɔȝ ſɟᴜ ŋᷠᴜ",
@@ -66,12 +78,17 @@ const skakefani: Record<string, Record<string, string>> = {
     "webglDetalo": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞ ſɭᴜ ſᶘɔ ɭl̀ɹȝ WebGL ʃэ ſɭᴜ ſɭw ʃᴜ ſɭᴜ ſɭэ ƣ̋ꞇ. ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɟᴜ ſɭᴜ ŋᷠᴜ GPU",
     "webglReprovi": "ſɭᴜ ɭʃᴜ ſɭэ",
     // aria labels from experience.html
+    "ariaButSonoro": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭэ",
     "ariaButPromeni": "ſɭᴜ ɭʃᴜ ſɭc̭ᴜ ſɭc̗w ſɭᴜ ſɭэ ƣ̋ꞇ",
     "ariaButOrbiti": "֭ſɭɹ j͑ʃɔ ſɭc̗ᴜ ʃэ ɭʃɔȝ ſɭc̭ᴜ ſɭc̗w",
     "ariaButVesti": "ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
     "ariaButHelpi": "ſȷɔ ſɭ,ꞇ",
     "ariaButLingvo": "ſɟᴜ ſᶘɹ }ʃᴜ j͑ʃᴜ ſɭᴜ ſɭɔʞ ſɭᴜ ſɭɹ ſןɹ",
     "ariaSupermetaFermi": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
+    "ariaTrako0": "j͑ʃw ſɭʞɹȝ ı ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "ariaTrako1": "j͑ʃw ſɭʞɹȝ ɿ ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "ariaTrako2": "j͑ʃw ſɭʞɹȝ ц ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "ariaTrako3": "j͑ʃw ſɭʞɹȝ э j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
     // Canvas alt text
     "altTitolaSkripto": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞ ſɭᴜ ſ͕ɭᴜ ſɭɔ ſɭᴜ ſɭɔʞ",
     // Vesta nomoj ( custom names )
@@ -111,6 +128,12 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "}ʃɜ ſɭƣ̋ɜƴ",
     "bldg29": "ɭ(ɜ ŋᷠɜ ı],ᴜ",
     "bldg30": "ɭ(ɜ ŋᷠɜ ſȷɔ",
+    // Track names
+    "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
+    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   eo: {
     // Proper Esperanto translations for all UI strings
@@ -145,11 +168,23 @@ const skakefani: Record<string, Record<string, string>> = {
     "pS": "VESTO · ŝanĝi vian veston",
     "pT": "VOJOJ DE LA VALO",
     "pU": "Helpaj notoj pri la urbo",
-    "pV": "E por eliri · Esc",
-    "pW": "E por eliri kanuon",
+    "actEliri": "eliri · Esc",
+    "pW": "por eliri kanuon",
     "pX": "Kanua regado · WASD direkti",
     "pY": "Eliri",
     "pZ": "Eniri kanuon",
+    // Food action labels
+    "actGusti": "Guŝu ·", "actTrinketi": "Trinketu ·",
+    // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0": "fokumaseŭ · Lichen Crust", "manĝFok1": "fokumaseŭ · Mint Glaze", "manĝFok2": "fokumaseŭ · Peppered",
+    "manĝTla0": "tlatuva · Classic", "manĝTla1": "tlatuva · Honeyed", "manĝTla2": "tlatuva · Iced Birch-sap",
+    // Gustotekstoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0Flavor": "Varma likena pano, malrapida anaso, faldon de vaporo.",
+    "manĝFok1Flavor": "Malvarma glazuro kontraŭ riĉa viando · la arbaro elspiras.",
+    "manĝFok2Flavor": "Malhela pipro mordas · la bulko respondas dolĉe.",
+    "manĝTla0Flavor": "Vinagro, lakto, mento, brileto · hela akordo.",
+    "manĝTla1Flavor": "Sukero super acido · mento sube.",
+    "manĝTla2Flavor": "Betula sudfrosto · la valo en glaso.",
     // Building card labels
     "tipDomo": "Loĝejo",
     "tipMangxejo": "Komuna Tablo",
@@ -183,6 +218,10 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "Fermi",
     // Aria label for dusk toggle
     "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
+    "ariaTrako0": "Elekti trakon 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "ariaTrako1": "Elekti trakon 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "ariaTrako2": "Elekti trakon 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "ariaTrako3": "Elekti trakon 4 j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
     // Canvas alt text
     "altTitolaSkripto": "Aranis skribita en la zigurata skribo",
     // Clothing names
@@ -223,6 +262,12 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "Nokroĝ",
     "bldg29": "Somoŝa",
     "bldg30": "Somofe",
+    // Track names
+    "muziko": "Muziko",
+    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   en: {
     // Proper English translations for all UI strings
@@ -257,11 +302,23 @@ const skakefani: Record<string, Record<string, string>> = {
     "pS": "WARDROBE · change your outfit",
     "pT": "PATHS OF THE VALE",
     "pU": "Helpful notes about the city",
-    "pV": "E to exit · Esc",
-    "pW": "E to exit canoe",
+    "actEliri": "exit · Esc",
+    "pW": "to exit canoe",
     "pX": "Canoe controls · WASD to steer",
     "pY": "Exit",
     "pZ": "Enter canoe",
+    // Food action labels
+    "actGusti": "Taste ·", "actTrinketi": "Sip ·",
+    // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0": "hokihmasuh · Lichen Crust", "manĝFok1": "hokihmasuh · Mint Glaze", "manĝFok2": "hokihmasuh · Peppered",
+    "manĝTla0": "tlatihwa · Classic", "manĝTla1": "tlatihwa · Honeyed", "manĝTla2": "tlatihwa · Iced Birch-sap",
+    // Gustotekstoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0Flavor": "Warm lichen bread, slow duck, a fold of steam.",
+    "manĝFok1Flavor": "Cool glaze against rich meat · the forest exhales.",
+    "manĝFok2Flavor": "Dark pepper bites · the bun answers sweet.",
+    "manĝTla0Flavor": "Vinegar, milk, mint, sparkle · a bright chord.",
+    "manĝTla1Flavor": "Amber over acid · mint underneath.",
+    "manĝTla2Flavor": "Birch-sap frost · the vale in a glass.",
     // Building card labels
     "tipDomo": "Lodge",
     "tipMangxejo": "Common Table",
@@ -295,6 +352,10 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "Close",
     // Aria label for dusk toggle
     "ariaButKrepusko": "Toggle dusk mode",
+    "ariaTrako0": "Select track 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "ariaTrako1": "Select track 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "ariaTrako2": "Select track 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "ariaTrako3": "Select track 4 j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
     // Canvas alt text
     "altTitolaSkripto": "Aranis written in the ziggurat script",
     // Clothing names
@@ -335,6 +396,12 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "Nokrorh",
     "bldg29": "Somesha",
     "bldg30": "Somohe",
+    // Track names
+    "muziko": "Music",
+    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   ja: {
     // Proper Japanese translations for all UI strings
@@ -369,11 +436,23 @@ const skakefani: Record<string, Record<string, string>> = {
     "pS": "ワードローブ · 服を変える",
     "pT": "谷の小道",
     "pU": "街のヘルプノート",
-    "pV": "Eで出る · Esc",
-    "pW": "Eでカヌーを出る",
+    "actEliri": "出る · Esc",
+    "pW": "カヌーを出る",
     "pX": "カヌー操作 · WASDで操縦",
     "pY": "出る",
     "pZ": "カヌーに乗る",
+    // Food action labels
+    "actGusti": "味見 ·", "actTrinketi": "一口 ·",
+    // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0": "フォクウマスア · Lichen Crust", "manĝFok1": "フォクウマスア · Mint Glaze", "manĝFok2": "フォクウマスア · Peppered",
+    "manĝTla0": "トラトウワ · Classic", "manĝTla1": "トラトウワ · Honeyed", "manĝTla2": "トラトウワ · Iced Birch-sap",
+    // Gustotekstoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0Flavor": "Warm lichen bread, slow duck, a fold of steam.",
+    "manĝFok1Flavor": "Cool glaze against rich meat · the forest exhales.",
+    "manĝFok2Flavor": "Dark pepper bites · the bun answers sweet.",
+    "manĝTla0Flavor": "Vinegar, milk, mint, sparkle · a bright chord.",
+    "manĝTla1Flavor": "Amber over acid · mint underneath.",
+    "manĝTla2Flavor": "Birch-sap frost · the vale in a glass.",
     // Building card labels
     "tipDomo": "ロッジ",
     "tipMangxejo": "共有の食卓",
@@ -407,6 +486,10 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "閉じる",
     // Aria label for dusk toggle
     "ariaButKrepusko": "夕暮れモードを切り替え",
+    "ariaTrako0": "トラック 1 を選択 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "ariaTrako1": "トラック 2 を選択 ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "ariaTrako2": "トラック 3 を選択 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "ariaTrako3": "トラック 4 を選択 j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
     // Canvas alt text
     "altTitolaSkripto": "Aranisのジッグラト文字",
     // Clothing names
@@ -451,6 +534,12 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "ノクショシ",
     "bldg29": "スオモシャ",
     "bldg30": "スオモフェ",
+    // Track names
+    "muziko": "音楽",
+    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   km: {
     // Khmer (Cambodian) translations for all UI strings
@@ -485,11 +574,23 @@ const skakefani: Record<string, Record<string, string>> = {
     "pS": "សម្លៀកបំពាក់ · ប្តូរសំលៀកបំពាក់របស់អ្នក",
     "pT": "ផ្លូវនៃជ្រលង",
     "pU": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
-    "pV": "E ដើម្បីចេញ · Esc",
-    "pW": "E ដើម្បីចេញពីទូក",
+    "actEliri": "ចេញ · Esc",
+    "pW": "ដើម្បីចេញពីទូក",
     "pX": "ការគ្រប់គ្រងទូក · WASD ដើម្បីបង្វែរ",
     "pY": "ចេញ",
     "pZ": "ចូលទូក",
+    // Food action labels
+    "actGusti": "ភ្លក់ ·", "actTrinketi": "ផឹក ·",
+    // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0": "ផុកិមាសឺ · Lichen Crust", "manĝFok1": "ផុកិមាសឺ · Mint Glaze", "manĝFok2": "ផុកិមាសឺ · Peppered",
+    "manĝTla0": "ត្លាតិវា · Classic", "manĝTla1": "ត្លាតិវា · Honeyed", "manĝTla2": "ត្លាតិវា · Iced Birch-sap",
+    // Gustotekstoj de la dosiero zigurato-konstruilo.ts
+    "manĝFok0Flavor": "Warm lichen bread, slow duck, a fold of steam.",
+    "manĝFok1Flavor": "Cool glaze against rich meat · the forest exhales.",
+    "manĝFok2Flavor": "Dark pepper bites · the bun answers sweet.",
+    "manĝTla0Flavor": "Vinegar, milk, mint, sparkle · a bright chord.",
+    "manĝTla1Flavor": "Amber over acid · mint underneath.",
+    "manĝTla2Flavor": "Birch-sap frost · the vale in a glass.",
     // Building card labels
     "tipDomo": "ផ្ទះសំណាក់",
     "tipMangxejo": "តុសាមញ្ញ",
@@ -523,6 +624,10 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "បិទ",
     // Aria label for dusk toggle
     "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
+    "ariaTrako0": "ជ្រើសរើសបទ 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "ariaTrako1": "ជ្រើសរើសបទ 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "ariaTrako2": "ជ្រើសរើសបទ 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "ariaTrako3": "ជ្រើសរើសបទ 4 j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
     // Canvas alt text
     "altTitolaSkripto": "អរ៉ានីសសរសេរជាអក្សរហ្សីហ្គូរ៉ាត់",
     // Clothing names ( phonetic approximations in Khmer script )
@@ -566,6 +671,12 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "នុករុហ្រ",
     "bldg29": "ស្សុមុឆា",
     "bldg30": "ស្សុមុផេ",
+    // Track names
+    "muziko": "តន្ត្រី",
+    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
+    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
+    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
 };
 

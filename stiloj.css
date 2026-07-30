@@ -153,6 +153,31 @@ body { margin:0; overflow:hidden; overscroll-behavior:none; background:var(--dee
 }
 #navPopFermi:hover { color:var(--gold); }
 
+/* ─── Muzika traka selektilo ─── */
+#muzikoGrupo {
+  width:180px; padding:8px 16px;
+  background:var(--panel); border:var(--សាកព៏);
+  border-radius:var(--អិត្ភេ, 12px 6px 12px 6px);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  text-align:center;
+}
+#muzikoEtikedo {
+  display:block; font-size:9px; letter-spacing:0.18em; color:var(--dim); margin-bottom:6px;
+}
+#trakaVico {
+  display:flex; gap:6px; justify-content:center;
+}
+.trakaBut {
+  width:36px; height:32px; padding:0;
+  font-family:'Cinzel','jʃꞇȝ',serif; font-size:12px; letter-spacing:0.08em;
+  background:rgba(255,255,255,0.04); border:var(--សាកព៏);
+  border-radius:var(--អិត្ភេ, 8px 4px 8px 4px);
+  color:var(--dim); cursor:pointer;
+  transition:color 0.24s,background 0.24s,border-color 0.24s;
+}
+.trakaBut:hover { color:var(--gold); background:rgba(217,179,106,0.1); border-color:var(--gold-soft); }
+.trakaBut.aktiva { color:var(--gold); background:rgba(217,179,106,0.2); border-color:var(--gold); }
+
 /* ─── Krepuska reĝimo slider ─── */
 #duskLabelo {
   display:flex; align-items:center; gap:10px;

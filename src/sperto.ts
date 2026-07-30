@@ -8,13 +8,14 @@ import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/akvo.js";
 import { gxisdatigiNpc } from "../assets/npcoj.js";
 import type { Figuro, Vesto } from "../assets/npcoj.js";
 import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon } from "../assets/internoj.js";
-import { TIPARO, KonstruSpec } from "../assets/zigurato-konstruilo.js";
-import { riveroZ, alteco } from "./tereno.js";
+import { TIPARO, KonstruSpec, ManĝaĵItemo } from "../assets/zigurato-konstruilo.js";
+import { riveroZ, akvoY, alteco } from "./tereno.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
 import { traduki } from "./tradukoj.js";
-import { sxaltiAŭdion, cxuAŭdio, sfx, rumble } from "../assets/sonoro.js";
+import { sxaltiAŭdion, cxuAŭdio, sfx, rumble, autoKomenci, registriPostAŭdio } from "../assets/sonoro.js";
+import { ludi, halti, sxargiTrako, nunaTrako, cxuLudas } from "../assets/muziko/ludilo.js";
 
 // ⟪ DOM-elementoj 📃 ⟫
 const kanvaso = document.getElementById("sceno") as HTMLCanvasElement;
@@ -87,6 +88,7 @@ let antauxaRezimo: "orbit" | "walk" | null = null;
 let surKanoto: Kanoto | null = null;
 let elektitaSpec: KonstruSpec | null = null;
 let plejProksimaPordo: KonstruSpec | null = null;
+let plejProksimaManĝaĵo: ManĝaĵItemo | null = null;
 let direkto = 0, klinigxo = -1/16;
 const ludantaPozicio = new THREE.Vector3(0, 5/32, 0o44);
 let rapidoY = 0, estasSurTERENO = false;
@@ -109,15 +111,43 @@ navPopUp.addEventListener("click", (e) => {
   if (e.target === navPopUp) fermiNaviganPopUp();
 });
 
+// ⟪ Aŭtomata komenco je unua tuŝo/klako 📃 ⟫
+function gxisdatigiSonoranButonon(aktiva: boolean) {
+  butSonoro.classList.toggle("aktiva", aktiva);
+  butSonoro.textContent = aktiva ? "♫" : "♬";
+  gxisdatigiTrakoButonojn();
+}
+registriPostAŭdio(gxisdatigiSonoranButonon);
+document.addEventListener("pointerdown", () => autoKomenci(), { once: true });
+
 // ⟪ Sonora butono 📃 ⟫
 if (butSonoro) {
   butSonoro.addEventListener("click", () => {
     const aktiva = sxaltiAŭdion();
-    butSonoro.classList.toggle("aktiva", aktiva);
-    butSonoro.textContent = aktiva ? "♫" : "♬";
+    gxisdatigiSonoranButonon(aktiva);
     fermiNaviganPopUp();
   });
 }
+
+// ⟪ Traka selektilo 📃 ⟫
+function gxisdatigiTrakoButonojn() {
+  const nuna = nunaTrako();
+  document.querySelectorAll(".trakaBut").forEach(b => {
+    const i = parseInt((b as HTMLElement).dataset.trako || "0");
+    b.classList.toggle("aktiva", i === nuna && cxuLudas());
+  });
+}
+document.querySelectorAll(".trakaBut").forEach(b => {
+  b.addEventListener("click", () => {
+    const i = parseInt((b as HTMLElement).dataset.trako || "0");
+    sxargiTrako(i);
+    if (cxuLudas()) {
+      halti();
+      ludi();
+    }
+    gxisdatigiTrakoButonojn();
+  });
+});
 
 // ⟪ Krepuska reĝimo 📃 ⟫
 let krepuskaValoro = 0;
@@ -145,7 +175,7 @@ duskRegilo.addEventListener("input", () => {
 // ⟪ Tosta sistemo 📃 ⟫
 function montriTost(mesagxo: string, daŭro = 0o4230) {
   if (tostaTempilo) clearTimeout(tostaTempilo);
-  tosto.textContent = mesagxo;
+  tosto.innerHTML = mesagxo;
   tosto.classList.add("montri");
   tostaTempilo = setTimeout(() => tosto.classList.remove("montri"), daŭro);
 }
@@ -512,7 +542,10 @@ document.getElementById("butHelpi")!.addEventListener("click", () => {
 
 // ⟪ Interagu (E-klavo) 📃 ⟫
 function proviInterakti() {
-  if (rezimo === "interior") { eliriInternon(); return; }
+  if (rezimo === "interior") {
+    if (plejProksimaManĝaĵo && !plejProksimaManĝaĵo.dead) { konsumi(plejProksimaManĝaĵo); return; }
+    eliriInternon(); return;
+  }
   if (surKanoto) {
     const exit = eliriKanoton(surKanoto);
     ludantaPozicio.set(exit.x, 109/64, exit.z);
@@ -527,7 +560,7 @@ function proviInterakti() {
     return;
   }
   let plejProksima: Kanoto | null = null;
-  let minDistanco = 4;
+  let minDistanco = 6;
   for (const c of kanuoj) {
     const d = Math.hypot(c.x - ludantaPozicio.x, c.z - ludantaPozicio.z);
     if (d < minDistanco) { minDistanco = d; plejProksima = c; }
@@ -542,7 +575,35 @@ function proviInterakti() {
 }
 function eliriKanoton(c: Kanoto): { x: number; z: number } {
   const fortoX = -Math.sin(c.direkto), fortoZ = -Math.cos(c.direkto);
-  return { x: c.x + fortoX * 6, z: c.z + fortoZ * 6 };
+  let exitX = c.x + fortoX * 6, exitZ = c.z + fortoZ * 6;
+  if (cxuEnAkvo(exitX, exitZ, riveroZ, 7)) {
+    const anguloj = [Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*3/4, -Math.PI*3/4, Math.PI];
+    for (const a of anguloj) {
+      const ax = c.x + Math.sin(c.direkto + a) * 6;
+      const az = c.z + Math.cos(c.direkto + a) * 6;
+      if (!cxuEnAkvo(ax, az, riveroZ, 7)) { exitX = ax; exitZ = az; break; }
+    }
+  }
+  return { x: exitX, z: exitZ };
+}
+
+function konsumi(item: ManĝaĵItemo) {
+  if (!item || item.dead) return;
+  item.dead = true;
+  const f = item.f, isFok = item.key.startsWith("fok"), m = item.mesh;
+  const start = performance.now();
+  (function ŝrumpi() {
+    const t = (performance.now() - start) / 480;
+    m.scale.setScalar(Math.max(0.001, 1 - t));
+    if (t < 1) requestAnimationFrame(ŝrumpi); else m.visible = false;
+  })();
+  if (isFok) sfx.crunch(); else sfx.sip();
+  const foodKey = "manĝ" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
+  montriTost("<i>" + traduki(foodKey) + "</i><br>" + traduki(foodKey + "Flavor"));
+  const fx = document.getElementById(isFok ? "fxVarma" : "fxMenta")!;
+  fx.classList.remove("fxPulso");
+  void fx.offsetWidth;
+  fx.classList.add("fxPulso");
 }
 
 function solviKolizion(x: number, z: number): { x: number; z: number } {
@@ -661,7 +722,7 @@ function animacii() {
     }
     plejProksimaPordo = proksimaPordo;
     let proksimaKanuo: Kanoto | null = null;
-    let proksimaKanuoDist = 4;
+    let proksimaKanuoDist = 6;
     for (const c of kanuoj) {
       const d = Math.hypot(c.x - ludantaPozicio.x, c.z - ludantaPozicio.z);
       if (d < proksimaKanuoDist) { proksimaKanuoDist = d; proksimaKanuo = c; }
@@ -709,7 +770,7 @@ function animacii() {
       novaX = specX + cosR * lokalX - sinR * lokalZ;
       novaZ = specZ + sinR * lokalX + cosR * lokalZ;
 
-      const cxeSxtuparo = lokalZ < -aktivaPlanko.hd + 1.8;
+      const cxeSxtuparo = Math.abs(lokalZ) < 0.8 && Math.abs(lokalX) < 2.5;
       let nunaEtagxIndekso = -1;
       for (let i = 0; i < plankoj.length; i++) {
         if (plankoj[i] === aktivaPlanko) { nunaEtagxIndekso = i; break; }
@@ -753,40 +814,53 @@ function animacii() {
     );
     fotilo.rotation.set(klinigxo, direkto, 0);
 
-    promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("pV");
-    promptoElemento.classList.add("montri");
+    // Detekti manĝaĵojn kaj montri taŭgan prompton
+    let proksimaManĝaĵo: ManĝaĵItemo | null = null;
+    let proksimaManĝaĵoDist = 2;
+    for (const it of internaSistemo.manĝaĵoj) {
+      if (it.dead) continue;
+      const spec = elektitaSpec!;
+      const rot = spec.rot || 0;
+      const cosR = Math.cos(rot), sinR = Math.sin(rot);
+      const mX = spec.x + cosR * it.pos.x - sinR * it.pos.z;
+      const mZ = spec.z + sinR * it.pos.x + cosR * it.pos.z;
+      const d = Math.hypot(ludantaPozicio.x - mX, ludantaPozicio.z - mZ);
+      if (d < proksimaManĝaĵoDist) { proksimaManĝaĵoDist = d; proksimaManĝaĵo = it; }
+    }
+    plejProksimaManĝaĵo = proksimaManĝaĵo;
+    if (proksimaManĝaĵo) {
+      const prefikso = proksimaManĝaĵo.key.startsWith("fok") ? traduki("actGusti") : traduki("actTrinketi");
+      promptoElemento.innerHTML = `<span class="klavo">E</span> ${prefikso} ${traduki("manĝ" + proksimaManĝaĵo.f.key.charAt(0).toUpperCase() + proksimaManĝaĵo.f.key.slice(1))}`;
+      promptoElemento.classList.add("montri");
+    } else {
+      promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("actEliri");
+      promptoElemento.classList.add("montri");
+    }
   }
 
   // Kanota logiko
   if (surKanoto) {
-    let movX = (klavoj.KeyD || klavoj.ArrowRight ? 1 : 0) - (klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0);
+    const steer = (klavoj.KeyD || klavoj.ArrowRight ? 1 : 0) - (klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0);
     let movZ = (klavoj.KeyW || klavoj.ArrowUp ? 1 : 0) - (klavoj.KeyS || klavoj.ArrowDown ? 1 : 0);
-    const longo = Math.hypot(movX, movZ);
-    if (longo > 1) { movX /= longo; movZ /= longo; }
-    const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
-    const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
-    gxisdatigiKanotanFizikon(surKanoto, deltaTempo, fortoX, fortoZ, radX, radZ, movX, movZ);
-    const rapido = Math.hypot(surKanoto.vx, surKanoto.vz);
-    if (rapido > 5/32) {
-      const target = Math.atan2(-surKanoto.vz, surKanoto.vx);
-      let dy = target - surKanoto.direkto;
-      while (dy > Math.PI) dy -= Math.PI * 2;
-      while (dy < -Math.PI) dy += Math.PI * 2;
-      surKanoto.direkto += dy * Math.min(1, 4 * deltaTempo);
-    }
+    if (steer !== 0) surKanoto.direkto -= steer * 2 * deltaTempo;
+    const fortoX = -Math.sin(surKanoto.direkto), fortoZ = -Math.cos(surKanoto.direkto);
+    const radX = Math.cos(surKanoto.direkto), radZ = -Math.sin(surKanoto.direkto);
+    gxisdatigiKanotanFizikon(surKanoto, deltaTempo, fortoX, fortoZ, radX, radZ, 0, movZ);
+    surKanoto.bazaY = akvoY(surKanoto.x);
     const riveroZ2 = riveroZ(surKanoto.x);
     const drift = surKanoto.z - riveroZ2;
-    if (Math.abs(drift) > 5) {
-      surKanoto.vz -= Math.sign(drift) * 2 * deltaTempo;
-      surKanoto.z = riveroZ2 + Math.sign(drift) * 36/8;
+    if (Math.abs(drift) > 6) {
+      const puŝo = (Math.abs(drift) - 6) * 0.5;
+      surKanoto.vz -= Math.sign(drift) * puŝo * deltaTempo;
     }
     surKanoto.x = Math.max(-0o170, Math.min(0o170, surKanoto.x));
     surKanoto.z = Math.max(-0o120, Math.min(0o120, surKanoto.z));
     surKanoto.x += surKanoto.vx * deltaTempo;
     surKanoto.z += surKanoto.vz * deltaTempo;
 
+    direkto = surKanoto.direkto;
     fotilo.position.set(surKanoto.x, surKanoto.bazaY + 3/32 + 17/32, surKanoto.z);
-    fotilo.rotation.set(klinigxo, direkto, 0);
+    fotilo.rotation.set(klinigxo, surKanoto.direkto, 0);
     promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("pW");
     promptoElemento.classList.add("montri");
     ludantaPozicio.set(surKanoto.x, 109/64, surKanoto.z);

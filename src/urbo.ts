@@ -85,7 +85,7 @@ export function konstruiUrbon(
     const tieroAlto = type === "sanktejo" ? 24/8 : type === "turo" ? 24/8 : type === "stacio" ? 109/32 : 205/64;
     const sube = type === "sanktejo" ? 2 : undefined;
     const tieroAltoSub = type === "sanktejo" ? 83/32 : undefined;
-    konstruSpecoj.push({ x, z, type, name: "bldg" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot: 0, diamond: (type === "domo" || type === "turo") && ((col + row) % 3 === 0) });
+    konstruSpecoj.push({ x, z, type, name: "bldg" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot: 0, diamond: true });
     bldgIdx++;
   }
 

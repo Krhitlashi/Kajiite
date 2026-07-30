@@ -10,7 +10,7 @@
 //   • Minimalist rounded-corner furniture with gold accents
 
 import * as THREE from "three";
-import { KonstruSpec } from "./zigurato-konstruilo.js";
+import { KonstruSpec, kreiManĝaĵojn, ManĝaĵItemo, aldoniVaporon } from "./zigurato-konstruilo.js";
 import { generiSkriptanTeksajxon } from "./skripto-rivelilo.js";
 
 export interface PlankoInfo {
@@ -35,6 +35,8 @@ export interface InternaSistemo {
   currentGroup: THREE.Group | null;
   animated: { update: (t: number) => void }[];
   plankoj: PlankoInfo[];
+  manĝaĵoj: ManĝaĵItemo[];
+  vaporNuboj: { cloud: THREE.Points; basePos: THREE.Vector3; ph: number }[];
 }
 
 // Design constants
@@ -78,7 +80,7 @@ function kreiArkFormon(radiuso: number, segmentoj: number, largho: number): THRE
 }
 
 export function kreiInternanSistemon(): InternaSistemo {
-  return { currentGroup: null, animated: [], plankoj: [] };
+  return { currentGroup: null, animated: [], plankoj: [], manĝaĵoj: [], vaporNuboj: [] };
 }
 
 export function eniriInternon(
@@ -437,6 +439,39 @@ export function eniriInternon(
   const ambiento = new THREE.HemisphereLight(0xd9b36a, 0x08140e, 0.25);
   group.add(ambiento);
 
+  // ── Manĝejo-specific furniture ──
+  if (spec.type === "manĝejo") {
+    const mw = Math.min(spec.w, 0o10), md = Math.min(spec.d, 0o10);
+    const counter = new THREE.Mesh(
+      new THREE.BoxGeometry(Math.min(mw * 2 - 1, 6), 1.0, 1.3),
+      new THREE.MeshStandardMaterial({ color: 0x54402e, roughness: 0.7 })
+    );
+    counter.position.set(0.6, 0.5, -md / 2 + 0.1);
+    group.add(counter);
+    const pot = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.42, 0.42, 0.5, 14),
+      new THREE.MeshStandardMaterial({ color: 0x8a6f4a, roughness: 0.5, metalness: 0.4 })
+    );
+    pot.position.set(-0.6, 1.28, counter.position.z);
+    group.add(pot);
+    const items = kreiManĝaĵojn(group, 0, 0);
+    sys.manĝaĵoj = items;
+    const steamPos = new THREE.Vector3(-0.6, 1.6, counter.position.z);
+    const vapor = aldoniVaporon(group, steamPos);
+    sys.vaporNuboj = [{ ...vapor, ph: 0 }];
+    const tabloLokoj = [
+      [2.2, 1.2], [-1.6, 2.2], [2.2, -1.6], [-1.6, -1.6],
+    ];
+    for (const [tx, tz] of tabloLokoj) {
+      const tb = new THREE.Mesh(
+        new THREE.BoxGeometry(1.7, 0.4, 1.2),
+        new THREE.MeshStandardMaterial({ color: 0x54402e, roughness: 0.7 })
+      );
+      tb.position.set(tx, 0.22, tz);
+      group.add(tb);
+    }
+  }
+
   // Place the interior group
   group.position.set(spec.x, spec.h0 || 0, spec.z);
   group.rotation.y = spec.rot || 0;
@@ -459,10 +494,23 @@ export function eliriInternon(sys: InternaSistemo, cxefaSceno: THREE.Scene): voi
   }
   sys.animated = [];
   sys.plankoj = [];
+  sys.manĝaĵoj = [];
+  sys.vaporNuboj = [];
 }
 
 export function gxisdatigiInternon(sys: InternaSistemo, t: number): void {
   for (const a of sys.animated) a.update(t);
+  for (const v of sys.vaporNuboj) {
+    const pos = v.cloud.geometry.attributes.position;
+    if (pos) {
+      for (let i = 0; i < pos.count; i++) {
+        const y = pos.getY(i) + 0.003;
+        if (y > 1.4) pos.setY(i, -0.1);
+        else pos.setY(i, y);
+      }
+      pos.needsUpdate = true;
+    }
+  }
 }
 
 // Helfunkcio: konstrui muron el skatolo
