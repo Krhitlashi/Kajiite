@@ -22,6 +22,11 @@ export interface ScenaSistemo {
   andezitaMaterialo: THREE.MeshStandardMaterial;
   eniraMaterialo: THREE.MeshStandardMaterial;
   oraMaterialo: THREE.MeshStandardMaterial;
+  cxielajUniformoj: Record<string, THREE.IUniform>;
+  hemiLumo: THREE.HemisphereLight;
+  suna: THREE.DirectionalLight;
+  sunaSprajto: THREE.Sprite;
+  aplikiRezimon: (t: number) => void;
 }
 
 export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageElement, sxargxaEl: HTMLElement): ScenaSistemo {
@@ -50,16 +55,17 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
   pmremGenerilo.dispose();
 
   // Cxielo
+  const cxielajUniformoj: Record<string, THREE.IUniform> = {
+    uTop: { value: new THREE.Color(0x78a8c0) },
+    uMid: { value: new THREE.Color(0xb8d0d8) },
+    uBot: { value: new THREE.Color(0xe0e8e8) },
+    uSunCol: { value: new THREE.Color(0xf8f0d8) },
+    uSunDir: { value: new THREE.Vector3(4/8, 51/64, 19/64) },
+  };
   const cxielaGeometrio = new THREE.SphereGeometry(0o574, 0o30, 0o20);
   const cxielaMaterialo = new THREE.ShaderMaterial({
     side: THREE.BackSide, depthWrite: false, fog: false,
-    uniforms: {
-      uTop: { value: new THREE.Color(0x78a8c0) },
-      uMid: { value: new THREE.Color(0xb8d0d8) },
-      uBot: { value: new THREE.Color(0xe0e8e8) },
-      uSunCol: { value: new THREE.Color(0xf8f0d8) },
-      uSunDir: { value: new THREE.Vector3(4/8, 51/64, 19/64) },
-    },
+    uniforms: cxielajUniformoj,
     vertexShader: "varying vec3 vDir; void main(){ vDir=normalize(position); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }",
     fragmentShader: `uniform vec3 uTop,uMid,uBot,uSunCol,uSunDir; varying vec3 vDir;
     void main(){vec3 d=normalize(vDir);float h=clamp(d.y,-0.203125,1.0);
@@ -70,7 +76,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
   sceno.add(new THREE.Mesh(cxielaGeometrio, cxielaMaterialo));
 
   // Lumoj
-  sceno.add(new THREE.HemisphereLight(0xc8e0e8, 0x485848, 51/64));
+  const hemiLumo = new THREE.HemisphereLight(0xc8e0e8, 0x485848, 51/64);
+  sceno.add(hemiLumo);
   const suno = new THREE.DirectionalLight(0xf8f0d8, 37/32);
   suno.position.set(0o110, 0o160, 0o50);
   suno.castShadow = true;
@@ -80,6 +87,61 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
   suno.shadow.camera.near = 0o20; suno.shadow.camera.far = 0o524;
   suno.shadow.bias = -0.0005; suno.shadow.normalBias = 4/8;
   sceno.add(suno, suno.target);
+
+  // Suna sprajto
+  const molaTeksturo = (() => {
+    const cv = document.createElement("canvas"); cv.width = cv.height = 256;
+    const ctx = cv.getContext("2d")!;
+    const gr = ctx.createRadialGradient(128, 128, 8, 128, 128, 128);
+    gr.addColorStop(0, "rgba(255,255,255,0.85)"); gr.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, 256, 256);
+    return new THREE.CanvasTexture(cv);
+  })();
+  const sunaSprajto = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: molaTeksturo, color: 0xfff0d8, transparent: true, opacity: 24/64,
+    blending: THREE.AdditiveBlending, depthWrite: false, fog: false,
+  }));
+  sunaSprajto.scale.setScalar(0o56);
+  sceno.add(sunaSprajto);
+
+  // Tag/noktaj paletoj
+  const P_DAY = {
+    top: new THREE.Color(0x78a8c0), mid: new THREE.Color(0xb8d0d8), bot: new THREE.Color(0xe0e8e8),
+    sunCol: new THREE.Color(0xfff0d8), fog: new THREE.Color(0xc8d8d8),
+    hemiSky: new THREE.Color(0xc8e0e8), hemiGnd: new THREE.Color(0x485848),
+    sunPos: new THREE.Vector3(0o110, 0o160, 0o50), sunInt: 37/32, hemiInt: 51/64,
+  };
+  const P_DUSK = {
+    top: new THREE.Color(0x1c2a4a), mid: new THREE.Color(0x55618c), bot: new THREE.Color(0xb98a6f),
+    sunCol: new THREE.Color(0xffbe82), fog: new THREE.Color(0x6f6a80),
+    hemiSky: new THREE.Color(0x33406b), hemiGnd: new THREE.Color(0x1c2620),
+    sunPos: new THREE.Vector3(-0o120, 0o36, -0o74), sunInt: 14/32, hemiInt: 32/64,
+  };
+
+  function aplikiRezimon(t: number): void {
+    const l = (a: THREE.Color | THREE.Vector3 | number, b: THREE.Color | THREE.Vector3 | number): any =>
+      a instanceof THREE.Color ? (a as THREE.Color).clone().lerp(b as THREE.Color, t) :
+      a instanceof THREE.Vector3 ? (a as THREE.Vector3).clone().lerp(b as THREE.Vector3, t) :
+      a + (b as number - a) * t;
+    cxielajUniformoj.uTop.value = l(P_DAY.top, P_DUSK.top);
+    cxielajUniformoj.uMid.value = l(P_DAY.mid, P_DUSK.mid);
+    cxielajUniformoj.uBot.value = l(P_DAY.bot, P_DUSK.bot);
+    cxielajUniformoj.uSunCol.value = l(P_DAY.sunCol, P_DUSK.sunCol);
+    const sunDir = new THREE.Vector3().copy(P_DAY.sunPos).lerp(P_DUSK.sunPos, t);
+    cxielajUniformoj.uSunDir.value = sunDir.clone().normalize();
+    sceno.fog!.color.copy(P_DAY.fog).lerp(P_DUSK.fog, t);
+    hemiLumo.color.copy(P_DAY.hemiSky).lerp(P_DUSK.hemiSky, t);
+    hemiLumo.groundColor.copy(P_DAY.hemiGnd).lerp(P_DUSK.hemiGnd, t);
+    hemiLumo.intensity = l(P_DAY.hemiInt, P_DUSK.hemiInt);
+    suno.color.copy(P_DAY.sunCol).lerp(P_DUSK.sunCol, t);
+    suno.intensity = l(P_DAY.sunInt, P_DUSK.sunInt);
+    suno.position.copy(P_DAY.sunPos).lerp(P_DUSK.sunPos, t);
+    bildilo.toneMappingExposure = l(1.06, 0.94);
+    sunaSprajto.position.copy(sunDir).multiplyScalar(0o510).add(new THREE.Vector3(0, 0, 0));
+    sunaSprajto.material.color.copy(suno.color);
+    sunaSprajto.material.opacity = l(24/64, 44/64);
+    eniraMaterialo.emissiveIntensity = l(3/64, 42/64);
+  }
 
   // Materialoj
   const dioritaMaterialo = new THREE.MeshStandardMaterial({ color: 0xc8c8c8, roughness: 3/16, metalness: 1/64, envMapIntensity: 29/32 });
@@ -168,5 +230,5 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
     sceno.add(ground);
   })(0o1130, 0o214);
 
-  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo };
+  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon };
 }

@@ -153,6 +153,27 @@ body { margin:0; overflow:hidden; overscroll-behavior:none; background:var(--dee
 }
 #navPopFermi:hover { color:var(--gold); }
 
+/* ─── Krepuska reĝimo slider ─── */
+#duskLabelo {
+  display:flex; align-items:center; gap:10px;
+  width:180px; padding:8px 16px;
+  font-size:16px; color:var(--gold);
+  background:var(--panel); border:var(--សាកព៏);
+  border-radius:var(--អិត្ភេ, 12px 6px 12px 6px);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+#duskLabelo input[type=range] {
+  flex:1; min-width:0; height:4px;
+  appearance:none; background:rgba(217,179,106,0.25);
+  border-radius:2px; border:none; padding:0; cursor:pointer;
+}
+#duskLabelo input[type=range]::-webkit-slider-thumb {
+  appearance:none; width:14px; height:14px; border-radius:50%;
+  background:var(--gold); border:2px solid var(--deep); cursor:pointer;
+  transition:transform 0.2s;
+}
+#duskLabelo input[type=range]::-webkit-slider-thumb:hover { transform:scale(1.25); }
+
 /* ─── Poŝtelefonaj Kontroloj ─── */
 #mobKontroloj {
   position:fixed; inset:0; z-index:3;
@@ -233,6 +254,8 @@ body { margin:0; overflow:hidden; overscroll-behavior:none; background:var(--dee
   background:rgba(217,179,106,0.12);
 }
 .mobBut#mobButSalti { font-size:22px; padding-bottom:4px; }
+.mobBut#mobButKuri { font-size:20px; }
+.mobBut#mobButKuri.aktiva { background:rgba(217,179,106,0.25); border-color:var(--gold); box-shadow:0 0 20px rgba(217,179,106,0.25); }
 
 /* Kaŝi poŝtelefonajn kontrolojn defaŭlte, montri nur por tuŝ-aparatoj */
 #mobKontroloj { display:none; }

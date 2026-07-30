@@ -181,6 +181,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "Helpo",
     "ariaButLingvo": "Ŝanĝi la lingvon de la urbo",
     "ariaSupermetaFermi": "Fermi",
+    // Aria label for dusk toggle
+    "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
     // Canvas alt text
     "altTitolaSkripto": "Aranis skribita en la zigurata skribo",
     // Clothing names
@@ -291,6 +293,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "Help",
     "ariaButLingvo": "Change the city language",
     "ariaSupermetaFermi": "Close",
+    // Aria label for dusk toggle
+    "ariaButKrepusko": "Toggle dusk mode",
     // Canvas alt text
     "altTitolaSkripto": "Aranis written in the ziggurat script",
     // Clothing names
@@ -401,6 +405,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "ヘルプ",
     "ariaButLingvo": "言語を変更",
     "ariaSupermetaFermi": "閉じる",
+    // Aria label for dusk toggle
+    "ariaButKrepusko": "夕暮れモードを切り替え",
     // Canvas alt text
     "altTitolaSkripto": "Aranisのジッグラト文字",
     // Clothing names
@@ -515,6 +521,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "ជំនួយ",
     "ariaButLingvo": "ប្តូរភាសាទីក្រុង",
     "ariaSupermetaFermi": "បិទ",
+    // Aria label for dusk toggle
+    "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
     // Canvas alt text
     "altTitolaSkripto": "អរ៉ានីសសរសេរជាអក្សរហ្សីហ្គូរ៉ាត់",
     // Clothing names ( phonetic approximations in Khmer script )

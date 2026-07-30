@@ -11,7 +11,7 @@ export const TIPARO: Record<string, KonstruTipo> = {
   sanktejo: { labelKey: "tipSanktejo",  wall: 0x184038, frame: 0xe0c078, chip: "#e0c078", flavorKey: "flvSanktejo" },
 };
 
-export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; }
+export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; }
 
 function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number, rb: number, rt: number): THREE.Shape {
   const s = new THREE.Shape(), sl = (blokoLargho / 2 - tw / 2) / h;
@@ -123,6 +123,19 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   group.position.set(spec.x, spec.h0 || 0, spec.z);
   group.rotation.y = spec.rot;
   sceno.add(group);
+  if ( spec.diamond ) {
+    const mg = group.clone();
+    mg.scale.y = -1;
+    mg.position.y = (spec.h0 || 0) - 2/64;
+    mg.traverse( m => { if ( m instanceof THREE.Mesh ) m.castShadow = false; } );
+    sceno.add( mg );
+    const oroMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0.85, roughness: 0.34, emissive: 0x302808, emissiveIntensity: 0.35 });
+    const ringGeo = new THREE.RingGeometry( Math.max(0.01, w * 19/64 + 9/64), Math.max(0.02, w * 19/64 + 17/64), 32 );
+    const ring = new THREE.Mesh( ringGeo, oroMaterialo );
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.set( spec.x, (spec.h0 || 0) + 1/64, spec.z );
+    sceno.add( ring );
+  }
   return group;
 }
 

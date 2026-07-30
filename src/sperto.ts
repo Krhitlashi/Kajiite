@@ -63,7 +63,7 @@ let pauxzaPaŝo = 0; // step sound cooldown counter
 
 // ⟪ Krei scenon kaj urbon 📃 ⟫
 const scena: ScenaSistemo = kreiScenon(kanvaso, titolaSkripto, sxargxaElemento);
-const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo } = scena;
+const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon } = scena;
 
 const urbo: UrbaSistemo = konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo);
 const {
@@ -91,6 +91,7 @@ let direkto = 0, klinigxo = -1/16;
 const ludantaPozicio = new THREE.Vector3(0, 5/32, 0o44);
 let rapidoY = 0, estasSurTERENO = false;
 const klavoj: Record<string, boolean> = {};
+let mobSprinto = false;
 let oscilo = 0;
 let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
 
@@ -117,6 +118,29 @@ if (butSonoro) {
     fermiNaviganPopUp();
   });
 }
+
+// ⟪ Krepuska reĝimo 📃 ⟫
+let krepuskaValoro = 0;
+const butKrepusko = document.getElementById("butKrepusko")!;
+const duskRegilo = document.getElementById("duskRegilo") as HTMLInputElement;
+aplikiRezimon(0);
+butKrepusko.addEventListener("click", () => {
+  if (krepuskaValoro > 0.5) {
+    krepuskaValoro = 0;
+    duskRegilo.value = "0";
+  } else {
+    krepuskaValoro = 1;
+    duskRegilo.value = "1";
+  }
+  butKrepusko.textContent = krepuskaValoro > 0.5 ? "☀" : "☽";
+  aplikiRezimon(krepuskaValoro);
+  fermiNaviganPopUp();
+});
+duskRegilo.addEventListener("input", () => {
+  krepuskaValoro = parseFloat(duskRegilo.value);
+  butKrepusko.textContent = krepuskaValoro > 0.5 ? "☀" : "☽";
+  aplikiRezimon(krepuskaValoro);
+});
 
 // ⟪ Tosta sistemo 📃 ⟫
 function montriTost(mesagxo: string, daŭro = 0o4230) {
@@ -288,12 +312,12 @@ kanvaso.addEventListener("touchcancel", () => {
 }, { passive: true });
 
 // ⟪ Poŝtelefonaj agbutonoj 📃 ⟫
-mobButInterakti.addEventListener("click", (e) => {
-  e.stopPropagation();
+mobButInterakti.addEventListener("touchstart", (e) => {
+  e.preventDefault();
   proviInterakti();
 });
-mobButSalti.addEventListener("click", (e) => {
-  e.stopPropagation();
+mobButSalti.addEventListener("touchstart", (e) => {
+  e.preventDefault();
   if (rezimo === "walk" && estasSurTERENO && !surKanoto) {
     rapidoY = 60/8;
     estasSurTERENO = false;
@@ -302,6 +326,21 @@ mobButSalti.addEventListener("click", (e) => {
 mobButRezimo.addEventListener("click", (e) => {
   e.stopPropagation();
   sxaltiRezimon();
+});
+const mobButKuri = document.getElementById("mobButKuri")!;
+mobButKuri.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  mobSprinto = true;
+  mobButKuri.classList.add("aktiva");
+});
+mobButKuri.addEventListener("touchend", (e) => {
+  e.preventDefault();
+  mobSprinto = false;
+  mobButKuri.classList.remove("aktiva");
+});
+mobButKuri.addEventListener("touchcancel", () => {
+  mobSprinto = false;
+  mobButKuri.classList.remove("aktiva");
 });
 
 // ⟪ Retikula kontrolo 📃 ⟫
@@ -410,7 +449,7 @@ function sxaltiRezimon() {
   gxisdatigiRetikulon();
   if (rezimo === "walk") {
     regiloj.enabled = false;
-    direkto = -Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
+    direkto = Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
     ludantaPozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
     estasSurTERENO = true;
   } else {
@@ -553,14 +592,14 @@ function animacii() {
     let movZ = (klavoj.KeyW || klavoj.ArrowUp ? 1 : 0) - (klavoj.KeyS || klavoj.ArrowDown ? 1 : 0);
     const longo = Math.hypot(movX, movZ);
     if (longo > 1) { movX /= longo; movZ /= longo; }
-    const sprinto = klavoj.ShiftLeft || klavoj.ShiftRight;
+    const sprinto = klavoj.ShiftLeft || klavoj.ShiftRight || mobSprinto;
     const rapido = sprinto ? 84/8 : 173/32;
     const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
     const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
     let novaX = ludantaPozicio.x + (fortoX * movZ + radX * movX) * rapido * deltaTempo;
-    let novaZ = ludantaPozicio.z + (fortoZ * movZ + radX * movX) * rapido * deltaTempo;
+    let novaZ = ludantaPozicio.z + (fortoZ * movZ + radZ * movX) * rapido * deltaTempo;
     novaX = Math.max(-0o144, Math.min(0o144, novaX));
-    novaZ = Math.max(-0o106, Math.min(0o144, novaZ));
+    novaZ = Math.max(-0o200, Math.min(0o144, novaZ));
 
     const r = solviKolizion(novaX, novaZ);
     ludantaPozicio.x = r.x; ludantaPozicio.z = r.z;
@@ -648,7 +687,7 @@ function animacii() {
     const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
     const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
     let novaX = ludantaPozicio.x + (fortoX * movZ + radX * movX) * rapido * deltaTempo;
-    let novaZ = ludantaPozicio.z + (fortoZ * movZ + radX * movX) * rapido * deltaTempo;
+    let novaZ = ludantaPozicio.z + (fortoZ * movZ + radZ * movX) * rapido * deltaTempo;
 
     const specX = elektitaSpec.x, specZ = elektitaSpec.z, specH0 = elektitaSpec.h0 || 0;
     const rot = elektitaSpec.rot || 0;
