@@ -198,11 +198,11 @@ body { margin:0; overflow:hidden; overscroll-behavior:none; background:var(--dee
   box-shadow:0 0 16px rgba(217,179,106,0.20);
 }
 
-/* Poŝtelefonaj agbutonoj (dekstre) */
+/* Poŝtelefonaj agbutonoj (dekstre) — unuigita dezajno kun #navButono */
 #mobButaroj {
   position:absolute;
   right:calc(16px + var(--sar));
-  bottom:calc(90px + var(--sab));
+  bottom:calc(150px + var(--sab));
   display:flex;
   flex-direction:column;
   gap:10px;
@@ -210,10 +210,10 @@ body { margin:0; overflow:hidden; overscroll-behavior:none; background:var(--dee
 }
 .mobBut {
   width:52px; height:52px;
-  border-radius:var(--ចិង);
+  border-radius:var(--អិត្ភេ);
   background:var(--panel);
-  border:1px solid rgba(217,179,106,0.20);
-  color:var(--mist);
+  border:var(--សាកព៏);
+  color:var(--gold);
   font-family:'Cinzel','jʃꞇȝ',serif;
   font-size:15px;
   font-weight:600;
@@ -222,14 +222,15 @@ body { margin:0; overflow:hidden; overscroll-behavior:none; background:var(--dee
   cursor:pointer;
   pointer-events:auto;
   touch-action:manipulation;
-  transition:background 0.2s,border-color 0.2s,transform 0.15s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  transition:transform 0.24s,background 0.24s,border-color 0.24s;
   user-select:none;
   -webkit-tap-highlight-color:transparent;
 }
+.mobBut:hover { transform:scale(1.08); border-color:var(--gold-soft); }
 .mobBut:active {
-  transform:scale(0.88);
-  background:rgba(217,179,106,0.18);
-  border-color:var(--gold-soft);
+  transform:scale(0.92);
+  background:rgba(217,179,106,0.12);
 }
 .mobBut#mobButSalti { font-size:22px; padding-bottom:4px; }
 

@@ -3,27 +3,16 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
-<title data-oskakefani="p1">VAIKORATH · ꞁȷ̀ɹ ֭ſɭɹɔ˞ j͐ʃɜ ɭʃᴜ</title>
+<title data-oskakefani="p1">ARANIS · ꞁȷ̀ɹ ֭ſɭɹɔ˞ j͐ʃɜ ɭʃᴜ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
 <link rel="stylesheet" href="./stiloj.css">
-<script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-}}
-</script>
-<script type="module" src="./dist/src/tradukoj.js"></script>
-
-<script>
-// ⟪ Viva reŝargo per SSE ⚡ ⟫
-(function(){var es=new EventSource('/__reload');es.addEventListener('reload',function(){location.reload();});setTimeout(function(){if(es.readyState!==1)es.close();},5000);})();
-</script>
+<script type="module" src="./src/tradukoj.ts"></script>
 </head>
 <body>
-<canvas id="sceno" aria-label="Vaikorath, mergan 3D urbo en nebula betularo"></canvas>
+<canvas id="sceno" aria-label="Aranis, mergan 3D urbo en nebula betularo"></canvas>
 
 <!-- ⟪ Vinjeto 📃 ⟫ -->
 <div id="vinjeto"></div>
@@ -47,7 +36,7 @@
 <!-- ⟪ HUD 📃 ⟫ -->
 <header id="titolo">
   <div>
-    <h1 data-oskakefani="p1">VAIKORATH · La Nebula Valo</h1>
+    <h1 data-oskakefani="p1">ARANIS · La Nebula Valo</h1>
     <div class="subteksto" data-oskakefani="p2">La Nebula Valo · Urbo-Sxtupo de la Betularo</div>
     <img id="titolaSkripto" alt="">
   </div>
@@ -104,10 +93,10 @@
   </thala>
 </div>
 <div id="sxargxo">
-  <div class="ltitle" id="sxargxaTitolo" data-oskakefani="pF">VAIKORATH</div>
+  <div class="ltitle" id="sxargxaTitolo" data-oskakefani="pF">ARANIS</div>
   <div class="stango"><i id="stangoPlenigo"></i></div>
   <div class="lsupra" id="loadCap" data-oskakefani="pG">j͐ʃɜ ɭʃᴜ ſɭɔƽ</div>
 </div>
-<script type="module" src="./dist/src/sperto.js"></script>
+<script type="module" src="./src/sperto.ts"></script>
 </body>
 </html>

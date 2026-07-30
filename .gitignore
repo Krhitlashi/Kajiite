@@ -1,8 +1,3 @@
-# TypeScript build output
-dist/
-
-# Development tools (Python scripts, etc.)
-iloj/
-
-# Reference documentation
-Reference/
+node_modules
+iloj
+Reference

@@ -1,4 +1,4 @@
-// Tereno — terrain height functions for the Vaikorath valley
+// Tereno — terrain height functions for the Aranis valley
 
 // Rivero fluas orient-okcidente kun milda suda kurbo
 // Rivero fluas orient-okcidente — shifted south to clear the city grid

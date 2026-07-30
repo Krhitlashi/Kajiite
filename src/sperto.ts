@@ -1,4 +1,4 @@
-// Vaikorath — immersive city experience (orchestrator)
+// Aranis — immersive city experience (orchestrator)
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "../assets/transporto.js";
@@ -615,7 +615,7 @@ function animacii() {
     let proksimaPordoDist = 3;
     for (const s of konstruSpecoj) {
       if (s.x === 0 && s.z === 0) continue;
-      const difX = -Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
+      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
       const pordoX = s.x + difX * (s.d / 2 + 12/8), pordoZ = s.z + difZ * (s.d / 2 + 12/8);
       const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
       if (d < proksimaPordoDist) { proksimaPordoDist = d; proksimaPordo = s; }

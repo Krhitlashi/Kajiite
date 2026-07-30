@@ -1,4 +1,4 @@
-// Sonoro — ambient audio engine for Vaikorath (ported from ornaveth-v2)
+// Sonoro — ambient audio engine for Aranis (ported from ornaveth-v2)
 // Brown-noise drone with lowpass LFO, harmonic sine layers, and SFX helpers.
 
 let AC: AudioContext | null = null;

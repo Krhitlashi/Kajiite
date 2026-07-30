@@ -1,18 +1,19 @@
 {
-  "name": "vaikorath",
+  "name": "aranis",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node node_modules/typescript/lib/tsc.js",
-    "watch": "node node_modules/typescript/lib/tsc.js --watch",
-    "typecheck": "node node_modules/typescript/lib/tsc.js --noEmit",
-    "dev": "node servilo/servilo.js"
+    "dev": "vite",
+    "build": "npx tsgo --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "echo \"( Error ) no test specified\" && exit 1"
   },
   "_note": "tsc.exe spawn fails on ARM64 Windows due to Unicode path issues; use node tsc.js instead",
   "devDependencies": {
     "@types/three": "^0.185.1",
     "three": "^0.185.1",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite": "^8.0.16"
   }
 }

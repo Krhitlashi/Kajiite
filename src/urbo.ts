@@ -80,8 +80,8 @@ export function konstruiUrbon(
     const x = col * PASXO, z = row * PASXO;
     if (type === null) continue;
     const niveloj = type === "sanktejo" ? 7 : type === "turo" ? 0o10 : type === "stacio" ? 3 : 4;
-    const w = type === "sanktejo" ? 0o12 : type === "turo" ? 0o10 : type === "stacio" ? 0o12 : type === "manĝejo" ? 0o11 : 7;
-    const d = type === "sanktejo" ? 0o12 : type === "turo" ? 0o10 : type === "stacio" ? 0o10 : type === "manĝejo" ? 7 : 6;
+    const w = type === "sanktejo" ? 0o12 : type === "turo" ? 0o10 : 0o10;  // stacio, manĝejo, domo all 8×8
+    const d = w;  // square buildings: depth = width
     const tieroAlto = type === "sanktejo" ? 24/8 : type === "turo" ? 24/8 : type === "stacio" ? 109/32 : 205/64;
     const sube = type === "sanktejo" ? 2 : undefined;
     const tieroAltoSub = type === "sanktejo" ? 83/32 : undefined;
@@ -89,22 +89,13 @@ export function konstruiUrbon(
     bldgIdx++;
   }
 
-  // Building rotation: face toward center along the nearest cardinal axis
+  // Set terrain height and collision for each building (roads not needed yet)
   konstruSpecoj.forEach(s => {
-    if (s.x !== 0 || s.z !== 0) {
-      if (Math.abs(s.x) > Math.abs(s.z)) {
-        s.rot = s.x > 0 ? -Math.PI / 2 : Math.PI / 2;
-      } else {
-        s.rot = s.z > 0 ? Math.PI : 0;
-      }
-    }
     s.h0 = alteco(s.x, s.z);
     kolizioj.push({ x: s.x, z: s.z, r: Math.hypot(s.w, s.d) / 2 + 4/8 });
   });
 
   const selektajxoj: THREE.Mesh[] = [];
-  const konstruGrupoj: THREE.Group[] = [];
-  konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiZiguraton(s, sceno, selektajxoj)));
 
   // ═══════════════════════════════════════════════════════════
   //  River
@@ -152,6 +143,21 @@ export function konstruiUrbon(
       RETO_Z.push((VICOJ[ri] + VICOJ[ri + 1]) / 2 * PASXO);
     }
   }
+
+  // Building rotation: face toward center along the dominant axis
+  // (roads always lie between adjacent rows/columns, so facing center = facing nearest road)
+  konstruSpecoj.forEach(s => {
+    if (s.x !== 0 || s.z !== 0) {
+      if (Math.abs(s.x) > Math.abs(s.z)) {
+        s.rot = s.x > 0 ? -Math.PI / 2 : Math.PI / 2;
+      } else {
+        s.rot = s.z > 0 ? Math.PI : 0;
+      }
+    }
+  });
+
+  const konstruGrupoj: THREE.Group[] = [];
+  konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiZiguraton(s, sceno, selektajxoj)));
 
   // Build a set of cells for quick lookup
   const hasCellAt = (c: number, r: number) =>
@@ -226,10 +232,10 @@ export function konstruiUrbon(
     if (s.x === 0 && s.z === 0) continue;
     const rot = s.rot || 0;
     const pordoOffset = s.d / 2 + 12/8;
-    const pordoX = s.x - Math.sin(rot) * pordoOffset;
+    const pordoX = s.x + Math.sin(rot) * pordoOffset;
     const pordoZ = s.z + Math.cos(rot) * pordoOffset;
 
-    const fX = -Math.sin(rot), fZ = Math.cos(rot);
+    const fX = Math.sin(rot), fZ = Math.cos(rot);
     let vojX: number, vojZ: number;
 
     if (Math.abs(fX) > Math.abs(fZ)) {
@@ -303,7 +309,7 @@ export function konstruiUrbon(
   const lampLokoj: { x: number; z: number; y: number }[] = [];
   const addLamp = (x: number, z: number) => {
     for (const s of konstruSpecoj) {
-      const difX = -Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
+      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
       const pordoX = s.x + difX * (s.d / 2 + 12/8), pordoZ = s.z + difZ * (s.d / 2 + 12/8);
       if (Math.hypot(x - pordoX, z - pordoZ) < 4) return;
       if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 12/8) return;

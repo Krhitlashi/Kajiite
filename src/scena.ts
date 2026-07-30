@@ -88,7 +88,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
   const oraMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 27/32, roughness: 11/32, emissive: 0x302808, emissiveIntensity: 11/32, envMapIntensity: 10/8 });
 
   // Titola skripto
-  titolaSkripto.src = generiSkriptanURL({ seedName: "Vaikorath", w: 0o110, h: 0o276, ink: "#d8b068" });
+  titolaSkripto.src = generiSkriptanURL({ seedName: "Aranis", w: 0o110, h: 0o276, ink: "#d8b068" });
 
   // Malproksimaj montoj
   (function konstruiMontojn(): void {

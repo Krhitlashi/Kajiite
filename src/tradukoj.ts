@@ -1,4 +1,4 @@
-// tradukoj.ts — Translation system for Vaikorath
+// tradukoj.ts — Translation system for Aranis
 // Four languages: aih, eo, en, ja
 
 const skakefani: Record<string, Record<string, string>> = {
@@ -590,7 +590,7 @@ function aplikiSkakefanon(lingvo: string): void {
   });
   const butono = document.getElementById("butLingvo");
   if (butono) butono.textContent = lingvo.toUpperCase();
-  try { localStorage.setItem("vaikorath-lingvo", lingvo); } catch { /* private browsing */ }
+  try { localStorage.setItem("aranis-lingvo", lingvo); } catch { /* private browsing */ }
 }
 
 // ⟪ Sxalti al sekva lingvo 📃 ⟫
@@ -603,7 +603,7 @@ function sxaltiLingvon(): void {
 // ⟪ Detekti preferatan lingvon 📃 ⟫
 function detektiLingvon(): string {
   try {
-    const konservita = localStorage.getItem("vaikorath-lingvo");
+    const konservita = localStorage.getItem("aranis-lingvo");
     if (konservita && LINGVOJ.includes(konservita)) return konservita;
   } catch { /* private browsing */ }
   const lang = (navigator.language || (navigator as any).userLanguage || "").split("-")[0];
