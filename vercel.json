@@ -1,6 +1,0 @@
-{
-  "framework": null,
-  "buildCommand": "node node_modules/typescript/lib/tsc.js",
-  "outputDirectory": ".",
-  "cleanUrls": true
-}
