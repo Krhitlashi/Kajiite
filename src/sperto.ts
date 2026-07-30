@@ -768,7 +768,7 @@ function animacii() {
 
   // Kompaso
   const fotilaDirekto = rezimo === "walk" ? direkto : -Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
-  (nadlo as HTMLElement).style.transform = `rotate(${fotilaDirekto}radiuso)`;
+  (nadlo as HTMLElement).style.transform = `rotate(${fotilaDirekto + Math.PI}rad)`;
 
   // WASD orbita movado
   if (rezimo === "orbit") {
