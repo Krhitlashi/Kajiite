@@ -185,7 +185,7 @@ function kreiOndanAkvanMaterialon(riverHalfWidth: number): THREE.ShaderMaterial 
       varying vec3 vNormal;
 
       void main() {
-        // Baza koloro: gradient de profunda al malprofunda akvo
+        // Baza koloro. gradient de profunda al malprofunda akvo
         float distFromCenter = abs(vUv.x - 0.5) * 2.0;
         vec3 baseColor = mix(uColorDeep, uColorShallow, distFromCenter * 0.7 + 0.1);
 
@@ -213,14 +213,14 @@ function kreiOndanAkvanMaterialon(riverHalfWidth: number): THREE.ShaderMaterial 
 
         vec3 finalColor = baseColor + specColor + fresnelColor * 0.5;
 
-        // Profundeco: malheligu kie pli profunda
+        // Profundeco. malheligu kie pli profunda
         finalColor *= (1.0 - distFromCenter * 0.18);
 
         // Aldonu malpezan akvan nebulon ce bordoj
         float edgeGlow = smoothstep(0.7, 1.0, distFromCenter) * 0.12;
         finalColor += vec3(0.3, 0.6, 0.5) * edgeGlow;
 
-        // Travidebleco: pli travidebla cxe bordoj
+        // Travidebleco. pli travidebla cxe bordoj
         float alpha = 0.82 + distFromCenter * 0.12 + shimmer * 0.04;
 
         gl_FragColor = vec4(finalColor, alpha);

@@ -32,7 +32,7 @@ function konstruiSegmenton( x1: number, z1: number, x2: number, z2: number,
   const longo = Math.hypot(difX, difZ);
   if (longo < 1/64) return;
   const angle = Math.atan2(difX, difZ);
-  // Nombro da pasxoj: unu cxiun ~4 unuojn, almenaux 1
+  // Nombro da pasxoj. unu cxiun ~4 unuojn, almenaux 1
   const steps = Math.max(1, Math.round(longo / 4));
   const pasoLongo = longo / steps;
   for ( let s = 0; s < steps; s++ ) {
@@ -70,13 +70,13 @@ export function aldoniIntersekcajnRondigojn(
   bM.map = andezitaTeksajxo; bM.needsUpdate = true;
   bM.polygonOffset = true; bM.polygonOffsetFactor = -1; bM.polygonOffsetUnits = -1;
 
-  // Kvar angulaj intervaloj por la 4 kvadrantoj: [startAngle, endAngle]
+  // Kvar angulaj intervaloj por la 4 kvadrantoj. [startAngle, endAngle]
   // absarc(0,0,r, start, end, false) desegnas de start al end kontrauxhorlogxe
   const anguloj: [number, number][] = [
-    [0, Math.PI / 2],          // QI:  +X al +Z
-    [Math.PI / 2, Math.PI],    // QII: +Z al -X
-    [Math.PI, 3 * Math.PI / 2],// QIII: -X al -Z
-    [3 * Math.PI / 2, 2 * Math.PI], // QIV: -Z al +X
+    [0, Math.PI / 2],          // QI.  +X al +Z
+    [Math.PI / 2, Math.PI],    // QII. +Z al -X
+    [Math.PI, 3 * Math.PI / 2],// QIII. -X al -Z
+    [3 * Math.PI / 2, 2 * Math.PI], // QIV. -Z al +X
   ];
 
   for (const [gx, gz] of nodes) {

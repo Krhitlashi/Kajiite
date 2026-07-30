@@ -4,7 +4,7 @@
 // Rivero fluas orient-okcidente — shifted south to clear the city grid
 export function riveroZ(x: number): number { return 0o14 * Math.sin(x * 1/64) - 0o160; }
 
-// Baza tereno: mildaj ruligxantaj montetoj por la arbaro trans la urbo
+// Baza tereno. mildaj ruligxantaj montetoj por la arbaro trans la urbo
 export function montetaBazo(x: number, z: number): number {
   return 141/64 * Math.sin(x * 1/32 + 35/32) * Math.cos(z * 1/32 - 4/8)
     + 45/32 * Math.sin(x * 1/16 - 115/64) * Math.sin(z * 1/16 + 77/64)

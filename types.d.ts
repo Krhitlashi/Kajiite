@@ -1,6 +1,6 @@
 // Type declarations for CDN import-map-mapped addon modules.
 // The "three" base module uses types from node_modules/three (installed via npm).
-// These addons are resolved at runtime by the browser import map:
+// These addons are resolved at runtime by the browser import map.
 //   "three/addons/*" → jsdelivr CDN examples/jsm/*
 
 declare module "three/addons/controls/OrbitControls.js" {

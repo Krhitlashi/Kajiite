@@ -31,7 +31,7 @@ function nesimetraRecto( kunteksto: CanvasRenderingContext2D,
   kunteksto.closePath();
 }
 
-// Octaveil-stila glifa bloko: kurbaj vertikalaj linioj + horizontalaj konektiloj
+// Octaveil-stila glifa bloko. kurbaj vertikalaj linioj + horizontalaj konektiloj
 function glifaBloko( kunteksto: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number,
   ink: string

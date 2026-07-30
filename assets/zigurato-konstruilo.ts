@@ -1,4 +1,4 @@
-// Ziggurat-konstruilo — sxtupajramidaj konstruajxoj: verdaj/oraj domoj, brunaj/becxaj mangxejoj, blankaj/grizaj stacioj
+// Ziggurat-konstruilo — sxtupajramidaj konstruajxoj. verdaj/oraj domoj, brunaj/becxaj mangxejoj, blankaj/grizaj stacioj
 import * as THREE from "three";
 import { generiSkriptanTeksajxon } from "./skripto-rivelilo.js";
 

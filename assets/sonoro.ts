@@ -51,7 +51,7 @@ function ensureAudio() {
   lg.connect(lp.frequency);
   lfo.start();
 
-  // Harmonic drones: A2 (110), E3 (164.81), A3 (220) with slight detune
+  // Harmonic drones. A2 (110), E3 (164.81), A3 (220) with slight detune
   [110, 164.81, 220].forEach((f, i) => {
     const o = AC!.createOscillator();
     o.type = "sine";

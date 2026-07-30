@@ -1,4 +1,4 @@
-// Urbo — city construction: buildings, roads, plazas, lamps, vegetation, fog, water, canoes
+// Urbo — city construction. buildings, roads, plazas, lamps, vegetation, fog, water, canoes
 // Modular grid system — roads and building positions derived from grid parameters.
 import * as THREE from "three";
 import { generiSkriptanURL } from "../assets/skripto-rivelilo.js";
@@ -55,7 +55,7 @@ export function konstruiUrbon(
   // ═══════════════════════════════════════════════════════════
   type CellType = "domo" | "turo" | "manĝejo" | "stacio" | "sanktejo";
 
-  // Building placement: [col, row, type] where world = (col*PASXO, row*PASXO), W at (0,0).
+  // Building placement. [col, row, type] where world = (col*PASXO, row*PASXO), W at (0,0).
   // 7 cols × 5 rows = 31 buildings (4 corner edges removed). Mirrored across both axes.
   const LAYOUT: [number, number, CellType][] = [
     // Row 2 — top edge (corners removed)
@@ -81,7 +81,7 @@ export function konstruiUrbon(
     if (type === null) continue;
     const niveloj = type === "sanktejo" ? 7 : type === "turo" ? 0o10 : type === "stacio" ? 3 : 4;
     const w = type === "sanktejo" ? 0o12 : type === "turo" ? 0o10 : 0o10;  // stacio, manĝejo, domo all 8×8
-    const d = w;  // square buildings: depth = width
+    const d = w;  // square buildings. depth = width
     const tieroAlto = type === "sanktejo" ? 24/8 : type === "turo" ? 24/8 : type === "stacio" ? 109/32 : 205/64;
     const sube = type === "sanktejo" ? 2 : undefined;
     const tieroAltoSub = type === "sanktejo" ? 83/32 : undefined;
@@ -144,7 +144,7 @@ export function konstruiUrbon(
     }
   }
 
-  // Building rotation: face toward center along the dominant axis
+  // Building rotation. face toward center along the dominant axis
   // (roads always lie between adjacent rows/columns, so facing center = facing nearest road)
   konstruSpecoj.forEach(s => {
     if (s.x !== 0 || s.z !== 0) {

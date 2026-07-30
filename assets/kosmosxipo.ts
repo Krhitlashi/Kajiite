@@ -150,7 +150,7 @@ export function konstruiCielDiamanton( sceno: THREE.Scene,
   return { group, windows: fenestrajMretoj, pordaPozicio, doorDir: dir.clone() };
 }
 
-// animaciiCielDiamanton — Animaciu la sxipon: oscilado, rotacio, fenestra pulsado.
+// animaciiCielDiamanton — Animaciu la sxipon. oscilado, rotacio, fenestra pulsado.
 export function animaciiCielDiamanton( ship: CielDiamanto,
   t: number,
   isFlying: boolean

@@ -1,5 +1,5 @@
 // tradukoj.ts — Translation system for Aranis
-// Four languages: aih, eo, en, ja
+// Four languages. aih, eo, en, ja
 
 const skakefani: Record<string, Record<string, string>> = {
   aih: {
@@ -229,7 +229,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoHearth": "Fajruja Gardanto — Ĥeles Verda",
     "vestoMist": "Nebula Palto — Ihis Verda",
     "vestoEmber": "Brusta Gardanto — Ĥeles Bruna",
-    // Building names ( systematic IPA-based transcription using new py script values:
+    // Building names ( systematic IPA-based transcription using new py script values.
     //  ⱱ→v c→ĉ ɸ→f x→ĥ ç→ŝ xʲ→ĥj ɬ→l ɟ̆→j θ→t ŋ→nk ɪ̈→i ɑ→a ə→u ɤ→o )
     "bldg0": "Arimani",
     "bldg1": "Kapi",
@@ -363,7 +363,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoHearth": "Kheles Verdan — Hearthguard",
     "vestoMist": "Ihis Verdan — Mistcloak",
     "vestoEmber": "Kheles Brunan — Emberguard",
-    // Building names ( systematic IPA-based transcription using new py script values:
+    // Building names ( systematic IPA-based transcription using new py script values.
     //  ⱱ→w c→ch ɸ→h x→kh ç→sh xʲ→hy ɬ→lh ɟ̆→y θ→th ŋ→ng ɪ̈→ih ɑ→aw ə→uh ɤ→o )
     "bldg0": "Arimanih",
     "bldg1": "Kapih",
@@ -497,7 +497,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoHearth": "ケレス ヴェルダン — ハースガード",
     "vestoMist": "イヒス ヴェルダン — ミストクローク",
     "vestoEmber": "ケレス ブルナン — エンバーガード",
-    // Building names ( IPA→katakana using proper CV syllable combos:
+    // Building names ( IPA→katakana using proper CV syllable combos.
     //  ka→カ ki→キ kɛ→ケ kɤ→コ kɑ→カー ca→チャ ci→チ cɛ→チェ
     //  ta→タ tɛ→テ tɑ→ター m̥a→マ m̥ɛ→メ sa→サ si→シ sɛ→セ
     //  na→ナ nɛ→ネ n̥a→ナ ɬa→ラ ɟ̥̆a→ヤ ɟ̥̆ɛ→イェ ⱱ̥a→ワ  xʲa→ヒャ
@@ -635,7 +635,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoHearth": "ខេឡេស វែរដាន់ · ហាតហ្គាដ",
     "vestoMist": "អ៊ីហ៊ីស វែរដាន់ · មីសខ្លូក",
     "vestoEmber": "ខេឡេស ប្រូណាន់ · អេមបឺហ្គាដ",
-    // Building names ( IPA→Khmer using new py script KM_MAP values verbatim:
+    // Building names ( IPA→Khmer using new py script KM_MAP values verbatim.
     //  a→ា ɑ→៏ c→ច ç→ឆ ɛ→េ ə→ឺ ɤ→ុ i→ី ɪ̈→ិ k→ក 
     //  ɬ→ល m→ម m̥→ម n→ន n̥→ន ŋ̥→ង p→ព ɾ̪̥→រ s→ស ʂ→ហ្រ
     //  t→ត θ→ថ tɬ→ត្ល ts→ត្ស x→ហ xʲ→ខ ⱱ̥→វ ɟ̥̆→យ ɸ→ផ

@@ -1,5 +1,5 @@
 // Interna modulo — pluretagxaj internaj spacoj por piediri tra ili
-// Redesigned to match Priskribo.md dark-green/gold ziggurat aesthetic:
+// Redesigned to match Priskribo.md dark-green/gold ziggurat aesthetic.
 //   • Dark pine walls (#0b1a14), warm gold frames (#d9b36a)
 //   • Asymmetrical rounded corners motif (32px/16px)
 //   • Thick golden corner frames that flare outward at top
@@ -48,14 +48,14 @@ const GOLD = 0xd9b36a;
 const GOLD_SOFT = 0xc8a45a;
 const GOLD_WARM = 0xf8d898;
 
-// Helpilo: krei Materialon por oro
+// Helpilo. krei Materialon por oro
 function oroMaterialo(metalness = 7/8, roughness = 11/32): THREE.MeshStandardMaterial {
   return new THREE.MeshStandardMaterial({
     color: GOLD, metalness, roughness,
   });
 }
 
-// Helpilo: segmentita arkformo (por pordo kaj fenestroj)
+// Helpilo. segmentita arkformo (por pordo kaj fenestroj)
 function kreiArkFormon(radiuso: number, segmentoj: number, largho: number): THREE.BufferGeometry {
   const g = new THREE.BufferGeometry();
   const verts: number[] = [];
@@ -177,7 +177,7 @@ export function eniriInternon(
 
     // ── Front wall (+Z) — with rounded trapezoidal door on ground floor ──
     if (et === 0) {
-      // Door width: 1.5 units, height: ~70% of tier height, arched top
+      // Door width. 1.5 units. height. ~70% of tier height, arched top
       const pordLargho = 1.5;
       const pordAlto = tieroAlto * 0.65;
       const arkRadiuso = pordLargho / 2;
@@ -478,7 +478,7 @@ export function eniriInternon(
   cxefaSceno.add(group);
   sys.currentGroup = group;
 
-  // Entry point: just inside the door
+  // Entry point. just inside the door
   const enirX = 0;
   const enirZ = Math.max(1.5, d / 2) - 0.5;
   const enirY = 0.5;
@@ -513,7 +513,7 @@ export function gxisdatigiInternon(sys: InternaSistemo, t: number): void {
   }
 }
 
-// Helfunkcio: konstrui muron el skatolo
+// Helfunkcio. konstrui muron el skatolo
 // rotacio = Y-rotacio en radianoj (uzata por flankaj muroj)
 function konstruiMuron(
   g: THREE.Group,
@@ -526,7 +526,7 @@ function konstruiMuron(
   if (largho <= 0 || alto <= 0) return;
   const muro = new THREE.Mesh(new THREE.BoxGeometry(largho, alto, dikeco), materialo);
   if (rotacio) {
-    // Por flankaj muroj: lokalX estas Z-offset, cx estas X-ebeno
+    // Por flankaj muroj. lokalX estas Z-offset, cx estas X-ebeno
     muro.position.set(cx, bazaY + lokalY + alto / 2, cz + lokalX + largho / 2);
     muro.rotation.y = rotacio;
   } else {

@@ -152,92 +152,105 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
   // Titola skripto
   titolaSkripto.src = generiSkriptanURL({ seedName: "Aranis", w: 0o110, h: 0o276, ink: "#d8b068" });
 
-  // Malproksimaj montoj
+  // Malproksimaj montoj — 3D terenaj strioj kun realaj deklivoj
   (function konstruiMontojn(): void {
-    const montaMaterialo = new THREE.MeshStandardMaterial({
-      color: 0x687868, roughness: 29/32, metalness: 0, side: THREE.DoubleSide,
-    });
-    const montaMalhela = new THREE.MeshStandardMaterial({
-      color: 0x506050, roughness: 31/32, metalness: 0, side: THREE.DoubleSide,
-    });
-    const altaFunkcio = alteco;
-    function aldoniMuranSegmenton(t1: number, t2: number, z: number, pinto: number, pinto2: number, bazoY1: number, bazoY2: number, materialo: THREE.MeshStandardMaterial) {
-      const verticoj = new Float32Array([
-        t1, bazoY1, z, t1, bazoY1 + pinto, z, t2, bazoY2 + pinto2, z,
-        t1, bazoY1, z, t2, bazoY2 + pinto2, z, t2, bazoY2, z,
-      ]);
-      const geometrio = new THREE.BufferGeometry();
-      geometrio.setAttribute("position", new THREE.BufferAttribute(verticoj, 3));
-      geometrio.computeVertexNormals();
-      const mesh = new THREE.Mesh(geometrio, materialo);
+    function montaAlto( t: number, semo: number ): number {
+      return 0o62
+        + Math.sin( t * 1/32 + semo ) * 0o26
+        + Math.sin( t * 3/64 - semo * 0.6 ) * 0o16
+        + Math.sin( t * 1/16 + semo * 1.3 ) * 0o12
+        + Math.sin( t * 7/64 - semo * 0.4 ) * 0o6
+        + Math.sin( t * 5/32 + semo * 0.8 ) * 0o4;
+    }
+
+    function koloroPorY( y: number ): [ number, number, number ] {
+      if ( y > 0o124 ) return [ 0.91, 0.91, 0.94 ];
+      if ( y > 0o110 ) {
+        const t = ( y - 0o110 ) / ( 0o124 - 0o110 );
+        return [ 0.47 + t * 0.44, 0.53 + t * 0.38, 0.47 + t * 0.47 ];
+      }
+      if ( y > 0o64 ) {
+        const t = ( y - 0o64 ) / ( 0o110 - 0o64 );
+        return [ 0.35 + t * 0.12, 0.41 + t * 0.12, 0.35 + t * 0.12 ];
+      }
+      if ( y > 0o44 ) {
+        const t = ( y - 0o44 ) / ( 0o64 - 0o44 );
+        return [ 0.28 + t * 0.07, 0.35 + t * 0.06, 0.28 + t * 0.07 ];
+      }
+      if ( y > 0o24 ) {
+        const t = ( y - 0o24 ) / ( 0o44 - 0o24 );
+        return [ 0.22 + t * 0.06, 0.28 + t * 0.07, 0.22 + t * 0.06 ];
+      }
+      return [ 0.22, 0.28, 0.22 ];
+    }
+
+    const montaMaterialo = new THREE.MeshStandardMaterial( {
+      color: 0xffffff, roughness: 29/32, metalness: 0, vertexColors: true,
+    } );
+    const montaFona = new THREE.MeshStandardMaterial( {
+      color: 0xffffff, roughness: 31/32, metalness: 0, vertexColors: true,
+    } );
+
+    // Krei 3D terenan strion — reala geometrio en ambaŭ direktoj
+    function krei3DStrio(
+      lauX: boolean, signo: number, fiksa: number, largho: number, profundo: number,
+      sl: number, sd: number, semo: number, skalo: number,
+      materialo: THREE.MeshStandardMaterial,
+    ): void {
+      // Por X-muroj (lauX=false) la kresto iras laŭ Z, do interŝanĝu dimensiojn
+      const w = lauX ? largho : profundo;
+      const d = lauX ? profundo : largho;
+      const sw = lauX ? sl : sd;
+      const sh = lauX ? sd : sl;
+      const g = new THREE.PlaneGeometry( w, d, sw, sh );
+      g.rotateX( -Math.PI / 2 );
+      if ( lauX ) {
+        g.translate( 0, 0, fiksa + signo * d / 2 );
+      } else {
+        g.translate( fiksa + signo * w / 2, 0, 0 );
+      }
+      const pos = g.attributes.position;
+      const koloroj = new Float32Array( pos.count * 3 );
+      for ( let i = 0; i < pos.count; i ++ ) {
+        const x = pos.getX( i ), z = pos.getZ( i );
+        const t = lauX ? x : z;
+        const dist = lauX
+          ? ( signo > 0 ? z - fiksa : fiksa - z )
+          : ( signo > 0 ? x - fiksa : fiksa - x );
+        const tn = Math.max( 0, Math.min( 1, dist / profundo ) );
+        const rampo = tn < 0.05 ? tn / 0.05 : 1;
+        const falloff = Math.exp( -25 * ( tn - 0.15 ) ** 2 ) * rampo;
+        const peak = montaAlto( t, semo ) * skalo * falloff;
+        // Aldoni malgrandan koloran variadon laŭ pozicio por natura aspekto
+        const kolVario = 0.03 * Math.sin( x * 1/8 + z * 7/32 + semo );
+        const y = alteco( x, z ) + peak;
+        pos.setY( i, y );
+        const [ r, g_, b ] = koloroPorY( y );
+        koloroj[ i * 3 ] = Math.max( 0, Math.min( 1, r + kolVario ) );
+        koloroj[ i * 3 + 1 ] = Math.max( 0, Math.min( 1, g_ + kolVario * 0.7 ) );
+        koloroj[ i * 3 + 2 ] = Math.max( 0, Math.min( 1, b + kolVario * 0.5 ) );
+      }
+      g.setAttribute( "color", new THREE.BufferAttribute( koloroj, 3 ) );
+      g.computeVertexNormals();
+      const mesh = new THREE.Mesh( g, materialo );
+      mesh.receiveShadow = true;
       mesh.frustumCulled = false;
-      sceno.add(mesh);
+      sceno.add( mesh );
     }
-    for (const zSign of [-1, 1]) {
-      const z = zSign < 0 ? -0o435 : 0o435;
-      const segmentoj = 0o40;
-      for (let i = 0; i < segmentoj; i++) {
-        const t1 = (i / segmentoj) * 0o1060 - 0o430;
-        const t2 = ((i + 1) / segmentoj) * 0o1060 - 0o430;
-        const pinto = 0o62 + Math.sin(t1 * 1/32 + 83/64) * 0o26 + Math.sin(t1 * 3/64 - 19/32) * 0o16;
-        const pinto2 = 0o62 + Math.sin(t2 * 1/32 + 83/64) * 0o26 + Math.sin(t2 * 3/64 - 19/32) * 0o16;
-        const bazoY1 = altaFunkcio(t1, z);
-        const bazoY2 = altaFunkcio(t2, z);
-        aldoniMuranSegmenton(t1, t2, z, pinto, pinto2, bazoY1, bazoY2, montaMaterialo);
-        // Back ridge — offset outward, shorter, darker
-        const d = 0o20;
-        const backZ = zSign > 0 ? z - d : z + d;
-        const backBazoY1 = altaFunkcio(t1, backZ);
-        const backBazoY2 = altaFunkcio(t2, backZ);
-        const skalo = 0o40 / 0o62;
-        const backPinto = pinto * skalo + 0o10 + Math.sin(t1 * 1/16 + 41/32) * 0o12;
-        const backPinto2 = pinto2 * skalo + 0o10 + Math.sin(t2 * 1/16 + 41/32) * 0o12;
-        aldoniMuranSegmenton(t1, t2, backZ, backPinto, backPinto2, backBazoY1, backBazoY2, montaMalhela);
-        // Sloped connection from front peak to back ridge
-        const verticoj = new Float32Array([
-          t1, bazoY1 + pinto, z, t1, backBazoY1 + backPinto, backZ, t2, backBazoY2 + backPinto2, backZ,
-          t1, bazoY1 + pinto, z, t2, backBazoY2 + backPinto2, backZ, t2, bazoY2 + pinto2, z,
-        ]);
-        const geometrio = new THREE.BufferGeometry();
-        geometrio.setAttribute("position", new THREE.BufferAttribute(verticoj, 3));
-        geometrio.computeVertexNormals();
-        const mesh = new THREE.Mesh(geometrio, montaMaterialo);
-        mesh.frustumCulled = false;
-        sceno.add(mesh);
-      }
+
+    const L = 0o1060;
+    const D = 0o140;
+
+    // Ĉefa tavolo — kvar flankoj
+    for ( const signo of [ -1, 1 ] ) {
+      krei3DStrio( true, signo, signo * 0o454, L, D, 0o40, 0o14, 83/64, 1, montaMaterialo );
+      krei3DStrio( false, signo, signo * 0o454, L, D, 0o40, 0o14, 67/32, 0o55 / 0o62, montaMaterialo );
     }
-    for (const xSign of [-1, 1]) {
-      const x = xSign < 0 ? -0o435 : 0o435;
-      const segmentoj = 0o40;
-      for (let i = 0; i < segmentoj; i++) {
-        const t1 = (i / segmentoj) * 0o1060 - 0o430;
-        const t2 = ((i + 1) / segmentoj) * 0o1060 - 0o430;
-        const pinto = 0o55 + Math.sin(t1 * 1/32 + 67/32) * 0o22 + Math.sin(t1 * 1/16 + 19/64) * 0o20;
-        const pinto2 = 0o55 + Math.sin(t2 * 1/32 + 67/32) * 0o22 + Math.sin(t2 * 1/16 + 19/64) * 0o20;
-        const bazoY1 = altaFunkcio(x, t1);
-        const bazoY2 = altaFunkcio(x, t2);
-        aldoniMuranSegmenton(x, x, t1, pinto, pinto2, bazoY1, bazoY2, montaMaterialo);
-        // Back ridge
-        const d = 0o20;
-        const backX = xSign > 0 ? x + d : x - d;
-        const backBazoY1 = altaFunkcio(backX, t1);
-        const backBazoY2 = altaFunkcio(backX, t2);
-        const skalo = 0o36 / 0o55;
-        const backPinto = pinto * skalo + 0o10 + Math.sin(t1 * 1/16 + 53/32) * 0o10;
-        const backPinto2 = pinto2 * skalo + 0o10 + Math.sin(t2 * 1/16 + 53/32) * 0o10;
-        aldoniMuranSegmenton(backX, backX, t1, backPinto, backPinto2, backBazoY1, backBazoY2, montaMalhela);
-        // Sloped connection
-        const verticoj = new Float32Array([
-          x, bazoY1 + pinto, t1, backX, backBazoY1 + backPinto, t1, backX, backBazoY2 + backPinto2, t2,
-          x, bazoY1 + pinto, t1, backX, backBazoY2 + backPinto2, t2, x, bazoY2 + pinto2, t2,
-        ]);
-        const geometrio = new THREE.BufferGeometry();
-        geometrio.setAttribute("position", new THREE.BufferAttribute(verticoj, 3));
-        geometrio.computeVertexNormals();
-        const mesh = new THREE.Mesh(geometrio, montaMaterialo);
-        mesh.frustumCulled = false;
-        sceno.add(mesh);
-      }
+
+    // Fona tavolo — pli malproksima, pli malalta, duonaj segmentoj
+    for ( const signo of [ -1, 1 ] ) {
+      krei3DStrio( true, signo, signo * 0o620, L * 0.8, D * 0.7, 0o20, 0o10, 83/64 + 0o40, 0.6, montaFona );
+      krei3DStrio( false, signo, signo * 0o620, L * 0.8, D * 0.7, 0o20, 0o10, 67/32 + 0o40, 0o36 / 0o62, montaFona );
     }
   })();
 
