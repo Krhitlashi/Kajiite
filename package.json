@@ -11,6 +11,7 @@
   },
   "_note": "tsc.exe spawn fails on ARM64 Windows due to Unicode path issues; use node tsc.js instead",
   "devDependencies": {
+    "@types/node": "^26.1.2",
     "@types/three": "^0.185.1",
     "three": "^0.185.1",
     "typescript": "^7.0.2",
