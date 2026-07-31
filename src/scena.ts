@@ -228,7 +228,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
         const [ r, g_, b ] = koloroPorY( y );
         koloroj[ i * 3 ] = Math.max( 0, Math.min( 1, r + kolVario ) );
         koloroj[ i * 3 + 1 ] = Math.max( 0, Math.min( 1, g_ + kolVario * 0.7 ) );
-        koloroj[ i * 3 + 2 ] = Math.max( 0, Math.min( 1, b + kolVario * 0.5 ) );
+        koloroj[ i * 3 + 2 ] = Math.max( 0, Math.min( 1, b + kolVario * 4/8 ) );
       }
       g.setAttribute( "color", new THREE.BufferAttribute( koloroj, 3 ) );
       g.computeVertexNormals();

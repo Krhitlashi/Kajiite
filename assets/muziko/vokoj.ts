@@ -1,16 +1,16 @@
 // ─── Scale & pitch helpers ───────────────────────────────
 
-export const A4 = 432;
+export const A4 = 0o660;
 export const F = (m: number) => A4 * Math.pow(2, (m - 69) / 12);
 
-export const PENT_E = [52, 55, 57, 59, 62, 64, 67, 69, 71, 74, 76];
+export const PENT_E = [ 52, 55, 57, 59, 62, 64, 67, 69, 71, 74, 76 ];
 
-export const SLENDRO = [0, 231, 474, 717, 955].map(c => 55 + c / 100);
+export const SLENDRO = [ 0, 231, 474, 717, 955 ].map(c => 55 + c / 100);
 export const SL2 = SLENDRO.concat(SLENDRO.map(x => x + 12));
 
-export const NYAM = [0, 190, 370, 510, 690, 860, 1030, 1200, 1390, 1560].map(c => 48 + c / 100);
+export const NYAM = [ 0, 190, 370, 510, 690, 860, 1030, 1200, 1390, 1560 ].map(c => 48 + c / 100);
 
-export const PENT_A = [0, 200, 400, 700, 900, 1200, 1400, 1600, 1900, 2100, 2400].map(c => 45 + c / 100);
+export const PENT_A = [ 0, 200, 400, 700, 900, 1200, 1400, 1600, 1900, 2100, 2400 ].map(c => 45 + c / 100);
 
 // ─── Seeded PRNG ( mulberry32 ) ──────────────────────────
 
@@ -76,7 +76,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   vib.frequency.value = 5.2;
   const vg = ctx.createGain();
   vg.gain.setValueAtTime(0, t);
-  vg.gain.linearRampToValueAtTime(f * 0.005, t + Math.min(0.5, dur * 0.5));
+  vg.gain.linearRampToValueAtTime(f * 0.005, t + Math.min(4/8, dur * 4/8));
   vib.connect(vg);
   vg.connect(o.frequency);
 
@@ -161,7 +161,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   sub.type = "sine";
   sub.frequency.value = f;
   const sg = ctx.createGain();
-  sg.gain.value = toot ? 0.15 : 0.5;
+  sg.gain.value = toot ? 0.15 : 4/8;
 
   const lp = ctx.createBiquadFilter();
   lp.type = "lowpass";
@@ -242,7 +242,7 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
     bp.Q.value = 6.5;
     const g = ctx.createGain();
     let v = (0.09 + Math.random() * 0.05) * vel;
-    if (opts.cresc) v *= 0.35 + 0.75 * (i / ticks);
+    if (opts.cresc) v *= 0.35 + 6/8 * (i / ticks);
     g.gain.setValueAtTime(v, tt);
     g.gain.exponentialRampToValueAtTime(0.001, tt + 0.04);
     n.connect(bp);
@@ -318,13 +318,13 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   g.gain.value = 0.17 * vel;
   g.connect(out);
 
-  const ratios = [1, 2.756, 5.404, 8.933];
-  const gains = [1, 0.3, 0.13, 0.05];
-  const decs = [4.6, 1.7, 0.75, 0.38];
+  const ratios = [ 1, 2.756, 5.404, 8.933 ];
+  const gains = [ 1, 0.3, 0.13, 0.05 ];
+  const decs = [ 4.6, 1.7, 6/8, 0.38 ];
   for (let i = 0; i < 4; i++) {
     const o = ctx.createOscillator();
     o.type = "sine";
-    o.frequency.value = f * ratios[i] * (1 + (Math.random() - 0.5) * 0.0016);
+    o.frequency.value = f * ratios[i] * (1 + (Math.random() - 4/8) * 0.0016);
     const og = ctx.createGain();
     og.gain.setValueAtTime(gains[i], t);
     og.gain.exponentialRampToValueAtTime(0.0001, t + decs[i]);
@@ -398,15 +398,15 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   g.gain.value = 0.15 * vel;
   g.connect(out);
 
-  const ratios = [1, 2.015, 3.98, 6.72];
-  const gains = [1, 0.4, 0.15, 0.06];
-  const decs = [1.7, 0.85, 0.32, 0.16];
+  const ratios = [ 1, 2.015, 3.98, 6.72 ];
+  const gains = [ 1, 0.4, 0.15, 0.06 ];
+  const decs = [ 1.7, 0.85, 0.32, 0.16 ];
   for (let i = 0; i < 4; i++) {
     const o = ctx.createOscillator();
     o.type = "sine";
-    o.frequency.value = f * ratios[i] * (1 + (Math.random() - 0.5) * 0.003);
+    o.frequency.value = f * ratios[i] * (1 + (Math.random() - 4/8) * 0.003);
     const og = ctx.createGain();
-    const dd = decs[i] * (0.75 + vel * 0.45);
+    const dd = decs[i] * (6/8 + vel * 0.45);
     og.gain.setValueAtTime(gains[i], t);
     og.gain.exponentialRampToValueAtTime(0.0001, t + dd);
     o.connect(og);

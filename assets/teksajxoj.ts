@@ -131,7 +131,7 @@ export function kreiFilikanTeksajxon(): THREE.CanvasTexture {
   kunteksto.lineWidth = 3;
   for ( let i = 0; i < 0o17; i++ ) {
     const y = 0o360 - i * 0o16, longo = 0o54 - i * 77/32;
-    for ( const s of [-1, 1] ) {
+    for ( const s of [ -1, 1 ] ) {
       kunteksto.strokeStyle = `rgba(${80 + i * 3},${110 + i * 4},${70 + i * 2},0.95)`;
       kunteksto.beginPath(); kunteksto.moveTo(0o100 + (s > 0 ? 2 : -2), y);
       kunteksto.quadraticCurveTo(0o100 + s * longo * 45/64, y - 6, 0o100 + s * longo, y - 0o20);
@@ -153,6 +153,82 @@ export function kreiMolanPunktanTeksajxon(): THREE.CanvasTexture {
   gradiento.addColorStop(1, "rgba(255,255,255,0)");
   kunteksto.fillStyle = gradiento; kunteksto.fillRect(0, 0, 0o400, 0o400);
   return new THREE.CanvasTexture(kanvasa);
+}
+
+// kreiPurpuranFilikanTeksajxon — Kreu purpurajn pinajn filikojn kiel en Four Groves.
+export function kreiPurpuranFilikanTeksajxon( densa: boolean = false ): THREE.CanvasTexture {
+  const kanvasa = document.createElement("canvas");
+  const s = 0o400;
+  kanvasa.width = kanvasa.height = s;
+  const kunteksto = kanvasa.getContext("2d")!;
+  const paletro = densa
+    ? { tigo: "#3a2050", a: "#a05ac0", b: "#c07ae0" }
+    : { tigo: "#4a2a5e", a: "#7a4ab0", b: "#9a6ad0" };
+
+  kunteksto.clearRect(0, 0, s, s);
+  kunteksto.strokeStyle = paletro.tigo;
+  kunteksto.lineWidth = densa ? 0o5 : 0o4;
+  kunteksto.lineCap = "round";
+  kunteksto.beginPath();
+  kunteksto.moveTo(s / 2, s - 4/8);
+  kunteksto.quadraticCurveTo(s / 2 + (densa ? 0o14 : 0), s * 4/8, s / 2 + (densa ? 0o24 : 0), 4/8);
+  kunteksto.stroke();
+
+  const nombro = densa ? 0o42 : 0o32;
+  const maksimumaLongo = densa ? 0o112 : 0o130;
+  for ( let i = 0; i < nombro; i++ ) {
+    const t = i / (nombro - 1);
+    const y = s - 8/8 - t * 0o340;
+    const x = s / 2 + (densa ? 0o24 : 0) * t * t;
+    const envolva = ( 22/64 + 42/64 * Math.min(0o1, t * 4/8) ) * Math.pow(1 - t, 54/64 );
+    const longo = maksimumaLongo * envolva + 0o6;
+    const largho = longo * 10/64 + 0o2;
+    const kurbo = 27/64 + t * 6/8;
+    const koloro = i % 2 ? paletro.a : paletro.b;
+
+    for ( const flanko of [ -1, 1 ] ) {
+      const angulo = flanko > 0 ? -kurbo : Math.PI + kurbo;
+      const finoX = x + Math.cos(angulo) * longo;
+      const finoY = y + Math.sin(angulo) * longo;
+      const cos = Math.cos(angulo), sin = Math.sin(angulo);
+      kunteksto.fillStyle = koloro;
+      kunteksto.beginPath();
+      kunteksto.moveTo(x, y);
+      kunteksto.quadraticCurveTo(x + cos * longo * 4/8 - sin * largho, y + sin * longo * 4/8 + cos * largho, finoX, finoY);
+      kunteksto.quadraticCurveTo(x + cos * longo * 4/8 + sin * largho, y + sin * longo * 4/8 - cos * largho, x, y);
+      kunteksto.fill();
+    }
+  }
+
+  const teksajxo = new THREE.CanvasTexture(kanvasa);
+  teksajxo.colorSpace = THREE.SRGBColorSpace;
+  return teksajxo;
+}
+
+// kreiHerbErinanTeksajxon — Kreu proceduralan herberan teksajxon por herbo.
+export function kreiHerbErinanTeksajxon(): THREE.CanvasTexture {
+  const s = 0o200;
+  const kanvasa = document.createElement( "canvas" );
+  kanvasa.width = s; kanvasa.height = s;
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  kunteksto.clearRect( 0, 0, s, s );
+  // Verda klingo kontraux travidebla fono
+  const gradiento = kunteksto.createRadialGradient( s / 2, s * 0.85, 0, s / 2, s * 0.85, s * 0.55 );
+  gradiento.addColorStop( 0, "rgba(100,140,70,0.95)" );
+  gradiento.addColorStop( 4/8, "rgba(130,170,90,0.75)" );
+  gradiento.addColorStop( 1, "rgba(160,200,110,0)" );
+  kunteksto.fillStyle = gradiento;
+  kunteksto.fillRect( 0, 0, s, s );
+  // Centra vejno
+  kunteksto.strokeStyle = "rgba(80,120,50,0.6)";
+  kunteksto.lineWidth = 2;
+  kunteksto.beginPath();
+  kunteksto.moveTo( s / 2, s * 0.92 );
+  kunteksto.quadraticCurveTo( s / 2, s * 0.4, s / 2, s * 0.08 );
+  kunteksto.stroke();
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
+  teksajxo.colorSpace = THREE.SRGBColorSpace;
+  return teksajxo;
 }
 
 // kreiAkvanReliefanTeksajxon — Kreu akvan reliefan teksturon por rivera ondado.

@@ -1,11 +1,13 @@
-// Urbo — city construction. buildings, roads, plazas, lamps, vegetation, fog, water, canoes
-// Modular grid system — roads and building positions derived from grid parameters.
+// Urbo — urba konstruo. konstruajxoj, vojoj, placoj, lampoj, vegetajxo, nebulo, akvo, kanuoj
+// Modula krada sistemo — vojoj kaj konstruajxaj pozicioj derivitaj de kradaj parametroj.
 import * as THREE from "three";
 import { generiSkriptanURL } from "../assets/skripto-rivelilo.js";
 import { konstruiZiguraton, TIPARO, KonstruSpec } from "../assets/zigurato-konstruilo.js";
 import { kreiNebulanTeksajxon } from "../assets/teksajxoj.js";
 import { konstruiRiveron, RiverData } from "../assets/akvo.js";
-import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiLikenSxtonojn } from "../assets/vegetajxo.js";
+import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
+  konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn, konstruiFungojn,
+  konstruiFalintajnTrunkojn, konstruiEquisetum } from "../assets/vegetajxo.js";
 import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, aldoniIntersekcajnRondigojn, VojDifino } from "../assets/vojoj.js";
 import { konstruiLampojn, LampSistemo } from "../assets/lampoj.js";
 import { kreiKanoton, Kanoto } from "../assets/transporto.js";
@@ -41,39 +43,39 @@ export function konstruiUrbon(
   oraMaterialo: THREE.MeshStandardMaterial
 ): UrbaSistemo {
   // ═══════════════════════════════════════════════════════════
-  //  Rectangular 7×5 city layout — perfectly symmetrical grid.
-  //  Every row has the same 7 columns, every cell has a building.
-  //  No null cells, no gaps — all blocks are uniform squares.
+  // 7×5 rektangula urba arangxo — perfekte simetria krado.
+  // Cxiu vico havas la samajn 7 kolumnojn, cxiu celo havas konstruajxon.
+  // Neniuj nulaj celoj, neniuj brecxoj — cxiuj blokoj estas unuformaj kvadratoj.
   //
-  //  G = generic (domo/turo), N = manĝejo, Y = stacio, W = sanktejo
+  //  G = generala (domo/turo), N = mangxejo, Y = stacio, W = sanktejo
   //
-  //       | G | G | G | G | G | G | G |   z=2 (top)
+  //       | G | G | G | G | G | G | G |   z=2 (supro)
   //       | G | G | N | N | N | G | G |   z=1
-  //       | G | Y | G | W | G | Y | G |   z=0 (center)
+  //       | G | Y | G | W | G | Y | G |   z=0 (centro)
   //       | G | G | N | N | N | G | G |   z=-1
-  //       | G | G | G | G | G | G | G |   z=-2 (bottom)
+  //       | G | G | G | G | G | G | G |   z=-2 (subo)
   // ═══════════════════════════════════════════════════════════
   type CellType = "domo" | "turo" | "manĝejo" | "stacio" | "sanktejo";
 
-  // Building placement. [col, row, type] where world = (col*PASXO, row*PASXO), W at (0,0).
+  // Konstruajxaj pozicioj. [col, row, type] kie mondo = (col*PASXO, row*PASXO), W je (0,0).
   // 7 cols × 5 rows = 31 buildings (4 corner edges removed). Mirrored across both axes.
   const LAYOUT: [number, number, CellType][] = [
     // Row 2 — top edge (corners removed)
-    [-2, 2, "domo"], [-1, 2, "turo"], [0, 2, "domo"], [1, 2, "turo"], [2, 2, "domo"],
+    [ -2, 2, "domo" ], [ -1, 2, "turo" ], [ 0, 2, "domo" ], [ 1, 2, "turo" ], [ 2, 2, "domo" ],
     // Row 1
-    [-3, 1, "domo"], [-2, 1, "turo"], [-1, 1, "manĝejo"], [0, 1, "manĝejo"], [1, 1, "manĝejo"], [2, 1, "turo"], [3, 1, "domo"],
+    [ -3, 1, "domo" ], [ -2, 1, "turo" ], [ -1, 1, "manĝejo" ], [ 0, 1, "manĝejo" ], [ 1, 1, "manĝejo" ], [ 2, 1, "turo" ], [ 3, 1, "domo" ],
     // Row 0 — center
-    [-3, 0, "domo"], [-2, 0, "stacio"], [-1, 0, "domo"], [0, 0, "sanktejo"], [1, 0, "domo"], [2, 0, "stacio"], [3, 0, "domo"],
+    [ -3, 0, "domo" ], [ -2, 0, "stacio" ], [ -1, 0, "domo" ], [ 0, 0, "sanktejo" ], [ 1, 0, "domo" ], [ 2, 0, "stacio" ], [ 3, 0, "domo" ],
     // Row -1
-    [-3, -1, "domo"], [-2, -1, "turo"], [-1, -1, "manĝejo"], [0, -1, "manĝejo"], [1, -1, "manĝejo"], [2, -1, "turo"], [3, -1, "domo"],
+    [ -3, -1, "domo" ], [ -2, -1, "turo" ], [ -1, -1, "manĝejo" ], [ 0, -1, "manĝejo" ], [ 1, -1, "manĝejo" ], [ 2, -1, "turo" ], [ 3, -1, "domo" ],
     // Row -2 — bottom edge (corners removed)
-    [-2, -2, "domo"], [-1, -2, "turo"], [0, -2, "domo"], [1, -2, "turo"], [2, -2, "domo"],
+    [ -2, -2, "domo" ], [ -1, -2, "turo" ], [ 0, -2, "domo" ], [ 1, -2, "turo" ], [ 2, -2, "domo" ],
   ];
 
   const kolizioj: { x: number; z: number; r: number }[] = [];
-  const PASXO = 24;
+  const PASXO = 0o30;
 
-  // Build the city from layout cells
+  // Konstruu la urbon el la kvadrataj celloj
   let bldgIdx = 0;
   const konstruSpecoj: KonstruSpec[] = [];
   for (const [col, row, type] of LAYOUT) {
@@ -89,7 +91,7 @@ export function konstruiUrbon(
     bldgIdx++;
   }
 
-  // Set terrain height and collision for each building (roads not needed yet)
+  // Fiksu teren-alton kaj kolizion por cxiu konstruajxo (vojoj ne bezonataj ankoraux)
   konstruSpecoj.forEach(s => {
     s.h0 = alteco(s.x, s.z);
     kolizioj.push({ x: s.x, z: s.z, r: Math.hypot(s.w, s.d) / 2 + 4/8 });
@@ -97,30 +99,22 @@ export function konstruiUrbon(
 
   const selektajxoj: THREE.Mesh[] = [];
 
-  // ═══════════════════════════════════════════════════════════
-  //  River
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Rivero 📃 ⟫
   const riverData = konstruiRiveron(sceno, riveroZ, akvoY, 84/8, -0o200, 0o200, 0o50);
 
-  // ═══════════════════════════════════════════════════════════
-  //  Docks — spur roads from dock positions down to the river
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Dokoj — spronvojoj de dokaj pozicioj malsupren al la rivero 📃 ⟫
   const DOKO_KOORDINATOJ: [number, number][] = [
-    [-0o52, -0o144], [0, -0o142], [0o52, -0o140],
+    [ -0o52, -0o144 ], [ 0, -0o142 ], [ 0o52, -0o140 ],
   ];
   for (const [dx, dz] of DOKO_KOORDINATOJ) {
     const y = alteco(dx, dz);
     konstruiSpronon(dx, dz, dx, dz - 5, () => y, dioritaMaterialo, andezitaMaterialo, sceno);
   }
 
-  // ═══════════════════════════════════════════════════════════
-  //  Road network — individual square segments between intersections
-  //  Each road segment is 28 long × roadWidth wide, forming a regular
-  //  grid where every block is a 28×28 square.
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Voja reto 📃 ⟫
   const vojDifinoj: VojDifino[] = [];
 
-  // Collect all distinct columns and rows with non-null cells
+  // Kolektu cxiujn apartajn kolumnojn kaj vicojn kun ne-nulaj celloj
   const colSet = new Set<number>(), rowSet = new Set<number>();
   for (const [c, r, t] of LAYOUT) {
     if (t !== null) { colSet.add(c); rowSet.add(r); }
@@ -128,7 +122,7 @@ export function konstruiUrbon(
   const KOLOJ = [...colSet].sort((a, b) => a - b);
   const VICOJ = [...rowSet].sort((a, b) => a - b);
 
-  // NS road positions (between adjacent columns)
+  // NS-vojoj pozicioj (inter apudaj kolumnoj)
   const RETO_X: number[] = [];
   for (let ci = 0; ci < KOLOJ.length - 1; ci++) {
     if (KOLOJ[ci + 1] - KOLOJ[ci] === 1) {
@@ -136,7 +130,7 @@ export function konstruiUrbon(
     }
   }
 
-  // EW road positions (between adjacent rows)
+  // EW-vojoj pozicioj (inter apudaj vicoj)
   const RETO_Z: number[] = [];
   for (let ri = 0; ri < VICOJ.length - 1; ri++) {
     if (VICOJ[ri + 1] - VICOJ[ri] === 1) {
@@ -144,8 +138,8 @@ export function konstruiUrbon(
     }
   }
 
-  // Building rotation. face toward center along the dominant axis
-  // (roads always lie between adjacent rows/columns, so facing center = facing nearest road)
+  // Konstruajxa rotacio. frontu al centro laux la domina akso
+  // (vojoj cxiam kuŝas inter apudaj vicoj/kolumnoj, do fronti al centro = fronti al plej proksima vojo)
   konstruSpecoj.forEach(s => {
     if (s.x !== 0 || s.z !== 0) {
       if (Math.abs(s.x) > Math.abs(s.z)) {
@@ -159,19 +153,19 @@ export function konstruiUrbon(
   const konstruGrupoj: THREE.Group[] = [];
   konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiZiguraton(s, sceno, selektajxoj)));
 
-  // Build a set of cells for quick lookup
+  // Konstruu aron da celloj por rapida sercxo
   const hasCellAt = (c: number, r: number) =>
     LAYOUT.some(([lc, lr, lt]) => lc === c && lr === r && lt !== null);
 
-  // For each EW road (between adjacent rows), create segments between NS roads
+  // Por cxiu EW-vojo (inter apudaj vicoj), kreu segmentojn inter NS-vojoj
   for (const roadZ of RETO_Z) {
-    const r1 = Math.round(roadZ / PASXO - 0.5);
-    const r2 = Math.round(roadZ / PASXO + 0.5);
-    // Find which NS roads intersect this EW road
+    const r1 = Math.round(roadZ / PASXO - 4/8);
+    const r2 = Math.round(roadZ / PASXO + 4/8);
+    // Trovu kiuj NS-vojoj intersekcas cxi tiun EW-vojon
     const intersecting: number[] = [];
     for (const rx of RETO_X) {
-      const c1 = Math.round(rx / PASXO - 0.5);
-      const c2 = Math.round(rx / PASXO + 0.5);
+      const c1 = Math.round(rx / PASXO - 4/8);
+      const c2 = Math.round(rx / PASXO + 4/8);
       if (hasCellAt(c1, r1) || hasCellAt(c1, r2) ||
           hasCellAt(c2, r1) || hasCellAt(c2, r2)) {
         intersecting.push(rx);
@@ -179,7 +173,7 @@ export function konstruiUrbon(
     }
     if (intersecting.length < 2) continue;
 
-    // Build segments ONLY between intersecting NS roads — no edge stubs
+    // Konstruu segmentojn NUR inter intersekcaj NS-vojoj — neniuj randaj stumpoj
     const pts = [...intersecting].sort((a, b) => a - b);
     const w = 14/8;  // uniform 1.75 half-width
     for (let i = 0; i < pts.length - 1; i++) {
@@ -190,15 +184,15 @@ export function konstruiUrbon(
     }
   }
 
-  // For each NS road (between adjacent columns), create segments between EW roads
+  // Por cxiu NS-vojo (inter apudaj kolumnoj), kreu segmentojn inter EW-vojoj
   for (const roadX of RETO_X) {
-    const c1 = Math.round(roadX / PASXO - 0.5);
-    const c2 = Math.round(roadX / PASXO + 0.5);
-    // Find which EW roads intersect this NS road
+      const c1 = Math.round(roadX / PASXO - 4/8);
+      const c2 = Math.round(roadX / PASXO + 4/8);
+    // Trovu kiuj EW-vojoj intersekcas cxi tiun NS-vojon
     const intersecting: number[] = [];
     for (const rz of RETO_Z) {
-      const r1 = Math.round(rz / PASXO - 0.5);
-      const r2 = Math.round(rz / PASXO + 0.5);
+      const r1 = Math.round(rz / PASXO - 4/8);
+      const r2 = Math.round(rz / PASXO + 4/8);
       if (hasCellAt(c1, r1) || hasCellAt(c1, r2) ||
           hasCellAt(c2, r1) || hasCellAt(c2, r2)) {
         intersecting.push(rz);
@@ -206,7 +200,7 @@ export function konstruiUrbon(
     }
     if (intersecting.length < 2) continue;
 
-    // Build segments ONLY between intersecting EW roads — no edge stubs
+    // Konstruu segmentojn NUR inter intersekcaj EW-vojoj — neniuj randaj stumpoj
     const pts = [...intersecting].sort((a, b) => a - b);
     const w = 14/8;  // uniform 1.75 half-width
     for (let i = 0; i < pts.length - 1; i++) {
@@ -217,17 +211,15 @@ export function konstruiUrbon(
     }
   }
 
-  // River road — follows the meandering river course below the city
-  vojDifinoj.push({ pts: [[-0o124, -0o144], [-0o70, -0o150], [-0o34, -0o150], [0, -0o142], [0o34, -0o142], [0o70, -0o136], [0o124, -0o136]], w: 28/8 });
+  // Rivervojo — sekvas la meandran riveran kurson sub la urbo
+  vojDifinoj.push({ pts: [ [ -0o124, -0o144 ], [ -0o70, -0o150 ], [ -0o34, -0o150 ], [ 0, -0o142 ], [ 0o34, -0o142 ], [ 0o70, -0o136 ], [ 0o124, -0o136 ] ], w: 28/8 });
 
-  // Road half-width function — uniform width for clean square blocks
+  // Voja duon-largxa funkcio — unuforma largxo por puraj kvadrataj blokoj
   function vojDuonLargho(_g: number): number {
     return 14/8;  // uniform 1.75 half-width (total 3.5) for all roads
   }
 
-  // ═══════════════════════════════════════════════════════════
-  //  Spur roads — each building's door connects to the nearest road edge
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Spronvojoj 📃 ⟫
   for (const s of konstruSpecoj) {
     if (s.x === 0 && s.z === 0) continue;
     const rot = s.rot || 0;
@@ -267,9 +259,7 @@ export function konstruiUrbon(
 
   const vojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo);
 
-  // ═══════════════════════════════════════════════════════════
-  //  Plazas — at intersection points between EW and NS roads
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Placoj 📃 ⟫
   const placajNodoj: [number, number][] = [];
   for (const pX of RETO_X) {
     for (const pZ of RETO_Z) {
@@ -284,9 +274,7 @@ export function konstruiUrbon(
   }
   konstruiPlacojn(sceno, placajNodoj, alteco, dioritaMaterialo, andezitaMaterialo);
 
-  // ═══════════════════════════════════════════════════════════
-  //  Corner fillets (rounded intersections)
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Randaj rondigoj 📃 ⟫
   const cxiujNodojSet = new Set<string>();
   const cxiujNodoj: [number, number][] = [];
   const aldoniNodon = (x: number, z: number) => {
@@ -295,7 +283,7 @@ export function konstruiUrbon(
   };
   for (const n of placajNodoj) aldoniNodon(n[0], n[1]);
   for (const def of vojDifinoj) {
-    for (const idx of [0, def.pts.length - 1]) {
+    for (const idx of [ 0, def.pts.length - 1 ]) {
       const [px, pz] = def.pts[idx];
       if (Math.abs(pz - riveroZ(px)) < 0o17) continue;
       aldoniNodon(px, pz);
@@ -303,9 +291,7 @@ export function konstruiUrbon(
   }
   aldoniIntersekcajnRondigojn(sceno, cxiujNodoj, alteco, vojDuonLargho, dioritaMaterialo, andezitaMaterialo);
 
-  // ═══════════════════════════════════════════════════════════
-  //  Lamps — at grid intersections and plaza edges
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Lampoj 📃 ⟫
   const lampLokoj: { x: number; z: number; y: number }[] = [];
   const addLamp = (x: number, z: number) => {
     for (const s of konstruSpecoj) {
@@ -314,14 +300,14 @@ export function konstruiUrbon(
       if (Math.hypot(x - pordoX, z - pordoZ) < 4) return;
       if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 12/8) return;
     }
-    // Avoid placing lamps on top of existing lamps (within 2 units)
+    // Evitu meti lampojn sur ekzistantajn lampojn (ene de 2 unuoj)
     for (const ekz of lampLokoj) {
       if (Math.hypot(x - ekz.x, z - ekz.z) < 2) return;
     }
     lampLokoj.push({ x, z, y: alteco(x, z) });
   };
   for (const [aX, aZ] of placajNodoj) {
-    for (const [ox, oz] of [[-17/8, -17/8], [17/8, -17/8], [-17/8, 17/8], [17/8, 17/8]]) addLamp(aX + ox, aZ + oz);
+    for (const [ox, oz] of [ [ -17/8, -17/8 ], [ 17/8, -17/8 ], [ -17/8, 17/8 ], [ 17/8, 17/8 ] ]) addLamp(aX + ox, aZ + oz);
   }
   for (const gx of RETO_X) {
     for (const gz of RETO_Z) {
@@ -332,9 +318,7 @@ export function konstruiUrbon(
   }
   const lampSistemo = konstruiLampojn(sceno, lampLokoj, dioritaMaterialo, oraMaterialo);
 
-  // ═══════════════════════════════════════════════════════════
-  //  Vegetation
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Vegetajxo 📃 ⟫
   const ekskluziviRiveron = (x: number, z: number) => Math.abs(z - riveroZ(x)) < 7;
   const ekskluziviVojojn = (x: number, z: number, m: number) => {
     for (const p of vojSpecimenoj) if (Math.hypot(x - p.x, z - p.z) < m) return true;
@@ -344,22 +328,52 @@ export function konstruiUrbon(
     for (const s of konstruSpecoj) if (Math.hypot(x - s.x, z - s.z) < s.w * 19/32 + m) return true;
     return false;
   };
-  const arboj = metiArbojn(alteco, 0o230, 0o200, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon);
-  konstruiArbaron(sceno, arboj);
-  konstruiFilikojn(sceno, 0o250, alteco, arboj, vojSpecimenoj, ekskluziviRiveron);
-  konstruiLikenSxtonojn(sceno, 0o60, alteco, ekskluziviRiveron);
+  // Betuloj ( arbara periferio ) — pli densa ol antauxe
+  const arboj = metiArbojn( alteco, 0o400, 0o200, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53104 );
+  konstruiArbaron( sceno, arboj );
 
-  // ═══════════════════════════════════════════════════════════
-  //  Fog sprites
-  // ═══════════════════════════════════════════════════════════
+  // Larikoj — miksitaj kun betuloj por pli diversa arbaro
+  // Aparta semo kaj granda inter-arba liberspaco malebligas kronan interkovron.
+  const larikoj = metiArbojn( alteco, 0o200, 0o200, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53114, arboj, 0o30 );
+  konstruiLarikon( sceno, larikoj );
+
+  // Filikoj — pli da kvanto, apud arboj kaj vojoj
+  konstruiFilikojn( sceno, 0o400, alteco, arboj, vojSpecimenoj, ekskluziviRiveron );
+
+  // Purpuraj plantoj — ringo de koloro ĉe la urba rando, kie la vojoj dissolvigas en arbaron
+  konstruiPurpurajnPlantojn( sceno, 0o200, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon );
+
+  // Purpuraj filikoj — pli altaj violetaj frondoj kiel en Four Groves
+  konstruiPurpurajnFilikojn( sceno, 0o200, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon );
+  konstruiAltajnPurpurajnFilikojn( sceno, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon );
+
+  // Liken-sxtonoj — en la arbaro
+  konstruiLikenSxtonojn( sceno, 0o60, alteco, ekskluziviRiveron );
+
+  // Herbo — densa herbtapiso en la arbaro kaj randoj
+  konstruiHerbon( sceno, 0o600, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon );
+
+  // Musko montetoj — apud arboj tra la arbaro
+  konstruiMusxajnMontetojn( sceno, 0o200, alteco, arboj, ekskluziviRiveron );
+
+  // Fungoj ( amanitoj ) — en ombraj lokoj sub arboj
+  konstruiFungojn( sceno, 0o100, alteco, arboj, ekskluziviRiveron );
+
+  // Falintaj trunkoj — en la densa arbaro
+  konstruiFalintajnTrunkojn( sceno, 0o40, alteco, arboj, ekskluziviRiveron );
+
+  // Equisetum ( kavalerbo ) — laux la riverbordoj
+  konstruiEquisetum( sceno, 0o120, alteco, riveroZ, ekskluziviKonstruajxon );
+
+  // ⟪ Nebulaj sprajtoj 📃 ⟫
   const nebulaTeksajxo = kreiNebulanTeksajxon();
   const nebuloj: THREE.Sprite[] = [];
   for (const [x, z, y, skalo, op] of [
-    [-0o106, -0o106, 20/8, 0o50, 5/32], [-0o36, -0o110, 141/64, 0o54, 3/16],
-    [0o24, -0o106, 179/64, 0o50, 5/32], [0o74, -0o104, 77/32, 0o44, 5/32],
-    [-0o62, -0o55, 115/64, 0o36, 9/64], [-0o113, 0o36, 51/32, 0o32, 3/32],
-    [0o106, -0o50, 115/64, 0o34, 3/32], [-0o74, 0o106, 12/8, 0o30, 3/32],
-    [0o101, 0o106, 109/64, 0o32, 5/64], [-0o132, 0o12, 45/32, 0o26, 1/8],
+    [ -0o106, -0o106, 20/8, 0o50, 5/32 ], [ -0o36, -0o110, 141/64, 0o54, 3/16 ],
+    [ 0o24, -0o106, 179/64, 0o50, 5/32 ], [ 0o74, -0o104, 77/32, 0o44, 5/32 ],
+    [ -0o62, -0o55, 115/64, 0o36, 9/64 ], [ -0o113, 0o36, 51/32, 0o32, 3/32 ],
+    [ 0o106, -0o50, 115/64, 0o34, 3/32 ], [ -0o74, 0o106, 12/8, 0o30, 3/32 ],
+    [ 0o101, 0o106, 109/64, 0o32, 5/64 ], [ -0o132, 0o12, 45/32, 0o26, 1/8 ],
   ]) {
     const materialo = new THREE.SpriteMaterial({ map: nebulaTeksajxo, transparent: true, opacity: op, depthWrite: false });
     const sp = new THREE.Sprite(materialo);
@@ -384,17 +398,13 @@ export function konstruiUrbon(
     sceno.add(sp); nebuloj.push(sp);
   }
 
-  // ═══════════════════════════════════════════════════════════
-  //  Canoes — shifted south for new river position
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Kanuoj 📃 ⟫
   const kanuoj: Kanoto[] = [];
   kanuoj.push(kreiKanoton(sceno, 0o52, -0o151, -Math.PI * 2/8, oraMaterialo, akvoY(0o52)));
   kanuoj.push(kreiKanoton(sceno, -0o52, -0o167, Math.PI * 2/8, oraMaterialo, akvoY(-0o52)));
   kanuoj.push(kreiKanoton(sceno, 0, -0o160, -Math.PI * 4/8, oraMaterialo, akvoY(0)));
 
-  // ═══════════════════════════════════════════════════════════
-  //  NPC setup — positioned along the diamond city's road network
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ NPC-agordo 📃 ⟫
   const VESTA_LISTO: Vesto[] = [
     { name: "vestoVerdant", main: 0x184838, accent: 0xd8b068, interno: 0x103828 },
     { name: "vestoHearth", main: 0x584830, accent: 0xd8c8a0, interno: 0x302818 },
@@ -402,7 +412,7 @@ export function konstruiUrbon(
     { name: "vestoEmber", main: 0x783828, accent: 0xe0a858, interno: 0x402018 },
   ];
 
-  // Generate NPC positions along road edges throughout the diamond layout
+  // Generu NPC-ojn poziciojn laux vojrandoj tra la diamanta arangxo
   const NPCLOKOJ: [number, number][] = [];
   const NPCLOKOJ_SET = new Set<string>();
   const addNPCLoc = (x: number, z: number) => {
@@ -410,7 +420,7 @@ export function konstruiUrbon(
     const k = `${rx},${rz}`;
     if (!NPCLOKOJ_SET.has(k)) { NPCLOKOJ_SET.add(k); NPCLOKOJ.push([x, z]); }
   };
-  // NPCs along EW road edges — one offset north and south of each EW road
+  // NPC-oj laux EW-vojrandoj — unu offset norde kaj sude de cxiu EW-vojo
   for (const rz of RETO_Z) {
     for (const rx of RETO_X) {
       const ox = 4;
@@ -420,7 +430,7 @@ export function konstruiUrbon(
       addNPCLoc(rx - ox, rz + 4);
     }
   }
-  // Extra NPCs along the outer road edges
+  // Ekstraj NPC-oj laux la eksteraj vojrandoj
   for (const rx of RETO_X) {
     addNPCLoc(rx + 4, -0o70 - 4);
     addNPCLoc(rx - 4, -0o70 - 4);
@@ -441,9 +451,7 @@ export function konstruiUrbon(
     npcoj.push(fig);
   }
 
-  // ═══════════════════════════════════════════════════════════
-  //  Interior system
-  // ═══════════════════════════════════════════════════════════
+  // ⟪ Interna sistemo 📃 ⟫
   const internaSistemo: InternaSistemo = kreiInternanSistemon();
 
   return {

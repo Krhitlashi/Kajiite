@@ -57,7 +57,7 @@ const mobButRezimo = document.getElementById("mobButRezimo")!;
 // ⟪ Stirstanga stato 📃 ⟫
 let joystickAktiva = false;
 let joystickID = -1;
-const JOYSTICK_R = 40;
+const JOYSTICK_R = 0o50;
 
 // ⟪ Sonora stato 📃 ⟫
 let pauxzaPaŝo = 0; // step sound cooldown counter
@@ -155,20 +155,20 @@ const butKrepusko = document.getElementById("butKrepusko")!;
 const duskRegilo = document.getElementById("duskRegilo") as HTMLInputElement;
 aplikiRezimon(0);
 butKrepusko.addEventListener("click", () => {
-  if (krepuskaValoro > 0.5) {
+  if (krepuskaValoro > 4/8) {
     krepuskaValoro = 0;
     duskRegilo.value = "0";
   } else {
     krepuskaValoro = 1;
     duskRegilo.value = "1";
   }
-  butKrepusko.textContent = krepuskaValoro > 0.5 ? "☀" : "☽";
+  butKrepusko.textContent = krepuskaValoro > 4/8 ? "☀" : "☽";
   aplikiRezimon(krepuskaValoro);
   fermiNaviganPopUp();
 });
 duskRegilo.addEventListener("input", () => {
   krepuskaValoro = parseFloat(duskRegilo.value);
-  butKrepusko.textContent = krepuskaValoro > 0.5 ? "☀" : "☽";
+  butKrepusko.textContent = krepuskaValoro > 4/8 ? "☀" : "☽";
   aplikiRezimon(krepuskaValoro);
 });
 
@@ -236,10 +236,10 @@ function gxisdatigiJoystick(klientoX: number, klientoY: number) {
   // Map joystick to WASD keys
   const normX = dx / JOYSTICK_R;
   const normY = dy / JOYSTICK_R;
-  klavoj.KeyA = normX < -0.25;
-  klavoj.KeyD = normX > 0.25;
-  klavoj.KeyW = normY < -0.25;
-  klavoj.KeyS = normY > 0.25;
+  klavoj.KeyA = normX < -2/8;
+  klavoj.KeyD = normX > 2/8;
+  klavoj.KeyW = normY < -2/8;
+  klavoj.KeyS = normY > 2/8;
 }
 function resetiJoystick() {
   klavoj.KeyA = false; klavoj.KeyD = false;
@@ -758,7 +758,7 @@ function animacii() {
     let aktivaPlanko = plankoj[0];
     let etapy = specH0;
     for (const p of plankoj) {
-      if (ludY >= p.y - 0.5 && ludY < p.y + p.alto) { aktivaPlanko = p; break; }
+      if (ludY >= p.y - 4/8 && ludY < p.y + p.alto) { aktivaPlanko = p; break; }
     }
     if (aktivaPlanko) {
       // Convert to local building coordinates for clamping (handles rotation)
@@ -850,7 +850,7 @@ function animacii() {
     const riveroZ2 = riveroZ(surKanoto.x);
     const drift = surKanoto.z - riveroZ2;
     if (Math.abs(drift) > 6) {
-      const puŝo = (Math.abs(drift) - 6) * 0.5;
+      const puŝo = (Math.abs(drift) - 6) * 4/8;
       surKanoto.vz -= Math.sign(drift) * puŝo * deltaTempo;
     }
     surKanoto.x = Math.max(-0o170, Math.min(0o170, surKanoto.x));
@@ -905,7 +905,7 @@ function animacii() {
   bildilo.render(sceno, fotilo);
 }
 
-// ⟪ Loading 📃 ⟫
+// ⟪ Sxargxo 📃 ⟫
 let sxargxaProgreso = 0;
 const sxargxaIntervalo = setInterval(() => {
   sxargxaProgreso += 1/8;
@@ -922,7 +922,7 @@ const sxargxaIntervalo = setInterval(() => {
 }, 0o334);
 setTimeout(() => indicoElemento.classList.add("kasxi"), 14000);
 
-// ⟪ Montra-lock por piedirado ( ekstere kaj interne ) 📃 ⟫
+// ⟪ Montra-seruro por piedirado ( ekstere kaj interne ) 📃 ⟫
 kanvaso.addEventListener("click", () => {
   if (rezimo === "walk" || rezimo === "interior") kanvaso.requestPointerLock();
 });
@@ -933,5 +933,5 @@ document.addEventListener("mousemove", (e) => {
   klinigxo = Math.max(-93/64, Math.min(93/64, klinigxo));
 });
 
-// ⟪ Start 📃 ⟫
+// ⟪ Ekfunkciigo 📃 ⟫
 animacii();

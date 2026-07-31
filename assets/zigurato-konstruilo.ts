@@ -47,15 +47,15 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   for ( let i = 0; i < tiers; i++ ) {
     const hw = w / 2 - i * malpliiX, hd = d / 2 - i * malpliiZ, y = i * tieroAlto;
     const box = new THREE.BoxGeometry(hw * 2, tieroAlto, hd * 2); box.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(box);
-    for (const sX of [-1, 1]) for (const sZ of [-1, 1]) kadrajGeometrioj.push(kadraTubo(sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true));
-    for ( const sZ of [-1, 1] ) { const stango = new THREE.BoxGeometry(hw * 2 + 9/64, 5/32, 13/64); stango.translate(0, y + tieroAlto - 3/32, sZ * hd); kadrajGeometrioj.push(stango); }
-    for ( const sX of [-1, 1] ) { const bar2 = new THREE.BoxGeometry(13/64, 5/32, hd * 2 + 9/64); bar2.translate(sX * hw, y + tieroAlto - 3/32, 0); kadrajGeometrioj.push(bar2); }
+    for (const sX of [ -1, 1 ]) for (const sZ of [ -1, 1 ]) kadrajGeometrioj.push(kadraTubo(sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true));
+    for ( const sZ of [ -1, 1 ] ) { const stango = new THREE.BoxGeometry(hw * 2 + 9/64, 5/32, 13/64); stango.translate(0, y + tieroAlto - 3/32, sZ * hd); kadrajGeometrioj.push(stango); }
+    for ( const sX of [ -1, 1 ] ) { const bar2 = new THREE.BoxGeometry(13/64, 5/32, hd * 2 + 9/64); bar2.translate(sX * hw, y + tieroAlto - 3/32, 0); kadrajGeometrioj.push(bar2); }
   }
   for ( let j = 1; j <= sube; j++ ) {
     const hw = Math.max(supraLargho * 27/64, w / 2 - j * malpliiX), hd = Math.max(supraProfundo * 27/64, d / 2 - j * malpliiZ);
     const yTop = -(j - 1) * tieroAltoSub, yBot = -j * tieroAltoSub;
     const box = new THREE.BoxGeometry(hw * 2, tieroAltoSub, hd * 2); box.translate(0, (yTop + yBot) / 2, 0); murajGeometrioj.push(box);
-    for (const sX of [-1, 1]) for (const sZ of [-1, 1]) kadrajGeometrioj.push(kadraTubo(sX * hw, sZ * hd, yBot, yTop, sX, sZ, false));
+    for (const sX of [ -1, 1 ]) for (const sZ of [ -1, 1 ]) kadrajGeometrioj.push(kadraTubo(sX * hw, sZ * hd, yBot, yTop, sX, sZ, false));
   }
 
   const group = new THREE.Group();
@@ -103,7 +103,7 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
       const tm = new THREE.Mesh(top, beigeMat);
       tm.position.set(tx, 6/32, tz); tm.castShadow = true; group.add(tm);
       // Rondaj seĝoj
-      for ( const [ox, oz] of [[45/32, 0], [-45/32, 0], [0, 45/32], [0, -45/32]] ) {
+      for ( const [ox, oz] of [ [ 45/32, 0 ], [ -45/32, 0 ], [ 0, 45/32 ], [ 0, -45/32 ] ] ) {
         const st = new THREE.Mesh(new THREE.CylinderGeometry(21/64, 27/64, 4/8, 0o12), brownMat);
         st.position.set(tx + ox, 15/64, tz + oz); st.castShadow = true; group.add(st);
       }
@@ -112,10 +112,10 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   // Flankaj pordoj forigitaj laux peto de uzanto
   // Stacia platformo forigita laux peto de uzanto
   if ( sube > 0 ) {
-    for ( const sZ of [-1, 1] ) {
+    for ( const sZ of [ -1, 1 ] ) {
       const b1 = new THREE.BoxGeometry(w + 77/64, 19/64, 4/8); b1.translate(0, 3/32, sZ * (d / 2 + 13/64)); group.add(new THREE.Mesh(b1, kadraMaterialo));
     }
-    for ( const sX of [-1, 1] ) {
+    for ( const sX of [ -1, 1 ] ) {
       const b2 = new THREE.BoxGeometry(4/8, 19/64, d + 77/64); b2.translate(sX * (w / 2 + 13/64), 3/32, 0); group.add(new THREE.Mesh(b2, kadraMaterialo));
     }
   }
@@ -200,7 +200,7 @@ export function kreiManĝaĵojn(g: THREE.Group, cx: number, cz: number): Manĝa�
 }
 export function aldoniVaporon(g: THREE.Group, local: THREE.Vector3): { cloud: THREE.Points; basePos: THREE.Vector3 } {
   const n = 20, pos = new Float32Array(n * 3);
-  for (let i = 0; i < n; i++) pos.set([(Math.random() - 0.5) * 0.5, Math.random() * 1.2, (Math.random() - 0.5) * 0.5], i * 3);
+  for (let i = 0; i < n; i++) pos.set([(Math.random() - 4/8) * 4/8, Math.random() * 1.2, (Math.random() - 4/8) * 4/8], i * 3);
   const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
   const pts = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xe8efe9, size: 0.09, transparent: true, opacity: 22 / 64, depthWrite: false }));
   pts.position.copy(local);

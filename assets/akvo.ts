@@ -67,7 +67,7 @@ export function konstruiRiveron( sceno: THREE.Scene,
   });
 
   // Kreu du foamajn bendojn - unu por cxiu bordo
-  for ( const side of [-1, 1] ) {
+  for ( const side of [ -1, 1 ] ) {
     const foamPts = pts.map(p => {
       const pn = pts[Math.min(pts.indexOf(p) + 1, pts.length - 1)];
       const pp = pts[Math.max(pts.indexOf(p) - 1, 0)];
@@ -113,7 +113,7 @@ export function konstruiRubandon( points: THREE.Vector3[],
       p.x - side.x * duonaLargho, y, p.z - side.z * duonaLargho,
       p.x + side.x * duonaLargho, y, p.z + side.z * duonaLargho,
     ], i * 6);
-    uvArr.set([0, i / (N - 1), 1, i / (N - 1)], i * 4);
+    uvArr.set([ 0, i / (N - 1), 1, i / (N - 1) ], i * 4);
 
     if ( i < N - 1 ) {
       const a = i * 2;

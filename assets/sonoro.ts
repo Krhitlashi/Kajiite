@@ -1,5 +1,5 @@
-// Sonoro — ambient audio engine for Aranis (ported from ornaveth-v2)
-// Brown-noise drone with lowpass LFO, harmonic sine layers, SFX, and generative music.
+// Sonoro — media sona motoro por Aranis (alportita de ornaveth-v2)
+// Bruna-noza zumado kun malaltpasa LFO, harmoniaj sinusaj tavoloj, SFX, kaj genera muziko.
 
 import { iniciati, ludi, halti } from "./muziko/ludilo.js";
 
@@ -38,7 +38,7 @@ function ensureAudio() {
   lp.type = "lowpass";
   lp.frequency.value = 420;
   const g = AC.createGain();
-  g.gain.value = 0.5;
+  g.gain.value = 4/8;
   src.connect(lp);
   lp.connect(g);
   g.connect(master);
@@ -52,7 +52,7 @@ function ensureAudio() {
   lfo.start();
 
   // Harmonic drones. A2 (110), E3 (164.81), A3 (220) with slight detune
-  [110, 164.81, 220].forEach((f, i) => {
+  [ 110, 164.81, 220 ].forEach((f, i) => {
     const o = AC!.createOscillator();
     o.type = "sine";
     o.frequency.value = f;
@@ -113,7 +113,7 @@ export const sfx = {
     tone(180, 0.18, "sine", 0.06, -80);
   },
   bell: () => {
-    [1, 2.76, 5.4].forEach((p, i) => tone(196 * p, 2.6 - i * 0.6, "sine", 0.16 / (i + 1)));
+    [ 1, 2.76, 5.4 ].forEach((p, i) => tone(196 * p, 2.6 - i * 0.6, "sine", 0.16 / (i + 1)));
   },
   crunch: () => {
     for (let i = 0; i < 3; i++)
@@ -125,7 +125,7 @@ export const sfx = {
   },
   chime: () => {
     tone(880, 0.4, "sine", 0.12);
-    tone(1320, 0.5, "sine", 0.07);
+    tone(1320, 4/8, "sine", 0.07);
   },
   door: () => {
     tone(140, 0.3, "sine", 0.12, -40);
@@ -167,7 +167,7 @@ export function rumble(on: boolean) {
     f.frequency.value = 90;
     const g = AC.createGain();
     g.gain.value = 0;
-    g.gain.setTargetAtTime(0.5, AC.currentTime, 0.8);
+    g.gain.setTargetAtTime(4/8, AC.currentTime, 0.8);
 
     o.connect(g);
     n.connect(f);

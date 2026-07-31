@@ -52,7 +52,7 @@ export function kreiKanoton( sceno: THREE.Scene,
 
   // traboj
   const lignaMaterialo = new THREE.MeshStandardMaterial({ color: 0x483828, roughness: 27/32 });
-  for ( const tx of [-6/8, 6/8] ) {
+  for ( const tx of [ -6/8, 6/8 ] ) {
     const trabo = new THREE.Mesh(new THREE.BoxGeometry(9/64, 1/16, 7/8), lignaMaterialo);
     trabo.position.set(tx, 9/16, 0);
     trabo.castShadow = true;

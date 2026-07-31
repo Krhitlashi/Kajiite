@@ -66,7 +66,7 @@ export function konstruiCielDiamanton( sceno: THREE.Scene,
     const hw = hw0 - i * ins;
     const yT = i * tieroAlto;
     murajGeometrioj.push(new THREE.BoxGeometry(hw * 2, tieroAlto, hw * 2).translate(0, yT + tieroAlto / 2, 0));
-    for (const a of [-1, 1]) for ( const b of [-1, 1] ) {
+    for (const a of [ -1, 1 ]) for ( const b of [ -1, 1 ] ) {
       kadrajGeometrioj.push(kadraTubo(a * hw, b * hw, yT, yT + tieroAlto, a, b, true));
     }
   }
@@ -75,7 +75,7 @@ export function konstruiCielDiamanton( sceno: THREE.Scene,
     const hw = hw0 - j * ins;
     const yTop = -(j - 1) * tieroAlto, yBot = -j * tieroAlto;
     murajGeometrioj.push(new THREE.BoxGeometry(hw * 2, tieroAlto, hw * 2).translate(0, (yTop + yBot) / 2, 0));
-    for (const a of [-1, 1]) for ( const b of [-1, 1] ) {
+    for (const a of [ -1, 1 ]) for ( const b of [ -1, 1 ] ) {
       kadrajGeometrioj.push(kadraTubo(a * hw, b * hw, yBot, yTop, a, b, false));
     }
   }

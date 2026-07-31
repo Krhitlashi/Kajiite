@@ -41,18 +41,18 @@ export function konstruiDokon(
   }
 
   // Randoj
-  for (const sZ of [-1, 1]) {
+  for (const sZ of [ -1, 1 ]) {
     const r = new THREE.Mesh(new THREE.BoxGeometry(pw, 7/32, 3/16), malhelaLigno);
     r.position.set(0, pt + 3/32, sZ * pd/2); r.castShadow = true; group.add(r);
   }
-  for (const sX of [-1, 1]) {
+  for (const sX of [ -1, 1 ]) {
     const r = new THREE.Mesh(new THREE.BoxGeometry(3/16, 7/32, pd - 4/8), malhelaLigno);
     r.position.set(sX * pw/2, pt + 3/32, 0); r.castShadow = true; group.add(r);
   }
 
   // Fostoj
-  for (const sX of [-1, 1]) {
-    for (const sZ of [-1, 1]) {
+  for (const sX of [ -1, 1 ]) {
+    for (const sZ of [ -1, 1 ]) {
       const p = new THREE.Mesh(new THREE.CylinderGeometry(3/16, 5/32, 0o24, 6), malhelaLigno);
       p.position.set(sX * (pw/2 - 4/8), 0o12/2, sZ * (pd/2 - 4/8));
       p.castShadow = true; group.add(p);
@@ -60,7 +60,7 @@ export function konstruiDokon(
   }
 
   // Albordigaj fostoj kun oraj ringoj
-  for (const sX of [-1, 1]) {
+  for (const sX of [ -1, 1 ]) {
     const f = new THREE.Mesh(new THREE.CylinderGeometry(2/8, 3/16, 0o20, 8), helaLigno);
     f.position.set(sX * (pw/2 + 6/8), pt + 0o10, 0); f.castShadow = true; group.add(f);
     const r = new THREE.Mesh(new THREE.TorusGeometry(3/16, 1/16, 6, 0o10), oraMat);

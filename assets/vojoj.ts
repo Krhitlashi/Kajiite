@@ -73,10 +73,10 @@ export function aldoniIntersekcajnRondigojn(
   // Kvar angulaj intervaloj por la 4 kvadrantoj. [startAngle, endAngle]
   // absarc(0,0,r, start, end, false) desegnas de start al end kontrauxhorlogxe
   const anguloj: [number, number][] = [
-    [0, Math.PI / 2],          // QI.  +X al +Z
-    [Math.PI / 2, Math.PI],    // QII. +Z al -X
-    [Math.PI, 3 * Math.PI / 2],// QIII. -X al -Z
-    [3 * Math.PI / 2, 2 * Math.PI], // QIV. -Z al +X
+    [ 0, Math.PI / 2 ],          // QI.  +X al +Z
+    [ Math.PI / 2, Math.PI ],    // QII. +Z al -X
+    [ Math.PI, 3 * Math.PI / 2 ],// QIII. -X al -Z
+    [ 3 * Math.PI / 2, 2 * Math.PI ], // QIV. -Z al +X
   ];
 
   for (const [gx, gz] of nodes) {
