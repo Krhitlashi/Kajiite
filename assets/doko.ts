@@ -1,5 +1,6 @@
-// Doko-modulo — lignaj dokoj, albordigaj fostoj, kanu-alirejo
+// Doko-modulo — vojaj etendoj kun subakvaj subtenoj
 import * as THREE from "three";
+import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "./teksajxoj.js";
 
 export interface Doko {
   group: THREE.Group;
@@ -13,63 +14,59 @@ export function konstruiDokon(
   sceno: THREE.Scene,
   x: number,
   z: number,
-  direkto: number
+  direkto: number,
+  heightFn: ( x: number, z: number ) => number,
+  waterFn: ( x: number ) => number
 ): Doko {
   const group = new THREE.Group();
-  const helaLigno = new THREE.MeshStandardMaterial({ color: 0xb8a080, roughness: 5/8 });
-  const malhelaLigno = new THREE.MeshStandardMaterial({ color: 0x483828, roughness: 7/8 });
-  const oraMat = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 27/32, roughness: 11/32 });
+  const vojaLargho = 14/8;
+  const platformDepth = 0o14;
+  const dikeco = 2/8;
+  const dioritaTeksajxo = kreiDioritanTeksajxon();
+  const andezitaTeksajxo = kreiAndezitanTeksajxon();
+  const diorito = new THREE.MeshStandardMaterial({ map: dioritaTeksajxo, color: 0xc8c8c8, roughness: 3/16, metalness: 1/64 });
+  const andezito = new THREE.MeshStandardMaterial({ map: andezitaTeksajxo, color: 0x586860, roughness: 51/64 });
+  const subteno = new THREE.MeshStandardMaterial({ color: 0x302820, roughness: 7/8 });
 
-  const pw = 0o12; // platform width
-  const pd = 0o14; // platform depth
-  const pt = 3/16; // plank thickness
+  // La doko estas mallarĝa rekta etendo de la vojo, ne aparta ligna platformo.
+  const surfaco = new THREE.Mesh(
+    new THREE.BoxGeometry(vojaLargho, dikeco, platformDepth),
+    diorito
+  );
+  surfaco.position.y = dikeco / 2;
+  surfaco.castShadow = surfaco.receiveShadow = true;
+  group.add(surfaco);
 
-  // Subtraba framo
-  const framo = new THREE.Mesh(new THREE.BoxGeometry(pw - 8/8, 5/32, pd - 8/8), malhelaLigno);
-  framo.position.set(0, pt + 1/32, 0);
-  framo.castShadow = true;
-  group.add(framo);
-
-  // Tabuloj
-  const nPlanks = 0o10;
-  const plankW = pw / nPlanks;
-  for (let i = 0; i < nPlanks; i++) {
-    const t = new THREE.Mesh(new THREE.BoxGeometry(plankW - 1/16, pt, pd), helaLigno);
-    t.position.set(-pw/2 + plankW*i + plankW/2, pt/2, 0);
-    t.castShadow = true; t.receiveShadow = true;
-    group.add(t);
+  // Malaltaj andezitaj randoj konservas la saman flankdesegnon kiel la vojoj.
+  for ( const flanko of [ -1, 1 ] ) {
+    const rando = new THREE.Mesh(
+      new THREE.BoxGeometry(1/2, dikeco + 1/16, platformDepth + 2/8),
+      andezito
+    );
+    rando.position.set( flanko * ( ( vojaLargho + 1 ) / 2 ), dikeco / 2, 0 );
+    rando.castShadow = rando.receiveShadow = true;
+    group.add(rando);
   }
 
-  // Randoj
-  for (const sZ of [ -1, 1 ]) {
-    const r = new THREE.Mesh(new THREE.BoxGeometry(pw, 7/32, 3/16), malhelaLigno);
-    r.position.set(0, pt + 3/32, sZ * pd/2); r.castShadow = true; group.add(r);
-  }
-  for (const sX of [ -1, 1 ]) {
-    const r = new THREE.Mesh(new THREE.BoxGeometry(3/16, 7/32, pd - 4/8), malhelaLigno);
-    r.position.set(sX * pw/2, pt + 3/32, 0); r.castShadow = true; group.add(r);
-  }
-
-  // Fostoj
-  for (const sX of [ -1, 1 ]) {
-    for (const sZ of [ -1, 1 ]) {
-      const p = new THREE.Mesh(new THREE.CylinderGeometry(3/16, 5/32, 0o24, 6), malhelaLigno);
-      p.position.set(sX * (pw/2 - 4/8), 0o12/2, sZ * (pd/2 - 4/8));
-      p.castShadow = true; group.add(p);
+  // Dikaj fostoj sub la akvo tenas la vojan etendon.
+  const vojaY = heightFn( x, z );
+  const akvaY = waterFn( x );
+  const fostaAlto = Math.max( 1, vojaY - akvaY );
+  for ( const localZ of [ -0o4, 0o4 ] ) {
+    for ( const localX of [ -4/8, 4/8 ] ) {
+      const fosto = new THREE.Mesh(
+        new THREE.CylinderGeometry( 3/16, 5/16, fostaAlto, 6 ),
+        subteno
+      );
+      fosto.position.set( localX, ( akvaY - vojaY ) / 2, localZ );
+      fosto.castShadow = true;
+      group.add( fosto );
     }
   }
 
-  // Albordigaj fostoj kun oraj ringoj
-  for (const sX of [ -1, 1 ]) {
-    const f = new THREE.Mesh(new THREE.CylinderGeometry(2/8, 3/16, 0o20, 8), helaLigno);
-    f.position.set(sX * (pw/2 + 6/8), pt + 0o10, 0); f.castShadow = true; group.add(f);
-    const r = new THREE.Mesh(new THREE.TorusGeometry(3/16, 1/16, 6, 0o10), oraMat);
-    r.position.set(sX * (pw/2 + 6/8), pt + 0o20, 0); group.add(r);
-  }
-
-  group.position.set(x, 0, z);
+  group.position.set( x, vojaY, z );
   group.rotation.y = direkto;
-  sceno.add(group);
+  sceno.add( group );
 
-  return { group, x, z, platformWidth: pw, platformDepth: pd };
+  return { group, x, z, platformWidth: vojaLargho, platformDepth };
 }

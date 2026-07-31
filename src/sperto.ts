@@ -15,7 +15,7 @@ import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
 import { traduki } from "./tradukoj.js";
 import { sxaltiAŭdion, cxuAŭdio, sfx, rumble, autoKomenci, registriPostAŭdio } from "../assets/sonoro.js";
-import { ludi, halti, sxargiTrako, nunaTrako, cxuLudas } from "../assets/muziko/ludilo.js";
+import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../assets/muziko/ludilo.js";
 
 // ⟪ DOM-elementoj 📃 ⟫
 const kanvaso = document.getElementById("sceno") as HTMLCanvasElement;
@@ -26,14 +26,12 @@ const kartoStatistikoj = document.getElementById("kartoStatistikoj")!;
 const kartoFlavor = document.getElementById("kartoFlavor")!;
 const kartoEniri = document.getElementById("kartoEniri")!;
 const promptoElemento = document.getElementById("prompto")!;
-const indicoElemento = document.getElementById("sugesto")!;
 const supermeta = document.getElementById("supermeta")!;
 const vestaVico = document.getElementById("vestaVico")!;
 const sxargxaElemento = document.getElementById("sxargxo")!;
 const stangoPlenigo = document.getElementById("stangoPlenigo")!;
 const sxargxaTitolo = document.getElementById("sxargxaTitolo")!;
 const nadlo = document.getElementById("nadlo")!;
-const titolaSkripto = document.getElementById("titolaSkripto") as HTMLImageElement;
 const vinjeto = document.getElementById("vinjeto")!;
 const retikulo = document.getElementById("retikulo")!;
 const balailo = document.getElementById("balailo")!;
@@ -63,7 +61,7 @@ const JOYSTICK_R = 0o50;
 let pauxzaPaŝo = 0; // step sound cooldown counter
 
 // ⟪ Krei scenon kaj urbon 📃 ⟫
-const scena: ScenaSistemo = kreiScenon(kanvaso, titolaSkripto, sxargxaElemento);
+const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
 const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon } = scena;
 
 const urbo: UrbaSistemo = konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo);
@@ -140,11 +138,10 @@ function gxisdatigiTrakoButonojn() {
 document.querySelectorAll(".trakaBut").forEach(b => {
   b.addEventListener("click", () => {
     const i = parseInt((b as HTMLElement).dataset.trako || "0");
+    const estisLudanta = cxuLudas();
     sxargiTrako(i);
-    if (cxuLudas()) {
-      halti();
-      ludi();
-    }
+    // Loading stops the old bus; restart whenever the audio system is enabled.
+    if (estisLudanta || cxuAŭdio()) ludi();
     gxisdatigiTrakoButonojn();
   });
 });
@@ -212,7 +209,6 @@ window.addEventListener("keydown", e => {
   if (e.code === "KeyM" && !e.repeat) sxaltiRezimon();
   if (e.code === "Escape" && rezimo === "interior") eliriInternon();
   if (e.code === "Space" && rezimo === "walk" && estasSurTERENO && !surKanoto) { rapidoY = 60/8; estasSurTERENO = false; }
-  indicoElemento.classList.add("kasxi");
 });
 window.addEventListener("keyup", e => { klavoj[e.code] = false; });
 
@@ -920,7 +916,6 @@ const sxargxaIntervalo = setInterval(() => {
     gxisdatigiRetikulon();
   }
 }, 0o334);
-setTimeout(() => indicoElemento.classList.add("kasxi"), 14000);
 
 // ⟪ Montra-seruro por piedirado ( ekstere kaj interne ) 📃 ⟫
 kanvaso.addEventListener("click", () => {

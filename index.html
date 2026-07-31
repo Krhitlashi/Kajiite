@@ -33,15 +33,8 @@
 <!-- ⟪ Tosto 📃 ⟫ -->
 <div id="tosto"></div>
 
-<!-- ⟪ HUD 📃 ⟫ -->
-<header id="titolo">
-  <div>
-    <h1 data-oskakefani="p1">ARANIS · La Nebula Valo</h1>
-    <div class="subteksto" data-oskakefani="p2">La Nebula Valo · Urbo-Sxtupo de la Betularo</div>
-    <img id="titolaSkripto" alt="">
-  </div>
-</header>
-<div id="kompaso" aria-hidden="true">
+<!-- ⟪ Minimal HUD 📃 ⟫ -->
+<div id="kompaso" role="img" aria-label="Mapo de Aranis">
   <div class="ringo">
     <div class="nadlo" id="nadlo"><span data-oskakefani="pK">N</span></div>
   </div>
@@ -59,26 +52,36 @@
 <button id="navButono" data-oskakefani-aria="ariaNavButono" aria-label="Menuo">☯</button>
 
 <!-- ⟪ Pop-up navigado 📃 ⟫ -->
-<thala id="navPopUp">
-  <button id="navPopFermi" data-oskakefani-aria="ariaNavPopFermi">✕</button>
-  <button id="butPromeni" data-oskakefani="p5" data-oskakefani-aria="ariaButPromeni">PROMENI</button>
-  <button id="butOrbiti" data-oskakefani="p6" data-oskakefani-aria="ariaButOrbiti">ORBITO</button>
-  <button id="butVesti" data-oskakefani="p7" data-oskakefani-aria="ariaButVesti">VESTO</button>
-  <button id="butHelpi" data-oskakefani="pC" data-oskakefani-aria="ariaButHelpi">?</button>
-  <button id="butLingvo" data-oskakefani-aria="ariaButLingvo">AIH</button>
-  <button id="butSonoro" data-oskakefani-aria="ariaButSonoro">♬</button>
-  <div id="muzikoGrupo">
-    <label id="muzikoEtikedo" data-oskakefani="muziko">MUZIKO</label>
-    <div id="trakaVico">
-      <button class="trakaBut" data-trako="0" data-oskakefani-aria="ariaTrako0">1</button>
-      <button class="trakaBut" data-trako="1" data-oskakefani-aria="ariaTrako1">2</button>
-      <button class="trakaBut" data-trako="2" data-oskakefani-aria="ariaTrako2">3</button>
-      <button class="trakaBut" data-trako="3" data-oskakefani-aria="ariaTrako3">4</button>
+<div id="navPopUp">
+  <thala class="menuPanel">
+    <div class="menuIdenteco">
+      <h1 data-oskakefani="p1">ARANIS · La Nebula Valo</h1>
+      <p data-oskakefani="p2">La Nebula Valo · Urbo-Sxtupo de la Betularo</p>
     </div>
-  </div>
-  <button id="butKrepusko" data-oskakefani-aria="ariaButKrepusko">☽</button>
-  <label id="duskLabelo">☽ <input type="range" id="duskRegilo" min="0" max="1" step="0.01" value="0"> ☀</label>
-</thala>
+    <button id="navPopFermi" data-oskakefani-aria="ariaNavPopFermi">✕</button>
+    <div class="menuAzioj">
+      <button id="butPromeni" data-oskakefani="p5" data-oskakefani-aria="ariaButPromeni">PROMENI</button>
+      <button id="butOrbiti" data-oskakefani="p6" data-oskakefani-aria="ariaButOrbiti">ORBITI</button>
+      <button id="butVesti" data-oskakefani="p7" data-oskakefani-aria="ariaButVesti">VESTARO</button>
+      <button id="butHelpi" data-oskakefani="pC" data-oskakefani-aria="ariaButHelpi">?</button>
+      <button id="butLingvo" data-oskakefani-aria="ariaButLingvo">AIH</button>
+      <button id="butSonoro" data-oskakefani-aria="ariaButSonoro">♬</button>
+    </div>
+    <div id="muzikoGrupo">
+      <label id="muzikoEtikedo" data-oskakefani="muziko">MUZIKO</label>
+      <div id="trakaVico">
+        <button class="trakaBut" data-trako="0" data-oskakefani-aria="ariaTrako0">1</button>
+        <button class="trakaBut" data-trako="1" data-oskakefani-aria="ariaTrako1">2</button>
+        <button class="trakaBut" data-trako="2" data-oskakefani-aria="ariaTrako2">3</button>
+        <button class="trakaBut" data-trako="3" data-oskakefani-aria="ariaTrako3">4</button>
+      </div>
+    </div>
+    <div class="menuKrepusko">
+      <button id="butKrepusko" data-oskakefani-aria="ariaButKrepusko">☽</button>
+      <label id="duskLabelo">☽ <input type="range" id="duskRegilo" min="0" max="1" step="0.01" value="0"> ☀</label>
+    </div>
+  </thala>
+</div>
 <!-- ⟪ Poŝtelefonaj kontroloj 📃 ⟫ -->
 <div id="mobKontroloj" aria-hidden="true">
   <div id="mobJoystickZono">
@@ -95,7 +98,6 @@
 </div>
 
 <div id="prompto"></div>
-<div id="sugesto" data-oskakefani="p3">ſɭc̗ᴜ ʃэ ɭʃɔȝ · ſןɔ ſ͕ɭᴜ ſɭɔ · ſɭᴜ ɭʃᴜ j͑ʃɹ ı],ᴜ ɽ͑ʃ'ᴜȝ · ſןw · E j͑ʃɹ ſɭᴜ ɭl̀ɹ</div>
 <div id="supermeta">
   <thala class="interno">
     <button id="supermetaFermi" data-oskakefani="p8" data-oskakefani-aria="ariaSupermetaFermi">✕</button>

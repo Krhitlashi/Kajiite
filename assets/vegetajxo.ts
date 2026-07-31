@@ -190,10 +190,13 @@ function konstruiPeriferianFilikanAreon( sceno: THREE.Scene,
   semo: number
 ): void {
   const hazardaGenerilo = mulberry32( semo );
+  // Kvar egalaj krucaj ebenoj konservas la frondan formon el cxiu rigardangulo.
+  // Tri ebenoj lasis kelkajn specimenojn videble plataj kaj distorditaj.
   const fa = new THREE.PlaneGeometry( bazaLargho, bazaAlto ).translate( 0, bazaAlto / 2, 0 );
   const fb = fa.clone().applyMatrix4( new THREE.Matrix4().makeRotationY( Math.PI / 2 ));
   const fc = fa.clone().applyMatrix4( new THREE.Matrix4().makeRotationY( Math.PI / 4 ));
-  const merged = kunfandiTriGeometriojn( fa, fb, fc );
+  const fd = fa.clone().applyMatrix4( new THREE.Matrix4().makeRotationY( 3 * Math.PI / 4 ));
+  const merged = kunfandiGeometriojn([ fa, fb, fc, fd ]);
   const materialo = new THREE.MeshStandardMaterial({ map: teksajxo, alphaTest: 4/8, side: THREE.DoubleSide, roughness: 1 });
   const plantoj = new THREE.InstancedMesh( merged, materialo, kvanto );
 
@@ -242,6 +245,10 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
     { trunkaAlto: 84/8, kronaAlto: 35/8, kronaLargho: 10/8, nombro: 5, mallevo: 9/8, densa: false },
   ];
   const kronajGeometrioj = specoj.map( speco => konstruiFrondanKronon( speco.nombro, speco.kronaLargho, speco.kronaAlto, speco.mallevo ));
+  const kronajAltoj = kronajGeometrioj.map( geometrio => {
+    geometrio.computeBoundingBox();
+    return geometrio.boundingBox!.max.y - geometrio.boundingBox!.min.y;
+  });
   const trunkajGeometrioj = specoj.map( speco => new THREE.CylinderGeometry( 3/16, 5/16, speco.trunkaAlto, 7 ));
   const trunkajMaterialoj = specoj.map( ( _, i ) => new THREE.MeshStandardMaterial({ color: [ 0x3a2742, 0x40204a, 0x2a1a44 ][i], roughness: 7/8 }));
   const kronajMaterialoj = specoj.map( speco => new THREE.MeshStandardMaterial({
@@ -266,13 +273,18 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
 
     const specoIndico = ( indicoj.reduce( ( a, b ) => a + b, 0 ) ) % specoj.length;
     const speco = specoj[specoIndico];
+    const kronaAlto = kronajAltoj[specoIndico];
     const skalo = 6/8 + hazardaGenerilo() * 6/8;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     Q.setFromEuler( E );
     const y = heightFn( x, z );
-    M.compose( new THREE.Vector3( x, y + speco.trunkaAlto / 2, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
+    // La translokigoj devas inkluzivi la saman specimenan skalon kiel la geometrio.
+    // Alie la trunko malleviĝas kaj la krono flosas super ĝi ĉe malgrandaj skaloj.
+    const trunkaCentroY = y + speco.trunkaAlto * skalo / 2;
+    const kronaCentroY = y + skalo * ( speco.trunkaAlto + kronaAlto / 2 - 1/8 );
+    M.compose( new THREE.Vector3( x, trunkaCentroY, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
     trunkoj[specoIndico].setMatrixAt( indicoj[specoIndico], M );
-    M.compose( new THREE.Vector3( x, y + speco.trunkaAlto + speco.kronaAlto / 2, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
+    M.compose( new THREE.Vector3( x, kronaCentroY, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
     kronoj[specoIndico].setMatrixAt( indicoj[specoIndico], M );
     indicoj[specoIndico]++;
   }
@@ -289,13 +301,18 @@ function kunfandiGeometriojn( geometrioj: THREE.BufferGeometry[] ): THREE.Buffer
 function konstruiFrondanKronon( nombro: number, largho: number, alto: number, mallevo: number ): THREE.BufferGeometry {
   const partoj: THREE.BufferGeometry[] = [];
   for ( let i = 0; i < nombro; i++ ) {
+    // Konstruu cxiu frondon cxirkaux la bazo; tiel la bazo restas sur la grundo
+    // kaj la rotacio ne tiras la teksturon en oblikvan, distorditan formon.
     const frondo = new THREE.PlaneGeometry( largho, alto ).translate( 0, alto / 2, 0 ).toNonIndexed();
-    const transformo = new THREE.Matrix4().makeRotationX( mallevo );
-    transformo.premultiply( new THREE.Matrix4().makeRotationY( i / nombro * Math.PI * 2 ));
+    const transformo = new THREE.Matrix4().makeRotationY( i / nombro * Math.PI * 2 );
+    transformo.multiply( new THREE.Matrix4().makeRotationX( mallevo ));
     frondo.applyMatrix4( transformo );
     partoj.push( frondo );
   }
-  return kunfandiGeometriojn( partoj );
+  const geometrio = kunfandiGeometriojn( partoj );
+  geometrio.computeBoundingBox();
+  if ( geometrio.boundingBox ) geometrio.translate( 0, -geometrio.boundingBox.min.y, 0 );
+  return geometrio;
 }
 
 // konstruiLikenSxtonojn — Metu liken-kovritajn sxtonojn en la arbaron.

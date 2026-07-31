@@ -1,324 +1,207 @@
 :root {
-  --deep:#081410; --mist:#e6efe9; --dim:#9db8a4; --gold:#d9b36a; --gold-soft:rgba(217,179,106,0.35); --panel:rgba(10,24,18,0.82);
-  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px); --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+  --deep:#081410;
+  --mist:#e6efe9;
+  --dim:#9db8a4;
+  --gold:#d9b36a;
+  --gold-soft:rgba(217,179,106,.35);
+  --panel:rgba(10,24,18,.82);
+  --sat:env(safe-area-inset-top,0px);
+  --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);
+  --sar:env(safe-area-inset-right,0px);
 }
-* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; text-align:start; font-size-adjust:.5; scrollbar-width:thin; gap:normal; color:var(--mist); }
-html,body { height:100%; }
-body { margin:0; overflow:hidden; overscroll-behavior:none; background:var(--deep); color:var(--mist); font-family:'Sora','jʃꞇȝ','I],ᴜ }ʃᴜ',system-ui,sans-serif; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; display:block; }
+
+/* The linked stylesheet owns the base type, buttons, thala panels, and glass tokens. */
+html,body { block-size:100%; overflow:hidden; }
+body {
+  margin:0;
+  display:block;
+  overflow:hidden;
+  overscroll-behavior:none;
+  background:var(--deep);
+  color:var(--mist);
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+  font-family:j͑ʃꞇȝ,"ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif;
+  font-variant-ligatures:normal;
+  font-feature-settings:"liga","clig","calt";
+  font-kerning:normal;
+  text-rendering:optimizeLegibility;
+}
 #sceno { position:fixed; inset:0; display:block; touch-action:none; cursor:grab; }
 #sceno:active { cursor:grabbing; }
-#vinjeto { position:fixed; inset:0; z-index:2; pointer-events:none; background:radial-gradient(ellipse at center, transparent 60%, rgba(4,10,8,0.55) 100%); transition:opacity 0.8s; }
-#retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; opacity:0; transition:opacity 0.3s; }
-#retikulo.montri { opacity:0.45; }
-#retikulo::before, #retikulo::after { content:''; position:absolute; background:var(--gold); }
-#retikulo::before { width:18px; height:1px; top:50%; left:-9px; transform:translateY(-0.5px); }
-#retikulo::after { width:1px; height:18px; left:50%; top:-9px; transform:translateX(-0.5px); }
-#balailo { position:fixed; inset:0; z-index:8; background:var(--deep); opacity:0; pointer-events:none; transition:opacity 0.5s; }
-#balailo.montri { opacity:1; }
-#svingo { position:fixed; inset:0; z-index:5; pointer-events:none; opacity:0; background:linear-gradient(105deg,transparent 28%,rgba(217,179,106,0.10) 48%,rgba(28,42,74,0.20) 68%,transparent 88%); }
-#svingo.iru { animation:svingo-efiko 0.9s ease forwards; }
+
+/* Full-screen effects */
+#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo { position:fixed; inset:0; pointer-events:none; }
+#vinjeto { z-index:2; background:radial-gradient(ellipse at center,transparent 60%,rgba(4,10,8,.55)); transition:opacity .8s; }
+#svingo { z-index:5; opacity:0; background:linear-gradient(105deg,transparent 28%,rgba(217,179,106,.10) 48%,rgba(28,42,74,.20) 68%,transparent 88%); }
+#svingo.iru { animation:svingo-efiko .9s ease forwards; }
 @keyframes svingo-efiko { 0%{opacity:0;transform:translateX(-28%)} 30%{opacity:1} 100%{opacity:0;transform:translateX(28%)} }
-#fxVarma { position:fixed; inset:0; z-index:4; pointer-events:none; opacity:0; background:radial-gradient(90% 70% at 50% 60%, rgba(255,178,102,0.28), transparent 70%); }
-#fxMenta { position:fixed; inset:0; z-index:4; pointer-events:none; opacity:0; background:radial-gradient(90% 70% at 50% 40%, rgba(150,230,200,0.22), transparent 70%); }
+#fxVarma,#fxMenta { z-index:4; opacity:0; }
+#fxVarma { background:radial-gradient(90% 70% at 50% 60%,rgba(255,178,102,.28),transparent 70%); }
+#fxMenta { background:radial-gradient(90% 70% at 50% 40%,rgba(150,230,200,.22),transparent 70%); }
 .fxPulso { animation:fxp 1.1s ease forwards; }
 @keyframes fxp { 0%{opacity:0} 30%{opacity:1} 100%{opacity:0} }
-#tosto { position:fixed; z-index:5; top:calc(50% + 60px); left:50%; transform:translate(-50%,-50%) translateY(20px); padding:10px 24px; font-size:12px; letter-spacing:0.10em; color:var(--mist); opacity:0; pointer-events:none; transition:opacity 0.4s,transform 0.4s; white-space:nowrap; }
-#tosto.montri { opacity:1; transform:translate(-50%,-50%) translateY(0); }
-#internaSupermeta { position:fixed; inset:0; z-index:4; background:transparent; display:grid; place-items:end; justify-items:center; padding-bottom:40px; opacity:0; pointer-events:none; transition:opacity 0.5s; }
-#internaSupermeta.montri { opacity:1; pointer-events:auto; }
-#internaSupermeta .interna-panelo { padding:18px 28px; max-width:380px; text-align:center; }
-#internaSupermeta h3 { font-family:'Cinzel','jʃꞇȝ','I],ᴜ }ʃᴜ',serif; font-size:20px; letter-spacing:0.16em; margin:0 0 8px; color:var(--gold); }
-#internaSupermeta .interna-priskribo { font-size:11px; line-height:1.7; color:var(--dim); margin-bottom:20px; }
-#internaSupermeta .interna-agoj { display:flex; gap:var(--អារេងចិ); justify-content:center; flex-wrap:wrap; }
+#balailo { z-index:8; background:var(--deep); opacity:0; transition:opacity .5s; }
+#balailo.montri { opacity:1; }
 
-/* ─── Uniform floating card style ─── */
-#titolo, #karto, #prompto, #sugesto, #tosto, #supermeta .interno, #internaSupermeta .interna-panelo, #kompaso,
-#navButono, #navPopUp > button:not(#navPopFermi) {
-  background: var(--panel);
-  border: var(--សាកព៏);
-  border-radius: var(--អិត្ភេពឺ);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+/* Crosshair, toast, and centered overlays */
+#retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .3s; }
+#retikulo.montri { opacity:.45; }
+#retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--gold); }
+#retikulo::before { width:18px; height:1px; top:50%; left:-9px; }
+#retikulo::after { width:1px; height:18px; left:50%; top:-9px; }
+#tosto {
+  position:fixed; z-index:5; top:calc(50% + 60px); left:50%; transform:translate(-50%,-50%) translateY(20px);
+  padding:10px 24px; color:var(--mist); font-size:12px; letter-spacing:.1em; white-space:nowrap;
+  opacity:0; pointer-events:none; transition:opacity .4s,transform .4s;
 }
-/* Compass keeps its circular shape */
-#kompaso { border-radius: var(--ចិង); }
-/* Toast keeps its gold accent border */
-#tosto { border-color: var(--gold-soft); }
-
-#titolo { position:fixed; z-index:3; top:calc(24px + var(--sat)); left:calc(24px + var(--sal)); padding:14px 20px; }
-#titolo h1 { font-family:'Cinzel','jʃꞇȝ',serif; font-weight:700; margin:0; font-size:22px; letter-spacing:0.28em; color:var(--mist); }
-#titolo h1 b { color:var(--gold); }
-#titolo .subteksto { margin-top:4px; font-size:10px; letter-spacing:0.16em; color:var(--dim); }
-#titolo img { margin-top:6px; height:64px; width:auto; display:block; }
-#kompaso { position:fixed; z-index:3; top:calc(24px + var(--sat)); right:calc(24px + var(--sar)); width:56px; height:56px; border-radius:var(--ចិង); display:grid; place-items:center; }
-#kompaso .ringo { position:relative; width:40px; height:40px; }
-.nadlo { position:absolute; inset:0; will-change:transform; }
-.nadlo span { position:absolute; top:-6px; left:50%; transform:translateX(-50%); font-size:8px; color:var(--gold); }
-.nadlo::before { content:''; position:absolute; left:50%; top:10px; transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid var(--gold); }
-
-#karto { position:fixed; z-index:3; left:calc(24px + var(--sal)); bottom:calc(24px + var(--sab)); width:304px; padding:16px 20px; transform:translateY(24px); opacity:0; pointer-events:none; transition:transform 0.4s cubic-bezier(0.2,0.9,0.25,1),opacity 0.4s; }
-#karto.montri { transform:none; opacity:1; pointer-events:auto; }
-#karto h2 { font-family:'Cinzel','jʃꞇȝ',serif; margin:0; font-size:18px; letter-spacing:0.08em; }
-#karto .karto-agoj { display:flex; gap:var(--អារេង); margin-top:12px; }
-
-.peco { display:inline-block; margin-top:6px; padding:3px 10px; font-size:9px; font-weight:600; letter-spacing:0.14em; border-radius:8px 16px 8px 16px; color:#081410; }
-.statistikoj { margin-top:8px; font-size:10px; line-height:1.8; color:var(--dim); }
-.statistikoj b { color:var(--mist); font-weight:600; }
-.gusto { margin-top:8px; font-size:11px; font-weight:300; color:#c9d8cd; }
+#tosto.montri { opacity:1; transform:translate(-50%,-50%); }
+#supermeta {
+  position:fixed; inset:0; z-index:6; display:grid; place-items:center;
+  background:rgba(4,10,8,.62); opacity:0; pointer-events:none; transition:opacity .35s;
+}
+#supermeta.montri { opacity:1; pointer-events:auto; }
+#supermeta .interno { position:relative; max-width:520px; max-height:calc(100% - 32px); overflow:auto; padding:24px 32px; text-align:center; }
+#supermeta h3 { margin:0 0 var(--អារេង); color:var(--gold); font-size:18px; letter-spacing:.2em; }
+#supermeta .supra { margin-bottom:16px; color:var(--dim); font-size:10px; letter-spacing:.16em; }
+#supermetaFermi { position:absolute; top:var(--អារេង); right:var(--អារេងចិ); }
 .helpa-listo { text-align:start; padding:8px; }
 
-#prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(8px); padding:8px 18px; font-size:11px; letter-spacing:0.10em; opacity:0; pointer-events:none; transition:opacity 0.24s,transform 0.24s; white-space:nowrap; cursor:pointer; }
+/* Every floating card gets a readable, layered surface instead of a single weak tint. */
+#karto,#prompto,#tosto,#supermeta .interno,.vestaKardo,#muzikoGrupo,#duskLabelo,#navButono,#mobJoystickBazo,.mobBut {
+  -webkit-backdrop-filter:blur(32px);
+  backdrop-filter:blur(32px);
+  background: var(--តានេកខេលេ);
+  border:var(--សាកព៏);
+  box-shadow:none;
+}
+
+/* Rounded-diamond minimap; counter-rotate the compass contents. */
+#kompaso {
+  position:fixed; z-index:3; top:calc(24px + var(--sat)); right:calc(24px + var(--sar));
+  inline-size:56px; block-size:56px; display:grid; place-items:center;
+  overflow:hidden; transform:rotate(45deg); border-radius:var(--អិត្ភេមិ);
+  background:var(--តានេកខេលេ); border:var(--សាកព៏); box-shadow:none;
+}
+#kompaso .ringo { position:relative; inline-size:40px; block-size:40px; transform:rotate(-45deg); }
+.nadlo { position:absolute; inset:0; will-change:transform; }
+.nadlo span { position:absolute; top:-6px; left:50%; transform:translateX(-50%); color:var(--gold); font-size:8px; }
+.nadlo::before { content:""; position:absolute; left:50%; top:10px; transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid var(--gold); }
+
+/* Building card and the lightweight central prompt. */
+#karto {
+  position:fixed; z-index:3; left:calc(24px + var(--sal)); bottom:calc(24px + var(--sab));
+  inline-size:304px; padding:18px 20px; transform:translateY(24px); opacity:0; pointer-events:none;
+  transition:transform .4s cubic-bezier(.2,.9,.25,1),opacity .4s;
+}
+#karto.montri { transform:none; opacity:1; pointer-events:auto; }
+#karto h2 { margin:0; font-size:18px; letter-spacing:.08em; }
+#karto .karto-agoj { display:flex; justify-content:center; margin-top:12px; }
+.peco { display:inline-block; margin-top:6px; padding:3px 10px; color:#081410; font-size:9px; font-weight:600; letter-spacing:.14em; border-radius:8px 16px 8px 16px; }
+.statistikoj { margin-top:8px; color:var(--dim); font-size:10px; line-height:1.8; }
+.statistikoj b { color:var(--mist); font-weight:600; }
+.gusto { margin-top:8px; color:#c9d8cd; font-size:11px; font-weight:300; }
+.helpa-listo { text-align:start; padding:8px; }
+#prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(8px); padding:8px 18px; font-size:11px; letter-spacing:.1em; opacity:0; pointer-events:none; transition:opacity .24s,transform .24s; white-space:nowrap; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
 #prompto.montri { opacity:1; transform:translateX(-50%); pointer-events:auto; }
 
-
-#supermeta { position:fixed; inset:0; z-index:6; display:grid; place-items:center; background:rgba(4,10,8,0.62); opacity:0; pointer-events:none; transition:opacity 0.35s; }
-#supermeta.montri { opacity:1; pointer-events:auto; }
-#supermeta .interno { position:relative; padding:24px 32px; max-width:520px; max-height:calc(100% - 32px); overflow:auto; text-align:center; }
-#supermeta .interno h3:first-child { margin-top:0; }
-
-#supermeta h3 { font-family:'Cinzel','jʃꞇȝ',serif; margin:0 0 var(--អារេង); font-size:18px; letter-spacing:0.20em; }
-#supermeta .supra { font-size:10px; letter-spacing:0.16em; color:var(--dim); margin-bottom:16px; }
-.vestaVico { display:flex; gap:var(--អារេងចិ); justify-content:center; flex-wrap:wrap; }
-.vestaKardo { width:120px; padding:10px 10px 14px; background:rgba(6,16,12,0.6); border:1px solid var(--gold-soft); border-radius:var(--អិត្ភេពឺ,32px 12px 32px 12px); cursor:pointer; transition:transform 0.24s,border-color 0.24s; }
-.vestaKardo:hover { transform:translateY(-4px); border-color:var(--gold); }
-.vestaKardo canvas { width:100%; border-radius:var(--អិត្ភេ, 12px 6px 12px 6px); }
-.vestaKardo .vn { margin-top:var(--អារេង); font-size:9px; letter-spacing:0.12em; color:var(--mist); }
-#sxargxo { position:fixed; inset:0; z-index:9; background:var(--deep); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; transition:opacity 0.8s; }
-#sxargxo.finita { opacity:0; pointer-events:none; }
-#sxargxo .ltitle { font-family:'Cinzel','jʃꞇȝ',serif; font-size:20px; letter-spacing:0.40em; padding-left:0.40em; }
-/* #navDoko is replaced by #navButono + #navPopUp */
-
-/* ─── Nav-Butono (pop-up-ŝaltilo) ─── */
+/* Menu trigger and floating panel. The page remains fully visible behind it: no scrim or backdrop blur. */
 #navButono {
-  position:fixed; z-index:4;
-  right:calc(20px + var(--sar));
-  bottom:calc(20px + var(--sab));
-  width:48px; height:48px;
-  display:grid; place-items:center;
-  font-size:20px;
-  border-radius:var(--អិត្ភេ);
-  box-shadow:0 4px 20px rgba(0,0,0,0.4);
-  color:var(--gold);
-  cursor:pointer;
-  transition:transform 0.24s,background 0.24s,border-color 0.24s;
-  user-select:none;
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
+  position:fixed; z-index:7; right:calc(20px + var(--sar)); bottom:calc(20px + var(--sab));
+  inline-size:48px; block-size:48px; display:grid; place-items:center; padding:0;
+  color:var(--gold); font-size:20px; cursor:pointer; touch-action:manipulation;
 }
-#navButono:hover { transform:scale(1.08); border-color:var(--gold-soft); }
-#navButono:active { transform:scale(0.92); }
-
-/* ─── Navigada Pop-up ─── */
 #navPopUp {
-  position:fixed; z-index:6;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  background:rgba(4,10,8,0.65);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.3s;
+  position:fixed; z-index:6; inset:auto calc(20px + var(--sar)) calc(76px + var(--sab)) auto;
+  display:block; inline-size:min(360px,calc(100vw - 32px)); max-block-size:calc(100vh - 96px);
+  overflow:auto; opacity:0; pointer-events:none; transform:translateY(10px) scale(.98);
+  transition:opacity .2s,transform .2s;
+  /* Explicitly transparent: unlike a modal, opening the menu never dims the scene. */
+  background:transparent; border:0; box-shadow:none; padding:0;
 }
-#navPopUp.montri { opacity:1; pointer-events:auto; }
-#navPopUp > button:not(#navPopFermi) {
-  width:180px;
-  padding:14px 20px;
-  font-family:'Cinzel','jʃꞇȝ',serif;
-  font-size:13px;
-  letter-spacing:0.20em;
-  color:var(--mist);
-  border-radius:var(--អិត្ភេ, 12px 6px 12px 6px);
-  cursor:pointer;
-  transition:background 0.2s,border-color 0.2s,transform 0.2s;
-  text-align:center;
-  touch-action:manipulation;
+#navPopUp.montri { opacity:1; pointer-events:auto; transform:none; }
+.menuPanel {
+  position:relative; display:flex; flex-direction:column; align-items:stretch; gap:var(--អារេង);
+  padding:var(--អារេងព៏);
+  color:var(--កេភ);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05) 45%,rgba(0,0,0,.16)),
+    linear-gradient(180deg,rgba(24,40,32,.96),rgba(8,20,16,.92)),
+    var(--តានេកខេលេ);
+  border:var(--សាកព៏២); border-radius:var(--អិត្ភេពឺ);
+  box-shadow:none;
+  backdrop-filter:blur(32px);
+  -webkit-backdrop-filter:var(--ច្ហិនី); backdrop-filter:var(--ច្ហિનី);
 }
-#navPopUp > button:not(#navPopFermi):hover,
-#navPopUp > button:not(#navPopFermi):active { background:rgba(217,179,106,0.12); border-color:var(--gold-soft); transform:scale(1.03); }
-#navPopUp > button.aktiva { background:rgba(217,179,106,0.18); border-color:var(--gold); }
-#navPopFermi {
-  position:absolute;
-  top:calc(20px + var(--sat));
-  right:calc(20px + var(--sar));
-  width:40px; height:40px;
-  padding:0;
-  font-size:16px;
-  background:transparent;
-  border:none;
-  color:var(--dim);
-  cursor:pointer;
-  transition:color 0.2s;
-}
-#navPopFermi:hover { color:var(--gold); }
+.menuIdenteco { padding:var(--អារេង); text-align:start; }
+.menuIdenteco h1 { margin:0; color:var(--កេភ); font-size:16px; font-weight:400; letter-spacing:.12em; text-align:start; }
+.menuIdenteco p { margin:4px 0 0; color:var(--កេភ២); font-size:10px; letter-spacing:.06em; text-align:start; }
+#navPopFermi { position:absolute; top:var(--អារេង); right:var(--អារេង); z-index:1; inline-size:32px; block-size:32px; min-block-size:0; padding:0; color:var(--កេភ២); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេ); cursor:pointer; }
+#navPopFermi:hover { color:var(--កេភ); background:var(--តានេក២); }
+.menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--អារេង); }
+.menuAzioj button { inline-size:auto; min-block-size:44px; padding:var(--អារេងចិ); color:var(--កេភ); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេ); font-size:11px; letter-spacing:.08em; }
+.menuAzioj button:hover,.menuAzioj button.aktiva { background:var(--តានេក២); border-color:var(--សាកព៏៣); }
+#muzikoGrupo,#duskLabelo { inline-size:auto; padding:var(--អារេង); color:var(--កេភ); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេ); }
+#muzikoGrupo { text-align:start; }
+#muzikoEtikedo { display:block; margin-block-end:var(--អារេង); color:var(--កេភ២); font-size:9px; letter-spacing:.14em; text-align:start; }
+#trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); }
+.trakaBut { inline-size:auto; block-size:32px; min-block-size:0; padding:0; color:var(--កេភ២); }
+.trakaBut.aktiva { color:var(--កេភ); border:var(--សាកព៏២); background:var(--តានេក២); }
+.menuKrepusko { display:grid; grid-template-columns:44px 1fr; gap:var(--អារេង); align-items:center; }
+.menuKrepusko > button { inline-size:44px; block-size:44px; min-block-size:0; padding:0; color:var(--កេភ); }
+#duskLabelo { display:flex; align-items:center; gap:var(--អារេង); color:var(--កេភ២); font-size:13px; }
+#duskLabelo input[type=range] { flex:1; min-inline-size:0; }
 
-/* ─── Muzika traka selektilo ─── */
-#muzikoGrupo {
-  width:180px; padding:8px 16px;
-  background:var(--panel); border:var(--សាកព៏);
-  border-radius:var(--អិត្ភេ, 12px 6px 12px 6px);
-  box-shadow:0 4px 20px rgba(0,0,0,0.4);
-  text-align:center;
-}
-#muzikoEtikedo {
-  display:block; font-size:9px; letter-spacing:0.18em; color:var(--dim); margin-bottom:6px;
-}
-#trakaVico {
-  display:flex; gap:6px; justify-content:center;
-}
-.trakaBut {
-  width:36px; height:32px; padding:0;
-  font-family:'Cinzel','jʃꞇȝ',serif; font-size:12px; letter-spacing:0.08em;
-  background:rgba(255,255,255,0.04); border:var(--សាកព៏);
-  border-radius:var(--អិត្ភេ, 8px 4px 8px 4px);
-  color:var(--dim); cursor:pointer;
-  transition:color 0.24s,background 0.24s,border-color 0.24s;
-}
-.trakaBut:hover { color:var(--gold); background:rgba(217,179,106,0.1); border-color:var(--gold-soft); }
-.trakaBut.aktiva { color:var(--gold); background:rgba(217,179,106,0.2); border-color:var(--gold); }
+/* Wardrobe cards and loading screen. */
+.vestaVico { display:flex; justify-content:center; flex-wrap:wrap; gap:var(--អារេងចិ); }
+.vestaKardo { inline-size:120px; padding:10px 10px 14px; border-color:var(--gold-soft); cursor:pointer; transition:transform .24s,border-color .24s; }
+.vestaKardo:hover { transform:translateY(-4px); border-color:var(--gold); }
+.vestaKardo canvas { inline-size:100%; }
+.vestaKardo .vn { margin-top:var(--អារេង); color:var(--mist); font-size:9px; letter-spacing:.12em; }
+#sxargxo { position:fixed; inset:0; z-index:9; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; background:var(--deep); transition:opacity .8s; }
+#sxargxo.finita { opacity:0; pointer-events:none; }
+#sxargxo .ltitle { font-size:20px; letter-spacing:.4em; }
+.stango { inline-size:224px; block-size:2px; background:rgba(217,179,106,.2); }
+.stango i { display:block; inline-size:0; block-size:100%; background:var(--gold); transition:inline-size .3s; }
+.lsupra { color:var(--dim); font-size:9px; letter-spacing:.2em; }
 
-/* ─── Krepuska reĝimo slider ─── */
-#duskLabelo {
-  display:flex; align-items:center; gap:10px;
-  width:180px; padding:8px 16px;
-  font-size:16px; color:var(--gold);
-  background:var(--panel); border:var(--សាកព៏);
-  border-radius:var(--អិត្ភេ, 12px 6px 12px 6px);
-  box-shadow:0 4px 20px rgba(0,0,0,0.4);
-}
-#duskLabelo input[type=range] {
-  flex:1; min-width:0; height:4px;
-  appearance:none; background:rgba(217,179,106,0.25);
-  border-radius:2px; border:none; padding:0; cursor:pointer;
-}
-#duskLabelo input[type=range]::-webkit-slider-thumb {
-  appearance:none; width:14px; height:14px; border-radius:50%;
-  background:var(--gold); border:2px solid var(--deep); cursor:pointer;
-  transition:transform 0.2s;
-}
-#duskLabelo input[type=range]::-webkit-slider-thumb:hover { transform:scale(1.25); }
-
-/* ─── Poŝtelefonaj Kontroloj ─── */
-#mobKontroloj {
-  position:fixed; inset:0; z-index:3;
-  pointer-events:none;
-}
-/* Virtuala stirstango (maldekstre) */
-#mobJoystickZono {
-  position:absolute;
-  left:0; bottom:0;
-  width:180px; height:200px;
-  pointer-events:auto;
-  touch-action:none;
-  display:grid;
-  place-items:center;
-  padding-bottom:16px;
-}
-#mobJoystickBazo {
-  width:120px; height:120px;
-  border-radius:var(--ចិង);
-  background:rgba(10,24,18,0.60);
-  border:1px solid rgba(217,179,106,0.15);
-  box-shadow:0 0 30px rgba(0,0,0,0.3);
-  position:relative;
-  display:grid;
-  place-items:center;
-  transition:border-color 0.3s,background 0.3s;
-}
-#mobJoystickBazo.aktiva {
-  border-color:rgba(217,179,106,0.35);
-  background:rgba(10,24,18,0.75);
-}
-#mobJoystickTenilo {
-  width:44px; height:44px;
-  border-radius:var(--ចិង);
-  background:radial-gradient(circle at 40% 35%, rgba(217,179,106,0.30), rgba(217,179,106,0.08));
-  border:1px solid rgba(217,179,106,0.30);
-  position:absolute;
-  left:38px; top:38px; /* centered: (120-44)/2 */
-  transition:box-shadow 0.3s;
-  pointer-events:none;
-}
-#mobJoystickTenilo.aktiva {
-  box-shadow:0 0 16px rgba(217,179,106,0.20);
-}
-
-/* Poŝtelefonaj agbutonoj (dekstre) — unuigita dezajno kun #navButono */
-#mobButaroj {
-  position:absolute;
-  right:calc(16px + var(--sar));
-  bottom:calc(150px + var(--sab));
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  pointer-events:none;
-}
-.mobBut {
-  width:52px; height:52px;
-  border-radius:var(--អិត្ភេ);
-  background:var(--panel);
-  border:var(--សាកព៏);
-  color:var(--gold);
-  font-family:'Cinzel','jʃꞇȝ',serif;
-  font-size:15px;
-  font-weight:600;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  pointer-events:auto;
-  touch-action:manipulation;
-  box-shadow:0 4px 20px rgba(0,0,0,0.4);
-  transition:transform 0.24s,background 0.24s,border-color 0.24s;
-  user-select:none;
-  -webkit-tap-highlight-color:transparent;
-}
-.mobBut:hover { transform:scale(1.08); border-color:var(--gold-soft); }
-.mobBut:active {
-  transform:scale(0.92);
-  background:rgba(217,179,106,0.12);
-}
-.mobBut#mobButSalti { font-size:22px; padding-bottom:4px; }
+/* Mobile controls remain custom because the linked stylesheet does not know their geometry. */
+#mobKontroloj { display:none; position:fixed; inset:0; z-index:3; pointer-events:none; }
+#mobJoystickZono { position:absolute; left:0; bottom:0; inline-size:180px; block-size:200px; display:grid; place-items:center; padding-bottom:16px; pointer-events:auto; touch-action:none; }
+#mobJoystickBazo { position:relative; inline-size:120px; block-size:120px; display:grid; place-items:center; border-radius:var(--អិត្ភេ); border:1px solid var(--gold-soft); box-shadow:none; }
+#mobJoystickBazo.aktiva { background:var(--តានេក២); border-color:var(--gold); }
+#mobJoystickTenilo { position:absolute; left:38px; top:38px; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background:radial-gradient(circle at 40% 35%,rgba(217,179,106,.3),rgba(217,179,106,.08)); border:1px solid rgba(217,179,106,.3); pointer-events:none; }
+#mobJoystickTenilo.aktiva { box-shadow:none; }
+#mobButaroj { position:absolute; right:calc(16px + var(--sar)); bottom:calc(150px + var(--sab)); display:flex; flex-direction:column; gap:10px; pointer-events:none; }
+.mobBut { inline-size:52px; block-size:52px; display:grid; place-items:center; padding:0; color:var(--gold); border-radius:var(--អិត្ភេ); pointer-events:auto; touch-action:manipulation; }
+.mobBut#mobButSalti { font-size:22px; }
 .mobBut#mobButKuri { font-size:20px; }
-.mobBut#mobButKuri.aktiva { background:rgba(217,179,106,0.25); border-color:var(--gold); box-shadow:0 0 20px rgba(217,179,106,0.25); }
+.mobBut#mobButKuri.aktiva { background:rgba(217,179,106,.25); border-color:var(--gold); box-shadow:none; }
+@media (hover:none) and (pointer:coarse),(max-width:768px) { #mobKontroloj { display:block; } #navButono { bottom:calc(80px + var(--sab)); } }
 
-/* Kaŝi poŝtelefonajn kontrolojn defaŭlte, montri nur por tuŝ-aparatoj */
-#mobKontroloj { display:none; }
-@media (hover:none) and (pointer:coarse) {
-  #mobKontroloj { display:block; }
-}
-/* Ankaŭ montri kiam fenestro estas malgranda (telefoneca) */
-@media (max-width:768px) {
-  #mobKontroloj { display:block; }
-}
-
-#navButono { display:grid; }
-
-@media (hover:none) and (pointer:coarse) {
-  #navButono { bottom:calc(80px + var(--sab)); }
-}
-@media (max-width:768px) {
-  #navButono { bottom:calc(80px + var(--sab)); }
+@media (max-width:640px) {
+  #kompaso { top:10px; right:10px; inline-size:44px; block-size:44px; }
+  #kompaso .ringo { inline-size:32px; block-size:32px; }
+  #karto { left:10px; right:76px; bottom:10px; inline-size:auto; max-block-size:44vh; overflow:auto; }
+  #navPopUp { right:16px; bottom:calc(76px + var(--sab)); inline-size:calc(100vw - 32px); max-block-size:calc(100vh - 92px); }
+  .menuAzioj { grid-template-columns:1fr 1fr; }
 }
 
-.stango { width:224px; height:2px; background:rgba(217,179,106,0.2); }
-.stango i { display:block; height:100%; width:0%; background:var(--gold); transition:width 0.3s; }
-.lsupra { font-size:9px; letter-spacing:0.20em; color:var(--dim); }
-#supermetaFermi { position:absolute; top:var(--អារេង); right:var(--អារេងចិ); }
-#butLingvo { font-size:9px; letter-spacing:0.14em; font-family:'Cinzel','jʃꞇȝ',serif; padding:6px 4px; cursor:pointer; background:rgba(255,255,255,0.04); border:var(--សាកព៏); border-radius:var(--អិត្ភេ, 8px 4px 8px 4px); color:var(--dim); transition:color 0.24s,background 0.24s; }
-#butLingvo:hover { color:var(--gold); background:rgba(217,179,106,0.1); }
-
-@media (max-width:640px) { 
-  #titolo { left:10px; top:10px; padding:10px 14px; } 
-  #titolo h1 { font-size:16px; letter-spacing:0.20em; } 
-  #kompaso { top:10px; right:10px; width:44px; height:44px; } 
-  #karto { left:10px; right:76px; bottom:10px; width:auto; max-height:44vh; overflow:auto; } 
-  #sugesto { bottom:calc(208px + var(--sab)); max-width:calc(100% - 24px); white-space:normal; text-align:center; } 
-}
-
-/* Light scheme — remote CSS handles border/background shifts via --សាកព៏ / --តានេក */
 @media (prefers-color-scheme:light) {
-  :root { 
-    --deep:#e8ece8; --mist:#182420; --dim:#687868; --gold:#a88848; --gold-soft:rgba(168,136,72,0.35); --panel:rgba(232,240,232,0.85);
+  :root { --deep:#e8ece8; --mist:#182420; --dim:#687868; --gold:#a88848; --gold-soft:rgba(168,136,72,.35); --panel:rgba(232,240,232,.85); }
+  #karto,#prompto,#tosto,#supermeta .interno,.vestaKardo,#muzikoGrupo,#duskLabelo,#navButono,.mobBut {
+    background:
+      linear-gradient(145deg,rgba(255,255,255,.52),rgba(255,255,255,.18) 48%,rgba(0,0,0,.04)),
+      linear-gradient(180deg,rgba(232,240,232,.94),rgba(232,240,232,.84)),
+      var(--តានេកខេលេ);
+  }
+  .menuPanel {
+    background:
+      linear-gradient(145deg,rgba(255,255,255,.72),rgba(255,255,255,.34) 45%,rgba(0,0,0,.08)),
+      linear-gradient(180deg,rgba(248,250,248,.96),rgba(232,240,232,.92)),
+      var(--តានេកខេលេ);
+    color:var(--កេភ);
   }
 }

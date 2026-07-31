@@ -4,6 +4,8 @@ import { kreiBrilanTeksajxon } from "./teksajxoj.js";
 
 export interface LampLoko {
   x: number; z: number; y: number;
+  /** Optional square orientation; platform lamps can align with their diamond. */
+  rotacio?: number;
 }
 
 export interface LampSistemo {
@@ -30,14 +32,15 @@ export function konstruiLampojn( sceno: THREE.Scene,
 
   for ( const p of spots ) {
     // Trapeza kolono (pli larĝa ĉe bazo)
+    const rotacio = p.rotacio ?? Math.PI / 4;
     const pillar = new THREE.CylinderGeometry(5/32, 11/32, 109/32, 4, 1);
-    pillar.rotateY(Math.PI / 4);
+    pillar.rotateY(rotacio);
     pillar.translate(p.x, p.y + 109/64, p.z);
     kolonajGeometrioj.push(pillar);
 
     // ora bovlo
     const bowl = new THREE.CylinderGeometry(19/64, 13/64, 15/64, 4, 1);
-    bowl.rotateY(Math.PI / 4);
+    bowl.rotateY(rotacio);
     bowl.translate(p.x, p.y + 28/8, p.z);
     bovlajGeometrioj.push(bowl);
 

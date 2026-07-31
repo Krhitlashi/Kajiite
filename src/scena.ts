@@ -1,7 +1,6 @@
 // Scena — renderer, scene, camera, sky, lights, materials, mountains, ground
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { generiSkriptanURL } from "../assets/skripto-rivelilo.js";
 import { alteco } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
 
@@ -29,7 +28,7 @@ export interface ScenaSistemo {
   aplikiRezimon: (t: number) => void;
 }
 
-export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageElement, sxargxaEl: HTMLElement): ScenaSistemo {
+export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): ScenaSistemo {
   let bildilo: THREE.WebGLRenderer;
   try {
     bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: true, powerPreference: "high-performance" });
@@ -149,18 +148,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
   const eniraMaterialo = new THREE.MeshStandardMaterial({ color: 0x082018, roughness: 19/32, emissive: 0xf89840, emissiveIntensity: 3/64 });
   const oraMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 27/32, roughness: 11/32, emissive: 0x302808, emissiveIntensity: 11/32, envMapIntensity: 10/8 });
 
-  // Titola skripto
-  titolaSkripto.src = generiSkriptanURL({ seedName: "Aranis", w: 0o110, h: 0o276, ink: "#d8b068" });
-
   // Malproksimaj montoj — 3D terenaj strioj kun realaj deklivoj
   (function konstruiMontojn(): void {
     function montaAlto( t: number, semo: number ): number {
-      return 0o62
-        + Math.sin( t * 1/32 + semo ) * 0o26
-        + Math.sin( t * 3/64 - semo * 0.6 ) * 0o16
-        + Math.sin( t * 1/16 + semo * 1.3 ) * 0o12
-        + Math.sin( t * 7/64 - semo * 0.4 ) * 0o6
-        + Math.sin( t * 5/32 + semo * 0.8 ) * 0o4;
+      // Larĝaj ondoj donas la bazan silueton, dum pozitivaj krestoj kreas
+      // kelkajn klarajn pintojn anstataŭ brua, dentita montlinio.
+      const ondo = Math.sin( t * 1/32 + semo ) * 0o20;
+      const kresto = Math.pow( Math.max( 0, Math.sin( t * 1/80 + semo * 3/2 )), 2 ) * 0o24;
+      const duaKresto = Math.pow( Math.max( 0, Math.cos( t * 3/128 - semo )), 2 ) * 0o14;
+      const malgrandaOndo = Math.sin( t * 5/32 + semo * 4/5 ) * 8/8;
+      return 0o62 + ondo + kresto + duaKresto + malgrandaOndo;
     }
 
     function koloroPorY( y: number ): [ number, number, number ] {
@@ -219,7 +216,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
           : ( signo > 0 ? x - fiksa : fiksa - x );
         const tn = Math.max( 0, Math.min( 1, dist / profundo ) );
         const rampo = tn < 0.05 ? tn / 0.05 : 1;
-        const falloff = Math.exp( -25 * ( tn - 0.15 ) ** 2 ) * rampo;
+        const falloff = Math.exp( -18 * ( tn - 3/16 ) ** 2 ) * rampo;
         const peak = montaAlto( t, semo ) * skalo * falloff;
         // Aldoni malgrandan koloran variadon laŭ pozicio por natura aspekto
         const kolVario = 0.03 * Math.sin( x * 1/8 + z * 7/32 + semo );
@@ -247,10 +244,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, titolaSkripto: HTMLImageE
       krei3DStrio( false, signo, signo * 0o454, L, D, 0o40, 0o14, 67/32, 0o55 / 0o62, montaMaterialo );
     }
 
-    // Fona tavolo — pli malproksima, pli malalta, duonaj segmentoj
+    // Meza tavolo — milda tavolo inter la urbo kaj la fora kresto
     for ( const signo of [ -1, 1 ] ) {
-      krei3DStrio( true, signo, signo * 0o620, L * 0.8, D * 0.7, 0o20, 0o10, 83/64 + 0o40, 0.6, montaFona );
-      krei3DStrio( false, signo, signo * 0o620, L * 0.8, D * 0.7, 0o20, 0o10, 67/32 + 0o40, 0o36 / 0o62, montaFona );
+      krei3DStrio( true, signo, signo * 0o620, L * 7/8, D * 4/5, 0o30, 0o12, 83/64 + 0o24, 7/8, montaMaterialo );
+      krei3DStrio( false, signo, signo * 0o620, L * 7/8, D * 4/5, 0o30, 0o12, 67/32 + 0o24, 7/8, montaMaterialo );
+    }
+
+    // Fona tavolo — pli malproksima, pli malalta, kun malferma silueto
+    for ( const signo of [ -1, 1 ] ) {
+      krei3DStrio( true, signo, signo * 0o740, L * 4/5, D * 7/10, 0o20, 0o10, 83/64 + 0o40, 3/5, montaFona );
+      krei3DStrio( false, signo, signo * 0o740, L * 4/5, D * 7/10, 0o20, 0o10, 67/32 + 0o40, 18/32, montaFona );
     }
   })();
 
