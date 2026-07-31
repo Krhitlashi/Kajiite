@@ -245,10 +245,6 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
     { trunkaAlto: 84/8, kronaAlto: 35/8, kronaLargho: 10/8, nombro: 5, mallevo: 9/8, densa: false },
   ];
   const kronajGeometrioj = specoj.map( speco => konstruiFrondanKronon( speco.nombro, speco.kronaLargho, speco.kronaAlto, speco.mallevo ));
-  const kronajAltoj = kronajGeometrioj.map( geometrio => {
-    geometrio.computeBoundingBox();
-    return geometrio.boundingBox!.max.y - geometrio.boundingBox!.min.y;
-  });
   const trunkajGeometrioj = specoj.map( speco => new THREE.CylinderGeometry( 3/16, 5/16, speco.trunkaAlto, 7 ));
   const trunkajMaterialoj = specoj.map( ( _, i ) => new THREE.MeshStandardMaterial({ color: [ 0x3a2742, 0x40204a, 0x2a1a44 ][i], roughness: 7/8 }));
   const kronajMaterialoj = specoj.map( speco => new THREE.MeshStandardMaterial({
@@ -271,19 +267,23 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
     if ( Math.hypot( x, z ) > 0o200 ) continue;
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o3 ) || excludeBuildings( x, z, 0o3 )) continue;
 
-    const specoIndico = ( indicoj.reduce( ( a, b ) => a + b, 0 ) ) % specoj.length;
+    // Hazardelektu la specion — malsamaj trunkoj/kronoj donas diversajn grandecojn.
+    let specoIndico = ( hazardaGenerilo() * specoj.length ) | 0;
+    if ( indicoj[specoIndico] >= nombroj[specoIndico] ) {
+      specoIndico = indicoj.findIndex( ( n, j ) => n < nombroj[j] );
+      if ( specoIndico < 0 ) break;
+    }
     const speco = specoj[specoIndico];
-    const kronaAlto = kronajAltoj[specoIndico];
-    const skalo = 6/8 + hazardaGenerilo() * 6/8;
+    const skalo = 5/8 + hazardaGenerilo() * 9/8;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     Q.setFromEuler( E );
     const y = heightFn( x, z );
     // La translokigoj devas inkluzivi la saman specimenan skalon kiel la geometrio.
     // Alie la trunko malleviĝas kaj la krono flosas super ĝi ĉe malgrandaj skaloj.
     const trunkaCentroY = y + speco.trunkaAlto * skalo / 2;
-    // Mallevu la kronon pli profunde en la trunkon: la folioj komenciĝas
-    // supre de la fronda bazo, do la bazo devas esti klare sub la trunkopinto.
-    const kronaCentroY = y + skalo * ( speco.trunkaAlto + kronaAlto / 2 - 4/8 );
+    // La krono-geometrio estas baz-ankrita ( konstruiFrondanKronon normigas min.y al 0 ),
+    // do la krono-bazo sidu sur la supro de la trunko, ne ene de ĝi.
+    const kronaCentroY = y + skalo * speco.trunkaAlto;
     M.compose( new THREE.Vector3( x, trunkaCentroY, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
     trunkoj[specoIndico].setMatrixAt( indicoj[specoIndico], M );
     M.compose( new THREE.Vector3( x, kronaCentroY, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));

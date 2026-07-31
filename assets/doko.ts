@@ -10,53 +10,94 @@ export interface Doko {
   platformDepth: number;
 }
 
+// La dokan formon: rektangulo kun rondigitaj antaŭaj anguloj (la akva pinto).
+// La bordo-flanko restas rekta. Kontraŭhorloĝa volvaĵo tenas la supran facon
+// supren post la -90° X-rotacio (sama konvencio kiel la vojoj).
+function kreiDokanFormon(w: number, l: number, r: number): THREE.Shape {
+  const formo = new THREE.Shape();
+  const duonW = w / 2, duonL = l / 2;
+  const rad = Math.max(0, Math.min(r, duonW, duonL / 2));
+  // Antaŭa flanko (Y = +duonL) estas la akva pinto — nur ĝiaj anguloj rondiĝas.
+  formo.moveTo(-duonW, -duonL);
+  formo.lineTo(duonW, -duonL);
+  formo.lineTo(duonW, duonL - rad);
+  formo.absarc(duonW - rad, duonL - rad, rad, 0, Math.PI / 2, false);
+  formo.lineTo(-duonW + rad, duonL);
+  formo.absarc(-duonW + rad, duonL - rad, rad, Math.PI / 2, Math.PI, false);
+  formo.lineTo(-duonW, -duonL);
+  formo.closePath();
+  return formo;
+}
+
+// Andezita kadro kroĉita al la deka rando: la sama formo pli larĝa kaj pli longa
+// per la strio, kun truo de la preciza deko-formo. La ekstera kaj interna frontaj
+// arkoj estas samcentraj, do la videbla strio havas konstantan larĝon ĉirkaŭ la
+// rondigita pinto — sen interspaco, kiel la voja bordo.
+function kreiDokanKadron(w: number, l: number, r: number, strio: number, dikeco: number): THREE.BufferGeometry {
+  const ekstera = kreiDokanFormon(w + strio * 2, l + strio * 2, r + strio);
+  const interna = kreiDokanFormon(w, l, r);
+  const truo = new THREE.Path();
+  // Truo kontraŭhorloĝa — kontraŭa volvaĵo al la ekstera formo.
+  truo.setFromPoints(interna.getPoints().reverse());
+  ekstera.holes.push(truo);
+  const geometrio = new THREE.ExtrudeGeometry(ekstera, { depth: dikeco, bevelEnabled: false });
+  geometrio.rotateX(-Math.PI / 2);
+  return geometrio;
+}
+
 export function konstruiDokon(
   sceno: THREE.Scene,
   x: number,
   z: number,
   direkto: number,
   heightFn: ( x: number, z: number ) => number,
-  waterFn: ( x: number ) => number
+  waterFn: ( x: number ) => number,
+  profundo = 0o14
 ): Doko {
   const group = new THREE.Group();
   const vojaLargho = 14/8;
-  const platformDepth = 0o14;
+  const platformDepth = profundo;
   const dikeco = 2/8;
+  // Rondigita fronto — la akva pinto de la doko.
+  const antaŭaRadiuso = 4/8;
   const dioritaTeksajxo = kreiDioritanTeksajxon();
   const andezitaTeksajxo = kreiAndezitanTeksajxon();
   const diorito = new THREE.MeshStandardMaterial({ map: dioritaTeksajxo, color: 0xc8c8c8, roughness: 3/16, metalness: 1/64 });
   const andezito = new THREE.MeshStandardMaterial({ map: andezitaTeksajxo, color: 0x586860, roughness: 51/64 });
-  const subteno = new THREE.MeshStandardMaterial({ color: 0x302820, roughness: 7/8 });
 
-  // La doko estas mallarĝa rekta etendo de la vojo, ne aparta ligna platformo.
-  const surfaco = new THREE.Mesh(
-    new THREE.BoxGeometry(vojaLargho, dikeco, platformDepth),
-    diorito
+  // La doko estas mallarĝa rekta etendo de la vojo; la akva pinto rondiĝas.
+  const surfacaGeometrio = new THREE.ExtrudeGeometry(
+    kreiDokanFormon(vojaLargho, platformDepth, antaŭaRadiuso),
+    { depth: dikeco, bevelEnabled: false }
   );
-  surfaco.position.y = dikeco / 2;
+  surfacaGeometrio.rotateX(-Math.PI / 2);
+  const surfaco = new THREE.Mesh(surfacaGeometrio, diorito);
   surfaco.castShadow = surfaco.receiveShadow = true;
   group.add(surfaco);
 
-  // Malaltaj andezitaj randoj konservas la saman flankdesegnon kiel la vojoj.
-  for ( const flanko of [ -1, 1 ] ) {
-    const rando = new THREE.Mesh(
-      new THREE.BoxGeometry(1/2, dikeco + 1/16, platformDepth + 2/8),
-      andezito
-    );
-    rando.position.set( flanko * ( ( vojaLargho + 1 ) / 2 ), dikeco / 2, 0 );
-    rando.castShadow = rando.receiveShadow = true;
-    group.add(rando);
-  }
+  // Andezita kadro (konstanta strio 4/8 ĉirkaŭ la tuta perimetro) kun malalta
+  // bordero levita super la deko — samstila kiel la voja andezita rando.
+  const rando = new THREE.Mesh(
+    kreiDokanKadron(vojaLargho, platformDepth, antaŭaRadiuso, 4/8, dikeco + 1/16),
+    andezito
+  );
+  rando.position.y = -1/32;
+  rando.castShadow = rando.receiveShadow = true;
+  group.add(rando);
 
-  // Dikaj fostoj sub la akvo tenas la vojan etendon.
+  // Dikaj andezitaj fostoj proksime al la deka rando tenas la vojan etendon.
   const vojaY = heightFn( x, z );
   const akvaY = waterFn( x );
   const fostaAlto = Math.max( 1, vojaY - akvaY );
-  for ( const localZ of [ -0o4, 0o4 ] ) {
-    for ( const localX of [ -4/8, 4/8 ] ) {
+  const fostoX = vojaLargho / 2 - 1/8;
+  // La antaŭa vico sidas sub la rekta parto de la rondigita pinto.
+  const frontaZ = -( platformDepth / 2 - antaŭaRadiuso - 1/8 );
+  const malantaŭaZ = platformDepth / 2 - 1/8;
+  for ( const localZ of [ frontaZ, malantaŭaZ ] ) {
+    for ( const localX of [ -fostoX, fostoX ] ) {
       const fosto = new THREE.Mesh(
         new THREE.CylinderGeometry( 3/16, 5/16, fostaAlto, 6 ),
-        subteno
+        andezito
       );
       fosto.position.set( localX, ( akvaY - vojaY ) / 2, localZ );
       fosto.castShadow = true;

@@ -24,7 +24,7 @@ const DIORITA_KOLORO = 0xc8c8c8;
 export function konstruiLampojn( sceno: THREE.Scene,
   spots: LampLoko[],
   dioritaMaterialo: THREE.MeshStandardMaterial,
-  oraMaterialo: THREE.MeshStandardMaterial
+  _oraMaterialo: THREE.MeshStandardMaterial
 ): LampSistemo {
   const kolonajGeometrioj: THREE.BufferGeometry[] = [];
   const bovlajGeometrioj: THREE.BufferGeometry[] = [];
@@ -38,20 +38,37 @@ export function konstruiLampojn( sceno: THREE.Scene,
     pillar.translate(p.x, p.y + 109/64, p.z);
     kolonajGeometrioj.push(pillar);
 
-    // ora bovlo
-    const bowl = new THREE.CylinderGeometry(19/64, 13/64, 15/64, 4, 1);
+    // Diorita bovlo — fermita profilo: ekstera kurbo, rando, interna muro kaj fundo.
+    // La fermo forigas la tra-videblon (la interna flanko nun estas vera surfaco).
+    const profilo: THREE.Vector2[] = [
+      new THREE.Vector2(0, 0),
+      ...new THREE.SplineCurve([
+        new THREE.Vector2(11/64, 0),
+        new THREE.Vector2(7/32, 3/32),
+        new THREE.Vector2(11/32, 7/32),
+        new THREE.Vector2(29/64, 12/32),
+      ]).getPoints(0o12),
+      new THREE.Vector2(25/64, 12/32),
+      new THREE.Vector2(3/16, 1/4),
+      new THREE.Vector2(3/16, 1/16),
+      new THREE.Vector2(0, 1/16),
+    ];
+    const bowl = new THREE.LatheGeometry(profilo, 4);
     bowl.rotateY(rotacio);
-    bowl.translate(p.x, p.y + 28/8, p.z);
+    // La kolono estas 109/32 alta, do gia supro estas p.y + 109/32 (ne 109/64 = centro).
+    bowl.translate(p.x, p.y + 109/32, p.z);
     bovlajGeometrioj.push(bowl);
 
-    flamajLokoj.push(new THREE.Vector3(p.x, p.y + 123/32, p.z));
+    // Flamo levita: gia bazo sidas cxe la bovla rando (ne sube en la bovlo),
+    // kaj restas super la rando ecx cxe la plej alta flam-skalo.
+    flamajLokoj.push(new THREE.Vector3(p.x, p.y + 133/32, p.z));
   }
 
   const kolonoj = new THREE.Mesh(kunfandiBufrajnGeometriojn(kolonajGeometrioj), dioritaMaterialo);
   kolonoj.castShadow = true;
   sceno.add(kolonoj);
 
-  const bovloj = new THREE.Mesh(kunfandiBufrajnGeometriojn(bovlajGeometrioj), oraMaterialo);
+  const bovloj = new THREE.Mesh(kunfandiBufrajnGeometriojn(bovlajGeometrioj), dioritaMaterialo);
   sceno.add(bovloj);
 
   // flamaj konusoj

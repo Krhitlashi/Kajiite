@@ -32,6 +32,10 @@ body {
 #sceno { position:fixed; inset:0; display:block; touch-action:none; cursor:grab; }
 #sceno:active { cursor:grabbing; }
 
+/* Buttons: the browser font shorthand resets the font longhands ( ligatures, kerning )
+   to their initial values, so restore the same shaping as the rest of the UI. */
+button { font-variant-ligatures:normal; font-feature-settings:"liga","clig","calt"; font-kerning:normal; text-rendering:optimizeLegibility; }
+
 /* Full-screen effects */
 #vinjeto,#svingo,#fxVarma,#fxMenta,#balailo { position:fixed; inset:0; pointer-events:none; }
 #vinjeto { z-index:2; background:radial-gradient(ellipse at center,transparent 60%,rgba(4,10,8,.55)); transition:opacity .8s; }
@@ -75,6 +79,7 @@ body {
   backdrop-filter:blur(32px);
   background: var(--តានេកខេលេ);
   border:var(--សាកព៏);
+  border-radius:var(--អិត្ភេពឺ);
   box-shadow:none;
 }
 
@@ -112,6 +117,8 @@ body {
   position:fixed; z-index:7; right:calc(20px + var(--sar)); bottom:calc(20px + var(--sab));
   inline-size:48px; block-size:48px; display:grid; place-items:center; padding:0;
   color:var(--gold); font-size:20px; cursor:pointer; touch-action:manipulation;
+  /* Pli granda angulo ol la karteto: iom pli rondigita por la cirkla butono. */
+  border-radius:var(--អិត្ភេ);
 }
 #navPopUp {
   position:fixed; z-index:6; inset:auto calc(20px + var(--sar)) calc(76px + var(--sab)) auto;
@@ -138,7 +145,7 @@ body {
 .menuIdenteco { padding:var(--អារេង); text-align:start; }
 .menuIdenteco h1 { margin:0; color:var(--កេភ); font-size:16px; font-weight:400; letter-spacing:.12em; text-align:start; }
 .menuIdenteco p { margin:4px 0 0; color:var(--កេភ២); font-size:10px; letter-spacing:.06em; text-align:start; }
-#navPopFermi { position:absolute; top:var(--អារេង); right:var(--អារេង); z-index:1; inline-size:32px; block-size:32px; min-block-size:0; padding:0; color:var(--កេភ២); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេ); cursor:pointer; }
+#navPopFermi { position:absolute; top:var(--អារេង); right:var(--អារេង); z-index:1; inline-size:32px; block-size:32px; min-block-size:0; padding:0; color:var(--កេភ២); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេមិ); cursor:pointer; }
 #navPopFermi:hover { color:var(--កេភ); background:var(--តានេក២); }
 .menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--អារេង); }
 .menuAzioj button { inline-size:auto; min-block-size:44px; padding:var(--អារេងចិ); color:var(--កេភ); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេ); font-size:11px; letter-spacing:.08em; }

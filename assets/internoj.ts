@@ -10,6 +10,7 @@
 //   • Minimalismaj rondangulaj mebloj kun oraj akcentoj
 
 import * as THREE from "three";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { KonstruSpec, kreiManĝaĵojn, ManĝaĵItemo, aldoniVaporon } from "./zigurato-konstruilo.js";
 import { generiSkriptanTeksajxon } from "./skripto-rivelilo.js";
 
@@ -252,7 +253,9 @@ export function eniriInternon(
     if ( et === 0 ) {
       // Porda larĝo kaj alto kun arka supro
       const pordLargho = 3/2;
-      const pordAlto = tieroAlto * 5/8;
+      // Pordo sufiĉe alta por la okulnivelo de la ludanto (≈ 2.16),
+      // sed lasu al la arko sufiĉan liberecon sub la plafono
+      const pordAlto = Math.min( tieroAlto * 3/4, tieroAlto - 7/8 );
       const arkRadiuso = pordLargho / 2;
       const arkSegmentoj = 0o10;
 
@@ -263,21 +266,21 @@ export function eniriInternon(
       // Muro super la pordo
       konstruiMuron(group, -pordLargho / 2, pordAlto, pordLargho, y, tieroAlto - pordAlto, 3/16, muraMaterialo, 0, hd);
 
-      // Arka porda kapo kun rondigita trapeza formo
+      // Arka porda kapo — ora rando ĝuste antaŭ la interna muro-faco (ne entombigita)
       const arkGeo = kreiArkFormon(arkRadiuso, arkSegmentoj, 3/16);
-      const ark = new THREE.Mesh(arkGeo, muraMaterialo);
-      ark.position.set(0, y + pordAlto, hd);
+      const ark = new THREE.Mesh(arkGeo, new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 3/8, side: THREE.DoubleSide }));
+      ark.position.set(0, y + pordAlto, hd - 3/16);
       group.add(ark);
 
-      // Ora pordokadro kun arka bordero
+      // Ora pordokadro — sama larĝo kiel la arko, rektangulo ĝis la arka bazo
       const kadroGeo = new THREE.EdgesGeometry(
-        new THREE.BoxGeometry( pordLargho + 1/8, pordAlto + 1/16, 1/32 )
+        new THREE.BoxGeometry( pordLargho, pordAlto, 1/32 )
       );
       const kadroLinio = new THREE.LineSegments(
         kadroGeo,
         new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 4/8 })
       );
-      kadroLinio.position.set( 0, y + pordAlto / 2, hd + 1/32 );
+      kadroLinio.position.set( 0, y + pordAlto / 2, hd - 7/64 );
       group.add(kadroLinio);
 
       // Malgranda ora sojlo
@@ -440,37 +443,48 @@ export function eniriInternon(
       const sxtupAlto = tieroAlto / sxtupNombro;
       const sxtupProf = 4/5 / sxtupNombro;
       const sxLargho = Math.min( hw * 2 * 3/8, 7/2 );
+      const sxtupZ0 = -3/8;
       for ( let s = 0; s < sxtupNombro; s++ ) {
-        const step = new THREE.Mesh(
-          new THREE.BoxGeometry( sxLargho, sxtupAlto * 15/16, sxtupProf ),
+        const bazoY = y + s * sxtupAlto;
+        const zB = sxtupZ0 + s * sxtupProf;
+        // Plato ( paŝa surfaco ) — la supro atingas ekzakte la sekvan etaĝon
+        const plato = new THREE.Mesh(
+          new THREE.BoxGeometry( sxLargho, sxtupAlto, sxtupProf ),
           sxtupMaterialo
         );
-        step.position.set( 0, y + ( s + 4/8 ) * sxtupAlto * 15/16, -3/8 + ( s + 4/8 ) * sxtupProf );
-        group.add(step);
-        // Ora rando de la sxtupoj
-        if ( s < sxtupNombro - 1 ) {
-          const nazo = new THREE.Mesh(
-            new THREE.BoxGeometry( sxLargho - 1/8, 1/32, sxtupProf * 3/8 ),
-            oraNazoMaterialo
-          );
-          nazo.position.set( 0, y + ( s + 1 ) * sxtupAlto * 15/16, -3/8 + ( s + 1 ) * sxtupProf );
-          group.add(nazo);
-        }
+        plato.position.set( 0, bazoY + sxtupAlto / 2, zB + sxtupProf / 2 );
+        group.add( plato );
+        // Ora nazo sur la antaŭa rando de ĉiu plato
+        const nazo = new THREE.Mesh(
+          new THREE.BoxGeometry( sxLargho + 1/16, 1/16, 1/16 ),
+          oraNazoMaterialo
+        );
+        nazo.position.set( 0, bazoY + sxtupAlto - 1/32, zB );
+        group.add( nazo );
       }
-      // Centritaj flankaj muroj de la sxtupoj
+      // Flankaj stringers ( muroj de la sxtuparo ) kun ora mano-relo
+      const sxtupLongo = sxtupNombro * sxtupProf + 3/8;
+      const sxtupZMezo = sxtupZ0 + sxtupNombro * sxtupProf / 2;
       for ( const sX of [ -1, 1 ] ) {
         const sxtupMuro = new THREE.Mesh(
-          new THREE.BoxGeometry( 1/16, tieroAlto, 13/8 ),
+          new THREE.BoxGeometry( 1/16, tieroAlto, sxtupLongo ),
           muraMaterialo
         );
-        sxtupMuro.position.set( sX * ( sxLargho / 2 + 1/8 ), y + tieroAlto / 2, 0 );
+        sxtupMuro.position.set( sX * ( sxLargho / 2 + 1/8 ), y + tieroAlto / 2, sxtupZMezo );
         group.add(sxtupMuro);
-        // Ora bordero sur la sxtupaj muroj
-        const trim = new THREE.Mesh(
-          new THREE.BoxGeometry( 1/32, tieroAlto * 1/64, 13/8 ),
+        // Ora mano-relo laŭ la supro de la stringer
+        const relo = new THREE.Mesh(
+          new THREE.BoxGeometry( 1/16, 1/16, sxtupLongo ),
           oraTrimMaterialo
         );
-        trim.position.set( sX * ( sxLargho / 2 + 3/16 ), y + tieroAlto * 31/32, 0 );
+        relo.position.set( sX * ( sxLargho / 2 + 1/8 ), y + tieroAlto * 3/4, sxtupZMezo );
+        group.add( relo );
+        // Ora bordero sur la sxtupaj muroj
+        const trim = new THREE.Mesh(
+          new THREE.BoxGeometry( 1/32, tieroAlto * 1/64, sxtupLongo ),
+          oraTrimMaterialo
+        );
+        trim.position.set( sX * ( sxLargho / 2 + 3/16 ), y + tieroAlto * 31/32, sxtupZMezo );
         group.add(trim);
       }
     }
@@ -530,8 +544,6 @@ export function eniriInternon(
     );
     pot.position.set( -5/8, 10/8, counter.position.z );
     group.add(pot);
-    const items = kreiManĝaĵojn(group, 0, 0);
-    sys.manĝaĵoj = items;
     const steamPos = new THREE.Vector3( -5/8, 13/8, counter.position.z );
     const vapor = aldoniVaporon(group, steamPos);
     sys.vaporNuboj = [{ ...vapor, ph: 0 }];
@@ -540,15 +552,30 @@ export function eniriInternon(
     const tabloLokoj = mw >= 40/8 && md >= 40/8
       ? [ [ tabloX, tabloZ ], [ -tabloX, tabloZ ], [ tabloX, -tabloZ ], [ -tabloX, -tabloZ ] ]
       : [];
+    const tabloj: { x: number; z: number }[] = [];
     for ( const [tx, tz] of tabloLokoj ) {
+      // Rondangula tablo
       const tb = new THREE.Mesh(
-        new THREE.BoxGeometry( 14/8, 3/8, 10/8 ),
+        new RoundedBoxGeometry( 14/8, 3/8, 10/8, 3, 1/8 ),
         new THREE.MeshStandardMaterial({ color: 0x54402e, roughness: 7/8 })
       );
       tb.position.set( tx, 2/8, tz );
       tb.castShadow = true;
       group.add( tb );
-      const seĝajOfsetoj = [ [ -10/8, 0 ], [ 10/8, 0 ], [ 0, -10/8 ], [ 0, 10/8 ] ];
+      // Ora rando ĉirkaŭ la tablo-supro
+      const rando = new THREE.Mesh(
+        new RoundedBoxGeometry( 14/8 + 1/16, 1/16, 10/8 + 1/16, 3, 1/8 ),
+        new THREE.MeshStandardMaterial({ color: GOLD, metalness: 3/4, roughness: 3/8 })
+      );
+      // Rando iomete sub la tablo-supro (7/16) por eviti z-batalan brilon
+      rando.position.set( tx, 2/8 + 3/8 / 2 - 1/32 - 1/64, tz );
+      rando.castShadow = true;
+      group.add( rando );
+      tabloj.push({ x: tx, z: tz });
+      // Seĝoj sur la tri liberaj flankoj; la flanko kontraŭ la vendotablo restas sen seĝo
+      const seĝajOfsetoj: [number, number][] = tz < 0
+        ? [ [ -10/8, 0 ], [ 10/8, 0 ], [ 0, 10/8 ] ]
+        : [ [ -10/8, 0 ], [ 10/8, 0 ], [ 0, -10/8 ], [ 0, 10/8 ] ];
       for ( const [ox, oz] of seĝajOfsetoj ) {
         const seĝo = new THREE.Mesh(
           new THREE.CylinderGeometry( 3/16, 4/16, 3/8, 0o10 ),
@@ -559,6 +586,9 @@ export function eniriInternon(
         group.add( seĝo );
       }
     }
+    // Manĝaĵoj sidas sur la tabloj ( ne en la aero )
+    const items = kreiManĝaĵojn(group, 0, 0, tabloj);
+    sys.manĝaĵoj = items;
   }
 
   // Aldonu la internan grupon

@@ -102,12 +102,13 @@ export function konstruiUrbon(
   // ⟪ Rivero 📃 ⟫
   const riverData = konstruiRiveron(sceno, riveroZ, akvoY, 84/8, -0o200, 0o200, 0o50);
 
-  // ⟪ Dokoj — tri lignaj alirejoj laŭ la suda riverbordo 📃 ⟫
-  const DOKO_KOORDINATOJ: [number, number][] = [
-    [ -0o52, -0o144 ], [ 0, -0o142 ], [ 0o52, -0o140 ],
-  ];
-  for ( const [ dx, dz ] of DOKO_KOORDINATOJ ) {
-    konstruiDokon( sceno, dx, dz, 0, alteco, akvoY );
+  // ⟪ Dokoj — tri alirejoj laŭ la suda riverbordo 📃 ⟫
+  // La dokoj sekvas la riverkurbon (riveroZ + 14), do cxiu pinto atingas la akvon
+  // egalproporcie, kaj la meza estas pli longa cxefpiero.
+  const DOKO_X = [ -0o52, 0, 0o52 ];
+  const DOKO_PROFUNDOJ = [ 0o14, 0o20, 0o14 ];
+  for ( let i = 0; i < DOKO_X.length; i++ ) {
+    konstruiDokon( sceno, DOKO_X[i], riveroZ( DOKO_X[i] ) + 0o16, 0, alteco, akvoY, DOKO_PROFUNDOJ[i] );
   }
 
   // ⟪ Voja reto 📃 ⟫
@@ -212,14 +213,14 @@ export function konstruiUrbon(
 
   // Rivervojo — la dokoj okupas la mezon, do la promenvojo disigas sin
   // maldekstre kaj dekstre por eviti geometriajn interkovrojn kun la platformoj.
-  vojDifinoj.push({ pts: [ [ -0o124, -0o144 ], [ -0o70, -0o150 ], [ -0o52, -0o150 ] ], w: 14/8 });
-  vojDifinoj.push({ pts: [ [ 0o52, -0o140 ], [ 0o70, -0o136 ], [ 0o124, -0o136 ] ], w: 14/8 });
+  // Cxiu brancxo finigxas cxe la norda rando de sia doko (kiu sekvas la riveron).
+  const dokaNordaRando = ( i: number ) => riveroZ( DOKO_X[i] ) + 0o16 + DOKO_PROFUNDOJ[i] / 2;
+  vojDifinoj.push({ pts: [ [ -0o124, -0o144 ], [ -0o70, -0o150 ], [ DOKO_X[0], dokaNordaRando( 0 ) ] ], w: 14/8 });
+  vojDifinoj.push({ pts: [ [ DOKO_X[2], dokaNordaRando( 2 ) ], [ 0o70, -0o136 ], [ 0o124, -0o136 ] ], w: 14/8 });
 
   // Docka avenuo — ĝia ĉefa akso kongruas kun la urba krada vojo ĉe x=12.
-  // Ĉiu branĉo finiĝas ĉe la propra landa rando de doko, ne tra ĝia platformo.
-  const dockaLandaRando: [ number, number ][] = [
-    [ -0o52, -0o135 ], [ 0, -0o133 ], [ 0o52, -0o131 ],
-  ];
+  // Ĉiu branĉo finiĝas ĉe la norda rando de sia doko, ne tra ĝia platformo.
+  const dockaLandaRando: [ number, number ][] = DOKO_X.map( ( dx, i ) => [ dx, dokaNordaRando( i ) ] );
   vojDifinoj.push({ pts: [ [ 0o14, -0o44 ], [ 0o14, -0o131 ] ], w: 14/8 });
   for ( const [ dx, dz ] of dockaLandaRando ) {
     vojDifinoj.push({ pts: [ [ 0o14, -0o131 ], [ dx, dz ] ], w: 14/8 });
@@ -237,6 +238,10 @@ export function konstruiUrbon(
     const pordoOffset = s.d / 2 + 12/8;
     const pordoX = s.x + Math.sin(rot) * pordoOffset;
     const pordoZ = s.z + Math.cos(rot) * pordoOffset;
+    // La sprono komencigxas cxe la muro-bazo (ne 12/8 for), por ke la vojo
+    // atingas la konstruajxon kaj estas pli longa.
+    const spronoX = s.x + Math.sin(rot) * (s.d / 2);
+    const spronoZ = s.z + Math.cos(rot) * (s.d / 2);
 
     const fX = Math.sin(rot), fZ = Math.cos(rot);
     let vojX: number, vojZ: number;
@@ -250,7 +255,7 @@ export function konstruiUrbon(
       }
       const duonL = vojDuonLargho(celX);
       vojX = celX - signo * duonL;
-      vojZ = pordoZ;
+      vojZ = spronoZ;
     } else {
       const signo = fZ > 0 ? 1 : -1;
       let celZ = signo > 0 ? Math.max(...RETO_Z) : Math.min(...RETO_Z);
@@ -259,12 +264,12 @@ export function konstruiUrbon(
         if (signo < 0 && rz < pordoZ && rz > celZ) celZ = rz;
       }
       const duonL = vojDuonLargho(celZ);
-      vojX = pordoX;
+      vojX = spronoX;
       vojZ = celZ - signo * duonL;
     }
 
-    if (Math.hypot(pordoX - vojX, pordoZ - vojZ) > 4/8) {
-      konstruiSpronon(pordoX, pordoZ, vojX, vojZ, alteco, dioritaMaterialo, andezitaMaterialo, sceno);
+    if (Math.hypot(spronoX - vojX, spronoZ - vojZ) > 4/8) {
+      konstruiSpronon(spronoX, spronoZ, vojX, vojZ, alteco, dioritaMaterialo, andezitaMaterialo, sceno);
     }
   }
 
@@ -312,9 +317,9 @@ export function konstruiUrbon(
   };
   for (const [aX, aZ] of placajNodoj) {
     for (const [ox, oz] of [ [ -17/8, -17/8 ], [ 17/8, -17/8 ], [ -17/8, 17/8 ], [ 17/8, 17/8 ] ]) addLamp(aX + ox, aZ + oz);
-  }
-  // Platformoj estas diamantaj (pintoj laŭ la aksoj), do iliaj lampoj estu sam-orientitaj.
-  for (const [ x, z ] of periferiajPlatformoj) addLamp( x, z, alteco( x, z ) + 5/8, 0 );
+  }  // Platformoj estas diamantaj (pintoj laŭ la aksoj), do iliaj lampoj estu sam-orientitaj.
+  // Lampoj estas plantitaj en la platforman supran tavolon (y + 2/8 + 2/8 - 1/32).
+  for ( const [ x, z ] of periferiajPlatformoj ) addLamp( x, z, alteco( x, z ) + 4/8 - 1/32, 0 );
   for (const gx of RETO_X) {
     for (const gz of RETO_Z) {
       if (Math.abs(gz - riveroZ(gx)) < 0o14) continue;
@@ -405,10 +410,11 @@ export function konstruiUrbon(
   }
 
   // ⟪ Kanuoj 📃 ⟫
+  // La kanuoj sekvas la novajn dokpintojn (riveroZ + 3, en la akvo) por resti atingeblaj de la dokoj.
   const kanuoj: Kanoto[] = [];
-  kanuoj.push(kreiKanoton(sceno, 0o52, -0o151, -Math.PI * 2/8, oraMaterialo, akvoY(0o52)));
-  kanuoj.push(kreiKanoton(sceno, -0o52, -0o167, Math.PI * 2/8, oraMaterialo, akvoY(-0o52)));
-  kanuoj.push(kreiKanoton(sceno, 0, -0o160, -Math.PI * 4/8, oraMaterialo, akvoY(0)));
+  kanuoj.push(kreiKanoton(sceno, 0o52, riveroZ(0o52) + 3, -Math.PI * 2/8, oraMaterialo, akvoY(0o52)));
+  kanuoj.push(kreiKanoton(sceno, -0o52, riveroZ(-0o52) + 3, Math.PI * 2/8, oraMaterialo, akvoY(-0o52)));
+  kanuoj.push(kreiKanoton(sceno, 0, riveroZ(0) + 3, -Math.PI * 4/8, oraMaterialo, akvoY(0)));
 
   // ⟪ NPC-agordo 📃 ⟫
   const VESTA_LISTO: Vesto[] = [

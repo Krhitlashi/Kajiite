@@ -139,17 +139,19 @@ export function konstruiVojojn( sceno: THREE.Scene,
 }
 
 function kreiRondanDiamanton( radiuso: number, dikeco: number ): THREE.ExtrudeGeometry {
-  const rondo = radiuso * 1/4;
+  const rondo = radiuso * 1/4, k = radiuso - rondo;
   const formo = new THREE.Shape();
-  formo.moveTo( 0, -radiuso + rondo );
-  formo.lineTo( radiuso - rondo, -rondo );
-  formo.quadraticCurveTo( radiuso, 0, radiuso - rondo, rondo );
-  formo.lineTo( rondo, radiuso - rondo );
-  formo.quadraticCurveTo( 0, radiuso, -rondo, radiuso - rondo );
-  formo.lineTo( -radiuso + rondo, rondo );
-  formo.quadraticCurveTo( -radiuso, 0, -radiuso + rondo, -rondo );
-  formo.lineTo( -rondo, -radiuso + rondo );
-  formo.quadraticCurveTo( 0, -radiuso, rondo, -radiuso + rondo );
+  // Ferma vojo el kvar egalaj rondigitaj anguloj. La malnova fermo komencigxis
+  // interne kaj krampe tranĉis la malsupran-dekstran randon (paperklipa fermo).
+  formo.moveTo( rondo, -k );
+  formo.lineTo( k, -rondo );
+  formo.quadraticCurveTo( radiuso, 0, k, rondo );
+  formo.lineTo( rondo, k );
+  formo.quadraticCurveTo( 0, radiuso, -rondo, k );
+  formo.lineTo( -k, rondo );
+  formo.quadraticCurveTo( -radiuso, 0, -k, -rondo );
+  formo.lineTo( -rondo, -k );
+  formo.quadraticCurveTo( 0, -radiuso, rondo, -k );
   formo.closePath();
   return new THREE.ExtrudeGeometry( formo, { depth: dikeco, bevelEnabled: false } );
 }
@@ -221,17 +223,35 @@ export function konstruiPeriferiajnPlatformojn(
 
   for ( const [ x, z ] of lokoj ) {
     const y = heightFn( x, z );
+    // Inklini la platformon laux la loka terena deklivo: alie unu flanko flosu
+    // super la grundo kaj la alia enfosigxus (la arbara rando deklivas).
+    const e = 1/4;
+    const gx = ( heightFn( x + e, z ) - heightFn( x - e, z ) ) / ( 2 * e );
+    const gz = ( heightFn( x, z + e ) - heightFn( x, z - e ) ) / ( 2 * e );
+    const normalo = new THREE.Vector3( -gx, 1, -gz ).normalize();
+    // Baza kuŝigo (extrude laux +Z → supren), tiam klino al la terena normalo.
+    const klino = new THREE.Quaternion().setFromUnitVectors( new THREE.Vector3( 0, 1, 0 ), normalo );
+    const orienti = klino.multiply( new THREE.Quaternion().setFromEuler( new THREE.Euler( -Math.PI / 2, 0, 0 ) ) );
+
     const suba = new THREE.Mesh( kreiRondanDiamanton( 3, 2/8 ), subaMaterialo );
-    suba.rotation.x = -Math.PI / 2;
+    suba.quaternion.copy( orienti );
     suba.position.set( x, y, z );
     suba.receiveShadow = true;
     sceno.add( suba );
 
-    const supra = new THREE.Mesh( kreiRondanDiamanton( 2.6, 2/8 ), supraMaterialo );
-    supra.rotation.x = -Math.PI / 2;
-    supra.position.set( x, y + 2/8, z );
-    supra.receiveShadow = supra.castShadow = true;
-    sceno.add( supra );
+    // Supra tavolo kusxas precize sur la suba (laŭ la normalo, ne nura vertikala ofseto).
+    const bordo = new THREE.Mesh( kreiRondanDiamanton( 2.6, 2/8 ), subaMaterialo );
+    bordo.quaternion.copy( orienti );
+    bordo.position.copy( suba.position ).addScaledVector( normalo, 2/8 );
+    bordo.receiveShadow = true;
+    sceno.add( bordo );
+
+    // Diorita centro kun andezita ringo ĉirkaŭe — la sama rando-stilo kiel la vojoj.
+    const centro = new THREE.Mesh( kreiRondanDiamanton( 2.2, 2/8 ), supraMaterialo );
+    centro.quaternion.copy( orienti );
+    centro.position.copy( bordo.position );
+    centro.receiveShadow = centro.castShadow = true;
+    sceno.add( centro );
   }
   return lokoj;
 }

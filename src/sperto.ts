@@ -251,7 +251,7 @@ function resetiJoystick() {
 
 mobJoystickZono.addEventListener("touchstart", (e) => {
   if (joystickAktiva) return;
-  if (rezimo !== "walk" && rezimo !== "interior") return;
+  // Stirstango funkcias en cxiuj rezimoj (promenado, interno kaj orbirado).
   const tosxo = e.changedTouches[0];
   joystickID = tosxo.identifier;
   joystickAktiva = true;
@@ -485,6 +485,9 @@ function sxaltiRezimon() {
     ludantaPozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
     estasSurTERENO = true;
   } else {
+    // Malplenigu la promen-reziman staton por ke E en orbito movu vertikale
+    plejProksimaPordo = null;
+    promptoElemento.classList.remove("montri");
     regiloj.enabled = true;
     regiloj.target.copy(ludantaPozicio).add(new THREE.Vector3(0, 4, 0));
     fotilo.position.copy(ludantaPozicio).add(new THREE.Vector3(0, 4, 0o14));
@@ -561,7 +564,9 @@ function proviInterakti() {
     montriTost(traduki("pY"));
     return;
   }
-  if (plejProksimaPordo) {
+  // En orbita reximo E movas la fotilon vertikale, do la pordo/kanuo
+  // interago validas nur dum promenado (ne kun malnovaj statoj).
+  if (plejProksimaPordo && rezimo === "walk") {
     const bt = TIPARO[plejProksimaPordo.type] || TIPARO.domo;
     eniriKonstruajxon(plejProksimaPordo, bt);
     return;
@@ -795,16 +800,9 @@ function animacii() {
         // E-klava supreniro: restu leviĝanta ĝis la cela etaĝo atingiĝas.
         etapy = specH0 + plankoj[sxtupaCelo].y;
       } else {
+        // Sxtupoj estas uzataj nur per E-klavo; piedirado ne sxangxas etaĝon.
         sxtupaCelo = null;
-        if (cxeSxtuparo && movZ > 3/8 && nunaEtagxIndekso < plankoj.length - 1) {
-          const sekva = plankoj[nunaEtagxIndekso + 1];
-          etapy = specH0 + sekva.y;
-        } else if (cxeSxtuparo && movZ < -3/8 && nunaEtagxIndekso > 0) {
-          const antauxa = plankoj[nunaEtagxIndekso - 1];
-          etapy = specH0 + antauxa.y;
-        } else {
-          etapy = specH0 + aktivaPlanko.y;
-        }
+        etapy = specH0 + aktivaPlanko.y;
       }
     } else {
       etapy = specH0;
@@ -913,11 +911,12 @@ function animacii() {
   const fotilaDirekto = rezimo === "walk" ? direkto : -Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
   (nadlo as HTMLElement).style.transform = `rotate(${fotilaDirekto + Math.PI}rad)`;
 
-  // WASD orbita movado
+  // WASD orbita movado; Q/E por vertikala movo
   if (rezimo === "orbit") {
     let panX = (klavoj.KeyD ? 1 : 0) - (klavoj.KeyA ? 1 : 0);
     let panZ = (klavoj.KeyS ? 1 : 0) - (klavoj.KeyW ? 1 : 0);
-    if (panX || panZ) {
+    const panY = (klavoj.KeyE ? 1 : 0) - (klavoj.KeyQ ? 1 : 0);
+    if (panX || panZ || panY) {
       const fotilaDir = new THREE.Vector3();
       fotilo.getWorldDirection(fotilaDir);
       fotilaDir.y = 0; fotilaDir.normalize();
@@ -926,6 +925,7 @@ function animacii() {
       const offset = new THREE.Vector3()
         .addScaledVector(side, panX * rapido)
         .addScaledVector(fotilaDir, -panZ * rapido);
+      offset.y = panY * rapido;
       regiloj.target.add(offset);
       fotilo.position.add(offset);
     }

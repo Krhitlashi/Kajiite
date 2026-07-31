@@ -23,12 +23,34 @@ function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number, rb: n
   return s;
 }
 
-function kadraTubo(cX: number, cZ: number, yB: number, yT: number, sX: number, sZ: number, upward: boolean): THREE.TubeGeometry {
+// kreiKlinoTavolon — Kvadrata tavolo kun klinitaj muroj: la supro estas pli
+// mallarĝa ol la bazo, do cxiu tavolo aspektas kiel trapezoido.
+// 4-segmenta cilindro donas precize kvadratan frustumon (cxiuj konstruajxoj estas kvadrataj).
+function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: number, alto: number): THREE.BufferGeometry {
+  const rB = Math.max(1/16, Math.hypot(hwB, hdB));
+  const rT = Math.max(1/16, Math.hypot(hwT, hdT));
+  const g = new THREE.CylinderGeometry(rT, rB, alto, 4, 1);
+  g.rotateY(Math.PI / 4);
+  return g;
+}
+
+function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: number, yB: number, yT: number, sX: number, sZ: number, upward: boolean, klino = 0): void {
   const out = 33/64, over = 9/16;
+  // cXT/cZT estas pli enen: la tubo sekvas la klinon (supre por supraj muroj, sube por sub-teraj).
+  const cXT = cX - sX * klino, cZT = cZ - sZ * klino;
   const curve = upward
-    ? new THREE.QuadraticBezierCurve3(new THREE.Vector3(cX, yB - 1/8, cZ), new THREE.Vector3(cX, yT - 13/32, cZ), new THREE.Vector3(cX + sX * out, yT + over, cZ + sZ * out))
-    : new THREE.QuadraticBezierCurve3(new THREE.Vector3(cX, yT + 1/8, cZ), new THREE.Vector3(cX, yB + 13/32, cZ), new THREE.Vector3(cX + sX * out, yB - over, cZ + sZ * out));
-  return new THREE.TubeGeometry(curve, 0o12, 1/8, 6, false);
+    ? new THREE.QuadraticBezierCurve3(new THREE.Vector3(cX, yB - 1/8, cZ), new THREE.Vector3(cXT, yT - 13/32, cZT), new THREE.Vector3(cXT + sX * out, yT + over, cZT + sZ * out))
+    : new THREE.QuadraticBezierCurve3(new THREE.Vector3(cX, yT + 1/8, cZ), new THREE.Vector3(cXT, yB + 13/32, cZT), new THREE.Vector3(cXT + sX * out, yB - over, cZT + sZ * out));
+  geos.push(new THREE.TubeGeometry(curve, 0o12, 1/8, 6, false));
+  // Fermitaj kapoj: la malfermitaj tubaj ekstremoj ne plu montras truojn.
+  for ( const t of [ 0, 1 ] ) {
+    const punkto = curve.getPoint(t);
+    const tangento = curve.getTangent(t).normalize();
+    const kapo = new THREE.CircleGeometry(1/8, 6);
+    kapo.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0, 1), tangento));
+    kapo.translate(punkto.x, punkto.y, punkto.z);
+    geos.push(kapo);
+  }
 }
 
 // konstruiZiguraton — Konstruu sxton-sxtupan piramidon el specifaj tieroj kaj sub-teroj.
@@ -43,23 +65,30 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   const T = TIPARO[typeKey] || TIPARO.domo;
   const muraKoloro = T.wall, kadraKoloro = T.frame;
   const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
+  // Klinitaj muroj: cxiu tavolo estas trapezoida (supro pli mallarĝa ol bazo).
+  const klino = 5/16;
 
   for ( let i = 0; i < tiers; i++ ) {
     const hw = w / 2 - i * malpliiX, hd = d / 2 - i * malpliiZ, y = i * tieroAlto;
-    const box = new THREE.BoxGeometry(hw * 2, tieroAlto, hd * 2); box.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(box);
-    for (const sX of [ -1, 1 ]) for (const sZ of [ -1, 1 ]) kadrajGeometrioj.push(kadraTubo(sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true));
-    for ( const sZ of [ -1, 1 ] ) { const stango = new THREE.BoxGeometry(hw * 2 + 9/64, 5/32, 13/64); stango.translate(0, y + tieroAlto - 3/32, sZ * hd); kadrajGeometrioj.push(stango); }
-    for ( const sX of [ -1, 1 ] ) { const bar2 = new THREE.BoxGeometry(13/64, 5/32, hd * 2 + 9/64); bar2.translate(sX * hw, y + tieroAlto - 3/32, 0); kadrajGeometrioj.push(bar2); }
+    const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto);
+    tavolo.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(tavolo);
+    for (const sX of [ -1, 1 ]) for (const sZ of [ -1, 1 ]) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
+    // La supraj kadraj stangoj sekvas la klinon (pli mallarĝaj ol la bazo).
+    for ( const sZ of [ -1, 1 ] ) { const stango = new THREE.BoxGeometry((hw - klino) * 2 + 9/64, 5/32, 13/64); stango.translate(0, y + tieroAlto - 3/32, sZ * (hd - klino)); kadrajGeometrioj.push(stango); }
+    for ( const sX of [ -1, 1 ] ) { const bar2 = new THREE.BoxGeometry(13/64, 5/32, (hd - klino) * 2 + 9/64); bar2.translate(sX * (hw - klino), y + tieroAlto - 3/32, 0); kadrajGeometrioj.push(bar2); }
   }
   for ( let j = 1; j <= sube; j++ ) {
     const hw = Math.max(supraLargho * 27/64, w / 2 - j * malpliiX), hd = Math.max(supraProfundo * 27/64, d / 2 - j * malpliiZ);
     const yTop = -(j - 1) * tieroAltoSub, yBot = -j * tieroAltoSub;
-    const box = new THREE.BoxGeometry(hw * 2, tieroAltoSub, hd * 2); box.translate(0, (yTop + yBot) / 2, 0); murajGeometrioj.push(box);
-    for (const sX of [ -1, 1 ]) for (const sZ of [ -1, 1 ]) kadrajGeometrioj.push(kadraTubo(sX * hw, sZ * hd, yBot, yTop, sX, sZ, false));
+    // Sub-teraj tavoloj klinigxas inverse: pli larĝaj supre (en la grundo), pli mallarĝaj sube.
+    const tavolo = kreiKlinoTavolon(hw - klino, hd - klino, hw, hd, tieroAltoSub);
+    tavolo.translate(0, (yTop + yBot) / 2, 0); murajGeometrioj.push(tavolo);
+    for (const sX of [ -1, 1 ]) for (const sZ of [ -1, 1 ]) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, yBot, yTop, sX, sZ, false, klino);
   }
 
   const group = new THREE.Group();
-  const muraMaterialo = new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "stacio" ? 11/32 : 4/8, metalness: 1/16, envMapIntensity: 4/8 });
+  // Malpli reflekta mura materialo: pli alta malglateco, preskaux neniu metaleco.
+  const muraMaterialo = new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "stacio" ? 5/8 : 3/4, metalness: 0, envMapIntensity: 0 });
   const kadraMaterialo = new THREE.MeshStandardMaterial({ color: kadraKoloro, metalness: 27/32, roughness: 11/32, emissive: 0x302808, emissiveIntensity: 11/32, envMapIntensity: 10/8 });
   const eniraMaterialo = new THREE.MeshStandardMaterial({ color: 0x082018, roughness: 19/32, emissive: 0xf89840, emissiveIntensity: 3/64 });
 
@@ -70,11 +99,14 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   group.add(muroj);
   group.add(new THREE.Mesh(kunfandiGeometriojn(kadrajGeometrioj), kadraMaterialo));
 
-  const blokoLargho = Math.min(179/64, w * 7/16), tw = blokoLargho * 37/64, eh = Math.min(tieroAlto * 23/32, 173/64);
-  const shape = rondigitaTrapezaFormo(blokoLargho, tw, eh, blokoLargho * 7/32, tw * 19/64);
-  const enirejo = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 4/8, bevelEnabled: true, bevelSize: 5/64, bevelThickness: 5/64, bevelSegments: 2, curveSegments: 0o12 }), eniraMaterialo);
-  enirejo.position.set(0, 9/64, d / 2 - 1/64); group.add(enirejo);
-  const ornamajPunktoj = shape.getPoints(0o24).map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y + 9/64, d / 2 + 9/16));
+  // Uniforma enirejo por cxiuj tipoj: pli malgranda kaj pli plata (malpli profunda),
+  // sidanta sur la tero, kun ora bevelo cxirkaux la rando.
+  const blokoLargho = 155/64, tw = blokoLargho * 37/64, eh = 9/4;
+  const shape = rondigitaTrapezaFormo(blokoLargho, tw, eh, 3/16, 1/8);
+  const enirejo = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 2/8, bevelEnabled: true, bevelSize: 5/64, bevelThickness: 5/64, bevelSegments: 2, curveSegments: 0o12 }), eniraMaterialo);
+  enirejo.position.set(0, 0, d / 2 - 1/64); group.add(enirejo);
+  // Bevelo gluiĝas al la pli plata pordo-fronto (d/2 + 5/16 + 1/16).
+  const ornamajPunktoj = shape.getPoints(0o24).map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, d / 2 + 3/8));
   group.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(ornamajPunktoj, true, "catmullrom", 19/32), 0o60, 1/16, 6, true), kadraMaterialo));
 
   if ( typeKey === "sanktejo" ) {
@@ -183,18 +215,38 @@ export interface ManĝaĵItemo {
   pos: THREE.Vector3;
   dead: boolean;
 }
-export function kreiManĝaĵojn(g: THREE.Group, cx: number, cz: number): ManĝaĵItemo[] {
+// kreiManĝaĵojn — Metu manĝaĵojn sur la tablojn ( aŭ laŭ la malnova aera aranĝo se ne estas tabloj ).
+//     @param tabloj ( { x, z }[] ) - Tablo-centraj pozicioj; la manĝaĵoj sidas sur la supro ( y ≈ 7/16 ).
+export function kreiManĝaĵojn(g: THREE.Group, cx: number, cz: number, tabloj: { x: number; z: number }[] = []): ManĝaĵItemo[] {
   const items: ManĝaĵItemo[] = [];
-  const foods: { p: [number, number, number]; k: string }[] = [
-    { p: [cx + 0.4, 1.05, cz - 2.6], k: "fok0" }, { p: [cx + 1.1, 1.05, cz - 2.6], k: "fok2" },
-    { p: [cx + 1.9, 1.05, cz - 2.6], k: "tla2" }, { p: [cx + 3.6, 0.8, cz + 2.4], k: "fok1" }, { p: [cx + 4.2, 0.8, cz + 2.4], k: "tla0" },
-  ];
-  for (const f of foods) {
-    const meta = FOKS.find(x => x.key === f.k) || TLAS.find(x => x.key === f.k)!;
-    const m = f.k.startsWith("fok") ? bunMesh(meta) : glassMesh(meta);
-    m.position.set(f.p[0], f.p[1], f.p[2]);
+  const metaDe = (k: string): ManĝaĵDatumo => FOKS.find(x => x.key === k) || TLAS.find(x => x.key === k)!;
+  const aldoni = (k: string, x: number, y: number, z: number) => {
+    const meta = metaDe(k);
+    const m = k.startsWith("fok") ? bunMesh(meta) : glassMesh(meta);
+    m.position.set(x, y, z);
     g.add(m);
-    items.push({ mesh: m, key: f.k, f: meta, pos: new THREE.Vector3(f.p[0], f.p[1], f.p[2]), dead: false });
+    items.push({ mesh: m, key: k, f: meta, pos: new THREE.Vector3(x, y, z), dead: false });
+  };
+  if ( tabloj.length > 0 ) {
+    // Manĝaĵoj sidas sur la tabloj, kun malgrandaj ofsetoj por aspekti aranĝitaj
+    const suproY = 7/16 + 1/32;
+    const manĝoj = [ "fok0", "tla0", "fok1", "tla1", "fok2", "tla2" ];
+    tabloj.forEach(( t, i ) => {
+      aldoni( manĝoj[( i * 2 ) % manĝoj.length], t.x - 1/8, suproY, t.z );
+      aldoni( manĝoj[( i * 2 + 1 ) % manĝoj.length], t.x + 1/8, suproY, t.z );
+    });
+  } else {
+    const foods: { p: [number, number, number]; k: string }[] = [
+      { p: [cx + 0.4, 1.05, cz - 2.6], k: "fok0" }, { p: [cx + 1.1, 1.05, cz - 2.6], k: "fok2" },
+      { p: [cx + 1.9, 1.05, cz - 2.6], k: "tla2" }, { p: [cx + 3.6, 0.8, cz + 2.4], k: "fok1" }, { p: [cx + 4.2, 0.8, cz + 2.4], k: "tla0" },
+    ];
+    for (const f of foods) {
+      const meta = metaDe(f.k);
+      const m = f.k.startsWith("fok") ? bunMesh(meta) : glassMesh(meta);
+      m.position.set(f.p[0], f.p[1], f.p[2]);
+      g.add(m);
+      items.push({ mesh: m, key: f.k, f: meta, pos: new THREE.Vector3(f.p[0], f.p[1], f.p[2]), dead: false });
+    }
   }
   return items;
 }
