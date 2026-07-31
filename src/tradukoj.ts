@@ -4,48 +4,50 @@
 const skakefani: Record<string, Record<string, string>> = {
   aih: {
     // Adjectives go BEFORE the noun for descriptions ( Iikrhia grammar rule ).
-    // For proper / place names, use POSTPOSITIVE compounding ( noun + adjective )
     // to signal a fused compound name rather than a mere description.
     "p1": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞ · j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
     "p2": "j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞ · ſɭᴜ ɭl̀ɹ ɭʃɔ j͑ʃɔ j͐ʃᴜ ŋᷠɹⰱ",
-    "p3": "ſɭc̗ᴜ ʃэ ɭʃɔȝ · ſןɔ ſ͕ɭᴜ ſɭɔ ʃэ ɭʃɔȝ · ſɭᴜ ɭʃᴜ ʃэ ɭʃɔȝ · ſןw · E ʃэ ſɭw ſ̀ȷᴜ ſɭэ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
+    "p3": "ſɭc̗ᴜ ʃэ ɭʃɔȝ · ſןɔ ʌ ſ͕ɭᴜ ʌ ſɭɔ ʌ ʃэ ɭʃɔȝ · ſɭᴜ ɭʃᴜ ʌ ʃэ ɭʃɔȝ · ſןw · E ʌ ʃэ ſɭw ſ̀ȷᴜ ʌ ſɭэ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
     "p4": "ſɭw ſ̀ȷᴜ",
     "p5": "ſɭᴜ ɭʃᴜ",
-    "p6": "֭ſɭɹ j͑ʃɔ ſɭc̗ᴜ ʃэ ɭʃɔȝ",
+    "p6": "֭ſɭɹ j͑ʃɔ",
     "p7": "ſ̀ȷᴜȝ",
     "p8": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
-    "p9": "ſɭᴜ ɭʃᴜ j͑ʃɔ ſɭᴜ ſᶘɹ }ʃᴜ j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
-    "pA": "ſɭᴜ ɭʃᴜ j͑ʃɔ ſɭᴜ ſᶘɹ }ʃᴜ ſɭэ ſɭᴜ ſɭэ ƣ̋ꞇ ſɭэ ſɟᴜ",
+    "p9": "ſɭᴜ ɭʃᴜ ʌ j͑ʃɔ ſɭᴜ ſᶘɹ }ʃᴜ ʌ j͐ʃɜ ɭʃᴜ ʌ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
+    "pA": "ſɭᴜ ɭʃᴜ ʌ j͑ʃɔ ſɭᴜ ſᶘɹ }ʃᴜ ʌ ſɭэ ſɭᴜ ʌ ſɭэ ɽ͑ʃ'ꞇ ʌ ſɭэ ſɟᴜ",
     "pB": "ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
     "pC": "ſȷɔ ſɭ,ꞇ",
     "pD": "ı],ͷ̗ɔʞ ſɭᴜ ſ͕ɭᴜ ſɭɔ",
-    "pE": "ſɭ,ɹ ſ̀ȷɔ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃɔ ꞁȷ̀ɹ ʃᴜ · ŋᷠᴜ j͑ʃɜȝ ɭʃɔ ꞁȷ̀ɹ j͑ʃᴜ · ſɭɔ˞ᴜ ſ͔ɭɔ ſɭɔ ŋᷠᴜ j͑ʃɔ",
+    "pE": "ſɭ,ɹ ʌ ſ̀ȷɔ ʌ ꞁȷ̀ɹ ŋᷠᴜ ʌ j͑ʃɔ ʌ ꞁȷ̀ɹ ʃᴜ · ŋᷠᴜ j͑ʃɜȝ ʌ ɭʃɔ ꞁȷ̀ɹ j͑ʃᴜ · ſɭɔ˞ᴜ ʌ ſ͔ɭɔ ʌ ſɭɔ ʌ ŋᷠᴜ j͑ʃɔ",
     "pF": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
     "pG": "j͐ʃɜ ɭʃᴜ ſɭɔƽ",
-    "pH": "ſɭᴜ ſ͕ɭᴜ ſɭɔ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ",
-    "pI": "j͑ʃ'ᴜ ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſ͔ɭɔȝ",
-    "pJ": "ŋᷠᴜ ſɭэj͑ʃ'ᴜ ſɭᴜ j͐ʃᴜ ſɭэ ƣ̋ꞇ ſɭэ ſɟᴜ",
+    "pH": "j͑ʃᴜ ʃɜƽ ʌ ⺓ ʌ ſɭᴜ ſ͕ɭᴜ ſɭɔ ⟅",
+    "pI": "j͑ʃ'ɔ ſȷэⅎ }ʃɔⅎ ʌ ⺓ ʌ ſɭɔ ֭ſɭw ʌ ı],ᴜȝ ⟅",
+    "pJ": "j͐ʃᴜɔ˞ ʌ j͐ʃɜ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ֭ſɭᴜ ⟅",
     "pK": "j͐ʃᴜȝ",
-    "pL": "֭ſɭɹ j͑ʃɔ · ſɭc̗ᴜ ʃэ ɭʃɔȝ · ſןɔ ʃэ ɭʃɔȝ",
+    "pL": "֭ſɭɹ ʌ j͑ʃɔ · ſɭc̗ᴜ ʃэ ɭʃɔȝ · ſןɔ ʌ ʃэ ɭʃɔȝ",
     "pM": "ſɭᴜ ɭʃᴜ · WASD · Shift ſɭᴜ ſɭʞᴜȝ · Spaco ſןw",
     "pN": "WASD · ſɭᴜ ſɭʞᴜȝ ſɭc̭ᴜ ſɭc̗w",
     "pO": "E · ſɭw ſ̀ȷᴜ/j͑ʃwc̗ · ſɭw ſ̀ȷᴜ ſɭэ ſɭᴜ ſɭw ʃᴜ",
     "pP": "M · ſɟᴜ ſᶘɹ }ʃᴜ j͑ʃᴜ ſɭᴜ ſɭw ʃᴜ ſɭэ",
     "pQ": "Escape · j͑ʃwc̗",
-    "pR": "ſןɔ ſ͕ɭᴜ ſɭɔ ʃэ ſɭɔ˞ᴜ ſɭᴜ ꞁȷ̀ɹ ʃᴜ · ſɭw ſ̀ȷᴜ",
+    "pR": "ſןɔ ʌ ſ͕ɭᴜ ʌ ſɭɔ ʌ ʃэ ſɭɔ˞ᴜ ʌ ſɭᴜ ʌ ꞁȷ̀ɹ ʃᴜ · ſɭw ſ̀ȷᴜ",
     "pS": "ſ̀ȷᴜȝ · ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
-    "pT": "ſɭэ ֭ſɭэ j͑ʃɔ j͐ʃɜ ɭʃᴜ",
-    "pU": "ſȷɔ ſɭ,ꞇ ſɭэ ſɭᴜ ſɭɔ ʃэ j͐ʃɜ ɭʃᴜ",
+    "pT": "ſɭэ ʌ ֭ſɭэ ʌ j͑ʃɔ j͐ʃɜ ɭʃᴜ",
+    "pU": "ſȷɔ ſɭ,ꞇ ʌ ſɭэ ʌ ſɭᴜ ſɭɔ ʌ ʃэ j͐ʃɜ ɭʃᴜ",
     "actEliri": "j͑ʃwc̗ · Esc",
-    "pW": "j͑ʃwc̗ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
-    "pX": "j͑ʃɹ ſɭᴜ ɭl̀ɹ ſɭw ſ̀ȷᴜ · WASD ſɭʞɔƴ",
+    "pW": "j͑ʃwc̗ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
+    "pX": "j͑ʃɹ ſɭᴜ ɭl̀ɹ ʌ ſɭw ſ̀ȷᴜ · WASD ʌ ſɭʞɔƴ",
     "pY": "j͑ʃwc̗",
-    "pZ": "ſɭw ſ̀ȷᴜ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
+    "pZ": "ſɭw ſ̀ȷᴜ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
     // Food action labels
     "actGusti": "ſ͔ɭɔȝ ·", "actTrinketi": "ſ͔ɭɔȝ ·",
+    // Stair action labels
+    "actSxtupSupren": "j͑ʃ'ɔ ɭl̀ᴜ ſ͕ɭɜ",
+    "actSxtupMalsupren": "j͑ʃ'ɔ ſןɔ˞ᴜƴ",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
-    "manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃw · Lichen Crust", "manĝFok1": "ſȷɜƽ ſɭɜ ſᶘɹᶗ‹ · Mint Glaze", "manĝFok2": "ſȷɜƽ ɭʃɹ ſɭʞᴜɔ˞ · Peppered",
-    "manĝTla0": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ · Classic", "manĝTla1": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ j͐ʃɜ ſɟɹ · Honeyed", "manĝTla2": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ j͐ʃᴜ ŋᷠɹⰱ ſɭᶗ‹ɹ ſɟɔ · Iced Birch-sap",
+    "manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ · ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ ſᶘэ", "manĝFok1": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ · ſɭɜ ſᶘɹᶗ‹", "manĝFok2": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ · ɭʃɹƽ ꞁȷ̀ᴜꞇ",
+    "manĝTla0": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ · ɭʃɜ ſɭɹ", "manĝTla1": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ j͐ʃɜ ſɟɹ · j͐ʃɜ ſɟɹ", "manĝTla2": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ j͐ʃᴜ ŋᷠɹⰱ ſɭᶗ‹ɹ ſɟɔ · ſɭᶗ‹ɹ j͐ʃᴜ ŋᷠɹⰱ",
     // Gustotekstoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0Flavor": "ſɭᴜ ſȷɔ˞ɹ ſᶘэ ꞁȷ̀ɹ ŋᷠᴜ ʌ ŋᷠwȝ ı],ꞇƽ ʌ ſȷэ ſȷɹ j͑ʃ'ɔ ſȷͷ̗ᴜƽ",
     "manĝFok1Flavor": "j͑ʃɹ ɭl̀ᴜ ŋᷠɜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ ʌ ɭl̀w ŋᷠɜ j͑ʃᴜ ſɟɔƽ · ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ ſɟɔ ſ͔ɭᴜ j͑ʃɔ",
@@ -62,7 +64,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Building card flavor text
     "flvDomo": "ſɭᴜ ɭl̀ɹ ɭʃɔ ꞁȷ̀ɹ j͑ʃᴜ ſɭᴜ ſȷɔ ſɭɔ ꞁȷ̀ɹ ſɭᴜ ſɭw ʃᴜ ſɭэ ſɭ͔ɭᴜƽ j͑ʃ'ᴜ ſɭᴜ ſᶘɔ ɭl̀ɹȝ",
     "flvMangxejo": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſ͔ɭɔȝ · ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭw ʃᴜ ŋᷠᴜ ſɭɔƽ ſɭэ ſɟᴜ ſᶘɔ ɭl̀ɹȝ · ſɭɔ˞ᴜ ꞁȷ̀ɹ ſɭэ ſɭᴜ ſɭˬꞇᴜ",
-    "flvStacio": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ɭl̀ɹ ɭʃɔ ſɭᴜ ſɭэ ſᶘɹ j͑ʃᴜꞇ · ſɭэ ſɭᴜ ſɭэ ƣ̋ꞇ ſɭэ j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
+    "flvStacio": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ɭl̀ɹ ɭʃɔ ſɭᴜ ſɭэ ſᶘɹ j͑ʃᴜꞇ · ſɭэ ſɭᴜ ſɭэ ɽ͑ʃ'ꞇ ſɭэ j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
     "flvTuro": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ſɭʞɹ ſɟᴜ ſɭᴜ ſ͕ɭᴜ ſɭɔ ſɭэ ſɭᴜ ɭl̀ɹ ɭʃɔ ſɭэ",
     "flvSanktejo": "ſɭᴜ ꞁȷ̀ᴜȝ ſɭᴜ ſ͕ɭᴜ ſɭɔ ſɭᴜ ʃэ ſɭɔ ſɭэ ſᶘɹ ſɭᴜ ſɭʞᴜȝ",
     // Card stats labels from sperto.ts
@@ -74,12 +76,12 @@ const skakefani: Record<string, Record<string, string>> = {
     "statPozicio": "ſɭᴜ ſɭꞇ ſɭᴜ ı],ɹ",
     // WebGL error from scena.ts
     "webglTitolo": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
-    "webglMesagxo": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭɜ ſɭw ſ̀ȷᴜ WebGL. ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɭɜ ſɭᴜ ſɭw ʃᴜ WebGL ʃэ ſɭɔ˞ᴜ ſɭᴜ ꞁȷ̀ɹ ʃᴜ ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭэ ƣ̋ꞇ",
-    "webglDetalo": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞ ſɭᴜ ſᶘɔ ɭl̀ɹȝ WebGL ʃэ ſɭᴜ ſɭw ʃᴜ ſɭᴜ ſɭэ ƣ̋ꞇ. ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɟᴜ ſɭᴜ ŋᷠᴜ GPU",
+    "webglMesagxo": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭɜ ſɭw ſ̀ȷᴜ WebGL. ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɭɜ ſɭᴜ ſɭw ʃᴜ WebGL ʃэ ſɭɔ˞ᴜ ſɭᴜ ꞁȷ̀ɹ ʃᴜ ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭэ ɽ͑ʃ'ꞇ",
+    "webglDetalo": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞ ſɭᴜ ſᶘɔ ɭl̀ɹȝ WebGL ʃэ ſɭᴜ ſɭw ʃᴜ ſɭᴜ ſɭэ ɽ͑ʃ'ꞇ. ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɟᴜ ſɭᴜ ŋᷠᴜ GPU",
     "webglReprovi": "ſɭᴜ ɭʃᴜ ſɭэ",
     // aria labels from experience.html
     "ariaButSonoro": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭэ",
-    "ariaButPromeni": "ſɭᴜ ɭʃᴜ ſɭc̭ᴜ ſɭc̗w ſɭᴜ ſɭэ ƣ̋ꞇ",
+    "ariaButPromeni": "ſɭᴜ ɭʃᴜ ſɭc̭ᴜ ſɭc̗w ſɭᴜ ſɭэ ɽ͑ʃ'ꞇ",
     "ariaButOrbiti": "֭ſɭɹ j͑ʃɔ ſɭc̗ᴜ ʃэ ɭʃɔȝ ſɭc̭ᴜ ſɭc̗w",
     "ariaButVesti": "ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
     "ariaButHelpi": "ſȷɔ ſɭ,ꞇ",
@@ -87,7 +89,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
     "ariaTrako0": "j͑ʃw ſɭʞɹȝ ı ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "ariaTrako1": "j͑ʃw ſɭʞɹȝ ɿ ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "ariaTrako2": "j͑ʃw ſɭʞɹȝ ц ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "ariaTrako2": "j͑ʃw ſɭʞɹȝ ц ɭʃэʞ ɭʃꞇʞ",
     "ariaTrako3": "j͑ʃw ſɭʞɹȝ э j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
     // Canvas alt text
     "altTitolaSkripto": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞ ſɭᴜ ſ͕ɭᴜ ſɭɔ ſɭᴜ ſɭɔʞ",
@@ -125,14 +127,14 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg25": "ŋᷠɔ ſ̀ȷɔʞ",
     "bldg26": "ᶅſɜ ſ͔ɭɜͷ̗",
     "bldg27": "ſɭɔ j͐ʃc̭ᴜ",
-    "bldg28": "}ʃɜ ſɭƣ̋ɜƴ",
+    "bldg28": "}ʃɜ ſɭɜƴ",
     "bldg29": "ɭ(ɜ ŋᷠɜ ı],ᴜ",
     "bldg30": "ɭ(ɜ ŋᷠɜ ſȷɔ",
     // Track names
     "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
+    "trako2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
     "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   eo: {
@@ -175,6 +177,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "Eniri kanuon",
     // Food action labels
     "actGusti": "Guŝu ·", "actTrinketi": "Trinketu ·",
+    // Stair action labels
+    "actSxtupSupren": "Supreniri la ŝtuparon",
+    "actSxtupMalsupren": "Malsupreniri la ŝtuparon",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "fokumaseŭ · Lichen Crust", "manĝFok1": "fokumaseŭ · Mint Glaze", "manĝFok2": "fokumaseŭ · Peppered",
     "manĝTla0": "tlatuva · Classic", "manĝTla1": "tlatuva · Honeyed", "manĝTla2": "tlatuva · Iced Birch-sap",
@@ -309,6 +314,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "Enter canoe",
     // Food action labels
     "actGusti": "Taste ·", "actTrinketi": "Sip ·",
+    // Stair action labels
+    "actSxtupSupren": "Climb the stairs",
+    "actSxtupMalsupren": "Descend the stairs",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "hokihmasuh · Lichen Crust", "manĝFok1": "hokihmasuh · Mint Glaze", "manĝFok2": "hokihmasuh · Peppered",
     "manĝTla0": "tlatihwa · Classic", "manĝTla1": "tlatihwa · Honeyed", "manĝTla2": "tlatihwa · Iced Birch-sap",
@@ -443,6 +451,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "カヌーに乗る",
     // Food action labels
     "actGusti": "味見 ·", "actTrinketi": "一口 ·",
+    // Stair action labels
+    "actSxtupSupren": "階段を上る",
+    "actSxtupMalsupren": "階段を下りる",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "フォクウマスア · Lichen Crust", "manĝFok1": "フォクウマスア · Mint Glaze", "manĝFok2": "フォクウマスア · Peppered",
     "manĝTla0": "トラトウワ · Classic", "manĝTla1": "トラトウワ · Honeyed", "manĝTla2": "トラトウワ · Iced Birch-sap",
@@ -581,6 +592,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "ចូលទូក",
     // Food action labels
     "actGusti": "ភ្លក់ ·", "actTrinketi": "ផឹក ·",
+    // Stair action labels
+    "actSxtupSupren": "ឡើងជណ្តើរ",
+    "actSxtupMalsupren": "ចុះជណ្តើរ",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "ផុកិមាសឺ · Lichen Crust", "manĝFok1": "ផុកិមាសឺ · Mint Glaze", "manĝFok2": "ផុកិមាសឺ · Peppered",
     "manĝTla0": "ត្លាតិវា · Classic", "manĝTla1": "ត្លាតិវា · Honeyed", "manĝTla2": "ត្លាតិវា · Iced Birch-sap",

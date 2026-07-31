@@ -80,7 +80,7 @@ export interface Figuro {
 //     @param o ( Vesto ) - La vesta objekto por koloroj.
 export function konstruiFiguron(o: Vesto): Figuro {
   const g = new THREE.Group();
-  const skin = new THREE.MeshStandardMaterial({ color: 0xc8a088, roughness: 45/64 });
+  const skin = new THREE.MeshStandardMaterial({ color: 0x686068, roughness: 45/64 });
   const head = new THREE.Mesh(new THREE.SphereGeometry(11/64, 0o12, 0o10), skin); head.position.y = 13/8;
   const hair = new THREE.Mesh( new THREE.SphereGeometry(3/16, 0o12, 0o10),
     new THREE.MeshStandardMaterial({ color: 0x282818, roughness: 29/32 }) );

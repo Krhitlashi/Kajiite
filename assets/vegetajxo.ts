@@ -281,7 +281,9 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
     // La translokigoj devas inkluzivi la saman specimenan skalon kiel la geometrio.
     // Alie la trunko malleviĝas kaj la krono flosas super ĝi ĉe malgrandaj skaloj.
     const trunkaCentroY = y + speco.trunkaAlto * skalo / 2;
-    const kronaCentroY = y + skalo * ( speco.trunkaAlto + kronaAlto / 2 - 1/8 );
+    // Mallevu la kronon pli profunde en la trunkon: la folioj komenciĝas
+    // supre de la fronda bazo, do la bazo devas esti klare sub la trunkopinto.
+    const kronaCentroY = y + skalo * ( speco.trunkaAlto + kronaAlto / 2 - 4/8 );
     M.compose( new THREE.Vector3( x, trunkaCentroY, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
     trunkoj[specoIndico].setMatrixAt( indicoj[specoIndico], M );
     M.compose( new THREE.Vector3( x, kronaCentroY, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
@@ -664,13 +666,13 @@ function mulberry32(semo: number): () => number {
   };
 }
 
-function kunfandiTriGeometriojn( a: THREE.BufferGeometry, b: THREE.BufferGeometry, c: THREE.BufferGeometry ): THREE.BufferGeometry {
-  return kunfandiDuGeometriojn( kunfandiDuGeometriojn( a, b ), c );
-}
-
 function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGeometry): THREE.BufferGeometry {
-  const aPos = a.getAttribute("position");
-  const bPos = b.getAttribute("position");
+  // Ne-indeksaj geometrioj konservas la triangulan ordon dum kunfando;
+  // alie la indekso perdiĝas kaj duono de ĉiu ebeno neniam bildiĝas.
+  const na = a.index ? a.toNonIndexed() : a;
+  const nb = b.index ? b.toNonIndexed() : b;
+  const aPos = na.getAttribute("position");
+  const bPos = nb.getAttribute("position");
   const aCount = aPos.count;
   const bCount = bPos.count;
   const tuto = aCount + bCount;
@@ -682,13 +684,13 @@ function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGeometry)
   pozicio.set(aPos.array as Float32Array, 0);
   pozicio.set(bPos.array as Float32Array, aCount * 3);
 
-  const aNorm = a.getAttribute("normal");
-  const bNorm = b.getAttribute("normal");
+  const aNorm = na.getAttribute("normal");
+  const bNorm = nb.getAttribute("normal");
   if (aNorm) normo.set(aNorm.array as Float32Array, 0);
   if (bNorm) normo.set(bNorm.array as Float32Array, aCount * 3);
 
-  const aUV = a.getAttribute("uv");
-  const bUV = b.getAttribute("uv");
+  const aUV = na.getAttribute("uv");
+  const bUV = nb.getAttribute("uv");
   if (aUV) uv.set(aUV.array as Float32Array, 0);
   if (bUV) uv.set(bUV.array as Float32Array, aCount * 2);
 

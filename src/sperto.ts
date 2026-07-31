@@ -87,6 +87,10 @@ let surKanoto: Kanoto | null = null;
 let elektitaSpec: KonstruSpec | null = null;
 let plejProksimaPordo: KonstruSpec | null = null;
 let plejProksimaManĝaĵo: ManĝaĵItemo | null = null;
+let cxeSxtuparo = false;
+let sxtupaCelo: number | null = null;
+let sxtupaCeloIndekso: number | null = null;
+let sxtupaNunaIndekso = 0;
 let direkto = 0, klinigxo = -1/16;
 const ludantaPozicio = new THREE.Vector3(0, 5/32, 0o44);
 let rapidoY = 0, estasSurTERENO = false;
@@ -408,6 +412,7 @@ kanvaso.addEventListener("click", (e) => {
 
 // ⟪ Interna vido 📃 ⟫
 function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }) {
+  sxtupaCelo = null; cxeSxtuparo = false; sxtupaCeloIndekso = null;
   // Request pointer lock synchronously while user gesture is still active
   if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
   if (cxuAŭdio()) sfx.door();
@@ -438,6 +443,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
   });
 }
 function eliriInternon() {
+  sxtupaCelo = null; cxeSxtuparo = false; sxtupaCeloIndekso = null;
   eliriElInterno(internaSistemo, sceno);
   if (cxuAŭdio()) sfx.door();
   pulsiEfikon();
@@ -540,6 +546,11 @@ document.getElementById("butHelpi")!.addEventListener("click", () => {
 function proviInterakti() {
   if (rezimo === "interior") {
     if (plejProksimaManĝaĵo && !plejProksimaManĝaĵo.dead) { konsumi(plejProksimaManĝaĵo); return; }
+    if (cxeSxtuparo && sxtupaCeloIndekso !== null) {
+      sxtupaCelo = sxtupaCeloIndekso;
+      if (cxuAŭdio()) sfx.step();
+      return;
+    }
     eliriInternon(); return;
   }
   if (surKanoto) {
@@ -766,19 +777,34 @@ function animacii() {
       novaX = specX + cosR * lokalX - sinR * lokalZ;
       novaZ = specZ + sinR * lokalX + cosR * lokalZ;
 
-      const cxeSxtuparo = Math.abs(lokalZ) < 0.8 && Math.abs(lokalX) < 2.5;
+      cxeSxtuparo = Math.abs(lokalZ) < 0.8 && Math.abs(lokalX) < 2.5;
       let nunaEtagxIndekso = -1;
       for (let i = 0; i < plankoj.length; i++) {
         if (plankoj[i] === aktivaPlanko) { nunaEtagxIndekso = i; break; }
       }
-      if (cxeSxtuparo && movZ > 3/8 && nunaEtagxIndekso < plankoj.length - 1) {
-        const sekva = plankoj[nunaEtagxIndekso + 1];
-        etapy = specH0 + sekva.y;
-      } else if (cxeSxtuparo && movZ < -3/8 && nunaEtagxIndekso > 0) {
-        const antauxa = plankoj[nunaEtagxIndekso - 1];
-        etapy = specH0 + antauxa.y;
+      sxtupaNunaIndekso = nunaEtagxIndekso;
+      // Kion E farus nun: supreniri se apud la bazo, alie malsupreniri.
+      sxtupaCeloIndekso = null;
+      if (cxeSxtuparo && nunaEtagxIndekso >= 0) {
+        const suprenPrefero = lokalZ < 0;
+        let celo = suprenPrefero ? nunaEtagxIndekso + 1 : nunaEtagxIndekso - 1;
+        if (celo < 0 || celo >= plankoj.length) celo = suprenPrefero ? nunaEtagxIndekso - 1 : nunaEtagxIndekso + 1;
+        if (celo >= 0 && celo < plankoj.length && celo !== nunaEtagxIndekso) sxtupaCeloIndekso = celo;
+      }
+      if (sxtupaCelo !== null && sxtupaCelo >= 0 && sxtupaCelo < plankoj.length) {
+        // E-klava supreniro: restu leviĝanta ĝis la cela etaĝo atingiĝas.
+        etapy = specH0 + plankoj[sxtupaCelo].y;
       } else {
-        etapy = specH0 + aktivaPlanko.y;
+        sxtupaCelo = null;
+        if (cxeSxtuparo && movZ > 3/8 && nunaEtagxIndekso < plankoj.length - 1) {
+          const sekva = plankoj[nunaEtagxIndekso + 1];
+          etapy = specH0 + sekva.y;
+        } else if (cxeSxtuparo && movZ < -3/8 && nunaEtagxIndekso > 0) {
+          const antauxa = plankoj[nunaEtagxIndekso - 1];
+          etapy = specH0 + antauxa.y;
+        } else {
+          etapy = specH0 + aktivaPlanko.y;
+        }
       }
     } else {
       etapy = specH0;
@@ -800,6 +826,10 @@ function animacii() {
         rapidoY = 0;
         estasSurTERENO = true;
       }
+    }
+    if (sxtupaCelo !== null && Math.abs(ludantaPozicio.y - etapy) < 1/32) {
+      ludantaPozicio.y = etapy;
+      sxtupaCelo = null;
     }
 
     oscilo += moving * rapido * deltaTempo * 12/8;
@@ -827,6 +857,10 @@ function animacii() {
     if (proksimaManĝaĵo) {
       const prefikso = proksimaManĝaĵo.key.startsWith("fok") ? traduki("actGusti") : traduki("actTrinketi");
       promptoElemento.innerHTML = `<span class="klavo">E</span> ${prefikso} ${traduki("manĝ" + proksimaManĝaĵo.f.key.charAt(0).toUpperCase() + proksimaManĝaĵo.f.key.slice(1))}`;
+      promptoElemento.classList.add("montri");
+    } else if (cxeSxtuparo && sxtupaCeloIndekso !== null) {
+      const supren = sxtupaCeloIndekso > sxtupaNunaIndekso;
+      promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki(supren ? "actSxtupSupren" : "actSxtupMalsupren");
       promptoElemento.classList.add("montri");
     } else {
       promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("actEliri");
