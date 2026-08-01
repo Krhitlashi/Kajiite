@@ -1,14 +1,15 @@
-// Lampo-modulo — trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj sprajtoj
+// Hxeuxfa lampo — trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj sprajtoj
+// La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
 import * as THREE from "three";
 import { kreiBrilanTeksajxon } from "./teksajxoj.js";
 
-export interface LampLoko {
+export interface HxeuxfaLoko {
   x: number; z: number; y: number;
   /** Optional square orientation; platform lamps can align with their diamond. */
   rotacio?: number;
 }
 
-export interface LampSistemo {
+export interface HxeuxfaSistemo {
   flamaEkstero: THREE.InstancedMesh;
   flamaInterno: THREE.InstancedMesh;
   brilajPunktoj: THREE.Points;
@@ -20,25 +21,25 @@ export interface LampSistemo {
 
 const DIORITA_KOLORO = 0xc8c8c8;
 
-// konstruiLampojn — Konstruu trapezajn lampojn el bazoj, bovloj, flamoj kaj briletoj.
-export function konstruiLampojn( sceno: THREE.Scene,
-  spots: LampLoko[],
+// konstruiHxeuxfojn — Konstruu trapezajn lampojn (hxeuxfojn) el bazoj, bovloj, flamoj kaj briletoj.
+export function konstruiHxeuxfojn( sceno: THREE.Scene,
+  spots: HxeuxfaLoko[],
   dioritaMaterialo: THREE.MeshStandardMaterial,
   _oraMaterialo: THREE.MeshStandardMaterial
-): LampSistemo {
+): HxeuxfaSistemo {
   const kolonajGeometrioj: THREE.BufferGeometry[] = [];
   const bovlajGeometrioj: THREE.BufferGeometry[] = [];
   const flamajLokoj: THREE.Vector3[] = [];
 
   for ( const p of spots ) {
-    // Trapeza kolono (pli larĝa ĉe bazo)
+    // Trapeza kolono (pli largxa cxe bazo)
     const rotacio = p.rotacio ?? Math.PI / 4;
     const pillar = new THREE.CylinderGeometry(5/32, 11/32, 109/32, 4, 1);
     pillar.rotateY(rotacio);
     pillar.translate(p.x, p.y + 109/64, p.z);
     kolonajGeometrioj.push(pillar);
 
-    // Diorita bovlo — fermita profilo: ekstera kurbo, rando, interna muro kaj fundo.
+    // Diorita bovlo — fermita profilo. ekstera kurbo, rando, interna muro kaj fundo.
     // La fermo forigas la tra-videblon (la interna flanko nun estas vera surfaco).
     const profilo: THREE.Vector2[] = [
       new THREE.Vector2(0, 0),
@@ -59,7 +60,7 @@ export function konstruiLampojn( sceno: THREE.Scene,
     bowl.translate(p.x, p.y + 109/32, p.z);
     bovlajGeometrioj.push(bowl);
 
-    // Flamo levita: gia bazo sidas cxe la bovla rando (ne sube en la bovlo),
+    // Flamo levita. gia bazo sidas cxe la bovla rando (ne sube en la bovlo),
     // kaj restas super la rando ecx cxe la plej alta flam-skalo.
     flamajLokoj.push(new THREE.Vector3(p.x, p.y + 133/32, p.z));
   }
@@ -134,7 +135,7 @@ export function konstruiLampojn( sceno: THREE.Scene,
   brilajPunktoj.frustumCulled = false;
   sceno.add(brilajPunktoj);
 
-  // plej proksimaj lampoj fariĝas punktlumoj
+  // plej proksimaj lampoj farigxas punktlumoj
   const sorted = flamajLokoj
     .map((p, i) => ({ d: p.x * p.x + p.z * p.z, i }))
     .sort((a, b) => a.d - b.d)
@@ -161,9 +162,9 @@ export function konstruiLampojn( sceno: THREE.Scene,
 }
 
 // animaciiFlammojn — Animaciu flamojn kaj briletan intenson cxiun kadron.
-//     @param sys ( LampSistemo ) - La lampa sistemo kun flamoj kaj briletoj.
+//     @param sys ( HxeuxfaSistemo ) - La lampa sistemo kun flamoj kaj briletoj.
 //     @param t ( number ) - Malsupra tempo por oscilado.
-export function animaciiFlammojn(sys: LampSistemo, t: number): void {
+export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();

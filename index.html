@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
-<title data-oskakefani="p1">ARANIS · ꞁȷ̀ɹ ֭ſɭɹɔ˞ j͐ʃɜ ɭʃᴜ</title>
+<title data-oskakefani="titoloAranis">ARANIS · ꞁȷ̀ɹ ֭ſɭɹɔ˞ j͐ʃɜ ɭʃᴜ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
 <link rel="stylesheet" href="./stiloj.css">
+<script src="https://krhitlashi.github.io/%C5%BF%C9%9F%E1%B4%9C%20%C5%BF%C9%AD%C9%94%20j%CD%91%CA%83%27%C9%94/%C5%BF%C9%AD%C9%94%20j%CD%91%CA%83%27%C9%94%20%7D%CA%83%EA%9E%87.js"></script>
 <script type="module" src="./src/tradukoj.ts"></script>
 </head>
 <body>
@@ -31,39 +32,38 @@
 <div id="balailo"></div>
 
 <!-- ⟪ Tosto 📃 ⟫ -->
-<div id="tosto"></div>
+<div id="tosto" class="aih"></div>
 
 <!-- ⟪ Minimal HUD 📃 ⟫ -->
 <div id="kompaso" role="img" aria-label="Mapo de Aranis">
   <div class="ringo">
-    <div class="nadlo" id="nadlo"><span data-oskakefani="pK">N</span></div>
+    <div class="nadlo" id="nadlo"><span data-oskakefani="kompasoNordo">N</span></div>
   </div>
 </div>
-<thala id="karto">
+<thala id="karto" class="aih">
   <h2 id="kartoNomo"></h2>
   <span class="peco" id="kartoChip"></span>
   <div class="statistikoj" id="kartoStatistikoj"></div>
   <div class="gusto" id="kartoFlavor"></div>
   <div class="karto-agoj">
-    <button id="kartoEniri" data-oskakefani="p4">Eniri</button>
+    <button id="kartoEniri" data-oskakefani="eniri">Eniri</button>
   </div>
 </thala>
 <!-- ⟪ Naviga butono ( malfermas pop-up ) 📃 ⟫ -->
-<button id="navButono" data-oskakefani-aria="ariaNavButono" aria-label="Menuo">☯</button>
+<button id="navButono" data-oskakefani-aria="ariaNavButono" aria-label="Menuo">二</button>
 
 <!-- ⟪ Pop-up navigado 📃 ⟫ -->
 <div id="navPopUp">
-  <thala class="menuPanel">
+  <thala class="menuPanel aih">
     <div class="menuIdenteco">
-      <h1 data-oskakefani="p1">ARANIS · La Nebula Valo</h1>
-      <p data-oskakefani="p2">La Nebula Valo · Urbo-Sxtupo de la Betularo</p>
+      <h1 data-oskakefani="titoloAranis">ARANIS · La Nebula Valo</h1>
+      <p data-oskakefani="subtitoloUrbo">La Nebula Valo · Urbo-Sxtupo de la Betularo</p>
     </div>
-    <button id="navPopFermi" data-oskakefani-aria="ariaNavPopFermi">✕</button>
     <div class="menuAzioj">
-      <button id="butPromeni" data-oskakefani="p5" data-oskakefani-aria="ariaButPromeni">PROMENI</button>
-      <button id="butOrbiti" data-oskakefani="p6" data-oskakefani-aria="ariaButOrbiti">ORBITI</button>
-      <button id="butVesti" data-oskakefani="p7" data-oskakefani-aria="ariaButVesti">VESTARO</button>
-      <button id="butHelpi" data-oskakefani="pC" data-oskakefani-aria="ariaButHelpi">?</button>
+      <button id="butPromeni" data-oskakefani="butonoPromeni" data-oskakefani-aria="ariaButPromeni">PROMENI</button>
+      <button id="butOrbiti" data-oskakefani="butonoOrbiti" data-oskakefani-aria="ariaButOrbiti">ORBITI</button>
+      <button id="butVesti" data-oskakefani="butonoVestaro" data-oskakefani-aria="ariaButVesti">VESTARO</button>
+      <button id="butHelpi" data-oskakefani="butonoHelpo" data-oskakefani-aria="ariaButHelpi">?</button>
       <button id="butLingvo" data-oskakefani-aria="ariaButLingvo">AIH</button>
       <button id="butSonoro" data-oskakefani-aria="ariaButSonoro">♬</button>
     </div>
@@ -92,24 +92,22 @@
   <div id="mobButaroj">
     <button id="mobButInterakti" class="mobBut" data-oskakefani-aria="ariaButInterakti">E</button>
     <button id="mobButSalti" class="mobBut" data-oskakefani-aria="ariaButSalti">⟐</button>
-    <button id="mobButKuri" class="mobBut" data-oskakefani-aria="ariaButKuri">⚡</button>
-    <button id="mobButRezimo" class="mobBut" data-oskakefani-aria="ariaButRezimo">M</button>
   </div>
 </div>
 
-<div id="prompto"></div>
+<div id="prompto" class="aih"></div>
 <div id="supermeta">
-  <thala class="interno">
-    <button id="supermetaFermi" data-oskakefani="p8" data-oskakefani-aria="ariaSupermetaFermi">✕</button>
-    <h3 id="supermetaTitolo" data-oskakefani="pD">LA TEKSILO</h3>
-    <div class="supra" id="supermetaSupra" data-oskakefani="pE">Longaj cxemizoj · mallongaj manikoj · cxefa kaj akcenta</div>
+  <thala class="interno aih">
+    <button id="supermetaFermi" data-oskakefani="butonoFermi" data-oskakefani-aria="ariaSupermetaFermi">✕</button>
+    <h3 id="supermetaTitolo" data-oskakefani="titoloTeksilo">LA TEKSILO</h3>
+    <div class="supra" id="supermetaSupra" data-oskakefani="subtitoloTeksilo">Longaj cxemizoj · mallongaj manikoj · cxefa kaj akcenta</div>
     <div class="vestaVico" id="vestaVico"></div>
   </thala>
 </div>
 <div id="sxargxo">
-  <div class="ltitle" id="sxargxaTitolo" data-oskakefani="pF">ARANIS</div>
+  <div class="ltitle aih" id="sxargxaTitolo" data-oskakefani="titoloSxargxo">ARANIS</div>
   <div class="stango"><i id="stangoPlenigo"></i></div>
-  <div class="lsupra" id="loadCap" data-oskakefani="pG">j͐ʃɜ ɭʃᴜ ſɭɔƽ</div>
+  <div class="lsupra aih" id="loadCap" data-oskakefani="sxargxaSubskribo">j͐ʃɜ ɭʃᴜ ſɭɔƽ</div>
 </div>
 <script type="module" src="./src/sperto.ts"></script>
 </body>

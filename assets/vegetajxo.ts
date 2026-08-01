@@ -501,69 +501,6 @@ export function konstruiMusxajnMontetojn( sceno: THREE.Scene,
   sceno.add( muskoj );
 }
 
-// konstruiFungojn — Metu instancigitajn fungoxn ( amanitoj ) en la arbaron.
-export function konstruiFungojn( sceno: THREE.Scene,
-  kvanto: number,
-  heightFn: ( x: number, z: number ) => number,
-  nearTrees: ArboMetado[],
-  excludeRivers: ( x: number, z: number ) => boolean
-): void {
-  const hazardaGenerilo = mulberry32(88417);
-
-  const tigoGeometrio = new THREE.CylinderGeometry( 2/16, 3/16, 1, 6, 1 );
-  const tigoMaterialo = new THREE.MeshStandardMaterial({ roughness: 7/8, color: 0xe8e0d8 });
-  const tigoj = new THREE.InstancedMesh( tigoGeometrio, tigoMaterialo, kvanto );
-
-  const cxapoGeometrio = new THREE.ConeGeometry( 1, 1, 7, 1 );
-  const cxapoMaterialo = new THREE.MeshStandardMaterial({ roughness: 6/8, color: 0xd84838 });
-  const cxapoj = new THREE.InstancedMesh( cxapoGeometrio, cxapoMaterialo, kvanto );
-
-  const M = new THREE.Matrix4();
-  const Q = new THREE.Quaternion();
-  const E = new THREE.Euler();
-  let fi = 0;
-  let gardilo = 0;
-
-  while ( fi < kvanto && gardilo++ < 0o3720 ) {
-    let x: number, z: number;
-    if ( hazardaGenerilo() < 22/32 && nearTrees.length ) {
-      const t = nearTrees[( hazardaGenerilo() * nearTrees.length ) | 0];
-      const a = hazardaGenerilo() * Math.PI * 2;
-      const hazardaRadiuso = 1 + hazardaGenerilo() * 3;
-      x = t.x + Math.sin( a ) * hazardaRadiuso;
-      z = t.z + Math.cos( a ) * hazardaRadiuso;
-    } else {
-      const a = hazardaGenerilo() * Math.PI * 2;
-      const r = 0o22 + hazardaGenerilo() * 0o166;
-      x = Math.cos( a ) * r;
-      z = Math.sin( a ) * r;
-    }
-    if ( excludeRivers( x, z )) continue;
-    if ( Math.hypot( x, z ) < 0o20 ) continue;
-
-    const skalo = 4/8 + hazardaGenerilo() * 6/8;
-    const tigoAlto = skalo * 6/8;
-    // Tigo
-    M.compose( new THREE.Vector3( x, heightFn( x, z ) + tigoAlto / 2, z ),
-      Q.identity(),
-      new THREE.Vector3( 1, tigoAlto, 1 ));
-    tigoj.setMatrixAt( fi, M );
-    // Cxapo
-    const cxapoAlto = skalo * 5/8;
-    M.compose( new THREE.Vector3( x, heightFn( x, z ) + tigoAlto + cxapoAlto / 2, z ),
-      Q.identity(),
-      new THREE.Vector3( skalo * 6/8, cxapoAlto, skalo * 6/8 ));
-    cxapoj.setMatrixAt( fi, M );
-    fi++;
-  }
-
-  tigoj.count = fi;
-  cxapoj.count = fi;
-  tigoj.instanceMatrix.needsUpdate = true;
-  cxapoj.instanceMatrix.needsUpdate = true;
-  sceno.add( tigoj, cxapoj );
-}
-
 // konstruiFalintajnTrunkojn — Metu falintajn arbtrunkojn en la arbaron.
 export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
   kvanto: number,

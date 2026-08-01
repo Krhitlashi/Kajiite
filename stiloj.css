@@ -1,10 +1,13 @@
 :root {
-  --deep:#081410;
-  --mist:#e6efe9;
-  --dim:#9db8a4;
-  --gold:#d9b36a;
-  --gold-soft:rgba(217,179,106,.35);
-  --panel:rgba(10,24,18,.82);
+  --deep:#081010;
+  --mist:#e8f0e8;
+  --dim:#a0b8a0;
+  --gold:#d8b068;
+  --gold-faint:#d8b06818;
+  --gold-dim:#d8b06830;
+  --gold-soft:#d8b06858;
+  --scrim:#080808a0;
+  --panel:#081810d0;
   --sat:env(safe-area-inset-top,0px);
   --sab:env(safe-area-inset-bottom,0px);
   --sal:env(safe-area-inset-left,0px);
@@ -14,7 +17,6 @@
 /* The linked stylesheet owns the base type, buttons, thala panels, and glass tokens. */
 html,body { block-size:100%; overflow:hidden; }
 body {
-  margin:0;
   display:block;
   overflow:hidden;
   overscroll-behavior:none;
@@ -23,55 +25,55 @@ body {
   user-select:none;
   -webkit-user-select:none;
   -webkit-touch-callout:none;
-  font-family:j͑ʃꞇȝ,"ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif;
-  font-variant-ligatures:normal;
-  font-feature-settings:"liga","clig","calt";
-  font-kerning:normal;
-  text-rendering:optimizeLegibility;
 }
-#sceno { position:fixed; inset:0; display:block; touch-action:none; cursor:grab; }
+#sceno { display:block; touch-action:none; cursor:grab; }
 #sceno:active { cursor:grabbing; }
 
 /* Buttons: the browser font shorthand resets the font longhands ( ligatures, kerning )
    to their initial values, so restore the same shaping as the rest of the UI. */
-button { font-variant-ligatures:normal; font-feature-settings:"liga","clig","calt"; font-kerning:normal; text-rendering:optimizeLegibility; }
+body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig","calt"; font-kerning:normal; text-rendering:optimizeLegibility; }
 
-/* Full-screen effects */
-#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo { position:fixed; inset:0; pointer-events:none; }
-#vinjeto { z-index:2; background:radial-gradient(ellipse at center,transparent 60%,rgba(4,10,8,.55)); transition:opacity .8s; }
-#svingo { z-index:5; opacity:0; background:linear-gradient(105deg,transparent 28%,rgba(217,179,106,.10) 48%,rgba(28,42,74,.20) 68%,transparent 88%); }
-#svingo.iru { animation:svingo-efiko .9s ease forwards; }
-@keyframes svingo-efiko { 0%{opacity:0;transform:translateX(-28%)} 30%{opacity:1} 100%{opacity:0;transform:translateX(28%)} }
+/* Full-screen layers share one fixed, edge-to-edge geometry. */
+#sceno,#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo,#supermeta,#sxargxo,#mobKontroloj { position:fixed; inset:0; }
+#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo { pointer-events:none; }
+#vinjeto { z-index:2; background:radial-gradient(ellipse at center,transparent 62.5%,#08080890); transition:opacity 1s; }
+#svingo { z-index:5; opacity:0; background:linear-gradient(104deg,transparent 28%,var(--gold-faint) 48%,#18284830 68%,transparent 88%); }
+#svingo.iru { animation:svingo-efiko 1s ease forwards; }
+@keyframes svingo-efiko { 0%{opacity:0;transform:translateX(-28%)} 32%{opacity:1} 100%{opacity:0;transform:translateX(28%)} }
 #fxVarma,#fxMenta { z-index:4; opacity:0; }
-#fxVarma { background:radial-gradient(90% 70% at 50% 60%,rgba(255,178,102,.28),transparent 70%); }
-#fxMenta { background:radial-gradient(90% 70% at 50% 40%,rgba(150,230,200,.22),transparent 70%); }
-.fxPulso { animation:fxp 1.1s ease forwards; }
-@keyframes fxp { 0%{opacity:0} 30%{opacity:1} 100%{opacity:0} }
+#fxVarma { background:radial-gradient(88% 68% at 50% 62.5%,#f8b06848,transparent 68%); }
+#fxMenta { background:radial-gradient(88% 68% at 50% 37.5%,#98e8c838,transparent 68%); }
+.fxPulso { animation:fxp 1s ease forwards; }
+@keyframes fxp { 0%{opacity:0} 32%{opacity:1} 100%{opacity:0} }
 #balailo { z-index:8; background:var(--deep); opacity:0; transition:opacity .5s; }
-#balailo.montri { opacity:1; }
 
 /* Crosshair, toast, and centered overlays */
-#retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .3s; }
-#retikulo.montri { opacity:.45; }
+#retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .25s; }
+#retikulo.montri { opacity:.4375; }
 #retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--gold); }
-#retikulo::before { width:18px; height:1px; top:50%; left:-9px; }
-#retikulo::after { width:1px; height:18px; left:50%; top:-9px; }
+#retikulo::before { width:16px; height:1px; top:50%; left:-8px; }
+#retikulo::after { width:1px; height:16px; left:50%; top:-8px; }
+#tosto,#prompto { letter-spacing:.125em; white-space:nowrap; opacity:0; pointer-events:none; }
 #tosto {
-  position:fixed; z-index:5; top:calc(50% + 60px); left:50%; transform:translate(-50%,-50%) translateY(20px);
-  padding:10px 24px; color:var(--mist); font-size:12px; letter-spacing:.1em; white-space:nowrap;
-  opacity:0; pointer-events:none; transition:opacity .4s,transform .4s;
+  position:fixed; z-index:5; top:calc(50% + 64px); left:50%; transform:translate(-50%,-50%) translateY(16px);
+  padding:var(--អារេង) var(--អារេងព៏); color:var(--mist); font-size:12px;
+  transition:opacity .5s,transform .5s;
 }
-#tosto.montri { opacity:1; transform:translate(-50%,-50%); }
+#tosto.montri { transform:translate(-50%,-50%); }
 #supermeta {
-  position:fixed; inset:0; z-index:6; display:grid; place-items:center;
-  background:rgba(4,10,8,.62); opacity:0; pointer-events:none; transition:opacity .35s;
+  z-index:6; display:grid; place-items:center;
+  background:var(--scrim); opacity:0; pointer-events:none; transition:opacity .25s;
 }
-#supermeta.montri { opacity:1; pointer-events:auto; }
-#supermeta .interno { position:relative; max-width:520px; max-height:calc(100% - 32px); overflow:auto; padding:24px 32px; text-align:center; }
-#supermeta h3 { margin:0 0 var(--អារេង); color:var(--gold); font-size:18px; letter-spacing:.2em; }
-#supermeta .supra { margin-bottom:16px; color:var(--dim); font-size:10px; letter-spacing:.16em; }
-#supermetaFermi { position:absolute; top:var(--អារេង); right:var(--អារេងចិ); }
-.helpa-listo { text-align:start; padding:8px; }
+#supermeta .interno { position:relative; max-width:512px; max-height:calc(100% - 32px); overflow:auto; padding:var(--អារេងព៏); text-align:center; }
+#supermeta h3 { margin:0; color:var(--gold); font-size:16px; letter-spacing:.125em; }
+#supermeta .supra { color:var(--dim); font-size:8px; letter-spacing:.1875em; }
+#supermetaFermi { position:absolute; top:var(--អារេង); right:var(--អារេង); }
+.helpa-listo { padding:var(--អារេង); }
+/* One reveal language for every overlay. */
+#karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#balailo.montri { opacity:1; }
+#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri { pointer-events:auto; }
+/* Left-aligned reading text, against the linked stylesheet's centered default. */
+.helpa-listo,.menuIdenteco,.menuIdenteco h1,.menuIdenteco p,#muzikoGrupo,#muzikoEtikedo { text-align:start; }
 
 /* Every floating card gets a readable, layered surface: a sheen from the linked
    stylesheet's black/white tokens (they flip with the color scheme) over the page's
@@ -80,129 +82,147 @@ button { font-variant-ligatures:normal; font-feature-settings:"liga","clig","cal
   -webkit-backdrop-filter:blur(32px);
   backdrop-filter:blur(32px);
   background:
-    linear-gradient(145deg,var(--តានេក២),var(--តានេក) 45%,transparent),
-    linear-gradient(180deg,var(--panel),var(--panel)),
+    linear-gradient(144deg,var(--តានេក២),var(--តានេក) 48%,transparent),
+    linear-gradient(176deg,var(--panel),var(--panel)),
     var(--តានេកខេលេ);
   border:var(--សាកព៏);
   border-radius:var(--អិត្ភេពឺ);
-  box-shadow:none;
 }
 
 /* Rounded-diamond minimap; counter-rotate the compass contents. */
 #kompaso {
-  position:fixed; z-index:3; top:calc(24px + var(--sat)); right:calc(24px + var(--sar));
+  position:fixed; z-index:3; top:calc(var(--អារេងព៏) + var(--sat)); right:calc(var(--អារេងព៏) + var(--sar));
   inline-size:56px; block-size:56px; display:grid; place-items:center;
   overflow:hidden; transform:rotate(45deg); border-radius:var(--អិត្ភេមិ);
-  border:var(--សាកព៏); box-shadow:none;
+  border:var(--សាកព៏);
 }
-#kompaso .ringo { position:relative; inline-size:40px; block-size:40px; transform:rotate(-45deg); }
+#kompaso .ringo { position:relative; inline-size:32px; block-size:32px; transform:rotate(-45deg); }
 .nadlo { position:absolute; inset:0; will-change:transform; }
-.nadlo span { position:absolute; top:-6px; left:50%; transform:translateX(-50%); color:var(--gold); font-size:8px; }
-.nadlo::before { content:""; position:absolute; left:50%; top:10px; transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid var(--gold); }
+.nadlo span { position:absolute; top:-8px; left:50%; transform:translateX(-50%); color:var(--gold); font-size:8px; }
+.nadlo::before { content:""; position:absolute; left:50%; top:var(--អារេង); transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid var(--gold); }
 
 /* Building card and the lightweight central prompt. */
 #karto {
-  position:fixed; z-index:3; left:calc(24px + var(--sal)); bottom:calc(24px + var(--sab));
-  inline-size:304px; padding:18px 20px; transform:translateY(24px); opacity:0; pointer-events:none;
-  transition:transform .4s cubic-bezier(.2,.9,.25,1),opacity .4s;
+  position:fixed; z-index:3; left:calc(var(--អារេងព៏) + var(--sal)); bottom:calc(var(--អារេងព៏) + var(--sab));
+  inline-size:304px; padding:var(--អារេងព៏); transform:translateY(24px); opacity:0; pointer-events:none;
+  transition:transform .5s cubic-bezier(.1875,.875,.25,1),opacity .5s;
 }
-#karto.montri { transform:none; opacity:1; pointer-events:auto; }
-#karto h2 { margin:0; font-size:18px; letter-spacing:.08em; }
-#karto .karto-agoj { display:flex; justify-content:center; margin-top:12px; }
-.peco { display:inline-block; margin-top:6px; padding:3px 10px; color:var(--កេភ); font-size:9px; font-weight:600; letter-spacing:.14em; border-radius:8px 16px 8px 16px; }
-.statistikoj { margin-top:8px; color:var(--dim); font-size:10px; line-height:1.8; }
+#karto.montri { transform:none; }
+#karto h2 { margin:0; font-size:16px; letter-spacing:.125em; }
+#karto .karto-agoj { display:flex; justify-content:center; }
+/* The linked stylesheet's universal flex/grid gap (--អារេង, 8px) already sets the card's
+   vertical rhythm, so no local margins are needed between these sections. */
+.peco { display:inline-block; padding:var(--អារេងមិ) var(--អារេង); font-size:8px; font-weight:600; letter-spacing:.125em; border-radius:8px 16px 8px 16px; }
+.statistikoj { color:var(--dim); font-size:8px; line-height:1.75; }
 .statistikoj b { color:var(--mist); font-weight:600; }
-.gusto { margin-top:8px; color:var(--កេភ២); font-size:11px; font-weight:300; }
-.helpa-listo { text-align:start; padding:8px; }
-#prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(8px); padding:8px 18px; font-size:11px; letter-spacing:.1em; opacity:0; pointer-events:none; transition:opacity .24s,transform .24s; white-space:nowrap; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
-#prompto.montri { opacity:1; transform:translateX(-50%); pointer-events:auto; }
+.gusto { color:var(--កេភ២); font-size:11px; font-weight:300; }
+#prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); font-size:11px; transition:opacity .25s,transform .25s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
+#prompto.montri { transform:translateX(-50%); }
 
 /* Menu trigger and floating panel. The page remains fully visible behind it: no scrim or backdrop blur. */
-#navButono {
-  position:fixed; z-index:7; right:calc(20px + var(--sar)); bottom:calc(20px + var(--sab));
-  inline-size:48px; block-size:48px; display:grid; place-items:center; padding:0;
-  color:var(--gold); font-size:20px; cursor:pointer; touch-action:manipulation;
+/* Icon buttons share one circular-button language — same size, same look. */
+#navButono,.mobBut {
+  display:grid; place-items:center; padding:0;
+  color:var(--gold); font-size:18px; cursor:pointer; touch-action:manipulation;
   /* Pli granda angulo ol la karteto: iom pli rondigita por la cirkla butono. */
   border-radius:var(--អិត្ភេ);
+  inline-size:52px; block-size:52px;
 }
+#navButono {
+  position:fixed; z-index:7; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab));
+  transition:opacity .25s;
+}
+/* Logikaj enliniaj/blokaj ecoj sekvas la skrib-reĝimon de la rotaciita panelo. */
 #navPopUp {
-  position:fixed; z-index:6; inset:auto calc(20px + var(--sar)) calc(76px + var(--sab)) auto;
-  display:block; inline-size:min(360px,calc(100vw - 32px)); max-block-size:calc(100vh - 96px);
-  overflow:auto; opacity:0; pointer-events:none; transform:translateY(10px) scale(.98);
-  transition:opacity .2s,transform .2s;
-  /* Explicitly transparent: unlike a modal, opening the menu never dims the scene. */
-  background:transparent; border:0; box-shadow:none; padding:0;
+  position:fixed; z-index:6; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab));
+  display:block; inline-size:max-content; max-inline-size:calc(100vw - 32px); max-block-size:calc(100vh - 96px);
+  overflow:auto; opacity:0; pointer-events:none; transform:translateY(8px);
+  transition:opacity .25s,transform .25s;
+  /* A plain wrapper: no background of its own, so opening the menu never dims the scene. */
+  /* Masko: la sama angulradio kiel la panelo, por ke la klipita menuo konservu la rondajn angulojn. */
+  border-radius:var(--អិត្ភេពឺ);
 }
-#navPopUp.montri { opacity:1; pointer-events:auto; transform:none; }
+#navPopUp.montri { transform:none; }
 .menuPanel {
-  position:relative; display:flex; flex-direction:column; align-items:stretch; gap:var(--អារេង);
+  position:relative;
   padding:var(--អារេងព៏);
-  color:var(--កេភ);
   background:
-    linear-gradient(145deg,var(--តានេក២),var(--តានេក) 45%,transparent),
-    linear-gradient(180deg,var(--panel),var(--panel)),
+    linear-gradient(144deg,var(--តានេក២),var(--តានេក) 48%,transparent),
+    linear-gradient(176deg,var(--panel),var(--panel)),
     var(--តានេកខេលេ);
-  border:var(--សាកព៏២); border-radius:var(--អិត្ភេពឺ);
-  box-shadow:none;
-  backdrop-filter:blur(32px);
-  -webkit-backdrop-filter:var(--ច្ហិនី); backdrop-filter:var(--ច្ហિનី);
+  border:var(--សាកព៏២);
+  -webkit-backdrop-filter:var(--ច្ហិនី);
+  -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px);
 }
-.menuIdenteco { padding:var(--អារេង); text-align:start; }
-.menuIdenteco h1 { margin:0; color:var(--កេភ); font-size:16px; font-weight:400; letter-spacing:.12em; text-align:start; }
-.menuIdenteco p { margin:4px 0 0; color:var(--កេភ២); font-size:10px; letter-spacing:.06em; text-align:start; }
-#navPopFermi { position:absolute; top:var(--អារេង); right:var(--អារេង); z-index:1; inline-size:32px; block-size:32px; min-block-size:0; padding:0; color:var(--កេភ២); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេមិ); cursor:pointer; }
-#navPopFermi:hover { color:var(--កេភ); background:var(--តានេក២); }
-.menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--អារេង); }
-.menuAzioj button { inline-size:auto; min-block-size:44px; padding:var(--អារេងចិ); color:var(--កេភ); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេ); font-size:11px; letter-spacing:.08em; }
-.menuAzioj button:hover,.menuAzioj button.aktiva { background:var(--តានេក២); border-color:var(--សាកព៏៣); }
-#muzikoGrupo,#duskLabelo { inline-size:auto; padding:var(--អារេង); color:var(--កេភ); background:var(--តានេក); border:var(--សាកព៏); border-radius:var(--អិត្ភេ); }
-#muzikoGrupo { text-align:start; }
-#muzikoEtikedo { display:block; margin-block-end:var(--អារេង); color:var(--កេភ២); font-size:9px; letter-spacing:.14em; text-align:start; }
+.trakaBut,.menuKrepusko > button { min-block-size:0; padding:0; }
+.menuIdenteco { padding:var(--អារេង); }
+.menuIdenteco h1 { margin:0; font-size:16px; font-weight:400; letter-spacing:.125em; }
+.menuIdenteco p { margin:var(--អារេង) 0 0; color:var(--កេភ២); font-size:8px; letter-spacing:.0625em; }
+.menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.menuAzioj button { inline-size:auto; min-block-size:44px; font-size:11px; letter-spacing:.0625em; }
+.menuAzioj button.aktiva { background:var(--តានេក២); }
+#muzikoGrupo,#duskLabelo { inline-size:auto; padding:var(--អារេង); background:var(--តានេក); border-radius:var(--អិត្ភេ); }
+#muzikoEtikedo { display:block; margin-block-end:var(--អារេង); color:var(--កេភ២); font-size:8px; letter-spacing:.125em; }
 #trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); }
-.trakaBut { inline-size:auto; block-size:32px; min-block-size:0; padding:0; color:var(--កេភ២); }
+.trakaBut { inline-size:auto; block-size:32px; color:var(--កេភ២); }
 .trakaBut.aktiva { color:var(--កេភ); border:var(--សាកព៏២); background:var(--តានេក២); }
-.menuKrepusko { display:grid; grid-template-columns:44px 1fr; gap:var(--អារេង); align-items:center; }
-.menuKrepusko > button { inline-size:44px; block-size:44px; min-block-size:0; padding:0; color:var(--កេភ); }
-#duskLabelo { display:flex; align-items:center; gap:var(--អារេង); color:var(--កេភ២); font-size:13px; }
+.menuKrepusko { display:grid; grid-template-columns:44px 1fr; align-items:center; }
+.menuKrepusko > button { inline-size:44px; block-size:44px; }
+#duskLabelo { color:var(--កេភ២); font-size:13px; }
 #duskLabelo input[type=range] { flex:1; min-inline-size:0; }
 
 /* Wardrobe cards and loading screen. */
-.vestaVico { display:flex; justify-content:center; flex-wrap:wrap; gap:var(--អារេងចិ); }
-.vestaKardo { inline-size:120px; padding:10px 10px 14px; border-color:var(--gold-soft); cursor:pointer; transition:transform .24s,border-color .24s; }
+/* The linked stylesheet's universal gap (8px) already spaces these cards. */
+.vestaVico { display:flex; justify-content:center; flex-wrap:wrap; }
+/* Flex column so the linked sheet's universal gap (8px) spaces the canvas and the name. */
+.vestaKardo { display:flex; flex-direction:column; inline-size:128px; padding:var(--អារេង); border-color:var(--gold-soft); cursor:pointer; transition:transform .25s,border-color .25s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--gold); }
 .vestaKardo canvas { inline-size:100%; }
-.vestaKardo .vn { margin-top:var(--អារេង); color:var(--mist); font-size:9px; letter-spacing:.12em; }
-#sxargxo { position:fixed; inset:0; z-index:9; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; background:var(--deep); transition:opacity .8s; }
+.vestaKardo .vn { color:var(--mist); font-size:8px; letter-spacing:.125em; }
+#sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); background:var(--deep); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
-#sxargxo .ltitle { font-size:20px; letter-spacing:.4em; }
-.stango { inline-size:224px; block-size:2px; background:rgba(217,179,106,.2); }
-.stango i { display:block; inline-size:0; block-size:100%; background:var(--gold); transition:inline-size .3s; }
-.lsupra { color:var(--dim); font-size:9px; letter-spacing:.2em; }
+#sxargxo .ltitle { font-size:18px; letter-spacing:.375em; }
+/* La titolo kaj surskribo staras cxe la flankoj de la vertikala stango; la plenigo fluas de malsupro al supro. */
+.stango { position:relative; inline-size:6px; block-size:min(224px, 48vh); border-radius:999px; background:var(--gold-dim); overflow:hidden; }
+.stango i { position:absolute; inset-inline:0; inset-block-end:0; inline-size:100%; block-size:0%; border-radius:999px; background:var(--gold); transition:block-size .25s; }
+.lsupra { color:var(--dim); font-size:8px; letter-spacing:.1875em; }
+
+/* La skribo-direkto de la flosantaj kartoj sekvu la aktivan lingvon, ne la konstantan .aih-klason. */
+/* aih flanka (sideways-lr) · ja de supro al malsupro (vertical-rl) · aliaj normalaj. */
+.menuPanel,#tosto,#karto,#prompto,#supermeta .interno,.vestaKardo { writing-mode:horizontal-tb; }
+html[lang="aih"] .menuPanel, html[lang="aih"] #tosto, html[lang="aih"] #karto, html[lang="aih"] #prompto, html[lang="aih"] #supermeta .interno, html[lang="aih"] .vestaKardo { writing-mode:sideways-lr; }
+html[lang="ja"] .menuPanel, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
 
 /* Mobile controls remain custom because the linked stylesheet does not know their geometry. */
-#mobKontroloj { display:none; position:fixed; inset:0; z-index:3; pointer-events:none; }
-#mobJoystickZono { position:absolute; left:0; bottom:0; inline-size:180px; block-size:200px; display:grid; place-items:center; padding-bottom:16px; pointer-events:auto; touch-action:none; }
-#mobJoystickBazo { position:relative; inline-size:120px; block-size:120px; display:grid; place-items:center; border-radius:var(--អិត្ភេ); border:1px solid var(--gold-soft); box-shadow:none; }
+/* La tuŝaj kontroloj aperas nur post la unua reala tuŝo ( body.tuŝa ), sur ajna tuŝekrano, sendepende de la grandeco. */
+#mobKontroloj { display:none; z-index:3; pointer-events:none; }
+body.tuŝa #mobKontroloj { display:block; }
+#mobJoystickZono { position:absolute; left:0; bottom:0; inline-size:176px; block-size:192px; display:grid; place-items:end center; padding-bottom:var(--អារេងព៏); pointer-events:auto; touch-action:none; }
+#mobJoystickBazo { position:relative; inline-size:128px; block-size:128px; display:grid; place-items:center; border-radius:var(--អិត្ភេ); border:1px solid var(--gold-soft); }
 #mobJoystickBazo.aktiva { background:var(--តានេក២); border-color:var(--gold); }
-#mobJoystickTenilo { position:absolute; left:38px; top:38px; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background:radial-gradient(circle at 40% 35%,rgba(217,179,106,.3),rgba(217,179,106,.08)); border:1px solid rgba(217,179,106,.3); pointer-events:none; }
-#mobJoystickTenilo.aktiva { box-shadow:none; }
-#mobButaroj { position:absolute; right:calc(16px + var(--sar)); bottom:calc(150px + var(--sab)); display:flex; flex-direction:column; gap:10px; pointer-events:none; }
-.mobBut { inline-size:52px; block-size:52px; display:grid; place-items:center; padding:0; color:var(--gold); border-radius:var(--អិត្ភេ); pointer-events:auto; touch-action:manipulation; }
+#mobJoystickTenilo { position:absolute; inset:0; margin:auto; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background:radial-gradient(circle at 37.5% 37.5%,var(--gold-soft),var(--gold-faint)); border:1px solid var(--gold-soft); pointer-events:none; }
+/* La agbutonoj sidas ĉe la sama funda angulo kiel la naviga butono: unuforma 16px marĝeno sur ĉiu ekrano. */
+#mobButaroj { position:absolute; right:calc(var(--អារេងព៏) + 52px + var(--អារេង) + var(--sar)); bottom:calc(var(--អារេងព៏) + var(--sab)); display:flex; flex-direction:column; gap:var(--អារេង); pointer-events:none; }
+.mobBut { pointer-events:auto; }
 .mobBut#mobButSalti { font-size:22px; }
-.mobBut#mobButKuri { font-size:20px; }
-.mobBut#mobButKuri.aktiva { background:rgba(217,179,106,.25); border-color:var(--gold); box-shadow:none; }
-@media (hover:none) and (pointer:coarse),(max-width:768px) { #mobKontroloj { display:block; } #navButono { bottom:calc(80px + var(--sab)); } }
+/* Stirstango forkuras kiam la tenilo estas puŝita preter 3/4 de la radio. */
+#mobJoystickBazo.sprinto #mobJoystickTenilo { background:var(--gold); border-color:var(--gold); }
+/* La naviga butono restas videbla kaj indikas la fermon dum la menuo estas malfermita. */
+#navButono:has(+ #navPopUp.montri) { background:var(--តានេក២); border-color:var(--gold); }
 
-@media (max-width:640px) {
-  #kompaso { top:10px; right:10px; inline-size:44px; block-size:44px; }
+@media (max-width:648px) {
+  /* Unuigita 16px angul-marĝeno ( var(--អារេងព៏) + safe-area ) por ĉiuj flosantaj elementoj.
+     La bazaj reguloj jam havas tiujn insets, do ĉi tie nur la grandecoj ŝanĝiĝas. */
+  #kompaso { inline-size:44px; block-size:44px; }
   #kompaso .ringo { inline-size:32px; block-size:32px; }
-  #karto { left:10px; right:76px; bottom:10px; inline-size:auto; max-block-size:44vh; overflow:auto; }
-  #navPopUp { right:16px; bottom:calc(76px + var(--sab)); inline-size:calc(100vw - 32px); max-block-size:calc(100vh - 92px); }
+  /* La karto malfermiĝas maldekstre kaj cedas la dekstran kolumnon al la butono. */
+  #karto { right:calc(var(--អារេងព៏) + 52px + var(--អារេងមិ)); inline-size:auto; max-block-size:44vh; overflow:auto; }
+  #navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100vw - 32px); max-block-size:calc(100vh - 92px); }
   .menuAzioj { grid-template-columns:1fr 1fr; }
 }
 
 /* Only the theme tokens flip here; the card/menu surfaces already build on the linked
    stylesheet's black/white tokens plus --panel, so they adapt to both schemes on their own. */
 @media (prefers-color-scheme:light) {
-  :root { --deep:#e8ece8; --mist:#182420; --dim:#687868; --gold:#a88848; --gold-soft:rgba(168,136,72,.35); --panel:rgba(232,240,232,.85); }
+  :root { --deep:#e8f0e8; --mist:#182020; --dim:#687868; --gold:#a88848; --gold-soft:#a8884858; --panel:#e8f0e8d8; }
 }

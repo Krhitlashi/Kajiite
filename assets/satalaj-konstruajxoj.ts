@@ -1,4 +1,5 @@
-// Ziggurat-konstruilo — sxtupajramidaj konstruajxoj. verdaj/oraj domoj, brunaj/becxaj mangxejoj, blankaj/grizaj stacioj
+// Satalaj konstruajxoj — sxtupajramidaj konstruajxoj. verdaj/oraj domoj, brunaj/becxaj mangxejoj, blankaj/grizaj stacioj
+// La zigurato nomigxas satal ( j͑ʃᴜ ɭʃᴜͷ̗ ) en Iikrhia. noma formo. satalo.
 import * as THREE from "three";
 import { generiSkribanTeksajxon } from "./skripto-rivelilo.js";
 import { nomoAih } from "../src/tradukoj.js";
@@ -6,7 +7,7 @@ import { nomoAih } from "../src/tradukoj.js";
 export interface KonstruTipo { labelKey: string; wall: number; frame: number; chip: string; flavorKey: string; }
 export const TIPARO: Record<string, KonstruTipo> = {
   domo:   { labelKey: "tipDomo",      wall: 0x184838, frame: 0xd8b068, chip: "#78a888", flavorKey: "flvDomo" },
-  manĝejo:  { labelKey: "tipMangxejo",  wall: 0x584028, frame: 0xd8c898, chip: "#c8a868", flavorKey: "flvMangxejo" },
+  mangxejo:  { labelKey: "tipMangxejo",  wall: 0x584028, frame: 0xd8c898, chip: "#c8a868", flavorKey: "flvMangxejo" },
   stacio: { labelKey: "tipStacio",      wall: 0xd8e0e0, frame: 0x889898, chip: "#c0c8c8", flavorKey: "flvStacio" },
   stacioxipo: { labelKey: "tipStacioxipo", wall: 0xc8c8c8, frame: 0xd8b068, chip: "#c8c8c8", flavorKey: "flvStacioxipo" },
   turo:   { labelKey: "tipTuro",        wall: 0x205040, frame: 0xd8b068, chip: "#88b8a0", flavorKey: "flvTuro" },
@@ -14,6 +15,24 @@ export const TIPARO: Record<string, KonstruTipo> = {
 };
 
 export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }
+
+// kreiRondigitanKvadratanFormon — Kvadrata formo kun rondigitaj anguloj (uzata
+// por la kosmoporda lancx-aprono).
+function kreiRondigitanKvadratanFormon(w: number, d: number, r: number): THREE.Shape {
+  const s = new THREE.Shape();
+  const hw = w / 2, hd = d / 2;
+  s.moveTo(-hw + r, -hd);
+  s.lineTo(hw - r, -hd);
+  s.absarc(hw - r, -hd + r, r, -Math.PI / 2, 0, false);
+  s.lineTo(hw, hd - r);
+  s.absarc(hw - r, hd - r, r, 0, Math.PI / 2, false);
+  s.lineTo(-hw + r, hd);
+  s.absarc(-hw + r, hd - r, r, Math.PI / 2, Math.PI, false);
+  s.lineTo(-hw, -hd + r);
+  s.absarc(-hw + r, -hd + r, r, Math.PI, Math.PI * 3 / 2, false);
+  s.closePath();
+  return s;
+}
 
 function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number, rb: number, rt: number): THREE.Shape {
   const s = new THREE.Shape(), sl = (blokoLargho / 2 - tw / 2) / h;
@@ -25,8 +44,8 @@ function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number, rb: n
   return s;
 }
 
-// kreiKlinoTavolon — Kvadrata tavolo kun klinitaj muroj: la supro estas pli
-// mallarĝa ol la bazo, do cxiu tavolo aspektas kiel trapezoido.
+// kreiKlinoTavolon — Kvadrata tavolo kun klinitaj muroj. la supro estas pli
+// mallargxa ol la bazo, do cxiu tavolo aspektas kiel trapezoido.
 // 4-segmenta cilindro donas precize kvadratan frustumon (cxiuj konstruajxoj estas kvadrataj).
 // Eksportita por ke la spacosxipo reuzu la samajn tavolojn.
 export function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: number, alto: number): THREE.BufferGeometry {
@@ -52,10 +71,10 @@ function kreiSteleanFormon(w: number, h: number, r1: number, r2: number): THREE.
   return s;
 }
 
-// diamantajDuonoj — Tridek-du-punkta sekco de diamanto: pintoj je 45° (pli granda ol
+// diamantajDuonoj — Tridek-du-punkta sekco de diamanto. pintoj je 45° (pli granda ol
 // la malnova cirklo), enaj aksoj nur iomete enigitaj por mildigi la angulojn — la
 // piliero estas pli klare diamanta (malpli ronda) ol antauxe. La konturo komencas
-// ĉe la FRONTA akso (0°) kaj iras horloĝe.
+// cxe la FRONTA akso (0°) kaj iras horlogxe.
 function diamantajDuonoj(s: number): [number, number][] {
   const okto: [number, number][] = [
     [ s * 7/16 * Math.SQRT2, 0 ],
@@ -67,9 +86,9 @@ function diamantajDuonoj(s: number): [number, number][] {
     [ 0, s * 7/16 * Math.SQRT2 ],
     [ s * Math.SQRT1_2, s * Math.SQRT1_2 ],
   ];
-  // 32 punktoj: ĉiu oktona rando dividita en 4 — la SAMA diamanta silueto, sed
+  // 32 punktoj. cxiu oktona rando dividita en 4 — la SAMA diamanta silueto, sed
   // pli glataj randoj kaj multe malpli da facetaj faldoj sur la tubo kaj la
-  // hoka pintaĵo (la malnova 16-punkta ventumilo montris videblajn faldliniojn).
+  // hoka pintajxo (la malnova 16-punkta ventumilo montris videblajn faldliniojn).
   const punktoj: [number, number][] = [];
   for ( let j = 0; j < okto.length; j++ ) {
     const a = okto[j], b = okto[(j + 1) % okto.length];
@@ -92,20 +111,20 @@ function rondigitajDuonoj(s: number): [number, number][] {
   });
 }
 
-// Pilierkadroj — Ringaj kadroj por la pilieroj: tangento ta, ringa normalo m,
-// longa akso L kaj larĝa akso W.
+// Pilierkadroj — Ringaj kadroj por la pilieroj. tangento ta, ringa normalo m,
+// longa akso L kaj largxa akso W.
 interface Pilierkadroj {
   tangents: THREE.Vector3[];
   moj: THREE.Vector3[];
   Loj: THREE.Vector3[];
   Woj: THREE.Vector3[];
 }
-// kreiPilierkadrojn — Konstruas la kadrojn: la ringa ebeno estas ĉiam
+// kreiPilierkadrojn — Konstruas la kadrojn. la ringa ebeno estas cxiam
 // PERPENDIKULA al la kurbo-tangento (m = ta) kaj la longa akso restas la EKSTERA
 // akso (H rotaciita je 45°, do la diamantaj pintoj alfrontas la murojn kaj la
 // piliero sidas apud la angulo), konstanta en la mondo — neniu Frenet-tordo, la
-// sekco ne spiralas ĉirkaŭ la kurbo, ĉu la ŝafto rekta, ĉu la talona hoko
-// kurbiĝas.
+// sekco ne spiralas cxirkaux la kurbo, cxu la sxafto rekta, cxu la talona hoko
+// kurbigxas.
 function kreiPilierkadrojn(curve: THREE.Curve<THREE.Vector3>, segmentoj: number, H: THREE.Vector3): Pilierkadroj {
   const Lbazo = new THREE.Vector3((H.x - H.z) * Math.SQRT1_2, 0, (H.x + H.z) * Math.SQRT1_2).normalize();
   const tangents: THREE.Vector3[] = [], moj: THREE.Vector3[] = [], Loj: THREE.Vector3[] = [], Woj: THREE.Vector3[] = [];
@@ -120,8 +139,8 @@ function kreiPilierkadrojn(curve: THREE.Curve<THREE.Vector3>, segmentoj: number,
   return { tangents, moj, Loj, Woj };
 }
 
-// kreiDiamantanSvingon — Kvazaŭ-tubo laŭ unu kontinua kurbo kun DIAMANTA sekco
-// (ne cirkla). La ŝafto enfluas senrompe en pli platan kronon, kiu finiĝas per
+// kreiDiamantanSvingon — Kvazaux-tubo laux unu kontinua kurbo kun DIAMANTA sekco
+// (ne cirkla). La sxafto enfluas senrompe en pli platan kronon, kiu finigxas per
 // malgranda rondigita folio/diamanto, sen degeneraj trianguloj.
 function kreiDiamantanSvingon(
   curve: THREE.Curve<THREE.Vector3>, segmentoj: number, s: number, kadroj: Pilierkadroj,
@@ -132,7 +151,7 @@ function kreiDiamantanSvingon(
   const RINGO = duonoj.length;
   const ringoj = segmentoj + 1;
   // Samplu la kurbon per la sama normaligita parametro kiel la kadrojn, por ke
-  // la malnova pinĉo ĉe la duonlun-forma transiro ne plu aperu.
+  // la malnova pincxo cxe la duonlun-forma transiro ne plu aperu.
   const punktoj = Array.from({ length: ringoj }, ( _, i ) => curve.getPointAt(i / ( ringoj - 1 )));
   const vertoj: number[] = [];
   for ( let i = 0; i < ringoj; i++ ) {
@@ -141,28 +160,32 @@ function kreiDiamantanSvingon(
       p = p.clone().addScaledVector(curve.getTangentAt(1).normalize(), -tipLongeco);
     }
     const L = kadroj.Loj[i], W = kadroj.Woj[i];
-    // Nur la lastaj tri ringoj transiras iom post iom al la rondigita konturo;
-    // tiel la plata folio ne subite ŝanĝas formon ĉe la kapo.
-    const rondiga = Math.max(0, Math.min(1, (i - (ringoj - 4)) / 3));
+    // La unuaj tri ringoj cxe la BAZO ankaux transiras iom post iom al la rondigita
+    // konturo, por ke la rondigita ferma kapo kongruu perfekte (la malnova angula
+    // kapo lasis kvadratan randon cxe la piliero-fino); la lastaj tri ringoj cxe la
+    // kapo rondigas por la folio.
+    const finRondiga = Math.max(0, Math.min(1, (i - (ringoj - 4)) / 3));
+    const bazRondiga = Math.max(0, Math.min(1, (3 - i) / 3));
+    const rondiga = Math.max(finRondiga, bazRondiga);
     const konturo = rondiga > 0
       ? duonoj.map(( punkto, j ) => [
           punkto[0] + (rondajDuonoj[j][0] - punkto[0]) * rondiga,
           punkto[1] + (rondajDuonoj[j][1] - punkto[1]) * rondiga,
         ] as [number, number])
       : duonoj;
-    // La sekco restas plena laŭ la ŝafto kaj iom post iom transiras al la
+    // La sekco restas plena laux la sxafto kaj iom post iom transiras al la
     // pli plata krono per glata Hermita funkcio.
     const t = i / ( ringoj - 1 );
     const u = talonoS0 > 0 ? Math.max(0, Math.min(1, (t - talonoS0) / (1 - talonoS0))) : 0;
-    // La krono malvastiĝas glate al la malgranda rondigita pinto, sen kunfalo
+    // La krono malvastigxas glate al la malgranda rondigita pinto, sen kunfalo
     // de la fina ringo en degenerajn triangulojn.
     const glata = u * u * ( 3 - 2 * u );
     const skalo = talonoS0 > 0 ? 1 - ( 1 - finialaSkalo ) * glata : 1;
-    const larĝaSkalo = talonoS0 > 0 ? 1 - ( 1 - finialaLargho ) * glata : 1;
+    const largxaSkalo = talonoS0 > 0 ? 1 - ( 1 - finialaLargho ) * glata : 1;
     for ( const [a, c] of konturo ) vertoj.push(
-      p.x + L.x * a * skalo + W.x * c * skalo * larĝaSkalo,
-      p.y + L.y * a * skalo + W.y * c * skalo * larĝaSkalo,
-      p.z + L.z * a * skalo + W.z * c * skalo * larĝaSkalo
+      p.x + L.x * a * skalo + W.x * c * skalo * largxaSkalo,
+      p.y + L.y * a * skalo + W.y * c * skalo * largxaSkalo,
+      p.z + L.z * a * skalo + W.z * c * skalo * largxaSkalo
     );
   }
   const indeksoj: number[] = [];
@@ -180,45 +203,27 @@ function kreiDiamantanSvingon(
   return g;
 }
 
-// kreiDiamantanKapon — Ferma kapo por la diamanta kvazaŭ-tubo: triangula ventumilo
-// de la centro ĝis la ringo, perpendikulare al la tangento.
-function kreiDiamantanKapon(
-  p: THREE.Vector3, ta: THREE.Vector3, n: THREE.Vector3, b: THREE.Vector3, s: number,
-  longaSkalo = 1, larĝaSkalo = 1, centro: THREE.Vector3 = p
-): THREE.BufferGeometry {
-  const duonoj = diamantajDuonoj(s);
-  const kvanto = duonoj.length;
-  const vertoj: number[] = [ centro.x, centro.y, centro.z ];
-  for ( const [a, c] of duonoj ) vertoj.push(
-    p.x + n.x * a * longaSkalo + b.x * c * larĝaSkalo,
-    p.y + n.y * a * longaSkalo + b.y * c * larĝaSkalo,
-    p.z + n.z * a * longaSkalo + b.z * c * larĝaSkalo
-  );
-  const indeksoj: number[] = [];
-  for ( let j = 0; j < kvanto; j++ ) indeksoj.push(0, j + 1, ((j + 1) % kvanto) + 1);
-  const g = new THREE.BufferGeometry();
-  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(vertoj), 3));
-  g.setIndex(indeksoj);
-  g.computeVertexNormals();
-  return g;
-}
 
-// kreiRondigitanDiamantanKapon — Unu sola plata finaĵo kun rondigitaj
-// diamanto-anguloj. Ĝi ne enhavas aldonajn ringojn aŭ centran ventumilon: la
-// svingo jam liveras la flankojn, kaj ĉi tiu formo nur fermas ĝian lastan ringon.
+
+// kreiRondigitanDiamantanKapon — Ferma kapo kun rondigitaj diamanto-anguloj,
+// sen aldonaj ringoj aux centra ventumilo. la svingo jam liveras la flankojn,
+// kaj cxi tiu formo nur fermas la ringon. renversita kontrolas la frontan
+// direkton. false frontas kontraux la tangento (la bazo de la piliero), true
+// frontas laux la tangento (la folia pinto).
 function kreiRondigitanDiamantanKapon(
   p: THREE.Vector3, ta: THREE.Vector3, n: THREE.Vector3, b: THREE.Vector3, s: number,
-  longaSkalo: number, larĝaSkalo: number
+  longaSkalo: number, largxaSkalo: number, renversita = false
 ): THREE.BufferGeometry {
   const formo = new THREE.Shape();
-  const punktoj = rondigitajDuonoj(s).reverse();
-  formo.moveTo(punktoj[0][0] * longaSkalo, punktoj[0][1] * longaSkalo * larĝaSkalo);
-  for ( const [a, c] of punktoj.slice(1) ) formo.lineTo(a * longaSkalo, c * longaSkalo * larĝaSkalo);
+  const punktoj = rondigitajDuonoj(s);
+  const konturo = renversita ? [...punktoj].reverse() : punktoj;
+  formo.moveTo(konturo[0][0] * longaSkalo, konturo[0][1] * longaSkalo * largxaSkalo);
+  for ( const [a, c] of konturo.slice(1) ) formo.lineTo(a * longaSkalo, c * longaSkalo * largxaSkalo);
   formo.closePath();
   const kapo = new THREE.ShapeGeometry(formo);
   kapo.applyMatrix4(new THREE.Matrix4().makeBasis(n, b, ta));
-  // La ĉapo sidas ĝuste sur la fina ringo: la flankaĵo estas malfermita ĉe
-  // tiu ebenaĵo, do ne estas dua samloka surfaco kiu povus z-fajfi aŭ desegni
+  // La cxapo sidas gxuste sur la fina ringo. la flankajxo estas malfermita cxe
+  // tiu ebenajxo, do ne estas dua samloka surfaco kiu povus z-fajfi aux desegni
   // krucan X.
   kapo.translate(p.x, p.y, p.z);
   return kapo;
@@ -226,36 +231,36 @@ function kreiRondigitanDiamantanKapon(
 
 export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: number, yB: number, yT: number, sX: number, sZ: number, upward: boolean, klino = 0, folio = true): void {
   // La finialo estas TALONA HOKO kun glata, iom ronda krono kaj rondigitaj
-  // anguloj ĉe la folia/diamanta supro. La sekco transiras seninterrompe al la
-  // malgranda antaŭenpuŝita finaĵo; ĝi ne estas tranĉita plata aŭ akra.
-  // out = 7/16: la hoka pinto elstaras ~1/2 de la angulo.
+  // anguloj cxe la folia/diamanta supro. La sekco transiras seninterrompe al la
+  // malgranda antauxenpusxita finajxo; gxi ne estas trancxita plata aux akra.
+  // out = 7/16. la hoka pinto elstaras ~1/2 de la angulo.
   const out = 7/16;
-  // fora = 41/256: la ŝafto staras eĉ pli proksime al la muro-faco (~1/300 libero
-  // ĉe la plej mallongaj tavoloj) — apenaŭ tuŝas la konstruaĵon.
+  // fora = 41/256. la sxafto staras ecx pli proksime al la muro-faco (~1/300 libero
+  // cxe la plej mallongaj tavoloj) — apenaux tusxas la konstruajxon.
   const fora = 41/256;
-  // Sub-teraj (malsuprenirantaj) pilieroj bezonas pli da libero: ĉe la mallongaj
+  // Sub-teraj (malsuprenirantaj) pilieroj bezonas pli da libero. cxe la mallongaj
   // sub-teraj tavoloj la pli malgranda fora enigus la diamanton en la muro-facon
   // (la malnova 21/128 donas +0.0028; 41/256 klipus je -0.0013).
   const foraSub = 21/128;
   const cXT = cX - sX * klino, cZT = cZ - sZ * klino;
-  // Ŝafto KLINITA samkiel la muroj: rekta linio PARALELA al la klinita muro (ne
-  // vertikala), do la libero al la muro restas konstanta laŭlonge kaj la piliero
-  // sidas apud la muro ĉie — neniu kreskanta truo inter piliero kaj muro.
+  // Sxafto KLINITA samkiel la muroj. rekta linio PARALELA al la klinita muro (ne
+  // vertikala), do la libero al la muro restas konstanta lauxlonge kaj la piliero
+  // sidas apud la muro cxie — neniu kreskanta truo inter piliero kaj muro.
   // La malsuprenirantaj (flipped) pilieroj estas la PRECIZA vertikala spegulo de
-  // la suprenirantaj — la samaj formoj ambaŭflanke de la sxipo.
+  // la suprenirantaj — la samaj formoj ambauxflanke de la sxipo.
   const tieroAlto = yT - yB;
-  // Komuna talona kurbo — supren kaj la vertikala spegulo malsupren: rekta ŝafto
+  // Komuna talona kurbo — supren kaj la vertikala spegulo malsupren. rekta sxafto
   // PARALELA al la klinita muro (samaj deklivoj — neniu kreskanta truo inter
-  // piliero kaj muro), kiu ĉe la rando komencigas unu glatan suprenan svingon.
-  // La unua kontrolo kuŝas SUR la ŝafto-direkto, do la kurbiĝo komenciĝas glate
-  // (C¹, neniu angulo). La arko leviĝas al iom rondigita folia/diamanta krono,
+  // piliero kaj muro), kiu cxe la rando komencigas unu glatan suprenan svingon.
+  // La unua kontrolo kusxas SUR la sxafto-direkto, do la kurbigxo komencigxas glate
+  // (C¹, neniu angulo). La arko levigxas al iom rondigita folia/diamanta krono,
   // sen ekzakte plata supro. La malsupra versio estas la vertikala spegulo de la
-  // supra — la samaj formoj ambaŭflanke de la sxipo.
+  // supra — la samaj formoj ambauxflanke de la sxipo.
   const kreiTalonanKurbo = (): { curve: THREE.Curve<THREE.Vector3>; talonoS0: number } => {
-    // Ŝafto: komencu iom sub la bazo (supren) aŭ iom super la supro (spegule) ĝis
-    // la tavolo-rubo, kie la hoko komenciĝas. La linia proporcio estas la SAMA
-    // por ambaŭ direktoj (spegulitaj y-oj), do la rekto restas paralela al la
-    // muro la tutan ŝafton.
+    // Sxafto. komencu iom sub la bazo (supren) aux iom super la supro (spegule) gxis
+    // la tavolo-rubo, kie la hoko komencigxas. La linia proporcio estas la SAMA
+    // por ambaux direktoj (spegulitaj y-oj), do la rekto restas paralela al la
+    // muro la tutan sxafton.
     const yA = upward ? yB - 1/16 : yT + 1/16;
     const yS = upward ? yT - 1/4 : yB + 1/4;
     const yF = upward ? yT + 3/8 : yB - 3/8;
@@ -267,10 +272,10 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
     const p2 = new THREE.Vector3(cXT + sX * out, yF, cZT + sZ * out);
     const dx = p1.x - p0.x, dy = p1.y - p0.y, dz = p1.z - p0.z;
     const direkto = new THREE.Vector3(dx, dy, dz).normalize();
-    // Unu rekta ŝafto kaj unu kubika hoko: la unua kontrolo de la hoko kuŝas
-    // sur la ŝafto-direkto, do la kuniĝo estas C¹ kaj ne montras angulon.
+    // Unu rekta sxafto kaj unu kubika hoko. la unua kontrolo de la hoko kusxas
+    // sur la sxafto-direkto, do la kunigxo estas C¹ kaj ne montras angulon.
     // La dua kontrolo estas iom sub la pinto, por ke la supro estu ronda
-    // folio/diamanto, ne ekzakte horizontala kaj ne tranĉite plata.
+    // folio/diamanto, ne ekzakte horizontala kaj ne trancxite plata.
     const hoko = new THREE.CubicBezierCurve3(
       p1,
       p1.clone().addScaledVector(direkto, 3/16),
@@ -280,7 +285,7 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
     const putho = new THREE.CurvePath<THREE.Vector3>();
     putho.add(new THREE.LineCurve3(p0, p1));
     putho.add(hoko);
-    // La malvastiĝo komenciĝas ĝuste ĉe la pli malalta ŝultro, laŭ la arka
+    // La malvastigxo komencigxas gxuste cxe la pli malalta sxultro, laux la arka
     // longo de la tuta kontinua kurbo.
     const shaftLen = p0.distanceTo(p1);
     const tutaKurbaLongeco = putho.getLength();
@@ -298,68 +303,70 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
   // Pli dika diamanta sekco (ne ronda tubo). Uzu la SAMAjn tordo-reduktajn
   // kadrojn kiel la svingo, por ke la kapringoj precize kongruu (neniu spiralo).
   const s = 7/32;
-  // Elira direkto H: horizontala projekcio de la lasta tangento (la hoka pinto).
+  // Elira direkto H. horizontala projekcio de la lasta tangento (la hoka pinto).
   const lastTa = curve.getTangentAt(1);
   const hMag = Math.hypot(lastTa.x, lastTa.z);
   const H = hMag > 1e-3
     ? new THREE.Vector3(lastTa.x / hMag, 0, lastTa.z / hMag)
     : new THREE.Vector3(1, 0, 0);
-  // Pli densaj ringoj por la finialo (0o140): la hoko okupas nur la finan arkon,
-  // do la krono ricevas sufiĉe da ringoj por esti glata kaj milde rondigita (ne
-  // plata aŭ pinĉita), dum la ŝafto restas glata diamanto. La entombigitaj
+  // Pli densaj ringoj por la finialo (0o140). la hoko okupas nur la finan arkon,
+  // do la krono ricevas suficxe da ringoj por esti glata kaj milde rondigita (ne
+  // plata aux pincxita), dum la sxafto restas glata diamanto. La entombigitaj
   // pilieroj restas malpezaj (0o40).
   const SEG = upward || folio ? 0o140 : 0o40;
   const kadroj = kreiPilierkadrojn(curve, SEG, H);
-  // Unu UNUIGITA aseto po piliero: la svingo (tubo) kaj la fermaj kapoj estas
-  // kunfanditaj en UNU geometrion tuj ĉi tie — ne pluraj apartaj partoj.
-  // Ĉiu piliero do estas unusola, memstara peco, identa por konstruaĵoj kaj
-  // por la spacosxipo (la sama reuzebla aseto ambaŭflanke).
+  // Unu UNUIGITA aseto po piliero. la svingo (tubo) kaj la fermaj kapoj estas
+  // kunfanditaj en UNU geometrion tuj cxi tie — ne pluraj apartaj partoj.
+  // Cxiu piliero do estas unusola, memstara peco, identa por konstruajxoj kaj
+  // por la spacosxipo (la sama reuzebla aseto ambauxflanke).
   const partoj: THREE.BufferGeometry[] = [];
   if ( upward || folio ) {
-    // La supra parto estas duonluno: ĝi eliras per kontinua tangento el la
-    // ŝafto, havas pli platan kronon, kaj finiĝas per malgranda rondigita pinto.
-    // Ambaŭ aksoj samgrade ŝrumpas, do la fino ne aspektas plata aŭ tranĉita.
+    // La supra parto estas duonluno. gxi eliras per kontinua tangento el la
+    // sxafto, havas pli platan kronon, kaj finigxas per malgranda rondigita pinto.
+    // Ambaux aksoj samgrade sxrumpas, do la fino ne aspektas plata aux trancxita.
     const finialaSkalo = 1/4, finialaLargho = 1/4, tipLongeco = 1/64;
     partoj.push(kreiDiamantanSvingon(curve, SEG, s, kadroj, talonoS0, finialaSkalo, finialaLargho, tipLongeco));
-    partoj.push(kreiDiamantanKapon(curve.getPointAt(0), kadroj.tangents[0], kadroj.Loj[0], kadroj.Woj[0], s));
+    // Rondigita ferma kapo cxe la bazo (frontas kontraux la tangento, for de la
+    // sxafto) — la malnova angula ventumilo lasis kvadratan randon cxe la fino.
+    partoj.push(kreiRondigitanDiamantanKapon(curve.getPointAt(0), kadroj.tangents[0], kadroj.Loj[0], kadroj.Woj[0], s, 1, 1));
     const tipaCentro = curve.getPointAt(1);
     const tipaRingo = tipaCentro.clone().addScaledVector(kadroj.tangents[SEG], -1/64);
-    // La svingo finiĝas ĉe tipaRingo kaj la unu sola plata ĉapo estas iomete
-    // antaŭ ĝi. Ne kreu duan ringaron aŭ samlokan kapon: tio estis la fonto de
-    // la krucita finaĵo.
-    const finaKapo = kreiRondigitanDiamantanKapon(tipaRingo, kadroj.tangents[SEG], kadroj.Loj[SEG], kadroj.Woj[SEG], s, finialaSkalo, finialaLargho);
-    // La plata ĉapo restu aparta, por ke ĝi ne ricevu la flankajn normalojn de
-    // la tubo kaj ne montriĝu kiel krucita X.
+    // La svingo finigxas cxe tipaRingo kaj la unu sola plata cxapo estas iomete
+    // antaux gxi. Ne kreu duan ringaron aux samlokan kapon. tio estis la fonto de
+    // la krucita finajxo.
+    const finaKapo = kreiRondigitanDiamantanKapon(tipaRingo, kadroj.tangents[SEG], kadroj.Loj[SEG], kadroj.Woj[SEG], s, finialaSkalo, finialaLargho, true);
+    // La plata cxapo restu aparta, por ke gxi ne ricevu la flankajn normalojn de
+    // la tubo kaj ne montrigxu kiel krucita X.
     geos.push(kunfandiKajVeldoiGeometriojn(partoj));
     geos.push(finaKapo);
   } else {
-    // Sub-teraj (entombigitaj) pilieroj restas simplaj diamantaj tuboj kun fermitaj kapoj.
+    // Sub-teraj (entombigitaj) pilieroj restas simplaj diamantaj tuboj kun
+    // rondigitaj fermitaj kapoj (bazo frontas kontraux la tangento, pinto laux gxi).
     partoj.push(kreiDiamantanSvingon(curve, SEG, s, kadroj));
-    for ( const t of [ 0, SEG ] ) {
-      partoj.push(kreiDiamantanKapon(curve.getPoint(t / SEG), kadroj.tangents[t], kadroj.Loj[t], kadroj.Woj[t], s));
-    }
+    partoj.push(kreiRondigitanDiamantanKapon(curve.getPointAt(0), kadroj.tangents[0], kadroj.Loj[0], kadroj.Woj[0], s, 1, 1));
+    partoj.push(kreiRondigitanDiamantanKapon(curve.getPointAt(1), kadroj.tangents[SEG], kadroj.Loj[SEG], kadroj.Woj[SEG], s, 1, 1, true));
   }
   // Kunfandi KAJ VELDI la kontinuajn partojn en unu geometrion. La supra plata
-  // ĉapo estis jam aldonita aparte supre, por ke ĝiaj normaloj restu ebenaj.
+  // cxapo estis jam aldonita aparte supre, por ke gxiaj normaloj restu ebenaj.
   if ( !( upward || folio ) ) geos.push(kunfandiKajVeldoiGeometriojn(partoj));
 }
 
-// aldoniEnirejon — Uniforma enirejo por cxiuj tipoj: pli malgranda kaj pli plata
+// aldoniEnirejon — Uniforma enirejo por cxiuj tipoj. pli malgranda kaj pli plata
 // (malpli profunda), sidanta sur la tero, kun ora bevelo cxirkaux la rando.
 function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.MeshStandardMaterial, eniraMaterialo: THREE.MeshStandardMaterial): void {
   const blokoLargho = 155/64, tw = blokoLargho * 37/64, eh = 9/4;
   const shape = rondigitaTrapezaFormo(blokoLargho, tw, eh, 3/16, 1/8);
   const enirejo = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 2/8, bevelEnabled: true, bevelSize: 5/64, bevelThickness: 5/64, bevelSegments: 2, curveSegments: 0o12 }), eniraMaterialo);
   enirejo.position.set(0, 0, d / 2 - 1/64); group.add(enirejo);
-  // Bevelo gluiĝas al la pli plata pordo-fronto (d/2 + 5/16 + 1/16).
-  // Densa sampado (0o64 punktoj) kun norma tensio (1/2): la ora tubo sekvas la
-  // rondigitan trapezan konturon glate ĉe la anguloj — neniu distordiĝo kie la
-  // pecoj kuniĝas (la malnova 0o24/19/32 ondumis kaj pinĉis ĉe la anguloj).
+  // Bevelo gluigxas al la pli plata pordo-fronto (d/2 + 5/16 + 1/16).
+  // Densa sampado (0o64 punktoj) kun norma tensio (1/2). la ora tubo sekvas la
+  // rondigitan trapezan konturon glate cxe la anguloj — neniu distordigxo kie la
+  // pecoj kunigxas (la malnova 0o24/19/32 ondumis kaj pincxis cxe la anguloj).
   const ornamajPunktoj = shape.getPoints(0o64).map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, d / 2 + 3/8));
   group.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(ornamajPunktoj, true, "catmullrom", 1/2), 0o100, 1/16, 6, true), kadraMaterialo));
 }
 
-// aldoniSteleanSignon — Uniforma 3D stela signo por cxiuj konstruajxoj: nesimetriaj
+// aldoniSteleanSignon — Uniforma 3D stela signo por cxiuj konstruajxoj. nesimetriaj
 // rondigitaj supraj anguloj (r1 = 1/8, r2 = 1/4), rektaj malsupraj. La Gawekiif-nomo
 // staras sur la tero apud la pordo. La texturo estas travidebla — nur la teksto
 // montrigxas super la malhela steleo (neniu nigra bloko).
@@ -374,7 +381,7 @@ function aldoniSteleanSignon(group: THREE.Group, name: string, w: number, d: num
   );
   steleo.position.set(w * 11/32, signaY, d / 2 + 67/64 - 5/64); steleo.castShadow = true; group.add(steleo);
   // ShapeGeometry uzas la krudajn formo-koordinatojn kiel UV (ne [0,1]),
-  // do la texturo algluiĝus al la malsupra-dekstra angulo de la faco.
+  // do la texturo algluigxus al la malsupra-dekstra angulo de la faco.
   // Normaligu la UV-ojn al la limig-skatolo por plenigi la tutan facon.
   const faceGeo = new THREE.ShapeGeometry(kreiSteleanFormon(4/8, 141/64, 1/8, 1/4), 0o12);
   faceGeo.computeBoundingBox();
@@ -397,7 +404,7 @@ function aldoniSteleanSignon(group: THREE.Group, name: string, w: number, d: num
 }
 
 // aldoniDiamantanSpegulon — Reflektu la konstruajxon suben (diamanta spegulo) kun
-// ora ringo ĉe la bazo.
+// ora ringo cxe la bazo.
 function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, group: THREE.Group, w: number): void {
   const mg = group.clone();
   mg.scale.y = -1;
@@ -412,15 +419,15 @@ function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, group: T
   sceno.add( ring );
 }
 
-// konstruiZiguraton — Konstruu sxton-sxtupan piramidon el specifaj tieroj kaj sub-teroj.
+// konstruiSatalon — Konstruu sxton-sxtupan piramidon (satalon) el specifaj tieroj kaj sub-teroj.
 //     @param spec ( KonstruSpec ) - Konstruajxa specifo kun grandeco, tipo, nombro da tieroj.
 //     @param sceno ( THREE.Scene ) - Sceno al kiu aldoni la konstruajxon.
 //     @param selektajxoj ( THREE.Mesh[] ) - Listo de muso-selektajxoj por aldoni la murojn.
-export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selektajxoj: THREE.Mesh[]): THREE.Group {
+export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajxoj: THREE.Mesh[]): THREE.Group {
   const { niveloj: tiers, tieroAlto, w, d, type: typeKey, name } = spec;
   const sube = spec.sube || 0, tieroAltoSub = spec.tieroAltoSub || tieroAlto;
   // Kaj la kosmopordo kaj la generalaj stacioj havas pli similajn tavolojn
-  // (pli milda deklivo, malpli granda interspaco inter etaĝoj).
+  // (pli milda deklivo, malpli granda interspaco inter etagxoj).
   const estasStacio = typeKey === "stacioxipo" || typeKey === "stacio";
   const supraLargho = estasStacio ? w * 5/8 : Math.max(141/64, w * 19/64);
   const supraProfundo = estasStacio ? d * 5/8 : Math.max(16/8, d * 19/64);
@@ -428,7 +435,7 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   const T = TIPARO[typeKey] || TIPARO.domo;
   const muraKoloro = T.wall, kadraKoloro = T.frame;
   const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
-  // Klinitaj muroj: cxiu tavolo estas trapezoida (supro pli mallarĝa ol bazo).
+  // Klinitaj muroj. cxiu tavolo estas trapezoida (supro pli mallargxa ol bazo).
   const klino = 5/16;
 
   for ( let i = 0; i < tiers; i++ ) {
@@ -436,15 +443,15 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
     const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto);
     tavolo.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(tavolo);
     for (const sX of [ -1, 1 ]) for (const sZ of [ -1, 1 ]) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
-    // Pli plata horizontala rando: la supraj kadraj stangoj estas pli maldikaj
-    // sed restas proksime al la supra rando (supro 1/64 sub ĝi).
+    // Pli plata horizontala rando. la supraj kadraj stangoj estas pli maldikaj
+    // sed restas proksime al la supra rando (supro 1/64 sub gxi).
     for ( const sZ of [ -1, 1 ] ) { const stango = new THREE.BoxGeometry((hw - klino) * 2 + 9/64, 3/32, 13/64); stango.translate(0, y + tieroAlto - 1/16, sZ * (hd - klino)); kadrajGeometrioj.push(stango); }
     for ( const sX of [ -1, 1 ] ) { const bar2 = new THREE.BoxGeometry(13/64, 3/32, (hd - klino) * 2 + 9/64); bar2.translate(sX * (hw - klino), y + tieroAlto - 1/16, 0); kadrajGeometrioj.push(bar2); }
   }
   for ( let j = 1; j <= sube; j++ ) {
     const hw = Math.max(supraLargho * 27/64, w / 2 - j * malpliiX), hd = Math.max(supraProfundo * 27/64, d / 2 - j * malpliiZ);
     const yTop = -(j - 1) * tieroAltoSub, yBot = -j * tieroAltoSub;
-    // Sub-teraj tavoloj klinigxas inverse: pli larĝaj supre (en la grundo), pli mallarĝaj sube.
+    // Sub-teraj tavoloj klinigxas inverse. pli largxaj supre (en la grundo), pli mallargxaj sube.
     const tavolo = kreiKlinoTavolon(hw - klino, hd - klino, hw, hd, tieroAltoSub);
     tavolo.translate(0, (yTop + yBot) / 2, 0); murajGeometrioj.push(tavolo);
     // Sub-teraj pilieroj restas simplaj (folio = false) — ili estas entombigitaj.
@@ -452,7 +459,7 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   }
 
   const group = new THREE.Group();
-  // Malpli reflekta mura materialo: pli alta malglateco, preskaux neniu metaleco.
+  // Malpli reflekta mura materialo. pli alta malglateco, preskaux neniu metaleco.
   const muraMaterialo = new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "stacio" ? 5/8 : 3/4, metalness: 0, envMapIntensity: 0 });
   const kadraMaterialo = new THREE.MeshStandardMaterial({ color: kadraKoloro, metalness: 27/32, roughness: 11/32, emissive: 0x302808, emissiveIntensity: 11/32, envMapIntensity: 10/8 });
   const eniraMaterialo = new THREE.MeshStandardMaterial({ color: 0x082018, roughness: 19/32, emissive: 0xf89840, emissiveIntensity: 3/64 });
@@ -473,23 +480,33 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   }
 
   if ( typeKey === "stacioxipo" ) {
-    // Kosmoporda stacio: malhela lanĉ-aprono ĉirkaŭ la bazo kun ora kvadrata ringo.
-    const apron = new THREE.Mesh(new THREE.BoxGeometry(w + 4, 3/32, d + 4), muraMaterialo);
-    apron.position.y = 1/64; apron.receiveShadow = true; group.add(apron);
+    // Kosmoporda stacio. blanka lancx-aprono cxirkaux la bazo kun oraj kvadrataj
+    // bendoj SUR la aprono. La aprono estas 3/32 alta je y=1/64, do gxia supro
+    // estas je 1/16 — la oraj bendoj sidas je y=7/64 (1/64 libero super la
+    // apron-supro), alie iliaj facoj koincidus kun la aprono kaj flagretus
+    // (z-fighting).
+    // Rondigita lancx-aprono. kvadrata formo kun rondigitaj anguloj, 3/32 alta.
+    // La ekstrudo kusxas plata (rotaciita X), do la dikeco farigxas vertikala.
+    const apronFormo = kreiRondigitanKvadratanFormon(w + 4, d + 4, 8/8);
+    const apronGeo = new THREE.ExtrudeGeometry(apronFormo, { depth: 3/32, bevelEnabled: false, curveSegments: 0o12 });
+    apronGeo.rotateX(-Math.PI / 2);
+    apronGeo.translate(0, -1/32, 0);
+    const apron = new THREE.Mesh(apronGeo, muraMaterialo);
+    apron.receiveShadow = true; group.add(apron);
     for ( const sZ of [ -1, 1 ] ) {
-      const b1 = new THREE.BoxGeometry(w + 4, 1/16, 5/16); b1.translate(0, 1/32, sZ * (d / 2 + 4/8)); group.add(new THREE.Mesh(b1, kadraMaterialo));
+      const b1 = new THREE.BoxGeometry(w + 4, 1/16, 5/16); b1.translate(0, 7/64, sZ * (d / 2 + 4/8)); group.add(new THREE.Mesh(b1, kadraMaterialo));
     }
     for ( const sX of [ -1, 1 ] ) {
-      const b2 = new THREE.BoxGeometry(5/16, 1/16, d + 4); b2.translate(sX * (w / 2 + 4/8), 1/32, 0); group.add(new THREE.Mesh(b2, kadraMaterialo));
+      const b2 = new THREE.BoxGeometry(5/16, 1/16, d + 4); b2.translate(sX * (w / 2 + 4/8), 7/64, 0); group.add(new THREE.Mesh(b2, kadraMaterialo));
     }
-    // Kvar lanĉ-pilieroj ĉe la apronaj anguloj kun brilaj pintoj.
+    // Kvar lancx-pilieroj cxe la apronaj anguloj kun brilaj pintoj.
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
       const piliero = new THREE.Mesh(new THREE.CylinderGeometry(1/8, 3/16, 7/4, 6), kadraMaterialo);
       piliero.position.set(sX * (w / 2 + 13/8), 7/8, sZ * (d / 2 + 13/8)); piliero.castShadow = true; group.add(piliero);
       const brilo = new THREE.Mesh(new THREE.SphereGeometry(5/32, 0o10, 0o6), eniraMaterialo);
       brilo.position.set(sX * (w / 2 + 13/8), 7/4 + 5/32, sZ * (d / 2 + 13/8)); group.add(brilo);
     }
-    // Malgranda ora lanĉ-ringo sur la tegmento, sub la sxipo.
+    // Malgranda ora lancx-ringo sur la tegmento, sub la sxipo.
     const roofY = tiers * tieroAlto;
     const ringo = new THREE.Mesh(new THREE.RingGeometry(13/16, 19/16, 0o40).rotateX(-Math.PI / 2), kadraMaterialo);
     ringo.position.y = roofY + 1/32; group.add(ringo);
@@ -498,7 +515,7 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
   // Uniforma 3D stela signo por cxiuj konstruajxoj — reuzebla komponanto.
   aldoniSteleanSignon(group, name, w, d);
 
-  if ( typeKey === "manĝejo" ) {
+  if ( typeKey === "mangxejo" ) {
     const beigeMat = new THREE.MeshStandardMaterial({ color: 0xd8c898, roughness: 33/64, metalness: 9/64 });
     const brownMat = new THREE.MeshStandardMaterial({ color: 0x483828, roughness: 19/32, metalness: 3/64 });
     // Eksteraj rondo-tabloj (kotatsu-stilaj)
@@ -508,7 +525,7 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
       const top = new THREE.CylinderGeometry(27/32, 29/32, 12/32, 0o20);
       const tm = new THREE.Mesh(top, beigeMat);
       tm.position.set(tx, 6/32, tz); tm.castShadow = true; group.add(tm);
-      // Rondaj seĝoj
+      // Rondaj segxoj
       for ( const [ox, oz] of [ [ 45/32, 0 ], [ -45/32, 0 ], [ 0, 45/32 ], [ 0, -45/32 ] ] ) {
         const st = new THREE.Mesh(new THREE.CylinderGeometry(21/64, 27/64, 4/8, 0o12), brownMat);
         st.position.set(tx + ox, 15/64, tz + oz); st.castShadow = true; group.add(st);
@@ -534,19 +551,19 @@ export function konstruiZiguraton(spec: KonstruSpec, sceno: THREE.Scene, selekta
 }
 
 // ── Food/Eating system ──────────────────────────────────────
-export interface ManĝaĵDatumo { key: string; name: string; col: number; flavor: string; }
-export const FOKS: ManĝaĵDatumo[] = [
+export interface MangxajxDatumo { key: string; name: string; col: number; flavor: string; }
+export const FOKS: MangxajxDatumo[] = [
   { key: "fok0", name: "Fok Iimasai · Lichen Crust", col: 0xdcd8c2, flavor: "Warm lichen bread, slow duck, a fold of steam." },
   { key: "fok1", name: "Fok Iimasai · Mint Glaze", col: 0xcfe0c8, flavor: "Cool glaze against rich meat · the forest exhales." },
   { key: "fok2", name: "Fok Iimasai · Peppered", col: 0xd6c9ae, flavor: "Dark pepper bites · the bun answers sweet." },
 ];
-export const TLAS: ManĝaĵDatumo[] = [
+export const TLAS: MangxajxDatumo[] = [
   { key: "tla0", name: "Tlatiiwa · Classic", col: 0xc8e6d2, flavor: "Vinegar, milk, mint, sparkle · a bright chord." },
   { key: "tla1", name: "Tlatiiwa · Honeyed", col: 0xe6cf9e, flavor: "Amber over acid · mint underneath." },
   { key: "tla2", name: "Tlatiiwa · Iced Birch-sap", col: 0xbfe0e6, flavor: "Birch-sap frost · the vale in a glass." },
 ];
 
-export function bunMesh(f: ManĝaĵDatumo): THREE.Group {
+export function bunMesh(f: MangxajxDatumo): THREE.Group {
   const g = new THREE.Group();
   const bun = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 10),
     new THREE.MeshStandardMaterial({ color: f.col, roughness: 0.65 }));
@@ -557,7 +574,7 @@ export function bunMesh(f: ManĝaĵDatumo): THREE.Group {
   basket.position.y = 0.035;
   g.add(bun, pleat, basket); return g;
 }
-export function glassMesh(f: ManĝaĵDatumo): THREE.Group {
+export function glassMesh(f: MangxajxDatumo): THREE.Group {
   const g = new THREE.Group();
   const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.07, 0.3, 12),
     new THREE.MeshStandardMaterial({ color: 0xdfeee6, transparent: true, opacity: 22 / 64, roughness: 0.1, depthWrite: false }));
@@ -570,18 +587,18 @@ export function glassMesh(f: ManĝaĵDatumo): THREE.Group {
   g.add(glass, liq, sprig); return g;
 }
 
-export interface ManĝaĵItemo {
+export interface MangxajxItemo {
   mesh: THREE.Group;
   key: string;
-  f: ManĝaĵDatumo;
+  f: MangxajxDatumo;
   pos: THREE.Vector3;
   dead: boolean;
 }
-// kreiManĝaĵojn — Metu manĝaĵojn sur la tablojn ( aŭ laŭ la malnova aera aranĝo se ne estas tabloj ).
-//     @param tabloj ( { x, z }[] ) - Tablo-centraj pozicioj; la manĝaĵoj sidas sur la supro ( y ≈ 7/16 ).
-export function kreiManĝaĵojn(g: THREE.Group, cx: number, cz: number, tabloj: { x: number; z: number }[] = []): ManĝaĵItemo[] {
-  const items: ManĝaĵItemo[] = [];
-  const metaDe = (k: string): ManĝaĵDatumo => FOKS.find(x => x.key === k) || TLAS.find(x => x.key === k)!;
+// kreiMangxajxojn — Metu mangxajxojn sur la tablojn ( aux laux la malnova aera arangxo se ne estas tabloj ).
+//     @param tabloj ( { x, z }[] ) - Tablo-centraj pozicioj; la mangxajxoj sidas sur la supro ( y ≈ 7/16 ).
+export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: { x: number; z: number }[] = []): MangxajxItemo[] {
+  const items: MangxajxItemo[] = [];
+  const metaDe = (k: string): MangxajxDatumo => FOKS.find(x => x.key === k) || TLAS.find(x => x.key === k)!;
   const aldoni = (k: string, x: number, y: number, z: number) => {
     const meta = metaDe(k);
     const m = k.startsWith("fok") ? bunMesh(meta) : glassMesh(meta);
@@ -590,12 +607,12 @@ export function kreiManĝaĵojn(g: THREE.Group, cx: number, cz: number, tabloj: 
     items.push({ mesh: m, key: k, f: meta, pos: new THREE.Vector3(x, y, z), dead: false });
   };
   if ( tabloj.length > 0 ) {
-    // Manĝaĵoj sidas sur la tabloj, kun malgrandaj ofsetoj por aspekti aranĝitaj
+    // Mangxajxoj sidas sur la tabloj, kun malgrandaj ofsetoj por aspekti arangxitaj
     const suproY = 7/16 + 1/32;
-    const manĝoj = [ "fok0", "tla0", "fok1", "tla1", "fok2", "tla2" ];
+    const mangxoj = [ "fok0", "tla0", "fok1", "tla1", "fok2", "tla2" ];
     tabloj.forEach(( t, i ) => {
-      aldoni( manĝoj[( i * 2 ) % manĝoj.length], t.x - 1/8, suproY, t.z );
-      aldoni( manĝoj[( i * 2 + 1 ) % manĝoj.length], t.x + 1/8, suproY, t.z );
+      aldoni( mangxoj[( i * 2 ) % mangxoj.length], t.x - 1/8, suproY, t.z );
+      aldoni( mangxoj[( i * 2 + 1 ) % mangxoj.length], t.x + 1/8, suproY, t.z );
     });
   } else {
     const foods: { p: [number, number, number]; k: string }[] = [
@@ -647,9 +664,9 @@ function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry
 
 // kunfandiKajVeldoiGeometriojn — Kunfandas la piliero-partojn en UNU geometrion
 // kaj VELDAS la koincidajn vertojn (la ferma-kapo-rando kun la unua/lasta ringo
-// de la svingo) kaj REKOMPUTAS la normalojn: la kapoj ombriĝas seninterrompe en
-// la pilieron — NENIA videbla kudro ĉe la supro aŭ la malsupro; la supro estas
-// unu glata strukturo (la hoka pinto kreskas el la ŝafto, ne kuŝas kiel kovrilo).
+// de la svingo) kaj REKOMPUTAS la normalojn. la kapoj ombrigxas seninterrompe en
+// la pilieron — NENIA videbla kudro cxe la supro aux la malsupro; la supro estas
+// unu glata strukturo (la hoka pinto kreskas el la sxafto, ne kusxas kiel kovrilo).
 function kunfandiKajVeldoiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if (geos.length === 0) return new THREE.BufferGeometry();
   let tv = 0, ti = 0;
@@ -665,20 +682,20 @@ function kunfandiKajVeldoiGeometriojn(geos: THREE.BufferGeometry[]): THREE.Buffe
     else { for (let i = 0; i < c; i++) idxArr[io + i] = i + vo; io += c; }
     vo += c;
   }
-  // Veldi: koincidaj vertoj (en 1/4096) dividas la saman indekson. La pli fajna
-  // krado gravas ĉe la eta fina ringo: je 1/512 pluraj najbaraj rondangulaj
-  // punktoj kunfalis en la saman verton kaj kreis la videblan krucan ĉapon.
-  // La aksoj de la kapo kaj svingo ankoraŭ koincidas, sed la malgranda folia
-  // konturo konservas ĉiujn siajn punktojn; post veldado la normaloj rekalkuliĝas.
+  // Veldi. koincidaj vertoj (en 1/4096) dividas la saman indekson. La pli fajna
+  // krado gravas cxe la eta fina ringo. je 1/512 pluraj najbaraj rondangulaj
+  // punktoj kunfalis en la saman verton kaj kreis la videblan krucan cxapon.
+  // La aksoj de la kapo kaj svingo ankoraux koincidas, sed la malgranda folia
+  // konturo konservas cxiujn siajn punktojn; post veldado la normaloj rekalkuligxas.
   const skalo = 4096;
   const mapo = new Map<string, number>();
   const novaIndekso = new Uint32Array(tv);
   let nv = 0;
   for ( let i = 0; i < tv; i++ ) {
-    const ŝlosilo = Math.round(pozicio[i*3] * skalo) + "," + Math.round(pozicio[i*3+1] * skalo) + "," + Math.round(pozicio[i*3+2] * skalo);
-    const trovita = mapo.get(ŝlosilo);
+    const sxlosilo = Math.round(pozicio[i*3] * skalo) + "," + Math.round(pozicio[i*3+1] * skalo) + "," + Math.round(pozicio[i*3+2] * skalo);
+    const trovita = mapo.get(sxlosilo);
     if ( trovita !== undefined ) { novaIndekso[i] = trovita; }
-    else { mapo.set(ŝlosilo, nv); novaIndekso[i] = nv; nv++; }
+    else { mapo.set(sxlosilo, nv); novaIndekso[i] = nv; nv++; }
   }
   const veldita = new Float32Array(nv * 3);
   for ( let i = 0; i < tv; i++ ) {

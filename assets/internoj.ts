@@ -1,5 +1,5 @@
 // Interna modulo — pluretagxaj internaj spacoj por piediri tra ili
-// Rezajnita por kongrui al la malhel-verda/oro zigurata estetiko de Priskribo.md.
+// Rezajnita por kongrui al la malhel-verda/oro satala estetiko de Priskribo.md.
 //   • Malhel-pinaj muroj (#0b1a14), varmaj oraj kadroj (#d9b36a)
 //   • Nesimetraj rondigitaj anguloj (32px/16px)
 //   • Dikaj oraj angulaj kadroj kiuj flairas eksteren supre
@@ -11,7 +11,7 @@
 
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { KonstruSpec, kreiManĝaĵojn, ManĝaĵItemo, aldoniVaporon } from "./zigurato-konstruilo.js";
+import { KonstruSpec, kreiMangxajxojn, MangxajxItemo, aldoniVaporon } from "./satalaj-konstruajxoj.js";
 import { generiSkribanTeksajxon } from "./skripto-rivelilo.js";
 import { nomoAih } from "../src/tradukoj.js";
 
@@ -61,7 +61,7 @@ export interface InternaSistemo {
   animated: { update: (t: number) => void }[];
   plankoj: PlankoInfo[];
   helikso: HeliksoInfo | null;
-  manĝaĵoj: ManĝaĵItemo[];
+  manĝaĵoj: MangxajxItemo[];
   vaporNuboj: { cloud: THREE.Points; basePos: THREE.Vector3; ph: number }[];
 }
 
@@ -272,7 +272,7 @@ function aldoniInternanMeblaron(
     const lumo = new THREE.PointLight( GOLD_WARM, 3/8, 0o20, 2 );
     lumo.position.set( 0, y + tieroAlto * 5/8, -hd + 2 );
     grupo.add( lumo );
-  } else if ( tipo === "manĝejo" && etapo === 0 ) {
+  } else if ( tipo === "mangxejo" && etapo === 0 ) {
     aldoniSkatolon( Math.min( hw * 2 - 1, 5 ), 3/8, 3/8, 0, -hd + 4/8, lignaMaterialo );
   }
 
@@ -302,7 +302,7 @@ function kreiStelplenanTeksajxon(): THREE.CanvasTexture {
 // ludanto teleportigxas al la supro kie la sxipo vere estas.
 function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: THREE.Scene): InternaEnirPunkto {
   const grupo = new THREE.Group();
-  // La sxipo havas 5 suprajn kaj 5 subajn tierojn (vidu kosmosxipo.ts); la
+  // La sxipo havas 5 suprajn kaj 5 subajn tierojn (vidu kraseŝaĝa-kosmoŝipo.ts); la
   // interno sekvas ilin — unu etaĝo ĉe ĉiu tier-rando, kun helika ŝtuparo.
   const sxipaTiero = 115/32;
   const up = 5, down = up;
@@ -898,7 +898,7 @@ export function eniriInternon(
   group.add(ambiento);
 
   // Specialaj mebloj por mangxejo
-  if ( spec.type === "manĝejo" ) {
+  if ( spec.type === "mangxejo" ) {
     const mw = Math.min(spec.w, 0o10), md = Math.min(spec.d, 0o10);
     const counter = new THREE.Mesh(
       new THREE.BoxGeometry( Math.min( mw * 2 - 1, 6 ), 1, 10/8 ),
@@ -955,7 +955,7 @@ export function eniriInternon(
       }
     }
     // Manĝaĵoj sidas sur la tabloj ( ne en la aero )
-    const items = kreiManĝaĵojn(group, 0, 0, tabloj);
+    const items = kreiMangxajxojn(group, 0, 0, tabloj);
     sys.manĝaĵoj = items;
   }
 

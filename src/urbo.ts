@@ -1,22 +1,22 @@
 // Urbo — urba konstruo. konstruajxoj, vojoj, placoj, lampoj, vegetajxo, nebulo, akvo, kanuoj
 // Modula krada sistemo — vojoj kaj konstruajxaj pozicioj derivitaj de kradaj parametroj.
 import * as THREE from "three";
-import { konstruiZiguraton, TIPARO, KonstruSpec } from "../assets/zigurato-konstruilo.js";
+import { konstruiSatalon, TIPARO, KonstruSpec } from "../assets/satalaj-konstruajxoj.js";
 import { kreiNebulanTeksajxon } from "../assets/teksajxoj.js";
 import { konstruiRiveron, RiverData } from "../assets/akvo.js";
 import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
-  konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn, konstruiFungojn,
+  konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn,
   konstruiFalintajnTrunkojn, konstruiEquisetum } from "../assets/vegetajxo.js";
 import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, VojDifino } from "../assets/vojoj.js";
 import { konstruiDokon } from "../assets/doko.js";
-import { konstruiLampojn, LampSistemo } from "../assets/lampoj.js";
+import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/hxeuxfa-lampo.js";
 import { kreiKanoton, Kanoto } from "../assets/transporto.js";
 import { konstruiFiguron, gxisdatigiNpc } from "../assets/npcoj.js";
 import type { Figuro, Vesto } from "../assets/npcoj.js";
 import { kreiInternanSistemon, InternaSistemo } from "../assets/internoj.js";
-import { konstruiCielDiamanton } from "../assets/kosmosxipo.js";
-import type { CielDiamanto } from "../assets/kosmosxipo.js";
-import { riveroZ, alteco, akvoY, montetaBazo } from "./tereno.js";
+import { konstruiKrasesxagxon } from "../assets/krasesxagxa-kosmosxipo.js";
+import type { Krasesxagxo } from "../assets/krasesxagxa-kosmosxipo.js";
+import { riveroZ, alteco, akvoY, montetaBazo, glataPaso } from "./tereno.js";
 
 export interface UrbaSistemo {
   konstruSpecoj: KonstruSpec[];
@@ -28,12 +28,12 @@ export interface UrbaSistemo {
   vojSpecimenoj: THREE.Vector3[];
   placajNodoj: [number, number][];
   riverData: RiverData;
-  lampSistemo: LampSistemo;
+  lampSistemo: HxeuxfaSistemo;
   nebuloj: THREE.Sprite[];
   kanuoj: Kanoto[];
   npcoj: Figuro[];
   internaSistemo: InternaSistemo;
-  xipo: CielDiamanto;
+  xipo: Krasesxagxo;
   vojDifinoj: VojDifino[];
   vojDuonLargho: (g: number) => number;
   NPCLOKOJ: [number, number][];
@@ -60,7 +60,7 @@ export function konstruiUrbon(
   //       | G | G | N | N | N | G | G |   z=-1
   //       | G | G | G | G | G | G | G |   z=-2 (subo)
   // ═══════════════════════════════════════════════════════════
-  type CellType = "domo" | "turo" | "manĝejo" | "stacio" | "sanktejo";
+  type CellType = "domo" | "turo" | "mangxejo" | "stacio" | "sanktejo";
 
   // Konstruajxaj pozicioj. [col, row, type] kie mondo = (col*PASXO, row*PASXO), W je (0,0).
   // 7 cols × 5 rows = 31 buildings (4 corner edges removed). Mirrored across both axes.
@@ -68,11 +68,11 @@ export function konstruiUrbon(
     // Row 2 — top edge (corners removed)
     [ -2, 2, "domo" ], [ -1, 2, "turo" ], [ 0, 2, "domo" ], [ 1, 2, "turo" ], [ 2, 2, "domo" ],
     // Row 1
-    [ -3, 1, "domo" ], [ -2, 1, "turo" ], [ -1, 1, "manĝejo" ], [ 0, 1, "manĝejo" ], [ 1, 1, "manĝejo" ], [ 2, 1, "turo" ], [ 3, 1, "domo" ],
+    [ -3, 1, "domo" ], [ -2, 1, "turo" ], [ -1, 1, "mangxejo" ], [ 0, 1, "mangxejo" ], [ 1, 1, "mangxejo" ], [ 2, 1, "turo" ], [ 3, 1, "domo" ],
     // Row 0 — center
     [ -3, 0, "domo" ], [ -2, 0, "stacio" ], [ -1, 0, "domo" ], [ 0, 0, "sanktejo" ], [ 1, 0, "domo" ], [ 2, 0, "stacio" ], [ 3, 0, "domo" ],
     // Row -1
-    [ -3, -1, "domo" ], [ -2, -1, "turo" ], [ -1, -1, "manĝejo" ], [ 0, -1, "manĝejo" ], [ 1, -1, "manĝejo" ], [ 2, -1, "turo" ], [ 3, -1, "domo" ],
+    [ -3, -1, "domo" ], [ -2, -1, "turo" ], [ -1, -1, "mangxejo" ], [ 0, -1, "mangxejo" ], [ 1, -1, "mangxejo" ], [ 2, -1, "turo" ], [ 3, -1, "domo" ],
     // Row -2 — bottom edge (corners removed)
     [ -2, -2, "domo" ], [ -1, -2, "turo" ], [ 0, -2, "domo" ], [ 1, -2, "turo" ], [ 2, -2, "domo" ],
   ];
@@ -87,7 +87,7 @@ export function konstruiUrbon(
     const x = col * PASXO, z = row * PASXO;
     if (type === null) continue;
     const niveloj = type === "sanktejo" ? 7 : type === "turo" ? 0o10 : type === "stacio" ? 3 : 4;
-    const w = type === "sanktejo" ? 0o12 : type === "turo" ? 0o10 : 0o10;  // stacio, manĝejo, domo all 8×8
+    const w = type === "sanktejo" ? 0o12 : type === "turo" ? 0o10 : 0o10;  // stacio, mangxejo, domo all 8×8
     const d = w;  // square buildings. depth = width
     const tieroAlto = type === "sanktejo" ? 24/8 : type === "turo" ? 24/8 : type === "stacio" ? 109/32 : 205/64;
     const sube = type === "sanktejo" ? 2 : undefined;
@@ -164,13 +164,13 @@ export function konstruiUrbon(
   });
 
   const konstruGrupoj: THREE.Group[] = [];
-  konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiZiguraton(s, sceno, selektajxoj)));
+  konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiSatalon(s, sceno, selektajxoj)));
 
   // ⟪ Spacosxipo — flosas super la kosmoporda stacio 📃 ⟫
   // La sxipo flosas super la stacio: ĝia plej suba parto estas ~17.97 sub la
   // origino (5 subaj tieroj), do y=30 lasas klaran spacon super la tegmento
   // (10.2 alta) — la sama malsupro-alteco kiel antaŭ la spegula plilongigo.
-  const xipo: CielDiamanto = konstruiCielDiamanton(sceno, 0o14, 0o36, 0o106, oraMaterialo, eniraMaterialo);
+  const xipo: Krasesxagxo = konstruiKrasesxagxon(sceno, 0o14, 0o36, 0o106, oraMaterialo, eniraMaterialo);
   // La sxipa interno flosas CE LA SXIPO (ne sur la tero): marku la stacion per la
   // fluga alteco, por ke eniri la spacosxipon teleportu al la supro kie gxi estas.
   const stacioSxipo = konstruSpecoj.find(s => s.type === "stacioxipo");
@@ -259,9 +259,29 @@ export function konstruiUrbon(
     }
   }
 
-  // Arbarvojo — de la norda randa vojo (z=36) ĝis la kosmoporda stacio (z=66),
+  // Arbarvojo — de la norda randa vojo (z=36) ĝis la kosmoporda stacio (z=64),
   // en la malantaŭo de la urbo, kie la vojoj dissolviĝas en arbaron.
-  vojDifinoj.push({ pts: [ [ 0o14, 0o44 ], [ 0o14, 0o102 ] ], w: 14/8 });
+  // La vojo finiĝas ĉe la sud-orienta rando de la lanĉ-aprono (la plata rando
+  // estas je z=64, la stacia muro je z=66), do ĝi konektiĝas al la platformo.
+  // Ĝi eniras 4/8 sub la apron-randon por nenia fendo ĉe la junto.
+  // La vojo-supro sekvus la terenon +2/8 kaj enpuŝus ĝis 3/16 SUPER la
+  // apron-supron (h0 + 1/16), do ĝi ricevas propran altan funkcion kiu rampas
+  // malsupren al la aprona nivelo dum la lastaj ~2 unuoj (z 62..64). La ptoj
+  // estas pli densaj proksime de la stacio, ĉar la vojo estas konstruita el
+  // plataj slaboj (~4 unuojn), kaj unu sola granda slabo trapikus la randon.
+  // Ĝi eniras 4/8 sub la apron-randon je 1/64 sub la supro — neniu koincida
+  // faco, nenia z-flagrado ĉe la junto.
+  const stacioH0 = stacioSxipo ? (stacioSxipo.h0 ?? alteco(0o14, 0o106)) : alteco(0o14, 0o106);
+  const apronaNivelo = stacioH0 + 1/16 - 1/64 - 2/8;
+  const arbarvojaAlteco = (x: number, z: number): number => {
+    const t = glataPaso(0o76, 0o100, z);
+    return alteco(x, z) * (1 - t) + apronaNivelo * t;
+  };
+  vojDifinoj.push({
+    pts: [ [ 0o14, 0o44 ], [ 0o14, 0o74 ], [ 0o14, 0o76 ], [ 0o14, 0o100 ], [ 0o14, 0o100 + 4/8 ] ],
+    w: 14/8,
+    heightFn: arbarvojaAlteco
+  });
 
   // Voja duon-larĝo — la segmenta larĝo estas 14/8, do ĝia duon-larĝo estas 7/8.
   function vojDuonLargho(_g: number): number {
@@ -366,7 +386,7 @@ export function konstruiUrbon(
       addLamp(gx - 19/8, gz - 19/8);
     }
   }
-  const lampSistemo = konstruiLampojn(sceno, lampLokoj, dioritaMaterialo, oraMaterialo);
+  const lampSistemo = konstruiHxeuxfojn(sceno, lampLokoj, dioritaMaterialo, oraMaterialo);
   // Lampaj kolizioj — malgrandaj cirkloj ĉirkaŭ ĉiu lampa kolono.
   for ( const l of lampLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 5/8 });
 
@@ -408,8 +428,6 @@ export function konstruiUrbon(
   // Musko montetoj — apud arboj tra la arbaro
   konstruiMusxajnMontetojn( sceno, 0o200, alteco, arboj, ekskluziviRiveron );
 
-  // Fungoj ( amanitoj ) — en ombraj lokoj sub arboj
-  konstruiFungojn( sceno, 0o100, alteco, arboj, ekskluziviRiveron );
 
   // Falintaj trunkoj — en la densa arbaro
   konstruiFalintajnTrunkojn( sceno, 0o40, alteco, arboj, ekskluziviRiveron );
@@ -453,10 +471,10 @@ export function konstruiUrbon(
   // ⟪ Kanuoj 📃 ⟫
   // La kanuoj sekvas la novajn dokpintojn (riveroZ + 3, en la akvo) por resti atingeblaj de la dokoj.
   const kanuoj: Kanoto[] = [];
-  // La eksteraj kanuoj estas la nova "zigurata" stilo (malhel-pina/ora, kongrua al
+  // La eksteraj kanuoj estas la nova "satala" stilo (malhel-pina/ora, kongrua al
   // la arkitekturo); la centra restas la baza hela stilo.
-  kanuoj.push(kreiKanoton(sceno, 0o52, riveroZ(0o52) + 3, -Math.PI * 2/8, oraMaterialo, akvoY(0o52), "zigurata"));
-  kanuoj.push(kreiKanoton(sceno, -0o52, riveroZ(-0o52) + 3, Math.PI * 2/8, oraMaterialo, akvoY(-0o52), "zigurata"));
+  kanuoj.push(kreiKanoton(sceno, 0o52, riveroZ(0o52) + 3, -Math.PI * 2/8, oraMaterialo, akvoY(0o52), "satala"));
+  kanuoj.push(kreiKanoton(sceno, -0o52, riveroZ(-0o52) + 3, Math.PI * 2/8, oraMaterialo, akvoY(-0o52), "satala"));
   kanuoj.push(kreiKanoton(sceno, 0, riveroZ(0) + 3, -Math.PI * 4/8, oraMaterialo, akvoY(0)));
 
   // ⟪ NPC-agordo 📃 ⟫

@@ -33,3 +33,7 @@ declare module "three/addons/utils/BufferGeometryUtils.js" {
   import * as THREE from "three";
   export function mergeGeometries(geometries: THREE.BufferGeometry[], useGroups?: boolean): THREE.BufferGeometry;
 }
+
+// Globals from the external aih.js ( ſɭɔ j͑ʃ'ɔ }ʃꞇ.js ) loaded via <script> in index.html.
+// vacepu — Envolvi cxiun vorton de la donita klaso en <span class="cepufalxez">.
+declare function vacepu(klasoNomo: string): void;

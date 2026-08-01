@@ -13,18 +13,18 @@ export interface Kanoto {
 }
 
 // kreiKanoton — Kreu kanoton kun kareno, interno, traboj, finialoj kaj pagajilo.
-//     @param stilo ( "baza" | "zigurata" ) - La baza hela stilo aŭ la malhel-pina/
-//     ora "zigurata" stilo kongrua al la konstruajx-arkitekturo.
+//     @param stilo ( "baza" | "satala" ) - La baza hela stilo aŭ la malhel-pina/
+//     ora "satala" stilo kongrua al la konstruajx-arkitekturo.
 export function kreiKanoton( sceno: THREE.Scene,
   x: number,
   z: number,
   direkto: number,
   oraMaterialo: THREE.MeshStandardMaterial,
   bazaY: number = 0,
-  stilo: "baza" | "zigurata" = "baza"
+  stilo: "baza" | "satala" = "baza"
 ): Kanoto {
   const group = new THREE.Group();
-  const zigurata = stilo === "zigurata";
+  const satala = stilo === "satala";
 
   // kareno-formo
   const shape = new THREE.Shape();
@@ -42,15 +42,15 @@ export function kreiKanoton( sceno: THREE.Scene,
   });
   karenaGeometrio.rotateX(-Math.PI / 2);
 
-  // Malhel-pina kareno kun ora rando por la "zigurata" stilo; hela ligno por la baza.
-  const karenaMaterialo = new THREE.MeshStandardMaterial({ color: zigurata ? 0x143830 : 0xc8b890, roughness: 6/8 });
+  // Malhel-pina kareno kun ora rando por la "satala" stilo; hela ligno por la baza.
+  const karenaMaterialo = new THREE.MeshStandardMaterial({ color: satala ? 0x143830 : 0xc8b890, roughness: 6/8 });
   const kareno = new THREE.Mesh(karenaGeometrio, karenaMaterialo);
   kareno.castShadow = true;
   group.add(kareno);
 
   // Ora gvarlinio — MALFERMA strio laŭ la supro de la kareno (la ekstera lensa
   // konturo kun truo enigita ~90%, do la malhela kareno restas videbla).
-  if ( zigurata ) {
+  if ( satala ) {
     const randoFormo = shape.clone();
     const truo = new THREE.Path();
     truo.setFromPoints(shape.getPoints(0o22).map(p => new THREE.Vector2(p.x * 9/10, p.y * 9/10)).reverse());
@@ -69,13 +69,13 @@ export function kreiKanoton( sceno: THREE.Scene,
 
   // interno
   const internaGeometrio = karenaGeometrio.clone();
-  const interno = new THREE.Mesh(internaGeometrio, new THREE.MeshStandardMaterial({ color: zigurata ? 0x0a1612 : 0x584028, roughness: 61/64 }));
+  const interno = new THREE.Mesh(internaGeometrio, new THREE.MeshStandardMaterial({ color: satala ? 0x0a1612 : 0x584028, roughness: 61/64 }));
   interno.scale.set(55/64, 7/8, 55/64);
   interno.position.y = 1/32;
   group.add(interno);
 
-  // traboj — oraj por la zigurata stilo, lignaj por la baza
-  const lignaMaterialo = new THREE.MeshStandardMaterial({ color: zigurata ? 0xd9b36a : 0x483828, roughness: 27/32 });
+  // traboj — oraj por la satala stilo, lignaj por la baza
+  const lignaMaterialo = new THREE.MeshStandardMaterial({ color: satala ? 0xd9b36a : 0x483828, roughness: 27/32 });
   for ( const tx of [ -6/8, 6/8 ] ) {
     const trabo = new THREE.Mesh(new THREE.BoxGeometry(9/64, 1/16, 7/8), lignaMaterialo);
     trabo.position.set(tx, 9/16, 0);
@@ -83,8 +83,8 @@ export function kreiKanoton( sceno: THREE.Scene,
     group.add(trabo);
   }
 
-  // pruo kaj pobo finialoj — diamantaj oktaedroj por la zigurata stilo, konusoj por la baza
-  if ( zigurata ) {
+  // pruo kaj pobo finialoj — diamantaj oktaedroj por la satala stilo, konusoj por la baza
+  if ( satala ) {
     for ( const s of [ 1, -1 ] ) {
       const finialo = new THREE.Mesh(new THREE.OctahedronGeometry(7/64, 0), oraMaterialo);
       finialo.scale.set(2, 1, 1);

@@ -3,18 +3,18 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "../assets/transporto.js";
 import { VESTOJ, kreiVestanAntauxrigardon } from "../assets/vestoj.js";
-import { animaciiFlammojn } from "../assets/lampoj.js";
+import { animaciiFlammojn } from "../assets/hxeuxfa-lampo.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/akvo.js";
 import { gxisdatigiNpc } from "../assets/npcoj.js";
 import type { Figuro, Vesto } from "../assets/npcoj.js";
 import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/internoj.js";
-import { animaciiCielDiamanton } from "../assets/kosmosxipo.js";
-import { TIPARO, KonstruSpec, ManĝaĵItemo } from "../assets/zigurato-konstruilo.js";
+import { animaciiKrasesxagxon } from "../assets/krasesxagxa-kosmosxipo.js";
+import { TIPARO, KonstruSpec, MangxajxItemo } from "../assets/satalaj-konstruajxoj.js";
 import { riveroZ, akvoY, alteco } from "./tereno.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
-import { traduki } from "./tradukoj.js";
+import { traduki, cxuAih } from "./tradukoj.js";
 import { sxaltiAŭdion, cxuAŭdio, sfx, rumble, autoKomenci, registriPostAŭdio } from "../assets/sonoro.js";
 import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../assets/muziko/ludilo.js";
 
@@ -44,14 +44,12 @@ const tosto = document.getElementById("tosto")!;
 // ⟪ Poŝtelefonaj elementoj 📃 ⟫
 const navPopUp = document.getElementById("navPopUp")!;
 const navButono = document.getElementById("navButono")!;
-const navPopFermi = document.getElementById("navPopFermi")!;
 const butSonoro = document.getElementById("butSonoro")!;
 const mobJoystickZono = document.getElementById("mobJoystickZono")!;
 const mobJoystickBazo = document.getElementById("mobJoystickBazo")!;
 const mobJoystickTenilo = document.getElementById("mobJoystickTenilo")!;
 const mobButInterakti = document.getElementById("mobButInterakti")!;
 const mobButSalti = document.getElementById("mobButSalti")!;
-const mobButRezimo = document.getElementById("mobButRezimo")!;
 
 // ⟪ Stirstanga stato 📃 ⟫
 let joystickAktiva = false;
@@ -87,7 +85,7 @@ let antauxaRezimo: "orbit" | "walk" | null = null;
 let surKanoto: Kanoto | null = null;
 let elektitaSpec: KonstruSpec | null = null;
 let plejProksimaPordo: KonstruSpec | null = null;
-let plejProksimaManĝaĵo: ManĝaĵItemo | null = null;
+let plejProksimaManĝaĵo: MangxajxItemo | null = null;
 // Kontinua vindo de la helika ŝtuparo (nulo = ne sur la spiralo).
 let sxtupaTurno: number | null = null;
 let direkto = 0, klinigxo = -1/16;
@@ -100,14 +98,19 @@ let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
 
 
 // ⟪ Navigada pop-up 📃 ⟫
+// La butono mem estas la fermilo: 二 fermita · 川 malfermita ( kaj la glifo sekvas la staton ).
+function gxisdatigiNavButonon() {
+  navButono.textContent = navPopUp.classList.contains("montri") ? "川" : "二";
+}
 function sxaltiNaviganPopUp() {
   navPopUp.classList.toggle("montri");
+  gxisdatigiNavButonon();
 }
 function fermiNaviganPopUp() {
   navPopUp.classList.remove("montri");
+  gxisdatigiNavButonon();
 }
 navButono.addEventListener("click", sxaltiNaviganPopUp);
-navPopFermi.addEventListener("click", fermiNaviganPopUp);
 navPopUp.addEventListener("click", (e) => {
   if (e.target === navPopUp) fermiNaviganPopUp();
 });
@@ -120,6 +123,26 @@ function gxisdatigiSonoranButonon(aktiva: boolean) {
 }
 registriPostAŭdio(gxisdatigiSonoranButonon);
 document.addEventListener("pointerdown", () => autoKomenci(), { once: true });
+
+// ⟪ Tuŝekrano: la kontroloj aperu je tuŝo kaj kaŝiĝu post senaktiveco 📃 ⟫
+let tuŝaTempilo = 0;
+function montriTuŝajnKontrolojn(): void {
+  document.body.classList.add("tuŝa");
+  if (tuŝaTempilo) window.clearTimeout(tuŝaTempilo);
+  // Post 3 sekundoj sen tuŝo la kontroloj malaperas ( la sekva tuŝo revenigas ilin ).
+  tuŝaTempilo = window.setTimeout(() => {
+    // Ne kaŝu dum la stirstango estas tenata: touchend eble ne alvenas sur kaŝita zono.
+    if (joystickAktiva) { montriTuŝajnKontrolojn(); return; }
+    document.body.classList.remove("tuŝa");
+  }, 0o5670);
+}
+function montriTuŝajnSeTuŝa(e: PointerEvent): void {
+  if (e.pointerType === "touch") montriTuŝajnKontrolojn();
+}
+document.addEventListener("touchstart", montriTuŝajnKontrolojn);
+document.addEventListener("touchmove", montriTuŝajnKontrolojn);
+document.addEventListener("touchend", montriTuŝajnKontrolojn);
+document.addEventListener("pointerdown", montriTuŝajnSeTuŝa);
 
 // ⟪ Sonora butono 📃 ⟫
 if (butSonoro) {
@@ -172,12 +195,28 @@ duskRegilo.addEventListener("input", () => {
   aplikiRezimon(krepuskaValoro);
 });
 
+// ⟪ Vacepu: envolvi la vortojn de la flosantaj kartoj en la aih-a lingvo. ⟫
+function aplikiVacepu(): void {
+  if (cxuAih() && typeof vacepu === "function") vacepu("aih");
+}
+
 // ⟪ Tosta sistemo 📃 ⟫
 function montriTost(mesagxo: string, daŭro = 0o4230) {
   if (tostaTempilo) clearTimeout(tostaTempilo);
   tosto.innerHTML = mesagxo;
+  // La aih-a noto bezonas la vacepu-vortojn post cxiu gxisdatigo.
+  aplikiVacepu();
   tosto.classList.add("montri");
   tostaTempilo = setTimeout(() => tosto.classList.remove("montri"), daŭro);
+}
+
+// La prompto sxangxigxas cxiun kadron: envolvu nur kiam la teksto vere sxangxigxis.
+let lastPromptaHTML = "";
+function agordiPrompton(html: string): void {
+  if (lastPromptaHTML === html) return;
+  lastPromptaHTML = html;
+  promptoElemento.innerHTML = html;
+  aplikiVacepu();
 }
 
 // ⟪ Balaila transiro 📃 ⟫
@@ -239,10 +278,16 @@ function gxisdatigiJoystick(klientoX: number, klientoY: number) {
   klavoj.KeyD = normX > 2/8;
   klavoj.KeyW = normY < -2/8;
   klavoj.KeyS = normY > 2/8;
+  // Forkuri: puŝu la tenilon preter 3/4 de la radio (la mezo restas normala piedirado).
+  const devio = Math.min(1, dist / JOYSTICK_R);
+  mobSprinto = devio > 3/4;
+  mobJoystickBazo.classList.toggle("sprinto", mobSprinto);
 }
 function resetiJoystick() {
   klavoj.KeyA = false; klavoj.KeyD = false;
   klavoj.KeyW = false; klavoj.KeyS = false;
+  mobSprinto = false;
+  mobJoystickBazo.classList.remove("sprinto");
   mobJoystickTenilo.style.transform = "translate(0px, 0px)";
   mobJoystickBazo.classList.remove("aktiva");
   mobJoystickTenilo.classList.remove("aktiva");
@@ -352,25 +397,6 @@ mobButSalti.addEventListener("touchstart", (e) => {
     estasSurTERENO = false;
   }
 });
-mobButRezimo.addEventListener("click", (e) => {
-  e.stopPropagation();
-  sxaltiRezimon();
-});
-const mobButKuri = document.getElementById("mobButKuri")!;
-mobButKuri.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  mobSprinto = true;
-  mobButKuri.classList.add("aktiva");
-});
-mobButKuri.addEventListener("touchend", (e) => {
-  e.preventDefault();
-  mobSprinto = false;
-  mobButKuri.classList.remove("aktiva");
-});
-mobButKuri.addEventListener("touchcancel", () => {
-  mobSprinto = false;
-  mobButKuri.classList.remove("aktiva");
-});
 
 // ⟪ Retikula kontrolo 📃 ⟫
 function gxisdatigiRetikulon() {
@@ -388,6 +414,8 @@ function montriKarton(spec: KonstruSpec, bt: { labelKey: string; chip: string; f
   kartoFlavor.textContent = traduki(bt.flavorKey);
   kartoElemento.classList.add("montri");
   kartoEniri.onclick = () => eniriKonstruajxon(spec, bt);
+  // La nova karto-enhavo bezonas la vacepu-vortojn ( aih ).
+  aplikiVacepu();
 }
 function kasxiKarton() {
   elektitaSpec = null;
@@ -440,7 +468,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
     regiloj.enabled = false;
     // Hide the card but DON'T clear elektitaSpec (needed for interior movement)
     kartoElemento.classList.remove("montri");
-    montriTost(traduki("p4") + " " + traduki(spec.name));
+    montriTost(traduki("eniri") + " " + traduki(spec.name));
     gxisdatigiRetikulon();
   });
 }
@@ -526,7 +554,7 @@ document.getElementById("butVesti")!.addEventListener("click", () => {
   vestaVico.innerHTML = "";
   VESTOJ.forEach((o, i) => {
     const card = document.createElement("div");
-    card.className = "vestaKardo";
+    card.className = "vestaKardo aih";
     const kanvasa = kreiVestanAntauxrigardon(o);
     card.appendChild(kanvasa);
     const name = document.createElement("div");
@@ -539,6 +567,8 @@ document.getElementById("butVesti")!.addEventListener("click", () => {
     vestaVico.appendChild(card);
   });
   supermeta.classList.add("montri");
+  // La novaj vestaj kartoj bezonas la vacepu-vortojn ( aih ).
+  aplikiVacepu();
 });
 supermeta.addEventListener("click", (e) => {
   if (e.target === supermeta) supermeta.classList.remove("montri");
@@ -549,19 +579,21 @@ document.getElementById("supermetaFermi")!.addEventListener("click", () => {
 
 // ⟪ Helpo 📃 ⟫
 document.getElementById("butHelpi")!.addEventListener("click", () => {
-  document.getElementById("supermetaTitolo")!.textContent = traduki("pT");
-  document.getElementById("supermetaSupra")!.textContent = traduki("pU");
+  document.getElementById("supermetaTitolo")!.textContent = traduki("titoloVojoj");
+  document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloHelpo");
   vestaVico.innerHTML = `<div class="statistikoj helpa-listo">
-    <b>Orbit</b> · ${traduki("pL")}<br>
-    <b>Walk</b> · ${traduki("pM")}<br>
-    <b>WASD</b> · ${traduki("pN")}<br>
-    <b>E</b> · ${traduki("pO")}<br>
-    <b>M</b> · ${traduki("pP")}<br>
-    <b>Escape</b> · ${traduki("pQ")}<br>
-    <b>Click spires</b> · ${traduki("pR")}<br>
-    <b>WARD</b> · ${traduki("pS")}
+    <b>Orbit</b> · ${traduki("regiloOrbito")}<br>
+    <b>Walk</b> · ${traduki("regiloPromeno")}<br>
+    <b>WASD</b> · ${traduki("regiloMovado")}<br>
+    <b>E</b> · ${traduki("regiloEniri")}<br>
+    <b>M</b> · ${traduki("regiloMapo")}<br>
+    <b>Escape</b> · ${traduki("regiloEliri")}<br>
+    <b>Click spires</b> · ${traduki("regiloSpajroj")}<br>
+    <b>WARD</b> · ${traduki("regiloVesto")}
   </div>`;
   supermeta.classList.add("montri");
+  // La helpa listo bezonas la vacepu-vortojn ( aih ).
+  aplikiVacepu();
 });
 
 // ⟪ Interagu (E-klavo) 📃 ⟫
@@ -575,7 +607,7 @@ function proviInterakti() {
     ludantaPozicio.set(exit.x, 109/64, exit.z);
     surKanoto = null;
     promptoElemento.classList.remove("montri");
-    montriTost(traduki("pY"));
+    montriTost(traduki("eliri"));
     return;
   }
   // En orbita reximo E movas la fotilon vertikale, do la pordo/kanuo
@@ -595,7 +627,7 @@ function proviInterakti() {
     surKanoto = plejProksima;
     plejProksima.vx = plejProksima.vz = 0;
     promptoElemento.classList.remove("montri");
-    montriTost(traduki("pX"));
+    montriTost(traduki("regiloKanuo"));
     if (cxuAŭdio()) sfx.splash();
   }
 }
@@ -620,7 +652,7 @@ function eliriKanoton(c: Kanoto): { x: number; z: number } {
   return { x: exitX, z: exitZ };
 }
 
-function konsumi(item: ManĝaĵItemo) {
+function konsumi(item: MangxajxItemo) {
   if (!item || item.dead) return;
   item.dead = true;
   const f = item.f, isFok = item.key.startsWith("fok"), m = item.mesh;
@@ -722,8 +754,8 @@ function animacii() {
   animaciiFlammojn(lampSistemo, t);
   // Akva animacio
   gxisdatigiAkvon(riverData, t);
-  // Spacosxipo — oscila flosado super la kosmopordo
-  animaciiCielDiamanton(xipo, t, false);
+  // Krasesxagxo — oscila flosado super la kosmopordo
+  animaciiKrasesxagxon(xipo, t, false);
 
   // Promena reximo
   if (rezimo === "walk" && !surKanoto) {
@@ -808,10 +840,10 @@ function animacii() {
       if (d < proksimaKanuoDist) { proksimaKanuoDist = d; proksimaKanuo = c; }
     }
     if (plejProksimaPordo) {
-      promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("p4") + ` ` + traduki(plejProksimaPordo.name);
+      agordiPrompton(`<span class="klavo">E</span> ` + traduki("eniri") + ` ` + traduki(plejProksimaPordo.name));
       promptoElemento.classList.add("montri");
     } else if (proksimaKanuo && !surKanoto) {
-      promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("pZ");
+      agordiPrompton(`<span class="klavo">E</span> ` + traduki("eniriKanuo"));
       promptoElemento.classList.add("montri");
     } else if (!surKanoto) {
       promptoElemento.classList.remove("montri");
@@ -830,7 +862,7 @@ function animacii() {
     let novaX = ludantaPozicio.x + (fortoX * movZ + radX * movX) * rapido * deltaTempo;
     let novaZ = ludantaPozicio.z + (fortoZ * movZ + radZ * movX) * rapido * deltaTempo;
 
-    const specX = elektitaSpec.x, specZ = elektitaSpec.z, specH0 = elektitaSpec.h0 || 0;
+    const specX = elektitaSpec.x, specZ = elektitaSpec.z, specH0 = elektitaSpec.flugoY ?? (elektitaSpec.h0 || 0);
     const rot = elektitaSpec.rot || 0;
     const cosR = Math.cos(rot), sinR = Math.sin(rot);
     const plankoj = internaSistemo.plankoj;
@@ -917,7 +949,7 @@ function animacii() {
     fotilo.rotation.set(klinigxo, direkto, 0);
 
     // Detekti manĝaĵojn kaj montri taŭgan prompton
-    let proksimaManĝaĵo: ManĝaĵItemo | null = null;
+    let proksimaManĝaĵo: MangxajxItemo | null = null;
     let proksimaManĝaĵoDist = 2;
     for (const it of internaSistemo.manĝaĵoj) {
       if (it.dead) continue;
@@ -932,10 +964,10 @@ function animacii() {
     plejProksimaManĝaĵo = proksimaManĝaĵo;
     if (proksimaManĝaĵo) {
       const prefikso = proksimaManĝaĵo.key.startsWith("fok") ? traduki("actGusti") : traduki("actTrinketi");
-      promptoElemento.innerHTML = `<span class="klavo">E</span> ${prefikso} ${traduki("manĝ" + proksimaManĝaĵo.f.key.charAt(0).toUpperCase() + proksimaManĝaĵo.f.key.slice(1))}`;
+      agordiPrompton(`<span class="klavo">E</span> ${prefikso} ${traduki("manĝ" + proksimaManĝaĵo.f.key.charAt(0).toUpperCase() + proksimaManĝaĵo.f.key.slice(1))}`);
       promptoElemento.classList.add("montri");
     } else {
-      promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("actEliri");
+      agordiPrompton(`<span class="klavo">E</span> ` + traduki("actEliri"));
       promptoElemento.classList.add("montri");
     }
   }
@@ -967,13 +999,19 @@ function animacii() {
     // repuŝu al la rivercentro por ke la ludanto ne restu subtera.
     const kx = surKanoto.x, kz = surKanoto.z;
     if (alteco(kx, kz) > akvoY(kx) + 1/4) {
-      surKanoto.z += (riveroZ(kx) - kz) * Math.min(1, 8 * deltaTempo);
+      // Repuŝu al la rivercentro pli forte kaj haltigu la bankan drivon, por ke
+      // la kanuo ne restu banita en malprofunda akvo.
+      surKanoto.z += (riveroZ(kx) - kz) * Math.min(1, 0o30 * deltaTempo);
+      surKanoto.vz = 0;
     }
+    // Levu la kanu-bazon super la terenon: en malprofunda akvo la akva nivelo
+    // (akvoY) estus SUB la planko, do la kanuo kaj la fotilo enirus la teron.
+    surKanoto.bazaY = Math.max(akvoY(surKanoto.x), alteco(surKanoto.x, surKanoto.z));
 
     direkto = surKanoto.direkto;
     fotilo.position.set(surKanoto.x, surKanoto.bazaY + 3/32 + 17/32, surKanoto.z);
     fotilo.rotation.set(klinigxo, surKanoto.direkto, 0);
-    promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("pW");
+    agordiPrompton(`<span class="klavo">E</span> ` + traduki("eliriKanuo"));
     promptoElemento.classList.add("montri");
     ludantaPozicio.set(surKanoto.x, 109/64, surKanoto.z);
   }
@@ -1023,10 +1061,14 @@ function animacii() {
 let sxargxaProgreso = 0;
 const sxargxaIntervalo = setInterval(() => {
   sxargxaProgreso += 1/8;
-  stangoPlenigo.style.width = `${Math.min(100, sxargxaProgreso * 100)}%`;
-  if (sxargxaProgreso > 19/64) sxargxaTitolo.textContent = traduki("pH");
-  if (sxargxaProgreso > 19/32) sxargxaTitolo.textContent = traduki("pI");
-  if (sxargxaProgreso > 27/32) sxargxaTitolo.textContent = traduki("pJ");
+  // La stango estas vertikala, do la plenigo kreskas laux la bloka akso ( malsupro → supro ).
+  stangoPlenigo.style.blockSize = `${Math.min(100, sxargxaProgreso * 100)}%`;
+  const novaTitolo = sxargxaProgreso > 27/32 ? traduki("sxargxaNebulo") : sxargxaProgreso > 19/32 ? traduki("sxargxaTraboj") : sxargxaProgreso > 19/64 ? traduki("sxargxaSatalo") : null;
+  // Nur sxangxu la titolon kiam la teksto vere sxangxigxas, por ne detrui la vacepu-vortojn.
+  if (novaTitolo !== null && sxargxaTitolo.textContent !== novaTitolo) {
+    sxargxaTitolo.textContent = novaTitolo;
+    if (cxuAih() && typeof vacepu === "function") vacepu("aih");
+  }
   if (sxargxaProgreso >= 1) {
     clearInterval(sxargxaIntervalo);
     sxargxaElemento.classList.add("finita");

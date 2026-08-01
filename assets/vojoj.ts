@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "./teksajxoj.js";
 
-export interface VojDifino { pts: [number, number][]; w: number; }
+export interface VojDifino { pts: [number, number][]; w: number; heightFn?: (x: number, z: number) => number; }
 
 /**
  * Build a stepped road segment between two waypoints.
@@ -123,16 +123,19 @@ export function konstruiVojojn( sceno: THREE.Scene,
   bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = -1; bordaMaterialo.polygonOffsetUnits = -1;
 
   for ( const def of defs ) {
+    // Unuopaj difinoj povas doni propran altan funkcion ( ekz. la arbarvojo
+    // malsupreniras al la aprona nivelo cxe la kosmoporda stacio ).
+    const defAlt = def.heightFn || heightFn;
     for ( let i = 0; i < def.pts.length - 1; i++ ) {
       const [aX, aZ] = def.pts[i];
       const [bX, bZ] = def.pts[i + 1];
       // Voja surfaco
-      konstruiSegmenton(aX, aZ, bX, bZ, def.w, 2/8, heightFn, supraMaterialo, sceno);
+      konstruiSegmenton(aX, aZ, bX, bZ, def.w, 2/8, defAlt, supraMaterialo, sceno);
       // Andesite remains only along the outside road edge.
-      konstruiSegmenton(aX, aZ, bX, bZ, def.w + 8/8, 2/8, heightFn, bordaMaterialo, sceno);
+      konstruiSegmenton(aX, aZ, bX, bZ, def.w + 8/8, 2/8, defAlt, bordaMaterialo, sceno);
       // Specimenoj por lampoj
       const movX = (aX + bX) / 2, movZ = (aZ + bZ) / 2;
-      samples.push(new THREE.Vector3(movX, heightFn(movX, movZ), movZ));
+      samples.push(new THREE.Vector3(movX, defAlt(movX, movZ), movZ));
     }
   }
   return samples;
