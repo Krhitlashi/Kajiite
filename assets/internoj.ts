@@ -12,7 +12,8 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { KonstruSpec, kreiManĝaĵojn, ManĝaĵItemo, aldoniVaporon } from "./zigurato-konstruilo.js";
-import { generiSkriptanTeksajxon } from "./skripto-rivelilo.js";
+import { generiSkribanTeksajxon } from "./skripto-rivelilo.js";
+import { nomoAih } from "../src/tradukoj.js";
 
 export interface PlankoInfo {
   /** Y-nivelo de la planko */
@@ -23,6 +24,29 @@ export interface PlankoInfo {
   hd: number;
   /** Alto de la etaĝo */
   alto: number;
+}
+
+export interface HeliksoInfo {
+  /** Radiuso de la centra kolono */
+  rKol: number;
+  /** Ekstera radiuso de la ŝtuparo */
+  rEkster: number;
+  /** Paŝoj po plena turno */
+  perTurno: number;
+  /** Alto de unu plena turno ( = tieroAlto ) */
+  turnoAlto: number;
+  /** Alto de unu sub-tera plena turno ( = tieroAltoSub ) */
+  turnoAltoSub: number;
+  /** Nombro da supraj plenaj turnoj ( = niveloj - 1 ) */
+  turnoj: number;
+  /** Nombro da sub-teraj plenaj turnoj ( = sube ) */
+  turnojSube: number;
+}
+
+// heliksaAltecxo — Alteco de kontinua turno sur la spiralo: pozitivaj turnoj
+// supren laŭ turnoAlto, negativaj malsupren laŭ turnoAltoSub.
+export function heliksaAltecxo(h: HeliksoInfo, turno: number): number {
+  return turno >= 0 ? turno * h.turnoAlto : turno * h.turnoAltoSub;
 }
 
 export interface InternaEnirPunkto {
@@ -36,13 +60,13 @@ export interface InternaSistemo {
   currentGroup: THREE.Group | null;
   animated: { update: (t: number) => void }[];
   plankoj: PlankoInfo[];
+  helikso: HeliksoInfo | null;
   manĝaĵoj: ManĝaĵItemo[];
   vaporNuboj: { cloud: THREE.Points; basePos: THREE.Vector3; ph: number }[];
 }
 
 // Dezajnaj konstantaj valoroj
 const PINE = 0x0b1a14;
-const DEEP = 0x08140e;
 const MIST = 0xe6efe9;
 const DIM = 0x9db8a4;
 const GOLD = 0xd9b36a;
@@ -80,6 +104,104 @@ function kreiArkFormon( radiuso: number, segmentoj: number, largho: number ): TH
   return g;
 }
 
+// kreiPilolFenestranFormon — LONGAs horizontalas rondigitan fenestron: rektangulo
+// kun duoncirklaj finoj (pilolo). Uzata por la internaj fenestroj (centritaj sur
+// cxiu muro) kaj la spacosxipaj eksteraj fenestroj.
+export function kreiPilolFenestranFormon(w: number, h: number): THREE.Shape {
+  const s = new THREE.Shape();
+  const hw = w / 2, r = h / 2;
+  s.moveTo(-hw + r, 0);
+  s.lineTo(hw - r, 0);
+  s.absarc(hw - r, r, r, -Math.PI / 2, Math.PI / 2, false);
+  s.lineTo(-hw + r, h);
+  s.absarc(-hw + r, r, r, Math.PI / 2, Math.PI * 3 / 2, false);
+  s.closePath();
+  return s;
+}
+
+// aldoniLonganFenestron — Unu centrita LONGAs horizontala RONDIGITA fenestro kun
+// ora pilola kadro sur muro.
+// orientacio: "malantaŭ" (fakas +z), "maldekstra" (fakas +x), "dekstra" (fakas -x).
+function aldoniLonganFenestron(
+  group: THREE.Group,
+  cx: number, cz: number, bazaY: number, alto: number,
+  plataLargho: number,
+  orientacio: "malantaŭ" | "maldekstra" | "dekstra",
+  muraMaterialo: THREE.MeshStandardMaterial,
+  fenestraMaterialo: THREE.MeshStandardMaterial,
+  oraRandoMaterialo: THREE.MeshBasicMaterial,
+  oraKadroMaterialo: THREE.LineBasicMaterial
+): void {
+  // Fenestro-larĝo laŭ la tavolflanko: pli longa sur pli longaj muroj, kun
+  // malgranda libero ĉe ĉiu fino (2/3 de la flanko + kvarono).
+  const ww = Math.min(plataLargho * 2 - 3/8, plataLargho * 4/3 + 1/4);
+  const hh = Math.min(5/8, alto * 3/10);
+  const fenY = bazaY + Math.max(alto * 2/5, 3/4);
+  if (fenY + hh > bazaY + alto) return;
+  const malantaŭ = orientacio === "malantaŭ";
+  const rotacio = orientacio === "dekstra" ? -Math.PI / 2 : Math.PI / 2;
+  // La vitra panelo kaj ora kadro sidas ĉe la ĉambro-flanko de la muro (ne en ĝia centro)
+  const ofseto = 3/32;
+  const aCx = malantaŭ ? cx : cx + (orientacio === "dekstra" ? -ofseto : ofseto);
+  const aCz = malantaŭ ? cz + ofseto : cz;
+  const segLargho = plataLargho - ww / 2;
+  const segAlto = alto - (fenY + hh - bazaY);
+  const dikeco = 3/16;
+  // Malsegmentoj maldekstre/dekstre de la fenestro
+  if (segLargho > 0) {
+    if (malantaŭ) {
+      konstruiMuron(group, -plataLargho, 0, segLargho, bazaY, alto, dikeco, muraMaterialo, cx, cz);
+      konstruiMuron(group, ww / 2, 0, segLargho, bazaY, alto, dikeco, muraMaterialo, cx, cz);
+    } else {
+      konstruiMuron(group, -plataLargho, 0, segLargho, bazaY, alto, dikeco, muraMaterialo, cx, cz, rotacio);
+      konstruiMuron(group, ww / 2, 0, segLargho, bazaY, alto, dikeco, muraMaterialo, cx, cz, rotacio);
+    }
+  }
+  // Malsegmento sub la fenestro
+  if (fenY - bazaY > 0) {
+    if (malantaŭ) konstruiMuron(group, -ww / 2, 0, ww, bazaY, fenY - bazaY, dikeco, muraMaterialo, cx, cz);
+    else konstruiMuron(group, -ww / 2, 0, ww, bazaY, fenY - bazaY, dikeco, muraMaterialo, cx, cz, rotacio);
+  }
+  // Malsegmento super la fenestro
+  if (segAlto > 0) {
+    if (malantaŭ) konstruiMuron(group, -ww / 2, fenY + hh - bazaY, ww, bazaY, segAlto, dikeco, muraMaterialo, cx, cz);
+    else konstruiMuron(group, -ww / 2, fenY + hh - bazaY, ww, bazaY, segAlto, dikeco, muraMaterialo, cx, cz, rotacio);
+  }
+  // Vitra panelo (pilola formo) + ora pilola rando — Densa sampado por ke la
+  // duoncirkloj estu glate rondaj, ne facetaj.
+  const fenGeo = new THREE.ShapeGeometry(kreiPilolFenestranFormon(ww, hh), 0o100);
+  const fen = new THREE.Mesh(fenGeo, fenestraMaterialo);
+  fen.position.set(aCx, fenY, aCz);
+  if (!malantaŭ) fen.rotation.y = rotacio;
+  group.add(fen);
+  // Ora pilola rando ĉirkaŭ la tuta fenestro (tubo laŭ la konturo). Densa
+  // sampado kun CENTRIPETA kurbo — la rando ne ondas/elstaras ĉe la rektaj
+  // flankoj de la pilolo (la malnova uniforma tensio tro-svingis ĉe la
+  // rekt-sekciaj transiroj kaj distordis la flankojn).
+  const konturo = kreiPilolFenestranFormon(ww, hh).getPoints(0o200)
+    .map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, 0));
+  const rimo = new THREE.Mesh(
+    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 1/16, 6, true),
+    oraRandoMaterialo
+  );
+  rimo.position.set(aCx, fenY, aCz);
+  if (!malantaŭ) rimo.rotation.y = rotacio;
+  group.add(rimo);
+  // Ora rektangula kadro ĉirkaŭ la tuta fenestro — MALDIKA (1/32), ne la mura
+  // dikeco: la malnova dika skatolo montris la malantaŭan rektangulon tra la
+  // duon-travidebla vitro (fantoma duobla kadro) kaj distordis la randojn.
+  // La skatolo estas ĉiam (ww × hh × 1/32) — la rotacio de la flankaj muroj
+  // orientas la maldikan akson laŭ la mur-normalo (la malnova interŝanĝis la
+  // aksojn por la flankoj kaj la ora kadro staris PERPENDIKULARE al la fenestro).
+  const kadro = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(ww, hh, 1/32)),
+    oraKadroMaterialo
+  );
+  kadro.position.set(aCx, fenY + hh / 2, aCz);
+  if (!malantaŭ) kadro.rotation.y = rotacio;
+  group.add(kadro);
+}
+
 function aldoniInternanMeblaron(
   grupo: THREE.Group,
   tipo: string,
@@ -109,48 +231,308 @@ function aldoniInternanMeblaron(
 
   if ( tipo === "domo" ) {
     const benkaLargho = Math.min( hw * 2 - 2, 7/2 );
-    aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, -hd + 4/8, lignaMaterialo );
-    aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, hd - 4/8, lignaMaterialo );
-    aldoniSkatolon( 5/8, 1/8, 5/8, 0, 0, metalaMaterialo );
-    aldoniSkatolon( Math.min( hw, 3/2 ), 3/16, 11/8, 0, 0, lignaMaterialo );
-    aldoniSkatolon( 7/8, 1/16, 5/8, 0, -1/8, helaMaterialo );
+    if ( hd >= 2 ) {
+      aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, -hd + 4/8, lignaMaterialo );
+      aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, hd - 4/8, lignaMaterialo );
+    }
+    // La centro apartenas al la helika ŝtuparo — la insulo staras antaŭe sur la teretaĝo.
+    if ( etapo === 0 && hd >= 4 ) {
+      aldoniSkatolon( 5/8, 1/8, 5/8, 0, hd - 7/4, metalaMaterialo );
+      aldoniSkatolon( Math.min( hw, 3/2 ), 3/16, 11/8, 0, hd - 7/4, lignaMaterialo );
+      aldoniSkatolon( 7/8, 1/16, 5/8, 0, hd - 7/4 - 1/8, helaMaterialo );
+    }
     aldoniSkatolon( 5/8, tieroAlto * 4/8, 1/8, -hw + 5/16, -hd + 5/16, lignaMaterialo );
   } else if ( tipo === "turo" ) {
     const bretaLargho = Math.min( hw * 2 - 1, 5/2 );
-    aldoniSkatolon( bretaLargho, 1/16, 4/8, 0, -hd + 5/16, lignaMaterialo );
-    aldoniSkatolon( 7/8, 3/16, 7/8, 0, 0, metalaMaterialo );
-    aldoniSferon( 3/16, 0, tieroAlto * 5/8, 0, helaMaterialo );
+    if ( hd >= 2 ) aldoniSkatolon( bretaLargho, 1/16, 4/8, 0, -hd + 5/16, lignaMaterialo );
+    // La centro apartenas al la helika ŝtuparo — la piedestalo staras dekstre.
+    if ( etapo === 0 && hw >= 4 ) {
+      aldoniSkatolon( 7/8, 3/16, 7/8, hw - 1, 0, metalaMaterialo );
+      aldoniSferon( 3/16, hw - 1, tieroAlto * 5/8, 0, helaMaterialo );
+    }
     for ( const sX of [ -1, 1 ] ) {
       aldoniSkatolon( 1/8, tieroAlto * 4/8, 1/8, sX * ( hw - 5/16 ), -hd + 3/8, metalaMaterialo );
     }
   } else if ( tipo === "stacio" ) {
     const benkaLargho = Math.min( hw * 2 - 1, 3 );
-    aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, -hd + 4/8, helaMaterialo );
-    aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, hd - 4/8, helaMaterialo );
+    if ( hd >= 2 ) {
+      aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, -hd + 4/8, helaMaterialo );
+      aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, hd - 4/8, helaMaterialo );
+    }
     aldoniSkatolon( 3/8, 5/8, 5/8, -hw + 4/8, 0, metalaMaterialo );
     aldoniSkatolon( 3/8, 5/8, 5/8, hw - 4/8, 0, metalaMaterialo );
   } else if ( tipo === "sanktejo" && etapo === 0 ) {
     const altaro = new THREE.Mesh( new THREE.CylinderGeometry( 5/8, 6/8, 4/8, 0o12 ), metalaMaterialo );
-    altaro.position.set( 0, y + 2/8, 0 );
+    altaro.position.set( 0, y + 2/8, -hd + 2 );
     altaro.castShadow = true;
     grupo.add( altaro );
     const brilo = new THREE.Mesh( new THREE.SphereGeometry( 3/8, 0o12, 0o10 ), helaMaterialo );
-    brilo.position.set( 0, y + tieroAlto * 5/8, 0 );
+    brilo.position.set( 0, y + tieroAlto * 5/8, -hd + 2 );
     grupo.add( brilo );
     const lumo = new THREE.PointLight( GOLD_WARM, 3/8, 0o20, 2 );
-    lumo.position.set( 0, y + tieroAlto * 5/8, 0 );
+    lumo.position.set( 0, y + tieroAlto * 5/8, -hd + 2 );
     grupo.add( lumo );
   } else if ( tipo === "manĝejo" && etapo === 0 ) {
     aldoniSkatolon( Math.min( hw * 2 - 1, 5 ), 3/8, 3/8, 0, -hd + 4/8, lignaMaterialo );
   }
 
-  if ( niveloj > 1 && etapo === niveloj - 1 ) {
+  if ( niveloj > 1 && etapo === niveloj - 1 && hd >= 2 ) {
     aldoniSkatolon( Math.min( hw * 2 - 1, 4 ), 1/16, 3/8, 0, -hd + 5/16, metalaMaterialo );
   }
 }
 
+// Stelplena teksajxo por la sxipa vitralo (kanvaso — neniu dosiero bezonata).
+function kreiStelplenanTeksajxon(): THREE.CanvasTexture {
+  const c = document.createElement("canvas");
+  c.width = c.height = 0o200;
+  const g = c.getContext("2d")!;
+  g.fillStyle = "#02070c"; g.fillRect(0, 0, c.width, c.height);
+  for ( let i = 0; i < 0o140; i++ ) {
+    const x = Math.random() * c.width, y = Math.random() * c.height;
+    const r = 0.6 + Math.random() * 1.6;
+    g.fillStyle = `rgba(214,240,255,${(0.35 + Math.random() * 0.65).toFixed(2)})`;
+    g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
+  }
+  return new THREE.CanvasTexture(c);
+}
+
+// eniriSxipanInternon — La interno de la spacosxipo: pluretagxa kareno-kabino
+// kun helika ŝtuparo tra la centro, stelvitralo, kapsulaj fenestroj, konzolo,
+// kapitana seĝo kaj hologramo. La kabino flosas CE LA SXIPO (spec.flugoY) — la
+// ludanto teleportigxas al la supro kie la sxipo vere estas.
+function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: THREE.Scene): InternaEnirPunkto {
+  const grupo = new THREE.Group();
+  // La sxipo havas 5 suprajn kaj 5 subajn tierojn (vidu kosmosxipo.ts); la
+  // interno sekvas ilin — unu etaĝo ĉe ĉiu tier-rando, kun helika ŝtuparo.
+  const sxipaTiero = 115/32;
+  const up = 5, down = up;
+  const rMezCx = 15/4, rSupro = 3/4, rBoto = 17/10;
+  const rHelikso = 1;
+  const yB = -down * sxipaTiero, yT = up * sxipaTiero;
+  // Kareno-radiuso je loka alteco y (konusoj kongruantaj al la sxipa silueto,
+  // iomete ene por neniu z-fajfo kun la sxelo).
+  const konusaR = (y: number): number =>
+    y >= 0 ? rMezCx - (rMezCx - rSupro) * (y / (up * sxipaTiero))
+           : rMezCx - (rMezCx - rBoto) * (-y / (down * sxipaTiero));
+
+  const kareno = new THREE.MeshStandardMaterial({ color: 0x10302a, roughness: 3/8, metalness: 9/32, side: THREE.DoubleSide });
+  const malhela = new THREE.MeshStandardMaterial({ color: 0x0a1816, roughness: 5/8, metalness: 1/8 });
+  const oro = new THREE.MeshStandardMaterial({ color: GOLD, metalness: 7/8, roughness: 11/32 });
+  const brila = new THREE.MeshStandardMaterial({ color: 0x9fe8e0, emissive: 0x2a6a64, emissiveIntensity: 7/8, roughness: 3/8 });
+  const vitra = new THREE.MeshBasicMaterial({ color: 0x06121a, map: kreiStelplenanTeksajxon(), toneMapped: false, side: THREE.DoubleSide });
+  const sxtupMaterialo = new THREE.MeshStandardMaterial({ color: 0x2a3a34, roughness: 55/64 });
+
+  // Helika ŝtuparo — sama strukturo kiel en la konstruajxoj: unu plena turno
+  // po etaĝo, supren tra la supraj tieroj kaj suben tra la subaj.
+  const helikso: HeliksoInfo = {
+    rKol: 3/8, rEkster: rHelikso, perTurno: 0o14,
+    turnoAlto: sxipaTiero, turnoAltoSub: sxipaTiero,
+    turnoj: up - 1, turnojSube: down,
+  };
+  sys.helikso = helikso;
+
+  // Etaĝoj: la enira etaĝo je 0, subaj kaj supraj laŭ la tieroj. La klampo
+  // (hw/hd) estas kvadrato ene de la ronda kareno: r/√2 ĉe ĉiu etaĝo.
+  sys.plankoj = [];
+  for (let j = down; j >= 1; j--) {
+    const r = konusaR(-j * sxipaTiero);
+    sys.plankoj.push({ y: -j * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, alto: sxipaTiero });
+  }
+  for (let i = 0; i < up; i++) {
+    const r = konusaR(i * sxipaTiero);
+    sys.plankoj.push({ y: i * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, alto: sxipaTiero });
+  }
+
+  // Kareno-muroj: du konusoj (supra kaj suba) sekvantaj la sxipan silueton,
+  // kaj plafono ĉe la supro kun luma ringo.
+  const supra = new THREE.Mesh(new THREE.CylinderGeometry(rSupro, rMezCx, up * sxipaTiero, 0o40, 1, true), kareno);
+  supra.position.y = up * sxipaTiero / 2;
+  grupo.add(supra);
+  const suba = new THREE.Mesh(new THREE.CylinderGeometry(rMezCx, rBoto, down * sxipaTiero, 0o40, 1, true), kareno);
+  suba.position.y = -down * sxipaTiero / 2;
+  grupo.add(suba);
+  const plafono = new THREE.Mesh(new THREE.CircleGeometry(rSupro, 0o40).rotateX(Math.PI / 2), malhela);
+  plafono.position.y = yT;
+  grupo.add(plafono);
+  const lumRingo = new THREE.Mesh(new THREE.RingGeometry(11/8, 17/8, 0o40).rotateX(Math.PI / 2), brila);
+  lumRingo.position.y = yT - 1/16;
+  grupo.add(lumRingo);
+
+  // Etaĝaj diskoj: plenaj ĉe la malsupro, ringaj (kun helika truo) aliloke.
+  for (const p of sys.plankoj) {
+    const r = p.hw * Math.SQRT2;
+    const estasMalsupro = p.y === yB;
+    const planko = new THREE.Mesh(
+      estasMalsupro
+        ? new THREE.CircleGeometry(r, 0o40).rotateX(-Math.PI / 2)
+        : new THREE.RingGeometry(rHelikso, Math.max(rHelikso + 1/16, r - 1/32), 0o40).rotateX(-Math.PI / 2),
+      malhela
+    );
+    planko.position.y = p.y + 1/32;
+    grupo.add(planko);
+    // Ora ringo ĉe la enira etaĝo — SUPRE de la planko (5/64; la planko mem
+    // estas je 1/32, do 3/64 libero — neniu z-fajfo).
+    if (p.y === 0) {
+      const ringo = new THREE.Mesh(new THREE.RingGeometry(r - 3/8, r - 1/16, 0o40).rotateX(-Math.PI / 2), oro);
+      ringo.position.y = 5/64;
+      grupo.add(ringo);
+    }
+  }
+
+  // Helika ŝtuparo + centra kolono + ora spirala manrelo
+  {
+    const rMezo = (helikso.rKol + helikso.rEkster) / 2;
+    const radiala = helikso.rEkster - helikso.rKol;
+    const paŝoAngulo = Math.PI * 2 / helikso.perTurno;
+    const paŝoAlto = helikso.turnoAlto / helikso.perTurno;
+    const paŝoLargho = rMezo * paŝoAngulo * 12/10;
+    const nSube = helikso.turnojSube * helikso.perTurno;
+    const nSupre = helikso.turnoj * helikso.perTurno;
+    const fundoY = heliksaAltecxo(helikso, -helikso.turnojSube);
+    const suproY = Math.min(yT, heliksaAltecxo(helikso, helikso.turnoj) + 4/8);
+    const kolono = new THREE.Mesh(
+      new THREE.CylinderGeometry(helikso.rKol, helikso.rKol * 11/10, suproY - fundoY, 0o16),
+      malhela
+    );
+    kolono.position.set(0, (fundoY + suproY) / 2, 0);
+    grupo.add(kolono);
+    for (let p = -nSube; p < nSupre; p++) {
+      const ang = p * paŝoAngulo;
+      const y = heliksaAltecxo(helikso, p / helikso.perTurno);
+      const paso = new THREE.Mesh(
+        new THREE.BoxGeometry(paŝoLargho, paŝoAlto, radiala),
+        sxtupMaterialo
+      );
+      paso.position.set(rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang));
+      paso.rotation.y = ang;
+      grupo.add(paso);
+    }
+    const relPunktoj: THREE.Vector3[] = [];
+    const relSegmentoj = Math.max(0o100, (helikso.turnoj + helikso.turnojSube) * 0o40);
+    for (let i = 0; i <= relSegmentoj; i++) {
+      const t = i / relSegmentoj;
+      const turno = -helikso.turnojSube + t * (helikso.turnoj + helikso.turnojSube);
+      const ang = turno * Math.PI * 2;
+      const y = Math.min(yT - 1/16, heliksaAltecxo(helikso, turno) + 3/4);
+      relPunktoj.push(new THREE.Vector3((helikso.rEkster + 1/8) * Math.sin(ang), y, (helikso.rEkster + 1/8) * Math.cos(ang)));
+    }
+    const relo = new THREE.Mesh(
+      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 1/24, 0o6, false),
+      oro
+    );
+    grupo.add(relo);
+  }
+
+  // Fronta stelvitralo kun ora kadro (ĉe la enira etaĝo) — modesta grandeco,
+  // por ke ĝi ne elstaru preter la konusa kareno en la ŝipŝelon.
+  // iomete enen de la muro, por ke la anguloj ne elstaru preter la ŝipŝelo
+  const vitraloZ = -(konusaR(19/4) - 1/4);
+  const vitralo = new THREE.Mesh(new THREE.PlaneGeometry(0o4, 21/8), vitra);
+  vitralo.position.set(0, 19/4, vitraloZ);
+  grupo.add(vitralo);
+  const vitKadro = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(0o4 + 1/8, 21/8 + 1/8, 1/32)),
+    new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 4/8 })
+  );
+  vitKadro.position.set(0, 19/4, vitraloZ);
+  grupo.add(vitKadro);
+
+  // Flankaj LONGAs horizontalaj RONDIGITAJ fenestroj (gluaj al la kareno) —
+  // mallongaj, por ke la plataj piloloj ne elstaru preter la kurba muro.
+  const kapsuloj: THREE.Mesh[] = [];
+  const rKaps = konusaR(3 - 11/32);
+  const kapsX = Math.sqrt(Math.max(1/4, rKaps * rKaps - (15/8) * (15/8)));
+  for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
+    const fenMat = brila.clone();
+    fenMat.side = THREE.DoubleSide;
+    const fen = new THREE.Mesh(new THREE.ShapeGeometry(kreiPilolFenestranFormon(11/8, 11/16), 0o40), fenMat);
+    fen.rotation.y = Math.PI / 2;
+    fen.position.set(sX * kapsX, 3 - 11/32, sZ * 15/8);
+    grupo.add(fen);
+    kapsuloj.push(fen);
+  }
+
+  // Konzolo kun brila ekrano
+  const konzolo = new THREE.Mesh(new THREE.BoxGeometry(4, 3/2, 1), kareno);
+  konzolo.position.set(0, 3/4, -5/2);
+  konzolo.rotation.x = -1/8;
+  konzolo.castShadow = true;
+  grupo.add(konzolo);
+  const ekrano = new THREE.Mesh(new THREE.PlaneGeometry(3, 1), brila.clone());
+  ekrano.position.set(0, 21/16, -49/16);
+  grupo.add(ekrano);
+
+  // Kapitana seĝo
+  const sidilo = new THREE.Mesh(new THREE.BoxGeometry(11/8, 3/8, 11/8), malhela);
+  sidilo.position.set(0, 3/8, -3/2);
+  sidilo.castShadow = true; grupo.add(sidilo);
+  const dorso = new THREE.Mesh(new THREE.BoxGeometry(11/8, 7/8, 1/4), kareno);
+  dorso.position.set(0, 11/16, -15/8);
+  grupo.add(dorso);
+  const tigo = new THREE.Mesh(new THREE.CylinderGeometry(1/8, 1/8, 3/8, 6), oro);
+  tigo.position.set(0, 3/16, -3/2);
+  grupo.add(tigo);
+
+  // Hologramo super la konzolo (la centro apartenas al la ŝtuparo)
+  const holoringo = new THREE.Mesh(new THREE.TorusGeometry(9/10, 1/20, 0o10, 0o40), brila);
+  holoringo.position.set(0, 7/2, -5/2);
+  grupo.add(holoringo);
+  const holoringo2 = new THREE.Mesh(new THREE.TorusGeometry(13/20, 1/20, 0o10, 0o40), brila);
+  holoringo2.position.set(0, 7/2, -5/2);
+  grupo.add(holoringo2);
+  const holosfero = new THREE.Mesh(new THREE.SphereGeometry(1/4, 0o12, 0o10), brila);
+  holosfero.position.set(0, 7/2, -5/2);
+  grupo.add(holosfero);
+  const hololumo = new THREE.PointLight(0x9fe8e0, 6/8, 0o20, 2);
+  hololumo.position.set(0, 7/2, -5/2);
+  grupo.add(hololumo);
+
+  // Aera pordo ĉe la malantaŭo (la enirejo): ora kadro kun brila panelo —
+  // modesta grandeco (0o3), por ke ĝi restu tute ene de la ŝipŝelo.
+  const aerZ = konusaR(7/2) - 1/4;
+  const aerKadro = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(0o3, 5, 1/32)),
+    new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 4/8 })
+  );
+  aerKadro.position.set(0, 7/2, aerZ);
+  grupo.add(aerKadro);
+  const aerPordo = new THREE.Mesh(new THREE.PlaneGeometry(0o3, 5), brila.clone());
+  aerPordo.position.set(0, 7/2, aerZ);
+  grupo.add(aerPordo);
+
+  // Lumigado
+  const ambiento = new THREE.HemisphereLight(0xbfe8e0, 0x06120e, 5/8);
+  grupo.add(ambiento);
+  const lumo = new THREE.PointLight(GOLD_WARM, 4/8, 0o14, 2);
+  lumo.position.set(0, 7, 0);
+  grupo.add(lumo);
+
+  // Animacioj: la hologramo rotacias, ekrano/fenestroj pulsas, la stelaro drivas.
+  const ekranoMat = ekrano.material as THREE.MeshStandardMaterial;
+  sys.animated.push({
+    update: (t: number) => {
+      holoringo.rotation.y = t * 6/10;
+      holoringo2.rotation.y = -t * 8/10;
+      holosfero.scale.setScalar(1 + 1/8 * Math.sin(t * 2));
+      ekranoMat.emissiveIntensity = 7/8 + 1/4 * Math.sin(t * 2);
+      const pulso = 3/8 + 1/4 * Math.sin(t * 3);
+      for (const k of kapsuloj) (k.material as THREE.MeshStandardMaterial).emissiveIntensity = pulso;
+      if (vitra.map) vitra.map.offset.x = (t * 1/60) % 1;
+    },
+  });
+
+  // La kabino flosas ĉe la sxipo (flugoY), ne sur la tero.
+  grupo.position.set(spec.x, spec.flugoY ?? (spec.h0 || 0), spec.z);
+  grupo.rotation.y = spec.rot || 0;
+  cxefaSceno.add(grupo);
+  sys.currentGroup = grupo;
+
+  // Enira punkto ĉe la malantaŭa aera pordo (sur la enira etaĝo).
+  return { x: 0, z: 5/2, y: 4/8, direkto: 0 };
+}
+
 export function kreiInternanSistemon(): InternaSistemo {
-  return { currentGroup: null, animated: [], plankoj: [], manĝaĵoj: [], vaporNuboj: [] };
+  return { currentGroup: null, animated: [], plankoj: [], helikso: null, manĝaĵoj: [], vaporNuboj: [] };
 }
 
 export function eniriInternon(
@@ -169,12 +551,34 @@ export function eniriInternon(
   }
   sys.animated = [];
   sys.plankoj = [];
+  sys.helikso = null;
+
+  // La kosmoporda stacio transportas rekte en la spacosxipon.
+  if (spec.type === "stacioxipo") {
+    sys.manĝaĵoj = [];
+    sys.vaporNuboj = [];
+    return eniriSxipanInternon(sys, spec, cxefaSceno);
+  }
 
   const w = Math.min(spec.w, 0o12);
   const d = Math.min(spec.d, 0o12);
   const tieroAlto = spec.tieroAlto;
   const niveloj = Math.min(spec.niveloj, 0o10);
+  const sube = Math.min(spec.sube || 0, 3);
+  const tieroAltoSub = spec.tieroAltoSub || tieroAlto;
   const isSanktejo = spec.type === "sanktejo";
+
+  // Helica ŝtuparo: unu plena turno po etaĝo, atingante ĉiujn etaĝojn (supre
+  // kaj la sub-terajn nivelojn). La ringa planko-truo egalas la eksteran rampan
+  // radion, do oni povas paŝi rekte de la ŝtupoj sur la etaĝon.
+  const helikso: HeliksoInfo | null = niveloj > 1 ? {
+    rKol: 3/8, rEkster: 1, perTurno: 0o14, turnoAlto: tieroAlto, turnoAltoSub: tieroAltoSub,
+    turnoj: niveloj - 1, turnojSube: sube,
+  } : null;
+  sys.helikso = helikso;
+  // La truo estas ĝuste ĉe la ekstera rampa rando, do la ringa planko komenciĝas
+  // kie la ŝtupoj finiĝas — la ludanto povas foriri de la spiralo al la etaĝoj.
+  const sxaktaR = helikso ? helikso.rEkster : 0;
 
   // Materialoj
   const koloro = isSanktejo ? 0x0d2218 : PINE;
@@ -200,7 +604,7 @@ export function eniriInternon(
   // Komunaj materialoj por dekoracioj
   const oraBazaMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 3/8 });
   const oraKadroMaterialo = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 4/8 });
-  const oraMullionoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 2/8 });
+  const oraArkoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 3/8, side: THREE.DoubleSide });
   const oraNazoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 3/8 });
   const oraTrimMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 3/8 });
   const oraCxapoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 4/8 });
@@ -210,19 +614,28 @@ export function eniriInternon(
   const metalaMaterialo = new THREE.MeshStandardMaterial({ color: 0x806838, metalness: 5/8, roughness: 5/8 });
   const helaMaterialo = new THREE.MeshStandardMaterial({ color: 0xb8d8c8, emissive: 0x385848, emissiveIntensity: 4/8, roughness: 4/8 });
 
-  // Konstruu cxiun etaĝon kun apartaj funkciaj mebloj
-
+  // Konstruu ĉiujn etaĝojn — sub-terajn (negativaj y) kaj suprajn — per la sama
+  // reuzebla kodo, por ke oni povu malsupreniri al la subaj niveloj.
+  const etaĝoj: { y: number; hw: number; hd: number; alto: number; et: number }[] = [];
+  for ( let j = sube; j >= 1; j-- ) {
+    const redukto = j * 6/5;
+    etaĝoj.push({ y: -j * tieroAltoSub, hw: Math.max(3/2, w / 2 - redukto), hd: Math.max(3/2, d / 2 - redukto), alto: tieroAltoSub, et: -j });
+  }
   for ( let et = 0; et < niveloj; et++ ) {
-    const y = et * tieroAlto;
     const redukto = et * 6/5;
-    const hw = Math.max(3/2, w / 2 - redukto);
-    const hd = Math.max(3/2, d / 2 - redukto);
+    etaĝoj.push({ y: et * tieroAlto, hw: Math.max(3/2, w / 2 - redukto), hd: Math.max(3/2, d / 2 - redukto), alto: tieroAlto, et });
+  }
 
-    sys.plankoj.push({ y, hw, hd, alto: tieroAlto });
+  for ( const etaĝo of etaĝoj ) {
+    const { y, hw, hd, alto, et } = etaĝo;
 
-    // Planko
+    sys.plankoj.push({ y, hw, hd, alto });
+
+    // Planko ( kun cirkla truo por la helika ŝtuparo sur ĉiuj etaĝoj krom la teretaĝo )
     const planko = new THREE.Mesh(
-      new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(-Math.PI / 2),
+      helikso && et !== 0
+        ? kreiRinganPlankon(hw, hd, sxaktaR, -Math.PI / 2)
+        : new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(-Math.PI / 2),
       plankoMaterialo
     );
     planko.position.set(0, y + 1/32, 0);
@@ -239,13 +652,15 @@ export function eniriInternon(
       }
     }
 
-    // Plafono krom cxe la supra etagxo
+    // Plafono krom cxe la supra etagxo ( kun truo por la helika ŝtuparo )
     if ( et < niveloj - 1 ) {
       const plafono = new THREE.Mesh(
-        new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(Math.PI / 2),
+        helikso
+          ? kreiRinganPlankon(hw, hd, sxaktaR, Math.PI / 2)
+          : new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(Math.PI / 2),
         plafonaMaterialo
       );
-      plafono.position.set(0, y + tieroAlto - 1/32, 0);
+      plafono.position.set(0, y + alto - 1/32, 0);
       group.add(plafono);
     }
 
@@ -255,16 +670,16 @@ export function eniriInternon(
       const pordLargho = 3/2;
       // Pordo sufiĉe alta por la okulnivelo de la ludanto (≈ 2.16),
       // sed lasu al la arko sufiĉan liberecon sub la plafono
-      const pordAlto = Math.min( tieroAlto * 3/4, tieroAlto - 7/8 );
+      const pordAlto = Math.min( alto * 3/4, alto - 7/8 );
       const arkRadiuso = pordLargho / 2;
       const arkSegmentoj = 0o10;
 
       // Muro maldekstre de la pordo
-      konstruiMuron(group, -hw, 0, hw - pordLargho / 2, y, tieroAlto, 3/16, muraMaterialo, 0, hd);
+      konstruiMuron(group, -hw, 0, hw - pordLargho / 2, y, alto, 3/16, muraMaterialo, 0, hd);
       // Muro dekstre de la pordo
-      konstruiMuron(group, pordLargho / 2, 0, hw - pordLargho / 2, y, tieroAlto, 3/16, muraMaterialo, 0, hd);
+      konstruiMuron(group, pordLargho / 2, 0, hw - pordLargho / 2, y, alto, 3/16, muraMaterialo, 0, hd);
       // Muro super la pordo
-      konstruiMuron(group, -pordLargho / 2, pordAlto, pordLargho, y, tieroAlto - pordAlto, 3/16, muraMaterialo, 0, hd);
+      konstruiMuron(group, -pordLargho / 2, pordAlto, pordLargho, y, alto - pordAlto, 3/16, muraMaterialo, 0, hd);
 
       // Arka porda kapo — ora rando ĝuste antaŭ la interna muro-faco (ne entombigita)
       const arkGeo = kreiArkFormon(arkRadiuso, arkSegmentoj, 3/16);
@@ -291,80 +706,22 @@ export function eniriInternon(
       sojlo.position.set(0, y, hd - 1/16);
       group.add(sojlo);
     } else {
-      // Plena muro sur la supraj etagxoj
-      konstruiMuron(group, -hw, 0, hw * 2, y, tieroAlto, 3/16, muraMaterialo, 0, hd);
+      // Plena muro sur la supraj kaj sub-teraj etagxoj
+      konstruiMuron(group, -hw, 0, hw * 2, y, alto, 3/16, muraMaterialo, 0, hd);
     }
 
-    // Malantaŭa muro kun longa horizontala fenestro
-    const fenLargho = Math.min( hw * 2 - 1, 5 );
-    const fenAlto = tieroAlto * 2/8;
-    const fenY = y + tieroAlto * 4/8 - fenAlto / 2;
-    // Muraj segmentoj ĉirkaŭ la fenestro
-    konstruiMuron(group, -hw, 0, (hw * 2 - fenLargho) / 2, y, tieroAlto, 3/16, muraMaterialo, 0, -hd);
-    konstruiMuron(group, (hw * 2 - fenLargho) / 2 + fenLargho, 0, (hw * 2 - fenLargho) / 2, y, tieroAlto, 3/16, muraMaterialo, 0, -hd);
-    konstruiMuron(group, -hw, 0, hw * 2, y, fenY - y, 3/16, muraMaterialo, 0, -hd);
-    konstruiMuron(group, -hw, fenY + fenAlto - y, hw * 2, y, tieroAlto - fenY - fenAlto, 3/16, muraMaterialo, 0, -hd);
+    // Malantaŭa muro: unu centrita longa horizontala rondigita fenestro
+    aldoniLonganFenestron(group, 0, -hd, y, alto, hw, "malantaŭ", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
 
-    // Longa horizontala rondigita fenestro
-    const fenSegmentoj = 0o14;
-    const fenArkRadiuso = fenAlto / 2;
-    // Fenestra panelo
-    const fenGeo = new THREE.PlaneGeometry(fenLargho, fenAlto);
-    const fen = new THREE.Mesh(fenGeo, fenestraMaterialo);
-    fen.position.set( 0, fenY + fenAlto / 2, -hd + 1/32 );
-    group.add(fen);
-    // Ora fenestrokadro
-    const fenKadro = new THREE.LineSegments(
-      new THREE.EdgesGeometry( new THREE.BoxGeometry( fenLargho + 1/8, fenAlto + 1/8, 1/32 )),
-      oraKadroMaterialo
-    );
-    fenKadro.position.set( 0, fenY + fenAlto / 2, -hd + 1/32 );
-    group.add(fenKadro);
-    // Vertikalaj oraj fenestrokrucoj
-    for ( let m = -1; m <= 1; m += 2 ) {
-      const mul = new THREE.Mesh(
-        new THREE.BoxGeometry( 1/32, fenAlto - 1/8, 1/16 ),
-        oraMullionoMaterialo
-      );
-      mul.position.set( m * fenLargho * 2/8, fenY + fenAlto / 2, -hd + 1/32 );
-      group.add(mul);
-    }
+    // Maldekstra muro: unu centrita longa horizontala rondigita fenestro
+    aldoniLonganFenestron(group, -hw, 0, y, alto, hd, "maldekstra", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
 
-    // Maldekstra muro kun fenestro laŭ la Z-akso
-    konstruiMuron(group, -hd, 0, (hd * 2 - fenLargho) / 2, y, tieroAlto, 3/16, muraMaterialo, -hw, 0, Math.PI / 2);
-    konstruiMuron(group, (hd * 2 - fenLargho) / 2 + fenLargho, 0, (hd * 2 - fenLargho) / 2, y, tieroAlto, 3/16, muraMaterialo, -hw, 0, Math.PI / 2);
-    konstruiMuron(group, -hd, 0, hd * 2, y, fenY - y, 3/16, muraMaterialo, -hw, 0, Math.PI / 2);
-    konstruiMuron(group, -hd, fenY + fenAlto - y, hd * 2, y, tieroAlto - fenY - fenAlto, 3/16, muraMaterialo, -hw, 0, Math.PI / 2);
-    const fenL = new THREE.Mesh(new THREE.PlaneGeometry(fenAlto, fenLargho), fenestraMaterialo);
-    fenL.position.set( -hw + 1/32, fenY + fenAlto / 2, 0 );
-    fenL.rotation.y = Math.PI / 2;
-    group.add(fenL);
-    const fenLk = new THREE.LineSegments(
-      new THREE.EdgesGeometry( new THREE.BoxGeometry( 1/32, fenAlto + 1/8, fenLargho + 1/8 )),
-      oraKadroMaterialo
-    );
-    fenLk.position.set( -hw + 1/32, fenY + fenAlto / 2, 0 );
-    group.add(fenLk);
-
-    // Dekstra muro kun fenestro laŭ la Z-akso
-    konstruiMuron(group, -hd, 0, (hd * 2 - fenLargho) / 2, y, tieroAlto, 3/16, muraMaterialo, hw, 0, -Math.PI / 2);
-    konstruiMuron(group, (hd * 2 - fenLargho) / 2 + fenLargho, 0, (hd * 2 - fenLargho) / 2, y, tieroAlto, 3/16, muraMaterialo, hw, 0, -Math.PI / 2);
-    konstruiMuron(group, -hd, 0, hd * 2, y, fenY - y, 3/16, muraMaterialo, hw, 0, -Math.PI / 2);
-    konstruiMuron(group, -hd, fenY + fenAlto - y, hd * 2, y, tieroAlto - fenY - fenAlto, 3/16, muraMaterialo, hw, 0, -Math.PI / 2);
-    const fenR = new THREE.Mesh(new THREE.PlaneGeometry(fenAlto, fenLargho), fenestraMaterialo);
-    fenR.position.set( hw - 1/32, fenY + fenAlto / 2, 0 );
-    fenR.rotation.y = -Math.PI / 2;
-    group.add(fenR);
-    const fenRk = new THREE.LineSegments(
-      new THREE.EdgesGeometry( new THREE.BoxGeometry( 1/32, fenAlto + 1/8, fenLargho + 1/8 )),
-      oraKadroMaterialo
-    );
-    fenRk.position.set( hw - 1/32, fenY + fenAlto / 2, 0 );
-    group.add(fenRk);
+    // Dekstra muro: unu centrita longa horizontala rondigita fenestro
+    aldoniLonganFenestron(group, hw, 0, y, alto, hd, "dekstra", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
 
     // Dikaj oraj angulaj kolonoj kun supra ekflaro
     const kolDikeco = 7/32;
-    const kolAlto = tieroAlto;
+    const kolAlto = alto;
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
       // Ĉefa kolona korpo
       const kol = new THREE.Mesh(
@@ -400,96 +757,46 @@ export function eniriInternon(
         new THREE.BoxGeometry( 1/8, 1/8, 1/8 ),
         kadraMaterialo
       );
-      lampBazo.position.set( lx, y + tieroAlto * 5/8, hd - 1/32 );
+      lampBazo.position.set( lx, y + alto * 5/8, hd - 1/32 );
       group.add(lampBazo);
       // Varma punktolumo
       const lumo = new THREE.PointLight( GOLD_WARM, 2/8, 5, 2 );
-      lumo.position.set( lx, y + tieroAlto * 5/8, hd - 3/8 );
+      lumo.position.set( lx, y + alto * 5/8, hd - 3/8 );
       group.add(lumo);
       // Malgranda brila sfero
       const glo = new THREE.Mesh(
         new THREE.SphereGeometry( 1/16, 0o10, 0o6 ),
         new THREE.MeshBasicMaterial({ color: GOLD_WARM, transparent: true, opacity: 3/16 })
       );
-      glo.position.set( lx, y + tieroAlto * 5/8, hd - 3/8 );
+      glo.position.set( lx, y + alto * 5/8, hd - 3/8 );
       group.add(glo);
     }
 
     // Vertikala skribplato sur la antauxa muro
     if ( et === 0 && spec.name ) {
       const plakedInk = "#" + GOLD.toString(16).padStart(6, "0");
-      const plakedo = generiSkriptanTeksajxon({
-        seedName: spec.name, w: 0o120, h: 0o300, ink: plakedInk, bg: "#" + DEEP.toString(16).padStart(6, "0"),
+      // Larĝo 0o136 (94) kongruas la aspekton de la plato (4/5 × 13/8).
+      // Travidebla plato: nur la teksto montrigxas super la muro (neniu nigra bloko).
+      const plakedo = generiSkribanTeksajxon(nomoAih(spec.name), {
+        w: 0o136, h: 0o300, ink: plakedInk,
       });
       // Alta vertikala skribplato
       const surfaco = new THREE.Mesh(
         new THREE.PlaneGeometry( 4/5, 13/8 ),
         new THREE.MeshStandardMaterial({ map: plakedo, transparent: true, roughness: 19/64, metalness: 45/64 })
       );
-      surfaco.position.set( 0, y + tieroAlto * 3/8, hd - 1/16 );
+      surfaco.position.set( 0, y + alto * 3/8, hd - 1/16 );
       group.add(surfaco);
       // Dekora ora kadro ĉirkaŭ la plato
       const pkadro = new THREE.LineSegments(
         new THREE.EdgesGeometry( new THREE.BoxGeometry( 1, 14/8, 1/32 )),
         new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 4/8 })
       );
-      pkadro.position.set( 0, y + tieroAlto * 3/8, hd - 1/32 );
+      pkadro.position.set( 0, y + alto * 3/8, hd - 1/32 );
       group.add(pkadro);
     }
 
-    // Sxtupoj al la sekva etagxo
-    if ( et < niveloj - 1 ) {
-      const sxtupNombro = Math.max(4, Math.floor(tieroAlto / 3));
-      const sxtupAlto = tieroAlto / sxtupNombro;
-      const sxtupProf = 4/5 / sxtupNombro;
-      const sxLargho = Math.min( hw * 2 * 3/8, 7/2 );
-      const sxtupZ0 = -3/8;
-      for ( let s = 0; s < sxtupNombro; s++ ) {
-        const bazoY = y + s * sxtupAlto;
-        const zB = sxtupZ0 + s * sxtupProf;
-        // Plato ( paŝa surfaco ) — la supro atingas ekzakte la sekvan etaĝon
-        const plato = new THREE.Mesh(
-          new THREE.BoxGeometry( sxLargho, sxtupAlto, sxtupProf ),
-          sxtupMaterialo
-        );
-        plato.position.set( 0, bazoY + sxtupAlto / 2, zB + sxtupProf / 2 );
-        group.add( plato );
-        // Ora nazo sur la antaŭa rando de ĉiu plato
-        const nazo = new THREE.Mesh(
-          new THREE.BoxGeometry( sxLargho + 1/16, 1/16, 1/16 ),
-          oraNazoMaterialo
-        );
-        nazo.position.set( 0, bazoY + sxtupAlto - 1/32, zB );
-        group.add( nazo );
-      }
-      // Flankaj stringers ( muroj de la sxtuparo ) kun ora mano-relo
-      const sxtupLongo = sxtupNombro * sxtupProf + 3/8;
-      const sxtupZMezo = sxtupZ0 + sxtupNombro * sxtupProf / 2;
-      for ( const sX of [ -1, 1 ] ) {
-        const sxtupMuro = new THREE.Mesh(
-          new THREE.BoxGeometry( 1/16, tieroAlto, sxtupLongo ),
-          muraMaterialo
-        );
-        sxtupMuro.position.set( sX * ( sxLargho / 2 + 1/8 ), y + tieroAlto / 2, sxtupZMezo );
-        group.add(sxtupMuro);
-        // Ora mano-relo laŭ la supro de la stringer
-        const relo = new THREE.Mesh(
-          new THREE.BoxGeometry( 1/16, 1/16, sxtupLongo ),
-          oraTrimMaterialo
-        );
-        relo.position.set( sX * ( sxLargho / 2 + 1/8 ), y + tieroAlto * 3/4, sxtupZMezo );
-        group.add( relo );
-        // Ora bordero sur la sxtupaj muroj
-        const trim = new THREE.Mesh(
-          new THREE.BoxGeometry( 1/32, tieroAlto * 1/64, sxtupLongo ),
-          oraTrimMaterialo
-        );
-        trim.position.set( sX * ( sxLargho / 2 + 3/16 ), y + tieroAlto * 31/32, sxtupZMezo );
-        group.add(trim);
-      }
-    }
-
-    aldoniInternanMeblaron( group, spec.type, hw, hd, y, tieroAlto, et, niveloj,
+    aldoniInternanMeblaron( group, spec.type, hw, hd, y, alto, et, niveloj,
       lignaMaterialo, metalaMaterialo, helaMaterialo );
 
     // Plafonaj traboj kun oraj akcentoj
@@ -501,19 +808,80 @@ export function eniriInternon(
           new THREE.BoxGeometry( 5/32, 5/32, hd * 2 - 3/8 ),
           trabaMaterialo
         );
-        trabo.position.set(tx, y + tieroAlto - 2/32, 0);
+        trabo.position.set(tx, y + alto - 2/32, 0);
         group.add(trabo);
         // Ora trabokapo
         const cxapo = new THREE.Mesh(
           new THREE.BoxGeometry(7/32, 3/32, 4/32),
           oraCxapoMaterialo
         );
-        cxapo.position.set( tx, y + tieroAlto - 2/32 + 4/32, hd - 1/4 );
+        cxapo.position.set( tx, y + alto - 2/32 + 4/32, hd - 1/4 );
         group.add(cxapo);
         cxapo.position.set( tx, y + tieroAlto - 2/32 + 4/32, -hd + 1/4 );
         group.add(cxapo.clone());
       }
     }
+  }
+
+  // Helica ŝtuparo tra la tuta turo — unu plena turno po etaĝo, kun ora
+  // spirala manrelo. La spiralo kovras kaj la suprajn kaj la sub-terajn etaĝojn;
+  // la piedira alteco sekvas la spiralon (vidu sperto.ts).
+  if ( helikso ) {
+    const rMezo = ( helikso.rKol + helikso.rEkster ) / 2;
+    const radiala = helikso.rEkster - helikso.rKol;
+    const paŝoAngulo = Math.PI * 2 / helikso.perTurno;
+    const paŝoAltoSupre = helikso.turnoAlto / helikso.perTurno;
+    const paŝoAltoSube = helikso.turnoAltoSub / helikso.perTurno;
+    const paŝoLargho = rMezo * paŝoAngulo * 12/10;
+    const nSube = helikso.turnojSube * helikso.perTurno;
+    const nSupre = helikso.turnoj * helikso.perTurno;
+    const fundoY = heliksaAltecxo( helikso, -helikso.turnojSube );
+    const suproY = heliksaAltecxo( helikso, helikso.turnoj ) + 4/8;
+    // Centra ligna kolono (supren kaj sub la teron)
+    const kolono = new THREE.Mesh(
+      new THREE.CylinderGeometry( helikso.rKol, helikso.rKol * 11/10, suproY - fundoY, 0o16 ),
+      lignaMaterialo
+    );
+    kolono.position.set( 0, ( fundoY + suproY ) / 2, 0 );
+    kolono.castShadow = true;
+    group.add( kolono );
+    // Paŝoj ĉirkaŭ la kolono — sub-teraj turnoj (negativaj) kaj supraj turnoj
+    for ( let p = -nSube; p < nSupre; p++ ) {
+      const ang = p * paŝoAngulo;
+      const paŝoAlto = p < 0 ? paŝoAltoSube : paŝoAltoSupre;
+      const y = heliksaAltecxo( helikso, p / helikso.perTurno );
+      const paso = new THREE.Mesh(
+        new THREE.BoxGeometry( paŝoLargho, paŝoAlto, radiala ),
+        sxtupMaterialo
+      );
+      paso.position.set( rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang) );
+      paso.rotation.y = ang;
+      paso.castShadow = true;
+      group.add( paso );
+      // Ora nazo sur la antaŭa rando de ĉiu paŝo
+      const nazo = new THREE.Mesh(
+        new THREE.BoxGeometry( paŝoLargho + 1/16, 1/16, 1/16 ),
+        oraNazoMaterialo
+      );
+      nazo.position.set( ( helikso.rEkster - 1/32 ) * Math.sin(ang), y + paŝoAlto - 1/32, ( helikso.rEkster - 1/32 ) * Math.cos(ang) );
+      nazo.rotation.y = ang;
+      group.add( nazo );
+    }
+    // Ora spirala manrelo laŭ la ekstera rando (tra la tuta spiralo)
+    const relPunktoj: THREE.Vector3[] = [];
+    const relSegmentoj = Math.max( 0o100, ( helikso.turnoj + helikso.turnojSube ) * 0o40 );
+    for ( let i = 0; i <= relSegmentoj; i++ ) {
+      const t = i / relSegmentoj;
+      const turno = -helikso.turnojSube + t * ( helikso.turnoj + helikso.turnojSube );
+      const ang = turno * Math.PI * 2;
+      const y = heliksaAltecxo( helikso, turno ) + 3/4;
+      relPunktoj.push( new THREE.Vector3( ( helikso.rEkster + 1/8 ) * Math.sin(ang), y, ( helikso.rEkster + 1/8 ) * Math.cos(ang) ) );
+    }
+    const relo = new THREE.Mesh(
+      new THREE.TubeGeometry( new THREE.CatmullRomCurve3( relPunktoj ), relSegmentoj, 1/24, 0o6, false ),
+      kadraMaterialo
+    );
+    group.add( relo );
   }
 
   // Atmosfera lumigado
@@ -613,6 +981,7 @@ export function eliriInternon(sys: InternaSistemo, cxefaSceno: THREE.Scene): voi
   }
   sys.animated = [];
   sys.plankoj = [];
+  sys.helikso = null;
   sys.manĝaĵoj = [];
   sys.vaporNuboj = [];
 }
@@ -630,6 +999,20 @@ export function gxisdatigiInternon(sys: InternaSistemo, t: number): void {
       pos.needsUpdate = true;
     }
   }
+}
+
+// Ringa planko — kvadrato kun cirkla truo por la helika ŝtuparo.
+function kreiRinganPlankon( hw: number, hd: number, r: number, rotacio: number ): THREE.BufferGeometry {
+  const s = new THREE.Shape();
+  s.moveTo( -hw, -hd );
+  s.lineTo( hw, -hd );
+  s.lineTo( hw, hd );
+  s.lineTo( -hw, hd );
+  s.closePath();
+  const truo = new THREE.Path();
+  truo.absarc( 0, 0, r, 0, Math.PI * 2, true );
+  s.holes.push( truo );
+  return new THREE.ShapeGeometry( s, 0o30 ).rotateX( rotacio );
 }
 
 // Helfunkcio por konstrui muron el skatolo

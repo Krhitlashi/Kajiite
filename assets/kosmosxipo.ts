@@ -1,7 +1,9 @@
 // Kosmosxipa modulo — ciel-rombo ciela transporto de ornaveth-v2
-// 5 tieroj supren, 3 malsupren, kapsulaj fenestroj cxe cxiu nivelo
-// Rondigitaj rombo-enirejoj kun ora ornamo, soklo, brila ringo, plakedo, pordo
+// 5 tieroj supren, 5 malsupren (spegulitaj), LONGAs horizontalaj RONDIGITAJ fenestroj
+// sur cxiu nivelo krom la centra (kie la pordoj estas); flosas libere sen soklo aŭ signo
 import * as THREE from "three";
+import { aldoniKadranTubon, kreiKlinoTavolon } from "./zigurato-konstruilo.js";
+import { kreiPilolFenestranFormon } from "./internoj.js";
 
 // Rondigita rombo-formo (uzata por enirejoj)
 function rondigitaRomboFormo(w: number, h: number, n: number = 99/64, seg: number = 0o100): THREE.Shape {
@@ -18,18 +20,6 @@ function rondigitaRomboFormo(w: number, h: number, n: number = 99/64, seg: numbe
   return s;
 }
 
-function kadraTubo(cX: number, cZ: number, yB: number, yT: number, sX: number, sZ: number, upward: boolean): THREE.TubeGeometry {
-  const out = 33/64, over = 9/16;
-  const curve = upward
-    ? new THREE.QuadraticBezierCurve3( new THREE.Vector3(cX, yB - 1/8, cZ),
-        new THREE.Vector3(cX, yT - 13/32, cZ),
-        new THREE.Vector3(cX + sX * out, yT + over, cZ + sZ * out))
-    : new THREE.QuadraticBezierCurve3( new THREE.Vector3(cX, yT + 1/8, cZ),
-        new THREE.Vector3(cX, yB + 13/32, cZ),
-        new THREE.Vector3(cX + sX * out, yB - over, cZ + sZ * out));
-  return new THREE.TubeGeometry(curve, 0o12, 1/8, 6, false);
-}
-
 export interface CielDiamanto {
   group: THREE.Group;
   windows: THREE.Mesh[];
@@ -37,17 +27,14 @@ export interface CielDiamanto {
   doorDir: THREE.Vector3;
 }
 
-// konstruiCielDiamanton — Konstruu la spacosxipon kun diamant-formaj enirejoj kaj kapsulaj fenestroj.
+// konstruiCielDiamanton — Konstruu la spacosxipon kun diamant-formaj enirejoj kaj LONGAs horizontalaj rondigitaj fenestroj.
 export function konstruiCielDiamanton( sceno: THREE.Scene,
   x: number, y: number, z: number,
-  name: string,
   oraMaterialo: THREE.MeshStandardMaterial,
-  eniraMaterialo: THREE.MeshStandardMaterial,
-  andezitaMaterialo: THREE.MeshStandardMaterial,
-  scriptTex: THREE.Texture | null
+  eniraMaterialo: THREE.MeshStandardMaterial
 ): CielDiamanto {
   const group = new THREE.Group();
-  const tieroAlto = 115/32, up = 5, down = 3, hw0 = 4;
+  const tieroAlto = 115/32, up = 5, down = up, hw0 = 4;
   const ins = (4 - 83/64) / 4;
   const face = Math.atan2(-x, -z);
 
@@ -61,22 +48,40 @@ export function konstruiCielDiamanton( sceno: THREE.Scene,
   const murajGeometrioj: THREE.BufferGeometry[] = [];
   const kadrajGeometrioj: THREE.BufferGeometry[] = [];
 
-  // Suprenaj tieroj
+  // La sxipo reuzas la KONSTRUAJX-tavolojn (klinitaj trapezoidoj) por la supraj
+  // kaj subaj partoj — ambaŭ finoj kurbigas. La meza sekcio restas plata.
+  // La klinitaj tavoloj ricevas klinitajn pilierojn (klino), kaj la flipped subaj
+  // pilieroj montras siajn foliojn pinton-malsupren (folio defaŭlte = true).
+  const klino = 5/16;
+  // Suprenaj tieroj — samaj diamantaj angul-pilieroj kiel la konstruajxoj
   for ( let i = 0; i < up; i++ ) {
     const hw = hw0 - i * ins;
-    const yT = i * tieroAlto;
-    murajGeometrioj.push(new THREE.BoxGeometry(hw * 2, tieroAlto, hw * 2).translate(0, yT + tieroAlto / 2, 0));
+    const yB = i * tieroAlto, yT = yB + tieroAlto;
+    const klinita = i >= up - 2;   // la supraj du tavoloj klinigxas
+    if ( klinita ) {
+      murajGeometrioj.push(kreiKlinoTavolon(hw, hw, hw - klino, hw - klino, tieroAlto).translate(0, yB + tieroAlto / 2, 0));
+    } else {
+      murajGeometrioj.push(new THREE.BoxGeometry(hw * 2, tieroAlto, hw * 2).translate(0, yB + tieroAlto / 2, 0));
+    }
     for (const a of [ -1, 1 ]) for ( const b of [ -1, 1 ] ) {
-      kadrajGeometrioj.push(kadraTubo(a * hw, b * hw, yT, yT + tieroAlto, a, b, true));
+      aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yB, yT, a, b, true, klinita ? klino : 0);
     }
   }
-  // Malsuprenaj tieroj
+  // Malsuprenaj tieroj — la PRECIZA vertikala spegulo de la supraj (samaj larĝoj,
+  // samaj klinoj, inverse): la suba duono spegulas la supran, do la sxipo aspektas
+  // spegulita ambaŭflanke de la centro. La klinitaj tavoloj klinigxas inverse
+  // (pli larĝaj supre, pinton suben).
   for ( let j = 1; j <= down; j++ ) {
-    const hw = hw0 - j * ins;
+    const hw = hw0 - (j - 1) * ins;
     const yTop = -(j - 1) * tieroAlto, yBot = -j * tieroAlto;
-    murajGeometrioj.push(new THREE.BoxGeometry(hw * 2, tieroAlto, hw * 2).translate(0, (yTop + yBot) / 2, 0));
+    const klinita = (j - 1) >= up - 2;
+    if ( klinita ) {
+      murajGeometrioj.push(kreiKlinoTavolon(hw - klino, hw - klino, hw, hw, tieroAlto).translate(0, (yTop + yBot) / 2, 0));
+    } else {
+      murajGeometrioj.push(new THREE.BoxGeometry(hw * 2, tieroAlto, hw * 2).translate(0, (yTop + yBot) / 2, 0));
+    }
     for (const a of [ -1, 1 ]) for ( const b of [ -1, 1 ] ) {
-      kadrajGeometrioj.push(kadraTubo(a * hw, b * hw, yBot, yTop, a, b, false));
+      aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yBot, yTop, a, b, false, klinita ? klino : 0);
     }
   }
 
@@ -85,7 +90,9 @@ export function konstruiCielDiamanton( sceno: THREE.Scene,
   group.add(muroj);
   group.add(new THREE.Mesh(kunfandiGeometriojn(kadrajGeometrioj), oraMaterialo));
 
-  // Rondigitaj rombo-enirejoj sur 4 flankoj
+  // Rondigitaj rombo-pordoj sur ĈIUJ 4 flankoj, CENTRITAJ je y=0 (la spegula
+  // centro de la sxipo): la pordoj speguligxas supren kaj suben, kaj la centraj
+  // tavoloj (kie la pordoj estas) ricevas neniun fenestron.
   const rombaFormo = rondigitaRomboFormo(147/64, 24/8);
   for ( let f = 0; f < 4; f++ ) {
     const enirejaGeometrio = new THREE.ExtrudeGeometry(rombaFormo, {
@@ -94,12 +101,12 @@ export function konstruiCielDiamanton( sceno: THREE.Scene,
     });
     const enirejaMreto = new THREE.Mesh(enirejaGeometrio, eniraMaterialo);
     enirejaMreto.rotation.y = f * Math.PI / 2;
-    enirejaMreto.position.set( Math.sin(f * Math.PI / 2) * (hw0 - 1/64), 51/32,
+    enirejaMreto.position.set( Math.sin(f * Math.PI / 2) * (hw0 - 1/64), 0,
       Math.cos(f * Math.PI / 2) * (hw0 - 1/64) );
     group.add(enirejaMreto);
 
     // Ora ornama konturo
-    const konturo = rombaFormo.getPoints(0o30).map(p => new THREE.Vector3(p.x, p.y + 51/32, 0));
+    const konturo = rombaFormo.getPoints(0o30).map(p => new THREE.Vector3(p.x, p.y, 0));
     const ornamo = new THREE.Mesh( new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "catmullrom", 19/32), 0o60, 1/16, 6, true),
       oraMaterialo );
     ornamo.rotation.y = f * Math.PI / 2;
@@ -108,40 +115,68 @@ export function konstruiCielDiamanton( sceno: THREE.Scene,
     group.add(ornamo);
   }
 
-  // Kapsulaj fenestroj sur cxiu nivelo
-  const niveloj: { y: number; hw: number }[] = [];
-  for (let i = 1; i < up; i++) niveloj.push({ y: i * tieroAlto + tieroAlto / 2, hw: hw0 - i * ins });
-  for (let j = 1; j <= down; j++) niveloj.push({ y: -j * tieroAlto + tieroAlto / 2, hw: hw0 - j * ins });
+  // Fenestroj sur cxiu nivelo krom la centraj — sur klinitaj tavoloj la fenestro
+  // estas TURNITA je la klin-angulo, por ke gxi kusxu plate sur la klinita muro
+  // (la malnova vertikala fenestro enigxis aŭ elstaris ce la randoj de klinitaj
+  // muroj). La faco estas la mur-radiuso CE LA FENESTRA CENTRO (hw − klino/2).
+  const fenAlto = Math.min(5/8, tieroAlto * 3/10);
+  const klinaAngulo = Math.atan(klino / tieroAlto);
+  // Fenestroj sur ĈIUJ tavoloj KROM la centraj (i=0 kaj j=1), kie la pordoj estas.
+  const niveloj: { y: number; faco: number; klinita: boolean; suba: boolean }[] = [];
+  for (let i = 1; i < up; i++) {
+    const hw = hw0 - i * ins;
+    const klinita = i >= up - 2;
+    niveloj.push({ y: i * tieroAlto + tieroAlto / 2, faco: klinita ? hw - klino / 2 : hw, klinita, suba: false });
+  }
+  // Subaj fenestroj — precizaj speguloj de la supraj (samaj facoj, INVERSA klino).
+  for (let j = 2; j <= down; j++) {
+    const hw = hw0 - (j - 1) * ins;
+    const klinita = (j - 1) >= up - 2;
+    niveloj.push({ y: -j * tieroAlto + tieroAlto / 2, faco: klinita ? hw - klino / 2 : hw, klinita, suba: true });
+  }
 
   const fenestrajMretoj: THREE.Mesh[] = [];
   for ( const lv of niveloj ) {
-    const longo = Math.max(77/64, lv.hw * 77/64);
+    // LONGAs horizontala RONDIGITA (pilola) fenestro, plata kontraŭ la muro-faco.
+    // Larĝo laŭ la tavolflanko: pli longa sur pli longaj tavoloj.
+    const ww = Math.min(lv.faco * 2 - 3/8, lv.faco * 4/3 + 1/4);
     for ( let f = 0; f < 4; f++ ) {
-      const w = new THREE.Mesh( new THREE.CapsuleGeometry(4/8, longo, 4, 0o12).rotateZ(Math.PI / 2),
+      // Unu grupo po faco: turnita al la muro; sur klinitaj tavoloj la fenestro
+      // sidas en loka sub-grupo klinita per la mur-deklivo (rotacio ĉirkaŭ la
+      // larĝa akso de la fenestro, do gxi kusxas plate sur la muro). La SUBAJ
+      // muroj klinigxas inverse, do ilia fenestro-tilo havas la OPPOSAN signon —
+      // alie la fenestro flosus eksteren de la muro.
+      const faco = new THREE.Group();
+      faco.rotation.y = f * Math.PI / 2;
+      const monto = lv.klinita ? new THREE.Group() : faco;
+      if (lv.klinita) { monto.rotation.x = lv.suba ? klinaAngulo : -klinaAngulo; faco.add(monto); }
+      // Densa sampado de la pilolo — la arkoj aspektas RONDIĜITAJ (la malnova
+      // 0o24 lasis la duoncirklajn finojn facete poligonaj).
+      const w = new THREE.Mesh( new THREE.ShapeGeometry(kreiPilolFenestranFormon(ww, fenAlto), 0o100),
         fenestraMaterialo );
-      w.scale.set(1, 1, 19/64);
-      w.rotation.y = f * Math.PI / 2;
-      w.position.set( Math.sin(f * Math.PI / 2) * (lv.hw + 1/64), lv.y,
-        Math.cos(f * Math.PI / 2) * (lv.hw + 1/64) );
-      group.add(w);
+      w.position.set( 0, lv.y - fenAlto / 2, lv.faco + 1/64 );
+      monto.add(w);
       fenestrajMretoj.push(w);
+      // Ora pilola rando — CENTRIPETA kurbo kun Densa sampado: la finoj estas
+      // glate rondaj, ne facetaj.
+      const konturo = kreiPilolFenestranFormon(ww, fenAlto).getPoints(0o200)
+        .map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, 0));
+      const rimo = new THREE.Mesh(
+        new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 1/16, 6, true),
+        oraMaterialo
+      );
+      rimo.position.set( 0, lv.y - fenAlto / 2, lv.faco + 1/64 );
+      monto.add(rimo);
+      group.add(faco);
     }
   }
 
-  // Plakedo
-  if ( scriptTex ) {
-    const plakedo = new THREE.Mesh( new THREE.PlaneGeometry(141/64, 83/32),
-      new THREE.MeshBasicMaterial({ map: scriptTex, transparent: true, toneMapped: false }) );
-    plakedo.position.set(Math.sin(face) * (hw0 + 3/32), 499/64, Math.cos(face) * (hw0 + 3/32));
-    plakedo.rotation.y = face;
-    group.add(plakedo);
-  }
-
   // Neniu soklo, bazplato aŭ brila ringo — sxipo flosas libere
+  // (la surflanka signo estas forigita laux peto)
 
-  // Porda pozicio
+  // Porda pozicio — centrita je la pordo (y=0)
   const dir = new THREE.Vector3(Math.sin(face), 0, Math.cos(face));
-  const pordaPozicio = new THREE.Vector3( dir.x * (hw0 + 16/8), 13/32,
+  const pordaPozicio = new THREE.Vector3( dir.x * (hw0 + 16/8), 0,
     dir.z * (hw0 + 16/8) );
 
   group.position.set(x, y, z);
@@ -156,7 +191,12 @@ export function animaciiCielDiamanton( ship: CielDiamanto,
   isFlying: boolean
 ): void {
   if ( !isFlying ) {
-    ship.group.position.y += Math.sin(t * 19/64) * 1/16;
+    // Absoluta bazo, ne kumulado — alie la sinusa oscilo drivus la sxipon
+    // supren/malsupren je dekoj da unuoj dum longaj sesioj.
+    if ( ship.group.userData.bazaY === undefined ) {
+      ship.group.userData.bazaY = ship.group.position.y;
+    }
+    ship.group.position.y = (ship.group.userData.bazaY as number) + Math.sin(t * 19/64) * 1/16;
   }
   ship.group.rotation.y += 0/8;
   ship.group.rotation.z = Math.sin(t * 2/8) * 1/32;

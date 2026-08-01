@@ -137,19 +137,67 @@ export function generiSkriptanKanvason(opts: SkriptajOpcioj = {}): HTMLCanvasEle
   return kanvasa;
 }
 
-// generiSkriptanTeksajxon — Generu texturon el script-skriba kanvaso.
-//     @param opts ( SkriptajOpcioj ) - Opcioj por la generado.
-export function generiSkriptanTeksajxon(opts: SkriptajOpcioj = {}): THREE.CanvasTexture {
-  const teksajxo = new THREE.CanvasTexture(generiSkriptanKanvason(opts));
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.anisotropy = 4;
-  return teksajxo;
-}
-
 // generiSkriptanURL — Generu data URL de script-skriba kanvaso.
 //     @param opts ( SkriptajOpcioj ) - Opcioj por la generado.
 export function generiSkriptanURL(opts: SkriptajOpcioj = {}): string {
   return generiSkriptanKanvason(opts).toDataURL();
+}
+
+// La Gawekiif-tiparo estas ŝarĝita per la ekstera krhitlashi-stylesheet
+// ( @font-face familio j͑ʃꞇȝ ), kune kun ĝiaj rezervaj familioj.
+const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
+
+// generiSkribanTeksajxon — Generu texturon kun REALA Gawekiif-teksto:
+// skribita suben-supren, rompita je spacoj (unua vorto malsupre, sekvaj supren).
+// Reuzebla por la strat-signoj kaj la internaj platoj.
+export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}): THREE.CanvasTexture {
+  const vortoj = teksto.split(/\s+/).filter(Boolean);
+  const kanvasa = document.createElement("canvas");
+  kanvasa.width = opts.w || 0o140;
+  kanvasa.height = opts.h || 0o300;
+  const kunteksto = kanvasa.getContext("2d")!;
+  const teksajxo = new THREE.CanvasTexture(kanvasa);
+  teksajxo.colorSpace = THREE.SRGBColorSpace;
+  teksajxo.anisotropy = 4;
+
+  const desegni = (): void => {
+    kunteksto.clearRect(0, 0, kanvasa.width, kanvasa.height);
+    if ( opts.bg ) { kunteksto.fillStyle = opts.bg; kunteksto.fillRect(0, 0, kanvasa.width, kanvasa.height); }
+    if ( vortoj.length === 0 ) return;
+    kunteksto.textAlign = "center";
+    kunteksto.textBaseline = "middle";
+    kunteksto.fillStyle = opts.ink || "#d8b068";
+    // Mezuru ĉe referenca grando (100px) — tekstaj larĝoj skaliĝas lineare, do la
+    // proporcioj restas ĝustaj eĉ antaŭ la ŝargo de la ekstera tiparo, kaj la teksto
+    // neniam estas premita (smush) al mikroskopa grando.
+    const REF = 100;
+    kunteksto.font = `${REF}px ${GAWEKIIF_FAMILIO}`;
+    const maksLargho = kanvasa.width * 44/50;
+    const largho100 = Math.max( 1, ...vortoj.map( v => kunteksto.measureText( v ).width ) );
+    const fsLargho = REF * maksLargho / largho100;
+    const fsAlto = kanvasa.height / ( 45/64 + ( vortoj.length - 1 ) * 7/4 + 5/8 );
+    const fs = Math.max( 8, Math.min( fsLargho, fsAlto ) );
+    const linioAlto = fs * 7/4;
+    // Vertikale centru la tutan vorto-stakon sur la kanvaso: la unua vorto
+    // (plej malsupra) ne plu algluiĝas al la malsupro de la plato.
+    const stakoCentro = kanvasa.height / 2;
+    let y = stakoCentro + ( vortoj.length - 1 ) * linioAlto / 2;
+    for ( const v of vortoj ) {
+      kunteksto.font = `${fs}px ${GAWEKIIF_FAMILIO}`;
+      kunteksto.fillText( v, kanvasa.width / 2, y );
+      y -= linioAlto;
+    }
+  };
+
+  desegni();
+  // Re-desegnu POST la ŝargo de la ekstera tiparo: la promeso de load() solviĝas
+  // ĝuste kiam tiu tiparo estos preta, do la realaj glifoj ĉiam aperas.
+  if ( document.fonts && document.fonts.load ) {
+    document.fonts.load( `16px "j͑ʃꞇȝ"` )
+      .then( () => { desegni(); teksajxo.needsUpdate = true; } )
+      .catch( () => {} );
+  }
+  return teksajxo;
 }
 
 // Generu rapidan glifan strion por UI-elementoj

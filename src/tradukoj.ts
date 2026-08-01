@@ -42,9 +42,6 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "ſɭw ſ̀ȷᴜ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
     // Food action labels
     "actGusti": "ſ͔ɭɔȝ ·", "actTrinketi": "ſ͔ɭɔȝ ·",
-    // Stair action labels
-    "actSxtupSupren": "j͑ʃ'ɔ ɭl̀ᴜ ſ͕ɭɜ",
-    "actSxtupMalsupren": "j͑ʃ'ɔ ſןɔ˞ᴜƴ",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ · ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ ſᶘэ", "manĝFok1": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ · ſɭɜ ſᶘɹᶗ‹", "manĝFok2": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ · ɭʃɹƽ ꞁȷ̀ᴜꞇ",
     "manĝTla0": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ · ɭʃɜ ſɭɹ", "manĝTla1": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ j͐ʃɜ ſɟɹ · j͐ʃɜ ſɟɹ", "manĝTla2": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ j͐ʃᴜ ŋᷠɹⰱ ſɭᶗ‹ɹ ſɟɔ · ſɭᶗ‹ɹ j͐ʃᴜ ŋᷠɹⰱ",
@@ -59,12 +56,14 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipDomo": "ſɭᴜ ſɭw ʃᴜ ſɭᴜ ſɭw ſɭэ",
     "tipMangxejo": "ſɭᴜ ſ͔ɭɔȝ ſɟᴜ ŋᷠᴜ",
     "tipStacio": "ſɭᴜ ſɭw ʃᴜ ſɭᴜ ſɭʞᴜȝ",
+    "tipStacioxipo": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
     "tipTuro": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ſɭw ʃᴜ",
     "tipSanktejo": "ſɭᴜ ſɭw ʃᴜ ſɭᴜ ꞁȷ̀ᴜȝ",
     // Building card flavor text
     "flvDomo": "ſɭᴜ ɭl̀ɹ ɭʃɔ ꞁȷ̀ɹ j͑ʃᴜ ſɭᴜ ſȷɔ ſɭɔ ꞁȷ̀ɹ ſɭᴜ ſɭw ʃᴜ ſɭэ ſɭ͔ɭᴜƽ j͑ʃ'ᴜ ſɭᴜ ſᶘɔ ɭl̀ɹȝ",
     "flvMangxejo": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſ͔ɭɔȝ · ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭw ʃᴜ ŋᷠᴜ ſɭɔƽ ſɭэ ſɟᴜ ſᶘɔ ɭl̀ɹȝ · ſɭɔ˞ᴜ ꞁȷ̀ɹ ſɭэ ſɭᴜ ſɭˬꞇᴜ",
     "flvStacio": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ɭl̀ɹ ɭʃɔ ſɭᴜ ſɭэ ſᶘɹ j͑ʃᴜꞇ · ſɭэ ſɭᴜ ſɭэ ɽ͑ʃ'ꞇ ſɭэ j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
+    "flvStacioxipo": "ſɭэ ſɭᴜ ſɭʞᴜȝ j͑ʃɔ ı],ꞇ ɭʃᴜ ꞁȷ̀ɹ · ſɭw ſ̀ȷᴜ ſɭэ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
     "flvTuro": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ſɭʞɹ ſɟᴜ ſɭᴜ ſ͕ɭᴜ ſɭɔ ſɭэ ſɭᴜ ɭl̀ɹ ɭʃɔ ſɭэ",
     "flvSanktejo": "ſɭᴜ ꞁȷ̀ᴜȝ ſɭᴜ ſ͕ɭᴜ ſɭɔ ſɭᴜ ʃэ ſɭɔ ſɭэ ſᶘɹ ſɭᴜ ſɭʞᴜȝ",
     // Card stats labels from sperto.ts
@@ -130,6 +129,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "}ʃɜ ſɭɜƴ",
     "bldg29": "ɭ(ɜ ŋᷠɜ ı],ᴜ",
     "bldg30": "ɭ(ɜ ŋᷠɜ ſȷɔ",
+    "bldg31": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
     // Track names
     "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -177,9 +177,6 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "Eniri kanuon",
     // Food action labels
     "actGusti": "Guŝu ·", "actTrinketi": "Trinketu ·",
-    // Stair action labels
-    "actSxtupSupren": "Supreniri la ŝtuparon",
-    "actSxtupMalsupren": "Malsupreniri la ŝtuparon",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "fokumaseŭ · Lichen Crust", "manĝFok1": "fokumaseŭ · Mint Glaze", "manĝFok2": "fokumaseŭ · Peppered",
     "manĝTla0": "tlatuva · Classic", "manĝTla1": "tlatuva · Honeyed", "manĝTla2": "tlatuva · Iced Birch-sap",
@@ -194,12 +191,14 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipDomo": "Loĝejo",
     "tipMangxejo": "Komuna Tablo",
     "tipStacio": "Stacio",
+    "tipStacioxipo": "Kosmopordo",
     "tipTuro": "Turo",
     "tipSanktejo": "Sanktejo",
     // Building flavor text
     "flvDomo": "Kvietaj ĉambroj stakitaj al la nebulo.",
     "flvMangxejo": "Longaj fajrujoj, komunaj bovloj, vaporo kaj rakonto.",
     "flvStacio": "Veturiloj alvenas kaj foriras. La valo larĝiĝas.",
+    "flvStacioxipo": "Super la arbaro la ĉiel-diamanto atendas. Eniru por leviĝi.",
     "flvTuro": "Ŝtupoj tordiĝas supren en lumon.",
     "flvSanktejo": "Oraj teksaĵoj flirtas en la vento.",
     // Card stats
@@ -267,6 +266,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "Nokroĝ",
     "bldg29": "Somoŝa",
     "bldg30": "Somofe",
+    "bldg31": "Kosmopordo",
     // Track names
     "muziko": "Muziko",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -314,9 +314,6 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "Enter canoe",
     // Food action labels
     "actGusti": "Taste ·", "actTrinketi": "Sip ·",
-    // Stair action labels
-    "actSxtupSupren": "Climb the stairs",
-    "actSxtupMalsupren": "Descend the stairs",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "hokihmasuh · Lichen Crust", "manĝFok1": "hokihmasuh · Mint Glaze", "manĝFok2": "hokihmasuh · Peppered",
     "manĝTla0": "tlatihwa · Classic", "manĝTla1": "tlatihwa · Honeyed", "manĝTla2": "tlatihwa · Iced Birch-sap",
@@ -331,12 +328,14 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipDomo": "Lodge",
     "tipMangxejo": "Common Table",
     "tipStacio": "Station",
+    "tipStacioxipo": "Spaceport",
     "tipTuro": "Tower",
     "tipSanktejo": "Sanctuary",
     // Building flavor text
     "flvDomo": "Quiet rooms stacked into the mist.",
     "flvMangxejo": "Long hearths, common bowls, steam and story.",
     "flvStacio": "Vehicles come and go. The vale widens.",
+    "flvStacioxipo": "Above the forest the sky-diamond waits. Enter to ascend.",
     "flvTuro": "Stairs twist upward into light.",
     "flvSanktejo": "Golden fabrics flutter in the wind.",
     // Card stats
@@ -404,6 +403,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "Nokrorh",
     "bldg29": "Somesha",
     "bldg30": "Somohe",
+    "bldg31": "Skygate",
     // Track names
     "muziko": "Music",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -451,9 +451,6 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "カヌーに乗る",
     // Food action labels
     "actGusti": "味見 ·", "actTrinketi": "一口 ·",
-    // Stair action labels
-    "actSxtupSupren": "階段を上る",
-    "actSxtupMalsupren": "階段を下りる",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "フォクウマスア · Lichen Crust", "manĝFok1": "フォクウマスア · Mint Glaze", "manĝFok2": "フォクウマスア · Peppered",
     "manĝTla0": "トラトウワ · Classic", "manĝTla1": "トラトウワ · Honeyed", "manĝTla2": "トラトウワ · Iced Birch-sap",
@@ -468,12 +465,14 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipDomo": "ロッジ",
     "tipMangxejo": "共有の食卓",
     "tipStacio": "駅",
+    "tipStacioxipo": "宇宙港",
     "tipTuro": "塔",
     "tipSanktejo": "聖域",
     // Building flavor text
     "flvDomo": "霧の中に積み重なった静かな部屋。",
     "flvMangxejo": "長い暖炉、共通の鉢、蒸気と物語。",
     "flvStacio": "乗り物が行き交う。谷が広がる。",
+    "flvStacioxipo": "森の上で空のダイヤが待つ。入って昇ろう。",
     "flvTuro": "階段が光の中へとねじれて昇る。",
     "flvSanktejo": "金色の織物が風に揺れる。",
     // Card stats
@@ -545,6 +544,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "ノクショシ",
     "bldg29": "スオモシャ",
     "bldg30": "スオモフェ",
+    "bldg31": "宇宙門",
     // Track names
     "muziko": "音楽",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -592,9 +592,6 @@ const skakefani: Record<string, Record<string, string>> = {
     "pZ": "ចូលទូក",
     // Food action labels
     "actGusti": "ភ្លក់ ·", "actTrinketi": "ផឹក ·",
-    // Stair action labels
-    "actSxtupSupren": "ឡើងជណ្តើរ",
-    "actSxtupMalsupren": "ចុះជណ្តើរ",
     // Manĝaĵnomoj de la dosiero zigurato-konstruilo.ts
     "manĝFok0": "ផុកិមាសឺ · Lichen Crust", "manĝFok1": "ផុកិមាសឺ · Mint Glaze", "manĝFok2": "ផុកិមាសឺ · Peppered",
     "manĝTla0": "ត្លាតិវា · Classic", "manĝTla1": "ត្លាតិវា · Honeyed", "manĝTla2": "ត្លាតិវា · Iced Birch-sap",
@@ -609,12 +606,14 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipDomo": "ផ្ទះសំណាក់",
     "tipMangxejo": "តុសាមញ្ញ",
     "tipStacio": "ស្ថានីយ",
+    "tipStacioxipo": "កំពង់ផែអវកាស",
     "tipTuro": "ប៉ម",
     "tipSanktejo": "ទីសក្ការៈ",
     // Building flavor text
     "flvDomo": "បន្ទប់ស្ងាត់ៗដាក់តម្រៀបក្នុងអ័ព្ទ។",
     "flvMangxejo": "ចើងរកាភ្លើងវែង ចានសាមញ្ញ ចំហាយនិងរឿងរ៉ាវ។",
     "flvStacio": "យានជំនិះមកនិងទៅ។ ជ្រលងរីកធំ។",
+    "flvStacioxipo": "ពេជ្រមេឃរង់ចាំពីលើព្រៃ។ ចូលដើម្បីឡើងទៅ។",
     "flvTuro": "ជណ្តើរបង្វិលឡើងទៅក្នុងពន្លឺ។",
     "flvSanktejo": "ក្រណាត់មាសបក់បោកតាមខ្យល់។",
     // Card stats
@@ -685,6 +684,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "នុករុហ្រ",
     "bldg29": "ស្សុមុឆា",
     "bldg30": "ស្សុមុផេ",
+    "bldg31": "ទ្វារមេឃ",
     // Track names
     "muziko": "តន្ត្រី",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -700,6 +700,11 @@ let aktivaLingvo = "aih";
 // ⟪ Publika API — traduki 📃 ⟫
 // Returns the translated string for the active language.
 // Falls back to the key itself if not found.
+// nomoAih — Nomo de konstruajxo en la gepatra Gawekiif-skribo (por la strat-signoj).
+export function nomoAih(klavo: string): string {
+  return skakefani.aih[klavo] || klavo;
+}
+
 export function traduki(klavo: string): string {
   const vortaro = skakefani[aktivaLingvo] || skakefani.eo;
   return vortaro[klavo] || klavo;

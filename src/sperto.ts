@@ -7,7 +7,8 @@ import { animaciiFlammojn } from "../assets/lampoj.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/akvo.js";
 import { gxisdatigiNpc } from "../assets/npcoj.js";
 import type { Figuro, Vesto } from "../assets/npcoj.js";
-import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon } from "../assets/internoj.js";
+import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/internoj.js";
+import { animaciiCielDiamanton } from "../assets/kosmosxipo.js";
 import { TIPARO, KonstruSpec, ManĝaĵItemo } from "../assets/zigurato-konstruilo.js";
 import { riveroZ, akvoY, alteco } from "./tereno.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
@@ -66,8 +67,8 @@ const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMateri
 
 const urbo: UrbaSistemo = konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo);
 const {
-  konstruSpecoj, kolizioj, selektajxoj,
-  riverData, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo,
+  konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
+  riverData, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
 } = urbo;
 
 // ⟪ Orbit-regiloj 📃 ⟫
@@ -87,10 +88,8 @@ let surKanoto: Kanoto | null = null;
 let elektitaSpec: KonstruSpec | null = null;
 let plejProksimaPordo: KonstruSpec | null = null;
 let plejProksimaManĝaĵo: ManĝaĵItemo | null = null;
-let cxeSxtuparo = false;
-let sxtupaCelo: number | null = null;
-let sxtupaCeloIndekso: number | null = null;
-let sxtupaNunaIndekso = 0;
+// Kontinua vindo de la helika ŝtuparo (nulo = ne sur la spiralo).
+let sxtupaTurno: number | null = null;
 let direkto = 0, klinigxo = -1/16;
 const ludantaPozicio = new THREE.Vector3(0, 5/32, 0o44);
 let rapidoY = 0, estasSurTERENO = false;
@@ -412,7 +411,7 @@ kanvaso.addEventListener("click", (e) => {
 
 // ⟪ Interna vido 📃 ⟫
 function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }) {
-  sxtupaCelo = null; cxeSxtuparo = false; sxtupaCeloIndekso = null;
+  sxtupaTurno = null;
   // Request pointer lock synchronously while user gesture is still active
   if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
   if (cxuAŭdio()) sfx.door();
@@ -422,7 +421,10 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
     rezimo = "interior";
     elektitaSpec = spec;
     const enirPunkto = eniriInternon(internaSistemo, spec, dioritaMaterialo, andezitaMaterialo, oraMaterialo, eniraMaterialo, sceno);
-    const specX = spec.x, specZ = spec.z, specH0 = spec.h0 || 0;
+    const specX = spec.x, specZ = spec.z;
+    // La spacosxipa interno flosas ĉe la sxipo (flugoY) — la enira punkto estas
+    // ĉe la supro kie la sxipo vere estas, ne sur la tero.
+    const specH0 = spec.flugoY ?? (spec.h0 || 0);
     const rot = spec.rot || 0;
     const cosR = Math.cos(rot), sinR = Math.sin(rot);
     const eX = enirPunkto.x, eZ = enirPunkto.z;
@@ -443,7 +445,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
   });
 }
 function eliriInternon() {
-  sxtupaCelo = null; cxeSxtuparo = false; sxtupaCeloIndekso = null;
+  sxtupaTurno = null;
   eliriElInterno(internaSistemo, sceno);
   if (cxuAŭdio()) sfx.door();
   pulsiEfikon();
@@ -452,17 +454,34 @@ function eliriInternon() {
     const estasWalk = antauxaRezimo === "walk";
     rezimo = antauxaRezimo || "orbit";
     antauxaRezimo = null;
+    const speco = elektitaSpec;
     if (estasWalk) {
       regiloj.enabled = false;
-      // Set up walking state from current camera position (near building door)
-      direkto = fotilo.rotation.y;
-      ludantaPozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
-      fotilo.position.y = ludantaPozicio.y + 53/32;
+      if (speco && speco.type === "stacioxipo") {
+        // El la sxipo (supre) — surgrundigu apud la kosmoporda stacio.
+        const rot = speco.rot || 0;
+        const pordX = speco.x + Math.sin(rot) * (speco.d / 2 + 12/8);
+        const pordZ = speco.z + Math.cos(rot) * (speco.d / 2 + 12/8);
+        ludantaPozicio.set(pordX, alteco(pordX, pordZ), pordZ);
+        fotilo.position.set(pordX, alteco(pordX, pordZ) + 53/32, pordZ);
+        direkto = rot;
+      } else {
+        // Set up walking state from current camera position (near building door)
+        direkto = fotilo.rotation.y;
+        ludantaPozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
+        fotilo.position.y = ludantaPozicio.y + 53/32;
+      }
       estasSurTERENO = true;
     } else {
       regiloj.enabled = true;
-      if (elektitaSpec) {
-        regiloj.target.set(elektitaSpec.x, elektitaSpec.h0! + 0o14, elektitaSpec.z);
+      if (speco) {
+        if (speco.type === "stacioxipo") {
+          // En orbito: movu la fotilon malsupren al la stacio (ne restu ĉe la sxipo).
+          regiloj.target.set(speco.x, (speco.h0 || 0) + 0o14, speco.z);
+          fotilo.position.set(speco.x, (speco.h0 || 0) + 0o20, speco.z + 0o14);
+        } else {
+          regiloj.target.set(speco.x, speco.h0! + 0o14, speco.z);
+        }
         regiloj.update();
       }
     }
@@ -549,11 +568,6 @@ document.getElementById("butHelpi")!.addEventListener("click", () => {
 function proviInterakti() {
   if (rezimo === "interior") {
     if (plejProksimaManĝaĵo && !plejProksimaManĝaĵo.dead) { konsumi(plejProksimaManĝaĵo); return; }
-    if (cxeSxtuparo && sxtupaCeloIndekso !== null) {
-      sxtupaCelo = sxtupaCeloIndekso;
-      if (cxuAŭdio()) sfx.step();
-      return;
-    }
     eliriInternon(); return;
   }
   if (surKanoto) {
@@ -587,13 +601,20 @@ function proviInterakti() {
 }
 function eliriKanoton(c: Kanoto): { x: number; z: number } {
   const fortoX = -Math.sin(c.direkto), fortoZ = -Math.cos(c.direkto);
+  const bona = (x: number, z: number) => !cxuEnAkvo(x, z, riveroZ, 7) && !enDoko(x, z, 3/8);
   let exitX = c.x + fortoX * 6, exitZ = c.z + fortoZ * 6;
-  if (cxuEnAkvo(exitX, exitZ, riveroZ, 7)) {
-    const anguloj = [Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*3/4, -Math.PI*3/4, Math.PI];
-    for (const a of anguloj) {
-      const ax = c.x + Math.sin(c.direkto + a) * 6;
-      const az = c.z + Math.cos(c.direkto + a) * 6;
-      if (!cxuEnAkvo(ax, az, riveroZ, 7)) { exitX = ax; exitZ = az; break; }
+  if (!bona(exitX, exitZ)) {
+    // Serĉu sekan, ne-dokan punkton — ĉe kreskantaj distancoj por eviti la
+    // (maloftan) kazon ke ĉiuj proksimaj kandidatoj falas sur dokon.
+    const anguloj = [0, Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*3/4, -Math.PI*3/4, Math.PI];
+    for ( const radio of [ 6, 11, 16 ] ) {
+      let trovita = false;
+      for (const a of anguloj) {
+        const ax = c.x + Math.sin(c.direkto + a) * radio;
+        const az = c.z + Math.cos(c.direkto + a) * radio;
+        if (bona(ax, az)) { exitX = ax; exitZ = az; trovita = true; break; }
+      }
+      if (trovita) break;
     }
   }
   return { x: exitX, z: exitZ };
@@ -640,6 +661,49 @@ function solviKolizion(x: number, z: number): { x: number; z: number } {
   return { x, z };
 }
 
+// enDoko — Cxu punkto estas ene de doka platformo (kun randa marĝeno)?
+function enDoko(x: number, z: number, marge: number): boolean {
+  for (const d of dokoKolizioj) {
+    const cosR = Math.cos(d.rot), sinR = Math.sin(d.rot);
+    const lx = (x - d.x) * cosR + (z - d.z) * sinR;
+    const lz = -(x - d.x) * sinR + (z - d.z) * cosR;
+    if (Math.abs(lx) < d.w / 2 + marge && Math.abs(lz) < d.d / 2 + marge) return true;
+  }
+  return false;
+}
+
+// solviDokanKolizion — Rektangula kolizio kun la dokaj platformoj. Oni rajtas
+// stari SUR la doko (supre), sed ne eniri sub gxin: nur punktoj sub la platforma
+// surfaco estas elpusxataj. marge = radiuso de la ento (ludanto 3/8, kanuo 5/4).
+function solviDokanKolizion(x: number, z: number, y: number, marge = 3/8): { x: number; z: number } {
+  let rx = x, rz = z;
+  for (let pass = 0; pass < 3; pass++) {
+    let puŝoX = 0, puŝoZ = 0;
+    let hit = false;
+    for (const d of dokoKolizioj) {
+      const cosR = Math.cos(d.rot), sinR = Math.sin(d.rot);
+      const dx = rx - d.x, dz = rz - d.z;
+      const lx = dx * cosR + dz * sinR;
+      const lz = -dx * sinR + dz * cosR;
+      const hw = d.w / 2 + marge, hd = d.d / 2 + marge;
+      if (Math.abs(lx) < hw && Math.abs(lz) < hd && y < alteco(d.x, d.z) - 1/4) {
+        const penX = hw - Math.abs(lx), penZ = hd - Math.abs(lz);
+        let plx = 0, plz = 0;
+        if (penX < penZ) plx = (lx >= 0 ? 1 : -1) * penX;
+        else plz = (lz >= 0 ? 1 : -1) * penZ;
+        // Reen al monda spaco (rotaciita kadro)
+        puŝoX += plx * cosR - plz * sinR;
+        puŝoZ += plx * sinR + plz * cosR;
+        hit = true;
+      }
+    }
+    rx += puŝoX;
+    rz += puŝoZ;
+    if (!hit) break;
+  }
+  return { x: rx, z: rz };
+}
+
 // ⟪ Animacio 📃 ⟫
 const horlogxo = new THREE.Clock();
 function animacii() {
@@ -658,6 +722,8 @@ function animacii() {
   animaciiFlammojn(lampSistemo, t);
   // Akva animacio
   gxisdatigiAkvon(riverData, t);
+  // Spacosxipo — oscila flosado super la kosmopordo
+  animaciiCielDiamanton(xipo, t, false);
 
   // Promena reximo
   if (rezimo === "walk" && !surKanoto) {
@@ -675,7 +741,9 @@ function animacii() {
     novaZ = Math.max(-0o200, Math.min(0o144, novaZ));
 
     const r = solviKolizion(novaX, novaZ);
-    ludantaPozicio.x = r.x; ludantaPozicio.z = r.z;
+    // Dokoj: bloku eniron SUB la platformon (sur-gxin piedirado restas libera)
+    const rd = solviDokanKolizion(r.x, r.z, ludantaPozicio.y);
+    ludantaPozicio.x = rd.x; ludantaPozicio.z = rd.z;
     const moving = Math.min(1, longo);
 
     const teraY = alteco(ludantaPozicio.x, ludantaPozicio.z);
@@ -766,46 +834,60 @@ function animacii() {
     const rot = elektitaSpec.rot || 0;
     const cosR = Math.cos(rot), sinR = Math.sin(rot);
     const plankoj = internaSistemo.plankoj;
+    const helikso = internaSistemo.helikso;
     const ludY = ludantaPozicio.y - specH0;
     let aktivaPlanko = plankoj[0];
     let etapy = specH0;
     for (const p of plankoj) {
       if (ludY >= p.y - 4/8 && ludY < p.y + p.alto) { aktivaPlanko = p; break; }
     }
-    if (aktivaPlanko) {
-      // Convert to local building coordinates for clamping (handles rotation)
-      const margxeno = 3/8;
-      let lokalX = (novaX - specX) * cosR + (novaZ - specZ) * sinR;
-      let lokalZ = -(novaX - specX) * sinR + (novaZ - specZ) * cosR;
-      lokalX = Math.max(-aktivaPlanko.hw + margxeno, Math.min(aktivaPlanko.hw - margxeno, lokalX));
-      lokalZ = Math.max(-aktivaPlanko.hd + margxeno, Math.min(aktivaPlanko.hd - margxeno, lokalZ));
-      novaX = specX + cosR * lokalX - sinR * lokalZ;
-      novaZ = specZ + sinR * lokalX + cosR * lokalZ;
+    // Konverti al lokalaj konstruajxaj koordinatoj por la krampo (turnado)
+    const margxeno = 3/8;
+    let lokalX = (novaX - specX) * cosR + (novaZ - specZ) * sinR;
+    let lokalZ = -(novaX - specX) * sinR + (novaZ - specZ) * cosR;
 
-      cxeSxtuparo = Math.abs(lokalZ) < 0.8 && Math.abs(lokalX) < 2.5;
-      let nunaEtagxIndekso = -1;
-      for (let i = 0; i < plankoj.length; i++) {
-        if (plankoj[i] === aktivaPlanko) { nunaEtagxIndekso = i; break; }
+    // Helika ŝtuparo: piedirante ĉirkaŭ la kolono la ludanto leviĝas tra ĉiuj
+    // etaĝoj (unu plena turno = unu etaĝo). La spiralo estas kontinue sekvata.
+    let surHelikso = false;
+    if (helikso && ludY >= heliksaAltecxo(helikso, -helikso.turnojSube) - 1/8 && ludY <= heliksaAltecxo(helikso, helikso.turnoj) + 1/8) {
+      const dist = Math.hypot(lokalX, lokalZ);
+      if (dist >= helikso.rKol - 1/8 && dist <= helikso.rEkster) {
+        surHelikso = true;
+        // Radiusa krampo nur kontraŭ la kolono: la ludanto rajtas foriri de la
+        // ŝtuparo trans la eksteran randon (la ringa planko komenciĝas ĉe rEkster).
+        if (dist < helikso.rKol + 1/16) {
+          const nR = helikso.rKol + 1/16;
+          lokalX = (lokalX / dist) * nR;
+          lokalZ = (lokalZ / dist) * nR;
+        }
+        const ang = Math.atan2(lokalX, lokalZ);
+        const frac = ((ang % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2);
+        if (sxtupaTurno === null) {
+          // Eniro: komencu je la plej proksima turno al la nuna alteco. De la teretaĝo
+          // ĉiam supren (krampo al 0) — ne suben en la kelon.
+          const turno0 = ludY >= 0 ? ludY / helikso.turnoAlto : ludY / helikso.turnoAltoSub;
+          const malsupraLim = ludY >= 0 ? 0 : -helikso.turnojSube;
+          sxtupaTurno = Math.max(malsupraLim, Math.min(helikso.turnoj, Math.round(turno0 - frac) + frac));
+        } else {
+          // Daŭra vindo: sekvu la angulon ĉirkaŭ la spiralo (supren kaj suben)
+          sxtupaTurno = Math.max(-helikso.turnojSube, Math.min(helikso.turnoj, Math.round(sxtupaTurno - frac) + frac));
+        }
+        etapy = specH0 + heliksaAltecxo(helikso, sxtupaTurno);
+        novaX = specX + cosR * lokalX - sinR * lokalZ;
+        novaZ = specZ + sinR * lokalX + cosR * lokalZ;
       }
-      sxtupaNunaIndekso = nunaEtagxIndekso;
-      // Kion E farus nun: supreniri se apud la bazo, alie malsupreniri.
-      sxtupaCeloIndekso = null;
-      if (cxeSxtuparo && nunaEtagxIndekso >= 0) {
-        const suprenPrefero = lokalZ < 0;
-        let celo = suprenPrefero ? nunaEtagxIndekso + 1 : nunaEtagxIndekso - 1;
-        if (celo < 0 || celo >= plankoj.length) celo = suprenPrefero ? nunaEtagxIndekso - 1 : nunaEtagxIndekso + 1;
-        if (celo >= 0 && celo < plankoj.length && celo !== nunaEtagxIndekso) sxtupaCeloIndekso = celo;
-      }
-      if (sxtupaCelo !== null && sxtupaCelo >= 0 && sxtupaCelo < plankoj.length) {
-        // E-klava supreniro: restu leviĝanta ĝis la cela etaĝo atingiĝas.
-        etapy = specH0 + plankoj[sxtupaCelo].y;
-      } else {
-        // Sxtupoj estas uzataj nur per E-klavo; piedirado ne sxangxas etaĝon.
-        sxtupaCelo = null;
+    }
+    if (!surHelikso) {
+      sxtupaTurno = null;
+      if (aktivaPlanko) {
+        lokalX = Math.max(-aktivaPlanko.hw + margxeno, Math.min(aktivaPlanko.hw - margxeno, lokalX));
+        lokalZ = Math.max(-aktivaPlanko.hd + margxeno, Math.min(aktivaPlanko.hd - margxeno, lokalZ));
+        novaX = specX + cosR * lokalX - sinR * lokalZ;
+        novaZ = specZ + sinR * lokalX + cosR * lokalZ;
         etapy = specH0 + aktivaPlanko.y;
+      } else {
+        etapy = specH0;
       }
-    } else {
-      etapy = specH0;
     }
 
     ludantaPozicio.x = novaX;
@@ -824,10 +906,6 @@ function animacii() {
         rapidoY = 0;
         estasSurTERENO = true;
       }
-    }
-    if (sxtupaCelo !== null && Math.abs(ludantaPozicio.y - etapy) < 1/32) {
-      ludantaPozicio.y = etapy;
-      sxtupaCelo = null;
     }
 
     oscilo += moving * rapido * deltaTempo * 12/8;
@@ -856,10 +934,6 @@ function animacii() {
       const prefikso = proksimaManĝaĵo.key.startsWith("fok") ? traduki("actGusti") : traduki("actTrinketi");
       promptoElemento.innerHTML = `<span class="klavo">E</span> ${prefikso} ${traduki("manĝ" + proksimaManĝaĵo.f.key.charAt(0).toUpperCase() + proksimaManĝaĵo.f.key.slice(1))}`;
       promptoElemento.classList.add("montri");
-    } else if (cxeSxtuparo && sxtupaCeloIndekso !== null) {
-      const supren = sxtupaCeloIndekso > sxtupaNunaIndekso;
-      promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki(supren ? "actSxtupSupren" : "actSxtupMalsupren");
-      promptoElemento.classList.add("montri");
     } else {
       promptoElemento.innerHTML = `<span class="klavo">E</span> ` + traduki("actEliri");
       promptoElemento.classList.add("montri");
@@ -885,6 +959,16 @@ function animacii() {
     surKanoto.z = Math.max(-0o120, Math.min(0o120, surKanoto.z));
     surKanoto.x += surKanoto.vx * deltaTempo;
     surKanoto.z += surKanoto.vz * deltaTempo;
+
+    // Doka kolizio: la kanuo ne rajtas sub la platformojn (la fotilo restus subtera).
+    const dk = solviDokanKolizion(surKanoto.x, surKanoto.z, -999, 5/4);
+    surKanoto.x = dk.x; surKanoto.z = dk.z;
+    // Ne lasu la kanuon en malprofunda akvo (tereno super la akva surfaco) —
+    // repuŝu al la rivercentro por ke la ludanto ne restu subtera.
+    const kx = surKanoto.x, kz = surKanoto.z;
+    if (alteco(kx, kz) > akvoY(kx) + 1/4) {
+      surKanoto.z += (riveroZ(kx) - kz) * Math.min(1, 8 * deltaTempo);
+    }
 
     direkto = surKanoto.direkto;
     fotilo.position.set(surKanoto.x, surKanoto.bazaY + 3/32 + 17/32, surKanoto.z);

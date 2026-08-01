@@ -27,5 +27,15 @@ export function alteco(x: number, z: number): number {
   // Skulpti la riveran valon
   const rd = z - riveroZ(x);
   altecoFina -= 64/8 * Math.exp(-(rd * rd) / 0o144);
+  // Kosmoporda startejo — platigi la terenon sub la stacio kaj ĝia aprono,
+  // por ke la konstruajxo ne estu enterigita en la dekliva arbaro.
+  const padX = 0o14, padZ = 0o106, padR = 0o14;
+  const padD = Math.hypot(x - padX, z - padZ);
+  const padMiksilo = 1 - glataPaso(padR - 6, padR, padD);
+  if ( padMiksilo > 0 ) {
+    const padRD = padZ - riveroZ(padX);
+    const padAlto = montetaBazo(padX, padZ) - 64/8 * Math.exp(-(padRD * padRD) / 0o144);
+    altecoFina = altecoFina * (1 - padMiksilo) + padAlto * padMiksilo;
+  }
   return altecoFina;
 }

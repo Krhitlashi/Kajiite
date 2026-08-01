@@ -85,8 +85,17 @@ export function konstruiDokon(
   rando.castShadow = rando.receiveShadow = true;
   group.add(rando);
 
-  // Dikaj andezitaj fostoj proksime al la deka rando tenas la vojan etendon.
-  const vojaY = heightFn( x, z );
+  // La tereno sub la doko deklivas malsupren al la rivero: levu la dokon al la
+  // terena alto ĉe ĝia LANDa (malantaŭa, ne-akva) rando, por ke la malantaŭo ne
+  // enfosigu en la deklivan bordon — kaj la vojoj (kiuj sekvas la terenon)
+  // renkontu la dokon ĉe la sama alto.
+  const duonL = platformDepth / 2;
+  const cosR = Math.cos( direkto ), sinR = Math.sin( direkto );
+  const landX = x + sinR * duonL, landZ = z + cosR * duonL;
+  let vojaY = heightFn( x, z );
+  for ( const ofseto of [ -6/8, 0, 6/8 ] ) {
+    vojaY = Math.max( vojaY, heightFn( landX + cosR * ofseto, landZ - sinR * ofseto ) );
+  }
   const akvaY = waterFn( x );
   const fostaAlto = Math.max( 1, vojaY - akvaY );
   const fostoX = vojaLargho / 2 - 1/8;
@@ -95,6 +104,11 @@ export function konstruiDokon(
   const malantaŭaZ = platformDepth / 2 - 1/8;
   for ( const localZ of [ frontaZ, malantaŭaZ ] ) {
     for ( const localX of [ -fostoX, fostoX ] ) {
+      // Nur metu foston kie la tereno estas sub la platformo (akvo/deklivo); sur
+      // la bordo la platformo sidas rekte sur la tero — neniu fosto en la tero.
+      const mX = x + cosR * localX + sinR * localZ;
+      const mZ = z - sinR * localX + cosR * localZ;
+      if ( heightFn( mX, mZ ) >= vojaY - 1/64 ) continue;
       const fosto = new THREE.Mesh(
         new THREE.CylinderGeometry( 3/16, 5/16, fostaAlto, 6 ),
         andezito

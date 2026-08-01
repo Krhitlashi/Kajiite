@@ -14,11 +14,15 @@ import { kreiKanoton, Kanoto } from "../assets/transporto.js";
 import { konstruiFiguron, gxisdatigiNpc } from "../assets/npcoj.js";
 import type { Figuro, Vesto } from "../assets/npcoj.js";
 import { kreiInternanSistemon, InternaSistemo } from "../assets/internoj.js";
+import { konstruiCielDiamanton } from "../assets/kosmosxipo.js";
+import type { CielDiamanto } from "../assets/kosmosxipo.js";
 import { riveroZ, alteco, akvoY, montetaBazo } from "./tereno.js";
 
 export interface UrbaSistemo {
   konstruSpecoj: KonstruSpec[];
   kolizioj: { x: number; z: number; r: number }[];
+  // Doka kolizio — rektangulaj platformoj (kun rotacio) por bloki suben-iron.
+  dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number }[];
   selektajxoj: THREE.Mesh[];
   konstruGrupoj: THREE.Group[];
   vojSpecimenoj: THREE.Vector3[];
@@ -29,6 +33,7 @@ export interface UrbaSistemo {
   kanuoj: Kanoto[];
   npcoj: Figuro[];
   internaSistemo: InternaSistemo;
+  xipo: CielDiamanto;
   vojDifinoj: VojDifino[];
   vojDuonLargho: (g: number) => number;
   NPCLOKOJ: [number, number][];
@@ -91,6 +96,11 @@ export function konstruiUrbon(
     bldgIdx++;
   }
 
+  // Kosmoporda stacio ĉe la arbarrando (norde de la reto, laŭ la x=12 akso de la dokoj).
+  // La rotacio (PI, pordo suden) estas aŭtomate fiksita de la rot-pasoj sube.
+  konstruSpecoj.push({ x: 0o14, z: 0o106, type: "stacioxipo", name: "bldg" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 109/32, rot: 0, diamond: true });
+  bldgIdx++;
+
   // Fiksu teren-alton kaj kolizion por cxiu konstruajxo (vojoj ne bezonataj ankoraux)
   konstruSpecoj.forEach(s => {
     s.h0 = alteco(s.x, s.z);
@@ -107,8 +117,11 @@ export function konstruiUrbon(
   // egalproporcie, kaj la meza estas pli longa cxefpiero.
   const DOKO_X = [ -0o52, 0, 0o52 ];
   const DOKO_PROFUNDOJ = [ 0o14, 0o20, 0o14 ];
+  const dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number }[] = [];
   for ( let i = 0; i < DOKO_X.length; i++ ) {
     konstruiDokon( sceno, DOKO_X[i], riveroZ( DOKO_X[i] ) + 0o16, 0, alteco, akvoY, DOKO_PROFUNDOJ[i] );
+    // La doka platformo estas 14/8 larĝa; ĝia rotacio estas 0 (aksi-para).
+    dokoKolizioj.push({ x: DOKO_X[i], z: riveroZ( DOKO_X[i] ) + 0o16, w: 14/8, d: DOKO_PROFUNDOJ[i], rot: 0 });
   }
 
   // ⟪ Voja reto 📃 ⟫
@@ -152,6 +165,16 @@ export function konstruiUrbon(
 
   const konstruGrupoj: THREE.Group[] = [];
   konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiZiguraton(s, sceno, selektajxoj)));
+
+  // ⟪ Spacosxipo — flosas super la kosmoporda stacio 📃 ⟫
+  // La sxipo flosas super la stacio: ĝia plej suba parto estas ~17.97 sub la
+  // origino (5 subaj tieroj), do y=30 lasas klaran spacon super la tegmento
+  // (10.2 alta) — la sama malsupro-alteco kiel antaŭ la spegula plilongigo.
+  const xipo: CielDiamanto = konstruiCielDiamanton(sceno, 0o14, 0o36, 0o106, oraMaterialo, eniraMaterialo);
+  // La sxipa interno flosas CE LA SXIPO (ne sur la tero): marku la stacion per la
+  // fluga alteco, por ke eniri la spacosxipon teleportu al la supro kie gxi estas.
+  const stacioSxipo = konstruSpecoj.find(s => s.type === "stacioxipo");
+  if (stacioSxipo) stacioSxipo.flugoY = xipo.group.position.y;
 
   // Konstruu aron da celloj por rapida sercxo
   const hasCellAt = (c: number, r: number) =>
@@ -222,9 +245,23 @@ export function konstruiUrbon(
   // Ĉiu branĉo finiĝas ĉe la norda rando de sia doko, ne tra ĝia platformo.
   const dockaLandaRando: [ number, number ][] = DOKO_X.map( ( dx, i ) => [ dx, dokaNordaRando( i ) ] );
   vojDifinoj.push({ pts: [ [ 0o14, -0o44 ], [ 0o14, -0o131 ] ], w: 14/8 });
-  for ( const [ dx, dz ] of dockaLandaRando ) {
-    vojDifinoj.push({ pts: [ [ 0o14, -0o131 ], [ dx, dz ] ], w: 14/8 });
+  // Brancxoj de la avenuo al la dokoj. La OKCIDENTA brancxo iras NORDEN de la meza
+  // platformo (la meza brancxo okupas la rektan okcidentan koridoron, kaj la malnova
+  // rekta okcidenta brancxo kunkolis kun gxi kaj trairis la mezan platformon) kaj
+  // alproksimigxas la okcidentan dokon de la nordo, perpendikulare al gia dorsa
+  // rando — neniu interkovro kun la meza brancxo, neniu trairo tra la platformo.
+  for ( let i = 0; i < dockaLandaRando.length; i++ ) {
+    const [ dx, dz ] = dockaLandaRando[i];
+    if ( i === 0 ) {
+      vojDifinoj.push({ pts: [ [ 0o14, -0o124 ], [ -0o10, -0o125 ], [ DOKO_X[0], -0o137 ], [ dx, dz ] ], w: 14/8 });
+    } else {
+      vojDifinoj.push({ pts: [ [ 0o14, -0o131 ], [ dx, dz ] ], w: 14/8 });
+    }
   }
+
+  // Arbarvojo — de la norda randa vojo (z=36) ĝis la kosmoporda stacio (z=66),
+  // en la malantaŭo de la urbo, kie la vojoj dissolviĝas en arbaron.
+  vojDifinoj.push({ pts: [ [ 0o14, 0o44 ], [ 0o14, 0o102 ] ], w: 14/8 });
 
   // Voja duon-larĝo — la segmenta larĝo estas 14/8, do ĝia duon-larĝo estas 7/8.
   function vojDuonLargho(_g: number): number {
@@ -234,6 +271,8 @@ export function konstruiUrbon(
   // ⟪ Spronvojoj 📃 ⟫
   for (const s of konstruSpecoj) {
     if (s.x === 0 && s.z === 0) continue;
+    // La kosmoporda stacio havas propran arbarvojon (vidu sube) — neniu aŭtomata sprono.
+    if (s.type === "stacioxipo") continue;
     const rot = s.rot || 0;
     const pordoOffset = s.d / 2 + 12/8;
     const pordoX = s.x + Math.sin(rot) * pordoOffset;
@@ -328,6 +367,8 @@ export function konstruiUrbon(
     }
   }
   const lampSistemo = konstruiLampojn(sceno, lampLokoj, dioritaMaterialo, oraMaterialo);
+  // Lampaj kolizioj — malgrandaj cirkloj ĉirkaŭ ĉiu lampa kolono.
+  for ( const l of lampLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 5/8 });
 
   // ⟪ Vegetajxo 📃 ⟫
   const ekskluziviRiveron = (x: number, z: number) => Math.abs(z - riveroZ(x)) < 7;
@@ -412,8 +453,10 @@ export function konstruiUrbon(
   // ⟪ Kanuoj 📃 ⟫
   // La kanuoj sekvas la novajn dokpintojn (riveroZ + 3, en la akvo) por resti atingeblaj de la dokoj.
   const kanuoj: Kanoto[] = [];
-  kanuoj.push(kreiKanoton(sceno, 0o52, riveroZ(0o52) + 3, -Math.PI * 2/8, oraMaterialo, akvoY(0o52)));
-  kanuoj.push(kreiKanoton(sceno, -0o52, riveroZ(-0o52) + 3, Math.PI * 2/8, oraMaterialo, akvoY(-0o52)));
+  // La eksteraj kanuoj estas la nova "zigurata" stilo (malhel-pina/ora, kongrua al
+  // la arkitekturo); la centra restas la baza hela stilo.
+  kanuoj.push(kreiKanoton(sceno, 0o52, riveroZ(0o52) + 3, -Math.PI * 2/8, oraMaterialo, akvoY(0o52), "zigurata"));
+  kanuoj.push(kreiKanoton(sceno, -0o52, riveroZ(-0o52) + 3, Math.PI * 2/8, oraMaterialo, akvoY(-0o52), "zigurata"));
   kanuoj.push(kreiKanoton(sceno, 0, riveroZ(0) + 3, -Math.PI * 4/8, oraMaterialo, akvoY(0)));
 
   // ⟪ NPC-agordo 📃 ⟫
@@ -467,9 +510,9 @@ export function konstruiUrbon(
   const internaSistemo: InternaSistemo = kreiInternanSistemon();
 
   return {
-    konstruSpecoj, kolizioj, selektajxoj, konstruGrupoj,
+    konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj, konstruGrupoj,
     vojSpecimenoj, placajNodoj, riverData, lampSistemo,
-    nebuloj, kanuoj, npcoj, internaSistemo, vojDifinoj, vojDuonLargho,
+    nebuloj, kanuoj, npcoj, internaSistemo, xipo, vojDifinoj, vojDuonLargho,
     NPCLOKOJ, VESTA_LISTO,
   };
 }

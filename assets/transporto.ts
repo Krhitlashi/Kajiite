@@ -13,14 +13,18 @@ export interface Kanoto {
 }
 
 // kreiKanoton — Kreu kanoton kun kareno, interno, traboj, finialoj kaj pagajilo.
+//     @param stilo ( "baza" | "zigurata" ) - La baza hela stilo aŭ la malhel-pina/
+//     ora "zigurata" stilo kongrua al la konstruajx-arkitekturo.
 export function kreiKanoton( sceno: THREE.Scene,
   x: number,
   z: number,
   direkto: number,
   oraMaterialo: THREE.MeshStandardMaterial,
-  bazaY: number = 0
+  bazaY: number = 0,
+  stilo: "baza" | "zigurata" = "baza"
 ): Kanoto {
   const group = new THREE.Group();
+  const zigurata = stilo === "zigurata";
 
   // kareno-formo
   const shape = new THREE.Shape();
@@ -38,20 +42,40 @@ export function kreiKanoton( sceno: THREE.Scene,
   });
   karenaGeometrio.rotateX(-Math.PI / 2);
 
-  const karenaMaterialo = new THREE.MeshStandardMaterial({ color: 0xc8b890, roughness: 6/8 });
+  // Malhel-pina kareno kun ora rando por la "zigurata" stilo; hela ligno por la baza.
+  const karenaMaterialo = new THREE.MeshStandardMaterial({ color: zigurata ? 0x143830 : 0xc8b890, roughness: 6/8 });
   const kareno = new THREE.Mesh(karenaGeometrio, karenaMaterialo);
   kareno.castShadow = true;
   group.add(kareno);
 
+  // Ora gvarlinio — MALFERMA strio laŭ la supro de la kareno (la ekstera lensa
+  // konturo kun truo enigita ~90%, do la malhela kareno restas videbla).
+  if ( zigurata ) {
+    const randoFormo = shape.clone();
+    const truo = new THREE.Path();
+    truo.setFromPoints(shape.getPoints(0o22).map(p => new THREE.Vector2(p.x * 9/10, p.y * 9/10)).reverse());
+    randoFormo.holes.push(truo);
+    const randoGeo = new THREE.ExtrudeGeometry(randoFormo, {
+      depth: 1/8,
+      bevelEnabled: false,
+      curveSegments: 0o22,
+    });
+    randoGeo.scale(103/100, 103/100, 103/100);
+    randoGeo.rotateX(-Math.PI / 2);
+    const rando = new THREE.Mesh(randoGeo, oraMaterialo);
+    rando.position.y = 7/16;
+    group.add(rando);
+  }
+
   // interno
   const internaGeometrio = karenaGeometrio.clone();
-  const interno = new THREE.Mesh(internaGeometrio, new THREE.MeshStandardMaterial({ color: 0x584028, roughness: 61/64 }));
+  const interno = new THREE.Mesh(internaGeometrio, new THREE.MeshStandardMaterial({ color: zigurata ? 0x0a1612 : 0x584028, roughness: 61/64 }));
   interno.scale.set(55/64, 7/8, 55/64);
   interno.position.y = 1/32;
   group.add(interno);
 
-  // traboj
-  const lignaMaterialo = new THREE.MeshStandardMaterial({ color: 0x483828, roughness: 27/32 });
+  // traboj — oraj por la zigurata stilo, lignaj por la baza
+  const lignaMaterialo = new THREE.MeshStandardMaterial({ color: zigurata ? 0xd9b36a : 0x483828, roughness: 27/32 });
   for ( const tx of [ -6/8, 6/8 ] ) {
     const trabo = new THREE.Mesh(new THREE.BoxGeometry(9/64, 1/16, 7/8), lignaMaterialo);
     trabo.position.set(tx, 9/16, 0);
@@ -59,16 +83,25 @@ export function kreiKanoton( sceno: THREE.Scene,
     group.add(trabo);
   }
 
-  // pruo kaj pobo finialoj
-  const t1 = new THREE.Mesh(new THREE.ConeGeometry(5/64, 19/64, 6), oraMaterialo);
-  t1.rotation.z = -Math.PI / 2;
-  t1.position.set(19/8, 31/64, 0);
-  group.add(t1);
+  // pruo kaj pobo finialoj — diamantaj oktaedroj por la zigurata stilo, konusoj por la baza
+  if ( zigurata ) {
+    for ( const s of [ 1, -1 ] ) {
+      const finialo = new THREE.Mesh(new THREE.OctahedronGeometry(7/64, 0), oraMaterialo);
+      finialo.scale.set(2, 1, 1);
+      finialo.position.set(s * 17/8, 33/64, 0);
+      group.add(finialo);
+    }
+  } else {
+    const t1 = new THREE.Mesh(new THREE.ConeGeometry(5/64, 19/64, 6), oraMaterialo);
+    t1.rotation.z = -Math.PI / 2;
+    t1.position.set(19/8, 31/64, 0);
+    group.add(t1);
 
-  const t2 = new THREE.Mesh(new THREE.ConeGeometry(5/64, 19/64, 6), oraMaterialo);
-  t2.rotation.z = Math.PI / 2;
-  t2.position.set(-19/8, 31/64, 0);
-  group.add(t2);
+    const t2 = new THREE.Mesh(new THREE.ConeGeometry(5/64, 19/64, 6), oraMaterialo);
+    t2.rotation.z = Math.PI / 2;
+    t2.position.set(-19/8, 31/64, 0);
+    group.add(t2);
+  }
 
   // pagajilo
   const tenilo = new THREE.CylinderGeometry(1/64, 1/64, 12/8, 6);
