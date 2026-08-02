@@ -133,9 +133,17 @@ export function konstruiVojojn( sceno: THREE.Scene,
       konstruiSegmenton(aX, aZ, bX, bZ, def.w, 2/8, defAlt, supraMaterialo, sceno);
       // Andesite remains only along the outside road edge.
       konstruiSegmenton(aX, aZ, bX, bZ, def.w + 8/8, 2/8, defAlt, bordaMaterialo, sceno);
-      // Specimenoj por lampoj
-      const movX = (aX + bX) / 2, movZ = (aZ + bZ) / 2;
-      samples.push(new THREE.Vector3(movX, defAlt(movX, movZ), movZ));
+      // Specimenoj por lampoj — kaj por la vegetajxo-ekskludo: unu specimeno
+      // cxiun ~2 unuojn, por ke neniu planto povu sidi inter maldensajn
+      // specimenojn kaj aperi sur la vojo.
+      const longo = Math.hypot(bX - aX, bZ - aZ);
+      const nombro = Math.max(1, Math.round(longo / 2));
+      for (let k = 0; k <= nombro; k++) {
+        const t = k / nombro;
+        const sx = aX + (bX - aX) * t;
+        const sz = aZ + (bZ - aZ) * t;
+        samples.push(new THREE.Vector3(sx, defAlt(sx, sz), sz));
+      }
     }
   }
   return samples;
@@ -159,9 +167,9 @@ function kreiRondanDiamanton( radiuso: number, dikeco: number ): THREE.ExtrudeGe
   return new THREE.ExtrudeGeometry( formo, { depth: dikeco, bevelEnabled: false } );
 }
 
-// konstruiPlacojn — Konstruu rondajn kapojn nur cxe la kvar angulaj nodoj de
-// la voja reto, samgrandajn kiel la vojo. T-krucigxoj kaj internaj intersekcoj
-// restas liberaj.
+// konstruiPlacojn — Konstruu rondajn kapojn cxe la donitaj rando-nodoj de la
+// voja reto, samgrandajn kiel la vojo. T-krucigxoj kaj internaj intersekcoj
+// restas liberaj ( la alvokanto donas nur la verajn rando-finojn ).
 export function konstruiPlacojn( sceno: THREE.Scene,
   nodes: [number, number][],
   heightFn: (x: number, z: number) => number,
@@ -170,14 +178,6 @@ export function konstruiPlacojn( sceno: THREE.Scene,
 ): { x: number; z: number }[] {
   const kajoj: { x: number; z: number }[] = [];
   if (nodes.length === 0) return kajoj;
-
-  // Nur la plej eksteraj nodoj ricevas platformojn.
-  const minX = Math.min(...nodes.map(n => n[0]));
-  const maxX = Math.max(...nodes.map(n => n[0]));
-  const minZ = Math.min(...nodes.map(n => n[1]));
-  const maxZ = Math.max(...nodes.map(n => n[1]));
-  // Nur la kvar angulaj nodoj — ambaŭ ekstremoj samtempe.
-  const angulajNodoj = nodes.filter(([x, z]) => (x === minX || x === maxX) && (z === minZ || z === maxZ));
 
   const dioritaTx = kreiDioritanTeksajxon();
   const andezitaTx = kreiAndezitanTeksajxon();
@@ -190,7 +190,7 @@ export function konstruiPlacojn( sceno: THREE.Scene,
   placaMaterialo.map = dioritaTx; placaMaterialo.needsUpdate = true;
   placaMaterialo.polygonOffset = true; placaMaterialo.polygonOffsetFactor = -3; placaMaterialo.polygonOffsetUnits = -2;
 
-  for ( const [bX, bZ] of angulajNodoj ) {
+  for ( const [bX, bZ] of nodes ) {
     const y = heightFn(bX, bZ) + 2/8;
     // Samgrandaj kiel la vojo: la disko kongruas kun la diorita surfaco (7/8
     // duon-larĝo) kaj la ringo kun la andezita bordo (11/8), kuŝantaj plate.

@@ -806,7 +806,7 @@ let minimapaFotilo: THREE.OrthographicCamera | null = null;
 let plenaBildilo: THREE.WebGLRenderer | null = null;
 let plenaFotilo: THREE.OrthographicCamera | null = null;
 
-const RADARA_DUONO = 0o50;   // duon-larĝo de la radara mapo ( mondaj unuoj )
+const RADARA_DUONO = 0o30;   // duon-larĝo de la radara mapo ( mondaj unuoj ) — pli proksima ol antaŭe, por montri la tujan ĉirkaŭaĵon
 const PLENA_DUONO = 0o214;   // duon-larĝo de la plena mapo ( la tuta valo )
 const MINA_DUONO = 0o10;     // plej proksima zomo de la plena mapo
 const MAXA_DUONO = 0o500;    // plej malproksima zomo de la plena mapo
@@ -833,6 +833,11 @@ function kreiMapanSistemon(canvas: HTMLCanvasElement, duono: number): { bildilo:
   bildilo.setPixelRatio(1);
   bildilo.setSize(canvas.width, canvas.height, false);
   bildilo.setClearColor(0x0a1814, 1);
+  // Samaj koloro-agordoj kiel la ĉefa bildilo: sen ili la mapo uzus linian
+  // kolorospacon kaj neniun ton-mapiĝon, do la vojoj aperus malklaraj/malhelaj.
+  bildilo.outputColorSpace = THREE.SRGBColorSpace;
+  bildilo.toneMapping = THREE.ACESFilmicToneMapping;
+  bildilo.toneMappingExposure = 1.06;
   bildilo.shadowMap.enabled = false;
   const fotilo = new THREE.OrthographicCamera(-duono, duono, duono, -duono, 1, 0o240);
   fotilo.up.set(0, 0, 1); // mapo-supro = nordo ( +z )
@@ -1175,10 +1180,11 @@ function animacii() {
         const ang = Math.atan2(lokalX, lokalZ);
         const frac = ((ang % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2);
         if (sxtupaTurno === null) {
-          // Eniro: komencu je la plej proksima turno al la nuna alteco. De la teretaĝo
-          // ĉiam supren (krampo al 0) — ne suben en la kelon.
+          // Eniro: komencu je la plej proksima turno al la nuna alteco. Oni rajtas
+          // ankaŭ malsupreniri al la sub-teraj etaĝoj ( la ŝtuparo etendiĝas suben
+          // laŭ turnojSube ), do neniu krampo al 0.
           const turno0 = ludY >= 0 ? ludY / helikso.turnoAlto : ludY / helikso.turnoAltoSub;
-          const malsupraLim = ludY >= 0 ? 0 : -helikso.turnojSube;
+          const malsupraLim = -helikso.turnojSube;
           sxtupaTurno = Math.max(malsupraLim, Math.min(helikso.turnoj, Math.round(turno0 - frac) + frac));
         } else {
           // Daŭra vindo: sekvu la angulon ĉirkaŭ la spiralo (supren kaj suben)

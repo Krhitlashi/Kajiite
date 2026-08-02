@@ -31,6 +31,35 @@ export function kreiSxelanTeksajxon(): THREE.CanvasTexture {
   return teksajxo;
 }
 
+// kreiLarikanSxelanTeksajxon — Kreu proceduralan larikan sxelan teksajxon.
+// Grizbruna sxoelo kun ruĝbrunaj vertikalaj platoj — la malnova alpina lariko.
+export function kreiLarikanSxelanTeksajxon(): THREE.CanvasTexture {
+  const w = 0o200, h = 0o400;
+  const kanvasa = document.createElement( "canvas" );
+  kanvasa.width = w; kanvasa.height = h;
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  kunteksto.fillStyle = "#989088"; kunteksto.fillRect( 0, 0, w, h );
+  for ( let i = 0; i < 0o30; i++ ) {
+    kunteksto.fillStyle = `rgba(120,104,96,${0.25 + Math.random() * 0.3})`;
+    kunteksto.fillRect( Math.random() * w, 0, 2 + Math.random() * 3, h );
+  }
+  // Vertikalaj ruĝbrunaj fendoj — la platoj de la malnova sxoelo.
+  for ( let i = 0; i < 0o40; i++ ) {
+    kunteksto.fillStyle = `rgba(88,64,56,${0.4 + Math.random() * 0.45})`;
+    kunteksto.fillRect( Math.random() * w, Math.random() * h, 2 + Math.random() * 4, 0o100 + Math.random() * 0o110 );
+  }
+  // Helaj platoj inter la fendoj.
+  for ( let i = 0; i < 0o20; i++ ) {
+    kunteksto.fillStyle = `rgba(176,168,152,${0.3 + Math.random() * 0.3})`;
+    kunteksto.fillRect( Math.random() * w, Math.random() * h, 3 + Math.random() * 6, 0o14 + Math.random() * 0o60 );
+  }
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
+  teksajxo.colorSpace = THREE.SRGBColorSpace;
+  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
+  teksajxo.repeat.set( 1, 2 );
+  return teksajxo;
+}
+
 // kreiDioritanTeksajxon — Kreu proceduralan dioritan teksajxon por vojoj.
 export function kreiDioritanTeksajxon(): THREE.CanvasTexture {
   const s = 0o200;
@@ -226,6 +255,120 @@ export function kreiHerbErinanTeksajxon(): THREE.CanvasTexture {
   kunteksto.moveTo( s / 2, s * 0.92 );
   kunteksto.quadraticCurveTo( s / 2, s * 0.4, s / 2, s * 0.08 );
   kunteksto.stroke();
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
+  teksajxo.colorSpace = THREE.SRGBColorSpace;
+  return teksajxo;
+}
+
+// kreiLikenanTeksajxon — Kreu proceduralan krustan likenan makulon.
+// Paleverda krusto kun molaj randoj, pli malhela rompita periferio kaj
+// malgrandaj fruktkorpoj ( apotecioj ).
+export function kreiLikenanTeksajxon(): THREE.CanvasTexture {
+  const s = 0o400;
+  const kanvasa = document.createElement( "canvas" );
+  kanvasa.width = kanvasa.height = s;
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  kunteksto.clearRect( 0, 0, s, s );
+
+  const cx = s / 2, cy = s / 2;
+  // Neregula krusta korpo — interkovrantaj paleverdaj rondoj kun molaj
+  // gradienaj randoj; la alphaTest tranĉas ilin ĉe malalta opakeco.
+  const koloroj = [ "#c0d0b8", "#b0c8a0", "#d0e0c0", "#a8c0a0" ];
+  const nombro = 0o16 + ( ( Math.random() * 0o4 ) | 0 );
+  for ( let i = 0; i < nombro; i++ ) {
+    const r = s * ( 11/64 + Math.random() * 5/64 );
+    const x = cx + ( Math.random() - 4/8 ) * s * 1/4;
+    const y = cy + ( Math.random() - 4/8 ) * s * 1/4;
+    const gradiento = kunteksto.createRadialGradient( x, y, 0, x, y, r );
+    gradiento.addColorStop( 0, koloroj[ i % koloroj.length ] );
+    gradiento.addColorStop( 1, "rgba(160,176,144,0)" );
+    kunteksto.fillStyle = gradiento;
+    kunteksto.beginPath();
+    kunteksto.arc( x, y, r, 0, Math.PI * 2 );
+    kunteksto.fill();
+  }
+
+  // Malhela, rompita periferio — kelkaj arkoj ĉe la rando.
+  kunteksto.strokeStyle = "rgba(88,104,80,0.8)";
+  kunteksto.lineWidth = 3;
+  for ( let i = 0; i < 0o22; i++ ) {
+    const a = i / 0o22 * Math.PI * 2;
+    const r = s * ( 13/32 + Math.random() * 5/64 );
+    kunteksto.beginPath();
+    kunteksto.arc( cx + Math.cos( a ) * s * 3/32, cy + Math.sin( a ) * s * 3/32, r, a, a + Math.PI * 1/4 );
+    kunteksto.stroke();
+  }
+
+  // Krusta punktado — malhelverdaj flokoj tra la tuta makulo.
+  for ( let i = 0; i < 0o200; i++ ) {
+    const t = Math.sqrt( Math.random() );
+    const a = Math.random() * Math.PI * 2;
+    const r = s * 5/16 * t;
+    kunteksto.fillStyle = `rgba(88,104,72,${0.3 + Math.random() * 0.35})`;
+    kunteksto.fillRect( cx + Math.cos( a ) * r, cy + Math.sin( a ) * r, 1 + Math.random() * 2, 1 + Math.random() * 2 );
+  }
+
+  // Fruktkorpoj ( apotecioj ) — malgrandaj malhelaj punktetoj.
+  for ( let i = 0; i < 0o14; i++ ) {
+    const a = Math.random() * Math.PI * 2;
+    const r = s * ( Math.random() * 5/16 );
+    kunteksto.fillStyle = "rgba(64,72,48,0.8)";
+    kunteksto.beginPath();
+    kunteksto.arc( cx + Math.cos( a ) * r, cy + Math.sin( a ) * r, 2 + Math.random() * 3, 0, Math.PI * 2 );
+    kunteksto.fill();
+  }
+
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
+  teksajxo.colorSpace = THREE.SRGBColorSpace;
+  return teksajxo;
+}
+
+// kreiPurpuranFolianTeksajxon — Kreu proceduralan purpuran folian teksajxon
+// por la laktuk-arbo. Larĝa klingo kun centra kaj flankaj vejnoj.
+export function kreiPurpuranFolianTeksajxon(): THREE.CanvasTexture {
+  const s = 0o400;
+  const kanvasa = document.createElement( "canvas" );
+  kanvasa.width = kanvasa.height = s;
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  kunteksto.clearRect( 0, 0, s, s );
+  const cx = s / 2;
+
+  // Klingo — purpura, larĝa, kun glataj randoj. La larĝo 8/16 kongruas
+  // kun la pli larĝa folia geometrio ( 6/5 ), por ke la vejnoj ne streĉiĝu.
+  // La bazo pintigas — neniu akra angulo ĉe la flankoj.
+  const gradiento = kunteksto.createRadialGradient( cx, s * 3/8, 0, cx, s * 3/8, s * 8/16 );
+  gradiento.addColorStop( 0, "#a050b0" );
+  gradiento.addColorStop( 1, "#703880" );
+  kunteksto.fillStyle = gradiento;
+  kunteksto.beginPath();
+  kunteksto.moveTo( cx, s * 15/16 );
+  kunteksto.bezierCurveTo( cx - s * 1/8, s * 7/8, cx - s * 8/16, s * 5/8, cx, s * 3/16 );
+  kunteksto.bezierCurveTo( cx + s * 8/16, s * 5/8, cx + s * 1/8, s * 7/8, cx, s * 15/16 );
+  kunteksto.closePath();
+  kunteksto.fill();
+
+  // Centra vejno.
+  kunteksto.strokeStyle = "#583070";
+  kunteksto.lineWidth = 3;
+  kunteksto.beginPath();
+  kunteksto.moveTo( cx, s * 15/16 );
+  kunteksto.quadraticCurveTo( cx, s * 1/2, cx, s * 3/16 );
+  kunteksto.stroke();
+
+  // Flankaj vejnoj.
+  kunteksto.lineWidth = 2;
+  for ( let i = 1; i < 0o6; i++ ) {
+    const t = i / 0o6;
+    const y = s * 15/16 - t * ( s * 15/16 - s * 3/16 );
+    const largho = s * 8/16 * Math.sin( Math.PI * Math.min( t * 6/5, 1 ) );
+    for ( const dir of [ -1, 1 ] ) {
+      kunteksto.beginPath();
+      kunteksto.moveTo( cx, y );
+      kunteksto.quadraticCurveTo( cx + dir * largho * 2/3, y - s * 1/32, cx + dir * largho, y );
+      kunteksto.stroke();
+    }
+  }
+
   const teksajxo = new THREE.CanvasTexture( kanvasa );
   teksajxo.colorSpace = THREE.SRGBColorSpace;
   return teksajxo;

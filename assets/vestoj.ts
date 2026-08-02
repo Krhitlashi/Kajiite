@@ -6,13 +6,15 @@ export interface Vesto {
   main: number;    // deksesuma
   accent: number;  // deksesuma
   interno: number;   // deksesuma
+  pantalono: number; // deksesuma — kutime hela aŭ malhela bluo
+  botoj: number;     // deksesuma — kutime bruno
 }
 
 export const VESTOJ: Vesto[] = [
-  { name: "vestoVerdant", main: 0x184838, accent: 0xd8b068, interno: 0x103828 },
-  { name: "vestoHearth", main: 0x584830, accent: 0xd8c8a0, interno: 0x302818 },
-  { name: "vestoMist",   main: 0xd8e0e0, accent: 0x889898, interno: 0xa8b8b8 },
-  { name: "vestoEmber", main: 0x783828, accent: 0xe0a858, interno: 0x402018 },
+  { name: "vestoVerdant", main: 0x184838, accent: 0xd8b068, interno: 0x103828, pantalono: 0x285880, botoj: 0x583818 },
+  { name: "vestoHearth", main: 0x584830, accent: 0xd8c8a0, interno: 0x302818, pantalono: 0x3878a0, botoj: 0x583808 },
+  { name: "vestoMist",   main: 0xd8e0e0, accent: 0x889898, interno: 0xa8b8b8, pantalono: 0x5898b8, botoj: 0x503808 },
+  { name: "vestoEmber", main: 0x783828, accent: 0xe0a858, interno: 0x402018, pantalono: 0x2858a0, botoj: 0x583838 },
 ];
 
 const deksesuma = (c: number): string => "#" + c.toString(0o20).padStart(6, "0");
@@ -45,14 +47,15 @@ function rombo( kunteksto: CanvasRenderingContext2D,
   if ( edge ) { kunteksto.strokeStyle = edge; kunteksto.lineWidth = 4; kunteksto.stroke(); }
 }
 
-// kreiVestanTeksajxon — Kreu teksturon por NPC-vesto laux speco (supra, interna, malsupra).
+// kreiVestanTeksajxon — Kreu teksturon por NPC-vesto laux speco (supra, interna, malsupra, pantalono).
 export function kreiVestanTeksajxon( o: Vesto,
-  kind: "supra" | "interno" | "malsupra"
+  kind: "supra" | "interno" | "malsupra" | "pantalono"
 ): THREE.CanvasTexture {
   const kanvasa = document.createElement("canvas");
   kanvasa.width = 0o400; kanvasa.height = 0o1000;
   const kunteksto = kanvasa.getContext("2d")!;
-  const M = deksesuma(o.main);
+  // La pantalono uzas sian propran bazkoloron ( bluan ); la cetero la ĉefan.
+  const M = deksesuma(kind === "pantalono" ? o.pantalono : o.main);
   const A = deksesuma(o.accent);
   const I = deksesuma(o.interno);
 
@@ -77,7 +80,7 @@ export function kreiVestanTeksajxon( o: Vesto,
     rombo(kunteksto, 0o124, 0o512, 0o32, 0o42, I, A);
     rombo(kunteksto, 0o254, 0o512, 0o32, 0o42, I, A);
     rombo(kunteksto, 0o200, 0o610, 0o26, 0o34, I, A);
-  } else if ( kind === "interno" ) {
+  } else if ( kind === "interno" || kind === "pantalono" ) {
     for ( let i = 0; i < 3; i++ ) {
       rombo(kunteksto, 0o200, 0o120 + i * 0o156, 0o36, 0o50, null, A);
     }
@@ -137,6 +140,27 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   // accent ornamo
   kunteksto.fillStyle = A;
   kunteksto.fillRect(0o40, 0o234, 0o110, 7);
+
+  // pantalono — hela aŭ malhela bluo sub la robo
+  kunteksto.fillStyle = deksesuma(o.pantalono);
+  kunteksto.beginPath();
+  kunteksto.moveTo(0o56, 0o240); kunteksto.lineTo(0o144, 0o240);
+  kunteksto.lineTo(0o140, 0o260); kunteksto.lineTo(0o60, 0o260);
+  kunteksto.closePath();
+  kunteksto.fill();
+
+  // botoj — malgrandaj, brunaj kun akcenta plando ĉe la malsupro
+  kunteksto.fillStyle = deksesuma(o.botoj);
+  kunteksto.fillRect(0o56, 0o262, 0o42, 0o14);
+  kunteksto.fillRect(0o112, 0o262, 0o42, 0o14);
+  kunteksto.fillStyle = A;
+  kunteksto.fillRect(0o56, 0o270, 0o42, 3);
+  kunteksto.fillRect(0o112, 0o270, 0o42, 3);
+
+  // butona plateto — vertikala akcenta linio laŭ la fronta centro
+  kunteksto.fillStyle = A;
+  kunteksto.fillRect(0o101, 0o66, 3, 0o104);
+  for ( let i = 0; i < 3; i++ ) kunteksto.fillRect(0o102, 0o74 + i * 0o32, 3, 3);
 
   // motifs
   kvarStelo(kunteksto, 0o104, 0o124, 0o17, A);

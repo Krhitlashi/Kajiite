@@ -698,9 +698,11 @@ export function eniriInternon(
 
     sys.plankoj.push({ y, hw, hd, alto });
 
-    // Planko ( kun cirkla truo por la helika ŝtuparo sur ĉiuj etaĝoj krom la teretaĝo )
+    // Planko ( kun cirkla truo por la helika ŝtuparo sur ĉiuj etaĝoj; la
+    // teretaĝo ricevas la truon ankaŭ kiam ekzistas sub-teraj etaĝoj, por ke
+    // oni povu malsupreniri la ŝtuparon en la kelon ).
     const planko = new THREE.Mesh(
-      helikso && et !== 0
+      helikso && (et !== 0 || sube > 0)
         ? kreiRinganPlankon(hw, hd, sxaktaR, -Math.PI / 2)
         : new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(-Math.PI / 2),
       plankoMaterialo

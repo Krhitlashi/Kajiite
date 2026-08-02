@@ -1,5 +1,6 @@
 // tradukoj.ts — Translation system for Aranis
 // Four languages. aih, eo, en, ja
+import { gkAlIpa, ipaAlLingvo } from "./sonaj-reguloj.js";
 
 const skakefani: Record<string, Record<string, string>> = {
   aih: {
@@ -62,7 +63,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipMangxejo": "ſɭᴜ ſ͔ɭɔȝ",
     "tipKasafeo": "ſɭᴜ j͑ʃᴜ ſȷɔ",
     "tipStacioxipo": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
-    "tipTuro": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ſɭw ʃᴜ",
+    "tipTuro": "ſןᴜȝ ᶅſw ſɭɹ",
     "tipSanktejo": "ſɭᴜ ſɭw ʃᴜ ſɭᴜ ꞁȷ̀ᴜȝ",
     // Building card flavor text
     "flvDomo": "ſɭᴜ ɭl̀ɹ ɭʃɔ ꞁȷ̀ɹ j͑ʃᴜ ſɭᴜ ſȷɔ ſɭɔ ꞁȷ̀ɹ ſɭᴜ ſɭw ʃᴜ ſɭэ ſɭ͔ɭᴜƽ j͑ʃ'ᴜ ſɭᴜ ſᶘɔ ɭl̀ɹȝ",
@@ -105,41 +106,41 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoMist": "ꞁȷ̀ɹ ֭ſɭɹɔ˞ ſɭᴜ ſɭw ʃᴜ",
     "vestoEmber": "ſɭᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭw ʃᴜ",
     // Building names from real Iikrhia dictionary words ( Gawekiif )
-    "bldg0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
-    "bldg1": "ſɭᴜ ſןɹ",
-    "bldg2": "ſɭᴜ ᶅſw ſɭɹ",
-    "bldg3": "ſɭэᴜ̩ ſןɹ",
-    "bldg4": "ſɭɔⰱ",
-    "bldg5": "ſɟɹƽ ꞁȷ̀ᴜ }ʃw",
-    "bldg6": "ɭʃэ ſɭɔȝ",
-    "bldg7": "ſɟꞇȝ",
-    "bldg8": "ſɭᴜ ſɟɔ",
-    "bldg9": "ſȷɹ ŋᷠɹ",
-    "bldg10": "֭ſɭɹɔ˞",
-    "bldg11": "ı],ᴜȝ",
-    "bldg12": "ŋᷠᴜ ֭ſɭᴜ",
-    "bldg13": "ſᶘꞇ ɭl̀ɔ",
-    "bldg14": "ɭl̀ᴜ ſ͕ɭɜ",
-    "bldg15": "j͐ʃᴜ ŋᷠɹⰱ",
-    "bldg16": "j͑ʃɹ ı],w",
-    "bldg17": "ſɭэ j͑ʃꞇ",
-    "bldg18": "j͑ʃɜ ſᶘɹ",
-    "bldg19": "ſɭɔ }ʃɔ ı],ɜ",
-    "bldg20": "ſɭɹⰱ",
-    "bldg21": "ſ͔ɭɹ ɭʃɔ",
-    "bldg22": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ",
-    "bldg23": "ſȷwɔ˞",
-    "bldg24": "ſɟᴜ j͑ʃɜȝ ɭʃɔ",
-    "bldg25": "ŋᷠɔ ſ̀ȷɔʞ",
-    "bldg26": "ᶅſɜ ſ͔ɭɜͷ̗",
-    "bldg27": "ſɭɔ j͐ʃc̭ᴜ",
-    "bldg28": "}ʃɜ ſɭɜƴ",
-    "bldg29": "ɭ(ɜ ŋᷠɜ ı],ᴜ",
-    "bldg30": "ɭ(ɜ ŋᷠɜ ſȷɔ",
-    "bldg31": "ſɭᴜɘ ꞁȷ̀ᴜ ſɟɔ",
-    "bldg32": "ſɭᴜ ɭ(ᴜͷ̗",
-    "bldg33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
-    // Track names
+    "paq0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
+    "paq1": "ſɭᴜ ſןɹ",
+    "paq2": "ſɭᴜ ᶅſw ſɭɹ",
+    "paq3": "ſɭэᴜ̩ ſןɹ",
+    "paq4": "ſɭɔⰱ",
+    "paq5": "ſɟɹƽ ꞁȷ̀ᴜ }ʃw",
+    "paq6": "ɭʃэ ſɭɔȝ",
+    "paq7": "ſɟꞇȝ",
+    "paq8": "ſɭᴜ ſɟɔ",
+    "paq9": "ſȷɹ ŋᷠɹ",
+    "paq10": "֭ſɭɹɔ˞",
+    "paq11": "ı],ᴜȝ",
+    "paq12": "ŋᷠᴜ ֭ſɭᴜ",
+    "paq13": "ſᶘꞇ ɭl̀ɔ",
+    "paq14": "ɭl̀ᴜ ſ͕ɭɜ",
+    "paq15": "j͐ʃᴜ ŋᷠɹⰱ",
+    "paq16": "j͑ʃɹ ı],w",
+    "paq17": "ſɭэ j͑ʃꞇ",
+    "paq18": "j͑ʃɜ ſᶘɹ",
+    "paq19": "ſɭɔ }ʃɔ ı],ɜ",
+    "paq20": "ſɭɹⰱ",
+    "paq21": "ſ͔ɭɹ ɭʃɔ",
+    "paq22": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ",
+    "paq23": "ſȷwɔ˞",
+    "paq24": "ſɟᴜ j͑ʃɜȝ ɭʃɔ",
+    "paq25": "ŋᷠɔ ſ̀ȷɔʞ",
+    "paq26": "ᶅſɜ ſ͔ɭɜͷ̗",
+    "paq27": "ſɭɔ j͐ʃc̭ᴜ",
+    "paq28": "}ʃɜ ſɭɜƴ",
+    "paq29": "ɭ(ɜ ŋᷠɜ ı],ᴜ",
+    "paq30": "ɭ(ɜ ŋᷠɜ ſȷɔ",
+    "paq31": "ſɭᴜɘ ꞁȷ̀ᴜ ſɟɔ",
+    "paq32": "ſɭᴜ ɭ(ᴜͷ̗",
+    "paq33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
+    // Trakonomoj ( trakoN ): derivitaj de la aih-a Gawekiif per la sonaj reguloj.
     "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
@@ -189,8 +190,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Food action labels
     "actGusti": "Guŝu ·", "actTrinketi": "Trinketu ·",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
-    "manĝFok0": "fokumaseŭ · Lichen Crust", "manĝFok1": "fokumaseŭ · Mint Glaze", "manĝFok2": "fokumaseŭ · Peppered",
-    "manĝTla0": "tlatuva · Classic", "manĝTla1": "tlatuva · Honeyed", "manĝTla2": "tlatuva · Iced Birch-sap",
+    // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
     // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
     "manĝFok0Flavor": "Varma likena pano, malrapida anaso, faldon de vaporo.",
     "manĝFok1Flavor": "Malvarma glazuro kontraŭ riĉa viando · la arbaro elspiras.",
@@ -203,7 +203,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipMangxejo": "Kahxjenko",
     "tipKasafeo": "Kasafeo",
     "tipStacioxipo": "Kosmopordo",
-    "tipTuro": "Turo",
+    "tipTuro": "Veuxkupanko",
     "tipSanktejo": "Sanktejo",
     // Building flavor text
     "flvDomo": "Kvietaj ĉambroj stakitaj al la nebulo.",
@@ -235,10 +235,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Aria label for dusk toggle
     "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
     "ariaDuskRegilo": "Krepuska nivelo",
-    "ariaTrako0": "Elekti trakon 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
-    "ariaTrako1": "Elekti trakon 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "ariaTrako2": "Elekti trakon 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
-    "ariaTrako3": "Elekti trakon 4 j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
+    // ariaTrakoN: derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     "altTitolaSkripto": "Aranis skribita en la zigurata skribo",
     // Clothing names
@@ -246,48 +243,13 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoHearth": "Fajruja Gardanto — Ĥeles Verda",
     "vestoMist": "Nebula Palto — Ihis Verda",
     "vestoEmber": "Brusta Gardanto — Ĥeles Bruna",
-    // Building names ( systematic IPA-based transcription using new py script values.
-    //  ⱱ→v c→ĉ ɸ→f x→ĥ ç→ŝ xʲ→ĥj ɬ→l ɟ̆→j θ→t ŋ→nk ɪ̈→i ɑ→a ə→u ɤ→o )
-    "bldg0": "Arimani",
-    "bldg1": "Kapi",
-    "bldg2": "Kavuki",
-    "bldg3": "Kaĥpi",
-    "bldg4": "Ket",
-    "bldg5": "Ĉikanu",
-    "bldg6": "Takenk",
-    "bldg7": "Ĉink",
-    "bldg8": "Kaĉe",
-    "bldg9": "Fimi",
-    "bldg10": "Ĥis",
-    "bldg11": "Ŝank",
-    "bldg12": "Maĥa",
-    "bldg13": "Cije",
-    "bldg14": "Janko",
-    "bldg15": "Lamit",
-    "bldg16": "Siŝu",
-    "bldg17": "Kasi",
-    "bldg18": "Soci",
-    "bldg19": "Keneŝo",
-    "bldg20": "Kit",
-    "bldg21": "Ĥjite",
-    "bldg22": "Ĉacejink",
-    "bldg23": "Fus",
-    "bldg24": "Ĉasonkte",
-    "bldg25": "Metĥef",
-    "bldg26": "Voĥjol",
-    "bldg27": "Kelma",
-    "bldg28": "Nokroĝ",
-    "bldg29": "Somoŝa",
-    "bldg30": "Somofe",
-    "bldg31": "Kapace",
-    "bldg32": "Kadal",
-    "bldg33": "Kosmopordo",
-    // Track names
+    // Konstruaĵnomoj ( paqN ): derivitaj de la aih-a Gawekiif per la sonaj
+    // reguloj ( src/sonaj-reguloj.ts ) — nur la intencaj nomoj restas ĉi tie.
+    "paq31": "Kapace",
+    "paq32": "Kadal",
+    "paq33": "Kosmopordo",
+    // Trakonomoj ( trakoN ): derivitaj de la aih-a Gawekiif per la sonaj reguloj.
     "muziko": "Muziko",
-    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
-    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
-    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   en: {
     // Proper English translations for all UI strings
@@ -332,8 +294,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Food action labels
     "actGusti": "Taste ·", "actTrinketi": "Sip ·",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
-    "manĝFok0": "hokihmasuh · Lichen Crust", "manĝFok1": "hokihmasuh · Mint Glaze", "manĝFok2": "hokihmasuh · Peppered",
-    "manĝTla0": "tlatihwa · Classic", "manĝTla1": "tlatihwa · Honeyed", "manĝTla2": "tlatihwa · Iced Birch-sap",
+    // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
     // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
     "manĝFok0Flavor": "Warm lichen bread, slow duck, a fold of steam.",
     "manĝFok1Flavor": "Cool glaze against rich meat · the forest exhales.",
@@ -346,7 +307,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipMangxejo": "Kahxjenko",
     "tipKasafeo": "Kasafeo",
     "tipStacioxipo": "Spaceport",
-    "tipTuro": "Tower",
+    "tipTuro": "Veuxkupanko",
     "tipSanktejo": "Sanctuary",
     // Building flavor text
     "flvDomo": "Quiet rooms stacked into the mist.",
@@ -378,10 +339,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Aria label for dusk toggle
     "ariaButKrepusko": "Toggle dusk mode",
     "ariaDuskRegilo": "Dusk level",
-    "ariaTrako0": "Select track 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
-    "ariaTrako1": "Select track 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "ariaTrako2": "Select track 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
-    "ariaTrako3": "Select track 4 j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
+    // ariaTrakoN: derived ( prefix + derived track name )
     // Canvas alt text
     "altTitolaSkripto": "Aranis written in the ziggurat script",
     // Clothing names
@@ -389,48 +347,16 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoHearth": "Kheles Verdan — Hearthguard",
     "vestoMist": "Ihis Verdan — Mistcloak",
     "vestoEmber": "Kheles Brunan — Emberguard",
-    // Building names ( systematic IPA-based transcription using new py script values.
-    //  ⱱ→w c→ch ɸ→h x→kh ç→sh xʲ→hy ɬ→lh ɟ̆→y θ→th ŋ→ng ɪ̈→ih ɑ→aw ə→uh ɤ→o )
-    "bldg0": "Arimanih",
-    "bldg1": "Kapih",
-    "bldg2": "Kawuhkih",
-    "bldg3": "Kawkhpih",
-    "bldg4": "Keth",
-    "bldg5": "Chihkanuh",
-    "bldg6": "Tawkeng",
-    "bldg7": "Ching",
-    "bldg8": "Kache",
-    "bldg9": "Hihmih",
-    "bldg10": "Khihs",
-    "bldg11": "Shang",
-    "bldg12": "Makha",
-    "bldg13": "Tsiye",
-    "bldg14": "Yango",
-    "bldg15": "Lhamihth",
-    "bldg16": "Sihshuh",
-    "bldg17": "Kawsi",
-    "bldg18": "Sotsih",
-    "bldg19": "Kenesho",
-    "bldg20": "Kihth",
-    "bldg21": "Hyihte",
-    "bldg22": "Chatseyihng",
-    "bldg23": "Huhs",
-    "bldg24": "Chasongte",
-    "bldg25": "Metleh",
-    "bldg26": "Wohyolh",
-    "bldg27": "Kelhma",
-    "bldg28": "Nokrorh",
-    "bldg29": "Somesha",
-    "bldg30": "Somohe",
-    "bldg31": "Kapace",
-    "bldg32": "Kadal",
-    "bldg33": "Skygate",
-    // Track names
+    // Building names ( en ): derived AT RUNTIME from the aih Gawekiif via the
+    // sound rules ( src/sonaj-reguloj.ts, ported from iloj/sonaj-reguloj.py ) —
+    // see deriviEnKonstruajxon() in traduki(). Only deliberate names stay here:
+    // bldg31/32 ( garden names ) and bldg33 ( the space station: translated
+    // compound, not a transliteration ).
+    "paq31": "Kapace",
+    "paq32": "Kadal",
+    "paq33": "Skygate",
+    // Trakonomoj ( trakoN ): derivitaj de la aih-a Gawekiif per la sonaj reguloj.
     "muziko": "Music",
-    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
-    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
-    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   ja: {
     // Proper Japanese translations for all UI strings
@@ -475,8 +401,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Food action labels
     "actGusti": "味見 ·", "actTrinketi": "一口 ·",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
-    "manĝFok0": "フォクウマスア · Lichen Crust", "manĝFok1": "フォクウマスア · Mint Glaze", "manĝFok2": "フォクウマスア · Peppered",
-    "manĝTla0": "トラトウワ · Classic", "manĝTla1": "トラトウワ · Honeyed", "manĝTla2": "トラトウワ · Iced Birch-sap",
+    // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
     // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
     "manĝFok0Flavor": "Warm lichen bread, slow duck, a fold of steam.",
     "manĝFok1Flavor": "Cool glaze against rich meat · the forest exhales.",
@@ -489,7 +414,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipMangxejo": "カヘンコ",
     "tipKasafeo": "カサフェオ",
     "tipStacioxipo": "宇宙港",
-    "tipTuro": "塔",
+    "tipTuro": "ヴェウクパンコ",
     "tipSanktejo": "聖域",
     // Building flavor text
     "flvDomo": "霧の中に積み重なった静かな部屋。",
@@ -521,10 +446,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Aria label for dusk toggle
     "ariaButKrepusko": "夕暮れモードを切り替え",
     "ariaDuskRegilo": "夕暮れのレベル",
-    "ariaTrako0": "トラック 1 を選択 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
-    "ariaTrako1": "トラック 2 を選択 ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "ariaTrako2": "トラック 3 を選択 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
-    "ariaTrako3": "トラック 4 を選択 j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
+    // ariaTrakoN: 派生 ( 接頭辞 + 派生したトラック名 )
     // Canvas alt text
     "altTitolaSkripto": "Aranisのジッグラト文字",
     // Clothing names
@@ -532,52 +454,13 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoHearth": "ケレス ヴェルダン — ハースガード",
     "vestoMist": "イヒス ヴェルダン — ミストクローク",
     "vestoEmber": "ケレス ブルナン — エンバーガード",
-    // Building names ( IPA→katakana using proper CV syllable combos.
-    //  ka→カ ki→キ kɛ→ケ kɤ→コ kɑ→カー ca→チャ ci→チ cɛ→チェ
-    //  ta→タ tɛ→テ tɑ→ター m̥a→マ m̥ɛ→メ sa→サ si→シ sɛ→セ
-    //  na→ナ nɛ→ネ n̥a→ナ ɬa→ラ ɟ̥̆a→ヤ ɟ̥̆ɛ→イェ ⱱ̥a→ワ  xʲa→ヒャ
-    //  pa→パ pɛ→ペ ɸa→ファ θɛ→セ kʂa→クシャ tsa→ツァ tɛ→テ
-    //  Remaining IPA tokens mapped individually per MAPO_JA. )
-    "bldg0": "アルイマヌンウ",
-    "bldg1": "カプウ",
-    "bldg2": "カワアクウ",
-    "bldg3": "カーホプウ",
-    "bldg4": "ケス",
-    "bldg5": "チウカヌンア",
-    "bldg6": "ターケン",
-    "bldg7": "チン",
-    "bldg8": "カチェ",
-    "bldg9": "フウムウ",
-    "bldg10": "ホウス",
-    "bldg11": "シャン",
-    "bldg12": "マハ",
-    "bldg13": "ツィユエ",
-    "bldg14": "ヤーンコ",
-    "bldg15": "ラムウス",
-    "bldg16": "スウシャ",
-    "bldg17": "カースウ",
-    "bldg18": "ソチウ",
-    "bldg19": "ケネショ",
-    "bldg20": "クウス",
-    "bldg21": "ヒウテ",
-    "bldg22": "チャツェユウン",
-    "bldg23": "フアス",
-    "bldg24": "チャソンテ",
-    "bldg25": "メトレフ",
-    "bldg26": "ウオヒョラ",
-    "bldg27": "ケレマ",
-    "bldg28": "ノクショシ",
-    "bldg29": "スオモシャ",
-    "bldg30": "スオモフェ",
-    "bldg31": "カパチェ",
-    "bldg32": "カダル",
-    "bldg33": "宇宙門",
-    // Track names
+    // Konstruaĵnomoj ( paqN ): derivitaj de la aih-a Gawekiif per la sonaj
+    // reguloj ( src/sonaj-reguloj.ts ) — nur la intencaj nomoj restas ĉi tie.
+    "paq31": "カパチェ",
+    "paq32": "カダル",
+    "paq33": "宇宙門",
+    // Trakonomoj ( trakoN ): derivitaj de la aih-a Gawekiif per la sonaj reguloj.
     "muziko": "音楽",
-    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
-    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
-    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   km: {
     // Khmer (Cambodian) translations for all UI strings
@@ -622,8 +505,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Food action labels
     "actGusti": "ភ្លក់ ·", "actTrinketi": "ផឹក ·",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
-    "manĝFok0": "ផុកិមាសឺ · Lichen Crust", "manĝFok1": "ផុកិមាសឺ · Mint Glaze", "manĝFok2": "ផុកិមាសឺ · Peppered",
-    "manĝTla0": "ត្លាតិវា · Classic", "manĝTla1": "ត្លាតិវា · Honeyed", "manĝTla2": "ត្លាតិវា · Iced Birch-sap",
+    // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
     // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
     "manĝFok0Flavor": "Warm lichen bread, slow duck, a fold of steam.",
     "manĝFok1Flavor": "Cool glaze against rich meat · the forest exhales.",
@@ -636,7 +518,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipMangxejo": "កាហ្ចេនក៏",
     "tipKasafeo": "កាសាហ្វេអូ",
     "tipStacioxipo": "កំពង់ផែអវកាស",
-    "tipTuro": "ប៉ម",
+    "tipTuro": "វ៉េកូប៉ាងកូ",
     "tipSanktejo": "ទីសក្ការៈ",
     // Building flavor text
     "flvDomo": "បន្ទប់ស្ងាត់ៗដាក់តម្រៀបក្នុងអ័ព្ទ។",
@@ -669,9 +551,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
     "ariaDuskRegilo": "កម្រិតព្រលប់",
     "ariaTrako0": "ជ្រើសរើសបទ 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
-    "ariaTrako1": "ជ្រើសរើសបទ 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "ariaTrako2": "ជ្រើសរើសបទ 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
-    "ariaTrako3": "ជ្រើសរើសបទ 4 j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
+    // ariaTrakoN: បានដកស្រង់ ( បុព្វបទ + ឈ្មោះបទដកស្រង់ )
     // Canvas alt text
     "altTitolaSkripto": "អរ៉ានីសសរសេរជាអក្សរហ្សីហ្គូរ៉ាត់",
     // Clothing names ( phonetic approximations in Khmer script )
@@ -679,51 +559,13 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoHearth": "ខេឡេស វែរដាន់ · ហាតហ្គាដ",
     "vestoMist": "អ៊ីហ៊ីស វែរដាន់ · មីសខ្លូក",
     "vestoEmber": "ខេឡេស ប្រូណាន់ · អេមបឺហ្គាដ",
-    // Building names ( IPA→Khmer using new py script KM_MAP values verbatim.
-    //  a→ា ɑ→៏ c→ច ç→ឆ ɛ→េ ə→ឺ ɤ→ុ i→ី ɪ̈→ិ k→ក 
-    //  ɬ→ល m→ម m̥→ម n→ន n̥→ន ŋ̥→ង p→ព ɾ̪̥→រ s→ស ʂ→ហ្រ
-    //  t→ត θ→ថ tɬ→ត្ល ts→ត្ស x→ហ xʲ→ខ ⱱ̥→វ ɟ̥̆→យ ɸ→ផ
-    //  (Initial vowels prefixed with អ per Khmer orthography)
-    "bldg0": "អារីមានិ",
-    "bldg1": "កាពិ",
-    "bldg2": "កាវឺកិ",
-    "bldg3": "ក៏ហពិ",
-    "bldg4": "កេថ",
-    "bldg5": "ចិកានឺ",
-    "bldg6": "ត៏កេង",
-    "bldg7": "ចីង",
-    "bldg8": "កាចេ",
-    "bldg9": "ផិមិ",
-    "bldg10": "ហិស",
-    "bldg11": "ឆាង",
-    "bldg12": "មាហា",
-    "bldg13": "ត្សីយេ",
-    "bldg14": "យាងុ",
-    "bldg15": "លាមិថ",
-    "bldg16": "សិឆឺ",
-    "bldg17": "ក៏សី",
-    "bldg18": "សុត្សិ",
-    "bldg19": "កេនេឆុ",
-    "bldg20": "កិថ",
-    "bldg21": "ខិតេ",
-    "bldg22": "ចាត្សេយិង",
-    "bldg23": "ផឺស",
-    "bldg24": "ចាសុងតេ",
-    "bldg25": "មេត្លេផ",
-    "bldg26": "វុខុល",
-    "bldg27": "កេលមា",
-    "bldg28": "នុករុហ្រ",
-    "bldg29": "ស្សុមុឆា",
-    "bldg30": "ស្សុមុផេ",
-    "bldg31": "កាប៉ាចេ",
-    "bldg32": "កាដាល",
-    "bldg33": "ទ្វារមេឃ",
-    // Track names
+    // Konstruaĵnomoj ( paqN ): derivitaj de la aih-a Gawekiif per la sonaj
+    // reguloj ( src/sonaj-reguloj.ts ) — nur la intencaj nomoj restas ĉi tie.
+    "paq31": "កាប៉ាចេ",
+    "paq32": "កាដាល",
+    "paq33": "ទ្វារមេឃ",
+    // Trakonomoj ( trakoN ): derivitaj de la aih-a Gawekiif per la sonaj reguloj.
     "muziko": "តន្ត្រី",
-    "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
-    "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
-    "trako2": "ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
-    "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
 };
 
@@ -738,9 +580,48 @@ export function nomoAih(klavo: string): string {
   return skakefani.aih[klavo] || klavo;
 }
 
+// Konstruaĵnomoj ( paqN ), trakonomoj ( trakoN ) kaj manĝaĵnomoj
+// ( manĝFokN / manĝTlaN ) estas DERIVITAJ de la aih-a Gawekiif per la sonaj
+// reguloj ( src/sonaj-reguloj.ts ) en ĉiuj lingvoj — ne mane skribitaj. En la
+// aih-a lingvo la gk-formo estas jam la fonto, do nenio derivas.
+// La aria-etikedoj de la trakoj ( ariaTrakoN ) uzas la derivitan trakonomon.
+const ARIA_TRAKO_PREFIKSO: Record<string, (n: number) => string> = {
+  eo: n => "Elekti trakon " + n + " ",
+  en: n => "Select track " + n + " ",
+  ja: n => "トラック " + n + " を選択 ",
+  km: n => "ជ្រើសរើសបទ " + n + " ",
+};
+
+function deriviNomon(klavo: string): string | null {
+  if (aktivaLingvo === "aih") return null;
+  // ariaTrakoN: prefikso ( lingvo-specifa ) + derivita trakonomo.
+  const aria = /^ariaTrako(\d+)$/.exec(klavo);
+  const bazo = aria ? "trako" + aria[1] : klavo;
+  if (!/^(paq|trako|manĝFok|manĝTla)\d+$/.test(bazo)) return null;
+  const aihFormo = skakefani.aih[bazo];
+  if (!aihFormo) return null;
+  // Manĝaĵnomoj kunhavas "·" disigilon ( nomo · gusto ): derivu ĉiun flankon
+  // aparte, por ke la disigilo kaj spacoj postvivu la konverton.
+  const nomo = aihFormo
+    .split("·")
+    .map(p => ipaAlLingvo(gkAlIpa(p.trim()), aktivaLingvo))
+    .join(" · ");
+  if (!nomo) return null;
+  const kap = nomo.charAt(0).toUpperCase() + nomo.slice(1);
+  if (aria) {
+    const pre = ARIA_TRAKO_PREFIKSO[aktivaLingvo] ?? ARIA_TRAKO_PREFIKSO.eo;
+    return pre(parseInt(aria[1]) + 1) + kap;
+  }
+  return kap;
+}
+
 export function traduki(klavo: string): string {
   const vortaro = skakefani[aktivaLingvo] || skakefani.eo;
-  return vortaro[klavo] || klavo;
+  const rekta = vortaro[klavo];
+  if (rekta !== undefined && rekta !== "") return rekta;
+  const derivita = deriviNomon(klavo);
+  if (derivita) return derivita;
+  return rekta || klavo;
 }
 
 // Cxu la nuna lingvo estas la gepatra aih-a? ( Por la vacepu-formato. )

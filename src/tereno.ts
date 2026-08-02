@@ -26,10 +26,11 @@ export function glataPaso(lo: number, hi: number, v: number): number {
 
 export function alteco(x: number, z: number): number {
   const h = montetaBazo(x, z);
-  // Platigi la urban altebajxon — glate ene de r < 76 ( kovras la novan
-  // eksteran tavolon je r≈72 kaj la kvarflankan krucon ).
+  // Platigi la urban altebajxon — glate ene de r < 80 ( kovras la eksteran
+  // tavolon je r≈76 kaj ĝiajn diagonalajn angulojn je r≈75.9 ), miksiĝante al
+  // la natura tereno ekster r=80.
   const r = Math.hypot(x, z);
-  const plataMiksilo = 1 - glataPaso(0o60, 0o114, r);
+  const plataMiksilo = 1 - glataPaso(0o120, 0o150, r);
   let altecoFina = h * (1 - plataMiksilo);
   // Skulpti la riveran valon
   const rd = z - riveroZ(x);
