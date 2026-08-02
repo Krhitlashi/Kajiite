@@ -64,10 +64,25 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
   z-index:6; display:grid; place-items:center;
   background:var(--scrim); opacity:0; pointer-events:none; transition:opacity .25s;
 }
-#supermeta .interno { position:relative; max-width:512px; max-height:calc(100% - 32px); overflow:auto; padding:var(--អារេងព៏); text-align:center; }
+/* La plena mapo estas plenekrana: kiam la mapo malfermiĝas, la panelo kaŝiĝas,
+   la kanvaso plenigas la tutan ekranon, kaj la tegilo leviĝas super la naviga
+   butono ( z-7, posta en la DOM-o gajnas la egalecon ) por ke ĝi ne videblu tra
+   la mapo. */
+#supermeta.mapo { z-index:7; place-items:stretch; background:none; }
+#supermeta.mapo .interno { display:none; }
+#supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 32px); overflow:auto; padding:var(--អារេងព៏); text-align:center; }
 #supermeta h3 { margin:0; color:var(--gold); font-size:16px; letter-spacing:.125em; }
 #supermeta .supra { color:var(--dim); font-size:8px; letter-spacing:.1875em; }
-#supermetaFermi { position:absolute; top:var(--អារេង); right:var(--អារេង); }
+/* La ferma butono flosas ĉe la sama angulo kiel la minimapo ( kie ĝi antaŭe
+   sidis ) kaj kondutas kiel la naviga butono: 川 ĉiam, rekta en ĉiuj lingvoj. */
+#supermetaFermi {
+  position:absolute; z-index:1;
+  top:calc(var(--អារេងព៏) + var(--sat));
+  right:calc(var(--អារេងព៏) + var(--sar));
+  inline-size:52px; block-size:52px;
+  color:var(--gold); font-size:18px; cursor:pointer; touch-action:manipulation;
+  writing-mode:horizontal-tb;
+}
 .helpa-listo { padding:var(--អារេង); }
 /* One reveal language for every overlay. */
 #karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#balailo.montri { opacity:1; }
@@ -78,7 +93,7 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 /* Every floating card gets a readable, layered surface: a sheen from the linked
    stylesheet's black/white tokens (they flip with the color scheme) over the page's
    own background color (--panel), so one rule serves both light and dark. */
-#karto,#prompto,#tosto,#supermeta .interno,.vestaKardo,#muzikoGrupo,#duskLabelo,#navButono,#kompaso,#mobJoystickBazo,.mobBut {
+#karto,#prompto,#tosto,#supermeta .interno,.vestaKardo,#kompaso,#mobJoystickBazo {
   -webkit-backdrop-filter:blur(32px);
   backdrop-filter:blur(32px);
   background:
@@ -89,17 +104,24 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
   border-radius:var(--អិត្ភេពឺ);
 }
 
-/* Rounded-diamond minimap; counter-rotate the compass contents. */
+/* La kompaso fariĝis kvadrata minimapo: la mapa kanvaso plenigas ĝin, kaj la
+   nadlo ( sago + N ) super kuŝas kiel direkta indikilo sur la norda mapo. */
 #kompaso {
   position:fixed; z-index:3; top:calc(var(--អារេងព៏) + var(--sat)); right:calc(var(--អារេងព៏) + var(--sar));
   inline-size:56px; block-size:56px; display:grid; place-items:center;
-  overflow:hidden; transform:rotate(45deg); border-radius:var(--អិត្ភេមិ);
-  border:var(--សាកព៏);
+  overflow:hidden; border-radius:var(--អិត្ភេ);
+  border:var(--សាកព៏); cursor:pointer; touch-action:manipulation;
 }
-#kompaso .ringo { position:relative; inline-size:32px; block-size:32px; transform:rotate(-45deg); }
 .nadlo { position:absolute; inset:0; will-change:transform; }
-.nadlo span { position:absolute; top:-8px; left:50%; transform:translateX(-50%); color:var(--gold); font-size:8px; }
+.nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:var(--gold); font-size:8px; }
 .nadlo::before { content:""; position:absolute; left:50%; top:var(--អារេង); transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid var(--gold); }
+/* La mapaj kanvasoj plenigu siajn kadrojn: la radaro la tutan kompason, la plena
+   mapo la tutan ekranon ( plenekrana #supermeta ). La ortografia fotilo adaptiĝas
+   al la ekrana proporcio ĉiukadre, do neniu fiksa grandeco necesas. touch-action:none
+   por ke la pinĉa zomo ne rulumu la paĝon. */
+#minimapaKanvaso { inline-size:100%; block-size:100%; }
+#plenaKanvaso { inline-size:100%; block-size:100%; touch-action:none; cursor:grab; }
+#plenaKanvaso:active { cursor:grabbing; }
 
 /* Building card and the lightweight central prompt. */
 #karto {
@@ -120,17 +142,15 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 #prompto.montri { transform:translateX(-50%); }
 
 /* Menu trigger and floating panel. The page remains fully visible behind it: no scrim or backdrop blur. */
-/* Icon buttons share one circular-button language — same size, same look. */
+/* La flosaj butonoj uzas la flosantan varianton ( .n2tase ) de la ekstera stilfolio:
+   frostigita fono kun fon-malklariĝo, ne la duontravidebla butono. Ĉi tie restas nur
+   la geometrio kaj la ora ikona koloro. */
 #navButono,.mobBut {
-  display:grid; place-items:center; padding:0;
   color:var(--gold); font-size:18px; cursor:pointer; touch-action:manipulation;
-  /* Pli granda angulo ol la karteto: iom pli rondigita por la cirkla butono. */
-  border-radius:var(--អិត្ភេ);
   inline-size:52px; block-size:52px;
 }
 #navButono {
   position:fixed; z-index:7; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab));
-  transition:opacity .25s;
 }
 /* Logikaj enliniaj/blokaj ecoj sekvas la skrib-reĝimon de la rotaciita panelo. */
 #navPopUp {
@@ -160,12 +180,12 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 .menuIdenteco p { margin:var(--អារេង) 0 0; color:var(--កេភ២); font-size:8px; letter-spacing:.0625em; }
 .menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
 .menuAzioj button { inline-size:auto; min-block-size:44px; font-size:11px; letter-spacing:.0625em; }
-.menuAzioj button.aktiva { background:var(--តានេក២); }
-#muzikoGrupo,#duskLabelo { inline-size:auto; padding:var(--អារេង); background:var(--តានេក); border-radius:var(--អិត្ភេ); }
-#muzikoEtikedo { display:block; margin-block-end:var(--អារេង); color:var(--កេភ២); font-size:8px; letter-spacing:.125em; }
+/* La muzik-grupo kaj la krepuska karteto estas <ciihii>-kartoj el la ekstera stilfolio:
+   ili ricevas la karton-surfacon, kaj la elektitaj/ŝvebaj/klakaj buton-statoj venas el tie ( aria-pressed ). */
+#duskLabelo { flex-direction:row; align-items:center; }
+#muzikoEtikedo { display:block; color:var(--កេភ២); font-size:8px; letter-spacing:.125em; }
 #trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); }
 .trakaBut { inline-size:auto; block-size:32px; color:var(--កេភ២); }
-.trakaBut.aktiva { color:var(--កេភ); border:var(--សាកព៏២); background:var(--តានេក២); }
 .menuKrepusko { display:grid; grid-template-columns:44px 1fr; align-items:center; }
 .menuKrepusko > button { inline-size:44px; block-size:44px; }
 #duskLabelo { color:var(--កេភ២); font-size:13px; }
@@ -192,6 +212,15 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 .menuPanel,#tosto,#karto,#prompto,#supermeta .interno,.vestaKardo { writing-mode:horizontal-tb; }
 html[lang="aih"] .menuPanel, html[lang="aih"] #tosto, html[lang="aih"] #karto, html[lang="aih"] #prompto, html[lang="aih"] #supermeta .interno, html[lang="aih"] .vestaKardo { writing-mode:sideways-lr; }
 html[lang="ja"] .menuPanel, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
+/* En vertikalaj skrib-reĝimoj ( aih/ja ) la prompto estas vertikala strio: ĝi
+   flosas ĉe la dekstra flanko, vertikale centrita, anstataŭ ĉe la fundo — kie
+   ĝi kolizius kun la kompaso/movaj butonoj kaj legiĝus malkomforte. */
+html[lang="aih"] #prompto, html[lang="ja"] #prompto {
+  left:auto; right:calc(var(--អារេងព៏) + var(--sar));
+  top:50%; bottom:auto;
+  transform:translateY(-50%) translateX(var(--អារេង));
+}
+html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
 
 /* Mobile controls remain custom because the linked stylesheet does not know their geometry. */
 /* La tuŝaj kontroloj aperas nur post la unua reala tuŝo ( body.tuŝa ), sur ajna tuŝekrano, sendepende de la grandeco. */
@@ -205,16 +234,18 @@ body.tuŝa #mobKontroloj { display:block; }
 #mobButaroj { position:absolute; right:calc(var(--អារេងព៏) + 52px + var(--អារេង) + var(--sar)); bottom:calc(var(--អារេងព៏) + var(--sab)); display:flex; flex-direction:column; gap:var(--អារេង); pointer-events:none; }
 .mobBut { pointer-events:auto; }
 .mobBut#mobButSalti { font-size:22px; }
+/* La E-butono aperas nur kiam estas proksima interagebla ( la prompto montriĝas ). */
+#mobButInterakti { opacity:0; pointer-events:none; transition:opacity .25s; }
+#mobButInterakti.montri { opacity:1; pointer-events:auto; }
 /* Stirstango forkuras kiam la tenilo estas puŝita preter 3/4 de la radio. */
 #mobJoystickBazo.sprinto #mobJoystickTenilo { background:var(--gold); border-color:var(--gold); }
-/* La naviga butono restas videbla kaj indikas la fermon dum la menuo estas malfermita. */
-#navButono:has(+ #navPopUp.montri) { background:var(--តានេក២); border-color:var(--gold); }
+/* La elektita stato de la naviga butono venas de la ekstera stilfolio ( aria-pressed ). */
 
 @media (max-width:648px) {
   /* Unuigita 16px angul-marĝeno ( var(--អារេងព៏) + safe-area ) por ĉiuj flosantaj elementoj.
      La bazaj reguloj jam havas tiujn insets, do ĉi tie nur la grandecoj ŝanĝiĝas. */
   #kompaso { inline-size:44px; block-size:44px; }
-  #kompaso .ringo { inline-size:32px; block-size:32px; }
+  #supermetaFermi { inline-size:44px; block-size:44px; }
   /* La karto malfermiĝas maldekstre kaj cedas la dekstran kolumnon al la butono. */
   #karto { right:calc(var(--អារេងព៏) + 52px + var(--អារេងមិ)); inline-size:auto; max-block-size:44vh; overflow:auto; }
   #navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100vw - 32px); max-block-size:calc(100vh - 92px); }

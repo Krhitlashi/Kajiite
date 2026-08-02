@@ -242,6 +242,58 @@ function aldoniInternanMeblaron(
       aldoniSkatolon( 7/8, 1/16, 5/8, 0, hd - 7/4 - 1/8, helaMaterialo );
     }
     aldoniSkatolon( 5/8, tieroAlto * 4/8, 1/8, -hw + 5/16, -hd + 5/16, lignaMaterialo );
+    // Tablo en la restoracia stilo — rondangula ligna tablo kun ora rando kaj seĝoj
+    if ( etapo === 0 && hw >= 3 ) {
+      const oraTablaRando = new THREE.MeshStandardMaterial({ color: GOLD, metalness: 3/4, roughness: 3/8 });
+      const tablo = new THREE.Mesh( new RoundedBoxGeometry( 14/8, 3/8, 10/8, 3, 1/8 ), lignaMaterialo );
+      tablo.position.set( -hw * 3/5, y + 2/8, 0 );
+      tablo.castShadow = true;
+      grupo.add( tablo );
+      const rando = new THREE.Mesh( new RoundedBoxGeometry( 14/8 + 1/16, 1/16, 10/8 + 1/16, 3, 1/8 ), oraTablaRando );
+      rando.position.set( -hw * 3/5, y + 2/8 + 3/16 - 1/32 - 1/64, 0 );
+      rando.castShadow = true;
+      grupo.add( rando );
+      // Seĝoj ĉirkaŭ la tablo (la flanko kontraŭ la muro sen seĝo)
+      const segxMaterialo = new THREE.MeshStandardMaterial({ color: 0x806038, roughness: 7/8 });
+      for ( const [ox, oz] of [ [ -10/8, 0 ], [ 10/8, 0 ], [ 0, -10/8 ], [ 0, 10/8 ] ] as [number, number][] ) {
+        const sego = new THREE.Mesh( new THREE.CylinderGeometry( 3/16, 4/16, 3/8, 0o10 ), segxMaterialo );
+        sego.position.set( -hw * 3/5 + ox, y + 3/16, oz );
+        sego.castShadow = true;
+        grupo.add( sego );
+      }
+    }
+    // Lito — rondangula kadro, matraco, kapapogilo, kapkuseno kaj litkovrilo.
+    // Apogita al la dekstra muro (z=0) por ne trafi la benkojn (z = ±hd ∓ 4/8)
+    // nek la helikan truon (r=1); sur etajoj tro malgrandaj (hw < 5/2) neniu
+    // lito eniras sen trui la helikon.
+    const litLargho = Math.min( etapo === 0 ? 18/8 : 14/8, hw * 2 - 2 );
+    if ( litLargho >= 4/8 && hw >= 5/2 ) {
+      const litX = hw - litLargho / 2 - 1/8, litZ = 0;
+      // Kadro — pli larĝa ligna bazo surplanke
+      const kadro = new THREE.Mesh( new RoundedBoxGeometry( litLargho + 1/8, 3/16, 12/8 + 1/8, 3, 1/16 ), lignaMaterialo );
+      kadro.position.set( litX, y + 3/32, litZ );
+      kadro.castShadow = true;
+      grupo.add( kadro );
+      // Matraco — hela, kuŝas sur la kadro
+      const matraco = new THREE.Mesh( new RoundedBoxGeometry( litLargho, 3/16, 12/8, 3, 1/16 ), helaMaterialo );
+      matraco.position.set( litX, y + 3/16, litZ );
+      grupo.add( matraco );
+      // Kapapogilo — vertikala ligna tabulo ĉe la kapo (+x), kontraŭ la muro
+      const kapapogilo = new THREE.Mesh( new RoundedBoxGeometry( 1/8, 7/8, 12/8, 3, 1/16 ), lignaMaterialo );
+      kapapogilo.position.set( litX + litLargho / 2 - 1/16, y + 7/16, litZ );
+      kapapogilo.castShadow = true;
+      grupo.add( kapapogilo );
+      // Kapkuseno — ĉe la kapo, kontraŭ la kapapogilo
+      const kuseno = new THREE.Mesh( new RoundedBoxGeometry( 5/8, 1/8, 4/8, 3, 1/16 ), helaMaterialo );
+      kuseno.position.set( litX + litLargho / 2 - 3/8, y + 3/8 + 1/16, litZ );
+      grupo.add( kuseno );
+      // Litkovrilo — faldeca varma ŝtofo ĉe la piedo (-x)
+      const litkovraMaterialo = new THREE.MeshStandardMaterial({ color: 0x8a4a34, roughness: 7/8 });
+      const litkovrilo = new THREE.Mesh( new RoundedBoxGeometry( litLargho * 2/3, 1/16, 12/8, 3, 1/16 ), litkovraMaterialo );
+      litkovrilo.position.set( litX - litLargho / 6, y + 3/8 + 1/32, litZ );
+      litkovrilo.castShadow = true;
+      grupo.add( litkovrilo );
+    }
   } else if ( tipo === "turo" ) {
     const bretaLargho = Math.min( hw * 2 - 1, 5/2 );
     if ( hd >= 2 ) aldoniSkatolon( bretaLargho, 1/16, 4/8, 0, -hd + 5/16, lignaMaterialo );
@@ -253,14 +305,29 @@ function aldoniInternanMeblaron(
     for ( const sX of [ -1, 1 ] ) {
       aldoniSkatolon( 1/8, tieroAlto * 4/8, 1/8, sX * ( hw - 5/16 ), -hd + 3/8, metalaMaterialo );
     }
-  } else if ( tipo === "stacio" ) {
-    const benkaLargho = Math.min( hw * 2 - 1, 3 );
-    if ( hd >= 2 ) {
-      aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, -hd + 4/8, helaMaterialo );
-      aldoniSkatolon( benkaLargho, 3/8, 3/8, 0, hd - 4/8, helaMaterialo );
+  } else if ( tipo === "kasafeo" ) {
+    // Kunvenoĉambro: longa rondangula tablo kun seĝoj ambaŭflanke
+    if ( hw >= 3 && hd >= 3 ) {
+      const tl = Math.min( hw * 2 - 2, 5 );
+      const tz = -hd + 9/4;
+      const tablo = new THREE.Mesh( new RoundedBoxGeometry( tl, 3/8, 10/8, 3, 1/8 ), lignaMaterialo );
+      tablo.position.set( 0, y + 2/8, tz );
+      tablo.castShadow = true;
+      grupo.add( tablo );
+      const oraRando = new THREE.MeshStandardMaterial({ color: GOLD, metalness: 3/4, roughness: 3/8 });
+      const rando = new THREE.Mesh( new RoundedBoxGeometry( tl + 1/16, 1/16, 10/8 + 1/16, 3, 1/8 ), oraRando );
+      rando.position.set( 0, y + 2/8 + 3/16 - 1/32 - 1/64, tz );
+      rando.castShadow = true;
+      grupo.add( rando );
+      // Seĝoj ambaŭflanke laŭ la longa flanko (ne ĉe la helika truo)
+      const segxMaterialo = new THREE.MeshStandardMaterial({ color: 0x806038, roughness: 7/8 });
+      for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
+        const sego = new THREE.Mesh( new THREE.CylinderGeometry( 3/16, 4/16, 3/8, 0o10 ), segxMaterialo );
+        sego.position.set( sX * tl / 4, y + 3/16, tz + sZ * 13/8 );
+        sego.castShadow = true;
+        grupo.add( sego );
+      }
     }
-    aldoniSkatolon( 3/8, 5/8, 5/8, -hw + 4/8, 0, metalaMaterialo );
-    aldoniSkatolon( 3/8, 5/8, 5/8, hw - 4/8, 0, metalaMaterialo );
   } else if ( tipo === "sanktejo" && etapo === 0 ) {
     const altaro = new THREE.Mesh( new THREE.CylinderGeometry( 5/8, 6/8, 4/8, 0o12 ), metalaMaterialo );
     altaro.position.set( 0, y + 2/8, -hd + 2 );
@@ -800,7 +867,7 @@ export function eniriInternon(
       lignaMaterialo, metalaMaterialo, helaMaterialo );
 
     // Plafonaj traboj kun oraj akcentoj
-    if ( spec.type !== "stacio" && hw > 3/2 ) {
+    if ( spec.type !== "kasafeo" && hw > 3/2 ) {
       const trabaMaterialo = new THREE.MeshStandardMaterial({ color: 0x1a1810, roughness: 55/64 });
       for ( let i = 0; i < 2; i++ ) {
         const tx = ( i - 4/8 ) * hw * 7/8;

@@ -49,23 +49,20 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
   const murajGeometrioj: THREE.BufferGeometry[] = [];
   const kadrajGeometrioj: THREE.BufferGeometry[] = [];
 
-  // La sxipo reuzas la KONSTRUAJX-tavolojn (klinitaj trapezoidoj) por la supraj
-  // kaj subaj partoj — ambaux finoj kurbigas. La meza sekcio restas plata.
-  // La klinitaj tavoloj ricevas klinitajn pilierojn (klino), kaj la flipped subaj
-  // pilieroj montras siajn foliojn pinton-malsupren (folio defauxlte = true).
+  // La sxipo reuzas la KONSTRUAJX-tavolojn (klinitaj trapezoidoj) — CXiUJ tavoloj
+  // klinigxas kiel la konstruajxoj (la uzanto petis saman tavol-tipon kiel la
+  // konstruajxoj). La klinitaj tavoloj ricevas klinitajn pilierojn (klino), kaj la
+  // flipped subaj pilieroj montras siajn foliojn pinton-malsupren (folio defauxlte = true).
   const klino = 5/16;
-  // Suprenaj tieroj — samaj diamantaj angul-pilieroj kiel la konstruajxoj
+  // Suprenaj tieroj — samaj diamantaj angul-pilieroj kiel la konstruajxoj.
+  // Cxiuj tavoloj klinigxas (trapezoidoj) kiel la konstruajxoj — la uzanto petis
+  // la saman tavol-tipon por la tuta sxipo.
   for ( let i = 0; i < up; i++ ) {
     const hw = hw0 - i * ins;
     const yB = i * tieroAlto, yT = yB + tieroAlto;
-    const klinita = i >= up - 2;   // la supraj du tavoloj klinigxas
-    if ( klinita ) {
-      murajGeometrioj.push(kreiKlinoTavolon(hw, hw, hw - klino, hw - klino, tieroAlto).translate(0, yB + tieroAlto / 2, 0));
-    } else {
-      murajGeometrioj.push(new THREE.BoxGeometry(hw * 2, tieroAlto, hw * 2).translate(0, yB + tieroAlto / 2, 0));
-    }
+    murajGeometrioj.push(kreiKlinoTavolon(hw, hw, hw - klino, hw - klino, tieroAlto).translate(0, yB + tieroAlto / 2, 0));
     for (const a of [ -1, 1 ]) for ( const b of [ -1, 1 ] ) {
-      aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yB, yT, a, b, true, klinita ? klino : 0);
+      aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yB, yT, a, b, true, klino);
     }
   }
   // Malsuprenaj tieroj — la PRECIZA vertikala spegulo de la supraj (samaj largxoj,
@@ -75,14 +72,9 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
   for ( let j = 1; j <= down; j++ ) {
     const hw = hw0 - (j - 1) * ins;
     const yTop = -(j - 1) * tieroAlto, yBot = -j * tieroAlto;
-    const klinita = (j - 1) >= up - 2;
-    if ( klinita ) {
-      murajGeometrioj.push(kreiKlinoTavolon(hw - klino, hw - klino, hw, hw, tieroAlto).translate(0, (yTop + yBot) / 2, 0));
-    } else {
-      murajGeometrioj.push(new THREE.BoxGeometry(hw * 2, tieroAlto, hw * 2).translate(0, (yTop + yBot) / 2, 0));
-    }
+    murajGeometrioj.push(kreiKlinoTavolon(hw - klino, hw - klino, hw, hw, tieroAlto).translate(0, (yTop + yBot) / 2, 0));
     for (const a of [ -1, 1 ]) for ( const b of [ -1, 1 ] ) {
-      aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yBot, yTop, a, b, false, klinita ? klino : 0);
+      aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yBot, yTop, a, b, false, klino);
     }
   }
 
@@ -123,16 +115,17 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
   const fenAlto = Math.min(5/8, tieroAlto * 3/10);
   const klinaAngulo = Math.atan(klino / tieroAlto);
   // Fenestroj sur CxIUJ tavoloj KROM la centraj (i=0 kaj j=1), kie la pordoj estas.
+  // Cxiuj tavoloj nun klinigxas (kiel la konstruajxoj), do cxiuj fenestroj estas klinitaj.
   const niveloj: { y: number; faco: number; klinita: boolean; suba: boolean }[] = [];
   for (let i = 1; i < up; i++) {
     const hw = hw0 - i * ins;
-    const klinita = i >= up - 2;
+    const klinita = true;
     niveloj.push({ y: i * tieroAlto + tieroAlto / 2, faco: klinita ? hw - klino / 2 : hw, klinita, suba: false });
   }
   // Subaj fenestroj — precizaj speguloj de la supraj (samaj facoj, INVERSA klino).
   for (let j = 2; j <= down; j++) {
     const hw = hw0 - (j - 1) * ins;
-    const klinita = (j - 1) >= up - 2;
+    const klinita = true;
     niveloj.push({ y: -j * tieroAlto + tieroAlto / 2, faco: klinita ? hw - klino / 2 : hw, klinita, suba: true });
   }
 

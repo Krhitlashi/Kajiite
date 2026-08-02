@@ -16,13 +16,14 @@ import type { Figuro, Vesto } from "../assets/npcoj.js";
 import { kreiInternanSistemon, InternaSistemo } from "../assets/internoj.js";
 import { konstruiKrasesxagxon } from "../assets/krasesxagxa-kosmosxipo.js";
 import type { Krasesxagxo } from "../assets/krasesxagxa-kosmosxipo.js";
-import { riveroZ, alteco, akvoY, montetaBazo, glataPaso } from "./tereno.js";
+import { riveroZ, alteco, akvoY, montetaBazo, glataPaso, RIVERA_DUONLARĜO } from "./tereno.js";
 
 export interface UrbaSistemo {
   konstruSpecoj: KonstruSpec[];
   kolizioj: { x: number; z: number; r: number }[];
   // Doka kolizio — rektangulaj platformoj (kun rotacio) por bloki suben-iron.
-  dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number }[];
+  // y = monda supro de la platformo ( la nivelo sur kiu oni piediras ).
+  dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number; y: number }[];
   selektajxoj: THREE.Mesh[];
   konstruGrupoj: THREE.Group[];
   vojSpecimenoj: THREE.Vector3[];
@@ -48,33 +49,39 @@ export function konstruiUrbon(
   oraMaterialo: THREE.MeshStandardMaterial
 ): UrbaSistemo {
   // ═══════════════════════════════════════════════════════════
-  // 7×5 rektangula urba arangxo — perfekte simetria krado.
-  // Cxiu vico havas la samajn 7 kolumnojn, cxiu celo havas konstruajxon.
-  // Neniuj nulaj celoj, neniuj brecxoj — cxiuj blokoj estas unuformaj kvadratoj.
+  // 7×7 kruca arangxo — kvar-flanka simetrio: la nordo/sudo egalas la
+  // oriento/okcidento. Ĉiu flanko havas tri tavolojn de tri konstruaĵojn,
+  // la kvar anguloj ( ±3,±3 ) kaj la internaj diagonaloj estas malplenaj.
   //
-  //  G = generala (domo/turo), N = mangxejo, Y = stacio, W = sanktejo
+  //  T = turo, D = domo, M = mangxejo, K = kasafeo (kunvenoĉambro), W = sanktejo
   //
-  //       | G | G | G | G | G | G | G |   z=2 (supro)
-  //       | G | G | N | N | N | G | G |   z=1
-  //       | G | Y | G | W | G | Y | G |   z=0 (centro)
-  //       | G | G | N | N | N | G | G |   z=-1
-  //       | G | G | G | G | G | G | G |   z=-2 (subo)
+  //       | − | − | T | D | T | − | − |   z=3 (nova ekstera tavolo)
+  //       | − | T | D | T | − |   z=2 (ekstera tavolo)
+  //       | T | T | M | K | M | T | T |   z=1 (interna tavolo)
+  //       | D | D | K | W | K | D | D |   z=0 (centro)
+  //       | T | T | M | K | M | T | T |   z=-1 (interna tavolo)
+  //       | − | T | D | T | − |   z=-2 (ekstera tavolo)
+  //       | − | − | T | D | T | − | − |   z=-3 (nova ekstera tavolo)
   // ═══════════════════════════════════════════════════════════
-  type CellType = "domo" | "turo" | "mangxejo" | "stacio" | "sanktejo";
+  type CellType = "domo" | "turo" | "mangxejo" | "kasafeo" | "sanktejo";
 
   // Konstruajxaj pozicioj. [col, row, type] kie mondo = (col*PASXO, row*PASXO), W je (0,0).
-  // 7 cols × 5 rows = 31 buildings (4 corner edges removed). Mirrored across both axes.
+  // 7 cols × 7 rows = 33 cells (4 corner cells + 4 diagonal gaps removed). Kvar-flanka simetrio.
   const LAYOUT: [number, number, CellType][] = [
-    // Row 2 — top edge (corners removed)
-    [ -2, 2, "domo" ], [ -1, 2, "turo" ], [ 0, 2, "domo" ], [ 1, 2, "turo" ], [ 2, 2, "domo" ],
-    // Row 1
-    [ -3, 1, "domo" ], [ -2, 1, "turo" ], [ -1, 1, "mangxejo" ], [ 0, 1, "mangxejo" ], [ 1, 1, "mangxejo" ], [ 2, 1, "turo" ], [ 3, 1, "domo" ],
-    // Row 0 — center
-    [ -3, 0, "domo" ], [ -2, 0, "stacio" ], [ -1, 0, "domo" ], [ 0, 0, "sanktejo" ], [ 1, 0, "domo" ], [ 2, 0, "stacio" ], [ 3, 0, "domo" ],
-    // Row -1
-    [ -3, -1, "domo" ], [ -2, -1, "turo" ], [ -1, -1, "mangxejo" ], [ 0, -1, "mangxejo" ], [ 1, -1, "mangxejo" ], [ 2, -1, "turo" ], [ 3, -1, "domo" ],
-    // Row -2 — bottom edge (corners removed)
-    [ -2, -2, "domo" ], [ -1, -2, "turo" ], [ 0, -2, "domo" ], [ 1, -2, "turo" ], [ 2, -2, "domo" ],
+    // Row 3 — norda nova ekstera tavolo
+    [ -1, 3, "turo" ], [ 0, 3, "domo" ], [ 1, 3, "turo" ],
+    // Row 2 — norda ekstera tavolo
+    [ -1, 2, "turo" ], [ 0, 2, "domo" ], [ 1, 2, "turo" ],
+    // Row 1 — norda interna tavolo ( kun la okcidenta/orienta ekstero )
+    [ -3, 1, "turo" ], [ -2, 1, "turo" ], [ -1, 1, "mangxejo" ], [ 0, 1, "kasafeo" ], [ 1, 1, "mangxejo" ], [ 2, 1, "turo" ], [ 3, 1, "turo" ],
+    // Row 0 — centro ( kun la okcidenta/orienta ekstero )
+    [ -3, 0, "domo" ], [ -2, 0, "domo" ], [ -1, 0, "kasafeo" ], [ 0, 0, "sanktejo" ], [ 1, 0, "kasafeo" ], [ 2, 0, "domo" ], [ 3, 0, "domo" ],
+    // Row -1 — suda interna tavolo ( kun la okcidenta/orienta ekstero )
+    [ -3, -1, "turo" ], [ -2, -1, "turo" ], [ -1, -1, "mangxejo" ], [ 0, -1, "kasafeo" ], [ 1, -1, "mangxejo" ], [ 2, -1, "turo" ], [ 3, -1, "turo" ],
+    // Row -2 — suda ekstera tavolo
+    [ -1, -2, "turo" ], [ 0, -2, "domo" ], [ 1, -2, "turo" ],
+    // Row -3 — suda nova ekstera tavolo
+    [ -1, -3, "turo" ], [ 0, -3, "domo" ], [ 1, -3, "turo" ],
   ];
 
   const kolizioj: { x: number; z: number; r: number }[] = [];
@@ -86,19 +93,20 @@ export function konstruiUrbon(
   for (const [col, row, type] of LAYOUT) {
     const x = col * PASXO, z = row * PASXO;
     if (type === null) continue;
-    const niveloj = type === "sanktejo" ? 7 : type === "turo" ? 0o10 : type === "stacio" ? 3 : 4;
-    const w = type === "sanktejo" ? 0o12 : type === "turo" ? 0o10 : 0o10;  // stacio, mangxejo, domo all 8×8
+    const niveloj = type === "sanktejo" ? 7 : type === "turo" ? 0o10 : 4;
+    const w = type === "sanktejo" ? 0o12 : type === "turo" ? 0o10 : 0o10;  // kasafeo, mangxejo, domo all 8×8
     const d = w;  // square buildings. depth = width
-    const tieroAlto = type === "sanktejo" ? 24/8 : type === "turo" ? 24/8 : type === "stacio" ? 109/32 : 205/64;
+    const tieroAlto = type === "sanktejo" ? 24/8 : type === "turo" ? 24/8 : type === "kasafeo" ? 109/32 : 205/64;
     const sube = type === "sanktejo" ? 2 : undefined;
     const tieroAltoSub = type === "sanktejo" ? 83/32 : undefined;
     konstruSpecoj.push({ x, z, type, name: "bldg" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot: 0, diamond: true });
     bldgIdx++;
   }
 
-  // Kosmoporda stacio ĉe la arbarrando (norde de la reto, laŭ la x=12 akso de la dokoj).
-  // La rotacio (PI, pordo suden) estas aŭtomate fiksita de la rot-pasoj sube.
-  konstruSpecoj.push({ x: 0o14, z: 0o106, type: "stacioxipo", name: "bldg" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 109/32, rot: 0, diamond: true });
+  // Kosmoporda stacio rekte malantaŭ la norda nova ekstera domo (0,3) — la
+  // domo baras la rektan vojon (plenigita vojbaro). La rotacio (PI, pordo
+  // suden) estas aŭtomate fiksita de la rot-pasoj sube.
+  konstruSpecoj.push({ x: 0, z: 0o140, type: "stacioxipo", name: "bldg" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 109/32, rot: 0, diamond: true });
   bldgIdx++;
 
   // Fiksu teren-alton kaj kolizion por cxiu konstruajxo (vojoj ne bezonataj ankoraux)
@@ -110,18 +118,21 @@ export function konstruiUrbon(
   const selektajxoj: THREE.Mesh[] = [];
 
   // ⟪ Rivero 📃 ⟫
-  const riverData = konstruiRiveron(sceno, riveroZ, akvoY, 84/8, -0o200, 0o200, 0o50);
+  // La ribono etendiĝas multe preter la ludebla areo ( x ∈ ±256 ), do la rivero
+  // aspektas longa kaj solviĝas en la nebulon ambaŭflanke anstataŭ halti ĉe la
+  // urbo-rondo. La ŝtupoj kreskas samproporcie por konservi la segmentan densecon.
+  const riverData = konstruiRiveron(sceno, riveroZ, akvoY, RIVERA_DUONLARĜO, -0o400, 0o400, 0o120);
 
   // ⟪ Dokoj — tri alirejoj laŭ la suda riverbordo 📃 ⟫
   // La dokoj sekvas la riverkurbon (riveroZ + 14), do cxiu pinto atingas la akvon
   // egalproporcie, kaj la meza estas pli longa cxefpiero.
   const DOKO_X = [ -0o52, 0, 0o52 ];
   const DOKO_PROFUNDOJ = [ 0o14, 0o20, 0o14 ];
-  const dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number }[] = [];
+  const dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number; y: number }[] = [];
   for ( let i = 0; i < DOKO_X.length; i++ ) {
-    konstruiDokon( sceno, DOKO_X[i], riveroZ( DOKO_X[i] ) + 0o16, 0, alteco, akvoY, DOKO_PROFUNDOJ[i] );
+    const doko = konstruiDokon( sceno, DOKO_X[i], riveroZ( DOKO_X[i] ) + 0o16, 0, alteco, akvoY, DOKO_PROFUNDOJ[i] );
     // La doka platformo estas 14/8 larĝa; ĝia rotacio estas 0 (aksi-para).
-    dokoKolizioj.push({ x: DOKO_X[i], z: riveroZ( DOKO_X[i] ) + 0o16, w: 14/8, d: DOKO_PROFUNDOJ[i], rot: 0 });
+    dokoKolizioj.push({ x: DOKO_X[i], z: riveroZ( DOKO_X[i] ) + 0o16, w: 14/8, d: DOKO_PROFUNDOJ[i], rot: 0, y: doko.platformY });
   }
 
   // ⟪ Voja reto 📃 ⟫
@@ -170,7 +181,7 @@ export function konstruiUrbon(
   // La sxipo flosas super la stacio: ĝia plej suba parto estas ~17.97 sub la
   // origino (5 subaj tieroj), do y=30 lasas klaran spacon super la tegmento
   // (10.2 alta) — la sama malsupro-alteco kiel antaŭ la spegula plilongigo.
-  const xipo: Krasesxagxo = konstruiKrasesxagxon(sceno, 0o14, 0o36, 0o106, oraMaterialo, eniraMaterialo);
+  const xipo: Krasesxagxo = konstruiKrasesxagxon(sceno, 0, 0o36, 0o140, oraMaterialo, eniraMaterialo);
   // La sxipa interno flosas CE LA SXIPO (ne sur la tero): marku la stacion per la
   // fluga alteco, por ke eniri la spacosxipon teleportu al la supro kie gxi estas.
   const stacioSxipo = konstruSpecoj.find(s => s.type === "stacioxipo");
@@ -259,26 +270,36 @@ export function konstruiUrbon(
     }
   }
 
-  // Arbarvojo — de la norda randa vojo (z=36) ĝis la kosmoporda stacio (z=64),
-  // en la malantaŭo de la urbo, kie la vojoj dissolviĝas en arbaron.
-  // La vojo finiĝas ĉe la sud-orienta rando de la lanĉ-aprono (la plata rando
-  // estas je z=64, la stacia muro je z=66), do ĝi konektiĝas al la platformo.
-  // Ĝi eniras 4/8 sub la apron-randon por nenia fendo ĉe la junto.
-  // La vojo-supro sekvus la terenon +2/8 kaj enpuŝus ĝis 3/16 SUPER la
-  // apron-supron (h0 + 1/16), do ĝi ricevas propran altan funkcion kiu rampas
-  // malsupren al la aprona nivelo dum la lastaj ~2 unuoj (z 62..64). La ptoj
-  // estas pli densaj proksime de la stacio, ĉar la vojo estas konstruita el
-  // plataj slaboj (~4 unuojn), kaj unu sola granda slabo trapikus la randon.
-  // Ĝi eniras 4/8 sub la apron-randon je 1/64 sub la supro — neniu koincida
-  // faco, nenia z-flagrado ĉe la junto.
-  const stacioH0 = stacioSxipo ? (stacioSxipo.h0 ?? alteco(0o14, 0o106)) : alteco(0o14, 0o106);
-  const apronaNivelo = stacioH0 + 1/16 - 1/64 - 2/8;
+  // Arbarvojo — la stacidoma vojo ne kondukas REKTE al la konstruaĵo:
+  // anstataŭe ĝi kondukas al KVADRATA vojo ĉirkaŭ la norda nova ekstera domo
+  // (0,3) kiu baras la rektan vojon. La domo formas "plenigitan vojbaron"
+  // (la urba sprono finiĝas ĉe ĝia suda pordo ĉe z=60). La suda flanko de la
+  // kvadrato estas la ekzistanta kradvojo ĉe z=60; la orienta/okcidenta
+  // flankoj plilongiĝas la kradvojojn ĉe x=±12; la norda flanko estas nova
+  // EW-vojo ĉe z=84. De la norda flanko la stacidoma vojo rampas sur la
+  // lanĉ-apronon ĝis la stacia pordo (z=92). La vojo-supro sekvus la terenon
+  // +2/8 kaj enpuŝus ĝis 3/16 SUPER la apron-supron (h0 + 1/16), do ĝi
+  // ricevas propran altan funkcion kiu rampas malsupren al la aprona nivelo
+  // dum la lastaj ~2 unuoj (z 88..90). Sur la aprono la vojo kuŝas ĝuste sur
+  // la supro — la voja polygonOffset gajnas la koincidajn facojn kontraŭ la
+  // aprono, kaj ĝi pasas 1/64 SUB la orajn bendojn (ĝia supro je h0 + 4/64,
+  // la bendoj je h0 + 5/64) — neniu z-flagrado, kaj ĝi atingas la pordon ĉe
+  // la muro.
+  const stacioH0 = stacioSxipo ? (stacioSxipo.h0 ?? alteco(0, 0o140)) : alteco(0, 0o140);
+  const apronaNivelo = stacioH0 + 1/16 - 2/8;
   const arbarvojaAlteco = (x: number, z: number): number => {
-    const t = glataPaso(0o76, 0o100, z);
+    const t = glataPaso(0o130, 0o132, z);
     return alteco(x, z) * (1 - t) + apronaNivelo * t;
   };
+  // Kvadrata ringo ĉirkaŭ la baranta domo (0,3): orienta/okcidenta flankoj
+  // (x=±12, z 60..84) kaj norda flanko (z=84, x ±12). La suda flanko estas la
+  // ekzistanta kradvojo ĉe z=60.
+  vojDifinoj.push({ pts: [ [ 0o14, 0o74 ], [ 0o14, 0o124 ] ], w: 14/8 });
+  vojDifinoj.push({ pts: [ [ -0o14, 0o74 ], [ -0o14, 0o124 ] ], w: 14/8 });
+  vojDifinoj.push({ pts: [ [ -0o14, 0o124 ], [ 0o14, 0o124 ] ], w: 14/8 });
+  // (0,84) = norda flanko de la kvadrato; (0,92) = stacia pordo.
   vojDifinoj.push({
-    pts: [ [ 0o14, 0o44 ], [ 0o14, 0o74 ], [ 0o14, 0o76 ], [ 0o14, 0o100 ], [ 0o14, 0o100 + 4/8 ] ],
+    pts: [ [ 0, 0o124 ], [ 0, 0o130 ], [ 0, 0o132 ], [ 0, 0o134 ] ],
     w: 14/8,
     heightFn: arbarvojaAlteco
   });

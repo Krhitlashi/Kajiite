@@ -4,6 +4,12 @@
 // Rivero fluas orient-okcidente — shifted south to clear the city grid
 export function riveroZ(x: number): number { return 0o14 * Math.sin(x * 1/64) - 0o160; }
 
+// Duon-larĝo de la rivera ribono — dividita inter la akva modulo (urbo.ts) kaj
+// la promenanta akvo-zono (sperto.ts), por ke ili ne disiĝu. Antaŭe la piedira
+// zono estis 7 ( pli mallarĝa ol la rivero ), do eliri de la doko-pinto
+// terenfalis al la riverfundo anstataŭ flosi.
+export const RIVERA_DUONLARĜO = 84/8;
+
 // Baza tereno. mildaj ruligxantaj montetoj por la arbaro trans la urbo
 export function montetaBazo(x: number, z: number): number {
   return 141/64 * Math.sin(x * 1/32 + 35/32) * Math.cos(z * 1/32 - 4/8)
@@ -20,16 +26,18 @@ export function glataPaso(lo: number, hi: number, v: number): number {
 
 export function alteco(x: number, z: number): number {
   const h = montetaBazo(x, z);
-  // Platigi la urban altebajxon — glate ene de r < 55
+  // Platigi la urban altebajxon — glate ene de r < 76 ( kovras la novan
+  // eksteran tavolon je r≈72 kaj la kvarflankan krucon ).
   const r = Math.hypot(x, z);
-  const plataMiksilo = 1 - glataPaso(0o52, 0o74, r);
+  const plataMiksilo = 1 - glataPaso(0o60, 0o114, r);
   let altecoFina = h * (1 - plataMiksilo);
   // Skulpti la riveran valon
   const rd = z - riveroZ(x);
   altecoFina -= 64/8 * Math.exp(-(rd * rd) / 0o144);
   // Kosmoporda startejo — platigi la terenon sub la stacio kaj ĝia aprono,
-  // por ke la konstruajxo ne estu enterigita en la dekliva arbaro.
-  const padX = 0o14, padZ = 0o106, padR = 0o14;
+  // por ke la konstruajxo ne estu enterigita en la dekliva arbaro. La stacio
+  // sidas malantaŭ la norda nova ekstera domo ( z=0o140 ).
+  const padX = 0, padZ = 0o140, padR = 0o14;
   const padD = Math.hypot(x - padX, z - padZ);
   const padMiksilo = 1 - glataPaso(padR - 6, padR, padD);
   if ( padMiksilo > 0 ) {

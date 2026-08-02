@@ -28,17 +28,22 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloOrbito": "֭ſɭɹ ʌ j͑ʃɔ · ſɭc̗ᴜ ʃэ ɭʃɔȝ · ſןɔ ʌ ʃэ ɭʃɔȝ",
     "regiloPromeno": "ſɭᴜ ɭʃᴜ · WASD · Shift ſɭᴜ ſɭʞᴜȝ · Spaco ſןw",
     "regiloMovado": "WASD · ſɭᴜ ſɭʞᴜȝ ſɭc̭ᴜ ſɭc̗w",
-    "regiloEniri": "E · ſɭw ſ̀ȷᴜ/j͑ʃwc̗ · ſɭw ſ̀ȷᴜ ſɭэ ſɭᴜ ſɭw ʃᴜ",
+    "regiloEniri": "E · ſɭw ſ̀ȷᴜ / j͑ʃwc̗ ɭʃᴜ · ſɭw ſ̀ȷᴜ ſɭэ ſɭᴜ ſɭw ʃᴜ",
     "regiloMapo": "M · ſɟᴜ ſᶘɹ }ʃᴜ j͑ʃᴜ ſɭᴜ ſɭw ʃᴜ ſɭэ",
-    "regiloEliri": "Escape · j͑ʃwc̗",
+    "regiloEliri": "Escape · j͑ʃwc̗ ɭʃᴜ",
     "regiloSpajroj": "ſןɔ ʌ ſ͕ɭᴜ ʌ ſɭɔ ʌ ʃэ ſɭɔ˞ᴜ ʌ ſɭᴜ ʌ ꞁȷ̀ɹ ʃᴜ · ſɭw ſ̀ȷᴜ",
     "regiloVesto": "ſ̀ȷᴜȝ · ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
     "titoloVojoj": "ſɭэ ʌ ֭ſɭэ ʌ j͑ʃɔ j͐ʃɜ ɭʃᴜ",
     "subtitoloHelpo": "ſȷɔ ſɭ,ꞇ ʌ ſɭэ ʌ ſɭᴜ ſɭɔ ʌ ʃэ j͐ʃɜ ɭʃᴜ",
-    "actEliri": "j͑ʃwc̗ · Esc",
-    "eliriKanuo": "j͑ʃwc̗ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
+    // MAP OF ARANIS · The whole vale from above
+    // map = ʃᴜ j͐ʃɹ ı],ᴜ · of(SER,vowel) = j͑ʃɔƣ̋ · Aranis = ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞
+    // whole = ꞁȷ̀ɔ ɽ͑ʃ'ɹ ֭ſɭᴜ · vale = j͐ʃɜ ɭʃᴜ · from(Place) = j͐ʃэ ɭl̀э · top = j͑ʃɜ ſɭ,ᴜ
+    "titoloMapo": "ʃᴜ j͐ʃɹ ı],ᴜ ʌ j͑ʃɔƣ̋ ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
+    "subtitoloMapo": "ꞁȷ̀ɔ ɽ͑ʃ'ɹ ֭ſɭᴜ j͐ʃɜ ɭʃᴜ ʌ j͐ʃэ ɭl̀э j͑ʃɜ ſɭ,ᴜ",
+    "actEliri": "j͑ʃwc̗ ɭʃᴜ · Esc",
+    "eliriKanuo": "j͑ʃwc̗ ɭʃᴜ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
     "regiloKanuo": "j͑ʃɹ ſɭᴜ ɭl̀ɹ ʌ ſɭw ſ̀ȷᴜ · WASD ʌ ſɭʞɔƴ",
-    "eliri": "j͑ʃwc̗",
+    "eliri": "j͑ʃwc̗ ɭʃᴜ",
     "eniriKanuo": "ſɭw ſ̀ȷᴜ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
     // Food action labels
     "actGusti": "ſ͔ɭɔȝ ·", "actTrinketi": "ſ͔ɭɔȝ ·",
@@ -53,16 +58,16 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla1Flavor": "ɭʃэ ſɭᶗ‹ɹ ſɟɔ ʌ ſɭᶗ‹ɹ ſɟɹ ᶅſᴜ · ſɭɜ ſᶘɹᶗ‹",
     "manĝTla2Flavor": "j͐ʃᴜ ŋᷠɹⰱ ſɭᶗ‹ɹ ſɟɔ ſɟɹ ſɟɹɔ˞ · j͐ʃɜ ɭʃᴜ ſȷᴜɔ˞ ᶅſɹ",
     // Building card labels from satalaj-konstruaĵoj.ts TIPARO
-    "tipDomo": "ſɭᴜ ſɭw ʃᴜ ſɭᴜ ſɭw ſɭэ",
-    "tipMangxejo": "ſɭᴜ ſ͔ɭɔȝ ſɟᴜ ŋᷠᴜ",
-    "tipStacio": "ſɭᴜ ſɭw ʃᴜ ſɭᴜ ſɭʞᴜȝ",
+    "tipDomo": "ſɭᴜ ſןɹ",
+    "tipMangxejo": "ſɭᴜ ſ͔ɭɔȝ",
+    "tipKasafeo": "ſɭᴜ j͑ʃᴜ ſȷɔ",
     "tipStacioxipo": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
     "tipTuro": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ſɭw ʃᴜ",
     "tipSanktejo": "ſɭᴜ ſɭw ʃᴜ ſɭᴜ ꞁȷ̀ᴜȝ",
     // Building card flavor text
     "flvDomo": "ſɭᴜ ɭl̀ɹ ɭʃɔ ꞁȷ̀ɹ j͑ʃᴜ ſɭᴜ ſȷɔ ſɭɔ ꞁȷ̀ɹ ſɭᴜ ſɭw ʃᴜ ſɭэ ſɭ͔ɭᴜƽ j͑ʃ'ᴜ ſɭᴜ ſᶘɔ ɭl̀ɹȝ",
     "flvMangxejo": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſ͔ɭɔȝ · ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭw ʃᴜ ŋᷠᴜ ſɭɔƽ ſɭэ ſɟᴜ ſᶘɔ ɭl̀ɹȝ · ſɭɔ˞ᴜ ꞁȷ̀ɹ ſɭэ ſɭᴜ ſɭˬꞇᴜ",
-    "flvStacio": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ɭl̀ɹ ɭʃɔ ſɭᴜ ſɭэ ſᶘɹ j͑ʃᴜꞇ · ſɭэ ſɭᴜ ſɭэ ɽ͑ʃ'ꞇ ſɭэ j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
+    "flvKasafeo": "ʃᴜͷ̗ j͐ʃᴜ ſןɹͷ̗ j͑ʃᴜ ſȷɔ · ſɭэ j͑ʃw ſɭʞɹȝ",
     "flvStacioxipo": "ſɭэ ſɭᴜ ſɭʞᴜȝ j͑ʃɔ ı],ꞇ ɭʃᴜ ꞁȷ̀ɹ · ſɭw ſ̀ȷᴜ ſɭэ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
     "flvTuro": "ſɭᴜ ſɭʞᴜȝ ſɭᴜ ſɭʞɹ ſɟᴜ ſɭᴜ ſ͕ɭᴜ ſɭɔ ſɭэ ſɭᴜ ɭl̀ɹ ɭʃɔ ſɭэ",
     "flvSanktejo": "ſɭᴜ ꞁȷ̀ᴜȝ ſɭᴜ ſ͕ɭᴜ ſɭɔ ſɭᴜ ʃэ ſɭɔ ſɭэ ſᶘɹ ſɭᴜ ſɭʞᴜȝ",
@@ -80,7 +85,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "webglReprovi": "ſɭᴜ ɭʃᴜ ſɭэ",
     // aria labels from experience.html
     "ariaButSonoro": "ſɟᴜ ſᶘɔ ɭl̀ɹȝ ſɭᴜ ſɭэ",
+    "ariaDuskRegilo": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ j͑ʃ'ɔ ŋᷠɹ",
     "ariaButPromeni": "ſɭᴜ ɭʃᴜ ſɭc̭ᴜ ſɭc̗w ſɭᴜ ſɭэ ɽ͑ʃ'ꞇ",
+    "ariaButBruo": "ꞁȷ̀ɹ ɭʃɹͷ̗ ſ͔ɭɹ j͑ʃɜ ɭʃɹȝ",
     "ariaButOrbiti": "֭ſɭɹ j͑ʃɔ ſɭc̗ᴜ ʃэ ɭʃɔȝ ſɭc̭ᴜ ſɭc̗w",
     "ariaButVesti": "ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
     "ariaButHelpi": "ſȷɔ ſɭ,ꞇ",
@@ -129,7 +136,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "}ʃɜ ſɭɜƴ",
     "bldg29": "ɭ(ɜ ŋᷠɜ ı],ᴜ",
     "bldg30": "ɭ(ɜ ŋᷠɜ ſȷɔ",
-    "bldg31": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
+    "bldg31": "ſɭᴜɘ ꞁȷ̀ᴜ ſɟɔ",
+    "bldg32": "ſɭᴜ ɭ(ᴜͷ̗",
+    "bldg33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
     // Track names
     "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -170,6 +179,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloVesto": "VESTO · ŝanĝi vian veston",
     "titoloVojoj": "VOJOJ DE LA VALO",
     "subtitoloHelpo": "Helpaj notoj pri la urbo",
+    "titoloMapo": "MAPA DE ARANIS",
+    "subtitoloMapo": "La tuta valo de supre",
     "actEliri": "eliri · Esc",
     "eliriKanuo": "por eliri kanuon",
     "regiloKanuo": "Kanua regado · WASD direkti",
@@ -188,16 +199,16 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla1Flavor": "Sukero super acido · mento sube.",
     "manĝTla2Flavor": "Betula sudfrosto · la valo en glaso.",
     // Building card labels
-    "tipDomo": "Loĝejo",
-    "tipMangxejo": "Komuna Tablo",
-    "tipStacio": "Stacio",
+    "tipDomo": "Kapuo",
+    "tipMangxejo": "Kahxjenko",
+    "tipKasafeo": "Kasafeo",
     "tipStacioxipo": "Kosmopordo",
     "tipTuro": "Turo",
     "tipSanktejo": "Sanktejo",
     // Building flavor text
     "flvDomo": "Kvietaj ĉambroj stakitaj al la nebulo.",
     "flvMangxejo": "Longaj fajrujoj, komunaj bovloj, vaporo kaj rakonto.",
-    "flvStacio": "Veturiloj alvenas kaj foriras. La valo larĝiĝas.",
+    "flvKasafeo": "Voĉoj kuniĝas por paroli kaj decidi.",
     "flvStacioxipo": "Super la arbaro la ĉiel-diamanto atendas. Eniru por leviĝi.",
     "flvTuro": "Ŝtupoj tordiĝas supren en lumon.",
     "flvSanktejo": "Oraj teksaĵoj flirtas en la vento.",
@@ -215,6 +226,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "webglReprovi": "Reprovi",
     // Aria labels
     "ariaButPromeni": "Promeni tra la nebula valo",
+    "ariaButBruo": "Ŝalti la fonan bruon",
     "ariaButOrbiti": "Orbiti ĉirkaŭ la urbo",
     "ariaButVesti": "Malfermi vestaron",
     "ariaButHelpi": "Helpo",
@@ -222,6 +234,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "Fermi",
     // Aria label for dusk toggle
     "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
+    "ariaDuskRegilo": "Krepuska nivelo",
     "ariaTrako0": "Elekti trakon 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "ariaTrako1": "Elekti trakon 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
     "ariaTrako2": "Elekti trakon 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
@@ -266,7 +279,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "Nokroĝ",
     "bldg29": "Somoŝa",
     "bldg30": "Somofe",
-    "bldg31": "Kosmopordo",
+    "bldg31": "Kapace",
+    "bldg32": "Kadal",
+    "bldg33": "Kosmopordo",
     // Track names
     "muziko": "Muziko",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -307,6 +322,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloVesto": "WARDROBE · change your outfit",
     "titoloVojoj": "PATHS OF THE VALE",
     "subtitoloHelpo": "Helpful notes about the city",
+    "titoloMapo": "MAP OF ARANIS",
+    "subtitoloMapo": "The whole vale from above",
     "actEliri": "exit · Esc",
     "eliriKanuo": "to exit canoe",
     "regiloKanuo": "Canoe controls · WASD to steer",
@@ -325,16 +342,16 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla1Flavor": "Amber over acid · mint underneath.",
     "manĝTla2Flavor": "Birch-sap frost · the vale in a glass.",
     // Building card labels
-    "tipDomo": "Lodge",
-    "tipMangxejo": "Common Table",
-    "tipStacio": "Station",
+    "tipDomo": "Kapuo",
+    "tipMangxejo": "Kahxjenko",
+    "tipKasafeo": "Kasafeo",
     "tipStacioxipo": "Spaceport",
     "tipTuro": "Tower",
     "tipSanktejo": "Sanctuary",
     // Building flavor text
     "flvDomo": "Quiet rooms stacked into the mist.",
     "flvMangxejo": "Long hearths, common bowls, steam and story.",
-    "flvStacio": "Vehicles come and go. The vale widens.",
+    "flvKasafeo": "Voices gather to speak and decide.",
     "flvStacioxipo": "Above the forest the sky-diamond waits. Enter to ascend.",
     "flvTuro": "Stairs twist upward into light.",
     "flvSanktejo": "Golden fabrics flutter in the wind.",
@@ -352,6 +369,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "webglReprovi": "Retry",
     // Aria labels
     "ariaButPromeni": "Walk through the misty vale",
+    "ariaButBruo": "Toggle background noise",
     "ariaButOrbiti": "Orbit around the city",
     "ariaButVesti": "Open wardrobe",
     "ariaButHelpi": "Help",
@@ -359,6 +377,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "Close",
     // Aria label for dusk toggle
     "ariaButKrepusko": "Toggle dusk mode",
+    "ariaDuskRegilo": "Dusk level",
     "ariaTrako0": "Select track 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "ariaTrako1": "Select track 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
     "ariaTrako2": "Select track 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
@@ -403,7 +422,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "Nokrorh",
     "bldg29": "Somesha",
     "bldg30": "Somohe",
-    "bldg31": "Skygate",
+    "bldg31": "Kapace",
+    "bldg32": "Kadal",
+    "bldg33": "Skygate",
     // Track names
     "muziko": "Music",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -444,6 +465,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloVesto": "ワードローブ · 服を変える",
     "titoloVojoj": "谷の小道",
     "subtitoloHelpo": "街のヘルプノート",
+    "titoloMapo": "アラニスの地図",
+    "subtitoloMapo": "谷全体を上から見る",
     "actEliri": "出る · Esc",
     "eliriKanuo": "カヌーを出る",
     "regiloKanuo": "カヌー操作 · WASDで操縦",
@@ -462,16 +485,16 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla1Flavor": "Amber over acid · mint underneath.",
     "manĝTla2Flavor": "Birch-sap frost · the vale in a glass.",
     // Building card labels
-    "tipDomo": "ロッジ",
-    "tipMangxejo": "共有の食卓",
-    "tipStacio": "駅",
+    "tipDomo": "カプオ",
+    "tipMangxejo": "カヘンコ",
+    "tipKasafeo": "カサフェオ",
     "tipStacioxipo": "宇宙港",
     "tipTuro": "塔",
     "tipSanktejo": "聖域",
     // Building flavor text
     "flvDomo": "霧の中に積み重なった静かな部屋。",
     "flvMangxejo": "長い暖炉、共通の鉢、蒸気と物語。",
-    "flvStacio": "乗り物が行き交う。谷が広がる。",
+    "flvKasafeo": "声が集まり、語り、決める。",
     "flvStacioxipo": "森の上で空のダイヤが待つ。入って昇ろう。",
     "flvTuro": "階段が光の中へとねじれて昇る。",
     "flvSanktejo": "金色の織物が風に揺れる。",
@@ -489,6 +512,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "webglReprovi": "再試行",
     // Aria labels
     "ariaButPromeni": "霧の谷を歩く",
+    "ariaButBruo": "背景ノイズを切り替え",
     "ariaButOrbiti": "街の周りを周回",
     "ariaButVesti": "ワードローブを開く",
     "ariaButHelpi": "ヘルプ",
@@ -496,6 +520,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "閉じる",
     // Aria label for dusk toggle
     "ariaButKrepusko": "夕暮れモードを切り替え",
+    "ariaDuskRegilo": "夕暮れのレベル",
     "ariaTrako0": "トラック 1 を選択 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "ariaTrako1": "トラック 2 を選択 ſןᴜ ʃɜƽ ſ͔ɭɹ",
     "ariaTrako2": "トラック 3 を選択 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
@@ -544,7 +569,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "ノクショシ",
     "bldg29": "スオモシャ",
     "bldg30": "スオモフェ",
-    "bldg31": "宇宙門",
+    "bldg31": "カパチェ",
+    "bldg32": "カダル",
+    "bldg33": "宇宙門",
     // Track names
     "muziko": "音楽",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -585,6 +612,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloVesto": "សម្លៀកបំពាក់ · ប្តូរសំលៀកបំពាក់របស់អ្នក",
     "titoloVojoj": "ផ្លូវនៃជ្រលង",
     "subtitoloHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
+    "titoloMapo": "ផែនទីអារ៉ានីស",
+    "subtitoloMapo": "ជ្រលងទាំងមូលពីលើ",
     "actEliri": "ចេញ · Esc",
     "eliriKanuo": "ដើម្បីចេញពីទូក",
     "regiloKanuo": "ការគ្រប់គ្រងទូក · WASD ដើម្បីបង្វែរ",
@@ -603,16 +632,16 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla1Flavor": "Amber over acid · mint underneath.",
     "manĝTla2Flavor": "Birch-sap frost · the vale in a glass.",
     // Building card labels
-    "tipDomo": "ផ្ទះសំណាក់",
-    "tipMangxejo": "តុសាមញ្ញ",
-    "tipStacio": "ស្ថានីយ",
+    "tipDomo": "កាពួ",
+    "tipMangxejo": "កាហ្ចេនក៏",
+    "tipKasafeo": "កាសាហ្វេអូ",
     "tipStacioxipo": "កំពង់ផែអវកាស",
     "tipTuro": "ប៉ម",
     "tipSanktejo": "ទីសក្ការៈ",
     // Building flavor text
     "flvDomo": "បន្ទប់ស្ងាត់ៗដាក់តម្រៀបក្នុងអ័ព្ទ។",
     "flvMangxejo": "ចើងរកាភ្លើងវែង ចានសាមញ្ញ ចំហាយនិងរឿងរ៉ាវ។",
-    "flvStacio": "យានជំនិះមកនិងទៅ។ ជ្រលងរីកធំ។",
+    "flvKasafeo": "សំឡេងជួបជុំដើម្បីនិយាយ និងសម្រេចចិត្ត។",
     "flvStacioxipo": "ពេជ្រមេឃរង់ចាំពីលើព្រៃ។ ចូលដើម្បីឡើងទៅ។",
     "flvTuro": "ជណ្តើរបង្វិលឡើងទៅក្នុងពន្លឺ។",
     "flvSanktejo": "ក្រណាត់មាសបក់បោកតាមខ្យល់។",
@@ -630,6 +659,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "webglReprovi": "ព្យាយាមម្តងទៀត",
     // Aria labels
     "ariaButPromeni": "ដើរកាត់ជ្រលងអ័ព្ទ",
+    "ariaButBruo": "ប្តូរសំឡេងផ្ទៃខាងក្រោយ",
     "ariaButOrbiti": "ទស្សនាជុំវិញទីក្រុង",
     "ariaButVesti": "បើកសម្លៀកបំពាក់",
     "ariaButHelpi": "ជំនួយ",
@@ -637,6 +667,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaSupermetaFermi": "បិទ",
     // Aria label for dusk toggle
     "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
+    "ariaDuskRegilo": "កម្រិតព្រលប់",
     "ariaTrako0": "ជ្រើសរើសបទ 1 ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "ariaTrako1": "ជ្រើសរើសបទ 2 ſןᴜ ʃɜƽ ſ͔ɭɹ",
     "ariaTrako2": "ជ្រើសរើសបទ 3 ſɭэ j͐ʃпᴜ j͑ʃƨꞇʞ ɭʃc ɭ̀ʃı",
@@ -684,7 +715,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "bldg28": "នុករុហ្រ",
     "bldg29": "ស្សុមុឆា",
     "bldg30": "ស្សុមុផេ",
-    "bldg31": "ទ្វារមេឃ",
+    "bldg31": "កាប៉ាចេ",
+    "bldg32": "កាដាល",
+    "bldg33": "ទ្វារមេឃ",
     // Track names
     "muziko": "តន្ត្រី",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
@@ -738,6 +771,8 @@ function aplikiSkakefanon(lingvo: string): void {
   try { localStorage.setItem("aranis-lingvo", lingvo); } catch { /* private browsing */ }
   // En la aih-a lingvo oni envolvu la vortojn per vacepu ( el la ekstera ſɭɔ j͑ʃ'ɔ }ʃꞇ.js ).
   if (lingvo === "aih" && typeof vacepu === "function") vacepu("aih");
+  // Anoncu la ŝanĝon por ke dinamikaj etikedoj ( ekz. la reĝima butono ) refreŝiĝu.
+  window.dispatchEvent(new CustomEvent("lingvosxangxo"));
 }
 
 // ⟪ Sxalti al sekva lingvo 📃 ⟫

@@ -1,4 +1,5 @@
-// Satalaj konstruajxoj — sxtupajramidaj konstruajxoj. verdaj/oraj domoj, brunaj/becxaj mangxejoj, blankaj/grizaj stacioj
+// Satalaj konstruajxoj — sxtupajramidaj konstruajxoj. verdaj/oraj domoj (kapuo),
+// brunaj/becxaj mangxejoj (kahxjenko), becxaj kasafeoj (kunvenoĉambroj) kun oraj pilieroj
 // La zigurato nomigxas satal ( j͑ʃᴜ ɭʃᴜͷ̗ ) en Iikrhia. noma formo. satalo.
 import * as THREE from "three";
 import { generiSkribanTeksajxon } from "./skripto-rivelilo.js";
@@ -8,7 +9,7 @@ export interface KonstruTipo { labelKey: string; wall: number; frame: number; ch
 export const TIPARO: Record<string, KonstruTipo> = {
   domo:   { labelKey: "tipDomo",      wall: 0x184838, frame: 0xd8b068, chip: "#78a888", flavorKey: "flvDomo" },
   mangxejo:  { labelKey: "tipMangxejo",  wall: 0x584028, frame: 0xd8c898, chip: "#c8a868", flavorKey: "flvMangxejo" },
-  stacio: { labelKey: "tipStacio",      wall: 0xd8e0e0, frame: 0x889898, chip: "#c0c8c8", flavorKey: "flvStacio" },
+  kasafeo: { labelKey: "tipKasafeo",    wall: 0xd8c898, frame: 0xd8b068, chip: "#e0d0a8", flavorKey: "flvKasafeo" },
   stacioxipo: { labelKey: "tipStacioxipo", wall: 0xc8c8c8, frame: 0xd8b068, chip: "#c8c8c8", flavorKey: "flvStacioxipo" },
   turo:   { labelKey: "tipTuro",        wall: 0x205040, frame: 0xd8b068, chip: "#88b8a0", flavorKey: "flvTuro" },
   sanktejo: { labelKey: "tipSanktejo",  wall: 0x184038, frame: 0xe0c078, chip: "#e0c078", flavorKey: "flvSanktejo" },
@@ -58,6 +59,21 @@ export function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: num
 
 // kreiSteleanFormon — Vertikala signa plato kun nesimetriaj rondigitaj supraj
 // anguloj (r1 ≠ r2) kaj rektaj malsupraj anguloj. Uzata por la steloj.
+// kreiPilolFormon — LONGAs horizontala rondigita fenestra formo: rektangulo kun
+// duoncirklaj finoj (pilolo). Loka kopio de kreiPilolFenestranFormon en interno.js
+// (ne importu interne: tio estus cirkla dependeco — interno jam importas ĉi tien).
+function kreiPilolFormon(w: number, h: number): THREE.Shape {
+  const s = new THREE.Shape();
+  const hw = w / 2, r = h / 2;
+  s.moveTo(-hw + r, 0);
+  s.lineTo(hw - r, 0);
+  s.absarc(hw - r, r, r, -Math.PI / 2, Math.PI / 2, false);
+  s.lineTo(-hw + r, h);
+  s.absarc(-hw + r, r, r, Math.PI / 2, Math.PI * 3 / 2, false);
+  s.closePath();
+  return s;
+}
+
 function kreiSteleanFormon(w: number, h: number, r1: number, r2: number): THREE.Shape {
   const s = new THREE.Shape();
   const hw = w / 2;
@@ -428,7 +444,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   const sube = spec.sube || 0, tieroAltoSub = spec.tieroAltoSub || tieroAlto;
   // Kaj la kosmopordo kaj la generalaj stacioj havas pli similajn tavolojn
   // (pli milda deklivo, malpli granda interspaco inter etagxoj).
-  const estasStacio = typeKey === "stacioxipo" || typeKey === "stacio";
+  const estasStacio = typeKey === "stacioxipo";
   const supraLargho = estasStacio ? w * 5/8 : Math.max(141/64, w * 19/64);
   const supraProfundo = estasStacio ? d * 5/8 : Math.max(16/8, d * 19/64);
   const malpliiX = (w / 2 - supraLargho / 2) / Math.max(1, tiers - 1), malpliiZ = (d / 2 - supraProfundo / 2) / Math.max(1, tiers - 1);
@@ -460,7 +476,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
 
   const group = new THREE.Group();
   // Malpli reflekta mura materialo. pli alta malglateco, preskaux neniu metaleco.
-  const muraMaterialo = new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "stacio" ? 5/8 : 3/4, metalness: 0, envMapIntensity: 0 });
+  const muraMaterialo = new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "kasafeo" ? 33/64 : 3/4, metalness: 0, envMapIntensity: 0 });
   const kadraMaterialo = new THREE.MeshStandardMaterial({ color: kadraKoloro, metalness: 27/32, roughness: 11/32, emissive: 0x302808, emissiveIntensity: 11/32, envMapIntensity: 10/8 });
   const eniraMaterialo = new THREE.MeshStandardMaterial({ color: 0x082018, roughness: 19/32, emissive: 0xf89840, emissiveIntensity: 3/64 });
 
@@ -510,6 +526,48 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     const roofY = tiers * tieroAlto;
     const ringo = new THREE.Mesh(new THREE.RingGeometry(13/16, 19/16, 0o40).rotateX(-Math.PI / 2), kadraMaterialo);
     ringo.position.y = roofY + 1/32; group.add(ringo);
+  }
+
+  if ( typeKey === "kasafeo" ) {
+    // Videblaj pilol-fenestroj sur la ekstero (kiel sur la kosmosxipo) — unu per
+    // faco per etagxo. La muroj klinigxas, do la fenestroj estas TURNITAJ je la
+    // klin-angulo por kusxi plate sur la klinita muro (kiel la sxipaj fenestroj).
+    // La fronta faco (f=0, +z) de la teretagxo havas la pordon — neniu fenestro tie.
+    const fenAlto = Math.min(5/8, tieroAlto * 3/10);
+    const klinaAngulo = Math.atan(klino / tieroAlto);
+    const fenestraMaterialo = new THREE.MeshStandardMaterial({
+      color: 0x0a1a18, emissive: 0x688888, emissiveIntensity: 3/16,
+      roughness: 3/16, metalness: 3/16, transparent: true, opacity: 7/8,
+    });
+    for ( let i = 0; i < tiers; i++ ) {
+      const hwT = w / 2 - i * malpliiX, hdT = d / 2 - i * malpliiZ;
+      const yC = i * tieroAlto + tieroAlto / 2;
+      const faco = Math.min(hwT, hdT) - klino / 2;
+      const ww = Math.min(faco * 2 - 3/8, faco * 4/3 + 1/4);
+      for ( let f = 0; f < 4; f++ ) {
+        if ( i === 0 && f === 0 ) continue;
+        const faca = new THREE.Group();
+        faca.rotation.y = f * Math.PI / 2;
+        const monto = new THREE.Group();
+        monto.position.set( 0, yC - fenAlto / 2, faco + 1/64 );
+        monto.rotation.x = -klinaAngulo;
+        faca.add(monto);
+        const fen = new THREE.Mesh(
+          new THREE.ShapeGeometry(kreiPilolFormon(ww, fenAlto), 0o100),
+          fenestraMaterialo
+        );
+        monto.add(fen);
+        // Ora pilola rando ĉirkaŭ la fenestro
+        const konturo = kreiPilolFormon(ww, fenAlto).getPoints(0o200)
+          .map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, 0));
+        const rimo = new THREE.Mesh(
+          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 1/16, 6, true),
+          kadraMaterialo
+        );
+        monto.add(rimo);
+        group.add(faca);
+      }
+    }
   }
 
   // Uniforma 3D stela signo por cxiuj konstruajxoj — reuzebla komponanto.

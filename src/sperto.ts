@@ -10,12 +10,12 @@ import type { Figuro, Vesto } from "../assets/npcoj.js";
 import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/internoj.js";
 import { animaciiKrasesxagxon } from "../assets/krasesxagxa-kosmosxipo.js";
 import { TIPARO, KonstruSpec, MangxajxItemo } from "../assets/satalaj-konstruajxoj.js";
-import { riveroZ, akvoY, alteco } from "./tereno.js";
+import { riveroZ, akvoY, alteco, RIVERA_DUONLARĜO } from "./tereno.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
 import { traduki, cxuAih } from "./tradukoj.js";
-import { sxaltiAŭdion, cxuAŭdio, sfx, rumble, autoKomenci, registriPostAŭdio } from "../assets/sonoro.js";
+import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, sfx, rumble, autoKomenci, registriPostAŭdio } from "../assets/sonoro.js";
 import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../assets/muziko/ludilo.js";
 
 // ⟪ DOM-elementoj 📃 ⟫
@@ -33,6 +33,8 @@ const sxargxaElemento = document.getElementById("sxargxo")!;
 const stangoPlenigo = document.getElementById("stangoPlenigo")!;
 const sxargxaTitolo = document.getElementById("sxargxaTitolo")!;
 const nadlo = document.getElementById("nadlo")!;
+const kompaso = document.getElementById("kompaso")!;
+const miniKanvaso = document.getElementById("minimapaKanvaso") as HTMLCanvasElement;
 const vinjeto = document.getElementById("vinjeto")!;
 const retikulo = document.getElementById("retikulo")!;
 const balailo = document.getElementById("balailo")!;
@@ -45,6 +47,8 @@ const tosto = document.getElementById("tosto")!;
 const navPopUp = document.getElementById("navPopUp")!;
 const navButono = document.getElementById("navButono")!;
 const butSonoro = document.getElementById("butSonoro")!;
+const butRezimo = document.getElementById("butRezimo")!;
+const butBruo = document.getElementById("butBruo")!;
 const mobJoystickZono = document.getElementById("mobJoystickZono")!;
 const mobJoystickBazo = document.getElementById("mobJoystickBazo")!;
 const mobJoystickTenilo = document.getElementById("mobJoystickTenilo")!;
@@ -101,6 +105,7 @@ let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
 // La butono mem estas la fermilo: 二 fermita · 川 malfermita ( kaj la glifo sekvas la staton ).
 function gxisdatigiNavButonon() {
   navButono.textContent = navPopUp.classList.contains("montri") ? "川" : "二";
+  navButono.setAttribute("aria-pressed", String(navPopUp.classList.contains("montri")));
 }
 function sxaltiNaviganPopUp() {
   navPopUp.classList.toggle("montri");
@@ -117,7 +122,7 @@ navPopUp.addEventListener("click", (e) => {
 
 // ⟪ Aŭtomata komenco je unua tuŝo/klako 📃 ⟫
 function gxisdatigiSonoranButonon(aktiva: boolean) {
-  butSonoro.classList.toggle("aktiva", aktiva);
+  butSonoro.setAttribute("aria-pressed", String(aktiva));
   butSonoro.textContent = aktiva ? "♫" : "♬";
   gxisdatigiTrakoButonojn();
 }
@@ -153,12 +158,25 @@ if (butSonoro) {
   });
 }
 
+// ⟪ Brua butono ( fona bruo aparta de la muziko ) 📃 ⟫
+function gxisdatigiBruanButonon() {
+  const aktiva = cxuBruo();
+  butBruo.setAttribute("aria-pressed", String(aktiva));
+  butBruo.textContent = aktiva ? "≋" : "≈";
+}
+butBruo.addEventListener("click", () => {
+  sxaltiBruon();
+  gxisdatigiBruanButonon();
+  fermiNaviganPopUp();
+});
+gxisdatigiBruanButonon();
+
 // ⟪ Traka selektilo 📃 ⟫
 function gxisdatigiTrakoButonojn() {
   const nuna = nunaTrako();
   document.querySelectorAll(".trakaBut").forEach(b => {
     const i = parseInt((b as HTMLElement).dataset.trako || "0");
-    b.classList.toggle("aktiva", i === nuna && cxuLudas());
+    b.setAttribute("aria-pressed", String(i === nuna && cxuLudas()));
   });
 }
 document.querySelectorAll(".trakaBut").forEach(b => {
@@ -176,6 +194,7 @@ document.querySelectorAll(".trakaBut").forEach(b => {
 let krepuskaValoro = 0;
 const butKrepusko = document.getElementById("butKrepusko")!;
 const duskRegilo = document.getElementById("duskRegilo") as HTMLInputElement;
+butKrepusko.setAttribute("aria-pressed", String(krepuskaValoro > 4/8));
 aplikiRezimon(0);
 butKrepusko.addEventListener("click", () => {
   if (krepuskaValoro > 4/8) {
@@ -186,12 +205,14 @@ butKrepusko.addEventListener("click", () => {
     duskRegilo.value = "1";
   }
   butKrepusko.textContent = krepuskaValoro > 4/8 ? "☀" : "☽";
+  butKrepusko.setAttribute("aria-pressed", String(krepuskaValoro > 4/8));
   aplikiRezimon(krepuskaValoro);
   fermiNaviganPopUp();
 });
 duskRegilo.addEventListener("input", () => {
   krepuskaValoro = parseFloat(duskRegilo.value);
   butKrepusko.textContent = krepuskaValoro > 4/8 ? "☀" : "☽";
+  butKrepusko.setAttribute("aria-pressed", String(krepuskaValoro > 4/8));
   aplikiRezimon(krepuskaValoro);
 });
 
@@ -249,7 +270,10 @@ window.addEventListener("keydown", e => {
   if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(e.code)) e.preventDefault();
   if (e.code === "KeyE" && !e.repeat) proviInterakti();
   if (e.code === "KeyM" && !e.repeat) sxaltiRezimon();
-  if (e.code === "Escape" && rezimo === "interior") eliriInternon();
+  if (e.code === "Escape") {
+    if (mapoMalfermita) fermiMapon();
+    else if (rezimo === "interior") eliriInternon();
+  }
   if (e.code === "Space" && rezimo === "walk" && estasSurTERENO && !surKanoto) { rapidoY = 60/8; estasSurTERENO = false; }
 });
 window.addEventListener("keyup", e => { klavoj[e.code] = false; });
@@ -345,7 +369,7 @@ kanvaso.addEventListener("touchstart", (e) => {
   // Don't capture if touch is on joystick or action buttons
   const t = e.changedTouches[0];
   const el = document.elementFromPoint(t.clientX, t.clientY);
-  if (el && (el === mobJoystickZono || el === mobJoystickBazo || mobJoystickZono.contains(el) || el.classList.contains("mobBut") || el.closest("#mobButaroj"))) {
+  if (el && (el === mobJoystickZono || el === mobJoystickBazo || mobJoystickZono.contains(el) || el.classList.contains("mobBut") || el.closest("#mobButaroj") || el.closest("#kompaso"))) {
     return;
   }
   tuŝaRigardaID = t.identifier;
@@ -386,6 +410,14 @@ kanvaso.addEventListener("touchcancel", () => {
 }, { passive: true });
 
 // ⟪ Poŝtelefonaj agbutonoj 📃 ⟫
+// La E-butono aperas nur kiam estas proksima interagebla — same kiel la prompto
+// ( #prompto.montri ). Observilo konservas la du en sinsekvo, do cxiu sxangxo de
+// la prompta stato ( pordo/kanuo/mangxajxo/eliro ) sxaltas ankaux la butonon.
+const gxisdatigiInteragbutonon = () => {
+  mobButInterakti.classList.toggle("montri", promptoElemento.classList.contains("montri"));
+};
+new MutationObserver(gxisdatigiInteragbutonon).observe(promptoElemento, { attributes: true, attributeFilter: ["class"] });
+gxisdatigiInteragbutonon();
 mobButInterakti.addEventListener("touchstart", (e) => {
   e.preventDefault();
   proviInterakti();
@@ -444,7 +476,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
   if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
   if (cxuAŭdio()) sfx.door();
   pulsiEfikon();
-  fariBalailon(() => {
+  montriSargxon(0o1500, () => {
     antauxaRezimo = rezimo as "orbit" | "walk";
     rezimo = "interior";
     elektitaSpec = spec;
@@ -513,18 +545,29 @@ function eliriInternon() {
         regiloj.update();
       }
     }
-    (document.getElementById("butPromeni")!).classList.toggle("aktiva", estasWalk);
+    gxisdatigiRezimanButonon();
     gxisdatigiRetikulon();
   });
 }
 
-// ⟪ Rezima sxaltilo 📃 ⟫
+// ⟪ Rezima ŝaltilo 📃 ⟫
+// Unu butono montras la nunan reĝimon kaj ŝaltas al la alia per klako.
+function gxisdatigiRezimanButonon() {
+  butRezimo.textContent = traduki(rezimo === "walk" ? "butonoPromeni" : "butonoOrbiti");
+  butRezimo.setAttribute("aria-pressed", String(rezimo === "walk"));
+  butRezimo.setAttribute("aria-label", traduki(rezimo === "walk" ? "ariaButPromeni" : "ariaButOrbiti"));
+  // La nova etikedo ( aih ) bezonas la vacepu-vortojn.
+  aplikiVacepu();
+}
+// Kiam la lingvo ŝanĝiĝas, la dinamika etikedo refreŝiĝu.
+window.addEventListener("lingvosxangxo", gxisdatigiRezimanButonon);
+
 function sxaltiRezimon() {
   if (rezimo === "interior") { eliriInternon(); return; }
   if (surKanoto) { surKanoto = null; ludantaPozicio.set(fotilo.position.x, 109/64, fotilo.position.z); }
   if (cxuAŭdio()) sfx.chime();
   rezimo = rezimo === "orbit" ? "walk" : "orbit";
-  (document.getElementById("butPromeni")!).classList.toggle("aktiva", rezimo === "walk");
+  gxisdatigiRezimanButonon();
   gxisdatigiRetikulon();
   if (rezimo === "walk") {
     regiloj.enabled = false;
@@ -540,14 +583,15 @@ function sxaltiRezimon() {
     fotilo.position.copy(ludantaPozicio).add(new THREE.Vector3(0, 4, 0o14));
   }
 }
-document.getElementById("butPromeni")!.addEventListener("click", sxaltiRezimon);
-document.getElementById("butOrbiti")!.addEventListener("click", () => {
-  if (rezimo === "walk") sxaltiRezimon();
-  if (elektitaSpec) {
+butRezimo.addEventListener("click", () => {
+  sxaltiRezimon();
+  // En orbito enfokusigu la elektitan konstruaĵon (kiel antaŭe la ORBITI-butono).
+  if (rezimo === "orbit" && elektitaSpec) {
     regiloj.target.set(elektitaSpec.x, elektitaSpec.h0! + 0o14, elektitaSpec.z);
     regiloj.update();
   }
 });
+gxisdatigiRezimanButonon();
 
 // ⟪ Vestaro 📃 ⟫
 document.getElementById("butVesti")!.addEventListener("click", () => {
@@ -633,7 +677,7 @@ function proviInterakti() {
 }
 function eliriKanoton(c: Kanoto): { x: number; z: number } {
   const fortoX = -Math.sin(c.direkto), fortoZ = -Math.cos(c.direkto);
-  const bona = (x: number, z: number) => !cxuEnAkvo(x, z, riveroZ, 7) && !enDoko(x, z, 3/8);
+  const bona = (x: number, z: number) => !cxuEnAkvo(x, z, riveroZ, RIVERA_DUONLARĜO) && !enDoko(x, z, 3/8);
   let exitX = c.x + fortoX * 6, exitZ = c.z + fortoZ * 6;
   if (!bona(exitX, exitZ)) {
     // Serĉu sekan, ne-dokan punkton — ĉe kreskantaj distancoj por eviti la
@@ -704,9 +748,23 @@ function enDoko(x: number, z: number, marge: number): boolean {
   return false;
 }
 
+// dokaSuproY — Se la punkto staras super doka platformo, redonu la mondan Y de
+// la platforma supro; alie -Infinity. La tereno sub la doko deklivas al la
+// rivero, do sen ĉi tio la promenanto enfandus en la platformon.
+function dokaSuproY(x: number, z: number): number {
+  let y = -Infinity;
+  for (const d of dokoKolizioj) {
+    const cosR = Math.cos(d.rot), sinR = Math.sin(d.rot);
+    const lx = (x - d.x) * cosR + (z - d.z) * sinR;
+    const lz = -(x - d.x) * sinR + (z - d.z) * cosR;
+    if (Math.abs(lx) < d.w / 2 && Math.abs(lz) < d.d / 2) y = Math.max(y, d.y);
+  }
+  return y;
+}
+
 // solviDokanKolizion — Rektangula kolizio kun la dokaj platformoj. Oni rajtas
 // stari SUR la doko (supre), sed ne eniri sub gxin: nur punktoj sub la platforma
-// surfaco estas elpusxataj. marge = radiuso de la ento (ludanto 3/8, kanuo 5/4).
+// supro (d.y) estas elpusxataj. marge = radiuso de la ento (ludanto 3/8, kanuo 5/4).
 function solviDokanKolizion(x: number, z: number, y: number, marge = 3/8): { x: number; z: number } {
   let rx = x, rz = z;
   for (let pass = 0; pass < 3; pass++) {
@@ -718,7 +776,7 @@ function solviDokanKolizion(x: number, z: number, y: number, marge = 3/8): { x: 
       const lx = dx * cosR + dz * sinR;
       const lz = -dx * sinR + dz * cosR;
       const hw = d.w / 2 + marge, hd = d.d / 2 + marge;
-      if (Math.abs(lx) < hw && Math.abs(lz) < hd && y < alteco(d.x, d.z) - 1/4) {
+      if (Math.abs(lx) < hw && Math.abs(lz) < hd && y < d.y - 1/4) {
         const penX = hw - Math.abs(lx), penZ = hd - Math.abs(lz);
         let plx = 0, plz = 0;
         if (penX < penZ) plx = (lx >= 0 ? 1 : -1) * penX;
@@ -734,6 +792,211 @@ function solviDokanKolizion(x: number, z: number, y: number, marge = 3/8): { x: 
     if (!hit) break;
   }
   return { x: rx, z: rz };
+}
+
+// ⟪ Minimapo — la kompaso fariĝas radara mapo; klako malfermas la plenan vidon 📃 ⟫
+// La mapo estas dua WebGL-bildilo kun orta fotilo rigardanta rekte malsupren:
+// ĝi bildigas la SAMAN scenon, do vojoj, konstruaĵoj, rivero kaj arbaro aperas
+// aŭtomate. Nebulo estas malŝaltita nur dum ĉi tiuj bildigoj, kaj la ludanta
+// markilo kuŝas sur aparta tavolo ( 2 ), nevidebla por la ĉefa fotilo.
+let mapoMalfermita = false;
+let kadraNombro = 0;
+let minimapaBildilo: THREE.WebGLRenderer | null = null;
+let minimapaFotilo: THREE.OrthographicCamera | null = null;
+let plenaBildilo: THREE.WebGLRenderer | null = null;
+let plenaFotilo: THREE.OrthographicCamera | null = null;
+
+const RADARA_DUONO = 0o50;   // duon-larĝo de la radara mapo ( mondaj unuoj )
+const PLENA_DUONO = 0o214;   // duon-larĝo de la plena mapo ( la tuta valo )
+const MINA_DUONO = 0o10;     // plej proksima zomo de la plena mapo
+const MAXA_DUONO = 0o500;    // plej malproksima zomo de la plena mapo
+const MAPA_ALTECO = 0o130;   // fotila alto super la tero
+let plenaDuono = PLENA_DUONO; // nuna duon-larĝo ( zomo ) de la plena mapo
+let mapaPanX = 0;            // tirado: horizontala forpreno de la sekv-punkto
+let mapaPanZ = 0;            // tirado: vertikala forpreno de la sekv-punkto
+
+// La ludanta markilo: ora sago ( direkto ) sur disko. Tavolo 2 = nur mapaj fotiloj.
+const mapoMarkilo = new THREE.Group();
+{
+  const sago = new THREE.Mesh(new THREE.ConeGeometry(7/8, 14/8, 3), oraMaterialo);
+  sago.geometry.rotateX(-Math.PI / 2); // kuŝas plate kun la pinto al -z
+  sago.position.y = 3/8;
+  const disko = new THREE.Mesh(new THREE.CircleGeometry(5/8, 0o24), oraMaterialo);
+  disko.rotation.x = -Math.PI / 2;
+  mapoMarkilo.add(sago, disko);
+  mapoMarkilo.traverse(o => o.layers.set(2));
+}
+sceno.add(mapoMarkilo);
+
+function kreiMapanSistemon(canvas: HTMLCanvasElement, duono: number): { bildilo: THREE.WebGLRenderer; fotilo: THREE.OrthographicCamera } {
+  const bildilo = new THREE.WebGLRenderer({ canvas, antialias: false });
+  bildilo.setPixelRatio(1);
+  bildilo.setSize(canvas.width, canvas.height, false);
+  bildilo.setClearColor(0x0a1814, 1);
+  bildilo.shadowMap.enabled = false;
+  const fotilo = new THREE.OrthographicCamera(-duono, duono, duono, -duono, 1, 0o240);
+  fotilo.up.set(0, 0, 1); // mapo-supro = nordo ( +z )
+  fotilo.layers.enable(2);
+  return { bildilo, fotilo };
+}
+
+// Bildigu la scenon de supre; la supro de la mapo estas ĉiam nordo.
+function bildigiMapon(bildilo: THREE.WebGLRenderer, fotilo: THREE.OrthographicCamera, cx: number, cz: number): void {
+  const f = sceno.fog;
+  sceno.fog = null;
+  fotilo.position.set(cx, MAPA_ALTECO, cz);
+  fotilo.lookAt(cx, 0, cz);
+  bildilo.render(sceno, fotilo);
+  sceno.fog = f;
+}
+
+// La plena mapo estas plenekrana, do la orta fotilo sekvu la kanvasan grandecon
+// ( sen fiksaj dimensioj ) kaj la nunan zomon ĉiukadre.
+function agordiPlenanFotilon(): void {
+  if (!plenaBildilo || !plenaFotilo) return;
+  const kanvasa = plenaBildilo.domElement;
+  const w = kanvasa.clientWidth || innerWidth;
+  const h = kanvasa.clientHeight || innerHeight;
+  if (kanvasa.width !== w || kanvasa.height !== h) {
+    kanvasa.width = w;
+    kanvasa.height = h;
+    plenaBildilo.setSize(w, h, false);
+  }
+  const aspekto = w / h;
+  plenaFotilo.left = -plenaDuono * aspekto;
+  plenaFotilo.right = plenaDuono * aspekto;
+  plenaFotilo.top = plenaDuono;
+  plenaFotilo.bottom = -plenaDuono;
+  plenaFotilo.updateProjectionMatrix();
+}
+
+// La kompaso malfermas la plenan vidon: plenekrana kanvaso rekte en #supermeta.
+function malfermiMapon(): void {
+  if (mapoMalfermita) return;
+  if (!plenaBildilo) {
+    const kanvasa = document.createElement("canvas");
+    kanvasa.id = "plenaKanvaso";
+    // Plenekrana: la CSS plenigas la tutan #supermeta ( inset:0 ); la bildilo
+    // kaj la orta fotilo adaptiĝas al la ekrana grandeco/proporcio ĉiukadre,
+    // do neniu fiksa grandeco necesas kaj ĝi funkcias ankaŭ sur poŝtelefono.
+    kanvasa.width = innerWidth;
+    kanvasa.height = innerHeight;
+    try {
+      const plena = kreiMapanSistemon(kanvasa, PLENA_DUONO);
+      plenaBildilo = plena.bildilo;
+      plenaFotilo = plena.fotilo;
+    } catch (e) {
+      console.warn("Plena mapo ne havebla:", e);
+      return;
+    }
+    // Zomo: rado ( labortablo ) kaj pinĉo ( tuŝo ). La duon-larĝo de la orta
+    // fotilo ŝanĝiĝas; la ludanta markilo restas centrita dum la zomo.
+    kanvasa.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      // Normaligu la radan unuon: liniaj deltoj ( iuj kusenetoj ) ≈ 16 pikseloj.
+      const delt = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+      plenaDuono = Math.max(MINA_DUONO, Math.min(MAXA_DUONO, plenaDuono * Math.exp(delt * 0.001)));
+    }, { passive: false });
+    // Pinĉa zomo: zorgu ankaŭ se tria fingro aliĝas aŭ forlasas meze. Tiri ( unu
+    // fingro/muso ) movas la vidcentron; post pinĉo la restanta fingro daŭre tiras.
+    const punktoj = new Map<number, { x: number; y: number }>();
+    let pinĉaDistanco = 0;
+    let tirantaId: number | null = null;
+    let lastaX = 0, lastaY = 0;
+    const distancoInter = () => {
+      const [a, b] = [...punktoj.values()];
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    };
+    const agordiPinĉanBazon = () => {
+      if (punktoj.size >= 2) {
+        const du = [...punktoj.values()].slice(0, 2);
+        pinĉaDistanco = Math.hypot(du[0].x - du[1].x, du[0].y - du[1].y);
+      } else {
+        pinĉaDistanco = 0;
+      }
+    };
+    // Pikseloj → mondaj unuoj: la mapo estas nedistorĉita ( samaj skvamoj en ambaŭ
+    // aksoj ), do unu konverta faktoro sufiĉas. Limigu la tiradon al la maksimuma
+    // zomo, por ke la mapo ne perdiĝu tute.
+    const tiriPans = (dx: number, dy: number) => {
+      const pp = (2 * plenaDuono) / (kanvasa.clientHeight || innerHeight);
+      mapaPanX = Math.max(-MAXA_DUONO, Math.min(MAXA_DUONO, mapaPanX + dx * pp));
+      mapaPanZ = Math.max(-MAXA_DUONO, Math.min(MAXA_DUONO, mapaPanZ + dy * pp));
+    };
+    kanvasa.addEventListener("pointerdown", (e) => {
+      punktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      agordiPinĉanBazon();
+      if (punktoj.size === 1) {
+        tirantaId = e.pointerId;
+        lastaX = e.clientX; lastaY = e.clientY;
+      }
+    });
+    kanvasa.addEventListener("pointermove", (e) => {
+      if (!punktoj.has(e.pointerId)) return;
+      punktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (punktoj.size >= 2 && pinĉaDistanco > 0) {
+        const nova = distancoInter();
+        plenaDuono = Math.max(MINA_DUONO, Math.min(MAXA_DUONO, plenaDuono * pinĉaDistanco / nova));
+        pinĉaDistanco = nova;
+        tirantaId = null; // la pinĉo anstataŭas la tiradon
+      } else if (punktoj.size === 1 && e.pointerId === tirantaId) {
+        tiriPans(e.clientX - lastaX, e.clientY - lastaY);
+        lastaX = e.clientX; lastaY = e.clientY;
+      }
+    });
+    const forigiPunkton = (e: PointerEvent) => {
+      punktoj.delete(e.pointerId);
+      agordiPinĉanBazon();
+      // Se post la forigo restas unu fingro, daŭrigu tiri per ĝi.
+      if (punktoj.size === 1) {
+        const restanta = [...punktoj.entries()][0];
+        tirantaId = restanta[0];
+        lastaX = restanta[1].x; lastaY = restanta[1].y;
+      } else {
+        tirantaId = null;
+      }
+    };
+    kanvasa.addEventListener("pointerup", forigiPunkton);
+    kanvasa.addEventListener("pointercancel", forigiPunkton);
+    // Duobla klako revenigas la mapon al la ludanto.
+    kanvasa.addEventListener("dblclick", () => { mapaPanX = 0; mapaPanZ = 0; });
+  }
+  plenaDuono = PLENA_DUONO; // ĉiu malfermo rekomencas de la tuta valo
+  mapaPanX = 0; mapaPanZ = 0; // ...kaj sen tirado
+  document.getElementById("supermetaTitolo")!.textContent = traduki("titoloMapo");
+  document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloMapo");
+  vestaVico.innerHTML = "";
+  supermeta.appendChild(plenaBildilo.domElement);
+  supermeta.classList.add("mapo");
+  mapoMalfermita = true;
+  kompaso.setAttribute("aria-pressed", "true");
+  supermeta.classList.add("montri");
+  aplikiVacepu();
+}
+function fermiMapon(): void {
+  mapoMalfermita = false;
+  kompaso.setAttribute("aria-pressed", "false");
+  supermeta.classList.remove("mapo");
+  supermeta.classList.remove("montri");
+  plenaBildilo?.domElement.remove();
+}
+kompaso.addEventListener("click", malfermiMapon);
+kompaso.addEventListener("keydown", (e) => {
+  if (e.code === "Enter" || e.code === "Space") { e.preventDefault(); malfermiMapon(); }
+});
+// Fermo: la ekzistanta ✕ kaj la skrim-klako jam forigas .montri; jen nia stato.
+supermeta.addEventListener("click", (e) => {
+  if (mapoMalfermita && (e.target === supermeta || (e.target as HTMLElement).id === "supermetaFermi")) fermiMapon();
+});
+
+// La radara mapo ekde lanĉo ( se WebGL permesas duan kuntekston ).
+try {
+  miniKanvaso.width = miniKanvaso.height = 128;
+  const mini = kreiMapanSistemon(miniKanvaso, RADARA_DUONO);
+  minimapaBildilo = mini.bildilo;
+  minimapaFotilo = mini.fotilo;
+} catch (e) {
+  console.warn("Radara mapo ne havebla:", e);
 }
 
 // ⟪ Animacio 📃 ⟫
@@ -778,10 +1041,12 @@ function animacii() {
     ludantaPozicio.x = rd.x; ludantaPozicio.z = rd.z;
     const moving = Math.min(1, longo);
 
-    const teraY = alteco(ludantaPozicio.x, ludantaPozicio.z);
-    const enAkvo = cxuEnAkvo(ludantaPozicio.x, ludantaPozicio.z, riveroZ, 7);
+    const teraY = Math.max(alteco(ludantaPozicio.x, ludantaPozicio.z), dokaSuproY(ludantaPozicio.x, ludantaPozicio.z));
+    const enAkvo = cxuEnAkvo(ludantaPozicio.x, ludantaPozicio.z, riveroZ, RIVERA_DUONLARĜO);
     const akvoY = enAkvo ? riverData.waterSurfaceY(ludantaPozicio.x, ludantaPozicio.z) : -999;
-    const superAkvo = enAkvo && ludantaPozicio.y < akvoY + 6/8;
+    // Nur flosu kie la tero vere estas sub la akvosurfaco — la sekaj bordo-strioj
+    // ene de la (pli larĝa) akvo-zono restas piedireblaj anstataŭ ŝvebi.
+    const superAkvo = enAkvo && ludantaPozicio.y < akvoY + 6/8 && teraY < akvoY;
 
     if (enAkvo && superAkvo) {
       const floatY = akvoY + 3/8 + Math.sin(t * 2 + ludantaPozicio.x * 0.1) * 1/16;
@@ -882,11 +1147,26 @@ function animacii() {
     // etaĝoj (unu plena turno = unu etaĝo). La spiralo estas kontinue sekvata.
     let surHelikso = false;
     if (helikso && ludY >= heliksaAltecxo(helikso, -helikso.turnojSube) - 1/8 && ludY <= heliksaAltecxo(helikso, helikso.turnoj) + 1/8) {
-      const dist = Math.hypot(lokalX, lokalZ);
+      // Ĉu la ludanto estas sufiĉe proksima al etaĝa nivelo por paŝi de la
+      // ŝtuparo sur la ringan plankon. Mezvoje inter etaĝoj la ŝtupara rando
+      // estas barilo — oni ne falu al la suba etaĝo.
+      let subaPlankoY = -Infinity;
+      for (const p of plankoj) if (p.y <= ludY) subaPlankoY = Math.max(subaPlankoY, p.y);
+      const jeEtago = ludY - subaPlankoY <= 4/8;
+      // Ekstera krampo. Trans la ŝtuparan randon mezvoje inter etaĝoj la ludanto
+      // glitas reen al la rando ( anstataŭ fali al la suba etaĝo ). Ĉe etaĝa
+      // nivelo oni rajtas paŝi sur la ringan plankon.
+      let dist = Math.hypot(lokalX, lokalZ);
+      if (dist > helikso.rEkster && !jeEtago) {
+        const nR = helikso.rEkster - 1/32;
+        lokalX = (lokalX / dist) * nR;
+        lokalZ = (lokalZ / dist) * nR;
+        dist = nR;
+      }
       if (dist >= helikso.rKol - 1/8 && dist <= helikso.rEkster) {
         surHelikso = true;
-        // Radiusa krampo nur kontraŭ la kolono: la ludanto rajtas foriri de la
-        // ŝtuparo trans la eksteran randon (la ringa planko komenciĝas ĉe rEkster).
+        // Radiusa krampo nur kontraŭ la kolono ( la ringa planko komenciĝas ĉe
+        // rEkster ). la ekstera rando estas barilo mezvoje inter etaĝoj.
         if (dist < helikso.rKol + 1/16) {
           const nR = helikso.rKol + 1/16;
           lokalX = (lokalX / dist) * nR;
@@ -988,7 +1268,10 @@ function animacii() {
       surKanoto.vz -= Math.sign(drift) * puŝo * deltaTempo;
     }
     surKanoto.x = Math.max(-0o170, Math.min(0o170, surKanoto.x));
-    surKanoto.z = Math.max(-0o120, Math.min(0o120, surKanoto.z));
+    // La rivero fluas sude ( z ≈ -0o160 ), do la malnova limo ±0o120 el la
+    // epoko de la malnova rivero lasus la kanuon sur la teron. limigu la
+    // kanuon al la rivera zono ( ±0o14 de la rivercentro ) anstataŭe.
+    surKanoto.z = riveroZ(surKanoto.x) + Math.max(-0o14, Math.min(0o14, surKanoto.z - riveroZ(surKanoto.x)));
     surKanoto.x += surKanoto.vx * deltaTempo;
     surKanoto.z += surKanoto.vz * deltaTempo;
 
@@ -1029,9 +1312,28 @@ function animacii() {
     if (sp.position.x > 0o163) sp.position.x = -0o163;
   }
 
-  // Kompaso
+  // Kompaso / minimapo — la nadlo indikas la rigardan direkton sur la norda mapo.
   const fotilaDirekto = rezimo === "walk" ? direkto : -Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
   (nadlo as HTMLElement).style.transform = `rotate(${fotilaDirekto + Math.PI}rad)`;
+  // La mapo sekvu la vidpunkton: en promeno/interno la ludanto, en orbito la
+  // fotila celo — alie la radaro restus fiksita ĉe la elirloko en orbito.
+  const mapX = rezimo === "orbit" ? regiloj.target.x : ludantaPozicio.x;
+  const mapZ = rezimo === "orbit" ? regiloj.target.z : ludantaPozicio.z;
+  const mapY = (rezimo === "orbit" ? regiloj.target.y : ludantaPozicio.y) + 1/8;
+  mapoMarkilo.position.set(mapX, mapY, mapZ);
+  mapoMarkilo.rotation.y = fotilaDirekto;
+  // Dum la plena mapo estas malfermita, bildigu tiun; alie la radar ( ĉiun duan
+  // kadron, kaj nur post la ŝarĝa ekrano — antaŭe la kompaso estas kovrita ).
+  if (mapoMalfermita && plenaBildilo && plenaFotilo) {
+    // La plena mapo sekvas la saman vidpunkton, kiel la radaro, plus la tiradan
+    // forprenon: la ora markilo restas ĉe la ludanta mondo-pozicio ( eble ekster-
+    // centro post tirado ), dum la ĉirkaŭaĵo montriĝas. La fotilo sekvas la
+    // kanvasan grandecon kaj la zomon ĉiukadre.
+    agordiPlenanFotilon();
+    bildigiMapon(plenaBildilo, plenaFotilo, mapX + mapaPanX, mapZ + mapaPanZ);
+  } else if (minimapaBildilo && minimapaFotilo && sxargxaElemento.classList.contains("finita") && (kadraNombro++ & 1) === 0) {
+    bildigiMapon(minimapaBildilo, minimapaFotilo, mapX, mapZ);
+  }
 
   // WASD orbita movado; Q/E por vertikala movo
   if (rezimo === "orbit") {
@@ -1071,11 +1373,45 @@ const sxargxaIntervalo = setInterval(() => {
   }
   if (sxargxaProgreso >= 1) {
     clearInterval(sxargxaIntervalo);
+    // La elemento restas kaŝita en la DOM-o ( .finita ), por ke montriSargxon
+    // povu reuzi ĝin kiel ŝarĝan ekranon dum konstruaĵ-eniro.
     sxargxaElemento.classList.add("finita");
-    setTimeout(() => sxargxaElemento.remove(), 0o1604);
     gxisdatigiRetikulon();
   }
 }, 0o334);
+
+// ⟪ Ŝarĝa ekrano por konstruaĵ-eniro 📃 ⟫
+// Reuzu la saman ekranon kiel la lanĉo: montru la stangon, plenigu ĝin dum
+// `daŭro` ms, tiam rulu la callback kaj kaŝu.
+let montriSxargxoIntervalo: ReturnType<typeof setInterval> | null = null;
+let sxargxaRestorilo: ReturnType<typeof setTimeout> | null = null;
+function montriSargxon(daŭro: number, callback: () => void): void {
+  // Nuligu eventualan ŝarĝon/eston de antaŭa voko: malnovaj tempigiloj nek
+  // malrapidigu la nunan aperon ( la CSS defaŭlte ŝanĝiĝas je 1s ) nek rulu
+  // duan fojon la callback ( ekz. duobla E-premo dum la ŝarĝo ).
+  if (montriSxargxoIntervalo) { clearInterval(montriSxargxoIntervalo); montriSxargxoIntervalo = null; }
+  if (sxargxaRestorilo) { clearTimeout(sxargxaRestorilo); sxargxaRestorilo = null; }
+  stangoPlenigo.style.blockSize = "0%";
+  sxargxaElemento.style.transition = "opacity .25s";
+  sxargxaElemento.classList.remove("finita");
+  let progreso = 0;
+  const paŝoj = 0o40; // 32 paŝoj
+  montriSxargxoIntervalo = setInterval(() => {
+    progreso += 1 / paŝoj;
+    stangoPlenigo.style.blockSize = `${Math.min(100, progreso * 100)}%`;
+    if (progreso >= 1) {
+      if (montriSxargxoIntervalo) { clearInterval(montriSxargxoIntervalo); montriSxargxoIntervalo = null; }
+      callback();
+      sxargxaRestorilo = setTimeout(() => {
+        sxargxaElemento.classList.add("finita");
+        sxargxaRestorilo = setTimeout(() => {
+          sxargxaElemento.style.transition = "";
+          sxargxaRestorilo = null;
+        }, 0o310);
+      }, 0o310);
+    }
+  }, daŭro / paŝoj);
+}
 
 // ⟪ Montra-seruro por piedirado ( ekstere kaj interne ) 📃 ⟫
 kanvaso.addEventListener("click", () => {

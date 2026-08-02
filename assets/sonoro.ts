@@ -5,7 +5,10 @@ import { iniciati, ludi, halti } from "./muziko/ludilo.js";
 
 let AC: AudioContext | null = null;
 let master: GainNode | null = null;
+// Brua buso: la fona vento/zumado muteblas aparte de la muziko.
+let bruoGain: GainNode | null = null;
 let audioOn = false;
+let bruoOn = true;
 let unuaInterago = true;
 
 function ensureAudio() {
@@ -18,6 +21,11 @@ function ensureAudio() {
   master = AC.createGain();
   master.gain.value = 0;
   master.connect(AC.destination);
+
+  // Brua buso: la fona vento/zumado muteblas aparte de la muziko.
+  bruoGain = AC.createGain();
+  bruoGain.gain.value = bruoOn ? 1 : 0;
+  bruoGain.connect(master);
 
   // Brown-noise buffer
   const len = AC.sampleRate * 4;
@@ -41,7 +49,7 @@ function ensureAudio() {
   g.gain.value = 4/8;
   src.connect(lp);
   lp.connect(g);
-  g.connect(master);
+  g.connect(bruoGain);
 
   const lfo = AC.createOscillator();
   lfo.frequency.value = 0.07;
@@ -60,7 +68,7 @@ function ensureAudio() {
     const og = AC!.createGain();
     og.gain.value = 0.022;
     o.connect(og);
-    og.connect(master!);
+    og.connect(bruoGain!);
     o.start();
   });
 
@@ -68,7 +76,7 @@ function ensureAudio() {
 }
 
 /** Play a tone with optional glide */
-function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0.2, glide = 0) {
+function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0.2, glide = 0, dest?: GainNode) {
   if (!AC || !audioOn) return;
   const o = AC.createOscillator();
   const og = AC.createGain();
@@ -79,13 +87,13 @@ function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0.2, 
   og.gain.setValueAtTime(vol, t);
   og.gain.exponentialRampToValueAtTime(0.001, t + dur);
   o.connect(og);
-  og.connect(master!);
+  og.connect(dest ?? master!);
   o.start(t);
   o.stop(t + dur + 0.05);
 }
 
 /** Filtered noise burst */
-function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterType = "lowpass") {
+function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterType = "lowpass", dest?: GainNode) {
   if (!AC || !audioOn) return;
   const n = Math.floor(AC.sampleRate * dur);
   const b = AC.createBuffer(1, n, AC.sampleRate);
@@ -100,7 +108,7 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
   g.gain.value = vol;
   s.connect(f);
   f.connect(g);
-  g.connect(master!);
+  g.connect(dest ?? master!);
   s.start();
 }
 
@@ -133,8 +141,8 @@ export const sfx = {
   },
   chirp: () => {
     const f = 1800 + Math.random() * 900;
-    tone(f, 0.09, "sine", 0.05, -400);
-    setTimeout(() => tone(f * 1.3, 0.07, "sine", 0.04, -300), 110);
+    tone(f, 0.09, "sine", 0.05, -400, bruoGain!);
+    setTimeout(() => tone(f * 1.3, 0.07, "sine", 0.04, -300, bruoGain!), 110);
   },
 };
 
@@ -200,7 +208,7 @@ export function sxaltiAŭdion(): boolean {
     // Start periodic ambient chirps
     if (!chirpInterval) {
       chirpInterval = setInterval(() => {
-        if (audioOn && Math.random() < 0.7) sfx.chirp();
+        if (audioOn && bruoOn && Math.random() < 0.7) sfx.chirp();
       }, 9000);
     }
     sfx.chime(); // welcome chime on activation
@@ -220,6 +228,20 @@ export function sxaltiAŭdion(): boolean {
 /** Check if audio is currently active */
 export function cxuAŭdio(): boolean {
   return audioOn;
+}
+
+/** Toggle only the background noise (wind/drones/chirps), independent of the music. */
+export function sxaltiBruon(): boolean {
+  bruoOn = !bruoOn;
+  if (AC && bruoGain) {
+    bruoGain.gain.setTargetAtTime(bruoOn ? 1 : 0, AC.currentTime, 0.4);
+  }
+  return bruoOn;
+}
+
+/** Whether the background noise is currently audible. */
+export function cxuBruo(): boolean {
+  return bruoOn;
 }
 
 /** Auto-start audio on first user interaction. Updates UI if a callback is provided. */

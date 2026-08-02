@@ -8,6 +8,8 @@ export interface Doko {
   z: number;
   platformWidth: number;
   platformDepth: number;
+  // Monda Y de la platforma supro ( por kolizio: staro SUR la doko ).
+  platformY: number;
 }
 
 // La dokan formon: rektangulo kun rondigitaj antaŭaj anguloj (la akva pinto).
@@ -123,5 +125,7 @@ export function konstruiDokon(
   group.rotation.y = direkto;
   sceno.add( group );
 
-  return { group, x, z, platformWidth: vojaLargho, platformDepth };
+  // La ekstrudita plato etendiĝas de loka y=0 ĝis y=dikeco, do la supro
+  // ( la piedira nivelo ) estas vojaY + dikeco en monda spaco.
+  return { group, x, z, platformWidth: vojaLargho, platformDepth, platformY: vojaY + dikeco };
 }
