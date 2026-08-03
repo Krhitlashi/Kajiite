@@ -3,10 +3,11 @@
 import * as THREE from "three";
 import { konstruiSatalon, TIPARO, KonstruSpec } from "../assets/satalaj-konstruajxoj.js";
 import { kreiNebulanTeksajxon } from "../assets/teksajxoj.js";
-import { konstruiRiveron, RiverData } from "../assets/akvo.js";
+import { konstruiRiveron, konstruiLagon, RiverData } from "../assets/akvo.js";
+import { konstruiBestojn, BestoSistemo } from "../assets/bestoj.js";
 import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
   konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn,
-  konstruiFalintajnTrunkojn, konstruiEquisetum, konstruiLikenojn, konstruiHxsxaksxlefojn } from "../assets/vegetajxo.js";
+  konstruiFalintajnTrunkojn, konstruiEquisetum, konstruiLikenojn, konstruiHxsxaksxlefojn, konstruiTrunkajnLikenojn } from "../assets/vegetajxo.js";
 import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, VojDifino } from "../assets/vojoj.js";
 import { konstruiDokon } from "../assets/doko.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/hxeuxfa-lampo.js";
@@ -16,7 +17,8 @@ import type { Figuro, Vesto } from "../assets/npcoj.js";
 import { kreiInternanSistemon, InternaSistemo } from "../assets/internoj.js";
 import { konstruiKrasesxagxon } from "../assets/krasesxagxa-kosmosxipo.js";
 import type { Krasesxagxo } from "../assets/krasesxagxa-kosmosxipo.js";
-import { riveroZ, alteco, akvoY, montetaBazo, glataPaso, RIVERA_DUONLARĜO } from "./tereno.js";
+import { riveroZ, alteco, akvoY, montetaBazo, glataPaso, RIVERA_DUONLARĜO,
+  LAGO_X, LAGO_RZ, RIVERA_ENFLUO_X, lagoZ, lagoNivelo, lagoRadio, cxuEnLago } from "./tereno.js";
 
 export interface UrbaSistemo {
   konstruSpecoj: KonstruSpec[];
@@ -29,6 +31,8 @@ export interface UrbaSistemo {
   vojSpecimenoj: THREE.Vector3[];
   placajNodoj: [number, number][];
   riverData: RiverData;
+  lago: RiverData;
+  bestoj: BestoSistemo;
   lampSistemo: HxeuxfaSistemo;
   nebuloj: THREE.Sprite[];
   kanuoj: Kanoto[];
@@ -124,10 +128,17 @@ export function konstruiUrbon(
   const selektajxoj: THREE.Mesh[] = [];
 
   // ⟪ Rivero 📃 ⟫
-  // La ribono etendiĝas multe preter la ludebla areo ( x ∈ ±256 ), do la rivero
-  // aspektas longa kaj solviĝas en la nebulon ambaŭflanke anstataŭ halti ĉe la
-  // urbo-rondo. La ŝtupoj kreskas samproporcie por konservi la segmentan densecon.
-  const riverData = konstruiRiveron(sceno, riveroZ, akvoY, RIVERA_DUONLARĜO, -0o400, 0o400, 0o120);
+  // La ribono etendiĝas okcidenten multe preter la ludebla areo ( x ≤ 0o400 ),
+  // do la rivero aspektas longa kaj solviĝas en la nebulon anstataŭ halti ĉe la
+  // urbo-rondo. Oriente ( -x sur la norda mapo ) ĝi enfluas la lagon — la
+  // ribono finiĝas ENE de la lago ( RIVERA_ENFLUO_X ), kie la lagbordo estas
+  // larĝa ĉordo, do la rivero ŝajnas enflui sen videbla rando.
+  const riverData = konstruiRiveron(sceno, riveroZ, akvoY, RIVERA_DUONLARĜO, 0o400, RIVERA_ENFLUO_X, 0o120);
+
+  // ⟪ Lago oriente 📃 ⟫ — la rivero enfluas grandan lagon oriente de la valo
+  // ( sur la norda mapo oriento estas -x, do la lago aperas dekstre ); la rando
+  // sekvas la ondigitan elipson ( lagoRadio ), pli larĝa norde-sude.
+  const lago = konstruiLagon( sceno, LAGO_X, lagoZ(), lagoRadio, lagoNivelo() );
 
   // ⟪ Dokoj — tri alirejoj laŭ la suda riverbordo 📃 ⟫
   // La dokoj sekvas la riverkurbon (riveroZ + 14), do cxiu pinto atingas la akvon
@@ -209,6 +220,11 @@ export function konstruiUrbon(
     placajNodoj.push([x, z]);
   };
 
+  // Realaj intersekcoj de la voja reto ( kie kaj EW kaj NS vojo efektive
+  // ekzistas ). Nur tiuj ricevas la kvar-lampan ŝablonon; malplenaj regionoj
+  // sen vojo restas sen lampoj.
+  const realajIntersekcoj = new Set<string>();
+
   // Por cxiu EW-vojo (inter apudaj vicoj), kreu segmentojn inter NS-vojoj
   for (const roadZ of RETO_Z) {
     const r1 = Math.round(roadZ / PASXO - 4/8);
@@ -224,6 +240,7 @@ export function konstruiUrbon(
       }
     }
     if (intersecting.length < 2) continue;
+    for (const rx of intersecting) realajIntersekcoj.add(rx + "," + roadZ);
 
     // Konstruu segmentojn NUR inter intersekcaj NS-vojoj — neniuj randaj stumpoj
     const pts = [...intersecting].sort((a, b) => a - b);
@@ -254,6 +271,7 @@ export function konstruiUrbon(
       }
     }
     if (intersecting.length < 2) continue;
+    for (const rz of intersecting) realajIntersekcoj.add(roadX + "," + rz);
 
     // Konstruu segmentojn NUR inter intersekcaj EW-vojoj — neniuj randaj stumpoj
     const pts = [...intersecting].sort((a, b) => a - b);
@@ -429,7 +447,10 @@ export function konstruiUrbon(
   for ( const [ x, z ] of periferiajPlatformoj ) addLamp( x, z, alteco( x, z ) + 4/8 - 1/32, 0 );
   for (const gx of RETO_X) {
     for (const gz of RETO_Z) {
+      // Nur realaj vojkruciĝoj ( kaj ne la rivero ) ricevas la kvar-lampan
+      // ŝablonon; malplenaj regionoj sen vojo restas sen lampoj.
       if (Math.abs(gz - riveroZ(gx)) < 0o14) continue;
+      if (!realajIntersekcoj.has(gx + "," + gz)) continue;
       // Kvar lampoj en la kvar kvadratoj ĉirkaŭ ĉiu intersekco.
       addLamp(gx + 19/8, gz + 19/8);
       addLamp(gx + 19/8, gz - 19/8);
@@ -442,7 +463,7 @@ export function konstruiUrbon(
   for ( const l of lampLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 5/8 });
 
   // ⟪ Vegetajxo 📃 ⟫
-  const ekskluziviRiveron = (x: number, z: number) => Math.abs(z - riveroZ(x)) < 7;
+  const ekskluziviRiveron = (x: number, z: number) => Math.abs(z - riveroZ(x)) < 7 || cxuEnLago(x, z);
   const ekskluziviVojojn = (x: number, z: number, m: number) => {
     for (const p of vojSpecimenoj) if (Math.hypot(x - p.x, z - p.z) < m) return true;
     // La arbar-randaj diamantaj platformoj estas pavimitaj restlokoj — la
@@ -456,19 +477,24 @@ export function konstruiUrbon(
   };
   // Betuloj ( arbara periferio ) — pli densa ol antauxe
   const arboj = metiArbojn( alteco, 0o400, 0o200, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53104 );
-  konstruiArbaron( sceno, arboj );
+  const betulajTrunkoj = konstruiArbaron( sceno, arboj );
 
   // Larikoj — miksitaj kun betuloj por pli diversa arbaro
   // La inter-arba distanco estas malgranda, por ke la larikoj vere aperu
   // inter la betuloj — tro granda liberspaco lasis preskaŭ neniun lokon.
   const larikoj = metiArbojn( alteco, 0o200, 0o200, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53114, arboj, 0o10 );
-  konstruiLarikon( sceno, larikoj );
+  const larikajTrunkoj = konstruiLarikon( sceno, larikoj );
 
   // Ĥŝakŝlefoj ( ı],ͷ̗ɔʞ ֭ſɭᶗ‹ᴜƽ ꞁȷ̀ᴜꞇ ) — purpuraj laktuk-arboj, 3–5
   // tavoloj de kvar grandaj kurbiĝintaj folioj kaj segmenta ŝelo
   const hxsxaksxlefoj = metiArbojn( alteco, 0o100, 0o200, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
     0o62445, [ ...arboj, ...larikoj ], 0o10 );
-  konstruiHxsxaksxlefojn( sceno, hxsxaksxlefoj );
+  const hxsxaksxlefojTrunkoj = konstruiHxsxaksxlefojn( sceno, hxsxaksxlefoj );
+
+  // Trunkaj likenoj — tridimensiaj krustaj buloj sur iuj arbotrunkoj. La
+  // trunkaj matricoj jam donas la realan pozicion/kliniĝon de ĉiu arbo, do
+  // la likenoj sidas ĝuste sur la ŝelo sen ripeto de la hazardaj vokoj.
+  konstruiTrunkajnLikenojn( sceno, [ betulajTrunkoj, larikajTrunkoj, hxsxaksxlefojTrunkoj ] );
 
   // Filikoj — pli da kvanto, apud arboj kaj vojoj
   konstruiFilikojn( sceno, 0o400, alteco, arboj, vojSpecimenoj, ekskluziviRiveron, ekskluziviVojojn );
@@ -496,8 +522,10 @@ export function konstruiUrbon(
   // Falintaj trunkoj — en la densa arbaro
   konstruiFalintajnTrunkojn( sceno, 0o40, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn );
 
-  // Equisetum ( kavalerbo ) — laux la riverbordoj
-  konstruiEquisetum( sceno, 0o120, alteco, riveroZ, ekskluziviKonstruajxon, ekskluziviVojojn );
+  // Equisetum ( kavalerbo ) — laux la riverbordoj kaj la lagbordo ( la lago
+  // estas akvo, do neniu planto ene de la lagdisko )
+  konstruiEquisetum( sceno, 0o120, alteco, riveroZ,
+    (x: number, z: number) => ekskluziviKonstruajxon(x, z, 3) || cxuEnLago(x, z), ekskluziviVojojn );
 
   // ⟪ Nebulaj sprajtoj 📃 ⟫
   const nebulaTeksajxo = kreiNebulanTeksajxon();
@@ -541,12 +569,18 @@ export function konstruiUrbon(
   kanuoj.push(kreiKanoton(sceno, -0o52, riveroZ(-0o52) + 3, Math.PI * 2/8, oraMaterialo, akvoY(-0o52), "satala"));
   kanuoj.push(kreiKanoton(sceno, 0, riveroZ(0) + 3, -Math.PI * 4/8, oraMaterialo, akvoY(0)));
 
+  // ⟪ Ktenoforoj 📃 ⟫
+  // Travideblaj kombuloj ( Beroe, Mnemiopsis, Pleŭrobrakia ) naĝas en la rivero,
+  // evitante la dokojn. Ilia animacio okazas en sperto.ts ( gxisdatigiBestojn ).
+  const bestoj = konstruiBestojn( sceno, 0o30, riveroZ, akvoY, RIVERA_DUONLARĜO,
+    { x: LAGO_X, z: lagoZ(), r: LAGO_RZ, nivelo: lagoNivelo() } );
+
   // ⟪ NPC-agordo 📃 ⟫
   const VESTA_LISTO: Vesto[] = [
-    { name: "vestoVerdant", main: 0x184838, accent: 0xd8b068, interno: 0x103828, pantalono: 0x285880, botoj: 0x583818 },
-    { name: "vestoHearth", main: 0x584830, accent: 0xd8c8a0, interno: 0x302818, pantalono: 0x3878a0, botoj: 0x583808 },
-    { name: "vestoMist", main: 0xd8e0e0, accent: 0x889898, interno: 0xa8b8b8, pantalono: 0x5898b8, botoj: 0x503808 },
-    { name: "vestoEmber", main: 0x783828, accent: 0xe0a858, interno: 0x402018, pantalono: 0x2858a0, botoj: 0x583838 },
+    { nomo: "vestoVerdant", ĉefa: 0x184838, akcenta: 0xd8b068, interno: 0x103828, pantalono: 0x285880, botoj: 0x583818 },
+    { nomo: "vestoHearth", ĉefa: 0x584830, akcenta: 0xd8c8a0, interno: 0x302818, pantalono: 0x3878a0, botoj: 0x583808 },
+    { nomo: "vestoMist", ĉefa: 0xd8e0e0, akcenta: 0x889898, interno: 0xa8b8b8, pantalono: 0x5898b8, botoj: 0x503808 },
+    { nomo: "vestoEmber", ĉefa: 0x783828, akcenta: 0xe0a858, interno: 0x402018, pantalono: 0x2858a0, botoj: 0x583838 },
   ];
 
   // Generu NPC-ojn poziciojn laux vojrandoj tra la diamanta arangxo
@@ -577,12 +611,12 @@ export function konstruiUrbon(
   for (const [sX, sZ] of NPCLOKOJ) {
     const bad = ekskluziviRiveron(sX, sZ) || ekskluziviKonstruajxon(sX, sZ, 3);
     if (bad) continue;
-    const fig = konstruiFiguron(VESTA_LISTO[npcoj.length % VESTA_LISTO.length]);
+    const fig = konstruiFiguron(VESTA_LISTO[npcoj.length % VESTA_LISTO.length], Math.random() < 1/4);
     const h = alteco(sX, sZ);
     fig.group.position.set(sX, h, sZ);
-    fig.home.set(sX, h, sZ);
-    fig.target.set(sX, h, sZ);
-    fig.wait = Math.random() * 4;
+    fig.hejmo.set(sX, h, sZ);
+    fig.celo.set(sX, h, sZ);
+    fig.atendo = Math.random() * 4;
     fig.rapido = 45/64 + Math.random() * 4/8;
     sceno.add(fig.group);
     npcoj.push(fig);
@@ -593,7 +627,7 @@ export function konstruiUrbon(
 
   return {
     konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj, konstruGrupoj,
-    vojSpecimenoj, placajNodoj, riverData, lampSistemo,
+    vojSpecimenoj, placajNodoj,    riverData, lago, bestoj, lampSistemo,
     nebuloj, kanuoj, npcoj, internaSistemo, xipo, vojDifinoj, vojDuonLargho,
     NPCLOKOJ, VESTA_LISTO,
   };

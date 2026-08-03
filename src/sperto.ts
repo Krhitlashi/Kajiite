@@ -5,12 +5,13 @@ import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "
 import { VESTOJ, kreiVestanAntauxrigardon } from "../assets/vestoj.js";
 import { animaciiFlammojn } from "../assets/hxeuxfa-lampo.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/akvo.js";
+import { gxisdatigiBestojn } from "../assets/bestoj.js";
 import { gxisdatigiNpc } from "../assets/npcoj.js";
 import type { Figuro, Vesto } from "../assets/npcoj.js";
 import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/internoj.js";
 import { animaciiKrasesxagxon } from "../assets/krasesxagxa-kosmosxipo.js";
 import { TIPARO, KonstruSpec, MangxajxItemo } from "../assets/satalaj-konstruajxoj.js";
-import { riveroZ, akvoY, alteco, RIVERA_DUONLARĜO } from "./tereno.js";
+import { riveroZ, akvoY, alteco, RIVERA_DUONLARĜO, LAGO_X, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo } from "./tereno.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
@@ -70,7 +71,7 @@ const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMateri
 const urbo: UrbaSistemo = konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo);
 const {
   konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
-  riverData, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
+  riverData, lago, bestoj, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
 } = urbo;
 
 // ⟪ Orbit-regiloj 📃 ⟫
@@ -601,12 +602,12 @@ document.getElementById("butVesti")!.addEventListener("click", () => {
     card.className = "vestaKardo aih";
     const kanvasa = kreiVestanAntauxrigardon(o);
     card.appendChild(kanvasa);
-    const name = document.createElement("div");
-    name.className = "vn"; name.textContent = traduki(o.name);
-    card.appendChild(name);
+    const nomo = document.createElement("div");
+    nomo.className = "vn"; nomo.textContent = traduki(o.nomo);
+    card.appendChild(nomo);
     card.addEventListener("click", () => {
       supermeta.classList.remove("montri");
-      montriTost(traduki(o.name));
+      montriTost(traduki(o.nomo));
     });
     vestaVico.appendChild(card);
   });
@@ -677,7 +678,7 @@ function proviInterakti() {
 }
 function eliriKanoton(c: Kanoto): { x: number; z: number } {
   const fortoX = -Math.sin(c.direkto), fortoZ = -Math.cos(c.direkto);
-  const bona = (x: number, z: number) => !cxuEnAkvo(x, z, riveroZ, RIVERA_DUONLARĜO) && !enDoko(x, z, 3/8);
+  const bona = (x: number, z: number) => !cxuEnAkvo(x, z, riveroZ, RIVERA_DUONLARĜO) && !cxuEnLago(x, z) && !enDoko(x, z, 3/8);
   let exitX = c.x + fortoX * 6, exitZ = c.z + fortoZ * 6;
   if (!bona(exitX, exitZ)) {
     // Serĉu sekan, ne-dokan punkton — ĉe kreskantaj distancoj por eviti la
@@ -807,7 +808,7 @@ let plenaBildilo: THREE.WebGLRenderer | null = null;
 let plenaFotilo: THREE.OrthographicCamera | null = null;
 
 const RADARA_DUONO = 0o30;   // duon-larĝo de la radara mapo ( mondaj unuoj ) — pli proksima ol antaŭe, por montri la tujan ĉirkaŭaĵon
-const PLENA_DUONO = 0o214;   // duon-larĝo de la plena mapo ( la tuta valo )
+const PLENA_DUONO = 0o340;   // duon-larĝo de la plena mapo — etendita por montri la orientan lagon
 const MINA_DUONO = 0o10;     // plej proksima zomo de la plena mapo
 const MAXA_DUONO = 0o500;    // plej malproksima zomo de la plena mapo
 const MAPA_ALTECO = 0o130;   // fotila alto super la tero
@@ -1022,6 +1023,9 @@ function animacii() {
   animaciiFlammojn(lampSistemo, t);
   // Akva animacio
   gxisdatigiAkvon(riverData, t);
+  gxisdatigiAkvon(lago, t);
+  // Ktenoforoj — naĝado kaj pulso en la rivero
+  gxisdatigiBestojn(bestoj, t);
   // Krasesxagxo — oscila flosado super la kosmopordo
   animaciiKrasesxagxon(xipo, t, false);
 
@@ -1037,8 +1041,11 @@ function animacii() {
     const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
     let novaX = ludantaPozicio.x + (fortoX * movZ + radX * movX) * rapido * deltaTempo;
     let novaZ = ludantaPozicio.z + (fortoZ * movZ + radZ * movX) * rapido * deltaTempo;
-    novaX = Math.max(-0o144, Math.min(0o144, novaX));
-    novaZ = Math.max(-0o200, Math.min(0o144, novaZ));
+    // La mapo etendiĝas orienten ( -x ) ĝis la fora lagbordo ( x ≈ -0o220, z ≈
+    // -0o211 ) kaj suden ĝis la dokoj ( z ≈ -0o154 ). La malnova limo
+    // z ≥ -0o128 staris kiel nevidebla muro en la mezo de la doka vojo.
+    novaX = Math.max(-0o360, Math.min(0o200, novaX));
+    novaZ = Math.max(-0o340, Math.min(0o160, novaZ));
 
     const r = solviKolizion(novaX, novaZ);
     // Dokoj: bloku eniron SUB la platformon (sur-gxin piedirado restas libera)
@@ -1047,8 +1054,9 @@ function animacii() {
     const moving = Math.min(1, longo);
 
     const teraY = Math.max(alteco(ludantaPozicio.x, ludantaPozicio.z), dokaSuproY(ludantaPozicio.x, ludantaPozicio.z));
-    const enAkvo = cxuEnAkvo(ludantaPozicio.x, ludantaPozicio.z, riveroZ, RIVERA_DUONLARĜO);
-    const akvoY = enAkvo ? riverData.waterSurfaceY(ludantaPozicio.x, ludantaPozicio.z) : -999;
+    const enLago = cxuEnLago(ludantaPozicio.x, ludantaPozicio.z);
+    const enAkvo = enLago || cxuEnAkvo(ludantaPozicio.x, ludantaPozicio.z, riveroZ, RIVERA_DUONLARĜO);
+    const akvoY = enAkvo ? akvaNivelo(ludantaPozicio.x, ludantaPozicio.z) : -999;
     // Nur flosu kie la tero vere estas sub la akvosurfaco — la sekaj bordo-strioj
     // ene de la (pli larĝa) akvo-zono restas piedireblaj anstataŭ ŝvebi.
     const superAkvo = enAkvo && ludantaPozicio.y < akvoY + 6/8 && teraY < akvoY;
@@ -1266,18 +1274,35 @@ function animacii() {
     const fortoX = -Math.sin(surKanoto.direkto), fortoZ = -Math.cos(surKanoto.direkto);
     const radX = Math.cos(surKanoto.direkto), radZ = -Math.sin(surKanoto.direkto);
     gxisdatigiKanotanFizikon(surKanoto, deltaTempo, fortoX, fortoZ, radX, radZ, 0, movZ);
-    surKanoto.bazaY = akvoY(surKanoto.x);
-    const riveroZ2 = riveroZ(surKanoto.x);
-    const drift = surKanoto.z - riveroZ2;
-    if (Math.abs(drift) > 6) {
-      const puŝo = (Math.abs(drift) - 6) * 4/8;
-      surKanoto.vz -= Math.sign(drift) * puŝo * deltaTempo;
+    // En la lago ( aŭ ĝia tuja ĉirkaŭaĵo ) la kanuo naĝas sur la lagnivelo kaj
+    // restu ene de la lagrando; ekstere la rivera krampo tenas ĝin sur la
+    // ribono. La bufro ( +2 ) evitas ke la rivera krampo trenu la kanuon sur
+    // sekan teron ĉe la orienta/norda lagbordo, kie la ribono jam finiĝas.
+    const angK = Math.atan2( surKanoto.z - lagoZ(), surKanoto.x - LAGO_X );
+    const enLagoK = Math.hypot( surKanoto.x - LAGO_X, surKanoto.z - lagoZ() ) < lagoRadio( angK ) + 0o2;
+    const akvoNiveloK = enLagoK ? lagoNivelo() : akvoY(surKanoto.x);
+    surKanoto.bazaY = akvoNiveloK;
+    if (!enLagoK) {
+      const riveroZ2 = riveroZ(surKanoto.x);
+      const drift = surKanoto.z - riveroZ2;
+      if (Math.abs(drift) > 6) {
+        const puŝo = (Math.abs(drift) - 6) * 4/8;
+        surKanoto.vz -= Math.sign(drift) * puŝo * deltaTempo;
+      }
+      // La rivero fluas sude ( z ≈ -0o160 ), do la malnova limo ±0o120 el la
+      // epoko de la malnova rivero lasus la kanuon sur la teron. limigu la
+      // kanuon al la rivera zono ( ±0o14 de la rivercentro ) anstataŭe.
+      surKanoto.z = riveroZ(surKanoto.x) + Math.max(-0o14, Math.min(0o14, surKanoto.z - riveroZ(surKanoto.x)));
+    } else {
+      // En la lago la kanuo naĝas libere — restu ene de la lagrando.
+      const d = Math.hypot( surKanoto.x - LAGO_X, surKanoto.z - lagoZ() );
+      const rLim = lagoRadio( angK ) * 19/20;
+      if (d > rLim) {
+        surKanoto.x = LAGO_X + (surKanoto.x - LAGO_X) / d * rLim;
+        surKanoto.z = lagoZ() + (surKanoto.z - lagoZ()) / d * rLim;
+      }
     }
-    surKanoto.x = Math.max(-0o170, Math.min(0o170, surKanoto.x));
-    // La rivero fluas sude ( z ≈ -0o160 ), do la malnova limo ±0o120 el la
-    // epoko de la malnova rivero lasus la kanuon sur la teron. limigu la
-    // kanuon al la rivera zono ( ±0o14 de la rivercentro ) anstataŭe.
-    surKanoto.z = riveroZ(surKanoto.x) + Math.max(-0o14, Math.min(0o14, surKanoto.z - riveroZ(surKanoto.x)));
+    surKanoto.x = Math.max(-0o360, Math.min(0o200, surKanoto.x));
     surKanoto.x += surKanoto.vx * deltaTempo;
     surKanoto.z += surKanoto.vz * deltaTempo;
 
@@ -1287,15 +1312,24 @@ function animacii() {
     // Ne lasu la kanuon en malprofunda akvo (tereno super la akva surfaco) —
     // repuŝu al la rivercentro por ke la ludanto ne restu subtera.
     const kx = surKanoto.x, kz = surKanoto.z;
-    if (alteco(kx, kz) > akvoY(kx) + 1/4) {
-      // Repuŝu al la rivercentro pli forte kaj haltigu la bankan drivon, por ke
-      // la kanuo ne restu banita en malprofunda akvo.
-      surKanoto.z += (riveroZ(kx) - kz) * Math.min(1, 0o30 * deltaTempo);
+    const angK2 = Math.atan2( kz - lagoZ(), kx - LAGO_X );
+    const enLagoK2 = Math.hypot( kx - LAGO_X, kz - lagoZ() ) < lagoRadio( angK2 ) + 0o2;
+    const akvoNiveloK2 = enLagoK2 ? lagoNivelo() : akvoY(kx);
+    if (alteco(kx, kz) > akvoNiveloK2 + 1/4) {
+      // Repuŝu al la akvocentro pli forte kaj haltigu la bankan drivon, por ke
+      // la kanuo ne restu banita en malprofunda akvo. En la lago la centro estas
+      // la lagcentro; en la rivero la rivercentro.
+      if (enLagoK2) {
+        surKanoto.x += (LAGO_X - kx) * Math.min(1, 0o30 * deltaTempo);
+        surKanoto.z += (lagoZ() - kz) * Math.min(1, 0o30 * deltaTempo);
+      } else {
+        surKanoto.z += (riveroZ(kx) - kz) * Math.min(1, 0o30 * deltaTempo);
+      }
       surKanoto.vz = 0;
     }
     // Levu la kanu-bazon super la terenon: en malprofunda akvo la akva nivelo
-    // (akvoY) estus SUB la planko, do la kanuo kaj la fotilo enirus la teron.
-    surKanoto.bazaY = Math.max(akvoY(surKanoto.x), alteco(surKanoto.x, surKanoto.z));
+    // estus SUB la planko, do la kanuo kaj la fotilo enirus la teron.
+    surKanoto.bazaY = Math.max(akvoNiveloK2, alteco(surKanoto.x, surKanoto.z));
 
     direkto = surKanoto.direkto;
     fotilo.position.set(surKanoto.x, surKanoto.bazaY + 3/32 + 17/32, surKanoto.z);

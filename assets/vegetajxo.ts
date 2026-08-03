@@ -55,14 +55,13 @@ export function metiArbojn( heightFn: (x: number, z: number) => number,
 // konstruiArbaron — Konstruu instancigitajn arbojn (trunkoj kaj foliaroj) en la sceno.
 export function konstruiArbaron( sceno: THREE.Scene,
   arboj: ArboMetado[]
-): void {
-  if (arboj.length === 0) return;
-
+): THREE.InstancedMesh {
   const hazardaGenerilo = mulberry32(77531);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
   const trunkaGeometrio = new THREE.CylinderGeometry(7/32, 3/8, 1, 7, 1);
   const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, roughness: 45/64 });
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, arboj.length);
+  if (arboj.length === 0) return trunkoj;
 
   const kronaGeometrio = new THREE.SphereGeometry(1, 7, 5);
   const kronaMaterialo = new THREE.MeshStandardMaterial({ roughness: 29/32 });
@@ -98,6 +97,7 @@ export function konstruiArbaron( sceno: THREE.Scene,
   if (kronoj.instanceColor) kronoj.instanceColor.needsUpdate = true;
   trunkoj.castShadow = kronoj.castShadow = true;
   sceno.add(trunkoj, kronoj);
+  return trunkoj;
 }
 
 // konstruiFilikojn — Metu filikojn proksime al arboj kaj vojrandoj.
@@ -474,6 +474,21 @@ export function konstruiLikenojn( sceno: THREE.Scene,
     enX.set( x + paso, heightFn( x + paso, z ), z ).sub( ena );
     enZ.set( x, heightFn( x, z + paso ), z ).sub( ena );
     normalo.crossVectors( enZ, enX ).normalize();
+    // Ne lasu la makulon stari sur sia flanko ĉe krutaj deklivoj ( la
+    // rivervalaj muroj, la montetaj flankoj ) — limigu la klinon al malgranda
+    // angulo, por ke la likeno ĉiam kuŝu preskaŭ plate kaj neniam aperu rande.
+    // La normalo estas rekonstruita je la limigita klino, do eĉ preskaŭ
+    // vertikala muro donas platan makulon ( ne unu starantan rande ).
+    const vert = normalo.y;
+    const horiz = Math.hypot( normalo.x, normalo.z );
+    const maxKruteco = Math.PI / 16; // ≈ 11° — ĉiam kuŝu plate
+    if ( horiz > 1/1024 && Math.atan2( horiz, Math.max( vert, 1/1024 )) > maxKruteco ) {
+      const u = Math.tan( maxKruteco );
+      const hx = normalo.x / horiz;
+      const hz = normalo.z / horiz;
+      normalo.set( hx * u, 1, hz * u );
+    }
+    normalo.normalize();
     Q.setFromUnitVectors( vertikala, normalo );
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     yawQ.setFromEuler( E );
@@ -488,6 +503,84 @@ export function konstruiLikenojn( sceno: THREE.Scene,
   sceno.add( likenoj );
 }
 
+// konstruiTrunkajnLikenojn — Metu tridimensiajn likenojn sur iujn arbotrunkojn.
+// La trunkoj estas instancigitaj; ĉi tiu funkcio legas la matricon de ĉiu
+// instanco por trovi la realan pozicion, rotacion kaj skalon de la trunko, kaj
+// algluas malgrandajn krustajn bulojn al la ŝelo de hazarda subaro da arboj.
+// Ĉiu bulo sidas je hazarda alteco kaj ĉirkaŭaĵo de la trunko, kaj rigardas
+// radiale eksteren de la trunka akso. La trunka geometrio pintiĝas de 3/8
+// ( malsupro ) al 7/32 ( supro ), kaj la x-skalo de ĉiu instanco estas la
+// radiusa faktoro de tiu arbo — do la buloj ĉiam kuŝas ĝuste sur la ŝelo.
+//     @param sceno ( THREE.Scene ) - La sceno.
+//     @param trunkoj ( THREE.InstancedMesh[] ) - La trunkaj retoj de la arboj.
+//     @param semo ( number ) - Hazarda semo.
+//     @returns buloj ( THREE.InstancedMesh ) - La likena reto.
+export function konstruiTrunkajnLikenojn( sceno: THREE.Scene,
+  trunkoj: THREE.InstancedMesh[],
+  semo = 0o62451
+): THREE.InstancedMesh {
+  const hazardaGenerilo = mulberry32( semo );
+  const likenaTeksajxo = kreiLikenanTeksajxon();
+
+  // Krusta bulo — platigita dudekedro kun la likena teksajxo; la alphaTest
+  // tranĉas la eksteron, do restas neregula, krusta formo.
+  const buloGeometrio = new THREE.IcosahedronGeometry( 1, 0 );
+  const buloMaterialo = new THREE.MeshStandardMaterial({
+    map: likenaTeksajxo, alphaTest: 13/32, side: THREE.DoubleSide,
+    transparent: true, depthWrite: false, roughness: 1,
+  });
+  // Kapacito — maksimume 0o4 buloj po arbo.
+  const kapacito = trunkoj.reduce( ( sumo, tr ) => sumo + tr.count, 0 ) * 0o4;
+  const buloj = new THREE.InstancedMesh( buloGeometrio, buloMaterialo, kapacito );
+
+  const M = new THREE.Matrix4();
+  const Q = new THREE.Quaternion();
+  const P = new THREE.Vector3();
+  const S = new THREE.Vector3();
+  const akso = new THREE.Vector3();
+  const radia = new THREE.Vector3();
+  const surTrunko = new THREE.Vector3();
+  const yUp = new THREE.Vector3( 0, 1, 0 );
+  const Qb = new THREE.Quaternion();
+  const Qy = new THREE.Quaternion();
+  let bi = 0;
+
+  for ( const trunko of trunkoj ) {
+    for ( let i = 0; i < trunko.count; i++ ) {
+      // Nur iuj arboj portas likenojn ( ĉ. 1/3 ).
+      if ( hazardaGenerilo() > 1/3 ) continue;
+      trunko.getMatrixAt( i, M );
+      M.decompose( P, Q, S );
+      const alto = S.y;
+      const bulojNombro = 1 + ( ( hazardaGenerilo() * 3 ) | 0 );
+      for ( let b = 0; b < bulojNombro; b++ ) {
+        // Alteco-frakcio laŭ la trunko — nur sur videbla ŝelo: sub la kronoj
+        // ( betuloj: t ≈ 3/4 ) kaj sub la ŝelaj tasoj de la Ĥŝakŝlefoj
+        // ( t ≈ 7/16, kie la tas-radiuso superas la trunkon kaj kaŝus ilin ).
+        const t = 1/8 + hazardaGenerilo() * 1/2;
+        const ang = hazardaGenerilo() * Math.PI * 2;
+        // Radiuso ĉe tiu alteco — la geometrio pintiĝas de 3/8 al 7/32.
+        const r = ( 3/8 - t * ( 3/8 - 7/32 ) ) * S.x;
+        akso.set( 0, ( t - 1/2 ) * alto, 0 ).applyQuaternion( Q );
+        radia.set( Math.cos( ang ), 0, Math.sin( ang ) ).applyQuaternion( Q );
+        surTrunko.copy( P ).add( akso ).addScaledVector( radia, r + 1/32 );
+        // La bulo rigardas radiale eksteren de la trunka akso.
+        Qb.setFromUnitVectors( yUp, radia );
+        Qy.setFromAxisAngle( radia, hazardaGenerilo() * Math.PI * 2 );
+        Qb.multiply( Qy );
+        const skalo = 1/8 + hazardaGenerilo() * 1/16;
+        M.compose( surTrunko, Qb, new THREE.Vector3( skalo, skalo, skalo ) );
+        buloj.setMatrixAt( bi++, M );
+      }
+    }
+  }
+
+  buloj.count = bi;
+  buloj.instanceMatrix.needsUpdate = true;
+  sceno.add( buloj );
+  return buloj;
+}
+
 // konstruiLarikon — Konstruu instancigitajn alpinajn larikojn en la sceno.
 // La alpina lariko havas grizbrunan, platan trunk-sxoelon kaj aŭtunan
 // orflavan pinglaron — la sola konifero kiu perdas siajn pinglojn aŭtune.
@@ -495,14 +588,13 @@ export function konstruiLikenojn( sceno: THREE.Scene,
 //     @param arboj ( ArboMetado[] ) - La metitaj arboj.
 export function konstruiLarikon( sceno: THREE.Scene,
   arboj: ArboMetado[]
-): void {
-  if ( arboj.length === 0 ) return;
-
+): THREE.InstancedMesh {
   const hazardaGenerilo = mulberry32( 33718 );
   const larikaTeksajxo = kreiLarikanSxelanTeksajxon();
   const trunkaGeometrio = new THREE.CylinderGeometry( 7/32, 3/8, 1, 7, 1 );
   const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: larikaTeksajxo, roughness: 45/64 });
   const trunkoj = new THREE.InstancedMesh( trunkaGeometrio, trunkaMaterialo, arboj.length );
+  if ( arboj.length === 0 ) return trunkoj;
 
   // Du aŭ tri konusaj tavoloj, ĉiu pli mallarĝa ol la antaŭa — la kirloj
   // de la alpina lariko. La tavoloj restas sur la trunk-akso, nur la tria
@@ -551,6 +643,7 @@ export function konstruiLarikon( sceno: THREE.Scene,
   if ( kronoj.instanceColor ) kronoj.instanceColor.needsUpdate = true;
   trunkoj.castShadow = kronoj.castShadow = true;
   sceno.add( trunkoj, kronoj );
+  return trunkoj;
 }
 
 // konstruiHxsxaksxlefojn — Konstruu instancigitajn purpurajn laktuk-arbojn
@@ -563,15 +656,14 @@ export function konstruiLarikon( sceno: THREE.Scene,
 //     @param arboj ( ArboMetado[] ) - La metitaj arboj.
 export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
   arboj: ArboMetado[]
-): void {
-  if ( arboj.length === 0 ) return;
-
+): THREE.InstancedMesh {
   const hazardaGenerilo = mulberry32( 0o62445 );
   const MAX_TAVOLOJ = 5;
   // Purpura trunko — kiel la aliaj purpuraj plantoj, ne betula ŝelo.
   const trunkaGeometrio = new THREE.CylinderGeometry( 7/32, 3/8, 1, 7, 1 );
   const trunkaMaterialo = new THREE.MeshStandardMaterial({ color: 0x482848, roughness: 45/64 });
   const trunkoj = new THREE.InstancedMesh( trunkaGeometrio, trunkaMaterialo, arboj.length );
+  if ( arboj.length === 0 ) return trunkoj;
 
   // Pli dika, plena folio — pli larĝa klingo, pli profunda kurbeco kaj
   // reala diko, kiel laktuko aŭ brasiko.
@@ -686,6 +778,7 @@ export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
   sxeloj.instanceMatrix.needsUpdate = true;
   trunkoj.castShadow = folioj.castShadow = sxeloj.castShadow = true;
   sceno.add( trunkoj, folioj, sxeloj );
+  return trunkoj;
 }
 
 // konstruiHerbon — Metu instancigitajn herberojn en la arbaron.

@@ -25,7 +25,35 @@ export function konstruiRiveron( sceno: THREE.Scene,
 
   // Borda sxtaumo — blankeca travidebla bendo lauxlonge de ambaux riveraj bordoj
   const foamMeshes: THREE.Mesh[] = [];
-  const foamMaterialo = new THREE.ShaderMaterial({
+  const foamMaterialo = kreiFoamanMaterialon(duonaLargho);
+
+  // Kreu du foamajn bendojn - unu por cxiu bordo
+  for ( const side of [ -1, 1 ] ) {
+    const foamPts = pts.map(p => {
+      const pn = pts[Math.min(pts.indexOf(p) + 1, pts.length - 1)];
+      const pp = pts[Math.max(pts.indexOf(p) - 1, 0)];
+      const tan = new THREE.Vector3(pn.x - pp.x, 0, pn.z - pp.z).normalize();
+      const sideVec = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), tan).normalize();
+      return new THREE.Vector3(
+        p.x + sideVec.x * duonaLargho * side,
+        p.y + 1/32,
+        p.z + sideVec.z * duonaLargho * side
+      );
+    });
+    const { geometry: foamGeom } = konstruiRubandon(foamPts, 7/8, 0);
+    const fm = new THREE.Mesh(foamGeom, foamMaterialo);
+    fm.renderOrder = 1;
+    sceno.add(fm);
+    foamMeshes.push(fm);
+  }
+
+  return { mesh, foamMeshes, waterSurfaceY: (x: number, z: number) => akvoY(x) };
+}
+
+// kreiFoamanMaterialon — La borda sxtauma materialo ( kunhavigata inter la
+// rivero kaj la lago ). blankeca travidebla bendo kun ondaj strioj.
+function kreiFoamanMaterialon(duonaLargho: number): THREE.ShaderMaterial {
+  return new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     side: THREE.DoubleSide,
     uniforms: {
@@ -65,28 +93,73 @@ export function konstruiRiveron( sceno: THREE.Scene,
       }
     `,
   });
+}
 
-  // Kreu du foamajn bendojn - unu por cxiu bordo
-  for ( const side of [ -1, 1 ] ) {
-    const foamPts = pts.map(p => {
-      const pn = pts[Math.min(pts.indexOf(p) + 1, pts.length - 1)];
-      const pp = pts[Math.max(pts.indexOf(p) - 1, 0)];
-      const tan = new THREE.Vector3(pn.x - pp.x, 0, pn.z - pp.z).normalize();
-      const sideVec = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), tan).normalize();
-      return new THREE.Vector3(
-        p.x + sideVec.x * duonaLargho * side,
-        p.y + 1/32,
-        p.z + sideVec.z * duonaLargho * side
-      );
-    });
-    const { geometry: foamGeom } = konstruiRubandon(foamPts, 7/8, 0);
-    const fm = new THREE.Mesh(foamGeom, foamMaterialo);
-    fm.renderOrder = 1;
-    sceno.add(fm);
-    foamMeshes.push(fm);
+// konstruiLagon — Konstruu lagon: organika akvosurfaco ( la rando sekvas la
+// donitan radiusan funkcion ) kun randa sxtaumo. La lago sidas cxe la fino de
+// la rivero ( la rivero enfluas gxin ); la akva nivelo estas egala al la rivera
+// cxe la enfluo, por ke ne estu videbla paso.
+//     @param sceno ( THREE.Scene ) - La sceno.
+//     @param cx, cz ( number ) - Lagcentro.
+//     @param radio ( funkcio ) - Radia funkcio ( angulo → radiuso ) por la rando.
+//     @param akvoNivelo ( number ) - Monda Y de la akvosurfaco.
+//     @returns lago ( RiverData ) - Samforma kiel la rivero, por animacio.
+export function konstruiLagon( sceno: THREE.Scene,
+  cx: number, cz: number, radio: ( ang: number ) => number, akvoNivelo: number
+): RiverData {
+  // La akva disko — ventumila ringa reto de la centro al la rando, kies UV-oj
+  // estas radialaj: la onda shader uzas vUv.x kiel transversan frakcion, do
+  // 1/2 cxe la centro kaj 1 cxe la rando, por ke la profund-gradiento restu
+  // radia. La rando sekvas la radiusan funkcion ( la ondigita lagbordo ).
+  const segmentoj = 0o60, ringoj = 0o10;
+  const pozicioj: number[] = [];
+  const uvoj: number[] = [];
+  const indeksoj: number[] = [];
+  for ( let j = 0; j <= ringoj; j++ ) {
+    const f = j / ringoj;                    // 0 centro, 1 rando
+    for ( let i = 0; i <= segmentoj; i++ ) {
+      const ang = i / segmentoj * Math.PI * 2;
+      const r = j === 0 ? 0 : radio( ang ) * f;
+      pozicioj.push( cx + Math.cos( ang ) * r, akvoNivelo + 1/16, cz + Math.sin( ang ) * r );
+      uvoj.push( 1/2 + 1/2 * f, 0 );
+    }
   }
+  for ( let j = 0; j < ringoj; j++ ) {
+    for ( let i = 0; i < segmentoj; i++ ) {
+      const a = j * ( segmentoj + 1 ) + i, b = a + 1;
+      const c = a + segmentoj + 1, d = c + 1;
+      indeksoj.push( a, b, d, a, d, c );
+    }
+  }
+  const geometrio = new THREE.BufferGeometry();
+  geometrio.setAttribute( "position", new THREE.Float32BufferAttribute( pozicioj, 3 ) );
+  geometrio.setAttribute( "uv", new THREE.Float32BufferAttribute( uvoj, 2 ) );
+  geometrio.setIndex( indeksoj );
+  geometrio.computeVertexNormals();
+  const materialo = kreiOndanAkvanMaterialon( radio( Math.PI / 2 ) );
+  const mesh = new THREE.Mesh( geometrio, materialo );
+  mesh.renderOrder = 0;
+  sceno.add( mesh );
 
-  return { mesh, foamMeshes, waterSurfaceY: (x: number, z: number) => akvoY(x) };
+  // Borda sxtaumo — ringo de punktoj cxe la lagrando, samstila kiel la riveraj
+  // bordoj ( la sama rubando-konstruilo faras la ringan bordon ).
+  const foamMaterialo = kreiFoamanMaterialon( radio( Math.PI / 2 ) );
+  const punktoj: THREE.Vector3[] = [];
+  for ( let i = 0; i <= segmentoj; i++ ) {
+    const ang = i / segmentoj * Math.PI * 2;
+    const r = radio( ang );
+    punktoj.push( new THREE.Vector3(
+      cx + Math.cos( ang ) * r,
+      akvoNivelo + 1/16 + 1/32,
+      cz + Math.sin( ang ) * r
+    ) );
+  }
+  const { geometry: foamGeom } = konstruiRubandon( punktoj, 7/8, 0 );
+  const fm = new THREE.Mesh( foamGeom, foamMaterialo );
+  fm.renderOrder = 1;
+  sceno.add( fm );
+
+  return { mesh, foamMeshes: [ fm ], waterSurfaceY: (x: number, z: number) => akvoNivelo };
 }
 
 // konstruiRubandon — Kreu 3D rubando el punktoj kun largho kaj alta lifto.
