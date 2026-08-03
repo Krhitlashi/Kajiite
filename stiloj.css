@@ -70,7 +70,9 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
    la mapo. */
 #supermeta.mapo { z-index:7; place-items:stretch; background:none; }
 #supermeta.mapo .interno { display:none; }
-#supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 32px); overflow:auto; padding:var(--អារេងព៏); text-align:center; }
+/* Fizika max-height ankaŭ: en aih/ja la blok-akso estas horizontala, do nur
+   max-block-size ne limigus la altecon — la vesta/helpa listo povus superi la ekranon. */
+#supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 32px); max-height:calc(100% - 32px); overflow:auto; padding:var(--អារេងព៏); text-align:center; }
 #supermeta h3 { margin:0; color:var(--gold); font-size:16px; letter-spacing:.125em; }
 #supermeta .supra { color:var(--dim); font-size:8px; letter-spacing:.1875em; }
 /* La ferma butono flosas ĉe la sama angulo kiel la minimapo ( kie ĝi antaŭe
@@ -87,8 +89,6 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 /* One reveal language for every overlay. */
 #karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#balailo.montri { opacity:1; }
 #karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri { pointer-events:auto; }
-/* Left-aligned reading text, against the linked stylesheet's centered default. */
-.helpa-listo,.menuIdenteco,.menuIdenteco h1,.menuIdenteco p,#muzikoGrupo,#muzikoEtikedo { text-align:start; }
 
 /* Every floating card gets a readable, layered surface: a sheen from the linked
    stylesheet's black/white tokens (they flip with the color scheme) over the page's
@@ -126,7 +126,14 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 /* Building card and the lightweight central prompt. */
 #karto {
   position:fixed; z-index:3; left:calc(var(--អារេងព៏) + var(--sal)); bottom:calc(var(--អារេងព៏) + var(--sab));
-  inline-size:304px; padding:var(--អារេងព៏); transform:translateY(24px); opacity:0; pointer-events:none;
+  /* Fluida larĝo ( sen ekran-grandaj medikonsultoj ): 304px sur larĝaj ekranoj,
+     sed cedo al la naviga butono sur mallarĝaj. Fizika max-height ( ne nur
+     max-block-size ): en aih/ja la blok-akso estas horizontala, do max-block-size
+     limigus la larĝon, ne la altecon. La procentaj limoj estas kontraŭ la vido
+     ( fiksita elemento ), anstataŭ vh/vw. */
+  inline-size:min(304px, calc(100% - 92px));
+  max-block-size:44%; max-height:44%; overflow-y:auto;
+  padding:var(--អារេងព៏); transform:translateY(24px); opacity:0; pointer-events:none;
   transition:transform .5s cubic-bezier(.1875,.875,.25,1),opacity .5s;
 }
 #karto.montri { transform:none; }
@@ -160,7 +167,9 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 /* Logikaj enliniaj/blokaj ecoj sekvas la skrib-reĝimon de la rotaciita panelo. */
 #navPopUp {
   position:fixed; z-index:6; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab));
-  display:block; inline-size:max-content; max-inline-size:calc(100vw - 32px); max-block-size:calc(100vh - 96px);
+  /* Procentoj sur fiksita elemento = vido-grandoj ( neniaj vh/vw ): la pop-up
+     restas sub la supra strio kaj super la naviga butono sur ĉiu ekrano. */
+  display:block; inline-size:max-content; max-inline-size:calc(100% - 32px); max-block-size:calc(100% - 160px);
   overflow:auto; opacity:0; pointer-events:none; transform:translateY(8px);
   transition:opacity .25s,transform .25s;
   /* A plain wrapper: no background of its own, so opening the menu never dims the scene. */
@@ -168,14 +177,16 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
   border-radius:var(--អិត្ភេពឺ);
 }
 #navPopUp.montri { transform:none; }
-/* La informo-panelo: sama sen-fona envolvaĵo kiel la naviga pop-up, sed
-   malfermiĝas sub la informa butono ( supre-maldekstre ). Fiksa larĝo
-   ( anstataŭ max-content ): la multi-karta listo devigus la panelon al la
-   tuta ekrano, kun malplenaj flankoj ĉe ĉiu vico. */
+/* La informo-panelo estas preskaŭ plenekrana ( sub la supra strio, kie sidas la
+   informa butono ): ĝi etendiĝas inter la randoj ĉiudirekte — nenia fiksita
+   larĝo kaj neniaj vh/vw, do la sama aspekto sur ĉiu ekrano. La supra strio
+   ( 72px + safe-area ) restas videbla, kaj la panelo rulumas interne. */
 #informo {
-  position:fixed; z-index:6; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(72px + var(--sat));
-  display:block; inline-size:min(640px, calc(100vw - 32px)); max-block-size:calc(100vh - 96px);
-  overflow:auto; opacity:0; pointer-events:none; transform:translateY(8px);
+  position:fixed; z-index:6;
+  inset-inline:calc(var(--អារេងព៏) + var(--sal)) calc(var(--អារេងព៏) + var(--sar));
+  inset-block-start:calc(72px + var(--sat));
+  inset-block-end:calc(var(--អារេងព៏) + var(--sab));
+  display:block; overflow:auto; opacity:0; pointer-events:none; transform:translateY(8px);
   transition:opacity .25s,transform .25s;
   border-radius:var(--អិត្ភេពឺ);
 }
@@ -225,7 +236,7 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 #sxargxo.finita { opacity:0; pointer-events:none; }
 #sxargxo .ltitle { font-size:18px; letter-spacing:.375em; }
 /* La titolo kaj surskribo staras cxe la flankoj de la vertikala stango; la plenigo fluas de malsupro al supro. */
-.stango { position:relative; inline-size:6px; block-size:min(224px, 48vh); border-radius:999px; background:var(--gold-dim); overflow:hidden; }
+.stango { position:relative; inline-size:6px; block-size:min(224px, 48%); border-radius:999px; background:var(--gold-dim); overflow:hidden; }
 .stango i { position:absolute; inset-inline:0; inset-block-end:0; inline-size:100%; block-size:0%; border-radius:999px; background:var(--gold); transition:block-size .25s; }
 .lsupra { color:var(--dim); font-size:8px; letter-spacing:.1875em; }
 
@@ -241,8 +252,15 @@ html[lang="aih"] #prompto, html[lang="ja"] #prompto {
   left:auto; right:calc(var(--អារេងព៏) + var(--sar));
   top:50%; bottom:auto;
   transform:translateY(-50%) translateX(var(--អារេង));
+  /* Longaj nomoj ( enirantaj konstruaĵoj/manĝaĵoj ) ne superu la ekranon: se la
+     vertikala strio plenumas la limon, la teksto disvolvas kolumnojn ( white-space
+     normal ) aŭ estas tranĉita ( overflow:hidden ). */
+  white-space:normal; max-height:70%; overflow:hidden;
 }
 html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
+/* La tosto en aih/ja estas vertikala strio ( sideways-lr / vertical-rl ): longaj
+   tekstoj ( ekz. manĝaj gustoj, ~75 signoj ) povus superi la ekranon — samaj limigoj. */
+html[lang="aih"] #tosto, html[lang="ja"] #tosto { white-space:normal; max-height:60%; overflow:hidden; }
 
 /* Mobile controls remain custom because the linked stylesheet does not know their geometry. */
 /* La tuŝaj kontroloj aperas nur post la unua reala tuŝo ( body.tuŝa ), sur ajna tuŝekrano, sendepende de la grandeco. */
@@ -263,17 +281,8 @@ body.tuŝa #mobKontroloj { display:block; }
 #mobJoystickBazo.sprinto #mobJoystickTenilo { background:var(--gold); border-color:var(--gold); }
 /* La elektita stato de la naviga butono venas de la ekstera stilfolio ( aria-pressed ). */
 
-@media (max-width:648px) {
-  /* Unuigita 16px angul-marĝeno ( var(--អារេងព៏) + safe-area ) por ĉiuj flosantaj elementoj.
-     La bazaj reguloj jam havas tiujn insets, do ĉi tie nur la grandecoj ŝanĝiĝas. */
-  #kompaso { inline-size:44px; block-size:44px; }
-  #supermetaFermi { inline-size:44px; block-size:44px; }
-  /* La karto malfermiĝas maldekstre kaj cedas la dekstran kolumnon al la butono. */
-  #karto { right:calc(var(--អារេងព៏) + 52px + var(--អារេងមិ)); inline-size:auto; max-block-size:44vh; overflow:auto; }
-  #navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100vw - 32px); max-block-size:calc(100vh - 92px); }
-  #informo { max-block-size:calc(100vh - 92px); }
-  .menuAzioj { grid-template-columns:1fr 1fr; }
-}
+/* Neniaj ekran-grandaj medikonsultoj: la sama aranĝo sur ĉiu ekrano ( la flosantaj
+   elementoj uzas fluidajn procentajn limojn kaj inset-ankradojn anstataŭe ). */
 
 /* Only the theme tokens flip here; the card/menu surfaces already build on the linked
    stylesheet's black/white tokens plus --panel, so they adapt to both schemes on their own. */

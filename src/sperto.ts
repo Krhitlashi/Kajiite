@@ -1002,7 +1002,7 @@ let plenaBildilo: THREE.WebGLRenderer | null = null;
 let plenaFotilo: THREE.OrthographicCamera | null = null;
 
 const RADARA_DUONO = 0o30;   // duon-larĝo de la radara mapo ( mondaj unuoj ) — pli proksima ol antaŭe, por montri la tujan ĉirkaŭaĵon
-const PLENA_DUONO = 0o340;   // duon-larĝo de la plena mapo — etendita por montri la orientan lagon
+const PLENA_DUONO = 0o460;   // duon-larĝo de la plena mapo — etendita por montri la orientan lagon kaj la nordan montaron
 const MINA_DUONO = 0o10;     // plej proksima zomo de la plena mapo
 const MAXA_DUONO = 0o500;    // plej malproksima zomo de la plena mapo
 const MAPA_ALTECO = 0o130;   // fotila alto super la tero
@@ -1236,10 +1236,13 @@ function animacii() {
     let novaX = ludantaPozicio.x + (fortoX * movZ + radX * movX) * rapido * deltaTempo;
     let novaZ = ludantaPozicio.z + (fortoZ * movZ + radZ * movX) * rapido * deltaTempo;
     // La mapo etendiĝas orienten ( -x ) ĝis la fora lagbordo ( x ≈ -0o220, z ≈
-    // -0o211 ) kaj suden ĝis la dokoj ( z ≈ -0o154 ). La malnova limo
+    // -0o211 ) kaj suden ĝis la dokoj ( z ≈ -0o154 ). Norden ĝi etendiĝas ĝis
+    // la norda deklivo de la piedirebla montaro ( la limo z ≈ 0o440 atingas la
+    // montaron, kiu etendiĝas ĝis 0o444 ), do la ludanto povas grimpi trans la
+    // selo kaj malsupreniri la nordan flankon antaŭ la maprando. La malnova limo
     // z ≥ -0o128 staris kiel nevidebla muro en la mezo de la doka vojo.
-    novaX = Math.max(-0o360, Math.min(0o200, novaX));
-    novaZ = Math.max(-0o340, Math.min(0o160, novaZ));
+    novaX = Math.max(-0o440, Math.min(0o440, novaX));
+    novaZ = Math.max(-0o340, Math.min(0o440, novaZ));
 
     const r = solviKolizion(novaX, novaZ);
     // Dokoj: bloku eniron SUB la platformon (sur-gxin piedirado restas libera)
@@ -1386,6 +1389,21 @@ function animacii() {
       // glitas reen al la rando ( anstataŭ fali al la suba etaĝo ). Ĉe etaĝa
       // nivelo oni rajtas paŝi sur la ringan plankon.
       let dist = Math.hypot(lokalX, lokalZ);
+      // La centra kolono estas ĈIAM solida — la ludanto neniam rajtas eniri la
+      // polon, ĉu li staras sur la ŝtupoj, ĉu li paŝas de la planko aŭ falas.
+      // La malnova krampo validis nur dum surHelikso, do oni povis pasi trans
+      // la polon kaj fali tra gxi en la ŝakton.
+      if (dist < helikso.rKol + 0o1/0o20) {
+        const nR = helikso.rKol + 0o1/0o20;
+        if (dist > 0.0001) {
+          lokalX = (lokalX / dist) * nR;
+          lokalZ = (lokalZ / dist) * nR;
+        } else {
+          lokalX = nR;
+          lokalZ = 0;
+        }
+        dist = nR;
+      }
       if (dist > helikso.rEkster && !jeEtago) {
         const nR = helikso.rEkster - 0o1/0o40;
         lokalX = (lokalX / dist) * nR;
@@ -1394,13 +1412,6 @@ function animacii() {
       }
       if (dist >= helikso.rKol - 0o1/0o10 && dist <= helikso.rEkster) {
         surHelikso = true;
-        // Radiusa krampo nur kontraŭ la kolono ( la ringa planko komenciĝas ĉe
-        // rEkster ). la ekstera rando estas barilo mezvoje inter etaĝoj.
-        if (dist < helikso.rKol + 0o1/0o20) {
-          const nR = helikso.rKol + 0o1/0o20;
-          lokalX = (lokalX / dist) * nR;
-          lokalZ = (lokalZ / dist) * nR;
-        }
         const ang = Math.atan2(lokalX, lokalZ);
         const frac = ((ang % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2);
         if (sxtupaTurno === null) {

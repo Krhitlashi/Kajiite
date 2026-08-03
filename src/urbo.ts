@@ -8,7 +8,7 @@ import { konstruiBestojn, BestoSistemo } from "../assets/bestoj.js";
 import { kreiArbarerojn, metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
   konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn,
   konstruiFalintajnTrunkojn, konstruiCetkuojn, konstruiLikenojn, konstruiHxsxaksxlefojn, konstruiTrunkajnLikenojn,
-  metiArbojnCxirkauLagon, konstruiHerbonCxirkauLagon, konstruiCakeojn } from "../assets/vegetajxo.js";
+  metiArbojnCxirkauLagon, konstruiHerbonCxirkauLagon, konstruiCakeojn, metiMontajnArbojn, konstruiMontajnRokojn } from "../assets/vegetajxo.js";
 import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, VojDifino } from "../assets/vojoj.js";
 import { konstruiDokon } from "../assets/doko.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/hxeuxfa-lampo.js";
@@ -581,6 +581,24 @@ export function konstruiUrbon(
   // ( ne pli ol ~2 unuojn super la akvonivelo ).
   konstruiCakeojn( sceno, 0o120, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     ekskluziviKonstruajxon, ekskluziviVojojn, 11605 );
+
+  // ⟪ Montara vegetajxo 📃 ⟫ — la norda montaro ( montaroNorda en tereno.ts )
+  // ricevas alpan larikaron sur la deklivoj, betulojn pli sube, kaj rokojn
+  // kaj likenojn sur la krestoj. La arboj sidas nur sur piedeblaj deklivoj sub
+  // la arbolinio ( metiMontajnArbojn filtras la krutajn murojn kaj la altajn
+  // pintojn ), do la montaro restas transirebla tra la selo.
+  const montajLarikoj = metiMontajnArbojn( alteco, 0o200, 0o200, 0o340,
+    ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53131 );
+  const montajLarikaTrunkoj = konstruiLarikon( sceno, montajLarikoj );
+  const montajBetuloj = metiMontajnArbojn( alteco, 0o100, 0o200, 0o310,
+    ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53132, montajLarikoj );
+  const montajBetulaTrunkoj = konstruiArbaron( sceno, montajBetuloj );
+  const montajRokoj = konstruiMontajnRokojn( sceno, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn );
+  // Likenoj sur la montaro — grupigitaj ĉirkaŭ la montaj arboj kaj rokoj.
+  konstruiLikenojn( sceno, 0o150, alteco, [ ...montajLarikoj, ...montajBetuloj ], montajRokoj,
+    ekskluziviRiveron, ekskluziviVojojn );
+  // Trunkaj likenoj sur la montaj larikoj kaj betuloj.
+  konstruiTrunkajnLikenojn( sceno, [ montajLarikaTrunkoj, montajBetulaTrunkoj ], 0o62453 );
 
   // ⟪ Nebulaj sprajtoj 📃 ⟫
   const nebulaTeksajxo = kreiNebulanTeksajxon();

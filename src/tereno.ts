@@ -84,6 +84,41 @@ export function glataPaso(lo: number, hi: number, v: number): number {
   return t * t * (3 - 2 * t);
 }
 
+// montaroNorda — La norda montaro. Piedirebla montara zono norde de la urbo,
+// kie la arbaro transiras al montoj. La alteco kreskas per longa suda ramplo
+// ( z≈0o200 → 0o346 ) al kresto kun kvar pintoj ( 22–50, la ĉefa en la mezo )
+// kaj trairebla selo ( ≈0o12 ) inter la orientaj pintoj. La norda flanko fadas
+// reen al la ebeno antaŭ la grundrando ( z≈0o444 ) — intence pli kruta ol la
+// suda ramplo ( la malantaŭo de la ĉefa pinto pintas ≈0o63 ), sed piedirebla
+// kaj nebula de la urbo — kaj la orienta/okcidenta finoj malsupreniĝas per
+// longaj spronoj ( |x|≈0o260 → 0o444 ), por ke neniu klifo aŭ kvadrata rando
+// aperu ĉe la maprando.
+export function montaroNorda( x: number, z: number ): number {
+  const zEn = glataPaso( 0o200, 0o346, z );   // piedo z≈0o200 → kresto z≈0o346
+  if ( zEn <= 0 ) return 0;
+  const zEl = 1 - glataPaso( 0o346, 0o444, z );  // norda deklivo 0o346 → 0o444
+  if ( zEl <= 0 ) return 0;
+  const xEl = 1 - glataPaso( 0o260, 0o444, Math.abs( x ) );  // finaj spronoj
+  if ( xEl <= 0 ) return 0;
+  // Kvar pintoj — okcidenta, ĉefa, orienta-meza kaj fora-orienta. La ĉefa
+  // pinto en la mezo superas la najbarojn, kaj la eksteraj pintoj estas pli
+  // malaltaj, do la montaro leviĝas en la mezo kaj malsupreniĝas ĉe la finoj
+  // ( kune kun la xEl-spronoj ).
+  const dx1 = ( x + 0o310 ) / 0o74, dz1 = ( z - 0o344 ) / 0o100;
+  const pinto1 = 0o30 * Math.exp( -0o1/0o2 * ( dx1 * dx1 + dz1 * dz1 ) );
+  const dx2 = ( x + 0o140 ) / 0o100, dz2 = ( z - 0o354 ) / 0o126;
+  const pinto2 = 0o52 * Math.exp( -0o1/0o2 * ( dx2 * dx2 + dz2 * dz2 ) );
+  const dx3 = ( x - 0o50 ) / 0o74, dz3 = ( z - 0o350 ) / 0o102;
+  const pinto3 = 0o44 * Math.exp( -0o1/0o2 * ( dx3 * dx3 + dz3 * dz3 ) );
+  const dx4 = ( x - 0o250 ) / 0o100, dz4 = ( z - 0o354 ) / 0o104;
+  const pinto4 = 0o40 * Math.exp( -0o1/0o2 * ( dx4 * dx4 + dz4 * dz4 ) );
+  // Selo — malaltigita trairejo inter la orienta-meza kaj fora-orienta pintoj,
+  // por ke oni povu piediri trans la kreston sen grimpi la pintojn.
+  const sdx = ( x - 0o150 ) / 0o62, sdz = ( z - 0o352 ) / 0o104;
+  const selo = 0o36 * Math.exp( -0o1/0o2 * ( sdx * sdx + sdz * sdz ) );
+  return Math.max( 0, ( pinto1 + pinto2 + pinto3 + pinto4 - selo ) * zEn * zEl * xEl );
+}
+
 export function alteco(x: number, z: number): number {
   const h = montetaBazo(x, z);
   // Platigi la urban altebajxon — glate ene de r < 80 ( kovras la eksteran
@@ -137,5 +172,7 @@ export function alteco(x: number, z: number): number {
     const padAlto = montetaBazo(padX, padZ) - 0o100/0o10 * Math.exp(-(padRD * padRD) / 0o144);
     altecoFina = altecoFina * (1 - padMiksilo) + padAlto * padMiksilo;
   }
+  // Norda montaro — piedirebla montara zono norde de la urbo
+  altecoFina += montaroNorda( x, z );
   return altecoFina;
 }

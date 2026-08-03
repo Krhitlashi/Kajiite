@@ -113,6 +113,117 @@ export function metiArbojn( heightFn: (x: number, z: number) => number,
   return placed;
 }
 
+// metiMontajnArbojn — Metu arbojn sur la nordan montaron ( montaroNorda en
+// tereno.ts ), nur sur moderaj deklivoj sub la arbolinio, evitante riverojn,
+// vojojn kaj konstruajxojn. La dekliva filtraĵo ( specimenita per la tera alto )
+// tenas la arbojn sur la piedeblaj deklivoj anstataŭ ŝvebantaj sur klifoj, kaj
+// la arbolinia filtraĵo ( ≈0o26 ) lasas la pintojn senarbaj por la rokoj.
+//     @param heightFn ( funkcio ) - Tera alta funkcio.
+//     @param zMin, zMax ( number ) - La monta bando laŭ z.
+//     @param excludeRivers ( funkcio ) - Riverfiltro.
+//     @param excludePaths ( funkcio ) - Vojfiltro.
+//     @param excludeBuildings ( funkcio ) - Konstruajxa filtro.
+//     @param semo ( number ) - Hazarda semo.
+//     @param evituArbojn ( ArboMetado[] ) - Jam metitaj arboj ( minimuma distanco ).
+//     @returns arboj ( ArboMetado[] ) - La metitaj arboj.
+export function metiMontajnArbojn( heightFn: (x: number, z: number) => number,
+  kvanto: number,
+  zMin: number, zMax: number,
+  excludeRivers: (x: number, z: number) => boolean,
+  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
+  excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
+  semo = 0o53131,
+  evituArbojn: ArboMetado[] = [],
+  minimumaDistanco = 0o10
+): ArboMetado[] {
+  const hazardaGenerilo = mulberry32( semo );
+  const placed: ArboMetado[] = [];
+  let provoj = 0;
+
+  // Deklivo — la plej granda altecdiferenco per unuo, specimenita ĉe la punkto.
+  const deklivo = (x: number, z: number): number => {
+    const paso = 0o4;
+    const h0 = heightFn( x, z );
+    const hx = heightFn( x + paso, z );
+    const hz = heightFn( x, z + paso );
+    return Math.max( Math.abs( hx - h0 ), Math.abs( hz - h0 ) ) / paso;
+  };
+
+  while ( placed.length < kvanto && provoj++ < 0o10000 ) {
+    const x = ( hazardaGenerilo() * 2 - 1 ) * 0o340;
+    const z = zMin + hazardaGenerilo() * ( zMax - zMin );
+    if ( Math.hypot( x, z ) < 0o120 ) continue;   // la urbo restas malfermita
+    if ( excludeRivers( x, z )) continue;
+    if ( excludePaths( x, z, 0o44/0o10 )) continue;
+    if ( excludeBuildings( x, z, 3 )) continue;
+    // Tro kruta deklivo — neniu arbo sur la klifoj ( la montaraj pintoj ).
+    if ( deklivo( x, z ) > 0o6/0o10 ) continue;
+    // Arbolinio — neniu arbo super ≈0o26: la altaj pintoj kaj krestoj restas
+    // senarbaj, kie la rokoj kaj likenoj transprenas.
+    if ( heightFn( x, z ) > 0o26 ) continue;
+    let troProksima = false;
+    for ( const arbo of [ ...evituArbojn, ...placed ] ) {
+      if ( Math.hypot( x - arbo.x, z - arbo.z ) < minimumaDistanco ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
+    placed.push({ x, z, h: heightFn( x, z ), s: 0o63/0o100 + hazardaGenerilo() * 0o55/0o100 });
+  }
+  return placed;
+}
+
+// konstruiMontajnRokojn — Metu rokajn blokojn sur la nordan montaron, sur la
+// altaj deklivoj kaj krestoj, kie la arboj malabundas. La rokoj sekvas la
+// terenon kaj ricevas malvarmajn grizojn por kongrui kun la montara roko.
+//     @returns metitaj ( ArboMetado[] ) - La pozicioj, por ke la likenoj povas
+//         grupigi ĉirkaŭ ili.
+export function konstruiMontajnRokojn( sceno: THREE.Scene,
+  kvanto: number,
+  heightFn: (x: number, z: number) => number,
+  excludeRivers: (x: number, z: number) => boolean,
+  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
+  semo = 99231
+): ArboMetado[] {
+  const hazardaGenerilo = mulberry32( semo );
+  const sxtonaGeometrio = new THREE.IcosahedronGeometry( 1, 0 );
+  const sxtonoj = new THREE.InstancedMesh( sxtonaGeometrio,
+    new THREE.MeshStandardMaterial({ roughness: 0o75/0o100 }), kvanto );
+
+  const M = new THREE.Matrix4();
+  const Q = new THREE.Quaternion();
+  const E = new THREE.Euler();
+  const C = new THREE.Color();
+  // Montara roko — grizecaj tonoj kun malvarma nuanco.
+  const paletro = [ 0x686868, 0x787878, 0x585858, 0x787878, 0x887878, 0x686858 ];
+  const metitaj: ArboMetado[] = [];
+  let li = 0;
+  let gardilo = 0;
+
+  while ( li < kvanto && gardilo++ < 0o10000 ) {
+    const x = ( hazardaGenerilo() * 2 - 1 ) * 0o340;
+    const z = 0o240 + hazardaGenerilo() * 0o200;
+    if ( excludeRivers( x, z ) || excludePaths( x, z, 0o2 )) continue;
+    if ( Math.hypot( x, z ) < 0o120 ) continue;
+
+    const skaloY = 0o5/0o10 + hazardaGenerilo() * 0o5/0o10;
+    E.set( hazardaGenerilo() * 0o15/0o40, hazardaGenerilo() * Math.PI * 2, hazardaGenerilo() * 0o15/0o40 );
+    Q.setFromEuler( E );
+    const y = heightFn( x, z );
+    M.compose( new THREE.Vector3( x, y + skaloY * 0o23/0o100, z ),
+      Q,
+      new THREE.Vector3( skaloY, skaloY, skaloY ) );
+    sxtonoj.setMatrixAt( li, M );
+    sxtonoj.setColorAt( li, C.setHex( paletro[ ( hazardaGenerilo() * paletro.length ) | 0 ] ) );
+    metitaj.push( { x, z, h: y, s: skaloY } );
+    li++;
+  }
+
+  sxtonoj.instanceMatrix.needsUpdate = true;
+  if ( sxtonoj.instanceColor ) sxtonoj.instanceColor.needsUpdate = true;
+  sxtonoj.castShadow = true;
+  sceno.add( sxtonoj );
+  return metitaj;
+}
+
 // konstruiArbaron — Konstruu instancigitajn arbojn (trunkoj kaj foliaroj) en la sceno.
 export function konstruiArbaron( sceno: THREE.Scene,
   arboj: ArboMetado[]

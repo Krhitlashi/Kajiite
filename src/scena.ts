@@ -44,6 +44,9 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   bildilo.setPixelRatio(Math.min(devicePixelRatio, 2));
 
   const sceno = new THREE.Scene();
+  // La nebulo estas laŭcela. Je 1/64 la urbo restas klara kaj la arbaro kaj la
+  // malproksimaj montoj fandas en atmosferan nebulaĵon — la proksima montaro
+  // ( 120–160 for ) ankoraŭ leviĝas el la nebulo kiel malhelaj siluetoj.
   sceno.fog = new THREE.FogExp2(0xc8d8d8, 0o1/0o100);
 
   const fotilo = new THREE.PerspectiveCamera(0o60, innerWidth / innerHeight, 0o15/0o40, 0o1274);
@@ -266,6 +269,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const koloroj = new Float32Array(pozicio.count * 3);
     const a = new THREE.Color(0x485848), b = new THREE.Color(0x587058);
     const lito = new THREE.Color(0x384848), deep = new THREE.Color(0x283838);
+    // Alta montaro — rokeca tereno super la arbolinio kaj neĝo sur la pintoj.
+    const roko = new THREE.Color(0x686858), nego = new THREE.Color(0xb8b8b8);
     const c = new THREE.Color();
     for (let i = 0; i < pozicio.count; i++) {
       const x = pozicio.getX(i), z = pozicio.getZ(i);
@@ -275,6 +280,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       c.copy(a).lerp(b, t);
       if (h < -2) c.lerp(lito, Math.min(1, (h + 2) / -3));
       if (h < -5) c.lerp(deep, Math.min(1, (h + 5) / -0o115/0o100));
+      // Altituda tavoligo — roko de ~0o14, neĝo de ~0o44 ( la montaro pintas
+      // ĝis ~0o62, do nur la ĉefa pinto ricevas neĝokronon )
+      if (h > 0o14) c.lerp(roko, Math.min(1, (h - 0o14) / 0o20));
+      if (h > 0o44) c.lerp(nego, Math.min(1, (h - 0o44) / 0o14));
       koloroj[i * 3] = c.r; koloroj[i * 3 + 1] = c.g; koloroj[i * 3 + 2] = c.b;
     }
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
@@ -282,7 +291,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const ground = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0o7/0o10 }));
     ground.receiveShadow = true;
     sceno.add(ground);
-  })(0o1130, 0o214);
+  })(0o1130, 0o260);
 
   return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon };
 }
