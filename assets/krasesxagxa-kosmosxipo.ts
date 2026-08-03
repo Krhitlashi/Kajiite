@@ -4,10 +4,11 @@
 // sur cxiu nivelo krom la centra (kie la pordoj estas); flosas libere sen soklo aux signo
 import * as THREE from "three";
 import { aldoniKadranTubon, kreiKlinoTavolon } from "./satalaj-konstruajxoj.js";
+import { kunfandiGeometriojn } from "./kunfandajxoj.js";
 import { kreiPilolFenestranFormon } from "./internoj.js";
 
 // Rondigita rombo-formo (uzata por enirejoj)
-function rondigitaRomboFormo(w: number, h: number, n: number = 99/64, seg: number = 0o100): THREE.Shape {
+function rondigitaRomboFormo(w: number, h: number, n: number = 0o143/0o100, seg: number = 0o100): THREE.Shape {
   const hw = w / 2, hh = h / 2;
   const s = new THREE.Shape();
   const e = 2 / n;
@@ -35,15 +36,15 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
   eniraMaterialo: THREE.MeshStandardMaterial
 ): Krasesxagxo {
   const group = new THREE.Group();
-  const tieroAlto = 115/32, up = 5, down = up, hw0 = 4;
-  const ins = (4 - 83/64) / 4;
+  const tieroAlto = 0o163/0o40, up = 5, down = up, hw0 = 4;
+  const ins = (4 - 0o123/0o100) / 4;
   const face = Math.atan2(-x, -z);
 
   const muraMaterialo = new THREE.MeshStandardMaterial({
-    color: 0x184838, roughness: 27/64, metalness: 5/64, envMapIntensity: 19/32,
+    color: 0x184838, roughness: 0o33/0o100, metalness: 0o5/0o100, envMapIntensity: 0o23/0o40,
   });
   const fenestraMaterialo = new THREE.MeshStandardMaterial({
-    color: 0x082828, emissive: 0x103838, emissiveIntensity: 13/32, roughness: 5/32, metalness: 13/64,
+    color: 0x082828, emissive: 0x103838, emissiveIntensity: 0o15/0o40, roughness: 0o5/0o40, metalness: 0o15/0o100,
   });
 
   const murajGeometrioj: THREE.BufferGeometry[] = [];
@@ -53,7 +54,7 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
   // klinigxas kiel la konstruajxoj (la uzanto petis saman tavol-tipon kiel la
   // konstruajxoj). La klinitaj tavoloj ricevas klinitajn pilierojn (klino), kaj la
   // flipped subaj pilieroj montras siajn foliojn pinton-malsupren (folio defauxlte = true).
-  const klino = 5/16;
+  const klino = 0o5/0o20;
   // Suprenaj tieroj — samaj diamantaj angul-pilieroj kiel la konstruajxoj.
   // Cxiuj tavoloj klinigxas (trapezoidoj) kiel la konstruajxoj — la uzanto petis
   // la saman tavol-tipon por la tuta sxipo.
@@ -86,25 +87,25 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
   // Rondigitaj rombo-pordoj sur CxIUJ 4 flankoj, CENTRITAJ je y=0 (la spegula
   // centro de la sxipo). la pordoj speguligxas supren kaj suben, kaj la centraj
   // tavoloj (kie la pordoj estas) ricevas neniun fenestron.
-  const rombaFormo = rondigitaRomboFormo(147/64, 24/8);
+  const rombaFormo = rondigitaRomboFormo(0o223/0o100, 0o30/0o10);
   for ( let f = 0; f < 4; f++ ) {
     const enirejaGeometrio = new THREE.ExtrudeGeometry(rombaFormo, {
-      depth: 4/8, bevelEnabled: true, bevelSize: 1/16, bevelThickness: 1/16,
+      depth: 0o4/0o10, bevelEnabled: true, bevelSize: 0o1/0o20, bevelThickness: 0o1/0o20,
       bevelSegments: 2, curveSegments: 0o14,
     });
     const enirejaMreto = new THREE.Mesh(enirejaGeometrio, eniraMaterialo);
     enirejaMreto.rotation.y = f * Math.PI / 2;
-    enirejaMreto.position.set( Math.sin(f * Math.PI / 2) * (hw0 - 1/64), 0,
-      Math.cos(f * Math.PI / 2) * (hw0 - 1/64) );
+    enirejaMreto.position.set( Math.sin(f * Math.PI / 2) * (hw0 - 0o1/0o100), 0,
+      Math.cos(f * Math.PI / 2) * (hw0 - 0o1/0o100) );
     group.add(enirejaMreto);
 
     // Ora ornama konturo
     const konturo = rombaFormo.getPoints(0o30).map(p => new THREE.Vector3(p.x, p.y, 0));
-    const ornamo = new THREE.Mesh( new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "catmullrom", 19/32), 0o60, 1/16, 6, true),
+    const ornamo = new THREE.Mesh( new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "catmullrom", 0o23/0o40), 0o60, 0o1/0o20, 6, true),
       oraMaterialo );
     ornamo.rotation.y = f * Math.PI / 2;
-    ornamo.position.set( Math.sin(f * Math.PI / 2) * (hw0 + 4/8), 0,
-      Math.cos(f * Math.PI / 2) * (hw0 + 4/8) );
+    ornamo.position.set( Math.sin(f * Math.PI / 2) * (hw0 + 0o4/0o10), 0,
+      Math.cos(f * Math.PI / 2) * (hw0 + 0o4/0o10) );
     group.add(ornamo);
   }
 
@@ -112,7 +113,7 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
   // estas TURNITA je la klin-angulo, por ke gxi kusxu plate sur la klinita muro
   // (la malnova vertikala fenestro enigxis aux elstaris ce la randoj de klinitaj
   // muroj). La faco estas la mur-radiuso CE LA FENESTRA CENTRO (hw − klino/2).
-  const fenAlto = Math.min(5/8, tieroAlto * 3/10);
+  const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o3/0o12);
   const klinaAngulo = Math.atan(klino / tieroAlto);
   // Fenestroj sur CxIUJ tavoloj KROM la centraj (i=0 kaj j=1), kie la pordoj estas.
   // Cxiuj tavoloj nun klinigxas (kiel la konstruajxoj), do cxiuj fenestroj estas klinitaj.
@@ -133,7 +134,7 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
   for ( const lv of niveloj ) {
     // LONGAs horizontala RONDIGITA (pilola) fenestro, plata kontraux la muro-faco.
     // Largxo laux la tavolflanko. pli longa sur pli longaj tavoloj.
-    const ww = Math.min(lv.faco * 2 - 3/8, lv.faco * 4/3 + 1/4);
+    const ww = Math.min(lv.faco * 2 - 0o3/0o10, lv.faco * 4/3 + 0o1/0o4);
     for ( let f = 0; f < 4; f++ ) {
       // Unu grupo po faco. turnita al la muro; sur klinitaj tavoloj la fenestro
       // sidas en loka sub-grupo KLINITA CxIRKAUx LA FENESTRA CENTRO (la sub-grupo
@@ -148,7 +149,7 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
       const faco = new THREE.Group();
       faco.rotation.y = f * Math.PI / 2;
       const monto = new THREE.Group();
-      monto.position.set( 0, lv.y - fenAlto / 2, lv.faco + 1/64 );
+      monto.position.set( 0, lv.y - fenAlto / 2, lv.faco + 0o1/0o100 );
       if (lv.klinita) monto.rotation.x = lv.suba ? klinaAngulo : -klinaAngulo;
       faco.add(monto);
       // Densa sampado de la pilolo — la arkoj aspektas RONDIGxITAJ (la malnova
@@ -162,7 +163,7 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
       const konturo = kreiPilolFenestranFormon(ww, fenAlto).getPoints(0o200)
         .map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, 0));
       const rimo = new THREE.Mesh(
-        new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 1/16, 6, true),
+        new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
         oraMaterialo
       );
       monto.add(rimo);
@@ -175,8 +176,8 @@ export function konstruiKrasesxagxon( sceno: THREE.Scene,
 
   // Porda pozicio — centrita je la pordo (y=0)
   const dir = new THREE.Vector3(Math.sin(face), 0, Math.cos(face));
-  const pordaPozicio = new THREE.Vector3( dir.x * (hw0 + 16/8), 0,
-    dir.z * (hw0 + 16/8) );
+  const pordaPozicio = new THREE.Vector3( dir.x * (hw0 + 0o20/0o10), 0,
+    dir.z * (hw0 + 0o20/0o10) );
 
   group.position.set(x, y, z);
   sceno.add(group);
@@ -195,17 +196,17 @@ export function animaciiKrasesxagxon( ship: Krasesxagxo,
     if ( ship.group.userData.bazaY === undefined ) {
       ship.group.userData.bazaY = ship.group.position.y;
     }
-    ship.group.position.y = (ship.group.userData.bazaY as number) + Math.sin(t * 19/64) * 1/16;
+    ship.group.position.y = (ship.group.userData.bazaY as number) + Math.sin(t * 0o23/0o100) * 0o1/0o20;
   }
-  ship.group.rotation.y += 0/8;
-  ship.group.rotation.z = Math.sin(t * 2/8) * 1/32;
+  ship.group.rotation.y += 0o0/0o10;
+  ship.group.rotation.z = Math.sin(t * 0o2/0o10) * 0o1/0o40;
 
   // Pulso de fenestroj dum flugo
   if ( isFlying ) {
-    const pulso = 19/64 + 13/64 * Math.sin(t * 3);
+    const pulso = 0o23/0o100 + 0o15/0o100 * Math.sin(t * 3);
     const fenestraMaterialo = ship.windows[0]?.material as THREE.MeshStandardMaterial;
     if ( fenestraMaterialo ) {
-      fenestraMaterialo.emissiveIntensity = 13/32 + pulso;
+      fenestraMaterialo.emissiveIntensity = 0o15/0o40 + pulso;
     }
   }
 }
@@ -215,7 +216,7 @@ export function komenciFlugon( ship: Krasesxagxo,
   onProgress: (pct: number) => void,
   onComplete: () => void
 ): () => void {
-  const dauxro = 32/8;
+  const dauxro = 0o40/0o10;
   const komencaTempo = performance.now() / 0o1750;
   const komencaY = ship.group.position.y;
   const celaY = komencaY + 0o120;
@@ -225,10 +226,10 @@ export function komenciFlugon( ship: Krasesxagxo,
     if ( nuligita ) { ship.group.position.y = komencaY; return; }
     const pasinta = performance.now() / 0o1750 - komencaTempo;
     const t = Math.min(1, pasinta / dauxro);
-    const mildigita = t < 4/8 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const mildigita = t < 0o4/0o10 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
     ship.group.position.y = komencaY + (celaY - komencaY) * mildigita;
-    ship.group.rotation.y += 3/64;
+    ship.group.rotation.y += 0o3/0o100;
     onProgress(mildigita);
 
     if ( t < 1 ) {
@@ -241,38 +242,4 @@ export function komenciFlugon( ship: Krasesxagxo,
 
   requestAnimationFrame(tiktako);
   return () => { nuligita = true; };
-}
-
-function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
-  if (geos.length === 0) return new THREE.BufferGeometry();
-  let tv = 0, ti = 0;
-  for ( const g of geos ) {
-    tv += g.getAttribute("position").count;
-    ti += g.index ? g.index.count : g.getAttribute("position").count;
-  }
-  const pozicio = new Float32Array(tv * 3);
-  const normo = new Float32Array(tv * 3);
-  const idxArr = tv > 65535 ? new Uint32Array(ti) : new Uint16Array(ti);
-  let vo = 0, io = 0;
-  for ( const g of geos ) {
-    const p = g.getAttribute("position");
-    const n = g.getAttribute("normal");
-    const c = p.count;
-    pozicio.set(p.array as Float32Array, vo * 3);
-    if (n) normo.set(n.array as Float32Array, vo * 3);
-    const indico = g.index;
-    if ( indico ) {
-      for (let i = 0; i < indico.array.length; i++) idxArr[io + i] = indico.array[i] + vo;
-      io += indico.array.length;
-    } else {
-      for (let i = 0; i < c; i++) idxArr[io + i] = i + vo;
-      io += c;
-    }
-    vo += c;
-  }
-  const out = new THREE.BufferGeometry();
-  out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
-  out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
-  out.setIndex(new THREE.BufferAttribute(idxArr, 1));
-  return out;
 }

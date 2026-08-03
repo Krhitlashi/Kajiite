@@ -61,7 +61,7 @@ function scheduleTick() {
 function tick() {
   if (!L.ctx || !L.events) return;
   const elapsed = L.ctx.currentTime - L.startAt;
-  const horizon = elapsed + (document.hidden ? 1.6 : 4/8);
+  const horizon = elapsed + (document.hidden ? 1.6 : 0o4/0o10);
 
   while (L.idx < L.events.length && L.events[L.idx].t < horizon) {
     const e = L.events[L.idx++];

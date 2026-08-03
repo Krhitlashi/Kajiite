@@ -22,7 +22,7 @@ const deksesuma = (c: number): string => "#" + c.toString(0o20).padStart(0o6, "0
 function kvarStelo( kunteksto: CanvasRenderingContext2D,
   cX: number, cy: number, r: number, koloro: string
 ): void {
-  const s = r * 7/32;
+  const s = r * 0o7/0o40;
   kunteksto.fillStyle = koloro;
   kunteksto.beginPath();
   kunteksto.moveTo(cX, cy - r);
@@ -83,7 +83,7 @@ export function kreiVestanTeksajxon( o: Vesto,
   kunteksto.fillStyle = A;
   kunteksto.fillRect(0, 0o726, 0o400, 0o32);
   kunteksto.fillStyle = A;
-  kunteksto.globalAlpha = 13/32;
+  kunteksto.globalAlpha = 0o15/0o40;
   kunteksto.fillRect(0, 0o704, 0o400, 0o6);
   kunteksto.globalAlpha = 0o1;
 
@@ -103,7 +103,7 @@ export function kreiVestanTeksajxon( o: Vesto,
     for ( let i = 0; i < 0o3; i++ ) {
       rombo(kunteksto, 0o200, 0o120 + i * 0o156, 0o36, 0o50, null, A);
     }
-    kunteksto.globalAlpha = 2/8;
+    kunteksto.globalAlpha = 0o2/0o10;
     kunteksto.fillStyle = A;
     for ( let i = 0; i < 0o6; i++ ) {
       for ( let j = 0; j < 0o3; j++ ) {
@@ -152,7 +152,7 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   kunteksto.moveTo(0o50, 0o156); kunteksto.lineTo(0o140, 0o156);
   kunteksto.lineTo(0o150, 0o240); kunteksto.lineTo(0o40, 0o240);
   kunteksto.closePath();
-  kunteksto.globalAlpha = 59/64;
+  kunteksto.globalAlpha = 0o73/0o100;
   kunteksto.fill();
   kunteksto.globalAlpha = 0o1;
 
@@ -220,15 +220,15 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
 }
 
 // kreiFolianManikGeometrion — Kreu foli-forman manikan geometrion por NPC-oj.
-//     @param skalo ( number = 29/32 ) - Skala faktoro por la geometrio.
-export function kreiFolianManikGeometrion(skalo: number = 29/32): THREE.ExtrudeGeometry {
+//     @param skalo ( number = 0o35/0o40 ) - Skala faktoro por la geometrio.
+export function kreiFolianManikGeometrion(skalo: number = 0o35/0o40): THREE.ExtrudeGeometry {
   const formo = new THREE.Shape();
   formo.moveTo(0, 0);
-  formo.quadraticCurveTo(19/64, 7/32, 21/32, 1/16);
-  formo.quadraticCurveTo(23/32, 0, 21/32, -1/64);
-  formo.quadraticCurveTo(19/64, -5/32, 0, 0);
+  formo.quadraticCurveTo(0o23/0o100, 0o7/0o40, 0o25/0o40, 0o1/0o20);
+  formo.quadraticCurveTo(0o27/0o40, 0, 0o25/0o40, -0o1/0o100);
+  formo.quadraticCurveTo(0o23/0o100, -0o5/0o40, 0, 0);
   return new THREE.ExtrudeGeometry(formo, {
-    depth: 1/32,
+    depth: 0o1/0o40,
     bevelEnabled: false,
     curveSegments: 0o10,
   }).scale(skalo, skalo, skalo);

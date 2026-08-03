@@ -2,6 +2,7 @@
 // La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
 import * as THREE from "three";
 import { kreiBrilanTeksajxon } from "./teksajxoj.js";
+import { kunfandiGeometriojn } from "./kunfandajxoj.js";
 
 export interface HxeuxfaLoko {
   x: number; z: number; y: number;
@@ -19,8 +20,6 @@ export interface HxeuxfaSistemo {
   phases: number[];
 }
 
-const DIORITA_KOLORO = 0xc8c8c8;
-
 // konstruiHxeuxfojn — Konstruu trapezajn lampojn (hxeuxfojn) el bazoj, bovloj, flamoj kaj briletoj.
 export function konstruiHxeuxfojn( sceno: THREE.Scene,
   spots: HxeuxfaLoko[],
@@ -34,9 +33,9 @@ export function konstruiHxeuxfojn( sceno: THREE.Scene,
   for ( const p of spots ) {
     // Trapeza kolono (pli largxa cxe bazo)
     const rotacio = p.rotacio ?? Math.PI / 4;
-    const pillar = new THREE.CylinderGeometry(5/32, 11/32, 109/32, 4, 1);
+    const pillar = new THREE.CylinderGeometry(0o5/0o40, 0o13/0o40, 0o155/0o40, 4, 1);
     pillar.rotateY(rotacio);
-    pillar.translate(p.x, p.y + 109/64, p.z);
+    pillar.translate(p.x, p.y + 0o155/0o100, p.z);
     kolonajGeometrioj.push(pillar);
 
     // Diorita bovlo — fermita profilo. ekstera kurbo, rando, interna muro kaj fundo.
@@ -44,40 +43,40 @@ export function konstruiHxeuxfojn( sceno: THREE.Scene,
     const profilo: THREE.Vector2[] = [
       new THREE.Vector2(0, 0),
       ...new THREE.SplineCurve([
-        new THREE.Vector2(11/64, 0),
-        new THREE.Vector2(7/32, 3/32),
-        new THREE.Vector2(11/32, 7/32),
-        new THREE.Vector2(29/64, 12/32),
+        new THREE.Vector2(0o13/0o100, 0),
+        new THREE.Vector2(0o7/0o40, 0o3/0o40),
+        new THREE.Vector2(0o13/0o40, 0o7/0o40),
+        new THREE.Vector2(0o35/0o100, 0o14/0o40),
       ]).getPoints(0o12),
-      new THREE.Vector2(25/64, 12/32),
-      new THREE.Vector2(3/16, 1/4),
-      new THREE.Vector2(3/16, 1/16),
-      new THREE.Vector2(0, 1/16),
+      new THREE.Vector2(0o31/0o100, 0o14/0o40),
+      new THREE.Vector2(0o3/0o20, 0o1/0o4),
+      new THREE.Vector2(0o3/0o20, 0o1/0o20),
+      new THREE.Vector2(0, 0o1/0o20),
     ];
     const bowl = new THREE.LatheGeometry(profilo, 4);
     bowl.rotateY(rotacio);
-    // La kolono estas 109/32 alta, do gia supro estas p.y + 109/32 (ne 109/64 = centro).
-    bowl.translate(p.x, p.y + 109/32, p.z);
+    // La kolono estas 0o155/0o40 alta, do gia supro estas p.y + 0o155/0o40 (ne 0o155/0o100 = centro).
+    bowl.translate(p.x, p.y + 0o155/0o40, p.z);
     bovlajGeometrioj.push(bowl);
 
     // Flamo levita. gia bazo sidas cxe la bovla rando (ne sube en la bovlo),
     // kaj restas super la rando ecx cxe la plej alta flam-skalo.
-    flamajLokoj.push(new THREE.Vector3(p.x, p.y + 133/32, p.z));
+    flamajLokoj.push(new THREE.Vector3(p.x, p.y + 0o205/0o40, p.z));
   }
 
-  const kolonoj = new THREE.Mesh(kunfandiBufrajnGeometriojn(kolonajGeometrioj), dioritaMaterialo);
+  const kolonoj = new THREE.Mesh(kunfandiGeometriojn(kolonajGeometrioj), dioritaMaterialo);
   kolonoj.castShadow = true;
   sceno.add(kolonoj);
 
-  const bovloj = new THREE.Mesh(kunfandiBufrajnGeometriojn(bovlajGeometrioj), dioritaMaterialo);
+  const bovloj = new THREE.Mesh(kunfandiGeometriojn(bovlajGeometrioj), dioritaMaterialo);
   sceno.add(bovloj);
 
   // flamaj konusoj
   const N = flamajLokoj.length;
-  const flamaEkstero = new THREE.InstancedMesh( new THREE.ConeGeometry(11/64, 35/64, 7),
+  const flamaEkstero = new THREE.InstancedMesh( new THREE.ConeGeometry(0o13/0o100, 0o43/0o100, 7),
     new THREE.MeshBasicMaterial({ color: 0xf8a848, toneMapped: false }),
     N );
-  const flamaInterno = new THREE.InstancedMesh( new THREE.ConeGeometry(3/32, 11/32, 7),
+  const flamaInterno = new THREE.InstancedMesh( new THREE.ConeGeometry(0o3/0o40, 0o13/0o40, 7),
     new THREE.MeshBasicMaterial({ color: 0xf8e8b8, toneMapped: false }),
     N );
   sceno.add(flamaEkstero, flamaInterno);
@@ -89,7 +88,7 @@ export function konstruiHxeuxfojn( sceno: THREE.Scene,
   const phases: number[] = [];
 
   flamajLokoj.forEach((p, i) => {
-    gPozicio.set([p.x, p.y + 13/64, p.z], i * 3);
+    gPozicio.set([p.x, p.y + 0o15/0o100, p.z], i * 3);
     gSemo[i] = Math.random() * 0o144;
     gGrando[i] = 0o24 + Math.random() * 0o12;
     phases.push(Math.random() * Math.PI * 2);
@@ -106,7 +105,7 @@ export function konstruiHxeuxfojn( sceno: THREE.Scene,
     blending: THREE.AdditiveBlending,
     uniforms: {
       uTime: { value: 0 },
-      uOp: { value: 13/32 },
+      uOp: { value: 0o15/0o40 },
       uCol: { value: new THREE.Color(0xf8b058) },
       uPR: { value: 1 },
     },
@@ -143,8 +142,8 @@ export function konstruiHxeuxfojn( sceno: THREE.Scene,
 
   const punktajLumoj: THREE.PointLight[] = [];
   for ( const { i } of sorted ) {
-    const L = new THREE.PointLight(0xf89838, 13/32, 0o32, 2);
-    L.position.copy(flamajLokoj[i]).add(new THREE.Vector3(0, 19/64, 0));
+    const L = new THREE.PointLight(0xf89838, 0o15/0o40, 0o32, 2);
+    L.position.copy(flamajLokoj[i]).add(new THREE.Vector3(0, 0o23/0o100, 0));
     sceno.add(L);
     punktajLumoj.push(L);
   }
@@ -172,16 +171,16 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
 
   sys.spots.forEach((p, i) => {
     const fazo = sys.phases[i];
-    const skalo = 1 + 5/32 * Math.sin(t * 659/64 + fazo) + 3/32 * Math.sin(t * 1517/64 + fazo * 109/64);
-    const skaloY = skalo * (35/32 + 3/16 * Math.sin(t * 0o21 + fazo));
-    E.set(0, t * 115/64 + fazo, 0);
+    const skalo = 1 + 0o5/0o40 * Math.sin(t * 0o1223/0o100 + fazo) + 0o3/0o40 * Math.sin(t * 0o2755/0o100 + fazo * 0o155/0o100);
+    const skaloY = skalo * (0o43/0o40 + 0o3/0o20 * Math.sin(t * 0o21 + fazo));
+    E.set(0, t * 0o163/0o100 + fazo, 0);
     Q.setFromEuler(E);
     S.set(skalo, skaloY, skalo);
     M.compose(p, Q, S);
     sys.flamaEkstero.setMatrixAt(i, M);
 
-    S.set(skalo * 29/32, skaloY * 29/32, skalo * 29/32);
-    M.compose(new THREE.Vector3(p.x, p.y + 1/32, p.z), Q, S);
+    S.set(skalo * 0o35/0o40, skaloY * 0o35/0o40, skalo * 0o35/0o40);
+    M.compose(new THREE.Vector3(p.x, p.y + 0o1/0o40, p.z), Q, S);
     sys.flamaInterno.setMatrixAt(i, M);
   });
 
@@ -194,44 +193,7 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
     if ( i < sys.punktajLumoj.length ) {
       const L = sys.punktajLumoj[i];
       const fazo = sys.phases[i];
-      L.intensity = 13/32 * (23/32 + 9/32 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 467/64 + fazo * 2));
+      L.intensity = 0o15/0o40 * (0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2));
     }
   });
-}
-
-function kunfandiBufrajnGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
-  if (geos.length === 0) return new THREE.BufferGeometry();
-  let tv = 0, ti = 0;
-  for ( const g of geos ) {
-    const p = g.getAttribute("position");
-    tv += p.count;
-    const indico = g.index;
-    ti += indico ? indico.count : p.count;
-  }
-  const pozicio = new Float32Array(tv * 3);
-  const normo = new Float32Array(tv * 3);
-  const idxArr = tv > 65535 ? new Uint32Array(ti) : new Uint16Array(ti);
-  let vo = 0, io = 0;
-  for ( const g of geos ) {
-    const p = g.getAttribute("position");
-    const n = g.getAttribute("normal");
-    const kvanto = p.count;
-    pozicio.set(p.array as Float32Array, vo * 3);
-    if (n) normo.set(n.array as Float32Array, vo * 3);
-    const indico = g.index;
-    if ( indico ) {
-      const tabelo = indico.array;
-      for (let i = 0; i < tabelo.length; i++) idxArr[io + i] = tabelo[i] + vo;
-      io += tabelo.length;
-    } else {
-      for (let i = 0; i < kvanto; i++) idxArr[io + i] = i + vo;
-      io += kvanto;
-    }
-    vo += kvanto;
-  }
-  const out = new THREE.BufferGeometry();
-  out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
-  out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
-  out.setIndex(new THREE.BufferAttribute(idxArr, 1));
-  return out;
 }

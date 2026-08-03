@@ -1,6 +1,7 @@
 // Doko-modulo — vojaj etendoj kun subakvaj subtenoj
 import * as THREE from "three";
 import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "./teksajxoj.js";
+import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "./materialoj.js";
 
 export interface Doko {
   group: THREE.Group;
@@ -57,15 +58,15 @@ export function konstruiDokon(
   profundo = 0o14
 ): Doko {
   const group = new THREE.Group();
-  const vojaLargho = 14/8;
+  const vojaLargho = 0o16/0o10;
   const platformDepth = profundo;
-  const dikeco = 2/8;
+  const dikeco = 0o2/0o10;
   // Rondigita fronto — la akva pinto de la doko.
-  const antaŭaRadiuso = 4/8;
+  const antaŭaRadiuso = 0o4/0o10;
   const dioritaTeksajxo = kreiDioritanTeksajxon();
   const andezitaTeksajxo = kreiAndezitanTeksajxon();
-  const diorito = new THREE.MeshStandardMaterial({ map: dioritaTeksajxo, color: 0xc8c8c8, roughness: 3/16, metalness: 1/64 });
-  const andezito = new THREE.MeshStandardMaterial({ map: andezitaTeksajxo, color: 0x586860, roughness: 51/64 });
+  const diorito = kreiDioritanMaterialon( dioritaTeksajxo );
+  const andezito = kreiAndezitanMaterialon( andezitaTeksajxo );
 
   // La doko estas mallarĝa rekta etendo de la vojo; la akva pinto rondiĝas.
   const surfacaGeometrio = new THREE.ExtrudeGeometry(
@@ -77,13 +78,13 @@ export function konstruiDokon(
   surfaco.castShadow = surfaco.receiveShadow = true;
   group.add(surfaco);
 
-  // Andezita kadro (konstanta strio 4/8 ĉirkaŭ la tuta perimetro) kun malalta
+  // Andezita kadro (konstanta strio 0o4/0o10 ĉirkaŭ la tuta perimetro) kun malalta
   // bordero levita super la deko — samstila kiel la voja andezita rando.
   const rando = new THREE.Mesh(
-    kreiDokanKadron(vojaLargho, platformDepth, antaŭaRadiuso, 4/8, dikeco + 1/16),
+    kreiDokanKadron(vojaLargho, platformDepth, antaŭaRadiuso, 0o4/0o10, dikeco + 0o1/0o20),
     andezito
   );
-  rando.position.y = -1/32;
+  rando.position.y = -0o1/0o40;
   rando.castShadow = rando.receiveShadow = true;
   group.add(rando);
 
@@ -95,24 +96,24 @@ export function konstruiDokon(
   const cosR = Math.cos( direkto ), sinR = Math.sin( direkto );
   const landX = x + sinR * duonL, landZ = z + cosR * duonL;
   let vojaY = heightFn( x, z );
-  for ( const ofseto of [ -6/8, 0, 6/8 ] ) {
+  for ( const ofseto of [ -0o6/0o10, 0, 0o6/0o10 ] ) {
     vojaY = Math.max( vojaY, heightFn( landX + cosR * ofseto, landZ - sinR * ofseto ) );
   }
   const akvaY = waterFn( x );
   const fostaAlto = Math.max( 1, vojaY - akvaY );
-  const fostoX = vojaLargho / 2 - 1/8;
+  const fostoX = vojaLargho / 2 - 0o1/0o10;
   // La antaŭa vico sidas sub la rekta parto de la rondigita pinto.
-  const frontaZ = -( platformDepth / 2 - antaŭaRadiuso - 1/8 );
-  const malantaŭaZ = platformDepth / 2 - 1/8;
+  const frontaZ = -( platformDepth / 2 - antaŭaRadiuso - 0o1/0o10 );
+  const malantaŭaZ = platformDepth / 2 - 0o1/0o10;
   for ( const localZ of [ frontaZ, malantaŭaZ ] ) {
     for ( const localX of [ -fostoX, fostoX ] ) {
       // Nur metu foston kie la tereno estas sub la platformo (akvo/deklivo); sur
       // la bordo la platformo sidas rekte sur la tero — neniu fosto en la tero.
       const mX = x + cosR * localX + sinR * localZ;
       const mZ = z - sinR * localX + cosR * localZ;
-      if ( heightFn( mX, mZ ) >= vojaY - 1/64 ) continue;
+      if ( heightFn( mX, mZ ) >= vojaY - 0o1/0o100 ) continue;
       const fosto = new THREE.Mesh(
-        new THREE.CylinderGeometry( 3/16, 5/16, fostaAlto, 6 ),
+        new THREE.CylinderGeometry( 0o3/0o20, 0o5/0o20, fostaAlto, 6 ),
         andezito
       );
       fosto.position.set( localX, ( akvaY - vojaY ) / 2, localZ );

@@ -12,16 +12,14 @@ export const NYAM = [ 0, 190, 370, 510, 690, 860, 1030, 1200, 1390, 1560 ].map(c
 
 export const PENT_A = [ 0, 200, 400, 700, 900, 1200, 1400, 1600, 1900, 2100, 2400 ].map(c => 45 + c / 100);
 
-// ─── Seeded PRNG ( mulberry32 ) ──────────────────────────
+// ─── Seeded PRNG ( mulberry32 ) — la komuna modulo en ../hazardo.js ────────
 
+import { kreiHazardanGenerilon } from "../hazardo.js";
+
+// mulberry — La norma mulberry32-pliigo ( 0x6D2B79F5 ), por ke la kantoj
+// konservu siajn ekzaktajn notajn sekvencojn.
 export function mulberry(seed: number) {
-  let s = seed >>> 0;
-  return () => {
-    s = (s + 0x6D2B79F5) | 0;
-    let t = Math.imul(s ^ (s >>> 15), 1 | s);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
+  return kreiHazardanGenerilon( seed );
 }
 
 // ─── Noise buffer cache ──────────────────────────────────
@@ -76,7 +74,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   vib.frequency.value = 5.2;
   const vg = ctx.createGain();
   vg.gain.setValueAtTime(0, t);
-  vg.gain.linearRampToValueAtTime(f * 0.005, t + Math.min(4/8, dur * 4/8));
+  vg.gain.linearRampToValueAtTime(f * 0.005, t + Math.min(0o4/0o10, dur * 0o4/0o10));
   vib.connect(vg);
   vg.connect(o.frequency);
 
@@ -161,7 +159,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   sub.type = "sine";
   sub.frequency.value = f;
   const sg = ctx.createGain();
-  sg.gain.value = toot ? 0.15 : 4/8;
+  sg.gain.value = toot ? 0.15 : 0o4/0o10;
 
   const lp = ctx.createBiquadFilter();
   lp.type = "lowpass";
@@ -242,7 +240,7 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
     bp.Q.value = 6.5;
     const g = ctx.createGain();
     let v = (0.09 + Math.random() * 0.05) * vel;
-    if (opts.cresc) v *= 0.35 + 6/8 * (i / ticks);
+    if (opts.cresc) v *= 0.35 + 0o6/0o10 * (i / ticks);
     g.gain.setValueAtTime(v, tt);
     g.gain.exponentialRampToValueAtTime(0.001, tt + 0.04);
     n.connect(bp);
@@ -320,11 +318,11 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
 
   const ratios = [ 1, 2.756, 5.404, 8.933 ];
   const gains = [ 1, 0.3, 0.13, 0.05 ];
-  const decs = [ 4.6, 1.7, 6/8, 0.38 ];
+  const decs = [ 4.6, 1.7, 0o6/0o10, 0.38 ];
   for (let i = 0; i < 4; i++) {
     const o = ctx.createOscillator();
     o.type = "sine";
-    o.frequency.value = f * ratios[i] * (1 + (Math.random() - 4/8) * 0.0016);
+    o.frequency.value = f * ratios[i] * (1 + (Math.random() - 0o4/0o10) * 0.0016);
     const og = ctx.createGain();
     og.gain.setValueAtTime(gains[i], t);
     og.gain.exponentialRampToValueAtTime(0.0001, t + decs[i]);
@@ -404,9 +402,9 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   for (let i = 0; i < 4; i++) {
     const o = ctx.createOscillator();
     o.type = "sine";
-    o.frequency.value = f * ratios[i] * (1 + (Math.random() - 4/8) * 0.003);
+    o.frequency.value = f * ratios[i] * (1 + (Math.random() - 0o4/0o10) * 0.003);
     const og = ctx.createGain();
-    const dd = decs[i] * (6/8 + vel * 0.45);
+    const dd = decs[i] * (0o6/0o10 + vel * 0.45);
     og.gain.setValueAtTime(gains[i], t);
     og.gain.exponentialRampToValueAtTime(0.0001, t + dd);
     o.connect(og);

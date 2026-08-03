@@ -85,8 +85,8 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 }
 .helpa-listo { padding:var(--អារេង); }
 /* One reveal language for every overlay. */
-#karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#balailo.montri { opacity:1; }
-#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri { pointer-events:auto; }
+#karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#balailo.montri { opacity:1; }
+#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri { pointer-events:auto; }
 /* Left-aligned reading text, against the linked stylesheet's centered default. */
 .helpa-listo,.menuIdenteco,.menuIdenteco h1,.menuIdenteco p,#muzikoGrupo,#muzikoEtikedo { text-align:start; }
 
@@ -145,12 +145,17 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 /* La flosaj butonoj uzas la flosantan varianton ( .n2tase ) de la ekstera stilfolio:
    frostigita fono kun fon-malklariĝo, ne la duontravidebla butono. Ĉi tie restas nur
    la geometrio kaj la ora ikona koloro. */
-#navButono,.mobBut {
+#navButono,.mobBut,#informButono {
   color:var(--gold); font-size:18px; cursor:pointer; touch-action:manipulation;
   inline-size:52px; block-size:52px;
 }
 #navButono {
   position:fixed; z-index:7; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab));
+}
+/* La informa butono flosas supre-maldekstre kun la samaj angulaj marĝenoj
+   kiel la naviga butono ( var(--អារេងព៏) + safe-area ). */
+#informButono {
+  position:fixed; z-index:7; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(var(--អារេងព៏) + var(--sat));
 }
 /* Logikaj enliniaj/blokaj ecoj sekvas la skrib-reĝimon de la rotaciita panelo. */
 #navPopUp {
@@ -163,9 +168,20 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
   border-radius:var(--អិត្ភេពឺ);
 }
 #navPopUp.montri { transform:none; }
+/* La informo-panelo: sama sen-fona envolvaĵo kiel la naviga pop-up, sed
+   malfermiĝas sub la informa butono ( supre-maldekstre ). Fiksa larĝo
+   ( anstataŭ max-content ): la multi-karta listo devigus la panelon al la
+   tuta ekrano, kun malplenaj flankoj ĉe ĉiu vico. */
+#informo {
+  position:fixed; z-index:6; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(72px + var(--sat));
+  display:block; inline-size:min(640px, calc(100vw - 32px)); max-block-size:calc(100vh - 96px);
+  overflow:auto; opacity:0; pointer-events:none; transform:translateY(8px);
+  transition:opacity .25s,transform .25s;
+  border-radius:var(--អិត្ភេពឺ);
+}
+#informo.montri { transform:none; }
 .menuPanel {
   position:relative;
-  padding:var(--អារេងព៏);
   background:
     linear-gradient(144deg,var(--តានេក២),var(--តានេក) 48%,transparent),
     linear-gradient(176deg,var(--panel),var(--panel)),
@@ -194,6 +210,12 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 /* Wardrobe cards and loading screen. */
 /* The linked stylesheet's universal gap (8px) already spaces these cards. */
 .vestaVico { display:flex; justify-content:center; flex-wrap:wrap; }
+/* La inform-listo havas multajn kartojn, do ĝi plenigas la panelon. Flex-wrap
+   ( kiel la vesta vico ) adaptiĝas al ĉiuj skrib-reĝimoj — la krado sekvas la
+   skrib-direkton kaj rompiĝis en vertikalaj reĝimoj ( aih/ja ) — kaj la kartoj
+   kreskas por forigi la flankajn malplenojn. */
+#informo .vestaVico { display:flex; flex-wrap:wrap; justify-content:center; }
+#informo .vestaKardo { flex:1 1 128px; inline-size:128px; }
 /* Flex column so the linked sheet's universal gap (8px) spaces the canvas and the name. */
 .vestaKardo { display:flex; flex-direction:column; inline-size:128px; padding:var(--អារេង); border-color:var(--gold-soft); cursor:pointer; transition:transform .25s,border-color .25s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--gold); }
@@ -249,6 +271,7 @@ body.tuŝa #mobKontroloj { display:block; }
   /* La karto malfermiĝas maldekstre kaj cedas la dekstran kolumnon al la butono. */
   #karto { right:calc(var(--អារេងព៏) + 52px + var(--អារេងមិ)); inline-size:auto; max-block-size:44vh; overflow:auto; }
   #navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100vw - 32px); max-block-size:calc(100vh - 92px); }
+  #informo { max-block-size:calc(100vh - 92px); }
   .menuAzioj { grid-template-columns:1fr 1fr; }
 }
 

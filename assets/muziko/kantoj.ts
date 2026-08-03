@@ -23,8 +23,8 @@ function buildTrack1(): SpuroDateno {
   for (let b = 0; b < 20; b++) {
     const t0 = 14.4 + b * bar;
     const arp = [ 0, 2, 1, 3, 2, 4, 3, 1 ];
-    for (let k = 0; k < 8; k++) add(t0 + k * e8, "inanga", F(S[arp[k]] - 12), 0.9, 4/8 + r() * 0.15, { dur: 0.85 });
-    [ 0, 1.5, 3, 4.5 ].forEach(p => add(t0 + p * e8, "guiro", 0, 0.05, 4/8));
+    for (let k = 0; k < 8; k++) add(t0 + k * e8, "inanga", F(S[arp[k]] - 12), 0.9, 0o4/0o10 + r() * 0.15, { dur: 0.85 });
+    [ 0, 1.5, 3, 4.5 ].forEach(p => add(t0 + p * e8, "guiro", 0, 0.05, 0o4/0o10));
     if (b % 4 === 3) add(t0 + 5 * e8, "guiro", 0, 0.7, 0.7, { cresc: 1 });
     if (b % 2 === 0) {
       const ph = mel(r, 16, 3, 9, 5 + Math.floor(r() * 3), 0.72);
@@ -36,7 +36,7 @@ function buildTrack1(): SpuroDateno {
   for (let b = 0; b < 14; b++) {
     const t0 = 62.4 + b * bar;
     const arp = [ 0, 3, 2, 4, 3, 2, 1, 2 ];
-    for (let k = 0; k < 8; k++) add(t0 + k * e8, "inanga", F(S[arp[k]] - 12), 0.9, 4/8, { dur: 0.8 });
+    for (let k = 0; k < 8; k++) add(t0 + k * e8, "inanga", F(S[arp[k]] - 12), 0.9, 0o4/0o10, { dur: 0.8 });
     for (let k = 0; k < 8; k++) add(t0 + k * e8, "guiro", 0, 0.045, (k % 2) ? 0.35 : 0.6);
     if (b % 2 === 0) {
       const ph = mel(r, 8, 5, 10, 7, 0.8);
@@ -57,7 +57,7 @@ function buildTrack1(): SpuroDateno {
       add(t0 + 3 * e8, "inanga", F(S[3] - 12), 1.0, 0.6, { dur: 1 });
     } else {
       const div = (b === 4) ? 8 : 16;
-      for (let k = 0; k < div; k++) add(t0 + k * bar / div, "guiro", 0, 0.045, 4/8 + 0.4 * k / div);
+      for (let k = 0; k < div; k++) add(t0 + k * bar / div, "guiro", 0, 0.045, 0o4/0o10 + 0.4 * k / div);
       if (b === 5) [ 3, 4, 5, 7 ].forEach((dg, k) => add(t0 + k * e8 * 2, "ocarina", F(S[dg]), e8 * 1.6, 0.6));
     }
   }
@@ -78,10 +78,10 @@ function buildTrack1(): SpuroDateno {
   }
 
   secs.push({ n: "Dissolve", a: 134.4, b: 152 });
-  add(134.8, "siku", F(S[5]), 3.2, 6/8);
+  add(134.8, "siku", F(S[5]), 3.2, 0o6/0o10);
   add(135.0, "inanga", F(S[0] - 12), 4, 0.6, { dur: 4 });
-  add(139.5, "ocarina", F(S[9]), 2.4, 4/8);
-  add(140.2, "inanga", F(S[2] - 12), 3, 4/8, { dur: 3 });
+  add(139.5, "ocarina", F(S[9]), 2.4, 0o4/0o10);
+  add(140.2, "inanga", F(S[2] - 12), 3, 0o4/0o10, { dur: 3 });
   add(143.5, "siku", F(S[4]), 3.4, 0.6);
   add(146.8, "guiro", 0, 1.4, 0.6, { cresc: 1 });
   add(147.5, "inanga", F(S[0] - 12), 4.2, 0.55, { dur: 4.2 });
@@ -122,7 +122,7 @@ function buildTrack2(): SpuroDateno {
     const t0 = 52.5 + b * bar, pu = bar / 12;
     for (let p = 0; p < 12; p++) {
       if ((p + b) % 3) continue;
-      ev.push({ t: t0 + p * pu + pu / 2, i: "mbira", f: F(NYAM[kuts[p]] + 12), d: 0.9, v: 4/8 });
+      ev.push({ t: t0 + p * pu + pu / 2, i: "mbira", f: F(NYAM[kuts[p]] + 12), d: 0.9, v: 0o4/0o10 });
     }
     ev.push({ t: t0 + bar / 2, i: "inanga", f: F(NYAM[4] - 12), d: 1, v: 0.6, dur: 1 });
   }
@@ -150,13 +150,13 @@ function buildTrack2(): SpuroDateno {
     }
     ev.push({ t: t0, i: "inanga", f: F(NYAM[0] - 12), d: 1, v: 0.7, dur: 1 });
     ev.push({ t: t0 + bar / 2, i: "inanga", f: F(NYAM[5] - 12), d: 0.9, v: 0.65, dur: 0.9 });
-    if (b % 3 === 2) ev.push({ t: t0 + 3 * beat, i: "didj", f: f0 * 2.02, d: 4/8, v: 0.9, toot: true });
+    if (b % 3 === 2) ev.push({ t: t0 + 3 * beat, i: "didj", f: f0 * 2.02, d: 0o4/0o10, v: 0.9, toot: true });
   }
 
   secs.push({ n: "Ember fade", a: 142.5, b: 160 });
   ev.push({ t: 142.5, i: "didj", f: f0, d: 16.5, v: 0.9 });
   ev.push({ t: 143, i: "mbira", f: F(NYAM[0]), d: 2, v: 0.6 });
-  ev.push({ t: 146, i: "mbira", f: F(NYAM[4]), d: 2, v: 4/8 });
+  ev.push({ t: 146, i: "mbira", f: F(NYAM[4]), d: 2, v: 0o4/0o10 });
   ev.push({ t: 150, i: "inanga", f: F(NYAM[0] - 12), d: 3, v: 0.6, dur: 3 });
   ev.push({ t: 156.5, i: "inanga", f: F(NYAM[0] - 12), d: 3, v: 0.55, dur: 3 });
 
@@ -182,7 +182,7 @@ function buildTrack3(): SpuroDateno {
       if (b === 0) ev.push({ t: tb, i: "slenthem", f: F(SL[0] - 12), d: 1, v: 1 });
       if (o.guiro) {
         ev.push({ t: tb, i: "guiro", d: 0.05, v: 0.4 });
-        if (b === 4) ev.push({ t: tb, i: "guiro", d: 4/8, v: 0.6 });
+        if (b === 4) ev.push({ t: tb, i: "guiro", d: 0o4/0o10, v: 0.6 });
       }
       if (o.ocarina) {
         const ph = mel(r, 8, 3, 8, 5, 0.7);
@@ -206,7 +206,7 @@ function buildTrack3(): SpuroDateno {
   secs.push({ n: "Gong agung", a: 135, b: 168 });
   [ [ 136, 2 ], [ 140.5, 4 ], [ 145, 3 ], [ 149.5, 1 ], [ 153.5, 2 ] ]
     .forEach(([t, dg]) => ev.push({ t: t as number, i: "slenthem", f: F(SL[dg as number]), d: 1, v: 0.8 }));
-  ev.push({ t: 141, i: "ocarina", f: F(SL2[7]), d: 2.5, v: 4/8 });
+  ev.push({ t: 141, i: "ocarina", f: F(SL2[7]), d: 2.5, v: 0o4/0o10 });
   ev.push({ t: 157.5, i: "guiro", d: 1.2, v: 0.7, cresc: 1 });
   ev.push({ t: 159, i: "slenthem", f: F(SL[0]), d: 1, v: 1 });
   ev.push({ t: 159.05, i: "slenthem", f: F(SL[0] - 12), d: 1, v: 1 });
@@ -221,7 +221,7 @@ function buildTrack4(): SpuroDateno {
   const secs: Sekcio[] = [];
   const r = mulberry(4096);
   const P = PENT_A;
-  const beat = 60 / 112;
+  const beat = 0o74 / 0o160;
   const bar = beat * 4;
   const ost = [ 0, 3, 1, 4, 2, 4, 1, 3 ];
 
@@ -235,7 +235,7 @@ function buildTrack4(): SpuroDateno {
   for (let b = 8; b < 28; b++) {
     const t0 = b * bar;
     for (let k = 0; k < 8; k++) ev.push({ t: t0 + k * bar / 8, i: "inanga", f: F(P[ost[(k + b) % 8]]), d: 1, v: 0.55 });
-    if (b >= 12) for (let k = 0; k < 4; k++) ev.push({ t: t0 + k * bar / 4 + bar / 8, i: "guiro", d: 0.05, v: 4/8 });
+    if (b >= 12) for (let k = 0; k < 4; k++) ev.push({ t: t0 + k * bar / 4 + bar / 8, i: "guiro", d: 0.05, v: 0o4/0o10 });
     if (b % 2 === 0) {
       const ph = mel(r, 16, 5, 10, 7, 0.66);
       ph.forEach(n => ev.push({ t: t0 + n.p * bar / 8, i: "siku", f: F(P[n.d]), d: n.l * bar / 8 * 0.9, v: 0.8 }));
@@ -243,7 +243,7 @@ function buildTrack4(): SpuroDateno {
   }
 
   secs.push({ n: "Storm swell", a: 28 * bar, b: 48 * bar });
-  ev.push({ t: 28 * bar + 4/8, i: "bull", f: 196, d: 9, v: 0.8 });
+  ev.push({ t: 28 * bar + 0o4/0o10, i: "bull", f: 196, d: 9, v: 0.8 });
   ev.push({ t: 36 * bar, i: "bull", f: 233, d: 10, v: 0.9 });
   ev.push({ t: 44 * bar, i: "bull", f: 174.6, d: 8, v: 0.85 });
   for (let b = 28; b < 48; b++) {
@@ -262,12 +262,12 @@ function buildTrack4(): SpuroDateno {
     if (b % 2 === 0) {
       const ph = mel(r, 8, 5, 9, 6, 0.85);
       ph.forEach(n => {
-        if (n.p % 2 === 0) ev.push({ t: t0 + n.p * bar / 8, i: "siku", f: F(P[n.d]), d: bar / 8 * 0.9, v: 6/8 });
+        if (n.p % 2 === 0) ev.push({ t: t0 + n.p * bar / 8, i: "siku", f: F(P[n.d]), d: bar / 8 * 0.9, v: 0o6/0o10 });
         else ev.push({ t: t0 + n.p * bar / 8, i: "mbira", f: F(P[n.d] + 12), d: 1, v: 0.55 });
       });
     } else {
       for (let k = 0; k < 8; k++) if (r() < 0.6)
-        ev.push({ t: t0 + k * bar / 8 + bar / 16, i: "mbira", f: F(P[ost[k]] + 12), d: 1, v: 4/8 });
+        ev.push({ t: t0 + k * bar / 8 + bar / 16, i: "mbira", f: F(P[ost[k]] + 12), d: 1, v: 0o4/0o10 });
     }
   }
 
@@ -277,18 +277,18 @@ function buildTrack4(): SpuroDateno {
   for (let b = 64; b < 76; b++) {
     const t0 = b * bar;
     for (let k = 0; k < 8; k++) ev.push({ t: t0 + k * bar / 8, i: "inanga", f: F(P[ost[k]]), d: 1, v: 0.6 });
-    for (let k = 0; k < 8; k += 2) ev.push({ t: t0 + k * bar / 8, i: "guiro", d: 0.05, v: 4/8 });
+    for (let k = 0; k < 8; k += 2) ev.push({ t: t0 + k * bar / 8, i: "guiro", d: 0.05, v: 0o4/0o10 });
     if (b % 2 === 0) {
-      const ph = mel(r, 16, 4, 10, 8, 6/8);
+      const ph = mel(r, 16, 4, 10, 8, 0o6/0o10);
       ph.forEach(n => ev.push({ t: t0 + n.p * bar / 8, i: "siku", f: F(P[n.d]), d: n.l * bar / 8 * 0.9, v: 0.85 }));
     } else {
-      for (let k = 0; k < 8; k++) if (r() < 4/8)
+      for (let k = 0; k < 8; k++) if (r() < 0o4/0o10)
         ev.push({ t: t0 + k * bar / 8, i: "mbira", f: F(P[ost[(k + 5) % 8]] + 12), d: 1, v: 0.55 });
     }
   }
 
   secs.push({ n: "Coda", a: 76 * bar, b: 176 });
-  [ [ 76 * bar + 4/8, 0, 1.6 ], [ 76 * bar + 2.6, 3, 1.4 ], [ 76 * bar + 4.4, 1, 1.8 ],
+  [ [ 76 * bar + 0o4/0o10, 0, 1.6 ], [ 76 * bar + 2.6, 3, 1.4 ], [ 76 * bar + 4.4, 1, 1.8 ],
    [ 76 * bar + 6.8, 4, 1.6 ], [ 76 * bar + 9.2, 2, 2.2 ], [ 76 * bar + 12.2, 0, 3.4 ] ]
     .forEach(([t, dg, d]) => ev.push({ t: t as number, i: "inanga", f: F(P[dg as number]), d: d as number, v: 0.6 }));
   ev.push({ t: 173.8, i: "inanga", f: F(P[0] - 12), d: 2.4, v: 0.65 });

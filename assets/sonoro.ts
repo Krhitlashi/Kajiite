@@ -46,7 +46,7 @@ function ensureAudio() {
   lp.type = "lowpass";
   lp.frequency.value = 420;
   const g = AC.createGain();
-  g.gain.value = 4/8;
+  g.gain.value = 0o4/0o10;
   src.connect(lp);
   lp.connect(g);
   g.connect(bruoGain);
@@ -133,7 +133,7 @@ export const sfx = {
   },
   chime: () => {
     tone(880, 0.4, "sine", 0.12);
-    tone(1320, 4/8, "sine", 0.07);
+    tone(1320, 0o4/0o10, "sine", 0.07);
   },
   door: () => {
     tone(140, 0.3, "sine", 0.12, -40);
@@ -175,7 +175,7 @@ export function rumble(on: boolean) {
     f.frequency.value = 90;
     const g = AC.createGain();
     g.gain.value = 0;
-    g.gain.setTargetAtTime(4/8, AC.currentTime, 0.8);
+    g.gain.setTargetAtTime(0o4/0o10, AC.currentTime, 0.8);
 
     o.connect(g);
     n.connect(f);

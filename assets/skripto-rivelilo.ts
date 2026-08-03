@@ -40,7 +40,7 @@ function glifaBloko( kunteksto: CanvasRenderingContext2D,
   kunteksto.strokeStyle = ink;
   kunteksto.lineCap = "round";
   kunteksto.lineJoin = "round";
-  kunteksto.lineWidth = w * 3/32;
+  kunteksto.lineWidth = w * 0o3/0o40;
 
   // Vertikala linia helpilo — desegnas de malsupre al supre kun laŭvola kurbo
   const vl = ( fortoX: number, y0: number, y1: number, bend: number ): void => {
@@ -48,7 +48,7 @@ function glifaBloko( kunteksto: CanvasRenderingContext2D,
     kunteksto.moveTo(x + w * fortoX, y + h * y0);
     kunteksto.quadraticCurveTo( x + w * (fortoX + bend),
       y + h * (y0 + y1) / 2,
-      x + w * (fortoX + bend * 13/64),
+      x + w * (fortoX + bend * 0o15/0o100),
       y + h * y1 );
     kunteksto.stroke();
   };
@@ -60,25 +60,25 @@ function glifaBloko( kunteksto: CanvasRenderingContext2D,
     kunteksto.quadraticCurveTo( x + w * (x0 + x1) / 2,
       y + h * (fY + dip),
       x + w * x1,
-      y + h * (fY + dip * 13/64) );
+      y + h * (fY + dip * 0o15/0o100) );
     kunteksto.stroke();
   };
 
-  if (hazardo() < 4/8) {
+  if (hazardo() < 0o4/0o10) {
     // Plena bloka modelo
     const n = 2 + ((hazardo() * 2) | 0);
     for ( let i = 0; i < n; i++ ) {
-      vl( 13/64 + i * 19/32 / Math.max(1, n - 1),
-        3/32, 23/32,
-        (hazardo() - 13/32) * 13/32 );
+      vl( 0o15/0o100 + i * 0o23/0o40 / Math.max(1, n - 1),
+        0o3/0o40, 0o27/0o40,
+        (hazardo() - 0o15/0o40) * 0o15/0o40 );
     }
-    if (hazardo() < 4/8) hk(1/8, 45/64, 5/32 + hazardo() * 3/32, 19/64);
+    if (hazardo() < 0o4/0o10) hk(0o1/0o10, 0o55/0o100, 0o5/0o40 + hazardo() * 0o3/0o40, 0o23/0o100);
   } else {
     // Maldekstre duono plena, dekstre nur supre (laŭ Description.md)
-    vl(9/64, 3/32, 23/32, (hazardo() - 13/32) * 19/64);
-    vl(5/16, 9/64, 45/64, (hazardo() - 13/32) * 19/64);
-    vl(19/32, 3/32, 13/32, (hazardo() - 13/32) * 13/64);
-    hk(29/64, 23/32, 15/64, 17/64);
+    vl(0o11/0o100, 0o3/0o40, 0o27/0o40, (hazardo() - 0o15/0o40) * 0o23/0o100);
+    vl(0o5/0o20, 0o11/0o100, 0o55/0o100, (hazardo() - 0o15/0o40) * 0o23/0o100);
+    vl(0o23/0o40, 0o3/0o40, 0o15/0o40, (hazardo() - 0o15/0o40) * 0o15/0o100);
+    hk(0o35/0o100, 0o27/0o40, 0o17/0o100, 0o21/0o100);
   }
 
   kunteksto.restore();
@@ -91,22 +91,22 @@ function desegniSkripto( kunteksto: CanvasRenderingContext2D,
 ): void {
   if ( frame ) {
     kunteksto.strokeStyle = frame;
-    kunteksto.lineWidth = Math.max(2, W * 1/64);
+    kunteksto.lineWidth = Math.max(2, W * 0o1/0o100);
     nesimetraRecto(kunteksto,
-      W * 1/16, H * 1/32,
-      W * 45/64, H * 6/8,
-      [W * 13/64, W * 3/32, W * 13/64, W * 3/32] );
+      W * 0o1/0o20, H * 0o1/0o40,
+      W * 0o55/0o100, H * 0o6/0o10,
+      [W * 0o15/0o100, W * 0o3/0o40, W * 0o15/0o100, W * 0o3/0o40] );
     kunteksto.stroke();
   }
 
-  const blokoLargho = W * 11/32;
-  const blokoAlto = blokoLargho * 12/8;
-  const interspaco = blokoAlto * 5/32;
-  const n = Math.max(2, Math.floor((H * 45/64) / (blokoAlto + interspaco)));
+  const blokoLargho = W * 0o13/0o40;
+  const blokoAlto = blokoLargho * 0o14/0o10;
+  const interspaco = blokoAlto * 0o5/0o40;
+  const n = Math.max(2, Math.floor((H * 0o55/0o100) / (blokoAlto + interspaco)));
 
-  let y = H * 47/64 - blokoAlto; // Unua glifo sidas malalte, legado supreniras
+  let y = H * 0o57/0o100 - blokoAlto; // Unua glifo sidas malalte, legado supreniras
   for ( let b = 0; b < n; b++ ) {
-    const cX = W / 2 + (hazardo() - 13/32) * W * 3/32;
+    const cX = W / 2 + (hazardo() - 0o15/0o40) * W * 0o3/0o40;
     glifaBloko(kunteksto, cX - blokoLargho / 2, y, blokoLargho, blokoAlto, ink);
     y -= (blokoAlto + interspaco);
   }
@@ -172,12 +172,12 @@ export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}
     // neniam estas premita (smush) al mikroskopa grando.
     const REF = 100;
     kunteksto.font = `${REF}px ${GAWEKIIF_FAMILIO}`;
-    const maksLargho = kanvasa.width * 44/50;
+    const maksLargho = kanvasa.width * 0o54/0o62;
     const largho100 = Math.max( 1, ...vortoj.map( v => kunteksto.measureText( v ).width ) );
     const fsLargho = REF * maksLargho / largho100;
-    const fsAlto = kanvasa.height / ( 45/64 + ( vortoj.length - 1 ) * 7/4 + 5/8 );
+    const fsAlto = kanvasa.height / ( 0o55/0o100 + ( vortoj.length - 1 ) * 0o7/0o4 + 0o5/0o10 );
     const fs = Math.max( 8, Math.min( fsLargho, fsAlto ) );
-    const linioAlto = fs * 7/4;
+    const linioAlto = fs * 0o7/0o4;
     // Vertikale centru la tutan vorto-stakon sur la kanvaso: la unua vorto
     // (plej malsupra) ne plu algluiĝas al la malsupro de la plato.
     const stakoCentro = kanvasa.height / 2;
@@ -208,8 +208,8 @@ export function generiGlifanStrion(height: number, ink: string): HTMLCanvasEleme
   const kunteksto = kanvasa.getContext("2d")!;
 
   const blokoLargho = 0o44;
-  const blokoAlto = blokoLargho * 12/8;
-  const interspaco = blokoAlto * 5/32;
+  const blokoAlto = blokoLargho * 0o14/0o10;
+  const interspaco = blokoAlto * 0o5/0o40;
   const n = Math.floor(height / (blokoAlto + interspaco));
 
   let y = height - 0o10;

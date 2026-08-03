@@ -2,18 +2,77 @@
 import * as THREE from "three";
 import { kreiSxelanTeksajxon, kreiLarikanSxelanTeksajxon, kreiFilikanTeksajxon, kreiPurpuranFilikanTeksajxon,
   kreiHerbErinanTeksajxon, kreiLikenanTeksajxon, kreiPurpuranFolianTeksajxon } from "./teksajxoj.js";
+import { kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson } from "./kunfandajxoj.js";
+import { kreiHazardanGenerilon } from "./hazardo.js";
 
 const hazard = (a: number, b: number): number => a + Math.random() * (b - a);
 
 // La purpuraj filik-trunkaj radiusoj ( supro kaj malsupro ) — uzataj kaj por
 // la trunka geometrio kaj por la fronda elir-radiuso, por ke ili ĉiam kongruu.
-const PURPURAJ_TRUNKAJ_RADIOJ = { supro: 3/16, malsupro: 5/16 };
+const PURPURAJ_TRUNKAJ_RADIOJ = { supro: 0o3/0o20, malsupro: 0o5/0o20 };
 
 export interface ArboMetado {
   x: number; z: number; h: number; s: number;
 }
 
+// Grovo — arbarera centro. La arboj kaj plantoj klasteriĝas ĉirkaŭ la centroj
+// anstataŭ formi uniforman ringon ĉirkaŭ la urbo — naturaj arbareroj kun
+// maldensaj paŭzoj inter ili.
+interface Grovo { x: number; z: number; r: number; }
+
+// kreiGrovojn — Disigu arbarerojn nature tra la mondo: hazardaj centroj kun
+// hazardaj radiusoj, nek egale spacigitaj nek en ringo. La centroj evitas la
+// urbon kaj la riveron; la arboj poste klasteriĝas ĉirkaŭ ili.
+function kreiGrovojn( kvanto: number, worldRadius: number,
+  hazardaGenerilo: () => number,
+  excludeRivers: (x: number, z: number) => boolean
+): Grovo[] {
+  const grovoj: Grovo[] = [];
+  let provoj = 0;
+  while ( grovoj.length < kvanto && provoj++ < 0o10000 ) {
+    const angulo = hazardaGenerilo() * Math.PI * 2;
+    const radiuso = 0o40 + ( worldRadius - 0o40 ) * Math.sqrt( hazardaGenerilo() );
+    const x = Math.sin( angulo ) * radiuso;
+    const z = Math.cos( angulo ) * radiuso;
+    if ( Math.hypot( x, z ) < 0o40 ) continue;      // la urbo restas malfermita
+    if ( excludeRivers( x, z )) continue;
+    if ( Math.abs( x ) > worldRadius + 0o24 || Math.abs( z ) > worldRadius + 0o24 ) continue;
+    let troProksima = false;
+    for ( const g of grovoj ) {
+      if ( Math.hypot( x - g.x, z - g.z ) < 0o50 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
+    grovoj.push( { x, z, r: 0o20 + hazardaGenerilo() * 0o60 } );
+  }
+  if ( grovoj.length === 0 ) grovoj.push( { x: 0o70, z: 0o70, r: 0o50 } );
+  return grovoj;
+}
+
+// kreiArbarerojn — Publika enirpunkto al kreiGrovojn: la samaj arbareroj estas
+// dividitaj inter la arbo-specoj, por ke betuloj, larikoj kaj Ĥŝakŝlefoj
+// miksiĝu en la samaj naturaj arbareroj.
+export function kreiArbarerojn( kvanto: number, worldRadius: number,
+  excludeRivers: (x: number, z: number) => boolean,
+  semo = 0o53104
+): Grovo[] {
+  const hazardaGenerilo = mulberry32( semo );
+  return kreiGrovojn( kvanto, worldRadius, hazardaGenerilo, excludeRivers );
+}
+
+// hazardaGrovaLoko — Hazarda punkto en hazarda arbarero. La dusuma disdono
+// ( sumo de du hazardoj ) densigas la centron kaj maldensigas la randon — la
+// natura arba klastero-formo, anstataŭ la uniforma disko de ringo.
+function hazardaGrovaLoko( hazardaGenerilo: () => number, grovoj: Grovo[] ): { x: number; z: number } {
+  const g = grovoj[ ( hazardaGenerilo() * grovoj.length ) | 0 ];
+  const angulo = hazardaGenerilo() * Math.PI * 2;
+  const disto = g.r * ( hazardaGenerilo() + hazardaGenerilo() - 1 );
+  return { x: g.x + Math.sin( angulo ) * disto, z: g.z + Math.cos( angulo ) * disto };
+}
+
 // metiArbojn — Metu arbojn en la arbaron, evitante riverojn, vojojn kaj konstruajxojn.
+// La arboj klasteriĝas en naturaj arbareroj ( grovoj ) anstataŭ en ringo
+// ĉirkaŭ la urbo. Se grovoj estas transdonataj, ili estas dividitaj inter la
+// arbo-specoj, por ke la arbareroj miksiĝu.
 //     @param heightFn ( funkcio ) - Tera alta funkcio.
 export function metiArbojn( heightFn: (x: number, z: number) => number,
   kvanto: number,
@@ -23,16 +82,19 @@ export function metiArbojn( heightFn: (x: number, z: number) => number,
   excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
   semo = 0o53104,
   evituArbojn: ArboMetado[] = [],
-  minimumaDistanco = 0o10
+  minimumaDistanco = 0o10,
+  grovoj: Grovo[] = []
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32( semo );
+  const arbareroj = grovoj.length ? grovoj
+    : kreiGrovojn( Math.max( 0o4, Math.floor( kvanto / 0o24 )), worldRadius, hazardaGenerilo, excludeRivers );
   const placed: ArboMetado[] = [];
   let provoj = 0;
 
   const bonaLoko = (x: number, z: number): boolean => {
     if (Math.hypot(x, z) < 0o20) return false;
     if (excludeRivers(x, z)) return false;
-    if (excludePaths(x, z, 36/8)) return false;
+    if (excludePaths(x, z, 0o44/0o10)) return false;
     if (excludeBuildings(x, z, 3)) return false;
     for ( const arbo of [ ...evituArbojn, ...placed ] ) {
       if ( Math.hypot( x - arbo.x, z - arbo.z ) < minimumaDistanco ) return false;
@@ -40,14 +102,13 @@ export function metiArbojn( heightFn: (x: number, z: number) => number,
     return true;
   };
 
-  while ( placed.length < kvanto && provoj++ < 0o3720 ) {
-    const angulo = hazardaGenerilo() * Math.PI * 2;
-    const radiuso = 0o30 + worldRadius * Math.sqrt(hazardaGenerilo());
-    const x = Math.sin(angulo) * radiuso;
-    const z = Math.cos(angulo) * radiuso;
+  while ( placed.length < kvanto && provoj++ < 0o10000 ) {
+    const loko = hazardaGrovaLoko( hazardaGenerilo, arbareroj );
+    const x = loko.x;
+    const z = loko.z;
     if (Math.abs(x) > worldRadius + 0o24 || Math.abs(z) > worldRadius + 0o24) continue;
     if (!bonaLoko(x, z)) continue;
-    placed.push({ x, z, h: heightFn(x, z), s: 51/64 + hazardaGenerilo() * 45/64 });
+    placed.push({ x, z, h: heightFn(x, z), s: 0o63/0o100 + hazardaGenerilo() * 0o55/0o100 });
   }
   return placed;
 }
@@ -58,13 +119,13 @@ export function konstruiArbaron( sceno: THREE.Scene,
 ): THREE.InstancedMesh {
   const hazardaGenerilo = mulberry32(77531);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
-  const trunkaGeometrio = new THREE.CylinderGeometry(7/32, 3/8, 1, 7, 1);
-  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, roughness: 45/64 });
+  const trunkaGeometrio = new THREE.CylinderGeometry(0o7/0o40, 0o3/0o10, 1, 7, 1);
+  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, arboj.length);
   if (arboj.length === 0) return trunkoj;
 
   const kronaGeometrio = new THREE.SphereGeometry(1, 7, 5);
-  const kronaMaterialo = new THREE.MeshStandardMaterial({ roughness: 29/32 });
+  const kronaMaterialo = new THREE.MeshStandardMaterial({ roughness: 0o35/0o40 });
   const kronoj = new THREE.InstancedMesh(kronaGeometrio, kronaMaterialo, arboj.length * 2);
 
   const M = new THREE.Matrix4();
@@ -74,20 +135,20 @@ export function konstruiArbaron( sceno: THREE.Scene,
   const paletro = [ 0x688858, 0x78a068, 0x88a878, 0xa0b080, 0x789868 ];
 
   arboj.forEach((t, i) => {
-    const h = 52/8 + t.s * 36/8;
+    const h = 0o64/0o10 + t.s * 0o44/0o10;
     E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(t.x, t.h + h / 2, t.z), Q, new THREE.Vector3(1, h, 1));
     trunkoj.setMatrixAt(i, M);
 
-    const kronoRadiuso = 141/64 * t.s + 51/64;
-    M.compose(new THREE.Vector3(t.x, t.h + h - 4/8, t.z), Q, new THREE.Vector3(kronoRadiuso, kronoRadiuso * 23/32, kronoRadiuso));
+    const kronoRadiuso = 0o215/0o100 * t.s + 0o63/0o100;
+    M.compose(new THREE.Vector3(t.x, t.h + h - 0o4/0o10, t.z), Q, new THREE.Vector3(kronoRadiuso, kronoRadiuso * 0o27/0o40, kronoRadiuso));
     kronoj.setMatrixAt(i * 2, M);
     kronoj.setColorAt(i * 2, C.setHex(paletro[(hazardaGenerilo() * paletro.length) | 0]));
 
-    M.compose( new THREE.Vector3(t.x + kronoRadiuso * 19/64, t.h + h + 51/64, t.z + kronoRadiuso * 13/64),
+    M.compose( new THREE.Vector3(t.x + kronoRadiuso * 0o23/0o100, t.h + h + 0o63/0o100, t.z + kronoRadiuso * 0o15/0o100),
       Q,
-      new THREE.Vector3(kronoRadiuso * 19/32, kronoRadiuso * 4/8, kronoRadiuso * 19/32) );
+      new THREE.Vector3(kronoRadiuso * 0o23/0o40, kronoRadiuso * 0o4/0o10, kronoRadiuso * 0o23/0o40) );
     kronoj.setMatrixAt(i * 2 + 1, M);
     kronoj.setColorAt(i * 2 + 1, C.setHex(paletro[(hazardaGenerilo() * paletro.length) | 0]));
   });
@@ -112,12 +173,12 @@ export function konstruiFilikojn( sceno: THREE.Scene,
   const hazardaGenerilo = mulberry32(55661);
   const filikaTeksajxo = kreiFilikanTeksajxon();
 
-  const fa = new THREE.PlaneGeometry(109/64, 109/64).translate(0, 27/32, 0);
+  const fa = new THREE.PlaneGeometry(0o155/0o100, 0o155/0o100).translate(0, 0o33/0o40, 0);
   const fb = fa.clone().applyMatrix4(new THREE.Matrix4().makeRotationY(Math.PI / 2));
 
   // mana kunfando
   const merged = kunfandiDuGeometriojn(fa, fb);
-  const filikaMaterialo = new THREE.MeshStandardMaterial({ map: filikaTeksajxo, alphaTest: 13/32, side: THREE.DoubleSide, roughness: 1 });
+  const filikaMaterialo = new THREE.MeshStandardMaterial({ map: filikaTeksajxo, alphaTest: 0o15/0o40, side: THREE.DoubleSide, roughness: 1 });
   const filikoj = new THREE.InstancedMesh(merged, filikaMaterialo, kvanto);
 
   const M = new THREE.Matrix4();
@@ -125,10 +186,13 @@ export function konstruiFilikojn( sceno: THREE.Scene,
   const E = new THREE.Euler();
   let fi = 0;
   let gardilo = 0;
+  // Malfermaj filikoj — la foraj, ne-arbaj filikoj klasteriĝas en naturaj
+  // arbareroj anstataŭ disiĝi tra la tuta mapo.
+  const filikaGrovoj = kreiGrovojn( Math.max( 0o4, Math.floor( kvanto / 0o20 )), 0o200, hazardaGenerilo, excludeRivers );
 
   while ( fi < kvanto && gardilo++ < 0o5670 ) {
     let x: number, z: number;
-    if (hazardaGenerilo() < 19/32 && nearTrees.length) {
+    if (hazardaGenerilo() < 0o23/0o40 && nearTrees.length) {
       const t = nearTrees[(hazardaGenerilo() * nearTrees.length) | 0];
       const a = hazardaGenerilo() * Math.PI * 2;
       const hazardaRadiuso = 1 + hazardaGenerilo() * 3;
@@ -141,13 +205,14 @@ export function konstruiFilikojn( sceno: THREE.Scene,
       x = p.x + Math.sin(a) * hazardaRadiuso;
       z = p.z + Math.cos(a) * hazardaRadiuso;
     } else {
-      x = (hazardaGenerilo() - 4/8) * 0o310;
-      z = (hazardaGenerilo() - 4/8) * 0o310;
+      const loko = hazardaGrovaLoko( hazardaGenerilo, filikaGrovoj );
+      x = loko.x;
+      z = loko.z;
     }
 
     if (excludeRivers(x, z) || excludePaths(x, z, 2) || Math.hypot(x, z) < 0o16) continue;
 
-    const skalo = 45/64 + hazardaGenerilo() * 51/64;
+    const skalo = 0o55/0o100 + hazardaGenerilo() * 0o63/0o100;
     E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q, new THREE.Vector3(skalo, skalo, skalo));
@@ -168,7 +233,7 @@ export function konstruiPurpurajnPlantojn( sceno: THREE.Scene,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean
 ): void {
   konstruiPeriferianFilikanAreon( sceno, kvanto, heightFn, excludeRivers, excludePaths, excludeBuildings,
-    kreiPurpuranFilikanTeksajxon( true ), 10/16, 14/16, 0o53104 );
+    kreiPurpuranFilikanTeksajxon( true ), 0o12/0o20, 0o16/0o20, 0o53104 );
 }
 
 // konstruiPurpurajnFilikojn — Metu pli altajn purpurajn filikojn inter la eksteraj arboj.
@@ -180,7 +245,7 @@ export function konstruiPurpurajnFilikojn( sceno: THREE.Scene,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean
 ): void {
   konstruiPeriferianFilikanAreon( sceno, kvanto, heightFn, excludeRivers, excludePaths, excludeBuildings,
-    kreiPurpuranFilikanTeksajxon(), 13/16, 20/16, 0o53114 );
+    kreiPurpuranFilikanTeksajxon(), 0o15/0o20, 0o24/0o20, 0o53114 );
 }
 
 // konstruiPeriferianFilikanAreon — Kunigu du krucajn tavolojn por natura arbara rando.
@@ -202,10 +267,13 @@ function konstruiPeriferianFilikanAreon( sceno: THREE.Scene,
   const fb = fa.clone().applyMatrix4( new THREE.Matrix4().makeRotationY( Math.PI / 2 ));
   const fc = fa.clone().applyMatrix4( new THREE.Matrix4().makeRotationY( Math.PI / 4 ));
   const fd = fa.clone().applyMatrix4( new THREE.Matrix4().makeRotationY( 3 * Math.PI / 4 ));
-  const merged = kunfandiGeometriojn([ fa, fb, fc, fd ]);
-  const materialo = new THREE.MeshStandardMaterial({ map: teksajxo, alphaTest: 4/8, side: THREE.DoubleSide, roughness: 1 });
+  const merged = kunfandiGeometriojnSenIndekson([ fa, fb, fc, fd ]);
+  const materialo = new THREE.MeshStandardMaterial({ map: teksajxo, alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 });
   const plantoj = new THREE.InstancedMesh( merged, materialo, kvanto );
 
+  // Arbareroj — la purpuraj plantoj klasteriĝas en naturaj makuloj, dividante
+  // la samajn arbarerojn kiel la arbaro, anstataŭ egala ringo ĉirkaŭ la urbo.
+  const grovoj = kreiGrovojn( Math.max( 0o4, Math.floor( kvanto / 0o24 )), 0o200, hazardaGenerilo, excludeRivers );
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
@@ -213,17 +281,15 @@ function konstruiPeriferianFilikanAreon( sceno: THREE.Scene,
   let gardilo = 0;
 
   while ( pi < kvanto && gardilo++ < 0o10000 ) {
-    const angulo = hazardaGenerilo() * Math.PI * 2;
-    // Ringforma distribuo lasas la urbon malfermita kaj dikigas la arbaran transiron.
-    const radiuso = 0o100 + 0o100 * Math.sqrt( hazardaGenerilo() );
-    const x = Math.sin( angulo ) * radiuso;
-    const z = Math.cos( angulo ) * radiuso;
-    if ( Math.hypot( x, z ) > 0o200 ) continue;
+    const loko = hazardaGrovaLoko( hazardaGenerilo, grovoj );
+    const x = loko.x;
+    const z = loko.z;
+    if ( Math.abs( x ) > 0o224 || Math.abs( z ) > 0o224 ) continue;
     if ( excludeRivers( x, z )) continue;
     if ( excludePaths( x, z, 0o2 )) continue;
     if ( excludeBuildings( x, z, 0o2 )) continue;
 
-    const skalo = 6/8 + hazardaGenerilo() * 6/8;
+    const skalo = 0o6/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     Q.setFromEuler( E );
     M.compose( new THREE.Vector3( x, heightFn( x, z ), z ), Q,
@@ -248,18 +314,18 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
 ): void {
   const hazardaGenerilo = mulberry32( 0o53124 );
   const specoj = [
-    { trunkaAlto: 60/8, kronaAlto: 59/8, kronaLargho: 14/8, nombro: 0o10, mallevo: 8/8, densa: false },
-    { trunkaAlto: 46/8, kronaAlto: 44/8, kronaLargho: 10/8, nombro: 0o6, mallevo: 4/8, densa: true },
-    { trunkaAlto: 84/8, kronaAlto: 35/8, kronaLargho: 10/8, nombro: 5, mallevo: 9/8, densa: false },
+    { trunkaAlto: 0o74/0o10, kronaAlto: 0o73/0o10, kronaLargho: 0o16/0o10, nombro: 0o10, mallevo: 0o10/0o10, densa: false },
+    { trunkaAlto: 0o56/0o10, kronaAlto: 0o54/0o10, kronaLargho: 0o12/0o10, nombro: 0o6, mallevo: 0o4/0o10, densa: true },
+    { trunkaAlto: 0o124/0o10, kronaAlto: 0o43/0o10, kronaLargho: 0o12/0o10, nombro: 5, mallevo: 0o11/0o10, densa: false },
   ];
   // Ĉiu speco havas sian tavolnombron — la folioj kreskas tavole.
   const TAVOLOJ = [ 2, 3, 4 ];
   const kronajGeometrioj = specoj.map( ( speco, i ) => konstruiTavolanFrondanKronon( speco, TAVOLOJ[i] ));
   const trunkajGeometrioj = specoj.map( speco => new THREE.CylinderGeometry(
     PURPURAJ_TRUNKAJ_RADIOJ.supro, PURPURAJ_TRUNKAJ_RADIOJ.malsupro, speco.trunkaAlto, 7 ));
-  const trunkajMaterialoj = specoj.map( ( _, i ) => new THREE.MeshStandardMaterial({ color: [ 0x3a2742, 0x40204a, 0x2a1a44 ][i], roughness: 7/8 }));
+  const trunkajMaterialoj = specoj.map( ( _, i ) => new THREE.MeshStandardMaterial({ color: [ 0x3a2742, 0x40204a, 0x2a1a44 ][i], roughness: 0o7/0o10 }));
   const kronajMaterialoj = specoj.map( speco => new THREE.MeshStandardMaterial({
-    map: kreiPurpuranFilikanTeksajxon( speco.densa ), alphaTest: 4/8, side: THREE.DoubleSide, roughness: 1,
+    map: kreiPurpuranFilikanTeksajxon( speco.densa ), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1,
   }));
   const nombroj = specoj.map( () => Math.ceil( kvanto / specoj.length ));
   const trunkoj = trunkajGeometrioj.map( ( geometrio, i ) => new THREE.InstancedMesh( geometrio, trunkajMaterialoj[i], nombroj[i] ));
@@ -269,13 +335,14 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
   const E = new THREE.Euler();
   const indicoj = specoj.map( () => 0 );
   let provoj = 0;
+  // Arbareroj — la altaj purpuraj filikoj kreskas en naturaj makuloj, ne en ringo.
+  const grovoj = kreiGrovojn( Math.max( 0o4, Math.floor( kvanto / 0o20 )), 0o200, hazardaGenerilo, excludeRivers );
 
   while ( indicoj.reduce( ( a, b ) => a + b, 0 ) < kvanto && provoj++ < 0o10000 ) {
-    const angulo = hazardaGenerilo() * Math.PI * 2;
-    const radiuso = 0o100 + 0o100 * Math.sqrt( hazardaGenerilo() );
-    const x = Math.sin( angulo ) * radiuso;
-    const z = Math.cos( angulo ) * radiuso;
-    if ( Math.hypot( x, z ) > 0o200 ) continue;
+    const loko = hazardaGrovaLoko( hazardaGenerilo, grovoj );
+    const x = loko.x;
+    const z = loko.z;
+    if ( Math.abs( x ) > 0o224 || Math.abs( z ) > 0o224 ) continue;
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o3 ) || excludeBuildings( x, z, 0o3 )) continue;
 
     // Hazardelektu la specion — malsamaj trunkoj/kronoj donas diversajn grandecojn.
@@ -285,7 +352,7 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
       if ( specoIndico < 0 ) break;
     }
     const speco = specoj[specoIndico];
-    const skalo = 5/8 + hazardaGenerilo() * 9/8;
+    const skalo = 0o5/0o10 + hazardaGenerilo() * 0o11/0o10;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     Q.setFromEuler( E );
     const y = heightFn( x, z );
@@ -307,11 +374,6 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
   kronoj.forEach( ( mesh, i ) => { mesh.count = indicoj[i]; mesh.instanceMatrix.needsUpdate = true; mesh.castShadow = true; sceno.add( mesh ); });
 }
 
-function kunfandiGeometriojn( geometrioj: THREE.BufferGeometry[] ): THREE.BufferGeometry {
-  if ( geometrioj.length === 0 ) return new THREE.BufferGeometry();
-  return geometrioj.slice( 1 ).reduce( ( rezulto, geometrio ) => kunfandiDuGeometriojn( rezulto, geometrio ), geometrioj[0] );
-}
-
 function konstruiFrondanKronon( nombro: number, largho: number, alto: number, mallevo: number, radiuso = 0 ): THREE.BufferGeometry {
   const partoj: THREE.BufferGeometry[] = [];
   for ( let i = 0; i < nombro; i++ ) {
@@ -327,7 +389,7 @@ function konstruiFrondanKronon( nombro: number, largho: number, alto: number, ma
       Math.cos( i / nombro * Math.PI * 2 ) * radiuso );
     partoj.push( frondo );
   }
-  const geometrio = kunfandiGeometriojn( partoj );
+  const geometrio = kunfandiGeometriojnSenIndekson( partoj );
   geometrio.computeBoundingBox();
   if ( geometrio.boundingBox ) geometrio.translate( 0, -geometrio.boundingBox.min.y, 0 );
   return geometrio;
@@ -347,9 +409,9 @@ function konstruiTavolanFrondanKronon( speco: {
     // La plej suba tavolo duone laŭ la trunko; la supro ĝuste sur la trunka
     // pinto — la supraj folioj kuŝas sur la trunko, nek sub nek super ĝi,
     // ĉe ĉiu plant-grandeco ( ĉio estas proporcia al la trunka alto ).
-    const frakcio = 1/2 + t * ( 1/2 / ( tavoloj - 1 ) );
+    const frakcio = 0o1/0o2 + t * ( 0o1/0o2 / ( tavoloj - 1 ) );
     // La malsupraj folioj estas pli malgrandaj; la supraj plenaj.
-    const skaloT = 1/2 + t * ( 1/2 / ( tavoloj - 1 ) );
+    const skaloT = 0o1/0o2 + t * ( 0o1/0o2 / ( tavoloj - 1 ) );
     // La trunka radiuso ĉe tiu alto ( la trunko pintigas de malsupro al supro ) —
     // la frondoj eliras el la trunka surfaco, ne sub ĝi.
     const trunkaRadiuso = PURPURAJ_TRUNKAJ_RADIOJ.malsupro
@@ -359,7 +421,7 @@ function konstruiTavolanFrondanKronon( speco: {
     frondo.translate( 0, speco.trunkaAlto * frakcio, 0 );
     partoj.push( frondo );
   }
-  return kunfandiGeometriojn( partoj );
+  return kunfandiGeometriojnSenIndekson( partoj );
 }
 
 // konstruiLikenSxtonojn — Metu liken-kovritajn sxtonojn en la arbaron.
@@ -375,7 +437,7 @@ export function konstruiLikenSxtonojn( sceno: THREE.Scene,
   const hazardaGenerilo = mulberry32( 99221 );
   const sxtonaGeometrio = new THREE.IcosahedronGeometry( 1, 0 );
   const sxtonoj = new THREE.InstancedMesh( sxtonaGeometrio,
-    new THREE.MeshStandardMaterial({ roughness: 61/64 }), kvanto );
+    new THREE.MeshStandardMaterial({ roughness: 0o75/0o100 }), kvanto );
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -392,11 +454,11 @@ export function konstruiLikenSxtonojn( sceno: THREE.Scene,
     z = Math.cos(a) * hazardaRadiuso;
     if (excludeRivers(x, z) || excludePaths(x, z, 0o2)) { i--; continue; }
 
-    const skaloY = 4/8 + hazardaGenerilo() * 4/8;
-    E.set(hazardaGenerilo() * 13/32, hazardaGenerilo() * Math.PI * 2, hazardaGenerilo() * 13/32);
+    const skaloY = 0o4/0o10 + hazardaGenerilo() * 0o4/0o10;
+    E.set(hazardaGenerilo() * 0o15/0o40, hazardaGenerilo() * Math.PI * 2, hazardaGenerilo() * 0o15/0o40);
     Q.setFromEuler(E);
     const y = heightFn( x, z );
-    M.compose( new THREE.Vector3(x, y + skaloY * 19/64, z),
+    M.compose( new THREE.Vector3(x, y + skaloY * 0o23/0o100, z),
       Q,
       new THREE.Vector3(skaloY, skaloY, skaloY) );
     sxtonoj.setMatrixAt(i, M);
@@ -432,7 +494,7 @@ export function konstruiLikenojn( sceno: THREE.Scene,
   const geometrio = new THREE.PlaneGeometry( 1, 1 );
   geometrio.rotateX( -Math.PI / 2 );
   const materialo = new THREE.MeshStandardMaterial({
-    map: likenaTeksajxo, alphaTest: 13/32, side: THREE.DoubleSide,
+    map: likenaTeksajxo, alphaTest: 0o15/0o40, side: THREE.DoubleSide,
     transparent: true, depthWrite: false, roughness: 1,
   });
   const likenoj = new THREE.InstancedMesh( geometrio, materialo, kvanto );
@@ -452,7 +514,7 @@ export function konstruiLikenojn( sceno: THREE.Scene,
 
   while ( li < kvanto && gardilo++ < 0o10000 ) {
     let x: number, z: number;
-    if ( ankroj.length && hazardaGenerilo() < 3/4 ) {
+    if ( ankroj.length && hazardaGenerilo() < 0o3/0o4 ) {
       const t = ankroj[ ( hazardaGenerilo() * ankroj.length ) | 0 ];
       const a = hazardaGenerilo() * Math.PI * 2;
       const hazardaRadiuso = 1 + hazardaGenerilo() * 3;
@@ -467,9 +529,9 @@ export function konstruiLikenojn( sceno: THREE.Scene,
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o2 )) continue;
     if ( Math.hypot( x, z ) < 0o20 ) continue;
 
-    const skalo = 6/8 + hazardaGenerilo() * 10/8;
+    const skalo = 0o6/0o10 + hazardaGenerilo() * 0o12/0o10;
     // Tri teraj specimenoj difinas la deklivan normalon.
-    const paso = skalo * 1/2;
+    const paso = skalo * 0o1/0o2;
     ena.set( x, heightFn( x, z ), z );
     enX.set( x + paso, heightFn( x + paso, z ), z ).sub( ena );
     enZ.set( x, heightFn( x, z + paso ), z ).sub( ena );
@@ -482,7 +544,7 @@ export function konstruiLikenojn( sceno: THREE.Scene,
     const vert = normalo.y;
     const horiz = Math.hypot( normalo.x, normalo.z );
     const maxKruteco = Math.PI / 16; // ≈ 11° — ĉiam kuŝu plate
-    if ( horiz > 1/1024 && Math.atan2( horiz, Math.max( vert, 1/1024 )) > maxKruteco ) {
+    if ( horiz > 0o1/0o2000 && Math.atan2( horiz, Math.max( vert, 0o1/0o2000 )) > maxKruteco ) {
       const u = Math.tan( maxKruteco );
       const hx = normalo.x / horiz;
       const hz = normalo.z / horiz;
@@ -493,7 +555,7 @@ export function konstruiLikenojn( sceno: THREE.Scene,
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     yawQ.setFromEuler( E );
     Q.multiply( yawQ );
-    M.compose( new THREE.Vector3( x, ena.y + 1/32, z ), Q,
+    M.compose( new THREE.Vector3( x, ena.y + 0o1/0o40, z ), Q,
       new THREE.Vector3( skalo, skalo, skalo ) );
     likenoj.setMatrixAt( li++, M );
   }
@@ -508,8 +570,8 @@ export function konstruiLikenojn( sceno: THREE.Scene,
 // instanco por trovi la realan pozicion, rotacion kaj skalon de la trunko, kaj
 // algluas malgrandajn krustajn bulojn al la ŝelo de hazarda subaro da arboj.
 // Ĉiu bulo sidas je hazarda alteco kaj ĉirkaŭaĵo de la trunko, kaj rigardas
-// radiale eksteren de la trunka akso. La trunka geometrio pintiĝas de 3/8
-// ( malsupro ) al 7/32 ( supro ), kaj la x-skalo de ĉiu instanco estas la
+// radiale eksteren de la trunka akso. La trunka geometrio pintiĝas de 0o3/0o10
+// ( malsupro ) al 0o7/0o40 ( supro ), kaj la x-skalo de ĉiu instanco estas la
 // radiusa faktoro de tiu arbo — do la buloj ĉiam kuŝas ĝuste sur la ŝelo.
 //     @param sceno ( THREE.Scene ) - La sceno.
 //     @param trunkoj ( THREE.InstancedMesh[] ) - La trunkaj retoj de la arboj.
@@ -526,7 +588,7 @@ export function konstruiTrunkajnLikenojn( sceno: THREE.Scene,
   // tranĉas la eksteron, do restas neregula, krusta formo.
   const buloGeometrio = new THREE.IcosahedronGeometry( 1, 0 );
   const buloMaterialo = new THREE.MeshStandardMaterial({
-    map: likenaTeksajxo, alphaTest: 13/32, side: THREE.DoubleSide,
+    map: likenaTeksajxo, alphaTest: 0o15/0o40, side: THREE.DoubleSide,
     transparent: true, depthWrite: false, roughness: 1,
   });
   // Kapacito — maksimume 0o4 buloj po arbo.
@@ -555,20 +617,20 @@ export function konstruiTrunkajnLikenojn( sceno: THREE.Scene,
       const bulojNombro = 1 + ( ( hazardaGenerilo() * 3 ) | 0 );
       for ( let b = 0; b < bulojNombro; b++ ) {
         // Alteco-frakcio laŭ la trunko — nur sur videbla ŝelo: sub la kronoj
-        // ( betuloj: t ≈ 3/4 ) kaj sub la ŝelaj tasoj de la Ĥŝakŝlefoj
-        // ( t ≈ 7/16, kie la tas-radiuso superas la trunkon kaj kaŝus ilin ).
-        const t = 1/8 + hazardaGenerilo() * 1/2;
+        // ( betuloj: t ≈ 0o3/0o4 ) kaj sub la ŝelaj tasoj de la Ĥŝakŝlefoj
+        // ( t ≈ 0o7/0o20, kie la tas-radiuso superas la trunkon kaj kaŝus ilin ).
+        const t = 0o1/0o10 + hazardaGenerilo() * 0o1/0o2;
         const ang = hazardaGenerilo() * Math.PI * 2;
-        // Radiuso ĉe tiu alteco — la geometrio pintiĝas de 3/8 al 7/32.
-        const r = ( 3/8 - t * ( 3/8 - 7/32 ) ) * S.x;
-        akso.set( 0, ( t - 1/2 ) * alto, 0 ).applyQuaternion( Q );
+        // Radiuso ĉe tiu alteco — la geometrio pintiĝas de 0o3/0o10 al 0o7/0o40.
+        const r = ( 0o3/0o10 - t * ( 0o3/0o10 - 0o7/0o40 ) ) * S.x;
+        akso.set( 0, ( t - 0o1/0o2 ) * alto, 0 ).applyQuaternion( Q );
         radia.set( Math.cos( ang ), 0, Math.sin( ang ) ).applyQuaternion( Q );
-        surTrunko.copy( P ).add( akso ).addScaledVector( radia, r + 1/32 );
+        surTrunko.copy( P ).add( akso ).addScaledVector( radia, r + 0o1/0o40 );
         // La bulo rigardas radiale eksteren de la trunka akso.
         Qb.setFromUnitVectors( yUp, radia );
         Qy.setFromAxisAngle( radia, hazardaGenerilo() * Math.PI * 2 );
         Qb.multiply( Qy );
-        const skalo = 1/8 + hazardaGenerilo() * 1/16;
+        const skalo = 0o1/0o10 + hazardaGenerilo() * 0o1/0o20;
         M.compose( surTrunko, Qb, new THREE.Vector3( skalo, skalo, skalo ) );
         buloj.setMatrixAt( bi++, M );
       }
@@ -591,8 +653,8 @@ export function konstruiLarikon( sceno: THREE.Scene,
 ): THREE.InstancedMesh {
   const hazardaGenerilo = mulberry32( 33718 );
   const larikaTeksajxo = kreiLarikanSxelanTeksajxon();
-  const trunkaGeometrio = new THREE.CylinderGeometry( 7/32, 3/8, 1, 7, 1 );
-  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: larikaTeksajxo, roughness: 45/64 });
+  const trunkaGeometrio = new THREE.CylinderGeometry( 0o7/0o40, 0o3/0o10, 1, 7, 1 );
+  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: larikaTeksajxo, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh( trunkaGeometrio, trunkaMaterialo, arboj.length );
   if ( arboj.length === 0 ) return trunkoj;
 
@@ -600,7 +662,7 @@ export function konstruiLarikon( sceno: THREE.Scene,
   // de la alpina lariko. La tavoloj restas sur la trunk-akso, nur la tria
   // foje estas kaŝita ( skalo 0 ).
   const kronaGeometrio = new THREE.ConeGeometry( 1, 1, 7, 1 );
-  const kronaMaterialo = new THREE.MeshStandardMaterial({ roughness: 29/32 });
+  const kronaMaterialo = new THREE.MeshStandardMaterial({ roughness: 0o35/0o40 });
   const kronoj = new THREE.InstancedMesh( kronaGeometrio, kronaMaterialo, arboj.length * 3 );
 
   const M = new THREE.Matrix4();
@@ -609,10 +671,10 @@ export function konstruiLarikon( sceno: THREE.Scene,
   const paletro = [ 0xc8a848, 0xd0b858, 0xd8c060, 0xd8a838, 0xc0a048, 0xe0c868, 0xb89038, 0xa8b048 ];
 
   arboj.forEach(( t, i ) => {
-    const h = 48/8 + t.s * 32/8;
-    const trunkaLargho = 25/32 + t.s * 7/32;
+    const h = 0o60/0o10 + t.s * 0o40/0o10;
+    const trunkaLargho = 0o31/0o40 + t.s * 0o7/0o40;
     // Alpaj larikoj kreskas kompakte — malgranda klino nur rompas la uniformecon.
-    const Q = kreiKlinoQuaternionon( hazardaGenerilo, 3/16, hazardaGenerilo() * Math.PI * 2 );
+    const Q = kreiKlinoQuaternionon( hazardaGenerilo, 0o3/0o20, hazardaGenerilo() * Math.PI * 2 );
     const bazo = new THREE.Vector3( t.x, t.h, t.z );
     const pozicio = kreiPoziciilon( bazo, Q );
 
@@ -621,20 +683,20 @@ export function konstruiLarikon( sceno: THREE.Scene,
     trunkoj.setMatrixAt( i, M );
 
     const tavoloj = 2 + ( ( hazardaGenerilo() * 2 ) | 0 );
-    const bazaLargho = 9/8 * t.s + 4/8;
-    const bazaAlto = 15/8 * t.s + 5/8;
+    const bazaLargho = 0o11/0o10 * t.s + 0o4/0o10;
+    const bazaAlto = 0o17/0o10 * t.s + 0o5/0o10;
     let y = h;
     for ( let k = 0; k < 3; k++ ) {
       const kaŝita = k >= tavoloj ? 0 : 1;
       const m = k / 3;
-      const kronoLargho = bazaLargho * ( 1 - m * 3/4 );
-      const kronoAlto = bazaAlto * ( 1 - m * 3/16 );
-      y += kronoAlto * 3/8;
+      const kronoLargho = bazaLargho * ( 1 - m * 0o3/0o4 );
+      const kronoAlto = bazaAlto * ( 1 - m * 0o3/0o20 );
+      y += kronoAlto * 0o3/0o10;
       M.compose( pozicio( new THREE.Vector3( 0, y, 0 ) ),
         Q, new THREE.Vector3( kronoLargho * kaŝita, kronoAlto * kaŝita, kronoLargho * kaŝita ) );
       kronoj.setMatrixAt( i * 3 + k, M );
       kronoj.setColorAt( i * 3 + k, hazardaKoloro( hazardaGenerilo, C, paletro ) );
-      y += kronoAlto * 5/8;
+      y += kronoAlto * 0o5/0o10;
     }
   });
 
@@ -660,8 +722,8 @@ export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
   const hazardaGenerilo = mulberry32( 0o62445 );
   const MAX_TAVOLOJ = 5;
   // Purpura trunko — kiel la aliaj purpuraj plantoj, ne betula ŝelo.
-  const trunkaGeometrio = new THREE.CylinderGeometry( 7/32, 3/8, 1, 7, 1 );
-  const trunkaMaterialo = new THREE.MeshStandardMaterial({ color: 0x482848, roughness: 45/64 });
+  const trunkaGeometrio = new THREE.CylinderGeometry( 0o7/0o40, 0o3/0o10, 1, 7, 1 );
+  const trunkaMaterialo = new THREE.MeshStandardMaterial({ color: 0x482848, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh( trunkaGeometrio, trunkaMaterialo, arboj.length );
   if ( arboj.length === 0 ) return trunkoj;
 
@@ -669,7 +731,7 @@ export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
   // reala diko, kiel laktuko aŭ brasiko.
   const foliaGeometrio = konstruiKurbanLaktukanFolion();
   const foliaMaterialo = new THREE.MeshStandardMaterial({
-    map: kreiPurpuranFolianTeksajxon(), alphaTest: 13/32, side: THREE.DoubleSide, roughness: 1,
+    map: kreiPurpuranFolianTeksajxon(), alphaTest: 0o15/0o40, side: THREE.DoubleSide, roughness: 1,
   });
   const folioj = new THREE.InstancedMesh( foliaGeometrio, foliaMaterialo, arboj.length * MAX_TAVOLOJ * 4 );
 
@@ -677,16 +739,16 @@ export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
   // ĉe la supro kaj kurbiĝantaj eksteren ( trumpeto-formo ), kies supraj randoj
   // disiĝas en kvar foliformajn lobojn ( ĉe la kvar flankoj de la folioj ).
   // La folioj etendiĝas el la loboj senjunte.
-  const sxelaGeometrio = new THREE.CylinderGeometry( 14/32, 11/32, 1, 0o30, 1, true ).translate( 0, 1/2, 0 );
+  const sxelaGeometrio = new THREE.CylinderGeometry( 0o16/0o40, 0o13/0o40, 1, 0o30, 1, true ).translate( 0, 0o1/0o2, 0 );
   const sxelaPozicioj = sxelaGeometrio.attributes.position;
   for ( let i = 0; i < sxelaPozicioj.count; i++ ) {
     const x = sxelaPozicioj.getX( i );
     const y = sxelaPozicioj.getY( i );
     const z = sxelaPozicioj.getZ( i );
     // La ringo kurbiĝas eksteren al la supro — la radiuso kreskas kvadrate.
-    const faktoro = 1 + 1/8 * y * y;
+    const faktoro = 1 + 0o1/0o10 * y * y;
     let novaY = y;
-    if ( y > 3/4 ) {
+    if ( y > 0o3/0o4 ) {
       // Kvar rondaj foli-loboj ĉe la kvar flankaj direktoj.
       const ang = Math.atan2( x, z );
       const lobo = Math.pow( ( Math.cos( 4 * ang ) + 1 ) / 2, 2 );
@@ -695,9 +757,9 @@ export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
     sxelaPozicioj.setXYZ( i, x * faktoro, novaY, z * faktoro );
   }
   sxelaGeometrio.computeVertexNormals();
-  const sxelaMaterialo = new THREE.MeshStandardMaterial({ color: 0x583858, roughness: 55/64, side: THREE.DoubleSide });
+  const sxelaMaterialo = new THREE.MeshStandardMaterial({ color: 0x583858, roughness: 0o67/0o100, side: THREE.DoubleSide });
   // Kapacito 9 ringoj po arbo — kun la grandeco-multiplikilo la maksimuma
-  // alto estas 18.75 ( 15 × 5/4 ), kiu donas maksimume 9 ringojn.
+  // alto estas 18.75 ( 15 × 0o5/0o4 ), kiu donas maksimume 9 ringojn.
   const sxeloj = new THREE.InstancedMesh( sxelaGeometrio, sxelaMaterialo, arboj.length * 0o11 );
 
   const M = new THREE.Matrix4();
@@ -711,10 +773,10 @@ export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
 
   arboj.forEach(( t, i ) => {
     // Malsamaj grandecoj — la arba faktoro donas la bazan alton kaj la
-    // multiplikilo ( 3/4 ĝis 5/4 ) faras kelkajn arbojn rimarkeble pli
+    // multiplikilo ( 0o3/0o4 ĝis 0o5/0o4 ) faras kelkajn arbojn rimarkeble pli
     // mallongaj kaj aliajn pli altaj.
-    const h = ( 72/8 + t.s * 32/8 ) * ( 3/4 + hazardaGenerilo() * 1/2 );
-    const Qtrunko = kreiKlinoQuaternionon( hazardaGenerilo, 1/8, hazardaGenerilo() * Math.PI * 2 );
+    const h = ( 0o110/0o10 + t.s * 0o40/0o10 ) * ( 0o3/0o4 + hazardaGenerilo() * 0o1/0o2 );
+    const Qtrunko = kreiKlinoQuaternionon( hazardaGenerilo, 0o1/0o10, hazardaGenerilo() * Math.PI * 2 );
     const bazo = new THREE.Vector3( t.x, t.h, t.z );
     const pozicio = kreiPoziciilon( bazo, Qtrunko );
 
@@ -726,22 +788,22 @@ export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
     const tavoloj = 3 + ( ( hazardaGenerilo() * 3 ) | 0 );
     for ( let tavolo = 0; tavolo < tavoloj; tavolo++ ) {
       const tFrakcio = tavolo / ( tavoloj - 1 );
-      // La supro restas ĉe 15/16 de la alto, por ke trunkopinto videblu super la krono.
-      const y = h * ( 7/16 + 8/16 * tFrakcio );
-      const tavolaSkalo = ( 1 - tavolo * 1/8 ) * ( 1 + t.s * 1/2 );
+      // La supro restas ĉe 0o17/0o20 de la alto, por ke trunkopinto videblu super la krono.
+      const y = h * ( 0o7/0o20 + 0o10/0o20 * tFrakcio );
+      const tavolaSkalo = ( 1 - tavolo * 0o1/0o10 ) * ( 1 + t.s * 0o1/0o2 );
       // La trunka radiuso ĉe tiu alto — la folia bazo sidas ĝuste sur la
       // ŝelaj tasoj, kiel etendo de la ŝeloj.
-      const trunkaRadiuso = 12/32 - ( y / h ) * 5/32;
-      const ellagxo = trunkaRadiuso + 4/32;
+      const trunkaRadiuso = 0o14/0o40 - ( y / h ) * 0o5/0o40;
+      const ellagxo = trunkaRadiuso + 0o4/0o40;
       for ( let flanko = 0; flanko < 4; flanko++ ) {
         const angulo = flanko / 4 * Math.PI * 2;
-        // La folio leviĝas de la ŝelo kaj branĉiĝas eksteren — klino 3/8
+        // La folio leviĝas de la ŝelo kaj branĉiĝas eksteren — klino 0o3/0o10
         // donas pli da ekstera etendo dum la bazo restas sur la ŝeloj.
-        E.set( 3/8, 0, 0 );
+        E.set( 0o3/0o10, 0, 0 );
         Q.setFromEuler( E );
         Q.premultiply( new THREE.Quaternion().setFromAxisAngle( yUp, angulo ) );
         Q.premultiply( Qtrunko );
-        const skalo = tavolaSkalo * ( 7/8 + hazardaGenerilo() * 1/4 );
+        const skalo = tavolaSkalo * ( 0o7/0o10 + hazardaGenerilo() * 0o1/0o4 );
         M.compose( pozicio( new THREE.Vector3(
             Math.sin( angulo ) * ellagxo, y, Math.cos( angulo ) * ellagxo ) ),
           Q, new THREE.Vector3( skalo, skalo, skalo ) );
@@ -754,9 +816,9 @@ export function konstruiHxsxaksxlefojn( sceno: THREE.Scene,
     // Ŝelaj ringoj — simetriaj tasoj, nestitaj unu en la alian, ekde la unua
     // folia tavolo ĝis la supro. La loboj jam estas en la geometrio ĉe la kvar
     // flankoj, do ĉiu ringo nur sekvas la trunkon.
-    const unuaTavolaY = h * 7/16;
-    const sxelaAlto = 3/2;
-    const ringaSpaco = 9/8;
+    const unuaTavolaY = h * 0o7/0o20;
+    const sxelaAlto = 0o3/0o2;
+    const ringaSpaco = 0o11/0o10;
     // La gardo malsupre rompas la ciklon ĉe la trunka supro, do ĉi tiu
     // kalkulo nur supertaksas — ĝi ne bezonas kroman +1.
     const ringoj = Math.max( 1, Math.ceil( ( h - sxelaAlto - unuaTavolaY ) / ringaSpaco ) );
@@ -792,10 +854,10 @@ export function konstruiHerbon( sceno: THREE.Scene,
   const hazardaGenerilo = mulberry32(44261);
   const herbaTeksajxo = kreiHerbErinanTeksajxon();
 
-  const fa = new THREE.PlaneGeometry( 5/8, 8/8 ).translate( 0, 4/8, 0 );
+  const fa = new THREE.PlaneGeometry( 0o5/0o10, 0o10/0o10 ).translate( 0, 0o4/0o10, 0 );
   const fb = fa.clone().applyMatrix4( new THREE.Matrix4().makeRotationY( Math.PI / 2 ));
   const merged = kunfandiDuGeometriojn( fa, fb );
-  const herbaMaterialo = new THREE.MeshStandardMaterial({ map: herbaTeksajxo, alphaTest: 13/32, side: THREE.DoubleSide, roughness: 1 });
+  const herbaMaterialo = new THREE.MeshStandardMaterial({ map: herbaTeksajxo, alphaTest: 0o15/0o40, side: THREE.DoubleSide, roughness: 1 });
   const herboj = new THREE.InstancedMesh( merged, herbaMaterialo, kvanto );
 
   const M = new THREE.Matrix4();
@@ -815,7 +877,7 @@ export function konstruiHerbon( sceno: THREE.Scene,
     if ( excludeBuildings( x, z, 2 )) continue;
     if ( Math.hypot( x, z ) < 0o16 ) continue;
 
-    const skalo = 4/8 + hazardaGenerilo() * 6/8;
+    const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     Q.setFromEuler( E );
     M.compose( new THREE.Vector3( x, heightFn( x, z ), z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
@@ -848,7 +910,7 @@ export function konstruiMusxajnMontetojn( sceno: THREE.Scene,
 
   while ( mi < kvanto && gardilo++ < 0o3720 ) {
     let x: number, z: number;
-    if ( hazardaGenerilo() < 22/32 && nearTrees.length ) {
+    if ( hazardaGenerilo() < 0o26/0o40 && nearTrees.length ) {
       const t = nearTrees[( hazardaGenerilo() * nearTrees.length ) | 0];
       const a = hazardaGenerilo() * Math.PI * 2;
       const hazardaRadiuso = 1 + hazardaGenerilo() * 3;
@@ -863,10 +925,10 @@ export function konstruiMusxajnMontetojn( sceno: THREE.Scene,
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o2 )) continue;
     if ( Math.hypot( x, z ) < 0o20 ) continue;
 
-    const skalo = 3/8 + hazardaGenerilo() * 5/8;
-    M.compose( new THREE.Vector3( x, heightFn( x, z ) + skalo * 2/8, z ),
+    const skalo = 0o3/0o10 + hazardaGenerilo() * 0o5/0o10;
+    M.compose( new THREE.Vector3( x, heightFn( x, z ) + skalo * 0o2/0o10, z ),
       Q.identity(),
-      new THREE.Vector3( skalo, skalo * 3/8, skalo ));
+      new THREE.Vector3( skalo, skalo * 0o3/0o10, skalo ));
     muskoj.setMatrixAt( mi++, M );
   }
 
@@ -885,8 +947,8 @@ export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
 ): void {
   const hazardaGenerilo = mulberry32(22931);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
-  const trunkaGeometrio = new THREE.CylinderGeometry( 3/8, 4/8, 1, 7, 1 );
-  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, roughness: 55/64 });
+  const trunkaGeometrio = new THREE.CylinderGeometry( 0o3/0o10, 0o4/0o10, 1, 7, 1 );
+  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, roughness: 0o67/0o100 });
   const trunkoj = new THREE.InstancedMesh( trunkaGeometrio, trunkaMaterialo, kvanto );
 
   const M = new THREE.Matrix4();
@@ -897,7 +959,7 @@ export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
 
   while ( ti < kvanto && gardilo++ < 0o3720 ) {
     let x: number, z: number;
-    if ( hazardaGenerilo() < 22/32 && nearTrees.length ) {
+    if ( hazardaGenerilo() < 0o26/0o40 && nearTrees.length ) {
       const t = nearTrees[( hazardaGenerilo() * nearTrees.length ) | 0];
       const a = hazardaGenerilo() * Math.PI * 2;
       const hazardaRadiuso = 1 + hazardaGenerilo() * 4;
@@ -912,10 +974,10 @@ export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o3 )) continue;
     if ( Math.hypot( x, z ) < 0o24 ) continue;
 
-    const longo = 10/8 + hazardaGenerilo() * 18/8;
-    E.set( 0, hazardaGenerilo() * Math.PI * 2, Math.PI / 2 + ( hazardaGenerilo() - 4/8 ) * 4/8 );
+    const longo = 0o12/0o10 + hazardaGenerilo() * 0o22/0o10;
+    E.set( 0, hazardaGenerilo() * Math.PI * 2, Math.PI / 2 + ( hazardaGenerilo() - 0o4/0o10 ) * 0o4/0o10 );
     Q.setFromEuler( E );
-    M.compose( new THREE.Vector3( x, heightFn( x, z ) + 4/8, z ), Q, new THREE.Vector3( 1, longo, 1 ));
+    M.compose( new THREE.Vector3( x, heightFn( x, z ) + 0o4/0o10, z ), Q, new THREE.Vector3( 1, longo, 1 ));
     trunkoj.setMatrixAt( ti++, M );
   }
 
@@ -925,46 +987,269 @@ export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
   sceno.add( trunkoj );
 }
 
-// konstruiEquisetum — Metu instancigitajn equisetum ( kavalerbojn ) proksime al rivero.
-export function konstruiEquisetum( sceno: THREE.Scene,
+// konstruiKanGeometrion — Komuna kan-geometrio por la du kavalerbaj specioj:
+// segmentita kana tigo kun kolumetoj ĉe la nodoj, ripa per ses flankoj, kaj
+// laŭ la elekto: kirloj da fajnaj branĉetoj ( la botelpura silueto ) kaj/aŭ
+// strobilo ( konusa sporujo ) ĉe la pinto. Konstruita je unu unuo alta, por
+// ke la instancoj skalu ĝin laŭ sia alto.
+//     @param nodoj ( number ) - Kiom da kanaj segmentoj.
+//     @param kunBrancetoj ( boolean ) - Ĉu aldoni branĉet-kirlojn ĉe la nodoj.
+//     @param kunStrobilo ( boolean ) - Ĉu aldoni la konusan sporujon.
+function konstruiKanGeometrion( nodoj: number, kunBrancetoj: boolean, kunStrobilo: boolean ): THREE.BufferGeometry {
+  const partoj: THREE.BufferGeometry[] = [];
+  const segmentaAlto = 1 / nodoj;
+  const rBazo = 0o3/0o40;              // 3/32 — maldika, kana
+  const rSupro = 0o1/0o40;             // 1/32 — la kano pintiĝas
+  for ( let i = 0; i < nodoj; i++ ) {
+    const y0 = i * segmentaAlto;
+    const r0 = rBazo - ( rBazo - rSupro ) * ( i / nodoj );
+    const r1 = rBazo - ( rBazo - rSupro ) * (( i + 1 ) / nodoj );
+    // Kana segmento — 6 flankoj donas la riban, kanecan silueton.
+    const segmento = new THREE.CylinderGeometry( r1, r0, segmentaAlto, 6, 1 )
+      .translate( 0, y0 + segmentaAlto / 2, 0 );
+    partoj.push( segmento );
+    // Kolumeto ĉe la nodo — la karakteriza kana artiklo.
+    if ( i > 0 ) {
+      const kolumeto = new THREE.CylinderGeometry( r0 * 0o13/0o10, r0 * 0o13/0o10,
+        segmentaAlto * 0o2/0o10, 6, 1 ).translate( 0, y0, 0 );
+      partoj.push( kolumeto );
+      // Kirlo da fajnaj branĉetoj ĉe la nodo — la botelpura silueto. La
+      // kirloj sidas ĝuste ĉe la nodaj kolumetoj ( y0 ), ne meze de la
+      // segmentoj, kiel ĉe vera ĉevalvosto; la baza nodo restas sen kirlo.
+      if ( kunBrancetoj ) {
+        const brancetoj = 6;
+        for ( let b = 0; b < brancetoj; b++ ) {
+          const ang = b / brancetoj * Math.PI * 2;
+          const longeco = segmentaAlto * ( 0o6/0o10 + ( i % 2 ) * 0o2/0o10 );
+          const branceto = new THREE.ConeGeometry( 0o1/0o100, longeco, 4 )
+            .translate( 0, longeco / 2, 0 );
+          // De la vertikalo al eksteren-supren ( ~30° super la horizonto ).
+          const M = new THREE.Matrix4().makeRotationY( ang );
+          M.multiply( new THREE.Matrix4().makeRotationX( Math.PI / 2 - 0o4/0o10 ) );
+          branceto.applyMatrix4( M );
+          branceto.translate( 0, y0, 0 );
+          partoj.push( branceto );
+        }
+      }
+    }
+  }
+  if ( kunStrobilo ) {
+    // Strobilo — la konusa sporujo ĉe la pinto.
+    const strobilo = new THREE.ConeGeometry( 0o3/0o40, 0o3/0o20, 6 )
+      .translate( 0, 1 + 0o3/0o40, 0 );
+    partoj.push( strobilo );
+  }
+  return kunfandiGeometriojnSenIndekson( partoj );
+}
+
+// konstruiCetkuanGeometrion — Konstruu la geometrion de unu cetkuo
+// ( Equisetum praealtum / ſᶘɔ ɭʃƽɹ ): la alta senbranĉa "skura kano" —
+// multaj nodoj kun kolumetoj kaj strobilo ĉe la pinto.
+function konstruiCetkuanGeometrion(): THREE.BufferGeometry {
+  return konstruiKanGeometrion( 7, false, true );
+}
+
+// konstruiCakeanGeometrion — Konstruu la geometrion de unu cakeo
+// ( Equisetum telmateia / ſᶘᴜ ſɭɔ ): la granda ĉevalvosto — kana tigo kun
+// kirloj da fajnaj branĉetoj ĉe ĉiu nodo, sen strobilo.
+function konstruiCakeanGeometrion(): THREE.BufferGeometry {
+  return konstruiKanGeometrion( 5, true, false );
+}
+
+// instanciiKavalerbojn — Komuna instancigilo por la du kavalerbaj specioj
+// ( cetkuo kaj cakeo ): unu geometrio kaj unu koloro po specio, kaj la loka
+// proponilo decidas kie kreski.
+//     @param geometrio ( THREE.BufferGeometry ) - La specia geometrio.
+//     @param koloro ( number ) - La specia koloro.
+//     @param minAlto, maxAlto ( number ) - La specia alta intervalo.
+//     @param proponu ( funkcio ) - Proponas kandidatan lokon aŭ null por retry.
+function instanciiKavalerbojn( sceno: THREE.Scene,
+  kvanto: number,
+  heightFn: ( x: number, z: number ) => number,
+  semo: number,
+  geometrio: THREE.BufferGeometry,
+  koloro: number,
+  minAlto: number,
+  maxAlto: number,
+  proponu: ( h: () => number ) => { x: number; z: number } | null
+): void {
+  const hazardaGenerilo = mulberry32( semo );
+  const materialo = new THREE.MeshStandardMaterial({ roughness: 0o7/0o10, color: koloro });
+  const kavalerboj = new THREE.InstancedMesh( geometrio, materialo, kvanto );
+
+  const M = new THREE.Matrix4();
+  const Q = new THREE.Quaternion();
+  const E = new THREE.Euler();
+  let ki = 0;
+  let gardilo = 0;
+
+  while ( ki < kvanto && gardilo++ < 0o10000 ) {
+    const loko = proponu( hazardaGenerilo );
+    if ( !loko ) continue;
+    const x = loko.x, z = loko.z;
+    const alto = minAlto + hazardaGenerilo() * ( maxAlto - minAlto );
+    E.set( 0, 0, ( hazardaGenerilo() - 0o4/0o10 ) * 0o4/0o10 );
+    Q.setFromEuler( E );
+    const y = heightFn( x, z );
+    M.compose( new THREE.Vector3( x, y + alto / 2, z ), Q, new THREE.Vector3( 1, alto, 1 ));
+    kavalerboj.setMatrixAt( ki++, M );
+  }
+
+  kavalerboj.count = ki;
+  kavalerboj.instanceMatrix.needsUpdate = true;
+  sceno.add( kavalerboj );
+}
+
+// konstruiCetkuojn — Metu cetkuojn ( Equisetum praealtum / ſᶘɔ ɭʃƽɹ ), la
+// altajn senbranĉajn skurajn kanojn kun strobiloj, proksime al la rivero.
+export function konstruiCetkuojn( sceno: THREE.Scene,
   kvanto: number,
   heightFn: ( x: number, z: number ) => number,
   riverZFn: ( x: number ) => number,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean
 ): void {
-  const hazardaGenerilo = mulberry32(11593);
-  const equiGeometrio = new THREE.CylinderGeometry( 1/16, 2/16, 1, 5, 3 );
-  const equiMaterialo = new THREE.MeshStandardMaterial({ roughness: 7/8, color: 0x407848 });
-  const equis = new THREE.InstancedMesh( equiGeometrio, equiMaterialo, kvanto );
+  instanciiKavalerbojn( sceno, kvanto, heightFn, 11593, konstruiCetkuanGeometrion(),
+    0x3a6a4a, 0o14/0o10, 0o30/0o10, ( h ) => {
+      const angulo = h() * Math.PI * 2;
+      const radiuso = 0o20 + 0o177 * Math.sqrt( h() );
+      const x = Math.sin( angulo ) * radiuso;
+      const z = Math.cos( angulo ) * radiuso;
+      if ( Math.abs( x ) > 0o200 || Math.abs( z ) > 0o200 ) return null;
+      // Nur proksime al rivero
+      if ( Math.abs( z - riverZFn( x )) > 0o12 ) return null;
+      if ( excludeBuildings( x, z, 3 ) || excludePaths( x, z, 0o2 )) return null;
+      if ( Math.hypot( x, z ) < 0o16 ) return null;
+      return { x, z };
+    });
+}
+
+// metiArbojnCxirkauLagon — Metu arbojn en ringo ĉirkaŭ la lago, sur la sekaj
+// bordoj ekster la lagrando. La ringo sekvas la ondigitan lagrandon ( radioFn ),
+// do la arboj restas proksime al la akvo sed neniam en ĝi; la seka-borda
+// kontrolo ( akvoNiveloFn ) tenas ilin for de la malseka orienta kavo.
+//     @param cx, cz ( number ) - Lagcentro.
+//     @param radioFn ( ang → r ) - Lagranda radiusa funkcio.
+//     @param akvoNiveloFn ( x, z → y ) - Akvosurfaca nivelo ( la lago aŭ rivero ).
+export function metiArbojnCxirkauLagon( heightFn: (x: number, z: number) => number,
+  kvanto: number,
+  cx: number, cz: number,
+  radioFn: (ang: number) => number,
+  akvoNiveloFn: (x: number, z: number) => number,
+  excludeRivers: (x: number, z: number) => boolean,
+  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
+  excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
+  semo = 0o53117,
+  evituArbojn: ArboMetado[] = [],
+  minimumaDistanco = 0o10
+): ArboMetado[] {
+  const hazardaGenerilo = mulberry32( semo );
+  const placed: ArboMetado[] = [];
+  let provoj = 0;
+
+  const bonaLoko = (x: number, z: number): boolean => {
+    if (excludeRivers(x, z)) return false;
+    if (excludePaths(x, z, 0o44/0o10)) return false;
+    if (excludeBuildings(x, z, 3)) return false;
+    // Nur seka bordo — la rivera kavo oriente de la lago restas sen arboj.
+    if (heightFn(x, z) < akvoNiveloFn(x, z)) return false;
+    for ( const arbo of [ ...evituArbojn, ...placed ] ) {
+      if ( Math.hypot( x - arbo.x, z - arbo.z ) < minimumaDistanco ) return false;
+    }
+    return true;
+  };
+
+  while ( placed.length < kvanto && provoj++ < 0o3720 ) {
+    const angulo = hazardaGenerilo() * Math.PI * 2;
+    // Ringo de la lagrando ( +6 ) ĝis ~38 unuojn ekster ĝi.
+    const radiuso = radioFn( angulo ) + 0o6 + hazardaGenerilo() * 0o46;
+    const x = cx + Math.cos( angulo ) * radiuso;
+    const z = cz + Math.sin( angulo ) * radiuso;
+    // Restu sur la grundo — la fora lagbordo atingas la montopiedojn.
+    if ( Math.abs( x ) > 0o450 || Math.abs( z ) > 0o450 ) continue;
+    if ( !bonaLoko( x, z ) ) continue;
+    placed.push( { x, z, h: heightFn( x, z ), s: 0o63/0o100 + hazardaGenerilo() * 0o55/0o100 } );
+  }
+  return placed;
+}
+
+// konstruiHerbonCxirkauLagon — Metu herberojn en ringo ĉirkaŭ la lago, sur la
+// sekaj bordoj ekster la lagrando — densa herba rando ĉirkaŭ la akvo.
+export function konstruiHerbonCxirkauLagon( sceno: THREE.Scene,
+  kvanto: number,
+  heightFn: ( x: number, z: number ) => number,
+  cx: number, cz: number,
+  radioFn: ( ang: number ) => number,
+  akvoNiveloFn: ( x: number, z: number ) => number,
+  excludeRivers: ( x: number, z: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
+  excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
+  semo = 0o53122
+): void {
+  const hazardaGenerilo = mulberry32( semo );
+  const herbaTeksajxo = kreiHerbErinanTeksajxon();
+
+  const fa = new THREE.PlaneGeometry( 0o5/0o10, 0o10/0o10 ).translate( 0, 0o4/0o10, 0 );
+  const fb = fa.clone().applyMatrix4( new THREE.Matrix4().makeRotationY( Math.PI / 2 ));
+  const merged = kunfandiDuGeometriojn( fa, fb );
+  const herbaMaterialo = new THREE.MeshStandardMaterial({ map: herbaTeksajxo, alphaTest: 0o15/0o40, side: THREE.DoubleSide, roughness: 1 });
+  const herboj = new THREE.InstancedMesh( merged, herbaMaterialo, kvanto );
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
-  let ei = 0;
+  let hi = 0;
   let gardilo = 0;
 
-  while ( ei < kvanto && gardilo++ < 0o5670 ) {
+  while ( hi < kvanto && gardilo++ < 0o5670 ) {
     const angulo = hazardaGenerilo() * Math.PI * 2;
-    const radiuso = 0o20 + 0o177 * Math.sqrt( hazardaGenerilo() );
-    const x = Math.sin( angulo ) * radiuso;
-    const z = Math.cos( angulo ) * radiuso;
-    if ( Math.abs( x ) > 0o200 || Math.abs( z ) > 0o200 ) continue;
-    // Nur proksime al rivero
-    if ( Math.abs( z - riverZFn( x )) > 0o12 ) continue;
-    if ( excludeBuildings( x, z, 3 ) || excludePaths( x, z, 0o2 )) continue;
-    if ( Math.hypot( x, z ) < 0o16 ) continue;
+    // Ringo de la lagrando ĝis ~40 unuojn ekster ĝi.
+    const radiuso = radioFn( angulo ) + hazardaGenerilo() * 0o50;
+    const x = cx + Math.cos( angulo ) * radiuso;
+    const z = cz + Math.sin( angulo ) * radiuso;
+    if ( Math.abs( x ) > 0o450 || Math.abs( z ) > 0o450 ) continue;
+    if ( excludeRivers( x, z ) || excludePaths( x, z, 2 ) || excludeBuildings( x, z, 2 )) continue;
+    if ( heightFn( x, z ) < akvoNiveloFn( x, z )) continue;
 
-    const alto = 10/8 + hazardaGenerilo() * 14/8;
-    E.set( 0, 0, ( hazardaGenerilo() - 4/8 ) * 4/8 );
+    const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
+    E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     Q.setFromEuler( E );
-    M.compose( new THREE.Vector3( x, heightFn( x, z ) + alto / 2, z ), Q, new THREE.Vector3( 1, alto, 1 ));
-    equis.setMatrixAt( ei++, M );
+    M.compose( new THREE.Vector3( x, heightFn( x, z ), z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
+    herboj.setMatrixAt( hi++, M );
   }
 
-  equis.count = ei;
-  equis.instanceMatrix.needsUpdate = true;
-  sceno.add( equis );
+  herboj.count = hi;
+  herboj.instanceMatrix.needsUpdate = true;
+  sceno.add( herboj );
+}
+
+// konstruiCakeojn — Metu cakeojn ( Equisetum telmateia / ſᶘᴜ ſɭɔ ), la
+// grandajn branĉet-kirlajn ĉevalvostojn, en maldika ringo ĉe la lagrando —
+// kareksa rando ĝuste ĉe la akvo, kie la bordo estas malseka ( ne pli ol
+// ~2 unuojn super la akvonivelo ).
+export function konstruiCakeojn( sceno: THREE.Scene,
+  kvanto: number,
+  heightFn: ( x: number, z: number ) => number,
+  cx: number, cz: number,
+  radioFn: ( ang: number ) => number,
+  akvoNiveloFn: ( x: number, z: number ) => number,
+  excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
+  semo = 11605
+): void {
+  instanciiKavalerbojn( sceno, kvanto, heightFn, semo, konstruiCakeanGeometrion(),
+    0x50a860, 0o12/0o10, 0o24/0o10, ( h ) => {
+      const angulo = h() * Math.PI * 2;
+      // Maldika bendo ĝis ~10 unuojn ekster la lagrando.
+      const radiuso = radioFn( angulo ) + h() * 0o12;
+      const x = cx + Math.cos( angulo ) * radiuso;
+      const z = cz + Math.sin( angulo ) * radiuso;
+      if ( Math.abs( x ) > 0o450 || Math.abs( z ) > 0o450 ) return null;
+      if ( excludeBuildings( x, z, 3 ) || excludePaths( x, z, 0o2 )) return null;
+      // Kareksoj kreskas sur la malseka bordo, ne sur la alta seka tero.
+      if ( heightFn( x, z ) > akvoNiveloFn( x, z ) + 2 ) return null;
+      return { x, z };
+    });
 }
 
 // helpiloj
@@ -979,9 +1264,9 @@ export function konstruiEquisetum( sceno: THREE.Scene,
 //     @param largxeco ( number ) - La largxa faktoro de la klingo.
 //     @param dikeco ( number ) - La reala tri-dimensia diko de la klingo.
 //     @returns geometrio ( THREE.BufferGeometry ) - La kurba folio.
-function konstruiKurbanLaktukanFolion( kurbeco = 2, largxeco = 6/5, dikeco = 3/32 ): THREE.BufferGeometry {
+function konstruiKurbanLaktukanFolion( kurbeco = 2, largxeco = 6/5, dikeco = 0o3/0o40 ): THREE.BufferGeometry {
   // Pli longa klingo — la folioj branĉiĝas pli eksteren.
-  const longo = 5/2;
+  const longo = 0o5/0o2;
   const segmentoj = 0o14;
   const largxoj = 7;
   const geometrio = new THREE.PlaneGeometry( largxeco, longo, largxoj, segmentoj );
@@ -998,7 +1283,7 @@ function konstruiKurbanLaktukanFolion( kurbeco = 2, largxeco = 6/5, dikeco = 3/3
     const s1 = j * paso;
     let dy = 0, dz = 0;
     for ( let k = 1; k <= suboj; k++ ) {
-      const u = s0 + ( s1 - s0 ) * ( k - 1/2 ) / suboj;
+      const u = s0 + ( s1 - s0 ) * ( k - 0o1/0o2 ) / suboj;
       const angulo = Math.pow( u / longo, 2 ) * kurbeco;
       dy += Math.cos( angulo ) * paso / suboj;
       dz += Math.sin( angulo ) * paso / suboj;
@@ -1014,7 +1299,7 @@ function konstruiKurbanLaktukanFolion( kurbeco = 2, largxeco = 6/5, dikeco = 3/3
     // La profilo estas glata elipso — mallarĝa ĉe la bazo kaj pinto, plej
     // larĝa meze — do la flankoj ne pikas. Eta baza amplekso tenas la folion
     // sur la trunko, kiel etendo de la ŝeloj.
-    const profilo = Math.sin( Math.PI * t ) + 1/8 * Math.pow( 1 - t, 4 );
+    const profilo = Math.sin( Math.PI * t ) + 0o1/0o10 * Math.pow( 1 - t, 4 );
     const novaX = x * profilo;
     pozicioj.setXYZ( i, novaX, vicoY[j], vicoZ[j] );
   }
@@ -1042,7 +1327,7 @@ function konstruiKurbanLaktukanFolion( kurbeco = 2, largxeco = 6/5, dikeco = 3/3
 // kreiKlinoQuaternionon — Klinu arbon hazarde por rompi la vertikalan silueton.
 // Unue turnu ĝin ĉirkaŭ la vertikalo ( yaw ), poste klinu laŭ hazarda direkto.
 // La klina angulo varias de 0 ĝis plenaKlinangulo, ĉar la hazarda faktoro
-// havas gamon de −4/8 ĝis +4/8.
+// havas gamon de −0o4/0o10 ĝis +0o4/0o10.
 //     @param hazardaGenerilo ( funkcio ) - Hazarda nombra generilo.
 //     @param plenaKlinangulo ( number ) - Maksimuma klina angulo en radianoj.
 //     @param yaw ( number ) - Turniĝo ĉirkaŭ la vertikalo.
@@ -1050,7 +1335,7 @@ function konstruiKurbanLaktukanFolion( kurbeco = 2, largxeco = 6/5, dikeco = 3/3
 function kreiKlinoQuaternionon( hazardaGenerilo: () => number, plenaKlinangulo: number, yaw: number ): THREE.Quaternion {
   const turno = new THREE.Quaternion().setFromEuler( new THREE.Euler( 0, yaw, 0 ) );
   const direkto = hazardaGenerilo() * Math.PI * 2;
-  const angulo = ( hazardaGenerilo() - 4/8 ) * plenaKlinangulo;
+  const angulo = ( hazardaGenerilo() - 0o4/0o10 ) * plenaKlinangulo;
   const klino = new THREE.Quaternion().setFromAxisAngle(
     new THREE.Vector3( Math.sin( direkto ), 0, Math.cos( direkto ) ), angulo );
   return klino.multiply( turno );
@@ -1072,52 +1357,14 @@ function kreiPoziciilon( bazo: THREE.Vector3, Q: THREE.Quaternion ): ( lokala: T
 //     @returns koloro ( THREE.Color ) - La elektita koloro.
 function hazardaKoloro( hazardaGenerilo: () => number, koloro: THREE.Color, paletro: number[] ): THREE.Color {
   koloro.setHex( paletro[ ( hazardaGenerilo() * paletro.length ) | 0 ] );
-  koloro.offsetHSL( 0, 0, ( hazardaGenerilo() - 4/8 ) * 1/8 );
+  koloro.offsetHSL( 0, 0, ( hazardaGenerilo() - 0o4/0o10 ) * 0o1/0o10 );
   return koloro;
 }
 
 function mulberry32(semo: number): () => number {
-  let a = semo >>> 0;
-  return () => {
-    a |= 0;
-    a = (a + 0x682878F5) | 0;
-    let t = Math.imul(a ^ (a >>> 0o17), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 0o75 | t)) ^ t;
-    return ((t ^ (t >>> 0o16)) >>> 0) / 4294967296;
-  };
+  // La vegetajxa modulo uzas sian propran pliigon por konservi la ekzaktan
+  // seman sekvencon de la plantoj — ŝanĝi ĝin movus ĉiun arbon en la mondo.
+  return kreiHazardanGenerilon( semo, 0x682878F5 );
 }
 
-function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGeometry): THREE.BufferGeometry {
-  // Ne-indeksaj geometrioj konservas la triangulan ordon dum kunfando;
-  // alie la indekso perdiĝas kaj duono de ĉiu ebeno neniam bildiĝas.
-  const na = a.index ? a.toNonIndexed() : a;
-  const nb = b.index ? b.toNonIndexed() : b;
-  const aPos = na.getAttribute("position");
-  const bPos = nb.getAttribute("position");
-  const aCount = aPos.count;
-  const bCount = bPos.count;
-  const tuto = aCount + bCount;
 
-  const pozicio = new Float32Array(tuto * 3);
-  const normo = new Float32Array(tuto * 3);
-  const uv = new Float32Array(tuto * 2);
-
-  pozicio.set(aPos.array as Float32Array, 0);
-  pozicio.set(bPos.array as Float32Array, aCount * 3);
-
-  const aNorm = na.getAttribute("normal");
-  const bNorm = nb.getAttribute("normal");
-  if (aNorm) normo.set(aNorm.array as Float32Array, 0);
-  if (bNorm) normo.set(bNorm.array as Float32Array, aCount * 3);
-
-  const aUV = na.getAttribute("uv");
-  const bUV = nb.getAttribute("uv");
-  if (aUV) uv.set(aUV.array as Float32Array, 0);
-  if (bUV) uv.set(bUV.array as Float32Array, aCount * 2);
-
-  const out = new THREE.BufferGeometry();
-  out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
-  out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
-  out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
-  return out;
-}

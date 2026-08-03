@@ -16,7 +16,7 @@ export interface Vesto {
 const deksesuma = (c: number) => "#" + c.toString(0o20).padStart(0o6, "0");
 
 function kvarStelo(kunteksto: CanvasRenderingContext2D, cX: number, cy: number, r: number, koloro: string): void {
-  const s = r * 7/32;
+  const s = r * 0o7/0o40;
   kunteksto.fillStyle = koloro; kunteksto.beginPath();
   kunteksto.moveTo(cX, cy - r); kunteksto.quadraticCurveTo(cX + s, cy - s, cX + r, cy);
   kunteksto.quadraticCurveTo(cX + s, cy + s, cX, cy + r); kunteksto.quadraticCurveTo(cX - s, cy + s, cX - r, cy);
@@ -38,7 +38,7 @@ function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
   const M = deksesuma(speco === "pantalono" ? o.pantalono : o.ĉefa), A = deksesuma(o.akcenta), I = deksesuma(o.interno);
   kunteksto.fillStyle = M; kunteksto.fillRect(0, 0, 0o400, 0o1000);
   kunteksto.fillStyle = A; kunteksto.fillRect(0, 0o726, 0o400, 0o32);
-  kunteksto.fillStyle = A; kunteksto.globalAlpha = 13/32; kunteksto.fillRect(0, 0o704, 0o400, 0o6); kunteksto.globalAlpha = 0o1;
+  kunteksto.fillStyle = A; kunteksto.globalAlpha = 0o15/0o40; kunteksto.fillRect(0, 0o704, 0o400, 0o6); kunteksto.globalAlpha = 0o1;
 
   if ( speco === "supra" ) {
     // Frontaj motivoj — stelo kun rombo kaj butona plateto sur la fermita brusto.
@@ -57,7 +57,7 @@ function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
     kunteksto.fillStyle = A;
     for ( let i = 0; i < 0o3; i++ ) { kunteksto.beginPath(); kunteksto.arc(0o200, 0o200 + i * 0o22, 0o4, 0, Math.PI * 0o2); kunteksto.fill(); }
     // Dorsaj motivoj — sama stelo ĉe la kudro ( x = 0 kaj x = 0o400 ), ĉar la
-    // malantaŭo estas la tekstura rando post la ŝovo ( 1/2 ).
+    // malantaŭo estas la tekstura rando post la ŝovo ( 0o1/0o2 ).
     for ( const x of [ 0, 0o400 ] ) {
       kvarStelo(kunteksto, x, 0o130, 0o40, A);
       rombo(kunteksto, x, 0o130, 0o54, 0o54, null, A);
@@ -73,14 +73,14 @@ function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
       rombo(kunteksto, 0, 0o120 + i * 0o156, 0o36, 0o50, null, A);
       rombo(kunteksto, 0o400, 0o120 + i * 0o156, 0o36, 0o50, null, A);
     }
-    kunteksto.globalAlpha = 2/8; kunteksto.fillStyle = A;
+    kunteksto.globalAlpha = 0o2/0o10; kunteksto.fillStyle = A;
     for (let i = 0; i < 0o6; i++) for (let j = 0; j < 0o3; j++) rombo(kunteksto, 0o50 + j * 0o130, 0o50 + i * 0o124, 0o12, 0o16, A, null);
     kunteksto.globalAlpha = 0o1;
   }
   const t = new THREE.CanvasTexture(kanvasa); t.colorSpace = THREE.SRGBColorSpace;
-  // La motivoj aperu ĉe la fronto: la ŝovo ( 1/2 ) alportas la teksturcentron,
+  // La motivoj aperu ĉe la fronto: la ŝovo ( 0o1/0o2 ) alportas la teksturcentron,
   // kie la steloj/romboj kaj la butona plateto estas, al la fronto ( +z ).
-  t.wrapS = THREE.RepeatWrapping; t.offset.x = 1/2;
+  t.wrapS = THREE.RepeatWrapping; t.offset.x = 0o1/0o2;
   return t;
 }
 
@@ -103,7 +103,7 @@ function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
 function kreiFoliaTonditanTubon( suproR: number, malsuproR: number, suproY: number,
   bazoY: number, segmentoj: number, loboj: number, profundo: number, nocho: number,
   fermitaSupro = false ): THREE.BufferGeometry {
-  const q = 3/4; // folia profilo — akra sed plena pinto
+  const q = 0o3/0o4; // folia profilo — akra sed plena pinto
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
   const indeksoj: number[] = [];
@@ -132,7 +132,7 @@ function kreiFoliaTonditanTubon( suproR: number, malsuproR: number, suproY: numb
   if ( fermitaSupro ) {
     // Ĉapo — centro kaj ventumilo super la supro-ringo ( la paraj indeksoj ).
     pozicioj.push( 0, suproY, 0 );
-    uvoj.push( 1/2, 0 );
+    uvoj.push( 0o1/0o2, 0 );
     const centro = 0o2 * ringo;
     for ( let i = 0; i < segmentoj; i++ ) indeksoj.push( 0o2 * i, 0o2 * i + 0o2, centro );
   }
@@ -154,14 +154,14 @@ function konstruiManikon( ĉefaM: THREE.Material, akcentaM: THREE.Material ): TH
   const grupo = new THREE.Group();
   // La tubo — pli larĝa ĉe la ŝultro ( y = 0 ), malvastigxanta al la pojno.
   // La malsupro estas tondita en kvar foliformajn lobojn: pintoj pendantaj ĝis
-  // -15/16 kaj noĉoj leviĝantaj ĝis -3/4.
+  // -0o17/0o20 kaj noĉoj leviĝantaj ĝis -0o3/0o4.
   const tubo = new THREE.Mesh(
-    kreiFoliaTonditanTubon( 5/32, 1/8, 0, -13/16, 0o60, 0o4, 1/8, 1/16, true ), ĉefaM );
+    kreiFoliaTonditanTubon( 0o5/0o40, 0o1/0o10, 0, -0o15/0o20, 0o60, 0o4, 0o1/0o10, 0o1/0o20, true ), ĉefaM );
   grupo.add( tubo );
   // La akcenta rando — maldika bandego kiu sekvas la folian tondon, iomete pli
-  // larĝa ol la tubo ( 9/64 kontraŭ 1/8 ), por ke ĝi elstaru kiel rando.
+  // larĝa ol la tubo ( 0o11/0o100 kontraŭ 0o1/0o10 ), por ke ĝi elstaru kiel rando.
   const ringo = new THREE.Mesh(
-    kreiFoliaTonditanTubon( 9/64, 9/64, -11/16, -13/16, 0o60, 0o4, 1/8, 1/16 ), akcentaM );
+    kreiFoliaTonditanTubon( 0o11/0o100, 0o11/0o100, -0o13/0o20, -0o15/0o20, 0o60, 0o4, 0o1/0o10, 0o1/0o20 ), akcentaM );
   grupo.add( ringo );
   return grupo;
 }
@@ -236,11 +236,11 @@ function kreiRondanKeston( largho: number, alto: number, profundo: number, radio
 //     @returns geometrio ( THREE.BufferGeometry ) - La har-kurteno, ĉe la kapo.
 function kreiHaranKurtenon(): THREE.BufferGeometry {
   const vicoj = 0o14, kolonoj = 0o30;
-  const fiMax = 22/10;        // radianoj — de la dorso ĝis la tempioj, iomete
+  const fiMax = 0o26/0o12;        // radianoj — de la dorso ĝis la tempioj, iomete
                                // pli antaŭen por kadri la vizaĝon kaj resti ekster la manikoj
-  const ySupro = 7/4, yMalsupro = 15/16;
-  const rSupro = 3/16, rMalsupro = 27/64;
-  const profundo = 1/8;        // kiom la fringaj pintoj pendas
+  const ySupro = 0o7/0o4, yMalsupro = 0o17/0o20;
+  const rSupro = 0o3/0o20, rMalsupro = 0o33/0o100;
+  const profundo = 0o1/0o10;        // kiom la fringaj pintoj pendas
   const pozicioj: number[] = [];
   const normaloj: number[] = [];
   const indeksoj: number[] = [];
@@ -280,19 +280,19 @@ function kreiHaranKurtenon(): THREE.BufferGeometry {
 //     @returns geometrio ( THREE.BufferGeometry ) - La har-strio, ĉe la tempio.
 function kreiHaranFlankon( dir: number ): THREE.BufferGeometry {
   const vicoj = 0o10, kolonoj = 0o4;
-  const ySupro = 99/64, yMalsupro = 35/32;
-  const xEn = 3/16, xEk = 19/64;
-  const zEn = 1/64, zEk = 9/32;
+  const ySupro = 0o143/0o100, yMalsupro = 0o43/0o40;
+  const xEn = 0o3/0o20, xEk = 0o23/0o100;
+  const zEn = 0o1/0o100, zEk = 0o11/0o40;
   const pozicioj: number[] = [];
   const indeksoj: number[] = [];
   for ( let v = 0; v <= vicoj; v++ ) {
     const t = v / vicoj;
     const y = ySupro + ( yMalsupro - ySupro ) * t;
-    const duonLargho = ( 0o1 - t ) * 1/16;   // malvastigxas al pinto
+    const duonLargho = ( 0o1 - t ) * 0o1/0o20;   // malvastigxas al pinto
     const xCentro = dir * ( xEn + ( xEk - xEn ) * t );
     const z = zEn + ( zEk - zEn ) * t;
     for ( let k = 0; k <= kolonoj; k++ ) {
-      const q = k / kolonoj - 1/2;
+      const q = k / kolonoj - 0o1/0o2;
       pozicioj.push( xCentro + q * 0o2 * duonLargho, y, z );
     }
   }
@@ -316,80 +316,80 @@ function kreiHaranFlankon( dir: number ): THREE.BufferGeometry {
 //         ( ĉapo, dorsa kurteno kaj flankaj haroj ĝis la ŝultroj ).
 export function konstruiFiguron(o: Vesto, longaHaro = false): Figuro {
   const g = new THREE.Group();
-  const haŭto = new THREE.MeshStandardMaterial({ color: 0x605050, roughness: 45/64 });
-  const kapo = new THREE.Mesh(new THREE.SphereGeometry(11/64, 0o12, 0o10), haŭto); kapo.position.y = 13/8;
+  const haŭto = new THREE.MeshStandardMaterial({ color: 0x605050, roughness: 0o55/0o100 });
+  const kapo = new THREE.Mesh(new THREE.SphereGeometry(0o13/0o100, 0o12, 0o10), haŭto); kapo.position.y = 0o15/0o10;
   // Duflanka haro-materialo — la maldikaj har-folioj ( kurteno, flankoj ) bezonas
   // ambaŭ flankojn por ne malaperi; la ĉapo ne ĝenas per ĝi.
-  const haroM = new THREE.MeshStandardMaterial({ color: 0x282818, roughness: 29/32, side: THREE.DoubleSide });
-  const haro = new THREE.Mesh( new THREE.SphereGeometry(3/16, 0o12, 0o10), haroM );
-  haro.scale.set(0o1, 23/32, 0o1); haro.position.y = 109/64;
+  const haroM = new THREE.MeshStandardMaterial({ color: 0x282818, roughness: 0o35/0o40, side: THREE.DoubleSide });
+  const haro = new THREE.Mesh( new THREE.SphereGeometry(0o3/0o20, 0o12, 0o10), haroM );
+  haro.scale.set(0o1, 0o27/0o40, 0o1); haro.position.y = 0o155/0o100;
 
   // Kolo — plenigas la breĉon inter la kapo kaj la ĉemizo, por ke neniu truo videblu.
-  const kolo = new THREE.Mesh(new THREE.CylinderGeometry(3/32, 7/64, 5/32, 0o14, 0o1), haŭto); kolo.position.y = 93/64;
+  const kolo = new THREE.Mesh(new THREE.CylinderGeometry(0o3/0o40, 0o7/0o100, 0o5/0o40, 0o14, 0o1), haŭto); kolo.position.y = 0o135/0o100;
 
   const internoM = new THREE.MeshStandardMaterial({
-    map: vestaTeksajxo(o, "interno"), roughness: 27/32, side: THREE.DoubleSide,
+    map: vestaTeksajxo(o, "interno"), roughness: 0o33/0o40, side: THREE.DoubleSide,
   });
   const eksteraM = new THREE.MeshStandardMaterial({
-    map: vestaTeksajxo(o, "supra"), roughness: 51/64, side: THREE.DoubleSide,
+    map: vestaTeksajxo(o, "supra"), roughness: 0o63/0o100, side: THREE.DoubleSide,
   });
   const pantalonoM = new THREE.MeshStandardMaterial({
-    map: vestaTeksajxo(o, "pantalono"), roughness: 51/64, side: THREE.DoubleSide,
+    map: vestaTeksajxo(o, "pantalono"), roughness: 0o63/0o100, side: THREE.DoubleSide,
   });
-  const botoM = new THREE.MeshStandardMaterial({ color: o.botoj, roughness: 27/32 });
+  const botoM = new THREE.MeshStandardMaterial({ color: o.botoj, roughness: 0o33/0o40 });
   // Plando — la akcenta koloro ĉe la malsupro de la ŝuo.
-  const plandoM = new THREE.MeshStandardMaterial({ color: o.akcenta, roughness: 51/64 });
+  const plandoM = new THREE.MeshStandardMaterial({ color: o.akcenta, roughness: 0o63/0o100 });
 
   // Interna ĉemizo — pli granda, iras de la kolo ĝis la talio kaj montriĝas
-  // sub la antaŭa rando de la robo. La malsupro ( 31/64 ) enŝoviĝas iomete
-  // sub la pantalono-supro ( 1/2 ), por ke neniu koincida rando flagru.
-  const interno = new THREE.Mesh( new THREE.CylinderGeometry(3/16, 11/32, 0o1, 0o14, 0o1, true), internoM ); interno.position.y = 63/64;
+  // sub la antaŭa rando de la robo. La malsupro ( 0o37/0o100 ) enŝoviĝas iomete
+  // sub la pantalono-supro ( 0o1/0o2 ), por ke neniu koincida rando flagru.
+  const interno = new THREE.Mesh( new THREE.CylinderGeometry(0o3/0o20, 0o13/0o40, 0o1, 0o14, 0o1, true), internoM ); interno.position.y = 0o77/0o100;
   // Ekstera robo — pli granda, kun oblikva rando: la dorso pendas super la
-  // pantalono ( y = 25/64 ) kaj la antaŭo leviĝas alte ( y = 73/64 ) sed mallarĝe
-  // ( la flankoj restas malsupre, y ≈ 28/64 ), malfermiĝante kiel jako — sed la
+  // pantalono ( y = 0o31/0o100 ) kaj la antaŭo leviĝas alte ( y = 0o111/0o100 ) sed mallarĝe
+  // ( la flankoj restas malsupre, y ≈ 0o34/0o100 ), malfermiĝante kiel jako — sed la
   // supro restas fermita ĉirkaŭ la kolo.
-  const ekstera = new THREE.Mesh( kreiRobanSxelon(7/32, 3/8, 9/8, 3/4), eksteraM ); ekstera.position.y = 61/64;
+  const ekstera = new THREE.Mesh( kreiRobanSxelon(0o7/0o40, 0o3/0o10, 0o11/0o10, 0o3/0o4), eksteraM ); ekstera.position.y = 0o75/0o100;
 
   // Pantalono — du pli dikaj kruroj, kutime hela aŭ malhela bluo kun rombaj
-  // motivoj. La suproj ( 5/32 ) koincidas kun la interna ĉemiz-hemo ( 11/32 ),
-  // kaj la fundoj ( 1/8 ) enŝoviĝas en la pli altajn botojn.
-  const pantalonoGeometrio = new THREE.CylinderGeometry(5/32, 1/8, 3/8, 0o14, 0o1);
-  const pL = new THREE.Mesh(pantalonoGeometrio, pantalonoM); pL.position.set(-3/16, 5/16, 0);
-  const pR = new THREE.Mesh(pantalonoGeometrio, pantalonoM); pR.position.set(3/16, 5/16, 0);
+  // motivoj. La suproj ( 0o5/0o40 ) koincidas kun la interna ĉemiz-hemo ( 0o13/0o40 ),
+  // kaj la fundoj ( 0o1/0o10 ) enŝoviĝas en la pli altajn botojn.
+  const pantalonoGeometrio = new THREE.CylinderGeometry(0o5/0o40, 0o1/0o10, 0o3/0o10, 0o14, 0o1);
+  const pL = new THREE.Mesh(pantalonoGeometrio, pantalonoM); pL.position.set(-0o3/0o20, 0o5/0o20, 0);
+  const pR = new THREE.Mesh(pantalonoGeometrio, pantalonoM); pR.position.set(0o3/0o20, 0o5/0o20, 0);
 
   // Botoj — ŝafto supre de sxoforma piedo kiu etendiĝas antaŭen ( +z ), kiel
   // piedo sur homa kruro. La plando sube portas la akcentan koloron. La ŝafto
   // estas malfermita ( sen ĉapoj ) por ke neniu z-flagrado okazu.
-  const botoSxafto = new THREE.CylinderGeometry(3/16, 1/8, 9/32, 0o14, 0o1, true);
-  const bL1 = new THREE.Mesh(botoSxafto, botoM); bL1.position.set(-3/16, 7/32, 0);
-  const bR1 = new THREE.Mesh(botoSxafto, botoM); bR1.position.set(3/16, 7/32, 0);
+  const botoSxafto = new THREE.CylinderGeometry(0o3/0o20, 0o1/0o10, 0o11/0o40, 0o14, 0o1, true);
+  const bL1 = new THREE.Mesh(botoSxafto, botoM); bL1.position.set(-0o3/0o20, 0o7/0o40, 0);
+  const bR1 = new THREE.Mesh(botoSxafto, botoM); bR1.position.set(0o3/0o20, 0o7/0o40, 0);
   // Piedo — malgranda sxoforma bloko antaŭen, kun iomete rondaj anguloj
-  // ( horizontale ), por ke la ŝuo aspektu pli polurita. La malsupro ( 1/64 )
-  // enŝoviĝas en la plandon ( 0 .. 1/32 ), por ke neniu koincida faco flagru.
-  const piedaGeometrio = kreiRondanKeston(1/4, 3/32, 1/4, 1/16);
-  const piedL = new THREE.Mesh(piedaGeometrio, botoM); piedL.position.set(-3/16, 1/16, 1/8);
-  const piedR = new THREE.Mesh(piedaGeometrio, botoM); piedR.position.set(3/16, 1/16, 1/8);
+  // ( horizontale ), por ke la ŝuo aspektu pli polurita. La malsupro ( 0o1/0o100 )
+  // enŝoviĝas en la plandon ( 0 .. 0o1/0o40 ), por ke neniu koincida faco flagru.
+  const piedaGeometrio = kreiRondanKeston(0o1/0o4, 0o3/0o40, 0o1/0o4, 0o1/0o20);
+  const piedL = new THREE.Mesh(piedaGeometrio, botoM); piedL.position.set(-0o3/0o20, 0o1/0o20, 0o1/0o10);
+  const piedR = new THREE.Mesh(piedaGeometrio, botoM); piedR.position.set(0o3/0o20, 0o1/0o20, 0o1/0o10);
   // Plando — maldika akcenta plato sub la piedo, iomete pli granda ol la piedo.
-  const plandaGeometrio = kreiRondanKeston(9/32, 1/32, 5/16, 1/16);
-  const plL = new THREE.Mesh(plandaGeometrio, plandoM); plL.position.set(-3/16, 1/64, 1/8);
-  const plR = new THREE.Mesh(plandaGeometrio, plandoM); plR.position.set(3/16, 1/64, 1/8);
+  const plandaGeometrio = kreiRondanKeston(0o11/0o40, 0o1/0o40, 0o5/0o20, 0o1/0o20);
+  const plL = new THREE.Mesh(plandaGeometrio, plandoM); plL.position.set(-0o3/0o20, 0o1/0o100, 0o1/0o10);
+  const plR = new THREE.Mesh(plandaGeometrio, plandoM); plR.position.set(0o3/0o20, 0o1/0o100, 0o1/0o10);
 
   // Tri-dimensiaj manikoj — ĉefa tubo kun akcenta ringo kaj kvarfolia tondita
   // rando. La tubo kliniĝas iomete eksteren de la korpo.
-  const manikaTuboM = new THREE.MeshStandardMaterial({ color: o.ĉefa, roughness: 51/64, side: THREE.DoubleSide });
-  const manikaAkcentaM = new THREE.MeshStandardMaterial({ color: o.akcenta, roughness: 6/8, side: THREE.DoubleSide });
+  const manikaTuboM = new THREE.MeshStandardMaterial({ color: o.ĉefa, roughness: 0o63/0o100, side: THREE.DoubleSide });
+  const manikaAkcentaM = new THREE.MeshStandardMaterial({ color: o.akcenta, roughness: 0o6/0o10, side: THREE.DoubleSide });
   const sL = konstruiManikon(manikaTuboM, manikaAkcentaM);
-  sL.position.set(-17/64, 91/64, 0); sL.rotation.z = -1/8;
+  sL.position.set(-0o21/0o100, 0o133/0o100, 0); sL.rotation.z = -0o1/0o10;
   const sR = konstruiManikon(manikaTuboM, manikaAkcentaM);
-  sR.position.set(17/64, 91/64, 0); sR.rotation.z = 1/8;
+  sR.position.set(0o21/0o100, 0o133/0o100, 0); sR.rotation.z = 0o1/0o10;
 
   // Longa haro — vera har-geometrio anstataŭ sferoj: pli granda ĉapo supre,
   // fleksita kurteno ĉirkaŭ la malantaŭo de la kapo kiu falas ĝis la ŝultroj
   // kun pinteca fringo, kaj du flankaj strioj kadrantaj la vizaĝon. Ĉio en la
   // sama haro-materialo.
   const longaGrupo = new THREE.Group();
-  const ĉapo = new THREE.Mesh( new THREE.SphereGeometry(7/32, 0o12, 0o10), haroM );
-  ĉapo.scale.set(0o1, 23/32, 0o1); ĉapo.position.y = 109/64;
+  const ĉapo = new THREE.Mesh( new THREE.SphereGeometry(0o7/0o40, 0o12, 0o10), haroM );
+  ĉapo.scale.set(0o1, 0o27/0o40, 0o1); ĉapo.position.y = 0o155/0o100;
   longaGrupo.add(ĉapo);
   const kurteno = new THREE.Mesh( kreiHaranKurtenon(), haroM );
   longaGrupo.add(kurteno);
@@ -406,7 +406,7 @@ export function konstruiFiguron(o: Vesto, longaHaro = false): Figuro {
     group: g,
     hejmo: new THREE.Vector3(),
     celo: new THREE.Vector3(),
-    atendo: 0, rapido: 51/64,
+    atendo: 0, rapido: 0o63/0o100,
     agordiVeston(nova: Vesto) {
       internoM.map = vestaTeksajxo(nova, "interno"); eksteraM.map = vestaTeksajxo(nova, "supra");
       pantalonoM.map = vestaTeksajxo(nova, "pantalono");
@@ -432,12 +432,12 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco
   }
   const difX = fig.celo.x - fig.group.position.x, difZ = fig.celo.z - fig.group.position.z;
   const d = Math.hypot(difX, difZ);
-  if ( d > 19/64 ) {
+  if ( d > 0o23/0o100 ) {
     fig.group.position.x += difX / d * fig.rapido * deltaTempo;
     fig.group.position.z += difZ / d * fig.rapido * deltaTempo;
-    fig.group.position.y = fig.group.position.y + (alteco(fig.group.position.x, fig.group.position.z) - fig.group.position.y) * 13/64;
+    fig.group.position.y = fig.group.position.y + (alteco(fig.group.position.x, fig.group.position.z) - fig.group.position.y) * 0o15/0o100;
     fig.group.rotation.y = Math.atan2(difX, difZ);
-    fig.group.position.y += Math.abs(Math.sin(t * 0o6)) * 1/64;
+    fig.group.position.y += Math.abs(Math.sin(t * 0o6)) * 0o1/0o100;
   }
-  fig.group.rotation.z = Math.sin(t * 77/64 + fig.hejmo.x) * 1/64;
+  fig.group.rotation.z = Math.sin(t * 0o115/0o100 + fig.hejmo.x) * 0o1/0o100;
 }

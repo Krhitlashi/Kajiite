@@ -99,6 +99,47 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "ſȷɔ ſɭ,ꞇ",
     "ariaButLingvo": "j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ ʌ ſ͔ɭᴜ ᶅſɔ",
     "ariaSupermetaFermi": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
+    // Informo-panelo — tradukoj poste ( lasita malplena )
+    "ariaInformButono": "ꞁȷ̀ᴜ ſ̀ȷɔ ʌ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ j͑ʃ'ɜ ſןɹ",
+    "titoloInformo": "ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ j͑ʃ'ɜ ſןɹ",
+    "subtitoloInformo": "ſןᴜȝ · ŋᷠɜⅎᶗ‹ · ɭ(ᴜͷ̗",
+    "tabKonstruajxoj": "ſןᴜȝ",
+    "tabMangxajxoj": "ŋᷠɜⅎᶗ‹",
+    "tabSpecioj": "ɭ(ᴜͷ̗",
+    // Bestoj kaj plantoj de la valo — konservativaj, dictionary-kontrolitaj
+    // priskriboj. ʌ disigas kompletajn vortojn; prefiksoj restas kun la bazo.
+    "grupoBesto": "ſןᴜ ſ͔ɭᴜ",
+    "grupoPlanto": "ı],ᴜ ſ̀ȷɔ",
+    "specBeroe": "j͐ʃɹᶗ‹ ſɭw ſןwƽ ꞁȷ̀ᴜꞇ",
+    "flvSpecBeroe": "j͐ʃᴜ ֭ſɭᴜƽ ʌ j͐ʃɹᶗ‹",
+    "specMnemiopsis": "j͐ʃɹᶗ‹ ſɟᴜ ı],ͷ̗ɔʞ ꞁȷ̀ᴜꞇ",
+    "flvSpecMnemiopsis": "ı],ɔ ſɭw ı],ᴜ ʌ j͐ʃɹᶗ‹",
+    "specPleŭrobrakia": "j͐ʃɹᶗ‹ j͐ʃᴜ ſןw ֭ſɭᴜ j͑ʃᴜꞇ",
+    "flvSpecPleŭrobrakia": "j͑ʃɹ j͐ʃɹᶗ‹",
+    "specGlacifiso": "ſ͕ɭᴜ ɭʃɹ ᶅſᴜ",
+    "flvSpecGlacifiso": "ᶅſɹ ʌ ſɭᴜ",
+    "specMarlaraksxo": "ɭʃɜͷ̗ ı],w",
+    "flvSpecMarlaraksxo": "j͑ʃɹ ɭʃɜͷ̗ ı],w",
+    "specBetulo": "j͐ʃᴜ ŋᷠɹⰱ",
+    "flvSpecBetulo": "ſ͔ɭэ ʌ j͐ʃᴜ ŋᷠɹⰱ",
+    "specLariko": "ɭʃᴜ ſɭɔ˞ᴜͷ̗",
+    "flvSpecLariko": "ɭʃᴜ ſɭɔ˞ᴜͷ̗",
+    "specHxsxaksxlefo": "ı],ͷ̗ɔʞ ֭ſɭᶗ‹ᴜƽ ꞁȷ̀ᴜꞇ",
+    "flvSpecHxsxaksxlefo": "ſᶘꞇ }ʃɔ ʌ ſןw }ʃᴜ ſ̀ȷᴜ ſɟɔ",
+    "specFiliko": "ı],ᴜ ʃꞇ",
+    "flvSpecFiliko": "j͐ʃᴜ̩ᴜ ʌ ɭl̀эƣ̋ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ ſɟɔ ʌ ı],ᴜ ʃꞇ",
+    "specPurpuraFiliko": "ı],ͷ̗ɔʞ ı],ᴜ ʃꞇ j͑ʃᴜꞇ",
+    "flvSpecPurpuraFiliko": "ᶅſw ſɭɹ ʌ ſᶘꞇ }ʃɔ ʌ ı],ᴜ ʃꞇ",
+    "specLikeno": "ꞁȷ̀ɹ ŋᷠᴜ",
+    "flvSpecLikeno": "ꞁȷ̀ɹ ŋᷠᴜ ſɟэᶗ‹ ꞁȷ̀ᴜꞇ",
+    "specHerbo": "ſȷɔ ſᶘᴜʞ",
+    "flvSpecHerbo": "ſȷɔ ſᶘᴜʞ",
+    "specMusko": "ſɟэᶗ‹",
+    "flvSpecMusko": "ſɟэᶗ‹",
+    "specCetkuo": "ſᶘɔ ɭʃƽɹ",
+    "flvSpecCetkuo": "ᶅſw ſɭɹ ʌ ſᶘᴜ ſɭɔ",
+    "specCakeo": "ſᶘᴜ ſɭɔ",
+    "flvSpecCakeo": "j͐ʃɜ ʃɔ ʌ ſᶘᴜ ſɭɔ",
     "ariaTrako0": "j͑ʃw ſɭʞɹȝ ı ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "ariaTrako1": "j͑ʃw ſɭʞɹȝ ɿ ſןᴜ ʃɜƽ ſ͔ɭɹ",
     "ariaTrako2": "j͑ʃw ſɭʞɹȝ ц ɭʃэʞ ɭʃꞇʞ",
@@ -237,6 +278,46 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "Helpo",
     "ariaButLingvo": "Ŝanĝi la lingvon de la urbo",
     "ariaSupermetaFermi": "Fermi",
+    // Informo-panelo ( konstruaĵoj · manĝaĵoj · specioj )
+    "ariaInformButono": "Malfermi informojn",
+    "titoloInformo": "INFORMOJ",
+    "subtitoloInformo": "Konstruaĵoj · manĝaĵoj · specioj",
+    "tabKonstruajxoj": "KONSTRUAĴOJ",
+    "tabMangxajxoj": "MANĜAĴOJ",
+    "tabSpecioj": "SPECIOJ",
+    // Bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo.ts )
+    "grupoBesto": "BESTO",
+    "grupoPlanto": "PLANTO",
+    "specBeroe": "Beroo",
+    "flvSpecBeroe": "Longforma kombomeduzo kun ok kombovicoj.",
+    "specMnemiopsis": "Mnemiopsiso",
+    "flvSpecMnemiopsis": "Ronda kombomeduzo kun kvar buŝaj loboj.",
+    "specPleŭrobrakia": "Pleŭrobrakio",
+    "flvSpecPleŭrobrakia": "Malgranda ronda kombomeduzo kun du longaj palpoj.",
+    "specGlacifiso": "Glacifiso",
+    "flvSpecGlacifiso": "Preskaŭ travidebla fiŝo sen hemoglobino.",
+    "specMarlaraksxo": "Marlaraksxo",
+    "flvSpecMarlaraksxo": "Eta mararaneo kun ok longegaj kruroj.",
+    "specBetulo": "Betulo",
+    "flvSpecBetulo": "La blankŝela betularo de la valo.",
+    "specLariko": "Lariko",
+    "flvSpecLariko": "Alpina konifero kun aŭtuna orflava pinglaro.",
+    "specHxsxaksxlefo": "Ĥŝakŝlefo",
+    "flvSpecHxsxaksxlefo": "Purpura laktuk-arbo kun kurbiĝintaj folioj.",
+    "specFiliko": "Filiko",
+    "flvSpecFiliko": "Verda filiko de la arbara grundo.",
+    "specPurpuraFiliko": "Ŝafiŝlefo",
+    "flvSpecPurpuraFiliko": "Alta purpura filiko de la ekstera arbaro.",
+    "specLikeno": "Likeno",
+    "flvSpecLikeno": "Krusta likeno sterniĝanta sur ŝtonoj kaj arboj.",
+    "specHerbo": "Herbo",
+    "flvSpecHerbo": "Maldensa herbaro inter la arboj.",
+    "specMusko": "Musko",
+    "flvSpecMusko": "Muska monteto apud la arboj.",
+    "specCetkuo": "Cetkuo",
+    "flvSpecCetkuo": "Alta senbranĉa skurĝa kano kun strobiloj.",
+    "specCakeo": "Cakeo",
+    "flvSpecCakeo": "Granda branĉet-kirla ĉevalvosto ĉe la lagrando.",
     // Aria label for dusk toggle
     "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
     "ariaDuskRegilo": "Krepuska nivelo",
@@ -308,11 +389,11 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla1Flavor": "Amber over acid · mint underneath.",
     "manĝTla2Flavor": "Birch-sap frost · the vale in a glass.",
     // Building card labels
-    "tipDomo": "Kapuo",
-    "tipMangxejo": "Kahxjenko",
-    "tipKasafeo": "Kasafeo",
-    "tipStacioxipo": "Spaceport",
-    "tipTuro": "Veuxkupanko",
+    "tipDomo": "Kappih",
+    "tipMangxejo": "Kahyeng",
+    "tipKasafeo": "Kahsaffeh",
+    "tipStacioxipo": "Kakrhahsesharh",
+    "tipTuro": "Pang Wukkih",
     "tipSanktejo": "Sanctuary",
     // Building flavor text
     "flvDomo": "Quiet rooms stacked into the mist.",
@@ -341,6 +422,46 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "Help",
     "ariaButLingvo": "Change the city language",
     "ariaSupermetaFermi": "Close",
+    // Information panel ( buildings · food · species )
+    "ariaInformButono": "Open information",
+    "titoloInformo": "INFORMATION",
+    "subtitoloInformo": "Buildings · food · species",
+    "tabKonstruajxoj": "BUILDINGS",
+    "tabMangxajxoj": "FOOD",
+    "tabSpecioj": "SPECIES",
+    // The animals and plants of the vale ( from bestoj.ts and vegetajxo.ts )
+    "grupoBesto": "ANIMAL",
+    "grupoPlanto": "PLANT",
+    "specBeroe": "Beroe",
+    "flvSpecBeroe": "An elongate comb jelly with eight comb rows.",
+    "specMnemiopsis": "Mnemiopsis",
+    "flvSpecMnemiopsis": "A round comb jelly with four oral lobes.",
+    "specPleŭrobrakia": "Pleurobrachia",
+    "flvSpecPleŭrobrakia": "A small round comb jelly with two long palps.",
+    "specGlacifiso": "Icefish",
+    "flvSpecGlacifiso": "A nearly transparent fish without hemoglobin.",
+    "specMarlaraksxo": "Sea spider",
+    "flvSpecMarlaraksxo": "A tiny sea spider with eight long legs.",
+    "specBetulo": "Birch",
+    "flvSpecBetulo": "The white-barked birch of the vale.",
+    "specLariko": "Larch",
+    "flvSpecLariko": "An alpine conifer with golden autumn needles.",
+    "specHxsxaksxlefo": "Shlef Hshaku",
+    "flvSpecHxsxaksxlefo": "A purple lettuce-tree with curled leaves. Used to make vinegar.",
+    "specFiliko": "Fern",
+    "flvSpecFiliko": "A green fern of the forest floor.",
+    "specPurpuraFiliko": "Shlef Shawhisu",
+    "flvSpecPurpuraFiliko": "A tall purple fern that grows into a large tree.",
+    "specLikeno": "Lichen",
+    "flvSpecLikeno": "Crusty lichen spreading over stones and trees.",
+    "specHerbo": "Grass",
+    "flvSpecHerbo": "Sparse grass among the trees.",
+    "specMusko": "Moss",
+    "flvSpecMusko": "A mossy mound beside the trees.",
+    "specCetkuo": "Horsetail",
+    "flvSpecCetkuo": "A tall unbranched scouring rush with strobili.",
+    "specCakeo": "Tsakeh",
+    "flvSpecCakeo": "Great branch-whorled horsetails at the lakeshore.",
     // Aria label for dusk toggle
     "ariaButKrepusko": "Toggle dusk mode",
     "ariaDuskRegilo": "Dusk level",
@@ -448,6 +569,36 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "ヘルプ",
     "ariaButLingvo": "言語を変更",
     "ariaSupermetaFermi": "閉じる",
+    // 情報パネル ( 建物 · 食べ物 · 種族 )
+    "ariaInformButono": "情報を開く",
+    "titoloInformo": "情報",
+    "subtitoloInformo": "建物 · 食べ物 · 種族",
+    "tabKonstruajxoj": "建物",
+    "tabMangxajxoj": "食べ物",
+    "tabSpecioj": "種族",
+    // 谷の動物と植物 ( bestoj.ts と vegetajxo.ts から )
+    "grupoBesto": "動物",
+    "grupoPlanto": "植物",
+    "specBeroe": "ベロー",
+    "flvSpecBeroe": "細長い有櫛動物。八列の櫛を持つ。",
+    "specMnemiopsis": "ネミオプシス",
+    "flvSpecMnemiopsis": "四つの口葉を持つ丸い有櫛動物。",
+    "specPleŭrobrakia": "プレウロブラキア",
+    "flvSpecPleŭrobrakia": "二本の長い触手を持つ小さな丸い有櫛動物。",
+    "specGlacifiso": "氷魚",
+    "flvSpecGlacifiso": "ヘモグロビンを持たない、ほぼ透明な魚。",
+    "specMarlaraksxo": "ウミグモ",
+    "flvSpecMarlaraksxo": "八本の長い脚を持つ小さなウミグモ。",
+    "flvSpecBetulo": "谷の白樺。",
+    "flvSpecLariko": "秋に黄金色の針葉を持つ高山性の針葉樹。",
+    "flvSpecHxsxaksxlefo": "紫色のレタスの木。巻いた葉を持ち、酢作りに使う。",
+    "flvSpecFiliko": "森の地面に生える緑のシダ。",
+    "flvSpecPurpuraFiliko": "外側の森に生える高い紫色のシダ。",
+    "flvSpecLikeno": "石や木に広がる硬い地衣。",
+    "flvSpecHerbo": "木々の間にまばらに生える草。",
+    "flvSpecMusko": "木々のそばの苔むした小山。",
+    "flvSpecCetkuo": "胞子嚢を持つ、高く枝分かれしないトクサ。",
+    "flvSpecCakeo": "湖岸に生える、大きく枝が輪生するトクサ。",
     // Aria label for dusk toggle
     "ariaButKrepusko": "夕暮れモードを切り替え",
     "ariaDuskRegilo": "夕暮れのレベル",
@@ -552,6 +703,36 @@ const skakefani: Record<string, Record<string, string>> = {
     "ariaButHelpi": "ជំនួយ",
     "ariaButLingvo": "ប្តូរភាសាទីក្រុង",
     "ariaSupermetaFermi": "បិទ",
+    // ផ្ទាំងព័ត៌មាន ( អាគារ · អាហារ · ប្រភេទ )
+    "ariaInformButono": "បើកព័ត៌មាន",
+    "titoloInformo": "ព័ត៌មាន",
+    "subtitoloInformo": "អាគារ · អាហារ · ប្រភេទ",
+    "tabKonstruajxoj": "អាគារ",
+    "tabMangxajxoj": "អាហារ",
+    "tabSpecioj": "ប្រភេទ",
+    // សត្វ និងរុក្ខជាតិនៃជ្រលង ( ពី bestoj.ts និង vegetajxo.ts )
+    "grupoBesto": "សត្វ",
+    "grupoPlanto": "រុក្ខជាតិ",
+    "specBeroe": "បេរ៉ូ",
+    "flvSpecBeroe": "ចាហួយសិតរាងវែង មានជួរសិតប្រាំបី។",
+    "specMnemiopsis": "នេមីអូបស៊ីស",
+    "flvSpecMnemiopsis": "ចាហួយសិតរាងមូល មានកំពូលមាត់បួន។",
+    "specPleŭrobrakia": "ប្លឿរ៉ូប្រាគីអា",
+    "flvSpecPleŭrobrakia": "ចាហួយសិតមូលតូច មានអង់តែនវែងពីរ។",
+    "specGlacifiso": "ត្រីទឹកកក",
+    "flvSpecGlacifiso": "ត្រីស្ទើរតែថ្លា ដែលគ្មានហេម៉ូក្លូប៊ីន។",
+    "specMarlaraksxo": "ពីងពាងសមុទ្រ",
+    "flvSpecMarlaraksxo": "ពីងពាងសមុទ្រតូច មានជើងវែងប្រាំបី។",
+    "flvSpecBetulo": "ដើមប៊ីចសំបកសនៅជ្រលង។",
+    "flvSpecLariko": "ដើមឈើម្ជុលភ្នំ មានម្ជុលពណ៌មាសនៅរដូវស្លឹកឈើជ្រុះ។",
+    "flvSpecHxsxaksxlefo": "ដើមសាឡាត់ពណ៌ស្វាយ មានស្លឹករមួល ហើយប្រើធ្វើទឹកខ្មេះ។",
+    "flvSpecFiliko": "ហ្វឺនពណ៌បៃតងនៅលើដីព្រៃ។",
+    "flvSpecPurpuraFiliko": "ហ្វឺនពណ៌ស្វាយខ្ពស់នៅព្រៃខាងក្រៅ។",
+    "flvSpecLikeno": "លីចេនរឹង រាលដាលលើថ្មនិងដើមឈើ។",
+    "flvSpecHerbo": "ស្មៅដុះរាយប៉ាយនៅចន្លោះដើមឈើ។",
+    "flvSpecMusko": "គំនរស្លែនៅក្បែរដើមឈើ។",
+    "flvSpecCetkuo": "រុក្ខជាតិខ្ពស់គ្មានមែក មានកោនគ្រាប់ពូជ។",
+    "flvSpecCakeo": "រុក្ខជាតិខ្ពស់មានមែកជុំវិញ ដុះនៅមាត់បឹង។",
     // Aria label for dusk toggle
     "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
     "ariaDuskRegilo": "កម្រិតព្រលប់",
@@ -585,10 +766,11 @@ export function nomoAih(klavo: string): string {
   return skakefani.aih[klavo] || klavo;
 }
 
-// Konstruaĵnomoj ( paqN ), trakonomoj ( trakoN ) kaj manĝaĵnomoj
-// ( manĝFokN / manĝTlaN ) estas DERIVITAJ de la aih-a Gawekiif per la sonaj
-// reguloj ( src/sonaj-reguloj.ts ) en ĉiuj lingvoj — ne mane skribitaj. En la
-// aih-a lingvo la gk-formo estas jam la fonto, do nenio derivas.
+// Konstruaĵnomoj ( paqN ), trakonomoj ( trakoN ), manĝaĵnomoj
+// ( manĝFokN / manĝTlaN ) kaj la specifaj plantnomoj ( spec* ) povas esti
+// DERIVITAJ de la aih-a Gawekiif per la sonaj reguloj ( src/sonaj-reguloj.ts )
+// kiam la aktiva lingvo ne havas propran tekston. En aih la gk-formo estas jam
+// la fonto, kaj eo/en konservas siajn eksplicitajn plantnomojn.
 // La aria-etikedoj de la trakoj ( ariaTrakoN ) uzas la derivitan trakonomon.
 const ARIA_TRAKO_PREFIKSO: Record<string, (n: number) => string> = {
   eo: n => "Elekti trakon " + n + " ",
@@ -596,13 +778,19 @@ const ARIA_TRAKO_PREFIKSO: Record<string, (n: number) => string> = {
   ja: n => "トラック " + n + " を選択 ",
   km: n => "ជ្រើសរើសបទ " + n + " ",
 };
+const SPECIFIKAJ_PLANTNOMOJ = new Set([
+  "specBetulo", "specLariko", "specHxsxaksxlefo", "specFiliko", "specPurpuraFiliko",
+  "specLikeno", "specHerbo", "specMusko", "specCetkuo", "specCakeo",
+]);
 
 function deriviNomon(klavo: string): string | null {
   if (aktivaLingvo === "aih") return null;
   // ariaTrakoN: prefikso ( lingvo-specifa ) + derivita trakonomo.
+  // spec*: mankas rekta ja/km-ŝnuro por la specifaj plantnomoj, do ili ankaŭ
+  // venas el la aih-formo per la samaj sonaj reguloj.
   const aria = /^ariaTrako(\d+)$/.exec(klavo);
   const bazo = aria ? "trako" + aria[1] : klavo;
-  if (!/^(paq|trako|manĝFok|manĝTla)\d+$/.test(bazo)) return null;
+  if (!/^(paq|trako|manĝFok|manĝTla)\d+$/.test(bazo) && !SPECIFIKAJ_PLANTNOMOJ.has(bazo)) return null;
   const aihFormo = skakefani.aih[bazo];
   if (!aihFormo) return null;
   // Manĝaĵnomoj kunhavas "·" disigilon ( nomo · gusto ): derivu ĉiun flankon
