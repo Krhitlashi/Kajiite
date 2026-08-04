@@ -94,7 +94,7 @@ function avideKongruigi(text: string, tokenList: string[]): string[] {
 // ⟪ Language Sound-Mapping Tables 🌍 ⟫
 const MAPO_EO: Record<string, string> = {
   "ⱱ̥": "v", "p": "p", "ɸ": "f", "ɸˠ": "f",
-  "m̥": "m", "ɾ̪̥": "r", "θ": "t", "t": "t", "s̪": "s",
+  "m̥": "m", "ɾ̪̥": "r", "θ": "z", "t": "t", "s̪": "s",
   "ts": "c", "s": "s", "n̥": "n", "tɬ": "tl", "ɬ": "l",
   "kʂ": "kr", "ʂ": "ĝ", "ɟ̥̆": "j", "c": "ĉ", "ç": "ŝ",
   "ɲ̥": "nj", "xʲ": "ĥj", "k": "k", "x": "ĥ", "ŋ̥": "nk",

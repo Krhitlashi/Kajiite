@@ -53,10 +53,10 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 #retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--gold); }
 #retikulo::before { width:16px; height:1px; top:50%; left:-8px; }
 #retikulo::after { width:1px; height:16px; left:50%; top:-8px; }
-#tosto,#prompto { letter-spacing:.125em; white-space:nowrap; opacity:0; pointer-events:none; }
+#tosto,#prompto { white-space:nowrap; opacity:0; pointer-events:none; }
 #tosto {
   position:fixed; z-index:5; top:calc(50% + 64px); left:50%; transform:translate(-50%,-50%) translateY(16px);
-  padding:var(--អារេង) var(--អារេងព៏); color:var(--mist); font-size:12px;
+  padding:var(--អារេង) var(--អារេងព៏); color:var(--mist);
   transition:opacity .5s,transform .5s;
 }
 #tosto.montri { transform:translate(-50%,-50%); }
@@ -72,9 +72,9 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 #supermeta.mapo .interno { display:none; }
 /* Fizika max-height ankaŭ: en aih/ja la blok-akso estas horizontala, do nur
    max-block-size ne limigus la altecon — la vesta/helpa listo povus superi la ekranon. */
-#supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 32px); max-height:calc(100% - 32px); overflow:auto; padding:var(--អារេងព៏); text-align:center; }
-#supermeta h3 { margin:0; color:var(--gold); font-size:16px; letter-spacing:.125em; }
-#supermeta .supra { color:var(--dim); font-size:8px; letter-spacing:.1875em; }
+#supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 32px); overflow:auto; padding:var(--អារេងព៏); text-align:center; }
+#supermeta h3 { margin:0; color:var(--gold); }
+#supermeta .supra { color:var(--dim); }
 /* La ferma butono flosas ĉe la sama angulo kiel la minimapo ( kie ĝi antaŭe
    sidis ) kaj kondutas kiel la naviga butono: 川 ĉiam, rekta en ĉiuj lingvoj. */
 #supermetaFermi {
@@ -82,7 +82,7 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
   top:calc(var(--អារេងព៏) + var(--sat));
   right:calc(var(--អារេងព៏) + var(--sar));
   inline-size:52px; block-size:52px;
-  color:var(--gold); font-size:18px; cursor:pointer; touch-action:manipulation;
+  color:var(--gold); cursor:pointer; touch-action:manipulation;
   writing-mode:horizontal-tb;
 }
 .helpa-listo { padding:var(--អារេង); }
@@ -113,7 +113,7 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
   border:var(--សាកព៏); cursor:pointer; touch-action:manipulation;
 }
 .nadlo { position:absolute; inset:0; will-change:transform; }
-.nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:var(--gold); font-size:8px; }
+.nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:var(--gold); }
 .nadlo::before { content:""; position:absolute; left:50%; top:var(--អារេង); transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid var(--gold); }
 /* La mapaj kanvasoj plenigu siajn kadrojn: la radaro la tutan kompason, la plena
    mapo la tutan ekranon ( plenekrana #supermeta ). La ortografia fotilo adaptiĝas
@@ -132,20 +132,20 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
      limigus la larĝon, ne la altecon. La procentaj limoj estas kontraŭ la vido
      ( fiksita elemento ), anstataŭ vh/vw. */
   inline-size:min(304px, calc(100% - 92px));
-  max-block-size:44%; max-height:44%; overflow-y:auto;
+  max-block-size:44%; overflow-y:auto;
   padding:var(--អារេងព៏); transform:translateY(24px); opacity:0; pointer-events:none;
   transition:transform .5s cubic-bezier(.1875,.875,.25,1),opacity .5s;
 }
 #karto.montri { transform:none; }
-#karto h2 { margin:0; font-size:16px; letter-spacing:.125em; }
+#karto h2 { margin:0; }
 #karto .karto-agoj { display:flex; justify-content:center; }
 /* The linked stylesheet's universal flex/grid gap (--អារេង, 8px) already sets the card's
    vertical rhythm, so no local margins are needed between these sections. */
-.peco { display:inline-block; padding:var(--អារេងមិ) var(--អារេង); font-size:8px; font-weight:600; letter-spacing:.125em; border-radius:8px 16px 8px 16px; }
-.statistikoj { color:var(--dim); font-size:8px; line-height:1.75; }
+.peco { display:inline-block; padding:var(--អារេងមិ) var(--អារេង); font-weight:600; border-radius:var(--អិត្ភេ); }
+.statistikoj { color:var(--dim); line-height:1.75; }
 .statistikoj b { color:var(--mist); font-weight:600; }
-.gusto { color:var(--កេភ២); font-size:11px; font-weight:300; }
-#prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); font-size:11px; transition:opacity .25s,transform .25s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
+.gusto { color:var(--កេភ២); font-weight:300; }
+#prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); transition:opacity .25s,transform .25s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
 #prompto.montri { transform:translateX(-50%); }
 
 /* Menu trigger and floating panel. The page remains fully visible behind it: no scrim or backdrop blur. */
@@ -153,7 +153,7 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
    frostigita fono kun fon-malklariĝo, ne la duontravidebla butono. Ĉi tie restas nur
    la geometrio kaj la ora ikona koloro. */
 #navButono,.mobBut,#informButono {
-  color:var(--gold); font-size:18px; cursor:pointer; touch-action:manipulation;
+  color:var(--gold); cursor:pointer; touch-action:manipulation;
   inline-size:52px; block-size:52px;
 }
 #navButono {
@@ -203,19 +203,19 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 }
 .trakaBut,.menuKrepusko > button { min-block-size:0; padding:0; }
 .menuIdenteco { padding:var(--អារេង); }
-.menuIdenteco h1 { margin:0; font-size:16px; font-weight:400; letter-spacing:.125em; }
-.menuIdenteco p { margin:var(--អារេង) 0 0; color:var(--កេភ២); font-size:8px; letter-spacing:.0625em; }
+.menuIdenteco h1 { margin:0; font-weight:400; }
+.menuIdenteco p { margin:var(--អារេង) 0 0; color:var(--កេភ២); }
 .menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
-.menuAzioj button { inline-size:auto; min-block-size:44px; font-size:11px; letter-spacing:.0625em; }
+.menuAzioj button { inline-size:auto; }
 /* La muzik-grupo kaj la krepuska karteto estas <ciihii>-kartoj el la ekstera stilfolio:
    ili ricevas la karton-surfacon, kaj la elektitaj/ŝvebaj/klakaj buton-statoj venas el tie ( aria-pressed ). */
 #duskLabelo { flex-direction:row; align-items:center; }
-#muzikoEtikedo { display:block; color:var(--កេភ២); font-size:8px; letter-spacing:.125em; }
+#muzikoEtikedo { display:block; color:var(--កេភ២); }
 #trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); }
 .trakaBut { inline-size:auto; block-size:32px; color:var(--កេភ២); }
 .menuKrepusko { display:grid; grid-template-columns:44px 1fr; align-items:center; }
 .menuKrepusko > button { inline-size:44px; block-size:44px; }
-#duskLabelo { color:var(--កេភ២); font-size:13px; }
+#duskLabelo { color:var(--កេភ២); }
 #duskLabelo input[type=range] { flex:1; min-inline-size:0; }
 
 /* Wardrobe cards and loading screen. */
@@ -231,14 +231,13 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 .vestaKardo { display:flex; flex-direction:column; inline-size:128px; padding:var(--អារេង); border-color:var(--gold-soft); cursor:pointer; transition:transform .25s,border-color .25s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--gold); }
 .vestaKardo canvas { inline-size:100%; }
-.vestaKardo .vn { color:var(--mist); font-size:8px; letter-spacing:.125em; }
+.vestaKardo .vn { color:var(--mist); }
 #sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); background:var(--deep); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
-#sxargxo .ltitle { font-size:18px; letter-spacing:.375em; }
 /* La titolo kaj surskribo staras cxe la flankoj de la vertikala stango; la plenigo fluas de malsupro al supro. */
 .stango { position:relative; inline-size:6px; block-size:min(224px, 48%); border-radius:999px; background:var(--gold-dim); overflow:hidden; }
 .stango i { position:absolute; inset-inline:0; inset-block-end:0; inline-size:100%; block-size:0%; border-radius:999px; background:var(--gold); transition:block-size .25s; }
-.lsupra { color:var(--dim); font-size:8px; letter-spacing:.1875em; }
+.lsupra { color:var(--dim); }
 
 /* La skribo-direkto de la flosantaj kartoj sekvu la aktivan lingvon, ne la konstantan .aih-klason. */
 /* aih flanka (sideways-lr) · ja de supro al malsupro (vertical-rl) · aliaj normalaj. */
@@ -255,12 +254,12 @@ html[lang="aih"] #prompto, html[lang="ja"] #prompto {
   /* Longaj nomoj ( enirantaj konstruaĵoj/manĝaĵoj ) ne superu la ekranon: se la
      vertikala strio plenumas la limon, la teksto disvolvas kolumnojn ( white-space
      normal ) aŭ estas tranĉita ( overflow:hidden ). */
-  white-space:normal; max-height:70%; overflow:hidden;
+  white-space:normal; max-inline-size:70%; overflow:hidden;
 }
 html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
 /* La tosto en aih/ja estas vertikala strio ( sideways-lr / vertical-rl ): longaj
    tekstoj ( ekz. manĝaj gustoj, ~75 signoj ) povus superi la ekranon — samaj limigoj. */
-html[lang="aih"] #tosto, html[lang="ja"] #tosto { white-space:normal; max-height:60%; overflow:hidden; }
+html[lang="aih"] #tosto, html[lang="ja"] #tosto { white-space:normal; max-inline-size:60%; overflow:hidden; }
 
 /* Mobile controls remain custom because the linked stylesheet does not know their geometry. */
 /* La tuŝaj kontroloj aperas nur post la unua reala tuŝo ( body.tuŝa ), sur ajna tuŝekrano, sendepende de la grandeco. */
@@ -273,7 +272,6 @@ body.tuŝa #mobKontroloj { display:block; }
 /* La agbutonoj sidas ĉe la sama funda angulo kiel la naviga butono: unuforma 16px marĝeno sur ĉiu ekrano. */
 #mobButaroj { position:absolute; right:calc(var(--អារេងព៏) + 52px + var(--អារេង) + var(--sar)); bottom:calc(var(--អារេងព៏) + var(--sab)); display:flex; flex-direction:column; gap:var(--អារេង); pointer-events:none; }
 .mobBut { pointer-events:auto; }
-.mobBut#mobButSalti { font-size:22px; }
 /* La E-butono aperas nur kiam estas proksima interagebla ( la prompto montriĝas ). */
 #mobButInterakti { opacity:0; pointer-events:none; transition:opacity .25s; }
 #mobButInterakti.montri { opacity:1; pointer-events:auto; }

@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { konstruiSatalon, TIPARO, KonstruSpec } from "../assets/satalaj-konstruajxoj.js";
 import { kreiNebulanTeksajxon } from "../assets/teksajxoj.js";
 import { konstruiRiveron, konstruiLagon, RiverData } from "../assets/akvo.js";
-import { konstruiBestojn, BestoSistemo } from "../assets/bestoj.js";
+import { konstruiBestojn, BestoSistemo, konstruiPetrelojn, PetreloSistemo } from "../assets/bestoj.js";
 import { kreiArbarerojn, metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
   konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn,
   konstruiFalintajnTrunkojn, konstruiCetkuojn, konstruiLikenojn, konstruiHxsxaksxlefojn, konstruiTrunkajnLikenojn,
@@ -35,6 +35,7 @@ export interface UrbaSistemo {
   riverData: RiverData;
   lago: RiverData;
   bestoj: BestoSistemo;
+  petreloj: PetreloSistemo;
   lampSistemo: HxeuxfaSistemo;
   nebuloj: THREE.Sprite[];
   kanuoj: Kanoto[];
@@ -648,6 +649,13 @@ export function konstruiUrbon(
   const bestoj = konstruiBestojn( sceno, 0o30, riveroZ, riveraAkvaNivelo, RIVERA_DUONLARĜO,
     { x: LAGO_X, z: lagoZ(), r: LAGO_RZ, nivelo: lagoNivelo() } );
 
+  // ⟪ Neĝopetreloj 📃 ⟫
+  // Pure blankaj marbirdoj ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea ) rondflugas
+  // super la lago kaj la rivero. Ilia animacio okazas en sperto.ts
+  // ( gxisdatigiPetrelojn ).
+  const petreloj = konstruiPetrelojn( sceno, 0o20, alteco, riveroZ,
+    { x: LAGO_X, z: lagoZ(), r: LAGO_RZ } );
+
   // ⟪ NPC-agordo 📃 ⟫ — la vestoj vivas en assets/vestoj.ts ( VESTOJ );
   // tiu ĉi modulo nur alinomas ilin por la urba sistemo.
   const VESTA_LISTO: Vesto[] = VESTOJ;
@@ -696,7 +704,7 @@ export function konstruiUrbon(
 
   return {
     konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj, konstruGrupoj,
-    vojSpecimenoj, placajNodoj,    riverData, lago, bestoj, lampSistemo,
+    vojSpecimenoj, placajNodoj,    riverData, lago, bestoj, petreloj, lampSistemo,
     nebuloj, kanuoj, npcoj, internaSistemo, xipo, vojDifinoj, vojDuonLargho,
     NPCLOKOJ, VESTA_LISTO,
   };

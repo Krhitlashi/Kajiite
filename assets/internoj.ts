@@ -79,28 +79,21 @@ function oroMaterialo(metalness = 0o7/0o10, roughness = 0o13/0o40): THREE.MeshSt
   });
 }
 
-// Helpilo por segmentita arkformo ( por pordo kaj fenestroj )
-function kreiArkFormon( radiuso: number, segmentoj: number, largho: number ): THREE.BufferGeometry {
-  const g = new THREE.BufferGeometry();
-  const verts: number[] = [];
-  const idx: number[] = [];
-  for ( let i = 0; i <= segmentoj; i++ ) {
-    const ang = (i / segmentoj) * Math.PI;
-    const x = Math.cos(ang) * radiuso;
-    const y = Math.sin(ang) * radiuso;
-    // Antaŭa flanko
-    verts.push(x, y, largho / 2);
-    // Malantaŭa flanko
-    verts.push(x, y, -largho / 2);
-    if (i > 0) {
-      const a = (i - 1) * 2, b = i * 2;
-      idx.push(a, a + 1, b, b, a + 1, b + 1);
-    }
-  }
-  g.setAttribute("position", new THREE.Float32BufferAttribute(verts, 3));
-  g.setIndex(idx);
-  g.computeVertexNormals();
-  return g;
+// kreiTrapezanPordTruon — Rondigita trapezoida truo por la antaŭa pordo,
+// kongruanta al la EKSTERAN pordo (rondigitaTrapezaFormo en satalaj-konstruaĵoj).
+// CW-orde (kontraŭa al la ekstera konturo) por truo en ShapeGeometry/ExtrudeGeometry.
+function kreiTrapezanPordTruon( bazo: number, supro: number, alto: number, rb: number, rt: number ): THREE.Path {
+  const p = new THREE.Path(), sl = ( bazo / 2 - supro / 2 ) / alto;
+  p.moveTo( -bazo / 2 + rb, 0 );
+  p.quadraticCurveTo( -bazo / 2, 0, -bazo / 2 + sl * rb, rb );
+  p.lineTo( -supro / 2 - sl * rt, alto - rt );
+  p.quadraticCurveTo( -supro / 2, alto, -supro / 2 + rt, alto );
+  p.lineTo( supro / 2 - rt, alto );
+  p.quadraticCurveTo( supro / 2, alto, supro / 2 + sl * rt, alto - rt );
+  p.lineTo( bazo / 2 - sl * rt, rt );
+  p.quadraticCurveTo( bazo / 2, 0, bazo / 2 - rb, 0 );
+  p.closePath();
+  return p;
 }
 
 // kreiPilolFenestranFormon — LONGAs horizontalas rondigitan fenestron: rektangulo
@@ -270,12 +263,12 @@ function aldoniLonganFenestron(
   // Ora kadro laŭ la PILOLA konturo (ne rektangula skatolo) — la malnova
   // rektangula skatolo montris kvadratan flavan konturon ĉirkaŭ la rondigita
   // fenestro. La linia kadro sekvas la saman pilolan formon kiel la vitro, kaj
-  // sidas tuj ekster la ora rando (z = 0.06) por resti videbla kiel fajna linio.
+  // sidas tuj ekster la ora rando ( z = 0o5/0o100 ) por resti videbla kiel fajna linio.
   const kadroPunktoj: number[] = [];
   for ( let i = 0; i < konturo.length; i++ ) {
     const a = konturo[i];
     const b = konturo[( i + 1 ) % konturo.length];
-    kadroPunktoj.push( a.x, a.y, 0.07, b.x, b.y, 0.07 );
+    kadroPunktoj.push( a.x, a.y, 0o5/0o100, b.x, b.y, 0o5/0o100 );
   }
   const kadroGeo = new THREE.BufferGeometry();
   kadroGeo.setAttribute( "position", new THREE.Float32BufferAttribute( kadroPunktoj, 3 ) );
@@ -453,7 +446,7 @@ function kreiStelanPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number )
       if ( i === 0 ) { g.moveTo( x, y ); continue; }
       const prevAng = ofseto + ( ( i - 1 ) / ( n * 2 ) ) * Math.PI * 2;
       const midAng = ( prevAng + ang ) / 2;
-      const midRad = ena + ( ekstera - ena ) * 0.3;
+      const midRad = ena + ( ekstera - ena ) * 0o23/0o100;
       g.quadraticCurveTo(
         cx + Math.cos( midAng ) * midRad,
         cy + Math.sin( midAng ) * midRad,
@@ -485,32 +478,32 @@ function kreiStelanPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number )
   };
 
   // Granda kvar-pinta stelo (akcenta) — pintoj al la kvar anguloj de la kvadrato.
-  kvarpinta( R * 0.85, R * 0.3, akcenta, Math.PI / 4 );
+  kvarpinta( R * 0o67/0o100, R * 0o23/0o100, akcenta, Math.PI / 4 );
   // Rondaj ringoj (ne turnita dua stelo) — la dezajno restas klare KVAR-pinta.
-  ringo( R * 0.58, R * 0.03, baza );
-  ringo( R * 0.56, R * 0.012, akcenta );
+  ringo( R * 0o45/0o100, R * 0o2/0o100, baza );
+  ringo( R * 0o44/0o100, R * 0o1/0o100, akcenta );
   // Rondigita kvadrata kadro apud la rando — kvadrato-konscia.
-  rondangulaKvadrato( R * 0.035, R * 0.15, R * 0.03, akcenta );
-  rondangulaKvadrato( R * 0.085, R * 0.1, R * 0.012, baza );
+  rondangulaKvadrato( R * 0o4/0o200, R * 0o12/0o100, R * 0o2/0o100, akcenta );
+  rondangulaKvadrato( R * 0o13/0o200, R * 0o6/0o100, R * 0o1/0o100, baza );
   // Kvar rondaj angulaj akcentoj — rondigitaj anguloj de la kvadrato.
   for ( const sx of [ -1, 1 ] ) for ( const sy of [ -1, 1 ] ) {
     g.fillStyle = akcenta;
     g.beginPath();
-    g.arc( cx + sx * R * 0.94, cy + sy * R * 0.94, R * 0.055, 0, Math.PI * 2 );
+    g.arc( cx + sx * R * 0o72/0o100, cy + sy * R * 0o72/0o100, R * 0o7/0o200, 0, Math.PI * 2 );
     g.fill();
   }
-  // Ronda centro: disko kun interna kerno.
+  // Ronda centro. Disko kun interna kerno.
   g.fillStyle = akcenta;
   g.beginPath();
-  g.arc( cx, cy, R * 0.2, 0, Math.PI * 2 );
+  g.arc( cx, cy, R * 0o15/0o100, 0, Math.PI * 2 );
   g.fill();
   g.fillStyle = baza;
   g.beginPath();
-  g.arc( cx, cy, R * 0.11, 0, Math.PI * 2 );
+  g.arc( cx, cy, R * 0o16/0o200, 0, Math.PI * 2 );
   g.fill();
   g.fillStyle = akcenta;
   g.beginPath();
-  g.arc( cx, cy, R * 0.045, 0, Math.PI * 2 );
+  g.arc( cx, cy, R * 0o6/0o200, 0, Math.PI * 2 );
   g.fill();
 
   const teksajxo = new THREE.CanvasTexture( c );
@@ -853,6 +846,11 @@ export function eniriInternon(
   for ( const etaĝo of etaĝoj ) {
     const { y, hw, hd, alto, et } = etaĝo;
 
+    // Dimensioj de la EKSTERAN pordo sur la fronta muro (aldoniEnirejon) plus
+    // libero por la bevelo — uzataj de la pordmalfermo, la lampoj kaj la plato.
+    const pordBazo = 0o233/0o100 + 0o1/0o4;
+    const pordDuon = pordBazo / 2;
+
     sys.plankoj.push({ y, hw, hd, alto });
 
     // Planko ( kun cirkla truo por la helika ŝtuparo sur ĉiuj etaĝoj; la
@@ -892,46 +890,43 @@ export function eniriInternon(
 
     // Antauxa muro kun rondigita pordo en la teretaĝo
     if ( et === 0 ) {
-      // Porda larĝo sekvas la EKSTERAN pordon (aldoniEnirejon, bazo ≈ 0o233/0o100
-      // ≈ 2.42): la malnova 0o3/0o2 (1.5) estis pli mallarĝa ol la ekstera
-      // pordo-slabo, do la slabaj flankoj tranĉis la internan muron — la pordo
-      // "klipis en la muron".
-      const pordLargho = 0o233/0o100 + 0o1/0o10;
-      // Pordo sufiĉe alta por la okulnivelo de la ludanto (≈ 2.16),
-      // sed lasu al la arko sufiĉan liberecon sub la plafono
-      const pordAlto = Math.min( alto * 0o3/0o4, alto - 0o7/0o10 );
-      // Arko ne pli alta ol la libero sub la plafono (0o1/0o20 marĝeno).
-      const arkRadiuso = Math.min( pordLargho / 2, alto - pordAlto - 0o1/0o20 );
-      const arkSegmentoj = 0o10;
+      // Pordo-formo kongruas al la EKSTERAN pordo (aldoniEnirejon): rondigita
+      // trapezoido — bazo ≈ 0o233/0o100 (2.42), supro ≈ 1.40, alto ≈ 2.25 — plus
+      // la bevelo (0o5/0o100 ambaŭflanke). La malnova rektangula truo kun arko
+      // montris la trapezan pordon en kvadrata eltranĉo, do la malfermo mem
+      // estas trapezo kun margineto por la bevelo.
+      const pordSupro = 0o233/0o100 * 0o45/0o100 + 0o1/0o4; // ≈ 1.65
+      const pordAlto = Math.min( 0o5/0o2, alto - 0o1/0o10 ); // ≈ 2.50, sub la plafono
+      const pordRadiBazo = 0o3/0o20;                         // samaj rondigitaj anguloj
+      const pordRadiSupro = 0o1/0o10;                        // kiel la ekstera pordo
+      const muraDikeco = 0o3/0o20;
 
-      // Muro maldekstre de la pordo
-      konstruiMuron(group, -hw, 0, hw - pordLargho / 2, y, alto, 0o3/0o20, muraMaterialo, 0, hd);
-      // Muro dekstre de la pordo
-      konstruiMuron(group, pordLargho / 2, 0, hw - pordLargho / 2, y, alto, 0o3/0o20, muraMaterialo, 0, hd);
-      // Muro super la pordo
-      konstruiMuron(group, -pordLargho / 2, pordAlto, pordLargho, y, alto - pordAlto, 0o3/0o20, muraMaterialo, 0, hd);
+      // Unu mura panelo kun trapezoida truo ( anstataŭ tri skatoloj + arko )
+      const muroFormo = new THREE.Shape();
+      muroFormo.moveTo( -hw, 0 ); muroFormo.lineTo( hw, 0 );
+      muroFormo.lineTo( hw, alto ); muroFormo.lineTo( -hw, alto );
+      muroFormo.closePath();
+      muroFormo.holes.push( kreiTrapezanPordTruon( pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro ) );
+      const muroGeo = new THREE.ExtrudeGeometry( muroFormo, { depth: muraDikeco, bevelEnabled: false, curveSegments: 0o20 } );
+      muroGeo.translate( 0, 0, -muraDikeco / 2 );
+      const muro = new THREE.Mesh( muroGeo, muraMaterialo );
+      muro.position.set( 0, y, hd );
+      group.add( muro );
 
-      // Arka porda kapo — ora rando ĝuste antaŭ la interna muro-faco (ne entombigita)
-      const arkGeo = kreiArkFormon(arkRadiuso, arkSegmentoj, 0o3/0o20);
-      const ark = new THREE.Mesh(arkGeo, new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10, side: THREE.DoubleSide }));
-      ark.position.set(0, y + pordAlto, hd - 0o3/0o20);
-      group.add(ark);
-
-      // Ora pordokadro — sama larĝo kiel la arko, rektangulo ĝis la arka bazo
-      const kadroGeo = new THREE.EdgesGeometry(
-        new THREE.BoxGeometry( pordLargho, pordAlto, 0o1/0o40 )
+      // Ora rando laŭ la trapezoida konturo — tubo ĝuste antaŭ la interna
+      // muro-faco (sama ideo kiel la ekstera ora rando ĉirkaŭ la pordo).
+      const truKonturo = kreiTrapezanPordTruon( pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro )
+        .getPoints( 0o100 ).map( (pt: THREE.Vector2) => new THREE.Vector3( pt.x, pt.y, 0 ) );
+      const pordRando = new THREE.Mesh(
+        new THREE.TubeGeometry( new THREE.CatmullRomCurve3( truKonturo, true, "catmullrom", 0o1/0o2 ), 0o100, 0o1/0o20, 6, true ),
+        kadraMaterialo
       );
-      const kadroLinio = new THREE.LineSegments(
-        kadroGeo,
-        new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
-      );
-      // Sam-ebena kun la arko (hd - 0o3/0o20), ne entombigita en la muro.
-      kadroLinio.position.set( 0, y + pordAlto / 2, hd - 0o3/0o20 );
-      group.add(kadroLinio);
+      pordRando.position.set( 0, y, hd - muraDikeco / 2 - 0o3/0o50 );
+      group.add( pordRando );
 
-      // Malgranda ora sojlo
+      // Malgranda ora sojlo sub la pordo
       const sojlo = new THREE.Mesh(
-        new THREE.BoxGeometry( pordLargho + 0o1/0o10, 0o2/0o40, 0o3/0o20 ),
+        new THREE.BoxGeometry( pordBazo + 0o1/0o10, 0o2/0o40, muraDikeco ),
         new THREE.MeshStandardMaterial({ color: GOLD, roughness: 0o23/0o100, metalness: 0o55/0o100 })
       );
       sojlo.position.set(0, y, hd - 0o1/0o20);
@@ -983,6 +978,9 @@ export function eniriInternon(
     const lampNombro = Math.max( 1, Math.floor( hw ) - 1 );
     for ( let i = 0; i < lampNombro; i++ ) {
       const lx = -hw + ( i + 1 ) * hw * 2 / ( lampNombro + 1 );
+      // Sur la teretaĝo la pordo okupas la centron de la fronta muro — lampoj
+      // ene de la porda malfermo flosus en la aero.
+      if ( et === 0 && Math.abs( lx ) < pordDuon ) continue;
       // Ora krampo
       const lampBazo = new THREE.Mesh(
         new THREE.BoxGeometry( 0o1/0o10, 0o1/0o10, 0o1/0o10 ),
@@ -1016,14 +1014,17 @@ export function eniriInternon(
         new THREE.PlaneGeometry( 4/5, 0o15/0o10 ),
         new THREE.MeshStandardMaterial({ map: plakedo, transparent: true, roughness: 0o23/0o100, metalness: 0o55/0o100 })
       );
-      surfaco.position.set( 0, y + alto * 0o3/0o10, hd - 0o1/0o20 );
+      // La plato staras sur la fronta muro DEKSTRE de la pordo (la pordo mem
+      // okupas la centron) — la malnova centro flosis en la porda malfermo.
+      const pkX = pordDuon + ( hw - pordDuon ) / 2;
+      surfaco.position.set( pkX, y + alto * 0o3/0o10, hd - 0o1/0o20 );
       group.add(surfaco);
       // Dekora ora kadro ĉirkaŭ la plato
       const pkadro = new THREE.LineSegments(
         new THREE.EdgesGeometry( new THREE.BoxGeometry( 1, 0o16/0o10, 0o1/0o40 )),
         new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
       );
-      pkadro.position.set( 0, y + alto * 0o3/0o10, hd - 0o1/0o40 );
+      pkadro.position.set( pkX, y + alto * 0o3/0o10, hd - 0o1/0o40 );
       group.add(pkadro);
     }
 

@@ -5,7 +5,7 @@ import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "
 import { VESTOJ, kreiVestanAntauxrigardon } from "../assets/vestoj.js";
 import { animaciiFlammojn } from "../assets/hxeuxfa-lampo.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/akvo.js";
-import { gxisdatigiBestojn } from "../assets/bestoj.js";
+import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../assets/bestoj.js";
 import { gxisdatigiNpc } from "../assets/npcoj.js";
 
 import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/internoj.js";
@@ -78,7 +78,7 @@ const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMateri
 const urbo: UrbaSistemo = konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo);
 const {
   konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
-  riverData, lago, bestoj, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
+  riverData, lago, bestoj, petreloj, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
 } = urbo;
 
 // ⟪ Orbit-regiloj 📃 ⟫
@@ -221,12 +221,13 @@ interface SpeciaDatumo {
   col: string;
 }
 const SPECIOJ: SpeciaDatumo[] = [
-  // Bestoj de la rivero kaj lago ( el bestoj.ts )
+  // Bestoj de la rivero kaj lago kaj de la ĉielo ( ĉiuj el bestoj.ts )
   { key: "specBeroe", flavorKey: "flvSpecBeroe", grupo: "besto", col: "#e8d8e0" },
   { key: "specMnemiopsis", flavorKey: "flvSpecMnemiopsis", grupo: "besto", col: "#d8e8f0" },
   { key: "specPleŭrobrakia", flavorKey: "flvSpecPleŭrobrakia", grupo: "besto", col: "#d8f0e8" },
   { key: "specGlacifiso", flavorKey: "flvSpecGlacifiso", grupo: "besto", col: "#d0e8e8" },
   { key: "specMarlaraksxo", flavorKey: "flvSpecMarlaraksxo", grupo: "besto", col: "#c8b090" },
+  { key: "specNeĝopetrelo", flavorKey: "flvSpecNeĝopetrelo", grupo: "besto", col: "#f0f4f6" },
   // Plantoj de la betularo ( el vegetajxo.ts )
   { key: "specBetulo", flavorKey: "flvSpecBetulo", grupo: "planto", col: "#a0b888" },
   { key: "specLariko", flavorKey: "flvSpecLariko", grupo: "planto", col: "#c8b858" },
@@ -1220,6 +1221,8 @@ function animacii() {
   gxisdatigiAkvon(lago, t);
   // Ktenoforoj — naĝado kaj pulso en la rivero
   gxisdatigiBestojn(bestoj, t);
+  // Neĝopetreloj — rondflugado kaj flugil-batado super la lago kaj la rivero
+  gxisdatigiPetrelojn(petreloj, t);
   // Krasesxagxo — oscila flosado super la kosmopordo
   animaciiKrasesxagxon(xipo, t, false);
 
@@ -1484,7 +1487,7 @@ function animacii() {
     }
     plejProksimaManĝaĵo = proksimaManĝaĵo;
     if (proksimaManĝaĵo) {
-      const prefikso = proksimaManĝaĵo.key.startsWith("fok") ? traduki("actGusti") : traduki("actTrinketi");
+      const prefikso = traduki("actGusti");
       agordiPrompton(`<span class="klavo">E</span> ${prefikso} ${traduki("manĝ" + proksimaManĝaĵo.f.key.charAt(0).toUpperCase() + proksimaManĝaĵo.f.key.slice(1))}`);
       promptoElemento.classList.add("montri");
     } else {

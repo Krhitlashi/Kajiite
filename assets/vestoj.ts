@@ -15,6 +15,12 @@ export const VESTOJ: Vesto[] = [
   { nomo: "vestoHearth", ĉefa: 0x584830, akcenta: 0xd8c8a0, interno: 0x302818, pantalono: 0x3878a0, botoj: 0x583808 },
   { nomo: "vestoMist",   ĉefa: 0xd8e0e0, akcenta: 0x889898, interno: 0xa8b8b8, pantalono: 0x5898b8, botoj: 0x503808 },
   { nomo: "vestoEmber", ĉefa: 0x783828, akcenta: 0xe0a858, interno: 0x402018, pantalono: 0x2858a0, botoj: 0x583838 },
+  { nomo: "vestoAzure", ĉefa: 0x2858a0, akcenta: 0xe0b060, interno: 0x183060, pantalono: 0x184878, botoj: 0x503818 },
+  { nomo: "vestoViolet", ĉefa: 0x683878, akcenta: 0xe0b8d8, interno: 0x402048, pantalono: 0x384880, botoj: 0x583828 },
+  { nomo: "vestoGilt", ĉefa: 0xc8a838, akcenta: 0xf0e8c0, interno: 0x786018, pantalono: 0x285880, botoj: 0x583808 },
+  { nomo: "vestoRose", ĉefa: 0xc86888, akcenta: 0xf0d0d8, interno: 0x703048, pantalono: 0x2858a0, botoj: 0x583818 },
+  { nomo: "vestoObsidian", ĉefa: 0x181818, akcenta: 0xd8d8d8, interno: 0x080808, pantalono: 0x182838, botoj: 0x282828 },
+  { nomo: "vestoCyan", ĉefa: 0x38a8a8, akcenta: 0xc8f0f0, interno: 0x185858, pantalono: 0x2858a0, botoj: 0x583818 },
 ];
 
 const deksesuma = (c: number): string => "#" + c.toString(0o20).padStart(0o6, "0");

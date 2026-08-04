@@ -418,3 +418,196 @@ export function gxisdatigiBestojn( s: BestoSistemo, t: number ): void {
     }
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Neĝopetreloj ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea )
+// Pure blankaj antarktaj marbirdoj: malgranda ovala korpo, longaj maldikaj
+// glit-flugiloj kaj nigraj beko kaj okuloj. Ili rondflugas super la lago kaj
+// la rivero — glitas en larĝaj kurboj kun rapidaj flugil-batoj kaj kliniĝas
+// en la turnoj, kiel la veraj neĝopetreloj super la malferma maro.
+//
+// La birdoj estas konstruitaj kiel malneto ( geometrioj/materialoj unufoje ),
+// kaj ĉiu birdo estas klono de la malneto — la klonoj kunhavas la samajn
+// geometriojn kaj materialojn, do la aro ne kostas teksturojn po unu.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface Petrelo {
+  grupo: THREE.Group;
+  flugiloj: THREE.Object3D[];   // maldekstra kaj dekstra flugiloj ( bato )
+  cx: number; cz: number;       // centro de la flugcirklo
+  radio: number;                // radiuso de la flugcirklo
+  bazaY: number;                // baza flugalto
+  rapido: number;               // angula rapido ĉirkaŭ la cirklo
+  phase: number;
+  direkto: number;              // flug-direkto: 1 laŭhorloĝe, -1 kontraŭhorloĝe
+  batoFazo: number;             // fazo de la flugil-bato
+  batoRapido: number;           // bata frekvenco ( rad/s )
+  banko: number;                // kliniĝo en la kurbon ( rad )
+}
+
+export interface PetreloSistemo {
+  petreloj: Petrelo[];
+}
+
+// konstruiPetrelanMalneton — Unu neĝopetrelo: blanka ovala korpo kun kapo,
+// nigra beko, du okuloj, kojna vosto kaj du longaj maldikaj flugiloj. La
+// flugiloj sidas en siaj propraj grupoj ĉe la ŝultroj, por ke la bato
+// ( rotation.z ) levu kaj mallevu ilin samfaze. La birdo rigardas +z.
+function konstruiPetrelanMalneton(): THREE.Group {
+  const grupo = new THREE.Group();
+  const blanka = new THREE.MeshStandardMaterial({ color: 0xf0f4f4, roughness: 0o3/0o4 });
+  const nigra = new THREE.MeshStandardMaterial({ color: 0x101418, roughness: 0o1/0o2 });
+
+  // Korpo — longforma blanka ovalo, iomete platigita ( flugil-direkto +z ).
+  const korpo = new THREE.Mesh(new THREE.SphereGeometry(0o5/0o10, 0o10, 0o10), blanka);
+  korpo.scale.set(0o3/0o4, 0o5/0o10, 0o15/0o10);
+  grupo.add(korpo);
+
+  // Kapo — malgranda sfero antaŭe, kun nigra beko kaj du okuloj.
+  const kapo = new THREE.Mesh(new THREE.SphereGeometry(0o13/0o100, 0o10, 0o6), blanka);
+  kapo.position.set(0, 0o2/0o10, 0o7/0o10);
+  grupo.add(kapo);
+  const beko = new THREE.Mesh(new THREE.ConeGeometry(0o5/0o100, 0o14/0o100, 0o6), nigra);
+  beko.rotation.x = -Math.PI / 0o2;
+  beko.position.set(0, 0o2/0o10, 0o10/0o10);
+  grupo.add(beko);
+  for ( const s of [ 0o1, -0o1 ] ) {
+    const okulo = new THREE.Mesh(new THREE.SphereGeometry(0o3/0o100, 0o6, 0o4), nigra);
+    okulo.position.set(s * 0o5/0o100, 0o3/0o10, 0o71/0o100);
+    grupo.add(okulo);
+  }
+
+  // Vosto — malgranda kojna klingo malantaŭe.
+  const vosto = new THREE.Mesh(new THREE.ConeGeometry(0o2/0o10, 0o4/0o10, 0o4), blanka);
+  vosto.rotation.x = Math.PI / 0o2;
+  vosto.position.set(0, 0, -0o7/0o10);
+  grupo.add(vosto);
+
+  // Flugiloj — longaj maldikaj formoj ( svingitaj malantaŭen ), en pivotaj
+  // grupoj ĉe la ŝultroj. La geometrio kuŝas en la XY-ebeno kaj estas turnita
+  // horizontale ( rotateX ), do la flugilo etendiĝas laŭ ±x kaj svingiĝas
+  // malantaŭen laŭ -z.
+  const flugilaFormo = new THREE.Shape();
+  flugilaFormo.moveTo(0, 0);
+  flugilaFormo.quadraticCurveTo(0o7/0o10, 0o15/0o100, 0o15/0o10, 0);   // antaŭa rando
+  flugilaFormo.lineTo(0o15/0o10, -0o5/0o100);                           // pinto
+  flugilaFormo.quadraticCurveTo(0o6/0o10, -0o15/0o100, 0, 0);           // malantaŭa rando
+  flugilaFormo.closePath();
+  const flugilaGeometrio = new THREE.ShapeGeometry(flugilaFormo, 0o6);
+  flugilaGeometrio.rotateX(-Math.PI / 0o2);
+  const flugilaMaterialo = new THREE.MeshStandardMaterial({
+    color: 0xf4f6f6, roughness: 0o3/0o4, side: THREE.DoubleSide,
+  });
+  const flugiloj: THREE.Object3D[] = [];
+  for ( const s of [ 0o1, -0o1 ] ) {
+    const flugilaGrupo = new THREE.Group();
+    flugilaGrupo.name = "flugilo";
+    flugilaGrupo.position.set(s * 0o3/0o10, 0o15/0o100, 0);
+    const flugilo = new THREE.Mesh(flugilaGeometrio, flugilaMaterialo);
+    flugilo.scale.x = s;
+    flugilaGrupo.add(flugilo);
+    grupo.add(flugilaGrupo);
+    flugiloj.push(flugilaGrupo);
+  }
+
+  return grupo;
+}
+
+// konstruiPetrelojn — Metu la neĝopetrelojn flugantaj super la valo: la unua
+// duono rondflugas super la lago ( se ĝi ekzistas ), la cetero laŭ la rivero.
+// Ĉiu birdo sekvas sian propran cirklon ĉirkaŭ hazarda centro, je flugalto
+// super la tereno ( aŭ super la akvonivelo super la lago ).
+//     @param kvanto ( number ) - Kiom da birdoj.
+//     @param altecoFn ( funkcio ) - Tereno, por la flugalto.
+//     @param riveroFn ( funkcio ) - Rivercentra funkcio z(x).
+//     @param lago ( objekto ) - La lago: x, z, r ( la birdoj rondflugas ĝin ).
+export function konstruiPetrelojn( sceno: THREE.Scene,
+  kvanto: number,
+  altecoFn: (x: number, z: number) => number,
+  riveroFn: (x: number) => number,
+  lago?: { x: number; z: number; r: number }
+): PetreloSistemo {
+  const petreloj: Petrelo[] = [];
+  const malneto = konstruiPetrelanMalneton();
+
+  for ( let i = 0; i < kvanto; i++ ) {
+    const grupo = malneto.clone();
+    // Rekolektu la flugilojn de la klono ( la infana ordo konserviĝas ).
+    const flugiloj = grupo.children.filter( c => c.name === "flugilo" );
+
+    // Alternu: lago ↔ rivero. La lagaj birdoj rondflugas hazardan punkton
+    // ene de la lagdisko; la riveraj sekvas la riverkurbon.
+    const superLago = !!lago && i % 2 === 0;
+    let cx: number, cz: number;
+    if ( superLago && lago ) {
+      const a = Math.random() * Math.PI * 0o2;
+      const rr = lago.r * 0o6/0o10 * Math.sqrt( Math.random() );
+      cx = lago.x + Math.cos( a ) * rr;
+      cz = lago.z + Math.sin( a ) * rr;
+    } else {
+      cx = -0o200 + Math.random() * 0o400;
+      cz = riveroFn( cx ) + ( Math.random() - 0o1/0o2 ) * 0o40;
+    }
+    const radio = 0o12 + Math.random() * 0o30;
+    const direkto = Math.random() < 0o1/0o2 ? 1 : -1;
+    const phase = Math.random() * Math.PI * 0o2;
+    // Flugalto: super la PLEJ ALTA tereno ĉirkaŭ la flugcirklo ( specimena ĉe
+    // la rando, ĉar la birdo rondflugas radiuson radio ), por ke neniu birdo
+    // enkaverniĝu en montetojn aŭ montodeklivojn. Super la lago la tereno
+    // estas sub akvo, do la akvonivelo transprenas kiel suba limo.
+    let altaTereno = altecoFn( cx, cz );
+    for ( let k = 0; k < 0o6; k++ ) {
+      const a = k / 0o6 * Math.PI * 0o2;
+      altaTereno = Math.max( altaTereno, altecoFn( cx + Math.cos( a ) * radio, cz + Math.sin( a ) * radio ) );
+    }
+    const bazaY = Math.max( altaTereno, 0o2 ) + 0o14 + Math.random() * 0o16;
+
+    grupo.position.set( cx + Math.cos( phase ) * radio, bazaY, cz );
+    // Direktu laŭ la tangento de la flugcirklo: laŭhorloĝaj birdoj turniĝas
+    // per -ang, kontraŭhorloĝaj bezonas plian turnon de π ( alie ili flugus
+    // vosto-antaŭe ).
+    grupo.rotation.y = -phase + Math.PI * ( 1 - direkto ) / 2;
+    sceno.add( grupo );
+
+    petreloj.push({
+      grupo, flugiloj, cx, cz, radio, bazaY,
+      rapido: 0o1/0o4 + Math.random() * 0o2/0o10,
+      phase, direkto,
+      batoFazo: Math.random() * Math.PI * 0o2,
+      batoRapido: 0o5 + Math.random() * 0o4,
+      banko: 0o3/0o20 + Math.random() * 0o3/0o40,
+    });
+  }
+
+  return { petreloj };
+}
+
+// gxisdatigiPetrelojn — Flug-animacio: ĉiu birdo rondflugas sian cirklon laŭ
+// sia direkto ( ±1 ), direktante laŭ la tangento kaj kliniĝante en la kurbon
+// ( la banko turniĝas kun la flug-direkto, do ĉiu birdo kliniĝas internen ).
+// La flugiloj batas en eksplodoj — la neĝopetreloj glitas inter la batoj —
+// kun konstanta dihedro.
+//     @param s ( PetreloSistemo ) - La petrela sistemo.
+//     @param t ( number ) - Malsupra tempo.
+export function gxisdatigiPetrelojn( s: PetreloSistemo, t: number ): void {
+  for ( const p of s.petreloj ) {
+    const ang = t * p.rapido * p.direkto + p.phase;
+    const x = p.cx + Math.cos( ang ) * p.radio;
+    const z = p.cz + Math.sin( ang ) * p.radio;
+    const y = p.bazaY + Math.sin( t * 0o7/0o10 + p.phase * 0o2 ) * 0o3/0o10;
+    p.grupo.position.set( x, y, z );
+    // Direkto laŭ la tangento de la cirklo: la laŭhorloĝaj birdoj ( direkto 1 )
+    // rigardas per -ang; la kontraŭhorloĝaj ( direkto -1 ) bezonas plian turnon
+    // de π, ĉar la tangento tiam montras la alian vojon — sen tio ili flugus
+    // vosto-antaŭe. Kliniĝo en la kurbon ( la banko turniĝas kun la
+    // flug-direkto, do ĉiu birdo kliniĝas en sian propran kurbon ).
+    p.grupo.rotation.y = -ang + Math.PI * ( 1 - p.direkto ) / 2;
+    p.grupo.rotation.z = p.banko * p.direkto;
+    // Flugil-bato: eksplodoj de rapida batado inter glitoj ( la bato-amplitudo
+    // ŝvelas kaj malkreskas ritme, kiel ĉe fluganta petrelo ).
+    const bataSkalo = Math.sqrt( Math.max( 0, Math.sin( t * 0o13/0o10 + p.batoFazo * 0o2 ) ) );
+    const bato = Math.sin( t * p.batoRapido + p.batoFazo ) * bataSkalo * 0o7/0o10;
+    p.flugiloj[0].rotation.z = 0o1/0o10 + bato;
+    p.flugiloj[1].rotation.z = 0o1/0o10 - bato;
+  }
+}

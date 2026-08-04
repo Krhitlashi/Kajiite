@@ -7,9 +7,11 @@ import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, 
 
 export function montriEraronon(sxargxaEl: HTMLElement): void {
   const d = document.createElement("div");
-  d.id = "webgl-eraro";
-  d.style.cssText = "position:fixed;inset:0;z-index:99;background:#081410;display:grid;place-items:center;text-align:center;padding:32px;font-family:sans-serif;";
-  d.innerHTML = `<div style="max-width:440px"><h1 style="color:#d9b36a;font-size:20px;letter-spacing:0.25em;margin:0 0 16px;font-weight:400;">${traduki("webglTitolo")}</h1><p style="color:#9db8a4;font-size:13px;line-height:1.7;margin:0 0 24px;">${traduki("webglMesagxo")}</p><p style="color:#687868;font-size:10px;letter-spacing:0.12em;margin:0;">${traduki("webglDetalo")}</p><button onclick="location.reload()" style="margin-top:24px;padding:10px 28px;background:rgba(217,179,106,0.1);border:1px solid rgba(217,179,106,0.35);border-radius:16px 8px;color:#d9b36a;font-size:12px;cursor:pointer;letter-spacing:0.12em;">${traduki("webglReprovi")}</button></div>`;
+  // La ekstera stilfolio provizas la plenekranan tegilon ( .sozanu + .er2ha +
+  // .a3e ) kaj la tutan tipografion/spacojn de h1/p/button — nenia loka CSS,
+  // neniaj enliniaj stiloj.
+  d.className = "sozanu er2ha a3e";
+  d.innerHTML = `<h1>${traduki("titoloSxargxo")}</h1><p>${traduki("webglMesagxo")}</p><p>${traduki("webglDetalo")}</p><button onclick="location.reload()">${traduki("webglReprovi")}</button>`;
   document.body.appendChild(d);
   sxargxaEl.classList.add("finita");
 }
