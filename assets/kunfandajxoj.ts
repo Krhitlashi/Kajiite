@@ -2,10 +2,13 @@
 import * as THREE from "three";
 
 // kunfandiGeometriojn — Kunfandas plurajn BufferGeometriojn en unu indeksitan
-// geometrion, konservante poziciojn, normalojn kaj la indekson ( 16/32-bita laŭ
-// la vertokvanto ). Ne-indeksaj enigoj ricevas sintezitajn sinsekvajn indeksojn.
+// geometrion, konservante poziciojn, normalojn, UV-ojn kaj la indekson
+// ( 0o20/0o40-bita laŭ la vertokvanto ). Ne-indeksaj enigoj ricevas sintezitajn
+// sinsekvajn indeksojn. La UV-oj gravas por teksturitaj geometrioj ( ekz. la
+// keŭfĥeso-korpo kun sia bakita folia teksturo ) — sen ili la mapo neniam
+// specimeniĝas kaj la koloro aperas blanka.
 export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
-  if (geos.length === 0) return new THREE.BufferGeometry();
+  if ( geos.length === 0 ) return new THREE.BufferGeometry();
   let tv = 0, ti = 0;
   for ( const g of geos ) {
     tv += g.getAttribute("position").count;
@@ -13,14 +16,17 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   }
   const pozicio = new Float32Array(tv * 3);
   const normo = new Float32Array(tv * 3);
+  const uv = new Float32Array(tv * 2);
   const idxArr = tv > 65535 ? new Uint32Array(ti) : new Uint16Array(ti);
   let vo = 0, io = 0;
   for ( const g of geos ) {
     const p = g.getAttribute("position");
     const n = g.getAttribute("normal");
+    const u = g.getAttribute("uv");
     const c = p.count;
     pozicio.set(p.array as Float32Array, vo * 3);
-    if (n) normo.set(n.array as Float32Array, vo * 3);
+    if ( n ) normo.set(n.array as Float32Array, vo * 3);
+    if ( u ) uv.set(u.array as Float32Array, vo * 2);
     const indico = g.index;
     if ( indico ) {
       for (let i = 0; i < indico.array.length; i++) idxArr[io + i] = indico.array[i] + vo;
@@ -34,6 +40,7 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   const out = new THREE.BufferGeometry();
   out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
   out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
+  out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
   out.setIndex(new THREE.BufferAttribute(idxArr, 1));
   return out;
 }
@@ -60,13 +67,13 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
 
   const aNorm = na.getAttribute("normal");
   const bNorm = nb.getAttribute("normal");
-  if (aNorm) normo.set(aNorm.array as Float32Array, 0);
-  if (bNorm) normo.set(bNorm.array as Float32Array, aCount * 3);
+  if ( aNorm ) normo.set(aNorm.array as Float32Array, 0);
+  if ( bNorm ) normo.set(bNorm.array as Float32Array, aCount * 3);
 
   const aUV = na.getAttribute("uv");
   const bUV = nb.getAttribute("uv");
-  if (aUV) uv.set(aUV.array as Float32Array, 0);
-  if (bUV) uv.set(bUV.array as Float32Array, aCount * 2);
+  if ( aUV ) uv.set(aUV.array as Float32Array, 0);
+  if ( bUV ) uv.set(bUV.array as Float32Array, aCount * 2);
 
   const out = new THREE.BufferGeometry();
   out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
@@ -79,7 +86,7 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
 // kunfandiDuGeometriojn ( sen indekso, kun UV-oj ).
 export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geometrioj.length === 0 ) return new THREE.BufferGeometry();
-  return geometrioj.slice( 1 ).reduce( ( rezulto, geometrio ) => kunfandiDuGeometriojn( rezulto, geometrio ), geometrioj[0] );
+  return geometrioj.slice(1).reduce( ( rezulto, geometrio ) => kunfandiDuGeometriojn(rezulto, geometrio), geometrioj[0] );
 }
 
 // kunfandiKajVeldoiGeometriojn — Kunfandas la partojn en UNU geometrion kaj
@@ -88,12 +95,12 @@ export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[
 // — NENIA videbla kudro cxe la supro aux la malsupro; la supro estas unu glata
 // strukturo ( la hoka pinto kreskas el la sxafto, ne kusxas kiel kovrilo ).
 export function kunfandiKajVeldoiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
-  if (geos.length === 0) return new THREE.BufferGeometry();
+  if ( geos.length === 0 ) return new THREE.BufferGeometry();
   const unu = kunfandiGeometriojn(geos);
   const pozicio = unu.getAttribute("position") as THREE.BufferAttribute;
   const idxArr = unu.getIndex()!.array as Uint16Array | Uint32Array;
   const tv = pozicio.count;
-  // Veldi. koincidaj vertoj (en 0o1/0o10000) dividas la saman indekson. La pli fajna
+  // Veldi. Koincidaj vertoj ( en 0o1/0o10000 ) dividas la saman indekson. La pli fajna
   // krado gravas cxe la eta fina ringo. je 0o1/0o1000 pluraj najbaraj rondangulaj
   // punktoj kunfalis en la saman verton kaj kreis la videblan krucan cxapon.
   const skalo = 4096;

@@ -1,12 +1,13 @@
-// Hxeuxfa lampo — trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj sprajtoj
-// La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
+// Hxeuxfa lampo — trapezaj dioritaj kolonoj kun diamantaj bazplatoj, fajraj
+// kronoj kaj brilaj sprajtoj. La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia.
+// noma formo. hxeuxfo.
 import * as THREE from "three";
 import { kreiBrilanTeksajxon } from "./teksajxoj.js";
 import { kunfandiGeometriojn } from "./kunfandajxoj.js";
 
 export interface HxeuxfaLoko {
   x: number; z: number; y: number;
-  /** Optional square orientation; platform lamps can align with their diamond. */
+  /** Nedeviga kvadrata orientiĝo; platformaj lampoj povas vicigi kun sia rombo. */
   rotacio?: number;
 }
 
@@ -21,7 +22,7 @@ export interface HxeuxfaSistemo {
 }
 
 // konstruiHxeuxfojn — Konstruu trapezajn lampojn (hxeuxfojn) el bazoj, bovloj, flamoj kaj briletoj.
-export function konstruiHxeuxfojn( sceno: THREE.Scene,
+export function konstruiHxeuxfojn(sceno: THREE.Scene,
   spots: HxeuxfaLoko[],
   dioritaMaterialo: THREE.MeshStandardMaterial,
   _oraMaterialo: THREE.MeshStandardMaterial
@@ -31,12 +32,19 @@ export function konstruiHxeuxfojn( sceno: THREE.Scene,
   const flamajLokoj: THREE.Vector3[] = [];
 
   for ( const p of spots ) {
-    // Trapeza kolono (pli largxa cxe bazo)
+    // Trapeza kolono ( pli largxa cxe bazo )
     const rotacio = p.rotacio ?? Math.PI / 4;
     const pillar = new THREE.CylinderGeometry(0o5/0o40, 0o13/0o40, 0o155/0o40, 4, 1);
     pillar.rotateY(rotacio);
     pillar.translate(p.x, p.y + 0o155/0o100, p.z);
     kolonajGeometrioj.push(pillar);
+
+    // Diamanta bazplato — plata rombo sub la kolono, sam-orientita kiel la
+    // kolono ( la rombo-pintoj sekvas la saman aksan vicigon ).
+    const bazplato = new THREE.CylinderGeometry(0o17/0o40, 0o17/0o40, 0o1/0o40, 4, 1);
+    bazplato.rotateY(rotacio);
+    bazplato.translate(p.x, p.y + 0o1/0o40, p.z);
+    kolonajGeometrioj.push(bazplato);
 
     // Diorita bovlo — fermita profilo. ekstera kurbo, rando, interna muro kaj fundo.
     // La fermo forigas la tra-videblon (la interna flanko nun estas vera surfaco).
@@ -55,11 +63,11 @@ export function konstruiHxeuxfojn( sceno: THREE.Scene,
     ];
     const bowl = new THREE.LatheGeometry(profilo, 4);
     bowl.rotateY(rotacio);
-    // La kolono estas 0o155/0o40 alta, do gia supro estas p.y + 0o155/0o40 (ne 0o155/0o100 = centro).
+    // La kolono estas 0o155/0o40 alta, do gia supro estas p.y + 0o155/0o40 ( ne 0o155/0o100 = centro ).
     bowl.translate(p.x, p.y + 0o155/0o40, p.z);
     bovlajGeometrioj.push(bowl);
 
-    // Flamo levita. gia bazo sidas cxe la bovla rando (ne sube en la bovlo),
+    // Flamo levita. gia bazo sidas cxe la bovla rando ( ne sube en la bovlo ),
     // kaj restas super la rando ecx cxe la plej alta flam-skalo.
     flamajLokoj.push(new THREE.Vector3(p.x, p.y + 0o205/0o40, p.z));
   }
@@ -73,12 +81,12 @@ export function konstruiHxeuxfojn( sceno: THREE.Scene,
 
   // flamaj konusoj
   const N = flamajLokoj.length;
-  const flamaEkstero = new THREE.InstancedMesh( new THREE.ConeGeometry(0o13/0o100, 0o43/0o100, 7),
+  const flamaEkstero = new THREE.InstancedMesh(new THREE.ConeGeometry(0o13/0o100, 0o43/0o100, 7),
     new THREE.MeshBasicMaterial({ color: 0xf8a848, toneMapped: false }),
-    N );
-  const flamaInterno = new THREE.InstancedMesh( new THREE.ConeGeometry(0o3/0o40, 0o13/0o40, 7),
+    N);
+  const flamaInterno = new THREE.InstancedMesh(new THREE.ConeGeometry(0o3/0o40, 0o13/0o40, 7),
     new THREE.MeshBasicMaterial({ color: 0xf8e8b8, toneMapped: false }),
-    N );
+    N);
   sceno.add(flamaEkstero, flamaInterno);
 
   // brilaj sprajtoj

@@ -6,15 +6,16 @@ import { generiSkribanTeksajxon } from "./skripto-rivelilo.js";
 import { nomoAih } from "../src/tradukoj.js";
 import { kunfandiGeometriojn, kunfandiKajVeldoiGeometriojn } from "./kunfandajxoj.js";
 import { kreiEniranMaterialon, kreiOranMaterialon } from "./materialoj.js";
+import { kreiPilolFenestranFormon } from "./formoj.js";
 
 export interface KonstruTipo { labelKey: string; wall: number; frame: number; chip: string; flavorKey: string; }
 export const TIPARO: Record<string, KonstruTipo> = {
-  domo:   { labelKey: "tipDomo",      wall: 0x184838, frame: 0xd8b068, chip: "#78a888", flavorKey: "flvDomo" },
-  mangxejo:  { labelKey: "tipMangxejo",  wall: 0x584028, frame: 0xd8c898, chip: "#c8a868", flavorKey: "flvMangxejo" },
-  kasafeo: { labelKey: "tipKasafeo",    wall: 0xd8c898, frame: 0xd8b068, chip: "#e0d0a8", flavorKey: "flvKasafeo" },
-  stacioxipo: { labelKey: "tipStacioxipo", wall: 0xc8c8c8, frame: 0xd8b068, chip: "#c8c8c8", flavorKey: "flvStacioxipo" },
-  turo:   { labelKey: "tipTuro",        wall: 0x205040, frame: 0xd8b068, chip: "#88b8a0", flavorKey: "flvTuro" },
-  sanktejo: { labelKey: "tipSanktejo",  wall: 0x184038, frame: 0xe0c078, chip: "#e0c078", flavorKey: "flvSanktejo" },
+  domo:   { labelKey: "tipDomo",      wall: 0x184838, frame: 0xd8b068, chip: "#78a88880", flavorKey: "flvDomo" },
+  mangxejo:  { labelKey: "tipMangxejo",  wall: 0x584028, frame: 0xd8c898, chip: "#c8a86880", flavorKey: "flvMangxejo" },
+  kasafeo: { labelKey: "tipKasafeo",    wall: 0xd8c898, frame: 0xd8b068, chip: "#e0d0a880", flavorKey: "flvKasafeo" },
+  stacioxipo: { labelKey: "tipStacioxipo", wall: 0xc8c8c8, frame: 0xd8b068, chip: "#c8c8c880", flavorKey: "flvStacioxipo" },
+  turo:   { labelKey: "tipTuro",        wall: 0x205040, frame: 0xd8b068, chip: "#88b8a080", flavorKey: "flvTuro" },
+  sanktejo: { labelKey: "tipSanktejo",  wall: 0x184038, frame: 0xe0c078, chip: "#e0c07880", flavorKey: "flvSanktejo" },
 };
 
 export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }
@@ -61,21 +62,8 @@ export function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: num
 
 // kreiSteleanFormon — Vertikala signa plato kun nesimetriaj rondigitaj supraj
 // anguloj (r1 ≠ r2) kaj rektaj malsupraj anguloj. Uzata por la steloj.
-// kreiPilolFormon — LONGAs horizontala rondigita fenestra formo: rektangulo kun
-// duoncirklaj finoj (pilolo). Loka kopio de kreiPilolFenestranFormon en interno.js
-// (ne importu interne: tio estus cirkla dependeco — interno jam importas ĉi tien).
-function kreiPilolFormon(w: number, h: number): THREE.Shape {
-  const s = new THREE.Shape();
-  const hw = w / 2, r = h / 2;
-  s.moveTo(-hw + r, 0);
-  s.lineTo(hw - r, 0);
-  s.absarc(hw - r, r, r, -Math.PI / 2, Math.PI / 2, false);
-  s.lineTo(-hw + r, h);
-  s.absarc(-hw + r, r, r, Math.PI / 2, Math.PI * 0o3/0o2, false);
-  s.closePath();
-  return s;
-}
-
+// La pilola fenestra formo ( kreiPilolFenestranFormon ) venas el formoj.js —
+// la komuna modulo, por ke interno kaj la konstruajxoj uzu la saman formon.
 function kreiSteleanFormon(w: number, h: number, r1: number, r2: number): THREE.Shape {
   const s = new THREE.Shape();
   const hw = w / 2;
@@ -374,7 +362,7 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
 function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.MeshStandardMaterial, eniraMaterialo: THREE.MeshStandardMaterial): void {
   const blokoLargho = 0o233/0o100, tw = blokoLargho * 0o45/0o100, eh = 0o11/0o4;
   const shape = rondigitaTrapezaFormo(blokoLargho, tw, eh, 0o3/0o20, 0o1/0o10);
-  const enirejo = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 0o2/0o10, bevelEnabled: true, bevelSize: 0o5/0o100, bevelThickness: 0o5/0o100, bevelSegments: 2, curveSegments: 0o12 }), eniraMaterialo);
+  const enirejo = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 0o2/0o10, bevelEnabled: true, bevelSize: 0o5/0o100, bevelThickness: 0o5/0o100, bevelSegments: 2, curveSegments: 0o10 }), eniraMaterialo);
   enirejo.position.set(0, 0, d / 2 - 0o1/0o100); group.add(enirejo);
   // Bevelo gluigxas al la pli plata pordo-fronto (d/2 + 0o5/0o20 + 0o1/0o20).
   // Densa sampado (0o64 punktoj) kun norma tensio (0o1/0o2). la ora tubo sekvas la
@@ -394,14 +382,14 @@ function aldoniSteleanSignon(group: THREE.Group, name: string, w: number, d: num
   // La signo staras sur la tero apud la pordo (0o1/0o100 levita por ne z-fajfi kun la grundo).
   const signaY = 0o1/0o100;
   const steleo = new THREE.Mesh(
-    new THREE.ExtrudeGeometry(kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o10, 0o1/0o4), { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o12 }),
+    new THREE.ExtrudeGeometry(kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o10, 0o1/0o4), { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }),
     new THREE.MeshStandardMaterial({ color: 0x081818, roughness: 0o23/0o40 })
   );
-  steleo.position.set(w * 0o13/0o40, signaY, d / 2 + 0o103/0o100 - 0o5/0o100); steleo.castShadow = true; group.add(steleo);
+  steleo.position.set(w * 0o13/0o40, signaY, d / 2 + 0o104/0o100 - 0o5/0o100); steleo.castShadow = true; group.add(steleo);
   // ShapeGeometry uzas la krudajn formo-koordinatojn kiel UV (ne [0,1]),
   // do la texturo algluigxus al la malsupra-dekstra angulo de la faco.
   // Normaligu la UV-ojn al la limig-skatolo por plenigi la tutan facon.
-  const faceGeo = new THREE.ShapeGeometry(kreiSteleanFormon(0o4/0o10, 0o215/0o100, 0o1/0o10, 0o1/0o4), 0o12);
+  const faceGeo = new THREE.ShapeGeometry(kreiSteleanFormon(0o4/0o10, 0o215/0o100, 0o1/0o10, 0o1/0o4), 0o10);
   faceGeo.computeBoundingBox();
   const facePoz = faceGeo.getAttribute("position");
   const faceUV = faceGeo.getAttribute("uv");
@@ -429,8 +417,8 @@ function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, group: T
   mg.position.y = (spec.h0 || 0) - 0o2/0o100;
   mg.traverse( m => { if ( m instanceof THREE.Mesh ) m.castShadow = false; } );
   sceno.add( mg );
-  const oroMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0.85, roughness: 0.34, emissive: 0x302808, emissiveIntensity: 0.35 });
-  const ringGeo = new THREE.RingGeometry( Math.max(0.01, w * 0o23/0o100 + 0o11/0o100), Math.max(0.02, w * 0o23/0o100 + 0o21/0o100), 32 );
+  const oroMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o7/0o10, roughness: 0o26/0o100, emissive: 0x302808, emissiveIntensity: 0o26/0o100 });
+  const ringGeo = new THREE.RingGeometry( Math.max(0o1/0o100, w * 0o23/0o100 + 0o11/0o100), Math.max(0o2/0o100, w * 0o23/0o100 + 0o21/0o100), 32 );
   const ring = new THREE.Mesh( ringGeo, oroMaterialo );
   ring.rotation.x = -Math.PI / 2;
   ring.position.set( spec.x, (spec.h0 || 0) + 0o1/0o100, spec.z );
@@ -506,7 +494,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     // Rondigita lancx-aprono. kvadrata formo kun rondigitaj anguloj, 0o3/0o40 alta.
     // La ekstrudo kusxas plata (rotaciita X), do la dikeco farigxas vertikala.
     const apronFormo = kreiRondigitanKvadratanFormon(w + 4, d + 4, 0o10/0o10);
-    const apronGeo = new THREE.ExtrudeGeometry(apronFormo, { depth: 0o3/0o40, bevelEnabled: false, curveSegments: 0o12 });
+    const apronGeo = new THREE.ExtrudeGeometry(apronFormo, { depth: 0o3/0o40, bevelEnabled: false, curveSegments: 0o10 });
     apronGeo.rotateX(-Math.PI / 2);
     apronGeo.translate(0, -0o1/0o40, 0);
     const apron = new THREE.Mesh(apronGeo, muraMaterialo);
@@ -555,12 +543,12 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
         monto.rotation.x = -klinaAngulo;
         faca.add(monto);
         const fen = new THREE.Mesh(
-          new THREE.ShapeGeometry(kreiPilolFormon(ww, fenAlto), 0o100),
+          new THREE.ShapeGeometry(kreiPilolFenestranFormon(ww, fenAlto), 0o100),
           fenestraMaterialo
         );
         monto.add(fen);
         // Ora pilola rando ĉirkaŭ la fenestro
-        const konturo = kreiPilolFormon(ww, fenAlto).getPoints(0o200)
+        const konturo = kreiPilolFenestranFormon(ww, fenAlto).getPoints(0o200)
           .map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, 0));
         const rimo = new THREE.Mesh(
           new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
@@ -587,7 +575,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
       tm.position.set(tx, 0o6/0o40, tz); tm.castShadow = true; group.add(tm);
       // Rondaj segxoj
       for ( const [ox, oz] of [ [ 0o55/0o40, 0 ], [ -0o55/0o40, 0 ], [ 0, 0o55/0o40 ], [ 0, -0o55/0o40 ] ] ) {
-        const st = new THREE.Mesh(new THREE.CylinderGeometry(0o25/0o100, 0o33/0o100, 0o4/0o10, 0o12), brownMat);
+        const st = new THREE.Mesh(new THREE.CylinderGeometry(0o25/0o100, 0o33/0o100, 0o4/0o10, 0o10), brownMat);
         st.position.set(tx + ox, 0o17/0o100, tz + oz); st.castShadow = true; group.add(st);
       }
     }
@@ -625,25 +613,25 @@ export const TLAS: MangxajxDatumo[] = [
 
 export function bunMesh(f: MangxajxDatumo): THREE.Group {
   const g = new THREE.Group();
-  const bun = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 10),
-    new THREE.MeshStandardMaterial({ color: f.col, roughness: 0.65 }));
-  bun.scale.set(1, 0.74, 1); bun.position.y = 0.16;
-  const pleat = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.09, 5), new THREE.MeshStandardMaterial({ color: f.col, roughness: 0.6 }));
-  pleat.scale.set(1, 1, 0.55); pleat.position.y = 0.29; pleat.rotation.y = 0.6;
-  const basket = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.07, 14), new THREE.MeshStandardMaterial({ color: 0xb99a62, roughness: 0.8 }));
-  basket.position.y = 0.035;
+  const bun = new THREE.Mesh(new THREE.SphereGeometry(0o12/0o100, 0o20, 0o10),
+    new THREE.MeshStandardMaterial({ color: f.col, roughness: 0o52/0o100 }));
+  bun.scale.set(1, 0o57/0o100, 1); bun.position.y = 0o12/0o100;
+  const pleat = new THREE.Mesh(new THREE.ConeGeometry(0o3/0o100, 0o6/0o100, 5), new THREE.MeshStandardMaterial({ color: f.col, roughness: 0o5/0o10 }));
+  pleat.scale.set(1, 1, 0o43/0o100); pleat.position.y = 0o23/0o100; pleat.rotation.y = 0o5/0o10;
+  const basket = new THREE.Mesh(new THREE.CylinderGeometry(0o17/0o100, 0o17/0o100, 0o1/0o20, 0o20), new THREE.MeshStandardMaterial({ color: 0xb99a62, roughness: 0o63/0o100 }));
+  basket.position.y = 0o2/0o100;
   g.add(bun, pleat, basket); return g;
 }
 export function glassMesh(f: MangxajxDatumo): THREE.Group {
   const g = new THREE.Group();
-  const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.07, 0.3, 12),
-    new THREE.MeshStandardMaterial({ color: 0xdfeee6, transparent: true, opacity: 0o26 / 0o100, roughness: 0.1, depthWrite: false }));
-  glass.position.y = 0.15;
-  const liq = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.058, 0.24, 12),
-    new THREE.MeshStandardMaterial({ color: f.col, transparent: true, opacity: 0o64 / 0o100, roughness: 0.3 }));
-  liq.position.y = 0.12;
-  const sprig = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.16), new THREE.MeshStandardMaterial({ color: 0x4c7a44, side: THREE.DoubleSide }));
-  sprig.position.set(0.05, 0.3, 0); sprig.rotation.z = 1.2;
+  const glass = new THREE.Mesh(new THREE.CylinderGeometry(0o6/0o100, 0o1/0o20, 0o23/0o100, 12),
+    new THREE.MeshStandardMaterial({ color: 0xdfeee6, transparent: true, opacity: 0o26 / 0o100, roughness: 0o6/0o100, depthWrite: false }));
+  glass.position.y = 0o12/0o100;
+  const liq = new THREE.Mesh(new THREE.CylinderGeometry(0o5/0o100, 0o1/0o20, 0o17/0o100, 0o20),
+    new THREE.MeshStandardMaterial({ color: f.col, transparent: true, opacity: 0o64 / 0o100, roughness: 0o5/0o20 }));
+  liq.position.y = 0o1/0o10;
+  const sprig = new THREE.Mesh(new THREE.PlaneGeometry(0o5/0o100, 0o12/0o100), new THREE.MeshStandardMaterial({ color: 0x4c7a44, side: THREE.DoubleSide }));
+  sprig.position.set(0o3/0o100, 0o5/0o20, 0); sprig.rotation.z = 0o23/0o20;
   g.add(glass, liq, sprig); return g;
 }
 
@@ -676,8 +664,8 @@ export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: 
     });
   } else {
     const foods: { p: [number, number, number]; k: string }[] = [
-      { p: [cx + 0.4, 1.05, cz - 2.6], k: "fok0" }, { p: [cx + 1.1, 1.05, cz - 2.6], k: "fok2" },
-      { p: [cx + 1.9, 1.05, cz - 2.6], k: "tla2" }, { p: [cx + 3.6, 0.8, cz + 2.4], k: "fok1" }, { p: [cx + 4.2, 0.8, cz + 2.4], k: "tla0" },
+      { p: [cx + 0o15/0o40, 0o104/0o100, cz - 0o25/0o10], k: "fok0" }, { p: [cx + 0o11/0o10, 0o104/0o100, cz - 0o25/0o10], k: "fok2" },
+      { p: [cx + 0o17/0o10, 0o104/0o100, cz - 0o25/0o10], k: "tla2" }, { p: [cx + 0o35/0o10, 0o63/0o100, cz + 0o23/0o10], k: "fok1" }, { p: [cx + 0o41/0o10, 0o63/0o100, cz + 0o23/0o10], k: "tla0" },
     ];
     for (const f of foods) {
       const meta = metaDe(f.k);
@@ -690,10 +678,10 @@ export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: 
   return items;
 }
 export function aldoniVaporon(g: THREE.Group, local: THREE.Vector3): { cloud: THREE.Points; basePos: THREE.Vector3 } {
-  const n = 20, pos = new Float32Array(n * 3);
-  for (let i = 0; i < n; i++) pos.set([(Math.random() - 0o4/0o10) * 0o4/0o10, Math.random() * 1.2, (Math.random() - 0o4/0o10) * 0o4/0o10], i * 3);
+  const n = 0o30, pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) pos.set([(Math.random() - 0o4/0o10) * 0o4/0o10, Math.random() * 0o23/0o20, (Math.random() - 0o4/0o10) * 0o4/0o10], i * 3);
   const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-  const pts = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xe8efe9, size: 0.09, transparent: true, opacity: 0o26 / 0o100, depthWrite: false }));
+  const pts = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xe8efe9, size: 0o6/0o100, transparent: true, opacity: 0o26 / 0o100, depthWrite: false }));
   pts.position.copy(local);
   g.add(pts);
   return { cloud: pts, basePos: local.clone() };

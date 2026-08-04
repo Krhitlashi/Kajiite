@@ -1,6 +1,6 @@
-// Type declarations for CDN import-map-mapped addon modules.
-// The "three" base module uses types from node_modules/three (installed via npm).
-// These addons are resolved at runtime by the browser import map.
+// Tip-deklaroj por la CDN-import-map-aj aldonmoduloj.
+// La baza "three" modulo uzas tipojn el node_modules/three ( instalita per npm ).
+// Ĉi tiuj aldonoj estas solvitaj dum rultempo per la retumila import-map.
 //   "three/addons/*" → jsdelivr CDN examples/jsm/*
 
 declare module "three/addons/controls/OrbitControls.js" {
@@ -34,6 +34,6 @@ declare module "three/addons/utils/BufferGeometryUtils.js" {
   export function mergeGeometries(geometries: THREE.BufferGeometry[], useGroups?: boolean): THREE.BufferGeometry;
 }
 
-// Globals from the external aih.js ( ſɭɔ j͑ʃ'ɔ }ʃꞇ.js ) loaded via <script> in index.html.
+// Tutmondaĵoj el la ekstera aih.js ( ſɭɔ j͑ʃ'ɔ }ʃꞇ.js ) ŝarĝita per <script> en index.html.
 // vacepu — Envolvi cxiun vorton de la donita klaso en <span class="cepufalxez">.
 declare function vacepu(klasoNomo: string): void;

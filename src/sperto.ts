@@ -5,8 +5,8 @@ import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "
 import { VESTOJ, kreiVestanAntauxrigardon } from "../assets/vestoj.js";
 import { animaciiFlammojn } from "../assets/hxeuxfa-lampo.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/akvo.js";
-import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../assets/bestoj.js";
-import { gxisdatigiNpc } from "../assets/npcoj.js";
+import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../assets/shalaj-specioj/bestoj.js";
+import { gxisdatigiNpc } from "../assets/shalaj-specioj/homoj.js";
 
 import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/internoj.js";
 import { animaciiKrasesxagxon } from "../assets/krasesxagxa-kosmosxipo.js";
@@ -112,7 +112,7 @@ let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
 
 
 // ⟪ Navigada pop-up 📃 ⟫
-// La butono mem estas la fermilo: 二 fermita · 川 malfermita ( kaj la glifo sekvas la staton ).
+// La butono mem estas la fermilo. 二 fermita · 川 malfermita ( kaj la glifo sekvas la staton ).
 function gxisdatigiNavButonon() {
   navButono.textContent = navPopUp.classList.contains("montri") ? "川" : "二";
   navButono.setAttribute("aria-pressed", String(navPopUp.classList.contains("montri")));
@@ -140,7 +140,10 @@ function gxisdatigiInformButonon() {
 function sxaltiInformon() {
   informo.classList.toggle("montri");
   gxisdatigiInformButonon();
-  if (informo.classList.contains("montri")) plenigiInformon();
+  if (informo.classList.contains("montri")) {
+    gxisdatigiInformanAltecon();
+    plenigiInformon();
+  }
 }
 function fermiInformon() {
   informo.classList.remove("montri");
@@ -150,6 +153,31 @@ informButono.addEventListener("click", sxaltiInformon);
 informo.addEventListener("click", (e) => {
   if (e.target === informo) fermiInformon();
 });
+
+// ⟪ Poŝtelefona panelo. La alto sekvu la VIDEBlan vidon 📃 ⟫
+// Sur reala poŝtelefono la fiksita #informo estas mezurata kontraŭ la GRANDA
+// vido ( la komenca enhava bloko, kiu supozas la kaŝitan retumilan strion ),
+// do la panelo etendiĝas sub la videbla rando — superflua rulumo kaj enhavo
+// ne kongrua al la ekrano. La VisualViewport-a alto sekvas la striojn rekte
+// ( neniu vh/vw bezonas ), do ni agordas la alton en px per ĉi tiu mezurado.
+let informaAlteco = "";
+function gxisdatigiInformanAltecon(): void {
+  const vido = (window.visualViewport ? window.visualViewport.height : window.innerHeight) || window.innerHeight;
+  const stiloj = getComputedStyle(document.documentElement);
+  const sat = parseFloat(stiloj.getPropertyValue("--sat")) || 0;
+  const sab = parseFloat(stiloj.getPropertyValue("--sab")) || 0;
+  // La samaj deirpunktoj kiel la CSS-insetoj. 0o110px supere ( la informa strio ), 0o20px sube.
+  const nova = `${Math.max(0, vido - 0o110 - sat - 0o20 - sab)}px`;
+  if (nova !== informaAlteco) {
+    informaAlteco = nova;
+    informo.style.blockSize = nova;
+  }
+}
+window.addEventListener("resize", gxisdatigiInformanAltecon);
+window.addEventListener("orientationchange", gxisdatigiInformanAltecon);
+window.visualViewport?.addEventListener("resize", gxisdatigiInformanAltecon);
+window.visualViewport?.addEventListener("scroll", gxisdatigiInformanAltecon);
+gxisdatigiInformanAltecon();
 
 function sxaltiInformanTabon(tabo: string) {
   document.querySelectorAll("#informTaboj button").forEach(b => {
@@ -176,13 +204,13 @@ function plenigiKonstruaListon() {
   konstruaListo.innerHTML = "";
   for (const spec of konstruSpecoj) {
     const bt = TIPARO[spec.type] || TIPARO.domo;
-    const card = document.createElement("div");
+    const card = document.createElement("ciihii");
     card.className = "vestaKardo aih";
     const tipo = document.createElement("span");
     tipo.className = "peco";
     tipo.style.background = bt.chip;
     tipo.textContent = traduki(bt.labelKey);
-    const nomo = document.createElement("div");
+    const nomo = document.createElement("p");
     nomo.className = "vn";
     nomo.textContent = traduki(spec.name);
     card.append(tipo, nomo);
@@ -195,12 +223,12 @@ function plenigiMangxaListon() {
   mangxaListo.innerHTML = "";
   for (const f of [...FOKS, ...TLAS]) {
     const nomKlavo = "manĝ" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
-    const card = document.createElement("div");
+    const card = document.createElement("ciihii");
     card.className = "vestaKardo aih";
-    const nomo = document.createElement("div");
+    const nomo = document.createElement("p");
     nomo.className = "vn";
     nomo.textContent = traduki(nomKlavo);
-    const gusto = document.createElement("div");
+    const gusto = document.createElement("p");
     gusto.className = "gusto";
     gusto.textContent = traduki(nomKlavo + "Flavor");
     card.append(nomo, gusto);
@@ -222,38 +250,38 @@ interface SpeciaDatumo {
 }
 const SPECIOJ: SpeciaDatumo[] = [
   // Bestoj de la rivero kaj lago kaj de la ĉielo ( ĉiuj el bestoj.ts )
-  { key: "specBeroe", flavorKey: "flvSpecBeroe", grupo: "besto", col: "#e8d8e0" },
-  { key: "specMnemiopsis", flavorKey: "flvSpecMnemiopsis", grupo: "besto", col: "#d8e8f0" },
-  { key: "specPleŭrobrakia", flavorKey: "flvSpecPleŭrobrakia", grupo: "besto", col: "#d8f0e8" },
-  { key: "specGlacifiso", flavorKey: "flvSpecGlacifiso", grupo: "besto", col: "#d0e8e8" },
-  { key: "specMarlaraksxo", flavorKey: "flvSpecMarlaraksxo", grupo: "besto", col: "#c8b090" },
-  { key: "specNeĝopetrelo", flavorKey: "flvSpecNeĝopetrelo", grupo: "besto", col: "#f0f4f6" },
+  { key: "specBeroe", flavorKey: "flvSpecBeroe", grupo: "besto", col: "#e8d8e080" },
+  { key: "specMnemiopsis", flavorKey: "flvSpecMnemiopsis", grupo: "besto", col: "#d8e8f080" },
+  { key: "specPleŭrobrakia", flavorKey: "flvSpecPleŭrobrakia", grupo: "besto", col: "#d8f0e880" },
+  { key: "specGlacifiso", flavorKey: "flvSpecGlacifiso", grupo: "besto", col: "#d0e8e880" },
+  { key: "specMarlaraksxo", flavorKey: "flvSpecMarlaraksxo", grupo: "besto", col: "#c8b09080" },
+  { key: "specNeĝopetrelo", flavorKey: "flvSpecNeĝopetrelo", grupo: "besto", col: "#f0f4f680" },
   // Plantoj de la betularo ( el vegetajxo.ts )
-  { key: "specBetulo", flavorKey: "flvSpecBetulo", grupo: "planto", col: "#a0b888" },
-  { key: "specLariko", flavorKey: "flvSpecLariko", grupo: "planto", col: "#c8b858" },
-  { key: "specHxsxaksxlefo", flavorKey: "flvSpecHxsxaksxlefo", grupo: "planto", col: "#a868c8" },
-  { key: "specFiliko", flavorKey: "flvSpecFiliko", grupo: "planto", col: "#78a868" },
-  { key: "specPurpuraFiliko", flavorKey: "flvSpecPurpuraFiliko", grupo: "planto", col: "#9858b8" },
-  { key: "specLikeno", flavorKey: "flvSpecLikeno", grupo: "planto", col: "#b8b088" },
-  { key: "specHerbo", flavorKey: "flvSpecHerbo", grupo: "planto", col: "#88a858" },
-  { key: "specMusko", flavorKey: "flvSpecMusko", grupo: "planto", col: "#688848" },
-  { key: "specCetkuo", flavorKey: "flvSpecCetkuo", grupo: "planto", col: "#789868" },
-  { key: "specCakeo", flavorKey: "flvSpecCakeo", grupo: "planto", col: "#688858" },
+  { key: "specBetulo", flavorKey: "flvSpecBetulo", grupo: "planto", col: "#a0b88880" },
+  { key: "specLariko", flavorKey: "flvSpecLariko", grupo: "planto", col: "#c8b85880" },
+  { key: "specHxsxaksxlefo", flavorKey: "flvSpecHxsxaksxlefo", grupo: "planto", col: "#a868c880" },
+  { key: "specFiliko", flavorKey: "flvSpecFiliko", grupo: "planto", col: "#78a86880" },
+  { key: "specPurpuraFiliko", flavorKey: "flvSpecPurpuraFiliko", grupo: "planto", col: "#9858b880" },
+  { key: "specLikeno", flavorKey: "flvSpecLikeno", grupo: "planto", col: "#b8b08880" },
+  { key: "specHerbo", flavorKey: "flvSpecHerbo", grupo: "planto", col: "#88a85880" },
+  { key: "specMusko", flavorKey: "flvSpecMusko", grupo: "planto", col: "#68884880" },
+  { key: "specCetkuo", flavorKey: "flvSpecCetkuo", grupo: "planto", col: "#78986880" },
+  { key: "specCakeo", flavorKey: "flvSpecCakeo", grupo: "planto", col: "#68885880" },
 ];
 
 function plenigiSpeciaListon() {
   speciaListo.innerHTML = "";
   for (const spec of SPECIOJ) {
-    const card = document.createElement("div");
+    const card = document.createElement("ciihii");
     card.className = "vestaKardo aih";
     const chipo = document.createElement("span");
     chipo.className = "peco";
     chipo.style.background = spec.col;
     chipo.textContent = traduki(spec.grupo === "besto" ? "grupoBesto" : "grupoPlanto");
-    const nomo = document.createElement("div");
+    const nomo = document.createElement("p");
     nomo.className = "vn";
     nomo.textContent = traduki(spec.key);
-    const gusto = document.createElement("div");
+    const gusto = document.createElement("p");
     gusto.className = "gusto";
     const flavor = traduki(spec.flavorKey);
     // En aih la speciaj gustoj estas provizore malplenaj — montru malplenan linion.
@@ -287,7 +315,7 @@ function montriNeEnireblanKarton(nomo: string, chipo: string, koloro: string, fl
   aplikiVacepu();
 }
 function montriManĝanKarton(nomKlavo: string) {
-  montriNeEnireblanKarton(traduki(nomKlavo), traduki("tabMangxajxoj"), "#78c8a8", nomKlavo + "Flavor");
+  montriNeEnireblanKarton(traduki(nomKlavo), traduki("tabMangxajxoj"), "#78c8a880", nomKlavo + "Flavor");
 }
 function montriSpecianKarton(spec: SpeciaDatumo) {
   montriNeEnireblanKarton(
@@ -298,7 +326,7 @@ function montriSpecianKarton(spec: SpeciaDatumo) {
   );
 }
 
-// enfokusigiKonstruajxon — Integriĝo kun la ekzistanta orbit-sistemo: iru al
+// enfokusigiKonstruajxon — Integriĝo kun la ekzistanta orbit-sistemo. Iru al
 // orbito, enfokusigu la konstruaĵon kaj montru ĝian karton ( kiel klako en orbito ).
 function enfokusigiKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; chip: string; flavorKey: string; wall: number; frame: number }) {
   fermiInformon();
@@ -322,14 +350,14 @@ function gxisdatigiSonoranButonon(aktiva: boolean) {
 registriPostAŭdio(gxisdatigiSonoranButonon);
 document.addEventListener("pointerdown", () => autoKomenci(), { once: true });
 
-// ⟪ Tuŝekrano: la kontroloj aperu je tuŝo kaj kaŝiĝu post senaktiveco 📃 ⟫
+// ⟪ Tuŝekrano. La kontroloj aperu je tuŝo kaj kaŝiĝu post senaktiveco 📃 ⟫
 let tuŝaTempilo = 0;
 function montriTuŝajnKontrolojn(): void {
   document.body.classList.add("tuŝa");
   if (tuŝaTempilo) window.clearTimeout(tuŝaTempilo);
   // Post 3 sekundoj sen tuŝo la kontroloj malaperas ( la sekva tuŝo revenigas ilin ).
   tuŝaTempilo = window.setTimeout(() => {
-    // Ne kaŝu dum la stirstango estas tenata: touchend eble ne alvenas sur kaŝita zono.
+    // Ne kaŝu dum la stirstango estas tenata. Touchend eble ne alvenas sur kaŝita zono.
     if (joystickAktiva) { montriTuŝajnKontrolojn(); return; }
     document.body.classList.remove("tuŝa");
   }, 0o5670);
@@ -409,7 +437,7 @@ duskRegilo.addEventListener("input", () => {
   aplikiRezimon(krepuskaValoro);
 });
 
-// ⟪ Vacepu: envolvi la vortojn de la flosantaj kartoj en la aih-a lingvo. ⟫
+// ⟪ Vacepu. Envolvi la vortojn de la flosantaj kartoj en la aih-a lingvo. ⟫
 function aplikiVacepu(): void {
   if (cxuAih() && typeof vacepu === "function") vacepu("aih");
 }
@@ -424,7 +452,7 @@ function montriTost(mesagxo: string, daŭro = 0o4230) {
   tostaTempilo = setTimeout(() => tosto.classList.remove("montri"), daŭro);
 }
 
-// La prompto sxangxigxas cxiun kadron: envolvu nur kiam la teksto vere sxangxigxis.
+// La prompto sxangxigxas cxiun kadron. Envolvu nur kiam la teksto vere sxangxigxis.
 let lastPromptaHTML = "";
 function agordiPrompton(html: string): void {
   if (lastPromptaHTML === html) return;
@@ -496,7 +524,7 @@ function gxisdatigiJoystick(klientoX: number, klientoY: number) {
   klavoj.KeyD = normX > 0o2/0o10;
   klavoj.KeyW = normY < -0o2/0o10;
   klavoj.KeyS = normY > 0o2/0o10;
-  // Forkuri: puŝu la tenilon preter 0o3/0o4 de la radio (la mezo restas normala piedirado).
+  // Forkuri. Puŝu la tenilon preter 0o3/0o4 de la radio ( la mezo restas normala piedirado ).
   const devio = Math.min(1, dist / JOYSTICK_R);
   mobSprinto = devio > 0o3/0o4;
   mobJoystickBazo.classList.toggle("sprinto", mobSprinto);
@@ -579,8 +607,8 @@ kanvaso.addEventListener("touchmove", (e) => {
     if (t.identifier === tuŝaRigardaID) {
       const dx = t.clientX - lastTouchX;
       const dy = t.clientY - lastTouchY;
-      direkto -= dx * 0.0035;
-      klinigxo -= dy * 0.0035;
+      direkto -= dx * 0o1/0o400;
+      klinigxo -= dy * 0o1/0o400;
       klinigxo = Math.max(-0o135/0o100, Math.min(0o135/0o100, klinigxo));
       lastTouchX = t.clientX;
       lastTouchY = t.clientY;
@@ -674,30 +702,47 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
   pulsiEfikon();
   montriSargxon(0o1500, () => {
     antauxaRezimo = rezimo as "orbit" | "walk";
-    rezimo = "interior";
-    elektitaSpec = spec;
-    const enirPunkto = eniriInternon(internaSistemo, spec, dioritaMaterialo, andezitaMaterialo, oraMaterialo, eniraMaterialo, sceno);
-    const specX = spec.x, specZ = spec.z;
-    // La spacosxipa interno flosas ĉe la sxipo (flugoY) — la enira punkto estas
-    // ĉe la supro kie la sxipo vere estas, ne sur la tero.
-    const specH0 = spec.flugoY ?? (spec.h0 || 0);
-    const rot = spec.rot || 0;
-    const cosR = Math.cos(rot), sinR = Math.sin(rot);
-    const eX = enirPunkto.x, eZ = enirPunkto.z;
-    const wX = specX + cosR * eX - sinR * eZ;
-    const wZ = specZ + sinR * eX + cosR * eZ;
-    fotilo.position.set(wX, specH0 + enirPunkto.y, wZ);
-    fotilo.lookAt(specX, specH0 + 1, specZ);
-    direkto = enirPunkto.direkto + rot;
-    klinigxo = 0;
-    ludantaPozicio.set(wX, specH0 + enirPunkto.y, wZ);
-    estasSurTERENO = true;
-    rapidoY = 0;
-    regiloj.enabled = false;
-    // Hide the card but DON'T clear elektitaSpec (needed for interior movement)
-    kartoElemento.classList.remove("montri");
-    montriTost(traduki("eniri") + " " + traduki(spec.name));
-    gxisdatigiRetikulon();
+    try {
+      rezimo = "interior";
+      elektitaSpec = spec;
+      const enirPunkto = eniriInternon(internaSistemo, spec, dioritaMaterialo, andezitaMaterialo, oraMaterialo, eniraMaterialo, sceno);
+      const specX = spec.x, specZ = spec.z;
+      // La spacosxipa interno flosas ĉe la sxipo (flugoY) — la enira punkto estas
+      // ĉe la supro kie la sxipo vere estas, ne sur la tero.
+      const specH0 = spec.flugoY ?? (spec.h0 || 0);
+      const rot = spec.rot || 0;
+      const cosR = Math.cos(rot), sinR = Math.sin(rot);
+      const eX = enirPunkto.x, eZ = enirPunkto.z;
+      const wX = specX + cosR * eX - sinR * eZ;
+      const wZ = specZ + sinR * eX + cosR * eZ;
+      fotilo.position.set(wX, specH0 + enirPunkto.y, wZ);
+      fotilo.lookAt(specX, specH0 + 1, specZ);
+      direkto = enirPunkto.direkto + rot;
+      klinigxo = 0;
+      ludantaPozicio.set(wX, specH0 + enirPunkto.y, wZ);
+      estasSurTERENO = true;
+      rapidoY = 0;
+      regiloj.enabled = false;
+      // Hide the card but DON'T clear elektitaSpec (needed for interior movement)
+      kartoElemento.classList.remove("montri");
+      montriTost(traduki("eniri") + " " + traduki(spec.name));
+      gxisdatigiRetikulon();
+    } catch (eraro) {
+      // Se la interno ne konstruigxis ( hazarda retumila/kanvasa eraro ), ne
+      // lasu la ludanton duone en la interno. reen al la antaŭa reĝimo kaj
+      // forigu eventualan partan internon. La ŝarĝa ekrano malaperas ĉiuokaze
+      // ( la finally en montriSargxon ).
+      console.error("Eniro en la konstruajxon malsukcesis:", eraro);
+      eliriElInterno(internaSistemo, sceno);
+      rezimo = antauxaRezimo || "orbit";
+      antauxaRezimo = null;
+      regiloj.enabled = rezimo === "orbit";
+      // En orbito la muso estas legata per clientX/Y, ne per movementX/Y — se la
+      // montra-seruro restus aktiva, la orbito ne plu respondus al la muso.
+      if ( rezimo === "orbit" && document.pointerLockElement === kanvaso ) document.exitPointerLock();
+      gxisdatigiRezimanButonon();
+      gxisdatigiRetikulon();
+    }
   });
 }
 function eliriInternon() {
@@ -732,7 +777,7 @@ function eliriInternon() {
       regiloj.enabled = true;
       if (speco) {
         if (speco.type === "stacioxipo") {
-          // En orbito: movu la fotilon malsupren al la stacio (ne restu ĉe la sxipo).
+          // En orbito. Movu la fotilon malsupren al la stacio ( ne restu ĉe la sxipo ).
           regiloj.target.set(speco.x, (speco.h0 || 0) + 0o14, speco.z);
           fotilo.position.set(speco.x, (speco.h0 || 0) + 0o20, speco.z + 0o14);
         } else {
@@ -793,11 +838,11 @@ gxisdatigiRezimanButonon();
 document.getElementById("butVesti")!.addEventListener("click", () => {
   vestaVico.innerHTML = "";
   VESTOJ.forEach((o, i) => {
-    const card = document.createElement("div");
+    const card = document.createElement("ciihii");
     card.className = "vestaKardo aih";
     const kanvasa = kreiVestanAntauxrigardon(o);
     card.appendChild(kanvasa);
-    const nomo = document.createElement("div");
+    const nomo = document.createElement("p");
     nomo.className = "vn"; nomo.textContent = traduki(o.nomo);
     card.appendChild(nomo);
     card.addEventListener("click", () => {
@@ -899,7 +944,7 @@ function konsumi(item: MangxajxItemo) {
   const start = performance.now();
   (function ŝrumpi() {
     const t = (performance.now() - start) / 480;
-    m.scale.setScalar(Math.max(0.001, 1 - t));
+    m.scale.setScalar(Math.max(0o1/0o2000, 1 - t));
     if (t < 1) requestAnimationFrame(ŝrumpi); else m.visible = false;
   })();
   if (isFok) sfx.crunch(); else sfx.sip();
@@ -919,7 +964,7 @@ function solviKolizion(x: number, z: number): { x: number; z: number } {
       const difX = x + pusxoX - c.x, difZ = z + pusxoZ - c.z;
       const d = Math.hypot(difX, difZ);
       const min = c.r + 0o4/0o10;
-      if (d < min && d > 0.0001) {
+      if ( d < min && d > 0o1/0o20000 ) {
         const pen = min - d;
         pusxoX += (difX / d) * pen;
         pusxoZ += (difZ / d) * pen;
@@ -959,7 +1004,7 @@ function dokaSuproY(x: number, z: number): number {
 }
 
 // solviDokanKolizion — Rektangula kolizio kun la dokaj platformoj. Oni rajtas
-// stari SUR la doko (supre), sed ne eniri sub gxin: nur punktoj sub la platforma
+// stari SUR la doko ( supre ), sed ne eniri sub gxin. Nur punktoj sub la platforma
 // supro (d.y) estas elpusxataj. marge = radiuso de la ento (ludanto 0o3/0o10, kanuo 0o5/0o4).
 function solviDokanKolizion(x: number, z: number, y: number, marge = 0o3/0o10): { x: number; z: number } {
   let rx = x, rz = z;
@@ -991,7 +1036,7 @@ function solviDokanKolizion(x: number, z: number, y: number, marge = 0o3/0o10): 
 }
 
 // ⟪ Minimapo — la kompaso fariĝas radara mapo; klako malfermas la plenan vidon 📃 ⟫
-// La mapo estas dua WebGL-bildilo kun orta fotilo rigardanta rekte malsupren:
+// La mapo estas dua WebGL-bildilo kun orta fotilo rigardanta rekte malsupren.
 // ĝi bildigas la SAMAN scenon, do vojoj, konstruaĵoj, rivero kaj arbaro aperas
 // aŭtomate. Nebulo estas malŝaltita nur dum ĉi tiuj bildigoj, kaj la ludanta
 // markilo kuŝas sur aparta tavolo ( 2 ), nevidebla por la ĉefa fotilo.
@@ -1008,10 +1053,10 @@ const MINA_DUONO = 0o10;     // plej proksima zomo de la plena mapo
 const MAXA_DUONO = 0o500;    // plej malproksima zomo de la plena mapo
 const MAPA_ALTECO = 0o130;   // fotila alto super la tero
 let plenaDuono = PLENA_DUONO; // nuna duon-larĝo ( zomo ) de la plena mapo
-let mapaPanX = 0;            // tirado: horizontala forpreno de la sekv-punkto
-let mapaPanZ = 0;            // tirado: vertikala forpreno de la sekv-punkto
+let mapaPanX = 0;            // tirado. Horizontala forpreno de la sekv-punkto
+let mapaPanZ = 0;            // tirado. Vertikala forpreno de la sekv-punkto
 
-// La ludanta markilo: ora sago ( direkto ) sur disko. Tavolo 2 = nur mapaj fotiloj.
+// La ludanta markilo. Ora sago ( direkto ) sur disko. Tavolo 2 = nur mapaj fotiloj.
 const mapoMarkilo = new THREE.Group();
 {
   const sago = new THREE.Mesh(new THREE.ConeGeometry(0o7/0o10, 0o16/0o10, 3), oraMaterialo);
@@ -1029,11 +1074,11 @@ function kreiMapanSistemon(canvas: HTMLCanvasElement, duono: number): { bildilo:
   bildilo.setPixelRatio(1);
   bildilo.setSize(canvas.width, canvas.height, false);
   bildilo.setClearColor(0x0a1814, 1);
-  // Samaj koloro-agordoj kiel la ĉefa bildilo: sen ili la mapo uzus linian
+  // Samaj koloro-agordoj kiel la ĉefa bildilo. Sen ili la mapo uzus linian
   // kolorospacon kaj neniun ton-mapiĝon, do la vojoj aperus malklaraj/malhelaj.
   bildilo.outputColorSpace = THREE.SRGBColorSpace;
   bildilo.toneMapping = THREE.ACESFilmicToneMapping;
-  bildilo.toneMappingExposure = 1.06;
+  bildilo.toneMappingExposure = 0o104/0o100;
   bildilo.shadowMap.enabled = false;
   const fotilo = new THREE.OrthographicCamera(-duono, duono, duono, -duono, 1, 0o240);
   fotilo.up.set(0, 0, 1); // mapo-supro = nordo ( +z )
@@ -1071,13 +1116,13 @@ function agordiPlenanFotilon(): void {
   plenaFotilo.updateProjectionMatrix();
 }
 
-// La kompaso malfermas la plenan vidon: plenekrana kanvaso rekte en #supermeta.
+// La kompaso malfermas la plenan vidon. Plenekrana kanvaso rekte en #supermeta.
 function malfermiMapon(): void {
   if (mapoMalfermita) return;
   if (!plenaBildilo) {
     const kanvasa = document.createElement("canvas");
     kanvasa.id = "plenaKanvaso";
-    // Plenekrana: la CSS plenigas la tutan #supermeta ( inset:0 ); la bildilo
+    // Plenekrana. La CSS plenigas la tutan #supermeta ( inset:0 ); la bildilo
     // kaj la orta fotilo adaptiĝas al la ekrana grandeco/proporcio ĉiukadre,
     // do neniu fiksa grandeco necesas kaj ĝi funkcias ankaŭ sur poŝtelefono.
     kanvasa.width = innerWidth;
@@ -1090,15 +1135,15 @@ function malfermiMapon(): void {
       console.warn("Plena mapo ne havebla:", e);
       return;
     }
-    // Zomo: rado ( labortablo ) kaj pinĉo ( tuŝo ). La duon-larĝo de la orta
+    // Zomo. Rado ( labortablo ) kaj pinĉo ( tuŝo ). La duon-larĝo de la orta
     // fotilo ŝanĝiĝas; la ludanta markilo restas centrita dum la zomo.
     kanvasa.addEventListener("wheel", (e) => {
       e.preventDefault();
-      // Normaligu la radan unuon: liniaj deltoj ( iuj kusenetoj ) ≈ 16 pikseloj.
+      // Normaligu la radan unuon. Liniaj deltoj ( iuj kusenetoj ) ≈ 0o20 pikseloj.
       const delt = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
-      plenaDuono = Math.max(MINA_DUONO, Math.min(MAXA_DUONO, plenaDuono * Math.exp(delt * 0.001)));
+      plenaDuono = Math.max(MINA_DUONO, Math.min(MAXA_DUONO, plenaDuono * Math.exp(delt * 0o1/0o2000)));
     }, { passive: false });
-    // Pinĉa zomo: zorgu ankaŭ se tria fingro aliĝas aŭ forlasas meze. Tiri ( unu
+    // Pinĉa zomo. Zorgu ankaŭ se tria fingro aliĝas aŭ forlasas meze. Tiri ( unu
     // fingro/muso ) movas la vidcentron; post pinĉo la restanta fingro daŭre tiras.
     const punktoj = new Map<number, { x: number; y: number }>();
     let pinĉaDistanco = 0;
@@ -1116,7 +1161,7 @@ function malfermiMapon(): void {
         pinĉaDistanco = 0;
       }
     };
-    // Pikseloj → mondaj unuoj: la mapo estas nedistorĉita ( samaj skvamoj en ambaŭ
+    // Pikseloj → mondaj unuoj. La mapo estas nedistorĉita ( samaj skvamoj en ambaŭ
     // aksoj ), do unu konverta faktoro sufiĉas. Limigu la tiradon al la maksimuma
     // zomo, por ke la mapo ne perdiĝu tute.
     const tiriPans = (dx: number, dy: number) => {
@@ -1185,7 +1230,7 @@ kompaso.addEventListener("click", malfermiMapon);
 kompaso.addEventListener("keydown", (e) => {
   if (e.code === "Enter" || e.code === "Space") { e.preventDefault(); malfermiMapon(); }
 });
-// Fermo: la ekzistanta ✕ kaj la skrim-klako jam forigas .montri; jen nia stato.
+// Fermo. La ekzistanta ✕ kaj la skrim-klako jam forigas .montri; jen nia stato.
 supermeta.addEventListener("click", (e) => {
   if (mapoMalfermita && (e.target === supermeta || (e.target as HTMLElement).id === "supermetaFermi")) fermiMapon();
 });
@@ -1248,7 +1293,7 @@ function animacii() {
     novaZ = Math.max(-0o340, Math.min(0o440, novaZ));
 
     const r = solviKolizion(novaX, novaZ);
-    // Dokoj: bloku eniron SUB la platformon (sur-gxin piedirado restas libera)
+    // Dokoj. Bloku eniron SUB la platformon ( sur-gxin piedirado restas libera )
     const rd = solviDokanKolizion(r.x, r.z, ludantaPozicio.y);
     ludantaPozicio.x = rd.x; ludantaPozicio.z = rd.z;
     const moving = Math.min(1, longo);
@@ -1257,31 +1302,31 @@ function animacii() {
     const enLago = cxuEnLago(ludantaPozicio.x, ludantaPozicio.z);
     const enAkvo = enLago || cxuEnAkvo(ludantaPozicio.x, ludantaPozicio.z, riveroZ, RIVERA_DUONLARĜO);
     const akvoY = enAkvo ? akvaNivelo(ludantaPozicio.x, ludantaPozicio.z) : -999;
-    // Naĝado estas la AŬTOMATA movo sub la akvosurfaco: tuj kiam la tereno
+    // Naĝado estas la AŬTOMATA movo sub la akvosurfaco. Tuj kiam la tereno
     // subeniras sub la akvonivelo, la ludanto mergiĝas kaj naĝas — neniu
     // interago ( E ) aŭ transiro necesas. La sekaj bordo-strioj ene de la
     // (pli larĝa) akvo-zono restas piedireblaj anstataŭ naĝeblaj.
     const akvaProfundo = akvoY - teraY;   // > 0 = tereno sub la surfaco
-    // ( la lasta kondiĉo tenas saltantajn enirantojn: ili naĝu nur kiam ili jam
+    // ( la lasta kondiĉo tenas saltantajn enirantojn. Ili naĝu nur kiam ili jam
     //   alproksimiĝis al la surfaco, ne dum la falo de alta bordo )
     const naĝas = enAkvo && akvaProfundo > 0 && ludantaPozicio.y < akvoY + 0o6/0o10;
 
     if (naĝas) {
-      // Profunda akvo — subakva naĝado: la korpo mergiĝas ĝis la okuloj ĉe la
+      // Profunda akvo — subakva naĝado. La korpo mergiĝas ĝis la okuloj ĉe la
       // ondsurfaco ( la ondeto donas la naĝan balancadon ). En malprofunda akvo
       // la celo restas ĉe la fundo, do la ludanto vadadas kun kapo super la akvo.
-      // NAĜA_MERGO: la maksimuma mergo ( 0o2 ≈ 2 unuoj ) tenas la fotilon iomete
+      // NAĜA_MERGO. La maksimuma mergo ( 0o2 ≈ 2 unuoj ) tenas la fotilon iomete
       // sub la surfaco — ĉi tiu valoro agordas la forton de la "subakva" efekto.
       const NAĜA_MERGO = 0o2;
       const mergo = Math.min(akvaProfundo, NAĜA_MERGO);
-      const naĝaY = akvoY - mergo + Math.sin(t * 2 + ludantaPozicio.x * 0.1) * 0o1/0o20;
-      ludantaPozicio.y += (naĝaY - ludantaPozicio.y) * 0.12;
+      const naĝaY = akvoY - mergo + Math.sin(t * 2 + ludantaPozicio.x * 0o1/0o10) * 0o1/0o20;
+      ludantaPozicio.y += (naĝaY - ludantaPozicio.y) * 0o1/0o10;
       rapidoY = 0;
       estasSurTERENO = false;
       if (!estisNaĝanta && cxuAŭdio()) sfx.splash();
     } else if (enAkvo && !estasSurTERENO && ludantaPozicio.y < teraY) {
       // Malprofunda bordo — glate surgrimpu el la naĝado anstataŭ fali sub la fundon.
-      ludantaPozicio.y += (teraY - ludantaPozicio.y) * 0.25;
+      ludantaPozicio.y += (teraY - ludantaPozicio.y) * 0o1/0o4;
       if (ludantaPozicio.y >= teraY - 0o1/0o100) { ludantaPozicio.y = teraY; estasSurTERENO = true; rapidoY = 0; }
     } else if (estasSurTERENO) {
       if (ludantaPozicio.y > teraY + 0o23/0o100) {
@@ -1313,10 +1358,10 @@ function animacii() {
     );
     fotilo.rotation.set(klinigxo, direkto, 0);
 
-    // Paŝaj sonoj (ĉiun ~0.4 sekundojn dum movado) — dum naĝado la silento regas.
+    // Paŝaj sonoj ( ĉiun ~0o15/0o40 sekundojn dum movado ) — dum naĝado la silento regas.
     if (!naĝas) {
       pauxzaPaŝo += moving * deltaTempo;
-      if (pauxzaPaŝo > 0.4 && cxuAŭdio()) {
+      if ( pauxzaPaŝo > 0o15/0o40 && cxuAŭdio() ) {
         sfx.step();
         pauxzaPaŝo = 0;
       }
@@ -1378,7 +1423,7 @@ function animacii() {
     let lokalX = (novaX - specX) * cosR + (novaZ - specZ) * sinR;
     let lokalZ = -(novaX - specX) * sinR + (novaZ - specZ) * cosR;
 
-    // Helika ŝtuparo: piedirante ĉirkaŭ la kolono la ludanto leviĝas tra ĉiuj
+    // Helika ŝtuparo. Piedirante ĉirkaŭ la kolono la ludanto leviĝas tra ĉiuj
     // etaĝoj (unu plena turno = unu etaĝo). La spiralo estas kontinue sekvata.
     let surHelikso = false;
     if (helikso && ludY >= heliksaAltecxo(helikso, -helikso.turnojSube) - 0o1/0o10 && ludY <= heliksaAltecxo(helikso, helikso.turnoj) + 0o1/0o10) {
@@ -1398,7 +1443,7 @@ function animacii() {
       // la polon kaj fali tra gxi en la ŝakton.
       if (dist < helikso.rKol + 0o1/0o20) {
         const nR = helikso.rKol + 0o1/0o20;
-        if (dist > 0.0001) {
+        if ( dist > 0o1/0o20000 ) {
           lokalX = (lokalX / dist) * nR;
           lokalZ = (lokalZ / dist) * nR;
         } else {
@@ -1418,14 +1463,14 @@ function animacii() {
         const ang = Math.atan2(lokalX, lokalZ);
         const frac = ((ang % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 2);
         if (sxtupaTurno === null) {
-          // Eniro: komencu je la plej proksima turno al la nuna alteco. Oni rajtas
+          // Eniro. Komencu je la plej proksima turno al la nuna alteco. Oni rajtas
           // ankaŭ malsupreniri al la sub-teraj etaĝoj ( la ŝtuparo etendiĝas suben
           // laŭ turnojSube ), do neniu krampo al 0.
           const turno0 = ludY >= 0 ? ludY / helikso.turnoAlto : ludY / helikso.turnoAltoSub;
           const malsupraLim = -helikso.turnojSube;
           sxtupaTurno = Math.max(malsupraLim, Math.min(helikso.turnoj, Math.round(turno0 - frac) + frac));
         } else {
-          // Daŭra vindo: sekvu la angulon ĉirkaŭ la spiralo (supren kaj suben)
+          // Daŭra vindo. Sekvu la angulon ĉirkaŭ la spiralo ( supren kaj suben )
           sxtupaTurno = Math.max(-helikso.turnojSube, Math.min(helikso.turnoj, Math.round(sxtupaTurno - frac) + frac));
         }
         etapy = specH0 + heliksaAltecxo(helikso, sxtupaTurno);
@@ -1451,9 +1496,9 @@ function animacii() {
     const moving = Math.min(1, longo);
 
     if (estasSurTERENO) {
-      ludantaPozicio.y += (etapy - ludantaPozicio.y) * 0.2;
+      ludantaPozicio.y += (etapy - ludantaPozicio.y) * 0o3/0o20;
       rapidoY = 0;
-      if (Math.abs(ludantaPozicio.y - etapy) < 0.01) ludantaPozicio.y = etapy;
+      if ( Math.abs(ludantaPozicio.y - etapy) < 0o1/0o200 ) ludantaPozicio.y = etapy;
     } else {
       rapidoY -= 0o22 * deltaTempo;
       ludantaPozicio.y += rapidoY * deltaTempo;
@@ -1536,7 +1581,7 @@ function animacii() {
     surKanoto.x += surKanoto.vx * deltaTempo;
     surKanoto.z += surKanoto.vz * deltaTempo;
 
-    // Doka kolizio: la kanuo ne rajtas sub la platformojn (la fotilo restus subtera).
+    // Doka kolizio. La kanuo ne rajtas sub la platformojn ( la fotilo restus subtera ).
     const dk = solviDokanKolizion(surKanoto.x, surKanoto.z, -999, 0o5/0o4);
     surKanoto.x = dk.x; surKanoto.z = dk.z;
     // Ne lasu la kanuon en malprofunda akvo (tereno super la akva surfaco) —
@@ -1557,7 +1602,7 @@ function animacii() {
       }
       surKanoto.vz = 0;
     }
-    // Levu la kanu-bazon super la terenon: en malprofunda akvo la akva nivelo
+    // Levu la kanu-bazon super la terenon. En malprofunda akvo la akva nivelo
     // estus SUB la planko, do la kanuo kaj la fotilo enirus la teron.
     surKanoto.bazaY = Math.max(akvoNiveloK2, alteco(surKanoto.x, surKanoto.z));
 
@@ -1585,7 +1630,7 @@ function animacii() {
   // Kompaso / minimapo — la nadlo indikas la rigardan direkton sur la norda mapo.
   const fotilaDirekto = rezimo === "walk" ? direkto : -Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
   (nadlo as HTMLElement).style.transform = `rotate(${fotilaDirekto + Math.PI}rad)`;
-  // La mapo sekvu la vidpunkton: en promeno/interno la ludanto, en orbito la
+  // La mapo sekvu la vidpunkton. En promeno/interno la ludanto, en orbito la
   // fotila celo — alie la radaro restus fiksita ĉe la elirloko en orbito.
   const mapX = rezimo === "orbit" ? regiloj.target.x : ludantaPozicio.x;
   const mapZ = rezimo === "orbit" ? regiloj.target.z : ludantaPozicio.z;
@@ -1596,7 +1641,7 @@ function animacii() {
   // kadron, kaj nur post la ŝarĝa ekrano — antaŭe la kompaso estas kovrita ).
   if (mapoMalfermita && plenaBildilo && plenaFotilo) {
     // La plena mapo sekvas la saman vidpunkton, kiel la radaro, plus la tiradan
-    // forprenon: la ora markilo restas ĉe la ludanta mondo-pozicio ( eble ekster-
+    // forprenon. La ora markilo restas ĉe la ludanta mondo-pozicio ( eble ekster-
     // centro post tirado ), dum la ĉirkaŭaĵo montriĝas. La fotilo sekvas la
     // kanvasan grandecon kaj la zomon ĉiukadre.
     agordiPlenanFotilon();
@@ -1651,12 +1696,12 @@ const sxargxaIntervalo = setInterval(() => {
 }, 0o334);
 
 // ⟪ Ŝarĝa ekrano por konstruaĵ-eniro 📃 ⟫
-// Reuzu la saman ekranon kiel la lanĉo: montru la stangon, plenigu ĝin dum
+// Reuzu la saman ekranon kiel la lanĉo. Montru la stangon, plenigu ĝin dum
 // `daŭro` ms, tiam rulu la callback kaj kaŝu.
 let montriSxargxoIntervalo: ReturnType<typeof setInterval> | null = null;
 let sxargxaRestorilo: ReturnType<typeof setTimeout> | null = null;
 function montriSargxon(daŭro: number, callback: () => void): void {
-  // Nuligu eventualan ŝarĝon/eston de antaŭa voko: malnovaj tempigiloj nek
+  // Nuligu eventualan ŝarĝon/eston de antaŭa voko. Malnovaj tempigiloj nek
   // malrapidigu la nunan aperon ( la CSS defaŭlte ŝanĝiĝas je 1s ) nek rulu
   // duan fojon la callback ( ekz. duobla E-premo dum la ŝarĝo ).
   if (montriSxargxoIntervalo) { clearInterval(montriSxargxoIntervalo); montriSxargxoIntervalo = null; }
@@ -1671,14 +1716,20 @@ function montriSargxon(daŭro: number, callback: () => void): void {
     stangoPlenigo.style.blockSize = `${Math.min(100, progreso * 100)}%`;
     if (progreso >= 1) {
       if (montriSxargxoIntervalo) { clearInterval(montriSxargxoIntervalo); montriSxargxoIntervalo = null; }
-      callback();
-      sxargxaRestorilo = setTimeout(() => {
-        sxargxaElemento.classList.add("finita");
+      // Neniam permesu ke la ŝarĝa ekrano restu blokita. eĉ se la callback
+      // ĵetas ( hazarda retumila/kanvasa/WebGL-eraro ), la kaŝo estas ĉiam
+      // planita en la finally, do la ludanto neniam restas antaŭ la stango.
+      try {
+        callback();
+      } finally {
         sxargxaRestorilo = setTimeout(() => {
-          sxargxaElemento.style.transition = "";
-          sxargxaRestorilo = null;
+          sxargxaElemento.classList.add("finita");
+          sxargxaRestorilo = setTimeout(() => {
+            sxargxaElemento.style.transition = "";
+            sxargxaRestorilo = null;
+          }, 0o310);
         }, 0o310);
-      }, 0o310);
+      }
     }
   }, daŭro / paŝoj);
 }
@@ -1689,8 +1740,8 @@ kanvaso.addEventListener("click", () => {
 });
 document.addEventListener("mousemove", (e) => {
   if (document.pointerLockElement !== kanvaso || (rezimo !== "walk" && rezimo !== "interior")) return;
-  direkto -= e.movementX * 0.0021;
-  klinigxo -= e.movementY * 0.0021;
+  direkto -= e.movementX * 0o1/0o1000;
+  klinigxo -= e.movementY * 0o1/0o1000;
   klinigxo = Math.max(-0o135/0o100, Math.min(0o135/0o100, klinigxo));
 });
 

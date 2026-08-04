@@ -1,18 +1,32 @@
 // Vegetajxa modulo — betuloj, filikoj, likenoj por la nebula arbara medio
 import * as THREE from "three";
 import { kreiSxelanTeksajxon, kreiLarikanSxelanTeksajxon, kreiFilikanTeksajxon, kreiPurpuranFilikanTeksajxon,
-  kreiHerbErinanTeksajxon, kreiLikenanTeksajxon, kreiPurpuranFolianTeksajxon } from "./teksajxoj.js";
-import { kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson } from "./kunfandajxoj.js";
-import { kreiHazardanGenerilon } from "./hazardo.js";
-
-const hazard = (a: number, b: number): number => a + Math.random() * (b - a);
+  kreiHerbErinanTeksajxon, kreiLikenanTeksajxon, kreiPurpuranFolianTeksajxon } from "../teksajxoj.js";
+import { kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson } from "../kunfandajxoj.js";
+import { kreiHazardanGenerilon } from "../hazardo.js";
+import { glataPaso } from "../../src/tereno.js";
 
 // La purpuraj filik-trunkaj radiusoj ( supro kaj malsupro ) — uzataj kaj por
 // la trunka geometrio kaj por la fronda elir-radiuso, por ke ili ĉiam kongruu.
 const PURPURAJ_TRUNKAJ_RADIOJ = { supro: 0o3/0o20, malsupro: 0o5/0o20 };
 
+// Krona radiuso — la foliara larĝo de ĉiu arba speco, uzata por la inter-arba
+// interspaco, por ke la kronoj neniam trapenetru unu la alian. Ĉiu arbo portas
+// sian propran radiuson ( r ), kaj la kandidato ricevas la specian funkcion de
+// sia metado — malsamaj specoj miksiĝas sen super-spacigo de la maldikaj.
+const KRONA_LIBERO = 0o2;   // libera spaco inter la kronaj randoj
+const kronaRadiusoBetula = ( s: number ): number => 0o215/0o100 * s + 0o63/0o100;
+export const kronaRadiusoLarika = ( s: number ): number => 0o11/0o10 * s + 0o4/0o10;
+export const kronaRadiusoHxsxaksxlefa = ( s: number ): number => 0o6/0o10 + 0o1 * s;
+
+// La inter-arba minimuma distanco — la pli granda de la baza interspaco kaj la
+// sumo de la du kronaj radiusoj plus la libero, por ke la foliaroj restu liberaj.
+const interspaco = ( baza: number, rA: number, rB: number ): number =>
+  Math.max( baza, rA + rB + KRONA_LIBERO );
+
 export interface ArboMetado {
   x: number; z: number; h: number; s: number;
+  r?: number;   // krona radiuso — por la inter-arba interspaca kontrolo
 }
 
 // Grovo — arbarera centro. La arboj kaj plantoj klasteriĝas ĉirkaŭ la centroj
@@ -20,7 +34,7 @@ export interface ArboMetado {
 // maldensaj paŭzoj inter ili.
 interface Grovo { x: number; z: number; r: number; }
 
-// kreiGrovojn — Disigu arbarerojn nature tra la mondo: hazardaj centroj kun
+// kreiGrovojn — Disigu arbarerojn nature tra la mondo. Hazardaj centroj kun
 // hazardaj radiusoj, nek egale spacigitaj nek en ringo. La centroj evitas la
 // urbon kaj la riveron; la arboj poste klasteriĝas ĉirkaŭ ili.
 function kreiGrovojn( kvanto: number, worldRadius: number,
@@ -48,7 +62,7 @@ function kreiGrovojn( kvanto: number, worldRadius: number,
   return grovoj;
 }
 
-// kreiArbarerojn — Publika enirpunkto al kreiGrovojn: la samaj arbareroj estas
+// kreiArbarerojn — Publika enirpunkto al kreiGrovojn. La samaj arbareroj estas
 // dividitaj inter la arbo-specoj, por ke betuloj, larikoj kaj Ĥŝakŝlefoj
 // miksiĝu en la samaj naturaj arbareroj.
 export function kreiArbarerojn( kvanto: number, worldRadius: number,
@@ -83,7 +97,8 @@ export function metiArbojn( heightFn: (x: number, z: number) => number,
   semo = 0o53104,
   evituArbojn: ArboMetado[] = [],
   minimumaDistanco = 0o10,
-  grovoj: Grovo[] = []
+  grovoj: Grovo[] = [],
+  kronaRadiuso: ( s: number ) => number = kronaRadiusoBetula
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32( semo );
   const arbareroj = grovoj.length ? grovoj
@@ -91,13 +106,15 @@ export function metiArbojn( heightFn: (x: number, z: number) => number,
   const placed: ArboMetado[] = [];
   let provoj = 0;
 
-  const bonaLoko = (x: number, z: number): boolean => {
+  const bonaLoko = (x: number, z: number, s: number): boolean => {
     if (Math.hypot(x, z) < 0o20) return false;
     if (excludeRivers(x, z)) return false;
     if (excludePaths(x, z, 0o44/0o10)) return false;
     if (excludeBuildings(x, z, 3)) return false;
+    const kandidataR = kronaRadiuso( s );
     for ( const arbo of [ ...evituArbojn, ...placed ] ) {
-      if ( Math.hypot( x - arbo.x, z - arbo.z ) < minimumaDistanco ) return false;
+      if ( Math.hypot( x - arbo.x, z - arbo.z ) <
+        interspaco( minimumaDistanco, arbo.r ?? kronaRadiusoBetula( arbo.s ), kandidataR ) ) return false;
     }
     return true;
   };
@@ -107,8 +124,9 @@ export function metiArbojn( heightFn: (x: number, z: number) => number,
     const x = loko.x;
     const z = loko.z;
     if (Math.abs(x) > worldRadius + 0o24 || Math.abs(z) > worldRadius + 0o24) continue;
-    if (!bonaLoko(x, z)) continue;
-    placed.push({ x, z, h: heightFn(x, z), s: 0o63/0o100 + hazardaGenerilo() * 0o55/0o100 });
+    const s = 0o63/0o100 + hazardaGenerilo() * 0o55/0o100;
+    if (!bonaLoko(x, z, s)) continue;
+    placed.push({ x, z, h: heightFn(x, z), s, r: kronaRadiuso( s ) });
   }
   return placed;
 }
@@ -116,8 +134,14 @@ export function metiArbojn( heightFn: (x: number, z: number) => number,
 // metiMontajnArbojn — Metu arbojn sur la nordan montaron ( montaroNorda en
 // tereno.ts ), nur sur moderaj deklivoj sub la arbolinio, evitante riverojn,
 // vojojn kaj konstruajxojn. La dekliva filtraĵo ( specimenita per la tera alto )
-// tenas la arbojn sur la piedeblaj deklivoj anstataŭ ŝvebantaj sur klifoj, kaj
-// la arbolinia filtraĵo ( ≈0o26 ) lasas la pintojn senarbaj por la rokoj.
+// tenas la arbojn sur la piedeblaj deklivoj anstataŭ ŝvebantaj sur klifoj.
+// La bando estas larĝa ( ĝis zMax ≈ 0o430 ), kaj tri naturaj formoj anstataŭas
+// rektangulajn randojn. (1) la x-envelopo sekvas la montan spron-silueton —
+// pli larĝa ĉe la piedo, pli mallarĝa al la kresto; (2) la suda fado
+// dissolvas la arbaron en la valan arbaron ĉe la piedo; (3) la arbolinia fado
+// laŭ la tera alto ( plena sub ≈0o16, nula ĉe ≈0o26 ) dissolvas la arbaron
+// en la senarbajn pintojn — la kresto kaj la norda deklivo transiras nature
+// al rokoj kaj likenoj anstataŭ fermiĝi per duro rando.
 //     @param heightFn ( funkcio ) - Tera alta funkcio.
 //     @param zMin, zMax ( number ) - La monta bando laŭ z.
 //     @param excludeRivers ( funkcio ) - Riverfiltro.
@@ -134,11 +158,15 @@ export function metiMontajnArbojn( heightFn: (x: number, z: number) => number,
   excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
   semo = 0o53131,
   evituArbojn: ArboMetado[] = [],
-  minimumaDistanco = 0o10
+  minimumaDistanco = 0o10,
+  kronaRadiuso: ( s: number ) => number = kronaRadiusoBetula
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32( semo );
   const placed: ArboMetado[] = [];
   let provoj = 0;
+  // Aro de la valaj arboj — rapida testado de la mozaika interspaco en la
+  // ofta buklo ( Set.has estas O(1), kontraste al array.includes O(n) ).
+  const evitaAro = new Set( evituArbojn );
 
   // Deklivo — la plej granda altecdiferenco per unuo, specimenita ĉe la punkto.
   const deklivo = (x: number, z: number): number => {
@@ -149,24 +177,48 @@ export function metiMontajnArbojn( heightFn: (x: number, z: number) => number,
     return Math.max( Math.abs( hx - h0 ), Math.abs( hz - h0 ) ) / paso;
   };
 
+  // Suda fado — la monta arbaro dissolviĝas en la valan arbaron anstataŭ
+  // komenciĝi ĉe la duro piedo. la denseco rampas de 0 al plena tra la unuaj
+  // 0o20 unuoj de la bando, do la transiro inter la zonoj estas natura.
+  const sudaFado = ( z: number ): number => {
+    const t = Math.max( 0, Math.min( 1, ( z - zMin ) / 0o20 ));
+    return t * t * ( 3 - 2 * t );
+  };
+
+  // Arbolinia fado — la denseco fadas laŭ la tera alto. plena sub ≈0o16,
+  // malkreskanta tra 0o16→0o26 kaj nula super ≈0o26. Tiel la arbaro dissolviĝas
+  // en la senarbajn pintojn kaj la norda deklivo ( kie la tero denove subiras
+  // sub la arbolinion ) povas rearbariĝi nature, anstataŭ fermiĝi per duro rando.
+  const arboliniaFado = ( h: number ): number => 1 - glataPaso( 0o16, 0o26, h );
+
+  // X-envelopo — la arbaro sekvas la montan spron-silueton. pli larĝa ĉe la
+  // piedo ( kie la spronoj larĝe disvastiĝas ), pli mallarĝa al la kresto.
+  const xEnvelopo = ( z: number ): number => 0o340 * ( 0o75/0o100 + 0o25/0o100 * sudaFado( z ));
+
   while ( placed.length < kvanto && provoj++ < 0o10000 ) {
-    const x = ( hazardaGenerilo() * 2 - 1 ) * 0o340;
     const z = zMin + hazardaGenerilo() * ( zMax - zMin );
+    if ( hazardaGenerilo() > sudaFado( z )) continue;   // maldensa ĉe la piedo
+    // Triangula disdono laŭ x — densa meze, maldensa ĉe la spronaj finoj.
+    const x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo( z );
     if ( Math.hypot( x, z ) < 0o120 ) continue;   // la urbo restas malfermita
+    if ( hazardaGenerilo() > arboliniaFado( heightFn( x, z ))) continue;   // arbolinio
     if ( excludeRivers( x, z )) continue;
     if ( excludePaths( x, z, 0o44/0o10 )) continue;
     if ( excludeBuildings( x, z, 3 )) continue;
     // Tro kruta deklivo — neniu arbo sur la klifoj ( la montaraj pintoj ).
     if ( deklivo( x, z ) > 0o6/0o10 ) continue;
-    // Arbolinio — neniu arbo super ≈0o26: la altaj pintoj kaj krestoj restas
-    // senarbaj, kie la rokoj kaj likenoj transprenas.
-    if ( heightFn( x, z ) > 0o26 ) continue;
+    const s = 0o63/0o100 + hazardaGenerilo() * 0o55/0o100;
+    const kandidataR = kronaRadiuso( s );
     let troProksima = false;
     for ( const arbo of [ ...evituArbojn, ...placed ] ) {
-      if ( Math.hypot( x - arbo.x, z - arbo.z ) < minimumaDistanco ) { troProksima = true; break; }
+      // Kontraŭ la valaj arboj la distanco estas pli libera ( 0o5 ), por ke la
+      // monta arbaro interplektiĝu kun la vala anstataŭ lasi mozaton laŭ la piedo.
+      const mozaika = evitaAro.has( arbo ) ? 0o5 : minimumaDistanco;
+      if ( Math.hypot( x - arbo.x, z - arbo.z ) <
+        interspaco( mozaika, arbo.r ?? kronaRadiusoBetula( arbo.s ), kandidataR ) ) { troProksima = true; break; }
     }
     if ( troProksima ) continue;
-    placed.push({ x, z, h: heightFn( x, z ), s: 0o63/0o100 + hazardaGenerilo() * 0o55/0o100 });
+    placed.push({ x, z, h: heightFn( x, z ), s, r: kronaRadiuso( s ) });
   }
   return placed;
 }
@@ -174,6 +226,11 @@ export function metiMontajnArbojn( heightFn: (x: number, z: number) => number,
 // konstruiMontajnRokojn — Metu rokajn blokojn sur la nordan montaron, sur la
 // altaj deklivoj kaj krestoj, kie la arboj malabundas. La rokoj sekvas la
 // terenon kaj ricevas malvarmajn grizojn por kongrui kun la montara roko.
+// La disdono samformas kun la monta arbaro — la sama spron-silueta x-envelopo
+// kaj suda fado — sed la alteca akcepto estas inversa. la rokoj densegas sur
+// la kresto kaj la supraj deklivoj ( kie la arboj fadas ), kaj dissolviĝas
+// malsupren en la arbaran zonon. Tiel la rokzono sekvas la naturan montan
+// silueton anstataŭ rektangulon.
 //     @returns metitaj ( ArboMetado[] ) - La pozicioj, por ke la likenoj povas
 //         grupigi ĉirkaŭ ili.
 export function konstruiMontajnRokojn( sceno: THREE.Scene,
@@ -181,7 +238,7 @@ export function konstruiMontajnRokojn( sceno: THREE.Scene,
   heightFn: (x: number, z: number) => number,
   excludeRivers: (x: number, z: number) => boolean,
   excludePaths: (x: number, z: number, minDistanco: number) => boolean,
-  semo = 99231
+  semo = 624512
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32( semo );
   const sxtonaGeometrio = new THREE.IcosahedronGeometry( 1, 0 );
@@ -198,11 +255,30 @@ export function konstruiMontajnRokojn( sceno: THREE.Scene,
   let li = 0;
   let gardilo = 0;
 
+  // La sama pieda fado kaj spron-silueta x-envelopo kiel en metiMontajnArbojn
+  // ( zMin = 0o260 ), por ke la rokzono kongruu kun la arbarzono.
+  const sudaFado = ( z: number ): number => {
+    const t = Math.max( 0, Math.min( 1, ( z - 0o260 ) / 0o20 ));
+    return t * t * ( 3 - 2 * t );
+  };
+  const xEnvelopo = ( z: number ): number => 0o340 * ( 0o75/0o100 + 0o25/0o100 * sudaFado( z ));
+  // Alteca akcepto — inversa de la arbolinia fado. malmulta sub la arbolinio
+  // ( kie la arbaro vivas ), plena sur la kresto kaj la supraj deklivoj.
+  const rokAkcepto = ( h: number ): number => glataPaso( 0o16, 0o30, h );
+
   while ( li < kvanto && gardilo++ < 0o10000 ) {
-    const x = ( hazardaGenerilo() * 2 - 1 ) * 0o340;
-    const z = 0o240 + hazardaGenerilo() * 0o200;
-    if ( excludeRivers( x, z ) || excludePaths( x, z, 0o2 )) continue;
+    const z = 0o260 + hazardaGenerilo() * 0o160;
+    if ( hazardaGenerilo() > sudaFado( z )) continue;
+    const x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo( z );
     if ( Math.hypot( x, z ) < 0o120 ) continue;
+    if ( hazardaGenerilo() > rokAkcepto( heightFn( x, z ))) continue;
+    if ( excludeRivers( x, z ) || excludePaths( x, z, 0o2 )) continue;
+    // Tro kruta deklivo — neniu roko ŝvebas sur la klifoj.
+    const paso = 0o4;
+    const h0 = heightFn( x, z );
+    const kruteco = Math.max( Math.abs( heightFn( x + paso, z ) - h0 ),
+      Math.abs( heightFn( x, z + paso ) - h0 ) ) / paso;
+    if ( kruteco > 0o1 ) continue;
 
     const skaloY = 0o5/0o10 + hazardaGenerilo() * 0o5/0o10;
     E.set( hazardaGenerilo() * 0o15/0o40, hazardaGenerilo() * Math.PI * 2, hazardaGenerilo() * 0o15/0o40 );
@@ -295,6 +371,7 @@ export function konstruiFilikojn( sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
+  const metitaj: [ number, number ][] = [];
   let fi = 0;
   let gardilo = 0;
   // Malfermaj filikoj — la foraj, ne-arbaj filikoj klasteriĝas en naturaj
@@ -322,12 +399,19 @@ export function konstruiFilikojn( sceno: THREE.Scene,
     }
 
     if (excludeRivers(x, z) || excludePaths(x, z, 2) || Math.hypot(x, z) < 0o16) continue;
+    // Eta interspaco — la filikoj ne kresku unu sur la alia ĉe la arboj.
+    let troProksima = false;
+    for ( const [ px, pz ] of metitaj ) {
+      if ( Math.hypot( x - px, z - pz ) < 0o2 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
 
     const skalo = 0o55/0o100 + hazardaGenerilo() * 0o63/0o100;
     E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q, new THREE.Vector3(skalo, skalo, skalo));
     filikoj.setMatrixAt(fi++, M);
+    metitaj.push( [ x, z ] );
   }
 
   filikoj.count = fi;
@@ -388,6 +472,7 @@ function konstruiPeriferianFilikanAreon( sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
+  const metitaj: [ number, number ][] = [];
   let pi = 0;
   let gardilo = 0;
 
@@ -399,6 +484,12 @@ function konstruiPeriferianFilikanAreon( sceno: THREE.Scene,
     if ( excludeRivers( x, z )) continue;
     if ( excludePaths( x, z, 0o2 )) continue;
     if ( excludeBuildings( x, z, 0o2 )) continue;
+    // Eta interspaco — la purpuraj plantoj restu distingeblaj, ne unu sur la alia.
+    let troProksima = false;
+    for ( const [ px, pz ] of metitaj ) {
+      if ( Math.hypot( x - px, z - pz ) < 0o2 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
 
     const skalo = 0o6/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
@@ -406,6 +497,7 @@ function konstruiPeriferianFilikanAreon( sceno: THREE.Scene,
     M.compose( new THREE.Vector3( x, heightFn( x, z ), z ), Q,
       new THREE.Vector3( skalo, skalo, skalo ));
     plantoj.setMatrixAt( pi++, M );
+    metitaj.push( [ x, z ] );
   }
 
   plantoj.count = pi;
@@ -445,6 +537,7 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const indicoj = specoj.map( () => 0 );
+  const metitaj: [ number, number ][] = [];
   let provoj = 0;
   // Arbareroj — la altaj purpuraj filikoj kreskas en naturaj makuloj, ne en ringo.
   const grovoj = kreiGrovojn( Math.max( 0o4, Math.floor( kvanto / 0o20 )), 0o200, hazardaGenerilo, excludeRivers );
@@ -455,6 +548,14 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
     const z = loko.z;
     if ( Math.abs( x ) > 0o224 || Math.abs( z ) > 0o224 ) continue;
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o3 ) || excludeBuildings( x, z, 0o3 )) continue;
+    // Ne lasu la arboformajn filikojn kreski unu EN la alian — la triangulara
+    // grova disdono densigas la centrojn, kaj sen interspaco multaj specimenoj
+    // kreskis je preskaŭ la sama loko, kun la frondaj kronoj trapenetrantaj.
+    let troProksima = false;
+    for ( const [ px, pz ] of metitaj ) {
+      if ( Math.hypot( x - px, z - pz ) < 0o5 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
 
     // Hazardelektu la specion — malsamaj trunkoj/kronoj donas diversajn grandecojn.
     let specoIndico = ( hazardaGenerilo() * specoj.length ) | 0;
@@ -479,6 +580,7 @@ export function konstruiAltajnPurpurajnFilikojn( sceno: THREE.Scene,
     M.compose( new THREE.Vector3( x, kronaCentroY, z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
     kronoj[specoIndico].setMatrixAt( indicoj[specoIndico], M );
     indicoj[specoIndico]++;
+    metitaj.push( [ x, z ] );
   }
 
   trunkoj.forEach( ( mesh, i ) => { mesh.count = indicoj[i]; mesh.instanceMatrix.needsUpdate = true; mesh.castShadow = true; sceno.add( mesh ); });
@@ -589,15 +691,21 @@ export function konstruiLikenSxtonojn( sceno: THREE.Scene,
 // el tri teraj specimenoj, do la makulo sekvas la monteton kaj ne tranĉas
 // en ĝin. Unu ebeno ankaŭ evitas la mem-flagradon de krucigitaj ebenoj.
 // La makuloj grupigas apud arboj kaj sxtonoj, kaj kelkaj sterniĝas hazarde.
+// En la montara reĝimo ( montara = true ) la hazardaj makuloj uzas la saman
+// spron-siluetan x-envelopon kaj altecan akcepton kiel la montaj rokoj — la
+// likenoj sterniĝas super la kresto kaj la supraj deklivoj, kongrue kun la
+// nova rokzono kaj arbolinia fado, anstataŭ en rektangula bando.
 //     @param nearTrees ( ArboMetado[] ) - Arboj por la grupigado.
 //     @param nearSxtonoj ( ArboMetado[] ) - Liken-sxtonoj por la grupigado.
+//     @param montara ( boolean ) - Montara reĝimo ( spur-silueta alta disdono ).
 export function konstruiLikenojn( sceno: THREE.Scene,
   kvanto: number,
   heightFn: ( x: number, z: number ) => number,
   nearTrees: ArboMetado[],
   nearSxtonoj: ArboMetado[],
   excludeRivers: ( x: number, z: number ) => boolean,
-  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
+  montara = false
 ): void {
   const hazardaGenerilo = mulberry32( 0o72331 );
   const likenaTeksajxo = kreiLikenanTeksajxon();
@@ -620,12 +728,27 @@ export function konstruiLikenojn( sceno: THREE.Scene,
   const enX = new THREE.Vector3();
   const enZ = new THREE.Vector3();
   const ankroj = [ ...nearTrees, ...nearSxtonoj ];
+  const metitaj: [ number, number ][] = [];
   let li = 0;
   let gardilo = 0;
 
+  // Montara reĝimo — la sama pieda fado, spron-silueta x-envelopo kaj inversa
+  // alteca akcepto kiel en konstruiMontajnRokojn ( zMin = 0o260 ).
+  const sudaFado = ( z: number ): number => {
+    const t = Math.max( 0, Math.min( 1, ( z - 0o260 ) / 0o20 ));
+    return t * t * ( 3 - 2 * t );
+  };
+  const xEnvelopo = ( z: number ): number => 0o340 * ( 0o75/0o100 + 0o25/0o100 * sudaFado( z ));
+  const altaAkcepto = ( h: number ): number => glataPaso( 0o14, 0o26, h );
+
   while ( li < kvanto && gardilo++ < 0o10000 ) {
     let x: number, z: number;
-    if ( ankroj.length && hazardaGenerilo() < 0o3/0o4 ) {
+    if ( montara ) {
+      // Montara disdono — la samaj spur-siluetaj formoj kiel la rokoj.
+      z = 0o260 + hazardaGenerilo() * 0o160;
+      if ( hazardaGenerilo() > sudaFado( z )) continue;
+      x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo( z );
+    } else if ( ankroj.length && hazardaGenerilo() < 0o3/0o4 ) {
       const t = ankroj[ ( hazardaGenerilo() * ankroj.length ) | 0 ];
       const a = hazardaGenerilo() * Math.PI * 2;
       const hazardaRadiuso = 1 + hazardaGenerilo() * 3;
@@ -639,6 +762,14 @@ export function konstruiLikenojn( sceno: THREE.Scene,
     }
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o2 )) continue;
     if ( Math.hypot( x, z ) < 0o20 ) continue;
+    // Montara alteca akcepto — la likenoj sterniĝas sur la supraj deklivoj.
+    if ( montara && hazardaGenerilo() > altaAkcepto( heightFn( x, z ))) continue;
+    // Eta interspaco — la makuloj ne kuŝu unu sur la alia.
+    let troProksima = false;
+    for ( const [ px, pz ] of metitaj ) {
+      if ( Math.hypot( x - px, z - pz ) < 0o2 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
 
     const skalo = 0o6/0o10 + hazardaGenerilo() * 0o12/0o10;
     // Tri teraj specimenoj difinas la deklivan normalon.
@@ -669,6 +800,7 @@ export function konstruiLikenojn( sceno: THREE.Scene,
     M.compose( new THREE.Vector3( x, ena.y + 0o1/0o40, z ), Q,
       new THREE.Vector3( skalo, skalo, skalo ) );
     likenoj.setMatrixAt( li++, M );
+    metitaj.push( [ x, z ] );
   }
 
   likenoj.count = li;
@@ -727,8 +859,8 @@ export function konstruiTrunkajnLikenojn( sceno: THREE.Scene,
       const alto = S.y;
       const bulojNombro = 1 + ( ( hazardaGenerilo() * 3 ) | 0 );
       for ( let b = 0; b < bulojNombro; b++ ) {
-        // Alteco-frakcio laŭ la trunko — nur sur videbla ŝelo: sub la kronoj
-        // ( betuloj: t ≈ 0o3/0o4 ) kaj sub la ŝelaj tasoj de la Ĥŝakŝlefoj
+        // Alteco-frakcio laŭ la trunko — nur sur videbla ŝelo. Sub la kronoj
+        // ( betuloj. t ≈ 0o3/0o4 ) kaj sub la ŝelaj tasoj de la Ĥŝakŝlefoj
         // ( t ≈ 0o7/0o20, kie la tas-radiuso superas la trunkon kaj kaŝus ilin ).
         const t = 0o1/0o10 + hazardaGenerilo() * 0o1/0o2;
         const ang = hazardaGenerilo() * Math.PI * 2;
@@ -974,6 +1106,7 @@ export function konstruiHerbon( sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
+  const metitaj: [ number, number ][] = [];
   let hi = 0;
   let gardilo = 0;
 
@@ -987,12 +1120,19 @@ export function konstruiHerbon( sceno: THREE.Scene,
     if ( excludePaths( x, z, 2 )) continue;
     if ( excludeBuildings( x, z, 2 )) continue;
     if ( Math.hypot( x, z ) < 0o16 ) continue;
+    // Eta interspaco — la herboj kresku kiel tufoj, ne kiel solida tapiŝo.
+    let troProksima = false;
+    for ( const [ px, pz ] of metitaj ) {
+      if ( Math.hypot( x - px, z - pz ) < 0o12/0o10 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
 
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     Q.setFromEuler( E );
     M.compose( new THREE.Vector3( x, heightFn( x, z ), z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
     herboj.setMatrixAt( hi++, M );
+    metitaj.push( [ x, z ] );
   }
 
   herboj.count = hi;
@@ -1016,6 +1156,7 @@ export function konstruiMusxajnMontetojn( sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
+  const metitaj: [ number, number ][] = [];
   let mi = 0;
   let gardilo = 0;
 
@@ -1035,12 +1176,19 @@ export function konstruiMusxajnMontetojn( sceno: THREE.Scene,
     }
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o2 )) continue;
     if ( Math.hypot( x, z ) < 0o20 ) continue;
+    // Eta interspaco — la musko montetoj restu apartaj, ne kunfanditaj.
+    let troProksima = false;
+    for ( const [ px, pz ] of metitaj ) {
+      if ( Math.hypot( x - px, z - pz ) < 0o2 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
 
     const skalo = 0o3/0o10 + hazardaGenerilo() * 0o5/0o10;
     M.compose( new THREE.Vector3( x, heightFn( x, z ) + skalo * 0o2/0o10, z ),
       Q.identity(),
       new THREE.Vector3( skalo, skalo * 0o3/0o10, skalo ));
     muskoj.setMatrixAt( mi++, M );
+    metitaj.push( [ x, z ] );
   }
 
   muskoj.count = mi;
@@ -1065,6 +1213,7 @@ export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
+  const metitaj: [ number, number ][] = [];
   let ti = 0;
   let gardilo = 0;
 
@@ -1084,12 +1233,19 @@ export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
     }
     if ( excludeRivers( x, z ) || excludePaths( x, z, 0o3 )) continue;
     if ( Math.hypot( x, z ) < 0o24 ) continue;
+    // Eta interspaco — la falintaj trunkoj ne kuŝu krucigitaj sur la grundo.
+    let troProksima = false;
+    for ( const [ px, pz ] of metitaj ) {
+      if ( Math.hypot( x - px, z - pz ) < 0o3 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
 
     const longo = 0o12/0o10 + hazardaGenerilo() * 0o22/0o10;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, Math.PI / 2 + ( hazardaGenerilo() - 0o4/0o10 ) * 0o4/0o10 );
     Q.setFromEuler( E );
     M.compose( new THREE.Vector3( x, heightFn( x, z ) + 0o4/0o10, z ), Q, new THREE.Vector3( 1, longo, 1 ));
     trunkoj.setMatrixAt( ti++, M );
+    metitaj.push( [ x, z ] );
   }
 
   trunkoj.count = ti;
@@ -1098,77 +1254,162 @@ export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
   sceno.add( trunkoj );
 }
 
-// konstruiKanGeometrion — Komuna kan-geometrio por la du kavalerbaj specioj:
-// segmentita kana tigo kun kolumetoj ĉe la nodoj, ripa per ses flankoj, kaj
-// laŭ la elekto: kirloj da fajnaj branĉetoj ( la botelpura silueto ) kaj/aŭ
-// strobilo ( konusa sporujo ) ĉe la pinto. Konstruita je unu unuo alta, por
-// ke la instancoj skalu ĝin laŭ sia alto.
+// kreiRibitanSegmenton — Unu riba kan-segmento kun stel-forma transversa sekco.
+// La alterna radiuso ( kresto, valo, kresto ... ) donas la profundajn vertikalajn
+// ripojn de vera ĉevalvosto — ne nura platsurfaca cilindro. Fermitaj ĉapoj
+// supre kaj malsupre ( la malsupra kaŝiĝas en la grundo, la supra sub la
+// sekva segmento aŭ la strobilo ).
+//     @param rMalsupra ( number ) - Radiuso de la malsupra ringo.
+//     @param rSupra ( number ) - Radiuso de la supra ringo.
+//     @param alto ( number ) - Segmenta alto.
+//     @param flankoj ( number ) - Kiom da ripoj ( krestoj ).
+//     @param kresta ( number ) - Kiom profunde la valoj falas ( 0 = cilindro ).
+function kreiRibitanSegmenton( rMalsupra: number, rSupra: number, alto: number,
+  flankoj: number, kresta: number ): THREE.BufferGeometry {
+  const ringo = flankoj * 2;   // krestoj kaj valoj alternas
+  const pozicioj: number[] = [];
+  const uvoj: number[] = [];
+  const indeksoj: number[] = [];
+  for ( let k = 0; k < ringo; k++ ) {
+    const ang = k / ringo * Math.PI * 2;
+    const faktoro = ( k % 2 === 0 ) ? 1 : ( 1 - kresta );
+    pozicioj.push( Math.cos( ang ) * rMalsupra * faktoro, 0, Math.sin( ang ) * rMalsupra * faktoro );
+    uvoj.push( k / ringo, 0 );
+    pozicioj.push( Math.cos( ang ) * rSupra * faktoro, alto, Math.sin( ang ) * rSupra * faktoro );
+    uvoj.push( k / ringo, 1 );
+  }
+  for ( let k = 0; k < ringo; k++ ) {
+    const a = k * 2, b = k * 2 + 1;
+    const c = (( k + 1 ) % ringo ) * 2, d = c + 1;
+    indeksoj.push( a, b, c, b, d, c );
+  }
+  const cM = ringo * 2, cS = cM + 1;
+  pozicioj.push( 0, 0, 0 ); uvoj.push( 0o1/0o2, 0 );
+  pozicioj.push( 0, alto, 0 ); uvoj.push( 0o1/0o2, 1 );
+  for ( let k = 0; k < ringo; k++ ) {
+    const a = k * 2, b = (( k + 1 ) % ringo ) * 2;
+    indeksoj.push( a, b, cM );          // malsupra ĉapo, normalo −y
+    indeksoj.push( a + 1, cS, b + 1 );  // supra ĉapo, normalo +y
+  }
+  const geometrio = new THREE.BufferGeometry();
+  geometrio.setAttribute( "position", new THREE.Float32BufferAttribute( pozicioj, 3 ) );
+  geometrio.setAttribute( "uv", new THREE.Float32BufferAttribute( uvoj, 2 ) );
+  geometrio.setIndex( indeksoj );
+  geometrio.computeVertexNormals();
+  return geometrio;
+}
+
+// konstruiKanGeometrion — Komuna kan-geometrio por la du kavalerbaj specioj.
+// Riba kana tigo ( stel-forma sekco ) kun ŝirmaj kolumetoj kaj dentetoj ĉe la
+// nodoj, kaj laŭ la elekto. Kirloj da pendantaj branĉetoj ( la botelpura
+// silueto de la granda ĉevalvosto ) kaj/aŭ skvama strobilo ( konusa sporujo )
+// ĉe la pinto. Konstruita je unu unuo alta, por ke la instancoj skalu ĝin
+// laŭ sia alto.
 //     @param nodoj ( number ) - Kiom da kanaj segmentoj.
 //     @param kunBrancetoj ( boolean ) - Ĉu aldoni branĉet-kirlojn ĉe la nodoj.
-//     @param kunStrobilo ( boolean ) - Ĉu aldoni la konusan sporujon.
+//     @param kunStrobilo ( boolean ) - Ĉu aldoni la skvaman sporujon.
 function konstruiKanGeometrion( nodoj: number, kunBrancetoj: boolean, kunStrobilo: boolean ): THREE.BufferGeometry {
   const partoj: THREE.BufferGeometry[] = [];
   const segmentaAlto = 1 / nodoj;
   const rBazo = 0o3/0o40;              // 3/32 — maldika, kana
   const rSupro = 0o1/0o40;             // 1/32 — la kano pintiĝas
+  // 8 ripoj donas pli glatan riban silueton; la skuraj kanoj portas pli
+  // profundajn ripojn ol la branĉaj ĉevalvostoj.
+  const flankoj = 8;
+  const kresta = kunBrancetoj ? 0o1/0o10 : 0o15/0o100;
   for ( let i = 0; i < nodoj; i++ ) {
     const y0 = i * segmentaAlto;
     const r0 = rBazo - ( rBazo - rSupro ) * ( i / nodoj );
     const r1 = rBazo - ( rBazo - rSupro ) * (( i + 1 ) / nodoj );
-    // Kana segmento — 6 flankoj donas la riban, kanecan silueton.
-    const segmento = new THREE.CylinderGeometry( r1, r0, segmentaAlto, 6, 1 )
-      .translate( 0, y0 + segmentaAlto / 2, 0 );
-    partoj.push( segmento );
-    // Kolumeto ĉe la nodo — la karakteriza kana artiklo.
+    // Kana segmento — la stel-forma sekco montras la ripojn de la tigo.
+    partoj.push( kreiRibitanSegmenton( r0, r1, segmentaAlto, flankoj, kresta ).translate( 0, y0, 0 ) );
+    // Ŝirma kolumeto ĉe la nodo — la karakteriza kana artiklo, pli larĝa
+    // ol la tigo, glata por kontrasti kun la ripoj.
     if ( i > 0 ) {
-      const kolumeto = new THREE.CylinderGeometry( r0 * 0o13/0o10, r0 * 0o13/0o10,
-        segmentaAlto * 0o2/0o10, 6, 1 ).translate( 0, y0, 0 );
+      const kolumeto = new THREE.CylinderGeometry( r0 * 0o14/0o10, r0 * 0o14/0o10,
+        segmentaAlto * 0o3/0o10, flankoj, 1 ).translate( 0, y0, 0 );
       partoj.push( kolumeto );
-      // Kirlo da fajnaj branĉetoj ĉe la nodo — la botelpura silueto. La
-      // kirloj sidas ĝuste ĉe la nodaj kolumetoj ( y0 ), ne meze de la
-      // segmentoj, kiel ĉe vera ĉevalvosto; la baza nodo restas sen kirlo.
       if ( kunBrancetoj ) {
-        const brancetoj = 6;
+        // Kirlo da pendantaj branĉetoj — la botelpura silueto de la granda
+        // ĉevalvosto. Pli multaj kaj pli longaj ol antaŭe, pendantaj iomete
+        // SUB la horizonto, kaj pli longaj malsupre, pli mallongaj supre
+        // ( la natura formo de Equisetum telmateia ).
+        const brancetoj = 9;
+        const longeco = segmentaAlto * ( 0o14/0o10 - 0o6/0o10 * ( i / nodoj ) );
         for ( let b = 0; b < brancetoj; b++ ) {
           const ang = b / brancetoj * Math.PI * 2;
-          const longeco = segmentaAlto * ( 0o6/0o10 + ( i % 2 ) * 0o2/0o10 );
-          const branceto = new THREE.ConeGeometry( 0o1/0o100, longeco, 4 )
+          const branceto = new THREE.ConeGeometry( 0o12/0o1000, longeco, 4 )
             .translate( 0, longeco / 2, 0 );
-          // De la vertikalo al eksteren-supren ( ~30° super la horizonto ).
           const M = new THREE.Matrix4().makeRotationY( ang );
-          M.multiply( new THREE.Matrix4().makeRotationX( Math.PI / 2 - 0o4/0o10 ) );
+          // Preskaŭ horizontale, tiam lasu la pinton pendi malsupren.
+          M.multiply( new THREE.Matrix4().makeRotationX( Math.PI / 2 + 0o3/0o10 ) );
+          // Eta ŝtupo — la branĉetoj ne kuŝu ĉiuj en unu plata ringo.
+          M.multiply( new THREE.Matrix4().makeRotationX(( b % 0o3 ) * 0o1/0o20 ) );
           branceto.applyMatrix4( M );
           branceto.translate( 0, y0, 0 );
           partoj.push( branceto );
+        }
+      } else {
+        // Dentetoj — la malgrandaj triangulaj folioj kiuj ĉirkaŭas ĉiun nodon
+        // de la skura kano. Ses etaj konusoj starantaj ĉe la kolumeta rando.
+        const dentoj = 6;
+        for ( let d = 0; d < dentoj; d++ ) {
+          const ang = d / dentoj * Math.PI * 2;
+          const dento = new THREE.ConeGeometry( 0o15/0o1000, 0o4/0o100, 3 )
+            .translate( 0, 0o2/0o100, 0 );
+          const M = new THREE.Matrix4().makeRotationY( ang );
+          M.multiply( new THREE.Matrix4().makeRotationX( Math.PI / 2 - 0o3/0o10 ) );
+          dento.applyMatrix4( M );
+          dento.translate( Math.cos( ang ) * r0 * 0o15/0o10, y0, Math.sin( ang ) * r0 * 0o15/0o10 );
+          partoj.push( dento );
         }
       }
     }
   }
   if ( kunStrobilo ) {
-    // Strobilo — la konusa sporujo ĉe la pinto.
-    const strobilo = new THREE.ConeGeometry( 0o3/0o40, 0o3/0o20, 6 )
-      .translate( 0, 1 + 0o3/0o40, 0 );
-    partoj.push( strobilo );
+    // Strobilo — mallonga pedunklo kaj skvama konusa sporujo kun ŝtupetaj
+    // skvam-ringoj kaj pinto, multe pli simila al vera ĉevalvosta strobilo
+    // ol unu nuda konuso.
+    const pedunklo = new THREE.CylinderGeometry( rSupro * 0.8, rSupro * 0.8,
+      0o6/0o100, 6 ).translate( 0, 1 + 0o3/0o100, 0 );
+    partoj.push( pedunklo );
+    const skvamoj = 4;
+    for ( let s = 0; s < skvamoj; s++ ) {
+      const rS = 0o1/0o10 * ( 1 - s * 0o2/0o10 );
+      const ringo = new THREE.CylinderGeometry( rS * 0.8, rS, 0o3/0o100, 8 )
+        .translate( 0, 1 + 0o6/0o100 + s * 0o3/0o100, 0 );
+      partoj.push( ringo );
+    }
+    const pinto = new THREE.ConeGeometry( 0o12/0o1000, 0o5/0o100, 6 )
+      .translate( 0, 1 + 0o6/0o100 + skvamoj * 0o3/0o100, 0 );
+    partoj.push( pinto );
+  } else {
+    // Mallonga pinto — la branĉa ĉevalvosto finiĝas per eta pinto anstataŭ
+    // plata ĉapo ĉe la pinto de la lasta segmento.
+    const pinto = new THREE.ConeGeometry( 0o1/0o100, 0o3/0o100, 6 )
+      .translate( 0, 1 + 0o1/0o100, 0 );
+    partoj.push( pinto );
   }
   return kunfandiGeometriojnSenIndekson( partoj );
 }
 
 // konstruiCetkuanGeometrion — Konstruu la geometrion de unu cetkuo
-// ( Equisetum praealtum / ſᶘɔ ɭʃƽɹ ): la alta senbranĉa "skura kano" —
-// multaj nodoj kun kolumetoj kaj strobilo ĉe la pinto.
+// ( Equisetum praealtum / ſᶘɔ ɭʃƽɹ ). La alta senbranĉa "skura kano" —
+// multaj nodoj kun profundaj ripoj, ŝirmaj kolumetoj, dentetoj kaj skvama
+// strobilo ĉe la pinto.
 function konstruiCetkuanGeometrion(): THREE.BufferGeometry {
-  return konstruiKanGeometrion( 7, false, true );
+  return konstruiKanGeometrion( 9, false, true );
 }
 
 // konstruiCakeanGeometrion — Konstruu la geometrion de unu cakeo
-// ( Equisetum telmateia / ſᶘᴜ ſɭɔ ): la granda ĉevalvosto — kana tigo kun
-// kirloj da fajnaj branĉetoj ĉe ĉiu nodo, sen strobilo.
+// ( Equisetum telmateia / ſᶘᴜ ſɭɔ ). La granda ĉevalvosto — kana tigo kun
+// kirloj da pendantaj branĉetoj ĉe ĉiu nodo, sen strobilo.
 function konstruiCakeanGeometrion(): THREE.BufferGeometry {
-  return konstruiKanGeometrion( 5, true, false );
+  return konstruiKanGeometrion( 6, true, false );
 }
 
 // instanciiKavalerbojn — Komuna instancigilo por la du kavalerbaj specioj
-// ( cetkuo kaj cakeo ): unu geometrio kaj unu koloro po specio, kaj la loka
+// ( cetkuo kaj cakeo ). Unu geometrio kaj unu koloro po specio, kaj la loka
 // proponilo decidas kie kreski.
 //     @param geometrio ( THREE.BufferGeometry ) - La specia geometrio.
 //     @param koloro ( number ) - La specia koloro.
@@ -1191,6 +1432,7 @@ function instanciiKavalerbojn( sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
+  const C = new THREE.Color();
   let ki = 0;
   let gardilo = 0;
 
@@ -1199,15 +1441,21 @@ function instanciiKavalerbojn( sceno: THREE.Scene,
     if ( !loko ) continue;
     const x = loko.x, z = loko.z;
     const alto = minAlto + hazardaGenerilo() * ( maxAlto - minAlto );
-    E.set( 0, 0, ( hazardaGenerilo() - 0o4/0o10 ) * 0o4/0o10 );
+    // Hazarda turno kaj eta klino — la ribaj tigoj ne ĉiuj rigardu samdirekte.
+    E.set( 0, hazardaGenerilo() * Math.PI * 2, ( hazardaGenerilo() - 0o4/0o10 ) * 0o4/0o10 );
     Q.setFromEuler( E );
     const y = heightFn( x, z );
     M.compose( new THREE.Vector3( x, y + alto / 2, z ), Q, new THREE.Vector3( 1, alto, 1 ));
-    kavalerboj.setMatrixAt( ki++, M );
+    kavalerboj.setMatrixAt( ki, M );
+    // Nuanco — ĉiu planto ricevas etan helan/malhelan varianton de la specia
+    // koloro, por ke la stando ne aspektu unuforma.
+    kavalerboj.setColorAt( ki, C.setHex( koloro ).multiplyScalar( 0.85 + hazardaGenerilo() * 0.2 ) );
+    ki++;
   }
 
   kavalerboj.count = ki;
   kavalerboj.instanceMatrix.needsUpdate = true;
+  if ( kavalerboj.instanceColor ) kavalerboj.instanceColor.needsUpdate = true;
   sceno.add( kavalerboj );
 }
 
@@ -1252,20 +1500,23 @@ export function metiArbojnCxirkauLagon( heightFn: (x: number, z: number) => numb
   excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
   semo = 0o53117,
   evituArbojn: ArboMetado[] = [],
-  minimumaDistanco = 0o10
+  minimumaDistanco = 0o10,
+  kronaRadiuso: ( s: number ) => number = kronaRadiusoBetula
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32( semo );
   const placed: ArboMetado[] = [];
   let provoj = 0;
 
-  const bonaLoko = (x: number, z: number): boolean => {
+  const bonaLoko = (x: number, z: number, s: number): boolean => {
     if (excludeRivers(x, z)) return false;
     if (excludePaths(x, z, 0o44/0o10)) return false;
     if (excludeBuildings(x, z, 3)) return false;
     // Nur seka bordo — la rivera kavo oriente de la lago restas sen arboj.
     if (heightFn(x, z) < akvoNiveloFn(x, z)) return false;
+    const kandidataR = kronaRadiuso( s );
     for ( const arbo of [ ...evituArbojn, ...placed ] ) {
-      if ( Math.hypot( x - arbo.x, z - arbo.z ) < minimumaDistanco ) return false;
+      if ( Math.hypot( x - arbo.x, z - arbo.z ) <
+        interspaco( minimumaDistanco, arbo.r ?? kronaRadiusoBetula( arbo.s ), kandidataR ) ) return false;
     }
     return true;
   };
@@ -1278,8 +1529,9 @@ export function metiArbojnCxirkauLagon( heightFn: (x: number, z: number) => numb
     const z = cz + Math.sin( angulo ) * radiuso;
     // Restu sur la grundo — la fora lagbordo atingas la montopiedojn.
     if ( Math.abs( x ) > 0o450 || Math.abs( z ) > 0o450 ) continue;
-    if ( !bonaLoko( x, z ) ) continue;
-    placed.push( { x, z, h: heightFn( x, z ), s: 0o63/0o100 + hazardaGenerilo() * 0o55/0o100 } );
+    const s = 0o63/0o100 + hazardaGenerilo() * 0o55/0o100;
+    if ( !bonaLoko( x, z, s ) ) continue;
+    placed.push( { x, z, h: heightFn( x, z ), s, r: kronaRadiuso( s ) } );
   }
   return placed;
 }
@@ -1309,6 +1561,7 @@ export function konstruiHerbonCxirkauLagon( sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
+  const metitaj: [ number, number ][] = [];
   let hi = 0;
   let gardilo = 0;
 
@@ -1321,12 +1574,19 @@ export function konstruiHerbonCxirkauLagon( sceno: THREE.Scene,
     if ( Math.abs( x ) > 0o450 || Math.abs( z ) > 0o450 ) continue;
     if ( excludeRivers( x, z ) || excludePaths( x, z, 2 ) || excludeBuildings( x, z, 2 )) continue;
     if ( heightFn( x, z ) < akvoNiveloFn( x, z )) continue;
+    // Eta interspaco — la herboj kresku kiel tufoj, ne kiel solida tapiŝo.
+    let troProksima = false;
+    for ( const [ px, pz ] of metitaj ) {
+      if ( Math.hypot( x - px, z - pz ) < 0o12/0o10 ) { troProksima = true; break; }
+    }
+    if ( troProksima ) continue;
 
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set( 0, hazardaGenerilo() * Math.PI * 2, 0 );
     Q.setFromEuler( E );
     M.compose( new THREE.Vector3( x, heightFn( x, z ), z ), Q, new THREE.Vector3( skalo, skalo, skalo ));
     herboj.setMatrixAt( hi++, M );
+    metitaj.push( [ x, z ] );
   }
 
   herboj.count = hi;
@@ -1384,7 +1644,7 @@ function konstruiKurbanLaktukanFolion( kurbeco = 2, largxeco = 6/5, dikeco = 0o3
   const pozicioj = geometrio.attributes.position;
   const vicoj = segmentoj + 1;
   const paso = longo / segmentoj;
-  // Integrita kurbeco — ĉiu vico faldiĝas je la kreskanta angulo: akumulu
+  // Integrita kurbeco — ĉiu vico faldiĝas je la kreskanta angulo. Akumulu
   // la tangentajn ( cos, sin ) paŝojn anstataŭ turni la tutan longon.
   const vicoY = new Float32Array( vicoj );
   const vicoZ = new Float32Array( vicoj );

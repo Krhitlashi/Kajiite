@@ -1,4 +1,4 @@
-// Scena — renderer, scene, camera, sky, lights, materials, mountains, ground
+// Scena — bildilo, sceno, fotilo, ĉielo, lumoj, materialoj, montoj, grundo
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { alteco } from "./tereno.js";
@@ -90,16 +90,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   suno.shadow.camera.left = -0o156; suno.shadow.camera.right = 0o156;
   suno.shadow.camera.top = 0o156; suno.shadow.camera.bottom = -0o156;
   suno.shadow.camera.near = 0o20; suno.shadow.camera.far = 0o524;
-  suno.shadow.bias = -0.0005; suno.shadow.normalBias = 0o4/0o10;
+  suno.shadow.bias = -0o1/0o4000; suno.shadow.normalBias = 0o4/0o10;
   sceno.add(suno, suno.target);
 
   // Suna sprajto
   const molaTeksturo = (() => {
-    const cv = document.createElement("canvas"); cv.width = cv.height = 256;
+    const cv = document.createElement("canvas"); cv.width = cv.height = 0o400;
     const ctx = cv.getContext("2d")!;
-    const gr = ctx.createRadialGradient(128, 128, 8, 128, 128, 128);
+    const gr = ctx.createRadialGradient(0o200, 0o200, 0o10, 0o200, 0o200, 0o200);
     gr.addColorStop(0, "rgba(255,255,255,0.85)"); gr.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = gr; ctx.fillRect(0, 0, 256, 256);
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, 0o400, 0o400);
     return new THREE.CanvasTexture(cv);
   })();
   const sunaSprajto = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -117,9 +117,9 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     sunPos: new THREE.Vector3(0o110, 0o160, 0o50), sunInt: 0o45/0o40, hemiInt: 0o63/0o100,
   };
   const P_DUSK = {
-    top: new THREE.Color(0x1c2a4a), mid: new THREE.Color(0x55618c), bot: new THREE.Color(0xb98a6f),
-    sunCol: new THREE.Color(0xffbe82), fog: new THREE.Color(0x6f6a80),
-    hemiSky: new THREE.Color(0x33406b), hemiGnd: new THREE.Color(0x1c2620),
+    top: new THREE.Color(0x182848), mid: new THREE.Color(0x586088), bot: new THREE.Color(0xb88868),
+    sunCol: new THREE.Color(0xf8b880), fog: new THREE.Color(0x686880),
+    hemiSky: new THREE.Color(0x304068), hemiGnd: new THREE.Color(0x182820),
     sunPos: new THREE.Vector3(-0o120, 0o36, -0o74), sunInt: 0o16/0o40, hemiInt: 0o40/0o100,
   };
 
@@ -141,7 +141,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     suno.color.copy(P_DAY.sunCol).lerp(P_DUSK.sunCol, t);
     suno.intensity = l(P_DAY.sunInt, P_DUSK.sunInt);
     suno.position.copy(P_DAY.sunPos).lerp(P_DUSK.sunPos, t);
-    bildilo.toneMappingExposure = l(1.06, 0.94);
+    bildilo.toneMappingExposure = l(0o104/0o100, 0o74/0o100);
     sunaSprajto.position.copy(sunDir).multiplyScalar(0o510).add(new THREE.Vector3(0, 0, 0));
     sunaSprajto.material.color.copy(suno.color);
     sunaSprajto.material.opacity = l(0o30/0o100, 0o54/0o100);
@@ -149,50 +149,50 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   }
 
   // Materialoj
-  const dioritaMaterialo = kreiDioritanMaterialon( undefined, 0o35/0o40 );
+  const dioritaMaterialo = kreiDioritanMaterialon(undefined, 0o35/0o40);
   const andezitaMaterialo = kreiAndezitanMaterialon();
   const eniraMaterialo = kreiEniranMaterialon();
-  const oraMaterialo = kreiOranMaterialon( 0xd8b068 );
+  const oraMaterialo = kreiOranMaterialon(0xd8b068);
 
   // Malproksimaj montoj — 3D terenaj strioj kun realaj deklivoj
   (function konstruiMontojn(): void {
     function montaAlto( t: number, semo: number ): number {
       // Larĝaj ondoj donas la bazan silueton, dum pozitivaj krestoj kreas
       // kelkajn klarajn pintojn anstataŭ brua, dentita montlinio.
-      const ondo = Math.sin( t * 0o1/0o40 + semo ) * 0o20;
-      const kresto = Math.pow( Math.max( 0, Math.sin( t * 0o1/0o120 + semo * 0o3/0o2 )), 2 ) * 0o24;
-      const duaKresto = Math.pow( Math.max( 0, Math.cos( t * 0o3/0o200 - semo )), 2 ) * 0o14;
-      const malgrandaOndo = Math.sin( t * 0o5/0o40 + semo * 4/5 ) * 0o10/0o10;
+      const ondo = Math.sin(t * 0o1/0o40 + semo) * 0o20;
+      const kresto = Math.pow(Math.max(0, Math.sin(t * 0o1/0o120 + semo * 0o3/0o2)), 2) * 0o24;
+      const duaKresto = Math.pow(Math.max(0, Math.cos(t * 0o3/0o200 - semo)), 2) * 0o14;
+      const malgrandaOndo = Math.sin(t * 0o5/0o40 + semo * 0o63/0o100) * 0o10/0o10;
       return 0o62 + ondo + kresto + duaKresto + malgrandaOndo;
     }
 
     function koloroPorY( y: number ): [ number, number, number ] {
-      if ( y > 0o124 ) return [ 0.91, 0.91, 0.94 ];
+      if ( y > 0o124 ) return [ 0o72/0o100, 0o72/0o100, 0o74/0o100 ];
       if ( y > 0o110 ) {
         const t = ( y - 0o110 ) / ( 0o124 - 0o110 );
-        return [ 0.47 + t * 0.44, 0.53 + t * 0.38, 0.47 + t * 0.47 ];
+        return [ 0o36/0o100 + t * 0o34/0o100, 0o42/0o100 + t * 0o30/0o100, 0o36/0o100 + t * 0o36/0o100 ];
       }
       if ( y > 0o64 ) {
         const t = ( y - 0o64 ) / ( 0o110 - 0o64 );
-        return [ 0.35 + t * 0.12, 0.41 + t * 0.12, 0.35 + t * 0.12 ];
+        return [ 0o26/0o100 + t * 0o1/0o10, 0o32/0o100 + t * 0o1/0o10, 0o26/0o100 + t * 0o1/0o10 ];
       }
       if ( y > 0o44 ) {
         const t = ( y - 0o44 ) / ( 0o64 - 0o44 );
-        return [ 0.28 + t * 0.07, 0.35 + t * 0.06, 0.28 + t * 0.07 ];
+        return [ 0o22/0o100 + t * 0o5/0o100, 0o26/0o100 + t * 0o1/0o20, 0o22/0o100 + t * 0o5/0o100 ];
       }
       if ( y > 0o24 ) {
         const t = ( y - 0o24 ) / ( 0o44 - 0o24 );
-        return [ 0.22 + t * 0.06, 0.28 + t * 0.07, 0.22 + t * 0.06 ];
+        return [ 0o16/0o100 + t * 0o1/0o20, 0o22/0o100 + t * 0o5/0o100, 0o16/0o100 + t * 0o1/0o20 ];
       }
-      return [ 0.22, 0.28, 0.22 ];
+      return [ 0o16/0o100, 0o22/0o100, 0o16/0o100 ];
     }
 
-    const montaMaterialo = new THREE.MeshStandardMaterial( {
+    const montaMaterialo = new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o35/0o40, metalness: 0, vertexColors: true,
-    } );
-    const montaFona = new THREE.MeshStandardMaterial( {
+    });
+    const montaFona = new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o37/0o40, metalness: 0, vertexColors: true,
-    } );
+    });
 
     // Krei 3D terenan strion — reala geometrio en ambaŭ direktoj
     function krei3DStrio(
@@ -205,40 +205,40 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const d = lauX ? profundo : largho;
       const sw = lauX ? sl : sd;
       const sh = lauX ? sd : sl;
-      const g = new THREE.PlaneGeometry( w, d, sw, sh );
-      g.rotateX( -Math.PI / 2 );
+      const g = new THREE.PlaneGeometry(w, d, sw, sh);
+      g.rotateX(-Math.PI / 2);
       if ( lauX ) {
-        g.translate( 0, 0, fiksa + signo * d / 2 );
+        g.translate(0, 0, fiksa + signo * d / 2);
       } else {
-        g.translate( fiksa + signo * w / 2, 0, 0 );
+        g.translate(fiksa + signo * w / 2, 0, 0);
       }
       const pos = g.attributes.position;
       const koloroj = new Float32Array( pos.count * 3 );
       for ( let i = 0; i < pos.count; i ++ ) {
-        const x = pos.getX( i ), z = pos.getZ( i );
+        const x = pos.getX(i), z = pos.getZ(i);
         const t = lauX ? x : z;
         const dist = lauX
           ? ( signo > 0 ? z - fiksa : fiksa - z )
           : ( signo > 0 ? x - fiksa : fiksa - x );
-        const tn = Math.max( 0, Math.min( 1, dist / profundo ) );
-        const rampo = tn < 0.05 ? tn / 0.05 : 1;
-        const falloff = Math.exp( -18 * ( tn - 0o3/0o20 ) ** 2 ) * rampo;
-        const peak = montaAlto( t, semo ) * skalo * falloff;
+        const tn = Math.max(0, Math.min(1, dist / profundo));
+        const rampo = tn < 0o3/0o100 ? tn / ( 0o3/0o100 ) : 1;
+        const falloff = Math.exp(-0o22 * ( tn - 0o3/0o20 ) ** 2) * rampo;
+        const peak = montaAlto(t, semo) * skalo * falloff;
         // Aldoni malgrandan koloran variadon laŭ pozicio por natura aspekto
-        const kolVario = 0.03 * Math.sin( x * 0o1/0o10 + z * 0o7/0o40 + semo );
-        const y = alteco( x, z ) + peak;
-        pos.setY( i, y );
-        const [ r, g_, b ] = koloroPorY( y );
-        koloroj[ i * 3 ] = Math.max( 0, Math.min( 1, r + kolVario ) );
-        koloroj[ i * 3 + 1 ] = Math.max( 0, Math.min( 1, g_ + kolVario * 0.7 ) );
-        koloroj[ i * 3 + 2 ] = Math.max( 0, Math.min( 1, b + kolVario * 0o4/0o10 ) );
+        const kolVario = 0o2/0o100 * Math.sin(x * 0o1/0o10 + z * 0o7/0o40 + semo);
+        const y = alteco(x, z) + peak;
+        pos.setY(i, y);
+        const [ r, g_, b ] = koloroPorY(y);
+        koloroj[ i * 3 ] = Math.max(0, Math.min(1, r + kolVario));
+        koloroj[ i * 3 + 1 ] = Math.max(0, Math.min(1, g_ + kolVario * 0o56/0o100));
+        koloroj[ i * 3 + 2 ] = Math.max(0, Math.min(1, b + kolVario * 0o4/0o10));
       }
-      g.setAttribute( "color", new THREE.BufferAttribute( koloroj, 3 ) );
+      g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
       g.computeVertexNormals();
-      const mesh = new THREE.Mesh( g, materialo );
+      const mesh = new THREE.Mesh(g, materialo);
       mesh.receiveShadow = true;
       mesh.frustumCulled = false;
-      sceno.add( mesh );
+      sceno.add(mesh);
     }
 
     const L = 0o1060;
@@ -246,46 +246,46 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
 
     // Ĉefa tavolo — kvar flankoj
     for ( const signo of [ -1, 1 ] ) {
-      krei3DStrio( true, signo, signo * 0o454, L, D, 0o40, 0o14, 0o123/0o100, 1, montaMaterialo );
-      krei3DStrio( false, signo, signo * 0o454, L, D, 0o40, 0o14, 0o103/0o40, 0o55 / 0o62, montaMaterialo );
+      krei3DStrio(true, signo, signo * 0o454, L, D, 0o40, 0o14, 0o123/0o100, 1, montaMaterialo);
+      krei3DStrio(false, signo, signo * 0o454, L, D, 0o40, 0o14, 0o103/0o40, 0o55 / 0o62, montaMaterialo);
     }
 
     // Meza tavolo — milda tavolo inter la urbo kaj la fora kresto
     for ( const signo of [ -1, 1 ] ) {
-      krei3DStrio( true, signo, signo * 0o620, L * 0o7/0o10, D * 4/5, 0o30, 0o12, 0o123/0o100 + 0o24, 0o7/0o10, montaMaterialo );
-      krei3DStrio( false, signo, signo * 0o620, L * 0o7/0o10, D * 4/5, 0o30, 0o12, 0o103/0o40 + 0o24, 0o7/0o10, montaMaterialo );
+      krei3DStrio(true, signo, signo * 0o620, L * 0o7/0o10, D * 0o63/0o100, 0o30, 0o12, 0o123/0o100 + 0o24, 0o7/0o10, montaMaterialo);
+      krei3DStrio(false, signo, signo * 0o620, L * 0o7/0o10, D * 0o63/0o100, 0o30, 0o12, 0o103/0o40 + 0o24, 0o7/0o10, montaMaterialo);
     }
 
     // Fona tavolo — pli malproksima, pli malalta, kun malferma silueto
     for ( const signo of [ -1, 1 ] ) {
-      krei3DStrio( true, signo, signo * 0o740, L * 4/5, D * 0o7/0o12, 0o20, 0o10, 0o123/0o100 + 0o40, 3/5, montaFona );
-      krei3DStrio( false, signo, signo * 0o740, L * 4/5, D * 0o7/0o12, 0o20, 0o10, 0o103/0o40 + 0o40, 0o22/0o40, montaFona );
+      krei3DStrio(true, signo, signo * 0o740, L * 0o63/0o100, D * 0o7/0o12, 0o20, 0o10, 0o123/0o100 + 0o40, 0o46/0o100, montaFona);
+      krei3DStrio(false, signo, signo * 0o740, L * 0o63/0o100, D * 0o7/0o12, 0o20, 0o10, 0o103/0o40 + 0o40, 0o22/0o40, montaFona);
     }
   })();
 
   // Grundo
-  (function konstruiTerenon(size: number, segmentoj: number): void {
-    const g = new THREE.PlaneGeometry(size, size, segmentoj, segmentoj);
+  (function konstruiTerenon(grandeco: number, segmentoj: number): void {
+    const g = new THREE.PlaneGeometry(grandeco, grandeco, segmentoj, segmentoj);
     g.rotateX(-Math.PI / 2);
     const pozicio = g.attributes.position;
     const koloroj = new Float32Array(pozicio.count * 3);
     const a = new THREE.Color(0x485848), b = new THREE.Color(0x587058);
-    const lito = new THREE.Color(0x384848), deep = new THREE.Color(0x283838);
+    const lito = new THREE.Color(0x384848), profunda = new THREE.Color(0x283838);
     // Alta montaro — rokeca tereno super la arbolinio kaj neĝo sur la pintoj.
     const roko = new THREE.Color(0x686858), nego = new THREE.Color(0xb8b8b8);
     const c = new THREE.Color();
-    for (let i = 0; i < pozicio.count; i++) {
+    for ( let i = 0; i < pozicio.count; i++ ) {
       const x = pozicio.getX(i), z = pozicio.getZ(i);
       const h = alteco(x, z);
       pozicio.setY(i, h);
       const t = 0o4/0o10 + 0o4/0o10 * Math.sin(x * 0o1/0o10 + z * 0o13/0o100 + 0o20/0o10);
       c.copy(a).lerp(b, t);
-      if (h < -2) c.lerp(lito, Math.min(1, (h + 2) / -3));
-      if (h < -5) c.lerp(deep, Math.min(1, (h + 5) / -0o115/0o100));
+      if ( h < -2 ) c.lerp(lito, Math.min(1, ( h + 2 ) / -3));
+      if ( h < -5 ) c.lerp(profunda, Math.min(1, ( h + 5 ) / -0o115/0o100));
       // Altituda tavoligo — roko de ~0o14, neĝo de ~0o44 ( la montaro pintas
       // ĝis ~0o62, do nur la ĉefa pinto ricevas neĝokronon )
-      if (h > 0o14) c.lerp(roko, Math.min(1, (h - 0o14) / 0o20));
-      if (h > 0o44) c.lerp(nego, Math.min(1, (h - 0o44) / 0o14));
+      if ( h > 0o14 ) c.lerp(roko, Math.min(1, ( h - 0o14 ) / 0o20));
+      if ( h > 0o44 ) c.lerp(nego, Math.min(1, ( h - 0o44 ) / 0o14));
       koloroj[i * 3] = c.r; koloroj[i * 3 + 1] = c.g; koloroj[i * 3 + 2] = c.b;
     }
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));

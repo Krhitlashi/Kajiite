@@ -16,7 +16,7 @@ export interface Kanoto {
 // kreiKanoton — Kreu kanoton kun kareno, interno, traboj, finialoj kaj pagajilo.
 //     @param stilo ( "baza" | "satala" ) - La baza hela stilo aŭ la malhel-pina/
 //     ora "satala" stilo kongrua al la konstruajx-arkitekturo.
-export function kreiKanoton( sceno: THREE.Scene,
+export function kreiKanoton(sceno: THREE.Scene,
   x: number,
   z: number,
   direkto: number,
@@ -49,8 +49,8 @@ export function kreiKanoton( sceno: THREE.Scene,
   kareno.castShadow = true;
   group.add(kareno);
 
-  // Ora gvarlinio — MALFERMA strio laŭ la supro de la kareno (la ekstera lensa
-  // konturo kun truo enigita ~90%, do la malhela kareno restas videbla).
+  // Ora gvarlinio — MALFERMA strio laŭ la supro de la kareno ( la ekstera lensa
+  // konturo kun truo enigita ≈0o11/0o12, do la malhela kareno restas videbla ).
   if ( satala ) {
     const randoFormo = shape.clone();
     const truo = new THREE.Path();
@@ -110,8 +110,8 @@ export function kreiKanoton( sceno: THREE.Scene,
   klingo.translate(0, -0o33/0o40, 0);
 
   const pagajilaGeometrio = kunfandiGeometriojn([tenilo, klingo]);
-  const pagajilo = new THREE.Mesh( pagajilaGeometrio,
-    new THREE.MeshStandardMaterial({ color: 0x785838, roughness: 0o63/0o100 }) );
+  const pagajilo = new THREE.Mesh(pagajilaGeometrio,
+    new THREE.MeshStandardMaterial({ color: 0x785838, roughness: 0o63/0o100 }));
   pagajilo.rotation.set(0o5/0o40, 0o2/0o10, 0o133/0o100);
   pagajilo.position.set(0o5/0o40, 0o23/0o40, 0o3/0o40);
   group.add(pagajilo);
@@ -143,7 +143,7 @@ export function animaciiKanoton(c: Kanoto, t: number, isRiding: boolean): void {
 }
 
 // gxisdatigiKanotanFizikon — Gxisdatigu kanotan fizikon lau enigo kaj malfortigo.
-export function gxisdatigiKanotanFizikon( c: Kanoto,
+export function gxisdatigiKanotanFizikon(c: Kanoto,
   deltaTempo: number,
   fortoX: number,
   fortoZ: number,
@@ -152,8 +152,8 @@ export function gxisdatigiKanotanFizikon( c: Kanoto,
   movX: number,
   movZ: number
 ): void {
-  c.vx += (fortoX * movZ + radX * movX) * 7 * deltaTempo;
-  c.vz += (fortoZ * movZ + radZ * movX) * 7 * deltaTempo;
+  c.vx += ( fortoX * movZ + radX * movX ) * 7 * deltaTempo;
+  c.vz += ( fortoZ * movZ + radZ * movX ) * 7 * deltaTempo;
 
   const malseketigi = Math.max(0, 1 - 0o14/0o10 * deltaTempo);
   c.vx *= malseketigi;

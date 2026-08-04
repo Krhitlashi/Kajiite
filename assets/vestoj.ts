@@ -1,5 +1,4 @@
-// Vesta modulo — kostumaj teksturoj kun kvarpinta stelo kaj rombo-motivoj, foliaj manikoj
-import * as THREE from "three";
+// Vesta modulo — kostumaj teksturoj kun kvarpinta stelo kaj rombo-motivoj
 
 export interface Vesto {
   nomo: string;
@@ -23,9 +22,10 @@ export const VESTOJ: Vesto[] = [
   { nomo: "vestoCyan", ĉefa: 0x38a8a8, akcenta: 0xc8f0f0, interno: 0x185858, pantalono: 0x2858a0, botoj: 0x583818 },
 ];
 
-const deksesuma = (c: number): string => "#" + c.toString(0o20).padStart(0o6, "0");
+// deksesuma — Formatu decimalan koloron kiel #rrggbb-strako.
+export const deksesuma = (c: number): string => "#" + c.toString(0o20).padStart(0o6, "0");
 
-function kvarStelo( kunteksto: CanvasRenderingContext2D,
+export function kvarStelo(kunteksto: CanvasRenderingContext2D,
   cX: number, cy: number, r: number, koloro: string
 ): void {
   const s = r * 0o7/0o40;
@@ -39,7 +39,7 @@ function kvarStelo( kunteksto: CanvasRenderingContext2D,
   kunteksto.fill();
 }
 
-function rombo( kunteksto: CanvasRenderingContext2D,
+export function rombo(kunteksto: CanvasRenderingContext2D,
   cX: number, cy: number, w: number, h: number,
   plenigo: string | null, bordo: string | null
 ): void {
@@ -55,73 +55,21 @@ function rombo( kunteksto: CanvasRenderingContext2D,
 
 // rondaRechto — Desegnu plenigitajn rektangulojn kun iomete rondaj anguloj,
 // kongruante kun la rondaj anguloj de la 3D-ŝuoj.
-function rondaRechto( kunteksto: CanvasRenderingContext2D,
+function rondaRechto(kunteksto: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number, r: number
 ): void {
   kunteksto.beginPath();
-  kunteksto.moveTo( x + r, y );
-  kunteksto.lineTo( x + w - r, y );
-  kunteksto.quadraticCurveTo( x + w, y, x + w, y + r );
-  kunteksto.lineTo( x + w, y + h - r );
-  kunteksto.quadraticCurveTo( x + w, y + h, x + w - r, y + h );
-  kunteksto.lineTo( x + r, y + h );
-  kunteksto.quadraticCurveTo( x, y + h, x, y + h - r );
-  kunteksto.lineTo( x, y + r );
-  kunteksto.quadraticCurveTo( x, y, x + r, y );
+  kunteksto.moveTo(x + r, y);
+  kunteksto.lineTo(x + w - r, y);
+  kunteksto.quadraticCurveTo(x + w, y, x + w, y + r);
+  kunteksto.lineTo(x + w, y + h - r);
+  kunteksto.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  kunteksto.lineTo(x + r, y + h);
+  kunteksto.quadraticCurveTo(x, y + h, x, y + h - r);
+  kunteksto.lineTo(x, y + r);
+  kunteksto.quadraticCurveTo(x, y, x + r, y);
   kunteksto.closePath();
   kunteksto.fill();
-}
-
-// kreiVestanTeksajxon — Kreu teksturon por NPC-vesto laux speco (supra, interna, malsupra, pantalono).
-export function kreiVestanTeksajxon( o: Vesto,
-  speco: "supra" | "interno" | "malsupra" | "pantalono"
-): THREE.CanvasTexture {
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = 0o400; kanvasa.height = 0o1000;
-  const kunteksto = kanvasa.getContext("2d")!;
-  // La pantalono uzas sian propran bazkoloron ( bluan ); la cetero la ĉefan.
-  const M = deksesuma(speco === "pantalono" ? o.pantalono : o.ĉefa);
-  const A = deksesuma(o.akcenta);
-  const I = deksesuma(o.interno);
-
-  kunteksto.fillStyle = M;
-  kunteksto.fillRect(0, 0, 0o400, 0o1000);
-  kunteksto.fillStyle = A;
-  kunteksto.fillRect(0, 0o726, 0o400, 0o32);
-  kunteksto.fillStyle = A;
-  kunteksto.globalAlpha = 0o15/0o40;
-  kunteksto.fillRect(0, 0o704, 0o400, 0o6);
-  kunteksto.globalAlpha = 0o1;
-
-  if ( speco === "supra" ) {
-    kvarStelo(kunteksto, 0o200, 0o226, 0o54, A);
-    rombo(kunteksto, 0o200, 0o226, 0o72, 0o72, null, A);
-    kunteksto.fillStyle = A;
-    for ( let i = 0; i < 0o4; i++ ) {
-      kunteksto.beginPath();
-      kunteksto.arc(0o200, 0o50 + i * 0o32, 0o5, 0, Math.PI * 0o2);
-      kunteksto.fill();
-    }
-    rombo(kunteksto, 0o124, 0o512, 0o32, 0o42, I, A);
-    rombo(kunteksto, 0o254, 0o512, 0o32, 0o42, I, A);
-    rombo(kunteksto, 0o200, 0o610, 0o26, 0o34, I, A);
-  } else if ( speco === "interno" || speco === "pantalono" ) {
-    for ( let i = 0; i < 0o3; i++ ) {
-      rombo(kunteksto, 0o200, 0o120 + i * 0o156, 0o36, 0o50, null, A);
-    }
-    kunteksto.globalAlpha = 0o2/0o10;
-    kunteksto.fillStyle = A;
-    for ( let i = 0; i < 0o6; i++ ) {
-      for ( let j = 0; j < 0o3; j++ ) {
-        rombo(kunteksto, 0o50 + j * 0o130, 0o50 + i * 0o124, 0o12, 0o16, A, null);
-      }
-    }
-    kunteksto.globalAlpha = 0o1;
-  }
-
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
 }
 
 // kreiVestanAntauxrigardon — Kreu malgrandan antauxrigardan kanvason por vesta elekta karto.
@@ -204,38 +152,25 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
     const ySup = 0o74, yOrlo = 0o150;
     kunteksto.fillStyle = M;
     kunteksto.beginPath();
-    kunteksto.moveTo( eno, ySup );
-    kunteksto.lineTo( eno, yOrlo );
+    kunteksto.moveTo(eno, ySup);
+    kunteksto.lineTo(eno, yOrlo);
     // du foli-pintoj pendantaj sub la pojno, spegulitaj per dir
-    kunteksto.quadraticCurveTo( eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o5 );
-    kunteksto.quadraticCurveTo( eno + dir * 0o11, yOrlo + 0o14, ekstero, yOrlo );
-    kunteksto.lineTo( ekstero, ySup );
+    kunteksto.quadraticCurveTo(eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o5);
+    kunteksto.quadraticCurveTo(eno + dir * 0o11, yOrlo + 0o14, ekstero, yOrlo);
+    kunteksto.lineTo(ekstero, ySup);
     kunteksto.closePath();
     kunteksto.fill();
     // akcenta rimo laŭ la tondita malsupro
     kunteksto.strokeStyle = A;
     kunteksto.lineWidth = 0o3;
     kunteksto.beginPath();
-    kunteksto.moveTo( eno, yOrlo );
-    kunteksto.quadraticCurveTo( eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o5 );
-    kunteksto.quadraticCurveTo( eno + dir * 0o11, yOrlo + 0o14, ekstero, yOrlo );
+    kunteksto.moveTo(eno, yOrlo);
+    kunteksto.quadraticCurveTo(eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o5);
+    kunteksto.quadraticCurveTo(eno + dir * 0o11, yOrlo + 0o14, ekstero, yOrlo);
     kunteksto.stroke();
   }
 
   return kanvasa;
 }
 
-// kreiFolianManikGeometrion — Kreu foli-forman manikan geometrion por NPC-oj.
-//     @param skalo ( number = 0o35/0o40 ) - Skala faktoro por la geometrio.
-export function kreiFolianManikGeometrion(skalo: number = 0o35/0o40): THREE.ExtrudeGeometry {
-  const formo = new THREE.Shape();
-  formo.moveTo(0, 0);
-  formo.quadraticCurveTo(0o23/0o100, 0o7/0o40, 0o25/0o40, 0o1/0o20);
-  formo.quadraticCurveTo(0o27/0o40, 0, 0o25/0o40, -0o1/0o100);
-  formo.quadraticCurveTo(0o23/0o100, -0o5/0o40, 0, 0);
-  return new THREE.ExtrudeGeometry(formo, {
-    depth: 0o1/0o40,
-    bevelEnabled: false,
-    curveSegments: 0o10,
-  }).scale(skalo, skalo, skalo);
-}
+

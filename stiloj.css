@@ -23,15 +23,9 @@ body {
   background:var(--deep);
   color:var(--mist);
   user-select:none;
-  -webkit-user-select:none;
-  -webkit-touch-callout:none;
 }
 #sceno { display:block; touch-action:none; cursor:grab; }
 #sceno:active { cursor:grabbing; }
-
-/* Buttons: the browser font shorthand resets the font longhands ( ligatures, kerning )
-   to their initial values, so restore the same shaping as the rest of the UI. */
-body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig","calt"; font-kerning:normal; text-rendering:optimizeLegibility; }
 
 /* Full-screen layers share one fixed, edge-to-edge geometry. */
 #sceno,#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo,#supermeta,#sxargxo,#mobKontroloj { position:fixed; inset:0; }
@@ -72,9 +66,8 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 #supermeta.mapo .interno { display:none; }
 /* Fizika max-height ankaŭ: en aih/ja la blok-akso estas horizontala, do nur
    max-block-size ne limigus la altecon — la vesta/helpa listo povus superi la ekranon. */
-#supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 32px); overflow:auto; padding:var(--អារេងព៏); text-align:center; }
+#supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 64px); overflow:auto; padding:var(--អារេងព៏); text-align:center; justify-content: start; }
 #supermeta h3 { margin:0; color:var(--gold); }
-#supermeta .supra { color:var(--dim); }
 /* La ferma butono flosas ĉe la sama angulo kiel la minimapo ( kie ĝi antaŭe
    sidis ) kaj kondutas kiel la naviga butono: 川 ĉiam, rekta en ĉiuj lingvoj. */
 #supermetaFermi {
@@ -93,13 +86,8 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 /* Every floating card gets a readable, layered surface: a sheen from the linked
    stylesheet's black/white tokens (they flip with the color scheme) over the page's
    own background color (--panel), so one rule serves both light and dark. */
-#karto,#prompto,#tosto,#supermeta .interno,.vestaKardo,#kompaso,#mobJoystickBazo {
-  -webkit-backdrop-filter:blur(32px);
-  backdrop-filter:blur(32px);
-  background:
-    linear-gradient(144deg,var(--តានេក២),var(--តានេក) 48%,transparent),
-    linear-gradient(176deg,var(--panel),var(--panel)),
-    var(--តានេកខេលេ);
+#karto,#prompto,#tosto,#supermeta .interno,#kompaso,#mobJoystickBazo {
+  backdrop-filter:var(--ច្ហិនី);
   border:var(--សាកព៏);
   border-radius:var(--អិត្ភេពឺ);
 }
@@ -141,10 +129,9 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
 #karto .karto-agoj { display:flex; justify-content:center; }
 /* The linked stylesheet's universal flex/grid gap (--អារេង, 8px) already sets the card's
    vertical rhythm, so no local margins are needed between these sections. */
-.peco { display:inline-block; padding:var(--អារេងមិ) var(--អារេង); font-weight:600; border-radius:var(--អិត្ភេ); }
-.statistikoj { color:var(--dim); line-height:1.75; }
-.statistikoj b { color:var(--mist); font-weight:600; }
-.gusto { color:var(--កេភ២); font-weight:300; }
+.peco { display:inline-block; padding:var(--អារេង); border-radius:var(--អិត្ភេចិ); border: var(--តានេក); }
+.statistikoj b { color:var(--mist); }
+.gusto { color:var(--កេភ២); }
 #prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); transition:opacity .25s,transform .25s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
 #prompto.montri { transform:translateX(-50%); }
 
@@ -186,51 +173,27 @@ body,button { font-variant-ligatures:normal; font-feature-settings:"liga","clig"
   inset-inline:calc(var(--អារេងព៏) + var(--sal)) calc(var(--អារេងព៏) + var(--sar));
   inset-block-start:calc(72px + var(--sat));
   inset-block-end:calc(var(--អារេងព៏) + var(--sab));
-  display:block; overflow:auto; opacity:0; pointer-events:none; transform:translateY(8px);
+  display:block; overflow:auto; overscroll-behavior:contain; opacity:0; pointer-events:none; transform:translateY(8px);
   transition:opacity .25s,transform .25s;
   border-radius:var(--អិត្ភេពឺ);
 }
 #informo.montri { transform:none; }
 .menuPanel {
   position:relative;
-  background:
-    linear-gradient(144deg,var(--តានេក២),var(--តានេក) 48%,transparent),
-    linear-gradient(176deg,var(--panel),var(--panel)),
-    var(--តានេកខេលេ);
-  border:var(--សាកព៏២);
-  -webkit-backdrop-filter:var(--ច្ហិនី);
-  -webkit-backdrop-filter:blur(32px); backdrop-filter:blur(32px);
 }
-.trakaBut,.menuKrepusko > button { min-block-size:0; padding:0; }
-.menuIdenteco { padding:var(--អារេង); }
-.menuIdenteco h1 { margin:0; font-weight:400; }
-.menuIdenteco p { margin:var(--អារេង) 0 0; color:var(--កេភ២); }
 .menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
-.menuAzioj button { inline-size:auto; }
 /* La muzik-grupo kaj la krepuska karteto estas <ciihii>-kartoj el la ekstera stilfolio:
    ili ricevas la karton-surfacon, kaj la elektitaj/ŝvebaj/klakaj buton-statoj venas el tie ( aria-pressed ). */
 #duskLabelo { flex-direction:row; align-items:center; }
-#muzikoEtikedo { display:block; color:var(--កេភ២); }
-#trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); }
-.trakaBut { inline-size:auto; block-size:32px; color:var(--កេភ២); }
-.menuKrepusko { display:grid; grid-template-columns:44px 1fr; align-items:center; }
-.menuKrepusko > button { inline-size:44px; block-size:44px; }
-#duskLabelo { color:var(--កេភ២); }
+#trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); overflow: auto; }
+.menuKrepusko { display:grid; grid-template-columns:64px 1fr; align-items:center; }
 #duskLabelo input[type=range] { flex:1; min-inline-size:0; }
 
 /* Wardrobe cards and loading screen. */
-/* The linked stylesheet's universal gap (8px) already spaces these cards. */
 .vestaVico { display:flex; justify-content:center; flex-wrap:wrap; }
-/* La inform-listo havas multajn kartojn, do ĝi plenigas la panelon. Flex-wrap
-   ( kiel la vesta vico ) adaptiĝas al ĉiuj skrib-reĝimoj — la krado sekvas la
-   skrib-direkton kaj rompiĝis en vertikalaj reĝimoj ( aih/ja ) — kaj la kartoj
-   kreskas por forigi la flankajn malplenojn. */
-#informo .vestaVico { display:flex; flex-wrap:wrap; justify-content:center; }
-#informo .vestaKardo { flex:1 1 128px; inline-size:128px; }
 /* Flex column so the linked sheet's universal gap (8px) spaces the canvas and the name. */
-.vestaKardo { display:flex; flex-direction:column; inline-size:128px; padding:var(--អារេង); border-color:var(--gold-soft); cursor:pointer; transition:transform .25s,border-color .25s; }
-.vestaKardo:hover { transform:translateY(-4px); border-color:var(--gold); }
-.vestaKardo canvas { inline-size:100%; }
+.vestaKardo { cursor:pointer; transition:transform .25s,border-color .25s; }
+.vestaKardo:hover { transform:translateY(-4px); border-color:var(--តានេក២); }
 .vestaKardo .vn { color:var(--mist); }
 #sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); background:var(--deep); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
@@ -254,7 +217,7 @@ html[lang="aih"] #prompto, html[lang="ja"] #prompto {
   /* Longaj nomoj ( enirantaj konstruaĵoj/manĝaĵoj ) ne superu la ekranon: se la
      vertikala strio plenumas la limon, la teksto disvolvas kolumnojn ( white-space
      normal ) aŭ estas tranĉita ( overflow:hidden ). */
-  white-space:normal; max-inline-size:70%; overflow:hidden;
+  white-space:normal; max-inline-size:75%; overflow:hidden;
 }
 html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
 /* La tosto en aih/ja estas vertikala strio ( sideways-lr / vertical-rl ): longaj
@@ -263,11 +226,11 @@ html[lang="aih"] #tosto, html[lang="ja"] #tosto { white-space:normal; max-inline
 
 /* Mobile controls remain custom because the linked stylesheet does not know their geometry. */
 /* La tuŝaj kontroloj aperas nur post la unua reala tuŝo ( body.tuŝa ), sur ajna tuŝekrano, sendepende de la grandeco. */
-#mobKontroloj { display:none; z-index:3; pointer-events:none; }
+#mobKontroloj { display:none; pointer-events:none; }
 body.tuŝa #mobKontroloj { display:block; }
-#mobJoystickZono { position:absolute; left:0; bottom:0; inline-size:176px; block-size:192px; display:grid; place-items:end center; padding-bottom:var(--អារេងព៏); pointer-events:auto; touch-action:none; }
-#mobJoystickBazo { position:relative; inline-size:128px; block-size:128px; display:grid; place-items:center; border-radius:var(--អិត្ភេ); border:1px solid var(--gold-soft); }
-#mobJoystickBazo.aktiva { background:var(--តានេក២); border-color:var(--gold); }
+#mobJoystickZono { position:absolute; left:0; bottom:0; inline-size:192px; block-size:192px; display:grid; place-items:end center; padding-bottom:var(--អារេងព៏); pointer-events:auto; touch-action:none; }
+#mobJoystickBazo { inline-size:128px; block-size:128px; border:1px solid var(--gold-soft); }
+#mobJoystickBazo.aktiva { border-color:var(--gold); }
 #mobJoystickTenilo { position:absolute; inset:0; margin:auto; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background:radial-gradient(circle at 37.5% 37.5%,var(--gold-soft),var(--gold-faint)); border:1px solid var(--gold-soft); pointer-events:none; }
 /* La agbutonoj sidas ĉe la sama funda angulo kiel la naviga butono: unuforma 16px marĝeno sur ĉiu ekrano. */
 #mobButaroj { position:absolute; right:calc(var(--អារេងព៏) + 52px + var(--អារេង) + var(--sar)); bottom:calc(var(--អារេងព៏) + var(--sab)); display:flex; flex-direction:column; gap:var(--អារេង); pointer-events:none; }
@@ -275,15 +238,7 @@ body.tuŝa #mobKontroloj { display:block; }
 /* La E-butono aperas nur kiam estas proksima interagebla ( la prompto montriĝas ). */
 #mobButInterakti { opacity:0; pointer-events:none; transition:opacity .25s; }
 #mobButInterakti.montri { opacity:1; pointer-events:auto; }
-/* Stirstango forkuras kiam la tenilo estas puŝita preter 3/4 de la radio. */
-#mobJoystickBazo.sprinto #mobJoystickTenilo { background:var(--gold); border-color:var(--gold); }
-/* La elektita stato de la naviga butono venas de la ekstera stilfolio ( aria-pressed ). */
 
-/* Neniaj ekran-grandaj medikonsultoj: la sama aranĝo sur ĉiu ekrano ( la flosantaj
-   elementoj uzas fluidajn procentajn limojn kaj inset-ankradojn anstataŭe ). */
-
-/* Only the theme tokens flip here; the card/menu surfaces already build on the linked
-   stylesheet's black/white tokens plus --panel, so they adapt to both schemes on their own. */
 @media (prefers-color-scheme:light) {
   :root { --deep:#e8f0e8; --mist:#182020; --dim:#687868; --gold:#a88848; --gold-soft:#a8884858; --panel:#e8f0e8d8; }
 }

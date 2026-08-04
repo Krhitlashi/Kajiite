@@ -1,24 +1,24 @@
-// Paths module — polished diorite roads with andesite borders
-// Uzas rektangulajn Shape + ExtrudeGeometry por puraj longaj flankoj (intersekcoj interkovras)
+// Voja modulo — poluritaj dioritaj vojoj kun andezitaj bordoj
+// Uzas rektangulajn Shape + ExtrudeGeometry por puraj longaj flankoj ( intersekcoj interkovras )
 import * as THREE from "three";
 import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "./teksajxoj.js";
 
 export interface VojDifino { pts: [number, number][]; w: number; heightFn?: (x: number, z: number) => number; }
 
 /**
- * Build a stepped road segment between two waypoints.
- * Samples terrain height every ~4 units so the road naturally
- * forms stairs where the ground slopes and stays flush on flat ground.
+ * Konstruu ŝtupetan vojan segmenton inter du vojpunktoj.
+ * Specimenigas la terenon-altecon ĉiun ~4 unuojn, por ke la vojo nature
+ * formu ŝtupojn kie la grundo deklivas kaj restu glata sur ebena grundo.
  */
-// Rondigita rektangulo: nur la kvar anguloj estas rondaj; la vojo ne fariĝas kapsulo.
+// Rondigita rektangulo. Nur la kvar anguloj estas rondaj; la vojo ne fariĝas kapsulo.
 function kreiRondanRektangulon(w: number, l: number, d: number, radiuso: number): THREE.ExtrudeGeometry {
   const formo = new THREE.Shape();
   const duonW = w / 2, duonL = l / 2;
-  // Keep a straight section at both ends; never let a short step become a capsule.
+  // Konservu rektan sekcion ĉe ambaŭ finoj; neniam lasu mallongan ŝtupon fariĝi kapsulo.
   const r = Math.max(0, Math.min(radiuso, duonW, duonL / 2));
 
-  // Counter-clockwise winding keeps ExtrudeGeometry's top face pointing upward
-  // after the existing -90° X rotation.
+  // Kontraŭhorloĝa volvaĵo tenas la supran facon de ExtrudeGeometry supren
+  // post la ekzistanta -90° X-rotacio.
   formo.moveTo(-duonW + r, -duonL);
   formo.lineTo(duonW - r, -duonL);
   formo.absarc(duonW - r, -duonL + r, r, -Math.PI / 2, 0, false);
@@ -33,7 +33,7 @@ function kreiRondanRektangulon(w: number, l: number, d: number, radiuso: number)
 }
 
 function kreiSegmentGeometrion(w: number, l: number, d: number, ofsetoX: number = 0): THREE.ExtrudeGeometry {
-  // Connected road spans stay straight; only the grid slabs get rounded corners.
+  // Konektitaj vojo-etendoj restas rektaj; nur la kradaj platoj ricevas rondajn angulojn.
   // ofsetoX sxovas la strion laux la loka flank-akso ( ⊥ al la voja direkto ),
   // por ke la andezitaj flankoj sidu APUD la diorita centro — ne sub gxi.
   const formo = new THREE.Shape();
@@ -50,20 +50,20 @@ function orientiVojMeshon(mesh: THREE.Mesh, dx: number, dz: number): void {
   const longo = Math.hypot(dx, dz);
   const direkto = new THREE.Vector3(dx / longo, 0, dz / longo);
   const flanko = new THREE.Vector3(-direkto.z, 0, direkto.x);
-  // ExtrudeGeometry grows along local +Z. Use a right-handed basis: local
-  // +X is the width axis, local +Y follows the road, and local +Z is up.
-  // The earlier reversed middle axis put the whole road on its side.
+  // ExtrudeGeometry kreskas laux loka +Z. Uzu dekstraman bazon. Loka +X estas
+  // la larĝa akso, loka +Y sekvas la vojon, kaj loka +Z estas supren.
+  // La pli frua renversita meza akso metis la tutan vojon flanke.
   mesh.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(
     flanko, direkto, new THREE.Vector3(0, 1, 0)
   ));
 }
 
 function lokigiVojMeshon(mesh: THREE.Mesh, x: number, y: number, z: number): void {
-  // The extrusion starts at local z=0, so its bottom meets the sampled terrain.
+  // La ekstrudo komenciĝas ĉe loka z=0, do ĝia malsupro renkontas la specimenigitan terenon.
   mesh.position.set(x, y, z);
 }
 
-// VojBendo — unu longa strio de la voja sekco: largho kaj ofseto laux la loka
+// VojBendo — unu longa strio de la voja sekco. Largho kaj ofseto laux la loka
 // flank-akso ( la perpendikularo de la voja direkto ). La vojo konsistas el tri
 // apudaj bendoj — andezitaj randoj, diorita centro — sen intertavoloj.
 interface VojBendo {
@@ -72,7 +72,7 @@ interface VojBendo {
   materialo: THREE.MeshStandardMaterial;
 }
 
-// kreiVojajnBendojn — La tri apudajn bendojn de unu vojo: diorita centro ( w )
+// kreiVojajnBendojn — La tri apudajn bendojn de unu vojo. Diorita centro ( w )
 // kun andezitaj flankoj ( ( wb - w ) / 2 cxiu ) apud gxi. La ekstera largho wb
 // restas la sama kiel la malnova randa strio, do la voja spuro ne sxangxigxas.
 function kreiVojajnBendojn( w: number,
@@ -97,10 +97,10 @@ function konstruiSegmenton( x1: number, z1: number, x2: number, z2: number,
 ): void {
   const difX = x2 - x1, difZ = z2 - z1;
   const longo = Math.hypot(difX, difZ);
-  if (longo < 0o1/0o100) return;
-  // Keep the original stepped construction: each roughly four-unit piece
-  // follows the same straight axis, while only the two exposed ends can be
-  // rounded. Connected interior pieces remain square and join cleanly.
+  if ( longo < 0o1/0o100 ) return;
+  // Konservu la originalan ŝtupetan konstruadon. Ĉiu proksimume kvar-unua peco
+  // sekvas la saman rektan akson, dum nur la du elmetitaj finoj povas esti
+  // rondigitaj. Konektitaj internaj pecoj restas kvadrataj kaj kunigxas pure.
   const steps = Math.max(1, Math.round(longo / 4));
   const pasoLongo = longo / steps;
   for ( let s = 0; s < steps; s++ ) {
@@ -110,7 +110,7 @@ function konstruiSegmenton( x1: number, z1: number, x2: number, z2: number,
     const movX = (sx1 + sx2) / 2, movZ = (sz1 + sz2) / 2;
     const y = heightFn(movX, movZ);
     for ( const bendo of bendoj ) {
-      // Road steps stay square so adjacent pieces meet with no rounded seam.
+      // Vojaj ŝtupoj restas kvadrataj, por ke najbaraj pecoj kuniĝu sen ronda kudro.
       const geometrio = kreiSegmentGeometrion(bendo.largho, pasoLongo, dikeco, bendo.ofseto);
       const mesh = new THREE.Mesh(geometrio, bendo.materialo);
       orientiVojMeshon(mesh, difX, difZ);
@@ -121,7 +121,7 @@ function konstruiSegmenton( x1: number, z1: number, x2: number, z2: number,
   }
 }
 
-// Legacy entry point kept square and border-aware for callers outside the city builder.
+// Hereda enirpunkto konservita kvadrata kaj bordo-konscia por alvokantoj ekster la urbokonstruilo.
 export function aldoniIntersekcajnRondigojn(
   sceno: THREE.Scene,
   nodes: [number, number][],
@@ -145,7 +145,7 @@ export function konstruiVojojn( sceno: THREE.Scene,
   const andezitaTeksajxo = kreiAndezitanTeksajxon();
   const supraMaterialo = dioritaMaterialo.clone();
   supraMaterialo.map = dioritaTeksajxo; supraMaterialo.needsUpdate = true;
-  // La bendoj ne plu intertavoligas: polygonOffset restas nur por ke la voja
+  // La bendoj ne plu intertavoligas. PolygonOffset restas nur por ke la voja
   // surfaco gajnu ce intersekcoj kaj la placa disko (-3) gajnu ce vojkapoj.
   supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = -2; supraMaterialo.polygonOffsetUnits = -1;
   const bordaMaterialo = andezitaMaterialo.clone();
@@ -159,17 +159,17 @@ export function konstruiVojojn( sceno: THREE.Scene,
     for ( let i = 0; i < def.pts.length - 1; i++ ) {
       const [aX, aZ] = def.pts[i];
       const [bX, bZ] = def.pts[i + 1];
-      // Voja surfaco: diorita centro kun andezitaj flankoj APUD gxi — ne plu
+      // Voja surfaco. Diorita centro kun andezitaj flankoj APUD gxi — ne plu
       // randa strio tavolita sub la centro. La malnova intertavolo z-fightingis
       // kiam la fotilo rigardis preskaux rekte malsupren ( la minimapo ), kaj
       // la tuta vojo aperis nigra. La tri bendoj nun sidas flank-al-flanke.
       konstruiSegmenton(aX, aZ, bX, bZ, kreiVojajnBendojn(def.w, supraMaterialo, bordaMaterialo), 0o2/0o10, defAlt, sceno);
-      // Specimenoj por lampoj — kaj por la vegetajxo-ekskludo: unu specimeno
+      // Specimenoj por lampoj — kaj por la vegetajxo-ekskludo. Unu specimeno
       // cxiun ~2 unuojn, por ke neniu planto povu sidi inter maldensajn
       // specimenojn kaj aperi sur la vojo.
       const longo = Math.hypot(bX - aX, bZ - aZ);
       const nombro = Math.max(1, Math.round(longo / 2));
-      for (let k = 0; k <= nombro; k++) {
+      for ( let k = 0; k <= nombro; k++ ) {
         const t = k / nombro;
         const sx = aX + (bX - aX) * t;
         const sz = aZ + (bZ - aZ) * t;
@@ -208,7 +208,7 @@ export function konstruiPlacojn( sceno: THREE.Scene,
   andezitaMaterialo: THREE.MeshStandardMaterial
 ): { x: number; z: number }[] {
   const kajoj: { x: number; z: number }[] = [];
-  if (nodes.length === 0) return kajoj;
+  if ( nodes.length === 0 ) return kajoj;
 
   const dioritaTx = kreiDioritanTeksajxon();
   const andezitaTx = kreiAndezitanTeksajxon();
@@ -223,16 +223,16 @@ export function konstruiPlacojn( sceno: THREE.Scene,
 
   for ( const [bX, bZ] of nodes ) {
     const y = heightFn(bX, bZ) + 0o2/0o10;
-    // Samgrandaj kiel la vojo: la disko kongruas kun la diorita surfaco (0o7/0o10
+    // Samgrandaj kiel la vojo. La disko kongruas kun la diorita surfaco ( 0o7/0o10
     // duon-larĝo) kaj la ringo kun la andezita bordo (0o13/0o10), kuŝantaj plate.
-    const border = new THREE.Mesh( new THREE.RingGeometry(0o7/0o10, 0o13/0o10, 0o40).rotateX(-Math.PI / 2), bordaMaterialo );
-    border.position.set( bX, y - 0o3/0o100, bZ );
+    const border = new THREE.Mesh(new THREE.RingGeometry(0o7/0o10, 0o13/0o10, 0o40).rotateX(-Math.PI / 2), bordaMaterialo);
+    border.position.set(bX, y - 0o3/0o100, bZ);
     border.receiveShadow = true;
-    sceno.add( border );
-    const placo = new THREE.Mesh( new THREE.CircleGeometry(0o7/0o10, 0o40).rotateX(-Math.PI / 2), placaMaterialo );
-    placo.position.set( bX, y, bZ );
+    sceno.add(border);
+    const placo = new THREE.Mesh(new THREE.CircleGeometry(0o7/0o10, 0o40).rotateX(-Math.PI / 2), placaMaterialo);
+    placo.position.set(bX, y, bZ);
     placo.receiveShadow = true;
-    sceno.add( placo );
+    sceno.add(placo);
     kajoj.push({ x: bX, z: bZ });
   }
   return kajoj;
@@ -257,7 +257,7 @@ export function konstruiPeriferiajnPlatformojn(
 
   for ( const [ x, z ] of lokoj ) {
     const y = heightFn( x, z );
-    // Inklini la platformon laux la loka terena deklivo: alie unu flanko flosu
+    // Inklini la platformon laux la loka terena deklivo. Alie unu flanko flosu
     // super la grundo kaj la alia enfosigxus (la arbara rando deklivas).
     const e = 0o1/0o4;
     const gx = ( heightFn( x + e, z ) - heightFn( x - e, z ) ) / ( 2 * e );
@@ -267,25 +267,25 @@ export function konstruiPeriferiajnPlatformojn(
     const klino = new THREE.Quaternion().setFromUnitVectors( new THREE.Vector3( 0, 1, 0 ), normalo );
     const orienti = klino.multiply( new THREE.Quaternion().setFromEuler( new THREE.Euler( -Math.PI / 2, 0, 0 ) ) );
 
-    const suba = new THREE.Mesh( kreiRondanDiamanton( 3, 0o2/0o10 ), subaMaterialo );
-    suba.quaternion.copy( orienti );
-    suba.position.set( x, y, z );
+    const suba = new THREE.Mesh(kreiRondanDiamanton(3, 0o2/0o10), subaMaterialo);
+    suba.quaternion.copy(orienti);
+    suba.position.set(x, y, z);
     suba.receiveShadow = true;
-    sceno.add( suba );
+    sceno.add(suba);
 
-    // Supra tavolo kusxas precize sur la suba (laŭ la normalo, ne nura vertikala ofseto).
-    const bordo = new THREE.Mesh( kreiRondanDiamanton( 2.6, 0o2/0o10 ), subaMaterialo );
-    bordo.quaternion.copy( orienti );
-    bordo.position.copy( suba.position ).addScaledVector( normalo, 0o2/0o10 );
+    // Supra tavolo kusxas precize sur la suba ( laŭ la normalo, ne nura vertikala ofseto ).
+    const bordo = new THREE.Mesh(kreiRondanDiamanton(0o25/0o10, 0o2/0o10), subaMaterialo);
+    bordo.quaternion.copy(orienti);
+    bordo.position.copy(suba.position).addScaledVector(normalo, 0o2/0o10);
     bordo.receiveShadow = true;
-    sceno.add( bordo );
+    sceno.add(bordo);
 
     // Diorita centro kun andezita ringo ĉirkaŭe — la sama rando-stilo kiel la vojoj.
-    const centro = new THREE.Mesh( kreiRondanDiamanton( 2.2, 0o2/0o10 ), supraMaterialo );
-    centro.quaternion.copy( orienti );
-    centro.position.copy( bordo.position );
+    const centro = new THREE.Mesh(kreiRondanDiamanton(0o22/0o10, 0o2/0o10), supraMaterialo);
+    centro.quaternion.copy(orienti);
+    centro.position.copy(bordo.position);
     centro.receiveShadow = centro.castShadow = true;
-    sceno.add( centro );
+    sceno.add(centro);
   }
   return lokoj;
 }
@@ -300,7 +300,7 @@ export function konstruiSpronon( x1: number, z1: number, x2: number, z2: number,
 ): void {
   const difX = x2 - x1, difZ = z2 - z1;
   const longo = Math.hypot(difX, difZ);
-  if (longo < 0o4/0o10) return;
+  if ( longo < 0o4/0o10 ) return;
   // La porda vojo uzas la saman larghon kiel la regula vojreto.
   const w = 0o16/0o10;
   const dikeco = 0o2/0o10;
@@ -332,28 +332,28 @@ export function konstruiFontanon( sceno: THREE.Scene,
   oraMaterialo: THREE.MeshStandardMaterial
 ): THREE.Mesh {
   const y = heightFn(x, z) + 0o2/0o10;
-  // Plaza disc
-  const placo = new THREE.Mesh( new THREE.CircleGeometry(0o12, 0o60).rotateX(-Math.PI / 2),
-    new THREE.MeshStandardMaterial({ color: 0xb8b8b8, roughness: 0o17/0o100, metalness: 0o3/0o100 }) );
+  // Placa disko
+  const placo = new THREE.Mesh(new THREE.CircleGeometry(0o12, 0o60).rotateX(-Math.PI / 2),
+    new THREE.MeshStandardMaterial({ color: 0xb8b8b8, roughness: 0o17/0o100, metalness: 0o3/0o100 }));
   placo.position.set(x, y, z); placo.receiveShadow = true;
   sceno.add(placo);
   // Andezita ringa rando
-  const ring = new THREE.Mesh( new THREE.RingGeometry(0o1115/0o100, 0o515/0o40, 0o60).rotateX(-Math.PI / 2), andezitaMaterialo );
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0o1115/0o100, 0o515/0o40, 0o60).rotateX(-Math.PI / 2), andezitaMaterialo);
   ring.position.set(x, y + 0o3/0o100, z); sceno.add(ring);
   // Basena randa ringo
-  const coping = new THREE.Mesh( new THREE.RingGeometry(0o463/0o100, 0o563/0o100, 0o60).rotateX(-Math.PI / 2),
-    new THREE.MeshStandardMaterial({ color: 0x586060, roughness: 0o23/0o40 }) );
+  const coping = new THREE.Mesh(new THREE.RingGeometry(0o463/0o100, 0o563/0o100, 0o60).rotateX(-Math.PI / 2),
+    new THREE.MeshStandardMaterial({ color: 0x586060, roughness: 0o23/0o40 }));
   coping.position.set(x, y + 0o3/0o100, z); sceno.add(coping);
-  // Baseno (malhela enkavita cirklo)
-  const basin = new THREE.Mesh( new THREE.CircleGeometry(0o50/0o10, 0o40).rotateX(-Math.PI / 2),
-    new THREE.MeshStandardMaterial({ color: 0x203038, roughness: 0o35/0o40 }) );
+  // Baseno ( malhela enkavita cirklo )
+  const basin = new THREE.Mesh(new THREE.CircleGeometry(0o50/0o10, 0o40).rotateX(-Math.PI / 2),
+    new THREE.MeshStandardMaterial({ color: 0x203038, roughness: 0o35/0o40 }));
   basin.position.set(x, y - 0o163/0o100, z); sceno.add(basin);
   // Akva surfaco
   const akvaMaterialo = new THREE.MeshStandardMaterial({
     color: 0x386868, roughness: 0o3/0o40, metalness: 0o23/0o100,
     transparent: true, opacity: 0o6/0o10
   });
-  const akvaSurfaco = new THREE.Mesh( new THREE.CircleGeometry(0o223/0o40, 0o40).rotateX(-Math.PI / 2), akvaMaterialo );
+  const akvaSurfaco = new THREE.Mesh(new THREE.CircleGeometry(0o223/0o40, 0o40).rotateX(-Math.PI / 2), akvaMaterialo);
   akvaSurfaco.position.set(x, y - 0o5/0o40, z);
   sceno.add(akvaSurfaco);
   return akvaSurfaco;

@@ -1,10 +1,10 @@
-// tradukoj.ts — Translation system for Aranis
+// tradukoj.ts — Traduk-sistemo por Aranis
 // Four languages. aih, eo, en, ja
 import { gkAlIpa, ipaAlLingvo } from "./sonaj-reguloj.js";
 
 const skakefani: Record<string, Record<string, string>> = {
   aih: {
-    // Adjectives go BEFORE the noun for descriptions ( Iikrhia grammar rule ).
+    // Adjektivoj iras ANTAŬ la substantivo por priskriboj ( Iikrhia gramatika regulo ).
     // to signal a fused compound name rather than a mere description.
     "titoloAranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞ • j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
     "subtitoloUrbo": "j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞ • j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ſɭᴜ ɭl̀ɹ ɭʃɔ",
@@ -26,14 +26,14 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloMovado": "WASD • ſɭᴜ ſɭʞᴜȝ ſɭc̭ᴜ ſɭc̗w",
     "regiloEniri": "E • ſɭw ſ̀ȷᴜ / j͑ʃwc̗ ɭʃᴜ • ſɭw ſ̀ȷᴜ ſɭэ ſɭᴜ ſɭw ʃᴜ",
     "regiloMapo": "M • ſɟᴜ ſᶘɹ }ʃᴜ j͑ʃᴜ ſɭᴜ ſɭw ʃᴜ ſɭэ",
-    "regiloEliri": "Escape • j͑ʃwc̗ ɭʃᴜ",
+    "regiloEliri": "Esc • j͑ʃwc̗ ɭʃᴜ",
     "regiloSpajroj": "ſןɔ ʌ ſ͕ɭᴜ ʌ ſɭɔ ʌ ʃэ ſɭɔ˞ᴜ ʌ ſɭᴜ ʌ ꞁȷ̀ɹ ʃᴜ • ſɭw ſ̀ȷᴜ",
     "regiloVesto": "ſ̀ȷᴜȝ • ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
     "titoloVojoj": "ſɭэ ֭ſɭэ",
     "subtitoloHelpo": "ſȷɔ ſɭ,ꞇ ʌ ſɭэ ʌ ſɭᴜ ſɭɔ ʌ ʃэ j͐ʃɜ ɭʃᴜ",
-    // MAP OF ARANIS • The whole valley from above
+    // MAPO DE ARANIS • La tuta valo de supre
     // map = ʃᴜ j͐ʃɹ ı],ᴜ • of(SER,vowel) = j͑ʃɔƣ̋ • Aranis = ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞
-    // whole = ꞁȷ̀ɔ ɽ͑ʃ'ɹ ֭ſɭᴜ • valley = j͐ʃɜ ɭʃᴜ • from(Place) = j͐ʃэ ɭl̀э • top = j͑ʃɜ ſɭ,ᴜ
+    // tuta = ꞁȷ̀ɔ ɽ͑ʃ'ɹ ֭ſɭᴜ • valo = j͐ʃɜ ɭʃᴜ • el( Loko ) = j͐ʃэ ɭl̀э • supro = j͑ʃɜ ſɭ,ᴜ
     "titoloMapo": "ʃᴜ j͐ʃɹ ı],ᴜ ʌ j͑ʃɔƣ̋ ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
     "subtitoloMapo": "ꞁȷ̀ɔ ɽ͑ʃ'ɹ ֭ſɭᴜ j͐ʃɜ ɭʃᴜ ʌ j͐ʃэ ɭl̀э j͑ʃɜ ſɭ,ᴜ",
     "actEliri": "j͑ʃwc̗ ɭʃᴜ • Esc",
@@ -53,7 +53,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla0Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſ̀ȷᴜ ſɭɔͷ̗ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſᶘᴜ v ſ͔ɭɔ ſןɹ j͑ʃᴜꞇ ⟅",
     "manĝTla1Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ɭʃɹƽ ｡ ſɟɔ ɭl̀ɹ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſᶘᴜ v ſ͔ɭɔ ſןɹ j͑ʃᴜꞇ ⟅",
     "manĝTla2Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſɭᶗ‹ɹ j͐ʃᴜ ŋᷠɹⰱ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſɟɔ ɭl̀ɹ v ֭ſɭᴜ }ʃɔ j͑ʃᴜꞇ ( ſᶘᴜ j͑ʃͷ̗ᴜʞ ꞁȷ̀ᴜꞇ ) ⟅",
-    // Building card labels from satalaj-konstruaĵoj.ts TIPARO
+    // Konstrua karto-labeletoj el satalaj-konstruaĵoj.ts TIPARO
     "tipDomo": "ſɭᴜ ſןɹ",
     "tipMangxejo": "ſɭᴜ ſ͔ɭɔȝ",
     "tipKasafeo": "ſɭᴜ j͑ʃᴜ ſȷɔ",
@@ -68,18 +68,18 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvStacioxipo": "j͑ʃᴜ ı],ᴜ ɽ͑ʃ'ᴜȝ ʌ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ⟅",
     "flvTuro": "ᶅſw ſɭɹ ʌ ſןᴜȝ ⟅",
     "flvSanktejo": "j͑ʃɜ j͑ʃƨɹ ⟅",
-    // Card stats labels from sperto.ts
+    // Karto-statistikaj labeletoj el sperto.ts
     "statTieroj": "ɭʃᴜ }ʃɔƽ",
     "statDiamanto": "ſɟꞇȝ ſɭᴜⰱ",
     "statJes": "ſɭɹ ֭ſɭɹ",
     "statNe": "ſɟɔ ֭ſɭɹ",
     "statTipo": "֭ſɭᴜ ı],ɔ",
     "statPozicio": "ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ",
-    // WebGL error from scena.ts
+    // WebGL-eraro el scena.ts
     "webglMesagxo": "ſ͕ȷɜ ſɭɹ ɽ͑ʃ'ɔ ʌ WebGL ⟅",
     "webglDetalo": "ɭʃɔ ſ͕ɭᴜƴ ʌ WebGL ⟅ j͑ʃɹƣ̋ ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ ʌ ſɟᴜ ֭ſɭᴜ ſȷᴜ v ſɭɹ ſןɹ ⟅",
     "webglReprovi": "ɭʃɜ ŋᷠэ",
-    // aria labels from index.html and sperto.ts
+    // aria-labeletoj el index.html kaj sperto.ts
     "ariaButKrepusko": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
     "ariaDuskRegilo": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
     "ariaButPromeni": "ſɭᴜ ɭʃᴜ",
@@ -147,7 +147,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoRose": "ᶅſɔ j͐ʃᴜ ſ͔ɭэ",
     "vestoObsidian": "֭ſɭw }ʃᴜ",
     "vestoCyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
-    // Building names from real Iikrhia dictionary words ( Gawekiif )
+    // Konstruaj nomoj el realaj Iikrhiaj vortaraj vortoj ( Gawekiif )
     "paq0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
     "paq1": "ſɭᴜ ſןɹ",
     "paq2": "ſɭᴜ ᶅſw ſɭɹ",
@@ -182,7 +182,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "paq31": "ſɭᴜɘ ꞁȷ̀ᴜ ſɟɔ",
     "paq32": "ſɭᴜ ɭ(ᴜͷ̗",
     "paq33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
-    // Trakonomoj ( trakoN ): derivitaj de la aih-a Gawekiif per la sonaj reguloj.
+    // Trakonomoj ( trakoN ). Derivitaj de la aih-a Gawekiif per la sonaj reguloj.
     "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
     "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",
@@ -190,8 +190,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
   eo: {
-    // Proper Esperanto translations for all UI strings
-    // IPA-based approximations for custom names
+    // Ĝustaj Esperantaj tradukoj por ĉiuj UI-ŝnuroj
+    // IPA-bazitaj proksimumoj por kutimaj nomoj
     "titoloAranis": "Aranis • Ĥusa Lotao",
     "subtitoloUrbo": "Ĥusa Lotao • Lamuza Kajteo",
     "eniri": "Eniri",
@@ -302,10 +302,10 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecCetkuo": "Alta senbranĉa skurĝa kano kun strobiloj.",
     "specCakeo": "Cakeo",
     "flvSpecCakeo": "Granda branĉet-kirla ĉevalvosto ĉe la lagrando.",
-    // Aria label for dusk toggle
+    // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
     "ariaDuskRegilo": "Krepuska nivelo",
-    // ariaTrakoN: derivitaj ( prefikso + derivita trakonomo )
+    // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     // Clothing names
     "vestoVerdant": "Verda",
@@ -322,8 +322,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "muziko": "Muziko",
   },
   en: {
-    // Proper English translations for all UI strings
-    // Phonetic transcriptions ( of aih ) used only for custom names ( vesto * )
+    // Ĝustaj anglaj tradukoj por ĉiuj UI-ŝnuroj
+    // Fonetaj transskriboj ( de aih ) uzataj nur por kutimaj nomoj ( vesto * )
     "titoloAranis": "Aranis • Khiss Lhota",
     "subtitoloUrbo": "Khiss Lhota • Lhammithai Kayitteh",
     "eniri": "Enter",
@@ -399,7 +399,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "tabKonstruajxoj": "Buildings",
     "tabMangxajxoj": "Food",
     "tabSpecioj": "Species",
-    // The animals and plants of the valley ( from bestoj.ts and vegetajxo.ts )
+    // La bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo.ts )
     "grupoBesto": "Animal",
     "grupoPlanto": "Plant",
     "specBeroe": "Beroe",
@@ -434,10 +434,10 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecCetkuo": "A tall unbranched scouring rush with strobili.",
     "specCakeo": "Tsakeh",
     "flvSpecCakeo": "Great branch-whorled horsetails at the lakeshore.",
-    // Aria label for dusk toggle
+    // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "Dusk",
     "ariaDuskRegilo": "Dusk level",
-    // ariaTrakoN: derived ( prefix + derived track name )
+    // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     // Clothing names
     "vestoVerdant": "Green",
@@ -454,8 +454,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "muziko": "Music",
   },
   ja: {
-    // Proper Japanese translations for all UI strings
-    // Phonetic transcriptions ( of aih ) used only for custom names ( vesto * )
+    // Ĝustaj japanaj tradukoj por ĉiuj UI-ŝnuroj
+    // Fonetaj transskriboj ( de aih ) uzataj nur por kutimaj nomoj ( vesto * )
     "titoloAranis": "アラニス • ロタ・イーヒス",
     "subtitoloUrbo": "ロタ・イーヒス • カジーテ・セラーミョヴ",
     "eniri": "入る",
@@ -556,10 +556,10 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecMusko": "実は植物である小山。",
     "flvSpecCetkuo": "胞子嚢を持つ、高く枝分かれしないトクサ。",
     "flvSpecCakeo": "湖岸に生える、大きく枝が輪生するトクサ。",
-    // Aria label for dusk toggle
+    // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "夕暮れモードを切り替え",
     "ariaDuskRegilo": "夕暮れのレベル",
-    // ariaTrakoN: 派生 ( 接頭辞 + 派生したトラック名 )
+    // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     // Clothing names
     "vestoVerdant": "緑",
@@ -576,8 +576,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "muziko": "音楽",
   },
   km: {
-    // Khmer (Cambodian) translations for all UI strings
-    // Phonetic approximations in Khmer script for custom names
+    // Kmeraj ( Kamboĝaj ) tradukoj por ĉiuj UI-ŝnuroj
+    // Fonetaj proksimumoj en kmera skribo por kutimaj nomoj
     "titoloAranis": "អរ៉ានីស • ឡូតា-អ៊ីហ៊ីស",
     "subtitoloUrbo": "ឡូតា-អ៊ីហ៊ីស • កាជីតេ-សេឡាមយ៉ូវ",
     "eniri": "ចូល",
@@ -678,10 +678,10 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecMusko": "គំនរដែលតាមពិតជារុក្ខជាតិ។",
     "flvSpecCetkuo": "រុក្ខជាតិខ្ពស់គ្មានមែក មានកោនគ្រាប់ពូជ។",
     "flvSpecCakeo": "រុក្ខជាតិខ្ពស់មានមែកជុំវិញ ដុះនៅមាត់បឹង។",
-    // Aria label for dusk toggle
+    // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
     "ariaDuskRegilo": "កម្រិតព្រលប់",
-    // ariaTrakoN: បានដកស្រង់ ( បុព្វបទ + ឈ្មោះបទដកស្រង់ )
+    // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     // Clothing names ( phonetic approximations in Khmer script )
     "vestoVerdant": "ពណ៌បៃតង",
@@ -703,8 +703,8 @@ const LINGVOJ = ["aih", "eo", "en", "ja", "km",];
 let aktivaLingvo = "aih";
 
 // ⟪ Publika API — traduki 📃 ⟫
-// Returns the translated string for the active language.
-// Falls back to the key itself if not found.
+// Redonu la tradukitan ŝnuron por la aktiva lingvo.
+// Falu reen al la ŝlosilo mem se ne trovita.
 // nomoAih — Nomo de konstruajxo en la gepatra Gawekiif-skribo (por la strat-signoj).
 export function nomoAih(klavo: string): string {
   return skakefani.aih[klavo] || klavo;
@@ -732,15 +732,15 @@ const KONSTRUAJ_NOMOJ = new Set([
 
 function deriviNomon(klavo: string): string | null {
   if (aktivaLingvo === "aih") return null;
-  // ariaTrakoN: prefikso ( lingvo-specifa ) + derivita trakonomo.
-  // spec*: mankas rekta ja/km-ŝnuro por la specifaj plantnomoj, do ili ankaŭ
+  // ariaTrakoN. Prefikso ( lingvo-specifa ) + derivita trakonomo.
+  // spec*. Mankas rekta ja/km-ŝnuro por la specifaj plantnomoj, do ili ankaŭ
   // venas el la aih-formo per la samaj sonaj reguloj.
   const aria = /^ariaTrako(\d+)$/.exec(klavo);
   const bazo = aria ? "trako" + aria[1] : klavo;
   if (!/^(paq|trako|manĝFok|manĝTla)\d+$/.test(bazo) && !SPECIFIKAJ_PLANTNOMOJ.has(bazo) && !KONSTRUAJ_NOMOJ.has(bazo)) return null;
   const aihFormo = skakefani.aih[bazo];
   if (!aihFormo) return null;
-  // Manĝaĵnomoj kunhavas "•" disigilon ( nomo • gusto ): derivu ĉiun flankon
+  // Manĝaĵnomoj kunhavas "•" disigilon ( nomo • gusto ). Derivu ĉiun flankon
   // aparte, por ke la disigilo kaj spacoj postvivu la konverton.
   const nomo = aihFormo
     .split("•")
@@ -822,7 +822,7 @@ function inicializi(): void {
   document.getElementById("butLingvo")?.addEventListener("click", sxaltiLingvon);
 }
 
-// Wait for DOM, then apply translations
+// Atendu la DOM-on, tiam apliku la tradukojn
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", inicializi);
 } else {

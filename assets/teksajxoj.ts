@@ -18,11 +18,11 @@ export const kreiSxelanTeksajxon = sxovu( (): THREE.CanvasTexture => {
   const kunteksto = kanvasa.getContext("2d")!;
   kunteksto.fillStyle = "#e8e8d8"; kunteksto.fillRect(0, 0, w, h);
   for ( let i = 0; i < 0o32; i++ ) {
-    kunteksto.fillStyle = `rgba(190,186,172,${0.2 + Math.random() * 0.3})`;
+    kunteksto.fillStyle = `rgba(190,186,172,${0o3/0o20 + Math.random() * 0o5/0o20})`;
     kunteksto.fillRect(Math.random() * w, 0, 1 + Math.random() * 3, h);
   }
   for ( let i = 0; i < 0o54; i++ ) {
-    kunteksto.fillStyle = `rgba(38,34,29,${0.55 + Math.random() * 0.4})`;
+    kunteksto.fillStyle = `rgba(38,34,29,${0o44/0o100 + Math.random() * 0o15/0o40})`;
     const y = Math.random() * h, wd = 0o10 + Math.random() * 0o26;
     kunteksto.fillRect(Math.random() * w, y, wd, 3 + Math.random() * 3);
   }
@@ -47,17 +47,17 @@ export function kreiLarikanSxelanTeksajxon(): THREE.CanvasTexture {
   const kunteksto = kanvasa.getContext( "2d" )!;
   kunteksto.fillStyle = "#989088"; kunteksto.fillRect( 0, 0, w, h );
   for ( let i = 0; i < 0o30; i++ ) {
-    kunteksto.fillStyle = `rgba(120,104,96,${0.25 + Math.random() * 0.3})`;
+    kunteksto.fillStyle = `rgba(120,104,96,${0o1/0o4 + Math.random() * 0o5/0o20})`;
     kunteksto.fillRect( Math.random() * w, 0, 2 + Math.random() * 3, h );
   }
   // Vertikalaj ruĝbrunaj fendoj — la platoj de la malnova sxoelo.
   for ( let i = 0; i < 0o40; i++ ) {
-    kunteksto.fillStyle = `rgba(88,64,56,${0.4 + Math.random() * 0.45})`;
+    kunteksto.fillStyle = `rgba(88,64,56,${0o15/0o40 + Math.random() * 0o35/0o100})`;
     kunteksto.fillRect( Math.random() * w, Math.random() * h, 2 + Math.random() * 4, 0o100 + Math.random() * 0o110 );
   }
   // Helaj platoj inter la fendoj.
   for ( let i = 0; i < 0o20; i++ ) {
-    kunteksto.fillStyle = `rgba(176,168,152,${0.3 + Math.random() * 0.3})`;
+    kunteksto.fillStyle = `rgba(176,168,152,${0o5/0o20 + Math.random() * 0o5/0o20})`;
     kunteksto.fillRect( Math.random() * w, Math.random() * h, 3 + Math.random() * 6, 0o14 + Math.random() * 0o60 );
   }
   const teksajxo = new THREE.CanvasTexture( kanvasa );
@@ -165,7 +165,7 @@ export function kreiFilikanTeksajxon(): THREE.CanvasTexture {
   kunteksto.strokeStyle = "#587850"; kunteksto.lineWidth = 4;
   kunteksto.beginPath(); kunteksto.moveTo(0o100, 0o374); kunteksto.quadraticCurveTo(0o74, 0o214, 0o106, 0o32); kunteksto.stroke();
   kunteksto.lineWidth = 3;
-  for ( let i = 0; i < 0o17; i++ ) {
+  for ( let i = 0; i < 0o20; i++ ) {
     const y = 0o360 - i * 0o16, longo = 0o54 - i * 0o115/0o40;
     for ( const s of [ -1, 1 ] ) {
       kunteksto.strokeStyle = `rgba(${80 + i * 3},${110 + i * 4},${70 + i * 2},0.95)`;
@@ -201,8 +201,8 @@ export function kreiPurpuranFilikanTeksajxon( densa: boolean = false ): THREE.Ca
   kanvasa.width = kanvasa.height = s;
   const kunteksto = kanvasa.getContext("2d")!;
   const paletro = densa
-    ? { tigo: "#3a2050", a: "#a05ac0", b: "#c07ae0" }
-    : { tigo: "#4a2a5e", a: "#7a4ab0", b: "#9a6ad0" };
+    ? { tigo: "#382050", a: "#a058c0", b: "#c078e0" }
+    : { tigo: "#482850", a: "#7848b0", b: "#9868d0" };
 
   kunteksto.clearRect(0, 0, s, s);
   kunteksto.strokeStyle = paletro.tigo;
@@ -253,7 +253,7 @@ export const kreiHerbErinanTeksajxon = sxovu( (): THREE.CanvasTexture => {
   const kunteksto = kanvasa.getContext( "2d" )!;
   kunteksto.clearRect( 0, 0, s, s );
   // Verda klingo kontraux travidebla fono
-  const gradiento = kunteksto.createRadialGradient( s / 2, s * 0.85, 0, s / 2, s * 0.85, s * 0.55 );
+  const gradiento = kunteksto.createRadialGradient( s / 2, s * 0o66/0o100, 0, s / 2, s * 0o66/0o100, s * 0o44/0o100 );
   gradiento.addColorStop( 0, "rgba(100,140,70,0.95)" );
   gradiento.addColorStop( 0o4/0o10, "rgba(130,170,90,0.75)" );
   gradiento.addColorStop( 1, "rgba(160,200,110,0)" );
@@ -263,8 +263,8 @@ export const kreiHerbErinanTeksajxon = sxovu( (): THREE.CanvasTexture => {
   kunteksto.strokeStyle = "rgba(80,120,50,0.6)";
   kunteksto.lineWidth = 2;
   kunteksto.beginPath();
-  kunteksto.moveTo( s / 2, s * 0.92 );
-  kunteksto.quadraticCurveTo( s / 2, s * 0.4, s / 2, s * 0.08 );
+  kunteksto.moveTo( s / 2, s * 0o73/0o100 );
+  kunteksto.quadraticCurveTo( s / 2, s * 0o15/0o40, s / 2, s * 0o5/0o100 );
   kunteksto.stroke();
   const teksajxo = new THREE.CanvasTexture( kanvasa );
   teksajxo.colorSpace = THREE.SRGBColorSpace;
@@ -315,7 +315,7 @@ export const kreiLikenanTeksajxon = sxovu( (): THREE.CanvasTexture => {
     const t = Math.sqrt( Math.random() );
     const a = Math.random() * Math.PI * 2;
     const r = s * 0o5/0o20 * t;
-    kunteksto.fillStyle = `rgba(88,104,72,${0.3 + Math.random() * 0.35})`;
+    kunteksto.fillStyle = `rgba(88,104,72,${0o5/0o20 + Math.random() * 0o26/0o100})`;
     kunteksto.fillRect( cx + Math.cos( a ) * r, cy + Math.sin( a ) * r, 1 + Math.random() * 2, 1 + Math.random() * 2 );
   }
 
@@ -345,7 +345,7 @@ export function kreiPurpuranFolianTeksajxon(): THREE.CanvasTexture {
   const cx = s / 2;
 
   // Klingo — purpura, larĝa, kun glataj randoj. La larĝo 0o10/0o20 kongruas
-  // kun la pli larĝa folia geometrio ( 6/5 ), por ke la vejnoj ne streĉiĝu.
+  // kun la pli larĝa folia geometrio ( 0o6/0o5 ), por ke la vejnoj ne streĉiĝu.
   // La bazo pintigas — neniu akra angulo ĉe la flankoj.
   const gradiento = kunteksto.createRadialGradient( cx, s * 0o3/0o10, 0, cx, s * 0o3/0o10, s * 0o10/0o20 );
   gradiento.addColorStop( 0, "#a050b0" );
@@ -371,11 +371,11 @@ export function kreiPurpuranFolianTeksajxon(): THREE.CanvasTexture {
   for ( let i = 1; i < 0o6; i++ ) {
     const t = i / 0o6;
     const y = s * 0o17/0o20 - t * ( s * 0o17/0o20 - s * 0o3/0o20 );
-    const largho = s * 0o10/0o20 * Math.sin( Math.PI * Math.min( t * 6/5, 1 ) );
+    const largho = s * 0o10/0o20 * Math.sin( Math.PI * Math.min( t * 0o6/0o5, 1 ) );
     for ( const dir of [ -1, 1 ] ) {
       kunteksto.beginPath();
       kunteksto.moveTo( cx, y );
-      kunteksto.quadraticCurveTo( cx + dir * largho * 2/3, y - s * 0o1/0o40, cx + dir * largho, y );
+      kunteksto.quadraticCurveTo( cx + dir * largho * 0o2/0o3, y - s * 0o1/0o40, cx + dir * largho, y );
       kunteksto.stroke();
     }
   }

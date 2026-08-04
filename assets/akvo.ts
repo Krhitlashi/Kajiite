@@ -6,9 +6,9 @@ export type RiverData = { mesh: THREE.Mesh; waterSurfaceY: (x: number, z: number
 
 // konstruiRiveron — Konstruu riveron kun ribona geometrio kaj animacia akva materialo.
 //     @param akvoY ( funkcio ) - Akvosurfaca nivelo ( eble krampita al la lago ĉe la buŝo ).
-//     @param xEnd ( number ) - La rivera buŝo. kie la ribono eniras la lagon.
+//     @param xEnd ( number ) - La rivera buŝo. Kie la ribono eniras la lagon.
 //     @param altecoFn ( funkcio ) - Tereno, por realaj profundoj ( kolorigo laŭ la fundo ).
-export function konstruiRiveron( sceno: THREE.Scene,
+export function konstruiRiveron(sceno: THREE.Scene,
   riverFn: (x: number) => number,
   akvoY: (x: number) => number,
   duonaLargho: number,
@@ -27,8 +27,8 @@ export function konstruiRiveron( sceno: THREE.Scene,
   // truon. Plena larĝo okcidente de la buŝo; nulo ĝuste cxe la buŝo. La sama
   // 0o40-unua fenestro kiel la terena delto ( tereno.ts ), por ke la ribono
   // restu pli larĝa ol la malseka kanalo la tutan vojon ĝis la bordo.
-  const buŝaMallarĝiĝo = (x: number) => glataPaso( xEnd, xEnd + 0o40, x );
-  const larghoFn = (i: number) => buŝaMallarĝiĝo( pts[i].x );
+  const buŝaMallarĝiĝo = (x: number) => glataPaso(xEnd, xEnd + 0o40, x);
+  const larghoFn = (i: number) => buŝaMallarĝiĝo(pts[i].x);
 
   const { geometry } = konstruiRubandon(pts, duonaLargho, 0, larghoFn);
   const materialo = kreiOndanAkvanMaterialon();
@@ -38,17 +38,17 @@ export function konstruiRiveron( sceno: THREE.Scene,
 
   // Realaj profundoj ( vUv.y ) por la tuta ribono — malprofundaj bordoj helaj,
   // profunda kanalo malhela.
-  const pos = geometry.getAttribute( "position" ) as THREE.BufferAttribute;
-  const uv = geometry.getAttribute( "uv" ) as THREE.BufferAttribute;
+  const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
+  const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
   for ( let v = 0; v < pos.count; v++ ) {
-    uv.setY( v, Math.max( 0, akvoY( pos.getX( v ) ) - altecoFn( pos.getX( v ), pos.getZ( v ) ) ) );
+    uv.setY(v, Math.max(0, akvoY(pos.getX(v)) - altecoFn(pos.getX(v), pos.getZ(v))));
   }
   uv.needsUpdate = true;
 
   return { mesh, waterSurfaceY: (x: number, z: number) => akvoY(x) };
 }
 
-// konstruiLagon — Konstruu lagon. organika akvosurfaco ( la rando sekvas la
+// konstruiLagon — Konstruu lagon. Organika akvosurfaco ( la rando sekvas la
 // donitan radiusan funkcion ). La lago sidas cxe la fino de la rivero ( la
 // rivero enfluas gxin ); la akva nivelo estas egala al la rivera cxe la enfluo,
 // por ke ne estu videbla paso.
@@ -57,7 +57,7 @@ export function konstruiRiveron( sceno: THREE.Scene,
 //     @param radio ( funkcio ) - Radia funkcio ( angulo → radiuso ) por la rando.
 //     @param akvoNivelo ( number ) - Monda Y de la akvosurfaco.
 //     @returns lago ( RiverData ) - Samforma kiel la rivero, por animacio.
-export function konstruiLagon( sceno: THREE.Scene,
+export function konstruiLagon(sceno: THREE.Scene,
   cx: number, cz: number, radio: ( ang: number ) => number, akvoNivelo: number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
@@ -73,11 +73,11 @@ export function konstruiLagon( sceno: THREE.Scene,
     const f = j / ringoj;                    // 0 centro, 1 rando
     for ( let i = 0; i <= segmentoj; i++ ) {
       const ang = i / segmentoj * Math.PI * 2;
-      const r = j === 0 ? 0 : radio( ang ) * f;
-      const x = cx + Math.cos( ang ) * r;
-      const z = cz + Math.sin( ang ) * r;
-      pozicioj.push( x, akvoNivelo + 0o1/0o20, z );
-      uvoj.push( 0o1/0o2 + 0o1/0o2 * f, Math.max( 0, akvoNivelo - altecoFn( x, z ) ) );
+      const r = j === 0 ? 0 : radio(ang) * f;
+      const x = cx + Math.cos(ang) * r;
+      const z = cz + Math.sin(ang) * r;
+      pozicioj.push(x, akvoNivelo + 0o1/0o20, z);
+      uvoj.push(0o1/0o2 + 0o1/0o2 * f, Math.max(0, akvoNivelo - altecoFn(x, z)));
     }
   }
   for ( let j = 0; j < ringoj; j++ ) {
@@ -88,14 +88,14 @@ export function konstruiLagon( sceno: THREE.Scene,
     }
   }
   const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute( "position", new THREE.Float32BufferAttribute( pozicioj, 3 ) );
-  geometrio.setAttribute( "uv", new THREE.Float32BufferAttribute( uvoj, 2 ) );
-  geometrio.setIndex( indeksoj );
+  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
+  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
+  geometrio.setIndex(indeksoj);
   geometrio.computeVertexNormals();
   const materialo = kreiOndanAkvanMaterialon();
-  const mesh = new THREE.Mesh( geometrio, materialo );
+  const mesh = new THREE.Mesh(geometrio, materialo);
   mesh.renderOrder = 0;
-  sceno.add( mesh );
+  sceno.add(mesh);
 
   return { mesh, waterSurfaceY: (x: number, z: number) => akvoNivelo };
 }
@@ -103,7 +103,7 @@ export function konstruiLagon( sceno: THREE.Scene,
 // konstruiRubandon — Kreu 3D rubando el punktoj kun largho kaj alta lifto.
 //     @param larghoFn ( funkcio ) - Laŭpunkta larĝa multiplikilo ( por buŝo- 
 //     mallarĝiĝoj ); defaŭlte konstanta plena larĝo.
-export function konstruiRubandon( points: THREE.Vector3[],
+export function konstruiRubandon(points: THREE.Vector3[],
   duonaLargho: number,
   yLift: number,
   larghoFn?: ( i: number, N: number ) => number
@@ -122,7 +122,7 @@ export function konstruiRubandon( points: THREE.Vector3[],
     const tan = new THREE.Vector3(pn.x - pp.x, 0, pn.z - pp.z).normalize();
     const side = new THREE.Vector3().crossVectors(up, tan).normalize();
     const y = p.y + yLift;
-    const w = duonaLargho * ( larghoFn ? larghoFn( i, N ) : 1 );
+    const w = duonaLargho * ( larghoFn ? larghoFn(i, N) : 1 );
 
     posArr.set([
       p.x - side.x * w, y, p.z - side.z * w,
@@ -134,7 +134,7 @@ export function konstruiRubandon( points: THREE.Vector3[],
       const a = i * 2;
       indico.push(a, a + 1, a + 2, a + 1, a + 3, a + 2);
     }
-    if (i % 4 === 0) samples.push(p.clone());
+    if ( i % 4 === 0 ) samples.push(p.clone());
   }
 
   const g = new THREE.BufferGeometry();
@@ -265,7 +265,7 @@ function kreiOndanAkvanMaterialon(): THREE.ShaderMaterial {
 // gxisdatigiAkvon — Gxisdatigu akvajn uniformojn cxiun kadron por animacio.
 export function gxisdatigiAkvon(river: RiverData, t: number): void {
   const mat = river.mesh.material as THREE.ShaderMaterial;
-  if (mat.uniforms) {
+  if ( mat.uniforms ) {
     mat.uniforms.uTime.value = t;
   }
 }
