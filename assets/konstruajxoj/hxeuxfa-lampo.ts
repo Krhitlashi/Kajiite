@@ -1,9 +1,8 @@
-// Hxeuxfa lampo — trapezaj dioritaj kolonoj kun diamantaj bazplatoj, fajraj
-// kronoj kaj brilaj sprajtoj. La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia.
-// noma formo. hxeuxfo.
+// Hxeuxfa lampo — trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj
+// sprajtoj. La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
 import * as THREE from "three";
-import { kreiBrilanTeksajxon } from "./teksajxoj.js";
-import { kunfandiGeometriojn } from "./kunfandajxoj.js";
+import { kreiBrilanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
 export interface HxeuxfaLoko {
   x: number; z: number; y: number;
@@ -38,13 +37,6 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     pillar.rotateY(rotacio);
     pillar.translate(p.x, p.y + 0o155/0o100, p.z);
     kolonajGeometrioj.push(pillar);
-
-    // Diamanta bazplato — plata rombo sub la kolono, sam-orientita kiel la
-    // kolono ( la rombo-pintoj sekvas la saman aksan vicigon ).
-    const bazplato = new THREE.CylinderGeometry(0o17/0o40, 0o17/0o40, 0o1/0o40, 4, 1);
-    bazplato.rotateY(rotacio);
-    bazplato.translate(p.x, p.y + 0o1/0o40, p.z);
-    kolonajGeometrioj.push(bazplato);
 
     // Diorita bovlo — fermita profilo. ekstera kurbo, rando, interna muro kaj fundo.
     // La fermo forigas la tra-videblon (la interna flanko nun estas vera surfaco).

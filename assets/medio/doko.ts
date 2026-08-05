@@ -1,7 +1,7 @@
 // Doko-modulo — vojaj etendoj kun subakvaj subtenoj
 import * as THREE from "three";
-import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "./teksajxoj.js";
-import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "./materialoj.js";
+import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";
 
 export interface Doko {
   group: THREE.Group;

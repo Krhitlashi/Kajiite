@@ -1,6 +1,6 @@
 // Transporta modulo — kanuoj kun remada mekaniko kongrua al arkitektura stilo
 import * as THREE from "three";
-import { kunfandiGeometriojn } from "./kunfandajxoj.js";
+import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
 export interface Kanoto {
   group: THREE.Group;

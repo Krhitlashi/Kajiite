@@ -1,8 +1,8 @@
 // NPC-modulo — figuroj vagantaj tra la sxtupurbo de ornaveth-v2
 // Malalt-poligonaj figuroj kun tavoligitaj vestoj, foliaj manikoj, kvarstelo/rombo-motivoj
 import * as THREE from "three";
-import { deksesuma, kvarStelo, rombo } from "../vestoj.js";
-import type { Vesto } from "../vestoj.js";
+import { deksesuma, kvarStelo, rombo } from "../vestaro/vestoj.js";
+import type { Vesto } from "../vestaro/vestoj.js";
 
 export type { Vesto };
 
@@ -293,6 +293,12 @@ function kreiHaranFlankon(dir: number): THREE.BufferGeometry {
   return geometrio;
 }
 
+// Har-koloroj — malhelbruna ĝis ruĝeta malhelbruna. Ĉiu NPC ricevas propran
+// nuancon per hazarda mikso inter la du, por ke la homamaso ne aspektu unuforma.
+const harKoloroA = new THREE.Color( 0x231a10 ); // malhelbruna
+const harKoloroB = new THREE.Color( 0x3c241a ); // ruĝeta malhelbruna
+const harKoloro = new THREE.Color();            // provizora miksita koloro
+
 // konstruiFiguron — Konstruu NPC-figuron kun tavoligitaj vestoj kaj foli-manikoj.
 //     @param o ( Vesto ) - La vesta objekto por koloroj.
 //     @param longaHaro ( boolean = false ) - Ĉu aldoni longan har-variaĵon
@@ -302,8 +308,10 @@ export function konstruiFiguron(o: Vesto, longaHaro = false): Figuro {
   const haŭto = new THREE.MeshStandardMaterial({ color: 0x605050, roughness: 0o55/0o100 });
   const kapo = new THREE.Mesh(new THREE.SphereGeometry(0o13/0o100, 0o10, 0o10), haŭto); kapo.position.y = 0o15/0o10;
   // Duflanka haro-materialo — la maldikaj har-folioj ( kurteno, flankoj ) bezonas
-  // ambaŭ flankojn por ne malaperi; la ĉapo ne ĝenas per ĝi.
-  const haroM = new THREE.MeshStandardMaterial({ color: 0x282818, roughness: 0o35/0o40, side: THREE.DoubleSide });
+  // ambaŭ flankojn por ne malaperi; la ĉapo ne ĝenas per ĝi. La koloro miksiĝas
+  // hazarde inter malhelbruna kaj ruĝeta malhelbruna por ĉiu NPC.
+  harKoloro.lerpColors( harKoloroA, harKoloroB, Math.random() );
+  const haroM = new THREE.MeshStandardMaterial({ color: harKoloro, roughness: 0o35/0o40, side: THREE.DoubleSide });
   const haro = new THREE.Mesh( new THREE.SphereGeometry(0o3/0o20, 0o10, 0o10), haroM );
   haro.scale.set(0o1, 0o27/0o40, 0o1); haro.position.y = 0o155/0o100;
 

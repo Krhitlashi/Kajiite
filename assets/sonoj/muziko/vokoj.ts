@@ -14,7 +14,7 @@ export const PENT_A = [ 0, 200, 400, 700, 900, 1200, 1400, 1600, 1900, 2100, 240
 
 // ─── Seeded PRNG ( mulberry32 ) — la komuna modulo en ../hazardo.js ────────
 
-import { kreiHazardanGenerilon } from "../hazardo.js";
+import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
 
 // mulberry — La norma mulberry32-pliigo ( 0x6D2B79F5 ), por ke la kantoj
 // konservu siajn ekzaktajn notajn sekvencojn.

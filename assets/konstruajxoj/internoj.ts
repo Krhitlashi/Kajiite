@@ -11,11 +11,13 @@
 
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { KonstruSpec, kreiMangxajxojn, MangxajxItemo, aldoniVaporon, TIPARO } from "./satalaj-konstruajxoj.js";
-import { generiSkribanTeksajxon } from "./skripto-rivelilo.js";
-import { kreiPilolFenestranFormon } from "./formoj.js";
-import { deksesuma } from "./vestoj.js";
-import { nomoAih } from "../src/tradukoj.js";
+import { KonstruSpec, TIPARO } from "./satalaj-konstruajxoj.js";
+import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
+import { kreiPilolFenestranFormon } from "../komunajxoj/formoj.js";
+import { deksesuma } from "../vestaro/vestoj.js";
+import { nomoAih } from "../../src/tradukoj.js";
+import { kreiMangxajxojn, MangxajxItemo, aldoniVaporon } from "../mebloj/mangxajxoj.js";
+import { aldoniTablon, aldoniSegxon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
 
 export interface PlankoInfo {
   /** Y-nivelo de la planko */
@@ -73,13 +75,6 @@ const DIM = 0x9db8a4;
 const GOLD = 0xd9b36a;
 const GOLD_SOFT = 0xc8a45a;
 const GOLD_WARM = 0xf8d898;
-
-// Helpilo. krei Materialon por oro
-function oroMaterialo(metalness = 0o7/0o10, roughness = 0o13/0o40): THREE.MeshStandardMaterial {
-  return new THREE.MeshStandardMaterial({
-    color: GOLD, metalness, roughness,
-  });
-}
 
 // kreiTrapezanPordTruon — Rondigita trapezoida truo por la antaŭa pordo,
 // kongruanta al la EKSTERAN pordo (rondigitaTrapezaFormo en satalaj-konstruaĵoj).
@@ -270,40 +265,6 @@ function aldoniLonganFenestron(
   group.add( kadro );
 }
 
-// aldoniTablon — Rondangula ligna tablo kun ora rando sur la supro. La sama
-// restoraci-stila tablo en la domo, la kasafeo kaj la mangxejo.
-//     @param x, z, y ( number ) - La tablo-centro kaj la planko-nivelo.
-//     @param largho, profundo ( number ) - La tablo-dimensioj.
-function aldoniTablon(
-  grupo: THREE.Group,
-  x: number, z: number, y: number,
-  largho: number, profundo: number,
-  lignaMaterialo: THREE.MeshStandardMaterial
-): void {
-  const oraTablaRando = new THREE.MeshStandardMaterial({ color: GOLD, metalness: 0o3/0o4, roughness: 0o3/0o10 });
-  const tablo = new THREE.Mesh( new RoundedBoxGeometry( largho, 0o3/0o10, profundo, 3, 0o1/0o10 ), lignaMaterialo );
-  tablo.position.set( x, y + 0o2/0o10, z );
-  tablo.castShadow = true;
-  grupo.add( tablo );
-  const rando = new THREE.Mesh( new RoundedBoxGeometry( largho + 0o1/0o20, 0o1/0o20, profundo + 0o1/0o20, 3, 0o1/0o10 ), oraTablaRando );
-  // Rando iomete sub la tablo-supro (0o7/0o20) por eviti z-batalan brilon
-  rando.position.set( x, y + 0o2/0o10 + 0o3/0o20 - 0o1/0o40 - 0o1/0o100, z );
-  rando.castShadow = true;
-  grupo.add( rando );
-}
-
-// aldoniSegxon — Cilindra rondigita seĝo ĉirkaŭ la tabloj.
-function aldoniSegxon(
-  grupo: THREE.Group,
-  x: number, z: number, y: number,
-  segxMaterialo: THREE.MeshStandardMaterial
-): void {
-  const sego = new THREE.Mesh( new THREE.CylinderGeometry( 0o3/0o20, 0o4/0o20, 0o3/0o10, 0o10 ), segxMaterialo );
-  sego.position.set( x, y + 0o3/0o20, z );
-  sego.castShadow = true;
-  grupo.add( sego );
-}
-
 function aldoniInternanMeblaron(
   grupo: THREE.Group,
   tipo: string,
@@ -315,7 +276,8 @@ function aldoniInternanMeblaron(
   niveloj: number,
   lignaMaterialo: THREE.MeshStandardMaterial,
   metalaMaterialo: THREE.MeshStandardMaterial,
-  helaMaterialo: THREE.MeshStandardMaterial
+  helaMaterialo: THREE.MeshStandardMaterial,
+  kadraMaterialo: THREE.Material
 ): void {
   const aldoniSkatolon = ( largho: number, alto: number, profundo: number, x: number, z: number, materialo: THREE.Material ) => {
     const objekto = new THREE.Mesh( new THREE.BoxGeometry( largho, alto, profundo ), materialo );
@@ -330,11 +292,15 @@ function aldoniInternanMeblaron(
     if ( etapo === 0 && hw >= 3 ) {
       // La tablo staras en la kontraŭa angulo de la lito ( antaŭ-maldekstre ).
       const tabloX = -hw + 2, tabloZ = hd - 2;
-      aldoniTablon( grupo, tabloX, tabloZ, y, 0o16/0o10, 0o12/0o10, lignaMaterialo );
-      // Seĝoj ĉirkaŭ la tablo
-      const segxMaterialo = new THREE.MeshStandardMaterial({ color: 0x806038, roughness: 0o7/0o10 });
-      for ( const [ox, oz] of [ [ -0o12/0o10, 0 ], [ 0o12/0o10, 0 ], [ 0, -0o12/0o10 ], [ 0, 0o12/0o10 ] ] as [number, number][] ) {
-        aldoniSegxon( grupo, tabloX + ox, tabloZ + oz, y, segxMaterialo );
+      aldoniTablon( grupo, tabloX, tabloZ, y, 0o16/0o10, 0o12/0o10, lignaMaterialo, kadraMaterialo );
+      // Seĝoj ĉirkaŭ la tablo — la sama ligna materialo kiel la tablo, kun la
+      // sama ora rando ( kadraMaterialo ). La benkoj kuŝas laŭlonge de la tablaj
+      // flankoj ( π/2 ĉe la x-flankoj, 0 ĉe la z-flankoj ).
+      // La x-flankaj benkoj staras pli fore ( 0o14/0o10 ) ol la z-flankaj
+      // ( 0o12/0o10 ), cxar la tablo estas pli largxa ol profunda — la libero al
+      // la tablo-rando tiel egalas cxirkaŭe ( 0o3/0o8 ).
+      for ( const [ox, oz] of [ [ -0o14/0o10, 0 ], [ 0o14/0o10, 0 ], [ 0, -0o12/0o10 ], [ 0, 0o12/0o10 ] ] as [number, number][] ) {
+        aldoniSegxon( grupo, tabloX + ox, tabloZ + oz, y, lignaMaterialo, kadraMaterialo, oz === 0 ? Math.PI / 2 : 0 );
       }
     }
     // Lito — simpla rondangula hela beiga ligna bloko rekte sur la planko, kun
@@ -350,8 +316,7 @@ function aldoniInternanMeblaron(
       // Korpo — rondangula hela beiga ligna bloko sur la planko. Pli alta ol
       // antaŭe ( 0o5/0o20 ), kun diskretaj rondigitaj anguloj ( 0o1/0o50 ) por
       // ke la VERTIKALAJ randoj ne ŝvelu — nur molaj horizontalaj eĝoj supre.
-      const lignaHelaMaterialo = new THREE.MeshStandardMaterial({ color: 0xc8b088, roughness: 0o6/0o10 });
-      const korpo = new THREE.Mesh( new RoundedBoxGeometry( litLargho, 0o5/0o20, 0o14/0o10, 3, 0o1/0o50 ), lignaHelaMaterialo );
+      const korpo = new THREE.Mesh( new RoundedBoxGeometry( litLargho, 0o5/0o20, 0o14/0o10, 3, 0o1/0o50 ), lignaMaterialo );
       korpo.position.set( litX, y + 0o5/0o40, litZ );
       korpo.castShadow = true;
       grupo.add( korpo );
@@ -359,35 +324,32 @@ function aldoniInternanMeblaron(
       // ( 0o14/0o10 − 0o1/0o10 ), kun egala malgranda libero ( 0o1/0o20 ) sur
       // la tri flankoj. Kapo (+x), dorso (−z) kaj fronto (+z). Sidante SUR la
       // pli alta korpo ( centro y+0o3/0o10, malsupro = korpo-supro ).
-      const kapkusenaMaterialo = new THREE.MeshStandardMaterial({ color: 0xe0d8c8, roughness: 0o5/0o10 });
-      const kapkuseno = new THREE.Mesh( new RoundedBoxGeometry( 0o5/0o10, 0o1/0o10, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50 ), kapkusenaMaterialo );
+      const kapkuseno = new THREE.Mesh( new RoundedBoxGeometry( 0o5/0o10, 0o1/0o10, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50 ), helaMaterialo );
       kapkuseno.position.set( litX + litLargho / 2 - 0o3/0o10, y + 0o3/0o10, litZ );
       kapkuseno.castShadow = true;
       grupo.add( kapkuseno );
-    }
-  } else if ( tipo === "turo" ) {
-    // Malantaŭaj angulaj manrel-pilieroj ĉe la helika ŝtuparo.
-    for ( const sX of [ -1, 1 ] ) {
-      aldoniSkatolon( 0o1/0o10, tieroAlto * 0o4/0o10, 0o1/0o10, sX * ( hw - 0o5/0o20 ), -hd + 0o3/0o10, metalaMaterialo );
     }
   } else if ( tipo === "kasafeo" ) {
     // Kunvenoĉambro. Longa rondangula tablo kun seĝoj ambaŭflanke
     if ( hw >= 3 && hd >= 3 ) {
       const tl = Math.min( hw * 2 - 2, 5 );
       const tz = -hd + 0o11/0o4;
-      aldoniTablon( grupo, 0, tz, y, tl, 0o12/0o10, lignaMaterialo );
-      // Seĝoj ambaŭflanke laŭ la longa flanko (ne ĉe la helika truo)
-      const segxMaterialo = new THREE.MeshStandardMaterial({ color: 0x806038, roughness: 0o7/0o10 });
+      aldoniTablon( grupo, 0, tz, y, tl, 0o12/0o10, lignaMaterialo, kadraMaterialo );
+      // Seĝoj ambaŭflanke laŭ la longa flanko (ne ĉe la helika truo) — la sama
+      // ora rando kiel la tablo ( kadraMaterialo ), laŭ la longa akso.
       for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
-        aldoniSegxon( grupo, sX * tl / 4, tz + sZ * 0o15/0o10, y, segxMaterialo );
+        aldoniSegxon( grupo, sX * tl / 4, tz + sZ * 0o15/0o10, y, lignaMaterialo, kadraMaterialo );
       }
     }
   } else if ( tipo === "sanktejo" && etapo === 0 ) {
+    // La brila sfero — forta varma ora brilo ( GOLD ), pli hela ol la meblara
+    // hela materialo, por ke la sankteja fokuso restu videbla.
+    const brilaMaterialo = new THREE.MeshStandardMaterial({ color: GOLD, emissive: GOLD, emissiveIntensity: 0o35/0o100, roughness: 0o4/0o10 });
     const altaro = new THREE.Mesh( new THREE.CylinderGeometry( 0o5/0o10, 0o6/0o10, 0o4/0o10, 0o10 ), metalaMaterialo );
     altaro.position.set( 0, y + 0o2/0o10, -hd + 2 );
     altaro.castShadow = true;
     grupo.add( altaro );
-    const brilo = new THREE.Mesh( new THREE.SphereGeometry( 0o3/0o10, 0o10, 0o10 ), helaMaterialo );
+    const brilo = new THREE.Mesh( new THREE.SphereGeometry( 0o3/0o10, 0o10, 0o10 ), brilaMaterialo );
     brilo.position.set( 0, y + tieroAlto * 0o5/0o10, -hd + 2 );
     grupo.add( brilo );
     const lumo = new THREE.PointLight( GOLD_WARM, 0o3/0o10, 0o20, 2 );
@@ -869,7 +831,8 @@ export function eniriInternon(
   andezitaMaterialo: THREE.MeshStandardMaterial,
   oraMaterialo: THREE.MeshStandardMaterial,
   eniraMaterialo: THREE.MeshStandardMaterial,
-  cxefaSceno: THREE.Scene
+  cxefaSceno: THREE.Scene,
+  pordaAngulo = 0
 ): InternaEnirPunkto {
   // Forigu la antauxan internon
   if (sys.currentGroup) {
@@ -890,8 +853,12 @@ export function eniriInternon(
   const w = Math.min(spec.w, 0o12);
   const d = Math.min(spec.d, 0o12);
   const tieroAlto = spec.tieroAlto;
-  const niveloj = Math.min(spec.niveloj, 0o10);
-  const sube = Math.min(spec.sube || 0, 3);
+  // La niveloj baziĝas SUR LA TAVOLOJ de la ekstera konstruajxo ( spec.niveloj )
+  // — neniu kroma plafono. La sub-teraj niveloj same venas rekte de la spec
+  // ( sube = la nombro da tavoloj ), por ke la interno ĉiam kongruu al la
+  // ekstera strukturo.
+  const niveloj = spec.niveloj;
+  const sube = spec.sube || 0;
   const tieroAltoSub = spec.tieroAltoSub || tieroAlto;
   // Helica ŝtuparo. Unu plena turno po etaĝo, atingante ĉiujn etaĝojn ( supre
   // kaj la sub-terajn nivelojn). La ringa planko-truo egalas la eksteran rampan
@@ -923,27 +890,29 @@ export function eniriInternon(
   const plafonaMaterialo = new THREE.MeshStandardMaterial({
     color: 0x060e0a, roughness: 0o67/0o100,
   });
-  const kadraMaterialo = oroMaterialo();
+  const kadraMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o7/0o10, roughness: 0o13/0o40 });
   const fenestraMaterialo = new THREE.MeshStandardMaterial({
     color: 0x0a1a18, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
     roughness: 0o3/0o20, metalness: 0o3/0o20,
     transparent: true, opacity: 0o7/0o10,
   });
+  // Stupoj — malheligita versio de la konstruajxa muro-koloro.
   const sxtupMaterialo = new THREE.MeshStandardMaterial({
-    color: 0x3a3a32, roughness: 0o67/0o100,
+    color: parseInt( malheligi( deksesuma( muraTipo.wall ), 0o6/0o10 ).slice( 1 ), 16 ), roughness: 0o67/0o100,
   });
   // Komunaj materialoj por dekoracioj
   const oraBazaMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
   const oraKadroMaterialo = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 });
   const oraArkoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10, side: THREE.DoubleSide });
-  const oraNazoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
   const oraTrimMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
   const oraCxapoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 });
 
   const group = new THREE.Group();
-  const lignaMaterialo = new THREE.MeshStandardMaterial({ color: 0x54402e, roughness: 0o7/0o10 });
-  const metalaMaterialo = new THREE.MeshStandardMaterial({ color: 0x806838, metalness: 0o5/0o10, roughness: 0o5/0o10 });
-  const helaMaterialo = new THREE.MeshStandardMaterial({ color: 0xb8d8c8, emissive: 0x385848, emissiveIntensity: 0o4/0o10, roughness: 0o4/0o10 });
+  // Meblaro-materialoj — preferu la KOLOROJN de la konstruajxo ( muraTipo :
+  // la muro kaj la ora kadro ), anstataux fiksitaj fremdaj koloroj.
+  const lignaMaterialo = new THREE.MeshStandardMaterial({ color: LIGNA_KOLORO, roughness: 0o7/0o10 });
+  const metalaMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o5/0o10, roughness: 0o5/0o10 });
+  const helaMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, roughness: 0o5/0o10 });
 
   // Konstruu ĉiujn etaĝojn — sub-terajn (negativaj y) kaj suprajn — per la sama
   // reuzebla kodo, por ke oni povu malsupreniri al la subaj niveloj.
@@ -1005,7 +974,9 @@ export function eniriInternon(
       group.add(plafono);
     }
 
-    // Antauxa muro kun rondigita pordo en la teretaĝo
+    // Antauxa muro kun rondigita pordo en la teretaĝo. La sanktejo ricevas
+    // pordojn sur CXIUJ kvar flankoj ( turnitaj kopioj de la sama muro ); la
+    // ceteraj konstruajxoj havas nur la frontan.
     if ( et === 0 ) {
       // Pordo-formo kongruas EXAKTE al la EKSTERAN pordo ( aldoniEnirejon ).
       // rondigita trapezoido — bazo 0o233/0o100, supro ×0o45/0o100, alto
@@ -1020,6 +991,7 @@ export function eniriInternon(
       const pordRadiBazo = 0o3/0o20;                         // samaj rondigitaj anguloj
       const pordRadiSupro = 0o1/0o10;                        // kiel la ekstera pordo
       const muraDikeco = 0o3/0o20;
+      const pordMuro = new THREE.Group();
 
       // Unu mura panelo kun trapezoida truo ( anstataŭ tri skatoloj + arko )
       const muroFormo = new THREE.Shape();
@@ -1031,7 +1003,7 @@ export function eniriInternon(
       muroGeo.translate( 0, 0, -muraDikeco / 2 );
       const muro = new THREE.Mesh( muroGeo, muraMaterialo );
       muro.position.set( 0, y, hd );
-      group.add( muro );
+      pordMuro.add( muro );
 
       // Ora rando laŭ la trapezoida konturo — tubo ĝuste antaŭ la interna
       // muro-faco (sama ideo kiel la ekstera ora rando ĉirkaŭ la pordo).
@@ -1042,7 +1014,7 @@ export function eniriInternon(
         kadraMaterialo
       );
       pordRando.position.set( 0, y, hd - muraDikeco / 2 - 0o3/0o50 );
-      group.add( pordRando );
+      pordMuro.add( pordRando );
 
       // Malgranda ora sojlo sub la pordo
       const sojlo = new THREE.Mesh(
@@ -1050,47 +1022,60 @@ export function eniriInternon(
         new THREE.MeshStandardMaterial({ color: GOLD, roughness: 0o23/0o100, metalness: 0o55/0o100 })
       );
       sojlo.position.set(0, y, hd - 0o1/0o20);
-      group.add(sojlo);
+      pordMuro.add(sojlo);
+
+      const pordoj = spec.type === "sanktejo" ? 4 : 1;
+      for ( let i = 0; i < pordoj; i++ ) {
+        const kopio = i === 0 ? pordMuro : pordMuro.clone();
+        kopio.rotation.y = i * Math.PI / 2;
+        group.add( kopio );
+      }
     } else {
       // Plena muro sur la supraj kaj sub-teraj etagxoj
       konstruiMuron(group, -hw, 0, hw * 2, y, alto, 0o3/0o20, muraMaterialo, 0, hd);
     }
 
+    // La tri ceteraj muroj ricevas fenestrojn — krom sur la teretaĝo de la
+    // sanktejo, kie ili cxuj havas pordojn.
+    const kvarPordoj = et === 0 && spec.type === "sanktejo";
     // Malantaŭa muro. Unu centrita longa horizontala rondigita fenestro
-    aldoniLonganFenestron(group, 0, -hd, y, alto, hw, "malantaŭ", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, 0, -hd, y, alto, hw, "malantaŭ", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
 
     // Maldekstra muro. Unu centrita longa horizontala rondigita fenestro
-    aldoniLonganFenestron(group, -hw, 0, y, alto, hd, "maldekstra", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, -hw, 0, y, alto, hd, "maldekstra", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
 
     // Dekstra muro. Unu centrita longa horizontala rondigita fenestro
-    aldoniLonganFenestron(group, hw, 0, y, alto, hd, "dekstra", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, hw, 0, y, alto, hd, "dekstra", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
 
-    // Dikaj oraj angulaj kolonoj kun supra ekflaro
+    // Dikaj oraj angulaj kolonoj kun supra ekflaro — RONDIGITAJ, ne rektangulaj
+    // poloj. La kapoj/bazoj estas centritaj por ke iliaj eksteraj facoj kuŝu
+    // ĜUSTE ĉe la muro ( la malnovaj pli larĝaj skatoloj eniris la muron kaj
+    // montris duon-entombigitajn orajn rektangulojn ĉe la anguloj ).
     const kolDikeco = 0o7/0o40;
     const kolAlto = alto;
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
       // Ĉefa kolona korpo
       const kol = new THREE.Mesh(
-        new THREE.BoxGeometry(kolDikeco, kolAlto, kolDikeco),
+        new RoundedBoxGeometry( kolDikeco, kolAlto, kolDikeco, 3, 0o1/0o50 ),
         kadraMaterialo
       );
       kol.position.set(sX * (hw - kolDikeco / 2), y + kolAlto / 2, sZ * (hd - kolDikeco / 2));
       group.add(kol);
 
-      // Supra iom pli larĝa kapo
+      // Supra iom pli larĝa kapo — ekstera faco ĝuste ĉe la muro
       const flara = new THREE.Mesh(
-        new THREE.BoxGeometry( kolDikeco * 0o15/0o10, kolAlto * 0o1/0o40, kolDikeco * 0o15/0o10 ),
+        new RoundedBoxGeometry( kolDikeco * 0o15/0o10, kolAlto * 0o1/0o40, kolDikeco * 0o15/0o10, 3, 0o1/0o50 ),
         kadraMaterialo
       );
-      flara.position.set( sX * ( hw - kolDikeco / 2 ), y + kolAlto - kolAlto * 0o1/0o40, sZ * ( hd - kolDikeco / 2 ));
+      flara.position.set( sX * ( hw - ( kolDikeco * 0o15/0o10 ) / 2 ), y + kolAlto - kolAlto * 0o1/0o40, sZ * ( hd - ( kolDikeco * 0o15/0o10 ) / 2 ));
       group.add(flara);
 
-      // Malgranda ora bazo
+      // Malgranda ora bazo — ekstera faco ĝuste ĉe la muro
       const bazo = new THREE.Mesh(
-        new THREE.BoxGeometry( kolDikeco * 0o5/0o4, kolAlto * 0o1/0o40, kolDikeco * 0o5/0o4 ),
+        new RoundedBoxGeometry( kolDikeco * 0o5/0o4, kolAlto * 0o1/0o40, kolDikeco * 0o5/0o4, 3, 0o1/0o50 ),
         new THREE.MeshStandardMaterial({ color: GOLD_SOFT, metalness: 0o5/0o10, roughness: 0o13/0o40 })
       );
-      bazo.position.set( sX * ( hw - kolDikeco / 2 ), y + kolAlto * 0o1/0o100, sZ * ( hd - kolDikeco / 2 ));
+      bazo.position.set( sX * ( hw - ( kolDikeco * 0o5/0o4 ) / 2 ), y + kolAlto * 0o1/0o100, sZ * ( hd - ( kolDikeco * 0o5/0o4 ) / 2 ));
       group.add(bazo);
     }
 
@@ -1149,11 +1134,11 @@ export function eniriInternon(
     }
 
     aldoniInternanMeblaron( group, spec.type, hw, hd, y, alto, et, niveloj,
-      lignaMaterialo, metalaMaterialo, helaMaterialo );
+      lignaMaterialo, metalaMaterialo, helaMaterialo, kadraMaterialo );
 
     // Plafonaj traboj kun oraj akcentoj
     if ( spec.type !== "kasafeo" && hw > 0o3/0o2 ) {
-      const trabaMaterialo = new THREE.MeshStandardMaterial({ color: 0x1a1810, roughness: 0o67/0o100 });
+      const trabaMaterialo = new THREE.MeshStandardMaterial({ color: parseInt( malheligi( deksesuma( muraTipo.wall ), 0o3/0o10 ).slice( 1 ), 16 ), roughness: 0o67/0o100 });
       for ( let i = 0; i < 2; i++ ) {
         const tx = ( i - 0o4/0o10 ) * hw * 0o7/0o10;
         const trabo = new THREE.Mesh(
@@ -1189,10 +1174,11 @@ export function eniriInternon(
     const nSupre = helikso.turnoj * helikso.perTurno;
     const fundoY = heliksaAltecxo( helikso, -helikso.turnojSube );
     const suproY = heliksaAltecxo( helikso, helikso.turnoj ) + 0o4/0o10;
-    // Centra ligna kolono (supren kaj sub la teron)
+    // Centra kolono — la AKCENTA ( ora ) koloro de la konstruajxo, ne la ligno.
+    const akcentaMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o55/0o100, roughness: 0o23/0o100 });
     const kolono = new THREE.Mesh(
       new THREE.CylinderGeometry( helikso.rKol, helikso.rKol * 0o13/0o12, suproY - fundoY, 0o20 ),
-      lignaMaterialo
+      akcentaMaterialo
     );
     kolono.position.set( 0, ( fundoY + suproY ) / 2, 0 );
     kolono.castShadow = true;
@@ -1202,26 +1188,51 @@ export function eniriInternon(
       const ang = p * paŝoAngulo;
       const paŝoAlto = p < 0 ? paŝoAltoSube : paŝoAltoSupre;
       const y = heliksaAltecxo( helikso, p / helikso.perTurno );
+      // Paŝo kun IOMETe rondigitaj anguloj ( radiuso 0o1/0o50 ) — sufiĉe por
+      // mola konturo, sed la paŝo restas klare rekta.
       const paso = new THREE.Mesh(
-        new THREE.BoxGeometry( paŝoLargho, paŝoAlto, radiala ),
+        new RoundedBoxGeometry( paŝoLargho, paŝoAlto, radiala, 3, 0o1/0o50 ),
         sxtupMaterialo
       );
       paso.position.set( rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang) );
       paso.rotation.y = ang;
       paso.castShadow = true;
       group.add( paso );
-      // Ora nazo sur la antaŭa rando de ĉiu paŝo — maldika bendo, kies alto
-      // neniam superas la paŝan leviĝon ( paŝoAlto ), do ĝi sidas ENE de la
-      // paŝo kaj ne enrampas en la najbarajn paŝojn ( la malnova fiksa alto
-      // 0o1/0o20 estis pli alta ol la leviĝo kaj superkovris ilin ).
+      // Ora rimo kiu VOLVAS la paŝon kiel U — maldikaj opakaj bendoj tuj EKSTER
+      // la paŝaj facoj ( ekstera faco + la du flankoj ), NENIAM ene de la paŝo.
+      // La malnovaj versioj sidis sur/en la paŝa supro — ilia supra faco koincidis
+      // kun la paŝa plato kaj z-fajfis ( la oro ŝajnis klipi en la ŝtupon ). Ĉi tiuj
+      // bendoj kuŝas apud la paŝo, do neniu superkovro kaj neniu klipo. La alto
+      // neniam superas la paŝan leviĝon ( paŝoAlto ), do ili ne enrampas en la
+      // najbarajn paŝojn.
       const nazoAlto = Math.min( 0o1/0o40, paŝoAlto );
+      const rimY = y + paŝoAlto - nazoAlto / 2;
+      const ux = Math.sin( ang ), uz = Math.cos( ang );    // radiale eksteren
+      const tx = Math.cos( ang ), tz = -Math.sin( ang );   // tanĝe
+      // Ekstera bendo — tuj ekster la ekstera faco ( [rEkster, rEkster + 0.05] ),
+      // kun iomete rondigitaj anguloj ( RoundedBoxGeometry, radiuso 0o1/0o120 ).
       const nazo = new THREE.Mesh(
-        new THREE.BoxGeometry( paŝoLargho + 0o1/0o20, nazoAlto, 0o1/0o20 ),
-        oraNazoMaterialo
+        new RoundedBoxGeometry( paŝoLargho + 0o1/0o10, nazoAlto, 0o1/0o20, 3, 0o1/0o120 ),
+        akcentaMaterialo
       );
-      nazo.position.set( ( helikso.rEkster - 0o1/0o40 ) * Math.sin(ang), y + paŝoAlto - nazoAlto / 2, ( helikso.rEkster - 0o1/0o40 ) * Math.cos(ang) );
+      nazo.position.set( ( helikso.rEkster + 0o1/0o40 ) * ux, rimY, ( helikso.rEkster + 0o1/0o40 ) * uz );
       nazo.rotation.y = ang;
       group.add( nazo );
+      // Du flankaj bendoj — ĉiu tuj ekster sia paŝo-flanko, laŭ la tuta radia
+      // longo, kun la samaj rondigitaj anguloj.
+      for ( const s of [ -1, 1 ] ) {
+        const flanko = new THREE.Mesh(
+          new RoundedBoxGeometry( 0o1/0o20, nazoAlto, radiala, 3, 0o1/0o120 ),
+          akcentaMaterialo
+        );
+        flanko.position.set(
+          rMezo * ux + s * ( paŝoLargho / 2 + 0o1/0o40 ) * tx,
+          rimY,
+          rMezo * uz + s * ( paŝoLargho / 2 + 0o1/0o40 ) * tz
+        );
+        flanko.rotation.y = ang;
+        group.add( flanko );
+      }
     }
     // Ora spirala manrelo laŭ la ekstera rando (tra la tuta spiralo)
     const relPunktoj: THREE.Vector3[] = [];
@@ -1258,13 +1269,13 @@ export function eniriInternon(
     const mw = Math.min(spec.w, 0o10), md = Math.min(spec.d, 0o10);
     const counter = new THREE.Mesh(
       new THREE.BoxGeometry( Math.min( mw * 2 - 1, 6 ), 1, 0o12/0o10 ),
-      new THREE.MeshStandardMaterial({ color: 0x54402e, roughness: 0o7/0o10 })
+      lignaMaterialo
     );
     counter.position.set( 0o5/0o10, 0o4/0o10, -md / 2 + 0o1/0o10 );
     group.add(counter);
     const pot = new THREE.Mesh(
       new THREE.CylinderGeometry( 0o3/0o10, 0o3/0o10, 0o4/0o10, 0o16 ),
-      new THREE.MeshStandardMaterial({ color: 0x8a6f4a, roughness: 0o4/0o10, metalness: 0o3/0o10 })
+      metalaMaterialo
     );
     pot.position.set( -0o5/0o10, 0o12/0o10, counter.position.z );
     group.add(pot);
@@ -1277,16 +1288,18 @@ export function eniriInternon(
       ? [ [ tabloX, tabloZ ], [ -tabloX, tabloZ ], [ tabloX, -tabloZ ], [ -tabloX, -tabloZ ] ]
       : [];
     const tabloj: { x: number; z: number }[] = [];
-    const segxMaterialo = new THREE.MeshStandardMaterial({ color: 0x806038, roughness: 0o7/0o10 });
     for ( const [tx, tz] of tabloLokoj ) {
-      aldoniTablon( group, tx, tz, 0, 0o16/0o10, 0o12/0o10, lignaMaterialo );
+      aldoniTablon( group, tx, tz, 0, 0o16/0o10, 0o12/0o10, lignaMaterialo, kadraMaterialo );
       tabloj.push({ x: tx, z: tz });
       // Seĝoj sur la tri liberaj flankoj; la flanko kontraŭ la vendotablo restas sen seĝo
+      // La x-flankaj benkoj staras pli fore ( 0o14/0o10 ) ol la z-flankaj
+      // ( 0o12/0o10 ), cxar la tablo estas pli largxa ol profunda — la libero al
+      // la tablo-rando tiel egalas cxirkaŭe ( 0o3/0o8 ).
       const seĝajOfsetoj: [number, number][] = tz < 0
-        ? [ [ -0o12/0o10, 0 ], [ 0o12/0o10, 0 ], [ 0, 0o12/0o10 ] ]
-        : [ [ -0o12/0o10, 0 ], [ 0o12/0o10, 0 ], [ 0, -0o12/0o10 ], [ 0, 0o12/0o10 ] ];
+        ? [ [ -0o14/0o10, 0 ], [ 0o14/0o10, 0 ], [ 0, 0o12/0o10 ] ]
+        : [ [ -0o14/0o10, 0 ], [ 0o14/0o10, 0 ], [ 0, -0o12/0o10 ], [ 0, 0o12/0o10 ] ];
       for ( const [ox, oz] of seĝajOfsetoj ) {
-        aldoniSegxon( group, tx + ox, tz + oz, 0, segxMaterialo );
+        aldoniSegxon( group, tx + ox, tz + oz, 0, lignaMaterialo, kadraMaterialo, oz === 0 ? Math.PI / 2 : 0 );
       }
     }
     // Manĝaĵoj sidas sur la tabloj ( ne en la aero )
@@ -1300,11 +1313,13 @@ export function eniriInternon(
   cxefaSceno.add(group);
   sys.currentGroup = group;
 
-  // Enira punkto tuj interne de la pordo
-  const enirX = 0;
-  const enirZ = Math.max(0o3/0o2, d / 2) - 0o4/0o10;
+  // Enira punkto tuj interne de la pordo tra kiu la ludanto eniris
+  // ( pordaAngulo; 0 = la fronta pordo ). La ludanto frontas la centron.
+  const enirR = Math.max(0o3/0o2, d / 2) - 0o4/0o10;
+  const enirX = Math.sin( pordaAngulo ) * enirR;
+  const enirZ = Math.cos( pordaAngulo ) * enirR;
   const enirY = 0o4/0o10;
-  const enirDirekto = 0;
+  const enirDirekto = pordaAngulo;
 
   return { x: enirX, z: enirZ, y: enirY, direkto: enirDirekto };
 }

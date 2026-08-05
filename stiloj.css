@@ -83,15 +83,6 @@ body {
 #karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#balailo.montri { opacity:1; }
 #karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri { pointer-events:auto; }
 
-/* Every floating card gets a readable, layered surface: a sheen from the linked
-   stylesheet's black/white tokens (they flip with the color scheme) over the page's
-   own background color (--panel), so one rule serves both light and dark. */
-#karto,#prompto,#tosto,#supermeta .interno,#kompaso,#mobJoystickBazo {
-  backdrop-filter:var(--ច្ហិនី);
-  border:var(--សាកព៏);
-  border-radius:var(--អិត្ភេពឺ);
-}
-
 /* La kompaso fariĝis kvadrata minimapo: la mapa kanvaso plenigas ĝin, kaj la
    nadlo ( sago + N ) super kuŝas kiel direkta indikilo sur la norda mapo. */
 #kompaso {
@@ -159,8 +150,6 @@ body {
   display:block; inline-size:max-content; max-inline-size:calc(100% - 32px); max-block-size:calc(100% - 160px);
   overflow:auto; opacity:0; pointer-events:none; transform:translateY(8px);
   transition:opacity .25s,transform .25s;
-  /* A plain wrapper: no background of its own, so opening the menu never dims the scene. */
-  /* Masko: la sama angulradio kiel la panelo, por ke la klipita menuo konservu la rondajn angulojn. */
   border-radius:var(--អិត្ភេពឺ);
 }
 #navPopUp.montri { transform:none; }
@@ -228,8 +217,8 @@ html[lang="aih"] #tosto, html[lang="ja"] #tosto { white-space:normal; max-inline
 /* La tuŝaj kontroloj aperas nur post la unua reala tuŝo ( body.tuŝa ), sur ajna tuŝekrano, sendepende de la grandeco. */
 #mobKontroloj { display:none; pointer-events:none; }
 body.tuŝa #mobKontroloj { display:block; }
-#mobJoystickZono { position:absolute; left:0; bottom:0; inline-size:192px; block-size:192px; display:grid; place-items:end center; padding-bottom:var(--អារេងព៏); pointer-events:auto; touch-action:none; }
-#mobJoystickBazo { inline-size:128px; block-size:128px; border:1px solid var(--gold-soft); }
+#mobJoystickZono { position:absolute; left:0; bottom:0; display:grid; place-items:end center; padding-bottom:var(--អារេងព៏); padding-left:var(--អារេងព៏);  pointer-events:auto; touch-action:none; }
+#mobJoystickBazo { inline-size:128px; block-size:128px; border:1px solid var(--gold-soft); padding: 0; }
 #mobJoystickBazo.aktiva { border-color:var(--gold); }
 #mobJoystickTenilo { position:absolute; inset:0; margin:auto; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background:radial-gradient(circle at 37.5% 37.5%,var(--gold-soft),var(--gold-faint)); border:1px solid var(--gold-soft); pointer-events:none; }
 /* La agbutonoj sidas ĉe la sama funda angulo kiel la naviga butono: unuforma 16px marĝeno sur ĉiu ekrano. */

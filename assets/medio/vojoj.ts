@@ -1,7 +1,7 @@
 // Voja modulo — poluritaj dioritaj vojoj kun andezitaj bordoj
 // Uzas rektangulajn Shape + ExtrudeGeometry por puraj longaj flankoj ( intersekcoj interkovras )
 import * as THREE from "three";
-import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "./teksajxoj.js";
+import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
 
 export interface VojDifino { pts: [number, number][]; w: number; heightFn?: (x: number, z: number) => number; }
 

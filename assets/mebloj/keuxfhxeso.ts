@@ -10,7 +10,7 @@
 // opaka, neniu travidebla centro. La arta lingvo kongruas kun la arkitekturo
 // ( malhel-pina muro, oraj kadroj ) kaj la vestoj ( stelo/rombo-motivoj ).
 import * as THREE from "three";
-import { kunfandiGeometriojn } from "./kunfandajxoj.js";
+import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
 export interface KeuxfhxesoLoko {
   x: number; z: number;

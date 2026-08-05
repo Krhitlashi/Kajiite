@@ -1,23 +1,25 @@
 // Aranis — immersive city experience (orchestrator)
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "../assets/transporto.js";
-import { VESTOJ, kreiVestanAntauxrigardon } from "../assets/vestoj.js";
-import { animaciiFlammojn } from "../assets/hxeuxfa-lampo.js";
-import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/akvo.js";
+import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "../assets/medio/transporto.js";
+import { VESTOJ, kreiVestanAntauxrigardon } from "../assets/vestaro/vestoj.js";
+import { animaciiFlammojn } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
+import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/medio/akvo.js";
 import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../assets/shalaj-specioj/bestoj.js";
 import { gxisdatigiNpc } from "../assets/shalaj-specioj/homoj.js";
 
-import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/internoj.js";
-import { animaciiKrasesxagxon } from "../assets/krasesxagxa-kosmosxipo.js";
-import { TIPARO, KonstruSpec, MangxajxItemo, FOKS, TLAS } from "../assets/satalaj-konstruajxoj.js";
-import { riveroZ, alteco, RIVERA_DUONLARĜO, LAGO_X, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo, riveraAkvaNivelo } from "./tereno.js";
+import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/konstruajxoj/internoj.js";
+import { animaciiKrasesxagxon } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
+import { TIPARO, KonstruSpec } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
+import { MangxajxItemo, FOKS, TLAS } from "../assets/mebloj/mangxajxoj.js";
+import { riveroZ, alteco, RIVERA_DUONLARĜO, LAGO_X, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo, riveraAkvaNivelo,
+  riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_DUONLARĜO, cxuEnNordorientaRivero } from "./tereno.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
 import { traduki, cxuAih } from "./tradukoj.js";
-import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, sfx, rumble, autoKomenci, registriPostAŭdio } from "../assets/sonoro.js";
-import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../assets/muziko/ludilo.js";
+import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, sfx, rumble, autoKomenci, registriPostAŭdio } from "../assets/sonoj/sonoro.js";
+import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../assets/sonoj/muziko/ludilo.js";
 
 // ⟪ DOM-elementoj 📃 ⟫
 const kanvaso = document.getElementById("sceno") as HTMLCanvasElement;
@@ -78,7 +80,7 @@ const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMateri
 const urbo: UrbaSistemo = konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo);
 const {
   konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
-  riverData, lago, bestoj, petreloj, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
+  riverData, riveroNordOrienta, lago, bestoj, petreloj, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
 } = urbo;
 
 // ⟪ Orbit-regiloj 📃 ⟫
@@ -97,9 +99,14 @@ let antauxaRezimo: "orbit" | "walk" | null = null;
 let surKanoto: Kanoto | null = null;
 let elektitaSpec: KonstruSpec | null = null;
 let plejProksimaPordo: KonstruSpec | null = null;
+// Angulo de la pordo tra kiu la ludanto eniros ( la centra sanktejo havas 4 ).
+let aktivaPordaAngulo = 0;
 let plejProksimaManĝaĵo: MangxajxItemo | null = null;
 // Kontinua vindo de la helika ŝtuparo (nulo = ne sur la spiralo).
 let sxtupaTurno: number | null = null;
+// Antauxa frac-valoro de la spiralo ( 0..1 ) — por mezuri la SIGNAN angulan
+// delton trans la 2π-rivolon ( la frac salto 1→0 ne farigxu turno-salto ).
+let antauxaHeliksaFrac = 0;
 let direkto = 0, klinigxo = -0o1/0o20;
 const ludantaPozicio = new THREE.Vector3(0, 0o5/0o40, 0o44);
 let rapidoY = 0, estasSurTERENO = false;
@@ -694,7 +701,7 @@ kanvaso.addEventListener("click", (e) => {
 });
 
 // ⟪ Interna vido 📃 ⟫
-function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }) {
+function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }, pordaAngulo = 0) {
   sxtupaTurno = null;
   // Request pointer lock synchronously while user gesture is still active
   if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
@@ -705,7 +712,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
     try {
       rezimo = "interior";
       elektitaSpec = spec;
-      const enirPunkto = eniriInternon(internaSistemo, spec, dioritaMaterialo, andezitaMaterialo, oraMaterialo, eniraMaterialo, sceno);
+      const enirPunkto = eniriInternon(internaSistemo, spec, dioritaMaterialo, andezitaMaterialo, oraMaterialo, eniraMaterialo, sceno, pordaAngulo);
       const specX = spec.x, specZ = spec.z;
       // La spacosxipa interno flosas ĉe la sxipo (flugoY) — la enira punkto estas
       // ĉe la supro kie la sxipo vere estas, ne sur la tero.
@@ -899,7 +906,7 @@ function proviInterakti() {
   // interago validas nur dum promenado (ne kun malnovaj statoj).
   if (plejProksimaPordo && rezimo === "walk") {
     const bt = TIPARO[plejProksimaPordo.type] || TIPARO.domo;
-    eniriKonstruajxon(plejProksimaPordo, bt);
+    eniriKonstruajxon(plejProksimaPordo, bt, aktivaPordaAngulo);
     return;
   }
   let plejProksima: Kanoto | null = null;
@@ -918,7 +925,8 @@ function proviInterakti() {
 }
 function eliriKanoton(c: Kanoto): { x: number; z: number } {
   const fortoX = -Math.sin(c.direkto), fortoZ = -Math.cos(c.direkto);
-  const bona = (x: number, z: number) => !cxuEnAkvo(x, z, riveroZ, RIVERA_DUONLARĜO) && !cxuEnLago(x, z) && !enDoko(x, z, 0o3/0o10);
+  const bona = (x: number, z: number) => !cxuEnAkvo(x, z, riveroZ, RIVERA_DUONLARĜO) && !cxuEnLago(x, z)
+    && !cxuEnNordorientaRivero(x, z) && !enDoko(x, z, 0o3/0o10);
   let exitX = c.x + fortoX * 6, exitZ = c.z + fortoZ * 6;
   if (!bona(exitX, exitZ)) {
     // Serĉu sekan, ne-dokan punkton — ĉe kreskantaj distancoj por eviti la
@@ -1246,11 +1254,14 @@ try {
 }
 
 // ⟪ Animacio 📃 ⟫
-const horlogxo = new THREE.Clock();
+const horlogxo = new THREE.Timer();
 function animacii() {
   requestAnimationFrame(animacii);
+  // Timer ( anstataux la malnova Clock ) — update() devas voki cxiun kadron
+  // antaux la legado de getDelta()/getElapsed().
+  horlogxo.update();
   const deltaTempo = Math.min(horlogxo.getDelta(), 0o3/0o100);
-  const t = horlogxo.elapsedTime;
+  const t = horlogxo.getElapsed();
 
   // Reskaligi
   const w = innerWidth, h = innerHeight;
@@ -1263,6 +1274,7 @@ function animacii() {
   animaciiFlammojn(lampSistemo, t);
   // Akva animacio
   gxisdatigiAkvon(riverData, t);
+  gxisdatigiAkvon(riveroNordOrienta, t);
   gxisdatigiAkvon(lago, t);
   // Ktenoforoj — naĝado kaj pulso en la rivero
   gxisdatigiBestojn(bestoj, t);
@@ -1300,7 +1312,8 @@ function animacii() {
 
     const teraY = Math.max(alteco(ludantaPozicio.x, ludantaPozicio.z), dokaSuproY(ludantaPozicio.x, ludantaPozicio.z));
     const enLago = cxuEnLago(ludantaPozicio.x, ludantaPozicio.z);
-    const enAkvo = enLago || cxuEnAkvo(ludantaPozicio.x, ludantaPozicio.z, riveroZ, RIVERA_DUONLARĜO);
+    const enNordorienta = cxuEnNordorientaRivero(ludantaPozicio.x, ludantaPozicio.z);
+    const enAkvo = enLago || enNordorienta || cxuEnAkvo(ludantaPozicio.x, ludantaPozicio.z, riveroZ, RIVERA_DUONLARĜO);
     const akvoY = enAkvo ? akvaNivelo(ludantaPozicio.x, ludantaPozicio.z) : -999;
     // Naĝado estas la AŬTOMATA movo sub la akvosurfaco. Tuj kiam la tereno
     // subeniras sub la akvonivelo, la ludanto mergiĝas kaj naĝas — neniu
@@ -1367,15 +1380,25 @@ function animacii() {
       }
     }
 
-    // Detekti pordojn kaj kanuojn
+    // Detekti pordojn kaj kanuojn. La centra sanktejo havas pordojn sur CXiUJ
+    // kvar flankoj — la plej proksima pordo decidas tra kiu eniri.
     let proksimaPordo: KonstruSpec | null = null;
     let proksimaPordoDist = 3;
     for (const s of konstruSpecoj) {
-      if (s.x === 0 && s.z === 0) continue;
+      if (s.x === 0 && s.z === 0) {
+        for ( let k = 0; k < 4; k++ ) {
+          const a = k * Math.PI / 2;
+          const pordoX = s.x + Math.sin(a) * (s.d / 2 + 0o14/0o10);
+          const pordoZ = s.z + Math.cos(a) * (s.d / 2 + 0o14/0o10);
+          const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
+          if (d < proksimaPordoDist) { proksimaPordoDist = d; proksimaPordo = s; aktivaPordaAngulo = a; }
+        }
+        continue;
+      }
       const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
       const pordoX = s.x + difX * (s.d / 2 + 0o14/0o10), pordoZ = s.z + difZ * (s.d / 2 + 0o14/0o10);
       const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
-      if (d < proksimaPordoDist) { proksimaPordoDist = d; proksimaPordo = s; }
+      if (d < proksimaPordoDist) { proksimaPordoDist = d; proksimaPordo = s; aktivaPordaAngulo = 0; }
     }
     plejProksimaPordo = proksimaPordo;
     let proksimaKanuo: Kanoto | null = null;
@@ -1469,9 +1492,20 @@ function animacii() {
           const turno0 = ludY >= 0 ? ludY / helikso.turnoAlto : ludY / helikso.turnoAltoSub;
           const malsupraLim = -helikso.turnojSube;
           sxtupaTurno = Math.max(malsupraLim, Math.min(helikso.turnoj, Math.round(turno0 - frac) + frac));
+          antauxaHeliksaFrac = frac;
         } else {
-          // Daŭra vindo. Sekvu la angulon ĉirkaŭ la spiralo ( supren kaj suben )
-          sxtupaTurno = Math.max(-helikso.turnojSube, Math.min(helikso.turnoj, Math.round(sxtupaTurno - frac) + frac));
+          // Daŭra vindo. Sekvu la angulon ĉirkaŭ la spiralo per la SIGNAN angula
+          // delto ( supren kaj suben ). La malnova formulo ( round(t−frac)+frac )
+          // repuŝis la ludanton SUPRE ĉe la suba fino de la ŝtuparo ( kaj suben ĉe
+          // la supra fino ): kiam t trafis la krampon, la rondigo daŭre generis
+          // valorojn super la krampo, do la ludanto resaltis kaj ne povis stari
+          // firme sur la plej malalta etaĝo. Delta-spurado estas monotona kaj
+          // haltas firme ĉe ambaŭ finoj.
+          let delta = frac - antauxaHeliksaFrac;
+          if (delta > 0o4/0o10) delta -= 1;          // pli ol duon-turno = la 2π-rivolon
+          else if (delta < -0o4/0o10) delta += 1;
+          antauxaHeliksaFrac = frac;
+          sxtupaTurno = Math.max(-helikso.turnojSube, Math.min(helikso.turnoj, sxtupaTurno + delta));
         }
         etapy = specH0 + heliksaAltecxo(helikso, sxtupaTurno);
         novaX = specX + cosR * lokalX - sinR * lokalZ;
@@ -1555,9 +1589,20 @@ function animacii() {
     // sekan teron ĉe la orienta/norda lagbordo, kie la ribono jam finiĝas.
     const angK = Math.atan2( surKanoto.z - lagoZ(), surKanoto.x - LAGO_X );
     const enLagoK = Math.hypot( surKanoto.x - LAGO_X, surKanoto.z - lagoZ() ) < lagoRadio( angK ) + 0o2;
-    const akvoNiveloK = enLagoK ? lagoNivelo() : riveraAkvaNivelo(surKanoto.x);
+    const enNordorientaK = cxuEnNordorientaRivero(surKanoto.x, surKanoto.z);
+    const akvoNiveloK = enLagoK ? lagoNivelo() : enNordorientaK ? riveraNordOrientaNivelo(surKanoto.z) : riveraAkvaNivelo(surKanoto.x);
     surKanoto.bazaY = akvoNiveloK;
-    if (!enLagoK) {
+    if (!enLagoK && enNordorientaK) {
+      // Nordorienta rivereto — la rivero fluas laŭ x ( ne laŭ z ), do limigu
+      // la kanuon al la rivercentro laŭ x ( ±0o14 ) anstataŭ laŭ z.
+      const riveroX2 = riveroNordOrientaX(surKanoto.z);
+      const driftX = surKanoto.x - riveroX2;
+      if (Math.abs(driftX) > 6) {
+        const puŝo = (Math.abs(driftX) - 6) * 0o4/0o10;
+        surKanoto.vx -= Math.sign(driftX) * puŝo * deltaTempo;
+      }
+      surKanoto.x = riveroX2 + Math.max(-0o14, Math.min(0o14, surKanoto.x - riveroX2));
+    } else if (!enLagoK) {
       const riveroZ2 = riveroZ(surKanoto.x);
       const drift = surKanoto.z - riveroZ2;
       if (Math.abs(drift) > 6) {
@@ -1589,18 +1634,24 @@ function animacii() {
     const kx = surKanoto.x, kz = surKanoto.z;
     const angK2 = Math.atan2( kz - lagoZ(), kx - LAGO_X );
     const enLagoK2 = Math.hypot( kx - LAGO_X, kz - lagoZ() ) < lagoRadio( angK2 ) + 0o2;
-    const akvoNiveloK2 = enLagoK2 ? lagoNivelo() : riveraAkvaNivelo(kx);
+    const enNordorientaK2 = cxuEnNordorientaRivero(kx, kz);
+    const akvoNiveloK2 = enLagoK2 ? lagoNivelo() : enNordorientaK2 ? riveraNordOrientaNivelo(kz) : riveraAkvaNivelo(kx);
     if (alteco(kx, kz) > akvoNiveloK2 + 0o1/0o4) {
       // Repuŝu al la akvocentro pli forte kaj haltigu la bankan drivon, por ke
       // la kanuo ne restu banita en malprofunda akvo. En la lago la centro estas
-      // la lagcentro; en la rivero la rivercentro.
+      // la lagcentro; en la nordorienta rivereto la rivercentro laŭ x; en la
+      // cxefa rivero la rivercentro laŭ z.
       if (enLagoK2) {
         surKanoto.x += (LAGO_X - kx) * Math.min(1, 0o30 * deltaTempo);
         surKanoto.z += (lagoZ() - kz) * Math.min(1, 0o30 * deltaTempo);
+      } else if (enNordorientaK2) {
+        // La rivereto fluas laŭ x — repuŝu laŭ x kaj haltigu la x-drivon.
+        surKanoto.x += (riveroNordOrientaX(kz) - kx) * Math.min(1, 0o30 * deltaTempo);
+        surKanoto.vx = 0;
       } else {
         surKanoto.z += (riveroZ(kx) - kz) * Math.min(1, 0o30 * deltaTempo);
+        surKanoto.vz = 0;
       }
-      surKanoto.vz = 0;
     }
     // Levu la kanu-bazon super la terenon. En malprofunda akvo la akva nivelo
     // estus SUB la planko, do la kanuo kaj la fotilo enirus la teron.

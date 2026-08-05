@@ -4,8 +4,8 @@
 // sur cxiu nivelo krom la centra ( kie la pordoj estas ); flosas libere sen soklo aux signo
 import * as THREE from "three";
 import { aldoniKadranTubon, kreiKlinoTavolon } from "./satalaj-konstruajxoj.js";
-import { kunfandiGeometriojn } from "./kunfandajxoj.js";
-import { kreiPilolFenestranFormon } from "./formoj.js";
+import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
+import { kreiPilolFenestranFormon } from "../komunajxoj/formoj.js";
 
 // Rondigita rombo-formo ( uzata por enirejoj )
 function rondigitaRomboFormo(w: number, h: number, n: number = 0o143/0o100, seg: number = 0o100): THREE.Shape {

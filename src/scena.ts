@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { alteco } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
-import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, kreiOranMaterialon } from "../assets/materialoj.js";
+import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
 
 export function montriEraronon(sxargxaEl: HTMLElement): void {
   const d = document.createElement("div");
@@ -42,7 +42,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   bildilo.outputColorSpace = THREE.SRGBColorSpace;
   bildilo.toneMapping = THREE.ACESFilmicToneMapping;
   bildilo.shadowMap.enabled = true;
-  bildilo.shadowMap.type = THREE.PCFSoftShadowMap;
+  bildilo.shadowMap.type = THREE.PCFShadowMap;
   bildilo.setPixelRatio(Math.min(devicePixelRatio, 2));
 
   const sceno = new THREE.Scene();
@@ -157,13 +157,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // Malproksimaj montoj — 3D terenaj strioj kun realaj deklivoj
   (function konstruiMontojn(): void {
     function montaAlto( t: number, semo: number ): number {
-      // Larĝaj ondoj donas la bazan silueton, dum pozitivaj krestoj kreas
-      // kelkajn klarajn pintojn anstataŭ brua, dentita montlinio.
-      const ondo = Math.sin(t * 0o1/0o40 + semo) * 0o20;
-      const kresto = Math.pow(Math.max(0, Math.sin(t * 0o1/0o120 + semo * 0o3/0o2)), 2) * 0o24;
-      const duaKresto = Math.pow(Math.max(0, Math.cos(t * 0o3/0o200 - semo)), 2) * 0o14;
-      const malgrandaOndo = Math.sin(t * 0o5/0o40 + semo * 0o63/0o100) * 0o10/0o10;
-      return 0o62 + ondo + kresto + duaKresto + malgrandaOndo;
+      // Malaltfrekvenca silueto por la ĉefaj masoj, plus pli etaj tavoloj por
+      // rompi la regulan sinuslinion. La pintoj ne estas samaltaj kaj la
+      // valoj restas larĝaj, kiel ĉe vera malproksima montaro.
+      const grandaOndo = Math.sin( t * 0o1/0o40 + semo ) * 0o14;
+      const duaOndo = Math.sin( t * 0o1/0o100 - semo * 0o3/0o2 ) * 0o10;
+      const kresto1 = Math.pow( Math.max( 0, Math.sin( t * 0o1/0o120 + semo * 0o3/0o2 ) ), 0o3 ) * 0o27;
+      const kresto2 = Math.pow( Math.max( 0, Math.sin( t * 0o1/0o170 - semo * 0o5/0o4 + 0o1/0o4 ) ), 0o3 ) * 0o21;
+      const kresto3 = Math.pow( Math.max( 0, Math.cos( t * 0o1/0o200 + semo * 0o7/0o4 ) ), 0o3 ) * 0o16;
+      const rokaOndo = Math.sin( t * 0o3/0o40 + semo * 0o5/0o4 ) * 0o7/0o10;
+      return 0o62 + grandaOndo + duaOndo + kresto1 + kresto2 + kresto3 + rokaOndo;
     }
 
     function koloroPorY( y: number ): [ number, number, number ] {
@@ -222,8 +225,11 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
           : ( signo > 0 ? x - fiksa : fiksa - x );
         const tn = Math.max(0, Math.min(1, dist / profundo));
         const rampo = tn < 0o3/0o100 ? tn / ( 0o3/0o100 ) : 1;
-        const falloff = Math.exp(-0o22 * ( tn - 0o3/0o20 ) ** 2) * rampo;
-        const peak = montaAlto(t, semo) * skalo * falloff;
+        // La alta regiono devas esti iom pli malvasta ol la piedo, sed sen la
+        // malnova ringforma ŝvelaĵo kiu faris la tavolojn aspekti kiel muro.
+        const deklivaFado = 0o1 - 0o3/0o20 * tn;
+        const falloff = Math.exp(-0o16 * ( tn - 0o3/0o20 ) ** 2) * rampo;
+        const peak = montaAlto(t, semo) * skalo * falloff * deklivaFado;
         // Aldoni malgrandan koloran variadon laŭ pozicio por natura aspekto
         const kolVario = 0o2/0o100 * Math.sin(x * 0o1/0o10 + z * 0o7/0o40 + semo);
         const y = alteco(x, z) + peak;

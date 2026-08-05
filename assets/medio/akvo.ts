@@ -1,6 +1,6 @@
 // Akva modulo — riveroj kun animaciaj ondoj kaj spegulaj reflektoj
 import * as THREE from "three";
-import { glataPaso } from "../src/tereno.js";
+import { glataPaso } from "../../src/tereno.js";
 
 export type RiverData = { mesh: THREE.Mesh; waterSurfaceY: (x: number, z: number) => number };
 
@@ -46,6 +46,50 @@ export function konstruiRiveron(sceno: THREE.Scene,
   uv.needsUpdate = true;
 
   return { mesh, waterSurfaceY: (x: number, z: number) => akvoY(x) };
+}
+
+// konstruiRiveronNordan — Konstruu riveron kiu fluas laŭ z ( norden-suden ),
+// kun x = riverFn(z) — por la nordorienta rivereto, kiu fluas de la monto
+// suden en la lagon. Samstila kiel konstruiRiveron: ribona geometrio, buŝa
+// mallarĝiĝo al punkto ĉe zEnd ( la lagbordo ) kaj realaj profundoj en uv.y.
+export function konstruiRiveronNordan(sceno: THREE.Scene,
+  riverFn: (z: number) => number,
+  akvoY: (z: number) => number,
+  duonaLargho: number,
+  zStart: number,
+  zEnd: number,
+  steps: number,
+  altecoFn: (x: number, z: number) => number
+): RiverData {
+  const pts: THREE.Vector3[] = [];
+  for ( let i = 0; i <= steps; i++ ) {
+    const z = zStart + (zEnd - zStart) * i / steps;
+    pts.push(new THREE.Vector3(riverFn(z), akvoY(z) + 0o1/0o20, z));
+  }
+  // Buŝa mallarĝiĝo — la ribono maldikiĝas glate al punkto ĉe la lagbordo
+  // ( zEnd ), samkiel la cxefa rivero ( glataPaso fenestro de 0o40 ). La fonto
+  // ( zStart ) ankaŭ mallarĝiĝas al punkto dum 0o20 unuoj ( 0 ĉe la fonto,
+  // plena de zStart−0o20 malsupren ), por ke la rivereto emerĝu nature el la
+  // montodeklivo anstataŭ finiĝi per duro rando.
+  const buŝaMallarĝiĝo = (z: number) =>
+    glataPaso(zEnd, zEnd + 0o40, z) * (1 - glataPaso(zStart - 0o20, zStart, z));
+  const larghoFn = (i: number) => buŝaMallarĝiĝo(pts[i].z);
+
+  const { geometry } = konstruiRubandon(pts, duonaLargho, 0, larghoFn);
+  const materialo = kreiOndanAkvanMaterialon();
+  const mesh = new THREE.Mesh(geometry, materialo);
+  mesh.renderOrder = 0;
+  sceno.add(mesh);
+
+  // Realaj profundoj ( vUv.y ) — samkiel la cxefa rivero.
+  const pos = geometry.getAttribute( "position" ) as THREE.BufferAttribute;
+  const uv = geometry.getAttribute( "uv" ) as THREE.BufferAttribute;
+  for ( let v = 0; v < pos.count; v++ ) {
+    uv.setY( v, Math.max( 0, akvoY( pos.getZ( v ) ) - altecoFn( pos.getX( v ), pos.getZ( v ) ) ) );
+  }
+  uv.needsUpdate = true;
+
+  return { mesh, waterSurfaceY: (x: number, z: number) => akvoY(z) };
 }
 
 // konstruiLagon — Konstruu lagon. Organika akvosurfaco ( la rando sekvas la
