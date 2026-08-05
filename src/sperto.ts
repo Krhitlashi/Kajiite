@@ -77,7 +77,14 @@ let pauxzaPaŝo = 0; // step sound cooldown counter
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
 const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon } = scena;
 
-const urbo: UrbaSistemo = konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo);
+const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, (p) => {
+  stangoPlenigo.style.blockSize = `${Math.round(p * 100)}%`;
+  const novaTitolo = p > 0o33/0o40 ? traduki("sxargxaNebulo") : p > 0o23/0o40 ? traduki("sxargxaTraboj") : p > 0o23/0o100 ? traduki("sxargxaSatalo") : null;
+  if (novaTitolo !== null && sxargxaTitolo.textContent !== novaTitolo) {
+    sxargxaTitolo.textContent = novaTitolo;
+    if (cxuAih() && typeof vacepu === "function") vacepu("aih");
+  }
+});
 const {
   konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
   riverData, riveroNordOrienta, lago, bestoj, petreloj, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
@@ -115,7 +122,16 @@ let mobSprinto = false;
 let oscilo = 0;
 // ĉu la ludanto naĝis en la antaŭa kadro — por la plaŭda sono ĉe eniro en la akvon
 let estisNaĝanta = false;
+// Ĉu la poŝtelefona saltbutono estas tenata — tenante ĝin ( aŭ Spacon ) la
+// naĝanto supreniras al la surfaco tiel longe kiel ĝi estas premita;
+// depremite la korpo remergiĝas al la kutima mergo.
+let mobSaltiTenata = false;
 let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
+
+// ⟪ Dinamika rezolucio 📃 ⟫ — sub ŝarĝo la bildiga skalo malkreskas paŝe ( ĝis
+// 60% de la baza pixelRatio ) kaj revenas kiam la kadroj denove estas rapidaj.
+let dinamikaSkalo = 1;
+let malrapidajKadroj = 0, rapidajKadroj = 0;
 
 
 // ⟪ Navigada pop-up 📃 ⟫
@@ -653,11 +669,13 @@ mobButInterakti.addEventListener("touchstart", (e) => {
 });
 mobButSalti.addEventListener("touchstart", (e) => {
   e.preventDefault();
-  if (rezimo === "walk" && estasSurTERENO && !surKanoto) {
-    rapidoY = 0o74/0o10;
-    estasSurTERENO = false;
+  if (rezimo === "walk" && !surKanoto) {
+    mobSaltiTenata = true;
+    if (estasSurTERENO) { rapidoY = 0o74/0o10; estasSurTERENO = false; }
   }
 });
+mobButSalti.addEventListener("touchend", () => { mobSaltiTenata = false; });
+mobButSalti.addEventListener("touchcancel", () => { mobSaltiTenata = false; });
 
 // ⟪ Retikula kontrolo 📃 ⟫
 function gxisdatigiRetikulon() {
@@ -700,6 +718,27 @@ kanvaso.addEventListener("click", (e) => {
   }
 });
 
+// ⟪ Ekstera sceno dum interno 📃 ⟫ — kaŝu la tutan eksteran mondon ( konstruaĵojn,
+// arbaron, terenon, akvon ), sed tenu la ĉielon kaj la lumojn. La internoj havas
+// siajn proprajn lumojn, kaj la supra etaĝo estas malferma al la ĉielo.
+let kaŝitajEksteraj: { o: THREE.Object3D; antauxa: boolean }[] = [];
+function kasxiEksteron(): void {
+  if (kaŝitajEksteraj.length > 0) return;
+  const tenataj = new Set<THREE.Object3D>([
+    scena.cxielo, scena.hemiLumo, scena.suna, scena.suna.target, scena.sunaSprajto,
+  ]);
+  for (const o of sceno.children) {
+    if (tenataj.has(o) || o === internaSistemo.currentGroup) continue;
+    // Konservu la antaŭan videblon, por ne revivigi objektojn kaŝitajn de aliaj kaŭzoj.
+    kaŝitajEksteraj.push({ o, antauxa: o.visible });
+    o.visible = false;
+  }
+}
+function restarigiEksteron(): void {
+  for (const { o, antauxa } of kaŝitajEksteraj) o.visible = antauxa;
+  kaŝitajEksteraj = [];
+}
+
 // ⟪ Interna vido 📃 ⟫
 function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }, pordaAngulo = 0) {
   sxtupaTurno = null;
@@ -707,12 +746,13 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
   if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
   if (cxuAŭdio()) sfx.door();
   pulsiEfikon();
-  montriSargxon(0o1500, () => {
+  montriSargxon(0o400, () => {
     antauxaRezimo = rezimo as "orbit" | "walk";
     try {
       rezimo = "interior";
       elektitaSpec = spec;
       const enirPunkto = eniriInternon(internaSistemo, spec, dioritaMaterialo, andezitaMaterialo, oraMaterialo, eniraMaterialo, sceno, pordaAngulo);
+      kasxiEksteron();
       const specX = spec.x, specZ = spec.z;
       // La spacosxipa interno flosas ĉe la sxipo (flugoY) — la enira punkto estas
       // ĉe la supro kie la sxipo vere estas, ne sur la tero.
@@ -741,6 +781,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
       // ( la finally en montriSargxon ).
       console.error("Eniro en la konstruajxon malsukcesis:", eraro);
       eliriElInterno(internaSistemo, sceno);
+      restarigiEksteron();
       rezimo = antauxaRezimo || "orbit";
       antauxaRezimo = null;
       regiloj.enabled = rezimo === "orbit";
@@ -755,6 +796,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
 function eliriInternon() {
   sxtupaTurno = null;
   eliriElInterno(internaSistemo, sceno);
+  restarigiEksteron();
   if (cxuAŭdio()) sfx.door();
   pulsiEfikon();
   fariBalailon(() => {
@@ -1044,107 +1086,162 @@ function solviDokanKolizion(x: number, z: number, y: number, marge = 0o3/0o10): 
 }
 
 // ⟪ Minimapo — la kompaso fariĝas radara mapo; klako malfermas la plenan vidon 📃 ⟫
-// La mapo estas dua WebGL-bildilo kun orta fotilo rigardanta rekte malsupren.
-// ĝi bildigas la SAMAN scenon, do vojoj, konstruaĵoj, rivero kaj arbaro aperas
-// aŭtomate. Nebulo estas malŝaltita nur dum ĉi tiuj bildigoj, kaj la ludanta
-// markilo kuŝas sur aparta tavolo ( 2 ), nevidebla por la ĉefa fotilo.
+// La mapo estas BAKITA unufoje en 2D-kanvason ( post la konstruado ), do la
+// ĉiukadra kosto estas nur kelkaj drawImage — nenia dua WebGL-bildilo, nenia
+// ĉiukadra sceno-submeto, neniaj shader-rekompiloj. La markilo, kanuoj kaj
+// NPC-oj desegniĝas super la bakita tavolo ĉiukadre.
 let mapoMalfermita = false;
-let kadraNombro = 0;
-let minimapaBildilo: THREE.WebGLRenderer | null = null;
-let minimapaFotilo: THREE.OrthographicCamera | null = null;
-let plenaBildilo: THREE.WebGLRenderer | null = null;
-let plenaFotilo: THREE.OrthographicCamera | null = null;
+let plenaKanvaso: HTMLCanvasElement | null = null;
+let plenaKunteksto: CanvasRenderingContext2D | null = null;
+let bakitaMapo: HTMLCanvasElement | null = null;
+// La map-centro ( ludanto aŭ fotila celo ) — ĝisdatigita ĉiukadre en animacii.
+let mapX = 0, mapZ = 0;
 
-const RADARA_DUONO = 0o30;   // duon-larĝo de la radara mapo ( mondaj unuoj ) — pli proksima ol antaŭe, por montri la tujan ĉirkaŭaĵon
-const PLENA_DUONO = 0o460;   // duon-larĝo de la plena mapo — etendita por montri la orientan lagon kaj la nordan montaron
+const RADARA_DUONO = 0o30;   // duon-larĝo de la radara mapo ( mondaj unuoj )
+const PLENA_DUONO = 0o460;   // duon-larĝo de la plena mapo — la tuta valo
 const MINA_DUONO = 0o10;     // plej proksima zomo de la plena mapo
 const MAXA_DUONO = 0o500;    // plej malproksima zomo de la plena mapo
-const MAPA_ALTECO = 0o130;   // fotila alto super la tero
+const MAPA_BAKA_DUONO = 0o1274; // 700 — kovras la tutan promeneblan mondon ( pan + zomo )
+const MAPA_BAKA_REZ = 0o5000;   // 2560² — kompromiso inter akreco kaj memoro
 let plenaDuono = PLENA_DUONO; // nuna duon-larĝo ( zomo ) de la plena mapo
 let mapaPanX = 0;            // tirado. Horizontala forpreno de la sekv-punkto
 let mapaPanZ = 0;            // tirado. Vertikala forpreno de la sekv-punkto
 
-// La ludanta markilo. Ora sago ( direkto ) sur disko. Tavolo 2 = nur mapaj fotiloj.
-const mapoMarkilo = new THREE.Group();
-{
-  const sago = new THREE.Mesh(new THREE.ConeGeometry(0o7/0o10, 0o16/0o10, 3), oraMaterialo);
-  sago.geometry.rotateX(-Math.PI / 2); // kuŝas plate kun la pinto al -z
-  sago.position.y = 0o3/0o10;
-  const disko = new THREE.Mesh(new THREE.CircleGeometry(0o5/0o10, 0o24), oraMaterialo);
-  disko.rotation.x = -Math.PI / 2;
-  mapoMarkilo.add(sago, disko);
-  mapoMarkilo.traverse(o => o.layers.set(2));
+// Baki la scenon de supre en 2D-kanvason — unufoje, post la konstruado. La
+// moviĝantaj objektoj ( kanuoj, NPC-oj, bestoj ) estas kaŝitaj dum la bake kaj
+// desegnitas poste kiel 2D-supertavoloj.
+function bakiMapon(): HTMLCanvasElement | null {
+  try {
+    const rez = MAPA_BAKA_REZ, duono = MAPA_BAKA_DUONO;
+    const rt = new THREE.WebGLRenderTarget(rez, rez, {
+      minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
+    });
+    const mapFotilo = new THREE.OrthographicCamera(-duono, duono, duono, -duono, 1, 0o240);
+    mapFotilo.up.set(0, 0, 1); // mapo-supro = nordo ( +z )
+    mapFotilo.position.set(0, 0o130, 0);
+    mapFotilo.lookAt(0, 0, 0);
+    const kaŝitaj: THREE.Object3D[] = [];
+    for (const n of npcoj) { kaŝitaj.push(n.group); n.group.visible = false; }
+    for (const c of kanuoj) { kaŝitaj.push(c.group); c.group.visible = false; }
+    for (const b of bestoj.bestoj) { kaŝitaj.push(b.grupo); b.grupo.visible = false; }
+    for (const p of petreloj.petreloj) { kaŝitaj.push(p.grupo); p.grupo.visible = false; }
+    const nebulo = sceno.fog;
+    sceno.fog = null;
+    const ombroj = bildilo.shadowMap.enabled;
+    bildilo.shadowMap.enabled = false;
+    try {
+      bildilo.setRenderTarget(rt);
+      bildilo.render(sceno, mapFotilo);
+      bildilo.setRenderTarget(null);
+    } finally {
+      sceno.fog = nebulo;
+      bildilo.shadowMap.enabled = ombroj;
+      for (const o of kaŝitaj) o.visible = true;
+    }
+    const buf = new Uint8Array(rez * rez * 4);
+    bildilo.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
+    rt.dispose();
+    const bildo = new ImageData(new Uint8ClampedArray(rez * rez * 4), rez, rez);
+    // WebGL legas de la malsupro — renversu la vicojn por ke nordo estu supre.
+    for (let y = 0; y < rez; y++) {
+      const fonta = (rez - 1 - y) * rez * 4;
+      bildo.data.set(buf.subarray(fonta, fonta + rez * 4), y * rez * 4);
+    }
+    const kanvasa = document.createElement("canvas");
+    kanvasa.width = kanvasa.height = rez;
+    kanvasa.getContext("2d")!.putImageData(bildo, 0, 0);
+    return kanvasa;
+  } catch (e) {
+    console.warn("Mapa bakado ne havebla:", e);
+    return null;
+  }
 }
-sceno.add(mapoMarkilo);
 
-function kreiMapanSistemon(canvas: HTMLCanvasElement, duono: number): { bildilo: THREE.WebGLRenderer; fotilo: THREE.OrthographicCamera } {
-  const bildilo = new THREE.WebGLRenderer({ canvas, antialias: false });
-  bildilo.setPixelRatio(1);
-  bildilo.setSize(canvas.width, canvas.height, false);
-  bildilo.setClearColor(0x0a1814, 1);
-  // Samaj koloro-agordoj kiel la ĉefa bildilo. Sen ili la mapo uzus linian
-  // kolorospacon kaj neniun ton-mapiĝon, do la vojoj aperus malklaraj/malhelaj.
-  bildilo.outputColorSpace = THREE.SRGBColorSpace;
-  bildilo.toneMapping = THREE.ACESFilmicToneMapping;
-  bildilo.toneMappingExposure = 0o104/0o100;
-  bildilo.shadowMap.enabled = false;
-  const fotilo = new THREE.OrthographicCamera(-duono, duono, duono, -duono, 1, 0o240);
-  fotilo.up.set(0, 0, 1); // mapo-supro = nordo ( +z )
-  fotilo.layers.enable(2);
-  return { bildilo, fotilo };
+// Desegnu la bakitan tavolon por vido centrita je ( cx, cz ) kun duon-larĝoj ( hw, hh ).
+function desegniMapanTavolon(ctx: CanvasRenderingContext2D, fonto: HTMLCanvasElement, cx: number, cz: number, hw: number, hh: number, w: number, h: number): void {
+  const rez = MAPA_BAKA_REZ, duono = MAPA_BAKA_DUONO;
+  // La fonto havas nordon supre ( +z → malgranda y ) kaj orienton dekstren ( +x ).
+  const sx = (cx - hw + duono) / (2 * duono) * rez;
+  const sy = (duono - (cz + hh)) / (2 * duono) * rez;
+  const sw = (2 * hw) / (2 * duono) * rez;
+  const sh = (2 * hh) / (2 * duono) * rez;
+  ctx.drawImage(fonto, sx, sy, sw, sh, 0, 0, w, h);
 }
 
-// Bildigu la scenon de supre; la supro de la mapo estas ĉiam nordo.
-function bildigiMapon(bildilo: THREE.WebGLRenderer, fotilo: THREE.OrthographicCamera, cx: number, cz: number): void {
-  const f = sceno.fog;
-  sceno.fog = null;
-  fotilo.position.set(cx, MAPA_ALTECO, cz);
-  fotilo.lookAt(cx, 0, cz);
-  bildilo.render(sceno, fotilo);
-  sceno.fog = f;
+// La ora markilo — sago turnita laŭ la rigarda direkto.
+function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
+  const px = (mapX - (cx - hw)) / (2 * hw) * w;
+  const py = ((cz + hh) - mapZ) / (2 * hh) * h;
+  const fx = rezimo === "walk" ? -Math.sin(direkto) : regiloj.target.x - fotilo.position.x;
+  const fz = rezimo === "walk" ? -Math.cos(direkto) : regiloj.target.z - fotilo.position.z;
+  const ang = Math.atan2(-fz, fx) + Math.PI / 2;
+  ctx.save();
+  ctx.translate(px, py);
+  ctx.rotate(ang);
+  ctx.fillStyle = "#d8b068";
+  ctx.strokeStyle = "#0a1814";
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, -0o5); ctx.lineTo(0o7/0o2, 0o11/0o2); ctx.lineTo(-0o7/0o2, 0o11/0o2); ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  ctx.restore();
 }
 
-// La plena mapo estas plenekrana, do la orta fotilo sekvu la kanvasan grandecon
-// ( sen fiksaj dimensioj ) kaj la nunan zomon ĉiukadre.
-function agordiPlenanFotilon(): void {
-  if (!plenaBildilo || !plenaFotilo) return;
-  const kanvasa = plenaBildilo.domElement;
+// Kanuoj kaj NPC-oj kiel malgrandaj punktoj sur la mapo.
+function desegniMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
+  const punkto = (x: number, z: number, koloro: string) => {
+    const px = (x - (cx - hw)) / (2 * hw) * w;
+    const py = ((cz + hh) - z) / (2 * hh) * h;
+    if (px < -3 || px > w + 3 || py < -3 || py > h + 3) return;
+    ctx.fillStyle = koloro;
+    ctx.beginPath(); ctx.arc(px, py, 0o14/0o10, 0, Math.PI * 2); ctx.fill();
+  };
+  for (const c of kanuoj) punkto(c.x, c.z, "#e8d8b0");
+  for (const n of npcoj) punkto(n.group.position.x, n.group.position.z, "#b8b0a0");
+}
+
+// La radara mapo ( 0o200 × 0o200 ) — la bakita tavolo ĉirkaŭ la ludanto.
+const radaraKunteksto = miniKanvaso.getContext("2d");
+function desegniRadaron(): void {
+  const ctx = radaraKunteksto;
+  if (!ctx || !bakitaMapo) return;
+  desegniMapanTavolon(ctx, bakitaMapo, mapX, mapZ, RADARA_DUONO, RADARA_DUONO, 0o200, 0o200);
+  desegniMarkilon(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
+  desegniMovantajnPunktojn(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
+}
+
+// La plena mapo — plenekrana 2D-kanvaso kun pan/zoom.
+function desegniPlenanMapon(): void {
+  if (!plenaKanvaso || !plenaKunteksto || !bakitaMapo) return;
+  const kanvasa = plenaKanvaso;
+  const ctx = plenaKunteksto;
   const w = kanvasa.clientWidth || innerWidth;
   const h = kanvasa.clientHeight || innerHeight;
-  if (kanvasa.width !== w || kanvasa.height !== h) {
-    kanvasa.width = w;
-    kanvasa.height = h;
-    plenaBildilo.setSize(w, h, false);
-  }
+  if (kanvasa.width !== w || kanvasa.height !== h) { kanvasa.width = w; kanvasa.height = h; }
+  ctx.fillStyle = "#0a1814";
+  ctx.fillRect(0, 0, w, h);
   const aspekto = w / h;
-  plenaFotilo.left = -plenaDuono * aspekto;
-  plenaFotilo.right = plenaDuono * aspekto;
-  plenaFotilo.top = plenaDuono;
-  plenaFotilo.bottom = -plenaDuono;
-  plenaFotilo.updateProjectionMatrix();
+  const hw = plenaDuono * aspekto, hh = plenaDuono;
+  desegniMapanTavolon(ctx, bakitaMapo, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh, w, h);
+  desegniMarkilon(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
+  desegniMovantajnPunktojn(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
 }
 
 // La kompaso malfermas la plenan vidon. Plenekrana kanvaso rekte en #supermeta.
 function malfermiMapon(): void {
   if (mapoMalfermita) return;
-  if (!plenaBildilo) {
+  if (!bakitaMapo) { console.warn("Plena mapo ne havebla ( bakado malsukcesis )"); return; }
+  if (!plenaKanvaso) {
     const kanvasa = document.createElement("canvas");
     kanvasa.id = "plenaKanvaso";
-    // Plenekrana. La CSS plenigas la tutan #supermeta ( inset:0 ); la bildilo
-    // kaj la orta fotilo adaptiĝas al la ekrana grandeco/proporcio ĉiukadre,
-    // do neniu fiksa grandeco necesas kaj ĝi funkcias ankaŭ sur poŝtelefono.
+    // Plenekrana 2D-kanvaso. La CSS plenigas la tutan #supermeta ( inset 0 ).
+    // la grandeco sekvas la vidon ĉiukadre ( desegniPlenanMapon ).
     kanvasa.width = innerWidth;
     kanvasa.height = innerHeight;
-    try {
-      const plena = kreiMapanSistemon(kanvasa, PLENA_DUONO);
-      plenaBildilo = plena.bildilo;
-      plenaFotilo = plena.fotilo;
-    } catch (e) {
-      console.warn("Plena mapo ne havebla:", e);
-      return;
-    }
-    // Zomo. Rado ( labortablo ) kaj pinĉo ( tuŝo ). La duon-larĝo de la orta
-    // fotilo ŝanĝiĝas; la ludanta markilo restas centrita dum la zomo.
+    plenaKanvaso = kanvasa;
+    plenaKunteksto = kanvasa.getContext("2d");
+    if (!plenaKunteksto) { console.warn("Plena mapo ne havebla ( 2D-kunteksto )"); plenaKanvaso = null; return; }
+    // Zomo. Rado ( labortablo ) kaj pinĉo ( tuŝo ). La duon-larĝo de la vido
+    // ŝanĝiĝas; la ludanta markilo restas centrita dum la zomo.
     kanvasa.addEventListener("wheel", (e) => {
       e.preventDefault();
       // Normaligu la radan unuon. Liniaj deltoj ( iuj kusenetoj ) ≈ 0o20 pikseloj.
@@ -1172,9 +1269,11 @@ function malfermiMapon(): void {
     // Pikseloj → mondaj unuoj. La mapo estas nedistorĉita ( samaj skvamoj en ambaŭ
     // aksoj ), do unu konverta faktoro sufiĉas. Limigu la tiradon al la maksimuma
     // zomo, por ke la mapo ne perdiĝu tute.
+    // Tiri la mapon kiel paperon. Tiri orienten ( +dx ) movu la vidon okcidenten,
+    // por ke la enhavo sekvu la fingron ( la Z-akso jam sekvas la fingron ).
     const tiriPans = (dx: number, dy: number) => {
       const pp = (2 * plenaDuono) / (kanvasa.clientHeight || innerHeight);
-      mapaPanX = Math.max(-MAXA_DUONO, Math.min(MAXA_DUONO, mapaPanX + dx * pp));
+      mapaPanX = Math.max(-MAXA_DUONO, Math.min(MAXA_DUONO, mapaPanX - dx * pp));
       mapaPanZ = Math.max(-MAXA_DUONO, Math.min(MAXA_DUONO, mapaPanZ + dy * pp));
     };
     kanvasa.addEventListener("pointerdown", (e) => {
@@ -1220,7 +1319,7 @@ function malfermiMapon(): void {
   document.getElementById("supermetaTitolo")!.textContent = traduki("titoloMapo");
   document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloMapo");
   vestaVico.innerHTML = "";
-  supermeta.appendChild(plenaBildilo.domElement);
+  supermeta.appendChild(plenaKanvaso);
   supermeta.classList.add("mapo");
   mapoMalfermita = true;
   kompaso.setAttribute("aria-pressed", "true");
@@ -1232,7 +1331,9 @@ function fermiMapon(): void {
   kompaso.setAttribute("aria-pressed", "false");
   supermeta.classList.remove("mapo");
   supermeta.classList.remove("montri");
-  plenaBildilo?.domElement.remove();
+  plenaKanvaso?.remove();
+  plenaKanvaso = null;
+  plenaKunteksto = null;
 }
 kompaso.addEventListener("click", malfermiMapon);
 kompaso.addEventListener("keydown", (e) => {
@@ -1243,15 +1344,13 @@ supermeta.addEventListener("click", (e) => {
   if (mapoMalfermita && (e.target === supermeta || (e.target as HTMLElement).id === "supermetaFermi")) fermiMapon();
 });
 
-// La radara mapo ekde lanĉo ( se WebGL permesas duan kuntekston ).
-try {
-  miniKanvaso.width = miniKanvaso.height = 128;
-  const mini = kreiMapanSistemon(miniKanvaso, RADARA_DUONO);
-  minimapaBildilo = mini.bildilo;
-  minimapaFotilo = mini.fotilo;
-} catch (e) {
-  console.warn("Radara mapo ne havebla:", e);
-}
+// La radara mapo ekde lanĉo — baku la statikan scenon unufoje ( la urbo kaj
+// arbaro jam estas konstruitaj ). La 2D-tavoloj desegniĝas ĉiukadre.
+miniKanvaso.width = miniKanvaso.height = 0o200;
+bakitaMapo = bakiMapon();
+// La ŝarĝa ekrano finiĝas nur kiam ĉio estas preta ( konstruado + bakado ).
+sxargxaElemento.classList.add("finita");
+gxisdatigiRetikulon();
 
 // ⟪ Animacio 📃 ⟫
 const horlogxo = new THREE.Timer();
@@ -1260,13 +1359,23 @@ function animacii() {
   // Timer ( anstataux la malnova Clock ) — update() devas voki cxiun kadron
   // antaux la legado de getDelta()/getElapsed().
   horlogxo.update();
-  const deltaTempo = Math.min(horlogxo.getDelta(), 0o3/0o100);
+  const krudaDt = horlogxo.getDelta();
+  const deltaTempo = Math.min(krudaDt, 0o3/0o100);
   const t = horlogxo.getElapsed();
 
-  // Reskaligi
+  // Reskaligi — dinamika rezolucio. Sub ŝarĝo la skalo malkreskas paŝe kaj
+  // revenas kiam la kadroj denove estas rapidaj.
   const w = innerWidth, h = innerHeight;
-  if (kanvaso.width !== Math.floor(w * devicePixelRatio) || kanvaso.height !== Math.floor(h * devicePixelRatio)) {
+  // Malrapida < 0o60fps, rapida > 0o72fps. La rapida sojlo estas atingebla ankaŭ
+  // sur 60Hz-ekrano ( kadroj ≈ 1/0o74s < 1/0o72s ), por ke la rezolucio povu reveni.
+  if (krudaDt > 1 / 0o60) { malrapidajKadroj++; rapidajKadroj = 0; }
+  else if (krudaDt < 1 / 0o70) { rapidajKadroj++; malrapidajKadroj = 0; }
+  if (malrapidajKadroj >= 0o40 && dinamikaSkalo > 0o6/0o10) { dinamikaSkalo = Math.max(0o6/0o10, dinamikaSkalo - 0o1/0o10); malrapidajKadroj = 0; }
+  else if (rapidajKadroj >= 0o130 && dinamikaSkalo < 1) { dinamikaSkalo = Math.min(1, dinamikaSkalo + 0o1/0o10); rapidajKadroj = 0; }
+  const aktivaRatio = Math.min(devicePixelRatio, 2) * dinamikaSkalo;
+  if (kanvaso.width !== Math.floor(w * aktivaRatio) || kanvaso.height !== Math.floor(h * aktivaRatio)) {
     fotilo.aspect = w / h; fotilo.updateProjectionMatrix();
+    bildilo.setPixelRatio(aktivaRatio);
     bildilo.setSize(w, h);
   }
 
@@ -1330,10 +1439,24 @@ function animacii() {
       // la celo restas ĉe la fundo, do la ludanto vadadas kun kapo super la akvo.
       // NAĜA_MERGO. La maksimuma mergo ( 0o2 ≈ 2 unuoj ) tenas la fotilon iomete
       // sub la surfaco — ĉi tiu valoro agordas la forton de la "subakva" efekto.
+      // La saltbutono ( Spaco aŭ la poŝtelefona butono ) donas suprenan impulson:
+      // tenante ĝin la naĝanto supreniras al la surfaco, la okulojn ĝuste ĉe la
+      // akvonivelo; la impulso forfadas kaj la korpo remergiĝas al la kutima mergo.
       const NAĜA_MERGO = 0o2;
       const mergo = Math.min(akvaProfundo, NAĜA_MERGO);
-      const naĝaY = akvoY - mergo + Math.sin(t * 2 + ludantaPozicio.x * 0o1/0o10) * 0o1/0o20;
-      ludantaPozicio.y += (naĝaY - ludantaPozicio.y) * 0o1/0o10;
+      // Tenante la saltbutonon ( Spaco aŭ la poŝtelefona butono ) la naĝanto
+      // supreniras al la surfaco TIOM LONGE kiom ĝi estas premita; depremite
+      // la korpo remergiĝas al la kutima mergo.
+      const suprenas = klavoj.Space || mobSaltiTenata;
+      if (suprenas) {
+        ludantaPozicio.y += 0o6 * deltaTempo;
+        // Ne supren trans la surfacon — la okuloj haltas ĝuste ĉe la akvonivelo.
+        const supraLim = akvoY - 0o1/0o20 + Math.sin(t * 2 + ludantaPozicio.x * 0o1/0o10) * 0o1/0o20;
+        if (ludantaPozicio.y > supraLim) ludantaPozicio.y = supraLim;
+      } else {
+        const naĝaY = akvoY - mergo + Math.sin(t * 2 + ludantaPozicio.x * 0o1/0o10) * 0o1/0o20;
+        ludantaPozicio.y += (naĝaY - ludantaPozicio.y) * 0o1/0o10;
+      }
       rapidoY = 0;
       estasSurTERENO = false;
       if (!estisNaĝanta && cxuAŭdio()) sfx.splash();
@@ -1665,12 +1788,19 @@ function animacii() {
     ludantaPozicio.set(surKanoto.x, 0o155/0o100, surKanoto.z);
   }
 
-  // Kanotaj animacioj
-  for (const c of kanuoj) animaciiKanoton(c, t, c === surKanoto);
+  // Kanotaj animacioj. Ĉiu NE-rajdanta kanuo flosas sur la REALA akvosurfaco
+  // ( la sama krampita nivelo kiel la akvomesho kaj la rajdanta branĉo ), ne sur
+  // la kruda akvoY de la naskiĝloko — tiu povas malsami ĝis ~2 unuoj kaj lasus
+  // la kanuon duone droninta. La plafono ( max kun la tereno ) evitas ke la
+  // kanuo enprofundigu en malprofundan bordon.
+  for (const c of kanuoj) {
+    if (c !== surKanoto) c.bazaY = Math.max(akvaNivelo(c.x, c.z), alteco(c.x, c.z));
+    animaciiKanoton(c, t, c === surKanoto);
+  }
   // NPC-aj animacioj
   for (const n of npcoj) gxisdatigiNpc(n, deltaTempo, t, alteco);
   // Internaj animacioj
-  gxisdatigiInternon(internaSistemo, t);
+  if (rezimo === "interior") gxisdatigiInternon(internaSistemo, t);
 
   // Nebula drivo
   for (const sp of nebuloj) {
@@ -1683,22 +1813,15 @@ function animacii() {
   (nadlo as HTMLElement).style.transform = `rotate(${fotilaDirekto + Math.PI}rad)`;
   // La mapo sekvu la vidpunkton. En promeno/interno la ludanto, en orbito la
   // fotila celo — alie la radaro restus fiksita ĉe la elirloko en orbito.
-  const mapX = rezimo === "orbit" ? regiloj.target.x : ludantaPozicio.x;
-  const mapZ = rezimo === "orbit" ? regiloj.target.z : ludantaPozicio.z;
-  const mapY = (rezimo === "orbit" ? regiloj.target.y : ludantaPozicio.y) + 0o1/0o10;
-  mapoMarkilo.position.set(mapX, mapY, mapZ);
-  mapoMarkilo.rotation.y = fotilaDirekto;
-  // Dum la plena mapo estas malfermita, bildigu tiun; alie la radar ( ĉiun duan
-  // kadron, kaj nur post la ŝarĝa ekrano — antaŭe la kompaso estas kovrita ).
-  if (mapoMalfermita && plenaBildilo && plenaFotilo) {
-    // La plena mapo sekvas la saman vidpunkton, kiel la radaro, plus la tiradan
-    // forprenon. La ora markilo restas ĉe la ludanta mondo-pozicio ( eble ekster-
-    // centro post tirado ), dum la ĉirkaŭaĵo montriĝas. La fotilo sekvas la
-    // kanvasan grandecon kaj la zomon ĉiukadre.
-    agordiPlenanFotilon();
-    bildigiMapon(plenaBildilo, plenaFotilo, mapX + mapaPanX, mapZ + mapaPanZ);
-  } else if (minimapaBildilo && minimapaFotilo && sxargxaElemento.classList.contains("finita") && (kadraNombro++ & 1) === 0) {
-    bildigiMapon(minimapaBildilo, minimapaFotilo, mapX, mapZ);
+  mapX = rezimo === "orbit" ? regiloj.target.x : ludantaPozicio.x;
+  mapZ = rezimo === "orbit" ? regiloj.target.z : ludantaPozicio.z;
+  // La bakita mapo desegniĝas ĉiukadre — nur 2D-tavoloj, neniu sceno-submeto.
+  if (bakitaMapo) {
+    if (mapoMalfermita) {
+      desegniPlenanMapon();
+    } else if (sxargxaElemento.classList.contains("finita")) {
+      desegniRadaron();
+    }
   }
 
   // WASD orbita movado; Q/E por vertikala movo
@@ -1725,26 +1848,9 @@ function animacii() {
   bildilo.render(sceno, fotilo);
 }
 
-// ⟪ Sxargxo 📃 ⟫
-let sxargxaProgreso = 0;
-const sxargxaIntervalo = setInterval(() => {
-  sxargxaProgreso += 0o1/0o10;
-  // La stango estas vertikala, do la plenigo kreskas laux la bloka akso ( malsupro → supro ).
-  stangoPlenigo.style.blockSize = `${Math.min(100, sxargxaProgreso * 100)}%`;
-  const novaTitolo = sxargxaProgreso > 0o33/0o40 ? traduki("sxargxaNebulo") : sxargxaProgreso > 0o23/0o40 ? traduki("sxargxaTraboj") : sxargxaProgreso > 0o23/0o100 ? traduki("sxargxaSatalo") : null;
-  // Nur sxangxu la titolon kiam la teksto vere sxangxigxas, por ne detrui la vacepu-vortojn.
-  if (novaTitolo !== null && sxargxaTitolo.textContent !== novaTitolo) {
-    sxargxaTitolo.textContent = novaTitolo;
-    if (cxuAih() && typeof vacepu === "function") vacepu("aih");
-  }
-  if (sxargxaProgreso >= 1) {
-    clearInterval(sxargxaIntervalo);
-    // La elemento restas kaŝita en la DOM-o ( .finita ), por ke montriSargxon
-    // povu reuzi ĝin kiel ŝarĝan ekranon dum konstruaĵ-eniro.
-    sxargxaElemento.classList.add("finita");
-    gxisdatigiRetikulon();
-  }
-}, 0o334);
+// ⟪ Sxargxo 📃 ⟫ — la stango estas pelita de la REALA konstrua progreso
+// ( konstruiUrbon raportas procentojn ). La finita-klaso aldoniĝas poste, kiam
+// la konstruado kaj la mapo-bakado finiĝis ( vidu la mapo-sekcion ).
 
 // ⟪ Ŝarĝa ekrano por konstruaĵ-eniro 📃 ⟫
 // Reuzu la saman ekranon kiel la lanĉo. Montru la stangon, plenigu ĝin dum

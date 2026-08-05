@@ -353,7 +353,7 @@ export function konstruiMontajnRokojn( sceno: THREE.Scene,
 
   sxtonoj.instanceMatrix.needsUpdate = true;
   if ( sxtonoj.instanceColor ) sxtonoj.instanceColor.needsUpdate = true;
-  sxtonoj.castShadow = true;
+
   sceno.add( sxtonoj );
   return metitaj;
 }
@@ -1090,7 +1090,7 @@ export function konstruiLikenSxtonojn( sceno: THREE.Scene,
 
   sxtonoj.instanceMatrix.needsUpdate = true;
   if ( sxtonoj.instanceColor ) sxtonoj.instanceColor.needsUpdate = true;
-  sxtonoj.castShadow = true;
+
   sceno.add(sxtonoj);
   return metitaj;
 }
@@ -1659,7 +1659,7 @@ export function konstruiFalintajnTrunkojn( sceno: THREE.Scene,
 
   trunkoj.count = ti;
   trunkoj.instanceMatrix.needsUpdate = true;
-  trunkoj.castShadow = true;
+
   sceno.add( trunkoj );
 }
 

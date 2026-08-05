@@ -24,6 +24,7 @@ export interface ScenaSistemo {
   andezitaMaterialo: THREE.MeshStandardMaterial;
   eniraMaterialo: THREE.MeshStandardMaterial;
   oraMaterialo: THREE.MeshStandardMaterial;
+  cxielo: THREE.Mesh;
   cxielajUniformoj: Record<string, THREE.IUniform>;
   hemiLumo: THREE.HemisphereLight;
   suna: THREE.DirectionalLight;
@@ -78,7 +79,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     koloro+=uSunCol*pow(max(dot(d,normalize(uSunDir)),0.0),28.0);
     gl_FragColor=vec4(koloro,1.0);}`,
   });
-  sceno.add(new THREE.Mesh(cxielaGeometrio, cxielaMaterialo));
+  const cxielo = new THREE.Mesh(cxielaGeometrio, cxielaMaterialo);
+  sceno.add(cxielo);
 
   // Lumoj
   const hemiLumo = new THREE.HemisphereLight(0xc8e0e8, 0x485848, 0o63/0o100);
@@ -86,7 +88,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   const suno = new THREE.DirectionalLight(0xf8f0d8, 0o45/0o40);
   suno.position.set(0o110, 0o160, 0o50);
   suno.castShadow = true;
-  suno.shadow.mapSize.set(0o4000, 0o4000);
+  suno.shadow.mapSize.set(0o2000, 0o2000);
   suno.shadow.camera.left = -0o156; suno.shadow.camera.right = 0o156;
   suno.shadow.camera.top = 0o156; suno.shadow.camera.bottom = -0o156;
   suno.shadow.camera.near = 0o20; suno.shadow.camera.far = 0o524;
@@ -142,7 +144,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     suno.intensity = l(P_DAY.sunInt, P_DUSK.sunInt);
     suno.position.copy(P_DAY.sunPos).lerp(P_DUSK.sunPos, t);
     bildilo.toneMappingExposure = l(0o104/0o100, 0o74/0o100);
-    sunaSprajto.position.copy(sunDir).multiplyScalar(0o510).add(new THREE.Vector3(0, 0, 0));
+    sunaSprajto.position.copy(sunDir).multiplyScalar(0o510);
     sunaSprajto.material.color.copy(suno.color);
     sunaSprajto.material.opacity = l(0o30/0o100, 0o54/0o100);
     eniraMaterialo.emissiveIntensity = l(0o3/0o100, 0o52/0o100);
@@ -166,7 +168,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const kresto2 = Math.pow( Math.max( 0, Math.sin( t * 0o1/0o170 - semo * 0o5/0o4 + 0o1/0o4 ) ), 0o3 ) * 0o21;
       const kresto3 = Math.pow( Math.max( 0, Math.cos( t * 0o1/0o200 + semo * 0o7/0o4 ) ), 0o3 ) * 0o16;
       const rokaOndo = Math.sin( t * 0o3/0o40 + semo * 0o5/0o4 ) * 0o7/0o10;
-      return 0o62 + grandaOndo + duaOndo + kresto1 + kresto2 + kresto3 + rokaOndo;
+      return 0o60 + grandaOndo + duaOndo + kresto1 + kresto2 + kresto3 + rokaOndo;
     }
 
     function koloroPorY( y: number ): [ number, number, number ] {
@@ -253,13 +255,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     // Ĉefa tavolo — kvar flankoj
     for ( const signo of [ -1, 1 ] ) {
       krei3DStrio(true, signo, signo * 0o454, L, D, 0o40, 0o14, 0o123/0o100, 1, montaMaterialo);
-      krei3DStrio(false, signo, signo * 0o454, L, D, 0o40, 0o14, 0o103/0o40, 0o55 / 0o62, montaMaterialo);
+      krei3DStrio(false, signo, signo * 0o454, L, D, 0o40, 0o14, 0o103/0o40, 0o55 / 0o60, montaMaterialo);
     }
 
     // Meza tavolo — milda tavolo inter la urbo kaj la fora kresto
     for ( const signo of [ -1, 1 ] ) {
-      krei3DStrio(true, signo, signo * 0o620, L * 0o7/0o10, D * 0o63/0o100, 0o30, 0o12, 0o123/0o100 + 0o24, 0o7/0o10, montaMaterialo);
-      krei3DStrio(false, signo, signo * 0o620, L * 0o7/0o10, D * 0o63/0o100, 0o30, 0o12, 0o103/0o40 + 0o24, 0o7/0o10, montaMaterialo);
+      krei3DStrio(true, signo, signo * 0o600, L * 0o7/0o10, D * 0o63/0o100, 0o30, 0o12, 0o123/0o100 + 0o24, 0o7/0o10, montaMaterialo);
+      krei3DStrio(false, signo, signo * 0o600, L * 0o7/0o10, D * 0o63/0o100, 0o30, 0o12, 0o103/0o40 + 0o24, 0o7/0o10, montaMaterialo);
     }
 
     // Fona tavolo — pli malproksima, pli malalta, kun malferma silueto
@@ -289,7 +291,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       if ( h < -2 ) c.lerp(lito, Math.min(1, ( h + 2 ) / -3));
       if ( h < -5 ) c.lerp(profunda, Math.min(1, ( h + 5 ) / -0o115/0o100));
       // Altituda tavoligo — roko de ~0o14, neĝo de ~0o44 ( la montaro pintas
-      // ĝis ~0o62, do nur la ĉefa pinto ricevas neĝokronon )
+      // ĝis ~0o60, do nur la ĉefa pinto ricevas neĝokronon )
       if ( h > 0o14 ) c.lerp(roko, Math.min(1, ( h - 0o14 ) / 0o20));
       if ( h > 0o44 ) c.lerp(nego, Math.min(1, ( h - 0o44 ) / 0o14));
       koloroj[i * 3] = c.r; koloroj[i * 3 + 1] = c.g; koloroj[i * 3 + 2] = c.b;
@@ -301,5 +303,5 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     sceno.add(ground);
   })(0o1130, 0o260);
 
-  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon };
+  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon };
 }

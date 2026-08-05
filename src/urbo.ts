@@ -54,13 +54,25 @@ export interface UrbaSistemo {
   VESTA_LISTO: Vesto[];
 }
 
-export function konstruiUrbon(
+export async function konstruiUrbon(
   sceno: THREE.Scene,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial,
   eniraMaterialo: THREE.MeshStandardMaterial,
-  oraMaterialo: THREE.MeshStandardMaterial
-): UrbaSistemo {
+  oraMaterialo: THREE.MeshStandardMaterial,
+  raportiProgreson?: (procento: number) => void
+): Promise<UrbaSistemo> {
+  // ⟪ Ŝarĝa progreso 📃 ⟫ — la konstruado cedas inter sekcioj, por ke la
+  // ŝarĝa stango vere moviĝu kaj la paĝo restu respondema dum lanĉo.
+  const jesi = (): Promise<void> => new Promise(r => setTimeout(r, 0));
+  const STAGOJ = 12;
+  let stago = 0;
+  const raporti = async (): Promise<void> => {
+    stago = Math.min(STAGOJ, stago + 1);
+    raportiProgreson?.(stago / STAGOJ);
+    await jesi();
+  };
+
   // ═══════════════════════════════════════════════════════════
   // 7×7 kruca arangxo — kvar-flanka simetrio. La nordo/sudo egalas la
   // oriento/okcidento. Ĉiu flanko havas tri tavolojn de tri konstruaĵojn.
@@ -176,6 +188,7 @@ export function konstruiUrbon(
     // La doka platformo estas 0o16/0o10 larĝa; ĝia rotacio estas 0 (aksi-para).
     dokoKolizioj.push({ x: DOKO_X[i], z: riveroZ( DOKO_X[i] ) + 0o16, w: 0o16/0o10, d: DOKO_PROFUNDOJ[i], rot: 0, y: doko.platformY });
   }
+  await raporti();
 
   // ⟪ Voja reto 📃 ⟫
   const vojDifinoj: VojDifino[] = [];
@@ -228,6 +241,7 @@ export function konstruiUrbon(
   // fluga alteco, por ke eniri la spacosxipon teleportu al la supro kie gxi estas.
   const stacioSxipo = konstruSpecoj.find(s => s.type === "stacioxipo");
   if (stacioSxipo) stacioSxipo.flugoY = xipo.group.position.y;
+  await raporti();
 
   // Konstruu aron da celloj por rapida sercxo
   const hasCellAt = (c: number, r: number) =>
@@ -456,9 +470,22 @@ export function konstruiUrbon(
   // Kunigi la spur-vojojn kun la ĉefaj vojoj, por ke la ekskludo kovru ĉion.
   vojSpecimenoj.push(...spronajSpecimenoj);
 
+  // ⟪ Krada indekso por la voja ekskludo 📃 ⟫ — ĉelo-krado por ke la vegetajxo
+  // ne skanu ĉiun vojspecimenon por ĉiu kandidata arbo ( O(1) anstataŭ O(n) ).
+  const VOJA_ĈELO = 0o10;
+  const vojaKrado = new Map<number, THREE.Vector3[]>();
+  for (const p of vojSpecimenoj) {
+    const kx = Math.floor(p.x / VOJA_ĈELO), kz = Math.floor(p.z / VOJA_ĈELO);
+    const klavo = kx * 0o100000 + kz;
+    let ĉelo = vojaKrado.get(klavo);
+    if (!ĉelo) { ĉelo = []; vojaKrado.set(klavo, ĉelo); }
+    ĉelo.push(p);
+  }
+
   // ⟪ Placoj 📃 ⟫ — ĉapoj ĉe la veraj rando-nodoj kolektitaj dum la voja reto
   // ( la finoj de ĉiu linio ), ne plu nur ĉe la kvar anguloj de la tuta skatolo.
   konstruiPlacojn(sceno, placajNodoj, alteco, dioritaMaterialo, andezitaMaterialo);
+  await raporti();
 
   // ⟪ Arbar-randaj platformoj 📃 ⟫
   // Rondigitaj diamantoj donas malgrandajn ripozlokojn sen kovri la vojan reton.
@@ -554,6 +581,7 @@ export function konstruiUrbon(
   const lampSistemo = konstruiHxeuxfojn(sceno, lampLokoj, dioritaMaterialo, oraMaterialo);
   // Lampaj kolizioj — malgrandaj cirkloj ĉirkaŭ ĉiu lampa kolono.
   for ( const l of lampLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 0o5/0o10 });
+  await raporti();
 
   // ⟪ Keŭfĥesoj 📃 ⟫ — starfrukt-formaj strukturoj ( ſɭw ʃɔɔ˞ ) kun 6-flanka
   // simetrio. Ili staras nur ĉe la kvar ANGULOJ de la centra konstruaĵo ( la
@@ -568,11 +596,25 @@ export function konstruiUrbon(
   }
   konstruiKeuxfhxeso( sceno, keuxfhxesoLokoj, alteco, oraMaterialo );
   for ( const l of keuxfhxesoLokoj ) kolizioj.push( { x: l.x, z: l.z, r: 0o16/0o10 } );
+  await raporti();
 
   // ⟪ Vegetajxo 📃 ⟫
   const ekskluziviRiveron = (x: number, z: number) => Math.abs(z - riveroZ(x)) < 7 || cxuEnLago(x, z) || cxuEnNordorientaRivero(x, z);
   const ekskluziviVojojn = (x: number, z: number, m: number) => {
-    for (const p of vojSpecimenoj) if (Math.hypot(x - p.x, z - p.z) < m) return true;
+    // Krada sercxo anstataux la lineara skanado de cxuj vojspecimenoj.
+    const r = Math.ceil(m / VOJA_ĈELO) + 1;
+    const bx = Math.floor(x / VOJA_ĈELO), bz = Math.floor(z / VOJA_ĈELO);
+    const m2 = m * m;
+    for (let dx = -r; dx <= r; dx++) {
+      for (let dz = -r; dz <= r; dz++) {
+        const ĉelo = vojaKrado.get((bx + dx) * 0o100000 + (bz + dz));
+        if (!ĉelo) continue;
+        for (const p of ĉelo) {
+          const ddx = x - p.x, ddz = z - p.z;
+          if (ddx * ddx + ddz * ddz < m2) return true;
+        }
+      }
+    }
     // La arbar-randaj diamantaj platformoj estas pavimitaj restlokoj — la
     // samaj pavim-specimenoj, por ke neniu planto aperu sur ili.
     for (const [px, pz] of periferiajLokoj) if (Math.hypot(x - px, z - pz) < m + 3) return true;
@@ -614,6 +656,7 @@ export function konstruiUrbon(
   // trunkaj matricoj jam donas la realan pozicion/kliniĝon de ĉiu arbo, do
   // la likenoj sidas ĝuste sur la ŝelo sen ripeto de la hazardaj vokoj.
   konstruiTrunkajnLikenojn( sceno, [ betulajTrunkoj, larikajTrunkoj, hxsxaksxlefojTrunkoj ] );
+  await raporti();
 
   // Filikoj — pli da kvanto, apud arboj kaj vojoj
   konstruiFilikojn( sceno, 0o400, alteco, arboj, vojSpecimenoj, ekskluziviRiveron, ekskluziviVojojn );
@@ -650,6 +693,7 @@ export function konstruiUrbon(
   // planto ene de la lagdisko )
   konstruiCetkuojn( sceno, 0o120, alteco, riveroZ,
     (x: number, z: number) => ekskluziviKonstruajxon(x, z, 3) || cxuEnLago(x, z), ekskluziviVojojn );
+  await raporti();
 
   // ⟪ Vegetaĵo ĉirkaŭ la lago 📃 ⟫ — la lago sidas malproksime oriente
   // ( dist ~236 ), ekster la radiuso de la urba arbaro, do ĝiaj bordoj
@@ -687,6 +731,7 @@ export function konstruiUrbon(
   konstruiLaganSubkreskajxojn( sceno, 0o500, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     [ ...lagArboj, ...lagLarikoj, ...lagHxsxaksxlefoj ], [ ...lagArboj, ...lagLarikoj, ...lagHxsxaksxlefoj ],
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon );
+  await raporti();
 
   // ⟪ Montara vegetajxo 📃 ⟫ — la norda montaro ( montaroNorda en tereno.ts )
   // ricevas alpan larikaron sur la deklivoj, betulojn pli sube, kaj rokojn
@@ -745,6 +790,7 @@ export function konstruiUrbon(
     [ ...arboj, ...larikoj, ...montajLarikoj, ...montajBetuloj ],
     [ ...arboj, ...larikoj, ...hxsxaksxlefoj, ...montajLarikoj, ...montajBetuloj ],
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon );
+  await raporti();
 
   // ⟪ Nebulaj sprajtoj 📃 ⟫
   const nebulaTeksajxo = kreiNebulanTeksajxon();
@@ -778,15 +824,20 @@ export function konstruiUrbon(
     sp.userData = { rapido: 0o15/0o100 + Math.random() * 0o4/0o10 };
     sceno.add(sp); nebuloj.push(sp);
   }
+  await raporti();
 
   // ⟪ Kanuoj 📃 ⟫
   // La kanuoj sekvas la novajn dokpintojn (riveroZ + 3, en la akvo) por resti atingeblaj de la dokoj.
+  // Ili flosas sur la KONKRETA akvosurfaco ( riveraAkvaNivelo — krampita al la
+  // laga nivelo ĉe la buŝo ), NE sur la kruda akvoY de la naskiĝloko: tiu povas
+  // malsami ĝis ~2 unuoj kaj lasus la kanuon duone droninta. sperto.ts ankaŭ
+  // refreŝigas la nivelon ĉiukadre, do la kanuoj ĉiam naĝas ĝuste.
   const kanuoj: Kanoto[] = [];
   // La eksteraj kanuoj estas la nova "satala" stilo (malhel-pina/ora, kongrua al
   // la arkitekturo); la centra restas la baza hela stilo.
-  kanuoj.push(kreiKanoton(sceno, 0o60, riveroZ(0o60) + 3, -Math.PI * 0o2/0o10, oraMaterialo, akvoY(0o60), "satala"));
-  kanuoj.push(kreiKanoton(sceno, -0o60, riveroZ(-0o60) + 3, Math.PI * 0o2/0o10, oraMaterialo, akvoY(-0o60), "satala"));
-  kanuoj.push(kreiKanoton(sceno, 0, riveroZ(0) + 3, -Math.PI * 0o4/0o10, oraMaterialo, akvoY(0)));
+  kanuoj.push(kreiKanoton(sceno, 0o60, riveroZ(0o60) + 3, -Math.PI * 0o2/0o10, oraMaterialo, riveraAkvaNivelo(0o60), "satala"));
+  kanuoj.push(kreiKanoton(sceno, -0o60, riveroZ(-0o60) + 3, Math.PI * 0o2/0o10, oraMaterialo, riveraAkvaNivelo(-0o60), "satala"));
+  kanuoj.push(kreiKanoton(sceno, 0, riveroZ(0) + 3, -Math.PI * 0o4/0o10, oraMaterialo, riveraAkvaNivelo(0)));
 
   // ⟪ Ktenoforoj 📃 ⟫
   // Travideblaj kombuloj ( Beroe, Mnemiopsis, Pleŭrobrakia ) naĝas en la rivero,
@@ -800,6 +851,7 @@ export function konstruiUrbon(
   // ( gxisdatigiPetrelojn ).
   const petreloj = konstruiPetrelojn( sceno, 0o20, alteco, riveroZ,
     { x: LAGO_X, z: lagoZ(), r: LAGO_RZ } );
+  await raporti();
 
   // ⟪ NPC-agordo 📃 ⟫ — la vestoj vivas en assets/vestaro/vestoj.ts ( VESTOJ );
   // tiu ĉi modulo nur alinomas ilin por la urba sistemo.
@@ -843,6 +895,7 @@ export function konstruiUrbon(
     sceno.add(fig.group);
     npcoj.push(fig);
   }
+  await raporti();
 
   // ⟪ Interna sistemo 📃 ⟫
   const internaSistemo: InternaSistemo = kreiInternanSistemon();

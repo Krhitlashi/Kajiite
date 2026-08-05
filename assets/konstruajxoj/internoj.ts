@@ -392,7 +392,7 @@ function kreiRandomon( semo: number ): () => number {
   };
 }
 // malheligi — Versio de heksa koloro pli malhela je faktoro f ( 0..1 ).
-function malheligi( koloro: string, f = 0o62/0o100 ): string {
+function malheligi( koloro: string, f = 0o60/0o100 ): string {
   const n = parseInt( koloro.slice( 1 ), 16 );
   const r = Math.round( ( ( n >> 16 ) & 255 ) * f );
   const gg = Math.round( ( ( n >> 8 ) & 255 ) * f );
@@ -466,8 +466,8 @@ function generiPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number, semo
   // ---- 1-a paŝo. anguloj - ronda ringo aŭ larmoforma motivo, turnita al la angulo ----
   const angulaR = R * 0o7/0o100;
   for ( const sx of [ -1, 1 ] ) for ( const sy of [ -1, 1 ] ) {
-    const ax = cx + sx * R * 0o62/0o100;
-    const ay = cy + sy * R * 0o62/0o100;
+    const ax = cx + sx * R * 0o60/0o100;
+    const ay = cy + sy * R * 0o60/0o100;
     const enen = Math.atan2( cy - ay, cx - ax );
     if ( larmoj ) {
       larmo( g, ax, ay, angulaR, enen, akcenta );
@@ -573,7 +573,7 @@ function generiPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number, semo
   const bendoPaŝo = R * 0o55/0o1000;        // egala paŝo -> uniforma libero
   const bendoLargho = bendoPaŝo * 0o55/0o100;
   let bendoN = 0;
-  for ( let s = R * 0o31/0o100; s + bendoLargho < R * 0o62/0o100; s += bendoPaŝo ) {
+  for ( let s = R * 0o31/0o100; s + bendoLargho < R * 0o60/0o100; s += bendoPaŝo ) {
     bendo( s, s + bendoLargho, ( bendoN + ( interŝanĝi ? 1 : 0 ) ) % 2 === 0 ? akcenta : malhela );
     bendoN++;
   }
@@ -905,7 +905,6 @@ export function eniriInternon(
   const oraKadroMaterialo = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 });
   const oraArkoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10, side: THREE.DoubleSide });
   const oraTrimMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
-  const oraCxapoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 });
 
   const group = new THREE.Group();
   // Meblaro-materialoj — preferu la KOLOROJN de la konstruajxo ( muraTipo :
@@ -1147,15 +1146,6 @@ export function eniriInternon(
         );
         trabo.position.set(tx, y + alto - 0o2/0o40, 0);
         group.add(trabo);
-        // Ora trabokapo
-        const cxapo = new THREE.Mesh(
-          new THREE.BoxGeometry(0o7/0o40, 0o3/0o40, 0o4/0o40),
-          oraCxapoMaterialo
-        );
-        cxapo.position.set( tx, y + alto - 0o2/0o40 + 0o4/0o40, hd - 0o1/0o4 );
-        group.add(cxapo);
-        cxapo.position.set( tx, y + tieroAlto - 0o2/0o40 + 0o4/0o40, -hd + 0o1/0o4 );
-        group.add(cxapo.clone());
       }
     }
   }

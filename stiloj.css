@@ -47,11 +47,13 @@ body {
 #retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--gold); }
 #retikulo::before { width:16px; height:1px; top:50%; left:-8px; }
 #retikulo::after { width:1px; height:16px; left:50%; top:-8px; }
-#tosto,#prompto { white-space:nowrap; opacity:0; pointer-events:none; }
+#tosto, #prompto { white-space:nowrap; opacity:0; pointer-events:none; }
 #tosto {
   position:fixed; z-index:5; top:calc(50% + 64px); left:50%; transform:translate(-50%,-50%) translateY(16px);
-  padding:var(--អារេង) var(--អារេងព៏); color:var(--mist);
+  color:var(--mist);
   transition:opacity .5s,transform .5s;
+  flex-direction: row;
+  max-block-size: 62.5%;
 }
 #tosto.montri { transform:translate(-50%,-50%); }
 #supermeta {
@@ -187,13 +189,12 @@ body {
 #sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); background:var(--deep); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
 /* La titolo kaj surskribo staras cxe la flankoj de la vertikala stango; la plenigo fluas de malsupro al supro. */
-.stango { position:relative; inline-size:6px; block-size:min(224px, 48%); border-radius:999px; background:var(--gold-dim); overflow:hidden; }
-.stango i { position:absolute; inset-inline:0; inset-block-end:0; inline-size:100%; block-size:0%; border-radius:999px; background:var(--gold); transition:block-size .25s; }
+.stango { position:relative; inline-size:6px; block-size:min(224px, 48%); border-radius:var(--ចិង); background:var(--gold-dim); overflow:hidden; }
+.stango i { position:absolute; inset-inline:0; inset-block-end:0; inline-size:100%; block-size:0%; border-radius:var(--ចិង); background:var(--gold); transition:block-size .25s; }
 .lsupra { color:var(--dim); }
 
 /* La skribo-direkto de la flosantaj kartoj sekvu la aktivan lingvon, ne la konstantan .aih-klason. */
 /* aih flanka (sideways-lr) · ja de supro al malsupro (vertical-rl) · aliaj normalaj. */
-.menuPanel,#tosto,#karto,#prompto,#supermeta .interno,.vestaKardo { writing-mode:horizontal-tb; }
 html[lang="aih"] .menuPanel, html[lang="aih"] #tosto, html[lang="aih"] #karto, html[lang="aih"] #prompto, html[lang="aih"] #supermeta .interno, html[lang="aih"] .vestaKardo { writing-mode:sideways-lr; }
 html[lang="ja"] .menuPanel, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
 /* En vertikalaj skrib-reĝimoj ( aih/ja ) la prompto estas vertikala strio: ĝi
@@ -209,9 +210,6 @@ html[lang="aih"] #prompto, html[lang="ja"] #prompto {
   white-space:normal; max-inline-size:75%; overflow:hidden;
 }
 html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
-/* La tosto en aih/ja estas vertikala strio ( sideways-lr / vertical-rl ): longaj
-   tekstoj ( ekz. manĝaj gustoj, ~75 signoj ) povus superi la ekranon — samaj limigoj. */
-html[lang="aih"] #tosto, html[lang="ja"] #tosto { white-space:normal; max-inline-size:60%; overflow:hidden; }
 
 /* Mobile controls remain custom because the linked stylesheet does not know their geometry. */
 /* La tuŝaj kontroloj aperas nur post la unua reala tuŝo ( body.tuŝa ), sur ajna tuŝekrano, sendepende de la grandeco. */

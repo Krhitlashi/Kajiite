@@ -168,6 +168,7 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const S = new THREE.Vector3();
+  const TMP = new THREE.Vector3(); // reuzita skriba vektoro — neniu ĉiukadra faro
 
   sys.spots.forEach((p, i) => {
     const fazo = sys.phases[i];
@@ -180,7 +181,7 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
     sys.flamaEkstero.setMatrixAt(i, M);
 
     S.set(skalo * 0o35/0o40, skaloY * 0o35/0o40, skalo * 0o35/0o40);
-    M.compose(new THREE.Vector3(p.x, p.y + 0o1/0o40, p.z), Q, S);
+    M.compose(TMP.set(p.x, p.y + 0o1/0o40, p.z), Q, S);
     sys.flamaInterno.setMatrixAt(i, M);
   });
 

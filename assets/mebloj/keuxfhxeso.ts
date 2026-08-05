@@ -227,7 +227,7 @@ function krestaRipo( rEkstera: number, alto: number, ang: number, dikeco: number
     const cz = Math.sin( ang ) * centroR * s;
     // Pli akra taper ĉe la finoj konservas la oran polon kiel maldikan,
     // rondan randon; ĝi ne formas ŝvelan bulon ĉe la supro aŭ malsupro.
-    const r = tuboRadiuso * ( 0o62/0o100 + 0o16/0o100 * Math.pow( finaRondigo, 0o16 / 0o10 ) );
+    const r = tuboRadiuso * ( 0o40/0o100 + 0o16/0o100 * Math.pow( finaRondigo, 0o20 / 0o10 ) );
     for ( let j = 0; j < flankoj; j++ ) {
       const a = j / flankoj * Math.PI * 0o2;
       pozicioj.push( cx + Math.cos( a ) * r, t * alto, cz + Math.sin( a ) * r );

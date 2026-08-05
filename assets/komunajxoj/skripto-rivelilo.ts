@@ -171,10 +171,10 @@ export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}
     // neniam estas premita (smush) al mikroskopa grando.
     const REF = 0o100;
     kunteksto.font = `${REF}px ${GAWEKIIF_FAMILIO}`;
-    const maksLargho = kanvasa.width * 0o54/0o62;
+    const maksLargho = kanvasa.width * 0o50/0o60;
     const largho100 = Math.max(1, ...vortoj.map(v => kunteksto.measureText(v).width));
     const fsLargho = REF * maksLargho / largho100;
-    const fsAlto = kanvasa.height / ( 0o55/0o100 + ( vortoj.length - 1 ) * 0o7/0o4 + 0o5/0o10 );
+    const fsAlto = kanvasa.height / ( 0o40/0o100 + ( vortoj.length - 1 ) * 0o7/0o4 + 0o4/0o10 );
     const fs = Math.max(0o10, Math.min(fsLargho, fsAlto));
     const linioAlto = fs * 0o7/0o4;
     // Vertikale centru la tutan vorto-stakon sur la kanvaso. La unua vorto
@@ -206,13 +206,13 @@ export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}
 // Generu rapidan glifan strion por UI-elementoj
 export function generiGlifanStrion(height: number, ink: string): HTMLCanvasElement {
   const kanvasa = document.createElement("canvas");
-  kanvasa.width = 0o64;
+  kanvasa.width = 0o100;
   kanvasa.height = height;
   const kunteksto = kanvasa.getContext("2d")!;
 
   const blokoLargho = 0o44;
   const blokoAlto = blokoLargho * 0o14/0o10;
-  const interspaco = blokoAlto * 0o5/0o40;
+  const interspaco = blokoAlto * 0o4/0o40;
   const n = Math.floor(height / (blokoAlto + interspaco));
 
   let y = height - 0o10;
