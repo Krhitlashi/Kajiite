@@ -1,7 +1,7 @@
 // Hxeuxfa lampo — trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj
 // sprajtoj. La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
 import * as THREE from "three";
-import { kreiBrilanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiBrilanTeksajxon, kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
 export interface HxeuxfaLoko {
@@ -21,6 +21,11 @@ export interface HxeuxfaSistemo {
 }
 
 // konstruiHxeuxfojn — Konstruu trapezajn lampojn (hxeuxfojn) el bazoj, bovloj, flamoj kaj briletoj.
+//     @param dioritaMaterialo ( THREE.MeshStandardMaterial ) - La komuna monda
+//     diorita ŝtonmaterialo ( kreiDioritanMaterialon ), kiun la lampoj reuzas
+//     por siaj kolonoj kaj bovloj. La lampo prenas PROPRIAN klonon kun pli
+//     fajngrajna teksturo ( 4×4 anstataŭ 2×2 ), por ke la kristaloj konvenu
+//     al la malgranda skalo de la kolono kaj bovlo.
 export function konstruiHxeuxfojn(sceno: THREE.Scene,
   spots: HxeuxfaLoko[],
   dioritaMaterialo: THREE.MeshStandardMaterial,
@@ -29,6 +34,21 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   const kolonajGeometrioj: THREE.BufferGeometry[] = [];
   const bovlajGeometrioj: THREE.BufferGeometry[] = [];
   const flamajLokoj: THREE.Vector3[] = [];
+
+  // Lampa diorita materialo — klono kun pli fajngrajna teksturo. La komuna
+  // voja ripeto ( 2×2 ) montras tro grandajn kristalojn sur la malgranda
+  // kolono kaj bovlo; la 4×4 ripeto duonigas la grajnojn kaj konvenas al la
+  // lampa skalo. La teksturo-klonoj kunhavigas la bildon, do ili kostas nenion
+  // plian en memoro.
+  const lampaMaterialo = dioritaMaterialo.clone();
+  const lampaMap = ( dioritaMaterialo.map ?? kreiDioritanTeksajxon() ).clone();
+  lampaMap.repeat.set( 0o4, 0o4 ); lampaMap.needsUpdate = true;
+  lampaMaterialo.map = lampaMap;
+  if ( dioritaMaterialo.bumpMap ) {
+    const lampaBump = dioritaMaterialo.bumpMap.clone();
+    lampaBump.repeat.set( 0o4, 0o4 ); lampaBump.needsUpdate = true;
+    lampaMaterialo.bumpMap = lampaBump;
+  }
 
   for ( const p of spots ) {
     // Trapeza kolono ( pli largxa cxe bazo )
@@ -40,18 +60,23 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 
     // Diorita bovlo — fermita profilo. ekstera kurbo, rando, interna muro kaj fundo.
     // La fermo forigas la tra-videblon (la interna flanko nun estas vera surfaco).
+    // La plata bazo havas la SAMAN radiuson kiel la kolona supro ( 0o5/0o40 =
+    // 0.156 ), do la bovlo sidas tute glate sur la kolono sen videbla paŝo aŭ
+    // superpendanta lipo — unu kontinua silueto. La interno estas MALKOLONGA
+    // ( la fundo leviĝas al 0o5/0o40 ), do la bovlo aspektas pli kiel malprofunda
+    // pelvo kaj la malhela ena kavo ne dominiĝas.
     const profilo: THREE.Vector2[] = [
       new THREE.Vector2(0, 0),
       ...new THREE.SplineCurve([
-        new THREE.Vector2(0o13/0o100, 0),
-        new THREE.Vector2(0o7/0o40, 0o3/0o40),
-        new THREE.Vector2(0o13/0o40, 0o7/0o40),
+        new THREE.Vector2(0o5/0o40, 0),
+        new THREE.Vector2(0o2/0o10, 0o5/0o40),
+        new THREE.Vector2(0o3/0o10, 0o5/0o20),
         new THREE.Vector2(0o35/0o100, 0o14/0o40),
       ]).getPoints(0o12),
       new THREE.Vector2(0o31/0o100, 0o14/0o40),
-      new THREE.Vector2(0o3/0o20, 0o1/0o4),
-      new THREE.Vector2(0o3/0o20, 0o1/0o20),
-      new THREE.Vector2(0, 0o1/0o20),
+      new THREE.Vector2(0o3/0o20, 0o4/0o20),
+      new THREE.Vector2(0o3/0o20, 0o5/0o40),
+      new THREE.Vector2(0, 0o5/0o40),
     ];
     const bowl = new THREE.LatheGeometry(profilo, 4);
     bowl.rotateY(rotacio);
@@ -64,11 +89,11 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     flamajLokoj.push(new THREE.Vector3(p.x, p.y + 0o205/0o40, p.z));
   }
 
-  const kolonoj = new THREE.Mesh(kunfandiGeometriojn(kolonajGeometrioj), dioritaMaterialo);
+  const kolonoj = new THREE.Mesh(kunfandiGeometriojn(kolonajGeometrioj), lampaMaterialo);
   kolonoj.castShadow = true;
   sceno.add(kolonoj);
 
-  const bovloj = new THREE.Mesh(kunfandiGeometriojn(bovlajGeometrioj), dioritaMaterialo);
+  const bovloj = new THREE.Mesh(kunfandiGeometriojn(bovlajGeometrioj), lampaMaterialo);
   sceno.add(bovloj);
 
   // flamaj konusoj
@@ -170,6 +195,8 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
   const S = new THREE.Vector3();
   const TMP = new THREE.Vector3(); // reuzita skriba vektoro — neniu ĉiukadra faro
 
+  // Unu sola trairo de la flamlokoj — la flamaj matricoj KAJ la punktlumaj
+  // intensecoj en la sama buklo ( la antaŭa duobla forEach faris du trairojn ).
   sys.spots.forEach((p, i) => {
     const fazo = sys.phases[i];
     const skalo = 1 + 0o5/0o40 * Math.sin(t * 0o1223/0o100 + fazo) + 0o3/0o40 * Math.sin(t * 0o2755/0o100 + fazo * 0o155/0o100);
@@ -183,18 +210,14 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
     S.set(skalo * 0o35/0o40, skaloY * 0o35/0o40, skalo * 0o35/0o40);
     M.compose(TMP.set(p.x, p.y + 0o1/0o40, p.z), Q, S);
     sys.flamaInterno.setMatrixAt(i, M);
+
+    if ( i < sys.punktajLumoj.length ) {
+      const L = sys.punktajLumoj[i];
+      L.intensity = 0o15/0o40 * (0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2));
+    }
   });
 
   sys.flamaEkstero.instanceMatrix.needsUpdate = true;
   sys.flamaInterno.instanceMatrix.needsUpdate = true;
   sys.brilaMaterialo.uniforms.uTime.value = t;
-
-  // animaciu punktlumojn
-  sys.spots.forEach((p, i) => {
-    if ( i < sys.punktajLumoj.length ) {
-      const L = sys.punktajLumoj[i];
-      const fazo = sys.phases[i];
-      L.intensity = 0o15/0o40 * (0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2));
-    }
-  });
 }

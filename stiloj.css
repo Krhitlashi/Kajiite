@@ -61,9 +61,8 @@ body {
   background:var(--scrim); opacity:0; pointer-events:none; transition:opacity .25s;
 }
 /* La plena mapo estas plenekrana: kiam la mapo malfermiĝas, la panelo kaŝiĝas,
-   la kanvaso plenigas la tutan ekranon, kaj la tegilo leviĝas super la naviga
-   butono ( z-7, posta en la DOM-o gajnas la egalecon ) por ke ĝi ne videblu tra
-   la mapo. */
+   la kanvaso plenigas la tutan ekranon, kaj la tegilo ( z-7 ) kuŝas super la
+   flosaj butonoj ( z-5 ) por ke ili ne videblu tra la mapo. */
 #supermeta.mapo { z-index:7; place-items:stretch; background:none; }
 #supermeta.mapo .interno { display:none; }
 /* Fizika max-height ankaŭ: en aih/ja la blok-akso estas horizontala, do nur
@@ -136,13 +135,15 @@ body {
   color:var(--gold); cursor:pointer; touch-action:manipulation;
   inline-size:52px; block-size:52px;
 }
+/* z-5: super la ludo ( karto/prompto/kompaso je z-3 ), sub la paneloj ( z-6 ) —
+   malfermita panelo kovras la butonon anstataŭ la butono flosi super ĝi. */
 #navButono {
-  position:fixed; z-index:7; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab));
+  position:fixed; z-index:5; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab));
 }
 /* La informa butono flosas supre-maldekstre kun la samaj angulaj marĝenoj
    kiel la naviga butono ( var(--អារេងព៏) + safe-area ). */
 #informButono {
-  position:fixed; z-index:7; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(var(--អារេងព៏) + var(--sat));
+  position:fixed; z-index:5; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(var(--អារេងព៏) + var(--sat));
 }
 /* Logikaj enliniaj/blokaj ecoj sekvas la skrib-reĝimon de la rotaciita panelo. */
 #navPopUp {
@@ -157,14 +158,15 @@ body {
 #navPopUp.montri { transform:none; }
 /* La du paneloj plenigas sian vertikalan spacon sen div-ĉirkaŭaĵo — nenia
    malplena spaco sub ili. La vertikalaj liberoj estas ŜANĜITAJ inter la du:
-   la informo-panelo havas la liberon SUPRE ( 72px, sub la supra strio, kie
-   la informa butono restas videbla ) kaj etendiĝas ĝis la 16px suba marĝeno;
-   la vestaro estas la vertikala spegulo — ĝi komenciĝas 16px sub la supro
-   kaj finiĝas 72px antaŭ la malsupro, do ĝi venas de la malsupro kaj lasas
-   la menuo-ikonon videbla sube ( la sama flosado kiel la naviga pop-up ).
-   Ambaŭ rulumas interne. La poziciado uzas FIZIKAj top/bottom/left/right,
-   ĉar la .menuPanel-klaso rotacias la skrib-reĝimon en aih ( sideways-lr ) —
-   logikaj inset-oj renversiĝus. */
+   la informo-panelo havas la liberon SUPRE ( 72px, sub la supra strio ) kaj
+   etendiĝas ĝis la 16px suba marĝeno; la vestaro estas la vertikala spegulo —
+   ĝi komenciĝas 16px sub la supro kaj finiĝas 72px antaŭ la malsupro, do ĝi
+   venas de la malsupro ( la sama flosado kiel la naviga pop-up ). La paneloj
+   ( z-6 ) kuŝas SUPER la flosaj butonoj ( z-5 ): kiam panelo kovras butonon,
+   la butono kaŝiĝas malantaŭ ĝi — la informa butono sub la vestaro kaj la
+   naviga butono sub la informo-panelo. Ambaŭ rulumas interne. La poziciado
+   uzas FIZIKAj top/bottom/left/right, ĉar la .menuPanel-klaso rotacias la
+   skrib-reĝimon en aih ( sideways-lr ) — logikaj inset-oj renversiĝus. */
 #informo, #vestaro {
   position:fixed; z-index:6;
   display:flex; flex-direction:column;
@@ -184,6 +186,9 @@ body {
 /* La muzik-grupo kaj la krepuska karteto estas <ciihii>-kartoj el la ekstera stilfolio:
    ili ricevas la karton-surfacon, kaj la elektitaj/ŝvebaj/klakaj buton-statoj venas el tie ( aria-pressed ). */
 #duskLabelo { flex-direction:row; align-items:center; }
+/* La vetera etikedo montras la nunan veteron kiel tekston en la sama karto.
+   ĝi estas plenlargxa ĉelo de la menuKrepusko-reto, centre vicigita. */
+#veteroEtikedo { flex-direction:row; align-items:center; justify-content:center; text-align:center; }
 #trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); overflow: auto; }
 .menuKrepusko { display:grid; grid-template-columns:64px 1fr; align-items:center; }
 #duskLabelo input[type=range] { flex:1; min-inline-size:0; }

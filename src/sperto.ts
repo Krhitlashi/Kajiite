@@ -8,14 +8,17 @@ import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/medio/akvo.js";
 import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../assets/shalaj-specioj/bestoj.js";
 import { konstruiFiguron, gxisdatigiNpc } from "../assets/shalaj-specioj/homoj.js";
 import type { Figuro } from "../assets/shalaj-specioj/homoj.js";
+import { kreiRetilon } from "./retilo.js";
+import type { LokaStato } from "./retilo.js";
 
-import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/konstruajxoj/internoj.js";
+import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo, sxlosiloDeSpeco } from "../assets/konstruajxoj/internoj.js";
 import { animaciiKrasesxagxon } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { TIPARO, KonstruSpec } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
 import { MangxajxItemo, FOKS, TLAS } from "../assets/mebloj/mangxajxoj.js";
 import { riveroZ, alteco, RIVERA_DUONLARĜO, LAGO_X, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo, riveraAkvaNivelo,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_DUONLARĜO, cxuEnNordorientaRivero } from "./tereno.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
+import type { Vetero } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
 import { traduki, cxuAih } from "./tradukoj.js";
@@ -81,7 +84,7 @@ let pauxzaPaŝo = 0; // step sound cooldown counter
 
 // ⟪ Krei scenon kaj urbon 📃 ⟫
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
-const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon } = scena;
+const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron } = scena;
 
 const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, (p) => {
   stangoPlenigo.style.blockSize = `${Math.round(p * 100)}%`;
@@ -104,10 +107,20 @@ sceno.add(ludantaFiguro.group);
 // Nuna har-stilo kaj -koloro de la ludanto — por la aktiva-karto marko kaj la
 // antauxrigardoj en la vestaro.
 let aktivaHarStilo = HARSTILOJ[0], aktivaHarKoloro = HARKOLOROJ[0].koloro;
+// La nuna vesto — spuro por la retilo ( la aspekto de la ludanto ĉe la aliaj ).
+let aktivaVesto = VESTOJ[0];
+// Kaŝitaj indeksoj de la aktiva aspekto — la retila stato uzas ilin ĉiukadre,
+// kaj indexOf/findIndex ĉiukadre estus senutila skanado de la vestaro.
+let aktivaVestoIdx = 0, aktivaHarStiloIdx = 0, aktivaHarKoloroIdx = 0;
 // Determinisma komenca har-stilo kaj -koloro ( la samaj kiel la unuaj kartoj ),
 // anstataŭ la hazarda NPC-nuanco.
 ludantaFiguro.agordiHaranStilon(aktivaHarStilo);
 ludantaFiguro.agordiHaranKoloron(aktivaHarKoloro);
+
+// ⟪ Retilo ( multludada ) 📃 ⟫ — konektas al la servila WebSocket kaj montras
+// la aliajn ludantojn kiel figurojn en la mondo. Se la servilo ne estas
+// atingebla, la retilo restas silente malaktiva.
+const retilo = kreiRetilon(sceno, montriTost, traduki);
 
 // ⟪ Orbit-regiloj 📃 ⟫
 const regiloj = new OrbitControls(fotilo, bildilo.domElement);
@@ -475,6 +488,37 @@ duskRegilo.addEventListener("input", () => {
   aplikiRezimon(krepuskaValoro);
 });
 
+// ⟪ Vetero ( nebula · pluva · hajla · nega ) 📃 ⟫
+// Cikla butono apud la krepuska regilo — ĉiu klako ŝanĝas al la sekva vetero.
+// La pluva, la hajla kaj la neĝa vetero ŝaltas la precipitan partiklan
+// sistemon kaj ŝanĝas la atmosferon ( ĉielo, lumoj, nebulo ) en scena.ts.
+const VETERAJ: { kodo: Vetero; glifo: string; klavo: string }[] = [
+  { kodo: "nebula", glifo: "☁", klavo: "veteroNebula" },
+  { kodo: "pluva", glifo: "☂", klavo: "veteroPluva" },
+  { kodo: "hajla", glifo: "⛈", klavo: "veteroHajla" },
+  { kodo: "nega", glifo: "❄", klavo: "veteroNega" },
+];
+let veteraIndekso = 0;
+const butVetero = document.getElementById("butVetero")!;
+const veteroEtikedo = document.getElementById("veteroEtikedo")!;
+function gxisdatigiVeteranButonon(): void {
+  const v = VETERAJ[veteraIndekso];
+  butVetero.textContent = v.glifo;
+  butVetero.setAttribute("aria-label", traduki(v.klavo));
+  veteroEtikedo.textContent = traduki(v.klavo);
+  // La nova etikedo ( aih ) bezonas la vacepu-vortojn.
+  aplikiVacepu();
+  aplikiVeteron(v.kodo);
+}
+butVetero.addEventListener("click", () => {
+  veteraIndekso = (veteraIndekso + 1) % VETERAJ.length;
+  gxisdatigiVeteranButonon();
+  fermiNaviganPopUp();
+});
+// Kiam la lingvo ŝanĝiĝas, la vetera etikedo refreŝiĝu ( la vetero mem restas ).
+window.addEventListener("lingvosxangxo", gxisdatigiVeteranButonon);
+gxisdatigiVeteranButonon();
+
 // ⟪ Vacepu. Envolvi la vortojn de la flosantaj kartoj en la aih-a lingvo. ⟫
 function aplikiVacepu(): void {
   if (cxuAih() && typeof vacepu === "function") {
@@ -627,26 +671,64 @@ mobJoystickZono.addEventListener("touchcancel", (e) => {
 }, { passive: false });
 
 // ⟪ Poŝtelefona rigarda kontrolo per tuŝo 📃 ⟫
+// Unu fingro turnas la rigardon ( kiel la muso en montra-seruro ). Dua fingro
+// ekas pinĉon: malzomi ( fingroj disen ) malfermas la trian personon kaj
+// montras la modelon de la ludanto, zumi ( fingroj kunen ) revenas al la unua
+// persono — same kiel la rado sur labortablo.
 let tuŝaRigardaID = -1;
 let lastTouchX = 0, lastTouchY = 0;
+// Pinĉa stato — la du fingroj de la nuna gesto kaj la lasta distanco inter ili
+// ( por mezuri la delton po movevento ).
+let pinĉajIDoj: number[] = [];
+let pinĉaDistanco = 0;
+
+function distancoInterTuŝoj(a: Touch, b: Touch): number {
+  return Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY);
+}
 
 kanvaso.addEventListener("touchstart", (e) => {
   if (rezimo !== "walk" && rezimo !== "interior") return;
-  if (tuŝaRigardaID >= 0) return;
-  // Don't capture if touch is on joystick or action buttons
-  const t = e.changedTouches[0];
-  const el = document.elementFromPoint(t.clientX, t.clientY);
-  if (el && (el === mobJoystickZono || el === mobJoystickBazo || mobJoystickZono.contains(el) || el.classList.contains("mobBut") || el.closest("#mobButaroj") || el.closest("#kompaso"))) {
+  // Dum pinĉo ignoru pliajn fingrojn.
+  if (pinĉajIDoj.length > 0) return;
+  // Traktu ĉiujn fingrojn de la evento — du fingroj povas ek-terigi samtempe.
+  for (const t of Array.from(e.changedTouches)) {
+    // Don't capture if touch is on joystick or action buttons
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    if (el && (el === mobJoystickZono || el === mobJoystickBazo || mobJoystickZono.contains(el) || el.classList.contains("mobBut") || el.closest("#mobButaroj") || el.closest("#kompaso"))) {
+      continue;
+    }
+    // Unua fingro turnas la rigardon; dua komencas la pinĉon ( la rotacio paŭzas ).
+    if (tuŝaRigardaID < 0) {
+      tuŝaRigardaID = t.identifier;
+      lastTouchX = t.clientX;
+      lastTouchY = t.clientY;
+      continue;
+    }
+    const unua = Array.from(e.touches).find(tu => tu.identifier === tuŝaRigardaID);
+    if (!unua) continue;
+    pinĉajIDoj = [unua.identifier, t.identifier];
+    pinĉaDistanco = distancoInterTuŝoj(unua, t);
+    tuŝaRigardaID = -1;
     return;
   }
-  tuŝaRigardaID = t.identifier;
-  lastTouchX = t.clientX;
-  lastTouchY = t.clientY;
 }, { passive: true });
 
 kanvaso.addEventListener("touchmove", (e) => {
-  if (tuŝaRigardaID < 0) return;
   if (rezimo !== "walk" && rezimo !== "interior") return;
+  // Pinĉo — la distanco inter la fingroj zumas la fotilon ( malzomi = tria
+  // persono, zumi = unua persono ).
+  if (pinĉajIDoj.length > 0) {
+    const unua = Array.from(e.touches).find(tu => tu.identifier === pinĉajIDoj[0]);
+    const dua = Array.from(e.touches).find(tu => tu.identifier === pinĉajIDoj[1]);
+    if (unua && dua) {
+      const nova = distancoInterTuŝoj(unua, dua);
+      celDistanco = Math.max(0, Math.min(0o16, celDistanco + (nova - pinĉaDistanco) * 0o1/0o10));
+      pinĉaDistanco = nova;
+      e.preventDefault();
+    }
+    return;
+  }
+  if (tuŝaRigardaID < 0) return;
   for (let i = 0; i < e.changedTouches.length; i++) {
     const t = e.changedTouches[i];
     if (t.identifier === tuŝaRigardaID) {
@@ -664,6 +746,25 @@ kanvaso.addEventListener("touchmove", (e) => {
 }, { passive: false });
 
 kanvaso.addEventListener("touchend", (e) => {
+  // Fino de la pinĉo — se unu fingro restas sur la kanvaso, ĝi daŭrigas kiel
+  // rigard-rotacio ( same kiel la plena mapo daŭrigas tiri post pinĉo ).
+  if (pinĉajIDoj.length > 0) {
+    for (let i = 0; i < e.changedTouches.length; i++) {
+      const idx = pinĉajIDoj.indexOf(e.changedTouches[i].identifier);
+      if (idx < 0) continue;
+      const restantaID = pinĉajIDoj[1 - idx];
+      pinĉajIDoj = [];
+      pinĉaDistanco = 0;
+      const restanta = Array.from(e.touches).find(tu => tu.identifier === restantaID);
+      if (restanta) {
+        tuŝaRigardaID = restantaID;
+        lastTouchX = restanta.clientX;
+        lastTouchY = restanta.clientY;
+      }
+      break;
+    }
+    return;
+  }
   for (let i = 0; i < e.changedTouches.length; i++) {
     if (e.changedTouches[i].identifier === tuŝaRigardaID) {
       tuŝaRigardaID = -1;
@@ -674,6 +775,8 @@ kanvaso.addEventListener("touchend", (e) => {
 
 kanvaso.addEventListener("touchcancel", () => {
   tuŝaRigardaID = -1;
+  pinĉajIDoj = [];
+  pinĉaDistanco = 0;
 }, { passive: true });
 
 // ⟪ Poŝtelefonaj agbutonoj 📃 ⟫
@@ -748,7 +851,7 @@ function kasxiEksteron(): void {
   if (kaŝitajEksteraj.length > 0) return;
   const tenataj = new Set<THREE.Object3D>([
     scena.cxielo, scena.hemiLumo, scena.suna, scena.suna.target, scena.sunaSprajto,
-    ludantaFiguro.group,
+    ludantaFiguro.group, retilo.grupo,
   ]);
   for (const o of sceno.children) {
     if (tenataj.has(o) || o === internaSistemo.currentGroup) continue;
@@ -769,7 +872,10 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
   if (document.pointerLockElement !== kanvaso) kanvaso.requestPointerLock();
   if (cxuAŭdio()) sfx.door();
   pulsiEfikon();
-  montriSargxon(0o400, () => {
+  // La internoj de jam vizititaj konstruajxoj estas kasxitaj kaj reuzataj —
+  // eniri ilin denove estas tuja, do la sxargxa kurteno mallongigxas.
+  const jamKonstruita = internaSistemo.kasxo.has( sxlosiloDeSpeco( spec ) );
+  montriSargxon( jamKonstruita ? 0o100 : 0o400, () => {
     antauxaRezimo = rezimo as "orbit" | "walk";
     try {
       rezimo = "interior";
@@ -921,6 +1027,8 @@ function plenigiVestaron() {
     card.addEventListener("click", () => {
       vestaro.classList.remove("montri");
       // Surmetu la veston al la ludanto — la modelo sxangxas kolorojn tuj.
+      aktivaVesto = o;
+      aktivaVestoIdx = VESTOJ.indexOf(o);
       ludantaFiguro.agordiVeston(o);
       montriTost(traduki(o.nomo));
     });
@@ -952,6 +1060,7 @@ function plenigiVestaron() {
     card.addEventListener("click", () => {
       vestaro.classList.remove("montri");
       aktivaHarStilo = stilo;
+      aktivaHarStiloIdx = HARSTILOJ.indexOf(stilo);
       ludantaFiguro.agordiHaranStilon(stilo);
       montriTost(traduki(stilo.nomo));
     });
@@ -981,6 +1090,7 @@ function plenigiVestaron() {
     card.addEventListener("click", () => {
       vestaro.classList.remove("montri");
       aktivaHarKoloro = harKoloro.koloro;
+      aktivaHarKoloroIdx = HARKOLOROJ.indexOf(harKoloro);
       ludantaFiguro.agordiHaranKoloron(harKoloro.koloro);
       montriTost(traduki(harKoloro.nomo));
     });
@@ -1097,10 +1207,12 @@ function konsumi(item: MangxajxItemo) {
   item.dead = true;
   const f = item.f, isFok = item.key.startsWith("fok"), m = item.mesh;
   const start = performance.now();
+  // La animacio estas nuligebla — kiam la interno estas kasxita kaj reuzata,
+  // la pendanta malkresko ne plu rajtas tuŝi la reaperantan mangxajxon.
   (function ŝrumpi() {
     const t = (performance.now() - start) / 480;
     m.scale.setScalar(Math.max(0o1/0o2000, 1 - t));
-    if (t < 1) requestAnimationFrame(ŝrumpi); else m.visible = false;
+    if (t < 1) item.malkreska = requestAnimationFrame(ŝrumpi); else { m.visible = false; item.malkreska = null; }
   })();
   if (isFok) sfx.crunch(); else sfx.sip();
   const foodKey = "manĝ" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
@@ -1487,6 +1599,32 @@ function agordiPromenanFotilon(okulY: number, bob: number, krampi = true, subaLi
   fotilo.lookAt(ludantaPozicio.x, okulY + d * 0o1/0o10, ludantaPozicio.z);
 }
 
+// ⟪ Retila stato 📃 ⟫ — la pozicio kaj aspekto de la ludanto, sendataj al la
+// aliaj ludantoj per la retilo. En orbito la ludanto ne ĉeestas fizike en la
+// mondo — la aliaj kaŝas la figuron ( reĝimo "orbit" ).
+function konstruiRetilanStaton(): LokaStato {
+  let y = ludantaPozicio.y;
+  if (surKanoto) {
+    // Sur la kanuo la figuro sidas sur la bastono.
+    y = surKanoto.bazaY + 0o3/0o20;
+  } else if (estisNaĝanta && rezimo === "walk") {
+    // Naĝante la korpo mergiĝas — la kapo apenaŭ super la akvosurfaco.
+    y = akvaNivelo(ludantaPozicio.x, ludantaPozicio.z) - 0o16/0o10;
+  }
+  return {
+    x: ludantaPozicio.x, y, z: ludantaPozicio.z,
+    direkto,
+    movo: rezimo === "walk" || rezimo === "interior" ? movoValoro : 0,
+    naĝas: estisNaĝanta,
+    surKanuo: surKanoto !== null,
+    interno: rezimo === "interior" && elektitaSpec ? `${Math.round(elektitaSpec.x)}|${Math.round(elektitaSpec.z)}` : "",
+    reĝimo: rezimo,
+    vesto: aktivaVestoIdx,
+    haro: aktivaHarStiloIdx,
+    harKoloro: aktivaHarKoloroIdx,
+  };
+}
+
 // ⟪ Animacio 📃 ⟫
 const horlogxo = new THREE.Timer();
 function animacii() {
@@ -1514,6 +1652,8 @@ function animacii() {
     bildilo.setSize(w, h);
   }
 
+  // Vetero — precipita animacio ( pluvo · neĝo ) kaj la fotil-sekvo.
+  gxisdatigiVeteron(t);
   // Flamoj
   animaciiFlammojn(lampSistemo, t);
   // Akva animacio
@@ -1938,6 +2078,15 @@ function animacii() {
   }
   // NPC-aj animacioj
   for (const n of npcoj) gxisdatigiNpc(n, deltaTempo, t, alteco);
+
+  // ⟪ Retilo 📃 ⟫ — sendu la lokan staton ( 8 Hz interne ) kaj sekvu la forajn
+  // figurojn. Kiam la servilo ne estas atingebla, la tuta per-kadra laboro
+  // estas preterlasata ( neniu stato-konstruo, neniu animacio — ne ekzistas
+  // foraj figuroj se ne estas konekto ).
+  if (retilo.aktiva) {
+    retilo.sendi(konstruiRetilanStaton());
+    retilo.animacii(deltaTempo, t);
+  }
 
   // ⟪ Ludanta figuro — tria persono 📃 ⟫
   // Glata malzomo. Al nulo la fotilo revenas al unua persono kaj la figuro

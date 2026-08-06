@@ -1,9 +1,10 @@
-// Minimum statika dosierservilo por Kajiite — kun viva reŝargo (SSE)
+// Minimum statika dosierservilo por Kajiite — kun viva reŝargo (SSE) kaj la retilo ( multludado )
 import { createServer } from "http";
 import { readFile } from "fs/promises";
 import { watch } from "fs";
 import { join, extname, normalize } from "path";
 import { fileURLToPath } from "url";
+import { konektiRetilon } from "./retilo-servilo.js";
 
 const PORD = 0o5670;
 const PORD_FALLO = 0o5671;
@@ -75,6 +76,12 @@ const servilo = createServer(async (peto, respondo) => {
   } catch {
     respondo.writeHead(0o624); respondo.end("Ne trovita");
   }
+});
+
+// La retilo — WebSocket-servilo por la multludada sperto ( /retilo ).
+konektiRetilon(servilo, {
+  jeAliĝo: (id, kvanto) => console.log("Retilo: " + id + " aliĝis ( " + kvanto + " aktiva )"),
+  jeForiro: (id, kvanto) => console.log("Retilo: " + id + " foriris ( " + kvanto + " aktiva )"),
 });
 
 function komencu(pordo) {

@@ -46,6 +46,10 @@ export interface MangxajxItemo {
   f: MangxajxDatumo;
   pos: THREE.Vector3;
   dead: boolean;
+  // Nuna malkreska animacio ( konsumi ) — por nuligi gxin, kiam la interno
+  // estas kasxita kaj reuzata ( la animacio ne plu apartenu al la reaperanta
+  // mangxajxo ).
+  malkreska?: number | null;
 }
 // kreiMangxajxojn — Metu mangxajxojn sur la tablojn ( aux laux la malnova aera arangxo se ne estas tabloj ).
 //     @param tabloj ( { x, z }[] ) - Tablo-centraj pozicioj; la mangxajxoj sidas sur la supro ( y ≈ 0o7/0o20 ).

@@ -3,6 +3,21 @@ import * as THREE from "three";
 
 const hazard = (a: number, b: number): number => a + Math.random() * (b - a);
 
+// desegniWrapan — Desegnu la saman formon ĉe ĉiuj naŭ kahelaj pozicioj
+// ( -s, 0, s en ambaŭ aksoj ), per traduko de la kunteksto — la gradientoj
+// sekvas la tradukon, do la formo daŭriĝas senkudre trans ĉiun randon. Uzata
+// de la dioritaj kolor- kaj bump-teksajxoj por ke neniu detalo tranĉiĝu.
+function desegniWrapan( kunteksto: CanvasRenderingContext2D, s: number, formo: () => void ): void {
+  for ( const dx of [ -s, 0, s ] ) {
+    for ( const dy of [ -s, 0, s ] ) {
+      kunteksto.save();
+      kunteksto.translate( dx, dy );
+      formo();
+      kunteksto.restore();
+    }
+  }
+}
+
 // sxovu — Kaŝmemoru la rezulton de senargumenta tekstura kreado, por ke la
 // multaj alvokoj ( vojoj ×3 + doko, vegetajxo ×2 ) konstruu ĉiun nur unufoje.
 function sxovu( fn: () => THREE.CanvasTexture ): () => THREE.CanvasTexture {
@@ -67,41 +82,194 @@ export function kreiLarikanSxelanTeksajxon(): THREE.CanvasTexture {
   return teksajxo;
 }
 
-// kreiDioritanTeksajxon — Kreu proceduralan dioritan teksajxon por vojoj.
+// kreiDioritanTeksajxon — Kreu proceduralan dioritan teksajxon por vojoj,
+// dokoj kaj lampoj. Diorito estas helgriza intrusiva ŝtono kun videblaj
+// interplektitaj kristaloj. La teksajxo estas granda ( 256px, ripeto 2×2 ) kun
+// molaj gradienaj grajnoj kaj grand-skala mottlado. Ĉiu makulo kaj grajno
+// ĉirkaŭvolvas la kahelajn randojn ( naŭ kopioj per tranĉaĵo ), do la teksajxo
+// estas PERFEKTE senkudra kaj ne montras bendojn kiam ĝi ripetiĝas.
 export const kreiDioritanTeksajxon = sxovu( (): THREE.CanvasTexture => {
-  const s = 0o200;
-  const kanvasa = document.createElement("canvas");
+  const s = 0o400;
+  const kanvasa = document.createElement( "canvas" );
   kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#e8e8e8"; kunteksto.fillRect(0, 0, s, s);
-  const koloroj = ["#f8f8f8", "#d8d8c8", "#c0c8b8", "#f8f8f0", "#b0b0a8"];
-  for ( let i = 0; i < 0o1010; i++ ) {
-    kunteksto.fillStyle = koloroj[i % koloroj.length];
-    kunteksto.fillRect(hazard(0, s), hazard(0, s), hazard(1, 3), hazard(1, 3));
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  // Bazo — helgriza feldspata maso.
+  kunteksto.fillStyle = "#d8d8d0"; kunteksto.fillRect( 0, 0, s, s );
+  // Grand-skala mottlado — molaj helaj kaj malhelaj nuboj, pli grandaj ol la
+  // kristaloj, kiuj rompas la kahelan ripeton. La nuboj ĉirkaŭvolvas la randojn.
+  // La malhelaj nuboj estas MOLAJ ( malalta alpha ) kaj iom pli helaj ol antaŭe,
+  // por ke la ŝtono ne montru grandajn malhelajn makulojn kaj la koloro restu
+  // pli egala.
+  const nuboj = [ "rgba(248,248,240,0.3)", "rgba(104,104,96,0.18)", "rgba(168,168,160,0.26)", "rgba(136,136,128,0.16)" ];
+  for ( let i = 0; i < 0o24; i++ ) {
+    const r = s * ( 0o14/0o100 + Math.random() * 0o16/0o100 );
+    const x = hazard( 0, s ), y = hazard( 0, s );
+    const koloro = nuboj[ i % nuboj.length ];
+    desegniWrapan( kunteksto, s, () => {
+      const g = kunteksto.createRadialGradient( x, y, 0, x, y, r );
+      g.addColorStop( 0, koloro );
+      g.addColorStop( 1, "rgba(0,0,0,0)" );
+      kunteksto.fillStyle = g;
+      kunteksto.beginPath(); kunteksto.arc( x, y, r, 0, Math.PI * 2 ); kunteksto.fill();
+    } );
   }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
+  // Kristalaj grajnoj — molaj pebloj kun gradienaj randoj, kiuj ĉirkaŭvolvas
+  // la kahelajn randojn ( neniu tranĉita grajno, neniu kudro ).
+  // Kristala paletro — la plej malhela fino leviĝis ( #383830 → #484840 ktp. ),
+  // por ke la malhelaj grajnoj ne pezu la koloron kaj la tono restu egala.
+  const tonoj = [ "#f8f8f0", "#e0e0d8", "#c8c8c0", "#a8a8a0", "#888880", "#686860", "#585850", "#484840" ];
+  for ( let i = 0; i < 0o150; i++ ) {
+    const rx = hazard( 0o2, 0o13 ), ry = hazard( 0o2, 0o10 );
+    const x = hazard( 0, s ), y = hazard( 0, s );
+    const angulo = hazard( 0, Math.PI );
+    const tono = tonoj[ i % tonoj.length ];
+    desegniWrapan( kunteksto, s, () => {
+      const g = kunteksto.createRadialGradient( x, y, 0, x, y, rx );
+      g.addColorStop( 0, tono );
+      g.addColorStop( 0o6/0o10, tono );
+      g.addColorStop( 1, tono + "00" );
+      kunteksto.fillStyle = g;
+      kunteksto.beginPath();
+      kunteksto.ellipse( x, y, rx, ry, angulo, 0, Math.PI * 2 );
+      kunteksto.fill();
+    } );
+  }
+  // Fajna piklo — subtilaj mikrokristaloj inter la grajnoj. Ankaŭ la piklo
+  // ĉirkaŭvolvas la kahelajn randojn, por ke eĉ la plej eta detalo ne tranĉiĝu
+  // ĉe la kudro.
+  for ( let i = 0; i < 0o640; i++ ) {
+    const wd = hazard( 0o1, 0o3 ), hd = hazard( 0o1, 0o3 );
+    const x = hazard( 0, s ), y = hazard( 0, s );
+    desegniWrapan( kunteksto, s, () => {
+      kunteksto.fillStyle = i % 2 ? "rgba(80,80,72,0.45)" : "rgba(168,168,160,0.5)";
+      kunteksto.fillRect( x, y, wd, hd );
+    } );
+  }
+  // Helaj feldspataj briletoj — la lumbriloj de la polurita ŝtono.
+  for ( let i = 0; i < 0o120; i++ ) {
+    const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
+    const x = hazard( 0, s ), y = hazard( 0, s );
+    desegniWrapan( kunteksto, s, () => {
+      kunteksto.fillStyle = "rgba(248,248,240,0.85)";
+      kunteksto.fillRect( x, y, wd, hd );
+    } );
+  }
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
   teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(3, 3); teksajxo.anisotropy = 4;
+  teksajxo.repeat.set( 0o2, 0o2 ); teksajxo.anisotropy = 4;
   teksajxo.colorSpace = THREE.SRGBColorSpace;
   return teksajxo;
 } );
 
-// kreiAndezitanTeksajxon — Kreu proceduralan andezitan teksajxon por vojrandoj.
+// kreiDioritanBumpanTeksajxon — Griznivela reliefa teksajxo por diorito.
+// La kristalaj randoj leviĝas kaj la fajna piklo donas mikro-reliefon, do la
+// polurita ŝtono ne aspektas plata. La grajnoj ĉirkaŭvolvas la kahelajn randojn
+// kiel la kolor-teksajxo, por ke la reliefo ankaŭ ne montru kudrojn.
+// Bump-teksajxoj restas en lineara koloro.
+export const kreiDioritanBumpanTeksajxon = sxovu( (): THREE.CanvasTexture => {
+  const s = 0o400;
+  const kanvasa = document.createElement( "canvas" );
+  kanvasa.width = kanvasa.height = s;
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  kunteksto.fillStyle = "#808080"; kunteksto.fillRect( 0, 0, s, s );
+  // Kristalaj randoj — malhelaj kaj helaj konturoj ĉirkaŭ la grajnoj, naŭ
+  // kopioj po grajno por la senkudra ĉirkaŭvolvo.
+  for ( let i = 0; i < 0o150; i++ ) {
+    const rx = hazard( 0o2, 0o13 ), ry = hazard( 0o2, 0o10 );
+    const x = hazard( 0, s ), y = hazard( 0, s );
+    const angulo = hazard( 0, Math.PI );
+    const larghoLinio = 1 + Math.random() * 2;  // egala por ĉiuj 9 kopioj
+    desegniWrapan( kunteksto, s, () => {
+      kunteksto.strokeStyle = i % 2 ? "#484848" : "#b0b0b0";
+      kunteksto.lineWidth = larghoLinio;
+      kunteksto.beginPath();
+      kunteksto.ellipse( x, y, rx, ry, angulo, 0, Math.PI * 2 );
+      kunteksto.stroke();
+    } );
+  }
+  // Mikrokristaloj — malgrandaj helaj kaj malhelaj punktoj. Ankaŭ la piklo
+  // ĉirkaŭvolvas la kahelajn randojn, por ke la reliefo ne montru kudrojn.
+  for ( let i = 0; i < 0o640; i++ ) {
+    const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
+    const x = hazard( 0, s ), y = hazard( 0, s );
+    const koloro = Math.random() > 0o4/0o10 ? "rgba(216,216,216,0.6)" : "rgba(88,88,88,0.6)";  // egala por ĉiuj 9 kopioj
+    desegniWrapan( kunteksto, s, () => {
+      kunteksto.fillStyle = koloro;
+      kunteksto.fillRect( x, y, wd, hd );
+    } );
+  }
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
+  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
+  teksajxo.repeat.set( 0o2, 0o2 ); teksajxo.anisotropy = 4;
+  return teksajxo;
+} );
+
+// kreiAndezitanTeksajxon — Kreu proceduralan andezitan teksajxon por
+// vojrandoj. Andezito estas malhela fajngrajna vulkana ŝtono — densa
+// egaleta miksaĵo kun tre malgrandaj helaj fenokristoj kaj subtilaj fluaj
+// bendoj, ne la malnova malpura punktaro.
 export const kreiAndezitanTeksajxon = sxovu( (): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
+  const kanvasa = document.createElement( "canvas" );
   kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#808878"; kunteksto.fillRect(0, 0, s, s);
-  const koloroj = ["#989888", "#707868", "#a0a098", "#787870", "#889088"];
-  for ( let i = 0; i < 0o1010; i++ ) {
-    kunteksto.fillStyle = koloroj[i % koloroj.length];
-    kunteksto.fillRect(hazard(0, s), hazard(0, s), hazard(1, 3), hazard(1, 3));
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  // Bazo — malhela verdgriza maso.
+  kunteksto.fillStyle = "#686858"; kunteksto.fillRect( 0, 0, s, s );
+  // Fajna mottlado — egaletaj makuloj de hela al malhela, la densa afanita maso.
+  const tonoj = [ "#787868", "#888878", "#585850", "#989888", "#484840" ];
+  for ( let i = 0; i < 0o1200; i++ ) {
+    kunteksto.fillStyle = tonoj[ i % tonoj.length ];
+    kunteksto.fillRect( hazard( 0, s ), hazard( 0, s ), hazard( 0o1, 0o4 ), hazard( 0o1, 0o3 ) );
   }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
+  // Subtilaj fluaj bendoj — horizontalaj strekoj de la vulkana fluo.
+  kunteksto.strokeStyle = "rgba(120,120,112,0.28)";
+  kunteksto.lineWidth = 3;
+  for ( let i = 0; i < 0o50; i++ ) {
+    const y = hazard( 0, s );
+    kunteksto.beginPath();
+    kunteksto.moveTo( 0, y );
+    kunteksto.lineTo( s, y + hazard( -0o3, 0o3 ) );
+    kunteksto.stroke();
+  }
+  // Malgrandaj helaj fenokristoj — la palaj kristaletoj de andezito.
+  for ( let i = 0; i < 0o60; i++ ) {
+    kunteksto.fillStyle = "rgba(184,184,176,0.75)";
+    kunteksto.fillRect( hazard( 0, s ), hazard( 0, s ), 3 + Math.random() * 3, 2 + Math.random() * 2 );
+  }
+  // Malhelaj mineralaj pikloj.
+  for ( let i = 0; i < 0o140; i++ ) {
+    kunteksto.fillStyle = "rgba(32,32,32,0.6)";
+    kunteksto.fillRect( hazard( 0, s ), hazard( 0, s ), 1 + Math.random() * 2, 1 + Math.random() * 2 );
+  }
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
   teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(3, 3); teksajxo.anisotropy = 4;
+  teksajxo.repeat.set( 3, 3 ); teksajxo.anisotropy = 4;
   teksajxo.colorSpace = THREE.SRGBColorSpace;
+  return teksajxo;
+} );
+
+// kreiAndezitanBumpanTeksajxon — Griznivela reliefa teksajxo por andezito.
+// Fajna malebena surfaco kun maloftaj fenokristoj. Bump-teksajxoj restas en
+// lineara koloro.
+export const kreiAndezitanBumpanTeksajxon = sxovu( (): THREE.CanvasTexture => {
+  const s = 0o200;
+  const kanvasa = document.createElement( "canvas" );
+  kanvasa.width = kanvasa.height = s;
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  kunteksto.fillStyle = "#787878"; kunteksto.fillRect( 0, 0, s, s );
+  // Fajna malebena piklo.
+  for ( let i = 0; i < 0o1200; i++ ) {
+    kunteksto.fillStyle = Math.random() > 0o4/0o10 ? "#a8a8a8" : "#484848";
+    kunteksto.fillRect( hazard( 0, s ), hazard( 0, s ), 1 + Math.random() * 2, 1 + Math.random() * 2 );
+  }
+  // Fenokristoj — malgrandaj helaj elstaraĵoj.
+  for ( let i = 0; i < 0o60; i++ ) {
+    kunteksto.fillStyle = "#d0d0d0";
+    kunteksto.fillRect( hazard( 0, s ), hazard( 0, s ), 3 + Math.random() * 3, 2 + Math.random() * 2 );
+  }
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
+  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
+  teksajxo.repeat.set( 3, 3 ); teksajxo.anisotropy = 4;
   return teksajxo;
 } );
 

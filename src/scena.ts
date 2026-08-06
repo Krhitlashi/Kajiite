@@ -1,4 +1,4 @@
-// Scena — bildilo, sceno, fotilo, ĉielo, lumoj, materialoj, montoj, grundo
+// Scena — bildilo, sceno, fotilo, ĉielo, lumoj, materialoj, montoj, grundo, vetero
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { alteco } from "./tereno.js";
@@ -16,6 +16,10 @@ export function montriEraronon(sxargxaEl: HTMLElement): void {
   sxargxaEl.classList.add("finita");
 }
 
+// Vetero — la kvar eblaj atmosferoj apud la kutima krepuska reĝimo. La
+// defaŭlta estas la nebula ( la urbo sidas en nebula betularo ).
+export type Vetero = "nebula" | "pluva" | "hajla" | "nega";
+
 export interface ScenaSistemo {
   bildilo: THREE.WebGLRenderer;
   sceno: THREE.Scene;
@@ -30,6 +34,8 @@ export interface ScenaSistemo {
   suna: THREE.DirectionalLight;
   sunaSprajto: THREE.Sprite;
   aplikiRezimon: (t: number) => void;
+  aplikiVeteron: (v: Vetero) => void;
+  gxisdatigiVeteron: (t: number) => void;
 }
 
 export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): ScenaSistemo {
@@ -47,9 +53,11 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   bildilo.setPixelRatio(Math.min(devicePixelRatio, 2));
 
   const sceno = new THREE.Scene();
-  // La nebulo estas laŭcela. Je 1/64 la urbo restas klara kaj la arbaro kaj la
-  // malproksimaj montoj fandas en atmosferan nebulaĵon — la proksima montaro
-  // ( 120–160 for ) ankoraŭ leviĝas el la nebulo kiel malhelaj siluetoj.
+  // La nebulo estas laŭcela. Je la defaŭlta denseco ( la nebula vetero uzas
+  // 0o1/0o64 = 1/52 ) la urbo restas klara kaj la arbaro kaj la malproksimaj
+  // montoj fandas en atmosferan nebulaĵon — la proksima montaro ( 120–160
+  // for ) ankoraŭ leviĝas el la nebulo kiel malhelaj siluetoj. La paletraj
+  // veteroj povas pliigi aŭ malpliigi la densecon ( aplikiAtmosferon ).
   sceno.fog = new THREE.FogExp2(0xc8d8d8, 0o1/0o100);
 
   const fotilo = new THREE.PerspectiveCamera(0o60, innerWidth / innerHeight, 0o15/0o40, 0o1274);
@@ -111,50 +119,409 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   sunaSprajto.scale.setScalar(0o56);
   sceno.add(sunaSprajto);
 
-  // Tag/noktaj paletoj
-  const P_DAY = {
-    top: new THREE.Color(0x78a8c0), mid: new THREE.Color(0xb8d0d8), bot: new THREE.Color(0xe0e8e8),
-    sunCol: new THREE.Color(0xfff0d8), fog: new THREE.Color(0xc8d8d8),
-    hemiSky: new THREE.Color(0xc8e0e8), hemiGnd: new THREE.Color(0x485848),
-    sunPos: new THREE.Vector3(0o110, 0o160, 0o50), sunInt: 0o45/0o40, hemiInt: 0o63/0o100,
-  };
-  const P_DUSK = {
-    top: new THREE.Color(0x182848), mid: new THREE.Color(0x586088), bot: new THREE.Color(0xb88868),
-    sunCol: new THREE.Color(0xf8b880), fog: new THREE.Color(0x686880),
-    hemiSky: new THREE.Color(0x304068), hemiGnd: new THREE.Color(0x182820),
-    sunPos: new THREE.Vector3(-0o120, 0o36, -0o74), sunInt: 0o16/0o40, hemiInt: 0o40/0o100,
+  // Tag/krepuskaj paletroj — po unu paro ( tago · krepusko ) por ĉiu vetero.
+  // La nebula vetero konservas la originajn valorojn ( kun iom pli densa
+  // nebulo, por ke la nomo estu honesta ); la pluva, la hajla kaj la neĝa
+  // ŝanĝas la ĉielon, la lumon kaj la nebulan densecon en sia karaktero.
+  interface VeteraPaletro {
+    top: THREE.Color; mid: THREE.Color; bot: THREE.Color;
+    sunCol: THREE.Color; fog: THREE.Color;
+    hemiSky: THREE.Color; hemiGnd: THREE.Color;
+    sunPos: THREE.Vector3;
+    sunInt: number; hemiInt: number; sprajtaOp: number; ekspozicio: number; nebulDenso: number;
+  }
+  interface VeteraDuopo { tago: VeteraPaletro; krepusko: VeteraPaletro; }
+
+  const PALETROJ: Record<Vetero, VeteraDuopo> = {
+    // Nebula — la defaŭlta: pala ĉielo, milda lumo kaj densa atmosfera nebulo.
+    nebula: {
+      tago: {
+        top: new THREE.Color(0x78a8c0), mid: new THREE.Color(0xb8d0d8), bot: new THREE.Color(0xe0e8e8),
+        sunCol: new THREE.Color(0xfff0d8), fog: new THREE.Color(0xc8d8d8),
+        hemiSky: new THREE.Color(0xc8e0e8), hemiGnd: new THREE.Color(0x485848),
+        sunPos: new THREE.Vector3(0o110, 0o160, 0o50), sunInt: 0o45/0o40, hemiInt: 0o63/0o100,
+        sprajtaOp: 0o30/0o100, ekspozicio: 0o104/0o100, nebulDenso: 0o1/0o64,
+      },
+      krepusko: {
+        top: new THREE.Color(0x182848), mid: new THREE.Color(0x586088), bot: new THREE.Color(0xb88868),
+        sunCol: new THREE.Color(0xf8b880), fog: new THREE.Color(0x686880),
+        hemiSky: new THREE.Color(0x304068), hemiGnd: new THREE.Color(0x182820),
+        sunPos: new THREE.Vector3(-0o120, 0o36, -0o74), sunInt: 0o16/0o40, hemiInt: 0o40/0o100,
+        sprajtaOp: 0o54/0o100, ekspozicio: 0o74/0o100, nebulDenso: 0o1/0o64,
+      },
+    },
+    // Pluva — grize blua nubkovro, malpli da suno, pli densa nebulo.
+    pluva: {
+      tago: {
+        top: new THREE.Color(0x688090), mid: new THREE.Color(0x8a98a0), bot: new THREE.Color(0xb0b8b8),
+        sunCol: new THREE.Color(0xd8e0e0), fog: new THREE.Color(0x98a0a0),
+        hemiSky: new THREE.Color(0xa8b8b8), hemiGnd: new THREE.Color(0x384040),
+        sunPos: new THREE.Vector3(0o110, 0o160, 0o50), sunInt: 0o5/0o10, hemiInt: 0o42/0o100,
+        sprajtaOp: 0o4/0o100, ekspozicio: 0o76/0o100, nebulDenso: 0o1/0o50,
+      },
+      krepusko: {
+        top: new THREE.Color(0x182028), mid: new THREE.Color(0x485258), bot: new THREE.Color(0x686868),
+        sunCol: new THREE.Color(0x98a0a0), fog: new THREE.Color(0x505858),
+        hemiSky: new THREE.Color(0x283238), hemiGnd: new THREE.Color(0x101616),
+        sunPos: new THREE.Vector3(-0o120, 0o36, -0o74), sunInt: 0o1/0o10, hemiInt: 0o24/0o100,
+        sprajtaOp: 0o3/0o100, ekspozicio: 0o62/0o100, nebulDenso: 0o1/0o50,
+      },
+    },
+    // Hajla — malhela ardeza ŝtormo, akra kaj malvarma, kun pli da videbleco
+    // ol la pluvo ( la hajleroj mem estas la spektaklo ).
+    hajla: {
+      tago: {
+        top: new THREE.Color(0x485868), mid: new THREE.Color(0x788088), bot: new THREE.Color(0xa0a8a8),
+        sunCol: new THREE.Color(0xd8e0e8), fog: new THREE.Color(0x889090),
+        hemiSky: new THREE.Color(0x889898), hemiGnd: new THREE.Color(0x303838),
+        sunPos: new THREE.Vector3(0o110, 0o160, 0o50), sunInt: 0o4/0o10, hemiInt: 0o36/0o100,
+        sprajtaOp: 0o5/0o100, ekspozicio: 0o70/0o100, nebulDenso: 0o1/0o50,
+      },
+      krepusko: {
+        top: new THREE.Color(0x141c24), mid: new THREE.Color(0x3c444c), bot: new THREE.Color(0x585858),
+        sunCol: new THREE.Color(0x889098), fog: new THREE.Color(0x444c50),
+        hemiSky: new THREE.Color(0x202c30), hemiGnd: new THREE.Color(0x101414),
+        sunPos: new THREE.Vector3(-0o120, 0o36, -0o74), sunInt: 0o6/0o40, hemiInt: 0o20/0o100,
+        sprajtaOp: 0o3/0o100, ekspozicio: 0o56/0o100, nebulDenso: 0o1/0o50,
+      },
+    },
+    // Neĝa — hela malvarma blanko, difuza lumo, milda nebulo.
+    nega: {
+      tago: {
+        top: new THREE.Color(0xa0b0c0), mid: new THREE.Color(0xc8d4dc), bot: new THREE.Color(0xe8ece8),
+        sunCol: new THREE.Color(0xf0f4f8), fog: new THREE.Color(0xc8d0d8),
+        hemiSky: new THREE.Color(0xd0dce4), hemiGnd: new THREE.Color(0x586058),
+        sunPos: new THREE.Vector3(0o110, 0o160, 0o50), sunInt: 0o30/0o40, hemiInt: 0o72/0o100,
+        sprajtaOp: 0o14/0o100, ekspozicio: 0o102/0o100, nebulDenso: 0o1/0o60,
+      },
+      krepusko: {
+        top: new THREE.Color(0x202838), mid: new THREE.Color(0x506070), bot: new THREE.Color(0x8a98a0),
+        sunCol: new THREE.Color(0xb8c8d8), fog: new THREE.Color(0x687078),
+        hemiSky: new THREE.Color(0x34404c), hemiGnd: new THREE.Color(0x202828),
+        sunPos: new THREE.Vector3(-0o120, 0o36, -0o74), sunInt: 0o14/0o40, hemiInt: 0o30/0o100,
+        sprajtaOp: 0o6/0o100, ekspozicio: 0o70/0o100, nebulDenso: 0o1/0o60,
+      },
+    },
   };
 
-  function aplikiRezimon(t: number): void {
+  let nunaVetero: Vetero = "nebula";
+  let lastaKrepusko = 0;
+
+  function aplikiAtmosferon(): void {
+    const t = lastaKrepusko;
+    const d = PALETROJ[nunaVetero];
     const l = (a: THREE.Color | THREE.Vector3 | number, b: THREE.Color | THREE.Vector3 | number): any =>
       a instanceof THREE.Color ? (a as THREE.Color).clone().lerp(b as THREE.Color, t) :
       a instanceof THREE.Vector3 ? (a as THREE.Vector3).clone().lerp(b as THREE.Vector3, t) :
       a + (b as number - a) * t;
-    cxielajUniformoj.uTop.value = l(P_DAY.top, P_DUSK.top);
-    cxielajUniformoj.uMid.value = l(P_DAY.mid, P_DUSK.mid);
-    cxielajUniformoj.uBot.value = l(P_DAY.bot, P_DUSK.bot);
-    cxielajUniformoj.uSunCol.value = l(P_DAY.sunCol, P_DUSK.sunCol);
-    const sunDir = new THREE.Vector3().copy(P_DAY.sunPos).lerp(P_DUSK.sunPos, t);
+    cxielajUniformoj.uTop.value = l(d.tago.top, d.krepusko.top);
+    cxielajUniformoj.uMid.value = l(d.tago.mid, d.krepusko.mid);
+    cxielajUniformoj.uBot.value = l(d.tago.bot, d.krepusko.bot);
+    cxielajUniformoj.uSunCol.value = l(d.tago.sunCol, d.krepusko.sunCol);
+    const sunDir = new THREE.Vector3().copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
     cxielajUniformoj.uSunDir.value = sunDir.clone().normalize();
-    sceno.fog!.color.copy(P_DAY.fog).lerp(P_DUSK.fog, t);
-    hemiLumo.color.copy(P_DAY.hemiSky).lerp(P_DUSK.hemiSky, t);
-    hemiLumo.groundColor.copy(P_DAY.hemiGnd).lerp(P_DUSK.hemiGnd, t);
-    hemiLumo.intensity = l(P_DAY.hemiInt, P_DUSK.hemiInt);
-    suno.color.copy(P_DAY.sunCol).lerp(P_DUSK.sunCol, t);
-    suno.intensity = l(P_DAY.sunInt, P_DUSK.sunInt);
-    suno.position.copy(P_DAY.sunPos).lerp(P_DUSK.sunPos, t);
-    bildilo.toneMappingExposure = l(0o104/0o100, 0o74/0o100);
+    sceno.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t);
+    (sceno.fog as THREE.FogExp2).density = l(d.tago.nebulDenso, d.krepusko.nebulDenso);
+    hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t);
+    hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t);
+    hemiLumo.intensity = l(d.tago.hemiInt, d.krepusko.hemiInt);
+    suno.color.copy(d.tago.sunCol).lerp(d.krepusko.sunCol, t);
+    suno.intensity = l(d.tago.sunInt, d.krepusko.sunInt);
+    suno.position.copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
+    bildilo.toneMappingExposure = l(d.tago.ekspozicio, d.krepusko.ekspozicio);
     sunaSprajto.position.copy(sunDir).multiplyScalar(0o510);
     sunaSprajto.material.color.copy(suno.color);
-    sunaSprajto.material.opacity = l(0o30/0o100, 0o54/0o100);
+    sunaSprajto.material.opacity = l(d.tago.sprajtaOp, d.krepusko.sprajtaOp);
     eniraMaterialo.emissiveIntensity = l(0o3/0o100, 0o52/0o100);
   }
 
-  // Materialoj
-  const dioritaMaterialo = kreiDioritanMaterialon(undefined, 0o35/0o40);
+  function aplikiRezimon(t: number): void {
+    lastaKrepusko = t;
+    aplikiAtmosferon();
+  }
+
+  function aplikiVeteron(v: Vetero): void {
+    nunaVetero = v;
+    pluvo.visible = v === "pluva";
+    hajlo.visible = v === "hajla";
+    nego.visible = v === "nega";
+    aplikiAtmosferon();
+  }
+
+  function gxisdatigiVeteron(t: number): void {
+    // En la nebula vetero neniu precipita sistemo estas videbla — nenio farendas.
+    if (!pluvo.visible && !nego.visible && !hajlo.visible) return;
+    // Ĉiuj tri sistemoj estas GPU-animitaj ( uTime ); la pluvo bezonas ankaŭ
+    // la pikselan skalon, por projekcii la gut-longon al streka longo.
+    if (pluvo.visible) {
+      const mat = pluvo.material as THREE.ShaderMaterial;
+      mat.uniforms.uTime.value = t;
+      // Pikseloj por unu mondo-unuo ĉe distanco 1 ( la fotila fov × bilda alto ).
+      mat.uniforms.uScale.value =
+        bildilo.domElement.height / (2 * Math.tan(fotilo.fov * Math.PI / 360));
+    }
+    if (nego.visible) (nego.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
+    if (hajlo.visible) (hajlo.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
+    // La skatoloj sekvas la fotilon — ĉiuj tri ( ankaŭ la pluvo, kiu nun
+    // estas loka skatolo kiel la neĝo kaj la hajlo ).
+    pluvo.position.copy(fotilo.position);
+    nego.position.copy(fotilo.position);
+    hajlo.position.copy(fotilo.position);
+  }
+
+  // Materialoj — la diorito estas polurita ŝtono, do ĝi reflektas la
+  // ĉirkaŭan medion pli forte por la brila poluro.
+  const dioritaMaterialo = kreiDioritanMaterialon(undefined, 0o6/0o10);
   const andezitaMaterialo = kreiAndezitanMaterialon();
   const eniraMaterialo = kreiEniranMaterialon();
   const oraMaterialo = kreiOranMaterialon(0xd8b068);
+
+  // ⟪ Pluvo 📃 ⟫ — ĉiu guto estas KAPSULO ( cilindra streko kun rondigitaj
+  // finoj ) desegnita en la fragment-shadero sur kvadrata gl_PointSize-punkto.
+  // La antaŭaj LineSegments estis 1px kun kvadrataj finoj ( WebGL ne kapablas
+  // linio-dikecon nek rondigitajn ĉapojn ), kaj la punkta streko estis kvadrata
+  // sprite. La kapsula distanca funkcio donas veran dikecon kaj rondigitajn
+  // finojn. La falo, la venta bofo kaj la ĉirkaŭvolvo okazas en la vertica
+  // shadero ( GPU ), do necesas nur uTime po kadro — neniu CPU-ĝisdatigo.
+  function kreiPluvon(): THREE.Points {
+    // La strekoj estas pli dikaj ol la antaŭaj 1px linioj, do necesas iom pli
+    // da gutoj por ke la pluvo restu klare ĉeestanta kontraŭ la nebulo.
+    // La strekoj estas pli dikaj ol la antaŭaj 1px linioj, do necesas iom pli
+    // da gutoj por ke la pluvo restu klare ĉeestanta kontraŭ la nebulo.
+    const N = 0o4000;
+    const pozicioj = new Float32Array(N * 3);
+    const semoj = new Float32Array(N);
+    const rapidoj = new Float32Array(N);
+    const longoj = new Float32Array(N);
+    const fadoj = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      const x0 = (Math.random() * 2 - 1) * 0o200;
+      const z0 = (Math.random() * 2 - 1) * 0o200;
+      pozicioj[i * 3] = x0;
+      pozicioj[i * 3 + 1] = (Math.random() * 2 - 1) * 0o140;
+      pozicioj[i * 3 + 2] = z0;
+      semoj[i] = Math.random();
+      // Fala rapido kaj LONGECO — pli mallongaj strekoj ol antaŭe ( 1.4–2.9
+      // anstataŭ 2–5 ), por ke la gutoj legiĝu kiel gutoj, ne kiel vergoj.
+      rapidoj[i] = 0o46 + Math.random() * 0o14;
+      longoj[i] = 0o13/0o10 + Math.random() * 0o14/0o10;
+      // Distanca fado — la loka ofseto egalas la mondan distancon de la fotilo.
+      const d = Math.hypot(x0, z0);
+      fadoj[i] = Math.min(1, Math.max(0.05, 1 - (d - 24) / 136));
+    }
+    const geometrio = new THREE.BufferGeometry();
+    geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
+    geometrio.setAttribute("aVel", new THREE.BufferAttribute(rapidoj, 1));
+    geometrio.setAttribute("aLen", new THREE.BufferAttribute(longoj, 1));
+    geometrio.setAttribute("aFade", new THREE.BufferAttribute(fadoj, 1));
+    const materialo = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false,
+      uniforms: {
+        uTime: { value: 0 },
+        uColor: { value: new THREE.Color(0xa8c0d8) },
+        uOp: { value: 0o6/0o10 },
+        uAncho: { value: 0o1/0o20 },   // fina radiuso kiel frakcio de la punkta alto
+        uAng: { value: 0o2/0o10 },    // venta klino de la strekoj ( 14° )
+        uScale: { value: 0o1000 },    // pikseloj por unu mondo-unuo ĉe distanco 1
+      },
+      vertexShader: `
+        uniform float uTime;
+        uniform float uScale;
+        attribute float aSeed;
+        attribute float aVel;
+        attribute float aLen;
+        attribute float aFade;
+        varying float vSeed;
+        varying float vFade;
+        varying float vSize;
+        void main() {
+          vSeed = aSeed;
+          vFade = aFade;
+          vec4 wp = modelMatrix * vec4(position, 1.0);
+          float f = aSeed * 6.28318;
+          // Vertikala falo kun venta bofo — la sinusoido donas neniun salton.
+          float falo = uTime * aVel;
+          wp.x -= sin(falo * 0.05 + f) * 26.0;
+          wp.y = -112.0 + mod(wp.y + 112.0 - falo, 208.0);
+          vec4 mv = viewMatrix * wp;
+          // Punkta grandeco = la projekciita mondo-longo de la guto ( aLen )
+          // en pikseloj, kun minimumo por ke la streko havu dikecon kaj la
+          // rondigitaj finoj restu videblaj malproksime.
+          float px = aLen * uScale / -mv.z;
+          gl_PointSize = clamp(px, 5.0, 48.0);
+          vSize = gl_PointSize;
+          gl_Position = projectionMatrix * mv;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColor;
+        uniform float uOp;
+        uniform float uAncho;
+        uniform float uAng;
+        varying float vSeed;
+        varying float vFade;
+        varying float vSize;
+        void main() {
+          vec2 c = gl_PointCoord - vec2(0.5);
+          // Venta klino — turnu la strekon tiel, ke ĝia supro klinas ventdirekte.
+          float cs = cos(uAng), sn = sin(uAng);
+          c = mat2(cs, -sn, sn, cs) * c;
+          // Kapsula distanca funkcio — rektangulo kun duoncirklaj finoj. La
+          // punkto estas la plena streko ( alto 1 ); r estas la fina radiuso.
+          float r = uAncho;
+          vec2 q = vec2(abs(c.x), abs(c.y) - (0.5 - r));
+          float d = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+          float soft = 1.5 / vSize;
+          float a = 1.0 - smoothstep(-soft, soft, d);
+          if (a < 0.01) discard;
+          // Subtila maliĝo al la finoj — la guto estas plej hela meze — kaj
+          // per-guta brileco por rompi la unuformecon.
+          float fina = 1.0 - smoothstep(0.1, 0.5, abs(c.y)) * 0.3;
+          gl_FragColor = vec4(uColor, a * fina * uOp * vFade * (0.7 + 0.3 * vSeed));
+        }
+      `,
+    });
+    const punktoj = new THREE.Points(geometrio, materialo);
+    punktoj.frustumCulled = false;
+    punktoj.visible = false;
+    sceno.add(punktoj);
+    return punktoj;
+  }
+
+  // ⟪ Neĝo 📃 ⟫ — molaj blankaj neĝeroj kun balanciĝa drivo flanken.
+  function kreiNeĝon(): THREE.Points {
+    const N = 0o1000;
+    const pozicioj = new Float32Array(N * 3);
+    const semoj = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      pozicioj[i * 3] = (Math.random() * 2 - 1) * 0o200;
+      pozicioj[i * 3 + 1] = (Math.random() * 2 - 1) * 0o140;
+      pozicioj[i * 3 + 2] = (Math.random() * 2 - 1) * 0o200;
+      semoj[i] = Math.random();
+    }
+    const geometrio = new THREE.BufferGeometry();
+    geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
+    const materialo = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: THREE.NormalBlending, fog: false,
+      uniforms: {
+        uTime: { value: 0 },
+        uColor: { value: new THREE.Color(0xf0f4f8) },
+        uOp: { value: 0o10/0o10 },
+        uSize: { value: 0o7 },
+      },
+      vertexShader: `
+        uniform float uTime;
+        uniform float uSize;
+        attribute float aSeed;
+        varying float vSeed;
+        void main() {
+          vSeed = aSeed;
+          vec4 wp = modelMatrix * vec4(position, 1.0);
+          float f = aSeed * 6.28318;
+          // Drivo — la neĝeroj balanciĝas flanken dum la falo.
+          wp.x += sin(uTime * 0.7 + f) * 4.0;
+          wp.z += cos(uTime * 0.5 + f * 1.3) * 4.0;
+          float falo = uTime * (2.0 + aSeed * 2.0);
+          wp.y = -112.0 + mod(wp.y + 112.0 - falo, 208.0);
+          vec4 mv = viewMatrix * wp;
+          float px = uSize * (100.0 / -mv.z) * (0.6 + 0.5 * sin(f));
+          gl_PointSize = min(px, 50.0);
+          gl_Position = projectionMatrix * mv;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColor;
+        uniform float uOp;
+        varying float vSeed;
+        void main() {
+          vec2 c = gl_PointCoord - vec2(0.5);
+          float d = length(c) * 2.0;
+          float a = (1.0 - smoothstep(0.4, 1.0, d)) * (0.6 + 0.4 * vSeed);
+          if (a < 0.01) discard;
+          gl_FragColor = vec4(uColor, a * uOp);
+        }
+      `,
+    });
+    const punktoj = new THREE.Points(geometrio, materialo);
+    punktoj.frustumCulled = false;
+    punktoj.visible = false;
+    sceno.add(punktoj);
+    return punktoj;
+  }
+
+  // ⟪ Hajo 📃 ⟫ — glaciaj eroj, kiuj falas tre rapide kaj rekte, kun eta
+  // skueto flanken. Pli malmultaj ol la pluvo, sed pli grandaj kaj pli helaj,
+  // kun brila kerno — kiel veraj hajleroj en ŝtormo.
+  function kreiHajlon(): THREE.Points {
+    const N = 0o1200;
+    const pozicioj = new Float32Array(N * 3);
+    const semoj = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      pozicioj[i * 3] = (Math.random() * 2 - 1) * 0o160;
+      pozicioj[i * 3 + 1] = (Math.random() * 2 - 1) * 0o140;
+      pozicioj[i * 3 + 2] = (Math.random() * 2 - 1) * 0o160;
+      semoj[i] = Math.random();
+    }
+    const geometrio = new THREE.BufferGeometry();
+    geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
+    const materialo = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: THREE.NormalBlending, fog: false,
+      uniforms: {
+        uTime: { value: 0 },
+        uColor: { value: new THREE.Color(0xd8e8f0) },
+        uOp: { value: 0o10/0o10 },
+        uSize: { value: 0o14 },
+      },
+      vertexShader: `
+        uniform float uTime;
+        uniform float uSize;
+        attribute float aSeed;
+        varying float vSeed;
+        void main() {
+          vSeed = aSeed;
+          vec4 wp = modelMatrix * vec4(position, 1.0);
+          float f = aSeed * 6.28318;
+          // Tre rapida falo kun la sama venta bofo kiel la pluvo kaj eta
+          // skueto — la sinusoido donas neniun salton flanken.
+          float falo = uTime * (55.0 + aSeed * 25.0);
+          wp.x -= sin(falo * 0.05 + f) * 24.0;
+          wp.x += sin(uTime * 13.0 + f) * 0.6;
+          wp.y = -112.0 + mod(wp.y + 112.0 - falo, 208.0);
+          vec4 mv = viewMatrix * wp;
+          float px = uSize * (100.0 / -mv.z) * (0.55 + 0.6 * vSeed);
+          gl_PointSize = min(px, 40.0);
+          gl_Position = projectionMatrix * mv;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColor;
+        uniform float uOp;
+        varying float vSeed;
+        void main() {
+          vec2 c = gl_PointCoord - vec2(0.5);
+          float d = length(c) * 2.0;
+          // Glacia ero — malmola rando kun brila kerno.
+          float korpo = 1.0 - smoothstep(0.3, 0.55, d);
+          float kerno = 1.0 - smoothstep(0.0, 0.35, d);
+          float a = korpo * (0.5 + 0.5 * kerno) * (0.6 + 0.4 * vSeed);
+          if (a < 0.02) discard;
+          gl_FragColor = vec4(mix(uColor, vec3(0.98, 0.99, 1.0), kerno), a * uOp);
+        }
+      `,
+    });
+    const punktoj = new THREE.Points(geometrio, materialo);
+    punktoj.frustumCulled = false;
+    punktoj.visible = false;
+    sceno.add(punktoj);
+    return punktoj;
+  }
+
+  const pluvo = kreiPluvon();
+  const nego = kreiNeĝon();
+  const hajlo = kreiHajlon();
 
   // Malproksimaj montoj — 3D terenaj strioj kun realaj deklivoj
   (function konstruiMontojn(): void {
@@ -303,5 +670,5 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     sceno.add(ground);
   })(0o1130, 0o260);
 
-  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon };
+  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron };
 }

@@ -41,6 +41,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloKanuo": "WASD • ſɭɹ j͑ʃɹ ſɭᴜ ɭl̀ɹ ʌ ſɭw ſ̀ȷᴜ",
     "eliri": "j͑ʃwc̗ ɭʃᴜ",
     "eniriKanuo": "ſɭw ſ̀ȷᴜ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
+    // Retilo ( multludado ) — tostoj
+    "retiloAliĝis": "ſɭw ſ̀ȷᴜ ʌ ⺓ ʌ ꞁȷ̀ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ʌ ŋᷠᴜƴ ⟅",
+    "retiloForiris": "j͑ʃwc̗ ɭʃᴜ ʌ ⺓ ʌ ꞁȷ̀ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ʌ ŋᷠᴜƴ ⟅",
     // Food action labels
     "actGusti": "ſ͔ɭɔȝ •",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
@@ -82,6 +85,12 @@ const skakefani: Record<string, Record<string, string>> = {
     // aria-labeletoj el index.html kaj sperto.ts
     "ariaButKrepusko": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
     "ariaDuskRegilo": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
+    // Vetero — la kvar eblaj atmosferoj ( ſ͕ɭɹ ſᶘɜ )
+    "ariaButVetero": "ſ͕ɭɹ ſᶘɜ",
+    "veteroNebula": "ŋᷠᴜ ֭ſɭᴜ",
+    "veteroPluva": "֭ſɭᴜ ɭʃᴜ",
+    "veteroHajla": "ſɭᴜ ɭʃᴜƽ",
+    "veteroNega": "ſᶘᴜ ſȷᴜ",
     "ariaButPromeni": "ſɭᴜ ɭʃᴜ",
     "ariaButBruo": "ſȷᴜ ŋᷠᴜʞ",
     "ariaButOrbiti": "֭ſɭɹ j͑ʃɔ",
@@ -239,6 +248,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloKanuo": "WASD por direkti",
     "eliri": "Eliri",
     "eniriKanuo": "Eniri kanuon",
+    // Retilo ( multludado ) — tostoj
+    "retiloAliĝis": "Iu aliĝis.",
+    "retiloForiris": "Iu foriris.",
     // Food action labels
     "actGusti": "Guŝu •",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
@@ -323,6 +335,12 @@ const skakefani: Record<string, Record<string, string>> = {
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
     "ariaDuskRegilo": "Krepuska nivelo",
+    // Vetero — la kvar eblaj atmosferoj
+    "ariaButVetero": "Vetero",
+    "veteroNebula": "Nebula",
+    "veteroPluva": "Pluva",
+    "veteroHajla": "Hajla",
+    "veteroNega": "Neĝa",
     // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     // Clothing names
@@ -386,6 +404,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloKanuo": "WASD to steer",
     "eliri": "Exit",
     "eniriKanuo": "Enter canoe",
+    // Retilo ( multludado ) — tostoj
+    "retiloAliĝis": "Someone joined.",
+    "retiloForiris": "Someone left.",
     // Food action labels
     "actGusti": "Taste •",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
@@ -470,6 +491,12 @@ const skakefani: Record<string, Record<string, string>> = {
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "Dusk",
     "ariaDuskRegilo": "Dusk level",
+    // Weather — the four possible atmospheres
+    "ariaButVetero": "Weather",
+    "veteroNebula": "Foggy",
+    "veteroPluva": "Rainy",
+    "veteroHajla": "Hail",
+    "veteroNega": "Snowy",
     // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     // Clothing names
@@ -533,6 +560,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloKanuo": "WASDで操縦",
     "eliri": "出る",
     "eniriKanuo": "カヌーに乗る",
+    // Retilo ( multludado ) — tostoj
+    "retiloAliĝis": "誰かが加わりました。",
+    "retiloForiris": "誰かが去りました。",
     // Food action labels
     "actGusti": "味見 •",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
@@ -607,6 +637,12 @@ const skakefani: Record<string, Record<string, string>> = {
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "夕暮れモードを切り替え",
     "ariaDuskRegilo": "夕暮れのレベル",
+    // 天気 — 四つの可能な大気
+    "ariaButVetero": "天気",
+    "veteroNebula": "霧",
+    "veteroPluva": "雨",
+    "veteroHajla": "雹",
+    "veteroNega": "雪",
     // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     // Clothing names
@@ -670,6 +706,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "regiloKanuo": "ការគ្រប់គ្រងទូក • WASD ដើម្បីបង្វែរ",
     "eliri": "ចេញ",
     "eniriKanuo": "ចូលទូក",
+    // Retilo ( multludado ) — tostoj
+    "retiloAliĝis": "នរណាម្នាក់បានចូលរួម។",
+    "retiloForiris": "នរណាម្នាក់បានចាកចេញ។",
     // Food action labels
     "actGusti": "ភ្លក់ •",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
@@ -744,6 +783,12 @@ const skakefani: Record<string, Record<string, string>> = {
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
     "ariaDuskRegilo": "កម្រិតព្រលប់",
+    // អាកាសធាតុ — បរិយាកាសដែលអាចទាំងបួន
+    "ariaButVetero": "អាកាសធាតុ",
+    "veteroNebula": "អ័ព្ទ",
+    "veteroPluva": "ភ្លៀង",
+    "veteroHajla": "ព្រិលកក",
+    "veteroNega": "ព្រិល",
     // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
     // Canvas alt text
     // Clothing names ( phonetic approximations in Khmer script )

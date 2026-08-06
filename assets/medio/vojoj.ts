@@ -145,9 +145,15 @@ export function konstruiVojojn( sceno: THREE.Scene,
   const andezitaTeksajxo = kreiAndezitanTeksajxon();
   const supraMaterialo = dioritaMaterialo.clone();
   supraMaterialo.map = dioritaTeksajxo; supraMaterialo.needsUpdate = true;
-  // La bendoj ne plu intertavoligas. PolygonOffset restas nur por ke la voja
-  // surfaco gajnu ce intersekcoj kaj la placa disko (-3) gajnu ce vojkapoj.
-  supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = -2; supraMaterialo.polygonOffsetUnits = -1;
+  // La bendoj ne plu intertavoligas. PolygonOffset restas por ke la voja
+  // CENTRO gajnu super la perpendikularaj bordoj ( la samloke kuŝantaj bendoj
+  // de la alia vojo ). Kun egalaj unuoj ( -1/-1 ) la desegna ordo decidis kaj
+  // la andezita bordo de la alia vojo fendetis sur la diorita centro ĉe la
+  // L-korneroj. La centro nun havas -4 unuojn — tri pli ol la bordoj ( -1 ).
+  // Unu-du unuoj da diferenco restis ĉe la precizec-rando ( la gajnanto
+  // ŝanceliĝis laŭ la fotila distanco ). Tri unuoj apartigas glate, do la
+  // centroj kunfandiĝas pure kaj la bordoj finiĝas ĉe la perpendikulara centro.
+  supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = -2; supraMaterialo.polygonOffsetUnits = -4;
   const bordaMaterialo = andezitaMaterialo.clone();
   bordaMaterialo.map = andezitaTeksajxo; bordaMaterialo.needsUpdate = true;
   bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = -1; bordaMaterialo.polygonOffsetUnits = -1;
@@ -288,6 +294,145 @@ export function konstruiPeriferiajnPlatformojn(
     sceno.add(centro);
   }
   return lokoj;
+}
+
+// konstruiIntersekcajnPlatojn — Kovru ĉiun kruciĝon per unu solida diorita
+// plato ( la tuta 0o26/0o10 = 2.75 voja larĝo ) kun kvar andezitaj anguloj
+// SUR ĝi. La diorita plato kovras la vojojn ĉe la kruciĝo ( -3/-2 kontraŭ la
+// striaj -2/-1 ), do la centro estas unu kontinua diorita placo. La kvar
+// angulaj kvadratoj ( 0o4/0o10 = 0.5 ) sidas ĉe la lokoj kie la andezitaj
+// randoj de la DU vojoj interkovrus, levitaj je 0o1/0o100 super la plato kaj
+// aldoniĝas POST ĝi — la levo ( ne nur la offset ) garantias ke ili ĉiam
+// montriĝas, sendepende de la desegna ordo, kaj sen duobla tavolo.
+export function konstruiIntersekcajnPlatojn( sceno: THREE.Scene,
+  punktoj: [ number, number ][],
+  heightFn: ( x: number, z: number ) => number,
+  dioritaMaterialo: THREE.MeshStandardMaterial,
+  andezitaMaterialo: THREE.MeshStandardMaterial
+): void {
+  if ( punktoj.length === 0 ) return;
+  const dioritaTx = kreiDioritanTeksajxon();
+  const andezitaTx = kreiAndezitanTeksajxon();
+  const supraMaterialo = dioritaMaterialo.clone();
+  supraMaterialo.map = dioritaTx; supraMaterialo.needsUpdate = true;
+  supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = -3; supraMaterialo.polygonOffsetUnits = -2;
+  const bordaMaterialo = andezitaMaterialo.clone();
+  bordaMaterialo.map = andezitaTx; bordaMaterialo.needsUpdate = true;
+  bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = -4; bordaMaterialo.polygonOffsetUnits = -2;
+  // La anguloj sidas ĉe wb/2 - angulo/2 = 1.125 de la centro, do ĉiu kvadrato
+  // kovras [ 0.875, 1.375 ] — la saman regionon kiel la duoblaj vojo-randoj.
+  const wb = 0o26/0o10, angulaLargho = 0o4/0o10, dikeco = 0o2/0o10, r = 0;
+  const angulaOfseto = wb / 2 - angulaLargho / 2;
+  for ( const [ x, z ] of punktoj ) {
+    const y = heightFn( x, z );
+    const platoGeo = kreiRondanRektangulon( wb, wb, dikeco, r );
+    platoGeo.rotateX( -Math.PI / 2 );
+    const plato = new THREE.Mesh( platoGeo, supraMaterialo );
+    plato.position.set( x, y, z );
+    plato.receiveShadow = true;
+    sceno.add( plato );
+    for ( const sx of [ -1, 1 ] ) {
+      for ( const sz of [ -1, 1 ] ) {
+        const anguloGeo = kreiRondanRektangulon( angulaLargho, angulaLargho, dikeco, r );
+        anguloGeo.rotateX( -Math.PI / 2 );
+        const anguloMesh = new THREE.Mesh( anguloGeo, bordaMaterialo );
+        anguloMesh.position.set( x + sx * angulaOfseto, y + 0o1/0o100, z + sz * angulaOfseto );
+        anguloMesh.receiveShadow = true;
+        sceno.add( anguloMesh );
+      }
+    }
+  }
+}
+
+// kreiKvaronanArkFormon — Kvarona-disko ( la ark-regiono ) en la kvadranto
+// ( sx, sz ) de L-kornero. La ŝipo-koordinatoj uzas x = dx kaj y = -dz, do la
+// samplado en MALCRESKANTA angulo ( de a1+90° gxis a1 ) donas kontraŭhorloĝan
+// volvaĵon — la supra faco supren post la -90° X-rotacio, kiel la vojoj.
+function kreiKvaronanArkFormon( radiuso: number, sx: number, sz: number ): THREE.Shape {
+  const a1 = sx > 0 ? ( sz > 0 ? 0 : 3 * Math.PI / 2 ) : ( sz > 0 ? Math.PI / 2 : Math.PI );
+  const paŝoj = 0o40;
+  const formo = new THREE.Shape();
+  formo.moveTo( 0, 0 );
+  for ( let i = paŝoj; i >= 0; i-- ) {
+    const ang = a1 + ( i / paŝoj ) * Math.PI / 2;
+    formo.lineTo( radiuso * Math.cos( ang ), -radiuso * Math.sin( ang ) );
+  }
+  formo.closePath();
+  return formo;
+}
+
+// kreiRingSektoron — Ring-sektoro ( anulareto ) inter la internaj kaj
+// eksteraj radiusoj en la kvadranto ( sx, sz ). La ekstera arko, la interna
+// arko kaj la du radiusaj randoj formas unu simplan plurangulon SEN truo.
+// La malnova ringo estis kvarona disko kun truo — la truo kaj la ekstera
+// formo kunhavigis la originon, la Earcut-ponto igxis degenera, kaj restis
+// andezitaj trianguloj EN la diorita disko. La sektoro neniam tusxas la
+// originon, do la triangulado restas kompleta en cxiuj kvar kvadrantoj.
+function kreiRingSektoron( internaRadiuso: number, eksteraRadiuso: number, sx: number, sz: number ): THREE.Shape {
+  const a1 = sx > 0 ? ( sz > 0 ? 0 : 3 * Math.PI / 2 ) : ( sz > 0 ? Math.PI / 2 : Math.PI );
+  const paŝoj = 0o40;
+  const formo = new THREE.Shape();
+  formo.moveTo( internaRadiuso * Math.cos( a1 + Math.PI / 2 ), -internaRadiuso * Math.sin( a1 + Math.PI / 2 ) );
+  formo.lineTo( eksteraRadiuso * Math.cos( a1 + Math.PI / 2 ), -eksteraRadiuso * Math.sin( a1 + Math.PI / 2 ) );
+  for ( let i = 0; i <= paŝoj; i++ ) {
+    const ang = a1 + Math.PI / 2 - ( i / paŝoj ) * Math.PI / 2;
+    formo.lineTo( eksteraRadiuso * Math.cos( ang ), -eksteraRadiuso * Math.sin( ang ) );
+  }
+  formo.lineTo( internaRadiuso * Math.cos( a1 ), -internaRadiuso * Math.sin( a1 ) );
+  for ( let i = 0; i <= paŝoj; i++ ) {
+    const ang = a1 + ( i / paŝoj ) * Math.PI / 2;
+    formo.lineTo( internaRadiuso * Math.cos( ang ), -internaRadiuso * Math.sin( ang ) );
+  }
+  formo.closePath();
+  return formo;
+}
+
+// konstruiRondigitanArkon — Rondigita arko ĉe L-kornero de la voja krado
+// ( kie AMBAŬ perpendikularaj vojoj finiĝas samloke ). Kvarona-disko kiu
+// plenigas la korneran kvadranton inter la du vojoj — diorita centro
+// ( 0o7/0o10 ) kun andezita ringo ĝis la voja ekstera rando ( 0o13/0o10 ),
+// la samaj larĝoj kiel la voja banda skemo. La arko anstataŭas la du
+// interkovritajn cirklajn ĉapojn. Ĝi konektas la vojojn je iliaj eksteraj
+// anguloj, do neniu ringo mordas la vojan centron kaj nenia bulgo preterpasas
+// la vojon.
+export function konstruiRondigitanArkon( sceno: THREE.Scene,
+  x: number, z: number, sx: number, sz: number,
+  heightFn: ( x: number, z: number ) => number,
+  dioritaMaterialo: THREE.MeshStandardMaterial,
+  andezitaMaterialo: THREE.MeshStandardMaterial
+): void {
+  const dioritaTx = kreiDioritanTeksajxon();
+  const andezitaTx = kreiAndezitanTeksajxon();
+  const supraMaterialo = dioritaMaterialo.clone();
+  supraMaterialo.map = dioritaTx; supraMaterialo.needsUpdate = true;
+  supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = -3; supraMaterialo.polygonOffsetUnits = -2;
+  const bordaMaterialo = andezitaMaterialo.clone();
+  bordaMaterialo.map = andezitaTx; bordaMaterialo.needsUpdate = true;
+  bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = -4; bordaMaterialo.polygonOffsetUnits = -2;
+  const y = heightFn( x, z );
+  const dikeco = 0o2/0o10;
+
+  // Diorita centro — la kvarona disko.
+  const centroFormo = kreiKvaronanArkFormon( 0o7/0o10, sx, sz );
+  const centroGeo = new THREE.ExtrudeGeometry( centroFormo, { depth: dikeco, bevelEnabled: false } );
+  centroGeo.rotateX( -Math.PI / 2 );
+  const centro = new THREE.Mesh( centroGeo, supraMaterialo );
+  centro.position.set( x, y, z );
+  centro.receiveShadow = true;
+  sceno.add( centro );
+
+  // Andezita ringo — vera ring-sektoro inter 0o7/0o10 kaj 0o13/0o10 ( la
+  // samaj radiusoj kiel la voja centro kaj ekstera rando ). La sektoro
+  // sekvas la arkon kaj la du radiusajn randojn ( kiuj kuŝas sur la vojo-facoj
+  // — samkoloraj, do nevideblaj ) sen iu truo — neniu andezita triangulo
+  // eniras la dioritan diskon kaj neniu truo aperas lauxlonge de la randoj.
+  const ringFormo = kreiRingSektoron( 0o7/0o10, 0o13/0o10, sx, sz );
+  const ringGeo = new THREE.ExtrudeGeometry( ringFormo, { depth: dikeco, bevelEnabled: false } );
+  ringGeo.rotateX( -Math.PI / 2 );
+  const ringo = new THREE.Mesh( ringGeo, bordaMaterialo );
+  ringo.position.set( x, y + 0o1/0o100, z );
+  ringo.receiveShadow = true;
+  sceno.add( ringo );
 }
 
 // konstruiSpronon — Konstruu ununuran voj-spronon de konstruajxa pordo gxis voja rando.

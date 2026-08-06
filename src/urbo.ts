@@ -10,7 +10,7 @@ import { kreiArbarerojn, metiArbojn, konstruiArbaron, konstruiFilikojn, konstrui
   konstruiFalintajnTrunkojn, konstruiCetkuojn, konstruiLikenojn, konstruiHxsxaksxlefojn, konstruiTrunkajnLikenojn,
   metiArbojnCxirkauLagon, konstruiHerbonCxirkauLagon, konstruiCakeojn, metiMontajnArbojn, konstruiMontajnRokojn,
   konstruiMontajnSubkreskajxojn, konstruiLaganSubkreskajxojn, kronaRadiusoLarika, kronaRadiusoHxsxaksxlefa } from "../assets/shalaj-specioj/vegetajxo.js";
-import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, VojDifino } from "../assets/medio/vojoj.js";
+import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, VojDifino } from "../assets/medio/vojoj.js";
 import { konstruiDokon } from "../assets/medio/doko.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../assets/mebloj/keuxfhxeso.js";
@@ -250,13 +250,30 @@ export async function konstruiUrbon(
   // La veraj rando-nodoj de la voja reto. La finoj de cxiu vojo-linio, kie la
   // segmentoj haltas ( sen aldonaj stumpoj ). Nur tiuj ricevas rondigitajn ĉapojn.
   const placajNodoj: [number, number][] = [];
-  const aldoniPlacon = (x: number, z: number) => {
-    if (Math.abs(z - riveroZ(x)) < 0o20) return;
-    if (Math.hypot(x, z) > 0o170) return;
+  const cxuNodoValidas = (x: number, z: number): boolean => {
+    if (Math.abs(z - riveroZ(x)) < 0o20) return false;
+    if (Math.hypot(x, z) > 0o170) return false;
     for (const s of konstruSpecoj) {
-      if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10) return;
+      if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10) return false;
     }
+    return true;
+  };
+  const aldoniPlacon = (x: number, z: number) => {
+    if (!cxuNodoValidas(x, z)) return;
     placajNodoj.push([x, z]);
+  };
+
+  // Noda registro por malkovri L-kornerojn ( kie AMBAU perpendikularaj vojoj
+  // finigas samloke ). sx/sz registras la FORAN direkton — la korneran
+  // kvadranton — de cxiu voja fino.
+  const finoRegistro = new Map<string, { sx: number; sz: number }>();
+  const aldoniFinon = (x: number, z: number, sx: number, sz: number) => {
+    const k = x + "," + z;
+    const e = finoRegistro.get(k) || { sx: 0, sz: 0 };
+    if (sx !== 0) e.sx = sx;
+    if (sz !== 0) e.sz = sz;
+    finoRegistro.set(k, e);
+    aldoniPlacon(x, z);
   };
 
   // Realaj intersekcoj de la voja reto ( kie kaj EW kaj NS vojo efektive
@@ -283,9 +300,11 @@ export async function konstruiUrbon(
 
     // Konstruu segmentojn NUR inter intersekcaj NS-vojoj — neniuj randaj stumpoj
     const pts = [...intersecting].sort((a, b) => a - b);
-    // Rando-nodoj. La du finoj de cxi tiu EW-linio.
-    aldoniPlacon(pts[0], roadZ);
-    aldoniPlacon(pts[pts.length - 1], roadZ);
+    // Rando-nodoj. La du finoj de cxi tiu EW-linio. La okcidenta fino ( pts[0] )
+    // havas la korpon orienten ( +x ), do la fora kvadranto estas -x; la orienta
+    // fino inverse.
+    aldoniFinon(pts[0], roadZ, -1, 0);
+    aldoniFinon(pts[pts.length - 1], roadZ, 1, 0);
     const w = 0o16/0o10;  // uniform 1.75 half-width
     for (let i = 0; i < pts.length - 1; i++) {
       const x1 = pts[i], x2 = pts[i + 1];
@@ -314,9 +333,10 @@ export async function konstruiUrbon(
 
     // Konstruu segmentojn NUR inter intersekcaj EW-vojoj — neniuj randaj stumpoj
     const pts = [...intersecting].sort((a, b) => a - b);
-    // Rando-nodoj. La du finoj de cxi tiu NS-linio.
-    aldoniPlacon(roadX, pts[0]);
-    aldoniPlacon(roadX, pts[pts.length - 1]);
+    // Rando-nodoj. La du finoj de cxi tiu NS-linio. La suda fino ( pts[0] ) havas
+    // la korpon norden ( +z ), do la fora kvadranto estas -z; la norda fino inverse.
+    aldoniFinon(roadX, pts[0], 0, -1);
+    aldoniFinon(roadX, pts[pts.length - 1], 0, 1);
     const w = 0o16/0o10;  // uniform 1.75 half-width
     for (let i = 0; i < pts.length - 1; i++) {
       const z1 = pts[i], z2 = pts[i + 1];
@@ -325,6 +345,33 @@ export async function konstruiUrbon(
       }
     }
   }
+
+  // L-korneroj — nodoj kie AMBAU perpendikularaj vojoj finigas samloke ( la
+  // kvar anguloj de la krada rombo ). Tiuj ricevas rondigitan arkon anstatau
+  // du interkovritajn cirklajn ĉapojn.
+  const arkajNodoj: { x: number; z: number; sx: number; sz: number }[] = [];
+  const arkajKlavoj = new Set<string>();
+  for (const [k, e] of finoRegistro) {
+    if (e.sx !== 0 && e.sz !== 0) {
+      const [x, z] = k.split(",").map(Number);
+      if (cxuNodoValidas(x, z)) {
+        arkajNodoj.push({ x, z, sx: e.sx, sz: e.sz });
+        arkajKlavoj.add(k);
+      }
+    }
+  }
+  for (let i = placajNodoj.length - 1; i >= 0; i--) {
+    const [x, z] = placajNodoj[i];
+    if (arkajKlavoj.has(x + "," + z)) placajNodoj.splice(i, 1);
+  }
+  // Nek la L-korneroj nek la T-kunigoj ( unuvojaj finoj ) estas kvarvojaj
+  // kruciĝoj — forigu ilin el la realaj intersekcoj, por ke neniu kruciĝa
+  // plato aperu tie. La ĉapo sola donas la andezitan bordon sur la fermita
+  // kvara flanko de la T-kunigo ( la plato kovris ĝin per diorita placo ).
+  // La L-korneroj ne plu estas en placajNodoj ( ili ricevas arkojn ), do iliaj
+  // klavoj foriĝas rekte — alie la kruciĝa plato restus sub la arko.
+  for (const [px, pz] of placajNodoj) realajIntersekcoj.delete(px + "," + pz);
+  for (const klavo of arkajKlavoj) realajIntersekcoj.delete(klavo);
 
   // Rivervojo — unu kontinua kajo laŭ la riverbordo. Ĝi sekvas la riverkurbon
   // kaj la terenon, kaj trapasas la nordan (landan) randon de ĉiu doko, do la
@@ -470,6 +517,17 @@ export async function konstruiUrbon(
   // Kunigi la spur-vojojn kun la ĉefaj vojoj, por ke la ekskludo kovru ĉion.
   vojSpecimenoj.push(...spronajSpecimenoj);
 
+  // ⟪ Kruciĝaj platoj 📃 ⟫ — ĉe ĉiu kruciĝo la strioj de la du vojoj kuŝas
+  // samplane kaj la teksturoj montras krucan kvadraton. Diorita centro kun
+  // kvar andezitaj anguloj kovras ĉiun kruciĝon per pli alta polygonOffset,
+  // do la duobla andezito en la anguloj malaperas ( la platoj sidas sub la
+  // placaj rondoj ĉe la vojo-finoj kaj la vojo-randoj daŭrigas preter la
+  // kruciĝo ).
+  konstruiIntersekcajnPlatojn( sceno, [ ...realajIntersekcoj ].map( klavo => {
+    const [ x, z ] = klavo.split( "," ).map( Number );
+    return [ x, z ] as [ number, number ];
+  } ), alteco, dioritaMaterialo, andezitaMaterialo );
+
   // ⟪ Krada indekso por la voja ekskludo 📃 ⟫ — ĉelo-krado por ke la vegetajxo
   // ne skanu ĉiun vojspecimenon por ĉiu kandidata arbo ( O(1) anstataŭ O(n) ).
   const VOJA_ĈELO = 0o10;
@@ -485,6 +543,12 @@ export async function konstruiUrbon(
   // ⟪ Placoj 📃 ⟫ — ĉapoj ĉe la veraj rando-nodoj kolektitaj dum la voja reto
   // ( la finoj de ĉiu linio ), ne plu nur ĉe la kvar anguloj de la tuta skatolo.
   konstruiPlacojn(sceno, placajNodoj, alteco, dioritaMaterialo, andezitaMaterialo);
+
+  // Rondigitaj arkoj ĉe la L-korneroj — kvaronaj diskoj en la korneraj
+  // kvadrantoj, sur la vojoj ( la lasta desegnita tavolo ).
+  for (const a of arkajNodoj) {
+    konstruiRondigitanArkon(sceno, a.x, a.z, a.sx, a.sz, alteco, dioritaMaterialo, andezitaMaterialo);
+  }
   await raporti();
 
   // ⟪ Arbar-randaj platformoj 📃 ⟫
@@ -529,6 +593,14 @@ export async function konstruiUrbon(
       addLamp(gx - 0o23/0o10, gz + 0o23/0o10);
       addLamp(gx - 0o23/0o10, gz - 0o23/0o10);
     }
+  }
+  // Rondigitaj arkoj — la L-korneroj ne estas en placajNodoj nek realaj
+  // intersekcoj, do ili ricevas propran kvar-lampan ŝablonon por resti lumigitaj.
+  for (const a of arkajNodoj) {
+    addLamp(a.x + 0o23/0o10, a.z + 0o23/0o10);
+    addLamp(a.x + 0o23/0o10, a.z - 0o23/0o10);
+    addLamp(a.x - 0o23/0o10, a.z + 0o23/0o10);
+    addLamp(a.x - 0o23/0o10, a.z - 0o23/0o10);
   }
   // Lampoj ĉirkaŭ la lago — uniforma dismeto: egalaj angulaj paŝoj, kaj la
   // distanco ligita al la ondigita lagrando ( lagoRadio ), do la lampoj
