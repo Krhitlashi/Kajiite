@@ -49,11 +49,11 @@ body {
 #retikulo::after { width:1px; height:16px; left:50%; top:-8px; }
 #tosto, #prompto { white-space:nowrap; opacity:0; pointer-events:none; }
 #tosto {
-  position:fixed; z-index:5; top:calc(50% + 64px); left:50%; transform:translate(-50%,-50%) translateY(16px);
-  color:var(--mist);
+  position:fixed; z-index:5; top:calc(50%); left:50%; transform:translate(-50%,-50%);
   transition:opacity .5s,transform .5s;
   flex-direction: row;
-  max-block-size: 62.5%;
+  max-inline-size: 25%;
+  flex-wrap: wrap;
 }
 #tosto.montri { transform:translate(-50%,-50%); }
 #supermeta {
@@ -82,8 +82,8 @@ body {
 }
 .helpa-listo { padding:var(--អារេង); }
 /* One reveal language for every overlay. */
-#karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#balailo.montri { opacity:1; }
-#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri { pointer-events:auto; }
+#karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#vestaro.montri,#balailo.montri { opacity:1; }
+#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#vestaro.montri { pointer-events:auto; }
 
 /* La kompaso fariĝis kvadrata minimapo: la mapa kanvaso plenigas ĝin, kaj la
    nadlo ( sago + N ) super kuŝas kiel direkta indikilo sur la norda mapo. */
@@ -155,20 +155,28 @@ body {
   border-radius:var(--អិត្ភេពឺ);
 }
 #navPopUp.montri { transform:none; }
-/* La informo-panelo estas preskaŭ plenekrana ( sub la supra strio, kie sidas la
-   informa butono ): ĝi etendiĝas inter la randoj ĉiudirekte — nenia fiksita
-   larĝo kaj neniaj vh/vw, do la sama aspekto sur ĉiu ekrano. La supra strio
-   ( 72px + safe-area ) restas videbla, kaj la panelo rulumas interne. */
-#informo {
+/* La du paneloj plenigas sian vertikalan spacon sen div-ĉirkaŭaĵo — nenia
+   malplena spaco sub ili. La vertikalaj liberoj estas ŜANĜITAJ inter la du:
+   la informo-panelo havas la liberon SUPRE ( 72px, sub la supra strio, kie
+   la informa butono restas videbla ) kaj etendiĝas ĝis la 16px suba marĝeno;
+   la vestaro estas la vertikala spegulo — ĝi komenciĝas 16px sub la supro
+   kaj finiĝas 72px antaŭ la malsupro, do ĝi venas de la malsupro kaj lasas
+   la menuo-ikonon videbla sube ( la sama flosado kiel la naviga pop-up ).
+   Ambaŭ rulumas interne. La poziciado uzas FIZIKAj top/bottom/left/right,
+   ĉar la .menuPanel-klaso rotacias la skrib-reĝimon en aih ( sideways-lr ) —
+   logikaj inset-oj renversiĝus. */
+#informo, #vestaro {
   position:fixed; z-index:6;
-  inset-inline:calc(var(--អារេងព៏) + var(--sal)) calc(var(--អារេងព៏) + var(--sar));
-  inset-block-start:calc(72px + var(--sat));
-  inset-block-end:calc(var(--អារេងព៏) + var(--sab));
-  display:block; overflow:auto; overscroll-behavior:contain; opacity:0; pointer-events:none; transform:translateY(8px);
+  display:flex; flex-direction:column;
+  overflow:auto; overscroll-behavior:contain; opacity:0; pointer-events:none; transform:translateY(8px);
   transition:opacity .25s,transform .25s;
   border-radius:var(--អិត្ភេពឺ);
+  left:calc(var(--អារេងព៏) + var(--sal));
+  right:calc(var(--អារេងព៏) + var(--sar));
 }
-#informo.montri { transform:none; }
+#informo { top:calc(72px + var(--sat)); bottom:calc(var(--អារេងព៏) + var(--sab));  }
+#vestaro { top:calc(var(--អារេងព៏) + var(--sat)); bottom:calc(72px + var(--sab));  }
+#informo.montri, #vestaro.montri { transform:none; }
 .menuPanel {
   position:relative;
 }
@@ -182,10 +190,19 @@ body {
 
 /* Wardrobe cards and loading screen. */
 .vestaVico { display:flex; justify-content:center; flex-wrap:wrap; }
+/* La hara langeto stakigas siajn du sekciojn vertikale — kiel flex-kolumno
+   ĝi ricevas la universalan 8px-gapon de la ekstera stilfolio inter la
+   titoloj ( ksakap2sa ) kaj la kartaroj. */
+#haraListo { display:flex; flex-direction:column; }
 /* Flex column so the linked sheet's universal gap (8px) spaces the canvas and the name. */
 .vestaKardo { cursor:pointer; transition:transform .25s,border-color .25s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--តានេក២); }
 .vestaKardo .vn { color:var(--mist); }
+/* La har-kolora svecxo — ronda ĝemo sur la kolora karto ( la sama pilolo-radio
+   kaj bordo kiel la eksteraj elementoj ), por ke la koloroj vere videblu. */
+.harKoloroChip { inline-size:24px; block-size:24px; border-radius:var(--អិត្ភេមិ); border:var(--សាកព៏); align-self:center; }
+/* La elektita karto ( har-stilo/koloro ) ricevas pli fortan bordon. */
+.vestaKardo.elektita { border-color:var(--តានេក៣); }
 #sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); background:var(--deep); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
 /* La titolo kaj surskribo staras cxe la flankoj de la vertikala stango; la plenigo fluas de malsupro al supro. */

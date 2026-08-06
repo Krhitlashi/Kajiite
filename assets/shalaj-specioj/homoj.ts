@@ -1,8 +1,8 @@
 // NPC-modulo — figuroj vagantaj tra la sxtupurbo de ornaveth-v2
 // Malalt-poligonaj figuroj kun tavoligitaj vestoj, foliaj manikoj, kvarstelo/rombo-motivoj
 import * as THREE from "three";
-import { deksesuma, kvarStelo, rombo } from "../vestaro/vestoj.js";
-import type { Vesto } from "../vestaro/vestoj.js";
+import { deksesuma, kvarStelo, rombo, HARSTILOJ } from "../vestaro/vestoj.js";
+import type { Vesto, Harstilo } from "../vestaro/vestoj.js";
 
 export type { Vesto };
 
@@ -149,6 +149,8 @@ function konstruiManikon(ĉefaM: THREE.Material, akcentaM: THREE.Material): THRE
 export interface Figuro {
   group: THREE.Group;
   agordiVeston: (o: Vesto) => void;
+  agordiHaranStilon: (stilo: Harstilo) => void;
+  agordiHaranKoloron: (koloro: number) => void;
   hejmo: THREE.Vector3;
   celo: THREE.Vector3;
   atendo: number;
@@ -299,11 +301,43 @@ const harKoloroA = new THREE.Color( 0x231a10 ); // malhelbruna
 const harKoloroB = new THREE.Color( 0x3c241a ); // ruĝeta malhelbruna
 const harKoloro = new THREE.Color();            // provizora miksita koloro
 
-// konstruiFiguron — Konstruu NPC-figuron kun tavoligitaj vestoj kaj foli-manikoj.
+// konstruiHaranGrupon — Konstruu la geometrion de unu har-stilo. La ĉapo estas
+// komuna al ĉiuj stiloj ( krom la longa, kiu uzas sian propran pli grandan
+// ĉapon ); la longa aldonas sian kurtenon super ĝi. Nekonata stilo falas reen
+// al la mallonga ĉapo.
+//     @param stilo ( Harstilo ) - La stilo por konstrui.
+//     @param haroM ( THREE.Material ) - La komuna haro-materialo.
+//     @returns grupo ( THREE.Group ) - La har-grupo, ĉe la kapo.
+function konstruiHaranGrupon(stilo: Harstilo, haroM: THREE.Material): THREE.Group {
+  const grupo = new THREE.Group();
+  const ĉapo = ( radio: number ) => {
+    const m = new THREE.Mesh( new THREE.SphereGeometry( radio, 0o10, 0o10 ), haroM );
+    m.scale.set(0o1, 0o27/0o40, 0o1); m.position.y = 0o155/0o100;
+    grupo.add(m);
+  };
+  if ( stilo.nomo === "haroLonga" ) {
+    // Pli granda ĉapo, fleksita kurteno ĉirkaŭ la malantaŭo de la kapo falanta
+    // ĝis la ŝultroj kun pinteca fringo, kaj du flankaj strioj kadrantaj la
+    // vizaĝon.
+    ĉapo(0o7/0o40);
+    grupo.add(new THREE.Mesh( kreiHaranKurtenon(), haroM ));
+    for ( const dir of [ -0o1, 0o1 ] ) {
+      grupo.add(new THREE.Mesh( kreiHaranFlankon( dir ), haroM ));
+    }
+  } else {
+    // Mallonga ( kaj nekonataj ŝlosiloj ) — simpla ĉapo.
+    ĉapo(0o3/0o20);
+  }
+  return grupo;
+}
+
+// konstruiFiguron — Konstruu NPC-figuron kun tavoligitaj vestoj, foli-manikoj
+// kaj har-stiloj. Ĉiuj har-stiloj estas konstruitaj ( nur la elektita videbla ),
+// por ke agordiHaron povu ŝanĝi la stilon poste sen rekonstruado.
 //     @param o ( Vesto ) - La vesta objekto por koloroj.
-//     @param longaHaro ( boolean = false ) - Ĉu aldoni longan har-variaĵon
-//         ( ĉapo, dorsa kurteno kaj flankaj haroj ĝis la ŝultroj ).
-export function konstruiFiguron(o: Vesto, longaHaro = false): Figuro {
+//     @param haroKlavo ( string = "haroMalalta" ) - La ŝlosilo de la elektita
+//         har-stilo ( sama kiel la nomo en HARSTILOJ ).
+export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   const g = new THREE.Group();
   const haŭto = new THREE.MeshStandardMaterial({ color: 0x605050, roughness: 0o55/0o100 });
   const kapo = new THREE.Mesh(new THREE.SphereGeometry(0o13/0o100, 0o10, 0o10), haŭto); kapo.position.y = 0o15/0o10;
@@ -312,8 +346,6 @@ export function konstruiFiguron(o: Vesto, longaHaro = false): Figuro {
   // hazarde inter malhelbruna kaj ruĝeta malhelbruna por ĉiu NPC.
   harKoloro.lerpColors( harKoloroA, harKoloroB, Math.random() );
   const haroM = new THREE.MeshStandardMaterial({ color: harKoloro, roughness: 0o35/0o40, side: THREE.DoubleSide });
-  const haro = new THREE.Mesh( new THREE.SphereGeometry(0o3/0o20, 0o10, 0o10), haroM );
-  haro.scale.set(0o1, 0o27/0o40, 0o1); haro.position.y = 0o155/0o100;
 
   // Kolo — plenigas la breĉon inter la kapo kaj la ĉemizo, por ke neniu truo videblu.
   const kolo = new THREE.Mesh(new THREE.CylinderGeometry(0o3/0o40, 0o7/0o100, 0o5/0o40, 0o14, 0o1), haŭto); kolo.position.y = 0o135/0o100;
@@ -387,23 +419,22 @@ export function konstruiFiguron(o: Vesto, longaHaro = false): Figuro {
   const sR = konstruiManikon(manikaTuboM, manikaAkcentaM); sR.rotation.z = 0o1/0o10;
   brakoL.add(sL); brakoR.add(sR);
 
-  // Longa haro — vera har-geometrio anstataŭ sferoj. Pli granda ĉapo supre,
-  // fleksita kurteno ĉirkaŭ la malantaŭo de la kapo kiu falas ĝis la ŝultroj
-  // kun pinteca fringo, kaj du flankaj strioj kadrantaj la vizaĝon. Ĉio en la
-  // sama haro-materialo.
-  const longaGrupo = new THREE.Group();
-  const ĉapo = new THREE.Mesh( new THREE.SphereGeometry(0o7/0o40, 0o10, 0o10), haroM );
-  ĉapo.scale.set(0o1, 0o27/0o40, 0o1); ĉapo.position.y = 0o155/0o100;
-  longaGrupo.add(ĉapo);
-  const kurteno = new THREE.Mesh( kreiHaranKurtenon(), haroM );
-  longaGrupo.add(kurteno);
-  for ( const dir of [ -0o1, 0o1 ] ) {
-    const flanko = new THREE.Mesh( kreiHaranFlankon( dir ), haroM );
-    longaGrupo.add(flanko);
-  }
+  // ── Har-stiloj ──
+  // Ĉiu stilo estas aparta grupo konstruita ĉiam ( ne nur la elektita ), por
+  // ke agordiHaron povu ŝanĝi la stilon poste sen rekonstrui la geometriojn.
+  // La grupoj estas konstruitaj per HARSTILOJ ( la sama listo kiel la vestara
+  // UI ), do la ŝlosiloj neniam povas disiĝi. Nekonata ŝlosilo falas reen al
+  // la mallonga ĉapo.
+  const haroGrupoj = new Map<string, THREE.Group>();
+  for ( const stilo of HARSTILOJ ) haroGrupoj.set( stilo.nomo, konstruiHaranGrupon( stilo, haroM ) );
+  const aktivaHaro = haroGrupoj.has(haroKlavo) ? haroKlavo : "haroMalalta";
 
-  g.add(kapo, haro, kolo, interno, ekstera, kruroL, kruroR, brakoL, brakoR);
-  if ( longaHaro ) g.add(longaGrupo);
+  g.add(kapo, kolo, interno, ekstera, kruroL, kruroR, brakoL, brakoR);
+
+  for ( const [ klavo, grupo ] of haroGrupoj ) {
+    grupo.visible = klavo === aktivaHaro;
+    g.add(grupo);
+  }
   g.traverse(m => { if ( (m as THREE.Mesh).isMesh ) (m as THREE.Mesh).castShadow = true; });
 
   const fig: Figuro = {
@@ -421,6 +452,14 @@ export function konstruiFiguron(o: Vesto, longaHaro = false): Figuro {
       manikaTuboM.color.setHex(nova.ĉefa); manikaAkcentaM.color.setHex(nova.akcenta);
       botoM.color.setHex(nova.botoj); plandoM.color.setHex(nova.akcenta);
       internoM.map.needsUpdate = eksteraM.map.needsUpdate = pantalonoM.map.needsUpdate = true;
+    },
+    agordiHaranStilon(stilo: Harstilo) {
+      const aktiva = haroGrupoj.has(stilo.nomo) ? stilo.nomo : "haroMalalta";
+      for ( const [ klavo, grupo ] of haroGrupoj ) grupo.visible = klavo === aktiva;
+    },
+    agordiHaranKoloron(koloro: number) {
+      // La koloro estas sendependa de la stilo — la haro-materialo estas komuna.
+      haroM.color.setHex(koloro);
     },
   };
   return fig;

@@ -25,6 +25,34 @@ export const VESTOJ: Vesto[] = [
 // deksesuma — Formatu decimalan koloron kiel #rrggbb-strako.
 export const deksesuma = (c: number): string => "#" + c.toString(0o20).padStart(0o6, "0");
 
+// Harstiloj — haro-stiloj por la vestaro. Ĉiu stilo havas sian propran koloron,
+// do la elekto ŝanĝas kaj la formon kaj la nuancon de la haro.
+export interface Harstilo {
+  nomo: string;    // traduka klavo — ankaŭ la ŝlosilo de la grupo en la figuro
+  koloro: number;  // deksesuma — ĉefa har-koloro
+}
+
+export const HARSTILOJ: Harstilo[] = [
+  { nomo: "haroMalalta",  koloro: 0x281810 },  // mallonga — malhelbruna
+  { nomo: "haroLonga",    koloro: 0x181008 },  // longa — preskaŭ nigra
+];
+
+// Har-koloroj — paletro sendependa de la stilo. La ludanto povas kombini ajnan
+// stilon kun ajnan koloron; la stila koloro supre estas nur la antauxrigardo.
+export interface HarKoloro {
+  nomo: string;    // traduka klavo
+  koloro: number;  // deksesuma
+}
+
+export const HARKOLOROJ: HarKoloro[] = [
+  { nomo: "harKoloroBruna",   koloro: 0x382018 },  // malhelbruna
+  { nomo: "harKoloroNigra",   koloro: 0x101008 },  // preskaŭ nigra
+  { nomo: "harKoloroRuĝeta",  koloro: 0x783018 },  // ruĝeta bruna
+  { nomo: "harKoloroKaŝtana", koloro: 0x583820 },  // kaŝtana
+  { nomo: "harKoloroBlonda",  koloro: 0xb08850 },  // hela blonda
+  { nomo: "harKoloroGriza",   koloro: 0x889098 },  // griza
+];
+
 export function kvarStelo(kunteksto: CanvasRenderingContext2D,
   cX: number, cy: number, r: number, koloro: string
 ): void {
@@ -169,6 +197,71 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
     kunteksto.quadraticCurveTo(eno + dir * 0o11, yOrlo + 0o14, ekstero, yOrlo);
     kunteksto.stroke();
   }
+
+  return kanvasa;
+}
+
+// kreiHaranAntauxrigardon — Kreu malgrandan antauxrigardan kanvason por hara
+// elekta karto. Busto ( ŝultroj, kolo, kapo ) kun la har-stilo desegnita laux
+// la silueto de la 3D-modelo.
+//     @param stilo ( Harstilo ) - La har-stilo por montri.
+//     @param koloro ( number = stilo.koloro ) - La nuanco por desegni ( kutime
+//         la nuna elektita har-koloro, por ke la karto spegulu la modelon ).
+export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLCanvasElement {
+  const kanvasa = document.createElement("canvas");
+  kanvasa.width = 0o210; kanvasa.height = 0o300;
+  const kunteksto = kanvasa.getContext("2d")!;
+  const H = deksesuma(koloro ?? stilo.koloro);
+  const CX = 0o104, KAPY = 0o66, KAPR = 0o20;
+
+  kunteksto.fillStyle = "rgba(6,16,12,0.9)";
+  kunteksto.fillRect(0, 0, 0o210, 0o300);
+
+  // Ŝultroj — malhela busto malantaŭ la kapo.
+  kunteksto.fillStyle = "#2a2424";
+  kunteksto.beginPath();
+  kunteksto.moveTo(0o40, 0o300); kunteksto.lineTo(0o150, 0o300);
+  kunteksto.lineTo(0o140, 0o130); kunteksto.quadraticCurveTo(0o126, 0o114, 0o104, 0o114);
+  kunteksto.quadraticCurveTo(0o62, 0o114, 0o50, 0o130);
+  kunteksto.closePath();
+  kunteksto.fill();
+
+  // Kolo.
+  kunteksto.fillStyle = "#605050";
+  kunteksto.fillRect(0o77, 0o102, 0o14, 0o17);
+
+  // Kapo.
+  kunteksto.beginPath();
+  kunteksto.arc(CX, KAPY, KAPR, 0, Math.PI * 0o2);
+  kunteksto.fill();
+
+  // La stil-specifa haro — la ĉapo estas desegnata lasta, ĉar ĝi kuŝas super
+  // la kurteno. La du siluetoj estas klare distingeblaj: mallonga domo kaj
+  // longa kurteno.
+  kunteksto.fillStyle = H;
+  if ( stilo.nomo === "haroLonga" ) {
+    // Kurteno — longa haro kadranta la vizaĝon kaj falanta sur la ŝultrojn
+    // kun pinteca fringo.
+    kunteksto.beginPath();
+    kunteksto.moveTo(CX - KAPR, KAPY - 0o2);
+    kunteksto.lineTo(CX - KAPR - 0o6, 0o136);
+    kunteksto.lineTo(CX - KAPR - 0o2, 0o130);
+    kunteksto.lineTo(CX - KAPR - 0o6, 0o142);
+    kunteksto.lineTo(CX - 0o3, 0o132);
+    kunteksto.lineTo(CX + 0o3, 0o142);
+    kunteksto.lineTo(CX + KAPR + 0o6, 0o130);
+    kunteksto.lineTo(CX + KAPR + 0o2, 0o136);
+    kunteksto.lineTo(CX + KAPR, KAPY - 0o2);
+    kunteksto.closePath();
+    kunteksto.fill();
+  }
+
+  // Ĉapo — la supro de la kapo, ĉe ĉiuj stiloj. Profunda domo ĝis la mezo de
+  // la kapo, por ke la mallonga silueto estu klara.
+  kunteksto.beginPath();
+  kunteksto.arc(CX, KAPY, KAPR + 0o2, Math.PI, Math.PI * 0o2);
+  kunteksto.closePath();
+  kunteksto.fill();
 
   return kanvasa;
 }

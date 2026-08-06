@@ -85,8 +85,7 @@
 <button id="informButono" class="n2tase" data-oskakefani-aria="ariaInformButono" aria-label="Informoj" aria-pressed="false">书</button>
 
 <!-- ⟪ Informo-panelo 📃 ⟫ -->
-<div id="informo">
-  <thala class="menuPanel n2tase aih">
+<thala id="informo" class="menuPanel n2tase aih">
     <div class="menuIdenteco">
       <h1 data-oskakefani="titoloInformo"></h1>
       <p data-oskakefani="subtitoloInformo"></p>
@@ -99,8 +98,21 @@
     <div class="informSekcio" data-sekcio="konstruajxoj"><div class="vestaVico" id="konstruaListo"></div></div>
     <div class="informSekcio" data-sekcio="mangxajxoj" style="display:none"><div class="vestaVico" id="mangxaListo"></div></div>
     <div class="informSekcio" data-sekcio="specioj" style="display:none"><div class="vestaVico" id="speciaListo"></div></div>
-  </thala>
-</div>
+</thala>
+
+<!-- ⟪ Vestaro ( plenekrana, subo-orientita — langetoj: vestoj · hararo ) 📃 ⟫ -->
+<thala id="vestaro" class="menuPanel n2tase aih">
+    <div class="menuIdenteco">
+      <h1 data-oskakefani="titoloTeksilo"></h1>
+      <p data-oskakefani="subtitoloTeksilo"></p>
+    </div>
+    <div class="menuAzioj" id="vestaroTaboj">
+      <button data-tabo="vestoj" data-oskakefani="taboVestoj"></button>
+      <button data-tabo="hararo" data-oskakefani="taboHararo"></button>
+    </div>
+    <div class="informSekcio" data-sekcio="vestoj"><div class="vestaVico" id="vestaListo"></div></div>
+    <div class="informSekcio" data-sekcio="hararo" style="display:none"><div id="haraListo"></div></div>
+</thala>
 <!-- ⟪ Poŝtelefonaj kontroloj 📃 ⟫ -->
 <div id="mobKontroloj" aria-hidden="true">
   <div id="mobJoystickZono">

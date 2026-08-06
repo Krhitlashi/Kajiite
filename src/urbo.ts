@@ -885,7 +885,7 @@ export async function konstruiUrbon(
   for (const [sX, sZ] of NPCLOKOJ) {
     const bad = ekskluziviRiveron(sX, sZ) || ekskluziviKonstruajxon(sX, sZ, 3);
     if (bad) continue;
-    const fig = konstruiFiguron(VESTA_LISTO[npcoj.length % VESTA_LISTO.length], Math.random() < 0o1/0o4);
+    const fig = konstruiFiguron(VESTA_LISTO[npcoj.length % VESTA_LISTO.length], Math.random() < 0o1/0o4 ? "haroLonga" : "haroMalalta");
     const h = alteco(sX, sZ);
     fig.group.position.set(sX, h, sZ);
     fig.hejmo.set(sX, h, sZ);

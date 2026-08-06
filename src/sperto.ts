@@ -2,11 +2,12 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "../assets/medio/transporto.js";
-import { VESTOJ, kreiVestanAntauxrigardon } from "../assets/vestaro/vestoj.js";
+import { VESTOJ, HARSTILOJ, HARKOLOROJ, kreiVestanAntauxrigardon, kreiHaranAntauxrigardon, deksesuma } from "../assets/vestaro/vestoj.js";
 import { animaciiFlammojn } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/medio/akvo.js";
 import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../assets/shalaj-specioj/bestoj.js";
-import { gxisdatigiNpc } from "../assets/shalaj-specioj/homoj.js";
+import { konstruiFiguron, gxisdatigiNpc } from "../assets/shalaj-specioj/homoj.js";
+import type { Figuro } from "../assets/shalaj-specioj/homoj.js";
 
 import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, heliksaAltecxo } from "../assets/konstruajxoj/internoj.js";
 import { animaciiKrasesxagxon } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
@@ -65,6 +66,11 @@ const konstruaListo = document.getElementById("konstruaListo")!;
 const mangxaListo = document.getElementById("mangxaListo")!;
 const speciaListo = document.getElementById("speciaListo")!;
 
+// ⟪ Vestaro-panelaj elementoj 📃 ⟫
+const vestaro = document.getElementById("vestaro")!;
+const vestaListo = document.getElementById("vestaListo")!;
+const haraListo = document.getElementById("haraListo")!;
+
 // ⟪ Stirstanga stato 📃 ⟫
 let joystickAktiva = false;
 let joystickID = -1;
@@ -82,13 +88,26 @@ const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaM
   const novaTitolo = p > 0o33/0o40 ? traduki("sxargxaNebulo") : p > 0o23/0o40 ? traduki("sxargxaTraboj") : p > 0o23/0o100 ? traduki("sxargxaSatalo") : null;
   if (novaTitolo !== null && sxargxaTitolo.textContent !== novaTitolo) {
     sxargxaTitolo.textContent = novaTitolo;
-    if (cxuAih() && typeof vacepu === "function") vacepu("aih");
+    aplikiVacepu();
   }
 });
 const {
   konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
   riverData, riveroNordOrienta, lago, bestoj, petreloj, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
 } = urbo;
+
+// ⟪ Ludanta figuro 📃 ⟫ — la NPC-stila modelo de la ludanto. Videbla nur en
+// tria persono, kiam la rado malzomas eksteren dum promenado.
+const ludantaFiguro: Figuro = konstruiFiguron(VESTOJ[0]);
+ludantaFiguro.group.visible = false;
+sceno.add(ludantaFiguro.group);
+// Nuna har-stilo kaj -koloro de la ludanto — por la aktiva-karto marko kaj la
+// antauxrigardoj en la vestaro.
+let aktivaHarStilo = HARSTILOJ[0], aktivaHarKoloro = HARKOLOROJ[0].koloro;
+// Determinisma komenca har-stilo kaj -koloro ( la samaj kiel la unuaj kartoj ),
+// anstataŭ la hazarda NPC-nuanco.
+ludantaFiguro.agordiHaranStilon(aktivaHarStilo);
+ludantaFiguro.agordiHaranKoloron(aktivaHarKoloro);
 
 // ⟪ Orbit-regiloj 📃 ⟫
 const regiloj = new OrbitControls(fotilo, bildilo.domElement);
@@ -120,6 +139,11 @@ let rapidoY = 0, estasSurTERENO = false;
 const klavoj: Record<string, boolean> = {};
 let mobSprinto = false;
 let oscilo = 0;
+// Tria-persona distanco. 0 = unua persono; la rado malzomas eksteren por vidi
+// la modelon de la ludanto. celDistanco estas la celo, kameraDistanco sekvas
+// gxin glate cxiun kadron.
+let kameraDistanco = 0, celDistanco = 0;
+let movoValoro = 0;   // 0..1 — nuna mova intenseco por la figuro-animacio
 // ĉu la ludanto naĝis en la antaŭa kadro — por la plaŭda sono ĉe eniro en la akvon
 let estisNaĝanta = false;
 // Ĉu la poŝtelefona saltbutono estas tenata — tenante ĝin ( aŭ Spacon ) la
@@ -141,6 +165,10 @@ function gxisdatigiNavButonon() {
   navButono.setAttribute("aria-pressed", String(navPopUp.classList.contains("montri")));
 }
 function sxaltiNaviganPopUp() {
+  // Sub plenekrana panelo la pop-up kaŝiĝus malantaŭ ĝi ( ambaŭ z-6 ) —
+  // la menu-butono anstataŭe fermas la malfermitan panelon.
+  if (vestaro.classList.contains("montri")) { fermiVestaron(); return; }
+  if (informo.classList.contains("montri")) { fermiInformon(); return; }
   navPopUp.classList.toggle("montri");
   gxisdatigiNavButonon();
 }
@@ -164,7 +192,7 @@ function sxaltiInformon() {
   informo.classList.toggle("montri");
   gxisdatigiInformButonon();
   if (informo.classList.contains("montri")) {
-    gxisdatigiInformanAltecon();
+    fermiVestaron();
     plenigiInformon();
   }
 }
@@ -177,39 +205,20 @@ informo.addEventListener("click", (e) => {
   if (e.target === informo) fermiInformon();
 });
 
-// ⟪ Poŝtelefona panelo. La alto sekvu la VIDEBlan vidon 📃 ⟫
-// Sur reala poŝtelefono la fiksita #informo estas mezurata kontraŭ la GRANDA
-// vido ( la komenca enhava bloko, kiu supozas la kaŝitan retumilan strion ),
-// do la panelo etendiĝas sub la videbla rando — superflua rulumo kaj enhavo
-// ne kongrua al la ekrano. La VisualViewport-a alto sekvas la striojn rekte
-// ( neniu vh/vw bezonas ), do ni agordas la alton en px per ĉi tiu mezurado.
-let informaAlteco = "";
-function gxisdatigiInformanAltecon(): void {
-  const vido = (window.visualViewport ? window.visualViewport.height : window.innerHeight) || window.innerHeight;
-  const stiloj = getComputedStyle(document.documentElement);
-  const sat = parseFloat(stiloj.getPropertyValue("--sat")) || 0;
-  const sab = parseFloat(stiloj.getPropertyValue("--sab")) || 0;
-  // La samaj deirpunktoj kiel la CSS-insetoj. 0o110px supere ( la informa strio ), 0o20px sube.
-  const nova = `${Math.max(0, vido - 0o110 - sat - 0o20 - sab)}px`;
-  if (nova !== informaAlteco) {
-    informaAlteco = nova;
-    informo.style.blockSize = nova;
-  }
-}
-window.addEventListener("resize", gxisdatigiInformanAltecon);
-window.addEventListener("orientationchange", gxisdatigiInformanAltecon);
-window.visualViewport?.addEventListener("resize", gxisdatigiInformanAltecon);
-window.visualViewport?.addEventListener("scroll", gxisdatigiInformanAltecon);
-gxisdatigiInformanAltecon();
-
-function sxaltiInformanTabon(tabo: string) {
-  document.querySelectorAll("#informTaboj button").forEach(b => {
+function sxaltiTabon(tabo: string, tabojId: string, paneloId: string) {
+  document.querySelectorAll(`#${tabojId} button`).forEach(b => {
     b.setAttribute("aria-pressed", String((b as HTMLElement).dataset.tabo === tabo));
   });
-  document.querySelectorAll("#informo .informSekcio").forEach(s => {
+  document.querySelectorAll(`#${paneloId} .informSekcio`).forEach(s => {
     const sekcio = s as HTMLElement;
     sekcio.style.display = sekcio.dataset.sekcio === tabo ? "" : "none";
   });
+}
+function sxaltiInformanTabon(tabo: string) {
+  sxaltiTabon(tabo, "informTaboj", "informo");
+}
+function sxaltiVestaranTabon(tabo: string) {
+  sxaltiTabon(tabo, "vestaroTaboj", "vestaro");
 }
 document.querySelectorAll("#informTaboj button").forEach(b => {
   const tabo = (b as HTMLElement).dataset.tabo || "konstruajxoj";
@@ -217,6 +226,12 @@ document.querySelectorAll("#informTaboj button").forEach(b => {
 });
 // Marku la komencan langeton kiel aktiva ( la unua sekcio estas videbla defaŭlte ).
 sxaltiInformanTabon("konstruajxoj");
+// La vestaro-lingvetoj — la sama sxaltado, kun la vestoj videblaj defaŭlte.
+document.querySelectorAll("#vestaroTaboj button").forEach(b => {
+  const tabo = (b as HTMLElement).dataset.tabo || "vestoj";
+  b.addEventListener("click", () => sxaltiVestaranTabon(tabo));
+});
+sxaltiVestaranTabon("vestoj");
 // Kiam la lingvo ŝanĝiĝas dum la panelo estas malfermita, replenu la listojn
 // ( sama ŝablono kiel la rezima butono ).
 window.addEventListener("lingvosxangxo", () => {
@@ -462,7 +477,13 @@ duskRegilo.addEventListener("input", () => {
 
 // ⟪ Vacepu. Envolvi la vortojn de la flosantaj kartoj en la aih-a lingvo. ⟫
 function aplikiVacepu(): void {
-  if (cxuAih() && typeof vacepu === "function") vacepu("aih");
+  if (cxuAih() && typeof vacepu === "function") {
+    // La ekstera vacepu-scripto abortas meze kiam .aih-elementoj estas
+    // nestitaj ( la panelo enhavas la kartojn ) — la teksto jam estas
+    // envolvita tiukaze. Ne lasu la escepton rompi la fluon ( ekz. la
+    // malfermo de la vestaro ).
+    try { vacepu("aih"); } catch { /* ignorata */ }
+  }
 }
 
 // ⟪ Tosta sistemo 📃 ⟫
@@ -516,6 +537,7 @@ window.addEventListener("keydown", e => {
   if (e.code === "KeyM" && !e.repeat) sxaltiRezimon();
   if (e.code === "Escape") {
     if (informo.classList.contains("montri")) fermiInformon();
+    else if (vestaro.classList.contains("montri")) fermiVestaron();
     else if (mapoMalfermita) fermiMapon();
     else if (rezimo === "interior") eliriInternon();
   }
@@ -726,6 +748,7 @@ function kasxiEksteron(): void {
   if (kaŝitajEksteraj.length > 0) return;
   const tenataj = new Set<THREE.Object3D>([
     scena.cxielo, scena.hemiLumo, scena.suna, scena.suna.target, scena.sunaSprajto,
+    ludantaFiguro.group,
   ]);
   for (const o of sceno.children) {
     if (tenataj.has(o) || o === internaSistemo.currentGroup) continue;
@@ -883,10 +906,11 @@ butRezimo.addEventListener("click", () => {
 });
 gxisdatigiRezimanButonon();
 
-// ⟪ Vestaro 📃 ⟫
-document.getElementById("butVesti")!.addEventListener("click", () => {
-  vestaVico.innerHTML = "";
-  VESTOJ.forEach((o, i) => {
+// ⟪ Vestaro 📃 ⟫ — plenekrana panelo ( kiel la informo-panelo ) kun langetoj
+// por la vestoj kaj la hararo. La langeta sxaltado reuzas sxaltiTabon.
+function plenigiVestaron() {
+  vestaListo.innerHTML = "";
+  VESTOJ.forEach((o) => {
     const card = document.createElement("ciihii");
     card.className = "vestaKardo aih";
     const kanvasa = kreiVestanAntauxrigardon(o);
@@ -895,14 +919,95 @@ document.getElementById("butVesti")!.addEventListener("click", () => {
     nomo.className = "vn"; nomo.textContent = traduki(o.nomo);
     card.appendChild(nomo);
     card.addEventListener("click", () => {
-      supermeta.classList.remove("montri");
+      vestaro.classList.remove("montri");
+      // Surmetu la veston al la ludanto — la modelo sxangxas kolorojn tuj.
+      ludantaFiguro.agordiVeston(o);
       montriTost(traduki(o.nomo));
     });
-    vestaVico.appendChild(card);
+    vestaListo.appendChild(card);
   });
-  supermeta.classList.add("montri");
+  // Har-stila sekcio — apartaj kartoj por la formo de la haro. La elekto
+  // sxangxas la modelon tuj; la koloro restas la nuna.
+  haraListo.innerHTML = "";
+  const sekcio = document.createElement("p");
+  // La aih-klaso bezonatas por ke vacepu envolvu la titolon ( ĝi traktas
+  // nur elementojn kun la aih-klaso ) — samkiel la kartoj.
+  sekcio.className = "ksakap2sa aih";
+  sekcio.textContent = traduki("sekcioHararo");
+  haraListo.appendChild(sekcio);
+  const stilaKartaro = document.createElement("div");
+  stilaKartaro.className = "vestaVico";
+  HARSTILOJ.forEach((stilo) => {
+    const card = document.createElement("ciihii");
+    card.className = "vestaKardo aih";
+    // La antauxrigardo uzas la NUNAN har-koloron, por ke la karto spegulu la
+    // modelon post kolor-elekto.
+    const kanvasa = kreiHaranAntauxrigardon(stilo, aktivaHarKoloro);
+    card.appendChild(kanvasa);
+    const nomo = document.createElement("p");
+    nomo.className = "vn"; nomo.textContent = traduki(stilo.nomo);
+    card.appendChild(nomo);
+    card.classList.toggle("elektita", stilo.nomo === aktivaHarStilo.nomo);
+    card.setAttribute("aria-pressed", String(stilo.nomo === aktivaHarStilo.nomo));
+    card.addEventListener("click", () => {
+      vestaro.classList.remove("montri");
+      aktivaHarStilo = stilo;
+      ludantaFiguro.agordiHaranStilon(stilo);
+      montriTost(traduki(stilo.nomo));
+    });
+    stilaKartaro.appendChild(card);
+  });
+  haraListo.appendChild(stilaKartaro);
+  // Har-kolora sekcio — paletro sendependa de la stilo; ronda svecxo montras
+  // la nuancon. La elekto tinkturas la nuna stilon tuj.
+  const koloraSekcio = document.createElement("p");
+  koloraSekcio.className = "ksakap2sa aih";
+  koloraSekcio.textContent = traduki("sekcioHarKoloroj");
+  haraListo.appendChild(koloraSekcio);
+  const koloraKartaro = document.createElement("div");
+  koloraKartaro.className = "vestaVico";
+  HARKOLOROJ.forEach((harKoloro) => {
+    const card = document.createElement("ciihii");
+    card.className = "vestaKardo aih";
+    const chip = document.createElement("span");
+    chip.className = "harKoloroChip";
+    chip.style.background = deksesuma(harKoloro.koloro);
+    card.appendChild(chip);
+    const nomo = document.createElement("p");
+    nomo.className = "vn"; nomo.textContent = traduki(harKoloro.nomo);
+    card.appendChild(nomo);
+    card.classList.toggle("elektita", harKoloro.koloro === aktivaHarKoloro);
+    card.setAttribute("aria-pressed", String(harKoloro.koloro === aktivaHarKoloro));
+    card.addEventListener("click", () => {
+      vestaro.classList.remove("montri");
+      aktivaHarKoloro = harKoloro.koloro;
+      ludantaFiguro.agordiHaranKoloron(harKoloro.koloro);
+      montriTost(traduki(harKoloro.nomo));
+    });
+    koloraKartaro.appendChild(card);
+  });
+  haraListo.appendChild(koloraKartaro);
+  // La novaj titoloj/kartoj bezonas la vacepu-vortojn ( aih ) — ĉiukaze,
+  // ankaŭ post lingvo-ŝanĝo dum la panelo estas malfermita.
+  aplikiVacepu();
+}
+function fermiVestaron() {
+  vestaro.classList.remove("montri");
+}
+document.getElementById("butVesti")!.addEventListener("click", () => {
+  plenigiVestaron();
+  fermiInformon();
+  fermiNaviganPopUp();
+  vestaro.classList.add("montri");
   // La novaj vestaj kartoj bezonas la vacepu-vortojn ( aih ).
   aplikiVacepu();
+});
+vestaro.addEventListener("click", (e) => {
+  if (e.target === vestaro) fermiVestaron();
+});
+// Kiam la lingvo ŝanĝiĝas dum la panelo estas malfermita, replenu la listojn.
+window.addEventListener("lingvosxangxo", () => {
+  if (vestaro.classList.contains("montri")) plenigiVestaron();
 });
 supermeta.addEventListener("click", (e) => {
   if (e.target === supermeta) supermeta.classList.remove("montri");
@@ -1352,6 +1457,36 @@ bakitaMapo = bakiMapon();
 sxargxaElemento.classList.add("finita");
 gxisdatigiRetikulon();
 
+// agordiPromenanFotilon — Unua aŭ tria persono. En unua persono la fotilo sidas
+// ĉe la okuloj de la ludanto. En tria persono gxi orbitas malantaux la figuro
+// je kameraDistanco, klinigxante kun la rigardo ( klinigxo ) kaj rigardante la
+// kapon. La tera krampo ( krampi ) tenas la fotilon super la tereno kaj ekster
+// la konstruajxoj; subaLimo ( interno ) tenas gxin super la planko.
+function agordiPromenanFotilon(okulY: number, bob: number, krampi = true, subaLimo: number | null = null): void {
+  if (kameraDistanco <= 0o1/0o20) {
+    fotilo.position.set(ludantaPozicio.x, okulY + bob, ludantaPozicio.z);
+    fotilo.rotation.set(klinigxo, direkto, 0);
+    return;
+  }
+  const d = kameraDistanco;
+  const kos = Math.cos(klinigxo), sinP = Math.sin(klinigxo);
+  fotilo.position.set(
+    ludantaPozicio.x + Math.sin(direkto) * d * kos,
+    okulY + d * 0o3/0o10 - d * sinP * 0o7/0o10 + bob,
+    ludantaPozicio.z + Math.cos(direkto) * d * kos
+  );
+  if (krampi) {
+    // Ekstere — ne eniru la teron nek la konstruajxojn.
+    const teraY = Math.max(alteco(fotilo.position.x, fotilo.position.z), dokaSuproY(fotilo.position.x, fotilo.position.z));
+    if (fotilo.position.y < teraY + 0o4/0o10) fotilo.position.y = teraY + 0o4/0o10;
+    const r = solviKolizion(fotilo.position.x, fotilo.position.z);
+    fotilo.position.x = r.x;
+    fotilo.position.z = r.z;
+  }
+  if (subaLimo !== null && fotilo.position.y < subaLimo) fotilo.position.y = subaLimo;
+  fotilo.lookAt(ludantaPozicio.x, okulY + d * 0o1/0o10, ludantaPozicio.z);
+}
+
 // ⟪ Animacio 📃 ⟫
 const horlogxo = new THREE.Timer();
 function animacii() {
@@ -1418,6 +1553,7 @@ function animacii() {
     const rd = solviDokanKolizion(r.x, r.z, ludantaPozicio.y);
     ludantaPozicio.x = rd.x; ludantaPozicio.z = rd.z;
     const moving = Math.min(1, longo);
+    movoValoro = moving;
 
     const teraY = Math.max(alteco(ludantaPozicio.x, ludantaPozicio.z), dokaSuproY(ludantaPozicio.x, ludantaPozicio.z));
     const enLago = cxuEnLago(ludantaPozicio.x, ludantaPozicio.z);
@@ -1487,12 +1623,7 @@ function animacii() {
     oscilo += moving * rapido * deltaTempo * 0o14/0o10;
     // Dum naĝado la paŝa balancado estas mallaŭtigita — la ondeto jam movas la vidon.
     const bobAmplo = naĝas ? 0o1/0o100 : 0o3/0o100;
-    fotilo.position.set(
-      ludantaPozicio.x,
-      ludantaPozicio.y + 0o65/0o40 + Math.sin(oscilo * 2) * bobAmplo * moving,
-      ludantaPozicio.z
-    );
-    fotilo.rotation.set(klinigxo, direkto, 0);
+    agordiPromenanFotilon(ludantaPozicio.y + 0o65/0o40, Math.sin(oscilo * 2) * bobAmplo * moving);
 
     // Paŝaj sonoj ( ĉiun ~0o15/0o40 sekundojn dum movado ) — dum naĝado la silento regas.
     if (!naĝas) {
@@ -1651,6 +1782,7 @@ function animacii() {
     ludantaPozicio.x = novaX;
     ludantaPozicio.z = novaZ;
     const moving = Math.min(1, longo);
+    movoValoro = moving;
 
     if (estasSurTERENO) {
       ludantaPozicio.y += (etapy - ludantaPozicio.y) * 0o3/0o20;
@@ -1667,12 +1799,7 @@ function animacii() {
     }
 
     oscilo += moving * rapido * deltaTempo * 0o14/0o10;
-    fotilo.position.set(
-      ludantaPozicio.x,
-      ludantaPozicio.y + 0o65/0o40 + Math.sin(oscilo * 2) * 0o3/0o100 * moving,
-      ludantaPozicio.z
-    );
-    fotilo.rotation.set(klinigxo, direkto, 0);
+    agordiPromenanFotilon(ludantaPozicio.y + 0o65/0o40, Math.sin(oscilo * 2) * 0o3/0o100 * moving, false, etapy + 0o4/0o10);
 
     // Detekti manĝaĵojn kaj montri taŭgan prompton
     let proksimaManĝaĵo: MangxajxItemo | null = null;
@@ -1781,8 +1908,20 @@ function animacii() {
     surKanoto.bazaY = Math.max(akvoNiveloK2, alteco(surKanoto.x, surKanoto.z));
 
     direkto = surKanoto.direkto;
-    fotilo.position.set(surKanoto.x, surKanoto.bazaY + 0o3/0o40 + 0o21/0o40, surKanoto.z);
-    fotilo.rotation.set(klinigxo, surKanoto.direkto, 0);
+    if (kameraDistanco > 0o1/0o20) {
+      // Tria persono — la fotilo orbitas malantaux la kanuo.
+      const d = kameraDistanco;
+      const kos = Math.cos(klinigxo), sinP = Math.sin(klinigxo);
+      fotilo.position.set(
+        surKanoto.x + Math.sin(surKanoto.direkto) * d * kos,
+        surKanoto.bazaY + 0o6/0o10 + d * 0o3/0o10 - d * sinP * 0o7/0o10,
+        surKanoto.z + Math.cos(surKanoto.direkto) * d * kos
+      );
+      fotilo.lookAt(surKanoto.x, surKanoto.bazaY + 0o6/0o10, surKanoto.z);
+    } else {
+      fotilo.position.set(surKanoto.x, surKanoto.bazaY + 0o3/0o40 + 0o21/0o40, surKanoto.z);
+      fotilo.rotation.set(klinigxo, surKanoto.direkto, 0);
+    }
     agordiPrompton(`<span class="klavo">E</span> ` + traduki("eliriKanuo"));
     promptoElemento.classList.add("montri");
     ludantaPozicio.set(surKanoto.x, 0o155/0o100, surKanoto.z);
@@ -1799,6 +1938,39 @@ function animacii() {
   }
   // NPC-aj animacioj
   for (const n of npcoj) gxisdatigiNpc(n, deltaTempo, t, alteco);
+
+  // ⟪ Ludanta figuro — tria persono 📃 ⟫
+  // Glata malzomo. Al nulo la fotilo revenas al unua persono kaj la figuro
+  // kasxigxas ( alie gxi estus ene de la fotilo ).
+  kameraDistanco += (celDistanco - kameraDistanco) * Math.min(1, deltaTempo * 0o12);
+  if (celDistanco < 0o1/0o20) kameraDistanco = 0;
+  const vidasFiguron = kameraDistanco > 0o1/0o20 && (rezimo === "walk" || rezimo === "interior");
+  ludantaFiguro.group.visible = vidasFiguron;
+  if (vidasFiguron) {
+    if (surKanoto) {
+      // Sur la kanuo la figuro sidas sur la bastono, turnita laux la remado.
+      ludantaFiguro.group.position.set(surKanoto.x, surKanoto.bazaY + 0o3/0o20, surKanoto.z);
+    } else {
+      ludantaFiguro.group.position.set(ludantaPozicio.x, ludantaPozicio.y, ludantaPozicio.z);
+      if (rezimo === "walk" && estisNaĝanta) {
+        // Naĝante la korpo mergiĝas, la kapo apenaŭ super la akvosurfaco.
+        ludantaFiguro.group.position.y = akvaNivelo(ludantaPozicio.x, ludantaPozicio.z) - 0o16/0o10
+          + Math.sin(t * 2 + ludantaPozicio.x * 0o1/0o10) * 0o1/0o20;
+      }
+    }
+    ludantaFiguro.group.rotation.y = Math.atan2(-Math.sin(direkto), -Math.cos(direkto));
+    // Marŝa animacio — la sama ritmo kiel la fotila bobado, kontraŭfazaj
+    // kruroj kaj brakoj dum paŝado. Sur la kanuo la figuro sidas sen svingo.
+    const movo = surKanoto ? 0 : movoValoro;
+    const paso = Math.sin(oscilo * 2);
+    const svingoKruro = 0o3/0o10 * movo * paso;
+    ludantaFiguro.kruroj[0].rotation.x = -svingoKruro;
+    ludantaFiguro.kruroj[1].rotation.x = svingoKruro;
+    const svingoBrako = 0o2/0o10 * movo * paso;
+    ludantaFiguro.brakoj[0].rotation.x = svingoBrako;
+    ludantaFiguro.brakoj[1].rotation.x = -svingoBrako;
+    ludantaFiguro.group.position.y += Math.abs(paso) * 0o2/0o100 * movo;
+  }
   // Internaj animacioj
   if (rezimo === "interior") gxisdatigiInternon(internaSistemo, t);
 
@@ -1901,6 +2073,16 @@ document.addEventListener("mousemove", (e) => {
   klinigxo -= e.movementY * 0o1/0o1000;
   klinigxo = Math.max(-0o135/0o100, Math.min(0o135/0o100, klinigxo));
 });
+
+// ⟪ Rado — malzomo al tria persono 📃 ⟫
+// En orbito la rado jam zumas per OrbitControls. Dum promenado kaj en la
+// interno gxi malzomas eksteren por montri la modelon de la ludanto.
+kanvaso.addEventListener("wheel", (e) => {
+  if (rezimo !== "walk" && rezimo !== "interior") return;
+  e.preventDefault();
+  const paŝo = e.deltaMode === 2 ? e.deltaY * 0o16 : e.deltaMode === 1 ? e.deltaY * 0o4/0o10 : e.deltaY * 0o1/0o120;
+  celDistanco = Math.max(0, Math.min(0o16, celDistanco + paŝo));
+}, { passive: false });
 
 // ⟪ Ekfunkciigo 📃 ⟫
 animacii();

@@ -306,13 +306,15 @@ function aldoniInternanMeblaron(
     // Lito — simpla rondangula hela beiga ligna bloko rekte sur la planko, kun
     // larĝa rondangula kapkuseno ĉe la kapo (+x). La lito staras en la
     // malantaŭ-dekstra angulo kun malgranda libero de la muroj. La kapo (+x)
-    // kaj la dorso (−z) ambaŭ kuŝas 0o1/0o10 for de la muro, ne plu tuŝante
+    // kaj la dorso (−z) ambaŭ kuŝas 0o3/0o10 for de la muro, ne plu tuŝante
     // nek enirante la muron; sur etajoj tro malgrandaj (hw < 0o5/0o2) neniu
     // lito eniras sen trui la helikon.
     const litLargho = Math.min( etapo === 0 ? 0o22/0o10 : 0o16/0o10, hw * 2 - 2 );
     if ( litLargho >= 0o4/0o10 && hw >= 0o5/0o2 ) {
-      // Kapo 0o1/0o10 for de la dekstra muro; dorso 0o1/0o10 for de la malantaŭa muro.
-      const litX = hw - litLargho / 2 - 0o1/0o10, litZ = -hd + 0o7/0o10 + 0o1/0o10;
+      // Kapo 0o3/0o10 for de la dekstra muro; dorso 0o3/0o10 for de la
+      // malantaŭa muro — pli da libero ol antaŭe ( 0o1/0o10 ), por ke la lito
+      // ne ŝajnu eniri la murojn.
+      const litX = hw - litLargho / 2 - 0o3/0o10, litZ = -hd + 0o11/0o10;
       // Korpo — rondangula hela beiga ligna bloko sur la planko. Pli alta ol
       // antaŭe ( 0o5/0o20 ), kun diskretaj rondigitaj anguloj ( 0o1/0o50 ) por
       // ke la VERTIKALAJ randoj ne ŝvelu — nur molaj horizontalaj eĝoj supre.
@@ -320,6 +322,15 @@ function aldoniInternanMeblaron(
       korpo.position.set( litX, y + 0o5/0o40, litZ );
       korpo.castShadow = true;
       grupo.add( korpo );
+      // Rando de la akcenta koloro sur la ĉefa baza parto de la lito — la sama
+      // maldika bendo kiel sur la tabloj/benkoj, tuj sub la supro de la korpo.
+      // Nur sur la ĉefa ( tera ) etaĝo — la "baza parto" de la konstruajxo.
+      if ( etapo === 0 ) {
+        const litRando = new THREE.Mesh( new RoundedBoxGeometry( litLargho + 0o1/0o20, 0o1/0o20, 0o14/0o10 + 0o1/0o20, 3, 0o1/0o10 ), kadraMaterialo );
+        litRando.position.set( litX, y + 0o5/0o40 + 0o5/0o40 - 0o1/0o40 - 0o1/0o100, litZ );
+        litRando.castShadow = true;
+        grupo.add( litRando );
+      }
       // Kapkuseno — rondangula rektangulo preskaŭ la tuta profundo de la lito
       // ( 0o14/0o10 − 0o1/0o10 ), kun egala malgranda libero ( 0o1/0o20 ) sur
       // la tri flankoj. Kapo (+x), dorso (−z) kaj fronto (+z). Sidante SUR la
@@ -355,8 +366,6 @@ function aldoniInternanMeblaron(
     const lumo = new THREE.PointLight( GOLD_WARM, 0o3/0o10, 0o20, 2 );
     lumo.position.set( 0, y + tieroAlto * 0o5/0o10, -hd + 2 );
     grupo.add( lumo );
-  } else if ( tipo === "mangxejo" && etapo === 0 ) {
-    aldoniSkatolon( Math.min( hw * 2 - 1, 5 ), 0o3/0o10, 0o3/0o10, 0, -hd + 0o4/0o10, lignaMaterialo );
   }
 
   if ( niveloj > 1 && etapo === niveloj - 1 && hd >= 2 ) {
@@ -1261,7 +1270,10 @@ export function eniriInternon(
       new THREE.BoxGeometry( Math.min( mw * 2 - 1, 6 ), 1, 0o12/0o10 ),
       lignaMaterialo
     );
-    counter.position.set( 0o5/0o10, 0o4/0o10, -md / 2 + 0o1/0o10 );
+    // La vendotablo staras TUTE ene de la ĉambro: la malnova centro
+    // ( -md/2 + 0o1/0o10 ) lasis pli ol duonon de la tablo tra la malantaŭa
+    // muro — videbla ligna bloko el la ekstero. 0o2/0o10 libero de la muro.
+    counter.position.set( 0o5/0o10, 0o4/0o10, -md / 2 + 0o2/0o10 + 0o12/0o10 / 2 );
     group.add(counter);
     const pot = new THREE.Mesh(
       new THREE.CylinderGeometry( 0o3/0o10, 0o3/0o10, 0o4/0o10, 0o16 ),
@@ -1272,10 +1284,15 @@ export function eniriInternon(
     const steamPos = new THREE.Vector3( -0o5/0o10, 0o15/0o10, counter.position.z );
     const vapor = aldoniVaporon(group, steamPos);
     sys.vaporNuboj = [{ ...vapor, ph: 0 }];
-    const tabloX = Math.min( 0o22/0o10, Math.max( 0o7/0o10, mw / 2 - 0o5/0o4 ));
+    // La tabloj eniras por ke la flankaj benkoj ( ±0o14/0o10, duonprofundo
+    // 0o1/0o4 ) ne tuŝu la flankajn murojn — la malnova tabloX 0o22/0o10 lasis
+    // la benkojn ĜUSTE ĉe la muro ( nula libero ). La malantaŭa vico
+    // malproksimiĝas de la vendotablo, por ke la tabloj ne eniru la tablon.
+    const tabloX = Math.min( 0o20/0o10, Math.max( 0o7/0o10, mw / 2 - 0o5/0o4 ));
     const tabloZ = Math.min( 0o22/0o10, Math.max( 0o7/0o10, md / 2 - 0o5/0o4 ));
+    const malantaŭaZ = Math.min( 0o14/0o10, Math.max( 0o7/0o10, md / 2 - 0o14/0o10 ));
     const tabloLokoj = mw >= 0o50/0o10 && md >= 0o50/0o10
-      ? [ [ tabloX, tabloZ ], [ -tabloX, tabloZ ], [ tabloX, -tabloZ ], [ -tabloX, -tabloZ ] ]
+      ? [ [ tabloX, tabloZ ], [ -tabloX, tabloZ ], [ tabloX, -malantaŭaZ ], [ -tabloX, -malantaŭaZ ] ]
       : [];
     const tabloj: { x: number; z: number }[] = [];
     for ( const [tx, tz] of tabloLokoj ) {

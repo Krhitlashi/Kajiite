@@ -94,6 +94,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "tabKonstruajxoj": "ſןᴜȝ",
     "tabMangxajxoj": "ŋᷠɜⅎᶗ‹",
     "tabSpecioj": "ɭ(ᴜͷ̗",
+    // Vestaro-langetoj — vortaraj vortoj ( j͑ʃɜȝ ɭʃɔ = vestoj, ſᶘᴜȝ = haroj )
+    "taboVestoj": "j͑ʃɜȝ ɭʃɔ",
+    "taboHararo": "ſᶘᴜȝ",
     // Bestoj kaj plantoj de la valo — konservativaj, dictionary-kontrolitaj
     // priskriboj. ʌ disigas kompletajn vortojn; prefiksoj restas kun la bazo.
     "grupoBesto": "ſןᴜ ſ͔ɭᴜ",
@@ -147,6 +150,18 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoRose": "ᶅſɔ j͐ʃᴜ ſ͔ɭэ",
     "vestoObsidian": "֭ſɭw }ʃᴜ",
     "vestoCyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
+    // Har-stiloj ( komponitaj el vortaraj vortoj )
+    "sekcioHararo": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
+    "haroMalalta": "ſɟɹ }ʃᴜ ſᶘᴜȝ",
+    "haroLonga": "j͑ʃᴜʞ",
+    // Har-koloroj ( vortaraj kolor-vortoj )
+    "sekcioHarKoloroj": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
+    "harKoloroBruna": "ſ̀ȷwɔ˞",
+    "harKoloroNigra": "֭ſɭw }ʃᴜ j͑ʃᴜꞇ",
+    "harKoloroRuĝeta": "ᶅſɔ j͐ʃᴜ ſ̀ȷwɔ˞",
+    "harKoloroKaŝtana": "ſɭɜᴜ̩ ſɭэ",
+    "harKoloroBlonda": "ſɟꞇ",
+    "harKoloroGriza": "֭ſɭwƽ",
     // Konstruaj nomoj el realaj Iikrhiaj vortaraj vortoj ( Gawekiif )
     "paq0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
     "paq1": "ſɭᴜ ſןɹ",
@@ -267,6 +282,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "tabKonstruajxoj": "Konstruaĵoj",
     "tabMangxajxoj": "Manĝaĵoj",
     "tabSpecioj": "Specioj",
+    // Vestaro-langetoj
+    "taboVestoj": "Vestoj",
+    "taboHararo": "Hararo",
     // Bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo.ts )
     "grupoBesto": "Besto",
     "grupoPlanto": "Planto",
@@ -318,6 +336,18 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoRose": "Roza",
     "vestoObsidian": "Nigra",
     "vestoCyan": "Cejana",
+    // Har-stiloj
+    "sekcioHararo": "Harstiloj",
+    "haroMalalta": "Mallonga",
+    "haroLonga": "Longa",
+    // Har-koloroj
+    "sekcioHarKoloroj": "Har-koloroj",
+    "harKoloroBruna": "Bruna",
+    "harKoloroNigra": "Nigra",
+    "harKoloroRuĝeta": "Ruĝeta",
+    "harKoloroKaŝtana": "Kaŝtana",
+    "harKoloroBlonda": "Blonda",
+    "harKoloroGriza": "Griza",
     // Konstruaĵnomoj ( paqN )
     "muziko": "Muziko",
   },
@@ -399,6 +429,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "tabKonstruajxoj": "Buildings",
     "tabMangxajxoj": "Food",
     "tabSpecioj": "Species",
+    // Wardrobe tabs
+    "taboVestoj": "Clothing",
+    "taboHararo": "Hair",
     // La bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo.ts )
     "grupoBesto": "Animal",
     "grupoPlanto": "Plant",
@@ -450,6 +483,18 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoRose": "Pink",
     "vestoObsidian": "Black",
     "vestoCyan": "Cyan",
+    // Hair styles
+    "sekcioHararo": "Hair styles",
+    "haroMalalta": "Short",
+    "haroLonga": "Long",
+    // Hair colors
+    "sekcioHarKoloroj": "Hair colors",
+    "harKoloroBruna": "Brown",
+    "harKoloroNigra": "Black",
+    "harKoloroRuĝeta": "Auburn",
+    "harKoloroKaŝtana": "Chestnut",
+    "harKoloroBlonda": "Blonde",
+    "harKoloroGriza": "Gray",
     // Building names ( en )
     "muziko": "Music",
   },
@@ -531,6 +576,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "tabKonstruajxoj": "建物",
     "tabMangxajxoj": "食べ物",
     "tabSpecioj": "種族",
+    // ワードローブのタブ
+    "taboVestoj": "服",
+    "taboHararo": "髪",
     // 谷の動物と植物 ( bestoj.ts と vegetajxo.ts から )
     "grupoBesto": "動物",
     "grupoPlanto": "植物",
@@ -572,6 +620,18 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoRose": "桃色",
     "vestoObsidian": "黒",
     "vestoCyan": "シアン",
+    // 髪型
+    "sekcioHararo": "髪型",
+    "haroMalalta": "ショート",
+    "haroLonga": "ロング",
+    // 髪の色
+    "sekcioHarKoloroj": "髪の色",
+    "harKoloroBruna": "茶色",
+    "harKoloroNigra": "黒",
+    "harKoloroRuĝeta": "赤茶",
+    "harKoloroKaŝtana": "栗色",
+    "harKoloroBlonda": "金髪",
+    "harKoloroGriza": "グレー",
     // Konstruaĵnomoj ( paqN )
     "muziko": "音楽",
   },
@@ -653,6 +713,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "tabKonstruajxoj": "អាគារ",
     "tabMangxajxoj": "អាហារ",
     "tabSpecioj": "ប្រភេទ",
+    // ផ្ទាំងសម្លៀកបំពាក់
+    "taboVestoj": "សម្លៀកបំពាក់",
+    "taboHararo": "សក់",
     // សត្វ និងរុក្ខជាតិនៃជ្រលង ( ពី bestoj.ts និង vegetajxo.ts )
     "grupoBesto": "សត្វ",
     "grupoPlanto": "រុក្ខជាតិ",
@@ -694,6 +757,18 @@ const skakefani: Record<string, Record<string, string>> = {
     "vestoRose": "ពណ៌ផ្កាឈូក",
     "vestoObsidian": "ពណ៌ខ្មៅ",
     "vestoCyan": "ពណ៌ស៊ីអាន",
+    // ម៉ូដសក់
+    "sekcioHararo": "ម៉ូដសក់",
+    "haroMalalta": "ខ្លី",
+    "haroLonga": "វែង",
+    // ពណ៌សក់
+    "sekcioHarKoloroj": "ពណ៌សក់",
+    "harKoloroBruna": "ត្នោត",
+    "harKoloroNigra": "ខ្មៅ",
+    "harKoloroRuĝeta": "ក្រហមឆ្អៅ",
+    "harKoloroKaŝtana": "ដើមទ្រូង",
+    "harKoloroBlonda": "ទង់ដែង",
+    "harKoloroGriza": "ប្រផេះ",
     // Konstruaĵnomoj ( paqN )
     "muziko": "តន្ត្រី",
   },
@@ -793,7 +868,11 @@ function aplikiSkakefanon(lingvo: string): void {
   if (butono) butono.textContent = lingvo.toUpperCase();
   try { localStorage.setItem("aranis-lingvo", lingvo); } catch { /* private browsing */ }
   // En la aih-a lingvo oni envolvu la vortojn per vacepu ( el la ekstera ſɭɔ j͑ʃ'ɔ }ʃꞇ.js ).
-  if (lingvo === "aih" && typeof vacepu === "function") vacepu("aih");
+  // La sama nestita-.aih-escepto kiel en sperto.ts — ne lasu ĝin haltigi la
+  // lingvo-ŝanĝon ( la lingvosxangxo-dispeto okazas poste ).
+  if (lingvo === "aih" && typeof vacepu === "function") {
+    try { vacepu("aih"); } catch { /* ignorata */ }
+  }
   // Anoncu la ŝanĝon por ke dinamikaj etikedoj ( ekz. la reĝima butono ) refreŝiĝu.
   window.dispatchEvent(new CustomEvent("lingvosxangxo"));
 }
