@@ -10,7 +10,7 @@ import { kreiArbarerojn, metiArbojn, konstruiArbaron, konstruiFilikojn, konstrui
   konstruiFalintajnTrunkojn, konstruiCetkuojn, konstruiLikenojn, konstruiHxsxaksxlefojn, konstruiTrunkajnLikenojn,
   metiArbojnCxirkauLagon, konstruiHerbonCxirkauLagon, konstruiCakeojn, metiMontajnArbojn, konstruiMontajnRokojn,
   konstruiMontajnSubkreskajxojn, konstruiLaganSubkreskajxojn, kronaRadiusoLarika, kronaRadiusoHxsxaksxlefa } from "../assets/shalaj-specioj/vegetajxo.js";
-import { konstruiVojojn, konstruiPlacojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, VojDifino } from "../assets/medio/vojoj.js";
+import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, VojDifino } from "../assets/medio/vojoj.js";
 import { konstruiDokon } from "../assets/medio/doko.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../assets/mebloj/keuxfhxeso.js";
@@ -364,12 +364,21 @@ export async function konstruiUrbon(
     const [x, z] = placajNodoj[i];
     if (arkajKlavoj.has(x + "," + z)) placajNodoj.splice(i, 1);
   }
-  // Nek la L-korneroj nek la T-kunigoj ( unuvojaj finoj ) estas kvarvojaj
-  // kruciĝoj — forigu ilin el la realaj intersekcoj, por ke neniu kruciĝa
-  // plato aperu tie. La ĉapo sola donas la andezitan bordon sur la fermita
-  // kvara flanko de la T-kunigo ( la plato kovris ĝin per diorita placo ).
-  // La L-korneroj ne plu estas en placajNodoj ( ili ricevas arkojn ), do iliaj
-  // klavoj foriĝas rekte — alie la kruciĝa plato restus sub la arko.
+  // T-kunigoj — nodoj kie UNU vojo finiĝas kaj la alia trapasas. La finiĝanta
+  // vojo kaj la trapasanta vojo interkovras samplane ĉe la ena angulo ( la
+  // samaj bendoj en la sama loko ) kaj la du tavoloj z-flagris laŭ la fotila
+  // angulo. La sama levita kruciĝa plato kiel la kvarvojaj kruciĝoj kovras la
+  // tutan nodon per UNU surfaco — la vojoj subiras kaj reaperas glate.
+  const tNodoj = placajNodoj.filter(([px, pz]) => realajIntersekcoj.has(px + "," + pz));
+  // Fermitaj flankoj por la T-kunigaj platoj — la direkto de la finiĝanta
+  // vojo ( unu ne-nula komponanto ). La T-kunigo havas UNU flankon sen vojo,
+  // kie la finiĝanta vojo ne daŭrigas; tiu flanko ricevas plenan andezitan
+  // strion, por ke la kruciĝo ne lasu tiun flankon malfermita sen bordo.
+  const tFermitaj = new Map<string, [ number, number ]>();
+  for ( const [ tx, tz ] of tNodoj ) {
+    const e = finoRegistro.get( tx + "," + tz );
+    if ( e ) tFermitaj.set( tx + "," + tz, e.sx !== 0 ? [ e.sx, 0 ] : [ 0, e.sz ] );
+  }
   for (const [px, pz] of placajNodoj) realajIntersekcoj.delete(px + "," + pz);
   for (const klavo of arkajKlavoj) realajIntersekcoj.delete(klavo);
 
@@ -431,26 +440,22 @@ export async function konstruiUrbon(
     heightFn: arbarvojaAlteco
   });
 
-  // Rondigitaj ĉapoj por la kajo kaj stacidomaj vojoj — la samaj rondigitaj
-  // vojo-partoj kiel la krada reto. La krado registras siajn rando-nodojn per
-  // aldoniPlacon dum la retokonstruo, sed ĉi tiuj vojoj ( la kajo, stacidoma
-  // ringo ) aldoniĝas rekte al vojDifinoj poste, do iliaj finoj ne ricevis
-  // kapojn. Kelkaj finoj kuŝas ankaŭ preter la kutima krada radiuso ( 0o170 ),
-  // kaj la rivero-filtrilo ekskludus la orientan kajon.
-  // La kajo — la okcidenta fino en la arbaro kaj la orienta fino sur la seka
-  // bordo ( 84,-82. Tereno 0.85 ) ricevas ĉapojn kun lampoj — la malnova orienta
-  // fino ĉe (84,-94) estis sub la akvonivelo kaj ricevis kapon sen lampoj pli sube.
+  // Lamp-nodoj por la kajo kaj stacidomaj vojoj — la samaj lampaj ŝablonoj
+  // kiel la krada reto. NENIU ĉap-mesho konstruiĝas ĉe ĉi tiuj nodoj: la
+  // malnovaj rondigitaj kapoj ( disko + ringo ) kuŝis SUR la vojoj kaj la
+  // tereno samplane, kaj la interkovritaj partoj z-flagris laŭ la fotila
+  // angulo. La vojoj mem jam plenigas ĉiun nodon — ĉe T-kunigo la trapasanta
+  // vojo kovras la tutan regionon kaj ĝia andezita bordo donas la bordon sur
+  // la fermita kvara flanko. La nodoj restas nur por la lampoj.
   placajNodoj.push([ -0o124, -0o140 ]);
   placajNodoj.push([ 0o124, -0o122 ]);
   // La dokaj landrandoj — kie la kajo renkontas ĉiun platformon, la rando-nodo
-  // markas la enirejon ( samaj kapoj kaj lampoj kiel antaŭe ).
+  // markas la enirejon ( lampoj ).
   for ( const [ dx, dz ] of dockaLandaRando ) placajNodoj.push([ dx, dz ]);
-  // Stacidoma ringo — la nordaj anguloj ( la sudaj estas kradaj kruciĝoj ).
-  placajNodoj.push([ 0o14, 0o124 ]);
-  placajNodoj.push([ -0o14, 0o124 ]);
-  // La arbarvojo ( kiu finiĝas ĉe la stacia pordo sur la aprono, ne sur la
-  // normala tereno ) ricevas propran kapon sen lampoj.
-  konstruiPlacojn(sceno, [ [ 0, 0o134 ] ], arbarvojaAlteco, dioritaMaterialo, andezitaMaterialo);
+  // Stacidoma ringo — la nordaj anguloj ( la sudaj estas kradaj kruciĝoj )
+  // estas L-korneroj kaj ricevas rondigitajn arkojn kiel la kradaj anguloj.
+  arkajNodoj.push({ x: 0o14, z: 0o124, sx: 1, sz: 1 });
+  arkajNodoj.push({ x: -0o14, z: 0o124, sx: -1, sz: 1 });
 
   // Voja duon-larĝo — la segmenta larĝo estas 0o16/0o10, do ĝia duon-larĝo estas 0o7/0o10.
   function vojDuonLargho(_g: number): number {
@@ -519,14 +524,14 @@ export async function konstruiUrbon(
 
   // ⟪ Kruciĝaj platoj 📃 ⟫ — ĉe ĉiu kruciĝo la strioj de la du vojoj kuŝas
   // samplane kaj la teksturoj montras krucan kvadraton. Diorita centro kun
-  // kvar andezitaj anguloj kovras ĉiun kruciĝon per pli alta polygonOffset,
-  // do la duobla andezito en la anguloj malaperas ( la platoj sidas sub la
-  // placaj rondoj ĉe la vojo-finoj kaj la vojo-randoj daŭrigas preter la
-  // kruciĝo ).
+  // kvar andezitaj anguloj kovras ĉiun kruciĝon per unu levita surfaco, do la
+  // duobla andezito en la anguloj malaperas kaj la vojo-randoj daŭrigas preter
+  // la kruciĝo. La T-kunigoj ricevas la saman platon — la finiĝanta vojo
+  // interkovras la trapasantan samplane kaj la plato estas la unu surfaco.
   konstruiIntersekcajnPlatojn( sceno, [ ...realajIntersekcoj ].map( klavo => {
     const [ x, z ] = klavo.split( "," ).map( Number );
     return [ x, z ] as [ number, number ];
-  } ), alteco, dioritaMaterialo, andezitaMaterialo );
+  } ).concat( tNodoj ), alteco, dioritaMaterialo, andezitaMaterialo, tFermitaj );
 
   // ⟪ Krada indekso por la voja ekskludo 📃 ⟫ — ĉelo-krado por ke la vegetajxo
   // ne skanu ĉiun vojspecimenon por ĉiu kandidata arbo ( O(1) anstataŭ O(n) ).
@@ -540,12 +545,8 @@ export async function konstruiUrbon(
     ĉelo.push(p);
   }
 
-  // ⟪ Placoj 📃 ⟫ — ĉapoj ĉe la veraj rando-nodoj kolektitaj dum la voja reto
-  // ( la finoj de ĉiu linio ), ne plu nur ĉe la kvar anguloj de la tuta skatolo.
-  konstruiPlacojn(sceno, placajNodoj, alteco, dioritaMaterialo, andezitaMaterialo);
-
   // Rondigitaj arkoj ĉe la L-korneroj — kvaronaj diskoj en la korneraj
-  // kvadrantoj, sur la vojoj ( la lasta desegnita tavolo ).
+  // kvadrantoj ( la libera tereno inter la vojoj ), levitaj super la tereno.
   for (const a of arkajNodoj) {
     konstruiRondigitanArkon(sceno, a.x, a.z, a.sx, a.sz, alteco, dioritaMaterialo, andezitaMaterialo);
   }

@@ -670,114 +670,81 @@ mobJoystickZono.addEventListener("touchcancel", (e) => {
   e.preventDefault();
 }, { passive: false });
 
-// ⟪ Poŝtelefona rigarda kontrolo per tuŝo 📃 ⟫
+// ⟪ Poŝtelefona rigarda kontrolo per tuŝo ( Pointer Events ) 📃 ⟫
 // Unu fingro turnas la rigardon ( kiel la muso en montra-seruro ). Dua fingro
 // ekas pinĉon: malzomi ( fingroj disen ) malfermas la trian personon kaj
 // montras la modelon de la ludanto, zumi ( fingroj kunen ) revenas al la unua
-// persono — same kiel la rado sur labortablo.
-let tuŝaRigardaID = -1;
-let lastTouchX = 0, lastTouchY = 0;
-// Pinĉa stato — la du fingroj de la nuna gesto kaj la lasta distanco inter ili
-// ( por mezuri la delton po movevento ).
-let pinĉajIDoj: number[] = [];
-let pinĉaDistanco = 0;
+// persono — same kiel la rado sur labortablo. Pointer events estas pli
+// fidindaj ol tuŝ-eventoj por plur-fingraj gestoj ( la sama ŝablono kiel la
+// plena mapo ); la muso kaj la plumo restas ĉe la montra-serura rigardo.
+const rigardajPunktoj = new Map<number, { x: number; y: number }>();
+let rigardaID = -1;
+let lastX = 0, lastY = 0;
+// Pinĉa bazo — la distanco inter la du fingroj ĉe la lasta mezurado ( delto
+// po movevento ). Nuligita kiam malpli ol du fingroj restas.
+let pinĉoBazo = 0;
 
-function distancoInterTuŝoj(a: Touch, b: Touch): number {
-  return Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY);
-}
+const distancoInter = () => {
+  const [a, b] = [...rigardajPunktoj.values()];
+  return Math.hypot(a.x - b.x, a.y - b.y);
+};
+const agordiPinĉanBazon = () => {
+  pinĉoBazo = rigardajPunktoj.size >= 2 ? distancoInter() : 0;
+};
 
-kanvaso.addEventListener("touchstart", (e) => {
+kanvaso.addEventListener("pointerdown", (e) => {
   if (rezimo !== "walk" && rezimo !== "interior") return;
-  // Dum pinĉo ignoru pliajn fingrojn.
-  if (pinĉajIDoj.length > 0) return;
-  // Traktu ĉiujn fingrojn de la evento — du fingroj povas ek-terigi samtempe.
-  for (const t of Array.from(e.changedTouches)) {
-    // Don't capture if touch is on joystick or action buttons
-    const el = document.elementFromPoint(t.clientX, t.clientY);
-    if (el && (el === mobJoystickZono || el === mobJoystickBazo || mobJoystickZono.contains(el) || el.classList.contains("mobBut") || el.closest("#mobButaroj") || el.closest("#kompaso"))) {
-      continue;
-    }
-    // Unua fingro turnas la rigardon; dua komencas la pinĉon ( la rotacio paŭzas ).
-    if (tuŝaRigardaID < 0) {
-      tuŝaRigardaID = t.identifier;
-      lastTouchX = t.clientX;
-      lastTouchY = t.clientY;
-      continue;
-    }
-    const unua = Array.from(e.touches).find(tu => tu.identifier === tuŝaRigardaID);
-    if (!unua) continue;
-    pinĉajIDoj = [unua.identifier, t.identifier];
-    pinĉaDistanco = distancoInterTuŝoj(unua, t);
-    tuŝaRigardaID = -1;
-    return;
+  if (e.pointerType !== "touch" && e.pointerType !== "pen") return;
+  rigardajPunktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  agordiPinĉanBazon();
+  if (rigardajPunktoj.size === 1) {
+    rigardaID = e.pointerId;
+    lastX = e.clientX; lastY = e.clientY;
+  } else {
+    rigardaID = -1; // la pinĉo anstataŭas la rotacion
   }
-}, { passive: true });
+  // Tenigu la geston sur la kanvaso eĉ se la fingro fordrivas de ĝi.
+  try { kanvaso.setPointerCapture(e.pointerId); } catch { /* ignorata */ }
+});
 
-kanvaso.addEventListener("touchmove", (e) => {
+kanvaso.addEventListener("pointermove", (e) => {
   if (rezimo !== "walk" && rezimo !== "interior") return;
+  if (!rigardajPunktoj.has(e.pointerId)) return;
+  rigardajPunktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
   // Pinĉo — la distanco inter la fingroj zumas la fotilon ( malzomi = tria
-  // persono, zumi = unua persono ).
-  if (pinĉajIDoj.length > 0) {
-    const unua = Array.from(e.touches).find(tu => tu.identifier === pinĉajIDoj[0]);
-    const dua = Array.from(e.touches).find(tu => tu.identifier === pinĉajIDoj[1]);
-    if (unua && dua) {
-      const nova = distancoInterTuŝoj(unua, dua);
-      celDistanco = Math.max(0, Math.min(0o16, celDistanco + (nova - pinĉaDistanco) * 0o1/0o10));
-      pinĉaDistanco = nova;
-      e.preventDefault();
+  // persono, zumi = unua persono ). La bazo renaskigxas se la fingroj kunigxis
+  // ( bazo 0 ) kaj disigxas denove sen levigxo.
+  if (rigardajPunktoj.size >= 2) {
+    const nova = distancoInter();
+    if (pinĉoBazo > 0) {
+      celDistanco = Math.max(0, Math.min(0o16, celDistanco + (nova - pinĉoBazo) * 0o1/0o10));
     }
+    pinĉoBazo = nova;
     return;
   }
-  if (tuŝaRigardaID < 0) return;
-  for (let i = 0; i < e.changedTouches.length; i++) {
-    const t = e.changedTouches[i];
-    if (t.identifier === tuŝaRigardaID) {
-      const dx = t.clientX - lastTouchX;
-      const dy = t.clientY - lastTouchY;
-      direkto -= dx * 0o1/0o400;
-      klinigxo -= dy * 0o1/0o400;
-      klinigxo = Math.max(-0o135/0o100, Math.min(0o135/0o100, klinigxo));
-      lastTouchX = t.clientX;
-      lastTouchY = t.clientY;
-      e.preventDefault();
-      break;
-    }
-  }
-}, { passive: false });
+  if (e.pointerId !== rigardaID) return;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  direkto -= dx * 0o1/0o400;
+  klinigxo -= dy * 0o1/0o400;
+  klinigxo = Math.max(-0o135/0o100, Math.min(0o135/0o100, klinigxo));
+  lastX = e.clientX; lastY = e.clientY;
+});
 
-kanvaso.addEventListener("touchend", (e) => {
-  // Fino de la pinĉo — se unu fingro restas sur la kanvaso, ĝi daŭrigas kiel
-  // rigard-rotacio ( same kiel la plena mapo daŭrigas tiri post pinĉo ).
-  if (pinĉajIDoj.length > 0) {
-    for (let i = 0; i < e.changedTouches.length; i++) {
-      const idx = pinĉajIDoj.indexOf(e.changedTouches[i].identifier);
-      if (idx < 0) continue;
-      const restantaID = pinĉajIDoj[1 - idx];
-      pinĉajIDoj = [];
-      pinĉaDistanco = 0;
-      const restanta = Array.from(e.touches).find(tu => tu.identifier === restantaID);
-      if (restanta) {
-        tuŝaRigardaID = restantaID;
-        lastTouchX = restanta.clientX;
-        lastTouchY = restanta.clientY;
-      }
-      break;
-    }
-    return;
+const finiRigardon = (e: PointerEvent) => {
+  rigardajPunktoj.delete(e.pointerId);
+  agordiPinĉanBazon();
+  // Post la pinĉo la restanta fingro daŭrigas la rotacion.
+  if (rigardajPunktoj.size === 1) {
+    const restanta = [...rigardajPunktoj.entries()][0];
+    rigardaID = restanta[0];
+    lastX = restanta[1].x; lastY = restanta[1].y;
+  } else {
+    rigardaID = -1;
   }
-  for (let i = 0; i < e.changedTouches.length; i++) {
-    if (e.changedTouches[i].identifier === tuŝaRigardaID) {
-      tuŝaRigardaID = -1;
-      break;
-    }
-  }
-}, { passive: true });
-
-kanvaso.addEventListener("touchcancel", () => {
-  tuŝaRigardaID = -1;
-  pinĉajIDoj = [];
-  pinĉaDistanco = 0;
-}, { passive: true });
+};
+kanvaso.addEventListener("pointerup", finiRigardon);
+kanvaso.addEventListener("pointercancel", finiRigardon);
 
 // ⟪ Poŝtelefonaj agbutonoj 📃 ⟫
 // La E-butono aperas nur kiam estas proksima interagebla — same kiel la prompto
