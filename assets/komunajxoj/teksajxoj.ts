@@ -25,62 +25,73 @@ function sxovu( fn: () => THREE.CanvasTexture ): () => THREE.CanvasTexture {
   return () => ( kaŝita ??= fn() );
 }
 
+// kreiKanvasanTeksajxon — Komuna fino de la kanvasaj teksajxoj: krei la
+// kanvason, doni ĝin al la pentra funkcio, kaj paki ĝin kiel SRGB-kanvasan
+// teksajxon kun ripetanta volvaĵo kaj laŭvola ripeto.
+//     @param w, h ( number ) - Kanvasaj dimensioj.
+//     @param pentri ( funkcio ) - Desegni sur la 2D-kunteksto.
+//     @param ripeto ( [number, number] = [1, 1] ) - Tekstura ripeto.
+//     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
+function kreiKanvasanTeksajxon( w: number, h: number,
+  pentri: ( k: CanvasRenderingContext2D ) => void,
+  ripeto: [ number, number ] = [ 1, 1 ]
+): THREE.CanvasTexture {
+  const kanvasa = document.createElement( "canvas" );
+  kanvasa.width = w; kanvasa.height = h;
+  const kunteksto = kanvasa.getContext( "2d" )!;
+  pentri( kunteksto );
+  const teksajxo = new THREE.CanvasTexture( kanvasa );
+  teksajxo.colorSpace = THREE.SRGBColorSpace;
+  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
+  teksajxo.repeat.set( ripeto[ 0 ], ripeto[ 1 ] );
+  return teksajxo;
+}
+
 // kreiSxelanTeksajxon — Kreu proceduralan sxelan teksajxon por arbtrunkoj.
 export const kreiSxelanTeksajxon = sxovu( (): THREE.CanvasTexture => {
   const w = 0o200, h = 0o400;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = w; kanvasa.height = h;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#e8e8d8"; kunteksto.fillRect(0, 0, w, h);
-  for ( let i = 0; i < 0o32; i++ ) {
-    kunteksto.fillStyle = `rgba(190,186,172,${0o3/0o20 + Math.random() * 0o5/0o20})`;
-    kunteksto.fillRect(Math.random() * w, 0, 1 + Math.random() * 3, h);
-  }
-  for ( let i = 0; i < 0o54; i++ ) {
-    kunteksto.fillStyle = `rgba(38,34,29,${0o44/0o100 + Math.random() * 0o15/0o40})`;
-    const y = Math.random() * h, wd = 0o10 + Math.random() * 0o26;
-    kunteksto.fillRect(Math.random() * w, y, wd, 3 + Math.random() * 3);
-  }
-  for ( let i = 0; i < 6; i++ ) {
-    kunteksto.fillStyle = "rgba(48,44,38,0.5)";
-    kunteksto.beginPath();
-    kunteksto.ellipse(Math.random() * w, 0o322 + Math.random() * 0o56, 0o10 + Math.random() * 0o16, 4 + Math.random() * 6, 0, 0, Math.PI * 2);
-    kunteksto.fill();
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  return teksajxo;
+  return kreiKanvasanTeksajxon( w, h, ( k ) => {
+    k.fillStyle = "#e8e8d8"; k.fillRect( 0, 0, w, h );
+    for ( let i = 0; i < 0o32; i++ ) {
+      k.fillStyle = `rgba(190,186,172,${0o3/0o20 + Math.random() * 0o5/0o20})`;
+      k.fillRect( Math.random() * w, 0, 1 + Math.random() * 3, h );
+    }
+    for ( let i = 0; i < 0o54; i++ ) {
+      k.fillStyle = `rgba(38,34,29,${0o44/0o100 + Math.random() * 0o15/0o40})`;
+      const y = Math.random() * h, wd = 0o10 + Math.random() * 0o26;
+      k.fillRect( Math.random() * w, y, wd, 3 + Math.random() * 3 );
+    }
+    for ( let i = 0; i < 6; i++ ) {
+      k.fillStyle = "rgba(48,44,38,0.5)";
+      k.beginPath();
+      k.ellipse( Math.random() * w, 0o322 + Math.random() * 0o56, 0o10 + Math.random() * 0o16, 4 + Math.random() * 6, 0, 0, Math.PI * 2 );
+      k.fill();
+    }
+  } );
 } );
 
 // kreiLarikanSxelanTeksajxon — Kreu proceduralan larikan sxelan teksajxon.
 // Grizbruna sxoelo kun ruĝbrunaj vertikalaj platoj — la malnova alpina lariko.
-export function kreiLarikanSxelanTeksajxon(): THREE.CanvasTexture {
+export const kreiLarikanSxelanTeksajxon = sxovu( (): THREE.CanvasTexture => {
   const w = 0o200, h = 0o400;
-  const kanvasa = document.createElement( "canvas" );
-  kanvasa.width = w; kanvasa.height = h;
-  const kunteksto = kanvasa.getContext( "2d" )!;
-  kunteksto.fillStyle = "#989088"; kunteksto.fillRect( 0, 0, w, h );
-  for ( let i = 0; i < 0o30; i++ ) {
-    kunteksto.fillStyle = `rgba(120,104,96,${0o1/0o4 + Math.random() * 0o5/0o20})`;
-    kunteksto.fillRect( Math.random() * w, 0, 2 + Math.random() * 3, h );
-  }
-  // Vertikalaj ruĝbrunaj fendoj — la platoj de la malnova sxoelo.
-  for ( let i = 0; i < 0o40; i++ ) {
-    kunteksto.fillStyle = `rgba(88,64,56,${0o15/0o40 + Math.random() * 0o35/0o100})`;
-    kunteksto.fillRect( Math.random() * w, Math.random() * h, 2 + Math.random() * 4, 0o100 + Math.random() * 0o110 );
-  }
-  // Helaj platoj inter la fendoj.
-  for ( let i = 0; i < 0o20; i++ ) {
-    kunteksto.fillStyle = `rgba(176,168,152,${0o5/0o20 + Math.random() * 0o5/0o20})`;
-    kunteksto.fillRect( Math.random() * w, Math.random() * h, 3 + Math.random() * 6, 0o14 + Math.random() * 0o60 );
-  }
-  const teksajxo = new THREE.CanvasTexture( kanvasa );
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set( 1, 2 );
-  return teksajxo;
-}
+  return kreiKanvasanTeksajxon( w, h, ( k ) => {
+    k.fillStyle = "#989088"; k.fillRect( 0, 0, w, h );
+    for ( let i = 0; i < 0o30; i++ ) {
+      k.fillStyle = `rgba(120,104,96,${0o1/0o4 + Math.random() * 0o5/0o20})`;
+      k.fillRect( Math.random() * w, 0, 2 + Math.random() * 3, h );
+    }
+    // Vertikalaj ruĝbrunaj fendoj — la platoj de la malnova sxoelo.
+    for ( let i = 0; i < 0o40; i++ ) {
+      k.fillStyle = `rgba(88,64,56,${0o15/0o40 + Math.random() * 0o35/0o100})`;
+      k.fillRect( Math.random() * w, Math.random() * h, 2 + Math.random() * 4, 0o100 + Math.random() * 0o110 );
+    }
+    // Helaj platoj inter la fendoj.
+    for ( let i = 0; i < 0o20; i++ ) {
+      k.fillStyle = `rgba(176,168,152,${0o5/0o20 + Math.random() * 0o5/0o20})`;
+      k.fillRect( Math.random() * w, Math.random() * h, 3 + Math.random() * 6, 0o14 + Math.random() * 0o60 );
+    }
+  }, [ 1, 2 ] );
+} );
 
 // kreiDioritanTeksajxon — Kreu proceduralan dioritan teksajxon por vojoj,
 // dokoj kaj lampoj. Diorito estas helgriza intrusiva ŝtono kun videblaj

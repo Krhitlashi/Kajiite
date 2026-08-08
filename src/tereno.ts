@@ -1,4 +1,5 @@
 // Tereno — terenaj alteco-funkcioj por la Aranis-valo
+import { skulptaDelta, skulptitaAkvo, SKULPTA_AKVA_NIVELO } from "./tero-datumo.js";
 
 // Rivero fluas orient-okcidente kun milda suda kurbo
 // Rivero fluas orient-okcidente — ŝovita suden por malbari la urban kradon
@@ -65,8 +66,11 @@ export function riveraAkvaNivelo( x: number ): number {
   return akvoY(x) * ( 1 - m ) + lagoNivelo() * m;
 }
 
-// akvaNivelo — la akvosurfaca Y en la lago, la nordorienta rivereto aŭ la cxefa rivero.
+// akvaNivelo — la akvosurfaca Y en la lago, la nordorienta rivereto, la cxefa
+// rivero aŭ la pentrita ( skulptita ) akvo. La skulptita masko superregas la
+// naturan akvon, por ke la ludanto nagxu en la pentritaj basenoj.
 export function akvaNivelo( x: number, z: number ): number {
+  if ( skulptitaAkvo( x, z ) ) return SKULPTA_AKVA_NIVELO;
   if ( cxuEnNordorientaRivero( x, z ) ) return riveraNordOrientaNivelo( z );
   return cxuEnLago(x, z) ? lagoNivelo() : riveraAkvaNivelo(x);
 }
@@ -85,16 +89,6 @@ export function glataPaso(lo: number, hi: number, v: number): number {
   return t * t * ( 3 - 2 * t );
 }
 
-// montaroNorda — La norda montaro. Piedirebla montara zono norde de la urbo,
-// kie la arbaro transiras al montoj. La dezajno sekvas la saman gramatikon
-// kiel la orienta monto ( montaroNordOrienta ): ĉiu monto estas unu maso kun
-// ĉefa pinto, pli malalta kunulo, larĝa dorso kaj selo inter la pintoj.
-// Kontraste al antaŭe ( tri larĝaj masivoj kiuj kunkreskis en unu kontinuan
-// ŝvelaĵon ), la montoj nun sidas pli dise laŭ la kresto kun profundaj
-// sel-noĉoj inter ili, do la montaro legiĝas kiel pluraj apartaj montoj kun
-// videblaj valoj anstataŭ unu kunligita areo. La suda flanko restas longa
-// ramplo kaj la norda flanko pli kruta al la grundrando ( z≈0o444 ), kaj la
-// finoj malsupreniĝas per longaj spronoj al la maprando.
 // montaroNordOrienta — Nova orienta monto norde de la lago. La antaŭa
 // radia kupolo situis tro malproksime oriente kaj jam estis nula ĉe la
 // riverfonto, do ĝi aspektis kiel izolita ŝvelaĵo kaj la rivero ŝajnis veni de
@@ -172,155 +166,22 @@ export function cxuEnNordorientaRivero( x: number, z: number ): boolean {
   return Math.abs( x - riveroNordOrientaX( z ) ) < RIVERA_NORDORIENTA_DUONLARĜO;
 }
 
-// montaraKonektaPiedo — larĝa transira kresto inter la orienta monto kaj la
-// norda montaro. Ĝi ne estas nova akra pinto. Ĝi estas longa, malalta dorso
-// kiu kunigas la du masojn super la malnova plata kudro ĉe z≈0o200.
-export function montaraKonektaPiedo( x: number, z: number ): number {
-  const sudaEniro = glataPaso( 0o140, 0o200, z );
-  const nordaEliro = 1 - glataPaso( 0o300, 0o440, z );
-  if ( sudaEniro <= 0 || nordaEliro <= 0 ) return 0;
-
-  // La dorso komenciĝas ĉe la norda flanko de la orienta monto ( x≈-0o360 )
-  // kaj leviĝas rekte al la okcidenta monto de la norda montaro ( x≈-0o320,
-  // z≈0o352 ), anstataŭ preterpasi ĝin okcidenten. La pli larĝa radiuso faras
-  // veran piedmontan kolon inter la du masoj, ne mallarĝan diagonalan digon.
-  const dorsoX = -0o360 + ( z - 0o100 ) * 0o1/0o5;
-  const d = ( x - dorsoX ) / 0o124;
-  const longaDorso = 0o22 * Math.exp( -0o1/0o2 * d * d );
-  // Larĝa ŝultro — plenigas la koridoron inter la du montoj ( kaj la malaltan
-  // flankon okcidente de la orienta monto ) per naturaj piedmontetoj, por ke
-  // la tereno inter ili leviĝu kiel unu kontinua maso anstataŭ malalta selo.
-  const larĝaSxultro = 0o14 * Math.exp( -0o1/0o2 * (
-    (( x + 0o346 ) / 0o150) ** 2 + (( z - 0o245 ) / 0o150) ** 2
-  ) );
-  return Math.max( 0, ( longaDorso + larĝaSxultro ) * sudaEniro * nordaEliro );
-}
-
-export function montaroNorda( x: number, z: number ): number {
-  const sudaEniro = glataPaso(0o200, 0o346, z);   // piedo z≈0o200 → kresto z≈0o346
-  if ( sudaEniro <= 0 ) return 0;
-  const nordaEliro = 1 - glataPaso(0o346, 0o444, z);  // norda deklivo 0o346 → 0o444
-  if ( nordaEliro <= 0 ) return 0;
-  // La orienta sprono estas iom pli longa ol la okcidenta. Tio rompas la
-  // malnaturan spegulon kaj lasas la orientan flankon ligiĝi al la piedo.
-  const okcidentaEliro = 1 - glataPaso(0o260, 0o444, x);
-  if ( okcidentaEliro <= 0 ) return 0;
-  const orientaEliro = 1 - glataPaso(0o260, 0o460, -x);
-  if ( orientaEliro <= 0 ) return 0;
-  const envolvaĵo = Math.min( sudaEniro, nordaEliro, okcidentaEliro, orientaEliro );
-
-  // monto — unu monta korpo kun ĉefa pinto, sudorienta kunulo, larĝa dorso
-  // kaj selo inter la du pintoj — la sama strukturo kiel la orienta monto.
-  // La kunulo kaj dorso estas malpezaj ( 0o4/0o10, 0o3/0o10 ), por ke la
-  // montoj ne kunkresku per siaj larĝaj bas-sukoj.
-  function monto( cx: number, cz: number, sx: number, sz: number, alto: number ): number {
-    const dx1 = ( x - cx ) / sx, dz1 = ( z - cz ) / sz;
-    const pinto = alto * Math.exp( -0o1/0o2 * ( dx1 * dx1 + dz1 * dz1 ) );
-    // Kunulo — pli malalta pinto sudoriente de la ĉefa.
-    const dx2 = ( x - cx - sx * 0o5/0o10 ) / ( sx * 0o17/0o20 );
-    const dz2 = ( z - cz + sz * 0o4/0o10 ) / ( sz * 0o17/0o20 );
-    const kunulo = alto * 0o4/0o10 * Math.exp( -0o1/0o2 * ( dx2 * dx2 + dz2 * dz2 ) );
-    // Dorso — larĝa, malalta korpo kiu kunigas la du pintojn al unu maso.
-    const dx3 = ( x - cx ) / ( sx * 0o11/0o12 );
-    const dz3 = ( z - cz ) / ( sz * 0o11/0o12 );
-    const dorso = alto * 0o3/0o10 * Math.exp( -0o1/0o2 * ( dx3 * dx3 + dz3 * dz3 ) );
-    // Selo — malaltigita noĉo inter la ĉefa pinto kaj la kunulo.
-    const dxS = ( x - cx - sx * 0o3/0o10 ) / ( sx * 0o6/0o10 );
-    const dzS = ( z - cz + sz * 0o2/0o10 ) / ( sz * 0o17/0o20 );
-    const selo = alto * 0o26/0o100 * Math.exp( -0o1/0o2 * ( dxS * dxS + dzS * dzS ) );
-    return Math.max( 0, pinto + kunulo + dorso - selo );
-  }
-
-  // Tri apartaj montoj laŭ la kresto — sufiĉe dise por ke la seloj inter
-  // ili malkovru la valojn, kaj je malsamaj krestaj z, por ke la ĉiellinio
-  // ne estu plata muro. La okcidenta monto sidas apud la konekta piedo ( kiu
-  // alvenas de la orienta monto ), kaj la orienta monto fadas per longa
-  // sprono al la maprando ( la orienta envolvaĵo kaj ĝia propra suko ).
-  const okcidenta = monto( -0o320, 0o352, 0o104, 0o106, 0o44 );
-  const norda = monto( -0o40, 0o364, 0o112, 0o112, 0o36 );
-  const centra = monto( 0o250, 0o354, 0o106, 0o106, 0o40 );
-
-  // Seloj inter apudaj montoj — profundaj noĉoj, por ke la montaro legiĝu
-  // kiel pluraj apartaj montoj kun videblaj valoj anstataŭ unu kunligita
-  // ŝvelaĵo. Ĉiu noĉo sidas ĉe la mezpunkto de du apudaj montoj kaj etendiĝas
-  // laŭ la kresto ( x ), kun larĝa z-envolvaĵo, por ke ĝi tranci la tutan
-  // montaran korpon sen tuŝi la pintojn mem.
-  const valo12 = 0o44 * Math.exp( -0o1/0o2 * (
-    (( x + 0o170 ) / 0o50) ** 2 + (( z - 0o360 ) / 0o110) ** 2 ) );
-  const valo23 = 0o40 * Math.exp( -0o1/0o2 * (
-    (( x - 0o100 ) / 0o54) ** 2 + (( z - 0o360 ) / 0o110) ** 2 ) );
-
-  return Math.max( 0, ( okcidenta + norda + centra - valo12 - valo23 ) * envolvaĵo );
-}
-
+// alteco — La plena terena alto: la procedura bazo plus la skulptita tavolo
+// ( se la skulptilo savis datumaron ). Cxiuj grundo/kolizio/akva kalkuloj
+// legas cxi tiun funkcion, do la skulptajxo sxangxas la tutan mondon.
 export function alteco(x: number, z: number): number {
-  const h = montetaBazo(x, z);
-  // Platigi la urban altebajxon — glate ene de r < 80 ( kovras la eksteran
-  // tavolon je r≈76 kaj ĝiajn diagonalajn angulojn je r≈75.9 ), miksiĝante al
-  // la natura tereno ekster r=80.
-  const r = Math.hypot(x, z);
-  const plataMiksilo = 1 - glataPaso(0o120, 0o150, r);
-  let altecoFina = h * (1 - plataMiksilo);
-  // Skulpti la riveran valon
-  const rd = z - riveroZ(x);
-  altecoFina -= 0o100/0o10 * Math.exp(-(rd * rd) / 0o140);
-  // Laga baseno oriente — pli larĝa ol la rivero, kun glataj bordoj. La tero
-  // subeniras sub la akvonivelon ene de la lagrando kaj leviĝas al la bordo.
-  // La rando sekvas la saman ondigitan elipson kiel la akvomesho ( lagoRadio ).
-  const lagD = Math.hypot( x - LAGO_X, z - lagoZ() );
-  // La kavo estas nula ekster la lagrando ( lagR ≤ ~0o140 = 96, la plej granda
-  // lagradiuso ~87 kun la ondo-perturbo ); saltu la trigonometrion por la vasta
-  // plimulto de punktoj, ĉar alteco estas varmega funkcio.
-  if ( lagD < 0o140 ) {
-    const lagR = lagoRadio( Math.atan2( z - lagoZ(), x - LAGO_X ) );
-    let basenFaktoro = 1;
-    // River-buŝa delto — kie la rivero enfluas, la kanalo malprofundiĝas glate
-    // por renkonti la lagon samnivele. La ribono mallarĝiĝas dum la lastaj 0o40
-    // unuoj ( akvo.ts ), kaj ĉi tiu levo levas la fundon tiel, ke la malseka
-    // larĝo sekvas la ribonan larĝon — neniu elmetita riverfundo aŭ seka bordo
-    // ĉe la buŝo. La levo neniam superas la akvonivelon ( la plej granda levo
-    // estas la akvonivela profundo 0o100/0o10 − 0o415/0o100 ), do la kanalo
-    // restas malseka ĝis la bordo kaj la lago transprenas.
-    const rf = glataPaso(RIVERA_BUŜO_X, RIVERA_BUŜO_X + 0o40, x);   // 0 ĉe la buŝo, 1 okcidente
-    if ( rf < 1 ) {
-      // enLagon — la levo pleniĝas ĉe la buŝo kaj fadas okcidenten ( la sama
-      // 0o40-unua fenestro kiel la ribona mallarĝiĝo ), por ke la delto ne
-      // leviĝu super la akvonivelon en la alproksimiĝo ( kie la monteta bazo
-      // povus malsupreniri ) — sen ĝi la kanalo sekigus antaŭ la buŝo.
-      // Oriente en la lagon la levo restas plena laŭ la kanala tongo kaj la
-      // baseno profundiĝas ĉirkaŭ ĝi.
-      const enLagon = 1 - rf;
-      const levo = Math.max(0, 0o100/0o10 - 0o415/0o100 * Math.exp( 0o7/0o10 * rf * rf ));
-      altecoFina += levo * enLagon * Math.exp( -( rd * rd ) / 0o140 );
-    }
-    altecoFina -= 0o106/0o10 * ( 1 - glataPaso( lagR * 0o3/0o4, lagR, lagD ) ) * basenFaktoro;
-  }
-  // Kosmoporda startejo — platigi la terenon sub la stacio kaj ĝia aprono,
-  // por ke la konstruajxo ne estu enterigita en la dekliva arbaro. La stacio
-  // sidas malantaŭ la norda nova ekstera domo ( z=0o140 ).
-  const padX = 0, padZ = 0o140, padR = 0o14;
-  const padD = Math.hypot(x - padX, z - padZ);
-  const padMiksilo = 1 - glataPaso(padR - 6, padR, padD);
-  if ( padMiksilo > 0 ) {
-    const padRD = padZ - riveroZ(padX);
-    const padAlto = montetaBazo(padX, padZ) - 0o100/0o10 * Math.exp(-(padRD * padRD) / 0o140);
-    altecoFina = altecoFina * (1 - padMiksilo) + padAlto * padMiksilo;
-  }
-  // Norda montaro — piedirebla montara zono norde de la urbo
-  altecoFina += montaraKonektaPiedo( x, z );
-  altecoFina += montaroNorda( x, z );
-  // Nordorienta monto — nova monto oriente-norde de la lago
-  altecoFina += montaroNordOrienta( x, z );
-  // Nordorienta rivera valo — mallarĝa kavo ( 0o6 ) laŭ la nova rivera pado,
-  // plena de la fonto ĝis la buŝo, fadanta en la lagon post la buŝo ( la
-  // lagbaseno transprenas ). La kavo restas sub la akvonivelo la tutan vojon,
-  // do la rivereto estas malseka de la montodekliva fonto ĝis la lago. Super
-  // la fonto la kavo fermiĝas ( RIVERA_NORDORIENTA_FONTO_Z → +0o20 ), por ke
-  // ĝi ne tranĉu linian depresion tra la monta korpo — la akvomesho jam
-  // mallarĝiĝas al punkto ĉe la fonto ( akvo.ts ), do neniu seka fendo restas.
-  const nrd = x - riveroNordOrientaX( z );
-  const valoEn = glataPaso( RIVERA_NORDORIENTA_BUŜO_Z - 0o40, RIVERA_NORDORIENTA_BUŜO_Z, z )
-    * ( 1 - glataPaso( RIVERA_NORDORIENTA_FONTO_Z, RIVERA_NORDORIENTA_FONTO_Z + 0o20, z ) );
-  if ( valoEn > 0 ) altecoFina -= 0o6 * Math.exp(-( nrd * nrd ) / 0o64) * valoEn;
-  return altecoFina;
+  return bazaAlteco(x, z) + skulptaDelta(x, z);
 }
+
+// bazaAlteco — La natura ( procedura ) tereno. ĈI TIU LAYERO ESTAS PLATA:
+// la mondon ( montoj, rivero, lago, ĉio ) portas la skulptita tavolo
+// ( tero-datumo.ts ), bakitita de la skulptilo en la dosieron. La ludo legas
+// alteco() = bazaAlteco + skulptaDelta, do la tuta tereno estas nun redaktebla
+// en iloj/tero-skulptilo.html — ne plu kaŝita procedura generado.
+export function bazaAlteco(x: number, z: number): number {
+  return 0;
+}
+
+// Re-eksportoj — la skulptita tavolo el tero-datumo.ts, por ke la konsumantoj
+// ( sperto.ts, urbo.ts ) legu gxin de cxi tiu modulo kiel la ceteran terenon.
+export { skulptitaAkvo, skulptaAkvaLimoj, SKULPTA_PASO, SKULPTA_AKVA_NIVELO } from "./tero-datumo.js";

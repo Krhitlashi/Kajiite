@@ -68,3 +68,35 @@ export function aldoniSegxon(
   rando.castShadow = true;
   grupo.add( rando );
 }
+
+// aldoniManĝtablon — Tablo kun la kvar benkoj cxirkaux gxi ( la komuna manĝa
+// arangxo de la mangxejoj ). La benkoj kuŝas lauxlonge de la tablaj flankoj
+// ( π/2 cxe la x-flankoj, 0 cxe la z-flankoj ); la x-flankaj benkoj staras pli
+// fore ( 0o14/0o10 ) ol la z-flankaj ( 0o12/0o10 ), cxar la tablo estas pli
+// largxa ol profunda — la libero al la tablo-rando tiel egalas cxirkaŭe
+// ( 0o3/0o8 ). Uzata de la ekstera mangxejo ( satalaj-konstruajxoj ) kaj de
+// la internaj mangxejoj ( internoj ).
+//     @param grupo ( THREE.Group ) - La grupo.
+//     @param x, z ( number ) - La tablo-centro.
+//     @param y ( number ) - La planko-nivelo.
+//     @param lignaMaterialo ( MeshStandardMaterial ) - La tablo-supro kaj benkoj.
+//     @param randoMaterialo ( Material ) - La ora rando; oni kutime pasas la
+//         kadran materialon de la konstruajxo.
+//     @param nurTriFlankoj ( boolean = false ) - Cxu preterlasi la benkon cxe
+//         la malantauxa flanko ( -z ) — la flanko kontraŭ la vendotablo en la
+//         mangxejo restas libera por la kalkulanto.
+export function aldoniManĝtablon(
+  grupo: THREE.Group,
+  x: number, z: number, y: number,
+  lignaMaterialo: THREE.MeshStandardMaterial,
+  randoMaterialo: THREE.Material,
+  nurTriFlankoj = false
+): void {
+  aldoniTablon( grupo, x, z, y, 0o16/0o10, 0o12/0o10, lignaMaterialo, randoMaterialo );
+  const benkajOfsetoj: [ number, number ][] = nurTriFlankoj
+    ? [ [ 0o14/0o10, 0 ], [ -0o14/0o10, 0 ], [ 0, 0o12/0o10 ] ]
+    : [ [ 0o14/0o10, 0 ], [ -0o14/0o10, 0 ], [ 0, 0o12/0o10 ], [ 0, -0o12/0o10 ] ];
+  for ( const [ox, oz] of benkajOfsetoj ) {
+    aldoniSegxon( grupo, x + ox, z + oz, y, lignaMaterialo, randoMaterialo, oz === 0 ? Math.PI / 2 : 0 );
+  }
+}

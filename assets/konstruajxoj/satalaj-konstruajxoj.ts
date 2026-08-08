@@ -6,8 +6,8 @@ import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
 import { nomoAih } from "../../src/tradukoj.js";
 import { kunfandiGeometriojn, kunfandiKajVeldoiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { kreiEniranMaterialon, kreiOranMaterialon } from "../komunajxoj/materialoj.js";
-import { kreiPilolFenestranFormon } from "../komunajxoj/formoj.js";
-import { aldoniTablon, aldoniSegxon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
+import { kreiPilolFenestranFormon, kreiRondigitanRektangulanFormon } from "../komunajxoj/formoj.js";
+import { aldoniManĝtablon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
 
 export interface KonstruTipo { labelKey: string; wall: number; frame: number; chip: string; flavorKey: string; }
 export const TIPARO: Record<string, KonstruTipo> = {
@@ -21,24 +21,8 @@ export const TIPARO: Record<string, KonstruTipo> = {
 
 export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }
 
-// kreiRondigitanKvadratanFormon — Kvadrata formo kun rondigitaj anguloj (uzata
-// por la kosmoporda lancx-aprono).
-function kreiRondigitanKvadratanFormon(w: number, d: number, r: number): THREE.Shape {
-  const s = new THREE.Shape();
-  const hw = w / 2, hd = d / 2;
-  s.moveTo(-hw + r, -hd);
-  s.lineTo(hw - r, -hd);
-  s.absarc(hw - r, -hd + r, r, -Math.PI / 2, 0, false);
-  s.lineTo(hw, hd - r);
-  s.absarc(hw - r, hd - r, r, 0, Math.PI / 2, false);
-  s.lineTo(-hw + r, hd);
-  s.absarc(-hw + r, hd - r, r, Math.PI / 2, Math.PI, false);
-  s.lineTo(-hw, -hd + r);
-  s.absarc(-hw + r, -hd + r, r, Math.PI, Math.PI * 0o3/0o2, false);
-  s.closePath();
-  return s;
-}
-
+// La rondigita kvadrata formo ( kreiRondigitanRektangulanFormon ) venas el la
+// komuna forma modulo — la sama formo kiel la vojoj, dividita inter ili.
 function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number, rb: number, rt: number): THREE.Shape {
   const s = new THREE.Shape(), sl = (blokoLargho / 2 - tw / 2) / h;
   s.moveTo(-blokoLargho / 2 + rb, 0); s.lineTo(blokoLargho / 2 - rb, 0);
@@ -78,27 +62,23 @@ function kreiSteleanFormon(w: number, h: number, r1: number, r2: number): THREE.
   return s;
 }
 
-// diamantajDuonoj — Tridek-du-punkta sekco de diamanto. pintoj je 45° (pli granda ol
-// la malnova cirklo), enaj aksoj nur iomete enigitaj por mildigi la angulojn — la
-// piliero estas pli klare diamanta (malpli ronda) ol antauxe. La konturo komencas
-// cxe la FRONTA akso (0°) kaj iras horlogxe.
+// diamantajDuonoj — Rektaflanka diamanta sekco por la pilieroj. Kvar pintoj je 45°
+// alfrontas la murojn, kun REKTAJ flankoj inter ili. La malnova sekco estis
+// konkava ( la enaj aksoj sidadis je preskaux duone de la pintoj kaj kavigis la
+// flankojn kiel stelon ); la nova estas plenkorpa konveksa diamanto. La konturo
+// komencas cxe la fronta akso ( 0° ) kaj iras horlogxe.
 function diamantajDuonoj(s: number): [number, number][] {
-  const okto: [number, number][] = [
-    [ s * 0o7/0o20 * Math.SQRT2, 0 ],
+  const kvar: [number, number][] = [
     [ s * Math.SQRT1_2, -s * Math.SQRT1_2 ],
-    [ 0, -s * 0o7/0o20 * Math.SQRT2 ],
     [ -s * Math.SQRT1_2, -s * Math.SQRT1_2 ],
-    [ -s * 0o7/0o20 * Math.SQRT2, 0 ],
     [ -s * Math.SQRT1_2, s * Math.SQRT1_2 ],
-    [ 0, s * 0o7/0o20 * Math.SQRT2 ],
     [ s * Math.SQRT1_2, s * Math.SQRT1_2 ],
   ];
-  // 32 punktoj. cxiu oktona rando dividita en 4 — la SAMA diamanta silueto, sed
-  // pli glataj randoj kaj multe malpli da facetaj faldoj sur la tubo kaj la
-  // hoka pintajxo (la malnova 16-punkta ventumilo montris videblajn faldliniojn).
+  // 0o20 punktoj. cxiu diamanta rando dividita en 4 — la SAMA rekta silueto, sed
+  // pli glataj randoj kaj malpli da facetaj faldoj sur la tubo kaj la hoka pintajxo.
   const punktoj: [number, number][] = [];
-  for ( let j = 0; j < okto.length; j++ ) {
-    const a = okto[j], b = okto[(j + 1) % okto.length];
+  for ( let j = 0; j < kvar.length; j++ ) {
+    const a = kvar[j], b = kvar[(j + 1) % kvar.length];
     for ( let k = 0; k < 4; k++ ) punktoj.push([ a[0] + (b[0] - a[0]) * k / 4, a[1] + (b[1] - a[1]) * k / 4 ]);
   }
   return punktoj;
@@ -127,21 +107,48 @@ interface Pilierkadroj {
   Woj: THREE.Vector3[];
 }
 // kreiPilierkadrojn — Konstruas la kadrojn. la ringa ebeno estas cxiam
-// PERPENDIKULA al la kurbo-tangento (m = ta) kaj la longa akso restas la EKSTERA
-// akso (H rotaciita je 45°, do la diamantaj pintoj alfrontas la murojn kaj la
-// piliero sidas apud la angulo), konstanta en la mondo — neniu Frenet-tordo, la
-// sekco ne spiralas cxirkaux la kurbo, cxu la sxafto rekta, cxu la talona hoko
-// kurbigxas.
+// PERPENDIKULA al la kurbo-tangento (m = ta). La komenca kadro cxe la bazo estas
+// la EKSTERA akso (H rotaciita je 45°, do la diamantaj pintoj alfrontas la
+// diagonalojn kaj la flankoj laux la muroj), kaj la kadro sekvas la kurbon per
+// PARALELA TRANSPORTO — cxiu ringo rotacias nur per la rotacio kiu turnas la
+// tangenton, NENIAM per la tordo cxirkaux la tangento mem. La malnova projekcio
+// re-projekciis la fiksitan horizontalan Lbazo en cxiu ringo; kiam la hoko
+// klinigxas, tio lasis la sekcon spirali ~90° cxe la pinto (W farigxis preskaux
+// vertikala kaj la fronta pinto de la diamanto fleksigxis strange flanken). Kun
+// paralela transporto la fronta pinto restas fronta kaj la krono transiras glate
+// kaj plata, cxu la sxafto rekta, cxu la talona hoko kurbigxas.
 function kreiPilierkadrojn(curve: THREE.Curve<THREE.Vector3>, segmentoj: number, H: THREE.Vector3): Pilierkadroj {
   const Lbazo = new THREE.Vector3((H.x - H.z) * Math.SQRT1_2, 0, (H.x + H.z) * Math.SQRT1_2).normalize();
   const tangents: THREE.Vector3[] = [], moj: THREE.Vector3[] = [], Loj: THREE.Vector3[] = [], Woj: THREE.Vector3[] = [];
+  const antauxaT = curve.getTangentAt(0).normalize();
+  const antauxaL = new THREE.Vector3().copy(Lbazo).addScaledVector(antauxaT, -Lbazo.dot(antauxaT)).normalize();
+  const axoTemp = new THREE.Vector3(), kvaternio = new THREE.Quaternion();
   for ( let i = 0; i <= segmentoj; i++ ) {
     const t = i / segmentoj;
     const ta = curve.getTangentAt(t).normalize();
     const m = ta;
-    const L = new THREE.Vector3().copy(Lbazo).addScaledVector(m, -Lbazo.dot(m)).normalize();
+    const L = new THREE.Vector3();
+    if ( i === 0 ) {
+      L.copy(antauxaL);
+    } else {
+      // La rotacio de la pasinta tangento al la nuna — la akso estas ilia kruca
+      // produto. Se ili estas ( preskaux ) paralelaj, neniu rotacio necesas.
+      axoTemp.crossVectors(antauxaT, ta);
+      const sin = axoTemp.length();
+      if ( sin > 1e-8 ) {
+        axoTemp.normalize();
+        const angulo = Math.atan2(sin, Math.max(-1, Math.min(1, antauxaT.dot(ta))));
+        kvaternio.setFromAxisAngle(axoTemp, angulo);
+        L.copy(antauxaL).applyQuaternion(kvaternio);
+      } else {
+        L.copy(antauxaL);
+      }
+    }
+    // Re-ortonormaligu: forigu la tangentan komponanton kaj normaligu.
+    L.addScaledVector(m, -L.dot(m)).normalize();
     const W = new THREE.Vector3().crossVectors(m, L).normalize();
     tangents.push(ta); moj.push(m); Loj.push(L); Woj.push(W);
+    antauxaT.copy(ta); antauxaL.copy(L);
   }
   return { tangents, moj, Loj, Woj };
 }
@@ -311,12 +318,10 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
   // Pli dika diamanta sekco (ne ronda tubo). Uzu la SAMAjn tordo-reduktajn
   // kadrojn kiel la svingo, por ke la kapringoj precize kongruu (neniu spiralo).
   const s = 0o7/0o40;
-  // Elira direkto H. horizontala projekcio de la lasta tangento (la hoka pinto).
-  const lastTa = curve.getTangentAt(1);
-  const hMag = Math.hypot(lastTa.x, lastTa.z);
-  const H = hMag > 1e-3
-    ? new THREE.Vector3(lastTa.x / hMag, 0, lastTa.z / hMag)
-    : new THREE.Vector3(1, 0, 0);
+  // Elira direkto H — la ekstera diagonalo de la angulo. La diamantaj pintoj
+  // restas laux la diagonaloj kaj la flankoj laux la muroj ( la sama orientigxo
+  // kiel la sxafto ), cxu la sxafto rekta, cxu la talona hoko kurbigxas.
+  const H = new THREE.Vector3(sX, 0, sZ).normalize();
   // Pli densaj ringoj por la finialo (0o140). la hoko okupas nur la finan arkon,
   // do la krono ricevas suficxe da ringoj por esti glata kaj milde rondigita (ne
   // plata aux pincxita), dum la sxafto restas glata diamanto. La entombigitaj
@@ -504,7 +509,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     // (z-fighting).
     // Rondigita lancx-aprono. kvadrata formo kun rondigitaj anguloj, 0o3/0o40 alta.
     // La ekstrudo kusxas plata (rotaciita X), do la dikeco farigxas vertikala.
-    const apronFormo = kreiRondigitanKvadratanFormon(w + 4, d + 4, 0o10/0o10);
+    const apronFormo = kreiRondigitanRektangulanFormon(w + 4, d + 4, 0o10/0o10);
     const apronGeo = new THREE.ExtrudeGeometry(apronFormo, { depth: 0o3/0o40, bevelEnabled: false, curveSegments: 0o10 });
     apronGeo.rotateX(-Math.PI / 2);
     apronGeo.translate(0, -0o1/0o40, 0);
@@ -576,21 +581,15 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
 
   if ( typeKey === "mangxejo" ) {
     // Eksteraj tabloj — la SAMA tablo/segxo-aseto kiel la internaj mangxejo-
-    // tabloj ( aldoniTablon/aldoniSegxon el la mebloj-modulo ), en la sama
-    // bruna ligna koloro kiel la internaj tabloj.
+    // tabloj ( aldoniManĝtablon el la mebloj-modulo ), en la sama bruna ligna
+    // koloro kiel la internaj tabloj.
     const lignaMaterialo = new THREE.MeshStandardMaterial({ color: LIGNA_KOLORO, roughness: 0o41/0o100, metalness: 0o11/0o100 });
     for ( let i = -1; i <= 1; i += 2 ) {
       const tx = i * 5, tz = d / 2 + 3;
-      aldoniTablon( group, tx, tz, 0, 0o16/0o10, 0o12/0o10, lignaMaterialo, kadraMaterialo );
-      // Segxoj ĉirkaŭ la tablo — la sama ligna materialo kiel la tablo, kun la
-      // sama ora rando ( kadraMaterialo ). La benkoj kuŝas laŭlonge de la tablaj
-      // flankoj ( π/2 ĉe la x-flankoj, 0 ĉe la z-flankoj ).
-      // La x-flankaj benkoj staras pli fore ( 0o14/0o10 ) ol la z-flankaj
-      // ( 0o12/0o10 ), cxar la tablo estas pli largxa ol profunda — la libero al
-      // la tablo-rando tiel egalas cxirkaŭe ( 0o3/0o8 ).
-      for ( const [ox, oz] of [ [ 0o14/0o10, 0 ], [ -0o14/0o10, 0 ], [ 0, 0o12/0o10 ], [ 0, -0o12/0o10 ] ] as [number, number][] ) {
-        aldoniSegxon( group, tx + ox, tz + oz, 0, lignaMaterialo, kadraMaterialo, oz === 0 ? Math.PI / 2 : 0 );
-      }
+      // La tablo kun la kvar benkoj cxirkaux gxi — la sama manĝa arangxo kiel
+      // en la internaj mangxejoj ( aldoniManĝtablon el la mebloj-modulo ), kun
+      // la sama ligna kaj ora rando ( kadraMaterialo ).
+      aldoniManĝtablon( group, tx, tz, 0, lignaMaterialo, kadraMaterialo );
     }
   }
   // Flankaj pordoj forigitaj laux peto de uzanto
@@ -607,11 +606,11 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     // 0.5 — modesta rondigo: la kadra angulo atingas la diagonalajn angulpilierojn
     // ( la malnova 1.0 fortrancxis la kadron sub la pilieroj ).
     const rAnguloj = 0o1/0o2;
-    const kadroFormo = kreiRondigitanKvadratanFormon( kadroW, kadroD, rAnguloj );
+    const kadroFormo = kreiRondigitanRektangulanFormon( kadroW, kadroD, rAnguloj );
     // La ena truo estas la sama rondigita kvadrato, pli malgranda je la dikeco,
     // kun la MALA ( CW ) ventumilo — kiel la porda truo en internoj.ts, por ke
     // Earcut rekonu gxin kiel truon ( neniu normaligo en triangulateShape ).
-    const ena = kreiRondigitanKvadratanFormon(
+    const ena = kreiRondigitanRektangulanFormon(
       kadroW - dikeco * 2, kadroD - dikeco * 2, Math.max( 0o1/0o20, rAnguloj - dikeco )
     ).getPoints( 0o40 );
     kadroFormo.holes.push( new THREE.Path( ena.reverse() ) );

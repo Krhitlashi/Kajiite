@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "konservilo": "node servilo/konservilo.mjs",
     "build": "npx tsgo --noEmit && vite build",
     "preview": "vite preview",
     "test": "echo \"( Error ) no test specified\" && exit 1"

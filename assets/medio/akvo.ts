@@ -17,35 +17,7 @@ export function konstruiRiveron(sceno: THREE.Scene,
   steps: number,
   altecoFn: (x: number, z: number) => number
 ): RiverData {
-  const pts: THREE.Vector3[] = [];
-  for ( let i = 0; i <= steps; i++ ) {
-    const x = xStart + (xEnd - xStart) * i / steps;
-    pts.push(new THREE.Vector3(x, akvoY(x) + 0o1/0o20, riverFn(x)));
-  }
-  // La buŝo-mallarĝiĝo — la ribono maldikiĝas glate al punkto ĉe la lagbordo
-  // ( xEnd ), por ke neniu parto de la rivero transiru la lagrandon aŭ lasu
-  // truon. Plena larĝo okcidente de la buŝo; nulo ĝuste cxe la buŝo. La sama
-  // 0o40-unua fenestro kiel la terena delto ( tereno.ts ), por ke la ribono
-  // restu pli larĝa ol la malseka kanalo la tutan vojon ĝis la bordo.
-  const buŝaMallarĝiĝo = (x: number) => glataPaso(xEnd, xEnd + 0o40, x);
-  const larghoFn = (i: number) => buŝaMallarĝiĝo(pts[i].x);
-
-  const { geometry } = konstruiRubandon(pts, duonaLargho, 0, larghoFn);
-  const materialo = kreiOndanAkvanMaterialon();
-  const mesh = new THREE.Mesh(geometry, materialo);
-  mesh.renderOrder = 0;
-  sceno.add(mesh);
-
-  // Realaj profundoj ( vUv.y ) por la tuta ribono — malprofundaj bordoj helaj,
-  // profunda kanalo malhela.
-  const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
-  const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
-  for ( let v = 0; v < pos.count; v++ ) {
-    uv.setY(v, Math.max(0, akvoY(pos.getX(v)) - altecoFn(pos.getX(v), pos.getZ(v))));
-  }
-  uv.needsUpdate = true;
-
-  return { mesh, waterSurfaceY: (x: number, z: number) => akvoY(x) };
+  return konstruiRiveronLaŭAkso(sceno, riverFn, akvoY, duonaLargho, xStart, xEnd, steps, altecoFn, false);
 }
 
 // konstruiRiveronNordan — Konstruu riveron kiu fluas laŭ z ( norden-suden ),
@@ -61,19 +33,46 @@ export function konstruiRiveronNordan(sceno: THREE.Scene,
   steps: number,
   altecoFn: (x: number, z: number) => number
 ): RiverData {
+  return konstruiRiveronLaŭAkso(sceno, riverFn, akvoY, duonaLargho, zStart, zEnd, steps, altecoFn, true, 0o20);
+}
+
+// konstruiRiveronLaŭAkso — Komuna rivero-konstruo por ambaŭ direktoj. La
+// ribono fluas laŭ la parametra akso ( t = x por la cxefa rivero, t = z por la
+// nordorienta rivereto ), kun riverFn donanta la alian koordinaton. La buŝo
+// mallarĝiĝas glate al punkto ĉe la fino ( tEnd ); la fonto laŭvole same ĉe la
+// komenco ( fontaMallarĝiĝo > 0 ), por ke la rivereto emerĝu nature el la
+// montodeklivo anstataŭ finiĝi per duro rando.
+//     @param lauZ ( boolean ) - Cxu la parametra akso estas z ( norda ) aŭ x.
+//     @param fontaMallarĝiĝo ( number = 0 ) - Fenestro de la fonta mallarĝiĝo
+//         ( 0 = neniu; la norda rivereto uzas 0o20 ).
+function konstruiRiveronLaŭAkso(sceno: THREE.Scene,
+  riverFn: (t: number) => number,
+  akvoY: (t: number) => number,
+  duonaLargho: number,
+  tStart: number,
+  tEnd: number,
+  steps: number,
+  altecoFn: (x: number, z: number) => number,
+  lauZ: boolean,
+  fontaMallarĝiĝo = 0
+): RiverData {
   const pts: THREE.Vector3[] = [];
   for ( let i = 0; i <= steps; i++ ) {
-    const z = zStart + (zEnd - zStart) * i / steps;
-    pts.push(new THREE.Vector3(riverFn(z), akvoY(z) + 0o1/0o20, z));
+    const t = tStart + (tEnd - tStart) * i / steps;
+    pts.push(lauZ
+      ? new THREE.Vector3(riverFn(t), akvoY(t) + 0o1/0o20, t)
+      : new THREE.Vector3(t, akvoY(t) + 0o1/0o20, riverFn(t)));
   }
-  // Buŝa mallarĝiĝo — la ribono maldikiĝas glate al punkto ĉe la lagbordo
-  // ( zEnd ), samkiel la cxefa rivero ( glataPaso fenestro de 0o40 ). La fonto
-  // ( zStart ) ankaŭ mallarĝiĝas al punkto dum 0o20 unuoj ( 0 ĉe la fonto,
-  // plena de zStart−0o20 malsupren ), por ke la rivereto emerĝu nature el la
-  // montodeklivo anstataŭ finiĝi per duro rando.
-  const buŝaMallarĝiĝo = (z: number) =>
-    glataPaso(zEnd, zEnd + 0o40, z) * (1 - glataPaso(zStart - 0o20, zStart, z));
-  const larghoFn = (i: number) => buŝaMallarĝiĝo(pts[i].z);
+  // La buŝo-mallarĝiĝo — la ribono maldikiĝas glate al punkto ĉe la lagbordo
+  // ( tEnd ), por ke neniu parto de la rivero transiru la lagrandon aŭ lasu
+  // truon. Plena larĝo okcidente de la buŝo; nulo ĝuste cxe la buŝo. La sama
+  // 0o40-unua fenestro kiel la terena delto ( tereno.ts ), por ke la ribono
+  // restu pli larĝa ol la malseka kanalo la tutan vojon ĝis la bordo. La fonto
+  // laŭvole mallarĝiĝas al punkto dum fontaMallarĝiĝo unuoj ( 0 ĉe la fonto,
+  // plena de tStart − fontaMallarĝiĝo malsupren ).
+  const buŝaMallarĝiĝo = (t: number) =>
+    glataPaso(tEnd, tEnd + 0o40, t) * (fontaMallarĝiĝo > 0 ? 1 - glataPaso(tStart - fontaMallarĝiĝo, tStart, t) : 1);
+  const larghoFn = (i: number) => buŝaMallarĝiĝo(lauZ ? pts[i].z : pts[i].x);
 
   const { geometry } = konstruiRubandon(pts, duonaLargho, 0, larghoFn);
   const materialo = kreiOndanAkvanMaterialon();
@@ -81,15 +80,19 @@ export function konstruiRiveronNordan(sceno: THREE.Scene,
   mesh.renderOrder = 0;
   sceno.add(mesh);
 
-  // Realaj profundoj ( vUv.y ) — samkiel la cxefa rivero.
+  // Realaj profundoj ( vUv.y ) por la tuta ribono — malprofundaj bordoj helaj,
+  // profunda kanalo malhela.
   const pos = geometry.getAttribute( "position" ) as THREE.BufferAttribute;
   const uv = geometry.getAttribute( "uv" ) as THREE.BufferAttribute;
   for ( let v = 0; v < pos.count; v++ ) {
-    uv.setY( v, Math.max( 0, akvoY( pos.getZ( v ) ) - altecoFn( pos.getX( v ), pos.getZ( v ) ) ) );
+    const t = lauZ ? pos.getZ( v ) : pos.getX( v );
+    uv.setY( v, Math.max( 0, akvoY( t ) - altecoFn( pos.getX( v ), pos.getZ( v ) ) ) );
   }
   uv.needsUpdate = true;
 
-  return { mesh, waterSurfaceY: (x: number, z: number) => akvoY(z) };
+  return { mesh, waterSurfaceY: lauZ
+    ? (x: number, z: number) => akvoY(z)
+    : (x: number, z: number) => akvoY(x) };
 }
 
 // konstruiLagon — Konstruu lagon. Organika akvosurfaco ( la rando sekvas la
@@ -189,7 +192,69 @@ export function konstruiRubandon(points: THREE.Vector3[],
   return { geometry: g, samples };
 }
 
-function kreiOndanAkvanMaterialon(): THREE.ShaderMaterial {
+// konstruiSkulptitanAkvon — Konstruu akvon por la pentrita masko de la terena
+// skulptilo ( iloj/tero-skulptilo.html ). La meshxo kovras nur la maskan kadron
+// ( skulptaAkvaLimoj ) kaj la materialo eligas la fragmentojn ekster la masko,
+// do la akvo sekvas la pentritan formon. La verticaj profundoj ( uv.y ) venas
+// de la vera tereno, kiel cxe la cetera akvo.
+//     @param sceno ( THREE.Scene ) - La sceno.
+//     @param x0, z0, x1, z1 ( number ) - Monda kadro de la masko.
+//     @param paso ( number ) - Krada paso ( kongruu kun la skulpta krado ).
+//     @param maskFn ( funkcio ) - Cxu la punkto estas en la pentrita akvo.
+//     @param nivelo ( number ) - Monda Y de la akvosurfaco.
+//     @param altecoFn ( funkcio ) - Tereno, por profundoj kaj seka rando.
+//     @returns akvo ( RiverData ) - Samforma kiel la rivero/lago.
+export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
+  x0: number, z0: number, x1: number, z1: number, paso: number,
+  maskFn: (x: number, z: number) => boolean,
+  nivelo: number,
+  altecoFn: (x: number, z: number) => number
+): RiverData {
+  const nx = Math.max(0o2, Math.round(( x1 - x0 ) / paso));
+  const nz = Math.max(0o2, Math.round(( z1 - z0 ) / paso));
+  const pozicioj: number[] = [];
+  const uvoj: number[] = [];
+  const maskoj: number[] = [];
+  const indeksoj: number[] = [];
+  for ( let j = 0; j <= nz; j++ ) {
+    for ( let i = 0; i <= nx; i++ ) {
+      const x = x0 + ( x1 - x0 ) * i / nx;
+      const z = z0 + ( z1 - z0 ) * j / nz;
+      const tero = altecoFn( x, z );
+      pozicioj.push( x, nivelo + 0o1/0o20, z );
+      uvoj.push( 0o1/0o2, Math.max( 0, nivelo - tero ) );
+      // Akvo nur kie la masko estas starigita KAJ la tero restas sub la nivelo,
+      // por ke levita nivelo ne flosu super la bordo.
+      maskoj.push( maskFn( x, z ) && tero < nivelo - 0o1/0o20 ? 1 : 0 );
+    }
+  }
+  for ( let j = 0; j < nz; j++ ) {
+    for ( let i = 0; i < nx; i++ ) {
+      const a = j * ( nx + 1 ) + i, b = a + 1;
+      const c = a + nx + 1, d = c + 1;
+      indeksoj.push( a, b, d, a, d, c );
+    }
+  }
+  const geometrio = new THREE.BufferGeometry();
+  geometrio.setAttribute( "position", new THREE.Float32BufferAttribute( pozicioj, 3 ) );
+  geometrio.setAttribute( "uv", new THREE.Float32BufferAttribute( uvoj, 2 ) );
+  geometrio.setAttribute( "aAkvo", new THREE.BufferAttribute( new Float32Array( maskoj ), 1 ) );
+  geometrio.setIndex( indeksoj );
+  geometrio.computeVertexNormals();
+  const materialo = kreiOndanAkvanMaterialon( true );
+  const mesh = new THREE.Mesh( geometrio, materialo );
+  mesh.renderOrder = 0;
+  sceno.add( mesh );
+  return { mesh, waterSurfaceY: (x: number, z: number) => nivelo };
+}
+
+function kreiOndanAkvanMaterialon( maskita = false ): THREE.ShaderMaterial {
+  // La maska varianto ricevas unu ekstra vertica atributon ( aAkvo ) kiu
+  // eligas la fragmentojn ekster la pentrita akvo.
+  const maskaVertico = maskita ? "attribute float aAkvo;\nvarying float vAkvo;\n" : "";
+  const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
+  const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
+  const maskaKodo = maskita ? "if ( vAkvo < 0o1/0o2 ) discard;\n" : "";
   return new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     transparent: true,
@@ -201,7 +266,7 @@ function kreiOndanAkvanMaterialon(): THREE.ShaderMaterial {
       uColorRipple: { value: new THREE.Color(0x387868) },
       uSunDir: { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100).normalize() },
     },
-    vertexShader: `
+    vertexShader: `${maskaVertico}
       uniform float uTime;
       varying vec2 vUv;
       varying vec3 vWorldPos;
@@ -210,6 +275,7 @@ function kreiOndanAkvanMaterialon(): THREE.ShaderMaterial {
 
       void main() {
         vUv = uv;
+        ${maskaVerticoKodo}
         vec4 worldPos = modelMatrix * vec4(position, 1.0);
         vWorldPos = worldPos.xyz;
 
@@ -238,7 +304,7 @@ function kreiOndanAkvanMaterialon(): THREE.ShaderMaterial {
         gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPos, 1.0);
       }
     `,
-    fragmentShader: `
+    fragmentShader: `${maskaFragmento}
       uniform vec3 uColorDeep;
       uniform vec3 uColorShallow;
       uniform vec3 uColorRipple;
@@ -250,6 +316,7 @@ function kreiOndanAkvanMaterialon(): THREE.ShaderMaterial {
       varying vec3 vNormal;
 
       void main() {
+        ${maskaKodo}
         // Profundo ( mondaj unuoj ) — enpakita en uv.y dum la konstruado.
         float profundo = max(0.0, vUv.y);
 

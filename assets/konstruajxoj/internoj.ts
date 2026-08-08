@@ -17,7 +17,7 @@ import { kreiPilolFenestranFormon } from "../komunajxoj/formoj.js";
 import { deksesuma } from "../vestaro/vestoj.js";
 import { nomoAih } from "../../src/tradukoj.js";
 import { kreiMangxajxojn, MangxajxItemo, aldoniVaporon } from "../mebloj/mangxajxoj.js";
-import { aldoniTablon, aldoniSegxon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
+import { aldoniTablon, aldoniSegxon, aldoniManĝtablon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
 
 export interface PlankoInfo {
   /** Y-nivelo de la planko */
@@ -67,6 +67,8 @@ export interface InternaSistemo {
   helikso: HeliksoInfo | null;
   manĝaĵoj: MangxajxItemo[];
   vaporNuboj: { cloud: THREE.Points; basePos: THREE.Vector3; ph: number }[];
+  // Litoj — lokoj por la kuŝ-interago ( lokaj koordinatoj en la konstruajxo ).
+  litkoj: { x: number; z: number; y: number; largho: number }[];
   // Reuzo de konstruitaj internoj. La interno de ĉiu konstruaĵo estas peza
   // ( dekoj da meŝoj, plankaj/plakedaj teksturoj ), sed determinisma — la sama
   // spec ĉiam konstruas la saman grupon. Anstataŭ forĵeti kaj rekonstrui
@@ -85,6 +87,7 @@ interface KasxitaInterno {
   helikso: HeliksoInfo | null;
   manĝaĵoj: MangxajxItemo[];
   vaporNuboj: { cloud: THREE.Points; basePos: THREE.Vector3; ph: number }[];
+  litkoj: { x: number; z: number; y: number; largho: number }[];
   animated: { update: (t: number) => void }[];
 }
 
@@ -307,8 +310,10 @@ function aldoniInternanMeblaron(
   niveloj: number,
   lignaMaterialo: THREE.MeshStandardMaterial,
   metalaMaterialo: THREE.MeshStandardMaterial,
-  helaMaterialo: THREE.MeshStandardMaterial,
-  kadraMaterialo: THREE.Material
+  kadraMaterialo: THREE.Material,
+  tolaKoloro: number,
+  kusenaKoloro: number,
+  litkoj: { x: number; z: number; y: number; largho: number }[]
 ): void {
   const aldoniSkatolon = ( largho: number, alto: number, profundo: number, x: number, z: number, materialo: THREE.Material ) => {
     const objekto = new THREE.Mesh( new THREE.BoxGeometry( largho, alto, profundo ), materialo );
@@ -323,16 +328,9 @@ function aldoniInternanMeblaron(
     if ( etapo === 0 && hw >= 3 ) {
       // La tablo staras en la kontraŭa angulo de la lito ( antaŭ-maldekstre ).
       const tabloX = -hw + 2, tabloZ = hd - 2;
-      aldoniTablon( grupo, tabloX, tabloZ, y, 0o16/0o10, 0o12/0o10, lignaMaterialo, kadraMaterialo );
-      // Seĝoj ĉirkaŭ la tablo — la sama ligna materialo kiel la tablo, kun la
-      // sama ora rando ( kadraMaterialo ). La benkoj kuŝas laŭlonge de la tablaj
-      // flankoj ( π/2 ĉe la x-flankoj, 0 ĉe la z-flankoj ).
-      // La x-flankaj benkoj staras pli fore ( 0o14/0o10 ) ol la z-flankaj
-      // ( 0o12/0o10 ), cxar la tablo estas pli largxa ol profunda — la libero al
-      // la tablo-rando tiel egalas cxirkaŭe ( 0o3/0o8 ).
-      for ( const [ox, oz] of [ [ -0o14/0o10, 0 ], [ 0o14/0o10, 0 ], [ 0, -0o12/0o10 ], [ 0, 0o12/0o10 ] ] as [number, number][] ) {
-        aldoniSegxon( grupo, tabloX + ox, tabloZ + oz, y, lignaMaterialo, kadraMaterialo, oz === 0 ? Math.PI / 2 : 0 );
-      }
+      // La tablo kun la kvar benkoj ĉirkaŭ ĝi — la sama manĝa arangxo kiel en
+      // la mangxejoj ( aldoniManĝtablon el la mebloj-modulo ).
+      aldoniManĝtablon( grupo, tabloX, tabloZ, y, lignaMaterialo, kadraMaterialo );
     }
     // Lito — simpla rondangula hela beiga ligna bloko rekte sur la planko, kun
     // larĝa rondangula kapkuseno ĉe la kapo (+x). La lito staras en la
@@ -353,6 +351,15 @@ function aldoniInternanMeblaron(
       korpo.position.set( litX, y + 0o5/0o40, litZ );
       korpo.castShadow = true;
       grupo.add( korpo );
+      // Tola — maldika litaĵo kovranta la supron de la korpo, en la ĈEFA
+      // koloro de la vesto de la ludanto. La materialo rekolorigxas laux la
+      // vesto cxiun eniron ( aplikiLitajnKolorojn por kasxitaj internoj ).
+      const tolaMaterialo = new THREE.MeshStandardMaterial({ color: tolaKoloro, roughness: 0o6/0o10 });
+      const tola = new THREE.Mesh( new RoundedBoxGeometry( litLargho - 0o1/0o10, 0o1/0o20, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50 ), tolaMaterialo );
+      tola.position.set( litX, y + 0o5/0o40 + 0o5/0o40 + 0o1/0o40, litZ );
+      tola.castShadow = true;
+      tola.userData.litoTipo = "tecto";
+      grupo.add( tola );
       // Rando de la akcenta koloro sur la ĉefa baza parto de la lito — la sama
       // maldika bendo kiel sur la tabloj/benkoj, tuj sub la supro de la korpo.
       // Nur sur la ĉefa ( tera ) etaĝo — la "baza parto" de la konstruajxo.
@@ -364,12 +371,16 @@ function aldoniInternanMeblaron(
       }
       // Kapkuseno — rondangula rektangulo preskaŭ la tuta profundo de la lito
       // ( 0o14/0o10 − 0o1/0o10 ), kun egala malgranda libero ( 0o1/0o20 ) sur
-      // la tri flankoj. Kapo (+x), dorso (−z) kaj fronto (+z). Sidante SUR la
-      // pli alta korpo ( centro y+0o3/0o10, malsupro = korpo-supro ).
-      const kapkuseno = new THREE.Mesh( new RoundedBoxGeometry( 0o5/0o10, 0o1/0o10, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50 ), helaMaterialo );
-      kapkuseno.position.set( litX + litLargho / 2 - 0o3/0o10, y + 0o3/0o10, litZ );
+      // la tri flankoj. Kapo (+x), dorso (−z) kaj fronto (+z). En la AKCENTA
+      // koloro de la vesto, sidante SUR la tola ( malsupro = tola-supro ).
+      const kusenaMaterialo = new THREE.MeshStandardMaterial({ color: kusenaKoloro, roughness: 0o6/0o10 });
+      const kapkuseno = new THREE.Mesh( new RoundedBoxGeometry( 0o5/0o10, 0o1/0o10, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50 ), kusenaMaterialo );
+      kapkuseno.position.set( litX + litLargho / 2 - 0o3/0o10, y + 0o3/0o10 + 0o1/0o20, litZ );
       kapkuseno.castShadow = true;
+      kapkuseno.userData.litoTipo = "kuseno";
       grupo.add( kapkuseno );
+      // Registru la liton por la kuŝ-interago ( lokaj koordinatoj + larĝo ).
+      litkoj.push({ x: litX, z: litZ, y, largho: litLargho });
     }
   } else if ( tipo === "kasafeo" ) {
     // Kunvenoĉambro. Longa rondangula tablo kun seĝoj ambaŭflanke
@@ -657,6 +668,28 @@ function generiPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number, semo
   return teksajxo;
 }
 
+// aplikiLitajnKolorojn — Rekolorigu la litajn tolojn/kapkusenojn de kasxita
+// ( reuzata ) interno al la nuna vesto de la ludanto. La materialoj estas
+// kreitaj freŝaj kaj la malnovaj forigataj — ili apartenas nur al la lito.
+function aplikiLitajnKolorojn( grupo: THREE.Group, tolaKoloro: number, kusenaKoloro: number ): void {
+  let tola: THREE.MeshStandardMaterial | null = null;
+  let kusena: THREE.MeshStandardMaterial | null = null;
+  grupo.traverse( ( obj ) => {
+    const mesxo = obj as THREE.Mesh;
+    const tipo = mesxo.userData.litoTipo;
+    if ( tipo !== "tecto" && tipo !== "kuseno" ) return;
+    if ( tipo === "tecto" ) {
+      if ( !tola ) tola = new THREE.MeshStandardMaterial({ color: tolaKoloro, roughness: 0o6/0o10 });
+      if ( mesxo.material !== tola ) ( mesxo.material as THREE.Material ).dispose();
+      mesxo.material = tola;
+    } else {
+      if ( !kusena ) kusena = new THREE.MeshStandardMaterial({ color: kusenaKoloro, roughness: 0o6/0o10 });
+      if ( mesxo.material !== kusena ) ( mesxo.material as THREE.Material ).dispose();
+      mesxo.material = kusena;
+    }
+  } );
+}
+
 // eniriSxipanInternon — La interno de la spacosxipo. Pluretagxa kareno-kabino
 // kun helika ŝtuparo tra la centro, stelvitralo, kapsulaj fenestroj, konzolo,
 // kapitana seĝo kaj hologramo. La kabino flosas CE LA SXIPO (spec.flugoY) — la
@@ -894,7 +927,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
 
 export function kreiInternanSistemon(): InternaSistemo {
   return {
-    currentGroup: null, animated: [], plankoj: [], helikso: null, manĝaĵoj: [], vaporNuboj: [],
+    currentGroup: null, animated: [], plankoj: [], helikso: null, manĝaĵoj: [], vaporNuboj: [], litkoj: [],
     kasxo: new Map(), nunaSxlosilo: null,
   };
 }
@@ -917,6 +950,7 @@ function kasxiNunan( sys: InternaSistemo, cxefaSceno: THREE.Scene ): void {
       helikso: sys.helikso,
       manĝaĵoj: sys.manĝaĵoj,
       vaporNuboj: sys.vaporNuboj,
+      litkoj: sys.litkoj,
       animated: sys.animated,
     } );
     // LRU-eljeto — la unua en la enmeta ordo estas la plej malnova.
@@ -936,6 +970,7 @@ function kasxiNunan( sys: InternaSistemo, cxefaSceno: THREE.Scene ): void {
   sys.helikso = null;
   sys.manĝaĵoj = [];
   sys.vaporNuboj = [];
+  sys.litkoj = [];
 }
 
 // restarigiInternon — Se la interno de la speco jam estas konstruita kaj
@@ -956,6 +991,7 @@ function restarigiInternon( sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: 
   sys.helikso = kasxita.helikso;
   sys.manĝaĵoj = kasxita.manĝaĵoj;
   sys.vaporNuboj = kasxita.vaporNuboj;
+  sys.litkoj = kasxita.litkoj;
   // Freŝaj manĝaĵoj cxiu eniro — rekomencigu la mangxitan staton. Nuligu
   // ankaŭ la pendan malkreskan animacion, por ke gxi ne plu tuŝu la reaperintan
   // mangxajxon post la restarigo.
@@ -992,7 +1028,9 @@ export function eniriInternon(
   oraMaterialo: THREE.MeshStandardMaterial,
   eniraMaterialo: THREE.MeshStandardMaterial,
   cxefaSceno: THREE.Scene,
-  pordaAngulo = 0
+  pordaAngulo = 0,
+  tolaKoloro: number,
+  kusenaKoloro: number
 ): InternaEnirPunkto {
   // Konservu la antauxan internon en la kasxo ( anstataŭ forjxeti ĝin ) — la
   // sekva eniro al la sama konstruaĵo estos tuja, sen rekonstruado.
@@ -1001,16 +1039,23 @@ export function eniriInternon(
   // Ĉu ĉi tiu konstruaĵo jam havas konstruita internon? Re-aldonu ĝin tuj.
   const sxlosilo = sxlosiloDeSpeco( spec );
   const restarigita = restarigiInternon( sys, spec, cxefaSceno, pordaAngulo );
-  if ( restarigita ) return restarigita;
+  if ( restarigita ) {
+    // La kasxita interno portas la litajn kolorojn de sia konstru-tempo —
+    // gxisdatigu ilin al la nuna vesto de la ludanto.
+    aplikiLitajnKolorojn( sys.currentGroup!, tolaKoloro, kusenaKoloro );
+    return restarigita;
+  }
   sys.nunaSxlosilo = sxlosilo;
   sys.animated = [];
   sys.plankoj = [];
   sys.helikso = null;
+  sys.litkoj = [];
 
   // La kosmoporda stacio transportas rekte en la spacosxipon.
   if (spec.type === "stacioxipo") {
     sys.manĝaĵoj = [];
     sys.vaporNuboj = [];
+    sys.litkoj = [];
     return eniriSxipanInternon(sys, spec, cxefaSceno);
   }
 
@@ -1075,7 +1120,6 @@ export function eniriInternon(
   // la muro kaj la ora kadro ), anstataux fiksitaj fremdaj koloroj.
   const lignaMaterialo = new THREE.MeshStandardMaterial({ color: LIGNA_KOLORO, roughness: 0o7/0o10 });
   const metalaMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o5/0o10, roughness: 0o5/0o10 });
-  const helaMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, roughness: 0o5/0o10 });
 
   // Konstruu ĉiujn etaĝojn — sub-terajn (negativaj y) kaj suprajn — per la sama
   // reuzebla kodo, por ke oni povu malsupreniri al la subaj niveloj.
@@ -1297,7 +1341,8 @@ export function eniriInternon(
     }
 
     aldoniInternanMeblaron( group, spec.type, hw, hd, y, alto, et, niveloj,
-      lignaMaterialo, metalaMaterialo, helaMaterialo, kadraMaterialo );
+      lignaMaterialo, metalaMaterialo, kadraMaterialo,
+      tolaKoloro, kusenaKoloro, sys.litkoj );
 
     // Plafonaj traboj kun oraj akcentoj
     if ( spec.type !== "kasafeo" && hw > 0o3/0o2 ) {
@@ -1451,18 +1496,10 @@ export function eniriInternon(
       : [];
     const tabloj: { x: number; z: number }[] = [];
     for ( const [tx, tz] of tabloLokoj ) {
-      aldoniTablon( group, tx, tz, 0, 0o16/0o10, 0o12/0o10, lignaMaterialo, kadraMaterialo );
+      // La tablo kun benkoj — nur tri flankoj por la malantauxa vico ( tz < 0 ),
+      // por ke la flanko kontraŭ la vendotablo restu libera.
+      aldoniManĝtablon( group, tx, tz, 0, lignaMaterialo, kadraMaterialo, tz < 0 );
       tabloj.push({ x: tx, z: tz });
-      // Seĝoj sur la tri liberaj flankoj; la flanko kontraŭ la vendotablo restas sen seĝo
-      // La x-flankaj benkoj staras pli fore ( 0o14/0o10 ) ol la z-flankaj
-      // ( 0o12/0o10 ), cxar la tablo estas pli largxa ol profunda — la libero al
-      // la tablo-rando tiel egalas cxirkaŭe ( 0o3/0o8 ).
-      const seĝajOfsetoj: [number, number][] = tz < 0
-        ? [ [ -0o14/0o10, 0 ], [ 0o14/0o10, 0 ], [ 0, 0o12/0o10 ] ]
-        : [ [ -0o14/0o10, 0 ], [ 0o14/0o10, 0 ], [ 0, -0o12/0o10 ], [ 0, 0o12/0o10 ] ];
-      for ( const [ox, oz] of seĝajOfsetoj ) {
-        aldoniSegxon( group, tx + ox, tz + oz, 0, lignaMaterialo, kadraMaterialo, oz === 0 ? Math.PI / 2 : 0 );
-      }
     }
     // Manĝaĵoj sidas sur la tabloj ( ne en la aero )
     const items = kreiMangxajxojn(group, 0, 0, tabloj);

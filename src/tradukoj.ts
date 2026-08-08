@@ -46,6 +46,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "retiloForiris": "j͑ʃwc̗ ɭʃᴜ ʌ ⺓ ʌ ꞁȷ̀ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ʌ ŋᷠᴜƴ ⟅",
     // Food action labels
     "actGusti": "ſ͔ɭɔȝ •",
+    "actKuxi": "ſȷɔ˞ᴜ ɭʃᴜ",
+    "actLevi": "j͑ʃᴜ ʃɜƽ",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
     "manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ı],ꞇƽ", "manĝFok1": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ſ͕ɭᴜ ɭʃɹ ᶅſᴜ", "manĝFok2": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ɭʃɜͷ̗ ı],w",
     "manĝTla0": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ • ɭʃɜ ſɭɹ", "manĝTla1": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ • ɭʃɹƽ", "manĝTla2": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ • j͐ʃᴜ ŋᷠɹⰱ",
@@ -253,6 +255,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "retiloForiris": "Iu foriris.",
     // Food action labels
     "actGusti": "Guŝu •",
+    "actKuxi": "Kuŝi",
+    "actLevi": "Levi",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
     // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
     // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
@@ -409,6 +413,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "retiloForiris": "Someone left.",
     // Food action labels
     "actGusti": "Taste •",
+    "actKuxi": "Lie down",
+    "actLevi": "Get up",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
     // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
     // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
@@ -565,6 +571,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "retiloForiris": "誰かが去りました。",
     // Food action labels
     "actGusti": "味見 •",
+    "actKuxi": "横になる",
+    "actLevi": "起きる",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
     // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
     // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
@@ -711,6 +719,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "retiloForiris": "នរណាម្នាក់បានចាកចេញ។",
     // Food action labels
     "actGusti": "ភ្លក់ •",
+    "actKuxi": "ដេក",
+    "actLevi": "ក្រោក",
     // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
     // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
     // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts

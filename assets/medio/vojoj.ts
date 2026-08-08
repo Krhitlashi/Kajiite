@@ -2,6 +2,7 @@
 // Uzas rektangulajn Shape + ExtrudeGeometry por puraj longaj flankoj ( intersekcoj interkovras )
 import * as THREE from "three";
 import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiRondigitanRektangulanFormon } from "../komunajxoj/formoj.js";
 
 export interface VojDifino { pts: [number, number][]; w: number; heightFn?: (x: number, z: number) => number; }
 
@@ -10,26 +11,13 @@ export interface VojDifino { pts: [number, number][]; w: number; heightFn?: (x: 
  * Specimenigas la terenon-altecon ĉiun ~4 unuojn, por ke la vojo nature
  * formu ŝtupojn kie la grundo deklivas kaj restu glata sur ebena grundo.
  */
-// Rondigita rektangulo. Nur la kvar anguloj estas rondaj; la vojo ne fariĝas kapsulo.
+// kreiRondanRektangulon — Rondigita rektangula plato ( la voja kruciĝa plato
+// kaj anguloj ). La komuna formo venas el formoj.js ( kreiRondigitan-
+// RektangulanFormon ); cxi tiu nur aldonas la ekstrudan dikecon.
 function kreiRondanRektangulon(w: number, l: number, d: number, radiuso: number): THREE.ExtrudeGeometry {
-  const formo = new THREE.Shape();
-  const duonW = w / 2, duonL = l / 2;
   // Konservu rektan sekcion ĉe ambaŭ finoj; neniam lasu mallongan ŝtupon fariĝi kapsulo.
-  const r = Math.max(0, Math.min(radiuso, duonW, duonL / 2));
-
-  // Kontraŭhorloĝa volvaĵo tenas la supran facon de ExtrudeGeometry supren
-  // post la ekzistanta -90° X-rotacio.
-  formo.moveTo(-duonW + r, -duonL);
-  formo.lineTo(duonW - r, -duonL);
-  formo.absarc(duonW - r, -duonL + r, r, -Math.PI / 2, 0, false);
-  formo.lineTo(duonW, duonL - r);
-  formo.absarc(duonW - r, duonL - r, r, 0, Math.PI / 2, false);
-  formo.lineTo(-duonW + r, duonL);
-  formo.absarc(-duonW + r, duonL - r, r, Math.PI / 2, Math.PI, false);
-  formo.lineTo(-duonW, -duonL + r);
-  formo.absarc(-duonW + r, -duonL + r, r, Math.PI, 3 * Math.PI / 2, false);
-  formo.closePath();
-  return new THREE.ExtrudeGeometry(formo, { depth: d, bevelEnabled: false });
+  const r = Math.max(0, Math.min(radiuso, w / 2, l / 4));
+  return new THREE.ExtrudeGeometry(kreiRondigitanRektangulanFormon(w, l, r), { depth: d, bevelEnabled: false });
 }
 
 function kreiSegmentGeometrion(w: number, l: number, d: number, ofsetoX: number = 0): THREE.ExtrudeGeometry {
@@ -89,6 +77,34 @@ function kreiVojajnBendojn( w: number,
   ];
 }
 
+// kreiVojojnMaterialojn — Klonitaj voja materialoj kun siaj teksajxoj kaj
+// polygonOffset. La bazo-materialoj ( diorita/andezita ) estas komunaj tra la
+// mondo, do cxiu uzanto klonas ilin kaj aldonas la teksajxon kaj la offset-
+// valorojn — la SAMA agordo en konstruiVojojn, konstruiIntersekcajnPlatojn,
+// konstruiRondigitanArkon kaj konstruiSpronon.
+//     @param dioritaMaterialo ( MeshStandardMaterial ) - La baza diorita materialo.
+//     @param andezitaMaterialo ( MeshStandardMaterial ) - La baza andezita materialo.
+//     @param centraF ( number ) - La polygonOffset-faktoro de la diorita centro.
+//     @param centraU ( number ) - La polygonOffset-unuoj de la diorita centro.
+//     @param bordoF ( number ) - La polygonOffset-faktoro de la andezita bordo.
+//     @param bordoU ( number ) - La polygonOffset-unuoj de la andezita bordo.
+//     @returns materialoj ( { supraMaterialo, bordaMaterialo } ) - La klonoj.
+function kreiVojojnMaterialojn( dioritaMaterialo: THREE.MeshStandardMaterial,
+  andezitaMaterialo: THREE.MeshStandardMaterial,
+  centraF: number, centraU: number,
+  bordoF: number, bordoU: number
+): { supraMaterialo: THREE.MeshStandardMaterial; bordaMaterialo: THREE.MeshStandardMaterial } {
+  const dioritaTx = kreiDioritanTeksajxon();
+  const andezitaTx = kreiAndezitanTeksajxon();
+  const supraMaterialo = dioritaMaterialo.clone();
+  supraMaterialo.map = dioritaTx; supraMaterialo.needsUpdate = true;
+  supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = centraF; supraMaterialo.polygonOffsetUnits = centraU;
+  const bordaMaterialo = andezitaMaterialo.clone();
+  bordaMaterialo.map = andezitaTx; bordaMaterialo.needsUpdate = true;
+  bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = bordoF; bordaMaterialo.polygonOffsetUnits = bordoU;
+  return { supraMaterialo, bordaMaterialo };
+}
+
 function konstruiSegmenton( x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikeco: number,
@@ -129,10 +145,6 @@ export function konstruiVojojn( sceno: THREE.Scene,
   andezitaMaterialo: THREE.MeshStandardMaterial
 ): THREE.Vector3[] {
   const samples: THREE.Vector3[] = [];
-  const dioritaTeksajxo = kreiDioritanTeksajxon();
-  const andezitaTeksajxo = kreiAndezitanTeksajxon();
-  const supraMaterialo = dioritaMaterialo.clone();
-  supraMaterialo.map = dioritaTeksajxo; supraMaterialo.needsUpdate = true;
   // La bendoj ne plu intertavoligas. PolygonOffset restas por ke la voja
   // CENTRO gajnu super la perpendikularaj bordoj ( la samloke kuŝantaj bendoj
   // de la alia vojo ). Kun egalaj unuoj ( -1/-1 ) la desegna ordo decidis kaj
@@ -141,10 +153,7 @@ export function konstruiVojojn( sceno: THREE.Scene,
   // Unu-du unuoj da diferenco restis ĉe la precizec-rando ( la gajnanto
   // ŝanceliĝis laŭ la fotila distanco ). Tri unuoj apartigas glate, do la
   // centroj kunfandiĝas pure kaj la bordoj finiĝas ĉe la perpendikulara centro.
-  supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = -2; supraMaterialo.polygonOffsetUnits = -4;
-  const bordaMaterialo = andezitaMaterialo.clone();
-  bordaMaterialo.map = andezitaTeksajxo; bordaMaterialo.needsUpdate = true;
-  bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = -1; bordaMaterialo.polygonOffsetUnits = -1;
+  const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn( dioritaMaterialo, andezitaMaterialo, -2, -4, -1, -1 );
 
   for ( const def of defs ) {
     // Unuopaj difinoj povas doni propran altan funkcion ( ekz. la arbarvojo
@@ -276,14 +285,9 @@ export function konstruiIntersekcajnPlatojn( sceno: THREE.Scene,
   tFermitaj: Map<string, [ number, number ]> = new Map()
 ): void {
   if ( punktoj.length === 0 ) return;
-  const dioritaTx = kreiDioritanTeksajxon();
-  const andezitaTx = kreiAndezitanTeksajxon();
-  const supraMaterialo = dioritaMaterialo.clone();
-  supraMaterialo.map = dioritaTx; supraMaterialo.needsUpdate = true;
-  supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = -3; supraMaterialo.polygonOffsetUnits = -2;
-  const bordaMaterialo = andezitaMaterialo.clone();
-  bordaMaterialo.map = andezitaTx; bordaMaterialo.needsUpdate = true;
-  bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = -4; bordaMaterialo.polygonOffsetUnits = -2;
+  // La platoj kaj arkoj sidas super la vojoj — pli alta offset ( -3/-2 kontraŭ
+  // la striaj -2/-1 ), por ke la centro estu unu kontinua diorita placo.
+  const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn( dioritaMaterialo, andezitaMaterialo, -3, -2, -4, -2 );
   // La anguloj sidas ĉe wb/2 - angulo/2 = 1.125 de la centro, do ĉiu kvadrato
   // kovras [ 0.875, 1.375 ] — la saman regionon kiel la duoblaj vojo-randoj.
   const wb = 0o26/0o10, angulaLargho = 0o4/0o10, dikeco = 0o2/0o10, r = 0;
@@ -405,14 +409,9 @@ export function konstruiRondigitanArkon( sceno: THREE.Scene,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial
 ): void {
-  const dioritaTx = kreiDioritanTeksajxon();
-  const andezitaTx = kreiAndezitanTeksajxon();
-  const supraMaterialo = dioritaMaterialo.clone();
-  supraMaterialo.map = dioritaTx; supraMaterialo.needsUpdate = true;
-  supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = -3; supraMaterialo.polygonOffsetUnits = -2;
-  const bordaMaterialo = andezitaMaterialo.clone();
-  bordaMaterialo.map = andezitaTx; bordaMaterialo.needsUpdate = true;
-  bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = -4; bordaMaterialo.polygonOffsetUnits = -2;
+  // La arko sidas super la vojoj — la sama pli alta offset kiel la kruciĝaj
+  // platoj ( -3/-2 ), por ke neniu surfaco kuŝu sur alia samplane.
+  const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn( dioritaMaterialo, andezitaMaterialo, -3, -2, -4, -2 );
   const y = heightFn( x, z );
   const dikeco = 0o2/0o10;
 
@@ -479,22 +478,10 @@ export function konstruiSpronon( x1: number, z1: number, x2: number, z2: number,
   // La porda vojo uzas la saman larghon kiel la regula vojreto.
   const w = 0o16/0o10;
   const dikeco = 0o2/0o10;
-  // Surfacaj kaj bordaj materialoj kun teksturo kaj polygonOffset pli alta ol cefaj vojoj (-4 vs -2)
-  const dioritaTx = kreiDioritanTeksajxon();
-  const andezitaTx = kreiAndezitanTeksajxon();
-  const supraMaterialo = dioritaMaterialo.clone();
-  supraMaterialo.map = dioritaTx; supraMaterialo.needsUpdate = true;
-  supraMaterialo.polygonOffset = true;
-  supraMaterialo.polygonOffsetFactor = -4;
-  supraMaterialo.polygonOffsetUnits = -2;
-  const bordaMaterialo = andezitaMaterialo.clone();
-  bordaMaterialo.map = andezitaTx; bordaMaterialo.needsUpdate = true;
-  bordaMaterialo.polygonOffset = true;
-  bordaMaterialo.polygonOffsetFactor = -3;
-  bordaMaterialo.polygonOffsetUnits = -2;
   // La spronaj bendoj uzas pli altan polygonOffset ol la cefaj vojoj ( -4/-3
   // kontraux -2/-1 ), por ke cxe la kunigxo kun la cefa vojo la sprono gajnu
   // determinite ( neniu z-fighting inter la du vojoj ).
+  const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn( dioritaMaterialo, andezitaMaterialo, -4, -2, -3, -2 );
   konstruiSegmenton(x1, z1, x2, z2, kreiVojajnBendojn(w, supraMaterialo, bordaMaterialo), dikeco, heightFn, sceno);
 }
 

@@ -276,6 +276,39 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   const eniraMaterialo = kreiEniranMaterialon();
   const oraMaterialo = kreiOranMaterialon(0xd8b068);
 
+  // kreiPunktsistemon — Komuna fino de la veteraj partiklo-sistemoj. La
+  // geometrio kaj la materialo estas malsamaj por ĉiu vetero ( pluvo, neĝo,
+  // hajlo ), sed ĉiu estas malfermita Points-sistemo en la sceno, kaŝita ĝis
+  // la vetero montras ĝin.
+  //     @param geometrio ( THREE.BufferGeometry ) - La partikla geometrio.
+  //     @param materialo ( THREE.ShaderMaterial ) - La partikla materialo.
+  //     @returns punktoj ( THREE.Points ) - La sistemo, en la sceno kaj kaŝita.
+  function kreiPunktsistemon(geometrio: THREE.BufferGeometry, materialo: THREE.ShaderMaterial): THREE.Points {
+    const punktoj = new THREE.Points(geometrio, materialo);
+    punktoj.frustumCulled = false;
+    punktoj.visible = false;
+    sceno.add(punktoj);
+    return punktoj;
+  }
+
+  // kreiPartiklojn — Hazardaj pozicioj en skatolo ( ±x, ±y, ±z ) kun hazarda
+  // semo po partiklo. Komuna bazo por la neĝo kaj la hajlo; la pluvo havas
+  // siajn proprajn atributojn ( rapido, longeco, fado ) kaj restas aparta.
+  //     @param N ( number ) - Partikla nombro.
+  //     @param duonoX, duonoY, duonoZ ( number ) - Duon-grandoj de la skatolo.
+  //     @returns datumoj ( { pozicioj, semoj } ) - La atributaj areoj.
+  function kreiPartiklojn(N: number, duonoX: number, duonoY: number, duonoZ: number): { pozicioj: Float32Array; semoj: Float32Array } {
+    const pozicioj = new Float32Array(N * 3);
+    const semoj = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      pozicioj[i * 3] = (Math.random() * 2 - 1) * duonoX;
+      pozicioj[i * 3 + 1] = (Math.random() * 2 - 1) * duonoY;
+      pozicioj[i * 3 + 2] = (Math.random() * 2 - 1) * duonoZ;
+      semoj[i] = Math.random();
+    }
+    return { pozicioj, semoj };
+  }
+
   // ⟪ Pluvo 📃 ⟫ — ĉiu guto estas KAPSULO ( cilindra streko kun rondigitaj
   // finoj ) desegnita en la fragment-shadero sur kvadrata gl_PointSize-punkto.
   // La antaŭaj LineSegments estis 1px kun kvadrataj finoj ( WebGL ne kapablas
@@ -284,8 +317,6 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // finojn. La falo, la venta bofo kaj la ĉirkaŭvolvo okazas en la vertica
   // shadero ( GPU ), do necesas nur uTime po kadro — neniu CPU-ĝisdatigo.
   function kreiPluvon(): THREE.Points {
-    // La strekoj estas pli dikaj ol la antaŭaj 1px linioj, do necesas iom pli
-    // da gutoj por ke la pluvo restu klare ĉeestanta kontraŭ la nebulo.
     // La strekoj estas pli dikaj ol la antaŭaj 1px linioj, do necesas iom pli
     // da gutoj por ke la pluvo restu klare ĉeestanta kontraŭ la nebulo.
     const N = 0o4000;
@@ -382,24 +413,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
         }
       `,
     });
-    const punktoj = new THREE.Points(geometrio, materialo);
-    punktoj.frustumCulled = false;
-    punktoj.visible = false;
-    sceno.add(punktoj);
-    return punktoj;
+    return kreiPunktsistemon(geometrio, materialo);
   }
 
   // ⟪ Neĝo 📃 ⟫ — molaj blankaj neĝeroj kun balanciĝa drivo flanken.
   function kreiNeĝon(): THREE.Points {
     const N = 0o1000;
-    const pozicioj = new Float32Array(N * 3);
-    const semoj = new Float32Array(N);
-    for (let i = 0; i < N; i++) {
-      pozicioj[i * 3] = (Math.random() * 2 - 1) * 0o200;
-      pozicioj[i * 3 + 1] = (Math.random() * 2 - 1) * 0o140;
-      pozicioj[i * 3 + 2] = (Math.random() * 2 - 1) * 0o200;
-      semoj[i] = Math.random();
-    }
+    const { pozicioj, semoj } = kreiPartiklojn(N, 0o200, 0o140, 0o200);
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
     geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
@@ -444,11 +464,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
         }
       `,
     });
-    const punktoj = new THREE.Points(geometrio, materialo);
-    punktoj.frustumCulled = false;
-    punktoj.visible = false;
-    sceno.add(punktoj);
-    return punktoj;
+    return kreiPunktsistemon(geometrio, materialo);
   }
 
   // ⟪ Hajo 📃 ⟫ — glaciaj eroj, kiuj falas tre rapide kaj rekte, kun eta
@@ -456,14 +472,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // kun brila kerno — kiel veraj hajleroj en ŝtormo.
   function kreiHajlon(): THREE.Points {
     const N = 0o1200;
-    const pozicioj = new Float32Array(N * 3);
-    const semoj = new Float32Array(N);
-    for (let i = 0; i < N; i++) {
-      pozicioj[i * 3] = (Math.random() * 2 - 1) * 0o160;
-      pozicioj[i * 3 + 1] = (Math.random() * 2 - 1) * 0o140;
-      pozicioj[i * 3 + 2] = (Math.random() * 2 - 1) * 0o160;
-      semoj[i] = Math.random();
-    }
+    const { pozicioj, semoj } = kreiPartiklojn(N, 0o160, 0o140, 0o160);
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
     geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
@@ -512,11 +521,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
         }
       `,
     });
-    const punktoj = new THREE.Points(geometrio, materialo);
-    punktoj.frustumCulled = false;
-    punktoj.visible = false;
-    sceno.add(punktoj);
-    return punktoj;
+    return kreiPunktsistemon(geometrio, materialo);
   }
 
   const pluvo = kreiPluvon();
@@ -642,25 +647,72 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   (function konstruiTerenon(grandeco: number, segmentoj: number): void {
     const g = new THREE.PlaneGeometry(grandeco, grandeco, segmentoj, segmentoj);
     g.rotateX(-Math.PI / 2);
+    // Alternantaj triangul-diagonaloj ( ŝaktabulo ) — la antaŭa konsekvenca
+    // diagonalo montris longajn krestojn sur la montodeklivoj ( la sama
+    // korekto kiel en la skulptilo kaj la dukuba tereno-interpolo ).
+    {
+      const sx = segmentoj + 1;
+      const indeksoj: number[] = [];
+      for ( let j = 0; j < segmentoj; j++ ) {
+        for ( let i = 0; i < segmentoj; i++ ) {
+          const a = j * sx + i, b = a + 1, c = a + sx, d = c + 1;
+          if ( ( i + j ) % 2 === 0 ) {
+            indeksoj.push( a, c, d, a, d, b );
+          } else {
+            indeksoj.push( a, c, b, c, d, b );
+          }
+        }
+      }
+      g.setIndex( indeksoj );
+    }
     const pozicio = g.attributes.position;
     const koloroj = new Float32Array(pozicio.count * 3);
+    // Naturaj koloroj — la sama harmonia paletro kiel en la skulptilo — la
+    // malseketaj oliv-herbejaj nuancoj de la malnova grundo, kun du-oktava
+    // bruo, malseka lito apud la akvo, sekherba deklivo, roko ( dekliva kaj
+    // alta ) kaj neĝo sur la pintoj.
     const a = new THREE.Color(0x485848), b = new THREE.Color(0x587058);
     const lito = new THREE.Color(0x384848), profunda = new THREE.Color(0x283838);
-    // Alta montaro — rokeca tereno super la arbolinio kaj neĝo sur la pintoj.
-    const roko = new THREE.Color(0x686858), nego = new THREE.Color(0xb8b8b8);
+    const sekherbo = new THREE.Color(0x7a7a4e);
+    const roko = new THREE.Color(0x7a7468), nego = new THREE.Color(0xdce4ec);
     const c = new THREE.Color();
+    // La samplo de la alteco unufoje po vertico; la deklivo tiam legas la
+    // najbajn altojn ( nula kroma kosto de la varmega alteco-funkcio ).
+    const pasxo = grandeco / segmentoj;
+    const sx = segmentoj + 1;
+    const hoj = new Float32Array( pozicio.count );
+    for ( let i = 0; i < pozicio.count; i++ ) {
+      const h = alteco(pozicio.getX(i), pozicio.getZ(i));
+      hoj[i] = h;
+      pozicio.setY(i, h);
+    }
     for ( let i = 0; i < pozicio.count; i++ ) {
       const x = pozicio.getX(i), z = pozicio.getZ(i);
-      const h = alteco(x, z);
-      pozicio.setY(i, h);
-      const t = 0o4/0o10 + 0o4/0o10 * Math.sin(x * 0o1/0o10 + z * 0o13/0o100 + 0o20/0o10);
+      const h = hoj[i];
+      const cxelo = i % sx;
+      const deklivo = ( cxelo > 0 && cxelo < sx - 1 && i >= sx && i < pozicio.count - sx )
+        ? Math.hypot( hoj[i + 1] - hoj[i - 1], hoj[i + sx] - hoj[i - sx] ) / ( 2 * pasxo )
+        : 0;
+      // Du-oktava sin-bruo — pli riĉa, natura vario ol unu-oktava. La faktoro
+      // restas en [0,1] ( la lerp alie eksterpoliĝus preter la paletraj finoj ).
+      const t = Math.max( 0, Math.min( 1,
+        0o45/0o100 + 0o35/0o100 * Math.sin(x * 0o1/0o10 + z * 0o13/0o100 + 0o20/0o10)
+        + 0o15/0o100 * Math.sin(x * 0o37/0o100 + z * 0o41/0o100 - 0o11/0o10) ) );
       c.copy(a).lerp(b, t);
       if ( h < -2 ) c.lerp(lito, Math.min(1, ( h + 2 ) / -3));
       if ( h < -5 ) c.lerp(profunda, Math.min(1, ( h + 5 ) / -0o115/0o100));
-      // Altituda tavoligo — roko de ~0o14, neĝo de ~0o44 ( la montaro pintas
-      // ĝis ~0o60, do nur la ĉefa pinto ricevas neĝokronon )
-      if ( h > 0o14 ) c.lerp(roko, Math.min(1, ( h - 0o14 ) / 0o20));
-      if ( h > 0o44 ) c.lerp(nego, Math.min(1, ( h - 0o44 ) / 0o14));
+      // Sekherba zono inter la herbejo kaj la roko — la montetoj sekigas.
+      if ( h > 0o10 ) c.lerp(sekherbo, Math.min(1, ( h - 0o10 ) / 0o12));
+      // Rokego — kaj sur krutaj deklivoj ( kie la grundo ne tenas kreskajxon,
+      // eĉ sub la arbolinio; la bordo de la rivero/lago restas herba ) kaj
+      // super la arbolinio ( h > ~0o22 ).
+      const rokF = Math.max(
+        Math.max(0, Math.min(1, ( deklivo - 0o45/0o100 ) / 0o5/0o10 )),
+        Math.max(0, Math.min(1, ( h - 0o22 ) / 0o20 ))
+      );
+      c.lerp(roko, rokF);
+      // Neĝo sur la pintoj ( la montaro pintas ĝis ~0o60 ).
+      if ( h > 0o46 ) c.lerp(nego, Math.min(1, ( h - 0o46 ) / 0o12));
       koloroj[i * 3] = c.r; koloroj[i * 3 + 1] = c.g; koloroj[i * 3 + 2] = c.b;
     }
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));

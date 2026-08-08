@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { konstruiSatalon, TIPARO, KonstruSpec } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
 import { kreiNebulanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
-import { konstruiRiveron, konstruiRiveronNordan, konstruiLagon, RiverData } from "../assets/medio/akvo.js";
+import { konstruiRiveron, konstruiRiveronNordan, konstruiLagon, konstruiSkulptitanAkvon, RiverData } from "../assets/medio/akvo.js";
 import { konstruiBestojn, BestoSistemo, konstruiPetrelojn, PetreloSistemo } from "../assets/shalaj-specioj/bestoj.js";
 import { kreiArbarerojn, metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
   konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn,
@@ -24,7 +24,8 @@ import { riveroZ, alteco, akvoY, montetaBazo, glataPaso, RIVERA_DUONLARĜO,
   LAGO_X, LAGO_RZ, RIVERA_BUŜO_X, riveraAkvaNivelo, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_FONTO_Z,
   RIVERA_NORDORIENTA_DUONLARĜO, RIVERA_NORDORIENTA_BUŜO_Z,
-  cxuEnNordorientaRivero, montaroNordOrienta } from "./tereno.js";
+  cxuEnNordorientaRivero, montaroNordOrienta, skulptitaAkvo, skulptaAkvaLimoj,
+  SKULPTA_PASO, SKULPTA_AKVA_NIVELO } from "./tereno.js";
 import { VESTOJ } from "../assets/vestaro/vestoj.js";
 
 export interface UrbaSistemo {
@@ -40,6 +41,8 @@ export interface UrbaSistemo {
   riverData: RiverData;
   riveroNordOrienta: RiverData;
   lago: RiverData;
+  // Skulptita akvo ( la terena skulptilo ) — nulaj se la masko estas malplena.
+  skulptaAkvo: RiverData | null;
   bestoj: BestoSistemo;
   petreloj: PetreloSistemo;
   lampSistemo: HxeuxfaSistemo;
@@ -141,8 +144,9 @@ export async function konstruiUrbon(
 
   // Kosmoporda stacio rekte malantaŭ la norda nova ekstera domo (0,3) — la
   // domo baras la rektan vojon (plenigita vojbaro). La rotacio (PI, pordo
-  // suden) estas aŭtomate fiksita de la rot-pasoj sube.
-  konstruSpecoj.push({ x: 0, z: 0o140, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true });
+  // suden) estas aŭtomate fiksita de la rot-pasoj sube. La stacio sidas iom
+  // pli norden ( 0,100 ), por ke la baseno-aprono ne premu la ringon.
+  konstruSpecoj.push({ x: 0, z: 0o144, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true });
   bldgIdx++;
 
   // Fiksu teren-alton kaj kolizion por cxiu konstruajxo (vojoj ne bezonataj ankoraux)
@@ -173,6 +177,16 @@ export async function konstruiUrbon(
   // ( sur la norda mapo oriento estas -x, do la lago aperas dekstre ); la rando
   // sekvas la ondigitan elipson ( lagoRadio ), pli larĝa norde-sude.
   const lago = konstruiLagon( sceno, LAGO_X, lagoZ(), lagoRadio, lagoNivelo(), alteco );
+
+  // ⟪ Skulptita akvo ( la terena skulptilo ) 📃 ⟫ — akvo pentrita en
+  // iloj/tero-skulptilo.html. La masko limigas la meshxon al la pentrita zono;
+  // nenio konstruigas se ne estas akvo.
+  const limojSkulptaj = skulptaAkvaLimoj();
+  const skulptaAkvo: RiverData | null = limojSkulptaj
+    ? konstruiSkulptitanAkvon( sceno, limojSkulptaj.x0, limojSkulptaj.z0,
+        limojSkulptaj.x1, limojSkulptaj.z1, SKULPTA_PASO, skulptitaAkvo,
+        SKULPTA_AKVA_NIVELO, alteco )
+    : null;
 
   // ⟪ Dokoj — tri alirejoj laŭ la suda riverbordo 📃 ⟫
   // La dokoj sekvas la riverkurbon (riveroZ + 14), do cxiu pinto atingas la akvon
@@ -236,7 +250,7 @@ export async function konstruiUrbon(
   // La sxipo flosas super la stacio. Ĝia plej suba parto estas ~17.97 sub la
   // origino (5 subaj tieroj), do y=30 lasas klaran spacon super la tegmento
   // (10.2 alta) — la sama malsupro-alteco kiel antaŭ la spegula plilongigo.
-  const xipo: Krasesxagxo = konstruiKrasesxagxon(sceno, 0, 0o40, 0o140, oraMaterialo, eniraMaterialo);
+  const xipo: Krasesxagxo = konstruiKrasesxagxon(sceno, 0, 0o40, 0o144, oraMaterialo, eniraMaterialo);
   // La sxipa interno flosas CE LA SXIPO ( ne sur la tero ). Marku la stacion per la
   // fluga alteco, por ke eniri la spacosxipon teleportu al la supro kie gxi estas.
   const stacioSxipo = konstruSpecoj.find(s => s.type === "stacioxipo");
@@ -374,11 +388,27 @@ export async function konstruiUrbon(
   // vojo ( unu ne-nula komponanto ). La T-kunigo havas UNU flankon sen vojo,
   // kie la finiĝanta vojo ne daŭrigas; tiu flanko ricevas plenan andezitan
   // strion, por ke la kruciĝo ne lasu tiun flankon malfermita sen bordo.
+  //
+  // Tra-nodoj — la finiĝanta vojo DAŬRIGAS en la alian direkton ( la ringo
+  // etendas la NS-vojon norden ĉe x=±12 kaj la doka avenuo suden ĉe x=12 ),
+  // do la fermita-flanka strio tranĉus la daŭrantan vojon kaj restus videbla
+  // andezita breto trans la vojo. Tiuj nodoj ricevas la kvarvojan platon
+  // anstataŭ la T-platon — la strio malaperas kaj la vojo daŭrigas glate tra
+  // la kruciĝo.
+  const traNodoj = new Set([ "12,60", "-12,60", "12,-60" ]);
   const tFermitaj = new Map<string, [ number, number ]>();
   for ( const [ tx, tz ] of tNodoj ) {
     const e = finoRegistro.get( tx + "," + tz );
-    if ( e ) tFermitaj.set( tx + "," + tz, e.sx !== 0 ? [ e.sx, 0 ] : [ 0, e.sz ] );
+    if ( e && !traNodoj.has( tx + "," + tz ) ) tFermitaj.set( tx + "," + tz, e.sx !== 0 ? [ e.sx, 0 ] : [ 0, e.sz ] );
   }
+  // Stacia T-kunigo ( 0,80 ) — la stacia vojo eniras la ringon de la nordo.
+  // La ringo pasas orienten-okcidenten kaj la stacia vojo daŭrigas norden, do
+  // la fermita flanko ( sen vojo ) estas la SUDO. La strio kuŝas sur la suda
+  // bordo-bendo de la ringo ( andezito sur andezito — nevidebla ) kaj la du
+  // anguloj sur la norda flanko — la kruciĝo ricevas la saman unu-surfacan
+  // platon kiel la ceteraj T-kunigoj, sen duobla tavolo kun la ringo.
+  tNodoj.push([ 0, 0o120 ]);
+  tFermitaj.set( "0,80", [ 0, -1 ] );
   for (const [px, pz] of placajNodoj) realajIntersekcoj.delete(px + "," + pz);
   for (const klavo of arkajKlavoj) realajIntersekcoj.delete(klavo);
 
@@ -402,9 +432,14 @@ export async function konstruiUrbon(
   });
 
   // Docka avenuo — ĝia ĉefa akso kongruas kun la urba krada vojo ĉe x=12; ĝi
-  // alvenas al la kajo ĉe (12,-88) kaj kunfandiĝas kun ĝi. La kajo mem
-  // servas la tri dokojn, do neniaj apartaj branĉoj de la avenuo bezonatas.
-  vojDifinoj.push({ pts: [ [ 0o14, -0o44 ], [ 0o14, -0o130 ] ], w: 0o16/0o10 });
+  // daŭrigas la kradan NS-vojon SUDEN de ĝia fino ( 12,-60 ) ĝis la kajo
+  // ( 12,-88 ), kie ĝi kunfandiĝas kun ĝi. La malnova komenco ĉe ( 12,-36 )
+  // interkovris la kradan NS-vojon samplane ( z -60..-36 — la sama vojo
+  // dufoje ) kaj la du tavoloj z-flagris laŭlonge de la tuta peco. La krada
+  // vojo jam kovras la pecon ( 12,-36 )..( 12,-60 ), do la avenuo komenciĝas
+  // nur kie la krada vojo finiĝas. La kajo mem servas la tri dokojn, do
+  // neniaj apartaj branĉoj de la avenuo bezonatas.
+  vojDifinoj.push({ pts: [ [ 0o14, -0o74 ], [ 0o14, -0o130 ] ], w: 0o16/0o10 });
 
   // Arbarvojo — la stacidoma vojo ne kondukas REKTE al la konstruaĵo.
   // anstataŭe ĝi kondukas al KVADRATA vojo ĉirkaŭ la norda nova ekstera domo
@@ -412,30 +447,38 @@ export async function konstruiUrbon(
   // (la urba sprono finiĝas ĉe ĝia suda pordo ĉe z=60). La suda flanko de la
   // kvadrato estas la ekzistanta kradvojo ĉe z=60; la orienta/okcidenta
   // flankoj plilongiĝas la kradvojojn ĉe x=±12; la norda flanko estas nova
-  // EW-vojo ĉe z=84. De la norda flanko la stacidoma vojo rampas sur la
-  // lanĉ-apronon ĝis la stacia pordo (z=92). La vojo-supro sekvus la terenon
-  // +0o2/0o10 kaj enpuŝus ĝis 0o3/0o20 SUPER la apron-supron (h0 + 0o1/0o20), do ĝi
-  // ricevas propran altan funkcion kiu rampas malsupren al la aprona nivelo
-  // dum la lastaj ~2 unuoj (z 88..90). Sur la aprono la vojo kuŝas ĝuste sur
-  // la supro — la voja polygonOffset gajnas la koincidajn facojn kontraŭ la
-  // aprono, kaj ĝi pasas 0o1/0o100 SUB la orajn bendojn (ĝia supro je h0 + 0o4/0o100,
-  // la bendoj je h0 + 0o5/0o100) — neniu z-flagrado, kaj ĝi atingas la pordon ĉe
-  // la muro.
-  const stacioH0 = stacioSxipo ? (stacioSxipo.h0 ?? alteco(0, 0o140)) : alteco(0, 0o140);
+  // EW-vojo ĉe z=80. La norda flanko restas sur la ebena altebenaĵo ( la
+  // tereno falas krute norde de z=80 en la naturan basenon de la stacio — la
+  // malnova z=84 sidis sur la deklivo, la ŝtupaj ŝoseoj leviĝis super la
+  // arkajn angulojn kaj kovris ilin ). De la norda flanko la stacidoma vojo
+  // rampas sur la lanĉ-apronon ĝis la stacia pordo (z=96). La vojo-supro
+  // sekvus la terenon +0o2/0o10 kaj enpuŝus ĝis 0o3/0o20 SUPER la apron-supron
+  // (h0 + 0o1/0o20), do ĝi ricevas propran altan funkcion kiu rampas malsupren
+  // al la aprona nivelo dum la lastaj ~2 unuoj (z 94..96 — la sama fino kiel
+  // la alireja koridoro, do la vojo neniam enfosas en la terenon dum la
+  // malsupreno). Sur la aprono la vojo kuŝas ĝuste sur la supro — la voja
+  // polygonOffset gajnas la koincidajn facojn kontraŭ la aprono, kaj ĝi pasas
+  // 0o1/0o100 SUB la orajn bendojn (ĝia supro je h0 + 0o4/0o100, la bendoj je
+  // h0 + 0o5/0o100) — neniu z-flagrado, kaj ĝi atingas la pordon ĉe la muro.
+  const stacioH0 = stacioSxipo ? (stacioSxipo.h0 ?? alteco(0, 0o144)) : alteco(0, 0o144);
   const apronaNivelo = stacioH0 + 0o1/0o20 - 0o2/0o10;
   const arbarvojaAlteco = (x: number, z: number): number => {
-    const t = glataPaso(0o130, 0o132, z);
+    const t = glataPaso(0o136, 0o140, z);
     return alteco(x, z) * (1 - t) + apronaNivelo * t;
   };
   // Kvadrata ringo ĉirkaŭ la baranta domo (0,3). Orienta/okcidenta flankoj
-  // (x=±12, z 60..84) kaj norda flanko (z=84, x ±12). La suda flanko estas la
+  // (x=±12, z 60..80) kaj norda flanko (z=80, x ±12). La suda flanko estas la
   // ekzistanta kradvojo ĉe z=60.
-  vojDifinoj.push({ pts: [ [ 0o14, 0o74 ], [ 0o14, 0o124 ] ], w: 0o16/0o10 });
-  vojDifinoj.push({ pts: [ [ -0o14, 0o74 ], [ -0o14, 0o124 ] ], w: 0o16/0o10 });
-  vojDifinoj.push({ pts: [ [ -0o14, 0o124 ], [ 0o14, 0o124 ] ], w: 0o16/0o10 });
-  // (0,84) = norda flanko de la kvadrato; (0,92) = stacia pordo.
+  vojDifinoj.push({ pts: [ [ 0o14, 0o74 ], [ 0o14, 0o120 ] ], w: 0o16/0o10 });
+  vojDifinoj.push({ pts: [ [ -0o14, 0o74 ], [ -0o14, 0o120 ] ], w: 0o16/0o10 });
+  vojDifinoj.push({ pts: [ [ -0o14, 0o120 ], [ 0o14, 0o120 ] ], w: 0o16/0o10 });
+  // (0,80) = norda flanko de la kvadrato; (0,96) = stacia pordo. La punktoj
+  // sidas je du-unuaj paŝoj — la basena deklivo estas kruta, kaj la kvar-
+  // unuaj ŝtupoj levitaj ĉe siaj centroj kreis fendegojn en la vojo. La
+  // alireja koridoro en tereno.ts glatigas la terenon sub la vojo, do la
+  // du-unuaj ŝtupoj farigas normala ŝtuparo anstataŭ rompita ŝoseo.
   vojDifinoj.push({
-    pts: [ [ 0, 0o124 ], [ 0, 0o130 ], [ 0, 0o132 ], [ 0, 0o134 ] ],
+    pts: [ [ 0, 0o120 ], [ 0, 0o122 ], [ 0, 0o124 ], [ 0, 0o126 ], [ 0, 0o130 ], [ 0, 0o132 ], [ 0, 0o134 ], [ 0, 0o136 ], [ 0, 0o140 ] ],
     w: 0o16/0o10,
     heightFn: arbarvojaAlteco
   });
@@ -449,13 +492,17 @@ export async function konstruiUrbon(
   // la fermita kvara flanko. La nodoj restas nur por la lampoj.
   placajNodoj.push([ -0o124, -0o140 ]);
   placajNodoj.push([ 0o124, -0o122 ]);
+  // Stacia T-kunigo ( 0,80 ) — kie la stacia vojo eniras la ringon. La nodo
+  // ricevas la saman kvar-lampan ŝablonon kiel la ceteraj T-kunigoj.
+  placajNodoj.push([ 0, 0o120 ]);
   // La dokaj landrandoj — kie la kajo renkontas ĉiun platformon, la rando-nodo
   // markas la enirejon ( lampoj ).
   for ( const [ dx, dz ] of dockaLandaRando ) placajNodoj.push([ dx, dz ]);
   // Stacidoma ringo — la nordaj anguloj ( la sudaj estas kradaj kruciĝoj )
   // estas L-korneroj kaj ricevas rondigitajn arkojn kiel la kradaj anguloj.
-  arkajNodoj.push({ x: 0o14, z: 0o124, sx: 1, sz: 1 });
-  arkajNodoj.push({ x: -0o14, z: 0o124, sx: -1, sz: 1 });
+  // Ili sidas ĉe z=80 sur la ebena altebenaĵo, ne ĉe la basena deklivo.
+  arkajNodoj.push({ x: 0o14, z: 0o120, sx: 1, sz: 1 });
+  arkajNodoj.push({ x: -0o14, z: 0o120, sx: -1, sz: 1 });
 
   // Voja duon-larĝo — la segmenta larĝo estas 0o16/0o10, do ĝia duon-larĝo estas 0o7/0o10.
   function vojDuonLargho(_g: number): number {
@@ -672,7 +719,7 @@ export async function konstruiUrbon(
   await raporti();
 
   // ⟪ Vegetajxo 📃 ⟫
-  const ekskluziviRiveron = (x: number, z: number) => Math.abs(z - riveroZ(x)) < 7 || cxuEnLago(x, z) || cxuEnNordorientaRivero(x, z);
+  const ekskluziviRiveron = (x: number, z: number) => Math.abs(z - riveroZ(x)) < 7 || cxuEnLago(x, z) || cxuEnNordorientaRivero(x, z) || skulptitaAkvo(x, z);
   const ekskluziviVojojn = (x: number, z: number, m: number) => {
     // Krada sercxo anstataux la lineara skanado de cxuj vojspecimenoj.
     const r = Math.ceil(m / VOJA_ĈELO) + 1;
@@ -975,7 +1022,7 @@ export async function konstruiUrbon(
 
   return {
     konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj, konstruGrupoj,
-    vojSpecimenoj, placajNodoj,    riverData, riveroNordOrienta, lago, bestoj, petreloj, lampSistemo,
+    vojSpecimenoj, placajNodoj,    riverData, riveroNordOrienta, lago, skulptaAkvo, bestoj, petreloj, lampSistemo,
     nebuloj, kanuoj, npcoj, internaSistemo, xipo, vojDifinoj, vojDuonLargho,
     NPCLOKOJ, VESTA_LISTO,
   };
