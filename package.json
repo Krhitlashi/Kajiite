@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node servilo/ekigo.mjs",
+    "retilo": "node servilo/servilo.js",
     "konservilo": "node servilo/konservilo.mjs",
     "build": "npx tsgo --noEmit && vite build",
     "preview": "vite preview",

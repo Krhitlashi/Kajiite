@@ -208,7 +208,108 @@ function kreiRondanDiamanton( radiuso: number, dikeco: number ): THREE.ExtrudeGe
 // disko-regionon ( la centra bendo estas 0o7/0o10 duon-larĝa, la disko estas
 // cirklo de la sama radiuso — plene ene ), kaj la pasanta andezita bordo
 // donas la bordon sur la fermita kvara flanko. Neniu ĉapo bezonatas; la
-// rando-nodoj restas nur por la lampoj ( placajNodoj en urbo.ts ).
+// rando-nodoj restas nur por la lampoj ( placajNodoj en urbo.ts ). Nur la
+// doka bordo ( la kajo-finoj kaj la dokaj landrandoj ) ricevas novajn
+// kapojn — tiuj nodoj havas nek arkon nek platon, kaj la polygonOffset-
+// hierarkio en konstruiRondajnKapojn apartigas ilin de la vojoj.
+
+// kreiDuonrondanFormon — Duoncirkla formo ( la ĉapa duondisko aŭ duonringo )
+// en la duon-ebeno de la MUNDA direkto ( dx, dz ): la rekta flanko pasas tra
+// la origino perpendikulare al la direkto, kaj la arko elstaras en la
+// direkto. La sama orientiĝo kiel la aliaj vojoj ( ExtrudeGeometry +
+// rotateX -90° ): la formo sidas en la XZ-ebeno, la ekstrudo kreskas supren
+// per la voja dikeco, kaj la videbla supro sidas ĉe la pozicio + dikeco kun
+// la muroj pendantaj sub ĝi. La truo ( duonringo ) estas 0o1/0o100 ENIGITA
+// al la arko, por ke ĝia rekta flanko ne kuŝu sur la ekstera rekta flanko
+// ( Earcut alie ne tranĉus la truon — la koincidaj rektoj malsukcesigis la
+// ponton ).
+function kreiDuonrondanFormon( internaRadiuso: number, eksteraRadiuso: number, dx: number, dz: number ): THREE.Shape {
+  const paŝoj = 0o40;
+  const aMezo = Math.atan2( dz, dx );
+  const punkto = ( radiuso: number, ang: number ): [ number, number ] =>
+    [ radiuso * Math.cos( ang ), -radiuso * Math.sin( ang ) ];
+  const formo = new THREE.Shape();
+  const eksteraj: [ number, number ][] = [];
+  for ( let i = paŝoj; i >= 0; i-- ) {
+    eksteraj.push( punkto( eksteraRadiuso, aMezo + Math.PI / 2 - ( i / paŝoj ) * Math.PI ) );
+  }
+  formo.moveTo( eksteraj[0][0], eksteraj[0][1] );
+  for ( let i = 1; i < eksteraj.length; i++ ) formo.lineTo( eksteraj[i][0], eksteraj[i][1] );
+  formo.closePath();
+  if ( internaRadiuso > 0 ) {
+    const enu = 0o1/0o100;
+    const truo = new THREE.Path();
+    const internaj: [ number, number ][] = [];
+    for ( let i = 0; i <= paŝoj; i++ ) {
+      internaj.push( punkto( internaRadiuso, aMezo - Math.PI / 2 + ( i / paŝoj ) * Math.PI ) );
+    }
+    for ( const p of internaj ) { p[0] += enu * dx; p[1] -= enu * dz; }
+    truo.moveTo( internaj[0][0], internaj[0][1] );
+    for ( let i = 1; i < internaj.length; i++ ) truo.lineTo( internaj[i][0], internaj[i][1] );
+    truo.closePath();
+    formo.holes.push( truo );
+  }
+  return formo;
+}
+
+// kreiRondanKapGeometrion — Ekstrudita DUONCIRKLO ( duondisko aŭ duonringo )
+// por la ĉapoj ĉe la doka bordo, elstaranta en la monda direkto ( dx, dz ).
+function kreiRondanKapGeometrion( internaRadiuso: number, eksteraRadiuso: number, dikeco: number, dx: number, dz: number ): THREE.ExtrudeGeometry {
+  const geometrio = new THREE.ExtrudeGeometry( kreiDuonrondanFormon( internaRadiuso, eksteraRadiuso, dx, dz ), { depth: dikeco, bevelEnabled: false, curveSegments: 0o40 } );
+  geometrio.rotateX( -Math.PI / 2 );
+  return geometrio;
+}
+
+// konstruiRondajnKapojn — DUONCIRKLAJ ĉapoj ĉe la donitaj vojo-finoj de la
+// doka bordo, elstarantaj en la direkto kiu daŭrigas la vojon: la du
+// kajo-finoj ( okcidente en la arbaro, oriente sur la seka bordo ) bulas
+// preter la fino, kaj la tri dokaj landrandoj bulas SUDEN sur la platformon
+// ( la doko estas voja etendo, do la ĉapo rondigas la transiron ). La disko
+// ( 0o7/0o10 = la diorita centro ) kaj la ringo ( 0o7/0o10..0o13/0o10 = la
+// andezita bordo ) estas EKSTRUDITAJ per la sama dikeco kiel la voja strio
+// ( 0o2/0o10 ) kaj poziciitaj ĉe la terena nivelo: la videbla supro sidas
+// ĉe la voja supro-nivelo ( tereno + 0o2/0o10 ) kaj la 0o2/0o10-altaj muroj
+// pendas de ĝi ĝis la tereno — ĝuste kiel la vojoj, do la ĉapoj montras
+// verajn 3D-flankajn murojn, ne plu platajn 2D-diskojn kaj -ringojn. Kie la
+// ĉapoj interkovras la vojon, la polygonOffset-hierarkio decidas la
+// koincidajn facojn: la disko ( -4/-2, la sama kiel la spronoj ) gajnas
+// super la voja centro ( -2/-1 ), kaj la ringo ( -1/-1 ) malgajnas kontraŭ
+// la vojo kaj la disko — la andezita ringo montriĝas nur preter la voja
+// rando, kiel la rondigita bordo de la ĉapo.
+//     @param sceno ( Scene ) - La sceno.
+//     @param nodoj ( [ number, number ][] ) - La vojo-finoj.
+//     @param direktoj ( [ number, number ][] ) - La elstara direkto de ĉiu
+//         ĉapo ( normaligita aŭ ne ) — paralela al la voja daŭrigo.
+//     @param heightFn ( ( x, z ) => number ) - La terena alteco.
+//     @param dioritaMaterialo ( MeshStandardMaterial ) - La baza diorita materialo.
+//     @param andezitaMaterialo ( MeshStandardMaterial ) - La baza andezita materialo.
+//     @returns nenio
+export function konstruiRondajnKapojn( sceno: THREE.Scene,
+  nodoj: [ number, number ][],
+  direktoj: [ number, number ][],
+  heightFn: ( x: number, z: number ) => number,
+  dioritaMaterialo: THREE.MeshStandardMaterial,
+  andezitaMaterialo: THREE.MeshStandardMaterial
+): void {
+  if ( nodoj.length === 0 ) return;
+  const dikeco = 0o2/0o10;
+  // La disko uzas la saman pli altan offseton kiel la spronoj ( -4/-2 kontraux
+  // la striaj -2/-1 ) — la koincidaj facoj kun la voja supro gajnas determinite.
+  const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn( dioritaMaterialo, andezitaMaterialo, -4, -2, -1, -1 );
+  for ( let i = 0; i < nodoj.length; i++ ) {
+    const [ x, z ] = nodoj[i];
+    const [ dx, dz ] = direktoj[i];
+    const y = heightFn( x, z );
+    const ringo = new THREE.Mesh(kreiRondanKapGeometrion(0o7/0o10, 0o13/0o10, dikeco, dx, dz), bordaMaterialo);
+    ringo.position.set(x, y, z);
+    ringo.receiveShadow = true;
+    sceno.add(ringo);
+    const disko = new THREE.Mesh(kreiRondanKapGeometrion(0, 0o7/0o10, dikeco, dx, dz), supraMaterialo);
+    disko.position.set(x, y, z);
+    disko.receiveShadow = true;
+    sceno.add(disko);
+  }
+}
 
 // konstruiPeriferiajnPlatformojn — Rondigitaj diamantaj platformoj ĉe la arbara rando.
 export function konstruiPeriferiajnPlatformojn(

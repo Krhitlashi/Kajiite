@@ -254,7 +254,7 @@ function kreiOndanAkvanMaterialon( maskita = false ): THREE.ShaderMaterial {
   const maskaVertico = maskita ? "attribute float aAkvo;\nvarying float vAkvo;\n" : "";
   const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
   const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
-  const maskaKodo = maskita ? "if ( vAkvo < 0o1/0o2 ) discard;\n" : "";
+  const maskaKodo = maskita ? "if ( vAkvo < 0.5 ) discard;\n" : "";
   return new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     transparent: true,

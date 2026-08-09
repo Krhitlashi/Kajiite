@@ -1,9 +1,10 @@
 // Scena — bildilo, sceno, fotilo, ĉielo, lumoj, materialoj, montoj, grundo, vetero
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { alteco } from "./tereno.js";
+import { alteco, akvaNivelo } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
+import { kreiTerenanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
 
 export function montriEraronon(sxargxaEl: HTMLElement): void {
   const d = document.createElement("div");
@@ -643,6 +644,24 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     }
   })();
 
+  // bruo2D — izotropa valora bruo ( hash-bazita, glate interpolita ) en [0,1].
+  // La antaŭa du-oktava SIN-bruo havis ondofrontojn laŭ la diagonaloj — sur la
+  // plata natura tereno ĝi montris videblajn DIAGONALAJN STRIOJN, precipe en la
+  // mapo. Ĉi tiu bruo havas neniun preferatan direkton — natura makuleco.
+  function bruo2D(x: number, z: number): number {
+    const ix = Math.floor(x), iz = Math.floor(z);
+    const fx = x - ix, fz = z - iz;
+    const h = (xi: number, zi: number): number => {
+      let n = (xi * 0x25f1f1 + zi * 0x27d4eb) | 0;
+      n = (n ^ (n >>> 13)) * 0x4b9e25;
+      return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
+    };
+    const a = h(ix, iz), b = h(ix + 1, iz), c = h(ix, iz + 1), d = h(ix + 1, iz + 1);
+    const u = fx * fx * (3 - 2 * fx);
+    const v = fz * fz * (3 - 2 * fz);
+    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+  }
+
   // Grundo
   (function konstruiTerenon(grandeco: number, segmentoj: number): void {
     const g = new THREE.PlaneGeometry(grandeco, grandeco, segmentoj, segmentoj);
@@ -693,11 +712,12 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const deklivo = ( cxelo > 0 && cxelo < sx - 1 && i >= sx && i < pozicio.count - sx )
         ? Math.hypot( hoj[i + 1] - hoj[i - 1], hoj[i + sx] - hoj[i - sx] ) / ( 2 * pasxo )
         : 0;
-      // Du-oktava sin-bruo — pli riĉa, natura vario ol unu-oktava. La faktoro
-      // restas en [0,1] ( la lerp alie eksterpoliĝus preter la paletraj finoj ).
+      // Du-oktava IZOTROPA valora bruo — natura makuleco sen direkto ( la
+      // antaŭa sin-bruo montris diagonalajn striojn sur la plata tereno ).
+      // Milda amplitudo — la makuleco restas subtila, ne bendoj.
       const t = Math.max( 0, Math.min( 1,
-        0o45/0o100 + 0o35/0o100 * Math.sin(x * 0o1/0o10 + z * 0o13/0o100 + 0o20/0o10)
-        + 0o15/0o100 * Math.sin(x * 0o37/0o100 + z * 0o41/0o100 - 0o11/0o10) ) );
+        0o4/0o10 + 0o2/0o10 * ( 2 * bruo2D( x / 0o60, z / 0o60 ) - 1 )
+        + 0o4/0o100 * ( 2 * bruo2D( x / 0o14, z / 0o14 ) - 1 ) ) );
       c.copy(a).lerp(b, t);
       if ( h < -2 ) c.lerp(lito, Math.min(1, ( h + 2 ) / -3));
       if ( h < -5 ) c.lerp(profunda, Math.min(1, ( h + 5 ) / -0o115/0o100));
@@ -717,9 +737,46 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     }
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     g.computeVertexNormals();
-    const ground = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0o7/0o10 }));
+    const ground = new THREE.Mesh(g, new THREE.MeshStandardMaterial({
+      vertexColors: true, roughness: 0o7/0o10,
+    }));
     ground.receiveShadow = true;
     sceno.add(ground);
+
+    // Grundaj brosxoj — kelkaj malgrandaj, elektitaj makuloj kun herberaj
+    // markoj. La teksturo ne estas mapaĵo de la tuta tereno kaj ne ripetiĝas
+    // kiel kahelo; ĉiu brosxo ricevas propran lokan grandecon kaj formon.
+    const brosxaTeksajxo = kreiTerenanTeksajxon();
+    const brosxaMaterialo = new THREE.MeshStandardMaterial({
+      map: brosxaTeksajxo, color: 0xffffff, transparent: true,
+      alphaTest: 0o1/0o10, depthWrite: false, side: THREE.DoubleSide, roughness: 1,
+    });
+    const brosxoj = new THREE.Group();
+    const brosxaNombro = 0o30;
+    for ( let i = 0; i < brosxaNombro; i++ ) {
+      const bruo = bruo2D( i * 0o7/0o10, i * 0o11/0o10 );
+      const angulo = i * 2.399963 + bruo * 0o1/0o2;
+      const disto = 0o30 + bruo2D( i * 0o13/0o10, i * 0o17/0o10 ) * 0o300;
+      const x = Math.cos( angulo ) * disto;
+      const z = Math.sin( angulo ) * disto;
+      const centroY = alteco( x, z );
+      // La elektitaj brosxoj restu sur seka tero, ne sub la akvo.
+      if ( centroY < akvaNivelo( x, z ) + 0o1/0o10 ) continue;
+      const radiuso = 0o2 + bruo2D( x / 0o20, z / 0o20 ) * 0o5;
+      const brosxaGeometrio = new THREE.CircleGeometry( radiuso, 0o10 );
+      brosxaGeometrio.rotateX( -Math.PI / 2 );
+      const pp = brosxaGeometrio.attributes.position;
+      for ( let j = 0; j < pp.count; j++ ) {
+        const dx = pp.getX( j ), dz = pp.getZ( j );
+        pp.setY( j, alteco( x + dx, z + dz ) - centroY + 0o1/0o100 );
+      }
+      brosxaGeometrio.computeVertexNormals();
+      const brosxo = new THREE.Mesh( brosxaGeometrio, brosxaMaterialo );
+      brosxo.position.set( x, centroY, z );
+      brosxo.rotation.y = bruo * Math.PI * 2;
+      brosxoj.add( brosxo );
+    }
+    sceno.add( brosxoj );
   })(0o1130, 0o260);
 
   return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron };

@@ -2,6 +2,7 @@
 // Malalt-poligonaj figuroj kun tavoligitaj vestoj, foliaj manikoj, kvarstelo/rombo-motivoj
 import * as THREE from "three";
 import { deksesuma, kvarStelo, rombo, HARSTILOJ } from "../vestaro/vestoj.js";
+import { kreiRondigitanRektangulanFormon } from "../komunajxoj/formoj.js";
 import type { Vesto, Harstilo } from "../vestaro/vestoj.js";
 
 export type { Vesto };
@@ -196,18 +197,11 @@ function kreiRobanSxelon(suproR: number, malsuproR: number, alto: number, levo: 
 //     @param radio ( number ) - Radio de la rondaj anguloj.
 //     @returns geometrio ( THREE.BufferGeometry ) - La ronda kesto, centrita.
 function kreiRondanKeston(largho: number, alto: number, profundo: number, radio: number): THREE.BufferGeometry {
-  const formo = new THREE.Shape();
-  const duonLargho = largho / 0o2, duonProfundo = profundo / 0o2, r = Math.min( radio, duonLargho, duonProfundo );
-  formo.moveTo( duonLargho - r, duonProfundo );
-  formo.lineTo( -duonLargho + r, duonProfundo );
-  formo.quadraticCurveTo( -duonLargho, duonProfundo, -duonLargho, duonProfundo - r );
-  formo.lineTo( -duonLargho, -duonProfundo + r );
-  formo.quadraticCurveTo( -duonLargho, -duonProfundo, -duonLargho + r, -duonProfundo );
-  formo.lineTo( duonLargho - r, -duonProfundo );
-  formo.quadraticCurveTo( duonLargho, -duonProfundo, duonLargho, -duonProfundo + r );
-  formo.lineTo( duonLargho, duonProfundo - r );
-  formo.quadraticCurveTo( duonLargho, duonProfundo, duonLargho - r, duonProfundo );
-  const geometrio = new THREE.ExtrudeGeometry( formo, { depth: alto, bevelEnabled: false, curveSegments: 0o4 } );
+  const r = Math.min( radio, largho / 0o2, profundo / 0o2 );
+  // La sama mondvasta rondigita rektangulo kiel la vojoj kaj la apronoj
+  // ( kreiRondigitanRektangulanFormon ), kun rekta vertikala ekstrudo.
+  const geometrio = new THREE.ExtrudeGeometry( kreiRondigitanRektangulanFormon( largho, profundo, r ),
+    { depth: alto, bevelEnabled: false, curveSegments: 0o4 } );
   // La ekstrudo iras laŭ +z; turnu por ke ĝi staru laŭ y, kun la bazo ĉe la origino.
   geometrio.rotateX( -Math.PI / 0o2 );
   geometrio.translate( 0, -alto / 0o2, 0 );

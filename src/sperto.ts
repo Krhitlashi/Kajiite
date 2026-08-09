@@ -1446,8 +1446,10 @@ function bakiMapon(): HTMLCanvasElement | null {
 // Desegnu la bakitan tavolon por vido centrita je ( cx, cz ) kun duon-larĝoj ( hw, hh ).
 function desegniMapanTavolon(ctx: CanvasRenderingContext2D, fonto: HTMLCanvasElement, cx: number, cz: number, hw: number, hh: number, w: number, h: number): void {
   const rez = MAPA_BAKA_REZ, duono = MAPA_BAKA_DUONO;
-  // La fonto havas nordon supre ( +z → malgranda y ) kaj orienton dekstren ( +x ).
-  const sx = (cx - hw + duono) / (2 * duono) * rez;
+  // La fonto havas nordon supre ( +z → malgranda y ) kaj orienton dekstren ( -x );
+  // la okcidento ( +x ) estas maldekstre. Do la fonta x kreskas orienten — la
+  // okcidenta rando de la vido ( cx + hw ) estas la plej malgranda fonta x.
+  const sx = (duono - (cx + hw)) / (2 * duono) * rez;
   const sy = (duono - (cz + hh)) / (2 * duono) * rez;
   const sw = (2 * hw) / (2 * duono) * rez;
   const sh = (2 * hh) / (2 * duono) * rez;
@@ -1456,11 +1458,17 @@ function desegniMapanTavolon(ctx: CanvasRenderingContext2D, fonto: HTMLCanvasEle
 
 // La ora markilo — sago turnita laŭ la rigarda direkto.
 function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
-  const px = (mapX - (cx - hw)) / (2 * hw) * w;
+  // La mapo havas orienton dekstren ( -x ) kaj nordon supren ( +z ), do la
+  // okcidenta rando de la vido ( cx + hw ) estas la maldekstra ekrano.
+  const px = ((cx + hw) - mapX) / (2 * hw) * w;
   const py = ((cz + hh) - mapZ) / (2 * hh) * h;
   const fx = rezimo === "walk" ? -Math.sin(direkto) : regiloj.target.x - fotilo.position.x;
   const fz = rezimo === "walk" ? -Math.cos(direkto) : regiloj.target.z - fotilo.position.z;
-  const ang = Math.atan2(-fz, fx) + Math.PI / 2;
+  // La sago indiku la rigardan direkton sur la norda mapo: oriento ( -x ) estas
+  // dekstren kaj nordo ( +z ) supren, do la ekrana direkto estas ( -fx, -fz ).
+  // La sago mem montras supren je angulo 0 ( la canvas-rotacio turnas ĝin
+  // horloĝdirekte ), do la rotacio estas atan2( -fx, fz ).
+  const ang = Math.atan2(-fx, fz);
   ctx.save();
   ctx.translate(px, py);
   ctx.rotate(ang);
@@ -1475,7 +1483,8 @@ function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx
 // Kanuoj kaj NPC-oj kiel malgrandaj punktoj sur la mapo.
 function desegniMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
   const punkto = (x: number, z: number, koloro: string) => {
-    const px = (x - (cx - hw)) / (2 * hw) * w;
+    // La sama orientiĝo kiel la markilo: oriento dekstren, nordo supren.
+    const px = ((cx + hw) - x) / (2 * hw) * w;
     const py = ((cz + hh) - z) / (2 * hh) * h;
     if (px < -3 || px > w + 3 || py < -3 || py > h + 3) return;
     ctx.fillStyle = koloro;
@@ -1557,10 +1566,20 @@ function malfermiMapon(): void {
     // zomo, por ke la mapo ne perdiĝu tute.
     // Tiri la mapon kiel paperon. Tiri orienten ( +dx ) movu la vidon okcidenten,
     // por ke la enhavo sekvu la fingron ( la Z-akso jam sekvas la fingron ).
+    // La vido restas EN la bakita mapo: la randoj de la vido ( cx ± hw ) ne
+    // transiru la mapajn randojn ( ±MAPA_BAKA_DUONO ). Kiam la vido estas pli
+    // larĝa ol la mapo ( malproksima zomo sur larĝa ekrano ), la vido simple
+    // restas centrita — ne eblas forgliti la mapon de la ekrano.
     const tiriPans = (dx: number, dy: number) => {
       const pp = (2 * plenaDuono) / (kanvasa.clientHeight || innerHeight);
-      mapaPanX = Math.max(-MAXA_DUONO, Math.min(MAXA_DUONO, mapaPanX - dx * pp));
-      mapaPanZ = Math.max(-MAXA_DUONO, Math.min(MAXA_DUONO, mapaPanZ + dy * pp));
+      const aspekto = (kanvasa.clientWidth || innerWidth) / (kanvasa.clientHeight || innerHeight);
+      const hw = plenaDuono * aspekto, hh = plenaDuono;
+      const lim = (centro: number, duono: number) => {
+        const min = -MAPA_BAKA_DUONO + duono, max = MAPA_BAKA_DUONO - duono;
+        return min > max ? 0 : Math.max(min, Math.min(max, centro));
+      };
+      mapaPanX = lim(mapX + mapaPanX + dx * pp, hw) - mapX;
+      mapaPanZ = lim(mapZ + mapaPanZ + dy * pp, hh) - mapZ;
     };
     kanvasa.addEventListener("pointerdown", (e) => {
       punktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -2230,8 +2249,11 @@ function animacii() {
   }
 
   // Kompaso / minimapo — la nadlo indikas la rigardan direkton sur la norda mapo.
-  const fotilaDirekto = rezimo === "walk" ? direkto : -Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
-  (nadlo as HTMLElement).style.transform = `rotate(${fotilaDirekto + Math.PI}rad)`;
+  // La sama konvertaĵo kiel la markila sago ( atan2( -fx, fz ) ): oriento dekstren,
+  // nordo supren. En orbito la rigardo estas de la fotilo al la celo, do ( fx, fz ).
+  const fx = rezimo === "walk" ? -Math.sin(direkto) : regiloj.target.x - fotilo.position.x;
+  const fz = rezimo === "walk" ? -Math.cos(direkto) : regiloj.target.z - fotilo.position.z;
+  (nadlo as HTMLElement).style.transform = `rotate(${Math.atan2(-fx, fz)}rad)`;
   // La mapo sekvu la vidpunkton. En promeno/interno la ludanto, en orbito la
   // fotila celo — alie la radaro restus fiksita ĉe la elirloko en orbito.
   mapX = rezimo === "orbit" ? regiloj.target.x : ludantaPozicio.x;
