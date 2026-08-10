@@ -1,12 +1,12 @@
 // ≺⧼ Konserva servilo 💾 ⧽≻
-// Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo.html ): gxi
+// Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo.html ). gxi
 // ricevas la generitan dosier-tekston per POST kaj skribas gxin REKTE al
 // src/tero-datumo.ts en la projekto. La skulptilo montras la butonon
 // „Savi rekte al src/ ✍️“ kiam cxi tiu servilo kuras — la savo tiam ne
 // bezonas la dosier-elektilon nek elSxuton.
 //
-// Kuru:   npm run konservilo        ( au: node servilo/konservilo.mjs )
-// POST al http://127.0.0.1:4173/   korpo = la plena teksto de tero-datumo.ts
+// Kuru.   npm run konservilo        ( au. node servilo/konservilo.mjs )
+// POST al http://127.0.0.1.4173/   korpo = la plena teksto de tero-datumo.ts
 import { createServer } from "http";
 import { writeFile, mkdir } from "fs/promises";
 import { join, dirname } from "path";
@@ -19,7 +19,7 @@ const PORD = 0o10115;                                // 4173
 const RADIKO = fileURLToPath(new URL("..", import.meta.url));
 const CELO = join(RADIKO, "src", "tero-datumo.ts");
 
-// CORS — la skulptilo kuras en Vite ( localhost:5173 ) kaj postulas la
+// CORS — la skulptilo kuras en Vite ( localhost.5173 ) kaj postulas la
 // alian originon. Loka ilo — la permeso estas larĝa sen risko.
 const CORS = {
   "Access-Control-Allow-Origin": "*",

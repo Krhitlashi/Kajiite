@@ -19,7 +19,7 @@ import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
 // mulberry — La norma mulberry32-pliigo ( 0x6D2B79F5 ), por ke la kantoj
 // konservu siajn ekzaktajn notajn sekvencojn.
 export function mulberry(seed: number) {
-  return kreiHazardanGenerilon( seed );
+  return kreiHazardanGenerilon(seed);
 }
 
 // ─── Noise buffer cache ──────────────────────────────────

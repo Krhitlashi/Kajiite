@@ -124,15 +124,15 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   // ekstera ĉemizo
   kunteksto.fillStyle = M;
   kunteksto.beginPath();
-  kunteksto.moveTo(0o62, 0o62); kunteksto.lineTo(0o126, 0o62);
-  kunteksto.lineTo(0o140, 0o170); kunteksto.lineTo(0o50, 0o170);
+  kunteksto.moveTo(0o60, 0o60); kunteksto.lineTo(0o126, 0o60);
+  kunteksto.lineTo(0o140, 0o200); kunteksto.lineTo(0o40, 0o200);
   kunteksto.closePath();
   kunteksto.fill();
 
   // malsupra robo
   kunteksto.beginPath();
-  kunteksto.moveTo(0o50, 0o156); kunteksto.lineTo(0o140, 0o156);
-  kunteksto.lineTo(0o150, 0o240); kunteksto.lineTo(0o40, 0o240);
+  kunteksto.moveTo(0o40, 0o160); kunteksto.lineTo(0o140, 0o160);
+  kunteksto.lineTo(0o150, 0o230); kunteksto.lineTo(0o40, 0o230);
   kunteksto.closePath();
   kunteksto.globalAlpha = 0o73/0o100;
   kunteksto.fill();
@@ -152,21 +152,21 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   // akcenta plando ĉe la malsupro, kun iomete rondaj anguloj kiel la 3D-ŝuoj.
   // Ĉiu boto spegulas la alian ĉirkaŭ la akso.
   kunteksto.fillStyle = deksesuma(o.botoj);
-  rondaRechto(kunteksto, 0o45, 0o252, 0o16, 0o14, 0o3);   // ŝafto maldekstra
-  rondaRechto(kunteksto, 0o125, 0o252, 0o16, 0o14, 0o3);  // ŝafto dekstra
-  rondaRechto(kunteksto, 0o44, 0o264, 0o20, 0o6, 0o2);    // piedo maldekstra
-  rondaRechto(kunteksto, 0o124, 0o264, 0o20, 0o6, 0o2);   // piedo dekstra
+  rondaRechto(kunteksto, 0o45, 0o250, 0o16, 0o14, 0o3);   // ŝafto maldekstra
+  rondaRechto(kunteksto, 0o130, 0o250, 0o16, 0o14, 0o3);  // ŝafto dekstra
+  rondaRechto(kunteksto, 0o44, 0o260, 0o20, 0o6, 0o2);    // piedo maldekstra
+  rondaRechto(kunteksto, 0o124, 0o260, 0o20, 0o6, 0o2);   // piedo dekstra
   kunteksto.fillStyle = A;
   rondaRechto(kunteksto, 0o40, 0o270, 0o30, 0o4, 0o1);    // plando maldekstra
-  rondaRechto(kunteksto, 0o120, 0o270, 0o30, 0o4, 0o1);   // plando dekstra
+  rondaRechto(kunteksto, 0o110, 0o270, 0o30, 0o4, 0o1);   // plando dekstra
 
   // butona plateto — vertikala akcenta linio laŭ la fronta centro
   kunteksto.fillStyle = A;
-  kunteksto.fillRect(0o101, 0o66, 0o3, 0o104);
-  for ( let i = 0; i < 0o3; i++ ) kunteksto.fillRect(0o102, 0o74 + i * 0o32, 0o3, 0o3);
+  kunteksto.fillRect(0o100, 0o66, 0o3, 0o104);
+  for ( let i = 0; i < 0o3; i++ ) kunteksto.fillRect(0o102, 0o100 + i * 0o32, 0o3, 0o3);
 
   // motivoj
-  kvarStelo(kunteksto, 0o104, 0o124, 0o17, A);
+  kvarStelo(kunteksto, 0o104, 0o124, 0o20, A);
   rombo(kunteksto, 0o66, 0o204, 0o11, 0o15, I, A);
   rombo(kunteksto, 0o122, 0o204, 0o11, 0o15, I, A);
 
@@ -177,13 +177,13 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
     const cx = 0o104 + dir * 0o46;
     const eno = cx - dir * 0o4;
     const ekstero = cx + dir * 0o4;
-    const ySup = 0o74, yOrlo = 0o150;
+    const ySup = 0o100, yOrlo = 0o150;
     kunteksto.fillStyle = M;
     kunteksto.beginPath();
     kunteksto.moveTo(eno, ySup);
     kunteksto.lineTo(eno, yOrlo);
     // du foli-pintoj pendantaj sub la pojno, spegulitaj per dir
-    kunteksto.quadraticCurveTo(eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o5);
+    kunteksto.quadraticCurveTo(eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o4);
     kunteksto.quadraticCurveTo(eno + dir * 0o11, yOrlo + 0o14, ekstero, yOrlo);
     kunteksto.lineTo(ekstero, ySup);
     kunteksto.closePath();
@@ -193,7 +193,7 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
     kunteksto.lineWidth = 0o3;
     kunteksto.beginPath();
     kunteksto.moveTo(eno, yOrlo);
-    kunteksto.quadraticCurveTo(eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o5);
+    kunteksto.quadraticCurveTo(eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o4);
     kunteksto.quadraticCurveTo(eno + dir * 0o11, yOrlo + 0o14, ekstero, yOrlo);
     kunteksto.stroke();
   }
@@ -218,17 +218,17 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
   kunteksto.fillRect(0, 0, 0o210, 0o300);
 
   // Ŝultroj — malhela busto malantaŭ la kapo.
-  kunteksto.fillStyle = "#2a2424";
+  kunteksto.fillStyle = "#282828";
   kunteksto.beginPath();
   kunteksto.moveTo(0o40, 0o300); kunteksto.lineTo(0o150, 0o300);
   kunteksto.lineTo(0o140, 0o130); kunteksto.quadraticCurveTo(0o126, 0o114, 0o104, 0o114);
-  kunteksto.quadraticCurveTo(0o62, 0o114, 0o50, 0o130);
+  kunteksto.quadraticCurveTo(0o60, 0o114, 0o40, 0o130);
   kunteksto.closePath();
   kunteksto.fill();
 
   // Kolo.
   kunteksto.fillStyle = "#605050";
-  kunteksto.fillRect(0o77, 0o102, 0o14, 0o17);
+  kunteksto.fillRect(0o77, 0o102, 0o14, 0o20);
 
   // Kapo.
   kunteksto.beginPath();
@@ -236,7 +236,7 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
   kunteksto.fill();
 
   // La stil-specifa haro — la ĉapo estas desegnata lasta, ĉar ĝi kuŝas super
-  // la kurteno. La du siluetoj estas klare distingeblaj: mallonga domo kaj
+  // la kurteno. La du siluetoj estas klare distingeblaj. mallonga domo kaj
   // longa kurteno.
   kunteksto.fillStyle = H;
   if ( stilo.nomo === "haroLonga" ) {
@@ -247,7 +247,7 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
     kunteksto.lineTo(CX - KAPR - 0o6, 0o136);
     kunteksto.lineTo(CX - KAPR - 0o2, 0o130);
     kunteksto.lineTo(CX - KAPR - 0o6, 0o142);
-    kunteksto.lineTo(CX - 0o3, 0o132);
+    kunteksto.lineTo(CX - 0o3, 0o130);
     kunteksto.lineTo(CX + 0o3, 0o142);
     kunteksto.lineTo(CX + KAPR + 0o6, 0o130);
     kunteksto.lineTo(CX + KAPR + 0o2, 0o136);

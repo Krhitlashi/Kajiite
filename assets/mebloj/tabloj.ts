@@ -6,11 +6,11 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
 
 // La komuna BRUNA ligna koloro por la tabloj — la SAMA por la internaj kaj
 // eksteraj tabloj, por ke la aseto ne drivu duope.
-export const LIGNA_KOLORO = 0x54402e;
+export const LIGNA_KOLORO = 0x584030;
 
 // Komuna ora rando por la tabloj ( defauxlte; la alvokantoj povas anstatauxi
 // gxin per la kadra materialo de la konstruajxo por kongrui al gxia koloro ).
-const oraTablaRando = new THREE.MeshStandardMaterial({ color: 0xd9b36a, metalness: 0o3/0o4, roughness: 0o3/0o10 });
+const oraTablaRando = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o3/0o4, roughness: 0o3/0o10 });
 
 // aldoniTablon — Rondangula ligna tablo kun ora rando sur la supro. La sama
 // restoraci-stila tablo en la domo, la kasafeo kaj la mangxejo — interne kaj
@@ -27,15 +27,15 @@ export function aldoniTablon(
   lignaMaterialo: THREE.MeshStandardMaterial,
   randoMaterialo: THREE.Material = oraTablaRando
 ): void {
-  const tablo = new THREE.Mesh( new RoundedBoxGeometry( largho, 0o3/0o10, profundo, 3, 0o1/0o10 ), lignaMaterialo );
-  tablo.position.set( x, y + 0o2/0o10, z );
+  const tablo = new THREE.Mesh(new RoundedBoxGeometry(largho, 0o3/0o10, profundo, 3, 0o1/0o10), lignaMaterialo);
+  tablo.position.set(x, y + 0o2/0o10, z);
   tablo.castShadow = true;
-  grupo.add( tablo );
-  const rando = new THREE.Mesh( new RoundedBoxGeometry( largho + 0o1/0o20, 0o1/0o20, profundo + 0o1/0o20, 3, 0o1/0o10 ), randoMaterialo );
+  grupo.add(tablo);
+  const rando = new THREE.Mesh(new RoundedBoxGeometry(largho + 0o1/0o20, 0o1/0o20, profundo + 0o1/0o20, 3, 0o1/0o10), randoMaterialo);
   // Rando iomete sub la tablo-supro (0o7/0o20) por eviti z-batalan brilon
-  rando.position.set( x, y + 0o2/0o10 + 0o3/0o20 - 0o1/0o40 - 0o1/0o100, z );
+  rando.position.set(x, y + 0o2/0o10 + 0o3/0o20 - 0o1/0o40 - 0o1/0o100, z);
   rando.castShadow = true;
-  grupo.add( rando );
+  grupo.add(rando);
 }
 
 // aldoniSegxon — Longa rondangula benko rekte sur la planko kun molaj
@@ -55,18 +55,18 @@ export function aldoniSegxon(
   randoMaterialo: THREE.Material = oraTablaRando,
   rotacio = 0
 ): void {
-  const benko = new THREE.Mesh( new RoundedBoxGeometry( 0o12/0o10, 0o3/0o10, 0o4/0o10, 3, 0o1/0o20 ), segxMaterialo );
-  benko.position.set( x, y + 0o3/0o20, z );
+  const benko = new THREE.Mesh(new RoundedBoxGeometry(0o12/0o10, 0o3/0o10, 0o4/0o10, 3, 0o1/0o20), segxMaterialo);
+  benko.position.set(x, y + 0o3/0o20, z);
   benko.rotation.y = rotacio;
   benko.castShadow = true;
-  grupo.add( benko );
+  grupo.add(benko);
   // Rando sur la benko-supro — iomete sub la supro ( 0o1/0o100 libero ) por
   // eviti z-batalan brilon ( kiel la tabla rando ).
-  const rando = new THREE.Mesh( new RoundedBoxGeometry( 0o12/0o10 + 0o1/0o20, 0o1/0o20, 0o4/0o10 + 0o1/0o20, 3, 0o1/0o10 ), randoMaterialo );
-  rando.position.set( x, y + 0o3/0o20 + 0o3/0o20 - 0o1/0o40 - 0o1/0o100, z );
+  const rando = new THREE.Mesh(new RoundedBoxGeometry(0o12/0o10 + 0o1/0o20, 0o1/0o20, 0o4/0o10 + 0o1/0o20, 3, 0o1/0o10), randoMaterialo);
+  rando.position.set(x, y + 0o3/0o20 + 0o3/0o20 - 0o1/0o40 - 0o1/0o100, z);
   rando.rotation.y = rotacio;
   rando.castShadow = true;
-  grupo.add( rando );
+  grupo.add(rando);
 }
 
 // aldoniManĝtablon — Tablo kun la kvar benkoj cxirkaux gxi ( la komuna manĝa
@@ -92,11 +92,11 @@ export function aldoniManĝtablon(
   randoMaterialo: THREE.Material,
   nurTriFlankoj = false
 ): void {
-  aldoniTablon( grupo, x, z, y, 0o16/0o10, 0o12/0o10, lignaMaterialo, randoMaterialo );
+  aldoniTablon(grupo, x, z, y, 0o16/0o10, 0o12/0o10, lignaMaterialo, randoMaterialo);
   const benkajOfsetoj: [ number, number ][] = nurTriFlankoj
     ? [ [ 0o14/0o10, 0 ], [ -0o14/0o10, 0 ], [ 0, 0o12/0o10 ] ]
     : [ [ 0o14/0o10, 0 ], [ -0o14/0o10, 0 ], [ 0, 0o12/0o10 ], [ 0, -0o12/0o10 ] ];
   for ( const [ox, oz] of benkajOfsetoj ) {
-    aldoniSegxon( grupo, x + ox, z + oz, y, lignaMaterialo, randoMaterialo, oz === 0 ? Math.PI / 2 : 0 );
+    aldoniSegxon(grupo, x + ox, z + oz, y, lignaMaterialo, randoMaterialo, oz === 0 ? Math.PI / 2 : 0);
   }
 }

@@ -22,7 +22,7 @@ export function konstruiRiveron(sceno: THREE.Scene,
 
 // konstruiRiveronNordan — Konstruu riveron kiu fluas laŭ z ( norden-suden ),
 // kun x = riverFn(z) — por la nordorienta rivereto, kiu fluas de la monto
-// suden en la lagon. Samstila kiel konstruiRiveron: ribona geometrio, buŝa
+// suden en la lagon. Samstila kiel konstruiRiveron. ribona geometrio, buŝa
 // mallarĝiĝo al punkto ĉe zEnd ( la lagbordo ) kaj realaj profundoj en uv.y.
 export function konstruiRiveronNordan(sceno: THREE.Scene,
   riverFn: (z: number) => number,
@@ -82,11 +82,11 @@ function konstruiRiveronLaŭAkso(sceno: THREE.Scene,
 
   // Realaj profundoj ( vUv.y ) por la tuta ribono — malprofundaj bordoj helaj,
   // profunda kanalo malhela.
-  const pos = geometry.getAttribute( "position" ) as THREE.BufferAttribute;
-  const uv = geometry.getAttribute( "uv" ) as THREE.BufferAttribute;
+  const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
+  const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
   for ( let v = 0; v < pos.count; v++ ) {
-    const t = lauZ ? pos.getZ( v ) : pos.getX( v );
-    uv.setY( v, Math.max( 0, akvoY( t ) - altecoFn( pos.getX( v ), pos.getZ( v ) ) ) );
+    const t = lauZ ? pos.getZ(v) : pos.getX(v);
+    uv.setY(v, Math.max(0, akvoY(t) - altecoFn(pos.getX(v), pos.getZ(v))));
   }
   uv.needsUpdate = true;
 
@@ -131,7 +131,7 @@ export function konstruiLagon(sceno: THREE.Scene,
     for ( let i = 0; i < segmentoj; i++ ) {
       const a = j * ( segmentoj + 1 ) + i, b = a + 1;
       const c = a + segmentoj + 1, d = c + 1;
-      indeksoj.push( a, b, d, a, d, c );
+      indeksoj.push(a, b, d, a, d, c);
     }
   }
   const geometrio = new THREE.BufferGeometry();
@@ -220,35 +220,35 @@ export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
     for ( let i = 0; i <= nx; i++ ) {
       const x = x0 + ( x1 - x0 ) * i / nx;
       const z = z0 + ( z1 - z0 ) * j / nz;
-      const tero = altecoFn( x, z );
-      pozicioj.push( x, nivelo + 0o1/0o20, z );
-      uvoj.push( 0o1/0o2, Math.max( 0, nivelo - tero ) );
+      const tero = altecoFn(x, z);
+      pozicioj.push(x, nivelo + 0o1/0o20, z);
+      uvoj.push(0o1/0o2, Math.max(0, nivelo - tero));
       // Akvo nur kie la masko estas starigita KAJ la tero restas sub la nivelo,
       // por ke levita nivelo ne flosu super la bordo.
-      maskoj.push( maskFn( x, z ) && tero < nivelo - 0o1/0o20 ? 1 : 0 );
+      maskoj.push(maskFn(x, z) && tero < nivelo - 0o1/0o20 ? 1 : 0);
     }
   }
   for ( let j = 0; j < nz; j++ ) {
     for ( let i = 0; i < nx; i++ ) {
       const a = j * ( nx + 1 ) + i, b = a + 1;
       const c = a + nx + 1, d = c + 1;
-      indeksoj.push( a, b, d, a, d, c );
+      indeksoj.push(a, b, d, a, d, c);
     }
   }
   const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute( "position", new THREE.Float32BufferAttribute( pozicioj, 3 ) );
-  geometrio.setAttribute( "uv", new THREE.Float32BufferAttribute( uvoj, 2 ) );
-  geometrio.setAttribute( "aAkvo", new THREE.BufferAttribute( new Float32Array( maskoj ), 1 ) );
-  geometrio.setIndex( indeksoj );
+  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
+  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
+  geometrio.setAttribute("aAkvo", new THREE.BufferAttribute(new Float32Array(maskoj), 1));
+  geometrio.setIndex(indeksoj);
   geometrio.computeVertexNormals();
-  const materialo = kreiOndanAkvanMaterialon( true );
-  const mesh = new THREE.Mesh( geometrio, materialo );
+  const materialo = kreiOndanAkvanMaterialon(true);
+  const mesh = new THREE.Mesh(geometrio, materialo);
   mesh.renderOrder = 0;
-  sceno.add( mesh );
+  sceno.add(mesh);
   return { mesh, waterSurfaceY: (x: number, z: number) => nivelo };
 }
 
-function kreiOndanAkvanMaterialon( maskita = false ): THREE.ShaderMaterial {
+function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
   // La maska varianto ricevas unu ekstra vertica atributon ( aAkvo ) kiu
   // eligas la fragmentojn ekster la pentrita akvo.
   const maskaVertico = maskita ? "attribute float aAkvo;\nvarying float vAkvo;\n" : "";

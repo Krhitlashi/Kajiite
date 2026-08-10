@@ -19,8 +19,7 @@
   "include": [
     "src/**/*.ts",
     "assets/**/*.ts",
-    "types.d.ts",
-    "iloj/testoj/**/*.ts"
+    "types.d.ts"
   ],
   "exclude": [
     "node_modules",

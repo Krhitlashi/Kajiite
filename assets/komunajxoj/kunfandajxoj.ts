@@ -86,7 +86,7 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
 // kunfandiDuGeometriojn ( sen indekso, kun UV-oj ).
 export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geometrioj.length === 0 ) return new THREE.BufferGeometry();
-  return geometrioj.slice(1).reduce( ( rezulto, geometrio ) => kunfandiDuGeometriojn(rezulto, geometrio), geometrioj[0] );
+  return geometrioj.slice(1).reduce(( rezulto, geometrio ) => kunfandiDuGeometriojn(rezulto, geometrio), geometrioj[0]);
 }
 
 // kunfandiKajVeldoiGeometriojn — Kunfandas la partojn en UNU geometrion kaj

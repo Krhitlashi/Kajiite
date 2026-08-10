@@ -4,7 +4,7 @@
 //     @param semo ( number ) - La komenca semo.
 //     @param pliigo ( number ) - La mulberry32-pliigo ( defaŭlte la norma ).
 //     @returns hazardaGenerilo ( funkcio ) - Determinisma generatoro en [ 0, 1 ).
-export function kreiHazardanGenerilon( semo: number, pliigo = 0x6D2B79F5 ): () => number {
+export function kreiHazardanGenerilon(semo: number, pliigo = 0x6D2B79F5): () => number {
   let s = semo >>> 0;
   return () => {
     s = (s + pliigo) | 0;

@@ -6,7 +6,7 @@ import { join, extname, normalize } from "path";
 import { fileURLToPath } from "url";
 import { konektiRetilon } from "./retilo-servilo.js";
 
-const PORD = 0o5670;
+const PORD = 0o5660;
 const PORD_FALLO = 0o5671;
 const RADIKO = fileURLToPath(new URL("..", import.meta.url)); // parent dir (project root)
 const DISTO = join(RADIKO, "dist");
@@ -27,7 +27,7 @@ const sseKlientoj = new Set();
 let reŝargaTempilo = null;
 
 function sciigiSSEKluentojn() {
-  // Malakrigi: se tsc skribas plurajn dosierojn samtempe, sendu nur unu reŝargon
+  // Malakrigi. se tsc skribas plurajn dosierojn samtempe, sendu nur unu reŝargon
   if (reŝargaTempilo) clearTimeout(reŝargaTempilo);
   reŝargaTempilo = setTimeout(() => {
     const pakajxo = "event: reload\ndata: " + Date.now() + "\n\n";

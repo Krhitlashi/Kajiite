@@ -58,7 +58,7 @@ function buildTrack1(): SpuroDateno {
     } else {
       const div = (b === 4) ? 8 : 16;
       for (let k = 0; k < div; k++) add(t0 + k * bar / div, "guiro", 0, 0.045, 0o4/0o10 + 0.4 * k / div);
-      if (b === 5) [ 3, 4, 5, 7 ].forEach((dg, k) => add(t0 + k * e8 * 2, "ocarina", F(S[dg]), e8 * 1.6, 0.6));
+      if (b === 5) [3, 4, 5, 7].forEach((dg, k) => add(t0 + k * e8 * 2, "ocarina", F(S[dg]), e8 * 1.6, 0.6));
     }
   }
 

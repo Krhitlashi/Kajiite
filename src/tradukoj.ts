@@ -58,6 +58,9 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla0Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſ̀ȷᴜ ſɭɔͷ̗ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſᶘᴜ v ſ͔ɭɔ ſןɹ j͑ʃᴜꞇ ⟅",
     "manĝTla1Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ɭʃɹƽ ｡ ſɟɔ ɭl̀ɹ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſᶘᴜ v ſ͔ɭɔ ſןɹ j͑ʃᴜꞇ ⟅",
     "manĝTla2Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſɭᶗ‹ɹ j͐ʃᴜ ŋᷠɹⰱ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſɟɔ ɭl̀ɹ v ֭ſɭᴜ }ʃɔ j͑ʃᴜꞇ ( ſᶘᴜ j͑ʃͷ̗ᴜʞ ꞁȷ̀ᴜꞇ ) ⟅",
+    // Pussxlefo-beroj — la nomo kombinas la ber-vorton kaj la plant-nomon.
+    "manĝPuss0": "ſןꞇƽ j͑ʃɔ ſ̀ȷɔ ı],ͷ̗ɔʞ ſןɹɔ˞ ꞁȷ̀ᴜꞇ",
+    "manĝPuss0Flavor": "ſᶘᴜ j͑ʃᴜꞇ ʌ j͐ʃᴜ ſɟɹ ⟅ ſɭɔ˞ɜƴ ʌ ſɭᴜ j͑ʃᴜ ʌ ı],ꞇͷ̗ ⟅",
     // Konstrua karto-labeletoj el satalaj-konstruaĵoj.ts TIPARO
     "tipDomo": "ſɭᴜ ſןɹ",
     "tipMangxejo": "ſɭᴜ ſ͔ɭɔȝ",
@@ -145,6 +148,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecCetkuo": "ſȷɹʞ ʌ ı],ᴜ ſ̀ȷɔ ⟅",
     "specCakeo": "ſᶘᴜ ſɭɔ",
     "flvSpecCakeo": "ı],ɔ ſɭᴜȝ ʌ }ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ ʌ ı],ᴜ ſ̀ȷɔ ⟅",
+    "specPussxlefo": "ſ̀ȷɔ ı],ͷ̗ɔʞ ſןɹɔ˞ ꞁȷ̀ᴜꞇ",
+    "flvSpecPussxlefo": "ŋᷠɜ ı],ᴜ ſ̀ȷɔ j͑ʃᴜꞇ j͑ʃ ʌ ı],ɔ ſɭᴜȝ ʌ ı],ᴜ ʃꞇ ʌ j͑ʃп́ɔ ſןᴜ j͐ʃэ ʌ ſ̀ȷɔ ı],ͷ̗ɔʞ ʌ ꞁȷ̀ɹ ſןꞇƽ ⟅",
     "ariaTrako0": "j͑ʃw ſɭʞɹȝ ı ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
     "ariaTrako1": "j͑ʃw ſɭʞɹȝ ɿ ſןᴜ ʃɜƽ ſ͔ɭɹ",
     "ariaTrako2": "j͑ʃw ſɭʞɹȝ ц ɭʃэʞ ɭʃꞇʞ",
@@ -266,6 +271,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla0Flavor": "Vinagro, lakto, mento kaj ŝaŭmakvo.",
     "manĝTla1Flavor": "Vinagro, kapsiko, juzuo, mento kaj ŝaŭmakvo.",
     "manĝTla2Flavor": "Vinagro, betula suko, mento kaj bergamota teo.",
+    "manĝPuss0": "Pusŝlefo-bero",
+    "manĝPuss0Flavor": "Malvarmeta, akva krispo kun sukereta postgusto.",
     // Building card labels
     // Building flavor text
     "flvDomo": "Domo.",
@@ -336,6 +343,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecCetkuo": "Alta senbranĉa skurĝa kano kun strobiloj.",
     "specCakeo": "Cakeo",
     "flvSpecCakeo": "Granda branĉet-kirla ĉevalvosto ĉe la lagrando.",
+    "specPussxlefo": "Pusŝlefo",
+    "flvSpecPussxlefo": "Fern-granda purpura laktukplanto kun travideblaj manĝeblaj beroj.",
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
     "ariaDuskRegilo": "Krepuska nivelo",
@@ -424,6 +433,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla0Flavor": "Vinegar, milk, mint, and sparkling water.",
     "manĝTla1Flavor": "Vinegar, chili, yuzu, mint, and sparkling water.",
     "manĝTla2Flavor": "Vinegar, birch sap, mint, and bergamot tea.",
+    "manĝPuss0": "Shlef Piisu berry",
+    "manĝPuss0Flavor": "A cool, watery pop with a faint sweet aftertaste.",
     // Building card labels
     // Building flavor text
     "flvDomo": "Domo.",
@@ -494,6 +505,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecCetkuo": "A tall unbranched scouring rush with strobili.",
     "specCakeo": "Tsakeh",
     "flvSpecCakeo": "Great branch-whorled horsetails at the lakeshore.",
+    "specPussxlefo": "Shlef Piisu",
+    "flvSpecPussxlefo": "A fern-sized purple lettuce plant with transparent edible berries.",
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "Dusk",
     "ariaDuskRegilo": "Dusk level",
@@ -582,6 +595,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla0Flavor": "酢、牛乳、ミント、炭酸水。",
     "manĝTla1Flavor": "酢、唐辛子、柚子、ミント、炭酸水。",
     "manĝTla2Flavor": "酢、白樺樹液、ミント、ベルガモット茶。",
+    "manĝPuss0Flavor": "ひんやりと水気のある食感で、ほのかに甘い。",
     // Building card labels
     // Building flavor text
     "flvDomo": "家。",
@@ -642,6 +656,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecMusko": "実は植物である小山。",
     "flvSpecCetkuo": "胞子嚢を持つ、高く枝分かれしないトクサ。",
     "flvSpecCakeo": "湖岸に生える、大きく枝が輪生するトクサ。",
+    "flvSpecPussxlefo": "シダほどの大きさの紫色のレタス植物。透き通った食べられる実をつける。",
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "夕暮れモードを切り替え",
     "ariaDuskRegilo": "夕暮れのレベル",
@@ -730,6 +745,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla0Flavor": "ទឹកខ្មេះ ទឹកដោះគោ ជីអង្កាម និងទឹកមានពពុះ។",
     "manĝTla1Flavor": "ទឹកខ្មេះ ម្ទេស យូស៊ុ ជីអង្កាម និងទឹកមានពពុះ។",
     "manĝTla2Flavor": "ទឹកខ្មេះ ទឹកប៊ីច ជីអង្កាម និងតែប៊ឺហ្គាម៉ុត។",
+    "manĝPuss0Flavor": "ត្រជាក់ មានទឹក និងផ្អែមបន្តិច។",
     // Building card labels
     // Building flavor text
     "flvDomo": "ផ្ទះ។",
@@ -790,6 +806,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "flvSpecMusko": "គំនរដែលតាមពិតជារុក្ខជាតិ។",
     "flvSpecCetkuo": "រុក្ខជាតិខ្ពស់គ្មានមែក មានកោនគ្រាប់ពូជ។",
     "flvSpecCakeo": "រុក្ខជាតិខ្ពស់មានមែកជុំវិញ ដុះនៅមាត់បឹង។",
+    "flvSpecPussxlefo": "រុក្ខជាតិសាឡាត់ពណ៌ស្វាយទំហំប៉ុនហ្វឺន មានផ្លែថ្លាដែលអាចបរិភោគបាន។",
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
     "ariaDuskRegilo": "កម្រិតព្រលប់",
@@ -853,7 +870,7 @@ const ARIA_TRAKO_PREFIKSO: Record<string, (n: number) => string> = {
   km: n => "ជ្រើសរើសបទ " + n + " ",
 };
 const SPECIFIKAJ_PLANTNOMOJ = new Set([
-  "specBetulo", "specLariko", "specHxsxaksxlefo", "specFiliko", "specPurpuraFiliko",
+  "specBetulo", "specLariko", "specHxsxaksxlefo", "specPussxlefo", "specFiliko", "specPurpuraFiliko",
   "specLikeno", "specHerbo", "specMusko", "specCetkuo", "specCakeo",
 ]);
 const KONSTRUAJ_NOMOJ = new Set([
@@ -867,7 +884,7 @@ function deriviNomon(klavo: string): string | null {
   // venas el la aih-formo per la samaj sonaj reguloj.
   const aria = /^ariaTrako(\d+)$/.exec(klavo);
   const bazo = aria ? "trako" + aria[1] : klavo;
-  if (!/^(paq|trako|manĝFok|manĝTla)\d+$/.test(bazo) && !SPECIFIKAJ_PLANTNOMOJ.has(bazo) && !KONSTRUAJ_NOMOJ.has(bazo)) return null;
+  if (!/^(paq|trako|manĝFok|manĝTla|manĝPuss)\d+$/.test(bazo) && !SPECIFIKAJ_PLANTNOMOJ.has(bazo) && !KONSTRUAJ_NOMOJ.has(bazo)) return null;
   const aihFormo = skakefani.aih[bazo];
   if (!aihFormo) return null;
   // Manĝaĵnomoj kunhavas "•" disigilon ( nomo • gusto ). Derivu ĉiun flankon

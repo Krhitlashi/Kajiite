@@ -99,30 +99,30 @@ const KASXA_LIMO = 0o6;
 // sxlosiloDeSpeco — Unika kaj STABILA ŝlosilo de konstrua speco. La nomo
 // ( "paq" + indekso ) estas unika en la urbo, do ĝi identigas la konstruaĵon
 // sen dependecon de la tip- aŭ pozicio-ŝanĝoj.
-export function sxlosiloDeSpeco( spec: KonstruSpec ): string {
+export function sxlosiloDeSpeco(spec: KonstruSpec): string {
   return `${spec.type}|${spec.name}`;
 }
 
 // Dezajnaj konstantaj valoroj
-const MIST = 0xe6efe9;
-const DIM = 0x9db8a4;
-const GOLD = 0xd9b36a;
-const GOLD_SOFT = 0xc8a45a;
+const MIST = 0xe8f0e8;
+const DIM = 0xa0b8a8;
+const GOLD = 0xd8b068;
+const GOLD_SOFT = 0xc8a858;
 const GOLD_WARM = 0xf8d898;
 
 // kreiTrapezanPordTruon — Rondigita trapezoida truo por la antaŭa pordo,
 // kongruanta al la EKSTERAN pordo (rondigitaTrapezaFormo en satalaj-konstruaĵoj).
 // CW-orde (kontraŭa al la ekstera konturo) por truo en ShapeGeometry/ExtrudeGeometry.
-function kreiTrapezanPordTruon( bazo: number, supro: number, alto: number, rb: number, rt: number ): THREE.Path {
+function kreiTrapezanPordTruon(bazo: number, supro: number, alto: number, rb: number, rt: number): THREE.Path {
   const p = new THREE.Path(), sl = ( bazo / 2 - supro / 2 ) / alto;
-  p.moveTo( -bazo / 2 + rb, 0 );
-  p.quadraticCurveTo( -bazo / 2, 0, -bazo / 2 + sl * rb, rb );
-  p.lineTo( -supro / 2 - sl * rt, alto - rt );
-  p.quadraticCurveTo( -supro / 2, alto, -supro / 2 + rt, alto );
-  p.lineTo( supro / 2 - rt, alto );
-  p.quadraticCurveTo( supro / 2, alto, supro / 2 + sl * rt, alto - rt );
-  p.lineTo( bazo / 2 - sl * rt, rt );
-  p.quadraticCurveTo( bazo / 2, 0, bazo / 2 - rb, 0 );
+  p.moveTo(-bazo / 2 + rb, 0);
+  p.quadraticCurveTo(-bazo / 2, 0, -bazo / 2 + sl * rb, rb);
+  p.lineTo(-supro / 2 - sl * rt, alto - rt);
+  p.quadraticCurveTo(-supro / 2, alto, -supro / 2 + rt, alto);
+  p.lineTo(supro / 2 - rt, alto);
+  p.quadraticCurveTo(supro / 2, alto, supro / 2 + sl * rt, alto - rt);
+  p.lineTo(bazo / 2 - sl * rt, rt);
+  p.quadraticCurveTo(bazo / 2, 0, bazo / 2 - rb, 0);
   p.closePath();
   return p;
 }// konstruiMuronKunPilolaTruo — Muro el fidindaj skatol-segmentoj ( kiuj plene
@@ -152,40 +152,40 @@ function konstruiMuronKunPilolaTruo(
   // Skatola segmento en la mura loka kadro ( x laŭ la muro, y vertikala ).
   const aldoniBlokon = ( lokalX: number, lokalY: number, largho: number, alteco: number ) => {
     if ( largho <= 0 || alteco <= 0 ) return;
-    const b = new THREE.Mesh( new THREE.BoxGeometry( largho, alteco, dikeco ), materialo );
+    const b = new THREE.Mesh(new THREE.BoxGeometry(largho, alteco, dikeco), materialo);
     if ( rotacio ) {
-      b.position.set( cx, bazaY + lokalY + alteco / 2, cz + lokalX + largho / 2 );
+      b.position.set(cx, bazaY + lokalY + alteco / 2, cz + lokalX + largho / 2);
       b.rotation.y = rotacio;
     } else {
-      b.position.set( cx + lokalX + largho / 2, bazaY + lokalY + alteco / 2, cz );
+      b.position.set(cx + lokalX + largho / 2, bazaY + lokalY + alteco / 2, cz);
     }
-    g.add( b );
+    g.add(b);
   };
   // Rondigita angula plenigaĵo ( formo sen truo — malgranda, fidinda ).
   const aldoniAngulon = ( formo: THREE.Shape, cxLoka: number, cyLoka: number ) => {
-    const geo = new THREE.ExtrudeGeometry( formo, { depth: dikeco, bevelEnabled: false, curveSegments: 0o20 } );
-    geo.translate( 0, 0, -dikeco / 2 );
-    const m = new THREE.Mesh( geo, materialo );
+    const geo = new THREE.ExtrudeGeometry(formo, { depth: dikeco, bevelEnabled: false, curveSegments: 0o20 });
+    geo.translate(0, 0, -dikeco / 2);
+    const m = new THREE.Mesh(geo, materialo);
     if ( rotacio ) {
       // Por rotacio +90° ( la maldekstra muro ) la loka +x-akso mapiĝas al mondo −z,
       // dum la cxLoka-ofseto iras laŭ +z — sen la spegulo la angulaj formoj renversiĝus
       // ( renversitaj duoncirkelaj anguloj ĉe la fenestro maldekstre de la pordo ).
-      m.position.set( cx, bazaY + cyLoka, cz + ( rotacio > 0 ? -cxLoka : cxLoka ) );
+      m.position.set(cx, bazaY + cyLoka, cz + ( rotacio > 0 ? -cxLoka : cxLoka ));
       m.rotation.y = rotacio;
     } else {
-      m.position.set( cx + cxLoka, bazaY + cyLoka, cz );
+      m.position.set(cx + cxLoka, bazaY + cyLoka, cz);
     }
-    g.add( m );
+    g.add(m);
   };
 
   // Malsegmentoj maldekstre/dekstre de la fenestro
   if ( segLargho > 0 ) {
-    aldoniBlokon( -plataLargho, 0, segLargho, alto );
-    aldoniBlokon( wc, 0, segLargho, alto );
+    aldoniBlokon(-plataLargho, 0, segLargho, alto);
+    aldoniBlokon(wc, 0, segLargho, alto);
   }
   // Malsegmentoj sub kaj super la fenestro
-  if ( fenLokY > 0 ) aldoniBlokon( -wc, 0, ww, fenLokY );
-  if ( segAlto > 0 ) aldoniBlokon( -wc, fenLokY + hh, ww, segAlto );
+  if ( fenLokY > 0 ) aldoniBlokon(-wc, 0, ww, fenLokY);
+  if ( segAlto > 0 ) aldoniBlokon(-wc, fenLokY + hh, ww, segAlto);
 
   // Kvar rondigitaj angulaj plenigaĵoj. La regiono inter la rektangula truo kaj
   // la duoncirklaj ĉap-finoj de la pilola fenestro. Ĉiu formo estas konstruita
@@ -199,36 +199,36 @@ function konstruiMuronKunPilolaTruo(
   // proksima al la fenestra ĉap-centro ( lokalaj (∓r/2, ∓r/2) sube-dekstre ).
   // Supre-dekstre
   const tr = new THREE.Shape();
-  tr.moveTo( r / 2, -r / 2 );
-  tr.lineTo( r / 2, r / 2 );
-  tr.lineTo( -r / 2, r / 2 );
-  tr.absarc( -r / 2, -r / 2, r, Math.PI / 2, 0, true );
+  tr.moveTo(r / 2, -r / 2);
+  tr.lineTo(r / 2, r / 2);
+  tr.lineTo(-r / 2, r / 2);
+  tr.absarc(-r / 2, -r / 2, r, Math.PI / 2, 0, true);
   tr.closePath();
-  aldoniAngulon( tr, wc - r / 2, cyArk + r / 2 );
+  aldoniAngulon(tr, wc - r / 2, cyArk + r / 2);
   // Malsupre-dekstre
   const br = new THREE.Shape();
-  br.moveTo( r / 2, r / 2 );
-  br.lineTo( r / 2, -r / 2 );
-  br.lineTo( -r / 2, -r / 2 );
-  br.absarc( -r / 2, r / 2, r, -Math.PI / 2, 0, false );
+  br.moveTo(r / 2, r / 2);
+  br.lineTo(r / 2, -r / 2);
+  br.lineTo(-r / 2, -r / 2);
+  br.absarc(-r / 2, r / 2, r, -Math.PI / 2, 0, false);
   br.closePath();
-  aldoniAngulon( br, wc - r / 2, cyArk - r / 2 );
+  aldoniAngulon(br, wc - r / 2, cyArk - r / 2);
   // Supre-maldekstre
   const tl = new THREE.Shape();
-  tl.moveTo( -r / 2, -r / 2 );
-  tl.lineTo( -r / 2, r / 2 );
-  tl.lineTo( r / 2, r / 2 );
-  tl.absarc( r / 2, -r / 2, r, Math.PI / 2, Math.PI, false );
+  tl.moveTo(-r / 2, -r / 2);
+  tl.lineTo(-r / 2, r / 2);
+  tl.lineTo(r / 2, r / 2);
+  tl.absarc(r / 2, -r / 2, r, Math.PI / 2, Math.PI, false);
   tl.closePath();
-  aldoniAngulon( tl, -( wc - r / 2 ), cyArk + r / 2 );
+  aldoniAngulon(tl, -( wc - r / 2 ), cyArk + r / 2);
   // Malsupre-maldekstre
   const bl = new THREE.Shape();
-  bl.moveTo( -r / 2, r / 2 );
-  bl.lineTo( -r / 2, -r / 2 );
-  bl.lineTo( r / 2, -r / 2 );
-  bl.absarc( r / 2, r / 2, r, -Math.PI / 2, -Math.PI, true );
+  bl.moveTo(-r / 2, r / 2);
+  bl.lineTo(-r / 2, -r / 2);
+  bl.lineTo(r / 2, -r / 2);
+  bl.absarc(r / 2, r / 2, r, -Math.PI / 2, -Math.PI, true);
   bl.closePath();
-  aldoniAngulon( bl, -( wc - r / 2 ), cyArk - r / 2 );
+  aldoniAngulon(bl, -( wc - r / 2 ), cyArk - r / 2);
 }
 
 // aldoniLonganFenestron — Unu centrita LONGAs horizontala RONDIGITA fenestro kun
@@ -247,7 +247,7 @@ function aldoniLonganFenestron(
   // Fenestro-larĝo laŭ la tavolflanko. Pli longa sur pli longaj muroj, kun
   // malgranda libero ĉe ĉiu fino (2/3 de la flanko + kvarono).
   const ww = Math.min(plataLargho * 2 - 0o3/0o10, plataLargho * 4/3 + 0o1/0o4);
-  const hh = Math.min(0o5/0o10, alto * 0o3/0o12);
+  const hh = Math.min(0o5/0o10, alto * 0o23/0o100);
   const fenY = bazaY + Math.max(alto * 2/5, 0o3/0o4);
   if (fenY + hh > bazaY + alto) return;
   const malantaŭ = orientacio === "malantaŭ";
@@ -277,7 +277,7 @@ function aldoniLonganFenestron(
   const rimo = new THREE.Mesh(
     new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
     oraRandoMaterialo
-  );
+);
   rimo.position.set(aCx, fenY, aCz);
   if (!malantaŭ) rimo.rotation.y = rotacio;
   group.add(rimo);
@@ -289,14 +289,14 @@ function aldoniLonganFenestron(
   for ( let i = 0; i < konturo.length; i++ ) {
     const a = konturo[i];
     const b = konturo[( i + 1 ) % konturo.length];
-    kadroPunktoj.push( a.x, a.y, 0o5/0o100, b.x, b.y, 0o5/0o100 );
+    kadroPunktoj.push(a.x, a.y, 0o5/0o100, b.x, b.y, 0o5/0o100);
   }
   const kadroGeo = new THREE.BufferGeometry();
-  kadroGeo.setAttribute( "position", new THREE.Float32BufferAttribute( kadroPunktoj, 3 ) );
-  const kadro = new THREE.LineSegments( kadroGeo, oraKadroMaterialo );
-  kadro.position.set( aCx, fenY, aCz );
+  kadroGeo.setAttribute("position", new THREE.Float32BufferAttribute(kadroPunktoj, 3));
+  const kadro = new THREE.LineSegments(kadroGeo, oraKadroMaterialo);
+  kadro.position.set(aCx, fenY, aCz);
   if ( !malantaŭ ) kadro.rotation.y = rotacio;
-  group.add( kadro );
+  group.add(kadro);
 }
 
 function aldoniInternanMeblaron(
@@ -316,10 +316,10 @@ function aldoniInternanMeblaron(
   litkoj: { x: number; z: number; y: number; largho: number }[]
 ): void {
   const aldoniSkatolon = ( largho: number, alto: number, profundo: number, x: number, z: number, materialo: THREE.Material ) => {
-    const objekto = new THREE.Mesh( new THREE.BoxGeometry( largho, alto, profundo ), materialo );
-    objekto.position.set( x, y + alto / 2, z );
+    const objekto = new THREE.Mesh(new THREE.BoxGeometry(largho, alto, profundo), materialo);
+    objekto.position.set(x, y + alto / 2, z);
     objekto.castShadow = true;
-    grupo.add( objekto );
+    grupo.add(objekto);
   };
 
 
@@ -330,7 +330,7 @@ function aldoniInternanMeblaron(
       const tabloX = -hw + 2, tabloZ = hd - 2;
       // La tablo kun la kvar benkoj ĉirkaŭ ĝi — la sama manĝa arangxo kiel en
       // la mangxejoj ( aldoniManĝtablon el la mebloj-modulo ).
-      aldoniManĝtablon( grupo, tabloX, tabloZ, y, lignaMaterialo, kadraMaterialo );
+      aldoniManĝtablon(grupo, tabloX, tabloZ, y, lignaMaterialo, kadraMaterialo);
     }
     // Lito — simpla rondangula hela beiga ligna bloko rekte sur la planko, kun
     // larĝa rondangula kapkuseno ĉe la kapo (+x). La lito staras en la
@@ -338,7 +338,7 @@ function aldoniInternanMeblaron(
     // kaj la dorso (−z) ambaŭ kuŝas 0o3/0o10 for de la muro, ne plu tuŝante
     // nek enirante la muron; sur etajoj tro malgrandaj (hw < 0o5/0o2) neniu
     // lito eniras sen trui la helikon.
-    const litLargho = Math.min( etapo === 0 ? 0o22/0o10 : 0o16/0o10, hw * 2 - 2 );
+    const litLargho = Math.min(etapo === 0 ? 0o22/0o10 : 0o16/0o10, hw * 2 - 2);
     if ( litLargho >= 0o4/0o10 && hw >= 0o5/0o2 ) {
       // Kapo 0o3/0o10 for de la dekstra muro; dorso 0o3/0o10 for de la
       // malantaŭa muro — pli da libero ol antaŭe ( 0o1/0o10 ), por ke la lito
@@ -347,71 +347,71 @@ function aldoniInternanMeblaron(
       // Korpo — rondangula hela beiga ligna bloko sur la planko. Pli alta ol
       // antaŭe ( 0o5/0o20 ), kun diskretaj rondigitaj anguloj ( 0o1/0o50 ) por
       // ke la VERTIKALAJ randoj ne ŝvelu — nur molaj horizontalaj eĝoj supre.
-      const korpo = new THREE.Mesh( new RoundedBoxGeometry( litLargho, 0o5/0o20, 0o14/0o10, 3, 0o1/0o50 ), lignaMaterialo );
-      korpo.position.set( litX, y + 0o5/0o40, litZ );
+      const korpo = new THREE.Mesh(new RoundedBoxGeometry(litLargho, 0o5/0o20, 0o14/0o10, 3, 0o1/0o50), lignaMaterialo);
+      korpo.position.set(litX, y + 0o5/0o40, litZ);
       korpo.castShadow = true;
-      grupo.add( korpo );
+      grupo.add(korpo);
       // Tola — maldika litaĵo kovranta la supron de la korpo, en la ĈEFA
       // koloro de la vesto de la ludanto. La materialo rekolorigxas laux la
       // vesto cxiun eniron ( aplikiLitajnKolorojn por kasxitaj internoj ).
       const tolaMaterialo = new THREE.MeshStandardMaterial({ color: tolaKoloro, roughness: 0o6/0o10 });
-      const tola = new THREE.Mesh( new RoundedBoxGeometry( litLargho - 0o1/0o10, 0o1/0o20, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50 ), tolaMaterialo );
-      tola.position.set( litX, y + 0o5/0o40 + 0o5/0o40 + 0o1/0o40, litZ );
+      const tola = new THREE.Mesh(new RoundedBoxGeometry(litLargho - 0o1/0o10, 0o1/0o20, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50), tolaMaterialo);
+      tola.position.set(litX, y + 0o5/0o40 + 0o5/0o40 + 0o1/0o40, litZ);
       tola.castShadow = true;
       tola.userData.litoTipo = "tecto";
-      grupo.add( tola );
+      grupo.add(tola);
       // Rando de la akcenta koloro sur la ĉefa baza parto de la lito — la sama
       // maldika bendo kiel sur la tabloj/benkoj, tuj sub la supro de la korpo.
       // Nur sur la ĉefa ( tera ) etaĝo — la "baza parto" de la konstruajxo.
       if ( etapo === 0 ) {
-        const litRando = new THREE.Mesh( new RoundedBoxGeometry( litLargho + 0o1/0o20, 0o1/0o20, 0o14/0o10 + 0o1/0o20, 3, 0o1/0o10 ), kadraMaterialo );
-        litRando.position.set( litX, y + 0o5/0o40 + 0o5/0o40 - 0o1/0o40 - 0o1/0o100, litZ );
+        const litRando = new THREE.Mesh(new RoundedBoxGeometry(litLargho + 0o1/0o20, 0o1/0o20, 0o14/0o10 + 0o1/0o20, 3, 0o1/0o10), kadraMaterialo);
+        litRando.position.set(litX, y + 0o5/0o40 + 0o5/0o40 - 0o1/0o40 - 0o1/0o100, litZ);
         litRando.castShadow = true;
-        grupo.add( litRando );
+        grupo.add(litRando);
       }
       // Kapkuseno — rondangula rektangulo preskaŭ la tuta profundo de la lito
       // ( 0o14/0o10 − 0o1/0o10 ), kun egala malgranda libero ( 0o1/0o20 ) sur
       // la tri flankoj. Kapo (+x), dorso (−z) kaj fronto (+z). En la AKCENTA
       // koloro de la vesto, sidante SUR la tola ( malsupro = tola-supro ).
       const kusenaMaterialo = new THREE.MeshStandardMaterial({ color: kusenaKoloro, roughness: 0o6/0o10 });
-      const kapkuseno = new THREE.Mesh( new RoundedBoxGeometry( 0o5/0o10, 0o1/0o10, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50 ), kusenaMaterialo );
-      kapkuseno.position.set( litX + litLargho / 2 - 0o3/0o10, y + 0o3/0o10 + 0o1/0o20, litZ );
+      const kapkuseno = new THREE.Mesh(new RoundedBoxGeometry(0o5/0o10, 0o1/0o10, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50), kusenaMaterialo);
+      kapkuseno.position.set(litX + litLargho / 2 - 0o3/0o10, y + 0o3/0o10 + 0o1/0o20, litZ);
       kapkuseno.castShadow = true;
       kapkuseno.userData.litoTipo = "kuseno";
-      grupo.add( kapkuseno );
+      grupo.add(kapkuseno);
       // Registru la liton por la kuŝ-interago ( lokaj koordinatoj + larĝo ).
       litkoj.push({ x: litX, z: litZ, y, largho: litLargho });
     }
   } else if ( tipo === "kasafeo" ) {
     // Kunvenoĉambro. Longa rondangula tablo kun seĝoj ambaŭflanke
     if ( hw >= 3 && hd >= 3 ) {
-      const tl = Math.min( hw * 2 - 2, 5 );
+      const tl = Math.min(hw * 2 - 2, 5);
       const tz = -hd + 0o11/0o4;
-      aldoniTablon( grupo, 0, tz, y, tl, 0o12/0o10, lignaMaterialo, kadraMaterialo );
+      aldoniTablon(grupo, 0, tz, y, tl, 0o12/0o10, lignaMaterialo, kadraMaterialo);
       // Seĝoj ambaŭflanke laŭ la longa flanko (ne ĉe la helika truo) — la sama
       // ora rando kiel la tablo ( kadraMaterialo ), laŭ la longa akso.
       for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
-        aldoniSegxon( grupo, sX * tl / 4, tz + sZ * 0o15/0o10, y, lignaMaterialo, kadraMaterialo );
+        aldoniSegxon(grupo, sX * tl / 4, tz + sZ * 0o15/0o10, y, lignaMaterialo, kadraMaterialo);
       }
     }
   } else if ( tipo === "sanktejo" && etapo === 0 ) {
     // La brila sfero — forta varma ora brilo ( GOLD ), pli hela ol la meblara
     // hela materialo, por ke la sankteja fokuso restu videbla.
     const brilaMaterialo = new THREE.MeshStandardMaterial({ color: GOLD, emissive: GOLD, emissiveIntensity: 0o35/0o100, roughness: 0o4/0o10 });
-    const altaro = new THREE.Mesh( new THREE.CylinderGeometry( 0o5/0o10, 0o6/0o10, 0o4/0o10, 0o10 ), metalaMaterialo );
-    altaro.position.set( 0, y + 0o2/0o10, -hd + 2 );
+    const altaro = new THREE.Mesh(new THREE.CylinderGeometry(0o5/0o10, 0o6/0o10, 0o4/0o10, 0o10), metalaMaterialo);
+    altaro.position.set(0, y + 0o2/0o10, -hd + 2);
     altaro.castShadow = true;
-    grupo.add( altaro );
-    const brilo = new THREE.Mesh( new THREE.SphereGeometry( 0o3/0o10, 0o10, 0o10 ), brilaMaterialo );
-    brilo.position.set( 0, y + tieroAlto * 0o5/0o10, -hd + 2 );
-    grupo.add( brilo );
-    const lumo = new THREE.PointLight( GOLD_WARM, 0o3/0o10, 0o20, 2 );
-    lumo.position.set( 0, y + tieroAlto * 0o5/0o10, -hd + 2 );
-    grupo.add( lumo );
+    grupo.add(altaro);
+    const brilo = new THREE.Mesh(new THREE.SphereGeometry(0o3/0o10, 0o10, 0o10), brilaMaterialo);
+    brilo.position.set(0, y + tieroAlto * 0o5/0o10, -hd + 2);
+    grupo.add(brilo);
+    const lumo = new THREE.PointLight(GOLD_WARM, 0o3/0o10, 0o20, 2);
+    lumo.position.set(0, y + tieroAlto * 0o5/0o10, -hd + 2);
+    grupo.add(lumo);
   }
 
   if ( niveloj > 1 && etapo === niveloj - 1 && hd >= 2 ) {
-    aldoniSkatolon( Math.min( hw * 2 - 1, 4 ), 0o1/0o20, 0o3/0o10, 0, -hd + 0o5/0o20, metalaMaterialo );
+    aldoniSkatolon(Math.min(hw * 2 - 1, 4), 0o1/0o20, 0o3/0o10, 0, -hd + 0o5/0o20, metalaMaterialo);
   }
 }
 
@@ -439,70 +439,70 @@ function kreiStelplenanTeksajxon(): THREE.CanvasTexture {
 // ( geometrioj, materialoj, teksturoj ). La interno estas rekonstruita de nulo
 // ĉiun eniron, do ĉio en la grupo apartenas al ĝi — krom la komuna
 // stel-teksaĵo, kiu vivas modul-nivele kaj reuziĝas trans la eniroj.
-function forigiInternanGrupon( grupo: THREE.Group ): void {
+function forigiInternanGrupon(grupo: THREE.Group): void {
   const viditajTeksajxoj = new Set<THREE.Texture>();
   const viditajMaterialoj = new Set<THREE.Material>();
-  grupo.traverse( ( obj ) => {
+  grupo.traverse(( obj ) => {
     const mesxo = obj as THREE.Mesh;
     if ( mesxo.geometry ) mesxo.geometry.dispose();
-    const materialoj = Array.isArray( mesxo.material ) ? mesxo.material : [ mesxo.material ];
+    const materialoj = Array.isArray(mesxo.material) ? mesxo.material : [ mesxo.material ];
     for ( const mat of materialoj ) {
-      if ( !mat || viditajMaterialoj.has( mat ) ) continue;
-      viditajMaterialoj.add( mat );
+      if ( !mat || viditajMaterialoj.has(mat) ) continue;
+      viditajMaterialoj.add(mat);
       // La interno uzas nur la map/emissiveMap fendojn ( planko, plakedo, steloj ).
       const teksturoj = [ (mat as THREE.MeshStandardMaterial).map, (mat as THREE.MeshStandardMaterial).emissiveMap ];
       for ( const teks of teksturoj ) {
-        if ( teks && teks !== stelplenaTeksajxo && !viditajTeksajxoj.has( teks ) ) {
-          viditajTeksajxoj.add( teks );
+        if ( teks && teks !== stelplenaTeksajxo && !viditajTeksajxoj.has(teks) ) {
+          viditajTeksajxoj.add(teks);
           teks.dispose();
         }
       }
       mat.dispose();
     }
-  } );
+  });
 }
 
 // kreiRandomon — Semita hazarda generatoro ( mulberry32 ). la sama semo donas
 // la saman vicon da nombroj, do la planko-desegno de konstruajxo restas stabila.
-function kreiRandomon( semo: number ): () => number {
+function kreiRandomon(semo: number): () => number {
   let a = semo >>> 0;
   return () => {
     a |= 0;
     a = ( a + 0x6D2B79F5 ) | 0;
-    let t = Math.imul( a ^ ( a >>> 15 ), 1 | a );
-    t = ( t + Math.imul( t ^ ( t >>> 7 ), 61 | t ) ) ^ t;
+    let t = Math.imul(a ^ ( a >>> 15 ), 1 | a);
+    t = ( t + Math.imul(t ^ ( t >>> 7 ), 61 | t) ) ^ t;
     return ( ( t ^ ( t >>> 14 ) ) >>> 0 ) / 4294967296;
   };
 }
 // malheligi — Versio de heksa koloro pli malhela je faktoro f ( 0..1 ).
-function malheligi( koloro: string, f = 0o60/0o100 ): string {
-  const n = parseInt( koloro.slice( 1 ), 16 );
-  const r = Math.round( ( ( n >> 16 ) & 255 ) * f );
-  const gg = Math.round( ( ( n >> 8 ) & 255 ) * f );
-  const b = Math.round( ( n & 255 ) * f );
-  return "#" + ( ( r << 16 ) | ( gg << 8 ) | b ).toString( 16 ).padStart( 6, "0" );
+function malheligi(koloro: string, f = 0o60/0o100): string {
+  const n = parseInt(koloro.slice(1), 16);
+  const r = Math.round(( ( n >> 16 ) & 255 ) * f);
+  const gg = Math.round(( ( n >> 8 ) & 255 ) * f);
+  const b = Math.round(( n & 255 ) * f);
+  return "#" + ( ( r << 16 ) | ( gg << 8 ) | b ).toString(16).padStart(6, "0");
 }
 // larmo — Larmoforma motivo. ronda ŝvelo kun pinta vosto. `ang` montras la
 // direkton de la pinto ( for de la ŝvelo ).
-function larmo( g: CanvasRenderingContext2D, x: number, y: number, rad: number, ang: number, koloro: string ) {
-  const tipX = x + Math.cos( ang ) * rad * 0o22/0o10;
-  const tipY = y + Math.sin( ang ) * rad * 0o22/0o10;
+function larmo(g: CanvasRenderingContext2D, x: number, y: number, rad: number, ang: number, koloro: string) {
+  const tipX = x + Math.cos(ang) * rad * 0o22/0o10;
+  const tipY = y + Math.sin(ang) * rad * 0o22/0o10;
   const b1 = ang + Math.PI / 2, b2 = ang - Math.PI / 2;
   g.fillStyle = koloro;
   g.beginPath();
-  g.moveTo( tipX, tipY );
+  g.moveTo(tipX, tipY);
   g.quadraticCurveTo(
-    x + Math.cos( ang + 0o72/0o100 ) * rad * 0o15/0o10,
-    y + Math.sin( ang + 0o72/0o100 ) * rad * 0o15/0o10,
-    x + Math.cos( b1 ) * rad, y + Math.sin( b1 ) * rad
-  );
+    x + Math.cos(ang + 0o72/0o100) * rad * 0o15/0o10,
+    y + Math.sin(ang + 0o72/0o100) * rad * 0o15/0o10,
+    x + Math.cos(b1) * rad, y + Math.sin(b1) * rad
+);
   // La ŝvelo — duoncirko malantaŭ la pinto ( tra la dorso, ne la vosto ).
-  g.arc( x, y, rad, b1, b2, true );
+  g.arc(x, y, rad, b1, b2, true);
   g.quadraticCurveTo(
-    x + Math.cos( ang - 0o72/0o100 ) * rad * 0o15/0o10,
-    y + Math.sin( ang - 0o72/0o100 ) * rad * 0o15/0o10,
+    x + Math.cos(ang - 0o72/0o100) * rad * 0o15/0o10,
+    y + Math.sin(ang - 0o72/0o100) * rad * 0o15/0o10,
     tipX, tipY
-  );
+);
   g.closePath();
   g.fill();
 }
@@ -521,57 +521,57 @@ function larmo( g: CanvasRenderingContext2D, x: number, y: number, rad: number, 
 //     @param bazaKoloro ( number ) - Koloro de la konstruajxaj muroj.
 //     @param akcentaKoloro ( number ) - Akcenta ( ora ) koloro.
 //     @param semo ( number ) - Semo por la hazarda varianto.
-function generiPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number, semo: number ): THREE.CanvasTexture {
-  const c = document.createElement( "canvas" );
+function generiPlankanTeksajxon(bazaKoloro: number, akcentaKoloro: number, semo: number): THREE.CanvasTexture {
+  const c = document.createElement("canvas");
   c.width = c.height = 0o2000;
-  const g = c.getContext( "2d" )!;
+  const g = c.getContext("2d")!;
   const cx = c.width / 2, cy = c.height / 2;
   const R = c.width / 2;
-  const baza = deksesuma( bazaKoloro ), akcenta = deksesuma( akcentaKoloro );
-  const malhela = malheligi( baza );
-  const rnd = kreiRandomon( semo );
+  const baza = deksesuma(bazaKoloro), akcenta = deksesuma(akcentaKoloro);
+  const malhela = malheligi(baza);
+  const rnd = kreiRandomon(semo);
   const pintoj = rnd() < 0o5/0o10 ? 4 : 8;
   const larmoj = rnd() < 0o5/0o10;
-  const ondo = [ 0o15/0o1000, 0o35/0o1000, 0o55/0o1000 ][ Math.floor( rnd() * 3 ) ];
+  const ondo = [ 0o15/0o1000, 0o35/0o1000, 0o55/0o1000 ][Math.floor(rnd() * 3)];
   const fazo = rnd() < 0o5/0o10 ? 0 : Math.PI / 4;
   const interŝanĝi = rnd() < 0o5/0o10;   // alterna bendo-koloro komencante de la malhela
 
   g.fillStyle = baza;
-  g.fillRect( 0, 0, c.width, c.height );
+  g.fillRect(0, 0, c.width, c.height);
 
   // Milda radia lumo de la centro — ronda, mola brilo anstataŭ akra stelo.
-  const grad = g.createRadialGradient( cx, cy, 0, cx, cy, R );
-  grad.addColorStop( 0, akcenta + "22" );
-  grad.addColorStop( 1, akcenta + "00" );
+  const grad = g.createRadialGradient(cx, cy, 0, cx, cy, R);
+  grad.addColorStop(0, akcenta + "22");
+  grad.addColorStop(1, akcenta + "00");
   g.fillStyle = grad;
-  g.fillRect( 0, 0, c.width, c.height );
+  g.fillRect(0, 0, c.width, c.height);
 
   // ---- 1-a paŝo. anguloj - ronda ringo aŭ larmoforma motivo, turnita al la angulo ----
   const angulaR = R * 0o7/0o100;
   for ( const sx of [ -1, 1 ] ) for ( const sy of [ -1, 1 ] ) {
     const ax = cx + sx * R * 0o60/0o100;
     const ay = cy + sy * R * 0o60/0o100;
-    const enen = Math.atan2( cy - ay, cx - ax );
+    const enen = Math.atan2(cy - ay, cx - ax);
     if ( larmoj ) {
-      larmo( g, ax, ay, angulaR, enen, akcenta );
+      larmo(g, ax, ay, angulaR, enen, akcenta);
       // Interna kerno de la larmo — la ŝvelo restas ringa.
       g.fillStyle = baza;
       g.beginPath();
-      g.arc( ax, ay, angulaR * 0o45/0o100, 0, Math.PI * 2 );
+      g.arc(ax, ay, angulaR * 0o45/0o100, 0, Math.PI * 2);
       g.fill();
     } else {
       // Duoblaj cirklaj ringoj kun centra kerno.
       g.strokeStyle = akcenta;
       g.lineWidth = R * 0o12/0o1000;
       g.beginPath();
-      g.arc( ax, ay, angulaR, 0, Math.PI * 2 );
+      g.arc(ax, ay, angulaR, 0, Math.PI * 2);
       g.stroke();
       g.beginPath();
-      g.arc( ax, ay, angulaR * 0o55/0o100, 0, Math.PI * 2 );
+      g.arc(ax, ay, angulaR * 0o55/0o100, 0, Math.PI * 2);
       g.stroke();
       g.fillStyle = akcenta;
       g.beginPath();
-      g.arc( ax, ay, angulaR * 0o25/0o100, 0, Math.PI * 2 );
+      g.arc(ax, ay, angulaR * 0o25/0o100, 0, Math.PI * 2);
       g.fill();
     }
   }
@@ -584,17 +584,17 @@ function generiPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number, semo
     for ( let i = 0; i <= p * 2; i++ ) {
       const ang = ofseto + ( i / ( p * 2 ) ) * Math.PI * 2;
       const rad = i % 2 === 0 ? ekstera : ena;
-      const x = cx + Math.cos( ang ) * rad;
-      const y = cy + Math.sin( ang ) * rad;
-      if ( i === 0 ) { g.moveTo( x, y ); continue; }
+      const x = cx + Math.cos(ang) * rad;
+      const y = cy + Math.sin(ang) * rad;
+      if ( i === 0 ) { g.moveTo(x, y); continue; }
       const prevAng = ofseto + ( ( i - 1 ) / ( p * 2 ) ) * Math.PI * 2;
       const midAng = ( prevAng + ang ) / 2;
       const midRad = ena + ( ekstera - ena ) * 0o23/0o100;
       g.quadraticCurveTo(
-        cx + Math.cos( midAng ) * midRad,
-        cy + Math.sin( midAng ) * midRad,
+        cx + Math.cos(midAng) * midRad,
+        cy + Math.sin(midAng) * midRad,
         x, y
-      );
+);
     }
     g.closePath();
     g.fill();
@@ -602,19 +602,19 @@ function generiPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number, semo
   const stelEkstera = R * 0o22/0o100;
   // 4-pinta. pintoj al la kvar anguloj ( ofseto π/4 ). 8-pinta. pintoj al la aksoj.
   // La stelo restas ene de la unua bendo ( kies diagonala rando estas ~0.315R ).
-  stelo( pintoj, stelEkstera, stelEkstera * 0o4/0o10, pintoj === 4 ? Math.PI / 4 : 0 );
+  stelo(pintoj, stelEkstera, stelEkstera * 0o4/0o10, pintoj === 4 ? Math.PI / 4 : 0);
   // Centro-kerno — disko kun interna kerno.
   g.fillStyle = akcenta;
   g.beginPath();
-  g.arc( cx, cy, R * 0o45/0o1000, 0, Math.PI * 2 );
+  g.arc(cx, cy, R * 0o45/0o1000, 0, Math.PI * 2);
   g.fill();
   g.fillStyle = baza;
   g.beginPath();
-  g.arc( cx, cy, R * 0o2/0o100, 0, Math.PI * 2 );
+  g.arc(cx, cy, R * 0o2/0o100, 0, Math.PI * 2);
   g.fill();
   g.fillStyle = akcenta;
   g.beginPath();
-  g.arc( cx, cy, R * 0o7/0o1000, 0, Math.PI * 2 );
+  g.arc(cx, cy, R * 0o7/0o1000, 0, Math.PI * 2);
   g.fill();
 
   // ---- 1-a paŝo. linioj laŭ la ekstera rando de ĉiu flanko ( duobla kadro ) ----
@@ -622,46 +622,46 @@ function generiPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number, semo
     g.strokeStyle = koloro;
     g.lineWidth = largho;
     g.beginPath();
-    g.moveTo( cx - R + inseto, cy - R + inseto );
-    g.lineTo( cx + R - inseto, cy - R + inseto );
-    g.lineTo( cx + R - inseto, cy + R - inseto );
-    g.lineTo( cx - R + inseto, cy + R - inseto );
-    g.lineTo( cx - R + inseto, cy - R + inseto );
+    g.moveTo(cx - R + inseto, cy - R + inseto);
+    g.lineTo(cx + R - inseto, cy - R + inseto);
+    g.lineTo(cx + R - inseto, cy + R - inseto);
+    g.lineTo(cx - R + inseto, cy + R - inseto);
+    g.lineTo(cx - R + inseto, cy - R + inseto);
     g.stroke();
   };
-  flankaLinio( R * 0o45/0o1000, R * 0o2/0o100, akcenta );
-  flankaLinio( R * 0o7/0o100, R * 0o1/0o100, malhela );
+  flankaLinio(R * 0o45/0o1000, R * 0o2/0o100, akcenta);
+  flankaLinio(R * 0o7/0o100, R * 0o1/0o100, malhela);
 
   // ---- 2-a paŝo. simetriaj kurbaj linioj - nestitaj ondigitaj skvirklaj bendoj ----
   const spuri = ( skalo: number, inversa: boolean ) => {
-    const punktoj = 0o240;
+    const punktoj = 0o230;
     for ( let i = 0; i <= punktoj; i++ ) {
       const t = ( i / punktoj ) * Math.PI * 2 * ( inversa ? -1 : 1 );
       const k = 0o32/0o10;
-      const c = Math.pow( Math.abs( Math.cos( t ) ), k ) + Math.pow( Math.abs( Math.sin( t ) ), k );
-      const rad = ( skalo / Math.pow( c, 1 / k ) ) * ( 1 + ondo * Math.sin( 4 * t + fazo ) );
-      const x = cx + Math.cos( t ) * rad;
-      const y = cy + Math.sin( t ) * rad;
-      if ( i === 0 ) g.moveTo( x, y ); else g.lineTo( x, y );
+      const c = Math.pow(Math.abs(Math.cos(t)), k) + Math.pow(Math.abs(Math.sin(t)), k);
+      const rad = ( skalo / Math.pow(c, 1 / k) ) * ( 1 + ondo * Math.sin(4 * t + fazo) );
+      const x = cx + Math.cos(t) * rad;
+      const y = cy + Math.sin(t) * rad;
+      if ( i === 0 ) g.moveTo(x, y); else g.lineTo(x, y);
     }
     g.closePath();
   };
   const bendo = ( rIn: number, rEk: number, koloro: string ) => {
     g.fillStyle = koloro;
     g.beginPath();
-    spuri( rEk, false );
-    spuri( rIn, true );
-    g.fill( "evenodd" );   // la ringo inter la du bukloj
+    spuri(rEk, false);
+    spuri(rIn, true);
+    g.fill("evenodd");   // la ringo inter la du bukloj
   };
   const bendoPaŝo = R * 0o55/0o1000;        // egala paŝo -> uniforma libero
   const bendoLargho = bendoPaŝo * 0o55/0o100;
   let bendoN = 0;
   for ( let s = R * 0o31/0o100; s + bendoLargho < R * 0o60/0o100; s += bendoPaŝo ) {
-    bendo( s, s + bendoLargho, ( bendoN + ( interŝanĝi ? 1 : 0 ) ) % 2 === 0 ? akcenta : malhela );
+    bendo(s, s + bendoLargho, ( bendoN + ( interŝanĝi ? 1 : 0 ) ) % 2 === 0 ? akcenta : malhela);
     bendoN++;
   }
 
-  const teksajxo = new THREE.CanvasTexture( c );
+  const teksajxo = new THREE.CanvasTexture(c);
   teksajxo.colorSpace = THREE.SRGBColorSpace;
   // Anizotropio tenas la desegnon klara ĉe malprofundaj rigard-anguloj.
   teksajxo.anisotropy = 0o10;
@@ -671,23 +671,23 @@ function generiPlankanTeksajxon( bazaKoloro: number, akcentaKoloro: number, semo
 // aplikiLitajnKolorojn — Rekolorigu la litajn tolojn/kapkusenojn de kasxita
 // ( reuzata ) interno al la nuna vesto de la ludanto. La materialoj estas
 // kreitaj freŝaj kaj la malnovaj forigataj — ili apartenas nur al la lito.
-function aplikiLitajnKolorojn( grupo: THREE.Group, tolaKoloro: number, kusenaKoloro: number ): void {
+function aplikiLitajnKolorojn(grupo: THREE.Group, tolaKoloro: number, kusenaKoloro: number): void {
   let tola: THREE.MeshStandardMaterial | null = null;
   let kusena: THREE.MeshStandardMaterial | null = null;
-  grupo.traverse( ( obj ) => {
+  grupo.traverse(( obj ) => {
     const mesxo = obj as THREE.Mesh;
     const tipo = mesxo.userData.litoTipo;
     if ( tipo !== "tecto" && tipo !== "kuseno" ) return;
     if ( tipo === "tecto" ) {
       if ( !tola ) tola = new THREE.MeshStandardMaterial({ color: tolaKoloro, roughness: 0o6/0o10 });
-      if ( mesxo.material !== tola ) ( mesxo.material as THREE.Material ).dispose();
+      if ( mesxo.material !== tola ) (mesxo.material as THREE.Material).dispose();
       mesxo.material = tola;
     } else {
       if ( !kusena ) kusena = new THREE.MeshStandardMaterial({ color: kusenaKoloro, roughness: 0o6/0o10 });
-      if ( mesxo.material !== kusena ) ( mesxo.material as THREE.Material ).dispose();
+      if ( mesxo.material !== kusena ) (mesxo.material as THREE.Material).dispose();
       mesxo.material = kusena;
     }
-  } );
+  });
 }
 
 // eniriSxipanInternon — La interno de la spacosxipo. Pluretagxa kareno-kabino
@@ -700,7 +700,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   // interno sekvas ilin — unu etaĝo ĉe ĉiu tier-rando, kun helika ŝtuparo.
   const sxipaTiero = 0o163/0o40;
   const up = 5, down = up;
-  const rMezCx = 0o17/0o4, rSupro = 0o3/0o4, rBoto = 0o21/0o12;
+  const rMezCx = 0o17/0o4, rSupro = 0o3/0o4, rBoto = 0o155/0o100;
   const rHelikso = 1;
   const yB = -down * sxipaTiero, yT = up * sxipaTiero;
   // Kareno-radiuso je loka alteco y (konusoj kongruantaj al la sxipa silueto,
@@ -709,12 +709,12 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
     y >= 0 ? rMezCx - (rMezCx - rSupro) * (y / (up * sxipaTiero))
            : rMezCx - (rMezCx - rBoto) * (-y / (down * sxipaTiero));
 
-  const kareno = new THREE.MeshStandardMaterial({ color: 0x10302a, roughness: 0o3/0o10, metalness: 0o11/0o40, side: THREE.DoubleSide });
-  const malhela = new THREE.MeshStandardMaterial({ color: 0x0a1816, roughness: 0o5/0o10, metalness: 0o1/0o10 });
+  const kareno = new THREE.MeshStandardMaterial({ color: 0x103028, roughness: 0o3/0o10, metalness: 0o11/0o40, side: THREE.DoubleSide });
+  const malhela = new THREE.MeshStandardMaterial({ color: 0x081818, roughness: 0o5/0o10, metalness: 0o1/0o10 });
   const oro = new THREE.MeshStandardMaterial({ color: GOLD, metalness: 0o7/0o10, roughness: 0o13/0o40 });
-  const brila = new THREE.MeshStandardMaterial({ color: 0x9fe8e0, emissive: 0x2a6a64, emissiveIntensity: 0o7/0o10, roughness: 0o3/0o10 });
-  const vitra = new THREE.MeshBasicMaterial({ color: 0x06121a, map: kreiStelplenanTeksajxon(), toneMapped: false, side: THREE.DoubleSide });
-  const sxtupMaterialo = new THREE.MeshStandardMaterial({ color: 0x2a3a34, roughness: 0o67/0o100 });
+  const brila = new THREE.MeshStandardMaterial({ color: 0xa0e8e0, emissive: 0x286868, emissiveIntensity: 0o7/0o10, roughness: 0o3/0o10 });
+  const vitra = new THREE.MeshBasicMaterial({ color: 0x081018, map: kreiStelplenanTeksajxon(), toneMapped: false, side: THREE.DoubleSide });
+  const sxtupMaterialo = new THREE.MeshStandardMaterial({ color: 0x283838, roughness: 0o67/0o100 });
 
   // Helika ŝtuparo — sama strukturo kiel en la konstruajxoj. Unu plena turno
   // po etaĝo, supren tra la supraj tieroj kaj suben tra la subaj.
@@ -761,7 +761,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
         ? new THREE.CircleGeometry(r, 0o40).rotateX(-Math.PI / 2)
         : new THREE.RingGeometry(rHelikso, Math.max(rHelikso + 0o1/0o20, r - 0o1/0o40), 0o40).rotateX(-Math.PI / 2),
       malhela
-    );
+);
     planko.position.y = p.y + 0o1/0o40;
     grupo.add(planko);
     // Ora ringo ĉe la enira etaĝo — SUPRE de la planko (0o5/0o100; la planko mem
@@ -779,15 +779,15 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
     const radiala = helikso.rEkster - helikso.rKol;
     const paŝoAngulo = Math.PI * 2 / helikso.perTurno;
     const paŝoAlto = helikso.turnoAlto / helikso.perTurno;
-    const paŝoLargho = rMezo * paŝoAngulo * 0o14/0o12;
+    const paŝoLargho = rMezo * paŝoAngulo * 0o115/0o100;
     const nSube = helikso.turnojSube * helikso.perTurno;
     const nSupre = helikso.turnoj * helikso.perTurno;
     const fundoY = heliksaAltecxo(helikso, -helikso.turnojSube);
     const suproY = Math.min(yT, heliksaAltecxo(helikso, helikso.turnoj) + 0o4/0o10);
     const kolono = new THREE.Mesh(
-      new THREE.CylinderGeometry(helikso.rKol, helikso.rKol * 0o13/0o12, suproY - fundoY, 0o20),
+      new THREE.CylinderGeometry(helikso.rKol, helikso.rKol * 0o106/0o100, suproY - fundoY, 0o20),
       malhela
-    );
+);
     kolono.position.set(0, (fundoY + suproY) / 2, 0);
     grupo.add(kolono);
     for (let p = -nSube; p < nSupre; p++) {
@@ -796,7 +796,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
       const paso = new THREE.Mesh(
         new THREE.BoxGeometry(paŝoLargho, paŝoAlto, radiala),
         sxtupMaterialo
-      );
+);
       paso.position.set(rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang));
       paso.rotation.y = ang;
       grupo.add(paso);
@@ -813,7 +813,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
     const relo = new THREE.Mesh(
       new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 0o1/0o30, 0o6, false),
       oro
-    );
+);
     grupo.add(relo);
   }
 
@@ -827,7 +827,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   const vitKadro = new THREE.LineSegments(
     new THREE.EdgesGeometry(new THREE.BoxGeometry(0o4 + 0o1/0o10, 0o25/0o10 + 0o1/0o10, 0o1/0o40)),
     new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
-  );
+);
   vitKadro.position.set(0, 0o23/0o4, vitraloZ);
   grupo.add(vitKadro);
 
@@ -868,16 +868,16 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   grupo.add(tigo);
 
   // Hologramo super la konzolo (la centro apartenas al la ŝtuparo)
-  const holoringo = new THREE.Mesh(new THREE.TorusGeometry(0o11/0o12, 0o1/0o24, 0o10, 0o40), brila);
+  const holoringo = new THREE.Mesh(new THREE.TorusGeometry(0o72/0o100, 0o3/0o100, 0o10, 0o40), brila);
   holoringo.position.set(0, 0o7/0o2, -0o5/0o2);
   grupo.add(holoringo);
-  const holoringo2 = new THREE.Mesh(new THREE.TorusGeometry(0o15/0o24, 0o1/0o24, 0o10, 0o40), brila);
+  const holoringo2 = new THREE.Mesh(new THREE.TorusGeometry(0o52/0o100, 0o3/0o100, 0o10, 0o40), brila);
   holoringo2.position.set(0, 0o7/0o2, -0o5/0o2);
   grupo.add(holoringo2);
   const holosfero = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o4, 0o10, 0o10), brila);
   holosfero.position.set(0, 0o7/0o2, -0o5/0o2);
   grupo.add(holosfero);
-  const hololumo = new THREE.PointLight(0x9fe8e0, 0o6/0o10, 0o20, 2);
+  const hololumo = new THREE.PointLight(0xa0e8e0, 0o6/0o10, 0o20, 2);
   hololumo.position.set(0, 0o7/0o2, -0o5/0o2);
   grupo.add(hololumo);
 
@@ -887,7 +887,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   const aerKadro = new THREE.LineSegments(
     new THREE.EdgesGeometry(new THREE.BoxGeometry(0o3, 5, 0o1/0o40)),
     new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
-  );
+);
   aerKadro.position.set(0, 0o7/0o2, aerZ);
   grupo.add(aerKadro);
   const aerPordo = new THREE.Mesh(new THREE.PlaneGeometry(0o3, 5), brila.clone());
@@ -895,7 +895,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   grupo.add(aerPordo);
 
   // Lumigado
-  const ambiento = new THREE.HemisphereLight(0xbfe8e0, 0x06120e, 0o5/0o10);
+  const ambiento = new THREE.HemisphereLight(0xc0e8e0, 0x081010, 0o5/0o10);
   grupo.add(ambiento);
   const lumo = new THREE.PointLight(GOLD_WARM, 0o4/0o10, 0o14, 2);
   lumo.position.set(0, 7, 0);
@@ -905,8 +905,8 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   const ekranoMat = ekrano.material as THREE.MeshStandardMaterial;
   sys.animated.push({
     update: (t: number) => {
-      holoringo.rotation.y = t * 0o6/0o12;
-      holoringo2.rotation.y = -t * 0o10/0o12;
+      holoringo.rotation.y = t * 0o46/0o100;
+      holoringo2.rotation.y = -t * 0o63/0o100;
       holosfero.scale.setScalar(1 + 0o1/0o10 * Math.sin(t * 2));
       ekranoMat.emissiveIntensity = 0o7/0o10 + 0o1/0o4 * Math.sin(t * 2);
       const pulso = 0o3/0o10 + 0o1/0o4 * Math.sin(t * 3);
@@ -936,15 +936,15 @@ export function kreiInternanSistemon(): InternaSistemo {
 // forjxetu gxin, se gxi havas neniun ŝlosilon ). La LRU-limo eljxetas la plej
 // malnovan internon kiam la kasxo plenigxas, por ke la memor-kresko restu
 // barita.
-function kasxiNunan( sys: InternaSistemo, cxefaSceno: THREE.Scene ): void {
+function kasxiNunan(sys: InternaSistemo, cxefaSceno: THREE.Scene): void {
   if ( !sys.currentGroup ) return;
-  cxefaSceno.remove( sys.currentGroup );
+  cxefaSceno.remove(sys.currentGroup);
   if ( sys.nunaSxlosilo ) {
     // Defenda forigo — la aktiva interno ne estu jam en la kasxo ( la
     // restarigo forigas gxin ), sed se gxi estas, la set ne movus la
     // enmetan ordon en Mapo. Forigu antaŭ la set, por ke la ordo restu LRU.
-    sys.kasxo.delete( sys.nunaSxlosilo );
-    sys.kasxo.set( sys.nunaSxlosilo, {
+    sys.kasxo.delete(sys.nunaSxlosilo);
+    sys.kasxo.set(sys.nunaSxlosilo, {
       grupo: sys.currentGroup,
       plankoj: sys.plankoj,
       helikso: sys.helikso,
@@ -952,16 +952,16 @@ function kasxiNunan( sys: InternaSistemo, cxefaSceno: THREE.Scene ): void {
       vaporNuboj: sys.vaporNuboj,
       litkoj: sys.litkoj,
       animated: sys.animated,
-    } );
+    });
     // LRU-eljeto — la unua en la enmeta ordo estas la plej malnova.
     while ( sys.kasxo.size > KASXA_LIMO ) {
       const unua = sys.kasxo.keys().next().value as string;
-      const eljxetita = sys.kasxo.get( unua )!;
-      sys.kasxo.delete( unua );
-      forigiInternanGrupon( eljxetita.grupo );
+      const eljxetita = sys.kasxo.get(unua)!;
+      sys.kasxo.delete(unua);
+      forigiInternanGrupon(eljxetita.grupo);
     }
   } else {
-    forigiInternanGrupon( sys.currentGroup );
+    forigiInternanGrupon(sys.currentGroup);
   }
   sys.currentGroup = null;
   sys.nunaSxlosilo = null;
@@ -976,15 +976,15 @@ function kasxiNunan( sys: InternaSistemo, cxefaSceno: THREE.Scene ): void {
 // restarigiInternon — Se la interno de la speco jam estas konstruita kaj
 // kasxita, re-aldonu gxin al la sceno kaj redonu la eniran punkton; alie
 // redonu null ( kaj la vokanto konstruu novan ).
-function restarigiInternon( sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: THREE.Scene, pordaAngulo: number ): InternaEnirPunkto | null {
-  const sxlosilo = sxlosiloDeSpeco( spec );
-  const kasxita = sys.kasxo.get( sxlosilo );
+function restarigiInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: THREE.Scene, pordaAngulo: number): InternaEnirPunkto | null {
+  const sxlosilo = sxlosiloDeSpeco(spec);
+  const kasxita = sys.kasxo.get(sxlosilo);
   if ( !kasxita ) return null;
-  sys.kasxo.delete( sxlosilo );
+  sys.kasxo.delete(sxlosilo);
   const grupo = kasxita.grupo;
-  grupo.position.set( spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z );
+  grupo.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
   grupo.rotation.y = spec.rot || 0;
-  cxefaSceno.add( grupo );
+  cxefaSceno.add(grupo);
   sys.currentGroup = grupo;
   sys.animated = kasxita.animated;
   sys.plankoj = kasxita.plankoj;
@@ -996,17 +996,17 @@ function restarigiInternon( sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: 
   // ankaŭ la pendan malkreskan animacion, por ke gxi ne plu tuŝu la reaperintan
   // mangxajxon post la restarigo.
   for ( const it of sys.manĝaĵoj ) {
-    if ( it.malkreska ) { cancelAnimationFrame( it.malkreska ); it.malkreska = null; }
+    if ( it.malkreska ) { cancelAnimationFrame(it.malkreska); it.malkreska = null; }
     it.dead = false;
     it.mesh.visible = true;
-    it.mesh.scale.setScalar( 1 );
+    it.mesh.scale.setScalar(1);
   }
   // Vaporaj nuboj rekomencu de sia bazo ( ne de la meza drivo ) — la sama
   // komenca stato kiel cxe nova konstruo.
   for ( const v of sys.vaporNuboj ) {
     v.ph = 0;
     const pos = v.cloud.geometry.attributes.position as THREE.BufferAttribute;
-    for ( let i = 0; i < pos.count; i++ ) pos.setY( i, v.basePos.y );
+    for ( let i = 0; i < pos.count; i++ ) pos.setY(i, v.basePos.y);
     pos.needsUpdate = true;
   }
   // La aktiva interno NE restas en la kasxo — gxi re-kasxigxas cxe la eliro
@@ -1015,9 +1015,9 @@ function restarigiInternon( sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: 
   sys.nunaSxlosilo = sxlosilo;
   // Enira punkto — la sama kiel cxe nova konstruo.
   if ( spec.type === "stacioxipo" ) return { x: 0, z: 0o5/0o2, y: 0o4/0o10, direkto: 0 };
-  const d = Math.min( spec.d, 0o12 );
-  const enirR = Math.max( 0o3/0o2, d / 2 ) - 0o4/0o10;
-  return { x: Math.sin( pordaAngulo ) * enirR, z: Math.cos( pordaAngulo ) * enirR, y: 0o4/0o10, direkto: pordaAngulo };
+  const d = Math.min(spec.d, 0o10);
+  const enirR = Math.max(0o3/0o2, d / 2) - 0o4/0o10;
+  return { x: Math.sin(pordaAngulo) * enirR, z: Math.cos(pordaAngulo) * enirR, y: 0o4/0o10, direkto: pordaAngulo };
 }
 
 export function eniriInternon(
@@ -1034,15 +1034,15 @@ export function eniriInternon(
 ): InternaEnirPunkto {
   // Konservu la antauxan internon en la kasxo ( anstataŭ forjxeti ĝin ) — la
   // sekva eniro al la sama konstruaĵo estos tuja, sen rekonstruado.
-  kasxiNunan( sys, cxefaSceno );
+  kasxiNunan(sys, cxefaSceno);
 
   // Ĉu ĉi tiu konstruaĵo jam havas konstruita internon? Re-aldonu ĝin tuj.
-  const sxlosilo = sxlosiloDeSpeco( spec );
-  const restarigita = restarigiInternon( sys, spec, cxefaSceno, pordaAngulo );
+  const sxlosilo = sxlosiloDeSpeco(spec);
+  const restarigita = restarigiInternon(sys, spec, cxefaSceno, pordaAngulo);
   if ( restarigita ) {
     // La kasxita interno portas la litajn kolorojn de sia konstru-tempo —
     // gxisdatigu ilin al la nuna vesto de la ludanto.
-    aplikiLitajnKolorojn( sys.currentGroup!, tolaKoloro, kusenaKoloro );
+    aplikiLitajnKolorojn(sys.currentGroup!, tolaKoloro, kusenaKoloro);
     return restarigita;
   }
   sys.nunaSxlosilo = sxlosilo;
@@ -1059,8 +1059,8 @@ export function eniriInternon(
     return eniriSxipanInternon(sys, spec, cxefaSceno);
   }
 
-  const w = Math.min(spec.w, 0o12);
-  const d = Math.min(spec.d, 0o12);
+  const w = Math.min(spec.w, 0o10);
+  const d = Math.min(spec.d, 0o10);
   const tieroAlto = spec.tieroAlto;
   // La niveloj baziĝas SUR LA TAVOLOJ de la ekstera konstruajxo ( spec.niveloj )
   // — neniu kroma plafono. La sub-teraj niveloj same venas rekte de la spec
@@ -1092,22 +1092,22 @@ export function eniriInternon(
   // La semo venas de la pozicio kaj nomo, do ĉiu konstruajxo ricevas sian
   // propran STABILAN varianton ( la sama konstruajxo ĉiam samas ).
   const plankSemo = ( ( spec.x * 0x9E3779B1 ) ^ ( spec.z * 0x85EBCA77 ) ^
-    spec.name.split( "" ).reduce( ( h, ch ) => ( h * 31 + ch.charCodeAt( 0 ) ) | 0, 0 ) ) >>> 0;
+    spec.name.split("").reduce(( h, ch ) => ( h * 31 + ch.charCodeAt(0) ) | 0, 0) ) >>> 0;
   const plankoMaterialo = new THREE.MeshStandardMaterial({
-    color: 0xffffff, map: generiPlankanTeksajxon( muraTipo.wall, muraTipo.frame, plankSemo ), roughness: 0o55/0o100,
+    color: 0xffffff, map: generiPlankanTeksajxon(muraTipo.wall, muraTipo.frame, plankSemo), roughness: 0o55/0o100,
   });
   const plafonaMaterialo = new THREE.MeshStandardMaterial({
-    color: 0x060e0a, roughness: 0o67/0o100,
+    color: 0x081008, roughness: 0o67/0o100,
   });
   const kadraMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o7/0o10, roughness: 0o13/0o40 });
   const fenestraMaterialo = new THREE.MeshStandardMaterial({
-    color: 0x0a1a18, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
+    color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
     roughness: 0o3/0o20, metalness: 0o3/0o20,
     transparent: true, opacity: 0o7/0o10,
   });
   // Stupoj — malheligita versio de la konstruajxa muro-koloro.
   const sxtupMaterialo = new THREE.MeshStandardMaterial({
-    color: parseInt( malheligi( deksesuma( muraTipo.wall ), 0o6/0o10 ).slice( 1 ), 16 ), roughness: 0o67/0o100,
+    color: parseInt(malheligi(deksesuma(muraTipo.wall), 0o6/0o10).slice(1), 16), roughness: 0o67/0o100,
   });
   // Komunaj materialoj por dekoracioj
   const oraBazaMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
@@ -1116,7 +1116,7 @@ export function eniriInternon(
   const oraTrimMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
 
   const group = new THREE.Group();
-  // Meblaro-materialoj — preferu la KOLOROJN de la konstruajxo ( muraTipo :
+  // Meblaro-materialoj — preferu la KOLOROJN de la konstruajxo ( muraTipo .
   // la muro kaj la ora kadro ), anstataux fiksitaj fremdaj koloroj.
   const lignaMaterialo = new THREE.MeshStandardMaterial({ color: LIGNA_KOLORO, roughness: 0o7/0o10 });
   const metalaMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o5/0o10, roughness: 0o5/0o10 });
@@ -1154,7 +1154,7 @@ export function eniriInternon(
         ? kreiRinganPlankon(hw, hd, sxaktaR, -Math.PI / 2)
         : new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(-Math.PI / 2),
       plankoMaterialo
-    );
+);
     planko.position.set(0, y + 0o1/0o40, 0);
     group.add(planko);
 
@@ -1164,7 +1164,7 @@ export function eniriInternon(
       // L-forma angula krampo el du maldikaj skatoloj
       for ( const [dx, dz, lx, lz] of [ [ 1, 0, 0o3/0o10, 0o1/0o20 ], [ 0, 1, 0o1/0o20, 0o3/0o10 ] ] as [number, number, number, number][] ) {
         const b = new THREE.Mesh(new THREE.BoxGeometry(lx, 0o1/0o40, lz), oraBazaMaterialo);
-        b.position.set( sX * ( hw - 0o1/0o10 * dx ), y + 0o2/0o40, sZ * ( hd - 0o1/0o10 * dz ));
+        b.position.set(sX * ( hw - 0o1/0o10 * dx ), y + 0o2/0o40, sZ * ( hd - 0o1/0o10 * dz ));
         group.add(b);
       }
     }
@@ -1176,7 +1176,7 @@ export function eniriInternon(
           ? kreiRinganPlankon(hw, hd, sxaktaR, Math.PI / 2)
           : new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(Math.PI / 2),
         plafonaMaterialo
-      );
+);
       plafono.position.set(0, y + alto - 0o1/0o40, 0);
       group.add(plafono);
     }
@@ -1194,7 +1194,7 @@ export function eniriInternon(
       const pordSupro = 0o233/0o100 * 0o45/0o100;             // ≈ 1.09
       // Sama alto kiel la pordo, sed neniam super la plafono de mallonga
       // etaĝo — alie la truo elstarus el la muro-rektangulo (degenera formo).
-      const pordAlto = Math.min( 0o11/0o4, alto - 0o1/0o10 );  // ≈ 2.25, sama kiel la pordo
+      const pordAlto = Math.min(0o11/0o4, alto - 0o1/0o10);  // ≈ 2.25, sama kiel la pordo
       const pordRadiBazo = 0o3/0o20;                         // samaj rondigitaj anguloj
       const pordRadiSupro = 0o1/0o10;                        // kiel la ekstera pordo
       const muraDikeco = 0o3/0o20;
@@ -1202,32 +1202,32 @@ export function eniriInternon(
 
       // Unu mura panelo kun trapezoida truo ( anstataŭ tri skatoloj + arko )
       const muroFormo = new THREE.Shape();
-      muroFormo.moveTo( -hw, 0 ); muroFormo.lineTo( hw, 0 );
-      muroFormo.lineTo( hw, alto ); muroFormo.lineTo( -hw, alto );
+      muroFormo.moveTo(-hw, 0); muroFormo.lineTo(hw, 0);
+      muroFormo.lineTo(hw, alto); muroFormo.lineTo(-hw, alto);
       muroFormo.closePath();
-      muroFormo.holes.push( kreiTrapezanPordTruon( pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro ) );
-      const muroGeo = new THREE.ExtrudeGeometry( muroFormo, { depth: muraDikeco, bevelEnabled: false, curveSegments: 0o20 } );
-      muroGeo.translate( 0, 0, -muraDikeco / 2 );
-      const muro = new THREE.Mesh( muroGeo, muraMaterialo );
-      muro.position.set( 0, y, hd );
-      pordMuro.add( muro );
+      muroFormo.holes.push(kreiTrapezanPordTruon(pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro));
+      const muroGeo = new THREE.ExtrudeGeometry(muroFormo, { depth: muraDikeco, bevelEnabled: false, curveSegments: 0o20 });
+      muroGeo.translate(0, 0, -muraDikeco / 2);
+      const muro = new THREE.Mesh(muroGeo, muraMaterialo);
+      muro.position.set(0, y, hd);
+      pordMuro.add(muro);
 
       // Ora rando laŭ la trapezoida konturo — tubo ĝuste antaŭ la interna
       // muro-faco (sama ideo kiel la ekstera ora rando ĉirkaŭ la pordo).
-      const truKonturo = kreiTrapezanPordTruon( pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro )
-        .getPoints( 0o100 ).map( (pt: THREE.Vector2) => new THREE.Vector3( pt.x, pt.y, 0 ) );
+      const truKonturo = kreiTrapezanPordTruon(pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro)
+        .getPoints(0o100).map((pt: THREE.Vector2) => new THREE.Vector3(pt.x, pt.y, 0));
       const pordRando = new THREE.Mesh(
-        new THREE.TubeGeometry( new THREE.CatmullRomCurve3( truKonturo, true, "catmullrom", 0o1/0o2 ), 0o100, 0o1/0o20, 6, true ),
+        new THREE.TubeGeometry(new THREE.CatmullRomCurve3(truKonturo, true, "catmullrom", 0o1/0o2), 0o100, 0o1/0o20, 6, true),
         kadraMaterialo
-      );
-      pordRando.position.set( 0, y, hd - muraDikeco / 2 - 0o3/0o50 );
-      pordMuro.add( pordRando );
+);
+      pordRando.position.set(0, y, hd - muraDikeco / 2 - 0o3/0o50);
+      pordMuro.add(pordRando);
 
       // Malgranda ora sojlo sub la pordo
       const sojlo = new THREE.Mesh(
-        new THREE.BoxGeometry( pordBazo + 0o1/0o10, 0o2/0o40, muraDikeco ),
+        new THREE.BoxGeometry(pordBazo + 0o1/0o10, 0o2/0o40, muraDikeco),
         new THREE.MeshStandardMaterial({ color: GOLD, roughness: 0o23/0o100, metalness: 0o55/0o100 })
-      );
+);
       sojlo.position.set(0, y, hd - 0o1/0o20);
       pordMuro.add(sojlo);
 
@@ -1235,7 +1235,7 @@ export function eniriInternon(
       for ( let i = 0; i < pordoj; i++ ) {
         const kopio = i === 0 ? pordMuro : pordMuro.clone();
         kopio.rotation.y = i * Math.PI / 2;
-        group.add( kopio );
+        group.add(kopio);
       }
     } else {
       // Plena muro sur la supraj kaj sub-teraj etagxoj
@@ -1263,53 +1263,53 @@ export function eniriInternon(
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
       // Ĉefa kolona korpo
       const kol = new THREE.Mesh(
-        new RoundedBoxGeometry( kolDikeco, kolAlto, kolDikeco, 3, 0o1/0o50 ),
+        new RoundedBoxGeometry(kolDikeco, kolAlto, kolDikeco, 3, 0o1/0o50),
         kadraMaterialo
-      );
+);
       kol.position.set(sX * (hw - kolDikeco / 2), y + kolAlto / 2, sZ * (hd - kolDikeco / 2));
       group.add(kol);
 
       // Supra iom pli larĝa kapo — ekstera faco ĝuste ĉe la muro
       const flara = new THREE.Mesh(
-        new RoundedBoxGeometry( kolDikeco * 0o15/0o10, kolAlto * 0o1/0o40, kolDikeco * 0o15/0o10, 3, 0o1/0o50 ),
+        new RoundedBoxGeometry(kolDikeco * 0o15/0o10, kolAlto * 0o1/0o40, kolDikeco * 0o15/0o10, 3, 0o1/0o50),
         kadraMaterialo
-      );
-      flara.position.set( sX * ( hw - ( kolDikeco * 0o15/0o10 ) / 2 ), y + kolAlto - kolAlto * 0o1/0o40, sZ * ( hd - ( kolDikeco * 0o15/0o10 ) / 2 ));
+);
+      flara.position.set(sX * ( hw - ( kolDikeco * 0o15/0o10 ) / 2 ), y + kolAlto - kolAlto * 0o1/0o40, sZ * ( hd - ( kolDikeco * 0o15/0o10 ) / 2 ));
       group.add(flara);
 
       // Malgranda ora bazo — ekstera faco ĝuste ĉe la muro
       const bazo = new THREE.Mesh(
-        new RoundedBoxGeometry( kolDikeco * 0o5/0o4, kolAlto * 0o1/0o40, kolDikeco * 0o5/0o4, 3, 0o1/0o50 ),
+        new RoundedBoxGeometry(kolDikeco * 0o5/0o4, kolAlto * 0o1/0o40, kolDikeco * 0o5/0o4, 3, 0o1/0o50),
         new THREE.MeshStandardMaterial({ color: GOLD_SOFT, metalness: 0o5/0o10, roughness: 0o13/0o40 })
-      );
-      bazo.position.set( sX * ( hw - ( kolDikeco * 0o5/0o4 ) / 2 ), y + kolAlto * 0o1/0o100, sZ * ( hd - ( kolDikeco * 0o5/0o4 ) / 2 ));
+);
+      bazo.position.set(sX * ( hw - ( kolDikeco * 0o5/0o4 ) / 2 ), y + kolAlto * 0o1/0o100, sZ * ( hd - ( kolDikeco * 0o5/0o4 ) / 2 ));
       group.add(bazo);
     }
 
     // Muraj lampoj kun varma ora brilo
-    const lampNombro = Math.max( 1, Math.floor( hw ) - 1 );
+    const lampNombro = Math.max(1, Math.floor(hw) - 1);
     for ( let i = 0; i < lampNombro; i++ ) {
       const lx = -hw + ( i + 1 ) * hw * 2 / ( lampNombro + 1 );
       // Sur la teretaĝo la pordo okupas la centron de la fronta muro — lampoj
       // ene de la porda malfermo flosus en la aero.
-      if ( et === 0 && Math.abs( lx ) < pordDuon ) continue;
+      if ( et === 0 && Math.abs(lx) < pordDuon ) continue;
       // Ora krampo
       const lampBazo = new THREE.Mesh(
-        new THREE.BoxGeometry( 0o1/0o10, 0o1/0o10, 0o1/0o10 ),
+        new THREE.BoxGeometry(0o1/0o10, 0o1/0o10, 0o1/0o10),
         kadraMaterialo
-      );
-      lampBazo.position.set( lx, y + alto * 0o5/0o10, hd - 0o1/0o40 );
+);
+      lampBazo.position.set(lx, y + alto * 0o5/0o10, hd - 0o1/0o40);
       group.add(lampBazo);
       // Varma punktolumo
-      const lumo = new THREE.PointLight( GOLD_WARM, 0o2/0o10, 5, 2 );
-      lumo.position.set( lx, y + alto * 0o5/0o10, hd - 0o3/0o10 );
+      const lumo = new THREE.PointLight(GOLD_WARM, 0o2/0o10, 5, 2);
+      lumo.position.set(lx, y + alto * 0o5/0o10, hd - 0o3/0o10);
       group.add(lumo);
       // Malgranda brila sfero
       const glo = new THREE.Mesh(
-        new THREE.SphereGeometry( 0o1/0o20, 0o10, 0o10 ),
+        new THREE.SphereGeometry(0o1/0o20, 0o10, 0o10),
         new THREE.MeshBasicMaterial({ color: GOLD_WARM, transparent: true, opacity: 0o3/0o20 })
-      );
-      glo.position.set( lx, y + alto * 0o5/0o10, hd - 0o3/0o10 );
+);
+      glo.position.set(lx, y + alto * 0o5/0o10, hd - 0o3/0o10);
       group.add(glo);
     }
 
@@ -1323,36 +1323,36 @@ export function eniriInternon(
       });
       // Alta vertikala skribplato
       const surfaco = new THREE.Mesh(
-        new THREE.PlaneGeometry( 4/5, 0o15/0o10 ),
+        new THREE.PlaneGeometry(4/5, 0o15/0o10),
         new THREE.MeshStandardMaterial({ map: plakedo, transparent: true, roughness: 0o23/0o100, metalness: 0o55/0o100 })
-      );
+);
       // La plato staras sur la fronta muro DEKSTRE de la pordo (la pordo mem
       // okupas la centron) — la malnova centro flosis en la porda malfermo.
       const pkX = pordDuon + ( hw - pordDuon ) / 2;
-      surfaco.position.set( pkX, y + alto * 0o3/0o10, hd - 0o1/0o20 );
+      surfaco.position.set(pkX, y + alto * 0o3/0o10, hd - 0o1/0o20);
       group.add(surfaco);
       // Dekora ora kadro ĉirkaŭ la plato
       const pkadro = new THREE.LineSegments(
-        new THREE.EdgesGeometry( new THREE.BoxGeometry( 1, 0o16/0o10, 0o1/0o40 )),
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 0o16/0o10, 0o1/0o40)),
         new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
-      );
-      pkadro.position.set( pkX, y + alto * 0o3/0o10, hd - 0o1/0o40 );
+);
+      pkadro.position.set(pkX, y + alto * 0o3/0o10, hd - 0o1/0o40);
       group.add(pkadro);
     }
 
-    aldoniInternanMeblaron( group, spec.type, hw, hd, y, alto, et, niveloj,
+    aldoniInternanMeblaron(group, spec.type, hw, hd, y, alto, et, niveloj,
       lignaMaterialo, metalaMaterialo, kadraMaterialo,
-      tolaKoloro, kusenaKoloro, sys.litkoj );
+      tolaKoloro, kusenaKoloro, sys.litkoj);
 
     // Plafonaj traboj kun oraj akcentoj
     if ( spec.type !== "kasafeo" && hw > 0o3/0o2 ) {
-      const trabaMaterialo = new THREE.MeshStandardMaterial({ color: parseInt( malheligi( deksesuma( muraTipo.wall ), 0o3/0o10 ).slice( 1 ), 16 ), roughness: 0o67/0o100 });
+      const trabaMaterialo = new THREE.MeshStandardMaterial({ color: parseInt(malheligi(deksesuma(muraTipo.wall), 0o3/0o10).slice(1), 16), roughness: 0o67/0o100 });
       for ( let i = 0; i < 2; i++ ) {
         const tx = ( i - 0o4/0o10 ) * hw * 0o7/0o10;
         const trabo = new THREE.Mesh(
-          new THREE.BoxGeometry( 0o5/0o40, 0o5/0o40, hd * 2 - 0o3/0o10 ),
+          new THREE.BoxGeometry(0o5/0o40, 0o5/0o40, hd * 2 - 0o3/0o10),
           trabaMaterialo
-        );
+);
         trabo.position.set(tx, y + alto - 0o2/0o40, 0);
         group.add(trabo);
       }
@@ -1368,35 +1368,35 @@ export function eniriInternon(
     const paŝoAngulo = Math.PI * 2 / helikso.perTurno;
     const paŝoAltoSupre = helikso.turnoAlto / helikso.perTurno;
     const paŝoAltoSube = helikso.turnoAltoSub / helikso.perTurno;
-    const paŝoLargho = rMezo * paŝoAngulo * 0o14/0o12;
+    const paŝoLargho = rMezo * paŝoAngulo * 0o115/0o100;
     const nSube = helikso.turnojSube * helikso.perTurno;
     const nSupre = helikso.turnoj * helikso.perTurno;
-    const fundoY = heliksaAltecxo( helikso, -helikso.turnojSube );
-    const suproY = heliksaAltecxo( helikso, helikso.turnoj ) + 0o4/0o10;
+    const fundoY = heliksaAltecxo(helikso, -helikso.turnojSube);
+    const suproY = heliksaAltecxo(helikso, helikso.turnoj) + 0o4/0o10;
     // Centra kolono — la AKCENTA ( ora ) koloro de la konstruajxo, ne la ligno.
     const akcentaMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o55/0o100, roughness: 0o23/0o100 });
     const kolono = new THREE.Mesh(
-      new THREE.CylinderGeometry( helikso.rKol, helikso.rKol * 0o13/0o12, suproY - fundoY, 0o20 ),
+      new THREE.CylinderGeometry(helikso.rKol, helikso.rKol * 0o106/0o100, suproY - fundoY, 0o20),
       akcentaMaterialo
-    );
-    kolono.position.set( 0, ( fundoY + suproY ) / 2, 0 );
+);
+    kolono.position.set(0, ( fundoY + suproY ) / 2, 0);
     kolono.castShadow = true;
-    group.add( kolono );
+    group.add(kolono);
     // Paŝoj ĉirkaŭ la kolono — sub-teraj turnoj (negativaj) kaj supraj turnoj
     for ( let p = -nSube; p < nSupre; p++ ) {
       const ang = p * paŝoAngulo;
       const paŝoAlto = p < 0 ? paŝoAltoSube : paŝoAltoSupre;
-      const y = heliksaAltecxo( helikso, p / helikso.perTurno );
+      const y = heliksaAltecxo(helikso, p / helikso.perTurno);
       // Paŝo kun IOMETe rondigitaj anguloj ( radiuso 0o1/0o50 ) — sufiĉe por
       // mola konturo, sed la paŝo restas klare rekta.
       const paso = new THREE.Mesh(
-        new RoundedBoxGeometry( paŝoLargho, paŝoAlto, radiala, 3, 0o1/0o50 ),
+        new RoundedBoxGeometry(paŝoLargho, paŝoAlto, radiala, 3, 0o1/0o50),
         sxtupMaterialo
-      );
-      paso.position.set( rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang) );
+);
+      paso.position.set(rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang));
       paso.rotation.y = ang;
       paso.castShadow = true;
-      group.add( paso );
+      group.add(paso);
       // Ora rimo kiu VOLVAS la paŝon kiel U — maldikaj opakaj bendoj tuj EKSTER
       // la paŝaj facoj ( ekstera faco + la du flankoj ), NENIAM ene de la paŝo.
       // La malnovaj versioj sidis sur/en la paŝa supro — ilia supra faco koincidis
@@ -1404,93 +1404,93 @@ export function eniriInternon(
       // bendoj kuŝas apud la paŝo, do neniu superkovro kaj neniu klipo. La alto
       // neniam superas la paŝan leviĝon ( paŝoAlto ), do ili ne enrampas en la
       // najbarajn paŝojn.
-      const nazoAlto = Math.min( 0o1/0o40, paŝoAlto );
+      const nazoAlto = Math.min(0o1/0o40, paŝoAlto);
       const rimY = y + paŝoAlto - nazoAlto / 2;
-      const ux = Math.sin( ang ), uz = Math.cos( ang );    // radiale eksteren
-      const tx = Math.cos( ang ), tz = -Math.sin( ang );   // tanĝe
+      const ux = Math.sin(ang), uz = Math.cos(ang);    // radiale eksteren
+      const tx = Math.cos(ang), tz = -Math.sin(ang);   // tanĝe
       // Ekstera bendo — tuj ekster la ekstera faco ( [rEkster, rEkster + 0.05] ),
       // kun iomete rondigitaj anguloj ( RoundedBoxGeometry, radiuso 0o1/0o120 ).
       const nazo = new THREE.Mesh(
-        new RoundedBoxGeometry( paŝoLargho + 0o1/0o10, nazoAlto, 0o1/0o20, 3, 0o1/0o120 ),
+        new RoundedBoxGeometry(paŝoLargho + 0o1/0o10, nazoAlto, 0o1/0o20, 3, 0o1/0o120),
         akcentaMaterialo
-      );
-      nazo.position.set( ( helikso.rEkster + 0o1/0o40 ) * ux, rimY, ( helikso.rEkster + 0o1/0o40 ) * uz );
+);
+      nazo.position.set(( helikso.rEkster + 0o1/0o40 ) * ux, rimY, ( helikso.rEkster + 0o1/0o40 ) * uz);
       nazo.rotation.y = ang;
-      group.add( nazo );
+      group.add(nazo);
       // Du flankaj bendoj — ĉiu tuj ekster sia paŝo-flanko, laŭ la tuta radia
       // longo, kun la samaj rondigitaj anguloj.
       for ( const s of [ -1, 1 ] ) {
         const flanko = new THREE.Mesh(
-          new RoundedBoxGeometry( 0o1/0o20, nazoAlto, radiala, 3, 0o1/0o120 ),
+          new RoundedBoxGeometry(0o1/0o20, nazoAlto, radiala, 3, 0o1/0o120),
           akcentaMaterialo
-        );
+);
         flanko.position.set(
           rMezo * ux + s * ( paŝoLargho / 2 + 0o1/0o40 ) * tx,
           rimY,
           rMezo * uz + s * ( paŝoLargho / 2 + 0o1/0o40 ) * tz
-        );
+);
         flanko.rotation.y = ang;
-        group.add( flanko );
+        group.add(flanko);
       }
     }
     // Ora spirala manrelo laŭ la ekstera rando (tra la tuta spiralo)
     const relPunktoj: THREE.Vector3[] = [];
-    const relSegmentoj = Math.max( 0o100, ( helikso.turnoj + helikso.turnojSube ) * 0o40 );
+    const relSegmentoj = Math.max(0o100, ( helikso.turnoj + helikso.turnojSube ) * 0o40);
     for ( let i = 0; i <= relSegmentoj; i++ ) {
       const t = i / relSegmentoj;
       const turno = -helikso.turnojSube + t * ( helikso.turnoj + helikso.turnojSube );
       const ang = turno * Math.PI * 2;
-      const y = heliksaAltecxo( helikso, turno ) + 0o3/0o4;
-      relPunktoj.push( new THREE.Vector3( ( helikso.rEkster + 0o1/0o10 ) * Math.sin(ang), y, ( helikso.rEkster + 0o1/0o10 ) * Math.cos(ang) ) );
+      const y = heliksaAltecxo(helikso, turno) + 0o3/0o4;
+      relPunktoj.push(new THREE.Vector3(( helikso.rEkster + 0o1/0o10 ) * Math.sin(ang), y, ( helikso.rEkster + 0o1/0o10 ) * Math.cos(ang)));
     }
     const relo = new THREE.Mesh(
-      new THREE.TubeGeometry( new THREE.CatmullRomCurve3( relPunktoj ), relSegmentoj, 0o1/0o30, 0o6, false ),
+      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 0o1/0o30, 0o6, false),
       kadraMaterialo
-    );
-    group.add( relo );
+);
+    group.add(relo);
   }
 
   // Atmosfera lumigado
   // Ĉefa varma direkta lumo de supre
-  const cxefaLumo = new THREE.DirectionalLight( 0xf8d898, 0o3/0o10 );
-  cxefaLumo.position.set( 0, niveloj * tieroAlto * 4/5, 0 );
+  const cxefaLumo = new THREE.DirectionalLight(0xf8d898, 0o3/0o10);
+  cxefaLumo.position.set(0, niveloj * tieroAlto * 4/5, 0);
   group.add(cxefaLumo);
   // Varma pleniga lumo de sube
-  const subLumo = new THREE.DirectionalLight( 0xd9b36a, 0o1/0o10 );
-  subLumo.position.set( 0, -1, 0 );
+  const subLumo = new THREE.DirectionalLight(0xd8b068, 0o1/0o10);
+  subLumo.position.set(0, -1, 0);
   group.add(subLumo);
   // Ambienta lumo kun varma nuanco
-  const ambiento = new THREE.HemisphereLight( 0xd9b36a, 0x08140e, 0o2/0o10 );
+  const ambiento = new THREE.HemisphereLight(0xd8b068, 0x081810, 0o2/0o10);
   group.add(ambiento);
 
   // Specialaj mebloj por mangxejo
   if ( spec.type === "mangxejo" ) {
     const mw = Math.min(spec.w, 0o10), md = Math.min(spec.d, 0o10);
     const counter = new THREE.Mesh(
-      new THREE.BoxGeometry( Math.min( mw * 2 - 1, 6 ), 1, 0o12/0o10 ),
+      new THREE.BoxGeometry(Math.min(mw * 2 - 1, 6), 1, 0o12/0o10),
       lignaMaterialo
-    );
-    // La vendotablo staras TUTE ene de la ĉambro: la malnova centro
+);
+    // La vendotablo staras TUTE ene de la ĉambro. la malnova centro
     // ( -md/2 + 0o1/0o10 ) lasis pli ol duonon de la tablo tra la malantaŭa
     // muro — videbla ligna bloko el la ekstero. 0o2/0o10 libero de la muro.
-    counter.position.set( 0o5/0o10, 0o4/0o10, -md / 2 + 0o2/0o10 + 0o12/0o10 / 2 );
+    counter.position.set(0o5/0o10, 0o4/0o10, -md / 2 + 0o2/0o10 + 0o12/0o10 / 2);
     group.add(counter);
     const pot = new THREE.Mesh(
-      new THREE.CylinderGeometry( 0o3/0o10, 0o3/0o10, 0o4/0o10, 0o16 ),
+      new THREE.CylinderGeometry(0o3/0o10, 0o3/0o10, 0o4/0o10, 0o16),
       metalaMaterialo
-    );
-    pot.position.set( -0o5/0o10, 0o12/0o10, counter.position.z );
+);
+    pot.position.set(-0o5/0o10, 0o12/0o10, counter.position.z);
     group.add(pot);
-    const steamPos = new THREE.Vector3( -0o5/0o10, 0o15/0o10, counter.position.z );
+    const steamPos = new THREE.Vector3(-0o5/0o10, 0o15/0o10, counter.position.z);
     const vapor = aldoniVaporon(group, steamPos);
     sys.vaporNuboj = [{ ...vapor, ph: 0 }];
     // La tabloj eniras por ke la flankaj benkoj ( ±0o14/0o10, duonprofundo
     // 0o1/0o4 ) ne tuŝu la flankajn murojn — la malnova tabloX 0o22/0o10 lasis
     // la benkojn ĜUSTE ĉe la muro ( nula libero ). La malantaŭa vico
     // malproksimiĝas de la vendotablo, por ke la tabloj ne eniru la tablon.
-    const tabloX = Math.min( 0o20/0o10, Math.max( 0o7/0o10, mw / 2 - 0o5/0o4 ));
-    const tabloZ = Math.min( 0o22/0o10, Math.max( 0o7/0o10, md / 2 - 0o5/0o4 ));
-    const malantaŭaZ = Math.min( 0o14/0o10, Math.max( 0o7/0o10, md / 2 - 0o14/0o10 ));
+    const tabloX = Math.min(0o20/0o10, Math.max(0o7/0o10, mw / 2 - 0o5/0o4));
+    const tabloZ = Math.min(0o22/0o10, Math.max(0o7/0o10, md / 2 - 0o5/0o4));
+    const malantaŭaZ = Math.min(0o14/0o10, Math.max(0o7/0o10, md / 2 - 0o14/0o10));
     const tabloLokoj = mw >= 0o50/0o10 && md >= 0o50/0o10
       ? [ [ tabloX, tabloZ ], [ -tabloX, tabloZ ], [ tabloX, -malantaŭaZ ], [ -tabloX, -malantaŭaZ ] ]
       : [];
@@ -1498,7 +1498,7 @@ export function eniriInternon(
     for ( const [tx, tz] of tabloLokoj ) {
       // La tablo kun benkoj — nur tri flankoj por la malantauxa vico ( tz < 0 ),
       // por ke la flanko kontraŭ la vendotablo restu libera.
-      aldoniManĝtablon( group, tx, tz, 0, lignaMaterialo, kadraMaterialo, tz < 0 );
+      aldoniManĝtablon(group, tx, tz, 0, lignaMaterialo, kadraMaterialo, tz < 0);
       tabloj.push({ x: tx, z: tz });
     }
     // Manĝaĵoj sidas sur la tabloj ( ne en la aero )
@@ -1515,8 +1515,8 @@ export function eniriInternon(
   // Enira punkto tuj interne de la pordo tra kiu la ludanto eniris
   // ( pordaAngulo; 0 = la fronta pordo ). La ludanto frontas la centron.
   const enirR = Math.max(0o3/0o2, d / 2) - 0o4/0o10;
-  const enirX = Math.sin( pordaAngulo ) * enirR;
-  const enirZ = Math.cos( pordaAngulo ) * enirR;
+  const enirX = Math.sin(pordaAngulo) * enirR;
+  const enirZ = Math.cos(pordaAngulo) * enirR;
   const enirY = 0o4/0o10;
   const enirDirekto = pordaAngulo;
 
@@ -1526,17 +1526,17 @@ export function eniriInternon(
 export function eliriInternon(sys: InternaSistemo, cxefaSceno: THREE.Scene): void {
   // Konservu la internon en la kasxo — ne forjxetu gxin. La sekva eniro al la
   // sama konstruaĵo estos tuja.
-  kasxiNunan( sys, cxefaSceno );
+  kasxiNunan(sys, cxefaSceno);
 }
 
 export function gxisdatigiInternon(sys: InternaSistemo, t: number): void {
-  for ( const a of sys.animated ) a.update( t );
+  for ( const a of sys.animated ) a.update(t);
   for ( const v of sys.vaporNuboj ) {
     const pos = v.cloud.geometry.attributes.position;
     if (pos) {
       for ( let i = 0; i < pos.count; i++ ) {
-        const y = pos.getY( i ) + 0o3/0o1750;
-        if ( y > 7/5 ) pos.setY( i, -0o1/0o12 );
+        const y = pos.getY(i) + 0o3/0o1750;
+        if ( y > 7/5 ) pos.setY(i, -0o6/0o100);
         else pos.setY(i, y);
       }
       pos.needsUpdate = true;
@@ -1545,26 +1545,26 @@ export function gxisdatigiInternon(sys: InternaSistemo, t: number): void {
 }
 
 // Ringa planko — kvadrato kun cirkla truo por la helika ŝtuparo.
-function kreiRinganPlankon( hw: number, hd: number, r: number, rotacio: number ): THREE.BufferGeometry {
+function kreiRinganPlankon(hw: number, hd: number, r: number, rotacio: number): THREE.BufferGeometry {
   const s = new THREE.Shape();
-  s.moveTo( -hw, -hd );
-  s.lineTo( hw, -hd );
-  s.lineTo( hw, hd );
-  s.lineTo( -hw, hd );
+  s.moveTo(-hw, -hd);
+  s.lineTo(hw, -hd);
+  s.lineTo(hw, hd);
+  s.lineTo(-hw, hd);
   s.closePath();
   const truo = new THREE.Path();
-  truo.absarc( 0, 0, r, 0, Math.PI * 2, true );
-  s.holes.push( truo );
-  const g = new THREE.ShapeGeometry( s, 0o30 );
+  truo.absarc(0, 0, r, 0, Math.PI * 2, true);
+  s.holes.push(truo);
+  const g = new THREE.ShapeGeometry(s, 0o30);
   // Normaligu la UV-ojn al [0,1], por ke la stela plank-teksturo mapiĝu tra la
   // tuta planko ( ShapeGeometry uzas la krudajn formo-koordinatojn kiel UV ).
-  const poz = g.getAttribute( "position" );
-  const uv = g.getAttribute( "uv" );
+  const poz = g.getAttribute("position");
+  const uv = g.getAttribute("uv");
   for ( let i = 0; i < uv.count; i++ ) {
-    uv.setXY( i, ( poz.getX( i ) + hw ) / ( hw * 2 ), ( poz.getY( i ) + hd ) / ( hd * 2 ) );
+    uv.setXY(i, ( poz.getX(i) + hw ) / ( hw * 2 ), ( poz.getY(i) + hd ) / ( hd * 2 ));
   }
   uv.needsUpdate = true;
-  return g.rotateX( rotacio );
+  return g.rotateX(rotacio);
 }
 
 // Helfunkcio por konstrui muron el skatolo

@@ -8,8 +8,7 @@
     "retilo": "node servilo/servilo.js",
     "konservilo": "node servilo/konservilo.mjs",
     "build": "npx tsgo --noEmit && vite build",
-    "preview": "vite preview",
-    "test": "echo \"( Error ) no test specified\" && exit 1"
+    "preview": "vite preview"
   },
   "_note": "tsc.exe spawn fails on ARM64 Windows due to Unicode path issues; use node tsc.js instead",
   "devDependencies": {

@@ -4,6 +4,150 @@ import * as THREE from "three";
 import { kreiBrilanTeksajxon, kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
+// facaAngulo — La angulo de la faco-centro kiu entenas teta. La kvarlata
+// kolono havas angulojn cxe 0°, 90°, 180°, 270° kaj rektajn facojn inter ili.
+function facaAngulo(teta: number): number {
+  return Math.round((teta - Math.PI / 4) / (Math.PI / 2)) * (Math.PI / 2) + Math.PI / 4;
+}
+
+// facaRadiuso — La radiuso de la FACETA kolona surfaco cxe alto u kaj angulo
+// teta. La sekco estas kvadrato ( anguloj cxe 0°, 90°, 180°, 270° je radiuso
+// r ), kaj la facoj estas rektaj linioj, do la radiuso cxe angulo teta estas
+// r·cos( 45° )/cos( teta - faco-centro ). La glata konusa formulo donus
+// radiuson r cxie, sed tio flosus super la plataj facoj.
+function facaRadiuso(u: number, teta: number, rBot: number, rTop: number, H: number): number {
+  const r = rBot - ( rBot - rTop ) * ( u / H );
+  const centro = facaAngulo(teta);
+  return r * Math.SQRT1_2 / Math.cos(teta - centro);
+}
+
+// kreiFacetanBendon — Diagonala bendo kiu cxirkauxvolvigxas la kvarlatan
+// konusan kolonon, sekvante la FACETAN surfacon ( ne la glatan konuson )
+// kaj iomete eksteren ( 0o1/0o200 ) por ne z-fajfi kun la kolono. La bendo
+// estas strio de kvarlateroj laux la centro-kurbo, kun fermaj cxapoj cxe la
+// du finoj. La alto-funkcio uJe decidas la kolon-alton por cxiu angulo — la
+// bendo povas faldegi aux volvigi diagonale laux la bezono.
+//     @param uJe ( (teta) => number ) - La kolon-alto por angulo teta.
+//     @param t0, t1 ( number ) - Komenca kaj fina anguloj ( radianoj ).
+//     @param largxo ( number ) - Larĝo de la bendo.
+//     @param rBot, rTop, H ( number ) - Kolonaj malsupra/supra radiusoj kaj alto.
+// @returns bendo
+function kreiFacetanBendon(uJe: (teta: number) => number, t0: number, t1: number, largxo: number, rBot: number, rTop: number, H: number): THREE.BufferGeometry {
+  const SEG = 0o20; // 16 segmentoj laux la bendo
+  const EPS = 0o1 / 0o200; // 1/128 — levita iomete super la faco
+  const centroj: THREE.Vector3[] = [];
+  const facoj: THREE.Vector3[] = [];
+  for ( let i = 0; i <= SEG; i++ ) {
+    const t = i / SEG;
+    const teta = t0 + ( t1 - t0 ) * t;
+    const u = uJe(teta);
+    const r = facaRadiuso(u, teta, rBot, rTop, H);
+    const y = -H / 2 + u;
+    const c = Math.cos(teta), s = Math.sin(teta);
+    const fc = facaAngulo(teta);
+    const nx = Math.cos(fc), nz = Math.sin(fc);
+    centroj.push(new THREE.Vector3(r * c + nx * EPS, y, r * s + nz * EPS));
+    facoj.push(new THREE.Vector3(nx, 0, nz));
+  }
+  // Larĝo-direktoj — perpendikulaj al la vojaĝo, en la faca ebeno.
+  const larghoj: THREE.Vector3[] = [];
+  for ( let i = 0; i <= SEG; i++ ) {
+    const antauxa = centroj[Math.max(0, i - 1)];
+    const sekva = centroj[Math.min(SEG, i + 1)];
+    const voja = new THREE.Vector3().subVectors(sekva, antauxa);
+    larghoj.push(new THREE.Vector3().crossVectors(facoj[i], voja).normalize());
+  }
+  const vertoj: number[] = [];
+  const indeksoj: number[] = [];
+  for ( let i = 0; i <= SEG; i++ ) {
+    const C = centroj[i], D = larghoj[i];
+    vertoj.push(C.x - D.x * largxo / 2, C.y - D.y * largxo / 2, C.z - D.z * largxo / 2);
+    vertoj.push(C.x + D.x * largxo / 2, C.y + D.y * largxo / 2, C.z + D.z * largxo / 2);
+  }
+  for ( let i = 0; i < SEG; i++ ) {
+    const a = i * 2, b = a + 1, c2 = a + 2, d = a + 3;
+    indeksoj.push(a, c2, b, b, c2, d);
+  }
+  // Fermaj cxapoj — la centroj kiel apartaj vertoj cxe la du finoj.
+  const lasta = SEG * 2;
+  vertoj.push(centroj[0].x, centroj[0].y, centroj[0].z);
+  vertoj.push(centroj[SEG].x, centroj[SEG].y, centroj[SEG].z);
+  const c0 = ( SEG + 1 ) * 2, cN = c0 + 1;
+  indeksoj.push(0, c0, 1, lasta, lasta + 1, cN);
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(vertoj), 3));
+  g.setIndex(indeksoj);
+  g.computeVertexNormals();
+  return g;
+}
+
+// kreiFalekon — Unu SENINTERROMPA ora linio en faleko-formo sur unu faco de
+// la kvarlata kolono. La linio estas ferma buklo — gxi komencigxas cxe la
+// supro ( la angulo ), iras rekte malsupren laux la dekstra flanko, kurbigxas
+// en DUONCIRKLO cxe la malsupro kaj reiras rekte supren laux la maldekstra
+// flanko gxis la supro, kie la du brakoj rekontigxas kiel unu sama linio. La
+// duoncirklo do estas simple la linio mem kurbiganta — ne aparta peco. Gxi
+// kusxas sur la faceta faco, levita iomete ( 0o1/0o200 ) por ne z-fajfi.
+//     @param centro ( number ) - La angulo de la faco-centro.
+//     @param uPinto ( number ) - Alto de la supro ( la angulo ).
+//     @param uC ( number ) - Alto de la duoncirkla centro.
+//     @param R ( number ) - Radiuso de la duoncirklo.
+//     @param largxo ( number ) - Larĝo de la linio.
+//     @param rBot, rTop, H ( number ) - Kolonaj malsupra/supra radiusoj kaj alto.
+// @returns faleko
+function kreiFalekon(centro: number, uPinto: number, uC: number, R: number, largxo: number, rBot: number, rTop: number, H: number): THREE.BufferGeometry {
+  const SEG = 0o20; // 16 segmentoj por la duoncirklo
+  const ARMA = 0o10; // 8 segmentoj laux cxiu rekta brako
+  const EPS = 0o1 / 0o200;
+  const cx = Math.cos(centro), cz = Math.sin(centro);
+  const tx = -cz, tz = cx;
+  const d = (u: number) => ( rBot - ( rBot - rTop ) * ( u / H ) ) * Math.SQRT1_2;
+  // La vojo ( x, u ) en la faca ebeno — ferma buklo de la supro malsupren
+  // laux la dekstra brako, tra la duoncirklo kaj supren laux la maldekstra
+  // brako. La lasta punkto estas la unua — la buklo fermigxas.
+  const vojo: Array<[number, number]> = [];
+  for ( let i = 0; i <= ARMA; i++ ) {
+    const t = i / ARMA;
+    vojo.push([ R * t, uPinto + ( uC - uPinto ) * t ]);
+  }
+  for ( let i = 1; i < SEG; i++ ) {
+    const a0 = -Math.PI * i / SEG;
+    vojo.push([ R * Math.cos(a0), uC + R * Math.sin(a0) ]);
+  }
+  for ( let i = 0; i < ARMA; i++ ) {
+    const t = i / ARMA;
+    vojo.push([ -R * ( 1 - t ), uC + ( uPinto - uC ) * t ]);
+  }
+  const N = vojo.length;
+  const vertoj: number[] = [];
+  const indeksoj: number[] = [];
+  for ( let i = 0; i < N; i++ ) {
+    const [ x, u ] = vojo[i];
+    const [ xa, ua ] = vojo[( i - 1 + N ) % N];
+    const [ xs, us ] = vojo[( i + 1 ) % N];
+    let dx = xs - xa, du = us - ua;
+    const len = Math.hypot(dx, du) || 1;
+    dx /= len; du /= len;
+    // Perpendikla direkto en la faca ebeno ( x, u ).
+    const px = du, pu = -dx;
+    for ( let s = -1; s <= 1; s += 2 ) {
+      const x1 = x + px * largxo / 2 * s;
+      const u1 = u + pu * largxo / 2 * s;
+      vertoj.push(cx * d(u1) + tx * x1 + EPS * cx, -H / 2 + u1, cz * d(u1) + tz * x1 + EPS * cz);
+    }
+  }
+  for ( let i = 0; i < N; i++ ) {
+    const j = ( i + 1 ) % N;
+    const a = i * 2, b = a + 1, c2 = j * 2, d2 = c2 + 1;
+    indeksoj.push(a, c2, b, b, c2, d2);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(vertoj), 3));
+  g.setIndex(indeksoj);
+  g.computeVertexNormals();
+  return g;
+}
+
 export interface HxeuxfaLoko {
   x: number; z: number; y: number;
   /** Nedeviga kvadrata orientiĝo; platformaj lampoj povas vicigi kun sia rombo. */
@@ -29,10 +173,11 @@ export interface HxeuxfaSistemo {
 export function konstruiHxeuxfojn(sceno: THREE.Scene,
   spots: HxeuxfaLoko[],
   dioritaMaterialo: THREE.MeshStandardMaterial,
-  _oraMaterialo: THREE.MeshStandardMaterial
+  oraMaterialo: THREE.MeshStandardMaterial
 ): HxeuxfaSistemo {
   const kolonajGeometrioj: THREE.BufferGeometry[] = [];
   const bovlajGeometrioj: THREE.BufferGeometry[] = [];
+  const orajGeometrioj: THREE.BufferGeometry[] = [];
   const flamajLokoj: THREE.Vector3[] = [];
 
   // Lampa diorita materialo — klono kun pli fajngrajna teksturo. La komuna
@@ -42,11 +187,11 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   // plian en memoro.
   const lampaMaterialo = dioritaMaterialo.clone();
   const lampaMap = ( dioritaMaterialo.map ?? kreiDioritanTeksajxon() ).clone();
-  lampaMap.repeat.set( 0o4, 0o4 ); lampaMap.needsUpdate = true;
+  lampaMap.repeat.set(0o4, 0o4); lampaMap.needsUpdate = true;
   lampaMaterialo.map = lampaMap;
   if ( dioritaMaterialo.bumpMap ) {
     const lampaBump = dioritaMaterialo.bumpMap.clone();
-    lampaBump.repeat.set( 0o4, 0o4 ); lampaBump.needsUpdate = true;
+    lampaBump.repeat.set(0o4, 0o4); lampaBump.needsUpdate = true;
     lampaMaterialo.bumpMap = lampaBump;
   }
 
@@ -72,7 +217,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
         new THREE.Vector2(0o2/0o10, 0o5/0o40),
         new THREE.Vector2(0o3/0o10, 0o5/0o20),
         new THREE.Vector2(0o35/0o100, 0o14/0o40),
-      ]).getPoints(0o12),
+      ]).getPoints(0o10),
       new THREE.Vector2(0o31/0o100, 0o14/0o40),
       new THREE.Vector2(0o3/0o20, 0o4/0o20),
       new THREE.Vector2(0o3/0o20, 0o5/0o40),
@@ -83,6 +228,28 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     // La kolono estas 0o155/0o40 alta, do gia supro estas p.y + 0o155/0o40 ( ne 0o155/0o100 = centro ).
     bowl.translate(p.x, p.y + 0o155/0o40, p.z);
     bovlajGeometrioj.push(bowl);
+
+    // Ora rando cxe la MALUPRA flanko de la bovlo — la SAMA ora materialo
+    // kiel la konstruajxoj. MALdika bendo pli proksime al la bovla supro,
+    // kun marĝeno — gxi ne tusxas la bovlan lipon kaj la ekstera radiuso
+    // restas ene de la bovla rando. Gxi sekvas la bovlan deklivon kaj estas
+    // levita iomete ( 0o1/0o200 ) por legigxi kiel rando.
+    const rando = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 4, 1);
+    rando.rotateY(rotacio);
+    rando.translate(p.x, p.y + 0o155/0o40 + 0o25/0o100, p.z);
+    orajGeometrioj.push(rando);
+
+    // Kvar APARTAJ falekoj — unu po faco. Cxiu faleko havas angulon supre
+    // ( du rektaj linioj ) kaj la linioj kunfluas en DUONCIRKLO cxe la
+    // malsupro. La falekoj NE konektigxas unu al la alia — horizontala
+    // marĝeno restas cxe la anguloj. La vertikalaj marĝenoj estas malgrandaj.
+    const falekaPinto = 0o32/0o10, falekaC = 0o32/0o100, falekaR = 0o5/0o40;
+    for ( let k = 0; k < 4; k++ ) {
+      const faleko = kreiFalekon(Math.PI / 4 + k * Math.PI / 2, falekaPinto, falekaC, falekaR, 0o1/0o40, 0o13/0o40, 0o5/0o40, 0o155/0o40);
+      faleko.rotateY(rotacio);
+      faleko.translate(p.x, p.y + 0o155/0o100, p.z);
+      orajGeometrioj.push(faleko);
+    }
 
     // Flamo levita. gia bazo sidas cxe la bovla rando ( ne sube en la bovlo ),
     // kaj restas super la rando ecx cxe la plej alta flam-skalo.
@@ -95,6 +262,10 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 
   const bovloj = new THREE.Mesh(kunfandiGeometriojn(bovlajGeometrioj), lampaMaterialo);
   sceno.add(bovloj);
+
+  // Oraj randoj kaj bendoj — la sama ora materialo kiel la konstruajxoj.
+  const orajRandoj = new THREE.Mesh(kunfandiGeometriojn(orajGeometrioj), oraMaterialo);
+  sceno.add(orajRandoj);
 
   // flamaj konusoj
   const N = flamajLokoj.length;
@@ -114,8 +285,8 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 
   flamajLokoj.forEach((p, i) => {
     gPozicio.set([p.x, p.y + 0o15/0o100, p.z], i * 3);
-    gSemo[i] = Math.random() * 0o144;
-    gGrando[i] = 0o24 + Math.random() * 0o12;
+    gSemo[i] = Math.random() * 0o140;
+    gGrando[i] = 0o20 + Math.random() * 0o10;
     phases.push(Math.random() * Math.PI * 2);
   });
 

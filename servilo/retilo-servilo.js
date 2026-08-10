@@ -1,8 +1,8 @@
 // retilo-servilo.js — Minimuma WebSocket-servilo por la multludada retilo.
-// Sen dependecoj: la manpremo ( SHA-1 ) kaj la kadroj estas pritraktitaj rekte.
-// Protokolo ( JSON ):
-//   Servilo → kliento : { t: "saluton", id } · { t: "aliĝis", id } · { t: "stato", id, ... } · { t: "foriris", id }
-//   Kliento → servilo : { t: "stato", x, y, z, r, m, n, k, i, g, v, h, c }
+// Sen dependecoj. la manpremo ( SHA-1 ) kaj la kadroj estas pritraktitaj rekte.
+// Protokolo ( JSON ).
+//   Servilo → kliento . { t: "saluton", id } · { t: "aliĝis", id } · { t: "stato", id, ... } · { t: "foriris", id }
+//   Kliento → servilo . { t: "stato", x, y, z, r, m, n, k, i, g, v, h, c }
 import { createHash, randomBytes } from "crypto";
 
 const GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
@@ -21,7 +21,7 @@ function pakigiTekston(teksto) {
   let kapo;
   if (longo < 0o176) { kapo = Buffer.alloc(0o2); kapo[0o1] = longo; }
   else if (longo < 0o200000) { kapo = Buffer.alloc(0o4); kapo[0o1] = 0o176; kapo.writeUInt16BE(longo, 0o2); }
-  else { kapo = Buffer.alloc(0o12); kapo[0o1] = 0o177; kapo.writeBigUInt64BE(BigInt(longo), 0o2); }
+  else { kapo = Buffer.alloc(0o10); kapo[0o1] = 0o177; kapo.writeBigUInt64BE(BigInt(longo), 0o2); }
   kapo[0] = 0x81; // FIN + teksto
   return Buffer.concat([kapo, buf]);
 }
@@ -60,7 +60,7 @@ export function konektiRetilon(servilo, opcioj = {}) {
   }
 
   // malpakigi — Legu la envenantajn kadrojn el la bufro; redonu la reston.
-  // Traktas: teksto ( kun fragmentado ), fermo, ping ( respondas pong ). Pong kaj
+  // Traktas. teksto ( kun fragmentado ), fermo, ping ( respondas pong ). Pong kaj
   // kontrolaj kadroj estas ignorataj. Klientaj kadroj ĉiam estas maskitaj.
   function malpakigi(bufro, kliento) {
     let rest = bufro;
@@ -127,7 +127,7 @@ export function konektiRetilon(servilo, opcioj = {}) {
       "Upgrade: websocket\r\n" +
       "Connection: Upgrade\r\n" +
       "Sec-WebSocket-Accept: " + akceptaKapo(klavo) + "\r\n\r\n"
-    );
+);
     const id = kreiIdon();
     const kliento = { so, id, stato: null, partoj: [], bufro: Buffer.alloc(0) };
     klientoj.set(id, kliento);

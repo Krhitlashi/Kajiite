@@ -86,7 +86,7 @@ export function konstruiDokon(
   const surfacaGeometrio = new THREE.ExtrudeGeometry(
     kreiDokanFormon(vojaLargho, platformDepth, antaŭaRadiuso),
     { depth: dikeco, bevelEnabled: false }
-  );
+);
   surfacaGeometrio.rotateX(-Math.PI / 2);
   const surfaco = new THREE.Mesh(surfacaGeometrio, diorito);
   surfaco.castShadow = surfaco.receiveShadow = true;
@@ -97,7 +97,7 @@ export function konstruiDokon(
   const rando = new THREE.Mesh(
     kreiDokanKadron(vojaLargho, platformDepth, antaŭaRadiuso, 0o4/0o10, dikeco + 0o1/0o20),
     andezito
-  );
+);
   rando.position.y = -0o1/0o40;
   rando.castShadow = rando.receiveShadow = true;
   group.add(rando);
@@ -109,11 +109,11 @@ export function konstruiDokon(
   const duonL = platformDepth / 2;
   const cosR = Math.cos(direkto), sinR = Math.sin(direkto);
   const landX = x + sinR * duonL, landZ = z + cosR * duonL;
-  let vojaY = heightFn( x, z );
+  let vojaY = heightFn(x, z);
   for ( const ofseto of [ -0o6/0o10, 0, 0o6/0o10 ] ) {
     vojaY = Math.max(vojaY, heightFn(landX + cosR * ofseto, landZ - sinR * ofseto));
   }
-  const akvaY = waterFn( x );
+  const akvaY = waterFn(x);
   const fostaAlto = Math.max(1, vojaY - akvaY);
   const fostoX = vojaLargho / 2 - 0o1/0o10;
   // La antaŭa vico sidas sub la rekta parto de la rondigita pinto.
@@ -129,10 +129,10 @@ export function konstruiDokon(
       const fosto = new THREE.Mesh(
         new THREE.CylinderGeometry(0o3/0o20, 0o5/0o20, fostaAlto, 6),
         andezito
-      );
+);
       fosto.position.set(localX, ( akvaY - vojaY ) / 2, localZ);
       fosto.castShadow = true;
-      group.add( fosto );
+      group.add(fosto);
     }
   }
 

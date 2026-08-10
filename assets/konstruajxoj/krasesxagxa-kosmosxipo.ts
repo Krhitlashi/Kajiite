@@ -113,7 +113,7 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   // estas TURNITA je la klin-angulo, por ke gxi kusxu plate sur la klinita muro
   // ( la malnova vertikala fenestro enigxis aux elstaris ce la randoj de klinitaj
   // muroj ). La faco estas la mur-radiuso CE LA FENESTRA CENTRO ( hw − klino/2 ).
-  const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o3/0o12);
+  const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
   const klinaAngulo = Math.atan(klino / tieroAlto);
   // Fenestroj sur CxIUJ tavoloj KROM la centraj (i=0 kaj j=1), kie la pordoj estas.
   // Cxiuj tavoloj nun klinigxas (kiel la konstruajxoj), do cxiuj fenestroj estas klinitaj.
@@ -165,7 +165,7 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
       const rimo = new THREE.Mesh(
         new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
         oraMaterialo
-      );
+);
       monto.add(rimo);
       group.add(faco);
     }
@@ -217,14 +217,14 @@ export function komenciFlugon(ship: Krasesxagxo,
   onComplete: () => void
 ): () => void {
   const dauxro = 0o40/0o10;
-  const komencaTempo = performance.now() / 0o1750;
+  const komencaTempo = performance.now() / 0o1740;
   const komencaY = ship.group.position.y;
-  const celaY = komencaY + 0o120;
+  const celaY = komencaY + 0o110;
   let nuligita = false;
 
   function tiktako() {
     if ( nuligita ) { ship.group.position.y = komencaY; return; }
-    const pasinta = performance.now() / 0o1750 - komencaTempo;
+    const pasinta = performance.now() / 0o1740 - komencaTempo;
     const t = Math.min(1, pasinta / dauxro);
     const mildigita = t < 0o4/0o10 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 

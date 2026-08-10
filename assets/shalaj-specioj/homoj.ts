@@ -17,23 +17,23 @@ function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
   // La pantalono uzas sian propran bazkoloron ( bluan ); la cetero la ĉefan.
   const M = deksesuma(speco === "pantalono" ? o.pantalono : o.ĉefa), A = deksesuma(o.akcenta), I = deksesuma(o.interno);
   kunteksto.fillStyle = M; kunteksto.fillRect(0, 0, 0o400, 0o1000);
-  kunteksto.fillStyle = A; kunteksto.fillRect(0, 0o726, 0o400, 0o32);
+  kunteksto.fillStyle = A; kunteksto.fillRect(0, 0o730, 0o400, 0o32);
   kunteksto.fillStyle = A; kunteksto.globalAlpha = 0o15/0o40; kunteksto.fillRect(0, 0o704, 0o400, 0o6); kunteksto.globalAlpha = 0o1;
 
   if ( speco === "supra" ) {
     // Frontaj motivoj — stelo kun rombo kaj butona plateto sur la fermita brusto.
-    // La stelo ( 0o120 ± 0o44 ) restas inter la kolumaj punktoj supre kaj la
+    // La stelo ( 0o110 ± 0o44 ) restas inter la kolumaj punktoj supre kaj la
     // plateto sube, por ke neniu elemento interkovru.
-    kvarStelo(kunteksto, 0o200, 0o120, 0o44, A);
-    rombo(kunteksto, 0o200, 0o120, 0o60, 0o60, null, A);
+    kvarStelo(kunteksto, 0o200, 0o110, 0o44, A);
+    rombo(kunteksto, 0o200, 0o110, 0o60, 0o60, null, A);
     kunteksto.fillStyle = A;
-    for ( let i = 0; i < 0o4; i++ ) { kunteksto.beginPath(); kunteksto.arc(0o200, 0o6 + i * 0o14, 0o5, 0, Math.PI * 0o2); kunteksto.fill(); }
+    for ( let i = 0; i < 0o4; i++ ) { kunteksto.beginPath(); kunteksto.arc(0o200, 0o6 + i * 0o14, 0o4, 0, Math.PI * 0o2); kunteksto.fill(); }
     // Butona plateto — vertikala akcenta linio kun butonoj laŭ la fronta centro
-    // ( jako-stilo ). Ĝi komenciĝas sub la stelo ( 0o170 ) kaj sidas alta sur la
+    // ( jako-stilo ). Ĝi komenciĝas sub la stelo ( 0o200 ) kaj sidas alta sur la
     // fermita brusto ( super la levita fronto-hemo, y ≈ 1.14 ), por ke ĝi ne
     // malaperu en la malfermaĵo.
     kunteksto.strokeStyle = A; kunteksto.lineWidth = 0o3;
-    kunteksto.beginPath(); kunteksto.moveTo(0o200, 0o170); kunteksto.lineTo(0o200, 0o240); kunteksto.stroke();
+    kunteksto.beginPath(); kunteksto.moveTo(0o200, 0o200); kunteksto.lineTo(0o200, 0o230); kunteksto.stroke();
     kunteksto.fillStyle = A;
     for ( let i = 0; i < 0o3; i++ ) { kunteksto.beginPath(); kunteksto.arc(0o200, 0o200 + i * 0o22, 0o4, 0, Math.PI * 0o2); kunteksto.fill(); }
     // Dorsaj motivoj — sama stelo ĉe la kudro ( x = 0 kaj x = 0o400 ), ĉar la
@@ -48,13 +48,13 @@ function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
     rombo(kunteksto, 0o254, 0o440, 0o30, 0o40, I, A);
   } else {
     for ( let i = 0; i < 0o3; i++ ) {
-      rombo(kunteksto, 0o200, 0o120 + i * 0o156, 0o36, 0o50, null, A);
+      rombo(kunteksto, 0o200, 0o110 + i * 0o160, 0o40, 0o40, null, A);
       // Dorsa ripeto ĉe la kudro ( x = 0 / x = 0o400 ).
-      rombo(kunteksto, 0, 0o120 + i * 0o156, 0o36, 0o50, null, A);
-      rombo(kunteksto, 0o400, 0o120 + i * 0o156, 0o36, 0o50, null, A);
+      rombo(kunteksto, 0, 0o110 + i * 0o160, 0o40, 0o40, null, A);
+      rombo(kunteksto, 0o400, 0o110 + i * 0o160, 0o40, 0o40, null, A);
     }
     kunteksto.globalAlpha = 0o2/0o10; kunteksto.fillStyle = A;
-    for ( let i = 0; i < 0o6; i++ ) for ( let j = 0; j < 0o3; j++ ) rombo(kunteksto, 0o50 + j * 0o130, 0o50 + i * 0o124, 0o12, 0o16, A, null);
+    for ( let i = 0; i < 0o6; i++ ) for ( let j = 0; j < 0o3; j++ ) rombo(kunteksto, 0o40 + j * 0o130, 0o40 + i * 0o124, 0o10, 0o16, A, null);
     kunteksto.globalAlpha = 0o1;
   }
   const t = new THREE.CanvasTexture(kanvasa); t.colorSpace = THREE.SRGBColorSpace;
@@ -82,7 +82,7 @@ function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
 //     @returns geometrio ( THREE.BufferGeometry ) - La tondita tubo.
 function kreiFoliaTonditanTubon(suproR: number, malsuproR: number, suproY: number,
   bazoY: number, segmentoj: number, loboj: number, profundo: number, nocho: number,
-  fermitaSupro = false ): THREE.BufferGeometry {
+  fermitaSupro = false): THREE.BufferGeometry {
   const q = 0o3/0o4; // folia profilo — akra sed plena pinto
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
@@ -90,36 +90,36 @@ function kreiFoliaTonditanTubon(suproR: number, malsuproR: number, suproY: numbe
   const ringo = segmentoj + 0o1;
   for ( let i = 0; i <= segmentoj; i++ ) {
     const ang = i / segmentoj * Math.PI * 0o2;
-    const kx = Math.cos( ang ), kz = Math.sin( ang );
+    const kx = Math.cos(ang), kz = Math.sin(ang);
     // Supro ringo.
-    pozicioj.push( kx * suproR, suproY, kz * suproR );
-    uvoj.push( i / segmentoj, 0 );
+    pozicioj.push(kx * suproR, suproY, kz * suproR);
+    uvoj.push(i / segmentoj, 0);
     // Malsupro ringo — la folia tondo.
     const u = ( ang * loboj / ( Math.PI * 0o2 ) ) % 0o1; // 0 ĉe foli-pinto
-    const v = Math.min( u, 0o1 - u ) * 0o2;              // 0 pinto, 1 noĉo
-    const folio = 0o1 - Math.pow( v, q );                // 1 pinto, 0 noĉo
+    const v = Math.min(u, 0o1 - u) * 0o2;              // 0 pinto, 1 noĉo
+    const folio = 0o1 - Math.pow(v, q);                // 1 pinto, 0 noĉo
     const y = bazoY + nocho - ( nocho + profundo ) * folio;
-    pozicioj.push( kx * malsuproR, y, kz * malsuproR );
-    uvoj.push( i / segmentoj, 1 );
+    pozicioj.push(kx * malsuproR, y, kz * malsuproR);
+    uvoj.push(i / segmentoj, 1);
   }
   // La pozicioj estas interplektitaj ( supro_i, malsupro_i ), do ĉiu kvadrato
   // ligas la parajn suprojn ( 2i, 2i+2 ) al la neparaj malsuproj ( 2i+1, 2i+3 ).
   for ( let i = 0; i < segmentoj; i++ ) {
     const a = 0o2 * i, b = 0o2 * i + 0o2, c = 0o2 * i + 0o1, d = 0o2 * i + 0o3;
     // Ekstera orientiĝo — la normaloj montru eksteren.
-    indeksoj.push( a, b, c, b, d, c );
+    indeksoj.push(a, b, c, b, d, c);
   }
   if ( fermitaSupro ) {
     // Ĉapo — centro kaj ventumilo super la supro-ringo ( la paraj indeksoj ).
-    pozicioj.push( 0, suproY, 0 );
-    uvoj.push( 0o1/0o2, 0 );
+    pozicioj.push(0, suproY, 0);
+    uvoj.push(0o1/0o2, 0);
     const centro = 0o2 * ringo;
-    for ( let i = 0; i < segmentoj; i++ ) indeksoj.push( 0o2 * i, 0o2 * i + 0o2, centro );
+    for ( let i = 0; i < segmentoj; i++ ) indeksoj.push(0o2 * i, 0o2 * i + 0o2, centro);
   }
   const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute( "position", new THREE.Float32BufferAttribute( pozicioj, 3 ) );
-  geometrio.setAttribute( "uv", new THREE.Float32BufferAttribute( uvoj, 2 ) );
-  geometrio.setIndex( indeksoj );
+  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
+  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
+  geometrio.setIndex(indeksoj);
   geometrio.computeVertexNormals();
   return geometrio;
 }
@@ -171,17 +171,17 @@ export interface Figuro {
 //     @param levo ( number ) - Kiom la antaŭa rando leviĝas.
 //     @returns geometrio ( THREE.BufferGeometry ) - La rob-geometrio.
 function kreiRobanSxelon(suproR: number, malsuproR: number, alto: number, levo: number): THREE.BufferGeometry {
-  const geometrio = new THREE.CylinderGeometry( suproR, malsuproR, alto, 0o14, 0o1, true );
+  const geometrio = new THREE.CylinderGeometry(suproR, malsuproR, alto, 0o14, 0o1, true);
   const pozicioj = geometrio.attributes.position;
   const v = new THREE.Vector3();
   for ( let i = 0; i < pozicioj.count; i++ ) {
-    v.fromBufferAttribute( pozicioj, i );
+    v.fromBufferAttribute(pozicioj, i);
     if ( v.y < 0 ) {
       // zFrakcio. -1 malantaŭe, 0 flanke, +1 antaŭe. La kvara potenco faras
       // mallarĝan, altan V-forman levaĵon — la malfermaĵo estas alta sed ne larĝa.
       const zFrakcio = v.z / malsuproR;
-      v.y += levo * Math.pow( ( zFrakcio + 0o1 ) / 0o2, 0o4 );
-      pozicioj.setXYZ( i, v.x, v.y, v.z );
+      v.y += levo * Math.pow(( zFrakcio + 0o1 ) / 0o2, 0o4);
+      pozicioj.setXYZ(i, v.x, v.y, v.z);
     }
   }
   geometrio.computeVertexNormals();
@@ -197,14 +197,14 @@ function kreiRobanSxelon(suproR: number, malsuproR: number, alto: number, levo: 
 //     @param radio ( number ) - Radio de la rondaj anguloj.
 //     @returns geometrio ( THREE.BufferGeometry ) - La ronda kesto, centrita.
 function kreiRondanKeston(largho: number, alto: number, profundo: number, radio: number): THREE.BufferGeometry {
-  const r = Math.min( radio, largho / 0o2, profundo / 0o2 );
+  const r = Math.min(radio, largho / 0o2, profundo / 0o2);
   // La sama mondvasta rondigita rektangulo kiel la vojoj kaj la apronoj
   // ( kreiRondigitanRektangulanFormon ), kun rekta vertikala ekstrudo.
-  const geometrio = new THREE.ExtrudeGeometry( kreiRondigitanRektangulanFormon( largho, profundo, r ),
-    { depth: alto, bevelEnabled: false, curveSegments: 0o4 } );
+  const geometrio = new THREE.ExtrudeGeometry(kreiRondigitanRektangulanFormon(largho, profundo, r),
+    { depth: alto, bevelEnabled: false, curveSegments: 0o4 });
   // La ekstrudo iras laŭ +z; turnu por ke ĝi staru laŭ y, kun la bazo ĉe la origino.
-  geometrio.rotateX( -Math.PI / 0o2 );
-  geometrio.translate( 0, -alto / 0o2, 0 );
+  geometrio.rotateX(-Math.PI / 0o2);
+  geometrio.translate(0, -alto / 0o2, 0);
   return geometrio;
 }
 
@@ -215,7 +215,7 @@ function kreiRondanKeston(largho: number, alto: number, profundo: number, radio:
 //     @returns geometrio ( THREE.BufferGeometry ) - La har-kurteno, ĉe la kapo.
 function kreiHaranKurtenon(): THREE.BufferGeometry {
   const vicoj = 0o14, kolonoj = 0o30;
-  const fiMax = 0o26/0o12;        // radianoj — de la dorso ĝis la tempioj, iomete
+  const fiMax = 0o215/0o100;        // radianoj — de la dorso ĝis la tempioj, iomete
                                // pli antaŭen por kadri la vizaĝon kaj resti ekster la manikoj
   const ySupro = 0o7/0o4, yMalsupro = 0o17/0o20;
   const rSupro = 0o3/0o20, rMalsupro = 0o33/0o100;
@@ -230,25 +230,25 @@ function kreiHaranKurtenon(): THREE.BufferGeometry {
     for ( let k = 0; k <= kolonoj; k++ ) {
       const fi = -fiMax + k / kolonoj * 0o2 * fiMax;
       // La malsupra rando — neregula harfringo. Pintoj kie la sinuso foras de nulo.
-      const pinto = v === vicoj ? profundo * Math.abs(Math.sin(k * 0o5 * Math.PI / kolonoj)) : 0;
-      const x = Math.sin( fi ) * r;
-      const z = -Math.cos( fi ) * r;
-      pozicioj.push( x, y - pinto, z );
+      const pinto = v === vicoj ? profundo * Math.abs(Math.sin(k * 0o4 * Math.PI / kolonoj)) : 0;
+      const x = Math.sin(fi) * r;
+      const z = -Math.cos(fi) * r;
+      pozicioj.push(x, y - pinto, z);
       // Ekstera normalo — radiala horizontala direkto, for de la kapo-akso.
-      normaloj.push( Math.sin( fi ), 0, -Math.cos( fi ) );
+      normaloj.push(Math.sin(fi), 0, -Math.cos(fi));
     }
   }
   for ( let v = 0; v < vicoj; v++ ) {
     for ( let k = 0; k < kolonoj; k++ ) {
       const a = v * ( kolonoj + 0o1 ) + k, b = a + 0o1;
       const c = a + kolonoj + 0o1, d = c + 0o1;
-      indeksoj.push( a, b, d, a, d, c );
+      indeksoj.push(a, b, d, a, d, c);
     }
   }
   const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute( "position", new THREE.Float32BufferAttribute( pozicioj, 3 ) );
-  geometrio.setAttribute( "normal", new THREE.Float32BufferAttribute( normaloj, 3 ) );
-  geometrio.setIndex( indeksoj );
+  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
+  geometrio.setAttribute("normal", new THREE.Float32BufferAttribute(normaloj, 3));
+  geometrio.setIndex(indeksoj);
   return geometrio;
 }
 
@@ -272,27 +272,27 @@ function kreiHaranFlankon(dir: number): THREE.BufferGeometry {
     const z = zEn + ( zEk - zEn ) * t;
     for ( let k = 0; k <= kolonoj; k++ ) {
       const q = k / kolonoj - 0o1/0o2;
-      pozicioj.push( xCentro + q * 0o2 * duonLargho, y, z );
+      pozicioj.push(xCentro + q * 0o2 * duonLargho, y, z);
     }
   }
   for ( let v = 0; v < vicoj; v++ ) {
     for ( let k = 0; k < kolonoj; k++ ) {
       const a = v * ( kolonoj + 0o1 ) + k, b = a + 0o1;
       const c = a + kolonoj + 0o1, d = c + 0o1;
-      indeksoj.push( a, b, d, a, d, c );
+      indeksoj.push(a, b, d, a, d, c);
     }
   }
   const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute( "position", new THREE.Float32BufferAttribute( pozicioj, 3 ) );
-  geometrio.setIndex( indeksoj );
+  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
+  geometrio.setIndex(indeksoj);
   geometrio.computeVertexNormals();
   return geometrio;
 }
 
 // Har-koloroj — malhelbruna ĝis ruĝeta malhelbruna. Ĉiu NPC ricevas propran
 // nuancon per hazarda mikso inter la du, por ke la homamaso ne aspektu unuforma.
-const harKoloroA = new THREE.Color( 0x231a10 ); // malhelbruna
-const harKoloroB = new THREE.Color( 0x3c241a ); // ruĝeta malhelbruna
+const harKoloroA = new THREE.Color(0x201810); // malhelbruna
+const harKoloroB = new THREE.Color(0x402818); // ruĝeta malhelbruna
 const harKoloro = new THREE.Color();            // provizora miksita koloro
 
 // konstruiHaranGrupon — Konstruu la geometrion de unu har-stilo. La ĉapo estas
@@ -305,7 +305,7 @@ const harKoloro = new THREE.Color();            // provizora miksita koloro
 function konstruiHaranGrupon(stilo: Harstilo, haroM: THREE.Material): THREE.Group {
   const grupo = new THREE.Group();
   const ĉapo = ( radio: number ) => {
-    const m = new THREE.Mesh( new THREE.SphereGeometry( radio, 0o10, 0o10 ), haroM );
+    const m = new THREE.Mesh(new THREE.SphereGeometry(radio, 0o10, 0o10), haroM);
     m.scale.set(0o1, 0o27/0o40, 0o1); m.position.y = 0o155/0o100;
     grupo.add(m);
   };
@@ -314,9 +314,9 @@ function konstruiHaranGrupon(stilo: Harstilo, haroM: THREE.Material): THREE.Grou
     // ĝis la ŝultroj kun pinteca fringo, kaj du flankaj strioj kadrantaj la
     // vizaĝon.
     ĉapo(0o7/0o40);
-    grupo.add(new THREE.Mesh( kreiHaranKurtenon(), haroM ));
+    grupo.add(new THREE.Mesh(kreiHaranKurtenon(), haroM));
     for ( const dir of [ -0o1, 0o1 ] ) {
-      grupo.add(new THREE.Mesh( kreiHaranFlankon( dir ), haroM ));
+      grupo.add(new THREE.Mesh(kreiHaranFlankon(dir), haroM));
     }
   } else {
     // Mallonga ( kaj nekonataj ŝlosiloj ) — simpla ĉapo.
@@ -338,7 +338,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   // Duflanka haro-materialo — la maldikaj har-folioj ( kurteno, flankoj ) bezonas
   // ambaŭ flankojn por ne malaperi; la ĉapo ne ĝenas per ĝi. La koloro miksiĝas
   // hazarde inter malhelbruna kaj ruĝeta malhelbruna por ĉiu NPC.
-  harKoloro.lerpColors( harKoloroA, harKoloroB, Math.random() );
+  harKoloro.lerpColors(harKoloroA, harKoloroB, Math.random());
   const haroM = new THREE.MeshStandardMaterial({ color: harKoloro, roughness: 0o35/0o40, side: THREE.DoubleSide });
 
   // Kolo — plenigas la breĉon inter la kapo kaj la ĉemizo, por ke neniu truo videblu.
@@ -360,12 +360,12 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   // Interna ĉemizo — pli granda, iras de la kolo ĝis la talio kaj montriĝas
   // sub la antaŭa rando de la robo. La malsupro ( 0o37/0o100 ) enŝoviĝas iomete
   // sub la pantalono-supro ( 0o1/0o2 ), por ke neniu koincida rando flagru.
-  const interno = new THREE.Mesh( new THREE.CylinderGeometry(0o3/0o20, 0o13/0o40, 0o1, 0o14, 0o1, true), internoM ); interno.position.y = 0o77/0o100;
+  const interno = new THREE.Mesh(new THREE.CylinderGeometry(0o3/0o20, 0o13/0o40, 0o1, 0o14, 0o1, true), internoM); interno.position.y = 0o77/0o100;
   // Ekstera robo — pli granda, kun oblikva rando. La dorso pendas super la
   // pantalono ( y = 0o31/0o100 ) kaj la antaŭo leviĝas alte ( y = 0o111/0o100 ) sed mallarĝe
   // ( la flankoj restas malsupre, y ≈ 0o34/0o100 ), malfermiĝante kiel jako — sed la
   // supro restas fermita ĉirkaŭ la kolo.
-  const ekstera = new THREE.Mesh( kreiRobanSxelon(0o7/0o40, 0o3/0o10, 0o11/0o10, 0o3/0o4), eksteraM ); ekstera.position.y = 0o75/0o100;
+  const ekstera = new THREE.Mesh(kreiRobanSxelon(0o7/0o40, 0o3/0o10, 0o11/0o10, 0o3/0o4), eksteraM); ekstera.position.y = 0o75/0o100;
 
   // Pantalono — du pli dikaj kruroj, kutime hela aŭ malhela bluo kun rombaj
   // motivoj. La suproj ( 0o5/0o40 ) koincidas kun la interna ĉemiz-hemo ( 0o13/0o40 ),
@@ -420,7 +420,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   // UI ), do la ŝlosiloj neniam povas disiĝi. Nekonata ŝlosilo falas reen al
   // la mallonga ĉapo.
   const haroGrupoj = new Map<string, THREE.Group>();
-  for ( const stilo of HARSTILOJ ) haroGrupoj.set( stilo.nomo, konstruiHaranGrupon( stilo, haroM ) );
+  for ( const stilo of HARSTILOJ ) haroGrupoj.set(stilo.nomo, konstruiHaranGrupon(stilo, haroM));
   const aktivaHaro = haroGrupoj.has(haroKlavo) ? haroKlavo : "haroMalalta";
 
   g.add(kapo, kolo, interno, ekstera, kruroL, kruroR, brakoL, brakoR);
@@ -470,21 +470,21 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
 export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco: (x: number, z: number) => number): void {
   fig.atendo -= deltaTempo;
   if ( fig.atendo <= 0 ) {
-    const a = Math.random() * Math.PI * 0o2, hazardaRadiuso = Math.random() * 0o5;
+    const a = Math.random() * Math.PI * 0o2, hazardaRadiuso = Math.random() * 0o4;
     fig.celo.set(fig.hejmo.x + Math.sin(a) * hazardaRadiuso, fig.hejmo.y, fig.hejmo.z + Math.cos(a) * hazardaRadiuso);
-    fig.atendo = 0o3 + Math.random() * 0o5;
+    fig.atendo = 0o3 + Math.random() * 0o4;
   }
   const difX = fig.celo.x - fig.group.position.x, difZ = fig.celo.z - fig.group.position.z;
   const d = Math.hypot(difX, difZ);
   const movas = d > 0o23/0o100;
   // Glata transiro 0..1 inter stari kaj marŝi, por ke la svingoj ne saltu
   // kiam la figuro ekpaŝas aŭ haltas.
-  fig.movoFaktoro += ( ( movas ? 0o1 : 0 ) - fig.movoFaktoro ) * Math.min( 0o1, deltaTempo * 0o10 );
+  fig.movoFaktoro += ( ( movas ? 0o1 : 0 ) - fig.movoFaktoro ) * Math.min(0o1, deltaTempo * 0o10);
   const movo = fig.movoFaktoro;
   // La marŝa fazo progresas nur dum la figuro moviĝas; pli rapidaj figuroj
   // paŝas pli ofte, kaj ĉiu havas propran fazo-ofseton ( marsoFazo ekvaloro ).
   fig.marsoFazo += deltaTempo * fig.rapido * 0o4 * movo;
-  const paso = Math.sin( fig.marsoFazo );
+  const paso = Math.sin(fig.marsoFazo);
   if ( movas ) {
     fig.group.position.x += difX / d * fig.rapido * deltaTempo;
     fig.group.position.z += difZ / d * fig.rapido * deltaTempo;
@@ -494,7 +494,7 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco
   // Sta-svingo — eta balancado nur kiam oni staras, por ke la figuro ne ŝtoniĝu.
   fig.group.rotation.z = Math.sin(t * 0o115/0o100 + fig.hejmo.x) * 0o1/0o100 * ( 0o1 - movo );
   // Paŝa bobado — la korpo iomete levigxas kaj mallevigxas kun la paŝoj.
-  fig.group.position.y += Math.abs( paso ) * 0o2/0o100 * movo;
+  fig.group.position.y += Math.abs(paso) * 0o2/0o100 * movo;
   // Krura svingo — la maldekstra kaj dekstra kruroj marŝas kontraŭfaze ĉirkaŭ
   // la koksa pivoto ( negativa rotation.x puŝas la piedon antaŭen, +z ).
   const svingoKruro = 0o3/0o10 * movo * paso;
@@ -503,7 +503,7 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco
   // Braka svingo — kontraŭa al la samflanka kruro ( natura marŝa ritmo ), kun
   // malgranda idla balancado dum starado.
   const svingoBrako = 0o2/0o10 * movo * paso;
-  const idlaBrako = Math.sin( t * 0o7 + fig.hejmo.z ) * 0o2/0o100 * ( 0o1 - movo );
+  const idlaBrako = Math.sin(t * 0o7 + fig.hejmo.z) * 0o2/0o100 * ( 0o1 - movo );
   fig.brakoj[0].rotation.x = svingoBrako + idlaBrako;
   fig.brakoj[1].rotation.x = -svingoBrako - idlaBrako;
 }

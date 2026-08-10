@@ -44,24 +44,24 @@ export function kreiKanoton(sceno: THREE.Scene,
   karenaGeometrio.rotateX(-Math.PI / 2);
 
   // Malhel-pina kareno kun ora rando por la "satala" stilo; hela ligno por la baza.
-  const karenaMaterialo = new THREE.MeshStandardMaterial({ color: satala ? 0x143830 : 0xc8b890, roughness: 0o6/0o10 });
+  const karenaMaterialo = new THREE.MeshStandardMaterial({ color: satala ? 0x183830 : 0xc8b890, roughness: 0o6/0o10 });
   const kareno = new THREE.Mesh(karenaGeometrio, karenaMaterialo);
   kareno.castShadow = true;
   group.add(kareno);
 
   // Ora gvarlinio — MALFERMA strio laŭ la supro de la kareno ( la ekstera lensa
-  // konturo kun truo enigita ≈0o11/0o12, do la malhela kareno restas videbla ).
+  // konturo kun truo enigita ≈0o72/0o100, do la malhela kareno restas videbla ).
   if ( satala ) {
     const randoFormo = shape.clone();
     const truo = new THREE.Path();
-    truo.setFromPoints(shape.getPoints(0o22).map(p => new THREE.Vector2(p.x * 0o11/0o12, p.y * 0o11/0o12)).reverse());
+    truo.setFromPoints(shape.getPoints(0o22).map(p => new THREE.Vector2(p.x * 0o72/0o100, p.y * 0o72/0o100)).reverse());
     randoFormo.holes.push(truo);
     const randoGeo = new THREE.ExtrudeGeometry(randoFormo, {
       depth: 0o1/0o10,
       bevelEnabled: false,
       curveSegments: 0o22,
     });
-    randoGeo.scale(0o147/0o144, 0o147/0o144, 0o147/0o144);
+    randoGeo.scale(0o102/0o100, 0o102/0o100, 0o102/0o100);
     randoGeo.rotateX(-Math.PI / 2);
     const rando = new THREE.Mesh(randoGeo, oraMaterialo);
     rando.position.y = 0o7/0o20;
@@ -70,13 +70,13 @@ export function kreiKanoton(sceno: THREE.Scene,
 
   // interno
   const internaGeometrio = karenaGeometrio.clone();
-  const interno = new THREE.Mesh(internaGeometrio, new THREE.MeshStandardMaterial({ color: satala ? 0x0a1612 : 0x584028, roughness: 0o75/0o100 }));
+  const interno = new THREE.Mesh(internaGeometrio, new THREE.MeshStandardMaterial({ color: satala ? 0x081810 : 0x584028, roughness: 0o75/0o100 }));
   interno.scale.set(0o67/0o100, 0o7/0o10, 0o67/0o100);
   interno.position.y = 0o1/0o40;
   group.add(interno);
 
   // traboj — oraj por la satala stilo, lignaj por la baza
-  const lignaMaterialo = new THREE.MeshStandardMaterial({ color: satala ? 0xd9b36a : 0x483828, roughness: 0o33/0o40 });
+  const lignaMaterialo = new THREE.MeshStandardMaterial({ color: satala ? 0xd8b068 : 0x483828, roughness: 0o33/0o40 });
   for ( const tx of [ -0o6/0o10, 0o6/0o10 ] ) {
     const trabo = new THREE.Mesh(new THREE.BoxGeometry(0o11/0o100, 0o1/0o20, 0o7/0o10), lignaMaterialo);
     trabo.position.set(tx, 0o11/0o20, 0);

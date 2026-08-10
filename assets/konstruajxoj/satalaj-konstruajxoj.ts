@@ -90,7 +90,7 @@ function rondigitajDuonoj(s: number): [number, number][] {
   const bazaj = diamantajDuonoj(s);
   const kurbo = new THREE.CatmullRomCurve3(
     bazaj.map(( [a, c] ) => new THREE.Vector3(a, c, 0)), true, "centripetal"
-  );
+);
   const kvanto = bazaj.length;
   return Array.from({ length: kvanto }, ( _, i ) => {
     const p = kurbo.getPointAt(i / kvanto);
@@ -144,7 +144,7 @@ function kreiPilierkadrojn(curve: THREE.Curve<THREE.Vector3>, segmentoj: number,
         L.copy(antauxaL);
       }
     }
-    // Re-ortonormaligu: forigu la tangentan komponanton kaj normaligu.
+    // Re-ortonormaligu. forigu la tangentan komponanton kaj normaligu.
     L.addScaledVector(m, -L.dot(m)).normalize();
     const W = new THREE.Vector3().crossVectors(m, L).normalize();
     tangents.push(ta); moj.push(m); Loj.push(L); Woj.push(W);
@@ -200,7 +200,7 @@ function kreiDiamantanSvingon(
       p.x + L.x * a * skalo + W.x * c * skalo * largxaSkalo,
       p.y + L.y * a * skalo + W.y * c * skalo * largxaSkalo,
       p.z + L.z * a * skalo + W.z * c * skalo * largxaSkalo
-    );
+);
   }
   const indeksoj: number[] = [];
   for ( let i = 0; i < segmentoj; i++ ) {
@@ -296,7 +296,7 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
       p1.clone().addScaledVector(direkto, 0o3/0o20),
       new THREE.Vector3(p2.x - sX * 0o3/0o20, p2.y + ( upward ? -0o1/0o40 : 0o1/0o40 ), p2.z - sZ * 0o3/0o20),
       p2
-    );
+);
     const putho = new THREE.CurvePath<THREE.Vector3>();
     putho.add(new THREE.LineCurve3(p0, p1));
     putho.add(hoko);
@@ -311,7 +311,7 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
     new THREE.Vector3(cX + sX * foraSub, yT - 0o1/0o100, cZ + sZ * foraSub),
     new THREE.Vector3(cXT + sX * foraSub, yB + 0o15/0o40, cZT + sZ * foraSub),
     new THREE.Vector3(cXT + sX * out, yB - 0o3/0o10, cZT + sZ * out)
-  );
+);
   const folia = upward || folio ? kreiTalonanKurbo() : null;
   const curve = folia ? folia.curve : subtera;
   const talonoS0 = folia ? folia.talonoS0 : 0;
@@ -384,7 +384,7 @@ function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.Mes
   for ( let i = 0; i < flankoj; i++ ) {
     const kopio = i === 0 ? pordGrupo : pordGrupo.clone();
     kopio.rotation.y = i * Math.PI / 2;
-    group.add( kopio );
+    group.add(kopio);
   }
 }
 
@@ -400,7 +400,7 @@ function aldoniSteleanSignon(group: THREE.Group, name: string, w: number, d: num
   const steleo = new THREE.Mesh(
     new THREE.ExtrudeGeometry(kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o10, 0o1/0o4), { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }),
     new THREE.MeshStandardMaterial({ color: 0x081818, roughness: 0o23/0o40 })
-  );
+);
   steleo.position.set(w * 0o13/0o40, signaY, d / 2 + 0o104/0o100 - 0o5/0o100); steleo.castShadow = true; group.add(steleo);
   // ShapeGeometry uzas la krudajn formo-koordinatojn kiel UV (ne [0,1]),
   // do la texturo algluigxus al la malsupra-dekstra angulo de la faco.
@@ -421,7 +421,7 @@ function aldoniSteleanSignon(group: THREE.Group, name: string, w: number, d: num
   const face = new THREE.Mesh(
     faceGeo,
     new THREE.MeshBasicMaterial({ map: teksajxo, transparent: true, toneMapped: false })
-  );
+);
   // La faco sidas klare ANTAUX la steleo-fronto ( la ekstrudo 0o5/0o40 profunda
   // finigxas je d/2 + 0o111/0o100 ) — la malnova sama pozicio z-fajfis kun la
   // malhela plato kaj la teksto flagris.
@@ -434,14 +434,14 @@ function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, group: T
   const mg = group.clone();
   mg.scale.y = -1;
   mg.position.y = (spec.h0 || 0) - 0o2/0o100;
-  mg.traverse( m => { if ( m instanceof THREE.Mesh ) m.castShadow = false; } );
-  sceno.add( mg );
+  mg.traverse(m => { if ( m instanceof THREE.Mesh ) m.castShadow = false; });
+  sceno.add(mg);
   const oroMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o7/0o10, roughness: 0o26/0o100, emissive: 0x302808, emissiveIntensity: 0o26/0o100 });
-  const ringGeo = new THREE.RingGeometry( Math.max(0o1/0o100, w * 0o23/0o100 + 0o11/0o100), Math.max(0o2/0o100, w * 0o23/0o100 + 0o21/0o100), 32 );
-  const ring = new THREE.Mesh( ringGeo, oroMaterialo );
+  const ringGeo = new THREE.RingGeometry(Math.max(0o1/0o100, w * 0o23/0o100 + 0o11/0o100), Math.max(0o2/0o100, w * 0o23/0o100 + 0o21/0o100), 32);
+  const ring = new THREE.Mesh(ringGeo, oroMaterialo);
   ring.rotation.x = -Math.PI / 2;
-  ring.position.set( spec.x, (spec.h0 || 0) + 0o1/0o100, spec.z );
-  sceno.add( ring );
+  ring.position.set(spec.x, (spec.h0 || 0) + 0o1/0o100, spec.z);
+  sceno.add(ring);
 }
 
 // konstruiSatalon — Konstruu sxton-sxtupan piramidon (satalon) el specifaj tieroj kaj sub-teroj.
@@ -465,9 +465,9 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
 
   for ( let i = 0; i < tiers; i++ ) {
     const hw = w / 2 - i * malpliiX, hd = d / 2 - i * malpliiZ, y = i * tieroAlto;
-    const tavolo = kreiKlinoTavolon( hw, hd, hw - klino, hd - klino, tieroAlto );
-    tavolo.translate( 0, y + tieroAlto / 2, 0 ); murajGeometrioj.push( tavolo );
-    for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) aldoniKadranTubon( kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino );
+    const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto);
+    tavolo.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(tavolo);
+    for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
     // Pli plata horizontala rando. la supraj kadraj stangoj estas pli maldikaj
     // sed restas proksime al la supra rando (supro 0o1/0o100 sub gxi).
     for ( const sZ of [ -1, 1 ] ) { const stango = new THREE.BoxGeometry((hw - klino) * 2 + 0o11/0o100, 0o3/0o40, 0o15/0o100); stango.translate(0, y + tieroAlto - 0o1/0o20, sZ * (hd - klino)); kadrajGeometrioj.push(stango); }
@@ -482,7 +482,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   const group = new THREE.Group();
   // Malpli reflekta mura materialo. pli alta malglateco, preskaux neniu metaleco.
   const muraMaterialo = new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "kasafeo" ? 0o41/0o100 : 0o3/0o4, metalness: 0, envMapIntensity: 0 });
-  const kadraMaterialo = kreiOranMaterialon( kadraKoloro );
+  const kadraMaterialo = kreiOranMaterialon(kadraKoloro);
   const eniraMaterialo = kreiEniranMaterialon();
 
   const muroj = new THREE.Mesh(kunfandiGeometriojn(murajGeometrioj), muraMaterialo);
@@ -494,7 +494,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
 
   // Uniforma enirejo por cxiuj tipoj — reuzebla komponanto. La sanktejo ricevas
   // pordojn sur CXIUJ kvar flankoj ( turnitaj kopioj de la sama pordo ).
-  aldoniEnirejon( group, d, kadraMaterialo, eniraMaterialo, typeKey === "sanktejo" ? 4 : 1 );
+  aldoniEnirejon(group, d, kadraMaterialo, eniraMaterialo, typeKey === "sanktejo" ? 4 : 1);
 
   if ( typeKey === "sanktejo" ) {
     const pintajxo = new THREE.Mesh(new THREE.ConeGeometry(supraLargho * 0o43/0o100, 0o63/0o40, 4).rotateY(Math.PI / 4), kadraMaterialo);
@@ -539,10 +539,10 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     // faco per etagxo. La muroj klinigxas, do la fenestroj estas TURNITAJ je la
     // klin-angulo por kusxi plate sur la klinita muro (kiel la sxipaj fenestroj).
     // La fronta faco (f=0, +z) de la teretagxo havas la pordon — neniu fenestro tie.
-    const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o3/0o12);
+    const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
     const klinaAngulo = Math.atan(klino / tieroAlto);
     const fenestraMaterialo = new THREE.MeshStandardMaterial({
-      color: 0x0a1a18, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
+      color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
       roughness: 0o3/0o20, metalness: 0o3/0o20, transparent: true, opacity: 0o7/0o10,
     });
     for ( let i = 0; i < tiers; i++ ) {
@@ -555,13 +555,13 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
         const faca = new THREE.Group();
         faca.rotation.y = f * Math.PI / 2;
         const monto = new THREE.Group();
-        monto.position.set( 0, yC - fenAlto / 2, faco + 0o1/0o100 );
+        monto.position.set(0, yC - fenAlto / 2, faco + 0o1/0o100);
         monto.rotation.x = -klinaAngulo;
         faca.add(monto);
         const fen = new THREE.Mesh(
           new THREE.ShapeGeometry(kreiPilolFenestranFormon(ww, fenAlto), 0o100),
           fenestraMaterialo
-        );
+);
         monto.add(fen);
         // Ora pilola rando ĉirkaŭ la fenestro
         const konturo = kreiPilolFenestranFormon(ww, fenAlto).getPoints(0o200)
@@ -569,7 +569,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
         const rimo = new THREE.Mesh(
           new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
           kadraMaterialo
-        );
+);
         monto.add(rimo);
         group.add(faca);
       }
@@ -589,7 +589,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
       // La tablo kun la kvar benkoj cxirkaux gxi — la sama manĝa arangxo kiel
       // en la internaj mangxejoj ( aldoniManĝtablon el la mebloj-modulo ), kun
       // la sama ligna kaj ora rando ( kadraMaterialo ).
-      aldoniManĝtablon( group, tx, tz, 0, lignaMaterialo, kadraMaterialo );
+      aldoniManĝtablon(group, tx, tz, 0, lignaMaterialo, kadraMaterialo);
     }
   }
   // Flankaj pordoj forigitaj laux peto de uzanto
@@ -603,25 +603,25 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     // malnovaj stangoj, sed unu kontinua kadro kun molaj anguloj.
     const kadroW = w + 0o72/0o100, kadroD = d + 0o72/0o100;  // ekstera rando je d/2 + 0o35/0o100
     const dikeco = 0o1/0o2;                                  // 0.5 — sama kiel la malnova stango
-    // 0.5 — modesta rondigo: la kadra angulo atingas la diagonalajn angulpilierojn
+    // 0.5 — modesta rondigo. la kadra angulo atingas la diagonalajn angulpilierojn
     // ( la malnova 1.0 fortrancxis la kadron sub la pilieroj ).
     const rAnguloj = 0o1/0o2;
-    const kadroFormo = kreiRondigitanRektangulanFormon( kadroW, kadroD, rAnguloj );
+    const kadroFormo = kreiRondigitanRektangulanFormon(kadroW, kadroD, rAnguloj);
     // La ena truo estas la sama rondigita kvadrato, pli malgranda je la dikeco,
     // kun la MALA ( CW ) ventumilo — kiel la porda truo en internoj.ts, por ke
     // Earcut rekonu gxin kiel truon ( neniu normaligo en triangulateShape ).
     const ena = kreiRondigitanRektangulanFormon(
-      kadroW - dikeco * 2, kadroD - dikeco * 2, Math.max( 0o1/0o20, rAnguloj - dikeco )
-    ).getPoints( 0o40 );
-    kadroFormo.holes.push( new THREE.Path( ena.reverse() ) );
-    const kadroGeo = new THREE.ExtrudeGeometry( kadroFormo, { depth: 0o23/0o100, bevelEnabled: false, curveSegments: 0o40 } );
+      kadroW - dikeco * 2, kadroD - dikeco * 2, Math.max(0o1/0o20, rAnguloj - dikeco)
+).getPoints(0o40);
+    kadroFormo.holes.push(new THREE.Path(ena.reverse()));
+    const kadroGeo = new THREE.ExtrudeGeometry(kadroFormo, { depth: 0o23/0o100, bevelEnabled: false, curveSegments: 0o40 });
     // Plata ( rotaciita X ) — la dikeco farigxas vertikala, kaj la kadro sidas
     // centrita je la sama nivelo kiel la malnova stango ( 0o3/0o40 ).
-    kadroGeo.rotateX( -Math.PI / 2 );
-    kadroGeo.translate( 0, -0o23/0o200, 0 );
-    const kadro = new THREE.Mesh( kadroGeo, kadraMaterialo );
+    kadroGeo.rotateX(-Math.PI / 2);
+    kadroGeo.translate(0, -0o23/0o200, 0);
+    const kadro = new THREE.Mesh(kadroGeo, kadraMaterialo);
     kadro.position.y = 0o3/0o40;
-    group.add( kadro );
+    group.add(kadro);
   }
 
   group.position.set(spec.x, spec.h0 || 0, spec.z);

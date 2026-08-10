@@ -31,14 +31,14 @@ export interface KeuxfhxesoLoko {
 function kreiFolianTeksajxon(): THREE.CanvasTexture {
   const H = 0o1000;                  // kanvasa alto ( alta rezolucio, ne malakra )
   const STRETCH = 0o56 / 0o10;       // alto/larĝa proporcio de la folia faco
-  const W = Math.round( H * STRETCH );
-  const kanvasa = document.createElement( "canvas" );
+  const W = Math.round(H * STRETCH);
+  const kanvasa = document.createElement("canvas");
   kanvasa.width = W;
   kanvasa.height = H;
-  const k = kanvasa.getContext( "2d" )!;
+  const k = kanvasa.getContext("2d")!;
   // Helblua-verda fono.
   k.fillStyle = "#a0c8b0";
-  k.fillRect( 0, 0, W, H );
+  k.fillRect(0, 0, W, H);
   k.lineCap = "round";
   k.lineJoin = "round";
   // Kolora paletro — la stelo, la krampoj kaj la folioj havas siajn proprajn
@@ -47,7 +47,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   const stelaKoloro = "#3860b0";
   const supraFoliaKoloro = "#4898d0";
   const subaFoliaKoloro = "#7088b8";
-  const suprajKrampojKoloro = "#5396b5";
+  const suprajKrampojKoloro = "#5098b8";
   const subajKrampojKoloro = "#50a060";
   // La centro de la folio ( la valo inter du poloj ) estas u = 0o4/0o10 laux
   // la UV-konvencio de starfruktKorpo; la dezajno estas vertikale simetria.
@@ -59,16 +59,16 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   // koloron, la malsupro la suban, do la poloj kunfandiĝas kun la folioj. ──
   // La travideblaj finoj uzas 8-ciferan heks ( #rrggbbaa ), do ili restas
   // konektitaj al la foliaj kolor-konstantoj — neniu dis-sinkroniĝo.
-  const gr = k.createLinearGradient( 0, 0, 0, H * 0o1 / 0o10 );
-  gr.addColorStop( 0, supraFoliaKoloro );
-  gr.addColorStop( 1, supraFoliaKoloro + "00" );
+  const gr = k.createLinearGradient(0, 0, 0, H * 0o1 / 0o10);
+  gr.addColorStop(0, supraFoliaKoloro);
+  gr.addColorStop(1, supraFoliaKoloro + "00");
   k.fillStyle = gr;
-  k.fillRect( 0, 0, W, H * 0o1 / 0o10 );
-  const gb = k.createLinearGradient( 0, H * 0o7 / 0o10, 0, H );
-  gb.addColorStop( 0, subaFoliaKoloro + "00" );
-  gb.addColorStop( 1, subaFoliaKoloro );
+  k.fillRect(0, 0, W, H * 0o1 / 0o10);
+  const gb = k.createLinearGradient(0, H * 0o7 / 0o10, 0, H);
+  gb.addColorStop(0, subaFoliaKoloro + "00");
+  gb.addColorStop(1, subaFoliaKoloro);
   k.fillStyle = gb;
-  k.fillRect( 0, H * 0o7 / 0o10, W, H * 0o1 / 0o10 );
+  k.fillRect(0, H * 0o7 / 0o10, W, H * 0o1 / 0o10);
 
   // ── 4-pinta stelo en la centro ( la kvarStelo-motivo de la vestoj ) ──
   // La banda gradiento lasis k.fillStyle travidebla — reestigu la stelan
@@ -80,11 +80,11 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   const ry = H * 0o7 / 0o200;
   const sr = 0o11 / 0o20;
   k.beginPath();
-  k.moveTo( cx, cy - ry );
-  k.quadraticCurveTo( cx + rx * sr, cy - ry * sr, cx + rx, cy );
-  k.quadraticCurveTo( cx + rx * sr, cy + ry * sr, cx, cy + ry );
-  k.quadraticCurveTo( cx - rx * sr, cy + ry * sr, cx - rx, cy );
-  k.quadraticCurveTo( cx - rx * sr, cy - ry * sr, cx, cy - ry );
+  k.moveTo(cx, cy - ry);
+  k.quadraticCurveTo(cx + rx * sr, cy - ry * sr, cx + rx, cy);
+  k.quadraticCurveTo(cx + rx * sr, cy + ry * sr, cx, cy + ry);
+  k.quadraticCurveTo(cx - rx * sr, cy + ry * sr, cx - rx, cy);
+  k.quadraticCurveTo(cx - rx * sr, cy - ry * sr, cx, cy - ry);
   k.closePath();
   k.fill();
 
@@ -117,17 +117,17 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
       const kx2 = cx + sX * rx * 0o66 / 0o100;
       const ky2 = cy + sY * ry * 0o20 / 0o10;
       k.beginPath();
-      k.moveTo( ax, ay );
-      k.quadraticCurveTo( kx1, ky1, lx1, ly1 );
-      k.moveTo( ax, ay );
-      k.quadraticCurveTo( kx2, ky2, lx2, ly2 );
+      k.moveTo(ax, ay);
+      k.quadraticCurveTo(kx1, ky1, lx1, ly1);
+      k.moveTo(ax, ay);
+      k.quadraticCurveTo(kx2, ky2, lx2, ly2);
       k.stroke();
       // Vertikala linio INTER la gamboj — pendas libere en la malfermo de la
       // ">", ne alfiksita, montrante al la stelo.
       const vx = cx + sX * rx * 0o7 / 0o10;
       k.beginPath();
-      k.moveTo( vx, ay - sY * ry * 0o11 / 0o10 );
-      k.lineTo( vx, ay - sY * ry * 0o17 / 0o10 );
+      k.moveTo(vx, ay - sY * ry * 0o11 / 0o10);
+      k.lineTo(vx, ay - sY * ry * 0o17 / 0o10);
       k.stroke();
     }
   }
@@ -155,34 +155,34 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
     const centraBazoY = supra ? foliaBazo + H * 0o13 / 0o100 : H - foliaBazo - H * 0o13 / 0o100;
     // Konturo. Ovaleca folio kun akra pinto al la ekstera rando.
     k.beginPath();
-    k.moveTo( cx, pintoY );
-    k.quadraticCurveTo( cx - folioDuonoLargho, mezoY, cx - folioDuonoLargho, bazoY );
-    k.quadraticCurveTo( cx, centraBazoY, cx + folioDuonoLargho, bazoY );
-    k.quadraticCurveTo( cx + folioDuonoLargho, mezoY, cx, pintoY );
+    k.moveTo(cx, pintoY);
+    k.quadraticCurveTo(cx - folioDuonoLargho, mezoY, cx - folioDuonoLargho, bazoY);
+    k.quadraticCurveTo(cx, centraBazoY, cx + folioDuonoLargho, bazoY);
+    k.quadraticCurveTo(cx + folioDuonoLargho, mezoY, cx, pintoY);
     k.closePath();
     k.stroke();
     // Meza ribo de la folio.
     k.beginPath();
-    k.moveTo( cx, pintoY );
-    k.lineTo( cx, bazoY );
+    k.moveTo(cx, pintoY);
+    k.lineTo(cx, bazoY);
     k.stroke();
     // Du oblikvaj vejnoj sur cxiu flanko, ambaŭ kurbiĝantaj al la bazo.
     const veinBazY = bazoY;
     const veinMezoY = supra ? foliaMezo + foliaVeinAlto : H - foliaMezo - foliaVeinAlto;
     for ( const sgn of [ -1, 1 ] ) {
       k.beginPath();
-      k.moveTo( cx, mezoY );
+      k.moveTo(cx, mezoY);
       k.quadraticCurveTo(
         cx + sgn * foliaVeinLargho, veinMezoY,
         cx + sgn * foliaVeinLargho * 0o11 / 0o10, veinBazY
-      );
+);
       k.stroke();
     }
   };
-  desegnuFolion( true, supraFoliaKoloro );
-  desegnuFolion( false, subaFoliaKoloro );
+  desegnuFolion(true, supraFoliaKoloro);
+  desegnuFolion(false, subaFoliaKoloro);
 
-  const t = new THREE.CanvasTexture( kanvasa );
+  const t = new THREE.CanvasTexture(kanvasa);
   t.colorSpace = THREE.SRGBColorSpace;
   // Klareco de la linia desegno. Alta anizotropio kontraŭ la forto de la
   // tre mallarĝa faco ( samstile kiel la aliaj kanvasaj teksturoj ).
@@ -193,7 +193,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
 // sespintaStelo - Fermita, glata sespinta konturo. Ĉiu el la ses pintoj
 // estas mallarĝa sed rondigita; inter ili estas unu kontinua, mola konkava
 // arko. Neniuj Bezier-kudroj aŭ akraj faldoj aperas en la supra silueto.
-function sespintaStelo( rEkstera: number ): THREE.Vector2[] {
+function sespintaStelo(rEkstera: number): THREE.Vector2[] {
   const punktoj: THREE.Vector2[] = [];
   const segmentoj = 0o16 * 6;
   // La valo restas klare interne, dum la pli granda eksponento faras la
@@ -205,12 +205,12 @@ function sespintaStelo( rEkstera: number ): THREE.Vector2[] {
     // |cos(3a)| metas pinton ĉe ĉiu sesa akso kaj valon ĝuste inter ili.
     // La granda eksponento kunpremas ĉiun pinton al eleganta faldita pinto;
     // la valoj restas unuopaj, kontinuaj konkavaj arkoj — neniu krezo.
-    const pinto = Math.pow( Math.abs( Math.cos( 3 * ang ) ), pintoAkrecajxo );
+    const pinto = Math.pow(Math.abs(Math.cos(3 * ang)), pintoAkrecajxo);
     const radiuso = valoraRadiuso + ( rEkstera - valoraRadiuso ) * pinto;
-    punktoj.push( new THREE.Vector2(
-      Math.cos( ang ) * radiuso,
-      Math.sin( ang ) * radiuso
-    ) );
+    punktoj.push(new THREE.Vector2(
+      Math.cos(ang) * radiuso,
+      Math.sin(ang) * radiuso
+));
   }
   return punktoj;
 }
@@ -223,20 +223,20 @@ function sespintaStelo( rEkstera: number ): THREE.Vector2[] {
 // PARABOLAN kurbon ( r = A·√t, la profilo de paraboloido ) — klare ronda,
 // parabola fundo — kunigita al la korpo per C²-glatmikso. La krestaj ripoj
 // sekvas la saman profilon, do iliaj oraj finoj kongruas.
-function glataPaso( u: number ): number {
-  const x = Math.min( 1, Math.max( 0, u ) );
+function glataPaso(u: number): number {
+  const x = Math.min(1, Math.max(0, u));
   // Kvintika glatŝtupo ( C² ). Nula deklivo KAJ nula kurbeco ĉe ambaŭ finoj,
   // do la transiro al la korpo estas tre glata, sen kurbec-salto.
   return x * x * x * ( x * ( x * 6 - 15 ) + 10 );
 }
-function folioProfilo( t: number ): number {
+function folioProfilo(t: number): number {
   // 0o53/0o100 = 0.672 — la malsupren-peza remapo. La maksimumo RESTAS ĉe
   // ≈ 36% de la alto — la maso ne moviĝas, ĝi nur pli larĝiĝas. 0o6/0o10 =
   // 0.75 — la vertikala eksponento. Malalta eksponento donas LARGAN rondan
   // centran mason; alta eksponento pinĉus ĝin al nadlo.
   const pezo = 0o53 / 0o100;
   const vertikalo = 0o6 / 0o10;
-  const korpo = Math.pow( Math.max( 0, Math.sin( Math.PI * Math.pow( t, pezo ) ) ), vertikalo );
+  const korpo = Math.pow(Math.max(0, Math.sin(Math.PI * Math.pow(t, pezo))), vertikalo);
   // Parabola malsupra konvergo. Sub 0o2/0o10 ( 0.25 ) la fundo sekvas
   // r = A·√t ( la profilo de paraboloido — glata ronda parabola pinto ),
   // kunigita al la korpo per la C²-glatmikso ( neniu kresto, neniu
@@ -244,10 +244,10 @@ function folioProfilo( t: number ): number {
   // pli malsupren anstataŭ esti maldikigita de la parabolo.
   const PINTO = 0o2 / 0o10;
   if ( t >= PINTO ) return korpo;
-  const korpoP = Math.pow( Math.max( 0, Math.sin( Math.PI * Math.pow( PINTO, pezo ) ) ), vertikalo );
-  const A = korpoP / Math.sqrt( PINTO );   // kongruigas la parabolon al la korpo
-  const blendo = glataPaso( t / PINTO );   // 0 ĉe la fundo, 1 ( nula deklivo ) ĉe PINTO
-  return A * Math.sqrt( t ) * ( 1 - blendo ) + korpo * blendo;
+  const korpoP = Math.pow(Math.max(0, Math.sin(Math.PI * Math.pow(PINTO, pezo))), vertikalo);
+  const A = korpoP / Math.sqrt(PINTO);   // kongruigas la parabolon al la korpo
+  const blendo = glataPaso(t / PINTO);   // 0 ĉe la fundo, 1 ( nula deklivo ) ĉe PINTO
+  return A * Math.sqrt(t) * ( 1 - blendo ) + korpo * blendo;
 }
 
 // starfruktKorpo - Sxovita surfaco. La glata sespinta sekco estas skaleblata
@@ -257,13 +257,13 @@ function folioProfilo( t: number ): number {
 // v = 1. La UV-oj estas lauxfolioj ( u. 0..1 de faldo al faldo, v. 0..1 de
 // malsupro al supro ), do la SVG-stila dezajno presigxas sur cxiun folion cxe
 // gxia plej largxa ringo.
-function starfruktKorpo( rEkstera: number, alto: number, ringoj: number ): THREE.BufferGeometry {
-  const sekco = sespintaStelo( rEkstera );
+function starfruktKorpo(rEkstera: number, alto: number, ringoj: number): THREE.BufferGeometry {
+  const sekco = sespintaStelo(rEkstera);
   const N = sekco.length;
   const L = N / 6;   // punktoj por folio ( kresto -> nocxo -> kresto )
   // La sekco-radiuso de ĉiu punkto ( 1 ĉe la krestoj, ≈ 0o45/0o100 ĉe la
   // valoj ). Uzata por miksi la stelon al cirklo ĉe la fundo.
-  const stelFrakcioj = sekco.map( p => Math.hypot( p.x, p.y ) / rEkstera );
+  const stelFrakcioj = sekco.map(p => Math.hypot(p.x, p.y) / rEkstera);
   const RONDO = 0o2 / 0o10;   // 0.25 — la funda zono kie la stelo fariĝas cirklo
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
@@ -273,18 +273,18 @@ function starfruktKorpo( rEkstera: number, alto: number, ringoj: number ): THREE
     // finoj ( la parabola malsupro kaj la akra supro ), malpli en la plata
     // mezo — tio forigas la rektajn segmentojn sur la kurbo ( la
     // faceto-efekto ĉe la fundo ).
-    const t = ( 1 - Math.cos( Math.PI * u ) ) / 0o2;
-    const s = folioProfilo( t );
+    const t = ( 1 - Math.cos(Math.PI * u) ) / 0o2;
+    const s = folioProfilo(t);
     const y = t * alto;
     // Miksi la 6-pintan stel-sekcon al CIRKLO ĉe la fundo. La rektaj krestaj
     // linioj malsupren laŭ la flanko malaperas kaj la malsupro konvergas kiel
     // glata ronda pinto — la transiro estas ronda, ne faceta.
-    const w = t < RONDO ? glataPaso( t / RONDO ) : 1;
+    const w = t < RONDO ? glataPaso(t / RONDO) : 1;
     for ( let j = 0; j < N; j++ ) {
       const p = sekco[j];
       const rf = w * stelFrakcioj[j] + ( 1 - w );   // → 1 ( cirklo ) ĉe la fundo
-      pozicioj.push( p.x * s * rf / stelFrakcioj[j], y, p.y * s * rf / stelFrakcioj[j] );
-      uvoj.push( ( j % L ) / ( L - 1 ), t );
+      pozicioj.push(p.x * s * rf / stelFrakcioj[j], y, p.y * s * rf / stelFrakcioj[j]);
+      uvoj.push(( j % L ) / ( L - 1 ), t);
     }
   }
   const indeksoj: number[] = [];
@@ -292,20 +292,20 @@ function starfruktKorpo( rEkstera: number, alto: number, ringoj: number ): THREE
     const r0 = i * N, r1 = ( i + 1 ) * N;
     for ( let j = 0; j < N; j++ ) {
       const j2 = ( j + 1 ) % N;
-      indeksoj.push( r0 + j, r1 + j, r1 + j2, r0 + j, r1 + j2, r0 + j2 );
+      indeksoj.push(r0 + j, r1 + j, r1 + j2, r0 + j, r1 + j2, r0 + j2);
     }
   }
   const g = new THREE.BufferGeometry();
-  g.setAttribute( "position", new THREE.BufferAttribute( new Float32Array( pozicioj ), 3 ) );
-  g.setAttribute( "uv", new THREE.BufferAttribute( new Float32Array( uvoj ), 2 ) );
-  g.setIndex( indeksoj );
+  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(pozicioj), 3));
+  g.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(uvoj), 2));
+  g.setIndex(indeksoj);
   g.computeVertexNormals();
   return g;
 }
 
 // krestaRipo - Maldika ora polo sur unu vertikala kresto. Ĝi sekvas la
 // ovalan flanklinion, kun rondigitaj finoj kaj neniu elstara ĉapo aŭ bulo.
-function krestaRipo( rEkstera: number, alto: number, ang: number, dikeco: number ): THREE.BufferGeometry {
+function krestaRipo(rEkstera: number, alto: number, ang: number, dikeco: number): THREE.BufferGeometry {
   const ringoj = 0o40;
   const flankoj = 8;
   const tuboRadiuso = dikeco * 0o5 / 0o10;
@@ -317,20 +317,20 @@ function krestaRipo( rEkstera: number, alto: number, ang: number, dikeco: number
     // La sama kosinusa ringa disdono kiel la korpo — la ripoj sekvas la
     // kurbojn sen rektaj segmentoj ĉe la finoj.
     const u = i / ringoj;
-    const t = ( 1 - Math.cos( Math.PI * u ) ) / 0o2;
-    const s = folioProfilo( t );
+    const t = ( 1 - Math.cos(Math.PI * u) ) / 0o2;
+    const s = folioProfilo(t);
     // La polo sekvas la saman ovalan profilon kiel la muro. ĝi maldikiĝas
     // glate al rondaj finoj kaj ne restas kiel elstara bulo ĉe la supro aŭ bazo.
     // Ĉe ĉiu alto la ekstera flanko de la polo restas ene de la muro-radiuso.
     const finaRondigo = s;
-    const cx = Math.cos( ang ) * centroR * s;
-    const cz = Math.sin( ang ) * centroR * s;
+    const cx = Math.cos(ang) * centroR * s;
+    const cz = Math.sin(ang) * centroR * s;
     // Pli akra taper ĉe la finoj konservas la oran polon kiel maldikan,
     // rondan randon; ĝi ne formas ŝvelan bulon ĉe la supro aŭ malsupro.
-    const r = tuboRadiuso * ( 0o4/0o10 + 0o16/0o100 * Math.pow( finaRondigo, 0o20 / 0o10 ) );
+    const r = tuboRadiuso * ( 0o4/0o10 + 0o16/0o100 * Math.pow(finaRondigo, 0o20 / 0o10) );
     for ( let j = 0; j < flankoj; j++ ) {
       const a = j / flankoj * Math.PI * 0o2;
-      pozicioj.push( cx + Math.cos( a ) * r, t * alto, cz + Math.sin( a ) * r );
+      pozicioj.push(cx + Math.cos(a) * r, t * alto, cz + Math.sin(a) * r);
     }
   }
   for ( let i = 0; i < ringoj; i++ ) {
@@ -338,12 +338,12 @@ function krestaRipo( rEkstera: number, alto: number, ang: number, dikeco: number
       const j2 = ( j + 1 ) % flankoj;
       const a = i * flankoj + j;
       const b = ( i + 1 ) * flankoj + j;
-      indeksoj.push( a, b, ( i + 1 ) * flankoj + j2, a, ( i + 1 ) * flankoj + j2, i * flankoj + j2 );
+      indeksoj.push(a, b, ( i + 1 ) * flankoj + j2, a, ( i + 1 ) * flankoj + j2, i * flankoj + j2);
     }
   }
   const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute( "position", new THREE.BufferAttribute( new Float32Array( pozicioj ), 3 ) );
-  geometrio.setIndex( indeksoj );
+  geometrio.setAttribute("position", new THREE.BufferAttribute(new Float32Array(pozicioj), 3));
+  geometrio.setIndex(indeksoj);
   geometrio.computeVertexNormals();
   return geometrio;
 }
@@ -355,7 +355,7 @@ function krestaRipo( rEkstera: number, alto: number, ang: number, dikeco: number
 //     @param lokoj ( KeuxfhxesoLoko[] ) - Pozicioj ( kaj nedevigaj orientigxoj ).
 //     @param alteco ( funkcio ) - Terena alteco ( x, z ) → y.
 //     @param kadraMaterialo ( MeshStandardMaterial ) - La ora kadro-materialo.
-export function konstruiKeuxfhxeso( sceno: THREE.Scene,
+export function konstruiKeuxfhxeso(sceno: THREE.Scene,
   lokoj: KeuxfhxesoLoko[],
   alteco: (x: number, z: number) => number,
   kadraMaterialo: THREE.MeshStandardMaterial
@@ -367,25 +367,25 @@ export function konstruiKeuxfhxeso( sceno: THREE.Scene,
   const ALTO = 0o36 / 0o10; // 3.6 — pli malalta, pli kompakta strukturo
 
   for ( const l of lokoj ) {
-    const h0 = alteco( l.x, l.z );
+    const h0 = alteco(l.x, l.z);
     const rot = l.rot ?? 0;
-    const M = new THREE.Matrix4().makeRotationY( rot );
+    const M = new THREE.Matrix4().makeRotationY(rot);
 
     // La korpo sidas rekte sur la tero.
-    const korpo = starfruktKorpo( R, ALTO, 0o40 );
-    korpo.applyMatrix4( M );
-    korpo.translate( l.x, h0, l.z );
-    murajGeometrioj.push( korpo );
+    const korpo = starfruktKorpo(R, ALTO, 0o40);
+    korpo.applyMatrix4(M);
+    korpo.translate(l.x, h0, l.z);
+    murajGeometrioj.push(korpo);
 
     // Ses oraj krestaj ripoj - unu laux cxiu pinto de la stelo-sekco. Cxiu
     // ripo sekvas la korpon de malsupro gxis supro, sen elstara konverga parto.
     // La dezajno ( stelo + radioj ) estas parto de la mura TEKSTURO, bakita
     // sur cxiun folion - neniu elstara geometrio.
     for ( let k = 0; k < 6; k++ ) {
-      const ripo = krestaRipo( R, ALTO, k * Math.PI / 3, 0o4 / 0o100 );
-      ripo.applyMatrix4( M );
-      ripo.translate( l.x, h0, l.z );
-      kadrajGeometrioj.push( ripo );
+      const ripo = krestaRipo(R, ALTO, k * Math.PI / 3, 0o4 / 0o100);
+      ripo.applyMatrix4(M);
+      ripo.translate(l.x, h0, l.z);
+      kadrajGeometrioj.push(ripo);
     }
   }
 
@@ -394,16 +394,16 @@ export function konstruiKeuxfhxeso( sceno: THREE.Scene,
   // La mura koloro estas blanka, cxar la helblua-verda bazo estas BAKITA en
   // la teksturon ( #a0c8b0 ) - tiel la korpo estas tute opaka, neniu
   // travidebla centro, kaj la kolora dezajno sxajnas presita sur la folio.
-  const muraMaterialo = new THREE.MeshStandardMaterial( {
+  const muraMaterialo = new THREE.MeshStandardMaterial({
     color: 0xffffff, roughness: 0o6 / 0o10, metalness: 0,
     map: teksajxo,
-  } );
+  });
 
-  const korpoj = new THREE.Mesh( kunfandiGeometriojn( murajGeometrioj ), muraMaterialo );
+  const korpoj = new THREE.Mesh(kunfandiGeometriojn(murajGeometrioj), muraMaterialo);
   korpoj.castShadow = korpoj.receiveShadow = true;
-  grupo.add( korpoj );
-  const kadroj = new THREE.Mesh( kunfandiGeometriojn( kadrajGeometrioj ), kadraMaterialo );
+  grupo.add(korpoj);
+  const kadroj = new THREE.Mesh(kunfandiGeometriojn(kadrajGeometrioj), kadraMaterialo);
   kadroj.castShadow = kadroj.receiveShadow = true;
-  grupo.add( kadroj );  sceno.add( grupo );
+  grupo.add(kadroj);  sceno.add(grupo);
   return grupo;
 }

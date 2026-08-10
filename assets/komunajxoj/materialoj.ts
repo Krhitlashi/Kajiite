@@ -14,7 +14,7 @@ import {
 //     komuna kristala teksajxo, kiun reuzas la vojoj, dokoj kaj lampoj ).
 //     @param envMapIntensity ( number, nedeviga ) - Reflekta intenseco ( en la
 //     sceno 0o6/0o10; en la doko la defaŭlto ).
-export function kreiDioritanMaterialon( map?: THREE.Texture, envMapIntensity?: number ): THREE.MeshStandardMaterial {
+export function kreiDioritanMaterialon(map?: THREE.Texture, envMapIntensity?: number): THREE.MeshStandardMaterial {
   const m = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     map: map ?? kreiDioritanTeksajxon(),
@@ -32,7 +32,7 @@ export function kreiDioritanMaterialon( map?: THREE.Texture, envMapIntensity?: n
 // la bump-teksajxo donas subtilan malebenecon.
 //     @param map ( THREE.Texture, nedeviga ) - Andezita teksturo ( defaŭlte la
 //     komuna fajngrajna teksajxo, kiun reuzas la vojoj kaj dokoj ).
-export function kreiAndezitanMaterialon( map?: THREE.Texture ): THREE.MeshStandardMaterial {
+export function kreiAndezitanMaterialon(map?: THREE.Texture): THREE.MeshStandardMaterial {
   const m = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     map: map ?? kreiAndezitanTeksajxon(),
@@ -51,6 +51,6 @@ export function kreiEniranMaterialon(): THREE.MeshStandardMaterial {
 // kreiOranMaterialon — Ora kadro-materialo ( brila metala, kun varma emisio ).
 //     @param koloro ( number ) - La ora nuanco ( 0xd8b068 en la sceno, la
 //     kadro-koloro en la satalaj konstruaĵoj ).
-export function kreiOranMaterialon( koloro: number ): THREE.MeshStandardMaterial {
+export function kreiOranMaterialon(koloro: number): THREE.MeshStandardMaterial {
   return new THREE.MeshStandardMaterial({ color: koloro, metalness: 0o33/0o40, roughness: 0o13/0o40, emissive: 0x302808, emissiveIntensity: 0o13/0o40, envMapIntensity: 0o12/0o10 });
 }

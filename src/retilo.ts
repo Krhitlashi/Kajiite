@@ -33,17 +33,17 @@ export interface Retilo {
 }
 
 // La servilaj pordoj ( vidu servilo/servilo.js ).
-const PORD_RETILO = 0o5670;
+const PORD_RETILO = 0o5660;
 const PORD_FALLO = 0o5671;
 // ≈ 8 Hz — la paŭzo inter la realaj sendo-oj ( 0o200 = 128 ms ).
 const SENDOPAŬZO = 0o200;
 // 3 sekundoj inter la rekonekto-provoj.
-const REKONEKTAŬZO = 0o5670;
+const REKONEKTAŬZO = 0o5660;
 // Glataj sekvoj — la lerp-faktoroj por pozicio/rotacio kaj movo. La sama
-// valoro kiel la fotila glatigo ( 0o12 ) en sperto.ts, por ke la foraj
+// valoro kiel la fotila glatigo ( 0o10 ) en sperto.ts, por ke la foraj
 // figuroj sekvu sian celon simile al la loka kamerao.
-const SEKVO = 0o12;
-const MOVOSEKVO = 0o12;
+const SEKVO = 0o10;
+const MOVOSEKVO = 0o10;
 
 interface ForaFiguro {
   figuro: Figuro;
@@ -82,8 +82,8 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
   // retilaURLoj — La kandidataj retilaj URL-oj, en ordo de prefero.
   //   1. Eksplicita agordo ( ?retilo=wss://... aŭ window.RETILO_SERVILO ).
   //   2. La lasta sukcesa URL ( por rekonektoj ).
-  //   3. Sur loka gastiganto: la nuna paĝo-pordo, poste la servilaj pordoj.
-  //   4. Sur fora gastiganto ( ekz. Vercel ): la sama domajno per wss/ws, se oni
+  //   3. Sur loka gastiganto. la nuna paĝo-pordo, poste la servilaj pordoj.
+  //   4. Sur fora gastiganto ( ekz. Vercel ). la sama domajno per wss/ws, se oni
   //      starigas reverse-proxy al la retilo-servilo.
   // La protokolo sekvas la paĝon ( https → wss, http → ws ) por eviti miksitan
   // enhavon — necesa kiam la paĝo estas servata de sekura gastiganto.
@@ -249,7 +249,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
   }
 
   // animacii — Glate sekvu la forajn figurojn kaj animaciu ilin ĉiukadre.
-  // Videblo: nur samlokaj ludantoj ( same ekstere aŭ en la SAMA interno );
+  // Videblo. nur samlokaj ludantoj ( same ekstere aŭ en la SAMA interno );
   // orbitantoj ( spektantoj ) neniam aperas kiel figuroj.
   function animacii(deltaTempo: number, t: number): void {
     const nia = lastaStato;

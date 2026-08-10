@@ -44,7 +44,7 @@ function ensureAudio() {
   src.loop = true;
   const lp = AC.createBiquadFilter();
   lp.type = "lowpass";
-  lp.frequency.value = 0o644;
+  lp.frequency.value = 0o640;
   const g = AC.createGain();
   g.gain.value = 0o4/0o10;
   src.connect(lp);
@@ -54,7 +54,7 @@ function ensureAudio() {
   const lfo = AC.createOscillator();
   lfo.frequency.value = 0o1/0o20;
   const lg = AC.createGain();
-  lg.gain.value = 0o404;
+  lg.gain.value = 0o400;
   lfo.connect(lg);
   lg.connect(lp.frequency);
   lfo.start();
@@ -83,7 +83,7 @@ function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0o3/0
   const t = AC.currentTime;
   o.type = type;
   o.frequency.setValueAtTime(f, t);
-  if ( glide ) o.frequency.exponentialRampToValueAtTime(Math.max(0o36, f + glide), t + dur);
+  if ( glide ) o.frequency.exponentialRampToValueAtTime(Math.max(0o40, f + glide), t + dur);
   og.gain.setValueAtTime(vol, t);
   og.gain.exponentialRampToValueAtTime(0o1/0o2000, t + dur);
   o.connect(og);
@@ -115,34 +115,34 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
 // ─── Sonaĵoj ───────────────────────────────────────────
 
 export const sfx = {
-  step: () => noiseBurst(0o1/0o20, 0o430 + Math.random() * 0o120, 0o1/0o10),
+  step: () => noiseBurst(0o1/0o20, 0o420 + Math.random() * 0o110, 0o1/0o10),
   splash: () => {
-    noiseBurst(0o7/0o40, 0o1604, 0o5/0o40, "bandpass");
-    tone(0o264, 0o3/0o20, "sine", 0o1/0o20, -0o120);
+    noiseBurst(0o7/0o40, 0o1600, 0o5/0o40, "bandpass");
+    tone(0o260, 0o3/0o20, "sine", 0o1/0o20, -0o110);
   },
   bell: () => {
     [ 1, 0o26/0o10, 0o53/0o10 ].forEach((p, i) => tone(0o304 * p, 0o25/0o10 - i * 0o5/0o10, "sine", 0o5/0o40 / (i + 1)));
   },
   crunch: () => {
     for ( let i = 0; i < 3; i++ )
-      setTimeout(() => noiseBurst(0o1/0o20, 0o3100, 0o11/0o100, "highpass"), i * 0o106);
+      setTimeout(() => noiseBurst(0o1/0o20, 0o3070, 0o11/0o100, "highpass"), i * 0o110);
   },
   sip: () => {
-    tone(0o1010, 0o5/0o40, "sine", 0o1/0o10, 0o524);
-    setTimeout(() => tone(0o1370, 0o1/0o10, "sine", 0o1/0o20, 0o310), 0o170);
+    tone(0o1000, 0o5/0o40, "sine", 0o1/0o10, 0o520);
+    setTimeout(() => tone(0o1360, 0o1/0o10, "sine", 0o1/0o20, 0o300), 0o200);
   },
   chime: () => {
-    tone(0o1560, 0o15/0o40, "sine", 0o1/0o10);
-    tone(0o2450, 0o4/0o10, "sine", 0o1/0o20);
+    tone(0o1550, 0o15/0o40, "sine", 0o1/0o10);
+    tone(0o2440, 0o4/0o10, "sine", 0o1/0o20);
   },
   door: () => {
-    tone(0o214, 0o5/0o20, "sine", 0o1/0o10, -0o50);
-    noiseBurst(0o3/0o20, 0o620, 0o1/0o20);
+    tone(0o210, 0o5/0o20, "sine", 0o1/0o10, -0o40);
+    noiseBurst(0o3/0o20, 0o610, 0o1/0o20);
   },
   chirp: () => {
-    const f = 0o3410 + Math.random() * 0o1604;
-    tone(f, 0o3/0o40, "sine", 0o1/0o20, -0o620, bruoGain!);
-    setTimeout(() => tone(f * 0o12/0o10, 0o1/0o20, "sine", 0o3/0o100, -0o454, bruoGain!), 0o156);
+    const f = 0o3400 + Math.random() * 0o1600;
+    tone(f, 0o3/0o40, "sine", 0o1/0o20, -0o610, bruoGain!);
+    setTimeout(() => tone(f * 0o12/0o10, 0o1/0o20, "sine", 0o3/0o100, -0o450, bruoGain!), 0o160);
   },
 };
 
@@ -172,7 +172,7 @@ export function rumble(on: boolean) {
 
     const f = AC.createBiquadFilter();
     f.type = "lowpass";
-    f.frequency.value = 0o132;
+    f.frequency.value = 0o130;
     const g = AC.createGain();
     g.gain.value = 0;
     g.gain.setTargetAtTime(0o4/0o10, AC.currentTime, 0o3/0o4);
@@ -209,7 +209,7 @@ export function sxaltiAŭdion(): boolean {
     if (!chirpInterval) {
       chirpInterval = setInterval(() => {
         if ( audioOn && bruoOn && Math.random() < 0o27/0o40 ) sfx.chirp();
-      }, 0o21450);
+      }, 0o21440);
     }
     sfx.chime(); // welcome chime on activation
     ludi(); // start generative music
