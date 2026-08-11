@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="eo">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title> Terena skulptilo 🔨 </title>
+<link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
+<link rel="stylesheet" href="./stiloj.css">
+</head>
+<style>
+  /* La loka stilo de la terena skulptilo — la ekstera temo difinas nur la
+   border-radius por canvas ( neniu larĝo ), do la kanvasoj plenigas la
+   tutan larĝon ĉi tie. La kanvaso estas kvadrata ( la tuta mondo ), do la
+   larĝo havas ankaŭ maksimuman ALTEĈON: min( 100%, 80vh ) tenas la kvadraton
+   plenlarĝa sur mallarĝaj fenestroj kaj limigas la altecon sur altaj ( la
+   sama kvadrata proporcio restas, neniu distordo ). */
+#mapo, #mapo3d { inline-size: min(100%, 80vh); aspect-ratio: 1 / 1; align-self: center; }
+
+/* La WebGL-bildo de la 3D-kanvaso NE estas tondita de border-radius ( la
+   2D-enhavo estas; la WebGL-tavolo ne estas en ĉi tiu retumilo ) — la
+   clip-path tondas la bildigitan bildon al la sama rondo kiel la temo. */
+#mapo3d { clip-path: inset(0 round var(--អិត្ភេ)); }
+
+/* La objekta antaŭrigardo — kompakta kvadrata kanvaso en la objekto-panelo
+   ( centre vicigita, la duono de la panel-larĝo ) kun la sama ronda tondado
+   kiel la mapo. */
+#objektaAntauxrigardo { inline-size:50%; aspect-ratio:1/1; align-self:center; border-radius:var(--អិត្ភេ); clip-path: inset(0 round var(--អិត្ភេ)); background:linear-gradient(180deg,#6fa8d8,#a8d0e8 55%,#d8e8f0); }
+
+</style>
+<body class="tapufal">
+<h1> Terena skulptilo 🔨 </h1>
+<p class="kefhuruq"> Skulptu la valon — montojn, la riveron, la lagon — per penikoj kaj savu la rezulton rekte al la datumodosiero. La ludo legas la skulptajxon kiel la TUTAN terenon ( la natura tavolo estas plata ). La mapo montras nordon supre kaj orienton dekstren — la sama orientiĝo kiel la minimapo de la ludo. </p>
+<thala>
+  <p class="ksakap2sa"> Vido 🎥 </p>
+  <sabosuc2w2q>
+    <button id="vido2d" aria-pressed="true"> 2D 🗺️ </button>
+    <button id="vido3d" aria-pressed="false"> 3D ⛰️ </button>
+  </sabosuc2w2q>
+</thala>
+<canvas id="mapo" width="900" height="900"></canvas>
+<canvas id="mapo3d" width="900" height="900"></canvas>
+<thala>
+  <p class="ksakap2sa"> Iloj 🛠️ </p>
+  <sabosuc2w2q id="ilTaboj">
+    <button data-iltabo="tereno" aria-pressed="true"> Tereno 🏔️ </button>
+    <button data-iltabo="biomo" aria-pressed="false"> Biomo 🎨 </button>
+    <button data-iltabo="animaloj" aria-pressed="false"> Animaloj 🐾 </button>
+    <button data-iltabo="objektoj" aria-pressed="false"> Objektoj 🎯 </button>
+    <button data-iltabo="krado" aria-pressed="false"> Krado 🏙️ </button>
+    <button id="movigiIlo" aria-pressed="false"> Movigi ✋ </button>
+  </sabosuc2w2q>
+  <sabosuc2w2q id="terenaro">
+    <button data-peniko="levi" aria-pressed="true"> Levi ⬆ </button>
+    <button data-peniko="malsuprenigi"> Malsuprenigi ⬇ </button>
+    <button data-peniko="platigi"> Platigi ▬ </button>
+    <button data-peniko="glatigi"> Glatigi ≋ </button>
+    <button data-peniko="akvo"> Akvo 🌊 </button>
+    <button data-peniko="forvisxi"> Forviŝi 🧽 </button>
+  </sabosuc2w2q>
+  <sabosuc2w2q id="biomaro" class="kobe">
+    <button data-biomo="1" aria-pressed="true"> Montaro ⛰️ </button>
+    <button data-biomo="2" aria-pressed="false"> Valo 🏞️ </button>
+    <button data-biomo="3" aria-pressed="false"> Ebenaĵo 🏜️ </button>
+    <button data-biomo="4" aria-pressed="false"> Akvaj plantoj 🌿 </button>
+    <button data-biomo="5" aria-pressed="false"> Ekvizeto 🌾 </button>
+    <button data-biomo="0" aria-pressed="false"> Aŭtomata ⚙️ </button>
+  </sabosuc2w2q>
+  <sabosuc2w2q id="bestaro" class="kobe">
+    <button data-besto="1" aria-pressed="true"> Akvaj bestoj 🐟 </button>
+    <button data-besto="2" aria-pressed="false"> Petreloj 🕊️ </button>
+    <button data-besto="4" aria-pressed="false"> NPC-oj 🧍 </button>
+    <button id="bestoForvisxo" aria-pressed="false"> Forviŝi 🧽 </button>
+  </sabosuc2w2q>
+  <sabosuc2w2q id="kradaro" class="kobe">
+    <button data-krado-tipo="automata" aria-pressed="true"> Aŭtomata ⚙️ </button>
+    <button data-krado-tipo="sanktejo" aria-pressed="false"> Sanktejo 🛕 </button>
+    <button data-krado-tipo="turo" aria-pressed="false"> Turo 🏢 </button>
+    <button data-krado-tipo="domo" aria-pressed="false"> Domo 🏠 </button>
+    <button data-krado-tipo="mangxejo" aria-pressed="false"> Manĝejo 🍽️ </button>
+    <button data-krado-tipo="kasafeo" aria-pressed="false"> Kasafeo 🏛️ </button>
+    <button data-krado-tipo="stacio" aria-pressed="false"> Stacio 🚀 </button>
+  </sabosuc2w2q>
+</thala>
+<thala id="objektoPanel" class="kobe">
+  <p class="ksakap2sa"> Objektoj 🎯 </p>
+  <sabosuc2w2q id="objektaIloj">
+    <button data-objekta-ilo="meti" aria-pressed="true"> Meti ➕ </button>
+    <button data-objekta-ilo="movigi" aria-pressed="false"> Movu ✋ </button>
+    <button data-objekta-ilo="forigi" aria-pressed="false"> Forigi 🗑️ </button>
+  </sabosuc2w2q>
+  <label> Speco
+    <select id="objektoSpeco">
+      <optgroup label="Plantoj 🌿">
+        <option value="betulo">Betulo 🌳</option>
+        <option value="lariko">Lariko 🌲</option>
+        <option value="hxsxaksxlefo">Ĥŝakŝlefo 🥬</option>
+        <option value="pussxlefo">Pussxlefo 🌱</option>
+        <option value="roko">Roko 🪨</option>
+        <option value="filiko">Filiko 🌿</option>
+      </optgroup>
+      <optgroup label="Bestoj 🐾">
+        <option value="akvabesto">Akva besto 🐟</option>
+        <option value="petrelo">Petrelo 🕊️</option>
+      </optgroup>
+      <optgroup label="Homoj 🧍">
+        <option value="npco">NPC 🧍</option>
+      </optgroup>
+      <optgroup label="Konstruaĵoj 🏛️">
+        <option value="sanktejo">Sanktejo 🛕</option>
+        <option value="turo">Turo 🏢</option>
+        <option value="domo">Domo 🏠</option>
+        <option value="mangxejo">Manĝejo 🍽️</option>
+        <option value="kasafeo">Kasafeo 🏛️</option>
+        <option value="stacio">Stacio 🚀</option>
+      </optgroup>
+      <optgroup label="Mebloj ✨">
+        <option value="hxeuxfo">Lampo 🏮</option>
+        <option value="hxeuxfoPlato">Lampo kun plato 🏮</option>
+        <option value="keuxfhxeso">Keŭfĥeso ⭐</option>
+      </optgroup>
+      <optgroup label="Transporto 🚢">
+        <option value="kanuo">Kanuo 🛶</option>
+        <option value="spacosxipo">Spacosxipo 🚀</option>
+      </optgroup>
+    </select>
+  </label>
+  <p class="ksakap2sa"> Antaŭrigardo 🔍 </p>
+  <canvas id="objektaAntauxrigardo" width="128" height="128"></canvas>
+  <ariiba id="objektoPropOJ"></ariiba>
+  <p> Koordinatoj <span id="koordinatoj">—</span> </p>
+  <label> x <input id="objektaX" type="number" step="0.25" min="-384" max="384"> </label>
+  <label> z <input id="objektaZ" type="number" step="0.25" min="-384" max="384"> </label>
+  <button id="objektaMetu"> Meti ĉe koordinatoj ➕ </button>
+  <p class="ksakap2sa"> Metitaj objektoj </p>
+  <ariiba id="objektoListo"></ariiba>
+</thala>
+<thala id="kradoPanel" class="kobe">
+  <p class="ksakap2sa"> Krado 🏙️ </p>
+  <sabosuc2w2q id="kradoSubTaboj">
+    <button data-krado-sub="urboj" aria-pressed="true"> Urboj 🏙️ </button>
+    <button data-krado-sub="redakti" aria-pressed="false"> Redakti ✏️ </button>
+    <button data-krado-sub="blokoj" aria-pressed="false"> Aldonaj blokoj 🧱 </button>
+    <button data-krado-sub="vojoj" aria-pressed="false"> Vojoj 🛣️ </button>
+  </sabosuc2w2q>
+  <ciihii data-krado-sub-panel="urboj">
+  <label> Urbo
+    <select id="urboElektilo"></select>
+  </label>
+  <label> Nomo <input id="urboNomo" type="text" maxlength="40"> </label>
+  <sabosuc2w2q>
+    <button id="urboAldoni"> Aldoni urbon ➕ </button>
+    <button id="urboForigi"> Forigi urbon 🗑️ </button>
+  </sabosuc2w2q>
+  </ciihii>
+  <ciihii data-krado-sub-panel="redakti" class="kobe">
+  <label> Grandeco
+    <select id="kradoGrandeco">
+      <option value="1">1 — centro + kvar ĉirkaŭantaj</option>
+      <option value="2">2 — diamanto</option>
+      <option value="3" selected>3 — la nuna urbo</option>
+      <option value="4">4 — plena diamanto</option>
+      <option value="5">5 — plena diamanto</option>
+      <option value="6">6 — plena diamanto</option>
+    </select>
+  </label>
+  <label> Bloko
+    <select id="kradoBloko">
+      <option value="unu" selected>Unu — unu konstruaĵo po ĉelo</option>
+      <option value="kvar">Kvar — kvar konstruaĵoj en bloko</option>
+    </select>
+  </label>
+  <label> Ofseto x <input id="kradoOfsX" type="number" step="1" min="-384" max="384" value="0"> </label>
+  <label> Ofseto z <input id="kradoOfsZ" type="number" step="1" min="-384" max="384" value="0"> </label>
+  <label> <input id="kradoKeuxfhxeso" type="checkbox"> Keŭfĥesoj ⭐ ( la kvar anguloj ĉirkaŭ la centro ) </label>
+  <label> <input id="kradoLampoj" type="checkbox" checked> Lampoj 🏮 ( la kvar-lampa strato-ŝablono ) </label>
+  </ciihii>
+  <ciihii data-krado-sub-panel="blokoj" class="kobe">
+  <label> Bloko
+    <select id="aldonaBlokoElektilo"></select>
+  </label>
+  <label> Tipo
+    <select id="aldonaBlokoTipo">
+      <option value="sanktejo">Sanktejo 🛕</option>
+      <option value="turo">Turo 🏢</option>
+      <option value="domo">Domo 🏠</option>
+      <option value="mangxejo">Manĝejo 🍽️</option>
+      <option value="kasafeo">Kasafeo 🏛️</option>
+      <option value="stacio">Stacio 🚀</option>
+    </select>
+  </label>
+  <label> x <input id="aldonaBlokoX" type="number" step="any" min="-384" max="384"> </label>
+  <label> z <input id="aldonaBlokoZ" type="number" step="any" min="-384" max="384"> </label>
+  <label> Turno <input id="aldonaBlokoRot" type="number" step="any" min="-6.3" max="6.3"> </label>
+  <label> <input id="aldonaBlokoStacia" type="checkbox"> Stacio 🚀 ( la ŝipo flugas super ĝi ) </label>
+  <label> <input id="aldonaBlokoKonektita" type="checkbox"> Konektita 🛣️ ( kuniĝas kun la voja reto, kiel la malnova stacidoma ĉelo ) </label>
+  <sabosuc2w2q>
+    <button id="aldonaBlokoAldoni"> Aldoni blokon ➕ </button>
+    <button id="aldonaBlokoForigi"> Forigi blokon 🗑️ </button>
+  </sabosuc2w2q>
+  </ciihii>
+  <ciihii id="vojojPanel" data-krado-sub-panel="vojoj" class="kobe">
+  <sabosuc2w2q id="vojoSubTaboj">
+    <button data-vojo-sub="vojoj" aria-pressed="true"> Vojoj 🛣️ </button>
+    <button data-vojo-sub="punktoj" aria-pressed="false"> Punktoj 📍 </button>
+    <button data-vojo-sub="dokoj" aria-pressed="false"> Dokoj 🚢 </button>
+    <button data-vojo-sub="iloj" aria-pressed="false"> Mapaj iloj 🖱️ </button>
+  </sabosuc2w2q>
+  <ciihii data-vojo-sub-panel="vojoj">
+  <label> Vojo
+    <select id="vojoElektilo"></select>
+  </label>
+  <label> Nomo <input id="vojoNomo" type="text" maxlength="40"> </label>
+  <label> Larĝo <input id="vojoLargxo" type="number" step="0.5" min="1" max="24" value="3.5"> </label>
+  <sabosuc2w2q>
+    <button id="vojoAldoni"> Aldoni vojon ➕ </button>
+    <button id="vojoForigi"> Forigi vojon 🗑️ </button>
+  </sabosuc2w2q>
+  </ciihii>
+  <ciihii data-vojo-sub-panel="punktoj" class="kobe">
+  <label> Punkto
+    <select id="vojoPunktoElektilo"></select>
+  </label>
+  <sabosuc2w2q>
+    <button id="vojoPunktoAldoni"> Aldoni punkton ➕ </button>
+    <button id="vojoPunktoForigi"> Forigi punkton 🗑️ </button>
+  </sabosuc2w2q>
+  <label> x <input id="vojoPunktoX" type="number" step="any" min="-384" max="384"> </label>
+  <label> z <input id="vojoPunktoZ" type="number" step="any" min="-384" max="384"> </label>
+  </ciihii>
+  <ciihii data-vojo-sub-panel="dokoj" class="kobe">
+  <label> Doko
+    <select id="dokoElektilo"></select>
+  </label>
+  <label> x <input id="dokoX" type="number" step="any" min="-384" max="384"> </label>
+  <label> z <input id="dokoZ" type="number" step="any" min="-384" max="384"> </label>
+  <label> Profundo <input id="dokoProfundo" type="number" step="1" min="4" max="48"> </label>
+  <sabosuc2w2q>
+    <button id="dokoAldoni"> Aldoni dokon ➕ </button>
+    <button id="dokoForigi"> Forigi dokon 🗑️ </button>
+  </sabosuc2w2q>
+  </ciihii>
+  <ciihii data-vojo-sub-panel="iloj" class="kobe">
+  <sabosuc2w2q id="vojaIloj">
+    <button data-voja-ilo="movu" aria-pressed="true"> Elektu/Movu ✋ </button>
+    <button data-voja-ilo="aldoni" aria-pressed="false"> Aldoni punkton ➕ </button>
+    <button data-voja-ilo="forigi" aria-pressed="false"> Forigi punkton 🗑️ </button>
+  </sabosuc2w2q>
+  </ciihii>
+  <p id="vojaStatistikoj" class="kefhuruq"> — </p>
+  <details class="flak">
+    <summary class="ksakap2sa"> Helpo ❓ </summary>
+    <p class="kefhuruq"> La Vojoj sub-langeto de la Krado-panelo redaktas la MOND-nivelajn vojojn kaj dokojn — la samajn kiujn la ludo konstruas el SKULPTA_VOJOJ kaj SKULPTA_DOKOJ ( src/tero-datumaro/vojoj.ts ) — tute aparte de la krada generado kaj de la urboj, por ke estonte ili povu konekti plurajn urbojn. La mapo montras ilin kiel la plena mapo de la ludo ( helgrizaj vojoj kun malhelaj bordoj, dokaj platformoj ). Elektu/Movu ✋ — klako sur vojon, punkton aux dokon elektas gxin, kaj la treno movas gxin ( 0.5-algluita ). Aldoni punkton ➕ — klako sur la mapon enmetas punkton en la elektitan vojon. Forigi punkton 🗑️ — klako sur punkton forigas gxin. La vojoj havas nomon kaj larĝon ( neniu fiksita valoro — cxiu vojo estas plene redaktebla polilinio ), la dokoj havas pozicion kaj profundon. La spacosxipo 🚀 kaj la kanuoj 🛶 estas OBJEKTOJ — metitaj kaj movataj per la objekta ilo ( SKULPTA_OBJEKTOJ en src/tero-datumaro/objektoj.ts ). Ĉiu ŝanĝo saviĝas al src/ per la Dosiero-butenoj. </p>
+  </details>
+  </ciihii>
+  <p id="kradoStatistikoj" class="kefhuruq"> — </p>
+  <details class="flak">
+    <summary class="ksakap2sa"> Helpo ❓ </summary>
+    <p class="kefhuruq"> La Krado-langeto montras la urban kradon super la tereno ( en 2D sur la mapo kaj kiel reala 3D-aspekto en la 3D-vido ) nur dum ĉi tiu langeto estas aktiva. Elektu tipon en la paletro kaj klaku sur ĉelo por ŝanĝi ĝian tipon ( aŭ aldoni novan ĉelon ); Aŭtomata ⚙️ resendas la ĉelon al la generita tipo ( aŭ forigas aldonitan ). La urbo-elektilo elektas la urbon por redakti — grandeco, bloko, ofseto kaj nomo — kaj la klako sur la markilon sur la mapo elektas la urbon tie. La ŝanĝoj validiĝas tuj kaj saviĝas al SKULPTA_URBOJ en src/tero-datumaro/urboj.ts; la ludo konstruas ĉiun urbon el tiu listo ( la unua estas la ĉefa ). En la kvar-bloka krado la klako ŝanĝas la INDIVIDUAN konstruajxon sub la kursoro ( la plej proksiman angulon ), ne la tutan blokon — la paletro inkluzivas ankaŭ la Stacion 🚀. La ALDONAJ blokoj 🧱 estas ekstraj konstruajxoj metitaj APARTE de la krada generado — la spacosxipa stacio de la cefa urbo estas unu ( la ŝipo flugas super ĝi, kaj la krado ne plu generas ĝin ĉe la supro ). La klako sur aldonan blokon sur la mapo elektas gxin kaj la treno movas gxin. La mond-nivelaj vojoj kaj la dokoj redaktigxas en la sub-langeto Vojoj 🛣️ de ĉi tiu panelo ( SKULPTA_VOJOJ kaj SKULPTA_DOKOJ en src/tero-datumaro/vojoj.ts ) — mond-nivelaj, por ke estonte ili povu konekti plurajn urbojn. „Kopii aranĝon 📋“ kopias la elektitan urbon por alglui aliloke. La statistikoj montras ĉu la krado estas valida. </p>
+  </details>
+  <sabosuc2w2q>
+    <button id="kradoRestarigi"> Restarigi ĉelojn ♻️ </button>
+    <button id="kradoKopii"> Kopii aranĝon 📋 </button>
+  </sabosuc2w2q>
+</thala>
+<thala id="agordojPanel">
+  <p class="ksakap2sa"> Agordoj ⚙️ </p>
+  <label> Radiuso <span id="radiusoValoro"></span> </label>
+  <input id="radiuso" type="range" min="2" max="60" step="1" value="12" aria-label="Radiuso">
+  <label> Forto <span id="fortoValoro"></span> </label>
+  <input id="forto" type="range" min="0.02" max="1" step="0.02" value="0.16" aria-label="Forto">
+  <label id="akvaNivelaEtikedo"> Akva nivelo <span id="niveloValoro"></span> </label>
+  <input id="akvaNivelo" type="range" min="-14" max="2" step="0.25" value="-4" aria-label="Akva nivelo">
+</thala>
+<thala>
+  <p class="ksakap2sa"> Faroj 🛠️ </p>
+  <sabosuc2w2q>
+    <button id="malfari"> Malfari ↩️ </button>
+    <button id="refari"> Refari ↪️ </button>
+    <button id="restarigi"> Restarigi ĉion ♻️ </button>
+  </sabosuc2w2q>
+</thala>
+<thala>
+  <p class="ksakap2sa"> Dosiero 💾 </p>
+  <sabosuc2w2q>
+    <button id="savi"> Savi al dosiero 💾 </button>
+    <button id="saviRekte"> Savi rekte al src/ ✍️ </button>
+    <button id="sargi"> Ŝargi dosieron 📂 </button>
+  </sabosuc2w2q>
+  <p id="statuso" class="kefhuruq"> Preta </p>
+  <details class="flak">
+    <summary class="ksakap2sa"> Helpo ❓ </summary>
+    <p> „Savi rekte al src/ ✍️“ skribas rekte al la ok datumodosieroj en src/tero-datumaro/ ( krado.ts, akvo.ts, biomoj.ts, bestoj.ts, rultempo.ts, objektoj.ts, urboj.ts, vojoj.ts ) — <code>npm run dev</code> jam starigas la konservan servilon ( aŭ kuru <code>npm run konservilo</code> aparte ). „Savi al dosiero 💾“ uzas la dosier-elektilon aŭ elŝutas. </p>
+  <p> Uzado. Maldekstra klako kaj treno skulptas. Dekstra klako aŭ Shift kaj treno movas la vidon. La rado zomas. Duobla klako resendas la tutan vidon. La ilo Movigi ✋ permesas treni la vidon per la maldekstra klako — en la 2D-mapo gxi movas la mapon, en la 3D-vido gxi turnas la fotilon. WASD aŭ la sagoklavoj movas la vidon ankaŭ per la klavaro — en la 3D-vido Q/E supren/malsupren kaj Shift rapidigas, en la 2D-mapo +/- zomas. La peniko Akvo eltranĉas basenon sub la akva nivelo kaj pentras la maskon. La langeto Biomo 🎨 montras la biomo-paletron — Montaro, Valo, Ebenaĵo, Akvaj plantoj, Ekvizeto aŭ Aŭtomata — kiu PENTRAS la biomon rekte sur la biomo-tavolon, NENIAM ŝanĝante la teron mem ( nenia altigxo, nenia malaltigxo ). La ludo vidas nur la pentritan biomon. La AKVAJ biomoj ( Akvaj plantoj 🌿 kaj Ekvizeto 🌾 ) ekzistas nur SUR la akvo — la peniko pentras ilin nur en akvaj ĉeloj, kaj la teraj biomoj ( Montaro, Valo, Ebenaĵo ) neniam pentrigxas sur akvo. Aŭtomata forigas la pentraĵon cxiu loke — la loko revenas al nenio, same kiel loko sen datumoj. La paletro aperas nur kiam la biomo-langeto estas malfermita. Dum la biomo-langeto estas malfermita, la biomo-koloroj kovras la teron. Purpura sur la montara biomo, verda-blua sur la vala, pala helverda sur la ebenaĵo, profunda blu-verda sur la akvaj plantoj, helverda sur la ekvizeto — la nuda akvo montras sian koloron, kaj lokoj sen pentrajo restas sen nuanco; ferminte la ilon la tero montras siajn naturajn kolorojn. La langeto Animaloj 🐾 montras la besto-paletron — Akvaj bestoj 🐟, Petreloj 🕊️, NPC-oj 🧍 kaj la forviŝo Forviŝi 🧽 — kiu PENTRAS la bestajn zonojn sur la besta-tavolon, NENIAM ŝanĝante la teron. La akvaj bestoj naĝas nur en la pentritaj akvaj zonoj, la petreloj rondflugas nur super la pentritaj zonoj, la NPC-oj piediras nur sur la pentritaj teraj zonoj. La ĉelo povas teni PLURAJN specojn samtempe — pentri la duan sur la unua kombinas ilin; malplena ĉelo = nenia besto, kaj la defaŭltaj lokoj estas jam bakitaj en la tavolon. La SAMA ilo forvisxas. Sxaltinte Forviŝi 🧽, la elektita specio ( Akvaj bestoj, Petreloj aux NPC-oj ) forvisxigxas de la pentritaj ĉeloj — la ceteraj specoj restas. La besta vido montras NUR la elektitan specion — elektinte Akvaj bestoj, nur la akvaj-bestaj ĉeloj montrigxas ( kaj pentrante kaj forvisxante ); elektinte Petreloj, nur la petrelaj; elektinte NPC-oj, nur la NPC-aj. La akvaj bestoj naĝas nur en akvo ( ili pentrigxas nur sur akvaj ĉeloj ); la petreloj povas flugi super ajna loko, do ili pentrigxas kaj sur tero kaj sur akvo — oni povas meti ilin sur la samaj ĉeloj kiel la akvaj bestoj; la NPC-oj piediras nur sur tero ( ili pentrigxas nur sur teraj ĉeloj ). La akva peniko pentras la maskon super la tuta peniko kaj eltrancxas la basenon, do pentri novan lagon aux riveron estas facila — la Forvishi peniko forigas la akvon. La vido-Movigi ✋ butono loĝas en la ilo-karto, ekster la langetoj ( gxi sxaltas la movan reĝimon sen sxangxi la aktivan langeton; alia klako revenigas la lastan penikon ). La ilo-karto havas langetojn — Tereno 🏔️ ( la penikoj Levi, Malsuprenigi, Platigi, Glatigi, Akvo kaj Forviŝi ), Biomo 🎨, Animaloj 🐾 kaj Objektoj 🎯. La ilo Objektoj 🎯 metas INDIVIDUAJN objektojn cxe precizaj pozicioj kaj havas siajn proprajn sub-ilojn — Meti ➕ ( klako metas novan objekton sur libera tero; klako proksime de jam metita objekto ELEKTAS gxin ), Movu ✋ ( kaptu objekton kaj trenu gxin sur la mapo aux la reliefo ) kaj Forigi 🗑️ ( klako forigas la objekton; la klavo Forigi forigas la elektitan ). Elektu la specon ( Betulo, Lariko, Ĥŝakŝlefo, Pussxlefo, Roko, Filiko, Akva besto, Petrelo aux NPC ) kaj la ecojn ( skalo; por NPC-oj ankaŭ rotacio, vesto kaj harstilo; por akvaj bestoj la speco; por petreloj la flugradiuso; por rokoj la turno; por filikoj la koloro — verda aux purpura ) — la panelo montras la VIVAJN KOORDINATOJN ( x, z, y ) de la kursoro. La x kaj z-enigoj permesas tajpi precizajn koordinatojn — la butono metas novan objekton cxe ili, aux movas la elektitan objekton tien ( kiam unu estas elektita ). La listo montras cxiun metitan objekton kun siaj koordinatoj ( elektu por reliefigi, Forigi ✕ por forigi ). La metitaj objektoj montrigxas kiel en la plena mapo de la ludo ( la suprajn vido de ilia vera 3D-aspekto sur la 2D-mapo ) kaj kiel ilia vera 3D-aspekto en la 3D-vido. La ludo konstruas la metitajn objektojn cxe tiuj pozicioj. La akvaj bestoj naĝas nur en akvo, la petreloj rondflugas cxe la ankro, la NPC-oj piediras sur tero. En la 3D-vido la maldekstra klako skulptas, la dekstra turnas, la meza movas kaj la rado zomas. La koloro estas natura. Sablaj bordoj, malseka herbo apud la akvo, herbejoj, sekherbaj deklivoj, roko kaj neĝo sur la pintoj — la sama paletro kiel en la ludo. </p>
+  </details>
+</thala>
+<script type="module" src="./tero-skulptilo.js"></script>
+</body>
+</html>

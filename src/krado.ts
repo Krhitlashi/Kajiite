@@ -17,9 +17,11 @@
 export interface KradaArangxo {
   arangxaGrando: number;             // la tavoloj sur ĉiu flanko
   blokaGrando: "unu" | "kvar";       // unu konstruaĵo po ĉelo, aŭ kvar en bloko
+  keuxfhxeso?: boolean;              // la kvar keŭfĥesoj ĉirkaŭ la centro ( defaŭlte malŝaltitaj )
+  lampoj?: boolean;                  // la kvar-lampa strato-ŝablono ( defaŭlte ŝaltita )
 }
 
-export type CellType = "domo" | "turo" | "mangxejo" | "kasafeo" | "sanktejo";
+export type CellType = "domo" | "turo" | "mangxejo" | "kasafeo" | "sanktejo" | "stacio";
 
 export type KradaĈelo = [ number, number, CellType ];
 
@@ -28,13 +30,32 @@ export interface KradaKonstruajxo {
   cx: number; cz: number;            // la ĉelo ( kolumno, vico )
   sub: "centro" | "NE" | "NW" | "SW" | "SE";  // pozicio en la bloko ( unu: "centro" )
   stacia: boolean;                   // la kosmoporda stacio ( unu. norde; kvar. centro )
+  ekstra?: boolean;                  // ALDONA bloko ( la skulptilo metas gxin aparte de la krado )
+  konektita?: boolean;               // la aldona bloko kunigxas kun la voja reto ( kiel la malnova stacidoma ĉelo )
+}
+
+// AldonaBloko — unu EXTRA bloko metita sur la urbon de la terena skulptilo,
+// aparte de la krada generado. La koordinatoj estas RELATIVAJ al la krada
+// centro ( la sama konvencio kiel la ĉeloj ). La tipo "sanktejo" kun la
+// stacia flago farigxas la kosmoporda stacio ( la sxipo flugas super gxi ).
+// konektita — la bloko kunigxas kun la voja reto ( ĝia ĉelo aligxas al la
+// reto kaj la bloko ricevas spronon ) — la stacio tiel konektigxas al la
+// krado kiel la malnova stacidoma ĉelo. Sen gxi la bloko staras sola.
+export interface AldonaBloko {
+  x: number;
+  z: number;
+  tipo: CellType;
+  rot?: number;
+  sub?: KradaKonstruajxo["sub"];
+  stacia?: boolean;
+  konektita?: boolean;
 }
 
 export interface KradaVojSegmento {
   orient: "NS" | "EW";
   poz: number;                       // la fiksa koordinato ( x por NS, z por EW )
   de: number; al: number;            // la intervalo laŭ la alia akso
-  stacia?: boolean;                  // stacidoma ringo/vojo ( nur unu-bloka krado )
+  stacia?: boolean;                  // ekster-krada vojo ( la stacidoma ringo, la doka avenuo )
 }
 
 export interface KradaSpono {
@@ -60,6 +81,7 @@ export interface KradaPlano {
   spurZoj: number[];
   retoX: number[];
   retoZ: number[];
+  lampoj: { x: number; z: number }[];   // la kvar-lampa strato-ŝablono ( malplena se malŝaltita )
 }
 
 // ── Kradaj derivajoj ────────────────────────────────────────────────────────
@@ -172,6 +194,7 @@ export function fazoDeCelo(cx: number, cz: number): number {
 // fazoDeCelo ), por ke la tuta krado restu simetria.
 export function tipoDeBloko(bazo: CellType, cx: number, cz: number, ox: number, oz: number): CellType {
   if ( bazo === "sanktejo" ) return bazo;          // la centro restas unuopa
+  if ( bazo === "stacio" ) return "stacio";        // stacioj okazas kune ( la tuta bloko )
   if ( bazo === "domo" ) return "domo";            // domoj okazas kune pli ofte
   // La bazaj miksadoj ( ĉe fazo 0 ). turo-bloko — domo ĉe NE, kasafeo ĉe SW,
   // turoj ĉe NW/SE; kasafeo/mangxejo — kasafeoj ĉe NE/SW, mangxejoj ĉe NW/SE.
@@ -194,40 +217,34 @@ export function tipoDeBloko(bazo: CellType, cx: number, cz: number, ox: number, 
 // "c,r", la valoro la ĉela tipo. Anstataŭigo de ekzistanta ĉelo ŝanĝas ĝian
 // tipon; nova ŝlosilo ALDONAS ĉelon ( la voja reto konstruiĝas ĉirkaŭ ĝi
 // kiel ĉe la generitaj ĉeloj ).
-export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, CellType>): KradaPlano {
+// aldonajBlokoj — la EXTRAJ blokoj de la urbo ( la skulptilo metas ilin
+// aparte de la krado — la spacosxipa stacio de la cefa urbo estas unu ). Ili
+// konstruigxas kiel konstrumajxoj cxe siaj pozicioj, sen vojoj kaj sen
+// spronoj ( la voja reto koncernas nur la generitajn ĉelojn ).
+export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, CellType>, aldonajBlokoj?: AldonaBloko[]): KradaPlano {
   const { PASXO, nordaPinto, ringoX, ringoSuda, sudaVojo, stacioZ, staciaRingaNordo, BLOKO } = kradajDerivajoj(arangxo);
   const n = arangxo.arangxaGrando;
   const ĉeloj = kreiKradon(arangxo);
   if ( superoj ) {
     for ( const [ ŝ, tipo ] of superoj ) {
-      const [ c, r ] = ŝ.split(",").map(Number);
+      // La sub-ŝlosiloj ( "c,r,NE" ktp ) apartenas al la kvar-bloka
+      // sub-redaktado — ili ŝanĝas la INDIVIDUAJN konstruaĵojn de la bloko,
+      // ne la ĉelan tipon ( vidu la sub-aldonon sube ).
+      const partoj = ŝ.split(",");
+      if ( partoj.length !== 2 ) continue;
+      const [ c, r ] = partoj.map(Number);
       const ind = ĉeloj.findIndex(([lc, lr]) => lc === c && lr === r);
       if ( ind >= 0 ) ĉeloj[ind] = [ c, r, tipo ];
       else ĉeloj.push([ c, r, tipo ]);
     }
   }
-  // La stacio estas ĈELO de la krado ( nur unu-bloka ) — la plej norda ĉelo
-  // ( 0, n+1 ), rekte norde de la pinto. la voja reto konstruiĝas ĉirkaŭ ĝi
-  // kiel ĉirkaŭ ĉiu alia ĉelo ( la vojo sude, oriente kaj okcidente ), kaj
-  // la stacio konektiĝas per normala sprono. En la kvar-bloka krado la
-  // stacio estas la CENTRO ( vidu la konstruan buklon sube ).
-  if ( arangxo.blokaGrando === "unu" && !ĉeloj.some(([c, r]) => c === 0 && r === n + 1) ) {
-    ĉeloj.push([ 0, n + 1, "sanktejo" ]);
-  }
-
   // ── Konstruaĵoj ──
   const konstruaĵoj: KradaKonstruajxo[] = [];
-  const aldoni = (x: number, z: number, rot: number, tipo: CellType, sub: KradaKonstruajxo["sub"], stacia: boolean) => {
-    konstruaĵoj.push({ x, z, rot, tipo, cx: Math.round(x / PASXO), cz: Math.round(z / PASXO), sub, stacia });
+  const aldoni = (x: number, z: number, rot: number, tipo: CellType, sub: KradaKonstruajxo["sub"], stacia: boolean, ekstra = false, konektita = false) => {
+    konstruaĵoj.push({ x, z, rot, tipo, cx: Math.round(x / PASXO), cz: Math.round(z / PASXO), sub, stacia, ekstra, konektita });
   };
   for (const [ col, row, tipo ] of ĉeloj) {
     const cx = col * PASXO, cz = row * PASXO;
-    if ( arangxo.blokaGrando === "unu" && col === 0 && row === n + 1 ) {
-      // La stacidoma ĉelo ( 0, n+1 ) — la kosmoporda stacio, pordo suden al
-      // la kradvojo ( la fronta regulo sube turnas ĝin suden ).
-      aldoni(0, stacioZ, Math.PI, "sanktejo", "centro", true);
-      continue;
-    }
     if ( col === 0 && row === 0 ) {
       // La centro — la centra konstruaĵo ( sanktejo ), aŭ la STACIO en la
       // kvar-bloka krado ( "centra konstruaĵo aŭ stacio en la centro" ).
@@ -238,27 +255,49 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
     if ( arangxo.blokaGrando === "kvar" ) {
       // Kvar-konstruajxa bloko — la ORIGINALA aranĝo. la kvar konstruaĵoj
       // sidas ĉe la kvar anguloj ( NE, NW, SW, SE je ±BLOKO ), ĉiu rotaciita
-      // al sia bloka flanko ( nordo, okcidento, sudo, oriento ).
+      // al sia bloka flanko ( nordo, okcidento, sudo, oriento ). La supero
+      // "c,r,SUB" ( SUB = NE/NW/SW/SE ) ŝanĝas la INDIVIDUAN konstruajxon
+      // super la blokan miksadon — la sub-redaktado de la skulptilo.
       const suboj: [ number, number, number, KradaKonstruajxo["sub"] ][] = [
         [  BLOKO,  BLOKO,  0,            "NE" ],
         [ -BLOKO,  BLOKO,  -Math.PI / 2, "NW" ],
         [ -BLOKO, -BLOKO,   Math.PI,     "SW" ],
         [  BLOKO, -BLOKO,   Math.PI / 2, "SE" ],
       ];
-      for ( const [ blx, blz, rot, sub ] of suboj ) aldoni(cx + blx, cz + blz, rot, tipoDeBloko(tipo, col, row, blx, blz), sub, false);
+      for ( const [ blx, blz, rot, sub ] of suboj ) {
+        const subTipo = superoj?.get(`${col},${row},${sub}`);
+        aldoni(cx + blx, cz + blz, rot, subTipo ?? tipoDeBloko(tipo, col, row, blx, blz), sub, false);
+      }
     } else {
       aldoni(cx, cz, 0, tipo, "centro", false);
     }
   }
   // La fronta regulo ( unu-bloka ) — frontu al la centro laŭ la domina akso
   // ( la sama regulo kiel en urbo.ts ). La diamanta formo havas NENIAN
-  // izolitan korneran ĉelon, do ĉiu pordo trovas kradan vojon antaŭ si.
+  // izolitan korneran ĉelon, do ĉiu pordo trovas kradan vojon antaŭ si. La
+  // ALDONAJ blokoj havas fiksan rotacion ( la skulptilo metas ilin mane ).
   if ( arangxo.blokaGrando === "unu" ) {
     for ( const k of konstruaĵoj ) {
-      if ( k.stacia || ( k.x === 0 && k.z === 0 ) ) continue;
+      if ( k.stacia || k.ekstra || ( k.x === 0 && k.z === 0 ) ) continue;
       if ( Math.abs(k.x) > Math.abs(k.z) ) k.rot = k.x > 0 ? -Math.PI / 2 : Math.PI / 2;
       else k.rot = k.z > 0 ? Math.PI : 0;
     }
+  }
+  // La aldonaj blokoj — la spacosxipa stacio kaj aliaj ekstraj konstruajxoj
+  // cxe precizaj pozicioj, aparte de la krada generado. La KONEKTITA bloko
+  // kunigxas kun la voja reto ( ĝia ĉelo aligxas al la reto sube kaj la
+  // bloko ricevas spronon — kiel la malnova stacidoma ĉelo ); la ceteraj
+  // staras solaj ( neniu vojo, neniu sprono ).
+  for ( const b of aldonajBlokoj ?? [] ) {
+    aldoni(b.x, b.z, b.rot ?? 0, b.tipo, b.sub ?? "centro", !!b.stacia, true, !!b.konektita);
+  }
+  // La konektitaj aldonaj blokoj aldonas sian ĉelon al la voja reto ( post
+  // la konstrua buklo — la konstruajxo jam aldoniĝis, nur la reto bezonas la
+  // ĉelon por la vicoj/kolumnoj kaj la spronoj ).
+  for ( const b of aldonajBlokoj ?? [] ) {
+    if ( !b.konektita ) continue;
+    const c = Math.round(b.x / PASXO), r = Math.round(b.z / PASXO);
+    if ( !ĉeloj.some(([lc, lr]) => lc === c && lr === r) ) ĉeloj.push([ c, r, "sanktejo" ]);
   }
 
   // ── Voja reto ──
@@ -363,6 +402,54 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
     }
   }
 
+  // ── Lampoj ──
+  // La kvar-lampa strato-ŝablono — la sama geometrio kiel en
+  // konstruiKradanUrbon ( urbo.ts ). kvar lampoj ĉirkaŭ ĉiu placo-nodo ( voja
+  // linio-fino ) je 2.125, kaj kvar ĉirkaŭ ĉiu reala vojkruciĝo je 2.375, kun
+  // la sama dedupo ( < 2 unuoj ) kiel la addLamp de la ludo. La L-korneroj
+  // estas ankaŭ placo-nodoj, do la arka ŝablono ( 2.375 ) de la ludo
+  // dedupiĝas per la placa ( 2.125 ) — neniu aldona lampo aperas tie. La ludo aldonas
+  // la terenajn filtrilojn ( akvo, konstruajxoj ) poste; ĉi tiu plano montras
+  // la puran strukturon. Ĉi tiu sekcio staras ANTAŬ la spronoj, ĉar la
+  // sprona sekcio etendas la ringoX-ekstenton al la doka avenuo — la lampoj
+  // de la ludo kovras nur la kradajn nodojn, ne la avenuon mem.
+  const lampoj: { x: number; z: number }[] = [];
+  if ( arangxo.lampoj !== false ) {
+    const LAMPA_DEDUPO = 0o2;            // 2 — same kiel la addLamp de la ludo
+    const aldoniLampon = (x: number, z: number) => {
+      for ( const l of lampoj ) if ( Math.hypot(l.x - x, l.z - z) < LAMPA_DEDUPO ) return;
+      lampoj.push({ x, z });
+    };
+    const placaKvaropo = 0o21/0o10;      // 2.125 — ĉirkaŭ la placo-nodoj
+    const krucaKvaropo = 0o23/0o10;      // 2.375 — ĉirkaŭ la kruciĝoj
+    const placaKvaropoOfsetoj = [ [ -placaKvaropo, -placaKvaropo ], [ placaKvaropo, -placaKvaropo ], [ -placaKvaropo, placaKvaropo ], [ placaKvaropo, placaKvaropo ] ];
+    const krucaKvaropoOfsetoj = [ [ -krucaKvaropo, -krucaKvaropo ], [ krucaKvaropo, -krucaKvaropo ], [ -krucaKvaropo, krucaKvaropo ], [ krucaKvaropo, krucaKvaropo ] ];
+    // Placo-nodoj — la du finoj de ĉiu vojo-linio ( la ekstentoj de la planaj
+    // segmentoj, kiel la aldoniFinon de la ludo ).
+    for ( const [ x, [ de, al ] ] of NS_ekstentoj ) {
+      for ( const z of [ de, al ] ) {
+        for ( const [ dx, dz ] of placaKvaropoOfsetoj ) aldoniLampon(x + dx, z + dz);
+      }
+    }
+    for ( const [ z, [ de, al ] ] of EW_ekstentoj ) {
+      for ( const x of [ de, al ] ) {
+        for ( const [ dx, dz ] of placaKvaropoOfsetoj ) aldoniLampon(x + dx, z + dz);
+      }
+    }
+    // Realaj kruciĝoj — kie NS- kaj EW-segmentoj reale krucas. La planaj
+    // segmentoj ekzistas nur inter kruciĝoj, do ĉiu interkovro estas kruciĝo;
+    // la kruciĝoj ĉe la linio-finoj dedupiĝas per la placa ŝablono supre.
+    for ( const ns of vojoj ) {
+      if ( ns.orient !== "NS" ) continue;
+      for ( const ew of vojoj ) {
+        if ( ew.orient !== "EW" ) continue;
+        if ( ew.poz < ns.de - 1e-6 || ew.poz > ns.al + 1e-6 ) continue;
+        if ( ns.poz < ew.de - 1e-6 || ns.poz > ew.al + 1e-6 ) continue;
+        for ( const [ dx, dz ] of krucaKvaropoOfsetoj ) aldoniLampon(ns.poz + dx, ew.poz + dz);
+      }
+    }
+  }
+
   // ── Spronoj ──
   const spronoj: KradaSpono[] = [];
   // La doka avenuo ( mond-nivela vojo de la ĉefa urbo ) daŭrigas la NS-vojon
@@ -375,6 +462,9 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
   }
   for ( let i = 0; i < konstruaĵoj.length; i++ ) {
     const s = konstruaĵoj[i];
+    // La aldonaj blokoj — la KONEKTITAJ ricevas spronon ( kiel la malnova
+    // stacidoma ĉelo ), la ceteraj nenian.
+    if ( s.ekstra && !s.konektita ) continue;
     if ( s.x === 0 && s.z === 0 ) continue;   // la centro ( kaj la kvar-bloka stacio )
     const rot = s.rot || 0;
     const duonD = 0o10 / 2;                        // d/2 — la konstruaĵoj estas kvadrataj ( w = d = 0o10 )
@@ -432,7 +522,43 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
   // z=( n + 0.5 )·PASXO al la stacidoma kolumno — la korneraj blokoj de la
   // pinta vico ricevas nenian vojon norde.
 
-  return { arangxo, ĉeloj, PASXO, nordaPinto, ringoX, ringoSuda, sudaVojo, stacioZ, staciaRingaNordo, konstruaĵoj, vojoj, spronoj, spurXoj: RETO_X, spurZoj: RETO_Z, retoX: RETO_X, retoZ: RETO_Z };
+  return { arangxo, ĉeloj, PASXO, nordaPinto, ringoX, ringoSuda, sudaVojo, stacioZ, staciaRingaNordo, konstruaĵoj, vojoj, spronoj, spurXoj: RETO_X, spurZoj: RETO_Z, retoX: RETO_X, retoZ: RETO_Z, lampoj };
+}
+
+// ── Aldonaj konstruantoj ─────────────────────────────────────────────────────
+
+// aldoniVojon — la voja konstruanto ( road builder ). Aldonu vojan segmenton
+// al la plano — la doka avenuo kaj aliaj ekster-kradaj vojoj. La segmento
+// estas aks-paralela ( NS aŭ EW ), kiel la ceteraj kradaj vojoj; la flago
+// stacia markas la ekster-kradajn vojojn, kiujn la kradaj kontroloj ne
+// traktas ( la doka avenuo kuŝas for de la ĉeloj ).
+//     @param plano ( KradaPlano ) - La plano al kiu aldoni.
+//     @param orient ( "NS" | "EW" ) - La orientiĝo.
+//     @param poz ( number ) - La fiksa koordinato ( x por NS, z por EW ).
+//     @param de, al ( number ) - La intervalo laŭ la alia akso.
+//     @param stacia ( boolean = false ) - Ekster-krada vojo ( sen kradaj kontroloj ).
+export function aldoniVojon(plano: KradaPlano, orient: "NS" | "EW", poz: number, de: number, al: number, stacia = false): void {
+  plano.vojoj.push({ orient, poz, de, al, stacia });
+}
+
+// aldoniBlokon — la bloka konstruanto ( block adder ). Aldonu konstruajxon
+// ( blokon ) al la plano — la spacosxipa stacio kaj aliaj ekstraj konstruajxoj
+// cxe preciza pozicio. La tipo "stacioxipo" farigxas stacia bloko ( la plana
+// konvencio — tipo "sanktejo" kun la stacia flago ), kaj la ĉelaj
+// koordinatoj derivigxas el la krada pasxo.
+//     @param plano ( KradaPlano ) - La plano al kiu aldoni.
+//     @param x, z ( number ) - La pozicio ( relativa al la krada centro ).
+//     @param tipo ( CellType | "stacioxipo" ) - La konstruajxa tipo.
+//     @param rot ( number = 0 ) - La turno.
+//     @param sub ( sub = "centro" ) - La pozicio en la bloko.
+//     @param stacia ( boolean = false ) - Cxu la bloko estas stacio.
+export function aldoniBlokon(plano: KradaPlano, x: number, z: number, tipo: CellType | "stacioxipo", rot = 0, sub: KradaKonstruajxo["sub"] = "centro", stacia = false): void {
+  plano.konstruaĵoj.push({
+    x, z, rot,
+    tipo: tipo === "stacioxipo" ? "sanktejo" : tipo,
+    cx: Math.round(x / plano.PASXO), cz: Math.round(z / plano.PASXO),
+    sub, stacia,
+  });
 }
 
 // ── Validigoj ───────────────────────────────────────────────────────────────

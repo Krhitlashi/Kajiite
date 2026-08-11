@@ -1,12 +1,14 @@
 // ≺⧼ Konserva servilo 💾 ⧽≻
 // Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo.html ). gxi
-// ricevas la generitan dosier-tekston per POST kaj skribas gxin REKTE al
-// src/tero-datumo.ts en la projekto. La skulptilo montras la butonon
-// „Savi rekte al src/ ✍️“ kiam cxi tiu servilo kuras — la savo tiam ne
-// bezonas la dosier-elektilon nek elSxuton.
+// ricevas la generitan datumaron per POST kaj skribas gxin REKTE al src/ —
+// la datumoj vivas en PROPRAJ dosieroj en src/tero-datumaro/ ( la krado,
+// akvo, biomoj, bestoj, rultempo, objektoj, urboj kaj vojoj ), kaj la
+// skulptilo sendas ilin kiel JSON { dosieroj. { nomo. teksto } }. La skulptilo
+// montras la butonon „Savi rekte al src/ ✍️“ kiam cxi tiu servilo kuras — la
+// savo tiam ne bezonas la dosier-elektilon nek elSxuton.
 //
 // Kuru.   npm run konservilo        ( au. node servilo/konservilo.mjs )
-// POST al http://127.0.0.1.4173/   korpo = la plena teksto de tero-datumo.ts
+// POST al http://127.0.0.1.4173/   korpo = JSON { dosieroj. { nomo. teksto } }
 import { createServer } from "http";
 import { writeFile, mkdir } from "fs/promises";
 import { join, dirname } from "path";
@@ -17,7 +19,20 @@ const PORD = 0o10115;                                // 4173
 // la patro de servilo/ ( la projekto ); NE uzu dirname sur gxi — tio forprenus
 // la lastan nomon ( Kajiite ) kaj la skribo irus al la patro de la projekto!
 const RADIKO = fileURLToPath(new URL("..", import.meta.url));
-const CELO = join(RADIKO, "src", "tero-datumo.ts");
+const SRC = join(RADIKO, "src");
+
+// La permesitaj dosieroj kaj iliaj titol-markiloj — la servilo skribas nur
+// konatajn datumodosierojn kun la ĝusta markilo.
+const DOSIEROJ = {
+  "tero-datumaro/krado.ts": "// ≺⧼ Skulptita krado",
+  "tero-datumaro/akvo.ts": "// ≺⧼ Skulptita akvo",
+  "tero-datumaro/biomoj.ts": "// ≺⧼ Skulptitaj biomoj",
+  "tero-datumaro/bestoj.ts": "// ≺⧼ Skulptitaj bestoj",
+  "tero-datumaro/rultempo.ts": "// ≺⧼ Skulptita rultempo",
+  "tero-datumaro/objektoj.ts": "// ≺⧼ Skulptitaj objektoj",
+  "tero-datumaro/urboj.ts": "// ≺⧼ Skulptitaj urboj",
+  "tero-datumaro/vojoj.ts": "// ≺⧼ Skulptitaj vojoj",
+};
 
 // CORS — la skulptilo kuras en Vite ( localhost.5173 ) kaj postulas la
 // alian originon. Loka ilo — la permeso estas larĝa sen risko.
@@ -29,13 +44,13 @@ const CORS = {
 
 const servilo = createServer(async (peto, respondo) => {
   if (peto.method === "OPTIONS") {
-    respondo.writeHead(0o310, CORS);
+    respondo.writeHead(0o300, CORS);
     respondo.end();
     return;
   }
   if (peto.method === "GET") {
-    respondo.writeHead(0o310, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("konservilo preta — POST la dosier-tekston al cxi tiu adreso");
+    respondo.writeHead(0o300, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.end("konservilo preta — POST la JSON-datumaron al cxi tiu adreso");
     return;
   }
   if (peto.method !== "POST") {
@@ -46,23 +61,41 @@ const servilo = createServer(async (peto, respondo) => {
   let korpo = "";
   for await (const peceto of peto) korpo += peceto;
   try {
-    // Sekurigu — la skulptilo skribas nur la datumodosieron en src/.
-    if (!korpo.startsWith("// ≺⧼ Skulptita tera datumaro")) {
+    // Sekurigu — la skulptilo skribas nur la datumodosierojn en src/, kaj
+    // cxiu dosiero devas komencigxi per sia markilo. Akceptu ankoraŭ la
+    // malnovan platan korpon ( unu dosiero ) por retro-kongruo.
+    let dosieroj;
+    if (korpo.trim().startsWith("{")) {
+      const parzita = JSON.parse(korpo);
+      dosieroj = parzita && typeof parzita === "object" ? parzita.dosieroj || parzita : null;
+    } else {
+      dosieroj = { "tero-datumo.ts": korpo };
+    }
+    if (!dosieroj || typeof dosieroj !== "object") {
       respondo.writeHead(0o400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
       respondo.end("Ne skulpta datumaro — ne skribite");
       return;
     }
-    await mkdir(dirname(CELO), { recursive: true });
-    await writeFile(CELO, korpo, "utf8");
-    respondo.writeHead(0o310, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("ok: " + korpo.length + " bajtoj al src/tero-datumo.ts");
+    let skribitaj = 0;
+    for (const [nomo, teksto] of Object.entries(dosieroj)) {
+      const markilo = DOSIEROJ[nomo];
+      if (!markilo || typeof teksto !== "string" || !teksto.startsWith(markilo)) {
+        respondo.writeHead(0o400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+        respondo.end("Rifuzita dosiero: " + nomo + " — ne skribite");
+        return;
+      }
+      await mkdir(dirname(join(SRC, nomo)), { recursive: true });
+      await writeFile(join(SRC, nomo), teksto, "utf8");
+      skribitaj++;
+    }
+    respondo.writeHead(0o300, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.end("ok: " + skribitaj + " dosiero(j) al src/");
   } catch (e) {
-    respondo.writeHead(0o764, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });   // 500
-    respondo.end("Eraro: " + (e instanceof Error ? e.message : String(e)));
+    respondo.writeHead(0o760, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });   // 500
+    respondo.end("Eraro: " + (e && e.message ? e.message : String(e)));
   }
 });
 
-servilo.listen(PORD, () => {
-  console.log("Konservilo: http://127.0.0.1:" + PORD + " → src/tero-datumo.ts");
-  console.log("La skulptilo ( iloj/tero-skulptilo.html ) savos rekte al la dosiero.");
+servilo.listen(PORD, "127.0.0.1", () => {
+  console.log("Konservilo: http://127.0.0.1:" + PORD + " → src/tero-datumaro/ ( 8 datumodosieroj )");
 });

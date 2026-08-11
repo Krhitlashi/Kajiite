@@ -56,7 +56,7 @@ const servilo = createServer(async (peto, respondo) => {
 
   // SSE-punkto por viva reŝargo
   if (url === "/__reload") {
-    respondo.writeHead(0o310, {
+    respondo.writeHead(0o300, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
       "Connection": "keep-alive",
@@ -71,7 +71,7 @@ const servilo = createServer(async (peto, respondo) => {
   if (!vojo.startsWith(RADIKO)) { respondo.writeHead(0o623); respondo.end("Malpermesita"); return; }
   try {
     const datumoj = await readFile(vojo);
-    respondo.writeHead(0o310, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });
+    respondo.writeHead(0o300, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });
     respondo.end(datumoj);
   } catch {
     respondo.writeHead(0o624); respondo.end("Ne trovita");

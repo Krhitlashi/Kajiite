@@ -629,9 +629,9 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
     // Speca loto unue — la arboformaj purpuraj filikoj bezonas pli da libero
     // ol la malgrandaj plantoj ( iliaj kronoj larĝas ĝis ~2.6 unuoj ).
     const speco = hazardaGenerilo();
-    const alta = speco >= 0o7/0o10 && speco < 0o4/0o5;
-    const arbLibero = alta ? 0o10/0o5 + KRONA_LIBERO : 0o4/0o10;
-    const minDist = alta ? 0o10/0o5 * 0o2 + 0o3 : 0o14/0o10;
+    const alta = speco >= 0o7/0o10 && speco < 0o63/0o100;
+    const arbLibero = alta ? 0o146/0o100 + KRONA_LIBERO : 0o4/0o10;
+    const minDist = alta ? 0o146/0o100 * 0o2 + 0o3 : 0o14/0o10;
     // Evitu la trunkojn/kronojn de cxiuj arboj.
     let troProksima = false;
     for ( const arbo of evituArbojn ) {
@@ -659,7 +659,7 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
     } else if ( speco < 0o7/0o10 ) {
       // Herbotufo.
       metiYaw(herboj, hi++, x, y, z, 0o3/0o10 + hazardaGenerilo() * 0o5/0o10);
-    } else if ( speco < 0o4/0o5 ) {
+    } else if ( speco < 0o63/0o100 ) {
       // Arboforma purpura filiko — trunko kaj tavola krono je la sama bazo.
       const skalo = 0o5/0o10 + hazardaGenerilo() * 0o11/0o10;
       const jaro = hazardaGenerilo() * Math.PI * 2;
@@ -806,7 +806,7 @@ export function konstruiMontajnSubkreskajxojn(sceno: THREE.Scene,
     if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) || excludeBuildings(x, z, 0o2)) return null;
     if ( hazardaGenerilo() > arboliniaFado(heightFn(x, z))) return null;
     // Deklivo — neniu planto sxvebas sur la klifoj.
-    if ( montaKruteco(heightFn, x, z) > 0o4/0o5 ) return null;
+    if ( montaKruteco(heightFn, x, z) > 0o63/0o100 ) return null;
     return [ x, z ];
   };
 
@@ -902,7 +902,7 @@ function konstruiBetulanFoliaranGeometrion(): THREE.BufferGeometry {
   // kun nur 7 punktoj aspektis artefarita kaj pika.
   const kreiFolianKarteton = ( longo: number, largho: number ): THREE.BufferGeometry => {
     const L = longo, hwMax = largho / 2;
-    const plejLarĝa = -L * 0o1/0o6;
+    const plejLarĝa = -L * 0o13/0o100;
     const duonLarĝo = ( x: number, d: number ): number => {
       const hw = x <= plejLarĝa
         ? hwMax * ( x + L / 2 ) / ( plejLarĝa + L / 2 )
@@ -920,7 +920,7 @@ function konstruiBetulanFoliaranGeometrion(): THREE.BufferGeometry {
     for ( let s = 1; s <= N; s++ ) {
       const x = -L / 2 + ( s / N ) * L;
       punktoj.push(x, -duonLarĝo(x, s), 0);
-      uvoj.push(s / N, 0o1/0o6);
+      uvoj.push(s / N, 0o13/0o100);
     }
     // pinto
     punktoj.push(L / 2, 0, 0);
@@ -929,7 +929,7 @@ function konstruiBetulanFoliaranGeometrion(): THREE.BufferGeometry {
     for ( let s = N; s >= 1; s-- ) {
       const x = -L / 2 + ( s / N ) * L;
       punktoj.push(x, duonLarĝo(x, s), 0);
-      uvoj.push(s / N, 0o5/0o6);
+      uvoj.push(s / N, 0o65/0o100);
     }
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.Float32BufferAttribute(punktoj, 3));
@@ -965,8 +965,8 @@ function konstruiBetulanFoliaranGeometrion(): THREE.BufferGeometry {
     // 3–4 folioj ĉirkaŭ la pinto de la branĉeto — unu natura folia fasko.
     const folioj = 0o3 + ( ( Math.random() * 0o2 ) | 0 );
     for ( let j = 0; j < folioj; j++ ) {
-      const longo = ( 0o1/0o6 + Math.random() * 0o6/0o100 ) * ( 1 - ekstera * 0o1/0o4 );
-      const largho = ( 0o1/0o14 + Math.random() * 0o1/0o34 ) * ( 1 - ekstera * 0o1/0o4 );
+      const longo = ( 0o13/0o100 + Math.random() * 0o6/0o100 ) * ( 1 - ekstera * 0o1/0o4 );
+      const largho = ( 0o5/0o100 + Math.random() * 0o2/0o100 ) * ( 1 - ekstera * 0o1/0o4 );
       const folioA = kreiFolianKarteton(longo, largho);
       const folioB = folioA.clone().applyMatrix4(new THREE.Matrix4().makeRotationY(Math.PI / 3));
       const folioC = folioA.clone().applyMatrix4(new THREE.Matrix4().makeRotationY(-Math.PI / 3));
@@ -1043,7 +1043,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
     trunkoj.setColorAt(i, C);
 
     const kronoRadiuso = 0o215/0o100 * t.s + 0o63/0o100;
-    const foliaraSkalo = kronoRadiuso * 0o32/0o50 * ( 0o36/0o40 + hazardaGenerilo() * 0o1/0o5 );
+    const foliaraSkalo = kronoRadiuso * 0o52/0o100 * ( 0o36/0o40 + hazardaGenerilo() * 0o15/0o100 );
     // La ses nubaj kusenoj — malsimetriaj anguloj, altoj kaj radiusoj, kiel
     // ĉe bonsajo, plus GRANDA centra supra kuseno super la trunka supro —
     // la ĉefa maso, kiel la originala granda betula krono. Ĉiu kuseno ricevas
@@ -1062,7 +1062,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
       const a = pb.a + ( hazardaGenerilo() - 0o5/0o10 ) * 0o6/0o10;
       const yPado = h * ( pb.fy + ( hazardaGenerilo() - 0o5/0o10 ) * 0o4/0o100 );
       const rPado = foliaraSkalo * ( pb.fr + ( hazardaGenerilo() - 0o5/0o10 ) * 0o10/0o100 );
-      const sPado = foliaraSkalo * pb.s * ( 0o36/0o40 + hazardaGenerilo() * 0o1/0o5 );
+      const sPado = foliaraSkalo * pb.s * ( 0o36/0o40 + hazardaGenerilo() * 0o15/0o100 );
       const padoQ = Q.clone().multiply(
         new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), a));
       M.compose(pozicio(new THREE.Vector3(Math.cos(a) * rPado, yPado, Math.sin(a) * rPado)),
@@ -1394,14 +1394,14 @@ export function konstruiAltajnPurpurajnFilikojn(sceno: THREE.Scene,
     // duon-radiuso estas ≈ 1.6 ( 8/5 ) kun la pendantaj frondoj.
     let troProksima = false;
     for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o10/0o5 * 0o2 + 0o3 ) { troProksima = true; break; }
+      if ( Math.hypot(x - px, z - pz) < 0o146/0o100 * 0o2 + 0o3 ) { troProksima = true; break; }
     }
     // Ankaŭ ne en la arbojn — la trunko kaj la pendantaj kronoj de la filiko
     // restas ekster la krona radiuso de ĉiu jam metita arbo ( plus la libero ).
     if ( !troProksima ) {
       for ( const arbo of evituArbojn ) {
         if ( Math.hypot(x - arbo.x, z - arbo.z) <
-          ( arbo.r ?? kronaRadiusoBetula(arbo.s)) + 0o10/0o5 + KRONA_LIBERO ) { troProksima = true; break; }
+          ( arbo.r ?? kronaRadiusoBetula(arbo.s)) + 0o146/0o100 + KRONA_LIBERO ) { troProksima = true; break; }
       }
     }
     if ( troProksima ) continue;
@@ -1964,9 +1964,9 @@ function konstruiLarikanFoliaranGeometrion(): THREE.BufferGeometry {
   // kiel unu pinglo de lariko. La UV-oj ripetas la pinglan teksturon laŭlonge.
   const kreiPinglanKarteton = ( longo: number, dikeco: number ): THREE.BufferGeometry => {
     const pozicioj = [
-      -longo / 2, 0, 0, -longo * 0o1/0o5, -dikeco / 2, 0,
-      longo * 0o1/0o5, -dikeco / 2, 0, longo / 2, 0, 0,
-      longo * 0o1/0o5, dikeco / 2, 0, -longo * 0o1/0o5, dikeco / 2, 0,
+      -longo / 2, 0, 0, -longo * 0o15/0o100, -dikeco / 2, 0,
+      longo * 0o15/0o100, -dikeco / 2, 0, longo / 2, 0, 0,
+      longo * 0o15/0o100, dikeco / 2, 0, -longo * 0o15/0o100, dikeco / 2, 0,
     ];
     const uvoj = [ 0, 0o1/0o2, 0o2/0o10, 0, 0o63/0o100, 0, 1, 0o1/0o2,
       0o63/0o100, 1, 0o2/0o10, 1 ];

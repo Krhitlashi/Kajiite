@@ -345,9 +345,9 @@ function aldoniInternanMeblaron(
       // ne ŝajnu eniri la murojn.
       const litX = hw - litLargho / 2 - 0o3/0o10, litZ = -hd + 0o11/0o10;
       // Korpo — rondangula hela beiga ligna bloko sur la planko. Pli alta ol
-      // antaŭe ( 0o5/0o20 ), kun diskretaj rondigitaj anguloj ( 0o1/0o50 ) por
+      // antaŭe ( 0o5/0o20 ), kun diskretaj rondigitaj anguloj ( 0o3/0o200 ) por
       // ke la VERTIKALAJ randoj ne ŝvelu — nur molaj horizontalaj eĝoj supre.
-      const korpo = new THREE.Mesh(new RoundedBoxGeometry(litLargho, 0o5/0o20, 0o14/0o10, 3, 0o1/0o50), lignaMaterialo);
+      const korpo = new THREE.Mesh(new RoundedBoxGeometry(litLargho, 0o5/0o20, 0o14/0o10, 3, 0o3/0o200), lignaMaterialo);
       korpo.position.set(litX, y + 0o5/0o40, litZ);
       korpo.castShadow = true;
       grupo.add(korpo);
@@ -355,7 +355,7 @@ function aldoniInternanMeblaron(
       // koloro de la vesto de la ludanto. La materialo rekolorigxas laux la
       // vesto cxiun eniron ( aplikiLitajnKolorojn por kasxitaj internoj ).
       const tolaMaterialo = new THREE.MeshStandardMaterial({ color: tolaKoloro, roughness: 0o6/0o10 });
-      const tola = new THREE.Mesh(new RoundedBoxGeometry(litLargho - 0o1/0o10, 0o1/0o20, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50), tolaMaterialo);
+      const tola = new THREE.Mesh(new RoundedBoxGeometry(litLargho - 0o1/0o10, 0o1/0o20, 0o14/0o10 - 0o1/0o10, 3, 0o3/0o200), tolaMaterialo);
       tola.position.set(litX, y + 0o5/0o40 + 0o5/0o40 + 0o1/0o40, litZ);
       tola.castShadow = true;
       tola.userData.litoTipo = "tecto";
@@ -374,7 +374,7 @@ function aldoniInternanMeblaron(
       // la tri flankoj. Kapo (+x), dorso (−z) kaj fronto (+z). En la AKCENTA
       // koloro de la vesto, sidante SUR la tola ( malsupro = tola-supro ).
       const kusenaMaterialo = new THREE.MeshStandardMaterial({ color: kusenaKoloro, roughness: 0o6/0o10 });
-      const kapkuseno = new THREE.Mesh(new RoundedBoxGeometry(0o5/0o10, 0o1/0o10, 0o14/0o10 - 0o1/0o10, 3, 0o1/0o50), kusenaMaterialo);
+      const kapkuseno = new THREE.Mesh(new RoundedBoxGeometry(0o5/0o10, 0o1/0o10, 0o14/0o10 - 0o1/0o10, 3, 0o3/0o200), kusenaMaterialo);
       kapkuseno.position.set(litX + litLargho / 2 - 0o3/0o10, y + 0o3/0o10 + 0o1/0o20, litZ);
       kapkuseno.castShadow = true;
       kapkuseno.userData.litoTipo = "kuseno";
@@ -811,7 +811,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
       relPunktoj.push(new THREE.Vector3((helikso.rEkster + 0o1/0o10) * Math.sin(ang), y, (helikso.rEkster + 0o1/0o10) * Math.cos(ang)));
     }
     const relo = new THREE.Mesh(
-      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 0o1/0o30, 0o6, false),
+      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 0o3/0o100, 0o6, false),
       oro
 );
     grupo.add(relo);
@@ -911,7 +911,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
       ekranoMat.emissiveIntensity = 0o7/0o10 + 0o1/0o4 * Math.sin(t * 2);
       const pulso = 0o3/0o10 + 0o1/0o4 * Math.sin(t * 3);
       for (const k of kapsuloj) (k.material as THREE.MeshStandardMaterial).emissiveIntensity = pulso;
-      if (vitra.map) vitra.map.offset.x = (t * 0o1/0o74) % 1;
+      if (vitra.map) vitra.map.offset.x = (t * 0o1/0o100) % 1;
     },
   });
 
@@ -1220,7 +1220,7 @@ export function eniriInternon(
         new THREE.TubeGeometry(new THREE.CatmullRomCurve3(truKonturo, true, "catmullrom", 0o1/0o2), 0o100, 0o1/0o20, 6, true),
         kadraMaterialo
 );
-      pordRando.position.set(0, y, hd - muraDikeco / 2 - 0o3/0o50);
+      pordRando.position.set(0, y, hd - muraDikeco / 2 - 0o5/0o100);
       pordMuro.add(pordRando);
 
       // Malgranda ora sojlo sub la pordo
@@ -1263,7 +1263,7 @@ export function eniriInternon(
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
       // Ĉefa kolona korpo
       const kol = new THREE.Mesh(
-        new RoundedBoxGeometry(kolDikeco, kolAlto, kolDikeco, 3, 0o1/0o50),
+        new RoundedBoxGeometry(kolDikeco, kolAlto, kolDikeco, 3, 0o3/0o200),
         kadraMaterialo
 );
       kol.position.set(sX * (hw - kolDikeco / 2), y + kolAlto / 2, sZ * (hd - kolDikeco / 2));
@@ -1271,7 +1271,7 @@ export function eniriInternon(
 
       // Supra iom pli larĝa kapo — ekstera faco ĝuste ĉe la muro
       const flara = new THREE.Mesh(
-        new RoundedBoxGeometry(kolDikeco * 0o15/0o10, kolAlto * 0o1/0o40, kolDikeco * 0o15/0o10, 3, 0o1/0o50),
+        new RoundedBoxGeometry(kolDikeco * 0o15/0o10, kolAlto * 0o1/0o40, kolDikeco * 0o15/0o10, 3, 0o3/0o200),
         kadraMaterialo
 );
       flara.position.set(sX * ( hw - ( kolDikeco * 0o15/0o10 ) / 2 ), y + kolAlto - kolAlto * 0o1/0o40, sZ * ( hd - ( kolDikeco * 0o15/0o10 ) / 2 ));
@@ -1279,7 +1279,7 @@ export function eniriInternon(
 
       // Malgranda ora bazo — ekstera faco ĝuste ĉe la muro
       const bazo = new THREE.Mesh(
-        new RoundedBoxGeometry(kolDikeco * 0o5/0o4, kolAlto * 0o1/0o40, kolDikeco * 0o5/0o4, 3, 0o1/0o50),
+        new RoundedBoxGeometry(kolDikeco * 0o5/0o4, kolAlto * 0o1/0o40, kolDikeco * 0o5/0o4, 3, 0o3/0o200),
         new THREE.MeshStandardMaterial({ color: GOLD_SOFT, metalness: 0o5/0o10, roughness: 0o13/0o40 })
 );
       bazo.position.set(sX * ( hw - ( kolDikeco * 0o5/0o4 ) / 2 ), y + kolAlto * 0o1/0o100, sZ * ( hd - ( kolDikeco * 0o5/0o4 ) / 2 ));
@@ -1387,10 +1387,10 @@ export function eniriInternon(
       const ang = p * paŝoAngulo;
       const paŝoAlto = p < 0 ? paŝoAltoSube : paŝoAltoSupre;
       const y = heliksaAltecxo(helikso, p / helikso.perTurno);
-      // Paŝo kun IOMETe rondigitaj anguloj ( radiuso 0o1/0o50 ) — sufiĉe por
+      // Paŝo kun IOMETe rondigitaj anguloj ( radiuso 0o3/0o200 ) — sufiĉe por
       // mola konturo, sed la paŝo restas klare rekta.
       const paso = new THREE.Mesh(
-        new RoundedBoxGeometry(paŝoLargho, paŝoAlto, radiala, 3, 0o1/0o50),
+        new RoundedBoxGeometry(paŝoLargho, paŝoAlto, radiala, 3, 0o3/0o200),
         sxtupMaterialo
 );
       paso.position.set(rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang));
@@ -1409,9 +1409,9 @@ export function eniriInternon(
       const ux = Math.sin(ang), uz = Math.cos(ang);    // radiale eksteren
       const tx = Math.cos(ang), tz = -Math.sin(ang);   // tanĝe
       // Ekstera bendo — tuj ekster la ekstera faco ( [rEkster, rEkster + 0.05] ),
-      // kun iomete rondigitaj anguloj ( RoundedBoxGeometry, radiuso 0o1/0o120 ).
+      // kun iomete rondigitaj anguloj ( RoundedBoxGeometry, radiuso 0o3/0o400 ).
       const nazo = new THREE.Mesh(
-        new RoundedBoxGeometry(paŝoLargho + 0o1/0o10, nazoAlto, 0o1/0o20, 3, 0o1/0o120),
+        new RoundedBoxGeometry(paŝoLargho + 0o1/0o10, nazoAlto, 0o1/0o20, 3, 0o3/0o400),
         akcentaMaterialo
 );
       nazo.position.set(( helikso.rEkster + 0o1/0o40 ) * ux, rimY, ( helikso.rEkster + 0o1/0o40 ) * uz);
@@ -1421,7 +1421,7 @@ export function eniriInternon(
       // longo, kun la samaj rondigitaj anguloj.
       for ( const s of [ -1, 1 ] ) {
         const flanko = new THREE.Mesh(
-          new RoundedBoxGeometry(0o1/0o20, nazoAlto, radiala, 3, 0o1/0o120),
+          new RoundedBoxGeometry(0o1/0o20, nazoAlto, radiala, 3, 0o3/0o400),
           akcentaMaterialo
 );
         flanko.position.set(
@@ -1444,7 +1444,7 @@ export function eniriInternon(
       relPunktoj.push(new THREE.Vector3(( helikso.rEkster + 0o1/0o10 ) * Math.sin(ang), y, ( helikso.rEkster + 0o1/0o10 ) * Math.cos(ang)));
     }
     const relo = new THREE.Mesh(
-      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 0o1/0o30, 0o6, false),
+      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 0o3/0o100, 0o6, false),
       kadraMaterialo
 );
     group.add(relo);
@@ -1535,7 +1535,7 @@ export function gxisdatigiInternon(sys: InternaSistemo, t: number): void {
     const pos = v.cloud.geometry.attributes.position;
     if (pos) {
       for ( let i = 0; i < pos.count; i++ ) {
-        const y = pos.getY(i) + 0o3/0o1750;
+        const y = pos.getY(i) + 0o3/0o2000;
         if ( y > 7/5 ) pos.setY(i, -0o6/0o100);
         else pos.setY(i, y);
       }

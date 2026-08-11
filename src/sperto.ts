@@ -1399,7 +1399,7 @@ const RADARA_DUONO = 0o30;   // duon-larĝo de la radara mapo ( mondaj unuoj )
 const PLENA_DUONO = 0o460;   // duon-larĝo de la plena mapo — la tuta valo
 const MINA_DUONO = 0o10;     // plej proksima zomo de la plena mapo
 const MAXA_DUONO = 0o470;    // plej malproksima zomo de la plena mapo
-const MAPA_BAKA_DUONO = 0o1274; // 700 — kovras la tutan promeneblan mondon ( pan + zomo )
+const MAPA_BAKA_DUONO = 0o1270; // 700 — kovras la tutan promeneblan mondon ( pan + zomo )
 const MAPA_BAKA_REZ = 0o4770;   // 2560² — kompromiso inter akreco kaj memoro
 let plenaDuono = PLENA_DUONO; // nuna duon-larĝo ( zomo ) de la plena mapo
 let mapaPanX = 0;            // tirado. Horizontala forpreno de la sekv-punkto
@@ -1767,8 +1767,9 @@ function animacii() {
   gxisdatigiBestojn(bestoj, t);
   // Neĝopetreloj — rondflugado kaj flugil-batado super la lago kaj la rivero
   gxisdatigiPetrelojn(petreloj, t);
-  // Krasesxagxo — oscila flosado super la kosmopordo
-  animaciiKrasesxagxon(xipo, t, false);
+  // Krasesxagxo — oscila flosado super la kosmopordo ( la sxipo estas
+  // objekto de SKULPTA_OBJEKTOJ — sen metita sxipo restas neniu ).
+  if (xipo) animaciiKrasesxagxon(xipo, t, false);
 
   // Promena reximo
   if (rezimo === "walk" && !surKanoto) {
@@ -2379,7 +2380,7 @@ document.addEventListener("mousemove", (e) => {
 kanvaso.addEventListener("wheel", (e) => {
   if ((rezimo !== "walk" && rezimo !== "interior") || kuŝas) return;
   e.preventDefault();
-  const paŝo = e.deltaMode === 2 ? e.deltaY * 0o16 : e.deltaMode === 1 ? e.deltaY * 0o4/0o10 : e.deltaY * 0o1/0o120;
+  const paŝo = e.deltaMode === 2 ? e.deltaY * 0o16 : e.deltaMode === 1 ? e.deltaY * 0o4/0o10 : e.deltaY * 0o3/0o400;
   celDistanco = Math.max(0, Math.min(0o16, celDistanco + paŝo));
 }, { passive: false });
 

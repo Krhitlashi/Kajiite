@@ -15,7 +15,8 @@
 // geometriojn kaj materialojn, do la bestoj ne kostas teksturojn po unu.
 import * as THREE from "three";
 import { biomo, akvo, cxuEnLago } from "../../src/tereno.js";
-import { skulptitaBesto, SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO } from "../../src/tero-datumo.js";
+import { skulptitaBesto } from "../../src/tero-datumaro/rultempo.js";
+import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO } from "../../src/tero-datumaro/krado.js";
 
 // trovuBestajnZonojn — la pentritaj ĉeloj de la besta-tavolo ( la skulptilo )
 // kun la donita bito ( 1=akvaj bestoj, 2=petreloj, 4=NPC-oj; ĉelo povas teni

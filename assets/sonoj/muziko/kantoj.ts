@@ -221,7 +221,7 @@ function buildTrack4(): SpuroDateno {
   const secs: Sekcio[] = [];
   const r = mulberry(4096);
   const P = PENT_A;
-  const beat = 0o74 / 0o160;
+  const beat = 0o42 / 0o100;
   const bar = beat * 4;
   const ost = [ 0, 3, 1, 4, 2, 4, 1, 3 ];
 

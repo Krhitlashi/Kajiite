@@ -60,7 +60,7 @@ function ensureAudio() {
   lfo.start();
 
   // Harmoniaj drunoj. A2 ( 0o156 ), E3 ( 0o245 ), A3 ( 0o334 ) kun eta malagordiĝo
-  [ 0o156, 0o245, 0o334 ].forEach((f, i) => {
+  [ 0o160, 0o250, 0o330 ].forEach((f, i) => {
     const o = AC!.createOscillator();
     o.type = "sine";
     o.frequency.value = f;

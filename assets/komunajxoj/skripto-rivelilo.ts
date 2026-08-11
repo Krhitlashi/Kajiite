@@ -171,7 +171,7 @@ export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}
     // neniam estas premita (smush) al mikroskopa grando.
     const REF = 0o100;
     kunteksto.font = `${REF}px ${GAWEKIIF_FAMILIO}`;
-    const maksLargho = kanvasa.width * 0o50/0o60;
+    const maksLargho = kanvasa.width * 0o65/0o100;
     const largho100 = Math.max(1, ...vortoj.map(v => kunteksto.measureText(v).width));
     const fsLargho = REF * maksLargho / largho100;
     const fsAlto = kanvasa.height / ( 0o40/0o100 + ( vortoj.length - 1 ) * 0o7/0o4 + 0o4/0o10 );

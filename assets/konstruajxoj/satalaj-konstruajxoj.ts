@@ -249,7 +249,7 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
   // malgranda antauxenpusxita finajxo; gxi ne estas trancxita plata aux akra.
   // out = 0o7/0o20. la hoka pinto elstaras ~0o1/0o2 de la angulo.
   const out = 0o7/0o20;
-  // fora = 0o51/0o400. la sxafto staras ecx pli proksime al la muro-faco (~0o1/0o454 libero
+  // fora = 0o51/0o400. la sxafto staras ecx pli proksime al la muro-faco (~0o3/0o2000 libero
   // cxe la plej mallongaj tavoloj) — apenaux tusxas la konstruajxon.
   const fora = 0o51/0o400;
   // Sub-teraj (malsuprenirantaj) pilieroj bezonas pli da libero. cxe la mallongaj

@@ -1,5 +1,6 @@
 // Tereno — terenaj alteco-funkcioj por la Aranis-valo
-import { skulptaDelta, skulptitaAkvo, skulptitaBiomo, SKULPTA_AKVA_NIVELO } from "./tero-datumo.js";
+import { skulptaDelta, skulptitaAkvo, skulptitaBiomo } from "./tero-datumaro/rultempo.js";
+import { SKULPTA_AKVA_NIVELO } from "./tero-datumaro/akvo.js";
 
 // Rivero fluas orient-okcidente kun milda suda kurbo
 // Rivero fluas orient-okcidente — ŝovita suden por malbari la urban kradon
@@ -35,8 +36,8 @@ export function lagoNivelo(): number { return akvoY(RIVERA_ENFLUO_X); }
 // por la baseno (alteco), la akvomesho (akvo.ts) kaj la piedira/kanua testilo.
 export function lagoRadio(ang: number): number {
   const ondo = Math.sin(0o4 * ang + 0o23/0o20) + 0o1/0o2 * Math.sin(0o13 * ang + 0o7/0o10);
-  const rx = LAGO_RX * ( 0o1 + 0o6/0o100 * ondo * 0o2/0o3 );
-  const rz = LAGO_RZ * ( 0o1 + 0o6/0o100 * ondo * 0o2/0o3 );
+  const rx = LAGO_RX * ( 0o1 + 0o6/0o100 * ondo * 0o53/0o100 );
+  const rz = LAGO_RZ * ( 0o1 + 0o6/0o100 * ondo * 0o53/0o100 );
   return 1 / Math.sqrt(( Math.cos(ang) / rx ) ** 2 + ( Math.sin(ang) / rz ) ** 2);
 }
 export function cxuEnLago(x: number, z: number): boolean {
@@ -174,7 +175,8 @@ export function alteco(x: number, z: number): number {
 }
 
 // ⟪ Biomoj ( la plantar-zonoj de la skulptita tereno ) 📃 ⟫
-// La biomo venas TUTE de la PENTRITA tavolo en tero-datumo.ts ( SKULPTA_BIOMOJ,
+// La biomo venas TUTE de la PENTRITA tavolo en tero-datumaro/biomoj.ts
+// ( SKULPTA_BIOMOJ,
 // la biomo-ilo de la skulptilo ) — nur la akvo ( la masko ) estas derivaĵo.
 // La plant-metaj kaj bestaj funkcioj ( vegetajxo.ts, bestoj.ts ) legas gxin
 // por elekti la specojn kaj la densecon — la biomo estas la kontrolo de kiu
@@ -220,13 +222,16 @@ export function biomo(x: number, z: number): Biomo {
 
 // bazaAlteco — La natura ( procedura ) tereno. ĈI TIU LAYERO ESTAS PLATA.
 // la mondon ( montoj, rivero, lago, ĉio ) portas la skulptita tavolo
-// ( tero-datumo.ts ), bakitita de la skulptilo en la dosieron. La ludo legas
+// ( tero-datumaro/krado.ts ), bakitita de la skulptilo en la dosieron. La ludo legas
 // alteco() = bazaAlteco + skulptaDelta, do la tuta tereno estas nun redaktebla
 // en iloj/tero-skulptilo.html — ne plu kaŝita procedura generado.
 export function bazaAlteco(x: number, z: number): number {
   return 0;
 }
 
-// Re-eksportoj — la skulptita tavolo el tero-datumo.ts, por ke la konsumantoj
-// ( sperto.ts, urbo.ts ) legu gxin de cxi tiu modulo kiel la ceteran terenon.
-export { skulptitaAkvo, skulptaAkvaLimoj, SKULPTA_PASO, SKULPTA_AKVA_NIVELO, SKULPTA_AKTIVA } from "./tero-datumo.js";
+// Re-eksportoj — la skulptita tavolo el la tero-datumaro, por ke la
+// konsumantoj ( sperto.ts, urbo.ts ) legu gxin de cxi tiu modulo kiel la
+// ceteran terenon.
+export { skulptitaAkvo, skulptaAkvaLimoj } from "./tero-datumaro/rultempo.js";
+export { SKULPTA_PASO, SKULPTA_AKTIVA } from "./tero-datumaro/krado.js";
+export { SKULPTA_AKVA_NIVELO } from "./tero-datumaro/akvo.js";

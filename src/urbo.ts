@@ -17,7 +17,7 @@ import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxo
 import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, konstruiRondajnKapojn, VojDifino } from "../assets/medio/vojoj.js";
 import { konstruiDokon } from "../assets/medio/doko.js";
 import { kreiKradon, tipoDeBloko, kradajDerivajoj } from "./krado.js";
-import type { KradaArangxo, CellType } from "./krado.js";
+import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../assets/mebloj/keuxfhxeso.js";
 import { kreiKanoton, Kanoto } from "../assets/medio/transporto.js";
@@ -33,7 +33,11 @@ import { riveroZ, alteco, akvoY, montetaBazo, RIVERA_DUONLARĜO,
   cxuEnNordorientaRivero, montaroNordOrienta, skulptitaAkvo, skulptaAkvaLimoj, akvo,
   SKULPTA_PASO, SKULPTA_AKVA_NIVELO, SKULPTA_AKTIVA } from "./tereno.js";
 import { VESTOJ } from "../assets/vestaro/vestoj.js";
-import { skulptitaBesto, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_OBJEKTOJ } from "./tero-datumo.js";
+import { skulptitaBesto } from "./tero-datumaro/rultempo.js";
+import { SKULPTA_N, SKULPTA_ORIGINO } from "./tero-datumaro/krado.js";
+import { SKULPTA_OBJEKTOJ } from "./tero-datumaro/objektoj.js";
+import { SKULPTA_URBOJ } from "./tero-datumaro/urboj.js";
+import { SKULPTA_VOJOJ, SKULPTA_DOKOJ } from "./tero-datumaro/vojoj.js";
 
 export interface UrbaSistemo {
   konstruSpecoj: KonstruSpec[];
@@ -60,11 +64,49 @@ export interface UrbaSistemo {
   pussxlefoBeroj: MangxajxItemo[];
   npcoj: Figuro[];
   internaSistemo: InternaSistemo;
-  xipo: Krasesxagxo;
+  // La spacosxipo — objekto de SKULPTA_OBJEKTOJ ( null se neniu metita ).
+  xipo: Krasesxagxo | null;
   vojDifinoj: VojDifino[];
   vojDuonLargho: (g: number) => number;
   NPCLOKOJ: [number, number][];
   VESTA_LISTO: Vesto[];
+}
+
+// SkulptaUrbo — unu urbo de la terena skulptilo ( SKULPTA_URBOJ en
+// src/tero-datumaro/krado.ts ). La krada arangxo kaj la ofseto de la urbo en la mondo
+// — la sama informo kiun la ludo antauxe havis kiel du koditajn urbojn.
+export interface SkulptaUrbo {
+  nomo: string;
+  arangxaGrando: number;
+  blokaGrando: "unu" | "kvar";
+  ofsX: number;
+  ofsZ: number;
+  // La kvar keŭfĥesoj ĉirkaŭ la centro ( defaŭlte malŝaltitaj — la malnova
+  // konduto montris ilin nur ĉe la unu-bloka krado ).
+  keuxfhxeso?: boolean;
+  // La kvar-lampa strato-ŝablono ( defaŭlte ŝaltita — ĉiu krada urbo havis
+  // lampojn antaŭ la flago ).
+  lampoj?: boolean;
+  // La ALDONAJ blokoj de la urbo ( la terena skulptilo metas ilin aparte de
+  // la krado — la spacosxipa stacio de la cefa urbo estas unu ). La ludo
+  // konstruas ilin per la bloka konstruanto ( aldoniBlokon ).
+  aldonajBlokoj?: AldonaBloko[];
+}
+
+// SkulptaVojo — unu mond-nivela vojo ( SKULPTA_VOJOJ en src/tero-datumaro/vojoj.ts ).
+// Polilinio kun nomo, larĝo ( plena larĝo en mond-unuoj ) kaj punktoj.
+export interface SkulptaVojo {
+  nomo: string;
+  larĝo: number;
+  punktoj: [ number, number ][];
+}
+
+// SkulptaPlatformo — unu doka platformo ( SKULPTA_DOKOJ en
+// src/tero-datumaro/vojoj.ts ). Monda pozicio ( x, z ) kaj profundo.
+export interface SkulptaPlatformo {
+  x: number;
+  z: number;
+  profundo: number;
 }
 
 // MetitaObjekto — unu objekto metita per la objekta ilo de la terena
@@ -73,21 +115,27 @@ export interface MetitaObjekto {
   x: number;              // monda pozicio
   z: number;
   speco: string;          // "betulo" | "lariko" | "hxsxaksxlefo" | "pussxlefo"
-                          // | "akvabesto" | "petrelo" | "npco"
+                          // | "akvabesto" | "petrelo" | "npco" | "sanktejo" | "turo"
+                          // | "domo" | "mangxejo" | "kasafeo" | "stacio" | "hxeuxfo"
+                          // | "keuxfhxeso" | "kanuo" | "spacosxipo"
   skalo?: number;         // grandeco ( defaŭlte 1 )
-  rotacio?: number;       // turno ( NPC-oj )
+  rotacio?: number;       // turno ( NPC-oj, rokoj, kanuoj, konstruajxoj, mebloj )
   bestospeco?: number;    // ktenofora speco ( akvabesto ). 0-4
   radio?: number;         // flugradiuso ( petrelo )
   vesto?: number;         // vesta indekso ( npco )
   harstilo?: number;      // harstila indekso ( npco ). 0=mallonga, 1=longa
   filikaSpeco?: number;   // filika vario ( filiko ). 0=verda, 1=purpura
+  stilo?: string;         // kanua stilo ( "baza" | "satala" )
 }
 
 // konstruiMetitajnObjektojn — Spawnu la individuajn objektojn de la objekta
 // ilo ( SKULPTA_OBJEKTOJ ). plantoj cxe siaj precizaj pozicioj ( la
 // pozicio-listaj konstruantoj akceptas unu-elementan liston ), akvaj bestoj
 // kaj petreloj en la ekzistantajn animaci-sistemojn ( ili naĝas/flugas cxe la
-// ankro ), kaj NPC-oj en la npc-aron ( ili piediras kiel la ceteraj ).
+// ankro ), kaj NPC-oj en la npc-aron ( ili piediras kiel la ceteraj ). La
+// kanuoj 🛶 kaj la spacosxipo 🚀 estas ankaŭ objektoj — la kanuoj en la
+// kanuan aron ( la fiziko de sperto.ts ), la sxipo en la mondan spacon super
+// la cefa stacio. Revenu la konstruitan spacosxipon ( aux null se neniu ).
 function konstruiMetitajnObjektojn(
   sceno: THREE.Scene,
   objektoj: MetitaObjekto[],
@@ -97,7 +145,12 @@ function konstruiMetitajnObjektojn(
   bestoj: BestoSistemo,
   petreloj: PetreloSistemo,
   npcoj: Figuro[],
-): void {
+  kanuoj: Kanoto[],
+  oraMaterialo: THREE.MeshStandardMaterial,
+  eniraMaterialo: THREE.MeshStandardMaterial,
+  selektajxoj: THREE.Mesh[],
+): Krasesxagxo | null {
+  const xipoj: Krasesxagxo[] = [];
   for ( const o of objektoj ) {
     const s = o.skalo ?? 1;
     if ( o.speco === "betulo" ) konstruiArbaron(sceno, [{ x: o.x, z: o.z, h: altecoFn(o.x, o.z), s }]);
@@ -125,8 +178,46 @@ function konstruiMetitajnObjektojn(
       fig.rapido = 0o55/0o100 + Math.random() * 0o4/0o10;
       sceno.add(fig.group);
       npcoj.push(fig);
+    } else if ( o.speco === "kanuo" ) {
+      // La kanuoj flosas nur sur akvo ( la fiziko de sperto.ts refreŝigas
+      // la nivelon ĉiukadre ). La baza nivelo venas de la akvosurfaca
+      // funkcio — la sama kiel la antaŭe koditaj kanuoj.
+      if ( !akvoFn(o.x, o.z) ) continue;
+      kanuoj.push(kreiKanoton(sceno, o.x, o.z, o.rotacio ?? 0, oraMaterialo,
+        akvaNiveloFn(o.x, o.z), o.stilo === "satala" ? "satala" : "baza"));
+    } else if ( o.speco === "hxeuxfo" || o.speco === "hxeuxfoPlato" ) {
+      // La lampoj kiel OBJEKTOJ jam konstruiĝis en la komuna lampa sistemo
+      // ( konstruiUrbon aldonas iliajn lokojn al lampLokoj antaŭ la sistemo
+      // — la flamoj animiĝas kune kaj la kolizioj aldoniĝas; la plato de la
+      // hxeuxfoPlato-varianto konstruiĝis ankaŭ tie ).
+    } else if ( o.speco === "keuxfhxeso" ) {
+      // La keŭfĥeso — unu starfrukta strukturo kun ses oraj ripoj ( la sama
+      // konstruanto kiel la kradaj keŭfĥesoj ).
+      konstruiKeuxfhxeso(sceno, [ { x: o.x, z: o.z, rot: o.rotacio ?? 0 } ], altecoFn, oraMaterialo);
+    } else if ( o.speco === "spacosxipo" ) {
+      // La spacosxipo flosas super la cefa stacio ( y = 40 — la sama
+      // alteco kiel antaŭe ). La stacia enirejo ricevas la flugan altecon
+      // malsupre, post la tuta konstruo.
+      xipoj.push(konstruiKrasesxagxon(sceno, o.x, 0o40, o.z, oraMaterialo, eniraMaterialo));
+    } else if ( o.speco === "sanktejo" || o.speco === "turo" || o.speco === "domo"
+        || o.speco === "mangxejo" || o.speco === "kasafeo" || o.speco === "stacio" ) {
+      // La individuaj konstruajxoj ( sataloj ) — la samaj specoj kiel la
+      // krada paletro ( stacio kiel stacioxipo ), kun la samaj tavoloj kaj
+      // altoj kiel la kradaj konstruaĵoj ( kreiSpecon en konstruiKradanUrbon ).
+      const tipo = o.speco === "stacio" ? "stacioxipo" : o.speco;
+      const niveloj = tipo === "stacioxipo" ? 3 : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
+      const w = 0o10 * ( o.skalo ?? 1 ), d = w;
+      konstruiSatalon({
+        x: o.x, z: o.z, type: tipo, name: "objekto",
+        niveloj, w, d,
+        tieroAlto: tipo === "stacioxipo" ? 0o155/0o40
+          : tipo === "turo" ? 0o30/0o10 : tipo === "kasafeo" ? 0o155/0o40 : 0o315/0o100,
+        rot: o.rotacio ?? 0, diamond: true, h0: altecoFn(o.x, o.z),
+        sube: tipo === "stacioxipo" ? 0 : niveloj, tieroAltoSub: 0o123/0o40,
+      }, sceno, selektajxoj);
     }
   }
+  return xipoj.length ? xipoj[0] : null;
 }
 
 // ⟪ Urba krado 📐 ⟫ — la ĉefurba krado estas DIAMANTA kruca aranĝo kun
@@ -171,6 +262,7 @@ function konstruiKradanUrbon(
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial,
   oraMaterialo: THREE.MeshStandardMaterial,
+  aldonajBlokoj: AldonaBloko[] = [],
 ): KradaUrbaRezulto {
   const [ ofsX, ofsZ ] = ofseto;
   const ĉeloj = kreiKradon(arangxo);
@@ -184,18 +276,23 @@ function konstruiKradanUrbon(
   // Konstruu la urbon el la kvadrataj celloj
   let bldgIdx = 0;
   const konstruSpecoj: KonstruSpec[] = [];
-  const kreiSpecon = (x: number, z: number, type: CellType, rot: number, kvar: boolean): void => {
-    const niveloj = type === "sanktejo" ? 7 : type === "turo" ? 0o10 : 4;
+  const kreiSpecon = (x: number, z: number, type: CellType, rot: number, fiksita?: string): void => {
+    // La pentrita "stacio" ĉelo konstruiĝas kiel la kosmoporda stacio
+    // ( stacioxipo ) — la sama speco kiel la aŭtomataj stacioj.
+    const estasStacio = type === "stacio";
+    const specTipo = estasStacio ? "stacioxipo" : type;
+    const niveloj = estasStacio ? 3 : type === "sanktejo" ? 7 : type === "turo" ? 0o10 : 4;
     const w = 0o10, d = w;  // square buildings. depth = width
-    const tieroAlto = type === "sanktejo" ? 0o30/0o10 : type === "turo" ? 0o30/0o10 : type === "kasafeo" ? 0o155/0o40 : 0o315/0o100;
+    const tieroAlto = estasStacio ? 0o155/0o40
+      : type === "sanktejo" ? 0o30/0o10 : type === "turo" ? 0o30/0o10 : type === "kasafeo" ? 0o155/0o40 : 0o315/0o100;
     // Sub-teraj niveloj bazitaj sur la tavoloj. ĉiu tavolo de la ekstera
     // piramido ricevas egalrespondan sub-teran nivelon, por ke la interno
     // kongruu al la ekstera strukturo ( la diamanta spegulo reflektas nur la
     // supran parton — la sub-teraj niveloj estas entombigitaj sub la spegula
     // ebeno, kaj ilia reflekto aperus SUPER la grundon ).
-    const sube = niveloj;
+    const sube = estasStacio ? undefined : niveloj;
     const tieroAltoSub = 0o123/0o40;  // uniforma kel-alto (83/32 = 2.594) por cxiuj tipoj
-    konstruSpecoj.push({ x, z, type, name: "paq" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot, diamond: true, fixed: kvar ? "kvar" : undefined });
+    konstruSpecoj.push({ x, z, type: specTipo, name: "paq" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot, diamond: true, fixed: fiksita });
     bldgIdx++;
   };
   for (const [col, row, type] of ĉeloj) {
@@ -207,7 +304,7 @@ function konstruiKradanUrbon(
         konstruSpecoj.push({ x: ofsX, z: ofsZ, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true, fixed: "kvar" });
         bldgIdx++;
       } else {
-        kreiSpecon(ofsX, ofsZ, type, 0, false);
+        kreiSpecon(ofsX, ofsZ, type, 0);
       }
       continue;
     }
@@ -224,26 +321,38 @@ function konstruiKradanUrbon(
         [ BLOKO, -BLOKO, Math.PI/2 ],   // sud-oriento — frontas orienten ( +x )
       ];
       for ( const [ blx, blz, rot ] of suboj ) {
-        kreiSpecon(cx + blx, cz + blz, tipoDeBloko(type, col, row, blx, blz), rot, true);
+        kreiSpecon(cx + blx, cz + blz, tipoDeBloko(type, col, row, blx, blz), rot, "kvar");
       }
     } else {
-      kreiSpecon(cx, cz, type, 0, false);
+      kreiSpecon(cx, cz, type, 0);
     }
   }
 
-  // Kosmoporda stacio rekte norde de la pinto — la STACIDOMA ĈELO ( 0, n+1 )
-  // de la krado. la voja reto konstruiĝas ĉirkaŭ ĝi ( sude, oriente,
-  // okcidente ) kaj la stacio konektiĝas per normala sprono — parto de la
-  // krada sistemo mem. La rotacio (PI, pordo suden) estas aŭtomate fiksita de
-  // la rot-pasoj sube. En la kvar-bloka krado la stacio estas la CENTRO
-  // ( vidu supre ).
-  if ( arangxo.blokaGrando === "unu" ) {
-    konstruSpecoj.push({ x: ofsX, z: ofsZ + stacioZ, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true });
-    bldgIdx++;
-    // La stacidoma ĉelo en la ĉelaro — nur por la voja reto ( la konstruaĵo
-    // jam aldoniĝis supre ). La vico n+1 kreas la vojon ĉe ( n + 0.5 )·PASXO
-    // sude de la stacio kaj la ±ringoX vojojn ĉe ĝiaj flankoj.
-    ĉeloj.push([ 0, arangxo.arangxaGrando + 1, "sanktejo" ]);
+  // La ALDONAJ blokoj ( la terena skulptilo ) — la spacosxipa stacio de la
+  // cefa urbo kaj aliaj ekstraj konstruajxoj, metitaj APARTE de la krada
+  // generado. Ili konstruigxas cxe siaj pozicioj ( relativa al la krada
+  // centro ). La KONEKTITA bloko kunigxas kun la voja reto ( ĝia ĉelo aligxas
+  // al la reto sube kaj la bloko ricevas spronon — kiel la malnova stacidoma
+  // ĉelo ); la ceteraj staras solaj. La stacia bloko ( la stacia flago )
+  // konstruigxas kiel la kosmoporda stacio ( stacioxipo ); la ceteraj laux
+  // sia tipo. En la kvar-bloka krado la stacio restas la CENTRO ( vidu supre ).
+  for ( const b of aldonajBlokoj ) {
+    const fiksita = b.konektita ? "aldona-konektita" : "aldona";
+    if ( b.stacia ) {
+      konstruSpecoj.push({ x: ofsX + b.x, z: ofsZ + b.z, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: b.rot ?? 0, diamond: true, fixed: fiksita });
+      bldgIdx++;
+    } else {
+      kreiSpecon(ofsX + b.x, ofsZ + b.z, b.tipo, b.rot ?? 0, fiksita);
+    }
+  }
+  // La konektitaj aldonaj blokoj aldonas sian ĉelon al la voja reto ( post
+  // la konstrua buklo — la konstruajxo jam aldoniĝis, nur la reto bezonas la
+  // ĉelon por la vicoj/kolumnoj kaj la spronoj ). La ĉelo estas la sama kiel
+  // la malnova stacidoma ĉelo — la vojo sude, oriente kaj okcidente.
+  for ( const b of aldonajBlokoj ) {
+    if ( !b.konektita ) continue;
+    const c = Math.round(b.x / PASXO), r = Math.round(b.z / PASXO);
+    if ( !ĉeloj.some(([lc, lr]) => lc === c && lr === r) ) ĉeloj.push([ c, r, "sanktejo" ]);
   }
 
   // Fiksu teren-alton kaj kolizion por cxiu konstruajxo (vojoj ne bezonataj ankoraux)
@@ -505,23 +614,11 @@ function konstruiKradanUrbon(
   for (const [px, pz] of placajNodoj) realajIntersekcoj.delete(px + "," + pz);
   for (const klavo of arkajKlavoj) realajIntersekcoj.delete(klavo);
 
-  // La stacidoma ĉelo ( 0, n+1 ) ricevas siajn vojojn el la normala reto. la
-  // EW-vojo ĉe z=( n + 0.5 )·PASXO ( inter la pinta vico kaj la stacidoma
-  // vico ) estas la suda flanko — la sprono de la stacio atingas ĝin — kaj la
-  // NS-vojoj ĉe x=±ringoX estas la orienta/okcidenta flankoj. Neniu aparta
-  // stacidoma ringo bezonatas. la norda pinta domo ( 0, n ) sidas inter la
-  // vojoj ĉe z=( n − 0.5 )·PASXO kaj z=( n + 0.5 )·PASXO — neniu vojo
-  // trairas ĝin. La kvar-bloka krado havas la stacion en la CENTRO ( vidu la
-  // konstruan buklon supre ). La diamanta limo ( supre ) tranĉas la kornonan
-  // vojon ĉe z=( n + 0.5 )·PASXO al la stacidoma kolumno — la korneraj blokoj
-  // de la pinta vico ricevas nenian vojon norde.
-  //
-  // Lamp-nodo ĉe la stacia enirejo ( ofsX, ofsZ+nordaPinto+12 ) — la suda
-  // vojo de la stacidoma ĉelo. La nodo ricevas la saman kvar-lampan ŝablonon
-  // kiel la ceteraj placoj; NENIU ĉap-mesho konstruiĝas ĉe ĝi ( la vojoj mem
-  // jam plenigas ĉiun nodon, kaj ĝi ne estas reala kruciĝo — la sprono de la
-  // stacio atingas la vojon ĉi tie ).
-  if ( arangxo.blokaGrando === "unu" ) placajNodoj.push([ ofsX, ofsZ + staciaRingaNordo ]);
+  // Neniu stacidoma ĉelo plu ekzistas en la krado — la stacio de la cefa urbo
+  // estas ALDONA bloko ( la skulptilo metas ĝin aparte de la krado ), kaj la
+  // kvar-bloka stacio estas la CENTRO ( vidu la konstruan buklon supre ). La
+  // aldonaj blokoj ricevas nenian vojan ringon kaj nenian spronon — ili
+  // konstruigxas kiel starantaj konstruajxoj cxe siaj pozicioj.
 
   // Voja duon-larĝo — la segmenta larĝo estas 0o16/0o10, do ĝia duon-larĝo estas 0o7/0o10.
   function vojDuonLargho(_g: number): number {
@@ -547,8 +644,11 @@ function konstruiKradanUrbon(
   }
   for (const s of konstruSpecoj) {
     if (s.x === ofsX && s.z === ofsZ) continue;
-    // La stacioxipo estas ĈELO de la krado — normala sprono al la vojo sude
-    // ( la pordo frontas suden, la vojo ĉe ( n + 0.5 )·PASXO estas antaŭ ĝi ).
+    // La STARANTaj aldonaj blokoj ricevas nenian spronon ( la voja reto
+    // koncernas nur la generitajn ĉelojn — la stacio estas atingebla per la
+    // sxipo ). La KONEKTITaj aldonaj blokoj ricevas spronon kiel la malnova
+    // stacidoma ĉelo ( ilia ĉelo jam estas en la reto ).
+    if (s.fixed === "aldona") continue;
     const rot = s.rot || 0;
     const pordoOffset = s.d / 2 + 0o14/0o10;
     const pordoX = s.x + Math.sin(rot) * pordoOffset;
@@ -651,41 +751,43 @@ function konstruiKradanUrbon(
     }
     lampLokoj.push({ x, z, y: bazaY, rotacio });
   };
-  for (const [aX, aZ] of placajNodoj) {
-    for (const [dx, dz] of [ [ -0o21/0o10, -0o21/0o10 ], [ 0o21/0o10, -0o21/0o10 ], [ -0o21/0o10, 0o21/0o10 ], [ 0o21/0o10, 0o21/0o10 ] ]) addLamp(aX + dx, aZ + dz);
-  }
-  for (const gx of RETO_X) {
-    for (const gz of RETO_Z) {
-      // Nur realaj vojkruciĝoj ( kaj ne la rivero ) ricevas la kvar-lampan
-      // ŝablonon; malplenaj regionoj sen vojo restas sen lampoj.
-      if (Math.abs(gz - riveroZ(gx)) < 0o14) continue;
-      if (!realajIntersekcoj.has(gx + "," + gz)) continue;
-      // Kvar lampoj en la kvar kvadratoj ĉirkaŭ ĉiu intersekco.
-      addLamp(gx + 0o23/0o10, gz + 0o23/0o10);
-      addLamp(gx + 0o23/0o10, gz - 0o23/0o10);
-      addLamp(gx - 0o23/0o10, gz + 0o23/0o10);
-      addLamp(gx - 0o23/0o10, gz - 0o23/0o10);
+  if ( arangxo.lampoj !== false ) {
+    for (const [aX, aZ] of placajNodoj) {
+      for (const [dx, dz] of [ [ -0o21/0o10, -0o21/0o10 ], [ 0o21/0o10, -0o21/0o10 ], [ -0o21/0o10, 0o21/0o10 ], [ 0o21/0o10, 0o21/0o10 ] ]) addLamp(aX + dx, aZ + dz);
     }
-  }
-  // Rondigitaj arkoj — la L-korneroj ne estas en placajNodoj nek realaj
-  // intersekcoj, do ili ricevas propran kvar-lampan ŝablonon por resti lumigitaj.
-  for (const a of arkajNodoj) {
-    addLamp(a.x + 0o23/0o10, a.z + 0o23/0o10);
-    addLamp(a.x + 0o23/0o10, a.z - 0o23/0o10);
-    addLamp(a.x - 0o23/0o10, a.z + 0o23/0o10);
-    addLamp(a.x - 0o23/0o10, a.z - 0o23/0o10);
+    for (const gx of RETO_X) {
+      for (const gz of RETO_Z) {
+        // Nur realaj vojkruciĝoj ( kaj ne la rivero ) ricevas la kvar-lampan
+        // ŝablonon; malplenaj regionoj sen vojo restas sen lampoj.
+        if (Math.abs(gz - riveroZ(gx)) < 0o14) continue;
+        if (!realajIntersekcoj.has(gx + "," + gz)) continue;
+        // Kvar lampoj en la kvar kvadratoj ĉirkaŭ ĉiu intersekco.
+        addLamp(gx + 0o23/0o10, gz + 0o23/0o10);
+        addLamp(gx + 0o23/0o10, gz - 0o23/0o10);
+        addLamp(gx - 0o23/0o10, gz + 0o23/0o10);
+        addLamp(gx - 0o23/0o10, gz - 0o23/0o10);
+      }
+    }
+    // Rondigitaj arkoj — la L-korneroj ne estas en placajNodoj nek realaj
+    // intersekcoj, do ili ricevas propran kvar-lampan ŝablonon por resti lumigitaj.
+    for (const a of arkajNodoj) {
+      addLamp(a.x + 0o23/0o10, a.z + 0o23/0o10);
+      addLamp(a.x + 0o23/0o10, a.z - 0o23/0o10);
+      addLamp(a.x - 0o23/0o10, a.z + 0o23/0o10);
+      addLamp(a.x - 0o23/0o10, a.z - 0o23/0o10);
+    }
   }
 
   // ⟪ Keŭfĥesoj 📃 ⟫ — starfrukt-formaj strukturoj ( ſɭw ʃɔɔ˞ ) kun 6-flanka
-  // simetrio. Ili staras nur ĉe la kvar ANGULOJ de la centra konstruaĵo ( la
+  // simetrio. Ili staras ĉe la kvar ANGULOJ de la centra konstruaĵo ( la
   // diamanta sanktejo ), unu ĝuste ekster ĉiu pinto. La sankteja piedo estas
   // kvadrato turnita je Math.PI / 4 ( kreiKlinoTavolon ), do giaj pintoj
-  // alfrontas la diagonalojn 45°, 135°, 225° kaj 315° — ne la flankojn.
+  // alfrontas la diagonalojn 45°, 135°, 225° kaj 315° — ne la flankojn. La
+  // keŭfĥesoj montriĝas nur kiam la urbo havas la flagon ( la terena
+  // skulptilo sxaltas gxin per la Krado-langeto ).
   const KEUXFHXESO_R = 0o10;   // 10 — klare ekster la pinto ( 7.07 ) kaj iom pli for
   const keuxfhxesoLokoj: KeuxfhxesoLoko[] = [];
-  if ( arangxo.blokaGrando === "unu" ) {
-    // La keŭfĥesoj staras nur ĉirkaŭ la sankteja centro ( la kvar-bloka
-    // centro estas la stacio, do ili ne aperas tie ).
+  if ( arangxo.keuxfhxeso ) {
     for ( let i = 0; i < 4; i++ ) {
       const a = Math.PI / 4 + i * Math.PI / 2;
       keuxfhxesoLokoj.push({ x: ofsX + Math.cos(a) * KEUXFHXESO_R, z: ofsZ + Math.sin(a) * KEUXFHXESO_R, rot: a });
@@ -694,10 +796,17 @@ function konstruiKradanUrbon(
     for ( const l of keuxfhxesoLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 0o16/0o10 });
   }
 
+  // La stacia pozicio — kie la spacosxipo flugas. La stacia ALDONA bloko ( la
+  // unua stacia bloko, aux la unua aldona bloko ) fiksas gxin; sen aldonaj
+  // blokoj la defaŭlto estas la malnova stacidoma pozicio ( unu. norde de la
+  // pinto; kvar. la centro ).
+  const staciaBloko = aldonajBlokoj.find(b => b.stacia) ?? aldonajBlokoj[0];
   return {
     konstruSpecoj, kolizioj, selektajxoj, konstruGrupoj, placajNodoj,
     vojSpecimenoj, spronajSpecimenoj, lampLokoj, keuxfhxesoLokoj,
-    staciaPozicio: [ ofsX, ofsZ + ( arangxo.blokaGrando === "kvar" ? 0 : stacioZ ) ],
+    staciaPozicio: staciaBloko
+      ? [ ofsX + staciaBloko.x, ofsZ + staciaBloko.z ]
+      : [ ofsX, ofsZ + ( arangxo.blokaGrando === "kvar" ? 0 : stacioZ ) ],
     ringoX: ofsX + ringoX,
     sudaVojo: ofsZ + sudaVojo,
   };
@@ -741,40 +850,33 @@ export async function konstruiUrbon(
   //       | − | V | V | V | − |   z=-2 (dua tavolo — turoj)
   //       | − | − | D | D | D | − | − |   z=-3 (tria tavolo — domoj)
   // ═══════════════════════════════════════════════════════════
-  // La ĉefa urbo ( unu-bloka, grandeco 3 ) ĉe la centro, kaj la TESTA
-  // kvar-bloka urbo ( grandeco 2 ) trans la rivero. la kvar piedsigno estas
-  // ±100 ( PASXO 40 × grandeco 2 plus la eksteraj vojoj unu pasxon preter la
-  // ekstera vico — ĉiu bloko havas sian vojan blokon ), kaj la centro
-  // ( 100, -260 ) tenas la tutan urbon seka ( la rivero finiĝas ĉe z≈-145
-  // oriente, la lago ĉe x≤-84 ) kaj ene de la mondrando ±384.
-  const cefa = konstruiKradanUrbon(sceno, { arangxaGrando: 3, blokaGrando: "unu" }, [ 0, 0 ], dioritaMaterialo, andezitaMaterialo, oraMaterialo);
-  const testa = konstruiKradanUrbon(sceno, { arangxaGrando: 2, blokaGrando: "kvar" }, [ 0o140, -0o400 ], dioritaMaterialo, andezitaMaterialo, oraMaterialo);
+  // La urboj de SKULPTA_URBOJ ( la terena skulptilo ) — la cefa urbo
+  // ( unu-bloka, grandeco 3 ) cxe la centro, kaj la testa kvar-bloka urbo
+  // ( grandeco 2 ) trans la rivero. Cxiu urbo konstruigxas cxe sia ofseto.
+  // La unua urbo estas la CEFA — la spacosxipo, la doka avenuo kaj la
+  // keuxfhxesoj apartenas al gxi.
+  // Se la listo mankas aŭ malplenas ( malnova datumaro ), la ludo konstruas
+  // la defaŭltan ĉefan urbon — neniam urbo sen la cefa.
+  const urboListo: SkulptaUrbo[] = SKULPTA_URBOJ.length
+    ? ( SKULPTA_URBOJ as SkulptaUrbo[] )
+    : [ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
+  const urboj = urboListo.map(u => konstruiKradanUrbon(sceno,
+    { arangxaGrando: u.arangxaGrando, blokaGrando: u.blokaGrando, keuxfhxeso: !!u.keuxfhxeso, lampoj: u.lampoj !== false },
+    [ u.ofsX, u.ofsZ ], dioritaMaterialo, andezitaMaterialo, oraMaterialo,
+    u.aldonajBlokoj ?? []));
+  const cefa = urboj[0];
   await raporti();
 
   // La kunigitaj kradaj rezultoj — la mond-nivelaj partoj ( rivero, dokoj,
   // vegetajxo ) uzas ĉi tiujn por la ekskludoj kaj la kolizioj.
-  const konstruSpecoj = [ ...cefa.konstruSpecoj, ...testa.konstruSpecoj ];
-  const kolizioj = [ ...cefa.kolizioj, ...testa.kolizioj ];
-  const selektajxoj = [ ...cefa.selektajxoj, ...testa.selektajxoj ];
-  const konstruGrupoj = [ ...cefa.konstruGrupoj, ...testa.konstruGrupoj ];
-  const placajNodoj = [ ...cefa.placajNodoj, ...testa.placajNodoj ];
-  const keuxfhxesoLokoj = [ ...cefa.keuxfhxesoLokoj, ...testa.keuxfhxesoLokoj ];
+  const konstruSpecoj = urboj.flatMap(r => r.konstruSpecoj);
+  const kolizioj = urboj.flatMap(r => r.kolizioj);
+  const selektajxoj = urboj.flatMap(r => r.selektajxoj);
+  const konstruGrupoj = urboj.flatMap(r => r.konstruGrupoj);
+  const placajNodoj = urboj.flatMap(r => r.placajNodoj);
+  const keuxfhxesoLokoj = urboj.flatMap(r => r.keuxfhxesoLokoj);
   // La doka avenuo kongruas al la krada vojo de la ĈEFA urbo ( x=12, z=-60 ).
   const { ringoX, sudaVojo } = cefa;
-
-  // ⟪ Spacosxipo — flosas super la cefa stacio 📃 ⟫
-  // La sxipo flosas super la stacio de la ĈEFA urbo ( la testa kvar-bloka
-  // stacio estas nur konstruaĵo — unu sxipo en la mondo ). Ĝia plej suba
-  // parto estas ~17.97 sub la origino (5 subaj tieroj), do y=30 lasas klaran
-  // spacon super la tegmento (10.2 alta) — la sama malsupro-alteco kiel antaŭ
-  // la spegula plilongigo.
-  const xipo: Krasesxagxo = konstruiKrasesxagxon(sceno, 0, 0o40, cefa.staciaPozicio[1], oraMaterialo, eniraMaterialo);
-  // La sxipa interno flosas CE LA SXIPO ( ne sur la tero ). Marku la cefan
-  // stacion per la fluga alteco, por ke eniri la spacosxipon teleportu al la
-  // supro kie gxi estas.
-  const stacioSxipo = cefa.konstruSpecoj.find(s => s.type === "stacioxipo");
-  if (stacioSxipo) stacioSxipo.flugoY = xipo.group.position.y;
-  await raporti();
 
   // ⟪ Rivero 📃 ⟫
   // La ribono etendiĝas okcidenten ĝis la nova mondrando ( x ≤ 0o600 ),
@@ -807,56 +909,37 @@ export async function konstruiUrbon(
         SKULPTA_AKVA_NIVELO, alteco)
     : null;
 
-  // ⟪ Dokoj — tri alirejoj laŭ la suda riverbordo 📃 ⟫
-  // La dokoj sekvas la riverkurbon (riveroZ + 14), do cxiu pinto atingas la akvon
-  // egalproporcie, kaj la meza estas pli longa cxefpiero.
-  const DOKO_X = [ -0o60, 0, 0o60 ];
-  const DOKO_PROFUNDOJ = [ 0o20, 0o20, 0o20 ];
+  // ⟪ Dokoj — alirejoj laŭ la riverbordo 📃 ⟫
+  // La dokoj venas de SKULPTA_DOKOJ ( la terena skulptilo ) — ĉiu platformo
+  // havas sian mondan pozicion ( x, z ) kaj profundon. La ludo konstruas la
+  // dokojn rekte el la datumoj.
+  const DOKOJ = SKULPTA_DOKOJ as SkulptaPlatformo[];
   const dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number; y: number }[] = [];
-  for ( let i = 0; i < DOKO_X.length; i++ ) {
-    // La doka z-offseto ( 0o16 ) estas bank-tajlita. la kajo kaj la avenuo estas
-    // permane agorditaj al ĝi ( la avenuo kunfandiĝas kun la kajo ĉe x=12 ), do
-    // rondigi ĝin ŝovus la kajon for de la avenuo — tenita netuŝita.
-    const doko = konstruiDokon(sceno, DOKO_X[i], riveroZ(DOKO_X[i]) + 0o16, 0, alteco, akvoY, DOKO_PROFUNDOJ[i]);
-    // La doka platformo estas 0o16/0o10 larĝa; ĝia rotacio estas 0 (aksi-para).
-    dokoKolizioj.push({ x: DOKO_X[i], z: riveroZ(DOKO_X[i]) + 0o16, w: 0o16/0o10, d: DOKO_PROFUNDOJ[i], rot: 0, y: doko.platformY });
+  for ( let i = 0; i < DOKOJ.length; i++ ) {
+    const doko = konstruiDokon(sceno, DOKOJ[i].x, DOKOJ[i].z, 0, alteco, akvoY, DOKOJ[i].profundo);
+    dokoKolizioj.push({ x: DOKOJ[i].x, z: DOKOJ[i].z, w: 0o16/0o10, d: DOKOJ[i].profundo, rot: 0, y: doko.platformY });
   }
   await raporti();
 
   // ⟪ Kajo kaj doka avenuo ( la ĉefa urbo ) 📃 ⟫ — la ĉefaj vojoj de la kradaj
-  // urboj konstruigxas en konstruiKradanUrbon; ĉi tiuj du estas la mond-nivelaj
-  // vojoj de la cefa urbo. la riverborda kajo kaj la avenuo kiu konektas la
-  // kradon al la kajo.
+  // urboj konstruiĝas en konstruiKradanUrbon; ĉi tiuj estas la mond-nivelaj
+  // vojoj de la ĉefa urbo, kiuj venas de SKULPTA_VOJOJ ( la terena skulptilo
+  // — polilinioj kiujn la Vojoj-langeto redaktas ).
   const vojDifinoj: VojDifino[] = [];
 
-  // Rivervojo — unu kontinua kajo laŭ la riverbordo. Ĝi sekvas la riverkurbon
-  // kaj la terenon, kaj trapasas la nordan (landan) randon de ĉiu doko, do la
-  // tri dokoj konektiĝas rekte al la kajo — ne plu du disigitaj branĉoj kun
-  // zigzaga okcidenta branĉo ĉirkaŭ la meza platformo. La orienta fino ŝoviĝas
-  // de la subakva deklivo ( 84,-94. Tereno -4.69, sub la akvonivelo -4.24 ) al
-  // seka tero ( 84,-82. Tereno 0.85 ), do la tuta kajo kuŝas sur la tero.
-  const dokaNordaRando = ( i: number ) => riveroZ(DOKO_X[i]) + 0o16 + DOKO_PROFUNDOJ[i] / 2;
-  const dockaLandaRando: [ number, number ][] = DOKO_X.map(( dx, i ) => [ dx, dokaNordaRando(i) ]);
-  // La kajo. Okcidenta arbaro-aliro, la tri dokaj landrandoj ( kiuj sekvas la
-  // riverkurbon ), orienta aliro al seka bordo.
-  vojDifinoj.push({
-    pts: [
-      [ -0o124, -0o140 ], [ -0o70, -0o150 ],
-      ...dockaLandaRando,
-      [ 0o70, -0o124 ], [ 0o124, -0o122 ],
-    ],
-    w: 0o16/0o10
-  });
-
-  // Docka avenuo — ĝia ĉefa akso kongruas kun la urba krada vojo ĉe x=12; ĝi
-  // daŭrigas la kradan NS-vojon SUDEN de ĝia fino ( 12,-60 ) ĝis la kajo
-  // ( 12,-88 ), kie ĝi kunfandiĝas kun ĝi. La malnova komenco ĉe ( 12,-36 )
-  // interkovris la kradan NS-vojon samplane ( z -60..-36 — la sama vojo
-  // dufoje ) kaj la du tavoloj z-flagris laŭlonge de la tuta peco. La krada
-  // vojo jam kovras la pecon ( 12,-36 )..( 12,-60 ), do la avenuo komenciĝas
-  // nur kie la krada vojo finiĝas. La kajo mem servas la tri dokojn, do
-  // neniaj apartaj branĉoj de la avenuo bezonatas.
-  vojDifinoj.push({ pts: [ [ ringoX, sudaVojo - 4 ], [ ringoX, -0o130 ] ], w: 0o16/0o10 });
+  // Konstruu ĉiun vojon el SKULPTA_VOJOJ. La skulptilo redaktas ilin kiel
+  // poliliniojn kun larĝo; la ludo konstruas ilin per konstruiVojojn.
+  for ( const vojo of SKULPTA_VOJOJ as SkulptaVojo[] ) {
+    if ( vojo.punktoj.length < 2 ) continue;
+    for ( let i = 0; i < vojo.punktoj.length - 1; i++ ) {
+      vojDifinoj.push({
+        pts: [ [ vojo.punktoj[i][0], vojo.punktoj[i][1] ], [ vojo.punktoj[i + 1][0], vojo.punktoj[i + 1][1] ] ],
+        w: vojo.larĝo / 2,
+      });
+    }
+  }
+  // La doka norda rando — la landrandoj de ĉiu doko, por la lampoj kaj la ĉapoj.
+  const dockaLandaRando: [ number, number ][] = DOKOJ.map(d => [ d.x, d.z + d.profundo / 2 ]);
   const ĉefajVojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo);
 
   // Lamp-nodoj por la kajo — la samaj lampaj ŝablonoj kiel la krada reto.
@@ -891,21 +974,12 @@ export async function konstruiUrbon(
     alteco, dioritaMaterialo, andezitaMaterialo);
   await raporti();
 
-  // ⟪ Arbar-randaj platformoj 📃 ⟫
-  // Rondigitaj diamantoj donas malgrandajn ripozlokojn sen kovri la vojan reton.
-  const periferiajLokoj: [ number, number ][] = [
-    [ -0o150, 0o40 ], [ -0o110, 0o110 ], [ -0o40, 0o150 ], [ 0o40, 0o150 ],
-    [ 0o110, 0o100 ], [ 0o150, 0o30 ], [ 0o130, -0o100 ], [ -0o130, -0o100 ],
-  ];
-  const periferiajPlatformoj = konstruiPeriferiajnPlatformojn(
-    sceno, periferiajLokoj, alteco, dioritaMaterialo, andezitaMaterialo
-);
-
-  // ⟪ Lampoj 📃 ⟫ — la kradaj lampaj lokoj ( ambaŭ urboj ) plus la mondaj
-  // lampoj ( la arbar-randaj platformoj, la lago kaj la monto ) en UNU sistemo.
-  const lampLokoj: { x: number; z: number; y: number; rotacio?: number }[] = [
-    ...cefa.lampLokoj, ...testa.lampLokoj,
-  ];
+  // ⟪ Lampoj 📃 ⟫ — la kradaj lampaj lokoj ( ambaŭ urboj ) kaj la kaja
+  // placo-nodo en UNU sistemo. La mondaj plat-lampoj ( la arbar-randaj, lagaj
+  // kaj montaj lampoj sur la diamantaj platformoj ) estas OBJEKTOJ de
+  // SKULPTA_OBJEKTOJ ( hxeuxfoPlato ) — movitaj el la kodo al la datumaro,
+  // redakteblaj per la terena skulptilo.
+  const lampLokoj: { x: number; z: number; y: number; rotacio?: number }[] = urboj.flatMap(r => r.lampLokoj);
   const addLamp = (x: number, z: number, bazaY = alteco(x, z), rotacio = Math.PI / 4) => {
     for (const s of konstruSpecoj) {
       const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
@@ -919,59 +993,27 @@ export async function konstruiUrbon(
     }
     lampLokoj.push({ x, z, y: bazaY, rotacio });
   };
-  // Platformoj estas diamantaj (pintoj laŭ la aksoj), do iliaj lampoj estu sam-orientitaj.
-  // Lampoj estas plantitaj en la platforman supran tavolon (y + 0o2/0o10 + 0o2/0o10 - 0o1/0o40).
-  for ( const [ x, z ] of periferiajPlatformoj ) addLamp(x, z, alteco(x, z) + 0o4/0o10 - 0o1/0o40, 0);
   // La kvar-lampa ŝablono ĉirkaŭ la kaja placo-nodo ( la samaj ofsetoj kiel la
   // krada reto — la kradaj nodoj ricevas ilin en konstruiKradanUrbon ).
   for ( const [ aX, aZ ] of dokaPlacajNodoj ) {
     for ( const [ dx, dz ] of [ [ -0o21/0o10, -0o21/0o10 ], [ 0o21/0o10, -0o21/0o10 ], [ -0o21/0o10, 0o21/0o10 ], [ 0o21/0o10, 0o21/0o10 ] ] ) addLamp(aX + dx, aZ + dz);
   }
-  // Lampoj ĉirkaŭ la lago — uniforma dismeto. egalaj angulaj paŝoj, kaj la
-  // distanco ligita al la ondigita lagrando ( lagoRadio ), do la lampoj
-  // spuras la bordon egale inter si sen perfekta cirklo — nur eta kribro por
-  // ne aspekti mekanike. La rivera buŝo kaj la orienta enfluo ( kie la rivero
-  // renkontas la lagon ) restas sen lampoj. Cxiu cirkauxa lampo staras sur la
-  // samaj diamantaj platoj kiel la periferiaj platformoj ( reuzita
-  // konstruiPeriferiajnPlatformojn ) — kolektita en lampajPlatformLokoj.
-  const lampajPlatformLokoj: [ number, number ][] = [];
-  const LAGO_LAMP_N = 0o10;   // 8 — malmultaj, egale ĉirkaŭ la lago
-  const lagoNiv = lagoNivelo();
-  for ( let i = 0; i < LAGO_LAMP_N; i++ ) {
-    const a = i / LAGO_LAMP_N * Math.PI * 2 + ( Math.random() - 0o1/0o2 ) * 0o5/0o40;
-    const d = lagoRadio(a) + 0o20 + ( Math.random() - 0o1/0o2 ) * 0o10;
-    const x = LAGO_X + Math.cos(a) * d;
-    const z = lagoZ() + Math.sin(a) * d;
-    if ( akvo(x, z) ) continue;                          // akvo
-    if ( alteco(x, z) < lagoNiv + 0o4/0o10 ) continue;   // subakva bordo
-    if ( lampLokoj.some(l => Math.hypot(x - l.x, z - l.z) < 0o40) ) continue;
-    addLamp(x, z, alteco(x, z) + 0o4/0o10 - 0o1/0o40);
-    lampajPlatformLokoj.push([ x, z ]);
-  }
 
-  // Lampoj ĉirkaŭ la norda montaro — pozicioj laux la GEOGRAFIO de la monto
-  // ( montaroNorda en tereno.ts ), ne ringo. La monto estas orienta-okcidenta
-  // kresto ( suda ramplo z ≈ 0o200 → 0o346 ) kun tri ĉefaj pintoj
-  // ( x ≈ -0o300, -0o40, 0o240 ) kaj profundaj seloj inter ili. La lampoj
-  // sekvas la piedon de la suda ramplo ( kvar lauxlonge, al la urba aliro ),
-  // la selan vojeton, la orientan kaj okcidentan spronojn kaj la nordan
-  // piedon — nenia egala disigo ĉirkaŭ cirklo.
-  const montajLampLokoj: [ number, number ][] = [
-    [ -0o220, 0o200 ], [ -0o60, 0o200 ], [ 0o70, 0o200 ], [ 0o150, 0o260 ],
-    [ 0o250, 0o200 ], [ -0o400, 0o320 ], [ 0o400, 0o300 ], [ -0o140, 0o440 ],
-    [ 0o110, 0o440 ],
-  ];
-  for ( const [ mx, mz ] of montajLampLokoj ) {
-    if ( akvo(mx, mz) ) continue;                       // rivero/lago
-    if ( lampLokoj.some(l => Math.hypot(mx - l.x, mz - l.z) < 0o30) ) continue;
-    addLamp(mx, mz, alteco(mx, mz) + 0o4/0o10 - 0o1/0o40);
-    lampajPlatformLokoj.push([ mx, mz ]);
+  // Lampoj kiel OBJEKTOJ ( la terena skulptilo ) — la metitaj hxeuxfoj de
+  // SKULPTA_OBJEKTOJ aliĝas al la SAMA lampa sistemo kiel la kradaj/kajaj
+  // lampoj. la flamoj animiĝas kune ( sperto.ts vokas unu
+  // animaciiFlammojn ) kaj la kolizioj aldoniĝas. La nuda lampo sidas rekte
+  // sur la tero; la varianto hxeuxfoPlato staras sur la rondigita diamanta
+  // plato ( la sama platformo kiel la antaŭaj mapaj lampoj ) kaj ricevas la
+  // saman levitan bazon kiel la malnovaj plat-lampoj.
+  for ( const o of SKULPTA_OBJEKTOJ ) {
+    if ( o.speco === "hxeuxfo" ) {
+      lampLokoj.push({ x: o.x, z: o.z, y: alteco(o.x, o.z) + 0o1/0o40, rotacio: o.rotacio });
+    } else if ( o.speco === "hxeuxfoPlato" ) {
+      konstruiPeriferiajnPlatformojn(sceno, [ [ o.x, o.z ] ], alteco, dioritaMaterialo, andezitaMaterialo);
+      lampLokoj.push({ x: o.x, z: o.z, y: alteco(o.x, o.z) + 0o4/0o10 - 0o1/0o40, rotacio: o.rotacio });
+    }
   }
-
-  // La cirkauxaj lampoj ( lago kaj monto ) staras sur la samaj rondigitaj
-  // diamantaj platformoj kiel la periferiaj — rekta reuzo de la ekzistanta
-  // konstruiPeriferiajnPlatformojn ( neniu duobla kodo ).
-  konstruiPeriferiajnPlatformojn(sceno, lampajPlatformLokoj, alteco, dioritaMaterialo, andezitaMaterialo);
 
   const lampSistemo = konstruiHxeuxfojn(sceno, lampLokoj, dioritaMaterialo, oraMaterialo);
   // Lampaj kolizioj — malgrandaj cirkloj ĉirkaŭ ĉiu lampa kolono.
@@ -985,8 +1027,7 @@ export async function konstruiUrbon(
   // La kunigitaj vojspecimenoj ( ambaŭ kradaj urboj + la spronoj + la kajo/
   // avenuo ) — la vegetajxo evitas ĉiujn vojojn de ambaŭ urboj.
   const vojSpecimenoj = [
-    ...cefa.vojSpecimenoj, ...cefa.spronajSpecimenoj,
-    ...testa.vojSpecimenoj, ...testa.spronajSpecimenoj,
+    ...urboj.flatMap(r => [ ...r.vojSpecimenoj, ...r.spronajSpecimenoj ]),
     ...ĉefajVojSpecimenoj,
   ];
   // ⟪ Krada indekso por la voja ekskludo 📃 ⟫ — ĉelo-krado por ke la vegetajxo
@@ -1015,13 +1056,15 @@ export async function konstruiUrbon(
         }
       }
     }
-    // La arbar-randaj diamantaj platformoj estas pavimitaj restlokoj — la
-    // samaj pavim-specimenoj, por ke neniu planto aperu sur ili.
-    for (const [px, pz] of periferiajLokoj) if (Math.hypot(x - px, z - pz) < m + 3) return true;
+    // La lampaj diamantaj platformoj ( la hxeuxfoPlato-objektoj de la
+    // datumaro — la eksaj periferiaj/lagaj/montaj plat-lampoj ) estas
+    // pavimitaj restlokoj — neniu planto aperu sur ili.
+    for (const o of SKULPTA_OBJEKTOJ) {
+      if (o.speco !== "hxeuxfoPlato") continue;
+      if (Math.hypot(x - o.x, z - o.z) < m + 3) return true;
+    }
     // La keŭfĥesoj staras en la herbejo — neniu planto tra ili.
     for (const l of keuxfhxesoLokoj) if (Math.hypot(x - l.x, z - l.z) < m + 0o25/0o10) return true;
-    // La ĉirkaŭaj lampaj diamantaj platformoj estas pavimitaj restlokoj — neniu planto.
-    for (const [px, pz] of lampajPlatformLokoj) if (Math.hypot(x - px, z - pz) < m + 3) return true;
     return false;
   };
   const ekskluziviKonstruajxon = (x: number, z: number, m: number) => {
@@ -1251,19 +1294,6 @@ export async function konstruiUrbon(
   }
   await raporti();
 
-  // ⟪ Kanuoj 📃 ⟫
-  // La kanuoj sekvas la novajn dokpintojn (riveroZ + 3, en la akvo) por resti atingeblaj de la dokoj.
-  // Ili flosas sur la KONKRETA akvosurfaco ( riveraAkvaNivelo — krampita al la
-  // laga nivelo ĉe la buŝo ), NE sur la kruda akvoY de la naskiĝloko. tiu povas
-  // malsami ĝis ~2 unuoj kaj lasus la kanuon duone droninta. sperto.ts ankaŭ
-  // refreŝigas la nivelon ĉiukadre, do la kanuoj ĉiam naĝas ĝuste.
-  const kanuoj: Kanoto[] = [];
-  // La eksteraj kanuoj estas la nova "satala" stilo (malhel-pina/ora, kongrua al
-  // la arkitekturo); la centra restas la baza hela stilo.
-  kanuoj.push(kreiKanoton(sceno, 0o60, riveroZ(0o60) + 3, -Math.PI * 0o2/0o10, oraMaterialo, riveraAkvaNivelo(0o60), "satala"));
-  kanuoj.push(kreiKanoton(sceno, -0o60, riveroZ(-0o60) + 3, Math.PI * 0o2/0o10, oraMaterialo, riveraAkvaNivelo(-0o60), "satala"));
-  kanuoj.push(kreiKanoton(sceno, 0, riveroZ(0) + 3, -Math.PI * 0o4/0o10, oraMaterialo, riveraAkvaNivelo(0)));
-
   // ⟪ Ktenoforoj 📃 ⟫
   // Travideblaj kombuloj ( Beroe, Mnemiopsis, Pleŭrobrakia ) naĝas en la rivero,
   // evitante la dokojn. Ilia animacio okazas en sperto.ts ( gxisdatigiBestojn ).
@@ -1326,9 +1356,17 @@ export async function konstruiUrbon(
   // ⟪ Metitaj objektoj ( la objekta ilo de la skulptilo ) 📃 ⟫ — la
   // individuaj objektoj de SKULPTA_OBJEKTOJ. plantoj cxe siaj precizaj
   // pozicioj, akvaj bestoj kaj petreloj en la animaci-sistemojn ( ili naĝas/
-  // flugas cxe la ankro ), kaj NPC-oj en la npc-aron.
-  konstruiMetitajnObjektojn(sceno, SKULPTA_OBJEKTOJ as MetitaObjekto[],
-    alteco, akvo, akvaNivelo, bestoj, petreloj, npcoj);
+  // flugas cxe la ankro ), NPC-oj en la npc-aron, kaj la kanuoj 🛶 kaj la
+  // spacosxipo 🚀 kiel la ceteraj objektoj.
+  const kanuoj: Kanoto[] = [];
+  const xipo = konstruiMetitajnObjektojn(sceno, SKULPTA_OBJEKTOJ as MetitaObjekto[],
+    alteco, akvo, akvaNivelo, bestoj, petreloj, npcoj, kanuoj, oraMaterialo, eniraMaterialo,
+    selektajxoj);
+  // La sxipa interno flosas CE LA SXIPO ( ne sur la tero ). Marku la cefan
+  // stacion per la fluga alteco, por ke eniri la spacosxipon teleportu al la
+  // supro kie gxi estas. Sen sxipa objekto la stacio restas sur la tero.
+  const stacioSxipo = cefa.konstruSpecoj.find(s => s.type === "stacioxipo");
+  if (stacioSxipo && xipo) stacioSxipo.flugoY = xipo.group.position.y;
   await raporti();
 
   // ⟪ Interna sistemo 📃 ⟫
