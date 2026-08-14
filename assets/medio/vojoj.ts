@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
 import { kreiRondigitanRektangulanFormon } from "../komunajxoj/formoj.js";
 
-export interface VojDifino { pts: [number, number][]; w: number; heightFn?: (x: number, z: number) => number; }
+export interface VojDifino { pts: [ number, number ][]; w: number; heightFn?: ( x: number, z: number ) => number; }
 
 /**
  * Konstruu ŝtupetan vojan segmenton inter du vojpunktoj.
@@ -108,7 +108,7 @@ function kreiVojojnMaterialojn(dioritaMaterialo: THREE.MeshStandardMaterial,
 function konstruiSegmenton(x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikeco: number,
-  heightFn: (x: number, z: number) => number,
+  heightFn: ( x: number, z: number ) => number,
   sceno: THREE.Scene
 ): void {
   const difX = x2 - x1, difZ = z2 - z1;
@@ -120,10 +120,10 @@ function konstruiSegmenton(x1: number, z1: number, x2: number, z2: number,
   const steps = Math.max(1, Math.round(longo / 4));
   const pasoLongo = longo / steps;
   for ( let s = 0; s < steps; s++ ) {
-    const t0 = s / steps, t1 = (s + 1) / steps;
+    const t0 = s / steps, t1 = ( s + 1 ) / steps;
     const sx1 = x1 + difX * t0, sz1 = z1 + difZ * t0;
     const sx2 = x1 + difX * t1, sz2 = z1 + difZ * t1;
-    const movX = (sx1 + sx2) / 2, movZ = (sz1 + sz2) / 2;
+    const movX = ( sx1 + sx2 ) / 2, movZ = ( sz1 + sz2 ) / 2;
     const y = heightFn(movX, movZ);
     for ( const bendo of bendoj ) {
       // Vojaj ŝtupoj restas kvadrataj, por ke najbaraj pecoj kuniĝu sen ronda kudro.
@@ -140,7 +140,7 @@ function konstruiSegmenton(x1: number, z1: number, x2: number, z2: number,
 // konstruiVojojn — Konstruu cxiujn vojsegmentojn kun dioritaj suprajoj kaj andezitaj randoj.
 export function konstruiVojojn(sceno: THREE.Scene,
   defs: VojDifino[],
-  heightFn: (x: number, z: number) => number,
+  heightFn: ( x: number, z: number ) => number,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial
 ): THREE.Vector3[] {
@@ -160,8 +160,8 @@ export function konstruiVojojn(sceno: THREE.Scene,
     // malsupreniras al la aprona nivelo cxe la kosmoporda stacio ).
     const defAlt = def.heightFn || heightFn;
     for ( let i = 0; i < def.pts.length - 1; i++ ) {
-      const [aX, aZ] = def.pts[i];
-      const [bX, bZ] = def.pts[i + 1];
+      const [ aX, aZ ] = def.pts[i];
+      const [ bX, bZ ] = def.pts[i + 1];
       // Voja surfaco. Diorita centro kun andezitaj flankoj APUD gxi — ne plu
       // randa strio tavolita sub la centro. La malnova intertavolo z-fightingis
       // kiam la fotilo rigardis preskaux rekte malsupren ( la minimapo ), kaj
@@ -174,8 +174,8 @@ export function konstruiVojojn(sceno: THREE.Scene,
       const nombro = Math.max(1, Math.round(longo / 2));
       for ( let k = 0; k <= nombro; k++ ) {
         const t = k / nombro;
-        const sx = aX + (bX - aX) * t;
-        const sz = aZ + (bZ - aZ) * t;
+        const sx = aX + ( bX - aX ) * t;
+        const sz = aZ + ( bZ - aZ ) * t;
         samples.push(new THREE.Vector3(sx, defAlt(sx, sz), sz));
       }
     }
@@ -568,7 +568,7 @@ export function konstruiRondigitanArkon(sceno: THREE.Scene,
 // konstruiSpronon — Konstruu ununuran voj-spronon de konstruajxa pordo gxis voja rando.
 // Uzas pli altan polygonOffset ol cefaj vojoj por certigi videblon.
 export function konstruiSpronon(x1: number, z1: number, x2: number, z2: number,
-  heightFn: (x: number, z: number) => number,
+  heightFn: ( x: number, z: number ) => number,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial,
   sceno: THREE.Scene
@@ -589,7 +589,7 @@ export function konstruiSpronon(x1: number, z1: number, x2: number, z2: number,
 // konstruiFontanon — Konstruu placon kun fontana baseno kaj akva surfaco.
 export function konstruiFontanon(sceno: THREE.Scene,
   x: number, z: number,
-  heightFn: (x: number, z: number) => number,
+  heightFn: ( x: number, z: number ) => number,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial,
   oraMaterialo: THREE.MeshStandardMaterial

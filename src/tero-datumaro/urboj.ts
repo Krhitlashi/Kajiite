@@ -2,7 +2,7 @@
 // Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).
 // ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
 // La urboj de la mondo — la kradaj arangxoj kaj ofsetoj redaktataj per la
-// Krado-langeto. La unua urbo estas la cefa. Cxiu urbo: nomo, arangxaGrando,
+// Krado-langeto. La unua urbo estas la cefa. Cxiu urbo. nomo, arangxaGrando,
 // blokaGrando ( unu | kvar ), ofsX, ofsZ, keuxfhxeso ( la kvar anguloj ĉirkaŭ
 // la centro ), lampoj ( la kvar-lampa strato-ŝablono ) kaj aldonajBlokoj
 // ( x, z, tipo, rot, sub, stacia, konektita ).

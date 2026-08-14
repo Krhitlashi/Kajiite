@@ -134,7 +134,7 @@ function dekodiBiomon(kruda: string, kvanto: number): Uint8Array | null {
     // 4=akvaj-plantoj, 5=ekvizeto ) — ok ĉeloj po tri bajtoj.
     for ( let i = 0; i < kvanto; i++ ) {
       const b = i * 3;
-      biomo[i] = ( bajtoj[b >> 3] >> ( b & 7 ) )
+      biomo[i] = ( bajtoj[b >> 3] >> (b & 7) )
         | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 8 - ( b & 7 ) );
       biomo[i] &= 7;
     }
@@ -151,7 +151,7 @@ function dekodiBestojn(kruda: string, kvanto: number): Uint8Array | null {
     // ĉeloj po tri bajtoj.
     for ( let i = 0; i < kvanto; i++ ) {
       const b = i * 3;
-      bestoj[i] = ( bajtoj[b >> 3] >> ( b & 7 ) )
+      bestoj[i] = ( bajtoj[b >> 3] >> (b & 7) )
         | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 8 - ( b & 7 ) );
       bestoj[i] &= 7;
     }

@@ -23,7 +23,7 @@ export const VESTOJ: Vesto[] = [
 ];
 
 // deksesuma — Formatu decimalan koloron kiel #rrggbb-strako.
-export const deksesuma = (c: number): string => "#" + c.toString(0o20).padStart(0o6, "0");
+export const deksesuma = ( c: number ): string => "#" + c.toString(0o20).padStart(0o6, "0");
 
 // Harstiloj — haro-stiloj por la vestaro. Ĉiu stilo havas sian propran koloron,
 // do la elekto ŝanĝas kaj la formon kaj la nuancon de la haro.

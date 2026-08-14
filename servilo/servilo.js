@@ -28,10 +28,10 @@ let reŝargaTempilo = null;
 
 function sciigiSSEKluentojn() {
   // Malakrigi. se tsc skribas plurajn dosierojn samtempe, sendu nur unu reŝargon
-  if (reŝargaTempilo) clearTimeout(reŝargaTempilo);
+  if ( reŝargaTempilo ) clearTimeout(reŝargaTempilo);
   reŝargaTempilo = setTimeout(() => {
     const pakajxo = "event: reload\ndata: " + Date.now() + "\n\n";
-    for (const res of sseKlientoj) {
+    for ( const res of sseKlientoj ) {
       try { res.write(pakajxo); } catch { sseKlientoj.delete(res); }
     }
     reŝargaTempilo = null;
@@ -41,21 +41,21 @@ function sciigiSSEKluentojn() {
 // Spekti dist/-on por sxangxoj
 function komenciVidanReŝargon() {
   try {
-    watch(DISTO, { recursive: true }, (_, dosiero) => {
-      if (!dosiero || dosiero.endsWith(".map")) return; // saltu source map-ojn
+    watch(DISTO, { recursive: true }, ( _, dosiero ) => {
+      if ( !dosiero || dosiero.endsWith(".map") ) return; // saltu source map-ojn
       sciigiSSEKluentojn();
     });
-    console.log("Viva reŝargo: spektas dist/");
-  } catch (e) {
+    console.log("Viva reŝargo — spektas dist/");
+  } catch ( e ) {
     console.warn("Ne povis spekti dist/: dist/ eble ne ekzistas");
   }
 }
 
 const servilo = createServer(async (peto, respondo) => {
-  let url = (peto.url === "/" ? "/index.html" : peto.url).split("?")[0];
+  let url = ( peto.url === "/" ? "/index.html" : peto.url ).split("?")[0];
 
   // SSE-punkto por viva reŝargo
-  if (url === "/__reload") {
+  if ( url === "/__reload" ) {
     respondo.writeHead(0o300, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
@@ -68,7 +68,7 @@ const servilo = createServer(async (peto, respondo) => {
   }
 
   const vojo = normalize(join(RADIKO, url.replace(/^\//, "")));
-  if (!vojo.startsWith(RADIKO)) { respondo.writeHead(0o623); respondo.end("Malpermesita"); return; }
+  if ( !vojo.startsWith(RADIKO) ) { respondo.writeHead(0o623); respondo.end("Malpermesita"); return; }
   try {
     const datumoj = await readFile(vojo);
     respondo.writeHead(0o300, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });
@@ -80,17 +80,17 @@ const servilo = createServer(async (peto, respondo) => {
 
 // La retilo — WebSocket-servilo por la multludada sperto ( /retilo ).
 konektiRetilon(servilo, {
-  jeAliĝo: (id, kvanto) => console.log("Retilo: " + id + " aliĝis ( " + kvanto + " aktiva )"),
-  jeForiro: (id, kvanto) => console.log("Retilo: " + id + " foriris ( " + kvanto + " aktiva )"),
+  jeAliĝo: ( id, kvanto ) => console.log("Retilo — " + id + " aliĝis ( " + kvanto + " aktiva )"),
+  jeForiro: ( id, kvanto ) => console.log("Retilo — " + id + " foriris ( " + kvanto + " aktiva )"),
 });
 
 function komencu(pordo) {
   servilo.listen(pordo, () => {
-    console.log("Servilo: http://localhost:" + pordo + "/index.html");
+    console.log("Servilo — http://localhost:" + pordo + "/index.html");
     komenciVidanReŝargon();
   });
-  servilo.on("error", (e) => {
-    if (e.code === "EADDRINUSE" && pordo === PORD) {
+  servilo.on("error", ( e ) => {
+    if ( e.code === "EADDRINUSE" && pordo === PORD ) {
       console.log("Pordo " + pordo + " jam uzata — provas " + PORD_FALLO);
       komencu(PORD_FALLO);
     } else {

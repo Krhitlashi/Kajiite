@@ -62,7 +62,7 @@ export interface InternaEnirPunkto {
 
 export interface InternaSistemo {
   currentGroup: THREE.Group | null;
-  animated: { update: (t: number) => void }[];
+  animated: { update: ( t: number ) => void }[];
   plankoj: PlankoInfo[];
   helikso: HeliksoInfo | null;
   manĝaĵoj: MangxajxItemo[];
@@ -88,7 +88,7 @@ interface KasxitaInterno {
   manĝaĵoj: MangxajxItemo[];
   vaporNuboj: { cloud: THREE.Points; basePos: THREE.Vector3; ph: number }[];
   litkoj: { x: number; z: number; y: number; largho: number }[];
-  animated: { update: (t: number) => void }[];
+  animated: { update: ( t: number ) => void }[];
 }
 
 // Kiom da internoj restu en la kasxo. Ĉiu okupas GPU-memoron ( geometrioj,
@@ -147,7 +147,7 @@ function konstruiMuronKunPilolaTruo(
   const wc = ww / 2;
   const fenLokY = fenY - bazaY;
   const segLargho = plataLargho - ww / 2;
-  const segAlto = alto - (fenLokY + hh);
+  const segAlto = alto - ( fenLokY + hh );
 
   // Skatola segmento en la mura loka kadro ( x laŭ la muro, y vertikala ).
   const aldoniBlokon = ( lokalX: number, lokalY: number, largho: number, alteco: number ) => {
@@ -249,12 +249,12 @@ function aldoniLonganFenestron(
   const ww = Math.min(plataLargho * 2 - 0o3/0o10, plataLargho * 4/3 + 0o1/0o4);
   const hh = Math.min(0o5/0o10, alto * 0o23/0o100);
   const fenY = bazaY + Math.max(alto * 2/5, 0o3/0o4);
-  if (fenY + hh > bazaY + alto) return;
+  if ( fenY + hh > bazaY + alto ) return;
   const malantaŭ = orientacio === "malantaŭ";
   const rotacio = orientacio === "dekstra" ? -Math.PI / 2 : Math.PI / 2;
   // La vitra panelo kaj ora kadro sidas ĉe la ĉambro-flanko de la muro (ne en ĝia centro)
   const ofseto = 0o3/0o40;
-  const aCx = malantaŭ ? cx : cx + (orientacio === "dekstra" ? -ofseto : ofseto);
+  const aCx = malantaŭ ? cx : cx + ( orientacio === "dekstra" ? -ofseto : ofseto );
   const aCz = malantaŭ ? cz + ofseto : cz;
   const dikeco = 0o3/0o20;
   // Unu muro kun rondigita (pilola) truo — la malkovro kongruas precize al la
@@ -266,20 +266,20 @@ function aldoniLonganFenestron(
   const fenGeo = new THREE.ShapeGeometry(kreiPilolFenestranFormon(ww, hh), 0o100);
   const fen = new THREE.Mesh(fenGeo, fenestraMaterialo);
   fen.position.set(aCx, fenY, aCz);
-  if (!malantaŭ) fen.rotation.y = rotacio;
+  if ( !malantaŭ ) fen.rotation.y = rotacio;
   group.add(fen);
   // Ora pilola rando ĉirkaŭ la tuta fenestro (tubo laŭ la konturo). Densa
   // sampado kun CENTRIPETA kurbo — la rando ne ondas/elstaras ĉe la rektaj
   // flankoj de la pilolo (la malnova uniforma tensio tro-svingis ĉe la
   // rekt-sekciaj transiroj kaj distordis la flankojn).
   const konturo = kreiPilolFenestranFormon(ww, hh).getPoints(0o200)
-    .map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, 0));
+    .map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, 0));
   const rimo = new THREE.Mesh(
     new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
     oraRandoMaterialo
 );
   rimo.position.set(aCx, fenY, aCz);
-  if (!malantaŭ) rimo.rotation.y = rotacio;
+  if ( !malantaŭ ) rimo.rotation.y = rotacio;
   group.add(rimo);
   // Ora kadro laŭ la PILOLA konturo (ne rektangula skatolo) — la malnova
   // rektangula skatolo montris kvadratan flavan konturon ĉirkaŭ la rondigita
@@ -428,7 +428,7 @@ function kreiStelplenanTeksajxon(): THREE.CanvasTexture {
   for ( let i = 0; i < 0o140; i++ ) {
     const x = Math.random() * c.width, y = Math.random() * c.height;
     const r = 0o5/0o10 + Math.random() * 0o15/0o10;
-    g.fillStyle = `rgba(214,240,255,${(0o26/0o100 + Math.random() * 0o52/0o100).toFixed(2)})`;
+    g.fillStyle = `rgba(214,240,255,${( 0o26/0o100 + Math.random() * 0o52/0o100 ).toFixed(2)})`;
     g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
   }
   stelplenaTeksajxo = new THREE.CanvasTexture(c);
@@ -450,7 +450,7 @@ function forigiInternanGrupon(grupo: THREE.Group): void {
       if ( !mat || viditajMaterialoj.has(mat) ) continue;
       viditajMaterialoj.add(mat);
       // La interno uzas nur la map/emissiveMap fendojn ( planko, plakedo, steloj ).
-      const teksturoj = [ (mat as THREE.MeshStandardMaterial).map, (mat as THREE.MeshStandardMaterial).emissiveMap ];
+      const teksturoj = [ ( mat as THREE.MeshStandardMaterial ).map, ( mat as THREE.MeshStandardMaterial ).emissiveMap ];
       for ( const teks of teksturoj ) {
         if ( teks && teks !== stelplenaTeksajxo && !viditajTeksajxoj.has(teks) ) {
           viditajTeksajxoj.add(teks);
@@ -705,9 +705,9 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   const yB = -down * sxipaTiero, yT = up * sxipaTiero;
   // Kareno-radiuso je loka alteco y (konusoj kongruantaj al la sxipa silueto,
   // iomete ene por neniu z-fajfo kun la sxelo).
-  const konusaR = (y: number): number =>
-    y >= 0 ? rMezCx - (rMezCx - rSupro) * (y / (up * sxipaTiero))
-           : rMezCx - (rMezCx - rBoto) * (-y / (down * sxipaTiero));
+  const konusaR = ( y: number ): number =>
+    y >= 0 ? rMezCx - ( rMezCx - rSupro ) * ( y / ( up * sxipaTiero ) )
+           : rMezCx - ( rMezCx - rBoto ) * ( -y / ( down * sxipaTiero ) );
 
   const kareno = new THREE.MeshStandardMaterial({ color: 0x103028, roughness: 0o3/0o10, metalness: 0o11/0o40, side: THREE.DoubleSide });
   const malhela = new THREE.MeshStandardMaterial({ color: 0x081818, roughness: 0o5/0o10, metalness: 0o1/0o10 });
@@ -728,11 +728,11 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   // Etaĝoj. La enira etaĝo je 0, subaj kaj supraj laŭ la tieroj. La klampo
   // (hw/hd) estas kvadrato ene de la ronda kareno. r/√2 ĉe ĉiu etaĝo.
   sys.plankoj = [];
-  for (let j = down; j >= 1; j--) {
+  for ( let j = down; j >= 1; j-- ) {
     const r = konusaR(-j * sxipaTiero);
     sys.plankoj.push({ y: -j * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, alto: sxipaTiero });
   }
-  for (let i = 0; i < up; i++) {
+  for ( let i = 0; i < up; i++ ) {
     const r = konusaR(i * sxipaTiero);
     sys.plankoj.push({ y: i * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, alto: sxipaTiero });
   }
@@ -753,7 +753,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   grupo.add(lumRingo);
 
   // Etaĝaj diskoj. Plenaj ĉe la malsupro, ringaj ( kun helika truo ) aliloke.
-  for (const p of sys.plankoj) {
+  for ( const p of sys.plankoj ) {
     const r = p.hw * Math.SQRT2;
     const estasMalsupro = p.y === yB;
     const planko = new THREE.Mesh(
@@ -766,7 +766,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
     grupo.add(planko);
     // Ora ringo ĉe la enira etaĝo — SUPRE de la planko (0o5/0o100; la planko mem
     // estas je 0o1/0o40, do 0o3/0o100 libero — neniu z-fajfo).
-    if (p.y === 0) {
+    if ( p.y === 0 ) {
       const ringo = new THREE.Mesh(new THREE.RingGeometry(r - 0o3/0o10, r - 0o1/0o20, 0o40).rotateX(-Math.PI / 2), oro);
       ringo.position.y = 0o5/0o100;
       grupo.add(ringo);
@@ -775,7 +775,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
 
   // Helika ŝtuparo + centra kolono + ora spirala manrelo
   {
-    const rMezo = (helikso.rKol + helikso.rEkster) / 2;
+    const rMezo = ( helikso.rKol + helikso.rEkster ) / 2;
     const radiala = helikso.rEkster - helikso.rKol;
     const paŝoAngulo = Math.PI * 2 / helikso.perTurno;
     const paŝoAlto = helikso.turnoAlto / helikso.perTurno;
@@ -788,9 +788,9 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
       new THREE.CylinderGeometry(helikso.rKol, helikso.rKol * 0o106/0o100, suproY - fundoY, 0o20),
       malhela
 );
-    kolono.position.set(0, (fundoY + suproY) / 2, 0);
+    kolono.position.set(0, ( fundoY + suproY ) / 2, 0);
     grupo.add(kolono);
-    for (let p = -nSube; p < nSupre; p++) {
+    for ( let p = -nSube; p < nSupre; p++ ) {
       const ang = p * paŝoAngulo;
       const y = heliksaAltecxo(helikso, p / helikso.perTurno);
       const paso = new THREE.Mesh(
@@ -802,13 +802,13 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
       grupo.add(paso);
     }
     const relPunktoj: THREE.Vector3[] = [];
-    const relSegmentoj = Math.max(0o100, (helikso.turnoj + helikso.turnojSube) * 0o40);
-    for (let i = 0; i <= relSegmentoj; i++) {
+    const relSegmentoj = Math.max(0o100, ( helikso.turnoj + helikso.turnojSube ) * 0o40);
+    for ( let i = 0; i <= relSegmentoj; i++ ) {
       const t = i / relSegmentoj;
-      const turno = -helikso.turnojSube + t * (helikso.turnoj + helikso.turnojSube);
+      const turno = -helikso.turnojSube + t * ( helikso.turnoj + helikso.turnojSube );
       const ang = turno * Math.PI * 2;
       const y = Math.min(yT - 0o1/0o20, heliksaAltecxo(helikso, turno) + 0o3/0o4);
-      relPunktoj.push(new THREE.Vector3((helikso.rEkster + 0o1/0o10) * Math.sin(ang), y, (helikso.rEkster + 0o1/0o10) * Math.cos(ang)));
+      relPunktoj.push(new THREE.Vector3(( helikso.rEkster + 0o1/0o10 ) * Math.sin(ang), y, ( helikso.rEkster + 0o1/0o10 ) * Math.cos(ang)));
     }
     const relo = new THREE.Mesh(
       new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 0o3/0o100, 0o6, false),
@@ -820,7 +820,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   // Fronta stelvitralo kun ora kadro (ĉe la enira etaĝo) — modesta grandeco,
   // por ke ĝi ne elstaru preter la konusa kareno en la ŝipŝelon.
   // iomete enen de la muro, por ke la anguloj ne elstaru preter la ŝipŝelo
-  const vitraloZ = -(konusaR(0o23/0o4) - 0o1/0o4);
+  const vitraloZ = -( konusaR(0o23/0o4) - 0o1/0o4 );
   const vitralo = new THREE.Mesh(new THREE.PlaneGeometry(0o4, 0o25/0o10), vitra);
   vitralo.position.set(0, 0o23/0o4, vitraloZ);
   grupo.add(vitralo);
@@ -835,7 +835,7 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   // mallongaj, por ke la plataj piloloj ne elstaru preter la kurba muro.
   const kapsuloj: THREE.Mesh[] = [];
   const rKaps = konusaR(3 - 0o13/0o40);
-  const kapsX = Math.sqrt(Math.max(0o1/0o4, rKaps * rKaps - (0o17/0o10) * (0o17/0o10)));
+  const kapsX = Math.sqrt(Math.max(0o1/0o4, rKaps * rKaps - ( 0o17/0o10 ) * ( 0o17/0o10 )));
   for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
     const fenMat = brila.clone();
     fenMat.side = THREE.DoubleSide;
@@ -904,19 +904,19 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   // Animacioj. La hologramo rotacias, ekrano/fenestroj pulsas, la stelaro drivas.
   const ekranoMat = ekrano.material as THREE.MeshStandardMaterial;
   sys.animated.push({
-    update: (t: number) => {
+    update: ( t: number ) => {
       holoringo.rotation.y = t * 0o46/0o100;
       holoringo2.rotation.y = -t * 0o63/0o100;
       holosfero.scale.setScalar(1 + 0o1/0o10 * Math.sin(t * 2));
       ekranoMat.emissiveIntensity = 0o7/0o10 + 0o1/0o4 * Math.sin(t * 2);
       const pulso = 0o3/0o10 + 0o1/0o4 * Math.sin(t * 3);
-      for (const k of kapsuloj) (k.material as THREE.MeshStandardMaterial).emissiveIntensity = pulso;
-      if (vitra.map) vitra.map.offset.x = (t * 0o1/0o100) % 1;
+      for ( const k of kapsuloj ) (k.material as THREE.MeshStandardMaterial).emissiveIntensity = pulso;
+      if ( vitra.map ) vitra.map.offset.x = ( t * 0o1/0o100 ) % 1;
     },
   });
 
   // La kabino flosas ĉe la sxipo (flugoY), ne sur la tero.
-  grupo.position.set(spec.x, spec.flugoY ?? (spec.h0 || 0), spec.z);
+  grupo.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
   grupo.rotation.y = spec.rot || 0;
   cxefaSceno.add(grupo);
   sys.currentGroup = grupo;
@@ -1052,7 +1052,7 @@ export function eniriInternon(
   sys.litkoj = [];
 
   // La kosmoporda stacio transportas rekte en la spacosxipon.
-  if (spec.type === "stacioxipo") {
+  if ( spec.type === "stacioxipo" ) {
     sys.manĝaĵoj = [];
     sys.vaporNuboj = [];
     sys.litkoj = [];
@@ -1150,7 +1150,7 @@ export function eniriInternon(
     // teretaĝo ricevas la truon ankaŭ kiam ekzistas sub-teraj etaĝoj, por ke
     // oni povu malsupreniri la ŝtuparon en la kelon ).
     const planko = new THREE.Mesh(
-      helikso && (et !== 0 || sube > 0)
+      helikso && ( et !== 0 || sube > 0 )
         ? kreiRinganPlankon(hw, hd, sxaktaR, -Math.PI / 2)
         : new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(-Math.PI / 2),
       plankoMaterialo
@@ -1162,7 +1162,7 @@ export function eniriInternon(
     // Mallongaj oraj strioj ĉe la kvar plankaj anguloj
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
       // L-forma angula krampo el du maldikaj skatoloj
-      for ( const [dx, dz, lx, lz] of [ [ 1, 0, 0o3/0o10, 0o1/0o20 ], [ 0, 1, 0o1/0o20, 0o3/0o10 ] ] as [number, number, number, number][] ) {
+      for ( const [ dx, dz, lx, lz ] of [ [ 1, 0, 0o3/0o10, 0o1/0o20 ], [ 0, 1, 0o1/0o20, 0o3/0o10 ] ] as [ number, number, number, number ][] ) {
         const b = new THREE.Mesh(new THREE.BoxGeometry(lx, 0o1/0o40, lz), oraBazaMaterialo);
         b.position.set(sX * ( hw - 0o1/0o10 * dx ), y + 0o2/0o40, sZ * ( hd - 0o1/0o10 * dz ));
         group.add(b);
@@ -1215,7 +1215,7 @@ export function eniriInternon(
       // Ora rando laŭ la trapezoida konturo — tubo ĝuste antaŭ la interna
       // muro-faco (sama ideo kiel la ekstera ora rando ĉirkaŭ la pordo).
       const truKonturo = kreiTrapezanPordTruon(pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro)
-        .getPoints(0o100).map((pt: THREE.Vector2) => new THREE.Vector3(pt.x, pt.y, 0));
+        .getPoints(0o100).map(( pt: THREE.Vector2 ) => new THREE.Vector3(pt.x, pt.y, 0));
       const pordRando = new THREE.Mesh(
         new THREE.TubeGeometry(new THREE.CatmullRomCurve3(truKonturo, true, "catmullrom", 0o1/0o2), 0o100, 0o1/0o20, 6, true),
         kadraMaterialo
@@ -1266,7 +1266,7 @@ export function eniriInternon(
         new RoundedBoxGeometry(kolDikeco, kolAlto, kolDikeco, 3, 0o3/0o200),
         kadraMaterialo
 );
-      kol.position.set(sX * (hw - kolDikeco / 2), y + kolAlto / 2, sZ * (hd - kolDikeco / 2));
+      kol.position.set(sX * ( hw - kolDikeco / 2 ), y + kolAlto / 2, sZ * ( hd - kolDikeco / 2 ));
       group.add(kol);
 
       // Supra iom pli larĝa kapo — ekstera faco ĝuste ĉe la muro
@@ -1483,7 +1483,7 @@ export function eniriInternon(
     group.add(pot);
     const steamPos = new THREE.Vector3(-0o5/0o10, 0o15/0o10, counter.position.z);
     const vapor = aldoniVaporon(group, steamPos);
-    sys.vaporNuboj = [{ ...vapor, ph: 0 }];
+    sys.vaporNuboj = [ { ...vapor, ph: 0 } ];
     // La tabloj eniras por ke la flankaj benkoj ( ±0o14/0o10, duonprofundo
     // 0o1/0o4 ) ne tuŝu la flankajn murojn — la malnova tabloX 0o22/0o10 lasis
     // la benkojn ĜUSTE ĉe la muro ( nula libero ). La malantaŭa vico
@@ -1495,7 +1495,7 @@ export function eniriInternon(
       ? [ [ tabloX, tabloZ ], [ -tabloX, tabloZ ], [ tabloX, -malantaŭaZ ], [ -tabloX, -malantaŭaZ ] ]
       : [];
     const tabloj: { x: number; z: number }[] = [];
-    for ( const [tx, tz] of tabloLokoj ) {
+    for ( const [ tx, tz ] of tabloLokoj ) {
       // La tablo kun benkoj — nur tri flankoj por la malantauxa vico ( tz < 0 ),
       // por ke la flanko kontraŭ la vendotablo restu libera.
       aldoniManĝtablon(group, tx, tz, 0, lignaMaterialo, kadraMaterialo, tz < 0);
@@ -1533,7 +1533,7 @@ export function gxisdatigiInternon(sys: InternaSistemo, t: number): void {
   for ( const a of sys.animated ) a.update(t);
   for ( const v of sys.vaporNuboj ) {
     const pos = v.cloud.geometry.attributes.position;
-    if (pos) {
+    if ( pos ) {
       for ( let i = 0; i < pos.count; i++ ) {
         const y = pos.getY(i) + 0o3/0o2000;
         if ( y > 7/5 ) pos.setY(i, -0o6/0o100);
@@ -1577,9 +1577,9 @@ function konstruiMuron(
   cx: number, cz: number,
   rotacio = 0
 ): void {
-  if (largho <= 0 || alto <= 0) return;
+  if ( largho <= 0 || alto <= 0 ) return;
   const muro = new THREE.Mesh(new THREE.BoxGeometry(largho, alto, dikeco), materialo);
-  if (rotacio) {
+  if ( rotacio ) {
     // Por flankaj muroj. lokalX estas Z-offset, cx estas X-ebeno
     muro.position.set(cx, bazaY + lokalY + alto / 2, cz + lokalX + largho / 2);
     muro.rotation.y = rotacio;

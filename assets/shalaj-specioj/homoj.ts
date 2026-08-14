@@ -3,6 +3,7 @@
 import * as THREE from "three";
 import { deksesuma, kvarStelo, rombo, HARSTILOJ } from "../vestaro/vestoj.js";
 import { kreiRondigitanRektangulanFormon } from "../komunajxoj/formoj.js";
+import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
 import type { Vesto, Harstilo } from "../vestaro/vestoj.js";
 
 export type { Vesto };
@@ -116,12 +117,7 @@ function kreiFoliaTonditanTubon(suproR: number, malsuproR: number, suproY: numbe
     const centro = 0o2 * ringo;
     for ( let i = 0; i < segmentoj; i++ ) indeksoj.push(0o2 * i, 0o2 * i + 0o2, centro);
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
-  geometrio.setIndex(indeksoj);
-  geometrio.computeVertexNormals();
-  return geometrio;
+  return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
 }
 
 // konstruiManikon — Konstruu tri-dimensian manikon. Tubo kies malsupro estas
@@ -149,17 +145,17 @@ function konstruiManikon(ĉefaM: THREE.Material, akcentaM: THREE.Material): THRE
 // --- Figuro ---
 export interface Figuro {
   group: THREE.Group;
-  agordiVeston: (o: Vesto) => void;
-  agordiHaranStilon: (stilo: Harstilo) => void;
-  agordiHaranKoloron: (koloro: number) => void;
+  agordiVeston: ( o: Vesto ) => void;
+  agordiHaranStilon: ( stilo: Harstilo ) => void;
+  agordiHaranKoloron: ( koloro: number ) => void;
   hejmo: THREE.Vector3;
   celo: THREE.Vector3;
   atendo: number;
   rapido: number;
   marsoFazo: number;          // akumulita marŝa fazo ( paŝa oscilo )
   movoFaktoro: number;        // 0 = staras, 1 = marŝas ( glata transiro )
-  kruroj: [THREE.Object3D, THREE.Object3D]; // pivot-grupoj [maldekstra, dekstra]
-  brakoj: [THREE.Object3D, THREE.Object3D]; // pivot-grupoj [maldekstra, dekstra]
+  kruroj: [ THREE.Object3D, THREE.Object3D ]; // pivot-grupoj [maldekstra, dekstra]
+  brakoj: [ THREE.Object3D, THREE.Object3D ]; // pivot-grupoj [maldekstra, dekstra]
 }
 
 // kreiRobanSxelon — Robo kun oblikva malsupra rando. La dorso pendas pli
@@ -245,11 +241,7 @@ function kreiHaranKurtenon(): THREE.BufferGeometry {
       indeksoj.push(a, b, d, a, d, c);
     }
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("normal", new THREE.Float32BufferAttribute(normaloj, 3));
-  geometrio.setIndex(indeksoj);
-  return geometrio;
+  return kreiBuferanGeometrion(pozicioj, indeksoj, { normaloj });
 }
 
 // kreiHaranFlankon — Konstruu unu flank-haran strion kadrantan la vizaĝon.
@@ -282,11 +274,7 @@ function kreiHaranFlankon(dir: number): THREE.BufferGeometry {
       indeksoj.push(a, b, d, a, d, c);
     }
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setIndex(indeksoj);
-  geometrio.computeVertexNormals();
-  return geometrio;
+  return kreiBuferanGeometrion(pozicioj, indeksoj);
 }
 
 // Har-koloroj — malhelbruna ĝis ruĝeta malhelbruna. Ĉiu NPC ricevas propran
@@ -413,7 +401,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   const sR = konstruiManikon(manikaTuboM, manikaAkcentaM); sR.rotation.z = 0o1/0o10;
   brakoL.add(sL); brakoR.add(sR);
 
-  // ── Har-stiloj ──
+  // ⟨ Har-stiloj ⟩
   // Ĉiu stilo estas aparta grupo konstruita ĉiam ( ne nur la elektita ), por
   // ke agordiHaron povu ŝanĝi la stilon poste sen rekonstrui la geometriojn.
   // La grupoj estas konstruitaj per HARSTILOJ ( la sama listo kiel la vestara
@@ -429,7 +417,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
     grupo.visible = klavo === aktivaHaro;
     g.add(grupo);
   }
-  g.traverse(m => { if ( (m as THREE.Mesh).isMesh ) (m as THREE.Mesh).castShadow = true; });
+  g.traverse(m => { if ( ( m as THREE.Mesh ).isMesh ) (m as THREE.Mesh).castShadow = true; });
 
   const fig: Figuro = {
     group: g,
@@ -438,8 +426,8 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
     atendo: 0, rapido: 0o63/0o100,
     marsoFazo: Math.random() * Math.PI * 0o2,
     movoFaktoro: 0,
-    kruroj: [kruroL, kruroR],
-    brakoj: [brakoL, brakoR],
+    kruroj: [ kruroL, kruroR ],
+    brakoj: [ brakoL, brakoR ],
     agordiVeston(nova: Vesto) {
       internoM.map = vestaTeksajxo(nova, "interno"); eksteraM.map = vestaTeksajxo(nova, "supra");
       pantalonoM.map = vestaTeksajxo(nova, "pantalono");
@@ -467,7 +455,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
 //     @param deltaTempo ( number ) - Delta tempo en sekundoj.
 //     @param t ( number ) - Malsupra tempo por oscedoj.
 //     @param alteco ( funkcio ) - Tera alta funkcio por sekvi la terenon.
-export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco: (x: number, z: number) => number): void {
+export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco: ( x: number, z: number ) => number): void {
   fig.atendo -= deltaTempo;
   if ( fig.atendo <= 0 ) {
     const a = Math.random() * Math.PI * 0o2, hazardaRadiuso = Math.random() * 0o4;
@@ -488,7 +476,7 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco
   if ( movas ) {
     fig.group.position.x += difX / d * fig.rapido * deltaTempo;
     fig.group.position.z += difZ / d * fig.rapido * deltaTempo;
-    fig.group.position.y = fig.group.position.y + (alteco(fig.group.position.x, fig.group.position.z) - fig.group.position.y) * 0o15/0o100;
+    fig.group.position.y = fig.group.position.y + ( alteco(fig.group.position.x, fig.group.position.z) - fig.group.position.y ) * 0o15/0o100;
     fig.group.rotation.y = Math.atan2(difX, difZ);
   }
   // Sta-svingo — eta balancado nur kiam oni staras, por ke la figuro ne ŝtoniĝu.

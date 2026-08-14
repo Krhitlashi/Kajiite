@@ -6,7 +6,7 @@ import * as THREE from "three";
 // Determinisma LCG por konsekvenca glifo-generado
 let _seed = 0x752;
 function hazardo(): number {
-  _seed = (_seed * 0x1663 + 0x1015) % 0x100000;
+  _seed = ( _seed * 0x1663 + 0x1015 ) % 0x100000;
   return _seed / 0x100000;
 }
 
@@ -19,9 +19,9 @@ function hashiStringo(s: string): number {
 // Nesimetra rondigita rektangulo ( 0o40px 0o20px 0o40px 0o20px motivo )
 function nesimetraRecto(kunteksto: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number,
-  r: [number, number, number, number]
+  r: [ number, number, number, number ]
 ): void {
-  const [tl, tr, br, bl] = r;
+  const [ tl, tr, br, bl ] = r;
   kunteksto.beginPath();
   kunteksto.moveTo(x + tl, y);
   kunteksto.lineTo(x + w - tr, y); kunteksto.quadraticCurveTo(x + w, y, x + w, y + tr);
@@ -101,13 +101,13 @@ function desegniSkripto(kunteksto: CanvasRenderingContext2D,
   const blokoLargho = W * 0o13/0o40;
   const blokoAlto = blokoLargho * 0o14/0o10;
   const interspaco = blokoAlto * 0o5/0o40;
-  const n = Math.max(2, Math.floor((H * 0o55/0o100) / (blokoAlto + interspaco)));
+  const n = Math.max(2, Math.floor(( H * 0o55/0o100 ) / ( blokoAlto + interspaco )));
 
   let y = H * 0o57/0o100 - blokoAlto; // Unua glifo sidas malalte, legado supreniras
   for ( let b = 0; b < n; b++ ) {
     const cX = W / 2 + ( hazardo() - 0o15/0o40 ) * W * 0o3/0o40;
     glifaBloko(kunteksto, cX - blokoLargho / 2, y, blokoLargho, blokoAlto, ink);
-    y -= (blokoAlto + interspaco);
+    y -= ( blokoAlto + interspaco );
   }
 }
 
@@ -124,7 +124,7 @@ export function generiSkriptanKanvason(opts: SkriptajOpcioj = {}): HTMLCanvasEle
   const o = { w: 0o300, h: 0o460, ink: "#183828", frame: "#c8a058" as string | null, seedName: "", bg: "" as string | undefined, ...opts };
   // Semu la RNG-on por determinisma eligo
   if ( o.seedName ) {
-    _seed = (hashiStringo(o.seedName) % 0xFFFF0) | 1;
+    _seed = ( hashiStringo(o.seedName) % 0xFFFF0 ) | 1;
   }
 
   const kanvasa = document.createElement("canvas");
@@ -213,12 +213,12 @@ export function generiGlifanStrion(height: number, ink: string): HTMLCanvasEleme
   const blokoLargho = 0o44;
   const blokoAlto = blokoLargho * 0o14/0o10;
   const interspaco = blokoAlto * 0o4/0o40;
-  const n = Math.floor(height / (blokoAlto + interspaco));
+  const n = Math.floor(height / ( blokoAlto + interspaco ));
 
   let y = height - 0o10;
   for ( let b = 0; b < n; b++ ) {
     glifaBloko(kunteksto, 0o10, y - blokoAlto, blokoLargho, blokoAlto, ink);
-    y -= (blokoAlto + interspaco);
+    y -= ( blokoAlto + interspaco );
   }
 
   return kanvasa;

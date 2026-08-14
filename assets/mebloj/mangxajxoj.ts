@@ -60,8 +60,8 @@ export interface MangxajxItemo {
 //     @param tabloj ( { x, z }[] ) - Tablo-centraj pozicioj; la mangxajxoj sidas sur la supro ( y ≈ 0o7/0o20 ).
 export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: { x: number; z: number }[] = []): MangxajxItemo[] {
   const items: MangxajxItemo[] = [];
-  const metaDe = (k: string): MangxajxDatumo => FOKS.find(x => x.key === k) || TLAS.find(x => x.key === k)!;
-  const aldoni = (k: string, x: number, y: number, z: number) => {
+  const metaDe = ( k: string ): MangxajxDatumo => FOKS.find(x => x.key === k) || TLAS.find(x => x.key === k)!;
+  const aldoni = ( k: string, x: number, y: number, z: number ) => {
     const meta = metaDe(k);
     const m = k.startsWith("fok") ? bunMesh(meta) : glassMesh(meta);
     m.position.set(x, y, z);
@@ -77,11 +77,11 @@ export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: 
       aldoni(mangxoj[( i * 2 + 1 ) % mangxoj.length], t.x + 0o1/0o10, suproY, t.z);
     });
   } else {
-    const foods: { p: [number, number, number]; k: string }[] = [
-      { p: [cx + 0o15/0o40, 0o104/0o100, cz - 0o25/0o10], k: "fok0" }, { p: [cx + 0o11/0o10, 0o104/0o100, cz - 0o25/0o10], k: "fok2" },
-      { p: [cx + 0o17/0o10, 0o104/0o100, cz - 0o25/0o10], k: "tla2" }, { p: [cx + 0o35/0o10, 0o63/0o100, cz + 0o23/0o10], k: "fok1" }, { p: [cx + 0o41/0o10, 0o63/0o100, cz + 0o23/0o10], k: "tla0" },
+    const foods: { p: [ number, number, number ]; k: string }[] = [
+      { p: [ cx + 0o15/0o40, 0o104/0o100, cz - 0o25/0o10 ], k: "fok0" }, { p: [ cx + 0o11/0o10, 0o104/0o100, cz - 0o25/0o10 ], k: "fok2" },
+      { p: [ cx + 0o17/0o10, 0o104/0o100, cz - 0o25/0o10 ], k: "tla2" }, { p: [ cx + 0o35/0o10, 0o63/0o100, cz + 0o23/0o10 ], k: "fok1" }, { p: [ cx + 0o41/0o10, 0o63/0o100, cz + 0o23/0o10 ], k: "tla0" },
     ];
-    for (const f of foods) {
+    for ( const f of foods ) {
       const meta = metaDe(f.k);
       const m = f.k.startsWith("fok") ? bunMesh(meta) : glassMesh(meta);
       m.position.set(f.p[0], f.p[1], f.p[2]);
@@ -146,7 +146,7 @@ export function kreiPussxlefojnBerojn(g: THREE.Object3D, plantoj: { x: number; h
 
 export function aldoniVaporon(g: THREE.Group, local: THREE.Vector3): { cloud: THREE.Points; basePos: THREE.Vector3 } {
   const n = 0o30, pos = new Float32Array(n * 3);
-  for (let i = 0; i < n; i++) pos.set([(Math.random() - 0o4/0o10) * 0o4/0o10, Math.random() * 0o23/0o20, (Math.random() - 0o4/0o10) * 0o4/0o10], i * 3);
+  for ( let i = 0; i < n; i++ ) pos.set([ ( Math.random() - 0o4/0o10 ) * 0o4/0o10, Math.random() * 0o23/0o20, ( Math.random() - 0o4/0o10 ) * 0o4/0o10 ], i * 3);
   const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
   const pts = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xe8f0e8, size: 0o6/0o100, transparent: true, opacity: 0o26 / 0o100, depthWrite: false }));
   pts.position.copy(local);

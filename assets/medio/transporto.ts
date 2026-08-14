@@ -109,7 +109,7 @@ export function kreiKanoton(sceno: THREE.Scene,
   const klingo = new THREE.BoxGeometry(0o5/0o40, 0o1/0o100, 0o27/0o100);
   klingo.translate(0, -0o33/0o40, 0);
 
-  const pagajilaGeometrio = kunfandiGeometriojn([tenilo, klingo]);
+  const pagajilaGeometrio = kunfandiGeometriojn([ tenilo, klingo ]);
   const pagajilo = new THREE.Mesh(pagajilaGeometrio,
     new THREE.MeshStandardMaterial({ color: 0x785838, roughness: 0o63/0o100 }));
   pagajilo.rotation.set(0o5/0o40, 0o2/0o10, 0o133/0o100);
@@ -139,7 +139,7 @@ export function animaciiKanoton(c: Kanoto, t: number, isRiding: boolean): void {
 
   const rapido = Math.hypot(c.vx, c.vz);
   const klinigxo = Math.sin(t * 0o103/0o40 + c.phase * 0o123/0o100) * 0o1/0o40;
-  c.group.rotation.x = klinigxo - (isRiding ? Math.min(rapido, 4) * 0o1/0o100 : 0);
+  c.group.rotation.x = klinigxo - ( isRiding ? Math.min(rapido, 4) * 0o1/0o100 : 0 );
 }
 
 // gxisdatigiKanotanFizikon — Gxisdatigu kanotan fizikon lau enigo kaj malfortigo.

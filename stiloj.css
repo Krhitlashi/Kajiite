@@ -1,13 +1,8 @@
 :root {
-  --deep:#081010;
-  --mist:#e8f0e8;
-  --dim:#a0b8a0;
   --gold:#d8b068;
   --gold-faint:#d8b06818;
   --gold-dim:#d8b06830;
   --gold-soft:#d8b06858;
-  --scrim:#080808a0;
-  --panel:#081810d0;
   --sat:env(safe-area-inset-top,0px);
   --sab:env(safe-area-inset-bottom,0px);
   --sal:env(safe-area-inset-left,0px);
@@ -20,8 +15,6 @@ body {
   display:block;
   overflow:hidden;
   overscroll-behavior:none;
-  background:var(--deep);
-  color:var(--mist);
   user-select:none;
 }
 #sceno { display:block; touch-action:none; cursor:grab; }
@@ -39,7 +32,7 @@ body {
 #fxMenta { background:radial-gradient(88% 68% at 50% 37.5%,#98e8c838,transparent 68%); }
 .fxPulso { animation:fxp 1s ease forwards; }
 @keyframes fxp { 0%{opacity:0} 32%{opacity:1} 100%{opacity:0} }
-#balailo { z-index:8; background:var(--deep); opacity:0; transition:opacity .5s; }
+#balailo { z-index:8; opacity:0; transition:opacity .5s; }
 
 /* Crosshair, toast, and centered overlays */
 #retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .25s; }
@@ -58,7 +51,7 @@ body {
 #tosto.montri { transform:translate(-50%,-50%); }
 #supermeta {
   z-index:6; display:grid; place-items:center;
-  background:var(--scrim); opacity:0; pointer-events:none; transition:opacity .25s;
+opacity:0; pointer-events:none; transition:opacity .25s;
 }
 /* La plena mapo estas plenekrana: kiam la mapo malfermiĝas, la panelo kaŝiĝas,
    la kanvaso plenigas la tutan ekranon, kaj la tegilo ( z-7 ) kuŝas super la
@@ -122,7 +115,6 @@ body {
 /* The linked stylesheet's universal flex/grid gap (--អារេង, 8px) already sets the card's
    vertical rhythm, so no local margins are needed between these sections. */
 .peco { display:inline-block; padding:var(--អារេង); border-radius:var(--អិត្ភេចិ); border: var(--តានេក); }
-.statistikoj b { color:var(--mist); }
 .gusto { color:var(--កេភ២); }
 #prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); transition:opacity .25s,transform .25s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
 #prompto.montri { transform:translateX(-50%); }
@@ -202,18 +194,16 @@ body {
 /* Flex column so the linked sheet's universal gap (8px) spaces the canvas and the name. */
 .vestaKardo { cursor:pointer; transition:transform .25s,border-color .25s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--តានេក២); }
-.vestaKardo .vn { color:var(--mist); }
 /* La har-kolora svecxo — ronda ĝemo sur la kolora karto ( la sama pilolo-radio
    kaj bordo kiel la eksteraj elementoj ), por ke la koloroj vere videblu. */
 .harKoloroChip { inline-size:24px; block-size:24px; border-radius:var(--អិត្ភេមិ); border:var(--សាកព៏); align-self:center; }
 /* La elektita karto ( har-stilo/koloro ) ricevas pli fortan bordon. */
 .vestaKardo.elektita { border-color:var(--តានេក៣); }
-#sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); background:var(--deep); transition:opacity 1s; }
+#sxargxo { z-index:9; display:flex; flex-direction:row; background: var(--ខេលេសៃ); align-items:center; justify-content:center; gap:var(--អារេងព៏); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
 /* La titolo kaj surskribo staras cxe la flankoj de la vertikala stango; la plenigo fluas de malsupro al supro. */
 .stango { position:relative; inline-size:6px; block-size:min(224px, 48%); border-radius:var(--ចិង); background:var(--gold-dim); overflow:hidden; }
 .stango i { position:absolute; inset-inline:0; inset-block-end:0; inline-size:100%; block-size:0%; border-radius:var(--ចិង); background:var(--gold); transition:block-size .25s; }
-.lsupra { color:var(--dim); }
 
 /* La skribo-direkto de la flosantaj kartoj sekvu la aktivan lingvon, ne la konstantan .aih-klason. */
 /* aih flanka (sideways-lr) · ja de supro al malsupro (vertical-rl) · aliaj normalaj. */
@@ -249,5 +239,5 @@ body.tuŝa #mobKontroloj { display:block; }
 #mobButInterakti.montri { opacity:1; pointer-events:auto; }
 
 @media (prefers-color-scheme:light) {
-  :root { --deep:#e8f0e8; --mist:#182020; --dim:#687868; --gold:#a88848; --gold-soft:#a8884858; --panel:#e8f0e8d8; }
+  :root { --gold:#a88848; --gold-soft:#a8884858; }
 }

@@ -16,7 +16,7 @@ function ensureAudio() {
     if ( AC.state === "suspended" ) AC.resume();
     return;
   }
-  AC = new (window.AudioContext || (window as any).webkitAudioContext)();
+  AC = new ( window.AudioContext || ( window as any ).webkitAudioContext )();
   if ( AC.state === "suspended" ) AC.resume();
   master = AC.createGain();
   master.gain.value = 0;
@@ -32,9 +32,9 @@ function ensureAudio() {
   const buf = AC.createBuffer(1, len, AC.sampleRate);
   const d = buf.getChannelData(0);
   let last = 0;
-  for (let i = 0; i < len; i++) {
+  for ( let i = 0; i < len; i++ ) {
     const w = Math.random() * 2 - 1;
-    last = (last + 0o1/0o100 * w) / (0o101/0o100);
+    last = ( last + 0o1/0o100 * w ) / ( 0o101/0o100 );
     d[i] = last * 0o7/0o2;
   }
 
@@ -60,11 +60,11 @@ function ensureAudio() {
   lfo.start();
 
   // Harmoniaj drunoj. A2 ( 0o156 ), E3 ( 0o245 ), A3 ( 0o334 ) kun eta malagordiĝo
-  [ 0o160, 0o250, 0o330 ].forEach((f, i) => {
+  [ 0o160, 0o250, 0o330 ].forEach(( f, i ) => {
     const o = AC!.createOscillator();
     o.type = "sine";
     o.frequency.value = f;
-    o.detune.value = (i - 1) * 4;
+    o.detune.value = ( i - 1 ) * 4;
     const og = AC!.createGain();
     og.gain.value = 0.022;
     o.connect(og);
@@ -98,7 +98,7 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
   const n = Math.floor(AC.sampleRate * dur);
   const b = AC.createBuffer(1, n, AC.sampleRate);
   const dd = b.getChannelData(0);
-  for (let i = 0; i < n; i++) dd[i] = (Math.random() * 2 - 1) * (1 - i / n);
+  for ( let i = 0; i < n; i++ ) dd[i] = ( Math.random() * 2 - 1 ) * ( 1 - i / n );
   const s = AC.createBufferSource();
   s.buffer = b;
   const f = AC.createBiquadFilter();
@@ -112,7 +112,7 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
   s.start();
 }
 
-// ─── Sonaĵoj ───────────────────────────────────────────
+// ⟪ Sonaĵoj ⟫
 
 export const sfx = {
   step: () => noiseBurst(0o1/0o20, 0o420 + Math.random() * 0o110, 0o1/0o10),
@@ -121,7 +121,7 @@ export const sfx = {
     tone(0o260, 0o3/0o20, "sine", 0o1/0o20, -0o110);
   },
   bell: () => {
-    [ 1, 0o26/0o10, 0o53/0o10 ].forEach((p, i) => tone(0o304 * p, 0o25/0o10 - i * 0o5/0o10, "sine", 0o5/0o40 / (i + 1)));
+    [ 1, 0o26/0o10, 0o53/0o10 ].forEach(( p, i ) => tone(0o304 * p, 0o25/0o10 - i * 0o5/0o10, "sine", 0o5/0o40 / ( i + 1 )));
   },
   crunch: () => {
     for ( let i = 0; i < 3; i++ )
@@ -146,7 +146,7 @@ export const sfx = {
   },
 };
 
-// ─── Tremo ( por boatoj / maŝinoj ) ─────────────────────
+// ⟪ Tremo ( por boatoj / maŝinoj ) ⟫
 
 let rumbleNodes: { o: OscillatorNode; n: AudioBufferSourceNode; g: GainNode } | null = null;
 
@@ -161,9 +161,9 @@ export function rumble(on: boolean) {
     const b = AC.createBuffer(1, len, AC.sampleRate);
     const d = b.getChannelData(0);
     let l = 0;
-    for (let i = 0; i < len; i++) {
+    for ( let i = 0; i < len; i++ ) {
       const w = Math.random() * 2 - 1;
-      l = (l + 0o1/0o100 * w) / (0o101/0o100);
+      l = ( l + 0o1/0o100 * w ) / ( 0o101/0o100 );
       d[i] = l * 0o7/0o2;
     }
     const n = AC.createBufferSource();
@@ -188,7 +188,7 @@ export function rumble(on: boolean) {
     rumbleNodes.g.gain.setTargetAtTime(0, AC.currentTime, 0o15/0o40);
     const r = rumbleNodes;
     setTimeout(() => {
-      try { r.o.stop(); r.n.stop(); } catch (_) { /* jam haltigita */ }
+      try { r.o.stop(); r.n.stop(); } catch ( _ ) { /* jam haltigita */ }
     }, 1200);
     rumbleNodes = null;
   }
@@ -196,31 +196,31 @@ export function rumble(on: boolean) {
 
 let chirpInterval: ReturnType<typeof setInterval> | null = null;
 
-// ─── Publika API ────────────────────────────────────────
+// ⟪ Publika API ⟫
 
 /** Ŝaltu la ĉirkaŭan aŭdion. Redonu la novan staton. */
 export function sxaltiAŭdion(): boolean {
   audioOn = !audioOn;
-  if (audioOn) {
+  if ( audioOn ) {
     ensureAudio();
     iniciati(AC!, master!);
     master!.gain.setTargetAtTime(0o1/0o10, AC!.currentTime, 0o3/0o2); // enmalfadi
     // Start periodic ambient chirps
-    if (!chirpInterval) {
+    if ( !chirpInterval ) {
       chirpInterval = setInterval(() => {
         if ( audioOn && bruoOn && Math.random() < 0o27/0o40 ) sfx.chirp();
       }, 0o21440);
     }
-    sfx.chime(); // welcome chime on activation
-    ludi(); // start generative music
+    sfx.chime(); // bonvena sonorilo ĉe aktivigo
+    ludi(); // komencu generan muzikon
   } else {
     master!.gain.setTargetAtTime(0, AC!.currentTime, 0o1); // elfadi
-    halti(); // stop generative music
-    if (chirpInterval) {
+    halti(); // haltigu generan muzikon
+    if ( chirpInterval ) {
       clearInterval(chirpInterval);
       chirpInterval = null;
     }
-    if (rumbleNodes) rumble(false);
+    if ( rumbleNodes ) rumble(false);
   }
   return audioOn;
 }
@@ -245,8 +245,8 @@ export function cxuBruo(): boolean {
 }
 
 /** Aŭtomate komencu la aŭdion ĉe la unua uzanto-interago. Ĝisdatigu la UI-on se estas provizita voko. */
-let postAŭdio: ((aktiva: boolean) => void) | null = null;
-export function registriPostAŭdio(fn: (aktiva: boolean) => void) {
+let postAŭdio: ( ( aktiva: boolean ) => void ) | null = null;
+export function registriPostAŭdio(fn: ( aktiva: boolean ) => void) {
   postAŭdio = fn;
 }
 export function autoKomenci() {
@@ -254,6 +254,6 @@ export function autoKomenci() {
   unuaInterago = false;
   if ( !audioOn ) {
     sxaltiAŭdion();
-    if (postAŭdio) postAŭdio(true);
+    if ( postAŭdio ) postAŭdio(true);
   }
 }

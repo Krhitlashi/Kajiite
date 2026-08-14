@@ -68,8 +68,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "tipStacioxipo": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
     "tipTuro": "ſןᴜȝ ᶅſw ſɭɹ",
     "tipSanktejo": "j͑ʃɜ j͑ʃƨɹ",
-    // Building card flavor text — ʌ separates complete words; spaces inside
-    // dictionary compounds remain ordinary syllable separators.
+    // Konstruaĵkarta flava teksto — ʌ apartigas kompletajn vortojn; spacoj interne
+    // vortaraj kunmetaĵoj restas ordinaraj silabaj apartigiloj.
     "flvDomo": "j͑ʃᴜ j͑ʃ'ɔ ſɭᴜ ſןɹ ⟅",
     "flvMangxejo": "ꞁȷ̀ɹ ſɭꞇ ʌ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ʌ j͑ʃᴜ ſ͔ɭɔȝ ⟅",
     "flvKasafeo": "j͑ʃᴜ ſɭɔ˞w j͐ʃ ʌ j͑ʃᴜ j͑ʃᴜ ſȷɔ ʌ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ⟅",
@@ -273,8 +273,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla2Flavor": "Vinagro, betula suko, mento kaj bergamota teo.",
     "manĝPuss0": "Pusŝlefo-bero",
     "manĝPuss0Flavor": "Malvarmeta, akva krispo kun sukereta postgusto.",
-    // Building card labels
-    // Building flavor text
+    // Konstruaĵkartaj etikedoj
+    // Konstruaĵkarta flava teksto
     "flvDomo": "Domo.",
     "flvMangxejo": "Komuna manĝejo.",
     "flvKasafeo": "Kunvenejo.",
@@ -435,8 +435,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla2Flavor": "Vinegar, birch sap, mint, and bergamot tea.",
     "manĝPuss0": "Shlef Piisu berry",
     "manĝPuss0Flavor": "A cool, watery pop with a faint sweet aftertaste.",
-    // Building card labels
-    // Building flavor text
+    // Konstruaĵkartaj etikedoj
+    // Konstruaĵkarta flava teksto
     "flvDomo": "Domo.",
     "flvMangxejo": "Komuna manĝejo.",
     "flvKasafeo": "Kunvenejo.",
@@ -510,7 +510,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Aria-labeleto por la krepuska baskulo
     "ariaButKrepusko": "Dusk",
     "ariaDuskRegilo": "Dusk level",
-    // Weather — the four possible atmospheres
+    // Vetero — la kvar eblaj atmosferoj
     "ariaButVetero": "Weather",
     "veteroNebula": "Foggy",
     "veteroPluva": "Rainy",
@@ -541,7 +541,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "harKoloroKaŝtana": "Chestnut",
     "harKoloroBlonda": "Blonde",
     "harKoloroGriza": "Gray",
-    // Building names ( en )
+    // Konstruaĵnomoj ( en )
     "muziko": "Music",
   },
   ja: {
@@ -596,8 +596,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla1Flavor": "酢、唐辛子、柚子、ミント、炭酸水。",
     "manĝTla2Flavor": "酢、白樺樹液、ミント、ベルガモット茶。",
     "manĝPuss0Flavor": "ひんやりと水気のある食感で、ほのかに甘い。",
-    // Building card labels
-    // Building flavor text
+    // Konstruaĵkartaj etikedoj
+    // Konstruaĵkarta flava teksto
     "flvDomo": "家。",
     "flvMangxejo": "共同の食事処。",
     "flvKasafeo": "会議室。",
@@ -746,8 +746,8 @@ const skakefani: Record<string, Record<string, string>> = {
     "manĝTla1Flavor": "ទឹកខ្មេះ ម្ទេស យូស៊ុ ជីអង្កាម និងទឹកមានពពុះ។",
     "manĝTla2Flavor": "ទឹកខ្មេះ ទឹកប៊ីច ជីអង្កាម និងតែប៊ឺហ្គាម៉ុត។",
     "manĝPuss0Flavor": "ត្រជាក់ មានទឹក និងផ្អែមបន្តិច។",
-    // Building card labels
-    // Building flavor text
+    // Konstruaĵkartaj etikedoj
+    // Konstruaĵkarta flava teksto
     "flvDomo": "ផ្ទះ។",
     "flvMangxejo": "កន្លែងបរិភោគអាហាររួម។",
     "flvKasafeo": "បន្ទប់ប្រជុំ។",
@@ -846,7 +846,7 @@ const skakefani: Record<string, Record<string, string>> = {
   },
 };
 
-const LINGVOJ = ["aih", "eo", "en", "ja", "km",];
+const LINGVOJ = [ "aih", "eo", "en", "ja", "km", ];
 let aktivaLingvo = "aih";
 
 // ⟪ Publika API — traduki 📃 ⟫
@@ -863,7 +863,7 @@ export function nomoAih(klavo: string): string {
 // kiam la aktiva lingvo ne havas propran tekston. En aih la gk-formo estas jam
 // la fonto, kaj eo/en konservas siajn eksplicitajn plantnomojn.
 // La aria-etikedoj de la trakoj ( ariaTrakoN ) uzas la derivitan trakonomon.
-const ARIA_TRAKO_PREFIKSO: Record<string, (n: number) => string> = {
+const ARIA_TRAKO_PREFIKSO: Record<string, ( n: number ) => string> = {
   eo: n => "Elekti trakon " + n + " ",
   en: n => "Select track " + n + " ",
   ja: n => "トラック " + n + " を選択 ",
@@ -878,24 +878,24 @@ const KONSTRUAJ_NOMOJ = new Set([
 ]);
 
 function deriviNomon(klavo: string): string | null {
-  if (aktivaLingvo === "aih") return null;
+  if ( aktivaLingvo === "aih" ) return null;
   // ariaTrakoN. Prefikso ( lingvo-specifa ) + derivita trakonomo.
   // spec*. Mankas rekta ja/km-ŝnuro por la specifaj plantnomoj, do ili ankaŭ
   // venas el la aih-formo per la samaj sonaj reguloj.
   const aria = /^ariaTrako(\d+)$/.exec(klavo);
   const bazo = aria ? "trako" + aria[1] : klavo;
-  if (!/^(paq|trako|manĝFok|manĝTla|manĝPuss)\d+$/.test(bazo) && !SPECIFIKAJ_PLANTNOMOJ.has(bazo) && !KONSTRUAJ_NOMOJ.has(bazo)) return null;
+  if ( !/^(paq|trako|manĝFok|manĝTla|manĝPuss)\d+$/.test(bazo) && !SPECIFIKAJ_PLANTNOMOJ.has(bazo) && !KONSTRUAJ_NOMOJ.has(bazo) ) return null;
   const aihFormo = skakefani.aih[bazo];
-  if (!aihFormo) return null;
+  if ( !aihFormo ) return null;
   // Manĝaĵnomoj kunhavas "•" disigilon ( nomo • gusto ). Derivu ĉiun flankon
   // aparte, por ke la disigilo kaj spacoj postvivu la konverton.
   const nomo = aihFormo
     .split("•")
     .map(p => ipaAlLingvo(gkAlIpa(p.trim()), aktivaLingvo))
     .join(" • ");
-  if (!nomo) return null;
+  if ( !nomo ) return null;
   const kap = nomo.charAt(0).toUpperCase() + nomo.slice(1);
-  if (aria) {
+  if ( aria ) {
     const pre = ARIA_TRAKO_PREFIKSO[aktivaLingvo] ?? ARIA_TRAKO_PREFIKSO.eo;
     return pre(parseInt(aria[1]) + 1) + kap;
   }
@@ -905,9 +905,9 @@ function deriviNomon(klavo: string): string | null {
 export function traduki(klavo: string): string {
   const vortaro = skakefani[aktivaLingvo] || skakefani.eo;
   const rekta = vortaro[klavo];
-  if (rekta !== undefined && rekta !== "") return rekta;
+  if ( rekta !== undefined && rekta !== "" ) return rekta;
   const derivita = deriviNomon(klavo);
-  if (derivita) return derivita;
+  if ( derivita ) return derivita;
   return rekta || klavo;
 }
 
@@ -924,25 +924,25 @@ function aplikiSkakefanon(lingvo: string): void {
   const vortaro = skakefani[lingvo] || skakefani.eo;
   document.querySelectorAll("[data-oskakefani]").forEach(el => {
     const klavo = el.getAttribute("data-oskakefani");
-    if (klavo) {
+    if ( klavo ) {
       const traduko = traduki(klavo);
-      if (traduko !== klavo) el.textContent = traduko;
+      if ( traduko !== klavo ) el.textContent = traduko;
     }
   });
   document.querySelectorAll("[data-oskakefani-aria]").forEach(el => {
     const klavo = el.getAttribute("data-oskakefani-aria");
-    if (klavo) {
+    if ( klavo ) {
       const traduko = traduki(klavo);
-      if (traduko !== klavo) el.setAttribute("aria-label", traduko);
+      if ( traduko !== klavo ) el.setAttribute("aria-label", traduko);
     }
   });
   const butono = document.getElementById("butLingvo");
-  if (butono) butono.textContent = lingvo.toUpperCase();
+  if ( butono ) butono.textContent = lingvo.toUpperCase();
   try { localStorage.setItem("aranis-lingvo", lingvo); } catch { /* private browsing */ }
   // En la aih-a lingvo oni envolvu la vortojn per vacepu ( el la ekstera ſɭɔ j͑ʃ'ɔ }ʃꞇ.js ).
   // La sama nestita-.aih-escepto kiel en sperto.ts — ne lasu ĝin haltigi la
   // lingvo-ŝanĝon ( la lingvosxangxo-dispeto okazas poste ).
-  if (lingvo === "aih" && typeof vacepu === "function") {
+  if ( lingvo === "aih" && typeof vacepu === "function" ) {
     try { vacepu("aih"); } catch { /* ignorata */ }
   }
   // Anoncu la ŝanĝon por ke dinamikaj etikedoj ( ekz. la reĝima butono ) refreŝiĝu.
@@ -952,7 +952,7 @@ function aplikiSkakefanon(lingvo: string): void {
 // ⟪ Sxalti al sekva lingvo 📃 ⟫
 function sxaltiLingvon(): void {
   const idx = LINGVOJ.indexOf(aktivaLingvo);
-  const sekva = LINGVOJ[(idx + 1) % LINGVOJ.length];
+  const sekva = LINGVOJ[( idx + 1 ) % LINGVOJ.length];
   aplikiSkakefanon(sekva);
 }
 
@@ -960,10 +960,10 @@ function sxaltiLingvon(): void {
 function detektiLingvon(): string {
   try {
     const konservita = localStorage.getItem("aranis-lingvo");
-    if (konservita && LINGVOJ.includes(konservita)) return konservita;
+    if ( konservita && LINGVOJ.includes(konservita) ) return konservita;
   } catch { /* private browsing */ }
-  const lang = (navigator.language || (navigator as any).userLanguage || "").split("-")[0];
-  if (lang === "eo" || lang === "ja" || lang === "aih" || lang === "km") return lang;
+  const lang = ( navigator.language || ( navigator as any ).userLanguage || "" ).split("-")[0];
+  if ( lang === "eo" || lang === "ja" || lang === "aih" || lang === "km" ) return lang;
   return "aih";
 }
 
@@ -974,7 +974,7 @@ function inicializi(): void {
 }
 
 // Atendu la DOM-on, tiam apliku la tradukojn
-if (document.readyState === "loading") {
+if ( document.readyState === "loading" ) {
   document.addEventListener("DOMContentLoaded", inicializi);
 } else {
   inicializi();

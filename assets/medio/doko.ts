@@ -42,7 +42,7 @@ function kreiDokanFormon(w: number, l: number, r: number): THREE.Shape {
 function kreiDokanKadron(w: number, l: number, r: number, strio: number, dikeco: number): THREE.BufferGeometry {
   const interna = kreiDokanFormon(w, l, r);
   const duonW = w / 2, duonL = l / 2;
-  const rad = Math.max(0, Math.min(r + strio, duonW + strio, (duonL + strio) / 2));
+  const rad = Math.max(0, Math.min(r + strio, duonW + strio, ( duonL + strio ) / 2));
   const landa = -duonL;
   const ekstera = new THREE.Shape();
   ekstera.moveTo(-duonW - strio, landa);

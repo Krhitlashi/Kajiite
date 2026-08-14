@@ -8,7 +8,7 @@ import { kreiSxelanTeksajxon, kreiSxelanBumpanTeksajxon, kreiLarikanSxelanTeksaj
   kreiFrutikosanLikenanTeksajxon, kreiFolisanLikenanTeksajxon, kreiByssoidanLikenanTeksajxon,
   kreiMuskanTeksajxon, kreiCetkuanTeksajxon, kreiCakeanTeksajxon,
   kreiBetulanFoliaranTeksajxon, kreiLarikanFoliaranTeksajxon } from "../komunajxoj/teksajxoj.js";
-import { kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson } from "../komunajxoj/kunfandajxoj.js";
+import { kreiBuferanGeometrion, kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson } from "../komunajxoj/kunfandajxoj.js";
 import { kreiHazardanGenerilon } from "../komunajxoj/hazardo.js";
 import { glataPaso, akvaNivelo, biomo, type Biomo } from "../../src/tereno.js";
 
@@ -62,11 +62,11 @@ export const EKVIZETO_BIOMOJ: readonly Biomo[] = [ "ekvizeto" ];
 //     @param evituArbojn ( ArboMetado[] = [] ) - Jam metitaj arboj; la plantoj
 //         restas ekster la trunkoj/kronoj anstataŭ kreski en la arbojn.
 //     @returns plantoj ( ArboMetado[] ) - La metitaj plantoj.
-export function metiPussxlefojn(heightFn: (x: number, z: number) => number,
+export function metiPussxlefojn(heightFn: ( x: number, z: number ) => number,
   kvanto: number,
-  excludeRivers: (x: number, z: number) => boolean,
-  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
-  excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
+  excludeRivers: ( x: number, z: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
+  excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   semo = 0o62450,
   evituArbojn: ArboMetado[] = []
 ): ArboMetado[] {
@@ -84,9 +84,9 @@ export function metiPussxlefojn(heightFn: (x: number, z: number) => number,
     const x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * 0o600;
     const z = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * 0o600;
     if ( Math.hypot(x, z) < 0o20 ) continue;   // la urbo restas malfermita
-    if ( excludeRivers(x, z)) continue;
-    if ( excludePaths(x, z, 0o3)) continue;
-    if ( excludeBuildings(x, z, 0o3)) continue;
+    if ( excludeRivers(x, z) ) continue;
+    if ( excludePaths(x, z, 0o3) ) continue;
+    if ( excludeBuildings(x, z, 0o3) ) continue;
     const h = heightFn(x, z);
     if ( h < akvaNivelo(x, z) + 0o1/0o10 ) continue;   // subakva grundo
     // La biomo — la altaĵoj ( montaro ) estas la natura hejmo de la Pussxlefo
@@ -135,7 +135,7 @@ function montaKruteco(heightFn: ( x: number, z: number ) => number, x: number, z
 //     @param fado ( funkcio ) - La suda fado ( 0 ĉe la piedo, 1 sur la kresto ).
 //     @returns duono ( number ) - La duono-larĝo.
 function spronaDuono(xDuono: number, z: number, fado: ( z: number ) => number): number {
-  return xDuono * ( 0o75/0o100 + 0o25/0o100 * fado(z));
+  return xDuono * ( 0o75/0o100 + 0o25/0o100 * fado(z) );
 }
 
 export interface ArboMetado {
@@ -153,7 +153,7 @@ interface Grovo { x: number; z: number; r: number; }
 // urbon kaj la riveron; la arboj poste klasteriĝas ĉirkaŭ ili.
 function kreiGrovojn(kvanto: number, worldRadius: number,
   hazardaGenerilo: () => number,
-  excludeRivers: (x: number, z: number) => boolean
+  excludeRivers: ( x: number, z: number ) => boolean
 ): Grovo[] {
   const grovoj: Grovo[] = [];
   let provoj = 0;
@@ -163,7 +163,7 @@ function kreiGrovojn(kvanto: number, worldRadius: number,
     const x = Math.sin(angulo) * radiuso;
     const z = Math.cos(angulo) * radiuso;
     if ( Math.hypot(x, z) < 0o40 ) continue;      // la urbo restas malfermita
-    if ( excludeRivers(x, z)) continue;
+    if ( excludeRivers(x, z) ) continue;
     if ( Math.abs(x) > worldRadius + 0o20 || Math.abs(z) > worldRadius + 0o20 ) continue;
     let troProksima = false;
     for ( const g of grovoj ) {
@@ -180,7 +180,7 @@ function kreiGrovojn(kvanto: number, worldRadius: number,
 // dividitaj inter la arbo-specoj, por ke betuloj, larikoj kaj Ĥŝakŝlefoj
 // miksiĝu en la samaj naturaj arbareroj.
 export function kreiArbarerojn(kvanto: number, worldRadius: number,
-  excludeRivers: (x: number, z: number) => boolean,
+  excludeRivers: ( x: number, z: number ) => boolean,
   semo = 0o53104
 ): Grovo[] {
   const hazardaGenerilo = mulberry32(semo);
@@ -204,12 +204,12 @@ function hazardaGrovaLoko(hazardaGenerilo: () => number, grovoj: Grovo[]): { x: 
 // paŭzoj inter ili. La grovoj-parametro restas por retro-kongruo sed ne
 // plu influas la specimenadon.
 //     @param heightFn ( funkcio ) - Tera alta funkcio.
-export function metiArbojn(heightFn: (x: number, z: number) => number,
+export function metiArbojn(heightFn: ( x: number, z: number ) => number,
   kvanto: number,
   worldRadius: number,
-  excludeRivers: (x: number, z: number) => boolean,
-  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
-  excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
+  excludeRivers: ( x: number, z: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
+  excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   semo = 0o53104,
   evituArbojn: ArboMetado[] = [],
   minimumaDistanco = 0o10,
@@ -221,16 +221,16 @@ export function metiArbojn(heightFn: (x: number, z: number) => number,
   const placed: ArboMetado[] = [];
   let provoj = 0;
 
-  const bonaLoko = (x: number, z: number, s: number): boolean => {
-    if (Math.hypot(x, z) < 0o20) return false;
+  const bonaLoko = ( x: number, z: number, s: number ): boolean => {
+    if ( Math.hypot(x, z) < 0o20 ) return false;
     // La biomo — la arbaro kreskas nur en sia biomo ( valo aux montaro ).
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) return false;
-    if (excludeRivers(x, z)) return false;
+    if ( excludeRivers(x, z) ) return false;
     // La akva masko estas dua sekureca tavolo. ĝi kaptas la malprofundajn
     // bordojn, kie la regiona river-filtrilo ne sufiĉas por la arbo-bazo.
     if ( heightFn(x, z) < akvaNivelo(x, z) + 0o1/0o10 ) return false;
-    if (excludePaths(x, z, 0o44/0o10)) return false;
-    if (excludeBuildings(x, z, 3)) return false;
+    if ( excludePaths(x, z, 0o44/0o10) ) return false;
+    if ( excludeBuildings(x, z, 3) ) return false;
     const kandidataR = kronaRadiuso(s);
     for ( const arbo of [ ...evituArbojn, ...placed ] ) {
       if ( Math.hypot(x - arbo.x, z - arbo.z) <
@@ -244,9 +244,9 @@ export function metiArbojn(heightFn: (x: number, z: number) => number,
     // tenas la arbojn en la valaj arbareroj, do la arbaro plenigas ilin tute.
     const x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * worldRadius;
     const z = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * worldRadius;
-    if (Math.abs(x) > worldRadius + 0o20 || Math.abs(z) > worldRadius + 0o20) continue;
+    if ( Math.abs(x) > worldRadius + 0o20 || Math.abs(z) > worldRadius + 0o20 ) continue;
     const s = 0o63/0o100 + hazardaGenerilo() * 0o55/0o100;
-    if (!bonaLoko(x, z, s)) continue;
+    if ( !bonaLoko(x, z, s) ) continue;
     placed.push({ x, z, h: heightFn(x, z), s, r: kronaRadiuso(s) });
   }
   return placed;
@@ -275,12 +275,12 @@ export function metiArbojn(heightFn: (x: number, z: number) => number,
 //     @param semo ( number ) - Hazarda semo.
 //     @param evituArbojn ( ArboMetado[] ) - Jam metitaj arboj ( minimuma distanco ).
 //     @returns arboj ( ArboMetado[] ) - La metitaj arboj.
-export function metiMontajnArbojn(heightFn: (x: number, z: number) => number,
+export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
   kvanto: number,
   zMin: number, zMax: number,
-  excludeRivers: (x: number, z: number) => boolean,
-  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
-  excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
+  excludeRivers: ( x: number, z: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
+  excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   semo = 0o53130,
   evituArbojn: ArboMetado[] = [],
   minimumaDistanco = 0o10,
@@ -322,10 +322,10 @@ export function metiMontajnArbojn(heightFn: (x: number, z: number) => number,
   let grovajProvoj = 0;
   while ( grovoj.length < Math.max(0o4, Math.floor(kvanto / 0o16)) && grovajProvoj++ < 0o10000 ) {
     const gz = zMin + hazardaGenerilo() * ( zMax - zMin );
-    if ( hazardaGenerilo() > sudaFado(gz)) continue;
+    if ( hazardaGenerilo() > sudaFado(gz) ) continue;
     const gx = cx + ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo(gz);
     if ( Math.hypot(gx, gz) < 0o110 ) continue;   // la urbo restas malfermita
-    if ( excludeRivers(gx, gz) || excludePaths(gx, gz, 0o2) || excludeBuildings(gx, gz, 0o2)) continue;
+    if ( excludeRivers(gx, gz) || excludePaths(gx, gz, 0o2) || excludeBuildings(gx, gz, 0o2) ) continue;
     let troProksima = false;
     for ( const g of grovoj ) {
       if ( Math.hypot(gx - g.x, gz - g.z) < 0o40 ) { troProksima = true; break; }
@@ -349,10 +349,10 @@ export function metiMontajnArbojn(heightFn: (x: number, z: number) => number,
       // La suda fado validas ankaŭ por la klasterigitaj arboj — alie densaj
       // makuloj aperus ĝuste ĉe la monto-piedo, kie la arbaro devus dissolviĝi
       // en la valan arbaron.
-      if ( hazardaGenerilo() > sudaFado(z)) continue;
+      if ( hazardaGenerilo() > sudaFado(z) ) continue;
     } else {
       z = zMin + hazardaGenerilo() * ( zMax - zMin );
-      if ( hazardaGenerilo() > sudaFado(z)) continue;   // maldensa ĉe la piedo
+      if ( hazardaGenerilo() > sudaFado(z) ) continue;   // maldensa ĉe la piedo
       // Triangula disdono laŭ x — densa meze, maldensa ĉe la spronaj finoj.
       x = cx + ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo(z);
     }
@@ -366,10 +366,10 @@ export function metiMontajnArbojn(heightFn: (x: number, z: number) => number,
     if ( h < akvaNivelo(x, z) + 0o1/0o10 ) continue;
     // Arbolinia fado — malabundigas la arbojn sur la altaj deklivoj, la
     // krestoj kaj la pintoj ( plena sub ≈0o16, nula ĉe ≈0o26 ).
-    if ( hazardaGenerilo() > arboliniaFado(h)) continue;   // arbolinio
-    if ( excludeRivers(x, z)) continue;
-    if ( excludePaths(x, z, 0o44/0o10)) continue;
-    if ( excludeBuildings(x, z, 3)) continue;
+    if ( hazardaGenerilo() > arboliniaFado(h) ) continue;   // arbolinio
+    if ( excludeRivers(x, z) ) continue;
+    if ( excludePaths(x, z, 0o44/0o10) ) continue;
+    if ( excludeBuildings(x, z, 3) ) continue;
     // Tro kruta deklivo — neniu arbo sur la klifoj ( la montaraj pintoj ).
     if ( montaKruteco(heightFn, x, z) > 0o6/0o10 ) continue;
     // Alteca skemo — la arboj malgrandiĝas al la arbolinio ( natura
@@ -404,9 +404,9 @@ export function metiMontajnArbojn(heightFn: (x: number, z: number) => number,
 //         grupigi ĉirkaŭ ili.
 export function konstruiMontajnRokojn(sceno: THREE.Scene,
   kvanto: number,
-  heightFn: (x: number, z: number) => number,
-  excludeRivers: (x: number, z: number) => boolean,
-  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
+  heightFn: ( x: number, z: number ) => number,
+  excludeRivers: ( x: number, z: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   semo = 624512,
   cx = 0,
   xDuono = 0o340,
@@ -440,13 +440,13 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
 
   while ( li < kvanto && gardilo++ < 0o10000 ) {
     const z = zMin + hazardaGenerilo() * zDuono;
-    if ( hazardaGenerilo() > sudaFado(z)) continue;
+    if ( hazardaGenerilo() > sudaFado(z) ) continue;
     const x = cx + ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo(z);
     if ( Math.hypot(x, z) < 0o110 ) continue;
     // La biomo — la rokoj sekvas la montaran biomon.
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
-    if ( hazardaGenerilo() > rokAkcepto(heightFn(x, z))) continue;
-    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2)) continue;
+    if ( hazardaGenerilo() > rokAkcepto(heightFn(x, z)) ) continue;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) ) continue;
     // Tro kruta deklivo — neniu roko ŝvebas sur la klifoj.
     if ( montaKruteco(heightFn, x, z) > 0o1 ) continue;
 
@@ -636,7 +636,7 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
     let troProksima = false;
     for ( const arbo of evituArbojn ) {
       if ( Math.hypot(x - arbo.x, z - arbo.z) <
-        ( arbo.r ?? kronaRadiusoBetula(arbo.s)) + arbLibero ) { troProksima = true; break; }
+        ( arbo.r ?? kronaRadiusoBetula(arbo.s) ) + arbLibero ) { troProksima = true; break; }
     }
     if ( troProksima ) continue;
     // Eta interspaco — la plantoj restu distingeblaj ( pli granda por la
@@ -791,20 +791,20 @@ export function konstruiMontajnSubkreskajxojn(sceno: THREE.Scene,
       // Larĝa ringo ( 0.5..5.5 ) — la malgrandaj plantoj kreskas nature cxirkaŭ
       // la trunko, kaj la arboformaj purpuraj filikoj ( kiuj bezonas pli da
       // libero ) povas ankaux aperi apud la arboj.
-      const d = ( t.r ?? kronaRadiusoBetula(t.s)) + 0o5/0o10 + hazardaGenerilo() * 0o4;
+      const d = ( t.r ?? kronaRadiusoBetula(t.s) ) + 0o5/0o10 + hazardaGenerilo() * 0o4;
       x = t.x + Math.sin(a) * d;
       z = t.z + Math.cos(a) * d;
     } else {
       // Envelopo — la samaj spur-siluetaj formoj kiel la monta arbaro.
       z = 0o174 + hazardaGenerilo() * 0o250;
-      if ( hazardaGenerilo() > sudaFado(z)) return null;
+      if ( hazardaGenerilo() > sudaFado(z) ) return null;
       x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo(z);
     }
     if ( Math.hypot(x, z) < 0o20 ) return null;   // la urbo-centro restas malfermita
     // La biomo — la monta subkreskajxo nur en la montara biomo.
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) return null;
-    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) || excludeBuildings(x, z, 0o2)) return null;
-    if ( hazardaGenerilo() > arboliniaFado(heightFn(x, z))) return null;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) || excludeBuildings(x, z, 0o2) ) return null;
+    if ( hazardaGenerilo() > arboliniaFado(heightFn(x, z)) ) return null;
     // Deklivo — neniu planto sxvebas sur la klifoj.
     if ( montaKruteco(heightFn, x, z) > 0o63/0o100 ) return null;
     return [ x, z ];
@@ -853,7 +853,7 @@ export function konstruiLaganSubkreskajxojn(sceno: THREE.Scene,
       const t = lagArboj[( hazardaGenerilo() * lagArboj.length ) | 0];
       const a = hazardaGenerilo() * Math.PI * 2;
       // Larĝa ringo ( 0.5..5.5 ) — same kiel en la montara/vala tavolo.
-      const d = ( t.r ?? kronaRadiusoBetula(t.s)) + 0o5/0o10 + hazardaGenerilo() * 0o4;
+      const d = ( t.r ?? kronaRadiusoBetula(t.s) ) + 0o5/0o10 + hazardaGenerilo() * 0o4;
       x = t.x + Math.sin(a) * d;
       z = t.z + Math.cos(a) * d;
     } else {
@@ -866,9 +866,9 @@ export function konstruiLaganSubkreskajxojn(sceno: THREE.Scene,
     if ( Math.abs(x) > 0o450 || Math.abs(z) > 0o450 ) return null;
     // La biomo — la lag-subkreskajxo restas en la vala biomo.
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) return null;
-    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) || excludeBuildings(x, z, 0o2)) return null;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) || excludeBuildings(x, z, 0o2) ) return null;
     // Nur seka bordo — la malseka kavo restas sen plantoj.
-    if ( heightFn(x, z) < akvoNiveloFn(x, z)) return null;
+    if ( heightFn(x, z) < akvoNiveloFn(x, z) ) return null;
     return [ x, z ];
   };
 
@@ -931,14 +931,9 @@ function konstruiBetulanFoliaranGeometrion(): THREE.BufferGeometry {
       punktoj.push(x, duonLarĝo(x, s), 0);
       uvoj.push(s / N, 0o65/0o100);
     }
-    const geometrio = new THREE.BufferGeometry();
-    geometrio.setAttribute("position", new THREE.Float32BufferAttribute(punktoj, 3));
-    geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
     const indeksoj: number[] = [];
     for ( let i = 1; i < 2 * N + 1; i++ ) indeksoj.push(0, i, i + 1);
-    geometrio.setIndex(indeksoj);
-    geometrio.computeVertexNormals();
-    return geometrio;
+    return kreiBuferanGeometrion(punktoj, indeksoj, { uvoj });
   };
 
   // Foliaj faskoj — la folioj grupiĝas en malgrandajn faskojn ĉirkaŭ
@@ -1001,7 +996,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
   const trunkaGeometrio = new THREE.CylinderGeometry(0o7/0o40, 0o3/0o10, 1, 7, 1);
   const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, bumpMap: sxelaBumpo, bumpScale: 0o6/0o10, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, arboj.length);
-  if (arboj.length === 0) return trunkoj;
+  if ( arboj.length === 0 ) return trunkoj;
 
   const kronaGeometrio = konstruiBetulanFoliaranGeometrion();
   const kronaMaterialo = new THREE.MeshStandardMaterial({
@@ -1023,7 +1018,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
   // teksturaj makuloj.
   const paletro = [ 0x90b090, 0xa0c0a0, 0xb8d0b8, 0xc8e0c8, 0x88b088 ];
 
-  arboj.forEach((t, i) => {
+  arboj.forEach(( t, i ) => {
     const h = 0o64/0o10 + t.s * 0o44/0o10;
     // Eta klino rompas la uniformecon — la betuloj ne staras perfekte rekte.
     const Q = kreiKlinoQuaternionon(hazardaGenerilo, 0o2/0o20, hazardaGenerilo() * Math.PI * 2);
@@ -1056,7 +1051,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
       { a: 1.5, fy: 0.94, fr: 0.26, s: 1.06 },
       { a: 2.9, fy: 1.00, fr: 0.04, s: 2.35 },
     ];
-    padBazoj.forEach((pb, k) => {
+    padBazoj.forEach(( pb, k ) => {
       const idx = i * PADOJ + k;
       // Eta per-arbo jittero — ĉiu betulo havas sian propran aranĝon.
       const a = pb.a + ( hazardaGenerilo() - 0o5/0o10 ) * 0o6/0o10;
@@ -1089,8 +1084,8 @@ export function konstruiArbaron(sceno: THREE.Scene,
   trunkoj.instanceMatrix.needsUpdate = true;
   kronoj.instanceMatrix.needsUpdate = true;
   brancxoj.instanceMatrix.needsUpdate = true;
-  if (trunkoj.instanceColor) trunkoj.instanceColor.needsUpdate = true;
-  if (kronoj.instanceColor) kronoj.instanceColor.needsUpdate = true;
+  if ( trunkoj.instanceColor ) trunkoj.instanceColor.needsUpdate = true;
+  if ( kronoj.instanceColor ) kronoj.instanceColor.needsUpdate = true;
   trunkoj.castShadow = kronoj.castShadow = brancxoj.castShadow = true;
   sceno.add(trunkoj, kronoj, brancxoj);
   return trunkoj;
@@ -1099,11 +1094,11 @@ export function konstruiArbaron(sceno: THREE.Scene,
 // konstruiFilikojn — Metu filikojn proksime al arboj kaj vojrandoj.
 export function konstruiFilikojn(sceno: THREE.Scene,
   kvanto: number,
-  heightFn: (x: number, z: number) => number,
+  heightFn: ( x: number, z: number ) => number,
   nearTrees: ArboMetado[],
   vojSpecimenoj: THREE.Vector3[],
-  excludeRivers: (x: number, z: number) => boolean,
-  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
+  excludeRivers: ( x: number, z: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   biomojFiltro?: readonly Biomo[]
 ): void {
   const hazardaGenerilo = mulberry32(55661);
@@ -1129,14 +1124,14 @@ export function konstruiFilikojn(sceno: THREE.Scene,
 
   while ( fi < kvanto && gardilo++ < 0o5660 ) {
     let x: number, z: number;
-    if (hazardaGenerilo() < 0o23/0o40 && nearTrees.length) {
-      const t = nearTrees[(hazardaGenerilo() * nearTrees.length) | 0];
+    if ( hazardaGenerilo() < 0o23/0o40 && nearTrees.length ) {
+      const t = nearTrees[( hazardaGenerilo() * nearTrees.length ) | 0];
       const a = hazardaGenerilo() * Math.PI * 2;
       const hazardaRadiuso = 1 + hazardaGenerilo() * 3;
       x = t.x + Math.sin(a) * hazardaRadiuso;
       z = t.z + Math.cos(a) * hazardaRadiuso;
     } else if ( vojSpecimenoj.length ) {
-      const p = vojSpecimenoj[(hazardaGenerilo() * vojSpecimenoj.length) | 0];
+      const p = vojSpecimenoj[( hazardaGenerilo() * vojSpecimenoj.length ) | 0];
       const a = hazardaGenerilo() * Math.PI * 2;
       const hazardaRadiuso = 2 + hazardaGenerilo() * 3;
       x = p.x + Math.sin(a) * hazardaRadiuso;
@@ -1149,7 +1144,7 @@ export function konstruiFilikojn(sceno: THREE.Scene,
 
     // La biomo — la filikoj restas en la vala biomo.
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
-    if (excludeRivers(x, z) || excludePaths(x, z, 2) || Math.hypot(x, z) < 0o16) continue;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 2) || Math.hypot(x, z) < 0o16 ) continue;
     // Eta interspaco — la filikoj ne kresku unu sur la alia ĉe la arboj.
     let troProksima = false;
     for ( const [ px, pz ] of metitaj ) {
@@ -1306,9 +1301,9 @@ function konstruiPeriferianFilikanAreon(sceno: THREE.Scene,
     if ( Math.abs(x) > 0o600 || Math.abs(z) > 0o600 ) continue;
     // La biomo — la purpuraj plantoj restas en la vala biomo.
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
-    if ( excludeRivers(x, z)) continue;
-    if ( excludePaths(x, z, 0o2)) continue;
-    if ( excludeBuildings(x, z, 0o2)) continue;
+    if ( excludeRivers(x, z) ) continue;
+    if ( excludePaths(x, z, 0o2) ) continue;
+    if ( excludeBuildings(x, z, 0o2) ) continue;
     // Eta interspaco — la purpuraj plantoj restu distingeblaj, ne unu sur la alia.
     let troProksima = false;
     for ( const [ px, pz ] of metitaj ) {
@@ -1385,7 +1380,7 @@ export function konstruiAltajnPurpurajnFilikojn(sceno: THREE.Scene,
     if ( Math.abs(x) > 0o600 || Math.abs(z) > 0o600 ) continue;
     // La biomo — la altaj purpuraj filikoj restas en la vala biomo.
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
-    if ( excludeRivers(x, z) || excludePaths(x, z, 0o3) || excludeBuildings(x, z, 0o3)) continue;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o3) || excludeBuildings(x, z, 0o3) ) continue;
     // Ne lasu la arboformajn filikojn kreski unu EN la alian — la triangulara
     // grova disdono densigas la centrojn, kaj sen interspaco multaj specimenoj
     // kreskis je preskaŭ la sama loko, kun la frondaj kronoj trapenetrantaj.
@@ -1401,7 +1396,7 @@ export function konstruiAltajnPurpurajnFilikojn(sceno: THREE.Scene,
     if ( !troProksima ) {
       for ( const arbo of evituArbojn ) {
         if ( Math.hypot(x - arbo.x, z - arbo.z) <
-          ( arbo.r ?? kronaRadiusoBetula(arbo.s)) + 0o146/0o100 + KRONA_LIBERO ) { troProksima = true; break; }
+          ( arbo.r ?? kronaRadiusoBetula(arbo.s) ) + 0o146/0o100 + KRONA_LIBERO ) { troProksima = true; break; }
       }
     }
     if ( troProksima ) continue;
@@ -1499,9 +1494,9 @@ function konstruiTavolanFrondanKronon(speco: {
 //         por ke la likenoj povas grupigi ĉirkaŭ ili.
 export function konstruiLikenSxtonojn(sceno: THREE.Scene,
   kvanto: number,
-  heightFn: (x: number, z: number) => number,
-  excludeRivers: (x: number, z: number) => boolean,
-  excludePaths: (x: number, z: number, minDistanco: number) => boolean
+  heightFn: ( x: number, z: number ) => number,
+  excludeRivers: ( x: number, z: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32(99221);
   const sxtonaGeometrio = new THREE.IcosahedronGeometry(1, 0);
@@ -1521,7 +1516,7 @@ export function konstruiLikenSxtonojn(sceno: THREE.Scene,
     const hazardaRadiuso = 0o22 + hazardaGenerilo() * 0o160;
     x = Math.sin(a) * hazardaRadiuso;
     z = Math.cos(a) * hazardaRadiuso;
-    if (excludeRivers(x, z) || excludePaths(x, z, 0o2)) { i--; continue; }
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) ) { i--; continue; }
 
     const skaloY = 0o4/0o10 + hazardaGenerilo() * 0o4/0o10;
     E.set(hazardaGenerilo() * 0o15/0o40, hazardaGenerilo() * Math.PI * 2, hazardaGenerilo() * 0o15/0o40);
@@ -1596,12 +1591,7 @@ function konstruiKrustanLikenGeometrion(): THREE.BufferGeometry {
       indeksoj.push(sube + sIdx, supre + s2, sube + s2);
     }
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
-  geometrio.setIndex(indeksoj);
-  geometrio.computeVertexNormals();
-  return geometrio;
+  return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj: uv });
 }
 
 // konstruiFrutikosanLikenGeometrion — Konstruu la arbustforman likenan
@@ -1726,7 +1716,7 @@ export function konstruiLikenojn(sceno: THREE.Scene,
     if ( montara ) {
       // Montara disdono — la samaj spur-siluetaj formoj kiel la rokoj.
       z = 0o260 + hazardaGenerilo() * 0o160;
-      if ( hazardaGenerilo() > sudaFado(z)) continue;
+      if ( hazardaGenerilo() > sudaFado(z) ) continue;
       x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo(z);
     } else if ( ankroj.length && hazardaGenerilo() < 0o3/0o4 ) {
       const t = ankroj[( hazardaGenerilo() * ankroj.length ) | 0];
@@ -1740,10 +1730,10 @@ export function konstruiLikenojn(sceno: THREE.Scene,
       x = Math.cos(a) * r;
       z = Math.sin(a) * r;
     }
-    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2)) continue;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) ) continue;
     if ( Math.hypot(x, z) < 0o20 ) continue;
     // Montara alteca akcepto — la likenoj sterniĝas sur la supraj deklivoj.
-    if ( montara && hazardaGenerilo() > altaAkcepto(heightFn(x, z))) continue;
+    if ( montara && hazardaGenerilo() > altaAkcepto(heightFn(x, z)) ) continue;
     // Eta interspaco — la makuloj ne kuŝu unu sur la alia.
     let troProksima = false;
     for ( const [ px, pz ] of metitaj ) {
@@ -2012,7 +2002,7 @@ function konstruiLarikanFoliaranGeometrion(): THREE.BufferGeometry {
     // supren, do pli da pinglaroj malsupre donas la veran larikan formon.
     // La unua kirlo komenciĝas ĉe y = 0o12/0o100, sufiĉe alte por ke la
     // ventumiloj neniam pendu sub la konusa bazo.
-    const t = 0o10/0o100 + ( kirlo / ( kirloj - 1 )) * 0o60/0o100;
+    const t = 0o10/0o100 + ( kirlo / ( kirloj - 1 ) ) * 0o60/0o100;
     const y = t * 0o110/0o100;
     const konusaR = 0o62/0o100 * ( 1 - t );
     const branĉetaR = konusaR + ( Math.random() - 0o5/0o10 ) * 0o1/0o100;
@@ -2436,9 +2426,9 @@ export function konstruiHerbon(sceno: THREE.Scene,
     // La biomo — la herbo restas en la vala biomo ( la montaj pintoj estas
     // rokoj kaj likenoj, ne herbejoj ).
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
-    if ( excludeRivers(x, z)) continue;
-    if ( excludePaths(x, z, 2)) continue;
-    if ( excludeBuildings(x, z, 2)) continue;
+    if ( excludeRivers(x, z) ) continue;
+    if ( excludePaths(x, z, 2) ) continue;
+    if ( excludeBuildings(x, z, 2) ) continue;
     if ( Math.hypot(x, z) < 0o16 ) continue;
     // Eta interspaco — la herboj kresku kiel tufoj, ne kiel solida tapiŝo.
     let troProksima = false;
@@ -2501,7 +2491,7 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
       x = Math.cos(a) * r;
       z = Math.sin(a) * r;
     }
-    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2)) continue;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) ) continue;
     if ( Math.hypot(x, z) < 0o20 ) continue;
     // Eta interspaco — la musko montetoj restu apartaj, ne kunfanditaj.
     let troProksima = false;
@@ -2580,7 +2570,7 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
       x = Math.cos(a) * r;
       z = Math.sin(a) * r;
     }
-    if ( excludeRivers(x, z) || excludePaths(x, z, 0o3)) continue;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o3) ) continue;
     if ( Math.hypot(x, z) < 0o20 ) continue;
     // Eta interspaco — la falintaj trunkoj ne kuŝu krucigitaj sur la grundo.
     let troProksima = false;
@@ -2629,23 +2619,18 @@ function kreiRibitanSegmenton(rMalsupra: number, rSupra: number, alto: number,
   }
   for ( let k = 0; k < ringo; k++ ) {
     const a = k * 2, b = k * 2 + 1;
-    const c = (( k + 1 ) % ringo ) * 2, d = c + 1;
+    const c = ( ( k + 1 ) % ringo ) * 2, d = c + 1;
     indeksoj.push(a, b, c, b, d, c);
   }
   const cM = ringo * 2, cS = cM + 1;
   pozicioj.push(0, 0, 0); uvoj.push(0o1/0o2, 0);
   pozicioj.push(0, alto, 0); uvoj.push(0o1/0o2, 1);
   for ( let k = 0; k < ringo; k++ ) {
-    const a = k * 2, b = (( k + 1 ) % ringo ) * 2;
+    const a = k * 2, b = ( ( k + 1 ) % ringo ) * 2;
     indeksoj.push(a, b, cM);          // malsupra ĉapo, normalo −y
     indeksoj.push(a + 1, cS, b + 1);  // supra ĉapo, normalo +y
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
-  geometrio.setIndex(indeksoj);
-  geometrio.computeVertexNormals();
-  return geometrio;
+  return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
 }
 
 // konstruiKanGeometrion — Komuna kan-geometrio por la du kavalerbaj specioj.
@@ -2669,7 +2654,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
   for ( let i = 0; i < nodoj; i++ ) {
     const y0 = i * segmentaAlto;
     const r0 = rBazo - ( rBazo - rSupro ) * ( i / nodoj );
-    const r1 = rBazo - ( rBazo - rSupro ) * (( i + 1 ) / nodoj );
+    const r1 = rBazo - ( rBazo - rSupro ) * ( ( i + 1 ) / nodoj );
     // Kana segmento — la stel-forma sekco montras la ripojn de la tigo.
     partoj.push(kreiRibitanSegmenton(r0, r1, segmentaAlto, flankoj, kresta).translate(0, y0, 0));
     // Ŝirma kolumeto ĉe la nodo — la karakteriza kana artiklo, pli larĝa
@@ -2830,7 +2815,7 @@ export function konstruiCetkuojn(sceno: THREE.Scene,
       if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) return null;
       // Nur proksime al rivero
       if ( Math.abs(z - riverZFn(x)) > 0o10 ) return null;
-      if ( excludeBuildings(x, z, 3) || excludePaths(x, z, 0o2)) return null;
+      if ( excludeBuildings(x, z, 3) || excludePaths(x, z, 0o2) ) return null;
       if ( Math.hypot(x, z) < 0o16 ) return null;
       return { x, z };
     });
@@ -2843,14 +2828,14 @@ export function konstruiCetkuojn(sceno: THREE.Scene,
 //     @param cx, cz ( number ) - Lagcentro.
 //     @param radioFn ( ang → r ) - Lagranda radiusa funkcio.
 //     @param akvoNiveloFn ( x, z → y ) - Akvosurfaca nivelo ( la lago aŭ rivero ).
-export function metiArbojnCxirkauLagon(heightFn: (x: number, z: number) => number,
+export function metiArbojnCxirkauLagon(heightFn: ( x: number, z: number ) => number,
   kvanto: number,
   cx: number, cz: number,
-  radioFn: (ang: number) => number,
-  akvoNiveloFn: (x: number, z: number) => number,
-  excludeRivers: (x: number, z: number) => boolean,
-  excludePaths: (x: number, z: number, minDistanco: number) => boolean,
-  excludeBuildings: (x: number, z: number, minDistanco: number) => boolean,
+  radioFn: ( ang: number ) => number,
+  akvoNiveloFn: ( x: number, z: number ) => number,
+  excludeRivers: ( x: number, z: number ) => boolean,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
+  excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   semo = 0o53120,
   evituArbojn: ArboMetado[] = [],
   minimumaDistanco = 0o10,
@@ -2861,16 +2846,16 @@ export function metiArbojnCxirkauLagon(heightFn: (x: number, z: number) => numbe
   const placed: ArboMetado[] = [];
   let provoj = 0;
 
-  const bonaLoko = (x: number, z: number, s: number): boolean => {
+  const bonaLoko = ( x: number, z: number, s: number ): boolean => {
     // La biomo — la lagringo restas en sia biomo ( la valo ).
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) return false;
-    if (excludeRivers(x, z)) return false;
-    if (excludePaths(x, z, 0o44/0o10)) return false;
-    if (excludeBuildings(x, z, 3)) return false;
+    if ( excludeRivers(x, z) ) return false;
+    if ( excludePaths(x, z, 0o44/0o10) ) return false;
+    if ( excludeBuildings(x, z, 3) ) return false;
     // Nur seka bordo — la rivera kavo oriente de la lago restas sen arboj.
     // Levu la minimuman piedon iom super la surfaco por ke la trunko ne
     // aspektu duone subakvigita ĉe la ondigita rando.
-    if (heightFn(x, z) < akvoNiveloFn(x, z) + 0o2/0o10) return false;
+    if ( heightFn(x, z) < akvoNiveloFn(x, z) + 0o2/0o10 ) return false;
     const kandidataR = kronaRadiuso(s);
     for ( const arbo of [ ...evituArbojn, ...placed ] ) {
       if ( Math.hypot(x - arbo.x, z - arbo.z) <
@@ -2930,8 +2915,8 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
     const x = cx + Math.cos(angulo) * radiuso;
     const z = cz + Math.sin(angulo) * radiuso;
     if ( Math.abs(x) > 0o450 || Math.abs(z) > 0o450 ) continue;
-    if ( excludeRivers(x, z) || excludePaths(x, z, 2) || excludeBuildings(x, z, 2)) continue;
-    if ( heightFn(x, z) < akvoNiveloFn(x, z)) continue;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 2) || excludeBuildings(x, z, 2) ) continue;
+    if ( heightFn(x, z) < akvoNiveloFn(x, z) ) continue;
     // Eta interspaco — la herboj kresku kiel tufoj, ne kiel solida tapiŝo.
     let troProksima = false;
     for ( const [ px, pz ] of metitaj ) {
@@ -2977,7 +2962,7 @@ export function konstruiCakeojn(sceno: THREE.Scene,
       if ( Math.abs(x) > 0o450 || Math.abs(z) > 0o450 ) return null;
       // La biomo — la lag-kareksoj restas en la vala biomo.
       if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) return null;
-      if ( excludeBuildings(x, z, 3) || excludePaths(x, z, 0o2)) return null;
+      if ( excludeBuildings(x, z, 3) || excludePaths(x, z, 0o2) ) return null;
       // Kareksoj kreskas sur la malseka bordo, ne sur la alta seka tero.
       if ( heightFn(x, z) > akvoNiveloFn(x, z) + 2 ) return null;
       return { x, z };

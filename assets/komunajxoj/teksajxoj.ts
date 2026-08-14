@@ -1,7 +1,7 @@
 // Tekstura modulo — proceduraj kanvasaj teksturoj por la urba sperto
 import * as THREE from "three";
 
-const hazard = (a: number, b: number): number => a + Math.random() * (b - a);
+const hazard = ( a: number, b: number ): number => a + Math.random() * ( b - a );
 
 // desegniWrapan — Desegnu la saman formon ĉe ĉiuj naŭ kahelaj pozicioj
 // ( −s, 0, s horizontale; −h, 0, h vertikale ), per traduko de la kunteksto
@@ -30,24 +30,33 @@ function sxovu(fn: () => THREE.CanvasTexture): () => THREE.CanvasTexture {
 }
 
 // kreiKanvasanTeksajxon — Komuna fino de la kanvasaj teksajxoj. krei la
-// kanvason, doni ĝin al la pentra funkcio, kaj paki ĝin kiel SRGB-kanvasan
-// teksajxon kun ripetanta volvaĵo kaj laŭvola ripeto.
+// kanvason, doni ĝin al la pentra funkcio, kaj paki ĝin kiel kanvasan
+// teksajxon. SRGB-koloro kaj ripetanta volvaĵo estas la defaŭltoj ( la plej
+// oftaj por la mondaj teksturoj ); bump-teksajxoj restas en lineara koloro
+// ( sRGB malŝaltita ) kaj sen-ĉirkaŭvolvaj teksturoj pasas ClampToEdge.
 //     @param w, h ( number ) - Kanvasaj dimensioj.
 //     @param pentri ( funkcio ) - Desegni sur la 2D-kunteksto.
 //     @param ripeto ( [number, number] = [1, 1] ) - Tekstura ripeto.
+//     @param agordoj ( object = {} ) - Laŭvolaj agordoj.
+//         volvado ( THREE.Wrapping = RepeatWrapping ) - La tekstura volvaĵo.
+//         sRGB ( boolean = true ) - Ĉu la teksajxo uzu SRGB-koloron
+//             ( bump-teksajxoj restas lineara — do sRGB malŝaltita ).
+//         anisotropio ( number = 0 ) - La tekstura anizotropio.
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
-function kreiKanvasanTeksajxon(w: number, h: number,
+export function kreiKanvasanTeksajxon(w: number, h: number,
   pentri: ( k: CanvasRenderingContext2D ) => void,
-  ripeto: [ number, number ] = [ 1, 1 ]
+  ripeto: [ number, number ] = [ 1, 1 ],
+  agordoj: { volvado?: THREE.Wrapping; sRGB?: boolean; anisotropio?: number } = {}
 ): THREE.CanvasTexture {
   const kanvasa = document.createElement("canvas");
   kanvasa.width = w; kanvasa.height = h;
   const kunteksto = kanvasa.getContext("2d")!;
   pentri(kunteksto);
   const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
+  if ( agordoj.sRGB !== false ) teksajxo.colorSpace = THREE.SRGBColorSpace;
+  teksajxo.wrapS = teksajxo.wrapT = agordoj.volvado ?? THREE.RepeatWrapping;
   teksajxo.repeat.set(ripeto[0], ripeto[1]);
+  if ( agordoj.anisotropio ) teksajxo.anisotropy = agordoj.anisotropio;
   return teksajxo;
 }
 
@@ -328,7 +337,7 @@ function desegniCikatron(k: CanvasRenderingContext2D, cik: BetulaCikatro, malhel
 // ( naŭ kopioj per tranĉaĵo ), do la teksajxo estas senkudra ĉirkaŭ la trunko.
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
-  const teksajxo = kreiKanvasanTeksajxon(sxelaW, sxelaH, ( k ) => {
+  return kreiKanvasanTeksajxon(sxelaW, sxelaH, ( k ) => {
     // Bazo — papera blanko, pli hela kaj pli malvarmeta ol la malnova varma
     // flaveto. la blanka betulo vere estas preskaŭ neĝa.
     k.fillStyle = "#f8f8f0"; k.fillRect(0, 0, sxelaW, sxelaH);
@@ -393,9 +402,7 @@ export const kreiSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     lavo.addColorStop(1, "rgba(150,146,136,0.16)");
     k.fillStyle = lavo;
     k.fillRect(0, 0, sxelaW, sxelaH);
-  });
-  teksajxo.anisotropy = 4;
-  return teksajxo;
+  }, [ 1, 1 ], { anisotropio: 4 });
 });
 
 // kreiSxelanBumpanTeksajxon — Griznivela reliefa teksajxo por la betula
@@ -405,67 +412,61 @@ export const kreiSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
 // elstaras pli helaj. Bump-teksajxoj restas en lineara koloro.
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = sxelaW; kanvasa.height = sxelaH;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, sxelaW, sxelaH);
-  const skizo = generiBetulanSkizon();
-  // Mola grand-skala reliefo — la malebena sxoelo ne estas plata.
-  for ( let i = 0; i < 0o14; i++ ) {
-    const r = sxelaH * ( 0o10/0o100 + Math.random() * 0o10/0o100 );
-    const x = Math.random() * sxelaW, y = Math.random() * sxelaH;
-    const koloro = i % 2 ? "rgba(142,142,138,0.16)" : "rgba(74,74,74,0.14)";
-    desegniWrapan(kunteksto, sxelaW, () => {
-      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, koloro);
-      g.addColorStop(1, "rgba(128,128,128,0)");
-      kunteksto.fillStyle = g;
-      kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
-    });
-  }
-  // Fajnaj horizontalaj sulkoj — malprofundaj transversaj sulketoj.
-  for ( const strio of skizo.horizontajoj ) {
-    const koloro = "rgba(140,140,140,0.20)";
-    desegniWrapan(kunteksto, sxelaW, () => { desegniHorizontanStrion(kunteksto, strio, koloro); });
-  }
-  // Fajnaj strioj — leviĝantaj krestoj.
-  for ( const strio of skizo.strioj ) {
-    const koloro = "rgba(146,146,146,0.35)";
-    desegniWrapan(kunteksto, sxelaW, () => { desegniStrion(kunteksto, strio, koloro); });
-  }
-  // Senŝeliĝaj tavoloj — pli elstaraj krestoj.
-  for ( const strio of skizo.helajStrioj ) {
-    const koloro = "rgba(162,162,162,0.45)";
-    desegniWrapan(kunteksto, sxelaW, () => { desegniStrion(kunteksto, strio, koloro); });
-  }
-  // Lenticeloj — malprofundaj sulkoj, pli profundaj al la bazo.
-  for ( const lent of skizo.lenticeloj ) {
-    const griz = Math.round(0o200 - 0o40 * ( lent.y / sxelaH ));
-    const koloro = `rgb(${griz},${griz},${griz})`;
-    desegniWrapan(kunteksto, sxelaW, () => { desegniLenticelon(kunteksto, lent, koloro); });
-  }
-  // Senŝeliĝaj bendoj — profundaj sulkoj kun elstaraj buklaj randoj, pli
-  // profundaj al la bazo.
-  for ( const sxel of skizo.sxelighoj ) {
-    desegniWrapan(kunteksto, sxelaW, () => {
-      const griz = Math.round(0o110 - 0o40 * ( sxel.y / sxelaH ));
-      desegniSxelighon(kunteksto, sxel,
-        `rgb(${griz},${griz},${griz})`,
-        "rgba(56,56,56,0.6)",
-        "rgb(184,184,184)");
-    });
-  }
-  // Cikatroj — malprofundaj sulkoj kun helaj randoj.
-  for ( const cik of skizo.cikatroj ) {
-    desegniWrapan(kunteksto, sxelaW, () => {
-      desegniCikatron(kunteksto, cik, "rgba(104,104,104,0.55)", "rgba(150,150,150,0.5)");
-    });
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(1, 1);
-  teksajxo.anisotropy = 4;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(sxelaW, sxelaH, ( kunteksto ) => {
+    kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, sxelaW, sxelaH);
+    const skizo = generiBetulanSkizon();
+    // Mola grand-skala reliefo — la malebena sxoelo ne estas plata.
+    for ( let i = 0; i < 0o14; i++ ) {
+      const r = sxelaH * ( 0o10/0o100 + Math.random() * 0o10/0o100 );
+      const x = Math.random() * sxelaW, y = Math.random() * sxelaH;
+      const koloro = i % 2 ? "rgba(142,142,138,0.16)" : "rgba(74,74,74,0.14)";
+      desegniWrapan(kunteksto, sxelaW, () => {
+        const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, koloro);
+        g.addColorStop(1, "rgba(128,128,128,0)");
+        kunteksto.fillStyle = g;
+        kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
+      });
+    }
+    // Fajnaj horizontalaj sulkoj — malprofundaj transversaj sulketoj.
+    for ( const strio of skizo.horizontajoj ) {
+      const koloro = "rgba(140,140,140,0.20)";
+      desegniWrapan(kunteksto, sxelaW, () => { desegniHorizontanStrion(kunteksto, strio, koloro); });
+    }
+    // Fajnaj strioj — leviĝantaj krestoj.
+    for ( const strio of skizo.strioj ) {
+      const koloro = "rgba(146,146,146,0.35)";
+      desegniWrapan(kunteksto, sxelaW, () => { desegniStrion(kunteksto, strio, koloro); });
+    }
+    // Senŝeliĝaj tavoloj — pli elstaraj krestoj.
+    for ( const strio of skizo.helajStrioj ) {
+      const koloro = "rgba(162,162,162,0.45)";
+      desegniWrapan(kunteksto, sxelaW, () => { desegniStrion(kunteksto, strio, koloro); });
+    }
+    // Lenticeloj — malprofundaj sulkoj, pli profundaj al la bazo.
+    for ( const lent of skizo.lenticeloj ) {
+      const griz = Math.round(0o200 - 0o40 * ( lent.y / sxelaH ));
+      const koloro = `rgb(${griz},${griz},${griz})`;
+      desegniWrapan(kunteksto, sxelaW, () => { desegniLenticelon(kunteksto, lent, koloro); });
+    }
+    // Senŝeliĝaj bendoj — profundaj sulkoj kun elstaraj buklaj randoj, pli
+    // profundaj al la bazo.
+    for ( const sxel of skizo.sxelighoj ) {
+      desegniWrapan(kunteksto, sxelaW, () => {
+        const griz = Math.round(0o110 - 0o40 * ( sxel.y / sxelaH ));
+        desegniSxelighon(kunteksto, sxel,
+          `rgb(${griz},${griz},${griz})`,
+          "rgba(56,56,56,0.6)",
+          "rgb(184,184,184)");
+      });
+    }
+    // Cikatroj — malprofundaj sulkoj kun helaj randoj.
+    for ( const cik of skizo.cikatroj ) {
+      desegniWrapan(kunteksto, sxelaW, () => {
+        desegniCikatron(kunteksto, cik, "rgba(104,104,104,0.55)", "rgba(150,150,150,0.5)");
+      });
+    }
+  }, [ 1, 1 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
 });
 
 // Larika sxoela skizo — la kolor- kaj bump-teksajxoj dividas la SAMAN
@@ -607,58 +608,52 @@ export const kreiLarikanSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiLarikanSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const w = 0o200, h = 0o400;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = w; kanvasa.height = h;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, w, h);
-  const skizo = generiLarikanSkizon();
-  // Mola grand-skala reliefo — la malglata sxoelo ne estas plata.
-  for ( let i = 0; i < 0o10; i++ ) {
-    const r = h * ( 0o10/0o100 + Math.random() * 0o12/0o100 );
-    const x = Math.random() * w, y = Math.random() * h;
-    const koloro = i % 2 ? "rgba(142,142,138,0.16)" : "rgba(70,70,70,0.16)";
-    desegniWrapan(kunteksto, w, () => {
-      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, koloro);
-      g.addColorStop(1, "rgba(128,128,128,0)");
-      kunteksto.fillStyle = g;
-      kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
-    });
-  }
-  // Profundaj fendoj — sulkoj kun eĉ pli malhela kerno.
-  for ( const fendo of skizo.fendoj ) {
-    const kernDikeco = Math.max(1, fendo.dikeco * 0o5/0o10);
-    desegniWrapan(kunteksto, w, () => {
-      desegniStrion(kunteksto, fendo, "rgba(120,120,120,0.50)");
-      desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(86,86,86,0.70)");
-    });
-  }
-  // Leviĝantaj platoj — helaj krestoj.
-  for ( const cx of skizo.kolonoj ) {
-    const wd = 0o2 + Math.random() * 0o4;
-    desegniWrapan(kunteksto, w, () => {
-      kunteksto.fillStyle = "rgba(148,148,148,0.35)";
-      kunteksto.fillRect(cx, 0, wd, h);
-    });
-  }
-  // Horizontalaj skvamaj fendoj.
-  for ( const plato of skizo.platoj ) {
-    const koloro = plato.tono < 0o5/0o10 ? "rgba(152,152,152,0.40)" : "rgba(98,98,98,0.45)";
-    desegniWrapan(kunteksto, w, () => { desegniHorizontanStrion(kunteksto, plato, koloro); });
-  }
-  // Malglataj makuloj.
-  for ( const makulo of skizo.makuloj ) {
-    const koloro = makulo.hela ? "rgba(152,152,152,0.35)" : "rgba(94,94,94,0.40)";
-    desegniWrapan(kunteksto, w, () => {
-      kunteksto.fillStyle = koloro;
-      kunteksto.beginPath(); kunteksto.arc(makulo.x, makulo.y, makulo.r, 0, Math.PI * 2); kunteksto.fill();
-    });
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(1, 2);
-  teksajxo.anisotropy = 4;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
+    kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, w, h);
+    const skizo = generiLarikanSkizon();
+    // Mola grand-skala reliefo — la malglata sxoelo ne estas plata.
+    for ( let i = 0; i < 0o10; i++ ) {
+      const r = h * ( 0o10/0o100 + Math.random() * 0o12/0o100 );
+      const x = Math.random() * w, y = Math.random() * h;
+      const koloro = i % 2 ? "rgba(142,142,138,0.16)" : "rgba(70,70,70,0.16)";
+      desegniWrapan(kunteksto, w, () => {
+        const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, koloro);
+        g.addColorStop(1, "rgba(128,128,128,0)");
+        kunteksto.fillStyle = g;
+        kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
+      });
+    }
+    // Profundaj fendoj — sulkoj kun eĉ pli malhela kerno.
+    for ( const fendo of skizo.fendoj ) {
+      const kernDikeco = Math.max(1, fendo.dikeco * 0o5/0o10);
+      desegniWrapan(kunteksto, w, () => {
+        desegniStrion(kunteksto, fendo, "rgba(120,120,120,0.50)");
+        desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(86,86,86,0.70)");
+      });
+    }
+    // Leviĝantaj platoj — helaj krestoj.
+    for ( const cx of skizo.kolonoj ) {
+      const wd = 0o2 + Math.random() * 0o4;
+      desegniWrapan(kunteksto, w, () => {
+        kunteksto.fillStyle = "rgba(148,148,148,0.35)";
+        kunteksto.fillRect(cx, 0, wd, h);
+      });
+    }
+    // Horizontalaj skvamaj fendoj.
+    for ( const plato of skizo.platoj ) {
+      const koloro = plato.tono < 0o5/0o10 ? "rgba(152,152,152,0.40)" : "rgba(98,98,98,0.45)";
+      desegniWrapan(kunteksto, w, () => { desegniHorizontanStrion(kunteksto, plato, koloro); });
+    }
+    // Malglataj makuloj.
+    for ( const makulo of skizo.makuloj ) {
+      const koloro = makulo.hela ? "rgba(152,152,152,0.35)" : "rgba(94,94,94,0.40)";
+      desegniWrapan(kunteksto, w, () => {
+        kunteksto.fillStyle = koloro;
+        kunteksto.beginPath(); kunteksto.arc(makulo.x, makulo.y, makulo.r, 0, Math.PI * 2); kunteksto.fill();
+      });
+    }
+  }, [ 1, 2 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
 });
 
 // Diorita kristala skizo — la kolor- kaj bump-teksajxoj dividas la SAMAN
@@ -742,89 +737,83 @@ function generiDioritajnKristalojn(): DioritaKristalo[] {
 // la teksajxo estas PERFEKTE senkudra kaj ne montras bendojn kiam ĝi ripetiĝas.
 export const kreiDioritanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o400;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  // Bazo — helgriza feldspata maso.
-  kunteksto.fillStyle = "#d8d8d0"; kunteksto.fillRect(0, 0, s, s);
-  // Grand-skala mottlado — molaj helaj kaj malhelaj nuboj, pli grandaj ol la
-  // kristaloj, kiuj rompas la kahelan ripeton. La nuboj ĉirkaŭvolvas la randojn.
-  // La malhelaj nuboj estas MOLAJ ( malalta alpha ) kaj iom pli helaj ol antaŭe,
-  // por ke la ŝtono ne montru grandajn malhelajn makulojn kaj la koloro restu
-  // pli egala.
-  const nuboj = [ "rgba(248,248,240,0.3)", "rgba(104,104,96,0.18)", "rgba(168,168,160,0.26)", "rgba(136,136,128,0.16)" ];
-  for ( let i = 0; i < 0o20; i++ ) {
-    const r = s * ( 0o14/0o100 + Math.random() * 0o16/0o100 );
-    const x = hazard(0, s), y = hazard(0, s);
-    const koloro = nuboj[i % nuboj.length];
-    desegniWrapan(kunteksto, s, () => {
-      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, koloro);
-      g.addColorStop(1, "rgba(0,0,0,0)");
-      kunteksto.fillStyle = g;
-      kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
-    });
-  }
-  // Kristalaj facetoj — angulaj neregulaj poligonoj ( 5-7 verticoj ) kun
-  // faceta gradiento ( hela supro-maldekstra, malhela malsupro-dekstra ) kaj
-  // maldika grajnrando. La interplektitaj plenigitaj poligonoj kunhavas la
-  // saman skizon kiel la bump-teksajxo, do la reliefo sekvas la koloron.
-  const kristaloj = generiDioritajnKristalojn();
-  const grajnRandoj = [ "rgba(48,48,40,0.4)", "rgba(40,40,32,0.4)", "rgba(16,16,8,0.45)" ];
-  for ( let i = 0; i < kristaloj.length; i++ ) {
-    const kris = kristaloj[i];
-    const pal = dioritaPaletro[kris.indekso];
-    const rando = grajnRandoj[kris.indekso < 0o4 ? 0 : ( kris.indekso < 0o10 ? 1 : 2 )];
-    desegniWrapan(kunteksto, s, () => {
-      kunteksto.save();
-      kunteksto.translate(kris.x, kris.y);
-      kunteksto.rotate(kris.angulo);
-      const g = kunteksto.createLinearGradient(-kris.rx, -kris.ry, kris.rx, kris.ry);
-      g.addColorStop(0, pal.hela);
-      g.addColorStop(0o7/0o10, pal.bazo);
-      g.addColorStop(1, pal.malhela);
-      kunteksto.beginPath();
-      for ( let v = 0; v < kris.verticoj.length; v++ ) {
-        const a = ( v / kris.verticoj.length ) * Math.PI * 2;
-        const r = kris.verticoj[v];
-        const px = Math.cos(a) * kris.rx * r;
-        const py = Math.sin(a) * kris.ry * r;
-        if ( v === 0 ) kunteksto.moveTo(px, py); else kunteksto.lineTo(px, py);
-      }
-      kunteksto.closePath();
-      kunteksto.fillStyle = g;
-      kunteksto.fill();
-      kunteksto.strokeStyle = rando;
-      kunteksto.lineWidth = 1;
-      kunteksto.stroke();
-      kunteksto.restore();
-    });
-  }
-  // Fajna piklo — subtilaj mikrokristaloj inter la facetoj. Ankaŭ la piklo
-  // ĉirkaŭvolvas la kahelajn randojn, por ke eĉ la plej eta detalo ne tranĉiĝu
-  // ĉe la kudro.
-  for ( let i = 0; i < 0o640; i++ ) {
-    const wd = hazard(0o1, 0o3), hd = hazard(0o1, 0o3);
-    const x = hazard(0, s), y = hazard(0, s);
-    desegniWrapan(kunteksto, s, () => {
-      kunteksto.fillStyle = i % 2 ? "rgba(80,80,72,0.45)" : "rgba(168,168,160,0.5)";
-      kunteksto.fillRect(x, y, wd, hd);
-    });
-  }
-  // Helaj feldspataj briletoj — la lumbriloj de la polurita ŝtono.
-  for ( let i = 0; i < 0o110; i++ ) {
-    const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
-    const x = hazard(0, s), y = hazard(0, s);
-    desegniWrapan(kunteksto, s, () => {
-      kunteksto.fillStyle = "rgba(248,248,240,0.85)";
-      kunteksto.fillRect(x, y, wd, hd);
-    });
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(0o2, 0o2); teksajxo.anisotropy = 4;
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    // Bazo — helgriza feldspata maso.
+    kunteksto.fillStyle = "#d8d8d0"; kunteksto.fillRect(0, 0, s, s);
+    // Grand-skala mottlado — molaj helaj kaj malhelaj nuboj, pli grandaj ol la
+    // kristaloj, kiuj rompas la kahelan ripeton. La nuboj ĉirkaŭvolvas la randojn.
+    // La malhelaj nuboj estas MOLAJ ( malalta alpha ) kaj iom pli helaj ol antaŭe,
+    // por ke la ŝtono ne montru grandajn malhelajn makulojn kaj la koloro restu
+    // pli egala.
+    const nuboj = [ "rgba(248,248,240,0.3)", "rgba(104,104,96,0.18)", "rgba(168,168,160,0.26)", "rgba(136,136,128,0.16)" ];
+    for ( let i = 0; i < 0o20; i++ ) {
+      const r = s * ( 0o14/0o100 + Math.random() * 0o16/0o100 );
+      const x = hazard(0, s), y = hazard(0, s);
+      const koloro = nuboj[i % nuboj.length];
+      desegniWrapan(kunteksto, s, () => {
+        const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, koloro);
+        g.addColorStop(1, "rgba(0,0,0,0)");
+        kunteksto.fillStyle = g;
+        kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
+      });
+    }
+    // Kristalaj facetoj — angulaj neregulaj poligonoj ( 5-7 verticoj ) kun
+    // faceta gradiento ( hela supro-maldekstra, malhela malsupro-dekstra ) kaj
+    // maldika grajnrando. La interplektitaj plenigitaj poligonoj kunhavas la
+    // saman skizon kiel la bump-teksajxo, do la reliefo sekvas la koloron.
+    const kristaloj = generiDioritajnKristalojn();
+    const grajnRandoj = [ "rgba(48,48,40,0.4)", "rgba(40,40,32,0.4)", "rgba(16,16,8,0.45)" ];
+    for ( let i = 0; i < kristaloj.length; i++ ) {
+      const kris = kristaloj[i];
+      const pal = dioritaPaletro[kris.indekso];
+      const rando = grajnRandoj[kris.indekso < 0o4 ? 0 : ( kris.indekso < 0o10 ? 1 : 2 )];
+      desegniWrapan(kunteksto, s, () => {
+        kunteksto.save();
+        kunteksto.translate(kris.x, kris.y);
+        kunteksto.rotate(kris.angulo);
+        const g = kunteksto.createLinearGradient(-kris.rx, -kris.ry, kris.rx, kris.ry);
+        g.addColorStop(0, pal.hela);
+        g.addColorStop(0o7/0o10, pal.bazo);
+        g.addColorStop(1, pal.malhela);
+        kunteksto.beginPath();
+        for ( let v = 0; v < kris.verticoj.length; v++ ) {
+          const a = ( v / kris.verticoj.length ) * Math.PI * 2;
+          const r = kris.verticoj[v];
+          const px = Math.cos(a) * kris.rx * r;
+          const py = Math.sin(a) * kris.ry * r;
+          if ( v === 0 ) kunteksto.moveTo(px, py); else kunteksto.lineTo(px, py);
+        }
+        kunteksto.closePath();
+        kunteksto.fillStyle = g;
+        kunteksto.fill();
+        kunteksto.strokeStyle = rando;
+        kunteksto.lineWidth = 1;
+        kunteksto.stroke();
+        kunteksto.restore();
+      });
+    }
+    // Fajna piklo — subtilaj mikrokristaloj inter la facetoj. Ankaŭ la piklo
+    // ĉirkaŭvolvas la kahelajn randojn, por ke eĉ la plej eta detalo ne tranĉiĝu
+    // ĉe la kudro.
+    for ( let i = 0; i < 0o640; i++ ) {
+      const wd = hazard(0o1, 0o3), hd = hazard(0o1, 0o3);
+      const x = hazard(0, s), y = hazard(0, s);
+      desegniWrapan(kunteksto, s, () => {
+        kunteksto.fillStyle = i % 2 ? "rgba(80,80,72,0.45)" : "rgba(168,168,160,0.5)";
+        kunteksto.fillRect(x, y, wd, hd);
+      });
+    }
+    // Helaj feldspataj briletoj — la lumbriloj de la polurita ŝtono.
+    for ( let i = 0; i < 0o110; i++ ) {
+      const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
+      const x = hazard(0, s), y = hazard(0, s);
+      desegniWrapan(kunteksto, s, () => {
+        kunteksto.fillStyle = "rgba(248,248,240,0.85)";
+        kunteksto.fillRect(x, y, wd, hd);
+      });
+    }
+  }, [ 0o2, 0o2 ], { volvado: THREE.RepeatWrapping, anisotropio: 4 });
 });
 
 // kreiDioritanBumpanTeksajxon — Griznivela reliefa teksajxo por diorito.
@@ -835,53 +824,48 @@ export const kreiDioritanTeksajxon = sxovu((): THREE.CanvasTexture => {
 // koloro.
 export const kreiDioritanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o400;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, s, s);
-  // Kristalaj facetoj — la sama skizo kiel la kolor-teksajxo.
-  const kristaloj = generiDioritajnKristalojn();
-  for ( let i = 0; i < kristaloj.length; i++ ) {
-    const kris = kristaloj[i];
-    const pal = dioritaPaletro[kris.indekso];
-    const griz = Math.round(0o400 * pal.reliefo);
-    const rando = Math.max(0o40, Math.round(0o400 * ( pal.reliefo - 0o1/0o20 )));
-    desegniWrapan(kunteksto, s, () => {
-      kunteksto.save();
-      kunteksto.translate(kris.x, kris.y);
-      kunteksto.rotate(kris.angulo);
-      kunteksto.beginPath();
-      for ( let v = 0; v < kris.verticoj.length; v++ ) {
-        const a = ( v / kris.verticoj.length ) * Math.PI * 2;
-        const r = kris.verticoj[v];
-        const px = Math.cos(a) * kris.rx * r;
-        const py = Math.sin(a) * kris.ry * r;
-        if ( v === 0 ) kunteksto.moveTo(px, py); else kunteksto.lineTo(px, py);
-      }
-      kunteksto.closePath();
-      kunteksto.fillStyle = `rgb(${griz},${griz},${griz})`;
-      kunteksto.fill();
-      kunteksto.strokeStyle = `rgb(${rando},${rando},${rando})`;
-      kunteksto.lineWidth = 1;
-      kunteksto.stroke();
-      kunteksto.restore();
-    });
-  }
-  // Mikrokristaloj — malgrandaj helaj kaj malhelaj punktoj. Ankaŭ la piklo
-  // ĉirkaŭvolvas la kahelajn randojn, por ke la reliefo ne montru kudrojn.
-  for ( let i = 0; i < 0o640; i++ ) {
-    const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
-    const x = hazard(0, s), y = hazard(0, s);
-    const koloro = Math.random() > 0o4/0o10 ? "rgba(216,216,216,0.6)" : "rgba(88,88,88,0.6)";  // egala por ĉiuj 9 kopioj
-    desegniWrapan(kunteksto, s, () => {
-      kunteksto.fillStyle = koloro;
-      kunteksto.fillRect(x, y, wd, hd);
-    });
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(0o2, 0o2); teksajxo.anisotropy = 4;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, s, s);
+    // Kristalaj facetoj — la sama skizo kiel la kolor-teksajxo.
+    const kristaloj = generiDioritajnKristalojn();
+    for ( let i = 0; i < kristaloj.length; i++ ) {
+      const kris = kristaloj[i];
+      const pal = dioritaPaletro[kris.indekso];
+      const griz = Math.round(0o400 * pal.reliefo);
+      const rando = Math.max(0o40, Math.round(0o400 * ( pal.reliefo - 0o1/0o20 )));
+      desegniWrapan(kunteksto, s, () => {
+        kunteksto.save();
+        kunteksto.translate(kris.x, kris.y);
+        kunteksto.rotate(kris.angulo);
+        kunteksto.beginPath();
+        for ( let v = 0; v < kris.verticoj.length; v++ ) {
+          const a = ( v / kris.verticoj.length ) * Math.PI * 2;
+          const r = kris.verticoj[v];
+          const px = Math.cos(a) * kris.rx * r;
+          const py = Math.sin(a) * kris.ry * r;
+          if ( v === 0 ) kunteksto.moveTo(px, py); else kunteksto.lineTo(px, py);
+        }
+        kunteksto.closePath();
+        kunteksto.fillStyle = `rgb(${griz},${griz},${griz})`;
+        kunteksto.fill();
+        kunteksto.strokeStyle = `rgb(${rando},${rando},${rando})`;
+        kunteksto.lineWidth = 1;
+        kunteksto.stroke();
+        kunteksto.restore();
+      });
+    }
+    // Mikrokristaloj — malgrandaj helaj kaj malhelaj punktoj. Ankaŭ la piklo
+    // ĉirkaŭvolvas la kahelajn randojn, por ke la reliefo ne montru kudrojn.
+    for ( let i = 0; i < 0o640; i++ ) {
+      const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
+      const x = hazard(0, s), y = hazard(0, s);
+      const koloro = Math.random() > 0o4/0o10 ? "rgba(216,216,216,0.6)" : "rgba(88,88,88,0.6)";  // egala por ĉiuj 9 kopioj
+      desegniWrapan(kunteksto, s, () => {
+        kunteksto.fillStyle = koloro;
+        kunteksto.fillRect(x, y, wd, hd);
+      });
+    }
+  }, [ 0o2, 0o2 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
 });
 
 // kreiAndezitanTeksajxon — Kreu proceduralan andezitan teksajxon por
@@ -890,42 +874,36 @@ export const kreiDioritanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
 // bendoj, ne la malnova malpura punktaro.
 export const kreiAndezitanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  // Bazo — malhela verdgriza maso.
-  kunteksto.fillStyle = "#686858"; kunteksto.fillRect(0, 0, s, s);
-  // Fajna mottlado — egaletaj makuloj de hela al malhela, la densa afanita maso.
-  const tonoj = [ "#787868", "#888878", "#585850", "#989888", "#484840" ];
-  for ( let i = 0; i < 0o1170; i++ ) {
-    kunteksto.fillStyle = tonoj[i % tonoj.length];
-    kunteksto.fillRect(hazard(0, s), hazard(0, s), hazard(0o1, 0o4), hazard(0o1, 0o3));
-  }
-  // Subtilaj fluaj bendoj — horizontalaj strekoj de la vulkana fluo.
-  kunteksto.strokeStyle = "rgba(120,120,112,0.28)";
-  kunteksto.lineWidth = 3;
-  for ( let i = 0; i < 0o40; i++ ) {
-    const y = hazard(0, s);
-    kunteksto.beginPath();
-    kunteksto.moveTo(0, y);
-    kunteksto.lineTo(s, y + hazard(-0o3, 0o3));
-    kunteksto.stroke();
-  }
-  // Malgrandaj helaj fenokristoj — la palaj kristaletoj de andezito.
-  for ( let i = 0; i < 0o60; i++ ) {
-    kunteksto.fillStyle = "rgba(184,184,176,0.75)";
-    kunteksto.fillRect(hazard(0, s), hazard(0, s), 3 + Math.random() * 3, 2 + Math.random() * 2);
-  }
-  // Malhelaj mineralaj pikloj.
-  for ( let i = 0; i < 0o140; i++ ) {
-    kunteksto.fillStyle = "rgba(32,32,32,0.6)";
-    kunteksto.fillRect(hazard(0, s), hazard(0, s), 1 + Math.random() * 2, 1 + Math.random() * 2);
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(3, 3); teksajxo.anisotropy = 4;
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    // Bazo — malhela verdgriza maso.
+    kunteksto.fillStyle = "#686858"; kunteksto.fillRect(0, 0, s, s);
+    // Fajna mottlado — egaletaj makuloj de hela al malhela, la densa afanita maso.
+    const tonoj = [ "#787868", "#888878", "#585850", "#989888", "#484840" ];
+    for ( let i = 0; i < 0o1170; i++ ) {
+      kunteksto.fillStyle = tonoj[i % tonoj.length];
+      kunteksto.fillRect(hazard(0, s), hazard(0, s), hazard(0o1, 0o4), hazard(0o1, 0o3));
+    }
+    // Subtilaj fluaj bendoj — horizontalaj strekoj de la vulkana fluo.
+    kunteksto.strokeStyle = "rgba(120,120,112,0.28)";
+    kunteksto.lineWidth = 3;
+    for ( let i = 0; i < 0o40; i++ ) {
+      const y = hazard(0, s);
+      kunteksto.beginPath();
+      kunteksto.moveTo(0, y);
+      kunteksto.lineTo(s, y + hazard(-0o3, 0o3));
+      kunteksto.stroke();
+    }
+    // Malgrandaj helaj fenokristoj — la palaj kristaletoj de andezito.
+    for ( let i = 0; i < 0o60; i++ ) {
+      kunteksto.fillStyle = "rgba(184,184,176,0.75)";
+      kunteksto.fillRect(hazard(0, s), hazard(0, s), 3 + Math.random() * 3, 2 + Math.random() * 2);
+    }
+    // Malhelaj mineralaj pikloj.
+    for ( let i = 0; i < 0o140; i++ ) {
+      kunteksto.fillStyle = "rgba(32,32,32,0.6)";
+      kunteksto.fillRect(hazard(0, s), hazard(0, s), 1 + Math.random() * 2, 1 + Math.random() * 2);
+    }
+  }, [ 3, 3 ], { volvado: THREE.RepeatWrapping, anisotropio: 4 });
 });
 
 // kreiAndezitanBumpanTeksajxon — Griznivela reliefa teksajxo por andezito.
@@ -933,59 +911,44 @@ export const kreiAndezitanTeksajxon = sxovu((): THREE.CanvasTexture => {
 // lineara koloro.
 export const kreiAndezitanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#787878"; kunteksto.fillRect(0, 0, s, s);
-  // Fajna malebena piklo.
-  for ( let i = 0; i < 0o1170; i++ ) {
-    kunteksto.fillStyle = Math.random() > 0o4/0o10 ? "#a8a8a8" : "#484848";
-    kunteksto.fillRect(hazard(0, s), hazard(0, s), 1 + Math.random() * 2, 1 + Math.random() * 2);
-  }
-  // Fenokristoj — malgrandaj helaj elstaraĵoj.
-  for ( let i = 0; i < 0o60; i++ ) {
-    kunteksto.fillStyle = "#d0d0d0";
-    kunteksto.fillRect(hazard(0, s), hazard(0, s), 3 + Math.random() * 3, 2 + Math.random() * 2);
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(3, 3); teksajxo.anisotropy = 4;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.fillStyle = "#787878"; kunteksto.fillRect(0, 0, s, s);
+    // Fajna malebena piklo.
+    for ( let i = 0; i < 0o1170; i++ ) {
+      kunteksto.fillStyle = Math.random() > 0o4/0o10 ? "#a8a8a8" : "#484848";
+      kunteksto.fillRect(hazard(0, s), hazard(0, s), 1 + Math.random() * 2, 1 + Math.random() * 2);
+    }
+    // Fenokristoj — malgrandaj helaj elstaraĵoj.
+    for ( let i = 0; i < 0o60; i++ ) {
+      kunteksto.fillStyle = "#d0d0d0";
+      kunteksto.fillRect(hazard(0, s), hazard(0, s), 3 + Math.random() * 3, 2 + Math.random() * 2);
+    }
+  }, [ 3, 3 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
 });
 
 // kreiHerbanTeksajxon — Kreu proceduralan herban teksajxon por tereno.
 export function kreiHerbanTeksajxon(): THREE.CanvasTexture {
   const s = 0o400;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#f0f0e8"; kunteksto.fillRect(0, 0, s, s);
-  for ( let i = 0; i < 0o640; i++ ) {
-    const v = (0o330 + Math.random() * 0o40) | 0;
-    kunteksto.fillStyle = `rgba(${v},${v},${v - 6},0.5)`;
-    kunteksto.fillRect(hazard(0, s), hazard(0, s), hazard(2, 6), hazard(2, 6));
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(0o32, 0o32); teksajxo.anisotropy = 4;
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.fillStyle = "#f0f0e8"; kunteksto.fillRect(0, 0, s, s);
+    for ( let i = 0; i < 0o640; i++ ) {
+      const v = ( 0o330 + Math.random() * 0o40 ) | 0;
+      kunteksto.fillStyle = `rgba(${v},${v},${v - 6},0.5)`;
+      kunteksto.fillRect(hazard(0, s), hazard(0, s), hazard(2, 6), hazard(2, 6));
+    }
+  }, [ 0o32, 0o32 ], { volvado: THREE.RepeatWrapping, anisotropio: 4 });
 }
 
 // kreiNebulanTeksajxon — Kreu procedurale nebulozan radian gradienton.
 export function kreiNebulanTeksajxon(): THREE.CanvasTexture {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const r = kunteksto.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
-  r.addColorStop(0, "rgba(240,244,238,0.6)");
-  r.addColorStop(0o4/0o10, "rgba(240,244,238,0.22)");
-  r.addColorStop(1, "rgba(240,244,238,0)");
-  kunteksto.fillStyle = r; kunteksto.fillRect(0, 0, s, s);
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    const r = kunteksto.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+    r.addColorStop(0, "rgba(240,244,238,0.6)");
+    r.addColorStop(0o4/0o10, "rgba(240,244,238,0.22)");
+    r.addColorStop(1, "rgba(240,244,238,0)");
+    kunteksto.fillStyle = r; kunteksto.fillRect(0, 0, s, s);
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 // kreiNebulTavolanTeksajxon — Kreu proceduralan teksturitan nebul-tavolon por
@@ -994,84 +957,69 @@ export function kreiNebulanTeksajxon(): THREE.CanvasTexture {
 // por ke la kahelado estu senkudra.
 export function kreiNebulTavolanTeksajxon(): THREE.CanvasTexture {
   const s = 0o400;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.clearRect(0, 0, s, s);
-  const makuloj = 0o40;
-  for ( let i = 0; i < makuloj; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const r = s * ( 0o1/0o4 + Math.random() * 0o1/0o2 );
-    const denso = 0o7/0o40 + Math.random() * 0o13/0o40;
-    const koloro = `rgba(204,220,220,${denso.toFixed(2)})`;
-    // Ĉiuj naŭ ofsetoj — la makuloj volvas trans la kahelaj randoj.
-    for ( const dx of [ -s, 0, s ] ) {
-      for ( const dy of [ -s, 0, s ] ) {
-        const g = kunteksto.createRadialGradient(x + dx, y + dy, 0, x + dx, y + dy, r);
-        g.addColorStop(0, koloro);
-        g.addColorStop(1, "rgba(204,220,220,0)");
-        kunteksto.fillStyle = g;
-        kunteksto.beginPath();
-        kunteksto.arc(x + dx, y + dy, r, 0, Math.PI * 2);
-        kunteksto.fill();
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    const makuloj = 0o40;
+    for ( let i = 0; i < makuloj; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const r = s * ( 0o1/0o4 + Math.random() * 0o1/0o2 );
+      const denso = 0o7/0o40 + Math.random() * 0o13/0o40;
+      const koloro = `rgba(204,220,220,${denso.toFixed(2)})`;
+      // Ĉiuj naŭ ofsetoj — la makuloj volvas trans la kahelaj randoj.
+      for ( const dx of [ -s, 0, s ] ) {
+        for ( const dy of [ -s, 0, s ] ) {
+          const g = kunteksto.createRadialGradient(x + dx, y + dy, 0, x + dx, y + dy, r);
+          g.addColorStop(0, koloro);
+          g.addColorStop(1, "rgba(204,220,220,0)");
+          kunteksto.fillStyle = g;
+          kunteksto.beginPath();
+          kunteksto.arc(x + dx, y + dy, r, 0, Math.PI * 2);
+          kunteksto.fill();
+        }
       }
     }
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  }, [ 1, 1 ], { volvado: THREE.RepeatWrapping });
 }
 
 // kreiBrilanTeksajxon — Kreu procedurale brilan gradienton por lampoj.
 export function kreiBrilanTeksajxon(): THREE.CanvasTexture {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const r = kunteksto.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
-  r.addColorStop(0, "rgba(255,205,120,0.95)");
-  r.addColorStop(0o13/0o40, "rgba(255,165,70,0.4)");
-  r.addColorStop(1, "rgba(255,150,60,0)");
-  kunteksto.fillStyle = r; kunteksto.fillRect(0, 0, s, s);
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    const r = kunteksto.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+    r.addColorStop(0, "rgba(255,205,120,0.95)");
+    r.addColorStop(0o13/0o40, "rgba(255,165,70,0.4)");
+    r.addColorStop(1, "rgba(255,150,60,0)");
+    kunteksto.fillStyle = r; kunteksto.fillRect(0, 0, s, s);
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 // kreiFilikanTeksajxon — Kreu proceduralan filikan teksajxon por subkreskajxo.
 export function kreiFilikanTeksajxon(): THREE.CanvasTexture {
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = 0o200; kanvasa.height = 0o400;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.lineCap = "round";
-  kunteksto.strokeStyle = "#587850"; kunteksto.lineWidth = 4;
-  kunteksto.beginPath(); kunteksto.moveTo(0o100, 0o374); kunteksto.quadraticCurveTo(0o100, 0o210, 0o110, 0o32); kunteksto.stroke();
-  kunteksto.lineWidth = 3;
-  for ( let i = 0; i < 0o20; i++ ) {
-    const y = 0o350 - i * 0o16, longo = 0o54 - i * 0o115/0o40;
-    for ( const s of [ -1, 1 ] ) {
-      kunteksto.strokeStyle = `rgba(${80 + i * 3},${110 + i * 4},${70 + i * 2},0.95)`;
-      kunteksto.beginPath(); kunteksto.moveTo(0o100 + (s > 0 ? 2 : -2), y);
-      kunteksto.quadraticCurveTo(0o100 + s * longo * 0o55/0o100, y - 6, 0o100 + s * longo, y - 0o20);
-      kunteksto.stroke();
+  return kreiKanvasanTeksajxon(0o200, 0o400, ( kunteksto ) => {
+    kunteksto.lineCap = "round";
+    kunteksto.strokeStyle = "#587850"; kunteksto.lineWidth = 4;
+    kunteksto.beginPath(); kunteksto.moveTo(0o100, 0o374); kunteksto.quadraticCurveTo(0o100, 0o210, 0o110, 0o32); kunteksto.stroke();
+    kunteksto.lineWidth = 3;
+    for ( let i = 0; i < 0o20; i++ ) {
+      const y = 0o350 - i * 0o16, longo = 0o54 - i * 0o115/0o40;
+      for ( const s of [ -1, 1 ] ) {
+        kunteksto.strokeStyle = `rgba(${80 + i * 3},${110 + i * 4},${70 + i * 2},0.95)`;
+        kunteksto.beginPath(); kunteksto.moveTo(0o100 + ( s > 0 ? 2 : -2 ), y);
+        kunteksto.quadraticCurveTo(0o100 + s * longo * 0o55/0o100, y - 6, 0o100 + s * longo, y - 0o20);
+        kunteksto.stroke();
+      }
     }
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 // kreiMolanPunktanTeksajxon — Kreu molan punkto-teksajxon por sxveligi briletojn.
 export function kreiMolanPunktanTeksajxon(): THREE.CanvasTexture {
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = 0o400;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const gradiento = kunteksto.createRadialGradient(0o200, 0o200, 0o10, 0o200, 0o200, 0o200);
-  gradiento.addColorStop(0, "rgba(255,255,255,0.85)");
-  gradiento.addColorStop(1, "rgba(255,255,255,0)");
-  kunteksto.fillStyle = gradiento; kunteksto.fillRect(0, 0, 0o400, 0o400);
-  return new THREE.CanvasTexture(kanvasa);
+  return kreiKanvasanTeksajxon(0o400, 0o400, ( kunteksto ) => {
+    const gradiento = kunteksto.createRadialGradient(0o200, 0o200, 0o10, 0o200, 0o200, 0o200);
+    gradiento.addColorStop(0, "rgba(255,255,255,0.85)");
+    gradiento.addColorStop(1, "rgba(255,255,255,0)");
+    kunteksto.fillStyle = gradiento; kunteksto.fillRect(0, 0, 0o400, 0o400);
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, sRGB: false });
 }
 
 // kreiPurpuranFilikanTeksajxon — Kreu purpurajn pinajn filikojn kiel en Four Groves.
@@ -1079,51 +1027,46 @@ const purpuraFilikaKaŝo = new Map<boolean, THREE.CanvasTexture>();
 export function kreiPurpuranFilikanTeksajxon(densa: boolean = false): THREE.CanvasTexture {
   const trovita = purpuraFilikaKaŝo.get(densa);
   if ( trovita ) return trovita;
-  const kanvasa = document.createElement("canvas");
   const s = 0o400;
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
   const paletro = densa
     ? { tigo: "#382050", a: "#a058c0", b: "#c078e0" }
     : { tigo: "#482850", a: "#7848b0", b: "#9868d0" };
+  const teksajxo = kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    kunteksto.strokeStyle = paletro.tigo;
+    kunteksto.lineWidth = densa ? 0o4 : 0o4;
+    kunteksto.lineCap = "round";
+    kunteksto.beginPath();
+    kunteksto.moveTo(s / 2, s - 0o4/0o10);
+    kunteksto.quadraticCurveTo(s / 2 + ( densa ? 0o14 : 0 ), s * 0o4/0o10, s / 2 + ( densa ? 0o20 : 0 ), 0o4/0o10);
+    kunteksto.stroke();
 
-  kunteksto.clearRect(0, 0, s, s);
-  kunteksto.strokeStyle = paletro.tigo;
-  kunteksto.lineWidth = densa ? 0o4 : 0o4;
-  kunteksto.lineCap = "round";
-  kunteksto.beginPath();
-  kunteksto.moveTo(s / 2, s - 0o4/0o10);
-  kunteksto.quadraticCurveTo(s / 2 + (densa ? 0o14 : 0), s * 0o4/0o10, s / 2 + (densa ? 0o20 : 0), 0o4/0o10);
-  kunteksto.stroke();
+    const nombro = densa ? 0o42 : 0o32;
+    const maksimumaLongo = densa ? 0o112 : 0o130;
+    for ( let i = 0; i < nombro; i++ ) {
+      const t = i / ( nombro - 1 );
+      const y = s - 0o10/0o10 - t * 0o340;
+      const x = s / 2 + ( densa ? 0o20 : 0 ) * t * t;
+      const envolva = ( 0o26/0o100 + 0o52/0o100 * Math.min(0o1, t * 0o4/0o10) ) * Math.pow(1 - t, 0o66/0o100);
+      const longo = maksimumaLongo * envolva + 0o6;
+      const largho = longo * 0o12/0o100 + 0o2;
+      const kurbo = 0o33/0o100 + t * 0o6/0o10;
+      const koloro = i % 2 ? paletro.a : paletro.b;
 
-  const nombro = densa ? 0o42 : 0o32;
-  const maksimumaLongo = densa ? 0o112 : 0o130;
-  for ( let i = 0; i < nombro; i++ ) {
-    const t = i / (nombro - 1);
-    const y = s - 0o10/0o10 - t * 0o340;
-    const x = s / 2 + (densa ? 0o20 : 0) * t * t;
-    const envolva = ( 0o26/0o100 + 0o52/0o100 * Math.min(0o1, t * 0o4/0o10) ) * Math.pow(1 - t, 0o66/0o100);
-    const longo = maksimumaLongo * envolva + 0o6;
-    const largho = longo * 0o12/0o100 + 0o2;
-    const kurbo = 0o33/0o100 + t * 0o6/0o10;
-    const koloro = i % 2 ? paletro.a : paletro.b;
-
-    for ( const flanko of [ -1, 1 ] ) {
-      const angulo = flanko > 0 ? -kurbo : Math.PI + kurbo;
-      const finoX = x + Math.cos(angulo) * longo;
-      const finoY = y + Math.sin(angulo) * longo;
-      const cos = Math.cos(angulo), sin = Math.sin(angulo);
-      kunteksto.fillStyle = koloro;
-      kunteksto.beginPath();
-      kunteksto.moveTo(x, y);
-      kunteksto.quadraticCurveTo(x + cos * longo * 0o4/0o10 - sin * largho, y + sin * longo * 0o4/0o10 + cos * largho, finoX, finoY);
-      kunteksto.quadraticCurveTo(x + cos * longo * 0o4/0o10 + sin * largho, y + sin * longo * 0o4/0o10 - cos * largho, x, y);
-      kunteksto.fill();
+      for ( const flanko of [ -1, 1 ] ) {
+        const angulo = flanko > 0 ? -kurbo : Math.PI + kurbo;
+        const finoX = x + Math.cos(angulo) * longo;
+        const finoY = y + Math.sin(angulo) * longo;
+        const cos = Math.cos(angulo), sin = Math.sin(angulo);
+        kunteksto.fillStyle = koloro;
+        kunteksto.beginPath();
+        kunteksto.moveTo(x, y);
+        kunteksto.quadraticCurveTo(x + cos * longo * 0o4/0o10 - sin * largho, y + sin * longo * 0o4/0o10 + cos * largho, finoX, finoY);
+        kunteksto.quadraticCurveTo(x + cos * longo * 0o4/0o10 + sin * largho, y + sin * longo * 0o4/0o10 - cos * largho, x, y);
+        kunteksto.fill();
+      }
     }
-  }
-
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
   purpuraFilikaKaŝo.set(densa, teksajxo);
   return teksajxo;
 }
@@ -1131,27 +1074,23 @@ export function kreiPurpuranFilikanTeksajxon(densa: boolean = false): THREE.Canv
 // kreiHerbErinanTeksajxon — Kreu proceduralan herberan teksajxon por herbo.
 export const kreiHerbErinanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = s; kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.clearRect(0, 0, s, s);
-  // Verda klingo kontraux travidebla fono
-  const gradiento = kunteksto.createRadialGradient(s / 2, s * 0o66/0o100, 0, s / 2, s * 0o66/0o100, s * 0o44/0o100);
-  gradiento.addColorStop(0, "rgba(100,140,70,0.95)");
-  gradiento.addColorStop(0o4/0o10, "rgba(130,170,90,0.75)");
-  gradiento.addColorStop(1, "rgba(160,200,110,0)");
-  kunteksto.fillStyle = gradiento;
-  kunteksto.fillRect(0, 0, s, s);
-  // Centra vejno
-  kunteksto.strokeStyle = "rgba(80,120,50,0.6)";
-  kunteksto.lineWidth = 2;
-  kunteksto.beginPath();
-  kunteksto.moveTo(s / 2, s * 0o73/0o100);
-  kunteksto.quadraticCurveTo(s / 2, s * 0o15/0o40, s / 2, s * 0o5/0o100);
-  kunteksto.stroke();
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    // Verda klingo kontraux travidebla fono
+    const gradiento = kunteksto.createRadialGradient(s / 2, s * 0o66/0o100, 0, s / 2, s * 0o66/0o100, s * 0o44/0o100);
+    gradiento.addColorStop(0, "rgba(100,140,70,0.95)");
+    gradiento.addColorStop(0o4/0o10, "rgba(130,170,90,0.75)");
+    gradiento.addColorStop(1, "rgba(160,200,110,0)");
+    kunteksto.fillStyle = gradiento;
+    kunteksto.fillRect(0, 0, s, s);
+    // Centra vejno
+    kunteksto.strokeStyle = "rgba(80,120,50,0.6)";
+    kunteksto.lineWidth = 2;
+    kunteksto.beginPath();
+    kunteksto.moveTo(s / 2, s * 0o73/0o100);
+    kunteksto.quadraticCurveTo(s / 2, s * 0o15/0o40, s / 2, s * 0o5/0o100);
+    kunteksto.stroke();
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 });
 
 // neregulaFormo — Fermita vojo kun ondigita radiuso. la distanco de la
@@ -1481,22 +1420,20 @@ export const kreiLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiLikenanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const k = kanvasa.getContext("2d")!;
-  k.drawImage(kreiLikenanKanvason(), 0, 0);
-  const bildo = k.getImageData(0, 0, s, s);
-  const d = bildo.data;
-  // Luma griznivelo — pezitaj kanaloj ( 0o115, 0o226 kaj 0o35 sumas 0o400 ).
-  for ( let i = 0; i < d.length; i += 4 ) {
-    const griz = d[i + 3] < 0o200
-      ? 0o200
-      : ( 0o115 * d[i] + 0o230 * d[i + 1] + 0o35 * d[i + 2] ) >> 8;
-    d[i] = d[i + 1] = d[i + 2] = griz;
-    d[i + 3] = 0o377;
-  }
-  k.putImageData(bildo, 0, 0);
-  return new THREE.CanvasTexture(kanvasa);
+  return kreiKanvasanTeksajxon(s, s, ( k ) => {
+    k.drawImage(kreiLikenanKanvason(), 0, 0);
+    const bildo = k.getImageData(0, 0, s, s);
+    const d = bildo.data;
+    // Luma griznivelo — pezitaj kanaloj ( 0o115, 0o226 kaj 0o35 sumas 0o400 ).
+    for ( let i = 0; i < d.length; i += 4 ) {
+      const griz = d[i + 3] < 0o200
+        ? 0o200
+        : ( 0o115 * d[i] + 0o230 * d[i + 1] + 0o35 * d[i + 2] ) >> 8;
+      d[i] = d[i + 1] = d[i + 2] = griz;
+      d[i + 3] = 0o377;
+    }
+    k.putImageData(bildo, 0, 0);
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, sRGB: false });
 });
 
 // kreiTerenanTeksajxon — Kreu malgrandan, travideblan grundan brosxon.
@@ -1506,40 +1443,35 @@ export const kreiLikenanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
 // verdan paletron.
 export const kreiTerenanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.clearRect(0, 0, s, s);
-  kunteksto.lineCap = "round";
-  // Milda makuleco de la grundo — sufiĉe malforta por lasi la vertexajn
-  // kolorojn decidi ĉu la loko estas herba, seka aŭ roka.
-  for ( let i = 0; i < 0o70; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const r = 0o4 + Math.random() * 0o10;
-    const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-    g.addColorStop(0, i % 0o3 ? "rgba(84,116,66,0.10)" : "rgba(138,150,87,0.08)");
-    g.addColorStop(1, "rgba(255,255,255,0)");
-    kunteksto.fillStyle = g;
-    kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
-  }
-  // Mallongaj herberoj kaj falintaj klingoj — la samo maldika marklingvo kiel
-  // ĉe la herba kaj muska teksturoj, sed kun tre malalta kontrasto.
-  for ( let i = 0; i < 0o300; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const longo = 0o2 + Math.random() * 0o10;
-    const a = -Math.PI / 2 + ( Math.random() - 0o5/0o10 ) * 0o7/0o10;
-    kunteksto.strokeStyle = i % 0o4 ? "rgba(72,112,60,0.16)" : "rgba(166,170,93,0.14)";
-    kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
-    kunteksto.beginPath();
-    kunteksto.moveTo(x, y);
-    kunteksto.quadraticCurveTo(x + ( Math.random() - 0o5/0o10 ) * 0o2, y - longo * 0o1/0o2,
-      x + Math.cos(a) * longo, y + Math.sin(a) * longo);
-    kunteksto.stroke();
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.wrapS = teksajxo.wrapT = THREE.ClampToEdgeWrapping;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    kunteksto.lineCap = "round";
+    // Milda makuleco de la grundo — sufiĉe malforta por lasi la vertexajn
+    // kolorojn decidi ĉu la loko estas herba, seka aŭ roka.
+    for ( let i = 0; i < 0o70; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const r = 0o4 + Math.random() * 0o10;
+      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, i % 0o3 ? "rgba(84,116,66,0.10)" : "rgba(138,150,87,0.08)");
+      g.addColorStop(1, "rgba(255,255,255,0)");
+      kunteksto.fillStyle = g;
+      kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
+    }
+    // Mallongaj herberoj kaj falintaj klingoj — la samo maldika marklingvo kiel
+    // ĉe la herba kaj muska teksturoj, sed kun tre malalta kontrasto.
+    for ( let i = 0; i < 0o300; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const longo = 0o2 + Math.random() * 0o10;
+      const a = -Math.PI / 2 + ( Math.random() - 0o5/0o10 ) * 0o7/0o10;
+      kunteksto.strokeStyle = i % 0o4 ? "rgba(72,112,60,0.16)" : "rgba(166,170,93,0.14)";
+      kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
+      kunteksto.beginPath();
+      kunteksto.moveTo(x, y);
+      kunteksto.quadraticCurveTo(x + ( Math.random() - 0o5/0o10 ) * 0o2, y - longo * 0o1/0o2,
+        x + Math.cos(a) * longo, y + Math.sin(a) * longo);
+      kunteksto.stroke();
+    }
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 });
 
 // kreiMuskanTeksajxon — Kreu mildan cyan-verdan teksturon por la molaj
@@ -1548,71 +1480,67 @@ export const kreiTerenanTeksajxon = sxovu((): THREE.CanvasTexture => {
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta muska teksturo.
 export function kreiMuskanTeksajxon(): THREE.CanvasTexture {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  // La supro restas cyan-malseka, sed la malsupro transiras al la sama
-  // herba oliv-verdo kiel la grundo, por ke la musko ne aspektu gluita sur ĝi.
-  const bazaGradiento = kunteksto.createLinearGradient(0, 0, 0, s);
-  bazaGradiento.addColorStop(0, "#489088");
-  bazaGradiento.addColorStop(0o5/0o10, "#387870");
-  bazaGradiento.addColorStop(0o3/0o4, "#507850");
-  bazaGradiento.addColorStop(1, "#607848");
-  kunteksto.fillStyle = bazaGradiento;
-  kunteksto.fillRect(0, 0, s, s);
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    // La supro restas cyan-malseka, sed la malsupro transiras al la sama
+    // herba oliv-verdo kiel la grundo, por ke la musko ne aspektu gluita sur ĝi.
+    const bazaGradiento = kunteksto.createLinearGradient(0, 0, 0, s);
+    bazaGradiento.addColorStop(0, "#489088");
+    bazaGradiento.addColorStop(0o5/0o10, "#387870");
+    bazaGradiento.addColorStop(0o3/0o4, "#507850");
+    bazaGradiento.addColorStop(1, "#607848");
+    kunteksto.fillStyle = bazaGradiento;
+    kunteksto.fillRect(0, 0, s, s);
 
-  // Malklaraj tufoj — la malgrandaj humidaj kusenoj kun cyan-verda brilo.
-  const tufoKoloroj = [ "rgba(103,188,174,0.44)", "rgba(67,151,143,0.42)", "rgba(145,211,190,0.30)", "rgba(37,112,111,0.34)" ];
-  for ( let i = 0; i < 0o70; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const r = s * ( 0o3/0o100 + Math.random() * 0o6/0o100 );
-    const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-    g.addColorStop(0, tufoKoloroj[i % tufoKoloroj.length]);
-    g.addColorStop(0o5/0o10, "rgba(67,151,143,0.18)");
-    g.addColorStop(1, "rgba(31,86,83,0)");
-    kunteksto.fillStyle = g;
-    kunteksto.beginPath();
-    kunteksto.ellipse(x, y, r, r * ( 0o6/0o10 + Math.random() * 0o4/0o10 ), Math.random() * Math.PI, 0, Math.PI * 2);
-    kunteksto.fill();
-  }
+    // Malklaraj tufoj — la malgrandaj humidaj kusenoj kun cyan-verda brilo.
+    const tufoKoloroj = [ "rgba(103,188,174,0.44)", "rgba(67,151,143,0.42)", "rgba(145,211,190,0.30)", "rgba(37,112,111,0.34)" ];
+    for ( let i = 0; i < 0o70; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const r = s * ( 0o3/0o100 + Math.random() * 0o6/0o100 );
+      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, tufoKoloroj[i % tufoKoloroj.length]);
+      g.addColorStop(0o5/0o10, "rgba(67,151,143,0.18)");
+      g.addColorStop(1, "rgba(31,86,83,0)");
+      kunteksto.fillStyle = g;
+      kunteksto.beginPath();
+      kunteksto.ellipse(x, y, r, r * ( 0o6/0o10 + Math.random() * 0o4/0o10 ), Math.random() * Math.PI, 0, Math.PI * 2);
+      kunteksto.fill();
+    }
 
-  // Fajnaj fibroj rompas la gradientojn sen perdi la lanecan, malalt-kontrastan
-  // impreson. La strekoj estas mallongaj kaj malforte kurbaj.
-  kunteksto.lineCap = "round";
-  for ( let i = 0; i < 0o140; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const angulo = Math.random() * Math.PI * 2;
-    const longo = s * ( 0o1/0o100 + Math.random() * 0o2/0o100 );
-    const kurbo = ( Math.random() - 0o5/0o10 ) * 0o3;
-    kunteksto.strokeStyle = i % 0o4 ? "rgba(139,211,193,0.28)" : "rgba(25,92,91,0.34)";
-    kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
-    kunteksto.beginPath();
-    kunteksto.moveTo(x, y);
-    kunteksto.quadraticCurveTo(x + Math.cos(angulo) * longo * 0o1/0o2 - Math.sin(angulo) * kurbo,
-      y + Math.sin(angulo) * longo * 0o1/0o2 + Math.cos(angulo) * kurbo,
-      x + Math.cos(angulo) * longo, y + Math.sin(angulo) * longo);
-    kunteksto.stroke();
-  }
+    // Fajnaj fibroj rompas la gradientojn sen perdi la lanecan, malalt-kontrastan
+    // impreson. La strekoj estas mallongaj kaj malforte kurbaj.
+    kunteksto.lineCap = "round";
+    for ( let i = 0; i < 0o140; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const angulo = Math.random() * Math.PI * 2;
+      const longo = s * ( 0o1/0o100 + Math.random() * 0o2/0o100 );
+      const kurbo = ( Math.random() - 0o5/0o10 ) * 0o3;
+      kunteksto.strokeStyle = i % 0o4 ? "rgba(139,211,193,0.28)" : "rgba(25,92,91,0.34)";
+      kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
+      kunteksto.beginPath();
+      kunteksto.moveTo(x, y);
+      kunteksto.quadraticCurveTo(x + Math.cos(angulo) * longo * 0o1/0o2 - Math.sin(angulo) * kurbo,
+        y + Math.sin(angulo) * longo * 0o1/0o2 + Math.cos(angulo) * kurbo,
+        x + Math.cos(angulo) * longo, y + Math.sin(angulo) * longo);
+      kunteksto.stroke();
+    }
 
-  // Herba rando ĉe la bazo — mallongaj molaj klingoj miksiĝas kun la herba
-  // teksturo de la tero, anstataŭ finiĝi per klara cyan-verda linio.
-  for ( let i = 0; i < 0o230; i++ ) {
-    const x = Math.random() * s;
-    const bazoY = s * ( 0o3/0o4 + Math.random() * 0o1/0o4 );
-    const alto = s * ( 0o1/0o100 + Math.random() * 0o3/0o100 )
-      * ( bazoY < s * 0o75/0o100 ? 0o7/0o10 : 1 );
-    kunteksto.strokeStyle = i % 0o4 ? "rgba(104,158,78,0.46)" : "rgba(43,103,62,0.44)";
-    kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
-    kunteksto.beginPath();
-    kunteksto.moveTo(x, bazoY);
-    kunteksto.quadraticCurveTo(x + ( Math.random() - 0o5/0o10 ) * 0o2, bazoY - alto * 0o1/0o2,
-      x + ( Math.random() - 0o5/0o10 ) * 0o2, bazoY - alto);
-    kunteksto.stroke();
-  }
+    // Herba rando ĉe la bazo — mallongaj molaj klingoj miksiĝas kun la herba
+    // teksturo de la tero, anstataŭ finiĝi per klara cyan-verda linio.
+    for ( let i = 0; i < 0o230; i++ ) {
+      const x = Math.random() * s;
+      const bazoY = s * ( 0o3/0o4 + Math.random() * 0o1/0o4 );
+      const alto = s * ( 0o1/0o100 + Math.random() * 0o3/0o100 )
+        * ( bazoY < s * 0o75/0o100 ? 0o7/0o10 : 1 );
+      kunteksto.strokeStyle = i % 0o4 ? "rgba(104,158,78,0.46)" : "rgba(43,103,62,0.44)";
+      kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
+      kunteksto.beginPath();
+      kunteksto.moveTo(x, bazoY);
+      kunteksto.quadraticCurveTo(x + ( Math.random() - 0o5/0o10 ) * 0o2, bazoY - alto * 0o1/0o2,
+        x + ( Math.random() - 0o5/0o10 ) * 0o2, bazoY - alto);
+      kunteksto.stroke();
+    }
 
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 // kreiKavalErbanTeksajxon — Kreu ripetan teksturon por la kanelitaj tigoj de
@@ -1621,48 +1549,44 @@ export function kreiMuskanTeksajxon(): THREE.CanvasTexture {
 // specio ricevas pli freŝan, pli helan verdon ol la alta skura kano.
 function kreiKavalErbanTeksajxon(branĉa: boolean): THREE.CanvasTexture {
   const w = 0o100, h = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = w; kanvasa.height = h;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const baza = branĉa ? "#509870" : "#407858";
-  const hela = branĉa ? "#80c080" : "#68a070";
-  const ombro = branĉa ? "#286850" : "#285040";
-  const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
-  gradiento.addColorStop(0, ombro);
-  gradiento.addColorStop(0o2/0o10, baza);
-  gradiento.addColorStop(0o5/0o10, hela);
-  gradiento.addColorStop(0o7/0o10, baza);
-  gradiento.addColorStop(1, ombro);
-  kunteksto.fillStyle = gradiento;
-  kunteksto.fillRect(0, 0, w, h);
+  return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
+    const baza = branĉa ? "#509870" : "#407858";
+    const hela = branĉa ? "#80c080" : "#68a070";
+    const ombro = branĉa ? "#286850" : "#285040";
+    const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
+    gradiento.addColorStop(0, ombro);
+    gradiento.addColorStop(0o2/0o10, baza);
+    gradiento.addColorStop(0o5/0o10, hela);
+    gradiento.addColorStop(0o7/0o10, baza);
+    gradiento.addColorStop(1, ombro);
+    kunteksto.fillStyle = gradiento;
+    kunteksto.fillRect(0, 0, w, h);
 
-  // Fajnaj longitudaj sulkoj kaj humida brilo sur la krestoj.
-  for ( let i = 0; i < 0o20; i++ ) {
-    const x = i / 0o20 * w;
-    kunteksto.fillStyle = i % 0o4 === 0 ? "rgba(18,63,53,0.42)" : "rgba(196,225,164,0.16)";
-    kunteksto.fillRect(x, 0, i % 0o4 === 0 ? 0o2 : 1, h);
-  }
-  // Neregulaj ring-markoj sub la nodoj — la tigo ne aspektu kiel senfina
-  // perfekta tubeto. Ili ripetiĝas ene de ĉiu segmenta UV-areo.
-  for ( let i = 0; i < 0o6; i++ ) {
-    const y = h * ( 0o1/0o10 + i * 0o15/0o100 );
-    kunteksto.fillStyle = "rgba(20,67,52,0.22)";
-    kunteksto.fillRect(0, y, w, 0o2);
-    kunteksto.fillStyle = "rgba(207,230,174,0.20)";
-    kunteksto.fillRect(0, y - 0o1, w, 0o1);
-  }
-  // Malgrandaj poroj kaj skrapoj — subtila surfaca malpureco, pli densa ĉe la
-  // malsupro, kie la tigo tuŝas malsekan grundon.
-  for ( let i = 0; i < 0o70; i++ ) {
-    const x = Math.random() * w, y = Math.random() * h;
-    const koloro = i % 0o3 ? "rgba(20,74,58,0.24)" : "rgba(215,230,170,0.22)";
-    kunteksto.fillStyle = koloro;
-    kunteksto.fillRect(x, y, 1 + Math.random(), 1 + Math.random() * 0o2);
-  }
+    // Fajnaj longitudaj sulkoj kaj humida brilo sur la krestoj.
+    for ( let i = 0; i < 0o20; i++ ) {
+      const x = i / 0o20 * w;
+      kunteksto.fillStyle = i % 0o4 === 0 ? "rgba(18,63,53,0.42)" : "rgba(196,225,164,0.16)";
+      kunteksto.fillRect(x, 0, i % 0o4 === 0 ? 0o2 : 1, h);
+    }
+    // Neregulaj ring-markoj sub la nodoj — la tigo ne aspektu kiel senfina
+    // perfekta tubeto. Ili ripetiĝas ene de ĉiu segmenta UV-areo.
+    for ( let i = 0; i < 0o6; i++ ) {
+      const y = h * ( 0o1/0o10 + i * 0o15/0o100 );
+      kunteksto.fillStyle = "rgba(20,67,52,0.22)";
+      kunteksto.fillRect(0, y, w, 0o2);
+      kunteksto.fillStyle = "rgba(207,230,174,0.20)";
+      kunteksto.fillRect(0, y - 0o1, w, 0o1);
+    }
+    // Malgrandaj poroj kaj skrapoj — subtila surfaca malpureco, pli densa ĉe la
+    // malsupro, kie la tigo tuŝas malsekan grundon.
+    for ( let i = 0; i < 0o70; i++ ) {
+      const x = Math.random() * w, y = Math.random() * h;
+      const koloro = i % 0o3 ? "rgba(20,74,58,0.24)" : "rgba(215,230,170,0.22)";
+      kunteksto.fillStyle = koloro;
+      kunteksto.fillRect(x, y, 1 + Math.random(), 1 + Math.random() * 0o2);
+    }
 
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 export function kreiCetkuanTeksajxon(): THREE.CanvasTexture {
@@ -1678,106 +1602,101 @@ export function kreiCakeanTeksajxon(): THREE.CanvasTexture {
 // mezvejnoj rompas la malplenan unuforman kronon.
 export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const gradiento = kunteksto.createLinearGradient(0, 0, 0, s);
-  // Helblankeca menteca paletro — pli hela kaj pli blankeca ol la grunda
-  // herbo, tiel ke la krono legiĝas kiel pala menteca nubo super la herbejo.
-  gradiento.addColorStop(0, "#e8f0e0");
-  gradiento.addColorStop(0o4/0o10, "#c8d8c0");
-  gradiento.addColorStop(1, "#a8c0a8");
-  kunteksto.fillStyle = gradiento;
-  kunteksto.fillRect(0, 0, s, s);
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    const gradiento = kunteksto.createLinearGradient(0, 0, 0, s);
+    // Helblankeca menteca paletro — pli hela kaj pli blankeca ol la grunda
+    // herbo, tiel ke la krono legiĝas kiel pala menteca nubo super la herbejo.
+    gradiento.addColorStop(0, "#e8f0e0");
+    gradiento.addColorStop(0o4/0o10, "#c8d8c0");
+    gradiento.addColorStop(1, "#a8c0a8");
+    kunteksto.fillStyle = gradiento;
+    kunteksto.fillRect(0, 0, s, s);
 
-  // La malgrandaj lum- kaj ombro-makuloj donas profundon al la globforma krono.
-  for ( let i = 0; i < 0o60; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const r = s * ( 0o2/0o100 + Math.random() * 0o5/0o100 );
-    const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-    g.addColorStop(0, i % 0o3 ? "rgba(228,242,224,0.22)" : "rgba(46,90,68,0.16)");
-    g.addColorStop(1, "rgba(0,0,0,0)");
-    kunteksto.fillStyle = g;
-    kunteksto.beginPath(); kunteksto.ellipse(x, y, r, r * 0o7/0o10, Math.random() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
-  }
+    // La malgrandaj lum- kaj ombro-makuloj donas profundon al la globforma krono.
+    for ( let i = 0; i < 0o60; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const r = s * ( 0o2/0o100 + Math.random() * 0o5/0o100 );
+      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, i % 0o3 ? "rgba(228,242,224,0.22)" : "rgba(46,90,68,0.16)");
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      kunteksto.fillStyle = g;
+      kunteksto.beginPath(); kunteksto.ellipse(x, y, r, r * 0o7/0o10, Math.random() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
+    }
 
-  // Betulaj folioj — malgrandaj pintigitaj ovaloj kun hela centra vejno kaj
-  // flankaj vejnetoj, ne grandaj rondaj makuloj. La folioj grupiĝas en etaj
-  // faskoj kun malsamaj direktoj, kiel ĉe vera betula krono.
-  // Helblankecaj mentecaj tonoj — multe da blanka en la miksado por ke la
-  // krono aspektu pala kaj nuba, ne malhelverda.
-  const foliajKoloroj = [ "rgba(150,178,152,0.55)", "rgba(188,208,184,0.50)", "rgba(130,160,134,0.58)", "rgba(214,230,210,0.46)", "rgba(238,246,234,0.38)" ];
-  const desegniFolion = ( x: number, y: number, longo: number, largho: number, angulo: number, koloro: string ): void => {
-    kunteksto.save();
-    kunteksto.translate(x, y);
-    kunteksto.rotate(angulo);
-    // Pintigitaj pintoj — moviĝu laŭ du kvadrataj kurboj anstataŭ unu ovalo.
-    kunteksto.fillStyle = koloro;
-    kunteksto.beginPath();
-    kunteksto.moveTo(-longo, 0);
-    kunteksto.quadraticCurveTo(0, -largho, longo, 0);
-    kunteksto.quadraticCurveTo(0, largho, -longo, 0);
-    kunteksto.fill();
-    // Helverda mezvejno kaj du flankaj vejnetoj — la folio ne estas plata makulo.
-    kunteksto.strokeStyle = "rgba(242,250,238,0.55)";
-    kunteksto.lineWidth = 0o1/0o2;
-    kunteksto.beginPath(); kunteksto.moveTo(-longo * 0o3/0o4, 0); kunteksto.lineTo(longo * 0o3/0o4, 0); kunteksto.stroke();
-    kunteksto.strokeStyle = "rgba(242,250,238,0.30)";
-    kunteksto.lineWidth = 0o1/0o4;
-    kunteksto.beginPath();
-    kunteksto.moveTo(-longo * 0o2/0o10, 0); kunteksto.lineTo(0, -largho * 0o63/0o100);
-    kunteksto.moveTo(longo * 0o2/0o10, 0); kunteksto.lineTo(0, largho * 0o63/0o100);
-    kunteksto.stroke();
-    kunteksto.restore();
-  };
-  for ( let i = 0; i < 0o160; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const longo = 0o2 + Math.random() * 0o3;
-    const largho = 0o1 + Math.random() * 0o1;
-    desegniFolion(x, y, longo, largho, Math.random() * Math.PI, foliajKoloroj[i % foliajKoloroj.length]);
-  }
-  // Etaj faskoj — 3–5 folioj el komuna punkto, kiel folioj sur unu branĉeto.
-  for ( let i = 0; i < 0o30; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const bazoAngulo = Math.random() * Math.PI;
-    const fasko = 0o3 + ( ( Math.random() * 0o3 ) | 0 );
-    for ( let j = 0; j < fasko; j++ ) {
+    // Betulaj folioj — malgrandaj pintigitaj ovaloj kun hela centra vejno kaj
+    // flankaj vejnetoj, ne grandaj rondaj makuloj. La folioj grupiĝas en etaj
+    // faskoj kun malsamaj direktoj, kiel ĉe vera betula krono.
+    // Helblankecaj mentecaj tonoj — multe da blanka en la miksado por ke la
+    // krono aspektu pala kaj nuba, ne malhelverda.
+    const foliajKoloroj = [ "rgba(150,178,152,0.55)", "rgba(188,208,184,0.50)", "rgba(130,160,134,0.58)", "rgba(214,230,210,0.46)", "rgba(238,246,234,0.38)" ];
+    const desegniFolion = ( x: number, y: number, longo: number, largho: number, angulo: number, koloro: string ): void => {
+      kunteksto.save();
+      kunteksto.translate(x, y);
+      kunteksto.rotate(angulo);
+      // Pintigitaj pintoj — moviĝu laŭ du kvadrataj kurboj anstataŭ unu ovalo.
+      kunteksto.fillStyle = koloro;
+      kunteksto.beginPath();
+      kunteksto.moveTo(-longo, 0);
+      kunteksto.quadraticCurveTo(0, -largho, longo, 0);
+      kunteksto.quadraticCurveTo(0, largho, -longo, 0);
+      kunteksto.fill();
+      // Helverda mezvejno kaj du flankaj vejnetoj — la folio ne estas plata makulo.
+      kunteksto.strokeStyle = "rgba(242,250,238,0.55)";
+      kunteksto.lineWidth = 0o1/0o2;
+      kunteksto.beginPath(); kunteksto.moveTo(-longo * 0o3/0o4, 0); kunteksto.lineTo(longo * 0o3/0o4, 0); kunteksto.stroke();
+      kunteksto.strokeStyle = "rgba(242,250,238,0.30)";
+      kunteksto.lineWidth = 0o1/0o4;
+      kunteksto.beginPath();
+      kunteksto.moveTo(-longo * 0o2/0o10, 0); kunteksto.lineTo(0, -largho * 0o63/0o100);
+      kunteksto.moveTo(longo * 0o2/0o10, 0); kunteksto.lineTo(0, largho * 0o63/0o100);
+      kunteksto.stroke();
+      kunteksto.restore();
+    };
+    for ( let i = 0; i < 0o160; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
       const longo = 0o2 + Math.random() * 0o3;
       const largho = 0o1 + Math.random() * 0o1;
-      desegniFolion(x + ( Math.random() - 0o5/0o10 ) * 0o1, y + ( Math.random() - 0o5/0o10 ) * 0o1,
-        longo, largho, bazoAngulo + ( j - fasko / 2 ) * 0o5/0o10 + ( Math.random() - 0o5/0o10 ) * 0o2/0o10,
-        foliajKoloroj[( i + j ) % foliajKoloroj.length]);
+      desegniFolion(x, y, longo, largho, Math.random() * Math.PI, foliajKoloroj[i % foliajKoloroj.length]);
     }
-  }
+    // Etaj faskoj — 3–5 folioj el komuna punkto, kiel folioj sur unu branĉeto.
+    for ( let i = 0; i < 0o30; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const bazoAngulo = Math.random() * Math.PI;
+      const fasko = 0o3 + ( ( Math.random() * 0o3 ) | 0 );
+      for ( let j = 0; j < fasko; j++ ) {
+        const longo = 0o2 + Math.random() * 0o3;
+        const largho = 0o1 + Math.random() * 0o1;
+        desegniFolion(x + ( Math.random() - 0o5/0o10 ) * 0o1, y + ( Math.random() - 0o5/0o10 ) * 0o1,
+          longo, largho, bazoAngulo + ( j - fasko / 2 ) * 0o5/0o10 + ( Math.random() - 0o5/0o10 ) * 0o2/0o10,
+          foliajKoloroj[( i + j ) % foliajKoloroj.length]);
+      }
+    }
 
-  // Malgrandaj apartaj foliaj markoj anstataŭ longaj vertikalaj strioj;
-  // la malplenaj ombroj inter ili forigas la kukum-similan surfacon.
-  kunteksto.lineCap = "round";
-  for ( let i = 0; i < 0o140; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const angulo = Math.random() * Math.PI * 2;
-    const longo = 0o1 + Math.random() * 0o3;
-    kunteksto.strokeStyle = i % 0o3 ? "rgba(112,144,116,0.22)" : "rgba(222,238,216,0.26)";
-    kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
-    kunteksto.beginPath();
-    kunteksto.moveTo(x, y);
-    kunteksto.quadraticCurveTo(x + Math.cos(angulo) * longo * 0o1/0o2,
-      y + Math.sin(angulo) * longo * 0o1/0o2 - 1,
-      x + Math.cos(angulo) * longo, y + Math.sin(angulo) * longo);
-    kunteksto.stroke();
-  }
-  // Malgrandaj internaj ombroj sugestas foliarajn faskojn kaj branĉajn truojn.
-  for ( let i = 0; i < 0o30; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const r = 0o2 + Math.random() * 0o4;
-    kunteksto.fillStyle = "rgba(40,80,62,0.10)";
-    kunteksto.beginPath(); kunteksto.ellipse(x, y, r, r * 0o63/0o100, Math.random() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
-  }
+    // Malgrandaj apartaj foliaj markoj anstataŭ longaj vertikalaj strioj;
+    // la malplenaj ombroj inter ili forigas la kukum-similan surfacon.
+    kunteksto.lineCap = "round";
+    for ( let i = 0; i < 0o140; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const angulo = Math.random() * Math.PI * 2;
+      const longo = 0o1 + Math.random() * 0o3;
+      kunteksto.strokeStyle = i % 0o3 ? "rgba(112,144,116,0.22)" : "rgba(222,238,216,0.26)";
+      kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
+      kunteksto.beginPath();
+      kunteksto.moveTo(x, y);
+      kunteksto.quadraticCurveTo(x + Math.cos(angulo) * longo * 0o1/0o2,
+        y + Math.sin(angulo) * longo * 0o1/0o2 - 1,
+        x + Math.cos(angulo) * longo, y + Math.sin(angulo) * longo);
+      kunteksto.stroke();
+    }
+    // Malgrandaj internaj ombroj sugestas foliarajn faskojn kaj branĉajn truojn.
+    for ( let i = 0; i < 0o30; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const r = 0o2 + Math.random() * 0o4;
+      kunteksto.fillStyle = "rgba(40,80,62,0.10)";
+      kunteksto.beginPath(); kunteksto.ellipse(x, y, r, r * 0o63/0o100, Math.random() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
+    }
 
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.anisotropy = 4;
-  return teksajxo;
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, anisotropio: 4 });
 });
 
 // kreiLarikanFoliaranTeksajxon — Kreu teksturon por la aŭtunaj pinglaroj de
@@ -1785,84 +1704,79 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
 // orflavaj, olivaj kaj brunaj nuancoj anstataŭ plata flava konuso.
 export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const gradiento = kunteksto.createLinearGradient(0, 0, 0, s);
-  gradiento.addColorStop(0, "#d0c868");
-  gradiento.addColorStop(0o5/0o10, "#a8a050");
-  gradiento.addColorStop(1, "#687048");
-  kunteksto.fillStyle = gradiento;
-  kunteksto.fillRect(0, 0, s, s);
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    const gradiento = kunteksto.createLinearGradient(0, 0, 0, s);
+    gradiento.addColorStop(0, "#d0c868");
+    gradiento.addColorStop(0o5/0o10, "#a8a050");
+    gradiento.addColorStop(1, "#687048");
+    kunteksto.fillStyle = gradiento;
+    kunteksto.fillRect(0, 0, s, s);
 
-  // Pinglaj ventumiloj — faskoj de fajnaj pingloj radiaj el komuna branĉa
-  // punkto, kiel ĉe vera lariko. La pingloj kliniĝas iomete supren kaj havas
-  // aŭtunajn orflavajn, olivajn kaj verdflavajn nuancojn.
-  const pinglajKoloroj = [ "rgba(239,216,105,0.62)", "rgba(204,190,84,0.60)", "rgba(168,168,84,0.58)", "rgba(88,102,52,0.56)", "rgba(224,168,64,0.60)" ];
-  const desegniVentumilon = ( x: number, y: number, bazoAngulo: number, longo: number, koloroj: string[] ): void => {
-    kunteksto.save();
-    kunteksto.translate(x, y);
-    kunteksto.rotate(bazoAngulo);
-    const pingloj = 0o6 + ( ( Math.random() * 0o3 ) | 0 );
-    for ( let j = 0; j < pingloj; j++ ) {
-      const t = j / ( pingloj - 1 ) - 0o5/0o10;
-      const a = t * 0o6/0o10;
-      const pl = longo * ( 0o6/0o10 + Math.random() * 0o4/0o10 );
-      kunteksto.strokeStyle = koloroj[( j + ( ( Math.random() * koloroj.length ) | 0 )) % koloroj.length];
-      kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
-      kunteksto.lineCap = "round";
-      // Kurba, iomete pendant pinglo — kvadrata kurbo anstataŭ rekta streko.
+    // Pinglaj ventumiloj — faskoj de fajnaj pingloj radiaj el komuna branĉa
+    // punkto, kiel ĉe vera lariko. La pingloj kliniĝas iomete supren kaj havas
+    // aŭtunajn orflavajn, olivajn kaj verdflavajn nuancojn.
+    const pinglajKoloroj = [ "rgba(239,216,105,0.62)", "rgba(204,190,84,0.60)", "rgba(168,168,84,0.58)", "rgba(88,102,52,0.56)", "rgba(224,168,64,0.60)" ];
+    const desegniVentumilon = ( x: number, y: number, bazoAngulo: number, longo: number, koloroj: string[] ): void => {
+      kunteksto.save();
+      kunteksto.translate(x, y);
+      kunteksto.rotate(bazoAngulo);
+      const pingloj = 0o6 + ( ( Math.random() * 0o3 ) | 0 );
+      for ( let j = 0; j < pingloj; j++ ) {
+        const t = j / ( pingloj - 1 ) - 0o5/0o10;
+        const a = t * 0o6/0o10;
+        const pl = longo * ( 0o6/0o10 + Math.random() * 0o4/0o10 );
+        kunteksto.strokeStyle = koloroj[( j + ( ( Math.random() * koloroj.length ) | 0 ) ) % koloroj.length];
+        kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
+        kunteksto.lineCap = "round";
+        // Kurba, iomete pendant pinglo — kvadrata kurbo anstataŭ rekta streko.
+        kunteksto.beginPath();
+        kunteksto.moveTo(0, 0);
+        kunteksto.quadraticCurveTo(Math.cos(a) * pl * 0o46/0o100, -Math.sin(a) * pl * 0o46/0o100 - pl * 0o2/0o10,
+          Math.cos(a) * pl, -Math.sin(a) * pl);
+        kunteksto.stroke();
+      }
+      kunteksto.restore();
+    };
+    for ( let i = 0; i < 0o54; i++ ) {
+      desegniVentumilon(Math.random() * s, Math.random() * s,
+        Math.random() * Math.PI * 2, 0o4 + Math.random() * 0o6, pinglajKoloroj);
+    }
+    // Malhelaj branĉetaj ombroj inter la ventumiloj — la foliaro ne estas unu
+    // solida flava maso, sed faskoj kun profundaj interspacoj.
+    kunteksto.lineCap = "round";
+    for ( let i = 0; i < 0o40; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const angulo = Math.random() * Math.PI * 2;
+      const longo = 0o3 + Math.random() * 0o4;
+      kunteksto.strokeStyle = "rgba(52,52,24,0.30)";
+      kunteksto.lineWidth = 0o1/0o2;
       kunteksto.beginPath();
-      kunteksto.moveTo(0, 0);
-      kunteksto.quadraticCurveTo(Math.cos(a) * pl * 0o46/0o100, -Math.sin(a) * pl * 0o46/0o100 - pl * 0o2/0o10,
-        Math.cos(a) * pl, -Math.sin(a) * pl);
+      kunteksto.moveTo(x, y);
+      kunteksto.quadraticCurveTo(x + Math.cos(angulo) * longo * 0o1/0o2, y + Math.sin(angulo) * longo * 0o1/0o2,
+        x + Math.cos(angulo) * longo * 0o3/0o4, y + Math.sin(angulo) * longo * 0o3/0o4);
       kunteksto.stroke();
     }
-    kunteksto.restore();
-  };
-  for ( let i = 0; i < 0o54; i++ ) {
-    desegniVentumilon(Math.random() * s, Math.random() * s,
-      Math.random() * Math.PI * 2, 0o4 + Math.random() * 0o6, pinglajKoloroj);
-  }
-  // Malhelaj branĉetaj ombroj inter la ventumiloj — la foliaro ne estas unu
-  // solida flava maso, sed faskoj kun profundaj interspacoj.
-  kunteksto.lineCap = "round";
-  for ( let i = 0; i < 0o40; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const angulo = Math.random() * Math.PI * 2;
-    const longo = 0o3 + Math.random() * 0o4;
-    kunteksto.strokeStyle = "rgba(52,52,24,0.30)";
-    kunteksto.lineWidth = 0o1/0o2;
-    kunteksto.beginPath();
-    kunteksto.moveTo(x, y);
-    kunteksto.quadraticCurveTo(x + Math.cos(angulo) * longo * 0o1/0o2, y + Math.sin(angulo) * longo * 0o1/0o2,
-      x + Math.cos(angulo) * longo * 0o3/0o4, y + Math.sin(angulo) * longo * 0o3/0o4);
-    kunteksto.stroke();
-  }
-  for ( let i = 0; i < 0o70; i++ ) {
-    kunteksto.fillStyle = i % 0o3 ? "rgba(240,226,126,0.42)" : "rgba(63,70,35,0.38)";
-    kunteksto.fillRect(Math.random() * s, Math.random() * s, 1 + Math.random() * 0o2, 1 + Math.random() * 0o2);
-  }
-  // Fasketoj de pingloj havas la mallongajn, pintajn strekojn de herbo, sed
-  // kun oro-olivaj nuancoj por konservi la aŭtunan identecon de lariko.
-  kunteksto.lineCap = "round";
-  for ( let i = 0; i < 0o220; i++ ) {
-    const x = Math.random() * s, y = Math.random() * s;
-    const a = -Math.PI / 2 + ( Math.random() - 0o5/0o10 ) * 0o6/0o10;
-    const longo = 0o2 + Math.random() * 0o4;
-    kunteksto.strokeStyle = i % 0o4 ? "rgba(190,188,89,0.34)" : "rgba(91,105,55,0.32)";
-    kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
-    kunteksto.beginPath();
-    kunteksto.moveTo(x, y);
-    kunteksto.quadraticCurveTo(x + ( Math.random() - 0o5/0o10 ) * 0o2, y - longo * 0o1/0o2,
-      x + Math.cos(a) * longo, y + Math.sin(a) * longo);
-    kunteksto.stroke();
-  }
+    for ( let i = 0; i < 0o70; i++ ) {
+      kunteksto.fillStyle = i % 0o3 ? "rgba(240,226,126,0.42)" : "rgba(63,70,35,0.38)";
+      kunteksto.fillRect(Math.random() * s, Math.random() * s, 1 + Math.random() * 0o2, 1 + Math.random() * 0o2);
+    }
+    // Fasketoj de pingloj havas la mallongajn, pintajn strekojn de herbo, sed
+    // kun oro-olivaj nuancoj por konservi la aŭtunan identecon de lariko.
+    kunteksto.lineCap = "round";
+    for ( let i = 0; i < 0o220; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const a = -Math.PI / 2 + ( Math.random() - 0o5/0o10 ) * 0o6/0o10;
+      const longo = 0o2 + Math.random() * 0o4;
+      kunteksto.strokeStyle = i % 0o4 ? "rgba(190,188,89,0.34)" : "rgba(91,105,55,0.32)";
+      kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
+      kunteksto.beginPath();
+      kunteksto.moveTo(x, y);
+      kunteksto.quadraticCurveTo(x + ( Math.random() - 0o5/0o10 ) * 0o2, y - longo * 0o1/0o2,
+        x + Math.cos(a) * longo, y + Math.sin(a) * longo);
+      kunteksto.stroke();
+    }
 
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.anisotropy = 4;
-  return teksajxo;
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, anisotropio: 4 });
 });
 
 // desegniFrutikosanTrunketon — Desegnu unu branĉiĝantan likenan trunketon.
@@ -1955,20 +1869,16 @@ function desegniFrutikosanTrunketon(k: CanvasRenderingContext2D, x: number, bazo
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiFrutikosanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.clearRect(0, 0, s, s);
-  const trunketoj = 0o10;
-  for ( let i = 0; i < trunketoj; i++ ) {
-    const x = s * ( 0o2/0o10 + Math.random() * 0o4/0o10 );
-    const alto = s * ( 0o3/0o10 + Math.random() * 0o16/0o100 );
-    const kurbo = ( Math.random() - 0o5/0o10 ) * s * 0o1/0o20;
-    desegniFrutikosanTrunketon(kunteksto, x, s * 0o17/0o20, alto, kurbo);
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    const trunketoj = 0o10;
+    for ( let i = 0; i < trunketoj; i++ ) {
+      const x = s * ( 0o2/0o10 + Math.random() * 0o4/0o10 );
+      const alto = s * ( 0o3/0o10 + Math.random() * 0o16/0o100 );
+      const kurbo = ( Math.random() - 0o5/0o10 ) * s * 0o1/0o20;
+      desegniFrutikosanTrunketon(kunteksto, x, s * 0o17/0o20, alto, kurbo);
+    }
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 });
 
 // kreiFolisanLikenanTeksajxon — Kreu proceduralan foliosan likenan teksajxon.
@@ -1978,110 +1888,106 @@ export const kreiFrutikosanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiFolisanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.clearRect(0, 0, s, s);
-  const cx = s / 2, cy = s / 2;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    const cx = s / 2, cy = s / 2;
 
-  // Folioza likeno estas folia rozetaro, ne rado da samformaj ovaloj. La baza
-  // hipotalo restas malhela kaj iomete videbla inter la disaj folietoj.
-  neregulaFormo(kunteksto, cx, cy, s * 0o22/0o100, 0o7, 0o25/0o100, Math.random() * Math.PI * 2);
-  kunteksto.fillStyle = "rgba(66,78,58,0.72)";
-  kunteksto.fill();
-
-  const desegniFolieton = ( a: number, bazoR: number, longo: number, largho: number, koloro: string ): void => {
-    const lx = cx + Math.cos(a) * bazoR, ly = cy + Math.sin(a) * bazoR;
-    kunteksto.save();
-    kunteksto.translate(lx + Math.cos(a) * longo / 2, ly + Math.sin(a) * longo / 2);
-    kunteksto.rotate(a);
-    // La folieto estas pintigita kaj iomete krenelita ĉe la rando, kiel vera
-    // folia likena lobo, kun pli dika mezo ol la pinto.
-    kunteksto.beginPath();
-    kunteksto.moveTo(-longo / 2, 0);
-    kunteksto.quadraticCurveTo(-longo * 0o1/0o4, -largho * 0o63/0o100, -longo * 0o1/0o20, -largho);
-    kunteksto.quadraticCurveTo(longo * 0o1/0o4, -largho * 0o63/0o100, longo / 2, 0);
-    kunteksto.quadraticCurveTo(longo * 0o1/0o4, largho * 0o72/0o100, 0, largho);
-    kunteksto.quadraticCurveTo(-longo * 0o1/0o4, largho * 0o63/0o100, -longo / 2, 0);
-    kunteksto.closePath();
-    kunteksto.fillStyle = "rgba(54,66,48,0.72)";
+    // Folioza likeno estas folia rozetaro, ne rado da samformaj ovaloj. La baza
+    // hipotalo restas malhela kaj iomete videbla inter la disaj folietoj.
+    neregulaFormo(kunteksto, cx, cy, s * 0o22/0o100, 0o7, 0o25/0o100, Math.random() * Math.PI * 2);
+    kunteksto.fillStyle = "rgba(66,78,58,0.72)";
     kunteksto.fill();
-    kunteksto.translate(0, -1);
-    kunteksto.fillStyle = koloro;
-    kunteksto.beginPath();
-    kunteksto.moveTo(-longo / 2 + 1, 0);
-    kunteksto.quadraticCurveTo(-longo * 0o1/0o4, -largho * 0o7/0o10, -longo * 0o1/0o20, -largho * 0o66/0o100);
-    kunteksto.quadraticCurveTo(longo * 0o1/0o4, -largho * 0o7/0o10, longo / 2 - 1, 0);
-    kunteksto.quadraticCurveTo(longo * 0o1/0o4, largho * 0o63/0o100, 0, largho * 0o63/0o100);
-    kunteksto.quadraticCurveTo(-longo * 0o1/0o4, largho * 0o7/0o10, -longo / 2 + 1, 0);
-    kunteksto.closePath(); kunteksto.fill();
-    // Meza vejno kaj flankaj vejnoj estas la karakteriza folia reliefo.
-    kunteksto.strokeStyle = "rgba(224,232,202,0.62)";
-    kunteksto.lineWidth = 1;
-    kunteksto.lineCap = "round";
-    kunteksto.beginPath(); kunteksto.moveTo(-longo * 0o32/0o100, 0); kunteksto.lineTo(longo * 0o32/0o100, 0); kunteksto.stroke();
-    for ( let v = -1; v <= 1; v += 2 ) {
+
+    const desegniFolieton = ( a: number, bazoR: number, longo: number, largho: number, koloro: string ): void => {
+      const lx = cx + Math.cos(a) * bazoR, ly = cy + Math.sin(a) * bazoR;
+      kunteksto.save();
+      kunteksto.translate(lx + Math.cos(a) * longo / 2, ly + Math.sin(a) * longo / 2);
+      kunteksto.rotate(a);
+      // La folieto estas pintigita kaj iomete krenelita ĉe la rando, kiel vera
+      // folia likena lobo, kun pli dika mezo ol la pinto.
       kunteksto.beginPath();
-      kunteksto.moveTo(v * longo * 0o1/0o10, 0);
-      kunteksto.quadraticCurveTo(v * longo * 0o1/0o4, v * largho * 0o2/0o10, v * longo * 0o3/0o10, v * largho * 0o5/0o10);
-      kunteksto.stroke();
+      kunteksto.moveTo(-longo / 2, 0);
+      kunteksto.quadraticCurveTo(-longo * 0o1/0o4, -largho * 0o63/0o100, -longo * 0o1/0o20, -largho);
+      kunteksto.quadraticCurveTo(longo * 0o1/0o4, -largho * 0o63/0o100, longo / 2, 0);
+      kunteksto.quadraticCurveTo(longo * 0o1/0o4, largho * 0o72/0o100, 0, largho);
+      kunteksto.quadraticCurveTo(-longo * 0o1/0o4, largho * 0o63/0o100, -longo / 2, 0);
+      kunteksto.closePath();
+      kunteksto.fillStyle = "rgba(54,66,48,0.72)";
+      kunteksto.fill();
+      kunteksto.translate(0, -1);
+      kunteksto.fillStyle = koloro;
+      kunteksto.beginPath();
+      kunteksto.moveTo(-longo / 2 + 1, 0);
+      kunteksto.quadraticCurveTo(-longo * 0o1/0o4, -largho * 0o7/0o10, -longo * 0o1/0o20, -largho * 0o66/0o100);
+      kunteksto.quadraticCurveTo(longo * 0o1/0o4, -largho * 0o7/0o10, longo / 2 - 1, 0);
+      kunteksto.quadraticCurveTo(longo * 0o1/0o4, largho * 0o63/0o100, 0, largho * 0o63/0o100);
+      kunteksto.quadraticCurveTo(-longo * 0o1/0o4, largho * 0o7/0o10, -longo / 2 + 1, 0);
+      kunteksto.closePath(); kunteksto.fill();
+      // Meza vejno kaj flankaj vejnoj estas la karakteriza folia reliefo.
+      kunteksto.strokeStyle = "rgba(224,232,202,0.62)";
+      kunteksto.lineWidth = 1;
+      kunteksto.lineCap = "round";
+      kunteksto.beginPath(); kunteksto.moveTo(-longo * 0o32/0o100, 0); kunteksto.lineTo(longo * 0o32/0o100, 0); kunteksto.stroke();
+      for ( let v = -1; v <= 1; v += 2 ) {
+        kunteksto.beginPath();
+        kunteksto.moveTo(v * longo * 0o1/0o10, 0);
+        kunteksto.quadraticCurveTo(v * longo * 0o1/0o4, v * largho * 0o2/0o10, v * longo * 0o3/0o10, v * largho * 0o5/0o10);
+        kunteksto.stroke();
+      }
+      kunteksto.strokeStyle = "rgba(50,66,44,0.45)";
+      kunteksto.lineWidth = 1;
+      kunteksto.beginPath(); kunteksto.moveTo(-longo * 0o32/0o100, largho * 0o5/0o10); kunteksto.lineTo(longo * 0o32/0o100, largho * 0o5/0o10); kunteksto.stroke();
+      kunteksto.restore();
+    };
+
+    const koloroj = [ "#b0c098", "#b8c8a8", "#c8d0b0", "#98b088" ];
+    const loboj = 0o16 + ( ( Math.random() * 0o4 ) | 0 );
+    for ( let i = 0; i < loboj; i++ ) {
+      const a = ( i / loboj + ( Math.random() - 0o5/0o10 ) * 0o1/0o10 ) * Math.PI * 2;
+      desegniFolieton(a, s * ( 0o4/0o100 + Math.random() * 0o4/0o100 ), s * ( 0o5/0o100 + Math.random() * 0o4/0o100 ), s * ( 0o4/0o100 + Math.random() * 0o3/0o100 ), koloroj[i % koloroj.length]);
     }
-    kunteksto.strokeStyle = "rgba(50,66,44,0.45)";
-    kunteksto.lineWidth = 1;
-    kunteksto.beginPath(); kunteksto.moveTo(-longo * 0o32/0o100, largho * 0o5/0o10); kunteksto.lineTo(longo * 0o32/0o100, largho * 0o5/0o10); kunteksto.stroke();
-    kunteksto.restore();
-  };
 
-  const koloroj = [ "#b0c098", "#b8c8a8", "#c8d0b0", "#98b088" ];
-  const loboj = 0o16 + ( ( Math.random() * 0o4 ) | 0 );
-  for ( let i = 0; i < loboj; i++ ) {
-    const a = ( i / loboj + ( Math.random() - 0o5/0o10 ) * 0o1/0o10 ) * Math.PI * 2;
-    desegniFolieton(a, s * ( 0o4/0o100 + Math.random() * 0o4/0o100 ), s * ( 0o5/0o100 + Math.random() * 0o4/0o100 ), s * ( 0o4/0o100 + Math.random() * 0o3/0o100 ), koloroj[i % koloroj.length]);
-  }
-
-  // Foliozaj apotecioj estas sur la supraĵoj kaj randoj de la folietoj. oranĝbrunaj
-  // tasoj kun hela disko, ne nigraj punktoj enfositaj en la talo.
-  const apotecioj = 0o10 + ( ( Math.random() * 0o6 ) | 0 );
-  for ( let i = 0; i < apotecioj; i++ ) {
-    const a = Math.random() * Math.PI * 2;
-    const r = s * ( 0o5/0o100 + Math.random() * 0o11/0o100 );
-    const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
-    const rad = s * ( 0o10/0o2000 + Math.random() * 0o12/0o2000 );
-    kunteksto.fillStyle = "rgba(82,56,38,0.8)";
-    kunteksto.beginPath(); kunteksto.ellipse(x, y + 1, rad * 0o12/0o10, rad * 0o7/0o10, 0, 0, Math.PI * 2); kunteksto.fill();
-    kunteksto.fillStyle = i % 3 ? "#b87858" : "#a06848";
-    kunteksto.beginPath(); kunteksto.ellipse(x, y, rad, rad * 0o6/0o10, 0, 0, Math.PI * 2); kunteksto.fill();
-    kunteksto.fillStyle = "rgba(224,178,126,0.85)";
-    kunteksto.beginPath(); kunteksto.ellipse(x, y - 1, rad * 0o65/0o100, rad * 0o25/0o100, 0, 0, Math.PI * 2); kunteksto.fill();
-  }
-  // Soraliaj fendoj — palaj pulvoraj makuloj sur la foliaj loboj. Ili estas
-  // neregulaj kaj ne regule distribuitaj kiel ornamaj punktoj.
-  for ( let i = 0; i < 0o16; i++ ) {
-    const a = Math.random() * Math.PI * 2;
-    const r = s * ( 0o6/0o100 + Math.random() * 0o10/0o100 );
-    const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
-    const rad = s * ( 0o2/0o100 + Math.random() * 0o2/0o100 );
-    neregulaFormo(kunteksto, x, y, rad, 0o4 + ( ( Math.random() * 0o3 ) | 0 ), 0o3/0o10, Math.random() * Math.PI * 2);
-    kunteksto.fillStyle = "rgba(226,232,204,0.62)";
-    kunteksto.fill();
-    for ( let j = 0; j < 0o4; j++ ) {
-      kunteksto.fillStyle = j % 2 ? "rgba(104,120,86,0.58)" : "rgba(246,244,220,0.72)";
-      kunteksto.fillRect(x + ( Math.random() - 0o5/0o10 ) * rad, y + ( Math.random() - 0o5/0o10 ) * rad, 0o1 + Math.random() * 0o1, 0o1 + Math.random() * 0o1);
+    // Foliozaj apotecioj estas sur la supraĵoj kaj randoj de la folietoj. oranĝbrunaj
+    // tasoj kun hela disko, ne nigraj punktoj enfositaj en la talo.
+    const apotecioj = 0o10 + ( ( Math.random() * 0o6 ) | 0 );
+    for ( let i = 0; i < apotecioj; i++ ) {
+      const a = Math.random() * Math.PI * 2;
+      const r = s * ( 0o5/0o100 + Math.random() * 0o11/0o100 );
+      const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+      const rad = s * ( 0o10/0o2000 + Math.random() * 0o12/0o2000 );
+      kunteksto.fillStyle = "rgba(82,56,38,0.8)";
+      kunteksto.beginPath(); kunteksto.ellipse(x, y + 1, rad * 0o12/0o10, rad * 0o7/0o10, 0, 0, Math.PI * 2); kunteksto.fill();
+      kunteksto.fillStyle = i % 3 ? "#b87858" : "#a06848";
+      kunteksto.beginPath(); kunteksto.ellipse(x, y, rad, rad * 0o6/0o10, 0, 0, Math.PI * 2); kunteksto.fill();
+      kunteksto.fillStyle = "rgba(224,178,126,0.85)";
+      kunteksto.beginPath(); kunteksto.ellipse(x, y - 1, rad * 0o65/0o100, rad * 0o25/0o100, 0, 0, Math.PI * 2); kunteksto.fill();
     }
-  }
+    // Soraliaj fendoj — palaj pulvoraj makuloj sur la foliaj loboj. Ili estas
+    // neregulaj kaj ne regule distribuitaj kiel ornamaj punktoj.
+    for ( let i = 0; i < 0o16; i++ ) {
+      const a = Math.random() * Math.PI * 2;
+      const r = s * ( 0o6/0o100 + Math.random() * 0o10/0o100 );
+      const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+      const rad = s * ( 0o2/0o100 + Math.random() * 0o2/0o100 );
+      neregulaFormo(kunteksto, x, y, rad, 0o4 + ( ( Math.random() * 0o3 ) | 0 ), 0o3/0o10, Math.random() * Math.PI * 2);
+      kunteksto.fillStyle = "rgba(226,232,204,0.62)";
+      kunteksto.fill();
+      for ( let j = 0; j < 0o4; j++ ) {
+        kunteksto.fillStyle = j % 2 ? "rgba(104,120,86,0.58)" : "rgba(246,244,220,0.72)";
+        kunteksto.fillRect(x + ( Math.random() - 0o5/0o10 ) * rad, y + ( Math.random() - 0o5/0o10 ) * rad, 0o1 + Math.random() * 0o1, 0o1 + Math.random() * 0o1);
+      }
+    }
 
-  // Rizinoj — maldikaj brunaj fadenoj sub la folia talo.
-  kunteksto.strokeStyle = "rgba(74,70,52,0.48)"; kunteksto.lineWidth = 1;
-  for ( let i = 0; i < 0o20; i++ ) {
-    const a = Math.random() * Math.PI * 2;
-    const r = s * ( 0o14/0o100 + Math.random() * 0o10/0o100 );
-    const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
-    kunteksto.beginPath(); kunteksto.moveTo(x, y);
-    kunteksto.quadraticCurveTo(x + ( Math.random() - 0o5/0o10 ) * 0o6, y + 0o4, x + ( Math.random() - 0o5/0o10 ) * 0o10, y + 0o10); kunteksto.stroke();
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+    // Rizinoj — maldikaj brunaj fadenoj sub la folia talo.
+    kunteksto.strokeStyle = "rgba(74,70,52,0.48)"; kunteksto.lineWidth = 1;
+    for ( let i = 0; i < 0o20; i++ ) {
+      const a = Math.random() * Math.PI * 2;
+      const r = s * ( 0o14/0o100 + Math.random() * 0o10/0o100 );
+      const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+      kunteksto.beginPath(); kunteksto.moveTo(x, y);
+      kunteksto.quadraticCurveTo(x + ( Math.random() - 0o5/0o10 ) * 0o6, y + 0o4, x + ( Math.random() - 0o5/0o10 ) * 0o10, y + 0o10); kunteksto.stroke();
+    }
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 });
 
 // kreiByssoidanLikenanTeksajxon — Kreu proceduralan bisoidan likenan
@@ -2091,204 +1997,196 @@ export const kreiFolisanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiByssoidanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.clearRect(0, 0, s, s);
-  const cx = s / 2, cy = s / 2;
-  // Byssoida likeno estas maldensa, kotoneca reto de hifoj — ne aro da
-  // rondaj kusenoj. Malhelaj bazoj lasas la substraton videbla inter la tufoj.
-  const bazajKoloroj = [ "rgba(72,82,68,0.70)", "rgba(92,96,78,0.68)", "rgba(110,108,88,0.64)" ];
-  const fibrajKoloroj = [ "rgba(220,220,198,0.82)", "rgba(194,198,174,0.78)", "rgba(154,164,136,0.72)", "rgba(238,232,204,0.76)" ];
-  const tufoj: { x: number; y: number; r: number }[] = [];
-  const tufojNombro = 0o10 + ( ( Math.random() * 0o6 ) | 0 );
-  for ( let i = 0; i < tufojNombro; i++ ) {
-    const a = Math.random() * Math.PI * 2;
-    const d = s * Math.random() * 0o3/0o100;
-    const r = s * ( 0o4/0o100 + Math.random() * 0o3/0o100 );
-    const x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d;
-    tufoj.push({ x, y, r });
-    // La bazaj areoloj estas iomete neregulaj kaj pli malhelaj ol la elstaraj
-    // fibroj — la ombro interne de vera laneca tufo.
-    neregulaFormo(kunteksto, x, y, r, 0o4 + ( ( Math.random() * 0o3 ) | 0 ), 0o2/0o10, Math.random() * Math.PI * 2);
-    kunteksto.fillStyle = bazajKoloroj[i % bazajKoloroj.length];
-    kunteksto.fill();
-  }
-
-  // Hifaj fadenoj — kurbaj, iomete branĉiĝantaj kaj diversdirektaj. La
-  // malsamaj longoj kaj malhelaj bazoj faras la surfacon laneca anstataŭ plata.
-  for ( const tufo of tufoj ) {
-    const fibroj = 0o14 + ( ( Math.random() * 0o10 ) | 0 );
-    for ( let i = 0; i < fibroj; i++ ) {
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    const cx = s / 2, cy = s / 2;
+    // Byssoida likeno estas maldensa, kotoneca reto de hifoj — ne aro da
+    // rondaj kusenoj. Malhelaj bazoj lasas la substraton videbla inter la tufoj.
+    const bazajKoloroj = [ "rgba(72,82,68,0.70)", "rgba(92,96,78,0.68)", "rgba(110,108,88,0.64)" ];
+    const fibrajKoloroj = [ "rgba(220,220,198,0.82)", "rgba(194,198,174,0.78)", "rgba(154,164,136,0.72)", "rgba(238,232,204,0.76)" ];
+    const tufoj: { x: number; y: number; r: number }[] = [];
+    const tufojNombro = 0o10 + ( ( Math.random() * 0o6 ) | 0 );
+    for ( let i = 0; i < tufojNombro; i++ ) {
       const a = Math.random() * Math.PI * 2;
-      const komencaR = tufo.r * ( 0o15/0o100 + Math.random() * 0o32/0o100 );
-      const longo = tufo.r * ( 0o10/0o10 + Math.random() * 0o10/0o10 );
-      const sx = tufo.x + Math.cos(a) * komencaR;
-      const sy = tufo.y + Math.sin(a) * komencaR;
-      const ex = tufo.x + Math.cos(a) * longo;
-      const ey = tufo.y + Math.sin(a) * longo;
-      const kurbo = ( Math.random() - 0o5/0o10 ) * tufo.r;
-      const perpx = -Math.sin(a) * kurbo, perpy = Math.cos(a) * kurbo;
-      kunteksto.strokeStyle = fibrajKoloroj[( i + tufoj.indexOf(tufo) ) % fibrajKoloroj.length];
-      kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1;
-      kunteksto.lineCap = "round";
-      kunteksto.beginPath();
-      kunteksto.moveTo(sx, sy);
-      kunteksto.quadraticCurveTo(( sx + ex ) / 2 + perpx, ( sy + ey ) / 2 + perpy, ex, ey);
-      kunteksto.stroke();
-      // Kelkaj fadenoj disforkiĝas ĉe la pinto — karakteriza por byssoida
-      // talo, kie la hifoj ne finiĝas je samlongaj paralelaj strekoj.
-      if ( i % 0o4 === 0 ) {
-        const forkA = a + ( Math.random() - 0o5/0o10 ) * 0o3/0o10;
-        const forkL = tufo.r * ( 0o4/0o10 + Math.random() * 0o5/0o10 );
-        kunteksto.strokeStyle = fibrajKoloroj[( i + 1 ) % fibrajKoloroj.length];
+      const d = s * Math.random() * 0o3/0o100;
+      const r = s * ( 0o4/0o100 + Math.random() * 0o3/0o100 );
+      const x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d;
+      tufoj.push({ x, y, r });
+      // La bazaj areoloj estas iomete neregulaj kaj pli malhelaj ol la elstaraj
+      // fibroj — la ombro interne de vera laneca tufo.
+      neregulaFormo(kunteksto, x, y, r, 0o4 + ( ( Math.random() * 0o3 ) | 0 ), 0o2/0o10, Math.random() * Math.PI * 2);
+      kunteksto.fillStyle = bazajKoloroj[i % bazajKoloroj.length];
+      kunteksto.fill();
+    }
+
+    // Hifaj fadenoj — kurbaj, iomete branĉiĝantaj kaj diversdirektaj. La
+    // malsamaj longoj kaj malhelaj bazoj faras la surfacon laneca anstataŭ plata.
+    for ( const tufo of tufoj ) {
+      const fibroj = 0o14 + ( ( Math.random() * 0o10 ) | 0 );
+      for ( let i = 0; i < fibroj; i++ ) {
+        const a = Math.random() * Math.PI * 2;
+        const komencaR = tufo.r * ( 0o15/0o100 + Math.random() * 0o32/0o100 );
+        const longo = tufo.r * ( 0o10/0o10 + Math.random() * 0o10/0o10 );
+        const sx = tufo.x + Math.cos(a) * komencaR;
+        const sy = tufo.y + Math.sin(a) * komencaR;
+        const ex = tufo.x + Math.cos(a) * longo;
+        const ey = tufo.y + Math.sin(a) * longo;
+        const kurbo = ( Math.random() - 0o5/0o10 ) * tufo.r;
+        const perpx = -Math.sin(a) * kurbo, perpy = Math.cos(a) * kurbo;
+        kunteksto.strokeStyle = fibrajKoloroj[( i + tufoj.indexOf(tufo) ) % fibrajKoloroj.length];
+        kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1;
+        kunteksto.lineCap = "round";
         kunteksto.beginPath();
-        kunteksto.moveTo(ex, ey);
-        kunteksto.quadraticCurveTo(ex + Math.cos(forkA) * forkL * 0o4/0o10, ey + Math.sin(forkA) * forkL * 0o4/0o10,
-          ex + Math.cos(forkA) * forkL, ey + Math.sin(forkA) * forkL);
+        kunteksto.moveTo(sx, sy);
+        kunteksto.quadraticCurveTo(( sx + ex ) / 2 + perpx, ( sy + ey ) / 2 + perpy, ex, ey);
         kunteksto.stroke();
+        // Kelkaj fadenoj disforkiĝas ĉe la pinto — karakteriza por byssoida
+        // talo, kie la hifoj ne finiĝas je samlongaj paralelaj strekoj.
+        if ( i % 0o4 === 0 ) {
+          const forkA = a + ( Math.random() - 0o5/0o10 ) * 0o3/0o10;
+          const forkL = tufo.r * ( 0o4/0o10 + Math.random() * 0o5/0o10 );
+          kunteksto.strokeStyle = fibrajKoloroj[( i + 1 ) % fibrajKoloroj.length];
+          kunteksto.beginPath();
+          kunteksto.moveTo(ex, ey);
+          kunteksto.quadraticCurveTo(ex + Math.cos(forkA) * forkL * 0o4/0o10, ey + Math.sin(forkA) * forkL * 0o4/0o10,
+            ex + Math.cos(forkA) * forkL, ey + Math.sin(forkA) * forkL);
+          kunteksto.stroke();
+        }
       }
     }
-  }
 
-  // Soradioj kaj sporoj — etaj palaj pulvoregionoj kaj malhelaj punktoj, ne
-  // grandaj rondaj makuloj. Ili aperas inter la fadenoj, kie la talo diseriĝas.
-  for ( let i = 0; i < 0o100; i++ ) {
-    const a = Math.random() * Math.PI * 2;
-    const r = s * 0o15/0o100 * Math.sqrt(Math.random());
-    const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
-    kunteksto.fillStyle = i % 0o3 ? "rgba(232,230,204,0.62)" : "rgba(72,76,64,0.58)";
-    kunteksto.fillRect(x, y, 0o1 + Math.random() * 0o2, 0o1 + Math.random() * 0o2);
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+    // Soradioj kaj sporoj — etaj palaj pulvoregionoj kaj malhelaj punktoj, ne
+    // grandaj rondaj makuloj. Ili aperas inter la fadenoj, kie la talo diseriĝas.
+    for ( let i = 0; i < 0o100; i++ ) {
+      const a = Math.random() * Math.PI * 2;
+      const r = s * 0o15/0o100 * Math.sqrt(Math.random());
+      const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+      kunteksto.fillStyle = i % 0o3 ? "rgba(232,230,204,0.62)" : "rgba(72,76,64,0.58)";
+      kunteksto.fillRect(x, y, 0o1 + Math.random() * 0o2, 0o1 + Math.random() * 0o2);
+    }
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 });
 
 // kreiPurpuranFolianTeksajxon — Kreu proceduralan purpuran folian teksajxon
 // por la laktuk-arbo. Larĝa klingo kun centra kaj flankaj vejnoj.
 export function kreiPurpuranFolianTeksajxon(): THREE.CanvasTexture {
   const s = 0o400;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.clearRect(0, 0, s, s);
-  const cx = s / 2;
-  const bazoY = s * 0o17/0o20, pintoY = s * 0o3/0o20;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    const cx = s / 2;
+    const bazoY = s * 0o17/0o20, pintoY = s * 0o3/0o20;
 
-  // Klinga vojo — lenseca folio, uzata por la plenigo, la vejn-eltranĉaĵo
-  // kaj la randa ombro. La larĝo 0o10/0o20 kongruas kun la pli larĝa folia
-  // geometrio ( 0o115/0o100 ), por ke la vejnoj ne streĉiĝu.
-  const klingo = (): void => {
-    kunteksto.beginPath();
-    kunteksto.moveTo(cx, bazoY);
-    kunteksto.bezierCurveTo(cx - s * 0o1/0o10, s * 0o7/0o10, cx - s * 0o10/0o20, s * 0o5/0o10, cx, pintoY);
-    kunteksto.bezierCurveTo(cx + s * 0o10/0o20, s * 0o5/0o10, cx + s * 0o1/0o10, s * 0o7/0o10, cx, bazoY);
-    kunteksto.closePath();
-  };
+    // Klinga vojo — lenseca folio, uzata por la plenigo, la vejn-eltranĉaĵo
+    // kaj la randa ombro. La larĝo 0o10/0o20 kongruas kun la pli larĝa folia
+    // geometrio ( 0o115/0o100 ), por ke la vejnoj ne streĉiĝu.
+    const klingo = (): void => {
+      kunteksto.beginPath();
+      kunteksto.moveTo(cx, bazoY);
+      kunteksto.bezierCurveTo(cx - s * 0o1/0o10, s * 0o7/0o10, cx - s * 0o10/0o20, s * 0o5/0o10, cx, pintoY);
+      kunteksto.bezierCurveTo(cx + s * 0o10/0o20, s * 0o5/0o10, cx + s * 0o1/0o10, s * 0o7/0o10, cx, bazoY);
+      kunteksto.closePath();
+    };
 
-  // Baza klingo — radia gradiento. hela karnofina centro ĉe la bazo,
-  // malheliĝanta al la pinto kaj la randoj.
-  const gradiento = kunteksto.createRadialGradient(cx, s * 0o7/0o10, 0, cx, s * 0o6/0o10, s * 0o10/0o20);
-  gradiento.addColorStop(0, "#c870d8");
-  gradiento.addColorStop(0o4/0o10, "#a050b0");
-  gradiento.addColorStop(1, "#683078");
-  klingo();
-  kunteksto.fillStyle = gradiento;
-  kunteksto.fill();
+    // Baza klingo — radia gradiento. hela karnofina centro ĉe la bazo,
+    // malheliĝanta al la pinto kaj la randoj.
+    const gradiento = kunteksto.createRadialGradient(cx, s * 0o7/0o10, 0, cx, s * 0o6/0o10, s * 0o10/0o20);
+    gradiento.addColorStop(0, "#c870d8");
+    gradiento.addColorStop(0o4/0o10, "#a050b0");
+    gradiento.addColorStop(1, "#683078");
+    klingo();
+    kunteksto.fillStyle = gradiento;
+    kunteksto.fill();
 
-  // Ĉiuj detaloj ( brilo, makuloj, vejnoj, randa ombro ) restas EN la klingo
-  // — nenio elstaru preter la folia rando.
-  kunteksto.save();
-  klingo();
-  kunteksto.clip();
+    // Ĉiuj detaloj ( brilo, makuloj, vejnoj, randa ombro ) restas EN la klingo
+    // — nenio elstaru preter la folia rando.
+    kunteksto.save();
+    klingo();
+    kunteksto.clip();
 
-  // Mola brila fadeno laŭ la klinga longo — la karnofina laktuko-suko.
-  // hela reflekto ĉe la bazo, ombro al la pinto.
-  const brilo = kunteksto.createLinearGradient(0, bazoY, 0, pintoY);
-  brilo.addColorStop(0, "rgba(255,225,255,0.28)");
-  brilo.addColorStop(0o6/0o10, "rgba(0,0,0,0)");
-  brilo.addColorStop(1, "rgba(80,32,104,0.30)");
-  kunteksto.fillStyle = brilo;
-  kunteksto.fillRect(0, 0, s, s);
+    // Mola brila fadeno laŭ la klinga longo — la karnofina laktuko-suko.
+    // hela reflekto ĉe la bazo, ombro al la pinto.
+    const brilo = kunteksto.createLinearGradient(0, bazoY, 0, pintoY);
+    brilo.addColorStop(0, "rgba(255,225,255,0.28)");
+    brilo.addColorStop(0o6/0o10, "rgba(0,0,0,0)");
+    brilo.addColorStop(1, "rgba(80,32,104,0.30)");
+    kunteksto.fillStyle = brilo;
+    kunteksto.fillRect(0, 0, s, s);
 
-  // Makuloj — molaj pli helaj kaj pli malhelaj makuloj de la karnofina folio.
-  for ( let i = 0; i < 0o30; i++ ) {
-    const r = s * ( 0o2/0o100 + Math.random() * 0o5/0o100 );
-    const x = cx + ( Math.random() - 0o4/0o10 ) * s * 0o1/0o4;
-    const y = bazoY - Math.random() * ( bazoY - pintoY );
-    const koloro = i % 2 ? "rgba(56,20,80,0.12)" : "rgba(236,196,246,0.12)";
-    const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-    g.addColorStop(0, koloro);
-    g.addColorStop(1, "rgba(0,0,0,0)");
-    kunteksto.fillStyle = g;
-    kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
-  }
+    // Makuloj — molaj pli helaj kaj pli malhelaj makuloj de la karnofina folio.
+    for ( let i = 0; i < 0o30; i++ ) {
+      const r = s * ( 0o2/0o100 + Math.random() * 0o5/0o100 );
+      const x = cx + ( Math.random() - 0o4/0o10 ) * s * 0o1/0o4;
+      const y = bazoY - Math.random() * ( bazoY - pintoY );
+      const koloro = i % 2 ? "rgba(56,20,80,0.12)" : "rgba(236,196,246,0.12)";
+      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, koloro);
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      kunteksto.fillStyle = g;
+      kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
+    }
 
-  // Fajna punktado — la poraj areoloj de la folia surfaco.
-  for ( let i = 0; i < 0o130; i++ ) {
-    const t = Math.sqrt(Math.random());
-    const x = cx + ( Math.random() - 0o4/0o10 ) * s * 0o10/0o20 * t;
-    const y = bazoY - t * ( bazoY - pintoY );
-    kunteksto.fillStyle = Math.random() < 0o5/0o10
-      ? `rgba(84,28,104,${0o1/0o10 + Math.random() * 0o1/0o10})`
-      : `rgba(246,216,252,${0o1/0o10 + Math.random() * 0o1/0o10})`;
-    kunteksto.fillRect(x, y, 1 + Math.random() * 1, 1 + Math.random() * 1);
-  }
+    // Fajna punktado — la poraj areoloj de la folia surfaco.
+    for ( let i = 0; i < 0o130; i++ ) {
+      const t = Math.sqrt(Math.random());
+      const x = cx + ( Math.random() - 0o4/0o10 ) * s * 0o10/0o20 * t;
+      const y = bazoY - t * ( bazoY - pintoY );
+      kunteksto.fillStyle = Math.random() < 0o5/0o10
+        ? `rgba(84,28,104,${0o1/0o10 + Math.random() * 0o1/0o10})`
+        : `rgba(246,216,252,${0o1/0o10 + Math.random() * 0o1/0o10})`;
+      kunteksto.fillRect(x, y, 1 + Math.random() * 1, 1 + Math.random() * 1);
+    }
 
-  // Centra vejno — tri segmentoj maldikiĝantaj al la pinto.
-  kunteksto.lineCap = "round";
-  for ( let j = 0; j < 0o3; j++ ) {
-    const t0 = j / 0o3, t1 = ( j + 1 ) / 0o3;
-    kunteksto.strokeStyle = "#482860";
-    kunteksto.lineWidth = 0o4 * ( 1 - t0 ) + 1;
-    kunteksto.beginPath();
-    kunteksto.moveTo(cx, bazoY - t0 * ( bazoY - pintoY ));
-    kunteksto.lineTo(cx, bazoY - t1 * ( bazoY - pintoY ));
-    kunteksto.stroke();
-  }
-  // Hela reliefa rando flanke de la centra vejno — la vejno leviĝas.
-  kunteksto.strokeStyle = "rgba(255,230,255,0.28)";
-  kunteksto.lineWidth = 1;
-  kunteksto.beginPath();
-  kunteksto.moveTo(cx + 1, bazoY - 0o2);
-  kunteksto.lineTo(cx + 1, pintoY + 0o2);
-  kunteksto.stroke();
-
-  // Flankaj vejnoj — sep paroj, kurbiĝantaj al la pinto, kun hela reliefa
-  // rando. La klinga eltranĉaĵo tenas ilin ene de la folia rando.
-  for ( let i = 1; i <= 0o7; i++ ) {
-    const t = i / ( 0o7 + 1 );
-    const y = bazoY - t * ( bazoY - pintoY );
-    const largho = s * 0o10/0o20 * Math.sin(Math.PI * t) * 0o72/0o100;
-    const yfino = y - s * 0o1/0o20;
-    for ( const dir of [ -1, 1 ] ) {
-      const xfino = cx + dir * largho;
+    // Centra vejno — tri segmentoj maldikiĝantaj al la pinto.
+    kunteksto.lineCap = "round";
+    for ( let j = 0; j < 0o3; j++ ) {
+      const t0 = j / 0o3, t1 = ( j + 1 ) / 0o3;
       kunteksto.strokeStyle = "#482860";
-      kunteksto.lineWidth = 1.5;
+      kunteksto.lineWidth = 0o4 * ( 1 - t0 ) + 1;
       kunteksto.beginPath();
-      kunteksto.moveTo(cx, y);
-      kunteksto.quadraticCurveTo(cx + dir * largho * 0o55/0o100, y - s * 0o1/0o40, xfino, yfino);
-      kunteksto.stroke();
-      kunteksto.strokeStyle = "rgba(255,230,255,0.22)";
-      kunteksto.lineWidth = 1;
-      kunteksto.beginPath();
-      kunteksto.moveTo(cx + dir * 1.5, y + 1);
-      kunteksto.quadraticCurveTo(cx + dir * largho * 0o55/0o100 + dir * 1.5, y - s * 0o1/0o40 + 1, xfino + dir * 1.5, yfino + 1);
+      kunteksto.moveTo(cx, bazoY - t0 * ( bazoY - pintoY ));
+      kunteksto.lineTo(cx, bazoY - t1 * ( bazoY - pintoY ));
       kunteksto.stroke();
     }
-  }
+    // Hela reliefa rando flanke de la centra vejno — la vejno leviĝas.
+    kunteksto.strokeStyle = "rgba(255,230,255,0.28)";
+    kunteksto.lineWidth = 1;
+    kunteksto.beginPath();
+    kunteksto.moveTo(cx + 1, bazoY - 0o2);
+    kunteksto.lineTo(cx + 1, pintoY + 0o2);
+    kunteksto.stroke();
 
-  // Interna randa ombro — la folia rando kurbiĝas kaj ombras.
-  klingo();
-  kunteksto.strokeStyle = "rgba(40,12,56,0.30)";
-  kunteksto.lineWidth = 0o6;
-  kunteksto.stroke();
-  kunteksto.restore();
+    // Flankaj vejnoj — sep paroj, kurbiĝantaj al la pinto, kun hela reliefa
+    // rando. La klinga eltranĉaĵo tenas ilin ene de la folia rando.
+    for ( let i = 1; i <= 0o7; i++ ) {
+      const t = i / ( 0o7 + 1 );
+      const y = bazoY - t * ( bazoY - pintoY );
+      const largho = s * 0o10/0o20 * Math.sin(Math.PI * t) * 0o72/0o100;
+      const yfino = y - s * 0o1/0o20;
+      for ( const dir of [ -1, 1 ] ) {
+        const xfino = cx + dir * largho;
+        kunteksto.strokeStyle = "#482860";
+        kunteksto.lineWidth = 1.5;
+        kunteksto.beginPath();
+        kunteksto.moveTo(cx, y);
+        kunteksto.quadraticCurveTo(cx + dir * largho * 0o55/0o100, y - s * 0o1/0o40, xfino, yfino);
+        kunteksto.stroke();
+        kunteksto.strokeStyle = "rgba(255,230,255,0.22)";
+        kunteksto.lineWidth = 1;
+        kunteksto.beginPath();
+        kunteksto.moveTo(cx + dir * 1.5, y + 1);
+        kunteksto.quadraticCurveTo(cx + dir * largho * 0o55/0o100 + dir * 1.5, y - s * 0o1/0o40 + 1, xfino + dir * 1.5, yfino + 1);
+        kunteksto.stroke();
+      }
+    }
 
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+    // Interna randa ombro — la folia rando kurbiĝas kaj ombras.
+    klingo();
+    kunteksto.strokeStyle = "rgba(40,12,56,0.30)";
+    kunteksto.lineWidth = 0o6;
+    kunteksto.stroke();
+    kunteksto.restore();
+
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 // kreiPurpuranSxelanTeksajxon — Kreu la ŝelan ringo-teksajxon por la
@@ -2300,36 +2198,32 @@ export function kreiPurpuranFolianTeksajxon(): THREE.CanvasTexture {
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export function kreiPurpuranSxelanTeksajxon(): THREE.CanvasTexture {
   const w = 0o40, h = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = w; kanvasa.height = h;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const gradiento = kunteksto.createLinearGradient(0, 0, 0, h);
-  gradiento.addColorStop(0, "#482848");
-  gradiento.addColorStop(1, "#583858");
-  kunteksto.fillStyle = gradiento;
-  kunteksto.fillRect(0, 0, w, h);
-  // Fajnaj vertikalaj strioj — la ŝela strieco.
-  for ( let i = 0; i < 0o20; i++ ) {
-    const lumo = Math.random() < 0o5/0o10;
-    kunteksto.fillStyle = lumo
-      ? `rgba(124,88,140,${0o15/0o100 + Math.random() * 0o1/0o10})`
-      : `rgba(36,22,36,${0o15/0o100 + Math.random() * 0o1/0o10})`;
-    kunteksto.fillRect(Math.random() * w, 0, 1, h);
-  }
-  // Mola ton-variajo — malgrandaj nuboj rompas la platan gradienton.
-  for ( let i = 0; i < 0o10; i++ ) {
-    const r = h * ( 0o10/0o100 + Math.random() * 0o12/0o100 );
-    const x = Math.random() * w, y = Math.random() * h;
-    const koloro = i % 2 ? "rgba(124,88,140,0.14)" : "rgba(40,20,40,0.12)";
-    const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-    g.addColorStop(0, koloro);
-    g.addColorStop(1, "rgba(0,0,0,0)");
-    kunteksto.fillStyle = g;
-    kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
+    const gradiento = kunteksto.createLinearGradient(0, 0, 0, h);
+    gradiento.addColorStop(0, "#482848");
+    gradiento.addColorStop(1, "#583858");
+    kunteksto.fillStyle = gradiento;
+    kunteksto.fillRect(0, 0, w, h);
+    // Fajnaj vertikalaj strioj — la ŝela strieco.
+    for ( let i = 0; i < 0o20; i++ ) {
+      const lumo = Math.random() < 0o5/0o10;
+      kunteksto.fillStyle = lumo
+        ? `rgba(124,88,140,${0o15/0o100 + Math.random() * 0o1/0o10})`
+        : `rgba(36,22,36,${0o15/0o100 + Math.random() * 0o1/0o10})`;
+      kunteksto.fillRect(Math.random() * w, 0, 1, h);
+    }
+    // Mola ton-variajo — malgrandaj nuboj rompas la platan gradienton.
+    for ( let i = 0; i < 0o10; i++ ) {
+      const r = h * ( 0o10/0o100 + Math.random() * 0o12/0o100 );
+      const x = Math.random() * w, y = Math.random() * h;
+      const koloro = i % 2 ? "rgba(124,88,140,0.14)" : "rgba(40,20,40,0.12)";
+      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, koloro);
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      kunteksto.fillStyle = g;
+      kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
+    }
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 // Purpura filika trunka skizo — la kolor- kaj bump-teksajxoj dividas la
@@ -2487,55 +2381,49 @@ export const kreiPurpuranTrunkanTeksajxon = sxovu((): THREE.CanvasTexture => {
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiPurpuranTrunkanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const w = purpuraTrunkaW, h = purpuraTrunkaH;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = w; kanvasa.height = h;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, w, h);
-  const skizo = generiPurpuranTrunkanSkizon();
-  // Mola grand-skala reliefo — la ŝelo ne estas plata.
-  for ( let i = 0; i < 0o10; i++ ) {
-    const r = h * ( 0o10/0o100 + Math.random() * 0o12/0o100 );
-    const x = Math.random() * w, y = Math.random() * h;
-    const koloro = i % 2 ? "rgba(144,144,144,0.16)" : "rgba(72,72,72,0.16)";
-    desegniWrapan(kunteksto, w, () => {
-      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, koloro);
-      g.addColorStop(1, "rgba(128,128,128,0)");
-      kunteksto.fillStyle = g;
-      kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
-    });
-  }
-  // Frond-cikatriĉoj — malhelaj sulkoj kun helaj krestoj.
-  for ( const bendo of skizo.bendoj ) {
-    desegniPurpuranBendon(kunteksto, bendo, "rgba(86,86,86,0.6)");
-    desegniPurpuranBendon(kunteksto, { ...bendo, y: bendo.y + bendo.alto }, "rgba(152,152,152,0.45)");
-  }
-  // Vertikalaj fibraj strioj.
-  for ( const fibro of skizo.fibroj ) {
-    const koloro = fibro.tono < 0o5/0o10 ? "rgba(152,152,152,0.25)" : "rgba(96,96,96,0.25)";
-    desegniWrapan(kunteksto, w, () => {
-      kunteksto.strokeStyle = koloro;
-      kunteksto.lineWidth = 1;
-      kunteksto.lineCap = "round";
-      kunteksto.beginPath();
-      kunteksto.moveTo(fibro.x, 0);
-      kunteksto.quadraticCurveTo(fibro.x + 0o2, h * 0o4/0o10, fibro.x - 0o2, h);
-      kunteksto.stroke();
-    });
-  }
-  // Skvamoj — malgrandaj krestetoj.
-  for ( const skvamo of skizo.skvamoj ) {
-    const koloro = skvamo.hela ? "rgba(152,152,152,0.35)" : "rgba(94,94,94,0.40)";
-    desegniWrapan(kunteksto, w, () => {
-      kunteksto.fillStyle = koloro;
-      kunteksto.beginPath(); kunteksto.arc(skvamo.x, skvamo.y, skvamo.r, 0, Math.PI * 2); kunteksto.fill();
-    });
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(1, 2);
-  teksajxo.anisotropy = 4;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
+    kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, w, h);
+    const skizo = generiPurpuranTrunkanSkizon();
+    // Mola grand-skala reliefo — la ŝelo ne estas plata.
+    for ( let i = 0; i < 0o10; i++ ) {
+      const r = h * ( 0o10/0o100 + Math.random() * 0o12/0o100 );
+      const x = Math.random() * w, y = Math.random() * h;
+      const koloro = i % 2 ? "rgba(144,144,144,0.16)" : "rgba(72,72,72,0.16)";
+      desegniWrapan(kunteksto, w, () => {
+        const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, koloro);
+        g.addColorStop(1, "rgba(128,128,128,0)");
+        kunteksto.fillStyle = g;
+        kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
+      });
+    }
+    // Frond-cikatriĉoj — malhelaj sulkoj kun helaj krestoj.
+    for ( const bendo of skizo.bendoj ) {
+      desegniPurpuranBendon(kunteksto, bendo, "rgba(86,86,86,0.6)");
+      desegniPurpuranBendon(kunteksto, { ...bendo, y: bendo.y + bendo.alto }, "rgba(152,152,152,0.45)");
+    }
+    // Vertikalaj fibraj strioj.
+    for ( const fibro of skizo.fibroj ) {
+      const koloro = fibro.tono < 0o5/0o10 ? "rgba(152,152,152,0.25)" : "rgba(96,96,96,0.25)";
+      desegniWrapan(kunteksto, w, () => {
+        kunteksto.strokeStyle = koloro;
+        kunteksto.lineWidth = 1;
+        kunteksto.lineCap = "round";
+        kunteksto.beginPath();
+        kunteksto.moveTo(fibro.x, 0);
+        kunteksto.quadraticCurveTo(fibro.x + 0o2, h * 0o4/0o10, fibro.x - 0o2, h);
+        kunteksto.stroke();
+      });
+    }
+    // Skvamoj — malgrandaj krestetoj.
+    for ( const skvamo of skizo.skvamoj ) {
+      const koloro = skvamo.hela ? "rgba(152,152,152,0.35)" : "rgba(94,94,94,0.40)";
+      desegniWrapan(kunteksto, w, () => {
+        kunteksto.fillStyle = koloro;
+        kunteksto.beginPath(); kunteksto.arc(skvamo.x, skvamo.y, skvamo.r, 0, Math.PI * 2); kunteksto.fill();
+      });
+    }
+  }, [ 1, 2 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
 });
 
 // kreiAkvanReliefanTeksajxon — Kreu akvan reliefan teksturon por rivera ondado.
@@ -2543,17 +2431,12 @@ export const kreiPurpuranTrunkanBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
 //     @param ry ( number ) - Ripetadxo en Z direkto.
 export function kreiAkvanReliefanTeksajxon(radX: number, ry: number): THREE.CanvasTexture {
   const s = 0o200;
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, s, s);
-  for ( let i = 0; i < s * s / 0o10; i++ ) {
-    const g = (0o160 + Math.random() * 0o60) | 0;
-    kunteksto.fillStyle = `rgb(${g},${g},${g})`;
-    kunteksto.fillRect(Math.random() * s, Math.random() * s, 2, 2);
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.wrapS = teksajxo.wrapT = THREE.RepeatWrapping;
-  teksajxo.repeat.set(radX, ry); teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, s, s);
+    for ( let i = 0; i < s * s / 0o10; i++ ) {
+      const g = ( 0o160 + Math.random() * 0o60 ) | 0;
+      kunteksto.fillStyle = `rgb(${g},${g},${g})`;
+      kunteksto.fillRect(Math.random() * s, Math.random() * s, 2, 2);
+    }
+  }, [ radX, ry ], { volvado: THREE.RepeatWrapping });
 }

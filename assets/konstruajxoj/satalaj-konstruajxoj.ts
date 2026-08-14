@@ -24,7 +24,7 @@ export interface KonstruSpec { x: number; z: number; type: string; name: string;
 // La rondigita kvadrata formo ( kreiRondigitanRektangulanFormon ) venas el la
 // komuna forma modulo — la sama formo kiel la vojoj, dividita inter ili.
 function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number, rb: number, rt: number): THREE.Shape {
-  const s = new THREE.Shape(), sl = (blokoLargho / 2 - tw / 2) / h;
+  const s = new THREE.Shape(), sl = ( blokoLargho / 2 - tw / 2 ) / h;
   s.moveTo(-blokoLargho / 2 + rb, 0); s.lineTo(blokoLargho / 2 - rb, 0);
   s.quadraticCurveTo(blokoLargho / 2, 0, blokoLargho / 2 - sl * rt, rt);
   s.lineTo(tw / 2 + sl * rt, h - rt); s.quadraticCurveTo(tw / 2, h, tw / 2 - rt, h);
@@ -67,8 +67,8 @@ function kreiSteleanFormon(w: number, h: number, r1: number, r2: number): THREE.
 // konkava ( la enaj aksoj sidadis je preskaux duone de la pintoj kaj kavigis la
 // flankojn kiel stelon ); la nova estas plenkorpa konveksa diamanto. La konturo
 // komencas cxe la fronta akso ( 0° ) kaj iras horlogxe.
-function diamantajDuonoj(s: number): [number, number][] {
-  const kvar: [number, number][] = [
+function diamantajDuonoj(s: number): [ number, number ][] {
+  const kvar: [ number, number ][] = [
     [ s * Math.SQRT1_2, -s * Math.SQRT1_2 ],
     [ -s * Math.SQRT1_2, -s * Math.SQRT1_2 ],
     [ -s * Math.SQRT1_2, s * Math.SQRT1_2 ],
@@ -76,25 +76,25 @@ function diamantajDuonoj(s: number): [number, number][] {
   ];
   // 0o20 punktoj. cxiu diamanta rando dividita en 4 — la SAMA rekta silueto, sed
   // pli glataj randoj kaj malpli da facetaj faldoj sur la tubo kaj la hoka pintajxo.
-  const punktoj: [number, number][] = [];
+  const punktoj: [ number, number ][] = [];
   for ( let j = 0; j < kvar.length; j++ ) {
-    const a = kvar[j], b = kvar[(j + 1) % kvar.length];
-    for ( let k = 0; k < 4; k++ ) punktoj.push([ a[0] + (b[0] - a[0]) * k / 4, a[1] + (b[1] - a[1]) * k / 4 ]);
+    const a = kvar[j], b = kvar[( j + 1 ) % kvar.length];
+    for ( let k = 0; k < 4; k++ ) punktoj.push([ a[0] + ( b[0] - a[0] ) * k / 4, a[1] + ( b[1] - a[1] ) * k / 4 ]);
   }
   return punktoj;
 }
 
 // rondigitajDuonoj — Rondigu la angulojn de la fina diamanta ringo per densa
 // centripeta kurbo, konservante la saman nombron da punktoj por senjunta ligado.
-function rondigitajDuonoj(s: number): [number, number][] {
+function rondigitajDuonoj(s: number): [ number, number ][] {
   const bazaj = diamantajDuonoj(s);
   const kurbo = new THREE.CatmullRomCurve3(
-    bazaj.map(( [a, c] ) => new THREE.Vector3(a, c, 0)), true, "centripetal"
+    bazaj.map(( [ a, c ] ) => new THREE.Vector3(a, c, 0)), true, "centripetal"
 );
   const kvanto = bazaj.length;
   return Array.from({ length: kvanto }, ( _, i ) => {
     const p = kurbo.getPointAt(i / kvanto);
-    return [ p.x, p.y ] as [number, number];
+    return [ p.x, p.y ] as [ number, number ];
   });
 }
 
@@ -118,7 +118,7 @@ interface Pilierkadroj {
 // paralela transporto la fronta pinto restas fronta kaj la krono transiras glate
 // kaj plata, cxu la sxafto rekta, cxu la talona hoko kurbigxas.
 function kreiPilierkadrojn(curve: THREE.Curve<THREE.Vector3>, segmentoj: number, H: THREE.Vector3): Pilierkadroj {
-  const Lbazo = new THREE.Vector3((H.x - H.z) * Math.SQRT1_2, 0, (H.x + H.z) * Math.SQRT1_2).normalize();
+  const Lbazo = new THREE.Vector3(( H.x - H.z ) * Math.SQRT1_2, 0, ( H.x + H.z ) * Math.SQRT1_2).normalize();
   const tangents: THREE.Vector3[] = [], moj: THREE.Vector3[] = [], Loj: THREE.Vector3[] = [], Woj: THREE.Vector3[] = [];
   const antauxaT = curve.getTangentAt(0).normalize();
   const antauxaL = new THREE.Vector3().copy(Lbazo).addScaledVector(antauxaT, -Lbazo.dot(antauxaT)).normalize();
@@ -178,25 +178,25 @@ function kreiDiamantanSvingon(
     // konturo, por ke la rondigita ferma kapo kongruu perfekte (la malnova angula
     // kapo lasis kvadratan randon cxe la piliero-fino); la lastaj tri ringoj cxe la
     // kapo rondigas por la folio.
-    const finRondiga = Math.max(0, Math.min(1, (i - (ringoj - 4)) / 3));
-    const bazRondiga = Math.max(0, Math.min(1, (3 - i) / 3));
+    const finRondiga = Math.max(0, Math.min(1, ( i - ( ringoj - 4 ) ) / 3));
+    const bazRondiga = Math.max(0, Math.min(1, ( 3 - i ) / 3));
     const rondiga = Math.max(finRondiga, bazRondiga);
     const konturo = rondiga > 0
       ? duonoj.map(( punkto, j ) => [
-          punkto[0] + (rondajDuonoj[j][0] - punkto[0]) * rondiga,
-          punkto[1] + (rondajDuonoj[j][1] - punkto[1]) * rondiga,
-        ] as [number, number])
+          punkto[0] + ( rondajDuonoj[j][0] - punkto[0] ) * rondiga,
+          punkto[1] + ( rondajDuonoj[j][1] - punkto[1] ) * rondiga,
+        ] as [ number, number ])
       : duonoj;
     // La sekco restas plena laux la sxafto kaj iom post iom transiras al la
     // pli plata krono per glata Hermita funkcio.
     const t = i / ( ringoj - 1 );
-    const u = talonoS0 > 0 ? Math.max(0, Math.min(1, (t - talonoS0) / (1 - talonoS0))) : 0;
+    const u = talonoS0 > 0 ? Math.max(0, Math.min(1, ( t - talonoS0 ) / ( 1 - talonoS0 ))) : 0;
     // La krono malvastigxas glate al la malgranda rondigita pinto, sen kunfalo
     // de la fina ringo en degenerajn triangulojn.
     const glata = u * u * ( 3 - 2 * u );
     const skalo = talonoS0 > 0 ? 1 - ( 1 - finialaSkalo ) * glata : 1;
     const largxaSkalo = talonoS0 > 0 ? 1 - ( 1 - finialaLargho ) * glata : 1;
-    for ( const [a, c] of konturo ) vertoj.push(
+    for ( const [ a, c ] of konturo ) vertoj.push(
       p.x + L.x * a * skalo + W.x * c * skalo * largxaSkalo,
       p.y + L.y * a * skalo + W.y * c * skalo * largxaSkalo,
       p.z + L.z * a * skalo + W.z * c * skalo * largxaSkalo
@@ -204,9 +204,9 @@ function kreiDiamantanSvingon(
   }
   const indeksoj: number[] = [];
   for ( let i = 0; i < segmentoj; i++ ) {
-    const r0 = i * RINGO, r1 = (i + 1) * RINGO;
+    const r0 = i * RINGO, r1 = ( i + 1 ) * RINGO;
     for ( let j = 0; j < RINGO; j++ ) {
-      const j2 = (j + 1) % RINGO;
+      const j2 = ( j + 1 ) % RINGO;
       indeksoj.push(r0 + j, r1 + j, r1 + j2, r0 + j, r1 + j2, r0 + j2);
     }
   }
@@ -230,9 +230,9 @@ function kreiRondigitanDiamantanKapon(
 ): THREE.BufferGeometry {
   const formo = new THREE.Shape();
   const punktoj = rondigitajDuonoj(s);
-  const konturo = renversita ? [...punktoj].reverse() : punktoj;
+  const konturo = renversita ? [ ...punktoj ].reverse() : punktoj;
   formo.moveTo(konturo[0][0] * longaSkalo, konturo[0][1] * longaSkalo * largxaSkalo);
-  for ( const [a, c] of konturo.slice(1) ) formo.lineTo(a * longaSkalo, c * longaSkalo * largxaSkalo);
+  for ( const [ a, c ] of konturo.slice(1) ) formo.lineTo(a * longaSkalo, c * longaSkalo * largxaSkalo);
   formo.closePath();
   const kapo = new THREE.ShapeGeometry(formo);
   kapo.applyMatrix4(new THREE.Matrix4().makeBasis(n, b, ta));
@@ -279,9 +279,9 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
     const yA = upward ? yB : yT;
     const yS = upward ? yT - 0o1/0o4 : yB + 0o1/0o4;
     const yF = upward ? yT + 0o3/0o10 : yB - 0o3/0o10;
-    const linia = (tieroAlto - 0o1/0o100) / tieroAlto;
-    const suproX = cX + sX * (fora - klino * linia);
-    const suproZ = cZ + sZ * (fora - klino * linia);
+    const linia = ( tieroAlto - 0o1/0o100 ) / tieroAlto;
+    const suproX = cX + sX * ( fora - klino * linia );
+    const suproZ = cZ + sZ * ( fora - klino * linia );
     const p0 = new THREE.Vector3(cX + sX * fora, yA, cZ + sZ * fora);
     const p1 = new THREE.Vector3(suproX, yS, suproZ);
     const p2 = new THREE.Vector3(cXT + sX * out, yF, cZT + sZ * out);
@@ -377,7 +377,7 @@ function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.Mes
   // Densa sampado (0o64 punktoj) kun norma tensio (0o1/0o2). la ora tubo sekvas la
   // rondigitan trapezan konturon glate cxe la anguloj — neniu distordigxo kie la
   // pecoj kunigxas (la malnova 0o24/0o23/0o40 ondumis kaj pincxis cxe la anguloj).
-  const ornamajPunktoj = shape.getPoints(0o64).map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, d / 2 + 0o3/0o10));
+  const ornamajPunktoj = shape.getPoints(0o64).map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, d / 2 + 0o3/0o10));
   pordGrupo.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(ornamajPunktoj, true, "catmullrom", 0o1/0o2), 0o100, 0o1/0o20, 6, true), kadraMaterialo));
   // Turnitaj kopioj — la sama pordo sur cxiu flanko. La kopioj kunhavigas la
   // geometriojn kaj materialojn de la unua, do la multaj pordoj ne kostas aldone.
@@ -414,8 +414,8 @@ function aldoniSteleanSignon(group: THREE.Group, name: string, w: number, d: num
   const faceAlto = Math.max(1e-6, faceUjo.max.y - faceUjo.min.y);
   for ( let i = 0; i < faceUV.count; i++ ) {
     faceUV.setXY(i,
-      (facePoz.getX(i) - faceUjo.min.x) / faceLargho,
-      (facePoz.getY(i) - faceUjo.min.y) / faceAlto);
+      ( facePoz.getX(i) - faceUjo.min.x ) / faceLargho,
+      ( facePoz.getY(i) - faceUjo.min.y ) / faceAlto);
   }
   faceUV.needsUpdate = true;
   const face = new THREE.Mesh(
@@ -433,14 +433,14 @@ function aldoniSteleanSignon(group: THREE.Group, name: string, w: number, d: num
 function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, group: THREE.Group, w: number): void {
   const mg = group.clone();
   mg.scale.y = -1;
-  mg.position.y = (spec.h0 || 0) - 0o2/0o100;
+  mg.position.y = ( spec.h0 || 0 ) - 0o2/0o100;
   mg.traverse(m => { if ( m instanceof THREE.Mesh ) m.castShadow = false; });
   sceno.add(mg);
   const oroMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o7/0o10, roughness: 0o26/0o100, emissive: 0x302808, emissiveIntensity: 0o26/0o100 });
   const ringGeo = new THREE.RingGeometry(Math.max(0o1/0o100, w * 0o23/0o100 + 0o11/0o100), Math.max(0o2/0o100, w * 0o23/0o100 + 0o21/0o100), 32);
   const ring = new THREE.Mesh(ringGeo, oroMaterialo);
   ring.rotation.x = -Math.PI / 2;
-  ring.position.set(spec.x, (spec.h0 || 0) + 0o1/0o100, spec.z);
+  ring.position.set(spec.x, ( spec.h0 || 0 ) + 0o1/0o100, spec.z);
   sceno.add(ring);
 }
 
@@ -456,7 +456,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   const estasStacio = typeKey === "stacioxipo";
   const supraLargho = estasStacio ? w * 0o5/0o10 : Math.max(0o215/0o100, w * 0o23/0o100);
   const supraProfundo = estasStacio ? d * 0o5/0o10 : Math.max(0o20/0o10, d * 0o23/0o100);
-  const malpliiX = (w / 2 - supraLargho / 2) / Math.max(1, tiers - 1), malpliiZ = (d / 2 - supraProfundo / 2) / Math.max(1, tiers - 1);
+  const malpliiX = ( w / 2 - supraLargho / 2 ) / Math.max(1, tiers - 1), malpliiZ = ( d / 2 - supraProfundo / 2 ) / Math.max(1, tiers - 1);
   const T = TIPARO[typeKey] || TIPARO.domo;
   const muraKoloro = T.wall, kadraKoloro = T.frame;
   const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
@@ -470,8 +470,8 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
     // Pli plata horizontala rando. la supraj kadraj stangoj estas pli maldikaj
     // sed restas proksime al la supra rando (supro 0o1/0o100 sub gxi).
-    for ( const sZ of [ -1, 1 ] ) { const stango = new THREE.BoxGeometry((hw - klino) * 2 + 0o11/0o100, 0o3/0o40, 0o15/0o100); stango.translate(0, y + tieroAlto - 0o1/0o20, sZ * (hd - klino)); kadrajGeometrioj.push(stango); }
-    for ( const sX of [ -1, 1 ] ) { const bar2 = new THREE.BoxGeometry(0o15/0o100, 0o3/0o40, (hd - klino) * 2 + 0o11/0o100); bar2.translate(sX * (hw - klino), y + tieroAlto - 0o1/0o20, 0); kadrajGeometrioj.push(bar2); }
+    for ( const sZ of [ -1, 1 ] ) { const stango = new THREE.BoxGeometry(( hw - klino ) * 2 + 0o11/0o100, 0o3/0o40, 0o15/0o100); stango.translate(0, y + tieroAlto - 0o1/0o20, sZ * ( hd - klino )); kadrajGeometrioj.push(stango); }
+    for ( const sX of [ -1, 1 ] ) { const bar2 = new THREE.BoxGeometry(0o15/0o100, 0o3/0o40, ( hd - klino ) * 2 + 0o11/0o100); bar2.translate(sX * ( hw - klino ), y + tieroAlto - 0o1/0o20, 0); kadrajGeometrioj.push(bar2); }
   }
   // NENIUJ sub-teraj muroj/pilieroj por la ekstera konstruajxo — la sub-teraj
   // niveloj estas konstruataj nur de la interno ( eniriInternon konstruas siajn
@@ -516,17 +516,17 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     const apron = new THREE.Mesh(apronGeo, muraMaterialo);
     apron.receiveShadow = true; group.add(apron);
     for ( const sZ of [ -1, 1 ] ) {
-      const b1 = new THREE.BoxGeometry(w + 4, 0o1/0o20, 0o5/0o20); b1.translate(0, 0o7/0o100, sZ * (d / 2 + 0o4/0o10)); group.add(new THREE.Mesh(b1, kadraMaterialo));
+      const b1 = new THREE.BoxGeometry(w + 4, 0o1/0o20, 0o5/0o20); b1.translate(0, 0o7/0o100, sZ * ( d / 2 + 0o4/0o10 )); group.add(new THREE.Mesh(b1, kadraMaterialo));
     }
     for ( const sX of [ -1, 1 ] ) {
-      const b2 = new THREE.BoxGeometry(0o5/0o20, 0o1/0o20, d + 4); b2.translate(sX * (w / 2 + 0o4/0o10), 0o7/0o100, 0); group.add(new THREE.Mesh(b2, kadraMaterialo));
+      const b2 = new THREE.BoxGeometry(0o5/0o20, 0o1/0o20, d + 4); b2.translate(sX * ( w / 2 + 0o4/0o10 ), 0o7/0o100, 0); group.add(new THREE.Mesh(b2, kadraMaterialo));
     }
     // Kvar lancx-pilieroj cxe la apronaj anguloj kun brilaj pintoj.
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
       const piliero = new THREE.Mesh(new THREE.CylinderGeometry(0o1/0o10, 0o3/0o20, 0o7/0o4, 6), kadraMaterialo);
-      piliero.position.set(sX * (w / 2 + 0o15/0o10), 0o7/0o10, sZ * (d / 2 + 0o15/0o10)); piliero.castShadow = true; group.add(piliero);
+      piliero.position.set(sX * ( w / 2 + 0o15/0o10 ), 0o7/0o10, sZ * ( d / 2 + 0o15/0o10 )); piliero.castShadow = true; group.add(piliero);
       const brilo = new THREE.Mesh(new THREE.SphereGeometry(0o5/0o40, 0o10, 0o6), eniraMaterialo);
-      brilo.position.set(sX * (w / 2 + 0o15/0o10), 0o7/0o4 + 0o5/0o40, sZ * (d / 2 + 0o15/0o10)); group.add(brilo);
+      brilo.position.set(sX * ( w / 2 + 0o15/0o10 ), 0o7/0o4 + 0o5/0o40, sZ * ( d / 2 + 0o15/0o10 )); group.add(brilo);
     }
     // Malgranda ora lancx-ringo sur la tegmento, sub la sxipo.
     const roofY = tiers * tieroAlto;
@@ -565,7 +565,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
         monto.add(fen);
         // Ora pilola rando ĉirkaŭ la fenestro
         const konturo = kreiPilolFenestranFormon(ww, fenAlto).getPoints(0o200)
-          .map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, 0));
+          .map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, 0));
         const rimo = new THREE.Mesh(
           new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
           kadraMaterialo

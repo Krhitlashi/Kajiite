@@ -4,7 +4,7 @@
 // La metitaj objektoj de la objekta ilo de la terena skulptilo — la kanuoj
 // 🛶, la spacosxipo 🚀, la lampoj 🏮, la keuxfhxesoj ⭐ kaj la individuaj
 // konstruajxoj 🏛️ estas ankaŭ objektoj. Malplena = neniu objekto.
-// Cxiu objekto: x, z ( 0.25-algluita ), speco ( betulo | lariko | hxsxaksxlefo
+// Cxiu objekto. x, z ( 0.25-algluita ), speco ( betulo | lariko | hxsxaksxlefo
 // | pussxlefo | roko | filiko | akvabesto | petrelo | npco | sanktejo | turo
 // | domo | mangxejo | kasafeo | stacio | hxeuxfo | hxeuxfoPlato | keuxfhxeso | kanuo | spacosxipo ),
 // skalo, rotacio, bestospeco, radio, vesto, harstilo, filikaSpeco, stilo.

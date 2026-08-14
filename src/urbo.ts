@@ -16,7 +16,7 @@ import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantoj
 import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxoj.js";
 import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, konstruiRondajnKapojn, VojDifino } from "../assets/medio/vojoj.js";
 import { konstruiDokon } from "../assets/medio/doko.js";
-import { kreiKradon, tipoDeBloko, kradajDerivajoj } from "./krado.js";
+import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton } from "./krado.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../assets/mebloj/keuxfhxeso.js";
@@ -48,7 +48,7 @@ export interface UrbaSistemo {
   selektajxoj: THREE.Mesh[];
   konstruGrupoj: THREE.Group[];
   vojSpecimenoj: THREE.Vector3[];
-  placajNodoj: [number, number][];
+  placajNodoj: [ number, number ][];
   // La akvo de la skulptita tereno ( la masko ) estas la akvo — la proceduraj
   // rivero/lago meshxoj konstruigxas nur sen skulptita datumaro.
   riverData: RiverData | null;
@@ -67,8 +67,8 @@ export interface UrbaSistemo {
   // La spacosxipo — objekto de SKULPTA_OBJEKTOJ ( null se neniu metita ).
   xipo: Krasesxagxo | null;
   vojDifinoj: VojDifino[];
-  vojDuonLargho: (g: number) => number;
-  NPCLOKOJ: [number, number][];
+  vojDuonLargho: ( g: number ) => number;
+  NPCLOKOJ: [ number, number ][];
   VESTA_LISTO: Vesto[];
 }
 
@@ -139,9 +139,9 @@ export interface MetitaObjekto {
 function konstruiMetitajnObjektojn(
   sceno: THREE.Scene,
   objektoj: MetitaObjekto[],
-  altecoFn: (x: number, z: number) => number,
-  akvoFn: (x: number, z: number) => boolean,
-  akvaNiveloFn: (x: number, z: number) => number,
+  altecoFn: ( x: number, z: number ) => number,
+  akvoFn: ( x: number, z: number ) => boolean,
+  akvaNiveloFn: ( x: number, z: number ) => number,
   bestoj: BestoSistemo,
   petreloj: PetreloSistemo,
   npcoj: Figuro[],
@@ -153,10 +153,10 @@ function konstruiMetitajnObjektojn(
   const xipoj: Krasesxagxo[] = [];
   for ( const o of objektoj ) {
     const s = o.skalo ?? 1;
-    if ( o.speco === "betulo" ) konstruiArbaron(sceno, [{ x: o.x, z: o.z, h: altecoFn(o.x, o.z), s }]);
-    else if ( o.speco === "lariko" ) konstruiLarikon(sceno, [{ x: o.x, z: o.z, h: altecoFn(o.x, o.z), s }]);
-    else if ( o.speco === "hxsxaksxlefo" ) konstruiHxsxaksxlefojn(sceno, [{ x: o.x, z: o.z, h: altecoFn(o.x, o.z), s }]);
-    else if ( o.speco === "pussxlefo" ) konstruiPussxlefojn(sceno, [{ x: o.x, z: o.z, h: altecoFn(o.x, o.z), s }]);
+    if ( o.speco === "betulo" ) konstruiArbaron(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
+    else if ( o.speco === "lariko" ) konstruiLarikon(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
+    else if ( o.speco === "hxsxaksxlefo" ) konstruiHxsxaksxlefojn(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
+    else if ( o.speco === "pussxlefo" ) konstruiPussxlefojn(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
     else if ( o.speco === "roko" ) konstruiMetitanRokon(sceno, o.x, o.z, altecoFn, s, o.rotacio ?? -1);
     else if ( o.speco === "filiko" ) konstruiMetitanFilikon(sceno, o.x, o.z, altecoFn, s, o.filikaSpeco ?? 0);
     else if ( o.speco === "akvabesto" ) {
@@ -276,7 +276,7 @@ function konstruiKradanUrbon(
   // Konstruu la urbon el la kvadrataj celloj
   let bldgIdx = 0;
   const konstruSpecoj: KonstruSpec[] = [];
-  const kreiSpecon = (x: number, z: number, type: CellType, rot: number, fiksita?: string): void => {
+  const kreiSpecon = ( x: number, z: number, type: CellType, rot: number, fiksita?: string ): void => {
     // La pentrita "stacio" ĉelo konstruiĝas kiel la kosmoporda stacio
     // ( stacioxipo ) — la sama speco kiel la aŭtomataj stacioj.
     const estasStacio = type === "stacio";
@@ -295,7 +295,7 @@ function konstruiKradanUrbon(
     konstruSpecoj.push({ x, z, type: specTipo, name: "paq" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot, diamond: true, fixed: fiksita });
     bldgIdx++;
   };
-  for (const [col, row, type] of ĉeloj) {
+  for ( const [ col, row, type ] of ĉeloj ) {
     const cx = ofsX + col * PASXO, cz = ofsZ + row * PASXO;
     if ( col === 0 && row === 0 ) {
       // La centro — la centra konstruaĵo ( sanktejo ), aŭ la STACIO en la
@@ -352,7 +352,7 @@ function konstruiKradanUrbon(
   for ( const b of aldonajBlokoj ) {
     if ( !b.konektita ) continue;
     const c = Math.round(b.x / PASXO), r = Math.round(b.z / PASXO);
-    if ( !ĉeloj.some(([lc, lr]) => lc === c && lr === r) ) ĉeloj.push([ c, r, "sanktejo" ]);
+    if ( !ĉeloj.some(( [ lc, lr ] ) => lc === c && lr === r) ) ĉeloj.push([ c, r, "sanktejo" ]);
   }
 
   // Fiksu teren-alton kaj kolizion por cxiu konstruajxo (vojoj ne bezonataj ankoraux)
@@ -368,25 +368,25 @@ function konstruiKradanUrbon(
 
   // Kolektu cxiujn apartajn kolumnojn kaj vicojn kun ne-nulaj celloj
   const colSet = new Set<number>(), rowSet = new Set<number>();
-  for (const [c, r, t] of ĉeloj) {
-    if (t !== null) { colSet.add(c); rowSet.add(r); }
+  for ( const [ c, r, t ] of ĉeloj ) {
+    if ( t !== null ) { colSet.add(c); rowSet.add(r); }
   }
-  const KOLOJ = [...colSet].sort((a, b) => a - b);
-  const VICOJ = [...rowSet].sort((a, b) => a - b);
+  const KOLOJ = [ ...colSet ].sort(( a, b ) => a - b);
+  const VICOJ = [ ...rowSet ].sort(( a, b ) => a - b);
 
   // NS-vojoj pozicioj (inter apudaj kolumnoj)
   const RETO_X: number[] = [];
-  for (let ci = 0; ci < KOLOJ.length - 1; ci++) {
-    if (KOLOJ[ci + 1] - KOLOJ[ci] === 1) {
-      RETO_X.push(ofsX + (KOLOJ[ci] + KOLOJ[ci + 1]) / 2 * PASXO);
+  for ( let ci = 0; ci < KOLOJ.length - 1; ci++ ) {
+    if ( KOLOJ[ci + 1] - KOLOJ[ci] === 1 ) {
+      RETO_X.push(ofsX + ( KOLOJ[ci] + KOLOJ[ci + 1] ) / 2 * PASXO);
     }
   }
 
   // EW-vojoj pozicioj (inter apudaj vicoj)
   const RETO_Z: number[] = [];
-  for (let ri = 0; ri < VICOJ.length - 1; ri++) {
-    if (VICOJ[ri + 1] - VICOJ[ri] === 1) {
-      RETO_Z.push(ofsZ + (VICOJ[ri] + VICOJ[ri + 1]) / 2 * PASXO);
+  for ( let ri = 0; ri < VICOJ.length - 1; ri++ ) {
+    if ( VICOJ[ri + 1] - VICOJ[ri] === 1 ) {
+      RETO_Z.push(ofsZ + ( VICOJ[ri] + VICOJ[ri + 1] ) / 2 * PASXO);
     }
   }  // Kvar-bloka krado. ĉiu bloko havas konstruaĵojn sur ĉiuj kvar flankoj, do
   // ĉiu bloko bezonas vojojn sur ĉiuj kvar flankoj ( la voja bloko ). La
@@ -409,12 +409,12 @@ function konstruiKradanUrbon(
   konstruSpecoj.forEach(s => {
     // Kvar-blokaj konstruaĵoj jam havas sian rotacion ( ĉiu frontas sian
     // blokan flankon ) — la centro-fronta regulo validas nur por unu-blokaj.
-    if (s.fixed) return;
+    if ( s.fixed ) return;
     const rx = s.x - ofsX, rz = s.z - ofsZ;
-    if (rx !== 0 || rz !== 0) {
+    if ( rx !== 0 || rz !== 0 ) {
       // La diamanta formo havas NENIAN izolitan korneran ĉelon — ĉiu pordo
       // trovas kradan vojon antaŭ si, do la centro-fronta regulo sufiĉas.
-      if (Math.abs(rx) > Math.abs(rz)) {
+      if ( Math.abs(rx) > Math.abs(rz) ) {
         s.rot = rx > 0 ? -Math.PI / 2 : Math.PI / 2;
       } else {
         s.rot = rz > 0 ? Math.PI : 0;
@@ -428,36 +428,36 @@ function konstruiKradanUrbon(
   // Konstruu aron da celloj por rapida sercxo. La eksteraj vojoj ( unu pasxon
   // preter la ekstera vico ) etendiĝas nur kie reale ekzistas blokoj — la
   // malplenaj korneraj ĉeloj de la diamanto ( ±n,±n ) ricevas NENIAN vojon.
-  const hasCellAt = (c: number, r: number) =>
-    ĉeloj.some(([lc, lr, lt]) => lc === c && lr === r && lt !== null);
+  const hasCellAt = ( c: number, r: number ) =>
+    ĉeloj.some(( [ lc, lr, lt ] ) => lc === c && lr === r && lt !== null);
 
   // La veraj rando-nodoj de la voja reto. La finoj de cxiu vojo-linio, kie la
   // segmentoj haltas ( sen aldonaj stumpoj ). Nur tiuj ricevas rondigitajn ĉapojn.
-  const placajNodoj: [number, number][] = [];
-  const cxuNodoValidas = (x: number, z: number): boolean => {
-    if (akvo(x, z)) return false;
+  const placajNodoj: [ number, number ][] = [];
+  const cxuNodoValidas = ( x: number, z: number ): boolean => {
+    if ( akvo(x, z) ) return false;
     // La urba zono — la krada rando plus libera spaco ( la nodoj de pli
     // grandaj kradoj etendiĝas pli malproksimen ). Relativa al la krada centro.
-    if (Math.hypot(x - ofsX, z - ofsZ) > nordaPinto + 0o100) return false;
-    for (const s of konstruSpecoj) {
-      if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10) return false;
+    if ( Math.hypot(x - ofsX, z - ofsZ) > nordaPinto + 0o100 ) return false;
+    for ( const s of konstruSpecoj ) {
+      if ( Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10 ) return false;
     }
     return true;
   };
-  const aldoniPlacon = (x: number, z: number) => {
-    if (!cxuNodoValidas(x, z)) return;
-    placajNodoj.push([x, z]);
+  const aldoniPlacon = ( x: number, z: number ) => {
+    if ( !cxuNodoValidas(x, z) ) return;
+    placajNodoj.push([ x, z ]);
   };
 
   // Noda registro por malkovri L-kornerojn ( kie AMBAU perpendikularaj vojoj
   // finigas samloke ). sx/sz registras la FORAN direkton — la korneran
   // kvadranton — de cxiu voja fino.
   const finoRegistro = new Map<string, { sx: number; sz: number }>();
-  const aldoniFinon = (x: number, z: number, sx: number, sz: number) => {
+  const aldoniFinon = ( x: number, z: number, sx: number, sz: number ) => {
     const k = x + "," + z;
     const e = finoRegistro.get(k) || { sx: 0, sz: 0 };
-    if (sx !== 0) e.sx = sx;
-    if (sz !== 0) e.sz = sz;
+    if ( sx !== 0 ) e.sx = sx;
+    if ( sz !== 0 ) e.sz = sz;
     finoRegistro.set(k, e);
     aldoniPlacon(x, z);
   };
@@ -473,42 +473,13 @@ function konstruiKradanUrbon(
   const NS_ekstentoj = new Map<number, [ number, number ]>();   // NS-vojo x → [ zMin, zMax ]
   const EW_ekstentoj = new Map<number, [ number, number ]>();   // EW-vojo z → [ xMin, xMax ]
 
-  // Por cxiu EW-vojo (inter apudaj vicoj), kreu segmentojn inter NS-vojoj
-  for (const roadZ of RETO_Z) {
-    const r1 = Math.round((roadZ - ofsZ) / PASXO - 0o4/0o10);
-    const r2 = Math.round((roadZ - ofsZ) / PASXO + 0o4/0o10);
-    // Trovu kiuj NS-vojoj intersekcas cxi tiun EW-vojon
-    const intersecting: number[] = [];
-    for (const rx of RETO_X) {
-      const c1 = Math.round((rx - ofsX) / PASXO - 0o4/0o10);
-      const c2 = Math.round((rx - ofsX) / PASXO + 0o4/0o10);
-      if (hasCellAt(c1, r1) || hasCellAt(c1, r2) ||
-          hasCellAt(c2, r1) || hasCellAt(c2, r2)) {
-        intersecting.push(rx);
-      }
-    }
-    if (intersecting.length < 2) continue;
-    // Konstruu segmentojn NUR inter intersekcaj NS-vojoj — neniuj randaj stumpoj
-    const pts = [...intersecting].sort((a, b) => a - b);
-    // La DIAMANTA limo ( unu-bloka ). la vojoj ne ĉirkaŭvolvas la kornerajn
-    // blokojn — segmento ekzistas nur se ĝia mezo kuŝas ene de la krada
-    // diamanto |x| + |z| ≤ ( n + 1 )·PASXO ( relativa al la centro ). La
-    // korneraj blokoj ( ±(n−1), ±(n−1) ) ricevas vojon nur sur siaj internaj
-    // flankoj — NE la plenan vojan kvadraton kiel la flankaj blokoj.
-    let uzeblaj = pts;
-    if ( arangxo.blokaGrando === "unu" ) {
-      const limo = ( arangxo.arangxaGrando + 1 ) * PASXO;
-      let unua = -1, lasta = -1;
-      for ( let i = 0; i < pts.length - 1; i++ ) {
-        if ( Math.abs(( pts[i] + pts[i + 1] ) / 2 - ofsX) + Math.abs(roadZ - ofsZ) <= limo ) {
-          if ( unua < 0 ) unua = i;
-          lasta = i;
-        }
-      }
-      if ( unua < 0 ) continue;
-      uzeblaj = pts.slice(unua, lasta + 2);
-    }
-    for (const rx of uzeblaj) realajIntersekcoj.add(rx + "," + roadZ);
+  // Por cxiu EW-vojo (inter apudaj vicoj), kreu segmentojn inter NS-vojoj.
+  // La komuna segmenta skanado ( skaniVojanReton el krado.ts ) trovas la
+  // uzeblajn perpendikularajn koordinatojn de ĉiu linio.
+  const { EW, NS } = skaniVojanReton(RETO_X, RETO_Z, PASXO, ofsX, ofsZ,
+    arangxo.blokaGrando === "unu" ? ( arangxo.arangxaGrando + 1 ) * PASXO : null, hasCellAt);
+  for ( const [ roadZ, uzeblaj ] of EW ) {
+    for ( const rx of uzeblaj ) realajIntersekcoj.add(rx + "," + roadZ);
     EW_ekstentoj.set(roadZ, [ uzeblaj[0], uzeblaj[uzeblaj.length - 1] ]);
     // Rando-nodoj. La du finoj de cxi tiu EW-linio. La okcidenta fino ( uzeblaj[0] )
     // havas la korpon orienten ( +x ), do la fora kvadranto estas -x; la orienta
@@ -516,56 +487,27 @@ function konstruiKradanUrbon(
     aldoniFinon(uzeblaj[0], roadZ, -1, 0);
     aldoniFinon(uzeblaj[uzeblaj.length - 1], roadZ, 1, 0);
     const w = 0o16/0o10;  // uniform 1.75 half-width
-    for (let i = 0; i < uzeblaj.length - 1; i++) {
+    for ( let i = 0; i < uzeblaj.length - 1; i++ ) {
       const x1 = uzeblaj[i], x2 = uzeblaj[i + 1];
-      if (Math.abs(x2 - x1) > 0o1/0o10) {
-        vojDifinoj.push({ pts: [[x1, roadZ], [x2, roadZ]], w });
+      if ( Math.abs(x2 - x1) > 0o1/0o10 ) {
+        vojDifinoj.push({ pts: [ [ x1, roadZ ], [ x2, roadZ ] ], w });
       }
     }
   }
 
   // Por cxiu NS-vojo (inter apudaj kolumnoj), kreu segmentojn inter EW-vojoj
-  for (const roadX of RETO_X) {
-      const c1 = Math.round((roadX - ofsX) / PASXO - 0o4/0o10);
-      const c2 = Math.round((roadX - ofsX) / PASXO + 0o4/0o10);
-    // Trovu kiuj EW-vojoj intersekcas cxi tiun NS-vojon
-    const intersecting: number[] = [];
-    for (const rz of RETO_Z) {
-      const r1 = Math.round((rz - ofsZ) / PASXO - 0o4/0o10);
-      const r2 = Math.round((rz - ofsZ) / PASXO + 0o4/0o10);
-      if (hasCellAt(c1, r1) || hasCellAt(c1, r2) ||
-          hasCellAt(c2, r1) || hasCellAt(c2, r2)) {
-        intersecting.push(rz);
-      }
-    }
-    if (intersecting.length < 2) continue;
-    // Konstruu segmentojn NUR inter intersekcaj EW-vojoj — neniuj randaj stumpoj
-    const pts = [...intersecting].sort((a, b) => a - b);
-    // La sama diamanta limo kiel supre ( unu-bloka ).
-    let uzeblaj = pts;
-    if ( arangxo.blokaGrando === "unu" ) {
-      const limo = ( arangxo.arangxaGrando + 1 ) * PASXO;
-      let unua = -1, lasta = -1;
-      for ( let i = 0; i < pts.length - 1; i++ ) {
-        if ( Math.abs(roadX - ofsX) + Math.abs(( pts[i] + pts[i + 1] ) / 2 - ofsZ) <= limo ) {
-          if ( unua < 0 ) unua = i;
-          lasta = i;
-        }
-      }
-      if ( unua < 0 ) continue;
-      uzeblaj = pts.slice(unua, lasta + 2);
-    }
-    for (const rz of uzeblaj) realajIntersekcoj.add(roadX + "," + rz);
+  for ( const [ roadX, uzeblaj ] of NS ) {
+    for ( const rz of uzeblaj ) realajIntersekcoj.add(roadX + "," + rz);
     NS_ekstentoj.set(roadX, [ uzeblaj[0], uzeblaj[uzeblaj.length - 1] ]);
     // Rando-nodoj. La du finoj de cxi tiu NS-linio. La suda fino ( pts[0] ) havas
     // la korpon norden ( +z ), do la fora kvadranto estas -z; la norda fino inverse.
     aldoniFinon(roadX, uzeblaj[0], 0, -1);
     aldoniFinon(roadX, uzeblaj[uzeblaj.length - 1], 0, 1);
     const w = 0o16/0o10;  // uniform 1.75 half-width
-    for (let i = 0; i < uzeblaj.length - 1; i++) {
+    for ( let i = 0; i < uzeblaj.length - 1; i++ ) {
       const z1 = uzeblaj[i], z2 = uzeblaj[i + 1];
-      if (Math.abs(z2 - z1) > 0o1/0o10) {
-        vojDifinoj.push({ pts: [[roadX, z1], [roadX, z2]], w });
+      if ( Math.abs(z2 - z1) > 0o1/0o10 ) {
+        vojDifinoj.push({ pts: [ [ roadX, z1 ], [ roadX, z2 ] ], w });
       }
     }
   }
@@ -575,25 +517,25 @@ function konstruiKradanUrbon(
   // du interkovritajn cirklajn ĉapojn.
   const arkajNodoj: { x: number; z: number; sx: number; sz: number }[] = [];
   const arkajKlavoj = new Set<string>();
-  for (const [k, e] of finoRegistro) {
-    if (e.sx !== 0 && e.sz !== 0) {
-      const [x, z] = k.split(",").map(Number);
-      if (cxuNodoValidas(x, z)) {
+  for ( const [ k, e ] of finoRegistro ) {
+    if ( e.sx !== 0 && e.sz !== 0 ) {
+      const [ x, z ] = k.split(",").map(Number);
+      if ( cxuNodoValidas(x, z) ) {
         arkajNodoj.push({ x, z, sx: e.sx, sz: e.sz });
         arkajKlavoj.add(k);
       }
     }
   }
-  for (let i = placajNodoj.length - 1; i >= 0; i--) {
-    const [x, z] = placajNodoj[i];
-    if (arkajKlavoj.has(x + "," + z)) placajNodoj.splice(i, 1);
+  for ( let i = placajNodoj.length - 1; i >= 0; i-- ) {
+    const [ x, z ] = placajNodoj[i];
+    if ( arkajKlavoj.has(x + "," + z) ) placajNodoj.splice(i, 1);
   }
   // T-kunigoj — nodoj kie UNU vojo finiĝas kaj la alia trapasas. La finiĝanta
   // vojo kaj la trapasanta vojo interkovras samplane ĉe la ena angulo ( la
   // samaj bendoj en la sama loko ) kaj la du tavoloj z-flagris laŭ la fotila
   // angulo. La sama levita kruciĝa plato kiel la kvarvojaj kruciĝoj kovras la
   // tutan nodon per UNU surfaco — la vojoj subiras kaj reaperas glate.
-  const tNodoj = placajNodoj.filter(([px, pz]) => realajIntersekcoj.has(px + "," + pz));
+  const tNodoj = placajNodoj.filter(( [ px, pz ] ) => realajIntersekcoj.has(px + "," + pz));
   // Fermitaj flankoj por la T-kunigaj platoj — la direkto de la finiĝanta
   // vojo ( unu ne-nula komponanto ). La T-kunigo havas UNU flankon sen vojo,
   // kie la finiĝanta vojo ne daŭrigas; tiu flanko ricevas plenan andezitan
@@ -611,8 +553,8 @@ function konstruiKradanUrbon(
     const e = finoRegistro.get(tx + "," + tz);
     if ( e && !traNodoj.has(tx + "," + tz) ) tFermitaj.set(tx + "," + tz, e.sx !== 0 ? [ e.sx, 0 ] : [ 0, e.sz ]);
   }
-  for (const [px, pz] of placajNodoj) realajIntersekcoj.delete(px + "," + pz);
-  for (const klavo of arkajKlavoj) realajIntersekcoj.delete(klavo);
+  for ( const [ px, pz ] of placajNodoj ) realajIntersekcoj.delete(px + "," + pz);
+  for ( const klavo of arkajKlavoj ) realajIntersekcoj.delete(klavo);
 
   // Neniu stacidoma ĉelo plu ekzistas en la krado — la stacio de la cefa urbo
   // estas ALDONA bloko ( la skulptilo metas ĝin aparte de la krado ), kaj la
@@ -642,36 +584,36 @@ function konstruiKradanUrbon(
     const ekst = NS_ekstentoj.get(ofsX + ringoX);
     if ( ekst ) ekst[0] = Math.min(ekst[0], ofsZ - 0o130);
   }
-  for (const s of konstruSpecoj) {
-    if (s.x === ofsX && s.z === ofsZ) continue;
+  for ( const s of konstruSpecoj ) {
+    if ( s.x === ofsX && s.z === ofsZ ) continue;
     // La STARANTaj aldonaj blokoj ricevas nenian spronon ( la voja reto
     // koncernas nur la generitajn ĉelojn — la stacio estas atingebla per la
     // sxipo ). La KONEKTITaj aldonaj blokoj ricevas spronon kiel la malnova
     // stacidoma ĉelo ( ilia ĉelo jam estas en la reto ).
-    if (s.fixed === "aldona") continue;
+    if ( s.fixed === "aldona" ) continue;
     const rot = s.rot || 0;
     const pordoOffset = s.d / 2 + 0o14/0o10;
     const pordoX = s.x + Math.sin(rot) * pordoOffset;
     const pordoZ = s.z + Math.cos(rot) * pordoOffset;
     // La sprono komencigxas cxe la muro-bazo (ne 0o14/0o10 for), por ke la vojo
     // atingas la konstruajxon kaj estas pli longa.
-    const spronoX = s.x + Math.sin(rot) * (s.d / 2);
-    const spronoZ = s.z + Math.cos(rot) * (s.d / 2);
+    const spronoX = s.x + Math.sin(rot) * ( s.d / 2 );
+    const spronoZ = s.z + Math.cos(rot) * ( s.d / 2 );
 
     const fX = Math.sin(rot), fZ = Math.cos(rot);
     let vojX: number, vojZ: number;
 
-    if (Math.abs(fX) > Math.abs(fZ)) {
+    if ( Math.abs(fX) > Math.abs(fZ) ) {
       const signo = fX > 0 ? 1 : -1;
       let celX = signo > 0 ? Math.max(...spurXoj) : Math.min(...spurXoj);
-      for (const rx of spurXoj) {
-        if (signo > 0 && rx > pordoX && rx < celX) celX = rx;
-        if (signo < 0 && rx < pordoX && rx > celX) celX = rx;
+      for ( const rx of spurXoj ) {
+        if ( signo > 0 && rx > pordoX && rx < celX ) celX = rx;
+        if ( signo < 0 && rx < pordoX && rx > celX ) celX = rx;
       }
       // Neniu vojo antaŭ la pordo ( ekstera konstruaĵo frontanta for de la
       // urbo — sen ringo ne ekzistas vojo tie ) — nenia sprono anstataŭ vojo
       // tra la konstruaĵo.
-      if (( signo > 0 && celX <= spronoX ) || ( signo < 0 && celX >= spronoX )) continue;
+      if ( ( signo > 0 && celX <= spronoX ) || ( signo < 0 && celX >= spronoX ) ) continue;
       // La celo-vojo devas reale ekzisti ĉe la sprona pozicio — la ekstera
       // parto estas nur blokoj ( neniu ringo ), do la eksteraj konstruaĵoj
       // frontas vojojn kiuj finiĝas antaŭ ili ( la flanka konstruaĵo de la
@@ -685,12 +627,12 @@ function konstruiKradanUrbon(
     } else {
       const signo = fZ > 0 ? 1 : -1;
       let celZ = signo > 0 ? Math.max(...spurZoj) : Math.min(...spurZoj);
-      for (const rz of spurZoj) {
-        if (signo > 0 && rz > pordoZ && rz < celZ) celZ = rz;
-        if (signo < 0 && rz < pordoZ && rz > celZ) celZ = rz;
+      for ( const rz of spurZoj ) {
+        if ( signo > 0 && rz > pordoZ && rz < celZ ) celZ = rz;
+        if ( signo < 0 && rz < pordoZ && rz > celZ ) celZ = rz;
       }
       // Neniu vojo antaŭ la pordo ( vidu la x-flankan gardon supre ).
-      if (( signo > 0 && celZ <= spronoZ ) || ( signo < 0 && celZ >= spronoZ )) continue;
+      if ( ( signo > 0 && celZ <= spronoZ ) || ( signo < 0 && celZ >= spronoZ ) ) continue;
       // La celo-vojo devas reale ekzisti ĉe la sprona pozicio ( vidu la
       // x-flankan ekstentan gardon supre ) — nenia pendanta sprono.
       const duonL = 0o7/0o10;
@@ -700,15 +642,15 @@ function konstruiKradanUrbon(
       vojZ = celZ - signo * duonL;
     }
 
-    if (Math.hypot(spronoX - vojX, spronoZ - vojZ) > 0o4/0o10) {
+    if ( Math.hypot(spronoX - vojX, spronoZ - vojZ) > 0o4/0o10 ) {
       konstruiSpronon(spronoX, spronoZ, vojX, vojZ, alteco, dioritaMaterialo, andezitaMaterialo, sceno);
       // Densaj specimenoj laŭ la sprono — saman distancon kiel la ĉefaj vojoj.
       const spurro = Math.hypot(vojX - spronoX, vojZ - spronoZ);
       const nombro = Math.max(1, Math.round(spurro / 2));
-      for (let k = 0; k <= nombro; k++) {
+      for ( let k = 0; k <= nombro; k++ ) {
         const t = k / nombro;
-        const sx = spronoX + (vojX - spronoX) * t;
-        const sz = spronoZ + (vojZ - spronoZ) * t;
+        const sx = spronoX + ( vojX - spronoX ) * t;
+        const sz = spronoZ + ( vojZ - spronoZ ) * t;
         spronajSpecimenoj.push(new THREE.Vector3(sx, alteco(sx, sz), sz));
       }
     }
@@ -729,7 +671,7 @@ function konstruiKradanUrbon(
 
   // Rondigitaj arkoj ĉe la L-korneroj — kvaronaj diskoj en la korneraj
   // kvadrantoj ( la libera tereno inter la vojoj ), levitaj super la tereno.
-  for (const a of arkajNodoj) {
+  for ( const a of arkajNodoj ) {
     konstruiRondigitanArkon(sceno, a.x, a.z, a.sx, a.sz, alteco, dioritaMaterialo, andezitaMaterialo);
   }
 
@@ -738,29 +680,29 @@ function konstruiKradanUrbon(
   // La monda lampo-konstruo en konstruiUrbon kunigas ĉi tiujn kun la lagaj kaj
   // montaraj lampoj kaj konstruas UNU hxeuxfa-sistemon.
   const lampLokoj: { x: number; z: number; y: number; rotacio?: number }[] = [];
-  const addLamp = (x: number, z: number, bazaY = alteco(x, z), rotacio = Math.PI / 4) => {
-    for (const s of konstruSpecoj) {
+  const addLamp = ( x: number, z: number, bazaY = alteco(x, z), rotacio = Math.PI / 4 ) => {
+    for ( const s of konstruSpecoj ) {
       const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
-      const pordoX = s.x + difX * (s.d / 2 + 0o14/0o10), pordoZ = s.z + difZ * (s.d / 2 + 0o14/0o10);
-      if (Math.hypot(x - pordoX, z - pordoZ) < 4) return;
-      if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10) return;
+      const pordoX = s.x + difX * ( s.d / 2 + 0o14/0o10 ), pordoZ = s.z + difZ * ( s.d / 2 + 0o14/0o10 );
+      if ( Math.hypot(x - pordoX, z - pordoZ) < 4 ) return;
+      if ( Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10 ) return;
     }
     // Evitu meti lampojn sur ekzistantajn lampojn (ene de 2 unuoj)
-    for (const ekz of lampLokoj) {
-      if (Math.hypot(x - ekz.x, z - ekz.z) < 2) return;
+    for ( const ekz of lampLokoj ) {
+      if ( Math.hypot(x - ekz.x, z - ekz.z) < 2 ) return;
     }
     lampLokoj.push({ x, z, y: bazaY, rotacio });
   };
   if ( arangxo.lampoj !== false ) {
-    for (const [aX, aZ] of placajNodoj) {
-      for (const [dx, dz] of [ [ -0o21/0o10, -0o21/0o10 ], [ 0o21/0o10, -0o21/0o10 ], [ -0o21/0o10, 0o21/0o10 ], [ 0o21/0o10, 0o21/0o10 ] ]) addLamp(aX + dx, aZ + dz);
+    for ( const [ aX, aZ ] of placajNodoj ) {
+      for ( const [ dx, dz ] of [ [ -0o21/0o10, -0o21/0o10 ], [ 0o21/0o10, -0o21/0o10 ], [ -0o21/0o10, 0o21/0o10 ], [ 0o21/0o10, 0o21/0o10 ] ] ) addLamp(aX + dx, aZ + dz);
     }
-    for (const gx of RETO_X) {
-      for (const gz of RETO_Z) {
+    for ( const gx of RETO_X ) {
+      for ( const gz of RETO_Z ) {
         // Nur realaj vojkruciĝoj ( kaj ne la rivero ) ricevas la kvar-lampan
         // ŝablonon; malplenaj regionoj sen vojo restas sen lampoj.
-        if (Math.abs(gz - riveroZ(gx)) < 0o14) continue;
-        if (!realajIntersekcoj.has(gx + "," + gz)) continue;
+        if ( Math.abs(gz - riveroZ(gx)) < 0o14 ) continue;
+        if ( !realajIntersekcoj.has(gx + "," + gz) ) continue;
         // Kvar lampoj en la kvar kvadratoj ĉirkaŭ ĉiu intersekco.
         addLamp(gx + 0o23/0o10, gz + 0o23/0o10);
         addLamp(gx + 0o23/0o10, gz - 0o23/0o10);
@@ -770,7 +712,7 @@ function konstruiKradanUrbon(
     }
     // Rondigitaj arkoj — la L-korneroj ne estas en placajNodoj nek realaj
     // intersekcoj, do ili ricevas propran kvar-lampan ŝablonon por resti lumigitaj.
-    for (const a of arkajNodoj) {
+    for ( const a of arkajNodoj ) {
       addLamp(a.x + 0o23/0o10, a.z + 0o23/0o10);
       addLamp(a.x + 0o23/0o10, a.z - 0o23/0o10);
       addLamp(a.x - 0o23/0o10, a.z + 0o23/0o10);
@@ -818,7 +760,7 @@ export async function konstruiUrbon(
   andezitaMaterialo: THREE.MeshStandardMaterial,
   eniraMaterialo: THREE.MeshStandardMaterial,
   oraMaterialo: THREE.MeshStandardMaterial,
-  raportiProgreson?: (procento: number) => void
+  raportiProgreson?: ( procento: number ) => void
 ): Promise<UrbaSistemo> {
   // ⟪ Ŝarĝa progreso 📃 ⟫ — la konstruado cedas inter sekcioj, por ke la
   // ŝarĝa stango vere moviĝu kaj la paĝo restu respondema dum lanĉo.
@@ -980,16 +922,16 @@ export async function konstruiUrbon(
   // SKULPTA_OBJEKTOJ ( hxeuxfoPlato ) — movitaj el la kodo al la datumaro,
   // redakteblaj per la terena skulptilo.
   const lampLokoj: { x: number; z: number; y: number; rotacio?: number }[] = urboj.flatMap(r => r.lampLokoj);
-  const addLamp = (x: number, z: number, bazaY = alteco(x, z), rotacio = Math.PI / 4) => {
-    for (const s of konstruSpecoj) {
+  const addLamp = ( x: number, z: number, bazaY = alteco(x, z), rotacio = Math.PI / 4 ) => {
+    for ( const s of konstruSpecoj ) {
       const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
-      const pordoX = s.x + difX * (s.d / 2 + 0o14/0o10), pordoZ = s.z + difZ * (s.d / 2 + 0o14/0o10);
-      if (Math.hypot(x - pordoX, z - pordoZ) < 4) return;
-      if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10) return;
+      const pordoX = s.x + difX * ( s.d / 2 + 0o14/0o10 ), pordoZ = s.z + difZ * ( s.d / 2 + 0o14/0o10 );
+      if ( Math.hypot(x - pordoX, z - pordoZ) < 4 ) return;
+      if ( Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10 ) return;
     }
     // Evitu meti lampojn sur ekzistantajn lampojn (ene de 2 unuoj)
-    for (const ekz of lampLokoj) {
-      if (Math.hypot(x - ekz.x, z - ekz.z) < 2) return;
+    for ( const ekz of lampLokoj ) {
+      if ( Math.hypot(x - ekz.x, z - ekz.z) < 2 ) return;
     }
     lampLokoj.push({ x, z, y: bazaY, rotacio });
   };
@@ -1023,7 +965,7 @@ export async function konstruiUrbon(
   // ⟪ Vegetajxo 📃 ⟫
   // La rivero/lago estas la skulptita akvo ( la masko ) — la plantoj restas
   // ekster la akvo, kien ajn la skulptilo pentris gxin.
-  const ekskluziviRiveron = (x: number, z: number) => akvo(x, z);
+  const ekskluziviRiveron = ( x: number, z: number ) => akvo(x, z);
   // La kunigitaj vojspecimenoj ( ambaŭ kradaj urboj + la spronoj + la kajo/
   // avenuo ) — la vegetajxo evitas ĉiujn vojojn de ambaŭ urboj.
   const vojSpecimenoj = [
@@ -1034,41 +976,41 @@ export async function konstruiUrbon(
   // ne skanu ĉiun vojspecimenon por ĉiu kandidata arbo ( O(1) anstataŭ O(n) ).
   const VOJA_ĈELO = 0o10;
   const vojaKrado = new Map<number, THREE.Vector3[]>();
-  for (const p of vojSpecimenoj) {
+  for ( const p of vojSpecimenoj ) {
     const kx = Math.floor(p.x / VOJA_ĈELO), kz = Math.floor(p.z / VOJA_ĈELO);
     const klavo = kx * 0o100000 + kz;
     let ĉelo = vojaKrado.get(klavo);
-    if (!ĉelo) { ĉelo = []; vojaKrado.set(klavo, ĉelo); }
+    if ( !ĉelo ) { ĉelo = []; vojaKrado.set(klavo, ĉelo); }
     ĉelo.push(p);
   }
-  const ekskluziviVojojn = (x: number, z: number, m: number) => {
+  const ekskluziviVojojn = ( x: number, z: number, m: number ) => {
     // Krada sercxo anstataux la lineara skanado de cxuj vojspecimenoj.
     const r = Math.ceil(m / VOJA_ĈELO) + 1;
     const bx = Math.floor(x / VOJA_ĈELO), bz = Math.floor(z / VOJA_ĈELO);
     const m2 = m * m;
-    for (let dx = -r; dx <= r; dx++) {
-      for (let dz = -r; dz <= r; dz++) {
-        const ĉelo = vojaKrado.get((bx + dx) * 0o100000 + (bz + dz));
-        if (!ĉelo) continue;
-        for (const p of ĉelo) {
+    for ( let dx = -r; dx <= r; dx++ ) {
+      for ( let dz = -r; dz <= r; dz++ ) {
+        const ĉelo = vojaKrado.get(( bx + dx ) * 0o100000 + ( bz + dz ));
+        if ( !ĉelo ) continue;
+        for ( const p of ĉelo ) {
           const ddx = x - p.x, ddz = z - p.z;
-          if (ddx * ddx + ddz * ddz < m2) return true;
+          if ( ddx * ddx + ddz * ddz < m2 ) return true;
         }
       }
     }
     // La lampaj diamantaj platformoj ( la hxeuxfoPlato-objektoj de la
     // datumaro — la eksaj periferiaj/lagaj/montaj plat-lampoj ) estas
     // pavimitaj restlokoj — neniu planto aperu sur ili.
-    for (const o of SKULPTA_OBJEKTOJ) {
-      if (o.speco !== "hxeuxfoPlato") continue;
-      if (Math.hypot(x - o.x, z - o.z) < m + 3) return true;
+    for ( const o of SKULPTA_OBJEKTOJ ) {
+      if ( o.speco !== "hxeuxfoPlato" ) continue;
+      if ( Math.hypot(x - o.x, z - o.z) < m + 3 ) return true;
     }
     // La keŭfĥesoj staras en la herbejo — neniu planto tra ili.
-    for (const l of keuxfhxesoLokoj) if (Math.hypot(x - l.x, z - l.z) < m + 0o25/0o10) return true;
+    for ( const l of keuxfhxesoLokoj ) if ( Math.hypot(x - l.x, z - l.z) < m + 0o25/0o10 ) return true;
     return false;
   };
-  const ekskluziviKonstruajxon = (x: number, z: number, m: number) => {
-    for (const s of konstruSpecoj) if (Math.hypot(x - s.x, z - s.z) < s.w * 0o23/0o40 + m) return true;
+  const ekskluziviKonstruajxon = ( x: number, z: number, m: number ) => {
+    for ( const s of konstruSpecoj ) if ( Math.hypot(x - s.x, z - s.z) < s.w * 0o23/0o40 + m ) return true;
     return false;
   };
   // Betuloj ( arbara periferio ) — la arbaro plenigas la TUTAN valan biomon
@@ -1145,7 +1087,7 @@ export async function konstruiUrbon(
   // La kanoj kreskas nur en la EKVIZETA biomo ( la pentrita ekvizeta zono sur
   // la akvo ) — la riverbendo kaj la lagrando de la skulptita masko.
   konstruiCetkuojn(sceno, 0o110, alteco, riveroZ,
-    (x: number, z: number) => ekskluziviKonstruajxon(x, z, 3), ekskluziviVojojn, EKVIZETO_BIOMOJ);
+    ( x: number, z: number ) => ekskluziviKonstruajxon(x, z, 3), ekskluziviVojojn, EKVIZETO_BIOMOJ);
   await raporti();
 
   // ⟪ Vegetaĵo ĉirkaŭ la lago 📃 ⟫ — la lago sidas malproksime oriente
@@ -1263,20 +1205,20 @@ export async function konstruiUrbon(
   // ⟪ Nebulaj sprajtoj 📃 ⟫
   const nebulaTeksajxo = kreiNebulanTeksajxon();
   const nebuloj: THREE.Sprite[] = [];
-  for (const [x, z, y, skalo, op] of [
+  for ( const [ x, z, y, skalo, op ] of [
     [ -0o110, -0o110, 0o24/0o10, 0o60, 0o5/0o40 ], [ -0o40, -0o110, 0o215/0o100, 0o60, 0o3/0o20 ],
     [ 0o30, -0o110, 0o263/0o100, 0o60, 0o5/0o40 ], [ 0o70, -0o100, 0o115/0o40, 0o40, 0o5/0o40 ],
     [ -0o60, -0o60, 0o163/0o100, 0o40, 0o11/0o100 ], [ -0o110, 0o40, 0o63/0o40, 0o30, 0o3/0o40 ],
     [ 0o110, -0o60, 0o163/0o100, 0o30, 0o3/0o40 ], [ -0o70, 0o110, 0o14/0o10, 0o30, 0o3/0o40 ],
     [ 0o100, 0o110, 0o155/0o100, 0o30, 0o5/0o100 ], [ -0o130, 0o10, 0o55/0o40, 0o30, 0o1/0o10 ],
-  ]) {
+  ] ) {
     const materialo = new THREE.SpriteMaterial({ map: nebulaTeksajxo, transparent: true, opacity: op, depthWrite: false });
     const sp = new THREE.Sprite(materialo);
     sp.position.set(x, y, z); sp.scale.setScalar(skalo);
     sp.userData = { rapido: 0o15/0o40 + Math.random() * 0o10/0o10 };
     sceno.add(sp); nebuloj.push(sp);
   }
-  for (let i = 0; i < 0o60; i++) {
+  for ( let i = 0; i < 0o60; i++ ) {
     const a = Math.random() * Math.PI * 2;
     const r = 0o130 + Math.random() * 0o300;
     const x = Math.cos(a) * r, z = Math.sin(a) * r;
@@ -1328,7 +1270,7 @@ export async function konstruiUrbon(
     }
   }
 
-  const NPCLOKOJ: [number, number][] = [];
+  const NPCLOKOJ: [ number, number ][] = [];
   const npcoj: Figuro[] = [];
   // Provo-rezerva buklo. hazarda ĉelo; se la loko falas sur konstruajxon aux
   // akvon ( kun la jittero ), provu alian — la kvanto plenigxas tiel longe kiel
@@ -1349,7 +1291,7 @@ export async function konstruiUrbon(
     fig.rapido = 0o55/0o100 + Math.random() * 0o4/0o10;
     sceno.add(fig.group);
     npcoj.push(fig);
-    NPCLOKOJ.push([sX, sZ]);
+    NPCLOKOJ.push([ sX, sZ ]);
   }
   await raporti();
 
@@ -1366,7 +1308,7 @@ export async function konstruiUrbon(
   // stacion per la fluga alteco, por ke eniri la spacosxipon teleportu al la
   // supro kie gxi estas. Sen sxipa objekto la stacio restas sur la tero.
   const stacioSxipo = cefa.konstruSpecoj.find(s => s.type === "stacioxipo");
-  if (stacioSxipo && xipo) stacioSxipo.flugoY = xipo.group.position.y;
+  if ( stacioSxipo && xipo ) stacioSxipo.flugoY = xipo.group.position.y;
   await raporti();
 
   // ⟪ Interna sistemo 📃 ⟫

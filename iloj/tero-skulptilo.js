@@ -187,7 +187,7 @@ const historio = [];
 const refaraHistorio = [];
 function momenti(){
   refaraHistorio.length = 0;
-  historio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ({ ...o })), nivelo: akvaNiveloValoro });
+  historio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ( { ...o } )), nivelo: akvaNiveloValoro });
   if ( historio.length > 0o40 ) historio.shift();
 }
 function restoriStaton(s) {
@@ -207,12 +207,12 @@ function restoriStaton(s) {
 }
 function malfari(){
   if ( !historio.length ) return;
-  refaraHistorio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ({ ...o })), nivelo: akvaNiveloValoro });
+  refaraHistorio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ( { ...o } )), nivelo: akvaNiveloValoro });
   restoriStaton(historio.pop());
 }
 function refari(){
   if ( !refaraHistorio.length ) return;
-  historio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ({ ...o })), nivelo: akvaNiveloValoro });
+  historio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ( { ...o } )), nivelo: akvaNiveloValoro });
   restoriStaton(refaraHistorio.pop());
 }
 
@@ -701,7 +701,7 @@ function desegniVidon(){
     // nomo, la elektita urbo reliefigita. Klako sur markilon elektas la urbon
     // ( la pointerdown de la mapo ). La markiloj estas fiks-ampleksaj sur la
     // ekrano, por resti legeblaj ĉe ajna zomo.
-    urboj.forEach((u, i) => {
+    urboj.forEach(( u, i ) => {
       const sx = sxMondo(u.ofsX), sy = syMondo(u.ofsZ);
       const elektita = i === elektitaUrbo;
       k.fillStyle = elektita ? "rgba(255,214,64,0.95)" : "rgba(255,255,255,0.85)";
@@ -742,7 +742,7 @@ function desegniVidon(){
     // elektas gxin kaj la treno movas gxin.
     const uAld = urboj[elektitaUrbo];
     const aldonaj = uAld && uAld.aldonajBlokoj ? uAld.aldonajBlokoj : [];
-    aldonaj.forEach((b, i) => {
+    aldonaj.forEach(( b, i ) => {
       const bx = sxMondo(kradoOfsX + b.x), bz = syMondo(kradoOfsZ + b.z);
       if ( i === elektitaAldonaBloko ) {
         k.strokeStyle = "#f8e8a8";
@@ -813,13 +813,13 @@ function desegniVidon(){
         k.lineCap = "round";
         k.lineJoin = "round";
         k.beginPath();
-        punktoj.forEach((p, i) => i === 0 ? k.moveTo(p[0], p[1]) : k.lineTo(p[0], p[1]));
+        punktoj.forEach(( p, i ) => i === 0 ? k.moveTo(p[0], p[1]) : k.lineTo(p[0], p[1]));
         k.stroke();
       };
       spuro(duono, elektita ? "rgba(120,140,120,0.95)" : "rgba(90,98,88,0.9)");
       spuro(centro, elektita ? "rgba(255,232,150,0.95)" : "rgba(216,216,208,0.95)");
       // La punktoj — la elektita punkto reliefigita.
-      punktoj.forEach((p, i) => {
+      punktoj.forEach(( p, i ) => {
         const aktiva = elektita && i === elektitaPunkto;
         k.fillStyle = aktiva ? "#f8e8a8" : "rgba(255,255,255,0.9)";
         k.beginPath();
@@ -1231,7 +1231,7 @@ function gxisdatigi3DnIlon(){
   // ne turnas la fotilon ( eĉ se la lasta peniko estis Movigi ✋ ).
   const moviga = cxuMovigi() && !objektaModo;
   regiloj3d.mouseButtons.LEFT = moviga ? THREE.MOUSE.ROTATE : -1;
-  if ( moviga){
+  if ( moviga ){
     radiaTreno = null;
     platigaCelo = null;
     gxisdatigiRingon(null);
@@ -1258,7 +1258,7 @@ function peniko3dKomenci(e) {
     }
     return;
   }
-  if ( cxuMovigi()){ mapo3d.style.cursor = "grabbing"; return; }
+  if ( cxuMovigi() ){ mapo3d.style.cursor = "grabbing"; return; }
   // La Krado-langeto redaktas nur sur la 2D-mapo — la 3D-vido ne skulptu.
   if ( aktivaTabo === "krado" ) return;
   const p = radiaTrafo(e);
@@ -1286,7 +1286,7 @@ function peniko3dFini(){
   radiaTreno = null;
   platigaCelo = null;
   finiObjektanTrenon();
-  if ( cxuMovigi())mapo3d.style.cursor = "grab";
+  if ( cxuMovigi() )mapo3d.style.cursor = "grab";
 }
 function peniko3dPasxo(cx, cz) {
   const t = radiaTreno;
@@ -1385,9 +1385,9 @@ mapo.addEventListener("pointerdown", ( e ) => {
   // Movigi ✋ trenas la mapon per la maldekstra klako; la dekstra kaj Shift
   // trenas cxiame. Dum la tenado la mano "kaptas" la mapon ( la objekta ilo
   // metas objektojn per la maldekstra klako, do gxi ne trenas ).
-  if ( e.button === 1 || e.shiftKey || ( e.button === 0 && cxuMovigi() && !objektaModo )){
+  if ( e.button === 1 || e.shiftKey || ( e.button === 0 && cxuMovigi() && !objektaModo ) ){
     treno = { tipo: "mov", lastX: e.clientX, lastY: e.clientY };
-    if ( cxuMovigi())mapo.style.cursor = "grabbing";
+    if ( cxuMovigi() )mapo.style.cursor = "grabbing";
     e.preventDefault();
     return;
   }
@@ -1488,7 +1488,7 @@ function finiTrenon(){
   finiObjektanTrenon();
   finiVojaTrenon();
   finiAldonaTrenon();
-  if ( cxuMovigi())mapo.style.cursor = "grab";
+  if ( cxuMovigi() )mapo.style.cursor = "grab";
 }
 mapo.addEventListener("pointerup", finiTrenon);
 mapo.addEventListener("pointercancel", finiTrenon);
@@ -1934,10 +1934,10 @@ function konstruiObjektonEn(grupo, o, opcioj) {
   const h = opcioj && opcioj.alto ? opcioj.alto : ( x, z ) => ( bazaAlteco(x, z) + deltoInterp(x, z) ) * YTROIGO;
   const sxipaAlto = opcioj && opcioj.sxipaAlto !== undefined ? opcioj.sxipaAlto : 0o40 * YTROIGO;
   const s = o.skalo ?? 1;
-  if ( o.speco === "betulo" ) konstruiArbaron(temp, [{ x: o.x, z: o.z, h: h(o.x, o.z), s }]);
-  else if ( o.speco === "lariko" ) konstruiLarikon(temp, [{ x: o.x, z: o.z, h: h(o.x, o.z), s }]);
-  else if ( o.speco === "hxsxaksxlefo" ) konstruiHxsxaksxlefojn(temp, [{ x: o.x, z: o.z, h: h(o.x, o.z), s }]);
-  else if ( o.speco === "pussxlefo" ) konstruiPussxlefojn(temp, [{ x: o.x, z: o.z, h: h(o.x, o.z), s }]);
+  if ( o.speco === "betulo" ) konstruiArbaron(temp, [ { x: o.x, z: o.z, h: h(o.x, o.z), s } ]);
+  else if ( o.speco === "lariko" ) konstruiLarikon(temp, [ { x: o.x, z: o.z, h: h(o.x, o.z), s } ]);
+  else if ( o.speco === "hxsxaksxlefo" ) konstruiHxsxaksxlefojn(temp, [ { x: o.x, z: o.z, h: h(o.x, o.z), s } ]);
+  else if ( o.speco === "pussxlefo" ) konstruiPussxlefojn(temp, [ { x: o.x, z: o.z, h: h(o.x, o.z), s } ]);
   else if ( o.speco === "roko" ) konstruiMetitanRokon(temp, o.x, o.z, h, s, o.rotacio ?? -1);
   else if ( o.speco === "filiko" ) konstruiMetitanFilikon(temp, o.x, o.z, h, s, o.filikaSpeco ?? 0);
   else if ( o.speco === "akvabesto" ) {
@@ -2044,7 +2044,7 @@ function rekonstruiObjektojn() {
   }
 }
 
-// ── Objekta antaŭrigardo ──
+// ⟪ Objekta antaŭrigardo ⟫
 // La 3D-antaŭrigardo — malgranda orbitanta vido de la elektita speco en la
 // objekto-panelo. La SAMA konstruanto kiel la mapo/bake ( konstruiObjektonEn
 // kun nula tera alto kaj la ŝipo pli proksime al la grundo ), centre
@@ -2109,7 +2109,7 @@ function gxisdatigiObjektoListon() {
     objektoListo.append(malplena);
     return;
   }
-  objektoj.forEach((o, i) => {
+  objektoj.forEach(( o, i ) => {
     // sabosuc2w2q — la tema horizontalo por butonoj ( kiel la traka vico de
     // la ludo ). la elekt-buteno kaj Forigi ✕ en unu vico.
     const vico = document.createElement("sabosuc2w2q");
@@ -2148,7 +2148,7 @@ function gxisdatigiObjektoPropOJn() {
   };
   const elektilo = ( nomo, klavo, opcioj ) => {
     return "<label> " + nomo + " <select data-prop=\"" + klavo + "\">"
-      + opcioj.map((op, i) => "<option value=\"" + i + "\"" + ( objektoProp[klavo] === i ? " selected" : "" ) + ">" + op + "</option>").join("")
+      + opcioj.map(( op, i ) => "<option value=\"" + i + "\"" + ( objektoProp[klavo] === i ? " selected" : "" ) + ">" + op + "</option>").join("")
       + "</select></label>";
   };
   html += glitilo("Skalo", "skalo", 0.25, 3, 0.05, "");
@@ -2235,7 +2235,7 @@ function sxaltiObjektojn(on) {
 // kiun la ludo konstruas ). La urbo-elektilo en la Krado-panelo elektas la
 // urbon por redakti; la ŝanĝoj skribiĝas reen al la urbo kaj saviĝas al la
 // datumodosiero ( generiDosierojn skribas SKULPTA_URBOJ al src/tero-datumaro/urboj.ts ).
-let urboj = SKULPTA_URBOJ.map(u => ({ ...u }));
+let urboj = SKULPTA_URBOJ.map(u => ( { ...u } ));
 let elektitaUrbo = 0;                 // la elektita urbo ( la unua estas la ĉefa )
 let kradoGrandeco = urboj[0]?.arangxaGrando ?? 3;   // arangxaGrando ( 1–6 )
 let kradoBloko = urboj[0]?.blokaGrando ?? "unu";    // blokaGrando ( "unu" | "kvar" )
@@ -2249,11 +2249,11 @@ let kradaPlanoCache = null;
 // ( SKULPTA_DOKOJ kaj SKULPTA_VOJOJ en src/tero-datumaro/vojoj.ts ),
 // redaktataj per la Vojoj sub-langeto de la Krado-panelo.
 let vojoj = SKULPTA_VOJOJ.length
-  ? SKULPTA_VOJOJ.map(v => ({ ...v, punktoj: v.punktoj.map(p => [p[0], p[1]]) }))
+  ? SKULPTA_VOJOJ.map(v => ( { ...v, punktoj: v.punktoj.map(p => [ p[0], p[1] ]) } ))
   : [ { nomo: "Kajo", larĝo: 3.5, punktoj: [ [ -84, -96 ], [ -56, -104 ], [ -48, -100 ], [ 0, -90 ], [ 48, -80 ], [ 56, -84 ], [ 84, -82 ] ] },
       { nomo: "Avenuo", larĝo: 3.5, punktoj: [ [ 12, -64 ], [ 12, -88 ] ] } ];
 let dokoj = SKULPTA_DOKOJ.length
-  ? SKULPTA_DOKOJ.map(d => ({ ...d }))
+  ? SKULPTA_DOKOJ.map(d => ( { ...d } ))
   : [ { x: -48, z: -108, profundo: 16 }, { x: 0, z: -98, profundo: 16 }, { x: 48, z: -88, profundo: 16 } ];
 // La spacosxipo kaj la kanuoj estas objektoj ( SKULPTA_OBJEKTOJ ) — redaktataj
 // per la objekta ilo, ne plu per la Vojoj sub-langeto.
@@ -2378,7 +2378,7 @@ function gxisdatigiKradajnStatistikojn() {
 // opcio montras la nomon kaj la ofseton; la elektita urbo restas elektita.
 function gxisdatigiUrboElektilon() {
   urboElektilo.innerHTML = "";
-  urboj.forEach((u, i) => {
+  urboj.forEach(( u, i ) => {
     const o = document.createElement("option");
     o.value = String(i);
     o.textContent = u.nomo + " ( " + u.ofsX + ", " + u.ofsZ + " )";
@@ -2436,7 +2436,7 @@ function gxisdatigiAldonaBlokojn() {
   const u = urboj[elektitaUrbo];
   const blokoj = u && u.aldonajBlokoj ? u.aldonajBlokoj : [];
   aldonaBlokoElektilo.innerHTML = "";
-  blokoj.forEach((b, i) => {
+  blokoj.forEach(( b, i ) => {
     const o = document.createElement("option");
     o.value = String(i);
     o.textContent = ( b.stacia ? "Stacio" : ALDONA_TIPO_NOMOJ[b.tipo] || b.tipo ) + ( b.konektita ? " 🛣️" : "" ) + " ( " + b.x + ", " + b.z + " )";
@@ -2531,7 +2531,7 @@ function gxisdatigiVojajnRegilojn() {
   kradaPlanoCache = null;
   if ( bildilo3d && !vojaTrenata ) rekonstruiVojojn3D();
   vojoElektilo.innerHTML = "";
-  vojoj.forEach((v, i) => {
+  vojoj.forEach(( v, i ) => {
     const o = document.createElement("option");
     o.value = String(i);
     o.textContent = ( v.nomo || "Vojo" ) + " ( " + v.punktoj.length + " pkt )";
@@ -2545,7 +2545,7 @@ function gxisdatigiVojajnRegilojn() {
     vojoNomoEl.value = v.nomo || "";
     vojoLargxoEl.value = String(v.largxo || v.larĝo || 3.5);
     vojoPunktoElektilo.innerHTML = "";
-    v.punktoj.forEach((p, j) => {
+    v.punktoj.forEach(( p, j ) => {
       const o = document.createElement("option");
       o.value = String(j);
       o.textContent = "Punkto " + ( j + 1 ) + " ( " + p[0] + ", " + p[1] + " )";
@@ -2566,7 +2566,7 @@ function gxisdatigiVojajnRegilojn() {
     vojoPunktoForigiBtn.disabled = true;
   }
   dokoElektilo.innerHTML = "";
-  dokoj.forEach((d, i) => {
+  dokoj.forEach(( d, i ) => {
     const o = document.createElement("option");
     o.value = String(i);
     o.textContent = "Doko " + ( i + 1 ) + " ( " + d.x + ", " + d.z + " )";
@@ -2612,7 +2612,7 @@ function skribiVojajnRegilojn() {
 function gxisdatigiVojaStatistikojn() {
   const el = document.getElementById("vojaStatistikoj");
   if ( !el ) return;
-  const longo = vojoj.reduce((s, v) => s + v.punktoj.reduce((a, p, i) => {
+  const longo = vojoj.reduce(( s, v ) => s + v.punktoj.reduce(( a, p, i ) => {
     if ( i === 0 ) return a;
     const q = v.punktoj[i - 1];
     return a + Math.hypot(p[0] - q[0], p[1] - q[1]);
@@ -2927,7 +2927,7 @@ function sxangxiKradanCelon(mx, mz) {
     const cx = kradoOfsX + c * PASXO, cz = kradoOfsZ + r * PASXO;
     let plej = "NE", plejD = Infinity;
     for ( const [ sx, sz, nomo ] of [ [ BLOKO, BLOKO, "NE" ], [ -BLOKO, BLOKO, "NW" ], [ -BLOKO, -BLOKO, "SW" ], [ BLOKO, -BLOKO, "SE" ] ] ) {
-      const d = Math.hypot(mx - (cx + sx), mz - (cz + sz));
+      const d = Math.hypot(mx - ( cx + sx ), mz - ( cz + sz ));
       if ( d < plejD ) { plejD = d; plej = nomo; }
     }
     const ŝ = c + "," + r + "," + plej;
@@ -3014,7 +3014,7 @@ function desegniKradanTavolon(k, plano, X, Z, skalo) {
   }
 }
 
-// ── La 3D-aspekto ──
+// ⟪ La 3D-aspekto ⟫
 // rekonstruiKradon3D — la nuna krada aranĝo kiel reala 3D-aspekto en la
 // 3D-vido. la konstruaĵoj estas la VERAJ konstruaĵoj de la ludo ( la sama
 // konstruiSatalon kiel en urbo.ts — realaj meshoj, materialoj, pordoj kaj la
@@ -3148,7 +3148,7 @@ function rekonstruiKradon3D() {
   // ludo faras tion per animaciiFlammojn ); la sparklaj punktoj restas
   // statikaj sed videblaj.
   if ( urboj[elektitaUrbo] && urboj[elektitaUrbo].lampoj !== false ) {
-    const spots = kradoPlano().lampoj.map(l => ({ x: kradoOfsX + l.x, z: kradoOfsZ + l.z, y: grundo(kradoOfsX + l.x, kradoOfsZ + l.z), rotacio: Math.PI / 4 }));
+    const spots = kradoPlano().lampoj.map(l => ( { x: kradoOfsX + l.x, z: kradoOfsZ + l.z, y: grundo(kradoOfsX + l.x, kradoOfsZ + l.z), rotacio: Math.PI / 4 } ));
     if ( spots.length ) {
       const antaŭ = sceno3d.children.length;
       konstruiHxeuxfojn(sceno3d, spots, dioritaMaterialo(), ORA_MATERIALO);
@@ -3550,7 +3550,7 @@ function parziValoron(teksto) {
   }
   function termo() {
     let v = faktoro();
-    for (;;) {
+    for ( ;; ) {
       sp();
       const c = teksto[i];
       if ( c === "*" ) { i++; v = v * faktoro(); }
@@ -3560,7 +3560,7 @@ function parziValoron(teksto) {
   }
   function adicio() {
     let v = termo();
-    for (;;) {
+    for ( ;; ) {
       sp();
       const c = teksto[i];
       if ( c === "+" ) { i++; v = v + termo(); }
@@ -3573,7 +3573,7 @@ function parziValoron(teksto) {
     if ( teksto[i] !== '"' ) eraro();
     let s = "";
     i++;
-    for (;;) {
+    for ( ;; ) {
       if ( i >= teksto.length ) eraro();
       const c = teksto[i];
       if ( c === '"' ) { i++; return s; }
@@ -3599,7 +3599,7 @@ function parziValoron(teksto) {
       const o = {};
       sp();
       if ( teksto[i] === "}" ) { i++; return o; }
-      for (;;) {
+      for ( ;; ) {
         sp();
         // Posta komo ( { ... , } ) — la ferma krampo fermas la objekton.
         if ( teksto[i] === "}" ) { i++; return o; }
@@ -3620,7 +3620,7 @@ function parziValoron(teksto) {
       const a = [];
       sp();
       if ( teksto[i] === "]" ) { i++; return a; }
-      for (;;) {
+      for ( ;; ) {
         sp();
         // Posta komo ( [ ... , ] ) — la ferma krampo fermas la aron.
         if ( teksto[i] === "]" ) { i++; return a; }
@@ -4150,22 +4150,22 @@ function sxargiDatumaronElMapo(dosieroj) {
   const uj = preni("SKULPTA_URBOJ");
   try {
     const parzitaj = uj ? parziValoron(uj) : [];
-    urboj = Array.isArray(parzitaj) ? parzitaj.map(u => ({
+    urboj = Array.isArray(parzitaj) ? parzitaj.map(u => ( {
       nomo: String(u && u.nomo !== undefined ? u.nomo : "Urbo"),
       arangxaGrando: Number(u && u.arangxaGrando) || 1,
       blokaGrando: u && u.blokaGrando === "kvar" ? "kvar" : "unu",
       ofsX: Number(u && u.ofsX) || 0,
       ofsZ: Number(u && u.ofsZ) || 0,
-      aldonajBlokoj: Array.isArray(u && u.aldonajBlokoj) ? u.aldonajBlokoj.map(b => ({
+      aldonajBlokoj: Array.isArray(u && u.aldonajBlokoj) ? u.aldonajBlokoj.map(b => ( {
         x: Number(b && b.x) || 0,
         z: Number(b && b.z) || 0,
         tipo: b && typeof b.tipo === "string" ? b.tipo : "sanktejo",
         rot: Number(b && b.rot) || 0,
         sub: b && typeof b.sub === "string" ? b.sub : "centro",
-        stacia: !!(b && b.stacia),
-        konektita: !!(b && b.konektita),
-      })) : [],
-    })) : [];
+        stacia: !!( b && b.stacia ),
+        konektita: !!( b && b.konektita ),
+      } )) : [],
+    } )) : [];
   } catch { urboj = []; }
   if ( !urboj.length ) urboj = [ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
   elektitaUrbo = Math.max(0, Math.min(elektitaUrbo, urboj.length - 1));
@@ -4173,11 +4173,11 @@ function sxargiDatumaronElMapo(dosieroj) {
   // La vojoj, dokoj kaj spacoŝipo — la mondaj trajtoj de la ĉefa urbo.
   try {
     const parzV = voj ? parziValoron(voj) : null;
-    if ( parzV && Array.isArray(parzV) ) vojoj = parzV.map(v => ({ ...v, punktoj: v.punktoj.map(p => [p[0], p[1]]) }));
+    if ( parzV && Array.isArray(parzV) ) vojoj = parzV.map(v => ( { ...v, punktoj: v.punktoj.map(p => [ p[0], p[1] ]) } ));
   } catch { }
   try {
     const parz = dok ? parziValoron(dok) : null;
-    if ( parz && Array.isArray(parz) ) dokoj = parz.map(d => ({ ...d }));
+    if ( parz && Array.isArray(parz) ) dokoj = parz.map(d => ( { ...d } ));
   } catch { }
   gxisdatigiVojajnRegilojn();
   if ( nivelo2 !== null ) {
@@ -4200,25 +4200,25 @@ function sxargiDatumaronElKodo(){
   if ( b ) biomoj.set(b);
   const be = dekodiBestojn(SKULPTA_BESTOJ, N * N);
   if ( be ) bestoj.set(be);
-  objektoj = SKULPTA_OBJEKTOJ.map(o => ({ ...o }));
+  objektoj = SKULPTA_OBJEKTOJ.map(o => ( { ...o } ));
   elektitaObjekto = -1;
   gxisdatigiObjektoListon();
   rekonstruiObjektojn();
   // La urboj — la kradaj aranĝoj kaj ofsetoj de SKULPTA_URBOJ. La defaŭlto
   // estas la ĉefa urbo, se la listo mankas aŭ malplenas.
   try {
-    urboj = Array.isArray(SKULPTA_URBOJ) ? SKULPTA_URBOJ.map(u => ({ ...u })) : [];
+    urboj = Array.isArray(SKULPTA_URBOJ) ? SKULPTA_URBOJ.map(u => ( { ...u } )) : [];
   } catch { urboj = []; }
   if ( !urboj.length ) urboj = [ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
   elektitaUrbo = 0;
   elektiUrbon(0);
   // La vojoj, dokoj kaj spacoŝipo — la mondaj trajtoj de la ĉefa urbo.
   try {
-    if ( SKULPTA_VOJOJ && Array.isArray(SKULPTA_VOJOJ) ) vojoj = SKULPTA_VOJOJ.map(v => ({ ...v, punktoj: v.punktoj.map(p => [p[0], p[1]]) }));
+    if ( SKULPTA_VOJOJ && Array.isArray(SKULPTA_VOJOJ) ) vojoj = SKULPTA_VOJOJ.map(v => ( { ...v, punktoj: v.punktoj.map(p => [ p[0], p[1] ]) } ));
   } catch { }
   try {
     const parz = SKULPTA_DOKOJ;
-    if ( parz && Array.isArray(parz) ) dokoj = parz.map(d => ({ ...d }));
+    if ( parz && Array.isArray(parz) ) dokoj = parz.map(d => ( { ...d } ));
   } catch { }
   gxisdatigiVojajnRegilojn();
 }

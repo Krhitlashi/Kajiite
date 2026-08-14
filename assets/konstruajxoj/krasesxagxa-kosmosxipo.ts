@@ -71,9 +71,9 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   // spegulita ambauxflanke de la centro. La klinitaj tavoloj klinigxas inverse
   // (pli largxaj supre, pinton suben).
   for ( let j = 1; j <= down; j++ ) {
-    const hw = hw0 - (j - 1) * ins;
-    const yTop = -(j - 1) * tieroAlto, yBot = -j * tieroAlto;
-    murajGeometrioj.push(kreiKlinoTavolon(hw - klino, hw - klino, hw, hw, tieroAlto).translate(0, (yTop + yBot) / 2, 0));
+    const hw = hw0 - ( j - 1 ) * ins;
+    const yTop = -( j - 1 ) * tieroAlto, yBot = -j * tieroAlto;
+    murajGeometrioj.push(kreiKlinoTavolon(hw - klino, hw - klino, hw, hw, tieroAlto).translate(0, ( yTop + yBot ) / 2, 0));
     for ( const a of [ -1, 1 ] ) for ( const b of [ -1, 1 ] ) {
       aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yBot, yTop, a, b, false, klino);
     }
@@ -125,7 +125,7 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   }
   // Subaj fenestroj — precizaj speguloj de la supraj (samaj facoj, INVERSA klino).
   for ( let j = 2; j <= down; j++ ) {
-    const hw = hw0 - (j - 1) * ins;
+    const hw = hw0 - ( j - 1 ) * ins;
     const klinita = true;
     niveloj.push({ y: -j * tieroAlto + tieroAlto / 2, faco: klinita ? hw - klino / 2 : hw, klinita, suba: true });
   }
@@ -161,7 +161,7 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
       // Ora pilola rando — CENTRIPETA kurbo kun Densa sampado. la finoj estas
       // glate rondaj, ne facetaj.
       const konturo = kreiPilolFenestranFormon(ww, fenAlto).getPoints(0o200)
-        .map((p: THREE.Vector2) => new THREE.Vector3(p.x, p.y, 0));
+        .map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, 0));
       const rimo = new THREE.Mesh(
         new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
         oraMaterialo
@@ -196,7 +196,7 @@ export function animaciiKrasesxagxon(ship: Krasesxagxo,
     if ( ship.group.userData.bazaY === undefined ) {
       ship.group.userData.bazaY = ship.group.position.y;
     }
-    ship.group.position.y = (ship.group.userData.bazaY as number) + Math.sin(t * 0o23/0o100) * 0o1/0o20;
+    ship.group.position.y = ( ship.group.userData.bazaY as number ) + Math.sin(t * 0o23/0o100) * 0o1/0o20;
   }
   ship.group.rotation.y += 0o0/0o10;
   ship.group.rotation.z = Math.sin(t * 0o2/0o10) * 0o1/0o40;
@@ -213,7 +213,7 @@ export function animaciiKrasesxagxon(ship: Krasesxagxo,
 
 // komenciFlugon — Komencu la flugan animacion de la sxipo supren.
 export function komenciFlugon(ship: Krasesxagxo,
-  onProgress: (pct: number) => void,
+  onProgress: ( pct: number ) => void,
   onComplete: () => void
 ): () => void {
   const dauxro = 0o40/0o10;
@@ -228,7 +228,7 @@ export function komenciFlugon(ship: Krasesxagxo,
     const t = Math.min(1, pasinta / dauxro);
     const mildigita = t < 0o4/0o10 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-    ship.group.position.y = komencaY + (celaY - komencaY) * mildigita;
+    ship.group.position.y = komencaY + ( celaY - komencaY ) * mildigita;
     ship.group.rotation.y += 0o3/0o100;
     onProgress(mildigita);
 

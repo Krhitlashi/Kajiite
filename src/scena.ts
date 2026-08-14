@@ -35,9 +35,9 @@ export interface ScenaSistemo {
   hemiLumo: THREE.HemisphereLight;
   suna: THREE.DirectionalLight;
   sunaSprajto: THREE.Sprite;
-  aplikiRezimon: (t: number) => void;
-  aplikiVeteron: (v: Vetero) => void;
-  gxisdatigiVeteron: (t: number) => void;
+  aplikiRezimon: ( t: number ) => void;
+  aplikiVeteron: ( v: Vetero ) => void;
+  gxisdatigiVeteron: ( t: number ) => void;
 }
 
 export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): ScenaSistemo {
@@ -121,14 +121,14 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   sceno.add(suno, suno.target);
 
   // Suna sprajto
-  const molaTeksturo = (() => {
+  const molaTeksturo = ( () => {
     const cv = document.createElement("canvas"); cv.width = cv.height = 0o400;
     const ctx = cv.getContext("2d")!;
     const gr = ctx.createRadialGradient(0o200, 0o200, 0o10, 0o200, 0o200, 0o200);
     gr.addColorStop(0, "rgba(255,255,255,0.85)"); gr.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = gr; ctx.fillRect(0, 0, 0o400, 0o400);
     return new THREE.CanvasTexture(cv);
-  })();
+  } )();
   const sunaSprajto = new THREE.Sprite(new THREE.SpriteMaterial({
     map: molaTeksturo, color: 0xf8f0d8, transparent: true, opacity: 0o30/0o100,
     blending: THREE.AdditiveBlending, depthWrite: false, fog: false,
@@ -227,10 +227,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   function aplikiAtmosferon(): void {
     const t = lastaKrepusko;
     const d = PALETROJ[nunaVetero];
-    const l = (a: THREE.Color | THREE.Vector3 | number, b: THREE.Color | THREE.Vector3 | number): any =>
-      a instanceof THREE.Color ? (a as THREE.Color).clone().lerp(b as THREE.Color, t) :
-      a instanceof THREE.Vector3 ? (a as THREE.Vector3).clone().lerp(b as THREE.Vector3, t) :
-      a + (b as number - a) * t;
+    const l = ( a: THREE.Color | THREE.Vector3 | number, b: THREE.Color | THREE.Vector3 | number ): any =>
+      a instanceof THREE.Color ? ( a as THREE.Color ).clone().lerp(b as THREE.Color, t) :
+      a instanceof THREE.Vector3 ? ( a as THREE.Vector3 ).clone().lerp(b as THREE.Vector3, t) :
+      a + ( b as number - a ) * t;
     cxielajUniformoj.uTop.value = l(d.tago.top, d.krepusko.top);
     cxielajUniformoj.uMid.value = l(d.tago.mid, d.krepusko.mid);
     cxielajUniformoj.uBot.value = l(d.tago.bot, d.krepusko.bot);
@@ -238,7 +238,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const sunDir = new THREE.Vector3().copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
     cxielajUniformoj.uSunDir.value = sunDir.clone().normalize();
     sceno.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t);
-    (sceno.fog as THREE.FogExp2).density = l(d.tago.nebulDenso, d.krepusko.nebulDenso);
+    ( sceno.fog as THREE.FogExp2 ).density = l(d.tago.nebulDenso, d.krepusko.nebulDenso);
     hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t);
     hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t);
     hemiLumo.intensity = l(d.tago.hemiInt, d.krepusko.hemiInt);
@@ -267,18 +267,18 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
 
   function gxisdatigiVeteron(t: number): void {
     // En la nebula vetero neniu precipita sistemo estas videbla — nenio farendas.
-    if (!pluvo.visible && !nego.visible && !hajlo.visible) return;
+    if ( !pluvo.visible && !nego.visible && !hajlo.visible ) return;
     // Ĉiuj tri sistemoj estas GPU-animitaj ( uTime ); la pluvo bezonas ankaŭ
     // la pikselan skalon, por projekcii la gut-longon al streka longo.
-    if (pluvo.visible) {
+    if ( pluvo.visible ) {
       const mat = pluvo.material as THREE.ShaderMaterial;
       mat.uniforms.uTime.value = t;
       // Pikseloj por unu mondo-unuo ĉe distanco 1 ( la fotila fov × bilda alto ).
       mat.uniforms.uScale.value =
-        bildilo.domElement.height / (2 * Math.tan(fotilo.fov * Math.PI / 360));
+        bildilo.domElement.height / ( 2 * Math.tan(fotilo.fov * Math.PI / 360) );
     }
-    if (nego.visible) (nego.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
-    if (hajlo.visible) (hajlo.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
+    if ( nego.visible ) (nego.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
+    if ( hajlo.visible ) (hajlo.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
     // La skatoloj sekvas la fotilon — ĉiuj tri ( ankaŭ la pluvo, kiu nun
     // estas loka skatolo kiel la neĝo kaj la hajlo ).
     pluvo.position.copy(fotilo.position);
@@ -317,10 +317,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   function kreiPartiklojn(N: number, duonoX: number, duonoY: number, duonoZ: number): { pozicioj: Float32Array; semoj: Float32Array } {
     const pozicioj = new Float32Array(N * 3);
     const semoj = new Float32Array(N);
-    for (let i = 0; i < N; i++) {
-      pozicioj[i * 3] = (Math.random() * 2 - 1) * duonoX;
-      pozicioj[i * 3 + 1] = (Math.random() * 2 - 1) * duonoY;
-      pozicioj[i * 3 + 2] = (Math.random() * 2 - 1) * duonoZ;
+    for ( let i = 0; i < N; i++ ) {
+      pozicioj[i * 3] = ( Math.random() * 2 - 1 ) * duonoX;
+      pozicioj[i * 3 + 1] = ( Math.random() * 2 - 1 ) * duonoY;
+      pozicioj[i * 3 + 2] = ( Math.random() * 2 - 1 ) * duonoZ;
       semoj[i] = Math.random();
     }
     return { pozicioj, semoj };
@@ -342,11 +342,11 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const rapidoj = new Float32Array(N);
     const longoj = new Float32Array(N);
     const fadoj = new Float32Array(N);
-    for (let i = 0; i < N; i++) {
-      const x0 = (Math.random() * 2 - 1) * 0o200;
-      const z0 = (Math.random() * 2 - 1) * 0o200;
+    for ( let i = 0; i < N; i++ ) {
+      const x0 = ( Math.random() * 2 - 1 ) * 0o200;
+      const z0 = ( Math.random() * 2 - 1 ) * 0o200;
       pozicioj[i * 3] = x0;
-      pozicioj[i * 3 + 1] = (Math.random() * 2 - 1) * 0o140;
+      pozicioj[i * 3 + 1] = ( Math.random() * 2 - 1 ) * 0o140;
       pozicioj[i * 3 + 2] = z0;
       semoj[i] = Math.random();
       // Fala rapido kaj LONGECO — pli mallongaj strekoj ol antaŭe ( 1.4–2.9
@@ -355,7 +355,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       longoj[i] = 0o13/0o10 + Math.random() * 0o14/0o10;
       // Distanca fado — la loka ofseto egalas la mondan distancon de la fotilo.
       const d = Math.hypot(x0, z0);
-      fadoj[i] = Math.min(1, Math.max(0.05, 1 - (d - 24) / 136));
+      fadoj[i] = Math.min(1, Math.max(0.05, 1 - ( d - 24 ) / 136));
     }
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
@@ -554,7 +554,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // Ĉiu bloko havas sian propran altecan kampon kaj fermitan geometrion
   // ( supro, muroj, fundo ), do ĝi estas vera terenobjekto — ne maldika folio
   // kuŝanta sur la ĉefa tereno.
-  (function konstruiMontojn(): void {
+  ( function konstruiMontojn(): void {
     // Krestolinia profilo — frakta valora bruo ( la sama bruo2D kiel la
     // grundo ) por malglataj, naturaj pintoj kaj seloj. La antaŭa sinus-ondita
     // profilo faris regulajn FALDOJN — ripetajn, samaltajn krestojn kiel
@@ -564,7 +564,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     function montaAlto(t: number, semo: number): number {
       const x = t / 0o100 + semo * 0o10;
       const z = semo * 0o20 + 0o20;
-      const malglata = (u: number, v: number): number => 1 - Math.abs(2 * bruo2D(u, v) - 1);
+      const malglata = ( u: number, v: number ): number => 1 - Math.abs(2 * bruo2D(u, v) - 1);
       const maso = bruo2D(x, z);
       const valo = maso * maso;   // malfermas larĝajn valojn inter la masoj
       const pinto = malglata(x * 0o3, z * 0o3);
@@ -733,7 +733,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       krei3DStrio(true, signo, signo * 0o1050, L * 0o63/0o100, D * 0o55/0o100, 0o100, 0o14, 0o123/0o100 + 0o40 + s, 0o46/0o100, montaFona);
       krei3DStrio(false, signo, signo * 0o1050, L * 0o63/0o100, D * 0o55/0o100, 0o100, 0o14, 0o103/0o40 + 0o40 + s, 0o22/0o40, montaFona);
     }
-  })();
+  } )();
 
   // bruo2D — izotropa valora bruo ( hash-bazita, glate interpolita ) en [0,1].
   // La antaŭa du-oktava SIN-bruo havis ondofrontojn laŭ la diagonaloj — sur la
@@ -742,19 +742,19 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   function bruo2D(x: number, z: number): number {
     const ix = Math.floor(x), iz = Math.floor(z);
     const fx = x - ix, fz = z - iz;
-    const h = (xi: number, zi: number): number => {
-      let n = (xi * 0x28f0f0 + zi * 0x28d8e8) | 0;
-      n = (n ^ (n >>> 13)) * 0x48a028;
-      return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
+    const h = ( xi: number, zi: number ): number => {
+      let n = ( xi * 0x28f0f0 + zi * 0x28d8e8 ) | 0;
+      n = ( n ^ ( n >>> 13 ) ) * 0x48a028;
+      return ( ( n ^ ( n >>> 16 ) ) >>> 0 ) / 4294967296;
     };
     const a = h(ix, iz), b = h(ix + 1, iz), c = h(ix, iz + 1), d = h(ix + 1, iz + 1);
-    const u = fx * fx * (3 - 2 * fx);
-    const v = fz * fz * (3 - 2 * fz);
-    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    const u = fx * fx * ( 3 - 2 * fx );
+    const v = fz * fz * ( 3 - 2 * fz );
+    return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
   }
 
   // Grundo
-  (function konstruiTerenon(grandeco: number, segmentoj: number): void {
+  ( function konstruiTerenon(grandeco: number, segmentoj: number): void {
     const g = new THREE.PlaneGeometry(grandeco, grandeco, segmentoj, segmentoj);
     g.rotateX(-Math.PI / 2);
     // Alternantaj triangul-diagonaloj ( ŝaktabulo ) — la antaŭa konsekvenca
@@ -871,13 +871,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     // La grundo etendiĝas trans la mondrando kiel plata natura tereno, por ke
     // la nebul-ringo ( konstruiNebulringon ) kuŝu sur solida grundo ĝis la
     // horizonto — la fora fino solviĝas en la distanca nebulo.
-  })(0o3000, 0o600);
+  } )(0o3000, 0o600);
 
   // Senfina nebul-ringo — teksturita nebulo trans la mondrando. La nebulo
   // fadas ( leviĝas ) de la maprando eksteren kaj etendiĝas ĝis la horizonto,
   // por ke la mapo ŝajnu finiĝi en senfina nebul-teksturo anstataŭ plata
   // blanko — la montoj restas naturaj malhelaj siluetoj super la nebulo.
-  (function konstruiNebulringon(): void {
+  ( function konstruiNebulringon(): void {
     const interna = 0o600;    // la mondrando
     const ekstera = 0o2000;   // multe trans la fora klingo — neniam videbla
     const profundo = ekstera - interna;
@@ -886,7 +886,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       map: teksajxo, transparent: true, vertexColors: true, depthWrite: false,
       side: THREE.DoubleSide, fog: false,
     });
-    const flanka = (lauX: boolean, signo: number): void => {
+    const flanka = ( lauX: boolean, signo: number ): void => {
       const w = lauX ? 2 * ekstera : profundo;
       const d = lauX ? profundo : 2 * ekstera;
       const g = new THREE.PlaneGeometry(w, d, 0o40, 0o40);
@@ -913,7 +913,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       sceno.add(mesh);
     };
     for ( const signo of [ -1, 1 ] ) { flanka(true, signo); flanka(false, signo); }
-  })();
+  } )();
 
   return { bildilo, sceno, montaGrupo, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron };
 }

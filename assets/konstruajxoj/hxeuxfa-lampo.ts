@@ -7,7 +7,7 @@ import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 // facaAngulo — La angulo de la faco-centro kiu entenas teta. La kvarlata
 // kolono havas angulojn cxe 0°, 90°, 180°, 270° kaj rektajn facojn inter ili.
 function facaAngulo(teta: number): number {
-  return Math.round((teta - Math.PI / 4) / (Math.PI / 2)) * (Math.PI / 2) + Math.PI / 4;
+  return Math.round(( teta - Math.PI / 4 ) / ( Math.PI / 2 )) * ( Math.PI / 2 ) + Math.PI / 4;
 }
 
 // facaRadiuso — La radiuso de la FACETA kolona surfaco cxe alto u kaj angulo
@@ -32,7 +32,7 @@ function facaRadiuso(u: number, teta: number, rBot: number, rTop: number, H: num
 //     @param largxo ( number ) - Larĝo de la bendo.
 //     @param rBot, rTop, H ( number ) - Kolonaj malsupra/supra radiusoj kaj alto.
 // @returns bendo
-function kreiFacetanBendon(uJe: (teta: number) => number, t0: number, t1: number, largxo: number, rBot: number, rTop: number, H: number): THREE.BufferGeometry {
+function kreiFacetanBendon(uJe: ( teta: number ) => number, t0: number, t1: number, largxo: number, rBot: number, rTop: number, H: number): THREE.BufferGeometry {
   const SEG = 0o20; // 16 segmentoj laux la bendo
   const EPS = 0o1 / 0o200; // 1/128 — levita iomete super la faco
   const centroj: THREE.Vector3[] = [];
@@ -101,11 +101,11 @@ function kreiFalekon(centro: number, uPinto: number, uC: number, R: number, larg
   const EPS = 0o1 / 0o200;
   const cx = Math.cos(centro), cz = Math.sin(centro);
   const tx = -cz, tz = cx;
-  const d = (u: number) => ( rBot - ( rBot - rTop ) * ( u / H ) ) * Math.SQRT1_2;
+  const d = ( u: number ) => ( rBot - ( rBot - rTop ) * ( u / H ) ) * Math.SQRT1_2;
   // La vojo ( x, u ) en la faca ebeno — ferma buklo de la supro malsupren
   // laux la dekstra brako, tra la duoncirklo kaj supren laux la maldekstra
   // brako. La lasta punkto estas la unua — la buklo fermigxas.
-  const vojo: Array<[number, number]> = [];
+  const vojo: Array<[ number, number ]> = [];
   for ( let i = 0; i <= ARMA; i++ ) {
     const t = i / ARMA;
     vojo.push([ R * t, uPinto + ( uC - uPinto ) * t ]);
@@ -283,8 +283,8 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   const gGrando = new Float32Array(N);
   const phases: number[] = [];
 
-  flamajLokoj.forEach((p, i) => {
-    gPozicio.set([p.x, p.y + 0o15/0o100, p.z], i * 3);
+  flamajLokoj.forEach(( p, i ) => {
+    gPozicio.set([ p.x, p.y + 0o15/0o100, p.z ], i * 3);
     gSemo[i] = Math.random() * 0o140;
     gGrando[i] = 0o20 + Math.random() * 0o10;
     phases.push(Math.random() * Math.PI * 2);
@@ -332,8 +332,8 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 
   // plej proksimaj lampoj farigxas punktlumoj
   const sorted = flamajLokoj
-    .map((p, i) => ({ d: p.x * p.x + p.z * p.z, i }))
-    .sort((a, b) => a.d - b.d)
+    .map(( p, i ) => ( { d: p.x * p.x + p.z * p.z, i } ))
+    .sort(( a, b ) => a.d - b.d)
     .slice(0, 4);
 
   const punktajLumoj: THREE.PointLight[] = [];
@@ -345,7 +345,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   }
 
   const M = new THREE.Matrix4();
-  flamajLokoj.forEach((p, i) => {
+  flamajLokoj.forEach(( p, i ) => {
     M.makeTranslation(p.x, p.y, p.z);
     flamaEkstero.setMatrixAt(i, M);
     flamaInterno.setMatrixAt(i, M);
@@ -368,10 +368,10 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
 
   // Unu sola trairo de la flamlokoj — la flamaj matricoj KAJ la punktlumaj
   // intensecoj en la sama buklo ( la antaŭa duobla forEach faris du trairojn ).
-  sys.spots.forEach((p, i) => {
+  sys.spots.forEach(( p, i ) => {
     const fazo = sys.phases[i];
     const skalo = 1 + 0o5/0o40 * Math.sin(t * 0o1223/0o100 + fazo) + 0o3/0o40 * Math.sin(t * 0o2755/0o100 + fazo * 0o155/0o100);
-    const skaloY = skalo * (0o43/0o40 + 0o3/0o20 * Math.sin(t * 0o21 + fazo));
+    const skaloY = skalo * ( 0o43/0o40 + 0o3/0o20 * Math.sin(t * 0o21 + fazo) );
     E.set(0, t * 0o163/0o100 + fazo, 0);
     Q.setFromEuler(E);
     S.set(skalo, skaloY, skalo);
@@ -384,7 +384,7 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
 
     if ( i < sys.punktajLumoj.length ) {
       const L = sys.punktajLumoj[i];
-      L.intensity = 0o15/0o40 * (0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2));
+      L.intensity = 0o15/0o40 * ( 0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2) );
     }
   });
 

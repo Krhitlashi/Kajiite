@@ -12,7 +12,7 @@
 //
 // La koordinatoj estas RELATIVAJ al la krada centro ( ofseto 0 ).
 
-// ── Tipoj ──────────────────────────────────────────────────────────────────
+// ⟪ Tipoj ⟫
 
 export interface KradaArangxo {
   arangxaGrando: number;             // la tavoloj sur ĉiu flanko
@@ -84,7 +84,7 @@ export interface KradaPlano {
   lampoj: { x: number; z: number }[];   // la kvar-lampa strato-ŝablono ( malplena se malŝaltita )
 }
 
-// ── Kradaj derivajoj ────────────────────────────────────────────────────────
+// ⟪ Kradaj derivajoj ⟫
 
 // La krado-derivaĵoj — la samaj formuloj kiel en konstruiKradanUrbon.
 export function kradajDerivajoj(arangxo: KradaArangxo): {
@@ -102,7 +102,7 @@ export function kradajDerivajoj(arangxo: KradaArangxo): {
   return { PASXO, nordaPinto, ringoX, ringoSuda, sudaVojo, stacioZ, staciaRingaNordo, BLOKO };
 }
 
-// ── La ĉela krado ───────────────────────────────────────────────────────────
+// ⟪ La ĉela krado ⟫
 
 // kreiKradon — la ĉefurba krado kun kvar-flanka simetrio.
 //   · n=1 — plus-formo. centro kun kvar ĉirkaŭantaj.
@@ -206,7 +206,89 @@ export function tipoDeBloko(bazo: CellType, cx: number, cz: number, ox: number, 
   return bazoTipoj[( i - fazo + 4 ) % 4];
 }
 
-// ── La plena plano ──────────────────────────────────────────────────────────
+// ⟪ Voja segmenta skanado ⟫
+
+// skaniVojanReton — La komuna voja segmenta skanado de la krada reto ( la
+// sama algoritmo kiel en urbo.ts, sen la meshoj ). Por ĉiu vojo-linio ( EW aŭ
+// NS ), trovu la perpendikularajn vojojn, kiuj reale intersekcas ĝin — la
+// kvar ĉeloj ĉirkaŭ ĉiu kruciĝo ( hasCellAt ) — kaj, por la unu-bloka
+// aranĝo, limigu ilin al la krada diamanto |x − ofsX| + |z − ofsZ| ≤ limo.
+// La rezulto estas la uzeblaj perpendikularaj koordinatoj de ĉiu linio.
+//     @param retoX, retoZ ( number[] ) - La voja reto ( x- kaj z-linioj ).
+//     @param PASXO ( number ) - La ĉela paŝo.
+//     @param ofsX, ofsZ ( number ) - La krada centro ( 0 en krado.ts ).
+//     @param limo ( number | null ) - La diamanta limo; null malŝaltas ĝin.
+//     @param hasCellAt ( funkcio ) - Ĉu ĉelo ekzistas en la reto.
+//     @returns { EW, NS } ( Map<number, number[]> ) - La uzeblaj segmentoj.
+export function skaniVojanReton(
+  retoX: number[], retoZ: number[],
+  PASXO: number,
+  ofsX: number, ofsZ: number,
+  limo: number | null,
+  hasCellAt: ( c: number, r: number ) => boolean
+): { EW: Map<number, number[]>; NS: Map<number, number[]> } {
+  const ĉelaX = ( v: number ): [ number, number ] => [
+    Math.round(( v - ofsX ) / PASXO - 0o4/0o10),
+    Math.round(( v - ofsX ) / PASXO + 0o4/0o10),
+  ];
+  const ĉelaZ = ( v: number ): [ number, number ] => [
+    Math.round(( v - ofsZ ) / PASXO - 0o4/0o10),
+    Math.round(( v - ofsZ ) / PASXO + 0o4/0o10),
+  ];
+  // unuLinio — Skanu unu vojo-linion. la perpendikularaj vojoj, kiuj reale
+  // intersekcas ĝin ( la kvar ĉeloj ĉirkaŭ ĉiu kruciĝo — hasCellAt( x, z ) ),
+  // limigitaj al la diamanta limo.
+  const unuLinio = (
+    konstanto: number,
+    skanatoj: number[],
+    ĉelaKonstanta: ( v: number ) => [ number, number ],
+    ĉelaSkanata: ( v: number ) => [ number, number ],
+    konstantaZ: boolean,          // ĉu la konstanta akso estas Z ( EW-vojoj )
+    ofsKonstanta: number, ofsSkanata: number
+  ): number[] | null => {
+    const [ p1, p2 ] = ĉelaKonstanta(konstanto);
+    const intersekcantoj: number[] = [];
+    for ( const s of skanatoj ) {
+      const [ q1, q2 ] = ĉelaSkanata(s);
+      // La X-paro ( kolumnoj ) ĉiam estas la UNUA argumento de hasCellAt,
+      // la Z-paro ( vicoj ) la dua — la roloj interŝanĝiĝas inter EW kaj NS.
+      const tuŝas = konstantaZ
+        ? hasCellAt(q1, p1) || hasCellAt(q1, p2) || hasCellAt(q2, p1) || hasCellAt(q2, p2)
+        : hasCellAt(p1, q1) || hasCellAt(p1, q2) || hasCellAt(p2, q1) || hasCellAt(p2, q2);
+      if ( tuŝas ) intersekcantoj.push(s);
+    }
+    if ( intersekcantoj.length < 2 ) return null;
+    const pts = [ ...intersekcantoj ].sort(( a, b ) => a - b);
+    if ( limo === null ) return pts;
+    // La DIAMANTA limo ( unu-bloka ). la vojoj ne ĉirkaŭvolvas la kornerajn
+    // blokojn — segmento ekzistas nur se ĝia mezo kuŝas ene de la krada
+    // diamanto |x| + |z| ≤ limo ( relativa al la centro ). La korneraj
+    // blokoj ( ±(n−1), ±(n−1) ) ricevas vojon nur sur siaj internaj flankoj —
+    // NE la plenan vojan kvadraton kiel la flankaj blokoj.
+    let unua = -1, lasta = -1;
+    for ( let i = 0; i < pts.length - 1; i++ ) {
+      if ( Math.abs(( pts[i] + pts[i + 1] ) / 2 - ofsSkanata) + Math.abs(konstanto - ofsKonstanta) <= limo ) {
+        if ( unua < 0 ) unua = i;
+        lasta = i;
+      }
+    }
+    if ( unua < 0 ) return null;
+    return pts.slice(unua, lasta + 2);
+  };
+  const EW = new Map<number, number[]>();
+  for ( const roadZ of retoZ ) {
+    const uzeblaj = unuLinio(roadZ, retoX, ĉelaZ, ĉelaX, true, ofsZ, ofsX);
+    if ( uzeblaj ) EW.set(roadZ, uzeblaj);
+  }
+  const NS = new Map<number, number[]>();
+  for ( const roadX of retoX ) {
+    const uzeblaj = unuLinio(roadX, retoZ, ĉelaX, ĉelaZ, false, ofsX, ofsZ);
+    if ( uzeblaj ) NS.set(roadX, uzeblaj);
+  }
+  return { EW, NS };
+}
+
+// ⟪ La plena plano ⟫
 
 // kreiKradanPlanon — la plenan kradan urbon ( konstruaĵoj, vojoj, spronoj )
 // kiel PURAJN datumojn. Ĝi reflektas la loĝikan strukturon de
@@ -233,17 +315,17 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
       const partoj = ŝ.split(",");
       if ( partoj.length !== 2 ) continue;
       const [ c, r ] = partoj.map(Number);
-      const ind = ĉeloj.findIndex(([lc, lr]) => lc === c && lr === r);
+      const ind = ĉeloj.findIndex(( [ lc, lr ] ) => lc === c && lr === r);
       if ( ind >= 0 ) ĉeloj[ind] = [ c, r, tipo ];
       else ĉeloj.push([ c, r, tipo ]);
     }
   }
-  // ── Konstruaĵoj ──
+  // ⟨ Konstruaĵoj ⟩
   const konstruaĵoj: KradaKonstruajxo[] = [];
-  const aldoni = (x: number, z: number, rot: number, tipo: CellType, sub: KradaKonstruajxo["sub"], stacia: boolean, ekstra = false, konektita = false) => {
+  const aldoni = ( x: number, z: number, rot: number, tipo: CellType, sub: KradaKonstruajxo["sub"], stacia: boolean, ekstra = false, konektita = false ) => {
     konstruaĵoj.push({ x, z, rot, tipo, cx: Math.round(x / PASXO), cz: Math.round(z / PASXO), sub, stacia, ekstra, konektita });
   };
-  for (const [ col, row, tipo ] of ĉeloj) {
+  for ( const [ col, row, tipo ] of ĉeloj ) {
     const cx = col * PASXO, cz = row * PASXO;
     if ( col === 0 && row === 0 ) {
       // La centro — la centra konstruaĵo ( sanktejo ), aŭ la STACIO en la
@@ -259,10 +341,10 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
       // "c,r,SUB" ( SUB = NE/NW/SW/SE ) ŝanĝas la INDIVIDUAN konstruajxon
       // super la blokan miksadon — la sub-redaktado de la skulptilo.
       const suboj: [ number, number, number, KradaKonstruajxo["sub"] ][] = [
-        [  BLOKO,  BLOKO,  0,            "NE" ],
+        [ BLOKO,  BLOKO,  0,            "NE" ],
         [ -BLOKO,  BLOKO,  -Math.PI / 2, "NW" ],
         [ -BLOKO, -BLOKO,   Math.PI,     "SW" ],
-        [  BLOKO, -BLOKO,   Math.PI / 2, "SE" ],
+        [ BLOKO, -BLOKO,   Math.PI / 2, "SE" ],
       ];
       for ( const [ blx, blz, rot, sub ] of suboj ) {
         const subTipo = superoj?.get(`${col},${row},${sub}`);
@@ -297,15 +379,15 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
   for ( const b of aldonajBlokoj ?? [] ) {
     if ( !b.konektita ) continue;
     const c = Math.round(b.x / PASXO), r = Math.round(b.z / PASXO);
-    if ( !ĉeloj.some(([lc, lr]) => lc === c && lr === r) ) ĉeloj.push([ c, r, "sanktejo" ]);
+    if ( !ĉeloj.some(( [ lc, lr ] ) => lc === c && lr === r) ) ĉeloj.push([ c, r, "sanktejo" ]);
   }
 
-  // ── Voja reto ──
+  // ⟨ Voja reto ⟩
   const vojoj: KradaVojSegmento[] = [];
   const colSet = new Set<number>(), rowSet = new Set<number>();
   for ( const [ c, r, t ] of ĉeloj ) { if ( t !== null ) { colSet.add(c); rowSet.add(r); } }
-  const KOLOJ = [ ...colSet ].sort((a, b) => a - b);
-  const VICOJ = [ ...rowSet ].sort((a, b) => a - b);
+  const KOLOJ = [ ...colSet ].sort(( a, b ) => a - b);
+  const VICOJ = [ ...rowSet ].sort(( a, b ) => a - b);
   // NS-vojoj ( inter apudaj kolumnoj ) kaj EW-vojoj ( inter apudaj vicoj ).
   const RETO_X: number[] = [];
   for ( let ci = 0; ci < KOLOJ.length - 1; ci++ ) {
@@ -327,43 +409,19 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
     RETO_X.push(e, -e);
     RETO_Z.push(e, -e);
   }
-  const hasCellAt = (c: number, r: number) =>
-    ĉeloj.some(([lc, lr, lt]) => lc === c && lr === r && lt !== null);
+  const hasCellAt = ( c: number, r: number ) =>
+    ĉeloj.some(( [ lc, lr, lt ] ) => lc === c && lr === r && lt !== null);
 
+  // La voja segmenta skanado — la komuna algoritmo kun urbo.ts
+  // ( skaniVojanReton ). la uzeblaj perpendikularaj koordinatoj de ĉiu linio.
+  const { EW, NS } = skaniVojanReton(RETO_X, RETO_Z, PASXO, 0, 0,
+    arangxo.blokaGrando === "unu" ? ( n + 1 ) * PASXO : null, hasCellAt);
   // La ekstentoj de ĉiu vojo-linio ( kie la segmentoj reale ekzistas ) — por
   // la sprona gardo ( la samaj ekstentoj kiel en urbo.ts ).
   const NS_ekstentoj = new Map<number, [ number, number ]>();
   const EW_ekstentoj = new Map<number, [ number, number ]>();
   // EW-vojoj ( inter apudaj vicoj ) — segmentoj NUR inter intersekcaj NS-vojoj.
-  for ( const roadZ of RETO_Z ) {
-    const r1 = Math.round(roadZ / PASXO - 0o4/0o10);
-    const r2 = Math.round(roadZ / PASXO + 0o4/0o10);
-    const intersecting: number[] = [];
-    for ( const rx of RETO_X ) {
-      const c1 = Math.round(rx / PASXO - 0o4/0o10);
-      const c2 = Math.round(rx / PASXO + 0o4/0o10);
-      if ( hasCellAt(c1, r1) || hasCellAt(c1, r2) || hasCellAt(c2, r1) || hasCellAt(c2, r2) ) intersecting.push(rx);
-    }
-    if ( intersecting.length < 2 ) continue;
-    const pts = [ ...intersecting ].sort((a, b) => a - b);
-    // La DIAMANTA limo ( unu-bloka ). la vojoj ne ĉirkaŭvolvas la kornerajn
-    // blokojn — segmento ekzistas nur se ĝia mezo kuŝas ene de la krada
-    // diamanto |x| + |z| ≤ ( n + 1 )·PASXO ( relativa al la centro ). La
-    // korneraj blokoj ( ±(n−1), ±(n−1) ) ricevas vojon nur sur siaj internaj
-    // flankoj — NE la plenan vojan kvadraton kiel la flankaj blokoj.
-    let uzeblaj = pts;
-    if ( arangxo.blokaGrando === "unu" ) {
-      const limo = ( n + 1 ) * PASXO;
-      let unua = -1, lasta = -1;
-      for ( let i = 0; i < pts.length - 1; i++ ) {
-        if ( Math.abs(( pts[i] + pts[i + 1] ) / 2) + Math.abs(roadZ) <= limo ) {
-          if ( unua < 0 ) unua = i;
-          lasta = i;
-        }
-      }
-      if ( unua < 0 ) continue;
-      uzeblaj = pts.slice(unua, lasta + 2);
-    }
+  for ( const [ roadZ, uzeblaj ] of EW ) {
     EW_ekstentoj.set(roadZ, [ uzeblaj[0], uzeblaj[uzeblaj.length - 1] ]);
     for ( let i = 0; i < uzeblaj.length - 1; i++ ) {
       const x1 = uzeblaj[i], x2 = uzeblaj[i + 1];
@@ -371,30 +429,7 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
     }
   }
   // NS-vojoj ( inter apudaj kolumnoj ) — segmentoj NUR inter intersekcaj EW-vojoj.
-  for ( const roadX of RETO_X ) {
-    const c1 = Math.round(roadX / PASXO - 0o4/0o10);
-    const c2 = Math.round(roadX / PASXO + 0o4/0o10);
-    const intersecting: number[] = [];
-    for ( const rz of RETO_Z ) {
-      const r1 = Math.round(rz / PASXO - 0o4/0o10);
-      const r2 = Math.round(rz / PASXO + 0o4/0o10);
-      if ( hasCellAt(c1, r1) || hasCellAt(c1, r2) || hasCellAt(c2, r1) || hasCellAt(c2, r2) ) intersecting.push(rz);
-    }
-    if ( intersecting.length < 2 ) continue;
-    const pts = [ ...intersecting ].sort((a, b) => a - b);
-    let uzeblaj = pts;
-    if ( arangxo.blokaGrando === "unu" ) {
-      const limo = ( n + 1 ) * PASXO;
-      let unua = -1, lasta = -1;
-      for ( let i = 0; i < pts.length - 1; i++ ) {
-        if ( Math.abs(roadX) + Math.abs(( pts[i] + pts[i + 1] ) / 2) <= limo ) {
-          if ( unua < 0 ) unua = i;
-          lasta = i;
-        }
-      }
-      if ( unua < 0 ) continue;
-      uzeblaj = pts.slice(unua, lasta + 2);
-    }
+  for ( const [ roadX, uzeblaj ] of NS ) {
     NS_ekstentoj.set(roadX, [ uzeblaj[0], uzeblaj[uzeblaj.length - 1] ]);
     for ( let i = 0; i < uzeblaj.length - 1; i++ ) {
       const z1 = uzeblaj[i], z2 = uzeblaj[i + 1];
@@ -402,7 +437,7 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
     }
   }
 
-  // ── Lampoj ──
+  // ⟨ Lampoj ⟩
   // La kvar-lampa strato-ŝablono — la sama geometrio kiel en
   // konstruiKradanUrbon ( urbo.ts ). kvar lampoj ĉirkaŭ ĉiu placo-nodo ( voja
   // linio-fino ) je 2.125, kaj kvar ĉirkaŭ ĉiu reala vojkruciĝo je 2.375, kun
@@ -416,7 +451,7 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
   const lampoj: { x: number; z: number }[] = [];
   if ( arangxo.lampoj !== false ) {
     const LAMPA_DEDUPO = 0o2;            // 2 — same kiel la addLamp de la ludo
-    const aldoniLampon = (x: number, z: number) => {
+    const aldoniLampon = ( x: number, z: number ) => {
       for ( const l of lampoj ) if ( Math.hypot(l.x - x, l.z - z) < LAMPA_DEDUPO ) return;
       lampoj.push({ x, z });
     };
@@ -450,7 +485,7 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
     }
   }
 
-  // ── Spronoj ──
+  // ⟨ Spronoj ⟩
   const spronoj: KradaSpono[] = [];
   // La doka avenuo ( mond-nivela vojo de la ĉefa urbo ) daŭrigas la NS-vojon
   // ĉe x=ringoX SUDEN de ĝia fino ( sudaVojo ) ĝis la kajo ( -0o130 ) — la
@@ -525,7 +560,7 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
   return { arangxo, ĉeloj, PASXO, nordaPinto, ringoX, ringoSuda, sudaVojo, stacioZ, staciaRingaNordo, konstruaĵoj, vojoj, spronoj, spurXoj: RETO_X, spurZoj: RETO_Z, retoX: RETO_X, retoZ: RETO_Z, lampoj };
 }
 
-// ── Aldonaj konstruantoj ─────────────────────────────────────────────────────
+// ⟪ Aldonaj konstruantoj ⟫
 
 // aldoniVojon — la voja konstruanto ( road builder ). Aldonu vojan segmenton
 // al la plano — la doka avenuo kaj aliaj ekster-kradaj vojoj. La segmento
@@ -561,7 +596,7 @@ export function aldoniBlokon(plano: KradaPlano, x: number, z: number, tipo: Cell
   });
 }
 
-// ── Validigoj ───────────────────────────────────────────────────────────────
+// ⟪ Validigoj ⟫
 
 export interface KradaProblemo { kodo: string; mesaĝo: string; }
 
@@ -611,8 +646,8 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
   // 3. Kvar-bloka. la voja bloko — ĉiu bloko havas vojojn sur ĉiuj kvar flankoj.
   if ( arangxo.blokaGrando === "kvar" ) {
     const M = PASXO / 2;
-    const havasNS = (rx: number, z: number) => vojoj.some(v => v.orient === "NS" && Math.abs(v.poz - rx) < 0.01 && v.de <= z && z <= v.al);
-    const havasEW = (rz: number, x: number) => vojoj.some(v => v.orient === "EW" && Math.abs(v.poz - rz) < 0.01 && v.de <= x && x <= v.al);
+    const havasNS = ( rx: number, z: number ) => vojoj.some(v => v.orient === "NS" && Math.abs(v.poz - rx) < 0.01 && v.de <= z && z <= v.al);
+    const havasEW = ( rz: number, x: number ) => vojoj.some(v => v.orient === "EW" && Math.abs(v.poz - rz) < 0.01 && v.de <= x && x <= v.al);
     for ( const [ c, r, t ] of plano.ĉeloj ) {
       if ( c === 0 && r === 0 ) continue;
       const cx = c * PASXO, cz = r * PASXO;
@@ -628,15 +663,15 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
   // 4. La TUTA krado simetria sub 90°-rotacio ( la stacio estas escepto — en
   //    la unu-bloka ĝi sidas sur la norda akso, en la kvar-bloka ĝi estas la
   //    rotacie-simetria centro ).
-  const normalizi = (r: number) => { const m = ((r % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI); return m > Math.PI ? m - 2 * Math.PI : m; };
+  const normalizi = ( r: number ) => { const m = ( ( r % ( 2 * Math.PI ) ) + 2 * Math.PI ) % ( 2 * Math.PI ); return m > Math.PI ? m - 2 * Math.PI : m; };
   const neStaciaj = konstruaĵoj.filter(k => !k.stacia);
-  const signaturo = (k: KradaKonstruajxo, rotita: boolean, kunRotacio: boolean): string => {
+  const signaturo = ( k: KradaKonstruajxo, rotita: boolean, kunRotacio: boolean ): string => {
     const x = rotita ? -k.z : k.x;
     const z = rotita ? k.x : k.z;
     const rot = kunRotacio ? normalizi(rotita ? k.rot - Math.PI / 2 : k.rot) : 0;
     return `${x.toFixed(3)},${z.toFixed(3)},${k.tipo},${rot.toFixed(3)}`;
   };
-  const kontroliSimetrion = (kunRotacio: boolean, kodo: string) => {
+  const kontroliSimetrion = ( kunRotacio: boolean, kodo: string ) => {
     const originalo = new Set(neStaciaj.map(k => signaturo(k, false, kunRotacio)));
     const rotita = new Set(neStaciaj.map(k => signaturo(k, true, kunRotacio)));
     if ( originalo.size !== rotita.size || [ ...originalo ].some(s => !rotita.has(s)) ) {
@@ -682,12 +717,12 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
   //    laŭ la rando ( de la kornera ŝtuparo al la kolumnaj blokoj ) pasas je
   //    ~1.5 pasxoj, sed vojo tra la MEZO de malplena regiono ( pli ol 2
   //    pasxoj de ĉiu ĉelo ) estas problemo.
-  const ĉelPozoj = plano.ĉeloj.map(([ c, r ]) => [ c * PASXO, r * PASXO ] as [ number, number ]);
-  const distMin = (x: number, z: number) =>
-    Math.min(...ĉelPozoj.map(([ cx, cz ]) => Math.hypot(x - cx, z - cz)));
+  const ĉelPozoj = plano.ĉeloj.map(( [ c, r ] ) => [ c * PASXO, r * PASXO ] as [ number, number ]);
+  const distMin = ( x: number, z: number ) =>
+    Math.min(...ĉelPozoj.map(( [ cx, cz ] ) => Math.hypot(x - cx, z - cz)));
   for ( const v of vojoj ) {
     if ( v.stacia ) continue;
-    const punktoj = [ v.de, (v.de + v.al) / 2, v.al ];
+    const punktoj = [ v.de, ( v.de + v.al ) / 2, v.al ];
     const distoj = v.orient === "EW"
       ? punktoj.map(x => distMin(x, v.poz))
       : punktoj.map(z => distMin(v.poz, z));

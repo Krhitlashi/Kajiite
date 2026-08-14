@@ -11,7 +11,7 @@
 // tute opaka, neniu travidebla centro. La paletro estas blua/verda ( stelo,
 // krampoj kaj folioj havas siajn proprajn kolorojn ).
 import * as THREE from "three";
-import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
+import { kreiBuferanGeometrion, kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
 export interface KeuxfhxesoLoko {
   x: number; z: number;
@@ -70,7 +70,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   k.fillStyle = gb;
   k.fillRect(0, H * 0o7 / 0o10, W, H * 0o1 / 0o10);
 
-  // ── 4-pinta stelo en la centro ( la kvarStelo-motivo de la vestoj ) ──
+  // ⟨ 4-pinta stelo en la centro ( la kvarStelo-motivo de la vestoj ) ⟩
   // La banda gradiento lasis k.fillStyle travidebla — reestigu la stelan
   // plenigon, alie la stelo estus nevidebla.
   k.fillStyle = stelaKoloro;
@@ -88,7 +88,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   k.closePath();
   k.fill();
 
-  // ── 4 ">"-krampoj — ekstraj brakoj de la stelo ──
+  // ⟨ 4 ">"-krampoj — ekstraj brakoj de la stelo ⟩
   // Ĉiu krampo estas ">"-forma. La du gamboj ŝvebas kun klara interspaco de
   // la stelo kaj la pinto ( la vertico ) montras EKSTEREN — supren por la
   // supraj paroj, suben por la subaj. La gamboj estas pli eksteren kaj
@@ -132,7 +132,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
     }
   }
 
-  // ── Simetria folio supere kaj sube ──
+  // ⟨ Simetria folio supere kaj sube ⟩
   // Supro. Folia pinto supre, larĝa bazo malsupren al la centro.
   // Pli larĝa folio — 0o31/0o100 ( 0.390625 ) anstataŭ 0o24/0o100, por ke la
   // supraj kaj subaj formoj plenigu pli da horizontala spaco.
@@ -341,11 +341,7 @@ function krestaRipo(rEkstera: number, alto: number, ang: number, dikeco: number)
       indeksoj.push(a, b, ( i + 1 ) * flankoj + j2, a, ( i + 1 ) * flankoj + j2, i * flankoj + j2);
     }
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.BufferAttribute(new Float32Array(pozicioj), 3));
-  geometrio.setIndex(indeksoj);
-  geometrio.computeVertexNormals();
-  return geometrio;
+  return kreiBuferanGeometrion(pozicioj, indeksoj);
 }
 
 // konstruiKeuxfhxeso - Konstruu la starfruktajn strukturojn en la donitaj
@@ -357,7 +353,7 @@ function krestaRipo(rEkstera: number, alto: number, ang: number, dikeco: number)
 //     @param kadraMaterialo ( MeshStandardMaterial ) - La ora kadro-materialo.
 export function konstruiKeuxfhxeso(sceno: THREE.Scene,
   lokoj: KeuxfhxesoLoko[],
-  alteco: (x: number, z: number) => number,
+  alteco: ( x: number, z: number ) => number,
   kadraMaterialo: THREE.MeshStandardMaterial
 ): THREE.Group {
   const murajGeometrioj: THREE.BufferGeometry[] = [];

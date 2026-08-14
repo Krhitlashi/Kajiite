@@ -27,8 +27,8 @@ export interface LokaStato {
 export interface Retilo {
   aktiva: boolean;
   grupo: THREE.Group;
-  sendi: (stato: LokaStato) => void;
-  animacii: (deltaTempo: number, t: number) => void;
+  sendi: ( stato: LokaStato ) => void;
+  animacii: ( deltaTempo: number, t: number ) => void;
   fermi: () => void;
 }
 
@@ -64,7 +64,7 @@ interface ForaFiguro {
 //     @param jeTost ( funkcio ) - Montru toston ( aliĝo/foriro ).
 //     @param traduki ( funkcio ) - Traduku la tosto-klavojn.
 //     @returns retilo ( Retilo ) - La retila kontrolo.
-export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => void, traduki: (klavo: string) => string): Retilo {
+export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => void, traduki: ( klavo: string ) => string): Retilo {
   const grupo = new THREE.Group();
   grupo.name = "retilo";
   sceno.add(grupo);
@@ -90,16 +90,16 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
   function retilaURLoj(): string[] {
     const ujoj: string[] = [];
     const parametro = new URLSearchParams(location.search).get("retilo");
-    const tutmonda = (window as unknown as Record<string, unknown>).RETILO_SERVILO;
+    const tutmonda = ( window as unknown as Record<string, unknown> ).RETILO_SERVILO;
     const agordita = typeof parametro === "string" ? parametro : typeof tutmonda === "string" ? tutmonda : "";
-    if (agordita) ujoj.push(agordita);
-    if (lastaSukcesa && !ujoj.includes(lastaSukcesa)) ujoj.push(lastaSukcesa);
+    if ( agordita ) ujoj.push(agordita);
+    if ( lastaSukcesa && !ujoj.includes(lastaSukcesa) ) ujoj.push(lastaSukcesa);
     const protokolo = location.protocol === "https:" ? "wss" : "ws";
     const gasto = location.hostname || "localhost";
     const loka = gasto === "localhost" || gasto === "127.0.0.1" || gasto === "::1" || gasto.endsWith(".local");
-    if (loka) {
-      const pordoj = [location.port ? Number(location.port) : 0, PORD_RETILO, PORD_FALLO];
-      for (const p of new Set(pordoj.filter(p => p > 0))) ujoj.push(`${protokolo}://${gasto}:${p}/retilo`);
+    if ( loka ) {
+      const pordoj = [ location.port ? Number(location.port) : 0, PORD_RETILO, PORD_FALLO ];
+      for ( const p of new Set(pordoj.filter(p => p > 0)) ) ujoj.push(`${protokolo}://${gasto}:${p}/retilo`);
     } else {
       ujoj.push(`${protokolo}://${location.host}/retilo`);
     }
@@ -107,12 +107,12 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
   }
 
   function forigiCxiujn(): void {
-    for (const f of foraj.values()) grupo.remove(f.figuro.group);
+    for ( const f of foraj.values() ) grupo.remove(f.figuro.group);
     foraj.clear();
   }
 
   function planiRekonekton(): void {
-    if (fermita || rekonektaTempilo !== null) return;
+    if ( fermita || rekonektaTempilo !== null ) return;
     rekonektaTempilo = setTimeout(() => {
       rekonektaTempilo = null;
       konekti();
@@ -121,9 +121,9 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
 
   // konekti — Provu la pordojn sinsekve ( la unua sukceso gajnas ).
   function konekti(): void {
-    if (fermita) return;
+    if ( fermita ) return;
     const listo = retilaURLoj();
-    if (provoIndekso >= listo.length) {
+    if ( provoIndekso >= listo.length ) {
       provoIndekso = 0;
       planiRekonekton();
       return;
@@ -144,10 +144,10 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
       provoIndekso = 0;
       lastaSendoTempo = 0;
     };
-    nova.onmessage = (e) => traktiMesagxon(String(e.data));
+    nova.onmessage = ( e ) => traktiMesagxon(String(e.data));
     nova.onerror = () => { try { nova.close(); } catch { /* fermita */ } };
     nova.onclose = () => {
-      if (so !== nova) return;
+      if ( so !== nova ) return;
       aktiva = false;
       so = null;
       provoIndekso++;
@@ -160,12 +160,12 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
   function traktiMesagxon(teksto: string): void {
     let mesagxo: Record<string, any>;
     try { mesagxo = JSON.parse(teksto); } catch { return; }
-    if (!mesagxo || typeof mesagxo.id !== "string") return;
-    if (mesagxo.t === "stato") {
+    if ( !mesagxo || typeof mesagxo.id !== "string" ) return;
+    if ( mesagxo.t === "stato" ) {
       riceviStaton(mesagxo);
-    } else if (mesagxo.t === "foriris") {
+    } else if ( mesagxo.t === "foriris" ) {
       const f = foraj.get(mesagxo.id);
-      if (f) {
+      if ( f ) {
         foraj.delete(mesagxo.id);
         grupo.remove(f.figuro.group);
         jeTost(traduki("retiloForiris"));
@@ -180,9 +180,9 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
   // riceviStaton — Ĝisdatigu ( aŭ kreu ) la figuro de fora ludanto.
   function riceviStaton(m: Record<string, any>): void {
     let f = foraj.get(m.id);
-    if (!f) {
+    if ( !f ) {
       const vesto = VESTOJ[m.v % VESTOJ.length] || VESTOJ[0];
-      const harKoloro = (HARKOLOROJ[m.c] || HARKOLOROJ[0]).koloro;
+      const harKoloro = ( HARKOLOROJ[m.c] || HARKOLOROJ[0] ).koloro;
       const harStilo = HARSTILOJ[m.h % HARSTILOJ.length] || HARSTILOJ[0];
       const figuro = konstruiFiguron(vesto);
       figuro.agordiHaranKoloron(harKoloro);
@@ -203,17 +203,17 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
       jeTost(traduki("retiloAliĝis"));
     } else {
       // La aspekto ŝanĝiĝas nur kiam ĝi vere ŝanĝiĝis ( la teksturoj estas koste re-generitaj ).
-      if (f.vesto !== m.v) {
+      if ( f.vesto !== m.v ) {
         f.vesto = m.v;
         f.figuro.agordiVeston(VESTOJ[m.v % VESTOJ.length] || VESTOJ[0]);
       }
-      if (f.haro !== m.h) {
+      if ( f.haro !== m.h ) {
         f.haro = m.h;
         f.figuro.agordiHaranStilon(HARSTILOJ[m.h % HARSTILOJ.length] || HARSTILOJ[0]);
       }
-      if (f.harKoloro !== m.c) {
+      if ( f.harKoloro !== m.c ) {
         f.harKoloro = m.c;
-        f.figuro.agordiHaranKoloron((HARKOLOROJ[m.c] || HARKOLOROJ[0]).koloro);
+        f.figuro.agordiHaranKoloron(( HARKOLOROJ[m.c] || HARKOLOROJ[0] ).koloro);
       }
     }
     f.angulo = m.r ?? f.angulo;
@@ -226,12 +226,12 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
   // sendi — Konservu la lokan staton ĉiukadre; sendu ĝin je 8 Hz.
   function sendi(stato: LokaStato): void {
     lastaStato = stato;
-    if (!aktiva || !so) return;
+    if ( !aktiva || !so ) return;
     const nun = performance.now();
-    if (nun - lastaSendoTempo < SENDOPAŬZO) return;
+    if ( nun - lastaSendoTempo < SENDOPAŬZO ) return;
     lastaSendoTempo = nun;
     // Duobla rondigo al 1/64 ( 0o100 ) — sufiĉa precizeco, malpli da bitokoj.
-    const q = (v: number) => Math.round(v * 0o100) / 0o100;
+    const q = ( v: number ) => Math.round(v * 0o100) / 0o100;
     const pakajxo = JSON.stringify({
       t: "stato",
       x: q(stato.x), y: q(stato.y), z: q(stato.z),
@@ -253,20 +253,20 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
   // orbitantoj ( spektantoj ) neniam aperas kiel figuroj.
   function animacii(deltaTempo: number, t: number): void {
     const nia = lastaStato;
-    for (const f of foraj.values()) {
+    for ( const f of foraj.values() ) {
       const g = f.figuro.group;
       const k = Math.min(1, deltaTempo * SEKVO);
-      g.position.x += (f.x - g.position.x) * k;
-      g.position.y += (f.y - g.position.y) * k;
-      g.position.z += (f.z - g.position.z) * k;
+      g.position.x += ( f.x - g.position.x ) * k;
+      g.position.y += ( f.y - g.position.y ) * k;
+      g.position.z += ( f.z - g.position.z ) * k;
       // Rotacio — la plej mallonga arko ( la figuro-turno egalas la lokan konvertiĝon ).
       const celR = Math.atan2(-Math.sin(f.angulo), -Math.cos(f.angulo));
-      let deltaR = ((celR - g.rotation.y + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
+      let deltaR = ( ( celR - g.rotation.y + Math.PI ) % ( Math.PI * 2 ) + Math.PI * 2 ) % ( Math.PI * 2 ) - Math.PI;
       g.rotation.y += deltaR * k;
       // Mova transiro kaj marŝa animacio ( la sama ritmo kiel la NPC-oj ).
-      f.movo += (f.celMovo - f.movo) * Math.min(1, deltaTempo * MOVOSEKVO);
+      f.movo += ( f.celMovo - f.movo ) * Math.min(1, deltaTempo * MOVOSEKVO);
       const movo = f.movo;
-      if (movo > 0o1/0o100) {
+      if ( movo > 0o1/0o100 ) {
         f.fazo += deltaTempo * 0o4 * movo;
         const paso = Math.sin(f.fazo);
         const svingoKruro = 0o3/0o10 * movo * paso;
@@ -291,8 +291,8 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: (mesagxo: string) => voi
 
   function fermi(): void {
     fermita = true;
-    if (rekonektaTempilo !== null) clearTimeout(rekonektaTempilo);
-    if (so) { try { so.close(); } catch { /* fermita */ } }
+    if ( rekonektaTempilo !== null ) clearTimeout(rekonektaTempilo);
+    if ( so ) { try { so.close(); } catch { /* fermita */ } }
     so = null;
     aktiva = false;
     forigiCxiujn();

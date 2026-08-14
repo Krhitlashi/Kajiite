@@ -24,7 +24,7 @@
 //   · Vort-fina ɛ konservas sian "eh"-markilon, por ke ĝi ne estu legata kiel silenta magia-e.
 
 // ⟪ KOMENCAĴ ( 36 ) — silab-komencaj konsonantaj formoj 🗣️ ⟫
-const KOMENCAĴ: [string, string, string][] = [
+const KOMENCAĴ: [ string, string, string ][] = [
   [ "ᶅſ", "w", "ⱱ̥" ], [ "ſן", "p", "p" ], [ "ſȷ", "f", "ɸ" ],
   [ "ʃ", "b", "ɸˠ" ], [ "ŋᷠ", "m", "m̥" ], [ "ɽ͑ʃ'", "r", "ɾ̪̥" ],
   [ "j͑ʃ'", "v", "θ" ], [ "ɭʃ", "t", "t" ], [ "ɭ(", "d", "s̪" ],
@@ -40,7 +40,7 @@ const KOMENCAĴ: [string, string, string][] = [
 ];
 
 // ⟪ INTERNAĴ ( 45 ) — silab-internaj konsonantoj kaj vokaloj 🗣️ ⟫
-const INTERNAĴ: [string, string, string][] = [
+const INTERNAĴ: [ string, string, string ][] = [
   [ "п́", "w", "ⱱ̥" ], [ "ɘ", "p", "p" ], [ "ʞ", "f", "ɸ" ],
   [ "ɀ", "b", "ɸˠ" ], [ "c̭", "m", "m̥" ], [ "ƣ̋", "r", "ɾ̪̥" ],
   [ "ⰱ", "v", "θ" ], [ "ƨ", "t", "t" ], [ "ԏ͕", "d", "s̪" ],
@@ -66,17 +66,17 @@ const NUMERA_REV: Record<string, string> = {};
 for ( const [ v, k ] of Object.entries(NUMERA) ) NUMERA_REV[k] = v;
 
 const ĈIUJ_IPA: string[] = Array.from(
-  new Set([...KOMENCAĴ, ...INTERNAĴ].map(([, , ipa]) => ipa).filter(Boolean))
-).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
+  new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ , , ipa ] ) => ipa).filter(Boolean))
+).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
 const ĈIUJ_LA3OS: string[] = Array.from(
-  new Set([...KOMENCAĴ, ...INTERNAĴ].map(([, la3]) => la3).filter(Boolean))
-).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
+  new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ , la3 ] ) => la3).filter(Boolean))
+).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
 // Gawekiif ( denaska skribo ) ĵetona listo, plej-longa-unue, por gk → IPA.
 const ĈIUJ_GK: string[] = Array.from(
-  new Set([...KOMENCAĴ, ...INTERNAĴ].map(([gk]) => gk).filter(Boolean))
-).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
+  new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ gk ] ) => gk).filter(Boolean))
+).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
 function avideKongruigi(teksto: string, tokenaListo: string[]): string[] {
   const ĵetonoj: string[] = [];
@@ -160,7 +160,7 @@ const JA_GOJŪON: Record<string, Record<string, string>> = {
   p: { a: "パ", i: "ピ", ɛ: "ペ", ɤ: "ポ" },
 };
 
-const JA_KONSONANTAJ_RULEROJ: Record<string, [string, string]> = {
+const JA_KONSONANTAJ_RULEROJ: Record<string, [ string, string ]> = {
   k: [ "gojūon", "k" ], c: [ "yōon", "チ" ], t: [ "gojūon", "t" ],
   ɸ: [ "foreign", "フ" ], x: [ "gojūon", "h" ], ç: [ "yōon", "シ" ],
   m: [ "gojūon", "m" ], m̥: [ "gojūon", "m" ], s: [ "gojūon", "s" ],
@@ -171,28 +171,28 @@ const JA_KONSONANTAJ_RULEROJ: Record<string, [string, string]> = {
   tɬ: [ "tɬ", "ト" ],
 };
 
-function katakanaVico(kon: string, rulo: [string, string]): Record<string, string> {
-  const [speco, bazo] = rulo;
+function katakanaVico(kon: string, rulo: [ string, string ]): Record<string, string> {
+  const [ speco, bazo ] = rulo;
   let vico: Record<string, string>;
-  if (speco === "gojūon") vico = { ...JA_GOJŪON[bazo] };
-  else if (speco === "yōon") vico = { a: bazo + "ャ", i: bazo, ɛ: bazo + "ェ", ɤ: bazo + "ョ" };
-  else if (speco === "foreign") vico = { a: bazo + "ァ", i: bazo + "ィ", ɛ: bazo + "ェ", ɤ: bazo + "ォ" };
-  else if (speco === "kʂ") vico = { a: bazo + "シャ", i: bazo + "シ", ɛ: bazo + "シェ", ɤ: bazo + "ショ" };
-  else if (speco === "tɬ") vico = { a: bazo + "ラ", i: bazo + "リ", ɛ: bazo + "レ", ɤ: bazo + "ロ" };
+  if ( speco === "gojūon" ) vico = { ...JA_GOJŪON[bazo] };
+  else if ( speco === "yōon" ) vico = { a: bazo + "ャ", i: bazo, ɛ: bazo + "ェ", ɤ: bazo + "ョ" };
+  else if ( speco === "foreign" ) vico = { a: bazo + "ァ", i: bazo + "ィ", ɛ: bazo + "ェ", ɤ: bazo + "ォ" };
+  else if ( speco === "kʂ" ) vico = { a: bazo + "シャ", i: bazo + "シ", ɛ: bazo + "シェ", ɤ: bazo + "ショ" };
+  else if ( speco === "tɬ" ) vico = { a: bazo + "ラ", i: bazo + "リ", ɛ: bazo + "レ", ɤ: bazo + "ロ" };
   else vico = {};
   vico["ɑ"] = vico["a"] + "ー";
   return vico;
 }
 
 const JA_KV_KOMBOJ: Record<string, string> = {};
-for (const [kon, rulo] of Object.entries(JA_KONSONANTAJ_RULEROJ)) {
-  for (const [vokalo, kana] of Object.entries(katakanaVico(kon, rulo))) {
+for ( const [ kon, rulo ] of Object.entries(JA_KONSONANTAJ_RULEROJ) ) {
+  for ( const [ vokalo, kana ] of Object.entries(katakanaVico(kon, rulo)) ) {
     JA_KV_KOMBOJ[kon + vokalo] = kana;
   }
 }
 
-const _JA_IPA: string[] = Array.from(new Set([...ĈIUJ_IPA, ...Object.keys(JA_KV_KOMBOJ)]))
-  .sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
+const _JA_IPA: string[] = Array.from(new Set([ ...ĈIUJ_IPA, ...Object.keys(JA_KV_KOMBOJ) ]))
+  .sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
 // ⟨ Anglaj ortografiaj helpiloj 🇬🇧 ⟩
 const ANGLAJ_VOKALOJ = new Set([ "i", "ɛ", "a", "ə", "ɪ̈", "ɤ", "ɑ", "ɛ̃", "ɤ̃", "ɑ̃" ]);
@@ -256,7 +256,7 @@ export function anglaKonverti(ipaaTeksto: string): string {
 /** Transskribu IPA-fonemojn en celan lingvon ( eo, en, ja, km ). */
 export function ipaAlLingvo(ipaaTeksto: string, lingvaKodo: string): string {
   if ( lingvaKodo === "en" ) return anglaKonverti(ipaaTeksto);
-  const lingvaMapo: Record<string, string> = { ...(LINGVAJ_MAPOJ[lingvaKodo] ?? {}) };
+  const lingvaMapo: Record<string, string> = { ...( LINGVAJ_MAPOJ[lingvaKodo] ?? {} ) };
   let tokenaListo = ĈIUJ_IPA;
   if ( lingvaKodo === "ja" ) {
     // Japane. Kunigu la CV-silab-kombinojn en la mapon kaj ĵetonigu plej-longa-unue.
@@ -293,8 +293,8 @@ export function gkAlIpa(gkaTeksto: string): string {
 }
 
 // ⟨ Rekta-runa demo — node --experimental-strip-types src/sonaj-reguloj.ts ⟩
-if ((import.meta as unknown as { main?: boolean }).main) {
-  const provoj: [string, string][] = [
+if ( ( import.meta as unknown as { main?: boolean } ).main ) {
+  const provoj: [ string, string ][] = [
     [ "paq0", "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ" ],
     [ "paq1", "ſɭᴜ ſןɹ" ],
     [ "paq15", "j͐ʃᴜ ŋᷠɹⰱ" ],
@@ -302,10 +302,10 @@ if ((import.meta as unknown as { main?: boolean }).main) {
     [ "tipTuro", "ſןᴜȝ ᶅſw ſɭɹ" ],
     [ "paq33", "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ" ],
   ];
-  for (const [nomo, gk] of provoj) {
+  for ( const [ nomo, gk ] of provoj ) {
     const ipa = gkAlIpa(gk);
     console.log(`${nomo}: gk="${gk}" ipa="${ipa}"`);
-    for (const lg of [ "eo", "en", "ja", "km" ]) {
+    for ( const lg of [ "eo", "en", "ja", "km" ] ) {
       console.log(`   ${lg}: ${ipaAlLingvo(ipa, lg)}`);
     }
   }

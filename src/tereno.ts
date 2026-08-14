@@ -51,13 +51,13 @@ export function cxuEnLago(x: number, z: number): boolean {
 // Komputita unufoje ĉe modulo-ŝarĝo per skana serĉo. La rivero alvenas de
 // okcidento ( +x ), do ni iras orienten ( malkreskanta x ) ĝis la UNUA punkto
 // ene de la lago — tio estas la enirbordo, ne la orienta elirbordo.
-export const RIVERA_BUŜO_X: number = (() => {
+export const RIVERA_BUŜO_X: number = ( () => {
   for ( let i = 0; i <= 0o470; i++ ) {
     const x = LAGO_X + LAGO_RX + 0o100 - i;
     if ( cxuEnLago(x, riveroZ(x)) ) return x;
   }
   return LAGO_X + LAGO_RX;   // sekurkopio — ne atingita en normala geometrio
-})();
+} )();
 
 // riveraAkvaNivelo — la akvosurfaca Y de la rivero, glate krampita al la laga
 // nivelo dum la lastaj ~0o110 unuoj antaŭ la buŝo, por ke la rivero enfluu la
@@ -140,13 +140,13 @@ export function riveroNordOrientaX(z: number): number {
 // eniras la lagon ( la nordorienta lagbordo ). Komputita unufoje per skana
 // sercxo, kiel RIVERA_BUŜO_X. La rivero fluas norden ( +z ), do ni iras suden
 // ( malkreskanta z ) ĝis la UNUA punkto ene de la lago.
-export const RIVERA_NORDORIENTA_BUŜO_Z: number = (() => {
+export const RIVERA_NORDORIENTA_BUŜO_Z: number = ( () => {
   for ( let i = 0; i <= 0o700; i++ ) {
     const z = RIVERA_NORDORIENTA_FONTO_Z - i;
     if ( cxuEnLago(riveroNordOrientaX(z), z) ) return z;
   }
   return -0o200;   // sekurkopio
-})();
+} )();
 
 // riveraNordOrientaNivelo — La akvosurfaca Y de la nordorienta rivero. la
 // tereno laŭ la pado ( bazo + monto ) minus la kutima profundo, glate krampita

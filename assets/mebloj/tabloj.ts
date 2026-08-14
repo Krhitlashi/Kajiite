@@ -96,7 +96,7 @@ export function aldoniManĝtablon(
   const benkajOfsetoj: [ number, number ][] = nurTriFlankoj
     ? [ [ 0o14/0o10, 0 ], [ -0o14/0o10, 0 ], [ 0, 0o12/0o10 ] ]
     : [ [ 0o14/0o10, 0 ], [ -0o14/0o10, 0 ], [ 0, 0o12/0o10 ], [ 0, -0o12/0o10 ] ];
-  for ( const [ox, oz] of benkajOfsetoj ) {
+  for ( const [ ox, oz ] of benkajOfsetoj ) {
     aldoniSegxon(grupo, x + ox, z + oz, y, lignaMaterialo, randoMaterialo, oz === 0 ? Math.PI / 2 : 0);
   }
 }

@@ -16,6 +16,7 @@
 import * as THREE from "three";
 import { biomo, akvo, cxuEnLago } from "../../src/tereno.js";
 import { skulptitaBesto } from "../../src/tero-datumaro/rultempo.js";
+import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO } from "../../src/tero-datumaro/krado.js";
 
 // trovuBestajnZonojn — la pentritaj ĉeloj de la besta-tavolo ( la skulptilo )
@@ -70,8 +71,8 @@ export interface Besto {
 
 export interface BestoSistemo {
   bestoj: Besto[];
-  riverFn: (x: number) => number;
-  akvoYFn: (x: number) => number;
+  riverFn: ( x: number ) => number;
+  akvoYFn: ( x: number ) => number;
   lago?: { x: number; z: number; r: number; nivelo: number };
 }
 
@@ -81,36 +82,31 @@ export interface BestoSistemo {
 // kaj refraktas lumon en ĉielarkajn kolorojn, dum la resto restas travidebla.
 function kreiKombovicanTeksajxon(strioj = 0o10): THREE.CanvasTexture {
   const s = 0o200; // 128
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.clearRect(0, 0, s, s);
-  // Malhela fono — nenia iridesco/emisio ekster la strioj.
-  kunteksto.fillStyle = "rgb(6,10,16)";
-  kunteksto.fillRect(0, 0, s, s);
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.clearRect(0, 0, s, s);
+    // Malhela fono — nenia iridesco/emisio ekster la strioj.
+    kunteksto.fillStyle = "rgb(6,10,16)";
+    kunteksto.fillRect(0, 0, s, s);
 
-  const strioLargho = s / strioj;
-  for ( let k = 0; k < strioj; k++ ) {
-    const cx = ( k + 0o1/0o2 ) * strioLargho;
-    const r = strioLargho * 0o23/0o100;
-    const gradiento = kunteksto.createLinearGradient(cx - r, 0, cx + r, 0);
-    // Alterna brilo — la ok vicoj ne estas tute identaj en naturo.
-    const helo = 0o3/0o4 + ( k % 0o2 ) * 0o15/0o100;
-    gradiento.addColorStop(0, "rgba(255,255,255,0)");
-    gradiento.addColorStop(0o1/0o2, "rgba(235,245,255," + helo + ")");
-    gradiento.addColorStop(1, "rgba(255,255,255,0)");
-    kunteksto.fillStyle = gradiento;
-    kunteksto.fillRect(cx - r, 0, r * 0o2, s);
-  }
-
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  return teksajxo;
+    const strioLargho = s / strioj;
+    for ( let k = 0; k < strioj; k++ ) {
+      const cx = ( k + 0o1/0o2 ) * strioLargho;
+      const r = strioLargho * 0o23/0o100;
+      const gradiento = kunteksto.createLinearGradient(cx - r, 0, cx + r, 0);
+      // Alterna brilo — la ok vicoj ne estas tute identaj en naturo.
+      const helo = 0o3/0o4 + ( k % 0o2 ) * 0o15/0o100;
+      gradiento.addColorStop(0, "rgba(255,255,255,0)");
+      gradiento.addColorStop(0o1/0o2, "rgba(235,245,255," + helo + ")");
+      gradiento.addColorStop(1, "rgba(255,255,255,0)");
+      kunteksto.fillStyle = gradiento;
+      kunteksto.fillRect(cx - r, 0, r * 0o2, s);
+    }
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 // kreiKorpon — Lathe-korpo kun kombovicoj bakitaj en la UV-mapoj ( la
 // strioj ĉirkaŭvolvas la korpon laŭlonge — ok kombovicoj ĉe ĉiu speco ).
-function kreiKorpon(teksajxo: THREE.CanvasTexture, profilo: [number, number][],
+function kreiKorpon(teksajxo: THREE.CanvasTexture, profilo: [ number, number ][],
   koloro: number, emisio: number): THREE.Mesh {
   const punktoj = profilo.map(( [ r, y ] ) => new THREE.Vector2(r, y));
   const geometrio = new THREE.LatheGeometry(punktoj, 0o20);
@@ -144,7 +140,7 @@ interface SpecoMalneto {
 // ĉe la supro ( malhela faringo videbla tra la travidebla korpo ), platigita.
 function konstruiBeroanMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   const grupo = new THREE.Group();
-  const profilo: [number, number][] = [
+  const profilo: [ number, number ][] = [
     [ 0o1/0o100, -0o43/0o40 ], [ 0o7/0o40, -0o75/0o100 ], [ 0o33/0o100, -0o55/0o100 ], [ 0o11/0o20, -0o13/0o40 ],
     [ 0o23/0o40, 0 ], [ 0o45/0o100, 0o13/0o40 ], [ 0o1/0o2, 0o55/0o100 ], [ 0o33/0o100, 0o75/0o100 ], [ 0o35/0o100, 0o43/0o40 ],
   ];
@@ -170,7 +166,7 @@ function konstruiBeroanMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
 // konstruiMnemiopsanMalneton — Mnemiopsis. Pli ronda korpo kun kvar buŝaj loboj.
 function konstruiMnemiopsanMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   const grupo = new THREE.Group();
-  const profilo: [number, number][] = [
+  const profilo: [ number, number ][] = [
     [ 0o1/0o100, -0o1 ], [ 0o23/0o100, -0o33/0o40 ], [ 0o45/0o100, -0o23/0o40 ], [ 0o57/0o100, -0o1/0o4 ],
     [ 0o31/0o40, 0 ], [ 0o57/0o100, 0o1/0o4 ], [ 0o5/0o10, 0o43/0o100 ], [ 0o7/0o20, 0o63/0o100 ],
     [ 0o23/0o100, 0o75/0o100 ], [ 0o21/0o100, 0o1 ],
@@ -199,7 +195,7 @@ function konstruiMnemiopsanMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto
 // longaj sinuaj palpoj pendantaj malsupren.
 function konstruiPleŭrobrakianMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   const grupo = new THREE.Group();
-  const profilo: [number, number][] = [
+  const profilo: [ number, number ][] = [
     [ 0o1/0o100, -0o1 ], [ 0o33/0o100, -0o63/0o100 ], [ 0o55/0o100, -0o35/0o100 ], [ 0o31/0o40, 0 ],
     [ 0o55/0o100, 0o35/0o100 ], [ 0o37/0o100, 0o63/0o100 ], [ 0o5/0o20, 0o75/0o100 ], [ 0o11/0o40, 0o1 ],
   ];
@@ -236,7 +232,7 @@ function konstruiPleŭrobrakianMalneton(teksajxo: THREE.CanvasTexture): SpecoMal
 // naĝilo, malgranda dorsa naĝilo kaj du brustaj naĝiloj.
 function konstruiGlacifisanMalneton(): SpecoMalneto {
   const grupo = new THREE.Group();
-  const profilo: [number, number][] = [
+  const profilo: [ number, number ][] = [
     [ 0o1/0o100, -0o1 ], [ 0o7/0o40, -0o3/0o4 ], [ 0o13/0o40, -0o1/0o2 ], [ 0o15/0o40, -0o1/0o4 ],
     [ 0o33/0o100, 0 ], [ 0o31/0o100, 0o1/0o4 ], [ 0o5/0o20, 0o1/0o2 ], [ 0o3/0o20, 0o3/0o4 ], [ 0o1/0o40, 0o1 ],
   ];
@@ -382,8 +378,8 @@ const kruroDuonoLonga = 0o3/0o4;
 
 export function konstruiBestojn(sceno: THREE.Scene,
   kvanto: number,
-  riverFn: (x: number) => number,
-  akvoYFn: (x: number) => number,
+  riverFn: ( x: number ) => number,
+  akvoYFn: ( x: number ) => number,
   duonaLargho: number,
   lago?: { x: number; z: number; r: number; nivelo: number }
 ): BestoSistemo {
@@ -535,7 +531,7 @@ export function gxisdatigiBestojn(s: BestoSistemo, t: number): void {
   for ( const b of s.bestoj ) {
     const x = b.x + Math.sin(t * b.rapido + b.phase) * b.amplitudo;
     let z: number, y: number;
-    if ( b.enLago && ( b.nivelo !== undefined || s.lago )) {
+    if ( b.enLago && ( b.nivelo !== undefined || s.lago ) ) {
       z = b.cz + Math.sin(t * 0o3/0o4 + b.phase * 0o2) * 0o1;
       y = ( b.nivelo ?? s.lago!.nivelo ) + b.bazaY + Math.sin(t * 0o2 + b.phase * 0o3) * 0o3/0o20;
     } else {
@@ -662,43 +658,38 @@ export interface PetreloSistemo {
 // malantaŭa rando, kiel la malhelaj finoj de la primaraj plumoj.
 function kreiPlumaranTeksajxon(lauxlonga: boolean): THREE.CanvasTexture {
   const s = 0o200; // 128 × 128
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = s;
-  const kunteksto = kanvasa.getContext("2d")!;
-  kunteksto.fillStyle = lauxlonga ? "#f8f8f8" : "#f0f0f8";
-  kunteksto.fillRect(0, 0, s, s);
-  // Plum-linioj — delikataj kurbaj strioj.
-  kunteksto.strokeStyle = "rgba(178,196,202,0.4)";
-  kunteksto.lineWidth = 0o1/0o10;
-  for ( let i = 0; i < 0o14; i++ ) {
-    const t = ( i + 0o1/0o2 ) / 0o14;
-    kunteksto.beginPath();
-    if ( lauxlonga ) {
-      // Longe — vertikalaj strioj, milde kurbantaj ĉirkaŭ la korpo.
-      const x = ( i * 0o11 ) % s;
-      kunteksto.moveTo(x, 0);
-      kunteksto.quadraticCurveTo(x + 0o10, s / 2, x + 0o4, s);
-    } else {
-      // Korde — horizontalaj strioj laŭ la kordo.
-      const y = t * s;
-      kunteksto.moveTo(0, y);
-      kunteksto.quadraticCurveTo(s / 2, y + 0o3, s, y);
-    }
-    kunteksto.stroke();
-  }
-  // Mola ombro ĉe la malantaŭa rando ( la primaraj plumoj kaj iliaj pintoj ).
-  if ( !lauxlonga ) {
-    const ombro = kunteksto.createLinearGradient(0, s, 0, 0);
-    ombro.addColorStop(0, "rgba(120,150,160,0.3)");
-    ombro.addColorStop(0o3/0o10, "rgba(120,150,160,0.08)");
-    ombro.addColorStop(1, "rgba(120,150,160,0)");
-    kunteksto.fillStyle = ombro;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.fillStyle = lauxlonga ? "#f8f8f8" : "#f0f0f8";
     kunteksto.fillRect(0, 0, s, s);
-  }
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.anisotropy = 0o4;
-  return teksajxo;
+    // Plum-linioj — delikataj kurbaj strioj.
+    kunteksto.strokeStyle = "rgba(178,196,202,0.4)";
+    kunteksto.lineWidth = 0o1/0o10;
+    for ( let i = 0; i < 0o14; i++ ) {
+      const t = ( i + 0o1/0o2 ) / 0o14;
+      kunteksto.beginPath();
+      if ( lauxlonga ) {
+        // Longe — vertikalaj strioj, milde kurbantaj ĉirkaŭ la korpo.
+        const x = ( i * 0o11 ) % s;
+        kunteksto.moveTo(x, 0);
+        kunteksto.quadraticCurveTo(x + 0o10, s / 2, x + 0o4, s);
+      } else {
+        // Korde — horizontalaj strioj laŭ la kordo.
+        const y = t * s;
+        kunteksto.moveTo(0, y);
+        kunteksto.quadraticCurveTo(s / 2, y + 0o3, s, y);
+      }
+      kunteksto.stroke();
+    }
+    // Mola ombro ĉe la malantaŭa rando ( la primaraj plumoj kaj iliaj pintoj ).
+    if ( !lauxlonga ) {
+      const ombro = kunteksto.createLinearGradient(0, s, 0, 0);
+      ombro.addColorStop(0, "rgba(120,150,160,0.3)");
+      ombro.addColorStop(0o3/0o10, "rgba(120,150,160,0.08)");
+      ombro.addColorStop(1, "rgba(120,150,160,0)");
+      kunteksto.fillStyle = ombro;
+      kunteksto.fillRect(0, 0, s, s);
+    }
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, anisotropio: 0o4 });
 }
 
 // konstruiPetrelanMalneton — Unu neĝopetrelo, konstruita kiel malgranda vera
@@ -919,8 +910,8 @@ export function konstruiPetrelanMalneton(): THREE.Group {
 //     @param lago ( objekto ) - La lago. x, z, r ( la birdoj rondflugas ĝin ).
 export function konstruiPetrelojn(sceno: THREE.Scene,
   kvanto: number,
-  altecoFn: (x: number, z: number) => number,
-  riveroFn: (x: number) => number,
+  altecoFn: ( x: number, z: number ) => number,
+  riveroFn: ( x: number ) => number,
   lago?: { x: number; z: number; r: number }
 ): PetreloSistemo {
   const petreloj: Petrelo[] = [];
@@ -998,7 +989,7 @@ export function konstruiPetrelojn(sceno: THREE.Scene,
 //     @returns La petrelo ( jam aldonita al la sceno ), aux null.
 export function konstruiMetitanPetrelon(sceno: THREE.Scene,
   x: number, z: number,
-  altecoFn: (x: number, z: number) => number,
+  altecoFn: ( x: number, z: number ) => number,
   radio: number,
   skalo: number
 ): Petrelo | null {

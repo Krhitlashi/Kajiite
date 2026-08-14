@@ -43,43 +43,43 @@ const CORS = {
 };
 
 const servilo = createServer(async (peto, respondo) => {
-  if (peto.method === "OPTIONS") {
+  if ( peto.method === "OPTIONS" ) {
     respondo.writeHead(0o300, CORS);
     respondo.end();
     return;
   }
-  if (peto.method === "GET") {
+  if ( peto.method === "GET" ) {
     respondo.writeHead(0o300, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("konservilo preta — POST la JSON-datumaron al cxi tiu adreso");
     return;
   }
-  if (peto.method !== "POST") {
+  if ( peto.method !== "POST" ) {
     respondo.writeHead(0o405, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("Nur POST");
     return;
   }
   let korpo = "";
-  for await (const peceto of peto) korpo += peceto;
+  for await ( const peceto of peto ) korpo += peceto;
   try {
     // Sekurigu — la skulptilo skribas nur la datumodosierojn en src/, kaj
     // cxiu dosiero devas komencigxi per sia markilo. Akceptu ankoraŭ la
     // malnovan platan korpon ( unu dosiero ) por retro-kongruo.
     let dosieroj;
-    if (korpo.trim().startsWith("{")) {
+    if ( korpo.trim().startsWith("{") ) {
       const parzita = JSON.parse(korpo);
       dosieroj = parzita && typeof parzita === "object" ? parzita.dosieroj || parzita : null;
     } else {
       dosieroj = { "tero-datumo.ts": korpo };
     }
-    if (!dosieroj || typeof dosieroj !== "object") {
+    if ( !dosieroj || typeof dosieroj !== "object" ) {
       respondo.writeHead(0o400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
       respondo.end("Ne skulpta datumaro — ne skribite");
       return;
     }
     let skribitaj = 0;
-    for (const [nomo, teksto] of Object.entries(dosieroj)) {
+    for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) {
       const markilo = DOSIEROJ[nomo];
-      if (!markilo || typeof teksto !== "string" || !teksto.startsWith(markilo)) {
+      if ( !markilo || typeof teksto !== "string" || !teksto.startsWith(markilo) ) {
         respondo.writeHead(0o400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
         respondo.end("Rifuzita dosiero: " + nomo + " — ne skribite");
         return;
@@ -90,12 +90,12 @@ const servilo = createServer(async (peto, respondo) => {
     }
     respondo.writeHead(0o300, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("ok: " + skribitaj + " dosiero(j) al src/");
-  } catch (e) {
+  } catch ( e ) {
     respondo.writeHead(0o760, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });   // 500
-    respondo.end("Eraro: " + (e && e.message ? e.message : String(e)));
+    respondo.end("Eraro: " + ( e && e.message ? e.message : String(e) ));
   }
 });
 
 servilo.listen(PORD, "127.0.0.1", () => {
-  console.log("Konservilo: http://127.0.0.1:" + PORD + " → src/tero-datumaro/ ( 8 datumodosieroj )");
+  console.log("Konservilo — http://127.0.0.1:" + PORD + " → src/tero-datumaro/ ( 8 datumodosieroj )");
 });

@@ -29,10 +29,10 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
     if ( u ) uv.set(u.array as Float32Array, vo * 2);
     const indico = g.index;
     if ( indico ) {
-      for (let i = 0; i < indico.array.length; i++) idxArr[io + i] = indico.array[i] + vo;
+      for ( let i = 0; i < indico.array.length; i++ ) idxArr[io + i] = indico.array[i] + vo;
       io += indico.array.length;
     } else {
-      for (let i = 0; i < c; i++) idxArr[io + i] = i + vo;
+      for ( let i = 0; i < c; i++ ) idxArr[io + i] = i + vo;
       io += c;
     }
     vo += c;
@@ -43,6 +43,28 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
   out.setIndex(new THREE.BufferAttribute(idxArr, 1));
   return out;
+}
+
+// kreiBuferanGeometrion — Komuna pakado de bufera geometrio. Kreu la geometrion,
+// atribuu la poziciojn ( kaj laŭvole la UV-ojn aŭ laŭtorejn normalojn ), fiksu la
+// indekson kaj kalkulu la normalojn ( nur se ili ne estas aŭtoritaj ).
+//     @param pozicioj ( number[] ) - La verticaj pozicioj ( ×3 ).
+//     @param indeksoj ( number[] ) - La triangulaj indeksoj.
+//     @param agordoj ( object = {} ) - Laŭvolaj atributoj.
+//         uvoj ( number[] = undefined ) - La UV-oj ( ×2 ).
+//         normaloj ( number[] = undefined ) - Aŭtoritaj normaloj ( ×3 );
+//             se donita, la normaloj NE rekalkuliĝas.
+//     @returns geometrio ( THREE.BufferGeometry ) - La preta geometrio.
+export function kreiBuferanGeometrion(pozicioj: number[], indeksoj: number[],
+  agordoj: { uvoj?: number[]; normaloj?: number[] } = {}
+): THREE.BufferGeometry {
+  const geometrio = new THREE.BufferGeometry();
+  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
+  if ( agordoj.uvoj ) geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(agordoj.uvoj, 2));
+  if ( agordoj.normaloj ) geometrio.setAttribute("normal", new THREE.Float32BufferAttribute(agordoj.normaloj, 3));
+  geometrio.setIndex(indeksoj);
+  if ( !agordoj.normaloj ) geometrio.computeVertexNormals();
+  return geometrio;
 }
 
 // kunfandiDuGeometriojn — Kunfandas du geometriojn SEN indekso, konservante la

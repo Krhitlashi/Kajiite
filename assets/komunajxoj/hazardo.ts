@@ -7,9 +7,9 @@
 export function kreiHazardanGenerilon(semo: number, pliigo = 0x6D2B79F5): () => number {
   let s = semo >>> 0;
   return () => {
-    s = (s + pliigo) | 0;
-    let t = Math.imul(s ^ (s >>> 0o20), 1 | s);
-    t = (t + Math.imul(t ^ (t >>> 0o7), 0o100 | t)) ^ t;
-    return ((t ^ (t >>> 0o14)) >>> 0) / 4294967296;
+    s = ( s + pliigo ) | 0;
+    let t = Math.imul(s ^ ( s >>> 0o20 ), 1 | s);
+    t = ( t + Math.imul(t ^ ( t >>> 0o7 ), 0o100 | t) ) ^ t;
+    return ( ( t ^ ( t >>> 0o14 ) ) >>> 0 ) / 4294967296;
   };
 }
