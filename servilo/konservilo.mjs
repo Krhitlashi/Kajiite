@@ -2,7 +2,7 @@
 // Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo.html ). gxi
 // ricevas la generitan datumaron per POST kaj skribas gxin REKTE al src/ —
 // la datumoj vivas en PROPRAJ dosieroj en src/tero-datumaro/ ( la krado,
-// akvo, biomoj, bestoj, rultempo, objektoj, urboj kaj vojoj ), kaj la
+// akvo, biomoj, bestoj, objektoj, urboj kaj vojoj ), kaj la
 // skulptilo sendas ilin kiel JSON { dosieroj. { nomo. teksto } }. La skulptilo
 // montras la butonon „Savi rekte al src/ ✍️“ kiam cxi tiu servilo kuras — la
 // savo tiam ne bezonas la dosier-elektilon nek elSxuton.
@@ -28,7 +28,9 @@ const DOSIEROJ = {
   "tero-datumaro/akvo.ts": "// ≺⧼ Skulptita akvo",
   "tero-datumaro/biomoj.ts": "// ≺⧼ Skulptitaj biomoj",
   "tero-datumaro/bestoj.ts": "// ≺⧼ Skulptitaj bestoj",
-  "tero-datumaro/rultempo.ts": "// ≺⧼ Skulptita rultempo",
+  // rultempo.ts NE plu skribiĝas — ĝi estas la komuna modulo ( la malkodaj
+  // kaj samplaj funkcioj ) kiun la skulptilo importas; la savo skribas nur
+  // la konstantajn dosierojn.
   "tero-datumaro/objektoj.ts": "// ≺⧼ Skulptitaj objektoj",
   "tero-datumaro/urboj.ts": "// ≺⧼ Skulptitaj urboj",
   "tero-datumaro/vojoj.ts": "// ≺⧼ Skulptitaj vojoj",
@@ -97,5 +99,5 @@ const servilo = createServer(async (peto, respondo) => {
 });
 
 servilo.listen(PORD, "127.0.0.1", () => {
-  console.log("Konservilo — http://127.0.0.1:" + PORD + " → src/tero-datumaro/ ( 8 datumodosieroj )");
+  console.log("Konservilo — http://127.0.0.1:" + PORD + " → src/tero-datumaro/ ( 7 datumodosieroj )");
 });

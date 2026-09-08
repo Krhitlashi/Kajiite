@@ -82,41 +82,56 @@ function kreiFacetanBendon(uJe: ( teta: number ) => number, t0: number, t1: numb
 }
 
 // kreiFalekon — Unu SENINTERROMPA ora linio en faleko-formo sur unu faco de
-// la kvarlata kolono. La linio estas ferma buklo — gxi komencigxas cxe la
-// supro ( la angulo ), iras rekte malsupren laux la dekstra flanko, kurbigxas
-// en DUONCIRKLO cxe la malsupro kaj reiras rekte supren laux la maldekstra
-// flanko gxis la supro, kie la du brakoj rekontigxas kiel unu sama linio. La
-// duoncirklo do estas simple la linio mem kurbiganta — ne aparta peco. Gxi
-// kusxas sur la faceta faco, levita iomete ( 0o1/0o200 ) por ne z-fajfi.
+// la kvarlata kolono. La linio estas ferma buklo — du rektaj brakoj kunigitaj
+// per duoncirkla kurbo cxe ĉiu fino ( la malsupra kurbiĝas suben, la supra
+// supren ), do ankaŭ la supro estas ronda, ne akra. La brakoj ne estas
+// vertikalaj — ili kliniĝas laŭ la kolona konusigo, konservante la SAMAN
+// horizontalan marĝenon ( margxeno ) al la facaj randoj je ĉiu alto, do la
+// malplena spaco apud la linio restas paralela kun la faco. Ĝi kuŝas sur la
+// faceta faco, levita iomete ( 0o1/0o200 ) por ne z-fajfi.
 //     @param centro ( number ) - La angulo de la faco-centro.
-//     @param uPinto ( number ) - Alto de la supro ( la angulo ).
-//     @param uC ( number ) - Alto de la duoncirkla centro.
-//     @param R ( number ) - Radiuso de la duoncirklo.
+//     @param uPinto ( number ) - Alto de la supro de la supra duoncirklo.
+//     @param uSubo ( number ) - Alto de la malsupro de la malsupra duoncirklo.
+//     @param margxeno ( number ) - Konstanta horizontala marĝeno al la facaj randoj.
 //     @param largxo ( number ) - Larĝo de la linio.
 //     @param rBot, rTop, H ( number ) - Kolonaj malsupra/supra radiusoj kaj alto.
 // @returns faleko
-function kreiFalekon(centro: number, uPinto: number, uC: number, R: number, largxo: number, rBot: number, rTop: number, H: number): THREE.BufferGeometry {
-  const SEG = 0o20; // 16 segmentoj por la duoncirklo
-  const ARMA = 0o10; // 8 segmentoj laux cxiu rekta brako
+function kreiFalekon(centro: number, uPinto: number, uSubo: number, margxeno: number, largxo: number, rBot: number, rTop: number, H: number): THREE.BufferGeometry {
+  const SEG = 0o20; // 16 segmentoj por ĉiu duoncirklo
+  const ARMA = 0o10; // 8 segmentoj laŭ ĉiu rektaj brako
   const EPS = 0o1 / 0o200;
   const cx = Math.cos(centro), cz = Math.sin(centro);
   const tx = -cz, tz = cx;
   const d = ( u: number ) => ( rBot - ( rBot - rTop ) * ( u / H ) ) * Math.SQRT1_2;
-  // La vojo ( x, u ) en la faca ebeno — ferma buklo de la supro malsupren
-  // laux la dekstra brako, tra la duoncirklo kaj supren laux la maldekstra
-  // brako. La lasta punkto estas la unua — la buklo fermigxas.
+  // La faca duonlargeco d ( u ) malkreskas linie, kaj la brako kuŝas je
+  // d ( u ) - margxeno, do la duoncirklaj radiusoj kaj la finaj altoj sekvas
+  // el tiu kondiĉo — la fundo de la malsupra kurbo estas uSubo kaj la supro
+  // de la supra kurbo estas uPinto.
+  const deklivo = ( rBot - rTop ) * Math.SQRT1_2 / H;
+  const uB = ( uSubo + rBot * Math.SQRT1_2 - margxeno ) / ( 1 + deklivo );
+  const Rb = d(uB) - margxeno;
+  const uT = ( uPinto - rBot * Math.SQRT1_2 + margxeno ) / ( 1 - deklivo );
+  const Rt = d(uT) - margxeno;
+  // La vojo ( x, u ) en la faca ebeno — ferma buklo de la maldekstra fino de
+  // la supra kurbo super la supro, malsupren laŭ la dekstra brako, tra la
+  // malsupra duoncirklo kaj supren laŭ la maldekstra brako. La lasta punkto
+  // konektas al la unua — la buklo fermiĝas kiel unu sama linio.
   const vojo: Array<[ number, number ]> = [];
-  for ( let i = 0; i <= ARMA; i++ ) {
-    const t = i / ARMA;
-    vojo.push([ R * t, uPinto + ( uC - uPinto ) * t ]);
+  for ( let i = 0; i <= SEG; i++ ) {
+    const a = Math.PI - Math.PI * i / SEG;
+    vojo.push([ Rt * Math.cos(a), uT + Rt * Math.sin(a) ]);
   }
-  for ( let i = 1; i < SEG; i++ ) {
-    const a0 = -Math.PI * i / SEG;
-    vojo.push([ R * Math.cos(a0), uC + R * Math.sin(a0) ]);
+  for ( let i = 1; i <= ARMA; i++ ) {
+    const u = uT + ( uB - uT ) * i / ARMA;
+    vojo.push([ d(u) - margxeno, u ]);
   }
-  for ( let i = 0; i < ARMA; i++ ) {
-    const t = i / ARMA;
-    vojo.push([ -R * ( 1 - t ), uC + ( uPinto - uC ) * t ]);
+  for ( let i = 1; i <= SEG; i++ ) {
+    const a = -Math.PI * i / SEG;
+    vojo.push([ Rb * Math.cos(a), uB + Rb * Math.sin(a) ]);
+  }
+  for ( let i = 1; i < ARMA; i++ ) {
+    const u = uB + ( uT - uB ) * i / ARMA;
+    vojo.push([ -( d(u) - margxeno ), u ]);
   }
   const N = vojo.length;
   const vertoj: number[] = [];
@@ -239,13 +254,15 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     rando.translate(p.x, p.y + 0o155/0o40 + 0o25/0o100, p.z);
     orajGeometrioj.push(rando);
 
-    // Kvar APARTAJ falekoj — unu po faco. Cxiu faleko havas angulon supre
-    // ( du rektaj linioj ) kaj la linioj kunfluas en DUONCIRKLO cxe la
-    // malsupro. La falekoj NE konektigxas unu al la alia — horizontala
-    // marĝeno restas cxe la anguloj. La vertikalaj marĝenoj estas malgrandaj.
-    const falekaPinto = 0o32/0o10, falekaC = 0o32/0o100, falekaR = 0o5/0o40;
+    // Kvar APARTAJ falekoj — unu po faco. Cxiu faleko estas ferma buklo kun
+    // rondaj DUONCIRKLAJ kurboj cxe ambaux finoj ( la malsupra suben, la
+    // supra supren ) kaj brakoj kiuj sekvigas la kolonan konusigon kun
+    // KONSTANTA horizontala margxeno al la facaj randoj. La falekoj NE
+    // konektigxas unu al la alia — horizontala margxeno restas cxe la anguloj.
+    // La vertikalaj margxenoj estas malgrandaj.
+    const falekaPinto = 0o32/0o10, falekaSubo = 0o1/0o4, falekaMargxeno = 0o1/0o20;
     for ( let k = 0; k < 4; k++ ) {
-      const faleko = kreiFalekon(Math.PI / 4 + k * Math.PI / 2, falekaPinto, falekaC, falekaR, 0o1/0o40, 0o13/0o40, 0o5/0o40, 0o155/0o40);
+      const faleko = kreiFalekon(Math.PI / 4 + k * Math.PI / 2, falekaPinto, falekaSubo, falekaMargxeno, 0o1/0o40, 0o13/0o40, 0o5/0o40, 0o155/0o40);
       faleko.rotateY(rotacio);
       faleko.translate(p.x, p.y + 0o155/0o100, p.z);
       orajGeometrioj.push(faleko);

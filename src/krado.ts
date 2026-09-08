@@ -23,6 +23,32 @@ export interface KradaArangxo {
 
 export type CellType = "domo" | "turo" | "mangxejo" | "kasafeo" | "sanktejo" | "stacio";
 
+// La konataj ĉelaj tipoj — por la filtrado de la konservitaj superoj.
+const CXELAJ_TIPOJ: CellType[] = [ "domo", "turo", "mangxejo", "kasafeo", "sanktejo", "stacio" ];
+
+// superajElDatumo — la konservitaj ĉel-superoj ( simpla objekto en
+// SKULPTA_URBOJ — la ŝlosiloj "c,r" aux "c,r,SUB" ) kiel Map por
+// kreiKradanPlanon kaj konstruiKradanUrbon. Nekonataj tipoj kaj malplenaj
+// listoj estas forlasitaj — neniu eksplodo ĉe malnova datumaro.
+export function superajElDatumo(datumo?: Record<string, string> | null): Map<string, CellType> | undefined {
+  if ( !datumo || typeof datumo !== "object" ) return undefined;
+  const mapo = new Map<string, CellType>();
+  for ( const ŝ in datumo ) {
+    const tipo = datumo[ŝ];
+    if ( CXELAJ_TIPOJ.includes(tipo as CellType) ) mapo.set(ŝ, tipo as CellType);
+  }
+  return mapo.size ? mapo : undefined;
+}
+
+// superojElDatumo — la inversa direkto ( Map → simpla objekto ) por la savo
+// de la skulptilo. Malplena Map donas undefined — neniu kampo en la dosiero.
+export function superojElDatumo(mapo?: Map<string, string> | null): Record<string, string> | undefined {
+  if ( !mapo || !mapo.size ) return undefined;
+  const datumo: Record<string, string> = {};
+  for ( const [ ŝ, tipo ] of mapo ) datumo[ŝ] = tipo;
+  return datumo;
+}
+
 export type KradaĈelo = [ number, number, CellType ];
 
 export interface KradaKonstruajxo {

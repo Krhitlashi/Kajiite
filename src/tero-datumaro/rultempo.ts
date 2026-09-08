@@ -11,11 +11,13 @@ import { SKULPTA_BESTOJ } from "./bestoj.js";
 
 // ⟪ Dekodo 📃 ⟫ — unufoje cxe modulo-sxargxo. Malaktiva skulptajxo restas
 // malplena, por ke la ludo ne pagu la kradan logikon.
-// ⚠️ ĈI TIU FUNKCION-SEKCION DEVAS RESTI IDENTA al la RUNTIMOTEMPLATO en
-// iloj/tero-skulptilo.js — la savo de la skulptilo reskribas ĝin kune kun la
-// konstantoj ĉiun fojon.
+// Ĉi tiu dosiero estas la UNU FONTO de la malkodaj kaj samplaj funkcioj —
+// la terena skulptilo ( iloj/tero-skulptilo.js ) IMPORTAS ilin de ĉi tie, kaj
+// la savo de la skulptilo NE plu reskribas ĉi tiun dosieron ( ĝi skribas nur
+// la konstantajn dosierojn ). Iama la funkcioj estis kopiitaj en ŝablonon en
+// la skulptilo — la kopio devojiĝis facile, do ĝi estas forigita.
 
-function dekodiInt16(kruda: string): Int16Array | null {
+export function dekodiInt16(kruda: string): Int16Array | null {
   if ( kruda === "" ) return null;
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
@@ -26,7 +28,7 @@ function dekodiInt16(kruda: string): Int16Array | null {
   } catch { return null; }
 }
 
-function dekodiMaskon(kruda: string, kvanto: number): Uint8Array | null {
+export function dekodiMaskon(kruda: string, kvanto: number): Uint8Array | null {
   if ( kruda === "" ) return null;
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
@@ -125,7 +127,7 @@ export function skulptaAkvaLimoj(): { x0: number; z0: number; x1: number; z1: nu
   };
 }
 
-function dekodiBiomon(kruda: string, kvanto: number): Uint8Array | null {
+export function dekodiBiomon(kruda: string, kvanto: number): Uint8Array | null {
   if ( kruda === "" ) return null;
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
@@ -142,7 +144,7 @@ function dekodiBiomon(kruda: string, kvanto: number): Uint8Array | null {
   } catch { return null; }
 }
 
-function dekodiBestojn(kruda: string, kvanto: number): Uint8Array | null {
+export function dekodiBestojn(kruda: string, kvanto: number): Uint8Array | null {
   if ( kruda === "" ) return null;
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));

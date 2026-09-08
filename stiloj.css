@@ -202,8 +202,11 @@ opacity:0; pointer-events:none; transition:opacity .25s;
 #sxargxo { z-index:9; display:flex; flex-direction:row; background: var(--ខេលេសៃ); align-items:center; justify-content:center; gap:var(--អារេងព៏); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
 /* La titolo kaj surskribo staras cxe la flankoj de la vertikala stango; la plenigo fluas de malsupro al supro. */
-.stango { position:relative; inline-size:6px; block-size:min(224px, 48%); border-radius:var(--ចិង); background:var(--gold-dim); overflow:hidden; }
-.stango i { position:absolute; inset-inline:0; inset-block-end:0; inline-size:100%; block-size:0%; border-radius:var(--ចិង); background:var(--gold); transition:block-size .25s; }
+/* La stango sekvas la eksternajn glitilojn ( input[type=range] ): tavola fono
+   ( តានេក ), ilia bordo kaj pilola radiuso, plus eta paddingo ( អារេងមិ ) por
+   ke la plenigo kuŝu kun eta spaco de la bordo. La plenigo mem uzas ក្ព៏. */
+.stango { position:relative; inline-size:8px; block-size:min(224px, 48%); border-radius:var(--ចិង); background:var(--តានេក); border:var(--សាកព៏); padding:var(--អារេងមិ); overflow:hidden; }
+.stango i { position:absolute; inset-inline:calc(var(--អារេងមិ) - 1px); inset-block-end:calc(var(--អារេងមិ) - 1px); inline-size:calc(100% - ((var(--អារេងមិ) - 1px) * 2)); block-size:0%; border-radius:var(--ចិង); background:var(--ក្ព៏); transition:block-size .25s; }
 
 /* La skribo-direkto de la flosantaj kartoj sekvu la aktivan lingvon, ne la konstantan .aih-klason. */
 /* aih flanka (sideways-lr) · ja de supro al malsupro (vertical-rl) · aliaj normalaj. */

@@ -80,7 +80,7 @@ export interface BestoSistemo {
 // la korpo ( la kombovicoj ). Malhela fono, blankecaj strioj kun molaj randoj.
 // La sama teksajxo funkcias kiel irideseca kaj emisia mapo — la strioj brilas
 // kaj refraktas lumon en ĉielarkajn kolorojn, dum la resto restas travidebla.
-function kreiKombovicanTeksajxon(strioj = 0o10): THREE.CanvasTexture {
+function kreiKombovicanTeksajxon(): THREE.CanvasTexture {
   const s = 0o200; // 128
   return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
     kunteksto.clearRect(0, 0, s, s);
@@ -88,8 +88,8 @@ function kreiKombovicanTeksajxon(strioj = 0o10): THREE.CanvasTexture {
     kunteksto.fillStyle = "rgb(6,10,16)";
     kunteksto.fillRect(0, 0, s, s);
 
-    const strioLargho = s / strioj;
-    for ( let k = 0; k < strioj; k++ ) {
+    const strioLargho = s / 0o10;
+    for ( let k = 0; k < 0o10; k++ ) {
       const cx = ( k + 0o1/0o2 ) * strioLargho;
       const r = strioLargho * 0o23/0o100;
       const gradiento = kunteksto.createLinearGradient(cx - r, 0, cx + r, 0);
@@ -358,6 +358,24 @@ function konstruiMarlaraksxanMalneton(): SpecoMalneto {
   return { malneto: grupo, platigxo: new THREE.Vector3(0o1, 0o1, 0o1), supro: 0o1/0o10, speco: "marlaraksxo", mergo: 0o2 };
 }
 
+// akvajMalnetoj — La kvin akvaj speco-malnetoj, konstruitaj nur unufoje kaj
+// stokitaj module-nivele. Ĉiu besto estas klono de sia malneto, do la metado
+// de multaj bestoj ne rekreu kanvasajn teksturojn aŭ geometriojn po voko.
+let akvajMalnetojStoko: SpecoMalneto[] | null = null;
+function akvajMalnetoj(): SpecoMalneto[] {
+  if ( !akvajMalnetojStoko ) {
+    const teksajxo = kreiKombovicanTeksajxon();
+    akvajMalnetojStoko = [
+      konstruiBeroanMalneton(teksajxo),
+      konstruiMnemiopsanMalneton(teksajxo),
+      konstruiPleŭrobrakianMalneton(teksajxo),
+      konstruiGlacifisanMalneton(),
+      konstruiMarlaraksxanMalneton(),
+    ];
+  }
+  return akvajMalnetojStoko;
+}
+
 // konstruiBestojn — Metu la bestojn en la riveron. Hazardaj pozicioj laŭ la
 // riverkurbiĝo, evitante la dokojn. Ili flosas ĉe la akvosurfaco ( aŭ marŝas
 // pli profunde ) kaj naĝas per pulsoj ( vidu gxisdatigiBestojn ).
@@ -376,6 +394,29 @@ const kruroDirekto = new THREE.Vector3();
 const kruroBazaDirekto = new THREE.Vector3(0, 1, 0);
 const kruroDuonoLonga = 0o3/0o4;
 
+// ekstraktuBestajnPartojn — Trovu la korpon, la voston kaj la animeblajn
+// partojn de besto-klono, kaj konservu la bazan kruro-pozon por la marŝa
+// animacio ( vidu gxisdatigiBestojn ). Reuzata de konstruiBestojn kaj
+// konstruiMetitanBeston — ambaŭ dividas la saman ekstraktan logikon.
+function ekstraktuBestajnPartojn(grupo: THREE.Group) {
+  const korpo = grupo.getObjectByName("korpo") as THREE.Mesh;
+  const vosto = grupo.getObjectByName("vosto") as THREE.Object3D | undefined;
+  const animajxoj = grupo.children.filter(c => c !== korpo && c !== vosto);
+  const bazajKruroj = animajxoj
+    .filter(parto => parto.name === "kruro").map(kruro => {
+      // La cilindro estas centrita sur sia longo ( 1.5 unuoj post la
+      // skalo ), do la vera artik-loko estas ĉe ĝia supra fino. Konservu
+      // ĝin aparte por ke la piedo svingu sen ŝiriĝi for de la korpo.
+      kruroBazaDirekto.set(0, 1, 0).applyQuaternion(kruro.quaternion).normalize();
+      return {
+        kruro,
+        q: kruro.quaternion.clone(),
+        ankro: kruro.position.clone().sub(kruroBazaDirekto.clone().multiplyScalar(kruroDuonoLonga)),
+      };
+    });
+  return { korpo, vosto, animajxoj, bazajKruroj };
+}
+
 export function konstruiBestojn(sceno: THREE.Scene,
   kvanto: number,
   riverFn: ( x: number ) => number,
@@ -384,15 +425,7 @@ export function konstruiBestojn(sceno: THREE.Scene,
   lago?: { x: number; z: number; r: number; nivelo: number }
 ): BestoSistemo {
   const bestoj: Besto[] = [];
-  // Unu komuna kombovica teksajxo por la ktenoforoj ( la strioj estas la samaj ).
-  const teksajxo = kreiKombovicanTeksajxon(0o10);
-  const malnetoj = [
-    konstruiBeroanMalneton(teksajxo),
-    konstruiMnemiopsanMalneton(teksajxo),
-    konstruiPleŭrobrakianMalneton(teksajxo),
-    konstruiGlacifisanMalneton(),
-    konstruiMarlaraksxanMalneton(),
-  ];
+  const malnetoj = akvajMalnetoj();
 
   // La pentrita akvaj-bestoj zono ( la skulptilo ) — la bestoj naĝas nur en
   // la pentritaj akvaj ĉeloj ( hazarda ĉelo kiel ankro ). La defaŭltaj lokoj
@@ -424,21 +457,7 @@ export function konstruiBestojn(sceno: THREE.Scene,
       : malnetoj[( Math.random() * malnetoj.length ) | 0];
     // Klono kunhavas la geometriojn/materialojn de la malneto.
     const grupo = speco.malneto.clone();
-    const korpo = grupo.getObjectByName("korpo") as THREE.Mesh;
-    const vosto = grupo.getObjectByName("vosto") as THREE.Object3D | undefined;
-    const animajxoj = grupo.children.filter(c => c !== korpo && c !== vosto);
-    const bazajKruroj = animajxoj
-      .filter(parto => parto.name === "kruro").map(kruro => {
-        // La cilindro estas centrita sur sia longo ( 1.5 unuoj post la
-        // skalo ), do la vera artik-loko estas ĉe ĝia supra fino. Konservu
-        // ĝin aparte por ke la piedo svingu sen ŝiriĝi for de la korpo.
-        kruroBazaDirekto.set(0, 1, 0).applyQuaternion(kruro.quaternion).normalize();
-        return {
-          kruro,
-          q: kruro.quaternion.clone(),
-          ankro: kruro.position.clone().sub(kruroBazaDirekto.clone().multiplyScalar(kruroDuonoLonga)),
-        };
-      });
+    const { korpo, vosto, animajxoj, bazajKruroj } = ekstraktuBestajnPartojn(grupo);
     const platigxo = speco.platigxo;
     const grandeco = 0o1/0o2 + Math.random() * 0o3/0o4;
     grupo.scale.set(grandeco * platigxo.x, grandeco * platigxo.y, grandeco * platigxo.z);
@@ -482,28 +501,10 @@ export function konstruiMetitanBeston(sceno: THREE.Scene,
   akvoY: number,
   grandeco: number
 ): Besto | null {
-  const teksajxo = kreiKombovicanTeksajxon(0o10);
-  const malnetoj = [
-    konstruiBeroanMalneton(teksajxo),
-    konstruiMnemiopsanMalneton(teksajxo),
-    konstruiPleŭrobrakianMalneton(teksajxo),
-    konstruiGlacifisanMalneton(),
-    konstruiMarlaraksxanMalneton(),
-  ];
+  const malnetoj = akvajMalnetoj();
   const speco = malnetoj[Math.max(0, Math.min(malnetoj.length - 1, specoIndex | 0))];
   const grupo = speco.malneto.clone();
-  const korpo = grupo.getObjectByName("korpo") as THREE.Mesh;
-  const vosto = grupo.getObjectByName("vosto") as THREE.Object3D | undefined;
-  const animajxoj = grupo.children.filter(c => c !== korpo && c !== vosto);
-  const bazajKruroj = animajxoj
-    .filter(parto => parto.name === "kruro").map(kruro => {
-      kruroBazaDirekto.set(0, 1, 0).applyQuaternion(kruro.quaternion).normalize();
-      return {
-        kruro,
-        q: kruro.quaternion.clone(),
-        ankro: kruro.position.clone().sub(kruroBazaDirekto.clone().multiplyScalar(kruroDuonoLonga)),
-      };
-    });
+  const { korpo, vosto, animajxoj, bazajKruroj } = ekstraktuBestajnPartojn(grupo);
   const platigxo = speco.platigxo;
   grupo.scale.set(grandeco * platigxo.x, grandeco * platigxo.y, grandeco * platigxo.z);
   const supro = speco.supro * grandeco;
@@ -613,15 +614,11 @@ export function gxisdatigiBestojn(s: BestoSistemo, t: number): void {
       b.grupo.rotation.x = subtila * 0o2/0o100 + Math.sin(t * 0o33/0o10 + b.phase) * 0o1/0o100;
       b.grupo.rotation.z = Math.cos(t * 0o33/0o10 + b.phase) * 0o1/0o100;
     }
-    // Vosta batado de la glacifiso — la naĝilo svingas flanken ritme.
-    if ( b.vosto && b.speco !== "glacifiso" ) {
-      b.vosto.rotation.y = Math.sin(t * 0o4 + b.phase) * 0o1/0o4;
-    }
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Neĝopetreloj ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea )
+// ⟪ Neĝopetreloj ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea ) ⟫
+//
 // Pure blankaj antarktaj marbirdoj. Malgranda ovala korpo, longaj maldikaj
 // glit-flugiloj kaj nigraj beko kaj okuloj. Ili rondflugas super la lago kaj
 // la rivero — glitas en larĝaj kurboj kun rapidaj flugil-batoj kaj kliniĝas
@@ -630,7 +627,6 @@ export function gxisdatigiBestojn(s: BestoSistemo, t: number): void {
 // La birdoj estas konstruitaj kiel malneto ( geometrioj/materialoj unufoje ),
 // kaj ĉiu birdo estas klono de la malneto — la klonoj kunhavas la samajn
 // geometriojn kaj materialojn, do la aro ne kostas teksturojn po unu.
-// ─────────────────────────────────────────────────────────────────────────────
 
 export interface Petrelo {
   grupo: THREE.Group;
@@ -899,6 +895,58 @@ export function konstruiPetrelanMalneton(): THREE.Group {
   return grupo;
 }
 
+// petrelaMalneto — La petrela malneto, konstruita nur unufoje kaj stokita
+// module-nivele. Ĉiu birdo estas klono de ĝi, do metado de pluraj birdoj ne
+// rekreu la plumarajn kanvasajn teksturojn kaj geometriojn po voko.
+let petrelaMalnetoStoko: THREE.Group | null = null;
+function petrelaMalneto(): THREE.Group {
+  if ( !petrelaMalnetoStoko ) petrelaMalnetoStoko = konstruiPetrelanMalneton();
+  return petrelaMalnetoStoko;
+}
+
+// kreiPetrelon — Klono de la petrela malneto ĉe flugcirklo ( cx, cz, radio ).
+// Reuzata de konstruiPetrelojn kaj konstruiMetitanPetrelon — ambaŭ dividas
+// la saman lokan kaj petrelan kread-logikon.
+//     @param altecoFn ( funkcio ) - Terena alteco ( x, z ) → y.
+//     @returns La petrelo ( jam aldonita al la sceno ).
+function kreiPetrelon(sceno: THREE.Scene,
+  cx: number, cz: number, radio: number,
+  altecoFn: ( x: number, z: number ) => number
+): Petrelo {
+  const grupo = petrelaMalneto().clone();
+  // Rekolektu la flugilojn de la klono ( la infana ordo konserviĝas ).
+  const flugiloj = grupo.children.filter(c => c.name === "flugilo");
+  // Flugalto. Super la PLEJ ALTA tereno ĉirkaŭ la flugcirklo ( specimena ĉe
+  // la rando, ĉar la birdo rondflugas radiuson radio ), por ke neniu birdo
+  // enkaverniĝu en montetojn aŭ montodeklivojn. Super la lago la tereno
+  // estas sub akvo, do la akvonivelo transprenas kiel suba limo.
+  let altaTereno = altecoFn(cx, cz);
+  for ( let k = 0; k < 0o6; k++ ) {
+    const a = k / 0o6 * Math.PI * 0o2;
+    altaTereno = Math.max(altaTereno, altecoFn(cx + Math.cos(a) * radio, cz + Math.sin(a) * radio));
+  }
+  const bazaY = Math.max(altaTereno, 0o2) + 0o14 + Math.random() * 0o16;
+  const phase = Math.random() * Math.PI * 0o2;
+  const direkto = Math.random() < 0o1/0o2 ? 1 : -1;
+  grupo.position.set(cx + Math.cos(phase) * radio, bazaY, cz);
+  // Direktu laŭ la tangento de la flugcirklo. Laŭhorloĝaj birdoj turniĝas
+  // per -ang, kontraŭhorloĝaj bezonas plian turnon de π ( alie ili flugus
+  // vosto-antaŭe ).
+  grupo.rotation.y = -phase + Math.PI * ( 1 - direkto ) / 2;
+  const skalo = 0o72/0o100 + Math.random() * 0o2/0o10;
+  grupo.scale.setScalar(skalo);
+  sceno.add(grupo);
+  return {
+    grupo, flugiloj, cx, cz, radio, bazaY,
+    rapido: 0o1/0o4 + Math.random() * 0o2/0o10,
+    phase, direkto,
+    batoFazo: Math.random() * Math.PI * 0o2,
+    batoRapido: 0o4 + Math.random() * 0o4,
+    banko: 0o3/0o20 + Math.random() * 0o3/0o40,
+    skalo, flapAmp: 0o6/0o10 + Math.random() * 0o2/0o10,
+  };
+}
+
 // konstruiPetrelojn — Metu la neĝopetrelojn flugantaj super la biomoj. Triono
 // rondflugas super la montara biomo ( la neĝaj pintoj — la neĝopetrela hejmo ),
 // la cetero super la akva biomo ( la lago, se ĝi ekzistas, kaj la rivero ).
@@ -915,7 +963,6 @@ export function konstruiPetrelojn(sceno: THREE.Scene,
   lago?: { x: number; z: number; r: number }
 ): PetreloSistemo {
   const petreloj: Petrelo[] = [];
-  const malneto = konstruiPetrelanMalneton();
 
   // La pentrita petrela zono ( la skulptilo ) — la petreloj rondflugas
   // hazardan pentritan ĉelon. La defaŭltaj lokoj estas bakitaj en la tavolon;
@@ -928,10 +975,6 @@ export function konstruiPetrelojn(sceno: THREE.Scene,
   const pentritaj = petrelajZonoj.length > 0;
 
   for ( let i = 0; i < kvanto && pentritaj; i++ ) {
-    const grupo = malneto.clone();
-    // Rekolektu la flugilojn de la klono ( la infana ordo konserviĝas ).
-    const flugiloj = grupo.children.filter(c => c.name === "flugilo");
-
     // La pentrita zono elektas la fluglokon. Triono el la montaraj ĉeloj, la
     // cetero el la ceteraj — kun falo al la alia aro se unu mankas.
     const superMonto = i % 3 === 0;
@@ -940,38 +983,7 @@ export function konstruiPetrelojn(sceno: THREE.Scene,
     const loko = aro[( Math.random() * aro.length ) | 0];
     const cx = loko.x + ( Math.random() - 0o1/0o2 ) * 0o6;
     const cz = loko.z + ( Math.random() - 0o1/0o2 ) * 0o6;
-    const radio = 0o10 + Math.random() * 0o30;
-    const direkto = Math.random() < 0o1/0o2 ? 1 : -1;
-    const phase = Math.random() * Math.PI * 0o2;
-    // Flugalto. Super la PLEJ ALTA tereno ĉirkaŭ la flugcirklo ( specimena ĉe
-    // la rando, ĉar la birdo rondflugas radiuson radio ), por ke neniu birdo
-    // enkaverniĝu en montetojn aŭ montodeklivojn. Super la lago la tereno
-    // estas sub akvo, do la akvonivelo transprenas kiel suba limo.
-    let altaTereno = altecoFn(cx, cz);
-    for ( let k = 0; k < 0o6; k++ ) {
-      const a = k / 0o6 * Math.PI * 0o2;
-      altaTereno = Math.max(altaTereno, altecoFn(cx + Math.cos(a) * radio, cz + Math.sin(a) * radio));
-    }
-    const bazaY = Math.max(altaTereno, 0o2) + 0o14 + Math.random() * 0o16;
-
-    grupo.position.set(cx + Math.cos(phase) * radio, bazaY, cz);
-    // Direktu laŭ la tangento de la flugcirklo. Laŭhorloĝaj birdoj turniĝas
-    // per -ang, kontraŭhorloĝaj bezonas plian turnon de π ( alie ili flugus
-    // vosto-antaŭe ).
-    grupo.rotation.y = -phase + Math.PI * ( 1 - direkto ) / 2;
-    sceno.add(grupo);
-
-    const skalo = 0o72/0o100 + Math.random() * 0o2/0o10;
-    grupo.scale.setScalar(skalo);
-    petreloj.push({
-      grupo, flugiloj, cx, cz, radio, bazaY,
-      rapido: 0o1/0o4 + Math.random() * 0o2/0o10,
-      phase, direkto,
-      batoFazo: Math.random() * Math.PI * 0o2,
-      batoRapido: 0o4 + Math.random() * 0o4,
-      banko: 0o3/0o20 + Math.random() * 0o3/0o40,
-      skalo, flapAmp: 0o6/0o10 + Math.random() * 0o2/0o10,
-    });
+    petreloj.push(kreiPetrelon(sceno, cx, cz, 0o10 + Math.random() * 0o30, altecoFn));
   }
 
   return { petreloj };
@@ -993,30 +1005,10 @@ export function konstruiMetitanPetrelon(sceno: THREE.Scene,
   radio: number,
   skalo: number
 ): Petrelo | null {
-  const malneto = konstruiPetrelanMalneton();
-  const grupo = malneto.clone();
-  const flugiloj = grupo.children.filter(c => c.name === "flugilo");
-  let altaTereno = altecoFn(x, z);
-  for ( let k = 0; k < 0o6; k++ ) {
-    const a = k / 0o6 * Math.PI * 0o2;
-    altaTereno = Math.max(altaTereno, altecoFn(x + Math.cos(a) * radio, z + Math.sin(a) * radio));
-  }
-  const bazaY = Math.max(altaTereno, 0o2) + 0o14 + Math.random() * 0o16;
-  const phase = Math.random() * Math.PI * 0o2;
-  const direkto = Math.random() < 0o1/0o2 ? 1 : -1;
-  grupo.position.set(x + Math.cos(phase) * radio, bazaY, z);
-  grupo.rotation.y = -phase + Math.PI * ( 1 - direkto ) / 2;
-  grupo.scale.setScalar(skalo);
-  sceno.add(grupo);
-  return {
-    grupo, flugiloj, cx: x, cz: z, radio, bazaY,
-    rapido: 0o1/0o4 + Math.random() * 0o2/0o10,
-    phase, direkto,
-    batoFazo: Math.random() * Math.PI * 0o2,
-    batoRapido: 0o4 + Math.random() * 0o4,
-    banko: 0o3/0o20 + Math.random() * 0o3/0o40,
-    skalo, flapAmp: 0o6/0o10 + Math.random() * 0o2/0o10,
-  };
+  const petrelo = kreiPetrelon(sceno, x, z, radio, altecoFn);
+  petrelo.grupo.scale.setScalar(skalo);
+  petrelo.skalo = skalo;
+  return petrelo;
 }
 
 // gxisdatigiPetrelojn — Flug-animacio. Ĉiu birdo rondflugas sian cirklon laŭ

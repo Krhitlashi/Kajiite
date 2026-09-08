@@ -8,6 +8,24 @@ import { defineConfig } from "vite";
 const PORD_RETILO = 0o5660;
 
 export default defineConfig({
+  build: {
+    // three.js mem estas pli ol 500 kB minigita — tio estas atendata por
+    // 3D-motoro, ne pakiga eraro, do la averto leveriĝas super ĝian realan
+    // grandon.
+    chunkSizeWarningLimit: 0o1400,
+    rolldownOptions: {
+      output: {
+        // Aparta vendisto-ĉerpo por three.js — la aplikaĵa kodo ŝanĝiĝas
+        // ofte, la motoro ne, do la foliumilo reuzas la motoran ĉerpon inter
+        // versioj.
+        codeSplitting: {
+          groups: [
+            { name: "tri", test: /node_modules[\\/]three/ },
+          ],
+        },
+      },
+    },
+  },
   server: {
     proxy: {
       "/retilo": {

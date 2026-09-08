@@ -45,8 +45,7 @@
 // reliefo ( maldekstra
 // klako ). Savi skribas rekte al la dosiero per la File System Access API
 // ( Chromium ); aliaj retumiloj ricevas elŝuton.
-import { bazaAlteco, riveroZ, RIVERA_DUONLARĜO, LAGO_X, lagoZ, lagoRadio,
-  cxuEnLago, cxuEnNordorientaRivero, akvaNivelo, riveroNordOrientaX } from "../src/tereno.js";
+import { bazaAlteco } from "../src/tereno.js";
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO,
   SKULPTA_DELTAJ } from "../src/tero-datumaro/krado.js";
 import { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO } from "../src/tero-datumaro/akvo.js";
@@ -62,7 +61,16 @@ import { SKULPTA_VOJOJ, SKULPTA_DOKOJ } from "../src/tero-datumaro/vojoj.js";
 // la testilo iloj/testoj/krado/urbo.ts ). kreiKradanPlanon donas la plenan
 // planon ( konstruaĵoj, vojoj, spronoj ) kiel purajn datumojn por desegni;
 // validiKradon kontrolas la redaktitan kradon.
-import { kreiKradanPlanon, validiKradon, aldoniVojon, aldoniBlokon } from "../src/krado.js";
+import { kreiKradanPlanon, validiKradon, aldoniVojon, superajElDatumo, superojElDatumo } from "../src/krado.js";
+// La malkodaj funkcioj — la UNU FONTO estas la rultempo de la ludo
+// ( src/tero-datumaro/rultempo.ts ). Antaŭe la samaj funkcioj estis
+// kopiitaj ĉi tie Kaj en ŝablono por la savo — tri kopioj kiuj facile
+// devojiĝus. La savo ne plu reskribas rultempo.ts.
+import { dekodiInt16, dekodiMaskon, dekodiBiomon, dekodiBestojn } from "../src/tero-datumaro/rultempo.js";
+// La komuna terena paletro — la sama bruo kaj la samaj kolor-tavoloj kiel
+// la ludo ( scena.ts ), do la 2D-mapo kaj la 3D-vido de la skulptilo
+// antaŭmontras la realajn kolorojn de la ludo.
+import { bruo2D, alternajDiagonalojn, terenaKoloroEn } from "../assets/komunajxoj/terenkoloroj.js";
 // La realaj konstruaĵoj de la ludo — la 3D-vido de la krado uzas la SAMAJN
 // konstruantojn kiel la ludo ( konstruiSatalon ), ne kolorajn kestojn.
 import { konstruiSatalon } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
@@ -149,9 +157,8 @@ bazaCanvas.width = bazaCanvas.height = REZ;
 const bazaKunteksto = bazaCanvas.getContext("2d");
 const bazaBildo = bazaKunteksto.createImageData(REZ, REZ);
 const bazoj = new Float32Array(REZ * REZ);            // proceduraj altoj
-const naturaAkvo = new Uint8Array(REZ * REZ);         // natura akvo-zono ( 0/1 )
-const naturaNivelo = new Float32Array(REZ * REZ);     // natura akva nivelo
 const deklivoj = new Float32Array(REZ * REZ);         // monteta ombra faktoro
+const deklivoGradientoj = new Float32Array(REZ * REZ); // |∇h| — la roka deklivo por la komuna paletro
 
 // ════════════════════════ Vido kaj eventoj ════════════════════════
 const mapo = document.getElementById("mapo");
@@ -185,9 +192,21 @@ let bezonoDesegno = true;
 // ════════════════════════ Historio ( malfari/refari ) ════════════════════════
 const historio = [];
 const refaraHistorio = [];
+// statoMomento — la TUTA redaktebla stato por unu historio-paŝo — ankaŭ la
+// krado ( la urboj kun iliaj superoj ), la vojoj kaj la dokoj, ne nur la
+// tereno kaj la objektoj. La savo kaj la re-parzigo de urboj/vojoj/dokoj
+// cirkulas ( cirkuloDeDatumojValidas ), do la profunda JSON-kopio sufiĉas.
+function statoMomento(){
+  return {
+    deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(),
+    objektoj: objektoj.map(o => ( { ...o } )), objektaElekto: elektitaObjekto, nivelo: akvaNiveloValoro,
+    urboj: JSON.parse(JSON.stringify(urboj)), elektitaUrbo,
+    vojoj: JSON.parse(JSON.stringify(vojoj)), dokoj: JSON.parse(JSON.stringify(dokoj)),
+  };
+}
 function momenti(){
   refaraHistorio.length = 0;
-  historio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ( { ...o } )), nivelo: akvaNiveloValoro });
+  historio.push(statoMomento());
   if ( historio.length > 0o40 ) historio.shift();
 }
 function restoriStaton(s) {
@@ -196,23 +215,33 @@ function restoriStaton(s) {
   biomoj.set(s.biomoj);
   bestoj.set(s.bestoj);
   objektoj = s.objektoj ? s.objektoj.slice() : [];
+  elektitaObjekto = s.objektaElekto ?? -1;
+  if ( s.urboj && s.urboj.length ) urboj = s.urboj;
+  if ( s.vojoj && s.vojoj.length ) vojoj = s.vojoj;
+  if ( s.dokoj && s.dokoj.length ) dokoj = s.dokoj;
+  // La krada stato — elektiUrbon ŝargas la urbon ( grandeco, ofseto, la
+  // superoj ) en la regilojn kaj rekonstruas la planon.
+  elektitaUrbo = Math.max(0, Math.min(s.elektitaUrbo ?? 0, urboj.length - 1));
   gxisdatigiObjektoListon();
   rekonstruiObjektojn();
   akvaNiveloValoro = s.nivelo;
   niveloRegilo.value = akvaNiveloValoro;
   gxisdatigiValorojn();
+  gxisdatigiUrboElektilon();
+  elektiUrbon(elektitaUrbo);
+  gxisdatigiVojajnRegilojn();
   gxisdatigiPlenan2Dn();
   gxisdatigi3DnPostPlena();
   sxangxita = true;
 }
 function malfari(){
   if ( !historio.length ) return;
-  refaraHistorio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ( { ...o } )), nivelo: akvaNiveloValoro });
+  refaraHistorio.push(statoMomento());
   restoriStaton(historio.pop());
 }
 function refari(){
   if ( !refaraHistorio.length ) return;
-  historio.push({ deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(), objektoj: objektoj.map(o => ( { ...o } )), nivelo: akvaNiveloValoro });
+  historio.push(statoMomento());
   restoriStaton(refaraHistorio.pop());
 }
 
@@ -374,12 +403,10 @@ function penikoPasxo(cx, cz) {
 function mondoxAlPikselo(x) { return Math.round(( MONDO_HALFO - x ) / MONDO * REZ); }   // oriento dekstren
 function mondozAlPikselo(z) { return Math.round(( MONDO_HALFO - z ) / MONDO * REZ); }
 
-// naturaAkvoEn — ĉu la natura mondo havas akvon ĉe ( x, z ) ( la lago, la
-// nordorienta rivereto aŭ la rivero ).
-function naturaAkvoEn(x, z) {
-  return cxuEnLago(x, z) || cxuEnNordorientaRivero(x, z)
-    || Math.abs(z - riveroZ(x)) < RIVERA_DUONLARĜO;
-}
+// La akvo estas NUR la pentrita masko — la sama decido kiel la ludo
+// ( tereno.ts — akvo() = skulptitaAkvo() ). La malnova natura ( procedura )
+// akvo de la rivero kaj la lago estas bakita EN la maskon de la skulptilo,
+// do neniu aparta natura akvo-tavolo plu ekzistas.
 
 function prerenderiBazon(){
   for ( let py = 0; py < REZ; py++ ) {
@@ -388,71 +415,30 @@ function prerenderiBazon(){
       const x = MONDO_HALFO - ( px + 0.5 ) * MONDO / REZ;
       const i = py * REZ + px;
       bazoj[i] = bazaAlteco(x, z);
-      const en = naturaAkvoEn(x, z);
-      naturaAkvo[i] = en ? 1 : 0;
-      naturaNivelo[i] = en ? akvaNivelo(x, z) : 0;
     }
   }
 }
 
-// bruo2D — izotropa valora bruo ( hash-bazita, glate interpolita ) en [0,1].
-// La antaŭa du-oktava SIN-bruo havis ondofrontojn laŭ la diagonaloj — sur la
-// plata natura tereno ĝi montris videblajn DIAGONALAJN STRIOJN. Ĉi tiu bruo
-// havas neniun preferatan direkton — natura makuleco.
-function bruo2D(x, z) {
-  const ix = Math.floor(x), iz = Math.floor(z);
-  const fx = x - ix, fz = z - iz;
-  const h = ( xi, zi ) => {
-    let n = ( xi * 0x28f0f0 + zi * 0x28d8e8 ) | 0;
-    n = ( n ^ ( n >>> 13 ) ) * 0x48a028;
-    return ( ( n ^ ( n >>> 16 ) ) >>> 0 ) / 4294967296;
-  };
-  const a = h(ix, iz), b = h(ix + 1, iz), c = h(ix, iz + 1), d = h(ix + 1, iz + 1);
-  const u = fx * fx * ( 3 - 2 * fx );
-  const v = fz * fz * ( 3 - 2 * fz );
-  return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
+// bruo2D kaj la terena paletro venas de la komuna modulo ( la importo supre
+// ) — antaŭe ambaŭ estis kopiitaj ĉi tie kaj devojiĝis de la paletro de la
+// ludo. terenaKoloro255 — la tera koloro en sRGB-bajtoj ( 0-255 ) por la
+// 2D-mapo kaj la nuancaj tavoloj: la komuna linia koloro de la ludo,
+// konvertita al sRGB. La skulptita zono montrigxas per eta freŝa-tero
+// malheliĝo ( delta ≠ 0 ) — nur la ilo, ne la ludo.
+const skrapaKoloro = new THREE.Color();
+function terenaKoloro255(h, x, z, deklivo) {
+  terenaKoloroEn(skrapaKoloro, h, x, z, deklivo);
+  skrapaKoloro.convertLinearToSRGB();
+  return [
+    Math.max(0, Math.min(255, skrapaKoloro.r * 255)),
+    Math.max(0, Math.min(255, skrapaKoloro.g * 255)),
+    Math.max(0, Math.min(255, skrapaKoloro.b * 255)),
+  ];
 }
-
-// koloroDeAlto — la tera koloro por la alto h ĉe ( x, z ). Glataj tavoloj
-// ( sabla bordo, herbejo, sekherba deklivo, roko, neĝo ) kun malgranda
-// sin-teksturo. La herbejaj nuancoj sekvas la malnovan malseketan paletron
-// de la ludo. La skulptita zono montrigxas per eta freŝa-tero malheliĝo
-// ( delta ≠ 0 ), ne per la malnova forta oranĝa tintado — la sama koloro
-// sur la 2D-mapo kaj la 3D-meŝo.
-const ALTAJ_TAVOLOJ = [
-  [ -0o10, 0o212, 0o172, 0o112 ],   // sabla bordo ( −8 )
-  [ 0o2, 0o52, 0o116, 0o46 ],       // malseka herbo ( 2 )
-  [ 0o10, 0o64, 0o130, 0o60 ],      // herbejo ( 8 )
-  [ 0o22, 0o130, 0o130, 0o100 ],    // sekherba deklivo ( 18 )
-  [ 0o30, 0o122, 0o116, 0o104 ],    // roko ( 24 )
-  [ 0o60, 0o340, 0o350, 0o350 ],    // neĝo ( 48 )
-];
-function koloroDeAlto(h, x, z, delta) {
-  let malsupra = ALTAJ_TAVOLOJ[0], supra = ALTAJ_TAVOLOJ[ALTAJ_TAVOLOJ.length - 1];
-  for ( let i = 0; i < ALTAJ_TAVOLOJ.length - 1; i++ ) {
-    if ( h >= ALTAJ_TAVOLOJ[i][0] && h < ALTAJ_TAVOLOJ[i + 1][0] ) {
-      malsupra = ALTAJ_TAVOLOJ[i]; supra = ALTAJ_TAVOLOJ[i + 1]; break;
-    }
-  }
-  const t = Math.max(0, Math.min(1, ( h - malsupra[0] ) / ( supra[0] - malsupra[0] )));
-  let r = malsupra[1] + ( supra[1] - malsupra[1] ) * t;
-  let g = malsupra[2] + ( supra[2] - malsupra[2] ) * t;
-  let b = malsupra[3] + ( supra[3] - malsupra[3] ) * t;
-  // Du-oktava IZOTROPA valora bruo — natura makuleco sen direkto ( la antaŭa
-  // sin-bruo montris diagonalajn striojn sur la plata tereno ). La verda
-  // kanalo sxangxigxas plej ( kreskajxo ), la blua plej malmulte.
-  const v = 0.5 + 0.35 * ( 2 * bruo2D(x / 0o40, z / 0o40) - 1 )
-    + 0.15 * ( 2 * bruo2D(x / 0o10, z / 0o10) - 1 );
-  r += v * 0o4; g += v * 0o10; b += v * 0o4;
-  if ( delta !== 0 ) {
-    // Freŝa tero — malheliĝo kun bruneta subtono, proksima al la natura
-    // paletro. La forto fadas kun la delto, por ke la redaktita zono restu
-    // videbla sen la malnova oranĝa ŝmiraĵo.
-    const s = 0.06 + Math.min(0.28, Math.abs(delta) / 5);
-    r += 0o30 * s; g -= 0o14 * s; b -= 0o20 * s;
-  }
-  return [ Math.max(0, Math.min(255, r)), Math.max(0, Math.min(255, g)), Math.max(0, Math.min(255, b)) ];
-}
+// skrapaLinia — la linia THREE.Color por la 3D-mesho ( la sRGB-bajtoj de la
+// nuancaj tavoloj konvertitaj reen al la linia laborejo — la ludo skribas
+// la vertexColorojn linie, do la 3D-vido de la ilo nun kongruas ).
+const skrapaLinia = new THREE.Color();
 
 // ⟨ Biomaj montraĵoj ( la biomo-zonoj de la skulptita tero ) 📃 ⟩
 // La biomo ( tereno.ts ) venas TUTE de la PENTRITA tavolo. akvo ( la masko )
@@ -622,6 +608,7 @@ function rekalkuliDeklivojn(px0, py0, px1, py1) {
       const x = MONDO_HALFO - ( px + 0.5 ) * MONDO / REZ;
       const i = py * REZ + px;
       const [ , deklX, deklZ ] = deltoKunDerivajoj(x, z);
+      deklivoGradientoj[i] = Math.hypot(deklX, deklZ);
       const nx = -deklX * 2.2, nz = -deklZ * 2.2, ny = 1;
       const len = Math.hypot(nx, ny, nz);
       const lumo = ( nx * lumoX + ny * lumoY + nz * lumoZ ) / len / lumoLen;
@@ -649,12 +636,10 @@ function pentri(px0, py0, px1, py1) {
       const h = bazo + delta;
       const o = i * 4;
       const ombro = deklivoj[i] || 1;
-      if ( naturaAkvo[i] && h < naturaNivelo[i] ) {
-        kolorigiAkvon(datumoj, o, h, naturaNivelo[i], ombro, delta, x, z);
-      } else if ( maskoInterp(x, z) >= 0.5 && h < akvaNiveloValoro ) {
+      if ( maskoInterp(x, z) >= 0.5 && h < akvaNiveloValoro ) {
         kolorigiAkvon(datumoj, o, h, akvaNiveloValoro, ombro, delta, x, z);
       } else {
-        const k = almetiBiomanNuancon(koloroDeAlto(h, x, z, delta), x, z, delta);
+        const k = almetiBiomanNuancon(terenaKoloro255(h, x, z, deklivoGradientoj[i] || 0), x, z, delta);
         datumoj[o] = Math.min(255, k[0] * ombro);
         datumoj[o + 1] = Math.min(255, k[1] * ombro);
         datumoj[o + 2] = Math.min(255, k[2] * ombro);
@@ -904,10 +889,12 @@ function moviKlavare(){
     const rapido = prematajKlavoj.has("Shift") ? 4 : 1.6;
     const paŝo = rapido / vidSkalo;
     let sxangxo = false;
-    if ( prematajKlavoj.has("w") || prematajKlavoj.has("ArrowUp") ) { vidCZ += paŝo; sxangxo = true; }
-    if ( prematajKlavoj.has("s") || prematajKlavoj.has("ArrowDown") ) { vidCZ -= paŝo; sxangxo = true; }
-    if ( prematajKlavoj.has("a") || prematajKlavoj.has("ArrowLeft") ) { vidCX += paŝo; sxangxo = true; }
-    if ( prematajKlavoj.has("d") || prematajKlavoj.has("ArrowRight") ) { vidCX -= paŝo; sxangxo = true; }
+    // klavoDeKodo jam mapigis la sagoklavojn al w/a/s/d — nur la literoj kaj
+    // la zomaj klavoj enestas en la aro.
+    if ( prematajKlavoj.has("w") ) { vidCZ += paŝo; sxangxo = true; }
+    if ( prematajKlavoj.has("s") ) { vidCZ -= paŝo; sxangxo = true; }
+    if ( prematajKlavoj.has("a") ) { vidCX += paŝo; sxangxo = true; }
+    if ( prematajKlavoj.has("d") ) { vidCX -= paŝo; sxangxo = true; }
     if ( prematajKlavoj.has("zomi") ) { vidSkalo = Math.min(4, vidSkalo * 1.04); sxangxo = true; }
     if ( prematajKlavoj.has("malzomi") ) { vidSkalo = Math.max(minimaSkalo(), vidSkalo * 0.96); sxangxo = true; }
     if ( sxangxo ) bezonoDesegno = true;
@@ -926,10 +913,10 @@ function moviKlavare(){
   // La dekstra vektoro — kruco ( antaŭen × supren ) kun Y-supren. ( -fz, 0, fx ).
   const dekstren = new THREE.Vector3(-antaŭen.z, 0, antaŭen.x);
   const movo = new THREE.Vector3();
-  if ( prematajKlavoj.has("w") || prematajKlavoj.has("ArrowUp") ) movo.addScaledVector(antaŭen, rapido);
-  if ( prematajKlavoj.has("s") || prematajKlavoj.has("ArrowDown") ) movo.addScaledVector(antaŭen, -rapido);
-  if ( prematajKlavoj.has("d") || prematajKlavoj.has("ArrowRight") ) movo.addScaledVector(dekstren, rapido);
-  if ( prematajKlavoj.has("a") || prematajKlavoj.has("ArrowLeft") ) movo.addScaledVector(dekstren, -rapido);
+  if ( prematajKlavoj.has("w") ) movo.addScaledVector(antaŭen, rapido);
+  if ( prematajKlavoj.has("s") ) movo.addScaledVector(antaŭen, -rapido);
+  if ( prematajKlavoj.has("d") ) movo.addScaledVector(dekstren, rapido);
+  if ( prematajKlavoj.has("a") ) movo.addScaledVector(dekstren, -rapido);
   if ( prematajKlavoj.has("e") ) movo.y += rapido * 0.8;
   if ( prematajKlavoj.has("q") ) movo.y -= rapido * 0.8;
   if ( movo.lengthSq()=== 0 ) return;
@@ -973,41 +960,18 @@ mapo3d.style.cursor = "crosshair";
 mapo3d.style.touchAction = "none";
 mapo3d.style.display = "none";
 
-// akvaNiveloDe — la akva nivelo por kradĉelo ( i, j ) ĉe ( x, z ). la natura
-// nivelo por natura akvo, la agordebla nivelo por pentrita masko, alie nenio.
+// akvaNiveloDe — la akva nivelo por kradĉelo ( i, j ) ĉe ( x, z ). la
+// pentrita masko decidas — la sama regulo kiel la ludo — alie nenio.
 function akvaNiveloDe(i, j, x, z) {
-  if ( naturaAkvoEn(x, z) ) return akvaNivelo(x, z);
   if ( masko[j * N + i] ) return akvaNiveloValoro;
   return null;
 }
 
-// konstrui3DIndeksojn — la triangula krado por ( N + 1 )² verticoj. La
-// diagonaloj ALTERNIGAS per ĉelo ( ŝaktabulo ), por ke la montodeklivoj ne
-// montru longajn krestojn laŭ unu konsekvenca diagonalo.
+// konstrui3DIndeksojn — la triangula krado por ( N + 1 )² verticoj, el la
+// KOMUNA konstruanto ( la sama ŝaktabula diagonal-alternado kiel la grundo
+// de la ludo en scena.ts — antaŭe kopiita ĉi tie ).
 function konstrui3DIndeksojn(){
-  const N1 = N + 1;
-  const indeksoj = new Uint32Array(N * N * 6);
-  let k = 0;
-  for ( let j = 0; j < N; j++ ) {
-    for ( let i = 0; i < N; i++ ) {
-      const a = j * N1 + i;
-      const b = a + 1;
-      const c = a + N1;
-      const d = c + 1;
-      if ( ( i + j ) % 2 === 0 ) {
-        // Kontraŭhorloĝa vidata de supre — la antaŭaj flankoj ( normalo +y )
-        // rigardu la fotilon, por ke kaj la bildigo kaj la radia trafo trovu ilin.
-        indeksoj[k++] = a; indeksoj[k++] = c; indeksoj[k++] = d;
-        indeksoj[k++] = a; indeksoj[k++] = d; indeksoj[k++] = b;
-      } else {
-        // La alia diagonalo — rompas la konsekvencajn krestojn. Same
-        // kontraŭhorloĝa vidata de supre ( normalo +y ).
-        indeksoj[k++] = a; indeksoj[k++] = c; indeksoj[k++] = b;
-        indeksoj[k++] = c; indeksoj[k++] = d; indeksoj[k++] = b;
-      }
-    }
-  }
-  return indeksoj;
+  return new Uint32Array(alternajDiagonalojn(N));
 }
 
 // inicializi3DKradon — la horizontala krado ( x, z ) de la verticoj.
@@ -1148,10 +1112,14 @@ function gxisdatigi3DMeshon(g) {
       const h = bazaAlteco(x, z) + d;
       const v = ( j * N1 + i ) * 3;
       poz.array[v + 1] = h * YTROIGO;
-      const k = almetiBiomanNuancon(koloroDeAlto(h, x, z, d), x, z, d);
-      kol.array[v] = k[0] / 255;
-      kol.array[v + 1] = k[1] / 255;
-      kol.array[v + 2] = k[2] / 255;
+      // La deklivo el la analiza dukuba surfaco — la roka lerpo de la komuna
+      // paletro bezonas gxin ( la sama enigo kiel en scena.ts ).
+      const [ , deklX, deklZ ] = deltoKunDerivajoj(x, z);
+      const k = almetiBiomanNuancon(terenaKoloro255(h, x, z, Math.hypot(deklX, deklZ)), x, z, d);
+      skrapaLinia.setRGB(k[0] / 255, k[1] / 255, k[2] / 255, THREE.SRGBColorSpace);
+      kol.array[v] = skrapaLinia.r;
+      kol.array[v + 1] = skrapaLinia.g;
+      kol.array[v + 2] = skrapaLinia.b;
     }
   }
   poz.needsUpdate = true;
@@ -1788,7 +1756,7 @@ function gxisdatigiKoordinatojn(x, z) {
   if ( !koordinatajEl ) return;
   if ( x === null || z === null ) { koordinatajEl.textContent = "—"; return; }
   const h = bazaAlteco(x, z) + deltoInterp(x, z);
-  const akva = maskoInterp(x, z) >= 0o1/0o2 || naturaAkvoEn(x, z);
+  const akva = maskoInterp(x, z) >= 0o1/0o2;
   koordinatajEl.textContent = "x " + x.toFixed(2) + "   z " + z.toFixed(2)
     + "   y " + h.toFixed(2) + ( akva ? "   ( akvo )" : "" );
 }
@@ -2243,7 +2211,15 @@ let kradoOfsX = urboj[0]?.ofsX ?? 0, kradoOfsZ = urboj[0]?.ofsZ ?? 0;  // la ofs
 let kradoKeuxfhxeso = !!urboj[0]?.keuxfhxeso;        // keŭfĥesoj ĉirkaŭ la centro
 let kradoLampoj = urboj[0]?.lampoj !== false;        // la kvar-lampa strato-ŝablono ( defaŭlte ŝaltita )
 let kradoTipoElektita = "automata";   // la paletro ( "automata" = la generita tipo )
-const kradoSuperoj = new Map();       // "c,r" → tipo ( unu ) aŭ "c,r,SUB" → tipo ( kvar )
+let kradoSuperoj = new Map();         // "c,r" → tipo ( unu ) aŭ "c,r,SUB" → tipo ( kvar ) — de la redaktata urbo
+
+// sinkronigiSuperojn — la vivaj ĉel-superoj al la konservita urbo-datumo
+// ( la savo skribas ilin en SKULPTA_URBOJ kaj la ludo aplikas ilin ).
+function sinkronigiSuperojn() {
+  const u = urboj[elektitaUrbo];
+  if ( !u ) return;
+  u.superoj = superojElDatumo(kradoSuperoj);
+}
 let kradaPlanoCache = null;
 // La doko kaj la spacoŝipo — la mondaj trajtoj de la ĉefa urbo
 // ( SKULPTA_DOKOJ kaj SKULPTA_VOJOJ en src/tero-datumaro/vojoj.ts ),
@@ -2352,10 +2328,11 @@ function kradoPlano() {
   return kradaPlanoCache;
 }
 function gxisdatigiKradon() {
-  const u = urboj[elektitaUrbo];
-  kradaPlanoCache = kreiKradanPlanon(
-    { arangxaGrando: kradoGrandeco, blokaGrando: kradoBloko, lampoj: kradoLampoj },
-    kradoSuperoj, u && u.aldonajBlokoj ? u.aldonajBlokoj : []);
+  // La plano venas ĈIAM de kradoPlano — la sola konstruanto ( ĝi aldonas
+  // ankaŭ la konektajn vojajn stubojn ). Antaŭe ĉi tiu funkcio konstruis
+  // sen la stuboj, kaj ili malaperis ĉe ĉiu ĉela redakto.
+  kradaPlanoCache = null;
+  kradoPlano();
   gxisdatigiKradajnStatistikojn();
   rekonstruiKradon3D();
   bezonoDesegno = true;
@@ -2402,6 +2379,9 @@ function elektiUrbon(i) {
   kradoOfsZ = u.ofsZ;
   kradoKeuxfhxeso = !!u.keuxfhxeso;
   kradoLampoj = u.lampoj !== false;
+  // La ĉel-superoj de ĈI TIU urbo — la redaktoj de la Krado-langeto ne
+  // estas komunaj inter la urboj.
+  kradoSuperoj = superajElDatumo(u.superoj) ?? new Map();
   kradoGrandecoEl.value = String(kradoGrandeco);
   kradoBlokoEl.value = kradoBloko;
   kradoOfsXEl.value = String(kradoOfsX);
@@ -2426,6 +2406,7 @@ function skribiElektitanUrbon() {
   u.ofsZ = kradoOfsZ;
   u.keuxfhxeso = kradoKeuxfhxeso;
   u.lampoj = kradoLampoj;
+  sinkronigiSuperojn();
   sxangxita = true;
 }
 
@@ -2543,7 +2524,7 @@ function gxisdatigiVojajnRegilojn() {
   const v = vojoj[elektitaVojo];
   if ( v ) {
     vojoNomoEl.value = v.nomo || "";
-    vojoLargxoEl.value = String(v.largxo || v.larĝo || 3.5);
+    vojoLargxoEl.value = String(v.larĝo || 3.5);
     vojoPunktoElektilo.innerHTML = "";
     v.punktoj.forEach(( p, j ) => {
       const o = document.createElement("option");
@@ -2938,6 +2919,7 @@ function sxangxiKradanCelon(mx, mz) {
       if ( Math.abs(c * PASXO + kradoOfsX) > MONDO_HALFO || Math.abs(r * PASXO + kradoOfsZ) > MONDO_HALFO ) return;
       kradoSuperoj.set(ŝ, kradoTipoElektita);
     }
+    sinkronigiSuperojn();
     gxisdatigiKradon();
     return;
   }
@@ -2949,6 +2931,9 @@ function sxangxiKradanCelon(mx, mz) {
     if ( Math.abs(c * PASXO + kradoOfsX) > MONDO_HALFO || Math.abs(r * PASXO + kradoOfsZ) > MONDO_HALFO ) return;
     kradoSuperoj.set(ŝ, kradoTipoElektita);
   }
+  sinkronigiSuperojn();
+  sxangxita = true;
+  statuso("Nesavitaj ŝanĝoj");
   gxisdatigiKradon();
 }
 
@@ -3205,7 +3190,22 @@ aldonaBlokoElektilo.addEventListener("change", () => {
   gxisdatigiAldonaBlokojn();
   bezonoDesegno = true;
 });
-aldonaBlokoTipoEl.addEventListener("change", () => { skribiAldonanBlokon(); gxisdatigiAldonaBlokojn(); gxisdatigiKradon(); });
+aldonaBlokoTipoEl.addEventListener("change", () => {
+  skribiAldonanBlokon();
+  // Stacio 🚀 ( stacia ) kaj la tipo kongruu — tipo ekster "stacio" malŝaltas
+  // la stacian flagon ( la flago igas la blokon stacioxipo kaj kaŝas la
+  // elektitan tipon ). La malnova datumaro ( sanktejo + stacia ) restas
+  // netuŝata ĝis la tipo estas efektive ŝanĝita.
+  const u = urboj[elektitaUrbo];
+  const blokoj = u && u.aldonajBlokoj ? u.aldonajBlokoj : [];
+  const b = blokoj[elektitaAldonaBloko];
+  if ( b && b.stacia && b.tipo !== "stacio" ) {
+    aldonaBlokoStaciaEl.checked = false;
+    skribiAldonanBlokon();
+  }
+  gxisdatigiAldonaBlokojn();
+  gxisdatigiKradon();
+});
 aldonaBlokoXEl.addEventListener("change", () => { skribiAldonanBlokon(); gxisdatigiAldonaBlokojn(); gxisdatigiKradon(); });
 aldonaBlokoZEl.addEventListener("change", () => { skribiAldonanBlokon(); gxisdatigiAldonaBlokojn(); gxisdatigiKradon(); });
 aldonaBlokoRotEl.addEventListener("change", () => { skribiAldonanBlokon(); gxisdatigiKradon(); });
@@ -3218,7 +3218,7 @@ aldonaBlokoAldoniBtn.addEventListener("click", () => {
   if ( !u.aldonajBlokoj ) u.aldonajBlokoj = [];
   const pasxo = kradoBloko === "kvar" ? 0o40 : 0o30;
   const stacioZ = kradoBloko === "kvar" ? 0 : kradoGrandeco * pasxo + 0o30;
-  u.aldonajBlokoj.push({ x: 0, z: stacioZ, tipo: "sanktejo", rot: Math.PI, sub: "centro", stacia: true, konektita: true });
+  u.aldonajBlokoj.push({ x: 0, z: stacioZ, tipo: "stacio", rot: Math.PI, sub: "centro", stacia: true, konektita: true });
   elektitaAldonaBloko = u.aldonajBlokoj.length - 1;
   sxangxita = true;
   gxisdatigiAldonaBlokojn();
@@ -3326,7 +3326,7 @@ document.querySelectorAll("#vojaIloj button").forEach(b => {
     document.querySelectorAll("#vojaIloj button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   });
 });
-kradoRestarigiBtn.addEventListener("click", () => { kradoSuperoj.clear(); gxisdatigiKradon(); });
+kradoRestarigiBtn.addEventListener("click", () => { kradoSuperoj.clear(); sinkronigiSuperojn(); sxangxita = true; statuso("Nesavitaj ŝanĝoj"); gxisdatigiKradon(); });
 kradoKopiiBtn.addEventListener("click", async () => {
   const u = urboj[elektitaUrbo];
   const teksto = u
@@ -3688,49 +3688,6 @@ function bazo64DeBestoj(bestoDatumoj) {
   }
   return bazo64DeBajtoj(bajtoj);
 }
-function dekodiInt16(kruda) {
-  if ( !kruda ) return null;
-  const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-  const vido = new DataView(bajtoj.buffer);
-  const valoroj = new Int16Array(bajtoj.length / 2);
-  for ( let i = 0; i < valoroj.length; i++ ) valoroj[i] = vido.getInt16(i * 2, true);
-  return valoroj;
-}
-function dekodiMaskon(kruda, kvanto) {
-  if ( !kruda ) return null;
-  const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-  const maskoDatumoj = new Uint8Array(kvanto);
-  for ( let i = 0; i < kvanto; i++ ) maskoDatumoj[i] = ( bajtoj[i >> 3] >> (i & 7) ) & 1;
-  return maskoDatumoj;
-}
-function dekodiBiomon(kruda, kvanto) {
-  if ( !kruda ) return null;
-  const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-  const biomoDatumoj = new Uint8Array(kvanto);
-  // 3 bitoj po ĉelo ( 0=aŭtomata, 1=montaro, 2=valo, 3=ebenaĵo,
-  // 4=akvaj-plantoj, 5=ekvizeto ) — ok ĉeloj po tri bajtoj.
-  for ( let i = 0; i < kvanto; i++ ) {
-    const b = i * 3;
-    biomoDatumoj[i] = ( bajtoj[b >> 3] >> (b & 7) )
-      | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 8 - ( b & 7 ) );
-    biomoDatumoj[i] &= 7;
-  }
-  return biomoDatumoj;
-}
-function dekodiBestojn(kruda, kvanto) {
-  if ( !kruda ) return null;
-  const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-  const bestoDatumoj = new Uint8Array(kvanto);
-  // 3 bitoj po ĉelo ( bitoj 1=akvaj bestoj, 2=petreloj, 4=NPC-oj ) — ok
-  // ĉeloj po tri bajtoj.
-  for ( let i = 0; i < kvanto; i++ ) {
-    const b = i * 3;
-    bestoDatumoj[i] = ( bajtoj[b >> 3] >> (b & 7) )
-      | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 8 - ( b & 7 ) );
-    bestoDatumoj[i] &= 7;
-  }
-  return bestoDatumoj;
-}
 // kvantigiDeltojn — la komuna kvantigo ( 1/16-unua precizeco, limigita al la
 // int16-gamo ) por la skribo KAJ la memkontrolo, por ke ambaŭ ĉiam kongruu.
 function kvantigiDeltojn(){
@@ -3778,213 +3735,24 @@ function cirkuloDeDatumojValidas() {
       && JSON.stringify(parziValoron(skribiValoron(dokoj))) === JSON.stringify(dokoj);
   } catch { return false; }
 }
-// RUNTIMOTEMPLATO — la konstantaj funkcioj de la modulo ( malkodigo kaj
-// samplado ) kiujn la LUDO bezonas. La savo skribas ilin al
-// src/tero-datumaro/rultempo.ts KUNE kun la konstantaj dosieroj — antaŭe la
-// savo emisiis nur la konstantojn kaj detruis la modulon ĉiufoje, kiam oni
-// skribis rekte al src/tero-datumo.ts.
-// ⚠️ ĈI TIU TEKSTO DEVAS RESTI IDENTA al la funkcion-sekcio en
-// src/tero-datumaro/rultempo.ts ( de la „⟪ Dekodo 📃 ⟫”-komento ĝis la fino ).
-// Se oni ŝanĝas la funkciojn en la modulo, ĝisdatigu ankaŭ ĉi tiun
-// ŝablonon — la savo alie skribus malnoviĝintan version.
-const RUNTIMOTEMPLATO = `
-// ⟪ Dekodo 📃 ⟫ — unufoje cxe modulo-sxargxo. Malaktiva skulptajxo restas
-// malplena, por ke la ludo ne pagu la kradan logikon.
-// ⚠️ ĈI TIU FUNKCION-SEKCION DEVAS RESTI IDENTA al la RUNTIMOTEMPLATO en
-// iloj/tero-skulptilo.js — la savo de la skulptilo reskribas ĝin kune kun la
-// konstantoj ĉiun fojon.
-
-function dekodiInt16(kruda: string): Int16Array | null {
-  if ( kruda === "" ) return null;
-  try {
-    const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const datumoj = new Int16Array(bajtoj.length / 2);
-    const vido = new DataView(bajtoj.buffer);
-    for ( let i = 0; i < datumoj.length; i++ ) datumoj[i] = vido.getInt16(i * 2, true);
-    return datumoj;
-  } catch { return null; }
-}
-
-function dekodiMaskon(kruda: string, kvanto: number): Uint8Array | null {
-  if ( kruda === "" ) return null;
-  try {
-    const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const masko = new Uint8Array(kvanto);
-    for ( let i = 0; i < kvanto; i++ ) masko[i] = ( bajtoj[i >> 3] >> (i & 7) ) & 1;
-    return masko;
-  } catch { return null; }
-}
-
-const DELTAJ: Int16Array | null = SKULPTA_AKTIVA ? dekodiInt16(SKULPTA_DELTAJ) : null;
-const AKVA_MASKO: Uint8Array | null = SKULPTA_AKTIVA ? dekodiMaskon(SKULPTA_AKVA_MASKO, SKULPTA_N * SKULPTA_N) : null;
-const BIOMOJ: Uint8Array | null = SKULPTA_AKTIVA ? dekodiBiomon(SKULPTA_BIOMOJ, SKULPTA_N * SKULPTA_N) : null;
-const BESTOJ: Uint8Array | null = SKULPTA_AKTIVA ? dekodiBestojn(SKULPTA_BESTOJ, SKULPTA_N * SKULPTA_N) : null;
-
-function valoroDelto(i: number, j: number): number {
-  const ii = Math.max(0, Math.min(SKULPTA_N - 1, i));
-  const jj = Math.max(0, Math.min(SKULPTA_N - 1, j));
-  return DELTAJ![jj * SKULPTA_N + ii];
-}
-
-function valoroMasko(i: number, j: number): number {
-  const ii = Math.max(0, Math.min(SKULPTA_N - 1, i));
-  const jj = Math.max(0, Math.min(SKULPTA_N - 1, j));
-  return AKVA_MASKO![jj * SKULPTA_N + ii];
-}
-
-// ⟨ Samplaj funkcioj 📃 ⟩ — dukuba ( Katmull-Rom ) interpolo super la krado.
-
-// bicuba — Katmull-Rom unu-dimensia interpolo. Glata C1 kurbo sen la diagonalaj
-// faldoj de dulineara interpolo — la montodeklivoj ne plu montras krestojn laŭ
-// la krad-diagonaloj ( la sama funkcio kiel en iloj/tero-skulptilo.js ).
-function bicuba(p0: number, p1: number, p2: number, p3: number, t: number): number {
-  const t2 = t * t, t3 = t2 * t;
-  return 0o1/0o2 * ( ( 2 * p1 ) + ( -p0 + p2 ) * t
-    + ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t2 + ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t3 );
-}
-
-// skulptaDelta — La skulptita delto de la tereno cxe monda pozicio. La
-// valoro cxe kradnodoj restas ekzakte la ĉela valoro; inter la nodoj la
-// surfaco estas glata C1 — sen la dulinearaj diagonalaj krestoj.
-//     @param x, z ( number ) - Monda pozicio.
-//     @returns La delto en mondo-unuoj ( 0 se neniu skulptajxo ).
-export function skulptaDelta(x: number, z: number): number {
-  if ( !DELTAJ ) return 0;
-  const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
-  const fz = ( z - SKULPTA_ORIGINO[1] ) / SKULPTA_PASO;
-  const i0 = Math.floor(fx), j0 = Math.floor(fz);
-  const u = fx - i0, v = fz - j0;
-  const vico = ( j: number ) => bicuba(
-    valoroDelto(i0 - 1, j), valoroDelto(i0, j), valoroDelto(i0 + 1, j), valoroDelto(i0 + 2, j), u);
-  const m = bicuba(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v);
-  return m / 0o20;
-}
-
-// skulptitaAkvo — Cxu la punkto estas en la pentrita akvo ( la masko ).
-//     @param x, z ( number ) - Monda pozicio.
-//     @returns Cxu la masko kovras la punkton.
-export function skulptitaAkvo(x: number, z: number): boolean {
-  if ( !AKVA_MASKO ) return false;
-  const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
-  const fz = ( z - SKULPTA_ORIGINO[1] ) / SKULPTA_PASO;
-  const i0 = Math.floor(fx), j0 = Math.floor(fz);
-  const u = fx - i0, v = fz - j0;
-  const i1 = i0 + 1, j1 = j0 + 1;
-  const m = valoroMasko(i0, j0) * ( 1 - u ) * ( 1 - v )
-    + valoroMasko(i1, j0) * u * ( 1 - v )
-    + valoroMasko(i0, j1) * ( 1 - u ) * v
-    + valoroMasko(i1, j1) * u * v;
-  return m >= 0o1/0o2;
-}
-
-// skulptaAkvaLimoj — La plej malgranda kadro cxirkaŭ la pentrita akvo ( kun
-// unu cela rando da libero ), por ke la meshxo ne kovru la tutan mondon.
-// Nulaj se neniu akvo.
-//     @returns Kadro { x0, z0, x1, z1 } aux null.
-export function skulptaAkvaLimoj(): { x0: number; z0: number; x1: number; z1: number } | null {
-  if ( !AKVA_MASKO ) return null;
-  let imin = SKULPTA_N, imax = -1, jmin = SKULPTA_N, jmax = -1;
-  for ( let j = 0; j < SKULPTA_N; j++ ) {
-    for ( let i = 0; i < SKULPTA_N; i++ ) {
-      if ( AKVA_MASKO[j * SKULPTA_N + i] === 1 ) {
-        if ( i < imin ) imin = i;
-        if ( i > imax ) imax = i;
-        if ( j < jmin ) jmin = j;
-        if ( j > jmax ) jmax = j;
-      }
-    }
-  }
-  if ( imax < 0 ) return null;
-  const libero = 0o2;
-  return {
-    x0: SKULPTA_ORIGINO[0] + ( imin - libero ) * SKULPTA_PASO,
-    z0: SKULPTA_ORIGINO[1] + ( jmin - libero ) * SKULPTA_PASO,
-    x1: SKULPTA_ORIGINO[0] + ( imax + 1 + libero ) * SKULPTA_PASO,
-    z1: SKULPTA_ORIGINO[1] + ( jmax + 1 + libero ) * SKULPTA_PASO,
-  };
-}
-
-function dekodiBiomon(kruda: string, kvanto: number): Uint8Array | null {
-  if ( kruda === "" ) return null;
-  try {
-    const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const biomo = new Uint8Array(kvanto);
-    // 3 bitoj po ĉelo ( 0=aŭtomata, 1=montaro, 2=valo, 3=ebenaĵo,
-    // 4=akvaj-plantoj, 5=ekvizeto ) — ok ĉeloj po tri bajtoj.
-    for ( let i = 0; i < kvanto; i++ ) {
-      const b = i * 3;
-      biomo[i] = ( bajtoj[b >> 3] >> ( b & 7 ) )
-        | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 8 - ( b & 7 ) );
-      biomo[i] &= 7;
-    }
-    return biomo;
-  } catch { return null; }
-}
-
-function dekodiBestojn(kruda: string, kvanto: number): Uint8Array | null {
-  if ( kruda === "" ) return null;
-  try {
-    const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const bestoj = new Uint8Array(kvanto);
-    // 3 bitoj po ĉelo ( bitoj 1=akvaj bestoj, 2=petreloj, 4=NPC-oj ) — ok
-    // ĉeloj po tri bajtoj.
-    for ( let i = 0; i < kvanto; i++ ) {
-      const b = i * 3;
-      bestoj[i] = ( bajtoj[b >> 3] >> ( b & 7 ) )
-        | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 8 - ( b & 7 ) );
-      bestoj[i] &= 7;
-    }
-    return bestoj;
-  } catch { return null; }
-}
-
-// skulptitaBiomo — La pentrita biomo de la punkto ( la biomo-tavolo de la
-// skulptilo ). 0 = aŭtomata ( nenio ), 1 = montaro, 2 = valo, 3 = ebenaĵo,
-// 4 = akvaj-plantoj, 5 = ekvizeto. La ludo uzas gxin en biomo() ( tereno.ts )
-// — malplena ( 0 aux sen datumoj ) estas nenio, same kiel aŭtomata.
-//     @param x, z ( number ) - Monda pozicio.
-//     @returns La pentrita biomo ( 0-5 ), aux 0 se neniu biomo-tavolo.
-export function skulptitaBiomo(x: number, z: number): number {
-  if ( !BIOMOJ ) return 0;
-  const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
-  const fz = ( z - SKULPTA_ORIGINO[1] ) / SKULPTA_PASO;
-  const i = Math.max(0, Math.min(SKULPTA_N - 1, Math.floor(fx)));
-  const j = Math.max(0, Math.min(SKULPTA_N - 1, Math.floor(fz)));
-  return BIOMOJ[j * SKULPTA_N + i];
-}
-
-// skulptitaBesto — La pentrita besta zono de la punkto ( la besta-tavolo de
-// la skulptilo ). bitoj 1 = akvaj bestoj, 2 = petreloj, 4 = NPC-oj — ĉelo
-// povas teni PLURAJN samtempe ( 3 = akvaj+petreloj, ktp ), kaj la defaŭltaj
-// lokoj estas bakitaj en la tavolon. Malplena ( 0 aux sen datumoj ) estas
-// nenio — nenia besto tie.
-//     @param x, z ( number ) - Monda pozicio.
-//     @returns La pentritaj bestaj bitoj ( 0-7 ), aux 0 se neniu besta-tavolo.
-export function skulptitaBesto(x: number, z: number): number {
-  if ( !BESTOJ ) return 0;
-  const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
-  const fz = ( z - SKULPTA_ORIGINO[1] ) / SKULPTA_PASO;
-  const i = Math.max(0, Math.min(SKULPTA_N - 1, Math.floor(fx)));
-  const j = Math.max(0, Math.min(SKULPTA_N - 1, Math.floor(fz)));
-  return BESTOJ[j * SKULPTA_N + i];
-}
-`;
 // La dosieraj titoloj — ĉiu datumodosiero komenciĝas per sia markilo, kiun la
 // konserva servilo kontrolas ( neniu fremda enhavo skribiĝas en src/ ).
+// rultempo.ts NE plu skribiĝas de la savo — ĝi estas la komuna modulo kies
+// funkciojn la skulptilo importas ( vidu la importon de tero-datumaro/rultempo ).
 const DOSIERA_TITOLO = {
   "tero-datumaro/krado.ts": "// ≺⧼ Skulptita krado 📃 ⧽≻",
   "tero-datumaro/akvo.ts": "// ≺⧼ Skulptita akvo 📃 ⧽≻",
   "tero-datumaro/biomoj.ts": "// ≺⧼ Skulptitaj biomoj 📃 ⧽≻",
   "tero-datumaro/bestoj.ts": "// ≺⧼ Skulptitaj bestoj 📃 ⧽≻",
-  "tero-datumaro/rultempo.ts": "// ≺⧼ Skulptita rultempo 📃 ⧽≻",
   "tero-datumaro/objektoj.ts": "// ≺⧼ Skulptitaj objektoj 📃 ⧽≻",
   "tero-datumaro/urboj.ts": "// ≺⧼ Skulptitaj urboj 📃 ⧽≻",
   "tero-datumaro/vojoj.ts": "// ≺⧼ Skulptitaj vojoj 📃 ⧽≻",
 };
 // La datumoj vivas en PROPRAJ dosieroj ( la krado, akvo, biomoj, bestoj, la
-// rultempo, la objektoj, la urboj kaj la vojoj/dokoj aparte ) — la savo
-// produktas la tutan mapon de dosieroj en src/tero-datumaro/.
+// objektoj, la urboj kaj la vojoj/dokoj aparte ) — la savo produktas la tutan
+// mapon de dosieroj en src/tero-datumaro/ ( rultempo.ts ne plu skribiĝas ).
 function generiDosierojn(){
+  sinkronigiSuperojn();   // la vivaj ĉel-superoj al la urbo-datumo antaŭ la skribo
   const kvantigita = kvantigiDeltojn();
   // Apartaj aktiva-flagoj — akvo-nuraj ŝanĝoj ne devas ŝveligi la dosieron
   // per 32 KB da nulaj deltoj, kaj inverse.
@@ -4000,7 +3768,7 @@ function generiDosierojn(){
   const aktiva = deltojAktivaj || maskoAktiva || biomojAktivaj || bestojAktivaj;
   const komunajKom = [
     "// Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).",
-    "// ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.",
+    "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.",
   ];
   const kradoTeksto = [
     "// ≺⧼ Skulptita krado 📃 ⧽≻",
@@ -4036,18 +3804,6 @@ function generiDosierojn(){
     "// ⟨ La besta-tavolo 📃 ⟩ ( bitoj 1=akvaj bestoj, 2=petreloj, 4=NPC-oj ).",
     "export const SKULPTA_BESTOJ = " + JSON.stringify(besto64) + ";",
   ].join("\n");
-  const rultempoTeksto = [
-    "// ≺⧼ Skulptita rultempo 📃 ⧽≻",
-    ...komunajKom,
-    "",
-    "// La malkodaj kaj samplaj funkcioj — sen gxi la ludo ne povas legi la",
-    "// datumaron. La savo devas produkti kompletan modulon.",
-    "import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ } from \"./krado.js\";",
-    "import { SKULPTA_AKVA_MASKO } from \"./akvo.js\";",
-    "import { SKULPTA_BIOMOJ } from \"./biomoj.js\";",
-    "import { SKULPTA_BESTOJ } from \"./bestoj.js\";",
-    RUNTIMOTEMPLATO,
-  ].join("\n");
   // La metitaj objektoj — la sama nombro-stilo kiel la cetera datumaro.
   const objektoTeksto = [
     "// ≺⧼ Skulptitaj objektoj 📃 ⧽≻",
@@ -4055,7 +3811,7 @@ function generiDosierojn(){
     "// La metitaj objektoj de la objekta ilo de la terena skulptilo — la kanuoj",
     "// 🛶, la spacosxipo 🚀, la lampoj 🏮, la keuxfhxesoj ⭐ kaj la individuaj",
     "// konstruajxoj 🏛️ estas ankaŭ objektoj. Malplena = neniu objekto.",
-    "// Cxiu objekto: x, z ( 0.25-algluita ), speco ( betulo | lariko | hxsxaksxlefo",
+    "// Cxiu objekto - x, z ( 0.25-algluita ), speco ( betulo | lariko | hxsxaksxlefo",
     "// | pussxlefo | roko | filiko | akvabesto | petrelo | npco | sanktejo | turo",
     "// | domo | mangxejo | kasafeo | stacio | hxeuxfo | hxeuxfoPlato | keuxfhxeso | kanuo | spacosxipo ),",
     "// skalo, rotacio, bestospeco, radio, vesto, harstilo, filikaSpeco, stilo.",
@@ -4065,9 +3821,10 @@ function generiDosierojn(){
     "// ≺⧼ Skulptitaj urboj 📃 ⧽≻",
     ...komunajKom,
     "// La urboj de la mondo — la kradaj arangxoj kaj ofsetoj redaktataj per la",
-    "// Krado-langeto. La unua urbo estas la cefa. Cxiu urbo: nomo, arangxaGrando,",
+    "// Krado-langeto. La unua urbo estas la cefa. Cxiu urbo - nomo, arangxaGrando,",
     "// blokaGrando ( unu | kvar ), ofsX, ofsZ, keuxfhxeso ( la kvar anguloj ĉirkaŭ",
-    "// la centro ), lampoj ( la kvar-lampa strato-ŝablono ) kaj aldonajBlokoj",
+    "// la centro ), lampoj ( la kvar-lampa strato-ŝablono ), superoj ( la manaj",
+    "// ĉel-superoj — \"c,r\" kaj \"c,r,SUB\" → tipo ) kaj aldonajBlokoj",
     "// ( x, z, tipo, rot, sub, stacia, konektita ).",
     "export const SKULPTA_URBOJ = " + skribiValoron(urboj) + ";",
   ].join("\n");
@@ -4085,7 +3842,6 @@ function generiDosierojn(){
     "tero-datumaro/akvo.ts": akvoTeksto,
     "tero-datumaro/biomoj.ts": biomoDosiero,
     "tero-datumaro/bestoj.ts": bestoDosiero,
-    "tero-datumaro/rultempo.ts": rultempoTeksto,
     "tero-datumaro/objektoj.ts": objektoTeksto,
     "tero-datumaro/urboj.ts": urboTeksto,
     "tero-datumaro/vojoj.ts": vojoTeksto,
@@ -4128,34 +3884,54 @@ function sxargiDatumaronElMapo(dosieroj) {
   }
   const nivelo2 = oktalaNombro(preni("SKULPTA_AKVA_NIVELO"));
   const malpaku = ( s ) => ( s === null ? null : s.replace(/^"|"$/g, "") );
-  deltoj.fill(0);
-  masko.fill(0);
-  biomoj.fill(0);
-  bestoj.fill(0);
-  const d = dekodiInt16(malpaku(preni("SKULPTA_DELTAJ")));
-  if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 16;
-  const m = dekodiMaskon(malpaku(preni("SKULPTA_AKVA_MASKO")), N * N);
-  if ( m ) masko.set(m);
-  const b = dekodiBiomon(malpaku(preni("SKULPTA_BIOMOJ")), N * N);
-  if ( b ) biomoj.set(b);
-  const be = dekodiBestojn(malpaku(preni("SKULPTA_BESTOJ")), N * N);
-  if ( be ) bestoj.set(be);
+  // Cxiu tavolo ŝarĝigxas NUR kiam ĝia ŝlosilo ekzistas en la donitaj
+  // dosieroj — la ŝargo de unu tavolo-dosiero ( ekz. biomoj.ts ) ne plu
+  // forviŝas la ceterajn tavolojn, la objektojn aŭ la urbojn.
+  const deltaKruda = malpaku(preni("SKULPTA_DELTAJ"));
+  if ( deltaKruda !== null ) {
+    deltoj.fill(0);
+    const d = dekodiInt16(deltaKruda);
+    if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 16;
+  }
+  const maskoKruda = malpaku(preni("SKULPTA_AKVA_MASKO"));
+  if ( maskoKruda !== null ) {
+    masko.fill(0);
+    const m = dekodiMaskon(maskoKruda, N * N);
+    if ( m ) masko.set(m);
+  }
+  const biomoKruda = malpaku(preni("SKULPTA_BIOMOJ"));
+  if ( biomoKruda !== null ) {
+    biomoj.fill(0);
+    const b = dekodiBiomon(biomoKruda, N * N);
+    if ( b ) biomoj.set(b);
+  }
+  const bestoKruda = malpaku(preni("SKULPTA_BESTOJ"));
+  if ( bestoKruda !== null ) {
+    bestoj.fill(0);
+    const be = dekodiBestojn(bestoKruda, N * N);
+    if ( be ) bestoj.set(be);
+  }
   const oj = preni("SKULPTA_OBJEKTOJ");
-  try { objektoj = oj ? parziValoron(oj) : []; } catch { objektoj = []; }
-  elektitaObjekto = -1;
-  gxisdatigiObjektoListon();
-  rekonstruiObjektojn();
+  if ( oj !== null ) {
+    try { objektoj = parziValoron(oj) ?? []; } catch { }
+    elektitaObjekto = -1;
+    gxisdatigiObjektoListon();
+    rekonstruiObjektojn();
+  }
   const voj = preni("SKULPTA_VOJOJ");
   const dok = preni("SKULPTA_DOKOJ");
   const uj = preni("SKULPTA_URBOJ");
   try {
-    const parzitaj = uj ? parziValoron(uj) : [];
-    urboj = Array.isArray(parzitaj) ? parzitaj.map(u => ( {
+    const parzitaj = uj !== null ? parziValoron(uj) : null;
+    if ( parzitaj && Array.isArray(parzitaj) && parzitaj.length ) urboj = parzitaj.map(u => ( {
       nomo: String(u && u.nomo !== undefined ? u.nomo : "Urbo"),
       arangxaGrando: Number(u && u.arangxaGrando) || 1,
       blokaGrando: u && u.blokaGrando === "kvar" ? "kvar" : "unu",
       ofsX: Number(u && u.ofsX) || 0,
       ofsZ: Number(u && u.ofsZ) || 0,
+      keuxfhxeso: !!( u && u.keuxfhxeso ),
+      lampoj: !( u && u.lampoj === false ),
+      superoj: u && u.superoj && typeof u.superoj === "object" && !Array.isArray(u.superoj) ? { ...u.superoj } : undefined,
       aldonajBlokoj: Array.isArray(u && u.aldonajBlokoj) ? u.aldonajBlokoj.map(b => ( {
         x: Number(b && b.x) || 0,
         z: Number(b && b.z) || 0,
@@ -4165,8 +3941,8 @@ function sxargiDatumaronElMapo(dosieroj) {
         stacia: !!( b && b.stacia ),
         konektita: !!( b && b.konektita ),
       } )) : [],
-    } )) : [];
-  } catch { urboj = []; }
+    } ));
+  } catch { }
   if ( !urboj.length ) urboj = [ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
   elektitaUrbo = Math.max(0, Math.min(elektitaUrbo, urboj.length - 1));
   elektiUrbon(elektitaUrbo);
@@ -4357,8 +4133,12 @@ async function sargiDosieron(){
     const dosiero = await tenilo.getFile();
     const teksto = await dosiero.text();
     if ( sxargiDatumaronElMapo({ [ tenilo.name ]: teksto }) ) {
-      await konserviDosieranTenilon(tenilo, tenilo.name);
-      dosierajTeniloj[tenilo.name] = tenilo;
+      // Memoru la tenilon sub la PLENA dosier-nomo ( la sama ŝlosilo kiun
+      // la savo uzas ) — antaŭe la mallonga nomo neniam kongruis kaj la
+      // memorita tenilo estis neniam reuzita.
+      const nomo = Object.keys(DOSIERA_TITOLO).find(n => n.split("/").pop() === tenilo.name) ?? tenilo.name;
+      await konserviDosieranTenilon(tenilo, nomo);
+      dosierajTeniloj[nomo] = tenilo;
       statuso("Ŝargite el " + tenilo.name + " 📂");
     } else {
       statuso("La dosiero ne estas skulpta datumaro");

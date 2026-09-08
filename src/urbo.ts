@@ -16,7 +16,7 @@ import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantoj
 import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxoj.js";
 import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, konstruiRondajnKapojn, VojDifino } from "../assets/medio/vojoj.js";
 import { konstruiDokon } from "../assets/medio/doko.js";
-import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton } from "./krado.js";
+import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton, superajElDatumo } from "./krado.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../assets/mebloj/keuxfhxeso.js";
@@ -91,6 +91,11 @@ export interface SkulptaUrbo {
   // la krado — la spacosxipa stacio de la cefa urbo estas unu ). La ludo
   // konstruas ilin per la bloka konstruanto ( aldoniBlokon ).
   aldonajBlokoj?: AldonaBloko[];
+  // La konservitaj ĉel-superoj de la terena skulptilo ( "c,r" → tipo aux
+  // "c,r,SUB" → tipo por la kvar-blokaj sub-konstruajxoj ). La ludo aplikas
+  // ilin al la generita krado — la samaj redaktoj kiujn la Krado-langeto
+  // faras ( vidu superajElDatumo en krado.ts ).
+  superoj?: Record<string, string>;
 }
 
 // SkulptaVojo — unu mond-nivela vojo ( SKULPTA_VOJOJ en src/tero-datumaro/vojoj.ts ).
@@ -263,9 +268,25 @@ function konstruiKradanUrbon(
   andezitaMaterialo: THREE.MeshStandardMaterial,
   oraMaterialo: THREE.MeshStandardMaterial,
   aldonajBlokoj: AldonaBloko[] = [],
+  superoj?: Map<string, CellType>,
 ): KradaUrbaRezulto {
   const [ ofsX, ofsZ ] = ofseto;
   const ĉeloj = kreiKradon(arangxo);
+  // La manaj ĉel-superoj de la skulptilo — la sama aplikado kiel en
+  // kreiKradanPlanon ( krado.ts ). Anstataŭigo de ekzistanta ĉelo ŝanĝas
+  // ĝian tipon; nova ŝlosilo ALDONAS ĉelon ( la voja reto konstruiĝas
+  // ĉirkaŭ ĝi kiel ĉe la generitaj ĉeloj ). La sub-ŝlosiloj ( "c,r,NE" )
+  // traktiĝas en la kvar-blokaj sub-konstruajxoj sube.
+  if ( superoj ) {
+    for ( const [ ŝ, tipo ] of superoj ) {
+      const partoj = ŝ.split(",");
+      if ( partoj.length !== 2 ) continue;
+      const [ c, r ] = partoj.map(Number);
+      const ind = ĉeloj.findIndex(( [ lc, lr ] ) => lc === c && lr === r);
+      if ( ind >= 0 ) ĉeloj[ind] = [ c, r, tipo ];
+      else ĉeloj.push([ c, r, tipo ]);
+    }
+  }
   const kolizioj: { x: number; z: number; r: number }[] = [];
   // La krado-derivaĵoj — komuna kun la skulptilo ( src/krado.ts ). PASXO 24/40,
   // stacio 24 norde de la pinto, kvadrata stacidoma ringo 24×24 ĉirkaŭ la
@@ -321,7 +342,11 @@ function konstruiKradanUrbon(
         [ BLOKO, -BLOKO, Math.PI/2 ],   // sud-oriento — frontas orienten ( +x )
       ];
       for ( const [ blx, blz, rot ] of suboj ) {
-        kreiSpecon(cx + blx, cz + blz, tipoDeBloko(type, col, row, blx, blz), rot, "kvar");
+        // La sub-supero ( "c,r,NE" ktp ) ŝanĝas la INDIVIDUAN konstruaĵon
+        // super la blokan miksadon — la sama decido kiel kreiKradanPlanon.
+        const subNomo = blx > 0 ? ( blz > 0 ? "NE" : "SE" ) : ( blz > 0 ? "NW" : "SW" );
+        const subTipo = superoj?.get(col + "," + row + "," + subNomo);
+        kreiSpecon(cx + blx, cz + blz, subTipo ?? tipoDeBloko(type, col, row, blx, blz), rot, "kvar");
       }
     } else {
       kreiSpecon(cx, cz, type, 0);
@@ -579,7 +604,10 @@ function konstruiKradanUrbon(
   // La doka avenuo ( mond-nivela vojo, konstruita poste en konstruiUrbon )
   // daŭrigas la NS-vojon ĉe x=ringoX SUDEN de ĝia fino ( sudaVojo ) ĝis la
   // kajo ( -0o130 ) — la spronoj de la sudaj konstruaĵoj atingas ĝin, do la
-  // ekstento de tiu vojo-linio etendiĝas tien.
+  // ekstento de tiu vojo-linio etendiĝas tien. La fina z nur PRECIZIGAS la
+  // vojan finon — la avenuo-punktoj de la skulptilo povas komenciĝi iom
+  // poste ( aparta redaktebla polilinio ), do la krado ETENDIGAS la linion
+  // ĝis la kajo kaj la kunigo restas kontinua sen fendo.
   if ( arangxo.blokaGrando === "unu" ) {
     const ekst = NS_ekstentoj.get(ofsX + ringoX);
     if ( ekst ) ekst[0] = Math.min(ekst[0], ofsZ - 0o130);
@@ -805,7 +833,7 @@ export async function konstruiUrbon(
   const urboj = urboListo.map(u => konstruiKradanUrbon(sceno,
     { arangxaGrando: u.arangxaGrando, blokaGrando: u.blokaGrando, keuxfhxeso: !!u.keuxfhxeso, lampoj: u.lampoj !== false },
     [ u.ofsX, u.ofsZ ], dioritaMaterialo, andezitaMaterialo, oraMaterialo,
-    u.aldonajBlokoj ?? []));
+    u.aldonajBlokoj ?? [], superajElDatumo(u.superoj)));
   const cefa = urboj[0];
   await raporti();
 

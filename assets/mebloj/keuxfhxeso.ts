@@ -54,9 +54,10 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   const cx = W * 0o4 / 0o10;
   const cy = H * 0o4 / 0o10;
 
-  // ── Foliaj finoj. Mildaj koloraj bandoj ĉe ambaŭ randoj ( unue, por ke
-  // ili ne kovru la foliajn desegnojn ) — la supro uzas la supran folian
-  // koloron, la malsupro la suban, do la poloj kunfandiĝas kun la folioj. ──
+  // ⟨ Foliaj finoj ⟩
+  // Mildaj koloraj bandoj ĉe ambaŭ randoj ( unue, por ke ili ne kovru la
+  // foliajn desegnojn ) — la supro uzas la supran folian koloron, la
+  // malsupro la suban, do la poloj kunfandiĝas kun la folioj.
   // La travideblaj finoj uzas 8-ciferan heks ( #rrggbbaa ), do ili restas
   // konektitaj al la foliaj kolor-konstantoj — neniu dis-sinkroniĝo.
   const gr = k.createLinearGradient(0, 0, 0, H * 0o1 / 0o10);
@@ -264,6 +265,8 @@ function starfruktKorpo(rEkstera: number, alto: number, ringoj: number): THREE.B
   // La sekco-radiuso de ĉiu punkto ( 1 ĉe la krestoj, ≈ 0o45/0o100 ĉe la
   // valoj ). Uzata por miksi la stelon al cirklo ĉe la fundo.
   const stelFrakcioj = sekco.map(p => Math.hypot(p.x, p.y) / rEkstera);
+  // La inversoj anticipe — unu multipliko po verto anstataŭ divido.
+  const stelFrakciojRecip = stelFrakcioj.map(f => 1 / f);
   const RONDO = 0o2 / 0o10;   // 0.25 — la funda zono kie la stelo fariĝas cirklo
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
@@ -283,7 +286,7 @@ function starfruktKorpo(rEkstera: number, alto: number, ringoj: number): THREE.B
     for ( let j = 0; j < N; j++ ) {
       const p = sekco[j];
       const rf = w * stelFrakcioj[j] + ( 1 - w );   // → 1 ( cirklo ) ĉe la fundo
-      pozicioj.push(p.x * s * rf / stelFrakcioj[j], y, p.y * s * rf / stelFrakcioj[j]);
+      pozicioj.push(p.x * s * rf * stelFrakciojRecip[j], y, p.y * s * rf * stelFrakciojRecip[j]);
       uvoj.push(( j % L ) / ( L - 1 ), t);
     }
   }
@@ -322,12 +325,11 @@ function krestaRipo(rEkstera: number, alto: number, ang: number, dikeco: number)
     // La polo sekvas la saman ovalan profilon kiel la muro. ĝi maldikiĝas
     // glate al rondaj finoj kaj ne restas kiel elstara bulo ĉe la supro aŭ bazo.
     // Ĉe ĉiu alto la ekstera flanko de la polo restas ene de la muro-radiuso.
-    const finaRondigo = s;
     const cx = Math.cos(ang) * centroR * s;
     const cz = Math.sin(ang) * centroR * s;
     // Pli akra taper ĉe la finoj konservas la oran polon kiel maldikan,
     // rondan randon; ĝi ne formas ŝvelan bulon ĉe la supro aŭ malsupro.
-    const r = tuboRadiuso * ( 0o4/0o10 + 0o16/0o100 * Math.pow(finaRondigo, 0o20 / 0o10) );
+    const r = tuboRadiuso * ( 0o4/0o10 + 0o16/0o100 * Math.pow(s, 0o20 / 0o10) );
     for ( let j = 0; j < flankoj; j++ ) {
       const a = j / flankoj * Math.PI * 0o2;
       pozicioj.push(cx + Math.cos(a) * r, t * alto, cz + Math.sin(a) * r);
@@ -343,6 +345,12 @@ function krestaRipo(rEkstera: number, alto: number, ang: number, dikeco: number)
   }
   return kreiBuferanGeometrion(pozicioj, indeksoj);
 }
+
+// La folia teksajxo kaj la mura materialo estas identaj por ĉiuj strukturoj —
+// stoku ilin module-nivele, do pluraj konstruoj kunhavas ilin anstataŭ
+// rekrei kanvasan teksturon po voko.
+let foliaTeksajxoStoko: THREE.CanvasTexture | null = null;
+let muraMaterialoStoko: THREE.MeshStandardMaterial | null = null;
 
 // konstruiKeuxfhxeso - Konstruu la starfruktajn strukturojn en la donitaj
 // lokoj. Cxiuj geometrioj estas kunfanditaj laux materialo, do la tuta aro
@@ -362,13 +370,22 @@ export function konstruiKeuxfhxeso(sceno: THREE.Scene,
   const R = 0o63/0o100;     // 0o63/0o100 - pli maldika kiel antaŭe
   const ALTO = 0o36 / 0o10; // 3.6 — pli malalta, pli kompakta strukturo
 
+  // Ŝablonoj — la korpo kaj la ses ripoj estas identaj por ĉiu loko, do ili
+  // konstruiĝas unufoje kaj kloniĝas po loko ( la klonado kostas multe malpli
+  // ol la geometria konstruo ).
+  const korpaSablono = starfruktKorpo(R, ALTO, 0o40);
+  const ripajSablonoj: THREE.BufferGeometry[] = [];
+  for ( let k = 0; k < 6; k++ ) {
+    ripajSablonoj.push(krestaRipo(R, ALTO, k * Math.PI / 3, 0o4 / 0o100));
+  }
+
   for ( const l of lokoj ) {
     const h0 = alteco(l.x, l.z);
     const rot = l.rot ?? 0;
     const M = new THREE.Matrix4().makeRotationY(rot);
 
     // La korpo sidas rekte sur la tero.
-    const korpo = starfruktKorpo(R, ALTO, 0o40);
+    const korpo = korpaSablono.clone();
     korpo.applyMatrix4(M);
     korpo.translate(l.x, h0, l.z);
     murajGeometrioj.push(korpo);
@@ -378,7 +395,7 @@ export function konstruiKeuxfhxeso(sceno: THREE.Scene,
     // La dezajno ( stelo + radioj ) estas parto de la mura TEKSTURO, bakita
     // sur cxiun folion - neniu elstara geometrio.
     for ( let k = 0; k < 6; k++ ) {
-      const ripo = krestaRipo(R, ALTO, k * Math.PI / 3, 0o4 / 0o100);
+      const ripo = ripajSablonoj[k].clone();
       ripo.applyMatrix4(M);
       ripo.translate(l.x, h0, l.z);
       kadrajGeometrioj.push(ripo);
@@ -386,14 +403,17 @@ export function konstruiKeuxfhxeso(sceno: THREE.Scene,
   }
 
   const grupo = new THREE.Group();
-  const teksajxo = kreiFolianTeksajxon();
-  // La mura koloro estas blanka, cxar la helblua-verda bazo estas BAKITA en
-  // la teksturon ( #a0c8b0 ) - tiel la korpo estas tute opaka, neniu
-  // travidebla centro, kaj la kolora dezajno sxajnas presita sur la folio.
-  const muraMaterialo = new THREE.MeshStandardMaterial({
-    color: 0xffffff, roughness: 0o6 / 0o10, metalness: 0,
-    map: teksajxo,
-  });
+  if ( !muraMaterialoStoko ) {
+    foliaTeksajxoStoko = kreiFolianTeksajxon();
+    // La mura koloro estas blanka, cxar la helblua-verda bazo estas BAKITA en
+    // la teksturon ( #a0c8b0 ) - tiel la korpo estas tute opaka, neniu
+    // travidebla centro, kaj la kolora dezajno sxajnas presita sur la folio.
+    muraMaterialoStoko = new THREE.MeshStandardMaterial({
+      color: 0xffffff, roughness: 0o6 / 0o10, metalness: 0,
+      map: foliaTeksajxoStoko,
+    });
+  }
+  const muraMaterialo = muraMaterialoStoko;
 
   const korpoj = new THREE.Mesh(kunfandiGeometriojn(murajGeometrioj), muraMaterialo);
   korpoj.castShadow = korpoj.receiveShadow = true;

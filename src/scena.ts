@@ -5,6 +5,7 @@ import { alteco, akvaNivelo, glataPaso } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
 import { kreiTerenanTeksajxon, kreiNebulTavolanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
+import { bruo2D, alternajDiagonalojn, terenaKoloroEn } from "../assets/komunajxoj/terenkoloroj.js";
 
 export function montriEraronon(sxargxaEl: HTMLElement): void {
   const d = document.createElement("div");
@@ -735,56 +736,23 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     }
   } )();
 
-  // bruo2D — izotropa valora bruo ( hash-bazita, glate interpolita ) en [0,1].
-  // La antaŭa du-oktava SIN-bruo havis ondofrontojn laŭ la diagonaloj — sur la
-  // plata natura tereno ĝi montris videblajn DIAGONALAJN STRIOJN, precipe en la
-  // mapo. Ĉi tiu bruo havas neniun preferatan direkton — natura makuleco.
-  function bruo2D(x: number, z: number): number {
-    const ix = Math.floor(x), iz = Math.floor(z);
-    const fx = x - ix, fz = z - iz;
-    const h = ( xi: number, zi: number ): number => {
-      let n = ( xi * 0x28f0f0 + zi * 0x28d8e8 ) | 0;
-      n = ( n ^ ( n >>> 13 ) ) * 0x48a028;
-      return ( ( n ^ ( n >>> 16 ) ) >>> 0 ) / 4294967296;
-    };
-    const a = h(ix, iz), b = h(ix + 1, iz), c = h(ix, iz + 1), d = h(ix + 1, iz + 1);
-    const u = fx * fx * ( 3 - 2 * fx );
-    const v = fz * fz * ( 3 - 2 * fz );
-    return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
-  }
+  // bruo2D — la izotropa valora bruo venas de la komuna modulo ( la sama
+  // funkcio kiel en la terena skulptilo — antaŭe kopiita ĉi tie ).
 
   // Grundo
   ( function konstruiTerenon(grandeco: number, segmentoj: number): void {
     const g = new THREE.PlaneGeometry(grandeco, grandeco, segmentoj, segmentoj);
     g.rotateX(-Math.PI / 2);
-    // Alternantaj triangul-diagonaloj ( ŝaktabulo ) — la antaŭa konsekvenca
-    // diagonalo montris longajn krestojn sur la montodeklivoj ( la sama
-    // korekto kiel en la skulptilo kaj la dukuba tereno-interpolo ).
-    {
-      const sx = segmentoj + 1;
-      const indeksoj: number[] = [];
-      for ( let j = 0; j < segmentoj; j++ ) {
-        for ( let i = 0; i < segmentoj; i++ ) {
-          const a = j * sx + i, b = a + 1, c = a + sx, d = c + 1;
-          if ( ( i + j ) % 2 === 0 ) {
-            indeksoj.push(a, c, d, a, d, b);
-          } else {
-            indeksoj.push(a, c, b, c, d, b);
-          }
-        }
-      }
-      g.setIndex(indeksoj);
-    }
+    // Alternantaj triangul-diagonaloj ( ŝaktabulo ) — la komuna konstruanto
+    // ( la sama korekto kiel en la skulptilo kaj la dukuba tereno-interpolo ).
+    g.setIndex(alternajDiagonalojn(segmentoj));
     const pozicio = g.attributes.position;
     const koloroj = new Float32Array(pozicio.count * 3);
-    // Naturaj koloroj — la sama harmonia paletro kiel en la skulptilo — la
-    // malseketaj oliv-herbejaj nuancoj de la malnova grundo, kun du-oktava
-    // bruo, malseka lito apud la akvo, sekherba deklivo, roko ( dekliva kaj
-    // alta ) kaj neĝo sur la pintoj.
-    const a = new THREE.Color(0x485848), b = new THREE.Color(0x587058);
-    const lito = new THREE.Color(0x384848), profunda = new THREE.Color(0x283838);
-    const sekherbo = new THREE.Color(0x787850);
-    const roko = new THREE.Color(0x787868), nego = new THREE.Color(0xe0e8f0);
+    // Naturaj koloroj — la KOMUNA paletro ( assets/komunajxoj/terenkoloroj.ts
+    // ) — la malseketaj oliv-herbejaj nuancoj de la malnova grundo, kun
+    // du-oktava bruo, malseka lito apud la akvo, sekherba deklivo, roko
+    // ( dekliva kaj alta ) kaj neĝo sur la pintoj. La skulptilo uzas la
+    // saman funkcion, do la 2D-mapo kaj la 3D-vido de la ilo kongruas.
     const c = new THREE.Color();
     // La samplo de la alteco unufoje po vertico; la deklivo tiam legas la
     // najbajn altojn ( nula kroma kosto de la varmega alteco-funkcio ).
@@ -803,27 +771,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const deklivo = ( cxelo > 0 && cxelo < sx - 1 && i >= sx && i < pozicio.count - sx )
         ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + sx] - hoj[i - sx]) / ( 2 * pasxo )
         : 0;
-      // Du-oktava IZOTROPA valora bruo — natura makuleco sen direkto ( la
-      // antaŭa sin-bruo montris diagonalajn striojn sur la plata tereno ).
-      // Milda amplitudo — la makuleco restas subtila, ne bendoj.
-      const t = Math.max(0, Math.min(1,
-        0o4/0o10 + 0o2/0o10 * ( 2 * bruo2D(x / 0o60, z / 0o60) - 1 )
-        + 0o4/0o100 * ( 2 * bruo2D(x / 0o14, z / 0o14) - 1 )));
-      c.copy(a).lerp(b, t);
-      if ( h < -2 ) c.lerp(lito, Math.min(1, ( h + 2 ) / -3));
-      if ( h < -5 ) c.lerp(profunda, Math.min(1, ( h + 5 ) / -0o115/0o100));
-      // Sekherba zono inter la herbejo kaj la roko — la montetoj sekigas.
-      if ( h > 0o10 ) c.lerp(sekherbo, Math.min(1, ( h - 0o10 ) / 0o10));
-      // Rokego — kaj sur krutaj deklivoj ( kie la grundo ne tenas kreskajxon,
-      // eĉ sub la arbolinio; la bordo de la rivero/lago restas herba ) kaj
-      // super la arbolinio ( h > ~0o22 ).
-      const rokF = Math.max(
-        Math.max(0, Math.min(1, ( deklivo - 0o45/0o100 ) / 0o5/0o10)),
-        Math.max(0, Math.min(1, ( h - 0o22 ) / 0o20))
-);
-      c.lerp(roko, rokF);
-      // Neĝo sur la pintoj ( la montaro pintas ĝis ~0o60 ).
-      if ( h > 0o46 ) c.lerp(nego, Math.min(1, ( h - 0o46 ) / 0o10));
+      terenaKoloroEn(c, h, x, z, deklivo);
       koloroj[i * 3] = c.r; koloroj[i * 3 + 1] = c.g; koloroj[i * 3 + 2] = c.b;
     }
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
