@@ -455,6 +455,19 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
 //     @param deltaTempo ( number ) - Delta tempo en sekundoj.
 //     @param t ( number ) - Malsupra tempo por oscedoj.
 //     @param alteco ( funkcio ) - Tera alta funkcio por sekvi la terenon.
+// marŝSvingo — La komuna marŝa ritmo de ĉiuj figuroj ( ludanto, foraj ludantoj,
+// NPC-oj ) — kontraŭfazaj kruroj kaj brakoj plus la eta paŝa bobado. La sama
+// ritmo kiel la fotila bobado; movo = 0 donas la silentan sidan/sinkan pozon.
+export function marŝSvingo(fig: Pick<Figuro, "group" | "kruroj" | "brakoj">, paso: number, movo: number): void {
+  const svingoKruro = 0o3/0o10 * movo * paso;
+  fig.kruroj[0].rotation.x = -svingoKruro;
+  fig.kruroj[1].rotation.x = svingoKruro;
+  const svingoBrako = 0o2/0o10 * movo * paso;
+  fig.brakoj[0].rotation.x = svingoBrako;
+  fig.brakoj[1].rotation.x = -svingoBrako;
+  fig.group.position.y += Math.abs(paso) * 0o2/0o100 * movo;
+}
+
 export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco: ( x: number, z: number ) => number): void {
   fig.atendo -= deltaTempo;
   if ( fig.atendo <= 0 ) {
@@ -481,17 +494,9 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco
   }
   // Sta-svingo — eta balancado nur kiam oni staras, por ke la figuro ne ŝtoniĝu.
   fig.group.rotation.z = Math.sin(t * 0o115/0o100 + fig.hejmo.x) * 0o1/0o100 * ( 0o1 - movo );
-  // Paŝa bobado — la korpo iomete levigxas kaj mallevigxas kun la paŝoj.
-  fig.group.position.y += Math.abs(paso) * 0o2/0o100 * movo;
-  // Krura svingo — la maldekstra kaj dekstra kruroj marŝas kontraŭfaze ĉirkaŭ
-  // la koksa pivoto ( negativa rotation.x puŝas la piedon antaŭen, +z ).
-  const svingoKruro = 0o3/0o10 * movo * paso;
-  fig.kruroj[0].rotation.x = -svingoKruro;
-  fig.kruroj[1].rotation.x = svingoKruro;
-  // Braka svingo — kontraŭa al la samflanka kruro ( natura marŝa ritmo ), kun
-  // malgranda idla balancado dum starado.
-  const svingoBrako = 0o2/0o10 * movo * paso;
+  // Krura kaj braka svingo plus paŝa bobado — la komuna marŝa ritmo.
   const idlaBrako = Math.sin(t * 0o7 + fig.hejmo.z) * 0o2/0o100 * ( 0o1 - movo );
-  fig.brakoj[0].rotation.x = svingoBrako + idlaBrako;
-  fig.brakoj[1].rotation.x = -svingoBrako - idlaBrako;
+  marŝSvingo(fig, paso, movo);
+  fig.brakoj[0].rotation.x += idlaBrako;
+  fig.brakoj[1].rotation.x -= idlaBrako;
 }

@@ -3,7 +3,7 @@
 // la aliaj ludantoj. La foraj ludantoj aperas kiel figuroj ( la sama modelo
 // kiel la NPC-oj ), kun glata sekvo de iliaj pozicioj kaj marŝaj animacioj.
 import * as THREE from "three";
-import { konstruiFiguron } from "../assets/shalaj-specioj/homoj.js";
+import { konstruiFiguron, marŝSvingo } from "../assets/shalaj-specioj/homoj.js";
 import type { Figuro } from "../assets/shalaj-specioj/homoj.js";
 import { VESTOJ, HARSTILOJ, HARKOLOROJ } from "../assets/vestaro/vestoj.js";
 
@@ -177,8 +177,19 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     return g === "i" ? "interior" : g === "o" ? "orbit" : "walk";
   }
 
+  // finiaj — Ĉu la numera kampo de la mesaĝo estas uzebla? Infinity kaj NaN
+  // venas tra JSON.parse ( 1e999 → Infinity ) kaj havas typeof "number" —
+  // sen ĉi tiu defendo ili envenas en la lerp de animacii kaj venenigas la
+  // matricojn de la fora figuro por ĉiam.
+  function finiaj(m: Record<string, any>): boolean {
+    return Number.isFinite(m.x) && Number.isFinite(m.y) && Number.isFinite(m.z)
+      && ( m.r === undefined || Number.isFinite(m.r) )
+      && ( m.m === undefined || Number.isFinite(m.m) );
+  }
+
   // riceviStaton — Ĝisdatigu ( aŭ kreu ) la figuro de fora ludanto.
   function riceviStaton(m: Record<string, any>): void {
+    if ( !finiaj(m) ) return;
     let f = foraj.get(m.id);
     if ( !f ) {
       const vesto = VESTOJ[m.v % VESTOJ.length] || VESTOJ[0];
@@ -269,14 +280,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       if ( movo > 0o1/0o100 ) {
         f.fazo += deltaTempo * 0o4 * movo;
         const paso = Math.sin(f.fazo);
-        const svingoKruro = 0o3/0o10 * movo * paso;
-        f.figuro.kruroj[0].rotation.x = -svingoKruro;
-        f.figuro.kruroj[1].rotation.x = svingoKruro;
-        const svingoBrako = 0o2/0o10 * movo * paso;
-        f.figuro.brakoj[0].rotation.x = svingoBrako;
-        f.figuro.brakoj[1].rotation.x = -svingoBrako;
-        // Paŝa bobado.
-        g.position.y += Math.abs(paso) * 0o2/0o100 * movo;
+        marŝSvingo(f.figuro, paso, movo);
       } else {
         // Stara idla balancado.
         const idla = Math.sin(t * 0o7 + f.fazo) * 0o2/0o100;

@@ -376,12 +376,20 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 // animaciiFlammojn — Animaciu flamojn kaj briletan intenson cxiun kadron.
 //     @param sys ( HxeuxfaSistemo ) - La lampa sistemo kun flamoj kaj briletoj.
 //     @param t ( number ) - Malsupra tempo por oscilado.
+// Ĉiukadra kreaĵoj hoistitaj al modula skopo — la sama objektoj reuzitaj
+// ĉiun kadron ( neniu asigno je kadro ).
+const FLAMA_M = new THREE.Matrix4();
+const FLAMA_Q = new THREE.Quaternion();
+const FLAMA_E = new THREE.Euler();
+const FLAMA_S = new THREE.Vector3();
+const FLAMA_TMP = new THREE.Vector3();
+
 export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
-  const M = new THREE.Matrix4();
-  const Q = new THREE.Quaternion();
-  const E = new THREE.Euler();
-  const S = new THREE.Vector3();
-  const TMP = new THREE.Vector3(); // reuzita skriba vektoro — neniu ĉiukadra faro
+  const M = FLAMA_M;
+  const Q = FLAMA_Q;
+  const E = FLAMA_E;
+  const S = FLAMA_S;
+  const TMP = FLAMA_TMP; // reuzita skriba vektoro — neniu ĉiukadra faro
 
   // Unu sola trairo de la flamlokoj — la flamaj matricoj KAJ la punktlumaj
   // intensecoj en la sama buklo ( la antaŭa duobla forEach faris du trairojn ).

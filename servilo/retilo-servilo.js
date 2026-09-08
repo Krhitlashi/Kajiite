@@ -50,10 +50,18 @@ export function konektiRetilon(servilo, opcioj = {}) {
   }
 
   // pritrakti — Ricevu unu kompletan mesaĝon kaj plusendu ĝin al la aliaj.
+  // Nur finiaj koordinatoj plusendiĝu — Infinity kaj NaN venas tra JSON.parse
+  // ( 1e999 → Infinity ) kun typeof "number", kaj ili venenigus la matricojn
+  // de ĉiuj foraj figuroj ĉe la ricevantoj.
+  function finiajKoordinatoj(m) {
+    return Number.isFinite(m.x) && Number.isFinite(m.y) && Number.isFinite(m.z)
+      && ( m.r === undefined || Number.isFinite(m.r) )
+      && ( m.m === undefined || Number.isFinite(m.m) );
+  }
   function pritrakti(kliento, teksto) {
     let mesagxo;
     try { mesagxo = JSON.parse(teksto); } catch { return; }
-    if ( mesagxo && mesagxo.t === "stato" && typeof mesagxo.x === "number" ) {
+    if ( mesagxo && mesagxo.t === "stato" && typeof mesagxo.x === "number" && finiajKoordinatoj(mesagxo) ) {
       kliento.stato = mesagxo;
       elsxuti(klientoj, kliento.id, JSON.stringify({ t: "stato", id: kliento.id, ...mesagxo }));
     }
@@ -78,6 +86,13 @@ export function konektiRetilon(servilo, opcioj = {}) {
         const l = rest.readBigUInt64BE(i); i += 0o10;
         if ( l > BigInt(MAX_MESAGXO) ) { kliento.so.destroy(); return Buffer.alloc(0); }
         longo = Number(l);
+      }
+      // Fragmenta defendo — pluraj malgrandaj kadroj sen FIN povas superi la
+      // limon po kadro. Se la jam akumuligitaj partoj transiras MAX_MESAGXON,
+      // la kliento estas forĵetita ( la sama politiko kiel unu tro granda kadro ).
+      if ( opkodo === 0x0 || opkodo === 0x1 ) {
+        const amasigita = kliento.partoj ? kliento.partoj.reduce(( n, p ) => n + p.length, 0) : 0;
+        if ( amasigita + longo > MAX_MESAGXO ) { kliento.so.destroy(); return Buffer.alloc(0); }
       }
       let masko = null;
       if ( maskita ) {
@@ -105,6 +120,12 @@ export function konektiRetilon(servilo, opcioj = {}) {
         // Fermo — resendu fermon kaj fermu.
         try { kliento.so.write(Buffer.from([ 0x88, 0x00 ])); } catch { /* fermita */ }
         kliento.so.end();
+        // Forigu la klienton ĉi tie — la &-fermo de la sojeto ankaŭ ekbruligas
+        // "close" sed la forigo estas idempotenta ( vidu sube ), do neniu
+        // duobla foriris-mesaĝo eliras.
+        klientoj.delete(kliento.id);
+        elsxuti(klientoj, kliento.id, JSON.stringify({ t: "foriris", id: kliento.id }));
+        if ( opcioj.jeForiro ) opcioj.jeForiro(kliento.id, klientoj.size);
         return rest;
       } else if ( opkodo === 0x9 ) {
         // Ping → pong ( la sama ŝarĝo ).
@@ -140,6 +161,8 @@ export function konektiRetilon(servilo, opcioj = {}) {
       kliento.bufro = malpakigi(kliento.bufro, kliento);
     });
     so.on("close", () => {
+      // Idempotenta — la kadro-fermo ( opkodo 0x8 ) jam forigis kaj sciigis.
+      if ( !klientoj.has(id) ) return;
       klientoj.delete(id);
       elsxuti(klientoj, id, JSON.stringify({ t: "foriris", id }));
       if ( opcioj.jeForiro ) opcioj.jeForiro(id, klientoj.size);

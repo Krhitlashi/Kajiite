@@ -22,6 +22,29 @@ function desegniWrapan(kunteksto: CanvasRenderingContext2D, s: number, formo: ()
   }
 }
 
+// desegniWrapajnNubojn — Komuna nub-tavolo de la ŝelaj teksaĵoj. Desegnas
+// n molajn radialajn nubojn el la paletro, ĉirkaŭvolvitajn senkudre per
+// desegniWrapan. La radiuso venas el minimumo plus hazarda amplekso,
+// relatie al alto ( la vertikala kahela dimensio ), kaj hazardo ( Math.random
+// aŭ la semita hazard(a, b) ) donas la nubajn centrojn.
+function desegniWrapajnNubojn(kunteksto: CanvasRenderingContext2D, s: number, alto: number,
+  n: number, paletro: string[], minimumo: number, amplekso: number,
+  hazardo?: ( a: number, b: number ) => number): void {
+  const elekti = hazardo ?? Math.random;
+  for ( let i = 0; i < n; i++ ) {
+    const r = alto * ( minimumo + Math.random() * amplekso );
+    const x = elekti(0, s), y = elekti(0, alto);
+    const koloro = paletro[i % paletro.length];
+    desegniWrapan(kunteksto, s, () => {
+      const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, koloro);
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      kunteksto.fillStyle = g;
+      kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
+    });
+  }
+}
+
 // sxovu — Kaŝmemoru la rezulton de senargumenta tekstura kreado, por ke la
 // multaj alvokoj ( vojoj ×3 + doko, vegetajxo ×2 ) konstruu ĉiun nur unufoje.
 function sxovu(fn: () => THREE.CanvasTexture): () => THREE.CanvasTexture {
@@ -343,19 +366,9 @@ export const kreiSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     k.fillStyle = "#f8f8f0"; k.fillRect(0, 0, sxelaW, sxelaH);
     // Mola ton-variajo — HELAJ nuboj rompas la platan blankon kaj kaŝas la
     // kahelan kudron sen grizigi la trunkon. Nur unu tre malforta malhela nubo.
-    const nuboj = [ "rgba(255,255,252,0.35)", "rgba(248,247,242,0.25)", "rgba(232,230,222,0.10)" ];
-    for ( let i = 0; i < 0o14; i++ ) {
-      const r = sxelaH * ( 0o10/0o100 + Math.random() * 0o12/0o100 );
-      const x = Math.random() * sxelaW, y = Math.random() * sxelaH;
-      const koloro = nuboj[i % nuboj.length];
-      desegniWrapan(k, sxelaW, () => {
-        const g = k.createRadialGradient(x, y, 0, x, y, r);
-        g.addColorStop(0, koloro);
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        k.fillStyle = g;
-        k.beginPath(); k.arc(x, y, r, 0, Math.PI * 2); k.fill();
-      });
-    }
+    desegniWrapajnNubojn(k, sxelaW, sxelaH, 0o14,
+      [ "rgba(255,255,252,0.35)", "rgba(248,247,242,0.25)", "rgba(232,230,222,0.10)" ],
+      0o10/0o100, 0o12/0o100);
     const skizo = generiBetulanSkizon();
     // Fajnaj horizontalaj sulkoj — la transversa teksturo de la sxoelo.
     for ( const strio of skizo.horizontajoj ) {
@@ -548,19 +561,9 @@ export const kreiLarikanSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     k.fillStyle = "#989080"; k.fillRect(0, 0, w, h);
     // Mola ton-variajo — helaj kaj malhelaj nuboj rompas la platan bazon
     // kaj kaŝas la kahelan kudron.
-    const nuboj = [ "rgba(160,150,136,0.20)", "rgba(70,62,54,0.18)", "rgba(112,104,92,0.22)" ];
-    for ( let i = 0; i < 0o16; i++ ) {
-      const r = h * ( 0o10/0o100 + Math.random() * 0o14/0o100 );
-      const x = Math.random() * w, y = Math.random() * h;
-      const koloro = nuboj[i % nuboj.length];
-      desegniWrapan(k, w, () => {
-        const g = k.createRadialGradient(x, y, 0, x, y, r);
-        g.addColorStop(0, koloro);
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        k.fillStyle = g;
-        k.beginPath(); k.arc(x, y, r, 0, Math.PI * 2); k.fill();
-      });
-    }
+    desegniWrapajnNubojn(k, w, h, 0o16,
+      [ "rgba(160,150,136,0.20)", "rgba(70,62,54,0.18)", "rgba(112,104,92,0.22)" ],
+      0o10/0o100, 0o14/0o100);
     const skizo = generiLarikanSkizon();
     // Leviĝantaj plato-kolonoj — la helaj kaj malhelaj krestoj inter la fendoj.
     for ( const cx of skizo.kolonoj ) {
@@ -745,19 +748,9 @@ export const kreiDioritanTeksajxon = sxovu((): THREE.CanvasTexture => {
     // La malhelaj nuboj estas MOLAJ ( malalta alpha ) kaj iom pli helaj ol antaŭe,
     // por ke la ŝtono ne montru grandajn malhelajn makulojn kaj la koloro restu
     // pli egala.
-    const nuboj = [ "rgba(248,248,240,0.3)", "rgba(104,104,96,0.18)", "rgba(168,168,160,0.26)", "rgba(136,136,128,0.16)" ];
-    for ( let i = 0; i < 0o20; i++ ) {
-      const r = s * ( 0o14/0o100 + Math.random() * 0o16/0o100 );
-      const x = hazard(0, s), y = hazard(0, s);
-      const koloro = nuboj[i % nuboj.length];
-      desegniWrapan(kunteksto, s, () => {
-        const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-        g.addColorStop(0, koloro);
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        kunteksto.fillStyle = g;
-        kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
-      });
-    }
+    desegniWrapajnNubojn(kunteksto, s, s, 0o20,
+      [ "rgba(248,248,240,0.3)", "rgba(104,104,96,0.18)", "rgba(168,168,160,0.26)", "rgba(136,136,128,0.16)" ],
+      0o14/0o100, 0o16/0o100, hazard);
     // Kristalaj facetoj — angulaj neregulaj poligonoj ( 5-7 verticoj ) kun
     // faceta gradiento ( hela supro-maldekstra, malhela malsupro-dekstra ) kaj
     // maldika grajnrando. La interplektitaj plenigitaj poligonoj kunhavas la
@@ -926,18 +919,7 @@ export const kreiAndezitanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   }, [ 3, 3 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
 });
 
-// kreiHerbanTeksajxon — Kreu proceduralan herban teksajxon por tereno.
-export function kreiHerbanTeksajxon(): THREE.CanvasTexture {
-  const s = 0o400;
-  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
-    kunteksto.fillStyle = "#f0f0e8"; kunteksto.fillRect(0, 0, s, s);
-    for ( let i = 0; i < 0o640; i++ ) {
-      const v = ( 0o330 + Math.random() * 0o40 ) | 0;
-      kunteksto.fillStyle = `rgba(${v},${v},${v - 6},0.5)`;
-      kunteksto.fillRect(hazard(0, s), hazard(0, s), hazard(2, 6), hazard(2, 6));
-    }
-  }, [ 0o32, 0o32 ], { volvado: THREE.RepeatWrapping, anisotropio: 4 });
-}
+
 
 // kreiNebulanTeksajxon — Kreu procedurale nebulozan radian gradienton.
 export function kreiNebulanTeksajxon(): THREE.CanvasTexture {
@@ -994,7 +976,8 @@ export function kreiBrilanTeksajxon(): THREE.CanvasTexture {
 }
 
 // kreiFilikanTeksajxon — Kreu proceduralan filikan teksajxon por subkreskajxo.
-export function kreiFilikanTeksajxon(): THREE.CanvasTexture {
+// Kaŝmemorita — la tri alvokoj ( urbo ×2, laga subkreskajxo ) konstruu ĝin nur unufoje.
+export const kreiFilikanTeksajxon = sxovu((): THREE.CanvasTexture => {
   return kreiKanvasanTeksajxon(0o200, 0o400, ( kunteksto ) => {
     kunteksto.lineCap = "round";
     kunteksto.strokeStyle = "#587850"; kunteksto.lineWidth = 4;
@@ -1010,17 +993,9 @@ export function kreiFilikanTeksajxon(): THREE.CanvasTexture {
       }
     }
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
-}
+});
 
-// kreiMolanPunktanTeksajxon — Kreu molan punkto-teksajxon por sxveligi briletojn.
-export function kreiMolanPunktanTeksajxon(): THREE.CanvasTexture {
-  return kreiKanvasanTeksajxon(0o400, 0o400, ( kunteksto ) => {
-    const gradiento = kunteksto.createRadialGradient(0o200, 0o200, 0o10, 0o200, 0o200, 0o200);
-    gradiento.addColorStop(0, "rgba(255,255,255,0.85)");
-    gradiento.addColorStop(1, "rgba(255,255,255,0)");
-    kunteksto.fillStyle = gradiento; kunteksto.fillRect(0, 0, 0o400, 0o400);
-  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, sRGB: false });
-}
+
 
 // kreiPurpuranFilikanTeksajxon — Kreu purpurajn pinajn filikojn kiel en Four Groves.
 const purpuraFilikaKaŝo = new Map<boolean, THREE.CanvasTexture>();
@@ -1478,7 +1453,8 @@ export const kreiTerenanTeksajxon = sxovu((): THREE.CanvasTexture => {
 // musko-montetoj. La densa baza tono, malklaraj humidaj tufoj kaj delikataj
 // fibroj faras la surfacon mola anstataŭ aspekti kiel simpla kolora sfero.
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta muska teksturo.
-export function kreiMuskanTeksajxon(): THREE.CanvasTexture {
+// Kaŝmemorita — la du alvokoj ( valo, montaro ) konstruu ĝin nur unufoje.
+export const kreiMuskanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
   return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
     // La supro restas cyan-malseka, sed la malsupro transiras al la sama
@@ -1541,7 +1517,7 @@ export function kreiMuskanTeksajxon(): THREE.CanvasTexture {
     }
 
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
-}
+});
 
 // kreiKavalErbanTeksajxon — Kreu ripetan teksturon por la kanelitaj tigoj de
 // la ĉevalvostaj specioj. La vertikalaj mallumaj strioj sekvas la ripojn de la
@@ -2313,19 +2289,9 @@ export const kreiPurpuranTrunkanTeksajxon = sxovu((): THREE.CanvasTexture => {
     // Bazo — malhela purpura ŝelo.
     k.fillStyle = "#282038"; k.fillRect(0, 0, w, h);
     // Mola ton-variajo — helaj kaj malhelaj nuboj rompas la platan bazon.
-    const nuboj = [ "rgba(72,64,88,0.20)", "rgba(16,12,24,0.18)", "rgba(88,80,104,0.14)" ];
-    for ( let i = 0; i < 0o14; i++ ) {
-      const r = h * ( 0o10/0o100 + Math.random() * 0o14/0o100 );
-      const x = Math.random() * w, y = Math.random() * h;
-      const koloro = nuboj[i % nuboj.length];
-      desegniWrapan(k, w, () => {
-        const g = k.createRadialGradient(x, y, 0, x, y, r);
-        g.addColorStop(0, koloro);
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        k.fillStyle = g;
-        k.beginPath(); k.arc(x, y, r, 0, Math.PI * 2); k.fill();
-      });
-    }
+    desegniWrapajnNubojn(k, w, h, 0o14,
+      [ "rgba(72,64,88,0.20)", "rgba(16,12,24,0.18)", "rgba(88,80,104,0.14)" ],
+      0o10/0o100, 0o14/0o100);
     const skizo = generiPurpuranTrunkanSkizon();
     // Vertikalaj fibraj strioj — la ŝelaj fibroj, lume kaj malhelume.
     for ( const fibro of skizo.fibroj ) {
@@ -2426,17 +2392,4 @@ export const kreiPurpuranTrunkanBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
   }, [ 1, 2 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
 });
 
-// kreiAkvanReliefanTeksajxon — Kreu akvan reliefan teksturon por rivera ondado.
-//     @param radX ( number ) - Ripetadxo en X direkto.
-//     @param ry ( number ) - Ripetadxo en Z direkto.
-export function kreiAkvanReliefanTeksajxon(radX: number, ry: number): THREE.CanvasTexture {
-  const s = 0o200;
-  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
-    kunteksto.fillStyle = "#808080"; kunteksto.fillRect(0, 0, s, s);
-    for ( let i = 0; i < s * s / 0o10; i++ ) {
-      const g = ( 0o160 + Math.random() * 0o60 ) | 0;
-      kunteksto.fillStyle = `rgb(${g},${g},${g})`;
-      kunteksto.fillRect(Math.random() * s, Math.random() * s, 2, 2);
-    }
-  }, [ radX, ry ], { volvado: THREE.RepeatWrapping });
-}
+

@@ -56,7 +56,7 @@ const servilo = createServer(async (peto, respondo) => {
 
   // SSE-punkto por viva reŝargo
   if ( url === "/__reload" ) {
-    respondo.writeHead(0o300, {
+    respondo.writeHead(200, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
       "Connection": "keep-alive",
@@ -68,15 +68,18 @@ const servilo = createServer(async (peto, respondo) => {
   }
 
   const vojo = normalize(join(RADIKO, url.replace(/^\//, "")));
-  if ( !vojo.startsWith(RADIKO) ) { respondo.writeHead(0o623); respondo.end("Malpermesita"); return; }
+  if ( !vojo.startsWith(RADIKO) ) { respondo.writeHead(403); respondo.end("Malpermesita"); return; }
   try {
     const datumoj = await readFile(vojo);
-    respondo.writeHead(0o300, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });
+    respondo.writeHead(200, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });
     respondo.end(datumoj);
   } catch {
-    respondo.writeHead(0o624); respondo.end("Ne trovita");
+    respondo.writeHead(404); respondo.end("Ne trovita");
   }
 });
+
+// La HTTP-stat-kodoj estas DEKUMAJ ( la retumila protokolo — 200, 403, 404 ).
+// La nura escepto de la 0o-oktala regulo — la kabloprotokolaj valoroj.
 
 // La retilo — WebSocket-servilo por la multludada sperto ( /retilo ).
 konektiRetilon(servilo, {

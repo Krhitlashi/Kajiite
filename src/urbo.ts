@@ -39,6 +39,16 @@ import { SKULPTA_OBJEKTOJ } from "./tero-datumaro/objektoj.js";
 import { SKULPTA_URBOJ } from "./tero-datumaro/urboj.js";
 import { SKULPTA_VOJOJ, SKULPTA_DOKOJ } from "./tero-datumaro/vojoj.js";
 
+// NebulaSistemo — la nebulaj makuloj kiel UNU GPU-punktsistemo ( antaŭe
+// ĉirkaŭ 0o70 individuaj SpriteMaterial-oj, unu shader-programo kaj unu
+// draw-call po sprajto ). La makuloj restas ankrigitaj al la mondo; la
+// vertica shadero drivas ilin orienten kaj ĉirkaŭvolvas ilin per uTime —
+// neniu CPU-ĝisdatigo po kadro, nur uTime.
+export interface NebulaSistemo {
+  punktoj: THREE.Points;
+  uTime: { value: number };
+}
+
 export interface UrbaSistemo {
   konstruSpecoj: KonstruSpec[];
   kolizioj: { x: number; z: number; r: number }[];
@@ -58,7 +68,7 @@ export interface UrbaSistemo {
   bestoj: BestoSistemo;
   petreloj: PetreloSistemo;
   lampSistemo: HxeuxfaSistemo;
-  nebuloj: THREE.Sprite[];
+  nebulSistemo: NebulaSistemo;
   kanuoj: Kanoto[];
   // Pussxlefo-beroj — la manĝeblaj travideblaj beroj en la mondo.
   pussxlefoBeroj: MangxajxItemo[];
@@ -252,6 +262,32 @@ interface KradaUrbaRezulto {
   staciaPozicio: [ number, number ];   // la stacioxipo ( la sxipo flugas tie )
   ringoX: number;                       // la unua krada vojo ( la doka avenuo kongruas al gxi )
   sudaVojo: number;                     // la plej suda krada vojo ( la avenuo komencigxas cxe gxi )
+}
+
+// kreiLampAldonilon — La lampo-loka aldonilo ( UNU implimento por la kradaj
+// urboj kaj por la monda kunigo — antaŭe du identajn kopiojn ). La kandidata
+// lampo malaprobas kiam ĝi falas proksime al pordo aŭ konstruaĵo, aŭ sur
+// alian ekzistantan lampon ( ene de 2 unuoj ).
+//     @param konstruSpecoj ( KonstruSpec[] ) - La konstruaĵoj por la ekskludo.
+//     @param lampLokoj ( { x, z, y, rotacio? }[] ) - La celo-listo ( ankaŭ la dedupo-fonto ).
+//     @returns addLamp ( funkcio ) - Aldonu unu lampon ( x, z, bazaY, rotacio ).
+function kreiLampAldonilon(
+  konstruSpecoj: KonstruSpec[],
+  lampLokoj: { x: number; z: number; y: number; rotacio?: number }[],
+): ( x: number, z: number, bazaY?: number, rotacio?: number ) => void {
+  return ( x, z, bazaY = alteco(x, z), rotacio = Math.PI / 4 ) => {
+    for ( const s of konstruSpecoj ) {
+      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
+      const pordoX = s.x + difX * ( s.d / 2 + 0o14/0o10 ), pordoZ = s.z + difZ * ( s.d / 2 + 0o14/0o10 );
+      if ( Math.hypot(x - pordoX, z - pordoZ) < 4 ) return;
+      if ( Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10 ) return;
+    }
+    // Evitu meti lampojn sur ekzistantajn lampojn ( ene de 2 unuoj ).
+    for ( const ekz of lampLokoj ) {
+      if ( Math.hypot(x - ekz.x, z - ekz.z) < 2 ) return;
+    }
+    lampLokoj.push({ x, z, y: bazaY, rotacio });
+  };
 }
 
 // konstruiKradanUrbon — Konstruu UNU kradan urbon ĉe donita ofseto. la
@@ -708,19 +744,7 @@ function konstruiKradanUrbon(
   // La monda lampo-konstruo en konstruiUrbon kunigas ĉi tiujn kun la lagaj kaj
   // montaraj lampoj kaj konstruas UNU hxeuxfa-sistemon.
   const lampLokoj: { x: number; z: number; y: number; rotacio?: number }[] = [];
-  const addLamp = ( x: number, z: number, bazaY = alteco(x, z), rotacio = Math.PI / 4 ) => {
-    for ( const s of konstruSpecoj ) {
-      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
-      const pordoX = s.x + difX * ( s.d / 2 + 0o14/0o10 ), pordoZ = s.z + difZ * ( s.d / 2 + 0o14/0o10 );
-      if ( Math.hypot(x - pordoX, z - pordoZ) < 4 ) return;
-      if ( Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10 ) return;
-    }
-    // Evitu meti lampojn sur ekzistantajn lampojn (ene de 2 unuoj)
-    for ( const ekz of lampLokoj ) {
-      if ( Math.hypot(x - ekz.x, z - ekz.z) < 2 ) return;
-    }
-    lampLokoj.push({ x, z, y: bazaY, rotacio });
-  };
+  const addLamp = kreiLampAldonilon(konstruSpecoj, lampLokoj);
   if ( arangxo.lampoj !== false ) {
     for ( const [ aX, aZ ] of placajNodoj ) {
       for ( const [ dx, dz ] of [ [ -0o21/0o10, -0o21/0o10 ], [ 0o21/0o10, -0o21/0o10 ], [ -0o21/0o10, 0o21/0o10 ], [ 0o21/0o10, 0o21/0o10 ] ] ) addLamp(aX + dx, aZ + dz);
@@ -950,19 +974,7 @@ export async function konstruiUrbon(
   // SKULPTA_OBJEKTOJ ( hxeuxfoPlato ) — movitaj el la kodo al la datumaro,
   // redakteblaj per la terena skulptilo.
   const lampLokoj: { x: number; z: number; y: number; rotacio?: number }[] = urboj.flatMap(r => r.lampLokoj);
-  const addLamp = ( x: number, z: number, bazaY = alteco(x, z), rotacio = Math.PI / 4 ) => {
-    for ( const s of konstruSpecoj ) {
-      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
-      const pordoX = s.x + difX * ( s.d / 2 + 0o14/0o10 ), pordoZ = s.z + difZ * ( s.d / 2 + 0o14/0o10 );
-      if ( Math.hypot(x - pordoX, z - pordoZ) < 4 ) return;
-      if ( Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 0o14/0o10 ) return;
-    }
-    // Evitu meti lampojn sur ekzistantajn lampojn (ene de 2 unuoj)
-    for ( const ekz of lampLokoj ) {
-      if ( Math.hypot(x - ekz.x, z - ekz.z) < 2 ) return;
-    }
-    lampLokoj.push({ x, z, y: bazaY, rotacio });
-  };
+  const addLamp = kreiLampAldonilon(konstruSpecoj, lampLokoj);
   // La kvar-lampa ŝablono ĉirkaŭ la kaja placo-nodo ( la samaj ofsetoj kiel la
   // krada reto — la kradaj nodoj ricevas ilin en konstruiKradanUrbon ).
   for ( const [ aX, aZ ] of dokaPlacajNodoj ) {
@@ -1230,38 +1242,97 @@ export async function konstruiUrbon(
   const pussxlefoBeroj = kreiPussxlefojnBerojn(sceno, pussxlefoj);
   await raporti();
 
-  // ⟪ Nebulaj sprajtoj 📃 ⟫
-  const nebulaTeksajxo = kreiNebulanTeksajxon();
-  const nebuloj: THREE.Sprite[] = [];
-  for ( const [ x, z, y, skalo, op ] of [
-    [ -0o110, -0o110, 0o24/0o10, 0o60, 0o5/0o40 ], [ -0o40, -0o110, 0o215/0o100, 0o60, 0o3/0o20 ],
-    [ 0o30, -0o110, 0o263/0o100, 0o60, 0o5/0o40 ], [ 0o70, -0o100, 0o115/0o40, 0o40, 0o5/0o40 ],
-    [ -0o60, -0o60, 0o163/0o100, 0o40, 0o11/0o100 ], [ -0o110, 0o40, 0o63/0o40, 0o30, 0o3/0o40 ],
-    [ 0o110, -0o60, 0o163/0o100, 0o30, 0o3/0o40 ], [ -0o70, 0o110, 0o14/0o10, 0o30, 0o3/0o40 ],
-    [ 0o100, 0o110, 0o155/0o100, 0o30, 0o5/0o100 ], [ -0o130, 0o10, 0o55/0o40, 0o30, 0o1/0o10 ],
-  ] ) {
-    const materialo = new THREE.SpriteMaterial({ map: nebulaTeksajxo, transparent: true, opacity: op, depthWrite: false });
-    const sp = new THREE.Sprite(materialo);
-    sp.position.set(x, y, z); sp.scale.setScalar(skalo);
-    sp.userData = { rapido: 0o15/0o40 + Math.random() * 0o10/0o10 };
-    sceno.add(sp); nebuloj.push(sp);
-  }
-  for ( let i = 0; i < 0o60; i++ ) {
-    const a = Math.random() * Math.PI * 2;
-    const r = 0o130 + Math.random() * 0o300;
-    const x = Math.cos(a) * r, z = Math.sin(a) * r;
-    const y = alteco(x, z) + 0o4/0o10 + Math.random() * 3;
-    const materialo = new THREE.SpriteMaterial({
-      map: nebulaTeksajxo, transparent: true,
-      opacity: 0o1/0o10 + Math.random() * 0o5/0o40,
-      depthWrite: false,
+  // ⟪ Nebulaj makuloj 📃 ⟫ — UNU GPU-punktsistemo ( antaŭe ĉirkaŭ 0o70
+  // individuaj SpriteMaterial-oj — unu shader-programo kaj unu draw-call po
+  // sprajto ). La makuloj restas ankrigitaj al la mondo; la orienten-driva
+  // movo kun la ĉirkaŭvolvo ( la malnova ±0o160-volvo ) okazas en la vertica
+  // shadero, kaj la per-punkta semo/grando/opakeco konservas la VARIOJN de
+  // la malnovaj sprajtoj — la sama konstrua modelo kiel la veteraj
+  // sistemoj de scena.ts.
+  const nebulSistemo = ( (): NebulaSistemo => {
+    const nebulaTeksajxo = kreiNebulanTeksajxon();
+    // Fiksitaj makuloj ĉirkaŭ la urbo ( la malnovaj dek manifoldaj lokoj ).
+    const fiksitaj: number[][] = [
+      [ -0o110, -0o110, 0o24/0o10, 0o60, 0o5/0o40 ], [ -0o40, -0o110, 0o215/0o100, 0o60, 0o3/0o20 ],
+      [ 0o30, -0o110, 0o263/0o100, 0o60, 0o5/0o40 ], [ 0o70, -0o100, 0o115/0o40, 0o40, 0o5/0o40 ],
+      [ -0o60, -0o60, 0o163/0o100, 0o40, 0o11/0o100 ], [ -0o110, 0o40, 0o63/0o40, 0o30, 0o3/0o40 ],
+      [ 0o110, -0o60, 0o163/0o100, 0o30, 0o3/0o40 ], [ -0o70, 0o110, 0o14/0o10, 0o30, 0o3/0o40 ],
+      [ 0o100, 0o110, 0o155/0o100, 0o30, 0o5/0o100 ], [ -0o130, 0o10, 0o55/0o40, 0o30, 0o1/0o10 ],
+    ];
+    const N = fiksitaj.length + 0o60;
+    const pozicioj = new Float32Array(N * 3);
+    const semoj = new Float32Array(N);
+    const grandoj = new Float32Array(N);
+    const opakecoj = new Float32Array(N);
+    const rapidoj = new Float32Array(N);
+    for ( let i = 0; i < N; i++ ) {
+      let x, z, y, skalo, op, rapido;
+      if ( i < fiksitaj.length ) {
+        [ x, z, y, skalo, op ] = fiksitaj[i];
+        rapido = 0o15/0o40 + Math.random() * 0o10/0o10;
+      } else {
+        // La hazarda ringo — la sama disdono kiel la malnovaj 0o60 sprajtoj.
+        const a = Math.random() * Math.PI * 2;
+        const r = 0o130 + Math.random() * 0o300;
+        x = Math.cos(a) * r; z = Math.sin(a) * r;
+        y = alteco(x, z) + 0o4/0o10 + Math.random() * 3;
+        skalo = 0o60 + Math.random() * 0o130;
+        op = 0o1/0o10 + Math.random() * 0o5/0o40;
+        rapido = 0o15/0o100 + Math.random() * 0o4/0o10;
+      }
+      pozicioj[i * 3] = x; pozicioj[i * 3 + 1] = y; pozicioj[i * 3 + 2] = z;
+      grandoj[i] = skalo;
+      opakecoj[i] = op;
+      rapidoj[i] = rapido;
+      semoj[i] = Math.random();
+    }
+    const geometrio = new THREE.BufferGeometry();
+    geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
+    geometrio.setAttribute("aGrando", new THREE.BufferAttribute(grandoj, 1));
+    geometrio.setAttribute("aOpakeco", new THREE.BufferAttribute(opakecoj, 1));
+    geometrio.setAttribute("aRapido", new THREE.BufferAttribute(rapidoj, 1));
+    const uTime = { value: 0 };
+    const materialo = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, fog: false,
+      uniforms: {
+        uTime,
+        uMap: { value: nebulaTeksajxo },
+      },
+      vertexShader: `
+        uniform float uTime;
+        attribute float aSeed;
+        attribute float aGrando;
+        attribute float aOpakeco;
+        attribute float aRapido;
+        varying float vOpakeco;
+        void main() {
+          // Orienten-driva movo kun la ĉirkaŭvolvo ( la malnova volvo je
+          // ±0o160 — mod() ĉirkaŭvolvas sen la CPU-pozicia ĝisdatigo ).
+          vec3 p = position;
+          float falo = uTime * aRapido;
+          p.x = mod(p.x + falo + 160.0, 320.0) - 160.0;
+          vOpakeco = aOpakeco;
+          vec4 mv = viewMatrix * vec4(p, 1.0);
+          // Mondo-grando → pikseloj ( la sama konverta formulo kiel la neĝo ).
+          gl_PointSize = aGrando * ( 100.0 / -mv.z );
+          gl_Position = projectionMatrix * mv;
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D uMap;
+        varying float vOpakeco;
+        void main() {
+          vec4 tex = texture2D(uMap, gl_PointCoord);
+          gl_FragColor = vec4(tex.rgb, tex.a * vOpakeco);
+        }
+      `,
     });
-    const sp = new THREE.Sprite(materialo);
-    sp.position.set(x, y, z);
-    sp.scale.setScalar(0o60 + Math.random() * 0o130);
-    sp.userData = { rapido: 0o15/0o100 + Math.random() * 0o4/0o10 };
-    sceno.add(sp); nebuloj.push(sp);
-  }
+    const punktoj = new THREE.Points(geometrio, materialo);
+    punktoj.frustumCulled = false;
+    sceno.add(punktoj);
+    return { punktoj, uTime };
+  } )();
   await raporti();
 
   // ⟪ Ktenoforoj 📃 ⟫
@@ -1345,7 +1416,7 @@ export async function konstruiUrbon(
   return {
     konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj, konstruGrupoj,
     vojSpecimenoj, placajNodoj,    riverData, riveroNordOrienta, lago, skulptaAkvo, bestoj, petreloj, lampSistemo,
-    nebuloj, kanuoj, pussxlefoBeroj, npcoj, internaSistemo, xipo, vojDifinoj, vojDuonLargho: ( _g: number ) => 0o7/0o10,
+    nebulSistemo, kanuoj, pussxlefoBeroj, npcoj, internaSistemo, xipo, vojDifinoj, vojDuonLargho: ( _g: number ) => 0o7/0o10,
     NPCLOKOJ, VESTA_LISTO,
   };
 }

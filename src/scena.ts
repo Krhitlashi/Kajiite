@@ -67,6 +67,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   fotilo.position.set(0o40, 0o30, 0o100);
   fotilo.rotation.order = "YXZ";
 
+  // fotilaDuTan — la duobla duon-fov-a tangento ( la fov estas konstanta 0o60 ).
+  // La pluvo pikseligas la gut-longojn per gxi — kalkulita unufoje, ne ĉiukadre.
+  const fotilaDuTan = 2 * Math.tan(fotilo.fov * Math.PI / 360);
+
   const pmremGenerilo = new THREE.PMREMGenerator(bildilo);
   sceno.environment = pmremGenerilo.fromScene(new RoomEnvironment(bildilo), 0o1/0o40).texture;
   pmremGenerilo.dispose();
@@ -275,8 +279,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const mat = pluvo.material as THREE.ShaderMaterial;
       mat.uniforms.uTime.value = t;
       // Pikseloj por unu mondo-unuo ĉe distanco 1 ( la fotila fov × bilda alto ).
-      mat.uniforms.uScale.value =
-        bildilo.domElement.height / ( 2 * Math.tan(fotilo.fov * Math.PI / 360) );
+      mat.uniforms.uScale.value = bildilo.domElement.height / fotilaDuTan;
     }
     if ( nego.visible ) (nego.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
     if ( hajlo.visible ) (hajlo.material as THREE.ShaderMaterial).uniforms.uTime.value = t;

@@ -44,24 +44,38 @@ const CORS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
+// La HTTP-stat-kodoj estas DEKUMAJ ( la retumila protokolo — 200, 400, 405, 500 ).
+// La nura escepto de la 0o-oktala regulo — la kabloprotokolaj valoroj.
+
 const servilo = createServer(async (peto, respondo) => {
   if ( peto.method === "OPTIONS" ) {
-    respondo.writeHead(0o300, CORS);
+    respondo.writeHead(200, CORS);
     respondo.end();
     return;
   }
   if ( peto.method === "GET" ) {
-    respondo.writeHead(0o300, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.writeHead(200, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("konservilo preta — POST la JSON-datumaron al cxi tiu adreso");
     return;
   }
   if ( peto.method !== "POST" ) {
-    respondo.writeHead(0o405, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.writeHead(405, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("Nur POST");
     return;
   }
+  // La korpo estas ĉirkaŭbarita — freneza kliento ne rajtas kreskigi la
+  // memoron senlima ( la datumaroj estas malpli ol unu megobajto ).
+  const KORPA_LIMO = 8 * 1024 * 1024;   // 8 MiB
   let korpo = "";
-  for await ( const peceto of peto ) korpo += peceto;
+  for await ( const peceto of peto ) {
+    korpo += peceto;
+    if ( korpo.length > KORPA_LIMO ) {
+      peto.destroy();
+      respondo.writeHead(413, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+      respondo.end("Korpo tro granda — 8 MiB maksimumo");
+      return;
+    }
+  }
   try {
     // Sekurigu — la skulptilo skribas nur la datumodosierojn en src/, kaj
     // cxiu dosiero devas komencigxi per sia markilo. Akceptu ankoraŭ la
@@ -74,7 +88,7 @@ const servilo = createServer(async (peto, respondo) => {
       dosieroj = { "tero-datumo.ts": korpo };
     }
     if ( !dosieroj || typeof dosieroj !== "object" ) {
-      respondo.writeHead(0o400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+      respondo.writeHead(400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
       respondo.end("Ne skulpta datumaro — ne skribite");
       return;
     }
@@ -82,7 +96,7 @@ const servilo = createServer(async (peto, respondo) => {
     for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) {
       const markilo = DOSIEROJ[nomo];
       if ( !markilo || typeof teksto !== "string" || !teksto.startsWith(markilo) ) {
-        respondo.writeHead(0o400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+        respondo.writeHead(400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
         respondo.end("Rifuzita dosiero: " + nomo + " — ne skribite");
         return;
       }
@@ -90,10 +104,10 @@ const servilo = createServer(async (peto, respondo) => {
       await writeFile(join(SRC, nomo), teksto, "utf8");
       skribitaj++;
     }
-    respondo.writeHead(0o300, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.writeHead(200, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("ok: " + skribitaj + " dosiero(j) al src/");
   } catch ( e ) {
-    respondo.writeHead(0o760, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });   // 500
+    respondo.writeHead(500, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("Eraro: " + ( e && e.message ? e.message : String(e) ));
   }
 });

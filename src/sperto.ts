@@ -6,7 +6,7 @@ import { VESTOJ, HARSTILOJ, HARKOLOROJ, kreiVestanAntauxrigardon, kreiHaranAntau
 import { animaciiFlammojn } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/medio/akvo.js";
 import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../assets/shalaj-specioj/bestoj.js";
-import { konstruiFiguron, gxisdatigiNpc } from "../assets/shalaj-specioj/homoj.js";
+import { konstruiFiguron, gxisdatigiNpc, marŝSvingo } from "../assets/shalaj-specioj/homoj.js";
 import type { Figuro } from "../assets/shalaj-specioj/homoj.js";
 import { kreiRetilon } from "./retilo.js";
 import type { LokaStato } from "./retilo.js";
@@ -82,6 +82,9 @@ const JOYSTICK_R = 0o40;
 
 // ⟪ Sonora stato 📃 ⟫
 let pauxzaPaŝo = 0; // step sound cooldown counter
+// La prompto-skanada kadro — la detekto de la pordoj/kanuoj/beroj kuras
+// malakrigite ( ĉiun 0o10-an kadron, vidu la promenan blokon ).
+let promptaKadro = 0;
 
 // ⟪ Krei scenon kaj urbon 📃 ⟫
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
@@ -97,7 +100,7 @@ const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaM
 });
 const {
   konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
-  riverData, riveroNordOrienta, lago, skulptaAkvo, bestoj, petreloj, lampSistemo, nebuloj, kanuoj, npcoj, internaSistemo, xipo,
+  riverData, riveroNordOrienta, lago, skulptaAkvo, bestoj, petreloj, lampSistemo, nebulSistemo, kanuoj, npcoj, internaSistemo, xipo,
   pussxlefoBeroj,
 } = urbo;
 
@@ -177,6 +180,9 @@ let aktivaPordaAngulo = 0;
 let plejProksimaManĝaĵo: MangxajxItemo | null = null;
 // La plej proksima Pussxlefo-ber-klastro en la mondo — E kolektas ( manĝas ) gxin.
 let plejProksimaBero: MangxajxItemo | null = null;
+// La plej proksima kanuo — nur por la prompto ( la E-ago faras sian propran
+// serĉon per la distanco 6 ). Kaŝita kune kun la pordoj kaj la beroj.
+let plejProksimaKanuo: Kanoto | null = null;
 // Kontinua vindo de la helika ŝtuparo (nulo = ne sur la spiralo).
 let sxtupaTurno: number | null = null;
 // Antauxa frac-valoro de la spiralo ( 0..1 ) — por mezuri la SIGNAN angulan
@@ -318,10 +324,16 @@ function plenigiKonstruaListon() {
   }
 }
 
+// manĝaKlavo — La traduka klavo de unu manĝaĵo ( "manĝ" + Kapitaligita ŝlosilo ).
+// UNU kapitalig-loko ( antaŭe tri kopioj en la listo, la konsumo kaj la prompto ).
+function manĝaKlavo(ŝlosilo: string): string {
+  return "manĝ" + ŝlosilo.charAt(0).toUpperCase() + ŝlosilo.slice(1);
+}
+
 function plenigiMangxaListon() {
   mangxaListo.innerHTML = "";
   for ( const f of [ ...FOKS, ...TLAS ] ) {
-    const nomKlavo = "manĝ" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
+    const nomKlavo = manĝaKlavo(f.key);
     const card = document.createElement("ciihii");
     card.className = "vestaKardo aih";
     const nomo = document.createElement("p");
@@ -727,75 +739,87 @@ mobJoystickZono.addEventListener("touchcancel", ( e ) => {
 // ( rulumi malsupren malzomas ). Pointer events estas pli fidindaj ol
 // tuŝ-eventoj por plur-fingraj gestoj ( la sama ŝablono kiel la plena mapo );
 // la muso kaj la plumo restas ĉe la montra-serura rigardo.
-const rigardajPunktoj = new Map<number, { x: number; y: number }>();
-let rigardaID = -1;
-let lastX = 0, lastY = 0;
-// Pinĉa bazo — la distanco inter la du fingroj ĉe la lasta mezurado ( delto
-// po movevento ). Nuligita kiam malpli ol du fingroj restas.
-let pinĉoBazo = 0;
-
-const distancoInter = () => {
-  const [ a, b ] = [ ...rigardajPunktoj.values() ];
-  return Math.hypot(a.x - b.x, a.y - b.y);
-};
-const agordiPinĉanBazon = () => {
-  pinĉoBazo = rigardajPunktoj.size >= 2 ? distancoInter() : 0;
-};
-
-kanvaso.addEventListener("pointerdown", ( e ) => {
-  if ( rezimo !== "walk" && rezimo !== "interior" ) return;
-  if ( e.pointerType !== "touch" && e.pointerType !== "pen" ) return;
-  rigardajPunktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  agordiPinĉanBazon();
-  if ( rigardajPunktoj.size === 1 ) {
-    rigardaID = e.pointerId;
-    lastX = e.clientX; lastY = e.clientY;
-  } else {
-    rigardaID = -1; // la pinĉo anstataŭas la rotacion
-  }
-  // Tenigu la geston sur la kanvaso eĉ se la fingro fordrivas de ĝi.
-  try { kanvaso.setPointerCapture(e.pointerId); } catch { /* ignorata */ }
-});
-
-kanvaso.addEventListener("pointermove", ( e ) => {
-  if ( rezimo !== "walk" && rezimo !== "interior" ) return;
-  if ( !rigardajPunktoj.has(e.pointerId) ) return;
-  rigardajPunktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  // Pinĉo — la distanco inter la fingroj zumas la fotilon ( fingroj kunen =
-  // malzomi = tria persono, fingroj disen = zumi = unua persono ). La bazo
-  // renaskigxas se la fingroj kunigxis ( bazo 0 ) kaj disigxas denove sen
-  // levigxo.
-  if ( rigardajPunktoj.size >= 2 ) {
-    const nova = distancoInter();
-    if ( pinĉoBazo > 0 && !kuŝas ) {
-      celDistanco = Math.max(0, Math.min(0o16, celDistanco + ( pinĉoBazo - nova ) * 0o1/0o10));
+// tuŝaGesto — La komuna plur-fingra gesta motoro de la du kanvasoj ( la
+// rigarda kanvaso kaj la plena mapo ). Tenas la punktan mapon, la pinĉan
+// bazon kaj la transiron de la restanta fingro, kaj transdonas la eventojn
+// al du alvokaj reĝimoj — unufingra tiro ( dx, dy ) kaj plur-fingra pinĉo
+// ( la bazo kaj la nova distanco ). La bazo renoviĝas ĉiun pinĉan kadron,
+// do la pinĉo renaskiĝas se la fingroj kunigxis kaj disigxas sen levigxo.
+function tuŝaGesto(elemento: HTMLElement, agoj: {
+  akceptu?: ( e: PointerEvent ) => boolean;   // filtrilo por la eniro ( defaŭlte ĉiuj )
+  postEniro?: ( e: PointerEvent ) => void;    // vokita post kiam la punkto aliĝis
+  jeTiro: ( dx: number, dy: number ) => void;
+  jePinĉo: ( bazo: number, nova: number ) => void;
+}): void {
+  const punktoj = new Map<number, { x: number; y: number }>();
+  let bazo = 0;                     // la fingra distanco ĉe la lasta mezurado ( 0 = ne pinĉas )
+  let unuaID: number | null = null; // la tiranta fingro ( null dum pinĉo )
+  let lastaX = 0, lastaY = 0;
+  const distancoInter = () => {
+    const [ a, b ] = [ ...punktoj.values() ];
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  };
+  const agordiBazon = () => { bazo = punktoj.size >= 2 ? distancoInter() : 0; };
+  elemento.addEventListener("pointerdown", ( e ) => {
+    if ( agoj.akceptu && !agoj.akceptu(e) ) return;
+    punktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    agordiBazon();
+    if ( punktoj.size === 1 ) {
+      unuaID = e.pointerId;
+      lastaX = e.clientX; lastaY = e.clientY;
+    } else {
+      unuaID = null; // la pinĉo anstataŭas la tiradon
     }
-    pinĉoBazo = nova;
-    return;
-  }
-  if ( e.pointerId !== rigardaID ) return;
-  const dx = e.clientX - lastX;
-  const dy = e.clientY - lastY;
-  direkto -= dx * 0o1/0o400;
-  klinigxo -= dy * 0o1/0o400;
-  klinigxo = Math.max(-0o135/0o100, Math.min(0o135/0o100, klinigxo));
-  lastX = e.clientX; lastY = e.clientY;
-});
+    if ( agoj.postEniro ) agoj.postEniro(e);
+  });
+  elemento.addEventListener("pointermove", ( e ) => {
+    if ( agoj.akceptu && !agoj.akceptu(e) ) return;
+    if ( !punktoj.has(e.pointerId) ) return;
+    punktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if ( punktoj.size >= 2 ) {
+      const nova = distancoInter();
+      if ( bazo > 0 ) agoj.jePinĉo(bazo, nova);
+      bazo = nova;
+      return;
+    }
+    if ( unuaID === null || e.pointerId !== unuaID ) return;
+    agoj.jeTiro(e.clientX - lastaX, e.clientY - lastaY);
+    lastaX = e.clientX; lastaY = e.clientY;
+  });
+  const finiGeston = ( e: PointerEvent ) => {
+    punktoj.delete(e.pointerId);
+    agordiBazon();
+    // Post la pinĉo la restanta fingro daŭrigas la tiradon.
+    if ( punktoj.size === 1 ) {
+      const restanta = [ ...punktoj.entries() ][0];
+      unuaID = restanta[0];
+      lastaX = restanta[1].x; lastaY = restanta[1].y;
+    } else {
+      unuaID = null;
+    }
+  };
+  elemento.addEventListener("pointerup", finiGeston);
+  elemento.addEventListener("pointercancel", finiGeston);
+}
 
-const finiRigardon = ( e: PointerEvent ) => {
-  rigardajPunktoj.delete(e.pointerId);
-  agordiPinĉanBazon();
-  // Post la pinĉo la restanta fingro daŭrigas la rotacion.
-  if ( rigardajPunktoj.size === 1 ) {
-    const restanta = [ ...rigardajPunktoj.entries() ][0];
-    rigardaID = restanta[0];
-    lastX = restanta[1].x; lastY = restanta[1].y;
-  } else {
-    rigardaID = -1;
-  }
-};
-kanvaso.addEventListener("pointerup", finiRigardon);
-kanvaso.addEventListener("pointercancel", finiRigardon);
+tuŝaGesto(kanvaso, {
+  // Nur tuŝoj kaj plumoj en la piediraj reĝimoj — la muso kaj la plumo restas
+  // ĉe la montra-serura rigardo; la pinĉo malzumas la fotilon ( fingroj
+  // kunen = malzomi = tria persono, fingroj disen = zumi = unua persono ).
+  akceptu: ( e ) => ( rezimo === "walk" || rezimo === "interior" ) && ( e.pointerType === "touch" || e.pointerType === "pen" ),
+  postEniro: ( e ) => {
+    // Tenigu la geston sur la kanvaso eĉ se la fingro fordrivas de ĝi.
+    try { kanvaso.setPointerCapture(e.pointerId); } catch { /* ignorata */ }
+  },
+  jeTiro: ( dx, dy ) => {
+    direkto -= dx * 0o1/0o400;
+    klinigxo -= dy * 0o1/0o400;
+    klinigxo = Math.max(-0o135/0o100, Math.min(0o135/0o100, klinigxo));
+  },
+  jePinĉo: ( pinĉoBazo, nova ) => {
+    if ( !kuŝas ) celDistanco = Math.max(0, Math.min(0o16, celDistanco + ( pinĉoBazo - nova ) * 0o1/0o10));
+  },
+});
 
 // ⟪ Poŝtelefonaj agbutonoj 📃 ⟫
 // La E-butono aperas nur kiam estas proksima interagebla — same kiel la prompto
@@ -1165,7 +1189,6 @@ document.getElementById("butHelpi")!.addEventListener("click", () => {
     <b>M</b> · ${traduki("regiloMapo")}<br>
     <b>Escape</b> · ${traduki("regiloEliri")}<br>
     <b>Click spires</b> · ${traduki("regiloSpajroj")}<br>
-    <b>WARD</b> · ${traduki("regiloVesto")}
   </div>`;
   supermeta.classList.add("montri");
   // La helpa listo bezonas la vacepu-vortojn ( aih ).
@@ -1293,7 +1316,7 @@ function konsumi(item: MangxajxItemo) {
     if ( t < 1 ) item.malkreska = requestAnimationFrame(ŝrumpi); else { m.visible = false; item.malkreska = null; }
   } )();
   if ( isFok ) sfx.crunch(); else sfx.sip();
-  const foodKey = "manĝ" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
+  const foodKey = manĝaKlavo(f.key);
   // En aih la gustoj de la novaj manĝaĵoj estas provizore malplenaj — montru
   // la nomon sole anstataŭ la kruda traduka klavo.
   const flavoro = traduki(foodKey + "Flavor");
@@ -1304,11 +1327,103 @@ function konsumi(item: MangxajxItemo) {
   fx.classList.add("fxPulso");
 }
 
+// ⟪ Spaca krado 📃 ⟫ — unuforma haŝo-krado ( ĉeloj de 0o20 unuoj ) super la
+// koliziaj cirkloj kaj la dokaj platformoj, konstruita unufoje post la urba
+// konstruado. La ĉiukadraj demandoj ( solviKolizion · enDoko · dokaSuproY ·
+// solviDokanKolizion ) legas nur la ĉelojn ĉirkaŭ la demando-punkto — O(1)
+// anstataŭ plena skanado de la tuta urbo ĉiun kadron kaj ĉiun pasan.
+const KRADA_CXELO = 0o20;
+const kradaSxlosilo = ( cx: number, cz: number ): number => ( cx + 0o10000 ) * 0o20000 + cz + 0o10000;
+const koliziaKrado = new Map<number, number[]>();
+const dokaKrado = new Map<number, number[]>();
+let plejGrandaKoliziaR = 0;
+for ( let i = 0; i < kolizioj.length; i++ ) {
+  const c = kolizioj[i];
+  if ( c.r > plejGrandaKoliziaR ) plejGrandaKoliziaR = c.r;
+  for ( let cx = Math.floor(( c.x - c.r ) / KRADA_CXELO), cx1 = Math.floor(( c.x + c.r ) / KRADA_CXELO); cx <= cx1; cx++ ) {
+    for ( let cz = Math.floor(( c.z - c.r ) / KRADA_CXELO), cz1 = Math.floor(( c.z + c.r ) / KRADA_CXELO); cz <= cz1; cz++ ) {
+      const ŝlosilo = kradaSxlosilo(cx, cz);
+      let ĉelo = koliziaKrado.get(ŝlosilo);
+      if ( !ĉelo ) koliziaKrado.set(ŝlosilo, ĉelo = []);
+      ĉelo.push(i);
+    }
+  }
+}
+// dokaAABBj — la rotaciitaj kadroj de la dokoj antaŭ-kalkulitaj por la demandoj
+const dokaAABBj: { hx: number; hz: number }[] = [];
+let plejGrandaDokaDuono = 0;
+for ( let i = 0; i < dokoKolizioj.length; i++ ) {
+  const d = dokoKolizioj[i];
+  const absKos = Math.abs(Math.cos(d.rot)), absSin = Math.abs(Math.sin(d.rot));
+  const hx = d.w / 2 * absKos + d.d / 2 * absSin;
+  const hz = d.w / 2 * absSin + d.d / 2 * absKos;
+  dokaAABBj.push({ hx, hz });
+  if ( Math.max(hx, hz) > plejGrandaDokaDuono ) plejGrandaDokaDuono = Math.max(hx, hz);
+  for ( let cx = Math.floor(( d.x - hx ) / KRADA_CXELO), cx1 = Math.floor(( d.x + hx ) / KRADA_CXELO); cx <= cx1; cx++ ) {
+    for ( let cz = Math.floor(( d.z - hz ) / KRADA_CXELO), cz1 = Math.floor(( d.z + hz ) / KRADA_CXELO); cz <= cz1; cz++ ) {
+      const ŝlosilo = kradaSxlosilo(cx, cz);
+      let ĉelo = dokaKrado.get(ŝlosilo);
+      if ( !ĉelo ) dokaKrado.set(ŝlosilo, ĉelo = []);
+      ĉelo.push(i);
+    }
+  }
+}
+// kolektiKoliziojn / kolektiDokojn — la indeksoj de la kandidatoj en la ĉeloj
+// ĉirkaŭ ( x, z ) kun duona vasteco `duono`. La epokaj stampoj forigas la
+// duoblaĵojn de la grandaj cirkloj kiuj kovras plurajn ĉelojn.
+const koliziaKandidatoj: number[] = [];
+const dokaKandidatoj: number[] = [];
+const koliziaVidita = new Int32Array(kolizioj.length);
+const dokaVidita = new Int32Array(dokoKolizioj.length);
+let kradaEpoko = 0;
+function kolektiKoliziojn(x: number, z: number, duono: number, el: number[]): number[] {
+  el.length = 0;
+  const epoko = ++kradaEpoko;
+  const cx0 = Math.floor(( x - duono ) / KRADA_CXELO), cx1 = Math.floor(( x + duono ) / KRADA_CXELO);
+  const cz0 = Math.floor(( z - duono ) / KRADA_CXELO), cz1 = Math.floor(( z + duono ) / KRADA_CXELO);
+  for ( let cx = cx0; cx <= cx1; cx++ ) {
+    for ( let cz = cz0; cz <= cz1; cz++ ) {
+      const ĉelo = koliziaKrado.get(kradaSxlosilo(cx, cz));
+      if ( !ĉelo ) continue;
+      for ( let k = 0; k < ĉelo.length; k++ ) {
+        const i = ĉelo[k];
+        if ( koliziaVidita[i] === epoko ) continue;
+        koliziaVidita[i] = epoko;
+        el.push(i);
+      }
+    }
+  }
+  return el;
+}
+function kolektiDokojn(x: number, z: number, duono: number, el: number[]): number[] {
+  el.length = 0;
+  const epoko = ++kradaEpoko;
+  const cx0 = Math.floor(( x - duono ) / KRADA_CXELO), cx1 = Math.floor(( x + duono ) / KRADA_CXELO);
+  const cz0 = Math.floor(( z - duono ) / KRADA_CXELO), cz1 = Math.floor(( z + duono ) / KRADA_CXELO);
+  for ( let cx = cx0; cx <= cx1; cx++ ) {
+    for ( let cz = cz0; cz <= cz1; cz++ ) {
+      const ĉelo = dokaKrado.get(kradaSxlosilo(cx, cz));
+      if ( !ĉelo ) continue;
+      for ( let k = 0; k < ĉelo.length; k++ ) {
+        const i = ĉelo[k];
+        if ( dokaVidita[i] === epoko ) continue;
+        dokaVidita[i] = epoko;
+        el.push(i);
+      }
+    }
+  }
+  return el;
+}
+
 function solviKolizion(x: number, z: number): { x: number; z: number } {
   for ( let pass = 0; pass < 3; pass++ ) {
     let pusxoX = 0, pusxoZ = 0;
     let hit = false;
-    for ( const c of kolizioj ) {
+    // Duobla raŭdo — la amasiĝinta puŝo ene de la paso movas la punkton, do
+    // la demando kovras ĝin per la duobla radiuso de la plej granda cirklo.
+    const kandidatoj = kolektiKoliziojn(x, z, plejGrandaKoliziaR * 2 + 0o10, koliziaKandidatoj);
+    for ( const i of kandidatoj ) {
+      const c = kolizioj[i];
       const difX = x + pusxoX - c.x, difZ = z + pusxoZ - c.z;
       const d = Math.hypot(difX, difZ);
       const min = c.r + 0o4/0o10;
@@ -1328,7 +1443,9 @@ function solviKolizion(x: number, z: number): { x: number; z: number } {
 
 // enDoko — Cxu punkto estas ene de doka platformo (kun randa marĝeno)?
 function enDoko(x: number, z: number, marge: number): boolean {
-  for ( const d of dokoKolizioj ) {
+  const kandidatoj = kolektiDokojn(x, z, plejGrandaDokaDuono + marge, dokaKandidatoj);
+  for ( const i of kandidatoj ) {
+    const d = dokoKolizioj[i];
     const cosR = Math.cos(d.rot), sinR = Math.sin(d.rot);
     const lx = ( x - d.x ) * cosR + ( z - d.z ) * sinR;
     const lz = -( x - d.x ) * sinR + ( z - d.z ) * cosR;
@@ -1342,7 +1459,9 @@ function enDoko(x: number, z: number, marge: number): boolean {
 // rivero, do sen ĉi tio la promenanto enfandus en la platformon.
 function dokaSuproY(x: number, z: number): number {
   let y = -Infinity;
-  for ( const d of dokoKolizioj ) {
+  const kandidatoj = kolektiDokojn(x, z, plejGrandaDokaDuono, dokaKandidatoj);
+  for ( const i of kandidatoj ) {
+    const d = dokoKolizioj[i];
     const cosR = Math.cos(d.rot), sinR = Math.sin(d.rot);
     const lx = ( x - d.x ) * cosR + ( z - d.z ) * sinR;
     const lz = -( x - d.x ) * sinR + ( z - d.z ) * cosR;
@@ -1359,7 +1478,9 @@ function solviDokanKolizion(x: number, z: number, y: number, marge = 0o3/0o10): 
   for ( let pass = 0; pass < 3; pass++ ) {
     let puŝoX = 0, puŝoZ = 0;
     let hit = false;
-    for ( const d of dokoKolizioj ) {
+    const kandidatoj = kolektiDokojn(rx, rz, plejGrandaDokaDuono * 2 + marge * 2, dokaKandidatoj);
+    for ( const i of kandidatoj ) {
+      const d = dokoKolizioj[i];
       const cosR = Math.cos(d.rot), sinR = Math.sin(d.rot);
       const dx = rx - d.x, dz = rz - d.z;
       const lx = dx * cosR + dz * sinR;
@@ -1469,12 +1590,18 @@ function desegniMapanTavolon(ctx: CanvasRenderingContext2D, fonto: HTMLCanvasEle
   ctx.drawImage(fonto, sx, sy, sw, sh, 0, 0, w, h);
 }
 
+// mondoAlEkrano — La komuna mondo→mapa-piksela konverto, kun la mapo
+// orientiĝo ( okcidento +x maldekstren, nordo +z supren ). La vido estas
+// ( cx ± hw, cz ± hh ) en la mondo kaj ( 0..w, 0..h ) sur la ekrano.
+function mondoAlEkrano(x: number, z: number, cx: number, cz: number, hw: number, hh: number, w: number, h: number): [ number, number ] {
+  return [ ( ( cx + hw ) - x ) / ( 2 * hw ) * w, ( ( cz + hh ) - z ) / ( 2 * hh ) * h ];
+}
+
 // La ora markilo — sago turnita laŭ la rigarda direkto.
 function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
   // La mapo havas orienton dekstren ( -x ) kaj nordon supren ( +z ), do la
   // okcidenta rando de la vido ( cx + hw ) estas la maldekstra ekrano.
-  const px = ( ( cx + hw ) - mapX ) / ( 2 * hw ) * w;
-  const py = ( ( cz + hh ) - mapZ ) / ( 2 * hh ) * h;
+  const [ px, py ] = mondoAlEkrano(mapX, mapZ, cx, cz, hw, hh, w, h);
   const fx = rezimo === "walk" ? -Math.sin(direkto) : regiloj.target.x - fotilo.position.x;
   const fz = rezimo === "walk" ? -Math.cos(direkto) : regiloj.target.z - fotilo.position.z;
   // La sago indiku la rigardan direkton sur la norda mapo. oriento ( -x ) estas
@@ -1497,8 +1624,7 @@ function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx
 function desegniMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
   const punkto = ( x: number, z: number, koloro: string ) => {
     // La sama orientiĝo kiel la markilo. oriento dekstren, nordo supren.
-    const px = ( ( cx + hw ) - x ) / ( 2 * hw ) * w;
-    const py = ( ( cz + hh ) - z ) / ( 2 * hh ) * h;
+    const [ px, py ] = mondoAlEkrano(x, z, cx, cz, hw, hh, w, h);
     if ( px < -3 || px > w + 3 || py < -3 || py > h + 3 ) return;
     ctx.fillStyle = koloro;
     ctx.beginPath(); ctx.arc(px, py, 0o14/0o10, 0, Math.PI * 2); ctx.fill();
@@ -1558,22 +1684,6 @@ function malfermiMapon(): void {
     }, { passive: false });
     // Pinĉa zomo. Zorgu ankaŭ se tria fingro aliĝas aŭ forlasas meze. Tiri ( unu
     // fingro/muso ) movas la vidcentron; post pinĉo la restanta fingro daŭre tiras.
-    const punktoj = new Map<number, { x: number; y: number }>();
-    let pinĉaDistanco = 0;
-    let tirantaId: number | null = null;
-    let lastaX = 0, lastaY = 0;
-    const distancoInter = () => {
-      const [ a, b ] = [ ...punktoj.values() ];
-      return Math.hypot(a.x - b.x, a.y - b.y);
-    };
-    const agordiPinĉanBazon = () => {
-      if ( punktoj.size >= 2 ) {
-        const du = [ ...punktoj.values() ].slice(0, 2);
-        pinĉaDistanco = Math.hypot(du[0].x - du[1].x, du[0].y - du[1].y);
-      } else {
-        pinĉaDistanco = 0;
-      }
-    };
     // Pikseloj → mondaj unuoj. La mapo estas nedistorĉita ( samaj skvamoj en ambaŭ
     // aksoj ), do unu konverta faktoro sufiĉas. Limigu la tiradon al la maksimuma
     // zomo, por ke la mapo ne perdiĝu tute.
@@ -1594,41 +1704,12 @@ function malfermiMapon(): void {
       mapaPanX = lim(mapX + mapaPanX + dx * pp, hw) - mapX;
       mapaPanZ = lim(mapZ + mapaPanZ + dy * pp, hh) - mapZ;
     };
-    kanvasa.addEventListener("pointerdown", ( e ) => {
-      punktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      agordiPinĉanBazon();
-      if ( punktoj.size === 1 ) {
-        tirantaId = e.pointerId;
-        lastaX = e.clientX; lastaY = e.clientY;
-      }
-    });
-    kanvasa.addEventListener("pointermove", ( e ) => {
-      if ( !punktoj.has(e.pointerId) ) return;
-      punktoj.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if ( punktoj.size >= 2 && pinĉaDistanco > 0 ) {
-        const nova = distancoInter();
+    tuŝaGesto(kanvasa, {
+      jeTiro: tiriPans,
+      jePinĉo: ( pinĉaDistanco, nova ) => {
         plenaDuono = Math.max(MINA_DUONO, Math.min(MAXA_DUONO, plenaDuono * pinĉaDistanco / nova));
-        pinĉaDistanco = nova;
-        tirantaId = null; // la pinĉo anstataŭas la tiradon
-      } else if ( punktoj.size === 1 && e.pointerId === tirantaId ) {
-        tiriPans(e.clientX - lastaX, e.clientY - lastaY);
-        lastaX = e.clientX; lastaY = e.clientY;
-      }
+      },
     });
-    const forigiPunkton = ( e: PointerEvent ) => {
-      punktoj.delete(e.pointerId);
-      agordiPinĉanBazon();
-      // Se post la forigo restas unu fingro, daŭrigu tiri per ĝi.
-      if ( punktoj.size === 1 ) {
-        const restanta = [ ...punktoj.entries() ][0];
-        tirantaId = restanta[0];
-        lastaX = restanta[1].x; lastaY = restanta[1].y;
-      } else {
-        tirantaId = null;
-      }
-    };
-    kanvasa.addEventListener("pointerup", forigiPunkton);
-    kanvasa.addEventListener("pointercancel", forigiPunkton);
     // Duobla klako revenigas la mapon al la ludanto.
     kanvasa.addEventListener("dblclick", () => { mapaPanX = 0; mapaPanZ = 0; });
   }
@@ -1669,6 +1750,22 @@ bakitaMapo = bakiMapon();
 // La ŝarĝa ekrano finiĝas nur kiam ĉio estas preta ( konstruado + bakado ).
 sxargxaElemento.classList.add("finita");
 gxisdatigiRetikulon();
+
+// movoEniro — La komuna enigo de la du piediraj blokoj ( ekstere kaj en la
+// interno — la sama kapo antaŭe kopiita duoble ). Legu la klavojn kaj la
+// stirstangon ( gxisdatigiJoystick skribas en klavoj.KeyW ktp ), normaligu
+// la diagonalon kaj konvertu al la mondaj fortoj de la nuna direkto.
+//     @returns ( movX, movZ, longo, fortoX, fortoZ, radX, radZ ) - La normaligita
+//        enigo kaj la antaŭa/posta aksoj de la fotila direkto.
+function movoEniro(): { movX: number; movZ: number; longo: number; fortoX: number; fortoZ: number; radX: number; radZ: number } {
+  let movX = ( klavoj.KeyD || klavoj.ArrowRight ? 1 : 0 ) - ( klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0 );
+  let movZ = ( klavoj.KeyW || klavoj.ArrowUp ? 1 : 0 ) - ( klavoj.KeyS || klavoj.ArrowDown ? 1 : 0 );
+  const longo = Math.hypot(movX, movZ);
+  if ( longo > 1 ) { movX /= longo; movZ /= longo; }
+  const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
+  const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
+  return { movX, movZ, longo, fortoX, fortoZ, radX, radZ };
+}
 
 // agordiPromenanFotilon — Unua aŭ tria persono. En unua persono la fotilo sidas
 // ĉe la okuloj de la ludanto. En tria persono gxi orbitas malantaux la figuro
@@ -1728,6 +1825,11 @@ function konstruiRetilanStaton(): LokaStato {
 
 // ⟪ Animacio 📃 ⟫
 const horlogxo = new THREE.Timer();
+// Reuzataj skribaj vektoroj de la orbita movo — neniu ĉiukadra asigno.
+const ORBITA_DIR = new THREE.Vector3();
+const ORBITA_FLANKO = new THREE.Vector3();
+const ORBITA_SUPRE = new THREE.Vector3(0, 1, 0);
+const ORBITA_OFSETA = new THREE.Vector3();
 function animacii() {
   requestAnimationFrame(animacii);
   // Timer ( anstataux la malnova Clock ) — update() devas voki cxiun kadron
@@ -1773,14 +1875,9 @@ function animacii() {
 
   // Promena reximo
   if ( rezimo === "walk" && !surKanoto ) {
-    let movX = ( klavoj.KeyD || klavoj.ArrowRight ? 1 : 0 ) - ( klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0 );
-    let movZ = ( klavoj.KeyW || klavoj.ArrowUp ? 1 : 0 ) - ( klavoj.KeyS || klavoj.ArrowDown ? 1 : 0 );
-    const longo = Math.hypot(movX, movZ);
-    if ( longo > 1 ) { movX /= longo; movZ /= longo; }
+    const { movX, movZ, longo, fortoX, fortoZ, radX, radZ } = movoEniro();
     const sprinto = klavoj.ShiftLeft || klavoj.ShiftRight || mobSprinto;
     const rapido = sprinto ? 0o124/0o10 : 0o255/0o40;
-    const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
-    const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
     let novaX = ludantaPozicio.x + ( fortoX * movZ + radX * movX ) * rapido * deltaTempo;
     let novaZ = ludantaPozicio.z + ( fortoZ * movZ + radZ * movX ) * rapido * deltaTempo;
     // La mapo etendiĝas orienten ( -x ) ĝis la fora lagbordo ( x ≈ -0o220, z ≈
@@ -1882,40 +1979,52 @@ function animacii() {
 
     // Detekti pordojn kaj kanuojn. La centra sanktejo havas pordojn sur CXiUJ
     // kvar flankoj — la plej proksima pordo decidas tra kiu eniri.
-    let proksimaPordo: KonstruSpec | null = null;
-    let proksimaPordoDist = 3;
-    for ( const s of konstruSpecoj ) {
-      if ( s.x === 0 && s.z === 0 ) {
-        for ( let k = 0; k < 4; k++ ) {
-          const a = k * Math.PI / 2;
-          const pordoX = s.x + Math.sin(a) * ( s.d / 2 + 0o14/0o10 );
-          const pordoZ = s.z + Math.cos(a) * ( s.d / 2 + 0o14/0o10 );
-          const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
-          if ( d < proksimaPordoDist ) { proksimaPordoDist = d; proksimaPordo = s; aktivaPordaAngulo = a; }
+    // ⟪ Detekto de la proksimaj interageblaĵoj — MALAKRIGITA 📃 ⟫
+    // La plena skanado ( la pordoj × 4, la kanuoj, la beroj ) kuras ĉiun
+    // 0o10-an kadron ( ≈ 6 Hz ) anstataŭ ĉiukadre — la prompto restas
+    // respondema ( la ŝarĝ-rilataj animacioj bezonas ĝin ) kaj la ŝarĝo
+    // malkreskas per ~0o10-oble pli malmultaj skanadoj.
+    promptaKadro++;
+    let proksimaPordo = plejProksimaPordo;
+    let proksimaKanuo = plejProksimaKanuo;
+    let proksimaBero = plejProksimaBero;
+    if ( promptaKadro % 0o10 === 0 ) {
+      proksimaPordo = null;
+      let proksimaPordoDist = 3;
+      for ( const s of konstruSpecoj ) {
+        if ( s.x === 0 && s.z === 0 ) {
+          for ( let k = 0; k < 4; k++ ) {
+            const a = k * Math.PI / 2;
+            const pordoX = s.x + Math.sin(a) * ( s.d / 2 + 0o14/0o10 );
+            const pordoZ = s.z + Math.cos(a) * ( s.d / 2 + 0o14/0o10 );
+            const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
+            if ( d < proksimaPordoDist ) { proksimaPordoDist = d; proksimaPordo = s; aktivaPordaAngulo = a; }
+          }
+          continue;
         }
-        continue;
+        const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
+        const pordoX = s.x + difX * ( s.d / 2 + 0o14/0o10 ), pordoZ = s.z + difZ * ( s.d / 2 + 0o14/0o10 );
+        const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
+        if ( d < proksimaPordoDist ) { proksimaPordoDist = d; proksimaPordo = s; aktivaPordaAngulo = 0; }
       }
-      const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
-      const pordoX = s.x + difX * ( s.d / 2 + 0o14/0o10 ), pordoZ = s.z + difZ * ( s.d / 2 + 0o14/0o10 );
-      const d = Math.hypot(ludantaPozicio.x - pordoX, ludantaPozicio.z - pordoZ);
-      if ( d < proksimaPordoDist ) { proksimaPordoDist = d; proksimaPordo = s; aktivaPordaAngulo = 0; }
+      plejProksimaPordo = proksimaPordo;
+      proksimaKanuo = null;
+      let proksimaKanuoDist = 6;
+      for ( const c of kanuoj ) {
+        const d = Math.hypot(c.x - ludantaPozicio.x, c.z - ludantaPozicio.z);
+        if ( d < proksimaKanuoDist ) { proksimaKanuoDist = d; proksimaKanuo = c; }
+      }
+      plejProksimaKanuo = proksimaKanuo;
+      // Pussxlefo-beroj — la kolekteblaj manĝeblaj beroj en la arbaro.
+      proksimaBero = null;
+      let proksimaBeroDist = 0o25/0o10;
+      for ( const it of pussxlefoBeroj ) {
+        if ( it.dead ) continue;
+        const d = Math.hypot(it.pos.x - ludantaPozicio.x, it.pos.z - ludantaPozicio.z);
+        if ( d < proksimaBeroDist ) { proksimaBeroDist = d; proksimaBero = it; }
+      }
+      plejProksimaBero = proksimaBero;
     }
-    plejProksimaPordo = proksimaPordo;
-    let proksimaKanuo: Kanoto | null = null;
-    let proksimaKanuoDist = 6;
-    for ( const c of kanuoj ) {
-      const d = Math.hypot(c.x - ludantaPozicio.x, c.z - ludantaPozicio.z);
-      if ( d < proksimaKanuoDist ) { proksimaKanuoDist = d; proksimaKanuo = c; }
-    }
-    // Pussxlefo-beroj — la kolekteblaj manĝeblaj beroj en la arbaro.
-    let proksimaBero: MangxajxItemo | null = null;
-    let proksimaBeroDist = 0o25/0o10;
-    for ( const it of pussxlefoBeroj ) {
-      if ( it.dead ) continue;
-      const d = Math.hypot(it.pos.x - ludantaPozicio.x, it.pos.z - ludantaPozicio.z);
-      if ( d < proksimaBeroDist ) { proksimaBeroDist = d; proksimaBero = it; }
-    }
-    plejProksimaBero = proksimaBero;
     if ( plejProksimaPordo ) {
       agordiPrompton(`<span class="klavo">E</span> ` + traduki("eniri") + ` ` + traduki(plejProksimaPordo.name));
       promptoElemento.classList.add("montri");
@@ -1945,13 +2054,8 @@ function animacii() {
 
   // ⟪ Interna piedirado 📃 ⟫
   if ( rezimo === "interior" && elektitaSpec && !kuŝas ) {
-    let movX = ( klavoj.KeyD || klavoj.ArrowRight ? 1 : 0 ) - ( klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0 );
-    let movZ = ( klavoj.KeyW || klavoj.ArrowUp ? 1 : 0 ) - ( klavoj.KeyS || klavoj.ArrowDown ? 1 : 0 );
-    const longo = Math.hypot(movX, movZ);
-    if ( longo > 1 ) { movX /= longo; movZ /= longo; }
+    const { movX, movZ, longo, fortoX, fortoZ, radX, radZ } = movoEniro();
     const rapido = 0o215/0o40;
-    const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
-    const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
     let novaX = ludantaPozicio.x + ( fortoX * movZ + radX * movX ) * rapido * deltaTempo;
     let novaZ = ludantaPozicio.z + ( fortoZ * movZ + radZ * movX ) * rapido * deltaTempo;
 
@@ -2091,11 +2195,10 @@ function animacii() {
     let proksimaManĝaĵoDist = 2;
     for ( const it of internaSistemo.manĝaĵoj ) {
       if ( it.dead ) continue;
-      const spec = elektitaSpec!;
-      const rot = spec.rot || 0;
-      const cosR = Math.cos(rot), sinR = Math.sin(rot);
-      const mX = spec.x + cosR * it.pos.x - sinR * it.pos.z;
-      const mZ = spec.z + sinR * it.pos.x + cosR * it.pos.z;
+      // cosR/sinR estas jam en la scope de la interna bloko — neniu re-derivo
+      // po manĝaĵo ( la sama rotacio aplikiĝas al ĉiuj )
+      const mX = specX + cosR * it.pos.x - sinR * it.pos.z;
+      const mZ = specZ + sinR * it.pos.x + cosR * it.pos.z;
       const d = Math.hypot(ludantaPozicio.x - mX, ludantaPozicio.z - mZ);
       if ( d < proksimaManĝaĵoDist ) { proksimaManĝaĵoDist = d; proksimaManĝaĵo = it; }
     }
@@ -2105,7 +2208,7 @@ function animacii() {
       promptoElemento.classList.add("montri");
     } else if ( proksimaManĝaĵo ) {
       const prefikso = traduki("actGusti");
-      agordiPrompton(`<span class="klavo">E</span> ${prefikso} ${traduki("manĝ" + proksimaManĝaĵo.f.key.charAt(0).toUpperCase() + proksimaManĝaĵo.f.key.slice(1))}`);
+      agordiPrompton(`<span class="klavo">E</span> ${prefikso} ${traduki(manĝaKlavo(proksimaManĝaĵo.f.key))}`);
       promptoElemento.classList.add("montri");
     } else {
       agordiPrompton(`<span class="klavo">E</span> ` + traduki("actEliri"));
@@ -2129,7 +2232,6 @@ function animacii() {
     const enLagoK = Math.hypot(surKanoto.x - LAGO_X, surKanoto.z - lagoZ()) < lagoRadio(angK) + 0o2;
     const enNordorientaK = cxuEnNordorientaRivero(surKanoto.x, surKanoto.z);
     const akvoNiveloK = enLagoK ? lagoNivelo() : enNordorientaK ? riveraNordOrientaNivelo(surKanoto.z) : riveraAkvaNivelo(surKanoto.x);
-    surKanoto.bazaY = akvoNiveloK;
     if ( !enLagoK && enNordorientaK ) {
       // Nordorienta rivereto — la rivero fluas laŭ x ( ne laŭ z ), do limigu
       // la kanuon al la rivercentro laŭ x ( ±0o14 ) anstataŭ laŭ z.
@@ -2259,23 +2361,14 @@ function animacii() {
     // Marŝa animacio — la sama ritmo kiel la fotila bobado, kontraŭfazaj
     // kruroj kaj brakoj dum paŝado. Sur la kanuo la figuro sidas sen svingo.
     const movo = surKanoto ? 0 : movoValoro;
-    const paso = Math.sin(oscilo * 2);
-    const svingoKruro = 0o3/0o10 * movo * paso;
-    ludantaFiguro.kruroj[0].rotation.x = -svingoKruro;
-    ludantaFiguro.kruroj[1].rotation.x = svingoKruro;
-    const svingoBrako = 0o2/0o10 * movo * paso;
-    ludantaFiguro.brakoj[0].rotation.x = svingoBrako;
-    ludantaFiguro.brakoj[1].rotation.x = -svingoBrako;
-    ludantaFiguro.group.position.y += Math.abs(paso) * 0o2/0o100 * movo;
+    marŝSvingo(ludantaFiguro, Math.sin(oscilo * 2), movo);
   }
   // Internaj animacioj
   if ( rezimo === "interior" ) gxisdatigiInternon(internaSistemo, t);
 
-  // Nebula drivo
-  for ( const sp of nebuloj ) {
-    sp.position.x += sp.userData.rapido * deltaTempo * 0o4/0o10;
-    if ( sp.position.x > 0o160 ) sp.position.x = -0o160;
-  }
+  // Nebula drivo — GPU-a ( uTime ); la orienten-driva ĉirkaŭvolvo okazas en
+  // la vertica shadero, do la CPU nur donas la tempon.
+  nebulSistemo.uTime.value = t;
 
   // Kompaso / minimapo — la nadlo indikas la rigardan direkton sur la norda mapo.
   // La sama konvertaĵo kiel la markila sago ( atan2( -fx, fz ) ). oriento dekstren,
@@ -2302,12 +2395,14 @@ function animacii() {
     let panZ = ( klavoj.KeyS ? 1 : 0 ) - ( klavoj.KeyW ? 1 : 0 );
     const panY = ( klavoj.KeyE ? 1 : 0 ) - ( klavoj.KeyQ ? 1 : 0 );
     if ( panX || panZ || panY ) {
-      const fotilaDir = new THREE.Vector3();
+      const fotilaDir = ORBITA_DIR;
       fotilo.getWorldDirection(fotilaDir);
       fotilaDir.y = 0; fotilaDir.normalize();
-      const side = new THREE.Vector3().crossVectors(fotilaDir, new THREE.Vector3(0, 1, 0)).normalize();
+      const side = ORBITA_FLANKO.crossVectors(fotilaDir, ORBITA_SUPRE).normalize();
       const rapido = 0o40 * deltaTempo;
-      const offset = new THREE.Vector3()
+      // Nuligi la skriban vektoron ĉiun kadron — alie addScaledVector amasigus
+      // la antaŭajn kadrojn kaj la fotilo forflugus.
+      const offset = ORBITA_OFSETA.set(0, 0, 0)
         .addScaledVector(side, panX * rapido)
         .addScaledVector(fotilaDir, -panZ * rapido);
       offset.y = panY * rapido;
