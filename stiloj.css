@@ -1,8 +1,5 @@
 :root {
-  --gold:#d8b068;
   --gold-faint:#d8b06818;
-  --gold-dim:#d8b06830;
-  --gold-soft:#d8b06858;
   --sat:env(safe-area-inset-top,0px);
   --sab:env(safe-area-inset-bottom,0px);
   --sal:env(safe-area-inset-left,0px);
@@ -17,15 +14,17 @@ body {
   overscroll-behavior:none;
   user-select:none;
 }
-#sceno { display:block; touch-action:none; cursor:grab; }
+#sceno { display:block; touch-action:none; cursor:grab; border-radius:0; border:none; }
 #sceno:active { cursor:grabbing; }
 
 /* Full-screen layers share one fixed, edge-to-edge geometry. */
 #sceno,#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo,#supermeta,#sxargxo,#mobKontroloj { position:fixed; inset:0; }
 #vinjeto,#svingo,#fxVarma,#fxMenta,#balailo { pointer-events:none; }
-/* Milda vinjeto — la hela centro etendiĝas pli foren ( 75% ) kaj la randa
-   mallumo estas pli maldensa ( 40 anstataŭ 90 ), do la efiko apenaŭ rimarkeblas. */
-#vinjeto { z-index:2; background:radial-gradient(ellipse at center,transparent 75%,#08080840); transition:opacity 1s; }
+/* Milda vinjeto — la ena ombro sekvas la rektajn randojn de la tuto ( la
+   kvadrata cirklo sen rondigitaj anguloj — plenekrana kiel la sceno ), do
+   la flankoj restas rektaj kaj nur la anguloj de la ekrano kurbigas —
+   anstataŭ la elipsa gradienta kurbo. La sama randa mallumo ( 40 ). */
+#vinjeto { z-index:2; border-radius:0; box-shadow:inset 0 0 256px #08080840; transition:opacity 1s; }
 #svingo { z-index:5; opacity:0; background:linear-gradient(104deg,transparent 28%,var(--gold-faint) 48%,#18284830 68%,transparent 88%); }
 #svingo.iru { animation:svingo-efiko 1s ease forwards; }
 @keyframes svingo-efiko { 0%{opacity:0;transform:translateX(-28%)} 32%{opacity:1} 100%{opacity:0;transform:translateX(28%)} }
@@ -47,7 +46,7 @@ body {
 /* Crosshair, toast, and centered overlays */
 #retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .25s; }
 #retikulo.montri { opacity:.4375; }
-#retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--gold); }
+#retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--ក្ព៏); }
 #retikulo::before { width:16px; height:1px; top:50%; left:-8px; }
 #retikulo::after { width:1px; height:16px; left:50%; top:-8px; }
 #tosto, #prompto { white-space:nowrap; opacity:0; pointer-events:none; }
@@ -71,7 +70,7 @@ opacity:0; pointer-events:none; transition:opacity .25s;
 /* Fizika max-height ankaŭ: en aih/ja la blok-akso estas horizontala, do nur
    max-block-size ne limigus la altecon — la vesta/helpa listo povus superi la ekranon. */
 #supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 64px); overflow:auto; padding:var(--អារេងព៏); text-align:center; justify-content: start; }
-#supermeta h3 { margin:0; color:var(--gold); }
+#supermeta h3 { margin:0; color:var(--ក្ព៏); }
 /* La ferma butono flosas ĉe la sama angulo kiel la minimapo ( kie ĝi antaŭe
    sidis ) kaj kondutas kiel la naviga butono: 川 ĉiam, rekta en ĉiuj lingvoj. */
 #supermetaFermi {
@@ -79,7 +78,7 @@ opacity:0; pointer-events:none; transition:opacity .25s;
   top:calc(var(--អារេងព៏) + var(--sat));
   right:calc(var(--អារេងព៏) + var(--sar));
   inline-size:52px; block-size:52px;
-  color:var(--gold); cursor:pointer; touch-action:manipulation;
+  color:var(--ក្ព៏); cursor:pointer; touch-action:manipulation;
   writing-mode:horizontal-tb;
 }
 .helpa-listo { padding:var(--អារេង); }
@@ -96,8 +95,12 @@ opacity:0; pointer-events:none; transition:opacity .25s;
   border:var(--សាកព៏); cursor:pointer; touch-action:manipulation;
 }
 .nadlo { position:absolute; inset:0; will-change:transform; }
-.nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:var(--gold); }
-.nadlo::before { content:""; position:absolute; left:50%; top:var(--អារេង); transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid var(--gold); }
+/* La nadlo estas blanka kun nigra bordo — la sama dezajno kiel la sago sur la
+   radara kanvaso ( vidu desegniMarkilon ). La stroko kovras la randon de la
+   litero kaj la drop-shadow ĉirkaŭas la sago-formon, do ili videblas super ajna
+   fono de la mapo. */
+.nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:#fff; -webkit-text-stroke:2px #000; paint-order:stroke fill; text-shadow:0 0 2px #000; }
+.nadlo::before { content:""; position:absolute; left:50%; top:var(--អារេង); transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid #fff; filter:drop-shadow(0 0 1px #000); }
 /* La mapaj kanvasoj plenigu siajn kadrojn: la radaro la tutan kompason, la plena
    mapo la tutan ekranon ( plenekrana #supermeta ). La ortografia fotilo adaptiĝas
    al la ekrana proporcio ĉiukadre, do neniu fiksa grandeco necesas. touch-action:none
@@ -134,7 +137,7 @@ opacity:0; pointer-events:none; transition:opacity .25s;
    frostigita fono kun fon-malklariĝo, ne la duontravidebla butono. Ĉi tie restas nur
    la geometrio kaj la ora ikona koloro. */
 #navButono,.mobBut,#informButono {
-  color:var(--gold); cursor:pointer; touch-action:manipulation;
+  color:var(--ក្ព៏); cursor:pointer; touch-action:manipulation;
   inline-size:52px; block-size:52px;
 }
 /* z-5: super la ludo ( karto/prompto/kompaso je z-3 ), sub la paneloj ( z-6 ) —
@@ -252,9 +255,9 @@ html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:tr
 #mobKontroloj { display:none; pointer-events:none; }
 body.tuŝa #mobKontroloj { display:block; }
 #mobJoystickZono { position:absolute; left:0; bottom:0; display:grid; place-items:end center; padding-bottom:var(--អារេងព៏); padding-left:var(--អារេងព៏);  pointer-events:auto; touch-action:none; }
-#mobJoystickBazo { inline-size:128px; block-size:128px; border:1px solid var(--gold-soft); padding: 0; }
-#mobJoystickBazo.aktiva { border-color:var(--gold); }
-#mobJoystickTenilo { position:absolute; inset:0; margin:auto; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background:radial-gradient(circle at 37.5% 37.5%,var(--gold-soft),var(--gold-faint)); border:1px solid var(--gold-soft); pointer-events:none; }
+#mobJoystickBazo { inline-size:128px; block-size:128px; border:1px solid var(--តានេក២); padding: 0; }
+#mobJoystickBazo.aktiva { border-color:var(--ក្ព៏២); }
+#mobJoystickTenilo { position:absolute; inset:0; margin:auto; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background:radial-gradient(circle at 37.5% 37.5%,var(--តានេក២),var(--តានេកខេលេ)); border:1px solid var(--តានេក២); pointer-events:none; }
 /* La agbutonoj sidas ĉe la sama funda angulo kiel la naviga butono: unuforma 16px marĝeno sur ĉiu ekrano. */
 #mobButaroj { position:absolute; right:calc(var(--អារេងព៏) + 52px + var(--អារេង) + var(--sar)); bottom:calc(var(--អារេងព៏) + var(--sab)); display:flex; flex-direction:column; gap:var(--អារេង); pointer-events:none; }
 .mobBut { pointer-events:auto; }
@@ -263,5 +266,5 @@ body.tuŝa #mobKontroloj { display:block; }
 #mobButInterakti.montri { opacity:1; pointer-events:auto; }
 
 @media (prefers-color-scheme:light) {
-  :root { --gold:#a88848; --gold-soft:#a8884858; }
+  :root { --gold-faint:#d8b06818; }
 }

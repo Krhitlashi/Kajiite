@@ -455,6 +455,9 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
 //     @param deltaTempo ( number ) - Delta tempo en sekundoj.
 //     @param t ( number ) - Malsupra tempo por oscedoj.
 //     @param alteco ( funkcio ) - Tera alta funkcio por sekvi la terenon.
+//     @param suprajxo ( funkcio ) - La piedebla supraĵo ( la vojoj, dokoj ) —
+//         plena ol la tereno. La NPC-oj sekvas ĝin, do ili paŝas SUR la
+//         pavimajn vojojn anstataŭ trairi ilin kiel la kruda tero sube.
 // marŝSvingo — La komuna marŝa ritmo de ĉiuj figuroj ( ludanto, foraj ludantoj,
 // NPC-oj ) — kontraŭfazaj kruroj kaj brakoj plus la eta paŝa bobado. La sama
 // ritmo kiel la fotila bobado; movo = 0 donas la silentan sidan/sinkan pozon.
@@ -468,11 +471,18 @@ export function marŝSvingo(fig: Pick<Figuro, "group" | "kruroj" | "brakoj">, pa
   fig.group.position.y += Math.abs(paso) * 0o2/0o100 * movo;
 }
 
-export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco: ( x: number, z: number ) => number): void {
+export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number,
+  alteco: ( x: number, z: number ) => number,
+  suprajxo?: ( x: number, z: number ) => number): void {
   fig.atendo -= deltaTempo;
   if ( fig.atendo <= 0 ) {
     const a = Math.random() * Math.PI * 0o2, hazardaRadiuso = Math.random() * 0o4;
-    fig.celo.set(fig.hejmo.x + Math.sin(a) * hazardaRadiuso, fig.hejmo.y, fig.hejmo.z + Math.cos(a) * hazardaRadiuso);
+    // Celu la piedeblan supraĵon, ne la krudan terenon — la vojoj estas
+    // levitaj platformoj, do supraĵa celo tenas la marŝon sur la pavimon
+    // ( la sekva grundo-kvanto tendencas al la pli alta vojo ).
+    const cx = fig.hejmo.x + Math.sin(a) * hazardaRadiuso, cz = fig.hejmo.z + Math.cos(a) * hazardaRadiuso;
+    const cy = suprajxo ? suprajxo(cx, cz) : alteco(cx, cz);
+    fig.celo.set(cx, Number.isFinite(cy) ? Math.max(cy, alteco(cx, cz)) : alteco(cx, cz), cz);
     fig.atendo = 0o3 + Math.random() * 0o4;
   }
   const difX = fig.celo.x - fig.group.position.x, difZ = fig.celo.z - fig.group.position.z;
@@ -489,7 +499,11 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number, alteco
   if ( movas ) {
     fig.group.position.x += difX / d * fig.rapido * deltaTempo;
     fig.group.position.z += difZ / d * fig.rapido * deltaTempo;
-    fig.group.position.y = fig.group.position.y + ( alteco(fig.group.position.x, fig.group.position.z) - fig.group.position.y ) * 0o15/0o100;
+    // Sekvu la supraĵon ( vojoj + dokoj ) kiam ĝi kuŝas super la tereno —
+    // la glata 0o15/0o100-eca blendado transiras la vojajn ramplojn.
+    const teroY = alteco(fig.group.position.x, fig.group.position.z);
+    const celoY = suprajxo ? Math.max(teroY, suprajxo(fig.group.position.x, fig.group.position.z)) : teroY;
+    fig.group.position.y = fig.group.position.y + ( celoY - fig.group.position.y ) * 0o15/0o100;
     fig.group.rotation.y = Math.atan2(difX, difZ);
   }
   // Sta-svingo — eta balancado nur kiam oni staras, por ke la figuro ne ŝtoniĝu.

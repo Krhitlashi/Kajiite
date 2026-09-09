@@ -1118,8 +1118,9 @@ export async function konstruiUrbon(
   konstruiMusxajnMontetojn(sceno, 0o200, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn);
 
 
-  // Falintaj trunkoj — en la densa arbaro
-  konstruiFalintajnTrunkojn(sceno, 0o40, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn);
+  // Falintaj trunkoj — en la densa arbaro ( la konstruanto redonas la
+  // centrojn kaj la piedajn randojn por la kolizioj de la supra bloko )
+  const falintajTrunkoj = konstruiFalintajnTrunkojn(sceno, 0o40, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn);
 
   // Cetkuoj ( ſᶘɔ ɭʃƽɹ / Equisetum praealtum ) — la altaj senbranĉaj skuraj
   // kanoj kun strobiloj, laŭ la riverbordoj ( la lago estas akvo, do neniu
@@ -1340,6 +1341,36 @@ export async function konstruiUrbon(
   // evitante la dokojn. Ilia animacio okazas en sperto.ts ( gxisdatigiBestojn ).
   const bestoj = konstruiBestojn(sceno, 0o30, riveroZ, riveraAkvaNivelo, RIVERA_DUONLARĜO,
     { x: LAGO_X, z: lagoZ(), r: LAGO_RZ, nivelo: lagoNivelo() });
+
+  // ⟨ Solida vegetaĵo 📃 ⟩ — nur la trunkoj, rokoj kaj falintaj trunkoj estas
+  // solidoj ( la foliaro kaj la herbo restas traireblaj ). Ĉiu speco kalkulas
+  // sian propran piedan radiuson ĉi tie — la konstruantoj uzas fiksitajn
+  // geometriojn, do la radiusoj kongruas kun la vizaĝa larĝo per konstruo.
+  const trunkaR = 0o5/0o20;           // la malsupra radiuso de la trunka cilindro ( betulo · lariko · ĥŝakŝlefo )
+  for ( const t of arboj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  for ( const t of larikoj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  for ( const t of hxsxaksxlefoj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  // La montaraj, nordorient-montaj kaj lag-ringaj arboj — la samaj trunkoj.
+  for ( const t of montajBetuloj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  for ( const t of montajLarikoj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  for ( const t of neBetuloj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  for ( const t of neLarikoj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  for ( const t of lagArboj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  for ( const t of lagLarikoj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  for ( const t of lagHxsxaksxlefoj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
+  // Likenaj kaj montaraj rokoj — la instancigita ikosaedro havas radiuson = skalo.
+  for ( const r of likenSxtonoj ) kolizioj.push({ x: r.x, z: r.z, r: r.s });
+  for ( const r of montajRokoj ) kolizioj.push({ x: r.x, z: r.z, r: r.s });
+  for ( const r of neRokoj ) kolizioj.push({ x: r.x, z: r.z, r: r.s });
+  // Falintaj trunkoj — kreu la saman mult-angulan ringon, kiun la konstruanto
+  // metas per sia Eulera rotacio ( la cilindro kuŝas trans la grundo ).
+  const fTrunkoj = falintajTrunkoj as [ number, number ][][];
+  for ( const ringo of fTrunkoj ) {
+    for ( let k = 0; k < ringo.length; k++ ) {
+      const [ x, z ] = ringo[k];
+      kolizioj.push({ x, z, r: 0o3/0o20 });
+    }
+  }
 
   // ⟪ Neĝopetreloj 📃 ⟫
   // Pure blankaj marbirdoj ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea ) rondflugas

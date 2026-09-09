@@ -581,17 +581,23 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   // Uniforma 3D stela signo por cxiuj konstruajxoj — reuzebla komponanto.
   aldoniSteleanSignon(group, name, typeKey, w, d);
 
-  if ( typeKey === "mangxejo" ) {
-    // Eksteraj tabloj — la SAMA tablo/segxo-aseto kiel la internaj mangxejo-
-    // tabloj ( aldoniManĝtablon el la mebloj-modulo ), en la sama bruna ligna
-    // koloro kiel la internaj tabloj.
+  // Eksteraj tabloj — la SAMA tablo/segxo-aseto kiel la internaj mangxejo-
+  // tabloj ( aldoniManĝtablon el la mebloj-modulo ), en la sama bruna ligna
+  // koloro kiel la internaj tabloj. Nur la SOLAJ konstruajxoj ( la skulptitaj
+  // objektoj ) ricevas ilin — la kvar-blokaj krado-konstruajxoj ( fixed
+  // "kvar" ) staras tuj apud la vojo kaj la tabloj falus en gxin. Ili iras en
+  // apartan grupon ALDONITAN POST la diamanta spegulo ( vidu sube ), por ke
+  // la spegulo neniam reflektu ilin — la renversitaj kopioj elstaris el la
+  // grundo sur la deklivoj.
+  const eksterajTabloj = typeKey === "mangxejo" && spec.fixed !== "kvar" ? new THREE.Group() : null;
+  if ( eksterajTabloj ) {
     const lignaMaterialo = new THREE.MeshStandardMaterial({ color: LIGNA_KOLORO, roughness: 0o41/0o100, metalness: 0o11/0o100 });
     for ( let i = -1; i <= 1; i += 2 ) {
       const tx = i * 5, tz = d / 2 + 3;
       // La tablo kun la kvar benkoj cxirkaux gxi — la sama manĝa arangxo kiel
       // en la internaj mangxejoj ( aldoniManĝtablon el la mebloj-modulo ), kun
       // la sama ligna kaj ora rando ( kadraMaterialo ).
-      aldoniManĝtablon(group, tx, tz, 0, lignaMaterialo, kadraMaterialo);
+      aldoniManĝtablon(eksterajTabloj, tx, tz, 0, lignaMaterialo, kadraMaterialo);
     }
   }
   // Flankaj pordoj forigitaj laux peto de uzanto
@@ -630,5 +636,8 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   group.rotation.y = spec.rot;
   sceno.add(group);
   if ( spec.diamond ) aldoniDiamantanSpegulon(sceno, spec, group, w);
+  // La tabloj post la spegulo — la spegulo klonas la grupon ĝis nun, do la
+  // tabloj restas unuflankaj ( nenia renversita kopio sub la grundo ).
+  if ( eksterajTabloj ) group.add(eksterajTabloj);
   return group;
 }

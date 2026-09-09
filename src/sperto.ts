@@ -1204,11 +1204,15 @@ vestaro.addEventListener("click", ( e ) => {
 window.addEventListener("lingvosxangxo", () => {
   if ( vestaro.classList.contains("montri") ) plenigiVestaron();
 });
+// La skrim-klako fermas kian panelon ajn. Kiam la PLENA MAPO estas malfermita,
+// fermiMapon devas okupiĝi anstataŭ la nura .montri-forigo — alie mapoMalfermita
+// restus vera kaj la kompaso rifuzus remalfermi la mapon.
 supermeta.addEventListener("click", ( e ) => {
-  if ( e.target === supermeta ) supermeta.classList.remove("montri");
+  if ( e.target !== supermeta ) return;
+  if ( mapoMalfermita ) fermiMapon(); else supermeta.classList.remove("montri");
 });
 document.getElementById("supermetaFermi")!.addEventListener("click", () => {
-  supermeta.classList.remove("montri");
+  if ( mapoMalfermita ) fermiMapon(); else supermeta.classList.remove("montri");
 });
 
 // ⟪ Helpo 📃 ⟫
@@ -1673,7 +1677,10 @@ function mondoAlEkrano(x: number, z: number, cx: number, cz: number, hw: number,
   return [ ( ( cx + hw ) - x ) / ( 2 * hw ) * w, ( ( cz + hh ) - z ) / ( 2 * hh ) * h ];
 }
 
-// La ora markilo — sago turnita laŭ la rigarda direkto.
+// La markilo — UNA triangulo kun kurbigitaj anguloj, blanka kun nigra bordo.
+// La kurboj estas kvadrataj kurboj tra la eĝaj mezpunktoj ( la verticoj kiel
+// kontrolpunktoj ), do ĉiu angulo estas milde rondigita. Blanka plenigaĵo
+// super nigra streko — videbla super ajna fono de la mapo.
 function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
   // La mapo havas orienton dekstren ( -x ) kaj nordon supren ( +z ), do la
   // okcidenta rando de la vido ( cx + hw ) estas la maldekstra ekrano.
@@ -1688,11 +1695,25 @@ function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx
   ctx.save();
   ctx.translate(px, py);
   ctx.rotate(ang);
-  ctx.fillStyle = "#d8b068";
-  ctx.strokeStyle = "#081818";
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(0, -0o4); ctx.lineTo(0o7/0o2, 0o11/0o2); ctx.lineTo(-0o7/0o2, 0o11/0o2); ctx.closePath();
-  ctx.fill(); ctx.stroke();
+  // La tri verticoj ( pinto supre je angulo 0 ) kaj la eĝaj mezpunktoj.
+  const A = { x: 0, y: -0o4 }, B = { x: 0o7/0o2, y: 0o11/0o2 }, C = { x: -0o7/0o2, y: 0o11/0o2 };
+  const AB = { x: ( A.x + B.x ) / 0o2, y: ( A.y + B.y ) / 0o2 };
+  const BC = { x: ( B.x + C.x ) / 0o2, y: ( B.y + C.y ) / 0o2 };
+  const CA = { x: ( C.x + A.x ) / 0o2, y: ( C.y + A.y ) / 0o2 };
+  ctx.beginPath();
+  ctx.moveTo(AB.x, AB.y);
+  ctx.quadraticCurveTo(B.x, B.y, BC.x, BC.y);
+  ctx.quadraticCurveTo(C.x, C.y, CA.x, CA.y);
+  ctx.quadraticCurveTo(A.x, A.y, AB.x, AB.y);
+  ctx.closePath();
+  ctx.fillStyle = "#fff";
+  ctx.fill();
+  // La nigra bordo — la streko kovras la randon duone interne kaj duone
+  // ekstere, do ĝi ĉirkaŭas la blankan formon.
+  ctx.strokeStyle = "#000";
+  ctx.lineWidth = 0o2;
+  ctx.lineJoin = "round";
+  ctx.stroke();
   ctx.restore();
 }
 
@@ -1715,8 +1736,8 @@ function desegniRadaron(): void {
   const ctx = radaraKunteksto;
   if ( !ctx || !bakitaMapo ) return;
   desegniMapanTavolon(ctx, bakitaMapo, mapX, mapZ, RADARA_DUONO, RADARA_DUONO, 0o200, 0o200);
-  desegniMarkilon(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
   desegniMovantajnPunktojn(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
+  desegniMarkilon(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
 }
 
 // La plena mapo — plenekrana 2D-kanvaso kun pan/zoom.
@@ -1814,10 +1835,7 @@ kompaso.addEventListener("click", malfermiMapon);
 kompaso.addEventListener("keydown", ( e ) => {
   if ( e.code === "Enter" || e.code === "Space" ) { e.preventDefault(); malfermiMapon(); }
 });
-// Fermo. La ekzistanta ✕ kaj la skrim-klako jam forigas .montri; jen nia stato.
-supermeta.addEventListener("click", ( e ) => {
-  if ( mapoMalfermita && ( e.target === supermeta || ( e.target as HTMLElement ).id === "supermetaFermi" ) ) fermiMapon();
-});
+
 
 // La radara mapo ekde lanĉo — baku la statikan scenon unufoje ( la urbo kaj
 // arbaro jam estas konstruitaj ). La 2D-tavoloj desegniĝas ĉiukadre.
@@ -2102,7 +2120,7 @@ function animacii() {
       plejProksimaBero = proksimaBero;
     }
     if ( plejProksimaPordo ) {
-      agordiPrompton(`<span class="klavo">E</span> ` + traduki("eniri") + ` ` + traduki(plejProksimaPordo.name));
+      agordiPrompton(`<span class="klavo">E</span> ` + traduki("eniri") + ` ` + konstruaĵaNomo(plejProksimaPordo.name, plejProksimaPordo.type));
       promptoElemento.classList.add("montri");
     } else if ( proksimaKanuo && !surKanoto ) {
       agordiPrompton(`<span class="klavo">E</span> ` + traduki("eniriKanuo"));
@@ -2402,8 +2420,40 @@ function animacii() {
     if ( c !== surKanoto ) c.bazaY = Math.max(akvaNivelo(c.x, c.z), alteco(c.x, c.z));
     animaciiKanoton(c, t, c === surKanoto);
   }
-  // NPC-aj animacioj
-  for ( const n of npcoj ) gxisdatigiNpc(n, deltaTempo, t, alteco);
+  // NPC-aj animacioj — vojkonsciaj: la dua argumento estas la piedebla supraĵo
+  // ( vojoj + dokoj ), do la NPC-oj paŝas SUR la pavimajn vojojn anstataŭ
+  // trairi ilin kiel la kruda tero sube.
+  for ( const n of npcoj ) gxisdatigiNpc(n, deltaTempo, t, alteco, vojaSuproY);
+
+  // ⟨ Kolizioj kun la vivantaj figuroj 📃 ⟩ — la ludanto ne trairu la NPC-ojn
+  // nek la bestojn. Ĉe la NPC-oj ambaŭ flankoj cedas ( duono por la ludanto,
+  // duono por la figuro — nur iliaj horizontaloj, la grundo-kvantoj de la
+  // sekva kadro rekrampas ilin vertikale ); ĉe la bestoj la ludanto sola
+  // estas puŝata — ili naĝas sian propran kurbon.
+  if ( rezimo === "walk" && !surKanoto ) {
+    for ( const n of npcoj ) {
+      const difX = ludantaPozicio.x - n.group.position.x, difZ = ludantaPozicio.z - n.group.position.z;
+      const d = Math.hypot(difX, difZ);
+      const min = 0o7/0o10;
+      if ( d < min && d > 0o1/0o20000 ) {
+        const pen = min - d;
+        ludantaPozicio.x += ( difX / d ) * pen * 0o1/0o2;
+        ludantaPozicio.z += ( difZ / d ) * pen * 0o1/0o2;
+        n.group.position.x -= ( difX / d ) * pen * 0o1/0o2;
+        n.group.position.z -= ( difZ / d ) * pen * 0o1/0o2;
+      }
+    }
+    for ( const b of bestoj.bestoj ) {
+      const difX = ludantaPozicio.x - b.grupo.position.x, difZ = ludantaPozicio.z - b.grupo.position.z;
+      const d = Math.hypot(difX, difZ);
+      const min = 0o5/0o10;
+      if ( d < min && d > 0o1/0o20000 ) {
+        const pen = min - d;
+        ludantaPozicio.x += ( difX / d ) * pen;
+        ludantaPozicio.z += ( difZ / d ) * pen;
+      }
+    }
+  }
 
   // ⟪ Retilo 📃 ⟫ — sendu la lokan staton ( 8 Hz interne ) kaj sekvu la forajn
   // figurojn. Kiam la servilo ne estas atingebla, la tuta per-kadra laboro

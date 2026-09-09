@@ -2541,7 +2541,7 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   nearTrees: ArboMetado[],
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean
-): void {
+): [ number, number ][][] {
   const hazardaGenerilo = mulberry32(22931);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
   const sxelaBumpo = kreiSxelanBumpanTeksajxon();
@@ -2553,6 +2553,7 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const metitaj: [ number, number ][] = [];
+  const falintajRandoj: [ number, number ][][] = [];
   let ti = 0;
   let gardilo = 0;
 
@@ -2585,12 +2586,23 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
     M.compose(new THREE.Vector3(x, heightFn(x, z) + 0o4/0o10, z), Q, new THREE.Vector3(1, longo, 1));
     trunkoj.setMatrixAt(ti++, M);
     metitaj.push([ x, z ]);
+    // Piedaj randoj por la kolizioj — la sama Eulera rotacio ( yaw = angulo ),
+    // kiun la matrico uzas ( Rz unue klinas la akson al -x, Ry turnas ĝin ),
+    // do la ringo kongruas kun la vidita trunko.
+    const angulo = E.y;
+    const piedoj: [ number, number ][] = [];
+    for ( let k = 0; k < 0o5; k++ ) {
+      const t = ( k + 0o1/0o2 ) / 0o5 - 0o1/0o2;   // -0o4/0o10 .. 0o4/0o10 laŭlonge
+      piedoj.push([ x - Math.cos(angulo) * longo * t, z + Math.sin(angulo) * longo * t ]);
+    }
+    falintajRandoj.push(piedoj);
   }
 
   trunkoj.count = ti;
   trunkoj.instanceMatrix.needsUpdate = true;
 
   sceno.add(trunkoj);
+  return falintajRandoj;
 }
 
 // kreiRibitanSegmenton — Unu riba kan-segmento kun stel-forma transversa sekco.
