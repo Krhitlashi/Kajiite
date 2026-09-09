@@ -21,6 +21,17 @@ export const TIPARO: Record<string, KonstruTipo> = {
 
 export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }
 
+// konstruajxaMaterialo — La komuna materiala cacheo de la satalaj konstruajxoj.
+// La sama ( tipo, koloro ) kombinajxo aperas en dekdekon da konstruaĵoj — la
+// cacheo redonas UNU materialon po ŝlosilo anstataŭ freŝa materialo po voko
+// ( malpli da materialoj = malpli da ŝanĝoj de materialo inter desegno-vokoj ).
+const konstruajxaMaterialaStoko = new Map<string, THREE.MeshStandardMaterial>();
+function konstruajxaMaterialo(ŝlosilo: string, krei: () => THREE.MeshStandardMaterial): THREE.MeshStandardMaterial {
+  let m = konstruajxaMaterialaStoko.get(ŝlosilo);
+  if ( !m ) { m = krei(); konstruajxaMaterialaStoko.set(ŝlosilo, m); }
+  return m;
+}
+
 // La rondigita kvadrata formo ( kreiRondigitanRektangulanFormon ) venas el la
 // komuna forma modulo — la sama formo kiel la vojoj, dividita inter ili.
 function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number, rb: number, rt: number): THREE.Shape {
@@ -438,7 +449,8 @@ function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, group: T
   mg.position.y = ( spec.h0 || 0 ) - 0o2/0o100;
   mg.traverse(m => { if ( m instanceof THREE.Mesh ) m.castShadow = false; });
   sceno.add(mg);
-  const oroMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o7/0o10, roughness: 0o26/0o100, emissive: 0x302808, emissiveIntensity: 0o26/0o100 });
+  const oroMaterialo = konstruajxaMaterialo("spegulaOro",
+    () => new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o7/0o10, roughness: 0o26/0o100, emissive: 0x302808, emissiveIntensity: 0o26/0o100 }));
   const ringGeo = new THREE.RingGeometry(Math.max(0o1/0o100, w * 0o23/0o100 + 0o11/0o100), Math.max(0o2/0o100, w * 0o23/0o100 + 0o21/0o100), 32);
   const ring = new THREE.Mesh(ringGeo, oroMaterialo);
   ring.rotation.x = -Math.PI / 2;
@@ -482,10 +494,17 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   // spec.sube/tieroAltoSub restas en la spec, por ke la interno povu kongrui.
 
   const group = new THREE.Group();
-  // Malpli reflekta mura materialo. pli alta malglateco, preskaux neniu metaleco.
-  const muraMaterialo = new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "kasafeo" ? 0o41/0o100 : 0o3/0o4, metalness: 0, envMapIntensity: 0 });
-  const kadraMaterialo = kreiOranMaterialon(kadraKoloro);
-  const eniraMaterialo = kreiEniranMaterialon();
+  // La konstruajxaj materialoj estas KOMUNAJ — po ( tipo, koloro ) cacheitaj
+  // je la modulo-nivelo. Antaŭe ĉiu el la ĉirkaŭ kvardek konstruaĵoj kreis siajn
+  // proprajn murajn/kadrajn/enirajn materialojn — la sama malgranda aro da
+  // ( koloro, roughness ) kombinaĵoj ripete. La materialoj ne estas mutaciataj
+  // poste ( la koloroj estas fiksitaj laŭ tipo ), do la dividado estas sekura.
+  const muraMaterialo = konstruajxaMaterialo("muro" + muraKoloro + ( typeKey === "kasafeo" ? "k" : "" ),
+    () => new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "kasafeo" ? 0o41/0o100 : 0o3/0o4, metalness: 0, envMapIntensity: 0 }));
+  const kadraMaterialo = konstruajxaMaterialo("kadro" + kadraKoloro,
+    () => kreiOranMaterialon(kadraKoloro));
+  const eniraMaterialo = konstruajxaMaterialo("eniro",
+    () => kreiEniranMaterialon());
 
   const muroj = new THREE.Mesh(kunfandiGeometriojn(murajGeometrioj), muraMaterialo);
   muroj.castShadow = muroj.receiveShadow = true;
@@ -543,10 +562,12 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     // La fronta faco (f=0, +z) de la teretagxo havas la pordon — neniu fenestro tie.
     const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
     const klinaAngulo = Math.atan(klino / tieroAlto);
-    const fenestraMaterialo = new THREE.MeshStandardMaterial({
-      color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
-      roughness: 0o3/0o20, metalness: 0o3/0o20, transparent: true, opacity: 0o7/0o10,
-    });
+    // Cacheita kune kun la aliaj konstruajxaj materialoj — ĉiuj kasafeoj dividas ĝin.
+    const fenestraMaterialo = konstruajxaMaterialo("fenestro",
+      () => new THREE.MeshStandardMaterial({
+        color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
+        roughness: 0o3/0o20, metalness: 0o3/0o20, transparent: true, opacity: 0o7/0o10,
+      }));
     for ( let i = 0; i < tiers; i++ ) {
       const hwT = w / 2 - i * malpliiX, hdT = d / 2 - i * malpliiZ;
       const yC = i * tieroAlto + tieroAlto / 2;
@@ -591,7 +612,8 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   // grundo sur la deklivoj.
   const eksterajTabloj = typeKey === "mangxejo" && spec.fixed !== "kvar" ? new THREE.Group() : null;
   if ( eksterajTabloj ) {
-    const lignaMaterialo = new THREE.MeshStandardMaterial({ color: LIGNA_KOLORO, roughness: 0o41/0o100, metalness: 0o11/0o100 });
+    const lignaMaterialo = konstruajxaMaterialo("ligno",
+      () => new THREE.MeshStandardMaterial({ color: LIGNA_KOLORO, roughness: 0o41/0o100, metalness: 0o11/0o100 }));
     for ( let i = -1; i <= 1; i += 2 ) {
       const tx = i * 5, tz = d / 2 + 3;
       // La tablo kun la kvar benkoj cxirkaux gxi — la sama manĝa arangxo kiel

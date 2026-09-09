@@ -1919,6 +1919,8 @@ function konstruiRetilanStaton(): LokaStato {
 
 // ⟪ Animacio 📃 ⟫
 const horlogxo = new THREE.Timer();
+// La radara kadro-nombro — la 2-bitaj malaltaj bitoj tempigas la 15 Hz-redesegnon.
+let radaraKadro = 0;
 // Reuzataj skribaj vektoroj de la orbita movo — neniu ĉiukadra asigno.
 const ORBITA_DIR = new THREE.Vector3();
 const ORBITA_FLANKO = new THREE.Vector3();
@@ -2458,9 +2460,10 @@ function animacii() {
   // ⟪ Retilo 📃 ⟫ — sendu la lokan staton ( 8 Hz interne ) kaj sekvu la forajn
   // figurojn. Kiam la servilo ne estas atingebla, la tuta per-kadra laboro
   // estas preterlasata ( neniu stato-konstruo, neniu animacio — ne ekzistas
-  // foraj figuroj se ne estas konekto ).
+  // foraj figuroj se ne estas konekto ). La stato-builder vokiĝas nur ĉe la
+  // realaj sendo-oj — neniu per-kadra objekto asigniĝas.
   if ( retilo.aktiva ) {
-    retilo.sendi(konstruiRetilanStaton());
+    retilo.sendi(konstruiRetilanStaton);
     retilo.animacii(deltaTempo, t);
   }
 
@@ -2507,11 +2510,15 @@ function animacii() {
   mapX = rezimo === "orbit" ? regiloj.target.x : ludantaPozicio.x;
   mapZ = rezimo === "orbit" ? regiloj.target.z : ludantaPozicio.z;
   // La bakita mapo desegniĝas ĉiukadre — nur 2D-tavoloj, neniu sceno-submeto.
+  // La RADARO malakrigiĝas al ~15 Hz ( ĉiu 4-a kadro ) — la 2D-tavoloj estas
+  // malmultekostaj sed nenij bezonas 60 Hz ( la radara nadlo kaj la punktoj
+  // moviĝas malrapide; la plena mapo restas ĉiukadre por flua pan/zoom ).
   if ( bakitaMapo ) {
     if ( mapoMalfermita ) {
       desegniPlenanMapon();
     } else if ( sxargxaElemento.classList.contains("finita") ) {
-      desegniRadaron();
+      radaraKadro = ( radaraKadro + 1 ) & 3;
+      if ( radaraKadro === 0 ) desegniRadaron();
     }
   }
 

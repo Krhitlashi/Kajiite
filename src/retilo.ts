@@ -27,7 +27,10 @@ export interface LokaStato {
 export interface Retilo {
   aktiva: boolean;
   grupo: THREE.Group;
-  sendi: ( stato: LokaStato ) => void;
+  // sendi — donu BUILDER-funkcion anstataŭ pre-konstruitan staton: la stato
+  // ( kaj la suba akumuligita por la sendo ) nur konstruiĝas kiam la sendo
+  // vere okazas ( je 8 Hz ), ne ĉiukadre.
+  sendi: ( konstrui: () => LokaStato ) => void;
   animacii: ( deltaTempo: number, t: number ) => void;
   fermi: () => void;
 }
@@ -235,12 +238,15 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
   }
 
   // sendi — Konservu la lokan staton ĉiukadre; sendu ĝin je 8 Hz.
-  function sendi(stato: LokaStato): void {
-    lastaStato = stato;
-    if ( !aktiva || !so ) return;
+  // La konstrui-funkcio VOKIĜAS nur ĉe la realaj sendo-oj — neniu per-kadra
+  // stato-objekto asigniĝas kiam la reto estas malŝaltita aŭ inter la sendo-oj.
+  function sendi(konstrui: () => LokaStato): void {
+    if ( !aktiva || !so ) { lastaStato = null; return; }
     const nun = performance.now();
     if ( nun - lastaSendoTempo < SENDOPAŬZO ) return;
     lastaSendoTempo = nun;
+    const stato = konstrui();
+    lastaStato = stato;
     // Duobla rondigo al 1/64 ( 0o100 ) — sufiĉa precizeco, malpli da bitokoj.
     const q = ( v: number ) => Math.round(v * 0o100) / 0o100;
     const pakajxo = JSON.stringify({

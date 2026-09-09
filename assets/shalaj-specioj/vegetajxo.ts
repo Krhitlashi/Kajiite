@@ -46,6 +46,56 @@ export const MONTAJ_BIOMOJ: readonly Biomo[] = [ "montaro" ];
 export const AKVAJ_PLANTOJ_BIOMOJ: readonly Biomo[] = [ "akvaj-plantoj" ];
 export const EKVIZETO_BIOMOJ: readonly Biomo[] = [ "ekvizeto" ];
 
+// PunktaHasho — eta spaca haŝo-krado por la metaj bukloj. La minimumajn
+// distancojn antaŭe kontrolis lineara skanado de ĉiuj jam metitaj punktoj
+// ( O(n²) tra miloj da lokoj kaj dek miloj da provoj ) — la samaj demandoj
+// estas O(1) po ĉelo ĉi tie. La eroj estas generikaj ( [x,z] tufoj aŭ
+// ArboMetado ) kaj la demandobufro reuziĝas — neniu asigno po provo.
+class PunktaHasho<T> {
+  private ĉeloj = new Map<number, T[]>();
+  private bufro: T[] = [];
+  constructor(readonly grandeco: number) {}
+  private ŝlosilo(cx: number, cz: number): number { return ( cx + 0o2000 ) * 0o10000 + ( cz + 0o2000 ); }
+  meti(x: number, z: number, ero: T): void {
+    const cx = Math.floor(x / this.grandeco), cz = Math.floor(z / this.grandeco);
+    const ŝ = this.ŝlosilo(cx, cz);
+    let ĉ = this.ĉeloj.get(ŝ);
+    if ( !ĉ ) { ĉ = []; this.ĉeloj.set(ŝ, ĉ); }
+    ĉ.push(ero);
+  }
+  // najbaroj — ĉiuj eroj en la ĉeloj, kiujn la disko de `radiuso` ĉirkaŭ
+  // ( x, z ) tuŝas. Ĉiu punkto ene de la radiuso kuŝas en unu el ĉi tiuj
+  // ĉeloj ( la gamo estas la ekzacta floor-intervalo — la konservativa
+  // supertavolo en ĉelaj termoj ). Revenas la INTERNAN bufron — konsumu ĝin
+  // antaŭ la sekva voko ( la ĉi tieaj bukloj faras tion: skani, decidi, daŭrigi ).
+  najbaroj(x: number, z: number, radiuso: number): T[] {
+    this.bufro.length = 0;
+    const cx0 = Math.floor(( x - radiuso ) / this.grandeco), cx1 = Math.floor(( x + radiuso ) / this.grandeco);
+    const cz0 = Math.floor(( z - radiuso ) / this.grandeco), cz1 = Math.floor(( z + radiuso ) / this.grandeco);
+    for ( let cx = cx0; cx <= cx1; cx++ ) {
+      for ( let cz = cz0; cz <= cz1; cz++ ) {
+        const ĉ = this.ĉeloj.get(this.ŝlosilo(cx, cz));
+        if ( ĉ ) for ( let i = 0; i < ĉ.length; i++ ) this.bufro.push(ĉ[i]);
+      }
+    }
+    return this.bufro;
+  }
+}
+
+// punktoLibera — la simpla interspaco-demando super [ x, z ]-tufo-hasho:
+// ĉu neniu metita punkto kuŝas ene de `minDist` de ( x, z )? La sama decido
+// kiel la malnova lineara skanado ( Math.hypot → kvadrata komparo — la sama
+// rezulto sen la hipot-kosto ), per ĉelaj demandoj anstataŭ O(n).
+function punktoLibera(hasho: PunktaHasho<[ number, number ]>, x: number, z: number, minDist: number): boolean {
+  const najbaroj = hasho.najbaroj(x, z, minDist);
+  const m2 = minDist * minDist;
+  for ( let i = 0; i < najbaroj.length; i++ ) {
+    const dx = x - najbaroj[i][0], dz = z - najbaroj[i][1];
+    if ( dx * dx + dz * dz < m2 ) return false;
+  }
+  return true;
+}
+
 // metiPussxlefojn — Metu Pussxlefojn laux la biomo de la skulptita tereno
 // ( tereno.ts ). La montara biomo estas la natura hejmo de la planto — plena
 // denseco sur la deklivoj sub la arbolinio — dum la vala biomo ricevas nur
@@ -72,6 +122,10 @@ export function metiPussxlefojn(heightFn: ( x: number, z: number ) => number,
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32(semo);
   const placed: ArboMetado[] = [];
+  // La metitaj arboj en la spaca haŝo — la interspaca demando O(1) po ĉelo
+  // anstataŭ la lineara skanado de ĉiuj metitaj arboj po provo.
+  const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
+  for ( const arbo of evituArbojn ) metitaHasho.meti(arbo.x, arbo.z, arbo);
   let provoj = 0;
   // Arbolinia fado — la plantoj malabundas sur la altaj deklivoj, la krestoj
   // kaj la pintoj ( plena sub ≈0o16, nula ĉe ≈0o26 ), kiel en metiMontajnArbojn.
@@ -99,12 +153,13 @@ export function metiPussxlefojn(heightFn: ( x: number, z: number ) => number,
     const s = 0o63/0o100 + hazardaGenerilo() * 0o55/0o100;
     const kandidataR = kronaRadiusoPussxlefa(s);
     let troProksima = false;
-    for ( const arbo of [ ...evituArbojn, ...placed ] ) {
+    for ( const arbo of metitaHasho.najbaroj(x, z, kandidataR + 0o10 + KRONA_LIBERO) ) {
       if ( Math.hypot(x - arbo.x, z - arbo.z) <
         interspaco(0o4, arbo.r ?? kronaRadiusoBetula(arbo.s), kandidataR) ) { troProksima = true; break; }
     }
     if ( troProksima ) continue;
     placed.push({ x, z, h, s, r: kandidataR });
+    metitaHasho.meti(x, z, placed[placed.length - 1]);
   }
   return placed;
 }
@@ -219,6 +274,11 @@ export function metiArbojn(heightFn: ( x: number, z: number ) => number,
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32(semo);
   const placed: ArboMetado[] = [];
+  // La spaca haŝo tenas LA EVITU-ARBOJN kaj la jam metitajn — la linara
+  // skanado ( plus la per-prova [ ...evituArbojn, ...placed ] asigno ) de la
+  // malnova versio estis la plej peza parto de la arbara generado.
+  const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
+  for ( const arbo of evituArbojn ) metitaHasho.meti(arbo.x, arbo.z, arbo);
   let provoj = 0;
 
   const bonaLoko = ( x: number, z: number, s: number ): boolean => {
@@ -232,7 +292,7 @@ export function metiArbojn(heightFn: ( x: number, z: number ) => number,
     if ( excludePaths(x, z, 0o44/0o10) ) return false;
     if ( excludeBuildings(x, z, 3) ) return false;
     const kandidataR = kronaRadiuso(s);
-    for ( const arbo of [ ...evituArbojn, ...placed ] ) {
+    for ( const arbo of metitaHasho.najbaroj(x, z, kandidataR + minimumaDistanco + KRONA_LIBERO) ) {
       if ( Math.hypot(x - arbo.x, z - arbo.z) <
         interspaco(minimumaDistanco, arbo.r ?? kronaRadiusoBetula(arbo.s), kandidataR) ) return false;
     }
@@ -248,6 +308,7 @@ export function metiArbojn(heightFn: ( x: number, z: number ) => number,
     const s = 0o63/0o100 + hazardaGenerilo() * 0o55/0o100;
     if ( !bonaLoko(x, z, s) ) continue;
     placed.push({ x, z, h: heightFn(x, z), s, r: kronaRadiuso(s) });
+    metitaHasho.meti(x, z, placed[placed.length - 1]);
   }
   return placed;
 }
@@ -291,6 +352,10 @@ export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32(semo);
   const placed: ArboMetado[] = [];
+  // La spaca haŝo — la sama interspaca akcelo kiel en metiArbojn. La aro
+  // de la valaj arboj restas por la mozaika interspaco ( O(1) hasado ).
+  const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
+  for ( const arbo of evituArbojn ) metitaHasho.meti(arbo.x, arbo.z, arbo);
   let provoj = 0;
   // Aro de la valaj arboj — rapida testado de la mozaika interspaco en la
   // ofta buklo ( Set.has estas O(1), kontraste al array.includes O(n) ).
@@ -379,7 +444,7 @@ export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
       * ( 0o1/0o2 + 0o1/0o2 * arboliniaFado(h) );
     const kandidataR = kronaRadiuso(s);
     let troProksima = false;
-    for ( const arbo of [ ...evituArbojn, ...placed ] ) {
+    for ( const arbo of metitaHasho.najbaroj(x, z, kandidataR + minimumaDistanco + KRONA_LIBERO) ) {
       // Kontraŭ la valaj arboj la distanco estas pli libera ( 0o4 ), por ke la
       // monta arbaro interplektiĝu kun la vala anstataŭ lasi mozaton laŭ la piedo.
       const mozaika = evitaAro.has(arbo) ? 0o4 : minimumaDistanco;
@@ -388,6 +453,7 @@ export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
     }
     if ( troProksima ) continue;
     placed.push({ x, z, h, s, r: kronaRadiuso(s) });
+    metitaHasho.meti(x, z, placed[placed.length - 1]);
   }
   return placed;
 }
@@ -598,7 +664,7 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
   const ena = new THREE.Vector3();
   const enX = new THREE.Vector3();
   const enZ = new THREE.Vector3();
-  const metitaj: [ number, number ][] = [];
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   let fi = 0, pu = 0, mp = 0, hi = 0, ta = 0, mi = 0, li = 0, lf = 0, lo = 0, lb = 0;
   let gardilo = 0;
 
@@ -640,11 +706,9 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
     }
     if ( troProksima ) continue;
     // Eta interspaco — la plantoj restu distingeblaj ( pli granda por la
-    // arboformaj filikoj, kies kronoj ne trapenetru unu la alian ).
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < minDist ) { troProksima = true; break; }
-    }
-    if ( troProksima ) continue;
+    // arboformaj filikoj, kies kronoj ne trapenetru unu la alian ). La hasho
+    // anstataŭ la lineara skanado ( la sama decido, O(1) po ĉelo ).
+    if ( !punktoLibera(metitajHasho, x, z, minDist) ) continue;
 
     const y = heightFn(x, z);
     if ( speco < 0o2/0o10 ) {
@@ -730,7 +794,7 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
       else { likenojBisoidaj.setMatrixAt(lb++, M); }
       li++;
     }
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
   }
 
   finigi(filikoj, fi); finigi(malaltaj, mp); finigi(purpuraj, pu);
@@ -1115,7 +1179,7 @@ export function konstruiFilikojn(sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
-  const metitaj: [ number, number ][] = [];
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   let fi = 0;
   let gardilo = 0;
   // Malfermaj filikoj — la foraj, ne-arbaj filikoj klasteriĝas en naturaj
@@ -1146,18 +1210,14 @@ export function konstruiFilikojn(sceno: THREE.Scene,
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
     if ( excludeRivers(x, z) || excludePaths(x, z, 2) || Math.hypot(x, z) < 0o16 ) continue;
     // Eta interspaco — la filikoj ne kresku unu sur la alia ĉe la arboj.
-    let troProksima = false;
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o2 ) { troProksima = true; break; }
-    }
-    if ( troProksima ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, 0o2) ) continue;
 
     const skalo = 0o55/0o100 + hazardaGenerilo() * 0o63/0o100;
     E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q, new THREE.Vector3(skalo, skalo, skalo));
     filikoj.setMatrixAt(fi++, M);
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
   }
 
   filikoj.count = fi;
@@ -1290,7 +1350,7 @@ function konstruiPeriferianFilikanAreon(sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
-  const metitaj: [ number, number ][] = [];
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   let pi = 0;
   let gardilo = 0;
 
@@ -1305,11 +1365,7 @@ function konstruiPeriferianFilikanAreon(sceno: THREE.Scene,
     if ( excludePaths(x, z, 0o2) ) continue;
     if ( excludeBuildings(x, z, 0o2) ) continue;
     // Eta interspaco — la purpuraj plantoj restu distingeblaj, ne unu sur la alia.
-    let troProksima = false;
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o2 ) { troProksima = true; break; }
-    }
-    if ( troProksima ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, 0o2) ) continue;
 
     const skalo = 0o6/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
@@ -1317,7 +1373,7 @@ function konstruiPeriferianFilikanAreon(sceno: THREE.Scene,
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,
       new THREE.Vector3(skalo, skalo, skalo));
     plantoj.setMatrixAt(pi++, M);
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
   }
 
   plantoj.count = pi;
@@ -1367,7 +1423,7 @@ export function konstruiAltajnPurpurajnFilikojn(sceno: THREE.Scene,
   const E = new THREE.Euler();
   const C = new THREE.Color();
   const indicoj = specoj.map(() => 0);
-  const metitaj: [ number, number ][] = [];
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   let provoj = 0;
   // Arbareroj — la altaj purpuraj filikoj kreskas en naturaj makuloj tra la
   // tuta vala biomo ( ±0o600 ), ne en ringo.
@@ -1387,10 +1443,7 @@ export function konstruiAltajnPurpurajnFilikojn(sceno: THREE.Scene,
     // La interspaco estas krona-konscia. la plej larĝa krono ( 0o16/0o10 ) je
     // la plej granda skalo ( 0o16/0o10 ) larĝas ≈ 2.6 unuojn, do la efika
     // duon-radiuso estas ≈ 1.6 ( 8/5 ) kun la pendantaj frondoj.
-    let troProksima = false;
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o146/0o100 * 0o2 + 0o3 ) { troProksima = true; break; }
-    }
+    let troProksima = !punktoLibera(metitajHasho, x, z, 0o146/0o100 * 0o2 + 0o3);
     // Ankaŭ ne en la arbojn — la trunko kaj la pendantaj kronoj de la filiko
     // restas ekster la krona radiuso de ĉiu jam metita arbo ( plus la libero ).
     if ( !troProksima ) {
@@ -1428,7 +1481,7 @@ export function konstruiAltajnPurpurajnFilikojn(sceno: THREE.Scene,
     M.compose(new THREE.Vector3(x, kronaCentroY, z), Q, new THREE.Vector3(skalo, skalo, skalo));
     kronoj[specoIndico].setMatrixAt(indicoj[specoIndico], M);
     indicoj[specoIndico]++;
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
   }
 
   trunkoj.forEach(( mesh, i ) => {
@@ -1701,7 +1754,7 @@ export function konstruiLikenojn(sceno: THREE.Scene,
   const enX = new THREE.Vector3();
   const enZ = new THREE.Vector3();
   const ankroj = [ ...nearTrees, ...nearSxtonoj ];
-  const metitaj: [ number, number ][] = [];
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   let li = 0;
   let gardilo = 0;
 
@@ -1735,11 +1788,7 @@ export function konstruiLikenojn(sceno: THREE.Scene,
     // Montara alteca akcepto — la likenoj sterniĝas sur la supraj deklivoj.
     if ( montara && hazardaGenerilo() > altaAkcepto(heightFn(x, z)) ) continue;
     // Eta interspaco — la makuloj ne kuŝu unu sur la alia.
-    let troProksima = false;
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o2 ) { troProksima = true; break; }
-    }
-    if ( troProksima ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, 0o2) ) continue;
 
     const skalo = 0o6/0o10 + hazardaGenerilo() * 0o12/0o10;
     // Tri teraj specimenoj difinas la deklivan normalon.
@@ -1774,7 +1823,7 @@ export function konstruiLikenojn(sceno: THREE.Scene,
     const elekto = loto < 0o4/0o10 ? 0 : loto < 0o7/0o10 ? 1 : 2;
     formoj[elekto].reto.setMatrixAt(formoj[elekto].nombro++, M);
     li++;
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
   }
 
   for ( const formo of formoj ) {
@@ -2410,7 +2459,7 @@ export function konstruiHerbon(sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
-  const metitaj: [ number, number ][] = [];
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   let hi = 0;
   let gardilo = 0;
 
@@ -2431,18 +2480,14 @@ export function konstruiHerbon(sceno: THREE.Scene,
     if ( excludeBuildings(x, z, 2) ) continue;
     if ( Math.hypot(x, z) < 0o16 ) continue;
     // Eta interspaco — la herboj kresku kiel tufoj, ne kiel solida tapiŝo.
-    let troProksima = false;
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o12/0o10 ) { troProksima = true; break; }
-    }
-    if ( troProksima ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, 0o12/0o10) ) continue;
 
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q, new THREE.Vector3(skalo, skalo, skalo));
     herboj.setMatrixAt(hi++, M);
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
   }
 
   herboj.count = hi;
@@ -2468,12 +2513,12 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const normalo = new THREE.Vector3();
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   const ena = new THREE.Vector3();
   const enX = new THREE.Vector3();
   const enZ = new THREE.Vector3();
   const vertikala = new THREE.Vector3(0, 1, 0);
   const yawQ = new THREE.Quaternion();
-  const metitaj: [ number, number ][] = [];
   let mi = 0;
   let gardilo = 0;
 
@@ -2494,11 +2539,7 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
     if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) ) continue;
     if ( Math.hypot(x, z) < 0o20 ) continue;
     // Eta interspaco — la musko montetoj restu apartaj, ne kunfanditaj.
-    let troProksima = false;
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o2 ) { troProksima = true; break; }
-    }
-    if ( troProksima ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, 0o2) ) continue;
 
     const skalo = 0o3/0o10 + hazardaGenerilo() * 0o5/0o10;
     const y = heightFn(x, z);
@@ -2526,7 +2567,7 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
     M.compose(new THREE.Vector3(x, y + 0o1/0o40, z), Q,
       new THREE.Vector3(skalo, skalo * 0o5/0o10, skalo));
     muskoj.setMatrixAt(mi++, M);
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
   }
 
   muskoj.count = mi;
@@ -2552,7 +2593,7 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
-  const metitaj: [ number, number ][] = [];
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   const falintajRandoj: [ number, number ][][] = [];
   let ti = 0;
   let gardilo = 0;
@@ -2574,18 +2615,14 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
     if ( excludeRivers(x, z) || excludePaths(x, z, 0o3) ) continue;
     if ( Math.hypot(x, z) < 0o20 ) continue;
     // Eta interspaco — la falintaj trunkoj ne kuŝu krucigitaj sur la grundo.
-    let troProksima = false;
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o3 ) { troProksima = true; break; }
-    }
-    if ( troProksima ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, 0o3) ) continue;
 
     const longo = 0o12/0o10 + hazardaGenerilo() * 0o22/0o10;
     E.set(0, hazardaGenerilo() * Math.PI * 2, Math.PI / 2 + ( hazardaGenerilo() - 0o4/0o10 ) * 0o4/0o10);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z) + 0o4/0o10, z), Q, new THREE.Vector3(1, longo, 1));
     trunkoj.setMatrixAt(ti++, M);
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
     // Piedaj randoj por la kolizioj — la sama Eulera rotacio ( yaw = angulo ),
     // kiun la matrico uzas ( Rz unue klinas la akson al -x, Ry turnas ĝin ),
     // do la ringo kongruas kun la vidita trunko.
@@ -2856,6 +2893,9 @@ export function metiArbojnCxirkauLagon(heightFn: ( x: number, z: number ) => num
 ): ArboMetado[] {
   const hazardaGenerilo = mulberry32(semo);
   const placed: ArboMetado[] = [];
+  // La spaca haŝo — la sama interspaca akcelo kiel en metiArbojn.
+  const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
+  for ( const arbo of evituArbojn ) metitaHasho.meti(arbo.x, arbo.z, arbo);
   let provoj = 0;
 
   const bonaLoko = ( x: number, z: number, s: number ): boolean => {
@@ -2869,7 +2909,7 @@ export function metiArbojnCxirkauLagon(heightFn: ( x: number, z: number ) => num
     // aspektu duone subakvigita ĉe la ondigita rando.
     if ( heightFn(x, z) < akvoNiveloFn(x, z) + 0o2/0o10 ) return false;
     const kandidataR = kronaRadiuso(s);
-    for ( const arbo of [ ...evituArbojn, ...placed ] ) {
+    for ( const arbo of metitaHasho.najbaroj(x, z, kandidataR + minimumaDistanco + KRONA_LIBERO) ) {
       if ( Math.hypot(x - arbo.x, z - arbo.z) <
         interspaco(minimumaDistanco, arbo.r ?? kronaRadiusoBetula(arbo.s), kandidataR) ) return false;
     }
@@ -2887,6 +2927,7 @@ export function metiArbojnCxirkauLagon(heightFn: ( x: number, z: number ) => num
     const s = 0o63/0o100 + hazardaGenerilo() * 0o55/0o100;
     if ( !bonaLoko(x, z, s) ) continue;
     placed.push({ x, z, h: heightFn(x, z), s, r: kronaRadiuso(s) });
+    metitaHasho.meti(x, z, placed[placed.length - 1]);
   }
   return placed;
 }
@@ -2916,7 +2957,7 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
-  const metitaj: [ number, number ][] = [];
+  const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   let hi = 0;
   let gardilo = 0;
 
@@ -2930,18 +2971,14 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
     if ( excludeRivers(x, z) || excludePaths(x, z, 2) || excludeBuildings(x, z, 2) ) continue;
     if ( heightFn(x, z) < akvoNiveloFn(x, z) ) continue;
     // Eta interspaco — la herboj kresku kiel tufoj, ne kiel solida tapiŝo.
-    let troProksima = false;
-    for ( const [ px, pz ] of metitaj ) {
-      if ( Math.hypot(x - px, z - pz) < 0o12/0o10 ) { troProksima = true; break; }
-    }
-    if ( troProksima ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, 0o12/0o10) ) continue;
 
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q, new THREE.Vector3(skalo, skalo, skalo));
     herboj.setMatrixAt(hi++, M);
-    metitaj.push([ x, z ]);
+    metitajHasho.meti(x, z, [ x, z ]);
   }
 
   herboj.count = hi;

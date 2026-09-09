@@ -12,7 +12,19 @@ export type { Vesto };
 // ( deksesuma, kvarStelo, rombo venas el vestoj.ts — la komuna vesta modulo )
 
 // --- Vesta tekstura generatoro ---
+// vestaTeksajxaStoko — La vestaj teksturoj estas KOMUNAJOJ ( la ekstero dependas
+// nur de la vestaj koloroj kaj la parto ), do ili cacheiĝas po ( koloroj, parto ).
+// La NPC-aro antaŭe pentris ĝis tri freŝajn 256×256 kanvasojn po figuro — ĝis
+// preskaŭ 500 kanvasoj kaj GPU-alŝutoj por la sama malgranda aro da vestoj.
+// Kun la cache la aro limiĝas al ( vestoj × partoj ) — ĉiuj figuroj kun la sama
+// vesto dividas la saman teksturon, kaj agordiVeston iĝas nur serĉo.
+const vestaTeksajxaStoko = new Map<string, THREE.CanvasTexture>();
+const vestaTeksajxaKlavo = ( o: Vesto, speco: string ): string =>
+  o.nomo + "|" + o.ĉefa + "|" + o.akcenta + "|" + o.interno + "|" + o.pantalono + "|" + speco;
 function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
+  const klavo = vestaTeksajxaKlavo(o, speco);
+  const cacheita = vestaTeksajxaStoko.get(klavo);
+  if ( cacheita ) return cacheita;
   const kanvasa = document.createElement("canvas"); kanvasa.width = 0o400; kanvasa.height = 0o1000;
   const kunteksto = kanvasa.getContext("2d")!;
   // La pantalono uzas sian propran bazkoloron ( bluan ); la cetero la ĉefan.
@@ -62,6 +74,7 @@ function vestaTeksajxo(o: Vesto, speco: string): THREE.CanvasTexture {
   // La motivoj aperu ĉe la fronto. La ŝovo ( 0o1/0o2 ) alportas la teksturcentron,
   // kie la steloj/romboj kaj la butona plateto estas, al la fronto ( +z ).
   t.wrapS = THREE.RepeatWrapping; t.offset.x = 0o1/0o2;
+  vestaTeksajxaStoko.set(klavo, t);
   return t;
 }
 
@@ -128,16 +141,15 @@ function kreiFoliaTonditanTubon(suproR: number, malsuproR: number, suproY: numbe
 //     @returns grupo ( THREE.Group ) - La maniko, origine ĉe la ŝultro.
 function konstruiManikon(ĉefaM: THREE.Material, akcentaM: THREE.Material): THREE.Group {
   const grupo = new THREE.Group();
+  const G = figurajGeometriojn();
   // La tubo — pli larĝa ĉe la ŝultro ( y = 0 ), malvastigxanta al la pojno.
   // La malsupro estas tondita en kvar foliformajn lobojn. Pintoj pendantaj ĝis
   // -0o17/0o20 kaj noĉoj leviĝantaj ĝis -0o3/0o4.
-  const tubo = new THREE.Mesh(
-    kreiFoliaTonditanTubon(0o5/0o40, 0o1/0o10, 0, -0o15/0o20, 0o60, 0o4, 0o1/0o10, 0o1/0o20, true), ĉefaM);
+  const tubo = new THREE.Mesh(G.manikaTubo, ĉefaM);
   grupo.add(tubo);
   // La akcenta rando — maldika bandego kiu sekvas la folian tondon, iomete pli
   // larĝa ol la tubo ( 0o11/0o100 kontraŭ 0o1/0o10 ), por ke ĝi elstaru kiel rando.
-  const ringo = new THREE.Mesh(
-    kreiFoliaTonditanTubon(0o11/0o100, 0o11/0o100, -0o13/0o20, -0o15/0o20, 0o60, 0o4, 0o1/0o10, 0o1/0o20), akcentaM);
+  const ringo = new THREE.Mesh(G.manikaRingo, akcentaM);
   grupo.add(ringo);
   return grupo;
 }
@@ -277,11 +289,74 @@ function kreiHaranFlankon(dir: number): THREE.BufferGeometry {
   return kreiBuferanGeometrion(pozicioj, indeksoj);
 }
 
-// Har-koloroj — malhelbruna ĝis ruĝeta malhelbruna. Ĉiu NPC ricevas propran
+// har-koloroj — malhelbruna ĝis ruĝeta malhelbruna. Ĉiu NPC ricevas propran
 // nuancon per hazarda mikso inter la du, por ke la homamaso ne aspektu unuforma.
 const harKoloroA = new THREE.Color(0x201810); // malhelbruna
 const harKoloroB = new THREE.Color(0x402818); // ruĝeta malhelbruna
 const harKoloro = new THREE.Color();            // provizora miksita koloro
+
+// ⟨ Komunaj vestaj materialoj 📃 ⟩ — la tri teksturitaj vestaj materialoj
+// ( interno, supra, pantalono ) dependas nur de la vesto, ne de la figuro — ili
+// cacheiĝas po vesto kaj dividiĝas inter ĉiuj figuroj kun la sama vesto. La
+// unuopaj figuroj ŝanĝas nur la map-referon ( agordiVeston ), do nenia klonita
+// materialo bezoniĝas. La haŭto, botoj kaj haro restas po-figuraj ( la haro
+// havas hazardan koloron; la botoj-portas la vestajn nuancojn sed la rando de
+// ŝanĝo ili ricevas sen kosto de la sama cacheo — vidu la botoj-plando kvaronon ).
+const vestajMaterialojStoko = new Map<string, { internoM: THREE.MeshStandardMaterial; eksteraM: THREE.MeshStandardMaterial; pantalonoM: THREE.MeshStandardMaterial }>();
+function vestajMaterialoj(o: Vesto): { internoM: THREE.MeshStandardMaterial; eksteraM: THREE.MeshStandardMaterial; pantalonoM: THREE.MeshStandardMaterial } {
+  const klavo = o.nomo + "|" + o.ĉefa + "|" + o.akcenta + "|" + o.interno + "|" + o.pantalono;
+  let m = vestajMaterialojStoko.get(klavo);
+  if ( !m ) {
+    m = {
+      internoM: new THREE.MeshStandardMaterial({ map: vestaTeksajxo(o, "interno"), roughness: 0o33/0o40, side: THREE.DoubleSide }),
+      eksteraM: new THREE.MeshStandardMaterial({ map: vestaTeksajxo(o, "supra"), roughness: 0o63/0o100, side: THREE.DoubleSide }),
+      pantalonoM: new THREE.MeshStandardMaterial({ map: vestaTeksajxo(o, "pantalono"), roughness: 0o63/0o100, side: THREE.DoubleSide }),
+    };
+    vestajMaterialojStoko.set(klavo, m);
+  }
+  return m;
+}
+
+// ⟨ Konstantaj geometrioj 📃 ⟩ — la figuroj de ĉiuj NPC-oj uzas la SAMAJN
+// formojn ( la kapo, la kolo, la robo, la pantalono, la botoj ktp. ), do ili
+// konstruiĝas UNUFOJE ĉi tie kaj dividiĝas. Antaŭe ĉiu el la 150+ figuroj
+// asignis ĉirkaŭ dudek proprajn geometriojn — la konstruo estis la plej peza
+// parto de la urba ŝarĝo. La botoj-plando kaj la manikoj restas en la figuro
+// ( la manikoj uzas la vestajn kolorojn ), do ili kreiĝas po figuro.
+let figurajGeometrioj: {
+  kapa: THREE.BufferGeometry;
+  kola: THREE.BufferGeometry;
+  roba: THREE.BufferGeometry;
+  pantalona: THREE.BufferGeometry;
+  botaSxafto: THREE.BufferGeometry;
+  pieda: THREE.BufferGeometry;
+  planda: THREE.BufferGeometry;
+  manikaTubo: THREE.BufferGeometry;
+  manikaRingo: THREE.BufferGeometry;
+  haroĈapoMallonga: THREE.BufferGeometry;   // la mallonga har-ĉapo ( radiuso 0o3/0o20 )
+  haroĈapoLonga: THREE.BufferGeometry;      // la longa har-ĉapo ( radiuso 0o7/0o40 )
+  haroKurteno: THREE.BufferGeometry;        // la longa-hara kurteno
+  haroFlanko: [ THREE.BufferGeometry, THREE.BufferGeometry ];  // la flank-strioj ( maldekstra, dekstra )
+} | null = null;
+function figurajGeometriojn(): NonNullable<typeof figurajGeometrioj> {
+  if ( figurajGeometrioj ) return figurajGeometrioj;
+  figurajGeometrioj = {
+    kapa: new THREE.SphereGeometry(0o13/0o100, 0o10, 0o10),
+    kola: new THREE.CylinderGeometry(0o3/0o40, 0o7/0o100, 0o5/0o40, 0o14, 0o1),
+    roba: kreiRobanSxelon(0o7/0o40, 0o3/0o10, 0o11/0o10, 0o3/0o4),
+    pantalona: new THREE.CylinderGeometry(0o5/0o40, 0o1/0o10, 0o3/0o10, 0o14, 0o1),
+    botaSxafto: new THREE.CylinderGeometry(0o3/0o20, 0o1/0o10, 0o11/0o40, 0o14, 0o1, true),
+    pieda: kreiRondanKeston(0o1/0o4, 0o3/0o40, 0o1/0o4, 0o1/0o20),
+    planda: kreiRondanKeston(0o11/0o40, 0o1/0o40, 0o5/0o20, 0o1/0o20),
+    manikaTubo: kreiFoliaTonditanTubon(0o5/0o40, 0o1/0o10, 0, -0o15/0o20, 0o60, 0o4, 0o1/0o10, 0o1/0o20, true),
+    manikaRingo: kreiFoliaTonditanTubon(0o11/0o100, 0o11/0o100, -0o13/0o20, -0o15/0o20, 0o60, 0o4, 0o1/0o10, 0o1/0o20),
+    haroĈapoMallonga: new THREE.SphereGeometry(0o3/0o20, 0o10, 0o10),
+    haroĈapoLonga: new THREE.SphereGeometry(0o7/0o40, 0o10, 0o10),
+    haroKurteno: kreiHaranKurtenon(),
+    haroFlanko: [ kreiHaranFlankon(-0o1), kreiHaranFlankon(0o1) ],
+  };
+  return figurajGeometrioj;
+}
 
 // konstruiHaranGrupon — Konstruu la geometrion de unu har-stilo. La ĉapo estas
 // komuna al ĉiuj stiloj ( krom la longa, kiu uzas sian propran pli grandan
@@ -292,8 +367,9 @@ const harKoloro = new THREE.Color();            // provizora miksita koloro
 //     @returns grupo ( THREE.Group ) - La har-grupo, ĉe la kapo.
 function konstruiHaranGrupon(stilo: Harstilo, haroM: THREE.Material): THREE.Group {
   const grupo = new THREE.Group();
-  const ĉapo = ( radio: number ) => {
-    const m = new THREE.Mesh(new THREE.SphereGeometry(radio, 0o10, 0o10), haroM);
+  const G = figurajGeometriojn();
+  const ĉapo = ( geo: THREE.BufferGeometry ) => {
+    const m = new THREE.Mesh(geo, haroM);
     m.scale.set(0o1, 0o27/0o40, 0o1); m.position.y = 0o155/0o100;
     grupo.add(m);
   };
@@ -301,14 +377,14 @@ function konstruiHaranGrupon(stilo: Harstilo, haroM: THREE.Material): THREE.Grou
     // Pli granda ĉapo, fleksita kurteno ĉirkaŭ la malantaŭo de la kapo falanta
     // ĝis la ŝultroj kun pinteca fringo, kaj du flankaj strioj kadrantaj la
     // vizaĝon.
-    ĉapo(0o7/0o40);
-    grupo.add(new THREE.Mesh(kreiHaranKurtenon(), haroM));
-    for ( const dir of [ -0o1, 0o1 ] ) {
-      grupo.add(new THREE.Mesh(kreiHaranFlankon(dir), haroM));
+    ĉapo(G.haroĈapoLonga);
+    grupo.add(new THREE.Mesh(G.haroKurteno, haroM));
+    for ( const flanko of G.haroFlanko ) {
+      grupo.add(new THREE.Mesh(flanko, haroM));
     }
   } else {
     // Mallonga ( kaj nekonataj ŝlosiloj ) — simpla ĉapo.
-    ĉapo(0o3/0o20);
+    ĉapo(G.haroĈapoMallonga);
   }
   return grupo;
 }
@@ -321,8 +397,9 @@ function konstruiHaranGrupon(stilo: Harstilo, haroM: THREE.Material): THREE.Grou
 //         har-stilo ( sama kiel la nomo en HARSTILOJ ).
 export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   const g = new THREE.Group();
+  const G = figurajGeometriojn();
   const haŭto = new THREE.MeshStandardMaterial({ color: 0x605050, roughness: 0o55/0o100 });
-  const kapo = new THREE.Mesh(new THREE.SphereGeometry(0o13/0o100, 0o10, 0o10), haŭto); kapo.position.y = 0o15/0o10;
+  const kapo = new THREE.Mesh(G.kapa, haŭto); kapo.position.y = 0o15/0o10;
   // Duflanka haro-materialo — la maldikaj har-folioj ( kurteno, flankoj ) bezonas
   // ambaŭ flankojn por ne malaperi; la ĉapo ne ĝenas per ĝi. La koloro miksiĝas
   // hazarde inter malhelbruna kaj ruĝeta malhelbruna por ĉiu NPC.
@@ -330,17 +407,11 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   const haroM = new THREE.MeshStandardMaterial({ color: harKoloro, roughness: 0o35/0o40, side: THREE.DoubleSide });
 
   // Kolo — plenigas la breĉon inter la kapo kaj la ĉemizo, por ke neniu truo videblu.
-  const kolo = new THREE.Mesh(new THREE.CylinderGeometry(0o3/0o40, 0o7/0o100, 0o5/0o40, 0o14, 0o1), haŭto); kolo.position.y = 0o135/0o100;
+  const kolo = new THREE.Mesh(G.kola, haŭto); kolo.position.y = 0o135/0o100;
 
-  const internoM = new THREE.MeshStandardMaterial({
-    map: vestaTeksajxo(o, "interno"), roughness: 0o33/0o40, side: THREE.DoubleSide,
-  });
-  const eksteraM = new THREE.MeshStandardMaterial({
-    map: vestaTeksajxo(o, "supra"), roughness: 0o63/0o100, side: THREE.DoubleSide,
-  });
-  const pantalonoM = new THREE.MeshStandardMaterial({
-    map: vestaTeksajxo(o, "pantalono"), roughness: 0o63/0o100, side: THREE.DoubleSide,
-  });
+  // La vestaj materialoj venas el la komuna cacheo — la sama vesto dividas ilin
+  // inter ĉiuj figuroj ( vidu vestajMaterialoj supre ).
+  const { internoM, eksteraM, pantalonoM } = vestajMaterialoj(o);
   const botoM = new THREE.MeshStandardMaterial({ color: o.botoj, roughness: 0o33/0o40 });
   // Plando — la akcenta koloro ĉe la malsupro de la ŝuo.
   const plandoM = new THREE.MeshStandardMaterial({ color: o.akcenta, roughness: 0o63/0o100 });
@@ -353,12 +424,12 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   // pantalono ( y = 0o31/0o100 ) kaj la antaŭo leviĝas alte ( y = 0o111/0o100 ) sed mallarĝe
   // ( la flankoj restas malsupre, y ≈ 0o34/0o100 ), malfermiĝante kiel jako — sed la
   // supro restas fermita ĉirkaŭ la kolo.
-  const ekstera = new THREE.Mesh(kreiRobanSxelon(0o7/0o40, 0o3/0o10, 0o11/0o10, 0o3/0o4), eksteraM); ekstera.position.y = 0o75/0o100;
+  const ekstera = new THREE.Mesh(G.roba, eksteraM); ekstera.position.y = 0o75/0o100;
 
   // Pantalono — du pli dikaj kruroj, kutime hela aŭ malhela bluo kun rombaj
   // motivoj. La suproj ( 0o5/0o40 ) koincidas kun la interna ĉemiz-hemo ( 0o13/0o40 ),
   // kaj la fundoj ( 0o1/0o10 ) enŝoviĝas en la pli altajn botojn.
-  const pantalonoGeometrio = new THREE.CylinderGeometry(0o5/0o40, 0o1/0o10, 0o3/0o10, 0o14, 0o1);
+  const pantalonoGeometrio = G.pantalona;
   // Kruroj — ĉiu kruro ( pantalono + ŝafto + piedo + plando ) sidas en sia
   // propra pivot-grupo ĉe la kokso ( la supro de la pantalono ), por ke la
   // kruroj povu svingiĝi antaŭen/malantaŭen ĉirkaŭ la kokso dum marŝado. La
@@ -372,17 +443,17 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   // Botoj — ŝafto supre de sxoforma piedo kiu etendiĝas antaŭen ( +z ), kiel
   // piedo sur homa kruro. La plando sube portas la akcentan koloron. La ŝafto
   // estas malfermita ( sen ĉapoj ) por ke neniu z-flagrado okazu.
-  const botoSxafto = new THREE.CylinderGeometry(0o3/0o20, 0o1/0o10, 0o11/0o40, 0o14, 0o1, true);
+  const botoSxafto = G.botaSxafto;
   const bL1 = new THREE.Mesh(botoSxafto, botoM); bL1.position.set(-0o3/0o20, -0o3/0o40, 0);
   const bR1 = new THREE.Mesh(botoSxafto, botoM); bR1.position.set(0o3/0o20, -0o3/0o40, 0);
   // Piedo — malgranda sxoforma bloko antaŭen, kun iomete rondaj anguloj
   // ( horizontale ), por ke la ŝuo aspektu pli polurita. La malsupro ( 0o1/0o100 )
   // enŝoviĝas en la plandon ( 0 .. 0o1/0o40 ), por ke neniu koincida faco flagru.
-  const piedaGeometrio = kreiRondanKeston(0o1/0o4, 0o3/0o40, 0o1/0o4, 0o1/0o20);
+  const piedaGeometrio = G.pieda;
   const piedL = new THREE.Mesh(piedaGeometrio, botoM); piedL.position.set(-0o3/0o20, -0o1/0o4, 0o1/0o10);
   const piedR = new THREE.Mesh(piedaGeometrio, botoM); piedR.position.set(0o3/0o20, -0o1/0o4, 0o1/0o10);
   // Plando — maldika akcenta plato sub la piedo, iomete pli granda ol la piedo.
-  const plandaGeometrio = kreiRondanKeston(0o11/0o40, 0o1/0o40, 0o5/0o20, 0o1/0o20);
+  const plandaGeometrio = G.planda;
   const plL = new THREE.Mesh(plandaGeometrio, plandoM); plL.position.set(-0o3/0o20, -0o23/0o100, 0o1/0o10);
   const plR = new THREE.Mesh(plandaGeometrio, plandoM); plR.position.set(0o3/0o20, -0o23/0o100, 0o1/0o10);
   kruroL.add(pL, bL1, piedL, plL);
@@ -429,11 +500,20 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
     kruroj: [ kruroL, kruroR ],
     brakoj: [ brakoL, brakoR ],
     agordiVeston(nova: Vesto) {
-      internoM.map = vestaTeksajxo(nova, "interno"); eksteraM.map = vestaTeksajxo(nova, "supra");
-      pantalonoM.map = vestaTeksajxo(nova, "pantalono");
+      // La vestaj materialoj estas KOMUNAJ ( cacheitaj po vesto kaj dividitaj
+      // inter ĉiuj figuroj ), do ili NE mutacieblas ĉi tie — alie ĉiu figuro
+      // kun la sama vesto ŝanĝiĝus kune. Anstataŭe la MESH-OJ de ĉi tiu figuro
+      // prenas la materialojn de la nova vesto el la cacheo ( nur referoj;
+      // neniu kanvaso repentiĝas, neniu needsUpdate sur la teksturoj ).
+      const novaVesta = vestajMaterialoj(nova);
+      interno.material = novaVesta.internoM;
+      ekstera.material = novaVesta.eksteraM;
+      pL.material = novaVesta.pantalonoM;
+      pR.material = novaVesta.pantalonoM;
+      // La manikoj kaj botoj estas po-figuraj materialoj — iliaj koloroj
+      // ŝanĝiĝas rekte ( ili portas la vestajn nuancojn de ĉi tiu figuro sole ).
       manikaTuboM.color.setHex(nova.ĉefa); manikaAkcentaM.color.setHex(nova.akcenta);
       botoM.color.setHex(nova.botoj); plandoM.color.setHex(nova.akcenta);
-      internoM.map.needsUpdate = eksteraM.map.needsUpdate = pantalonoM.map.needsUpdate = true;
     },
     agordiHaranStilon(stilo: Harstilo) {
       const aktiva = haroGrupoj.has(stilo.nomo) ? stilo.nomo : "haroMalalta";
