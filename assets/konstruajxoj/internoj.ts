@@ -1316,9 +1316,11 @@ export function eniriInternon(
     // Vertikala skribplato sur la antauxa muro
     if ( et === 0 && spec.name ) {
       const plakedInk = deksesuma(GOLD);
+      // Sennomaj konstruajxoj montru la defauxtan nomon de ilia tipo ( TIPARO ).
+      const plakedNomo = nomoAih(spec.name, spec.type);
       // Larĝo 0o136 (94) kongruas la aspekton de la plato (4/5 × 0o15/0o10).
       // Travidebla plato. Nur la teksto montrigxas super la muro ( neniu nigra bloko ).
-      const plakedo = generiSkribanTeksajxon(nomoAih(spec.name), {
+      const plakedo = generiSkribanTeksajxon(plakedNomo, {
         w: 0o136, h: 0o300, ink: plakedInk,
       });
       // Alta vertikala skribplato

@@ -54,6 +54,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   bildilo.shadowMap.enabled = true;
   bildilo.shadowMap.type = THREE.PCFShadowMap;
   bildilo.setPixelRatio(Math.min(devicePixelRatio, 2));
+  // Plenekrana kanvaso EKDE la kreo. Sen tio la bildilo restas je la defaŭlta
+  // 300×150 — la frua bildigo ( dum la sxargxa kurtino ) desegnis malgrandan
+  // keston supre-maldekstre gxis la unua kadro de la ĉefa buklo regrandigis.
+  bildilo.setSize(innerWidth, innerHeight);
 
   const sceno = new THREE.Scene();
   // La nebulo estas laŭcela. Je la defaŭlta denseco ( la nebula vetero uzas

@@ -15,6 +15,7 @@ import { eniriInternon, eliriInternon as eliriElInterno, gxisdatigiInternon, hel
 import { animaciiKrasesxagxon } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { TIPARO, KonstruSpec } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
 import { MangxajxItemo, FOKS, TLAS } from "../assets/mebloj/mangxajxoj.js";
+import { vojSuprajxoj } from "../assets/medio/vojoj.js";
 import { riveroZ, alteco, RIVERA_DUONLARĜO, LAGO_X, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo, riveraAkvaNivelo,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_DUONLARĜO, cxuEnNordorientaRivero,
   skulptitaAkvo, akvo } from "./tereno.js";
@@ -22,7 +23,7 @@ import { kreiScenon, ScenaSistemo } from "./scena.js";
 import type { Vetero } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
-import { traduki, cxuAih } from "./tradukoj.js";
+import { traduki, konstruaĵaNomo, cxuAih } from "./tradukoj.js";
 import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, sfx, rumble, autoKomenci, registriPostAŭdio } from "../assets/sonoj/sonoro.js";
 import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../assets/sonoj/muziko/ludilo.js";
 
@@ -90,6 +91,36 @@ let promptaKadro = 0;
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
 const { bildilo, fotilo, sceno, montaGrupo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron } = scena;
 
+// ⟪ Frua bildigo 📃 ⟫ — la ĉielo, la montoj kaj la tereno jam ekzistas en la
+// sceno antaŭ la urbo. Rendu ilin malantaŭ la glacia ŝarĝa kurtino ( la fono
+// de la malklarigita vitro ) anstataŭ nigra kanvaso. La konstrua cedoj ( jesi )
+// permesas al la retumilo pentri tiujn kadrojn inter la konstruaj sekcioj.
+// La ĉefa buklo ( animacii ) ekas post la urbo kaj la mapo-bakado — cxi tiu
+// malgranda frua buklo haltas tiam ( haltoFrua ).
+// ⟨ Kina drift 📃 ⟩ — dum la sxargxo la fotilo orbitas malrapide ( 0o1/0o10
+// radianoj po sekundo ) ĉirkaŭ la urba centro ( la sanktejo ) kun subtila
+// alta oscilo — kina enkonduko de la valo. Kiam la ĉefa buklo ekas, la
+// Orbit-regiloj transprenas sen salto ( la drifta radiuso 0o110 kuŝas inter
+// minDistance kaj maxDistance ).
+let haltoFrua = false;
+const fruaBildigo = () => {
+  if ( haltoFrua ) return;
+  // Regrandigu se la fenestro sxangxigxis dum la sxargxo ( turnado, regrandigo ).
+  // Post setSize la komparo estas egala, do neniu rebufro okazas cxiukadre.
+  const fruaRatio = Math.min(devicePixelRatio, 2);
+  if ( kanvaso.width !== Math.floor(innerWidth * fruaRatio) || kanvaso.height !== Math.floor(innerHeight * fruaRatio) ) {
+    fotilo.aspect = innerWidth / innerHeight;
+    fotilo.updateProjectionMatrix();
+    bildilo.setSize(innerWidth, innerHeight);
+  }
+  const angulo = ( performance.now() / 0o1000 ) * 0o1/0o10;
+  fotilo.position.set(Math.cos(angulo) * 0o110, 0o30 + Math.sin(angulo * 0o1/0o2) * 0o4, Math.sin(angulo) * 0o110);
+  fotilo.lookAt(0, 0o10, 0);
+  bildilo.render(sceno, fotilo);
+  requestAnimationFrame(fruaBildigo);
+};
+fruaBildigo();
+
 const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, ( p ) => {
   stangoPlenigo.style.blockSize = `${Math.round(p * 100)}%`;
   const novaTitolo = p > 0o33/0o40 ? traduki("sxargxaNebulo") : p > 0o23/0o40 ? traduki("sxargxaTraboj") : p > 0o23/0o100 ? traduki("sxargxaSatalo") : null;
@@ -103,6 +134,9 @@ const {
   riverData, riveroNordOrienta, lago, skulptaAkvo, bestoj, petreloj, lampSistemo, nebulSistemo, kanuoj, npcoj, internaSistemo, xipo,
   pussxlefoBeroj,
 } = urbo;
+// La urbo kaj la bakita mapo estas pretaj — haltu la fruan bildigon ( la ĉefa
+// buklo ekas ĉe la fino de la dosiero ).
+haltoFrua = true;
 
 // ⟪ Ludanta figuro 📃 ⟫ — la NPC-stila modelo de la ludanto. Videbla nur en
 // tria persono, kiam la rado malzomas eksteren dum promenado.
@@ -317,7 +351,7 @@ function plenigiKonstruaListon() {
     tipo.textContent = traduki(bt.labelKey);
     const nomo = document.createElement("p");
     nomo.className = "vn";
-    nomo.textContent = traduki(spec.name);
+    nomo.textContent = konstruaĵaNomo(spec.name, spec.type);
     card.append(tipo, nomo);
     card.addEventListener("click", () => enfokusigiKonstruajxon(spec, bt));
     konstruaListo.appendChild(card);
@@ -857,7 +891,7 @@ function montriKarton(spec: KonstruSpec, bt: { labelKey: string; chip: string; f
   elektitaSpec = spec;
   // Restarigu la Eniri-butonon ( montriNeEnireblanKarton kaŝas ĝin ).
   kartoEniri.style.display = "";
-  kartoNomo.textContent = traduki(spec.name);
+  kartoNomo.textContent = konstruaĵaNomo(spec.name, spec.type);
   const btLabelo = traduki(bt.labelKey);
   kartoChip.textContent = btLabelo;
   kartoChip.style.background = bt.chip;
@@ -946,7 +980,7 @@ function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey:
       regiloj.enabled = false;
       // Kaŝu la karton, sed NE malplenigu elektitaSpec ( necesa por interna movado ).
       kartoElemento.classList.remove("montri");
-      montriTost(traduki("eniri") + " " + traduki(spec.name));
+      montriTost(traduki("eniri") + " " + konstruaĵaNomo(spec.name, spec.type));
       gxisdatigiRetikulon();
     } catch ( eraro ) {
       // Se la interno ne konstruigxis ( hazarda retumila/kanvasa eraro ), ne
@@ -1368,6 +1402,48 @@ for ( let i = 0; i < dokoKolizioj.length; i++ ) {
     }
   }
 }
+// ⟨ Vojaj supraĵoj 📃 ⟩ — la vojaj konstruaj strioj ( el vojoj.ts ) en la saman
+// spatan kradon. vojaSuproY legas nur la ĉelojn ĉirkaŭ la punkto — O(1) po
+// kadro, kiel la koliziaj cirkloj kaj la dokaj platformoj.
+const vojaKrado = new Map<number, number[]>();
+for ( let i = 0; i < vojSuprajxoj.length; i++ ) {
+  const v = vojSuprajxoj[i];
+  for ( let cx = Math.floor(( Math.min(v.x1, v.x2) - v.duono ) / KRADA_CXELO), cx1 = Math.floor(( Math.max(v.x1, v.x2) + v.duono ) / KRADA_CXELO); cx <= cx1; cx++ ) {
+    for ( let cz = Math.floor(( Math.min(v.z1, v.z2) - v.duono ) / KRADA_CXELO), cz1 = Math.floor(( Math.max(v.z1, v.z2) + v.duono ) / KRADA_CXELO); cz <= cz1; cz++ ) {
+      const ŝlosilo = kradaSxlosilo(cx, cz);
+      let ĉelo = vojaKrado.get(ŝlosilo);
+      if ( !ĉelo ) vojaKrado.set(ŝlosilo, ĉelo = []);
+      ĉelo.push(i);
+    }
+  }
+}
+// vojaSuproY — La piedebla supro de la vojo ĉe ( x, z ), aŭ -Infinity. La strio
+// estas la ŝtupa rektangulo de la konstruado ( la centro-segmento ± duono ) kaj
+// la supro interpolas inter la randaj niveloj y0 → y1 laŭlonge de la strio ( la
+// eskaleraj ŝtupoj havas y0 = y1 ).
+//     @param marge ( number ) - La duona vasteco de la promenanto.
+function vojaSuproY(x: number, z: number, marge = 0): number {
+  let y = -Infinity;
+  const cx0 = Math.floor(( x - marge ) / KRADA_CXELO), cx1 = Math.floor(( x + marge ) / KRADA_CXELO);
+  const cz0 = Math.floor(( z - marge ) / KRADA_CXELO), cz1 = Math.floor(( z + marge ) / KRADA_CXELO);
+  for ( let cx = cx0; cx <= cx1; cx++ ) {
+    for ( let cz = cz0; cz <= cz1; cz++ ) {
+      const ĉelo = vojaKrado.get(kradaSxlosilo(cx, cz));
+      if ( !ĉelo ) continue;
+      for ( let k = 0; k < ĉelo.length; k++ ) {
+        const v = vojSuprajxoj[ĉelo[k]];
+        const difX = v.x2 - v.x1, difZ = v.z2 - v.z1;
+        const tuta = difX * difX + difZ * difZ;
+        const t = tuta > 0 ? Math.max(0, Math.min(1, (( x - v.x1 ) * difX + ( z - v.z1 ) * difZ ) / tuta)) : 0;
+        const nx = v.x1 + difX * t, nz = v.z1 + difZ * t;
+        if ( Math.hypot(x - nx, z - nz) > v.duono + marge ) continue;
+        y = Math.max(y, v.y0 + ( v.y1 - v.y0 ) * t);
+      }
+    }
+  }
+  return y;
+}
+
 // kolektiKoliziojn / kolektiDokojn — la indeksoj de la kandidatoj en la ĉeloj
 // ĉirkaŭ ( x, z ) kun duona vasteco `duono`. La epokaj stampoj forigas la
 // duoblaĵojn de la grandaj cirkloj kiuj kovras plurajn ĉelojn.
@@ -1787,7 +1863,7 @@ function agordiPromenanFotilon(okulY: number, bob: number, krampi = true, subaLi
 );
   if ( krampi ) {
     // Ekstere — ne eniru la teron nek la konstruajxojn.
-    const teraY = Math.max(alteco(fotilo.position.x, fotilo.position.z), dokaSuproY(fotilo.position.x, fotilo.position.z));
+    const teraY = Math.max(alteco(fotilo.position.x, fotilo.position.z), dokaSuproY(fotilo.position.x, fotilo.position.z), vojaSuproY(fotilo.position.x, fotilo.position.z));
     if ( fotilo.position.y < teraY + 0o4/0o10 ) fotilo.position.y = teraY + 0o4/0o10;
     const r = solviKolizion(fotilo.position.x, fotilo.position.z);
     fotilo.position.x = r.x;
@@ -1898,7 +1974,7 @@ function animacii() {
     const moving = Math.min(1, longo);
     movoValoro = moving;
 
-    const teraY = Math.max(alteco(ludantaPozicio.x, ludantaPozicio.z), dokaSuproY(ludantaPozicio.x, ludantaPozicio.z));
+    const teraY = Math.max(alteco(ludantaPozicio.x, ludantaPozicio.z), dokaSuproY(ludantaPozicio.x, ludantaPozicio.z), vojaSuproY(ludantaPozicio.x, ludantaPozicio.z));
     // La akvo estas la skulptita masko — la ludanto naĝas kie la skulptilo
     // pentris la akvon.
     const enAkvo = akvo(ludantaPozicio.x, ludantaPozicio.z);

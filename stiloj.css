@@ -23,7 +23,9 @@ body {
 /* Full-screen layers share one fixed, edge-to-edge geometry. */
 #sceno,#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo,#supermeta,#sxargxo,#mobKontroloj { position:fixed; inset:0; }
 #vinjeto,#svingo,#fxVarma,#fxMenta,#balailo { pointer-events:none; }
-#vinjeto { z-index:2; background:radial-gradient(ellipse at center,transparent 62.5%,#08080890); transition:opacity 1s; }
+/* Milda vinjeto — la hela centro etendiĝas pli foren ( 75% ) kaj la randa
+   mallumo estas pli maldensa ( 40 anstataŭ 90 ), do la efiko apenaŭ rimarkeblas. */
+#vinjeto { z-index:2; background:radial-gradient(ellipse at center,transparent 75%,#08080840); transition:opacity 1s; }
 #svingo { z-index:5; opacity:0; background:linear-gradient(104deg,transparent 28%,var(--gold-faint) 48%,#18284830 68%,transparent 88%); }
 #svingo.iru { animation:svingo-efiko 1s ease forwards; }
 @keyframes svingo-efiko { 0%{opacity:0;transform:translateX(-28%)} 32%{opacity:1} 100%{opacity:0;transform:translateX(28%)} }
@@ -32,7 +34,15 @@ body {
 #fxMenta { background:radial-gradient(88% 68% at 50% 37.5%,#98e8c838,transparent 68%); }
 .fxPulso { animation:fxp 1s ease forwards; }
 @keyframes fxp { 0%{opacity:0} 32%{opacity:1} 100%{opacity:0} }
-#balailo { z-index:8; opacity:0; transition:opacity .5s; }
+/* La balaila transiro kundividas la glacian materialon de la sxargxa kurtino —
+   la sama .n2tase-recepto ( tavolaj surfacoj + fon-malklariĝo ), kaj la
+   travidebla fono lasas la mondon videbla tra la fluo de la transiro. */
+#balailo {
+  z-index:8; opacity:0; transition:opacity .5s;
+  background:linear-gradient(var(--តានេកខេលេ), var(--តានេកខេលេ)), linear-gradient(var(--អិតិលច្ហិ), var(--អិតិលច្ហិ));
+  -webkit-backdrop-filter:var(--ច្ហិនី);
+  backdrop-filter:var(--ច្ហិនី);
+}
 
 /* Crosshair, toast, and centered overlays */
 #retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .25s; }
@@ -199,7 +209,18 @@ opacity:0; pointer-events:none; transition:opacity .25s;
 .harKoloroChip { inline-size:24px; block-size:24px; border-radius:var(--អិត្ភេមិ); border:var(--សាកព៏); align-self:center; }
 /* La elektita karto ( har-stilo/koloro ) ricevas pli fortan bordon. */
 .vestaKardo.elektita { border-color:var(--តានេក៣); }
-#sxargxo { z-index:9; display:flex; flex-direction:row; background: var(--ខេលេសៃ); align-items:center; justify-content:center; gap:var(--អារេងព៏); transition:opacity 1s; }
+/* La sxargxa kurtino estas glacia vito — la .n2tase-recepto de la ekstera
+   stilfolio ( tavolaj travideblaj surfacoj + fon-malklariĝo ), rektumita ĉi
+   loken por ne dependi de krom-klaso. La pretaj ĉielo kaj tereno videblas
+   malvole tra la malklarigita vitro. Antaŭe ĝi referencis nedifinitan
+   variablon ( --ខេលេសៃ ) kaj poste plene nigra — neniu fono videblis. */
+#sxargxo {
+  z-index:9; display:flex; flex-direction:row;
+  background:linear-gradient(var(--តានេកខេលេ), var(--តានេកខេលេ)), linear-gradient(var(--អិតិលច្ហិ), var(--អិតិលច្ហិ));
+  -webkit-backdrop-filter:var(--ច្ហិនី);
+  backdrop-filter:var(--ច្ហិនី);
+  align-items:center; justify-content:center; gap:var(--អារេងព៏); transition:opacity 1s;
+}
 #sxargxo.finita { opacity:0; pointer-events:none; }
 /* La titolo kaj surskribo staras cxe la flankoj de la vertikala stango; la plenigo fluas de malsupro al supro. */
 /* La stango sekvas la eksternajn glitilojn ( input[type=range] ): tavola fono

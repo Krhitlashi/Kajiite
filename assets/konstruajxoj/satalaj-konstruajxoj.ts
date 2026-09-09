@@ -392,8 +392,10 @@ function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.Mes
 // rondigitaj supraj anguloj (r1 = 0o1/0o10, r2 = 0o1/0o4), rektaj malsupraj. La Gawekiif-nomo
 // staras sur la tero apud la pordo. La texturo estas travidebla — nur la teksto
 // montrigxas super la malhela steleo (neniu nigra bloko).
-function aldoniSteleanSignon(group: THREE.Group, name: string, w: number, d: number): void {
-  const teksajxo = generiSkribanTeksajxon(nomoAih(name), { w: 0o300, h: 0o1516, ink: "#d8b068" });
+//     @param tipo ( string ) - La konstrua-tipo ( satala TIPARO-sxlosilo ) — la
+//              defauxta tip-nomo anstatauxas la nomon kiam la konstruajxo estas sennoma.
+function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: string, w: number, d: number): void {
+  const teksajxo = generiSkribanTeksajxon(nomoAih(name, tipo), { w: 0o300, h: 0o1516, ink: "#d8b068" });
   teksajxo.wrapS = teksajxo.wrapT = THREE.ClampToEdgeWrapping;
   // La signo staras sur la tero apud la pordo (0o1/0o100 levita por ne z-fajfi kun la grundo).
   const signaY = 0o1/0o100;
@@ -577,7 +579,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   }
 
   // Uniforma 3D stela signo por cxiuj konstruajxoj — reuzebla komponanto.
-  aldoniSteleanSignon(group, name, w, d);
+  aldoniSteleanSignon(group, name, typeKey, w, d);
 
   if ( typeKey === "mangxejo" ) {
     // Eksteraj tabloj — la SAMA tablo/segxo-aseto kiel la internaj mangxejo-

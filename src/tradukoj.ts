@@ -1,6 +1,7 @@
 // tradukoj.ts — Traduk-sistemo por Aranis
 // Four languages. aih, eo, en, ja
 import { gkAlIpa, ipaAlLingvo } from "./sonaj-reguloj.js";
+import { TIPARO } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
 
 const skakefani: Record<string, Record<string, string>> = {
   aih: {
@@ -853,8 +854,13 @@ let aktivaLingvo = "aih";
 // Redonu la tradukitan ŝnuron por la aktiva lingvo.
 // Falu reen al la ŝlosilo mem se ne trovita.
 // nomoAih — Nomo de konstruajxo en la gepatra Gawekiif-skribo (por la strat-signoj).
-export function nomoAih(klavo: string): string {
-  return skakefani.aih[klavo] || klavo;
+// Sennomaj konstruajxoj ( name preter paq33 ) falu reen al la defauxta nomo
+// de ilia tipo el la satala TIPARO ( tipDomo, tipMangxejo, tipKasafeo, ... ).
+//     @param tipo ( string = klavo ) - La konstrua-tipo ( satala TIPARO-sxlosilo ).
+export function nomoAih(klavo: string, tipo = klavo): string {
+  const rekta = skakefani.aih[klavo];
+  if ( rekta ) return rekta;
+  return skakefani.aih[TIPARO[tipo]?.labelKey ?? ""] ?? klavo;
 }
 
 // Konstruaĵnomoj ( paqN ), trakonomoj ( trakoN ), manĝaĵnomoj
@@ -909,6 +915,16 @@ export function traduki(klavo: string): string {
   const derivita = deriviNomon(klavo);
   if ( derivita ) return derivita;
   return rekta || klavo;
+}
+
+// konstruaĵaNomo — Nomo de konstruajxo por la UI ( karto, listo, prompto ).
+// Sennomaj konstruajxoj ( name preter paq33, ne en la vortaro ) montru la
+// defauxtan nomon de ilia tipo ( TIPARO-labelKey ) anstataux la krudan sxlosilon.
+// traduki mem derivas la tip-nomojn ( KONSTRUAJ_NOMOJ ) en ĉiuj lingvoj.
+//     @param tipo ( string = klavo ) - La konstrua-tipo ( satala TIPARO-sxlosilo ).
+export function konstruaĵaNomo(klavo: string, tipo = klavo): string {
+  if ( skakefani[aktivaLingvo]?.[klavo] || ( aktivaLingvo !== "aih" && deriviNomon(klavo) ) ) return traduki(klavo);
+  return traduki(TIPARO[tipo]?.labelKey ?? klavo);
 }
 
 // Cxu la nuna lingvo estas la gepatra aih-a? ( Por la vacepu-formato. )

@@ -296,6 +296,16 @@ export function konstruiVojojn(sceno: THREE.Scene,
   return samples;
 }
 
+// ⟨ Vojaj supraĵoj por kolizio 📃 ⟩ — ĉiu ŝtupo de la voja konstruado
+// registru sian piedeblan supraĵon ( la centrolinio-segmento, la duona
+// vasteco kaj la randaj suproj y0/y1 ). La promenanto demandas ĉi tiujn
+// striojn ( vojaSuproY en sperto.ts ) anstataŭ trairi la vojojn. La strioj
+// uzas la SAMAJN valorojn kiuj konstruis la geometrion, do la demandoj
+// estas precizaj per konstruado — ankaŭ sur la klinitaj deklivoj kaj la
+// eskaleraj plataĵoj.
+export interface VojSuprajxo { x1: number; z1: number; x2: number; z2: number; duono: number; y0: number; y1: number; }
+export const vojSuprajxoj: VojSuprajxo[] = [];
+
 // konstruiSegmentonEnBufrojn — La buffer-a internaĵo de konstruiSegmenton.
 // La ĉefaj vojoj kolektas ĉiujn difinojn en KOMUNAJN bufrojn ( unu po
 // materialo por la tuta reto ) kaj la spronoj kunigas per sia propra bufraro.
@@ -346,6 +356,9 @@ function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: numb
     const s0 = maks0 + 0o1/0o100 + dikecoBaza;
     const s1 = maks1 + 0o1/0o100 + dikecoBaza;
     const difo = s1 - s0;
+    // Registru la piedeblan supraĵon de ĉi tiu ŝtupo — la plata eskalera
+    // ŝtupo sidas je s0 ĉe ambaŭ randoj, la klinita ŝtupo inter s0 kaj s1.
+    vojSuprajxoj.push({ x1: sx1, z1: sz1, x2: sx2, z2: sz2, duono: eksteraDuon, y0: s0, y1: difo < -SOJA_SXVIPADO ? s0 : s1 });
     if ( difo < -SOJA_SXVIPADO ) {
       // ⟨ Eskalera ŝtupo ⟩ — la tereno falas pli ol SOJA_SXVIPADO ene de unu
       // intervalo. Plata supro je la ALTA rando ( la sama nivelo kiel la
