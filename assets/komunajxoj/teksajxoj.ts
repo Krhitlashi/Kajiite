@@ -1526,42 +1526,46 @@ export const kreiMuskanTeksajxon = sxovu((): THREE.CanvasTexture => {
 function kreiKavalErbanTeksajxon(branĉa: boolean): THREE.CanvasTexture {
   const w = 0o100, h = 0o200;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
-    const baza = branĉa ? "#509870" : "#407858";
-    const hela = branĉa ? "#80c080" : "#68a070";
-    const ombro = branĉa ? "#286850" : "#285040";
+    const baza = branĉa ? "#58a070" : "#488860";
+    const hela = branĉa ? "#88c088" : "#70a878";
+    const ombro = branĉa ? "#2c6448" : "#244c38";
+    // Fono — la sama kromataj strioj kiel antaŭe ( la ripoj ), sed kun la
+    // hela brilo pli larĝa kaj pli kontinua, do la tigo legiĝas kiel vaksa
+    // kano anstataŭ kiel malluma vergo.
     const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
     gradiento.addColorStop(0, ombro);
-    gradiento.addColorStop(0o2/0o10, baza);
+    gradiento.addColorStop(0o17/0o100, baza);
     gradiento.addColorStop(0o5/0o10, hela);
-    gradiento.addColorStop(0o7/0o10, baza);
+    gradiento.addColorStop(0o61/0o100, baza);
     gradiento.addColorStop(1, ombro);
     kunteksto.fillStyle = gradiento;
     kunteksto.fillRect(0, 0, w, h);
 
-    // Fajnaj longitudaj sulkoj kaj humida brilo sur la krestoj.
+    // Fajnaj longitudaj sulkoj — la kresto-linioj de la ripoj. La helaj
+    // desegnaĵoj duobliĝas kiel la brilo-linio, la malhelaj kiel la valo.
     for ( let i = 0; i < 0o20; i++ ) {
       const x = i / 0o20 * w;
-      kunteksto.fillStyle = i % 0o4 === 0 ? "rgba(18,63,53,0.42)" : "rgba(196,225,164,0.16)";
+      kunteksto.fillStyle = i % 0o4 === 0 ? "rgba(20,64,46,0.40)" : "rgba(214,238,180,0.20)";
       kunteksto.fillRect(x, 0, i % 0o4 === 0 ? 0o2 : 1, h);
     }
     // Neregulaj ring-markoj sub la nodoj — la tigo ne aspektu kiel senfina
-    // perfekta tubeto. Ili ripetiĝas ene de ĉiu segmenta UV-areo.
+    // perfekta tubeto. Ili ripetiĝas ene de ĉiu segmenta UV-areo; la darka
+    // bando donas la nodan ombron kaj la hela sub-linio la kolumetan brilon.
     for ( let i = 0; i < 0o6; i++ ) {
       const y = h * ( 0o1/0o10 + i * 0o15/0o100 );
-      kunteksto.fillStyle = "rgba(20,67,52,0.22)";
+      kunteksto.fillStyle = "rgba(24,70,50,0.30)";
       kunteksto.fillRect(0, y, w, 0o2);
-      kunteksto.fillStyle = "rgba(207,230,174,0.20)";
+      kunteksto.fillStyle = "rgba(216,238,180,0.24)";
       kunteksto.fillRect(0, y - 0o1, w, 0o1);
     }
-    // Malgrandaj poroj kaj skrapoj — subtila surfaca malpureco, pli densa ĉe la
-    // malsupro, kie la tigo tuŝas malsekan grundon.
+    // Malgrandaj poroj kaj skrapoj — subtila surfaca malpureco, pli densa ĉe
+    // la malsupro, kie la tigo tuŝas malsekan grundon.
     for ( let i = 0; i < 0o70; i++ ) {
       const x = Math.random() * w, y = Math.random() * h;
-      const koloro = i % 0o3 ? "rgba(20,74,58,0.24)" : "rgba(215,230,170,0.22)";
+      const koloro = i % 0o3 ? "rgba(24,78,58,0.20)" : "rgba(220,238,176,0.24)";
       kunteksto.fillStyle = koloro;
       kunteksto.fillRect(x, y, 1 + Math.random(), 1 + Math.random() * 0o2);
     }
-
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 

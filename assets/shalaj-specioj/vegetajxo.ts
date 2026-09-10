@@ -2714,20 +2714,22 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
       partoj.push(kolumeto);
       if ( kunBrancetoj ) {
         // Kirlo da pendantaj branĉetoj — la botelpura silueto de la granda
-        // ĉevalvosto. Pli multaj kaj pli longaj ol antaŭe, pendantaj iomete
-        // SUB la horizonto, kaj pli longaj malsupre, pli mallongaj supre
-        // ( la natura formo de Equisetum telmateia ).
-        const brancetoj = 9;
-        const longeco = segmentaAlto * ( 0o14/0o10 - 0o6/0o10 * ( i / nodoj ) );
+        // ĉevalvosto. La longo sekvamas sinus-profilon laŭ la tigo ( la
+        // mezaj kirloj plej longaj, la pinta kaj la baza pli mallongaj — la
+        // natura formo de Equisetum telmateia ), kaj ĉiu kirlo iomete
+        // suprenleviĝas anstataŭ pendi sub la horizonto.
+        const brancetoj = 0o12;
+        const profilo = Math.sin(Math.PI * Math.min(1, ( i + 1 ) / nodoj));
+        const longeco = segmentaAlto * ( 0o10/0o10 + 0o10/0o10 * profilo );
         for ( let b = 0; b < brancetoj; b++ ) {
-          const ang = b / brancetoj * Math.PI * 2;
-          const branceto = new THREE.ConeGeometry(0o12/0o1000, longeco, 4)
+          const ang = b / brancetoj * Math.PI * 2 + i * 0o3/0o10;
+          const branceto = new THREE.ConeGeometry(0o10/0o1000, longeco, 4)
             .translate(0, longeco / 2, 0);
           const M = new THREE.Matrix4().makeRotationY(ang);
-          // Preskaŭ horizontale, tiam lasu la pinton pendi malsupren.
-          M.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2 + 0o3/0o10));
-          // Eta ŝtupo — la branĉetoj ne kuŝu ĉiuj en unu plata ringo.
-          M.multiply(new THREE.Matrix4().makeRotationX(( b % 0o3 ) * 0o1/0o20));
+        // Supren arkigita ( la fontano-silueto ), kun eta ŝtupo po branĉeto —
+        // la kirloj ne kuŝu ĉiuj en unu plata ringo.
+          M.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2 - 0o5/0o20));
+          M.multiply(new THREE.Matrix4().makeRotationX(( b % 0o3 ) * 0o1/0o20 - 0o1/0o20));
           branceto.applyMatrix4(M);
           branceto.translate(0, y0, 0);
           partoj.push(branceto);
@@ -2751,20 +2753,23 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
   }
   if ( kunStrobilo ) {
     // Strobilo — mallonga pedunklo kaj skvama konusa sporujo kun ŝtupetaj
-    // skvam-ringoj kaj pinto, multe pli simila al vera ĉevalvosta strobilo
-    // ol unu nuda konuso.
-    const pedunklo = new THREE.CylinderGeometry(rSupro * 0.8, rSupro * 0.8,
-      0o6/0o100, 6).translate(0, 1 + 0o3/0o100, 0);
+    // skvam-ringoj kaj pinto. La larĝo estas RELATIVA al la tigo-pinto
+    // ( rSupro ) — la malnovaj fiksa-larĝaj ringoj ( 0o1/0o10 ) estis kvar
+    //oble larĝaj ol la tigo mem kaj aspektis kiel tro grandaj buloj.
+    const strobilaLargho = rSupro * 0o3/0o2;
+    const pedunklo = new THREE.CylinderGeometry(rSupro * 0o6/0o10, rSupro * 0o6/0o10,
+      0o4/0o100, 6).translate(0, 1 + 0o2/0o100, 0);
     partoj.push(pedunklo);
-    const skvamoj = 4;
+    const skvamoj = 5;
     for ( let s = 0; s < skvamoj; s++ ) {
-      const rS = 0o1/0o10 * ( 1 - s * 0o2/0o10 );
-      const ringo = new THREE.CylinderGeometry(rS * 0.8, rS, 0o3/0o100, 8)
-        .translate(0, 1 + 0o6/0o100 + s * 0o3/0o100, 0);
+      const t = s / skvamoj;
+      const rS = strobilaLargho * ( 1 - t * 0o6/0o10 );
+      const ringo = new THREE.CylinderGeometry(rS * 0o7/0o10, rS, 0o3/0o100, 8)
+        .translate(0, 1 + 0o4/0o100 + s * 0o3/0o100, 0);
       partoj.push(ringo);
     }
-    const pinto = new THREE.ConeGeometry(0o12/0o1000, 0o5/0o100, 6)
-      .translate(0, 1 + 0o6/0o100 + skvamoj * 0o3/0o100, 0);
+    const pinto = new THREE.ConeGeometry(strobilaLargho * 0o3/0o10, 0o3/0o100, 6)
+      .translate(0, 1 + 0o4/0o100 + skvamoj * 0o3/0o100 + 0o15/0o1000, 0);
     partoj.push(pinto);
   } else {
     // Mallonga pinto — la branĉa ĉevalvosto finiĝas per eta pinto anstataŭ
@@ -2781,7 +2786,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
 // multaj nodoj kun profundaj ripoj, ŝirmaj kolumetoj, dentetoj kaj skvama
 // strobilo ĉe la pinto.
 function konstruiCetkuanGeometrion(): THREE.BufferGeometry {
-  return konstruiKanGeometrion(9, false, true);
+  return konstruiKanGeometrion(0o13, false, true);
 }
 
 // konstruiCakeanGeometrion — Konstruu la geometrion de unu cakeo
@@ -2833,7 +2838,7 @@ function instanciiKavalerbojn(sceno: THREE.Scene,
     kavalerboj.setMatrixAt(ki, M);
     // Nuanco — ĉiu planto ricevas etan helan/malhelan varianton de la specia
     // koloro, por ke la stando ne aspektu unuforma.
-    kavalerboj.setColorAt(ki, C.setHex(koloro).multiplyScalar(0.85 + hazardaGenerilo() * 0.2));
+    kavalerboj.setColorAt(ki, C.setHex(koloro).multiplyScalar(0o111/0o100 + hazardaGenerilo() * 0o15/0o100));
     ki++;
   }
 
@@ -2854,7 +2859,7 @@ export function konstruiCetkuojn(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[]
 ): void {
   instanciiKavalerbojn(sceno, kvanto, heightFn, 11593, konstruiCetkuanGeometrion(),
-    kreiCetkuanTeksajxon(), 0x386848, 0o14/0o10, 0o30/0o10, ( h ) => {
+    kreiCetkuanTeksajxon(), 0xf0f8e8, 0o14/0o10, 0o30/0o10, ( h ) => {
       const angulo = h() * Math.PI * 2;
       const radiuso = 0o20 + 0o177 * Math.sqrt(h());
       const x = Math.sin(angulo) * radiuso;
@@ -3002,7 +3007,7 @@ export function konstruiCakeojn(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[]
 ): void {
   instanciiKavalerbojn(sceno, kvanto, heightFn, semo, konstruiCakeanGeometrion(),
-    kreiCakeanTeksajxon(), 0x50a860, 0o12/0o10, 0o24/0o10, ( h ) => {
+    kreiCakeanTeksajxon(), 0xe8f8e0, 0o12/0o10, 0o24/0o10, ( h ) => {
       const angulo = h() * Math.PI * 2;
       // Maldika bendo ĝis ~10 unuojn ekster la lagrando.
       const radiuso = radioFn(angulo) + h() * 0o10;

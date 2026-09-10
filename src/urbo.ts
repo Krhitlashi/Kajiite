@@ -934,6 +934,15 @@ export async function konstruiUrbon(
   }
   // La doka norda rando — la landrandoj de ĉiu doko, por la lampoj kaj la ĉapoj.
   const dockaLandaRando: [ number, number ][] = DOKOJ.map(d => [ d.x, d.z + d.profundo / 2 ]);
+  // La tri DOKAJ landrandoj ricevas NENIUN ĉapon. La kajo-vojo daŭriĝas ĝis la
+  // eniranguloj de la tri dokaj platformoj ( SKULPTA_VOJOJ ) — ĉiu doko estas
+  // voja etendo, do la platforma diorito mem rondigas la transiron kaj la
+  // voja andezita bordo daŭriĝas kiel la doka andezita kadro. La malnovaj
+  // duonrondaj kapoj ĉi tie kuŝis SUR la doko mem kaj montris la karakterizan
+  // arkon interne de ĉiu doko — la terena skulptilo ilustras la dokojn kiel
+  // purajn dioritajn platformojn kun nur la andezita kadro, do la kapoj
+  // kongruis nenion. La du kajo-FINAĴOJ tamen tenas siajn rondigitajn ĉapojn
+  // ( malsupre ) — ili estas veraj voj-finaĵoj sur la tereno, ne dokaj enirejoj.
   const ĉefajVojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo);
 
   // Lamp-nodoj por la kajo — la samaj lampaj ŝablonoj kiel la krada reto.
@@ -948,23 +957,12 @@ export async function konstruiUrbon(
   // krada reto — la kradaj nodoj ricevas ilin en konstruiKradanUrbon ).
   const dokaPlacajNodoj: [ number, number ][] = [ [ -0o124, -0o140 ], [ 0o124, -0o122 ], ...dockaLandaRando ];
 
-  // ⟪ Duoncirklaĵaj ĉapoj ĉe la doka bordo 📃 ⟫ — la du kajo-finoj ( okcidente
-  // en la arbaro, oriente sur la seka bordo ) kaj la tri dokaj landrandoj
-  // ( la enirejoj kie la kajo renkontas ĉiun platformon ). La komuna
-  // konstruiPlacojn foriĝis ( la kapoj kuŝis sur la vojoj samplane kaj
-  // z-flagris ), kaj ĉi tiuj kvin nodoj ricevas nek arkon nek platon — sen
-  // ĉapo la vojoj ĉe la doka bordo finiĝas krude. La novaj kapoj estas
-  // DUONCIRKLAJ, EKSTRUDITAJ per la sama dikeco kiel la voja strio
-  // ( 0o2/0o10 ) kaj kuŝas samplane kun la vojo, do ili montras verajn
-  // 3D-flankajn murojn kiel la ceteraj vojoj — ne plu plataj 2D-diskoj. Ĉiu
-  // ĉapo elstaras en la direkto kiu daŭrigas la vojon. la du kajo-finoj bulas
-  // preter la fino ( okcidenten/orienten, laŭ la lasta kaja segmento ), kaj
-  // la tri dokaj landrandoj bulas suden sur la platformon ( la doko estas
-  // voja etendo, do la ĉapo rondigas la transiron ). Kie ili interkovras la
-  // vojon, la polygonOffset-hierarkio decidas ( la disko gajnas, la ringo
-  // malgajnas kontraŭ la vojo — neniu andezito super la diorito ).
-  konstruiRondajnKapojn(sceno, [ [ -0o124, -0o140 ], [ 0o124, -0o122 ], ...dockaLandaRando ],
-    [ [ -0.9833, 0.1821 ], [ 0.9993, 0.0370 ], ...dockaLandaRando.map((): [ number, number ] => [ 0, -1 ]) ],
+  // Rondigitaj ĉapoj nur ĉe la du kajo-finaĵoj ( la okcidenta arbara fino kaj
+  // la orienta seka fino ) — NENIU ĉapo ĉe la dokaj landrandoj ( vidu la noton
+  // super konstruiVojojn ): la malnova triobla alvoko desegnis duonrondajn
+  // ĉapojn ankaŭ SUR la dokoj kaj ili aspektis kiel arko interne de ĉiu doko.
+  konstruiRondajnKapojn(sceno, [ [ -0o124, -0o140 ], [ 0o124, -0o122 ] ],
+    [ [ -0.9833, 0.1821 ], [ 0.9993, 0.0370 ] ],
     alteco, dioritaMaterialo, andezitaMaterialo);
   await raporti();
 
