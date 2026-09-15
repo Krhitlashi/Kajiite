@@ -39,7 +39,7 @@ const promptoElemento = document.getElementById("prompto")!;
 const supermeta = document.getElementById("supermeta")!;
 const vestaVico = document.getElementById("vestaVico")!;
 const sxargxaElemento = document.getElementById("sxargxo")!;
-const stangoPlenigo = document.getElementById("stangoPlenigo")!;
+const stango = document.getElementById("stango")!;
 const sxargxaTitolo = document.getElementById("sxargxaTitolo")!;
 const nadlo = document.getElementById("nadlo")!;
 const kompaso = document.getElementById("kompaso")!;
@@ -122,7 +122,9 @@ const fruaBildigo = () => {
 fruaBildigo();
 
 const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, ( p ) => {
-  stangoPlenigo.style.blockSize = `${Math.round(p * 100)}%`;
+  // La ekstera <cab6tem2>-stango ( la ekstera stilfolio ) plenigas sian
+  // ::before-on per la variablo --តេមិនី ( frakcio 0..1 ).
+  stango.style.setProperty("--តេមិនី", `${Math.round(p * 0o144) / 0o144}`);
   const novaTitolo = p > 0o33/0o40 ? traduki("sxargxaNebulo") : p > 0o23/0o40 ? traduki("sxargxaTraboj") : p > 0o23/0o100 ? traduki("sxargxaSatalo") : null;
   if ( novaTitolo !== null && sxargxaTitolo.textContent !== novaTitolo ) {
     sxargxaTitolo.textContent = novaTitolo;
@@ -1219,7 +1221,7 @@ document.getElementById("supermetaFermi")!.addEventListener("click", () => {
 document.getElementById("butHelpi")!.addEventListener("click", () => {
   document.getElementById("supermetaTitolo")!.textContent = traduki("titoloVojoj");
   document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloHelpo");
-  vestaVico.innerHTML = `<div class="statistikoj helpa-listo">
+  vestaVico.innerHTML = `<div class="statistikoj">
     <b>Orbit</b> · ${traduki("regiloOrbito")}<br>
     <b>Walk</b> · ${traduki("regiloPromeno")}<br>
     <b>WASD</b> · ${traduki("regiloMovado")}<br>
@@ -2563,14 +2565,14 @@ function montriSargxon(daŭro: number, callback: () => void): void {
   // duan fojon la callback ( ekz. duobla E-premo dum la ŝarĝo ).
   if ( montriSxargxoIntervalo ) { clearInterval(montriSxargxoIntervalo); montriSxargxoIntervalo = null; }
   if ( sxargxaRestorilo ) { clearTimeout(sxargxaRestorilo); sxargxaRestorilo = null; }
-  stangoPlenigo.style.blockSize = "0%";
+  stango.style.setProperty("--តេមិនី", "0");
   sxargxaElemento.style.transition = "opacity .25s";
   sxargxaElemento.classList.remove("finita");
   let progreso = 0;
   const paŝoj = 0o40; // 32 paŝoj
   montriSxargxoIntervalo = setInterval(() => {
     progreso += 1 / paŝoj;
-    stangoPlenigo.style.blockSize = `${Math.min(100, progreso * 100)}%`;
+    stango.style.setProperty("--តេមិនី", `${Math.min(0o1, progreso)}`);
     if ( progreso >= 1 ) {
       if ( montriSxargxoIntervalo ) { clearInterval(montriSxargxoIntervalo); montriSxargxoIntervalo = null; }
       // Neniam permesu ke la ŝarĝa ekrano restu blokita. eĉ se la callback
