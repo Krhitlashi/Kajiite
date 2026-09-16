@@ -5,6 +5,7 @@
 // bruo kaj la indeksa konstruanto estis kopiitaj en ambaŭ dosieroj, kaj la
 // paletoj devojiĝis ( la skulptilo montris aliajn kolorojn ol la ludo ).
 import * as THREE from "three";
+import { SKULPTA_AKVA_NIVELO } from "../../src/tero-datumaro/akvo.js";
 
 // bruo2D — izotropa valora bruo ( hash-bazita, glate interpolita ) en [0,1].
 // La antaŭa du-oktava SIN-bruo havis ondofrontojn laŭ la diagonaloj — sur la
@@ -55,6 +56,8 @@ export function alternajDiagonalojn(segmentoj: number): number[] {
 
 // La paletraj koloroj — la malseketaj oliv-herbejaj nuancoj de la ludo, kun
 // la malseka lito apud la akvo, la sekherba deklivo, la roko kaj la neĝo.
+// La herbejaj koloroj ( HERBO_A, HERBO_B ) kaj ilia brua mikso restas la
+// sama baza herbo — nur la bordaj kaj subakvaj tavoloj aldoniĝis.
 const HERBO_A = new THREE.Color(0x485848);
 const HERBO_B = new THREE.Color(0x587058);
 const LITO = new THREE.Color(0x384848);
@@ -62,6 +65,64 @@ const PROFUNDA = new THREE.Color(0x283838);
 const SEKHERBO = new THREE.Color(0x787850);
 const ROKO = new THREE.Color(0x787868);
 const NEGO = new THREE.Color(0xe0e8f0);
+// La akvobordaj kaj subakvaj koloroj — la malseka herbo kaj la koto de la
+// rando, la silta sablo videbla tra la travidebla malprofunda akvo, la
+// malhela lito de la kanalo kaj la gruzo de la fluobordo.
+const MALHERBO = new THREE.Color(0x405840);
+const MARĈO = new THREE.Color(0x404038);
+const SILTO = new THREE.Color(0x788878);
+const GRUZO = new THREE.Color(0x888888);
+
+// AKVO_NIVELO — la akvosurfaca alto de la skulptita tereno. La bordo mem
+// elektas la kolorojn laŭ ĉi tiu nivelo, ne laŭ la absoluta nulo — antaŭe la
+// transiroj sekvis fiksitajn altojn ( −2, −5 ), kiuj ne rilatis al la akvo,
+// do la tuta subakva tereno kolorigis malhela kaj la bordo ricevis malhelan
+// ringon SUPER la akvon.
+const AKVO_NIVELO = SKULPTA_AKVA_NIVELO;
+
+// bordiKoloron — la akvoborda tavolo. Super la akvo maldika malseka herba
+// rando kaj kotaj makuloj ĉe la akvlinio; sub la akvo silta sabla fundo ( la
+// akvo estas preskaŭ travidebla en la malprofundaĵoj, do la fundo vere
+// vidiĝas ), kiu malheliĝas tra la malseka lito al la profunda koto de la
+// kanalo. La limoj moviĝas per bruo, do la bordo ne sekvas perfektan
+// izohipson — naturaj sablaj langoj, gruzaj bordoj kaj malsekaj makuloj. La
+// sedimento restas nur sur la mildaj deklivoj; krutaj subakvaj rokoj restas
+// malhelaj malsekaj rokoj, kiel en la naturo.
+//     @param celo ( THREE.Color ) - La koloro ( reskribita surloke ).
+//     @param h ( number ) - La tera alto en mondo-unuoj.
+//     @param x, z ( number ) - Monda pozicio ( por la borda bruo ).
+//     @param deklivo ( number ) - La gradiento |∇h|.
+function bordiKoloron(celo: THREE.Color, h: number, x: number, z: number, deklivo: number): void {
+  // La borda bruo — du oktavoj, do la bordo havas kaj grandajn langojn kaj
+  // etan dentaron. La ondado estas en mondo-unuoj de alto ( ± 0o6/0o10 ).
+  const bordaBruo = ( bruo2D(x / 0o10, z / 0o10) - 0o4/0o10 ) * 0o4/0o10
+    + ( bruo2D(x / 0o40, z / 0o40) - 0o4/0o10 ) * 0o2/0o10;
+  const sup = h - AKVO_NIVELO;   // > 0 super la akvosurfaco
+  if ( sup > 0 ) {
+    // ⟨ Super la akvo 📃 ⟩ — malseka herbo, poste koto ĉe la akvlinio. La
+    // faktoroj restas sub 1, por ke la ĝenerala herba koloro konserviĝu.
+    const malherbaF = Math.max(0, Math.min(1, ( 0o14/0o10 - sup + bordaBruo ) / ( 0o14/0o10 )));
+    const margxaF = Math.max(0, Math.min(1, ( 0o6/0o10 - sup + bordaBruo ) / ( 0o6/0o10 )));
+    celo.lerp(MALHERBO, malherbaF * 0o6/0o10);
+    celo.lerp(MARĈO, margxaF * 0o7/0o10);
+    return;
+  }
+  // ⟨ Sub la akvo 📃 ⟩ — la profundo sub la surfaco.
+  const prof = Math.max(0, -sup + bordaBruo);
+  const sedimento = Math.max(0, Math.min(1, ( 0o1 - deklivo ) / ( 0o12/0o10 )));
+  // Krutaj subakvaj deklivoj ( roko sen ŝlimo ) restas malhelaj anstataŭ
+  // ricevi sablon — la kontraŭa faktoro de la sedimento.
+  celo.lerp(LITO, Math.min(1, prof) * ( 1 - sedimento ) * 0o5/0o10);
+  const siltaF = Math.max(0, Math.min(1, prof / ( 0o12/0o10 ))) * sedimento;
+  celo.lerp(SILTO, siltaF);
+  // Eta gruza makuleco sur la silta zono — la fundo ne estas unutona.
+  if ( siltaF > 0 ) {
+    const gruzo = bruo2D(x / 0o4, z / 0o4);
+    celo.lerp(GRUZO, siltaF * Math.max(0, gruzo - 0o55/0o100) * 0o6/0o10);
+  }
+  celo.lerp(LITO, Math.max(0, Math.min(1, ( prof - 0o1 ) / ( 0o16/0o10 ))) * sedimento);
+  celo.lerp(PROFUNDA, Math.max(0, Math.min(1, ( prof - 0o30/0o10 ) / ( 0o22/0o10 ))));
+}
 
 // terenaKoloroEn — la natura terena koloro por la alto h ĉe ( x, z ), skribita
 // en la donitan THREE.Color ( linia laborejo — taŭga rekte por la
@@ -80,9 +141,6 @@ export function terenaKoloroEn(celo: THREE.Color, h: number, x: number, z: numbe
     0o4/0o10 + 0o2/0o10 * ( 2 * bruo2D(x / 0o60, z / 0o60) - 1 )
     + 0o4/0o100 * ( 2 * bruo2D(x / 0o14, z / 0o14) - 1 )));
   celo.copy(HERBO_A).lerp(HERBO_B, t);
-  // Malseka lito apud la akvo, kaj la profunda fundo sub gxi.
-  if ( h < -2 ) celo.lerp(LITO, Math.min(1, ( h + 2 ) / -3));
-  if ( h < -5 ) celo.lerp(PROFUNDA, Math.min(1, ( h + 5 ) / -( 0o115/0o100 )));
   // Sekherba zono inter la herbejo kaj la roko — la montetoj sekigas.
   if ( h > 0o10 ) celo.lerp(SEKHERBO, Math.min(1, ( h - 0o10 ) / 0o10));
   // Rokego — kaj sur krutaj deklivoj ( kie la grundo ne tenas kreskajxon,
@@ -96,5 +154,8 @@ export function terenaKoloroEn(celo: THREE.Color, h: number, x: number, z: numbe
   celo.lerp(ROKO, rokF);
   // Neĝo sur la pintoj ( la montaro pintas ĝis ~0o60 ).
   if ( h > 0o46 ) celo.lerp(NEGO, Math.min(1, ( h - 0o46 ) / 0o10));
+  // La akvoborda tavolo venas LASTe — ĝi superregas la rokon kaj la neĝon
+  // tie, kie la tereno renkontas la akvon ( ankaŭ kruta klifo malsekiĝas ).
+  bordiKoloron(celo, h, x, z, deklivo);
   return celo;
 }

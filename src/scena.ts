@@ -4,7 +4,8 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { alteco, akvaNivelo, glataPaso } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
-import { kreiTerenanTeksajxon, kreiNebulTavolanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
+import { kreiTerenanTeksajxon, kreiNebulTavolanTeksajxon,
+  kreiGrundanTeksajxon, kreiGrundanBumpanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
 import { bruo2D, alternajDiagonalojn, terenaKoloroEn } from "../assets/komunajxoj/terenkoloroj.js";
 
 export function montriEraronon(sxargxaEl: HTMLElement): void {
@@ -862,9 +863,19 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     }
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     g.computeVertexNormals();
-    const ground = new THREE.Mesh(g, new THREE.MeshStandardMaterial({
+    // La grundaj teksajxoj — la koloro ( preskaŭ blanka ripeta markaro, kiu
+    // multiplikiĝas kun la verticaj koloroj, do la herba tono restas la sama )
+    // kaj la reliefo ( la sama markaro en grizo ). De proksime la tereno montras
+    // herbojn, tufojn kaj ŝtonetojn anstataŭ plataj koloroj; de malproksime la
+    // kaheloj solviĝas reen en la verticajn kolorojn. La sama ripeto por ambaŭ,
+    // do la reliefo kaj la koloro kongruas.
+    const grundMaterialo = new THREE.MeshStandardMaterial({
       vertexColors: true, roughness: 0o7/0o10,
-    }));
+      map: kreiGrundanTeksajxon(),
+      bumpMap: kreiGrundanBumpanTeksajxon(),
+      bumpScale: 0o5/0o10,
+    });
+    const ground = new THREE.Mesh(g, grundMaterialo);
     ground.receiveShadow = true;
     sceno.add(ground);
 

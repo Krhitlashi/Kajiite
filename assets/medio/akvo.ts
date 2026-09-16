@@ -252,6 +252,15 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
   const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
   const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
   const maskaKodo = maskita ? "if ( vAkvo < 0.5 ) discard;\n" : "";
+  // La ŝaŭma zono ĉe la bordo. La MASKA akvo uzas vAkvo — la interpolita
+  // maska valoro estas 1 en la akvo kaj 0 ekster ĝi, do la zono inter 0.5 kaj
+  // 0.875 sekvas la VIDEBLAN akvobordon ekzakte ( la profundo ĉe tiu rando jam
+  // estas kelkaj unuoj, ĉar la masko estas ĉela — la profunda zono maltrafus la
+  // randon ). La senmaskaj rivero kaj lago havas veran profundgradienton kaj
+  // uzas la profundon.
+  const bordaKodo = maskita
+    ? "float bordaF = 1.0 - smoothstep( 0.5, 0.875, vAkvo );"
+    : "float bordaF = 1.0 - smoothstep( 1.0, 3.0, profundo );";
   return new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     transparent: true,
@@ -285,6 +294,10 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float wave4 = sin(worldPos.x * 0.1875 + worldPos.z * 0.0625 + uTime * 0.90625 + 0.703125) * 0.0625;
         float wave5 = cos((worldPos.x - worldPos.z) * 0.09375 + uTime * 0.59375 + 3.6875) * 0.046875;
         float displacement = wave1 + wave2 + wave3 + wave4 + wave5;
+        // La bordo — la ondoj malkreskas al nulo kie la akvo malprofundiĝas.
+        // Alie la ondokrestoj elstarus super la grundon ĉe la bordo kaj la
+        // akvosurfaco tranĉus la teron per akra onda rando.
+        displacement *= smoothstep( 0.0, 0.5, max( 0.0, uv.y ) );
         vHeight = displacement;
 
         // Analizaj derivaĵoj de la onda sumo ( ∂/∂x, ∂/∂z ) por korektaj normaloj
@@ -340,7 +353,9 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float fresnel = pow(1.0 - ndv, 4.0);
 
         float spec = pow(max(dot(normal, halfVec), 0.0), 48.0) * 0.4375 * (0.5 + 0.5 * fresnel);
-        float specWide = pow(max(dot(normal, halfVec), 0.0), 12.0) * 0.25;
+        // La larĝa brileto estis tro forta ( la tuta surfaco aspektis lakta ĉe
+        // malaltaj anguloj ) — nun ĝi estas mallarĝa suna glito sur la ondoj.
+        float specWide = pow(max(dot(normal, halfVec), 0.0), 12.0) * 0.0625;
 
         // Subtila ondbrilo
         float shimmer = 0.5 + 0.5 * sin(vWorldPos.x * 0.3125 + vWorldPos.z * 0.25 + uTime * 2.0);
@@ -349,7 +364,13 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         vec3 specColor = vec3(0.90625, 0.9375, 0.96875) * (spec + specWide);
         vec3 fresnelColor = mix(vec3(0.3125, 0.40625, 0.5), vec3(0.5625, 0.6875, 0.8125), fresnel * 0.5);
 
-        vec3 finalColor = baseColor + specColor + fresnelColor * 0.75;
+        // La ĉiela reflekto MIKSIĜAS en la akvon anstataŭ aldoniĝi sur ĝin.
+        // La antaŭa aldono ( fresnelColor * 0.75 ) blankigis la tutan surfacon
+        // ĉe malaltaj anguloj — la profundaĵoj kaj la profunda koloro ne plu
+        // videblis. La mikso konservas la akvan koloron sub la reflekto, do
+        // la malprofunda bordo kaj la kolorŝanĝo kun la profundo restas videblaj
+        // ankaŭ de la bordo.
+        vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.625) + specColor;
 
         // Onda alteco donas malgrandan brilecon al la ondoj
         finalColor *= 1.0 + vHeight * 0.09375;
@@ -363,6 +384,22 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float alpha = 0.09375 + 0.90625 * (1.0 - exp(-profundo * 0.25));
         alpha = mix(alpha, 1.0, fresnel * 0.5);
         alpha = min(1.0, alpha + shimmer * 0.03125);
+
+        // ⟨ Ŝaŭmo ĉe la bordo 📃 ⟩ — maldika lakt-blanka linio, kie la akvo
+        // renkontas la teron. Ĝi ekzistas nur en la unuaj proksimume unuoj de
+        // profundo, kaj ĝia forteco ondas laŭlonge de la bordo ( la ondoj
+        // rompiĝas kaj retiriĝas ), do la rando vivas anstataŭ resti glata
+        // linio. La transiro inter la seka tero kaj la akvo ricevas tiel la
+        // naturan malsekan strion, kiun la verticaj koloroj de la grundo
+        // plilongigas per la malseka herbo kaj la koto ( terenkoloroj.ts ).
+        ${bordaKodo}
+        if ( bordaF > 0.0 ) {
+          float lapado = 0.5 + 0.5 * sin( vWorldPos.x * 0.4375 + vWorldPos.z * 0.3125 + uTime * 0.875 );
+          lapado *= 0.5 + 0.5 * sin( vWorldPos.x * 0.1875 - vWorldPos.z * 0.28125 - uTime * 0.5 );
+          float sxauxmo = bordaF * ( 0.25 + 0.75 * lapado ) * 0.4375;
+          finalColor = mix( finalColor, vec3( 0.9375, 0.96875, 0.96875 ), sxauxmo );
+          alpha = max( alpha, sxauxmo * 0.875 );
+        }
 
         gl_FragColor = vec4(finalColor, alpha);
       }

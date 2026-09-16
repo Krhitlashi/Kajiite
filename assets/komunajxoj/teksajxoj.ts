@@ -1,5 +1,6 @@
 // Tekstura modulo — proceduraj kanvasaj teksturoj por la urba sperto
 import * as THREE from "three";
+import { kreiHazardanGenerilon } from "./hazardo.js";
 
 const hazard = ( a: number, b: number ): number => a + Math.random() * ( b - a );
 
@@ -1447,6 +1448,151 @@ export const kreiTerenanTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.stroke();
     }
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
+});
+
+// ⟪ Grunda teksajxo 📃 ⟫ — la ripeta teksajxo de la ĝenerala tereno.
+// kreiGrundanKanvason — La kuna markaro de la grundo. Griznivela reliefo — la
+// herberaj tufoj kaj la ŝtonetoj leviĝas, la malsekaj kavoj kaj la fendetoj
+// sinkas. La markoj desegniĝas senkudre ( desegniWrapan ), do la teksajxo
+// ripetiĝas sen videblaj kudroj tra la tuta valo. Du konsumantoj uzas ĝin —
+// la kolor-teksajxo ( preskaŭ blanka versio, do la verticaj koloroj restas la
+// fonto de la herba koloro ) kaj la reliefa teksajxo ( la grizo mem ).
+//     @param koloro ( boolean ) - Cxu la presaĵo estas la kolor-versio.
+//     @returns bildo ( HTMLCanvasElement ) - La preta kanvaso.
+const GRUNDA_S = 0o1000;   // 512 — sufiĉe densa por unuopa herbero
+
+function kreiGrundanKanvason(koloro: boolean): HTMLCanvasElement {
+  const s = GRUNDA_S;
+  const kanvasa = document.createElement("canvas");
+  kanvasa.width = kanvasa.height = s;
+  const k = kanvasa.getContext("2d")!;
+  // La sama semo por ambaŭ versioj — la sama markaro, do la malhela makulo
+  // de la koloro kaj la leviĝo de la reliefo kongruas.
+  const semo = kreiHazardanGenerilon(0o2710);
+  const hazardo = ( a: number, b: number ): number => a + semo() * ( b - a );
+
+  // La baza grundo. La reliefo restas meza grizo ( nek levita nek sinkita ),
+  // la koloro restas preskaŭ blanka — la verticaj koloroj portas la koloron.
+  k.fillStyle = koloro ? "#FFFFFF" : "#d8d8d8";
+  k.fillRect(0, 0, s, s);
+  k.lineCap = "round";
+
+  // Molaj tufoj — musko kaj grundaj montetoj. Duono leviĝas, duono sinkas al
+  // malsekaj kavoj, do la grundo ondiĝas anstataŭ resti plata.
+  for ( let i = 0; i < 0o140; i++ ) {
+    const x = hazardo(0, s), y = hazardo(0, s);
+    const r = s * ( 0o6/0o100 + hazardo(0, 1) * 0o16/0o100 );
+    const levo = hazardo(0, 1) < 0o5/0o10;
+    const fazo = hazardo(0, 1);
+    desegniWrapan(k, s, () => {
+      const g = k.createRadialGradient(x, y, 0, x, y, r);
+      if ( koloro ) {
+        g.addColorStop(0, levo ? "rgba(232,246,216,0.10)" : "rgba(88,102,72,0.10)");
+      } else {
+        g.addColorStop(0, levo ? "rgba(255,255,255,0.62)" : "rgba(24,32,20,0.46)");
+      }
+      g.addColorStop(0o1, "rgba(255,255,255,0)");
+      k.fillStyle = g;
+      k.beginPath();
+      k.ellipse(x, y, r, r * ( 0o5/0o10 + fazo * 0o4/0o10 ), fazo * Math.PI, 0, Math.PI * 2);
+      k.fill();
+    });
+  }
+
+  // Herberoj kaj falintaj klingoj — la mallongaj kurbitaj strekoj, kiuj donas
+  // la herban strukturon de proksime. La plimulto leviĝas kiel verdaj
+  // tufetoj, kaj iuj kuŝas kiel sekaj klingoj.
+  for ( let i = 0; i < 0o1000; i++ ) {
+    const x = hazardo(0, s), y = hazardo(0, s);
+    const longo = s * ( 0o2/0o100 + hazardo(0, 1) * 0o6/0o100 );
+    const angulo = -Math.PI / 0o2 + ( hazardo(0, 1) - 0o4/0o10 ) * 0o14/0o10;
+    const kurbo = ( hazardo(0, 1) - 0o4/0o10 ) * longo * 0o6/0o10;
+    const seka = hazardo(0, 1) < 0o2/0o10;
+    const dikeco = 0o1/0o2 + hazardo(0, 1) * 0o1;
+    const alfa = 0o12/0o100 + hazardo(0, 1) * 0o14/0o100;
+    if ( koloro ) {
+      k.strokeStyle = seka ? "rgba(150,158,98," + alfa + ")" : "rgba(72,104,56," + alfa + ")";
+    } else {
+      k.strokeStyle = seka ? "rgba(228,232,220,0.42)" : "rgba(255,255,255,0.46)";
+    }
+    k.lineWidth = dikeco;
+    desegniWrapan(k, s, () => {
+      k.beginPath();
+      k.moveTo(x, y);
+      k.quadraticCurveTo(x + Math.cos(angulo) * longo * 0o1/0o2 - Math.sin(angulo) * kurbo,
+        y + Math.sin(angulo) * longo * 0o1/0o2 + Math.cos(angulo) * kurbo,
+        x + Math.cos(angulo) * longo, y + Math.sin(angulo) * longo);
+      k.stroke();
+    });
+  }
+
+  // Eta ŝtonetoj kun ombro sub ili — la malgrandaj elstarajoj de la grundo.
+  for ( let i = 0; i < 0o100; i++ ) {
+    const x = hazardo(0, s), y = hazardo(0, s);
+    const r = 1 + hazardo(0, 1) * 0o6/0o10;
+    const angulo = hazardo(0, 1) * Math.PI;
+    desegniWrapan(k, s, () => {
+      k.save();
+      k.translate(x, y);
+      k.rotate(angulo);
+      k.fillStyle = "rgba(20,24,18,0.30)";
+      k.beginPath();
+      k.ellipse(0, r * 0o5/0o10, r * 0o12/0o10, r * 0o7/0o10, 0, 0, Math.PI * 2);
+      k.fill();
+      k.fillStyle = koloro ? "rgba(196,204,190,0.66)" : "rgba(255,255,255,0.66)";
+      k.beginPath();
+      k.ellipse(0, 0, r, r * 0o7/0o10, 0, 0, Math.PI * 2);
+      k.fill();
+      k.restore();
+    });
+  }
+
+  // Fajna grajno — la piksla bruo, kiu forigas la plastan egalecon. Ĝi estas
+  // simetria, do ĝi ne ŝanĝas la mezan helecon de la teksajxo.
+  const bildo = k.getImageData(0, 0, s, s);
+  const d = bildo.data;
+  const grajnaForto = koloro ? 0o7 : 0o24;
+  for ( let i = 0; i < d.length; i += 4 ) {
+    const g = ( Math.random() - 0o4/0o10 ) * grajnaForto;
+    d[i] += g; d[i + 1] += g; d[i + 2] += g;
+  }
+  k.putImageData(bildo, 0, 0);
+  return kanvasa;
+}
+
+// GRUNDA_RIPETO — kiom da fojoj la teksajxo ripetiĝas trans la tereno ( 1536
+// unuoj ). La kahelo kovras ~0o44/0o10 = 4.6 unuojn — herbero de ~0.15
+// unuoj, do la grundo havas kredindan skalon ĉe la okuloj de la ludanto. La
+// nombro NE dividas la terenan reton ( 4 unuoj ), por ke la kaheloj ne
+// kongruu kun la retaj diagonaloj.
+const GRUNDA_RIPETO: [ number, number ] = [ 0o520, 0o520 ];
+
+// kreiGrundanTeksajxon — La kolor-teksajxo de la tereno. Preskaŭ blanka — la
+// verticaj koloroj restas la fonto de la herba koloro — kaj la markoj mem
+// ( mallumaj klingoj, oliv-verdaj tufoj, grizaj ŝtonetoj ) portas la
+// videblan herban strukturon. Ĝi MULTIPLIKIĜAS kun la verticaj koloroj, do la
+// herbo restas la sama tono. La markoj estas maldikaj kaj malalt-alfaj, do la
+// MEZA heleco restas proksima al blanko — la tereno ne malheliĝas videble,
+// kaj la foraj kaheloj solviĝas reen en la verticajn kolorojn.
+//     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
+export const kreiGrundanTeksajxon = sxovu((): THREE.CanvasTexture => {
+  const s = GRUNDA_S;
+  return kreiKanvasanTeksajxon(s, s, ( k ) => {
+    k.drawImage(kreiGrundanKanvason(true), 0, 0);
+  }, GRUNDA_RIPETO );
+});
+
+// kreiGrundanBumpanTeksajxon — La reliefa teksajxo de la tereno. La sama
+// markaro kiel la koloro ( la sama semo ), sed la grizo mem — la herberoj kaj
+// la ŝtonetoj leviĝas, la malsekaj kavoj kaj la fendetoj sinkas. La reliefo
+// donas la proksiman herban strukturon sen ŝanĝi la koloron, kaj ĝi restas en
+// lineara koloro ( kiel la ceteraj reliefaj teksajxoj ).
+//     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
+export const kreiGrundanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
+  const s = GRUNDA_S;
+  return kreiKanvasanTeksajxon(s, s, ( k ) => {
+    k.drawImage(kreiGrundanKanvason(false), 0, 0);
+  }, GRUNDA_RIPETO, { sRGB: false });
 });
 
 // kreiMuskanTeksajxon — Kreu mildan cyan-verdan teksturon por la molaj
