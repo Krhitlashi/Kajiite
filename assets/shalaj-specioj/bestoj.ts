@@ -14,6 +14,7 @@
 // kaj ĉiu besto estas klono de sia malneto — la klonoj kunhavas la samajn
 // geometriojn kaj materialojn, do la bestoj ne kostas teksturojn po unu.
 import * as THREE from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { biomo, akvo, cxuEnLago } from "../../src/tereno.js";
 import { skulptitaBesto } from "../../src/tero-datumaro/rultempo.js";
 import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
@@ -688,6 +689,30 @@ function kreiPlumaranTeksajxon(lauxlonga: boolean): THREE.CanvasTexture {
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, anisotropio: 0o4 });
 }
 
+// kunfandiPoMaterialo — Kunfandu grupon da meshxoj en UN meshon po materialo
+// ( la sama skemo kiel vojoj.ts ). La loka transformo de ĉiu parto bakiĝas en
+// ĝian geometrion, do la kunfandita mesho bildigas precize la saman aferon —
+// nur per malpli da desegnoj.
+//     @param partoj ( Mesh[] ) - La partoj kunfandotaj.
+//     @returns La kunfanditaj meshoj ( po unu materialo ).
+function kunfandiPoMaterialo(partoj: THREE.Mesh[]): THREE.Mesh[] {
+  const listoj = new Map<THREE.Material, THREE.BufferGeometry[]>();
+  for ( const p of partoj ) {
+    p.updateMatrix();
+    const geometrio = p.geometry.clone().applyMatrix4(p.matrix);
+    const materialo = p.material as THREE.Material;
+    const listo = listoj.get(materialo);
+    if ( listo ) listo.push(geometrio); else listoj.set(materialo, [ geometrio ]);
+  }
+  const meshoj: THREE.Mesh[] = [];
+  for ( const [ materialo, listo ] of listoj ) {
+    const kunigita = listo.length === 1 ? listo[0] : mergeGeometries(listo, false);
+    if ( listo.length > 1 ) for ( const g of listo ) g.dispose();
+    if ( kunigita ) meshoj.push(new THREE.Mesh(kunigita, materialo));
+  }
+  return meshoj;
+}
+
 // konstruiPetrelanMalneton — Unu neĝopetrelo, konstruita kiel malgranda vera
 // marbirdo. flulinia korpo kun plena brusto kaj ronda ventro ( platigita
 // flanke ), mallonga kolo kun levita kapo, tubo-naza hokbeko ( la marko de la
@@ -696,6 +721,8 @@ function kreiPlumaranTeksajxon(lauxlonga: boolean): THREE.CanvasTexture {
 // primaraj plumoj. La plumaro estas kradita per procedura teksajxo, kaj la
 // flugiloj sidas en pivotaj grupoj ĉe la ŝultroj por ke la bato ( rotation.z )
 // levu kaj mallevu ilin samfaze. La birdo rigardas +z.
+// La senmovaj partoj kunfandiĝas ( vidu kunfandiPoMaterialo ) — la malneto
+// konservas 8 meshojn anstataŭ 22, kaj la birdaro desegniĝas per tiom malpli.
 export function konstruiPetrelanMalneton(): THREE.Group {
   const grupo = new THREE.Group();
   const blanka = new THREE.MeshStandardMaterial({
@@ -854,7 +881,6 @@ export function konstruiPetrelanMalneton(): THREE.Group {
   // post rotateX(-π/2), sed la birdo flugas +z. La turno de π metas la antaŭan
   // randon antaŭen kaj la svingon malantaŭen, kiel ĉe vera flugila silueto.
   flugilaGeometrio.rotateY(Math.PI);
-  const flugiloj: THREE.Object3D[] = [];
   for ( const s of [ 0o1, -0o1 ] ) {
     const flugilaGrupo = new THREE.Group();
     flugilaGrupo.name = "flugilo";
@@ -870,6 +896,10 @@ export function konstruiPetrelanMalneton(): THREE.Group {
     flugilaGrupo.add(flugilo);
     // Tri subtilaj primaraj plum-paneloj super la malantaŭa parto de ĉiu
     // flugilo. Ili donas ritmon al la plata silueto sen aldoni pezajn modelojn.
+    // Ĉiuj tri havas la saman lokon, la saman skalon kaj la saman bat-angulon
+    // ( vidu gxisdatigiPetrelojn — la angulo ne dependas de k ), do ili
+    // kunfandiĝas en unu geometrion — la animacio restas identa.
+    const primarajGeometrioj: THREE.BufferGeometry[] = [];
     for ( let k = 0; k < 0o3; k++ ) {
       const primaraFormo = new THREE.Shape();
       const radiko = 0o124/0o100 + k * 0o16/0o100;
@@ -882,15 +912,29 @@ export function konstruiPetrelanMalneton(): THREE.Group {
       primaraGeo.rotateX(-Math.PI / 2);
       primaraGeo.rotateZ(0o4/0o100);
       primaraGeo.rotateY(Math.PI);
-      const primara = new THREE.Mesh(primaraGeo, primaraMaterialo);
+      primarajGeometrioj.push(primaraGeo);
+    }
+    const primaraKunigita = mergeGeometries(primarajGeometrioj, false);
+    for ( const g of primarajGeometrioj ) g.dispose();
+    if ( primaraKunigita ) {
+      const primara = new THREE.Mesh(primaraKunigita, primaraMaterialo);
       primara.scale.x = -s * 0o12/0o10;
       primara.position.y = 0o1/0o100;
       primara.name = "primara";
       flugilaGrupo.add(primara);
     }
     grupo.add(flugilaGrupo);
-    flugiloj.push(flugilaGrupo);
   }
+
+  // ⟪ Kunfando 📃 ⟫ — el la 22 meshoj de la birdo nur la flugiloj moviĝas
+  // ( 2 grupoj kun la flugilo kaj la primaraj paneloj ). La ceteraj — la korpo,
+  // la kapo, la beko, la okuloj, la vosto, la piedoj, la ŝultroj — estas
+  // senmovaj unu rilate la alian, do ili kunfandiĝas en unu meshon po
+  // materialo. Tiel la birdo desegniĝas per 8 meshoj anstataŭ 22, kaj la bildo
+  // estas la sama — la kunfanditaj geometrioj portas la samajn transformojn.
+  const statikaj = grupo.children.filter(c => ( c as THREE.Mesh ).isMesh) as THREE.Mesh[];
+  for ( const m of kunfandiPoMaterialo(statikaj) ) grupo.add(m);
+  for ( const m of statikaj ) grupo.remove(m);
 
   return grupo;
 }

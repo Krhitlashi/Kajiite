@@ -39,6 +39,7 @@ export interface ScenaSistemo {
   aplikiRezimon: ( t: number ) => void;
   aplikiVeteron: ( v: Vetero ) => void;
   gxisdatigiVeteron: ( t: number ) => void;
+  gxisdatigiOmbron: ( x: number, z: number ) => boolean;
 }
 
 export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): ScenaSistemo {
@@ -53,6 +54,17 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   bildilo.toneMapping = THREE.ACESFilmicToneMapping;
   bildilo.shadowMap.enabled = true;
   bildilo.shadowMap.type = THREE.PCFShadowMap;
+  // ⟪ Ombra kadence 📃 ⟫ — la ombro-mapo ne re-desegniĝas ĉiukadre. La suno
+  // ( la sola ombranta lumo ) kaj preskaŭ ĉiuj ombrantoj estas senmovaj, do
+  // la ombra pasumo — la plej granda unuopa parto de la kadraj desegnoj ( ĝi
+  // estis 3/4 antaux la ombro-volumena sekvo ) — plenumiĝas nur kiam la
+  // ombro-volumeno moviĝas ( vidu gxisdatigiOmbron ) kaj alie nur ĉiun duan
+  // kadron. Moviĝantaj ombroj ( la ludanto, la NPC-oj, la kanuoj ) prokrastiĝas
+  // maksimume du kadrojn — ĉe irado tio estas kelkaj centimetroj da ombra
+  // postiĝo, kion oni ne rimarkas — kaj la ombra duobla pasumo malaperas.
+  bildilo.shadowMap.autoUpdate = false;
+  // La frua bildigo okazas antaŭ la buklo — ĝi jam havu ombrojn.
+  bildilo.shadowMap.needsUpdate = true;
   bildilo.setPixelRatio(Math.min(devicePixelRatio, 2));
   // Plenekrana kanvaso EKDE la kreo. Sen tio la bildilo restas je la defaŭlta
   // 300×150 — la frua bildigo ( dum la sxargxa kurtino ) desegnis malgrandan
@@ -123,9 +135,14 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   suno.position.set(0o110, 0o160, 0o40);
   suno.castShadow = true;
   suno.shadow.mapSize.set(0o2000, 0o2000);
-  suno.shadow.camera.left = -0o160; suno.shadow.camera.right = 0o160;
-  suno.shadow.camera.top = 0o160; suno.shadow.camera.bottom = -0o160;
+  // La ombro-volumeno estas KVARTAĴO ĉirkaŭ la vidpunkto ( gxisdatigiOmbron )
+  // — ĝi ne devas kovri la tutan mondon, nur tion, kion la nebulo ankoraŭ
+  // lasas videbla. Pli malgranda skatolo signifas malpli da ombro-desegnoj
+  // ( la malproksimaj konstruaĵoj ne plu ombras ) kaj pli akrajn ombrojn.
+  suno.shadow.camera.left = -0o100; suno.shadow.camera.right = 0o100;
+  suno.shadow.camera.top = 0o100; suno.shadow.camera.bottom = -0o100;
   suno.shadow.camera.near = 0o20; suno.shadow.camera.far = 0o520;
+  suno.shadow.camera.updateProjectionMatrix();
   suno.shadow.bias = -0o1/0o4000; suno.shadow.normalBias = 0o4/0o10;
   sceno.add(suno, suno.target);
 
@@ -233,6 +250,62 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   let nunaVetero: Vetero = "nebula";
   let lastaKrepusko = 0;
 
+  // ⟪ Sunaj ombroj 📃 ⟫ — la suna ombro-volumeno sekvas la vidpunkton ( la
+  // ludanton aŭ la orbitan celon ), anstataŭ resti fiksita ĉe la mond-origino.
+  // Unue tio donas ombrojn ĉie, kie la ludanto iras ( antaŭe nur ĉirkaŭ la
+  // centro ), due la ombra pasumo desegnas nur la proksimajn ombrantojn — la
+  // plej granda parto de la kadraj desegnoj. La suna DIREKTO restas tiu de la
+  // paletro ( la krepusko kaj la vetero ŝanĝas ĝin ) — nur la volumeno moviĝas,
+  // do la lumigo mem ne ŝanĝiĝas. La centro kvantiĝas al la ombra
+  // teksel-krado en la lum-spaco, alie la ombraj randoj trembrus dum irado.
+  const ombraTekselo = ( suno.shadow.camera.right - suno.shadow.camera.left ) / suno.shadow.mapSize.x;
+  // La suna DIREKTO kaj la suna DISTANCO venas ambaŭ de la paletro — la
+  // distanco estas la longo de la paletra sun-pozicio rilate la mond-originon
+  // ( ~100 ĝis ~137 ), do ĝi ne dependas de tio, kie la ludanto troviĝas. Gravas
+  // ke ĝi restu fiksa — la ombra fotilo havas malproksiman ebenon je 0o520, kaj
+  // se la suno forflugus preter ĝi, la tuta ombro-volumeno falus ekster la
+  // ombra mapo kaj la ombroj tute malaperus.
+  const SUNA_DIREKTO = new THREE.Vector3().copy(suno.position).normalize();
+  let sunaDistanco = suno.position.length();
+  const OMBRA_DIR = new THREE.Vector3();
+  const OMBRA_DEX = new THREE.Vector3();
+  const OMBRA_SUP = new THREE.Vector3();
+  const OMBRA_CENTRO = new THREE.Vector3();
+  let ombraCentroX = 0, ombraCentroZ = 0;
+
+  // aplikiOmbranCentron — Metu la sunon kaj ĝian celon tiel, ke la ombro-
+  // volumeno centriĝu je ( ombraCentroX, ombraCentroZ ) kun la paletra direkto.
+  function aplikiOmbranCentron(): void {
+    OMBRA_DIR.copy(SUNA_DIREKTO);
+    const distanco = sunaDistanco;
+    if ( distanco === 0 ) return;
+    // Orta bazo de la lumo — la teksel-krado kuŝas en ĉi tiu ebeno.
+    OMBRA_SUP.set(0, 1, 0);
+    if ( Math.abs(OMBRA_DIR.y) > 0o777/0o1000 ) OMBRA_SUP.set(0, 0, 1);
+    OMBRA_DEX.crossVectors(OMBRA_SUP, OMBRA_DIR).normalize();
+    OMBRA_SUP.crossVectors(OMBRA_DIR, OMBRA_DEX).normalize();
+    // Kvantigu la centron laŭ la du flankaj aksoj ( laŭ-direkte ne gravas ).
+    const dekstre = Math.round(( ombraCentroX * OMBRA_DEX.x + ombraCentroZ * OMBRA_DEX.z ) / ombraTekselo) * ombraTekselo;
+    const supre = Math.round(( ombraCentroX * OMBRA_SUP.x + ombraCentroZ * OMBRA_SUP.z ) / ombraTekselo) * ombraTekselo;
+    OMBRA_CENTRO.set(0, 0, 0).addScaledVector(OMBRA_DEX, dekstre).addScaledVector(OMBRA_SUP, supre);
+    suno.target.position.copy(OMBRA_CENTRO);
+    suno.position.copy(OMBRA_CENTRO).addScaledVector(OMBRA_DIR, distanco);
+  }
+
+  // gxisdatigiOmbron — La per-kadra sekvo. La vidpunkto venas de la buklo
+  // ( la ludanto en promeno, la orbit-celo alie ). La reveno diras al la buklo
+  // ĉu la ombro-volumeno moviĝis — tiam la ombro-mapo devas re-desegniĝi Tuj,
+  // por ke la ombroj ne postiĝu dum la kamero glitas.
+  //     @param x ( number ) - La mond-x de la vidpunkto.
+  //     @param z ( number ) - La mond-z de la vidpunkto.
+  //     @return ( boolean ) - Ĉu la centro moviĝis ( kaj do necesas ombra kadro ).
+  function gxisdatigiOmbron( x: number, z: number ): boolean {
+    if ( x === ombraCentroX && z === ombraCentroZ ) return false;
+    ombraCentroX = x; ombraCentroZ = z;
+    aplikiOmbranCentron();
+    return true;
+  }
+
   function aplikiAtmosferon(): void {
     const t = lastaKrepusko;
     const d = PALETROJ[nunaVetero];
@@ -253,7 +326,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     hemiLumo.intensity = l(d.tago.hemiInt, d.krepusko.hemiInt);
     suno.color.copy(d.tago.sunCol).lerp(d.krepusko.sunCol, t);
     suno.intensity = l(d.tago.sunInt, d.krepusko.sunInt);
-    suno.position.copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
+    // La paletra sun-pozicio donas la direkton kaj la distancon — la nunan
+    // vidpunkton aplikiOmbranCentron aldonas ( la lumo restas ĉe la ludanto
+    // anstataŭ ĉe la mond-origino, sed la lumigo kaj la ombra angulo samas ).
+    SUNA_DIREKTO.copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
+    sunaDistanco = SUNA_DIREKTO.length();
+    if ( sunaDistanco > 0 ) SUNA_DIREKTO.divideScalar(sunaDistanco);
+    aplikiOmbranCentron();
     bildilo.toneMappingExposure = l(d.tago.ekspozicio, d.krepusko.ekspozicio);
     sunaSprajto.position.copy(sunDir).multiplyScalar(0o510);
     sunaSprajto.material.color.copy(suno.color);
@@ -870,5 +949,5 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     for ( const signo of [ -1, 1 ] ) { flanka(true, signo); flanka(false, signo); }
   } )();
 
-  return { bildilo, sceno, montaGrupo, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron };
+  return { bildilo, sceno, montaGrupo, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron };
 }

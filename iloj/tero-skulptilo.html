@@ -7,26 +7,6 @@
 <link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
 <link rel="stylesheet" href="./stiloj.css">
 </head>
-<style>
-  /* La loka stilo de la terena skulptilo — la ekstera temo difinas nur la
-   border-radius por canvas ( neniu larĝo ), do la kanvasoj plenigas la
-   tutan larĝon ĉi tie. La kanvaso estas kvadrata ( la tuta mondo ), do la
-   larĝo havas ankaŭ maksimuman ALTEĈON: min( 100%, 80vh ) tenas la kvadraton
-   plenlarĝa sur mallarĝaj fenestroj kaj limigas la altecon sur altaj ( la
-   sama kvadrata proporcio restas, neniu distordo ). */
-#mapo, #mapo3d { inline-size: min(100%, 80vh); aspect-ratio: 1 / 1; align-self: center; }
-
-/* La WebGL-bildo de la 3D-kanvaso NE estas tondita de border-radius ( la
-   2D-enhavo estas; la WebGL-tavolo ne estas en ĉi tiu retumilo ) — la
-   clip-path tondas la bildigitan bildon al la sama rondo kiel la temo. */
-#mapo3d { clip-path: inset(0 round var(--អិត្ភេ)); }
-
-/* La objekta antaŭrigardo — kompakta kvadrata kanvaso en la objekto-panelo
-   ( centre vicigita, la duono de la panel-larĝo ) kun la sama ronda tondado
-   kiel la mapo. */
-#objektaAntauxrigardo { inline-size:50%; aspect-ratio:1/1; align-self:center; border-radius:var(--អិត្ភេ); clip-path: inset(0 round var(--អិត្ភេ)); background:linear-gradient(180deg,#6fa8d8,#a8d0e8 55%,#d8e8f0); }
-
-</style>
 <body class="tapufal">
 <h1> Terena skulptilo 🔨 </h1>
 <p class="kefhuruq"> Skulptu la valon — montojn, la riveron, la lagon — per penikoj kaj savu la rezulton rekte al la datumodosiero. La ludo legas la skulptajxon kiel la TUTAN terenon ( la natura tavolo estas plata ). La mapo montras nordon supre kaj orienton dekstren — la sama orientiĝo kiel la minimapo de la ludo. </p>

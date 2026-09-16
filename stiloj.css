@@ -9,14 +9,14 @@
 
 /* ⟪ Kanvaso 📃 ⟫ */
 html,body { block-size:100%; overflow:hidden; }
-body { display:block; overflow:hidden; overscroll-behavior:none; user-select:none; }
+body { display:block; overscroll-behavior:none; user-select:none; }
 #sceno { display:block; touch-action:none; cursor:grab; border-radius:0; border:none; }
 #sceno:active { cursor:grabbing; }
 
 /* ⟪ Plenekranaj tavoloj 📃 ⟫ */
 #sceno,#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo,#supermeta,#sxargxo,#mobKontroloj { position:fixed; inset:0; }
 #vinjeto,#svingo,#fxVarma,#fxMenta,#balailo { pointer-events:none; }
-#vinjeto { z-index:2; border-radius:0; box-shadow:inset 0 0 256px var(--តានេកនេ១); transition:opacity 1s; }
+#vinjeto { z-index:2; box-shadow:inset 0 0 256px var(--តានេកនេ១); transition:opacity 1s; }
 #svingo { z-index:5; opacity:0; background:linear-gradient(104deg,transparent 28%,var(--តានេកខេលេ) 48%,var(--តានេកនេ១) 68%,transparent 88%); }
 #svingo.iru { animation:svingo-efiko 1s ease forwards; }
 @keyframes svingo-efiko { 0%{opacity:0;transform:translateX(-28%)} 32%{opacity:1} 100%{opacity:0;transform:translateX(28%)} }
@@ -25,7 +25,9 @@ body { display:block; overflow:hidden; overscroll-behavior:none; user-select:non
 #fxMenta { background:radial-gradient(88% 68% at 50% 37.5%,var(--តានេក),transparent 68%); }
 .fxPulso { animation:fxp 1s ease forwards; }
 @keyframes fxp { 0%{opacity:0} 32%{opacity:1} 100%{opacity:0} }
-#balailo { z-index:8; opacity:0; transition:opacity .5s; background:linear-gradient(var(--តានេកខេលេ), var(--តានេកខេលេ)), linear-gradient(var(--អិតិលច្ហិ), var(--អិតិលច្ហិ)); -webkit-backdrop-filter:var(--ច្ហិនី); backdrop-filter:var(--ច្ហិនី); }
+/* La vitraj tavoloj ( balailo, sxargxo ) portas la eksteran .n2tase-klason — la
+   malklarigita vitro kaj la duobla gradiento venas de la ekstera stilfolio. */
+#balailo { z-index:8; opacity:0; transition:opacity .5s; }
 
 /* ⟪ Retikulo 📃 ⟫ */
 #retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .25s; }
@@ -37,7 +39,6 @@ body { display:block; overflow:hidden; overscroll-behavior:none; user-select:non
 /* ⟪ Tosto kaj prompto 📃 ⟫ */
 #tosto, #prompto { white-space:nowrap; opacity:0; pointer-events:none; }
 #tosto { position:fixed; z-index:5; top:50%; left:50%; transform:translate(-50%,-50%); transition:opacity .5s,transform .5s; flex-direction:row; flex-wrap:wrap; max-inline-size:25%; }
-#tosto.montri { transform:translate(-50%,-50%); }
 #prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); transition:opacity .25s,transform .25s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
 #prompto.montri { transform:translateX(-50%); }
 
@@ -47,38 +48,42 @@ body { display:block; overflow:hidden; overscroll-behavior:none; user-select:non
 #supermeta.mapo .interno { display:none; }
 #supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 64px); overflow:auto; padding:var(--អារេងព៏); justify-content:start; }
 #supermetaFermi { position:absolute; z-index:1; top:calc(var(--អារេងព៏) + var(--sat)); right:calc(var(--អារេងព៏) + var(--sar)); inline-size:52px; block-size:52px; color:var(--ក្ព៏); cursor:pointer; touch-action:manipulation; writing-mode:horizontal-tb; }
-#karto.montri,#prompto.montri,#tosto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#vestaro.montri,#balailo.montri { opacity:1; }
-#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#vestaro.montri { pointer-events:auto; }
+/* La .montri-klaso montras panelon — la tosto kaj la balailo restas
+   alklak-traireblaj ( ili nur ŝanĝas opakecon ). */
+#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#vestaro.montri { opacity:1; pointer-events:auto; }
+#tosto.montri,#balailo.montri { opacity:1; }
 
 /* ⟪ Kompaso kaj mapoj 📃 ⟫ */
 #kompaso { position:fixed; z-index:3; top:calc(var(--អារេងព៏) + var(--sat)); right:calc(var(--អារេងព៏) + var(--sar)); inline-size:56px; block-size:56px; display:grid; place-items:center; overflow:hidden; border-radius:var(--អិត្ភេ); border:var(--សាកព៏); cursor:pointer; touch-action:manipulation; }
 .nadlo { position:absolute; inset:0; will-change:transform; }
 .nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:#fff; -webkit-text-stroke:2px #000; paint-order:stroke fill; text-shadow:0 0 2px #000; }
 .nadlo::before { content:""; position:absolute; left:50%; top:var(--អារេង); transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid #fff; filter:drop-shadow(0 0 1px #000); }
-#minimapaKanvaso { inline-size:100%; block-size:100%; }
-#plenaKanvaso { inline-size:100%; block-size:100%; touch-action:none; cursor:grab; }
+#minimapaKanvaso,#plenaKanvaso { inline-size:100%; block-size:100%; }
+#plenaKanvaso { touch-action:none; cursor:grab; }
 #plenaKanvaso:active { cursor:grabbing; }
 
 /* ⟪ Karto de konstruaĵo 📃 ⟫ */
 #karto { position:fixed; z-index:3; left:calc(var(--អារេងព៏) + var(--sal)); bottom:calc(var(--អារេងព៏) + var(--sab)); inline-size:min(304px, calc(100% - 92px)); max-block-size:44%; overflow-y:auto; padding:var(--អារេងព៏); transform:translateY(24px); opacity:0; pointer-events:none; transition:transform .5s cubic-bezier(.1875,.875,.25,1),opacity .5s; }
 #karto.montri { transform:none; }
-.peco { display:inline-block; padding:var(--អារេង); border-radius:var(--អិត្ភេចិ); border:var(--តានេក); }
-.gusto { color:var(--កេភ២); }
+.peco { display:inline-block; padding:var(--អារេង); border-radius:var(--អិត្ភេចិ); }
 
 /* ⟪ Flosaj butonoj kaj paneloj 📃 ⟫ */
 #navButono,.mobBut,#informButono { color:var(--ក្ព៏); cursor:pointer; touch-action:manipulation; inline-size:52px; block-size:52px; }
 #navButono { position:fixed; z-index:5; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab)); }
 #informButono { position:fixed; z-index:5; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(var(--អារេងព៏) + var(--sat)); }
-#navPopUp { position:fixed; z-index:6; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); display:block; inline-size:max-content; max-inline-size:calc(100% - 32px); max-block-size:calc(100% - 160px); overflow:auto; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .25s,transform .25s; border-radius:var(--អិត្ភេពឺ); }
-#navPopUp.montri { transform:none; }
-#informo, #vestaro { position:fixed; z-index:6; display:flex; flex-direction:column; overflow:auto; overscroll-behavior:contain; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .25s,transform .25s; border-radius:var(--អិត្ភេពឺ); left:calc(var(--អារេងព៏) + var(--sal)); right:calc(var(--អារេងព៏) + var(--sar)); }
+/* La tri paneloj ( la pop-up kaj la du plenekranaj ) kunhavas la saman
+   aperon — nur ilia geometrio malsamas. */
+#navPopUp, #informo, #vestaro { position:fixed; z-index:6; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .25s,transform .25s; border-radius:var(--អិត្ភេពឺ); }
+#navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100% - 32px); max-block-size:calc(100% - 160px); overflow:auto; }
+#informo, #vestaro { display:flex; flex-direction:column; overflow:auto; overscroll-behavior:contain; left:calc(var(--អារេងព៏) + var(--sal)); right:calc(var(--អារេងព៏) + var(--sar)); }
 #informo { top:calc(72px + var(--sat)); bottom:calc(var(--អារេងព៏) + var(--sab)); }
 #vestaro { top:calc(var(--អារេងព៏) + var(--sat)); bottom:calc(72px + var(--sab)); }
-#informo.montri, #vestaro.montri { transform:none; }
+#navPopUp.montri, #informo.montri, #vestaro.montri { transform:none; }
 .menuPanel { position:relative; }
 .menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
-#duskLabelo { flex-direction:row; align-items:center; }
-#veteroEtikedo { flex-direction:row; align-items:center; justify-content:center; text-align:center; }
+#informTaboj { grid-template-columns:repeat(3,minmax(0,1fr)); }
+#duskLabelo, #veteroEtikedo { flex-direction:row; align-items:center; }
+#veteroEtikedo { justify-content:center; text-align:center; }
 #trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); overflow:auto; }
 .menuKrepusko { display:grid; grid-template-columns:64px 1fr; align-items:center; }
 #duskLabelo input[type=range] { flex:1; min-inline-size:0; }
@@ -89,15 +94,16 @@ body { display:block; overflow:hidden; overscroll-behavior:none; user-select:non
 .vestaKardo { cursor:pointer; transition:transform .25s,border-color .25s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--តានេក២); }
 .harKoloroChip { inline-size:24px; block-size:24px; border-radius:var(--អិត្ភេមិ); border:var(--សាកព៏); align-self:center; }
-.vestaKardo.elektita { border-color:var(--តានេក៣); }
+.vestaKardo.elektita { border-color:var(--ក្ព៏); }
 
 /* ⟪ Ŝargado ( la ekstera <cab6tem2> ) 📃 ⟫ */
-#sxargxo { z-index:9; display:flex; flex-direction:row; background:linear-gradient(var(--តានេកខេលេ), var(--តានេកខេលេ)), linear-gradient(var(--អិតិលច្ហិ), var(--អិតិលច្ហិ)); -webkit-backdrop-filter:var(--ច្ហិនី); backdrop-filter:var(--ច្ហិនី); align-items:center; justify-content:center; gap:var(--អារេងព៏); transition:opacity 1s; }
+#sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
 #sxargxo cab6tem2 { inline-size:min(224px,48vh); transform:rotate(-90deg); margin-inline:calc((24px - min(224px,48vh)) / 2); align-self:center; flex:none; }
 
 /* ⟪ Skrib-reĝimoj 📃 ⟫ */
-html[lang="aih"] .menuPanel, html[lang="aih"] #tosto, html[lang="aih"] #karto, html[lang="aih"] #prompto, html[lang="aih"] #supermeta .interno, html[lang="aih"] .vestaKardo { writing-mode:sideways-lr; }
+/* La aih-a skribo-direkto venas de la ekstera .aih-klaso, kiun ĉiuj ĉi tiuj
+   elementoj portas — ĉi tie restas nur la ja-a escepto ( vertical-rl ). */
 html[lang="ja"] .menuPanel, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
 html[lang="aih"] #prompto, html[lang="ja"] #prompto { left:auto; right:calc(var(--អារេងព៏) + var(--sar)); top:50%; bottom:auto; transform:translateY(-50%) translateX(var(--អារេង)); white-space:normal; max-inline-size:75%; overflow:hidden; }
 html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
@@ -106,9 +112,13 @@ html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:tr
 #mobKontroloj { display:none; pointer-events:none; }
 body.tuŝa #mobKontroloj { display:block; }
 #mobJoystickZono { position:absolute; left:0; bottom:0; display:grid; place-items:end center; padding-bottom:var(--អារេងព៏); padding-left:var(--អារេងព៏); pointer-events:auto; touch-action:none; }
-#mobJoystickBazo { inline-size:128px; block-size:128px; border:1px solid var(--តានេក២); padding:0; }
+#mobJoystickBazo { inline-size:128px; block-size:128px; border:var(--សាកព៏២); padding:0; }
 #mobJoystickBazo.aktiva { border-color:var(--ក្ព៏២); }
-#mobJoystickTenilo { position:absolute; inset:0; margin:auto; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background:radial-gradient(circle at 37.5% 37.5%,var(--តានេក២),var(--តានេកខេលេ)); border:1px solid var(--តានេក២); pointer-events:none; }
+/* La tenilo havas la ordinaran butonan surfacon de la temo ( la sama fono,
+   bordero kaj radiuso ). Dum forkuro — preter 0o3/0o4 de la radio — gxi prenas
+   la brilan gradion; tio estas la sola signo de la forkuro. */
+#mobJoystickTenilo { position:absolute; inset:0; margin:auto; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background-color:var(--តានេក); border:var(--សាកព៏); pointer-events:none; }
+#mobJoystickBazo.sprinto #mobJoystickTenilo { background:radial-gradient(circle at 37.5% 37.5%,var(--តានេក២),var(--តានេកខេលេ)); }
 #mobButaroj { position:absolute; right:calc(var(--អារេងព៏) + 52px + var(--អារេង) + var(--sar)); bottom:calc(var(--អារេងព៏) + var(--sab)); display:flex; flex-direction:column; gap:var(--អារេង); pointer-events:none; }
 .mobBut { pointer-events:auto; }
 #mobButInterakti { opacity:0; pointer-events:none; transition:opacity .25s; }

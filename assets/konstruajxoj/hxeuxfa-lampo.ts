@@ -175,8 +175,10 @@ export interface HxeuxfaSistemo {
   brilajPunktoj: THREE.Points;
   brilaMaterialo: THREE.ShaderMaterial;
   punktajLumoj: THREE.PointLight[];
+  lumajIndeksoj: number[];      // la flama indico sur kiu sidas ĉiu el la kvar lumoj
   spots: THREE.Vector3[];
   phases: number[];
+  sekviLumojn: ( x: number, z: number ) => void;
 }
 
 // konstruiHxeuxfojn — Konstruu trapezajn lampojn (hxeuxfojn) el bazoj, bovloj, flamoj kaj briletoj.
@@ -345,21 +347,56 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 
   const brilajPunktoj = new THREE.Points(gg, brilaMaterialo);
   brilajPunktoj.frustumCulled = false;
-  sceno.add(brilajPunktoj);
-
-  // plej proksimaj lampoj farigxas punktlumoj
-  const sorted = flamajLokoj
-    .map(( p, i ) => ( { d: p.x * p.x + p.z * p.z, i } ))
-    .sort(( a, b ) => a.d - b.d)
-    .slice(0, 4);
-
+  sceno.add(brilajPunktoj);  // ⟪ La kvar punktlumoj 📃 ⟫ — la plej proksimaj flamoj al la vidpunkto.
+  // Antaŭe la kvar lumoj elektiĝis UNUFOJE laŭ la distanco al la mond-origino
+  // kaj restis tie por ĉiam ( la lampo apud la ludanto restis malluma se li
+  // malproksimiĝis de la centro ). Nun ili sekvas la vidpunkton — la sama ideo
+  // kiel la suna ombro-volumeno. La NOMBRO restas konstanta, do la
+  // shader-programoj ne rekompiliĝas kiam la lumoj transloĝiĝas.
+  const LUMOJ = Math.min(0o4, flamajLokoj.length);
   const punktajLumoj: THREE.PointLight[] = [];
-  for ( const { i } of sorted ) {
+  const lumajIndeksoj: number[] = [];        // la flama indico de ĉiu lumo
+  const lumajDistancoj = new Float32Array(LUMOJ);   // la kvadrataj distancoj
+  for ( let k = 0; k < LUMOJ; k++ ) {
     const L = new THREE.PointLight(0xf89838, 0o15/0o40, 0o32, 2);
-    L.position.copy(flamajLokoj[i]).add(new THREE.Vector3(0, 0o23/0o100, 0));
     sceno.add(L);
     punktajLumoj.push(L);
+    lumajIndeksoj.push(k);
   }
+
+  let lumCentroX = NaN, lumCentroZ = NaN;
+  // sekviLumojn — Aligu la kvar lumojn al la kvar plej proksimaj flamoj de la
+  // vidpunkto. La elekto estas unu trairo sen asigno — la tabeloj jam ekzistas.
+  //     @param x ( number ) - La mond-x de la vidpunkto.
+  //     @param z ( number ) - La mond-z de la vidpunkto.
+  function sekviLumojn( x: number, z: number ): void {
+    if ( LUMOJ === 0 ) return;
+    // Nur kiam la vidpunkto iris sufiĉe for — la flamoj mem ne moviĝas, do
+    // senmovaj lumoj ne bezonas reelekton ĉiukadre.
+    if ( Math.abs(x - lumCentroX) < 0o2 && Math.abs(z - lumCentroZ) < 0o2 ) return;
+    lumCentroX = x; lumCentroZ = z;
+    for ( let k = 0; k < LUMOJ; k++ ) lumajDistancoj[k] = Infinity;
+    for ( let i = 0; i < flamajLokoj.length; i++ ) {
+      const p = flamajLokoj[i];
+      const sxovX = p.x - x, sxovZ = p.z - z;
+      const d = sxovX * sxovX + sxovZ * sxovZ;
+      // La plej malproksima el la tenataj — anstataŭigu ĝin se ĉi tiu flamo
+      // estas pli proksima.
+      let plejMalproksima = 0;
+      for ( let k = 1; k < LUMOJ; k++ ) if ( lumajDistancoj[k] > lumajDistancoj[plejMalproksima] ) plejMalproksima = k;
+      if ( d < lumajDistancoj[plejMalproksima] ) {
+        lumajDistancoj[plejMalproksima] = d;
+        lumajIndeksoj[plejMalproksima] = i;
+      }
+    }
+    // La lumo sidas iomete super la lampo — en la flamo mem.
+    for ( let k = 0; k < LUMOJ; k++ ) {
+      const p = flamajLokoj[lumajIndeksoj[k]];
+      punktajLumoj[k].position.set(p.x, p.y + 0o23/0o100, p.z);
+    }
+  }
+  // La komenca elekto — la kvar plej proksimaj al la mond-origino, kiel antaŭe.
+  sekviLumojn(0, 0);
 
   const M = new THREE.Matrix4();
   flamajLokoj.forEach(( p, i ) => {
@@ -370,7 +407,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   flamaEkstero.instanceMatrix.needsUpdate = true;
   flamaInterno.instanceMatrix.needsUpdate = true;
 
-  return { flamaEkstero, flamaInterno, brilajPunktoj, brilaMaterialo, punktajLumoj, spots: flamajLokoj, phases };
+  return { flamaEkstero, flamaInterno, brilajPunktoj, brilaMaterialo, punktajLumoj, lumajIndeksoj, spots: flamajLokoj, phases, sekviLumojn };
 }
 
 // animaciiFlammojn — Animaciu flamojn kaj briletan intenson cxiun kadron.
@@ -406,12 +443,15 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
     S.set(skalo * 0o35/0o40, skaloY * 0o35/0o40, skalo * 0o35/0o40);
     M.compose(TMP.set(p.x, p.y + 0o1/0o40, p.z), Q, S);
     sys.flamaInterno.setMatrixAt(i, M);
-
-    if ( i < sys.punktajLumoj.length ) {
-      const L = sys.punktajLumoj[i];
-      L.intensity = 0o15/0o40 * ( 0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2) );
-    }
   });
+
+  // La punktlumoj havas sian PROPRIAN flaman indekson ( ili sekvas la
+  // vidpunkton, ne la unuajn kvar flamojn ) — la fajfado venas de la fazo de
+  // la flamo, kiun ili efektive lumas.
+  for ( let k = 0; k < sys.punktajLumoj.length; k++ ) {
+    const fazo = sys.phases[sys.lumajIndeksoj[k]];
+    sys.punktajLumoj[k].intensity = 0o15/0o40 * ( 0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2) );
+  }
 
   sys.flamaEkstero.instanceMatrix.needsUpdate = true;
   sys.flamaInterno.instanceMatrix.needsUpdate = true;

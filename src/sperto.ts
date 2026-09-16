@@ -89,7 +89,7 @@ let promptaKadro = 0;
 
 // ⟪ Krei scenon kaj urbon 📃 ⟫
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
-const { bildilo, fotilo, sceno, montaGrupo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron } = scena;
+const { bildilo, fotilo, sceno, montaGrupo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron } = scena;
 
 // ⟪ Frua bildigo 📃 ⟫ — la ĉielo, la montoj kaj la tereno jam ekzistas en la
 // sceno antaŭ la urbo. Rendu ilin malantaŭ la glacia ŝarĝa kurtino ( la fono
@@ -341,21 +341,69 @@ window.addEventListener("lingvosxangxo", () => {
   if ( informo.classList.contains("montri") ) plenigiInformon();
 });
 
+// kreiPanelKarton — La komuna sxablono de la panelkartoj ( ciihii.vestaKardo.aih ).
+// La kvar listoj ( konstruaĵoj, manĝaĵoj, specioj, vestaro ) malsamas nur en la
+// enhavo, la elektita-stato kaj la klak-traktanto — la sxablono vivas unu loke.
+//     @param enhavo ( HTMLElement [] , deviga ) - La eroj de la karto, en ordo
+//         ( [ ĉipo, nomo, gusto ] aŭ [ antaŭrigardo, nomo ] ).
+//     @param klako ( () => void , deviga ) - La klak-traktanto de la karto.
+//     @param elektita ( boolean , nedeviga ) - Se donita, markas la karton
+//         elektita kaj skribas aria-pressed ( la hararaj kaj har-koloraj kartoj ).
+// @returns la karta elemento
+function kreiPanelKarton(enhavo: HTMLElement[], klako: () => void, elektita?: boolean): HTMLElement {
+  const card = document.createElement("ciihii");
+  card.className = "vestaKardo aih";
+  card.append(...enhavo);
+  if ( elektita !== undefined ) {
+    card.classList.toggle("elektita", elektita);
+    card.setAttribute("aria-pressed", String(elektita));
+  }
+  card.addEventListener("click", klako);
+  return card;
+}
+
+// kreiNomlinion — La komuna <p class="vn"> ( la nomo ) de la panelkartoj.
+//     @param teksto ( string , deviga ) - La montrata nomo.
+// @returns la nom-elemento
+function kreiNomlinion(teksto: string): HTMLParagraphElement {
+  const nomo = document.createElement("p");
+  nomo.className = "vn";
+  nomo.textContent = teksto;
+  return nomo;
+}
+
+// kreiPeceton — La komuna kolora etikedo ( span.peco ) de la listoj.
+//     @param koloro ( string , deviga ) - La fona koloro de la etikedo.
+//     @param teksto ( string , deviga ) - La teksto de la etikedo.
+// @returns la etikeda elemento
+function kreiPeceton(koloro: string, teksto: string): HTMLSpanElement {
+  const peco = document.createElement("span");
+  peco.className = "peco";
+  peco.style.background = koloro;
+  peco.textContent = teksto;
+  return peco;
+}
+
+// kreiGustlinion — La komuna <p class="gusto"> ( la gusto ) de la panelkartoj.
+//     @param flavorKlavo ( string , deviga ) - La traduka klavo de la gusto.
+// @returns la gust-elemento
+function kreiGustlinion(flavorKlavo: string): HTMLParagraphElement {
+  const gusto = document.createElement("p");
+  gusto.className = "gusto";
+  const flavor = traduki(flavorKlavo);
+  // En aih la speciaj gustoj estas provizore malplenaj — montru malplenan linion.
+  gusto.textContent = flavor === flavorKlavo ? "" : flavor;
+  return gusto;
+}
+
 function plenigiKonstruaListon() {
   konstruaListo.innerHTML = "";
   for ( const spec of konstruSpecoj ) {
     const bt = TIPARO[spec.type] || TIPARO.domo;
-    const card = document.createElement("ciihii");
-    card.className = "vestaKardo aih";
-    const tipo = document.createElement("span");
-    tipo.className = "peco";
-    tipo.style.background = bt.chip;
-    tipo.textContent = traduki(bt.labelKey);
-    const nomo = document.createElement("p");
-    nomo.className = "vn";
-    nomo.textContent = konstruaĵaNomo(spec.name, spec.type);
-    card.append(tipo, nomo);
-    card.addEventListener("click", () => enfokusigiKonstruajxon(spec, bt));
+    const card = kreiPanelKarton([
+      kreiPeceton(bt.chip, traduki(bt.labelKey)),
+      kreiNomlinion(konstruaĵaNomo(spec.name, spec.type)),
+    ], () => enfokusigiKonstruajxon(spec, bt));
     konstruaListo.appendChild(card);
   }
 }
@@ -370,16 +418,10 @@ function plenigiMangxaListon() {
   mangxaListo.innerHTML = "";
   for ( const f of [ ...FOKS, ...TLAS ] ) {
     const nomKlavo = manĝaKlavo(f.key);
-    const card = document.createElement("ciihii");
-    card.className = "vestaKardo aih";
-    const nomo = document.createElement("p");
-    nomo.className = "vn";
-    nomo.textContent = traduki(nomKlavo);
-    const gusto = document.createElement("p");
-    gusto.className = "gusto";
-    gusto.textContent = traduki(nomKlavo + "Flavor");
-    card.append(nomo, gusto);
-    card.addEventListener("click", () => montriManĝanKarton(nomKlavo));
+    const card = kreiPanelKarton([
+      kreiNomlinion(traduki(nomKlavo)),
+      kreiGustlinion(nomKlavo + "Flavor"),
+    ], () => montriManĝanKarton(nomKlavo));
     mangxaListo.appendChild(card);
   }
 }
@@ -420,22 +462,11 @@ const SPECIOJ: SpeciaDatumo[] = [
 function plenigiSpeciaListon() {
   speciaListo.innerHTML = "";
   for ( const spec of SPECIOJ ) {
-    const card = document.createElement("ciihii");
-    card.className = "vestaKardo aih";
-    const chipo = document.createElement("span");
-    chipo.className = "peco";
-    chipo.style.background = spec.col;
-    chipo.textContent = traduki(spec.grupo === "besto" ? "grupoBesto" : "grupoPlanto");
-    const nomo = document.createElement("p");
-    nomo.className = "vn";
-    nomo.textContent = traduki(spec.key);
-    const gusto = document.createElement("p");
-    gusto.className = "gusto";
-    const flavor = traduki(spec.flavorKey);
-    // En aih la speciaj gustoj estas provizore malplenaj — montru malplenan linion.
-    gusto.textContent = flavor === spec.flavorKey ? "" : flavor;
-    card.append(chipo, nomo, gusto);
-    card.addEventListener("click", () => montriSpecianKarton(spec));
+    const card = kreiPanelKarton([
+      kreiPeceton(spec.col, traduki(spec.grupo === "besto" ? "grupoBesto" : "grupoPlanto")),
+      kreiNomlinion(traduki(spec.key)),
+      kreiGustlinion(spec.flavorKey),
+    ], () => montriSpecianKarton(spec));
     speciaListo.appendChild(card);
   }
 }
@@ -1101,14 +1132,10 @@ gxisdatigiRezimanButonon();
 function plenigiVestaron() {
   vestaListo.innerHTML = "";
   VESTOJ.forEach(( o ) => {
-    const card = document.createElement("ciihii");
-    card.className = "vestaKardo aih";
-    const kanvasa = kreiVestanAntauxrigardon(o);
-    card.appendChild(kanvasa);
-    const nomo = document.createElement("p");
-    nomo.className = "vn"; nomo.textContent = traduki(o.nomo);
-    card.appendChild(nomo);
-    card.addEventListener("click", () => {
+    const card = kreiPanelKarton([
+      kreiVestanAntauxrigardon(o),
+      kreiNomlinion(traduki(o.nomo)),
+    ], () => {
       vestaro.classList.remove("montri");
       // Surmetu la veston al la ludanto — la modelo sxangxas kolorojn tuj.
       aktivaVesto = o;
@@ -1131,25 +1158,19 @@ function plenigiVestaron() {
   const stilaKartaro = document.createElement("div");
   stilaKartaro.className = "vestaVico";
   HARSTILOJ.forEach(( stilo ) => {
-    const card = document.createElement("ciihii");
-    card.className = "vestaKardo aih";
     // La antauxrigardo uzas la NUNAN har-koloron, por ke la karto spegulu la
     // modelon post kolor-elekto.
-    const kanvasa = kreiHaranAntauxrigardon(stilo, aktivaHarKoloro);
-    card.appendChild(kanvasa);
-    const nomo = document.createElement("p");
-    nomo.className = "vn"; nomo.textContent = traduki(stilo.nomo);
-    card.appendChild(nomo);
-    card.classList.toggle("elektita", stilo.nomo === aktivaHarStilo.nomo);
-    card.setAttribute("aria-pressed", String(stilo.nomo === aktivaHarStilo.nomo));
-    card.addEventListener("click", () => {
+    const card = kreiPanelKarton([
+      kreiHaranAntauxrigardon(stilo, aktivaHarKoloro),
+      kreiNomlinion(traduki(stilo.nomo)),
+    ], () => {
       vestaro.classList.remove("montri");
       aktivaHarStilo = stilo;
       aktivaHarStiloIdx = HARSTILOJ.indexOf(stilo);
       ludantaFiguro.agordiHaranStilon(stilo);
       montriTost(traduki(stilo.nomo));
       konserviVestaron();
-    });
+    }, stilo.nomo === aktivaHarStilo.nomo);
     stilaKartaro.appendChild(card);
   });
   haraListo.appendChild(stilaKartaro);
@@ -1162,25 +1183,20 @@ function plenigiVestaron() {
   const koloraKartaro = document.createElement("div");
   koloraKartaro.className = "vestaVico";
   HARKOLOROJ.forEach(( harKoloro ) => {
-    const card = document.createElement("ciihii");
-    card.className = "vestaKardo aih";
     const chip = document.createElement("span");
     chip.className = "harKoloroChip";
     chip.style.background = deksesuma(harKoloro.koloro);
-    card.appendChild(chip);
-    const nomo = document.createElement("p");
-    nomo.className = "vn"; nomo.textContent = traduki(harKoloro.nomo);
-    card.appendChild(nomo);
-    card.classList.toggle("elektita", harKoloro.koloro === aktivaHarKoloro);
-    card.setAttribute("aria-pressed", String(harKoloro.koloro === aktivaHarKoloro));
-    card.addEventListener("click", () => {
+    const card = kreiPanelKarton([
+      chip,
+      kreiNomlinion(traduki(harKoloro.nomo)),
+    ], () => {
       vestaro.classList.remove("montri");
       aktivaHarKoloro = harKoloro.koloro;
       aktivaHarKoloroIdx = HARKOLOROJ.indexOf(harKoloro);
       ludantaFiguro.agordiHaranKoloron(harKoloro.koloro);
       montriTost(traduki(harKoloro.nomo));
       konserviVestaron();
-    });
+    }, harKoloro.koloro === aktivaHarKoloro);
     koloraKartaro.appendChild(card);
   });
   haraListo.appendChild(koloraKartaro);
@@ -1923,6 +1939,9 @@ function konstruiRetilanStaton(): LokaStato {
 const horlogxo = new THREE.Timer();
 // La radara kadro-nombro — la 2-bitaj malaltaj bitoj tempigas la 15 Hz-redesegnon.
 let radaraKadro = 0;
+// La ombra kadro-nombro — la malalta bito tempigas la ombran pasumon al 30 Hz
+// ( vidu la ombran kadencan klarigon en scena.ts ).
+let ombraKadro = 0;
 // Reuzataj skribaj vektoroj de la orbita movo — neniu ĉiukadra asigno.
 const ORBITA_DIR = new THREE.Vector3();
 const ORBITA_FLANKO = new THREE.Vector3();
@@ -2511,6 +2530,17 @@ function animacii() {
   // fotila celo — alie la radaro restus fiksita ĉe la elirloko en orbito.
   mapX = rezimo === "orbit" ? regiloj.target.x : ludantaPozicio.x;
   mapZ = rezimo === "orbit" ? regiloj.target.z : ludantaPozicio.z;
+  // La suna ombro-volumeno sekvu la saman vidpunkton — la ombroj sekvas la
+  // ludanton ( anstataŭ resti fiksitaj ĉe la mond-origino ) kaj la ombra
+  // pasumo desegnas nur la proksimajn ombrantojn. La ombro-mapo re-desegniĝas
+  // tuj kiam la volumeno moviĝas, alie ĉiun duan kadron ( la moviĝantaj ombroj
+  // postiĝas maksimume du kadrojn ).
+  ombraKadro = ( ombraKadro + 1 ) & 1;
+  const ombroMovigxis = gxisdatigiOmbron(mapX, mapZ);
+  if ( ombroMovigxis || ombraKadro === 0 ) bildilo.shadowMap.needsUpdate = true;
+  // La kvar lampaj punktlumoj sekvu la saman vidpunkton ( la plej proksimaj
+  // flamoj lumas ) — la nombro restas kvar, do neniu shader-rekompilo.
+  lampSistemo.sekviLumojn(mapX, mapZ);
   // La bakita mapo desegniĝas ĉiukadre — nur 2D-tavoloj, neniu sceno-submeto.
   // La RADARO malakrigiĝas al ~15 Hz ( ĉiu 4-a kadro ) — la 2D-tavoloj estas
   // malmultekostaj sed nenij bezonas 60 Hz ( la radara nadlo kaj la punktoj

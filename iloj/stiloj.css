@@ -1,0 +1,18 @@
+/* ≺⧼ Stiloj 📃 ⧽≻ — la lokaj stiloj de la terena skulptilo ( iloj/tero-skulptilo.html ). La ekstera stilfolio ( krhitlashi.github.io ) posedas la surfacojn, la tipografion kaj la kolorojn — ĉi tie restas nur la geometrio de la du mapoj kaj de la objekta antaŭrigardo. */
+
+/* La ekstera temo difinas nur la border-radius por canvas ( neniu larĝo ), do
+   la kanvasoj plenigas la tutan larĝon ĉi tie. La kanvaso estas kvadrata ( la
+   tuta mondo ), do la larĝo havas ankaŭ maksimuman ALTEĈON — min( 100%, 80vh )
+   tenas la kvadraton plenlarĝa sur mallarĝaj fenestroj kaj limigas la altecon
+   sur altaj ( la sama kvadrata proporcio restas, neniu distordo ). */
+#mapo, #mapo3d { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; }
+
+/* La WebGL-bildo de la 3D-kanvaso NE estas tondita de border-radius ( la
+   2D-enhavo estas; la WebGL-tavolo ne estas en ĉi tiu retumilo ) — la
+   clip-path tondas la bildigitan bildon al la sama rondo kiel la temo. */
+#mapo3d { clip-path:inset(0 round var(--អិត្ភេ)); }
+
+/* La objekta antaŭrigardo — kompakta kvadrata kanvaso en la objekto-panelo
+   ( centre vicigita, la duono de la panel-larĝo ) kun la sama ronda tondado
+   kiel la mapo. */
+#objektaAntauxrigardo { inline-size:50%; aspect-ratio:1 / 1; align-self:center; border-radius:var(--អិត្ភេ); clip-path:inset(0 round var(--អិត្ភេ)); background:linear-gradient(180deg,#6fa8d8,#a8d0e8 55%,#d8e8f0); }
