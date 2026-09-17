@@ -59,7 +59,12 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 .nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:#fff; -webkit-text-stroke:2px #000; paint-order:stroke fill; text-shadow:0 0 2px #000; }
 .nadlo::before { content:""; position:absolute; left:50%; top:var(--អារេង); transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid #fff; filter:drop-shadow(0 0 1px #000); }
 #minimapaKanvaso,#plenaKanvaso { inline-size:100%; block-size:100%; }
-#plenaKanvaso { touch-action:none; cursor:grab; }
+/* La plena mapo absolute en #supermeta. Sen position:absolute la kanvaso estas
+   krado-elemento kies alton difinas ĝia propra interna grandeco ( la atributoj
+   width/height, kiujn la JS agordas al la klienta grandeco ) — la kanvaso tiam
+   kreskas super sian ujon kaj la mapo etendiĝas preter la ekrano. Absolute la
+   kanvaso plenigas #supermeta kaj la atributa grandeco ne plu influas la aranĝon. */
+#plenaKanvaso { position:absolute; inset:0; touch-action:none; cursor:grab; }
 #plenaKanvaso:active { cursor:grabbing; }
 
 /* ⟪ Karto de konstruaĵo 📃 ⟫ */

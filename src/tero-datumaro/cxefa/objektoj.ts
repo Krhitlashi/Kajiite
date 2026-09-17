@@ -1,5 +1,5 @@
 // ≺⧼ Skulptitaj objektoj 📃 ⧽≻
-// Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).
+// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).
 // ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
 // La metitaj objektoj de la objekta ilo de la terena skulptilo — la kanuoj
 // 🛶, la spacosxipo 🚀, la lampoj 🏮, la keuxfhxesoj ⭐ kaj la individuaj

@@ -34,10 +34,8 @@ import { riveroZ, alteco, akvoY, montetaBazo, RIVERA_DUONLARĜO,
   SKULPTA_PASO, SKULPTA_AKVA_NIVELO, SKULPTA_AKTIVA } from "./tereno.js";
 import { VESTOJ } from "../assets/vestaro/vestoj.js";
 import { skulptitaBesto } from "./tero-datumaro/rultempo.js";
-import { SKULPTA_N, SKULPTA_ORIGINO } from "./tero-datumaro/krado.js";
-import { SKULPTA_OBJEKTOJ } from "./tero-datumaro/objektoj.js";
-import { SKULPTA_URBOJ } from "./tero-datumaro/urboj.js";
-import { SKULPTA_VOJOJ, SKULPTA_DOKOJ } from "./tero-datumaro/vojoj.js";
+import { SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_OBJEKTOJ,
+  SKULPTA_URBOJ, SKULPTA_VOJOJ, SKULPTA_DOKOJ } from "./tero-datumaro/aktiva.js";
 
 // NebulaSistemo — la nebulaj makuloj kiel UNU GPU-punktsistemo ( antaŭe
 // ĉirkaŭ 0o70 individuaj SpriteMaterial-oj, unu shader-programo kaj unu
@@ -125,7 +123,7 @@ export interface SkulptaPlatformo {
 }
 
 // MetitaObjekto — unu objekto metita per la objekta ilo de la terena
-// skulptilo ( iloj/tero-skulptilo.html ), legata el SKULPTA_OBJEKTOJ.
+// skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ), legata el SKULPTA_OBJEKTOJ.
 export interface MetitaObjekto {
   x: number;              // monda pozicio
   z: number;
@@ -239,7 +237,7 @@ function konstruiMetitajnObjektojn(
 // kvar-flanka simetrio. La krada logiko ( kreiKradon, tipoDeRingo,
 // tipoDeBloko, fazoDeCelo, kradajDerivajoj kaj la tipoj KradaArangxo / CellType /
 // KradaĈelo ) vivas en src/krado.ts — pura modulo komuna kun la terena
-// skulptilo ( iloj/tero-skulptilo.html ). La ludo importas ĝin de tie; la
+// skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). La ludo importas ĝin de tie; la
 // skulptilo montras kaj redaktas la saman kradon per kreiKradanPlanon ( la
 // plena voja/sprona logiko kiel puraj datumoj ).
 
@@ -894,7 +892,7 @@ export async function konstruiUrbon(
     : konstruiLagon(sceno, LAGO_X, lagoZ(), lagoRadio, lagoNivelo(), alteco);
 
   // ⟪ Skulptita akvo ( la terena skulptilo ) 📃 ⟫ — akvo pentrita en
-  // iloj/tero-skulptilo.html. La masko limigas la meshxon al la pentrita zono;
+  // iloj/tero-skulptilo/tero-skulptilo.html. La masko limigas la meshxon al la pentrita zono;
   // nenio konstruigas se ne estas akvo.
   const limojSkulptaj = skulptaAkvaLimoj();
   const skulptaAkvo: RiverData | null = limojSkulptaj

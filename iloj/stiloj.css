@@ -1,4 +1,4 @@
-/* ≺⧼ Stiloj 📃 ⧽≻ — la lokaj stiloj de la terena skulptilo ( iloj/tero-skulptilo.html ). La ekstera stilfolio ( krhitlashi.github.io ) posedas la surfacojn, la tipografion kaj la kolorojn — ĉi tie restas nur la geometrio de la du mapoj kaj de la objekta antaŭrigardo. */
+/* ≺⧼ Stiloj 📃 ⧽≻ — la lokaj stiloj de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). La ekstera stilfolio ( krhitlashi.github.io ) posedas la surfacojn, la tipografion kaj la kolorojn — ĉi tie restas nur la geometrio de la du mapoj kaj de la objekta antaŭrigardo. */
 
 /* La ekstera temo difinas nur la border-radius por canvas ( neniu larĝo ), do
    la kanvasoj plenigas la tutan larĝon ĉi tie. La kanvaso estas kvadrata ( la
@@ -11,6 +11,10 @@
    2D-enhavo estas; la WebGL-tavolo ne estas en ĉi tiu retumilo ) — la
    clip-path tondas la bildigitan bildon al la sama rondo kiel la temo. */
 #mapo3d { clip-path:inset(0 round var(--អិត្ភេ)); }
+
+/* La besta inspektilo — la sama kvadrata kadro kiel la mapoj. La akva ebeno
+   kaj la grundo estas ene de la sceno, do la kadro restas kvadrata. */
+#bestoVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; clip-path:inset(0 round var(--អិត្ភេ)); }
 
 /* La objekta antaŭrigardo — kompakta kvadrata kanvaso en la objekto-panelo
    ( centre vicigita, la duono de la panel-larĝo ) kun la sama ronda tondado

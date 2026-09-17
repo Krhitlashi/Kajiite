@@ -1,5 +1,5 @@
 // ≺⧼ Skulptitaj vojoj 📃 ⧽≻
-// Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).
+// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).
 // ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
 // La mond-nivelaj vojoj ( la kajo, la avenuo ) kiel polilinioj kun nomo kaj
 // larĝo, kaj la dokaj platformoj kun pozicio kaj profundo — redaktataj per

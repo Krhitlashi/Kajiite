@@ -1,11 +1,11 @@
 // ≺⧼ Terenaj koloroj 🎨 ⧽≻
 // La KOMUNA terena paletro de la ludo ( scena.ts ) kaj de la terena
-// skulptilo ( iloj/tero-skulptilo.js ) — unu fonto por la izotropa bruo, la
+// skulptilo ( iloj/tero-skulptilo/tero-skulptilo.js ) — unu fonto por la izotropa bruo, la
 // altecaj kolor-tavoloj kaj la alternaj triangulaj diagonaloj. Antaŭe la
 // bruo kaj la indeksa konstruanto estis kopiitaj en ambaŭ dosieroj, kaj la
 // paletoj devojiĝis ( la skulptilo montris aliajn kolorojn ol la ludo ).
 import * as THREE from "three";
-import { SKULPTA_AKVA_NIVELO } from "../../src/tero-datumaro/akvo.js";
+import { SKULPTA_AKVA_NIVELO } from "../../src/tero-datumaro/aktiva.js";
 
 // bruo2D — izotropa valora bruo ( hash-bazita, glate interpolita ) en [0,1].
 // La antaŭa du-oktava SIN-bruo havis ondofrontojn laŭ la diagonaloj — sur la
@@ -72,6 +72,13 @@ const MALHERBO = new THREE.Color(0x405840);
 const MARĈO = new THREE.Color(0x404038);
 const SILTO = new THREE.Color(0x788878);
 const GRUZO = new THREE.Color(0x888888);
+// La krutaĵaj koloroj — la tavoloj videblaj ĉe la rando de la mondo. La plej
+// supra parto estas la malhela grundo sub la herbo, poste malseka malmola
+// grundo, poste roko kaj plej profunde malhela baza roko.
+const STRATO_TERO = new THREE.Color(0x3c4836);
+const STRATO_MALMOLA = new THREE.Color(0x50483c);
+const STRATO_ROKO = new THREE.Color(0x585a56);
+const STRATO_BAZO = new THREE.Color(0x33383a);
 
 // AKVO_NIVELO — la akvosurfaca alto de la skulptita tereno. La bordo mem
 // elektas la kolorojn laŭ ĉi tiu nivelo, ne laŭ la absoluta nulo — antaŭe la
@@ -122,6 +129,30 @@ function bordiKoloron(celo: THREE.Color, h: number, x: number, z: number, dekliv
   }
   celo.lerp(LITO, Math.max(0, Math.min(1, ( prof - 0o1 ) / ( 0o16/0o10 ))) * sedimento);
   celo.lerp(PROFUNDA, Math.max(0, Math.min(1, ( prof - 0o30/0o10 ) / ( 0o22/0o10 ))));
+}
+
+// terenaStrataKoloroEn — la koloro de la vertikala krutaĵo de la mondo ĉe alto
+// y. La mondo ne estas senfina tavolo — ĝi estas terpeco, kaj ĝia rando montras
+// la tavolojn de la grundo. La supraĵo ricevas la malhelan grundon sub la herbo,
+// kaj malsupren la koloro trairas la tavolojn — malmola malseka grundo, roko,
+// malhela baza roko. La bruo ondigas la transirojn, do la tavoloj aspektas kiel
+// sedimentaj tavoloj anstataŭ kiel ebenaj koloraj bendoj.
+//     @param celo ( THREE.Color ) - La cela koloro ( reskribita ).
+//     @param y ( number ) - La alto de la punkto sur la krutaĵo.
+//     @param surfY ( number ) - La terena alto ĝuste super la punkto.
+// @returns La sama celo, reskribita
+export function terenaStrataKoloroEn(celo: THREE.Color, y: number, surfY: number): THREE.Color {
+  const prof = Math.max(0, surfY - y);
+  // La tavol-ondado — du oktavoj da bruo laŭ la profundo. La bruo legas la
+  // PROFUNDON, ne la absolutan alton, do la tavoloj sekvas la terenon.
+  const ondo = ( bruo2D(prof / 0o6, 0o5) - 0o5/0o10 ) * 0o2/0o10
+    + ( bruo2D(prof / 0o20, 0o25) - 0o5/0o10 ) * 0o3/0o10;
+  const p = prof + ondo;
+  celo.copy(STRATO_TERO);
+  celo.lerp(STRATO_MALMOLA, Math.max(0, Math.min(1, ( p - 0o2 ) / 0o3)));
+  celo.lerp(STRATO_ROKO, Math.max(0, Math.min(1, ( p - 0o6 ) / 0o6)));
+  celo.lerp(STRATO_BAZO, Math.max(0, Math.min(1, ( p - 0o16 ) / 0o14)));
+  return celo;
 }
 
 // terenaKoloroEn — la natura terena koloro por la alto h ĉe ( x, z ), skribita

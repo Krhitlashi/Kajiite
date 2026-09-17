@@ -1,18 +1,18 @@
 // ≺⧼ Skulptita rultempo 📃 ⧽≻
-// Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).
+// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).
 // ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
 
 // La malkodaj kaj samplaj funkcioj — sen gxi la ludo ne povas legi la
 // datumaron. La savo devas produkti kompletan modulon.
-import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ } from "./krado.js";
-import { SKULPTA_AKVA_MASKO } from "./akvo.js";
-import { SKULPTA_BIOMOJ } from "./biomoj.js";
-import { SKULPTA_BESTOJ } from "./bestoj.js";
+// La datumoj venas de la AKTIVA mapo ( la pordo aktiva.ts, kiun la skulptilo
+// reskribas ) — la mapoj estas sendependaj mondoj en siaj propraj dosierujoj.
+import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ,
+  SKULPTA_AKVA_MASKO, SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
 
 // ⟪ Dekodo 📃 ⟫ — unufoje cxe modulo-sxargxo. Malaktiva skulptajxo restas
 // malplena, por ke la ludo ne pagu la kradan logikon.
 // Ĉi tiu dosiero estas la UNU FONTO de la malkodaj kaj samplaj funkcioj —
-// la terena skulptilo ( iloj/tero-skulptilo.js ) IMPORTAS ilin de ĉi tie, kaj
+// la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.js ) IMPORTAS ilin de ĉi tie, kaj
 // la savo de la skulptilo NE plu reskribas ĉi tiun dosieron ( ĝi skribas nur
 // la konstantajn dosierojn ). Iama la funkcioj estis kopiitaj en ŝablonon en
 // la skulptilo — la kopio devojiĝis facile, do ĝi estas forigita.
@@ -59,7 +59,7 @@ function valoroMasko(i: number, j: number): number {
 
 // bicuba — Katmull-Rom unu-dimensia interpolo. Glata C1 kurbo sen la diagonalaj
 // faldoj de dulineara interpolo — la montodeklivoj ne plu montras krestojn laŭ
-// la krad-diagonaloj ( la sama funkcio kiel en iloj/tero-skulptilo.js ).
+// la krad-diagonaloj ( la sama funkcio kiel en iloj/tero-skulptilo/tero-skulptilo.js ).
 function bicuba(p0: number, p1: number, p2: number, p3: number, t: number): number {
   const t2 = t * t, t3 = t2 * t;
   return 0o1/0o2 * ( ( 2 * p1 ) + ( -p0 + p2 ) * t

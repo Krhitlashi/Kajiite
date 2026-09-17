@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="eo">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title> Besta inspektilo 🔬 </title>
+<link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
+<link rel="stylesheet" href="../stiloj.css">
+</head>
+<body class="tapufal">
+<h1> Besta inspektilo 🔬 </h1>
+<p class="kefhuruq"> La laborilo por la bestaj modeloj kaj iliaj animacioj. Ĉiu specio montriĝas SOLA en la kadro, centre, kun sia propra animacio — per la muso oni turnas kaj zumas libere, kaj la paŭzo montras unu pozon senmove. La informo-panelo rakontas la konstru-detalojn de la nuna modelo. </p>
+<thala>
+  <p class="ksakap2sa"> Specio 🐾 </p>
+  <sabosuc2w2q id="specaro"> </sabosuc2w2q>
+</thala>
+<canvas id="bestoVido" width="900" height="900"> </canvas>
+<thala>
+  <p class="ksakap2sa"> Vidado 🎥 </p>
+  <sabosuc2w2q id="vidaro">
+    <button id="pauxzu" aria-pressed="false"> Paŭzo ⏸️ </button>
+    <button id="turnu" aria-pressed="true"> Aŭtomata turno 🔄 </button>
+    <button id="kadru"> Reen al la kadro 🎯 </button>
+    <button id="vidAntauxo"> Antaŭo 👁️ </button>
+    <button id="vidFlanko"> Flanko 👤 </button>
+    <button id="vidSupre"> Supre 🔭 </button>
+    <button id="vidSube"> Sube 🐛 </button>
+    <button id="zomoEn"> Zomo + 🔍 </button>
+    <button id="zomoEl"> Zomo − 🔎 </button>
+    <button id="pivotoj" aria-pressed="false"> Pivotaj aksoj ✛ </button>
+    <button id="drato" aria-pressed="false"> Dratkadro 🕸️ </button>
+    <button id="akvo" aria-pressed="true"> Akvo 🌊 </button>
+    <button id="krado" aria-pressed="true"> Krado ▦ </button>
+    <button id="fono" aria-pressed="false"> Hela fono 🔆 </button>
+  </sabosuc2w2q>
+  <label> Rapido <span id="rapidoValoro"> </span>
+    <input id="rapido" type="range" min="0" max="3" step="0.25" value="1" aria-label="Rapido de la animacio">
+  </label>
+  <label> Momento <span id="momentoValoro"> 0.0 s </span>
+    <input id="momento" type="range" min="0" max="10" step="0.05" value="0" aria-label="La momento de la animacio">
+  </label>
+</thala>
+<thala id="informo">
+  <p class="ksakap2sa"> Informo 📄 </p>
+  <h2 id="specoNomo"> </h2>
+  <p id="specoPriskribo" class="kefhuruq"> </p>
+  <p id="specoDatumoj"> </p>
+</thala>
+<script type="module" src="./bestoj-inspektilo.js"> </script>
+</body>
+</html>

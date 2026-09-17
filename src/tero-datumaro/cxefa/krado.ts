@@ -1,5 +1,5 @@
 // ≺⧼ Skulptita krado 📃 ⧽≻
-// Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).
+// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).
 // ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
 
 // ⟨ La skulpta krado 📃 ⟩ — la paŝo, grandeco, origino, aktiva-flago kaj la deltoj.

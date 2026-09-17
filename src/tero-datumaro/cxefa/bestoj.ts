@@ -1,5 +1,5 @@
 // ≺⧼ Skulptitaj bestoj 📃 ⧽≻
-// Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).
+// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).
 // ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
 
 // ⟨ La besta-tavolo 📃 ⟩ ( bitoj 1=akvaj bestoj, 2=petreloj, 4=NPC-oj ).

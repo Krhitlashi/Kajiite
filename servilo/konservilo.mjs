@@ -1,5 +1,5 @@
 // ≺⧼ Konserva servilo 💾 ⧽≻
-// Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo.html ). gxi
+// Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). gxi
 // ricevas la generitan datumaron per POST kaj skribas gxin REKTE al src/ —
 // la datumoj vivas en PROPRAJ dosieroj en src/tero-datumaro/ ( la krado,
 // akvo, biomoj, bestoj, objektoj, urboj kaj vojoj ), kaj la
@@ -21,20 +21,43 @@ const PORD = 0o10115;                                // 4173
 const RADIKO = fileURLToPath(new URL("..", import.meta.url));
 const SRC = join(RADIKO, "src");
 
-// La permesitaj dosieroj kaj iliaj titol-markiloj — la servilo skribas nur
-// konatajn datumodosierojn kun la ĝusta markilo.
+// La permesitaj datumdosieroj kaj iliaj titol-markiloj — la servilo skribas nur
+// la sep datumdosierojn kun la ĝusta markilo, kaj nur en dosierujo de mapo
+// ( tero-datumaro/<kodo>/ ). La mapoj estas sendependaj mondoj, do la dosieruja
+// nomo estas ajna simpla nomo — la markilo certigas, ke temas pri datumdosiero
+// de la skulptilo kaj ne pri fremda dosiero.
 const DOSIEROJ = {
-  "tero-datumaro/krado.ts": "// ≺⧼ Skulptita krado",
-  "tero-datumaro/akvo.ts": "// ≺⧼ Skulptita akvo",
-  "tero-datumaro/biomoj.ts": "// ≺⧼ Skulptitaj biomoj",
-  "tero-datumaro/bestoj.ts": "// ≺⧼ Skulptitaj bestoj",
-  // rultempo.ts NE plu skribiĝas — ĝi estas la komuna modulo ( la malkodaj
-  // kaj samplaj funkcioj ) kiun la skulptilo importas; la savo skribas nur
-  // la konstantajn dosierojn.
-  "tero-datumaro/objektoj.ts": "// ≺⧼ Skulptitaj objektoj",
-  "tero-datumaro/urboj.ts": "// ≺⧼ Skulptitaj urboj",
-  "tero-datumaro/vojoj.ts": "// ≺⧼ Skulptitaj vojoj",
+  "krado.ts": "// ≺⧼ Skulptita krado",
+  "akvo.ts": "// ≺⧼ Skulptita akvo",
+  "biomoj.ts": "// ≺⧼ Skulptitaj biomoj",
+  "bestoj.ts": "// ≺⧼ Skulptitaj bestoj",
+  // rultempo.ts NE skribiĝas — ĝi estas la komuna modulo ( la malkodaj kaj
+  // samplaj funkcioj ) kiun la skulptilo importas; la savo skribas nur la
+  // konstantajn dosierojn.
+  "objektoj.ts": "// ≺⧼ Skulptitaj objektoj",
+  "urboj.ts": "// ≺⧼ Skulptitaj urboj",
+  "vojoj.ts": "// ≺⧼ Skulptitaj vojoj",
 };
+// La registraj dosieroj de la mapoj sur la supra nivelo de tero-datumaro/ — la
+// listo de la mapoj kaj la pordo al la aktiva mapo.
+const REGISTRAJ = {
+  "mapoj.ts": "// ≺⧼ Mapoj",
+  "aktiva.ts": "// ≺⧼ Aktiva mapo",
+};
+
+// markiloDe — la titol-markilo de la donita dosiera vojo, aŭ null se la vojo ne
+// estas permesita. Akceptataj vojoj — tero-datumaro/<kodo>/<dosiero>.ts ( la
+// sep datumdosieroj ) kaj tero-datumaro/<registra>.ts ( mapoj.ts, aktiva.ts ).
+//     @param nomo ( string ) - La dosiera vojo ( relativaj al src/ ).
+//     @returns La markilo, kiun la enhavo devas komencigi per, aŭ null.
+function markiloDe(nomo) {
+  if ( typeof nomo !== "string" ) return null;
+  const datumo = /^tero-datumaro\/([a-z0-9\-]{1,40})\/([a-z0-9\-]+\.ts)$/.exec(nomo);
+  if ( datumo ) return DOSIEROJ[datumo[2]] ?? null;
+  const registra = /^tero-datumaro\/([a-z0-9\-]+\.ts)$/.exec(nomo);
+  if ( registra ) return REGISTRAJ[registra[1]] ?? null;
+  return null;
+}
 
 // CORS — la skulptilo kuras en Vite ( localhost.5173 ) kaj postulas la
 // alian originon. Loka ilo — la permeso estas larĝa sen risko.
@@ -94,7 +117,7 @@ const servilo = createServer(async (peto, respondo) => {
     }
     let skribitaj = 0;
     for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) {
-      const markilo = DOSIEROJ[nomo];
+      const markilo = markiloDe(nomo);
       if ( !markilo || typeof teksto !== "string" || !teksto.startsWith(markilo) ) {
         respondo.writeHead(400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
         respondo.end("Rifuzita dosiero: " + nomo + " — ne skribite");
@@ -113,5 +136,5 @@ const servilo = createServer(async (peto, respondo) => {
 });
 
 servilo.listen(PORD, "127.0.0.1", () => {
-  console.log("Konservilo — http://127.0.0.1:" + PORD + " → src/tero-datumaro/ ( 7 datumodosieroj )");
+  console.log("Konservilo — http://127.0.0.1:" + PORD + " → src/tero-datumaro/<mapo>/ ( 7 datumodosieroj + la mapoj-registro )");
 });

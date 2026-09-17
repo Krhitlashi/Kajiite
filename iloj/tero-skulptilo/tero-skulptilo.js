@@ -34,7 +34,7 @@
 // la vivajn koordinatojn de la kursoro, la x/z-enigojn por tajpi precizajn
 // koordinatojn kaj la liston de metitaj objektoj ( SKULPTA_OBJEKTOJ ).
 //
-// Uzado. Kuru npm run dev kaj malfermu /iloj/tero-skulptilo.html
+// Uzado. Kuru npm run dev kaj malfermu /iloj/tero-skulptilo/tero-skulptilo.html
 // Maldekstra klako + treno skulptas. Dekstra klako aŭ Shift + treno movas la
 // vidon. La rado zomas. Duobla klako resendas la tutan vidon. La ilo Movigi ✋
 // permesas treni la vidon per la maldekstra klako — en la 2D-mapo gxi movas
@@ -45,52 +45,88 @@
 // reliefo ( maldekstra
 // klako ). Savi skribas rekte al la dosiero per la File System Access API
 // ( Chromium ); aliaj retumiloj ricevas elŝuton.
-import { bazaAlteco } from "../src/tereno.js";
-import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO,
-  SKULPTA_DELTAJ } from "../src/tero-datumaro/krado.js";
-import { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO } from "../src/tero-datumaro/akvo.js";
-import { SKULPTA_BIOMOJ } from "../src/tero-datumaro/biomoj.js";
-import { SKULPTA_BESTOJ } from "../src/tero-datumaro/bestoj.js";
+import { bazaAlteco } from "../../src/tereno.js";
+// ⟪ La mapo 📃 ⟫ — la skulptilo redaktas UNU mapon samtempe. La mapoj estas
+// sendependaj mondoj ( src/tero-datumaro/mapoj.ts ); ĉiu havas sian propran
+// dosierujon kun la sep datumodosieroj. La registro venas permane ( nur etaj
+// datumoj kun la formo de ĉiu mapo ), la datumdosieroj de la elektita mapo
+// ŝarĝiĝas per dinamika importo — do nova mapo ne postulas ŝanĝojn ĉi tie.
+// La parametro ?mapo=<kodo> elektas la mapon ( la mapo-registruloj uzas ĝin por
+// ŝanĝi la mapon sen perdi la nunan staton — ili simple reŝargas la paĝon ).
+import { MAPOJ } from "../../src/tero-datumaro/mapoj.js";
+import { aktivaMapo, mapoDeKodo } from "../../src/tero-datumaro/mapregulo.js";
+// La formo de la mondo ( la cirklo, la rondigita kvadrato aŭ la rondigita
+// triangulo ) — la sama modulo kiel la ludo ( scena.ts ), do la 2D-mapo, la
+// 3D-vido kaj la ludo montras la saman formon kaj la saman randon.
+import { FORMOJ, distancoDeFormo, formajRandPunktoj, kreiFormanBazon,
+  premuAlFormo, MONDO_BAZA_Y } from "../../assets/komunajxoj/mapformo.js";
+const mapoKodo = new URLSearchParams(location.search).get("mapo");
+const mapoDatumo = mapoDeKodo(mapoKodo);
+// La datumdosieroj de ĉiuj mapoj — unu globa importo, do aldoni mapon ne
+// postulas ŝanĝojn ĉi tie ( Vite malkonstruas import.meta.glob je la konstrno,
+// kontraŭe al dinamika importo kun variablo ).
+const MAPAJ_MODULOJ = import.meta.glob(
+  "../../src/tero-datumaro/*/{krado,akvo,biomoj,bestoj,objektoj,urboj,vojoj}.ts");
+// preniModulon — la datumdosiero de la nuna mapo.
+//     @param nomo ( string ) - "krado" | "akvo" | "biomoj" | "bestoj" | "objektoj" | "urboj" | "vojoj".
+//     @returns La modulo de la dosiero.
+async function preniModulon(nomo) {
+  const sxlosilo = "../../src/tero-datumaro/" + mapoDatumo.kodo + "/" + nomo + ".ts";
+  const sxargxi = MAPAJ_MODULOJ[sxlosilo];
+  if ( !sxargxi ) throw new Error("Mankas la datumdosiero " + sxlosilo);
+  return await sxargxi();
+}
+const { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_DELTAJ } = await preniModulon("krado");
+const { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO } = await preniModulon("akvo");
+const { SKULPTA_BIOMOJ } = await preniModulon("biomoj");
+const { SKULPTA_BESTOJ } = await preniModulon("bestoj");
 // La cetera datumaro en siaj propraj dosieroj — la metitaj objektoj
 // ( inkluzive la kanuojn kaj la spacosxipon ), la urboj kaj la vojoj/dokoj.
-import { SKULPTA_OBJEKTOJ } from "../src/tero-datumaro/objektoj.js";
-import { SKULPTA_URBOJ } from "../src/tero-datumaro/urboj.js";
-import { SKULPTA_VOJOJ, SKULPTA_DOKOJ } from "../src/tero-datumaro/vojoj.js";
+const { SKULPTA_OBJEKTOJ } = await preniModulon("objektoj");
+const { SKULPTA_URBOJ } = await preniModulon("urboj");
+const { SKULPTA_VOJOJ, SKULPTA_DOKOJ } = await preniModulon("vojoj");
+// La formo kaj grandeco de la nuna mapo — redakteblaj en la mapo-panelo ( la
+// ŝango saviĝas al mapoj.ts ).
+let mapoFormo = mapoDatumo.formo;
+let mapoGrandeco = mapoDatumo.grandeco;
+// La mapo-registro, redaktebla — ĝi reskribiĝas al mapoj.ts ĉe la savo.
+let mapojRegistroj = MAPOJ.map(m => ( { ...m } ));
 // La urba krado — la Krado-langeto montras kaj redaktas la saman kradon kiun
 // la ludo konstruas el KradaArangxo ( src/krado.ts — pura modulo, komuna kun
 // la testilo iloj/testoj/krado/urbo.ts ). kreiKradanPlanon donas la plenan
 // planon ( konstruaĵoj, vojoj, spronoj ) kiel purajn datumojn por desegni;
 // validiKradon kontrolas la redaktitan kradon.
-import { kreiKradanPlanon, validiKradon, aldoniVojon, superajElDatumo, superojElDatumo } from "../src/krado.js";
+import { kreiKradanPlanon, validiKradon, aldoniVojon, superajElDatumo, superojElDatumo } from "../../src/krado.js";
 // La malkodaj funkcioj — la UNU FONTO estas la rultempo de la ludo
 // ( src/tero-datumaro/rultempo.ts ). Antaŭe la samaj funkcioj estis
 // kopiitaj ĉi tie Kaj en ŝablono por la savo — tri kopioj kiuj facile
 // devojiĝus. La savo ne plu reskribas rultempo.ts.
-import { dekodiInt16, dekodiMaskon, dekodiBiomon, dekodiBestojn } from "../src/tero-datumaro/rultempo.js";
+import { dekodiInt16, dekodiMaskon, dekodiBiomon, dekodiBestojn } from "../../src/tero-datumaro/rultempo.js";
 // La komuna terena paletro — la sama bruo kaj la samaj kolor-tavoloj kiel
 // la ludo ( scena.ts ), do la 2D-mapo kaj la 3D-vido de la skulptilo
 // antaŭmontras la realajn kolorojn de la ludo.
-import { bruo2D, alternajDiagonalojn, terenaKoloroEn } from "../assets/komunajxoj/terenkoloroj.js";
+import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
+  terenaStrataKoloroEn } from "../../assets/komunajxoj/terenkoloroj.js";
 // La realaj konstruaĵoj de la ludo — la 3D-vido de la krado uzas la SAMAJN
 // konstruantojn kiel la ludo ( konstruiSatalon ), ne kolorajn kestojn.
-import { konstruiSatalon } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
+import { konstruiSatalon } from "../../assets/konstruajxoj/satalaj-konstruajxoj.js";
 // La realaj specoj de la ludo — la objekta ilo konstruas la VERAN 3D-aspekton
 // de la metitaj objektoj ( samaj konstruantoj kiel la ludo ), por la 2D-bake
 // ( kiel la plena mapo ) kaj la 3D-vido.
 import { konstruiArbaron, konstruiLarikon, konstruiHxsxaksxlefojn, konstruiPussxlefojn,
-  konstruiMetitanRokon, konstruiMetitanFilikon } from "../assets/shalaj-specioj/vegetajxo.js";
-import { konstruiMetitanBeston, konstruiMetitanPetrelon } from "../assets/shalaj-specioj/bestoj.js";
-import { kreiKanoton } from "../assets/medio/transporto.js";
-import { konstruiKrasesxagxon } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import { konstruiHxeuxfojn } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
-import { konstruiKeuxfhxeso } from "../assets/mebloj/keuxfhxeso.js";
+  konstruiMetitanRokon, konstruiMetitanFilikon } from "../../assets/shalaj-specioj/vegetajxo.js";
+import { konstruiMetitanBeston, konstruiMetitanPetrelon } from "../../assets/shalaj-specioj/bestoj.js";
+import { kreiKanoton } from "../../assets/medio/transporto.js";
+import { konstruiKrasesxagxon } from "../../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
+import { konstruiHxeuxfojn } from "../../assets/konstruajxoj/hxeuxfa-lampo.js";
+import { konstruiKeuxfhxeso } from "../../assets/mebloj/keuxfhxeso.js";
 import { kreiOranMaterialon, kreiEniranMaterialon,
-  kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../assets/komunajxoj/materialoj.js";
+  kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../assets/komunajxoj/materialoj.js";
 // La veraj vojoj de la ludo — la 3D-vido de la mond-nivelaj vojoj uzas la
 // SAMAjn dioritajn/andezitajn vojojn kiel la ludo ( konstruiVojojn ).
-import { konstruiVojojn, konstruiPeriferiajnPlatformojn } from "../assets/medio/vojoj.js";
-import { konstruiFiguron } from "../assets/shalaj-specioj/homoj.js";
-import { VESTOJ } from "../assets/vestaro/vestoj.js";
+import { konstruiVojojn, konstruiPeriferiajnPlatformojn } from "../../assets/medio/vojoj.js";
+import { konstruiFiguron } from "../../assets/shalaj-specioj/homoj.js";
+import { VESTOJ } from "../../assets/vestaro/vestoj.js";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
@@ -156,6 +192,10 @@ const bazaCanvas = document.createElement("canvas");
 bazaCanvas.width = bazaCanvas.height = REZ;
 const bazaKunteksto = bazaCanvas.getContext("2d");
 const bazaBildo = bazaKunteksto.createImageData(REZ, REZ);
+// ⟪ La formo de la mondo 📃 ⟫ — la randaj punktoj de la formo ( la cirklo, la
+// rondigita kvadrato aŭ la rondigita triangulo ) por la 2D-mapo. La formo venas
+// de la mapo-registro kaj estas redaktebla en la mapo-panelo.
+let formajRandaj = formajRandPunktoj(mapoFormo, mapoGrandeco, 0o100);
 const bazoj = new Float32Array(REZ * REZ);            // proceduraj altoj
 const deklivoj = new Float32Array(REZ * REZ);         // monteta ombra faktoro
 const deklivoGradientoj = new Float32Array(REZ * REZ); // |∇h| — la roka deklivo por la komuna paletro
@@ -665,6 +705,24 @@ function desegniVidon(){
   // La baza kanvaso havas okcidenton maldekstre ( pixel 0 = x +MONDO_HALFO )
   // kaj nordon supre ( pixel 0 = z +MONDO_HALFO ).
   k.drawImage(bazaCanvas, sxMondo(MONDO_HALFO), syMondo(MONDO_HALFO), MONDO * vidSkalo, MONDO * vidSkalo);
+  // ⟪ La formo de la mondo 📃 ⟫ — la mondo ne estas la tuta datumkrado. La
+  // ekstero de la formo ( la cirklo, la rondigita kvadrato aŭ la rondigita
+  // triangulo ) malheliĝas sub hela tavolo — la ludo tute ne havas tiun terenon —
+  // kaj la rando ricevas linion, do oni vidas, kie la mondo finiĝas.
+  const formoVojo = new Path2D();
+  const formoEkstero = new Path2D();
+  formoEkstero.rect(0, 0, mapo.width, mapo.height);
+  formoVojo.moveTo(sxMondo(formajRandaj[0][0]), syMondo(formajRandaj[0][1]));
+  for ( let i = 1; i < formajRandaj.length; i++ ) {
+    formoVojo.lineTo(sxMondo(formajRandaj[i][0]), syMondo(formajRandaj[i][1]));
+  }
+  formoVojo.closePath();
+  formoEkstero.addPath(formoVojo);
+  k.fillStyle = "rgba(228,236,240,0.74)";
+  k.fill(formoEkstero, "evenodd");
+  k.strokeStyle = "rgba(255,255,255,0.92)";
+  k.lineWidth = 2;
+  k.stroke(formoVojo);
   // La metitaj objektoj — la suprajn bake de la VERAJ 3D-meshxoj ( kiel la
   // plena mapo de la ludo ), travidebla super la tereno.
   if ( objektaBakaKanvaso && objektoj.length > 0 ) {
@@ -974,18 +1032,59 @@ function konstrui3DIndeksojn(){
   return new Uint32Array(alternajDiagonalojn(N));
 }
 
-// inicializi3DKradon — la horizontala krado ( x, z ) de la verticoj.
+// inicializi3DKradon — la horizontala krado ( x, z ) de la verticoj. La krado
+// estas kvadrata ( la datumkrado estas kvadrata ), sed la mondo estas la FORMO
+// de la mapo — la eksteraj verticoj premiĝas sur la randon, do la 3D-vido
+// montras la saman formon kiel la ludo ( kaj la krutaĵo sekvas tiun randon ).
 function inicializi3DKradon(geometrio) {
   const N1 = N + 1;
   const poz = geometrio.attributes.position;
+  const premita = { x: 0, z: 0 };
   for ( let j = 0; j <= N; j++ ) {
     const z = Z0 + j * PASO;
     for ( let i = 0; i <= N; i++ ) {
       const v = ( j * N1 + i ) * 3;
-      poz.array[v] = X0 + i * PASO;
-      poz.array[v + 2] = z;
+      const x = X0 + i * PASO;
+      if ( premuAlFormo(mapoFormo, mapoGrandeco, x, z, premita) ) {
+        poz.array[v] = premita.x;
+        poz.array[v + 2] = premita.z;
+      } else {
+        poz.array[v] = x;
+        poz.array[v + 2] = z;
+      }
     }
   }
+}
+
+// formoBazo3D — la krutaĵo kaj la fundo de la mondo en la 3D-vido.
+let formoBazo3D = null;
+let bazaMesh3D = null;
+
+// gxisdatigiFormon3D — la formo aŭ la grandeco de la mondo sxangxigxis; re-
+// premu la kadrajn verticojn sur la novan randon, re-ŝargu la krutaĵon kaj
+// re-desegnu la terenon.
+function gxisdatigiFormon3D() {
+  if ( !teraMesh ) return;
+  inicializi3DKradon(teraMesh.geometry);
+  if ( akvaMesh ) inicializi3DKradon(akvaMesh.geometry);
+  if ( bazaMesh3D ) {
+    bazaMesh3D.geometry.dispose();
+    formoBazo3D = kreiFormanBazon({
+      formo: mapoFormo, grandeco: mapoGrandeco, koloro: terenaStrataKoloroEn,
+      punktojPoArko: 0o100,
+    });
+    bazaMesh3D.geometry = formoBazo3D.geometrio;
+  }
+  gxisdatigi3DMeshon({ ix0: 0, iz0: 0, ix1: N, iz1: N });
+}
+
+// grundo3D — la terena alta funkcio de la 3D-vido ( kun la alta troigo ).
+function grundo3D(x, z) { return ( bazaAlteco(x, z) + deltoInterp(x, z) ) * YTROIGO; }
+
+// gxisdatigiFormanBazon3D — sekvigu la krutaĵon al la tereno de la 3D-vido.
+function gxisdatigiFormanBazon3D() {
+  if ( !formoBazo3D ) return;
+  formoBazo3D.aktualigu(grundo3D, MONDO_BAZA_Y * YTROIGO);
 }
 
 function eniri3D(){
@@ -1028,6 +1127,18 @@ function eniri3D(){
       vertexColors: true, roughness: 0.92, metalness: 0,
     }));
     sceno3d.add(teraMesh);
+    // La krutaĵo kaj la fundo de la mondo — la sama formo kaj la sama paletro
+    // kiel en la ludo ( scena.ts ), por ke la 3D-vido montru la veran aspekton
+    // de la rando de la mondo.
+    formoBazo3D = kreiFormanBazon({
+      formo: mapoFormo, grandeco: mapoGrandeco, koloro: terenaStrataKoloroEn,
+      punktojPoArko: 0o100,
+    });
+    gxisdatigiFormanBazon3D();
+    bazaMesh3D = new THREE.Mesh(formoBazo3D.geometrio, new THREE.MeshStandardMaterial({
+      vertexColors: true, roughness: 1, metalness: 0,
+    }));
+    sceno3d.add(bazaMesh3D);
     // La akvo — travidebla ebeno sekvanta la nivelojn; senakvaj ĉeloj estas
     // mergitaj sub la terenon por ne videbli.
     const akvaGeometrio = new THREE.BufferGeometry();
@@ -1105,12 +1216,14 @@ function gxisdatigi3DMeshon(g) {
   const ix0 = Math.max(0, g.ix0), ix1 = Math.min(N, g.ix1 + 1);
   const iz0 = Math.max(0, g.iz0), iz1 = Math.min(N, g.iz1 + 1);
   for ( let j = iz0; j <= iz1; j++ ) {
-    const z = Z0 + j * PASO;
     for ( let i = ix0; i <= ix1; i++ ) {
-      const x = X0 + i * PASO;
+      const v = ( j * N1 + i ) * 3;
+      // La alto venas de la PREMITA pozicio — la verticoj premataj sur la randon
+      // ricevas la alton de la rando, do la rando de la tereno kaj la krutaĵo
+      // kuntuŝiĝas sen ŝtupo.
+      const x = poz.array[v], z = poz.array[v + 2];
       const d = deltoj[Math.min(j, N - 1) * N + Math.min(i, N - 1)];
       const h = bazaAlteco(x, z) + d;
-      const v = ( j * N1 + i ) * 3;
       poz.array[v + 1] = h * YTROIGO;
       // La deklivo el la analiza dukuba surfaco — la roka lerpo de la komuna
       // paletro bezonas gxin ( la sama enigo kiel en scena.ts ).
@@ -1126,6 +1239,7 @@ function gxisdatigi3DMeshon(g) {
   kol.needsUpdate = true;
   gxisdatigi3DAkvon(g);
   teraMesh.geometry.computeVertexNormals();
+  gxisdatigiFormanBazon3D();
 }
 
 // gxisdatigi3DAkvon — la akva nivelo por ĉiu vertico en la rektangulo.
@@ -3739,19 +3853,30 @@ function cirkuloDeDatumojValidas() {
 // konserva servilo kontrolas ( neniu fremda enhavo skribiĝas en src/ ).
 // rultempo.ts NE plu skribiĝas de la savo — ĝi estas la komuna modulo kies
 // funkciojn la skulptilo importas ( vidu la importon de tero-datumaro/rultempo ).
+// ⟪ La mapoj 📃 ⟫ — ĉiu mapo havas siajn sep datumodosierojn en sia propra
+// dosierujo ( tero-datumaro/<kodo>/ ). La markiloj de la dosieroj restas la
+// samaj; la konserva servilo kontrolas la markilon de ĉiu skribota dosiero, do
+// la dosieruja nomo povas esti ajna mapo de la registro.
+const DATUMDOSIEROJ = [ "krado", "akvo", "biomoj", "bestoj", "objektoj", "urboj", "vojoj" ];
+// dosierujo — la dosierujo de mapo en src/ ( ĉiam finiĝas per "/" ).
+function dosierujo(kodo) { return "tero-datumaro/" + kodo + "/"; }
+const mapoDosierujo = dosierujo(mapoDatumo.kodo);
 const DOSIERA_TITOLO = {
-  "tero-datumaro/krado.ts": "// ≺⧼ Skulptita krado 📃 ⧽≻",
-  "tero-datumaro/akvo.ts": "// ≺⧼ Skulptita akvo 📃 ⧽≻",
-  "tero-datumaro/biomoj.ts": "// ≺⧼ Skulptitaj biomoj 📃 ⧽≻",
-  "tero-datumaro/bestoj.ts": "// ≺⧼ Skulptitaj bestoj 📃 ⧽≻",
-  "tero-datumaro/objektoj.ts": "// ≺⧼ Skulptitaj objektoj 📃 ⧽≻",
-  "tero-datumaro/urboj.ts": "// ≺⧼ Skulptitaj urboj 📃 ⧽≻",
-  "tero-datumaro/vojoj.ts": "// ≺⧼ Skulptitaj vojoj 📃 ⧽≻",
+  [mapoDosierujo + "krado.ts"]: "// ≺⧼ Skulptita krado 📃 ⧽≻",
+  [mapoDosierujo + "akvo.ts"]: "// ≺⧼ Skulptita akvo 📃 ⧽≻",
+  [mapoDosierujo + "biomoj.ts"]: "// ≺⧼ Skulptitaj biomoj 📃 ⧽≻",
+  [mapoDosierujo + "bestoj.ts"]: "// ≺⧼ Skulptitaj bestoj 📃 ⧽≻",
+  [mapoDosierujo + "objektoj.ts"]: "// ≺⧼ Skulptitaj objektoj 📃 ⧽≻",
+  [mapoDosierujo + "urboj.ts"]: "// ≺⧼ Skulptitaj urboj 📃 ⧽≻",
+  [mapoDosierujo + "vojoj.ts"]: "// ≺⧼ Skulptitaj vojoj 📃 ⧽≻",
+  "tero-datumaro/mapoj.ts": "// ≺⧼ Mapoj 🗺️ ⧽≻",
+  "tero-datumaro/aktiva.ts": "// ≺⧼ Aktiva mapo 📃 ⧽≻",
 };
 // La datumoj vivas en PROPRAJ dosieroj ( la krado, akvo, biomoj, bestoj, la
 // objektoj, la urboj kaj la vojoj/dokoj aparte ) — la savo produktas la tutan
 // mapon de dosieroj en src/tero-datumaro/ ( rultempo.ts ne plu skribiĝas ).
-function generiDosierojn(){
+function generiDosierojn(kodo = mapoDatumo.kodo){
+  const dosierujoDeMapo = dosierujo(kodo);
   sinkronigiSuperojn();   // la vivaj ĉel-superoj al la urbo-datumo antaŭ la skribo
   const kvantigita = kvantigiDeltojn();
   // Apartaj aktiva-flagoj — akvo-nuraj ŝanĝoj ne devas ŝveligi la dosieron
@@ -3767,7 +3892,7 @@ function generiDosierojn(){
   const besto64 = bestojAktivaj ? bazo64DeBestoj(bestoj) : "";
   const aktiva = deltojAktivaj || maskoAktiva || biomojAktivaj || bestojAktivaj;
   const komunajKom = [
-    "// Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).",
+    "// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).",
     "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.",
   ];
   const kradoTeksto = [
@@ -3837,14 +3962,58 @@ function generiDosierojn(){
     "export const SKULPTA_VOJOJ = " + skribiValoron(vojoj) + ";",
     "export const SKULPTA_DOKOJ = " + skribiValoron(dokoj) + ";",
   ].join("\n");
+  // ⟪ La mapo-registro kaj la pordo 📃 ⟫ — mapoj.ts tenas la liston de la mapoj
+  // ( kun la formo de ĉiu mapo ) kaj aktiva.ts re-eksportas la datumojn de la
+  // AKTIVA mapo por la ludo. Ambaŭ reskribiĝas ĉe ĉiu savo, do elekti alian
+  // aktivan mapon aŭ ŝanĝi la formon sufiĉas ( la ludo legas la pordon ).
+  const mapoNuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
+  if ( mapoNuna ) { mapoNuna.formo = mapoFormo; mapoNuna.grandeco = mapoGrandeco; }
+  const mapojTeksto = [
+    "// ≺⧼ Mapoj 🗺️ ⧽≻",
+    ...komunajKom,
+    "",
+    "// ⟨ La mapoj de la mondo 📃 ⟩ — ĉiu mapo estas SENDEPENDA mondo kun siaj propraj",
+    "// datumoj ( src/tero-datumaro/<kodo>/ — la krado, la akvo, la biomoj, la bestoj,",
+    "// la metitaj objektoj, la urboj kaj la vojoj/dokoj ). La terena skulptilo",
+    "// elektas la mapon, redaktas ĝin kaj skribas la datumojn de tiu mapo; la ludo",
+    "// legas la mapon markitan per aktiva ( tra la pordo aktiva.ts ).",
+    "//",
+    "// formo — la formo de la tereno ( assets/komunajxoj/mapformo.ts ): la cirklo ( la",
+    "// defaŭlto ), la rondigita kvadrato aŭ la rondigita triangulo.",
+    "// grandeco — la duon-grando de la formo en mondo-unuoj: la radiuso de la cirklo,",
+    "// la duon-larĝo de la kvadrato aŭ la cirkumradiuso de la triangulo.",
+    "//",
+    "// La tipo kaj la helpiloj loĝas en src/tero-datumaro/mapregulo.ts.",
+    "import type { MapoDatumo } from \"./mapregulo.js\";",
+    "",
+    "export const MAPOJ: MapoDatumo[] = [",
+    ...mapojRegistroj.map(m => "  { kodo: " + JSON.stringify(m.kodo) + ", nomo: " + JSON.stringify(m.nomo)
+      + ", aktiva: " + ( m.aktiva ? "true" : "false" ) + ", formo: " + JSON.stringify(m.formo)
+      + ", grandeco: " + oktala(m.grandeco) + " },"),
+    "];",
+  ].join("\n");
+  const aktivaKodo = ( mapojRegistroj.find(m => m.aktiva) ?? mapojRegistroj[0] ).kodo;
+  const aktivaTeksto = [
+    "// ≺⧼ Aktiva mapo 📃 ⧽≻",
+    ...komunajKom,
+    "",
+    "// ⟨ La datumoj de la aktiva mapo 📃 ⟩ — la pordo al la datumoj de la mapo, kiun",
+    "// la ludo legas. La mapoj estas SENDEPENDAJ mondoj ( mapoj.ts ); ĉi tiu dosiero",
+    "// re-eksportas la sep datumdosierojn de UNU el ili, do la tuta ludo importas unu",
+    "// konatan pordon ( tereno.ts, urbo.ts, ... ) kaj neniam dosierujon. La skulptilo",
+    "// reskribas ĝin kiam ĝi ŝanĝas la aktivan mapon.",
+    ...DATUMDOSIEROJ.map(d => "export * from \"./" + aktivaKodo + "/" + d + ".js\";"),
+  ].join("\n");
   return {
-    "tero-datumaro/krado.ts": kradoTeksto,
-    "tero-datumaro/akvo.ts": akvoTeksto,
-    "tero-datumaro/biomoj.ts": biomoDosiero,
-    "tero-datumaro/bestoj.ts": bestoDosiero,
-    "tero-datumaro/objektoj.ts": objektoTeksto,
-    "tero-datumaro/urboj.ts": urboTeksto,
-    "tero-datumaro/vojoj.ts": vojoTeksto,
+    [dosierujoDeMapo + "krado.ts"]: kradoTeksto,
+    [dosierujoDeMapo + "akvo.ts"]: akvoTeksto,
+    [dosierujoDeMapo + "biomoj.ts"]: biomoDosiero,
+    [dosierujoDeMapo + "bestoj.ts"]: bestoDosiero,
+    [dosierujoDeMapo + "objektoj.ts"]: objektoTeksto,
+    [dosierujoDeMapo + "urboj.ts"]: urboTeksto,
+    [dosierujoDeMapo + "vojoj.ts"]: vojoTeksto,
+    "tero-datumaro/mapoj.ts": mapojTeksto,
+    "tero-datumaro/aktiva.ts": aktivaTeksto,
   };
 }
 // sxargiDatumaronElMapo — sxargu la datumaron el la mapo de dosieroj
@@ -4181,6 +4350,167 @@ async function saviRekteAlDosiero(){
     statuso("La konserva servilo ne kuras — kuru: npm run konservilo");
   }
 }
+
+// ════════════════════════ La mapoj ════════════════════════
+// La mapo-panelo elektas la REDAKTATAN mapon ( ĉiu mapo estas sendependa mondo
+// kun siaj propraj sep datumdosieroj ), kreas novan mapon, alinomas, forigas,
+// elektas la AKTIVAN mapon ( la mapon, kiun la ludo legas ) kaj redaktas la
+// formon kaj la grandecon de la mondo. La datumoj de la mapo estas ŝarĝitaj per
+// dinamika importo, do elekti alian mapon reŝargas la paĝon per ?mapo=<kodo> —
+// la nesavitaj ŝanĝoj de la nuna mapo devas esti pritraktataj antaŭe ( la ilo
+// demandas ). La mapo-registro ( mapoj.ts ) kaj la pordo ( aktiva.ts ) saviĝas
+// per la samaj butonoj kiel la tereno.
+const mapoElektilo = document.getElementById("mapoElektilo");
+const mapoFormoElektilo = document.getElementById("mapoFormoElektilo");
+const mapoGrandecoEnigo = document.getElementById("mapoGrandeco");
+const mapoGrandecoValoro = document.getElementById("mapoGrandecoValoro");
+
+// kodoDeNomo — la dosieruja nomo de mapo el la nomo. La samaj reguloj kiel la
+// konserva servilo akceptas ( minuskloj, ciferoj kaj streketoj, 40 signoj ).
+function kodoDeNomo(nomo) {
+  const anstatauxoj = { "ĉ": "c", "ĝ": "g", "ĥ": "h", "ĵ": "j", "ŝ": "s", "ŭ": "u", "ä": "a", "ö": "o", "ü": "u" };
+  return nomo.toLowerCase()
+    .replace(/[ĉĝĥĵŝŭäöü]/g, c => anstatauxoj[c] ?? c)
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
+}
+
+// gxisdatigiMapajnElektilojn — plenigu la mapo-elektilon kaj la formo-elektilon
+// per la nuna registro kaj la nunaj valoroj.
+function gxisdatigiMapajnElektilojn() {
+  mapoElektilo.innerHTML = "";
+  for ( const m of mapojRegistroj ) {
+    const opcio = document.createElement("option");
+    opcio.value = m.kodo;
+    opcio.textContent = m.nomo + ( m.aktiva ? " ⭐" : "" ) + ( m.kodo === mapoDatumo.kodo ? " ( nun redaktata )" : "" );
+    mapoElektilo.appendChild(opcio);
+  }
+  mapoElektilo.value = mapoDatumo.kodo;
+  mapoFormoElektilo.innerHTML = "";
+  for ( const f of FORMOJ ) {
+    const opcio = document.createElement("option");
+    opcio.value = f.kodo;
+    opcio.textContent = f.nomo;
+    mapoFormoElektilo.appendChild(opcio);
+  }
+  mapoFormoElektilo.value = mapoFormo;
+  mapoGrandecoEnigo.value = String(Math.round(mapoGrandeco));
+  mapoGrandecoValoro.textContent = oktala(mapoGrandeco) + " · " + Math.round(mapoGrandeco) + " u";
+}
+
+gxisdatigiMapajnElektilojn();
+
+// sxaltiMapon — ŝanĝu la redaktatan mapon ( reŝargo kun ?mapo=<kodo> ).
+function sxaltiMapon(kodo) {
+  if ( kodo === mapoDatumo.kodo ) return;
+  if ( sxangxita && !confirm("Nesavitaj ŝanĝoj en ĉi tiu mapo — forlasi ilin?") ) {
+    gxisdatigiMapajnElektilojn();
+    return;
+  }
+  location.search = "?mapo=" + encodeURIComponent(kodo);
+}
+mapoElektilo.addEventListener("change", () => sxaltiMapon(mapoElektilo.value));
+
+// skribiPerKonservilo — skribu dosierojn per la konserva servilo. Nova mapo
+// bezonas ĝin por krei siajn sep datumdosierojn ( la servilo ankaŭ kontrolas la
+// markilojn, do nenio fremda skribiĝas en src/ ).
+//     @returns La respondo de la servilo, aŭ null kiam la skribo malsukcesis.
+async function skribiPerKonservilo(dosieroj) {
+  try {
+    const respondo = await fetch(KONSERVILO, {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify({ dosieroj }),
+    });
+    const mesagxo = await respondo.text();
+    if ( respondo.ok ) return mesagxo;
+    statuso("La konservilo rifuzis: " + mesagxo);
+    return null;
+  } catch {
+    statuso("La konserva servilo ne kuras — nova mapo bezonas ĝin ( npm run konservilo )");
+    return null;
+  }
+}
+
+// mapoNova — nova mapo, kiu komenciĝas kiel kopio de la nuna ( la datumoj de la
+// nuna mapo skribiĝas al la nova dosierujo, kune kun la mapo-registro ). Poste
+// la ilo ŝaltas al la nova mapo ( reŝargo ).
+async function mapoNova() {
+  const nomo = prompt("Nomo de la nova mapo", "Nova mapo");
+  if ( !nomo ) return;
+  const kodo = kodoDeNomo(nomo);
+  if ( !kodo ) { statuso("La nomo ne donas dosierujan nomon — uzu literojn aŭ ciferojn"); return; }
+  if ( mapojRegistroj.some(m => m.kodo === kodo) ) { statuso("Mapo kun tiu dosieruja nomo jam ekzistas"); return; }
+  mapojRegistroj.push({ kodo, nomo, aktiva: false, formo: mapoFormo, grandeco: mapoGrandeco });
+  statuso("Kreanta la mapon " + kodo + " …");
+  const rezulto = await skribiPerKonservilo(generiDosierojn(kodo));
+  if ( !rezulto ) {
+    mapojRegistroj = mapojRegistroj.filter(m => m.kodo !== kodo);
+    gxisdatigiMapajnElektilojn();
+    return;
+  }
+  statuso("La mapo " + nomo + " kreita ✔️ — ŝaltante al ĝi");
+  location.search = "?mapo=" + encodeURIComponent(kodo);
+}
+
+// mapoAlinomi — ŝanĝu la montratan nomon ( la dosierujo restas la sama, do la
+// datumoj ne moviĝas ).
+function mapoAlinomi() {
+  const nuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
+  const nomo = prompt("Nova nomo de la mapo", nuna ? nuna.nomo : mapoDatumo.kodo);
+  if ( !nomo ) return;
+  if ( nuna ) nuna.nomo = nomo;
+  sxangxita = true;
+  gxisdatigiMapajnElektilojn();
+  statuso("La nomo ŝanĝita — savu por skribi ĝin al mapoj.ts");
+}
+
+// mapoForigi — forigu la mapon el la registro. La datumdosieroj RESTAS sur la
+// disko ( la ilo ne forigas dosierojn ), do la mapo povas reveni mane.
+function mapoForigi() {
+  if ( mapojRegistroj.length <= 1 ) { statuso("La lasta mapo ne forigeblas"); return; }
+  const nuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
+  if ( !confirm("Forigi la mapon „" + ( nuna ? nuna.nomo : mapoDatumo.kodo ) + "“ el la registro? ( la dosieroj restas )") ) return;
+  mapojRegistroj = mapojRegistroj.filter(m => m.kodo !== mapoDatumo.kodo);
+  if ( !mapojRegistroj.some(m => m.aktiva) ) mapojRegistroj[0].aktiva = true;
+  sxangxita = true;
+  const sekva = ( mapojRegistroj.find(m => m.aktiva) ?? mapojRegistroj[0] ).kodo;
+  location.search = "?mapo=" + encodeURIComponent(sekva);
+}
+
+// mapoAktiva — elektu la mapon, kiun la LUDO legas. La pordo aktiva.ts
+// reskribiĝas ĉe la savo.
+function mapoElektiAktivan() {
+  for ( const m of mapojRegistroj ) m.aktiva = m.kodo === mapoDatumo.kodo;
+  sxangxita = true;
+  gxisdatigiMapajnElektilojn();
+  statuso("Ĉi tiu mapo estos la mapo de la ludo post la savo ⭐");
+}
+
+// gxisdatigiFormon — la formo aŭ la grandeco de la mondo ŝanĝiĝis. La 2D-mapo,
+// la 3D-vido kaj ( post la savo ) ankaŭ la ludo montras la novan formon.
+function gxisdatigiFormon() {
+  formajRandaj = formajRandPunktoj(mapoFormo, mapoGrandeco, 0o100);
+  mapoGrandecoValoro.textContent = oktala(mapoGrandeco) + " · " + Math.round(mapoGrandeco) + " u";
+  sxangxita = true;
+  gxisdatigiFormon3D();
+  gxisdatigiPlenan2Dn();
+  statuso("Formo " + mapoFormo + ", grandeco " + Math.round(mapoGrandeco)
+    + " — savu por skribi ĝin al mapoj.ts");
+}
+
+mapoFormoElektilo.addEventListener("change", () => {
+  mapoFormo = mapoFormoElektilo.value;
+  gxisdatigiFormon();
+});
+mapoGrandecoEnigo.addEventListener("input", () => {
+  mapoGrandeco = Number(mapoGrandecoEnigo.value);
+  gxisdatigiFormon();
+});
+document.getElementById("mapoNova").addEventListener("click", mapoNova);
+document.getElementById("mapoAlinomi").addEventListener("click", mapoAlinomi);
+document.getElementById("mapoForigi").addEventListener("click", mapoForigi);
+document.getElementById("mapoAktiva").addEventListener("click", mapoElektiAktivan);
 
 // ════════════════════════ Komenco ════════════════════════
 document.getElementById("savi").addEventListener("click", saviDosieron);

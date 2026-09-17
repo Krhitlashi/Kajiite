@@ -190,7 +190,7 @@ export function konstruiRubandon(points: THREE.Vector3[],
 }
 
 // konstruiSkulptitanAkvon — Konstruu akvon por la pentrita masko de la terena
-// skulptilo ( iloj/tero-skulptilo.html ). La meshxo kovras nur la maskan kadron
+// skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). La meshxo kovras nur la maskan kadron
 // ( skulptaAkvaLimoj ) kaj la materialo eligas la fragmentojn ekster la masko,
 // do la akvo sekvas la pentritan formon. La verticaj profundoj ( uv.y ) venas
 // de la vera tereno, kiel cxe la cetera akvo.

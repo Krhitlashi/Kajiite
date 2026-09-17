@@ -1,5 +1,5 @@
 // ≺⧼ Skulptitaj biomoj 📃 ⧽≻
-// Kreita de la terena skulptilo ( iloj/tero-skulptilo.html ).
+// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).
 // ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
 
 // ⟨ La biomo-tavolo 📃 ⟩ ( 0=aŭtomata, 1=montaro, 2=valo, 3=ebenaĵo,

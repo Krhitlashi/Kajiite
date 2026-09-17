@@ -6,7 +6,11 @@ import { traduki } from "./tradukoj.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
 import { kreiTerenanTeksajxon, kreiNebulTavolanTeksajxon,
   kreiGrundanTeksajxon, kreiGrundanBumpanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
-import { bruo2D, alternajDiagonalojn, terenaKoloroEn } from "../assets/komunajxoj/terenkoloroj.js";
+import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
+  terenaStrataKoloroEn } from "../assets/komunajxoj/terenkoloroj.js";
+import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,
+  MONDO_BAZA_Y } from "../assets/komunajxoj/mapformo.js";
+import { aktivaMapo } from "./tero-datumaro/mapregulo.js";
 
 export function montriEraronon(sxargxaEl: HTMLElement): void {
   const d = document.createElement("div");
@@ -26,7 +30,6 @@ export type Vetero = "nebula" | "pluva" | "hajla" | "nega";
 export interface ScenaSistemo {
   bildilo: THREE.WebGLRenderer;
   sceno: THREE.Scene;
-  montaGrupo: THREE.Group;   // la montaj terenblokoj — kaŝeblaj de la mapo-bakado
   fotilo: THREE.PerspectiveCamera;
   dioritaMaterialo: THREE.MeshStandardMaterial;
   andezitaMaterialo: THREE.MeshStandardMaterial;
@@ -633,8 +636,19 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   const nego = kreiNeĝon();
   const hajlo = kreiHajlon();
 
-  // La montaj terenblokoj kolektiĝas en unu grupon, por ke la mapo-bakado
-  // povu kaŝi ilin ( la mapo montru nur la ludeblan mondon, ne la montoringon ).
+  // ⟪ La formo de la mondo 📃 ⟫ — la tereno ne estas kvadrato. Ĉiu mapo elektas
+  // sian formon ( src/tero-datumaro/mapoj.ts ) — la cirklon ( la defaŭlto ), la
+  // rondigitan kvadraton aŭ la rondigitan triangulon ( assets/komunajxoj/mapformo.ts ).
+  // La formo decidas la randon de la tereno, la krutaĵon sub ĝi, la montaron,
+  // la ĉirkaŭan ebenon kaj la komencon de la nebulo. La aktiva mapo estas tiu,
+  // kiun la ludo legas. La formo legiĝas ĉi tie, antaŭ la montaro — tiu ĉi jam
+  // bezonas ĝin por meti siajn ringojn.
+  const aktivaMapoDatumoj = aktivaMapo();
+  const mapoFormo = aktivaMapoDatumoj.formo;
+  const mapoGrandeco = aktivaMapoDatumoj.grandeco;
+
+  // La montaj terenblokoj kolektiĝas en unu grupon — la mapo-bakado kaj la
+  // estontaj vidoj povas trakti la tutan montaron kiel unu objekton.
   const montaGrupo = new THREE.Group();
   sceno.add(montaGrupo);
 
@@ -642,6 +656,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // Ĉiu bloko havas sian propran altecan kampon kaj fermitan geometrion
   // ( supro, muroj, fundo ), do ĝi estas vera terenobjekto — ne maldika folio
   // kuŝanta sur la ĉefa tereno.
+  //
+  // ⟨ La montaro sekvas la formon de la mapo 📃 ⟩ — la montoj ne plu staras sur
+  // la kvar rektaj linioj de KVADRATO. Ĉiu tavolo estas RINGO laŭ la rando de la
+  // aktiva formo je konstanta kromdisto, do la montaro sekvas la cirklon, la
+  // rondigitan kvadraton aŭ la rondigitan triangulon. Por la kvadrato la ringo
+  // egalas la antaŭajn kvar striojn ( la kresto sidas ĝuste super la mondrando ),
+  // por la cirklo la montaro fariĝas vera ĉirkaŭanta montaro.
   ( function konstruiMontojn(): void {
     // Krestolinia profilo — frakta valora bruo ( la sama bruo2D kiel la
     // grundo ) por malglataj, naturaj pintoj kaj seloj. La antaŭa sinus-ondita
@@ -649,9 +670,15 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     // faldita tuko. La valora bruo havas neniun preferatan direkton; la
     // ridged transformo turnas la mezajn kaj fajnajn oktavojn en akrajn
     // krestojn kun profundaj seloj, kaj la ĉefa maso malfermas larĝajn valojn.
-    function montaAlto(t: number, semo: number): number {
-      const x = t / 0o100 + semo * 0o10;
-      const z = semo * 0o20 + 0o20;
+    // montaAlto — la kresta alteco de la montaro ĉe monda pozicio. La bruo legas
+    // la MONDAJN koordinatojn, ne la longon laŭ unu rekta strio — nur tiel la
+    // ringo povas ĉirkaŭi la formon sen videbla kudro, kaj ĉiu tavolo havas sian
+    // propran malŝovon ( semo ) por ke la ringoj ne spegulu unu la alian.
+    //     @param px, pz ( number ) - La mondaj koordinatoj de la kresto.
+    //     @param semo ( number ) - La malŝovo de ĉi tiu tavolo.
+    function montaAlto(px: number, pz: number, semo: number): number {
+      const x = px / 0o100 + semo * 0o10;
+      const z = pz / 0o100 + semo * 0o20 + 0o20;
       const malglata = ( u: number, v: number ): number => 1 - Math.abs(2 * bruo2D(u, v) - 1);
       const maso = bruo2D(x, z);
       const valo = maso * maso;   // malfermas larĝajn valojn inter la masoj
@@ -665,28 +692,33 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
         + 0o10 * fajno * ( 0o32/0o100 + 0o46/0o100 * valo );
     }
 
-    // Malproksima paletro — pale blu-grizaj montoj kun atmosfera perspektivo,
-    // ne malhela muro. La bazo estas hela kaj blueta, la pintoj paliĝas al
-    // neĝo; la nebulo kaj la distanco jam malheliĝas la foron nature.
-    function koloroPorY(y: number): [ number, number, number ] {
-      if ( y > 0o124 ) return [ 0o62/0o100, 0o64/0o100, 0o66/0o100 ];
-      if ( y > 0o110 ) {
-        const t = ( y - 0o110 ) / ( 0o124 - 0o110 );
-        return [ 0o47/0o100 + t * 0o13/0o100, 0o52/0o100 + t * 0o12/0o100, 0o55/0o100 + t * 0o10/0o100 ];
-      }
-      if ( y > 0o64 ) {
-        const t = ( y - 0o64 ) / ( 0o110 - 0o64 );
-        return [ 0o41/0o100 + t * 0o1/0o10, 0o44/0o100 + t * 0o1/0o10, 0o46/0o100 + t * 0o7/0o100 ];
-      }
-      if ( y > 0o44 ) {
-        const t = ( y - 0o44 ) / ( 0o64 - 0o44 );
-        return [ 0o35/0o100 + t * 0o4/0o100, 0o40/0o100 + t * 0o4/0o100, 0o42/0o100 + t * 0o4/0o100 ];
-      }
-      if ( y > 0o20 ) {
-        const t = ( y - 0o20 ) / ( 0o44 - 0o20 );
-        return [ 0o32/0o100 + t * 0o3/0o100, 0o35/0o100 + t * 0o3/0o100, 0o37/0o100 + t * 0o3/0o100 ];
-      }
-      return [ 0o32/0o100, 0o35/0o100, 0o37/0o100 ];
+    // La nebul-tono de la horizonto — la foraĵo miksiĝas kun ĝi.
+    const NEBUL_TONO = new THREE.Color(0xc8d8d8);
+
+    // montaKoloroEn — La koloro de monta vertico. La paletro estas la KOMUNA
+    // terena paletro ( terenaKoloroEn en assets/komunajxoj/terenkoloroj.ts ) —
+    // la montoj do portas la samajn herbojn, sekherbojn, rokojn kaj neĝon kiel
+    // la cetera mondo, kaj la herbejoj de la deklivoj daŭras ĝis la montoj. La
+    // antaŭa paletro estis simpla blu-griza gradiento laŭ la alto. ĉiuj montoj
+    // aspektis kiel unu pala muro, la pintoj blindigis al blanko kaj la bake
+    // montris blankan ringon anstataŭ montaron.
+    //     @param celo ( THREE.Color ) - La cela koloro ( reskribita ).
+    //     @param y ( number ) - La alto de la vertico.
+    //     @param x, z ( number ) - La mondaj koordinatoj ( por la bruo ).
+    //     @param deklivo ( number ) - La gradiento |∇h| ( la krutaj flankoj
+    //         malkovras la rokon ).
+    //     @param malproksimo ( number ) - Kiom for de la mondrando sidas la
+    //         vertico ( 0 = ĉe la rando, 1 = la fora kresto ) — la atmosfera
+    //         perspektivo de la fora silueto.
+    function montaKoloroEn(celo: THREE.Color, y: number, x: number, z: number,
+      deklivo: number, malproksimo: number): void {
+      // La neĝa linio ONDIĜAS — malsamaj krestoj portas neĝon je malsamaj
+      // altoj anstataŭ ĉiuj ekde la sama horizontala linio.
+      const negxaOndo = ( bruo2D(x / 0o70, z / 0o70) - 0o1/0o2 ) * 0o10;
+      terenaKoloroEn(celo, y + negxaOndo, x, z, deklivo);
+      // Atmosfera perspektivo — la fora kresto miksiĝas kun la nebulo de la
+      // horizonto, do la fona montaro legiĝas malproksima anstataŭ egale akra.
+      if ( malproksimo > 0 ) celo.lerp(NEBUL_TONO, malproksimo * 0o35/0o100);
     }
 
     const montaMaterialo = new THREE.MeshStandardMaterial({
@@ -698,53 +730,144 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       side: THREE.DoubleSide,
     });
 
-    // Krei solidan terenblokon — fermita geometrio kun supra kresto, muroj kaj
-    // fundo, kaj PROPRA alteca kampo ( sen la ĉefa tereno ). La krestolinio
-    // serpentas laŭ la longo ( centro kaj larĝo varias per bruo ), do la
-    // bloko montras sPronojn kaj golfetojn anstataŭ unu rekta faldo.
-    function krei3DStrio(
-      lauX: boolean, signo: number, fiksa: number, largho: number, profundo: number,
-      sl: number, sd: number, semo: number, skalo: number,
+    // ringaPunkto — La kresta linio de la montaro ĉe la angulo. La linio sekvas
+    // la randon de la aktiva formo je la kromdisto « disto », kaj la elstara
+    // normalo venas de la tanĝanto de la ringa kurbo ( ne de la radiusa direkto )
+    // — tiel la larĝo de la tavolo restas egala ankaŭ ĉe la anguloj de la
+    // kvadrato kaj de la triangulo.
+    //     @param disto ( number ) - Kiom for de la mondrando sidas la kresto.
+    //     @param ang ( number ) - La angulo ĉirkaŭ la mondcentro.
+    //     @returns La punkto kaj ĝia elstara normalo.
+    function ringaPunkto(disto: number, ang: number): { x: number; z: number; nx: number; nz: number } {
+      const rando = radiusaDistanco(mapoFormo, mapoGrandeco, ang) + disto;
+      const x = Math.cos(ang) * rando, z = Math.sin(ang) * rando;
+      // La tanĝanto — la najbaraj punktoj de la ringa kurbo.
+      const pa = 0o1/0o2000;
+      const ra = radiusaDistanco(mapoFormo, mapoGrandeco, ang - pa) + disto;
+      const rb = radiusaDistanco(mapoFormo, mapoGrandeco, ang + pa) + disto;
+      const tx = Math.cos(ang + pa) * rb - Math.cos(ang - pa) * ra;
+      const tz = Math.sin(ang + pa) * rb - Math.sin(ang - pa) * ra;
+      const longo = Math.hypot(tx, tz) || 1;
+      let nx = -tz / longo, nz = tx / longo;
+      // La normalo turnuĝu FOR de la centro ( la tanĝanto havas du perpendiklojn ).
+      if ( nx * Math.cos(ang) + nz * Math.sin(ang) < 0 ) { nx = -nx; nz = -nz; }
+      return { x, z, nx, nz };
+    }
+
+    // krestaVagado — La krestolinio de la montaro VAGAS laŭ la angulo. La bruo
+    // estas legata laŭ CIRKLO en la brua spaco, do la vagado fermiĝas sen kudro
+    // ĉe la angulo 2π. La antaŭa montaro havis konstantan kreston, do ĝi aspektis
+    // kiel muro egale dika ĉirkaŭ la mondo; nun la krestoj proksimiĝas kaj
+    // malproksimiĝas kiel veraj montaraj spinoj.
+    //     @param bazo ( number ) - La meza kresto-distanco de la ringo.
+    //     @param vario ( number ) - Kiom la kresto vagas ( ± ).
+    //     @param semo ( number ) - La malŝovo de ĉi tiu ringo ( por ke la ringoj
+    //         ne spegulu unu la alian ).
+    //     @returns la kresto-distanco laŭ la angulo.
+    function krestaVagado(bazo: number, vario: number, semo: number): ( ang: number ) => number {
+      return ( ang: number ): number =>
+        bazo + ( bruo2D(Math.cos(ang) * 0o4 + semo, Math.sin(ang) * 0o4 + semo * 0o3) - 0o1/0o2 ) * vario;
+    }
+
+    // kreiMontanRingon — unu tavolo de la montaro, kiel solida terenbloko kun
+    // supra kresto, muroj kaj fundo, kaj PROPRA alteca kampo ( sen la ĉefa
+    // tereno ). La krestolinio RINGAS laŭ la rando de la formo ( vagante — vidu
+    // krestaVagado ), kaj la vicoj etendiĝas eksteren laŭ la elstara normalo; la
+    // bruo legas la mondajn koordinatojn, do la ringo fermiĝas sen kudro ( la
+    // lasta kolumno kaj la unua kolumno sidas samloke ).
+    //     @param kresto ( funkcio ) - La kresto-distanco laŭ la angulo.
+    //     @param profundo ( number ) - Kiom profunda ( eksteren ) estas la tavolo.
+    //     @param sl ( number ) - La kolumnoj ĉirkaŭ la ringo.
+    //     @param sd ( number ) - La vicoj de la kresto ĝis la fora rando.
+    //     @param malproksimo ( number ) - Kiom fora estas la ringo ( la
+    //         atmosfera perspektivo en montaKoloroEn ).
+    function kreiMontanRingon(
+      kresto: ( ang: number ) => number,
+      profundo: number, sl: number, sd: number,
+      semo: number, skalo: number, malproksimo: number,
       materialo: THREE.MeshStandardMaterial,
 ): void {
-      const kolonoj = sl + 1;        // laŭ la longo
+      const kolonoj = sl + 1;        // ĉirkaŭ la ringo ( la lasta = la unua )
       const vicoj = sd + 1;          // laŭ la profundo
       const suprN = kolonoj * vicoj;
-      const fundo = -0o20;           // la monta bazo, sub la ĉefa tereno
+      const fundo = MONDO_BAZA_Y - 0o4;   // la monta bazo — iomete sub la ebena fundo
       const pozicioj = new Float32Array(suprN * 2 * 3);
       const koloroj = new Float32Array(suprN * 2 * 3);
+      // La kradaj paŝoj — por la deklivo en la paletro ( la sama kalkulo kiel en
+      // la ĉefa tereno ). La paŝo laŭ la angulo kreskas kun la radiuso, do la
+      // valoro legiĝas unufoje por la meza kresto.
+      const pasxoProfundo = profundo / sd;
+      const pasxoAngulo = 2 * Math.PI * ( mapoGrandeco + 0o100 ) / sl;
+      const altoj = new Float32Array(suprN);
+      // ⟪ La supraĵo 📃 ⟫ — la altoj unue, la koloroj poste ( la paletro
+      // bezonas la deklivon — la gradienton de la najbaraj verticoj ).
       for ( let v = 0; v < vicoj; v ++ ) {
         for ( let k = 0; k < kolonoj; k ++ ) {
           const i = v * kolonoj + k;
-          const tn = v / sd;                        // 0..1 laŭ la profundo
-          const t = ( k / sl - 0o4/0o10 ) * largho; // laŭ la longo, centrita
-          const x = lauX ? t : fiksa + signo * tn * profundo;
-          const z = lauX ? fiksa + signo * tn * profundo : t;
+          const tn = v / sd;              // 0..1 de la kresto ĝis la fora rando
+          const ang = k / sl * Math.PI * 0o2;
+          // La kresta linio sekvas la randon de la formo; la vicoj etendiĝas
+          // eksteren laŭ la elstara normalo de la ringa kurbo.
+          const ringo = ringaPunkto(kresto(ang), ang);
+          const x = ringo.x + ringo.nx * tn * profundo;
+          const z = ringo.z + ringo.nz * tn * profundo;
           // Kruta profilo — unu montarmaso kun kruta proksima flanko kaj pli
-          // longa fora deklivo.
-          const centro = 0o2/0o10 + 0o26/0o100 * bruo2D(t / 0o40 + semo * 0o10, semo * 0o30);
-          const larghoDeKresto = 0o10/0o100 + 0o4/0o100 * bruo2D(t / 0o17 + semo * 0o4, semo * 0o11);
+          // longa fora deklivo. La kresto sidas malsame profunde laŭ la loko, do
+          // la montaro havas antaŭajn kaj malantaŭajn spinojn anstataŭ unu egala
+          // muro.
+          const centro = 0o22/0o100 + 0o30/0o100 * bruo2D(x / 0o40 + semo * 0o10, z / 0o40 + semo * 0o30);
+          const larghoDeKresto = 0o10/0o100 + 0o10/0o100 * bruo2D(x / 0o17 + semo * 0o4, z / 0o17 + semo * 0o11);
           const dd = ( tn - centro ) / larghoDeKresto;
           const profilo = Math.exp(-dd * dd)
             * ( 1 + 0o26/0o100 * Math.max(0, dd) )      // pli longa fora deklivo
             * ( 1 - 0o2/0o10 * Math.max(0, -dd) );    // pli kruta proksima flanko
-          // Leviĝo de la grundo ĉe la maprando, malleviĝo al la horizonto ĉe
-          // la fora rando.
-          const piedo = glataPaso(0, 0o3/0o100, tn) * ( 1 - glataPaso(0o73/0o100, 1, tn) );
-          const y = montaAlto(t, semo) * skalo * profilo * piedo;
+          // ⟨ La aliĝo al la mondo 📃 ⟩ — ĉe la mondrando la montaro sidas sur
+          // la alteco de la tereno ĝuste tie ( la interna rando de la bloko kaj
+          // la rando de la mondo tiam kuntuŝiĝas sen fendo kaj sen foso ), kaj la
+          // influo de tiu alteco malaperas ene de la unua kvarono de la profundo
+          // — la propra monta profilo transprenas. Ĉe la fora rando la monto
+          // malleviĝas ĝis la baza ebeno de la mondo, por ke la piedo solviĝu en
+          // la ĉirkaŭan ebenon anstataŭ finiĝi per klifo.
+          const bordo = alteco(ringo.x, ringo.z);
+          const aligo = 1 - glataPaso(0, 0o1/0o4, tn);
+          const mallevo = glataPaso(0o6/0o10, 1, tn);
+          const y = bordo * aligo
+            + montaAlto(ringo.x, ringo.z, semo) * skalo * profilo * ( 1 - mallevo )
+            + MONDO_BAZA_Y * mallevo;
+          altoj[i] = y;
           pozicioj[i * 3] = x; pozicioj[i * 3 + 1] = y; pozicioj[i * 3 + 2] = z;
           const b = i + suprN;
           pozicioj[b * 3] = x; pozicioj[b * 3 + 1] = fundo; pozicioj[b * 3 + 2] = z;
-          // Koloroj — la supro laŭ alteco, la fundo laŭ la plej malhela grundo.
-          const kolVario = 0o1/0o100 * Math.sin(x * 0o1/0o10 + z * 0o7/0o40 + semo);
-          const [ r, g_, bl ] = koloroPorY(y);
-          koloroj[i * 3] = Math.max(0, Math.min(1, r + kolVario));
-          koloroj[i * 3 + 1] = Math.max(0, Math.min(1, g_ + kolVario * 0o56/0o100));
-          koloroj[i * 3 + 2] = Math.max(0, Math.min(1, bl + kolVario * 0o4/0o10));
-          const [ br, bg, bb ] = koloroPorY(0o1);
-          koloroj[b * 3] = Math.max(0, Math.min(1, br + kolVario * 0o4/0o10));
-          koloroj[b * 3 + 1] = Math.max(0, Math.min(1, bg + kolVario * 0o23/0o100));
-          koloroj[b * 3 + 2] = Math.max(0, Math.min(1, bb + kolVario * 0o4/0o10));
+        }
+      }
+      // ⟨ La koloroj 📃 ⟩ — la dua paŝo. La deklivo venas de la najbaraj
+      // verticoj ( laŭ la angulo kaj laŭ la profundo ), do la krutaj flankoj
+      // malkovras la rokon kaj la mildaj deklivoj restas herbejaj — la sama
+      // regulo kiel en la ĉefa tereno.
+      const montaKoloro = new THREE.Color();
+      for ( let v = 0; v < vicoj; v ++ ) {
+        for ( let k = 0; k < kolonoj; k ++ ) {
+          const i = v * kolonoj + k;
+          const x = pozicioj[i * 3], y = altoj[i], z = pozicioj[i * 3 + 2];
+          // La najbaroj ĉirkaŭe — la angulo fermiĝas ( la lasta kolumno spegulas
+          // la unuan ), la profundo restas ĉe la randoj.
+          const km = ( k + sl - 1 ) % sl, kp = ( k + 1 ) % sl;
+          const vm = ( v > 0 ? v - 1 : v ) * kolonoj + k;
+          const vp = ( v < sd ? v + 1 : v ) * kolonoj + k;
+          const dAng = ( altoj[v * kolonoj + kp] - altoj[v * kolonoj + km] ) / ( 2 * pasxoAngulo );
+          const dProf = ( altoj[vp] - altoj[vm] ) / ( 2 * pasxoProfundo );
+          montaKoloroEn(montaKoloro, y, x, z, Math.hypot(dAng, dProf), malproksimo);
+          koloroj[i * 3] = montaKoloro.r;
+          koloroj[i * 3 + 1] = montaKoloro.g;
+          koloroj[i * 3 + 2] = montaKoloro.b;
+          // La fundo de la bloko — la tavoloj de la grundo ( la sama funkcio kiel
+          // la krutaĵo de la mondo ), do la interna klifo de la montaro montras
+          // la samajn tavolojn kiel la rando de la mondo.
+          const b = i + suprN;
+          terenaStrataKoloroEn(montaKoloro, fundo, y);
+          koloroj[b * 3] = montaKoloro.r;
+          koloroj[b * 3 + 1] = montaKoloro.g;
+          koloroj[b * 3 + 2] = montaKoloro.b;
         }
       }
       const indeksoj: number[] = [];
@@ -794,33 +917,28 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       montaGrupo.add(mesh);
     }
 
-    const L = 0o1400;
-    const D = 0o140;
-    // La segmentoj sufiĉe densaj por la fajna bruo de la krestolinio ( la
-    // antaŭaj 0o60 lasis la silueton tro kruda ), kaj la semo ŝanĝiĝas laŭ la
-    // signo, por ke la kontraŭa flanko ne spegulu la saman silueton.
-    const semoLaŭSigno = ( signo: number ): number => ( signo > 0 ? 0 : 0o7/0o10 );
+    // La kolumnoj ĉirkaŭ la ringo — sufiĉe densaj por la fajna bruo de la
+    // krestolinio ( la antaŭaj 0o60 lasis la silueton tro kruda ĉe la rektaj
+    // strioj ). Ĉiu tavolo havas sian propran malŝovon, por ke la ringoj ne
+    // spegulu unu la alian.
+    const ringajKolonoj = 0o400;
 
-    // Ĉefa tavolo — kvar flankoj
-    for ( const signo of [ -1, 1 ] ) {
-      const s = semoLaŭSigno(signo);
-      krei3DStrio(true, signo, signo * 0o600, L, D, 0o140, 0o20, 0o123/0o100 + s, 1, montaMaterialo);
-      krei3DStrio(false, signo, signo * 0o600, L, D, 0o140, 0o20, 0o103/0o40 + s, 0o74 / 0o100, montaMaterialo);
-    }
+    // ⟨ La tavoloj de la montaro 📃 ⟩ — du ringoj anstataŭ la tri antaŭaj. La
+    // malnovaj tri tavoloj sidadis sur preskaŭ regulaj distoj ( 0, 0.8D, 2.8D )
+    // kun KONSTANTA kresto, do la montaro legiĝis kiel tri koncentraj muroj.
+    // Nun ĉiu ringo VAGAS — la krestoj proksimiĝas kaj malproksimiĝas kiel veraj
+    // montaraj spinoj — kaj la fora ringo portas la atmosferan perspektivon.
+    //
+    // La proksima ringo — la grandaj krestoj ĉe la mondrando. La vagado tenas
+    // la kreston 0o10..0o50 ekster la rando, do la bloko neniam koincidas kun la
+    // krutaĵo de la mondo ( neniu z-batalo ) sed restas tute proksime al ĝi.
+    kreiMontanRingon(krestaVagado(0o30, 0o20, 0o123/0o100), 0o200, ringajKolonoj, 0o30,
+      0o123/0o100, 1, 0, montaMaterialo);
 
-    // Meza tavolo — milda tavolo inter la urbo kaj la fora kresto
-    for ( const signo of [ -1, 1 ] ) {
-      const s = semoLaŭSigno(signo);
-      krei3DStrio(true, signo, signo * 0o730, L * 0o7/0o10, D * 0o63/0o100, 0o110, 0o16, 0o123/0o100 + 0o20 + s, 0o7/0o10, montaMaterialo);
-      krei3DStrio(false, signo, signo * 0o730, L * 0o7/0o10, D * 0o63/0o100, 0o110, 0o16, 0o103/0o40 + 0o20 + s, 0o7/0o10, montaMaterialo);
-    }
-
-    // Fona tavolo — pli malproksima, pli malalta, kun malferma silueto
-    for ( const signo of [ -1, 1 ] ) {
-      const s = semoLaŭSigno(signo);
-      krei3DStrio(true, signo, signo * 0o1050, L * 0o63/0o100, D * 0o55/0o100, 0o100, 0o14, 0o123/0o100 + 0o40 + s, 0o46/0o100, montaFona);
-      krei3DStrio(false, signo, signo * 0o1050, L * 0o63/0o100, D * 0o55/0o100, 0o100, 0o14, 0o103/0o40 + 0o40 + s, 0o22/0o40, montaFona);
-    }
+    // La fora ringo — la malalta silueto malantaŭ la proksima, lokita tiel ke
+    // ĝia piedo solviĝu en la ebenon antaŭ la rando de la bakita mapo.
+    kreiMontanRingon(krestaVagado(0o200, 0o60, 0o123/0o100 + 0o40), 0o200, ringajKolonoj, 0o20,
+      0o123/0o100 + 0o20, 0o7/0o10, 0o35/0o100, montaFona);
   } )();
 
   // bruo2D — la izotropa valora bruo venas de la komuna modulo ( la sama
@@ -861,6 +979,18 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       terenaKoloroEn(c, h, x, z, deklivo);
       koloroj[i * 3] = c.r; koloroj[i * 3 + 1] = c.g; koloroj[i * 3 + 2] = c.b;
     }
+    // La mondo estas la FORMO, ne la krada kvadrato. La krado ( kaj la
+    // datumkrado ) estas kvadrataj, do la eksteraj verticoj premiĝas sur la
+    // randon laŭ sia radio — la videbla tereno estas ĝuste la formo. La troaj
+    // trianguloj faldiĝas sur la randon ( degeneraj, do nevideblaj ), kaj la
+    // rando de la tereno koincidas kun la krutaĵo sub ĝi.
+    const premita = { x: 0, z: 0 };
+    for ( let i = 0; i < pozicio.count; i++ ) {
+      if ( premuAlFormo(mapoFormo, mapoGrandeco, pozicio.getX(i), pozicio.getZ(i), premita) ) {
+        pozicio.setX(i, premita.x);
+        pozicio.setZ(i, premita.z);
+      }
+    }
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     g.computeVertexNormals();
     // La grundaj teksajxoj — la koloro ( preskaŭ blanka ripeta markaro, kiu
@@ -878,6 +1008,23 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const ground = new THREE.Mesh(g, grundMaterialo);
     ground.receiveShadow = true;
     sceno.add(ground);
+
+    // ⟪ La rando de la mondo 📃 ⟫ — la vertikala krutaĵo kaj la fundo. La mondo
+    // estas terpeco, do ĝia rando bezonas flankojn malsupren al la baza ebeno kaj
+    // kovrilon malsupre; sen ili oni vidus tra la tereno de malantaŭ la rando.
+    // La flankoj portas la tavolojn de la grundo ( terenaStrataKoloroEn ).
+    const formoBazo = kreiFormanBazon({
+      formo: mapoFormo, grandeco: mapoGrandeco, koloro: terenaStrataKoloroEn,
+    });
+    formoBazo.aktualigu(alteco, MONDO_BAZA_Y);
+    const bazaMaterialo = new THREE.MeshStandardMaterial({
+      vertexColors: true, roughness: 1, metalness: 0,
+    });
+    const bazaMesh = new THREE.Mesh(formoBazo.geometrio, bazaMaterialo);
+    bazaMesh.receiveShadow = true;
+    bazaMesh.castShadow = true;
+    bazaMesh.frustumCulled = false;
+    sceno.add(bazaMesh);
 
     // Grundaj brosxoj — kelkaj malgrandaj, elektitaj makuloj kun herberaj
     // markoj. La teksturo ne estas mapaĵo de la tuta tereno kaj ne ripetiĝas
@@ -899,6 +1046,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       // La elektitaj brosxoj restu sur seka tero, ne sub la akvo.
       if ( centroY < akvaNivelo(x, z) + 0o1/0o10 ) continue;
       const radiuso = 0o2 + bruo2D(x / 0o20, z / 0o20) * 0o4;
+      // …kaj ne ekster la mondo ( la formo de la mapo ).
+      if ( distancoDeFormo(mapoFormo, mapoGrandeco, x, z) > -radiuso ) continue;
       const brosxaGeometrio = new THREE.CircleGeometry(radiuso, 0o10);
       brosxaGeometrio.rotateX(-Math.PI / 2);
       const pp = brosxaGeometrio.attributes.position;
@@ -913,52 +1062,121 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       brosxoj.add(brosxo);
     }
     sceno.add(brosxoj);
-    // La grundo etendiĝas trans la mondrando kiel plata natura tereno, por ke
-    // la nebul-ringo ( konstruiNebulringon ) kuŝu sur solida grundo ĝis la
-    // horizonto — la fora fino solviĝas en la distanca nebulo.
   } )(0o3000, 0o600);
 
-  // Senfina nebul-ringo — teksturita nebulo trans la mondrando. La nebulo
-  // fadas ( leviĝas ) de la maprando eksteren kaj etendiĝas ĝis la horizonto,
-  // por ke la mapo ŝajnu finiĝi en senfina nebul-teksturo anstataŭ plata
-  // blanko — la montoj restas naturaj malhelaj siluetoj super la nebulo.
+  // ⟪ La ĉirkaŭa ebeno 📃 ⟫ — la tero daŭras ekster la formo. Sen ĝi la mondo
+  // estis disko ŝvebanta super malpleno — la 2D-mapo ( la bakita supraĵo )
+  // montris nigran spacon ĉirkaŭ la mondrando kaj la nebul-ringo kuŝis sur nenio.
+  // La ebeno radias de la rando de la formo eksteren ĝis la horizonto, je la
+  // baza ebeno de la mondo ( la sama ebeno kiel la fundo de la krutaĵo ), kaj
+  // ĝia ondado kreskas kun la distanco — apud la mondrando ĝi restas tute plata
+  // ( nenio leviĝu super la mondon ), kaj malproksime ĝi ruliĝas kiel la natura
+  // tereno. La koloro venas de la komuna paletro, do la ebeno ne distingiĝas de
+  // la mondo, kaj ĝi portas la samajn grundajn markojn ( la samaj UV-oj ).
+  ( function konstruiĈirkaŭanEbenon(): void {
+    const KOLONOJ = 0o200;    // la anguloj ĉirkaŭ la mondo
+    const VICOJ = 0o40;       // la paŝoj eksteren
+    const fora = 0o6000;      // multe trans la bakita mapo
+    const kolonoj = KOLONOJ + 1;   // la lasta kolumno estas la unua ( sen kudro )
+    const vicoj = VICOJ + 1;
+    const N = kolonoj * vicoj;
+    const pozicioj = new Float32Array(N * 3);
+    const koloroj = new Float32Array(N * 3);
+    const uvaj = new Float32Array(N * 2);
+    const koloro = new THREE.Color();
+    for ( let v = 0; v < vicoj; v++ ) {
+      const frac = v / VICOJ;
+      // La paŝoj malproksimiĝas KVADRATE — densaj ĉe la mondrando, maldensaj
+      // ĉe la horizonto ( la detaloj apud la mondo gravas, la foro ne ).
+      for ( let k = 0; k < kolonoj; k++ ) {
+        const i = v * kolonoj + k;
+        const ang = k / KOLONOJ * Math.PI * 0o2;
+        const rando = radiusaDistanco(mapoFormo, mapoGrandeco, ang);
+        const r = rando + ( fora - rando ) * frac * frac;
+        const x = Math.cos(ang) * r, z = Math.sin(ang) * r;
+        const ondado = ( bruo2D(x / 0o200, z / 0o200) - 0o1/0o2 ) * 0o20 * frac;
+        pozicioj[i * 3] = x;
+        pozicioj[i * 3 + 1] = MONDO_BAZA_Y + ondado;
+        pozicioj[i * 3 + 2] = z;
+        // La koloro legas altan parametron NULO — la ebeno estas la baza ebeno,
+        // kaj la paletro tie estas la natura herbejo. Oni ne pasigu la absolutan
+        // alton de la bazo al la paletro, ĉar la akvoborda tavolo komparas ĝin
+        // kun la akvonivelo kaj kolorigus la tutan ebenon subakva.
+        terenaKoloroEn(koloro, 0, x, z, 0);
+        koloroj[i * 3] = koloro.r;
+        koloroj[i * 3 + 1] = koloro.g;
+        koloroj[i * 3 + 2] = koloro.b;
+        // La samaj UV-oj kiel la ĉefa grundo ( la ebeno mapas la mondon 0..1 ),
+        // do la grundaj markoj daŭras sen salto trans la mondrandon.
+        uvaj[i * 2] = x / 0o3000 + 0o1/0o2;
+        uvaj[i * 2 + 1] = z / 0o3000 + 0o1/0o2;
+      }
+    }
+    const indeksoj: number[] = [];
+    // Ŝaktabulaj diagonaloj, kiel la ĉefa tereno — sed la ORDO de la verticoj
+    // estas la MALO de tiu de la ĉefa tereno. Tie la vicoj iras laŭ +z kaj la
+    // kolonoj laŭ +x; ĉi tie la vicoj iras EKSTEREN laŭ la radiuso kaj la kolonoj
+    // laŭ la angulo. Kun la sama ordo la supraj facoj turniĝus malsupren — la
+    // ebeno malaperus vidate de supre ( la materialo estas unuflanka ) kaj la
+    // lumo venus de sube.
+    for ( let v = 0; v < VICOJ; v++ ) {
+      for ( let k = 0; k < KOLONOJ; k++ ) {
+        const a = v * kolonoj + k, b = a + 1, c = a + kolonoj, d = c + 1;
+        if ( ( k + v ) % 2 === 0 ) {
+          indeksoj.push(a, d, c, a, b, d);
+        } else {
+          indeksoj.push(a, b, c, b, d, c);
+        }
+      }
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
+    g.setAttribute("uv", new THREE.BufferAttribute(uvaj, 2));
+    g.setIndex(indeksoj);
+    g.computeVertexNormals();
+    const ebeno = new THREE.Mesh(g, new THREE.MeshStandardMaterial({
+      vertexColors: true, roughness: 0o7/0o10, map: kreiGrundanTeksajxon(),
+    }));
+    ebeno.frustumCulled = false;
+    sceno.add(ebeno);
+  } )();
+
+  // Senfina nebul-ringo — teksturita nebulo trans la rando de la mondo. La
+  // nebulo fadas ( leviĝas ) de la mondo eksteren kaj etendiĝas ĝis la horizonto,
+  // por ke la mondo ŝajnu finiĝi en senfina nebul-teksturo anstataŭ plata blanko —
+  // la montoj restas naturaj malhelaj siluetoj super la nebulo.
+  // La alfa estas NULO super la mondo, do la nebulo ne bezonas truon en la mezo —
+  // unu granda ebeno kovras ĉion kaj nur la zono ekster la formo videblas. La
+  // distanco estas la ( radiusa ) distanco al la FORMO, ne al iama kvadrata
+  // maprando, do la nebulo sekvas la cirklon, la kvadraton aŭ la triangulon.
   ( function konstruiNebulringon(): void {
-    const interna = 0o600;    // la mondrando
     const ekstera = 0o2000;   // multe trans la fora klingo — neniam videbla
-    const profundo = ekstera - interna;
     const teksajxo = kreiNebulTavolanTeksajxon();
     const materialo = new THREE.MeshBasicMaterial({
       map: teksajxo, transparent: true, vertexColors: true, depthWrite: false,
       side: THREE.DoubleSide, fog: false,
     });
-    const flanka = ( lauX: boolean, signo: number ): void => {
-      const w = lauX ? 2 * ekstera : profundo;
-      const d = lauX ? profundo : 2 * ekstera;
-      const g = new THREE.PlaneGeometry(w, d, 0o40, 0o40);
-      g.rotateX(-Math.PI / 2);
-      if ( lauX ) g.translate(0, 0, signo * ( interna + profundo / 2 ));
-      else g.translate(signo * ( interna + profundo / 2 ), 0, 0);
-      const pos = g.attributes.position;
-      // rgba-vertekskoloroj — la alfa fadas ekde la maprando; mondskalaj UV-oj
-      // ( x/0o100, z/0o100 ), por ke la teksajxo kahelu uniforme ĉie.
-      const koloroj = new Float32Array(pos.count * 4);
-      const uvaj = new Float32Array(pos.count * 2);
-      for ( let i = 0; i < pos.count; i++ ) {
-        const x = pos.getX(i), z = pos.getZ(i);
-        const disto = Math.max(Math.abs(x), Math.abs(z)) - interna;
-        const alfa = glataPaso(0, 0o600, disto);   // la nebulo fadas pli proksime al la mapo
-        koloroj[i * 4] = 1; koloroj[i * 4 + 1] = 1; koloroj[i * 4 + 2] = 1; koloroj[i * 4 + 3] = alfa;
-        uvaj[i * 2] = x / 0o100; uvaj[i * 2 + 1] = z / 0o100;
-      }
-      g.setAttribute("color", new THREE.BufferAttribute(koloroj, 4));
-      g.setAttribute("uv", new THREE.BufferAttribute(uvaj, 2));
-      const mesh = new THREE.Mesh(g, materialo);
-      mesh.position.y = 0o1/0o40;   // iomete super la tereno por eviti z-batalon
-      mesh.frustumCulled = false;
-      sceno.add(mesh);
-    };
-    for ( const signo of [ -1, 1 ] ) { flanka(true, signo); flanka(false, signo); }
+    const g = new THREE.PlaneGeometry(2 * ekstera, 2 * ekstera, 0o100, 0o100);
+    g.rotateX(-Math.PI / 2);
+    const pos = g.attributes.position;
+    // rgba-vertekskoloroj — la alfa fadas ekde la mondo; mondskalaj UV-oj
+    // ( x/0o100, z/0o100 ), por ke la teksajxo kahelu uniforme ĉie.
+    const koloroj = new Float32Array(pos.count * 4);
+    const uvaj = new Float32Array(pos.count * 2);
+    for ( let i = 0; i < pos.count; i++ ) {
+      const x = pos.getX(i), z = pos.getZ(i);
+      const alfa = glataPaso(0, 0o600, distancoDeFormo(mapoFormo, mapoGrandeco, x, z));
+      koloroj[i * 4] = 1; koloroj[i * 4 + 1] = 1; koloroj[i * 4 + 2] = 1; koloroj[i * 4 + 3] = alfa;
+      uvaj[i * 2] = x / 0o100; uvaj[i * 2 + 1] = z / 0o100;
+    }
+    g.setAttribute("color", new THREE.BufferAttribute(koloroj, 4));
+    g.setAttribute("uv", new THREE.BufferAttribute(uvaj, 2));
+    const mesh = new THREE.Mesh(g, materialo);
+    mesh.position.y = 0o1/0o40;   // iomete super la tereno por eviti z-batalon
+    mesh.frustumCulled = false;
+    sceno.add(mesh);
   } )();
 
-  return { bildilo, sceno, montaGrupo, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron };
+  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron };
 }

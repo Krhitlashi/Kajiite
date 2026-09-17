@@ -19,7 +19,16 @@ import { vojSuprajxoj } from "../assets/medio/vojoj.js";
 import { riveroZ, alteco, RIVERA_DUONLARĜO, LAGO_X, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo, riveraAkvaNivelo,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_DUONLARĜO, cxuEnNordorientaRivero,
   skulptitaAkvo, akvo } from "./tereno.js";
+import { radiusaDistanco } from "../assets/komunajxoj/mapformo.js";
+import { aktivaMapo } from "./tero-datumaro/mapregulo.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
+
+// ⟪ La formo de la mondo 📃 ⟫ — la tereno de la ludo havas la formon de la aktiva
+// mapo ( la cirklo, la rondigita kvadrato aŭ la rondigita triangulo ), do la
+// promenaj limoj sekvas ĝin anstataŭ kvadraton.
+const mapoDatumoj = aktivaMapo();
+const mapoFormo = mapoDatumoj.formo;
+const mapoGrandeco = mapoDatumoj.grandeco;
 import type { Vetero } from "./scena.js";
 import type { UrbaSistemo } from "./urbo.js";
 import { konstruiUrbon } from "./urbo.js";
@@ -89,7 +98,7 @@ let promptaKadro = 0;
 
 // ⟪ Krei scenon kaj urbon 📃 ⟫
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
-const { bildilo, fotilo, sceno, montaGrupo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron } = scena;
+const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron } = scena;
 
 // ⟪ Frua bildigo 📃 ⟫ — la ĉielo, la montoj kaj la tereno jam ekzistas en la
 // sceno antaŭ la urbo. Rendu ilin malantaŭ la glacia ŝarĝa kurtino ( la fono
@@ -1615,11 +1624,30 @@ let bakitaMapo: HTMLCanvasElement | null = null;
 let mapX = 0, mapZ = 0;
 
 const RADARA_DUONO = 0o30;   // duon-larĝo de la radara mapo ( mondaj unuoj )
-const PLENA_DUONO = 0o460;   // duon-larĝo de la plena mapo — la tuta valo
+// La kadro de la plena mapo sekvas la formon de la mondo, anstataŭ fiksaj
+// nombroj de la malnova kvadrata mapo — la defaŭlta zomo montras la TUTAN
+// formon ( la cirklon, la kvadraton aŭ la triangulon ) kaj la komencon de la
+// ĉirkaŭa ebeno, do la mondo plenigas la vidon anstataŭ aperi kiel malgranda
+// disko meze de malpleno.
+const PLENA_DUONO = Math.round(mapoGrandeco * 0o13/0o10);
 const MINA_DUONO = 0o10;     // plej proksima zomo de la plena mapo
-const MAXA_DUONO = 0o470;    // plej malproksima zomo de la plena mapo
+const MAXA_DUONO = Math.round(PLENA_DUONO * 0o15/0o10);   // la fora zomo
 const MAPA_BAKA_DUONO = 0o1270; // 700 — kovras la tutan promeneblan mondon ( pan + zomo )
 const MAPA_BAKA_REZ = 0o4770;   // 2560² — kompromiso inter akreco kaj memoro
+// La mola rando de la bakado. La plej eksteraj 0o400 ( 256 ) pikseloj de la
+// bakita bildo fadas al travideblo, do la KVADRATA rando de la bake ne videblas
+// sur la plena mapo — la fono sube portas la saman randon-koloron ( vidu
+// desegniMapanFonon ) kaj la transiro malaperas. La radaro legas nur la centron
+// de la bake ( RADARA_DUONO = 0o30 mondunuoj ≈ 0o70 pikseloj ), do la fado
+// neniam tuŝas la radar-vidon.
+const MAPA_BAKA_FADO = 0o400;
+// La randa koloro de la bakita mapo kaj la nebula koloro de la ĉielo —
+// mezuritaj dum la bakado ( mezuriRandanKoloron ). La fono de la plena mapo
+// komenciĝas per la randa koloro kaj fadas al la nebulo, do la mapo daŭriĝas
+// preter la bake kiel la sama senfina pejzaĝo anstataŭ kiel bildo sur nigra
+// fono.
+let mapaRandaKoloro = "#585848";
+let mapaNebulaKoloro = "#c8d8d8";
 let plenaDuono = PLENA_DUONO; // nuna duon-larĝo ( zomo ) de la plena mapo
 let mapaPanX = 0;            // tirado. Horizontala forpreno de la sekv-punkto
 let mapaPanZ = 0;            // tirado. Vertikala forpreno de la sekv-punkto
@@ -1642,7 +1670,10 @@ function bakiMapon(): HTMLCanvasElement | null {
     for ( const c of kanuoj ) { kaŝitaj.push(c.group); c.group.visible = false; }
     for ( const b of bestoj.bestoj ) { kaŝitaj.push(b.grupo); b.grupo.visible = false; }
     for ( const p of petreloj.petreloj ) { kaŝitaj.push(p.grupo); p.grupo.visible = false; }
-    kaŝitaj.push(montaGrupo); montaGrupo.visible = false;   // la montoringo ne aperu sur la mapo
+    // ⟨ La montaro sur la mapo 📃 ⟩ — la montarringo RESTAS en la bake. Ĝi
+    // apartenas al la mondo ( ĝi sekvas la formon de la mapo kaj staras ĝuste
+    // ĉe ĝia rando ), do la mapo montras la tutan insulon — la terenon, la
+    // montarringon kaj la nebulon — anstataŭ nuda disko de tereno.
     const nebulo = sceno.fog;
     sceno.fog = null;
     const ombroj = bildilo.shadowMap.enabled;
@@ -1656,6 +1687,9 @@ function bakiMapon(): HTMLCanvasElement | null {
       bildilo.shadowMap.enabled = ombroj;
       for ( const o of kaŝitaj ) o.visible = true;
     }
+    // La nebula koloro de la ĉielo — la fora tono de la plena mapo. Legu ĝin
+    // antaŭ ol la nebulo de la sceno malŝaltiĝas por la bake.
+    if ( nebulo ) mapaNebulaKoloro = "#" + nebulo.color.getHexString();
     const buf = new Uint8Array(rez * rez * 4);
     bildilo.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
     rt.dispose();
@@ -1668,11 +1702,97 @@ function bakiMapon(): HTMLCanvasElement | null {
     const kanvasa = document.createElement("canvas");
     kanvasa.width = kanvasa.height = rez;
     kanvasa.getContext("2d")!.putImageData(bildo, 0, 0);
+    // La randon-koloro estas mezurita ANTAŬ la fado — la fono de la plena mapo
+    // devas daŭrigi la veran bildon, ne la travideblan randon.
+    mapaRandaKoloro = mezuriRandanKoloron(kanvasa);
+    molaRandon(kanvasa, MAPA_BAKA_FADO);
     return kanvasa;
   } catch ( e ) {
     console.warn("Mapa bakado ne havebla:", e);
     return null;
   }
+}
+
+// mezuriRandanKoloron — La meza koloro de la eksteraj randoj de la bakita
+// bildo. La fono de la plena mapo ( vidu desegniMapanFonon ) komenciĝas per ĉi
+// tiu koloro, do la transiro de la bake al la fono ne videblas.
+//     @param kanvasa ( HTMLCanvasElement ) - La bakita mapo.
+//     @returns La koloro, kiel CSS-tono.
+function mezuriRandanKoloron(kanvasa: HTMLCanvasElement): string {
+  const k = kanvasa.getContext("2d");
+  if ( !k ) return "#585848";
+  const r = kanvasa.width;
+  const bendo = 0o10;   // la mezurata rando ( 8 pikseloj )
+  const datumoj = k.getImageData(0, 0, r, r).data;
+  let sr = 0, sg = 0, sb = 0, n = 0;
+  // aldoni — unu randa pikselo al la sumo.
+  const aldoni = ( x: number, y: number ): void => {
+    const i = ( y * r + x ) * 4;
+    sr += datumoj[i]; sg += datumoj[i + 1]; sb += datumoj[i + 2]; n++;
+  };
+  for ( let k2 = 0; k2 < r; k2 += 0o4 ) {
+    aldoni(k2, 0); aldoni(k2, bendo - 1); aldoni(k2, r - 1); aldoni(k2, r - bendo);
+    aldoni(0, k2); aldoni(bendo - 1, k2); aldoni(r - 1, k2); aldoni(r - bendo, k2);
+  }
+  if ( !n ) return "#585848";
+  return "rgb(" + Math.round(sr / n) + "," + Math.round(sg / n) + "," + Math.round(sb / n) + ")";
+}
+
+// molaRandon — La rando de la bakita bildo fadas al travideblo. La bake estas
+// kvadrato, sed la mondo estas la formo de la mapo; sen la fado la kvadrata
+// rando de la bildo desegniĝus sur la plena mapo. La fado multiplikiĝas en la
+// anguloj ( du bendoj trafas ilin ), do la anguloj fadas pli frue kaj pli mole.
+// Atentu — la operacio estas DESTINATION-OUT, ne destination-in. Ĉe
+// destination-in la ekstero de la desegnata formo malpleniĝas, do la kvar bendoj
+// forviŝus la tutan bakitan bildon ( la unua versio faris ĝuste tion — la mapo
+// montriĝis tute malplena ). Ĉe destination-out nur la desegnata bendo efikas.
+//     @param kanvasa ( HTMLCanvasElement ) - La bakita mapo ( reskribita surloke ).
+//     @param fado ( number ) - Kiom larĝe la rando fadas, en pikseloj.
+function molaRandon(kanvasa: HTMLCanvasElement, fado: number): void {
+  const k = kanvasa.getContext("2d");
+  if ( !k ) return;
+  const r = kanvasa.width;
+  k.globalCompositeOperation = "destination-out";
+  // gradientaBendo — unu rando, de plena forviŝo ( ekstere ) ĝis nenio ( ĉe fado ).
+  const gradientaBendo = ( x0: number, y0: number, x1: number, y1: number,
+    rekt: [ number, number, number, number ] ): void => {
+    const g = k.createLinearGradient(x0, y0, x1, y1);
+    g.addColorStop(0, "rgba(0,0,0,1)");
+    g.addColorStop(1, "rgba(0,0,0,0)");
+    k.fillStyle = g;
+    k.fillRect(rekt[0], rekt[1], rekt[2], rekt[3]);
+  };
+  gradientaBendo(0, 0, 0, fado, [ 0, 0, r, fado ]);              // supre
+  gradientaBendo(0, r, 0, r - fado, [ 0, r - fado, r, fado ]);   // malsupre
+  gradientaBendo(0, 0, fado, 0, [ 0, 0, fado, r ]);              // maldekstre
+  gradientaBendo(r, 0, r - fado, 0, [ r - fado, 0, fado, r ]);   // dekstre
+  k.globalCompositeOperation = "source-over";
+}
+
+// desegniMapanFonon — La fono de la plena mapo. La mondo estas RONDA — la
+// malnova kvadrata mapo plenigis ĝian tutan kadron, sed cirklo sur nigra fono
+// aspektis kiel disko ŝvebanta en malpleno. La fono komenciĝas per la randa
+// koloro de la bakita mapo ( mezurita dum la bakado ) kaj fadas al la nebula
+// koloro de la ĉielo direkte al la horizonto, do la mapo daŭriĝas preter la
+// rando de la bake kiel la sama senfina pejzaĝo, kiun la ludanto vidas.
+//     @param cx, cz ( number ) - La vidcentro ( mondaj koordinatoj ).
+//     @param hw, hh ( number ) - La duon-larĝoj de la vido ( mondaj unuoj ).
+function desegniMapanFonon(ctx: CanvasRenderingContext2D, w: number, h: number,
+  cx: number, cz: number, hw: number, hh: number): void {
+  // La mapo estas sendistorĉa ( la sama skvamo en ambaŭ aksoj ), do unu faktoro
+  // konvertas mondajn unuojn al pikseloj.
+  const unuo = w / ( 2 * hw );
+  const [ mx, my ] = mondoAlEkrano(0, 0, cx, cz, hw, hh, w, h);
+  const rando = MAPA_BAKA_DUONO * unuo;      // la duono de la bakita mapo, en pikseloj
+  // La horizonto — trioble la bake, sed almenaŭ la tuta kanvaso. La nebulo ne
+  // estas muro. ĝi venas malrapide.
+  const horizonto = Math.max(rando * 0o3, Math.hypot(w, h) * 0o1/0o2);
+  const gradiento = ctx.createRadialGradient(mx, my, 0, mx, my, horizonto);
+  gradiento.addColorStop(0, mapaRandaKoloro);
+  gradiento.addColorStop(Math.min(0o3/0o4, rando / horizonto), mapaRandaKoloro);
+  gradiento.addColorStop(1, mapaNebulaKoloro);
+  ctx.fillStyle = gradiento;
+  ctx.fillRect(0, 0, w, h);
 }
 
 // Desegnu la bakitan tavolon por vido centrita je ( cx, cz ) kun duon-larĝoj ( hw, hh ).
@@ -1766,10 +1886,9 @@ function desegniPlenanMapon(): void {
   const w = kanvasa.clientWidth || innerWidth;
   const h = kanvasa.clientHeight || innerHeight;
   if ( kanvasa.width !== w || kanvasa.height !== h ) { kanvasa.width = w; kanvasa.height = h; }
-  ctx.fillStyle = "#081818";
-  ctx.fillRect(0, 0, w, h);
   const aspekto = w / h;
   const hw = plenaDuono * aspekto, hh = plenaDuono;
+  desegniMapanFonon(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
   desegniMapanTavolon(ctx, bakitaMapo, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh, w, h);
   desegniMarkilon(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
   desegniMovantajnPunktojn(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
@@ -1997,16 +2116,18 @@ function animacii() {
     const rapido = sprinto ? 0o124/0o10 : 0o255/0o40;
     let novaX = ludantaPozicio.x + ( fortoX * movZ + radX * movX ) * rapido * deltaTempo;
     let novaZ = ludantaPozicio.z + ( fortoZ * movZ + radZ * movX ) * rapido * deltaTempo;
-    // La mapo etendiĝas orienten ( -x ) ĝis la fora lagbordo ( x ≈ -0o220, z ≈
-    // -0o211 ) kaj suden ĝis la dokoj ( z ≈ -0o154 ). Norden ĝi etendiĝas ĝis
-    // la norda deklivo de la piedirebla montaro ( la limo z ≈ 0o440 atingas la
-    // montaron, kiu etendiĝas ĝis 0o444 ), do la ludanto povas grimpi trans la
-    // selo kaj malsupreniri la nordan flankon antaŭ la maprando. La nova
-    // mondrando kuŝas ĉe ±0o600 ( la grundo kaj la skulptaĵo kovras ±0o600 ),
-    // do la promenaj limoj nun atingas ±0o570 — la rando restas plata natura
-    // tereno por esplori, kaj la rivero etendiĝas ĝis la okcidenta rando.
-    novaX = Math.max(-0o570, Math.min(0o570, novaX));
-    novaZ = Math.max(-0o570, Math.min(0o570, novaZ));
+    // ⟪ La promenaj limoj 📃 ⟫ — la mondo havas la FORMON de la mapo ( la
+    // cirklo, la rondigita kvadrato aŭ la rondigita triangulo ), ne kvadraton.
+    // La limo sekvas la formon per la sama radiusa funkcio kiel la tereno
+    // ( mapformo.ts ), tri unuojn antaŭ la rando — trans la rando la tereno
+    // premiĝas sur la randon kaj falus en la malplenon.
+    const permesita = radiusaDistanco(mapoFormo, mapoGrandeco, Math.atan2(novaZ, novaX)) - 0o3;
+    const disto = Math.hypot(novaX, novaZ);
+    if ( disto > permesita ) {
+      const faktoro = permesita / disto;
+      novaX *= faktoro;
+      novaZ *= faktoro;
+    }
 
     const r = solviKolizion(novaX, novaZ);
     // Dokoj. Bloku eniron SUB la platformon ( sur-gxin piedirado restas libera )
