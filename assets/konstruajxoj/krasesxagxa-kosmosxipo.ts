@@ -3,9 +3,9 @@
 // 5 tieroj supren, 5 malsupren (spegulitaj), LONGAs horizontalaj RONDIGITAJ fenestroj
 // sur cxiu nivelo krom la centra ( kie la pordoj estas ); flosas libere sen soklo aux signo
 import * as THREE from "three";
-import { aldoniKadranTubon, kreiKlinoTavolon } from "./satalaj-konstruajxoj.js";
+import { aldoniKadranTubon, kreiKlinoTavolon,
+  aldoniPilolFenestron } from "./satalaj-konstruajxoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
-import { kreiPilolFenestranFormon } from "../komunajxoj/formoj.js";
 
 // Rondigita rombo-formo ( uzata por enirejoj )
 function rondigitaRomboFormo(w: number, h: number, n: number = 0o143/0o100, seg: number = 0o100): THREE.Shape {
@@ -109,65 +109,29 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
     group.add(ornamo);
   }
 
-  // Fenestroj sur cxiu nivelo krom la centraj — sur klinitaj tavoloj la fenestro
-  // estas TURNITA je la klin-angulo, por ke gxi kusxu plate sur la klinita muro
-  // ( la malnova vertikala fenestro enigxis aux elstaris ce la randoj de klinitaj
-  // muroj ). La faco estas la mur-radiuso CE LA FENESTRA CENTRO ( hw − klino/2 ).
+  // ⟨ La fenestroj 📃 ⟩ — unu LONGAs horizontala pilol-fenestro po faco po
+  // tavolo, sur ĉiu tavolo KROM la centraj ( i=0 kaj j=1 ), kie la pordoj estas.
+  // Ĉiuj tavoloj klinigxas ( kiel la konstruaĵoj ), do ĉiuj fenestroj estas
+  // klinitaj. La meto ( la radia bazo ĉe la fenestra SUBO kaj la klino de la
+  // monto-grupo ) estas dividita kun la konstruaĵoj — vidu
+  // aldoniPilolFenestron en satalaj-konstruajxoj.ts. La antaŭa kodo metis la
+  // grupon ĉe la fenestra subo sed per la radiuso ĉe la fenestra CENTRO, do ĉiuj
+  // supraj fenestroj entombiĝis 0.0115 en la muron ( kaj la subaj flosis 0.043
+  // eksteren ) — la fenestroj tute ne montriĝis.
   const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
-  const klinaAngulo = Math.atan(klino / tieroAlto);
-  // Fenestroj sur CxIUJ tavoloj KROM la centraj (i=0 kaj j=1), kie la pordoj estas.
-  // Cxiuj tavoloj nun klinigxas (kiel la konstruajxoj), do cxiuj fenestroj estas klinitaj.
-  const niveloj: { y: number; faco: number; klinita: boolean; suba: boolean }[] = [];
+  const niveloj: { y: number; faco: number; suba: boolean }[] = [];
   for ( let i = 1; i < up; i++ ) {
-    const hw = hw0 - i * ins;
-    const klinita = true;
-    niveloj.push({ y: i * tieroAlto + tieroAlto / 2, faco: klinita ? hw - klino / 2 : hw, klinita, suba: false });
+    niveloj.push({ y: i * tieroAlto + tieroAlto / 2, faco: hw0 - i * ins - klino / 2, suba: false });
   }
-  // Subaj fenestroj — precizaj speguloj de la supraj (samaj facoj, INVERSA klino).
+  // Subaj fenestroj — precizaj speguloj de la supraj ( samaj facoj, INVERSA klino ).
   for ( let j = 2; j <= down; j++ ) {
-    const hw = hw0 - ( j - 1 ) * ins;
-    const klinita = true;
-    niveloj.push({ y: -j * tieroAlto + tieroAlto / 2, faco: klinita ? hw - klino / 2 : hw, klinita, suba: true });
+    niveloj.push({ y: -j * tieroAlto + tieroAlto / 2, faco: hw0 - ( j - 1 ) * ins - klino / 2, suba: true });
   }
-
   const fenestrajMretoj: THREE.Mesh[] = [];
   for ( const lv of niveloj ) {
-    // LONGAs horizontala RONDIGITA ( pilola ) fenestro, plata kontraux la muro-faco.
-    // Largxo laux la tavolflanko. pli longa sur pli longaj tavoloj.
-    const ww = Math.min(lv.faco * 2 - 0o3/0o10, lv.faco * 4/3 + 0o1/0o4);
     for ( let f = 0; f < 4; f++ ) {
-      // Unu grupo po faco. turnita al la muro; sur klinitaj tavoloj la fenestro
-      // sidas en loka sub-grupo KLINITA CxIRKAUx LA FENESTRA CENTRO (la sub-grupo
-      // estas unue POZICIIGITA cxe la fenestra loko kaj poste klinita per la
-      // mur-deklivo, do gxi kusxas plate sur la muro ). La malnova kodo klinis
-      // la sub-grupon cxe la SxIPA ORIGINO, do la rotacio svingis la fenestron je
-      // y·sin(klin-angulo) — cxe la supraj/subaj klinitaj tavoloj (granda |y|)
-      // tio entombigis la fenestron en la muro aux elstarigis gxin eksteren, kaj
-      // la fenestroj tute ne montrigxis. La SUBAJ muroj klinigxas inverse, do
-      // ilia fenestro-tilo havas la OPPOSAN signon — alie la fenestro flosus
-      // eksteren de la muro.
-      const faco = new THREE.Group();
-      faco.rotation.y = f * Math.PI / 2;
-      const monto = new THREE.Group();
-      monto.position.set(0, lv.y - fenAlto / 2, lv.faco + 0o1/0o100);
-      if ( lv.klinita ) monto.rotation.x = lv.suba ? klinaAngulo : -klinaAngulo;
-      faco.add(monto);
-      // Densa sampado de la pilolo — la arkoj aspektas RONDIGxITAJ (la malnova
-      // 0o24 lasis la duoncirklajn finojn facete poligonaj).
-      const w = new THREE.Mesh(new THREE.ShapeGeometry(kreiPilolFenestranFormon(ww, fenAlto), 0o100),
-        fenestraMaterialo);
-      monto.add(w);
-      fenestrajMretoj.push(w);
-      // Ora pilola rando — CENTRIPETA kurbo kun Densa sampado. la finoj estas
-      // glate rondaj, ne facetaj.
-      const konturo = kreiPilolFenestranFormon(ww, fenAlto).getPoints(0o200)
-        .map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, 0));
-      const rimo = new THREE.Mesh(
-        new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
-        oraMaterialo
-);
-      monto.add(rimo);
-      group.add(faco);
+      fenestrajMretoj.push(aldoniPilolFenestron(group, oraMaterialo, fenestraMaterialo,
+        f, lv.y, lv.faco, klino, tieroAlto, fenAlto, lv.suba));
     }
   }
 

@@ -117,49 +117,47 @@ interface Pilierkadroj {
   Loj: THREE.Vector3[];
   Woj: THREE.Vector3[];
 }
-// kreiPilierkadrojn — Konstruas la kadrojn. la ringa ebeno estas cxiam
-// PERPENDIKULA al la kurbo-tangento (m = ta). La komenca kadro cxe la bazo estas
-// la EKSTERA akso (H rotaciita je 45°, do la diamantaj pintoj alfrontas la
-// diagonalojn kaj la flankoj laux la muroj), kaj la kadro sekvas la kurbon per
-// PARALELA TRANSPORTO — cxiu ringo rotacias nur per la rotacio kiu turnas la
-// tangenton, NENIAM per la tordo cxirkaux la tangento mem. La malnova projekcio
-// re-projekciis la fiksitan horizontalan Lbazo en cxiu ringo; kiam la hoko
-// klinigxas, tio lasis la sekcon spirali ~90° cxe la pinto (W farigxis preskaux
-// vertikala kaj la fronta pinto de la diamanto fleksigxis strange flanken). Kun
-// paralela transporto la fronta pinto restas fronta kaj la krono transiras glate
-// kaj plata, cxu la sxafto rekta, cxu la talona hoko kurbigxas.
+// kreiPilierkadrojn — Konstruas la kadrojn. La ringa ebeno estas cxiam
+// PERPENDIKULA al la kurbo-tangento (m = ta). La sekco neniam spiralu: cxiu ringo
+// ricevas sian orientigxon REKTE el la ekstera akso H — la FRONTA angulo de la
+// diamanto estas la projekcio de H sur la ringan ebenon. Tial la fronta kresto
+// restas cxiam en la vertikala ebeno kiu enhavas H, kaj la "meza linio" de la
+// piliero — tiu kresto — estas perfekte REKTA de la bazo gxis la pinto, trapasante
+// la pinton mem. La flankoj restas laux la muroj kaj la kvar pintoj laux la
+// diagonaloj, cxu la sxafto rekta, cxu la talona hoko kurbigxas.
+// ⟨ Kial ne paralela transporto 📃 ⟩ — la malnova kadro turnis la sekcon nur per
+// la rotacio kiu turnas la tangenton. Cxe la hoko tiu rotacio turnigxas cxirkaux
+// la LATERALA akso (la turno de la tangento okazas en la ebeno H–y, do la akso
+// estas Lr), kaj ruligi la diamanton cxirkaux Lr pusxas la frontan kreston flanken:
+// la kresto flankenigxis gxis 0o27/0o1000 — pli ol triono de la loka radiuso cxe la
+// malvasta pinto — do la pinto aspektis klinita kaj la meza linio fleksigxis. La
+// desegno nun estas funkcio de la tangento mem, sen akumula tordo. (La ankaux
+// malnova rekt-projekcio de la FIKSA horizontala Lbazo estis la alia ekstremo: la
+// sekco spiralu ~90° cxe la pinto, cxar tie Lbazo preskaux paralelas la tangenton.
+// Projekcii H — la frontan akson — evitas ambaux difektojn.)
 function kreiPilierkadrojn(curve: THREE.Curve<THREE.Vector3>, segmentoj: number, H: THREE.Vector3): Pilierkadroj {
-  const Lbazo = new THREE.Vector3(( H.x - H.z ) * Math.SQRT1_2, 0, ( H.x + H.z ) * Math.SQRT1_2).normalize();
   const tangents: THREE.Vector3[] = [], moj: THREE.Vector3[] = [], Loj: THREE.Vector3[] = [], Woj: THREE.Vector3[] = [];
-  const antauxaT = curve.getTangentAt(0).normalize();
-  const antauxaL = new THREE.Vector3().copy(Lbazo).addScaledVector(antauxaT, -Lbazo.dot(antauxaT)).normalize();
-  const axoTemp = new THREE.Vector3(), kvaternio = new THREE.Quaternion();
+  const V = new THREE.Vector3(), antauxaV = new THREE.Vector3().copy(H);
+  const U = new THREE.Vector3(), antauxaU = new THREE.Vector3();
+  const L = new THREE.Vector3();
   for ( let i = 0; i <= segmentoj; i++ ) {
-    const t = i / segmentoj;
-    const ta = curve.getTangentAt(t).normalize();
+    const ta = curve.getTangentAt(i / segmentoj).normalize();
     const m = ta;
-    const L = new THREE.Vector3();
-    if ( i === 0 ) {
-      L.copy(antauxaL);
-    } else {
-      // La rotacio de la pasinta tangento al la nuna — la akso estas ilia kruca
-      // produto. Se ili estas ( preskaux ) paralelaj, neniu rotacio necesas.
-      axoTemp.crossVectors(antauxaT, ta);
-      const sin = axoTemp.length();
-      if ( sin > 1e-8 ) {
-        axoTemp.normalize();
-        const angulo = Math.atan2(sin, Math.max(-1, Math.min(1, antauxaT.dot(ta))));
-        kvaternio.setFromAxisAngle(axoTemp, angulo);
-        L.copy(antauxaL).applyQuaternion(kvaternio);
-      } else {
-        L.copy(antauxaL);
-      }
-    }
-    // Re-ortonormaligu. forigu la tangentan komponanton kaj normaligu.
-    L.addScaledVector(m, -L.dot(m)).normalize();
+    // La fronta angulo: H sen la tangenta komponanto. Nur se la tangento estas
+    // preskaux PARALELA al H (neniam okazas cxe tiuj cxi pilieroj — la hoko restas
+    // 0o3/0o8 sub la horizonto) la projekcio kolapsas; tiam la pasinta direkto.
+    V.copy(H).addScaledVector(m, -H.dot(m));
+    if ( V.lengthSq() < 1e-8 ) V.copy(antauxaV).addScaledVector(m, -antauxaV.dot(m));
+    if ( V.lengthSq() < 1e-8 ) V.copy(antauxaU);
+    V.normalize();
+    U.crossVectors(m, V).normalize();
+    // La du aksoj estas la DUONANGULOJ de la fronta angulo: tiel la kvar pintoj de
+    // la sekco kusxas aux sur la fronta akso (V) aux sur la laterala (U) — la sama
+    // orientigxo kiun la baza kadro cxiam havis (H rotaciita je 45°).
+    L.addVectors(V, U).multiplyScalar(Math.SQRT1_2);
     const W = new THREE.Vector3().crossVectors(m, L).normalize();
-    tangents.push(ta); moj.push(m); Loj.push(L); Woj.push(W);
-    antauxaT.copy(ta); antauxaL.copy(L);
+    tangents.push(ta); moj.push(m); Loj.push(L.clone()); Woj.push(W);
+    antauxaV.copy(V); antauxaU.copy(U);
   }
   return { tangents, moj, Loj, Woj };
 }
@@ -205,12 +203,18 @@ function kreiDiamantanSvingon(
     // La krono malvastigxas glate al la malgranda rondigita pinto, sen kunfalo
     // de la fina ringo en degenerajn triangulojn.
     const glata = u * u * ( 3 - 2 * u );
+    // ⟨ Kial la larĝo NE multiplikiĝas 📃 ⟩ — `largxaSkalo` estas la REKTA skalo de
+    // la W-akso, ne faktoro de `skalo`. La malnova `skalo * largxaSkalo` multiplikis
+    // la du malvastigojn: kun finialaSkalo = finialaLargho = 0o1/0o10 la sekco ĉe la
+    // pinto estis 8-obla ortangulo (0o1/0o10 × 0o1/0o100) anstataŭ kvadrato, do la
+    // pinto finiĝis per maldika PLATA LAMENO — ĝi aspektis kiel ortangulo el ĉiu
+    // flanka angulo. Nun la du aksoj malvastiĝas egale, kiel la komento promesas.
     const skalo = talonoS0 > 0 ? 1 - ( 1 - finialaSkalo ) * glata : 1;
     const largxaSkalo = talonoS0 > 0 ? 1 - ( 1 - finialaLargho ) * glata : 1;
     for ( const [ a, c ] of konturo ) vertoj.push(
-      p.x + L.x * a * skalo + W.x * c * skalo * largxaSkalo,
-      p.y + L.y * a * skalo + W.y * c * skalo * largxaSkalo,
-      p.z + L.z * a * skalo + W.z * c * skalo * largxaSkalo
+      p.x + L.x * a * skalo + W.x * c * largxaSkalo,
+      p.y + L.y * a * skalo + W.y * c * largxaSkalo,
+      p.z + L.z * a * skalo + W.z * c * largxaSkalo
 );
   }
   const indeksoj: number[] = [];
@@ -242,8 +246,10 @@ function kreiRondigitanDiamantanKapon(
   const formo = new THREE.Shape();
   const punktoj = rondigitajDuonoj(s);
   const konturo = renversita ? [ ...punktoj ].reverse() : punktoj;
-  formo.moveTo(konturo[0][0] * longaSkalo, konturo[0][1] * longaSkalo * largxaSkalo);
-  for ( const [ a, c ] of konturo.slice(1) ) formo.lineTo(a * longaSkalo, c * longaSkalo * largxaSkalo);
+  // La sama korekto kiel en kreiDiamantanSvingon: la larĝa skalo aplikiĝas memstare
+  // (la malnova produto faris la finan ĉapon 8-obla lameno — la "ortangula pinto").
+  formo.moveTo(konturo[0][0] * longaSkalo, konturo[0][1] * largxaSkalo);
+  for ( const [ a, c ] of konturo.slice(1) ) formo.lineTo(a * longaSkalo, c * largxaSkalo);
   formo.closePath();
   const kapo = new THREE.ShapeGeometry(formo);
   kapo.applyMatrix4(new THREE.Matrix4().makeBasis(n, b, ta));
@@ -281,6 +287,16 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
   // (C¹, neniu angulo). La arko levigxas al iom rondigita folia/diamanta krono,
   // sen ekzakte plata supro. La malsupra versio estas la vertikala spegulo de la
   // supra — la samaj formoj ambauxflanke de la sxipo.
+  // ⟨ La PINTO 📃 ⟩ — la hoko mem restas kiel gxi estis (la formo kaj la finpunktoj
+  // estas bonaj). La difekto estis la SEKC-KONVERGXO, ne la kurbo. Du aferoj igis la
+  // pinton aspekti ortangula: unue `finialaSkalo` malgrandigis la diamanton nur al
+  // 0o1/0o4 (37.5%), do la piliero finigxis per preskaŭ plenlarĝa bloko; due — kaj
+  // cxe CXIuj valoroj — la larĝa skalo MULTIPLIKIGXIS kun la longa (vidu la riparon
+  // en kreiDiamantanSvingon), do la sekco mem estis 0o10-obla ortangulo cxe la pinto.
+  // Nun ambaŭ aksoj malgrandigxas egale al OKONO de la larĝo, do la hoko vere
+  // PINTIGXAS iom rondigita de la malgranda kapo (kreiRondigitanDiamantanKapon),
+  // ne plata. 0o1/0o10 = 12.5% — la sama valoro por ambaŭ aksoj, kiel la sekcio
+  // postulas por resti kvadrata.
   const kreiTalonanKurbo = (): { curve: THREE.Curve<THREE.Vector3>; talonoS0: number } => {
     // Sxafto. komencu GXUSTE cxe la bazo (supren) aux cxe la supro (spegule) gxis
     // la tavolo-rubo, kie la hoko komencigxas — nenio elstaras SUB la bazo (la
@@ -348,7 +364,7 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
     // La supra parto estas duonluno. gxi eliras per kontinua tangento el la
     // sxafto, havas pli platan kronon, kaj finigxas per malgranda rondigita pinto.
     // Ambaux aksoj samgrade sxrumpas, do la fino ne aspektas plata aux trancxita.
-    const finialaSkalo = 0o1/0o4, finialaLargho = 0o1/0o4, tipLongeco = 0o1/0o100;
+    const finialaSkalo = 0o1/0o10, finialaLargho = 0o1/0o10, tipLongeco = 0o1/0o100;
     partoj.push(kreiDiamantanSvingon(curve, SEG, s, kadroj, talonoS0, finialaSkalo, finialaLargho, tipLongeco));
     // Rondigita ferma kapo cxe la bazo (frontas kontraux la tangento, for de la
     // sxafto) — la malnova angula ventumilo lasis kvadratan randon cxe la fino.
@@ -375,10 +391,89 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
   if ( !( upward || folio ) ) geos.push(kunfandiKajVeldoiGeometriojn(partoj));
 }
 
+// ⟨ La pilol-fenestroj 📃 ⟩ — la sama LONGAs horizontala rondigita fenestro kun ora
+// rando aperas sur la kosmosxipo, sur la kunvenejo ( kasafeo ) kaj sur la
+// stacidomo ( stacioxipo ). La meto estas la delikata parto: la monto-grupo sidas
+// ĉe la fenestra SUBO, do ĝia z-offset devas esti la muro-radiuso TIE — ne la
+// radiuso ĉe la fenestra CENTRO ( lv.faco ). Ĉar ĉiu tavolo malvastiĝas supren per
+// `klino`, la muro ĉe la fenestra subo estas klino·fenAlto/(2·tieroAlto) pli
+// larĝa ol la centro-radiuso: kun la centro-radiuso la supraj fenestroj
+// entombiĝis 0.0115 en la muron ( kaj la spegulitaj subaj flosis 0.043 eksteren )
+// — ili tute ne montriĝis. La tri lokoj antaŭe kalkulis tion mem; nun unu helpilo.
+const fenProud = 0o1/0o100;
+
+// fenestraSubFaco — La muro-radiuso ĉe la fenestra SUBO, plus eta elstaro antaŭen.
+//     @param facaRadiuso ( number ) - La muro-radiuso ĉe la fenestra CENTRO.
+//     @param suba ( boolean ) - Ĉu la tavolo speguliĝas: malsuprenirantaj tavoloj
+//              malvastiĝas malsupren, do tie la signo de la klino inversiĝas.
+export function fenestraSubFaco(facaRadiuso: number, klino: number, fenAlto: number,
+  tieroAlto: number, suba = false
+): number {
+  const klinaAngulo = Math.atan(klino / tieroAlto);
+  return facaRadiuso + ( suba ? -1 : 1 ) * klino * fenAlto / ( 2 * tieroAlto )
+    + fenProud / Math.cos(klinaAngulo);
+}
+
+// fenestraLargho — Kiom longa fenestro taŭgas sur tiu faco. La unuaj du limoj
+// tenas ĝin ene de la muro; la tria ( 9× la alto ) malhelpas, ke la grandaj
+// stacidomaj tavoloj ricevu fenestron 18 unuojn longan kaj 0.5 altan — ĝi
+// gardas la saman proporcion kiel ĉe la kosmosxipo.
+export function fenestraLargho(facaRadiuso: number, fenAlto: number): number {
+  return Math.min(facaRadiuso * 2 - 0o3/0o10, facaRadiuso * 4/3 + 0o1/0o4, fenAlto * 9);
+}
+
+// aldoniPilolFenestron — Metu unu pilol-fenestron sur unu facon de unu tavolo.
+//     @returns La vitro-panelo ( la kosmosxipo kolektas ilin por la flug-pulso ).
+export function aldoniPilolFenestron(
+  group: THREE.Group, kadraMaterialo: THREE.MeshStandardMaterial,
+  fenestraMaterialo: THREE.MeshStandardMaterial,
+  facoIndekso: number, yCentro: number, facaRadiuso: number,
+  klino: number, tieroAlto: number, fenAlto: number, suba = false
+): THREE.Mesh {
+  const klinaAngulo = Math.atan(klino / tieroAlto);
+  const ww = fenestraLargho(facaRadiuso, fenAlto);
+  // La faco-grupo turnas la fenestron al sia muro; la monto-grupo sidas ĉe la
+  // fenestra SUBO kaj kliniĝas ĉirkaŭ la propra centro, do la fenestro kuŝas
+  // plate sur la klinita muro ( ne svingiĝas ĉirkaŭ la konstruaĵa origino ).
+  const faco = new THREE.Group();
+  faco.rotation.y = facoIndekso * Math.PI / 2;
+  const monto = new THREE.Group();
+  monto.position.set(0, yCentro - fenAlto / 2,
+    fenestraSubFaco(facaRadiuso, klino, fenAlto, tieroAlto, suba));
+  monto.rotation.x = suba ? klinaAngulo : -klinaAngulo;
+  faco.add(monto);
+  // Densa sampado de la pilolo — la arkoj aspektas RONDIGITAJ ( la malnova
+  // 0o24 lasis la duoncirklajn finojn facete poligonaj ).
+  const formo = kreiPilolFenestranFormon(ww, fenAlto);
+  const fen = new THREE.Mesh(new THREE.ShapeGeometry(formo, 0o100), fenestraMaterialo);
+  monto.add(fen);
+  // Ora pilola rando — CENTRIPETA kurbo kun densa sampado, do la finoj estas
+  // glate rondaj, ne facetaj.
+  const konturo = formo.getPoints(0o200)
+    .map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, 0));
+  monto.add(new THREE.Mesh(
+    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
+    kadraMaterialo));
+  group.add(faco);
+  return fen;
+}
+
+// fenestraMaterialo — La vitro de la eksteraj fenestroj. Unu dividita instance
+// por ĉiuj konstruaĵoj ( same kiel la muroj kaj la kadroj ) — la kosmosxipo havas
+// sian propran, ĉar la flugo pulsas ĝian brilon.
+function fenestraMaterialo(): THREE.MeshStandardMaterial {
+  return konstruajxaMaterialo("fenestro",
+    () => new THREE.MeshStandardMaterial({
+      color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
+      roughness: 0o3/0o20, metalness: 0o3/0o20, transparent: true, opacity: 0o7/0o10,
+    }));
+}
+
 // aldoniEnirejon — Uniforma enirejo por cxiuj tipoj. pli malgranda kaj pli plata
 // (malpli profunda), sidanta sur la tero, kun ora bevelo cxirkaux la rando.
 //     @param flankoj ( number ) - Kiom da pordoj ( la sanktejo havas 4, unu po flanko ).
-function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.MeshStandardMaterial, eniraMaterialo: THREE.MeshStandardMaterial, flankoj = 1): void {
+// Elportita ( export ) ankaŭ por la inspektilo, kiu montras la pordon sola.
+export function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.MeshStandardMaterial, eniraMaterialo: THREE.MeshStandardMaterial, flankoj = 1): void {
   const pordGrupo = new THREE.Group();
   const blokoLargho = 0o233/0o100, tw = blokoLargho * 0o45/0o100, eh = 0o11/0o4;
   const shape = rondigitaTrapezaFormo(blokoLargho, tw, eh, 0o3/0o20, 0o1/0o10);
@@ -405,7 +500,8 @@ function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.Mes
 // montrigxas super la malhela steleo (neniu nigra bloko).
 //     @param tipo ( string ) - La konstrua-tipo ( satala TIPARO-sxlosilo ) — la
 //              defauxta tip-nomo anstatauxas la nomon kiam la konstruajxo estas sennoma.
-function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: string, w: number, d: number): void {
+// Elportita ( export ) ankaŭ por la inspektilo, kiu montras la signon sola.
+export function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: string, w: number, d: number): void {
   const teksajxo = generiSkribanTeksajxon(nomoAih(name, tipo), { w: 0o300, h: 0o1516, ink: "#d8b068" });
   teksajxo.wrapS = teksajxo.wrapT = THREE.ClampToEdgeWrapping;
   // La signo staras sur la tero apud la pordo (0o1/0o100 levita por ne z-fajfi kun la grundo).
@@ -555,46 +651,23 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     ringo.position.y = roofY + 0o1/0o40; group.add(ringo);
   }
 
-  if ( typeKey === "kasafeo" ) {
-    // Videblaj pilol-fenestroj sur la ekstero (kiel sur la kosmosxipo) — unu per
-    // faco per etagxo. La muroj klinigxas, do la fenestroj estas TURNITAJ je la
-    // klin-angulo por kusxi plate sur la klinita muro (kiel la sxipaj fenestroj).
-    // La fronta faco (f=0, +z) de la teretagxo havas la pordon — neniu fenestro tie.
+  // ⟨ La eksteraj fenestroj 📃 ⟩ — la kunvenejo ( kasafeo ) kaj la stacidomo
+  // ( stacioxipo ) portas la SAMAN LONGAn pilol-fenestran vicon kiel la kosmosxipo
+  // ( kiun oni vidas fluganta super la stacidomo ): unu fenestro po faco po
+  // tavolo. La fronta faco ( f=0, +z ) de la teretaĝo havas la pordon — neniu
+  // fenestro tie. La stacidomo havas pli mildan deklivon, sed la sama `klino`
+  // regas ĉiujn tavolojn, do la sama helpilo metu ilin.
+  if ( typeKey === "kasafeo" || typeKey === "stacioxipo" ) {
     const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
-    const klinaAngulo = Math.atan(klino / tieroAlto);
-    // Cacheita kune kun la aliaj konstruajxaj materialoj — ĉiuj kasafeoj dividas ĝin.
-    const fenestraMaterialo = konstruajxaMaterialo("fenestro",
-      () => new THREE.MeshStandardMaterial({
-        color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
-        roughness: 0o3/0o20, metalness: 0o3/0o20, transparent: true, opacity: 0o7/0o10,
-      }));
+    const vitro = fenestraMaterialo();
     for ( let i = 0; i < tiers; i++ ) {
       const hwT = w / 2 - i * malpliiX, hdT = d / 2 - i * malpliiZ;
-      const yC = i * tieroAlto + tieroAlto / 2;
       const faco = Math.min(hwT, hdT) - klino / 2;
-      const ww = Math.min(faco * 2 - 0o3/0o10, faco * 4/3 + 0o1/0o4);
+      const yC = i * tieroAlto + tieroAlto / 2;
       for ( let f = 0; f < 4; f++ ) {
         if ( i === 0 && f === 0 ) continue;
-        const faca = new THREE.Group();
-        faca.rotation.y = f * Math.PI / 2;
-        const monto = new THREE.Group();
-        monto.position.set(0, yC - fenAlto / 2, faco + 0o1/0o100);
-        monto.rotation.x = -klinaAngulo;
-        faca.add(monto);
-        const fen = new THREE.Mesh(
-          new THREE.ShapeGeometry(kreiPilolFenestranFormon(ww, fenAlto), 0o100),
-          fenestraMaterialo
-);
-        monto.add(fen);
-        // Ora pilola rando ĉirkaŭ la fenestro
-        const konturo = kreiPilolFenestranFormon(ww, fenAlto).getPoints(0o200)
-          .map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, 0));
-        const rimo = new THREE.Mesh(
-          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
-          kadraMaterialo
-);
-        monto.add(rimo);
-        group.add(faca);
+        aldoniPilolFenestron(group, kadraMaterialo, vitro, f, yC, faco,
+          klino, tieroAlto, fenAlto);
       }
     }
   }

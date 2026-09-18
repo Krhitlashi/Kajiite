@@ -1,17 +1,23 @@
-// ≺⧼ Natura inspektilo 🔬 ⧽≻ — la laborilo por la modeloj de la mondo: la
+// ≺⧼ Monda inspektilo 🔬 ⧽≻ — la laborilo por la modeloj de la mondo: la
 // bestoj kaj iliaj animacioj, la plantoj kaj la rokoj ( la kunulo de la terena
-// skulptilo ). Ĉiu specio montriĝas SOLA, centre kaj kadrita — oni turnas kaj
-// zumas per la muso, paŭzas la animacion por studi unu pozon, montras la
-// pivotajn aksojn de la artikoj kaj la dratkadron de la geometrio, kaj legas la
-// konstru-detalojn de la modelo ( la kvanton de la meshoj, de la trianguloj kaj
-// de la instancoj — vidu la kunfandon en konstruiPetrelanMalneton ).
+// skulptilo ), kaj la KONSTRUAĴOJ kun iliaj partoj. Ĉiu modelo montriĝas SOLA,
+// centre kaj kadrita — oni turnas kaj zumas per la muso, paŭzas la animacion por
+// studi unu pozon, montras la pivotajn aksojn de la artikoj kaj la dratkadron de
+// la geometrio, kaj legas la konstru-detalojn de la modelo ( la kvanton de la
+// meshoj, de la trianguloj kaj de la instancoj — vidu la kunfandon en
+// konstruiPetrelanMalneton ).
 //
 // La ilo UZAS la ludajn konstruilojn rekte ( la samajn funkciojn kiel la urbo ),
 // do ĝi neniam devojiĝas de la ludo — kio aperas ĉi tie, tio aperas en la mondo.
+// La du kategorioj ( Naturo / Konstruaĵoj ) montriĝas per la samaj funkcioj; la
+// konstruaĵoj eĉ uzas la samajn specifojn kiel src/urbo.ts.
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { konstruiMetitanBeston, gxisdatigiBestojn, konstruiMetitanPetrelon,
   gxisdatigiPetrelojn } from "../../assets/shalaj-specioj/bestoj.js";
+import { konstruiSatalon, kreiKlinoTavolon, aldoniKadranTubon,
+  aldoniPilolFenestron, aldoniEnirejon, aldoniSteleanSignon } from "../../assets/konstruajxoj/satalaj-konstruajxoj.js";
+import { kreiOranMaterialon, kreiEniranMaterialon } from "../../assets/komunajxoj/materialoj.js";
 import { konstruiArbaron, konstruiLarikon, konstruiHxsxaksxlefojn,
   konstruiPussxlefojn, konstruiMetitanRokon, konstruiFilikojn,
   konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn, konstruiAltajnPurpurajnFilikojn,
@@ -201,6 +207,98 @@ const SPECOJ = [
     akva: false, petrelo: true,
     priskribo: "Neĝopetrelo ( Pagodroma nivea ) — tute blanka marbirdo kun nigraj flugilpintoj, tubo-naza hokbeko kaj malhela lora makulo antaŭ la okuloj.",
     animacio: "Du-segmenta flugilo. la brako kaj la mano svingiĝas ĉe la vera kubuto, la pinto malfruas je kvarono de la bato ( la vipado ) kaj la vosto ventumas. La batoj venas en eksplodoj inter glitoj." },
+];
+
+// ⟨ La konstruaĵoj kaj iliaj partoj 📃 ⟩ — la dua kategorio. La konstruaĵoj uzas
+// EKZAKTE la specifojn de src/urbo.ts ( w = d = 8, la sama nombro da tavoloj kaj
+// la sama tavol-alto po tipo, sube = niveloj por la sankteja bazplato ), kun
+// `diamond: false`: la diamanta spegulo sub la konstruaĵo estas mondaĵo, kaj ĝi
+// duigus la modelon kaj fuŝus la kadrigon. La partoj montras unuopajn pecojn de
+// la konstruaĵoj — la angulan pilieron, la tavolon, la fenestron, la pordon kaj
+// la signon — per la samaj konstruiloj, do oni povas studi ilin solaj.
+const oro = kreiOranMaterialon(0xd8b068);
+const enira = kreiEniranMaterialon();
+// La doma muro ( TIPARO.domo.wall ) kaj la vitro de la fenestroj — la samaj
+// valoroj kiel la cacheitaj materialoj de satalaj-konstruajxoj.ts.
+const muro = new THREE.MeshStandardMaterial({ color: 0x184838, roughness: 0o3/0o4, metalness: 0, envMapIntensity: 0 });
+const vitro = new THREE.MeshStandardMaterial({
+  color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
+  roughness: 0o3/0o20, metalness: 0o3/0o20, transparent: true, opacity: 0o7/0o10,
+});
+const KLINO = 0o5/0o20;         // la sama deklivo kiel ĉiuj konstruaĵoj
+const TIERO = 0o315/0o100;      // la doma tavol-alto ( 3.203 )
+const HW = 0o10/0o2;            // la duona larĝo de 8-unua konstruaĵo
+
+// konstrSpec — La komuna specifo de la urbo por unu konstrua-tipo.
+function konstrSpec( tipo, niveloj, tieroAlto ) {
+  return { x: 0, z: 0, type: tipo, name: "", niveloj, w: 0o10, d: 0o10,
+    tieroAlto, rot: 0, diamond: false, h0: 0,
+    sube: tipo === "stacioxipo" ? 0 : niveloj, tieroAltoSub: 0o123/0o40 };
+}
+// aldoniTavolanSxelon — Unu tavolo de konstruaĵo: la trapezoida muro
+// ( pli mallarĝa supre per `klino` ) kaj la kvar oraj angulaj pilieroj.
+function aldoniTavolanSxelon( grupo, klino, alto, hw ) {
+  grupo.add(new THREE.Mesh(kreiKlinoTavolon(hw, hw, hw - klino, hw - klino, alto).translate(0, alto / 2, 0), muro));
+  const geos = [];
+  for ( const a of [ -1, 1 ] ) for ( const b of [ -1, 1 ] )
+    aldoniKadranTubon(geos, a * hw, b * hw, 0, alto, a, b, true, klino);
+  for ( const geo of geos ) grupo.add(new THREE.Mesh(geo, oro));
+}
+
+const KONSTRUAJXOJ = [
+  { kodo: "bDomo", nomo: "Domo 🏠", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => konstruiSatalon(konstrSpec("domo", 4, TIERO), g, []),
+    priskribo: "La baza loĝdomo de la urbo — kvar klinitaj tavoloj ( ĉiu pli mallarĝa ol la suba per la sama `klino` = 0.3125, do la tuta konstruaĵo estas trapezoido ), oraj angulaj kadroj kaj la oraj horizontalaj stangoj ĉe ĉiu tavol-rando, unu pordo sur la fronta faco, kaj la stelea signo kun la nomo sur la tero apud ĝi.",
+    animacio: "Neniu — la konstruaĵoj staras senmove ( la urbo nur turnas la sunon )." },
+  { kodo: "bMangxejo", nomo: "Manĝejo 🍲", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => konstruiSatalon(konstrSpec("mangxejo", 4, TIERO), g, []),
+    priskribo: "La komuna manĝejo — la sama kvar-tavola skeleto kiel la domo ( w = d = 8, tieroAlto 3.203 ), sed kun la BRUNA mura koloro ( 0x584028 ) kaj la hela kadro. En la mondo ĝi ankaŭ ricevas la eksterajn manĝtablojn kun benkoj antaŭ la pordo ( la ilo lasas ilin for, ĉar ili apartenas al la mebloj-modulo ).",
+    animacio: "Neniu — la konstruaĵoj staras senmove." },
+  { kodo: "bKasafeo", nomo: "Kunvenejo ☕", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => konstruiSatalon(konstrSpec("kasafeo", 4, 0o155/0o40), g, []),
+    priskribo: "La kunvenejo — la sama kvar-tavola skeleto, sed kun pli alta tavolo ( 3.406 ) kaj la krem-kolora muro ( 0xd8c898 ). Ĝi estas la unua konstruaĵo kun la LONGAS pilol-fenestraj vicoj: unu horizontala fenestro po faco po tavolo ( la teretaĝa fronta faco restas libera por la pordo ), ĉiu kun ora pilola rando. La vitro estas travidebla ( opacity 0.7 ) kun propra emisio, do la fenestroj brilas en la krepusko.",
+    animacio: "Neniu — la konstruaĵoj staras senmove." },
+  { kodo: "bStacio", nomo: "Stacidomo 🚀", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => konstruiSatalon(konstrSpec("stacioxipo", 3, 0o155/0o40), g, []),
+    priskribo: "La stacidomo, super kiu flugas la kosmosxipo. Tri tavoloj kun PLI MILDA deklivo ol la domoj ( la supra larĝo estas duono de la baza anstataŭ 0.2969-oble ), helgriza muro ( 0xc8c8c8 ), ŝtona antaŭplato ĉirkaŭ la piedo kun oraj kvadrataj bendoj, kvar lanc-pilieroj kun brilaj pintoj ĉe la anguloj de la plato, kaj ora ringo sur la tegmento. La sama pilol-fenestra vico kiel la kunvenejo.",
+    animacio: "Neniu — la konstruaĵoj staras senmove." },
+  { kodo: "bTuro", nomo: "Nubskrapulo 🏙️", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => konstruiSatalon(konstrSpec("turo", 0o10, 0o30/0o10), g, []),
+    priskribo: "La nubskrapulo — la plej alta konstruaĵo: OK tavoloj sur la sama baza areo de 8×8, ĉiu 3.0 unuojn alta, do la tuta turo altas 24 unuojn. La sama malpliiĝo po tavolo kiel la domoj, do ĝi finiĝas en longa maldika pinto.",
+    animacio: "Neniu — la konstruaĵoj staras senmove." },
+  { kodo: "bSanktejo", nomo: "Sanktejo ⛩️", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => konstruiSatalon(konstrSpec("sanktejo", 7, TIERO), g, []),
+    priskribo: "La sanktejo — sep tavoloj kaj KVAR pordoj ( po unu sur ĉiu flanko, do la konstruaĵo estas turn-simetria kvar-oble ), kronita per ora piramida pinto anstataŭ plata tegmento. Ĝi estas la sola konstruaĵo kun la ora bazplato ( la kvadrata kadro kun rondigitaj anguloj ĉirkaŭ la piedo ) — tial ĉi tiu specifo tenas `sube` super nulo.",
+    animacio: "Neniu — la konstruaĵoj staras senmove." },
+  // ⟨ La partoj 📃 ⟩ — la unuopaj pecoj, solaj, por studi ilin.
+  { kodo: "pPiliero", nomo: "Angula piliero 🏛️", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => {
+      const geos = [];
+      aldoniKadranTubon(geos, 0, 0, 0, TIERO, 1, 1, true, KLINO);
+      for ( const geo of geos ) g.add(new THREE.Mesh(geo, oro));
+    },
+    priskribo: "Unu ora angula piliero de konstruaĵo, sola. La ŝafto estas PARALELA al la klinita muro — ĝi klinĝas INTERNEN laŭ la muro, do la libero inter piliero kaj muro restas la sama la tutan vojon ( neniu kreskanta truo ). Ĉe la supro la pinto svingiĝas EKSTEREN, super la supra angulo de la tavolo. La diamanta sekco tenas siajn kvar pintojn laŭ la angulaj diagonaloj ( la flankoj kuŝas laŭ la muroj ), do la FRONTA kresto rigardas eksteren kaj restas sur la akso de la piliero: rigardata de antaŭe, tiu meza linio estas perfekte REKTA de la bazo ĝis la pinto. ( La kadro nun venas rekte el la ekstera akso; antaŭe ĝi sekvis la kurbon per paralela transporto, kiu ruligis la sekcon ~20° ĉe la hoko kaj flankenŝovis la kreston. ) Dum la svingo la sekco malvastiĝas ĝis OKONO de sia larĝo en AMBAŬ aksoj — ĝi do restas kvadrata kaj la piliero finiĝas per vera pinto, iom rondigita de la malgranda kapo. ( Pli frue la du malvastigoj MULTIPLIKIĜIS, 0o1/0o10 × 0o1/0o10, do la sekco ĉe la pinto estis 8-obla platlameno kaj la pinto aspektis kiel ortangulo. )",
+    animacio: "Neniu — la partoj staras senmove." },
+  { kodo: "pTavolo", nomo: "Tavolo 🧱", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => aldoniTavolanSxelon(g, KLINO, TIERO, HW),
+    priskribo: "Unu tavolo de la konstruaĵ-skeleto — la trapezoida muro ( kreiKlinoTavolon: la supro pli mallarĝa per `klino` ) kun la kvar oraj angulaj pilieroj, do oni vidas la pilieron apud la muro en sia vera kunteksto.",
+    animacio: "Neniu — la partoj staras senmove." },
+  { kodo: "pFenestro", nomo: "Pilol-fenestro 🪟", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => {
+      aldoniTavolanSxelon(g, KLINO, TIERO, HW);
+      aldoniPilolFenestron(g, oro, vitro, 0, TIERO / 2, HW - KLINO / 2, KLINO, TIERO,
+        0o5/0o10);
+    },
+    priskribo: "La LONGAs horizontala pilol-fenestro ( la vitro kaj la ora rando ) sur unu tavolo. La monto-grupo sidas ĉe la fenestra SUBO per la muro-radiuso TIE ( fenestraSubFaco ) — ne per la radiuso ĉe la fenestra centro — kaj kliniĝas per la muro-deklivo, do la fenestro kuŝas plate sur la klinita muro. La longo estas 9-obla de la alto, do la fenestro neniam fariĝas rubando sur granda tavolo.",
+    animacio: "Neniu — la partoj staras senmove." },
+  { kodo: "pEnirejo", nomo: "Enirejo 🚪", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => aldoniEnirejon(g, 0o10, oro, enira, 1),
+    priskribo: "La pordo de ĉiuj tipoj — rondigita trapezo el la enira materialo kun ora bevelo kaj ora tuba ornamo ĉirkaŭ la tuta konturo. Ĝi staras sur la tero ĉe la fronta faco ( f=0, +z ); la sanktejo ricevas kvar kopiojn, po unu sur ĉiu flanko.",
+    animacio: "Neniu — la partoj staras senmove." },
+  { kodo: "pSigno", nomo: "Stelea signo 🪧", indekso: -1, konstruajxo: true,
+    konstruu: ( g ) => aldoniSteleanSignon(g, "", "domo", 0o10, 0o10),
+    priskribo: "La 3D-steleo kun la nomo de la konstruaĵo, apud ĝia pordo. La ŝtono estas malhela steleo kun nesimetriaj rondigitaj supraj anguloj, kaj la teksto ( la Gawekiif-skribo de la nomo, aŭ la tip-nomo por sennomaj konstruaĵoj ) estas travidebla teksajxo super ĝi.",
+    animacio: "Neniu — la partoj staras senmove." },
 ];
 
 // ⟨ La sceno 📃 ⟩ — malgranda studia ĉambro. La ĉielo estas simpla koloro, la
@@ -512,7 +610,8 @@ function gxisdatigiInformon(grupo) {
     "⟨ La modelo 📃 ⟩ " + meshoj + " meshoj · " + trianguloj +
       " trianguloj · " + materialoj.size + " materialoj" +
       ( instancoj ? " · " + instancoj + " instancoj" : "" ) +
-      ( specio.konstruu ? " · planto aŭ roko" : " · skalo " + specio.grandeco );
+      ( specio.konstruajxo ? " · konstruaĵo aŭ parto"
+        : specio.konstruu ? " · planto aŭ roko" : " · skalo " + specio.grandeco );
 }
 
 // elektiSpecio — Forigu la antaŭan modelon, konstruu la novan kaj kadrigu ĝin.
@@ -541,15 +640,48 @@ function elektiSpecio(nova) {
   }
 }
 
-// ⟨ La butonoj 📃 ⟩ — la specia listo kaj la vidaj ŝaltiloj.
+// ⟨ La butonoj 📃 ⟩ — la specia listo, la kategoriaj taboj kaj la vidaj ŝaltiloj.
+// Unu butono po modelo de AMBAŬ kategorioj estas kreita unufoje; la tabo nur
+// anstataŭas la enhavon de #specaro, do la elektitaj modeloj kaj la bildoj ne
+// perdiĝas kiam oni ŝaltas inter la kategorioj.
+const KATEGORIOJ = [
+  { kodo: "naturo", nomo: "Naturo 🐾", titolo: "Specio 🐾", listo: SPECOJ },
+  { kodo: "konstruajxo", nomo: "Konstruaĵoj 🏛️", titolo: "Konstruaĵo aŭ parto 🏛️", listo: KONSTRUAJXOJ },
+];
 const specaro = document.getElementById("specaro");
-for ( const s of SPECOJ ) {
-  const butono = document.createElement("button");
-  butono.textContent = s.nomo;
-  butono.dataset.kodo = s.kodo;
-  butono.setAttribute("aria-pressed", "false");
-  butono.addEventListener("click", () => elektiSpecio(s));
-  specaro.appendChild(butono);
+const tabaro = document.getElementById("tabaro");
+const grupoTitolo = document.getElementById("grupoTitolo");
+const butonoj = new Map();
+for ( const listo of [ SPECOJ, KONSTRUAJXOJ ] ) {
+  for ( const s of listo ) {
+    const butono = document.createElement("button");
+    butono.textContent = s.nomo;
+    butono.dataset.kodo = s.kodo;
+    butono.setAttribute("aria-pressed", "false");
+    butono.addEventListener("click", () => elektiSpecio(s));
+    butonoj.set(s.kodo, butono);
+  }
+}
+// montruKategorion — Montru unu kategorion. Se la nuna modelo apartenas al ĝi,
+// ĝi restas ( nur la premitaj statoj ĝisdatiĝas ) — alie la unua modelo de la
+// kategorio konstruiĝas.
+function montruKategorion( kategorio ) {
+  for ( const k of KATEGORIOJ ) {
+    document.getElementById("tab" + k.kodo).setAttribute("aria-pressed", String(k === kategorio));
+  }
+  specaro.replaceChildren(...kategorio.listo.map(( s ) => butonoj.get(s.kodo)));
+  grupoTitolo.textContent = kategorio.titolo;
+  if ( !modelo || !kategorio.listo.includes(specio) ) elektiSpecio(kategorio.listo[0]);
+  else for ( const b of butonoj.values() )
+    b.setAttribute("aria-pressed", String(b.dataset.kodo === specio.kodo));
+}
+for ( const k of KATEGORIOJ ) {
+  const tabo = document.createElement("button");
+  tabo.id = "tab" + k.kodo;
+  tabo.textContent = k.nomo;
+  tabo.setAttribute("aria-pressed", "false");
+  tabo.addEventListener("click", () => montruKategorion(k));
+  tabaro.appendChild(tabo);
 }
 
 let akvaMontrita = true;
@@ -676,11 +808,12 @@ function animacii() {
 // interfacon por demandi la nunan modelon, do tiuj ĉi referencoj permesas
 // kontroli la scenon kaj la animacion permane ( kaj ripari la pozon de la
 // modelo dum la studado ). Vidu la saman skemon en src/sperto.ts.
-window.naturoInspektilo = {
+window.inspektilo = {
   THREE, sceno, fotilo, regiloj, bildilo,
   modelo: () => modelo, animacio: () => animacio, tempo: () => tempo,
   specio: () => specio, serchi: ( nomo ) => ( modelo ? modelo.getObjectByName(nomo) : null ),
+  montruKategorion,
 };
 
-elektiSpecio(SPECOJ[0]);
+montruKategorion(KATEGORIOJ[0]);
 animacii();
