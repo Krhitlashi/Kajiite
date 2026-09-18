@@ -294,9 +294,13 @@ export function kreiKombilanTeksajxon(): THREE.CanvasTexture {
       // La ĉielarka nuanco — la difrakto de la cilioj.
       const nuanco = Math.round(i / linioj * 0o700/0o2 + 0o300/0o2) % 0o700;
       const gradiento = kunteksto.createLinearGradient(x - largho, 0, x + largho, 0);
-      gradiento.addColorStop(0, "rgba(0,0,0,0)");
+      // ⟨ Ne finiĝu per nigro 📃 ⟩ — la travidebla HURO de la nuanco, ne
+      // "rgba(0,0,0,0)": kanvasaj gradientoj interpoliaciiĝas en antaŭmultiplika
+      // spaco, do travidebla nigro lasas malhelan reston ĉe la randoj de ĉiu
+      // kombilo ( vidu senAlfa en teksajxoj.ts ).
+      gradiento.addColorStop(0, "hsla(" + nuanco + ", 70%, 72%, 0)");
       gradiento.addColorStop(0o1/0o2, "hsla(" + nuanco + ", 70%, 72%, 0.95)");
-      gradiento.addColorStop(1, "rgba(0,0,0,0)");
+      gradiento.addColorStop(1, "hsla(" + nuanco + ", 70%, 72%, 0)");
       kunteksto.fillStyle = gradiento;
       kunteksto.fillRect(x - largho, 0, largho * 0o2, s);
     }

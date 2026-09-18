@@ -101,6 +101,18 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
   out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
   out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
   out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+  // ⟨ La per-vertaj koloroj 📃 ⟩ — la herbo kaj la filikoj portas la nuancon de
+  // ĉiu folio en la vertica kolor-aro ( vertexColors ), kaj sen la kunfando de
+  // tiu atributo la tuta foliaro ricevus la koloron de la UNUA folio. Nur
+  // kunfandiĝas kiam AMBAŬ flankoj havas la atributon.
+  const aKol = na.getAttribute("color");
+  const bKol = nb.getAttribute("color");
+  if ( aKol && bKol ) {
+    const koloroj = new Float32Array(tuto * 3);
+    koloroj.set(aKol.array as Float32Array, 0);
+    koloroj.set(bKol.array as Float32Array, aCount * 3);
+    out.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
+  }
   return out;
 }
 

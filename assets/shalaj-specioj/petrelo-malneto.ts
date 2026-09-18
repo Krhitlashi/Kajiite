@@ -390,7 +390,7 @@ const kreiFlugilanBumpanTeksajxon = (): THREE.CanvasTexture =>
 
 // petrelajTeksajxoj — la kvar teksajxoj, konstruitaj UNUFOJE. La kanvasoj estas
 // grandaj kaj la modelo konstruiĝas denove ĉiun fojon, kiam la iloj montras la
-// specion ( la ilo „bestoj-inspektilo“ ), do la teksajxoj ne ripetu la kreadon.
+// specion ( la ilo „naturo-inspektilo“ ), do la teksajxoj ne ripetu la kreadon.
 //     @returns { korpo, korpoBump, flugilo, flugiloBump }.
 let petrelajTeksajxojStoko: {
   korpo: THREE.CanvasTexture; korpoBump: THREE.CanvasTexture;

@@ -4,6 +4,80 @@ import * as THREE from "three";
 import { kreiBrilanTeksajxon, kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
+// ⟨ La flama silueto 📃 ⟩ — la antaŭa flamo estis simpla KONUSO ( ConeGeometry
+// kun sep flankoj ): ĝi aspektis kiel oranĝa triangulo, ne kiel flamo. Vera
+// flamo havas VENTRON ( iomete super la bazo ), TALION super ĝi, kaj longan
+// pintiĝantan langon. Ĉi tiu profilo ( r, y ) iras de la akso ĉe la bazo
+// ( fermita fundo ) ĝis la pinto ĉe y = 1.
+const FLAMA_PROFILO: [ number, number ][] = [
+  [ 0.00, 0.00 ],   // la akso ĉe la bazo — la fundo estas fermita
+  [ 0.30, 0.00 ],
+  [ 0.44, 0.06 ],
+  [ 0.50, 0.16 ],   // la ventro de la flamo
+  [ 0.49, 0.27 ],
+  [ 0.44, 0.38 ],
+  [ 0.36, 0.50 ],   // la talio
+  [ 0.27, 0.62 ],
+  [ 0.19, 0.73 ],
+  [ 0.12, 0.82 ],
+  [ 0.07, 0.90 ],
+  [ 0.03, 0.96 ],
+  [ 0.00, 1.00 ],   // la pinto
+];
+
+// La alto de unu lango ( la malgrandaj teardropoj, kiuj lekas ĉirkaŭ la ĉefa
+// flamo ) en mondunuoj. Ĝi ankaŭ estas uzata de la animacio, por ke la bazo de
+// ĉiu lango restu sur la meĉo dum la lango longiĝas supren.
+const LANGA_ALTO = 0o14/0o100;
+
+// ⟨ La bovla alto 📃 ⟩ — unu nombro regas la tutan dioritan bovlon: la lathe-
+// profilo, la oran randan bendon kaj la lokon de la flamo ĉiuj derivas sian
+// vertikalan mezuron el ĉi tiu konstanto, do la altecon eblas ŝanĝi en unu
+// loko. La bovlo estis 0.375 alta ( preskaŭ same alta kiel larĝa ĉe la rando ),
+// do ĝi legiĝis kiel PROFUNDA taso, precipe ĉar la kolono sub ĝi estas mallarĝa
+// — la lampo aspektis kiel pokalo. Poste 0.266 ( triono pli malalta ), sed la
+// bovlo ankoraŭ legiĝis kiel pelvo kun videbla kavo. Nun 0.203: la muro
+// leviĝas je preskaŭ duono de la originalo, la interna kavo preskaŭ malaperas
+// ( la interna fundo estas frakcio de BOVLA_ALTO, do malaltiĝante ĝi ankaŭ
+// malleviĝas ), kaj la silueto de la lampo legiĝas kiel flamo sur plata telero.
+const BOVLA_ALTO = 0o15/0o100;   // 13/64 ≈ 0.203
+
+// kreiFlamanGeometrion — Unu tavolo de la flamo: lathe-korpo laŭ FLAMA_PROFILO,
+// kun du realismoj aldonitaj al la verticoj — la surfaco RIPLIĜAS ( la flamo
+// ne estas glata konuso; ĝia rando ondiĝas, kaj des pli ĉe la pinto ) kaj la
+// PINTO KLINIĜAS for de la akso ( flamo staras sur la meĉo, sed ĝia lango
+// leviĝas malrekte ).
+//     @param alto ( number ) - La flama alto en mondunuoj.
+//     @param largho ( number ) - La plej granda diametro de la flamo.
+//     @param ml ( number ) - La klino-multobliko ( la ekstera tavolo klinas pli ).
+//     @param semo ( number ) - La hazardo-semo, por ke ĉiu tavolo riplu malsame.
+//     @returns geometrio ( THREE.BufferGeometry ) - La flama tavolo, centre je y = 0.
+function kreiFlamanGeometrion( alto: number, largho: number, ml: number,
+  semo: number ): THREE.BufferGeometry {
+  const punktoj = FLAMA_PROFILO.map(( [ r, y ] ) =>
+    new THREE.Vector2(r * largho / 2, ( y - 0o1/0o2 ) * alto));
+  const geometrio = new THREE.LatheGeometry(punktoj, 0o20);   // 16 flankoj
+  const pozicioj = geometrio.attributes.position;
+  for ( let i = 0; i < pozicioj.count; i++ ) {
+    const x = pozicioj.getX(i), y = pozicioj.getY(i), z = pozicioj.getZ(i);
+    const t = y / alto + 0o1/0o2;               // 0 ĉe la bazo, 1 ĉe la pinto
+    const angulo = Math.atan2(z, x);
+    const r = Math.hypot(x, z);
+    // La riploj — kvar ondoj ĉirkaŭ la flamo, kiuj plifortiĝas supren.
+    const riplo = 1 + ( 0o3/0o100 + 0o10/0o100 * t )
+      * Math.sin(4 * angulo + t * 0o7 + semo);
+    // La klino — la pinto leviĝas malrekte. Ĝi komenciĝas ĉe la malsupra
+    // duono ( t³ ), do la ventro de la flamo restas vertikala kaj nur la lango
+    // flankenkliniĝas, kiel ĉe vera flamo.
+    const klino = ml * 0o7/0o100 * alto * t * t * t;
+    pozicioj.setXYZ(i, r * riplo * Math.cos(angulo) + klino,
+      y + riplo * 0o2/0o100 * alto * Math.sin(t * 0o5 + angulo * 2),
+      r * riplo * Math.sin(angulo) + klino * 0o7/0o10);
+  }
+  geometrio.computeVertexNormals();
+  return geometrio;
+}
+
 // facaAngulo — La angulo de la faco-centro kiu entenas teta. La kvarlata
 // kolono havas angulojn cxe 0°, 90°, 180°, 270° kaj rektajn facojn inter ili.
 function facaAngulo(teta: number): number {
@@ -172,6 +246,11 @@ export interface HxeuxfaLoko {
 export interface HxeuxfaSistemo {
   flamaEkstero: THREE.InstancedMesh;
   flamaInterno: THREE.InstancedMesh;
+  flamaKerno: THREE.InstancedMesh;   // la varma kerno ĉe la bazo
+  flamaLangoj: THREE.InstancedMesh;  // la malgrandaj langoj, kiuj lekas supren
+  langojPoLampo: number;
+  langajBazoj: THREE.Vector3[];      // x, z = deŝovo de la lango; y = larĝa multiplikilo
+  langajFazoj: number[];
   brilajPunktoj: THREE.Points;
   brilaMaterialo: THREE.ShaderMaterial;
   punktajLumoj: THREE.PointLight[];
@@ -224,21 +303,23 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     // La fermo forigas la tra-videblon (la interna flanko nun estas vera surfaco).
     // La plata bazo havas la SAMAN radiuson kiel la kolona supro ( 0o5/0o40 =
     // 0.156 ), do la bovlo sidas tute glate sur la kolono sen videbla paŝo aŭ
-    // superpendanta lipo — unu kontinua silueto. La interno estas MALKOLONGA
-    // ( la fundo leviĝas al 0o5/0o40 ), do la bovlo aspektas pli kiel malprofunda
-    // pelvo kaj la malhela ena kavo ne dominiĝas.
+    // superpendanta lipo — unu kontinua silueto. La interno estas MALKOLONGA,
+    // do la bovlo aspektas kiel malprofunda pelvo kaj la malhela ena kavo ne
+    // dominiĝas. Ĉiuj vertikalaj mezuroj estas FRAKCIOJ de BOVLA_ALTO, do la
+    // horizontala profilo ( la kurbo de la muro ) restas identa kiam la bovlo
+    // malaltiĝas.
     const profilo: THREE.Vector2[] = [
       new THREE.Vector2(0, 0),
       ...new THREE.SplineCurve([
         new THREE.Vector2(0o5/0o40, 0),
-        new THREE.Vector2(0o2/0o10, 0o5/0o40),
-        new THREE.Vector2(0o3/0o10, 0o5/0o20),
-        new THREE.Vector2(0o35/0o100, 0o14/0o40),
+        new THREE.Vector2(0o2/0o10, BOVLA_ALTO * 0.42),
+        new THREE.Vector2(0o3/0o10, BOVLA_ALTO * 0.83),
+        new THREE.Vector2(0o35/0o100, BOVLA_ALTO),
       ]).getPoints(0o10),
-      new THREE.Vector2(0o31/0o100, 0o14/0o40),
-      new THREE.Vector2(0o3/0o20, 0o4/0o20),
-      new THREE.Vector2(0o3/0o20, 0o5/0o40),
-      new THREE.Vector2(0, 0o5/0o40),
+      new THREE.Vector2(0o31/0o100, BOVLA_ALTO),
+      new THREE.Vector2(0o3/0o20, BOVLA_ALTO * 0.67),
+      new THREE.Vector2(0o3/0o20, BOVLA_ALTO * 0.42),
+      new THREE.Vector2(0, BOVLA_ALTO * 0.42),
     ];
     const bowl = new THREE.LatheGeometry(profilo, 4);
     bowl.rotateY(rotacio);
@@ -253,7 +334,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     // levita iomete ( 0o1/0o200 ) por legigxi kiel rando.
     const rando = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 4, 1);
     rando.rotateY(rotacio);
-    rando.translate(p.x, p.y + 0o155/0o40 + 0o25/0o100, p.z);
+    rando.translate(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 0.875, p.z);
     orajGeometrioj.push(rando);
 
     // Kvar APARTAJ falekoj — unu po faco. Cxiu faleko estas ferma buklo kun
@@ -270,9 +351,11 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
       orajGeometrioj.push(faleko);
     }
 
-    // Flamo levita. gia bazo sidas cxe la bovla rando ( ne sube en la bovlo ),
-    // kaj restas super la rando ecx cxe la plej alta flam-skalo.
-    flamajLokoj.push(new THREE.Vector3(p.x, p.y + 0o205/0o40, p.z));
+    // Flamo levita. gia bazo sidas super la bovla rando ( ne sube en la bovlo ),
+    // kaj restas super la rando ecx cxe la plej alta flam-skalo. La deŝovo
+    // sekvas BOVLA_ALTO, do malaltiĝinta bovlo ankaŭ mallevas la flamon — la
+    // flamo restas la sama distanco super la rando.
+    flamajLokoj.push(new THREE.Vector3(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 2, p.z));
   }
 
   const kolonoj = new THREE.Mesh(kunfandiGeometriojn(kolonajGeometrioj), lampaMaterialo);
@@ -286,15 +369,56 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   const orajRandoj = new THREE.Mesh(kunfandiGeometriojn(orajGeometrioj), oraMaterialo);
   sceno.add(orajRandoj);
 
-  // flamaj konusoj
+  // ⟨ La flamo — tri tavoloj 📃 ⟩ — la antaŭa flamo estis DU opakaj konusoj
+  // ( unu oranĝa, unu flaveca ). Nun ĝi estas tri ALDONAJ tavoloj de la sama
+  // teardropo: la ekstera oranĝa koverto, la flava mezo kaj la blanka varma
+  // kerno ĉe la bazo. Ĉar la tavoloj aldonas sin ( AdditiveBlending ), la
+  // centro de la flamo brilas plej forte kaj la randoj glate malaperas — la
+  // flamo legiĝas kiel lumo, ne kiel oranĝa plasta konuso.
   const N = flamajLokoj.length;
-  const flamaEkstero = new THREE.InstancedMesh(new THREE.ConeGeometry(0o13/0o100, 0o43/0o100, 7),
-    new THREE.MeshBasicMaterial({ color: 0xf8a848, toneMapped: false }),
-    N);
-  const flamaInterno = new THREE.InstancedMesh(new THREE.ConeGeometry(0o3/0o40, 0o13/0o40, 7),
-    new THREE.MeshBasicMaterial({ color: 0xf8e8b8, toneMapped: false }),
-    N);
-  sceno.add(flamaEkstero, flamaInterno);
+  const flamaMaterialo = ( koloro: number, opaco: number ) => new THREE.MeshBasicMaterial({
+    color: koloro, toneMapped: false, transparent: true, opacity: opaco,
+    blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+  const flamaEkstero = new THREE.InstancedMesh(
+    kreiFlamanGeometrion(0o35/0o100, 0o21/0o100, 1, 0.7),
+    flamaMaterialo(0xff6a1e, 0o35/0o40), N);
+  const flamaInterno = new THREE.InstancedMesh(
+    kreiFlamanGeometrion(0o23/0o100, 0o14/0o100, 0o3/0o4, 2.3),
+    flamaMaterialo(0xffb545, 0o33/0o40), N);
+  const flamaKerno = new THREE.InstancedMesh(
+    kreiFlamanGeometrion(0o10/0o100, 0o4/0o100, 0o1/0o2, 5.1),
+    flamaMaterialo(0xfff4d0, 0o5/0o10), N);
+  flamaEkstero.frustumCulled = false;
+  flamaInterno.frustumCulled = false;
+  flamaKerno.frustumCulled = false;
+  sceno.add(flamaEkstero, flamaInterno, flamaKerno);
+
+  // ⟨ La langoj 📃 ⟩ — la tri tavoloj supre estas SAMAKSIAJ lathe-korpoj, do
+  // la flamo havas unu glatan teardropan silueton kiu nur grimpas supren kaj
+  // malsupren. Vera flamo estas PLURAJ langoj: malgrandaj teardropoj, kiuj
+  // sidas sur la meĉo ĉirkaŭ la ĉefa lango, lekas supren unu post la alia kaj
+  // kliniĝas eksteren. Ĉiu lango havas sian propran bazan deŝovon, larĝon kaj
+  // fazon, do la flamo neniam aspektas kiel unu solida formo.
+  const LANGOJ = 0o3;
+  const flamaLangoj = new THREE.InstancedMesh(
+    kreiFlamanGeometrion(LANGA_ALTO, 0o11/0o100, 0o6/0o10, 3.7),
+    flamaMaterialo(0xff8a2c, 0o17/0o40), N * LANGOJ);
+  flamaLangoj.frustumCulled = false;
+  sceno.add(flamaLangoj);
+  const langajBazoj: THREE.Vector3[] = [];
+  const langajFazoj: number[] = [];
+  flamajLokoj.forEach(() => {
+    // La langoj sidas ĉirkaŭ la meĉo ( radiuso ~0.07 ), ne centre — la ĉefa
+    // lango restas inter ili.
+    const turno = Math.random() * Math.PI * 2;
+    for ( let j = 0; j < LANGOJ; j++ ) {
+      const a = turno + j / LANGOJ * Math.PI * 2 + ( Math.random() - 0o5/0o10 ) * 0o5/0o10;
+      const r = 0o5/0o100 + Math.random() * 0o4/0o100;
+      langajBazoj.push(new THREE.Vector3(Math.cos(a) * r, Math.sin(a) * r,
+        0o7/0o10 + Math.random() * 0o5/0o10));
+      langajFazoj.push(Math.random() * Math.PI * 2);
+    }
+  });
 
   // brilaj sprajtoj
   const gPozicio = new Float32Array(N * 3);
@@ -403,11 +527,17 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     M.makeTranslation(p.x, p.y, p.z);
     flamaEkstero.setMatrixAt(i, M);
     flamaInterno.setMatrixAt(i, M);
+    flamaKerno.setMatrixAt(i, M);
+    for ( let j = 0; j < LANGOJ; j++ ) flamaLangoj.setMatrixAt(i * LANGOJ + j, M);
   });
   flamaEkstero.instanceMatrix.needsUpdate = true;
   flamaInterno.instanceMatrix.needsUpdate = true;
+  flamaKerno.instanceMatrix.needsUpdate = true;
+  flamaLangoj.instanceMatrix.needsUpdate = true;
 
-  return { flamaEkstero, flamaInterno, brilajPunktoj, brilaMaterialo, punktajLumoj, lumajIndeksoj, spots: flamajLokoj, phases, sekviLumojn };
+  return { flamaEkstero, flamaInterno, flamaKerno, flamaLangoj, langojPoLampo: LANGOJ,
+    langajBazoj, langajFazoj, brilajPunktoj, brilaMaterialo, punktajLumoj,
+    lumajIndeksoj, spots: flamajLokoj, phases, sekviLumojn };
 }
 
 // animaciiFlammojn — Animaciu flamojn kaj briletan intenson cxiun kadron.
@@ -417,7 +547,9 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 // ĉiun kadron ( neniu asigno je kadro ).
 const FLAMA_M = new THREE.Matrix4();
 const FLAMA_Q = new THREE.Quaternion();
+const FLAMA_Q2 = new THREE.Quaternion();
 const FLAMA_E = new THREE.Euler();
+const FLAMA_E2 = new THREE.Euler();
 const FLAMA_S = new THREE.Vector3();
 const FLAMA_TMP = new THREE.Vector3();
 
@@ -430,24 +562,74 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
 
   // Unu sola trairo de la flamlokoj — la flamaj matricoj KAJ la punktlumaj
   // intensecoj en la sama buklo ( la antaŭa duobla forEach faris du trairojn ).
+  //
+  // ⟨ Kial la flamo kreskas SUPRE 📃 ⟩ — la geometrio estas centre je y = 0,
+  // do skalo laŭ y ankaŭ movas la bazon. Vera flamo staras sur la meĉo kaj
+  // STRETĈIĜAS supren: la bazo restas, la pinto leviĝas. Tial ĉiu tavolo
+  // ricevas vertikalan ŝovon ( skaloY − 1 ) × alto / 2, kiu tenas la bazon
+  // fiksita dum la lango kreskas kaj malpliiĝas.
   sys.spots.forEach(( p, i ) => {
     const fazo = sys.phases[i];
     const skalo = 1 + 0o5/0o40 * Math.sin(t * 0o1223/0o100 + fazo) + 0o3/0o40 * Math.sin(t * 0o2755/0o100 + fazo * 0o155/0o100);
     const skaloY = skalo * ( 0o43/0o40 + 0o3/0o20 * Math.sin(t * 0o21 + fazo) );
-    E.set(0, t * 0o163/0o100 + fazo, 0);
+    // La tuta flamo kliniĝas kaj skuiĝas iomete — la lango ŝoviĝas ĉirkaŭ la
+    // meĉo anstataŭ rotacii kiel solida objekto.
+    const klinoX = 0o3/0o100 * Math.sin(t * 0o17/0o10 + fazo);
+    const klinoZ = 0o3/0o100 * Math.cos(t * 0o13/0o10 + fazo * 0o3/0o2);
+    E.set(klinoX, t * 0o163/0o100 + fazo, klinoZ);
     Q.setFromEuler(E);
     S.set(skalo, skaloY, skalo);
-    M.compose(p, Q, S);
+    M.compose(TMP.set(p.x, p.y + ( skaloY - 1 ) * 0o35/0o200, p.z), Q, S);
     sys.flamaEkstero.setMatrixAt(i, M);
 
+    // La flava mezo — iomete pli mallonga ol la koverto, do la oranĝa rando
+    // restas videbla ĉirkaŭ ĝi.
     S.set(skalo * 0o35/0o40, skaloY * 0o35/0o40, skalo * 0o35/0o40);
-    M.compose(TMP.set(p.x, p.y + 0o1/0o40, p.z), Q, S);
+    M.compose(TMP.set(p.x, p.y + ( skaloY * 0o35/0o40 - 1 ) * 0o23/0o200,
+      p.z), Q, S);
     sys.flamaInterno.setMatrixAt(i, M);
+
+    // La kerno — la plej varma, plej malgranda parto, kun propra rapida
+    // tremado ( ĝi ne sekvas la malrapidan pulson de la koverto ).
+    const kerna = 0o7/0o10 + 0o15/0o100 * Math.sin(t * 0o33/0o10 + fazo * 0o5/0o2)
+      + 0o1/0o10 * Math.sin(t * 0o77/0o10 + fazo);
+    S.set(skalo * kerna, skaloY * kerna * 0o7/0o10, skalo * kerna);
+    M.compose(TMP.set(p.x, p.y + ( skaloY * kerna * 0o7/0o10 - 1 ) * 0o10/0o200, p.z), Q, S);
+    sys.flamaKerno.setMatrixAt(i, M);
   });
 
   // La punktlumoj havas sian PROPRIAN flaman indekson ( ili sekvas la
   // vidpunkton, ne la unuajn kvar flamojn ) — la fajfado venas de la fazo de
   // la flamo, kiun ili efektive lumas.
+  // ⟨ La langoj 📃 ⟩ — ĉiu lango havas sian propran ritmon. La oscilado
+  // malfermas kaj fermas ĝin; kiam ĝi malfermiĝas, ĝi kreskas multe pli ALTE
+  // ol LARĜE ( la flamo lekas supren ) kaj ĝia pinto kliniĝas eksteren, for
+  // de la meĉo. Kiam ĝi fermiĝas, ĝi preskaŭ malaperas en la ĉefan langon.
+  const langojPoLampo = sys.langojPoLampo;
+  sys.spots.forEach(( p, i ) => {
+    const fazoFlama = sys.phases[i];
+    for ( let j = 0; j < langojPoLampo; j++ ) {
+      const idx = i * langojPoLampo + j;
+      const bazo = sys.langajBazoj[idx];
+      const fazo = sys.langajFazoj[idx];
+      const osc = 0.5 + 0.5 * Math.sin(t * ( 0.85 + 0.3 * j ) + fazo + fazoFlama);
+      const sx = bazo.z * ( 0.35 + 0.75 * osc );
+      const sy = 0.3 + 1.3 * osc;
+      // La lango kliniĝas for de la akso — des pli, des pli malfermita ĝi estas.
+      const klino = 0.1 + 0.32 * osc;
+      const cx = bazo.x / Math.max(1e-6, Math.hypot(bazo.x, bazo.y));
+      const cz = bazo.y / Math.max(1e-6, Math.hypot(bazo.x, bazo.y));
+      FLAMA_E2.set(klino * cz, 0, -klino * cx);
+      FLAMA_Q2.setFromEuler(FLAMA_E2);
+      FLAMA_Q2.premultiply(Q);
+      S.set(sx, sy, sx);
+      M.compose(TMP.set(p.x + bazo.x * ( 0.6 + 0.4 * osc ),
+        p.y + ( sy - 1 ) * LANGA_ALTO / 2 * 0o7/0o10,
+        p.z + bazo.y * ( 0.6 + 0.4 * osc )), FLAMA_Q2, S);
+      sys.flamaLangoj.setMatrixAt(idx, M);
+    }
+  });
+
   for ( let k = 0; k < sys.punktajLumoj.length; k++ ) {
     const fazo = sys.phases[sys.lumajIndeksoj[k]];
     sys.punktajLumoj[k].intensity = 0o15/0o40 * ( 0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2) );
@@ -455,5 +637,7 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
 
   sys.flamaEkstero.instanceMatrix.needsUpdate = true;
   sys.flamaInterno.instanceMatrix.needsUpdate = true;
+  sys.flamaKerno.instanceMatrix.needsUpdate = true;
+  sys.flamaLangoj.instanceMatrix.needsUpdate = true;
   sys.brilaMaterialo.uniforms.uTime.value = t;
 }

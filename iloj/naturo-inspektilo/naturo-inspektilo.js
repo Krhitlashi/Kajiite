@@ -1,10 +1,10 @@
-// ≺⧼ Besta inspektilo 🔬 ⧽≻ — la laborilo por la bestaj modeloj kaj iliaj
-// animacioj ( la kunulo de la terena skulptilo ). Ĉiu specio montriĝas SOLA,
-// centre kaj kadrita — oni turnas kaj zumas per la muso, paŭzas la animacion
-// por studi unu pozon, montras la pivotajn aksojn de la artikoj kaj la
-// dratkadron de la geometrio, kaj legas la konstru-detalojn de la modelo
-// ( la kvanton de la meshoj kaj de la trianguloj, kiun la besta modulo
-// singarde limigas — vidu la kunfandon en konstruiPetrelanMalneton ).
+// ≺⧼ Natura inspektilo 🔬 ⧽≻ — la laborilo por la modeloj de la mondo: la
+// bestoj kaj iliaj animacioj, la plantoj kaj la rokoj ( la kunulo de la terena
+// skulptilo ). Ĉiu specio montriĝas SOLA, centre kaj kadrita — oni turnas kaj
+// zumas per la muso, paŭzas la animacion por studi unu pozon, montras la
+// pivotajn aksojn de la artikoj kaj la dratkadron de la geometrio, kaj legas la
+// konstru-detalojn de la modelo ( la kvanton de la meshoj, de la trianguloj kaj
+// de la instancoj — vidu la kunfandon en konstruiPetrelanMalneton ).
 //
 // La ilo UZAS la ludajn konstruilojn rekte ( la samajn funkciojn kiel la urbo ),
 // do ĝi neniam devojiĝas de la ludo — kio aperas ĉi tie, tio aperas en la mondo.
@@ -12,10 +12,67 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { konstruiMetitanBeston, gxisdatigiBestojn, konstruiMetitanPetrelon,
   gxisdatigiPetrelojn } from "../../assets/shalaj-specioj/bestoj.js";
+import { konstruiArbaron, konstruiLarikon, konstruiHxsxaksxlefojn,
+  konstruiPussxlefojn, konstruiMetitanRokon, konstruiFilikojn,
+  konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn, konstruiAltajnPurpurajnFilikojn,
+  konstruiHerbon, konstruiMusxajnMontetojn, konstruiFalintajnTrunkojn,
+  konstruiCetkuojn, konstruiCakeojn, konstruiLaganSubkreskajxojn,
+  konstruiMontajnSubkreskajxojn, konstruiMontajnRokojn, konstruiLikenojn,
+  konstruiLikenSxtonojn, konstruiTrunkajnLikenojn } from "../../assets/shalaj-specioj/vegetajxo.js";
+
+// ⟨ La helpiloj por la plantoj kaj la rokoj 📃 ⟩ — tiuj konstruiloj DISŜUTAS
+// siajn specimenojn tra la tuta mondo laŭ hazarda semo ( kaj akceptas filtrilojn
+// por riveroj, vojoj kaj biomoj ). Por la inspektilo oni donas al ili ebenan
+// mondon ( alto 0 ), neniujn filtrilojn kaj malgrandan kvanton — kaj poste oni
+// CENTRIGAS la grupon: la tuta grupo transloĝas tiel, ke la centro de la
+// specimenoj staras super la origino kaj ilia bazo sur la grundo. Sen tio la
+// modelo aperus ie ajn en la mondo ( ekzemple 200 unuojn norde ) kaj la kadro
+// montrus malplenan herbejon.
+const nulaAlto = () => 0;
+const neniom = () => false;
+// ⟨ Konfinu la disŝuton 📃 ⟩ — la disŝutaj konstruiloj ( likenoj, subkreskaĵoj )
+// havas neniun arean parametron: ili disŝutas siajn specimenojn tra la tuta mondo
+// laŭ la semo, do la ilo montris maldikajn makulojn dise de centoj da unuoj kaj
+// la kadro aspektis malplena. La riveraj kaj vojaj filtriloj tamen estas
+// demandataj por ĉiu kandidato, do filtrilo kiu rifuzas ĉion for de eta radiuso
+// tenas la specimenojn en unu videbla makulo.
+const nurApud = ( radiuso ) => ( x, z ) => Math.hypot( x, z ) > radiuso;
+// La montaj subkreskaĵoj rifuzas ĉion ene de 16 unuoj de la monda centro ( tie
+// estas la urbo ), do la ilo metas ANKRON malproksime — la konstruilo amasigas
+// plejparton de la specimenoj ĉirkaŭ la ankrOJ, kaj la dua filtrilo tenas ilin
+// en eta rondo ĉirkaŭ tiu ankro. Poste centri() reportas la tutan makulon al la
+// origino, do la kadro montras ilin kiel unu grupon.
+const nurApudPunkto = ( cx, cz, radiuso ) => ( x, z ) => Math.hypot( x - cx, z - cz ) > radiuso;
+const malproksimaAnkro = [ { x: 0o100, z: 0, h: 0, s: 1, r: 0 } ];
+// La montaj konstruiloj akceptas nur altajn lokojn ( super la arbolinio ), do
+// ili bezonas alton super la limo — alie ili metus NENION kaj la kadro montrus
+// malplenan grundon.
+const montaAlto = () => 0o24;
+// La likenoj kaj kelkaj subkreskajxoj bezonas ANKRojn ( arboj / ŝtonoj ) por
+// grupigi sin. Unu eta ankro ĉe la origino sufiĉas por la inspektilo.
+const ankrArboj = [ { x: 0, z: 0, h: 0, s: 0o3/0o10 } ];
+const centri = ( grupo ) => {
+  grupo.updateMatrixWorld(true);
+  const skatolo = new THREE.Box3().setFromObject(grupo);
+  const centro = skatolo.getCenter(new THREE.Vector3());
+  // ⟨ Kial oni ŝovas la GEFILOJN, ne la grupon 📃 ⟩ — mezuriModelon provizore
+  // nuligas la pozicion de la GRUPO antaŭ ol mezuri, do grupoŝovo malaperus en
+  // la mezuro kaj la kadro centriĝus sur la malnova monda pozicio. La roko do
+  // staris 280 unuojn for — la ekrano montris nur la ĉielon. La gefiloj portas
+  // la saman ŝovon kaj restas sendependaj de la grupa pozicio.
+  for ( const filo of grupo.children ) {
+    filo.position.x -= centro.x;
+    filo.position.y -= skatolo.min.y;
+    filo.position.z -= centro.z;
+  }
+  grupo.updateMatrixWorld(true);
+};
 
 // ⟨ La specioj 📃 ⟩ — la kvin akvaj malnetoj de la besta modulo ( la indeksoj de
-// konstruiMetitanBeston ) kaj la neĝopetrelo, kiu havas sian propran flugilon.
-// La animacio-priskriboj venas de la animacia bloko de gxisdatigiBestojn.
+// konstruiMetitanBeston ), la neĝopetrelo ( kiu havas sian propran flugilon ),
+// kaj la plantoj, la likenoj kaj la rokoj de vegetajxo.ts. La animacio-priskriboj
+// venas de la animacia bloko de gxisdatigiBestojn; la plantoj kaj la rokoj ne
+// havas animacion, do ili montras unu senmov­an momenton.
 const SPECOJ = [
   { kodo: "beroe", nomo: "Beroe 🥒", indekso: 0, grandeco: 0o12/0o10,
     akva: true,
@@ -37,6 +94,109 @@ const SPECOJ = [
     akva: true,
     priskribo: "Eta mararaneo kun ok longegaj kruroj kaj ĥitina ŝelo ( segmentaj ringoj kaj tuberoj ). La korpo mem estas malgranda — la kruroj portas la specon, kaj ĉiuj ok piedoj kuŝas sur unu ebeno.",
     animacio: "Alterna metakrona paŝado: la kokso balaas la piedon ĉirkaŭ la vertikala akso de la besto kaj la genuo fleksiĝas dum la levo ( la piedo estas en la aero )." },
+  // ⟨ La plantoj, la likenoj kaj la rokoj 📃 ⟩ — la samaj konstruiloj kiel la
+  // urbo ( vegetajxo.ts ). Neniu el ili havas animacion, do la momento-regilo
+  // ne movas ilin — sed la kadrigo, la pivotaj aksoj kaj la dratkadro funkcias
+  // same kiel ĉe la bestoj, kaj la specimeno montriĝas sola kaj centre.
+  // „konstruu“ ricevas malplenan grupon; la konstruilo aldonas siajn meshojn.
+  { kodo: "betulo", nomo: "Betulo 🌳", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiArbaron(g, [ { x: 0, z: 0, h: 0, s: 1 } ]),
+    priskribo: "Paperbetulo — blanka trunko kun nigraj lentokeloj kaj radika larĝiĝo, kaj ovoforma krono el ok kusenoj, ĉiu sur videbla branĉo. En la koro de ĉiu kuseno sidas malhela, malregula kerno — ĝi estas la ombro inter la folioj, ne videblaĵo mem — kaj ĉirkaŭ ĝi sidas la unuopaj folioj: kartetoj kun la UNU-FOLIA teksaĵo ( segildenta rando, vejnoj, tigo ) kaj alphaTest, do ĉiu folio montras sian veran formon. Ĉiu kartono havas sian propran nuancon ( vertexColors ) kaj ruliĝas ĉirkaŭ sia propra longa akso, do la foliaro ne estas unutona.",
+    animacio: "Neniu — la arboj staras senmove ( la plantoj ne havas animacion en la ludo )." },
+  // ⟨ Tri larikoj 📃 ⟩ — la larika alto estas HAZARDA ( 1.4–9.8 unuoj ) kaj
+  // ĝi decidas la trunk-larĝon kaj la kron-larĝon, do unu sola specimeno
+  // montrus nur unu el la kazoj. La ilo starigas tri: junan, mezan kaj
+  // plenkreskan, kun la sama spektro, kiun la larikaro de la mondo montras.
+  { kodo: "lariko", nomo: "Lariko 🌲", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiLarikon(g, [
+      { x: -1.5, z: 0.4, h: 0, s: 0.45 },
+      { x: 0.1, z: -0.5, h: 0, s: 0.72 },
+      { x: 1.7, z: 0.3, h: 0, s: 1 }]),
+    priskribo: "Alpa lariko — griza trunko kun radika larĝiĝo, kelkaj sekaj nudaj branĉetoj sur la malsupra trunko, kaj aŭtuna orflava pinglaro: 3–4 tavoloj de konusaj spajroj el pinglaj ventumiloj. La specio havas FORTAN alton-hazardon ( 1.4–9.8 unuoj, do malgrandaj inter plenkreskuloj ), kaj la trunko kaj la krono skalas kun la alto — la ilo montras tri el ili.",
+    animacio: "Neniu — la arboj staras senmove ( la plantoj ne havas animacion en la ludo )." },
+  { kodo: "hxsxak", nomo: "Ĥŝakŝlefo 🥬", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiHxsxaksxlefojn(g, [ { x: 0, z: 0, h: 0, s: 1 } ]),
+    priskribo: "Purpura laktukarbo — alta trunko kun 3–5 tavoloj da kvar grandaj kurbiĝintaj folioj. Ĉiu tavolo havas ŝelan TASON, kiu malfermiĝas supren kaj eksteren; la folioj leviĝas el la interno de la taso, kaj la malsupraj folioj de ĉiu tavolo restas pli mallongaj kaj pli proksime al la trunko. SUPER la lasta folia tavolo la planto finiĝas per PINTA KRONO de kvar foliaj tavoloj, kiuj MALGRANDIĜAS supren ĝis malgranda burĝono de junaj folioj; la lasta tavolo sidas ĝuste sur la pinto de la trunko, kiu mem rondiĝas en konuseton anstataŭ finiĝi per plata tranĉa disko.",
+    animacio: "Neniu — la plantoj staras senmove ( la plantoj ne havas animacion en la ludo )." },
+  { kodo: "pussx", nomo: "Pussxlefo 🌿", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiPussxlefojn(g, [ { x: 0, z: 0, h: 0, s: 1 } ]),
+    priskribo: "Filikeca eta Ĥŝakŝlefo — mallonga purpura trunko, 1–2 tavoloj de la samaj laktukaj folioj kaj unu ŝela taso ĉe la unua tavolo. La taso altas 20% de la planto, do ĝi ne kaŝas la foliojn. La planto finiĝas per tri pinta-kronaj tavoloj, kiuj malgrandiĝas supren ĝis burĝono sur la rondigita trunkopinto — ne per nuda stango nek per plata disko. Ĝiaj travideblaj manĝeblaj beroj kreiĝas aparte ( mangxajxoj.ts ).",
+    animacio: "Neniu — la plantoj staras senmove ( la plantoj ne havas animacion en la ludo )." },
+  { kodo: "filiko", nomo: "Filiko 🌿", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiFilikojn(g, 1, nulaAlto, [], [], neniom, neniom),
+    priskribo: "Vala filiko — VERA tri-dimensia rozeto da 9 ARKAJ FRONDOJ ( ne plu du krucitaj kartoj ). Ĉiu frondo estas rubando kun levita mezo-ripo kaj la filika teksturo: unu PINATA frondo kun 28 paroj da lobetaj pinnoj, malhelaj randaj strekoj kaj mezvejnetoj. La frondoj leviĝas el la grundo, malfermiĝas eksteren kaj iliaj pintoj malleviĝas sub la propra pezo. La ilo montras UNU specimenon ( la ludo metis centojn ).",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "purpuraFiliko", nomo: "Purpura filiko 🪻", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiPurpurajnFilikojn(g, 1, nulaAlto, neniom, neniom, neniom),
+    priskribo: "Pli alta purpura filiko el la periferio de la arbaro — VERA tri-dimensia rozeto da 11 ARKAJ FRONDOJ ( ne plu kvar krucitaj ebenoj ), kun la purpura pinata fronda teksturo kaj pli granda skalo ol la vala filiko.",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "purpuraPlanto", nomo: "Purpura planto 🪻", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiPurpurajnPlantojn(g, 1, nulaAlto, neniom, neniom, neniom),
+    priskribo: "Densa malalta purpura planto — la plej eta el la purpuraj plantoj, kiu randas la arbaron kaj la herbejon.",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "altaPurpuraFiliko", nomo: "Alta purpura filiko 🌴", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiAltajnPurpurajnFilikojn(g, 1, nulaAlto, neniom, neniom, neniom),
+    priskribo: "La plej alta purpura filiko — trunko kun fronda krono ( tri malsamaj kronaj formoj en la mondaj grupoj ).",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "herbo", nomo: "Herbo 🌱", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiHerbon(g, 1, nulaAlto, neniom, neniom, neniom),
+    priskribo: "Herba tufo — TRI kartoj je 60° ( du lasus videblan malplenan randon de 45° ) kun la herba teksturo: ~60 maldikaj, klinitaj klingoj, kelkaj sekaj flavaj inter ili kaj mola radika ombro. Ĉiu tufo ankaŭ ricevas propran klinon kaj malregulan alton. La ilo montras UNU tufon ( la ludo metis milojn ).",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "musxo", nomo: "Muska monteto 🟢", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiMusxajnMontetojn(g, 1, nulaAlto, [], neniom, neniom),
+    priskribo: "Muska monteto — kovrilo el centoj da fleksitaj musko-fadenoj ( pli longaj meze ), kiuj formas molan kupolon sen glata baza kuseno.",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "falintaTrunko", nomo: "Falinta trunko 🪵", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiFalintajnTrunkojn(g, 1, nulaAlto, [], neniom, neniom),
+    priskribo: "Falinta betula trunko — kuŝas sur la grundo, kun la betula ŝelo kaj la branĉaj stumpoj. Ĝi ankaŭ servas kiel ankro por la trunkaj likenoj.",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "cetkuo", nomo: "Cetkuo ( ekvizeto ) 🌾", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiCetkuojn(g, 1, nulaAlto, nulaAlto, neniom, neniom),
+    priskribo: "Kavalerbo ( Equisetum praealtum ) — vertikala kano el 11 segmentoj kun OK profundaj ripoj, okdentaj ingoj ĉe la nodoj ( unu dento po ripo, kiel ĉe vera ekvizeto ) kaj skvama strobilo ĉe la pinto. La tuta planto saltas per UNU uniforma skalo, do la ripoj, la ingoj kaj la dentoj tenas siajn proporciojn je ĉiu grandeco.",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "cakeo", nomo: "Cakeoj 🪷", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiCakeojn(g, 1, nulaAlto, 0, 0, () => 6, nulaAlto, neniom, neniom),
+    priskribo: "Cakeoj ( Equisetum telmateia ) — la granda ĉevalvosto de la lagaj randoj: kanaj tigoj kun ingoj, el kiuj ĉe ĉiu nodo eliras kirlo da BRANĈETOJ. Ĉiu branĉeto havas DU segmentojn — ĝi eliras preskaŭ horizontale, leviĝas ĉe sia pinto, kaj portas malgrandan artikon meze — kaj la kirloj estas plej longaj meze de la tigo, kiel ĉe la vera specio.",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "lagajPlantoj", nomo: "Lagaj subkreskaĵoj 🐸", indekso: -1, grandeco: 1,
+    akva: false,
+    konstruu: ( g ) => konstruiLaganSubkreskajxojn(g, 0o30, nulaAlto, 0, 0, () => 6,
+      nulaAlto, ankrArboj, ankrArboj, nurApud(0o6), neniom, neniom),
+    priskribo: "La miksajxo de malaltaj plantoj ĉirkaŭ la lago — deko da formoj kun malsamaj folioj kaj teksturoj, ĉiu en sia propra instancomesho. La ilo montras malgrandan makulon el la miksaĵo ( la ludo metis milojn ).",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "montajPlantoj", nomo: "Montaj subkreskaĵoj ⛰️", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiMontajnSubkreskajxojn(g, 0o40, montaAlto,
+      malproksimaAnkro, malproksimaAnkro, nurApudPunkto(0o100, 0, 0o10), neniom, neniom),
+    priskribo: "La alpaj malaltaj plantoj — sekaj tufoj kaj malgrandaj arbustoj inter la montaraj rokoj kaj la Pussxlefoj. La ilo montras grupon da ili ( la ludo metis milojn ).",
+    animacio: "Neniu — la plantoj staras senmove." },
+  { kodo: "likenoj", nomo: "Grundaj likenoj 🫧", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiLikenojn(g, 0o24, nulaAlto, malproksimaAnkro, [],
+      nurApudPunkto(0o100, 0, 0o10), neniom, false),
+    priskribo: "TRI likenaj formoj en unu specio — la arbusta ( frutikoza ), la plata folia ( krusta disko ) kaj la lana bisoida. La semo elektas la formon por ĉiu makulo, do la ilo montras plurajn makulojn de ĉiuj tri formoj.",
+    animacio: "Neniu — la likenoj staras senmove." },
+  { kodo: "likenSxtonoj", nomo: "Likenaj ŝtonoj 🪨", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiLikenSxtonojn(g, 1, nulaAlto, neniom, neniom),
+    priskribo: "Eta ŝtono kun verdeta ŝtona paletro — la kusenoj, ĉirkaŭ kiuj la grundaj likenoj grupigas sin.",
+    animacio: "Neniu — la ŝtonoj staras senmove." },
+  { kodo: "trunkajLikenoj", nomo: "Trunkaj likenoj 🍃", indekso: -1, grandeco: 1,    akva: false, konstruu: ( g ) => { const trunkoj = konstruiArbaron(g, [ { x: 0, z: 0, h: 0, s: 0o7/0o20 } ]); konstruiTrunkajnLikenojn(g, [ trunkoj ]); },
+    priskribo: "La likenaj buloj sur la trunkoj — tuberaj kupoloj kun la likena teksturo kiel dekalono. La ilo montras ilin sur malgranda betula trunko, ĉar ili bezonas trunkon por sidi.",
+    animacio: "Neniu — la likenoj staras senmove." },
+  { kodo: "roko", nomo: "Roko 🪨", indekso: -1, grandeco: 1,
+    akva: false, konstruu: ( g ) => konstruiMetitanRokon(g, 0, 0, nulaAlto, 1),
+    priskribo: "Unu rokbloko — dudekedro kun unu subdivido ( okdek facoj ), kies verticoj estas ŝovitaj per GLATA ondaro de la direkto, do la ŝtono estas neregula sed rondigita, kiel rulita ŝtonego. La surfaco portas la propran ŝtonan teksturon ( eroj, fendoj, kvarco-vejnoj ) kaj la rilatan reliefon, kaj la instanca koloro restas preskaŭ blanka — la tono venas el la teksajxo.",
+    animacio: "Neniu — la rokoj staras senmove." },
+  { kodo: "montajRokoj", nomo: "Montaraj rokoj ⛰️", indekso: -1, grandeco: 1,
+    akva: false,
+    // ⟨ Kial ne la disŝuta konstruilo 📃 ⟩ — konstruiMontajnRokojn rifuzas ĉiun
+    // lokon ene de 72 unuoj de la monda centro ( tie estas la urbo ), do filtrilo
+    // ne povus teni la rokojn apud la origino. La ilo do starigas la TRIAJN
+    // formojn mem, unu post la alia, ĉe eta rondo — la samaj semoj kiel la tri
+    // instancomeshoj de la mondo ( 0o7, 0o40, 0o71 ).
+    konstruu: ( g ) => { konstruiMetitanRokon(g, -1.1, 0.4, nulaAlto, 0o12/0o20, 0, 0o7);
+      konstruiMetitanRokon(g, 1.2, -0.9, nulaAlto, 0o15/0o20, 0, 0o40);
+      konstruiMetitanRokon(g, 0.1, 1.3, nulaAlto, 0o1, 0, 0o71); },
+    priskribo: "La rokblokoj de la alpa zono — TRIMALSAMAJ formoj ( tri semoj de la sama ondaro ), ĉiu kun sia propra ne-uniforma skalo, do la montaro ne montras la saman ŝtonon ripetitan.",
+    animacio: "Neniu — la rokoj staras senmove." },
   { kodo: "petrelo", nomo: "Neĝopetrelo 🕊️", indekso: -1, grandeco: 0o4,
     akva: false, petrelo: true,
     priskribo: "Neĝopetrelo ( Pagodroma nivea ) — tute blanka marbirdo kun nigraj flugilpintoj, tubo-naza hokbeko kaj malhela lora makulo antaŭ la okuloj.",
@@ -135,6 +295,19 @@ const lastaBirdaPozicio = new THREE.Vector3();
 // ĝin al la sceno.
 //     @returns La grupo de la modelo ( aŭ null se la konstruado malsukcesis ).
 function kreiModelon() {
+  // ⟨ La plantoj kaj la rokoj 📃 ⟩ — tiuj konstruiloj aldonas siajn meshojn
+  // rekte al la sceno ( ili ne havas propran grupon ), do la ilo donas al ili
+  // NOVAN grupon kiel "scenon". Tiel la modelo estas unu objekto, kiun la ilo
+  // povas forigi, mezuri kaj kadrigi per la samaj funkcioj kiel la bestoj —
+  // sed la grupo mem devas ankaŭ eniri la scenon.
+  if ( specio.konstruu ) {
+    const grupo = new THREE.Group();
+    specio.konstruu(grupo);
+    centri(grupo);
+    sceno.add(grupo);
+    animacio = null;
+    return grupo;
+  }
   if ( specio.petrelo ) {
     const petrelo = konstruiMetitanPetrelon(sceno, 0, 0, () => 0, 0o4, specio.grandeco);
     if ( !petrelo ) return null;
@@ -185,6 +358,13 @@ function mezuriModelon(grupo) {
   grupo.rotation.copy(sxparitaRotacio);
   grupo.updateMatrixWorld(true);
   const centro = mezo.clone();
+  if ( specio.konstruu ) {
+    // La planto aŭ la roko staras sur la grundo — la grupo estis centrita, do
+    // la origino de la grupo estas la radika ebeno kaj la radiuso jam ampleksas
+    // la tutan specimenon ( la InstancedMesh-oj raportas sian propran kadron al
+    // THREE.Box3, do ĉiuj instancoj enkalkuliĝas ).
+    return { centro, radiuso };
+  }
   if ( specio.petrelo ) {
     // La fluganta birdo — la kadro sekvas GIN mem ( vidu la sekvan fremon en
     // la buklo ), ne la centron de la flugcirklo.
@@ -227,8 +407,10 @@ function kadrigi(grupo) {
   vidAngulo = Math.PI / 0o4;
   vidKlino = 0o3/0o10;
   // La grundo kaj la krado — ĝuste sub la modelo ( la fluganta petrelo restas
-  // en la aero super la grundo, kiel en la mondo ).
-  const malsupro = specio.petrelo ? 0 : centro.y - radiuso * 0o4/0o10 - 0o1/0o2;
+  // en la aero super la grundo, kiel en la mondo, kaj la plantoj staras sur
+  // la origina ebeno de siaj konstruiloj ).
+  const malsupro = ( specio.petrelo || specio.konstruu ) ? 0
+    : centro.y - radiuso * 0o4/0o10 - 0o1/0o2;
   grundo.position.y = malsupro;
   krado.position.y = malsupro + 0o1/0o100;
   sunlumo.position.set(centro.x + ombraDuono * 0o3/0o10, malsupro + ombraDuono,
@@ -310,10 +492,14 @@ function agordiDratojn(grupo) {
 // gxisdatigiInformon — Plenigu la informan panelon por la nuna modelo.
 //     @param grupo ( THREE.Object3D ) - La modelo.
 function gxisdatigiInformon(grupo) {
-  let meshoj = 0, trianguloj = 0, materialoj = new Set();
+  let meshoj = 0, trianguloj = 0, instancoj = 0, materialoj = new Set();
   grupo.traverse((o) => {
     if ( !o.isMesh ) return;
     meshoj++;
+    // La instancigitaj meshoj ( la arboj, la folioj kaj la ŝelaj tasoj de la
+    // plantoj ) desegnas sian geometrion multfoje — la instanca nombro montras
+    // la veran koston, ne la kvanton de la unuopaj meshoj.
+    if ( o.isInstancedMesh ) instancoj += o.count;
     const g = o.geometry;
     trianguloj += ( g.index ? g.index.count : g.attributes.position.count ) / 0o3;
     for ( const m of ( Array.isArray(o.material) ? o.material : [ o.material ] ) ) materialoj.add(m);
@@ -324,7 +510,9 @@ function gxisdatigiInformon(grupo) {
   document.getElementById("specoDatumoj").innerHTML =
     "⟨ La animacio 📃 ⟩ " + specio.animacio + "<br>" +
     "⟨ La modelo 📃 ⟩ " + meshoj + " meshoj · " + trianguloj +
-      " trianguloj · " + materialoj.size + " materialoj · skalo " + specio.grandeco;
+      " trianguloj · " + materialoj.size + " materialoj" +
+      ( instancoj ? " · " + instancoj + " instancoj" : "" ) +
+      ( specio.konstruu ? " · planto aŭ roko" : " · skalo " + specio.grandeco );
 }
 
 // elektiSpecio — Forigu la antaŭan modelon, konstruu la novan kaj kadrigu ĝin.
@@ -341,7 +529,8 @@ function elektiSpecio(nova) {
   modelo = kreiModelon();
   if ( !modelo ) return;
   lastaBirdaPozicio.copy(modelo.position);
-  akvaEbeno.visible = specio.akva && akvaMontrita;
+  akvaEbeno.visible = !!specio.akva && akvaMontrita;
+  krado.visible = kradoMontrita;
   tempo = 0;
   bezonataGxisdatigo = true;
   kadrigi(modelo);
@@ -364,6 +553,7 @@ for ( const s of SPECOJ ) {
 }
 
 let akvaMontrita = true;
+let kradoMontrita = true;
 
 // sxalti — La komuna traktilo de la ŝaltilaj butonoj ( la sama ŝablono kiel en
 // la terena skulptilo — aria-pressed restas la sola stato ).
@@ -382,7 +572,7 @@ let bezonataGxisdatigo = true;
 sxalti("pauxzu", (n) => { pauxzita = n; bezonataGxisdatigo = true; });
 sxalti("turnu", (n) => { regiloj.autoRotate = n; });
 sxalti("akvo", (n) => { akvaMontrita = n; akvaEbeno.visible = n && specio.akva; });
-sxalti("krado", (n) => { krado.visible = n; });
+sxalti("krado", (n) => { kradoMontrita = n; krado.visible = n; });
 sxalti("drato", (n) => { dratoMontrita = n; if ( modelo ) agordiDratojn(modelo); });
 sxalti("fono", (n) => {
   // La fono — la malhela studia fundo aŭ la hela akva fundo. La hela fono
@@ -486,7 +676,7 @@ function animacii() {
 // interfacon por demandi la nunan modelon, do tiuj ĉi referencoj permesas
 // kontroli la scenon kaj la animacion permane ( kaj ripari la pozon de la
 // modelo dum la studado ). Vidu la saman skemon en src/sperto.ts.
-window.bestInspektilo = {
+window.naturoInspektilo = {
   THREE, sceno, fotilo, regiloj, bildilo,
   modelo: () => modelo, animacio: () => animacio, tempo: () => tempo,
   specio: () => specio, serchi: ( nomo ) => ( modelo ? modelo.getObjectByName(nomo) : null ),
