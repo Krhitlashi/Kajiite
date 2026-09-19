@@ -22,6 +22,9 @@ import { riveroZ, alteco, RIVERA_DUONLARĜO, LAGO_X, lagoZ, lagoNivelo, lagoRadi
 import { radiusaDistanco } from "../assets/komunajxoj/mapformo.js";
 import { aktivaMapo } from "./tero-datumaro/mapregulo.js";
 import { kreiScenon, ScenaSistemo } from "./scena.js";
+import { spacigiInstancojn, gxisdatigiVidlimojn, sekviVidlimon,
+  vidlimojnMalŝalti, vidlimojnŜalti } from "./vidlimo.js";
+import { kreiStatistikon } from "./statistiko.js";
 
 // ⟪ La formo de la mondo 📃 ⟫ — la tereno de la ludo havas la formon de la aktiva
 // mapo ( la cirklo, la rondigita kvadrato aŭ la rondigita triangulo ), do la
@@ -100,6 +103,13 @@ let promptaKadro = 0;
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
 const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron } = scena;
 
+// ⟪ La diagnoza surmetaĵo 📃 ⟫ — montras la nombrojn de la bildilo kaj de la
+// vidlimo ( FPS, desegnaj alvokoj, trianguloj, kaj kiuj scen-partoj pezas ).
+// Ŝaltita per ?statistiko; sen la parametro ĝi nur dormas ( unu bulea testo
+// po kadro ). Vidu src/statistiko.ts.
+const statistiko = kreiStatistikon(bildilo, sceno, fotilo);
+( window as unknown as { statistiko: typeof statistiko } ).statistiko = statistiko;
+
 // ⟪ Frua bildigo 📃 ⟫ — la ĉielo, la montoj kaj la tereno jam ekzistas en la
 // sceno antaŭ la urbo. Rendu ilin malantaŭ la glacia ŝarĝa kurtino ( la fono
 // de la malklarigita vitro ) anstataŭ nigra kanvaso. La konstrua cedoj ( jesi )
@@ -148,6 +158,33 @@ const {
 // La urbo kaj la bakita mapo estas pretaj — haltu la fruan bildigon ( la ĉefa
 // buklo ekas ĉe la fino de la dosiero ).
 haltoFrua = true;
+
+// ⟪ Vidlimo — la bildiga distanco 📃 ⟫ — la mondo registriĝas ĉe la vidlimo
+// ( src/vidlimo.ts ) tuj post la konstruado. La grandaj instancigitaj tavoloj
+// ( la arbaroj, la herbo, la rokoj ) disdividiĝas laŭ spaca krado, do ĉiu peco
+// havas propran limigan sferon: la vidkampo kaj la ombra fotilo povas forigi la
+// pecojn ekster la vido, kaj la distanca limo forigas la malgrandajn detalojn
+// antaŭ ol ili eĉ atingas la GPU-on. La vivantoj registriĝas per sia propra
+// pozicio ( ili moviĝas ) — ilia per-kadra animacio preterlasas la kaŝitojn.
+// Antaŭe la tuta arbaro ( miloj da instancoj ) kaj ĉiu figuro pasis tra la
+// vertica shadero ĉiukadre, kvankam la nebulo kaŝas ĉion trans ~0o200 unuoj.
+spacigiInstancojn(sceno);
+// La vivanta limo — 0o200 ( 128 ) unuoj. Pli ol la nebula videbleco ( la
+// figuroj restu videblaj kiam ili alproksimiĝas el la nebulo ), malpli ol la
+// tuta mondo.
+const VIVANTA_LIMO = 0o200;
+// ⟨ La ombra limo de la vivantoj 📃 ⟩ — 0o50 ( 40 ) unuoj. Ĉiu figuro
+// konsistas el dek-du partoj kaj homoj.ts markas ĈIUN el ili castShadow, do la
+// NPC-oj estas la plej multaj objektoj de la ombra mapo ( ĉirkaŭ 0o1000 en la
+// vido, pli ol la duono de ĉiuj ombro-kastantoj ). Pli malproksime ol 0o50
+// unuoj la tero estas jam pli ol duone kovrita de la nebulo, do la ombro de la
+// figuro apenaŭ videblas — sed ĝi kostis plenan desegnan alvokon. La sama limo
+// validas por la kanuoj ( malgranda ombro sur la akvo ).
+const VIVANTA_OMBRO = 0o50;
+for ( const n of npcoj ) sekviVidlimon(n.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO);
+for ( const k of kanuoj ) sekviVidlimon(k.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO);
+for ( const b of bestoj.bestoj ) sekviVidlimon(b.grupo, VIVANTA_LIMO);
+for ( const p of petreloj.petreloj ) sekviVidlimon(p.grupo, VIVANTA_LIMO);
 
 // ⟪ Ludanta figuro 📃 ⟫ — la NPC-stila modelo de la ludanto. Videbla nur en
 // tria persono, kiam la rado malzomas eksteren dum promenado.
@@ -1665,11 +1702,6 @@ function bakiMapon(): HTMLCanvasElement | null {
     mapFotilo.up.set(0, 0, 1); // mapo-supro = nordo ( +z )
     mapFotilo.position.set(0, 0o130, 0);
     mapFotilo.lookAt(0, 0, 0);
-    const kaŝitaj: THREE.Object3D[] = [];
-    for ( const n of npcoj ) { kaŝitaj.push(n.group); n.group.visible = false; }
-    for ( const c of kanuoj ) { kaŝitaj.push(c.group); c.group.visible = false; }
-    for ( const b of bestoj.bestoj ) { kaŝitaj.push(b.grupo); b.grupo.visible = false; }
-    for ( const p of petreloj.petreloj ) { kaŝitaj.push(p.grupo); p.grupo.visible = false; }
     // ⟨ La montaro sur la mapo 📃 ⟩ — la montarringo RESTAS en la bake. Ĝi
     // apartenas al la mondo ( ĝi sekvas la formon de la mapo kaj staras ĝuste
     // ĉe ĝia rando ), do la mapo montras la tutan insulon — la terenon, la
@@ -1678,7 +1710,19 @@ function bakiMapon(): HTMLCanvasElement | null {
     sceno.fog = null;
     const ombroj = bildilo.shadowMap.enabled;
     bildilo.shadowMap.enabled = false;
+    const kaŝitaj: THREE.Object3D[] = [];
     try {
+      // ⟨ La vidlimo malŝaltiĝas 📃 ⟩ — la bakado bezonas la TUTAN mondon, ne
+      // nur tion, kion la ludanto vidas: sen ĉi tio la foraj arbaroj kaj figuroj
+      // ( kaŝitaj de la distanca limo ) mankus en la bakita mapo. Atentu pri la
+      // ordo — malŝalti REVIVIGAS ĉion registritan, do ĝi devas okazi ANTAŬ la
+      // kaŝado de la moviĝantoj ( alie la NPC-oj aperus sur la mapo ). La tuto
+      // staras ene de la try, do la ŜALTO okazas ankaŭ se io ĵetas.
+      vidlimojnMalŝalti();
+      for ( const n of npcoj ) { kaŝitaj.push(n.group); n.group.visible = false; }
+      for ( const c of kanuoj ) { kaŝitaj.push(c.group); c.group.visible = false; }
+      for ( const b of bestoj.bestoj ) { kaŝitaj.push(b.grupo); b.grupo.visible = false; }
+      for ( const p of petreloj.petreloj ) { kaŝitaj.push(p.grupo); p.grupo.visible = false; }
       bildilo.setRenderTarget(rt);
       bildilo.render(sceno, mapFotilo);
       bildilo.setRenderTarget(null);
@@ -1686,6 +1730,7 @@ function bakiMapon(): HTMLCanvasElement | null {
       sceno.fog = nebulo;
       bildilo.shadowMap.enabled = ombroj;
       for ( const o of kaŝitaj ) o.visible = true;
+      vidlimojnŜalti();
     }
     // La nebula koloro de la ĉielo — la fora tono de la plena mapo. Legu ĝin
     // antaŭ ol la nebulo de la sceno malŝaltiĝas por la bake.
@@ -2561,13 +2606,19 @@ function animacii() {
   // la kanuon duone droninta. La plafono ( max kun la tereno ) evitas ke la
   // kanuo enprofundigu en malprofundan bordon.
   for ( const c of kanuoj ) {
+    // Malproksima kanuo ne animaciiĝas — ĝi reaperos ĉe sia loko sen salto.
+    if ( c !== surKanoto && !c.group.visible ) continue;
     if ( c !== surKanoto ) c.bazaY = Math.max(akvaNivelo(c.x, c.z), alteco(c.x, c.z));
     animaciiKanoton(c, t, c === surKanoto);
   }
   // NPC-aj animacioj — vojkonsciaj: la dua argumento estas la piedebla supraĵo
   // ( vojoj + dokoj ), do la NPC-oj paŝas SUR la pavimajn vojojn anstataŭ
   // trairi ilin kiel la kruda tero sube.
-  for ( const n of npcoj ) gxisdatigiNpc(n, deltaTempo, t, alteco, vojaSuproY);
+  // Nur la videblaj NPC-oj animaciiĝas. La malproksimaj ( pli ol la vivanta
+  // limo ) paŭzas — la animacio kaj la du terenaj legaĵoj ( alteco + la voja
+  // supraĵo ) de 0o230 figuroj ĉiukadre estas vera kosto, kaj la paŭzintaj
+  // figuroj estas kaŝitaj sub la nebulo.
+  for ( const n of npcoj ) { if ( n.group.visible ) gxisdatigiNpc(n, deltaTempo, t, alteco, vojaSuproY); }
 
   // ⟨ Kolizioj kun la vivantaj figuroj 📃 ⟩ — la ludanto ne trairu la NPC-ojn
   // nek la bestojn. Ĉe la NPC-oj ambaŭ flankoj cedas ( duono por la ludanto,
@@ -2576,6 +2627,8 @@ function animacii() {
   // estas puŝata — ili naĝas sian propran kurbon.
   if ( rezimo === "walk" && !surKanoto ) {
     for ( const n of npcoj ) {
+      // Kaŝita ( forlasita ) NPC estas pli ol la vivanta limo for — neniu kolizio.
+      if ( !n.group.visible ) continue;
       const difX = ludantaPozicio.x - n.group.position.x, difZ = ludantaPozicio.z - n.group.position.z;
       const d = Math.hypot(difX, difZ);
       const min = 0o7/0o10;
@@ -2588,6 +2641,7 @@ function animacii() {
       }
     }
     for ( const b of bestoj.bestoj ) {
+      if ( !b.grupo.visible ) continue;
       const difX = ludantaPozicio.x - b.grupo.position.x, difZ = ludantaPozicio.z - b.grupo.position.z;
       const d = Math.hypot(difX, difZ);
       const min = 0o5/0o10;
@@ -2698,7 +2752,16 @@ function animacii() {
     regiloj.update();
   }
 
+  // ⟪ La vidlimo 📃 ⟫ — la per-kadra distanca forigo ( vidu src/vidlimo.ts ).
+  // En la interno la tuta ekstera mondo estas kaŝita de kasxiEksteron, do la
+  // vidlimo ne tuŝu la videblecojn tie — alie ĝi revivigus la kaŝitajn eksterajn
+  // objektojn. Alie la ĝisdatigo okazas ĉiun kadron, ĝuste antaŭ la bildigo.
+  if ( rezimo !== "interior" ) gxisdatigiVidlimojn(mapX, mapZ);
+
   bildilo.render(sceno, fotilo);
+  // La diagnoza surmetaĵo legas renderer.info POST la bildigo — tie la nombroj
+  // apartenas al la ĵus finita kadro.
+  statistiko.gxisdatigu();
 }
 
 // ⟪ Sxargxo 📃 ⟫ — la stango estas pelita de la REALA konstrua progreso

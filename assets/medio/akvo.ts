@@ -189,26 +189,35 @@ export function konstruiRubandon(points: THREE.Vector3[],
   return { geometry: g, samples };
 }
 
-// konstruiSkulptitanAkvon — Konstruu akvon por la pentrita masko de la terena
-// skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). La meshxo kovras nur la maskan kadron
-// ( skulptaAkvaLimoj ) kaj la materialo eligas la fragmentojn ekster la masko,
-// do la akvo sekvas la pentritan formon. La verticaj profundoj ( uv.y ) venas
-// de la vera tereno, kiel cxe la cetera akvo.
+// konstruiSkulptitanAkvon — Konstruu akvon por la DERIVITA akva tavolo ( la
+// fontoj kaj la basenoj de la akvokalkulo ). La meshxo kovras nur la akvan
+// kadron ( skulptaAkvaLimoj ) kaj la materialo eligas la fragmentojn ekster la
+// masko, do la akvo sekvas la kalkulitan formon. La surfaco venas de
+// niveloFn — la riveroj malsupreniras laux la tereno, la basenoj restas plataj.
 //     @param sceno ( THREE.Scene ) - La sceno.
 //     @param x0, z0, x1, z1 ( number ) - Monda kadro de la masko.
 //     @param paso ( number ) - Krada paso ( kongruu kun la skulpta krado ).
-//     @param maskFn ( funkcio ) - Cxu la punkto estas en la pentrita akvo.
-//     @param nivelo ( number ) - Monda Y de la akvosurfaco.
-//     @param altecoFn ( funkcio ) - Tereno, por profundoj kaj seka rando.
+//     @param maskFn ( funkcio ) - Cxu la punkto estas akvo.
+//     @param niveloFn ( funkcio ) - Monda Y de la akvosurfaco cxe la punkto.
+//     @param altecoFn ( funkcio ) - La tereno ( kun la akva eltrancxo ), por la
+//         profundoj kaj la seka rando.
 //     @returns akvo ( RiverData ) - Samforma kiel la rivero/lago.
 export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
   x0: number, z0: number, x1: number, z1: number, paso: number,
   maskFn: ( x: number, z: number ) => boolean,
-  nivelo: number,
+  niveloFn: ( x: number, z: number ) => number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
-  const nx = Math.max(0o2, Math.round(( x1 - x0 ) / paso));
-  const nz = Math.max(0o2, Math.round(( z1 - z0 ) / paso));
+  // ⟨ La densigo 📃 ⟩ — la kalkula krado havas unu cxelon po `paso` ( 0o4 unuoj ).
+  // Je tiu grandeco la akvobordo ( kie la akva ebeno trapasas la teron )
+  // sxtuparus je kvar unuoj kaj aspektus kiel segildenta rando. La akva meshxo
+  // do estas TRIPLO pli densa ( ~1.33 unuoj ) — la samaj funkcioj, simple pli
+  // ofte specimenitaj — kaj la shader eligas la fragmentojn laux la PROFUNDO,
+  // do la vera trapasejo de la tereno difinas la bordon, ne la cxela masko.
+  const densigo = 0o3;
+  const sx = paso / densigo;
+  const nx = Math.max(0o2, Math.round(( x1 - x0 ) / sx));
+  const nz = Math.max(0o2, Math.round(( z1 - z0 ) / sx));
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
   const maskoj: number[] = [];
@@ -218,11 +227,14 @@ export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
       const x = x0 + ( x1 - x0 ) * i / nx;
       const z = z0 + ( z1 - z0 ) * j / nz;
       const tero = altecoFn(x, z);
+      const nivelo = niveloFn(x, z);
       pozicioj.push(x, nivelo + 0o1/0o20, z);
       uvoj.push(0o1/0o2, Math.max(0, nivelo - tero));
       // Akvo nur kie la masko estas starigita KAJ la tero restas sub la nivelo,
-      // por ke levita nivelo ne flosu super la bordo.
-      maskoj.push(maskFn(x, z) && tero < nivelo - 0o1/0o20 ? 1 : 0);
+      // por ke la akva surfaco ne flosu super la bordo. La masko limigas la
+      // akvon al la akva kalkulo ( alie la malalta tereno apud rivero aspektus
+      // inundita ), kaj la profundo eligas la veran bordon.
+      maskoj.push(maskFn(x, z) && tero < nivelo - 0o1/0o100 ? 1 : 0);
     }
   }
   for ( let j = 0; j < nz; j++ ) {
@@ -242,7 +254,7 @@ export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
   const mesh = new THREE.Mesh(geometrio, materialo);
   mesh.renderOrder = 0;
   sceno.add(mesh);
-  return { mesh, waterSurfaceY: ( x: number, z: number ) => nivelo };
+  return { mesh, waterSurfaceY: niveloFn };
 }
 
 function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
@@ -252,14 +264,27 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
   const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
   const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
   const maskaKodo = maskita ? "if ( vAkvo < 0.5 ) discard;\n" : "";
+  // La profunda elimino — nur la MASKITA akvo ( la derivita rivero kaj lago )
+  // uzas gxin. La fragmento malaperas tuj kiam la tereno atingas la akvan
+  // ebenon, do la akvo finigxas GXUSTE kie la grundo emerĝas, ne cxe la
+  // kvar-unua cxela rando. La senmaska rivero kaj lago konservas sian propran
+  // formon ( iliaj profiloj jam malkreskas al la bordo ).
+  const profundaKodo = maskita ? "if ( profundo <= 0.015625 ) discard;\n" : "";
+  const malprofundaKodo = maskita
+    ? "alpha *= smoothstep( 0.0, 0.0625, profundo );\n"
+    : "";
   // La ŝaŭma zono ĉe la bordo. La MASKA akvo uzas vAkvo — la interpolita
   // maska valoro estas 1 en la akvo kaj 0 ekster ĝi, do la zono inter 0.5 kaj
   // 0.875 sekvas la VIDEBLAN akvobordon ekzakte ( la profundo ĉe tiu rando jam
   // estas kelkaj unuoj, ĉar la masko estas ĉela — la profunda zono maltrafus la
   // randon ). La senmaskaj rivero kaj lago havas veran profundgradienton kaj
   // uzas la profundon.
+  // La sxauxma zono. La MASKITA akvo mezuras gxin laux la PROFUNDO, ne laux la
+  // masko — la maska valoro estas kvar-unua ( cxela ), do la zono estus kvar
+  // unuojn larĝa kaj kovrus la tutan rivereton. La profunda kampo estas glata
+  // kaj fajna, do la sxauxmo sekvas la VERAN akvobordon kiel maldika linio.
   const bordaKodo = maskita
-    ? "float bordaF = 1.0 - smoothstep( 0.5, 0.875, vAkvo );"
+    ? "float bordaF = 1.0 - smoothstep( 0.02, 0.14, profundo );"
     : "float bordaF = 1.0 - smoothstep( 1.0, 3.0, profundo );";
   return new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
@@ -329,6 +354,7 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         ${maskaKodo}
         // Profundo ( mondaj unuoj ) — enpakita en uv.y dum la konstruado.
         float profundo = max(0.0, vUv.y);
+        ${profundaKodo}
 
         // Beer–Lambert-sorbado — la lumo estingiĝas eksponente kun la
         // profundo, kaj la ruĝa sorbatas plej rapide, la blua plej malrapide
@@ -384,6 +410,10 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float alpha = 0.09375 + 0.90625 * (1.0 - exp(-profundo * 0.25));
         alpha = mix(alpha, 1.0, fresnel * 0.5);
         alpha = min(1.0, alpha + shimmer * 0.03125);
+        // La plej malprofunda akvo ( la lastaj centonoj da unuo cxe la bordo )
+        // malkreskas al travidebla, do la akvo ne finigxas per tranĉita rando
+        // sed glate algluigxas al la malseka grundo sub gxi.
+        ${malprofundaKodo}
 
         // ⟨ Ŝaŭmo ĉe la bordo 📃 ⟩ — maldika lakt-blanka linio, kie la akvo
         // renkontas la teron. Ĝi ekzistas nur en la unuaj proksimume unuoj de

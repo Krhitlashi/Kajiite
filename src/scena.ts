@@ -1,7 +1,7 @@
 // Scena — bildilo, sceno, fotilo, ĉielo, lumoj, materialoj, montoj, grundo, vetero
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { alteco, akvaNivelo, glataPaso } from "./tereno.js";
+import { alteco, akvaNivelo, akvaNiveloProksima, glataPaso } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
 import { kreiTerenanTeksajxon, kreiNebulTavolanTeksajxon,
@@ -1074,7 +1074,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const deklivo = ( cxelo > 0 && cxelo < sx - 1 && i >= sx && i < pozicio.count - sx )
         ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + sx] - hoj[i - sx]) / ( 2 * pasxo )
         : 0;
-      terenaKoloroEn(c, h, x, z, deklivo);
+      // La akvoborda tavolo legas la REALAN akvan nivelon ( la riveroj
+      // malsupreniras kaj la basenoj sidas cxe la akva nivelo ), ne unu fiksan
+      // ebenon — alie la malseka bordo sekvus malgustan izohipson.
+      terenaKoloroEn(c, h, x, z, deklivo, akvaNiveloProksima);
       koloroj[i * 3] = c.r; koloroj[i * 3 + 1] = c.g; koloroj[i * 3 + 2] = c.b;
     }
     // La mondo estas la FORMO, ne la krada kvadrato. La krado ( kaj la

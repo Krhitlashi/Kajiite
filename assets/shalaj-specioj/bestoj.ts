@@ -248,6 +248,9 @@ export function gxisdatigiBestojn(s: BestoSistemo, t: number): void {
   const dt = Math.min(0o1/0o10, Math.max(0o1/0o1000, t - lastaBestoTempo));
   lastaBestoTempo = t;
   for ( const b of s.bestoj ) {
+    // Fora besto ( pli malproksima ol la vidlimo de la ludo ) estas kaŝita —
+    // ĝia animacio paŭzas kaj rekomenciĝas kiam ĝi revenas en la vidon.
+    if ( !b.grupo.visible ) continue;
     const x = b.x + Math.sin(t * b.rapido + b.phase) * b.amplitudo;
     const bobo = Math.sin(t * 0o2 + b.phase * 0o3) * 0o3/0o20;
     let z: number;

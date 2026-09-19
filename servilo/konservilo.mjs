@@ -2,7 +2,7 @@
 // Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). gxi
 // ricevas la generitan datumaron per POST kaj skribas gxin REKTE al src/ —
 // la datumoj vivas en PROPRAJ dosieroj en src/tero-datumaro/ ( la krado,
-// akvo, biomoj, bestoj, objektoj, urboj kaj vojoj ), kaj la
+// akvo, akvofontoj, biomoj, bestoj, objektoj, urboj kaj vojoj ), kaj la
 // skulptilo sendas ilin kiel JSON { dosieroj. { nomo. teksto } }. La skulptilo
 // montras la butonon „Savi rekte al src/ ✍️“ kiam cxi tiu servilo kuras — la
 // savo tiam ne bezonas la dosier-elektilon nek elSxuton.
@@ -29,6 +29,7 @@ const SRC = join(RADIKO, "src");
 const DOSIEROJ = {
   "krado.ts": "// ≺⧼ Skulptita krado",
   "akvo.ts": "// ≺⧼ Skulptita akvo",
+  "akvofontoj.ts": "// ≺⧼ Skulptitaj akvofontoj",
   "biomoj.ts": "// ≺⧼ Skulptitaj biomoj",
   "bestoj.ts": "// ≺⧼ Skulptitaj bestoj",
   // rultempo.ts NE skribiĝas — ĝi estas la komuna modulo ( la malkodaj kaj

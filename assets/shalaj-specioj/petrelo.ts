@@ -208,6 +208,9 @@ export function gxisdatigiPetrelojn(s: PetreloSistemo, t: number): void {
   const dt = Math.min(0o1/0o10, Math.max(0o1/0o1000, t - lastaPetrelaTempo));
   lastaPetrelaTempo = t;
   for ( const p of s.petreloj ) {
+    // Fora petrelo ( malantaŭ la vidlimo de la ludo ) estas kaŝita — ĝia
+    // flugo paŭzas kaj daŭras de la sama angulo kiam ĝi revenas en la vidon.
+    if ( !p.grupo.visible ) continue;
     const x = p.cx + Math.cos(p.angulo) * p.radio;
     const z = p.cz + Math.sin(p.angulo) * p.radio;
     // ⟨ La alto 📃 ⟩ — la celo estas la tereno sub la birdo plus sia propra

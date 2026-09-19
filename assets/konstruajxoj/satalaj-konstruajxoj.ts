@@ -508,7 +508,11 @@ export function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: stri
   const signaY = 0o1/0o100;
   const steleo = new THREE.Mesh(
     new THREE.ExtrudeGeometry(kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o10, 0o1/0o4), { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }),
-    new THREE.MeshStandardMaterial({ color: 0x081818, roughness: 0o23/0o40 })
+    // La malhela steleo — la sama dividita materialo por ĉiuj konstruaĵoj ( kiel
+    // la muroj kaj kadroj ). La signa FACO ( kun sia propra teksto-teksturo )
+    // restas aparta, do la kunfandilo de la urbo lasas ĝin sola.
+    konstruajxaMaterialo("steleo",
+      () => new THREE.MeshStandardMaterial({ color: 0x081818, roughness: 0o23/0o40 }))
 );
   steleo.position.set(w * 0o13/0o40, signaY, d / 2 + 0o104/0o100 - 0o5/0o100); steleo.castShadow = true; group.add(steleo);
   // ShapeGeometry uzas la krudajn formo-koordinatojn kiel UV (ne [0,1]),

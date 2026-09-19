@@ -1,6 +1,7 @@
 // Urbo — urba konstruo. konstruajxoj, vojoj, placoj, lampoj, vegetajxo, nebulo, akvo, kanuoj
 // Modula krada sistemo — vojoj kaj konstruajxaj pozicioj derivitaj de kradaj parametroj.
 import * as THREE from "three";
+import { kunfandiMondajnMeshojn } from "../assets/komunajxoj/kunfandajxoj.js";
 import { konstruiSatalon, TIPARO, KonstruSpec } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
 import { kreiNebulanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
 import { konstruiRiveron, konstruiRiveronNordan, konstruiLagon, konstruiSkulptitanAkvon, RiverData } from "../assets/medio/akvo.js";
@@ -31,7 +32,7 @@ import { riveroZ, alteco, akvoY, montetaBazo, RIVERA_DUONLARĜO,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_FONTO_Z,
   RIVERA_NORDORIENTA_DUONLARĜO, RIVERA_NORDORIENTA_BUŜO_Z,
   cxuEnNordorientaRivero, montaroNordOrienta, skulptitaAkvo, skulptaAkvaLimoj, akvo,
-  SKULPTA_PASO, SKULPTA_AKVA_NIVELO, SKULPTA_AKTIVA } from "./tereno.js";
+  akvaMeshNivelo, SKULPTA_PASO, SKULPTA_AKVA_NIVELO, SKULPTA_AKTIVA } from "./tereno.js";
 import { VESTOJ } from "../assets/vestaro/vestoj.js";
 import { skulptitaBesto } from "./tero-datumaro/rultempo.js";
 import { SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_OBJEKTOJ,
@@ -164,6 +165,10 @@ function konstruiMetitajnObjektojn(
   selektajxoj: THREE.Mesh[],
 ): Krasesxagxo | null {
   const xipoj: Krasesxagxo[] = [];
+  // La gefiloj de la sceno antaŭ la meto — ĉio nova poste estas la metitaj
+  // objektoj ( la konstruaĵoj kaj iliaj speguloj ), kiujn la kunfandilo povas
+  // preni ( vidu la kunfandon malsupre ).
+  const antaŭajGefiloj = new Set<THREE.Object3D>(sceno.children);
   for ( const o of objektoj ) {
     const s = o.skalo ?? 1;
     if ( o.speco === "betulo" ) konstruiArbaron(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
@@ -230,6 +235,27 @@ function konstruiMetitajnObjektojn(
       }, sceno, selektajxoj);
     }
   }
+  // ⟨ Kunfando de la metitaj konstruaĵoj 📃 ⟩ — la individuaj objektoj de la
+  // terena skulptilo ( la sanktejoj, turoj, domoj, manĝejoj, kasafeoj kaj
+  // stacidomoj ) konstruiĝas per la SAMA konstruiSatalon kiel la kradaj urboj,
+  // do ili alportas la samajn 10-20 meshojn po konstruaĵo ( plus la diamantan
+  // spegulon ). Ili estas la plej granda restanta grupo de desegnaj alvokoj
+  // post la kunfando de la kradaj urboj, kaj ili same neniam moviĝas. La
+  // moviĝantaj objektoj de ĉi tiu buklo ( la NPC-oj, la bestoj, la petreloj, la
+  // kanuoj, la kosmoŝipo ) RESTAS solaj — iliaj transformoj kaj animacioj
+  // bezonas la proprajn meshojn, kaj la kunfandilo bakus ilian nunan pozicion.
+  const konservotaj = new Set<THREE.Object3D>(selektajxoj);
+  const movaj = new Set<THREE.Object3D>();
+  for ( const f of npcoj ) movaj.add(f.group);
+  for ( const b of bestoj.bestoj ) movaj.add(b.grupo);
+  for ( const p of petreloj.petreloj ) movaj.add(p.grupo);
+  for ( const k of kanuoj ) movaj.add(k.group);
+  for ( const x of xipoj ) movaj.add(x.group);
+  kunfandiMondajnMeshojn(sceno,
+    sceno.children.filter(o => !antaŭajGefiloj.has(o) && !movaj.has(o)), {
+      celo: 0o100,
+      konservu: ( m ) => konservotaj.has(m),
+    });
   return xipoj.length ? xipoj[0] : null;
 }
 
@@ -482,7 +508,22 @@ function konstruiKradanUrbon(
   });
 
   const konstruGrupoj: THREE.Group[] = [];
+  const antaŭajGefiloj = new Set<THREE.Object3D>(sceno.children);
   konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiSatalon(s, sceno, selektajxoj)));
+  // ⟪ La urbaj konstruaĵoj kunfandiĝas 📃 ⟫ — ĉiu konstruaĵo estas aro da 10-20
+  // etaj meshoj ( la klinitaj tavoloj, la oraj kadroj, la pordoj, la fenestroj,
+  // la steleoj kaj signoj, la tabloj ) plus sia diamanta spegulo sub la grundo.
+  // Ĉiu el tiuj meshoj estas aparta desegna alvoko en la ĈEFA pasumo KAJ denove
+  // en la OMBRA pasumo — la konstruaĵoj estas la plej granda unuopa fonto de
+  // alvokoj en la tuta ludo ( ĉirkaŭ 600 alvokoj por ĉirkaŭ 40 konstruaĵoj ).
+  // Ili neniam moviĝas, do ili povas dividi la samajn kunigitajn meshojn po
+  // ( materialo · ombra stato · spaca ĉelo ). La muroj ( la elekteblaj meshoj,
+  // kiuj portas userData.spec por la klako kaj la internoj ) restas APARTAJ.
+  const konservotaj = new Set<THREE.Object3D>(selektajxoj);
+  kunfandiMondajnMeshojn(sceno, sceno.children.filter(o => !antaŭajGefiloj.has(o)), {
+    celo: 0o100,                             // 64 unuoj — kongrua kun la vidlimoj
+    konservu: ( m ) => konservotaj.has(m),
+  });
 
   // Konstruu aron da celloj por rapida sercxo. La eksteraj vojoj ( unu pasxon
   // preter la ekstera vico ) etendiĝas nur kie reale ekzistas blokoj — la
@@ -891,14 +932,16 @@ export async function konstruiUrbon(
   const lago: RiverData | null = SKULPTA_AKTIVA ? null
     : konstruiLagon(sceno, LAGO_X, lagoZ(), lagoRadio, lagoNivelo(), alteco);
 
-  // ⟪ Skulptita akvo ( la terena skulptilo ) 📃 ⟫ — akvo pentrita en
-  // iloj/tero-skulptilo/tero-skulptilo.html. La masko limigas la meshxon al la pentrita zono;
-  // nenio konstruigas se ne estas akvo.
+  // ⟪ La DERIVITA akvo ( la akvokalkulo ) 📃 ⟫ — la akvo venas de la fontoj
+  // ( tero-datumaro/<mapo>/akvofontoj.ts ) kaj de la akvokalkulo; la masko
+  // limigas la meshxon al la akva zono, kaj la surfaco sekvas la nivelan kampon
+  // ( la riveroj malsupreniras, la basenoj restas plataj ). Nenio konstruigas se
+  // ne estas akvo.
   const limojSkulptaj = skulptaAkvaLimoj();
   const skulptaAkvo: RiverData | null = limojSkulptaj
     ? konstruiSkulptitanAkvon(sceno, limojSkulptaj.x0, limojSkulptaj.z0,
         limojSkulptaj.x1, limojSkulptaj.z1, SKULPTA_PASO, skulptitaAkvo,
-        SKULPTA_AKVA_NIVELO, alteco)
+        akvaMeshNivelo, alteco)
     : null;
 
   // ⟪ Dokoj — alirejoj laŭ la riverbordo 📃 ⟫

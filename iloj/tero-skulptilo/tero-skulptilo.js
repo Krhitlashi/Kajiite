@@ -60,13 +60,20 @@ import { aktivaMapo, mapoDeKodo } from "../../src/tero-datumaro/mapregulo.js";
 // 3D-vido kaj la ludo montras la saman formon kaj la saman randon.
 import { FORMOJ, distancoDeFormo, formajRandPunktoj, kreiFormanBazon,
   premuAlFormo, MONDO_BAZA_Y } from "../../assets/komunajxoj/mapformo.js";
+// ⟪ La akvokalkulo 📃 ⟫ — la akvo estas DERIVITA de la fontoj ( la sama modulo
+// kiel la ludo, src/akvokalkulo.ts ). La ilo ne plu pentras la maskon: gxi
+// metas, movas kaj forigas FONTOJN, kaj la riveroj elfluas, la kavoj plenigxas
+// kaj la akva surfaco sekvas la terenon. La malnova pentrita masko restas kiel
+// la basenaj semoj ( la basenoj de la antaŭaj mapoj ).
+import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima,
+  specimenoDulineara } from "../../src/akvokalkulo.js";
 const mapoKodo = new URLSearchParams(location.search).get("mapo");
 const mapoDatumo = mapoDeKodo(mapoKodo);
 // La datumdosieroj de ĉiuj mapoj — unu globa importo, do aldoni mapon ne
 // postulas ŝanĝojn ĉi tie ( Vite malkonstruas import.meta.glob je la konstrno,
 // kontraŭe al dinamika importo kun variablo ).
 const MAPAJ_MODULOJ = import.meta.glob(
-  "../../src/tero-datumaro/*/{krado,akvo,biomoj,bestoj,objektoj,urboj,vojoj}.ts");
+  "../../src/tero-datumaro/*/{krado,akvo,akvofontoj,biomoj,bestoj,objektoj,urboj,vojoj}.ts");
 // preniModulon — la datumdosiero de la nuna mapo.
 //     @param nomo ( string ) - "krado" | "akvo" | "biomoj" | "bestoj" | "objektoj" | "urboj" | "vojoj".
 //     @returns La modulo de la dosiero.
@@ -78,6 +85,10 @@ async function preniModulon(nomo) {
 }
 const { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_DELTAJ } = await preniModulon("krado");
 const { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO } = await preniModulon("akvo");
+// La akvofontoj — malnova mapo ne havas la dosieron, do la defaŭlto malplenas
+// ( tiam nur la pentrita akva masko estas la basenaj semoj ).
+const { SKULPTA_AKVOFONTOJ } = await preniModulon("akvofontoj")
+  .catch(() => ( { SKULPTA_AKVOFONTOJ: [] } ));
 const { SKULPTA_BIOMOJ } = await preniModulon("biomoj");
 const { SKULPTA_BESTOJ } = await preniModulon("bestoj");
 // La cetera datumaro en siaj propraj dosieroj — la metitaj objektoj
@@ -135,7 +146,15 @@ const PASO = SKULPTA_PASO;
 const N = SKULPTA_N;
 const X0 = SKULPTA_ORIGINO[0], Z0 = SKULPTA_ORIGINO[1];
 const deltoj = new Float32Array(N * N);       // deltoj en mondo-unuoj
-const masko = new Uint8Array(N * N);          // pentrita akvo ( 0/1 )
+const masko = new Uint8Array(N * N);          // la MALNOVA pentrita akvo ( 0/1 ) — nun nur la basenaj semoj
+// La akvofontoj — { x, z, fluo } ( la akvo estas deriva de ili ).
+let fontoj = Array.isArray(SKULPTA_AKVOFONTOJ) ? SKULPTA_AKVOFONTOJ.map(f => ( { ...f } )) : [];
+let elektitaFonto = -1;          // la elektita fonto ( reliefigita )
+let fontoTrenata = -1;           // la trenata fonto ( la kapto de la klako )
+let akvaRezulto = null;          // la rezulto de kalkuliAkvon
+let akvoMalpura = true;          // ĉu la akvo rekalkulu ( en la kadra buklo )
+let akvoTrenanta = false;        // dum fonta treno la akvo ne rekalkulu cxiun kadron
+let fluoValoro = 0o6;            // la fluo de novaj fontoj ( la glitilo )
 const biomoj = new Uint8Array(N * N);         // pentrita biomo ( 0=aŭtomata, 1=montaro, 2=valo, 3=ebenaĵo, 4=akvaj-plantoj, 5=ekvizeto )
 const bestoj = new Uint8Array(N * N);         // pentritaj bestaj zonoj ( 0=aŭtomata, 1=akvaj bestoj, 2=petreloj )
 // Metitaj objektoj — la objekta ilo ( APARTA de la penikoj ) metas individuajn
@@ -239,6 +258,7 @@ const refaraHistorio = [];
 function statoMomento(){
   return {
     deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(),
+    fontoj: fontoj.map(f => ( { ...f } )), fontaElekto: elektitaFonto,
     objektoj: objektoj.map(o => ( { ...o } )), objektaElekto: elektitaObjekto, nivelo: akvaNiveloValoro,
     urboj: JSON.parse(JSON.stringify(urboj)), elektitaUrbo,
     vojoj: JSON.parse(JSON.stringify(vojoj)), dokoj: JSON.parse(JSON.stringify(dokoj)),
@@ -254,6 +274,11 @@ function restoriStaton(s) {
   masko.set(s.masko);
   biomoj.set(s.biomoj);
   bestoj.set(s.bestoj);
+  // La akvofontoj kaj la elektita fonto — la akvo rekalkuligxos sube.
+  fontoj = s.fontoj ? s.fontoj.map(f => ( { ...f } ) ) : [];
+  elektitaFonto = s.fontaElekto ?? -1;
+  fontoTrenata = -1;
+  akvoMalpura = true;
   objektoj = s.objektoj ? s.objektoj.slice() : [];
   elektitaObjekto = s.objektaElekto ?? -1;
   if ( s.urboj && s.urboj.length ) urboj = s.urboj;
@@ -270,8 +295,8 @@ function restoriStaton(s) {
   gxisdatigiUrboElektilon();
   elektiUrbon(elektitaUrbo);
   gxisdatigiVojajnRegilojn();
-  gxisdatigiPlenan2Dn();
-  gxisdatigi3DnPostPlena();
+  // La akvo ( la fontoj kaj la nivelo sxangxigxis ) — rekalkulu kaj redesegnu.
+  rekalkuliAkvon();
   sxangxita = true;
 }
 function malfari(){
@@ -316,6 +341,233 @@ function maskoInterp(x, z) {
   const c = masko[j1 * N + i0], d = masko[j1 * N + i1];
   return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
 }
+// ⟨ La akvaj helpiloj 📃 ⟩ — la REZULTO de la akvokalkulo ( ne la pentrita
+// masko ). La ludo legas la samajn kampojn per la samaj specimenaj funkcioj
+// ( src/akvokalkulo.ts ), do la ilo kaj la ludo montras la saman akvon.
+const ORIGINO = [ X0, Z0 ];
+// akvaKavoInterp — la akva eltrancxo ( la riverlito mordita de la akvo ).
+function akvaKavoInterp(x, z) {
+  if ( !akvaRezulto ) return 0;
+  return specimenoDulineara(akvaRezulto.kavoj, N, PASO, ORIGINO, x, z);
+}
+// teraAlto — la videbla tereno: la procedura bazo, la skulptitaj deltoj kaj la
+// akva eltrancxo ( la sama sumo kiel alteco() en tereno.ts ).
+function teraAlto(x, z) {
+  return bazaAlteco(x, z) + deltoInterp(x, z) - akvaKavoInterp(x, z);
+}
+// cxuAkvo — ĉu la punkto estas akvo ( la deriva masko ).
+function cxuAkvo(x, z) {
+  return !!akvaRezulto && akvoCxe(akvaRezulto, N, PASO, ORIGINO, x, z);
+}
+// akvaNiveloEn — la akvosurfaca Y, aŭ null. La riveroj malsupreniras, la
+// basenoj estas plataj — ĉiu akva ĉelo portas sian propran nivelon.
+function akvaNiveloEn(x, z) {
+  if ( !akvaRezulto ) return null;
+  const v = niveloCxe(akvaRezulto, N, PASO, ORIGINO, x, z, 0o1);
+  return Number.isNaN(v) ? null : v;
+}
+// akvaNiveloProksima — la nivelo de la plej proksima akvo ( gxis du ĉeloj for ),
+// aŭ la agordita akva nivelo. La tera akvoborda tavolo bezonas gxin.
+function akvaNiveloProksima(x, z) {
+  if ( !akvaRezulto ) return akvaNiveloValoro;
+  const v = niveloProksima(akvaRezulto, N, PASO, ORIGINO, x, z, 0o2);
+  return Number.isNaN(v) ? akvaNiveloValoro : v;
+}
+// rekalkuliAkvon — rulu la akvan kalkulon. La tereno estas la SEKA tereno ( la
+// deltoj sen la eltrancxo ) — alie la kalkulo ripetus sian propran eltrancxon kaj
+// la kanalo profundigxus sen fino.
+function rekalkuliAkvon() {
+  akvoMalpura = false;
+  akvaRezulto = kalkuliAkvon(N, PASO, ORIGINO,
+    ( x, z ) => bazaAlteco(x, z) + deltoInterp(x, z),
+    ( x, z ) => distancoDeFormo(mapoFormo, mapoGrandeco, x, z) <= 0,
+    fontoj, masko,
+    { nivelo: akvaNiveloValoro } );
+  gxisdatigiAkvajnStatistikojn();
+  rekonstruiFontojn3D();
+  gxisdatigiPlenan2Dn();
+  gxisdatigi3DnPostPlena();
+}
+// akvoSxangxigxis — io sangxis la akvon ( la tereno, la fontoj, la nivelo ).
+// La buklo rekalkulas unufoje po kadro ( sed ne dum fonta treno — tiam la
+// kalkulo atendus la finon de la treno ).
+function akvoSxangxigxis() {
+  akvoMalpura = true;
+  sxangxita = true;
+}
+
+// ⟨ La akvofontoj 📃 ⟩ — la akva ilo metas, movas kaj forigas FONTOJN. La
+// riveroj elfluas de ili, la kavoj plenigxas, la kanaloj eltrancxigxas.
+const FONTA_GLUO = 0o1/0o4;      // 0.25 — la fontoj algluigxas kiel la objektoj
+function algluiFonton(v) { return Math.round(v / FONTA_GLUO) * FONTA_GLUO; }
+// fontoCxePunkto — la indekso de la fonto plej proksima al la punkto ( en
+// mondunuoj ), aux -1 se neniu estas ene de la radiuso.
+function fontoCxePunkto(x, z, r = 0o10) {
+  let plejBona = -1, plejBonaD = r;
+  for ( let i = 0; i < fontoj.length; i++ ) {
+    const d = Math.hypot(fontoj[i].x - x, fontoj[i].z - z);
+    if ( d < plejBonaD ) { plejBonaD = d; plejBona = i; }
+  }
+  return plejBona;
+}
+// metiFonton — nova fonto cxe la punkto kun la fluo de la glitilo.
+function metiFonton(x, z, fluo = fluoValoro) {
+  momenti();
+  fontoj.push({ x: algluiFonton(x), z: algluiFonton(z), fluo });
+  elektitaFonto = fontoj.length - 1;
+  statuso("Fonto metita ( fluo " + fluoValoro + " ) — la akvo fluas malsupren");
+  akvoSxangxigxis();
+  bezonoDesegno = true;
+}
+// forigiFonton — forigu fonton ( la akvo de gxi malaperas ).
+function forigiFonton(ind) {
+  if ( ind < 0 || ind >= fontoj.length ) return;
+  momenti();
+  fontoj.splice(ind, 1);
+  elektitaFonto = -1;
+  fontoTrenata = -1;
+  statuso("Fonto forigita");
+  akvoSxangxigxis();
+  bezonoDesegno = true;
+}
+// komenciFontanTrenon / sxangiFontanPozicion / finiFontanTrenon — kaptu fonton
+// kaj trenu gxin ( la akvo rekalkuligxas cxe la fino de la treno ).
+function komenciFontanTrenon(ind, x, z) {
+  momenti();
+  elektitaFonto = ind;
+  fontoTrenata = ind;
+  akvoTrenanta = true;
+  // La glitilo sekvu la fluon de la kaptita fonto.
+  fluoValoro = fontoj[ind].fluo;
+  fluoRegilo.value = String(fluoValoro);
+  gxisdatigiValorojn();
+  sxangiFontanPozicion(ind, x, z);
+}
+function sxangiFontanPozicion(ind, x, z) {
+  if ( ind < 0 || ind >= fontoj.length ) return;
+  fontoj[ind].x = algluiFonton(x);
+  fontoj[ind].z = algluiFonton(z);
+  akvoSxangxigxis();
+  bezonoDesegno = true;
+}
+function finiFontanTrenon() {
+  if ( fontoTrenata < 0 ) return;
+  fontoTrenata = -1;
+  akvoTrenanta = false;
+  akvoSxangxigxis();
+  statuso("Fonto " + ( elektitaFonto + 1 ) + " movita — la akvo refreŝigxas");
+}
+// sxangxiFluonDeElektita — la glitilo de la fluo dum la fonta ilo: kun
+// elektita fonto gxi sxangxas gxian fluon, alie gxi difinas la fluon de la
+// venontaj fontoj.
+function sxangxiFluonDeElektita() {
+  if ( elektitaFonto >= 0 && elektitaFonto < fontoj.length ) {
+    fontoj[elektitaFonto].fluo = fluoValoro;
+    akvoSxangxigxis();
+  }
+}
+
+// ⟨ Fontoj el la pentrita akvo 📃 ⟩ — la malnova pentrita akvomasko diras KIE
+// la akvo devus esti, sed ne DE KIE gxi venas. Cxi tiu ago legas gxin kaj
+// metas la fontojn — sed ne unu po pentrita makulo: gxi FLUAS la kalkulon kaj
+// rigardas, kiuj pentritaj celoj restas SEKaj, poste metas fonton cxe la plej
+// alta seka celo, kaj ripetas. La fontoj do aperas nur tie, kie la akvo vere
+// bezonas eniron — la basenoj plenigxas per si mem ( la semoj ), kaj la
+// riveroj supren-sxovas gxis la akvo atingas la tutan pentritan akvon.
+//     @returns { fontoj, sekaj } — la metitaj fontoj kaj la restaj sekaj celoj.
+function deriviFontojnElPentrita(){
+  // La terenaj altoj de la pentritaj celoj — unufoja specimenado.
+  const H = new Float32Array(N * N);
+  let profundaj = 0;
+  for ( let id = 0; id < N * N; id++ ) {
+    if ( !masko[id] ) continue;
+    const ix = id % N, iz = ( id - ix ) / N;
+    H[id] = bazaAlteco(X0 + ix * PASO, Z0 + iz * PASO) + deltoj[id];
+    if ( H[id] > akvaNiveloValoro + 0o1/0o2 ) profundaj++;
+  }
+  const novaj = [];
+  let sekaj = 0, antauxa = -0o1, malsukcesoj = 0;
+  // Nur la PROFUNDAJ pentritaj celoj gravas — la celoj apud la akva nivelo
+  // ( la strando ) restas sekaj cxiam, cxar la akvo tie estas tro malprofunda
+  // por eltrancxi kanalon. La fontoj celas la partojn, kiuj vere portas akvon.
+  for ( let ripeto = 0; ripeto < 0o14 && malsukcesoj < 0o3; ripeto++ ) {
+    const rez = kalkuliAkvon(N, PASO, ORIGINO,
+      ( x, z ) => bazaAlteco(x, z) + deltoInterp(x, z),
+      ( x, z ) => distancoDeFormo(mapoFormo, mapoGrandeco, x, z) <= 0,
+      fontoj.concat(novaj), masko, { nivelo: akvaNiveloValoro });
+    // La pentritaj celoj, kiujn la akvo ankoraux ne atingas. Sub la akva
+    // nivelo la celoj estas basenoj — la semoj plenigas ilin, do ili ne gravas
+    // por la fontoj; super la nivelo la rivero devas alveni.
+    const sekajCxeloj = [];
+    sekaj = 0;
+    for ( let id = 0; id < N * N; id++ ) {
+      if ( !masko[id] ) continue;
+      if ( H[id] <= akvaNiveloValoro + 0o1/0o2 ) continue;
+      const ix = id % N, iz = ( id - ix ) / N;
+      const x = X0 + ix * PASO, z = Z0 + iz * PASO;
+      // Ekster la mondformo neniu rivero povas flui — la pentrita akvo de la
+      // malnovaj mapoj etendigxas gxis la krada rando.
+      if ( distancoDeFormo(mapoFormo, mapoGrandeco, x, z) > 0 ) continue;
+      if ( akvoCxe(rez, N, PASO, ORIGINO, x, z) ) continue;
+      sekaj++;
+      sekajCxeloj.push(id);
+    }
+    if ( sekaj <= 0o2 || !sekajCxeloj.length ) break;
+    // La plej alta unue — la akvo devas eniri supre kaj flui malsupren. La
+    // celoj apud jam metita fonto ne helpas ( neniu nova akvo venus ), do ni
+    // preterpasas ilin ( kaj la buklo haltas, se la kovro ne plu kreskas ).
+    sekajCxeloj.sort(( a, b ) => H[b] - H[a]);
+    let elektita = -1;
+    for ( const id of sekajCxeloj ) {
+      const ix = id % N, iz = ( id - ix ) / N;
+      const fx = algluiFonton(X0 + ix * PASO), fz = algluiFonton(Z0 + iz * PASO);
+      let jamTie = false;
+      for ( const f of fontoj ) if ( Math.hypot(f.x - fx, f.z - fz) < 0o14 ) { jamTie = true; break; }
+      if ( jamTie ) continue;
+      for ( const f of novaj ) if ( Math.hypot(f.x - fx, f.z - fz) < 0o14 ) { jamTie = true; break; }
+      if ( jamTie ) continue;
+      elektita = id;
+      break;
+    }
+    if ( elektita < 0 ) break;
+    const ix = elektita % N, iz = ( elektita - ix ) / N;
+    // La fluo laux la largho de la kanalo apud la fonto — la pentrita rivero
+    // diras, kiom largha la akvo devus esti ( 5-obla fenestro, do /5 = cxeloj ).
+    let najbaraj = 0;
+    for ( let dz = -0o2; dz <= 0o2; dz++ ) {
+      for ( let dx = -0o2; dx <= 0o2; dx++ ) {
+        const nx = ix + dx, nz = iz + dz;
+        if ( nx < 0 || nz < 0 || nx >= N || nz >= N ) continue;
+        if ( masko[nz * N + nx] ) najbaraj++;
+      }
+    }
+    const larghxo = Math.max(1, najbaraj / 0o5);
+    novaj.push({ x: algluiFonton(X0 + ix * PASO), z: algluiFonton(Z0 + iz * PASO),
+      fluo: Math.max(0o4, Math.min(0o40, Math.round(larghxo * 0o6))) });
+    malsukcesoj = novaj.length > 1 && sekaj >= antauxa ? malsukcesoj + 1 : 0;
+    antauxa = sekaj;
+  }
+  if ( novaj.length ) {
+    momenti();
+    for ( const f of novaj ) fontoj.push(f);
+    elektitaFonto = fontoj.length - 1;
+    fluoValoro = fontoj[elektitaFonto].fluo;
+    fluoRegilo.value = String(fluoValoro);
+    akvoSxangxigxis();
+    gxisdatigiValorojn();
+    bezonoDesegno = true;
+  }
+  // La kovro de la PROFUNDAJ pentritaj celoj ( super la nivelo ) — tio estas,
+  // kiom multe de la malnova rivero la novaj fontoj sukcesis revivigi.
+  const kovro = profundaj ? Math.round(( 0o1 - sekaj / profundaj ) * 0o144 ) : 0o144;
+  statuso(novaj.length
+    ? novaj.length + " fonto" + ( novaj.length === 1 ? "" : "j" ) + " metitaj — la akvo fluas malsupren"
+      + ( kovro < 0o144 ? " ( la malgrandaj fontoj ne kovras la tutan malnovan pentritan akvon )" : "" )
+    : ( profundaj ? "La akvo jam fluas — neniu fonto bezonata ( la pentrita akvo estas baseno )"
+      : "Neniu pentrita akvo trovigxis" ));
+  return { fontoj: novaj, sekaj, kovro };
+}
+
 function deltoCxelo(ix, iz) {
   const ii = Math.max(0, Math.min(N - 1, ix));
   const jj = Math.max(0, Math.min(N - 1, iz));
@@ -371,18 +623,6 @@ function penikoApliki(cx, cz, r, fortoVal, tipo, tuŝitaj) {
         const mezo = ( deltoCxelo(ix - 1, iz) + deltoCxelo(ix + 1, iz)
           + deltoCxelo(ix, iz - 1) + deltoCxelo(ix, iz + 1) ) / 4;
         deltoj[idx] += ( mezo - deltoj[idx] ) * fortoVal * df;
-      } else if ( tipo === "akvo" ) {
-        // La akva peniko PENTRAS la maskon super la tuta peniko — la kavo
-        // sekvas la glatan fadon ( la bordo klinas al la maska rando ), sed la
-        // masko markas la tutan cirklon. Tiel pentri lagon aux riveron estas
-        // facila eĉ sur pli alta grundo. la peniko eltranĉas la basenon sub la
-        // akva nivelo kaj la masko difinas la akvan formon.
-        const t = Math.max(0, Math.min(1, ( f - 0.05 ) / 0.95));
-        if ( t > 0 ) {
-          const celo = ( akvaNiveloValoro - 0.25 ) - bazaAlteco(x, z);
-          deltoj[idx] = Math.min(deltoj[idx], celo * t);
-          masko[idx] = 1;
-        }
       } else if ( tipo === "forvisxi" ) {
         deltoj[idx] = 0;
         masko[idx] = 0;
@@ -428,6 +668,9 @@ function penikoPasxo(cx, cz) {
   const deX = t.lastX, deZ = t.lastZ;
   t.lastX = cx; t.lastZ = cz;
   sxangxita = true;
+  // La tereno sxangxigxis — la akvo ( la basenoj, la riveroj, la eltrancxoj )
+  // dependas de gxi, do la akvo rekalkuligxos cxe la fino de la penikstreko.
+  akvoMalpura = true;
   statuso("Nesavitaj ŝanĝoj");
   const r = radiuso();
   const px0 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.max(deX, cx) + r + 1)));
@@ -467,7 +710,9 @@ function prerenderiBazon(){
 // malheliĝo ( delta ≠ 0 ) — nur la ilo, ne la ludo.
 const skrapaKoloro = new THREE.Color();
 function terenaKoloro255(h, x, z, deklivo) {
-  terenaKoloroEn(skrapaKoloro, h, x, z, deklivo);
+  // La akvoborda tavolo legas la REALAN akvan nivelon ( akvaNiveloProksima ) —
+  // la riveroj malsupreniras, do unu fiksa ebeno miskolorigus la bordojn.
+  terenaKoloroEn(skrapaKoloro, h, x, z, deklivo, akvaNiveloProksima);
   skrapaKoloro.convertLinearToSRGB();
   return [
     Math.max(0, Math.min(255, skrapaKoloro.r * 255)),
@@ -673,11 +918,17 @@ function pentri(px0, py0, px1, py1) {
       const i = py * REZ + px;
       const bazo = bazoj[i];
       const delta = deltoInterp(x, z);
-      const h = bazo + delta;
+      // La tereno inkluzivas la AKVAN ELTRANCSON ( la riverlito ) — la sama
+      // sumo kiel alteco() en la ludo.
+      const h = bazo + delta - akvaKavoInterp(x, z);
       const o = i * 4;
       const ombro = deklivoj[i] || 1;
-      if ( maskoInterp(x, z) >= 0.5 && h < akvaNiveloValoro ) {
-        kolorigiAkvon(datumoj, o, h, akvaNiveloValoro, ombro, delta, x, z);
+      // La akvo venas de la kalkulo ( la fontoj kaj la basenoj ), ne de la
+      // pentrita masko. La nivelo estas la propra nivelo de la punkto — la
+      // rivero malsupreniras, la baseno restas plata.
+      const nivelo = akvaNiveloEn(x, z);
+      if ( nivelo !== null && cxuAkvo(x, z) && h < nivelo - 0o1/0o100 ) {
+        kolorigiAkvon(datumoj, o, h, nivelo, ombro, delta, x, z);
       } else {
         const k = almetiBiomanNuancon(terenaKoloro255(h, x, z, deklivoGradientoj[i] || 0), x, z, delta);
         datumoj[o] = Math.min(255, k[0] * ombro);
@@ -913,11 +1164,37 @@ function desegniVidon(){
     k.arc(sxMondo(o.x), syMondo(o.z), 6, 0, Math.PI * 2);
     k.stroke();
   }
+  // ⟪ La akvofontoj 📃 ⟫ — la punktoj, de kiuj la akvo elfluas. La mezuro de
+  // la punkto sekvas la fluon ( la glitilo ), kaj la elektita fonto havas
+  // blankan ringon. La fontoj estas la nura enigo de la akvo — ili montrigxas
+  // cxiame, sed la reliefigo estas pli forta dum la akva ilo.
+  for ( let i = 0; i < fontoj.length; i++ ) {
+    const f = fontoj[i];
+    const elektita = i === elektitaFonto;
+    const akvaIlo = penikoAktiva === "akvo" || penikoAktiva === "akvoforvisxi";
+    const px = sxMondo(f.x), py = syMondo(f.z);
+    const r = Math.max(3.5, ( 1.2 + Math.min(2.4, f.fluo * 0.09) ) * vidSkalo * ( akvaIlo ? 1.25 : 1 ));
+    k.beginPath();
+    k.arc(px, py, r, 0, Math.PI * 2);
+    k.fillStyle = elektita ? "rgba(150,230,255,0.9)" : "rgba(70,170,215,0.78)";
+    k.fill();
+    k.strokeStyle = elektita ? "#ffffff" : "rgba(240,252,255,0.85)";
+    k.lineWidth = elektita ? 2.5 : 1.5;
+    k.stroke();
+    k.beginPath();
+    k.arc(px, py, r * 0.35, 0, Math.PI * 2);
+    k.fillStyle = "#ffffff";
+    k.fill();
+  }
 }
 
 function buklo(){
   // La klavara movado funkcias en ambaŭ vidoj — gxi ne bezonas la 3D-bildilon.
   moviKlavare();
+  // La akvo rekalkuliĝas unufoje po kadro kiam io ŝanĝis ĝin ( la tereno, la
+  // fontoj, la nivelo ). Dum FONTA TRENO la kalkulo atendas la finon de la
+  // treno — alie ĉiu musmovado rulus la tutan kalkulon ( ~40 ms ).
+  if ( akvoMalpura && !akvoTrenanta ) rekalkuliAkvon();
   // La vido neniam forlasas la skulptan kradon — ajna treno/zomo/klavera
   // movo estas alpinglita antaux la desegno.
   alpingiVidon();
@@ -1021,8 +1298,9 @@ mapo3d.style.display = "none";
 // akvaNiveloDe — la akva nivelo por kradĉelo ( i, j ) ĉe ( x, z ). la
 // pentrita masko decidas — la sama regulo kiel la ludo — alie nenio.
 function akvaNiveloDe(i, j, x, z) {
-  if ( masko[j * N + i] ) return akvaNiveloValoro;
-  return null;
+  if ( !akvaRezulto || akvaRezulto.masko[j * N + i] !== 1 ) return null;
+  const nivelo = akvaRezulto.niveloj[j * N + i];
+  return Number.isNaN(nivelo) ? akvaNiveloValoro : nivelo;
 }
 
 // konstrui3DIndeksojn — la triangula krado por ( N + 1 )² verticoj, el la
@@ -1079,7 +1357,37 @@ function gxisdatigiFormon3D() {
 }
 
 // grundo3D — la terena alta funkcio de la 3D-vido ( kun la alta troigo ).
-function grundo3D(x, z) { return ( bazaAlteco(x, z) + deltoInterp(x, z) ) * YTROIGO; }
+function grundo3D(x, z) { return teraAlto(x, z) * YTROIGO; }
+
+// ⟨ La fontaj markiloj ( la 3D-vido ) 📃 ⟩ — unu grupo por cxiuj fontoj, kun
+// sfero ( la mezuro laux la fluo ) kaj ringo cxe la grundo. La grupo
+// rekonstruigxas kiam la fontoj aux la tereno sxangxigxas.
+let fontaGrupo3D = null;
+function rekonstruiFontojn3D() {
+  if ( !fontaGrupo3D ) return;
+  for ( const infano of fontaGrupo3D.children.slice() ) {
+    fontaGrupo3D.remove(infano);
+    if ( infano.geometry ) infano.geometry.dispose();
+  }
+  for ( let i = 0; i < fontoj.length; i++ ) {
+    const f = fontoj[i];
+    const r = 0.5 + Math.min(1.6, f.fluo * 0.06);
+    const sfero = new THREE.Mesh(
+      new THREE.SphereGeometry(r, 12, 8),
+      new THREE.MeshStandardMaterial({
+        color: i === elektitaFonto ? 0xd8f4ff : 0x48a8d0,
+        emissive: 0x206080, roughness: 0.3, metalness: 0.1,
+      }));
+    sfero.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + r, f.z);
+    fontaGrupo3D.add(sfero);
+    const ringo = new THREE.Mesh(
+      new THREE.TorusGeometry(r * 1.7, r * 0.16, 8, 20),
+      new THREE.MeshStandardMaterial({ color: 0xe8f8ff, roughness: 0.5, metalness: 0 }));
+    ringo.rotation.x = -Math.PI / 2;
+    ringo.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + 0.25, f.z);
+    fontaGrupo3D.add(ringo);
+  }
+}
 
 // gxisdatigiFormanBazon3D — sekvigu la krutaĵon al la tereno de la 3D-vido.
 function gxisdatigiFormanBazon3D() {
@@ -1153,6 +1461,11 @@ function eniri3D(){
     }));
     akvaMesh.renderOrder = 1;
     sceno3d.add(akvaMesh);
+    // ⟪ La akvofontoj 📃 ⟫ — malgrandaj markiloj cxe la fontoj de la akvo, por
+    // ke oni vidu, de kie la riveroj elfluas ( la fontoj estas la enigo ).
+    fontaGrupo3D = new THREE.Group();
+    sceno3d.add(fontaGrupo3D);
+    rekonstruiFontojn3D();
     // Normoj por ambaŭ meŝoj — MeshStandardMaterial postulas la atributon ĉe
     // la unua bildigo ( gxisdatigi3DMeshon rekomputas la teron ĉiufoje ).
     geometrio.computeVertexNormals();
@@ -1223,7 +1536,10 @@ function gxisdatigi3DMeshon(g) {
       // kuntuŝiĝas sen ŝtupo.
       const x = poz.array[v], z = poz.array[v + 2];
       const d = deltoj[Math.min(j, N - 1) * N + Math.min(i, N - 1)];
-      const h = bazaAlteco(x, z) + d;
+      // Kun la AKVA ELTRANCSO — la riverlito videblas en la 3D-vido same kiel
+      // en la ludo ( alteco() = bazaAlteco + skulptaDelta + akvaEltrancxo ).
+      const kav = akvaRezulto ? akvaRezulto.kavoj[Math.min(j, N - 1) * N + Math.min(i, N - 1)] : 0;
+      const h = bazaAlteco(x, z) + d + kav;
       poz.array[v + 1] = h * YTROIGO;
       // La deklivo el la analiza dukuba surfaco — la roka lerpo de la komuna
       // paletro bezonas gxin ( la sama enigo kiel en scena.ts ).
@@ -1294,7 +1610,7 @@ function gxisdatigiRingon(p) {
     const ang = a / RINGA_PUNKTOJ * Math.PI * 2;
     const x = p.x + Math.cos(ang) * r;
     const z = p.z + Math.sin(ang) * r;
-    const h = bazaAlteco(x, z) + deltoInterp(x, z);
+    const h = teraAlto(x, z);
     poz[a * 3] = x;
     poz[a * 3 + 1] = h * YTROIGO;
     poz[a * 3 + 2] = z;
@@ -1346,7 +1662,21 @@ function peniko3dKomenci(e) {
   const p = radiaTrafo(e);
   if ( !p ) return;
   e.preventDefault();
+  // La akva ilo ankaux en la 3D-vido metas kaj forigas fontojn ( la sama
+  // konduto kiel sur la 2D-mapo ).
+  if ( penikoAktiva === "akvo" ) {
+    const ind = fontoCxePunkto(p.x, p.z);
+    if ( ind >= 0 ) komenciFontanTrenon(ind, p.x, p.z);
+    else metiFonton(p.x, p.z);
+    return;
+  }
+  if ( penikoAktiva === "akvoforvisxi" ) {
+    const ind = fontoCxePunkto(p.x, p.z);
+    if ( ind >= 0 ) forigiFonton(ind);
+    return;
+  }
   momenti();
+  akvoTrenanta = true;
   platigaCelo = penikoAktiva === "platigi" ? bazaAlteco(p.x, p.z) + deltoInterp(p.x, p.z) : null;
   radiaTreno = { lastX: p.x, lastZ: p.z, ix0: 1e9, ix1: -1e9, iz0: 1e9, iz1: -1e9, tuŝitaj: new Map()};
   peniko3dPasxo(p.x, p.z);
@@ -1361,6 +1691,10 @@ function peniko3dMovi(e) {
     // Movu ✋ — la kaptita objekto sekvas la radian punkton.
     if ( objektaTrenata >= 0 && p ) sxangiObjektanPozicion(objektaTrenata, p.x, p.z);
   }
+  if ( penikoAktiva === "akvo" && fontoTrenata >= 0 && p ) {
+    sxangiFontanPozicion(fontoTrenata, p.x, p.z);
+    return;
+  }
   if ( !radiaTreno || !p ) return;
   peniko3dPasxo(p.x, p.z);
 }
@@ -1368,6 +1702,8 @@ function peniko3dFini(){
   radiaTreno = null;
   platigaCelo = null;
   finiObjektanTrenon();
+  finiFontanTrenon();
+  akvoTrenanta = false;
   if ( cxuMovigi() )mapo3d.style.cursor = "grab";
 }
 function peniko3dPasxo(cx, cz) {
@@ -1386,6 +1722,9 @@ function peniko3dPasxo(cx, cz) {
   const deX = t.lastX, deZ = t.lastZ;
   t.lastX = cx; t.lastZ = cz;
   sxangxita = true;
+  // La tereno sxangxigxis — la akvo ( la basenoj, la riveroj, la eltrancxoj )
+  // dependas de gxi, do la akvo rekalkuligxos cxe la fino de la penikstreko.
+  akvoMalpura = true;
   statuso("Nesavitaj ŝanĝoj");
   const r = radiuso();
   const px0 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.max(deX, cx) + r + 1)));
@@ -1525,7 +1864,22 @@ mapo.addEventListener("pointerdown", ( e ) => {
     }
     return;
   }
+  // ⟪ La akva ilo 📃 ⟫ — gxi ne pentras la maskon: gxi metas, movas kaj
+  // forigas FONTOJN ( la akvo fluas de ili ). Klako sur la libera grundo metas
+  // novan fonton; klako sur fonto kaptas gxin por treni.
+  if ( penikoAktiva === "akvo" ) {
+    const ind = fontoCxePunkto(m.x, m.z);
+    if ( ind >= 0 ) komenciFontanTrenon(ind, m.x, m.z);
+    else metiFonton(m.x, m.z);
+    return;
+  }
+  if ( penikoAktiva === "akvoforvisxi" ) {
+    const ind = fontoCxePunkto(m.x, m.z);
+    if ( ind >= 0 ) forigiFonton(ind);
+    return;
+  }
   momenti();
+  akvoTrenanta = true;
   platigaCelo = penikoAktiva === "platigi" ? bazaAlteco(m.x, m.z) + deltoInterp(m.x, m.z) : null;
   treno = { tipo: "peniko", lastX: m.x, lastZ: m.z, tuŝitaj: new Map()};
   penikoPasxo(m.x, m.z);
@@ -1558,6 +1912,10 @@ mapo.addEventListener("pointermove", ( e ) => {
     bezonoDesegno = true;
     return;
   }
+  if ( penikoAktiva === "akvo" && fontoTrenata >= 0 ) {
+    sxangiFontanPozicion(fontoTrenata, m.x, m.z);
+    return;
+  }
   if ( treno && treno.tipo === "peniko" ) {
     penikoPasxo(m.x, m.z);
     return;
@@ -1570,6 +1928,8 @@ function finiTrenon(){
   finiObjektanTrenon();
   finiVojaTrenon();
   finiAldonaTrenon();
+  finiFontanTrenon();
+  akvoTrenanta = false;
   if ( cxuMovigi() )mapo.style.cursor = "grab";
 }
 mapo.addEventListener("pointerup", finiTrenon);
@@ -1607,7 +1967,12 @@ function statuso(teksto) {
 function gxisdatigiValorojn(){
   document.getElementById("radiusoValoro").textContent = radiuso()+ " un";
   document.getElementById("fortoValoro").textContent = forto().toFixed(2);
-  document.getElementById("niveloValoro").textContent = niveloRegilo.value + " un";
+  // La glitilo sekvas la AKVAN nivelon de la datumaro ( malnova skulptajxo povas
+  // havi alian nivelon ol la HTMLa defauxlto ).
+  niveloRegilo.value = String(akvaNiveloValoro);
+  document.getElementById("niveloValoro").textContent = akvaNiveloValoro + " un";
+  document.getElementById("fluoValoro").textContent = fluoRegilo.value
+    + ( elektitaFonto >= 0 ? " ( elektita fonto )" : "" );
 }
 // ⟪ La iloj-langetoj 📃 ⟫ — Tereno 🏔️, Biomo 🎨, Animaloj 🐾 kaj Objektoj 🎯
 // estas langetoj de la sama karto. La tereno-langeto tenas la penikojn
@@ -3457,11 +3822,29 @@ kradoKopiiBtn.addEventListener("click", async () => {
 // La akva nivelo apartenas al la peniko Akvo 🌊 — gxi montrigxas en la
 // agordoj nur dum la akvo-ilo estas aktiva ( ne kun la aliaj iloj ).
 const akvaNivelaEtikedo = document.getElementById("akvaNivelaEtikedo");
+const akvaFluoEtikedo = document.getElementById("akvaFluoEtikedo");
+const fluoRegilo = document.getElementById("akvaFluo");
+const akvaStatistikoj = document.getElementById("akvaStatistikoj");
 const agordojPanel = document.getElementById("agordojPanel");
+// La akvaj agordoj ( la nivelo de la basenoj kaj la fluo de la fontoj )
+// montrigxas nur dum la akva ilo estas aktiva.
 function gxisdatigiAgordojn() {
-  const akva = penikoAktiva === "akvo";
-  akvaNivelaEtikedo.style.display = akva ? "" : "none";
-  niveloRegilo.style.display = akva ? "" : "none";
+  const akva = penikoAktiva === "akvo" || penikoAktiva === "akvoforvisxi";
+  for ( const el of [ akvaNivelaEtikedo, niveloRegilo, akvaFluoEtikedo, fluoRegilo, akvaStatistikoj ] ) {
+    el.style.display = akva ? "" : "none";
+  }
+  if ( akva ) gxisdatigiAkvajnStatistikojn();
+}
+// gxisdatigiAkvajnStatistikojn — kiom da fontoj kaj akvaj celoj la kalkulo
+// trovis ( la fontoj estas la enigo — la akvo mem estas deriva ).
+function gxisdatigiAkvajnStatistikojn() {
+  if ( !akvaStatistikoj ) return;
+  const s = akvaRezulto ? akvaRezulto.statistikoj
+    : { fontoj: fontoj.length, kanaloj: 0, akvaj: 0, ternoj: 0 };
+  const areo = Math.round(s.akvaj * PASO * PASO);
+  akvaStatistikoj.textContent = s.fontoj + " fonto" + ( s.fontoj === 1 ? "" : "j" )
+    + " · " + s.kanaloj + " kanalaj ĉeloj · " + s.akvaj + " akvaj ĉeloj ( " + areo + " u² )"
+    + ( s.ternoj ? " · " + s.ternoj + " montara terno" : "" );
 }
 objektoSpeco.addEventListener("change", () => {
   objektoAktiva = objektoSpeco.value;
@@ -3485,14 +3868,29 @@ gxisdatigiVojajnRegilojn();
 radiusoRegilo.addEventListener("input", () => { gxisdatigiValorojn(); bezonoDesegno = true; });
 fortoRegilo.addEventListener("input", gxisdatigiValorojn);
 niveloRegilo.addEventListener("pointerdown", momenti);
+// La nivelo sxangxas la akvan kalkulon mem ( la basenoj plenigxas al gxi ) —
+// do la glitilo rekalkuligas la akvon. Nur la manteno ( change ) rulas la
+// kalkulon; dum la treno ( input ) nur la etikedo sekvas, por ke la kalkulo ne
+// ruligxu cxiun kadron de la treno.
 niveloRegilo.addEventListener("input", () => {
   akvaNiveloValoro = +niveloRegilo.value;
   gxisdatigiValorojn();
-  pentri(0, 0, REZ - 1, REZ - 1);
-  bezonoDesegno = true;
-  sxangxita = true;
-  if ( triaDimensia ) gxisdatigi3DAkvon({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
 });
+niveloRegilo.addEventListener("change", () => { akvoSxangxigxis(); });
+// La fluo de la fontoj — kun ELEKTITA fonto la glitilo sxangxas gxian fluon
+// ( la rivero plilarghxigxas aux mallarghxigxas ), alie gxi difinas la fluon
+// de la venontaj fontoj ( la fonta markilo sur la mapo montras gxin ).
+fluoRegilo.addEventListener("pointerdown", momenti);
+fluoRegilo.addEventListener("input", () => {
+  fluoValoro = +fluoRegilo.value;
+  gxisdatigiValorojn();
+});
+fluoRegilo.addEventListener("change", () => {
+  sxangxiFluonDeElektita();
+  if ( !( elektitaFonto >= 0 ) ) bezonoDesegno = true;
+});
+// La ago de la akva ilo — derivu fontojn el la malnova pentrita akvo.
+document.getElementById("fontojElPentrita").addEventListener("click", deriviFontojnElPentrita);
 document.getElementById("malfari").addEventListener("click", malfari);
 document.getElementById("refari").addEventListener("click", refari);
 document.getElementById("restarigi").addEventListener("click", () => {
@@ -3501,9 +3899,10 @@ document.getElementById("restarigi").addEventListener("click", () => {
   masko.fill(0);
   biomoj.fill(0);
   bestoj.fill(0);
+  fontoj = [];
+  elektitaFonto = -1;
   sxangxita = true;
-  gxisdatigiPlenan2Dn();
-  gxisdatigi3DnPostPlena();
+  rekalkuliAkvon();
 });
 // La klavara movado — la sama ŝablono kiel la ludo. Kolektu la tenatajn
 // klavojn kaj lasu moviKlavare apliki ilin cxiun kadron. La klavoj en
@@ -3844,6 +4243,7 @@ function cirkuloValidas(){
 function cirkuloDeDatumojValidas() {
   try {
     return JSON.stringify(parziValoron(skribiValoron(objektoj))) === JSON.stringify(objektoj)
+      && JSON.stringify(parziValoron(skribiValoron(fontoj))) === JSON.stringify(fontoj)
       && JSON.stringify(parziValoron(skribiValoron(urboj))) === JSON.stringify(urboj)
       && JSON.stringify(parziValoron(skribiValoron(vojoj))) === JSON.stringify(vojoj)
       && JSON.stringify(parziValoron(skribiValoron(dokoj))) === JSON.stringify(dokoj);
@@ -3857,13 +4257,14 @@ function cirkuloDeDatumojValidas() {
 // dosierujo ( tero-datumaro/<kodo>/ ). La markiloj de la dosieroj restas la
 // samaj; la konserva servilo kontrolas la markilon de ĉiu skribota dosiero, do
 // la dosieruja nomo povas esti ajna mapo de la registro.
-const DATUMDOSIEROJ = [ "krado", "akvo", "biomoj", "bestoj", "objektoj", "urboj", "vojoj" ];
+const DATUMDOSIEROJ = [ "krado", "akvo", "akvofontoj", "biomoj", "bestoj", "objektoj", "urboj", "vojoj" ];
 // dosierujo — la dosierujo de mapo en src/ ( ĉiam finiĝas per "/" ).
 function dosierujo(kodo) { return "tero-datumaro/" + kodo + "/"; }
 const mapoDosierujo = dosierujo(mapoDatumo.kodo);
 const DOSIERA_TITOLO = {
   [mapoDosierujo + "krado.ts"]: "// ≺⧼ Skulptita krado 📃 ⧽≻",
   [mapoDosierujo + "akvo.ts"]: "// ≺⧼ Skulptita akvo 📃 ⧽≻",
+  [mapoDosierujo + "akvofontoj.ts"]: "// ≺⧼ Skulptitaj akvofontoj",
   [mapoDosierujo + "biomoj.ts"]: "// ≺⧼ Skulptitaj biomoj 📃 ⧽≻",
   [mapoDosierujo + "bestoj.ts"]: "// ≺⧼ Skulptitaj bestoj 📃 ⧽≻",
   [mapoDosierujo + "objektoj.ts"]: "// ≺⧼ Skulptitaj objektoj 📃 ⧽≻",
@@ -3910,9 +4311,23 @@ function generiDosierojn(kodo = mapoDatumo.kodo){
     "// ≺⧼ Skulptita akvo 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ La akva tavolo 📃 ⟩ — la nivelo kaj la masko ( kiu ĉelo estas akvo ).",
+    "// ⟨ La akva tavolo 📃 ⟩ — la nivelo de la basenoj kaj la MALNOVA pentrita",
+    "// akva masko ( nun nur la basenaj semoj — la akvo mem estas DERIVITA de la",
+    "// fontoj per src/akvokalkulo.ts ).",
     "export const SKULPTA_AKVA_NIVELO = " + oktala(akvaNiveloValoro) + ";",
     "export const SKULPTA_AKVA_MASKO = " + JSON.stringify(masko64) + ";",
+  ].join("\n");
+  // La akvofontoj — la enigo de la akvo: la riveroj elfluas de ili, la kavoj
+  // plenigxas, la kanaloj eltrancxigxas. Cxiu fonto - x, z kaj fluo.
+  const fontoTeksto = [
+    "// ≺⧼ Skulptitaj akvofontoj 🌊 ⧽≻",
+    ...komunajKom,
+    "",
+    "// ⟨ La akvofontoj 📃 ⟩ — la fontoj de la akvo. La akvo ne plu pentrigxas:",
+    "// gxi fluas de cxi tiuj punktoj malsupren laux la tereno ( src/akvokalkulo.ts ),",
+    "// plenigante la kavojn kaj eltrancxante la kanalojn. Cxiu fonto - x, z ( mondaj",
+    "// unuoj ) kaj fluo ( pli granda fluo = pli profunda kaj pli larghxa rivero ).",
+    "export const SKULPTA_AKVOFONTOJ = " + skribiValoron(fontoj) + ";",
   ].join("\n");
   const biomoDosiero = [
     "// ≺⧼ Skulptitaj biomoj 📃 ⧽≻",
@@ -4007,6 +4422,7 @@ function generiDosierojn(kodo = mapoDatumo.kodo){
   return {
     [dosierujoDeMapo + "krado.ts"]: kradoTeksto,
     [dosierujoDeMapo + "akvo.ts"]: akvoTeksto,
+    [dosierujoDeMapo + "akvofontoj.ts"]: fontoTeksto,
     [dosierujoDeMapo + "biomoj.ts"]: biomoDosiero,
     [dosierujoDeMapo + "bestoj.ts"]: bestoDosiero,
     [dosierujoDeMapo + "objektoj.ts"]: objektoTeksto,
@@ -4080,6 +4496,21 @@ function sxargiDatumaronElMapo(dosieroj) {
     const be = dekodiBestojn(bestoKruda, N * N);
     if ( be ) bestoj.set(be);
   }
+  // La akvofontoj — la akvo mem estas deriva ( la fontoj estas la enigo ).
+  const fon = preni("SKULPTA_AKVOFONTOJ");
+  if ( fon !== null ) {
+    try {
+      const parzitaj = parziValoron(fon);
+      if ( Array.isArray(parzitaj) ) fontoj = parzitaj.map(f => ( {
+        x: Number(f && f.x) || 0,
+        z: Number(f && f.z) || 0,
+        fluo: Math.max(0, Number(f && f.fluo) || 0),
+      } ));
+    } catch { }
+    elektitaFonto = -1;
+    fontoTrenata = -1;
+    gxisdatigiAkvajnStatistikojn();
+  }
   const oj = preni("SKULPTA_OBJEKTOJ");
   if ( oj !== null ) {
     try { objektoj = parziValoron(oj) ?? []; } catch { }
@@ -4132,8 +4563,10 @@ function sxargiDatumaronElMapo(dosieroj) {
   gxisdatigiValorojn();
   historio.length = 0;
   refaraHistorio.length = 0;
-  gxisdatigiPlenan2Dn();
-  gxisdatigi3DnPostPlena();
+  // La akvo — la sxargxitaj fontoj kaj la nivelo rekalkuligas la akvon ( la
+  // kalkulo mem redesegnas la 2D-mapon kaj la 3D-vidon ).
+  akvoMalpura = true;
+  rekalkuliAkvon();
   return true;
 }
 function sxargiDatumaronElKodo(){
@@ -4145,6 +4578,10 @@ function sxargiDatumaronElKodo(){
   if ( b ) biomoj.set(b);
   const be = dekodiBestojn(SKULPTA_BESTOJ, N * N);
   if ( be ) bestoj.set(be);
+  // La akvofontoj de la aktiva mapo ( malnova mapo ne havas la dosieron ).
+  try {
+    fontoj = Array.isArray(SKULPTA_AKVOFONTOJ) ? SKULPTA_AKVOFONTOJ.map(f => ( { ...f } ) ) : [];
+  } catch { fontoj = []; }
   objektoj = SKULPTA_OBJEKTOJ.map(o => ( { ...o } ));
   elektitaObjekto = -1;
   gxisdatigiObjektoListon();
@@ -4516,6 +4953,42 @@ document.getElementById("mapoAktiva").addEventListener("click", mapoElektiAktiva
 document.getElementById("savi").addEventListener("click", saviDosieron);
 document.getElementById("saviRekte").addEventListener("click", saviRekteAlDosiero);
 document.getElementById("sargi").addEventListener("click", sargiDosieron);
+// ⟪ Fenestro al la stato 📃 ⟫ — kiel la inspektilo ( window.naturoInspektilo ),
+// malgranda aliro por la aliaj iloj kaj por la kontroloj. Gxi ne sxangxas la
+// konduton de la skulptilo — nur legas kaj skribas la samajn stato-objektojn.
+window.skulptilo = {
+  stato: () => ( {
+    fontoj: fontoj.map(f => ( { ...f } )),
+    fontaElekto: elektitaFonto,
+    nivelo: akvaNiveloValoro,
+    peniko: penikoAktiva,
+    statistikoj: akvaRezulto ? akvaRezulto.statistikoj : null,
+    sxangxita,
+  } ),
+  vido: ( cx, cz, skalo ) => {
+    vidCX = cx; vidCZ = cz;
+    if ( skalo ) vidSkalo = skalo;
+    alpingiVidon();
+    bezonoDesegno = true;
+  },
+  fonto: ( x, z, fluo ) => metiFonton(x, z, fluo),
+  forigiFonton: ( ind ) => forigiFonton(ind),
+  deriviFontojn: () => deriviFontojnElPentrita(),
+  fluo: ( v ) => { fluoValoro = v; fluoRegilo.value = String(v); gxisdatigiValorojn(); },
+  nivelo: ( v ) => { akvaNiveloValoro = v; akvoSxangxigxis(); },
+  peniko: ( nomo ) => { penikoAktiva = nomo; gxisdatigiPenikaron(); gxisdatigiAgordojn(); },
+  akvo: ( x, z ) => ( { akvo: cxuAkvo(x, z), nivelo: akvaNiveloEn(x, z),
+    alto: teraAlto(x, z), sekaAlto: bazaAlteco(x, z) + deltoInterp(x, z) } ),
+  vido3d: ( on ) => { sxaltiVidon(!!on); return !!bildilo3d; },
+  kamera: ( x, y, z, cx = 0, cy = 0, cz = 0 ) => {
+    if ( !fotilo3d || !regiloj3d ) return false;
+    fotilo3d.position.set(x, y, z);
+    regiloj3d.target.set(cx, cy, cz);
+    regiloj3d.update();
+    return true;
+  },
+};
+
 sxargiDatumaronElKodo();
 gxisdatigiValorojn();
 sxaltiIlTabon("tereno");
@@ -4523,6 +4996,8 @@ gxisdatigiPenikaron();
 gxisdatigiAgordojn();
 gxisdatigiKradon();   // la komenca krado — la ĉefa urbo de SKULPTA_URBOJ
 prerenderiBazon();
-gxisdatigiPlenan2Dn();
+// La akvo — la fontoj kaj la pentrita masko ( la basenaj semoj ) pasas tra la
+// akvokalkulo antaux la unua desegno ( la 2D-bake kaj la 3D-vido legas gxin ).
+rekalkuliAkvon();
 sxargiDosierajnTenilojn();
 requestAnimationFrame(buklo);

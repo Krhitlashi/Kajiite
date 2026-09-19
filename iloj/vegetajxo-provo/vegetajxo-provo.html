@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="eo">
+<head>
+  <meta charset="utf-8" />
+  <title>Vegetajxa provo</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #cfe0e8; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    #tabulo { position: fixed; left: 8px; top: 8px; font: 13px sans-serif; }
+    #tabulo button { font: 13px sans-serif; margin: 2px; padding: 4px 8px; }
+  </style>
+</head>
+<body>
+  <div id="tabulo"></div>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { konstruiArbaron, konstruiLarikon, konstruiHxsxaksxlefojn,
+      konstruiPussxlefojn } from "../../assets/shalaj-specioj/vegetajxo.js";
+
+    const sceno = new THREE.Scene();
+    sceno.background = new THREE.Color(0xcfe0e8);
+    sceno.fog = new THREE.Fog(0xcfe0e8, 40, 120);
+
+    const kanvaso = document.createElement("canvas");
+    document.body.appendChild(kanvaso);
+    const bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: true });
+    bildilo.setPixelRatio(Math.min(2, devicePixelRatio));
+    bildilo.shadowMap.enabled = true;
+    const fotilo = new THREE.PerspectiveCamera(45, 1, 0.1, 600);
+    const regiloj = new OrbitControls(fotilo, kanvaso);
+    regiloj.enableDamping = true;
+
+    sceno.add(new THREE.HemisphereLight(0xdff0ff, 0x60704a, 1.1));
+    const suno = new THREE.DirectionalLight(0xfff2dc, 1.5);
+    suno.position.set(18, 30, 14);
+    suno.castShadow = true;
+    suno.shadow.mapSize.set(1024, 1024);
+    sceno.add(suno);
+    const grundo = new THREE.Mesh(new THREE.CircleGeometry(80, 48).rotateX(-Math.PI / 2),
+      new THREE.MeshStandardMaterial({ color: 0x7a8f5a, roughness: 1 }));
+    grundo.receiveShadow = true;
+    sceno.add(grundo);
+
+    const grupo = new THREE.Group();
+    sceno.add(grupo);
+
+    // Etaj arbareroj por ĉiu speco — la sama metado kiel en la ludo.
+    const vico = ( n, s ) => Array.from({ length: n }, ( _, i ) => ({
+      x: ( i - ( n - 1 ) / 2 ) * 6, z: 0, h: 0, s: 0.4 + s * ( i / Math.max(1, n - 1)) }));
+    function konstruu( kiu ) {
+      grupo.clear();
+      if ( kiu === "betulo" ) konstruiArbaron(grupo, vico(4, 0.7));
+      else if ( kiu === "lariko" ) konstruiLarikon(grupo, vico(4, 0.7));
+      else if ( kiu === "hxsxak" ) konstruiHxsxaksxlefojn(grupo, [
+        { x: 0, z: 0, h: 0, s: 1 }, { x: 7, z: 0, h: 0, s: 0.2 },
+        { x: -7, z: 0, h: 0, s: 0.6 } ]);
+      else if ( kiu === "pussx" ) konstruiPussxlefojn(grupo, [
+        { x: 0, z: 0, h: 0, s: 1 }, { x: 5, z: 0, h: 0, s: 0.3 } ]);
+      // Kadrigi la nunan grupon.
+      const skatolo = new THREE.Box3().setFromObject(grupo);
+      const centro = skatolo.getCenter(new THREE.Vector3());
+      const r = Math.max(4, skatolo.getSize(new THREE.Vector3()).length() * 0.6);
+      regiloj.target.copy(centro);
+      fotilo.position.set(centro.x + r * 0.8, centro.y + r * 0.45, centro.z + r * 0.9);
+    }
+
+    const tabulo = document.getElementById("tabulo");
+    for ( const [ kodo, nomo ] of [ [ "betulo", "Betuloj" ], [ "lariko", "Larikoj" ],
+      [ "hxsxak", "Ĥŝakŝlefoj" ], [ "pussx", "Pussxlefoj" ] ] ) {
+      const b = document.createElement("button");
+      b.textContent = nomo;
+      b.onclick = () => konstruu(kodo);
+      tabulo.appendChild(b);
+    }
+    konstruu("betulo");
+    window.provo = { sceno, fotilo, regiloj, grupo, konstruu };
+
+    function kadro() {
+      regiloj.update();
+      bildilo.setSize(innerWidth, innerHeight, false);
+      fotilo.aspect = innerWidth / innerHeight;
+      fotilo.updateProjectionMatrix();
+      bildilo.render(sceno, fotilo);
+      requestAnimationFrame(kadro);
+    }
+    requestAnimationFrame(kadro);
+  </script>
+</body>
+</html>

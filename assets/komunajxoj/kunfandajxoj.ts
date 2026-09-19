@@ -1,5 +1,6 @@
 // Kunfanda modulo — komunaj geometriaj kunfand-helpiloj por la tuta mondo
 import * as THREE from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 
 // kunfandiGeometriojn — Kunfandas plurajn BufferGeometriojn en unu indeksitan
 // geometrion, konservante poziciojn, normalojn, UV-ojn kaj la indekson
@@ -121,6 +122,144 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
 export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geometrioj.length === 0 ) return new THREE.BufferGeometry();
   return geometrioj.slice(1).reduce(( rezulto, geometrio ) => kunfandiDuGeometriojn(rezulto, geometrio), geometrioj[0]);
+}
+
+// ⟪ Kunfando de jam konstruitaj meshoj 📃 ⟫ — la supraj helpiloj kunfandas
+// GEOMETRIOJN dum la konstruado; ĉi tiu kunfandas meshojn kiuj jam staras en
+// la sceno. La urbaj konstruaĵoj estas la lasta granda fonto de desegnaj
+// alvokoj — ĉiu el la ~40 konstruaĵoj konsistas el 15-20 etaj meshoj ( la
+// pintaj randoj, la pordaj tuboj, la signoj, la fenestroj, la tabloj ), kaj
+// ĉiu el ili estas aparta alvoko en la ĉefa pasumo KAJ en la ombra pasumo.
+// La konstruaĵoj estas senmovaj, do ili povas dividi la samajn kunigitajn
+// meshojn.
+
+// KunfandajOpcioj — La agordoj de kunfandiMondajnMeshojn.
+//     celo ( number = 0 ) - La spaca ĉela grandeco por la kunigoj ( 0 = unu
+//         kunigo por ĉiu materialo, sen spaca divido ). Ĉelo tenas la kunigojn
+//         malgrandaj, do la vidkampo ankoraŭ forigas la malproksimajn partojn.
+//     konservu ( funkcio = undefined ) - Kiuj meshoj restu APARTAJ ( la
+//         elekteblaj muroj — la klako bezonas la specon de unuopa konstruaĵo ).
+export interface KunfandajOpcioj {
+  celo?: number;
+  konservu?: ( m: THREE.Mesh ) => boolean;
+}
+
+// La sumaj nombroj de ĉiuj kunfandoj ĝis nun — por la diagnoza surmetaĵo
+// ( src/statistiko.ts ). Unu nombro diras pli ol la tuta bildigo: "640 meshoj
+// fariĝis 34" pruvas la ŝparadon sen mezuri kadrojn.
+const kunfandajRezultoj = { antaŭe: 0, poste: 0 };
+
+// kunfandajxoStatistiko — La sumaj nombroj de la kunfandoj.
+//     @returns ( { antaŭe, poste } ) - Kiom da meshoj estis kaj kiom restis.
+export function kunfandajxoStatistiko(): { antaŭe: number; poste: number } {
+  return kunfandajRezultoj;
+}
+
+// renversiVolvon — Inversigu la triangulan ventumilon de geometrio ( por la
+// spegulitaj kopioj ). Indeksitaj geometrioj inversigas la indeksojn, senindeksaj
+// interŝanĝas la duan kaj trian verton de ĉiu triangulo en ĉiuj atributoj.
+function renversiVolvon(g: THREE.BufferGeometry): void {
+  if ( g.index !== null ) {
+    const arr = g.index.array;
+    for ( let i = 0; i < arr.length; i += 3 ) {
+      const t = arr[i + 1]; arr[i + 1] = arr[i + 2]; arr[i + 2] = t;
+    }
+    g.index.needsUpdate = true;
+    return;
+  }
+  for ( const nomo of Object.keys(g.attributes) ) {
+    const at = g.attributes[nomo], s = at.itemSize, arr = at.array as Float32Array;
+    for ( let i = 0; i + 2 < at.count; i += 3 ) {
+      for ( let k = 0; k < s; k++ ) {
+        const a = ( i + 1 ) * s + k, b = ( i + 2 ) * s + k, t = arr[a];
+        arr[a] = arr[b]; arr[b] = t;
+      }
+    }
+    at.needsUpdate = true;
+  }
+}
+
+// kunfandiMondajnMeshojn — Kunfandu la senmovajn meshojn de la donitaj radikoj
+// en malmultaj meshoj PO ( materialo · ombra stato · bildiga ordo · tavolo ·
+// verto-signaturo · spaca ĉelo ). La geometrioj transformiĝas al la MONDA
+// spaco ( la kunigitaj meshoj havas identecon ), do la fontaj grupoj povas havi
+// ajnan transformon. La ORIGINALAJ geometrioj ne disponiĝas — ili povas esti
+// dividataj inter pluraj meshoj ( la spegulaj klonoj ) — nur la laboraj klonoj.
+//     @param gepatra ( THREE.Object3D ) - Kie la kunigitaj meshoj aldoniĝu.
+//     @param radikoj ( THREE.Object3D[] ) - La radikoj de la kunfandotaj arboj.
+//     @param opcioj ( KunfandajOpcioj = {} ) - La agordoj ( vidu supre ).
+//     @returns ( { antaŭe, poste } ) - Kiom da meshoj estis kaj kiom restis.
+export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.Object3D[],
+  opcioj: KunfandajOpcioj = {}
+): { antaŭe: number; poste: number } {
+  const celo = opcioj.celo || 0;
+  const konservu = opcioj.konservu;
+  const grupoj = new Map<string, { mesho: THREE.Mesh; matrico: THREE.Matrix4 }[]>();
+  let antaŭe = 0;
+  for ( const radiko of radikoj ) {
+    radiko.updateWorldMatrix(true, true);
+    radiko.traverse(o => {
+      if ( !o.visible ) return;
+      const m = o as THREE.Mesh;
+      // Instancigitaj tavoloj, punktaj sistemoj kaj material-aroj restas siaj.
+      if ( m.isMesh !== true || ( m as THREE.InstancedMesh ).isInstancedMesh === true ) return;
+      if ( Array.isArray(m.material) ) return;
+      if ( konservu !== undefined && konservu(m) ) return;
+      antaŭe++;
+      const geometrio = m.geometry;
+      // La verto-signaturo — mergeGeometries postulas identajn atributojn
+      // ( kaj indekson en ĉiuj aŭ en neniuj ).
+      const signaturo = Object.keys(geometrio.attributes).sort().join(",")
+        + ( geometrio.index === null ? "|n" : "|i" );
+      const matrico = m.matrixWorld;
+      const ĉelo = celo > 0
+        ? Math.floor(matrico.elements[12] / celo) + "," + Math.floor(matrico.elements[14] / celo)
+        : "-";
+      const ŝlosilo = [ m.material.uuid, m.castShadow ? 1 : 0, m.receiveShadow ? 1 : 0,
+        m.renderOrder, m.layers.mask, signaturo, ĉelo ].join("|");
+      let listo = grupoj.get(ŝlosilo);
+      if ( listo === undefined ) grupoj.set(ŝlosilo, listo = []);
+      listo.push({ mesho: m, matrico: matrico.clone() });
+    });
+  }
+  let poste = 0;
+  for ( const listo of grupoj.values() ) {
+    if ( listo.length < 2 ) { poste += listo.length; continue; }
+    const geometrioj = listo.map(a => {
+      const g = a.mesho.geometry.clone();   // la klono estas nia — vi povas disponigi ĝin
+      g.applyMatrix4(a.matrico);
+      // ⟨ La spegulitaj geometrioj 📃 ⟩ — la diamanta spegulo sub ĉiu konstruaĵo
+      // havas NEGATIVAN determinanton ( scale.y = -1 ). three.js inversigas la
+      // ventumilon de la trianguloj por tiaj objektoj dum bildigo ( frontFaceCW ),
+      // sed la bakita geometrio havas identecon — do la ventumilo inversiĝu
+      // MANE, alie la tuta spegulo malaperus malantaŭ la malantaŭaj facoj.
+      if ( a.matrico.determinant() < 0 ) renversiVolvon(g);
+      return g;
+    });
+    const kunigita = mergeGeometries(geometrioj, false);
+    for ( const g of geometrioj ) g.dispose();
+    if ( kunigita === null ) { poste += listo.length; continue; }   // ne kongruaj
+    const unua = listo[0].mesho;
+    const mesho = new THREE.Mesh(kunigita, unua.material);
+    mesho.castShadow = unua.castShadow;
+    mesho.receiveShadow = unua.receiveShadow;
+    mesho.renderOrder = unua.renderOrder;
+    mesho.layers.mask = unua.layers.mask;
+    // La uzant-datumojn nur se ĉiuj anoj dividas la SAMAN objekton ( alie la
+    // kunigo portus la identecon de unu el ili ).
+    let samaj: Record<string, unknown> | null = unua.userData;
+    for ( const a of listo ) if ( a.mesho.userData !== samaj ) { samaj = null; break; }
+    if ( samaj !== null ) mesho.userData = samaj;
+    // La nomo markas la kunigojn — la diagnoza censo ( statistiko.ts ) povas
+    // tiel apartigi ilin de la ceteraj scenaj objektoj.
+    mesho.name = "kunigita";
+    gepatra.add(mesho);
+    for ( const a of listo ) a.mesho.removeFromParent();
+    poste++;
+  }
+  kunfandajRezultoj.antaŭe += antaŭe;
+  kunfandajRezultoj.poste += poste;
+  return { antaŭe, poste };
 }
 
 // kunfandiKajVeldoiGeometriojn — Kunfandas la partojn en UNU geometrion kaj

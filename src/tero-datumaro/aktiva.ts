@@ -13,6 +13,7 @@
 // mapon markitan per aktiva en mapoj.ts ).
 export * from "./cxefa/krado.js";
 export * from "./cxefa/akvo.js";
+export * from "./cxefa/akvofontoj.js";
 export * from "./cxefa/biomoj.js";
 export * from "./cxefa/bestoj.js";
 export * from "./cxefa/objektoj.js";

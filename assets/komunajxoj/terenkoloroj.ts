@@ -99,12 +99,17 @@ const AKVO_NIVELO = SKULPTA_AKVA_NIVELO;
 //     @param h ( number ) - La tera alto en mondo-unuoj.
 //     @param x, z ( number ) - Monda pozicio ( por la borda bruo ).
 //     @param deklivo ( number ) - La gradiento |∇h|.
-function bordiKoloron(celo: THREE.Color, h: number, x: number, z: number, deklivo: number): void {
+//     @param niveloFn ( funkcio ) - La akva nivelo cxe la punkto. La akvo de la
+//         skulptita mondo ne estas unu plata ebeno ( la riveroj malsupreniras ),
+//         do la bordo legas la REALAN nivelon — alie la borda zono sekvus
+//         fiksan izohipson kaj la tuta valo sube de gxi kolorigxus subakva.
+function bordiKoloron(celo: THREE.Color, h: number, x: number, z: number,
+  deklivo: number, niveloFn?: ( x: number, z: number ) => number ): void {
   // La borda bruo — du oktavoj, do la bordo havas kaj grandajn langojn kaj
   // etan dentaron. La ondado estas en mondo-unuoj de alto ( ± 0o6/0o10 ).
   const bordaBruo = ( bruo2D(x / 0o10, z / 0o10) - 0o4/0o10 ) * 0o4/0o10
     + ( bruo2D(x / 0o40, z / 0o40) - 0o4/0o10 ) * 0o2/0o10;
-  const sup = h - AKVO_NIVELO;   // > 0 super la akvosurfaco
+  const sup = h - ( niveloFn ? niveloFn(x, z) : AKVO_NIVELO );   // > 0 super la akvosurfaco
   if ( sup > 0 ) {
     // ⟨ Super la akvo 📃 ⟩ — malseka herbo, poste koto ĉe la akvlinio. La
     // faktoroj restas sub 1, por ke la ĝenerala herba koloro konserviĝu.
@@ -163,9 +168,12 @@ export function terenaStrataKoloroEn(celo: THREE.Color, y: number, surfY: number
 //     @param x, z ( number ) - Monda pozicio ( por la bruo ).
 //     @param deklivo ( number ) - La gradiento |∇h| ( 0 ĉe nekonataj randoj —
 //         tiam nur la roko laŭ la alto validas ).
+//     @param niveloFn ( funkcio ) - La akva nivelo cxe la punkto ( la derivita
+//         akvo de la akvokalkulo ). Sen gxi la sahara nivelo de la mapo validas.
 //         Example.
 // @returns La sama celo, reskribita
-export function terenaKoloroEn(celo: THREE.Color, h: number, x: number, z: number, deklivo: number): THREE.Color {
+export function terenaKoloroEn(celo: THREE.Color, h: number, x: number, z: number,
+  deklivo: number, niveloFn?: ( x: number, z: number ) => number ): THREE.Color {
   // Du-oktava IZOTROPA valora bruo — natura makuleco sen direkto. Milda
   // amplitudo — la makuleco restas subtila, ne bendoj.
   const t = Math.max(0, Math.min(1,
@@ -187,6 +195,6 @@ export function terenaKoloroEn(celo: THREE.Color, h: number, x: number, z: numbe
   if ( h > 0o46 ) celo.lerp(NEGO, Math.min(1, ( h - 0o46 ) / 0o10));
   // La akvoborda tavolo venas LASTe — ĝi superregas la rokon kaj la neĝon
   // tie, kie la tereno renkontas la akvon ( ankaŭ kruta klifo malsekiĝas ).
-  bordiKoloron(celo, h, x, z, deklivo);
+  bordiKoloron(celo, h, x, z, deklivo, niveloFn);
   return celo;
 }

@@ -1,6 +1,11 @@
 // Tereno — terenaj alteco-funkcioj por la Aranis-valo
-import { skulptaDelta, skulptitaAkvo, skulptitaBiomo } from "./tero-datumaro/rultempo.js";
-import { SKULPTA_AKVA_NIVELO } from "./tero-datumaro/aktiva.js";
+import { skulptaDelta, dekodiMaskon, skulptitaBiomo } from "./tero-datumaro/rultempo.js";
+import { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO, SKULPTA_AKVOFONTOJ,
+  SKULPTA_AKTIVA, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_PASO } from "./tero-datumaro/aktiva.js";
+import { cxuEnFormo } from "../assets/komunajxoj/mapformo.js";
+import { aktivaMapo } from "./tero-datumaro/mapregulo.js";
+import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima, specimenoDulineara,
+  limojDeAkvo, AkvaKalkulo } from "./akvokalkulo.js";
 
 // Rivero fluas orient-okcidente kun milda suda kurbo
 // Rivero fluas orient-okcidente — ŝovita suden por malbari la urban kradon
@@ -68,10 +73,13 @@ export function riveraAkvaNivelo(x: number): number {
 }
 
 // akvaNivelo — la akvosurfaca Y en la lago, la nordorienta rivereto, la cxefa
-// rivero aŭ la pentrita ( skulptita ) akvo. La skulptita masko superregas la
-// naturan akvon, por ke la ludanto nagxu en la pentritaj basenoj.
+// rivero aŭ la DERIVITA akvo ( la fontoj kaj la basenoj ). La derivita akvo
+// superregas la naturan akvon, por ke la ludanto nagxu en gxi, kaj gxia nivelo
+// venas de la akvokalkulo — la rivero malsupreniras laux la tereno anstataux
+// resti unu plata ebeno.
 export function akvaNivelo(x: number, z: number): number {
-  if ( skulptitaAkvo(x, z) ) return SKULPTA_AKVA_NIVELO;
+  const derivita = skulptitaAkvaNivelo(x, z);
+  if ( derivita !== null ) return derivita;
   if ( cxuEnNordorientaRivero(x, z) ) return riveraNordOrientaNivelo(z);
   return cxuEnLago(x, z) ? lagoNivelo() : riveraAkvaNivelo(x);
 }
@@ -167,11 +175,20 @@ export function cxuEnNordorientaRivero(x: number, z: number): boolean {
   return Math.abs(x - riveroNordOrientaX(z)) < RIVERA_NORDORIENTA_DUONLARĜO;
 }
 
-// alteco — La plena terena alto. la procedura bazo plus la skulptita tavolo
-// ( se la skulptilo savis datumaron ). Cxiuj grundo/kolizio/akva kalkuloj
-// legas cxi tiun funkcion, do la skulptajxo sxangxas la tutan mondon.
-export function alteco(x: number, z: number): number {
+// sekaAlteco — la tereno SEN la akva eltrancxo. La akvokalkulo legas gin ( alie
+// gxi ripetus sian propran eltrancxon kaj la kanalo profundigxus sen fino ).
+export function sekaAlteco(x: number, z: number): number {
   return bazaAlteco(x, z) + skulptaDelta(x, z);
+}
+
+// alteco — La plena terena alto. la procedura bazo, la skulptita tavolo kaj la
+// AKVA ELTRANCSO ( la riveroj kaj la kanaloj morditaj de la akvokalkulo ).
+// Cxiuj grundo/kolizio/akva kalkuloj legas cxi tiun funkcion, do la skulptajxo
+// kaj la akvo sxangxas la tutan mondon. La eltrancxo estas DERIVITA — la
+// skulptitaj deltoj restas netusxitaj, do sxangxi la fontojn aux la akvan
+// nivelon neniam difektas la manan terenon.
+export function alteco(x: number, z: number): number {
+  return sekaAlteco(x, z) - akvaEltrancxo(x, z);
 }
 
 // ⟪ Biomoj ( la plantar-zonoj de la skulptita tereno ) 📃 ⟫
@@ -193,10 +210,10 @@ export function alteco(x: number, z: number): number {
 //     zonoj; la du ekvizetaj specioj ( cetkuoj kaj cakeoj ) en la ekvizeta.
 export type Biomo = "akvo" | "valo" | "ebenaĵo" | "montaro" | "akvaj-plantoj" | "ekvizeto" | "nenio";
 
-// akvo — Cxu la punkto estas akvo. La akvo estas la skulptita masko ( la
-// rivero kaj la lago bakitaj el la skulptilo ) — ne plu kaŝita procedura
-// formo. La rivercentra kaj lagranda helpiloj restas por la dokoj, la kanuoj
-// kaj la pontoj, kiuj sekvas la saman bakan geometrion.
+// akvo — Cxu la punkto estas akvo. La akvo estas la DERIVITA tavolo de la
+// akvokalkulo ( la fontoj kaj la basenoj ) — ne plu la pentrita masko. La
+// rivercentra kaj lagranda helpiloj restas por la dokoj, la kanuoj kaj la
+// pontoj, kiuj sekvas sian propran geometrion.
 export function akvo(x: number, z: number): boolean {
   return skulptitaAkvo(x, z);
 }
@@ -223,8 +240,9 @@ export function biomo(x: number, z: number): Biomo {
 // bazaAlteco — La natura ( procedura ) tereno. ĈI TIU LAYERO ESTAS PLATA.
 // la mondon ( montoj, rivero, lago, ĉio ) portas la skulptita tavolo
 // ( tero-datumaro/krado.ts ), bakitita de la skulptilo en la dosieron. La ludo legas
-// alteco() = bazaAlteco + skulptaDelta, do la tuta tereno estas nun redaktebla
-// en iloj/tero-skulptilo/tero-skulptilo.html — ne plu kaŝita procedura generado.
+// alteco() = bazaAlteco + skulptaDelta + la akva eltrancxo, do la tuta tereno
+// estas redaktebla en iloj/tero-skulptilo/tero-skulptilo.html — ne plu kaŝita
+// procedura generado.
 export function bazaAlteco(x: number, z: number): number {
   return 0;
 }
@@ -232,6 +250,76 @@ export function bazaAlteco(x: number, z: number): number {
 // Re-eksportoj — la skulptita tavolo el la tero-datumaro, por ke la
 // konsumantoj ( sperto.ts, urbo.ts ) legu gxin de cxi tiu modulo kiel la
 // ceteran terenon.
-export { skulptitaAkvo, skulptaAkvaLimoj } from "./tero-datumaro/rultempo.js";
 export { SKULPTA_PASO, SKULPTA_AKTIVA } from "./tero-datumaro/aktiva.js";
 export { SKULPTA_AKVA_NIVELO } from "./tero-datumaro/aktiva.js";
+export { SKULPTA_N, SKULPTA_ORIGINO } from "./tero-datumaro/aktiva.js";
+
+// ⟪ La akvokalkulo 📃 ⟫ — la tuta akva tavolo estas DERIVITA cxe la modulo-
+// sxargxo: la fontoj ( SKULPTA_AKVOFONTOJ ) kaj la malnovaj pentritaj basenoj
+// ( SKULPTA_AKVA_MASKO, la semoj ) pasas tra src/akvokalkulo.ts, kiu fluigas la
+// akvon malsupren, eltrancxas la kanalojn kaj plenigas la basenojn. La ludo ne
+// plu pentras akvon — la fontoj faras tion.
+const AKVA: AkvaKalkulo | null = ( () => {
+  if ( !SKULPTA_AKTIVA ) return null;
+  const mapo = aktivaMapo();
+  const semoj = dekodiMaskon(SKULPTA_AKVA_MASKO, SKULPTA_N * SKULPTA_N);
+  return kalkuliAkvon(
+    SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO as [number, number],
+    sekaAlteco,
+    ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z),
+    SKULPTA_AKVOFONTOJ, semoj,
+    { nivelo: SKULPTA_AKVA_NIVELO } );
+} )();
+
+// akvaEltrancxo — kiom la rivero mordis sub la sekan terenon cxe ( x, z ).
+// Dulineara ( la eltrancxo estas glata kampo, nul ekster la akvo ).
+export function akvaEltrancxo(x: number, z: number): number {
+  if ( !AKVA ) return 0;
+  return specimenoDulineara(AKVA.kavoj, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z);
+}
+
+// skulptitaAkvo — Cxu la punkto estas en la DERIVITA akvo ( la masko de la
+// akvokalkulo ) — la sama nomo kiel la malnova maske, por ke la konsumantoj
+// ( urbo.ts, bestoj.ts ) ne sxangxigxu.
+export function skulptitaAkvo(x: number, z: number): boolean {
+  if ( !AKVA ) return false;
+  return akvoCxe(AKVA, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z);
+}
+
+// skulptitaAkvaNivelo — la akvosurfaca Y de la derivita akvo cxe ( x, z ), aux
+// null ekster gxi. La rivero portas sian propran ( malsuprenirantan ) nivelon,
+// la basenoj estas plataj cxe la akva nivelo.
+export function skulptitaAkvaNivelo(x: number, z: number): number | null {
+  if ( !AKVA ) return null;
+  const nivelo = niveloCxe(AKVA, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z);
+  return Number.isNaN(nivelo) ? null : nivelo;
+}
+
+// akvaMeshNivelo — la akvosurfaca Y por la akva MESHXO. La sama kampo kiel
+// skulptitaAkvaNivelo ( la rivero malsupreniras, la baseno restas plata ), sed
+// neniam nul — la verticoj ekster la akvo ( kaj sur la kadra rando, kie la
+// meshxo povas eliri la kalkulan kradon ) revenas al la fiksita akva nivelo.
+// Sole la akvaj fragmentoj montrigxas, do la rando ne gravas — sed la surfaco
+// devas resti SEN SALTOJ tra la bordo, alie la ombro kaj la profundo sxtuparas.
+export function akvaMeshNivelo(x: number, z: number): number {
+  const nivelo = skulptitaAkvaNivelo(x, z);
+  return nivelo === null ? SKULPTA_AKVA_NIVELO : nivelo;
+}
+
+// akvaNiveloProksima — la akva nivelo de la plej proksima akva cxelo ( gxis du
+// cxeloj for ), aux la fiksita akva nivelo se neniu akvo proksimas. La tera
+// akvoborda tavolo ( la malseka herbo, la koto, la silto ) bezonas la nivelon
+// ankaux kelkajn unuojn SUPER la akvo, kie skulptitaAkvaNivelo redonas nulon —
+// alie la bordo sekvus fiksan izohipson kaj miskolorigus la riverbordojn.
+export function akvaNiveloProksima(x: number, z: number): number {
+  if ( !AKVA ) return SKULPTA_AKVA_NIVELO;
+  const nivelo = niveloProksima(AKVA, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z, 0o2);
+  return Number.isNaN(nivelo) ? SKULPTA_AKVA_NIVELO : nivelo;
+}
+
+// skulptaAkvaLimoj — la plej malgranda kadro cxirkaŭ la DERIVITA akvo ( kun unu
+// cela rando da libero ), por ke la meshxo ne kovru la tutan mondon.
+export function skulptaAkvaLimoj(): { x0: number; z0: number; x1: number; z1: number } | null {
+  if ( !AKVA ) return null;
+  return limojDeAkvo(AKVA, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO);
+}
