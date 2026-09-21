@@ -101,7 +101,7 @@ let promptaKadro = 0;
 
 // ⟪ Krei scenon kaj urbon 📃 ⟫
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
-const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron } = scena;
+const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron, maksimumaRatio } = scena;
 
 // ⟪ La diagnoza surmetaĵo 📃 ⟫ — montras la nombrojn de la bildilo kaj de la
 // vidlimo ( FPS, desegnaj alvokoj, trianguloj, kaj kiuj scen-partoj pezas ).
@@ -126,7 +126,7 @@ const fruaBildigo = () => {
   if ( haltoFrua ) return;
   // Regrandigu se la fenestro sxangxigxis dum la sxargxo ( turnado, regrandigo ).
   // Post setSize la komparo estas egala, do neniu rebufro okazas cxiukadre.
-  const fruaRatio = Math.min(devicePixelRatio, 2);
+  const fruaRatio = Math.min(devicePixelRatio, maksimumaRatio);
   if ( kanvaso.width !== Math.floor(innerWidth * fruaRatio) || kanvaso.height !== Math.floor(innerHeight * fruaRatio) ) {
     fotilo.aspect = innerWidth / innerHeight;
     fotilo.updateProjectionMatrix();
@@ -1735,18 +1735,32 @@ function bakiMapon(): HTMLCanvasElement | null {
     // La nebula koloro de la ĉielo — la fora tono de la plena mapo. Legu ĝin
     // antaŭ ol la nebulo de la sceno malŝaltiĝas por la bake.
     if ( nebulo ) mapaNebulaKoloro = "#" + nebulo.color.getHexString();
+    // ⟨ Unu bufero 📃 ⟩ — antaŭe estis TRI plenaj kopioj de la bildo ( 26 MB
+    // ĉiu ): la lega bufero, dua tabelo por la ImageData, kaj la kopio kiun
+    // putImageData faras interne. Nun unu tabelo plenumas ĉiujn rolojn — oni
+    // legas en ĝin, oni renversas ĝin SURLARE, kaj la ImageData VOLVAS la saman
+    // tabelon sen kopii. 52 MB malpli da momentmemoro ( gravas sur telefono )
+    // kaj unu plena trapaso de la datenoj malpli.
     const buf = new Uint8Array(rez * rez * 4);
     bildilo.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
     rt.dispose();
-    const bildo = new ImageData(new Uint8ClampedArray(rez * rez * 4), rez, rez);
     // WebGL legas de la malsupro — renversu la vicojn por ke nordo estu supre.
-    for ( let y = 0; y < rez; y++ ) {
-      const fonta = ( rez - 1 - y ) * rez * 4;
-      bildo.data.set(buf.subarray(fonta, fonta + rez * 4), y * rez * 4);
+    // Surloke, per unu tempovico ( duono de la antaŭa laboro ).
+    const tempVico = new Uint8Array(rez * 4);
+    for ( let y = 0; y < ( rez >> 1 ); y++ ) {
+      const supra = y * rez * 4, malsupra = ( rez - 1 - y ) * rez * 4;
+      tempVico.set(buf.subarray(supra, supra + rez * 4));
+      buf.copyWithin(supra, malsupra, malsupra + rez * 4);
+      buf.set(tempVico, malsupra);
     }
+    const bildo = new ImageData(new Uint8ClampedArray(buf.buffer), rez, rez);
     const kanvasa = document.createElement("canvas");
     kanvasa.width = kanvasa.height = rez;
-    kanvasa.getContext("2d")!.putImageData(bildo, 0, 0);
+    // ⟨ willReadFrequently 📃 ⟩ — la bakita mapo LEGIĜAS post la bake ( la randa
+    // mezuro de mezuriRandanKoloron ) kaj NENIAM re-desegniĝas, do ni diras al
+    // la retumilo teni ĝin en la ĉefmemoro. Sen tio ĉiu getImageData devigas
+    // sinkronan legadon el la GPU kaj Chrome avertas pri tio en la konzolo.
+    kanvasa.getContext("2d", { willReadFrequently: true })!.putImageData(bildo, 0, 0);
     // La randon-koloro estas mezurita ANTAŬ la fado — la fono de la plena mapo
     // devas daŭrigi la veran bildon, ne la travideblan randon.
     mapaRandaKoloro = mezuriRandanKoloron(kanvasa);
@@ -1768,16 +1782,24 @@ function mezuriRandanKoloron(kanvasa: HTMLCanvasElement): string {
   if ( !k ) return "#585848";
   const r = kanvasa.width;
   const bendo = 0o10;   // la mezurata rando ( 8 pikseloj )
-  const datumoj = k.getImageData(0, 0, r, r).data;
+  // ⟨ Nur la randoj 📃 ⟩ — la mezuro bezonas ok liniojn de la bildo ( kvar
+  // vicojn kaj kvar kolumnojn ), sed la malnova versio LEGIS LA TUTAN bildon por
+  // atingi ilin — 0o4770² = 6.5 M da rastrumeroj, 26 MB, el kaj reen tra la
+  // GPU ĉiun lanĉon. Nun oni legas nur tiujn ok liniojn ( 20 416 rastrumerojn,
+  // 320-oble malpli ) kaj la SAMAJ rastrumeroj sumiĝas en la sama ordo, do la
+  // rezulto estas bit-idente la sama.
+  const vicoj = [ 0, bendo - 1, r - 1, r - bendo ];
+  const vicoDatumoj = vicoj.map(y => k.getImageData(0, y, r, 1).data);
+  const kolumnoj = [ 0, bendo - 1, r - 1, r - bendo ];
+  const kolDatumoj = kolumnoj.map(x => k.getImageData(x, 0, 1, r).data);
   let sr = 0, sg = 0, sb = 0, n = 0;
-  // aldoni — unu randa pikselo al la sumo.
-  const aldoni = ( x: number, y: number ): void => {
-    const i = ( y * r + x ) * 4;
-    sr += datumoj[i]; sg += datumoj[i + 1]; sb += datumoj[i + 2]; n++;
+  // aldoniEl — unu rastrumero de linio al la sumo ( i = la pozicio EN LA LINIO ).
+  const aldoniEl = ( linio: Uint8ClampedArray, i: number ): void => {
+    sr += linio[i * 4]; sg += linio[i * 4 + 1]; sb += linio[i * 4 + 2]; n++;
   };
   for ( let k2 = 0; k2 < r; k2 += 0o4 ) {
-    aldoni(k2, 0); aldoni(k2, bendo - 1); aldoni(k2, r - 1); aldoni(k2, r - bendo);
-    aldoni(0, k2); aldoni(bendo - 1, k2); aldoni(r - 1, k2); aldoni(r - bendo, k2);
+    for ( const v of vicoDatumoj ) aldoniEl(v, k2);
+    for ( const v of kolDatumoj ) aldoniEl(v, k2);
   }
   if ( !n ) return "#585848";
   return "rgb(" + Math.round(sr / n) + "," + Math.round(sg / n) + "," + Math.round(sb / n) + ")";
@@ -2034,7 +2056,7 @@ kompaso.addEventListener("keydown", ( e ) => {
 // La radara mapo ekde lanĉo — baku la statikan scenon unufoje ( la urbo kaj
 // arbaro jam estas konstruitaj ). La 2D-tavoloj desegniĝas ĉiukadre.
 miniKanvaso.width = miniKanvaso.height = 0o200;
-bakitaMapo = bakiMapon();
+  bakitaMapo = bakiMapon();
 // La ŝarĝa ekrano finiĝas nur kiam ĉio estas preta ( konstruado + bakado ).
 sxargxaElemento.classList.add("finita");
 gxisdatigiRetikulon();
@@ -2139,9 +2161,14 @@ function animacii() {
   // sur 60Hz-ekrano ( kadroj ≈ 1/0o74s < 1/0o72s ), por ke la rezolucio povu reveni.
   if ( krudaDt > 1 / 0o60 ) { malrapidajKadroj++; rapidajKadroj = 0; }
   else if ( krudaDt < 1 / 0o70 ) { rapidajKadroj++; malrapidajKadroj = 0; }
-  if ( malrapidajKadroj >= 0o40 && dinamikaSkalo > 0o6/0o10 ) { dinamikaSkalo = Math.max(0o6/0o10, dinamikaSkalo - 0o1/0o10); malrapidajKadroj = 0; }
+  // ⟨ La reagemo 📃 ⟩ — antaŭe la skalo bezonis 0o40 ( 32 ) sinsekvajn malrapidajn
+  // kadrojn por malleviĝi unu paŝon. Ĉe 5 fps tio estas pli ol ses sekundoj da
+  // lagado antaŭ la unua malleviĝo — la ludanto jam delonge sentas la frostigon.
+  // Nun la sojlo estas 0o14 ( 12 ) kadroj kaj la paŝo estas 0o2 anstataŭ 0o1, do
+  // la skalo atingas sian ekvilibron en kvinono de la tempo.
+  if ( malrapidajKadroj >= 0o14 && dinamikaSkalo > 0o6/0o10 ) { dinamikaSkalo = Math.max(0o6/0o10, dinamikaSkalo - 0o2/0o10); malrapidajKadroj = 0; }
   else if ( rapidajKadroj >= 0o130 && dinamikaSkalo < 1 ) { dinamikaSkalo = Math.min(1, dinamikaSkalo + 0o1/0o10); rapidajKadroj = 0; }
-  const aktivaRatio = Math.min(devicePixelRatio, 2) * dinamikaSkalo;
+  const aktivaRatio = Math.min(devicePixelRatio, maksimumaRatio) * dinamikaSkalo;
   if ( kanvaso.width !== Math.floor(w * aktivaRatio) || kanvaso.height !== Math.floor(h * aktivaRatio) ) {
     fotilo.aspect = w / h; fotilo.updateProjectionMatrix();
     bildilo.setPixelRatio(aktivaRatio);

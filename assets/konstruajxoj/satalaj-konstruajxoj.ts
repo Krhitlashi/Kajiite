@@ -758,29 +758,29 @@ export function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: TH
 // kasxo kiel la aliaj konstruajxaj materialoj, por ke la tagnokta sxangxo
 // ( gxisdatigiSteleanVitron ) kaj la konstruo atingu la SAMAN objekton.
 //
-// ⟨ La MALKONDUKO ( `transmission` ) 📃 ⟩ — la plato estas vera transira vitro:
-// `transmission` 0o7/0o20 ( 0.35 ) lasas la fono tra kaj `roughness` 0o5/0o10
-// ( 0.5 ) MALKONDUKAS gxin — la pordo, la plantoj kaj la tereno malantaŭ la
-// signo aperas kiel molaj makuloj. Tiu materialo devigas la bildilon re-desegni
-// la tutan maldiafanan scenon en apartan bufron ( la transira pasumo ). Mezurite
-// per ?statistiko tio kostas 354 kromajn desegnajn alvokojn kaj 21.6 M da
-// trianguloj po kadro; `transmissionResolutionScale` ( scena.ts ) tenas la
-// buferon je kvarono de la denso, do la fragmenta kosto restas malgranda — la
-// malklareco mem kasxas la malpli altan rezolucion, do la difekto farigxas
-// trajto. La transiro tag/nokto sxangxas la BAZAN KOLORON ( vidu sube ), kaj en
-// la fizika modelo de three la baza koloro ankaŭ FILTRAS la trapasantan lumon:
-// nigra koloro sufokas la trapason, do la signo fakte mallumigxas nokte.
+// ⟨ LA FROSTA VITRO — nenia `transmission` 📃 ⟩ — la plato estas DUONTRATRAVIDA
+// `transparent` + `opacity` 0o5/0o10 lasas 0.375 de la fono tra, kaj alta
+// `roughness` ( 0o5/0o10 ) forprenas la spegulojn — la plato legigxas kiel
+// frostigita vitro, ne kiel spegulo nek kiel aero. La fono NE malklarigxas
+// frostigita vitro malklarigas ĝin, kaj la plato nun havas pli da korpo.
 //
-// ⟨ La plato estas pli MALDIAFANA ol komence 📃 ⟩ — 0o5/0o10 da trapaso lasis la
-// fonon tro klare tra, do la literoj luktis kun la bildo malantaŭ ili. Nun la
-// trapaso estas 0o7/0o20 ( 0.35 ): la fono restas videbla kaj malklara, sed la
-// plato havas pli da korpo kaj la flava teksto legigxas pli firme.
+// ⟨ Kial NE `transmission` 📃 ⟩ — tiu materialo devigas la bildilon re-desegni la
+// TUTAN maldiafanan scenon en apartan bufron ( la transira pasumo ). Mezurite per
+// ?statistiko tio kostis 354 kromajn desegnajn alvokojn kaj 21.6 M da trianguloj
+// po kadro — triono de la tuta geometria laboro de ĉiu kadro. Por kelkaj
+// malgrandaj signoj tio ne indas. La transiro tag/nokto sxangxas la BAZAN KOLORON
+// ( vidu sube ), do la signo ankaux mallumigxas nokte.
+//
+// ⟨ Kial 0.625 kaj ne pli travidebla 📃 ⟩ — vera transira vitro ( la malnova
+// versio ) lasis la fonon tro klare tra, do la literoj luktis kun la bildo
+// malantaŭ ili. Kun 0.625 la fono restas videbla sed malklara — la plato ne
+// estas travidebla — kaj la flava teksto legigxas pli firme.
 function steleaVitro(): THREE.MeshStandardMaterial {
   return konstruajxaMaterialo("steleo",
-    () => new THREE.MeshPhysicalMaterial({
+    () => new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o5/0o10, metalness: 0,
-      transmission: 0o7/0o20, thickness: 0o5/0o40, ior: 0o3/0o2,
-      attenuationColor: 0x2a4a44, attenuationDistance: 1,
+      transparent: true, opacity: 0o5/0o10,
+      // Nenia `transmission` — tiu pasumo kostis trionon de la geometrio ( vidu supre )
       emissive: 0x0a1a18, emissiveIntensity: 0o1/0o4,
     }));
 }

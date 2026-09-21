@@ -179,6 +179,165 @@ function renversiVolvon(g: THREE.BufferGeometry): void {
   }
 }
 
+// ⟪ Rapida kunfando de transformitaj geometrioj 📃 ⟫ — la varma vojo de la monda
+// kunfando ( src/urbo.ts ). La ĝenerala vojo de three.js — geometry.clone(),
+// applyMatrix4() kaj mergeGeometries() — trairas la datumaron KVIN fojojn. La
+// klono kopias ĉiun atributon, applyMatrix4 trairas la poziciojn, applyMatrix4
+// trairas la normalojn, mergeAttributes kopias ĉion denove, kaj mergeGeometries
+// konstruas la indekson en ordinaran JS-tabelon per po-unua push. La mondo estas
+// 43 milionoj da vertoj ( proksimume 1.4 GB da atributaj datumoj ), do ĉiu trairo
+// aparte kostas sekundojn.
+//
+// Ĉi tiu funkcio faras ĉion en UNU trairo. La matricoj aplikiĝas dum la kopiado
+// kaj la eligo skribiĝas rekte en antaŭe alĝustigitajn tipajn tabelojn — nenia
+// klono, nenia rubaĵo por la rubkolektanto. La indekso skribiĝas rekte en tipan
+// tabelon, la sama leciono kiel la terena indekso ( terenkoloroj.ts ).
+//
+// La funkcio revenas null kiam la grupo ne taŭgas por la rapida vojo ( ne-indeksa
+// geometrio, malsamaj atributoj aŭ ne-afina matrico ). La alvokanto tiam uzas la
+// ĝeneralan vojon de three.js, do la kondiĉoj kontroliĝas ANTAŬ la unua skribo
+// kaj la rezulto NENIAM malsamas de la ĝenerala vojo.
+
+// TransformitaPeco — unu fonta geometrio kun la mond-matrico, kiu bakos ĝin.
+export interface TransformitaPeco {
+  geometrio: THREE.BufferGeometry;
+  matrico: THREE.Matrix4;
+}
+
+// kunfandiTransformitajn — Kunfandu la donitajn geometriojn per unu trairo,
+// aplikante ĉies matricon dum la kopiado. La transformo sekvas three.js precize
+// ( la normaloj per la inverso-transpono de la 3×3 parto kaj posta normaligo )
+// — nur la vojo al la rezulto estas pli mallonga.
+//     @param pecoj ( TransformitaPeco[] ) - La fontoj kun iliaj mond-matricoj.
+//     @returns geometrio ( THREE.BufferGeometry | null ) - La kunigita geometrio,
+//         aŭ null se la grupo ne taŭgas por la rapida vojo.
+export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferGeometry | null {
+  if ( pecoj.length === 0 ) return null;
+  const unuaGeometrio = pecoj[0].geometrio;
+  // La grupo estas AŬ tute indeksa AŬ tute ne-indeksa — miksitaj grupoj revenas
+  // al la ĝenerala vojo. La ne-indeksaj grupoj estas la plantoj kaj la foliaro
+  // ( kunfandiDuGeometriojn forigas la indekson por konservi la triangulan ordon ).
+  const indeksita = unuaGeometrio.index !== null;
+  const unuaAtributoj = unuaGeometrio.attributes;
+  const subskribo = Object.keys(unuaAtributoj).sort().join(",");
+  // ⟨ La kontrolo 📃 ⟩ — ĉio devas kongrui antaŭ la unua skribo, alie la kunfando
+  // silento misformus la datumaron.
+  let tv = 0, ti = 0;
+  for ( const p of pecoj ) {
+    const g = p.geometrio;
+    if ( ( g.index !== null ) !== indeksita ) return null;
+    if ( Object.keys(g.attributes).sort().join(",") !== subskribo ) return null;
+    const e = p.matrico.elements as unknown as number[];
+    // La afina testo — la rapida vojo ne faras la perspektivan dividon.
+    if ( e[3] !== 0 || e[7] !== 0 || e[11] !== 0 || e[15] !== 1 ) return null;
+    for ( const nomo of Object.keys(g.attributes) ) {
+      const a = g.attributes[nomo] as THREE.BufferAttribute;
+      const b = unuaAtributoj[nomo] as THREE.BufferAttribute;
+      if ( a.itemSize !== b.itemSize || a.normalized !== b.normalized ) return null;
+      if ( !( a.array instanceof Float32Array ) ) return null;   // interplektitaj tabeloj ne taŭgas
+    }
+    tv += ( g.attributes.position as THREE.BufferAttribute ).count;
+    if ( indeksita ) ti += g.index!.count;
+  }
+  // ⟨ La eligaj tabeloj 📃 ⟩ — unu alĝustigo por la tuta grupo, anstataŭ klono po
+  // geometrio. Tio forigas la 1.4 GB da mezaĵoj, kiujn la klonoj kreis.
+  const eligoj = new Map<string, Float32Array>();
+  for ( const nomo of Object.keys(unuaAtributoj) ) {
+    const a = unuaAtributoj[nomo] as THREE.BufferAttribute;
+    eligoj.set(nomo, new Float32Array(tv * a.itemSize));
+  }
+  const eligoIndekso = indeksita ? ( tv > 65535 ? new Uint32Array(ti) : new Uint16Array(ti) ) : null;
+  const eligoPosicio = eligoj.get("position")!;
+  const eligoNormo = eligoj.get("normal");
+  let vo = 0, io = 0;
+  for ( const p of pecoj ) {
+    const g = p.geometrio;
+    const e = p.matrico.elements as unknown as number[];
+    const fontaPosicio = ( g.attributes.position as THREE.BufferAttribute ).array as Float32Array;
+    const c = ( g.attributes.position as THREE.BufferAttribute ).count;
+    // ⟨ La pozicioj 📃 ⟩ — la afina mapo skribiĝas rekte en la eligon.
+    const e0 = e[0], e1 = e[1], e2 = e[2], e4 = e[4], e5 = e[5], e6 = e[6],
+      e8 = e[8], e9 = e[9], e10 = e[10], e12 = e[12], e13 = e[13], e14 = e[14];
+    for ( let i = 0, j = vo * 3; i < c; i++, j += 3 ) {
+      const s = i * 3;
+      const x = fontaPosicio[s], y = fontaPosicio[s + 1], z = fontaPosicio[s + 2];
+      eligoPosicio[j] = e0 * x + e4 * y + e8 * z + e12;
+      eligoPosicio[j + 1] = e1 * x + e5 * y + e9 * z + e13;
+      eligoPosicio[j + 2] = e2 * x + e6 * y + e10 * z + e14;
+    }
+    // ⟨ La normaloj 📃 ⟩ — la inverso-transpono de la 3×3 parto kaj normaligo, la
+    // sama rezulto kiel applyNormalMatrix de three.js. La inverso-transpono estas
+    // la identeco por la puraj rotacioj ( la plej multaj el la metitaj kopioj ),
+    // sed la kalkulo estas unufoja po geometrio, ne po verto.
+    const fontaNormo = g.attributes.normal as THREE.BufferAttribute | undefined;
+    if ( eligoNormo !== undefined && fontaNormo !== undefined ) {
+      const fn = fontaNormo.array as Float32Array;
+      const nm = new THREE.Matrix3().getNormalMatrix(p.matrico);
+      const m = nm.elements as unknown as number[];
+      const m0 = m[0], m1 = m[1], m2 = m[2], m3 = m[3], m4 = m[4],
+        m5 = m[5], m6 = m[6], m7 = m[7], m8 = m[8];
+      for ( let i = 0, j = vo * 3; i < c; i++, j += 3 ) {
+        const s = i * 3;
+        const x = fn[s], y = fn[s + 1], z = fn[s + 2];
+        const nx = m0 * x + m3 * y + m6 * z;
+        const ny = m1 * x + m4 * y + m7 * z;
+        const nz = m2 * x + m5 * y + m8 * z;
+        const longo = Math.sqrt(nx * nx + ny * ny + nz * nz) || 1;
+        eligoNormo[j] = nx / longo;
+        eligoNormo[j + 1] = ny / longo;
+        eligoNormo[j + 2] = nz / longo;
+      }
+    }
+    // ⟨ La ceteraj atributoj 📃 ⟩ — la UV-oj kaj la vertaj koloroj ne
+    // transformiĝas, do ili estas simpla memcpy en la eligon.
+    for ( const [ nomo, eligo ] of eligoj ) {
+      if ( nomo === "position" || nomo === "normal" ) continue;
+      const a = g.attributes[nomo] as THREE.BufferAttribute;
+      eligo.set(a.array as Float32Array, vo * a.itemSize);
+    }
+    // ⟨ La indeksoj 📃 ⟩ — la ventumilo inversiĝas MANE por la spegulitaj kopioj,
+    // la sama kialo kiel renversiVolvon supre. La indekso skribiĝas rekte en la
+    // tipan tabelon, sen la ordinara JS-tabelo de mergeGeometries.
+    const spegulo = p.matrico.determinant() < 0;
+    if ( eligoIndekso !== null ) {
+      const fontaIndekso = g.index!.array as Uint16Array | Uint32Array;
+      if ( spegulo ) {
+        for ( let i = 0; i < fontaIndekso.length; i += 3 ) {
+          eligoIndekso[io + i] = fontaIndekso[i] + vo;
+          eligoIndekso[io + i + 1] = fontaIndekso[i + 2] + vo;
+          eligoIndekso[io + i + 2] = fontaIndekso[i + 1] + vo;
+        }
+      } else {
+        for ( let i = 0; i < fontaIndekso.length; i++ ) eligoIndekso[io + i] = fontaIndekso[i] + vo;
+      }
+      io += fontaIndekso.length;
+    } else if ( spegulo ) {
+      // ⟨ La ne-indeksa spegulo 📃 ⟩ — sen indekso la ventumilon oni inversigas
+      // interŝanĝante la duan kaj trian verton de ĉiu triangulo, ĉi tie en la ĴUS
+      // skribitaj eligaj tabeloj ( la fontaj tabeloj ne tuŝiĝas ).
+      for ( const [ nomo, eligo ] of eligoj ) {
+        const s = ( unuaAtributoj[nomo] as THREE.BufferAttribute ).itemSize;
+        for ( let t = 0; t < c; t += 3 ) {
+          const a = ( vo + t + 1 ) * s, b = ( vo + t + 2 ) * s;
+          for ( let k = 0; k < s; k++ ) {
+            const provizora = eligo[a + k];
+            eligo[a + k] = eligo[b + k];
+            eligo[b + k] = provizora;
+          }
+        }
+      }
+    }
+    vo += c;
+  }
+  const out = new THREE.BufferGeometry();
+  for ( const [ nomo, eligo ] of eligoj ) {
+    const a = unuaAtributoj[nomo] as THREE.BufferAttribute;
+    out.setAttribute(nomo, new THREE.BufferAttribute(eligo, a.itemSize, a.normalized));
+  }
+  if ( eligoIndekso !== null ) out.setIndex(new THREE.BufferAttribute(eligoIndekso, 1));
+  return out;
+}
+
 // kunfandiMondajnMeshojn — Kunfandu la senmovajn meshojn de la donitaj radikoj
 // en malmultaj meshoj PO ( materialo · ombra stato · bildiga ordo · tavolo ·
 // verto-signaturo · spaca ĉelo ). La geometrioj transformiĝas al la MONDA
@@ -225,19 +384,25 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
   let poste = 0;
   for ( const listo of grupoj.values() ) {
     if ( listo.length < 2 ) { poste += listo.length; continue; }
-    const geometrioj = listo.map(a => {
-      const g = a.mesho.geometry.clone();   // la klono estas nia — vi povas disponigi ĝin
-      g.applyMatrix4(a.matrico);
-      // ⟨ La spegulitaj geometrioj 📃 ⟩ — la diamanta spegulo sub ĉiu konstruaĵo
-      // havas NEGATIVAN determinanton ( scale.y = -1 ). three.js inversigas la
-      // ventumilon de la trianguloj por tiaj objektoj dum bildigo ( frontFaceCW ),
-      // sed la bakita geometrio havas identecon — do la ventumilo inversiĝu
-      // MANE, alie la tuta spegulo malaperus malantaŭ la malantaŭaj facoj.
-      if ( a.matrico.determinant() < 0 ) renversiVolvon(g);
-      return g;
-    });
-    const kunigita = mergeGeometries(geometrioj, false);
-    for ( const g of geometrioj ) g.dispose();
+    // ⟨ La rapida vojo 📃 ⟩ — unu trairo kun la matricoj aplikataj dum la kopiado.
+    // Kiam la grupo ne taŭgas ( ne-indeksaj geometrioj, malsamaj atributoj ), la
+    // ĝenerala vojo de three.js restas la sama kiel antaŭe.
+    let kunigita = kunfandiTransformitajn(listo.map(a => ({ geometrio: a.mesho.geometry, matrico: a.matrico })));
+    if ( kunigita === null ) {
+      const geometrioj = listo.map(a => {
+        const g = a.mesho.geometry.clone();   // la klono estas nia — vi povas disponigi ĝin
+        g.applyMatrix4(a.matrico);
+        // ⟨ La spegulitaj geometrioj 📃 ⟩ — la diamanta spegulo sub ĉiu konstruaĵo
+        // havas NEGATIVAN determinanton ( scale.y = -1 ). three.js inversigas la
+        // ventumilon de la trianguloj por tiaj objektoj dum bildigo ( frontFaceCW ),
+        // sed la bakita geometrio havas identecon — do la ventumilo inversiĝu
+        // MANE, alie la tuta spegulo malaperus malantaŭ la malantaŭaj facoj.
+        if ( a.matrico.determinant() < 0 ) renversiVolvon(g);
+        return g;
+      });
+      kunigita = mergeGeometries(geometrioj, false);
+      for ( const g of geometrioj ) g.dispose();
+    }
     if ( kunigita === null ) { poste += listo.length; continue; }   // ne kongruaj
     const unua = listo[0].mesho;
     const mesho = new THREE.Mesh(kunigita, unua.material);

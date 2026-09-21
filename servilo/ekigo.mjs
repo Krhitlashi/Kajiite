@@ -1,6 +1,6 @@
 // ekigo.mjs — Lanĉu Vite, la retilo-servilon kaj la konserva-servilon kune
 // por disvolvo. `npm run dev` starigas ĉiujn tri procezojn. Vite ( la paĝo
-// sur 5173 ), servilo/servilo.js ( la retila WebSocket sur 0o5660 = 2992 )
+// sur 5172 ), servilo/servilo.js ( la retila WebSocket sur 0o5660 = 2992 )
 // kaj servilo/konservilo.mjs ( la rekta savo de la terena skulptilo sur
 // 0o10115 = 4173 ). Vite plusendas /retilo al la retilo-servilo ( vidu
 // vite.config.ts ), do la retilo konektiĝas tuj, sen malsukcesaj provoj kaj

@@ -60,7 +60,7 @@ function markiloDe(nomo) {
   return null;
 }
 
-// CORS — la skulptilo kuras en Vite ( localhost.5173 ) kaj postulas la
+// CORS — la skulptilo kuras en Vite ( localhost.5172 ) kaj postulas la
 // alian originon. Loka ilo — la permeso estas larĝa sen risko.
 const CORS = {
   "Access-Control-Allow-Origin": "*",

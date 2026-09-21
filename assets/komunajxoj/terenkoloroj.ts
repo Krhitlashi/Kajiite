@@ -31,23 +31,33 @@ export function bruo2D(x: number, z: number): number {
 }
 
 // alternajDiagonalojn — la triangulaj indeksoj por ( segmentoj + 1 )²
+// ⟨ Rekte en tabelon 📃 ⟩ — la indeksoj skribiĝas rekte en `Uint32Array`, ne en
+// ordinaran JS-tabelon. La grundo de la ludo postulas 0o600² × 6 = 2 160 000
+// indeksojn; la malnova versio konstruis JS-tabelon de tiom da nombroj ( kun
+// ripeta rekreskigo ) kaj three.js poste KONVERTIS gxin al tabelo de entjeroj —
+// du plenaj trapasoj kaj du plenaj kopioj de la tabelo dum la ŝargo. La tabelo
+// ankaŭ estas Uint32 ( la grundo havas 0o601² = 361 201 verticojn, do Uint16
+// ne sufiĉus ), kio estas la sama tipo, kiun three.js uzus ĉiuokaze.
 // verticoj. La diagonaloj ALTERNIĜAS per ĉelo ( ŝaktabulo ), por ke la
 // montodeklivoj ne montru longajn krestojn laŭ unu konsekvenca diagonalo.
 // Ĉiuj trianguloj estas kontraŭhorloĝaj vidataj de supre ( la antaŭaj
 // flankoj rigardu supren, +y ).
 //     @param segmentoj ( number ) - La kvanto da ĉeloj sur ĉiu flanko.
 //         Example.
-// @returns La indeksa listo ( 6 nombroj po ĉelo )
-export function alternajDiagonalojn(segmentoj: number): number[] {
-  const indeksoj: number[] = [];
+// @returns La indeksa tabelo ( 6 nombroj po ĉelo ) — Uint32Array
+export function alternajDiagonalojn(segmentoj: number): Uint32Array {
+  const indeksoj = new Uint32Array(segmentoj * segmentoj * 0o6);
+  let p = 0;
   const sx = segmentoj + 1;
   for ( let j = 0; j < segmentoj; j++ ) {
     for ( let i = 0; i < segmentoj; i++ ) {
       const a = j * sx + i, b = a + 1, c = a + sx, d = c + 1;
       if ( ( i + j ) % 2 === 0 ) {
-        indeksoj.push(a, c, d, a, d, b);
+        indeksoj[p++] = a; indeksoj[p++] = c; indeksoj[p++] = d;
+        indeksoj[p++] = a; indeksoj[p++] = d; indeksoj[p++] = b;
       } else {
-        indeksoj.push(a, c, b, c, d, b);
+        indeksoj[p++] = a; indeksoj[p++] = c; indeksoj[p++] = b;
+        indeksoj[p++] = c; indeksoj[p++] = d; indeksoj[p++] = b;
       }
     }
   }

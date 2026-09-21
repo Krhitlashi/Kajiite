@@ -1332,7 +1332,7 @@ function akvaNiveloDe(i, j, x, z) {
 // KOMUNA konstruanto ( la sama ŝaktabula diagonal-alternado kiel la grundo
 // de la ludo en scena.ts — antaŭe kopiita ĉi tie ).
 function konstrui3DIndeksojn(){
-  return new Uint32Array(alternajDiagonalojn(N));
+  return alternajDiagonalojn(N);
 }
 
 // inicializi3DKradon — la horizontala krado ( x, z ) de la verticoj. La krado

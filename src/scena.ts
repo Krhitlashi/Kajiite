@@ -45,12 +45,54 @@ export interface ScenaSistemo {
   aplikiVeteron: ( v: Vetero ) => void;
   gxisdatigiVeteron: ( t: number ) => void;
   gxisdatigiOmbron: ( x: number, z: number ) => boolean;
+  // La maksimuma ekrandenso por la dinamika rezolucio ( sperto.ts ) — 1.5 sur
+  // la tuŝaj aparatoj, 2 surtablue. La buklo povas malaltigi la denson sub ĝin
+  // sub ŝarĝo, sed neniam super ĝin.
+  maksimumaRatio: number;
 }
+
+// ⟪ La aparata buĝeto 📃 ⟫ — ĉu la aparato estas tuŝa aŭ poŝtelefona. Ĉi tio
+// malaltigas la TRI gravajn buĝetojn ( la ekrandenso, la MSAA, la ombra mapo )
+// nur tie, kie ili vere doloras; la surtabla bildo restas gxuste tia, kia ĝi
+// estis. La signoj de la aparato legiĝas unufoje, ĉe la modulo-ŝarĝo.
+//
+// ⟨ Kial la ekrandenso 📃 ⟩ — sur poŝtelefono la ekrandenso estas 2 ĝis 3, do
+// `setPixelRatio( 2 )` pentras 4-oble pli da fragmentoj ol 1× kaj 1.8-oble pli
+// ol 1.5×. La fragmenta pasumo ( la grundo, la ĉielo, la nebulo, la ombroj )
+// estas la plej granda unuopa kosto de la kadro, kaj ĝi skvamas kun la KVADRATO
+// de la denso. Sur la malgranda ekrano de telefono 1.5 vide ne diferenciĝas de
+// 2, sed kostas 44% malpli da fragmentoj.
+//
+// ⟨ Kial malŝalti la MSAA ĉe alta denso 📃 ⟩ — la multspecimena rando
+// ( antialias ) multiplikas kaj la fragmentan koston kaj la GPU-memoron ( 4
+// specimenoj = 4× la kolorbufro kaj la profundo-bufro ). Kun 2× aŭ 3× ekrandenso
+// la randoj jam estas glataj pro la denso, do MSAA sur tia ekrano apenaŭ
+// videblas — ĝi nur kostas.
+//
+// ⟨ Kial pli malgranda ombra mapo 📃 ⟩ — la ombra pasumo estas la dua plej
+// granda kosto. 512 sur telefono apenaŭ diferenciĝas de 1024 ( la ombro-
+// volumeno estas 200 × 200 unuoj, do la tekselo estas 0.39 unuoj anstataŭ 0.2 ).
+// La ombra dekliniĝo tiam duoniĝas, por ke la ombroj restu samaj ( vidu la
+// ombran agordon sube ).
+export const surPosxtelefono: boolean = ( () => {
+  const kohera = typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches;
+  const ua = /Android|iPhone|iPad|iPod|Mobile|Silk|Kindle/i.test(navigator.userAgent);
+  return kohera || ua;
+} )();
+// MAKS_RATIO — la maksimuma ekrandenso por la bildilo. 0o14/0o10 ( 1.5 ) sur la
+// tuŝaj aparatoj ( malgranda ekrano, malforta GPU ), 0o2 surtablue.
+export const MAKS_RATIO = surPosxtelefono ? 0o14/0o10 : 0o2;
+// OMBRA_MAPO — la ombra mapo. 0o1000 ( 512 ) sur la tuŝaj aparatoj, 0o2000
+// ( 1024 ) surtablue.
+export const OMBRA_MAPO = surPosxtelefono ? 0o1000 : 0o2000;
+// MULT_SAMPLEA — ĉu la bildilo uzu MSAA. Malŝaltita nur sur la tuŝaj aparatoj
+// kun densa ekrano, kie ĝi kostas multe kaj videblas preskaŭ neniom.
+export const MULT_SAMPLEA = !( surPosxtelefono && devicePixelRatio >= 0o14/0o10 );
 
 export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): ScenaSistemo {
   let bildilo: THREE.WebGLRenderer;
   try {
-    bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: true, powerPreference: "high-performance" });
+    bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: MULT_SAMPLEA, powerPreference: "high-performance" });
   } catch {
     montriEraronon(sxargxaEl);
     throw new Error("WebGL ne havebla");
@@ -70,17 +112,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   bildilo.shadowMap.autoUpdate = false;
   // La frua bildigo okazas antaŭ la buklo — ĝi jam havu ombrojn.
   bildilo.shadowMap.needsUpdate = true;
-  bildilo.setPixelRatio(Math.min(devicePixelRatio, 2));
-  // ⟪ La transira pasumo 📃 ⟫ — la steleaj signoj estas veraj transiraj vitroj
-  // (`transmission`, vidu steleaVitro), kaj tiu materialo devigas la bildilon
+  bildilo.setPixelRatio(Math.min(devicePixelRatio, MAKS_RATIO));
+  // ⟪ La transira pasumo — FORIGITA 📃 ⟫ — la steleaj signoj ESTIS veraj
+  // transiraj vitroj (`transmission`), kaj tiu materialo devigis la bildilon
   // re-desegni la tutan maldiafanan scenon en apartan bufron. Mezurite per
-  // ?statistiko tiu dua pasumo kostas 354 desegnajn alvokojn kaj 21.6 M da
-  // trianguloj po kadro — pli ol triono de la tuta geometria laboro. La bufero
-  // de tiu pasumo estas tamen plena MALKLAZAĴO ( la vitro frostigxas ), do ni
-  // desegnas gxin je KVARONO de la denso: la fragmenta kosto de la pasumo falas
-  // al deksesono, kaj la pli malalta rezolucio NE videblas — la malklareco mem
-  // kasxas gxin ( ĝi eĉ aspektas pli frosta ).
-  bildilo.transmissionResolutionScale = 0o1/0o4;
+  // ?statistiko tiu dua pasumo kostis 354 desegnajn alvokojn kaj 21.6 M da
+  // trianguloj po kadro — pli ol triono de la tuta geometria laboro.
+  // ⟨ Kio sxangxigxis 📃 ⟩ — la signoj nun uzas frostigitan vitron ( vidu
+  // steleaVitro en satalaj-konstruajxoj.ts ), do la pasumo tute ne plu okazas
+  // la tuta geometrio de la mondo desegniĝas UNUFOJE po kadro anstataŭ dufoje.
+  // La ordono `transmissionResolutionScale` malaperis kune kun la pasumo.
   // Plenekrana kanvaso EKDE la kreo. Sen tio la bildilo restas je la defaŭlta
   // 300×150 — la frua bildigo ( dum la sxargxa kurtino ) desegnis malgrandan
   // keston supre-maldekstre gxis la unua kadro de la ĉefa buklo regrandigis.
@@ -149,7 +190,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   const suno = new THREE.DirectionalLight(0xf8f0d8, 0o45/0o40);
   suno.position.set(0o110, 0o160, 0o40);
   suno.castShadow = true;
-  suno.shadow.mapSize.set(0o2000, 0o2000);
+  suno.shadow.mapSize.set(OMBRA_MAPO, OMBRA_MAPO);
   // La ombro-volumeno estas KVARTAĴO ĉirkaŭ la vidpunkto ( gxisdatigiOmbron )
   // — ĝi ne devas kovri la tutan mondon, nur tion, kion la nebulo ankoraŭ
   // lasas videbla. Pli malgranda skatolo signifas malpli da ombro-desegnoj
@@ -158,7 +199,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   suno.shadow.camera.top = 0o100; suno.shadow.camera.bottom = -0o100;
   suno.shadow.camera.near = 0o20; suno.shadow.camera.far = 0o520;
   suno.shadow.camera.updateProjectionMatrix();
-  suno.shadow.bias = -0o1/0o4000; suno.shadow.normalBias = 0o4/0o10;
+  // La ombra dekliniĝo sekvas la ombran teksel-grandecon — la sama aspekto ĉe
+  // ambaŭ ombraj densecoj. La antaŭa -0o1/0o4000 ( -1/2048 ) estis agordita por
+  // 1024; ĉe 512 la tekselo duobliĝas, do la dekliniĝo duobliĝas kun ĝi.
+  suno.shadow.bias = -0o1 / ( 0o2 * OMBRA_MAPO ); suno.shadow.normalBias = 0o4/0o10;
   sceno.add(suno, suno.target);
 
   // Suna sprajto
@@ -1079,8 +1123,18 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     g.rotateX(-Math.PI / 2);
     // Alternantaj triangul-diagonaloj ( ŝaktabulo ) — la komuna konstruanto
     // ( la sama korekto kiel en la skulptilo kaj la dukuba tereno-interpolo ).
-    g.setIndex(alternajDiagonalojn(segmentoj));
+    // La indeksoj jam estas Uint32Array — volvu ilin en BufferAttribute ( la
+    // sama idiomo kiel la kunfanditaj geometrioj ); `setIndex` ne akceptas krudan
+    // tabelon de entjeroj, nur BufferAttribute aux ordinaran JS-tabelon.
+    g.setIndex(new THREE.BufferAttribute(alternajDiagonalojn(segmentoj), 1));
     const pozicio = g.attributes.position;
+    // ⟨ La krudaj tabeloj 📃 ⟩ — la konstruo legas kaj skribas la tabelojn
+    // rekte anstataŭ tra la `getX`/`getZ`/`setY`-aliriloj de BufferAttribute.
+    // La grundo havas 0o601² ( 361 201 ) verticojn kaj ĉiu trapaso faras plurajn
+    // alirilojn po vertico — pli ol miliono da funkciaj alvokoj dum la ŝargo,
+    // nun nulo. La tabelo estas la SAMA objekt0, kiun la atributo volvas, do la
+    // skriboj trafas samloke.
+    const pozicioj = pozicio.array as Float32Array;
     const koloroj = new Float32Array(pozicio.count * 3);
     // Naturaj koloroj — la KOMUNA paletro ( assets/komunajxoj/terenkoloroj.ts
     // ) — la malseketaj oliv-herbejaj nuancoj de la malnova grundo, kun
@@ -1094,12 +1148,12 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const sx = segmentoj + 1;
     const hoj = new Float32Array(pozicio.count);
     for ( let i = 0; i < pozicio.count; i++ ) {
-      const h = alteco(pozicio.getX(i), pozicio.getZ(i));
+      const h = alteco(pozicioj[i * 3], pozicioj[i * 3 + 2]);
       hoj[i] = h;
-      pozicio.setY(i, h);
+      pozicioj[i * 3 + 1] = h;
     }
     for ( let i = 0; i < pozicio.count; i++ ) {
-      const x = pozicio.getX(i), z = pozicio.getZ(i);
+      const x = pozicioj[i * 3], z = pozicioj[i * 3 + 2];
       const h = hoj[i];
       const cxelo = i % sx;
       const deklivo = ( cxelo > 0 && cxelo < sx - 1 && i >= sx && i < pozicio.count - sx )
@@ -1118,9 +1172,9 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     // rando de la tereno koincidas kun la krutaĵo sub ĝi.
     const premita = { x: 0, z: 0 };
     for ( let i = 0; i < pozicio.count; i++ ) {
-      if ( premuAlFormo(mapoFormo, mapoGrandeco, pozicio.getX(i), pozicio.getZ(i), premita) ) {
-        pozicio.setX(i, premita.x);
-        pozicio.setZ(i, premita.z);
+      if ( premuAlFormo(mapoFormo, mapoGrandeco, pozicioj[i * 3], pozicioj[i * 3 + 2], premita) ) {
+        pozicioj[i * 3] = premita.x;
+        pozicioj[i * 3 + 2] = premita.z;
       }
     }
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
@@ -1131,10 +1185,18 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     // herbojn, tufojn kaj ŝtonetojn anstataŭ plataj koloroj; de malproksime la
     // kaheloj solviĝas reen en la verticajn kolorojn. La sama ripeto por ambaŭ,
     // do la reliefo kaj la koloro kongruas.
+    // ⟨ La reliefa teksajxo — nur sur la fortaj aparatoj 📃 ⟩ — la bump-teksajxo
+    // devigas la fragment-shaderon derivi la normalojn per dFdx/dFdy de la
+    // UV-koordinatoj, kiuj atingas 0o520 ( la ripeto ). Tiuj derivaĵoj estas la
+    // plej sentema parto de la shadero al la precizeco de la aparato. Sur kelkaj
+    // poŝtelefonaj GPU-oj ili difektiĝas kaj la grundo montras longajn rektajn
+    // striojn laŭ la kahelaj limoj. La KOLOR-teksajxo restas ĉie ( ĝi nur LEGAS
+    // la samajn UV-ojn, sen derivaĵoj ), do la malmultekostaj aparatoj perdas la
+    // plej delikatan reliefon sed konservas la tutan herban markaron.
     const grundMaterialo = new THREE.MeshStandardMaterial({
       vertexColors: true, roughness: 0o7/0o10,
       map: kreiGrundanTeksajxon(),
-      bumpMap: kreiGrundanBumpanTeksajxon(),
+      bumpMap: surPosxtelefono ? undefined : kreiGrundanBumpanTeksajxon(),
       bumpScale: 0o5/0o10,
     });
     const ground = new THREE.Mesh(g, grundMaterialo);
@@ -1319,5 +1381,5 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     sceno.add(mesh);
   } )();
 
-  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron };
+  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron, maksimumaRatio: MAKS_RATIO };
 }

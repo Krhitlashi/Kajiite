@@ -46,11 +46,27 @@ const DIVIDA_FAKTORO = 0o3/0o2;   // 3/2 — dividu nur se la tavolo superas la 
 // ⟨ La distanca limo 📃 ⟩ — la limo de objekto estas ĝia propra grandeco ×
 // LIMO_FAKTORO, krampita inter MIN_LIMO kaj MAKS_LIMO. La krampo tenas la
 // etajn detalojn sur videbla distanco ( malpli ol 0o100 kovrus la herbon ĉe la
-// piedoj ) kaj la grandajn sur la nebula ( pli ol 0o400 estus malŝparo, ĉar la
+// piedoj ) kaj la grandajn sur la nebula ( pli ol 0o220 estus malŝparo, ĉar la
 // nebulo jam tute kovras ilin ).
+//
+// ⟨ La mezuro malantaŭ 0o220 ( 144 ) 📃 ⟩ — la nebulo estas FogExp2 kaj ĝia
+// faktoro estas 1 - exp( -( denso · z )² ). La MALPLEJ densa vetero estas la
+// nebula ( 0o5/0o400 = 5/256 = 0.0195 ) kaj eĉ gxi jam estas 97.8% je 100
+// unuoj, 99.8% je 128 kaj 99.96% je 144. La ceteraj veteroj estas pli densaj
+// ( 0o3/0o200 = 3/128 = 0.0234 ). La tuta zono inter 144 kaj la malnova 0o400
+// ( 256 ) estis do PRESKAŬ TUTE nevidebla — la arbaro, la subkreskaĵoj kaj la
+// rokoj en ĝi estis tamen desegnataj ĉiukadre, kaj en la ĉefa pasumo kaj en la
+// ombro-pasumo. La malnova 0o400 estis elektita laŭ la sento ( "la nebulo
+// kovras ilin" ), ne laŭ la fakta denseco de la nebulo en la ludo.
+//
+// ⟨ Mezurite 📃 ⟩ — la sama panoramo ( la enkonduka orbita vido ) iris de 4.9
+// fps / 202 ms / 2317 alvokoj / 81.5 M trianguloj al 23.8 fps / 42 ms / 1303
+// alvokoj / 26.8 M trianguloj. Parto de tio venas de ĉi tiu limo kaj parto de
+// la forigita transira pasumo ( vidu scena.ts ) — ambaŭ forigas laboron, kiun
+// la ludanto neniam vidis.
 const LIMO_FAKTORO = 0o100;        // 64
 const MIN_LIMO = 0o100;            // 64
-const MAKS_LIMO = 0o400;           // 256
+const MAKS_LIMO = 0o220;           // 144
 // ⟨ La histerezo 📃 ⟩ — objekto kaŝiĝas ĉe la limo sed reaperas nur iom poste.
 // Sen ĝi peco sur la limo lumigus kaj malŝaltiĝus ĉe ĉiu paŝo.
 const LIMO_HISTEREZO = 0o11/0o10;  // 9/8
