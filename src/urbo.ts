@@ -15,8 +15,8 @@ import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantoj
   konstruiPussxlefojn, metiPussxlefojn, VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ, MONTAJ_BIOMOJ,
   AKVAJ_PLANTOJ_BIOMOJ, EKVIZETO_BIOMOJ, konstruiMetitanRokon, konstruiMetitanFilikon } from "../assets/shalaj-specioj/vegetajxo.js";
 import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxoj.js";
-import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, konstruiRondajnKapojn, VojDifino } from "../assets/medio/vojoj.js";
-import { konstruiDokon } from "../assets/medio/doko.js";
+import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, konstruiRondajnKapojn, VojDifino, VOJA_SUPRO_LEVIGXO } from "../assets/medio/vojoj.js";
+import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../assets/medio/doko.js";
 import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton, superajElDatumo } from "./krado.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
@@ -116,11 +116,16 @@ export interface SkulptaVojo {
 }
 
 // SkulptaPlatformo — unu doka platformo ( SKULPTA_DOKOJ en
-// src/tero-datumaro/vojoj.ts ). Monda pozicio ( x, z ) kaj profundo.
+// src/tero-datumaro/vojoj.ts ). Monda pozicio ( x, z ), profundo kaj turno. La
+// TURNO ( rotacio, kiel la metitaj objektoj ) decidas, al kiu flanko la pinto
+// montras: 0 = la landa rando norde kaj la akva pinto suden ( la kajo de la
+// urbo ), Math.PI = la landa rando sude kaj la pinto norde ( la malproksima
+// bordo de la rivero, por ke la boatoj havu surterigxon ankaŭ tie ).
 export interface SkulptaPlatformo {
   x: number;
   z: number;
   profundo: number;
+  rotacio?: number;      // turno ĉirkaŭ la vertikala akso ( defaŭlte 0 )
 }
 
 // MetitaObjekto — unu objekto metita per la objekta ilo de la terena
@@ -951,9 +956,27 @@ export async function konstruiUrbon(
   const DOKOJ = SKULPTA_DOKOJ as SkulptaPlatformo[];
   const dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number; y: number }[] = [];
   for ( let i = 0; i < DOKOJ.length; i++ ) {
-    const doko = konstruiDokon(sceno, DOKOJ[i].x, DOKOJ[i].z, 0, alteco, akvoY, DOKOJ[i].profundo);
-    dokoKolizioj.push({ x: DOKOJ[i].x, z: DOKOJ[i].z, w: 0o16/0o10, d: DOKOJ[i].profundo, rot: 0, y: doko.platformY });
+    const rotacio = DOKOJ[i].rotacio ?? 0;
+    const doko = konstruiDokon(sceno, DOKOJ[i].x, DOKOJ[i].z, rotacio, alteco, akvoY, DOKOJ[i].profundo);
+    dokoKolizioj.push({ x: DOKOJ[i].x, z: DOKOJ[i].z, w: 0o16/0o10, d: DOKOJ[i].profundo, rot: rotacio, y: doko.platformY });
   }
+  // ⟪ Pontoj 📃 ⟫ — Ponto estas VOJO, kiu trapasas akvon inter du sekaj bordoj
+  // ( vidu pontaVojDifino sube ) — la ludo rekonas ĝin kaj aldonas tion, kion la
+  // voja rubando ne povas: la OREn balustradon kaj la andezitajn fostojn.
+  //
+  // ⟨ Kial la dokoj NE plu difinas la ponton 📃 ⟩ — la ponto devenis de paro da
+  // dokoj rigardantaj unu la alian ( de LANDbordo al LANDbordo ). Sed la dokoj
+  // estas platformoj etenditaj de la kajo trans la deklivan bordon en la akvon,
+  // do ili kuŝas ĜUSTE sub tiu deko: la platforma supro elstaris tra la ponto
+  // ( la suda doko estas 2.4 unuojn pli alta ol la norda, do rekta deko trapasis
+  // ĝian platon ) kaj la dokaj kadroj aperis interne de la ponto. La ponto nun
+  // estas memstara TRAPASEJO en libera akvo, kaj la dokoj restas flanke kiel
+  // surteriĝejoj por la boatoj.
+  const dokaLandaj = DOKOJ.map(( d, i ) => {
+    const rotacio = d.rotacio ?? 0;
+    return { x: d.x + Math.sin(rotacio) * ( d.profundo / 2 ),
+      z: d.z + Math.cos(rotacio) * ( d.profundo / 2 ), y: dokoKolizioj[i].y + PONT_FINA_LEVIGXO };
+  });
   await raporti();
 
   // ⟪ Kajo kaj doka avenuo ( la ĉefa urbo ) 📃 ⟫ — la ĉefaj vojoj de la kradaj
@@ -962,29 +985,103 @@ export async function konstruiUrbon(
   // — polilinioj kiujn la Vojoj-langeto redaktas ).
   const vojDifinoj: VojDifino[] = [];
 
+  // ⟪ Kio estas ponto 📃 ⟩ — vojo, kies AMBAŬ finaj punktoj sidas sur SEKA tero
+  // ( ili estas la alirejoj sur la bordoj ) kaj kiu pasas sufiĉe da akvo inter
+  // ili ( almenaŭ 0o2/0o5 de la specimenoj laŭ la rektaj linioj ), estas
+  // TRAPASEJO — ponto, ne bordo-vojo. La deko ricevas REKTAN supran funkcion
+  // anstataŭ la terena ( la riverfundo estas 3–9 unuojn sub la akvo, do la voja
+  // rubando dronus ) kaj la ponto ricevas la balustradon kaj la fostojn.
+  //
+  // La deko finiĝas GXUSTE ĉe la voja surfaco de la bordo ( vojaSupro sube uzas
+  // la saman formulon kiel konstruiSegmentonEnBufrojn ), do la ponto daŭrigas la
+  // kajon sen ŝtupo. Kajo-vojoj — kiuj sekvas la akvon sed restas sur la tero —
+  // havas 0 specimenojn da akvo, do ili neniam fariĝas pontoj.
+  //
+  // Atentu: ponto legiĝas kiel UNU REKTA spano inter siaj du finoj, do desegnu
+  // ĝin per du punktoj.
+  function pontaVojDifino( vojo: SkulptaVojo ): { ax: number; az: number; ay: number; bx: number; bz: number; by: number } | null {
+    if ( vojo.punktoj.length < 2 ) return null;
+    const [ ax, az ] = vojo.punktoj[0];
+    const [ bx, bz ] = vojo.punktoj[vojo.punktoj.length - 1];
+    if ( skulptitaAkvo(ax, az) || skulptitaAkvo(bx, bz) ) return null;
+    const difX = bx - ax, difZ = bz - az;
+    const longo = Math.hypot(difX, difZ);
+    if ( longo < 0o10 ) return null;   // 8 — tro mallonga por ponto
+    const specimenoj = Math.max(0o10, Math.round(longo));
+    let akvaj = 0;
+    for ( let i = 0; i <= specimenoj; i++ ) {
+      const t = i / specimenoj;
+      if ( skulptitaAkvo(ax + difX * t, az + difZ * t) ) akvaj++;
+    }
+    if ( akvaj / ( specimenoj + 1 ) < 0o2/0o5 ) return null;   // 0.4
+    return { ax, az, ay: vojaSupro(ax, az, vojo.larĝo), bx, bz, by: vojaSupro(bx, bz, vojo.larĝo) };
+  }
+  // vojaSupro — La mondo-alto de la SURFACO de vojo ĉe sia fino. La voja
+  // konstruilo prenas la MAKSIMUMON de la du flankaj anguloj de la rubando ( je
+  // ± la ekstera duon-larĝo ⊥ al la vojo ) kaj aldonas VOJA_SUPRO_LEVIGXO. La
+  // ponto bezonas la saman nivelon, do ĝi specimenas la saman cirklon — ok
+  // punktoj anstataŭ du, por ke la fino kongruu ankaŭ kun vojo, kiu trapasas
+  // alidirekte ( la kajo ⊥ al la ponto ), sen ŝtupo.
+  function vojaSupro( x: number, z: number, larĝo: number ): number {
+    const duon = larĝo / 4 + 0o1/0o2;   // la ekstera duon-larĝo de vojo ( vidu kreiVojajnBendojn )
+    let maks = alteco(x, z);
+    for ( let i = 0; i < 0o10; i++ ) {
+      const ang = i * Math.PI / 4;
+      maks = Math.max(maks, alteco(x + Math.cos(ang) * duon, z + Math.sin(ang) * duon));
+    }
+    return maks + VOJA_SUPRO_LEVIGXO;
+  }
+
+  // La pontoj, kiujn vojoj vere kovris — ili ricevas la balustradon kaj la fostojn.
+  const pontaVojoj: { ax: number; az: number; ay: number; bx: number; bz: number; by: number; w: number }[] = [];
+
   // Konstruu ĉiun vojon el SKULPTA_VOJOJ. La skulptilo redaktas ilin kiel
   // poliliniojn kun larĝo; la ludo konstruas ilin per konstruiVojojn.
   for ( const vojo of SKULPTA_VOJOJ as SkulptaVojo[] ) {
     if ( vojo.punktoj.length < 2 ) continue;
+    const ponto = pontaVojDifino(vojo);
+    let pontaHeight: (( x: number, z: number ) => number) | undefined;
+    if ( ponto ) {
+      const difX = ponto.bx - ponto.ax, difZ = ponto.bz - ponto.az;
+      const kvadrato = difX * difX + difZ * difZ;
+      pontaHeight = ( x, z ) => {
+        const t = Math.max(0, Math.min(1, ( ( x - ponto.ax ) * difX + ( z - ponto.az ) * difZ ) / kvadrato));
+        return pontaDeko(t, ponto.ay, ponto.by) - VOJA_SUPRO_LEVIGXO;
+      };
+    }
+    if ( ponto ) pontaVojoj.push({ ...ponto, w: vojo.larĝo });
     for ( let i = 0; i < vojo.punktoj.length - 1; i++ ) {
-      vojDifinoj.push({
-        pts: [ [ vojo.punktoj[i][0], vojo.punktoj[i][1] ], [ vojo.punktoj[i + 1][0], vojo.punktoj[i + 1][1] ] ],
+      const [ aX, aZ ] = vojo.punktoj[i];
+      const [ bX, bZ ] = vojo.punktoj[i + 1];
+      const difino: VojDifino = {
+        pts: [ [ aX, aZ ], [ bX, bZ ] ],
         w: vojo.larĝo / 2,
-      });
+      };
+      if ( pontaHeight ) difino.heightFn = pontaHeight;
+      vojDifinoj.push(difino);
     }
   }
-  // La doka norda rando — la landrandoj de ĉiu doko, por la lampoj kaj la ĉapoj.
-  const dockaLandaRando: [ number, number ][] = DOKOJ.map(d => [ d.x, d.z + d.profundo / 2 ]);
-  // La tri DOKAJ landrandoj ricevas NENIUN ĉapon. La kajo-vojo daŭriĝas ĝis la
-  // eniranguloj de la tri dokaj platformoj ( SKULPTA_VOJOJ ) — ĉiu doko estas
-  // voja etendo, do la platforma diorito mem rondigas la transiron kaj la
-  // voja andezita bordo daŭriĝas kiel la doka andezita kadro. La malnovaj
-  // duonrondaj kapoj ĉi tie kuŝis SUR la doko mem kaj montris la karakterizan
-  // arkon interne de ĉiu doko — la terena skulptilo ilustras la dokojn kiel
-  // purajn dioritajn platformojn kun nur la andezita kadro, do la kapoj
-  // kongruis nenion. La du kajo-FINAĴOJ tamen tenas siajn rondigitajn ĉapojn
-  // ( malsupre ) — ili estas veraj voj-finaĵoj sur la tereno, ne dokaj enirejoj.
+  // La doka LANDa rando — la rando kie la vojo ( aŭ la tero ) renkontas ĉiun
+  // platformon, por la lampoj kaj la ĉapoj. La turno decidas al kiu flanko la
+  // rando kuŝas ( 0 = norde, Math.PI = sude — la malproksima riverbordo ).
+  const dockaLandaRando: [ number, number ][] =
+    dokaLandaj.map(p => [ p.x, p.z ] as [ number, number ]);
+  // La DOKAJ landrandoj ricevas NENIUN ĉapon. La kajo-vojo daŭriĝas ĝis la
+  // eniranguloj de la NORDBAJNAJ dokaj platformoj ( SKULPTA_VOJOJ ) — tiuj
+  // dokoj estas vojaj etendoj, do la platforma diorito mem rondigas la
+  // transiron kaj la voja andezita bordo daŭriĝas kiel la doka andezita kadro.
+  // ( La MALPROKSIMA-KRANTA doko — la turnita, sur la suda riverbordo — havas
+  // neniun vojon: ĝi estas surterigxejo por la boatoj, ne etendo de la kajo. )
+  // La malnovaj duonrondaj kapoj ĉi tie kuŝis SUR la doko mem kaj montris la
+  // karakterizan arkon interne de ĉiu doko — la terena skulptilo ilustras la
+  // dokojn kiel purajn dioritajn platformojn kun nur la andezita kadro, do la
+  // kapoj kongruis nenion. La du kajo-FINAĴOJ tamen tenas siajn rondigitajn
+  // ĉapojn ( malsupre ) — ili estas veraj voj-finaĵoj sur la tereno, ne dokaj
+  // enirejoj.
   const ĉefajVojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo);
+  // La APOGAĴOJ de la pontoj — la balustrado kaj la fostoj sur la voja deko.
+  for ( const p of pontaVojoj )
+    konstruiPonton(sceno, p.ax, p.az, p.ay, p.bx, p.bz, p.by, p.w, alteco, andezitaMaterialo, oraMaterialo);
 
   // Lamp-nodoj por la kajo — la samaj lampaj ŝablonoj kiel la krada reto.
   // NENIU ĉap-mesho konstruiĝas ĉe ĉi tiuj nodoj. La vojoj mem jam plenigas

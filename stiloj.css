@@ -57,7 +57,12 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #kompaso { position:fixed; z-index:3; top:calc(var(--អារេងព៏) + var(--sat)); right:calc(var(--អារេងព៏) + var(--sar)); inline-size:56px; block-size:56px; display:grid; place-items:center; overflow:hidden; border-radius:var(--អិត្ភេ); border:var(--សាកព៏); cursor:pointer; touch-action:manipulation; }
 .nadlo { position:absolute; inset:0; will-change:transform; }
 .nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:#fff; -webkit-text-stroke:2px #000; paint-order:stroke fill; text-shadow:0 0 2px #000; }
-.nadlo::before { content:""; position:absolute; left:50%; top:var(--អារេង); transform:translateX(-50%); border:4px solid transparent; border-bottom:12px solid #fff; filter:drop-shadow(0 0 1px #000); }
+/* ⟨ La sago de la nadlo staras MEZE de la minimapo 📃 ⟩ — antauxe ĝi sidis
+   apud la supra rando ( `top:var(--អារេង)` ), do ĝi legiĝis kiel randa marko
+   kaj ne kiel la rigarda montrilo. Nun ĝi estas en la centro kaj turnigxas sur
+   sia propra loko ( .nadlo turnigxas ĉirkaŭ la centro de la 56-piksela kadro ),
+   do la radaro montras unu klaran triangulon meze. */
+.nadlo::before { content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:4px solid transparent; border-bottom:12px solid #fff; filter:drop-shadow(0 0 1px #000); }
 #minimapaKanvaso,#plenaKanvaso { inline-size:100%; block-size:100%; }
 /* La plena mapo absolute en #supermeta. Sen position:absolute la kanvaso estas
    krado-elemento kies alton difinas ĝia propra interna grandeco ( la atributoj

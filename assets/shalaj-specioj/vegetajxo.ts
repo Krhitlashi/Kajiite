@@ -2989,16 +2989,16 @@ function konstruiSxelanRingon(): THREE.BufferGeometry {
 // kaj heliĝas al sia rando — la intencita aspekto. La klonoj kunhavigas la
 // bildon, do ili kostas preskaŭ nenion en memoro.
 // ⟨ Kiom ripeti 📃 ⟩ — la teksajxo estas desegnita por MEZA Ĥŝakŝlefa trunko:
-// ~13 unuoj alta kun ~40 folio-cikatriĉaj ringoj. Ĉiu alia surfaco ricevas
+// ~13 unuoj alta kun ~20 folio-cikatriĉaj ringoj. Ĉiu alia surfaco ricevas
 // propran vertikalan ripeton, por ke la ringoj havu la saman GRANDON en la mondo
 // ( la sama rastrumera denseco ) anstataŭ la saman nombron:
 //   Ĥŝakŝlefa trunko ( 8–19 unuoj )  → 1      ( la tuta bildo )
-//   Ĥŝakŝlefa kolumo ( 0.75 unuoj )  → 0.05   ( ~2 ringoj sur la kolumo )
+//   Ĥŝakŝlefa kolumo ( 0.75 unuoj )  → 0.05   ( ~1 ringo sur la kolumo )
 //   Pussxlefa trunko ( ~0.6 unuoj )  → 0.05
-//   Pussxlefa kolumo ( ~0.12 unuoj ) → 0.015  ( ~1 ringo )
-// Sen ĉi tio la etaj Pussxlefoj portis 40 ringojn sur duon-unuan trunkon — pura
-// sub-piksela bruo. La propraj teksturoj kunhavigas la bildon, do la klonoj
-// kostas preskaŭ nenion en memoro.
+//   Pussxlefa kolumo ( ~0.12 unuoj ) → 0.015
+// Sen ĉi tio la etaj Pussxlefoj portis ĉiujn ringojn sur duon-unuan trunkon —
+// pura sub-piksela bruo. La propraj teksturoj kunhavigas la bildon, do la
+// klonoj kostas preskaŭ nenion en memoro.
 //     @param ripetoY ( number ) - La vertikala ripeto ( 1 = la tuta bildo ).
 //     @param taso ( boolean ) - Ĉu ĉi tiu materialo estas por koluma taso.
 //     @returns materialo ( THREE.MeshStandardMaterial ) - La preta materialo.
@@ -3014,9 +3014,17 @@ function kreiSxelanRinganMaterialon(ripetoY: number, taso: boolean): THREE.MeshS
     klono.needsUpdate = true;
     return klono;
   };
+  // ⟨ La reliefo mallevigxis 📃 ⟩ — la reliefa teksajxo de la ŝelo portas cikatrojn
+  // kaj fibrojn kun forta kontrasto, kaj sur la maldika trunko ( radiuso ~0.2 unuoj )
+  // granda bumpScale faras la surfacon KRISPA — ĉiu ringo kaj ĉiu fibro legigxas
+  // kiel gravurita sulko. Nun la reliefo estas kvaroble pli mola, do la trunko
+  // legigxas glata kaj la cikatroj restas nur kiel mola ombro sur la surfaco.
+  // ⟨ La ringoj malpliiĝis 📃 ⟩ — la skizo portas nun duonon da cikatroj kaj da
+  // fibroj, do ankaŭ la reliefo malleviĝis ( 0o1/0o50 anstataŭ 0o1/0o40 ): la
+  // ŝelo montras la ringojn kiel molan ombron, ne kiel gravuritan sulkon.
   return new THREE.MeshStandardMaterial({
-    map: uzi(mapo), bumpMap: uzi(reliefo), bumpScale: 0o2/0o10, color: 0xffffff,
-    roughness: taso ? 0o67/0o100 : 0o55/0o100,
+    map: uzi(mapo), bumpMap: uzi(reliefo), bumpScale: 0o1/0o50, color: 0xffffff,
+    roughness: taso ? 0o63/0o100 : 0o53/0o100,
     side: taso ? THREE.DoubleSide : THREE.FrontSide,
   });
 }
@@ -3058,8 +3066,11 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
   // ⟨ La flankoj de la trunko 📃 ⟩ — la antaŭaj 0o12 ( 10 ) flankoj faris la
   // folio-cikatriĉajn ringojn de la nova ŝela teksajxo ONDAJ: ĉiu ringo estas
   // plurlatero, ne cirklo, do dekduo da flankoj legiĝas kiel zigzaga linio. Kun
-  // 0o20 ( 16 ) flankoj la ringoj legiĝas kiel veraj horizontalaj cikatroj.
-  const trunkaGeometrio = new THREE.CylinderGeometry(0o7/0o40, 0o3/0o10, 1, 0o20, 0o24);
+  // 0o30 ( 24 ) flankoj la ringoj legiĝas kiel veraj horizontalaj cikatroj — sed
+  // la silueto ankoraŭ montris la rektajn facojn kiel krispajn angulojn, ĉar la
+  // trunko estas maldika kaj tre proksima al la okuloj. Nun 0o50 ( 40 ) flankoj
+  // faras la silueton kaj la lumon preskaŭ tute glataj.
+  const trunkaGeometrio = new THREE.CylinderGeometry(0o7/0o40, 0o3/0o10, 1, 0o50, 0o24);
   // ⟨ La nodoj de la tigo 📃 ⟩ — kie la kolumo renkontas la trunkon, la tigo
   // estas iomete pli dika, kiel la nodo de vera tigo sub folio. Sen ĝi la
   // kolumoj aspektis kiel glasoj ŝovitaj sur glatan bastonon. La nodoj sidas
@@ -3089,7 +3100,7 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
   // reala diko, kiel laktuko aŭ brasiko.
   const foliaGeometrio = konstruiKurbanLaktukanFolion();
   const foliaMaterialo = new THREE.MeshStandardMaterial({
-    map: kreiPurpuranFolianTeksajxon(), alphaTest: 0o15/0o40, side: THREE.DoubleSide, roughness: 1,
+    map: kreiPurpuranFolianTeksajxon(), alphaTest: 0o15/0o40, side: THREE.DoubleSide, roughness: 0o63/0o100,
   });
   // Kapacito: la folioj de la tavoloj PLUS la kvar pinta krono-tavoloj ( vidu
   // malsupre ) — 5 tavoloj × 4 flankoj + 4 × 4 = 36.
@@ -3282,7 +3293,7 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
   const hazardaGenerilo = mulberry32(0o62450);
   const MAX_TAVOLOJ = 2;
   // Purpura trunko — kiel la Ĥŝakŝlefo, nur pli maldika por la eta planto.
-  const trunkaGeometrio = new THREE.CylinderGeometry(0o3/0o40, 0o5/0o40, 1, 0o14, 0o20);
+  const trunkaGeometrio = new THREE.CylinderGeometry(0o3/0o40, 0o5/0o40, 1, 0o30, 0o20);
   // ⟨ La trunkopinto 📃 ⟩ — la sama rondigita pinto kiel ĉe la granda
   // Ĥŝakŝlefo: la plata supra kovrilo de la cilindro malaperas.
   {
@@ -3299,7 +3310,7 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
 
   const foliaGeometrio = konstruiKurbanLaktukanFolion();
   const foliaMaterialo = new THREE.MeshStandardMaterial({
-    map: kreiPurpuranFolianTeksajxon(), alphaTest: 0o15/0o40, side: THREE.DoubleSide, roughness: 1,
+    map: kreiPurpuranFolianTeksajxon(), alphaTest: 0o15/0o40, side: THREE.DoubleSide, roughness: 0o63/0o100,
   });
   // Kapacito: la folioj de la tavoloj PLUS la tri pinta krono-tavoloj ( vidu
   // malsupre ) — 2 tavoloj × 4 flankoj + 3 × 4 = 20.

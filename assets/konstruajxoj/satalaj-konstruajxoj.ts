@@ -5,8 +5,9 @@ import * as THREE from "three";
 import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
 import { nomoAih } from "../../src/tradukoj.js";
 import { kunfandiGeometriojn, kunfandiKajVeldoiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
-import { kreiEniranMaterialon, kreiOranMaterialon } from "../komunajxoj/materialoj.js";
-import { kreiPilolFenestranFormon, kreiRondigitanRektangulanFormon } from "../komunajxoj/formoj.js";
+import { kreiPordanMaterialon, kreiFenestranMaterialon, kreiOranMaterialon } from "../komunajxoj/materialoj.js";
+import { kreiPilolFenestranFormon, kreiStelanFenestranFormon, kreiRondigitanRektangulanFormon,
+  rondigiKonturon } from "../komunajxoj/formoj.js";
 import { aldoniManĝtablon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
 
 export interface KonstruTipo { labelKey: string; wall: number; frame: number; chip: string; flavorKey: string; }
@@ -31,6 +32,11 @@ function konstruajxaMaterialo(ŝlosilo: string, krei: () => THREE.MeshStandardMa
   if ( !m ) { m = krei(); konstruajxaMaterialaStoko.set(ŝlosilo, m); }
   return m;
 }
+
+// La klino de la tieraj muroj — kiom la muroj malleviĝas INTERNEN dum unu tiera
+// alto. La pordo sur la teretaĝa muro kliniĝas laŭ la SAMA valoro ( vidu
+// aldoniEnirejon ), do ĝi restas paralela al la muro.
+const MURA_KLINO = 0o5/0o20;
 
 // La rondigita kvadrata formo ( kreiRondigitanRektangulanFormon ) venas el la
 // komuna forma modulo — la sama formo kiel la vojoj, dividita inter ili.
@@ -58,6 +64,10 @@ export function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: num
 
 // kreiSteleanFormon — Vertikala signa plato kun nesimetriaj rondigitaj supraj
 // anguloj (r1 ≠ r2) kaj rektaj malsupraj anguloj. Uzata por la steloj.
+// ⟨ Kiu angulo rondigxas 📃 ⟩ — la GRANDA rondo ( r1 ) sidas cxe la maldekstra
+// supra angulo vidate de la fronto ( +z ), la malgranda ( r2 ) cxe la dekstra;
+// la plato do kliniĝas maldekstren. Speguli la signon signifas nur interŝanĝi la
+// du radiusojn cxe la alvokoj — la formo mem restas nesimetria.
 // La pilola fenestra formo ( kreiPilolFenestranFormon ) venas el formoj.js —
 // la komuna modulo, por ke interno kaj la konstruajxoj uzu la saman formon.
 function kreiSteleanFormon(w: number, h: number, r1: number, r2: number): THREE.Shape {
@@ -71,42 +81,56 @@ function kreiSteleanFormon(w: number, h: number, r1: number, r2: number): THREE.
   s.absarc(-hw + r1, h - r1, r1, Math.PI / 2, Math.PI, false);
   s.closePath();
   return s;
-}
-
-// diamantajDuonoj — Rektaflanka diamanta sekco por la pilieroj. Kvar pintoj je 45°
-// alfrontas la murojn, kun REKTAJ flankoj inter ili. La malnova sekco estis
-// konkava ( la enaj aksoj sidadis je preskaux duone de la pintoj kaj kavigis la
-// flankojn kiel stelon ); la nova estas plenkorpa konveksa diamanto. La konturo
-// komencas cxe la fronta akso ( 0° ) kaj iras horlogxe.
-function diamantajDuonoj(s: number): [ number, number ][] {
-  const kvar: [ number, number ][] = [
-    [ s * Math.SQRT1_2, -s * Math.SQRT1_2 ],
-    [ -s * Math.SQRT1_2, -s * Math.SQRT1_2 ],
-    [ -s * Math.SQRT1_2, s * Math.SQRT1_2 ],
-    [ s * Math.SQRT1_2, s * Math.SQRT1_2 ],
-  ];
-  // 0o20 punktoj. cxiu diamanta rando dividita en 4 — la SAMA rekta silueto, sed
-  // pli glataj randoj kaj malpli da facetaj faldoj sur la tubo kaj la hoka pintajxo.
+}// ⟨ La sekco de la pilieroj 📃 ⟩ — diamantajDuonoj. Kvar pintoj je 45° alfrontas la
+// murojn, sed la ORAJ anguloj estas rondigitaj per veraj cirklaj arkoj, do la kvar
+// flankoj restas PLENE EBENAJ kaj la sekco estas konveksa cxie —
+// neniu konkaveco. La konturo komencas cxe la fronta akso ( 0° ) kaj iras horlogxe.
+//
+// ⟨ Kial ne CatmullRom-tondado 📃 ⟩ — la antaŭa funkcio rondigis la angulojn per
+// centripeta CatmullRom-kurbo tra la angulaj punktoj. Tiu kurbo tamen trafas
+// precize la SAMajn punktojn ( la punktoj estas egale disigitaj laŭ la perimetro ),
+// do ĝi efektive NENION rondigis — ĝi nur trenis la kvar angulojn akraj kaj lasis
+// la flankojn iom svingiĝi. La sekco do aspektis faceta, kaj la velditaj normaloj
+// ĉe la bazo kavigis la baz-facon. Nun la anguloj estas veraj arkoj ( radiuso rc )
+// kaj la flankoj restas ebenaj.
+//     @param s ( number ) - La duon-diagonalo de la diamanto ( la anguloj ).
+//     @param rc ( number ) - La radiuso de la rondigitaj anguloj.
+//     @returns punktoj - La 0o24 konturaj punktoj, en ordo ( horlogxe ).
+function diamantajDuonoj(s: number, rc = 0o1/0o20): [ number, number ][] {
+  const d = s * Math.SQRT1_2;
+  const kvar: [ number, number ][] = [ [ d, -d ], [ -d, -d ], [ -d, d ], [ d, d ] ];
+  // Tri paŝoj sur ĉiu angula arko ( do kvar punktoj ) kaj unu punkto meze de ĉiu
+  // ebena flanko. La anguloj kaj la flankoj do havas po la saman konturon ĉe la
+  // tubo, ĉe la baza kapo kaj ĉe la pinta kapo — ili kongruas precize.
+  const ARKOJ = 3, FLATAJ = 1;
   const punktoj: [ number, number ][] = [];
   for ( let j = 0; j < kvar.length; j++ ) {
-    const a = kvar[j], b = kvar[( j + 1 ) % kvar.length];
-    for ( let k = 0; k < 4; k++ ) punktoj.push([ a[0] + ( b[0] - a[0] ) * k / 4, a[1] + ( b[1] - a[1] ) * k / 4 ]);
+    const a = kvar[j];
+    const antauxa = kvar[( j + kvar.length - 1 ) % kvar.length];
+    const sekva = kvar[( j + 1 ) % kvar.length];
+    // u — la direkto de la alvenanta rando, v — de la foriranta.
+    const u = new THREE.Vector2(a[0] - antauxa[0], a[1] - antauxa[1]).normalize();
+    const v = new THREE.Vector2(sekva[0] - a[0], sekva[1] - a[1]).normalize();
+    // La arka centro sidas rc for de AMBAŬ randoj, do la arko tanĝas ilin sen
+    // angulo. La arko iras de la tanĝa punkto ĉe la alvenanta rando al la tanĝa
+    // punkto ĉe la foriranta, kaj la angulo malpliiĝas ( la konturo iras horlogxe ).
+    const centro = [ a[0] + rc * ( v.x - u.x ), a[1] + rc * ( v.y - u.y) ];
+    const komencaAngulo = Math.atan2(-v.y, -v.x);
+    for ( let k = 0; k <= ARKOJ; k++ ) {
+      const angulo = komencaAngulo - k / ARKOJ * Math.PI / 2;
+      punktoj.push([ centro[0] + rc * Math.cos(angulo), centro[1] + rc * Math.sin(angulo) ]);
+    }
+    // La ebena flanko inter ĉi tiu arko kaj la sekva.
+    const rando = new THREE.Vector2(sekva[0] - a[0], sekva[1] - a[1]);
+    const longeco = rando.length() - 2 * rc;
+    for ( let k = 1; k <= FLATAJ; k++ ) {
+      punktoj.push([
+        a[0] + v.x * rc + v.x * longeco * k / ( FLATAJ + 1 ),
+        a[1] + v.y * rc + v.y * longeco * k / ( FLATAJ + 1 ),
+      ]);
+    }
   }
   return punktoj;
-}
-
-// rondigitajDuonoj — Rondigu la angulojn de la fina diamanta ringo per densa
-// centripeta kurbo, konservante la saman nombron da punktoj por senjunta ligado.
-function rondigitajDuonoj(s: number): [ number, number ][] {
-  const bazaj = diamantajDuonoj(s);
-  const kurbo = new THREE.CatmullRomCurve3(
-    bazaj.map(( [ a, c ] ) => new THREE.Vector3(a, c, 0)), true, "centripetal"
-);
-  const kvanto = bazaj.length;
-  return Array.from({ length: kvanto }, ( _, i ) => {
-    const p = kurbo.getPointAt(i / kvanto);
-    return [ p.x, p.y ] as [ number, number ];
-  });
 }
 
 // Pilierkadroj — Ringaj kadroj por la pilieroj. tangento ta, ringa normalo m,
@@ -170,7 +194,6 @@ function kreiDiamantanSvingon(
   talonoS0 = 0, finialaSkalo = 1, finialaLargho = 1, tipLongeco = 0
 ): THREE.BufferGeometry {
   const duonoj = diamantajDuonoj(s);
-  const rondajDuonoj = rondigitajDuonoj(s);
   const RINGO = duonoj.length;
   const ringoj = segmentoj + 1;
   // Samplu la kurbon per la sama normaligita parametro kiel la kadrojn, por ke
@@ -183,19 +206,12 @@ function kreiDiamantanSvingon(
       p = p.clone().addScaledVector(curve.getTangentAt(1).normalize(), -tipLongeco);
     }
     const L = kadroj.Loj[i], W = kadroj.Woj[i];
-    // La unuaj tri ringoj cxe la BAZO ankaux transiras iom post iom al la rondigita
-    // konturo, por ke la rondigita ferma kapo kongruu perfekte (la malnova angula
-    // kapo lasis kvadratan randon cxe la piliero-fino); la lastaj tri ringoj cxe la
-    // kapo rondigas por la folio.
-    const finRondiga = Math.max(0, Math.min(1, ( i - ( ringoj - 4 ) ) / 3));
-    const bazRondiga = Math.max(0, Math.min(1, ( 3 - i ) / 3));
-    const rondiga = Math.max(finRondiga, bazRondiga);
-    const konturo = rondiga > 0
-      ? duonoj.map(( punkto, j ) => [
-          punkto[0] + ( rondajDuonoj[j][0] - punkto[0] ) * rondiga,
-          punkto[1] + ( rondajDuonoj[j][1] - punkto[1] ) * rondiga,
-        ] as [ number, number ])
-      : duonoj;
+    // ⟨ Unu sola konturo 📃 ⟩ — la sama sekco por ĉiu ringo, de la bazo ĝis la
+    // pinto. La antaŭa kodo morfe miksis du KONTOUROJN kun malsamaj punkt-ordonoj
+    // ( la akran kaj la "rondigitan" ), kaj tiu miksajxo kavigis la lastajn
+    // milimetrojn de la bazo — la bazo aspektis distordita. Nun la sekco mem
+    // havas la rondigitajn angulojn, do neniu transiro necesas.
+    const konturo = duonoj;
     // La sekco restas plena laux la sxafto kaj iom post iom transiras al la
     // pli plata krono per glata Hermita funkcio.
     const t = i / ( ringoj - 1 );
@@ -244,7 +260,7 @@ function kreiRondigitanDiamantanKapon(
   longaSkalo: number, largxaSkalo: number, renversita = false
 ): THREE.BufferGeometry {
   const formo = new THREE.Shape();
-  const punktoj = rondigitajDuonoj(s);
+  const punktoj = diamantajDuonoj(s);
   const konturo = renversita ? [ ...punktoj ].reverse() : punktoj;
   // La sama korekto kiel en kreiDiamantanSvingon: la larĝa skalo aplikiĝas memstare
   // (la malnova produto faris la finan ĉapon 8-obla lameno — la "ortangula pinto").
@@ -260,15 +276,21 @@ function kreiRondigitanDiamantanKapon(
   return kapo;
 }
 
-export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: number, yB: number, yT: number, sX: number, sZ: number, upward: boolean, klino = 0, folio = true): void {
+//     @param fora ( number = 0o101/0o1000 ) - Kiom la sxafto staras EKSTER la
+//              donita linio ( cX, cZ ). La konstruajxoj pasigas sian mur-facon,
+//              do la piliero algluiĝas al ĝi; la PONTA balustrado pasigas la
+//              randon de la deko kun fora = 0, do la fosto staras SUR la deko.
+export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: number, yB: number, yT: number, sX: number, sZ: number, upward: boolean, klino = 0, folio = true, fora = 0o101/0o1000): void {
   // La finialo estas TALONA HOKO kun glata, iom ronda krono kaj rondigitaj
   // anguloj cxe la folia/diamanta supro. La sekco transiras seninterrompe al la
   // malgranda antauxenpusxita finajxo; gxi ne estas trancxita plata aux akra.
   // out = 0o7/0o20. la hoka pinto elstaras ~0o1/0o2 de la angulo.
   const out = 0o7/0o20;
-  // fora = 0o51/0o400. la sxafto staras ecx pli proksime al la muro-faco (~0o3/0o2000 libero
-  // cxe la plej mallongaj tavoloj) — apenaux tusxas la konstruajxon.
-  const fora = 0o51/0o400;
+  // fora = 0o101/0o1000. la sxafto RXUSTAS sur la muro-faco (~0o1/0o400 libero):
+  // la diamanta sekco estas 0.1237 duon-larĝa, do 0.127 lasas la ebenan flankon
+  // 0.0033 ekster la muro — la piliero legiĝas KUNLIPITA al la konstruajxo, sen
+  // fendiĝi videble. ( La antaŭa 0o51/0o400 = 0.159 lasis 0.035 — kvarcentonon da
+  // muro da videbla fendo, kiu legiĝis kiel aparta stango apud la domo. )
   // Sub-teraj (malsuprenirantaj) pilieroj bezonas pli da libero. cxe la mallongaj
   // sub-teraj tavoloj la pli malgranda fora enigus la diamanton en la muro-facon
   // (la malnova 0o25/0o200 donas +0.0028; 0o51/0o400 klipus je -0.0013).
@@ -325,6 +347,11 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
       p2
 );
     const putho = new THREE.CurvePath<THREE.Vector3>();
+    // ⟨ La bazo iras REKTE MALSUPREN 📃 ⟩ — la sxafto mem, sen ia ajn levigxo aux
+    // plilargxigxo cxe la fino. La bazo do finigxas per la sama diamanta sekco kiel
+    // la tuta piliero, kaj la rondigita ferma kapo ( kreiRondigitanDiamantanKapon )
+    // glatigas la finon mem — neniu aparta piedo aux funelo, kiu rompus la rektan
+    // silueton de la piliero.
     putho.add(new THREE.LineCurve3(p0, p1));
     putho.add(hoko);
     // La malvastigxo komencigxas gxuste cxe la pli malalta sxultro, laux la arka
@@ -368,7 +395,12 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
     partoj.push(kreiDiamantanSvingon(curve, SEG, s, kadroj, talonoS0, finialaSkalo, finialaLargho, tipLongeco));
     // Rondigita ferma kapo cxe la bazo (frontas kontraux la tangento, for de la
     // sxafto) — la malnova angula ventumilo lasis kvadratan randon cxe la fino.
-    partoj.push(kreiRondigitanDiamantanKapon(curve.getPointAt(0), kadroj.tangents[0], kadroj.Loj[0], kadroj.Woj[0], s, 1, 1));
+    // ⟨ La baza kapo restu APARTA 📃 ⟩ — se oni veldus gxin kun la tubo, la
+    // komunaj normaloj de la rando mezanigus la ebenan baz-facon kun la flankaj
+    // normaloj de la tubo, kaj la bazo aspektus KAVIGITA kaj distordita ( la sama
+    // kialo, pro kiu la pinta kapo jam restas aparta ). Konsekvence la bazo
+    // legigxas kiel pura, plata tranĉo sur la grundo.
+    const bazaKapo = kreiRondigitanDiamantanKapon(curve.getPointAt(0), kadroj.tangents[0], kadroj.Loj[0], kadroj.Woj[0], s, 1, 1);
     const tipaCentro = curve.getPointAt(1);
     const tipaRingo = tipaCentro.clone().addScaledVector(kadroj.tangents[SEG], -0o1/0o100);
     // La svingo finigxas cxe tipaRingo kaj la unu sola plata cxapo estas iomete
@@ -378,7 +410,7 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
     // La plata cxapo restu aparta, por ke gxi ne ricevu la flankajn normalojn de
     // la tubo kaj ne montrigxu kiel krucita X.
     geos.push(kunfandiKajVeldoiGeometriojn(partoj));
-    geos.push(finaKapo);
+    geos.push(bazaKapo, finaKapo);
   } else {
     // Sub-teraj (entombigitaj) pilieroj restas simplaj diamantaj tuboj kun
     // rondigitaj fermitaj kapoj (bazo frontas kontraux la tangento, pinto laux gxi).
@@ -402,6 +434,11 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
 // — ili tute ne montriĝis. La tri lokoj antaŭe kalkulis tion mem; nun unu helpilo.
 const fenProud = 0o1/0o100;
 
+// kadroRondigo — Kiom granda la glata tranĉo ĉe ĉiu angulo de la stela fenestra
+// kadro ( la bendo, la pintoj kaj iliaj ŝultroj ). La antaŭa kadro havis akrajn
+// angulojn ĉe ĉiu pinto kaj ĉe ĉiu ŝultro.
+const kadroRondigo = 0o1/0o20;
+
 // fenestraSubFaco — La muro-radiuso ĉe la fenestra SUBO, plus eta elstaro antaŭen.
 //     @param facaRadiuso ( number ) - La muro-radiuso ĉe la fenestra CENTRO.
 //     @param suba ( boolean ) - Ĉu la tavolo speguliĝas: malsuprenirantaj tavoloj
@@ -414,79 +451,301 @@ export function fenestraSubFaco(facaRadiuso: number, klino: number, fenAlto: num
     + fenProud / Math.cos(klinaAngulo);
 }
 
-// fenestraLargho — Kiom longa fenestro taŭgas sur tiu faco. La unuaj du limoj
-// tenas ĝin ene de la muro; la tria ( 9× la alto ) malhelpas, ke la grandaj
-// stacidomaj tavoloj ricevu fenestron 18 unuojn longan kaj 0.5 altan — ĝi
-// gardas la saman proporcion kiel ĉe la kosmosxipo.
-export function fenestraLargho(facaRadiuso: number, fenAlto: number): number {
+// fenestraMargxeno — La horizontala interspaco ĉe ĉiu flanko de la fenestro.
+// ⟨ UNU nombro por la tuta konstruaĵo 📃 ⟩ La marĝeno estas kalkulita UNUFOJE kaj
+// ĉiu tavolo ricevas precize tiun nombron, sen multipliko aux divido per sia propra
+// faco. La libera spaco ĉe la anguloj estas do la SAMA nombro sur ĉiu tavolo kaj ĝi
+// VIDEBIAS ie ajn. La fenestra alto ne ŝanĝiĝas de tavolo al tavolo, do la fenestroj
+// mallongiĝas precize per la sama kvanto, kiun mallongiĝas la tavoloj.
+// ⟨ Kiom granda 📃 ⟩ 0o3/0o10 de la muro-radiuso de la PLEJ LARĜA ( teretaĝa ) faco,
+// t.e. 18.75% de la faco ĉe ĉiu flanko — la fenestro do okupas 62.5% de la plej
+// larĝa faco kaj same multe da libera muro restas maldekstre kaj dekstre.
+// ⟨ Kial ne el la pinta tavolo 📃 ⟩ Se la marĝeno estus kalkulita el la plej
+// mallarĝa tavolo, la nombro estus tiel malgranda ( 0.4 sur la kunvenejo ), ke la
+// ora kadro plenigus la tutan liberan spacon kaj la fenestro aspektus kiel la tuta
+// muro — la interspaco tute ne videblus. Anstataŭe la tro mallarĝaj tavoloj restas
+// SEN fenestro ( vidu konstruiSatalon ).
+//     @param facaRadiusoLarga ( number ) - La muro-radiuso de la plej larĝa
+//              ( teretaĝa ) tavolo, kie fenestroj estas.
+//     @returns marĝeno ( number ) - La interspaco po flanko, por ĉiuj tavoloj.
+export function fenestraMargxeno(facaRadiusoLarga: number): number {
+  return facaRadiusoLarga * 0o3/0o10;
+}
+
+// fenestraLargho — Kiom longa fenestro taŭgas sur tiu faco.
+// ⟨ Kun marĝeno 📃 ⟩ La fenestro estas la tuta faco minus la marĝeno ĉe ambaŭ
+// flankoj. Se tio estus pli mallonga ol la fenestra alto, la alvokanto simple
+// malhavas la fenestron sur tiu tavolo — pli bone nenia fenestro ol stumpo.
+// ⟨ Sen marĝeno 📃 ⟩ La malnova laŭtavola regulo, por alvokantoj, kiuj volas
+// siajn proprajn proporciojn ( nun neniu — ĉiuj pasigas la marĝenon ).
+export function fenestraLargho(facaRadiuso: number, fenAlto: number, margxeno?: number): number {
+  if ( margxeno !== undefined ) return facaRadiuso * 2 - margxeno * 2;
   return Math.min(facaRadiuso * 2 - 0o3/0o10, facaRadiuso * 4/3 + 0o1/0o4, fenAlto * 9);
 }
 
 // aldoniPilolFenestron — Metu unu pilol-fenestron sur unu facon de unu tavolo.
+//     @param suba ( boolean = false ) - Ĉu la tavolo speguliĝas malsupren.
+//     @param margxeno ( number, nedeviga ) - La sama horizontala interspaco por
+//              ĉiuj tavoloj de konstruaĵo ( vidu fenestraMargxeno ). Sen ĝi la
+//              malnova laŭtavola regulo validas.
+//     @param vertikala ( boolean = false ) - Ĉu la fenestro staras VERTIKALE.
+//              ⟨ Kiam ĝi utilas 📃 ⟩ Sur la plej mallarĝaj tavoloj horizontala
+//              fenestro ne plu enirus kun la sama marĝeno, sed la sama fenestro
+//              turnita per 90° ankoraŭ havas lokon — la tavola alto donas la
+//              longan mezuron. La mallonga mezuro restas la fenestra alto, do la
+//              fenestroj aspektas samaj, nur staras vertikale.
 //     @returns La vitro-panelo ( la kosmosxipo kolektas ilin por la flug-pulso ).
 export function aldoniPilolFenestron(
   group: THREE.Group, kadraMaterialo: THREE.MeshStandardMaterial,
   fenestraMaterialo: THREE.MeshStandardMaterial,
   facoIndekso: number, yCentro: number, facaRadiuso: number,
-  klino: number, tieroAlto: number, fenAlto: number, suba = false
+  klino: number, tieroAlto: number, fenAlto: number, suba = false, margxeno?: number,
+  vertikala = false
 ): THREE.Mesh {
   const klinaAngulo = Math.atan(klino / tieroAlto);
-  const ww = fenestraLargho(facaRadiuso, fenAlto);
+  // ⟨ La longa mezuro 📃 ⟩ Horizontale ĝi venas el la faco minus la marĝeno.
+  // Vertikale ĝi estas du fenestraj altoj — la sama fenestro, nur turnita, do ĝi
+  // restas kompakta anstataux longa fendo en la tuta tavola alto.
+  const ww = vertikala ? fenAlto * 0o2 : fenestraLargho(facaRadiuso, fenAlto, margxeno);
+  // ⟨ La vertikala mezuro de la fenestro 📃 ⟩ Por la monto-grupo gravas ĉi tiu,
+  // ne la longa — la grupo sidas ĉe la fenestra SUBO kaj la fenestro estas
+  // centrita en la tavolo.
+  const fenAltoTuta = vertikala ? ww : fenAlto;
   // La faco-grupo turnas la fenestron al sia muro; la monto-grupo sidas ĉe la
   // fenestra SUBO kaj kliniĝas ĉirkaŭ la propra centro, do la fenestro kuŝas
   // plate sur la klinita muro ( ne svingiĝas ĉirkaŭ la konstruaĵa origino ).
   const faco = new THREE.Group();
   faco.rotation.y = facoIndekso * Math.PI / 2;
   const monto = new THREE.Group();
-  monto.position.set(0, yCentro - fenAlto / 2,
-    fenestraSubFaco(facaRadiuso, klino, fenAlto, tieroAlto, suba));
+  monto.position.set(0, yCentro - fenAltoTuta / 2,
+    fenestraSubFaco(facaRadiuso, klino, fenAltoTuta, tieroAlto, suba));
   monto.rotation.x = suba ? klinaAngulo : -klinaAngulo;
   faco.add(monto);
   // Densa sampado de la pilolo — la arkoj aspektas RONDIGITAJ ( la malnova
   // 0o24 lasis la duoncirklajn finojn facete poligonaj ).
+  // ⟨ La vertikala turno 📃 ⟩ La tuta formo ( la vitro kaj la kadro ) estas la
+  // sama, nur turnita per 90° ĉirkaŭ la monto-najbaro — poste oni ŝovas ĝin reen
+  // al la monto-origino, ĉar la turno metus la vitro-subon dekstren.
   const formo = kreiPilolFenestranFormon(ww, fenAlto);
-  const fen = new THREE.Mesh(new THREE.ShapeGeometry(formo, 0o100), fenestraMaterialo);
+  const fenGeometrio = new THREE.ShapeGeometry(formo, 0o100);
+  if ( vertikala ) {
+    fenGeometrio.rotateZ(Math.PI / 2);
+    fenGeometrio.translate(fenAlto / 2, ww / 2, 0);
+  }
+  const fen = new THREE.Mesh(fenGeometrio, fenestraMaterialo);
   monto.add(fen);
-  // Ora pilola rando — CENTRIPETA kurbo kun densa sampado, do la finoj estas
-  // glate rondaj, ne facetaj.
-  const konturo = formo.getPoints(0o200)
-    .map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, 0));
-  monto.add(new THREE.Mesh(
-    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
-    kadraMaterialo));
+  // ⟨ La ora kadro estas PLATA PLATO 📃 ⟩ Antaŭe la kadro estis RONDA TUBO laŭ
+  // la konturo — ĝi legiĝis kiel kanalo de dukto. Nun ĝi estas PLATA kaj PLENA
+  // plato: la stela konturo estas plenigita formo, el kiu oni eltranĉas la
+  // vitron, do la oro kuŝas sur la muro kiel plata bendo kun kvar pintoj.
+  // ⟨ Kial la stelo estas ŝveligita 📃 ⟩ La stela konturo de la antaŭa versio
+  // sekvis la pilolon mem, do plenigita ĝi estus nur kvar oraj trianguloj —
+  // la vitra fenestro havus NENIAN kadron ĉirkaŭ si. La konturo nun estas la
+  // pilolo ŜVELIGITA per la kadra larĝo ( kadroLargho ), do la oro ĉirkaŭas la
+  // vitron per egala bendo, kaj la pintoj elstaras el tiu bendo.
+  // La truo estas la pilolo iomete malpli larĝa, por ke la oro kovru la randon
+  // de la vitro sen ia fendo. La plato elstaras maldike antaŭen ( kadroDikeco )
+  // kaj kuŝas plata sur la muro — neniu bevelo, neniu rondaĵo.
+  // La kadra larĝo estas egala al la DIAMETRO de la malnova tubo ( 0.125 ), do
+  // la kadro havas la saman videblan pezon kiel antaŭe, sed plata. La dikeco
+  // ( 0.0625 ) estas la malnova tuba radiuso — la plato do elstaras same
+  // malmulte, nur sen la rondaĵo.
+  const kadroLargho = 0o1/0o10, kadroDikeco = 0o1/0o20;
+  // ⟨ La flankaj pintoj restu sur la faco 📃 ⟩ La pinto de la kadro neniam rajtas
+  // elstari preter la rando de la faco — sur la mallarĝaj pintaj tavoloj de la
+  // kosmosxipo, kaj sur la teretaĝo de la kunvenejo, la libera spaco estas
+  // malgranda ( 0.26 kaj 0.39 ) dum la pinto estas 0.3125. La krampo mallongigas
+  // NUR la flankajn pintojn; la supraj/malsupraj restas konstante longaj, ĉar ili
+  // iras laŭ la tavola alto kaj havas ĉiam lokon.
+  // ⟨ Kiom da libera spaco 📃 ⟩ La longa kaj la mallonga aksoj havas malsamajn
+  // limojn — horizontale la faco, vertikale la tavola alto.
+  const liberoLonga = vertikala ? ( tieroAlto - ww ) * 0o1/0o2 : facaRadiuso - ww * 0o1/0o2;
+  const liberoMallonga = vertikala ? facaRadiuso - fenAlto * 0o1/0o2
+    : ( tieroAlto - fenAlto ) * 0o1/0o2;
+  const pintoSupre = fenAlto * 0o1/0o2;
+  const pintoFlanko = Math.max(0, Math.min(pintoSupre, liberoLonga - kadroLargho - 0o1/0o100));
+  const pintoMallonga = Math.max(0, Math.min(pintoSupre,
+    liberoMallonga - kadroLargho - 0o1/0o100));
+  // ⟨ Nenia angulo 📃 ⟩ La konturo de la stelo estas glatigita per rondigita
+  // tranĉo ĉe ĉiu angulo ( rondigiKonturon ) — la bendo fluas en la pintojn per
+  // kurbo, kaj la pintoj mem finiĝas per malgranda rondo anstataŭ per akra
+  // vertico. La formo do restas stelo, sed sen ia rompita rando.
+  const stelo = rondigiKonturon(
+    kreiStelanFenestranFormon(ww, fenAlto, kadroLargho, pintoFlanko, pintoMallonga).getPoints(0o20),
+    kadroRondigo);
+  const truo = kreiPilolFenestranFormon(ww - 0o1/0o100, fenAlto - 0o1/0o100).getPoints(0o20);
+  stelo.holes.push(new THREE.Path(truo.reverse()));
+  const kadroGeometrio = new THREE.ExtrudeGeometry(stelo,
+    { depth: kadroDikeco, bevelEnabled: false, curveSegments: 0o10 });
+  if ( vertikala ) {
+    kadroGeometrio.rotateZ(Math.PI / 2);
+    kadroGeometrio.translate(fenAlto / 2, ww / 2, 0);
+  }
+  monto.add(new THREE.Mesh(kadroGeometrio, kadraMaterialo));
   group.add(faco);
   return fen;
 }
 
-// fenestraMaterialo — La vitro de la eksteraj fenestroj. Unu dividita instance
-// por ĉiuj konstruaĵoj ( same kiel la muroj kaj la kadroj ) — la kosmosxipo havas
-// sian propran, ĉar la flugo pulsas ĝian brilon.
+// fenestraMaterialo. La vitro de la eksteraj fenestroj, unu dividita instance por
+// ĉiuj konstruaĵoj ( same kiel la muroj kaj la kadroj ). La difino mem venas el
+// la komuna fabriko ( kreiFenestranMaterialon ), do la konstruaĵoj, la internoj,
+// la kosmoŝipo kaj la vitraj pordoj uzas la SAMAN vitron. La kosmoŝipo ricevas
+// sian propran instancon, ĉar la flugo pulsas ĝian brilon.
 function fenestraMaterialo(): THREE.MeshStandardMaterial {
-  return konstruajxaMaterialo("fenestro",
-    () => new THREE.MeshStandardMaterial({
-      color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
-      roughness: 0o3/0o20, metalness: 0o3/0o20, transparent: true, opacity: 0o7/0o10,
-    }));
+  return konstruajxaMaterialo("fenestro", () => kreiFenestranMaterialon());
 }
 
 // aldoniEnirejon — Uniforma enirejo por cxiuj tipoj. pli malgranda kaj pli plata
 // (malpli profunda), sidanta sur la tero, kun ora bevelo cxirkaux la rando.
 //     @param flankoj ( number ) - Kiom da pordoj ( la sanktejo havas 4, unu po flanko ).
 // Elportita ( export ) ankaŭ por la inspektilo, kiu montras la pordon sola.
-export function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.MeshStandardMaterial, eniraMaterialo: THREE.MeshStandardMaterial, flankoj = 1): void {
+// kreiKadranKurbon — La konturo de formo kiel TRIDIMENSIA, FERMITA CurvePath en la
+// ebeno z. La tubo de la ora kadro sekvas tiun vojon SEN interpola svingo.
+// ⟨ Kial 📃 ⟩ — la malnova kodo prenis cent punktaron el la formo ( getPoints ) kaj
+// pasigis gxin tra CatmullRomCurve3. Tiu kurbo interkalkulas sian propran interpolon
+// tra la punktoj kaj Svingigxas ekster la formo — cxe la anguloj gi elstaris kiel
+// nudoj kaj la tubo montris diskontinuajn helajn makulojn, do la kadro aspektis nek
+// glata nek kunligita. Nun la segmentoj de la formo mem estas samplitaj kaj
+// kunligitaj per rektaj pecoj, do la kadro kusxas GXUSTE sur la konturo kaj estas
+// unu senjunta buklo.
+//     @param formo ( THREE.Path ) - La formo de la pordo ( aux la truo ).
+//     @param z ( number ) - La ebeno, en kiun la konturo translokigxas.
+//     @param sampoj ( number = 0o20 ) - Kiom da pecoj po formo-segmento.
+//     @returns putho ( THREE.CurvePath ) - La fermita vojo, sen duobla finpunkto.
+export function kreiKadranKurbon(formo: THREE.Path, z: number,
+  sampoj = 0o20): THREE.CurvePath<THREE.Vector3> {
+  const putho = new THREE.CurvePath<THREE.Vector3>();
+  const punktoj: THREE.Vector3[] = [];
+  for ( const kurbo of formo.curves ) {
+    const partoj = kurbo.getPoints(sampoj);
+    for ( let i = 0; i < partoj.length; i++ ) {
+      // La unua punkto de ĉiu segmento ripetas la lastan de la antaŭa.
+      if ( i === 0 && punktoj.length > 0 ) continue;
+      punktoj.push(new THREE.Vector3(partoj[i].x, partoj[i].y, z));
+    }
+  }
+  // La ferma segmento revenas al la unua punkto — tio estas jam la fino de la
+  // buklo, do la duobla punkto forfalas ( alie la tubo ricevus degeneran ringon ).
+  if ( punktoj.length > 1 && punktoj[0].distanceTo(punktoj[punktoj.length - 1]) < 1e-6 ) punktoj.pop();
+  for ( let i = 0; i < punktoj.length - 1; i++ ) putho.add(new THREE.LineCurve3(punktoj[i], punktoj[i + 1]));
+  return putho;
+}
+
+//     @param flankoj ( number ) - Kiom da flankoj ricevas pordon ( 1 aux 4 ).
+//     @param tieroAlto ( number ) - La alto de unu tiero ( por la klino de la
+//              muro ). 0 = sen klino ( la inspektilo, kiu montras la pordon sola ).
+export function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.MeshStandardMaterial, eniraMaterialo: THREE.MeshStandardMaterial, flankoj = 1, tieroAlto = 0, nagetoj = false): void {
   const pordGrupo = new THREE.Group();
   const blokoLargho = 0o233/0o100, tw = blokoLargho * 0o45/0o100, eh = 0o11/0o4;
-  const shape = rondigitaTrapezaFormo(blokoLargho, tw, eh, 0o3/0o20, 0o1/0o10);
-  const enirejo = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 0o2/0o10, bevelEnabled: true, bevelSize: 0o5/0o100, bevelThickness: 0o5/0o100, bevelSegments: 2, curveSegments: 0o10 }), eniraMaterialo);
-  enirejo.position.set(0, 0, d / 2 - 0o1/0o100); pordGrupo.add(enirejo);
-  // Bevelo gluigxas al la pli plata pordo-fronto (d/2 + 0o5/0o20 + 0o1/0o20).
-  // Densa sampado (0o64 punktoj) kun norma tensio (0o1/0o2). la ora tubo sekvas la
-  // rondigitan trapezan konturon glate cxe la anguloj — neniu distordigxo kie la
-  // pecoj kunigxas (la malnova 0o24/0o23/0o40 ondumis kaj pincxis cxe la anguloj).
-  const ornamajPunktoj = shape.getPoints(0o64).map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, d / 2 + 0o3/0o10));
-  pordGrupo.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(ornamajPunktoj, true, "catmullrom", 0o1/0o2), 0o100, 0o1/0o20, 6, true), kadraMaterialo));
+  // ⟨ La kadro estas SIMETRIA 📃 ⟩ — la kvar anguloj ricevas la SAMAN radiuson
+  // ( 0o1/0o4 ), do la ora kadro rondigxas egale supre kaj malsupre. La antauxa
+  // malsama paro ( pli ronda bazo, pli akra supro ) igis la kadron nesimetria.
+  const shape = rondigitaTrapezaFormo(blokoLargho, tw, eh, 0o1/0o4, 0o1/0o4);
+  // ⟨ La pordo estas MALDIKA 📃 ⟩ La folio estas 0o7/0o100 ( 0.109375 ) profunda
+  // kun eta bevelo ( antaŭe 0o2/0o10 = 0.25 kun 0o5/0o100 da bevelo, do la pordo
+  // elstaris 0.31 de la muro kaj aspektis kiel skatolo sur ĝi ).
+  // ⟨ Nun PLI LONGA antauxen 📃 ⟩ La folio iris de 0o1/0o20 ( 0.0625 ) al
+  // 0o7/0o100 ( 0.109375 ). Nur la FRONTO moviĝas, la malantaŭa faco restas en la
+  // muro, do la pordo elstaras 0.125 anstataŭ 0.078. La sama dikeco estas uzata
+  // ankaŭ de la kosmosxipa pordo, do la du pordoj restas la sama familio.
+  // ⟨ Kial ne 0o3/0o40 📃 ⟩ La unua provo iris nur al 0o3/0o40 ( 0.09375 ). La
+  // pliigo estis 0.03125, proksimume 1% de la porda larĝo, kaj oni preskaŭ ne
+  // vidis ĝin en la mondo. La ora kadro sekvas mem, ĉar ĝia radio estas la DUONO
+  // de la tuta dikeco, do la kadro dikiĝas kune kaj daŭre kovras la tutan pordon.
+  const pordDikeco = 0o7/0o100, pordBevelo = 0o1/0o40;
+  const pordDikecoTuta = pordDikeco + pordBevelo * 2;
+  // La rotacia grupo — la pordo kaj la kadro sidas ene de ĝi, do la KLINO
+  // ( malsupre ) turnas ambaŭ kune ĉirkaŭ la linio kie la pordo tuŝas la grundon.
+  const klinGrupo = new THREE.Group();
+  klinGrupo.position.set(0, 0, d / 2);
+  pordGrupo.add(klinGrupo);
+  const enirejo = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: pordDikeco, bevelEnabled: true, bevelSize: pordBevelo, bevelThickness: pordBevelo, bevelSegments: 2, curveSegments: 0o20 }), eniraMaterialo);
+  // La malantaŭa faco restas iomete EN la muro ( 0o1/0o100 ), do neniu fendo
+  // malantaŭ la pordo; la tuta dikeco estas pordDikecoTuta.
+  const pordZ = -0o1/0o100;
+  enirejo.position.set(0, 0, pordZ); klinGrupo.add(enirejo);
+  // ⟨ La kadro KOVRAS la tutan pordon 📃 ⟩ — la tubo kuŝas sur la MEZA ebeno de
+  // la folio ( ne antaŭ ĝi ) kaj ĝia radio egalas la DUONON de la tuta dikeco
+  // ( la folio kaj ĝiaj du beveloj ), do la ora kadro ĉirkaŭas la tutan
+  // eksteran randon de la pordo: malantaŭe, antaŭe kaj flanke. Antaŭe la
+  // maldika tubo staris antaŭ la dika folio kaj kovris nur ĝian frontan randon.
+  // La kadro sekvas la konturon de la formo MEM ( kreiKadranKurbon ) — ne
+  // CatmullRom-interpon tra punktaro — do la tubo kuŝas GXUSTE sur la pordo-formo,
+  // sen nudoj kaj sen diskontinuajxoj cxe la anguloj, kaj gi estas unu glata
+  // senjunta buklo. La tubo mem estas RONDA ( 0o14 flankoj anstataux 6 ) kaj la
+  // sama granda angula radiuso cxe la kvar anguloj ( 0o1/0o4 ) RONDIGAS la kadron.
+  const kadraKurbo = kreiKadranKurbon(shape, pordZ + pordDikeco / 2);
+  klinGrupo.add(new THREE.Mesh(new THREE.TubeGeometry(kadraKurbo, 0o200, pordDikecoTuta / 2, 0o14, true), kadraMaterialo));
+  // ⟨ La pordo KLINIGXAS kun la muro 📃 ⟩ — la muroj mallevigxas INTERNEN je
+  // MURA_KLINO dum unu tiera alto, do pordo staranta vertikale nur tusxus la
+  // muron per sia baza rando kaj malproksimigxus supren (~0.18 cxe la supro).
+  // La pordo nun turnigxas laux la SAMA angulo, do gi restas PARALELA al sia
+  // muro sur la tuta alto. La turno okazas ĉirkaŭ la baza linio ( klinGrupo ),
+  // do la bazo restas sur la grundo.
+  if ( tieroAlto > 0 ) klinGrupo.rotation.x = -Math.atan(MURA_KLINO / tieroAlto);
+  // ⟨ La nagxetoj de la centra konstruajxo 📃 ⟩ — po DU triangulaj platoj ĉe ĉiu
+  // pordo ( unu maldekstre, unu dekstre ), kiuj LEVIĜAS de la plata bazo kaj
+  // tuŝas la oran kadron de la pordo laŭlonge de ĝia klinita flanko — kiel
+  // nagxetoj aux sxnuroj, kiuj ligas la pordon al la bazplato. La interna rando
+  // de ĉiu triangulo kuŝas GXUSTE sur la porda flanko ( de la baza angulo gxis la
+  // malalta fino de la supra ronda angulo ), do la pinto algluiĝas al la kadro
+  // sen trapasi ĝin; la ekstera pinto staras sur la ora bazplato ( 2.6 el la
+  // mezo, bone ene de la plato je 4.45 ).
+  if ( nagetoj ) {
+    // ⟨ La nagxetoj estas ETAJ ALETOJ ANTAUXEN 📃 ⟩ — antaŭe ili kuŝis PLATE en la
+    // muro-ebeno: grandaj oraj kojnoj disvastiĝantaj flanken de la pordaj supraj
+    // anguloj malsupren al la rando de la bazplato. De antaŭe ili legiĝis kiel
+    // pentritaj trianguloj SUR la muro, ne kiel parto de la konstruaĵo.
+    //
+    // Nun ĉiu naĝeto estas ALETO, kiu ELSTARAS ANTAŬEN el la muro — vertikala
+    // triangula plato en la ebeno, kiu enhavas la KLINITAN FLANKON de la pordo
+    // ( de la baza angulo supren al la supra angulo ) kaj la antaŭan direkton.
+    // Ĝia interna rando do kuŝas GXUSTE sur la porda flanko ( la ronda kadra tubo
+    // kovras ĝin, same kiel ĉe la malnovaj trianguloj ) kaj ĝia pinto etendiĝas
+    // antaŭen ĉe la bazo — ĝi legiĝas kiel alo, kiu portas la pordan kadron.
+    //
+    // ⟨ Kial la ebeno ne estas simpla vertikala ebeno 📃 ⟩ — la porda flanko
+    // DEKLIVAS ( la trapezo mallarĝiĝas supren ), do vertikala plato tuŝus la
+    // kadron nur ĉe sia bazo. Nia plato sekvas la deklivon, do ĝi restas
+    // algluiĝinta al la kadro la tutan vojon.
+    const bazaX = blokoLargho / 2;                         // la porda baza angulo
+    const supraX = tw / 2;                                 // la porda supra angulo
+    const nagetaDikeco = 0o1/0o20;                         // 0.0625 — pli maldika ol la pordo
+    // ⟨ La bazo de la nagxeto restas SUR la bazplato 📃 ⟩ — la antaŭa pinto
+    // ( la tria vertico ) elstaras antaŭen je `nagetaProfundo` KAJ supren je
+    // sin(klino) · nagetaProfundo ( la pordo klinigxas kun la muro ), dum la ora
+    // bazplato finigxas je d/2 + 0o36/0o100 ( 4.36 cxe la sanktejo ). Kun 0.625
+    // ( la malnova valoro ) la piedo de la triangulo elstaris 0.29 PREter la
+    // randon de la plato kaj sxvebis super la grundo; 0.3 lasas la pinton 0.04
+    // ene, do la nagxeto legigxas kiel parto de la bazplato.
+    const nagetaProfundo = 0o3/0o10;                       // 0.3 — ene de la bazplato
+    // La meza ebeno de la pordo — la sama ebeno kiel la centro de la kadra tubo.
+    const zMebl = pordZ + pordDikeco / 2;
+    for ( const sX of [ -1, 1 ] ) {
+      const malsupra = new THREE.Vector3(sX * bazaX, 0, zMebl);
+      const supra = new THREE.Vector3(sX * supraX, eh, zMebl);
+      const lauxFlanko = supra.clone().sub(malsupra);
+      const longo = lauxFlanko.length();
+      const unuo = lauxFlanko.clone().divideScalar(longo);   // laux la porda flanko
+      const antauxen = new THREE.Vector3(0, 0, 1);           // antauxen el la muro
+      const normalo = new THREE.Vector3().crossVectors(unuo, antauxen).normalize();
+      const triangulo = new THREE.Shape();
+      triangulo.moveTo(0, 0);
+      triangulo.lineTo(longo, 0);
+      triangulo.lineTo(0, nagetaProfundo);
+      triangulo.closePath();
+      const geometrio = new THREE.ExtrudeGeometry(triangulo, { depth: nagetaDikeco, bevelEnabled: false });
+      // La plato centriĝas sur la porda flanko ( duone enen, duone eksteren ).
+      const matrico = new THREE.Matrix4().makeBasis(unuo, antauxen, normalo);
+      matrico.setPosition(malsupra.clone().addScaledVector(normalo, -nagetaDikeco / 2));
+      geometrio.applyMatrix4(matrico);
+      klinGrupo.add(new THREE.Mesh(geometrio, kadraMaterialo));
+    }
+  }
   // Turnitaj kopioj — la sama pordo sur cxiu flanko. La kopioj kunhavigas la
   // geometriojn kaj materialojn de la unua, do la multaj pordoj ne kostas aldone.
+  // La Y-turno estas la PLI EKSTERA grupo, do cxiu pordo klinigxas enen de sia
+  // propra muro ( ne laux unu komuna direkto ).
   for ( let i = 0; i < flankoj; i++ ) {
     const kopio = i === 0 ? pordGrupo : pordGrupo.clone();
     kopio.rotation.y = i * Math.PI / 2;
@@ -494,51 +753,206 @@ export function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: TH
   }
 }
 
+// steleaVitro — La dividita frosta vitro de la steleaj signoj ( unu materialo
+// por la tuta mondo, kiel la muroj kaj la kadroj ). Konstruu gxin per la sama
+// kasxo kiel la aliaj konstruajxaj materialoj, por ke la tagnokta sxangxo
+// ( gxisdatigiSteleanVitron ) kaj la konstruo atingu la SAMAN objekton.
+//
+// ⟨ La MALKONDUKO ( `transmission` ) 📃 ⟩ — la plato estas vera transira vitro:
+// `transmission` 0o7/0o20 ( 0.35 ) lasas la fono tra kaj `roughness` 0o5/0o10
+// ( 0.5 ) MALKONDUKAS gxin — la pordo, la plantoj kaj la tereno malantaŭ la
+// signo aperas kiel molaj makuloj. Tiu materialo devigas la bildilon re-desegni
+// la tutan maldiafanan scenon en apartan bufron ( la transira pasumo ). Mezurite
+// per ?statistiko tio kostas 354 kromajn desegnajn alvokojn kaj 21.6 M da
+// trianguloj po kadro; `transmissionResolutionScale` ( scena.ts ) tenas la
+// buferon je kvarono de la denso, do la fragmenta kosto restas malgranda — la
+// malklareco mem kasxas la malpli altan rezolucion, do la difekto farigxas
+// trajto. La transiro tag/nokto sxangxas la BAZAN KOLORON ( vidu sube ), kaj en
+// la fizika modelo de three la baza koloro ankaŭ FILTRAS la trapasantan lumon:
+// nigra koloro sufokas la trapason, do la signo fakte mallumigxas nokte.
+//
+// ⟨ La plato estas pli MALDIAFANA ol komence 📃 ⟩ — 0o5/0o10 da trapaso lasis la
+// fonon tro klare tra, do la literoj luktis kun la bildo malantaŭ ili. Nun la
+// trapaso estas 0o7/0o20 ( 0.35 ): la fono restas videbla kaj malklara, sed la
+// plato havas pli da korpo kaj la flava teksto legigxas pli firme.
+function steleaVitro(): THREE.MeshStandardMaterial {
+  return konstruajxaMaterialo("steleo",
+    () => new THREE.MeshPhysicalMaterial({
+      color: 0xffffff, roughness: 0o5/0o10, metalness: 0,
+      transmission: 0o7/0o20, thickness: 0o5/0o40, ior: 0o3/0o2,
+      attenuationColor: 0x2a4a44, attenuationDistance: 1,
+      emissive: 0x0a1a18, emissiveIntensity: 0o1/0o4,
+    }));
+}
+
+// ⟨ La KONTURO de la signa teksto 📃 ⟩ — la literoj portas maldikan konturon,
+// kiu estas NIGRA tage kaj BLANKA nokte ( ĝi transiras kune kun la tagnokta
+// ciklo, kiel la plato mem ). Ni faras tion per malgranda shadero: la teksajxo
+// entenas la glifojn kiel MASKON ( blanka alfa kanalo ), kaj la fragment-shadero
+// desegnas la ORAN inkon plus la konturon — la plej granda alfa valoro en la
+// ĉirkaŭaĵo ( ok direktoj, du radiusoj ) estas la konturo. Tiel la koloro de la
+// konturo estas uniformo ( unu komuna `Color` por ĉiuj signoj, do la tagnokta
+// transiro sxangxas unu valoron ), kaj la fona `discard` forigas ankaŭ la etan
+// tinton, kiun alie lasus la mipmapoj de la malgranda teksto.
+// ⟨ La inko de la teksto — FLAVA 📃 ⟩ — antaŭe gxi estis ora-bejxa ( 0xd8b068,
+// la sama koloro kiel la kadroj ), kiu legigxis bruna sur la hela vitro. Nun la
+// teksto estas vere FLAVA, kaj gxi sekvas la tagnokton kiel la plato: MUTA flava
+// tage ( 0xc2b32f — sufice malhela kontraux la hela frosta vitro ) kaj PALA
+// flava nokte ( 0xf2eea6 — preskaux lumanta kontraux la nigra plato ).
+//
+// ⟨ Kial la flava ne estas ORA 📃 ⟩ — la ora bejxo ( 0xd8b068 ) kaj gxia
+// malhela versio ( 0xc79b2b ) havas la RUĜAN kanalon rimarkeble super la VERDA
+// ( 0xc7 = 199 kontraŭ 0x9b = 155 ), do la teksto legigxis ORANGXA sur la hela
+// vitro. Flavo bezonas la du kanalojn preskaux EGAJN: nun la tagan inkon
+// ( 0xc2b32f → 194 / 179 ) kaj la noktan ( 0xf2eea6 → 242 / 238 ) apartigas nur
+// kelkaj unuoj, do la nuanco restas flava, ne oranĝa.
+//
+// ⟨ Unu komuna koloro 📃 ⟩ — la uniformoj de cxiuj signaj shaderoj montras al
+// cxi tiuj du `Color`-objektoj, do la tagnokta transiro sxangxas ilin unufoje kaj
+// cxiuj signoj sekvas ( sen listo de materialoj ).
+const STELEA_INKO_TAGE = new THREE.Color(0xc2b32f);
+const STELEA_INKO_NOKTE = new THREE.Color(0xf2eea6);
+const steleaInkaKoloro = new THREE.Color().copy(STELEA_INKO_TAGE);
+// La KONTURO de la teksto estas la MALO de la plato: BLANKA tage, NIGRA nokte —
+// do la literoj cxiam havas randon, kiu kontrastas kun la fono ( hela halo sur la
+// hela vitro, malhela streko sur la nigra plato ).
+const steleaBordoKoloro = new THREE.Color(0xffffff);
+function steleaTeksto(mapo: THREE.Texture): THREE.ShaderMaterial {
+  const im = mapo.image as { width: number; height: number };
+  return new THREE.ShaderMaterial({
+    uniforms: {
+      uMapo: { value: mapo },
+      uInko: { value: steleaInkaKoloro },
+      uBordo: { value: steleaBordoKoloro },
+      uTeksele: { value: new THREE.Vector2(1 / im.width, 1 / im.height) },
+      uDikeco: { value: 0o5/0o2 },   // 2.5 tekseloj da konturo
+    },
+    transparent: true, depthWrite: false, toneMapped: false,
+    vertexShader: `varying vec2 vUv;
+    void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); }`,
+    fragmentShader: `precision highp float;
+    uniform sampler2D uMapo; uniform vec3 uInko; uniform vec3 uBordo;
+    uniform vec2 uTeksele; uniform float uDikeco; varying vec2 vUv;
+    void main(){
+      float a = texture2D( uMapo, vUv ).a;
+      float r = 0.0;
+      for ( int i = 0; i < 8; i++ ) {
+        float ang = float( i ) * 0.7853981634;
+        vec2 of = vec2( cos( ang ), sin( ang ) ) * uTeksele * uDikeco;
+        r = max( r, texture2D( uMapo, vUv + of ).a );
+        r = max( r, texture2D( uMapo, vUv + of * 0.55 ).a );
+      }
+      float inka = smoothstep( 0.35, 0.6, a );
+      float kontura = smoothstep( 0.35, 0.6, r );
+      if ( kontura < 0.004 ) discard;
+      gl_FragColor = vec4( mix( uBordo, uInko, inka ), max( inka, kontura ) );
+    }`,
+  });
+}
+
+// ⟨ La stelea vitro sekvas la tagnokton 📃 ⟩ — la plato de ĉiu signo estas
+// BLANKA tagmeze kaj NIGRA en la nokto, kaj ĝi transiras glate tra la tuta
+// ciklo ( la sama parametro `malhelo` kiel la ĉielo, la nebulo kaj la pordoj —
+// 0 = tago, 1 = krepusko ).
+//
+// ⟨ La koloro ankaŭ FILTRAS la trapason 📃 ⟩ — en la fizika modelo de three la
+// baza koloro multiplikas la trapasantan lumon: blanka koloro lasas la fono tra
+// ( frosta vitro ), nigra ĝin sufokas ( solida nigra tabulo ). Tiel unu valoro
+// regas kaj la koloron kaj la travideblecon — la signo neniam konkuras kun la
+// fono, sed tenas sian propran korpon.
+//
+// La KONTURO de la teksto iras la malan direkton ( nigra tage, blanka nokte ),
+// ĉar la filtraĵo de la plato malheligas ankaŭ la malantaŭan bildon: tage la
+// literoj bezonas malhelan konturon sur la hela vitro, nokte helan konturon sur
+// la nigra plato.
+//     @param malhelo ( number ) - 0 = plena tago ( blanka ), 1 = plena nokto ( nigra ).
+export function gxisdatigiSteleanVitron(malhelo: number): void {
+  const v = 1 - Math.max(0, Math.min(1, malhelo));
+  // Skribu nur kiam la valoro vere sxangxigxis — la ciklo vokas cxiun kadron.
+  if ( Math.abs(v - lastaVitraLumo) < 0o1/0o100 ) return;
+  lastaVitraLumo = v;
+  const m = steleaVitro();
+  m.color.setRGB(v, v, v);
+  // La INKO de la teksto transiras de PALA flava ( nokte ) al MUTA flava ( tage ).
+  steleaInkaKoloro.lerpColors(STELEA_INKO_NOKTE, STELEA_INKO_TAGE, v);
+  // La KONTURO iras la MALAN direkton ol la plato: blanka tage, nigra nokte.
+  steleaBordoKoloro.setRGB(v, v, v);
+  // Nokte ankaŭ la emisio malaperas, do la signo estas vere nigra.
+  m.emissiveIntensity = v * 0o1/0o4;
+}
+let lastaVitraLumo = 1;
+
 // aldoniSteleanSignon — Uniforma 3D stela signo por cxiuj konstruajxoj. nesimetriaj
-// rondigitaj supraj anguloj (r1 = 0o1/0o10, r2 = 0o1/0o4), rektaj malsupraj. La Gawekiif-nomo
+// rondigitaj supraj anguloj (r1 = 0o1/0o4, r2 = 0o1/0o10), rektaj malsupraj. La Gawekiif-nomo
 // staras sur la tero apud la pordo. La texturo estas travidebla — nur la teksto
 // montrigxas super la malhela steleo (neniu nigra bloko).
 //     @param tipo ( string ) - La konstrua-tipo ( satala TIPARO-sxlosilo ) — la
 //              defauxta tip-nomo anstatauxas la nomon kiam la konstruajxo estas sennoma.
 // Elportita ( export ) ankaŭ por la inspektilo, kiu montras la signon sola.
 export function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: string, w: number, d: number): void {
-  const teksajxo = generiSkribanTeksajxon(nomoAih(name, tipo), { w: 0o300, h: 0o1516, ink: "#d8b068" });
+  // ⟨ La teksajxo estas MASKO 📃 ⟩ — la shadero legas nur la alfa-kanalon, do
+  // la glifoj estas desegnitaj blankaj kaj la ORAN inkon donas la shadero mem
+  // ( kune kun la tagnokta konturo ).
+  const teksajxo = generiSkribanTeksajxon(nomoAih(name, tipo), { w: 0o300, h: 0o1516, ink: "#ffffff" });
   teksajxo.wrapS = teksajxo.wrapT = THREE.ClampToEdgeWrapping;
   // La signo staras sur la tero apud la pordo (0o1/0o100 levita por ne z-fajfi kun la grundo).
   const signaY = 0o1/0o100;
   const steleo = new THREE.Mesh(
-    new THREE.ExtrudeGeometry(kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o10, 0o1/0o4), { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }),
-    // La malhela steleo — la sama dividita materialo por ĉiuj konstruaĵoj ( kiel
-    // la muroj kaj kadroj ). La signa FACO ( kun sia propra teksto-teksturo )
-    // restas aparta, do la kunfandilo de la urbo lasas ĝin sola.
-    konstruajxaMaterialo("steleo",
-      () => new THREE.MeshStandardMaterial({ color: 0x081818, roughness: 0o23/0o40 }))
+    new THREE.ExtrudeGeometry(kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10), { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }),
+    // ⟨ La steleo estas FROSTA VITRO 📃 ⟩ — la sama dividita materialo por
+    // ĉiuj konstruaĵoj ( kiel la muroj kaj la kadroj ). La plato estas
+    // DUONTRATRAVIDA: `transparent` + `opacity` 0o5/0o10 lasas 0.375 de la fono
+    // tra, kaj alta `roughness` ( 0.42 ) forprenas la spegulojn — la plato
+    // legiĝas kiel frostigita vitro, ne kiel spegulo kaj ne kiel aero.
+    //
+    // ⟨ Kial NE `transmission` 📃 ⟩ — la antaŭa versio estis vera transira vitro.
+    // Tiu materialo postulas apartan pasumon de la tuta maldiafana sceno ( vidu
+    // la mezurojn en scena.ts ); por kelkaj malgrandaj signoj tio estis triono de
+    // la geometria laboro de ĉiu kadro. La fono ankaŭ ne plu malklarigxas — kio
+    // taŭgas, ĉar la plato nun estas pli maldiafana ol antaŭe.
+    //
+    // ⟨ Kial la koloro estas HELA 📃 ⟩ — la baza koloro venas de la TAGNOKTA
+    // transiro ( vidu gxisdatigiSteleanVitron ) — blanka tage, nigra nokte — kaj
+    // kun ĝi iras la OPACECO: tage frosta vitro, nokte preskaŭ solida nigra
+    // tabulo.
+    //
+    // La plato NE ĵetas ombron: travidebla objekto kun maldiafana ombro aspektus
+    // kiel solida nigra tabulo.
+    steleaVitro()
 );
-  steleo.position.set(w * 0o13/0o40, signaY, d / 2 + 0o104/0o100 - 0o5/0o100); steleo.castShadow = true; group.add(steleo);
+  steleo.position.set(w * 0o13/0o40, signaY, d / 2 + 0o104/0o100 - 0o5/0o100); steleo.castShadow = false; group.add(steleo);
   // ShapeGeometry uzas la krudajn formo-koordinatojn kiel UV (ne [0,1]),
   // do la texturo algluigxus al la malsupra-dekstra angulo de la faco.
   // Normaligu la UV-ojn al la limig-skatolo por plenigi la tutan facon.
-  const faceGeo = new THREE.ShapeGeometry(kreiSteleanFormon(0o4/0o10, 0o215/0o100, 0o1/0o10, 0o1/0o4), 0o10);
+  // ⟨ La faco havas la SAMAN konturon kiel la plato 📃 ⟩ — antaŭe ĝi estis pli
+  // malgranda ( 0o4/0o10 × 0o215/0o100 anstataŭ 0o5/0o10 × 0o24/0o10 ) kaj
+  // flosis antaux la plato, do ĝi legigxis kiel aparta KARTO ene de la signo.
+  // Nun ĝi kusxas GXUSTE sur la fronta faco de la plato ( la sama formo, la sama
+  // grandeco ), do la teksto sxajnas esti presita SUR la vitro.
+  const faceGeo = new THREE.ShapeGeometry(kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10), 0o10);
   faceGeo.computeBoundingBox();
   const facePoz = faceGeo.getAttribute("position");
   const faceUV = faceGeo.getAttribute("uv");
   const faceUjo = faceGeo.boundingBox!;
   const faceLargho = Math.max(1e-6, faceUjo.max.x - faceUjo.min.x);
   const faceAlto = Math.max(1e-6, faceUjo.max.y - faceUjo.min.y);
+  // ⟨ La teksto estas iomete PLI MALGRANDA ol la faco 📃 ⟩ — la glifoj plenigas
+  // ~83% de la teksajxo-larĝo, do sur la tuta faco ili preskaŭ tusxus la randon de
+  // la plato. Ni disetendas la UV-ojn 7/6-obla ĉirkaŭ la centro: la teksto tiel
+  // sxrumpas al ~86% kaj la randoj de la teksajxo ( travideblaj — 8.6% cxiuflanke )
+  // restas ekstere, kie la `discard` de la shadero forigas ilin.
+  const tekstaSkalo = 0o7/0o6;
   for ( let i = 0; i < faceUV.count; i++ ) {
-    faceUV.setXY(i,
-      ( facePoz.getX(i) - faceUjo.min.x ) / faceLargho,
-      ( facePoz.getY(i) - faceUjo.min.y ) / faceAlto);
+    const u = ( facePoz.getX(i) - faceUjo.min.x ) / faceLargho;
+    const v = ( facePoz.getY(i) - faceUjo.min.y ) / faceAlto;
+    faceUV.setXY(i, 0.5 + ( u - 0.5 ) * tekstaSkalo, 0.5 + ( v - 0.5 ) * tekstaSkalo);
   }
   faceUV.needsUpdate = true;
-  const face = new THREE.Mesh(
-    faceGeo,
-    new THREE.MeshBasicMaterial({ map: teksajxo, transparent: true, toneMapped: false })
-);
-  // La faco sidas klare ANTAUX la steleo-fronto ( la ekstrudo 0o5/0o40 profunda
-  // finigxas je d/2 + 0o111/0o100 ) — la malnova sama pozicio z-fajfis kun la
-  // malhela plato kaj la teksto flagris.
-  face.position.set(w * 0o13/0o40, signaY, d / 2 + 0o116/0o100); group.add(face);
+  const face = new THREE.Mesh(faceGeo, steleaTeksto(teksajxo));
+  // La faco sidas TUCXE antaux la fronto de la plato ( la ekstrudo 0o5/0o40
+  // profunda finigxas je d/2 + 0o111/0o100 ) — 0o1/0o300 ( ~0.005 ) da spaco
+  // suficxas por eviti z-fajfon, sed restas nevidebla de la flanko.
+  face.position.set(w * 0o13/0o40, signaY, d / 2 + 0o111/0o100 + 0o1/0o300); group.add(face);
 }
 
 // aldoniDiamantanSpegulon — Reflektu la konstruajxon suben (diamanta spegulo) kun
@@ -558,6 +972,53 @@ function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, group: T
   sceno.add(ring);
 }
 
+// aldoniTavolanRandon — La ORA rando ĉe la supro de unu tiera muro.
+// ⟨ RONDIGITAJ supraj randoj 📃 ⟩ — antaŭe kvar apartaj skatoloj ( du laŭ ĉiu
+// akso ) kun AKRAJ anguloj, kiuj renkontiĝis en la kvar anguloj de la tavolo.
+// Nun unu RONDIGITA kadro ( la sama formo kiel la ora bazplato de la sanktejo
+// kaj la vojoj ) ĉirkaŭas la tutan tavolon per unu senjunta bendo kun molaj
+// anguloj. La dikeco kaj la alto restas la samaj kiel la malnovaj stangoj, do la
+// rando aspektas idente — nur la anguloj rondiĝis.
+//     @param geos ( THREE.BufferGeometry[] ) - La kadraj geometrioj ( kunfandataj ).
+//     @param hw, hd ( number ) - La duon-larĝo kaj duon-profundo de la tavolo.
+//     @param y ( number ) - La malsupra nivelo de la tavolo.
+//     @param klino, tieroAlto ( number ) - La muro-deklivo kaj la tiera alto.
+// Elportita ( export ) ankaŭ por la inspektilo, kiu montras unu tavolon sola.
+export function aldoniTavolanRandon(geos: THREE.BufferGeometry[], hw: number, hd: number, y: number, klino: number, tieroAlto: number): void {
+  // ⟨ La rando estas TRE MALDIKA kaj havas LIPON 📃 ⟩ — la antaŭa bendo estis
+  // sola kaj 0.2 larĝa ( ĝi legiĝis kiel dika ora strio ĉirkaŭ la tavolo ). Nun
+  // ĝi estas maldika strio ( 0.125 larĝa, 0.031 alta ), kaj SUR la tavola supro
+  // kuŝas dua samforma tavolo — la LIPO — kiu leviĝas 0.025 super la supron. La
+  // du formas kune maldikan oran randon kun supra eĝo, anstataŭ platbenda
+  // ĉirkaŭaĵo. La kvar anguloj restas rondaj ( la sama kreiRondigitan... formo
+  // kiel la bazplato kaj la vojoj ).
+  const randoLargho = 0o1/0o10;   // 0.125 — la larĝo de la ora strio
+  const randoAlto = 0o1/0o40;     // 0.031 — la maldika vertikala strio
+  const lipoAlto = 0o1/0o50;      // 0.025 — la supra lipo
+  const randoR = 0o3/0o20;
+  // randoBendo — unu rondigita kadro el la sama formo, je la sama loko, kun
+  // propra alto kaj propria baza nivelo. La ena truo estas pli malgranda je la
+  // bendo-larĝo, kun la MALA ( CW ) ventumilo — kiel la porda truo en internoj.ts
+  // kaj la bazplato, por ke Earcut rekonu ĝin kiel truon.
+  const randoBendo = (alto: number, bazaY: number): void => {
+    const formo = kreiRondigitanRektangulanFormon(
+      ( hw - klino ) * 2 + randoLargho, ( hd - klino ) * 2 + randoLargho, randoR);
+    const truo = kreiRondigitanRektangulanFormon(
+      ( hw - klino ) * 2 - randoLargho, ( hd - klino ) * 2 - randoLargho,
+      Math.max(0o1/0o20, randoR - randoLargho)).getPoints(0o40);
+    formo.holes.push(new THREE.Path(truo.reverse()));
+    const geo = new THREE.ExtrudeGeometry(formo, { depth: alto, bevelEnabled: false, curveSegments: 0o40 });
+    // Plata ( rotaciita X ) — la dikeco fariĝas vertikala.
+    geo.rotateX(-Math.PI / 2);
+    geo.translate(0, bazaY, 0);
+    geos.push(geo);
+  };
+  // La maldika vertikala strio — ĝia supro estas la tavola supro.
+  randoBendo(randoAlto, y + tieroAlto - randoAlto);
+  // La lipo — sur la tavola supro, iomete levita super ĝin.
+  randoBendo(lipoAlto, y + tieroAlto);
+}
+
 // konstruiSatalon — Konstruu sxton-sxtupan piramidon (satalon) el specifaj tieroj kaj sub-teroj.
 //     @param spec ( KonstruSpec ) - Konstruajxa specifo kun grandeco, tipo, nombro da tieroj.
 //     @param sceno ( THREE.Scene ) - Sceno al kiu aldoni la konstruajxon.
@@ -575,17 +1036,14 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   const muraKoloro = T.wall, kadraKoloro = T.frame;
   const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
   // Klinitaj muroj. cxiu tavolo estas trapezoida (supro pli mallargxa ol bazo).
-  const klino = 0o5/0o20;
+  const klino = MURA_KLINO;
 
   for ( let i = 0; i < tiers; i++ ) {
     const hw = w / 2 - i * malpliiX, hd = d / 2 - i * malpliiZ, y = i * tieroAlto;
     const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto);
     tavolo.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(tavolo);
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
-    // Pli plata horizontala rando. la supraj kadraj stangoj estas pli maldikaj
-    // sed restas proksime al la supra rando (supro 0o1/0o100 sub gxi).
-    for ( const sZ of [ -1, 1 ] ) { const stango = new THREE.BoxGeometry(( hw - klino ) * 2 + 0o11/0o100, 0o3/0o40, 0o15/0o100); stango.translate(0, y + tieroAlto - 0o1/0o20, sZ * ( hd - klino )); kadrajGeometrioj.push(stango); }
-    for ( const sX of [ -1, 1 ] ) { const bar2 = new THREE.BoxGeometry(0o15/0o100, 0o3/0o40, ( hd - klino ) * 2 + 0o11/0o100); bar2.translate(sX * ( hw - klino ), y + tieroAlto - 0o1/0o20, 0); kadrajGeometrioj.push(bar2); }
+    aldoniTavolanRandon(kadrajGeometrioj, hw, hd, y, klino, tieroAlto);
   }
   // NENIUJ sub-teraj muroj/pilieroj por la ekstera konstruajxo — la sub-teraj
   // niveloj estas konstruataj nur de la interno ( eniriInternon konstruas siajn
@@ -603,8 +1061,24 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     () => new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "kasafeo" ? 0o41/0o100 : 0o3/0o4, metalness: 0, envMapIntensity: 0 }));
   const kadraMaterialo = konstruajxaMaterialo("kadro" + kadraKoloro,
     () => kreiOranMaterialon(kadraKoloro));
-  const eniraMaterialo = konstruajxaMaterialo("eniro",
-    () => kreiEniranMaterialon());
+  // ⟨ La pordo uzas la MURON mem 📃 ⟩ La folio ricevas kopion de la mura
+  // materialo kun malheleigita koloro ( kreiPordanMaterialon faras tion ), do la
+  // pordo havas la saman surfacon kiel sia muro, kun ĝia roughness, ĝia metalness
+  // kaj eĉ ĝiaj teksajxoj, kaj la mura koloro restas rekonebla. La cache-ŝlosilo
+  // inkluzivas la koloron, do la materialoj restas dividitaj inter la
+  // konstruaĵoj de la sama muro-koloro.
+  //
+  // ⟨ La VITRAJ pordoj 📃 ⟩ — la kunvenejo ( kasafeo ) kaj la stacidomo
+  // ( stacioxipo ) ricevas la VITRON de iliaj propraj fenestraj vicoj anstataŭ
+  // muran koloron, same kiel la kosmoŝipo ( kiu havas sian propran vitran eniran
+  // materialon en scena.ts ). Temas pri la sama triopo, kiu jam portas la LONGAn
+  // pilol-fenestran vicon — do la tri vitro-plenaj konstruaĵoj de la mondo ankaŭ
+  // havas vitrajn pordojn, dum la ŝtonaj domoj, turoj kaj sanktejoj restas kun
+  // siaj mur-koloraj pordoj.
+  const vitraPordo = typeKey === "kasafeo" || typeKey === "stacioxipo";
+  const eniraMaterialo = vitraPordo
+    ? fenestraMaterialo()
+    : konstruajxaMaterialo("eniro" + muraKoloro, () => kreiPordanMaterialon(muraMaterialo));
 
   const muroj = new THREE.Mesh(kunfandiGeometriojn(murajGeometrioj), muraMaterialo);
   muroj.castShadow = muroj.receiveShadow = true;
@@ -615,7 +1089,10 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
 
   // Uniforma enirejo por cxiuj tipoj — reuzebla komponanto. La sanktejo ricevas
   // pordojn sur CXIUJ kvar flankoj ( turnitaj kopioj de la sama pordo ).
-  aldoniEnirejon(group, d, kadraMaterialo, eniraMaterialo, typeKey === "sanktejo" ? 4 : 1);
+  // La centra konstruajxo ( sanktejo ) ricevas la nagxetojn ce siaj pordoj — la
+  // triangulaj platoj, kiuj levigxas de la baza plato al la porda kadro.
+  aldoniEnirejon(group, d, kadraMaterialo, eniraMaterialo,
+    typeKey === "sanktejo" ? 4 : 1, tieroAlto, typeKey === "sanktejo");
 
   if ( typeKey === "sanktejo" ) {
     const pintajxo = new THREE.Mesh(new THREE.ConeGeometry(supraLargho * 0o43/0o100, 0o63/0o40, 4).rotateY(Math.PI / 4), kadraMaterialo);
@@ -664,14 +1141,28 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   if ( typeKey === "kasafeo" || typeKey === "stacioxipo" ) {
     const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
     const vitro = fenestraMaterialo();
+    // ⟨ UNU marĝena nombro por la tuta konstruaĵo 📃 ⟩ La nombro estas kalkulita
+    // unufoje ( fenestraMargxeno ) kaj ĉiuj tavoloj uzas ĝin TIEL, sen multipliko
+    // aux divido per sia propra faco. La libera spaco ĉe la anguloj estas do la
+    // sama nombro ĉien kaj ĝi VIDEBIAS. La fenestra alto ne ŝanĝiĝas, do la
+    // fenestroj mallongiĝas precize per la sama kvanto, kiun mallongiĝas la tavoloj.
+    const facoLarga = Math.min(w / 2, d / 2) - klino / 2;
+    const fenMargxeno = fenestraMargxeno(facoLarga);
     for ( let i = 0; i < tiers; i++ ) {
       const hwT = w / 2 - i * malpliiX, hdT = d / 2 - i * malpliiZ;
       const faco = Math.min(hwT, hdT) - klino / 2;
+      // ⟨ Tavolo tro mallarĝa 📃 ⟩ Se la sama marĝeno ne lasas lokon por
+      // horizontala fenestro, la tavolo ricevas VERTIKALAN fenestron — la tavola
+      // alto donas la longan mezuron. Nur se eĉ la mallonga mezuro ne enirus
+      // ( la vitro kun la bendo ), la tavolo restas sen fenestro.
+      const horizontala = faco * 2 - fenMargxeno * 2 >= fenAlto;
+      if ( !horizontala && faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
       const yC = i * tieroAlto + tieroAlto / 2;
       for ( let f = 0; f < 4; f++ ) {
         if ( i === 0 && f === 0 ) continue;
         aldoniPilolFenestron(group, kadraMaterialo, vitro, f, yC, faco,
-          klino, tieroAlto, fenAlto);
+          klino, tieroAlto, fenAlto, false, horizontala ? fenMargxeno : undefined,
+          !horizontala);
       }
     }
   }
@@ -706,13 +1197,17 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   if ( sube > 0 && typeKey === "sanktejo" ) {
     // Rondigita ora bazplato — kvadrata kadro kun RONDIGITAJ anguloj cxirkaux la
     // piedo de la konstruajxo ( la malnovaj kvar rektaj stangoj formis akrajn
-    // angulojn ). La sama dikeco ( 0o1/0o2 ) kaj alto ( 0o23/0o100 ) kiel la
-    // malnovaj stangoj, sed unu kontinua kadro kun molaj anguloj.
+    // angulojn ).
+    // ⟨ La bazo estas PLI PLATA 📃 ⟩ — la antaŭa plato altis 0.297 kaj estis
+    // centrita je 0.094, do gxi elstaris 0.24 super la grundo kiel sojlo. Nun gxi
+    // estas 0.125 alta kaj kusxas SUR la grundo ( de 0 gxis 0.125 ), do la tuta
+    // bazajxo legigxas kiel plata oro-bordita plato, ne kiel stupo.
     const kadroW = w + 0o72/0o100, kadroD = d + 0o72/0o100;  // ekstera rando je d/2 + 0o35/0o100
     const dikeco = 0o1/0o2;                                  // 0.5 — sama kiel la malnova stango
     // 0.5 — modesta rondigo. la kadra angulo atingas la diagonalajn angulpilierojn
     // ( la malnova 1.0 fortrancxis la kadron sub la pilieroj ).
     const rAnguloj = 0o1/0o2;
+    const platoAlto = 0o1/0o10;                              // 0.125 — plata
     const kadroFormo = kreiRondigitanRektangulanFormon(kadroW, kadroD, rAnguloj);
     // La ena truo estas la sama rondigita kvadrato, pli malgranda je la dikeco,
     // kun la MALA ( CW ) ventumilo — kiel la porda truo en internoj.ts, por ke
@@ -721,14 +1216,11 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
       kadroW - dikeco * 2, kadroD - dikeco * 2, Math.max(0o1/0o20, rAnguloj - dikeco)
 ).getPoints(0o40);
     kadroFormo.holes.push(new THREE.Path(ena.reverse()));
-    const kadroGeo = new THREE.ExtrudeGeometry(kadroFormo, { depth: 0o23/0o100, bevelEnabled: false, curveSegments: 0o40 });
-    // Plata ( rotaciita X ) — la dikeco farigxas vertikala, kaj la kadro sidas
-    // centrita je la sama nivelo kiel la malnova stango ( 0o3/0o40 ).
+    const kadroGeo = new THREE.ExtrudeGeometry(kadroFormo, { depth: platoAlto, bevelEnabled: false, curveSegments: 0o40 });
+    // Plata ( rotaciita X ) — la dikeco farigxas vertikala, kaj la plato kusxas
+    // rekte sur la grundo ( gxia bazo je y = 0 ).
     kadroGeo.rotateX(-Math.PI / 2);
-    kadroGeo.translate(0, -0o23/0o200, 0);
-    const kadro = new THREE.Mesh(kadroGeo, kadraMaterialo);
-    kadro.position.y = 0o3/0o40;
-    group.add(kadro);
+    group.add(new THREE.Mesh(kadroGeo, kadraMaterialo));
   }
 
   group.position.set(spec.x, spec.h0 || 0, spec.z);

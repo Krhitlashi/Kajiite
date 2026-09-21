@@ -3,22 +3,66 @@
 // 5 tieroj supren, 5 malsupren (spegulitaj), LONGAs horizontalaj RONDIGITAJ fenestroj
 // sur cxiu nivelo krom la centra ( kie la pordoj estas ); flosas libere sen soklo aux signo
 import * as THREE from "three";
-import { aldoniKadranTubon, kreiKlinoTavolon,
-  aldoniPilolFenestron } from "./satalaj-konstruajxoj.js";
+import { aldoniKadranTubon, kreiKlinoTavolon, kreiKadranKurbon,
+  aldoniPilolFenestron, fenestraMargxeno } from "./satalaj-konstruajxoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
+import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
 
-// Rondigita rombo-formo ( uzata por enirejoj )
-function rondigitaRomboFormo(w: number, h: number, n: number = 0o143/0o100, seg: number = 0o100): THREE.Shape {
-  const hw = w / 2, hh = h / 2;
+// ⟨ La duporda formo 📃 ⟩ — la enirejo de la kosmosxipo havas la SAMajn mezurojn
+// kiel DU konstruajxaj pordoj ( aldoniEnirejon en satalaj-konstruajxoj ), unu el
+// ili spegulita vertikale kaj stakigita super la alia. La du pordoj kunigxas cxe
+// siaj LARGXAJ bazoj, do la formo estas alta pordo kies plej LARGXA parto estas la
+// MEZO — gi mallargxigxas al la du finoj. Tiel gi spegulas la silueton de la sxipo
+// mem ( kiu same estas plej largxa cxe la centro kaj pintigxas supren kaj
+// malsupren ), kaj cxiu duono legigxas kiel vera pordo — la supra staranta, la
+// malsupra gia spegulo.
+//
+// ⟨ Kial ne sablohorlogxo 📃 ⟩ — la unua versio kunigis la du pordojn cxe iliaj
+// MALLARFXAJ finoj. Tio montrigxis malgusta duoble. Unue la sxipo staras duone
+// sub la grundo, do oni vidas nur la SUPRAN duonon de la pordo, kaj kun la talio
+// meze tiu videbla duono estis pordo renversita ( mallargxa malsupre, largxa
+// supre ). Due la talio mem kontrauxdiris la silueton de la sxipo.  Kun la bazoj
+// kune, la videbla supra duono estas tute normala pordo — largxa bazo malsupre,
+// mallargxa supro supre.
+//
+// La largho estas la largho de la bazo de UNU pordo ( 0o233/0o100 ), la alto estas
+// la alto de DU ( 2 × 0o11/0o4 ), kaj la kvar anguloj ricevas la SAMAN radiuson
+// kiel la pordokadro ( 0o1/0o4 ). La konturo estas SIMETRIA duoble — spegulita
+// horizontale ( y → -y ) kaj vertikale ( x → -x ) — do la du pordoj vere legigxas
+// kiel speguloj de la sama pordo. La formo estas centrita je y = 0 ( kiel la
+// malnova rombo ), do la pordo restas centrita sur la spegula centro de la sxipo,
+// kaj la konturo movigxas kontrauxhorlogxe, kiel la ekstera pordo ( la sama
+// konvencio por Earcut ).
+//     @param blokoLargho ( number ) - La largho de la bazo de UNU pordo.
+//     @param tw ( number ) - La largho de la mallargxa supro de UNU pordo.
+//     @param eh ( number ) - La alto de UNU pordo ( la duono de la tuta formo ).
+//     @param r ( number ) - La rondigita angulo cxe la kvar anguloj.
+// @returns formo
+function rondigitaDupordaFormo(blokoLargho: number, tw: number, eh: number,
+  r: number): THREE.Shape {
   const s = new THREE.Shape();
-  const e = 2 / n;
-  for ( let i = 0; i <= seg; i++ ) {
-    const a = i / seg * Math.PI * 2;
-    const ca = Math.cos(a), sa = Math.sin(a);
-    const x = Math.sign(ca) * Math.pow(Math.abs(ca), e) * hw;
-    const y = Math.sign(sa) * Math.pow(Math.abs(sa), e) * hh;
-    if ( i === 0 ) s.moveTo(x, y); else s.lineTo(x, y);
-  }
+  const hb = blokoLargho / 2, ht = tw / 2;
+  // La deklivo de la pordaj flankoj — la sama kiel cxe la konstruajxa pordo.
+  const sl = ( hb - ht ) / eh;
+  const d = sl * r;
+  // La malsupra fino — la mallargxa supro de la malsupra ( spegulita ) pordo.
+  s.moveTo(-ht + r, -eh);
+  s.lineTo(ht - r, -eh);
+  s.quadraticCurveTo(ht, -eh, ht + d, -eh + r);
+  // La flanko de la malsupra pordo — gi plilarghigxas supren al la bazo.
+  s.lineTo(hb - d, -r);
+  // La MEZO — la du bazoj de la pordoj kunigxas kaj la formo estas plej largxa.
+  s.quadraticCurveTo(hb, 0, hb - d, r);
+  // La flanko de la supra pordo — gi mallargxigxas supren al la pinto.
+  s.lineTo(ht + d, eh - r);
+  s.quadraticCurveTo(ht, eh, ht - r, eh);
+  s.lineTo(-ht + r, eh);
+  s.quadraticCurveTo(-ht, eh, -ht - d, eh - r);
+  s.lineTo(-hb + d, r);
+  s.quadraticCurveTo(-hb, 0, -hb + d, -r);
+  s.lineTo(-ht - d, -eh + r);
+  s.quadraticCurveTo(-ht, -eh, -ht + r, -eh);
+  s.closePath();
   return s;
 }
 
@@ -29,7 +73,7 @@ export interface Krasesxagxo {
   doorDir: THREE.Vector3;
 }
 
-// konstruiKrasesxagxon — Konstruu la kosmosxipon kun diamant-formaj enirejoj kaj LONGAs horizontalaj rondigitaj fenestroj.
+// konstruiKrasesxagxon — Konstruu la kosmosxipon kun DUPORDAJ enirejoj ( du spegulitaj pordoj stakigitaj ) kaj LONGAs horizontalaj rondigitaj fenestroj.
 export function konstruiKrasesxagxon(sceno: THREE.Scene,
   x: number, y: number, z: number,
   oraMaterialo: THREE.MeshStandardMaterial,
@@ -43,9 +87,13 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   const muraMaterialo = new THREE.MeshStandardMaterial({
     color: 0x184838, roughness: 0o33/0o100, metalness: 0o5/0o100, envMapIntensity: 0o23/0o40,
   });
-  const fenestraMaterialo = new THREE.MeshStandardMaterial({
-    color: 0x082828, emissive: 0x103838, emissiveIntensity: 0o15/0o40, roughness: 0o5/0o40, metalness: 0o15/0o100,
-  });
+  // ⟨ La sama vitro kiel la urbo 📃 ⟩ La ŝipo antaŭe havis sian propran vitron
+  // kun alia nuanco ( 0x082828 kaj pli forta emisio ), do la fenestroj de la ŝipo
+  // kaj tiuj de la konstruaĵoj ne vere aspektis kiel la sama materialo. Nun la
+  // difino venas el la komuna fabriko. La instanco tamen restas propra, ĉar la
+  // flugo pulsas ĝian emision ( animaciiKrasesxagxon ) kaj la pulso ne rajtas
+  // tuŝi la fenestrojn de la tuta urbo.
+  const fenestraMaterialo = kreiFenestranMaterialon();
 
   const murajGeometrioj: THREE.BufferGeometry[] = [];
   const kadrajGeometrioj: THREE.BufferGeometry[] = [];
@@ -84,28 +132,48 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   group.add(muroj);
   group.add(new THREE.Mesh(kunfandiGeometriojn(kadrajGeometrioj), oraMaterialo));
 
-  // Rondigitaj rombo-pordoj sur CxIUJ 4 flankoj, CENTRITAJ je y=0 ( la spegula
+  // La dupordaj enirejoj sur CxIUJ 4 flankoj, CENTRITAJ je y=0 ( la spegula
   // centro de la sxipo ). La pordoj speguligxas supren kaj suben, kaj la centraj
   // tavoloj (kie la pordoj estas) ricevas neniun fenestron.
-  const rombaFormo = rondigitaRomboFormo(0o223/0o100, 0o30/0o10);
+  const pordFormo = rondigitaDupordaFormo(0o233/0o100, 0o233/0o100 * 0o45/0o100, 0o11/0o4, 0o1/0o4);
+  // ⟨ La pordo havas la SAMAN dikecon kiel la konstruajxa 📃 ⟩ Antaŭe la
+  // kosmosxipa pordo estis bloko 0.6 profunda, do ĝi elstaris kiel kofro sur la
+  // sxipo, kaj la ora kadro flosis aparte antaŭ ĝi. Nun la folio estas
+  // 0o7/0o100 ( 0.109375 ) kun la sama eta bevelo ( 0o1/0o40 ) kiel aldoniEnirejon
+  // en satalaj-konstruajxoj.ts, do la kosmosxipa pordo kaj la konstruajxa pordo
+  // apartenas al la sama dikeco.
+  const pordDikeco = 0o7/0o100, pordBevelo = 0o1/0o40;
+  const pordDikecoTuta = pordDikeco + pordBevelo * 2;
+  // ⟨ Kie sidas la porda ebeno 📃 ⟩ La muroj KLINIGXAS, pli mallargxaj ju pli for
+  // de la centro, do la fronta faco de la sxipo estas kresto kiu elstaras plej
+  // multe cxe la talio ( y=0 ). Plata plato povas kusxi gxuste sur unu sola alto,
+  // do ni metu ĝin cxe la talion. Tie ĝi entombiĝas 0.046875 en la muron, same
+  // kiel la konstruajxa pordo entombiĝas 0.046875 en sian muron, kaj ĝi elstaras
+  // 0.125 de la sxipo, same kiel la doma pordo.
+  const pordaRadiuso = hw0 - 0o1/0o100;
   for ( let f = 0; f < 4; f++ ) {
-    const enirejaGeometrio = new THREE.ExtrudeGeometry(rombaFormo, {
-      depth: 0o4/0o10, bevelEnabled: true, bevelSize: 0o1/0o20, bevelThickness: 0o1/0o20,
-      bevelSegments: 2, curveSegments: 0o14,
+    const enirejaGeometrio = new THREE.ExtrudeGeometry(pordFormo, {
+      depth: pordDikeco, bevelEnabled: true, bevelSize: pordBevelo, bevelThickness: pordBevelo,
+      bevelSegments: 2, curveSegments: 0o20,
     });
     const enirejaMreto = new THREE.Mesh(enirejaGeometrio, eniraMaterialo);
     enirejaMreto.rotation.y = f * Math.PI / 2;
-    enirejaMreto.position.set(Math.sin(f * Math.PI / 2) * ( hw0 - 0o1/0o100 ), 0,
-      Math.cos(f * Math.PI / 2) * ( hw0 - 0o1/0o100 ));
+    enirejaMreto.position.set(Math.sin(f * Math.PI / 2) * pordaRadiuso, 0,
+      Math.cos(f * Math.PI / 2) * pordaRadiuso);
     group.add(enirejaMreto);
 
-    // Ora ornama konturo
-    const konturo = rombaFormo.getPoints(0o30).map(p => new THREE.Vector3(p.x, p.y, 0));
-    const ornamo = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "catmullrom", 0o23/0o40), 0o60, 0o1/0o20, 6, true),
+    // ⟨ La ora konturo 📃 ⟩ La tubo sekvas la konturon de la formo MEM
+    // ( kreiKadranKurbon ) kaj estas RONDA ( 0o14 flankoj ). Nun ĝi kuŝas sur la
+    // MEZA ebeno de la folio kaj ĝia radio egalas la DUONON de la tuta dikeco, do
+    // la kadro ĉirkaŭas la tutan eksteran randon de la pordo, antaŭe, malantaŭe
+    // kaj flanke. Antaŭe la tubo sidis en aparta ebeno 0.044 antaŭ la fronta faco
+    // de la folio, do ĝi nur premis sin sur tiun facon anstataŭ ĉirkaŭi la randon.
+    const kadraKurbo = kreiKadranKurbon(pordFormo, pordDikeco / 2);
+    const ornamo = new THREE.Mesh(new THREE.TubeGeometry(kadraKurbo, 0o200, pordDikecoTuta / 2, 0o14, true),
       oraMaterialo);
     ornamo.rotation.y = f * Math.PI / 2;
-    ornamo.position.set(Math.sin(f * Math.PI / 2) * ( hw0 + 0o4/0o10 ), 0,
-      Math.cos(f * Math.PI / 2) * ( hw0 + 0o4/0o10 ));
+    ornamo.position.set(Math.sin(f * Math.PI / 2) * pordaRadiuso, 0,
+      Math.cos(f * Math.PI / 2) * pordaRadiuso);
     group.add(ornamo);
   }
 
@@ -127,11 +195,24 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   for ( let j = 2; j <= down; j++ ) {
     niveloj.push({ y: -j * tieroAlto + tieroAlto / 2, faco: hw0 - ( j - 1 ) * ins - klino / 2, suba: true });
   }
+  // ⟨ UNU marĝena nombro por la tuta sxipo 📃 ⟩ Kiel ĉe la konstruaĵoj, la nombro
+  // estas kalkulita unufoje ( fenestraMargxeno ) kaj ĉiuj niveloj uzas ĝin TIEL,
+  // sen multipliko per sia propra ringo. La libera spaco ĉe la anguloj estas la
+  // sama nombro ĉien, la fenestra alto ne ŝanĝiĝas, kaj la pinto-ringoj restas sen
+  // fenestro ( same kiel la pinta tavolo de la kunvenejo ).
+  const facoPlejLarga = hw0 - ins - klino / 2;
+  const fenMargxeno = fenestraMargxeno(facoPlejLarga);
   const fenestrajMretoj: THREE.Mesh[] = [];
   for ( const lv of niveloj ) {
+    // ⟨ Ringo tro mallarĝa 📃 ⟩ Same kiel ĉe la konstruaĵoj — la pintaj ringoj
+    // ricevas VERTIKALAN fenestron, ĉar horizontala ne plu enirus kun la sama
+    // marĝeno. La ringa alto donas la longan mezuron.
+    const horizontala = lv.faco * 2 - fenMargxeno * 2 >= fenAlto;
+    if ( !horizontala && lv.faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
     for ( let f = 0; f < 4; f++ ) {
       fenestrajMretoj.push(aldoniPilolFenestron(group, oraMaterialo, fenestraMaterialo,
-        f, lv.y, lv.faco, klino, tieroAlto, fenAlto, lv.suba));
+        f, lv.y, lv.faco, klino, tieroAlto, fenAlto, lv.suba,
+        horizontala ? fenMargxeno : undefined, !horizontala));
     }
   }
 
@@ -165,7 +246,8 @@ export function animaciiKrasesxagxon(ship: Krasesxagxo,
   ship.group.rotation.y += 0o0/0o10;
   ship.group.rotation.z = Math.sin(t * 0o2/0o10) * 0o1/0o40;
 
-  // Pulso de fenestroj dum flugo
+  // Pulso de fenestroj dum flugo. La pulso SUPERREGAS la bazan emision de la
+  // komuna vitro ( 0o3/0o20 ) dum la flugo, do la ŝipo vere lumiĝas supren.
   if ( isFlying ) {
     const pulso = 0o23/0o100 + 0o15/0o100 * Math.sin(t * 3);
     const fenestraMaterialo = ship.windows[0]?.material as THREE.MeshStandardMaterial;

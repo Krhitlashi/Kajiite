@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { alteco, akvaNivelo, akvaNiveloProksima, glataPaso } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
-import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiEniranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
+import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiFenestranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
 import { kreiTerenanTeksajxon, kreiNebulTavolanTeksajxon,
   kreiGrundanTeksajxon, kreiGrundanBumpanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
 import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
@@ -11,6 +11,7 @@ import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
 import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,
   MONDO_BAZA_Y } from "../assets/komunajxoj/mapformo.js";
 import { aktivaMapo } from "./tero-datumaro/mapregulo.js";
+import { gxisdatigiSteleanVitron } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
 
 export function montriEraronon(sxargxaEl: HTMLElement): void {
   const d = document.createElement("div");
@@ -70,6 +71,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // La frua bildigo okazas antaŭ la buklo — ĝi jam havu ombrojn.
   bildilo.shadowMap.needsUpdate = true;
   bildilo.setPixelRatio(Math.min(devicePixelRatio, 2));
+  // ⟪ La transira pasumo 📃 ⟫ — la steleaj signoj estas veraj transiraj vitroj
+  // (`transmission`, vidu steleaVitro), kaj tiu materialo devigas la bildilon
+  // re-desegni la tutan maldiafanan scenon en apartan bufron. Mezurite per
+  // ?statistiko tiu dua pasumo kostas 354 desegnajn alvokojn kaj 21.6 M da
+  // trianguloj po kadro — pli ol triono de la tuta geometria laboro. La bufero
+  // de tiu pasumo estas tamen plena MALKLAZAĴO ( la vitro frostigxas ), do ni
+  // desegnas gxin je KVARONO de la denso: la fragmenta kosto de la pasumo falas
+  // al deksesono, kaj la pli malalta rezolucio NE videblas — la malklareco mem
+  // kasxas gxin ( ĝi eĉ aspektas pli frosta ).
+  bildilo.transmissionResolutionScale = 0o1/0o4;
   // Plenekrana kanvaso EKDE la kreo. Sen tio la bildilo restas je la defaŭlta
   // 300×150 — la frua bildigo ( dum la sxargxa kurtino ) desegnis malgrandan
   // keston supre-maldekstre gxis la unua kadro de la ĉefa buklo regrandigis.
@@ -306,8 +317,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   function gxisdatigiOmbron( x: number, z: number ): boolean {
     if ( x === ombraCentroX && z === ombraCentroZ ) return false;
     ombraCentroX = x; ombraCentroZ = z;
+    // ⟨ Ĉu la ombro-mapo VERE devas re-desegniĝi 📃 ⟩ — la lumo mem sidas sur la
+    // KVANTIGITA krado ( aplikiOmbranCentron rondigas la flankajn koordinatojn al
+    // la ombra tekselo ), do gliti tra unu tekselon sxangxas la lumon NENIEL.
+    // La malnova versio raportis "moviĝis" pri ĉiu eta sxangxo de la vidpunkto,
+    // do dum irado la tuta ombra pasumo ( 477 alvokoj kaj 8.3 M da trianguloj
+    // por ĉiu ombra kadro — la plej peza unuopa parto de la kadro ) plenumiĝis
+    // ĉiukadre. Nun gi plenumiĝas nur kiam la KVANTIGITA centro vere sxangxigxis.
+    const antaŭaX = OMBRA_CENTRO.x, antaŭaZ = OMBRA_CENTRO.z;
     aplikiOmbranCentron();
-    return true;
+    return OMBRA_CENTRO.x !== antaŭaX || OMBRA_CENTRO.z !== antaŭaZ;
   }
 
   function aplikiAtmosferon(): void {
@@ -341,7 +360,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     sunaSprajto.position.copy(sunDir).multiplyScalar(0o510);
     sunaSprajto.material.color.copy(suno.color);
     sunaSprajto.material.opacity = l(d.tago.sprajtaOp, d.krepusko.sprajtaOp);
+    // La kosmosxipa pordo ( vitra materialo ) brilas pli forte nokte — la
+    // emisio devenas de la materialo ( bluverda vitro ), do nur la intenseco
+    // transiras.
     eniraMaterialo.emissiveIntensity = l(0o3/0o100, 0o52/0o100);
+    // La frostigita vitro de la steleaj signoj sekvas la saman ciklon — blanka
+    // tage, nigra en la nokto ( vidu gxisdatigiSteleanVitron ).
+    gxisdatigiSteleanVitron(t);
   }
 
   function aplikiRezimon(t: number): void {
@@ -381,7 +406,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // ĉirkaŭan medion pli forte por la brila poluro.
   const dioritaMaterialo = kreiDioritanMaterialon(undefined, 0o6/0o10);
   const andezitaMaterialo = kreiAndezitanMaterialon();
-  const eniraMaterialo = kreiEniranMaterialon();
+  // ⟨ La pordo de la kosmosxipo estas VITRO 📃 ⟩ — ĉi tiu materialo iras nur al
+  // la kosmosxipa enirejo ( vidu konstruiMetitajnObjektojn en urbo.ts ). La
+  // konstruaĵaj pordoj prenas malhelan version de sia propra mura koloro, sed la
+  // sxipo — kiel la kunvenejo — ricevas la KOLORON DE LA VITRO, la saman vitron
+  // kiel la konstruaĵaj fenestroj. La tagnokta lerpo sube ( emissiveIntensity )
+  // do nun briligas la bluverdan emision de la vitro nokte anstataŭ oranĝon.
+  const eniraMaterialo = kreiFenestranMaterialon();
   const oraMaterialo = kreiOranMaterialon(0xd8b068);
 
   // kreiPunktsistemon — Komuna fino de la veteraj partiklo-sistemoj. La
@@ -1131,9 +1162,18 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     // markoj. La teksturo ne estas mapaĵo de la tuta tereno kaj ne ripetiĝas
     // kiel kahelo; ĉiu brosxo ricevas propran lokan grandecon kaj formon.
     const brosxaTeksajxo = kreiTerenanTeksajxon();
+    // ⟨ La glitado de la brosxoj 📃 ⟩ — la brosxoj kusxas sur la tereno per eta
+    // levigxo ( 0o1/0o100 ) kaj sen propra profundo-skribo. La terena reto tamen
+    // havas verticojn nur cxiujn 4 unuojn, do inter la verticoj gxi interkalkulas
+    // la altecon alie ol la brosxo ( kiu legas la VERAN altecon ) — la brosxo
+    // perdas la profundo-teston laux mallargxaj strioj kaj la tereno montrigxas
+    // tra ili kiel NIGRAJ LINIOJ. PolygonOffset ( la sama ilo kiel cxe la vojoj en
+    // vojoj.ts ) forpuxas la brosxon antaŭ la terenon sendepende de la levigxo, do
+    // la makuloj restas unu kontinua tavolo.
     const brosxaMaterialo = new THREE.MeshStandardMaterial({
       map: brosxaTeksajxo, color: 0xffffff, transparent: true,
       alphaTest: 0o1/0o10, depthWrite: false, side: THREE.DoubleSide, roughness: 1,
+      polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1,
     });
     const brosxoj = new THREE.Group();
     const brosxaNombro = 0o30;

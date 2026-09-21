@@ -245,6 +245,14 @@ function konstruiSegmenton(x1: number, z1: number, x2: number, z2: number,
   bufroj.kunigi(sceno);
 }
 
+// VOJA_SUPRO_LEVIGXO — Kiom la SURFACO de vojo kusxas super la heightFn, kiun
+// gxi ricevas: la eta klareco super la tereno ( 0o1/0o100 ) kaj la baza dikeco de
+// la rubando ( 0o2/0o10, la valoro, kiun konstruiVojojn transdonas kiel
+// dikecoBaza ). Aliaj moduloj importas gxin, kiam iliaj propraj suproj devas
+// kongrui kun vojo — la ponta heightFn ( urbo.ts ) subtrahas gxin, do la ponta
+// deko finigxas GXUSTE cxe la renkontajxaj platformaj suproj.
+export const VOJA_SUPRO_LEVIGXO = 0o1/0o100 + 0o2/0o10;
+
 // konstruiVojojn — Konstruu cxiujn vojsegmentojn kun dioritaj suprajoj kaj andezitaj randoj.
 export function konstruiVojojn(sceno: THREE.Scene,
   defs: VojDifino[],
@@ -353,7 +361,7 @@ function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: numb
     const h1b = heightFn(sx2 + latX, sz2 + latZ);
     const maks0 = Math.max(h0a, h0b), minimum0 = Math.min(h0a, h0b);
     const maks1 = Math.max(h1a, h1b), minimum1 = Math.min(h1a, h1b);
-    const s0 = maks0 + 0o1/0o100 + dikecoBaza;
+    const s0 = maks0 + 0o1/0o100 + dikecoBaza;   // = maks0 + VOJA_SUPRO_LEVIGXO por vojoj
     const s1 = maks1 + 0o1/0o100 + dikecoBaza;
     const difo = s1 - s0;
     // Registru la piedeblan supraĵon de ĉi tiu ŝtupo — la plata eskalera
@@ -471,8 +479,11 @@ function kreiRondanKapGeometrion(internaRadiuso: number, eksteraRadiuso: number,
 // konstruiRondajnKapojn — DUONCIRKLAJ ĉapoj ĉe la donitaj vojo-finoj de la
 // doka bordo, elstarantaj en la direkto kiu daŭrigas la vojon. la du
 // kajo-finoj ( okcidente en la arbaro, oriente sur la seka bordo ) bulas
-// preter la fino, kaj la tri dokaj landrandoj bulas SUDEN sur la platformon
-// ( la doko estas voja etendo, do la ĉapo rondigas la transiron ). La disko
+// preter la fino. ( La dokaj landrandoj KUTIMIS ricevi ĉapojn, kiuj bulis
+// suden sur la platformon — la doko estas voja etendo, do la ĉapo rondigis la
+// transiron — sed ili montriĝis kiel arko INTERNE de ĉiu doko, do la ludo
+// nun konstruas la kapojn nur ĉe la du kajo-finoj; la turnitaj dokoj de la
+// malproksima riverbordo havas nenian vojon. ) La disko
 // ( 0o7/0o10 = la diorita centro ) kaj la ringo ( 0o7/0o10..0o13/0o10 = la
 // andezita bordo ) estas EKSTRUDITAJ per la sama dikeco kiel la voja strio
 // ( 0o2/0o10 ) kaj poziciitaj ĉe la terena nivelo. la videbla supro sidas

@@ -11,8 +11,9 @@
 
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { KonstruSpec, TIPARO } from "./satalaj-konstruajxoj.js";
+import { KonstruSpec, TIPARO, kreiKadranKurbon } from "./satalaj-konstruajxoj.js";
 import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
+import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
 import { kreiPilolFenestranFormon } from "../komunajxoj/formoj.js";
 import { deksesuma } from "../vestaro/vestoj.js";
 import { nomoAih } from "../../src/tradukoj.js";
@@ -1100,11 +1101,9 @@ export function eniriInternon(
     color: 0x081008, roughness: 0o67/0o100,
   });
   const kadraMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o7/0o10, roughness: 0o13/0o40 });
-  const fenestraMaterialo = new THREE.MeshStandardMaterial({
-    color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
-    roughness: 0o3/0o20, metalness: 0o3/0o20,
-    transparent: true, opacity: 0o7/0o10,
-  });
+  // La sama vitro kiel la ekstera ( kreiFenestranMaterialon ). Antaŭe la difino
+  // estis kopiita ĉi tien, do ŝanĝo de la ekstera vitro ne atingis la internon.
+  const fenestraMaterialo = kreiFenestranMaterialon();
   // Stupoj — malheligita versio de la konstruajxa muro-koloro.
   const sxtupMaterialo = new THREE.MeshStandardMaterial({
     color: parseInt(malheligi(deksesuma(muraTipo.wall), 0o6/0o10).slice(1), 16), roughness: 0o67/0o100,
@@ -1138,7 +1137,8 @@ export function eniriInternon(
 
     // Dimensioj de la EKSTERAN pordo sur la fronta muro (aldoniEnirejon) —
     // uzataj de la pordmalfermo, la lampoj kaj la plato. Neniu margineto.
-    // la porda bevelo (0o5/0o100) kuŝas en la muro aŭ antaŭ ĝi, do la truo
+    // la porda bevelo (0o1/0o40) kaj la maldika folio kuŝas en la muro aŭ antaŭ
+    // ĝi, do la truo
     // kongruas al la PLATA pordokorpo (la malnova margineto lasis videblan
     // interspacon ĉirkaŭ la pordo).
     const pordBazo = 0o233/0o100;
@@ -1187,16 +1187,17 @@ export function eniriInternon(
     if ( et === 0 ) {
       // Pordo-formo kongruas EXAKTE al la EKSTERAN pordo ( aldoniEnirejon ).
       // rondigita trapezoido — bazo 0o233/0o100, supro ×0o45/0o100, alto
-      // 0o11/0o4, kun la SAMAJ rondigitaj anguloj (0o3/0o20 baze, 0o1/0o10
-      // supre). La malnova rektangula truo kun arko montris la trapezan pordon
+      // 0o11/0o4, kun la SAMAJ rondigitaj anguloj ( ĉiuj kvar je 0o1/0o4,
+      // samkiel la ekstera kadro, kiu nun estas SIMETRIA ). La malnova
+      // rektangula truo kun arko montris la trapezan pordon
       // en kvadrata eltranĉo, do la malfermo mem estas la trapezo. Tro granda
       // margeno lasis malplenan interspacon ĉirkaŭ la pordo kaj super ĝi.
-      const pordSupro = 0o233/0o100 * 0o45/0o100;             // ≈ 1.09
+      const pordSupro = 0o233/0o100 * 0o45/0o100;             // ≈ 1.4
       // Sama alto kiel la pordo, sed neniam super la plafono de mallonga
       // etaĝo — alie la truo elstarus el la muro-rektangulo (degenera formo).
       const pordAlto = Math.min(0o11/0o4, alto - 0o1/0o10);  // ≈ 2.25, sama kiel la pordo
-      const pordRadiBazo = 0o3/0o20;                         // samaj rondigitaj anguloj
-      const pordRadiSupro = 0o1/0o10;                        // kiel la ekstera pordo
+      const pordRadiBazo = 0o1/0o4;                          // samaj rondigitaj anguloj
+      const pordRadiSupro = 0o1/0o4;                         // kiel la ekstera pordo
       const muraDikeco = 0o3/0o20;
       const pordMuro = new THREE.Group();
 
@@ -1213,11 +1214,13 @@ export function eniriInternon(
       pordMuro.add(muro);
 
       // Ora rando laŭ la trapezoida konturo — tubo ĝuste antaŭ la interna
-      // muro-faco (sama ideo kiel la ekstera ora rando ĉirkaŭ la pordo).
-      const truKonturo = kreiTrapezanPordTruon(pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro)
-        .getPoints(0o100).map(( pt: THREE.Vector2 ) => new THREE.Vector3(pt.x, pt.y, 0));
+      // muro-faco (sama ideo kiel la ekstera ora rando ĉirkaŭ la pordo), kaj nun
+      // la SAMA ronda tubo kaj la sama sinteno sur la konturo ( kreiKadranKurbon )
+      // kiel la ekstera kadro, por ke la interno kaj la ekstero de la pordo
+      // legiĝu kiel unu sola kadro.
+      const truKonturo = kreiKadranKurbon(kreiTrapezanPordTruon(pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro), 0);
       const pordRando = new THREE.Mesh(
-        new THREE.TubeGeometry(new THREE.CatmullRomCurve3(truKonturo, true, "catmullrom", 0o1/0o2), 0o100, 0o1/0o20, 6, true),
+        new THREE.TubeGeometry(truKonturo, 0o200, 0o1/0o20, 0o14, true),
         kadraMaterialo
 );
       pordRando.position.set(0, y, hd - muraDikeco / 2 - 0o5/0o100);

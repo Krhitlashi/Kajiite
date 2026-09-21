@@ -131,7 +131,7 @@ import { kreiKanoton } from "../../assets/medio/transporto.js";
 import { konstruiKrasesxagxon } from "../../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { konstruiHxeuxfojn } from "../../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { konstruiKeuxfhxeso } from "../../assets/mebloj/keuxfhxeso.js";
-import { kreiOranMaterialon, kreiEniranMaterialon,
+import { kreiOranMaterialon, kreiFenestranMaterialon,
   kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../assets/komunajxoj/materialoj.js";
 // La veraj vojoj de la ludo — la 3D-vido de la mond-nivelaj vojoj uzas la
 // SAMAjn dioritajn/andezitajn vojojn kiel la ludo ( konstruiVojojn ).
@@ -193,7 +193,8 @@ const OBJEKTO_VESTOJ = [ "Verdant", "Hearth", "Mist", "Ember", "Azure", "Violet"
 const OBJEKTO_KANUAJ_STILOJ = [ "Baza", "Satala" ];
 // La materialoj de la kanuoj kaj la spacosxipo — la samaj kiel en la ludo.
 const ORA_MATERIALO = kreiOranMaterialon(0xd8b068);
-const ENIRA_MATERIALO = kreiEniranMaterialon();
+// La pordo de la kosmosxipo — la sama vitro kiel en la ludo ( kreiFenestranMaterialon ).
+const ENIRA_MATERIALO = kreiFenestranMaterialon();
 // La diorita materialo de la lampoj ( hxeuxfoj ) — unu komuna ekzemplero, kiun
 // konstruiHxeuxfojn klonas por la lampaj kolonoj/bovloj ( kiel en la ludo ).
 let DIORITA_MATERIALO = null;
@@ -1126,18 +1127,42 @@ function desegniVidon(){
     }
     // La dokaj platformoj — la diorita centro kun la andezita kadro ( la
     // samaj mezuroj kiel en doko.ts — larĝo 0o16/0o10, kadro 0o4/0o10 ).
+    // ⟨ La turno 📃 ⟩ — la platformo mem estas rektangulo, sed la TURNO ( la
+    // sama rotacio kiel en la ludo ) decidas, al kiu flanko la pinto montras,
+    // do la desegno turniĝas ĉirkaŭ la doka centro. La monda turno θ iĝas
+    // ekrana turno −θ ( la mapo spegulas la x-akson: oriento dekstren = −x ).
+    // La pinto ( la akva, rondigita flanko ) portas malgrandan bluan markon,
+    // por ke oni vidu la direkton de la doko eĉ kiam la kajo ne montriĝas
+    // ( la pinto kuŝas ĉe la loka −z, do SUB la centro sur la mapo ).
     for ( let di = 0; di < dokoj.length; di++ ) {
       const d = dokoj[di];
       const elektita = di === elektitaDoko;
       const w = 0o16/0o10, prof = d.profundo || 16, kadro = 0o4/0o10;
-      const sx0 = sxMondo(d.x - w / 2 - kadro), sx1 = sxMondo(d.x + w / 2 + kadro);
-      const sz0 = syMondo(d.z + prof / 2 + kadro), sz1 = syMondo(d.z - prof / 2 - kadro);
+      const rotacio = d.rotacio ?? 0;
+      const sxp = sxMondo(d.x), syp = syMondo(d.z);
+      k.save();
+      k.translate(sxp, syp);
+      k.rotate(-rotacio);
       k.fillStyle = elektita ? "rgba(120,140,120,0.95)" : "rgba(90,98,88,0.9)";
-      k.fillRect(Math.min(sx0, sx1), Math.min(sz0, sz1), Math.abs(sx1 - sx0), Math.abs(sz1 - sz0));
-      const cx0 = sxMondo(d.x - w / 2), cx1 = sxMondo(d.x + w / 2);
-      const cz0 = syMondo(d.z + prof / 2), cz1 = syMondo(d.z - prof / 2);
+      k.fillRect(-( w / 2 + kadro ) * vidSkalo, -( prof / 2 + kadro ) * vidSkalo,
+        ( w + 2 * kadro ) * vidSkalo, ( prof + 2 * kadro ) * vidSkalo);
       k.fillStyle = elektita ? "rgba(255,232,150,0.95)" : "rgba(216,216,208,0.95)";
-      k.fillRect(Math.min(cx0, cx1), Math.min(cz0, cz1), Math.abs(cx1 - cx0), Math.abs(cz1 - cz0));
+      k.fillRect(-( w / 2 ) * vidSkalo, -( prof / 2 ) * vidSkalo,
+        w * vidSkalo, prof * vidSkalo);
+      // ⟨ La akva pinto 📃 ⟩ — sago ĉe la akva ( antaŭa ) rando. Sen ĝi doko
+      // turnita je π aspektas IDENTE al turnita je 0 ( la platformo estas
+      // simetria rektangulo ), do la sago estas la sola signo pri la direkto de
+      // la pinto. Ĝi estas desegnita en EKRANaj rastrumeroj ( ne en mond-unuoj ),
+      // ĉar la mapo mem estas montrata malgrandigita en la paĝo.
+      const pintoY = ( prof / 2 + kadro ) * vidSkalo;
+      k.fillStyle = elektita ? "rgba(150,200,240,0.95)" : "rgba(128,170,210,0.9)";
+      k.beginPath();
+      k.moveTo(0, pintoY + 9);
+      k.lineTo(-7, pintoY + 1);
+      k.lineTo(7, pintoY + 1);
+      k.closePath();
+      k.fill();
+      k.restore();
     }
   }
   // La penika ringo kaj la centro — ne en la vido-ilo Movigi ✋, nek en la
@@ -2763,6 +2788,7 @@ const dokoElektilo = document.getElementById("dokoElektilo");
 const dokoXEl = document.getElementById("dokoX");
 const dokoZEl = document.getElementById("dokoZ");
 const dokoProfundoEl = document.getElementById("dokoProfundo");
+const dokoRotacioEl = document.getElementById("dokoRotacio");
 const dokoAldoniBtn = document.getElementById("dokoAldoni");
 const dokoForigiBtn = document.getElementById("dokoForigi");
 
@@ -3040,6 +3066,7 @@ function gxisdatigiVojajnRegilojn() {
     dokoXEl.value = String(d.x);
     dokoZEl.value = String(d.z);
     dokoProfundoEl.value = String(d.profundo || 16);
+    dokoRotacioEl.value = String(d.rotacio ?? 0);
   }
   gxisdatigiVojaStatistikojn();
 }
@@ -3064,6 +3091,10 @@ function skribiVojajnRegilojn() {
     d.x = parseFloat(dokoXEl.value) || 0;
     d.z = parseFloat(dokoZEl.value) || 0;
     d.profundo = Math.max(4, parseFloat(dokoProfundoEl.value) || 16);
+    // La turno ( kiel la metitaj objektoj ) — la pinto de la doko montras al la
+    // akvo. 0 = suden ( la kajo de la urbo ), Math.PI = norden ( la
+    // malproksima riverbordo ).
+    d.rotacio = parseFloat(dokoRotacioEl.value) || 0;
   }
   sxangxita = true;
 }
@@ -3113,10 +3144,16 @@ function vojaCeloCxePunkto(mx, mz) {
     }
   }
   if ( plej ) return plej;
+  // La dokoj — la punkto transformiĝas en la LOKAN kadron de la doko ( la
+  // inversa turno ), do ankaŭ turnita platformo kaptiĝas per sia vera areo.
   for ( let di = 0; di < dokoj.length; di++ ) {
     const d = dokoj[di];
     const prof = d.profundo || 16;
-    if ( Math.abs(d.x - mx) < 0o16/0o10 + 2.5 && Math.abs(d.z - mz) < prof / 2 + 2.5 ) return { speco: "doko", doko: di };
+    const rotacio = d.rotacio ?? 0;
+    const dx = mx - d.x, dz = mz - d.z;
+    const lx = dx * Math.cos(rotacio) - dz * Math.sin(rotacio);
+    const lz = dx * Math.sin(rotacio) + dz * Math.cos(rotacio);
+    if ( Math.abs(lx) < 0o16/0o10 + 2.5 && Math.abs(lz) < prof / 2 + 2.5 ) return { speco: "doko", doko: di };
   }
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     const v = vojoj[vi];
@@ -3781,10 +3818,11 @@ dokoElektilo.addEventListener("change", () => {
 dokoXEl.addEventListener("change", () => { skribiVojajnRegilojn(); gxisdatigiVojajnRegilojn(); bezonoDesegno = true; });
 dokoZEl.addEventListener("change", () => { skribiVojajnRegilojn(); gxisdatigiVojajnRegilojn(); bezonoDesegno = true; });
 dokoProfundoEl.addEventListener("change", () => { skribiVojajnRegilojn(); bezonoDesegno = true; });
+dokoRotacioEl.addEventListener("change", () => { skribiVojajnRegilojn(); bezonoDesegno = true; });
 dokoAldoniBtn.addEventListener("click", () => {
   momenti();
   const last = dokoj[dokoj.length - 1];
-  dokoj.push({ x: last ? Math.round(( last.x + 24 ) * 2) / 2 : 0, z: last ? last.z : 0, profundo: 16 });
+  dokoj.push({ x: last ? Math.round(( last.x + 24 ) * 2) / 2 : 0, z: last ? last.z : 0, profundo: 16, rotacio: last ? ( last.rotacio ?? 0 ) : 0 });
   elektitaDoko = dokoj.length - 1;
   sxangxita = true;
   gxisdatigiVojajnRegilojn();

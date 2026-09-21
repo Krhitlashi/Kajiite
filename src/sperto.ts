@@ -1878,16 +1878,21 @@ function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx
   ctx.save();
   ctx.translate(px, py);
   ctx.rotate(ang);
-  // La tri verticoj ( pinto supre je angulo 0 ) kaj la eĝaj mezpunktoj.
-  const A = { x: 0, y: -0o4 }, B = { x: 0o7/0o2, y: 0o11/0o2 }, C = { x: -0o7/0o2, y: 0o11/0o2 };
-  const AB = { x: ( A.x + B.x ) / 0o2, y: ( A.y + B.y ) / 0o2 };
-  const BC = { x: ( B.x + C.x ) / 0o2, y: ( B.y + C.y ) / 0o2 };
-  const CA = { x: ( C.x + A.x ) / 0o2, y: ( C.y + A.y ) / 0o2 };
+  // ⟨ Simpla RONDIGITA TRIANGULO 📃 ⟩ — la antaŭa markilo rondigis la triangulon
+  // per tri kurboj tra la mezpunktoj de la eĝoj ( tiel forte, ke ĝi legiĝis kiel
+  // makulo ), kaj ĝia pezcentro sidis malantaŭe de la ludanto, do la pinto
+  // sxajnis sxovita. Nun estas simpla egallatera triangulo ( verticoj sur
+  // cirklo R je −90°, 30°, 150° ) kies pezcentro estas GXUSTE la centro de la
+  // cirklo — la ludanta punkto — kun malgrandaj rondaj anguloj ( arcTo ).
+  const R = 0o12/0o2, rAngulo = 0o12/0o10;
+  const A = { x: 0, y: -R }, B = { x: R * 0o71/0o100, y: R * 0o5/0o10 }, C = { x: -R * 0o71/0o100, y: R * 0o5/0o10 };
+  // Komencu sur la mezo de la lasta eĝo, do la tri arcTo-turnoj fermas la
+  // triangulon sen supra streko.
   ctx.beginPath();
-  ctx.moveTo(AB.x, AB.y);
-  ctx.quadraticCurveTo(B.x, B.y, BC.x, BC.y);
-  ctx.quadraticCurveTo(C.x, C.y, CA.x, CA.y);
-  ctx.quadraticCurveTo(A.x, A.y, AB.x, AB.y);
+  ctx.moveTo(( C.x + A.x ) / 0o2, ( C.y + A.y ) / 0o2);
+  ctx.arcTo(A.x, A.y, B.x, B.y, rAngulo);
+  ctx.arcTo(B.x, B.y, C.x, C.y, rAngulo);
+  ctx.arcTo(C.x, C.y, A.x, A.y, rAngulo);
   ctx.closePath();
   ctx.fillStyle = "#fff";
   ctx.fill();
@@ -1914,13 +1919,20 @@ function desegniMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: n
 }
 
 // La radara mapo ( 0o200 × 0o200 ) — la bakita tavolo ĉirkaŭ la ludanto.
+//
+// ⟨ NENIU centra markilo sur la radaro 📃 ⟩ — la radaro estas centrita je la
+// ludanto, do la 2D-markilo ( desegniMarkilon ) sidis ĜUSTE meze. Sur la 64-piksela
+// radaro ĝi estas 4–5 ekranpikselojn larĝa, do ĝi legigxis kiel punkto, ne kiel
+// triangulo — kaj la kompasa nadlo ( la CSS `.nadlo` ) jam montras la rigardan
+// direkton per klara triangulo ĉe la rando. La radaro do montras nur la mapon,
+// la moviĝantojn kaj la nadlon; la PLENA mapo ( desegniPlenanMapon ) tenas la
+// markilon, ĉar tie la ludanto ne estas ĉiam centre ( pan/zoom ).
 const radaraKunteksto = miniKanvaso.getContext("2d");
 function desegniRadaron(): void {
   const ctx = radaraKunteksto;
   if ( !ctx || !bakitaMapo ) return;
   desegniMapanTavolon(ctx, bakitaMapo, mapX, mapZ, RADARA_DUONO, RADARA_DUONO, 0o200, 0o200);
   desegniMovantajnPunktojn(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
-  desegniMarkilon(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
 }
 
 // La plena mapo — plenekrana 2D-kanvaso kun pan/zoom.
