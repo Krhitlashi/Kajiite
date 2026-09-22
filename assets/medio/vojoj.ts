@@ -5,7 +5,13 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
 import { kreiRondigitanRektangulanFormon } from "../komunajxoj/formoj.js";
 
-export interface VojDifino { pts: [ number, number ][]; w: number; heightFn?: ( x: number, z: number ) => number; }
+// stuparo — Ĉu ĉi tiu vojo estas ŜTUPARO. Ĉiu intervalo fariĝas PLATA ŝtupo kun
+// vertikala riso anstataŭ dekliva rubando. La normalaj vojoj uzas la klinitan
+// "glatan" generacion kaj nur fariĝas eskalero super krutajxoj ( SOJA_SXVIPADO );
+// la ŝtuparoj elektas la egalan ŝtupon ĉiam — la doko-malsupreniro al la akvo
+// estas ordinara voja difino kun `stuparo: true`, do la ŝtupoj venas el la SAMA
+// voja maŝinaro kiel ĉiu strato ( la sama diorita/andezita sekco ).
+export interface VojDifino { pts: [ number, number ][]; w: number; heightFn?: ( x: number, z: number ) => number; stuparo?: boolean; }
 
 /**
  * Konstruu ŝtupetan vojan segmenton inter du vojpunktoj.
@@ -238,20 +244,31 @@ function konstruiSegmenton(x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikecoBaza: number,
   heightFn: ( x: number, z: number ) => number,
-  sceno: THREE.Scene
+  sceno: THREE.Scene,
+  stuparo = false
 ): void {
   const bufroj = kreiGeometriajnBufrojn();
-  konstruiSegmentonEnBufrojn(x1, z1, x2, z2, bendoj, dikecoBaza, heightFn, bufroj);
+  konstruiSegmentonEnBufrojn(x1, z1, x2, z2, bendoj, dikecoBaza, heightFn, bufroj, stuparo);
   bufroj.kunigi(sceno);
 }
 
+// VOJA_DIKECO — La dikeco de la voja plato: kiom alte la voja rubando staras
+// super la tereno, tio estas kiom alta estas la videbla andezita rando de la
+// flanko. La malnova valoro estis 0o2/0o10 ( 25 cm ) — la stratoj aspektis kiel
+// levitaj estradoj kun alta sxtonsxirmo, kaj sur deklivoj la rando sxajnis
+// MURETO. Nun 0o5/0o100 ( 8 cm ): la rubando kusxas preskaux sur la tereno, la
+// rando legigxas kiel maldika sxirmo, kaj la vojo mem sxajnas PLI PLATA.
+// ⟨ La vojoj kaj la plataĵoj kunhavas ĝin 📃 ⟩ — la kruciĝaj platoj, la arkaj
+// kaj la ĉapoj uzas la SAMAN nivelon ( VOJA_SUPRO_LEVIGXO ), alie ili starus
+// super la vojoj aŭ malgarus sub ili.
+export const VOJA_DIKECO = 0o5/0o100;
+
 // VOJA_SUPRO_LEVIGXO — Kiom la SURFACO de vojo kusxas super la heightFn, kiun
-// gxi ricevas: la eta klareco super la tereno ( 0o1/0o100 ) kaj la baza dikeco de
-// la rubando ( 0o2/0o10, la valoro, kiun konstruiVojojn transdonas kiel
-// dikecoBaza ). Aliaj moduloj importas gxin, kiam iliaj propraj suproj devas
-// kongrui kun vojo — la ponta heightFn ( urbo.ts ) subtrahas gxin, do la ponta
-// deko finigxas GXUSTE cxe la renkontajxaj platformaj suproj.
-export const VOJA_SUPRO_LEVIGXO = 0o1/0o100 + 0o2/0o10;
+// gxi ricevas: la eta klareco super la tereno ( 0o1/0o100 ) kaj la dikeco de la
+// rubando ( VOJA_DIKECO ). Aliaj moduloj importas gxin, kiam iliaj propraj suproj
+// devas kongrui kun vojo — la ponta heightFn ( urbo.ts ) subtrahas gxin, do la
+// ponta deko finigxas GXUSTE cxe la renkontajxaj platformaj suproj.
+export const VOJA_SUPRO_LEVIGXO = 0o1/0o100 + VOJA_DIKECO;
 
 // konstruiVojojn — Konstruu cxiujn vojsegmentojn kun dioritaj suprajoj kaj andezitaj randoj.
 export function konstruiVojojn(sceno: THREE.Scene,
@@ -286,7 +303,7 @@ export function konstruiVojojn(sceno: THREE.Scene,
       // randa strio tavolita sub la centro. La malnova intertavolo z-fightingis
       // kiam la fotilo rigardis preskaux rekte malsupren ( la minimapo ), kaj
       // la tuta vojo aperis nigra. La tri bendoj nun sidas flank-al-flanke.
-      konstruiSegmentonEnBufrojn(aX, aZ, bX, bZ, kreiVojajnBendojn(def.w, supraMaterialo, bordaMaterialo), 0o2/0o10, defAlt, bufroj);
+      konstruiSegmentonEnBufrojn(aX, aZ, bX, bZ, kreiVojajnBendojn(def.w, supraMaterialo, bordaMaterialo), VOJA_DIKECO, defAlt, bufroj, def.stuparo === true);
       // Specimenoj por lampoj — kaj por la vegetajxo-ekskludo. Unu specimeno
       // cxiun ~2 unuojn, por ke neniu planto povu sidi inter maldensajn
       // specimenojn kaj aperi sur la vojo.
@@ -321,16 +338,17 @@ export const vojSuprajxoj: VojSuprajxo[] = [];
 // la fino — la maksimuman kaj minimuman teren-altojn de iliaj lateralaj
 // anguloj ) kaj KLINIĜAS inter la du randaj niveloj — dekliva plana supro
 // kiu precize kunigas la najbarajn ŝtupojn ĉe la komuna rando ( la najbaroj
-// kunhavas la randan specimenon ). Nur kiam la tereno falas pli ol
-// SOJA_SXVIPADO ene de unu intervalo, la ŝtupo fariĝas DISKRETA eskalero
-// ( plata supro je la alta rando, la vizaĝo tranĉas la deklivon ). La
-// profundo ĉiam etendiĝas sub la minimuman randan altecon + margxeno —
-// neniu ŝvebanta rando kaj neniu sinko.
+// kunhavas randan specimenon ). Nur kiam la tereno falas pli ol
+// SOJA_SXVIPADO ene de unu intervalo, aŭ kiam la difino estas ŝtuparo
+// ( stuparo = true ), la ŝtupo fariĝas DISKRETA eskalero ( plata supro je la
+// alta rando, la vizaĝo tranĉas la deklivon ). La profundo ĉiam etendiĝas sub
+// la minimuman randan altecon + margxeno — neniu ŝvebanta rando, neniu sinko.
 function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikecoBaza: number,
   heightFn: ( x: number, z: number ) => number,
-  bufroj: VojGeometriajBufroj
+  bufroj: VojGeometriajBufroj,
+  stuparo = false
 ): void {
   const difX = x2 - x1, difZ = z2 - z1;
   const longo = Math.hypot(difX, difZ);
@@ -364,16 +382,20 @@ function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: numb
     const s0 = maks0 + 0o1/0o100 + dikecoBaza;   // = maks0 + VOJA_SUPRO_LEVIGXO por vojoj
     const s1 = maks1 + 0o1/0o100 + dikecoBaza;
     const difo = s1 - s0;
+    // ⟨ La diskreta ŝtupo 📃 ⟩ — aŭ la tereno falas pli ol SOJA_SXVIPADO ene de
+    // unu intervalo, aŭ la vojo mem estas ŝtuparo ( `stuparo: true` ). En ambaŭ
+    // okazoj la ŝtupo fariĝas PLATA: supro je la ALTA rando kaj vertikala vizaĝo
+    // ĝis sub la teron. La ŝtuparo do faras ŝtupon ankaŭ je malgranda falo — la
+    // doko-malsupreniro malsupreniras per egalaj ŝtupoj anstataŭ glata deklivo.
+    const diskreta = stuparo || difo < -SOJA_SXVIPADO;
     // Registru la piedeblan supraĵon de ĉi tiu ŝtupo — la plata eskalera
     // ŝtupo sidas je s0 ĉe ambaŭ randoj, la klinita ŝtupo inter s0 kaj s1.
-    vojSuprajxoj.push({ x1: sx1, z1: sz1, x2: sx2, z2: sz2, duono: eksteraDuon, y0: s0, y1: difo < -SOJA_SXVIPADO ? s0 : s1 });
-    if ( difo < -SOJA_SXVIPADO ) {
-      // ⟨ Eskalera ŝtupo ⟩ — la tereno falas pli ol SOJA_SXVIPADO ene de unu
-      // intervalo. Plata supro je la ALTA rando ( la sama nivelo kiel la
-      // klinita rando de la antaŭa ŝtupo — la transiro restas preciza ) kaj
-      // profundo ĝis sub la minimuman angulan altecon + margxeno — la
-      // vertikala vizaĝo montras la andezitan/dioritan bordon kiel la
-      // eskalera riso.
+    vojSuprajxoj.push({ x1: sx1, z1: sz1, x2: sx2, z2: sz2, duono: eksteraDuon, y0: s0, y1: diskreta ? s0 : s1 });
+    if ( diskreta ) {
+      // ⟨ Eskalera ŝtupo ⟩ — plata supro je la ALTA rando ( la sama nivelo kiel
+      // la klinita rando de la antaŭa ŝtupo — la transiro restas preciza ) kaj
+      // profundo ĝis sub la minimuman angulan altecon + margxeno — la vertikala
+      // vizaĝo montras la andezitan/dioritan bordon kiel la eskalera riso.
       const supro = s0;
       const dikeco = supro - ( Math.min(minimum0, minimum1) - ANGULA_PROVOLIRO );
       const y = supro - dikeco;
@@ -485,9 +507,9 @@ function kreiRondanKapGeometrion(internaRadiuso: number, eksteraRadiuso: number,
 // nun konstruas la kapojn nur ĉe la du kajo-finoj; la turnitaj dokoj de la
 // malproksima riverbordo havas nenian vojon. ) La disko
 // ( 0o7/0o10 = la diorita centro ) kaj la ringo ( 0o7/0o10..0o13/0o10 = la
-// andezita bordo ) estas EKSTRUDITAJ per la sama dikeco kiel la voja strio
-// ( 0o2/0o10 ) kaj poziciitaj ĉe la terena nivelo. la videbla supro sidas
-// ĉe la voja supro-nivelo ( tereno + 0o2/0o10 ) kaj la 0o2/0o10-altaj muroj
+// andezita bordo ) estas EKSTRUDITAJ per la sama nivelo kiel la voja strio
+// ( VOJA_SUPRO_LEVIGXO ) kaj poziciitaj ĉe la terena nivelo. la videbla supro sidas
+// ĉe la voja supro-nivelo ( tereno + VOJA_SUPRO_LEVIGXO ) kaj tiom-altaj muroj
 // pendas de ĝi ĝis la tereno — ĝuste kiel la vojoj, do la ĉapoj montras
 // verajn 3D-flankajn murojn, ne plu platajn 2D-diskojn kaj -ringojn. Kie la
 // ĉapoj interkovras la vojon, la polygonOffset-hierarkio decidas la
@@ -512,7 +534,7 @@ export function konstruiRondajnKapojn(sceno: THREE.Scene,
   andezitaMaterialo: THREE.MeshStandardMaterial
 ): void {
   if ( nodoj.length === 0 ) return;
-  const dikeco = 0o2/0o10;
+  const dikeco = VOJA_SUPRO_LEVIGXO;
   // La disko uzas la saman pli altan offseton kiel la spronoj ( -4/-2 kontraux
   // la striaj -2/-1 ) — la koincidaj facoj kun la voja supro gajnas determinite.
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -4, -2, -1, -1);
@@ -621,7 +643,7 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -3, -2, -4, -5);
   // La anguloj sidas ĉe wb/2 - angulo/2 = 1.125 de la centro, do ĉiu kvadrato
   // kovras [ 0.875, 1.375 ] — la saman regionon kiel la duoblaj vojo-randoj.
-  const wb = 0o26/0o10, angulaLargho = 0o4/0o10, dikeco = 0o2/0o10;
+  const wb = 0o26/0o10, angulaLargho = 0o4/0o10, dikeco = VOJA_SUPRO_LEVIGXO;
   const angulaOfseto = wb / 2 - angulaLargho / 2;
   const duon = wb / 2, interna = duon - angulaLargho;
   const bufroj = kreiGeometriajnBufrojn();
@@ -632,7 +654,7 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     // profundo etendiĝas sub la minimuman angulan altecon + margxeno — la
     // flankaj muroj ĉiam enfosiĝas ( neniu ŝvebanta rando ).
     const altoj = specimeniAngulojn(x, z, duon, duon, heightFn);
-    const supro = Math.max(heightFn(x, z) + 0o1/0o100 + dikeco, altoj.maksimumo + 0o1/0o100 + dikeco);
+    const supro = Math.max(heightFn(x, z) + dikeco, altoj.maksimumo + dikeco);
     const platoDikeco = supro - ( altoj.minimumo - ANGULA_PROVOLIRO );
     const bazo = supro - platoDikeco;
     const ferma = tFermitaj.get(x + "," + z);
@@ -777,7 +799,7 @@ export function konstruiRondigitanArkon(sceno: THREE.Scene,
   // kaj la angulo uzas la samajn tri kromajn unuojn ( -5 kontraŭ -2 ) kiel la
   // kruciĝaj anguloj — determinisma venko sur flataj facoj.
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -3, -2, -4, -5);
-  const dikeco = 0o2/0o10;
+  const dikeco = VOJA_SUPRO_LEVIGXO;
   // ⟨ Angula specimenado ⟩ — la kvar anguloj de la ark-a kvadrata areo (
   // la dua ekstera radiuso — la sama grandeco kiel la kruciĝa plato ). La
   // SUPRO restas je la malalta originala nivelo kaj leviĝas ĝis la
@@ -785,7 +807,7 @@ export function konstruiRondigitanArkon(sceno: THREE.Scene,
   // minimuman angulan altecon + margxeno.
   const altoj = specimeniAngulojn(x, z, 0o13/0o10, 0o13/0o10, heightFn);
   const terenaY = heightFn(x, z);
-  const supro = Math.max(terenaY + 0o1/0o100 + dikeco, altoj.maksimumo + 0o1/0o100 + dikeco);
+  const supro = Math.max(terenaY + dikeco, altoj.maksimumo + dikeco);
   const arkaDikeco = supro - ( altoj.minimumo - ANGULA_PROVOLIRO );
   const bazo = supro - arkaDikeco;
   const bufroj = kreiGeometriajnBufrojn();
@@ -851,7 +873,7 @@ export function konstruiSpronon(x1: number, z1: number, x2: number, z2: number,
   if ( longo < 0o4/0o10 ) return;
   // La porda vojo uzas la saman larghon kiel la regula vojreto.
   const w = 0o16/0o10;
-  const dikeco = 0o2/0o10;
+  const dikeco = VOJA_DIKECO;
   // La spronaj bendoj uzas pli altan polygonOffset ol la cefaj vojoj ( -4/-3
   // kontraux -2/-1 ), por ke cxe la kunigxo kun la cefa vojo la sprono gajnu
   // determinite ( neniu z-fighting inter la du vojoj ).

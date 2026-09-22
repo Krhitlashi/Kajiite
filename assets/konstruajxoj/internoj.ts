@@ -14,7 +14,7 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
 import { KonstruSpec, TIPARO, kreiKadranKurbon } from "./satalaj-konstruajxoj.js";
 import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
 import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
-import { kreiPilolFenestranFormon } from "../komunajxoj/formoj.js";
+import { kreiPilolFenestranFormon, kreiStelanFenestranFormon, rondigiKonturon } from "../komunajxoj/formoj.js";
 import { deksesuma } from "../vestaro/vestoj.js";
 import { nomoAih } from "../../src/tradukoj.js";
 import { kreiMangxajxojn, MangxajxItemo, aldoniVaporon } from "../mebloj/mangxajxoj.js";
@@ -150,33 +150,32 @@ function konstruiMuronKunPilolaTruo(
   const segLargho = plataLargho - ww / 2;
   const segAlto = alto - ( fenLokY + hh );
 
+  // ⟨ Ĉio estas konstruata en LOKA grupo 📃 ⟩ — la segmentoj, la rondigitaj
+  // anguloj kaj la truo sidas en grupo ĉe la ORIGINO ( x laŭ la muro, y supren ),
+  // kaj la grupo mem portas la rotacion kaj la pozicion. Antaŭe ĉiu bloko ricevis
+  // la rotacion aparte kaj ĝiaj lokaj ofsetoj estis miksitaj kun la mondaj
+  // koordinatoj — tio funkciis nur por la rotacioj 0 kaj ±90°, kaj la angulaj
+  // formoj eĉ bezonis apartan spegulon. Nun la sama konstruo servas ankaŭ la
+  // ANTAŬAN muron ( rotacio π ), kiu ricevis fenestron.
+  const grupo = new THREE.Group();
+  grupo.position.set(cx, bazaY, cz);
+  grupo.rotation.y = rotacio;
+  g.add(grupo);
+
   // Skatola segmento en la mura loka kadro ( x laŭ la muro, y vertikala ).
   const aldoniBlokon = ( lokalX: number, lokalY: number, largho: number, alteco: number ) => {
     if ( largho <= 0 || alteco <= 0 ) return;
     const b = new THREE.Mesh(new THREE.BoxGeometry(largho, alteco, dikeco), materialo);
-    if ( rotacio ) {
-      b.position.set(cx, bazaY + lokalY + alteco / 2, cz + lokalX + largho / 2);
-      b.rotation.y = rotacio;
-    } else {
-      b.position.set(cx + lokalX + largho / 2, bazaY + lokalY + alteco / 2, cz);
-    }
-    g.add(b);
+    b.position.set(lokalX + largho / 2, lokalY + alteco / 2, 0);
+    grupo.add(b);
   };
   // Rondigita angula plenigaĵo ( formo sen truo — malgranda, fidinda ).
   const aldoniAngulon = ( formo: THREE.Shape, cxLoka: number, cyLoka: number ) => {
     const geo = new THREE.ExtrudeGeometry(formo, { depth: dikeco, bevelEnabled: false, curveSegments: 0o20 });
     geo.translate(0, 0, -dikeco / 2);
     const m = new THREE.Mesh(geo, materialo);
-    if ( rotacio ) {
-      // Por rotacio +90° ( la maldekstra muro ) la loka +x-akso mapiĝas al mondo −z,
-      // dum la cxLoka-ofseto iras laŭ +z — sen la spegulo la angulaj formoj renversiĝus
-      // ( renversitaj duoncirkelaj anguloj ĉe la fenestro maldekstre de la pordo ).
-      m.position.set(cx, bazaY + cyLoka, cz + ( rotacio > 0 ? -cxLoka : cxLoka ));
-      m.rotation.y = rotacio;
-    } else {
-      m.position.set(cx + cxLoka, bazaY + cyLoka, cz);
-    }
-    g.add(m);
+    m.position.set(cxLoka, cyLoka, 0);
+    grupo.add(m);
   };
 
   // Malsegmentoj maldekstre/dekstre de la fenestro
@@ -233,17 +232,21 @@ function konstruiMuronKunPilolaTruo(
 }
 
 // aldoniLonganFenestron — Unu centrita LONGAs horizontala RONDIGITA fenestro kun
-// ora pilola kadro sur muro.
-// orientacio. "malantaŭ" ( fakas +z ), "maldekstra" ( fakas +x ), "dekstra" ( fakas -x ).
+// la ORA STELA kadro de la eksteraj fenestroj sur muro.
+// orientacio. "malantaŭ" ( la muro ĉe −z, fakas +z ), "antaŭ" ( la muro ĉe +z,
+// fakas −z ), "maldekstra" ( fakas +x ), "dekstra" ( fakas −x ).
+//     @param kadraMaterialo ( MeshStandardMaterial ) - La ORA kadra materialo de
+//         la konstruajxo ( la sama kiel la porda rando kaj la angulaj kolonoj ).
+//         La malnova interna kadro estis du apartaj materialoj ( tuba rando kaj
+//         linia kadro ); la stela plato estas unu solida mesho, do ĝi uzas unu.
 function aldoniLonganFenestron(
   group: THREE.Group,
   cx: number, cz: number, bazaY: number, alto: number,
   plataLargho: number,
-  orientacio: "malantaŭ" | "maldekstra" | "dekstra",
+  orientacio: "antaŭ" | "malantaŭ" | "maldekstra" | "dekstra",
   muraMaterialo: THREE.MeshStandardMaterial,
   fenestraMaterialo: THREE.MeshStandardMaterial,
-  oraRandoMaterialo: THREE.MeshBasicMaterial,
-  oraKadroMaterialo: THREE.LineBasicMaterial
+  kadraMaterialo: THREE.MeshStandardMaterial
 ): void {
   // Fenestro-larĝo laŭ la tavolflanko. Pli longa sur pli longaj muroj, kun
   // malgranda libero ĉe ĉiu fino (2/3 de la flanko + kvarono).
@@ -252,11 +255,16 @@ function aldoniLonganFenestron(
   const fenY = bazaY + Math.max(alto * 2/5, 0o3/0o4);
   if ( fenY + hh > bazaY + alto ) return;
   const malantaŭ = orientacio === "malantaŭ";
-  const rotacio = orientacio === "dekstra" ? -Math.PI / 2 : Math.PI / 2;
+  const antaŭ = orientacio === "antaŭ";
+  // ⟨ Kvar orientoj 📃 ⟩ — la antaŭa muro ( ĉe +z ) turnas la fenestron per π :
+  // ĝia enĉambra flanko estas −z. La malnova tri-kaza versio lasis ĝin sen
+  // fenestro, do la ĉambro havis nur tri.
+  const rotacio = orientacio === "dekstra" ? -Math.PI / 2
+    : orientacio === "maldekstra" ? Math.PI / 2 : Math.PI;
   // La vitra panelo kaj ora kadro sidas ĉe la ĉambro-flanko de la muro (ne en ĝia centro)
   const ofseto = 0o3/0o40;
-  const aCx = malantaŭ ? cx : cx + ( orientacio === "dekstra" ? -ofseto : ofseto );
-  const aCz = malantaŭ ? cz + ofseto : cz;
+  const aCx = malantaŭ || antaŭ ? cx : cx + ( orientacio === "dekstra" ? -ofseto : ofseto );
+  const aCz = malantaŭ ? cz + ofseto : antaŭ ? cz - ofseto : cz;
   const dikeco = 0o3/0o20;
   // Unu muro kun rondigita (pilola) truo — la malkovro kongruas precize al la
   // pilola fenestro, sen akraj rektangulaj anguloj. La malantaŭa muro restas
@@ -269,33 +277,44 @@ function aldoniLonganFenestron(
   fen.position.set(aCx, fenY, aCz);
   if ( !malantaŭ ) fen.rotation.y = rotacio;
   group.add(fen);
-  // Ora pilola rando ĉirkaŭ la tuta fenestro (tubo laŭ la konturo). Densa
-  // sampado kun CENTRIPETA kurbo — la rando ne ondas/elstaras ĉe la rektaj
-  // flankoj de la pilolo (la malnova uniforma tensio tro-svingis ĉe la
-  // rekt-sekciaj transiroj kaj distordis la flankojn).
-  const konturo = kreiPilolFenestranFormon(ww, hh).getPoints(0o200)
-    .map(( p: THREE.Vector2 ) => new THREE.Vector3(p.x, p.y, 0));
-  const rimo = new THREE.Mesh(
-    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(konturo, true, "centripetal"), 0o100, 0o1/0o20, 6, true),
-    oraRandoMaterialo
-);
-  rimo.position.set(aCx, fenY, aCz);
-  if ( !malantaŭ ) rimo.rotation.y = rotacio;
-  group.add(rimo);
-  // Ora kadro laŭ la PILOLA konturo (ne rektangula skatolo) — la malnova
-  // rektangula skatolo montris kvadratan flavan konturon ĉirkaŭ la rondigita
-  // fenestro. La linia kadro sekvas la saman pilolan formon kiel la vitro, kaj
-  // sidas tuj ekster la ora rando ( z = 0o5/0o100 ) por resti videbla kiel fajna linio.
-  const kadroPunktoj: number[] = [];
-  for ( let i = 0; i < konturo.length; i++ ) {
-    const a = konturo[i];
-    const b = konturo[( i + 1 ) % konturo.length];
-    kadroPunktoj.push(a.x, a.y, 0o5/0o100, b.x, b.y, 0o5/0o100);
-  }
-  const kadroGeo = new THREE.BufferGeometry();
-  kadroGeo.setAttribute("position", new THREE.Float32BufferAttribute(kadroPunktoj, 3));
-  const kadro = new THREE.LineSegments(kadroGeo, oraKadroMaterialo);
-  kadro.position.set(aCx, fenY, aCz);
+  // ⟨ La SAMA stela kadro kiel la ekstera fenestro 📃 ⟩ — la interno havis sian
+  // propran kadron: rondan oran tubon laŭ la pilola konturo PLUS maldikan linian
+  // skatolon. La eksteraj fenestroj ( la kunvenejo, la stacidomo kaj la kosmoŝipo
+  // — vidu aldoniPilolFenestron en satalaj-konstruajxoj.ts ) portas PLATAN PLENAN
+  // oran platon en la formo de stelo: la pilolo ŝveligita per la kadra larĝo, kun
+  // kvar pintoj, kaj la vitra pilolo eltranĉita el la mezo. Oni vidas la fenestron
+  // de ambaŭ flankoj de la muro, do la interno nun konstruas la SAMAN kadron per
+  // la samaj helpiloj ( kreiStelanFenestranFormon + rondigiKonturon ), nur el siaj
+  // propraj mezuroj: la oro ĉirkaŭas la vitron per egala bendo kaj la pintoj
+  // elstaras el tiu bendo.
+  const kadroLargho = 0o1/0o10, kadroDikeco = 0o1/0o20;
+  // ⟨ Kiom da libera muro ĉirkaŭ la fenestro 📃 ⟩ — la pintoj neniam rajtas
+  // elstari preter la rando de la muro. Horizontale la muro donas plataLargho −
+  // ww/2 kaj vertikale la PLI MALGRANDAN liberon de supre kaj sube ( la fenestro
+  // ne estas vertikale centrita en la muro, malkiel la eksteraj, kiuj sidas en la
+  // mezo de sia tavolo ).
+  const liberoLonga = plataLargho - ww / 2;
+  const liberoMallonga = Math.min(fenY - hh / 2 - bazaY, bazaY + alto - fenY - hh / 2);
+  const pintoSupre = hh * 0o1/0o2;
+  const pintoFlanko = Math.max(0, Math.min(pintoSupre, liberoLonga - kadroLargho - 0o1/0o100));
+  const pintoMallonga = Math.max(0, Math.min(pintoSupre, liberoMallonga - kadroLargho - 0o1/0o100));
+  const stelo = rondigiKonturon(
+    kreiStelanFenestranFormon(ww, hh, kadroLargho, pintoFlanko, pintoMallonga).getPoints(0o20),
+    0o1/0o20);
+  const truo = kreiPilolFenestranFormon(ww - 0o1/0o100, hh - 0o1/0o100).getPoints(0o20);
+  stelo.holes.push(new THREE.Path(truo.reverse()));
+  const kadroGeo = new THREE.ExtrudeGeometry(stelo,
+    { depth: kadroDikeco, bevelEnabled: false, curveSegments: 0o10 });
+  const kadro = new THREE.Mesh(kadroGeo, kadraMaterialo);
+  // ⟨ Eta elstaro antaŭ la vitro 📃 ⟩ — la plato kuŝas sur la ĉambra faco de la
+  // muro, tuj antaŭ la vitra ebeno. Sen la eta ŝovo ( 0o1/0o100 ) la malantaŭa
+  // faco de la plato kaj la vitro estus sam-ebenaj sur la mallarĝa rondo, kie la
+  // oro kovras la randon de la vitro — tio flagretus ( z-fighting ).
+  const elstaro = 0o1/0o100;
+  kadro.position.set(
+    malantaŭ || antaŭ ? aCx : aCx + ( orientacio === "dekstra" ? -elstaro : elstaro ),
+    fenY,
+    malantaŭ ? aCz + elstaro : antaŭ ? aCz - elstaro : aCz);
   if ( !malantaŭ ) kadro.rotation.y = rotacio;
   group.add(kadro);
 }
@@ -926,6 +945,83 @@ function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno:
   return { x: 0, z: 0o5/0o2, y: 0o4/0o10, direkto: 0 };
 }
 
+// aldoniVendotablon — La vendotablo ( baro ) de la mangxejo: ligna korpo, SUPRA
+// tabulo kun elstara rando kaj ora bendo, vertikalaj lignaj slaboj sur la
+// gastoflanko (+z), oraj angulaj fostoj kaj sokla stango ĉe la planko.
+// ⟨ Kial 📃 ⟩ — la antaŭa vendotablo estis unu plena ligna SKATOLO unu unuon
+// alta kaj 1.25 profundaj: ĝi aspektis kiel murero meze de la ĉambro, kaj ĝiaj
+// kvadrataj anguloj konkuris kun la rondigitaj mebloj. Nun ĝi legiĝas kiel la
+// ceteraj mebloj de la restoracio.
+//     @param grupo ( THREE.Group ) - La grupo.
+//     @param z ( number ) - La z-centro de la tablo.
+//     @param largho ( number ) - La larĝo ( laŭ x ).
+//     @param profundo ( number ) - La profundo ( laŭ z ).
+//     @param y ( number ) - La planko-nivelo.
+//     @param lignaMaterialo, kadraMaterialo ( Material ) - La ligno kaj la oro.
+//     @returns supro ( number ) - La nivelo de la SUPRA tabulo ( kie la poto
+//              sidas ), por ke la vokanto metu objektojn sur ĝin anstataŭ per
+//              fiksaj y-valoroj.
+function aldoniVendotablon(grupo: THREE.Group, z: number, largho: number, profundo: number,
+  y: number, lignaMaterialo: THREE.Material, kadraMaterialo: THREE.Material): number {
+  const alto = 0o7/0o10;                 // 0.875 — la labor-alto de baro
+  const tabuloDikeco = 0o1/0o20;
+  const elstaro = 0o1/0o10;              // kiom la supra tabulo elstaras
+  const supro = y + alto;
+  const dikeco = 0o1/0o20;
+  // 1. La korpo — iomete enen de la tabulo, do la elstara rando videblas.
+  const korpo = new THREE.Mesh(
+    new RoundedBoxGeometry(largho - elstaro, alto - tabuloDikeco, profundo - elstaro, 3, 0o2/0o100),
+    lignaMaterialo
+);
+  korpo.position.set(0, y + ( alto - tabuloDikeco ) / 2, z);
+  korpo.castShadow = true;
+  grupo.add(korpo);
+  // 2. La vertikalaj slaboj — la antaŭa flanko de baro, kiel la slataj benkoj.
+  const slaboj = Math.max(3, Math.round(largho * 1.5));
+  const slabaPaso = ( largho - elstaro * 4 ) / slaboj;
+  for ( let i = 0; i < slaboj; i++ ) {
+    const slabo = new THREE.Mesh(
+      new RoundedBoxGeometry(slabaPaso * 0o7/0o10, alto - tabuloDikeco - 0o1/0o4, dikeco, 2, 0o1/0o200),
+      lignaMaterialo
+);
+    slabo.position.set(-largho / 2 + elstaro * 2 + slabaPaso * ( i + 0o5/0o10 ),
+      y + ( alto - tabuloDikeco ) / 2, z + profundo / 2 - elstaro * 0o5/0o10);
+    slabo.castShadow = true;
+    grupo.add(slabo);
+  }
+  // 3. La supra tabulo — kun la sama ora bendo kiel la tabloj de la restoracio.
+  const tabulo = new THREE.Mesh(
+    new RoundedBoxGeometry(largho + elstaro * 2, tabuloDikeco, profundo + elstaro * 2, 3, 0o2/0o100),
+    lignaMaterialo
+);
+  tabulo.position.set(0, supro - tabuloDikeco / 2, z);
+  tabulo.castShadow = true;
+  grupo.add(tabulo);
+  const bendo = new THREE.Mesh(
+    new RoundedBoxGeometry(largho + elstaro * 0o15/0o10, 0o1/0o40, profundo + elstaro * 0o15/0o10, 3, 0o1/0o10),
+    kadraMaterialo
+);
+  bendo.position.set(0, supro - tabuloDikeco - 0o1/0o40, z);
+  grupo.add(bendo);
+  // 4. Oraj angulaj fostoj kaj sokla stango — la kadro, kiu tenas la tablon.
+  for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
+    const fosto = new THREE.Mesh(
+      new RoundedBoxGeometry(0o1/0o10, alto - tabuloDikeco, 0o1/0o10, 2, 0o1/0o200),
+      kadraMaterialo
+);
+    fosto.position.set(sX * ( largho / 2 - elstaro ), y + ( alto - tabuloDikeco ) / 2, z + sZ * ( profundo / 2 - elstaro ));
+    grupo.add(fosto);
+  }
+  const soklo = new THREE.Mesh(
+    new THREE.CylinderGeometry(0o1/0o50, 0o1/0o50, largho - elstaro * 2, 8).rotateZ(Math.PI / 2),
+    kadraMaterialo
+);
+  soklo.position.set(0, y + 0o1/0o40, z + profundo / 2 - elstaro * 0o5/0o10);
+  grupo.add(soklo);
+  return supro;
+}
+
+// kreiInternanSistemon — La interna sistemo por la eniraj spacoj.
 export function kreiInternanSistemon(): InternaSistemo {
   return {
     currentGroup: null, animated: [], plankoj: [], helikso: null, manĝaĵoj: [], vaporNuboj: [], litkoj: [],
@@ -1110,8 +1206,6 @@ export function eniriInternon(
   });
   // Komunaj materialoj por dekoracioj
   const oraBazaMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
-  const oraKadroMaterialo = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 });
-  const oraArkoMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10, side: THREE.DoubleSide });
   const oraTrimMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
 
   const group = new THREE.Group();
@@ -1241,21 +1335,27 @@ export function eniriInternon(
         group.add(kopio);
       }
     } else {
-      // Plena muro sur la supraj kaj sub-teraj etagxoj
-      konstruiMuron(group, -hw, 0, hw * 2, y, alto, 0o3/0o20, muraMaterialo, 0, hd);
+      // ⟨ La antaŭa muro ricevas fenestron 📃 ⟩ — la teretaĝa antaŭa muro enhavas
+      // la pordon, sed sur la supraj kaj sub-teraj etaĝoj ĝi estis PLENA muro, dum
+      // la tri aliaj muroj havis fenestrojn. Nun la ĉambro havas fenestron sur ĉiu
+      // el la kvar flankoj, krom kie estas pordo.
+      aldoniLonganFenestron(group, 0, hd, y, alto, hw, "antaŭ", muraMaterialo, fenestraMaterialo, kadraMaterialo);
     }
 
     // La tri ceteraj muroj ricevas fenestrojn — krom sur la teretaĝo de la
     // sanktejo, kie ili cxuj havas pordojn.
     const kvarPordoj = et === 0 && spec.type === "sanktejo";
     // Malantaŭa muro. Unu centrita longa horizontala rondigita fenestro
-    if ( !kvarPordoj ) aldoniLonganFenestron(group, 0, -hd, y, alto, hw, "malantaŭ", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
+    // La fenestroj uzas la oran kadran materialon de la konstruajxo — la sama
+    // metalluma oro kiel la stela kadro ekstere ( ne la malnovaj du travideblaj
+    // oraj materialoj de la interna fenestro ).
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, 0, -hd, y, alto, hw, "malantaŭ", muraMaterialo, fenestraMaterialo, kadraMaterialo);
 
     // Maldekstra muro. Unu centrita longa horizontala rondigita fenestro
-    if ( !kvarPordoj ) aldoniLonganFenestron(group, -hw, 0, y, alto, hd, "maldekstra", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, -hw, 0, y, alto, hd, "maldekstra", muraMaterialo, fenestraMaterialo, kadraMaterialo);
 
     // Dekstra muro. Unu centrita longa horizontala rondigita fenestro
-    if ( !kvarPordoj ) aldoniLonganFenestron(group, hw, 0, y, alto, hd, "dekstra", muraMaterialo, fenestraMaterialo, oraArkoMaterialo, oraKadroMaterialo);
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, hw, 0, y, alto, hd, "dekstra", muraMaterialo, fenestraMaterialo, kadraMaterialo);
 
     // Dikaj oraj angulaj kolonoj kun supra ekflaro — RONDIGITAJ, ne rektangulaj
     // poloj. La kapoj/bazoj estas centritaj por ke iliaj eksteraj facoj kuŝu
@@ -1291,28 +1391,54 @@ export function eniriInternon(
 
     // Muraj lampoj kun varma ora brilo
     const lampNombro = Math.max(1, Math.floor(hw) - 1);
+    // ⟨ Neniu lampo en la porda malfermo 📃 ⟩ — sur la teretaĝo la pordo okupas
+    // la centron de la fronta muro. La antaŭa kondiĉo forigis nur la lampojn
+    // rekte super la porda CENTRO ( |lx| < pordDuon ), sed la malfermo estas
+    // larĝa je pordBazo ( ≈ 2.42 ) kaj la lampoj de malgranda konstruajxo sidis
+    // ĉe |lx| = 1 — do EN la malfermo, ŝvebantaj en la aero apud la pordo. Ili
+    // estis la du "hazardaj brilaj kvadratoj" ( la ora krampo plus la brilanta
+    // sfero ) kiujn oni vidis venante en la konstruajxon. Nun ĉiu lampo, kiu ajn
+    // parte interkovras la malfermon, tute mankas sur la teretaĝo.
+    const lampLargho = 0o3/0o40;   // la globo
     for ( let i = 0; i < lampNombro; i++ ) {
       const lx = -hw + ( i + 1 ) * hw * 2 / ( lampNombro + 1 );
-      // Sur la teretaĝo la pordo okupas la centron de la fronta muro — lampoj
-      // ene de la porda malfermo flosus en la aero.
-      if ( et === 0 && Math.abs(lx) < pordDuon ) continue;
-      // Ora krampo
-      const lampBazo = new THREE.Mesh(
-        new THREE.BoxGeometry(0o1/0o10, 0o1/0o10, 0o1/0o10),
+      // ⟨ Se la lampo falus en la pordan malfermon 📃 ⟩ — la lampoj sidas sur la
+      // FRONTA muro, do sur la teretaĝo de malgranda konstruajxo ĉiuj falas en la
+      // pordan malfermon ( la malfermo estas ~2.42 larĝa kaj la lampoj sidas ĉe
+      // |lx| = 1 ). Antaŭe ili simple malaperis, do la malgrandaj konstruajxoj
+      // restis sen lampoj kaj ilia interno mallumiĝis. Nun tia lampo translokiĝas
+      // al la plej proksima FLANKA muro — same bela lumo, nenio apud la pordo.
+      const enPordaMalfermo = et === 0 && Math.abs(lx) - lampLargho < pordDuon;
+      const flankSigno = Math.sign(lx) || 1;
+      const lampY = y + alto * 0o5/0o10;
+      // ⟨ Nenia krampa skatolo 📃 ⟩ — la lampo havis malgrandan oran KUBON
+      // ( 0.125 × 0.125 ) sur la muro apud la gloo. De malproksime ĝi ne legiĝis
+      // kiel lampo sed kiel hazarda brila KVADRATO sur la muro — kaj ĉar la muroj
+      // kovras la tutan ĉambron, ili abundis. La skatolo forfalis.
+      // ⟨ La mura brako 📃 ⟩ — anstataŭ la skatolo, maldika ora stango el la
+      // muro ( cilindro laŭ −z ), kiu portas la globon. Sen ĝi la lampo estus
+      // soleca luma punkto ŝvebanta antaŭ la muro, sen ia ligo al la ĉambro.
+      const brako = new THREE.Mesh(
+        new THREE.CylinderGeometry(0o1/0o100, 0o1/0o100, 0o3/0o10, 6).rotateX(Math.PI / 2),
         kadraMaterialo
 );
-      lampBazo.position.set(lx, y + alto * 0o5/0o10, hd - 0o1/0o40);
-      group.add(lampBazo);
+      brako.position.set(enPordaMalfermo ? flankSigno * ( hw - 0o3/0o20 ) : lx,
+        lampY + 0o3/0o40, enPordaMalfermo ? 0 : hd - 0o3/0o20);
+      // La stango estas simetria, do nur la turno de la muro gravas.
+      brako.rotation.y = enPordaMalfermo ? Math.PI / 2 : 0;
+      group.add(brako);
+      const lampX = enPordaMalfermo ? flankSigno * ( hw - 0o3/0o10 ) : lx;
+      const lampZ = enPordaMalfermo ? 0 : hd - 0o3/0o10;
       // Varma punktolumo
       const lumo = new THREE.PointLight(GOLD_WARM, 0o2/0o10, 5, 2);
-      lumo.position.set(lx, y + alto * 0o5/0o10, hd - 0o3/0o10);
+      lumo.position.set(lampX, lampY, lampZ);
       group.add(lumo);
       // Malgranda brila sfero
       const glo = new THREE.Mesh(
-        new THREE.SphereGeometry(0o1/0o20, 0o10, 0o10),
+        new THREE.SphereGeometry(0o3/0o40, 0o10, 0o10),
         new THREE.MeshBasicMaterial({ color: GOLD_WARM, transparent: true, opacity: 0o3/0o20 })
 );
-      glo.position.set(lx, y + alto * 0o5/0o10, hd - 0o3/0o10);
+      glo.position.set(lampX, lampY, lampZ);
       group.add(glo);
     }
 
@@ -1471,22 +1597,22 @@ export function eniriInternon(
   // Specialaj mebloj por mangxejo
   if ( spec.type === "mangxejo" ) {
     const mw = Math.min(spec.w, 0o10), md = Math.min(spec.d, 0o10);
-    const counter = new THREE.Mesh(
-      new THREE.BoxGeometry(Math.min(mw * 2 - 1, 6), 1, 0o12/0o10),
-      lignaMaterialo
-);
     // La vendotablo staras TUTE ene de la ĉambro. la malnova centro
     // ( -md/2 + 0o1/0o10 ) lasis pli ol duonon de la tablo tra la malantaŭa
     // muro — videbla ligna bloko el la ekstero. 0o2/0o10 libero de la muro.
-    counter.position.set(0o5/0o10, 0o4/0o10, -md / 2 + 0o2/0o10 + 0o12/0o10 / 2);
-    group.add(counter);
+    const vendProfundo = 0o12/0o10;
+    const vendZ = -md / 2 + 0o2/0o10 + vendProfundo / 2;
+    const vendSupro = aldoniVendotablon(group, vendZ,
+      Math.min(mw * 2 - 1, 6), vendProfundo, 0, lignaMaterialo, kadraMaterialo);
+    // La poto sidas SUR la vendotablo — la nivelo venas de la tablo mem.
     const pot = new THREE.Mesh(
       new THREE.CylinderGeometry(0o3/0o10, 0o3/0o10, 0o4/0o10, 0o16),
       metalaMaterialo
 );
-    pot.position.set(-0o5/0o10, 0o12/0o10, counter.position.z);
+    pot.position.set(-0o5/0o10, vendSupro + 0o2/0o10, vendZ);
+    pot.castShadow = true;
     group.add(pot);
-    const steamPos = new THREE.Vector3(-0o5/0o10, 0o15/0o10, counter.position.z);
+    const steamPos = new THREE.Vector3(-0o5/0o10, vendSupro + 0o5/0o10, vendZ);
     const vapor = aldoniVaporon(group, steamPos);
     sys.vaporNuboj = [ { ...vapor, ph: 0 } ];
     // La tabloj eniras por ke la flankaj benkoj ( ±0o14/0o10, duonprofundo
@@ -1572,24 +1698,3 @@ function kreiRinganPlankon(hw: number, hd: number, r: number, rotacio: number): 
   return g.rotateX(rotacio);
 }
 
-// Helfunkcio por konstrui muron el skatolo
-// rotacio estas Y-rotacio en radianoj por flankaj muroj
-function konstruiMuron(
-  g: THREE.Group,
-  lokalX: number, lokalY: number, largho: number,
-  bazaY: number, alto: number, dikeco: number,
-  materialo: THREE.MeshStandardMaterial,
-  cx: number, cz: number,
-  rotacio = 0
-): void {
-  if ( largho <= 0 || alto <= 0 ) return;
-  const muro = new THREE.Mesh(new THREE.BoxGeometry(largho, alto, dikeco), materialo);
-  if ( rotacio ) {
-    // Por flankaj muroj. lokalX estas Z-offset, cx estas X-ebeno
-    muro.position.set(cx, bazaY + lokalY + alto / 2, cz + lokalX + largho / 2);
-    muro.rotation.y = rotacio;
-  } else {
-    muro.position.set(cx + lokalX + largho / 2, bazaY + lokalY + alto / 2, cz);
-  }
-  g.add(muro);
-}

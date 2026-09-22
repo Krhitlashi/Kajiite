@@ -1,4 +1,5 @@
-// Tekstura modulo — proceduraj kanvasaj teksturoj por la urba sperto
+// ≺⧼ Tekstura modulo 🖌️ ⧽≻
+// Proceduraj kanvasaj teksturoj por la urba sperto.
 import * as THREE from "three";
 import { kreiHazardanGenerilon } from "./hazardo.js";
 
@@ -48,6 +49,21 @@ function senAlfa(koloro: string): string {
     return `rgba(${( n >> 16 ) & 255},${( n >> 8 ) & 255},${n & 255},0)`;
   }
   return "transparent";
+}
+
+// ombro — La ombro kaj la konturo de folio laŭ la stila regulo
+// MainColor − n · 0x101010. Ĉiu malhela tavolo de folia teksajxo ( la foliombroj,
+// la vejnaj sulkoj kaj la konturo de la klingo ) deriviĝas el la bazkoloro de la
+// folio — neniu aparta hazarda nuanco. Ĉar la bazo estas de la formo #nmnmnm
+// ( la neparaj ciferoj 0 aux 8 ), ĉiu ombro restas en tiu sama familio.
+//     @param koloro ( number ) - La bazkoloro de la folio ( 0xRRGGBB ).
+//     @param n ( number = 0o1 ) - Kiom da 0x101010-paŝoj malhelen.
+//     @param alfa ( number = 1 ) - La alfo de la rezulto.
+//     @returns ombro ( string ) - La koloro kiel "rgba(r,g,b,a)".
+function ombro(koloro: number, n = 0o1, alfa = 1): string {
+  const kanalo = ( sovo: number ): number =>
+    Math.max(0, ( ( koloro >> sovo ) & 0xff ) - n * 0x10);
+  return `rgba(${kanalo(0o20)},${kanalo(0o10)},${kanalo(0)},${alfa})`;
 }
 
 // desegniWrapajnNubojn — Komuna nub-tavolo de la ŝelaj teksaĵoj. Desegnas
@@ -367,6 +383,11 @@ function desegniSxelighon(k: CanvasRenderingContext2D, sxel: BetulaSxeligho, mal
   };
   // La malhela interna sxoelo.
   bendo(0, sxel.alto, malhela);
+  // ⟨ La tavoloj de la papero 📃 ⟩ — maldika pli malhela strio meze de la
+  // interna sxoelo, kie dua folio de ŝelo ankoraŭ kuŝas. Sen ĝi la senŝeliĝa
+  // bendo estas ebeno de unu koloro; kun ĝi ĝi montras siajn tavolojn, kiel la
+  // veraj betulaj bendoj.
+  bendo(sxel.alto * 0o4/0o10, 0o2, malhela);
   // La ombro sub la bukla rando.
   bendo(sxel.kurbaAlto, 0o6, ombro);
   // La hela bukla papera rando — la senŝeliĝanta tavolo kiu kaptas la lumon.
@@ -434,10 +455,19 @@ export const kreiSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
     // Lenticeloj — la horizontalaj nigraj markoj en aroj. Pli malhelaj kaj
     // pli grandaj malsupre, kie la sxoelo estas pli malnova.
+    // ⟨ Mola varma halo sub ĉiu lenticelo 📃 ⟩ — la marko mem estas preskaŭ
+    // nigra kaj akra, do sen transiro ĝi legiĝis kiel gluita sur la blanka
+    // sxoelo. Nun ĉiu lenticelo ricevas unue pli grandan, duontravideblan varman
+    // makulon ( la sxoelo ĉirkaŭ vera lenticelo bruniĝas ), kaj nur poste la
+    // malhelan markon — la du samas en la kolor- kaj la reliefa teksajxo.
     for ( const lent of skizo.lenticeloj ) {
       const maljuneco = lent.y / sxelaH;
       const koloro = `rgba(26,23,19,${0o55/0o100 + maljuneco * 0o30/0o100})`;
-      desegniWrapan(k, sxelaW, () => { desegniLenticelon(k, lent, koloro); });
+      desegniWrapan(k, sxelaW, () => {
+        desegniLenticelon(k, { ...lent, longo: lent.longo + 0o4, dikeco: lent.dikeco + 1 },
+          `rgba(152,134,104,${0o10/0o100 + maljuneco * 0o6/0o100})`);
+        desegniLenticelon(k, lent, koloro);
+      });
     }
     // Senŝeliĝaj bendoj — la malhela interna sxoelo kun hela bukla rando,
     // la plej karakteriza marko de la papera betulo. Pli malhelaj kaj pli
@@ -457,15 +487,19 @@ export const kreiSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
       });
     }
     // ⟨ La papera grajno 📃 ⟩ — fajna malregula grajno super ĉio: la betula
-    // ŝelo ne estas glata papero, ĝi havas etajn malhelajn kaj helajn punktojn
-    // de la fibroj. Sen ĝi la blanka trunko aspektas kiel plasta tubo.
-    for ( let i = 0; i < 0o3000; i++ ) {
-      const r = 0o1/0o2 + Math.random();
-      const malhela = Math.random() < 0o3/0o5;
-      k.fillStyle = malhela
-        ? `rgba(120,116,104,${0o4/0o100 + Math.random() * 0o10/0o100})`
-        : `rgba(255,255,250,${0o4/0o100 + Math.random() * 0o10/0o100})`;
-      k.fillRect(Math.random() * sxelaW, Math.random() * sxelaH, r, r);
+    // ŝelo ne estas glata papero, ĝi havas etajn malhelajn kaj helajn fibrojn.
+    // ⟨ La fibroj kuŝas HORIZONTALE 📃 ⟩ — la antaŭaj izotropaj punktoj ( samaj
+    // laŭ larĝo kaj alto ) legiĝis kiel televida bruo sur la blanka ŝelo. La
+    // fibroj de betula papero sekvas la trunkon, do la grajno nun konsistas el
+    // mallongaj horizontalaj streketoj — 1 gxis 9 rastrumeroj longaj, 1 alta.
+    // La starto estas limigita al sxelaW − l, do neniu streketo transiras la
+    // kahelan randon kaj neniu ĉirkaŭvolva kopio necesas.
+    for ( let i = 0; i < 0o4000; i++ ) {
+      const l = 0o1 + Math.random() * 0o10;
+      k.fillStyle = Math.random() < 0o3/0o5
+        ? `rgba(120,116,104,${0o3/0o100 + Math.random() * 0o10/0o100})`
+        : `rgba(255,255,250,${0o5/0o100 + Math.random() * 0o10/0o100})`;
+      k.fillRect(Math.random() * ( sxelaW - l ), Math.random() * sxelaH, l, 1);
     }
     // Malsupra vetera lavo — la trunka bazo estas pli griza kaj ombrita. La
     // betula ŝelo malheliĝas vere nur ĉe la grundo, kaj tiu griza kolumo estas
@@ -541,13 +575,15 @@ export const kreiSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
       });
     }
     // Fajna fibra grajno — la sama papera malglateco ankaŭ en la reliefo, do
-    // la ŝelo ne legiĝas kiel glata plasto de proksime.
-    for ( let i = 0; i < 0o2000; i++ ) {
+    // la ŝelo ne legiĝas kiel glata plasto de proksime. La sama HORIZONTALA
+    // streketo kiel en la koloro, do la reliefo montras la paperajn fibrojn.
+    for ( let i = 0; i < 0o4000; i++ ) {
+      const l = 0o1 + Math.random() * 0o10;
       const griz = ( Math.random() < 0o1/0o2
         ? 0o200 + ( ( Math.random() * 0o26 ) | 0 )
         : 0o140 + ( ( Math.random() * 0o20 ) | 0 ) );
       kunteksto.fillStyle = `rgba(${griz},${griz},${griz},0.5)`;
-      kunteksto.fillRect(Math.random() * sxelaW, Math.random() * sxelaH, 1, 1);
+      kunteksto.fillRect(Math.random() * ( sxelaW - l ), Math.random() * sxelaH, l, 1);
     }
   }, [ 1, 1 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
 });
@@ -564,6 +600,12 @@ interface LarikaPlato {
   x: number; y: number; longo: number; ondo: number; dikeco: number; tono: number;
 }
 
+// LarikaKresto — Unu levita vertikala ŝel-plato inter la fendoj. La larĝo kaj la
+// lumo apartenas al la skizo, ĉar la kolor- kaj la bump-teksajxo devas levi la
+// SAMAN platon — kun la antaŭa Math.random() en la desegnilo la reliefo levis
+// platojn, kiuj ne ekzistis en la koloro.
+interface LarikaKresto { x: number; largho: number; hela: boolean; }
+
 interface LarikaMakulo {
   x: number; y: number; r: number; hela: boolean;
 }
@@ -572,7 +614,7 @@ interface LarikaSkizo {
   fendoj: LarikaFendo[];
   platoj: LarikaPlato[];
   makuloj: LarikaMakulo[];
-  kolonoj: number[];
+  krestoj: LarikaKresto[];
 }
 
 let larikaSkizo: LarikaSkizo | null = null;
@@ -612,9 +654,19 @@ function generiLarikanSkizon(): LarikaSkizo {
       hela: Math.random() < 0o5/0o10,
     });
   }
-  const kolonoj: number[] = [];
-  for ( let i = 0; i < 0o14; i++ ) kolonoj.push(Math.random() * w);
-  larikaSkizo = { fendoj, platoj, makuloj, kolonoj };
+  // ⟨ La vertikalaj krestoj estas malsamlarĝaj 📃 ⟩ — antaŭe 0o14 platoj de
+  // preskaŭ egala larĝo ( 2–6 rastrumeroj ) faris ritman striadon; vera ŝelo havas
+  // kelkajn larĝajn platojn kaj multajn mallarĝajn. Nun 0o26 platoj kun larĝo de
+  // 2 gxis 0o10 rastrumeroj, kaj ĉiu portas sian propran lumon.
+  const krestoj: LarikaKresto[] = [];
+  for ( let i = 0; i < 0o26; i++ ) {
+    krestoj.push({
+      x: Math.random() * w,
+      largho: 0o2 + Math.random() * Math.random() * 0o10,
+      hela: Math.random() < 0o6/0o10,
+    });
+  }
+  larikaSkizo = { fendoj, platoj, makuloj, krestoj };
   return larikaSkizo;
 }
 
@@ -635,32 +687,50 @@ export const kreiLarikanSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
       [ "rgba(160,150,136,0.20)", "rgba(70,62,54,0.18)", "rgba(112,104,92,0.22)" ],
       0o10/0o100, 0o14/0o100);
     const skizo = generiLarikanSkizon();
-    // Leviĝantaj plato-kolonoj — la helaj kaj malhelaj krestoj inter la fendoj.
-    for ( const cx of skizo.kolonoj ) {
-      const wd = 0o2 + Math.random() * 0o4;
-      const koloro = Math.random() < 0o5/0o10
-        ? `rgba(168,158,144,${0o15/0o100 + Math.random() * 0o1/0o10})`
-        : `rgba(64,56,48,${0o15/0o100 + Math.random() * 0o1/0o10})`;
+    // ⟨ La krestoj havas molan lumon 📃 ⟩ — antaŭe ĉiu plato estis egala
+    // rektangulo kun akraj randoj, do la ŝelo legiĝis kiel pentritaj strioj. Nun
+    // horizontala gradiento mallumigas la randojn kaj lumigas la centron de la
+    // plato, do la bendo legiĝas kiel ronda kresto.
+    for ( const kresto of skizo.krestoj ) {
+      const pinto = kresto.hela
+        ? `rgba(176,164,146,${0o17/0o100 + Math.random() * 0o10/0o100})`
+        : `rgba(56,46,38,${0o20/0o100 + Math.random() * 0o10/0o100})`;
       desegniWrapan(k, w, () => {
-        k.fillStyle = koloro;
-        k.fillRect(cx, 0, wd, h);
+        const g = k.createLinearGradient(kresto.x, 0, kresto.x + kresto.largho, 0);
+        g.addColorStop(0, senAlfa(pinto));
+        g.addColorStop(0.5, pinto);
+        g.addColorStop(1, senAlfa(pinto));
+        k.fillStyle = g;
+        k.fillRect(kresto.x, 0, kresto.largho, h);
       });
     }
     // Profundaj vertikalaj fendoj — ruĝbrunaj sulkoj kun malhela kerno.
+    // ⟨ Hela rimo sur unu flanko 📃 ⟩ — post la malhela kerno venas maldika hela
+    // linio tuj apud la sulko: la lumo kaptiĝas sur la rando de la najbara plato.
+    // Sen ĝi la fendo legiĝas kiel simple desegnita streko anstataŭ kiel truo.
     for ( const fendo of skizo.fendoj ) {
       const korpo = fendo.tono < 0o5/0o10 ? "rgba(128,82,56,0.45)" : "rgba(70,50,40,0.50)";
       const kernDikeco = Math.max(1, fendo.dikeco * 0o5/0o10);
       desegniWrapan(k, w, () => {
         desegniStrion(k, fendo, korpo);
         desegniStrion(k, { ...fendo, dikeco: kernDikeco }, "rgba(52,36,28,0.55)");
+        desegniStrion(k, { ...fendo, x: fendo.x + kernDikeco * 0o6/0o10, dikeco: 1 },
+          "rgba(186,174,158,0.22)");
       });
     }
-    // Horizontalaj skvamaj fendoj — la rompoj de la sxoelaj platoj.
+    // Horizontalaj skvamaj fendoj — la rompoj de la sxoelaj platoj. La malhela
+    // rompo portas helan suban randon ( la skvamo leviĝas sub la fendo ).
     for ( const plato of skizo.platoj ) {
       const koloro = plato.tono < 0o5/0o10
         ? `rgba(150,140,126,${0o2/0o10 + Math.random() * 0o3/0o10})`
         : `rgba(56,42,34,${0o25/0o40 + Math.random() * 0o15/0o40})`;
-      desegniWrapan(k, w, () => { desegniHorizontanStrion(k, plato, koloro); });
+      desegniWrapan(k, w, () => {
+        desegniHorizontanStrion(k, plato, koloro);
+        if ( plato.tono >= 0o5/0o10 ) {
+          desegniHorizontanStrion(k, { ...plato, y: plato.y + 1, dikeco: 1 },
+            "rgba(188,176,160,0.20)");
+        }
+      });
     }
     // Skvamaj makuloj — malgrandaj malhelaj kaj helaj punktoj de la malglata sxoelo.
     for ( const makulo of skizo.makuloj ) {
@@ -705,12 +775,24 @@ export const kreiLarikanSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture =>
         desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(86,86,86,0.70)");
       });
     }
-    // Leviĝantaj platoj — helaj krestoj.
-    for ( const cx of skizo.kolonoj ) {
-      const wd = 0o2 + Math.random() * 0o4;
+    // Leviĝantaj platoj — helaj krestoj kun la sama mola lumo kiel en la
+    // kolor-teksajxo ( la sama skizo, do la du kongruas precize ).
+    for ( const kresto of skizo.krestoj ) {
       desegniWrapan(kunteksto, w, () => {
-        kunteksto.fillStyle = "rgba(148,148,148,0.35)";
-        kunteksto.fillRect(cx, 0, wd, h);
+        const g = kunteksto.createLinearGradient(kresto.x, 0, kresto.x + kresto.largho, 0);
+        g.addColorStop(0, "rgba(128,128,128,0)");
+        g.addColorStop(0.5, kresto.hela ? "rgba(162,162,162,0.48)" : "rgba(112,112,112,0.38)");
+        g.addColorStop(1, "rgba(128,128,128,0)");
+        kunteksto.fillStyle = g;
+        kunteksto.fillRect(kresto.x, 0, kresto.largho, h);
+      });
+    }
+    // La hela rimo de ĉiu fendo ankaŭ reliefas.
+    for ( const fendo of skizo.fendoj ) {
+      const kernDikeco = Math.max(1, fendo.dikeco * 0o5/0o10);
+      desegniWrapan(kunteksto, w, () => {
+        desegniStrion(kunteksto, { ...fendo, x: fendo.x + kernDikeco * 0o6/0o10, dikeco: 1 },
+          "rgba(158,158,158,0.35)");
       });
     }
     // Horizontalaj skvamaj fendoj.
@@ -1088,7 +1170,7 @@ export const kreiRokenTeksajxon = sxovu((): THREE.CanvasTexture => {
         kunteksto.stroke();
       });
     }
-    // ⟪ La kvarco-vejnoj 📃 ⟫ — maldikaj helaj vejnoj, kiuj trapasas plurajn
+    // ⟨ La kvarco-vejnoj 📃 ⟩ — maldikaj helaj vejnoj, kiuj trapasas plurajn
     // kristalojn. Ili estas la plej forta signo de "vera ŝtono": ŝtonego sen
     // ili montras nur hazardajn makulojn, ĉar la okulo ne havas ion por legi
     // kiel mineralan strukturon.
@@ -1457,7 +1539,7 @@ export const kreiFilikanTeksajxon = sxovu((): THREE.CanvasTexture => kreiPinatan
   lobaNombro: 2.6,
   folio: ( t, flanko ) =>
     `rgb(${Math.round(62 + t * 26)},${Math.round(108 + t * 46 + ( flanko > 0 ? 5 : 0 ))},${Math.round(50 + t * 20)})`,
-  rando: "rgba(40,62,36,0.42)",
+  rando: ombro(0x386830, 0o2, 0.42),
   vejno: "rgba(150,180,110,0.30)",
   raĥiso: "#65854e",
   raĥisoLargho: 4,
@@ -1489,7 +1571,7 @@ export function kreiPurpuranFrondanTeksajxon(densa: boolean = false): THREE.Canv
     // klingo sub la vala lumo, do la koloroj leviĝis iomete.
     folio: ( t, flanko ) =>
       `rgb(${Math.round(96 + t * 88 + ( flanko > 0 ? 16 : 0 ))},${Math.round(56 + t * 62)},${Math.round(150 + t * 84)})`,
-    rando: "rgba(44,22,70,0.45)",
+    rando: ombro(0x603890, 0o3, 0.45),
     vejno: "rgba(214,178,244,0.30)",
     raĥiso: "#4a2a68",
     raĥisoLargho: 4,
@@ -1523,7 +1605,7 @@ export function kreiPurpuranTronkofilikanTeksajxon(densa: boolean = false): THRE
     // estas iomete pli helaj ol tiuj de la surteraj purpuraj filikoj.
     folio: ( t, flanko ) =>
       `rgb(${Math.round(104 + t * 86 + ( flanko > 0 ? 16 : 0 ))},${Math.round(60 + t * 62)},${Math.round(158 + t * 82)})`,
-    rando: "rgba(44,22,70,0.45)",
+    rando: ombro(0x683898, 0o3, 0.45),
     vejno: "rgba(214,178,244,0.28)",
     raĥiso: "#4a2a68",
     raĥisoLargho: 3,
@@ -1540,9 +1622,11 @@ export function kreiPurpuranFilikanTeksajxon(densa: boolean = false): THREE.Canv
   const trovita = purpuraFilikaKaŝo.get(densa);
   if ( trovita ) return trovita;
   const s = 0o400;
+  // ⟨ La tigo 📃 ⟩ — la malhela ŝela strio deriviĝas el la folia koloro `a`
+  // laŭ la stila regulo ( MainColor − n · 0x101010 ).
   const paletro = densa
-    ? { tigo: "#382050", a: "#a058c0", b: "#c078e0" }
-    : { tigo: "#482850", a: "#7848b0", b: "#9868d0" };
+    ? { tigo: ombro(0xa058c0, 0o6), a: "#a058c0", b: "#c078e0" }
+    : { tigo: ombro(0x7848b0, 0o3), a: "#7848b0", b: "#9868d0" };
   const teksajxo = kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
     kunteksto.clearRect(0, 0, s, s);
     kunteksto.strokeStyle = paletro.tigo;
@@ -2411,6 +2495,9 @@ export function kreiCakeanTeksajxon(): THREE.CanvasTexture {
 // betulo. Miksitaj molaj foliaraj nuboj, apartaj ovalaj folioj kaj fajnaj
 // mezvejnoj rompas la malplenan unuforman kronon.
 export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
+  // ⟨ La bazkoloro de la foliaro 📃 ⟩ — ĉiu ombro kaj konturo de ĉi tiu teksajxo
+  // deriviĝas el ĉi tiu verdo laŭ la stila regulo ( MainColor − n · 0x101010 ).
+  const BAZO = 0xc8d8c0;
   const s = 0o200;
   return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
     const gradiento = kunteksto.createLinearGradient(0, 0, 0, s);
@@ -2427,7 +2514,7 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const r = s * ( 0o2/0o100 + Math.random() * 0o5/0o100 );
       const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-      const koloro = i % 0o3 ? "rgba(228,242,224,0.22)" : "rgba(46,90,68,0.16)";
+      const koloro = i % 0o3 ? "rgba(228,242,224,0.22)" : ombro(BAZO, 0o10, 0.16);
       g.addColorStop(0, koloro);
       g.addColorStop(1, senAlfa(koloro));
       kunteksto.fillStyle = g;
@@ -2490,7 +2577,7 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const angulo = Math.random() * Math.PI * 2;
       const longo = 0o1 + Math.random() * 0o3;
-      kunteksto.strokeStyle = i % 0o3 ? "rgba(112,144,116,0.22)" : "rgba(222,238,216,0.26)";
+      kunteksto.strokeStyle = i % 0o3 ? ombro(BAZO, 0o5, 0.22) : "rgba(222,238,216,0.26)";
       kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(x, y);
@@ -2503,7 +2590,7 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
     for ( let i = 0; i < 0o30; i++ ) {
       const x = Math.random() * s, y = Math.random() * s;
       const r = 0o2 + Math.random() * 0o4;
-      kunteksto.fillStyle = "rgba(40,80,62,0.10)";
+      kunteksto.fillStyle = ombro(BAZO, 0o12, 0.10);
       kunteksto.beginPath(); kunteksto.ellipse(x, y, r, r * 0o63/0o100, Math.random() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
     }
 
@@ -2591,6 +2678,8 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
   // rando kaj la vejnetaro legiĝis kiel ŝtuparo de rastrumeroj. Duobla kanvaso
   // kostas preskaŭ nenion ( unu teksaĵo por la tuta Betularo ) kaj la rando de
   // ĉiu folio estas nun tranĉa.
+  // ⟨ La bazkoloro de la folio 📃 ⟩ — la ombroj kaj la konturoj ( MainColor − n · 0x101010 ).
+  const BAZO = 0x98b078;
   const w = 0o1000, h = 0o400;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
     kunteksto.clearRect(0, 0, w, h);
@@ -2665,7 +2754,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     const transLarĝo = kunteksto.createLinearGradient(0, mezo - hwMax, 0, mezo + hwMax);
     transLarĝo.addColorStop(0, "rgba(255,255,240,0.16)");
     transLarĝo.addColorStop(0o45/0o100, "rgba(255,255,240,0.02)");
-    transLarĝo.addColorStop(1, "rgba(24,52,26,0.18)");
+    transLarĝo.addColorStop(1, ombro(BAZO, 0o10, 0.18));
     kunteksto.fillStyle = transLarĝo;
     kunteksto.fillRect(0, 0, w, h);
     // ⟨ La foliaĵo 📃 ⟩ — etaj makuletoj, delikataj vejnoj kaj la grajno de la
@@ -2678,7 +2767,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const t = makuloHazardo();
       const y = mezo + ( makuloHazardo() - 0.5 ) * 2 * hwMax * makuloHazardo();
       const r = 2.2 + makuloHazardo() * 9;
-      kunteksto.fillStyle = i % 0o3 ? "rgba(206,224,178,0.13)" : "rgba(112,146,88,0.11)";
+      kunteksto.fillStyle = i % 0o3 ? "rgba(206,224,178,0.13)" : ombro(BAZO, 0o3, 0.11);
       kunteksto.beginPath(); kunteksto.ellipse(xDe(t), y, r, r * 0.55, makuloHazardo() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
     }
     // La hista grajno — punktoj de la folikarno, videblaj nur ĉe tre proksima
@@ -2698,7 +2787,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const flanko = i % 2 ? 1 : -1;
       const fino = xDe(t + 0.26);
       const pinto = mezo + flanko * hwMax * 0.88;
-      kunteksto.strokeStyle = "rgba(78,108,60,0.26)";
+      kunteksto.strokeStyle = ombro(BAZO, 0o5, 0.26);
       kunteksto.lineWidth = 2.8;
       kunteksto.beginPath();
       kunteksto.moveTo(xDe(t), mezo + flanko * 2.6);
@@ -2725,13 +2814,13 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     kunteksto.restore();
     // La rando — unue mola ombro interne, poste mallarĝa malhela linio, do la
     // folio havas silueton ankaŭ kontraŭ la hela ĉielo kaj iom da dikeco.
-    kunteksto.strokeStyle = "rgba(58,84,44,0.12)";
+    kunteksto.strokeStyle = ombro(BAZO, 0o6, 0.12);
     kunteksto.lineWidth = 8;
     kunteksto.stroke(klingo);
     // ⟨ Mola rando 📃 ⟩ — la rando estis 0.34-alfa malhela linio, kaj la
     // multaj folikartoj de la krono legiĝis kiel malmolaj poligonoj. La ombro
     // internen restas, sed la malhela streko preskaŭ malaperas.
-    kunteksto.strokeStyle = "rgba(58,84,44,0.16)";
+    kunteksto.strokeStyle = ombro(BAZO, 0o6, 0.16);
     kunteksto.lineWidth = 2;
     kunteksto.stroke(klingo);
     // La tigo ĉe la bazo — dika kaj pli bruna ol la klingo.
@@ -2748,6 +2837,9 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
 // lariko. La pingloj grupiĝas en mallongaj faskoj ĉirkaŭ la branĉetoj, kun
 // orflavaj, olivaj kaj brunaj nuancoj anstataŭ plata flava konuso.
 export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
+  // ⟨ La bazkoloro de la pinglaroj 📃 ⟩ — la ombroj kaj la konturoj de la
+  // aŭtunaj pingloj ( MainColor − n · 0x101010 ).
+  const BAZO = 0xa8a850;
   const s = 0o200;
   return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
     const gradiento = kunteksto.createLinearGradient(0, 0, 0, s);
@@ -2793,7 +2885,7 @@ export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const angulo = Math.random() * Math.PI * 2;
       const longo = 0o3 + Math.random() * 0o4;
-      kunteksto.strokeStyle = "rgba(52,52,24,0.30)";
+      kunteksto.strokeStyle = ombro(BAZO, 0o7, 0.30);
       kunteksto.lineWidth = 0o1/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(x, y);
@@ -2802,7 +2894,7 @@ export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.stroke();
     }
     for ( let i = 0; i < 0o70; i++ ) {
-      kunteksto.fillStyle = i % 0o3 ? "rgba(240,226,126,0.42)" : "rgba(63,70,35,0.38)";
+      kunteksto.fillStyle = i % 0o3 ? "rgba(240,226,126,0.42)" : ombro(BAZO, 0o7, 0.38);
       kunteksto.fillRect(Math.random() * s, Math.random() * s, 1 + Math.random() * 0o2, 1 + Math.random() * 0o2);
     }
     // Fasketoj de pingloj havas la mallongajn, pintajn strekojn de herbo, sed
@@ -2812,7 +2904,7 @@ export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const a = -Math.PI / 2 + ( Math.random() - 0o5/0o10 ) * 0o6/0o10;
       const longo = 0o2 + Math.random() * 0o4;
-      kunteksto.strokeStyle = i % 0o4 ? "rgba(190,188,89,0.34)" : "rgba(91,105,55,0.32)";
+      kunteksto.strokeStyle = i % 0o4 ? "rgba(190,188,89,0.34)" : ombro(BAZO, 0o5, 0.32);
       kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(x, y);
@@ -3134,6 +3226,9 @@ export const kreiByssoidanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
 // bildo kaj la rando de la geometrio koincidas.
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
 export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
+  // ⟨ La bazkoloro de la folio 📃 ⟩ — la ombroj, la vejnaj sulkoj kaj la konturo
+  // deriviĝas el ĉi tiu purpuro laŭ la stila regulo ( MainColor − n · 0x101010 ).
+  const BAZO = 0xb868d0;
   const w = 0o1000, h = 0o2000;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
     kunteksto.clearRect(0, 0, w, h);
@@ -3187,7 +3282,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       { t: 0.64, l: 0.20, d: -1 }, { t: 0.85, l: 0.18, d: 1 } ] ) {
       const sx = cx + ( f.t - 0.5 ) * w;
       const grad = kunteksto.createLinearGradient(sx - f.l * w, 0, sx + f.l * w, 0);
-      const koloro = f.d > 0 ? "rgba(255,238,255,0.10)" : "rgba(40,10,58,0.16)";
+      const koloro = f.d > 0 ? "rgba(255,238,255,0.10)" : ombro(BAZO, 0o11, 0.16);
       grad.addColorStop(0, senAlfa(koloro));
       grad.addColorStop(0.5, koloro);
       grad.addColorStop(1, senAlfa(koloro));
@@ -3204,7 +3299,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = cx + ( Math.random() * 2 - 1 ) * duono(y);
       const r = h * ( 0.008 + Math.random() * 0.022 );
       const hela = Math.random() < 0.5;
-      const koloro = hela ? "rgba(255,238,255,0.10)" : "rgba(48,14,68,0.17)";
+      const koloro = hela ? "rgba(255,238,255,0.10)" : ombro(BAZO, 0o11, 0.17);
       const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
       g.addColorStop(0, koloro);
       g.addColorStop(1, senAlfa(koloro));
@@ -3223,11 +3318,11 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     kunteksto.quadraticCurveTo(cx + ripo(h * 0.45), h * 0.45, cx + ripo(h), h);
     kunteksto.closePath();
     const ripoGradiento = kunteksto.createLinearGradient(cx - w * 0.05, 0, cx + w * 0.05, 0);
-    ripoGradiento.addColorStop(0, "rgba(38,8,54,0.52)");
-    ripoGradiento.addColorStop(0.32, "rgba(52,16,74,0.10)");
+    ripoGradiento.addColorStop(0, ombro(BAZO, 0o12, 0.52));
+    ripoGradiento.addColorStop(0.32, ombro(BAZO, 0o10, 0.10));
     ripoGradiento.addColorStop(0.5, "rgba(255,244,255,0.46)");
-    ripoGradiento.addColorStop(0.68, "rgba(52,16,74,0.10)");
-    ripoGradiento.addColorStop(1, "rgba(38,8,54,0.52)");
+    ripoGradiento.addColorStop(0.68, ombro(BAZO, 0o10, 0.10));
+    ripoGradiento.addColorStop(1, ombro(BAZO, 0o12, 0.52));
     kunteksto.fillStyle = ripoGradiento;
     kunteksto.fill();
 
@@ -3247,7 +3342,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const antauxen = h * ( 0.055 + 0.045 * t );
       const rando = duono(y - antauxen) * 0.86;
       for ( const dir of [ -1, 1 ] ) {
-        kunteksto.strokeStyle = "rgba(46,12,68,0.52)";
+        kunteksto.strokeStyle = ombro(BAZO, 0o11, 0.52);
         kunteksto.lineWidth = dikoV;
         kunteksto.beginPath();
         kunteksto.moveTo(cx + dir * w * 0.014, y);
@@ -3275,7 +3370,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const l = h * ( 0.025 + Math.random() * 0.055 );
       kunteksto.strokeStyle = Math.random() < 0.5
         ? `rgba(255,240,255,${0.10 + Math.random() * 0.13})`
-        : `rgba(48,14,68,${0.11 + Math.random() * 0.14})`;
+        : ombro(BAZO, 0o11, 0.11 + Math.random() * 0.14);
       kunteksto.beginPath();
       kunteksto.moveTo(x, y);
       kunteksto.lineTo(x + ( Math.random() * 2 - 1 ) * l, y - l * ( 0.4 + Math.random() * 0.8 ));
@@ -3287,7 +3382,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = cx + ( Math.random() * 2 - 1 ) * duono(y);
       const l = h * 0.004 * ( 0.6 + Math.random() );
       kunteksto.fillStyle = Math.random() < 0.5
-        ? `rgba(84,28,104,${0.16 + Math.random() * 0.22})`
+        ? ombro(BAZO, 0o6, 0.16 + Math.random() * 0.22)
         : `rgba(248,228,254,${0.16 + Math.random() * 0.22})`;
       kunteksto.fillRect(x, y, l, l);
     }
@@ -3296,7 +3391,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     const brilo = kunteksto.createLinearGradient(0, h, 0, 0);
     brilo.addColorStop(0, "rgba(255,240,255,0.16)");
     brilo.addColorStop(0.5, senAlfa("rgba(255,240,255,0.12)"));
-    brilo.addColorStop(1, "rgba(44,10,64,0.20)");
+    brilo.addColorStop(1, ombro(BAZO, 0o11, 0.20));
     kunteksto.fillStyle = brilo;
     kunteksto.fillRect(0, 0, w, h);
 
@@ -3304,7 +3399,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     //    rando ), kaj SUR ĝi hela marĝeno: la pala rando de brasiko. La rando
     //    estas la sola parto de la folio, kiu ĉiam videblas — ĝi estas la
     //    silueto — do ĝi portas la plej fortan kontraston de la bildo.
-    kunteksto.strokeStyle = "rgba(32,6,48,0.52)";
+    kunteksto.strokeStyle = ombro(BAZO, 0o12, 0.52);
     kunteksto.lineWidth = h * 0.022;
     klingo();
     kunteksto.stroke();
@@ -3319,13 +3414,24 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
 
 // ⟨ La ŝela skizo 📃 ⟩ — la kolor- kaj bump-teksajxoj de la ŝlefa trunko
 // dividas la SAMAN skizon, do la reliefo akurate sekvas la koloron. La skizo
-// generiĝas unufoje kaj ĉiuj hazardaj valoroj ( ringoj, fibroj, makuloj )
+// generiĝas unufoje kaj ĉiuj hazardaj valoroj ( fendoj, platoj, makuloj )
 // estas fiksitaj tiam.
-interface PuraSxelaBendo { y: number; alto: number; }
-interface PuraSxelaFibro { x: number; largho: number; tono: number; ondo: number; }
+//
+// ⟨ Vertikala kiel la lariko 📃 ⟩ — la ŝlefa ŝelo portas la SAMAN vertikalan
+// strukturon kiel la larika ( vidu generiLarikanSkizon ): profundaj vertikalaj
+// fendoj kaj levitaj plato-kolonoj inter ili. La malnovaj horizontalaj
+// folio-cikatroj kaj la 0o177 fajnaj REGULAJ vertikalaj fibroj forfalis — kune
+// ili legiĝis kiel maŝine gravurita ondigita tubo, ne kiel ŝelo.
+interface PuraSxelaFendo { x: number; y: number; longo: number; ondo: number; dikeco: number; tono: number; }
+
+// PuraSxelaPlato — Unu levita ŝel-plato inter la fendoj. La larĝo KAJ la
+// heleco apartenas al la skizo ( ne al la desegnilo ), ĉar la kolor- kaj la
+// bump-teksajxo devas levi la SAMAN platon en la sama loko — kun la antaŭa
+// Math.random() ene de la desegnilo la du bildoj ricevis malsamajn larĝojn.
+interface PuraSxelaPlato { x: number; largho: number; hela: boolean; }
 interface PuraSxelaMakulo { x: number; y: number; r: number; hela: boolean; }
 interface PuraSxelaSkizo {
-  bendoj: PuraSxelaBendo[]; fibroj: PuraSxelaFibro[]; makuloj: PuraSxelaMakulo[];
+  fendoj: PuraSxelaFendo[]; platoj: PuraSxelaPlato[]; makuloj: PuraSxelaMakulo[];
 }
 
 // ⟨ La kanvasa proporcio 📃 ⟩ — la ŝlefa trunko mezuras ~1.5 unuojn ĉirkaŭe
@@ -3341,52 +3447,31 @@ let puraSxelaSkizo: PuraSxelaSkizo | null = null;
 function generiPuranSxelanSkizon(): PuraSxelaSkizo {
   if ( puraSxelaSkizo ) return puraSxelaSkizo;
   const w = puraSxelaW, h = puraSxelaH;
-  // Folio-cikatriĉaj ringoj — la difina trajto de laktukarbo kaj arbofiliko:
-  // la trunko estas kovrita de densaj horizontalaj cikatroj, kie ĉiu folio
-  // sidis. Ili distribuas egale laŭ la TUTA alto, ĉar la kolumaj tasoj legas
-  // nur malgrandan vertikalan parton de la bildo ( vidu la ripeton de la
-  // koluma materialo ) — iu ajn tranĉaĵo devas porti ringojn.
-  // ⟨ Kiom dikaj estas la cikatroj 📃 ⟩ — ĉiu cikatro estas maldika linio ( la
-  // sulko kaj la kresto kune iom pli ol kvarono de la ringa interspaco ), ne
-  // bendo. Kun la antaŭaj dikkaj bendoj la tuta ŝelo legiĝis kiel kovrilo de
-  // kuseno anstataŭ kiel trunko de laktukarbo — sed la sekvaj 7% estis la
-  // MALA ekstremo: ĉiu cikatro estis 2 rastrumeroj sur la ekrano, do la trunko
-  // perdis sian difinan trajton. La ringa interspaco estas ~26 rastrumeroj, do
-  // 12–23% ( 3–6 rastrumeroj ) estas la plej maldika diko, kiu ankoraŭ legiĝas
-  // kiam la planto staras kelkajn unuojn for.
-  const bendoj: PuraSxelaBendo[] = [];
-  // ⟨ Malpli da ringoj 📃 ⟩ — antaŭe 0o50 ( 40 ) cikatroj super la tuta
-  // trunka alto, ĉiu kun 12–23% de la ringa interspaco, do la ŝelo legiĝis
-  // kiel ripa ondigita tubo — la plej videbla "krispaĵo" de la trunko. Nun
-  // ili estas DUONO ( 0o24, 20 ringoj ) kaj ĉiu ringo estas iomete pli
-  // mallarĝa, do la bendoj spiracas malsupren laŭ la trunko anstataŭ kovri
-  // ĝin kiel stangeto.
-  // ⟨ La cikatroj estas REGULAJ 📃 ⟩ — ili staras egale for unu de la alia kaj
-  // ĉiuj havas la SAMAN dikecon. La antaŭa eta hazardo ( ±25% en la pozicio kaj
-  // 0.11–0.20 de la interspaco en la diko ) ne legiĝis kiel natura ŝelo sed kiel
-  // hazarda striado. La ondo de ĉiu cikatro ( desegniLaPurpurajnRingojn ) jam
-  // malegaligas la liniojn, do la skizo mem povas resti perfekte egala.
-  const ringoj = 0o24;   // 20 cikatroj super la tuta trunka alto
-  for ( let i = 0; i < ringoj; i++ ) {
-    bendoj.push({ y: h * ( i + 0.5 ) / ringoj, alto: h / ringoj * 0.15 });
+  // ⟨ La profundaj fendoj 📃 ⟩ — klasikaj larik-stilaj vertikalaj sulkoj,
+  // neregulaj laŭ la alto: iuj profundaj kaj malhelaj, iuj preskaŭ resaniĝintaj.
+  // La sama skemo kiel la larika ŝelo, nur en la purpura paletro.
+  const fendoj: PuraSxelaFendo[] = [];
+  for ( let i = 0; i < 0o30; i++ ) {
+    fendoj.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      longo: 0o60 + Math.random() * 0o240,
+      ondo: ( Math.random() - 0o4/0o10 ) * 0o3,
+      dikeco: 1 + Math.random() * 0o3,
+      tono: Math.random(),
+    });
   }
-  // ⟨ La vertikalaj fibroj 📃 ⟩ — la ŝelo portas MULTAJN vertikalajn striojn, kaj
-  // ili estas la REGULAĴO de la teksajxo ( antaŭe 0o100 = 64 hazarde metitaj
-  // strioj kun hazardaj larĝoj kaj tonoj — la ŝelo legiĝis kiel hazarda fuŝaĵo ).
-  // Nun 0o177 = 127 fibroj staras EGALDISTANCE ĉirkaŭ la trunko; la nombro estas
-  // NEPARA, do la fibro-strio spegul-simetrias ĉirkaŭ la mezo de la bildo kaj
-  // ĉiu hela strio ricevas malhelan ĝemelon je la sama distanco. Larĝo kaj svingo
-  // venas el la sama malrapida ondo ( 0o10 cikloj — entjero, do la kudro ĉe la
-  // maldekstra kaj dekstra randoj restas seninterrompa ), ne el hazardo.
-  const fibroj: PuraSxelaFibro[] = [];
-  const fibroKvanto = 0o177;   // 127 — nepara por spegula simetrio
-  for ( let i = 0; i < fibroKvanto; i++ ) {
-    const f = ( i + 0.5 ) / fibroKvanto;
-    fibroj.push({
-      x: f * w,
-      largho: 0.8 + 0.3 * Math.cos(f * Math.PI * 2 * 0o10),
-      tono: i % 2 === 0 ? 0.7 : 0.3,
-      ondo: Math.sin(f * Math.PI * 2 * 0o10),
+  // ⟨ La levitaj platoj 📃 ⟩ — la helaj kaj malhelaj vertikalaj krestoj inter
+  // la fendoj. Ili iras la TUTAN alton, do iu ajn vertikala tranĉaĵo ( ankaŭ la
+  // mallonga de la kolumaj tasoj ) portas la saman vertikalan strukturon.
+  // ⟨ Larĝo kaj tono en la skizo 📃 ⟩ — ambaŭ apartenas al la skizo, do la
+  // reliefa teksajxo levas precize la samajn platojn kiel la koloro.
+  const platoj: PuraSxelaPlato[] = [];
+  for ( let i = 0; i < 0o24; i++ ) {
+    platoj.push({
+      x: Math.random() * w,
+      largho: 0o2 + Math.random() * 0o6,
+      hela: Math.random() < 0.5,
     });
   }
   // ⟨ La ton-nuboj sur REGULA krado 📃 ⟩ — anstataŭ 0o140 ( 96 ) hazarde
@@ -3404,61 +3489,8 @@ function generiPuranSxelanSkizon(): PuraSxelaSkizo {
       hela: ( i + j ) % 2 === 0,
     });
   }
-  puraSxelaSkizo = { bendoj, fibroj, makuloj };
+  puraSxelaSkizo = { fendoj, platoj, makuloj };
   return puraSxelaSkizo;
-}
-
-// desegniLaPurpurajnRingojn — La cikatroj sur la ŝelo: malhela sulko kun hela
-// kresto SUPER ĝi ( la bilda supro estas la trunka supro — la kanvaso estas
-// renversita ). La funktion uzas kaj la kolor-teksajxo kaj la reliefo, do la
-// du kongruas.
-//     @param k ( CanvasRenderingContext2D ) - La kunteksto.
-//     @param koloro ( funkcio ) - Donas la koloron de la sulko kaj de la kresto.
-// ⟨ La cikatroj estas ONDAJ linioj 📃 ⟩ — antaŭe ĉiu cikatro estis perfekte
-// HORIZONTALA rektangulo, kaj kvardek egalaj rektanguloj legiĝas kiel ondigita
-// tubo aux striita skatolo, ne kiel ŝelo de planto. Nun ĉiu cikatro sekvas
-// malrapidan ondon ( la trunko ne estas maŝin-farita cilindro ) kaj ĝia diko
-// ŝanĝiĝas laŭ la vojo, do la sulko mallarĝiĝas, perdiĝas kaj reaperas kiel
-// vera folio-cikatro. La ondaj frekvencoj estas ENTIEROJ da cikloj trans la
-// bildo, do la linio fermiĝas sen kudro ĉe la maldekstra kaj dekstra randoj
-// ( la trunka UV volviĝas horizontale ).
-function desegniLaPurpurajnRingojn(k: CanvasRenderingContext2D,
-  koloro: ( tipo: "sulko" | "kresto", bendo: PuraSxelaBendo ) => string): void {
-  const w = puraSxelaW;
-  const PAŜO = 4;
-  for ( const bendo of generiPuranSxelanSkizon().bendoj ) {
-    const fazo = bendo.y * 0.031;
-    const amplekso = bendo.alto * 0.85;
-    // ondo — la centro de la cikatro ĉe la bilda kolumno x.
-    const ondo = ( x: number ): number =>
-      bendo.y
-        + Math.sin(x / w * Math.PI * 2 + fazo) * amplekso
-        + Math.sin(x / w * Math.PI * 2 * 5 + fazo * 2.7) * amplekso * 0.38;
-    // bendoPath — la fermita vojo inter la supra kaj la malsupra randoj de la
-    // cikatro. La diko ondiĝas kun la sama periodo, do la cikatro estas pli dika
-    // en iuj lokoj kaj preskaŭ malaperas en aliaj — neniam egala bendo.
-    const bendoPath = ( supra: number, malsupra: number ): void => {
-      k.beginPath();
-      for ( let x = 0; x <= w; x += PAŜO ) {
-        const y = ondo(x) + supra * ( 0.75 + 0.5 * Math.sin(x / w * Math.PI * 2 * 2 + fazo * 1.3) );
-        if ( x === 0 ) k.moveTo(x, y); else k.lineTo(x, y);
-      }
-      for ( let x = w; x >= 0; x -= PAŜO ) {
-        k.lineTo(x, ondo(x) + malsupra * ( 0.75 + 0.5 * Math.sin(x / w * Math.PI * 2 * 2 + fazo * 1.3) ));
-      }
-      k.closePath();
-    };
-    // La sulko — la cikatro mem, iomete levita, kun la malsupra rando pli dika
-    // ol la supra ( la folio premis malsupren kaj lasis ombron sub si ).
-    k.fillStyle = koloro("sulko", bendo);
-    bendoPath(-bendo.alto * 0.30, bendo.alto * 0.70);
-    k.fill();
-    // La kresto — la mallarĝa hela rando SUPER la sulko ( la bilda supro estas
-    // la trunka supro ), tiel mallarĝa ke ambaŭ linioj preskaŭ tuŝiĝas.
-    k.fillStyle = koloro("kresto", bendo);
-    bendoPath(-bendo.alto * 0.85, -bendo.alto * 0.24);
-    k.fill();
-  }
 }
 
 // desegniSxelajnPorojn — La etaj poroj de la ŝela teksajxo, sur REGULA krado.
@@ -3481,6 +3513,166 @@ function desegniSxelajnPorojn(k: CanvasRenderingContext2D, r: number,
       k.beginPath(); k.arc(x, y, r, 0, Math.PI * 2); k.fill();
     });
   }
+}
+
+// ⟨ La koluma bando 📃 ⟩ — la SUPRA parto de la ŝela bildo ( de v =
+// SXELA_KOLUMO_SUPRO ĝis la pinta rando v = 1 ), kie sidas la desegno de la
+// kolumaj tasoj. La koluma materialo legas ĜUSTE ĉi tiun bandon ( vivu
+// kreiSxelanRinganMaterialon: la klono ricevas offset.y = 1 − ripeto ), ĉar la
+// tasoj sidas alte sur la trunko — do ĉio, kion oni vidas sur la konusoj de la
+// laktukaj plantoj, estas desegnita ĉi-supre.
+const SXELA_KOLUMO_SUPRO = 0o73/0o100;   // 59/64 ≈ 0.92 — la bando ekde ĉi tie
+// ⟨ Ok skvamoj 📃 ⟩ — la sama nombro ĉirkaŭ la trunko kiel la loboj de la taso
+// ( kvar ) multiplikita per du, por ke la desegno legiĝu kiel rondo da folioj
+// kaj restu spegule simetria ĉirkaŭ la mezo de la bildo ( 8 estas para ).
+// ⟨ Kial ok kaj ne kvar 📃 ⟩ — la kvar loboj de la taso sidas ĉe la anguloj
+// u = 0, 0.25, 0.5 kaj 0.75 ( vidu konstruiSxelanRingon: la loboj venas el
+// cos(4·ang) kaj la cilindra UV-kunordano estas ang/2π ). La skvamoj do SIDAS
+// SUR tiuj anguloj — ĉiu loba angulo ricevas skvamon, kaj la kvar ceteraj
+// plenigas la spacon inter ili, do la ŝkamo-rondo kaj la loboj legiĝas kiel
+// unu simetria desegno.
+const SXELA_KOLUMO_NOMBRO = 0o10;
+
+// desegniLaSxelanKolumon — La desegno ĉe la supra rando de la ŝela bildo: la
+// bando mem ( vertikala gradiento ) kaj vico da IDENTAJ, ALTaj foli-formaj
+// skvamoj, kies pintoj finiĝas ĉe la pinta rando — tio estas ĉe la RANDO de la
+// koluma taso. La kolor- kaj la relief-teksajxo vokas la saman helpilon, do la
+// skvamoj reliefas ĝuste tie, kie ili koloras.
+// ⟨ Rondaj finoj 📃 ⟩ — ĉiu skvamo portas centran vejnon desegnitan per
+// lineCap "round", kaj la vejno estas malinsetita de ambaŭ finoj, do ĝi
+// finiĝas per duoncirklo anstataŭ per tranĉitaj akraj anguloj. La skvamoj mem
+// estas perfekte simetriaj: ĉiuj ok havas la saman grandecon kaj la samajn
+// kurbojn, kaj la formo speguliĝas ĉirkaŭ sia propra mezo.
+// ⟨ La tonalto de la bando 📃 ⟩ — la bando mem NE ŝanĝas la tonon de la ŝelo:
+// ĝi portas nur la DESEGNON ( la foli-formajn skvamojn ) kaj preskaŭ NEŬTRALAN
+// ombraron — iomete malhela ĉe la bazo de la taso kaj iomete hela ĉe ĝia rando,
+// do la du partoj preskaŭ nuligas unu la alian kaj la bando legiĝas kiel la
+// trunko mem plus desegno.
+// ⟨ Kial ne plu lavo 📃 ⟩ — oni unue provis igi la bandon pli malhela per unu
+// MALLUMIGA lavo ( la kolumoj estis tro helaj ), sed neniu unuopa lavo povas
+// egali la trunkon ĉe ĉiu alto: la trunko mallumiĝas malsupren ( vidu la
+// gradienton de kreiPurpuranSxelanTeksajxon ), dum la koluma materialo ĉiam
+// legas la SAMAN bando ( la plej helan ). La tonalton nun egaligas la per-instanca
+// koloro de ĉiu taso — vidu sxelaTrunkaKoloro kaj konstruiHxsxaksxlefojn.
+// ⟨ Kie la ombraro sidas 📃 ⟩ — la koluma materialo ripetas la bildon 0.05
+// vertikale ( vidu kreiSxelanRinganMaterialon: ripetoY = 0.05 ), do la MALSUPRO
+// de la taso legas v = 0.95. La malhela fino mola finiĝas ĉe la rando de la
+// bando ( v = 0.92, SUR LA TRUNKO ), por ke ĝi ne desegnu videblan horizontalan
+// strion trans la ŝelon.
+const SXELA_KOLUMO_BAZO = 0.05;   // = la vertikala ripeto de la koluma materialo
+// ⟨ Kien la koluma bando legas 📃 ⟩ — la mezo de la bando kiel frakcio de la
+// bilda alto. La per-instanca tonalto ( sxelaTrunkaKoloro ) mezuras ĉi tie, ĉar
+// la bando estas tio, kion la kolumaj tasoj montras.
+const SXELA_KOLUMO_MEZO = 0.96;
+//     @param k ( CanvasRenderingContext2D ) - La kunteksto.
+//     @param bando ( [ string, string ] ) - La ombraro ĉe la tasa bazo kaj ĉe la rando.
+//     @param skvamo, vejno ( string ) - La koloroj de la skvamo kaj de ĝia vejno.
+function desegniLaSxelanKolumon(k: CanvasRenderingContext2D,
+  bando: [ string, string ], skvamo: string, vejno: string): void {
+  const w = puraSxelaW, h = puraSxelaH;
+  const pintoY = 0;
+  const bazoY = h * ( 1 - SXELA_KOLUMO_SUPRO );
+  const longo = bazoY - pintoY;
+  // La gradiento kuras de la bando-malsupro ( y = bazoY ) supren al la rando
+  // ( y = 0 ). La plej forta lavo staras ĉe la tasa bazo, do ni trovu, kiom de
+  // la bando kuŝas sub ĝi: ( bazoY − h·0.05 ) / bazoY.
+  const tasaBazo = 1 - h * SXELA_KOLUMO_BAZO / bazoY;
+  const gradiento = k.createLinearGradient(0, bazoY, 0, pintoY);
+  gradiento.addColorStop(0, senAlfa(bando[0]));   // la mola fino sur la trunko
+  gradiento.addColorStop(tasaBazo, bando[0]);     // la malsupro de la taso
+  gradiento.addColorStop(1, bando[1]);            // la rando de la taso
+  k.fillStyle = gradiento;
+  k.fillRect(0, pintoY, w, longo);
+  const pasxo = w / SXELA_KOLUMO_NOMBRO;
+  const duono = pasxo * 0o7/0o10;   // la skvamo okupas ~70% de la spaco
+  for ( let i = 0; i < SXELA_KOLUMO_NOMBRO; i++ ) {
+    // La centroj sidas ĜUSTE sur la lobaj anguloj ( 0, 0.25, 0.5, 0.75 … ),
+    // do la unua skvamo estas tratranĉita de la rando de la bildo. Ĝi estas
+    // desegnita tra la randa kunigilo ( desegniWrapan ), kiu kopias ĝin je ±w —
+    // la du duonoj kuniĝas senkudre sur la taso.
+    const cx = i * pasxo;
+    desegniWrapan(k, w, () => {
+      // La skvamo — ALTA folio: akra pinto ĉe la rando de la taso, larĝiĝanta
+      // malsupren kaj finiĝanta per RONDA bazo.
+      k.beginPath();
+      k.moveTo(cx, pintoY);
+      k.quadraticCurveTo(cx - duono, pintoY + longo * 0o4/0o10,
+        cx - duono * 0o6/0o10, bazoY - longo * 0o1/0o10);
+      k.quadraticCurveTo(cx - duono * 0o2/0o10, bazoY, cx, bazoY);
+      k.quadraticCurveTo(cx + duono * 0o2/0o10, bazoY,
+        cx + duono * 0o6/0o10, bazoY - longo * 0o1/0o10);
+      k.quadraticCurveTo(cx + duono, pintoY + longo * 0o4/0o10, cx, pintoY);
+      k.closePath();
+      k.fillStyle = skvamo;
+      k.fill();
+      // La vejno — vertikala linio kun RONDAJ finoj, malinsetita de la pinto kaj
+      // de la bazo, do ĝiaj finaj duoncirkloj videblas.
+      k.lineCap = "round";
+      k.lineWidth = Math.max(1, duono * 0o3/0o10);
+      k.strokeStyle = vejno;
+      k.beginPath();
+      k.moveTo(cx, bazoY - k.lineWidth * 2);
+      k.lineTo(cx, pintoY + k.lineWidth * 3);
+      k.stroke();
+    });
+  }
+}
+
+// ⟨ La trunka baza gradiento kiel datumoj 📃 ⟩ — la kvar haltoj de la vertikala
+// gradiento, kiun la ŝela kolor-teksajxo pentras. Ili vivas ĉi tie kiel nombroj,
+// ĉar la KOLUMAJ TASOJ bezonas la samajn valorojn: taso devas havi la saman tonon
+// kiel la trunko ĉe sia propra alto, kaj tiu tono dependas de la alto ( vidu
+// sxelaTrunkaKoloro ). Se vi ŝanĝas la gradienton, ŝanĝu ĝin ĉi tie — la pentrado
+// kaj la tasoj legas ambaŭ ĉi tiun tabelon.
+const SXELA_BAZAJ_HALTOJ: [ number, [ number, number, number ] ][] = [
+  [ 0, [ 0x38, 0x20, 0x3e ] ],
+  [ 0.35, [ 0x4c, 0x2c, 0x54 ] ],
+  [ 0.72, [ 0x5e, 0x3a, 0x60 ] ],
+  [ 1, [ 0x6e, 0x46, 0x6a ] ],
+];
+// liniejo — Unu sRGB-kanalo ( 0–255 ) kiel linia valoro ( 0–1 ). Three.js
+// multiplikas la teksturon per la instanca koloro en la LINIA spaco, do ĉiu
+// rilatumo devas esti kalkulita linie — alie la malhelaj tonoj malhelas tro.
+function liniejo(kanalo: number): number {
+  const c = kanalo / 255;
+  return c <= 0.04045 ? c / 12.92 : Math.pow(( c + 0.055 ) / 1.055, 2.4);
+}
+// sxelaTrunkaKoloro — La tono de la ŝela trunko ĉe la frakcio t de sia alto
+// ( 0 = la bazo, 1 = la pinto ), en la LINIA spaco — uzebla rekte kiel per-instanca
+// koloro por la kolumaj tasoj.
+// ⟨ Kial la tasoj bezonas ĝin 📃 ⟩ — la koluma materialo ĉiam legas la SAMAN
+// bandon de la bildo ( la plej helan, en kiu sidas la koluma desegno ), do ĉiu
+// taso havus la plej supran tonon de la trunko — ankaŭ la tasoj malalte sur la
+// ŝelo. Kun ĉi tiu funkcio ĉiu taso ricevas la tonon de la trunko ĉe sia propra
+// alto, do la tasoj kaj la trunko transiras senkude ĉe ĉiu nivelo.
+//     @param t ( number ) - La frakcio de la trunka alto ( 0 malsupre, 1 supre ).
+//     @returns koloro ( [ number, number, number ] ) - La linia RGB.
+function sxelaBazaKoloro(t: number): [ number, number, number ] {
+  const f = Math.min(1, Math.max(0, t));
+  for ( let i = 1; i < SXELA_BAZAJ_HALTOJ.length; i++ ) {
+    const [ t1, k1 ] = SXELA_BAZAJ_HALTOJ[i];
+    if ( f <= t1 ) {
+      const [ t0, k0 ] = SXELA_BAZAJ_HALTOJ[i - 1];
+      const u = ( f - t0 ) / ( t1 - t0 );
+      return [ k0[0] + ( k1[0] - k0[0] ) * u,
+        k0[1] + ( k1[1] - k0[1] ) * u,
+        k0[2] + ( k1[2] - k0[2] ) * u ];
+    }
+  }
+  const lasta = SXELA_BAZAJ_HALTOJ[SXELA_BAZAJ_HALTOJ.length - 1][1];
+  return [ lasta[0], lasta[1], lasta[2] ];
+}
+export function sxelaTrunkaKoloro(t: number): [ number, number, number ] {
+  const s = sxelaBazaKoloro(t);
+  return [ liniejo(s[0]), liniejo(s[1]), liniejo(s[2]) ];
+}
+// sxelaKolumKoloro — La tono, kiun la kolumaj tasoj mem montras, en la linia
+// spaco: la mezo de la koluma bando. La rilatumo inter la du donas la per-instancan
+// koloron de unu taso ( vidu konstruiHxsxaksxlefojn ).
+//     @returns koloro ( [ number, number, number ] ) - La linia RGB de la bando.
+export function sxelaKolumKoloro(): [ number, number, number ] {
+  const s = sxelaBazaKoloro(SXELA_KOLUMO_MEZO);
+  return [ liniejo(s[0]), liniejo(s[1]), liniejo(s[2]) ];
 }
 
 // kreiPurpuranSxelanTeksajxon — La ŝela teksajxo de la ŝlefa trunko KAJ de la
@@ -3507,15 +3699,16 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     //    mola tra la tuta trunko.
     // ⟨ La tonalto plialtiĝis 📃 ⟩ — la antaŭa gradiento iris de #321c38 al
     // #5e395c, do ĝi kovris nur 44 nivelojn da heleco: la trunko montriĝis
-    // preskaŭ nigra, kaj la cikatroj kaj la fibroj — kiuj estis desegnitaj per
+    // preskaŭ nigra, kaj la fendoj kaj la platoj — kiuj estas desegnitaj per
     // alfoj sub 0.3 — tute perdiĝis en ĝi. La bazo restas malhela ( ĝi estas la
     // ombro sub la folioj ), sed la supraĵo leviĝas, kaj ĉiuj markoj sube
     // ricevis pli fortan kontraston.
+    // ⟨ La haltoj vivas en tabelo 📃 ⟩ — la sama gradiento estas DATUMO
+    // ( SXELA_BAZAJ_HALTOJ ), ĉar la kolumaj tasoj bezonas la samajn valorojn por
+    // kongrui al la trunko ĉe ĉiu alto ( vidu sxelaTrunkaKoloro ).
     const gradiento = kunteksto.createLinearGradient(0, h, 0, 0);
-    gradiento.addColorStop(0, "#38203e");
-    gradiento.addColorStop(0.35, "#4c2c54");
-    gradiento.addColorStop(0.72, "#5e3a60");
-    gradiento.addColorStop(1, "#6e466a");
+    for ( const [ frakcio, koloro ] of SXELA_BAZAJ_HALTOJ )
+      gradiento.addColorStop(frakcio, `rgb(${koloro[0]},${koloro[1]},${koloro[2]})`);
     kunteksto.fillStyle = gradiento;
     kunteksto.fillRect(0, 0, w, h);
 
@@ -3533,52 +3726,59 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
       });
     }
 
-    // 3. La folio-cikatriĉaj ringoj — malhela sulko kaj hela kresto super ĝi,
-    //    kun la kresto pli mallarĝa ol la sulko.
-    // ⟨ La cikatroj moliĝis 📃 ⟩ — la antaŭaj valoroj ( sulko 0.40, kresto
-    // 0.26 ) estis tro KRISPAJ, do ĉiu ringo legiĝis kiel skrapita linio kaj la
-    // ŝelo aspektis maŝin-gravurita. La trunko de laktukarbo aŭ arbofiliko ja
-    // estas rekonata per ĉi tiuj ringoj, do ili restas — sed duon-travideblaj,
-    // kaj la surfaco legiĝas GLATA.
-    desegniLaPurpurajnRingojn(kunteksto, ( tipo, bendo ) => {
-      // La cikatroj ankaŭ MALEGALAS unu de la alia — iuj estas freŝaj kaj
-      // malhelaj, aliaj preskaŭ resaniĝintaj. Sen tio la trunko legiĝas kiel
-      // maŝine gravurita. Determinisma duon-hazardo, ĉar la reliefa teksajxo
-      // legas la SAMAN skizon kaj devas ricevi la saman valoron.
-      // ⟨ Regula ritmo 📃 ⟩ — la antaŭa pseŭdo-hazarda vario ( Math.sin-fuŝaĵo )
-      // igis la cikatrojn malegalaj en hazarda ordo. Nun la forto sekvas
-      // malrapidan periodan ondon ( 0o6 entjeraj cikloj super la tuta alto ), do
-      // la cikatroj malheliĝas kaj heliĝas en ORDIGITA, ripetiĝanta ritmo.
-      const vario = 1 + 0.22 * Math.cos(bendo.y / h * Math.PI * 2 * 0o6);
-      return tipo === "sulko"
-        ? `rgba(22,8,28,${(0.15 + bendo.alto / h * 1.5) * vario})`
-        : `rgba(184,138,190,${(0.09 + bendo.alto / h * 1.2) * vario})`;
-    });
-
-    // 4. La vertikalaj fibroj — la ŝelaj strioj, malsamlarĝaj kaj malsame
-    //    lumaj. La antaŭaj strioj estis unu-pikselaj hazardaj linioj; nun ili
-    //    havas larĝon, molaĵon kaj tonon, do ili legiĝas kiel fibra ŝelo.
-    // ⟨ La fibroj estas REGULAJ kaj paralelaj 📃 ⟩ — la tonoj alternas hela/
-    // malhela en egala ritmo ĉirkaŭ la trunko kaj ĉiu fibro svingiĝas per la
-    // SAMA ondo ( nenia hazarda flankenŝovo ), do la striado restas paralela.
-    kunteksto.lineCap = "round";
-    for ( const fibro of skizo.fibroj ) {
-      const forto = 0.5 + 0.5 * fibro.ondo;
-      kunteksto.strokeStyle = fibro.tono > 0.5
-        ? `rgba(186,134,192,${0.06 + forto * 0.10})`
-        : `rgba(18,6,26,${0.06 + ( 1 - forto ) * 0.10})`;
-      kunteksto.lineWidth = fibro.largho;
+    // 3. La levitaj ŝelaj platoj — la vertikalaj krestoj inter la fendoj. Ili
+    //    alternas hela kaj malhela, do la ŝelo legiĝas kiel larika platoŝelo
+    //    anstataŭ kiel ebena tubo de ringoj.
+    // ⟨ Vertikala, sed ne striita 📃 ⟩ — la platoj estas NEREGULAJ laŭ larĝo kaj
+    // tono; la antaŭaj 0o177 egalaj fibroj legiĝis kiel maŝine gravuritaj strioj,
+    // dum vera ŝelo havas platojn de malsamaj grandoj kun fendoj inter ili.
+    // ⟨ Mola lumo trans ĉiu plato 📃 ⟩ — antaŭe ĉiu plato estis egala rektangulo
+    // kun akraj randoj, do la ŝelo legiĝis kiel pentritaj strioj. Nun horizontala
+    // gradiento mallumigas ambaŭ randojn de la plato kaj lumigas ĝian centron,
+    // do la bendo legiĝas kiel RONDA kresto.
+    for ( const plato of skizo.platoj ) {
+      const pinto = plato.hela
+        ? `rgba(158,110,166,${0o13/0o100 + Math.random() * 0o7/0o100})`
+        : `rgba(20,8,28,${0o15/0o100 + Math.random() * 0o7/0o100})`;
       desegniWrapan(kunteksto, w, () => {
-        kunteksto.beginPath();
-        kunteksto.moveTo(fibro.x, 0);
-        kunteksto.bezierCurveTo(fibro.x + fibro.ondo * 0.9, h * 0.33,
-          fibro.x - fibro.ondo * 0.9, h * 0.66, fibro.x, h);
-        kunteksto.stroke();
+        const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.largho, 0);
+        g.addColorStop(0, senAlfa(pinto));
+        g.addColorStop(0.5, pinto);
+        g.addColorStop(1, senAlfa(pinto));
+        kunteksto.fillStyle = g;
+        kunteksto.fillRect(plato.x, 0, plato.largho, h);
+      });
+    }
+
+    // 4. La profundaj vertikalaj fendoj — larik-stilaj sulkoj kun pli malhela
+    //    kerno. Ĉiu fendo svingiĝas mola s-kurbo ( desegniStrion ), do la ŝelo
+    //    legiĝas kiel FENDITA ŝelo, ne kiel vertikale striita tubo.
+    kunteksto.lineCap = "round";
+    for ( const fendo of skizo.fendoj ) {
+      const korpo = fendo.tono < 0.5 ? "rgba(92,48,106,0.42)" : "rgba(26,10,34,0.48)";
+      const kernDikeco = Math.max(1, fendo.dikeco * 0.5);
+      desegniWrapan(kunteksto, w, () => {
+        desegniStrion(kunteksto, fendo, korpo);
+        desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(14,4,20,0.55)");
       });
     }
 
     // 5. La etaj poroj — la ŝela punktaĵo, kiu rompas la grandajn ebenojn.
     desegniSxelajnPorojn(kunteksto, 1.5, "rgba(20,8,24,0.11)", "rgba(176,138,180,0.10)");
+
+    // 6. La KOLUMA BANDO — la desegno de la konusoj ( vidu
+    //    desegniLaSxelanKolumon ). Ĝi venas LASTe, do ĝi kovras la fendojn kaj la
+    //    platojn en sia bando: la konusoj montras la foli-forman skvamaron, ne
+    //    tranĉitajn striojn de la trunka ŝelo.
+    //    ⟨ Preskaŭ neŭtrala 📃 ⟩ — la ombraro malsupre malheligas 9%, la heliĝo
+    //    ĉe la rando 7%, do la bando averaĝe kongruas la trunkon, kaj la skvamoj
+    //    kaj la vejnoj estas MALLUMIGAJ ( ili markas la sulkojn inter la folioj )
+    //    anstataŭ heligi la tutan bandon. Antaŭe la skvamoj kaj la vejnoj estis
+    //    helaj ( 32% kaj 22% da hela purpuro ), do ili HELigis la bandon kaj la
+    //    konusoj aspektis kiel lumaj tasoj sur malhela trunko.
+    desegniLaSxelanKolumon(kunteksto,
+      [ "rgba(14,6,20,0.09)", "rgba(255,248,255,0.07)" ],
+      "rgba(18,8,24,0.12)", "rgba(30,14,38,0.20)");
   }, [ 1, 1 ], { volvado: THREE.RepeatWrapping });
   // La bildo TILAS horizontale ( la cilindro fermas sin ) sed NE vertikale: la
   // vertikala gradiento devas resti unu, kaj la kolumaj tasoj legas nur
@@ -3588,9 +3788,10 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
 });
 
 // kreiPurpuranSxelanBumpanTeksajxon — Griznivela reliefo por la sama ŝelo. La
-// SAMA skizo kiel la kolor-teksajxo, do la cikatroj, la fibroj kaj la makuloj
-// reliefas ĝuste tie, kie ili koloras. La cikatroj estas sulkoj kun helaj
-// krestoj — ĉi tio estas la plej forta "ĝi estas malnova folio-bazo" signalo.
+// SAMA skizo kiel la kolor-teksajxo, do la fendoj, la platoj kaj la makuloj
+// reliefas ĝuste tie, kie ili koloras. La fendoj estas profundaj sulkoj kun eĉ
+// pli malhela kerno kaj la platoj estas la levitaj krestoj inter ili — la sama
+// vertikala reliefo kiel la larika ŝelo.
 //     @returns teksajxo ( THREE.CanvasTexture ) - La preta reliefo.
 export const kreiPurpuranSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const w = puraSxelaW, h = puraSxelaH;
@@ -3609,24 +3810,33 @@ export const kreiPurpuranSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture =
         kunteksto.beginPath(); kunteksto.arc(makulo.x, makulo.y, makulo.r, 0, Math.PI * 2); kunteksto.fill();
       });
     }
-    desegniLaPurpurajnRingojn(kunteksto, ( tipo ) => tipo === "sulko"
-      ? "rgba(96,96,96,0.24)"
-      : "rgba(154,154,154,0.17)");
-    kunteksto.lineCap = "round";
-    for ( const fibro of skizo.fibroj ) {
-      kunteksto.strokeStyle = fibro.tono > 0.5
-        ? "rgba(166,166,166,0.13)"
-        : "rgba(78,78,78,0.13)";
-      kunteksto.lineWidth = fibro.largho;
+    // La levitaj platoj — helaj vertikalaj krestoj, kun la sama mola lumo trans
+    // la plato kiel en la kolor-teksajxo, do la reliefo ne havas akrajn randojn.
+    for ( const plato of skizo.platoj ) {
       desegniWrapan(kunteksto, w, () => {
-        kunteksto.beginPath();
-        kunteksto.moveTo(fibro.x, 0);
-        kunteksto.bezierCurveTo(fibro.x + fibro.ondo * 0.9, h * 0.33,
-          fibro.x - fibro.ondo * 0.9, h * 0.66, fibro.x, h);
-        kunteksto.stroke();
+        const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.largho, 0);
+        g.addColorStop(0, "rgba(128,128,128,0)");
+        g.addColorStop(0.5, plato.hela ? "rgba(158,158,158,0.45)" : "rgba(116,116,116,0.35)");
+        g.addColorStop(1, "rgba(128,128,128,0)");
+        kunteksto.fillStyle = g;
+        kunteksto.fillRect(plato.x, 0, plato.largho, h);
+      });
+    }
+    // La profundaj fendoj — sulkoj kun eĉ pli malhela kerno.
+    kunteksto.lineCap = "round";
+    for ( const fendo of skizo.fendoj ) {
+      const kernDikeco = Math.max(1, fendo.dikeco * 0o5/0o10);
+      desegniWrapan(kunteksto, w, () => {
+        desegniStrion(kunteksto, fendo, "rgba(120,120,120,0.50)");
+        desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(86,86,86,0.70)");
       });
     }
     desegniSxelajnPorojn(kunteksto, 1.5, "rgba(72,72,72,0.16)", "rgba(168,168,168,0.15)");
+    // La koluma bando ankaŭ reliefas — la skvamoj leviĝas kaj iliaj vejnoj
+    // sinkas, do la konusoj havas la saman skvamaron en la reliefo.
+    desegniLaSxelanKolumon(kunteksto,
+      [ "rgba(112,112,112,0.14)", "rgba(128,128,128,0)" ],
+      "rgba(152,152,152,0.38)", "rgba(100,100,100,0.50)");
   }, [ 1, 1 ], { volvado: THREE.RepeatWrapping, sRGB: false, anisotropio: 4 });
   teksajxo.wrapT = THREE.ClampToEdgeWrapping;
   return teksajxo;

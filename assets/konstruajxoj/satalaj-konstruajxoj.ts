@@ -1,5 +1,6 @@
-// Satalaj konstruajxoj — sxtupajramidaj konstruajxoj. verdaj/oraj domoj (kapuo),
-// brunaj/becxaj mangxejoj (kahxjenko), becxaj kasafeoj (kunvenoĉambroj) kun oraj pilieroj
+// ≺⧼ Satalaj konstruaĵoj 🏛️ ⧽≻
+// Sxtupajramidaj konstruajxoj. verdaj/oraj domoj (kapuo), brunaj/becxaj mangxejoj
+// (kahxjenko), becxaj kasafeoj (kunvenoĉambroj) kun oraj pilieroj.
 // La zigurato nomigxas satal ( j͑ʃᴜ ɭʃᴜͷ̗ ) en Iikrhia. noma formo. satalo.
 import * as THREE from "three";
 import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
@@ -457,9 +458,9 @@ export function fenestraSubFaco(facaRadiuso: number, klino: number, fenAlto: num
 // faco. La libera spaco ĉe la anguloj estas do la SAMA nombro sur ĉiu tavolo kaj ĝi
 // VIDEBIAS ie ajn. La fenestra alto ne ŝanĝiĝas de tavolo al tavolo, do la fenestroj
 // mallongiĝas precize per la sama kvanto, kiun mallongiĝas la tavoloj.
-// ⟨ Kiom granda 📃 ⟩ 0o3/0o10 de la muro-radiuso de la PLEJ LARĜA ( teretaĝa ) faco,
-// t.e. 18.75% de la faco ĉe ĉiu flanko — la fenestro do okupas 62.5% de la plej
-// larĝa faco kaj same multe da libera muro restas maldekstre kaj dekstre.
+// ⟨ Kiom granda 📃 ⟩ 0o2/0o10 de la muro-radiuso de la PLEJ LARĜA ( teretaĝa ) faco,
+// t.e. 0o1/0o10 de la faco ĉe ĉiu flanko — la fenestro do okupas 0o6/0o10 de la
+// plej larĝa faco kaj 0o1/0o10 da libera muro restas ĉe ĉiu flanko.
 // ⟨ Kial ne el la pinta tavolo 📃 ⟩ Se la marĝeno estus kalkulita el la plej
 // mallarĝa tavolo, la nombro estus tiel malgranda ( 0.4 sur la kunvenejo ), ke la
 // ora kadro plenigus la tutan liberan spacon kaj la fenestro aspektus kiel la tuta
@@ -469,7 +470,7 @@ export function fenestraSubFaco(facaRadiuso: number, klino: number, fenAlto: num
 //              ( teretaĝa ) tavolo, kie fenestroj estas.
 //     @returns marĝeno ( number ) - La interspaco po flanko, por ĉiuj tavoloj.
 export function fenestraMargxeno(facaRadiusoLarga: number): number {
-  return facaRadiusoLarga * 0o3/0o10;
+  return facaRadiusoLarga * 0o2/0o10;
 }
 
 // fenestraLargho — Kiom longa fenestro taŭgas sur tiu faco.
@@ -779,7 +780,10 @@ function steleaVitro(): THREE.MeshStandardMaterial {
   return konstruajxaMaterialo("steleo",
     () => new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o5/0o10, metalness: 0,
-      transparent: true, opacity: 0o5/0o10,
+      // ⟨ Pli maldiafana 📃 ⟩ — 0o6/0o10 ( 0.75 ) anstataŭ 0o5/0o10 ( 0.625 ).
+      // La literoj jam batalis kun la fono; kun kvarono de la fono tra ili la
+      // flava inko legigxas firme kaj la plato havas ankoraux pli da korpo.
+      transparent: true, opacity: 0o6/0o10,
       // Nenia `transmission` — tiu pasumo kostis trionon de la geometrio ( vidu supre )
       emissive: 0x0a1a18, emissiveIntensity: 0o1/0o4,
     }));
@@ -1132,13 +1136,33 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     ringo.position.y = roofY + 0o1/0o40; group.add(ringo);
   }
 
-  // ⟨ La eksteraj fenestroj 📃 ⟩ — la kunvenejo ( kasafeo ) kaj la stacidomo
-  // ( stacioxipo ) portas la SAMAN LONGAn pilol-fenestran vicon kiel la kosmosxipo
-  // ( kiun oni vidas fluganta super la stacidomo ): unu fenestro po faco po
-  // tavolo. La fronta faco ( f=0, +z ) de la teretaĝo havas la pordon — neniu
-  // fenestro tie. La stacidomo havas pli mildan deklivon, sed la sama `klino`
-  // regas ĉiujn tavolojn, do la sama helpilo metu ilin.
-  if ( typeKey === "kasafeo" || typeKey === "stacioxipo" ) {
+  // ⟨ La eksteraj fenestroj sur ĈIUJ kvar flankoj 📃 ⟩ — la sama LONGA
+  // pilol-fenestra vico kiel la kosmosxipo ( kiun oni vidas fluganta super la
+  // stacidomo ): unu fenestro po faco po tavolo.
+  // ⟨ La regulo 📃 ⟩ — fenestro sur ĉiu faco de ĉiu tavolo, KROM kie estas
+  // pordo: la fronta faco ( f = 0, +z ) de la teretaĝo havas la enirejon, kaj la
+  // sanktejo havas pordon sur ĉiu el la kvar flankoj de sia teretaĝo. La tavolaj
+  // muroj kliniĝas, sed la sama `klino` regas ĉiujn konstruaĵojn, do la sama
+  // helpilo metu la fenestrojn.
+  //
+  // ⟨ NENIAJ eksteraj fenestroj — la domoj, la mangxejoj, la turoj kaj la
+  // sanktejo 📃 ⟩ — tiuj kvar tipoj estas SOLIDAJ de la strato: la tavolaj muroj
+  // portas nur la muron kaj la oran framon. La INTERNA fenestro ( aldoniLongan-
+  // fenestron en internoj.ts ) restas, do la loĝanto vidas eksteren tra sia
+  // propria fenestro dum la pasanto vidas nur muron — la unudirekta vitro de la
+  // realaj urboj.
+  // ⟨ La sanktejo 📃 ⟩ — ĝi perdis sian eksteran vicon lastmomente laux peto de
+  // uzanto. Ĝi estas la CENTRA konstruajxo ( la kerno de la krado ), kaj ĝia
+  // fasado montras la oran signon kaj la muron; la blanka fenestr-vico de la
+  // stacidomo kaj de la kosmosxipo restas la sola luma vico de la urbo.
+  // ⟨ La kunvenejo ( kasafeo ) 📃 ⟩ — nur ĝi kaj la stacidomo montras sian
+  // internon al la strato: la kunvenejo estas publika halo, kaj la stacidomo mem
+  // estas spegulo de la kosmosxipa fenestr-vico. La loĝejoj, la restoracioj, la
+  // altaj turoj kaj nun ankaŭ la sanktejo estas privataj/funkciaj — iliaj
+  // fasadoj montras muron kaj la oran signon, ne la internon.
+  const senEksterajFenestroj = typeKey === "domo" || typeKey === "mangxejo"
+    || typeKey === "turo" || typeKey === "sanktejo";
+  if ( !senEksterajFenestroj ) {
     const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
     const vitro = fenestraMaterialo();
     // ⟨ UNU marĝena nombro por la tuta konstruaĵo 📃 ⟩ La nombro estas kalkulita
@@ -1159,6 +1183,7 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
       if ( !horizontala && faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
       const yC = i * tieroAlto + tieroAlto / 2;
       for ( let f = 0; f < 4; f++ ) {
+        // Neniu fenestro sur la teretaĝa fronto — tie estas la pordo.
         if ( i === 0 && f === 0 ) continue;
         aldoniPilolFenestron(group, kadraMaterialo, vitro, f, yC, faco,
           klino, tieroAlto, fenAlto, false, horizontala ? fenMargxeno : undefined,

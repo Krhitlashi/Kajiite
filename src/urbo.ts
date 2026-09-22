@@ -27,7 +27,7 @@ import type { Figuro, Vesto } from "../assets/shalaj-specioj/homoj.js";
 import { kreiInternanSistemon, InternaSistemo } from "../assets/konstruajxoj/internoj.js";
 import { konstruiKrasesxagxon } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import type { Krasesxagxo } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import { riveroZ, alteco, akvoY, montetaBazo, RIVERA_DUONLARĜO,
+import { riveroZ, alteco, montetaBazo, RIVERA_DUONLARĜO,
   LAGO_X, LAGO_RZ, RIVERA_BUŜO_X, riveraAkvaNivelo, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_FONTO_Z,
   RIVERA_NORDORIENTA_DUONLARĜO, RIVERA_NORDORIENTA_BUŜO_Z,
@@ -868,6 +868,17 @@ export async function konstruiUrbon(
     raportiProgreson?.(stago / STAGOJ);
     await jesi();
   };
+  // ⟨ La pecetoj de la konstruado 📃 ⟩ — `jesi` ankaŭ vokiĝas INTER la sekcioj,
+  // ne nur inter ili. La kialo estas la malhelpa tasko: retumilo plenumas unu
+  // senĉesan JavaScript-blokon ĝis la fino, do sekcio kiu konstruas 0o2000
+  // herbotufojn blokis la ĉefan trakon por la tuta daŭro — la ŝarĝa stango
+  // haltis, la enkonduka kamera drivo frostis, la langeto ne respondis. Kun
+  // cedoj inter la pezaj konstruiloj ĉiu bloko restas mallonga ( la cedo mem
+  // kostas malpli ol 4 ms — la tempigila krampo de la retumiloj ), do la
+  // stango kaj la enkonduko daŭre moviĝas kaj la progreso aperas pli frue.
+  // La vico de la cedoj sekvas la PESON de la konstruiloj: la arb- kaj
+  // herbo-metantoj ( la multaj specimenoj kun la ekskludaj provoj ) ricevas
+  // cedon post ĉiu grupo, la malpezaj ( likenoj, musko ) nur grupe.
 
   // ═══════════════════════════════════════════════════════════
   // Urba krado — DIAMANTA kruca aranĝo kun kvar-flanka simetrio. La
@@ -955,14 +966,40 @@ export async function konstruiUrbon(
   // dokojn rekte el la datumoj.
   const DOKOJ = SKULPTA_DOKOJ as SkulptaPlatformo[];
   const dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number; y: number }[] = [];
+  // La alto de la LANDa rando de ĉiu doko ( la kaja nivelo ) — la kajo, la
+  // lampoj kaj la pontaj finoj legas ĝin, dum la kolizioj venas el la sekcioj.
+  const dokoLandajAltoj: number[] = [];
+  // ⟨ La doko-ŝtuparoj kiel VOJOJ 📃 ⟩ — ĉiu doko liveras la polilinion de sia
+  // malsupreniro al la akvo; ĝi aliĝas al la voja reto kiel ORDINARA voja
+  // difino kun `stuparo: true` ( vidu la sekcion de vojDifinoj sube ). Tiel la
+  // ŝtupoj generiĝas per la voja maŝinaro — la sama diorita centro kaj andezitaj
+  // randoj kiel ĉiu strato — kaj ili ŝTUPAS anstataŭ kurbiĝi.
+  const dokoStuparoj: VojDifino[] = [];
   for ( let i = 0; i < DOKOJ.length; i++ ) {
     const rotacio = DOKOJ[i].rotacio ?? 0;
-    const doko = konstruiDokon(sceno, DOKOJ[i].x, DOKOJ[i].z, rotacio, alteco, akvoY, DOKOJ[i].profundo);
-    dokoKolizioj.push({ x: DOKOJ[i].x, z: DOKOJ[i].z, w: 0o16/0o10, d: DOKOJ[i].profundo, rot: rotacio, y: doko.platformY });
+    const doko = konstruiDokon(sceno, DOKOJ[i].x, DOKOJ[i].z, rotacio, alteco, akvaNivelo, DOKOJ[i].profundo);
+    // ⟨ Unu kolizio po SEKCIO 📃 ⟩ — la doko malsupreniras al la akvo per
+    // ŝtuparo, do ĝi liveras la landejon kaj unu sekcion po ŝtupo. La fiziko
+    // legas ĉiun kiel ordinaran rektangulan platformon kun ebena supro; la
+    // ŝtupoj estas pli malaltaj ol 0o1/0o4, do la promenanto supreniras ilin.
+    const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
+    for ( const s of doko.sekcioj ) {
+      dokoKolizioj.push({ x: DOKOJ[i].x + kos * s.lx + sin * s.lz,
+        z: DOKOJ[i].z - sin * s.lx + kos * s.lz, w: s.w, d: s.d, rot: rotacio, y: s.y });
+    }
+    dokoLandajAltoj.push(doko.platformY);
+    if ( doko.stuparajPunktoj.length >= 2 ) {
+      // ⟨ La plafono 📃 ⟩ — super la kaja nivelo la tereno estas kaptita, do la
+      // plej alta ŝtupo restas samnivele kun la kajo ( kaj kun la vojo, kiu
+      // alvenas tien ) anstataŭ supreniri la strandon.
+      const plafono = doko.stuparaSupro;
+      dokoStuparoj.push({ pts: doko.stuparajPunktoj, w: doko.platformWidth, stuparo: true,
+        heightFn: ( sx, sz ) => Math.min(alteco(sx, sz), plafono) });
+    }
   }
   // ⟪ Pontoj 📃 ⟫ — Ponto estas VOJO, kiu trapasas akvon inter du sekaj bordoj
   // ( vidu pontaVojDifino sube ) — la ludo rekonas ĝin kaj aldonas tion, kion la
-  // voja rubando ne povas: la OREn balustradon kaj la andezitajn fostojn.
+  // voja rubando ne povas: la OREn balustradon kaj la andezitan arkon malsupre.
   //
   // ⟨ Kial la dokoj NE plu difinas la ponton 📃 ⟩ — la ponto devenis de paro da
   // dokoj rigardantaj unu la alian ( de LANDbordo al LANDbordo ). Sed la dokoj
@@ -975,7 +1012,7 @@ export async function konstruiUrbon(
   const dokaLandaj = DOKOJ.map(( d, i ) => {
     const rotacio = d.rotacio ?? 0;
     return { x: d.x + Math.sin(rotacio) * ( d.profundo / 2 ),
-      z: d.z + Math.cos(rotacio) * ( d.profundo / 2 ), y: dokoKolizioj[i].y + PONT_FINA_LEVIGXO };
+      z: d.z + Math.cos(rotacio) * ( d.profundo / 2 ), y: dokoLandajAltoj[i] + PONT_FINA_LEVIGXO };
   });
   await raporti();
 
@@ -983,14 +1020,16 @@ export async function konstruiUrbon(
   // urboj konstruiĝas en konstruiKradanUrbon; ĉi tiuj estas la mond-nivelaj
   // vojoj de la ĉefa urbo, kiuj venas de SKULPTA_VOJOJ ( la terena skulptilo
   // — polilinioj kiujn la Vojoj-langeto redaktas ).
-  const vojDifinoj: VojDifino[] = [];
+  // La doko-ŝtuparoj ( dokoStuparoj supren ) estas ordinaraj difinoj en la sama
+  // listo — la voja konstruilo faras ilin per la sama sekco kiel la stratoj.
+  const vojDifinoj: VojDifino[] = [ ...dokoStuparoj ];
 
   // ⟪ Kio estas ponto 📃 ⟩ — vojo, kies AMBAŬ finaj punktoj sidas sur SEKA tero
   // ( ili estas la alirejoj sur la bordoj ) kaj kiu pasas sufiĉe da akvo inter
   // ili ( almenaŭ 0o2/0o5 de la specimenoj laŭ la rektaj linioj ), estas
   // TRAPASEJO — ponto, ne bordo-vojo. La deko ricevas REKTAN supran funkcion
   // anstataŭ la terena ( la riverfundo estas 3–9 unuojn sub la akvo, do la voja
-  // rubando dronus ) kaj la ponto ricevas la balustradon kaj la fostojn.
+  // rubando dronus ) kaj la ponto ricevas la balustradon kaj la andezitan arkon.
   //
   // La deko finiĝas GXUSTE ĉe la voja surfaco de la bordo ( vojaSupro sube uzas
   // la saman formulon kiel konstruiSegmentonEnBufrojn ), do la ponto daŭrigas la
@@ -1032,7 +1071,7 @@ export async function konstruiUrbon(
     return maks + VOJA_SUPRO_LEVIGXO;
   }
 
-  // La pontoj, kiujn vojoj vere kovris — ili ricevas la balustradon kaj la fostojn.
+  // La pontoj, kiujn vojoj vere kovris — ili ricevas la balustradon kaj la arkon.
   const pontaVojoj: { ax: number; az: number; ay: number; bx: number; bz: number; by: number; w: number }[] = [];
 
   // Konstruu ĉiun vojon el SKULPTA_VOJOJ. La skulptilo redaktas ilin kiel
@@ -1079,9 +1118,9 @@ export async function konstruiUrbon(
   // ĉapojn ( malsupre ) — ili estas veraj voj-finaĵoj sur la tereno, ne dokaj
   // enirejoj.
   const ĉefajVojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo);
-  // La APOGAĴOJ de la pontoj — la balustrado kaj la fostoj sur la voja deko.
+  // La APOGAĴOJ de la pontoj — la balustrado SUR la deko kaj la andezita arko SUB ĝi.
   for ( const p of pontaVojoj )
-    konstruiPonton(sceno, p.ax, p.az, p.ay, p.bx, p.bz, p.by, p.w, alteco, andezitaMaterialo, oraMaterialo);
+    konstruiPonton(sceno, p.ax, p.az, p.ay, p.bx, p.bz, p.by, p.w, alteco, skulptitaAkvo, andezitaMaterialo, oraMaterialo);
 
   // Lamp-nodoj por la kajo — la samaj lampaj ŝablonoj kiel la krada reto.
   // NENIU ĉap-mesho konstruiĝas ĉe ĉi tiuj nodoj. La vojoj mem jam plenigas
@@ -1220,26 +1259,32 @@ export async function konstruiUrbon(
 
   // Filikoj — pli da kvanto, apud arboj kaj vojoj
   konstruiFilikojn(sceno, 0o400, alteco, arboj, vojSpecimenoj, ekskluziviRiveron, ekskluziviVojojn, VALAJ_BIOMOJ);
+  await jesi();
 
   // Purpuraj plantoj — ringo de koloro ĉe la urba rando, kie la vojoj dissolvigas en arbaron
   konstruiPurpurajnPlantojn(sceno, 0o200, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
+  await jesi();
 
   // Purpuraj filikoj — pli altaj violetaj frondoj kiel en Four Groves
   konstruiPurpurajnFilikojn(sceno, 0o200, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
+  await jesi();
   // Altaj purpuraj filikoj — la arboformaj, kun la arba listo por ke ili ne
   // kresku en la trunkojn/kronojn de la jam metitaj betuloj, larikoj kaj
   // Ĥŝakŝlefoj.
   konstruiAltajnPurpurajnFilikojn(sceno, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
     [ ...arboj, ...larikoj, ...hxsxaksxlefoj ], VALAJ_BIOMOJ);
+  await jesi();
 
   // Liken-sxtonoj — en la arbaro; la metitaj pozicioj ankoras la likenojn.
   const likenSxtonoj = konstruiLikenSxtonojn(sceno, 0o60, alteco, ekskluziviRiveron, ekskluziviVojojn);
+  await jesi();
 
   // Likeno — krustaj makuloj sur la grundo apud arboj kaj sxtonoj
   konstruiLikenojn(sceno, 0o200, alteco, [ ...arboj, ...larikoj, ...hxsxaksxlefoj ], likenSxtonoj, ekskluziviRiveron, ekskluziviVojojn);
 
   // Herbo — densa herbtapiso en la arbaro kaj randoj
   konstruiHerbon(sceno, 0o1170, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
+  await jesi();
 
   // ⟪ Ebenaĵo 📃 ⟫ — la malalta grundo ekster la arbareroj. Nur etaj plantoj
   // kreskas tie ( herbo kaj purpuraj plantoj, dense ) — neniaj arboj, neniaj
@@ -1248,15 +1293,19 @@ export async function konstruiUrbon(
   // ( aŭtomata / nenio ) ricevas NENION — la ebenaĵo estas la plantohava
   // malalta grundo, kontraste al la nuda aŭtomata.
   konstruiHerbon(sceno, 0o2000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
+  await jesi();
   konstruiPurpurajnPlantojn(sceno, 0o1000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
+  await jesi();
 
   // Musko montetoj — apud arboj tra la arbaro
   konstruiMusxajnMontetojn(sceno, 0o200, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn);
+  await jesi();
 
 
   // Falintaj trunkoj — en la densa arbaro ( la konstruanto redonas la
   // centrojn kaj la piedajn randojn por la kolizioj de la supra bloko )
   const falintajTrunkoj = konstruiFalintajnTrunkojn(sceno, 0o40, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn);
+  await jesi();
 
   // Cetkuoj ( ſᶘɔ ɭʃƽɹ / Equisetum praealtum ) — la altaj senbranĉaj skuraj
   // kanoj kun strobiloj, laŭ la riverbordoj ( la lago estas akvo, do neniu
@@ -1278,6 +1327,7 @@ export async function konstruiUrbon(
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53120, [ ...arboj, ...larikoj ], 0o10,
     undefined, VALAJ_BIOMOJ);
   const lagTrunkoj = konstruiArbaron(sceno, lagArboj);
+  await jesi();
   const lagLarikoj = metiArbojnCxirkauLagon(alteco, 0o40, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53121, [ ...lagArboj, ...arboj, ...larikoj ], 0o10,
     kronaRadiusoLarika, VALAJ_BIOMOJ);
@@ -1288,6 +1338,7 @@ export async function konstruiUrbon(
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53126, [ ...lagArboj, ...lagLarikoj, ...arboj, ...larikoj ], 0o10,
     kronaRadiusoHxsxaksxlefa, VALAJ_BIOMOJ);
   const lagHxsxaksxlefojTrunkoj = konstruiHxsxaksxlefojn(sceno, lagHxsxaksxlefoj);
+  await jesi();
   // Trunkaj likenoj ankaux sur la lag-arboj ( nova semo por malsamaj buloj )
   konstruiTrunkajnLikenojn(sceno, [ lagTrunkoj, lagLarikajTrunkoj, lagHxsxaksxlefojTrunkoj ], 0o62452);
   konstruiHerbonCxirkauLagon(sceno, 0o300, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
@@ -1326,6 +1377,7 @@ export async function konstruiUrbon(
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53130,
     [ ...montajBetuloj, ...arboj, ...larikoj ], 0o10, kronaRadiusoLarika, 0, 0o340, MONTAJ_BIOMOJ);
   const montajLarikaTrunkoj = konstruiLarikon(sceno, montajLarikoj);
+  await jesi();
   const montajRokoj = konstruiMontajnRokojn(sceno, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn,
     undefined, 0, 0o340, 0o260, 0o160, MONTAJ_BIOMOJ);
   // Likenoj sur la montaro — grupigitaj ĉirkaŭ la montaj arboj kaj rokoj,
@@ -1365,6 +1417,7 @@ export async function konstruiUrbon(
     [ ...arboj, ...larikoj, ...montajLarikoj, ...montajBetuloj ],
     [ ...arboj, ...larikoj, ...hxsxaksxlefoj, ...montajLarikoj, ...montajBetuloj ],
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53133, MONTAJ_BIOMOJ);
+  await jesi();
 
   // Pussxlefoj ( ſ̀ȷɔ ı],ͷ̗ɔʞ ſןɹɔ˞ ꞁȷ̀ᴜꞇ / Pusŝlefo ) — fern-grandaj purpuraj
   // laktukaj plantoj, etaj Ĥŝakŝlefoj kun travideblaj manĝeblaj beroj. Ilia

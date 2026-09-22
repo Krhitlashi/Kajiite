@@ -186,7 +186,14 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   // grupon ĉe la fenestra subo sed per la radiuso ĉe la fenestra CENTRO, do ĉiuj
   // supraj fenestroj entombiĝis 0.0115 en la muron ( kaj la subaj flosis 0.043
   // eksteren ) — la fenestroj tute ne montriĝis.
-  const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
+  // ⟨ La fenestroj de la sxipo estas iom pli grandaj 📃 ⟩ — la sxipo estas la
+  // plej GRANDA objekto de la mondo kaj oni vidas gxin de malproksime kaj de
+  // supre, dum la konstruajxojn oni alproksimigxas piede. Kun la sama fenestra
+  // mezuro kiel la domoj la fenestroj de la sxipo perdis sin en la muroj. Do la
+  // fenestra alto levigxis per okono ( 0o11/0o10 = 9/8, t.e. 12.5% ) kaj la
+  // margxeno restas tri kvaronoj ( 0o3/0o4 ) de la konstruajxa — la fenestro
+  // farigxis pli longa KAJ pli alta, sed restas la sama pilolo.
+  const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100) * 0o11/0o10;
   const niveloj: { y: number; faco: number; suba: boolean }[] = [];
   for ( let i = 1; i < up; i++ ) {
     niveloj.push({ y: i * tieroAlto + tieroAlto / 2, faco: hw0 - i * ins - klino / 2, suba: false });
@@ -201,7 +208,10 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   // sama nombro ĉien, la fenestra alto ne ŝanĝiĝas, kaj la pinto-ringoj restas sen
   // fenestro ( same kiel la pinta tavolo de la kunvenejo ).
   const facoPlejLarga = hw0 - ins - klino / 2;
-  const fenMargxeno = fenestraMargxeno(facoPlejLarga);
+  // Tri kvaronoj de la konstruajxa margxeno — vidu la noton pri la fenestra
+  // alto supre: la pli mallarĝa interspaco igas la fenestron pli longa, do la
+  // sama pilolo plenigas pli multe de la faco sur la sxipo ol sur la domoj.
+  const fenMargxeno = fenestraMargxeno(facoPlejLarga) * 0o3/0o4;
   const fenestrajMretoj: THREE.Mesh[] = [];
   for ( const lv of niveloj ) {
     // ⟨ Ringo tro mallarĝa 📃 ⟩ Same kiel ĉe la konstruaĵoj — la pintaj ringoj

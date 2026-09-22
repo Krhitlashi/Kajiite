@@ -1,4 +1,5 @@
-// Vegetajxa modulo — betuloj, filikoj, likenoj por la nebula arbara medio
+// ≺⧼ Vegetajxa modulo 🌲 ⧽≻
+// Betuloj, filikoj, likenoj por la nebula arbara medio.
 // Noto. la betula specio similas al la paperbetulo ( Betula papyrifera ) —
 // blanka senŝeliĝanta ŝelo kaj larĝa, horizontala krono.
 import * as THREE from "three";
@@ -13,7 +14,8 @@ import { kreiSxelanTeksajxon, kreiSxelanBumpanTeksajxon, kreiLarikanSxelanTeksaj
   kreiBetulanFolianTeksajxon,
   kreiLarikanFoliaranTeksajxon,
   kreiDioritanTeksajxon, kreiDioritanBumpanTeksajxon,
-  kreiRokenTeksajxon, kreiRokenBumpanTeksajxon } from "../komunajxoj/teksajxoj.js";
+  kreiRokenTeksajxon, kreiRokenBumpanTeksajxon,
+  sxelaTrunkaKoloro, sxelaKolumKoloro } from "../komunajxoj/teksajxoj.js";
 import { kreiBuferanGeometrion, kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson } from "../komunajxoj/kunfandajxoj.js";
 import { kreiHazardanGenerilon } from "../komunajxoj/hazardo.js";
 import { glataPaso, akvaNivelo, biomo, type Biomo } from "../../src/tereno.js";
@@ -211,6 +213,7 @@ function spronaDuono(xDuono: number, z: number, fado: ( z: number ) => number): 
 export interface ArboMetado {
   x: number; z: number; h: number; s: number;
   r?: number;   // krona radiuso — por la inter-arba interspaca kontrolo
+  plantAlto?: number;   // la REALA plant-alto — la Pussxlefaj beroj bezonas gxin
 }
 
 // Grovo — arbarera centro. La arboj kaj plantoj klasteriĝas ĉirkaŭ la centroj
@@ -1017,6 +1020,28 @@ function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometry; foli
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     return g;
   };
+  // ⟨ Vertikala gradiento 📃 ⟩ — la sama per-verta nuanco, sed laŭ la ALTO de la
+  // verto: malsupre malhela, supre hela. La kerno tion bezonas, ĉar de SUPRE la
+  // folioj de la pinto ne kovras ĉion: la malhela bulo videblis kiel malhelaj
+  // makuloj sur la supro de ĉiu betulo. Kun la gradiento la kerno montriĝas kiel
+  // ombro inter la folioj de flanke, sed kiel lumigita foliaro de supre.
+  const kunVertikalaTinto = ( g: THREE.BufferGeometry,
+    mR: number, mG: number, mB: number,
+    hR: number, hG: number, hB: number ): THREE.BufferGeometry => {
+    g.computeBoundingBox();
+    const bb = g.boundingBox ?? new THREE.Box3(new THREE.Vector3(-1, -1, -1), new THREE.Vector3(1, 1, 1));
+    const yMin = bb.min.y, yMax = bb.max.y;
+    const p = g.getAttribute("position");
+    const koloroj = new Float32Array(p.count * 3);
+    for ( let i = 0; i < p.count; i++ ) {
+      const t = yMax > yMin ? ( p.getY(i) - yMin ) / ( yMax - yMin ) : 0o1/0o2;
+      koloroj[i * 3] = mR + ( hR - mR ) * t;
+      koloroj[i * 3 + 1] = mG + ( hG - mG ) * t;
+      koloroj[i * 3 + 2] = mB + ( hB - mB ) * t;
+    }
+    g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
+    return g;
+  };
   // ⟨ Kiom da facetoj 📃 ⟩ — dudekedro de unu divido havas 80 facetojn de
   // ~0.15 sur 0.27-radiusa bulo ( ~0.37 unuojn en la mondo ) — tro grandaj: la
   // kerno montriĝis kiel fasetita kristalo. Kun du dividoj la facetoj estas
@@ -1049,7 +1074,9 @@ function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometry; foli
       n.setXYZ(i, nx / vn, ny / KERNELO_PLATIGO / vn, nz / vn);
     }
   }
-  partoj.push(kunTinto(kerno, 0.92, 0.94, 0.86));
+  // ⟨ La kerno ne estu UNUTONA 📃 ⟩ — antaŭe la tuta kerno ricevis unu nudon
+  // ( 0.92 ) kaj ĝia supro restis malhela egale kiel ĝia malsupro.
+  partoj.push(kunVertikalaTinto(kerno, 0.55, 0.60, 0.42, 1.45, 1.50, 1.20));
   // Kelkaj malgrandaj elstaraĵoj — ili rompas la glatan randon de la kerno
   // tie, kie ĝi montriĝas tra malpleno inter la folioj.
   for ( let i = 0; i < 0o10; i++ ) {
@@ -1232,13 +1259,21 @@ function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometry; foli
   // SUPRAĵO de la kuseno restis nuda sfero ( de supre la krono aspektis kiel
   // aro de verdaj pilkoj ). Nun tavolo de folioj kuŝas sur la supra duonsfero,
   // ĉiu kline gxuste tiom, ke ĝiaj klingoj sekvu la kurbiĝon de la kuseno.
-  const suprajFolioj = 0o54;
+  // ⟨ La sunflora disdono 📃 ⟩ — la folioj de la supro estis dismetitaj tute
+  // HAZARDE, do iuj lokoj de la kupolo ricevis tri tufojn kaj aliaj neniun; tra
+  // la malplenoj la MALHELA kerno de la kuseno montriĝis, kaj de supre ĉiu
+  // betulo portis malhelajn makulojn sur la pinto de la krono. Nun la tufoj sidas
+  // sur la sunflora spiralo ( la ora angulo ) kiel la semoj de sunfloro: la
+  // disdono estas egala kaj sen amasiĝoj, do la sama nombro da folioj kovras la
+  // tutan kupolon. Nur la klino de ĉiu folio restas hazarda — la krono ne
+  // aspektas maŝina.
+  const suprajFolioj = 0o66;
+  const oraAngulo = Math.PI * ( 3 - Math.sqrt(5) );
   for ( let i = 0; i < suprajFolioj; i++ ) {
-    // Egalarea disdono sur la supro — du triangulaj nombroj por x kaj z.
-    const u = Math.random() * 2 - 1;
-    const v = Math.random() * 2 - 1;
-    const rSupra = 0o30/0o100 * Math.sqrt(Math.abs(u)) * Math.sign(u);
-    const zSupra = 0o30/0o100 * Math.sqrt(Math.abs(v)) * Math.sign(v);
+    const frakcio = Math.sqrt(( i + 0.5 ) / suprajFolioj );
+    const spirala = i * oraAngulo;
+    const rSupra = 0o30/0o100 * frakcio * Math.cos(spirala);
+    const zSupra = 0o30/0o100 * frakcio * Math.sin(spirala);
     // La alteco sekvas la sf erojn de la kuseno. La KUPOLO estas la centra
     // sfero ( radiuso 0.21 ); la antaŭa 0.17 metis la foliojn de la pinto
     // INTERNE de tiu sfero, do la supro restis nuda kaj glata. Nun ili sidas
@@ -3001,8 +3036,17 @@ function konstruiSxelanRingon(): THREE.BufferGeometry {
 // klonoj kostas preskaŭ nenion en memoro.
 //     @param ripetoY ( number ) - La vertikala ripeto ( 1 = la tuta bildo ).
 //     @param taso ( boolean ) - Ĉu ĉi tiu materialo estas por koluma taso.
+//     @param offsetY ( number = 0 ) - Kie en la bildo la legata bando komenciĝas.
+//              ⟨ La koluma bando 📃 ⟩ — la kolumaj tasoj legas la bandon, kiu
+//              FINIĝAS ĉe la pinta rando de la bildo ( offset.y = 1 − ripeto ),
+//              ĉar ili sidas alte sur la trunko. Tiu bando ( vidu
+//              desegniLaSxelanKolumon en teksajxoj.ts ) estas la plej hela ŝelo
+//              de la trunko PLUS la vico da altaj foli-formaj skvamoj. Antaŭe la
+//              tasoj legis la plej malhelan malsupron de la bildo ( offset 0 ),
+//              do ĉiu kolumo estis preskaŭ nigra dum la trunko estis mez-purpura.
 //     @returns materialo ( THREE.MeshStandardMaterial ) - La preta materialo.
-function kreiSxelanRinganMaterialon(ripetoY: number, taso: boolean): THREE.MeshStandardMaterial {
+function kreiSxelanRinganMaterialon(ripetoY: number, taso: boolean,
+  offsetY = 0): THREE.MeshStandardMaterial {
   const mapo = kreiPurpuranSxelanTeksajxon();
   const reliefo = kreiPurpuranSxelanBumpanTeksajxon();
   // La klonoj estas kreitaj nur kiam la ripeto devias de 1 — tiam la origina
@@ -3011,6 +3055,7 @@ function kreiSxelanRinganMaterialon(ripetoY: number, taso: boolean): THREE.MeshS
     if ( ripetoY === 1 ) return t;
     const klono = t.clone() as THREE.Texture;
     klono.repeat.set(1, ripetoY);
+    klono.offset.set(0, offsetY);
     klono.needsUpdate = true;
     return klono;
   };
@@ -3111,18 +3156,24 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
   // disiĝas en kvar foliformajn lobojn ( ĉe la kvar flankoj de la folioj ).
   // La folioj etendiĝas el la loboj senjunte.
   const sxelaGeometrio = konstruiSxelanRingon();
-  // La ringo kreskas el la trunko. malhela trunka koloro ĉe la malsupro,
-  // heliĝanta al la ringa koloro ĉe la rando.
-  const sxelaMaterialo = kreiSxelanRinganMaterialon(0.05, true);
-  // Kapacito 9 ringoj po arbo — kun la grandeco-multiplikilo la maksimuma
-  // alto estas 18.75 ( 15 × 0o5/0o4 ), kiu donas maksimume 9 ringojn.
-  const sxeloj = new THREE.InstancedMesh(sxelaGeometrio, sxelaMaterialo, arboj.length * 0o11);
+  // La ringo kreskas el la trunko: la koluma bando ( la supra, plej hela parto
+  // de la ŝela bildo, kun la foli-formaj skvamoj ) — do la taso havas la saman
+  // lumon kiel la trunko, kaj ĝiaj skvamoj finiĝas ĉe ĝia rando.
+  const sxelaMaterialo = kreiSxelanRinganMaterialon(0.05, true, 1 - 0.05);
+  // Kapacito 12 ringoj po arbo — kun la grandeco-multiplikilo la maksimuma
+  // alto estas 18.75 ( 15 × 0o5/0o4 ), kiu donas 5 foliajn tavolojn plus 4
+  // suprajn tasojn ( la pli mallonga ringa spaco aldonis unu ).
+  const sxeloj = new THREE.InstancedMesh(sxelaGeometrio, sxelaMaterialo, arboj.length * 0o14);
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const C = new THREE.Color();
   const paletro = [ 0x8848a8, 0x9858b8, 0xa868c0, 0x7840a0, 0x9050b0 ];
   const yUp = new THREE.Vector3(0, 1, 0);
+  // La tono, kiun la kolumaj tasoj MEM montras ( la mezo de la koluma bando en
+  // la linia spaco ) — la referenco, kontraŭ kiu ĉiu taso kompensiĝas al la
+  // trunka tono ĉe sia propra alto ( vidu la per-instancajn kolorojn sube ).
+  const kolumaTono = sxelaKolumKoloro();
   let fi = 0;
   let si = 0;
 
@@ -3143,6 +3194,7 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
     // 0o3/0o10 ( 0.375 ) malsupre kaj 0o7/0o40 ( 0.219 ) supre, do la profilo
     // estas rekta. Ĉi tiu unu formulo donas la saman radiuson al la folioj
     // kaj al la ŝelaj tasoj — ili do ĉiam sidas sur la ŝelo.
+
     const trunkoR = ( y: number ): number =>
       ( 0o3/0o10 - ( y / h ) * ( 0o3/0o10 - 0o7/0o40 ) ) * trunkopintaProfilon(y / h);
 
@@ -3193,7 +3245,13 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
     // trunkopinton, por ke la pinto aspektu kiel stako de tasoj, kiel en la
     // skulptaĵo.
     const sxelaAlto = 0o15/0o20;
-    const ringaSpaco = 0o11/0o10;
+    // ⟨ La konusoj estas KONTINUA stako 📃 ⟩ — la spaco inter la supraj tasoj
+    // estis 0o11/0o10 ( 1.125 ) dum la taso mem altas nur 0.8125. Inter ĉiu paro
+    // de supraj tasoj restis videbla truo, do la supraĵo aspektis kiel konusoj
+    // ŜVEBANTAJ ĉirkaŭ la maldika trunkopinto ( tie la trunko mallarĝiĝas al
+    // nulo per trunkopintaProfilon ). Nun la spaco estas 60% de la tasa alto, do
+    // ĉiu taso eniras la sekvan kaj la tuta supraĵo legiĝas kiel unu kono.
+    const ringaSpaco = sxelaAlto * 0o6/0o10;
     const lastaTavolaY = tavolajY[tavolajY.length - 1];
     const suprajRingoj = Math.max(1, Math.ceil(( h - sxelaAlto - lastaTavolaY ) / ringaSpaco));
     for ( let ringo = 0; ringo < tavoloj + suprajRingoj; ringo++ ) {
@@ -3204,10 +3262,10 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
       // La taso sidas ĝuste sur la trunko — iomete pli larĝa ol la ŝelo,
       // por ke la rando videblu, sed ne tiom ke ĝi aspektu kiel funelo.
       // La malsupro de la taso iras 0o14/0o40 da tasalto SUB la foliaj bazoj.
-      // ⟨ La konoj supren 📃 ⟩ — la ringoj SUPER la lasta folia tavolo
-      // mallarĝiĝas supren ( antaŭe ĉiuj estis egallarĝaj, do la trunkopinto
-      // aspektis kiel kolono de identaj tasoj ), do la tuta supro estas unu
-      // kono, kiu etendiĝas supren.
+      // ⟨ La konoj supren 📃 ⟩ — la supraj tasoj ( super la lasta folia tavolo )
+      // NE estas egallarĝaj kiel antaŭe, kiam la trunkopinto aspektis kiel
+      // kolono de identaj teleroj. Ili sekvas la trunkan profilon kaj malfermiĝas
+      // nur iomete, do la tuta supraĵo legiĝas kiel unu kono.
       const superaj = ringo < tavoloj ? 0 : ( ringo - tavoloj + 1 ) / suprajRingoj;
       // ⟨ Etendiĝi EKSTEREN 📃 ⟩ — antaŭe la ringoj super la lasta folia
       // tavolo MALlarĝiĝis supren ( faktoro 1 − 0.62 ), do la tuta supro estis
@@ -3218,13 +3276,35 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
       // funelon super la foliaro. Nun la suprajn tasojn kovras la tri pinta
       // TAVOLOJ de folioj ( vidu malsupre ), do la tasoj povas resti preskaŭ
       // laŭ la trunka profilo kaj la supro legiĝas kiel foliaro, ne kiel taso.
-      const konaFaktoro = 1 + 0.18 * superaj;
-      const ringaSkalo = Math.max(0o1/0o20, trunkoR(sxelaY) / ( 0o13/0o40 ) * 0o11/0o10)
-        * konaFaktoro;
-      M.compose(pozicio(new THREE.Vector3(0,
-          sxelaY - sxelaAlto * 0o14/0o40 + sxelaAlto * 0o3/0o10 * superaj, 0)), Qtrunko,
+      // ⟨ Nur malmulte 📃 ⟩ — la antaŭa faktoro 1.18 larĝigis la suprajn tasojn
+      // dum la trunko mallarĝiĝis supren, do la pinto aspektis kiel teleroj sur
+      // bastono. 6% sufiĉas por legiĝi kiel malfermiĝanta laktuka kapo, sed la
+      // tasoj restas brakitaj al la trunko.
+      const konaFaktoro = 1 + 0.06 * superaj;
+      // ⟨ La mezuro venas el la tas-MALSUPRO 📃 ⟩ — la taso brakumas la trunkon
+      // ĉe sia malsupro, kaj tie la trunko estas la plej DIKA ( ĝi mallarĝiĝas
+      // supren ). Mezuri ĉe la centro de la taso donis tro malgrandan radiuson,
+      // do la subaj tasoj povis flosi ĉirkaŭ la ŝelo. La alto de tiu malsupro
+      // samtempe estas la pozicio de la taso, do ambaŭ uzas la saman nombron.
+      const sxelaBazo = sxelaY - sxelaAlto * 0o14/0o40 + sxelaAlto * 0o3/0o10 * superaj;
+      const ringaSkalo = Math.max(0o1/0o20,
+        trunkoR(Math.max(0, sxelaBazo)) / ( 0o13/0o40 ) * 0o11/0o10) * konaFaktoro;
+      M.compose(pozicio(new THREE.Vector3(0, sxelaBazo, 0)), Qtrunko,
         new THREE.Vector3(ringaSkalo, sxelaAlto, ringaSkalo));
       sxeloj.setMatrixAt(si, M);
+      // ⟨ Ĉiu taso sekvas la trunkan tonon 📃 ⟩ — la koluma materialo ĉiam legas
+      // la SAMAN bandon de la ŝela bildo ( la plej helan, kie sidas la koluma
+      // foli-desegno ), do sen ĝi ĉiu taso havus la plej supran tonon de la
+      // trunko — ankaŭ la tasoj malalte sur la ŝelo, kiuj tiam aspektis multe pli
+      // helaj ol la trunko apud ili. Nun ĉiu taso ricevas la tonon, kiun la
+      // trunko mem havas ĉe la sama alto, do la tasoj transiras senkude en la
+      // trunkon ĉe ĉiu nivelo — la kono kaj la trunko estas unu objekto.
+      const trunkaTono = sxelaTrunkaKoloro(sxelaBazo / h);
+      C.setRGB(
+        Math.min(1, trunkaTono[0] / kolumaTono[0]),
+        Math.min(1, trunkaTono[1] / kolumaTono[1]),
+        Math.min(1, trunkaTono[2] / kolumaTono[2]));
+      sxeloj.setColorAt(si, C);
       si++;
     }
 
@@ -3276,6 +3356,7 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
   if ( folioj.instanceColor ) folioj.instanceColor.needsUpdate = true;
   sxeloj.count = si;
   sxeloj.instanceMatrix.needsUpdate = true;
+  if ( sxeloj.instanceColor ) sxeloj.instanceColor.needsUpdate = true;
   trunkoj.castShadow = folioj.castShadow = sxeloj.castShadow = true;
   sceno.add(trunkoj, folioj, sxeloj);
   return trunkoj;
@@ -3331,6 +3412,9 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
   plantoj.forEach(( t, i ) => {
     // Fern-granda — la planto estas eta Ĥŝakŝlefo, ~0.65–1.2 unuojn alta.
     const h = ( 0o5/0o10 + t.s * 0o3/0o10 ) * ( 0o6/0o10 + hazardaGenerilo() * 0o3/0o10 );
+    // Skribu la realan plant-alton reen sur la metadon — la ber-klastroj
+    // ( mangxajxoj.ts ) bezonas gxin por sidi en la ŝela taso.
+    t.plantAlto = h;
     const Qtrunko = kreiKlinoQuaternionon(hazardaGenerilo, 0o1/0o10, hazardaGenerilo() * Math.PI * 2);
     const bazo = new THREE.Vector3(t.x, t.h, t.z);
     const pozicio = kreiPoziciilon(bazo, Qtrunko);
@@ -3358,13 +3442,17 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
       // staris 0.0625 ekster la trunko — videbla truo ĉe tiel maldika ŝelo.
       const trunkaRadiuso = trunkaR(y);
       const ellagxo = trunkaRadiuso * 0o7/0o10;
+      // ⟨ Simetrio 📃 ⟩ — la kvar flankoj de ĉiu folia tavolo turniĝas per la
+      // SAMA grandeco kaj la SAMA klino, do la planto estas kvar-obla simetria.
+      // Antaŭe ĉiu el la kvar folioj ricevis sian propran hazardan skalon, do la
+      // planto aspektis dise ĵetita anstataŭ kiel malgranda laktuka rozo.
+      const skalo = tavolaSkalo * ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 );
       for ( let flanko = 0; flanko < 4; flanko++ ) {
         const angulo = flanko / 4 * Math.PI * 2;
         E.set(0o2/0o10, 0, 0);
         Q.setFromEuler(E);
         Q.premultiply(new THREE.Quaternion().setFromAxisAngle(yUp, angulo));
         Q.premultiply(Qtrunko);
-        const skalo = tavolaSkalo * ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 );
         M.compose(pozicio(new THREE.Vector3(
             Math.sin(angulo) * ellagxo, y, Math.cos(angulo) * ellagxo)),
           Q, new THREE.Vector3(skalo, skalo, skalo));
@@ -3384,7 +3472,11 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
     const unuaTavolaY = h * 0o3/0o10;
     const sxelaAlto = h * 0o2/0o10;
     if ( unuaTavolaY <= h - sxelaAlto ) {
-      const trunkaRadiuso = trunkaR(unuaTavolaY);
+      // ⟨ La mezuro venas el la tas-MALSUPRO 📃 ⟩ — la sama regulo kiel ĉe la
+      // granda Ĥŝakŝlefo: la taso brakumas la trunkon ĉe sia malsupro, kie la
+      // trunko estas la plej dika.
+      const tasMalsupro = unuaTavolaY - sxelaAlto * 0o14/0o40;
+      const trunkaRadiuso = trunkaR(tasMalsupro);
       const ringaSkalo = Math.max(0o3/0o40, trunkaRadiuso / ( 0o13/0o40 ) * 0o11/0o10);
       // La taso malfermiĝas supren; ĝia malsupro staras sub la foliaj bazoj,
       // do la folioj leviĝas el la interno de la taso ( la sama aranĝo kiel
@@ -3405,20 +3497,23 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
     const PINTAJ_TAVOLOJ = 0o3;
     const pintaBazo = h * 0o7/0o10;
     const pintaAlto = h;
-    const pintaFazo = hazardaGenerilo() * Math.PI * 2;
     for ( let tavolo = 0; tavolo < PINTAJ_TAVOLOJ; tavolo++ ) {
       const tFrakcio = tavolo / ( PINTAJ_TAVOLOJ - 1 );
       const pintaY = pintaBazo + ( pintaAlto - pintaBazo ) * tFrakcio;
       const elklino = 0.35 - tFrakcio * 0.30;
       const trunkaRadiuso = trunkaR(pintaY);
+      // ⟨ La pinta krono estas simetria 📃 ⟩ — la pinto ne plu turniĝas per
+      // hazarda fazo kaj la tavoloj ne plu ŝoviĝas unu kontraŭ la alia, do ĉiuj
+      // kvar flankoj de ĉiu tavolo staras samloke kaj la pinto legiĝas kiel
+      // kvar-obla simetria konuso.
+      const skalo = ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 )
+        * ( 0.75 - tFrakcio * 0.45 );
       for ( let flanko = 0; flanko < 4; flanko++ ) {
-        const angulo = pintaFazo + tavolo * 0o1/0o2 + flanko / 4 * Math.PI * 2;
-        E.set(elklino + ( hazardaGenerilo() - 0o5/0o10 ) * 0o2/0o20, 0, 0);
+        const angulo = flanko / 4 * Math.PI * 2;
+        E.set(elklino, 0, 0);
         Q.setFromEuler(E);
         Q.premultiply(new THREE.Quaternion().setFromAxisAngle(yUp, angulo));
         Q.premultiply(Qtrunko);
-        const skalo = ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 )
-          * ( 0.75 - tFrakcio * 0.45 );
         M.compose(pozicio(new THREE.Vector3(
             Math.sin(angulo) * trunkaRadiuso * 0o7/0o10, pintaY,
             Math.cos(angulo) * trunkaRadiuso * 0o7/0o10)),
@@ -3436,6 +3531,7 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
   if ( folioj.instanceColor ) folioj.instanceColor.needsUpdate = true;
   sxeloj.count = si;
   sxeloj.instanceMatrix.needsUpdate = true;
+  if ( sxeloj.instanceColor ) sxeloj.instanceColor.needsUpdate = true;
   trunkoj.castShadow = folioj.castShadow = sxeloj.castShadow = true;
   sceno.add(trunkoj, folioj, sxeloj);
   return trunkoj;

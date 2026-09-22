@@ -62,7 +62,17 @@ body { display:block; overscroll-behavior:none; user-select:none; }
    kaj ne kiel la rigarda montrilo. Nun ĝi estas en la centro kaj turnigxas sur
    sia propra loko ( .nadlo turnigxas ĉirkaŭ la centro de la 56-piksela kadro ),
    do la radaro montras unu klaran triangulon meze. */
-.nadlo::before { content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:4px solid transparent; border-bottom:12px solid #fff; filter:drop-shadow(0 0 1px #000); }
+/* ⟨ La SAMA sago kiel la markilo de la plena mapo 📃 ⟩ — antauxe ĉi tiu nadlo estis
+   propra triangulo farita per la borda artifiko ( `border-bottom` ), do la du mapoj
+   montris MALSAMAJN sagojn. Nun la formo venas el unu loko en la ludkodo
+   ( desegniSaganFormon ) kiel datum-URL-bildo, kiun la JS metras en --sago kaj
+   --sagoGrando ( PLI GRANDA ol la markilo de la plena mapo — la kompaso estas
+   nur 56-piksela, do la sama grandeco legigxus malgranda tie ); la sagoj do ne
+   povas disiriĝi. La nadlo restas DOM-elemento, ĉar
+   ĝi turnigxas ĉiukadre per CSS dum la radaro re-desegnigxas nur 15 Hz. La
+   fal-valoro estas nenia bildo — se la JS ne metus la propraĵon, la nadlo portus
+   nur la N-markon, do malplena kadro anstataŭ fremda sago. */
+.nadlo::before { content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); inline-size:var(--sagoGrando,14px); block-size:var(--sagoGrando,14px); background-image:var(--sago); background-repeat:no-repeat; background-position:center; background-size:contain; }
 #minimapaKanvaso,#plenaKanvaso { inline-size:100%; block-size:100%; }
 /* La plena mapo absolute en #supermeta. Sen position:absolute la kanvaso estas
    krado-elemento kies alton difinas ĝia propra interna grandeco ( la atributoj

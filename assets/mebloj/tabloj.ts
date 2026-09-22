@@ -1,6 +1,19 @@
-// Tabloj kaj segxoj — la KOMMUNA tablo/segxo-aseto, uzata kaj de la internaj
-// spacoj ( eniriInternon ) kaj de la eksteraj mangxejo-tabloj ( konstruiSatalon ).
+// ≺⧼ Tabloj kaj seĝoj 🍽 ⧽≻
+// La KOMMUNA tablo/segxo-aseto, uzata kaj de la internaj spacoj ( eniriInternon )
+// kaj de la eksteraj mangxejo-tabloj ( konstruiSatalon ).
 // Unu sola difino ambauxflanke — neniu diverganta ekstera kaj interna tablo.
+//
+// ⟨ REEN AL LA PLATA FORMO 📃 ⟩ — la mebloj portis dum unu versio krurojn,
+// tabulojn, jupojn kaj dorsapogilojn ( la okcidenta restoracia stilo ). En ĉi tiu
+// mondo la homoj SIDAS SUR LA PLANKO: la manĝtabloj kaj la benkoj estas malaltaj
+// rondangulaj plotoj kuŝantaj sur la grundo, kiel la ceteraj mebloj ( la litoj,
+// la kestoj, la vendotabloj ). La kruroj kaj la seĝa alto venis el alia kulturo,
+// do ili forfalis kaj la antaŭa formo revenis — kun la sama oro-randa stilo.
+//
+// ⟨ La mastro de la altoj 📃 ⟩ — TABLA_SUPRO ( la supro de la tabulo, kie la
+// manĝaĵoj sidas ) estas eksportita, ĉar la manĝaĵoj ( kreiMangxajxojn en
+// mangxajxoj.ts ) devas suriĝi ĝuste ĉi tie. La malnova valoro vivis dufoje (
+// unufoje ĉi tie, unufoje en la manĝaĵoj ) — la dua kopio forfalis.
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 
@@ -8,15 +21,21 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
 // eksteraj tabloj, por ke la aseto ne drivu duope.
 export const LIGNA_KOLORO = 0x584030;
 
+// La nivelo de la TABULO — la tabloj estas plataj blokoj, kiuj kusxas preskaux
+// sur la planko ( la malsupro je 0o4/0o100 = 0.0625, la supro je 0o7/0o20 ).
+// La manĝaĵoj sidas sur ĉi tiu nivelo.
+export const TABLA_SUPRO = 0o7/0o20;
+
 // Komuna ora rando por la tabloj ( defauxlte; la alvokantoj povas anstatauxi
 // gxin per la kadra materialo de la konstruajxo por kongrui al gxia koloro ).
 const oraTablaRando = new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o3/0o4, roughness: 0o3/0o10 });
 
-// aldoniTablon — Rondangula ligna tablo kun ora rando sur la supro. La sama
-// restoraci-stila tablo en la domo, la kasafeo kaj la mangxejo — interne kaj
-// ekstere.
+// aldoniTablon — Plata rondangula ligna tablo kun ora rando sur la supro. La
+// sama restoraci-stila tablo en la domo, la kasafeo kaj la mangxejo — interne
+// kaj ekstere. La tabulo sidas preskaux sur la planko ( 0.0625 klareco — la
+// sama "sur la planko" aspekto kiel la benkoj ).
 //     @param x, z, y ( number ) - La tablo-centro kaj la planko-nivelo.
-//     @param largho, profundo ( number ) - La tablo-dimensioj.
+//     @param largho, profundo ( number ) - La tabulo-dimensioj.
 //     @param lignaMaterialo ( MeshStandardMaterial ) - La tablo-supro.
 //     @param randoMaterialo ( Material = oraTablaRando ) - La ora rando; oni
 //         kutime pasas la kadran materialon de la konstruajxo.

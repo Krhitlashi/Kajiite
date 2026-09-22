@@ -169,6 +169,30 @@ haltoFrua = true;
 // Antaŭe la tuta arbaro ( miloj da instancoj ) kaj ĉiu figuro pasis tra la
 // vertica shadero ĉiukadre, kvankam la nebulo kaŝas ĉion trans ~0o200 unuoj.
 spacigiInstancojn(sceno);
+
+// ⟪ GPU-varmigo 📃 ⟫ — Antaŭ la unua lud-kadro la bildilo devas kompili la
+// shader-programojn ( la materialoj × la lumoj × la ombra pasumo ) kaj alŝuti
+// la teksajxojn al la GPU. Three faras tion LAZE — je la unua fojo, kiam la
+// materialo aperas en la vido — kaj ĝuste tio estas la "lag" de la unuaj
+// sekundoj: ĉiu nova materialo ( nova arba specio, la interno de konstruajxo,
+// la akvo ) haltigas unu kadron por 30–200 ms, ĝuste kiam la ludanto turnas la
+// kapon aŭ eniras konstruajxon. La varmigo faras la saman laboron nun, sub la
+// ŝarĝa ekrano ( ĝi ankoraŭ kovras la scenon ), anstataŭ dise tra la unuaj
+// minutoj de la ludo. La tuta kosto estas unu plena kadro.
+// ⟨ Kial malmultekosta 📃 ⟩ — la mondo KUNHAVAS la materialojn ( la kaŝmemoroj
+// de la moduloj: materialon, konstruajxaMaterialo, sxovu ), do la programoj
+// estas dekoj, ne centoj. La bakado de la mapo ( bakiMapon ) sekvas kaj ankaŭ
+// desegnas la tutan mondon, do ĝi ne plu trovas malvarman bildilon.
+// ⟨ La kialo de la griza kadro 📃 ⟩ — `compile` antaŭkompilas la ĉefan pasumon
+// por ĈIU materialo de la sceno ( ankaŭ por la objektoj malantaŭ la fotilo aŭ
+// forigitaj de la vidlimo ), sed ĝi ne kovras la OMBRAN pasumon — tiu havas
+// sian propran programon por ĉiu materialo. La plena kadro kun la ombroj
+// fermas tiun truon: la ombra programo kompiliĝas kaj la videblaj teksajxoj
+// alŝutiĝas.
+bildilo.compile(sceno, fotilo);
+bildilo.shadowMap.needsUpdate = true;
+bildilo.render(sceno, fotilo);
+
 // La vivanta limo — 0o200 ( 128 ) unuoj. Pli ol la nebula videbleco ( la
 // figuroj restu videblaj kiam ili alproksimiĝas el la nebulo ), malpli ol la
 // tuta mondo.
@@ -1882,10 +1906,73 @@ function mondoAlEkrano(x: number, z: number, cx: number, cz: number, hw: number,
   return [ ( ( cx + hw ) - x ) / ( 2 * hw ) * w, ( ( cz + hh ) - z ) / ( 2 * hh ) * h ];
 }
 
-// La markilo — UNA triangulo kun kurbigitaj anguloj, blanka kun nigra bordo.
-// La kurboj estas kvadrataj kurboj tra la eĝaj mezpunktoj ( la verticoj kiel
-// kontrolpunktoj ), do ĉiu angulo estas milde rondigita. Blanka plenigaĵo
-// super nigra streko — videbla super ajna fono de la mapo.
+// ⟨ LA SAGO DE LA MAPOJ — unu formo por ambaŭ 📃 ⟩ — egallatera triangulo, blanka
+// kun nigra bordo kaj milde rondigitaj anguloj. GXi staras en UNU loko
+// ( desegniSaganFormon ) kaj uziĝas duoble: la PLENA mapo desegnas ĝin rekte ĉe
+// la ludanto ( desegniMarkilon ), kaj la minimapa nadlo ricevas la saman formon
+// kiel bildon ( kreiSaganBildon ), ĉar la nadlo estas DOM-elemento, kiu turniĝas
+// ĉiukadre per CSS. Antaŭe la radaro havis propran triangulon faritan per la
+// borda artifiko en la stilfolio — du malsamaj sagoj por la sama celo.
+const SAGO_R = 0o12/0o2;         // 5 — la cirklo-radiuso de la triangulo
+const SAGO_RONDIGO = 0o12/0o10;  // 1.25 — la radiuso de ĉiu angul-rondigo
+const SAGO_BORDO = 0o2;          // 2 — la nigra borda streko
+// La tri verticoj sur la cirklo R je −90°, 30° kaj 150° — la pinto supren je
+// angulo 0. La pezcentro de egallatera triangulo estas GXUSTE la centro de la
+// cirklo, do la pinto ne sxajnas sxovita de la ludanta punkto.
+const SAGO_VERTICOJ = [
+  { x: 0, y: -SAGO_R },
+  { x: SAGO_R * 0o71/0o100, y: SAGO_R * 0o5/0o10 },
+  { x: -SAGO_R * 0o71/0o100, y: SAGO_R * 0o5/0o10 },
+];
+const SAGO_GRANDO = SAGO_R * 0o2 + SAGO_BORDO + 0o2;   // la tuta sago ( 12 ) plus marĝeno
+
+// desegniSaganFormon — La sago mem, sen pozicio nek rotacio: la kunteksto estu
+// jam movita al la centro de la sago ( la pinto montras supren je angulo 0 ).
+//     @param ctx ( CanvasRenderingContext2D ) - La kunteksto.
+function desegniSaganFormon(ctx: CanvasRenderingContext2D): void {
+  const [ A, B, C ] = SAGO_VERTICOJ;
+  // Komencu sur la mezo de la lasta eĝo, do la tri arcTo-turnoj fermas la
+  // triangulon sen supra streko ( la verticoj estas la kontrolpunktoj de la
+  // turnoj, do ĉiu angulo rondiĝas same ).
+  ctx.beginPath();
+  ctx.moveTo(( C.x + A.x ) / 0o2, ( C.y + A.y ) / 0o2);
+  ctx.arcTo(A.x, A.y, B.x, B.y, SAGO_RONDIGO);
+  ctx.arcTo(B.x, B.y, C.x, C.y, SAGO_RONDIGO);
+  ctx.arcTo(C.x, C.y, A.x, A.y, SAGO_RONDIGO);
+  ctx.closePath();
+  ctx.fillStyle = "#fff";
+  ctx.fill();
+  // La nigra bordo — la streko kovras la randon duone interne kaj duone
+  // ekstere, do ĝi ĉirkaŭas la blankan formon kaj montriĝas super ajna fono.
+  ctx.strokeStyle = "#000";
+  ctx.lineWidth = SAGO_BORDO;
+  ctx.lineJoin = "round";
+  ctx.stroke();
+}
+
+// kreiSaganBildon — La sama sago kiel PNG-data-URL, por la minimapa nadlo. La
+// bildo devenas de la SAMA desegniSaganFormon, do la du sagoj ne povas
+// disiriĝi. La bildo desegniĝas laŭ la ekrana denso ( 2× sur retina ekrano ), do
+// la nadlo restas akra; la formo desegniĝas per la sama SAGO_GRANDO-skalo kaj
+// nur la kadro de la bildo estas pli granda aux pli malgranda.
+//     @param grandeco ( number = SAGO_GRANDO ) - La kadro de la sago, en CSS-
+//              pikseloj ( SAGO_GRANDO = la markilo de la plena mapo ).
+//     @returns ( string ) - La sago kiel data-URL ( "" se la kanvaso mankas ).
+function kreiSaganBildon(grandeco = SAGO_GRANDO): string {
+  const denso = Math.min(0o2, Math.max(1, devicePixelRatio || 1));
+  const kanvasa = document.createElement("canvas");
+  kanvasa.width = kanvasa.height = Math.ceil(grandeco * denso);
+  const k = kanvasa.getContext("2d");
+  if ( !k ) return "";
+  const skalo = ( grandeco / SAGO_GRANDO ) * denso;
+  k.scale(skalo, skalo);
+  k.translate(SAGO_GRANDO / 0o2, SAGO_GRANDO / 0o2);
+  desegniSaganFormon(k);
+  return kanvasa.toDataURL();
+}
+
+// desegniMarkilon — La sago ĉe la ludanto sur la PLENA mapo ( la minimapo uzas
+// la saman formon kiel bildon, vidu kreiSaganBildon ).
 function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
   // La mapo havas orienton dekstren ( -x ) kaj nordon supren ( +z ), do la
   // okcidenta rando de la vido ( cx + hw ) estas la maldekstra ekrano.
@@ -1896,34 +1983,10 @@ function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx
   // dekstren kaj nordo ( +z ) supren, do la ekrana direkto estas ( -fx, -fz ).
   // La sago mem montras supren je angulo 0 ( la canvas-rotacio turnas ĝin
   // horloĝdirekte ), do la rotacio estas atan2( -fx, fz ).
-  const ang = Math.atan2(-fx, fz);
   ctx.save();
   ctx.translate(px, py);
-  ctx.rotate(ang);
-  // ⟨ Simpla RONDIGITA TRIANGULO 📃 ⟩ — la antaŭa markilo rondigis la triangulon
-  // per tri kurboj tra la mezpunktoj de la eĝoj ( tiel forte, ke ĝi legiĝis kiel
-  // makulo ), kaj ĝia pezcentro sidis malantaŭe de la ludanto, do la pinto
-  // sxajnis sxovita. Nun estas simpla egallatera triangulo ( verticoj sur
-  // cirklo R je −90°, 30°, 150° ) kies pezcentro estas GXUSTE la centro de la
-  // cirklo — la ludanta punkto — kun malgrandaj rondaj anguloj ( arcTo ).
-  const R = 0o12/0o2, rAngulo = 0o12/0o10;
-  const A = { x: 0, y: -R }, B = { x: R * 0o71/0o100, y: R * 0o5/0o10 }, C = { x: -R * 0o71/0o100, y: R * 0o5/0o10 };
-  // Komencu sur la mezo de la lasta eĝo, do la tri arcTo-turnoj fermas la
-  // triangulon sen supra streko.
-  ctx.beginPath();
-  ctx.moveTo(( C.x + A.x ) / 0o2, ( C.y + A.y ) / 0o2);
-  ctx.arcTo(A.x, A.y, B.x, B.y, rAngulo);
-  ctx.arcTo(B.x, B.y, C.x, C.y, rAngulo);
-  ctx.arcTo(C.x, C.y, A.x, A.y, rAngulo);
-  ctx.closePath();
-  ctx.fillStyle = "#fff";
-  ctx.fill();
-  // La nigra bordo — la streko kovras la randon duone interne kaj duone
-  // ekstere, do ĝi ĉirkaŭas la blankan formon.
-  ctx.strokeStyle = "#000";
-  ctx.lineWidth = 0o2;
-  ctx.lineJoin = "round";
-  ctx.stroke();
+  ctx.rotate(Math.atan2(-fx, fz));
+  desegniSaganFormon(ctx);
   ctx.restore();
 }
 
@@ -1942,13 +2005,14 @@ function desegniMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: n
 
 // La radara mapo ( 0o200 × 0o200 ) — la bakita tavolo ĉirkaŭ la ludanto.
 //
-// ⟨ NENIU centra markilo sur la radaro 📃 ⟩ — la radaro estas centrita je la
-// ludanto, do la 2D-markilo ( desegniMarkilon ) sidis ĜUSTE meze. Sur la 64-piksela
-// radaro ĝi estas 4–5 ekranpikselojn larĝa, do ĝi legigxis kiel punkto, ne kiel
-// triangulo — kaj la kompasa nadlo ( la CSS `.nadlo` ) jam montras la rigardan
-// direkton per klara triangulo ĉe la rando. La radaro do montras nur la mapon,
-// la moviĝantojn kaj la nadlon; la PLENA mapo ( desegniPlenanMapon ) tenas la
-// markilon, ĉar tie la ludanto ne estas ĉiam centre ( pan/zoom ).
+// ⟨ La nadlo portas la markilon sur la radaro 📃 ⟩ — la radaro estas centrita je
+// la ludanto, do la 2D-markilo ( desegniMarkilon ) sidus ĜUSTE meze. Sur la
+// 0o200-piksela radaro ĝi estus kelkaj ekranpikseloj larĝa — punkto, ne triangulo
+// — kaj ĝi atendus la radar-desegnon ( 15 Hz ) dum la nadlo turnigxas ĉiukadre.
+// La radaro do montras nur la mapon, la moviĝantojn kaj la nadlon — kaj la nadlo
+// portas la SAMAN sagon kiel la plena mapo ( vidu kreiSaganBildon ), do ambaŭ
+// mapoj montras unu markilon. La PLENA mapo ( desegniPlenanMapon ) tenas la
+// kanvasan markilon, ĉar tie la ludanto ne estas ĉiam centre ( pan/zoom ).
 const radaraKunteksto = miniKanvaso.getContext("2d");
 function desegniRadaron(): void {
   const ctx = radaraKunteksto;
@@ -2057,6 +2121,17 @@ kompaso.addEventListener("keydown", ( e ) => {
 // arbaro jam estas konstruitaj ). La 2D-tavoloj desegniĝas ĉiukadre.
 miniKanvaso.width = miniKanvaso.height = 0o200;
   bakitaMapo = bakiMapon();
+// La minimapa nadlo ricevas la SAMAN sagon kiel la plena mapo ( vidu
+// kreiSaganBildon ), sed PLI GRANDAN: la kompaso estas nur 0o70 pikseloj larĝa,
+// do la markilo de la plena mapo ( SAGO_GRANDO = 14 ) legigxus malgranda tie.
+// La formo restas en la ludkodo — la stilfolio nur tenas la grandecon kaj la
+// bildon en du propraĵoj ( --sagoGrando, --sago ).
+const SAGO_NADLA_GRANDO = 0o24;   // 20 — la kadro de la minimapa sago
+const sagoBildo = kreiSaganBildon(SAGO_NADLA_GRANDO);
+if ( sagoBildo ) {
+  nadlo.style.setProperty("--sagoGrando", SAGO_NADLA_GRANDO + "px");
+  nadlo.style.setProperty("--sago", `url("${sagoBildo}")`);
+}
 // La ŝarĝa ekrano finiĝas nur kiam ĉio estas preta ( konstruado + bakado ).
 sxargxaElemento.classList.add("finita");
 gxisdatigiRetikulon();
@@ -2749,7 +2824,16 @@ function animacii() {
   // pasumo desegnas nur la proksimajn ombrantojn. La ombro-mapo re-desegniĝas
   // tuj kiam la volumeno moviĝas, alie ĉiun duan kadron ( la moviĝantaj ombroj
   // postiĝas maksimume du kadrojn ).
-  ombraKadro = ( ombraKadro + 1 ) & 1;
+  // ⟨ La ombra kadenco sub ŝarĝo 📃 ⟩ — la ombra pasumo estas la plej peza
+  // unuopa parto de la kadro ( ĉirkaŭ 477 alvokoj kaj 8.3M trianguloj por ĉiu
+  // ombra kadro ). Kiam la antaŭa kadro jam estis malrapida ( sub ~30 fps ), la
+  // mapo refreŝiĝas ĉiun KVARAN kadron anstataŭ ĉiun duan: la ombroj de la
+  // moviĝantaj figuroj postiĝas unu plian kadron ( 33 ms — nerimarkebla ) kaj la
+  // ombra pasumo duoniĝas ĝuste en la momentoj, kiam la kadro estas ŝarĝita.
+  // La moviĝanta ombro-volumeno tamen ĉiam ricevas sian kadron tuj — alie la
+  // rando de la volumeno rampirus en la vidon dum irado.
+  const ombraPeriodo = deltaTempo > 0o1/0o40 ? 0o4 : 0o2;
+  ombraKadro = ( ombraKadro + 1 ) % ombraPeriodo;
   const ombroMovigxis = gxisdatigiOmbron(mapX, mapZ);
   if ( ombroMovigxis || ombraKadro === 0 ) bildilo.shadowMap.needsUpdate = true;
   // La kvar lampaj punktlumoj sekvu la saman vidpunkton ( la plej proksimaj
