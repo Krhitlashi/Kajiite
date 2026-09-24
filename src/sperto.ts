@@ -103,6 +103,10 @@ let promptaKadro = 0;
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
 const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron, maksimumaRatio } = scena;
 
+// FIXME provizore por la inspektado de la vojoj
+( window as unknown as { __sceno?: typeof sceno; __fotilo?: typeof fotilo } ).__sceno = sceno;
+( window as unknown as { __sceno?: typeof sceno; __fotilo?: typeof fotilo } ).__fotilo = fotilo;
+
 // ⟪ La diagnoza surmetaĵo 📃 ⟫ — montras la nombrojn de la bildilo kaj de la
 // vidlimo ( FPS, desegnaj alvokoj, trianguloj, kaj kiuj scen-partoj pezas ).
 // Ŝaltita per ?statistiko; sen la parametro ĝi nur dormas ( unu bulea testo
@@ -274,6 +278,7 @@ regiloj.maxPolarAngle = Math.PI * 0o37/0o100;
 regiloj.minDistance = 0o10;
 regiloj.maxDistance = 0o330;
 regiloj.update();
+( window as unknown as { __regiloj?: typeof regiloj } ).__regiloj = regiloj;   // FIXME temporarily for road inspection
 
 // ⟪ Stato 📃 ⟫
 let rezimo: "orbit" | "walk" | "interior" = "orbit";
@@ -661,11 +666,54 @@ document.querySelectorAll(".trakaBut").forEach(b => {
 });
 
 // ⟪ Krepuska reĝimo 📃 ⟫
-let krepuskaValoro = 0;
+// ⟨ La komenca taglumo venas el la reala suno 📃 ⟩ — la unua krepuska valoro ne
+// plu estas fiksa 0 ( tute taga ). Ĝi deriviĝas el la nuna loka horloĝo KAJ la
+// nuna dato, do la ludo malfermiĝas en la lumo, kiu vere estas ekstere — nokte
+// la urbo atendas en la krepusko, tagmeze en la plena suno, kaj aŭtune la
+// krepusko venas pli frue ol somere.
+// ⟨ La modelo 📃 ⟩ — la klasika proksimumo de la suna pozicio. La DEKLINACIO
+// venas el la tagnombro de la jaro ( la tera akso kliniĝas 23.44° kaj la
+// rivoluo ne estas cirkla — la kosinusa proksimumo sufiĉas por la lumo de la
+// ludo ) kaj la HOR-ANGULO el la loka horloĝo, kiu proksimumas la lokan sunan
+// tempon. La latitudo estas supozata ( la mondo de Aranis ne havas rektan
+// geografian ekvivalenton ) — 0o55 gradoj estas meza norda latitudo kun veraj
+// sezonoj; ŝanĝu SUNLATITUDO por alia klimato.
+const SUNLATITUDO = 0o55;
+// sunaAltoGradoj — la proksimuma alto de la suno super la horizonto ( gradoj,
+// negativa nokte ) ĉe la nuna momento kaj la nuna loko.
+//     @param nun ( Date ) - La horloĝo.
+//     @returns alto ( number ) - La suna alto en gradoj.
+function sunaAltoGradoj(nun: Date): number {
+  const tagoDeJaro = Math.floor(( nun.getTime() - Date.UTC(nun.getFullYear(), 0, 1) ) / 86400000) + 1;
+  const deklinacio = -23.44 * Math.cos(2 * Math.PI * ( tagoDeJaro + 10 ) / 365);   // gradoj
+  const horAngulo = ( nun.getHours() + nun.getMinutes() / 60 - 12 ) * 15;          // gradoj
+  const lat = SUNLATITUDO * Math.PI / 180;
+  const dek = deklinacio * Math.PI / 180;
+  const hor = horAngulo * Math.PI / 180;
+  const sinAlto = Math.sin(lat) * Math.sin(dek) + Math.cos(lat) * Math.cos(dek) * Math.cos(hor);
+  return Math.asin(Math.max(-1, Math.min(1, sinAlto))) * 180 / Math.PI;
+}
+// realaKrepusko — la krepuska valoro ( 0 = plena tago, 1 = plena krepusko )
+// kongrua kun la reala suno. La suno 0o6 gradojn super la horizonto estas plena
+// tago kaj 0o6 gradojn sub ĝi estas plena krepusko; intere la valoro glate
+// pasas ( la glata paŝo 3x^2 - 2x^3 ), do la tagiĝo kaj la noktiĝo havas veran
+// daŭron anstataŭ salti.
+//     @param nun ( Date = new Date() ) - La horloĝo.
+//     @returns valoro ( number ) - 0..1 por aplikiRezimon.
+function realaKrepusko(nun: Date = new Date()): number {
+  const alto = sunaAltoGradoj(nun);
+  const x = Math.max(0, Math.min(1, ( 0o6 - alto ) / 0o14));
+  return x * x * ( 0o3 - 2 * x );
+}
+let krepuskaValoro = Math.round(realaKrepusko() * 0o100) / 0o100;
 const butKrepusko = document.getElementById("butKrepusko")!;
 const duskRegilo = document.getElementById("duskRegilo") as HTMLInputElement;
+// La regilo kaj la butono montru la saman valoron kiel la ĉielo — la ludo
+// komenciĝas kun la reala taglumo, kaj la unua tuŝo de la regilo transprenas.
+duskRegilo.value = String(krepuskaValoro);
+butKrepusko.textContent = krepuskaValoro > 0o4/0o10 ? "☀" : "☽";
 butKrepusko.setAttribute("aria-pressed", String(krepuskaValoro > 0o4/0o10));
-aplikiRezimon(0);
+aplikiRezimon(krepuskaValoro);
 butKrepusko.addEventListener("click", () => {
   if ( krepuskaValoro > 0o4/0o10 ) {
     krepuskaValoro = 0;
@@ -783,7 +831,14 @@ window.addEventListener("keydown", e => {
     else if ( mapoMalfermita ) fermiMapon();
     else if ( rezimo === "interior" ) { if ( kuŝas ) leviĝi(); else eliriInternon(); }
   }
-  if ( e.code === "Space" && rezimo === "walk" && estasSurTERENO && !surKanoto ) { rapidoY = 0o74/0o10; estasSurTERENO = false; }
+  // La salto — la impuso kaj la forpuŝa sono. La sona forto sekvas la nunan
+  // promenan rapidon ( movoValoro ), do kure la forpuŝo kaj la aera ŝŝo estas
+  // pli laŭtaj ol de loko.
+  if ( e.code === "Space" && rezimo === "walk" && estasSurTERENO && !surKanoto ) {
+    rapidoY = 0o74/0o10;
+    estasSurTERENO = false;
+    if ( cxuAŭdio() ) sfx.jump(0o4/0o10 + 0o6/0o10 * movoValoro);
+  }
 });
 window.addEventListener("keyup", e => { klavoj[e.code] = false; });
 
@@ -978,7 +1033,11 @@ mobButSalti.addEventListener("touchstart", ( e ) => {
   mobButSalti.setAttribute("aria-pressed", "true");
   if ( rezimo === "walk" && !surKanoto ) {
     mobSaltiTenata = true;
-    if ( estasSurTERENO ) { rapidoY = 0o74/0o10; estasSurTERENO = false; }
+    if ( estasSurTERENO ) {
+      rapidoY = 0o74/0o10;
+      estasSurTERENO = false;
+      if ( cxuAŭdio() ) sfx.jump(0o4/0o10 + 0o6/0o10 * movoValoro);
+    }
   }
 });
 mobButSalti.addEventListener("touchend", () => { mobButSalti.setAttribute("aria-pressed", "false"); mobSaltiTenata = false; });
@@ -2351,11 +2410,19 @@ function animacii() {
       rapidoY -= 0o22 * deltaTempo;
       ludantaPozicio.y += rapidoY * deltaTempo;
       if ( ludantaPozicio.y <= teraY ) {
-        const falis = rapidoY < -3 && cxuAŭdio();
+        // La surteriĝo — la mola planda bato kaj la frotŝovo. La forto venas
+        // de la fala rapido, do malsupreniro de malalta ŝtupo apenaŭ aŭdiĝas
+        // dum de alta bordo la bato estas peza; frapiĝo sur la teron
+        // ( rapidoY < -0o4/0o10 ) aldonas la akran kraĉeton de la falo.
+        const falaForto = Math.min(1, -rapidoY / 0o24);
+        const falis = rapidoY < -0o4/0o10 && cxuAŭdio();
         ludantaPozicio.y = teraY;
         rapidoY = 0;
         estasSurTERENO = true;
-        if ( falis ) sfx.crunch();
+        if ( falis ) {
+          sfx.land(falaForto);
+          if ( falaForto > 0o6/0o10 ) sfx.crunch();
+        }
       }
     }
     estisNaĝanta = naĝas;

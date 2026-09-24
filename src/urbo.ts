@@ -15,7 +15,7 @@ import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantoj
   konstruiPussxlefojn, metiPussxlefojn, VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ, MONTAJ_BIOMOJ,
   AKVAJ_PLANTOJ_BIOMOJ, EKVIZETO_BIOMOJ, konstruiMetitanRokon, konstruiMetitanFilikon } from "../assets/shalaj-specioj/vegetajxo.js";
 import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxoj.js";
-import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondigitanArkon, konstruiRondajnKapojn, VojDifino, VOJA_SUPRO_LEVIGXO } from "../assets/medio/vojoj.js";
+import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondajnKapojn, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO } from "../assets/medio/vojoj.js";
 import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../assets/medio/doko.js";
 import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton, superajElDatumo } from "./krado.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
@@ -617,9 +617,11 @@ function konstruiKradanUrbon(
     }
   }
 
-  // L-korneroj — nodoj kie AMBAU perpendikularaj vojoj finigas samloke ( la
-  // kvar anguloj de la krada rombo ). Tiuj ricevas rondigitan arkon anstatau
-  // du interkovritajn cirklajn ĉapojn.
+  // L-korneroj — nodoj kie AMBAŬ perpendikularaj vojoj finiĝas samloke ( la
+  // kvar anguloj de la krada rombo ). Tiuj ricevas la SAMAN kunigan platon kiel
+  // la T-kunigoj kaj la kruciĝoj — kun AMBAŬ direktoj fermitaj. La libera
+  // kvadranto de la plato ricevas la arkon de la tuta voja larĝo ( la ekstera
+  // arko de la kornero ), kaj la enkoreja kvadranto la arkon de la bordo-larĝo.
   const arkajNodoj: { x: number; z: number; sx: number; sz: number }[] = [];
   const arkajKlavoj = new Set<string>();
   for ( const [ k, e ] of finoRegistro ) {
@@ -636,10 +638,9 @@ function konstruiKradanUrbon(
     if ( arkajKlavoj.has(x + "," + z) ) placajNodoj.splice(i, 1);
   }
   // T-kunigoj — nodoj kie UNU vojo finiĝas kaj la alia trapasas. La finiĝanta
-  // vojo kaj la trapasanta vojo interkovras samplane ĉe la ena angulo ( la
-  // samaj bendoj en la sama loko ) kaj la du tavoloj z-flagris laŭ la fotila
-  // angulo. La sama levita kruciĝa plato kiel la kvarvojaj kruciĝoj kovras la
-  // tutan nodon per UNU surfaco — la vojoj subiras kaj reaperas glate.
+  // vojo haltas ĉe la rando de la kuniga plato, do ĝiaj andezitaj flankoj ne
+  // kuŝas super la diorita centro de la trapasanta vojo; la plato mem desegnas
+  // la sekcon de la trapasanta vojo kaj rondigas la du angulojn de la kunigo.
   const tNodoj = placajNodoj.filter(( [ px, pz ] ) => realajIntersekcoj.has(px + "," + pz));
   // Fermitaj flankoj por la T-kunigaj platoj — la direkto de la finiĝanta
   // vojo ( unu ne-nula komponanto ). La T-kunigo havas UNU flankon sen vojo,
@@ -654,6 +655,11 @@ function konstruiKradanUrbon(
   // la strio malaperas kaj la vojo daŭrigas glate tra la kruciĝo.
   const traNodoj = new Set<string>([ `${ofsX + ringoX},${ofsZ + sudaVojo}` ]);
   const tFermitaj = new Map<string, [ number, number ]>();
+  // La spronaj T-kunigoj — kie pordo-sprono de konstruajxo atingas la kradan
+  // vojon. Anstataux nura interkovro ili ricevas la SAMAN rondigitan T-platon
+  // kiel la kradaj T-kunigoj, do cxiu konstruajxa aliro estas vera T-krucigxo.
+  // La mapo plenigxas dum la sprona buklo malsupre.
+  const spronajKunigoj = new Map<string, [ number, number ]>();
   for ( const [ tx, tz ] of tNodoj ) {
     const e = finoRegistro.get(tx + "," + tz);
     if ( e && !traNodoj.has(tx + "," + tz) ) tFermitaj.set(tx + "," + tz, e.sx !== 0 ? [ e.sx, 0 ] : [ 0, e.sz ]);
@@ -710,6 +716,7 @@ function konstruiKradanUrbon(
 
     const fX = Math.sin(rot), fZ = Math.cos(rot);
     let vojX: number, vojZ: number;
+    let spronaKunigo: [ number, number, number, number ] | null = null;
 
     if ( Math.abs(fX) > Math.abs(fZ) ) {
       const signo = fX > 0 ? 1 : -1;
@@ -730,8 +737,14 @@ function konstruiKradanUrbon(
       const duonL = 0o7/0o10;
       const ekstX = NS_ekstentoj.get(celX);
       if ( !ekstX || spronoZ < ekstX[0] - duonL || spronoZ > ekstX[1] + duonL ) continue;
-      vojX = celX - signo * duonL;
+      // La sprono haltas ĉe la RANDO de la kuniga plato ( VOJA_EKSTERA_DUONO
+      // de la voja centro ) — la plato posedas la kvadraton kaj gxiaj propraj
+      // anguloj rondigas la kunigon. La pli frua valoro ( duonL = la diorita
+      // rando ) lasus la spronajn andezitajn flankojn ene de la plato, kie ili
+      // kovrus gxiajn dioritajn partojn.
+      vojX = celX - signo * VOJA_EKSTERA_DUONO;
       vojZ = spronoZ;
+      spronaKunigo = [ celX, spronoZ, signo, 0 ];
     } else {
       const signo = fZ > 0 ? 1 : -1;
       let celZ = signo > 0 ? Math.max(...spurZoj) : Math.min(...spurZoj);
@@ -746,11 +759,20 @@ function konstruiKradanUrbon(
       const duonL = 0o7/0o10;
       const ekstZ = EW_ekstentoj.get(celZ);
       if ( !ekstZ || spronoX < ekstZ[0] - duonL || spronoX > ekstZ[1] + duonL ) continue;
+      // La sprono haltas ĉe la rando de la kuniga plato ( vidu supre ).
       vojX = spronoX;
-      vojZ = celZ - signo * duonL;
+      vojZ = celZ - signo * VOJA_EKSTERA_DUONO;
+      spronaKunigo = [ spronoX, celZ, 0, signo ];
     }
 
     if ( Math.hypot(spronoX - vojX, spronoZ - vojZ) > 0o4/0o10 ) {
+      // La kunigo ricevas T-platon se gxi ne jam estas krada krucigxo aux
+      // T/arka nodo — la sprono finigxas gxuste cxe la plato-brako.
+      if ( spronaKunigo ) {
+        const klavo = spronaKunigo[0] + "," + spronaKunigo[1];
+        if ( !tFermitaj.has(klavo) && !realajIntersekcoj.has(klavo) && !arkajKlavoj.has(klavo) )
+          spronajKunigoj.set(klavo, [ spronaKunigo[2], spronaKunigo[3] ]);
+      }
       konstruiSpronon(spronoX, spronoZ, vojX, vojZ, alteco, dioritaMaterialo, andezitaMaterialo, sceno);
       // Densaj specimenoj laŭ la sprono — saman distancon kiel la ĉefaj vojoj.
       const spurro = Math.hypot(vojX - spronoX, vojZ - spronoZ);
@@ -764,24 +786,26 @@ function konstruiKradanUrbon(
     }
   }
 
-  const vojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo);
+  // ⟪ Kunigaj platoj 📃 ⟫ — ĈIU kunigo de la voja reto ( la kvarvojaj kruciĝoj,
+  // la T-kunigoj, la spronaj kunigoj kaj la L-korneroj ) ricevas platon kiu
+  // posedas la kunigan kvadraton. La vojoj lasas truon en tiu kvadrato kaj la
+  // plato kovras gxin — dioritaj strioj laŭ la vojoj kaj andezitaj anguloj
+  // RONDIGITAJ per la arko de la L-kornero. La andezitaj flankoj de la vojoj
+  // tial ne plu kuŝas super la dioritaj partoj de la plato, kaj ĉiuj kunigoj
+  // aspektas la same rondigitaj — unu listo por la geometria truo kaj por la
+  // platoj mem.
+  const kunigajKlavoj = [ ...realajIntersekcoj, ...spronajKunigoj.keys(), ...arkajKlavoj,
+    ...tNodoj.map(( [ px, pz ] ) => px + "," + pz ) ];
+  const kunigajPunktoj = kunigajKlavoj.map(klavo => klavo.split(",").map(Number) as [ number, number ]);
+  // La fermitaj direktoj — T-kunigo havas unu ( la flanko de la finiĝanta
+  // vojo ), L-kornero du ( la libera kvadranto ), kaj la kvarvoja kruciĝo
+  // neniun. La spronaj kunigoj aldonas sian propran fermitan direkton.
+  const fermitaj = new Map<string, [ number, number ]>([ ...tFermitaj, ...spronajKunigoj ]);
+  for ( const a of arkajNodoj ) fermitaj.set(a.x + "," + a.z, [ a.sx, a.sz ]);
 
-  // ⟪ Kruciĝaj platoj 📃 ⟫ — ĉe ĉiu kruciĝo la strioj de la du vojoj kuŝas
-  // samplane kaj la teksturoj montras krucan kvadraton. Diorita centro kun
-  // kvar andezitaj anguloj kovras ĉiun kruciĝon per unu levita surfaco, do la
-  // duobla andezito en la anguloj malaperas kaj la vojo-randoj daŭrigas preter
-  // la kruciĝo. La T-kunigoj ricevas la saman platon — la finiĝanta vojo
-  // interkovras la trapasantan samplane kaj la plato estas la unu surfaco.
-  konstruiIntersekcajnPlatojn(sceno, [ ...realajIntersekcoj ].map(klavo => {
-    const [ x, z ] = klavo.split(",").map(Number);
-    return [ x, z ] as [ number, number ];
-  }).concat(tNodoj), alteco, dioritaMaterialo, andezitaMaterialo, tFermitaj);
-
-  // Rondigitaj arkoj ĉe la L-korneroj — kvaronaj diskoj en la korneraj
-  // kvadrantoj ( la libera tereno inter la vojoj ), levitaj super la tereno.
-  for ( const a of arkajNodoj ) {
-    konstruiRondigitanArkon(sceno, a.x, a.z, a.sx, a.sz, alteco, dioritaMaterialo, andezitaMaterialo);
-  }
+  const vojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo,
+    kunigajPunktoj);
+  konstruiIntersekcajnPlatojn(sceno, kunigajPunktoj, alteco, dioritaMaterialo, andezitaMaterialo, fermitaj);
 
   // ⟪ Lampoj ( la krada parto ) 📃 ⟫ — la lampaj lokoj de ĉi tiu urbo.
   // kvar lampoj ĉirkaŭ ĉiu placo-nodo, ĉiu reala krada kruciĝo kaj ĉiu arko.

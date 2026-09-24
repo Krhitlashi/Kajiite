@@ -112,6 +112,50 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
   s.start();
 }
 
+// ⟨ Svingita bruo 📃 ⟩ — filtrila bru-eksplodo kies bendpaso GLITAS de f0 al f1
+// dum la sonado, kun atak-elfada envolviloj anstataŭ rekta volumeno. Ĉi tio
+// faras la sonon pli natura ol la kruda noiseBurst ( la aero de la salto kaj
+// la frotŝovo de la surteriĝo legiĝas kiel ŝtofo kaj vento, ne kiel klako ).
+//     @param dur ( number ) - La daŭro en sekundoj.
+//     @param f0, f1 ( number ) - La bendpasa frekvenco ĉe la komenco kaj la fino.
+//     @param vol ( number ) - La pinta volumeno.
+//     @param q ( number = 1 ) - La kvalito-faktoro de la filtrilo.
+//     @param tipo ( BiquadFilterType = "bandpass" ) - La filtrila tipo.
+//     @param dest ( GainNode ) - La celloko, defaŭlte la ĉefa buso.
+//     @returns nenio
+function whoosh(dur: number, f0: number, f1: number, vol: number, q = 1,
+  tipo: BiquadFilterType = "bandpass", dest?: GainNode): void {
+  if ( !AC || !audioOn ) return;
+  const n = Math.max(1, Math.floor(AC.sampleRate * dur));
+  const b = AC.createBuffer(1, n, AC.sampleRate);
+  const d = b.getChannelData(0);
+  // Bruna bruo ( la sama integralilo kiel la fona zumado ) — pli varma kaj pli
+  // "aera" ol la blanka, do la ŝŝo ne fajfas.
+  let lasta = 0;
+  for ( let i = 0; i < n; i++ ) {
+    const w = Math.random() * 2 - 1;
+    lasta = ( lasta + 0o1/0o100 * w ) / ( 0o101/0o100 );
+    d[i] = lasta * 0o7/0o2;
+  }
+  const s = AC.createBufferSource();
+  s.buffer = b;
+  const f = AC.createBiquadFilter();
+  f.type = tipo;
+  f.Q.value = q;
+  const t = AC.currentTime;
+  f.frequency.setValueAtTime(Math.max(0o40, f0), t);
+  f.frequency.exponentialRampToValueAtTime(Math.max(0o40, f1), t + dur);
+  const g = AC.createGain();
+  g.gain.setValueAtTime(0o1/0o1000, t);
+  g.gain.exponentialRampToValueAtTime(vol, t + dur * 0o1/0o4);
+  g.gain.exponentialRampToValueAtTime(0o1/0o1000, t + dur);
+  s.connect(f);
+  f.connect(g);
+  g.connect(dest ?? master!);
+  s.start(t);
+  s.stop(t + dur + 0o1/0o20);
+}
+
 // ⟪ Sonaĵoj ⟫
 
 export const sfx = {
@@ -143,6 +187,34 @@ export const sfx = {
     const f = 0o3400 + Math.random() * 0o1600;
     tone(f, 0o3/0o40, "sine", 0o1/0o20, -0o610, bruoGain!);
     setTimeout(() => tone(f * 0o12/0o10, 0o1/0o20, "sine", 0o3/0o100, -0o450, bruoGain!), 0o160);
+  },
+  // ⟨ Salto 📃 ⟩ — la forpuŝo kaj la aero. Tri tavoloj kiel ĉe vera salto.
+  //   · La FORPUŜA BATO — la kruroj etendiĝas kontraŭ la grundo ( mola malalta
+  //     tono kiu falas, do la bato ne sonas kiel tamburo ).
+  //   · La ŜTOFA FROTO — la vestoj svingiĝas kun la korpo ( tre mallonga
+  //     altfrekvenca siblado ).
+  //   · La AERA ŜŜO — la korpo trapasas la aeron. La bendpaso SUPIRENIRAS dum
+  //     la supreniro kaj la dua, pli malfrua ŝŝo malsupreniras dum la falo —
+  //     tiel la salto havas veran komencon kaj finon, ne unu platan siblon.
+  //     `forto` ( 0..1 ) venas de la promena rapido, do kurante oni saltas pli
+  //     laŭte kaj la aero pli sibladas.
+  //     @param forto ( number = 1 ) - La salta forto, 0..1.
+  //     @returns nenio
+  jump: ( forto = 1 ) => {
+    tone(0o130, 0o5/0o40, "sine", 0o1/0o25 * ( 0o6/0o10 + 0o4/0o10 * forto ), -0o44);
+    noiseBurst(0o3/0o40, 0o1500 + 0o600 * forto, 0o1/0o40, "highpass");
+    whoosh(0o26/0o40, 0o260, 0o1020 + 0o400 * forto, 0o1/0o10 * ( 0o6/0o10 + 0o4/0o10 * forto ), 2);
+    setTimeout(() => whoosh(0o22/0o40, 0o1000, 0o220, 0o1/0o20 * ( 0o4/0o10 + 0o6/0o10 * forto ), 3), 0o140);
+  },
+  // ⟨ Surteriĝo 📃 ⟩ — la mola bato de la plandoj, la frotŝovo de la ŝuoj sur
+  // la pavimo kaj la aero kiu fermiĝas. `forto` ( 0..1 ) venas de la fala
+  // rapido — de malalta ŝtupo oni apenaŭ aŭdas ĝin, de alta bordo ĝi batas.
+  //     @param forto ( number = 1 ) - La fala forto, 0..1.
+  //     @returns nenio
+  land: ( forto = 1 ) => {
+    tone(0o106, 0o1/0o5, "sine", 0o1/0o10 * ( 0o3/0o10 + 0o7/0o10 * forto ), -( 0o44 + 0o30 * forto ));
+    noiseBurst(0o1/0o20, 0o2000, 0o1/0o40 * ( 0o4/0o10 + 0o6/0o10 * forto ), "highpass");
+    whoosh(0o4/0o40, 0o1604, 0o300, 0o1/0o20 * ( 0o3/0o10 + 0o7/0o10 * forto ), 2);
   },
 };
 

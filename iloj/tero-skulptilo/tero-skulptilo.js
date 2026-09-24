@@ -135,7 +135,9 @@ import { kreiOranMaterialon, kreiFenestranMaterialon,
   kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../assets/komunajxoj/materialoj.js";
 // La veraj vojoj de la ludo — la 3D-vido de la mond-nivelaj vojoj uzas la
 // SAMAjn dioritajn/andezitajn vojojn kiel la ludo ( konstruiVojojn ).
-import { konstruiVojojn, konstruiPeriferiajnPlatformojn } from "../../assets/medio/vojoj.js";
+import { konstruiVojojn, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn,
+  konstruiRondigitanArkon, konstruiRondajnKapojn, troviVojajnKunigojn,
+  troviLiberajnFinojn } from "../../assets/medio/vojoj.js";
 import { konstruiFiguron } from "../../assets/shalaj-specioj/homoj.js";
 import { VESTOJ } from "../../assets/vestaro/vestoj.js";
 import * as THREE from "three";
@@ -2779,6 +2781,7 @@ const vojoNomoEl = document.getElementById("vojoNomo");
 const vojoLargxoEl = document.getElementById("vojoLargxo");
 const vojoAldoniBtn = document.getElementById("vojoAldoni");
 const vojoForigiBtn = document.getElementById("vojoForigi");
+const vojoKonektiBtn = document.getElementById("vojoKonekti");
 const vojoPunktoElektilo = document.getElementById("vojoPunktoElektilo");
 const vojoPunktoAldoniBtn = document.getElementById("vojoPunktoAldoni");
 const vojoPunktoForigiBtn = document.getElementById("vojoPunktoForigi");
@@ -3109,7 +3112,24 @@ function gxisdatigiVojaStatistikojn() {
     return a + Math.hypot(p[0] - q[0], p[1] - q[1]);
   }, 0), 0);
   el.textContent = vojoj.length + " vojoj ( " + longo.toFixed(1) + " un ) · "
-    + dokoj.length + " dokoj";
+    + dokoj.length + " dokoj · " + vojaKunigoj() + " kunigoj 🔗";
+}
+
+// vojaKunigoj — kiom da voj-finoj sidas sur ALIA vojo ( vertico aux segmento ).
+// La statistiko montras, ĉu la reto vere estas konektita — sen la algluo la
+// vojoj aspektas ligitaj sur la mapo sed lasas fendetojn en la ludo.
+//     @returns kunigoj ( number ) - La nombro de konektitaj finoj.
+function vojaKunigoj() {
+  let kunigoj = 0;
+  for ( let vi = 0; vi < vojoj.length; vi++ ) {
+    const v = vojoj[vi];
+    if ( v.punktoj.length < 2 ) continue;
+    for ( const pi of [ 0, v.punktoj.length - 1 ] ) {
+      const p = v.punktoj[pi];
+      if ( vojaAlgluo(p[0], p[1], vi) ) kunigoj++;
+    }
+  }
+  return kunigoj;
 }
 
 // urboCxePunkto — la indekso de la urbo kies markilo kovras la mondan punkton
@@ -3278,6 +3298,97 @@ function kradaSegmentoAlglu(ax, az, bx, bz) {
   }
   return null;
 }
+// ⟨ Aŭtomata konekto de la vojoj 📃 ⟩ — la vojoj KONEKTIĜU inter si, por ke
+// la konstruanto ne tajpu la samajn koordinatojn dufoje kaj por ke la vojoj ne
+// interkovriĝu per duonnajbaraj strioj. La algluo serĉas sur la ALIAJ
+// mond-nivelaj vojoj kaj revenas la mondan punkton, sur kiu la trenata punkto
+// sidiĝu.
+//   · VERTICO — se alia vojo havas verticon ene de la rando, la punkto sidiĝas
+//     ĜUSTE sur ĝin — du vojoj tiam KUNHAVAS la saman punkton ( vera kunigo de
+//     fino al fino aŭ de fino al angulo, kiel la avenuo ĉe la kajo ).
+//   · SEGMENTO — alie, se la punkto estas apud la CENTRA LINIO de alia vojo, ĝi
+//     sidiĝas sur la projekcion — la vojo tiam aliĝas MEZE de la alia ( la
+//     T-kunigo de la ponto al la norda kajo ). La kunigo sidas precize sur la
+//     linio kaj ne sur la 0.5-krado — la du vojoj tiel ne povas duon-kunfali.
+// La SAMA vojo neniam algluiĝas al si — ĝiaj propraj segmentoj estas la vojo
+// mem, kaj punkto sur ili ne estas kunigo.
+//     @param mx, mz ( number ) - La mondo-punkto de la kursoro.
+//     @param kromVojo ( number ) - La indekso de la trenata vojo.
+//     @returns punkto ( [ number, number ] | null ) - La kuniga punkto.
+const VOJA_ALGLUA_RANDO = 2.5;
+function vojaAlgluo(mx, mz, kromVojo) {
+  // La verticoj unue — kunigi la finojn estas la plej klara konekto.
+  let plej = null, plejD = VOJA_ALGLUA_RANDO;
+  for ( let vi = 0; vi < vojoj.length; vi++ ) {
+    if ( vi === kromVojo ) continue;
+    const v = vojoj[vi];
+    for ( let pi = 0; pi < v.punktoj.length; pi++ ) {
+      const p = v.punktoj[pi];
+      const d = Math.hypot(p[0] - mx, p[1] - mz);
+      if ( d < plejD ) { plejD = d; plej = [ p[0], p[1] ]; }
+    }
+  }
+  if ( plej ) return plej;
+  // La segmentoj poste. La rando kreskas per la duon-larĝo de la alia vojo, do
+  // ankaŭ larĝa vojo kaptas la punkton jam de sia rando.
+  let plejS = null, plejSD = Infinity;
+  for ( let vi = 0; vi < vojoj.length; vi++ ) {
+    if ( vi === kromVojo ) continue;
+    const v = vojoj[vi];
+    const rando = VOJA_ALGLUA_RANDO + ( v.larĝo || 3.5 ) / 2;
+    for ( let pi = 0; pi < v.punktoj.length - 1; pi++ ) {
+      const a = v.punktoj[pi], b = v.punktoj[pi + 1];
+      const l2 = ( b[0] - a[0] ) * ( b[0] - a[0] ) + ( b[1] - a[1] ) * ( b[1] - a[1] );
+      if ( l2 < 1e-6 ) continue;
+      const t = Math.max(0, Math.min(1, ( ( mx - a[0] ) * ( b[0] - a[0] ) + ( mz - a[1] ) * ( b[1] - a[1] ) ) / l2 ));
+      const px = a[0] + ( b[0] - a[0] ) * t, pz = a[1] + ( b[1] - a[1] ) * t;
+      const d = Math.hypot(px - mx, pz - mz);
+      if ( d < rando && d < plejSD ) { plejSD = d; plejS = [ px, pz ]; }
+    }
+  }
+  return plejS;
+}
+
+// forigiDuoblajnPunktojn — forigu sinsekvajn punktojn kiuj sidas sur la sama
+// loko. La kunigo de du finoj ( aux la treno de punkto sur sian najbaron )
+// lasas duoblan punkton, kiu produktas NULAN segmenton — la voja moduo desegnas
+// ĝin kiel videblan kudron, kaj la polilinio raportas falsan longon.
+//     @param v ( object ) - La vojo ( la punktoj sxangxigxas surloke ).
+//     @returns forigitaj ( number ) - Kiom da punktoj foriĝis.
+function forigiDuoblajnPunktojn(v) {
+  let forigitaj = 0;
+  for ( let i = v.punktoj.length - 1; i > 0 && v.punktoj.length > 2; i-- ) {
+    const a = v.punktoj[i], b = v.punktoj[i - 1];
+    if ( Math.hypot(a[0] - b[0], a[1] - b[1]) < 1e-6 ) { v.punktoj.splice(i, 1); forigitaj++; }
+  }
+  return forigitaj;
+}
+
+// konektiVojajnFinojn — kunigu la du FINOJN de ĉiu vojo kun la ceteraj vojoj
+// ( vertico aux segmento ) se ili estas ene de la alglua rando, kaj forigu la
+// duoblajn punktojn. Nur la FINOJ moviĝas — la mezo kaj la formo de ĉiu vojo
+// restas tiaj, kiaj la konstruanto desegnis ilin.
+//     @returns kunigoj ( number ) - Kiom da finoj sidiĝis sur alian vojon.
+function konektiVojajnFinojn() {
+  let kunigoj = 0;
+  for ( let vi = 0; vi < vojoj.length; vi++ ) {
+    const v = vojoj[vi];
+    if ( !v.punktoj || v.punktoj.length < 2 ) continue;
+    const lasta = v.punktoj.length - 1;
+    for ( const pi of [ 0, lasta ] ) {
+      const p = v.punktoj[pi];
+      const algluo = vojaAlgluo(p[0], p[1], vi);
+      if ( !algluo ) continue;
+      if ( Math.hypot(algluo[0] - p[0], algluo[1] - p[1]) < 1e-6 ) continue;   // jam sidas sur la aliulo
+      p[0] = algluo[0];
+      p[1] = algluo[1];
+      kunigoj++;
+    }
+    forigiDuoblajnPunktojn(v);
+  }
+  return kunigoj;
+}
+
 function sxangiVojaPozicion(mx, mz) {
   if ( !vojaTrenata ) return;
   const c = vojaTrenata;
@@ -3285,11 +3396,19 @@ function sxangiVojaPozicion(mx, mz) {
     const v = vojoj[c.vojo];
     if ( !v || !v.punktoj[c.punkto] ) return;
     const pi = c.punkto;
-    // La algluo al la krada voja reto — la punkto sur la krada linio
-    // KONEKTIĜAS la vojon al la krado; alie la kutima 0.5-algluo.
-    const algluo = kradaVojaAlglu(mx, mz);
-    let gx = algluo ? algluo[0] : Math.round(mx * 2) / 2;
-    let gz = algluo ? algluo[1] : Math.round(mz * 2) / 2;
+    // La algluo, en la ordo de la forto — la krada reto unue ( la vojo
+    // KONEKTIĜU al la urbo ), poste la ALIAJ mond-nivelaj vojoj ( la vojoj
+    // KONEKTIĜU inter si ), laste la libera 0.5-krado.
+    const kradaAlgluo = kradaVojaAlglu(mx, mz);
+    let gx, gz;
+    if ( kradaAlgluo ) {
+      gx = kradaAlgluo[0];
+      gz = kradaAlgluo[1];
+    } else {
+      const voja = vojaAlgluo(mx, mz, c.vojo);
+      if ( voja ) { gx = voja[0]; gz = voja[1]; }
+      else { gx = Math.round(mx * 2) / 2; gz = Math.round(mz * 2) / 2; }
+    }
     // La SEGMENTO-algluo — se najbara segmento ( najbaro → la trenata punkto )
     // estas preskaŭ paralela al krada vojo-linio kaj proksima, ankaŭ la najbaro
     // glitas sur la linion. La tuta segmento tiam estas samlinia kaj KONEKTIĜAS
@@ -3334,6 +3453,12 @@ function staciaPozicio() {
 }
 function finiVojaTrenon() {
   if ( !vojaTrenata ) return;
+  // La treno finiĝis — la kuniĝinta punkto restas sur la alia vojo, kaj
+  // eventualaj duoblaj punktoj ( treno sur la propran najbaron ) foriĝas.
+  if ( vojaTrenata.speco === "punkto" ) {
+    const v = vojoj[vojaTrenata.vojo];
+    if ( v ) forigiDuoblajnPunktojn(v);
+  }
   vojaTrenata = null;
   gxisdatigiVojajnRegilojn();
   bezonoDesegno = true;
@@ -3542,18 +3667,43 @@ function rekonstruiVojojn3D() {
       for ( const mat of matoj ) mat.dispose();
     }
   }
+  // ⟨ Unu difino po vojo 📃 ⟩ — antauxe ĉiu SEGMENTO fariĝis aparta difino, do
+  // la turnoj ne rondig̃is ( la arko bezonas la tutan polilinion ) kaj la ŝtona
+  // teksajxo restartis ĉe ĉiu segmento. La ludo uzas la tutan polilinion — nun
+  // ankaŭ ĉi tiu antaŭvido.
   const difinoj = [];
   for ( const v of vojoj ) {
     if ( !v.punktoj || v.punktoj.length < 2 ) continue;
-    for ( let i = 0; i < v.punktoj.length - 1; i++ ) {
-      difinoj.push({ pts: [ v.punktoj[i], v.punktoj[i + 1] ], w: ( v.larĝo || 3.5 ) / 2 });
-    }
+    difinoj.push({ pts: v.punktoj.map(p => [ p[0], p[1] ]), w: ( v.larĝo || 3.5 ) / 2 });
   }
   if ( !difinoj.length ) return;
   const alteco = ( x, z ) => ( bazaAlteco(x, z) + deltoInterp(x, z) ) * YTROIGO;
+  // ⟨ La samaj kunigoj kiel la ludo 📃 ⟩ — la antaŭvido montru la VERAN reuseblecon:
+  // la kruciĝaj platoj ( kun la fermitaj flankoj de la T-kunigoj ), la rondigitaj
+  // L-arkoj kaj la finaj ĉapoj, ĉiuj el la sama regilo kiel konstruiUrbon. Sen ili
+  // la antaŭvido montras nur la rubandojn interkovritajn — la ludo montros multe
+  // pli. La kunigoj ANTAŬ la vojoj ( la polilinio restas kruda apud ili ).
+  const vojaListo = difinoj.map(d => ({ punktoj: d.pts, larĝo: 2 * d.w }));
+  const kunigoj = troviVojajnKunigojn(vojaListo, 1.875);
+  const protektoj = kunigoj.map(k => [ k.x, k.z ]);
   // La samaj materialoj kiel la ludo — la diorita centro kun la andezitaj
   // bordoj ( konstruiVojojn klonas ilin kaj aplikas la teksajxojn ).
-  konstruiVojojn(vojaGrupo3D, difinoj, alteco, kreiDioritanMaterialon(), kreiAndezitanMaterialon());
+  const diorito = kreiDioritanMaterialon();
+  const andezito = kreiAndezitanMaterialon();
+  konstruiVojojn(vojaGrupo3D, difinoj, alteco, diorito, andezito, protektoj);
+  const platoj = [], rotacioj = new Map(), stacioj = new Map();
+  for ( const k of kunigoj ) {
+    // Krucoj, T-oj kaj anguloj — ĉiuj estas platoj nun; la plato mem legas la
+    // vojojn por trovi siajn brakojn.
+    platoj.push([ k.x, k.z ]);
+    if ( k.rotacio ) rotacioj.set(k.x + "," + k.z, k.rotacio);
+    if ( k.stacio !== undefined ) stacioj.set(k.x + "," + k.z, k.stacio);
+  }
+  konstruiIntersekcajnPlatojn(vojaGrupo3D, platoj, alteco, diorito, andezito,
+    rotacioj, vojaListo, stacioj);
+  const finoj = troviLiberajnFinojn(vojaListo, kunigoj, [], 1.875);
+  konstruiRondajnKapojn(vojaGrupo3D, finoj.map(f => [ f.x, f.z ]),
+    finoj.map(f => [ f.dx, f.dz ]), alteco, diorito, andezito);
   vojaGrupo3D.visible = vojojAktiva();
 }
 function rekonstruiKradon3D() {
@@ -3787,6 +3937,18 @@ vojoForigiBtn.addEventListener("click", () => {
   elektitaPunkto = -1;
   sxangxita = true;
   gxisdatigiVojajnRegilojn();
+  bezonoDesegno = true;
+});
+// „Konekti ĉiujn 🔗“ — unu klako kunigas la finojn de ĉiuj vojoj ( la tuta
+// reto, ne nur la elektita ) kaj forigas la duoblajn punktojn. La historio
+// momentiĝas unufoje, do la tuta konekto malfareblas per unu Ctrl+Z.
+vojoKonektiBtn.addEventListener("click", () => {
+  momenti();
+  const kunigoj = konektiVojajnFinojn();
+  sxangxita = true;
+  gxisdatigiVojajnRegilojn();
+  gxisdatigiKradon();
+  statuso(kunigoj ? "Konektitaj " + kunigoj + " voj-finoj 🔗" : "Neniu voj-fino ene de la alglua rando");
   bezonoDesegno = true;
 });
 vojoPunktoAldoniBtn.addEventListener("click", () => {

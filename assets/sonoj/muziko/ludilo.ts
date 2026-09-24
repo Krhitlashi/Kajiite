@@ -90,6 +90,14 @@ function finish() {
   }, 700);
 }
 
+// hazardaTrako — la indekso de hazarde elektita reelo. La unua ludado
+// ( L.cur < 0 ) elektas per ĉi tiu — ĉiu lanĉo de la ludo komenciĝas per ALIA
+// kanto anstataŭ ĉiam per la unua.
+//     @returns indekso ( number ) - La hazarda reela indekso.
+function hazardaTrako(): number {
+  return Math.min(KANTOJ.length - 1, Math.floor(Math.random() * KANTOJ.length));
+}
+
 function sxargi(i: number) {
   if ( L.playing ) {
     if ( L.timer ) clearInterval(L.timer);
@@ -119,10 +127,10 @@ export function iniciati(ctx: AudioContext, master: GainNode) {
   }
 }
 
-/** Start or resume playback. */
+/** Start or resume playback. The FIRST start picks a random reel. */
 export function ludi() {
   if ( !L.ctx ) return;
-  if ( L.cur < 0 ) sxargi(0);
+  if ( L.cur < 0 ) sxargi(hazardaTrako());
   if ( L.playing ) { paŭzi(); return; }
 
   const T = KANTOJ[L.cur];

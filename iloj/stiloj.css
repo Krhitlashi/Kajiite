@@ -20,3 +20,7 @@
    ( centre vicigita, la duono de la panel-larĝo ) kun la sama ronda tondado
    kiel la mapo. */
 #objektaAntauxrigardo { inline-size:50%; aspect-ratio:1 / 1; align-self:center; border-radius:var(--អិត្ភេ); clip-path:inset(0 round var(--អិត្ភេ)); background:linear-gradient(180deg,#6fa8d8,#a8d0e8 55%,#d8e8f0); }
+
+/* La vojvidila WebGL-bildo ( iloj/vojvidilo/vojvidilo.html ) — la sama
+   kvadrata kadro kiel la aliaj vidoj, tondita al la rondo de la temo. */
+#vojaVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; clip-path:inset(0 round var(--អិត្ភេ)); }

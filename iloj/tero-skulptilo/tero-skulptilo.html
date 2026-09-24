@@ -211,6 +211,7 @@
   <sabosuc2w2q>
     <button id="vojoAldoni"> Aldoni vojon ➕ </button>
     <button id="vojoForigi"> Forigi vojon 🗑️ </button>
+    <button id="vojoKonekti" title="Kunigu la finojn de ĉiuj vojoj kun la plej proksimaj vojoj"> Konekti ĉiujn 🔗 </button>
   </sabosuc2w2q>
   </ciihii>
   <ciihii data-vojo-sub-panel="punktoj" class="kobe">
@@ -247,7 +248,7 @@
   <p id="vojaStatistikoj" class="kefhuruq"> — </p>
   <details class="flak">
     <summary class="ksakap2sa"> Helpo ❓ </summary>
-    <p class="kefhuruq"> La Vojoj sub-langeto de la Krado-panelo redaktas la MOND-nivelajn vojojn kaj dokojn — la samajn kiujn la ludo konstruas el SKULPTA_VOJOJ kaj SKULPTA_DOKOJ ( src/tero-datumaro/vojoj.ts ) — tute aparte de la krada generado kaj de la urboj, por ke estonte ili povu konekti plurajn urbojn. La mapo montras ilin kiel la plena mapo de la ludo ( helgrizaj vojoj kun malhelaj bordoj, dokaj platformoj ). Elektu/Movu ✋ — klako sur vojon, punkton aux dokon elektas gxin, kaj la treno movas gxin ( 0.5-algluita ). Aldoni punkton ➕ — klako sur la mapon enmetas punkton en la elektitan vojon. Forigi punkton 🗑️ — klako sur punkton forigas gxin. La vojoj havas nomon kaj larĝon ( neniu fiksita valoro — cxiu vojo estas plene redaktebla polilinio ), la dokoj havas pozicion, profundon kaj turnon ( la turno 0 = la pinto suden, Math.PI = norden — la malproksima riverbordo ). La spacosxipo 🚀 kaj la kanuoj 🛶 estas OBJEKTOJ — metitaj kaj movataj per la objekta ilo ( SKULPTA_OBJEKTOJ en src/tero-datumaro/objektoj.ts ). Ĉiu ŝanĝo saviĝas al src/ per la Dosiero-butenoj. </p>
+    <p class="kefhuruq"> La Vojoj sub-langeto de la Krado-panelo redaktas la MOND-nivelajn vojojn kaj dokojn — la samajn kiujn la ludo konstruas el SKULPTA_VOJOJ kaj SKULPTA_DOKOJ ( src/tero-datumaro/vojoj.ts ) — tute aparte de la krada generado kaj de la urboj, por ke estonte ili povu konekti plurajn urbojn. La mapo montras ilin kiel la plena mapo de la ludo ( helgrizaj vojoj kun malhelaj bordoj, dokaj platformoj ). Elektu/Movu ✋ — klako sur vojon, punkton aux dokon elektas gxin, kaj la treno movas gxin ( 0.5-algluita ). Aldoni punkton ➕ — klako sur la mapon enmetas punkton en la elektitan vojon. Forigi punkton 🗑️ — klako sur punkton forigas gxin. La vojoj KONEKTIĜAS aŭtomate — dum la treno la punkto algluiĝas al la vertico aux al la centra linio de la ALIAJ vojoj ( laŭ la ordo de la forto, vertico unue ), do du vojoj kunhavas la saman punkton anstataŭ lasi fendeton aux interkovri sin, kaj „Konekti ĉiujn 🔗“ kunigas per unu klako la finojn de la tuta reto ( la linio-statistikoj montras la nombron de la kunigoj ). La vojoj havas nomon kaj larĝon ( neniu fiksita valoro — cxiu vojo estas plene redaktebla polilinio ), la dokoj havas pozicion, profundon kaj turnon ( la turno 0 = la pinto suden, Math.PI = norden — la malproksima riverbordo ). La spacosxipo 🚀 kaj la kanuoj 🛶 estas OBJEKTOJ — metitaj kaj movataj per la objekta ilo ( SKULPTA_OBJEKTOJ en src/tero-datumaro/objektoj.ts ). Ĉiu ŝanĝo saviĝas al src/ per la Dosiero-butenoj. </p>
   </details>
   </ciihii>
   <p id="kradoStatistikoj" class="kefhuruq"> — </p>
