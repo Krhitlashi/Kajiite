@@ -4,7 +4,10 @@ import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/tek
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { aldoniKadranTubon } from "../konstruajxoj/satalaj-konstruajxoj.js";
-import { VOJA_DIKECO } from "./vojoj.js";
+import { VOJA_BORDA_LARĜO, VOJA_DIKECO } from "./vojoj.js";
+
+export const DOKO_PLATFORMA_LARĜO = 0o16/0o10;
+export const DOKO_KADRA_LARĜO = 0o4/0o10;
 
 // DokaSekcio — unu EBENA, piedirebla parto de la doko, la LANDEJO ( la akva
 // parto ). La fiziko ( src/sperto.ts ) traktas ĉiun sekcion kiel rektangulan
@@ -207,7 +210,7 @@ export function konstruiPonton(
   // duon — la TUTA duon-larĝo de la deko. La arka maso malsupre estas ekstrudita
   // gxuste tra gxi, do la arko finigxas en la sama ebeno kiel la ekstera rando de la
   // voja andezita bendo.
-  const duon = largho / 4 + 0o1/0o2;
+  const duon = largho / 4 + VOJA_BORDA_LARĜO;
   // ⟨ La arka maso estas harareto PLI LARĜA ol la deko 📃 ⟩ — la maso estas
   // ekstrudita 0o1/0o500 ( ~3 mm ) preter la rando de la deko, do ĝiaj flankaj
   // facoj estas la VIDEBlaj facoj ĉe la rando: la rando-faco de la voja rubando
@@ -453,7 +456,7 @@ export function konstruiDokon(
   profundo = 0o14
 ): Doko {
   const group = new THREE.Group();
-  const vojaLargho = 0o16/0o10;
+  const vojaLargho = DOKO_PLATFORMA_LARĜO;
   const platformDepth = profundo;
   // ⟨ La sama dikeco kiel la vojoj 📃 ⟩ — la plej alta ŝtupo estas voja etendo,
   // do ĝia planko staras same alte super la tereno kiel la voja rubando. Kun la
@@ -469,7 +472,7 @@ export function konstruiDokon(
   // ⟨ Du komunaj nombroj 📃 ⟩ — la kadra strio kaj kiom la kadro staras sub la
   // platformo. La kadro, la subkonstruo kaj la ŝtupoj ĉiuj legas ilin, do ili ne
   // povas disiriĝi se unu el ili ŝanĝiĝas.
-  const kadraStrio = 0o4/0o10;
+  const kadraStrio = DOKO_KADRA_LARĜO;
   const kadraMalsupro = -0o1/0o40;
   // La ekstera duon-larĝo de la kadro — ankaŭ la larĝo de la ŝtupoj.
   const plenaDuono = vojaLargho / 2 + kadraStrio;

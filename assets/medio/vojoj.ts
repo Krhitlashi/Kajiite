@@ -10,7 +10,7 @@ import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/tek
 // la ŝtuparoj elektas la egalan ŝtupon ĉiam — la doko-malsupreniro al la akvo
 // estas ordinara voja difino kun `stuparo: true`, do la ŝtupoj venas el la SAMA
 // voja maŝinaro kiel ĉiu strato ( la sama diorita/andezita sekco ).
-export interface VojDifino { pts: [ number, number ][]; w: number; heightFn?: ( x: number, z: number ) => number; stuparo?: boolean; }
+export interface VojDifino { pts: [ number, number ][]; w: number; heightFn?: ( x: number, z: number ) => number; stuparo?: boolean; kapoj?: boolean; }
 
 /**
  * Konstruu ŝtupetan vojan segmenton inter du vojpunktoj.
@@ -56,16 +56,45 @@ function kreiKvaronanRingon(cx: number, cz: number, rEna: number, rEkstera: numb
     ...kreiArkPunktojn(cx, cz, rEna, sx, sz).reverse() ];
 }
 
+function specimeniRotitajn(
+  x: number,
+  z: number,
+  duono: number,
+  rotacio: number,
+  heightFn: ( x: number, z: number ) => number
+): { maksimumo: number; minimumo: number } {
+  const kos = Math.cos( rotacio ), sin = Math.sin( rotacio );
+  let maksimumo = -Infinity, minimumo = Infinity;
+  for ( const lx of [ -duono, duono ] ) for ( const lz of [ -duono, duono ] ) {
+    const h = heightFn( x + kos * lx - sin * lz, z + sin * lx + kos * lz );
+    maksimumo = Math.max( maksimumo, h );
+    minimumo = Math.min( minimumo, h );
+  }
+  return { maksimumo, minimumo };
+}
+
 // kreiEnanKornanArkon — La U-forma interna rando de la TUTA angulo en la
-// DU-braka kvadranto ( sx, sz ). Gxi iras de voj-rando al voj-rando ( de Q1 al
-// Q2 ) cxirkaux la ekstera angulo E per la uniforma radiuso KORNA_R, do la
-// akra V farigxas glata U. La SAMA arko rondigas cxiun kvarvojan krucigxon,
-// cxiun T-kunigon kaj la enan angulon de cxiun L-korneron.
+// DU-braka kvadranto ( sx, sz ). Gxi iras de voj-rando al voj-rando ( de S1 al
+// E1 ) cxirkaux la ekstera centro O per la radiuso KORNA_ENA_R, do la akra V
+// farigxas glata U. La centro O estas la sama kiel tiu de la ekstera kurbo,
+// do ambaux arkoj estas samcentraj. La SAMA arko rondigas cxiun kvarvojan
+// krucigxon, cxiun T-kunigon kaj la enan angulon de cxiun L-korneron.
 //     @param sx, sz ( number ) - La kvadranto ( cxiu ±1 ).
-//     @param ekstera ( number ) - La voja ekstera duono ( por E ).
-//     @returns arko ( [ number, number ][] ) - La U-arko de Q1 al Q2.
+//     @param ekstera ( number ) - La voja ekstera duono ( por O, S1 kaj E1 ).
+//     @returns arko ( [ number, number ][] ) - La U-arko de S1 al E1.
 function kreiEnanKornanArkon(sx: number, sz: number, ekstera: number): [ number, number ][] {
-  return kreiArkPunktojn(sx * ekstera, sz * ekstera, KORNA_R, -sx, -sz).reverse();
+  return kreiArkPunktojn(sx * ( ekstera + KORNA_R ), sz * ( ekstera + KORNA_R ), KORNA_ENA_R, -sx, -sz).reverse();
+}
+
+// kreiEksteranKurbanArkon — La ekstera kurbo de la TUTA angulo en la DU-braka
+// kvadranto ( sx, sz ). Gxi iras de voj-rando al voj-rando ( de E1 al S1 )
+// cxirkaux la sama centro O per la radiuso KORNA_R kaj tangentigxas al ambaux
+// vojaj eksteraj randoj, do la vojaj bordoj fluas glate en la kurbon.
+//     @param sx, sz ( number ) - La kvadranto ( cxiu ±1 ).
+//     @param ekstera ( number ) - La voja ekstera duono ( por O, S1 kaj E1 ).
+//     @returns arko ( [ number, number ][] ) - La kurbo de E1 al S1.
+function kreiEksteranKurbanArkon(sx: number, sz: number, ekstera: number): [ number, number ][] {
+  return kreiArkPunktojn(sx * ( ekstera + KORNA_R ), sz * ( ekstera + KORNA_R ), KORNA_R, -sx, -sz);
 }
 
 // kreiFormonElPunktoj — THREE.Shape el relative punktoj ( Δx, Δz ) ĉirkaŭ la
@@ -302,23 +331,35 @@ export const VOJA_SUPRO_LEVIGXO = 0o1/0o100 + VOJA_DIKECO;
 // diorita centro, VOJA_BORDA_LARĜO — la andezita bordo inter la du. La tri
 // valoroj venas el la bendo-difinoj ( kreiVojajnBendojn ), do la plato kaj la
 // vojoj finiĝas ĉe la samaj linioj kaj la transiro restas senfenda.
-export const VOJA_EKSTERA_DUONO = 0o13/0o10;
 export const VOJA_DIORITA_DUONO = 0o7/0o10;
-export const VOJA_BORDA_LARĜO = VOJA_EKSTERA_DUONO - VOJA_DIORITA_DUONO;
+export const VOJA_BORDA_LARĜO = 0o3/0o5;
+export const VOJA_EKSTERA_DUONO = VOJA_DIORITA_DUONO + VOJA_BORDA_LARĜO;
 
-// KORNA_R — La UNUFORMA radiuso de la rondigita interna angulo en la DU-braka
-// kvadranto. La U-arko ( per kreiEnanKornanArkon ) uzas gxin en cxiuj kvar
-// kvadrantoj, do la kvarvoja krucigxo, la T-kunigo kaj la L-kornero kunhavas
-// unu arkon. Gxi egalas la andezitan bordon, do la arko restas tangenta al la
-// voj-randoj kaj la plato kaj la vojoj finigxas cxe la samaj linioj.
+// KORNA_R — La UNUFORMA radiuso de la ekstera kurbo en la DU-braka kvadranto
+// ( per kreiEksteranKurbanArkon ). Gxi egalas la andezitan bordon, do la kurbo
+// restas tangenta al la vojaj eksteraj randoj.
+// KORNA_ENA_R — La radiuso de la ena diorita rando ( per kreiEnanKornanArkon ).
+// Gxi estas KORNA_R plus la borda largxo, do ambaux arkoj estas SAMCENTRAJ
+// ( centro O ekster la plato ) kaj la andezita strio inter ili havas uniforman
+// largxon ( la bordon ) en la tuta korno. Ambaux radiusoj validas en cxiuj
+// kvar kvadrantoj, do la kvarvoja krucigxo, la T-kunigo kaj la L-kornero
+// kunhavas unu arkoparon.
 export const KORNA_R = VOJA_BORDA_LARĜO;
+export const KORNA_ENA_R = VOJA_BORDA_LARĜO + KORNA_R;
+
+// VOJA_TRUA_DUONO — La duon-longo de la vojaj truoj cxirkaux cxiu kunigo
+// ( la vojoj haltas cxe gxia rando ). Gxi estas la plata duono plus la korna
+// radiuso, do la truoj atingas la tangentopunktojn de la rondigitaj kornoj
+// ( S1 kaj E1 ) kaj la plataj stumpoj plenigas ilin gxis la vojaj randoj.
+export const VOJA_TRUA_DUONO = VOJA_EKSTERA_DUONO + KORNA_R;
 
 // kreiSegmentajnPartojn — La partoj de unu voja segmento kiujn la geometrio
 // konstruu, laŭ la segmentaj distancoj ( 0 .. longo ). Ĉiu KUNIGO forprenas la
-// EKSTERAN duon-larĝon de la vojo ( VOJA_EKSTERA_DUONO ) ambaŭflanke de la
-// kuniga punkto — la kuniga plato plenigas tiun kvadraton per sia propra
-// surfaco, do la andezitaj flankoj de la vojoj ne povas kuŝi super la
-// dioritaj partoj de la plato ( tion faris la rektangulaj anguloj antauxe ).
+// truan duonon de la vojo ( VOJA_TRUA_DUONO ) ambaŭflanke de la
+// kuniga punkto — la kuniga plato kaj gxiaj stumpoj plenigas tiun intervalon
+// per sia propra surfaco, do la andezitaj flankoj de la vojoj ne povas kuŝi
+// super la dioritaj partoj de la plato ( tion faris la rektangulaj anguloj
+// antauxe ).
 //     @param aX, aZ, bX, bZ ( number ) - La segmentaj finoj.
 //     @param longo ( number ) - La segmenta longo.
 //     @param kunigoj ( [ number, number ][] ) - Ĉiuj kunigaj punktoj.
@@ -336,8 +377,8 @@ function kreiSegmentajnPartojn(aX: number, aZ: number, bX: number, bZ: number,
     // ( la kunigaj punktoj sidas sur la vojoj mem ).
     if ( Math.abs(rx * ndz - rz * ndx) > 0o1/0o100 ) continue;
     const laux = rx * ndx + rz * ndz;
-    if ( laux < -VOJA_EKSTERA_DUONO || laux > longo + VOJA_EKSTERA_DUONO ) continue;
-    truoj.push([ Math.max(0, laux - VOJA_EKSTERA_DUONO), Math.min(longo, laux + VOJA_EKSTERA_DUONO) ]);
+    if ( laux < -VOJA_TRUA_DUONO || laux > longo + VOJA_TRUA_DUONO ) continue;
+    truoj.push([ Math.max(0, laux - VOJA_TRUA_DUONO), Math.min(longo, laux + VOJA_TRUA_DUONO) ]);
   }
   truoj.sort(( p, q ) => p[0] - q[0]);
   const partoj: [ number, number, boolean ][] = [];
@@ -424,6 +465,58 @@ export function konstruiVojojn(sceno: THREE.Scene,
     }
   }
   bufroj.kunigi(sceno);
+  // ⟨ Aŭtomataj rondigitaj finoj 📃 ⟩ — la unua kaj la lasta punktoj de ĉiu
+  // difino kun `kapoj: true` estas liberaj voj-finoj. Ĉiu fino ekster ĉiu kuniga
+  // truo ( do ne kovrita de plato ) ricevas rondigitan ĉapon aux­tomate, kun la
+  // elira direkto de la vojo. Kradaj segmentoj, doka ŝtuparoj kaj aliaj
+  // internaj difinoj sen `kapoj: true` ne ricevas ĉapojn. Liberaj finoj ( kajaj
+  // finajxoj, pontaj surterigxoj, T-kunigoj al skulptitaj vojoj ) rondigxas mem.
+  const kapoj = new Map<( x: number, z: number ) => number, { nodoj: [ number, number ][]; direktoj: [ number, number ][] }>();
+  const kapoVidita: [ number, number ][] = [];
+  // Kunigitaj finoj ( la sama punkto kiel fino de pluraj difinoj ) estas
+  // internaj kubutoj, ne voj-finoj — ili ricevas nenian ĉapon.
+  const finokalkulo = new Map<string, number>();
+  for ( const def of defs ) {
+    if ( def.pts.length < 2 || def.kapoj !== true ) continue;
+    for ( const pto of [ def.pts[0], def.pts[def.pts.length - 1] ] ) {
+      const klavo = pto[0] + "," + pto[1];
+      finokalkulo.set(klavo, ( finokalkulo.get(klavo) ?? 0 ) + 1);
+    }
+  }
+  for ( const def of defs ) {
+    if ( def.pts.length < 2 || def.kapoj !== true ) continue;
+    // La dokaj ŝtuparoj jam havas sian finon ( la rondigita platforma pinto ),
+    // do ili ricevas nenian ĉapon.
+    if ( def.stuparo === true ) continue;
+    const finoj: [ [ number, number ], [ number, number ] ][] = [
+      [ def.pts[0], def.pts[1] ],
+      [ def.pts[def.pts.length - 1], def.pts[def.pts.length - 2] ],
+    ];
+    for ( const [ fino, najbaro ] of finoj ) {
+      const dx = fino[0] - najbaro[0], dz = fino[1] - najbaro[1];
+      const direktaLongo = Math.hypot(dx, dz);
+      if ( direktaLongo < 0o1/0o100 ) continue;
+      // Kunigita fino ( interna kubuto ) ricevas nenian ĉapon.
+      if ( ( finokalkulo.get(fino[0] + "," + fino[1]) ?? 0 ) > 1 ) continue;
+      // Jam kovrita fino ( du vojoj kunigas kap-al-kape, aux fermita buklo )
+      // ricevas unu solan ĉapon — neniu duobla geometrio samloke.
+      if ( kapoVidita.some(([ vx, vz ]) => Math.hypot(fino[0] - vx, fino[1] - vz) < 0o1/0o100) ) continue;
+      let enTruo = false;
+      for ( const [ kX, kZ ] of kunigoj ) {
+        if ( Math.hypot(fino[0] - kX, fino[1] - kZ) < VOJA_TRUA_DUONO + 0o1/0o100 ) { enTruo = true; break; }
+      }
+      if ( enTruo ) continue;
+      kapoVidita.push([ fino[0], fino[1] ]);
+      const defAlt = def.heightFn || heightFn;
+      let grupo = kapoj.get(defAlt);
+      if ( !grupo ) { grupo = { nodoj: [], direktoj: [] }; kapoj.set(defAlt, grupo); }
+      grupo.nodoj.push([ fino[0], fino[1] ]);
+      grupo.direktoj.push([ dx / direktaLongo, dz / direktaLongo ]);
+    }
+  }
+  for ( const [ altFn, grupo ] of kapoj ) {
+    konstruiRondajnKapojn(sceno, grupo.nodoj, grupo.direktoj, altFn, dioritaMaterialo, andezitaMaterialo);
+  }
   return samples;
 }
 
@@ -550,8 +643,10 @@ function kreiRondanDiamanton(radiuso: number, dikeco: number): THREE.ExtrudeGeom
 // ⟨ Kial la kradaj nodoj ne ricevas ĉapojn 📃 ⟩ — la vojoj mem kaj la kunigaj
 // platoj plenigas ĉiun kradan nodon ( la trapasanta diorita bendo kaj la
 // andezitaj bordoj kovras la tutan diskan regionon ). La kradaj rando-nodoj
-// restas nur por la lampoj ( placajNodoj en urbo.ts ). Nur la doka bordo
-// ricevas kapojn — tiuj nodoj havas nek platon nek trapasantan vojon.
+// restas nur por la lampoj ( placajNodoj en urbo.ts ). Nur liberaj voj-finoj
+// ricevas ĉapojn — konstruiVojojn detektas ilin aux­tomate ( ĉiu difino-fino
+// ekster la kunigaj truoj ) — do la doka bordo kaj la aliaj skulptitaj finoj
+// rondigxas sen mana listo.
 
 // kreiDuonrondanFormon — Duoncirkla formo ( la ĉapa duondisko aŭ duonringo )
 // en la duon-ebeno de la MUNDA direkto ( dx, dz ). la rekta flanko pasas tra
@@ -724,7 +819,8 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
   heightFn: ( x: number, z: number ) => number,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial,
-  fermitaj: Map<string, [ number, number ]> = new Map()
+  fermitaj: Map<string, [ number, number ]> = new Map(),
+  rotacioj: Map<string, number> = new Map()
 ): void {
   if ( punktoj.length === 0 ) return;
   // La plato sidas super la vojoj kaj ĝiaj offsetoj estas la PLEJ FORTAJ (
@@ -743,11 +839,13 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     // sx NE estas la fermita direkto laŭ x ( kaj same laŭ z ).
     const ferma = fermitaj.get(x + "," + z);
     const fx = ferma ? ferma[0] : 0, fz = ferma ? ferma[1] : 0;
+    const rotacio = rotacioj.get(x + "," + z) ?? 0;
+    const rotKos = Math.cos( rotacio ), rotSin = Math.sin( rotacio );
     // ⟨ Angula specimenado ⟩ — la SUPRO restas je la malalta terena nivelo
     // ( tereno + dikeco ) kaj leviĝas ĝis la maksimuma angula alto nur en
     // deklivoj. La profundo etendiĝas sub la minimuman angulan altecon +
     // margxeno — la flankaj muroj ĉiam enfosiĝas ( neniu ŝvebanta rando ).
-    const altoj = specimeniAngulojn(x, z, VOJA_EKSTERA_DUONO, VOJA_EKSTERA_DUONO, heightFn);
+    const altoj = specimeniRotitajn(x, z, VOJA_EKSTERA_DUONO, rotacio, heightFn);
     const supro = Math.max(heightFn(x, z) + dikeco, altoj.maksimumo + dikeco);
     const platoDikeco = supro - ( altoj.minimumo - ANGULA_PROVOLIRO );
     const bazo = supro - platoDikeco;
@@ -756,7 +854,11 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     // andezita parto. La samaj offsetoj kaj la sama profundo por ĉiuj, do la
     // partoj najbaras sen interkovri kaj neniu koincidaj-facoj batalo ekzistas.
     const aldoni = ( punktoj2: [ number, number ][], materialo: THREE.MeshStandardMaterial ): void => {
-      const geometrio = new THREE.ExtrudeGeometry(kreiFormonElPunktoj(punktoj2), { depth: platoDikeco, bevelEnabled: false });
+      const rotaciitaj = punktoj2.map( p => [
+        rotKos * p[0] - rotSin * p[1],
+        rotSin * p[0] + rotKos * p[1],
+      ] as [ number, number ] );
+      const geometrio = new THREE.ExtrudeGeometry(kreiFormonElPunktoj(rotaciitaj), { depth: platoDikeco, bevelEnabled: false });
       geometrio.rotateX(-Math.PI / 2);
       bufroj.aldoni(geometrio, materialo, new THREE.Matrix4().makeTranslation(x, bazo, z));
     };
@@ -773,24 +875,31 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
         const brakoX = sx !== fx, brakoZ = sz !== fz;
         if ( brakoX && brakoZ ) {
           // DU brakoj — la du vojoj renkontigxas en cxi tiu kvadranto. La korno
-          // inkluzivas la konektitan vojon laux ties TUTA largxo, ne nur la
-          // angulan pinton. La diorito sekvas la glatan U-arkon de voj-rando al
-          // voj-rando kaj la andezito plenigas la tutan diskon gxis la plata
-          // rando ( la radiaj randoj kusxas sur la vojaj randoj, do la vojaj
-          // bordoj dauras senfende ). Neniu lenso-pinto, neniu stumpo-kudro kaj
-          // neniu akra interna angulo restas. La regiono ekster la disko estas
-          // diorito, la regiono interne estas andezito.
+          // inkluzivas la konektitan vojon laux ties TUTA largxo kaj atingas
+          // gxis la tangentopunktoj ( S1 kaj E1 ), kiujn la vojaj truoj lasas
+          // liberaj. La diorito sekvas la glatan U-arkon de stumpo-fino al
+          // stumpo-fino kaj la andezito estas la uniforma strio inter la ena
+          // kaj la ekstera arkoj ( amabaux samcentraj, largxo la bordo ). La
+          // stumpoj reparas la truan intervalon per la sama sekco kiel la
+          // vojoj, do la vojaj sekcoj dauras senfende en la kornon. Neniu
+          // akra angulo restas, nek interne nek ekstere.
+          const stumpofino = ekstera + KORNA_R;
           const enaArko = kreiEnanKornanArkon(sx, sz, ekstera);
-          aldoni([ [ 0, 0 ], lauxX(0, ekstera), ...enaArko, lauxZ(0, ekstera) ], supraMaterialo);
-          aldoni([ ...enaArko, [ sx * ekstera, sz * ekstera ] ], bordaMaterialo);
+          const eksteraArko = kreiEksteranKurbanArkon(sx, sz, ekstera);
+          aldoni([ [ 0, 0 ], lauxX(0, stumpofino), ...enaArko, lauxZ(0, stumpofino) ], supraMaterialo);
+          aldoni([ lauxX(diorita, stumpofino), [ sx * stumpofino, sz * ekstera ],
+            ...eksteraArko.slice().reverse().slice(1, -1),
+            [ sx * ekstera, sz * stumpofino ], lauxZ(diorita, stumpofino),
+            ...enaArko.slice().reverse().slice(1, -1) ], bordaMaterialo);
         } else if ( brakoX || brakoZ ) {
-          // UNU brako — la voja sekco daŭras rekte tra la rando de la plato,
-          // kaj la transira rando de la najbara kvadranto faras la samon. La
-          // plato nur reparas la eltranĉon de la vojo; neniu angulo ekzistas,
-          // do nenio por rondigi ( la bendo daŭras rekte ).
+          // UNU brako — la voja sekco daŭras rekte tra la rando de la plato
+          // kaj atingas gxis la tangentopunkto, kiun la voja truo lasas libera.
+          // La stumpo reparas la truan intervalon per la sama sekco kiel la
+          // vojo; neniu angulo ekzistas, do nenio por rondigi.
+          const stumpofino = ekstera + KORNA_R;
           const l = brakoX ? lauxX : lauxZ;
-          aldoni([ l(0, 0), l(0, ekstera), l(diorita, ekstera), l(diorita, 0) ], supraMaterialo);
-          aldoni([ l(diorita, 0), l(diorita, ekstera), l(ekstera, ekstera), l(ekstera, 0) ], bordaMaterialo);
+          aldoni([ l(0, 0), l(0, stumpofino), l(diorita, stumpofino), l(diorita, 0) ], supraMaterialo);
+          aldoni([ l(diorita, 0), l(diorita, stumpofino), l(ekstera, stumpofino), l(ekstera, 0) ], bordaMaterialo);
         } else {
           // NUL brakoj — la libera kvadranto de L-kornero ( nek vojo nek arko
           // eniras gxin ). La kvarona disko por la diorito kaj la kvarona ringo
@@ -811,10 +920,12 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
 // ( unu ) ĉiuj pasas tra ĉi tiu SAMA funkcio. La kvadranto-logiko supre jam
 // kovras ilin ĉiujn — la libera kvadranto de L-kornero ricevas la kvaronan
 // diskon kaj la ringon ( la arko de la tuta voja larĝo ), ĉiu angulo kie du
-// brakoj renkontiĝas ricevas la tutan rondigitan kornon ( la ena diorita U kaj
-// la andezita disko gxis la plata rando per kreiEnanKornanArkon ), kaj aliloke
-// la sekcoj daŭras rekte. Neniu aparta arka funkcio bezonatas — unu plato,
-// unu paro da materialoj, unu kunigo por la tuta reto.
+// brakoj renkontiĝas ricevas la tutan rondigitan kornon ( la ena diorita U,
+// la uniforma andezita strio inter la samcentraj arkoj kaj la stumpoj gxis la
+// tangentopunktoj per kreiEnanKornanArkon kaj kreiEksteranKurbanArkon ), la
+// trapasantaj brakoj ricevas stumpojn gxis la vojaj truoj, kaj aliloke restas
+// nenia angulo. Neniu aparta arka funkcio bezonatas — unu plato, unu paro da
+// materialoj, unu kunigo por la tuta reto.
 
 // konstruiSpronon — Konstruu ununuran voj-spronon de konstruajxa pordo gxis voja rando.
 // Uzas pli altan polygonOffset ol cefaj vojoj por certigi videblon.

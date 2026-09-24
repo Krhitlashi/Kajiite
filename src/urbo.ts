@@ -15,8 +15,9 @@ import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantoj
   konstruiPussxlefojn, metiPussxlefojn, VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ, MONTAJ_BIOMOJ,
   AKVAJ_PLANTOJ_BIOMOJ, EKVIZETO_BIOMOJ, konstruiMetitanRokon, konstruiMetitanFilikon } from "../assets/shalaj-specioj/vegetajxo.js";
 import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxoj.js";
-import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, konstruiRondajnKapojn, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO } from "../assets/medio/vojoj.js";
+import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO } from "../assets/medio/vojoj.js";
 import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../assets/medio/doko.js";
+import { troviVojaRetajnKunigojn, type VojaRetoVojo } from "../assets/medio/voj-reto.js";
 import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton, superajElDatumo } from "./krado.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
@@ -1086,7 +1087,7 @@ export async function konstruiUrbon(
   // punktoj anstataŭ du, por ke la fino kongruu ankaŭ kun vojo, kiu trapasas
   // alidirekte ( la kajo ⊥ al la ponto ), sen ŝtupo.
   function vojaSupro( x: number, z: number, larĝo: number ): number {
-    const duon = larĝo / 4 + 0o1/0o2;   // la ekstera duon-larĝo de vojo ( vidu kreiVojajnBendojn )
+    const duon = larĝo / 4 + VOJA_BORDA_LARĜO;   // la ekstera duon-larĝo de vojo ( vidu kreiVojajnBendojn )
     let maks = alteco(x, z);
     for ( let i = 0; i < 0o10; i++ ) {
       const ang = i * Math.PI / 4;
@@ -1100,8 +1101,10 @@ export async function konstruiUrbon(
 
   // Konstruu ĉiun vojon el SKULPTA_VOJOJ. La skulptilo redaktas ilin kiel
   // poliliniojn kun larĝo; la ludo konstruas ilin per konstruiVojojn.
+  const vojajRetajVojoj: VojaRetoVojo[] = [];
   for ( const vojo of SKULPTA_VOJOJ as SkulptaVojo[] ) {
     if ( vojo.punktoj.length < 2 ) continue;
+    vojajRetajVojoj.push( { punktoj: vojo.punktoj, larĝo: vojo.larĝo } );
     const ponto = pontaVojDifino(vojo);
     let pontaHeight: (( x: number, z: number ) => number) | undefined;
     if ( ponto ) {
@@ -1113,16 +1116,13 @@ export async function konstruiUrbon(
       };
     }
     if ( ponto ) pontaVojoj.push({ ...ponto, w: vojo.larĝo });
-    for ( let i = 0; i < vojo.punktoj.length - 1; i++ ) {
-      const [ aX, aZ ] = vojo.punktoj[i];
-      const [ bX, bZ ] = vojo.punktoj[i + 1];
-      const difino: VojDifino = {
-        pts: [ [ aX, aZ ], [ bX, bZ ] ],
-        w: vojo.larĝo / 2,
-      };
-      if ( pontaHeight ) difino.heightFn = pontaHeight;
-      vojDifinoj.push(difino);
-    }
+    // ⟨ Unu difino po vojo 📃 ⟩ — la tuta polilinio en unu difino, do la unua
+    // kaj la lasta punktoj estas la veraj voj-finoj ( konstruiVojojn rondigas
+    // ilin aux­tomate ). Aparta difino po segmento rompus la vojon meze kaj
+    // rondigus cxiun kubuton kiel finon.
+    const difino: VojDifino = { pts: vojo.punktoj, w: vojo.larĝo / 2, kapoj: true };
+    if ( pontaHeight ) difino.heightFn = pontaHeight;
+    vojDifinoj.push(difino);
   }
   // La doka LANDa rando — la rando kie la vojo ( aŭ la tero ) renkontas ĉiun
   // platformon, por la lampoj kaj la ĉapoj. La turno decidas al kiu flanko la
@@ -1141,7 +1141,12 @@ export async function konstruiUrbon(
   // kapoj kongruis nenion. La du kajo-FINAĴOJ tamen tenas siajn rondigitajn
   // ĉapojn ( malsupre ) — ili estas veraj voj-finaĵoj sur la tereno, ne dokaj
   // enirejoj.
-  const ĉefajVojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo);
+  const vojajKunigoj = troviVojaRetajnKunigojn( vojajRetajVojoj, DOKOJ );
+  const vojajKunigoPunktoj = vojajKunigoj.map( k => [ k.x, k.z ] as [ number, number ] );
+  const vojajFermitaj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.fermitaj ] ) );
+  const vojajRotacioj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.rotacio ] ) );
+  const ĉefajVojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo, vojajKunigoPunktoj );
+  konstruiIntersekcajnPlatojn( sceno, vojajKunigoPunktoj, alteco, dioritaMaterialo, andezitaMaterialo, vojajFermitaj, vojajRotacioj );
   // La APOGAĴOJ de la pontoj — la balustrado SUR la deko kaj la andezita arko SUB ĝi.
   for ( const p of pontaVojoj )
     konstruiPonton(sceno, p.ax, p.az, p.ay, p.bx, p.bz, p.by, p.w, alteco, skulptitaAkvo, andezitaMaterialo, oraMaterialo);
@@ -1158,13 +1163,12 @@ export async function konstruiUrbon(
   // krada reto — la kradaj nodoj ricevas ilin en konstruiKradanUrbon ).
   const dokaPlacajNodoj: [ number, number ][] = [ [ -0o124, -0o140 ], [ 0o124, -0o122 ], ...dockaLandaRando ];
 
-  // Rondigitaj ĉapoj nur ĉe la du kajo-finaĵoj ( la okcidenta arbara fino kaj
-  // la orienta seka fino ) — NENIU ĉapo ĉe la dokaj landrandoj ( vidu la noton
-  // super konstruiVojojn ): la malnova triobla alvoko desegnis duonrondajn
-  // ĉapojn ankaŭ SUR la dokoj kaj ili aspektis kiel arko interne de ĉiu doko.
-  konstruiRondajnKapojn(sceno, [ [ -0o124, -0o140 ], [ 0o124, -0o122 ] ],
-    [ [ -0.9833, 0.1821 ], [ 0.9993, 0.0370 ] ],
-    alteco, dioritaMaterialo, andezitaMaterialo);
+  // Rondigitaj ĉapoj — konstruiVojojn detektas la liberajn voj-finojn
+  // aux­tomate ( la unua kaj la lasta punktoj de ĉiu difino ekster la kunigaj
+  // truoj ), do la du kajo-finaĵoj kaj la aliaj skulptitaj finoj rondiĝas sen
+  // mana listo. NENIU ĉapo ĉe la dokaj landrandoj ( vidu la noton super
+  // konstruiVojojn ): la kajo-vojo daŭriĝas ĝis la eniranguloj kaj la
+  // platforma diorito mem rondigas la transiron.
   await raporti();
 
   // ⟪ Lampoj 📃 ⟫ — la kradaj lampaj lokoj ( ambaŭ urboj ) kaj la kaja

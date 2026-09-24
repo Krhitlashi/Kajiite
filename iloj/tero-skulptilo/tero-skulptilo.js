@@ -136,8 +136,14 @@ import { kreiOranMaterialon, kreiFenestranMaterialon,
 // La veraj vojoj de la ludo — la 3D-vido de la mond-nivelaj vojoj uzas la
 // SAMAjn dioritajn/andezitajn vojojn kiel la ludo ( konstruiVojojn ).
 import { konstruiVojojn, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn,
-  konstruiRondigitanArkon, konstruiRondajnKapojn, troviVojajnKunigojn,
-  troviLiberajnFinojn } from "../../assets/medio/vojoj.js";
+  VOJA_SUPRO_LEVIGXO } from "../../assets/medio/vojoj.js";
+import { vojaDuonLargho as retoVojaDuonLargho, vojaKunigaDuono as retoVojaKunigaDuono,
+  pontoDuonLargho as retoPontoDuonLargho, vojaProjekcio as retoVojaProjekcio,
+  vojoKunfandiĝas as retoVojoKunfandiĝas,
+  dokoKunfandiĝas as retoDokoKunfandiĝas, dokoKonektasVojon as dokoKonektasVojonReto,
+  vojajKunfandajxoj as retoVojajKunfandajxoj, plejProximaVojo as retoPlejProximaVojo,
+  konektiDokonAlVojo as retoKonektiDokonAlVojo, troviVojaRetajnKunigojn,
+  DOKO_PLATFORMA_LARĜO } from "../../assets/medio/voj-reto.js";
 import { konstruiFiguron } from "../../assets/shalaj-specioj/homoj.js";
 import { VESTOJ } from "../../assets/vestaro/vestoj.js";
 import * as THREE from "three";
@@ -1095,13 +1101,13 @@ function desegniVidon(){
   // helgrizaj vojoj kun malhelaj andezitaj bordoj kaj la dokaj platformoj.
   if ( vojojAktiva() ) {
     // La vojoj — dikaj polilinioj. La ekstera malhela strio ( la andezita
-    // bordo, duono = larĝo/2 + 0o10/0o10 ) kaj la hela diorita centro, kun
+    // bordo, same larĝo kaj la voja duono ) kaj la hela diorita centro, kun
     // rondaj finoj kiel la ludaj kapoj. La elektita vojo reliefigxas.
     for ( let vi = 0; vi < vojoj.length; vi++ ) {
       const v = vojoj[vi];
       if ( !v.punktoj || v.punktoj.length < 2 ) continue;
       const elektita = vi === elektitaVojo;
-      const duono = ( v.larĝo || 3.5 ) / 2 + 0o10/0o10;
+      const duono = vojaDuonLargho( v ) * 2;
       const centro = ( v.larĝo || 3.5 ) / 2;
       const punktoj = v.punktoj.map(p => [ sxMondo(p[0]), syMondo(p[1]) ]);
       const spuro = ( larĝo, koloro ) => {
@@ -3102,6 +3108,54 @@ function skribiVojajnRegilojn() {
   sxangxita = true;
 }
 
+function skribiVojoSekure() {
+  const v = vojoj[elektitaVojo];
+  if ( !v ) return;
+  const kopio = { ...v, punktoj: v.punktoj.map( p => [ ...p ] ) };
+  const kunfandisAntaŭ = vojoKunfandiĝas( v, elektitaVojo );
+  v.nomo = vojoNomoEl.value;
+  v.larĝo = parseFloat( vojoLargxoEl.value ) || 3.5;
+  const p = v.punktoj[elektitaPunkto];
+  if ( p ) {
+    p[0] = parseFloat( vojoPunktoXEl.value ) || 0;
+    p[1] = parseFloat( vojoPunktoZEl.value ) || 0;
+  }
+  if ( p && ( elektitaPunkto === 0 || elektitaPunkto === v.punktoj.length - 1 ) ) {
+    const najbaro = elektitaPunkto === 0 ? v.punktoj[1] : v.punktoj[v.punktoj.length - 2];
+    const algluo = vojaAlgluo( p[0], p[1], elektitaVojo, najbaro );
+    if ( algluo ) {
+      p[0] = algluo[0];
+      p[1] = algluo[1];
+    }
+  }
+  if ( vojoKunfandiĝas( v, elektitaVojo ) && !kunfandisAntaŭ ) {
+    vojoj[elektitaVojo] = kopio;
+    statuso( "Tajlita vojo estis malakceptita pro interkovrido 🛑" );
+  }
+  sxangxita = true;
+  gxisdatigiVojajnRegilojn();
+  bezonoDesegno = true;
+}
+
+function skribiDokoSekure() {
+  const d = dokoj[elektitaDoko];
+  if ( !d ) return;
+  const kopio = { ...d };
+  const kunfandisAntaŭ = dokoKunfandiĝas( d, elektitaDoko );
+  d.x = parseFloat( dokoXEl.value ) || 0;
+  d.z = parseFloat( dokoZEl.value ) || 0;
+  d.profundo = Math.max( 4, parseFloat( dokoProfundoEl.value ) || 16 );
+  d.rotacio = parseFloat( dokoRotacioEl.value ) || 0;
+  konektiDokonAlVojo( d, elektitaDoko );
+  if ( dokoKunfandiĝas( d, elektitaDoko ) && !kunfandisAntaŭ ) {
+    dokoj[elektitaDoko] = kopio;
+    statuso( "Tajlita doko estis malakceptita pro interkovrido 🛑" );
+  }
+  sxangxita = true;
+  gxisdatigiVojajnRegilojn();
+  bezonoDesegno = true;
+}
+
 // gxisdatigiVojaStatistikojn — la voja statistiklinio ( kvanto kaj longo ).
 function gxisdatigiVojaStatistikojn() {
   const el = document.getElementById("vojaStatistikoj");
@@ -3111,8 +3165,12 @@ function gxisdatigiVojaStatistikojn() {
     const q = v.punktoj[i - 1];
     return a + Math.hypot(p[0] - q[0], p[1] - q[1]);
   }, 0), 0);
+  const kunfandajxoj = vojajKunfandajxoj();
   el.textContent = vojoj.length + " vojoj ( " + longo.toFixed(1) + " un ) · "
-    + dokoj.length + " dokoj · " + vojaKunigoj() + " kunigoj 🔗";
+    + dokoj.length + " dokoj · " + vojaKunigoj() + " kunigoj 🔗 · "
+    + ( kunfandajxoj.totalo ? kunfandajxoj.totalo + " interkovridoj ( "
+      + kunfandajxoj.vojoVojo + " vojo-vojo, " + kunfandajxoj.vojoDoko
+      + " vojo-doko, " + kunfandajxoj.dokoDoko + " doko-doko ) ⚠️" : "0 interkovridoj ✓" );
 }
 
 // vojaKunigoj — kiom da voj-finoj sidas sur ALIA vojo ( vertico aux segmento ).
@@ -3126,10 +3184,80 @@ function vojaKunigoj() {
     if ( v.punktoj.length < 2 ) continue;
     for ( const pi of [ 0, v.punktoj.length - 1 ] ) {
       const p = v.punktoj[pi];
-      if ( vojaAlgluo(p[0], p[1], vi) ) kunigoj++;
+      const najbaro = pi === 0 ? v.punktoj[1] : v.punktoj[v.punktoj.length - 2];
+      if ( vojaAlgluo( p[0], p[1], vi, najbaro ) ) kunigoj++;
     }
   }
+  for ( const d of dokoj ) {
+    if ( vojoj.some( v => dokoKonektasVojon( d, v ) ) ) kunigoj++;
+  }
   return kunigoj;
+}
+
+const VOJA_TUSXA_TOLERANCO = 0o1/0o1000;
+
+function vojaDuonLargho( v ) {
+  return retoVojaDuonLargho( v );
+}
+
+function vojaKunigaDuono( v ) {
+  return retoVojaKunigaDuono( v );
+}
+
+function pontoDuonLargho( v ) {
+  return retoPontoDuonLargho( v );
+}
+
+
+
+function vojoKunfandiĝas( v, kromVojo ) {
+  return retoVojoKunfandiĝas( v, vojoj, dokoj, kromVojo );
+}
+
+function dokoKunfandiĝas( d, kromDoko, kromVojo = -1 ) {
+  return retoDokoKunfandiĝas( d, dokoj, vojoj, kromDoko, kromVojo );
+}
+
+function dokoKonektasVojon( d, v ) {
+  return dokoKonektasVojonReto( d, v );
+}
+
+function vojaProjekcio( px, pz, a, b ) {
+  return retoVojaProjekcio( px, pz, a, b );
+}
+
+function plejProximaVojo( px, pz, kromVojo = -1 ) {
+  return retoPlejProximaVojo( px, pz, vojoj, kromVojo );
+}
+
+function dokoLandaSegmento( d ) {
+  const rotacio = d.rotacio ?? 0;
+  const duonZ = ( d.profundo || 16 ) / 2;
+  return {
+    x: d.x + Math.sin(rotacio) * duonZ,
+    z: d.z + Math.cos(rotacio) * duonZ,
+    dx: Math.cos(rotacio),
+    dz: -Math.sin(rotacio),
+  };
+}
+
+function konektiDokonAlVojo( d, kromDoko ) {
+  const akvas = akvaRezulto
+    ? ( x, z ) => akvoCxe( akvaRezulto, N, PASO, [ X0, Z0 ], x, z )
+    : undefined;
+  return retoKonektiDokonAlVojo( d, vojoj, dokoj, kromDoko, akvas );
+}
+
+function konektiDokojnAlVojojn() {
+  let kunigoj = 0;
+  for ( let di = 0; di < dokoj.length; di++ ) {
+    if ( konektiDokonAlVojo( dokoj[di], di ) ) kunigoj++;
+  }
+  return kunigoj;
+}
+
+function vojajKunfandajxoj() {
+  return retoVojajKunfandajxoj( vojoj, dokoj );
 }
 
 // urboCxePunkto — la indekso de la urbo kies markilo kovras la mondan punkton
@@ -3316,37 +3444,38 @@ function kradaSegmentoAlglu(ax, az, bx, bz) {
 //     @param kromVojo ( number ) - La indekso de la trenata vojo.
 //     @returns punkto ( [ number, number ] | null ) - La kuniga punkto.
 const VOJA_ALGLUA_RANDO = 2.5;
-function vojaAlgluo(mx, mz, kromVojo) {
-  // La verticoj unue — kunigi la finojn estas la plej klara konekto.
-  let plej = null, plejD = VOJA_ALGLUA_RANDO;
+function vojaAlgluo( mx, mz, kromVojo, najbaro = null ) {
+  let plej = null, plejD = Infinity;
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     if ( vi === kromVojo ) continue;
     const v = vojoj[vi];
-    for ( let pi = 0; pi < v.punktoj.length; pi++ ) {
-      const p = v.punktoj[pi];
-      const d = Math.hypot(p[0] - mx, p[1] - mz);
-      if ( d < plejD ) { plejD = d; plej = [ p[0], p[1] ]; }
-    }
-  }
-  if ( plej ) return plej;
-  // La segmentoj poste. La rando kreskas per la duon-larĝo de la alia vojo, do
-  // ankaŭ larĝa vojo kaptas la punkton jam de sia rando.
-  let plejS = null, plejSD = Infinity;
-  for ( let vi = 0; vi < vojoj.length; vi++ ) {
-    if ( vi === kromVojo ) continue;
-    const v = vojoj[vi];
-    const rando = VOJA_ALGLUA_RANDO + ( v.larĝo || 3.5 ) / 2;
+    const duono = vojaKunigaDuono( v );
+    const rando = VOJA_ALGLUA_RANDO + duono;
     for ( let pi = 0; pi < v.punktoj.length - 1; pi++ ) {
       const a = v.punktoj[pi], b = v.punktoj[pi + 1];
-      const l2 = ( b[0] - a[0] ) * ( b[0] - a[0] ) + ( b[1] - a[1] ) * ( b[1] - a[1] );
-      if ( l2 < 1e-6 ) continue;
-      const t = Math.max(0, Math.min(1, ( ( mx - a[0] ) * ( b[0] - a[0] ) + ( mz - a[1] ) * ( b[1] - a[1] ) ) / l2 ));
-      const px = a[0] + ( b[0] - a[0] ) * t, pz = a[1] + ( b[1] - a[1] ) * t;
-      const d = Math.hypot(px - mx, pz - mz);
-      if ( d < rando && d < plejSD ) { plejSD = d; plejS = [ px, pz ]; }
+      const projekcio = vojaProjekcio( mx, mz, a, b );
+      if ( !projekcio || projekcio.d > rando ) continue;
+      const dx = b[0] - a[0], dz = b[1] - a[1], longo = Math.hypot( dx, dz );
+      const nx = -dz / longo, nz = dx / longo;
+      const flankX = najbaro ? najbaro[0] : mx, flankZ = najbaro ? najbaro[1] : mz;
+      const flankoValoro = ( flankX - projekcio.x ) * nx + ( flankZ - projekcio.z ) * nz;
+      const flanko = Math.abs( flankoValoro ) < VOJA_TUSXA_TOLERANCO
+        ? ( ( mx - projekcio.x ) * nx + ( mz - projekcio.z ) * nz >= 0 ? 1 : -1 )
+        : ( flankoValoro >= 0 ? 1 : -1 );
+      const kandidato = [ projekcio.x + nx * duono * flanko, projekcio.z + nz * duono * flanko ];
+      const kandidataD = Math.hypot( kandidato[0] - mx, kandidato[1] - mz );
+      if ( kandidataD < plejD ) { plejD = kandidataD; plej = kandidato; }
     }
   }
-  return plejS;
+  for ( let di = 0; di < dokoj.length; di++ ) {
+    const d = dokoj[di], r = dokoLandaSegmento( d );
+    const projekcio = vojaProjekcio(mx, mz, [ r.x - r.dx * DOKO_PLATFORMA_LARĜO / 2, r.z - r.dz * DOKO_PLATFORMA_LARĜO / 2 ],
+      [ r.x + r.dx * DOKO_PLATFORMA_LARĜO / 2, r.z + r.dz * DOKO_PLATFORMA_LARĜO / 2 ]);
+    if ( !projekcio || projekcio.d > VOJA_ALGLUA_RANDO + DOKO_PLATFORMA_LARĜO / 2 ) continue;
+    const kandidataD = Math.hypot( projekcio.x - mx, projekcio.z - mz );
+    if ( kandidataD < plejD ) { plejD = kandidataD; plej = [ projekcio.x, projekcio.z ]; }
+  }
+  return plej;
 }
 
 // forigiDuoblajnPunktojn — forigu sinsekvajn punktojn kiuj sidas sur la sama
@@ -3376,12 +3505,19 @@ function konektiVojajnFinojn() {
     if ( !v.punktoj || v.punktoj.length < 2 ) continue;
     const lasta = v.punktoj.length - 1;
     for ( const pi of [ 0, lasta ] ) {
-      const p = v.punktoj[pi];
-      const algluo = vojaAlgluo(p[0], p[1], vi);
+      const p = v.punktoj[pi], malnova = [ p[0], p[1] ];
+      const najbaro = pi === 0 ? v.punktoj[1] : v.punktoj[lasta - 1];
+      const algluo = vojaAlgluo( p[0], p[1], vi, najbaro );
       if ( !algluo ) continue;
-      if ( Math.hypot(algluo[0] - p[0], algluo[1] - p[1]) < 1e-6 ) continue;   // jam sidas sur la aliulo
+      if ( Math.hypot( algluo[0] - p[0], algluo[1] - p[1] ) < 1e-6 ) continue;
+      const kiuKunfandisAntaŭ = vojoKunfandiĝas( v, vi );
       p[0] = algluo[0];
       p[1] = algluo[1];
+      if ( vojoKunfandiĝas( v, vi ) && ! kiuKunfandisAntaŭ ) {
+        p[0] = malnova[0];
+        p[1] = malnova[1];
+        continue;
+      }
       kunigoj++;
     }
     forigiDuoblajnPunktojn(v);
@@ -3396,6 +3532,10 @@ function sxangiVojaPozicion(mx, mz) {
     const v = vojoj[c.vojo];
     if ( !v || !v.punktoj[c.punkto] ) return;
     const pi = c.punkto;
+    const malnovaj = new Map();
+    for ( const ni of [ pi - 1, pi, pi + 1 ] ) {
+      if ( ni >= 0 && ni < v.punktoj.length ) malnovaj.set( ni, [ ...v.punktoj[ni] ] );
+    }
     // La algluo, en la ordo de la forto — la krada reto unue ( la vojo
     // KONEKTIĜU al la urbo ), poste la ALIAJ mond-nivelaj vojoj ( la vojoj
     // KONEKTIĜU inter si ), laste la libera 0.5-krado.
@@ -3405,7 +3545,8 @@ function sxangiVojaPozicion(mx, mz) {
       gx = kradaAlgluo[0];
       gz = kradaAlgluo[1];
     } else {
-      const voja = vojaAlgluo(mx, mz, c.vojo);
+      const najbaro = pi === 0 ? v.punktoj[1] : v.punktoj[v.punktoj.length - 2];
+      const voja = vojaAlgluo( mx, mz, c.vojo, najbaro );
       if ( voja ) { gx = voja[0]; gz = voja[1]; }
       else { gx = Math.round(mx * 2) / 2; gz = Math.round(mz * 2) / 2; }
     }
@@ -3426,12 +3567,31 @@ function sxangiVojaPozicion(mx, mz) {
     if ( linioX !== null ) gx = linioX;
     if ( linioZ !== null ) gz = linioZ;
     v.punktoj[pi] = [ gx, gz ];
+    if ( vojoKunfandiĝas( v, c.vojo ) ) {
+      for ( const [ ni, p ] of malnovaj ) v.punktoj[ni] = p;
+      statuso( "Tiu vojo interkovrus sin aŭ dokon 🛑" );
+      return;
+    }
     elektitaPunkto = pi;
   } else if ( c.speco === "doko" ) {
     const d = dokoj[c.doko];
     if ( !d ) return;
-    d.x = Math.round(mx * 2) / 2;
-    d.z = Math.round(mz * 2) / 2;
+    const kandidato = { ...d, x: Math.round(mx * 2) / 2, z: Math.round(mz * 2) / 2 };
+    const projekcio = plejProximaVojo( kandidato.x, kandidato.z );
+    const rando = ( kandidato.profundo || 16 ) / 2 + VOJA_ALGLUA_RANDO;
+    if ( projekcio && projekcio.d <= rando ) {
+      kandidato.rotacio = Math.atan2( -projekcio.dz, projekcio.dx );
+      const duonZ = ( kandidato.profundo || 16 ) / 2;
+      kandidato.x = projekcio.x - Math.sin( kandidato.rotacio ) * duonZ;
+      kandidato.z = projekcio.z - Math.cos( kandidato.rotacio ) * duonZ;
+    }
+    if ( dokoKunfandiĝas( kandidato, c.doko ) ) {
+      statuso( "Tiu doko interkovrus vojon aŭ dokon 🛑" );
+      return;
+    }
+    d.x = kandidato.x;
+    d.z = kandidato.z;
+    if ( kandidato.rotacio !== undefined ) d.rotacio = kandidato.rotacio;
     elektitaDoko = c.doko;
   }
   gxisdatigiVojajnRegilojn();
@@ -3470,6 +3630,8 @@ function finiVojaTrenon() {
 function aldoniVojanPunkton(mx, mz) {
   const v = vojoj[elektitaVojo];
   if ( !v ) return;
+  const kopio = { ...v, punktoj: v.punktoj.map( p => [ ...p ] ) };
+  const kunfandisAntaŭ = vojoKunfandiĝas( v, elektitaVojo );
   momenti();
   // La klako algluiĝas al la krada voja reto se ĝi estas proksime al krada
   // vojo-linio — la nova punkto tiam KONEKTIĜAS la vojon al la krado
@@ -3513,6 +3675,14 @@ function aldoniVojanPunkton(mx, mz) {
     }
     v.punktoj.splice(plej + 1, 0, [ nx, nz ]);
     elektitaPunkto = plej + 1;
+  }
+  if ( vojoKunfandiĝas( v, elektitaVojo ) && !kunfandisAntaŭ ) {
+    vojoj[elektitaVojo] = kopio;
+    elektitaPunkto = Math.min( elektitaPunkto, kopio.punktoj.length - 1 );
+    statuso( "Nova punkto interkovrus vojon aŭ dokon 🛑" );
+    gxisdatigiVojajnRegilojn();
+    bezonoDesegno = true;
+    return;
   }
   sxangxita = true;
   gxisdatigiVojajnRegilojn();
@@ -3657,6 +3827,23 @@ let krada3DKonstruajxoj = [];
 // videblecon ). Rekonstruiĝas ĉe ĉiu voja ŝanĝo ( gxisdatigiVojajnRegilojn ),
 // sed NE dum la treno — la 2D-mapo montras la vivan trenon, la 3D refreŝiĝas
 // ĉe la fino de la treno.
+function pontoVojo( v ) {
+  if ( !akvaRezulto || v.punktoj.length < 2 ) return null;
+  const a = v.punktoj[0], b = v.punktoj[v.punktoj.length - 1];
+  const akvas = ( x, z ) => akvoCxe( akvaRezulto, N, PASO, [ X0, Z0 ], x, z );
+  if ( akvas( a[0], a[1] ) || akvas( b[0], b[1] ) ) return null;
+  const longo = Math.hypot( b[0] - a[0], b[1] - a[1] );
+  if ( longo < 0o10 ) return null;
+  const specimenoj = Math.max( 0o10, Math.round( longo ) );
+  let akvaj = 0;
+  for ( let i = 0; i <= specimenoj; i++ ) {
+    const t = i / specimenoj;
+    if ( akvas( a[0] + ( b[0] - a[0] ) * t, a[1] + ( b[1] - a[1] ) * t ) ) akvaj++;
+  }
+  if ( akvaj / ( specimenoj + 1 ) < 0o2/0o5 ) return null;
+  return { a, b };
+}
+
 function rekonstruiVojojn3D() {
   if ( !vojaGrupo3D ) return;
   while ( vojaGrupo3D.children.length ) {
@@ -3671,39 +3858,43 @@ function rekonstruiVojojn3D() {
   // la turnoj ne rondig̃is ( la arko bezonas la tutan polilinion ) kaj la ŝtona
   // teksajxo restartis ĉe ĉiu segmento. La ludo uzas la tutan polilinion — nun
   // ankaŭ ĉi tiu antaŭvido.
+  const alteco = ( x, z ) => ( bazaAlteco( x, z ) + deltoInterp( x, z ) ) * YTROIGO;
+  const vojaSupro = ( p, v ) => {
+    const duono = pontoDuonLargho( v );
+    let maks = alteco( p[0], p[1] );
+    for ( let i = 0; i < 0o10; i++ ) {
+      const ang = i * Math.PI / 0o4;
+      maks = Math.max( maks, alteco( p[0] + Math.cos( ang ) * duono, p[1] + Math.sin( ang ) * duono ) );
+    }
+    return maks + VOJA_SUPRO_LEVIGXO;
+  };
   const difinoj = [];
   for ( const v of vojoj ) {
     if ( !v.punktoj || v.punktoj.length < 2 ) continue;
-    difinoj.push({ pts: v.punktoj.map(p => [ p[0], p[1] ]), w: ( v.larĝo || 3.5 ) / 2 });
+    const difino = { pts: v.punktoj.map( p => [ p[0], p[1] ] ), w: ( v.larĝo || 3.5 ) / 2, kapoj: true };
+    const ponto = pontoVojo( v );
+    if ( ponto ) {
+      const ay = vojaSupro( ponto.a, v );
+      const by = vojaSupro( ponto.b, v );
+      const dx = ponto.b[0] - ponto.a[0], dz = ponto.b[1] - ponto.a[1];
+      const kvadrato = dx * dx + dz * dz;
+      difino.heightFn = ( x, z ) => {
+        const t = Math.max( 0, Math.min( 1, ( ( x - ponto.a[0] ) * dx + ( z - ponto.a[1] ) * dz ) / kvadrato ) );
+        return ay + ( by - ay ) * t - VOJA_SUPRO_LEVIGXO;
+      };
+    }
+    difinoj.push( difino );
   }
   if ( !difinoj.length ) return;
-  const alteco = ( x, z ) => ( bazaAlteco(x, z) + deltoInterp(x, z) ) * YTROIGO;
-  // ⟨ La samaj kunigoj kiel la ludo 📃 ⟩ — la antaŭvido montru la VERAN reuseblecon:
-  // la kruciĝaj platoj ( kun la fermitaj flankoj de la T-kunigoj ), la rondigitaj
-  // L-arkoj kaj la finaj ĉapoj, ĉiuj el la sama regilo kiel konstruiUrbon. Sen ili
-  // la antaŭvido montras nur la rubandojn interkovritajn — la ludo montros multe
-  // pli. La kunigoj ANTAŬ la vojoj ( la polilinio restas kruda apud ili ).
-  const vojaListo = difinoj.map(d => ({ punktoj: d.pts, larĝo: 2 * d.w }));
-  const kunigoj = troviVojajnKunigojn(vojaListo, 1.875);
-  const protektoj = kunigoj.map(k => [ k.x, k.z ]);
-  // La samaj materialoj kiel la ludo — la diorita centro kun la andezitaj
-  // bordoj ( konstruiVojojn klonas ilin kaj aplikas la teksajxojn ).
+  const vojaListo = difinoj.map( d => ( { punktoj: d.pts, larĝo: 2 * d.w } ) );
+  const kunigoj = troviVojaRetajnKunigojn( vojaListo, dokoj );
+  const protektoj = kunigoj.map( k => [ k.x, k.z ] );
   const diorito = kreiDioritanMaterialon();
   const andezito = kreiAndezitanMaterialon();
-  konstruiVojojn(vojaGrupo3D, difinoj, alteco, diorito, andezito, protektoj);
-  const platoj = [], rotacioj = new Map(), stacioj = new Map();
-  for ( const k of kunigoj ) {
-    // Krucoj, T-oj kaj anguloj — ĉiuj estas platoj nun; la plato mem legas la
-    // vojojn por trovi siajn brakojn.
-    platoj.push([ k.x, k.z ]);
-    if ( k.rotacio ) rotacioj.set(k.x + "," + k.z, k.rotacio);
-    if ( k.stacio !== undefined ) stacioj.set(k.x + "," + k.z, k.stacio);
-  }
-  konstruiIntersekcajnPlatojn(vojaGrupo3D, platoj, alteco, diorito, andezito,
-    rotacioj, vojaListo, stacioj);
-  const finoj = troviLiberajnFinojn(vojaListo, kunigoj, [], 1.875);
-  konstruiRondajnKapojn(vojaGrupo3D, finoj.map(f => [ f.x, f.z ]),
-    finoj.map(f => [ f.dx, f.dz ]), alteco, diorito, andezito);
+  konstruiVojojn( vojaGrupo3D, difinoj, alteco, diorito, andezito, protektoj );
+  const fermitaj = new Map( kunigoj.map( k => [ k.x + "," + k.z, k.fermitaj ] ) );
+  const rotacioj = new Map( kunigoj.map( k => [ k.x + "," + k.z, k.rotacio ] ) );
+  konstruiIntersekcajnPlatojn( vojaGrupo3D, protektoj, alteco, diorito, andezito, fermitaj, rotacioj );
   vojaGrupo3D.visible = vojojAktiva();
 }
 function rekonstruiKradon3D() {
@@ -3909,20 +4100,33 @@ vojoElektilo.addEventListener("change", () => {
   gxisdatigiVojajnRegilojn();
   bezonoDesegno = true;
 });
-vojoNomoEl.addEventListener("input", () => { skribiVojajnRegilojn(); gxisdatigiVojajnRegilojn(); bezonoDesegno = true; });
-vojoLargxoEl.addEventListener("change", () => { skribiVojajnRegilojn(); bezonoDesegno = true; });
+vojoNomoEl.addEventListener("input", () => {
+  const v = vojoj[elektitaVojo];
+  if ( !v ) return;
+  v.nomo = vojoNomoEl.value;
+  sxangxita = true;
+  gxisdatigiVojajnRegilojn();
+  bezonoDesegno = true;
+});
+vojoLargxoEl.addEventListener("change", () => { skribiVojoSekure(); });
 vojoPunktoElektilo.addEventListener("change", () => {
   elektitaPunkto = parseInt(vojoPunktoElektilo.value, 10) || 0;
   gxisdatigiVojajnRegilojn();
   bezonoDesegno = true;
 });
-vojoPunktoXEl.addEventListener("change", () => { skribiVojajnRegilojn(); gxisdatigiVojajnRegilojn(); bezonoDesegno = true; });
-vojoPunktoZEl.addEventListener("change", () => { skribiVojajnRegilojn(); gxisdatigiVojajnRegilojn(); bezonoDesegno = true; });
+vojoPunktoXEl.addEventListener("change", () => { skribiVojoSekure(); });
+vojoPunktoZEl.addEventListener("change", () => { skribiVojoSekure(); });
 vojoAldoniBtn.addEventListener("click", () => {
   momenti();
   const v = vojoj[elektitaVojo];
   const last = v && v.punktoj && v.punktoj.length ? v.punktoj[v.punktoj.length - 1] : [ 0, 0 ];
-  vojoj.push({ nomo: "Nova vojo", larĝo: 3.5, punktoj: [ [ Math.round(( last[0] - 10 ) * 2) / 2, last[1] ], [ Math.round(( last[0] + 10 ) * 2) / 2, last[1] ] ] });
+  const nova = { nomo: "Nova vojo", larĝo: 3.5, punktoj: [ [ Math.round(( last[0] - 10 ) * 2) / 2, last[1] ], [ Math.round(( last[0] + 10 ) * 2) / 2, last[1] ] ] };
+  vojoj.push( nova );
+  if ( vojoKunfandiĝas( nova, vojoj.length - 1 ) ) {
+    vojoj.pop();
+    statuso( "Nova vojo interkovrus ekzistan vojon aŭ dokon 🛑" );
+    return;
+  }
   elektitaVojo = vojoj.length - 1;
   elektitaPunkto = -1;
   sxangxita = true;
@@ -3944,11 +4148,22 @@ vojoForigiBtn.addEventListener("click", () => {
 // momentiĝas unufoje, do la tuta konekto malfareblas per unu Ctrl+Z.
 vojoKonektiBtn.addEventListener("click", () => {
   momenti();
-  const kunigoj = konektiVojajnFinojn();
+  let vojajKunigoj = 0, movaj = 0, rondoj = 0;
+  do {
+    movaj = konektiVojajnFinojn();
+    vojajKunigoj += movaj;
+  } while ( movaj > 0 && ++rondoj < vojoj.length * 2 );
+  const dokojajKunigoj = konektiDokojnAlVojojn();
+  movaj = 0;
+  rondoj = 0;
+  do {
+    movaj = konektiVojajnFinojn();
+    vojajKunigoj += movaj;
+  } while ( movaj > 0 && ++rondoj < vojoj.length * 2 );
   sxangxita = true;
   gxisdatigiVojajnRegilojn();
   gxisdatigiKradon();
-  statuso(kunigoj ? "Konektitaj " + kunigoj + " voj-finoj 🔗" : "Neniu voj-fino ene de la alglua rando");
+  statuso( "Konektitaj " + vojajKunigoj + " voj-finoj kaj " + dokojajKunigoj + " dokoj 🔗" );
   bezonoDesegno = true;
 });
 vojoPunktoAldoniBtn.addEventListener("click", () => {
@@ -3958,6 +4173,11 @@ vojoPunktoAldoniBtn.addEventListener("click", () => {
   const last = v.punktoj[v.punktoj.length - 1];
   v.punktoj.push([ Math.round(( last[0] + 10 ) * 2) / 2, Math.round(last[1] * 2) / 2 ]);
   elektitaPunkto = v.punktoj.length - 1;
+  if ( vojoKunfandiĝas( v, elektitaVojo ) ) {
+    v.punktoj.pop();
+    elektitaPunkto = v.punktoj.length - 1;
+    statuso( "Nova punkto interkovrus vojon aŭ dokon 🛑" );
+  }
   sxangxita = true;
   gxisdatigiVojajnRegilojn();
   bezonoDesegno = true;
@@ -3977,15 +4197,23 @@ dokoElektilo.addEventListener("change", () => {
   gxisdatigiVojajnRegilojn();
   bezonoDesegno = true;
 });
-dokoXEl.addEventListener("change", () => { skribiVojajnRegilojn(); gxisdatigiVojajnRegilojn(); bezonoDesegno = true; });
-dokoZEl.addEventListener("change", () => { skribiVojajnRegilojn(); gxisdatigiVojajnRegilojn(); bezonoDesegno = true; });
-dokoProfundoEl.addEventListener("change", () => { skribiVojajnRegilojn(); bezonoDesegno = true; });
-dokoRotacioEl.addEventListener("change", () => { skribiVojajnRegilojn(); bezonoDesegno = true; });
+dokoXEl.addEventListener("change", () => { skribiDokoSekure(); });
+dokoZEl.addEventListener("change", () => { skribiDokoSekure(); });
+dokoProfundoEl.addEventListener("change", () => { skribiDokoSekure(); });
+dokoRotacioEl.addEventListener("change", () => { skribiDokoSekure(); });
 dokoAldoniBtn.addEventListener("click", () => {
   momenti();
   const last = dokoj[dokoj.length - 1];
-  dokoj.push({ x: last ? Math.round(( last.x + 24 ) * 2) / 2 : 0, z: last ? last.z : 0, profundo: 16, rotacio: last ? ( last.rotacio ?? 0 ) : 0 });
-  elektitaDoko = dokoj.length - 1;
+  const nova = { x: last ? Math.round(( last.x + 24 ) * 2) / 2 : 0, z: last ? last.z : 0, profundo: 16, rotacio: last ? ( last.rotacio ?? 0 ) : 0 };
+  dokoj.push( nova );
+  const indekso = dokoj.length - 1;
+  if ( dokoKunfandiĝas( nova, indekso ) ) {
+    dokoj.pop();
+    statuso( "Nova doko interkovrus vojon aŭ dokon 🛑" );
+    return;
+  }
+  konektiDokonAlVojo( nova, indekso );
+  elektitaDoko = indekso;
   sxangxita = true;
   gxisdatigiVojajnRegilojn();
   bezonoDesegno = true;
