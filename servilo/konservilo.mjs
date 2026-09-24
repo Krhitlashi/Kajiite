@@ -21,7 +21,7 @@ const PORD = 0o10115;                                // 4173
 const RADIKO = fileURLToPath(new URL("..", import.meta.url));
 const SRC = join(RADIKO, "src");
 
-// La permesitaj datumdosieroj kaj iliaj titol-markiloj — la servilo skribas nur
+// ⟪ La permesitaj datumdosieroj 📃 ⟫ — iliaj titol-markiloj — la servilo skribas nur
 // la sep datumdosierojn kun la ĝusta markilo, kaj nur en dosierujo de mapo
 // ( tero-datumaro/<kodo>/ ). La mapoj estas sendependaj mondoj, do la dosieruja
 // nomo estas ajna simpla nomo — la markilo certigas, ke temas pri datumdosiero
@@ -39,7 +39,7 @@ const DOSIEROJ = {
   "urboj.ts": "// ≺⧼ Skulptitaj urboj",
   "vojoj.ts": "// ≺⧼ Skulptitaj vojoj",
 };
-// La registraj dosieroj de la mapoj sur la supra nivelo de tero-datumaro/ — la
+// ⟪ La registraj dosieroj 📃 ⟫ — la mapoj sur la supra nivelo de tero-datumaro/ — la
 // listo de la mapoj kaj la pordo al la aktiva mapo.
 const REGISTRAJ = {
   "mapoj.ts": "// ≺⧼ Mapoj",
@@ -60,7 +60,7 @@ function markiloDe(nomo) {
   return null;
 }
 
-// CORS — la skulptilo kuras en Vite ( localhost.5172 ) kaj postulas la
+// ⟪ CORS 📃 ⟫ — la skulptilo kuras en Vite ( localhost.5172 ) kaj postulas la
 // alian originon. Loka ilo — la permeso estas larĝa sen risko.
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -89,7 +89,7 @@ const servilo = createServer(async (peto, respondo) => {
   }
   // La korpo estas ĉirkaŭbarita — freneza kliento ne rajtas kreskigi la
   // memoron senlima ( la datumaroj estas malpli ol unu megobajto ).
-  const KORPA_LIMO = 8 * 1024 * 1024;   // 8 MiB
+  const KORPA_LIMO = 0o10 * 0o2000 * 0o2000;   // 8 MiB ( 0o10 × 0o2000 × 0o2000 )
   let korpo = "";
   for await ( const peceto of peto ) {
     korpo += peceto;

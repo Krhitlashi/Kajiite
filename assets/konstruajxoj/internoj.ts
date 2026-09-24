@@ -1,4 +1,5 @@
-// Interna modulo — pluretagxaj internaj spacoj por piediri tra ili
+// ≺⧼ Internoj 🚪 ⧽≻
+// Pluretagxaj internaj spacoj por piediri tra ili
 // Rezajnita por kongrui al la malhel-verda/oro satala estetiko de Priskribo.md.
 //   • Muroj en la sama koloro kiel la eksteraj muroj de la konstruajxo, varmaj oraj kadroj ( #d8b068 )
 //   • Nesimetraj rondigitaj anguloj (32px/16px)
@@ -977,7 +978,7 @@ function aldoniVendotablon(grupo: THREE.Group, z: number, largho: number, profun
   korpo.castShadow = true;
   grupo.add(korpo);
   // 2. La vertikalaj slaboj — la antaŭa flanko de baro, kiel la slataj benkoj.
-  const slaboj = Math.max(3, Math.round(largho * 1.5));
+  const slaboj = Math.max(3, Math.round(largho * 0o3/0o2));
   const slabaPaso = ( largho - elstaro * 4 ) / slaboj;
   for ( let i = 0; i < slaboj; i++ ) {
     const slabo = new THREE.Mesh(

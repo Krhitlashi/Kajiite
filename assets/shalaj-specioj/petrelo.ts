@@ -1,4 +1,5 @@
-// Neĝopetrelo ( Pagodroma nivea ) — la blanka antarkta marbirdo, kiu rondflugas
+// ≺⧼ Neĝopetrelo 🕊️ ⧽≻
+// La blanka antarkta marbirdo ( Pagodroma nivea ), kiu rondflugas
 // super la mondego. Ĉi tiu dosiero tenas la SPECIAN SISTEMON: kie la birdoj
 // aperas ( la biomoj ), kiel ili rondflugas sian cirklon kaj kiel ili glitas
 // laŭ la tereno sub ili. La modelo mem estas en petrelo-malneto.ts — la du
@@ -9,7 +10,7 @@ import { biomo } from "../../src/tereno.js";
 import { trovuBestajnZonojn } from "./zono-trovilo.js";
 import { konstruiPetrelanModelon } from "./petrelo-malneto.js";
 
-// ⟪ Neĝopetreloj ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea ) ⟫
+// ⟪ Neĝopetreloj ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea ) 📃 ⟫
 //
 // Pure blankaj antarktaj marbirdoj. Malgranda ovala korpo, longaj maldikaj
 // glit-flugiloj kaj nigraj beko kaj okuloj. Ili rondflugas super la lago kaj

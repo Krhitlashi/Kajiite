@@ -118,8 +118,8 @@ const SPECOJ = [
   // plenkreskan, kun la sama spektro, kiun la larikaro de la mondo montras.
   { kodo: "lariko", nomo: "Lariko 🌲", indekso: -1, grandeco: 1,
     akva: false, konstruu: ( g ) => konstruiLarikon(g, [
-      { x: -1.5, z: 0.4, h: 0, s: 0.45 },
-      { x: 0.1, z: -0.5, h: 0, s: 0.72 },
+      { x: -0o3/0o2, z: 0.4, h: 0, s: 0.45 },
+      { x: 0o1/0o10, z: -0o1/0o2, h: 0, s: 0.72 },
       { x: 1.7, z: 0.3, h: 0, s: 1 }]),
     priskribo: "Alpa lariko — griza trunko kun radika larĝiĝo, kelkaj sekaj nudaj branĉetoj sur la malsupra trunko, kaj aŭtuna orflava pinglaro: 3–4 tavoloj de konusaj spajroj el pinglaj ventumiloj. La specio havas FORTAN alton-hazardon ( 1.4–9.8 unuoj, do malgrandaj inter plenkreskuloj ), kaj la trunko kaj la krono skalas kun la alto — la ilo montras tri el ili.",
     animacio: "Neniu — la arboj staras senmove ( la plantoj ne havas animacion en la ludo )." },
@@ -203,7 +203,7 @@ const SPECOJ = [
     // instancomeshoj de la mondo ( 0o7, 0o40, 0o71 ).
     konstruu: ( g ) => { konstruiMetitanRokon(g, -1.1, 0.4, nulaAlto, 0o12/0o20, 0, 0o7);
       konstruiMetitanRokon(g, 1.2, -0.9, nulaAlto, 0o15/0o20, 0, 0o40);
-      konstruiMetitanRokon(g, 0.1, 1.3, nulaAlto, 0o1, 0, 0o71); },
+      konstruiMetitanRokon(g, 0o1/0o10, 1.3, nulaAlto, 0o1, 0, 0o71); },
     priskribo: "La rokblokoj de la alpa zono — TRIMALSAMAJ formoj ( tri semoj de la sama ondaro ), ĉiu kun sia propra ne-uniforma skalo, do la montaro ne montras la saman ŝtonon ripetitan.",
     animacio: "Neniu — la rokoj staras senmove." },
   { kodo: "petrelo", nomo: "Neĝopetrelo 🕊️", indekso: -1, grandeco: 0o4,

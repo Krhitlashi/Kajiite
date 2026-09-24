@@ -1,4 +1,5 @@
-// Glacifiso ( Channichthyidae ) — travidebla, senhemoglobina fiŝo por la rivero.
+// ≺⧼ Glacifiso 🐟 ⧽≻
+// Travidebla, senhemoglobina fiŝo por la rivero ( Channichthyidae ).
 // Ĝi estas unu el la akvaj specoj: la korpo estas tubo el ELIPSAJ sekcoj ( lathe
 // ne povas havi ne-rondan sekcon ), kun haŭta teksajxo por la brankaro, la
 // flanklinio kaj la makuloj, kaj tri-segmenta ĉeno por la naĝa ondo.
@@ -8,7 +9,10 @@
 // bobado, la speco-elektado ) restas en bestoj.ts.
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
 import type { Besto, SpecoMalneto } from "./speco-tipoj.js";
+// La krada interpolo — la komuna kurbo de la ludo ( src/interpolo.ts ).
+import { katmullRom } from "../../src/interpolo.js";
 
 // ⟪ Glacifiso ( Channichthyidae ) 📃 ⟫
 // La glacifiso estas travidebla, senhemoglobina fiŝo — preskaŭ senkolora, kun
@@ -46,14 +50,6 @@ const GLACIFISA_OKULA_FLANKO = 0o7/0o20;
 const GLACIFISA_OKULA_Z = -0o27/0o100;
 const GLACIFISA_KAPO_Z = -0o1/0o2;        // la brankoŝirmilo
 const GLACIFISA_MEZO_Z = -0o13/0o10;
-
-// katmullRom — unu-dimensia glata interpolo ( la sama kurbo kiel la terena
-// krado en src/tero-datumaro/rultempo.ts ).
-function katmullRom(p0: number, p1: number, p2: number, p3: number, t: number): number {
-  const t2 = t * t, t3 = t2 * t;
-  return 0o1/0o2 * ( ( 2 * p1 ) + ( -p0 + p2 ) * t
-    + ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t2 + ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t3 );
-}
 
 // subdividuStaciojn — Densigu la profilon. La malmultaj stacioj donus facetan
 // tubon ( videblaj ringoj ); la Katmull-Rom-interpolo donas glatan fiŝan
@@ -112,12 +108,7 @@ function kreiFiŝanTubon(stacioj: FiŝaStacio[], anguloj: number, longo: number)
       indeksoj.push(a, c, d, a, d, b);
     }
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
-  geometrio.setIndex(indeksoj);
-  geometrio.computeVertexNormals();
-  return geometrio;
+  return kreiLoftanGeometrion(pozicioj, uvoj, indeksoj);
 }
 
 // normaliguUvojn — ShapeGeometry uzas la formaĵajn koordinatojn kiel UV. La

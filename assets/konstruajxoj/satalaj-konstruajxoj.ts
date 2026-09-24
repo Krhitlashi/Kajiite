@@ -949,7 +949,7 @@ export function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: stri
   for ( let i = 0; i < faceUV.count; i++ ) {
     const u = ( facePoz.getX(i) - faceUjo.min.x ) / faceLargho;
     const v = ( facePoz.getY(i) - faceUjo.min.y ) / faceAlto;
-    faceUV.setXY(i, 0.5 + ( u - 0.5 ) * tekstaSkalo, 0.5 + ( v - 0.5 ) * tekstaSkalo);
+    faceUV.setXY(i, 0o1/0o2 + ( u - 0o1/0o2 ) * tekstaSkalo, 0o1/0o2 + ( v - 0o1/0o2 ) * tekstaSkalo);
   }
   faceUV.needsUpdate = true;
   const face = new THREE.Mesh(faceGeo, steleaTeksto(teksajxo));

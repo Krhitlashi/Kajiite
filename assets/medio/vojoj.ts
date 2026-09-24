@@ -1,4 +1,5 @@
-// Voja modulo — poluritaj dioritaj vojoj kun andezitaj bordoj
+// ≺⧼ Vojoj 🛣️ ⧽≻
+// Poluritaj dioritaj vojoj kun andezitaj bordoj
 // Uzas rektangulajn Shape + ExtrudeGeometry por puraj longaj flankoj ( intersekcoj interkovras )
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
@@ -533,7 +534,7 @@ export const vojSuprajxoj: VojSuprajxo[] = [];
 // konstruiSegmentonEnBufrojn — La buffer-a internaĵo de konstruiSegmenton.
 // La ĉefaj vojoj kolektas ĉiujn difinojn en KOMUNAJN bufrojn ( unu po
 // materialo por la tuta reto ) kaj la spronoj kunigas per sia propra bufraro.
-// ⟨ GLATA generacio ⟩ — ĉiu ŝtupo specimenas la du RANDOJ ( la komenco kaj
+// ⟨ GLATA generacio 📃 ⟩ — ĉiu ŝtupo specimenas la du RANDOJ ( la komenco kaj
 // la fino — la maksimuman kaj minimuman teren-altojn de iliaj lateralaj
 // anguloj ) kaj KLINIĜAS inter la du randaj niveloj — dekliva plana supro
 // kiu precize kunigas la najbarajn ŝtupojn ĉe la komuna rando ( la najbaroj
@@ -569,7 +570,7 @@ function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: numb
     const sx1 = x1 + difX * t0, sz1 = z1 + difZ * t0;
     const sx2 = x1 + difX * t1, sz2 = z1 + difZ * t1;
     const movX = ( sx1 + sx2 ) / 2, movZ = ( sz1 + sz2 ) / 2;
-    // ⟨ Randaj specimenadoj ⟩ — la maksimuman kaj minimuman teren-altojn de
+    // ⟨ Randaj specimenadoj 📃 ⟩ — la maksimuman kaj minimuman teren-altojn de
     // la du lateralaj anguloj de ĉiu rando. La najbara ŝtupo specimenas LA
     // SAMAJN punktojn ĉe la komuna rando — la supro daŭriĝas kontinue.
     const h0a = heightFn(sx1 - latX, sz1 - latZ);
@@ -591,7 +592,7 @@ function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: numb
     // ŝtupo sidas je s0 ĉe ambaŭ randoj, la klinita ŝtupo inter s0 kaj s1.
     vojSuprajxoj.push({ x1: sx1, z1: sz1, x2: sx2, z2: sz2, duono: eksteraDuon, y0: s0, y1: diskreta ? s0 : s1 });
     if ( diskreta ) {
-      // ⟨ Eskalera ŝtupo ⟩ — plata supro je la ALTA rando ( la sama nivelo kiel
+      // ⟨ Eskalera ŝtupo 📃 ⟩ — plata supro je la ALTA rando ( la sama nivelo kiel
       // la klinita rando de la antaŭa ŝtupo — la transiro restas preciza ) kaj
       // profundo ĝis sub la minimuman angulan altecon + margxeno — la vertikala
       // vizaĝo montras la andezitan/dioritan bordon kiel la eskalera riso.
@@ -603,7 +604,7 @@ function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: numb
         bufroj.aldoni(geometrio, bendo.materialo, matricoPor(difX, difZ, movX, y, movZ));
       }
     } else {
-      // ⟨ Klinita ŝtupo ⟩ — la supro klino de s0 ( la komenc-rando ) ĝis s1
+      // ⟨ Klinita ŝtupo 📃 ⟩ — la supro klino de s0 ( la komenc-rando ) ĝis s1
       // ( la fin-rando ). La geometrio longiĝas al la dekliva longo kaj
       // turniĝas je la dekliva angulo ĉirkaŭ la laterala akso — la
       // horizontalan pied-signon restas ekzakte pasoLongo kaj la randaj
@@ -841,7 +842,7 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     const fx = ferma ? ferma[0] : 0, fz = ferma ? ferma[1] : 0;
     const rotacio = rotacioj.get(x + "," + z) ?? 0;
     const rotKos = Math.cos( rotacio ), rotSin = Math.sin( rotacio );
-    // ⟨ Angula specimenado ⟩ — la SUPRO restas je la malalta terena nivelo
+    // ⟨ Angula specimenado 📃 ⟩ — la SUPRO restas je la malalta terena nivelo
     // ( tereno + dikeco ) kaj leviĝas ĝis la maksimuma angula alto nur en
     // deklivoj. La profundo etendiĝas sub la minimuman angulan altecon +
     // margxeno — la flankaj muroj ĉiam enfosiĝas ( neniu ŝvebanta rando ).

@@ -1,4 +1,5 @@
-// Krasesxagxa kosmosxipo — ciel-rombo ciela transporto de ornaveth-v2
+// ≺⧼ Krasesxagxa kosmosxipo 🚀 ⧽≻
+// Ciel-rombo ciela transporto de ornaveth-v2
 // La kosmosxipo nomigxas kzasexaz ( ſɭˬᴜ j͑ʃɔ ı],ᴜƴ ) en Iikrhia. noma formo. krasesxagxo.
 // 5 tieroj supren, 5 malsupren (spegulitaj), LONGAs horizontalaj RONDIGITAJ fenestroj
 // sur cxiu nivelo krom la centra ( kie la pordoj estas ); flosas libere sen soklo aux signo

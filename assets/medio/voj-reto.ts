@@ -1,3 +1,6 @@
+// ≺⧼ Voja reto 🛣️ ⧽≻
+// La kunligita reto de la urbaj vojoj kaj la dokaj platformoj.
+
 import { VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO } from "./vojoj.js";
 import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO } from "./doko.js";
 
@@ -26,10 +29,10 @@ export interface VojaRetoKunigo {
 }
 
 const TOLERANCO = 0o1/0o1000;
-const ALGLUA_RANDO = 2.5;
+const ALGLUA_RANDO = 0o5/0o2;
 
 export function vojaDuonLargho( vojo: VojaRetoVojo ): number {
-  return ( vojo?.larĝo || 3.5 ) / 4 + VOJA_BORDA_LARĜO;
+  return ( vojo?.larĝo || 0o7/0o2 ) / 4 + VOJA_BORDA_LARĜO;
 }
 
 export function vojaKunigaDuono( vojo: VojaRetoVojo ): number {
@@ -37,7 +40,7 @@ export function vojaKunigaDuono( vojo: VojaRetoVojo ): number {
 }
 
 export function pontoDuonLargho( vojo: VojaRetoVojo ): number {
-  return ( vojo?.larĝo || 3.5 ) / 4 + VOJA_BORDA_LARĜO;
+  return ( vojo?.larĝo || 0o7/0o2 ) / 4 + VOJA_BORDA_LARĜO;
 }
 
 export function vojaProjekcio(

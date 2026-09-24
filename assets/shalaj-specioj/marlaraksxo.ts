@@ -1,4 +1,5 @@
-// Marlaraksxo ( Pycnogonida ) — la eta longkrura mara araneo de la riverfundo.
+// ≺⧼ Marlaraksxo 🕷️ ⧽≻
+// La eta longkrura mara araneo de la riverfundo ( Pycnogonida ).
 //
 // ⟨ Kial la kruroj aspektis rompitaj 📃 ⟩ — la malnova modelo konstruis ĉiun
 // kruro-segmenton per permanaj rotateZ-anguloj EN LA LOKA KADRO de sia kokso.
@@ -29,7 +30,7 @@ function kreiKutiklanTeksajxon(): { koloro: THREE.CanvasTexture; reliefo: THREE.
     // La segmentaj ringoj — la artikoj de la ŝelo. Ili estas pli malhelaj
     // ( pli profundaj ) en la reliefa mapo.
     for ( let i = 0; i < 0o6; i++ ) {
-      const y = ( i + 0.5 ) / 0o6 * s;
+      const y = ( i + 0o1/0o2 ) / 0o6 * s;
       kunteksto.strokeStyle = reliefo ? "rgba(70,70,70,0.55)" : "rgba(146,112,76,0.8)";
       kunteksto.lineWidth = s * 0.014;
       kunteksto.beginPath();
@@ -42,8 +43,8 @@ function kreiKutiklanTeksajxon(): { koloro: THREE.CanvasTexture; reliefo: THREE.
       const x = Math.random() * s, y = Math.random() * s;
       const r = 0.6 + Math.random() * 1.1;
       kunteksto.fillStyle = reliefo
-        ? ( Math.random() < 0.5 ? "rgba(200,200,200,0.5)" : "rgba(80,80,80,0.45)" )
-        : ( Math.random() < 0.5 ? "rgba(238,214,178,0.5)" : "rgba(168,132,94,0.45)" );
+        ? ( Math.random() < 0o1/0o2 ? "rgba(200,200,200,0.5)" : "rgba(80,80,80,0.45)" )
+        : ( Math.random() < 0o1/0o2 ? "rgba(238,214,178,0.5)" : "rgba(168,132,94,0.45)" );
       kunteksto.beginPath();
       kunteksto.arc(x, y, r, 0, Math.PI * 2);
       kunteksto.fill();

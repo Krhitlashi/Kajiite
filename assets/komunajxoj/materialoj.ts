@@ -1,3 +1,4 @@
+// ≺⧼ Materialoj 🎨 ⧽≻
 // Materiala modulo — komunaj materialaj fabrikoj por la tuta mondo
 import * as THREE from "three";
 import {

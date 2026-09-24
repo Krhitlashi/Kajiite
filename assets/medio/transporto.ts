@@ -1,4 +1,5 @@
-// Transporta modulo — kanuoj kun remada mekaniko kongrua al arkitektura stilo
+// ≺⧼ Transporto 🛶 ⧽≻
+// Kanuoj kun remada mekaniko kongrua al la arkitektura stilo
 import * as THREE from "three";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 

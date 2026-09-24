@@ -1,3 +1,4 @@
+// ≺⧼ Hazardo 🎲 ⧽≻
 // Hazarda modulo — la komuna semita PRNG ( mulberry32 ) por la tuta mondo.
 // La pliigo-konstanto estas parametro, por ke ĉiu alvokanto konservu sian
 // ekzaktan hazardan sekvencon ( ŝanĝi ĝin movus la arbojn aŭ la muzikon ).

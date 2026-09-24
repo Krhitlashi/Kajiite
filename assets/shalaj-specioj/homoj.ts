@@ -1,4 +1,5 @@
-// NPC-modulo — figuroj vagantaj tra la sxtupurbo de ornaveth-v2
+// ≺⧼ Homoj 🧍 ⧽≻
+// NPC-modulo. figuroj vagantaj tra la sxtupurbo de ornaveth-v2
 // Malalt-poligonaj figuroj kun tavoligitaj vestoj, foliaj manikoj, kvarstelo/rombo-motivoj
 import * as THREE from "three";
 import { deksesuma, kvarStelo, rombo, HARSTILOJ } from "../vestaro/vestoj.js";
@@ -472,7 +473,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   const sR = konstruiManikon(manikaTuboM, manikaAkcentaM); sR.rotation.z = 0o1/0o10;
   brakoL.add(sL); brakoR.add(sR);
 
-  // ⟨ Har-stiloj ⟩
+  // ⟨ Har-stiloj 📃 ⟩
   // Ĉiu stilo estas aparta grupo konstruita ĉiam ( ne nur la elektita ), por
   // ke agordiHaron povu ŝanĝi la stilon poste sen rekonstrui la geometriojn.
   // La grupoj estas konstruitaj per HARSTILOJ ( la sama listo kiel la vestara

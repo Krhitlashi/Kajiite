@@ -1,9 +1,10 @@
-// Skripta bildilo — vertikala skribsistemo el octaveil-city
+// ≺⧼ Skripta rivelilo 🔣 ⧽≻
+// Vertikala skribsistemo el octaveil-city
 // Uzas kurbajn vertikalajn liniojn ( vl ) kaj horizontalajn konektilojn ( hk ) kun
 // "plena bloko" kaj "maldekstre duono plena, dekstre nur supre" modeloj laux Description.md
 import * as THREE from "three";
 
-// Determinisma LCG por konsekvenca glifo-generado
+// ⟪ La determinisma hazardo 📃 ⟫ — LCG por konsekvenca glifo-generado
 let _seed = 0x752;
 function hazardo(): number {
   _seed = ( _seed * 0x1663 + 0x1015 ) % 0x100000;
@@ -31,7 +32,7 @@ function nesimetraRecto(kunteksto: CanvasRenderingContext2D,
   kunteksto.closePath();
 }
 
-// Octaveil-stila glifa bloko. kurbaj vertikalaj linioj + horizontalaj konektiloj
+// ⟪ La glifa bloko 📃 ⟫ — Octaveil-stila bloko. kurbaj vertikalaj linioj + horizontalaj konektiloj
 function glifaBloko(kunteksto: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number,
   ink: string
@@ -83,7 +84,7 @@ function glifaBloko(kunteksto: CanvasRenderingContext2D,
   kunteksto.restore();
 }
 
-// Desegnu kompletan skriptan panelon — malsupre al supre
+// ⟨ La skripta panelo 📃 ⟩ — desegnu ĝin malsupre al supre
 function desegniSkripto(kunteksto: CanvasRenderingContext2D,
   W: number, H: number,
   ink: string, frame: string | null
@@ -142,7 +143,7 @@ export function generiSkriptanURL(opts: SkriptajOpcioj = {}): string {
   return generiSkriptanKanvason(opts).toDataURL();
 }
 
-// La Gawekiif-tiparo estas ŝarĝita per la ekstera krhitlashi-stylesheet
+// ⟪ La Gawekiif-tiparo 📃 ⟫ — la tiparo estas ŝarĝita per la ekstera krhitlashi-stylesheet
 // ( @font-face familio j͑ʃꞇȝ ), kune kun ĝiaj rezervaj familioj.
 const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
 

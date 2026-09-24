@@ -1,4 +1,7 @@
-// ⟪ Skalaj kaj tonaltaj helpiloj ⟫
+// ≺⧼ Vokoj 🎙️ ⧽≻
+// La instrumentaj voĉoj de la muziko kaj la skalaj helpiloj.
+
+// ⟪ Skalaj kaj tonaltaj helpiloj 📃 ⟫
 
 export const A4 = 0o660;
 export const F = ( m: number ) => A4 * Math.pow(2, ( m - 69 ) / 12);
@@ -12,7 +15,7 @@ export const NYAM = [ 0, 190, 370, 510, 690, 860, 1030, 1200, 1390, 1560 ].map(c
 
 export const PENT_A = [ 0, 200, 400, 700, 900, 1200, 1400, 1600, 1900, 2100, 2400 ].map(c => 45 + c / 100);
 
-// ⟪ Seeded PRNG ( mulberry32 ) — la komuna modulo en ../hazardo.js ⟫
+// ⟪ Seeded PRNG ( mulberry32 ) — la komuna modulo en ../hazardo.js 📃 ⟫
 
 import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
 
@@ -22,7 +25,7 @@ export function mulberry(seed: number) {
   return kreiHazardanGenerilon(seed);
 }
 
-// ⟪ Noiza bufrokaŝo ⟫
+// ⟪ Noiza bufrokaŝo 📃 ⟫
 
 let noiseCache: AudioBuffer | null = null;
 
@@ -43,7 +46,7 @@ function noiseSrc(ctx: AudioContext) {
   return s;
 }
 
-// ⟪ La Ok Voĉoj ⟫
+// ⟪ La Ok Voĉoj 📃 ⟫
 
 export function siku(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
   const g = ctx.createGain(), pk = 0.21 * vel;
@@ -84,7 +87,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   bp.frequency.value = Math.min(6000, f * 2.6);
   bp.Q.value = 0.9;
   const ng = ctx.createGain();
-  ng.gain.value = 0.05 * vel;
+  ng.gain.value = 0o1/0o20 * vel;
 
   o.connect(g);
   o2.connect(g2);
@@ -102,7 +105,7 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   const g = ctx.createGain(), pk = 0.2 * vel;
   g.gain.setValueAtTime(0.0001, t);
   g.gain.linearRampToValueAtTime(pk, t + 0.07);
-  g.gain.setValueAtTime(pk * 0.92, t + Math.max(0.08, dur - 0.1));
+  g.gain.setValueAtTime(pk * 0.92, t + Math.max(0.08, dur - 0o1/0o10));
   g.gain.linearRampToValueAtTime(0.0001, t + dur + 0.15);
   g.connect(out);
 
@@ -115,7 +118,7 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   o2.type = "sine";
   o2.frequency.value = f * 2;
   const g2 = ctx.createGain();
-  g2.gain.value = 0.05;
+  g2.gain.value = 0o1/0o20;
 
   const vib = ctx.createOscillator();
   vib.frequency.value = 4.4;
@@ -146,7 +149,7 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
 export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1, toot = false) {
   const g = ctx.createGain(), pk = ( toot ? 0.10 : 0.15 ) * vel;
   g.gain.setValueAtTime(0.0001, t);
-  g.gain.exponentialRampToValueAtTime(pk, t + ( toot ? 0.05 : 0.7 ));
+  g.gain.exponentialRampToValueAtTime(pk, t + ( toot ? 0o1/0o20 : 0.7 ));
   g.gain.setValueAtTime(pk, t + Math.max(toot ? 0.06 : 0.8, dur - ( toot ? 0.08 : 0.9 )));
   g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
   g.connect(out);
@@ -198,7 +201,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     l1g.connect(f1.frequency);
 
     const l2 = ctx.createOscillator();
-    l2.frequency.value = 0.07 + Math.random() * 0.05;
+    l2.frequency.value = 0.07 + Math.random() * 0o1/0o20;
     const l2g = ctx.createGain();
     l2g.gain.value = 240;
     l2.connect(l2g);
@@ -207,7 +210,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     const am = ctx.createOscillator();
     am.frequency.value = 2.1 + Math.random() * 0.8;
     const amg = ctx.createGain();
-    amg.gain.value = 0.05;
+    amg.gain.value = 0o1/0o20;
     am.connect(amg);
     amg.connect(mix.gain);
 
@@ -237,9 +240,9 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
     const bp = ctx.createBiquadFilter();
     bp.type = "bandpass";
     bp.frequency.value = 2300 + Math.random() * 800 + ( opts.cresc ? ( i / ticks ) * 1400 : 0 );
-    bp.Q.value = 6.5;
+    bp.Q.value = 0o15/0o2;
     const g = ctx.createGain();
-    let v = ( 0.09 + Math.random() * 0.05 ) * vel;
+    let v = ( 0.09 + Math.random() * 0o1/0o20 ) * vel;
     if ( opts.cresc ) v *= 0.35 + 0o6/0o10 * ( i / ticks );
     g.gain.setValueAtTime(v, tt);
     g.gain.exponentialRampToValueAtTime(0.001, tt + 0.04);
@@ -303,7 +306,7 @@ export function bull(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   nf.frequency.value = f * 1.6;
   nf.Q.value = 0.9;
   const ng = ctx.createGain();
-  ng.gain.value = 0.05;
+  ng.gain.value = 0o1/0o20;
   n.connect(nf);
   nf.connect(ng);
   ng.connect(am2);
@@ -317,7 +320,7 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   g.connect(out);
 
   const ratios = [ 1, 2.756, 5.404, 8.933 ];
-  const gains = [ 1, 0.3, 0.13, 0.05 ];
+  const gains = [ 1, 0.3, 0.13, 0o1/0o20 ];
   const decs = [ 4.6, 1.7, 0o6/0o10, 0.38 ];
   for ( let i = 0; i < 4; i++ ) {
     const o = ctx.createOscillator();
@@ -329,7 +332,7 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
     o.connect(og);
     og.connect(g);
     o.start(t);
-    o.stop(t + decs[i] + 0.1);
+    o.stop(t + decs[i] + 0o1/0o10);
   }
 
   const n = noiseSrc(ctx);
@@ -343,7 +346,7 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   lp.connect(ng);
   ng.connect(out);
   n.start(t);
-  n.stop(t + 0.05);
+  n.stop(t + 0o1/0o20);
 }
 
 export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1, opts: { dur?: number } = {}) {
@@ -388,7 +391,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   bp.connect(ng);
   ng.connect(out);
 
-  [ o, o2, n ].forEach(x => { x.start(t); x.stop(t + d + 0.1); });
+  [ o, o2, n ].forEach(x => { x.start(t); x.stop(t + d + 0o1/0o10); });
 }
 
 export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {
@@ -410,7 +413,7 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
     o.connect(og);
     og.connect(g);
     o.start(t);
-    o.stop(t + dd + 0.1);
+    o.stop(t + dd + 0o1/0o10);
   }
 
   const n = noiseSrc(ctx);
@@ -439,7 +442,7 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   tr.stop(t + 0.7);
 }
 
-// ⟪ Evento-specoj ⟫
+// ⟪ Evento-specoj 📃 ⟫
 
 export interface SonoEvento {
   t: number;
@@ -464,7 +467,7 @@ export interface SpuroDateno {
   secs: Sekcio[];
 }
 
-// ⟪ Instrumenta dissendilo ⟫
+// ⟪ Instrumenta dissendilo 📃 ⟫
 
 export function instrumento(ctx: AudioContext, out: AudioNode, e: SonoEvento, t: number) {
   const f = e.f ?? 0;

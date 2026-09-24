@@ -1,4 +1,5 @@
-// Zono-trovilo — la pentritaj ĉeloj de la besta tavolo ( la skulptilo ).
+// ≺⧼ Zono-trovilo 🔍 ⧽≻
+// La pentritaj ĉeloj de la besta tavolo ( la skulptilo ).
 //
 // La bestoj ne aperas ie ajn: ili naskiĝas nur en la ĉeloj, kiujn la ludanto
 // pentris per la tero-skulptilo ( la besta tavolo ). Ĉi tiu modulo legas tiun

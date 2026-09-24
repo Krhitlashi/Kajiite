@@ -1,3 +1,4 @@
+// ≺⧼ Servilo 🖧 ⧽≻
 // Minimum statika dosierservilo por Kajiite — kun viva reŝargo (SSE) kaj la retilo ( multludado )
 import { createServer } from "http";
 import { readFile } from "fs/promises";
@@ -35,10 +36,10 @@ function sciigiSSEKluentojn() {
       try { res.write(pakajxo); } catch { sseKlientoj.delete(res); }
     }
     reŝargaTempilo = null;
-  }, 80);
+  }, 0o100);   // 64 ms — la malakriga fenestro
 }
 
-// Spekti dist/-on por sxangxoj
+// komenciVidanReŝargon — Spekti dist/-on por sxangxoj.
 function komenciVidanReŝargon() {
   try {
     watch(DISTO, { recursive: true }, ( _, dosiero ) => {
@@ -81,7 +82,7 @@ const servilo = createServer(async (peto, respondo) => {
 // La HTTP-stat-kodoj estas DEKUMAJ ( la retumila protokolo — 200, 403, 404 ).
 // La nura escepto de la 0o-oktala regulo — la kabloprotokolaj valoroj.
 
-// La retilo — WebSocket-servilo por la multludada sperto ( /retilo ).
+// ⟪ La retilo 📃 ⟫ — WebSocket-servilo por la multludada sperto ( /retilo ).
 konektiRetilon(servilo, {
   jeAliĝo: ( id, kvanto ) => console.log("Retilo — " + id + " aliĝis ( " + kvanto + " aktiva )"),
   jeForiro: ( id, kvanto ) => console.log("Retilo — " + id + " foriris ( " + kvanto + " aktiva )"),

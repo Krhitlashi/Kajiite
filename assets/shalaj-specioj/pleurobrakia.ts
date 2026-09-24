@@ -1,4 +1,5 @@
-// Pleŭrobrakia ( margrozberujo ) — la globa ktenoforo de la rivero. Preskaŭ
+// ≺⧼ Pleŭrobrakia 🪼 ⧽≻
+// La globa ktenoforo de la rivero ( margrozberujo ). Preskaŭ
 // sfera ĝelo kun ok kombovicoj, la statocisto sur la pinto, kaj DU LONGAJ
 // sinuaj tentakloj, kiuj eliras el ingoj sur la supra duono de la korpo.
 //

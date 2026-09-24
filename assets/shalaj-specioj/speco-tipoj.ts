@@ -1,4 +1,5 @@
-// Speco-tipoj — la komunaj tipoj de la akvaj bestoj kaj de la petreloj.
+// ≺⧼ Speco-tipoj 🐾 ⧽≻
+// La komunaj tipoj de la akvaj bestoj kaj de la petreloj.
 //
 // Ĉiu specio nun havas sian propran dosieron ( beroe.ts, mnemiopsis.ts,
 // pleurobrakia.ts, glacifiso.ts, marlaraksxo.ts, petrelo.ts ); ĉi tiu dosiero

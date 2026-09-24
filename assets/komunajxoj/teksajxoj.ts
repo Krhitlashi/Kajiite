@@ -698,7 +698,7 @@ export const kreiLarikanSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
       desegniWrapan(k, w, () => {
         const g = k.createLinearGradient(kresto.x, 0, kresto.x + kresto.largho, 0);
         g.addColorStop(0, senAlfa(pinto));
-        g.addColorStop(0.5, pinto);
+        g.addColorStop(0o1/0o2, pinto);
         g.addColorStop(1, senAlfa(pinto));
         k.fillStyle = g;
         k.fillRect(kresto.x, 0, kresto.largho, h);
@@ -781,7 +781,7 @@ export const kreiLarikanSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture =>
       desegniWrapan(kunteksto, w, () => {
         const g = kunteksto.createLinearGradient(kresto.x, 0, kresto.x + kresto.largho, 0);
         g.addColorStop(0, "rgba(128,128,128,0)");
-        g.addColorStop(0.5, kresto.hela ? "rgba(162,162,162,0.48)" : "rgba(112,112,112,0.38)");
+        g.addColorStop(0o1/0o2, kresto.hela ? "rgba(162,162,162,0.48)" : "rgba(112,112,112,0.38)");
         g.addColorStop(1, "rgba(128,128,128,0)");
         kunteksto.fillStyle = g;
         kunteksto.fillRect(kresto.x, 0, kresto.largho, h);
@@ -1183,7 +1183,7 @@ export const kreiRokenTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.lineWidth = 1.4 + Math.random() * 1.4;
       kunteksto.beginPath(); kunteksto.moveTo(x, y);
       for ( let j = 0; j < 0o14; j++ ) {
-        ang += ( Math.random() - 0.5 ) * 0.8;
+        ang += ( Math.random() - 0o1/0o2 ) * 0.8;
         x += Math.cos(ang) * 14; y += Math.sin(ang) * 14;
         kunteksto.lineTo(x, y);
       }
@@ -1472,8 +1472,8 @@ function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
         // agavo. La meza linio de la pinno kurbiĝas ankaŭ antaŭen ( falĉileca ).
         const pintoX = x + cos * longo;
         const pintoY = y + sin * longo - p.pinnaSvelto * longo;
-        const ctrlX = x + cos * longo * 0.5;
-        const ctrlY = y + sin * longo * 0.5 - 0.05 * longo;
+        const ctrlX = x + cos * longo * 0o1/0o2;
+        const ctrlY = y + sin * longo * 0o1/0o2 - 0o1/0o20 * longo;
         const flar = longo * p.pinnaLargho;
         const N = 0o10;
         const randoA: number[][] = [];
@@ -1737,7 +1737,7 @@ export const kreiHerbErinanTeksajxon = sxovu((): THREE.CanvasTexture => {
     for ( let i = 0; i < 0o34; i++ ) {
       desegniKlingon(s * ( 0.06 + hazardo() * 0.88 ), bazoY,
         s * ( 0.44 + hazardo() * 0.40 ),
-        s * ( hazardo() - 0.5 ) * 0.62,
+        s * ( hazardo() - 0o1/0o2 ) * 0.62,
         s * ( 0.013 + hazardo() * 0.013 ),
         paletro[( hazardo() * 0o4 ) | 0]);
     }
@@ -1746,7 +1746,7 @@ export const kreiHerbErinanTeksajxon = sxovu((): THREE.CanvasTexture => {
     for ( let i = 0; i < 0o10; i++ ) {
       desegniKlingon(s * ( 0.10 + hazardo() * 0.80 ), bazoY,
         s * ( 0.30 + hazardo() * 0.38 ),
-        s * ( hazardo() - 0.5 ) * 0.5,
+        s * ( hazardo() - 0o1/0o2 ) * 0o1/0o2,
         s * ( 0.010 + hazardo() * 0.010 ),
         paletro[0o4 + ( ( hazardo() * 0o2 ) | 0)]);
     }
@@ -1756,7 +1756,7 @@ export const kreiHerbErinanTeksajxon = sxovu((): THREE.CanvasTexture => {
       const koloro = paletro[0o3 + ( ( hazardo() * 0o3 ) | 0 )];
       desegniKlingon(s * ( 0.08 + hazardo() * 0.84 ), bazoY,
         s * ( 0.20 + hazardo() * 0.30 ),
-        s * ( hazardo() - 0.5 ) * 0.36,
+        s * ( hazardo() - 0o1/0o2 ) * 0.36,
         s * ( 0.017 + hazardo() * 0.016 ), koloro);
     }
     // ⟨ La radika ombro 📃 ⟩ — mola ovala makulo ĉe la radikoj, por ke la tufo
@@ -1795,7 +1795,7 @@ export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
     // varma nuanco ( la pinto de herba folio ofte flaviĝas ).
     const gradiento = kunteksto.createLinearGradient(0, h, 0, 0);
     gradiento.addColorStop(0, "#23481a");
-    gradiento.addColorStop(0.25, "#3d7529");
+    gradiento.addColorStop(0o1/0o4, "#3d7529");
     gradiento.addColorStop(0.55, "#5d9c37");
     gradiento.addColorStop(0.82, "#8cbb4d");
     gradiento.addColorStop(1, "#c0c25e");
@@ -1808,7 +1808,7 @@ export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
     const kresto = kunteksto.createLinearGradient(meza - 6, 0, meza + 6, 0);
     kresto.addColorStop(0, "rgba(18,44,12,0.30)");
     kresto.addColorStop(0.35, "rgba(216,240,170,0.28)");
-    kresto.addColorStop(0.5, "rgba(228,248,186,0.34)");
+    kresto.addColorStop(0o1/0o2, "rgba(228,248,186,0.34)");
     kresto.addColorStop(0.65, "rgba(216,240,170,0.28)");
     kresto.addColorStop(1, "rgba(18,44,12,0.30)");
     kunteksto.fillStyle = kresto;
@@ -1818,7 +1818,7 @@ export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
     for ( let i = 0; i < 0o22; i++ ) {
       const x = hazardo() * w;
       const disto = Math.abs(x - meza) / meza;
-      kunteksto.fillStyle = hazardo() < 0.5
+      kunteksto.fillStyle = hazardo() < 0o1/0o2
         ? `rgba(28,58,18,${0.10 + disto * 0.12})`
         : `rgba(190,224,140,${0.07 + ( 1 - disto ) * 0.10})`;
       kunteksto.fillRect(x, 0, 1, h);
@@ -1826,14 +1826,14 @@ export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
     // La randoj — mallarĝa malhela linio, do la klingo havas silueton ankaŭ
     // kontraŭ hela ĉielo.
     kunteksto.fillStyle = "rgba(20,44,14,0.34)";
-    kunteksto.fillRect(0, 0, 1.5, h);
-    kunteksto.fillRect(w - 1.5, 0, 1.5, h);
+    kunteksto.fillRect(0, 0, 0o3/0o2, h);
+    kunteksto.fillRect(w - 0o3/0o2, 0, 0o3/0o2, h);
     // La baza ombro — la malsupro de la tufo estas malhela kaj humida.
-    const baza = kunteksto.createLinearGradient(0, h, 0, h * 0.75);
+    const baza = kunteksto.createLinearGradient(0, h, 0, h * 0o3/0o4);
     baza.addColorStop(0, "rgba(14,30,10,0.55)");
     baza.addColorStop(1, "rgba(14,30,10,0)");
     kunteksto.fillStyle = baza;
-    kunteksto.fillRect(0, h * 0.75, w, h * 0.25);
+    kunteksto.fillRect(0, h * 0o3/0o4, w, h * 0o1/0o4);
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, anisotropio: 4 });
 });
 
@@ -2462,7 +2462,7 @@ function kreiKavalErbanTeksajxon(branĉa: boolean): THREE.CanvasTexture {
     for ( let i = 0; i < 0o20; i++ ) {
       const x = i / 0o20 * w;
       kunteksto.fillStyle = i % 2 === 0 ? "rgba(214,240,186,0.30)" : "rgba(18,58,42,0.34)";
-      kunteksto.fillRect(x, 0, w / 0o20 * 0.5, h);
+      kunteksto.fillRect(x, 0, w / 0o20 * 0o1/0o2, h);
     }
     // ⟨ La nodaj markoj 📃 ⟩ — la segmento havas v = 0 ĉe sia bazo kaj v = 1 ĉe
     // sia supro ( tie sidas la ingo ), do la mallarĝa malhela bando iras al la
@@ -2698,7 +2698,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     // do la silueto ne estas glata ovalo. La du duonoj ankaŭ ne estas egale
     // larĝaj: la suba flanko estas iomete pli larĝa, kiel ĉe vera folio.
     const segilo = ( t: number, nombro: number ): number =>
-      Math.abs((( t * nombro ) % 1 ) - 0.5) * 2;
+      Math.abs((( t * nombro ) % 1 ) - 0o1/0o2) * 2;
     // ⟨ Duobla segildento 📃 ⟩ — grandaj dentoj ( ~24 ) kun pli etaj inter ili
     // ( ~56 ). La antaŭaj dentoj estis tro grandaj: sur la folio ili legiĝis kiel
     // ŝtuparo de 5-rasterumaj blokoj, kaj la rando de la folio aspektis
@@ -2718,7 +2718,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
         ? Math.pow(t / PLEJ_LARĜA, 0.52)
         : Math.pow(( 1 - t ) / ( 1 - PLEJ_LARĜA ), 1.05);
       const dentoj = 1 + 0.055 * segilo(t, 24) + 0.026 * segilo(t + 0.021, 56);
-      return hwMax * profilo * dentoj * ( 1 + 0.05 * flanko );
+      return hwMax * profilo * dentoj * ( 1 + 0o1/0o20 * flanko );
     };
     const xDe = ( t: number ): number => w * MARGENO + t * longo;
     // La klingo — unu vojo supre, unu malsupre.
@@ -2741,7 +2741,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
     gradiento.addColorStop(0, "#7ba55e");
     gradiento.addColorStop(0.35, "#8fb471");
-    gradiento.addColorStop(0.75, "#a2c182");
+    gradiento.addColorStop(0o3/0o4, "#a2c182");
     gradiento.addColorStop(1, "#aecb8e");
     kunteksto.fillStyle = gradiento;
     kunteksto.fill(klingo);
@@ -2765,7 +2765,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     const makuloHazardo = kreiHazardanGenerilon(0o2716);
     for ( let i = 0; i < 0o440; i++ ) {
       const t = makuloHazardo();
-      const y = mezo + ( makuloHazardo() - 0.5 ) * 2 * hwMax * makuloHazardo();
+      const y = mezo + ( makuloHazardo() - 0o1/0o2 ) * 2 * hwMax * makuloHazardo();
       const r = 2.2 + makuloHazardo() * 9;
       kunteksto.fillStyle = i % 0o3 ? "rgba(206,224,178,0.13)" : ombro(BAZO, 0o3, 0.11);
       kunteksto.beginPath(); kunteksto.ellipse(xDe(t), y, r, r * 0.55, makuloHazardo() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
@@ -2774,7 +2774,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     // vido, sed ili senigas la folion de la aspekto de plata farbo.
     for ( let i = 0; i < 0o3000; i++ ) {
       const x = w * MARGENO + makuloHazardo() * longo;
-      const y = mezo + ( makuloHazardo() - 0.5 ) * 2 * hwMax;
+      const y = mezo + ( makuloHazardo() - 0o1/0o2 ) * 2 * hwMax;
       kunteksto.fillStyle = i % 0o2 ? "rgba(136,164,108,0.16)" : "rgba(214,232,190,0.14)";
       kunteksto.fillRect(x, y, 1.6, 1.6);
     }
@@ -2794,7 +2794,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.quadraticCurveTo(xDe(t + 0.06), mezo + flanko * hwMax * 0.45, fino, pinto);
       kunteksto.stroke();
       kunteksto.strokeStyle = "rgba(226,240,204,0.42)";
-      kunteksto.lineWidth = 1.5;
+      kunteksto.lineWidth = 0o3/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(xDe(t), mezo);
       kunteksto.quadraticCurveTo(xDe(t + 0.06), mezo + flanko * hwMax * 0.44, fino,
@@ -3236,7 +3236,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     // La duon-larĝo de la geometria silueto ĉe la bilda vico y. La kanvaso
     // estas renversita ( flipY ), do la folia bazo ( t = 0 ) estas ĉe la
     // MALSUpra rando kaj la pinto ( t = 1 ) ĉe la supra.
-    const duono = ( y: number ): number => 0.5 * w * Math.sin(Math.PI * y / h);
+    const duono = ( y: number ): number => 0o1/0o2 * w * Math.sin(Math.PI * y / h);
     // klingo — la vojo de la folia silueto ( por la plenigo kaj la tondilo ).
     const klingo = (): void => {
       kunteksto.beginPath();
@@ -3262,7 +3262,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     const karno = kunteksto.createLinearGradient(0, h, 0, 0);
     karno.addColorStop(0, "#f0bcf4");
     karno.addColorStop(0.14, "#dc96e6");
-    karno.addColorStop(0.5, "#bf6fd4");
+    karno.addColorStop(0o1/0o2, "#bf6fd4");
     karno.addColorStop(0.82, "#9a4eae");
     karno.addColorStop(1, "#763486");
     klingo();
@@ -3280,11 +3280,11 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     //    legiĝas kiel karnofina folio eĉ kiam la makuloj ne videblas.
     for ( const f of [ { t: 0.20, l: 0.24, d: -1 }, { t: 0.42, l: 0.20, d: 1 },
       { t: 0.64, l: 0.20, d: -1 }, { t: 0.85, l: 0.18, d: 1 } ] ) {
-      const sx = cx + ( f.t - 0.5 ) * w;
+      const sx = cx + ( f.t - 0o1/0o2 ) * w;
       const grad = kunteksto.createLinearGradient(sx - f.l * w, 0, sx + f.l * w, 0);
       const koloro = f.d > 0 ? "rgba(255,238,255,0.10)" : ombro(BAZO, 0o11, 0.16);
       grad.addColorStop(0, senAlfa(koloro));
-      grad.addColorStop(0.5, koloro);
+      grad.addColorStop(0o1/0o2, koloro);
       grad.addColorStop(1, senAlfa(koloro));
       kunteksto.fillStyle = grad;
       kunteksto.fillRect(sx - f.l * w, 0, f.l * 2 * w, h);
@@ -3298,7 +3298,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const y = Math.random() * h;
       const x = cx + ( Math.random() * 2 - 1 ) * duono(y);
       const r = h * ( 0.008 + Math.random() * 0.022 );
-      const hela = Math.random() < 0.5;
+      const hela = Math.random() < 0o1/0o2;
       const koloro = hela ? "rgba(255,238,255,0.10)" : ombro(BAZO, 0o11, 0.17);
       const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
       g.addColorStop(0, koloro);
@@ -3317,10 +3317,10 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     kunteksto.lineTo(cx + ripo(0), 0);
     kunteksto.quadraticCurveTo(cx + ripo(h * 0.45), h * 0.45, cx + ripo(h), h);
     kunteksto.closePath();
-    const ripoGradiento = kunteksto.createLinearGradient(cx - w * 0.05, 0, cx + w * 0.05, 0);
+    const ripoGradiento = kunteksto.createLinearGradient(cx - w * 0o1/0o20, 0, cx + w * 0o1/0o20, 0);
     ripoGradiento.addColorStop(0, ombro(BAZO, 0o12, 0.52));
     ripoGradiento.addColorStop(0.32, ombro(BAZO, 0o10, 0.10));
-    ripoGradiento.addColorStop(0.5, "rgba(255,244,255,0.46)");
+    ripoGradiento.addColorStop(0o1/0o2, "rgba(255,244,255,0.46)");
     ripoGradiento.addColorStop(0.68, ombro(BAZO, 0o10, 0.10));
     ripoGradiento.addColorStop(1, ombro(BAZO, 0o12, 0.52));
     kunteksto.fillStyle = ripoGradiento;
@@ -3368,7 +3368,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const y = Math.random() * h;
       const x = cx + ( Math.random() * 2 - 1 ) * duono(y);
       const l = h * ( 0.025 + Math.random() * 0.055 );
-      kunteksto.strokeStyle = Math.random() < 0.5
+      kunteksto.strokeStyle = Math.random() < 0o1/0o2
         ? `rgba(255,240,255,${0.10 + Math.random() * 0.13})`
         : ombro(BAZO, 0o11, 0.11 + Math.random() * 0.14);
       kunteksto.beginPath();
@@ -3381,7 +3381,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const y = Math.random() * h;
       const x = cx + ( Math.random() * 2 - 1 ) * duono(y);
       const l = h * 0.004 * ( 0.6 + Math.random() );
-      kunteksto.fillStyle = Math.random() < 0.5
+      kunteksto.fillStyle = Math.random() < 0o1/0o2
         ? ombro(BAZO, 0o6, 0.16 + Math.random() * 0.22)
         : `rgba(248,228,254,${0.16 + Math.random() * 0.22})`;
       kunteksto.fillRect(x, y, l, l);
@@ -3390,7 +3390,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     // 7. La mola brilo laŭ la longo — la suka reflekto de la karnofina folio.
     const brilo = kunteksto.createLinearGradient(0, h, 0, 0);
     brilo.addColorStop(0, "rgba(255,240,255,0.16)");
-    brilo.addColorStop(0.5, senAlfa("rgba(255,240,255,0.12)"));
+    brilo.addColorStop(0o1/0o2, senAlfa("rgba(255,240,255,0.12)"));
     brilo.addColorStop(1, ombro(BAZO, 0o11, 0.20));
     kunteksto.fillStyle = brilo;
     kunteksto.fillRect(0, 0, w, h);
@@ -3471,7 +3471,7 @@ function generiPuranSxelanSkizon(): PuraSxelaSkizo {
     platoj.push({
       x: Math.random() * w,
       largho: 0o2 + Math.random() * 0o6,
-      hela: Math.random() < 0.5,
+      hela: Math.random() < 0o1/0o2,
     });
   }
   // ⟨ La ton-nuboj sur REGULA krado 📃 ⟩ — anstataŭ 0o140 ( 96 ) hazarde
@@ -3483,8 +3483,8 @@ function generiPuranSxelanSkizon(): PuraSxelaSkizo {
   const kolumnoj = 0o4, vicoj = 0o30;
   for ( let j = 0; j < vicoj; j++ ) for ( let i = 0; i < kolumnoj; i++ ) {
     makuloj.push({
-      x: w * ( i + 0.5 + ( j % 2 === 0 ? 0.25 : -0.25 ) ) / kolumnoj,
-      y: h * ( j + 0.5 ) / vicoj,
+      x: w * ( i + 0o1/0o2 + ( j % 2 === 0 ? 0o1/0o4 : -0o1/0o4 ) ) / kolumnoj,
+      y: h * ( j + 0o1/0o2 ) / vicoj,
       r: h * 0.014,
       hela: ( i + j ) % 2 === 0,
     });
@@ -3507,7 +3507,7 @@ function desegniSxelajnPorojn(k: CanvasRenderingContext2D, r: number,
   const kolumnoj = Math.floor(w / PASO), vicoj = Math.floor(h / PASO);
   const deX = ( w - kolumnoj * PASO ) / 2, deY = ( h - vicoj * PASO ) / 2;
   for ( let j = 0; j < vicoj; j++ ) for ( let i = 0; i < kolumnoj; i++ ) {
-    const x = ( i + 0.5 ) * PASO + deX, y = ( j + 0.5 ) * PASO + deY;
+    const x = ( i + 0o1/0o2 ) * PASO + deX, y = ( j + 0o1/0o2 ) * PASO + deY;
     k.fillStyle = ( i + j ) % 2 === 0 ? malhela : hela;
     desegniWrapan(k, w, () => {
       k.beginPath(); k.arc(x, y, r, 0, Math.PI * 2); k.fill();
@@ -3559,7 +3559,7 @@ const SXELA_KOLUMO_NOMBRO = 0o10;
 // de la taso legas v = 0.95. La malhela fino mola finiĝas ĉe la rando de la
 // bando ( v = 0.92, SUR LA TRUNKO ), por ke ĝi ne desegnu videblan horizontalan
 // strion trans la ŝelon.
-const SXELA_KOLUMO_BAZO = 0.05;   // = la vertikala ripeto de la koluma materialo
+const SXELA_KOLUMO_BAZO = 0o1/0o20;   // = la vertikala ripeto de la koluma materialo
 // ⟨ Kien la koluma bando legas 📃 ⟩ — la mezo de la bando kiel frakcio de la
 // bilda alto. La per-instanca tonalto ( sxelaTrunkaKoloro ) mezuras ĉi tie, ĉar
 // la bando estas tio, kion la kolumaj tasoj montras.
@@ -3743,7 +3743,7 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
       desegniWrapan(kunteksto, w, () => {
         const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.largho, 0);
         g.addColorStop(0, senAlfa(pinto));
-        g.addColorStop(0.5, pinto);
+        g.addColorStop(0o1/0o2, pinto);
         g.addColorStop(1, senAlfa(pinto));
         kunteksto.fillStyle = g;
         kunteksto.fillRect(plato.x, 0, plato.largho, h);
@@ -3755,8 +3755,8 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     //    legiĝas kiel FENDITA ŝelo, ne kiel vertikale striita tubo.
     kunteksto.lineCap = "round";
     for ( const fendo of skizo.fendoj ) {
-      const korpo = fendo.tono < 0.5 ? "rgba(92,48,106,0.42)" : "rgba(26,10,34,0.48)";
-      const kernDikeco = Math.max(1, fendo.dikeco * 0.5);
+      const korpo = fendo.tono < 0o1/0o2 ? "rgba(92,48,106,0.42)" : "rgba(26,10,34,0.48)";
+      const kernDikeco = Math.max(1, fendo.dikeco * 0o1/0o2);
       desegniWrapan(kunteksto, w, () => {
         desegniStrion(kunteksto, fendo, korpo);
         desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(14,4,20,0.55)");
@@ -3764,7 +3764,7 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
 
     // 5. La etaj poroj — la ŝela punktaĵo, kiu rompas la grandajn ebenojn.
-    desegniSxelajnPorojn(kunteksto, 1.5, "rgba(20,8,24,0.11)", "rgba(176,138,180,0.10)");
+    desegniSxelajnPorojn(kunteksto, 0o3/0o2, "rgba(20,8,24,0.11)", "rgba(176,138,180,0.10)");
 
     // 6. La KOLUMA BANDO — la desegno de la konusoj ( vidu
     //    desegniLaSxelanKolumon ). Ĝi venas LASTe, do ĝi kovras la fendojn kaj la
@@ -3816,7 +3816,7 @@ export const kreiPurpuranSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture =
       desegniWrapan(kunteksto, w, () => {
         const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.largho, 0);
         g.addColorStop(0, "rgba(128,128,128,0)");
-        g.addColorStop(0.5, plato.hela ? "rgba(158,158,158,0.45)" : "rgba(116,116,116,0.35)");
+        g.addColorStop(0o1/0o2, plato.hela ? "rgba(158,158,158,0.45)" : "rgba(116,116,116,0.35)");
         g.addColorStop(1, "rgba(128,128,128,0)");
         kunteksto.fillStyle = g;
         kunteksto.fillRect(plato.x, 0, plato.largho, h);
@@ -3831,7 +3831,7 @@ export const kreiPurpuranSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture =
         desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(86,86,86,0.70)");
       });
     }
-    desegniSxelajnPorojn(kunteksto, 1.5, "rgba(72,72,72,0.16)", "rgba(168,168,168,0.15)");
+    desegniSxelajnPorojn(kunteksto, 0o3/0o2, "rgba(72,72,72,0.16)", "rgba(168,168,168,0.15)");
     // La koluma bando ankaŭ reliefas — la skvamoj leviĝas kaj iliaj vejnoj
     // sinkas, do la konusoj havas la saman skvamaron en la reliefo.
     desegniLaSxelanKolumon(kunteksto,

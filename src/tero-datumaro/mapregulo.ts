@@ -1,4 +1,5 @@
-// Mapregulo — la reguloj de la mapoj. La LISTO de la mapoj estas datumaro
+// ≺⧼ Mapregulo 🗺️ ⧽≻
+// La reguloj de la mapoj. La LISTO de la mapoj estas datumaro
 // ( src/tero-datumaro/mapoj.ts, kiun la terena skulptilo reskribas ), kaj la
 // tipo kaj la helpiloj estas permane skribitaj ĉi tie — do la skulptilo skribas
 // nur la datumojn kaj la interfaco restas en unu loko.

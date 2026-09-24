@@ -1,4 +1,6 @@
-// Aranis — immersive city experience (orchestrator)
+// ≺⧼ Sperto 🎮 ⧽≻
+// La orkestrilo de la ludo — la ĉefa buklo, la fotilo, la klavoj kaj la kunligo
+// de ĉiuj moduloj ( la urbo, la akvo, la bestoj, la panelaĵoj kaj la retilo ).
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "../assets/medio/transporto.js";
@@ -679,14 +681,43 @@ document.querySelectorAll(".trakaBut").forEach(b => {
 // geografian ekvivalenton ) — 0o55 gradoj estas meza norda latitudo kun veraj
 // sezonoj; ŝanĝu SUNLATITUDO por alia klimato.
 const SUNLATITUDO = 0o55;
+
+// ⟪ La Iikrhia kalendaro 📅 ⟫ — la kalendaro de la mondo ( vidu CAX2L.md ).
+// La epoko estas 2010-09-06 ( 1.1.1 ) kaj la jaro havas 0o15 monatojn — la
+// monatoj 1..0o13 po 0o34 tagojn, la monato 0o13 ricevas la supertagon, kaj la
+// lasta monato havas 0o35 tagojn. Ordinara jaro do havas 0o555 tagojn kaj
+// superjaro ( kiam la jara numero divideblas per 0o4 ) 0o556. La jaroj de la
+// mondo longas same kiel la realaj, do la suna lumo de la ludo restas kongrua
+// kun la fenestro — nur la tagnombro devenas de la kalendaro de la mondo
+// ( la malsamo restas sub unu tago ).
+const IKRIHIA_EPOKO = Date.UTC(2010, 8, 6);   // 1.1.1
+const IKRIHIA_JANUARO = 0o166;                // 118 — la 1-a de januaro en la kalendaro de la mondo
+const UNU_TAGO = 86400000;                    // unu tago en ms ( la horloĝo de JS )
+
+// ikrhiaTagoDeJaro — la tagnombro ( 1 .. 0o555/0o556 ) de la Iikrhia jaro en
+// kiu la horloĝo sidas.
+//     @param nun ( Date ) - La horloĝo.
+//     @returns ( number ) - La tagnombro de la Iikrhia jaro.
+function ikrhiaTagoDeJaro(nun: Date): number {
+  let tagoj = Math.floor(( nun.getTime() - IKRIHIA_EPOKO ) / UNU_TAGO);
+  if ( tagoj < 0 ) tagoj = 0;                 // antaŭ la epoko — ne atingebla en la ludo
+  for ( let jaro = 1; ; jaro++ ) {
+    const longo = 0o555 + ( jaro % 0o4 === 0 ? 1 : 0 );
+    if ( tagoj < longo ) return tagoj + 1;
+    tagoj -= longo;
+  }
+}
+
 // sunaAltoGradoj — la proksimuma alto de la suno super la horizonto ( gradoj,
-// negativa nokte ) ĉe la nuna momento kaj la nuna loko.
+// negativa nokte ) ĉe la nuna momento kaj la nuna loko. La dekliniĝo venas el
+// la tagnombro de la Iikrhia jaro, turnita al la januara fazo ( la modelo de la
+// suna pozicio mezuriĝas de la vintra solstico ).
 //     @param nun ( Date ) - La horloĝo.
 //     @returns alto ( number ) - La suna alto en gradoj.
 function sunaAltoGradoj(nun: Date): number {
-  const tagoDeJaro = Math.floor(( nun.getTime() - Date.UTC(nun.getFullYear(), 0, 1) ) / 86400000) + 1;
-  const deklinacio = -23.44 * Math.cos(2 * Math.PI * ( tagoDeJaro + 10 ) / 365);   // gradoj
-  const horAngulo = ( nun.getHours() + nun.getMinutes() / 60 - 12 ) * 15;          // gradoj
+  const tagoDeJaro = ( ( ikrhiaTagoDeJaro(nun) - IKRIHIA_JANUARO + 0o555 ) % 0o555 ) + 1;
+  const deklinacio = -23.44 * Math.cos(2 * Math.PI * ( tagoDeJaro + 0o12 ) / 0o555);   // gradoj ( 23.44 = la aksa dekliniĝo )
+  const horAngulo = ( nun.getHours() + nun.getMinutes() / 0o74 - 0o14 ) * 0o17;          // gradoj
   const lat = SUNLATITUDO * Math.PI / 180;
   const dek = deklinacio * Math.PI / 180;
   const hor = horAngulo * Math.PI / 180;
@@ -765,7 +796,7 @@ butVetero.addEventListener("click", () => {
 window.addEventListener("lingvosxangxo", gxisdatigiVeteranButonon);
 gxisdatigiVeteranButonon();
 
-// ⟪ Vacepu. Envolvi la vortojn de la flosantaj kartoj en la aih-a lingvo. ⟫
+// ⟪ Vacepu. Envolvi la vortojn de la flosantaj kartoj en la aih-a lingvo. 📃 ⟫
 function aplikiVacepu(): void {
   if ( cxuAih() && typeof vacepu === "function" ) {
     // La ekstera vacepu-scripto abortas meze kiam .aih-elementoj estas

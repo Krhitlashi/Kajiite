@@ -1,4 +1,5 @@
-// Mapformo — la formo de la mondo. La tereno ne plu estas kvadrato — ĝi estas la
+// ≺⧼ Mapformo 🗺️ ⧽≻
+// La formo de la mondo. La tereno ne plu estas kvadrato — ĝi estas la
 // formo elektita per la mapo ( src/tero-datumaro/mapoj.ts ): cirklo ( la
 // defaŭlto ), rondigita kvadrato aŭ rondigita triangulo. La formo difinas la
 // randon de la tereno, la vertikalan krutaĵon sub ĝi kaj la komencon de la

@@ -1,4 +1,5 @@
-// Keuxfhxeso ( ſɭw ʃɔɔ˞ ) - strukturo el ses falditaj folioj kun 6-flanka
+// ≺⧼ Keuxfhxeso ⭐ ⧽≻
+// La keŭfĥeso ( ſɭw ʃɔɔ˞ ). strukturo el ses falditaj folioj kun 6-flanka
 // simetrio. De supre ĝi estas mola sespinta stelo. la poloj estas rondaj kaj
 // la konkavaj flankoj inter ili estas glataj arkoj, ne krevoj. De flanko ĉiu
 // folio kunfaldiĝas en longan rondan ovalon, sen vertikala ŝvelaĵo. La ses
@@ -54,7 +55,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   const cx = W * 0o4 / 0o10;
   const cy = H * 0o4 / 0o10;
 
-  // ⟨ Foliaj finoj ⟩
+  // ⟨ Foliaj finoj 📃 ⟩
   // Mildaj koloraj bandoj ĉe ambaŭ randoj ( unue, por ke ili ne kovru la
   // foliajn desegnojn ) — la supro uzas la supran folian koloron, la
   // malsupro la suban, do la poloj kunfandiĝas kun la folioj.
@@ -71,7 +72,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   k.fillStyle = gb;
   k.fillRect(0, H * 0o7 / 0o10, W, H * 0o1 / 0o10);
 
-  // ⟨ 4-pinta stelo en la centro ( la kvarStelo-motivo de la vestoj ) ⟩
+  // ⟨ 4-pinta stelo en la centro ( la kvarStelo-motivo de la vestoj ) 📃 ⟩
   // La banda gradiento lasis k.fillStyle travidebla — reestigu la stelan
   // plenigon, alie la stelo estus nevidebla.
   k.fillStyle = stelaKoloro;
@@ -89,7 +90,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
   k.closePath();
   k.fill();
 
-  // ⟨ 4 ">"-krampoj — ekstraj brakoj de la stelo ⟩
+  // ⟨ 4 ">"-krampoj — ekstraj brakoj de la stelo 📃 ⟩
   // Ĉiu krampo estas ">"-forma. La du gamboj ŝvebas kun klara interspaco de
   // la stelo kaj la pinto ( la vertico ) montras EKSTEREN — supren por la
   // supraj paroj, suben por la subaj. La gamboj estas pli eksteren kaj
@@ -133,7 +134,7 @@ function kreiFolianTeksajxon(): THREE.CanvasTexture {
     }
   }
 
-  // ⟨ Simetria folio supere kaj sube ⟩
+  // ⟨ Simetria folio supere kaj sube 📃 ⟩
   // Supro. Folia pinto supre, larĝa bazo malsupren al la centro.
   // Pli larĝa folio — 0o31/0o100 ( 0.390625 ) anstataŭ 0o24/0o100, por ke la
   // supraj kaj subaj formoj plenigu pli da horizontala spaco.

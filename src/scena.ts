@@ -1,4 +1,6 @@
-// Scena — bildilo, sceno, fotilo, ĉielo, lumoj, materialoj, montoj, grundo, vetero
+// ≺⧼ Scena 🎬 ⧽≻
+// La bildilo, la sceno, la fotilo, la ĉielo, la lumoj, la materialoj, la montoj,
+// la grundo kaj la vetero.
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { alteco, akvaNivelo, akvaNiveloProksima, glataPaso } from "./tereno.js";
@@ -16,10 +18,10 @@ import { gxisdatigiSteleanVitron } from "../assets/konstruajxoj/satalaj-konstrua
 export function montriEraronon(sxargxaEl: HTMLElement): void {
   const d = document.createElement("div");
   // La ekstera stilfolio provizas la plenekranan tegilon ( .sozanu + .er2ha +
-  // .a3e ) kaj la tutan tipografion/spacojn de h1/p/button — nenia loka CSS,
-  // neniaj enliniaj stiloj.
+  // .a3e ) kaj la tutan tipografion/spacojn de ksakap2sa/p/button — nenia loka
+  // CSS, neniaj enliniaj stiloj.
   d.className = "sozanu er2ha a3e";
-  d.innerHTML = `<h1>${traduki("titoloSxargxo")}</h1><p>${traduki("webglMesagxo")}</p><p>${traduki("webglDetalo")}</p><button onclick="location.reload()">${traduki("webglReprovi")}</button>`;
+  d.innerHTML = `<p class="ksakap2sa">${traduki("titoloSxargxo")}</p><p>${traduki("webglMesagxo")}</p><p>${traduki("webglDetalo")}</p><button onclick="location.reload()">${traduki("webglReprovi")}</button>`;
   document.body.appendChild(d);
   sxargxaEl.classList.add("finita");
 }
@@ -147,7 +149,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   sceno.environment = pmremGenerilo.fromScene(new RoomEnvironment(bildilo), 0o1/0o40).texture;
   pmremGenerilo.dispose();
 
-  // Cxielo
+  // ⟪ Cxielo 📃 ⟫
   const cxielajUniformoj: Record<string, THREE.IUniform> = {
     uTop: { value: new THREE.Color(0x78a8c0) },
     uMid: { value: new THREE.Color(0xb8d0d8) },
@@ -184,7 +186,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   const cxielo = new THREE.Mesh(cxielaGeometrio, cxielaMaterialo);
   sceno.add(cxielo);
 
-  // Lumoj
+  // ⟪ Lumoj 📃 ⟫
   const hemiLumo = new THREE.HemisphereLight(0xc8e0e8, 0x485848, 0o63/0o100);
   sceno.add(hemiLumo);
   const suno = new THREE.DirectionalLight(0xf8f0d8, 0o45/0o40);
@@ -205,7 +207,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   suno.shadow.bias = -0o1 / ( 0o2 * OMBRA_MAPO ); suno.shadow.normalBias = 0o4/0o10;
   sceno.add(suno, suno.target);
 
-  // Suna sprajto
+  // ⟪ Suna sprajto 📃 ⟫
   const molaTeksturo = ( () => {
     const cv = document.createElement("canvas"); cv.width = cv.height = 0o400;
     const ctx = cv.getContext("2d")!;
@@ -446,7 +448,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     hajlo.position.copy(fotilo.position);
   }
 
-  // Materialoj — la diorito estas polurita ŝtono, do ĝi reflektas la
+  // ⟪ Materialoj 📃 ⟫ — la diorito estas polurita ŝtono, do ĝi reflektas la
   // ĉirkaŭan medion pli forte por la brila poluro.
   const dioritaMaterialo = kreiDioritanMaterialon(undefined, 0o6/0o10);
   const andezitaMaterialo = kreiAndezitanMaterialon();
@@ -521,7 +523,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       longoj[i] = 0o13/0o10 + Math.random() * 0o14/0o10;
       // Distanca fado — la loka ofseto egalas la mondan distancon de la fotilo.
       const d = Math.hypot(x0, z0);
-      fadoj[i] = Math.min(1, Math.max(0.05, 1 - ( d - 24 ) / 136));
+      fadoj[i] = Math.min(1, Math.max(0o1/0o20, 1 - ( d - 0o30 ) / 0o210));
     }
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
@@ -767,7 +769,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       // ⟨ La spino 📃 ⟩ — pli malalta, pli larĝa krestolinio, kiu NE malaperas
       // en la valoj. Ĝi portas la mezajn pintojn kaj kunligas la ĉefajn masojn,
       // do la montaro legiĝas kiel ĈENO anstataŭ kiel aro da montetoj.
-      const spino = malglata(x * 1.5 + 0o13, z * 1.5 + 0o27);
+      const spino = malglata(x * ( 0o3/0o2 ) + 0o13, z * ( 0o3/0o2 ) + 0o27);
       // ⟨ La dentoj 📃 ⟩ — du pliaj fajnaj oktavoj: la dentaro de la krestoj.
       // La antaŭa funkcio havis nur du oktavojn, do la siluetoj estis MOLAJ
       // SFERAJ makuloj — la mapo montris aerografo-tuŝojn, tute alian teksturon
@@ -903,7 +905,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       return ( ang: number ): number => {
         const u = Math.cos(ang) * 0o4 + semo;
         const v = Math.sin(ang) * 0o4 + semo * 0o3;
-        return bazoS * ( 0.34 + 0.56 * bruo2D(u, v) + 0.30 * bruo2D(u * 0o3 + 0o7, v * 0o3 + 0o5) );
+        // La pezoj — 0o3/0o10 ( 0.375 ), 0o5/0o10 ( 0.625 ) kaj 0o2/0o10 ( 0.25 ).
+        return bazoS * ( 0o3/0o10 + 0o5/0o10 * bruo2D(u, v) + 0o2/0o10 * bruo2D(u * 0o3 + 0o7, v * 0o3 + 0o5) );
       };
     }
 
@@ -1117,7 +1120,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // bruo2D — la izotropa valora bruo venas de la komuna modulo ( la sama
   // funkcio kiel en la terena skulptilo — antaŭe kopiita ĉi tie ).
 
-  // Grundo
+  // ⟪ Grundo 📃 ⟫
   ( function konstruiTerenon(grandeco: number, segmentoj: number): void {
     const g = new THREE.PlaneGeometry(grandeco, grandeco, segmentoj, segmentoj);
     g.rotateX(-Math.PI / 2);

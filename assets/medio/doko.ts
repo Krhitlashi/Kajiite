@@ -1,4 +1,5 @@
-// Doko-modulo — vojaj etendoj, kiuj malsupreniras al la akvo per ŝtuparo
+// ≺⧼ Doko ⚓ ⧽≻
+// Vojaj etendoj, kiuj malsupreniras al la akvo per ŝtuparo
 import * as THREE from "three";
 import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";

@@ -1,3 +1,4 @@
+// ≺⧼ Formoj 🔷 ⧽≻
 // Forma modulo — komunaj formo-fabrikoj dividitaj inter la konstruajxoj kaj la interno.
 import * as THREE from "three";
 
@@ -122,7 +123,7 @@ export function rondigiKonturon(punktoj: THREE.Vector2[], radio: number): THREE.
     if ( u.dot(v) < -0o17/0o20 ) { s.lineTo(V.x, V.y); continue; }
     // Neniam prenu pli ol la duono de la najbaraj pecoj, alie la tranĉoj de la
     // du anguloj renkontus unu la alian kaj la konturo mem interkruciĝus.
-    const h = Math.min(radio, A.distanceTo(V) * 0.5, V.distanceTo(B) * 0.5);
+    const h = Math.min(radio, A.distanceTo(V) * 0o1/0o2, V.distanceTo(B) * 0o1/0o2);
     const komenco = V.clone().addScaledVector(u, -h);
     const fino = V.clone().addScaledVector(v, h);
     if ( i === 0 ) s.moveTo(komenco.x, komenco.y); else s.lineTo(komenco.x, komenco.y);
@@ -156,4 +157,22 @@ export function kreiRondigitanRektangulanFormon(w: number, d: number, r: number)
   s.absarc(-hw + r, -hd + r, r, Math.PI, Math.PI * 0o3/0o2, false);
   s.closePath();
   return s;
+}
+
+// kreiLoftanGeometrion — geometrio el densigitaj staciaj ringoj. La alvokanto
+// jam konstruis la verticajn poziciojn, la uvojn kaj la triangulajn indeksojn;
+// ĉi tiu helpilo nur kunmetas ilin kaj kalkulas la verticajn normalojn. La
+// fiŝa korpo ( glacifiso ) kaj la birda korpo kaj flugilo ( petrelo-malneto )
+// uzas la saman helpilon, do la tri kopioj ne povas devojiĝi.
+//     @param pozicioj ( number[] ) - La verticaj pozicioj ( tri po vertico ).
+//     @param uvoj ( number[] ) - La UV-koordinatoj ( du po vertico ).
+//     @param indeksoj ( number[] ) - La triangulaj indeksoj.
+//     @returns geometrio ( THREE.BufferGeometry ) - La preta geometrio.
+export function kreiLoftanGeometrion(pozicioj: number[], uvoj: number[], indeksoj: number[]): THREE.BufferGeometry {
+  const geometrio = new THREE.BufferGeometry();
+  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
+  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
+  geometrio.setIndex(indeksoj);
+  geometrio.computeVertexNormals();
+  return geometrio;
 }

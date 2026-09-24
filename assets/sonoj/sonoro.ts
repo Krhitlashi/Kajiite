@@ -1,4 +1,5 @@
-// Sonoro — media sona motoro por Aranis (alportita de ornaveth-v2)
+// ≺⧼ Sonoro 🔊 ⧽≻
+// Media sona motoro por Aranis ( alportita de ornaveth-v2 )
 // Bruna-noza zumado kun malaltpasa LFO, harmoniaj sinusaj tavoloj, SFX, kaj genera muziko.
 
 import { iniciati, ludi, halti } from "./muziko/ludilo.js";
@@ -156,7 +157,7 @@ function whoosh(dur: number, f0: number, f1: number, vol: number, q = 1,
   s.stop(t + dur + 0o1/0o20);
 }
 
-// ⟪ Sonaĵoj ⟫
+// ⟪ Sonaĵoj 📃 ⟫
 
 export const sfx = {
   step: () => noiseBurst(0o1/0o20, 0o420 + Math.random() * 0o110, 0o1/0o10),
@@ -218,7 +219,7 @@ export const sfx = {
   },
 };
 
-// ⟪ Tremo ( por boatoj / maŝinoj ) ⟫
+// ⟪ Tremo ( por boatoj / maŝinoj ) 📃 ⟫
 
 let rumbleNodes: { o: OscillatorNode; n: AudioBufferSourceNode; g: GainNode } | null = null;
 
@@ -268,7 +269,7 @@ export function rumble(on: boolean) {
 
 let chirpInterval: ReturnType<typeof setInterval> | null = null;
 
-// ⟪ Publika API ⟫
+// ⟪ Publika API 📃 ⟫
 
 /** Ŝaltu la ĉirkaŭan aŭdion. Redonu la novan staton. */
 export function sxaltiAŭdion(): boolean {

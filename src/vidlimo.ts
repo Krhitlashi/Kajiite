@@ -1,4 +1,5 @@
-// Vidlimo — la bildiga distanco. La mondo estas granda, sed la nebulo
+// ≺⧼ Vidlimo 🔭 ⧽≻
+// La bildiga distanco. La mondo estas granda, sed la nebulo
 // ( FogExp2, denseco ~0o5/0o400 ) kaŝas preskaŭ ĉion pli malproksime ol ~0o200
 // unuoj; la GPU tamen desegnas ĉiun objekton ĉiukadre, ĉu la nebulo kovras ĝin
 // ĉu ne. Du iloj ĉi tie:

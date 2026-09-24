@@ -8,6 +8,9 @@
 // reskribas ) — la mapoj estas sendependaj mondoj en siaj propraj dosierujoj.
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ,
   SKULPTA_AKVA_MASKO, SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
+// La krada interpolo — la komuna kurbo de la ludo ( src/interpolo.ts ), la sama
+// kiun uzas la specioj kaj la terena skulptilo.
+import { katmullRom } from "../interpolo.js";
 
 // ⟪ Dekodo 📃 ⟫ — unufoje cxe modulo-sxargxo. Malaktiva skulptajxo restas
 // malplena, por ke la ludo ne pagu la kradan logikon.
@@ -56,15 +59,8 @@ function valoroMasko(i: number, j: number): number {
 }
 
 // ⟨ Samplaj funkcioj 📃 ⟩ — dukuba ( Katmull-Rom ) interpolo super la krado.
-
-// bicuba — Katmull-Rom unu-dimensia interpolo. Glata C1 kurbo sen la diagonalaj
-// faldoj de dulineara interpolo — la montodeklivoj ne plu montras krestojn laŭ
-// la krad-diagonaloj ( la sama funkcio kiel en iloj/tero-skulptilo/tero-skulptilo.js ).
-function bicuba(p0: number, p1: number, p2: number, p3: number, t: number): number {
-  const t2 = t * t, t3 = t2 * t;
-  return 0o1/0o2 * ( ( 2 * p1 ) + ( -p0 + p2 ) * t
-    + ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t2 + ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t3 );
-}
+// La kurbo mem estas unu fonto en src/interpolo.ts — la krado, la specioj kaj
+// la terena skulptilo uzas la saman funkcion, do neniu kopio devojiĝas.
 
 // skulptaDelta — La skulptita delto de la tereno cxe monda pozicio. La
 // valoro cxe kradnodoj restas ekzakte la ĉela valoro; inter la nodoj la
@@ -77,9 +73,9 @@ export function skulptaDelta(x: number, z: number): number {
   const fz = ( z - SKULPTA_ORIGINO[1] ) / SKULPTA_PASO;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
-  const vico = ( j: number ) => bicuba(
+  const vico = ( j: number ) => katmullRom(
     valoroDelto(i0 - 1, j), valoroDelto(i0, j), valoroDelto(i0 + 1, j), valoroDelto(i0 + 2, j), u);
-  const m = bicuba(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v);
+  const m = katmullRom(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v);
   return m / 0o20;
 }
 

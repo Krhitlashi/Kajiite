@@ -1,4 +1,5 @@
-// Mnemiopsis ( marmukso ) — la loba ktenoforo de la rivero. Preskaŭ same larĝa
+// ≺⧼ Mnemiopsis 🪼 ⧽≻
+// La loba ktenoforo de la rivero ( marmukso ). Preskaŭ same larĝa
 // kiel longa, travidela ĝelo kun LARĜA buŝa aperturo, DU grandaj buŝaj loboj
 // ( la plej karakteriza trajto de la lobaj kombuloj ) kaj kvar etaj aŭrikloj.
 //

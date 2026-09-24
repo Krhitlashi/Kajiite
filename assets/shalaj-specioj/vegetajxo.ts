@@ -1142,7 +1142,7 @@ function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometry; foli
     for ( let i = 0; i < pozicioj.count; i++ ) {
       koloroj[i * 3] = helo * ( 0.96 + Math.random() * 0.08 );
       koloroj[i * 3 + 1] = helo * ( 0.97 + Math.random() * 0.07 );
-      koloroj[i * 3 + 2] = helo * varmo * ( 0.94 + Math.random() * 0.1 );
+      koloroj[i * 3 + 2] = helo * varmo * ( 0.94 + Math.random() * 0o1/0o10 );
     }
     geometrio.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     return geometrio;
@@ -1270,7 +1270,7 @@ function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometry; foli
   const suprajFolioj = 0o66;
   const oraAngulo = Math.PI * ( 3 - Math.sqrt(5) );
   for ( let i = 0; i < suprajFolioj; i++ ) {
-    const frakcio = Math.sqrt(( i + 0.5 ) / suprajFolioj );
+    const frakcio = Math.sqrt(( i + 0o1/0o2 ) / suprajFolioj );
     const spirala = i * oraAngulo;
     const rSupra = 0o30/0o100 * frakcio * Math.cos(spirala);
     const zSupra = 0o30/0o100 * frakcio * Math.sin(spirala);
@@ -1289,8 +1289,8 @@ function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometry; foli
     const a = Math.atan2(zSupra, rSupra);
     folio.applyMatrix4(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(
       0,
-      -a + ( Math.random() - 0.5 ) * 0.9,
-      -deklivo - Math.random() * 0.25, "YXZ")));
+      -a + ( Math.random() - 0o1/0o2 ) * 0.9,
+      -deklivo - Math.random() * 0o1/0o4, "YXZ")));
     folio.translate(celo.x, celo.y, celo.z);
     foliajPartoj.push(folio);
   }
@@ -1383,8 +1383,8 @@ function kreiTrunkanGeometrion(larghoBazo: number, larghoSupro: number,
   // La profilo ( r, y ) de la radika larĝiĝo ( malsupre ) ĝis la pinto. La
   // larĝiĝo vivas nur en la unuaj 15% de la trunko, kiel vera radika kolumo.
   const profilo: THREE.Vector2[] = [
-    new THREE.Vector2(0, -0.5),
-    new THREE.Vector2(larghoRadiko, -0.5),        // la larĝiĝo sur la grundo
+    new THREE.Vector2(0, -0o1/0o2),
+    new THREE.Vector2(larghoRadiko, -0o1/0o2),        // la larĝiĝo sur la grundo
     new THREE.Vector2(larghoRadiko * 0.74, -0.465),
     new THREE.Vector2(larghoBazo * 1.14, -0.43),
     new THREE.Vector2(larghoBazo, -0.36),         // la trunko mem komenciĝas
@@ -1392,8 +1392,8 @@ function kreiTrunkanGeometrion(larghoBazo: number, larghoSupro: number,
     new THREE.Vector2(larghoBazo * 0.50 + larghoSupro * 0.50, 0.20),
     new THREE.Vector2(larghoBazo * 0.22 + larghoSupro * 0.78, 0.42),
     new THREE.Vector2(larghoSupro, 0.48),
-    new THREE.Vector2(larghoSupro * 0.5, 0.5),
-    new THREE.Vector2(0, 0.5),
+    new THREE.Vector2(larghoSupro * 0o1/0o2, 0o1/0o2),
+    new THREE.Vector2(0, 0o1/0o2),
   ];
   const geometrio = new THREE.LatheGeometry(profilo, segmentoj);
   geometrio.computeVertexNormals();
@@ -1533,7 +1533,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
     // krono, kiel ĉe vera paperbetulo.
     const padBazoj = [
       // Malsupra zono — mallarĝa, la unua etaĝo de la krono.
-      { a: 0.5, fy: 0.48, fr: 0.36, s: 1.30 },
+      { a: 0o1/0o2, fy: 0.48, fr: 0.36, s: 1.30 },
       { a: 3.7, fy: 0.51, fr: 0.40, s: 1.35 },
       // La plej larĝa zono — ĉirkaŭ du trionoj de la alto.
       { a: 1.9, fy: 0.63, fr: 0.58, s: 1.42 },
@@ -1726,7 +1726,7 @@ function konstruiRokGeometrion(semo = 1): THREE.BufferGeometry {
       Math.sin(( nx * ax + ny * ay + nz * az ) * 2 + ofto + semo * 0.7);
     const r = 1
       + 0.14 * ondo(1, 0.7, 0.4, 0)
-      + 0.09 * ondo(0.5, 1.3, 0.9, 2.1)
+      + 0.09 * ondo(0o1/0o2, 1.3, 0.9, 2.1)
       + 0.06 * ondo(1.7, 0.4, 1.1, 4.3);
     x *= r; z *= r;
     // Nur ETA kunpremo — la antaŭa 0.6 ( kaj plia 0.5 sub la mezo ) faris
@@ -2068,7 +2068,7 @@ function konstruiFrondanKronon(nombro: number, largho: number, alto: number, mal
       const cz = kurbiĝo * Math.pow(t, 1.7);
       // La larĝo — plej larĝa ĉe la malsupro, mallarĝiĝanta al la pinto; la
       // pinto tamen ne estas punkto ( la teksturo portas sian propran silueton ).
-      const hw = largho * 0.5 * ( 1 - 0.55 * Math.pow(t, 2.2) );
+      const hw = largho * 0o1/0o2 * ( 1 - 0.55 * Math.pow(t, 2.2) );
       // La mezo-ripo — la raĥiso — estas levita super la foliplato.
       const ripo = Math.max(hw * 0.55, largho * 0.10);
       const a = tordo * t;
@@ -2077,7 +2077,7 @@ function konstruiFrondanKronon(nombro: number, largho: number, alto: number, mal
       for ( let kol = 0; kol < 0o3; kol++ ) {
         const dx = kolonoj[kol][0], dz = kolonoj[kol][1];
         pozicioj.push(dx * cos - dz * sin, cy, cz + dx * sin + dz * cos);
-        uvoj.push(kol === 0 ? 0 : ( kol === 1 ? 0.5 : 1 ), t);
+        uvoj.push(kol === 0 ? 0 : ( kol === 1 ? 0o1/0o2 : 1 ), t);
       }
     }
     for ( let s = 0; s < SEGMENTOJ; s++ ) {
@@ -2637,7 +2637,7 @@ function konstruiLarikanFoliaranGeometrion(): THREE.BufferGeometry {
   partoj.push(kerno);
   // La ekstera profilo de la krono — mallarĝiĝanta spajro. La pingla longo
   // ĉe ĉiu kirlo venas el la diferenco inter ĉi tiu profilo kaj la kerno.
-  const eksteraR = ( t: number ): number => 0.5 * Math.pow(1 - t, 0o7/0o10) + 0.02;
+  const eksteraR = ( t: number ): number => 0o1/0o2 * Math.pow(1 - t, 0o7/0o10) + 0.02;
   const kernaR = ( t: number ): number => KERNA_BOT + ( KERNA_SUP - KERNA_BOT ) * t;
 
   // Maldika pingla kartono — longa, tre mallarĝa, pintigita ĉe ambaŭ pintoj,
@@ -2850,7 +2850,7 @@ export function konstruiLarikon(sceno: THREE.Scene,
     const helo = 0.92 + hazardaGenerilo() * 0.08;
     C.setRGB(
       helo * ( 0.98 + hazardaGenerilo() * 0.04 ),
-      helo * ( 0.95 + hazardaGenerilo() * 0.05 ),
+      helo * ( 0.95 + hazardaGenerilo() * 0o1/0o20 ),
       helo * ( 0.90 + hazardaGenerilo() * 0.07 ));
     trunkoj.setColorAt(i, C);
     sxelaKoloro.copy(C);
@@ -2875,7 +2875,7 @@ export function konstruiLarikon(sceno: THREE.Scene,
     // lariko: malgranda arbo kun plenkreska krono estus arbusto. La krono
     // restas tiom larĝa kiom la trunko permesas ( la rando de matura lariko
     // estas ~55% de ĝia alto ) — kaj nur la pli malgranda el la du gajnas.
-    const kronaRadiuso = Math.min(0.75 * kronaRadiusoLarika(t.s), 0.27 * h);
+    const kronaRadiuso = Math.min(0o3/0o4 * kronaRadiusoLarika(t.s), 0.27 * h);
     const bazaLargho = kronaRadiuso / KRONA_GEOMETRIA_RADIUSO;
     const kronaMinimumaY = kronaGeometrio.boundingBox!.min.y;
     const kronaMaksimumaY = kronaGeometrio.boundingBox!.max.y;
@@ -3123,7 +3123,7 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
   {
     const pozicioj = trunkaGeometrio.attributes.position;
     const nodo = ( t: number, mezo: number ): number =>
-      Math.exp(-Math.pow(( t - mezo ) / 0.05, 2));
+      Math.exp(-Math.pow(( t - mezo ) / 0o1/0o20, 2));
     for ( let i = 0; i < pozicioj.count; i++ ) {
       const x = pozicioj.getX(i);
       const y = pozicioj.getY(i);
@@ -3159,7 +3159,7 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
   // La ringo kreskas el la trunko: la koluma bando ( la supra, plej hela parto
   // de la ŝela bildo, kun la foli-formaj skvamoj ) — do la taso havas la saman
   // lumon kiel la trunko, kaj ĝiaj skvamoj finiĝas ĉe ĝia rando.
-  const sxelaMaterialo = kreiSxelanRinganMaterialon(0.05, true, 1 - 0.05);
+  const sxelaMaterialo = kreiSxelanRinganMaterialon(0o1/0o20, true, 1 - 0o1/0o20);
   // Kapacito 12 ringoj po arbo — kun la grandeco-multiplikilo la maksimuma
   // alto estas 18.75 ( 15 × 0o5/0o4 ), kiu donas 5 foliajn tavolojn plus 4
   // suprajn tasojn ( la pli mallonga ringa spaco aldonis unu ).
@@ -3385,7 +3385,7 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
     }
     trunkaGeometrio.computeVertexNormals();
   }
-  const trunkaMaterialo = kreiSxelanRinganMaterialon(0.05, false);
+  const trunkaMaterialo = kreiSxelanRinganMaterialon(0o1/0o20, false);
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, plantoj.length);
   if ( plantoj.length === 0 ) return trunkoj;
 
@@ -3507,7 +3507,7 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
       // kvar flankoj de ĉiu tavolo staras samloke kaj la pinto legiĝas kiel
       // kvar-obla simetria konuso.
       const skalo = ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 )
-        * ( 0.75 - tFrakcio * 0.45 );
+        * ( 0o3/0o4 - tFrakcio * 0.45 );
       for ( let flanko = 0; flanko < 4; flanko++ ) {
         const angulo = flanko / 4 * Math.PI * 2;
         E.set(elklino, 0, 0);
@@ -3566,7 +3566,7 @@ function kreiHerbanKlingon(longo: number, largho: number, klino: number,
     // kurbiĝas antaŭen ( arko ) kiel herba folio sub sia propra pezo.
     const cx = klino * t * t;
     const cz = arko * t * t;
-    const duonLarĝo = largho * 0.5 * Math.pow(1 - t, 0o7/0o10);
+    const duonLarĝo = largho * 0o1/0o2 * Math.pow(1 - t, 0o7/0o10);
     // La meza kolono estas levita laŭ la loka Z — la kresto de la klingo.
     const kresto = duonLarĝo * 0.9 + largho * 0.12;
     // La tordo turnas la kolonojn ĉirkaŭ la vertikala akso.
@@ -3577,7 +3577,7 @@ function kreiHerbanKlingon(longo: number, largho: number, klino: number,
     for ( let kol = 0; kol < 0o3; kol++ ) {
       const dx = kolonoj[kol][0], dz = kolonoj[kol][1];
       pozicioj.push(cx + dx * cos - dz * sin, longo * t, cz + dx * sin + dz * cos);
-      uvoj.push(kol === 0 ? 0 : ( kol === 1 ? 0.5 : 1 ), t);
+      uvoj.push(kol === 0 ? 0 : ( kol === 1 ? 0o1/0o2 : 1 ), t);
       koloroj.push(koloro.r, koloro.g, koloro.b);
     }
   }
@@ -3626,14 +3626,14 @@ function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeometry {
     // la tufo estas fasko de rektoj. La internaj klingoj restas preskaŭ vertikalaj.
     const arkaFaktoro = 0.55 + r * 2.2;
     const klino = Math.cos(ang) * elen * ( 0.35 + hazardo() * 0.65 )
-      + ( hazardo() - 0.5 ) * 0.16;
+      + ( hazardo() - 0o1/0o2 ) * 0.16;
     const arko = Math.sin(ang) * elen * ( 0.35 + hazardo() * 0.65 ) * arkaFaktoro
-      + ( hazardo() - 0.5 ) * 0.16;
-    const tordo = ( hazardo() - 0.5 ) * 1.2;
+      + ( hazardo() - 0o1/0o2 ) * 0.16;
+    const tordo = ( hazardo() - 0o1/0o2 ) * 1.2;
     // La nuanco — ĉiu klingo iomete malsamas, kaj ĉiu kvara estas seka.
     const sekaKlingo = i % 0o4 === 0o1;
     if ( sekaKlingo ) {
-      seka.setRGB(1.06, 0.84 + hazardo() * 0.1, 0.34 + hazardo() * 0.16 );
+      seka.setRGB(1.06, 0.84 + hazardo() * 0o1/0o10, 0.34 + hazardo() * 0.16 );
     } else {
       verda.setRGB(0.72 + hazardo() * 0.34, 0.8 + hazardo() * 0.28, 0.62 + hazardo() * 0.3);
     }
@@ -3696,13 +3696,13 @@ export function konstruiHerbon(sceno: THREE.Scene,
     // herbejo montriĝis kiel regula tapiŝo el la samaj kartoj. La klino, la
     // malegala alto kaj la etaj varioj de la larĝo rompas tion.
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
-    E.set(( hazardaGenerilo() - 0.5 ) * 0.16,
+    E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0.16,
       hazardaGenerilo() * Math.PI * 2,
-      ( hazardaGenerilo() - 0.5 ) * 0.16);
+      ( hazardaGenerilo() - 0o1/0o2 ) * 0.16);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,
       new THREE.Vector3(skalo * ( 0.85 + hazardaGenerilo() * 0.3 ),
-        skalo * ( 0.75 + hazardaGenerilo() * 0.55 ),
+        skalo * ( 0o3/0o4 + hazardaGenerilo() * 0.55 ),
         skalo * ( 0.85 + hazardaGenerilo() * 0.3 )));
     herboj.setMatrixAt(hi++, M);
     metitajHasho.meti(x, z, [ x, z ]);
@@ -3977,7 +3977,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
             bazo = bazo.clone().add(direkto.multiplyScalar(L));
             if ( s === 0 ) {
               const artiko = new THREE.CylinderGeometry(r0 * 0.30, r0 * 0.30,
-                r0 * 0.5, 4).translate(0, r0 * 0.25, 0);
+                r0 * 0o1/0o2, 4).translate(0, r0 * 0o1/0o4, 0);
               const Ma = new THREE.Matrix4().makeRotationY(ang);
               Ma.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2 - a));
               artiko.applyMatrix4(Ma);
@@ -4008,7 +4008,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
         const dentoAlto = segmentaAlto * 0o55/0o100;
         for ( let d = 0; d < dentoj; d++ ) {
           const ang = d / dentoj * Math.PI * 2;
-          const dento = new THREE.ConeGeometry(r0 * 0.5, dentoAlto, 3);
+          const dento = new THREE.ConeGeometry(r0 * 0o1/0o2, dentoAlto, 3);
           const M = new THREE.Matrix4().makeRotationY(ang);
           M.multiply(new THREE.Matrix4().makeRotationX(0.22));
           dento.applyMatrix4(M);
@@ -4271,13 +4271,13 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
     // herbejo montriĝis kiel regula tapiŝo el la samaj kartoj. La klino, la
     // malegala alto kaj la etaj varioj de la larĝo rompas tion.
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
-    E.set(( hazardaGenerilo() - 0.5 ) * 0.16,
+    E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0.16,
       hazardaGenerilo() * Math.PI * 2,
-      ( hazardaGenerilo() - 0.5 ) * 0.16);
+      ( hazardaGenerilo() - 0o1/0o2 ) * 0.16);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,
       new THREE.Vector3(skalo * ( 0.85 + hazardaGenerilo() * 0.3 ),
-        skalo * ( 0.75 + hazardaGenerilo() * 0.55 ),
+        skalo * ( 0o3/0o4 + hazardaGenerilo() * 0.55 ),
         skalo * ( 0.85 + hazardaGenerilo() * 0.3 )));
     herboj.setMatrixAt(hi++, M);
     metitajHasho.meti(x, z, [ x, z ]);

@@ -1,5 +1,6 @@
-// Statistiko — la diagnoza surmeto. La agordo de la bildigo estas nevidebla el
-// la ludado: oni vidas la fram-mankon sed ne KIU kostas ĝin. Ĉi tiu modulo
+// ≺⧼ Statistiko 📊 ⧽≻
+// La diagnoza surmeto. La agordo de la bildigo estas nevidebla el la ludado.
+// oni vidas la fram-mankon sed ne KIU kostas ĝin. Ĉi tiu modulo
 // montras la verajn nombrojn de la bildilo ( renderer.info ) plus la staton de
 // la vidlimo ( src/vidlimo.ts ) kaj la objekto-censon de la sceno, do ĉiu
 // plibonigo de la rendimento mezuriĝas anstataŭ diveniĝi.
@@ -113,9 +114,9 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
       "geometrioj " + informo.memory.geometries + "   teksturoj " + informo.memory.textures,
       "vidlimo " + limo.videblaj + "/" + limo.eroj + " videblaj",
       "kunfando " + kunfando.antaŭe + " meshoj → " + kunfando.poste,
-      "— la objektoj en la vidkampo ( alvokoj · instancoj ) —",
+      "<( La objektoj en la vidkampo · alvokoj kaj instancoj )>",
     ];
-    for ( const c of censo ) linioj.push("  " + c.nomo.padEnd(16).slice(0, 16) + String(c.obj).padStart(6) + " · " + String(c.vid));
+    for ( const c of censo ) linioj.push("  " + c.nomo.padEnd(0o20).slice(0, 0o20) + String(c.obj).padStart(0o6) + " · " + String(c.vid));
     surmetajxo.textContent = linioj.join("\n");
   }
 

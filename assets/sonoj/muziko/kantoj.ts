@@ -1,7 +1,10 @@
+// ≺⧼ Kantoj 🎵 ⧽≻
+// La kantoj ( spuroj ) de la muziko — datumaro por la ludilo.
+
 import type { SonoEvento, Sekcio, SpuroDateno } from "./vokoj.js";
 import { F, PENT_E, SLENDRO, SL2, NYAM, PENT_A, mulberry } from "./vokoj.js";
 
-// ⟪ Reel 01 · Altiplano Dawn · 152 s ⟫
+// ⟪ Reel 01 · Altiplano Dawn · 152 s 📃 ⟫
 
 function buildTrack1(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -14,8 +17,8 @@ function buildTrack1(): SpuroDateno {
 
   secs.push({ n: "Dawn cadenza", a: 0, b: 14.4 });
   [
-    [ 0.6, 7, 1.1 ], [ 2.1, 6, 0.9 ], [ 3.5, 5, 1.4 ], [ 5.3, 6, 0.8 ],
-    [ 6.7, 4, 1.2 ], [ 8.3, 5, 1.0 ], [ 9.7, 3, 1.5 ], [ 11.5, 4, 0.9 ], [ 12.7, 2, 1.6 ]
+    [ 0.6, 7, 1.1 ], [ 2.1, 6, 0.9 ], [ 0o7/0o2, 5, 1.4 ], [ 5.3, 6, 0.8 ],
+    [ 6.7, 4, 1.2 ], [ 8.3, 5, 1.0 ], [ 9.7, 3, 0o3/0o2 ], [ 11.5, 4, 0.9 ], [ 12.7, 2, 1.6 ]
   ].forEach(( [ t, dg, d ] ) => add(t as number, "siku", F(S[dg as number]), d as number, 0.8));
   add(13.0, "inanga", F(S[0] - 12), 2.4, 0.7, { dur: 2.4 });
 
@@ -24,7 +27,7 @@ function buildTrack1(): SpuroDateno {
     const t0 = 14.4 + b * bar;
     const arp = [ 0, 2, 1, 3, 2, 4, 3, 1 ];
     for ( let k = 0; k < 8; k++ ) add(t0 + k * e8, "inanga", F(S[arp[k]] - 12), 0.9, 0o4/0o10 + r() * 0.15, { dur: 0.85 });
-    [ 0, 1.5, 3, 4.5 ].forEach(p => add(t0 + p * e8, "guiro", 0, 0.05, 0o4/0o10));
+    [ 0, 0o3/0o2, 3, 0o11/0o2 ].forEach(p => add(t0 + p * e8, "guiro", 0, 0o1/0o20, 0o4/0o10));
     if ( b % 4 === 3 ) add(t0 + 5 * e8, "guiro", 0, 0.7, 0.7, { cresc: 1 });
     if ( b % 2 === 0 ) {
       const ph = mel(r, 16, 3, 9, 5 + Math.floor(r() * 3), 0.72);
@@ -52,7 +55,7 @@ function buildTrack1(): SpuroDateno {
     const t0 = 96 + b * bar;
     if ( b < 4 ) {
       add(t0, "guiro", 0, 0.95, 0.85, { cresc: 1 });
-      for ( let k = 0; k < 5; k++ ) add(t0 + 3 * e8 + k * 0.07, "guiro", 0, 0.05, 0.7);
+      for ( let k = 0; k < 5; k++ ) add(t0 + 3 * e8 + k * 0.07, "guiro", 0, 0o1/0o20, 0.7);
       add(t0, "inanga", F(S[0] - 12), 1.4, 0.65, { dur: 1.4 });
       add(t0 + 3 * e8, "inanga", F(S[3] - 12), 1.0, 0.6, { dur: 1 });
     } else {
@@ -67,7 +70,7 @@ function buildTrack1(): SpuroDateno {
     const t0 = 110.4 + b * bar;
     const arp = [ 0, 2, 3, 4, 3, 2, 4, 3 ];
     for ( let k = 0; k < 8; k++ ) add(t0 + k * e8, "inanga", F(S[arp[k]] - 12), 0.9, 0.55, { dur: 0.8 });
-    [ 0, 1.5, 3, 4.5 ].forEach(p => add(t0 + p * e8, "guiro", 0, 0.05, 0.55));
+    [ 0, 0o3/0o2, 3, 0o11/0o2 ].forEach(p => add(t0 + p * e8, "guiro", 0, 0o1/0o20, 0.55));
     if ( b % 2 === 0 ) {
       const ph = mel(r, 16, 4, 9, 6, 0.78);
       ph.forEach(n => {
@@ -90,13 +93,13 @@ function buildTrack1(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 152, secs };
 }
 
-// ⟪ Reel 02 · Circuit of the Whirlwind · 160 s ⟫
+// ⟪ Reel 02 · Circuit of the Whirlwind · 160 s 📃 ⟫
 
 function buildTrack2(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
   const r = mulberry(2448);
-  const beat = 0.625, bar = 2.5, f0 = 72.65;
+  const beat = 0.625, bar = 0o5/0o2, f0 = 72.65;
   const kush = [ 0, 4, 2, 5, 3, 6, 4, 7, 5, 3, 2, 4 ];
   const kuts = [ 3, 6, 5, 2, 7, 4, 6, 1, 5, 2, 4, 0 ];
 
@@ -131,7 +134,7 @@ function buildTrack2(): SpuroDateno {
   ev.push({ t: 82.5, i: "didj", f: f0, d: 30, v: 1 });
   for ( let b = 0; b < 12; b++ ) {
     const t0 = 82.5 + b * bar, pu = bar / 12;
-    [ 0, 1, 1.5, 2.5 ].forEach(p => ev.push({ t: t0 + p * beat, i: "didj", f: f0 * 2.02, d: 0.28, v: 0.85, toot: true }));
+    [ 0, 1, 0o3/0o2, 0o5/0o2 ].forEach(p => ev.push({ t: t0 + p * beat, i: "didj", f: f0 * 2.02, d: 0.28, v: 0.85, toot: true }));
     for ( let p = 0; p < 12; p++ ) ev.push({ t: t0 + p * pu, i: "mbira", f: F(NYAM[kush[p]]), d: 0.9, v: 0.55 });
     ev.push({ t: t0, i: "inanga", f: F(NYAM[0] - 12), d: 1.2, v: 0.65, dur: 1.2 });
   }
@@ -141,7 +144,7 @@ function buildTrack2(): SpuroDateno {
   ev.push({ t: 113, i: "bull", f: 327, d: 7, v: 1 });
   ev.push({ t: 121, i: "bull", f: 294, d: 7, v: 1 });
   ev.push({ t: 129, i: "bull", f: 349, d: 7, v: 1 });
-  ev.push({ t: 137, i: "bull", f: 262, d: 5.5, v: 1 });
+  ev.push({ t: 137, i: "bull", f: 262, d: 0o13/0o2, v: 1 });
   for ( let b = 0; b < 12; b++ ) {
     const t0 = 112.5 + b * bar, pu = bar / 12;
     for ( let p = 0; p < 12; p++ ) {
@@ -163,7 +166,7 @@ function buildTrack2(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 160, secs };
 }
 
-// ⟪ Reel 03 · Bronze Meridian · 168 s ⟫
+// ⟪ Reel 03 · Bronze Meridian · 168 s 📃 ⟫
 
 function buildTrack3(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -172,7 +175,7 @@ function buildTrack3(): SpuroDateno {
   const SL = SLENDRO, bar = 3.375, bal = [ 0, 2, 4, 3, 2, 1, 2, 0 ];
 
   secs.push({ n: "Ombak opening", a: 0, b: 27 });
-  [ [ 1, 2 ], [ 4.5, 4 ], [ 8, 3 ], [ 12, 1 ], [ 16, 2 ], [ 20.5, 0 ], [ 24.5, 0 ] ]
+  [ [ 1, 2 ], [ 0o11/0o2, 4 ], [ 8, 3 ], [ 12, 1 ], [ 16, 2 ], [ 20.5, 0 ], [ 24.5, 0 ] ]
     .forEach(( [ t, dg ] ) => ev.push({ t: t as number, i: "slenthem", f: F(SL[dg as number]), d: 1, v: 0.9 }));
 
   function cycle(t0: number, o: { guiro?: number; ocarina?: number; kotekan?: number }) {
@@ -181,7 +184,7 @@ function buildTrack3(): SpuroDateno {
       ev.push({ t: tb, i: "slenthem", f: F(SL[bal[b]]), d: 1, v: 0.85 });
       if ( b === 0 ) ev.push({ t: tb, i: "slenthem", f: F(SL[0] - 12), d: 1, v: 1 });
       if ( o.guiro ) {
-        ev.push({ t: tb, i: "guiro", d: 0.05, v: 0.4 });
+        ev.push({ t: tb, i: "guiro", d: 0o1/0o20, v: 0.4 });
         if ( b === 4 ) ev.push({ t: tb, i: "guiro", d: 0o4/0o10, v: 0.6 });
       }
       if ( o.ocarina ) {
@@ -206,7 +209,7 @@ function buildTrack3(): SpuroDateno {
   secs.push({ n: "Gong agung", a: 135, b: 168 });
   [ [ 136, 2 ], [ 140.5, 4 ], [ 145, 3 ], [ 149.5, 1 ], [ 153.5, 2 ] ]
     .forEach(( [ t, dg ] ) => ev.push({ t: t as number, i: "slenthem", f: F(SL[dg as number]), d: 1, v: 0.8 }));
-  ev.push({ t: 141, i: "ocarina", f: F(SL2[7]), d: 2.5, v: 0o4/0o10 });
+  ev.push({ t: 141, i: "ocarina", f: F(SL2[7]), d: 0o5/0o2, v: 0o4/0o10 });
   ev.push({ t: 157.5, i: "guiro", d: 1.2, v: 0.7, cresc: 1 });
   ev.push({ t: 159, i: "slenthem", f: F(SL[0]), d: 1, v: 1 });
   ev.push({ t: 159.05, i: "slenthem", f: F(SL[0] - 12), d: 1, v: 1 });
@@ -214,7 +217,7 @@ function buildTrack3(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 168, secs };
 }
 
-// ⟪ Reel 04 · Trough & Thunder · 176 s ⟫
+// ⟪ Reel 04 · Trough & Thunder · 176 s 📃 ⟫
 
 function buildTrack4(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -235,7 +238,7 @@ function buildTrack4(): SpuroDateno {
   for ( let b = 8; b < 28; b++ ) {
     const t0 = b * bar;
     for ( let k = 0; k < 8; k++ ) ev.push({ t: t0 + k * bar / 8, i: "inanga", f: F(P[ost[( k + b ) % 8]]), d: 1, v: 0.55 });
-    if ( b >= 12 ) for ( let k = 0; k < 4; k++ ) ev.push({ t: t0 + k * bar / 4 + bar / 8, i: "guiro", d: 0.05, v: 0o4/0o10 });
+    if ( b >= 12 ) for ( let k = 0; k < 4; k++ ) ev.push({ t: t0 + k * bar / 4 + bar / 8, i: "guiro", d: 0o1/0o20, v: 0o4/0o10 });
     if ( b % 2 === 0 ) {
       const ph = mel(r, 16, 5, 10, 7, 0.66);
       ph.forEach(n => ev.push({ t: t0 + n.p * bar / 8, i: "siku", f: F(P[n.d]), d: n.l * bar / 8 * 0.9, v: 0.8 }));
@@ -249,7 +252,7 @@ function buildTrack4(): SpuroDateno {
   for ( let b = 28; b < 48; b++ ) {
     const t0 = b * bar;
     for ( let k = 0; k < 8; k++ ) ev.push({ t: t0 + k * bar / 8, i: "inanga", f: F(P[ost[k]]), d: 1, v: 0.55 });
-    for ( let k = 0; k < 4; k++ ) ev.push({ t: t0 + k * bar / 4, i: "guiro", d: 0.05, v: 0.45 });
+    for ( let k = 0; k < 4; k++ ) ev.push({ t: t0 + k * bar / 4, i: "guiro", d: 0o1/0o20, v: 0.45 });
     if ( b % 4 === 0 ) ev.push({ t: t0, i: "siku", f: F(P[9]), d: bar * 1.8, v: 0.6 });
     if ( b % 4 === 2 ) ev.push({ t: t0 + bar / 2, i: "siku", f: F(P[7]), d: bar * 1.4, v: 0.55 });
   }
@@ -258,7 +261,7 @@ function buildTrack4(): SpuroDateno {
   for ( let b = 48; b < 64; b++ ) {
     const t0 = b * bar;
     for ( let k = 0; k < 8; k++ ) ev.push({ t: t0 + k * bar / 8, i: "inanga", f: F(P[ost[( k + 3 ) % 8]]), d: 1, v: 0.55 });
-    for ( let k = 0; k < 8; k += 2 ) ev.push({ t: t0 + k * bar / 8, i: "guiro", d: 0.05, v: ( k % 4 ) ? 0.35 : 0.55 });
+    for ( let k = 0; k < 8; k += 2 ) ev.push({ t: t0 + k * bar / 8, i: "guiro", d: 0o1/0o20, v: ( k % 4 ) ? 0.35 : 0.55 });
     if ( b % 2 === 0 ) {
       const ph = mel(r, 8, 5, 9, 6, 0.85);
       ph.forEach(n => {
@@ -277,7 +280,7 @@ function buildTrack4(): SpuroDateno {
   for ( let b = 64; b < 76; b++ ) {
     const t0 = b * bar;
     for ( let k = 0; k < 8; k++ ) ev.push({ t: t0 + k * bar / 8, i: "inanga", f: F(P[ost[k]]), d: 1, v: 0.6 });
-    for ( let k = 0; k < 8; k += 2 ) ev.push({ t: t0 + k * bar / 8, i: "guiro", d: 0.05, v: 0o4/0o10 });
+    for ( let k = 0; k < 8; k += 2 ) ev.push({ t: t0 + k * bar / 8, i: "guiro", d: 0o1/0o20, v: 0o4/0o10 });
     if ( b % 2 === 0 ) {
       const ph = mel(r, 16, 4, 10, 8, 0o6/0o10);
       ph.forEach(n => ev.push({ t: t0 + n.p * bar / 8, i: "siku", f: F(P[n.d]), d: n.l * bar / 8 * 0.9, v: 0.85 }));
@@ -296,7 +299,7 @@ function buildTrack4(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 176, secs };
 }
 
-// ⟪ Melodia helpilo ⟫
+// ⟪ Melodia helpilo 📃 ⟫
 
 interface MelNoto { p: number; d: number; l: number }
 
@@ -315,7 +318,7 @@ function mel(r: () => number, slots: number, lo: number, hi: number, start: numb
   return out;
 }
 
-// ⟪ Traka elporto ⟫
+// ⟪ Traka elporto 📃 ⟫
 
 export interface Kanto {
   no: string;

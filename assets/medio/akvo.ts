@@ -1,4 +1,5 @@
-// Akva modulo — riveroj kun animaciaj ondoj kaj spegulaj reflektoj
+// ≺⧼ Akvo 🌊 ⧽≻
+// Riveroj kun animaciaj ondoj kaj spegulaj reflektoj
 import * as THREE from "three";
 import { glataPaso } from "../../src/tereno.js";
 import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";

@@ -1,8 +1,11 @@
+// ≺⧼ Ludilo 🎧 ⧽≻
+// La muzik-ludilo ( Web Audio ) — planas kaj ludas la kantojn de kantoj.js.
+
 import { Kanto, KANTOJ } from "./kantoj.js";
 import { instrumento } from "./vokoj.js";
 import type { SonoEvento, Sekcio } from "./vokoj.js";
 
-// ⟪ Ludila stato ⟫
+// ⟪ Ludila stato 📃 ⟫
 
 interface LudiloStato {
   ctx: AudioContext | null;
@@ -27,7 +30,7 @@ const L: LudiloStato = {
   playing: false, startAt: 0, pausedAt: null, timer: null, master: null,
 };
 
-// ⟪ Privataj helpiloj ⟫
+// ⟪ Privataj helpiloj 📃 ⟫
 
 function makeIR(ctx: AudioContext, dur: number, decay: number): AudioBuffer {
   const rate = ctx.sampleRate;
@@ -113,7 +116,7 @@ function sxargi(i: number) {
   L.secs = T.data.secs;
 }
 
-// ⟪ Publika API ⟫
+// ⟪ Publika API 📃 ⟫
 
 /** Initialise the music player with a shared AudioContext and master gain. */
 export function iniciati(ctx: AudioContext, master: GainNode) {
@@ -148,11 +151,11 @@ export function ludi() {
   }
 
   if ( L.pausedAt != null ) {
-    L.startAt = L.ctx.currentTime + 0.1 - L.pausedAt;
+    L.startAt = L.ctx.currentTime + 0o1/0o10 - L.pausedAt;
     while ( L.idx < L.events!.length && L.events![L.idx].t < L.pausedAt - 0.02 ) L.idx++;
     L.pausedAt = null;
   } else {
-    L.startAt = L.ctx.currentTime + 0.1;
+    L.startAt = L.ctx.currentTime + 0o1/0o10;
     L.idx = 0;
   }
 

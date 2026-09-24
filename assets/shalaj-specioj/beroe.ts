@@ -1,4 +1,5 @@
-// Beroe — la plej granda ktenoforo de la rivero. Melonoforma ĝelo kun ok
+// ≺⧼ Beroe 🪼 ⧽≻
+// La plej granda ktenoforo de la rivero. Melonoforma ĝelo kun ok
 // kombovicoj, larĝa buŝo ĉe la malsupra poluso kaj la faringo videbla tra la
 // travidebla korpo, kiel ĉe vera Beroe ( la rabema kombulo, kiu englutas
 // fiŝojn pli grandajn ol ĝi mem ).
@@ -26,8 +27,8 @@ const PROFILO: [ number, number ][] = [
   [ 0.34, -0.85 ],
   [ 0.35, -0.65 ],
   [ 0.35, -0.35 ],   // la plej larĝa parto — la ŝultroj de la melono
-  [ 0.34, -0.05 ],
-  [ 0.32, 0.25 ],
+  [ 0.34, -0o1/0o20 ],
+  [ 0.32, 0o1/0o4 ],
   [ 0.28, 0.50 ],
   [ 0.22, 0.72 ],
   [ 0.14, 0.88 ],

@@ -1,4 +1,5 @@
-// Tereno — terenaj alteco-funkcioj por la Aranis-valo
+// ≺⧼ Tereno ⛰️ ⧽≻
+// La terenaj alteco-funkcioj por la Aranis-valo.
 import { skulptaDelta, dekodiMaskon, skulptitaBiomo } from "./tero-datumaro/rultempo.js";
 import { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO, SKULPTA_AKVOFONTOJ,
   SKULPTA_AKTIVA, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_PASO } from "./tero-datumaro/aktiva.js";
@@ -7,7 +8,6 @@ import { aktivaMapo } from "./tero-datumaro/mapregulo.js";
 import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima, specimenoDulineara,
   limojDeAkvo, AkvaKalkulo } from "./akvokalkulo.js";
 
-// Rivero fluas orient-okcidente kun milda suda kurbo
 // Rivero fluas orient-okcidente — ŝovita suden por malbari la urban kradon
 export function riveroZ(x: number): number { return 0o14 * Math.sin(x * 0o1/0o100) - 0o160; }
 
@@ -84,7 +84,7 @@ export function akvaNivelo(x: number, z: number): number {
   return cxuEnLago(x, z) ? lagoNivelo() : riveraAkvaNivelo(x);
 }
 
-// Baza tereno. mildaj ruligxantaj montetoj por la arbaro trans la urbo
+// ⟪ Baza tereno 📃 ⟫ — mildaj ruligxantaj montetoj por la arbaro trans la urbo
 export function montetaBazo(x: number, z: number): number {
   return 0o215/0o100 * Math.sin(x * 0o1/0o40 + 0o43/0o40) * Math.cos(z * 0o1/0o40 - 0o4/0o10)
     + 0o55/0o40 * Math.sin(x * 0o1/0o20 - 0o163/0o100) * Math.sin(z * 0o1/0o20 + 0o115/0o100)
@@ -182,7 +182,7 @@ export function sekaAlteco(x: number, z: number): number {
 }
 
 // alteco — La plena terena alto. la procedura bazo, la skulptita tavolo kaj la
-// AKVA ELTRANCSO ( la riveroj kaj la kanaloj morditaj de la akvokalkulo ).
+// ⟪ La akva eltrancxo 📃 ⟫ ( la riveroj kaj la kanaloj morditaj de la akvokalkulo ).
 // Cxiuj grundo/kolizio/akva kalkuloj legas cxi tiun funkcion, do la skulptajxo
 // kaj la akvo sxangxas la tutan mondon. La eltrancxo estas DERIVITA — la
 // skulptitaj deltoj restas netusxitaj, do sxangxi la fontojn aux la akvan
@@ -247,7 +247,7 @@ export function bazaAlteco(x: number, z: number): number {
   return 0;
 }
 
-// Re-eksportoj — la skulptita tavolo el la tero-datumaro, por ke la
+// ⟪ Re-eksportoj 📃 ⟫ — la skulptita tavolo el la tero-datumaro, por ke la
 // konsumantoj ( sperto.ts, urbo.ts ) legu gxin de cxi tiu modulo kiel la
 // ceteran terenon.
 export { SKULPTA_PASO, SKULPTA_AKTIVA } from "./tero-datumaro/aktiva.js";

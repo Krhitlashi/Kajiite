@@ -1,4 +1,5 @@
-// Ktenofora-komunajxoj — la komunaj iloj de la tri ktenoforoj ( kombuloj ).
+// ≺⧼ Ktenoforaj komunajxoj 🪼 ⧽≻
+// La komunaj iloj de la tri ktenoforoj ( kombuloj ).
 //
 // Ĉiuj tri ( Beroe, Mnemiopsis, Pleŭrobrakia ) estas ĝelatenaj bestoj kun ok
 // kombovicoj, kiuj naĝas per pulsoj. La tri speco-dosieroj uzas la samajn
@@ -12,6 +13,7 @@
 // kombovicoj, la densiĝo ĉe la polusoj kaj la etaj grajnoj de la mesogleo.
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
 import type { Besto } from "./speco-tipoj.js";
 
 // kreiKombovicanTeksajxon — Procedura teksajxo kun vertikalaj strioj ĉirkaŭ
@@ -263,11 +265,7 @@ export function aldoniKombovicojn(grupo: THREE.Group, profilo: [ number, number 
       const a = pozicioj.length / 3 - 0o4;
       indeksoj.push(a, a + 0o1, a + 0o2, a, a + 0o2, a + 0o3);
     }
-    const geometrio = new THREE.BufferGeometry();
-    geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-    geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
-    geometrio.setIndex(indeksoj);
-    geometrio.computeVertexNormals();
+    const geometrio = kreiLoftanGeometrion(pozicioj, uvoj, indeksoj);
     const vico = new THREE.Mesh(geometrio, materialo);
     vico.name = "kombilo";
     // La vicnumero — la animacio malfruas la vibron laŭ ĝi ( la metakrona ondo ).

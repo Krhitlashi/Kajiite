@@ -1,4 +1,5 @@
-// Besta modulo — la komuna akva besta sistemo kaj la fasado de la bestaj specoj.
+// ≺⧼ Bestoj 🐾 ⧽≻
+// La komuna akva besta sistemo kaj la fasado de la bestaj specoj.
 //
 // ⟨ ĈIU SPECO SIDAS EN SIA PROPRA DOSIERO 📃 ⟩
 //   · beroe.ts, mnemiopsis.ts, pleurobrakia.ts — la tri ktenoforoj ( kombuloj ),

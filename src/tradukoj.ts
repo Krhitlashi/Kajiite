@@ -1,9 +1,11 @@
-// tradukoj.ts — Traduk-sistemo por Aranis
-// Four languages. aih, eo, en, ja
+// ≺⧼ Tradukoj 🗣️ ⧽≻
+// La traduk-sistemo de Aranis — la kvin lingvoj ( aih, eo, en, ja, km ) kaj la
+// iloj por apliki ilin al la paĝo.
 import { gkAlIpa, ipaAlLingvo } from "./sonaj-reguloj.js";
 import { TIPARO } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
 
 const skakefani: Record<string, Record<string, string>> = {
+  // ⟪ La aih-a lingvo ( Gawekiif ) 📃 ⟫
   aih: {
     // Adjektivoj iras ANTAŬ la substantivo por priskriboj ( Iikrhia gramatika regulo ).
     // to signal a fused compound name rather than a mere description.
@@ -221,6 +223,7 @@ const skakefani: Record<string, Record<string, string>> = {
     "trako2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
     "trako3": "j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
   },
+  // ⟪ La esperanta 📃 ⟫
   eo: {
     // Ĝustaj Esperantaj tradukoj por ĉiuj UI-ŝnuroj
     // IPA-bazitaj proksimumoj por kutimaj nomoj
@@ -383,6 +386,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Konstruaĵnomoj ( paqN )
     "muziko": "Muziko",
   },
+  // ⟪ La angla 📃 ⟫
   en: {
     // Ĝustaj anglaj tradukoj por ĉiuj UI-ŝnuroj
     // Fonetaj transskriboj ( de aih ) uzataj nur por kutimaj nomoj ( vesto * )
@@ -545,6 +549,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Konstruaĵnomoj ( en )
     "muziko": "Music",
   },
+  // ⟪ La japana 📃 ⟫
   ja: {
     // Ĝustaj japanaj tradukoj por ĉiuj UI-ŝnuroj
     // Fonetaj transskriboj ( de aih ) uzataj nur por kutimaj nomoj ( vesto * )
@@ -695,6 +700,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Konstruaĵnomoj ( paqN )
     "muziko": "音楽",
   },
+  // ⟪ La kmerea 📃 ⟫
   km: {
     // Kmeraj ( Kamboĝaj ) tradukoj por ĉiuj UI-ŝnuroj
     // Fonetaj proksimumoj en kmera skribo por kutimaj nomoj

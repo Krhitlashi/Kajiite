@@ -46,6 +46,8 @@
 // klako ). Savi skribas rekte al la dosiero per la File System Access API
 // ( Chromium ); aliaj retumiloj ricevas elŝuton.
 import { bazaAlteco } from "../../src/tereno.js";
+// La krada interpolo — la komuna kurbo de la ludo ( src/interpolo.ts ).
+import { katmullRom } from "../../src/interpolo.js";
 // ⟪ La mapo 📃 ⟫ — la skulptilo redaktas UNU mapon samtempe. La mapoj estas
 // sendependaj mondoj ( src/tero-datumaro/mapoj.ts ); ĉiu havas sian propran
 // dosierujon kun la sep datumodosieroj. La registro venas permane ( nur etaj
@@ -143,6 +145,7 @@ import { vojaDuonLargho as retoVojaDuonLargho, vojaKunigaDuono as retoVojaKuniga
   dokoKunfandiĝas as retoDokoKunfandiĝas, dokoKonektasVojon as dokoKonektasVojonReto,
   vojajKunfandajxoj as retoVojajKunfandajxoj, plejProximaVojo as retoPlejProximaVojo,
   konektiDokonAlVojo as retoKonektiDokonAlVojo, troviVojaRetajnKunigojn,
+  dokoLandaSegmento as retoDokoLandaSegmento,
   DOKO_PLATFORMA_LARĜO } from "../../assets/medio/voj-reto.js";
 import { konstruiFiguron } from "../../assets/shalaj-specioj/homoj.js";
 import { VESTOJ } from "../../assets/vestaro/vestoj.js";
@@ -320,14 +323,10 @@ function refari(){
 }
 
 // ════════════════════════ Kradaj samploj ════════════════════════
-// bicuba — Katmull-Rom unu-dimensia interpolo. Glata C1 kurbo sen la diagonalaj
-// faldoj de dulineara interpolo — la montodeklivoj ne plu montras krestojn laŭ
-// la krad-diagonaloj ( la sama funkcio kiel en tero-datumo.ts ).
-function bicuba(p0, p1, p2, p3, t) {
-  const t2 = t * t, t3 = t2 * t;
-  return 0.5 * ( ( 2 * p1 ) + ( -p0 + p2 ) * t
-    + ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t2 + ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t3 );
-}
+// La krada interpolo ( katmullRom ). Glata C1 kurbo sen la diagonalaj faldoj de
+// la dulineara interpolo — la montodeklivoj ne montras krestojn laŭ la
+// krad-diagonaloj. La kurbo venas de la komuna modulo src/interpolo.ts, la sama
+// kiel la ludo kaj la specioj, do la kopioj ne povas devojiĝi.
 // deltoInterp — Dukuba ( Katmull-Rom ) interpolo super la skulpta krado. La
 // valoro cxe kradnodoj restas ekzakte la ĉela valoro; inter la nodoj la
 // surfaco estas glata C1 — sen la dulinearaj diagonalaj krestoj.
@@ -337,8 +336,8 @@ function deltoInterp(x, z) {
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
   const cxelo = ( i, j ) => deltoj[Math.max(0, Math.min(N - 1, j)) * N + Math.max(0, Math.min(N - 1, i))];
-  const vico = ( j ) => bicuba(cxelo(i0 - 1, j), cxelo(i0, j), cxelo(i0 + 1, j), cxelo(i0 + 2, j), u);
-  return bicuba(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v);
+  const vico = ( j ) => katmullRom(cxelo(i0 - 1, j), cxelo(i0, j), cxelo(i0 + 1, j), cxelo(i0 + 2, j), u);
+  return katmullRom(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v);
 }
 function maskoInterp(x, z) {
   const fx = Math.max(0, Math.min(N - 1, ( x - X0 ) / PASO));
@@ -702,9 +701,9 @@ function mondozAlPikselo(z) { return Math.round(( MONDO_HALFO - z ) / MONDO * RE
 
 function prerenderiBazon(){
   for ( let py = 0; py < REZ; py++ ) {
-    const z = MONDO_HALFO - ( py + 0.5 ) * MONDO / REZ;
+    const z = MONDO_HALFO - ( py + 0o1/0o2 ) * MONDO / REZ;
     for ( let px = 0; px < REZ; px++ ) {
-      const x = MONDO_HALFO - ( px + 0.5 ) * MONDO / REZ;
+      const x = MONDO_HALFO - ( px + 0o1/0o2 ) * MONDO / REZ;
       const i = py * REZ + px;
       bazoj[i] = bazaAlteco(x, z);
     }
@@ -796,7 +795,7 @@ function bestoInterp(x, z) {
 // nenio — neniu nuanco. Nur la masko ( ne la teralto ) decidas la akvon.
 function biomoDe(x, z) {
   const pentrita = biomoInterp(x, z);
-  const akva = maskoInterp(x, z) >= 0.5;
+  const akva = maskoInterp(x, z) >= 0o1/0o2;
   if ( pentrita === 4 && akva ) return "akvaj-plantoj";
   if ( pentrita === 5 && akva ) return "ekvizeto";
   if ( akva ) return "akvo";
@@ -846,7 +845,7 @@ function kolorigiAkvon(datumoj, o, h, nivelo, ombro, delta, x, z) {
   let g = 0o150 - 0o110 * t;
   let b = 0o150 - 0o110 * t;
   if ( delta !== 0 ) {
-    const s = 0.15 + Math.min(0.5, Math.abs(delta) / 4);
+    const s = 0.15 + Math.min(0o1/0o2, Math.abs(delta) / 4);
     r += 0o30 * s; g -= 0o14 * s; b -= 0o20 * s;
   }
   // La biomo- kaj besta-nuancoj kovras ankaŭ la akvon — la akvaj biomoj
@@ -862,7 +861,7 @@ function kolorigiAkvon(datumoj, o, h, nivelo, ombro, delta, x, z) {
 // bicubaDerivata — la derivaĵo de la Katmull-Rom kurbo laŭ t.
 function bicubaDerivata(p0, p1, p2, p3, t) {
   const t2 = t * t;
-  return 0.5 * ( ( -p0 + p2 ) + 2 * ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t
+  return 0o1/0o2 * ( ( -p0 + p2 ) + 2 * ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t
     + 3 * ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t2 );
 }
 // deltoKunDerivajoj — la dukuba alto kaj la du partaj derivaĵoj ĉe ( x, z ).
@@ -879,11 +878,11 @@ function deltoKunDerivajoj(x, z) {
   for ( let k = -1; k <= 2; k++ ) {
     const j = j0 + k;
     const a = cxelo(i0 - 1, j), b = cxelo(i0, j), c = cxelo(i0 + 1, j), d = cxelo(i0 + 2, j);
-    r.push(bicuba(a, b, c, d, u));
+    r.push(katmullRom(a, b, c, d, u));
     rd.push(bicubaDerivata(a, b, c, d, u));
   }
-  const h = bicuba(r[0], r[1], r[2], r[3], v);
-  const dhdu = bicuba(rd[0], rd[1], rd[2], rd[3], v);
+  const h = katmullRom(r[0], r[1], r[2], r[3], v);
+  const dhdu = katmullRom(rd[0], rd[1], rd[2], rd[3], v);
   const dhdv = bicubaDerivata(r[0], r[1], r[2], r[3], v);
   return [ h, dhdu / PASO, dhdv / PASO ];
 }
@@ -897,16 +896,16 @@ function rekalkuliDeklivojn(px0, py0, px1, py1) {
   const minPx = Math.max(1, px0), maxPx = Math.min(REZ - 2, px1);
   const minPy = Math.max(1, py0), maxPy = Math.min(REZ - 2, py1);
   for ( let py = minPy; py <= maxPy; py++ ) {
-    const z = MONDO_HALFO - ( py + 0.5 ) * MONDO / REZ;
+    const z = MONDO_HALFO - ( py + 0o1/0o2 ) * MONDO / REZ;
     for ( let px = minPx; px <= maxPx; px++ ) {
-      const x = MONDO_HALFO - ( px + 0.5 ) * MONDO / REZ;
+      const x = MONDO_HALFO - ( px + 0o1/0o2 ) * MONDO / REZ;
       const i = py * REZ + px;
       const [ , deklX, deklZ ] = deltoKunDerivajoj(x, z);
       deklivoGradientoj[i] = Math.hypot(deklX, deklZ);
       const nx = -deklX * 2.2, nz = -deklZ * 2.2, ny = 1;
       const len = Math.hypot(nx, ny, nz);
       const lumo = ( nx * lumoX + ny * lumoY + nz * lumoZ ) / len / lumoLen;
-      deklivoj[i] = 0.7 + 0.5 * Math.max(0, lumo);
+      deklivoj[i] = 0.7 + 0o1/0o2 * Math.max(0, lumo);
     }
   }
 }
@@ -921,9 +920,9 @@ function gxisdatigiPlenan2Dn(){
 function pentri(px0, py0, px1, py1) {
   const datumoj = bazaBildo.data;
   for ( let py = py0; py <= py1; py++ ) {
-    const z = MONDO_HALFO - ( py + 0.5 ) * MONDO / REZ;
+    const z = MONDO_HALFO - ( py + 0o1/0o2 ) * MONDO / REZ;
     for ( let px = px0; px <= px1; px++ ) {
-      const x = MONDO_HALFO - ( px + 0.5 ) * MONDO / REZ;
+      const x = MONDO_HALFO - ( px + 0o1/0o2 ) * MONDO / REZ;
       const i = py * REZ + px;
       const bazo = bazoj[i];
       const delta = deltoInterp(x, z);
@@ -1016,7 +1015,7 @@ function desegniVidon(){
       k.closePath();
       k.fill();
       k.strokeStyle = elektita ? "#e0b840" : "rgba(0,0,0,0.5)";
-      k.lineWidth = elektita ? 2.5 : 1;
+      k.lineWidth = elektita ? 0o5/0o2 : 1;
       k.stroke();
       k.font = "bold 12px sans-serif";
       k.textAlign = "center";
@@ -1049,7 +1048,7 @@ function desegniVidon(){
       const bx = sxMondo(kradoOfsX + b.x), bz = syMondo(kradoOfsZ + b.z);
       if ( i === elektitaAldonaBloko ) {
         k.strokeStyle = "#f8e8a8";
-        k.lineWidth = 2.5;
+        k.lineWidth = 0o5/0o2;
         k.beginPath();
         k.arc(bx, bz, 9, 0, Math.PI * 2);
         k.stroke();
@@ -1108,7 +1107,7 @@ function desegniVidon(){
       if ( !v.punktoj || v.punktoj.length < 2 ) continue;
       const elektita = vi === elektitaVojo;
       const duono = vojaDuonLargho( v ) * 2;
-      const centro = ( v.larĝo || 3.5 ) / 2;
+      const centro = ( v.larĝo || 0o7/0o2 ) / 2;
       const punktoj = v.punktoj.map(p => [ sxMondo(p[0]), syMondo(p[1]) ]);
       const spuro = ( larĝo, koloro ) => {
         k.strokeStyle = koloro;
@@ -1126,7 +1125,7 @@ function desegniVidon(){
         const aktiva = elektita && i === elektitaPunkto;
         k.fillStyle = aktiva ? "#f8e8a8" : "rgba(255,255,255,0.9)";
         k.beginPath();
-        k.arc(p[0], p[1], aktiva ? 5 : 3.5, 0, Math.PI * 2);
+        k.arc(p[0], p[1], aktiva ? 5 : 0o7/0o2, 0, Math.PI * 2);
         k.fill();
         k.strokeStyle = "rgba(0,0,0,0.5)";
         k.lineWidth = 1;
@@ -1180,9 +1179,9 @@ function desegniVidon(){
     const sx2 = sxMondo(kursoro.x);
     const sy2 = syMondo(kursoro.z);
     k.strokeStyle = "rgba(255,255,255,0.8)";
-    k.lineWidth = 1.5;
+    k.lineWidth = 0o3/0o2;
     k.beginPath();
-    k.arc(sx2, sy2, ( objektaModo ? 1.5 : radiuso() ) * vidSkalo, 0, Math.PI * 2);
+    k.arc(sx2, sy2, ( objektaModo ? 0o3/0o2 : radiuso() ) * vidSkalo, 0, Math.PI * 2);
     k.stroke();
     k.beginPath();
     k.arc(sx2, sy2, 2, 0, Math.PI * 2);
@@ -1206,13 +1205,13 @@ function desegniVidon(){
     const elektita = i === elektitaFonto;
     const akvaIlo = penikoAktiva === "akvo" || penikoAktiva === "akvoforvisxi";
     const px = sxMondo(f.x), py = syMondo(f.z);
-    const r = Math.max(3.5, ( 1.2 + Math.min(2.4, f.fluo * 0.09) ) * vidSkalo * ( akvaIlo ? 1.25 : 1 ));
+    const r = Math.max(0o7/0o2, ( 1.2 + Math.min(2.4, f.fluo * 0.09) ) * vidSkalo * ( akvaIlo ? 1.25 : 1 ));
     k.beginPath();
     k.arc(px, py, r, 0, Math.PI * 2);
     k.fillStyle = elektita ? "rgba(150,230,255,0.9)" : "rgba(70,170,215,0.78)";
     k.fill();
     k.strokeStyle = elektita ? "#ffffff" : "rgba(240,252,255,0.85)";
-    k.lineWidth = elektita ? 2.5 : 1.5;
+    k.lineWidth = elektita ? 0o5/0o2 : 0o3/0o2;
     k.stroke();
     k.beginPath();
     k.arc(px, py, r * 0.35, 0, Math.PI * 2);
@@ -1404,20 +1403,20 @@ function rekonstruiFontojn3D() {
   }
   for ( let i = 0; i < fontoj.length; i++ ) {
     const f = fontoj[i];
-    const r = 0.5 + Math.min(1.6, f.fluo * 0.06);
+    const r = 0o1/0o2 + Math.min(1.6, f.fluo * 0.06);
     const sfero = new THREE.Mesh(
       new THREE.SphereGeometry(r, 12, 8),
       new THREE.MeshStandardMaterial({
         color: i === elektitaFonto ? 0xd8f4ff : 0x48a8d0,
-        emissive: 0x206080, roughness: 0.3, metalness: 0.1,
+        emissive: 0x206080, roughness: 0.3, metalness: 0o1/0o10,
       }));
     sfero.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + r, f.z);
     fontaGrupo3D.add(sfero);
     const ringo = new THREE.Mesh(
       new THREE.TorusGeometry(r * 1.7, r * 0.16, 8, 20),
-      new THREE.MeshStandardMaterial({ color: 0xe8f8ff, roughness: 0.5, metalness: 0 }));
+      new THREE.MeshStandardMaterial({ color: 0xe8f8ff, roughness: 0o1/0o2, metalness: 0 }));
     ringo.rotation.x = -Math.PI / 2;
-    ringo.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + 0.25, f.z);
+    ringo.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + 0o1/0o4, f.z);
     fontaGrupo3D.add(ringo);
   }
 }
@@ -1490,7 +1489,7 @@ function eniri3D(){
     // skulptado sub la surfaco ) videblu dum redaktado.
     akvaMesh = new THREE.Mesh(akvaGeometrio, new THREE.MeshStandardMaterial({
       color: 0x287888, transparent: true, opacity: 0.55,
-      roughness: 0.15, metalness: 0.1, side: THREE.DoubleSide,
+      roughness: 0.15, metalness: 0o1/0o10, side: THREE.DoubleSide,
     }));
     akvaMesh.renderOrder = 1;
     sceno3d.add(akvaMesh);
@@ -1538,7 +1537,7 @@ function eniri3D(){
     regiloj3d = new OrbitControls(fotilo3d, bildilo3d.domElement);
     regiloj3d.target.set(0, 0, 0);
     regiloj3d.enableDamping = true;
-    regiloj3d.dampingFactor = 0.05;
+    regiloj3d.dampingFactor = 0o1/0o20;
     regiloj3d.minDistance = 0o60;                    // 48
     regiloj3d.maxDistance = 0o1400;                  // 768
     regiloj3d.maxPolarAngle = Math.PI * 0.48;
@@ -1637,7 +1636,7 @@ function radiaTrafo(e) {
 function gxisdatigiRingon(p) {
   if ( !ringaObjekto ) return;
   if ( !p ) { ringaObjekto.visible = false; return; }
-  const r = objektaModo ? 1.5 : radiuso();
+  const r = objektaModo ? 0o3/0o2 : radiuso();
   const poz = ringaObjekto.geometry.attributes.position.array;
   for ( let a = 0; a <= RINGA_PUNKTOJ; a++ ) {
     const ang = a / RINGA_PUNKTOJ * Math.PI * 2;
@@ -2295,7 +2294,7 @@ function metiObjekton(x, z) {
 // elektada radiuso ( 8 ekranpikseloj je la nuna zomo ), aux -1. La mapklako
 // en la objekta ilo ELEKTAS proksiman objekton anstataŭ meti novan.
 function objektoCxePunkto(wx, wz) {
-  const disto = Math.max(2.5, 8 / vidSkalo);
+  const disto = Math.max(0o5/0o2, 8 / vidSkalo);
   let plej = -1, plejDisto = disto;
   for ( let i = 0; i < objektoj.length; i++ ) {
     const o = objektoj[i];
@@ -2524,7 +2523,7 @@ function rekonstruiObjektojn() {
   }
 }
 
-// ⟪ Objekta antaŭrigardo ⟫
+// ⟪ Objekta antaŭrigardo 📃 ⟫
 // La 3D-antaŭrigardo — malgranda orbitanta vido de la elektita speco en la
 // objekto-panelo. La SAMA konstruanto kiel la mapo/bake ( konstruiObjektonEn
 // kun nula tera alto kaj la ŝipo pli proksime al la grundo ), centre
@@ -2545,7 +2544,7 @@ function kreiObjektanAntauxrigardon() {
   const suno = new THREE.DirectionalLight(0xf8f0d8, 1.2);
   suno.position.set(-10, 20, 8);
   objektaAntauxSceno.add(suno);
-  objektaAntauxSceno.add(new THREE.AmbientLight(0x505858, 0.5));
+  objektaAntauxSceno.add(new THREE.AmbientLight(0x505858, 0o1/0o2));
   objektaAntauxGrupo = new THREE.Group();
   objektaAntauxSceno.add(objektaAntauxGrupo);
 }
@@ -2571,7 +2570,7 @@ function rekonstruiObjektanAntauxrigardon() {
   const mezo = kesto.getCenter(new THREE.Vector3());
   objektaAntauxGrupo.position.sub(mezo);
   const disto = Math.max(0o14, grandeco * 0.9);
-  objektaAntauxFotilo.near = Math.max(1, disto * 0.05);
+  objektaAntauxFotilo.near = Math.max(1, disto * 0o1/0o20);
   objektaAntauxFotilo.far = disto * 0o10 + 0o200;
   objektaAntauxFotilo.position.set(disto * 0.8, disto * 0.65, disto * 0.8);
   objektaAntauxFotilo.updateProjectionMatrix();
@@ -2631,30 +2630,30 @@ function gxisdatigiObjektoPropOJn() {
       + opcioj.map(( op, i ) => "<option value=\"" + i + "\"" + ( objektoProp[klavo] === i ? " selected" : "" ) + ">" + op + "</option>").join("")
       + "</select></label>";
   };
-  html += glitilo("Skalo", "skalo", 0.25, 3, 0.05, "");
+  html += glitilo("Skalo", "skalo", 0o1/0o4, 3, 0o1/0o20, "");
   if ( s === "npco" ) {
-    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0.05, " rad");
+    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0o1/0o20, " rad");
     html += elektilo("Vesto", "vesto", OBJEKTO_VESTOJ);
     html += elektilo("Harstilo", "harstilo", [ "Mallonga", "Longa" ]);
   } else if ( s === "akvabesto" ) {
     html += elektilo("Speco", "bestospeco", OBJEKTO_BESTOSPECOJ);
   } else if ( s === "petrelo" ) {
-    html += glitilo("Flugradiuso", "radio", 1, 20, 0.5, " un");
+    html += glitilo("Flugradiuso", "radio", 1, 20, 0o1/0o2, " un");
   } else if ( s === "roko" ) {
     // La rokaj varioj — la grandeco kaj la turno ( la tono kaj la formo
     // hazardas cxe cxiu meto, kiel la montaraj rokoj ).
-    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0.05, " rad");
+    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0o1/0o20, " rad");
   } else if ( s === "filiko" ) {
     // La filika vario — verda aux purpura ( la purpuraj filikoj de la valo ).
     html += elektilo("Koloro", "filikaSpeco", [ "Verda", "Purpura" ]);
   } else if ( s === "kanuo" ) {
     // La kanua turno povas esti negativa ( la flosdirekto sur la rivero ).
-    html += glitilo("Rotacio", "rotacio", -3.2, 3.2, 0.05, " rad");
+    html += glitilo("Rotacio", "rotacio", -3.2, 3.2, 0o1/0o20, " rad");
     html += elektilo("Stilo", "stilo", OBJEKTO_KANUAJ_STILOJ);
   } else if ( OBJEKTO_KONSTRUAJXOJ[s] || s === "hxeuxfo" || s === "hxeuxfoPlato" || s === "keuxfhxeso" ) {
     // La konstruajxoj, la lampoj kaj la keuxfhxesoj turnigxas — la pordo / la
     // ripoj alfrontas la elektitan direkton.
-    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0.05, " rad");
+    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0o1/0o20, " rad");
   }
   // La spacosxipo havas neniun aldonan econ — gxi ĉiam flosas super la stacio.
   objektoPropOJ.innerHTML = html;
@@ -2738,8 +2737,8 @@ let kradaPlanoCache = null;
 // redaktataj per la Vojoj sub-langeto de la Krado-panelo.
 let vojoj = SKULPTA_VOJOJ.length
   ? SKULPTA_VOJOJ.map(v => ( { ...v, punktoj: v.punktoj.map(p => [ p[0], p[1] ]) } ))
-  : [ { nomo: "Kajo", larĝo: 3.5, punktoj: [ [ -84, -96 ], [ -56, -104 ], [ -48, -100 ], [ 0, -90 ], [ 48, -80 ], [ 56, -84 ], [ 84, -82 ] ] },
-      { nomo: "Avenuo", larĝo: 3.5, punktoj: [ [ 12, -64 ], [ 12, -88 ] ] } ];
+  : [ { nomo: "Kajo", larĝo: 0o7/0o2, punktoj: [ [ -84, -96 ], [ -56, -104 ], [ -48, -100 ], [ 0, -90 ], [ 48, -80 ], [ 56, -84 ], [ 84, -82 ] ] },
+      { nomo: "Avenuo", larĝo: 0o7/0o2, punktoj: [ [ 12, -64 ], [ 12, -88 ] ] } ];
 let dokoj = SKULPTA_DOKOJ.length
   ? SKULPTA_DOKOJ.map(d => ( { ...d } ))
   : [ { x: -48, z: -108, profundo: 16 }, { x: 0, z: -98, profundo: 16 }, { x: 48, z: -88, profundo: 16 } ];
@@ -3038,7 +3037,7 @@ function gxisdatigiVojajnRegilojn() {
   const v = vojoj[elektitaVojo];
   if ( v ) {
     vojoNomoEl.value = v.nomo || "";
-    vojoLargxoEl.value = String(v.larĝo || 3.5);
+    vojoLargxoEl.value = String(v.larĝo || 0o7/0o2);
     vojoPunktoElektilo.innerHTML = "";
     v.punktoj.forEach(( p, j ) => {
       const o = document.createElement("option");
@@ -3086,7 +3085,7 @@ function skribiVojajnRegilojn() {
   const v = vojoj[elektitaVojo];
   if ( v ) {
     v.nomo = vojoNomoEl.value;
-    v.larĝo = parseFloat(vojoLargxoEl.value) || 3.5;
+    v.larĝo = parseFloat(vojoLargxoEl.value) || 0o7/0o2;
     const p = v.punktoj[elektitaPunkto];
     // La tajpitaj valoroj estas prenataj kiel ili estas ( nur la mapo-treno
     // algluas al 0.5 — la sxargitaj riverbordaj valoroj restu netusxataj ).
@@ -3114,7 +3113,7 @@ function skribiVojoSekure() {
   const kopio = { ...v, punktoj: v.punktoj.map( p => [ ...p ] ) };
   const kunfandisAntaŭ = vojoKunfandiĝas( v, elektitaVojo );
   v.nomo = vojoNomoEl.value;
-  v.larĝo = parseFloat( vojoLargxoEl.value ) || 3.5;
+  v.larĝo = parseFloat( vojoLargxoEl.value ) || 0o7/0o2;
   const p = v.punktoj[elektitaPunkto];
   if ( p ) {
     p[0] = parseFloat( vojoPunktoXEl.value ) || 0;
@@ -3230,17 +3229,6 @@ function plejProximaVojo( px, pz, kromVojo = -1 ) {
   return retoPlejProximaVojo( px, pz, vojoj, kromVojo );
 }
 
-function dokoLandaSegmento( d ) {
-  const rotacio = d.rotacio ?? 0;
-  const duonZ = ( d.profundo || 16 ) / 2;
-  return {
-    x: d.x + Math.sin(rotacio) * duonZ,
-    z: d.z + Math.cos(rotacio) * duonZ,
-    dx: Math.cos(rotacio),
-    dz: -Math.sin(rotacio),
-  };
-}
-
 function konektiDokonAlVojo( d, kromDoko ) {
   const akvas = akvaRezulto
     ? ( x, z ) => akvoCxe( akvaRezulto, N, PASO, [ X0, Z0 ], x, z )
@@ -3301,7 +3289,7 @@ function vojaCeloCxePunkto(mx, mz) {
     const dx = mx - d.x, dz = mz - d.z;
     const lx = dx * Math.cos(rotacio) - dz * Math.sin(rotacio);
     const lz = dx * Math.sin(rotacio) + dz * Math.cos(rotacio);
-    if ( Math.abs(lx) < 0o16/0o10 + 2.5 && Math.abs(lz) < prof / 2 + 2.5 ) return { speco: "doko", doko: di };
+    if ( Math.abs(lx) < 0o16/0o10 + 0o5/0o2 && Math.abs(lz) < prof / 2 + 0o5/0o2 ) return { speco: "doko", doko: di };
   }
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     const v = vojoj[vi];
@@ -3310,7 +3298,7 @@ function vojaCeloCxePunkto(mx, mz) {
       const l = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
       const t = Math.max(0, Math.min(1, ( ( mx - a[0] ) * ( b[0] - a[0] ) + ( mz - a[1] ) * ( b[1] - a[1] ) ) / ( l * l )));
       const d = Math.hypot(a[0] + t * ( b[0] - a[0] ) - mx, a[1] + t * ( b[1] - a[1] ) - mz);
-      if ( d < ( v.larĝo || 3.5 ) / 2 + 1.5 + r ) return { speco: "vojo", vojo: vi };
+      if ( d < ( v.larĝo || 0o7/0o2 ) / 2 + 0o3/0o2 + r ) return { speco: "vojo", vojo: vi };
     }
   }
   return null;
@@ -3368,7 +3356,7 @@ function komenciVojaTrenon(celo) {
 function kradaVojaAlglu(mx, mz) {
   const plano = kradoPlano();
   const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
-  const rando = 2.5;
+  const rando = 0o5/0o2;
   let plej = null, plejD = rando;
   for ( const r of plano.vojoj ) {
     if ( r.orient === "NS" ) {
@@ -3396,14 +3384,14 @@ function kradaVojaAlglu(mx, mz) {
 function kradaSegmentoAlglu(ax, az, bx, bz) {
   const plano = kradoPlano();
   const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
-  const rando = 2.5;
+  const rando = 0o5/0o2;
   const dx = bx - ax, dz = bz - az;
   if ( Math.hypot(dx, dz) < 1e-6 ) return null;
   // NS — preskaŭ-vertikala segmento ( la angulo al la vertikalo ≤ ~14° )
   // proksime al NS-linio. NENIU etenda limo. la segmento povas gliti sur la
   // linion ankaux preter la urba intervalo kaj tiam DAŬRIGAS la kradan
   // linion ( samkiel la finpunkto-algluo ).
-  if ( Math.abs(dx) <= 0.25 * Math.abs(dz) ) {
+  if ( Math.abs(dx) <= 0o1/0o4 * Math.abs(dz) ) {
     let plej = null, plejD = rando;
     for ( const r of plano.vojoj ) {
       if ( r.orient !== "NS" ) continue;
@@ -3414,7 +3402,7 @@ function kradaSegmentoAlglu(ax, az, bx, bz) {
     if ( plej !== null ) return { linioX: plej, linioZ: null };
   }
   // EW — preskaŭ-horizontala segmento proksime al EW-linio.
-  if ( Math.abs(dz) <= 0.25 * Math.abs(dx) ) {
+  if ( Math.abs(dz) <= 0o1/0o4 * Math.abs(dx) ) {
     let plej = null, plejD = rando;
     for ( const r of plano.vojoj ) {
       if ( r.orient !== "EW" ) continue;
@@ -3443,7 +3431,7 @@ function kradaSegmentoAlglu(ax, az, bx, bz) {
 //     @param mx, mz ( number ) - La mondo-punkto de la kursoro.
 //     @param kromVojo ( number ) - La indekso de la trenata vojo.
 //     @returns punkto ( [ number, number ] | null ) - La kuniga punkto.
-const VOJA_ALGLUA_RANDO = 2.5;
+const VOJA_ALGLUA_RANDO = 0o5/0o2;
 function vojaAlgluo( mx, mz, kromVojo, najbaro = null ) {
   let plej = null, plejD = Infinity;
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
@@ -3468,7 +3456,7 @@ function vojaAlgluo( mx, mz, kromVojo, najbaro = null ) {
     }
   }
   for ( let di = 0; di < dokoj.length; di++ ) {
-    const d = dokoj[di], r = dokoLandaSegmento( d );
+    const d = dokoj[di], r = retoDokoLandaSegmento( d );
     const projekcio = vojaProjekcio(mx, mz, [ r.x - r.dx * DOKO_PLATFORMA_LARĜO / 2, r.z - r.dz * DOKO_PLATFORMA_LARĜO / 2 ],
       [ r.x + r.dx * DOKO_PLATFORMA_LARĜO / 2, r.z + r.dz * DOKO_PLATFORMA_LARĜO / 2 ]);
     if ( !projekcio || projekcio.d > VOJA_ALGLUA_RANDO + DOKO_PLATFORMA_LARĜO / 2 ) continue;
@@ -3765,7 +3753,7 @@ const KRADAJ_KOLOROJ = {
 };
 function desegniKradanTavolon(k, plano, X, Z, skalo) {
   // Vojoj — la samaj segmentoj kiel la ludo ( plena larĝo 3.5 ).
-  k.lineWidth = 3.5 * skalo;
+  k.lineWidth = 0o7/0o2 * skalo;
   k.strokeStyle = "rgba(218,218,228,0.9)";
   k.beginPath();
   for ( const v of plano.vojoj ) {
@@ -3801,16 +3789,16 @@ function desegniKradanTavolon(k, plano, X, Z, skalo) {
     k.strokeStyle = "rgba(0,0,0,0.35)";
     k.lineWidth = 1;
     k.stroke();
-    const pdx = X(b.x + Math.sin(b.rot) * 5.5);
-    const pdz = Z(b.z + Math.cos(b.rot) * 5.5);
+    const pdx = X(b.x + Math.sin(b.rot) * 0o13/0o2);
+    const pdz = Z(b.z + Math.cos(b.rot) * 0o13/0o2);
     k.fillStyle = "rgba(255,255,255,0.9)";
     k.beginPath();
-    k.arc(pdx, pdz, Math.max(1.5, 1.2 * skalo), 0, Math.PI * 2);
+    k.arc(pdx, pdz, Math.max(0o3/0o2, 1.2 * skalo), 0, Math.PI * 2);
     k.fill();
   }
 }
 
-// ⟪ La 3D-aspekto ⟫
+// ⟪ La 3D-aspekto 📃 ⟫
 // rekonstruiKradon3D — la nuna krada aranĝo kiel reala 3D-aspekto en la
 // 3D-vido. la konstruaĵoj estas la VERAJ konstruaĵoj de la ludo ( la sama
 // konstruiSatalon kiel en urbo.ts — realaj meshoj, materialoj, pordoj kaj la
@@ -3871,7 +3859,7 @@ function rekonstruiVojojn3D() {
   const difinoj = [];
   for ( const v of vojoj ) {
     if ( !v.punktoj || v.punktoj.length < 2 ) continue;
-    const difino = { pts: v.punktoj.map( p => [ p[0], p[1] ] ), w: ( v.larĝo || 3.5 ) / 2, kapoj: true };
+    const difino = { pts: v.punktoj.map( p => [ p[0], p[1] ] ), w: ( v.larĝo || 0o7/0o2 ) / 2, kapoj: true };
     const ponto = pontoVojo( v );
     if ( ponto ) {
       const ay = vojaSupro( ponto.a, v );
@@ -3937,7 +3925,7 @@ function rekonstruiKradon3D() {
     const mezo = ( v.de + v.al ) / 2;
     const x = v.orient === "EW" ? mezo : v.poz;
     const z = v.orient === "EW" ? v.poz : mezo;
-    const geo = new THREE.BoxGeometry(v.orient === "EW" ? longo : 3.5, vojaAlto, v.orient === "EW" ? 3.5 : longo);
+    const geo = new THREE.BoxGeometry(v.orient === "EW" ? longo : 0o7/0o2, vojaAlto, v.orient === "EW" ? 0o7/0o2 : longo);
     const mesho = new THREE.Mesh(geo, vojaMaterialo);
     mesho.position.set(kradoOfsX + x, grundo(kradoOfsX + x, kradoOfsZ + z) + vojaAlto / 2, kradoOfsZ + z);
     grupo.add(mesho);
@@ -4120,7 +4108,7 @@ vojoAldoniBtn.addEventListener("click", () => {
   momenti();
   const v = vojoj[elektitaVojo];
   const last = v && v.punktoj && v.punktoj.length ? v.punktoj[v.punktoj.length - 1] : [ 0, 0 ];
-  const nova = { nomo: "Nova vojo", larĝo: 3.5, punktoj: [ [ Math.round(( last[0] - 10 ) * 2) / 2, last[1] ], [ Math.round(( last[0] + 10 ) * 2) / 2, last[1] ] ] };
+  const nova = { nomo: "Nova vojo", larĝo: 0o7/0o2, punktoj: [ [ Math.round(( last[0] - 10 ) * 2) / 2, last[1] ], [ Math.round(( last[0] + 10 ) * 2) / 2, last[1] ] ] };
   vojoj.push( nova );
   if ( vojoKunfandiĝas( nova, vojoj.length - 1 ) ) {
     vojoj.pop();

@@ -1,5 +1,5 @@
-// retilo.ts — La retilo ( multludada ) por Aranis
-// Konektas al la servila WebSocket ( /retilo ) kaj interŝanĝas poziciojn kun
+// ≺⧼ Retilo 🌐 ⧽≻
+// La multludada retilo por Aranis. Konektas al la servila WebSocket ( /retilo ) kaj interŝanĝas poziciojn kun
 // la aliaj ludantoj. La foraj ludantoj aperas kiel figuroj ( la sama modelo
 // kiel la NPC-oj ), kun glata sekvo de iliaj pozicioj kaj marŝaj animacioj.
 import * as THREE from "three";
@@ -7,7 +7,8 @@ import { konstruiFiguron, marŝSvingo } from "../assets/shalaj-specioj/homoj.js"
 import type { Figuro } from "../assets/shalaj-specioj/homoj.js";
 import { VESTOJ, HARSTILOJ, HARKOLOROJ } from "../assets/vestaro/vestoj.js";
 
-// La stato sendata per la retilo. La reala sendo estas malakrigita ( 8 Hz );
+// ⟪ La stata formo 📃 ⟫ — la stato sendata per la retilo. La reala sendo estas
+// malakrigita ( 8 Hz );
 // la loka kopio ĝisdatiĝas ĉiukadre por la videbleco-logiko.
 export interface LokaStato {
   x: number;
@@ -35,13 +36,13 @@ export interface Retilo {
   fermi: () => void;
 }
 
-// La servilaj pordoj ( vidu servilo/servilo.js ).
+// ⟪ La servilaj pordoj kaj la tempigoj 📃 ⟫ ( vidu servilo/servilo.js ).
 const PORD_RETILO = 0o5660;
 const PORD_FALLO = 0o5671;
 // ≈ 8 Hz — la paŭzo inter la realaj sendo-oj ( 0o200 = 128 ms ).
 const SENDOPAŬZO = 0o200;
-// 3 sekundoj inter la rekonekto-provoj.
-const REKONEKTAŬZO = 0o5660;
+// ≈ 3 sekundoj inter la rekonekto-provoj ( 0o6000 = 3072 ms ).
+const REKONEKTAŬZO = 0o6000;
 // Glataj sekvoj — la lerp-faktoroj por pozicio/rotacio kaj movo. La sama
 // valoro kiel la fotila glatigo ( 0o10 ) en sperto.ts, por ke la foraj
 // figuroj sekvu sian celon simile al la loka kamerao.

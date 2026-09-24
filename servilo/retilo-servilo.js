@@ -1,4 +1,5 @@
-// retilo-servilo.js — Minimuma WebSocket-servilo por la multludada retilo.
+// ≺⧼ Retilo-servilo 🖧 ⧽≻
+// Minimuma WebSocket-servilo por la multludada retilo.
 // Sen dependecoj. la manpremo ( SHA-1 ) kaj la kadroj estas pritraktitaj rekte.
 // Protokolo ( JSON ).
 //   Servilo → kliento . { t: "saluton", id } · { t: "aliĝis", id } · { t: "stato", id, ... } · { t: "foriris", id }
@@ -170,7 +171,8 @@ export function konektiRetilon(servilo, opcioj = {}) {
     so.on("error", () => { try { so.destroy(); } catch { /* fermita */ } });
   });
 
-  // Korbatado — pingoj konservas la konektojn vivaj kaj forpurigas mortintojn.
+  // ⟨ La korbatado 📃 ⟩ — pingoj konservas la konektojn vivaj kaj forpurigas
+  // mortintojn.
   const koro = setInterval(() => {
     for ( const kliento of klientoj.values() ) {
       try { kliento.so.write(Buffer.from([ 0x89, 0x00 ])); } catch { kliento.so.destroy(); }

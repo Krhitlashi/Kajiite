@@ -1,4 +1,5 @@
-// Hxeuxfa lampo — trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj
+// ≺⧼ Hxeuxfa lampo 🏮 ⧽≻
+// Trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj
 // sprajtoj. La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
 import * as THREE from "three";
 import { kreiBrilanTeksajxon, kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj.js";
@@ -612,11 +613,11 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
       const idx = i * langojPoLampo + j;
       const bazo = sys.langajBazoj[idx];
       const fazo = sys.langajFazoj[idx];
-      const osc = 0.5 + 0.5 * Math.sin(t * ( 0.85 + 0.3 * j ) + fazo + fazoFlama);
-      const sx = bazo.z * ( 0.35 + 0.75 * osc );
+      const osc = 0o1/0o2 + 0o1/0o2 * Math.sin(t * ( 0.85 + 0.3 * j ) + fazo + fazoFlama);
+      const sx = bazo.z * ( 0.35 + 0o3/0o4 * osc );
       const sy = 0.3 + 1.3 * osc;
       // La lango kliniĝas for de la akso — des pli, des pli malfermita ĝi estas.
-      const klino = 0.1 + 0.32 * osc;
+      const klino = 0o1/0o10 + 0.32 * osc;
       const cx = bazo.x / Math.max(1e-6, Math.hypot(bazo.x, bazo.y));
       const cz = bazo.y / Math.max(1e-6, Math.hypot(bazo.x, bazo.y));
       FLAMA_E2.set(klino * cz, 0, -klino * cx);

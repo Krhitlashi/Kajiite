@@ -1,5 +1,7 @@
-// Vesta modulo — kostumaj teksturoj kun kvarpinta stelo kaj rombo-motivoj
+// ≺⧼ Vestoj 👕 ⧽≻
+// Kostumaj teksturoj kun kvarpinta stelo kaj rombo-motivoj
 
+// ⟪ La vestoj 📃 ⟫
 export interface Vesto {
   nomo: string;
   ĉefa: number;    // deksesuma
@@ -25,7 +27,7 @@ export const VESTOJ: Vesto[] = [
 // deksesuma — Formatu decimalan koloron kiel #rrggbb-strako.
 export const deksesuma = ( c: number ): string => "#" + c.toString(0o20).padStart(0o6, "0");
 
-// Harstiloj — haro-stiloj por la vestaro. Ĉiu stilo havas sian propran koloron,
+// ⟪ La har-stiloj 📃 ⟫ — haro-stiloj por la vestaro. Ĉiu stilo havas sian propran koloron,
 // do la elekto ŝanĝas kaj la formon kaj la nuancon de la haro.
 export interface Harstilo {
   nomo: string;    // traduka klavo — ankaŭ la ŝlosilo de la grupo en la figuro
@@ -37,7 +39,7 @@ export const HARSTILOJ: Harstilo[] = [
   { nomo: "haroLonga",    koloro: 0x181008 },  // longa — preskaŭ nigra
 ];
 
-// Har-koloroj — paletro sendependa de la stilo. La ludanto povas kombini ajnan
+// ⟪ La har-koloroj 📃 ⟫ — paletro sendependa de la stilo. La ludanto povas kombini ajnan
 // stilon kun ajnan koloron; la stila koloro supre estas nur la antauxrigardo.
 export interface HarKoloro {
   nomo: string;    // traduka klavo
@@ -53,6 +55,7 @@ export const HARKOLOROJ: HarKoloro[] = [
   { nomo: "harKoloroGriza",   koloro: 0x889098 },  // griza
 ];
 
+// ⟨ La motivoj 📃 ⟩
 export function kvarStelo(kunteksto: CanvasRenderingContext2D,
   cX: number, cy: number, r: number, koloro: string
 ): void {
@@ -100,6 +103,7 @@ function rondaRechto(kunteksto: CanvasRenderingContext2D,
   kunteksto.fill();
 }
 
+// ⟨ La antaŭrigardoj 📃 ⟩
 // kreiVestanAntauxrigardon — Kreu malgrandan antauxrigardan kanvason por vesta elekta karto.
 //     @param o ( Vesto ) - La vesta objekto por montri.
 export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {

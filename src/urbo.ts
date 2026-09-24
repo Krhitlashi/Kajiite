@@ -1,4 +1,5 @@
-// Urbo — urba konstruo. konstruajxoj, vojoj, placoj, lampoj, vegetajxo, nebulo, akvo, kanuoj
+// ≺⧼ Urbo 🏙️ ⧽≻
+// Urba konstruo. konstruajxoj, vojoj, placoj, lampoj, vegetajxo, nebulo, akvo kaj kanuoj.
 // Modula krada sistemo — vojoj kaj konstruajxaj pozicioj derivitaj de kradaj parametroj.
 import * as THREE from "three";
 import { kunfandiMondajnMeshojn } from "../assets/komunajxoj/kunfandajxoj.js";
@@ -18,7 +19,8 @@ import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxo
 import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO } from "../assets/medio/vojoj.js";
 import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../assets/medio/doko.js";
 import { troviVojaRetajnKunigojn, type VojaRetoVojo } from "../assets/medio/voj-reto.js";
-import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton, superajElDatumo } from "./krado.js";
+import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton, superajElDatumo,
+  aplikiSuperojn } from "./krado.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../assets/mebloj/keuxfhxeso.js";
@@ -339,20 +341,12 @@ function konstruiKradanUrbon(
   const [ ofsX, ofsZ ] = ofseto;
   const ĉeloj = kreiKradon(arangxo);
   // La manaj ĉel-superoj de la skulptilo — la sama aplikado kiel en
-  // kreiKradanPlanon ( krado.ts ). Anstataŭigo de ekzistanta ĉelo ŝanĝas
-  // ĝian tipon; nova ŝlosilo ALDONAS ĉelon ( la voja reto konstruiĝas
-  // ĉirkaŭ ĝi kiel ĉe la generitaj ĉeloj ). La sub-ŝlosiloj ( "c,r,NE" )
-  // traktiĝas en la kvar-blokaj sub-konstruajxoj sube.
-  if ( superoj ) {
-    for ( const [ ŝ, tipo ] of superoj ) {
-      const partoj = ŝ.split(",");
-      if ( partoj.length !== 2 ) continue;
-      const [ c, r ] = partoj.map(Number);
-      const ind = ĉeloj.findIndex(( [ lc, lr ] ) => lc === c && lr === r);
-      if ( ind >= 0 ) ĉeloj[ind] = [ c, r, tipo ];
-      else ĉeloj.push([ c, r, tipo ]);
-    }
-  }
+  // kreiKradanPlanon ( krado.ts ), tra la komuna helpilo aplikiSuperojn.
+  // Anstataŭigo de ekzistanta ĉelo ŝanĝas ĝian tipon; nova ŝlosilo ALDONAS
+  // ĉelon ( la voja reto konstruiĝas ĉirkaŭ ĝi kiel ĉe la generitaj ĉeloj ).
+  // La sub-ŝlosiloj ( "c,r,NE" ) traktiĝas en la kvar-blokaj sub-konstruajxoj
+  // sube.
+  aplikiSuperojn(ĉeloj, superoj);
   const kolizioj: { x: number; z: number; r: number }[] = [];
   // La krado-derivaĵoj — komuna kun la skulptilo ( src/krado.ts ). PASXO 24/40,
   // stacio 24 norde de la pinto, kvadrata stacidoma ringo 24×24 ĉirkaŭ la

@@ -1,4 +1,5 @@
-// sonaj-reguloj.ts — Iikrhiaj ( aih ) sonaj reguloj, alportitaj el iloj/sonaj-reguloj.py.
+// ≺⧼ Sonaj reguloj 🗣️ ⧽≻
+// Iikrhiaj ( aih ) sonaj reguloj, alportitaj el iloj/sonaj-reguloj.py.
 //
 // Enhavas ĈIUJN 36 KOMENCAĴ + 45 INTERNAĴ = 81 sign-mapojn de la
 // kanonika skrib-konvertilo ( iikrhia-convert.mjs ). Ĉiu mapo havas
@@ -292,7 +293,7 @@ export function gkAlIpa(gkaTeksto: string): string {
   return avideKongruigi(densigita, ĈIUJ_GK).map(gk => ludo[gk] ?? gk).join("");
 }
 
-// ⟨ Rekta-runa demo — node --experimental-strip-types src/sonaj-reguloj.ts ⟩
+// ⟨ Rekta-runa demo 📃 ⟩ — node --experimental-strip-types src/sonaj-reguloj.ts
 if ( ( import.meta as unknown as { main?: boolean } ).main ) {
   const provoj: [ string, string ][] = [
     [ "paq0", "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ" ],

@@ -25,16 +25,9 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
-
-// katmullRom — unu-dimensia glata interpolo ( la sama kurbo kiel la terena
-// krado en src/tero-datumaro/rultempo.ts kaj la glacifisa korpo en bestoj.ts ).
-// Ĝi densigas la sekcojn, do la birdo estas glata anstataŭ faceta.
-//     @returns La interpolita valoro.
-function katmullRom(p0: number, p1: number, p2: number, p3: number, t: number): number {
-  const t2 = t * t, t3 = t2 * t;
-  return 0o1/0o2 * ( ( 2 * p1 ) + ( -p0 + p2 ) * t
-    + ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t2 + ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t3 );
-}
+import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
+// La krada interpolo — la komuna kurbo de la ludo ( src/interpolo.ts ).
+import { katmullRom } from "../../src/interpolo.js";
 
 // PetrelaStacio — unu sekco de la birda korpo. z kaj y estas la centro de la
 // ringo ( la spino ) kaj r ĝia radiuso.
@@ -458,12 +451,7 @@ function kreiLofton(stacioj: PetrelaStacio[], subdividoj: number,
       indeksoj.push(a, b, d, a, d, c);
     }
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
-  geometrio.setIndex(indeksoj);
-  geometrio.computeVertexNormals();
-  return geometrio;
+  return kreiLoftanGeometrion(pozicioj, uvoj, indeksoj);
 }
 
 // PetrelaRipo — unu sekco de la flugilo. x estas la enverguro ( 0 = la ŝultro ),
@@ -553,12 +541,7 @@ function kreiFlugilon(ripoj: PetrelaRipo[], uDe: number, uAl: number,
       indeksoj.push(a, b, d, a, d, c);
     }
   }
-  const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
-  geometrio.setIndex(indeksoj);
-  geometrio.computeVertexNormals();
-  return geometrio;
+  return kreiLoftanGeometrion(pozicioj, uvoj, indeksoj);
 }
 
 // Kunfandajxo — la rezulto por unu materialo: la mesho kiu restos en la grupo
