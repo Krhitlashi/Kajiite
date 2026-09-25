@@ -335,19 +335,36 @@ const landoZ = projekcio.z + Math.cos( rotacio ) * duonZ;
   return false;
 }
 
+// rotacioPor — La turno de la kuniga plato. La plato konstruiĝas en LOKA kadro
+// ( la kvadranto-logiko de konstruiIntersekcajnPlatojn supozas ke la brakoj
+// kuŝas sur la aksoj ), do ni elektas la turnon kiu plej bone alineas la brakojn
+// al la aksoj. ⟨ Aliniu la TRAPASANTAJN brakojn 📃 ⟩ — antaŭe la poento nur
+// sumis |x| + |z|, kaj ĉe malperpendikulara T-kunigo ( ekz. la avenuo renkontas
+// la kajon je ~11° ) tio alineis la UNUOPAN finiĝantan brakon kaj lasis la
+// trapasantan paron oblique — la rekta andezita bordo de la trapasanta vojo tiam
+// misalignis kun la kurbo de la plato kaj ŝajnis traliki. Nun la PRIMA poento
+// estas kiom da brakoj kuŝas sur akso ( la trapasanta paro donas du, la
+// finiĝanta brako unu ), do la plato alineas la trapasantan vojon kaj la
+// finiĝanta brako restas malantaŭ la kurbo. La malnova poento restas kiel
+// egaliga kriterio.
 function rotacioPor( direktaj: VojaPunkto[] ): number {
   if ( !direktaj.length ) return 0;
   const anguloj: number[] = [];
   for ( const d of direktaj ) anguloj.push( Math.atan2( d[1], d[0] ), Math.atan2( d[1], d[0] ) + Math.PI / 2 );
-  let plejbona = 0, plejalta = -Infinity;
+  const aksaToleranco = 0o1/0o40;
+  let plejbona = 0, plejalta = -Infinity, plejAlineitaj = -1;
   for ( const angulo of anguloj ) {
     const kos = Math.cos( angulo ), sin = Math.sin( angulo );
-    const poento = direktaj.reduce( ( sumo, d ) => {
+    let poento = 0, alineitaj = 0;
+    for ( const d of direktaj ) {
       const x = kos * d[0] + sin * d[1];
       const z = -sin * d[0] + kos * d[1];
-      return sumo + Math.abs( x ) + Math.abs( z );
-    }, 0 );
-    if ( poento > plejalta + 0o1/0o1000 ) {
+      poento += Math.abs( x ) + Math.abs( z );
+      if ( Math.abs( x ) < aksaToleranco || Math.abs( z ) < aksaToleranco ) alineitaj++;
+    }
+    if ( alineitaj > plejAlineitaj
+      || ( alineitaj === plejAlineitaj && poento > plejalta + 0o1/0o1000 ) ) {
+      plejAlineitaj = alineitaj;
       plejalta = poento;
       plejbona = angulo;
     }

@@ -16,9 +16,9 @@ import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantoj
   konstruiPussxlefojn, metiPussxlefojn, VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ, MONTAJ_BIOMOJ,
   AKVAJ_PLANTOJ_BIOMOJ, EKVIZETO_BIOMOJ, konstruiMetitanRokon, konstruiMetitanFilikon } from "../assets/shalaj-specioj/vegetajxo.js";
 import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxoj.js";
-import { konstruiVojojn, konstruiSpronon, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO } from "../assets/medio/vojoj.js";
+import { konstruiVojojn, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, plataAltoj, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO, KORNA_R } from "../assets/medio/vojoj.js";
 import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../assets/medio/doko.js";
-import { troviVojaRetajnKunigojn, type VojaRetoVojo } from "../assets/medio/voj-reto.js";
+import { troviVojaRetajnKunigojn, type VojaRetoVojo, type VojaRetoKunigo } from "../assets/medio/voj-reto.js";
 import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton, superajElDatumo,
   aplikiSuperojn } from "./krado.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
@@ -116,6 +116,12 @@ export interface SkulptaVojo {
   nomo: string;
   larĝo: number;
   punktoj: [ number, number ][];
+  // pontoLarĝo — la larĝo de la PONTO, se ĉi tiu vojo trapasas akvon. Malplena
+  // signifas la ordinaran vojan larĝon. Ĝi permesas konstrui estontajn pontojn
+  // de alia larĝo ol sia vojo sen ŝanĝi la vojon mem — do ponto povas resti
+  // mallarĝa apud pli larĝaj vojoj sen entrudiĝi en ilin. La tuta ponto ( la
+  // deko, la andezita arko kaj la balustrado ) uzas ĉi tiun larĝon.
+  pontoLarĝo?: number;
 }
 
 // SkulptaPlatformo — unu doka platformo ( SKULPTA_DOKOJ en
@@ -287,8 +293,16 @@ interface KradaUrbaRezulto {
   selektajxoj: THREE.Mesh[];
   konstruGrupoj: THREE.Group[];
   placajNodoj: [ number, number ][];
-  vojSpecimenoj: THREE.Vector3[];
-  spronajSpecimenoj: THREE.Vector3[];
+  // ⟨ La voja reto kiel DATUMOJ, ne kiel geometrio 📃 ⟩ — la krada urbo NE plu
+  // konstruas siajn proprajn vojojn kaj platojn. Ĝi redonas ilin, kaj
+  // konstruiUrbon kunigas la kradajn difinojn, la spronojn KAJ la skulptitajn
+  // mondvojojn en UNU konstruadon — vidu "Unu reto, unu konstruado" sube.
+  // Antaŭe du apartaj konstruadoj faris du sendependajn retojn, do la krado
+  // ne sciis pri la mondo-vojoj ( kaj inverse ) — ĉiu kunigo inter la du
+  // restis sen truo kaj sen plato, kaj la du vojoj kuŝis unu en la alia.
+  vojDifinoj: VojDifino[];
+  kunigajPunktoj: [ number, number ][];
+  kunigajFermitaj: Map<string, [ number, number ]>;
   lampLokoj: { x: number; z: number; y: number; rotacio?: number }[];
   keuxfhxesoLokoj: KeuxfhxesoLoko[];
   staciaPozicio: [ number, number ];   // la stacioxipo ( la sxipo flugas tie )
@@ -674,9 +688,12 @@ function konstruiKradanUrbon(
   }
 
   // ⟪ Spronvojoj 📃 ⟫
-  // La spronaj specimenoj kovras ankaŭ la spur-vojojn, por ke neniu planto
-  // povu aperi sur ili ( ili ne estas en vojDifinoj ).
-  const spronajSpecimenoj: THREE.Vector3[] = [];
+  // ⟨ La spronoj estas ORDINARAJ vojoj 📃 ⟩ — la vojeto de konstruaĵa pordo al
+  // la strato nun estas ordinara `VojDifino` en la SAMA listo kiel la kradaj
+  // stratoj kaj la skulptitaj mondvojoj. Ĝi do ricevas la saman sekcon, la
+  // samajn materialojn, la saman ŝtupan generacion, la saman kunigan truon kaj
+  // la saman kunigan platon — kaj la specimensampado de la voja konstruilo jam
+  // kovras ĝin, do neniu aparta specimen-listo necesas.
   // La spur-celoj estas la samaj vojo-linioj por ambaŭ kradoj. En la
   // kvar-bloka krado ĉiu bloko havas vojojn sur ĉiuj kvar flankoj ( la voja
   // bloko ), do ĉiu pordo atingas la plej proksiman kradan vojon.
@@ -732,12 +749,13 @@ function konstruiKradanUrbon(
       const duonL = 0o7/0o10;
       const ekstX = NS_ekstentoj.get(celX);
       if ( !ekstX || spronoZ < ekstX[0] - duonL || spronoZ > ekstX[1] + duonL ) continue;
-      // La sprono haltas ĉe la RANDO de la kuniga plato ( VOJA_EKSTERA_DUONO
-      // de la voja centro ) — la plato posedas la kvadraton kaj gxiaj propraj
-      // anguloj rondigas la kunigon. La pli frua valoro ( duonL = la diorita
-      // rando ) lasus la spronajn andezitajn flankojn ene de la plato, kie ili
-      // kovrus gxiajn dioritajn partojn.
-      vojX = celX - signo * VOJA_EKSTERA_DUONO;
+      // ⟨ GXIS LA VOJA CENTRO 📃 ⟩ — la sprono iras gxis la CENTRO de la
+      // kunigo, ĝuste kiel ĉiu krada aŭ skulptita vojo. La voja konstruilo
+      // mem fortranĉas la parton ene de la kuniga truo ( vidu
+      // kreiSegmentajnPartojn ) — la plato posedas tiun kvadraton kaj rondigas
+      // la kunigon. Antaŭe la sprono haltis mane ĉe la plato-rando, do ĝia
+      // geometrio neniam estis tranĉita kaj povis finiĝi super la plato.
+      vojX = celX;
       vojZ = spronoZ;
       spronaKunigo = [ celX, spronoZ, signo, 0 ];
     } else {
@@ -754,9 +772,10 @@ function konstruiKradanUrbon(
       const duonL = 0o7/0o10;
       const ekstZ = EW_ekstentoj.get(celZ);
       if ( !ekstZ || spronoX < ekstZ[0] - duonL || spronoX > ekstZ[1] + duonL ) continue;
-      // La sprono haltas ĉe la rando de la kuniga plato ( vidu supre ).
+      // La sprono iras gxis la centro de la kunigo ( vidu la x-flankan noton
+      // supre ) — la konstruilo fortranĉas la enon de la kuniga truo.
       vojX = spronoX;
-      vojZ = celZ - signo * VOJA_EKSTERA_DUONO;
+      vojZ = celZ;
       spronaKunigo = [ spronoX, celZ, 0, signo ];
     }
 
@@ -768,16 +787,13 @@ function konstruiKradanUrbon(
         if ( !tFermitaj.has(klavo) && !realajIntersekcoj.has(klavo) && !arkajKlavoj.has(klavo) )
           spronajKunigoj.set(klavo, [ spronaKunigo[2], spronaKunigo[3] ]);
       }
-      konstruiSpronon(spronoX, spronoZ, vojX, vojZ, alteco, dioritaMaterialo, andezitaMaterialo, sceno);
-      // Densaj specimenoj laŭ la sprono — saman distancon kiel la ĉefaj vojoj.
-      const spurro = Math.hypot(vojX - spronoX, vojZ - spronoZ);
-      const nombro = Math.max(1, Math.round(spurro / 2));
-      for ( let k = 0; k <= nombro; k++ ) {
-        const t = k / nombro;
-        const sx = spronoX + ( vojX - spronoX ) * t;
-        const sz = spronoZ + ( vojZ - spronoZ ) * t;
-        spronajSpecimenoj.push(new THREE.Vector3(sx, alteco(sx, sz), sz));
-      }
+      // La sprono kiel ORDINARA voja difino — la SAMA larĝo kiel la krada
+      // strato ( `w` estas la larĝo de la diorita bendo, vidu
+      // kreiVojajnBendojn kaj la kradajn difinojn supre; la andezitaj randoj
+      // alkalkuliĝas ambaŭflanke ) kaj la sama listo kiel la kradaj vojoj, do
+      // la konstruilo traktas ĝin idente. La malnova konstruiSpronon uzis ĉi
+      // tiun saman larĝon ( 0o16/0o10 ).
+      vojDifinoj.push({ pts: [ [ spronoX, spronoZ ], [ vojX, vojZ ] ], w: 0o16/0o10 });
     }
   }
 
@@ -798,9 +814,13 @@ function konstruiKradanUrbon(
   const fermitaj = new Map<string, [ number, number ]>([ ...tFermitaj, ...spronajKunigoj ]);
   for ( const a of arkajNodoj ) fermitaj.set(a.x + "," + a.z, [ a.sx, a.sz ]);
 
-  const vojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo,
-    kunigajPunktoj);
-  konstruiIntersekcajnPlatojn(sceno, kunigajPunktoj, alteco, dioritaMaterialo, andezitaMaterialo, fermitaj);
+  // ⟨ Unu reto, unu konstruado 📃 ⟩ — ĉi tiu urbo NE konstruas siajn vojojn
+  // nun. La difinoj, la kunigaj punktoj kaj la fermitaj direktoj revenas al
+  // konstruiUrbon, kiu kunigas ĉiujn kradajn urbojn, ĉiujn spronojn kaj ĉiujn
+  // skulptitajn mondvojojn en UNU liston kaj konstruas ilin per UNU voko al
+  // konstruiVojojn kaj UNU voko al konstruiIntersekcajnPlatojn. Ĉiu kunigo —
+  // krada kruciĝo, T-kunigo, arko, sprono al krada strato aŭ sprono al la
+  // kajo — nun ricevas sian truon en ĉiuj vojoj kaj sian ununuran platon.
 
   // ⟪ Lampoj ( la krada parto ) 📃 ⟫ — la lampaj lokoj de ĉi tiu urbo.
   // kvar lampoj ĉirkaŭ ĉiu placo-nodo, ĉiu reala krada kruciĝo kaj ĉiu arko.
@@ -860,7 +880,8 @@ function konstruiKradanUrbon(
   const staciaBloko = aldonajBlokoj.find(b => b.stacia) ?? aldonajBlokoj[0];
   return {
     konstruSpecoj, kolizioj, selektajxoj, konstruGrupoj, placajNodoj,
-    vojSpecimenoj, spronajSpecimenoj, lampLokoj, keuxfhxesoLokoj,
+    vojDifinoj, kunigajPunktoj, kunigajFermitaj: fermitaj,
+    lampLokoj, keuxfhxesoLokoj,
     staciaPozicio: staciaBloko
       ? [ ofsX + staciaBloko.x, ofsZ + staciaBloko.z ]
       : [ ofsX, ofsZ + ( arangxo.blokaGrando === "kvar" ? 0 : stacioZ ) ],
@@ -943,6 +964,14 @@ export async function konstruiUrbon(
   const konstruGrupoj = urboj.flatMap(r => r.konstruGrupoj);
   const placajNodoj = urboj.flatMap(r => r.placajNodoj);
   const keuxfhxesoLokoj = urboj.flatMap(r => r.keuxfhxesoLokoj);
+  // ⟨ La voja reto de la KRADo — kiel DATUMOJ 📃 ⟩ — la kradaj urboj liveras
+  // siajn difinojn, kunigajn punktojn kaj fermitajn direktojn anstataŭ
+  // konstrui ilin. Ni kunigas ilin ĉi tie kun la skulptitaj mondvojoj ( la
+  // kajo, la avenuo, la ponto, la doko-ŝtuparoj ) sube kaj konstruas la TUTAN
+  // reton per unu voko ( vidu "Unu reto, unu konstruado" ).
+  const kradajDifinoj: VojDifino[] = urboj.flatMap(r => r.vojDifinoj);
+  const kradajKunigoj: [ number, number ][] = urboj.flatMap(r => r.kunigajPunktoj);
+  const kradajFermitaj = new Map<string, [ number, number ]>(urboj.flatMap(r => [ ...r.kunigajFermitaj ]));
   // La doka avenuo kongruas al la krada vojo de la ĈEFA urbo ( x=12, z=-60 ).
   const { ringoX, sudaVojo } = cefa;
 
@@ -1017,7 +1046,7 @@ export async function konstruiUrbon(
     }
   }
   // ⟪ Pontoj 📃 ⟫ — Ponto estas VOJO, kiu trapasas akvon inter du sekaj bordoj
-  // ( vidu pontaVojDifino sube ) — la ludo rekonas ĝin kaj aldonas tion, kion la
+  // ( vidu pontaTrunko sube ) — la ludo rekonas ĝin kaj aldonas tion, kion la
   // voja rubando ne povas: la OREn balustradon kaj la andezitan arkon malsupre.
   //
   // ⟨ Kial la dokoj NE plu difinas la ponton 📃 ⟩ — la ponto devenis de paro da
@@ -1050,14 +1079,19 @@ export async function konstruiUrbon(
   // anstataŭ la terena ( la riverfundo estas 3–9 unuojn sub la akvo, do la voja
   // rubando dronus ) kaj la ponto ricevas la balustradon kaj la andezitan arkon.
   //
-  // La deko finiĝas GXUSTE ĉe la voja surfaco de la bordo ( vojaSupro sube uzas
-  // la saman formulon kiel konstruiSegmentonEnBufrojn ), do la ponto daŭrigas la
-  // kajon sen ŝtupo. Kajo-vojoj — kiuj sekvas la akvon sed restas sur la tero —
-  // havas 0 specimenojn da akvo, do ili neniam fariĝas pontoj.
+  // La deko finiĝas GXUSTE ĉe la surfaco de la kuniga plato sub sia fino ( vidu
+  // pontaFinAlto sube — la plato kaj la ponto legas la SAMAN formulon ), do la
+  // ponto daŭrigas la kajon sen ŝtupo. Kajo-vojoj — kiuj sekvas la akvon sed
+  // restas sur la tero — havas 0 specimenojn da akvo, do ili neniam fariĝas
+  // pontoj.
+  // ⟨ Du etapoj 📃 ⟩ — la trunkodetekto ( ĉu vojo ESTAS ponto ) dependas nur de
+  // la tereno kaj de la akvo, dum la FINAJ altoj bezonas la kunigojn. La
+  // kunigoj siavice dependas nur de la polilinioj kaj de iliaj larĝoj, do ili
+  // kalkuliĝas inter la du etapoj ( vidu sube ).
   //
   // Atentu: ponto legiĝas kiel UNU REKTA spano inter siaj du finoj, do desegnu
   // ĝin per du punktoj.
-  function pontaVojDifino( vojo: SkulptaVojo ): { ax: number; az: number; ay: number; bx: number; bz: number; by: number } | null {
+  function pontaTrunko( vojo: SkulptaVojo ): { ax: number; az: number; bx: number; bz: number } | null {
     if ( vojo.punktoj.length < 2 ) return null;
     const [ ax, az ] = vojo.punktoj[0];
     const [ bx, bz ] = vojo.punktoj[vojo.punktoj.length - 1];
@@ -1072,7 +1106,29 @@ export async function konstruiUrbon(
       if ( skulptitaAkvo(ax + difX * t, az + difZ * t) ) akvaj++;
     }
     if ( akvaj / ( specimenoj + 1 ) < 0o2/0o5 ) return null;   // 0.4
-    return { ax, az, ay: vojaSupro(ax, az, vojo.larĝo), bx, bz, by: vojaSupro(bx, bz, vojo.larĝo) };
+    return { ax, az, bx, bz };
+  }
+  // pontaFinAlto — La mondo-alto de la SURFACO de la ponto ĉe unu el siaj finoj.
+  // Ordinare tio estas la tereno sub la fino ( vidu vojaSupro ).
+  // ⟨ La kuniga plato super la fino 📃 ⟩ — sed ĉiu ponto alvenas SUR kunigan
+  // platon ( la kunigo de la kajo, la avenuo aŭ la krada strato, kiun la ponto
+  // renkontas ). La plato estas la sola videbla supraĵo tie kaj ĝi SIDAS PLI
+  // ALTE ol la tereno — ĝi leviĝas ĝis la maksimuma angula alto de sia tuta
+  // kvadrato ( vidu konstruiIntersekcajnPlatojn ). La ponto-finaj punktoj de
+  // la datumoj sidas ĉe la RANDO de la vojo, do la specimenado ĉirkaŭ la fino
+  // atingas nur duonon de la deklivo — la deko finiĝus gxis 0.4 unuojn sub la
+  // plato kaj la ponto ŝajnus duone enfosita ĉe siaj surterigxejoj. Se kunigo
+  // kusxas super la fino, ni do legas GXUSTE la platajn altojn — unu formulo,
+  // du legantoj ( vidu plataAltoj ) — kaj la deko renkontas la platon sen ŝtupo.
+  function pontaFinAlto( x: number, z: number, larĝo: number ): number {
+    let plejProksima: VojaRetoKunigo | null = null, plejMallonga = Infinity;
+    for ( const k of vojajKunigoj ) {
+      const d = Math.hypot(k.x - x, k.z - z);
+      if ( d < plejMallonga ) { plejMallonga = d; plejProksima = k; }
+    }
+    if ( plejProksima && plejMallonga < VOJA_EKSTERA_DUONO + KORNA_R )
+      return plataAltoj(plejProksima.x, plejProksima.z, plejProksima.rotacio, alteco).supro;
+    return vojaSupro(x, z, larĝo);
   }
   // vojaSupro — La mondo-alto de la SURFACO de vojo ĉe sia fino. La voja
   // konstruilo prenas la MAKSIMUMON de la du flankaj anguloj de la rubando ( je
@@ -1087,6 +1143,9 @@ export async function konstruiUrbon(
       const ang = i * Math.PI / 4;
       maks = Math.max(maks, alteco(x + Math.cos(ang) * duon, z + Math.sin(ang) * duon));
     }
+    // La ponto NE rondigas siajn altojn — la deka supro devas kuŝi ekzakte sur
+    // la arko ( pontaDeko ), alie la deko finiĝus frakcio sub aŭ super la arko
+    // kaj la abutmentoj montriĝus kiel ŝtupoj ( aŭ la deko dronus ).
     return maks + VOJA_SUPRO_LEVIGXO;
   }
 
@@ -1096,10 +1155,47 @@ export async function konstruiUrbon(
   // Konstruu ĉiun vojon el SKULPTA_VOJOJ. La skulptilo redaktas ilin kiel
   // poliliniojn kun larĝo; la ludo konstruas ilin per konstruiVojojn.
   const vojajRetajVojoj: VojaRetoVojo[] = [];
+  // ⟨ Unua etapo — la ponto-larĝoj 📃 ⟩ — la kunigoj ( kaj do la pontaj
+  // surterigxejoj ) bezonas la POLILINIOJN kaj iliajn larĝojn, ne la altojn. La
+  // larĝo de ponto povas malsami ( pontoLarĝo ), kaj la kuniga reto legas ĝin,
+  // do la unua etapo liveras ĝin. La trunkodetekto ankaŭ apartenas ĉi tien —
+  // ĝi dependas nur de la tereno kaj de la akvo.
+  const pontajTrunkoj: ({ ax: number; az: number; bx: number; bz: number } | null)[] = [];
   for ( const vojo of SKULPTA_VOJOJ as SkulptaVojo[] ) {
+    // La indeksoj de la du listoj restas samaj — ankaŭ la tro mallongaj
+    // polilinioj ricevas sian `null`, do la dua etapo povas legi pontajTrunkoj[i].
+    const trunko = vojo.punktoj.length < 2 ? null : pontaTrunko(vojo);
+    pontajTrunkoj.push(trunko);
     if ( vojo.punktoj.length < 2 ) continue;
-    vojajRetajVojoj.push( { punktoj: vojo.punktoj, larĝo: vojo.larĝo } );
-    const ponto = pontaVojDifino(vojo);
+    const vojaLarĝo = trunko ? ( vojo.pontoLarĝo ?? vojo.larĝo ) : vojo.larĝo;
+    vojajRetajVojoj.push( { punktoj: vojo.punktoj, larĝo: vojaLarĝo } );
+  }
+  // ⟨ La kunigoj inter la etapo 📃 ⟩ — la reto nun estas kompleta, do trovi la
+  // kunigojn ne plu bezonas ion ajn de la dua etapo. Ili liveras la platajn
+  // centrojn, la rotaciojn, la fermitajn direktojn — kaj la altojn, kiujn la
+  // pontaj finoj legas ( pontaFinAlto ).
+  const vojajKunigoj = troviVojaRetajnKunigojn( vojajRetajVojoj, DOKOJ );
+  const vojajKunigoPunktoj = vojajKunigoj.map( k => [ k.x, k.z ] as [ number, number ] );
+  const vojajFermitaj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.fermitaj ] ) );
+  const vojajRotacioj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.rotacio ] ) );
+  // ⟨ La VERAJ brakoj de ĉiu kunigo 📃 ⟩ — la plata konstruilo alineas siajn
+  // angulojn laŭ la brakoj mem ( vidu konstruiIntersekcajnPlatojn ), do la
+  // oblikvaj brakoj de la skulptitaj vojoj ( la avenuo renkontas la kajon je
+  // 0o10 gradoj ) ne plu tralikigxas en la rondigitan kornon. La krada urbo
+  // ne havas ĉi tiun mapon — ties brakoj ĉiam kuŝas sur la aksoj, do la aksa
+  // kadro de la plato estas ekzakta por gxi.
+  const vojajDirektoj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.direktaj ] ) );
+  // ⟨ Dua etapo — la difinoj 📃 ⟩ — nun la pontaj finaj altoj povas legi la
+  // kunigajn platojn, do ĉiu vojo ricevas sian difinon ( kaj la pontoj la
+  // balustradon kaj la arkon ).
+  for ( let vojaIndekso = 0; vojaIndekso < ( SKULPTA_VOJOJ as SkulptaVojo[] ).length; vojaIndekso++ ) {
+    const vojo = ( SKULPTA_VOJOJ as SkulptaVojo[] )[vojaIndekso];
+    if ( vojo.punktoj.length < 2 ) continue;
+    const trunko = pontajTrunkoj[vojaIndekso];
+    let ponto: { ax: number; az: number; ay: number; bx: number; bz: number; by: number } | null = null;
+    const vojaLarĝo = trunko ? ( vojo.pontoLarĝo ?? vojo.larĝo ) : vojo.larĝo;
+    if ( trunko ) ponto = { ...trunko, ay: pontaFinAlto(trunko.ax, trunko.az, vojaLarĝo),
+      by: pontaFinAlto(trunko.bx, trunko.bz, vojaLarĝo) };
     let pontaHeight: (( x: number, z: number ) => number) | undefined;
     if ( ponto ) {
       const difX = ponto.bx - ponto.ax, difZ = ponto.bz - ponto.az;
@@ -1109,13 +1205,17 @@ export async function konstruiUrbon(
         return pontaDeko(t, ponto.ay, ponto.by) - VOJA_SUPRO_LEVIGXO;
       };
     }
-    if ( ponto ) pontaVojoj.push({ ...ponto, w: vojo.larĝo });
+    if ( ponto ) pontaVojoj.push({ ...ponto, w: vojaLarĝo });
     // ⟨ Unu difino po vojo 📃 ⟩ — la tuta polilinio en unu difino, do la unua
     // kaj la lasta punktoj estas la veraj voj-finoj ( konstruiVojojn rondigas
     // ilin aux­tomate ). Aparta difino po segmento rompus la vojon meze kaj
     // rondigus cxiun kubuton kiel finon.
-    const difino: VojDifino = { pts: vojo.punktoj, w: vojo.larĝo / 2, kapoj: true };
-    if ( pontaHeight ) difino.heightFn = pontaHeight;
+    const difino: VojDifino = { pts: vojo.punktoj, w: vojaLarĝo / 2, kapoj: true };
+    // ⟨ Nur la ponta deko restas glata 📃 ⟩ — la ponto estas REKTA trabo, kaj ĝia
+    // balustrado kaj arko ( konstruiPonton ) sekvas la saman rektan linion, do la
+    // deko NE ŝtupas ( `glata: true` ). Ĉiuj ordinaraj vojoj — inkluzive la vojoj
+    // AL la ponto — ŝtupas nature laŭ la tereno.
+    if ( pontaHeight ) { difino.heightFn = pontaHeight; difino.glata = true; }
     vojDifinoj.push(difino);
   }
   // La doka LANDa rando — la rando kie la vojo ( aŭ la tero ) renkontas ĉiun
@@ -1135,12 +1235,18 @@ export async function konstruiUrbon(
   // kapoj kongruis nenion. La du kajo-FINAĴOJ tamen tenas siajn rondigitajn
   // ĉapojn ( malsupre ) — ili estas veraj voj-finaĵoj sur la tereno, ne dokaj
   // enirejoj.
-  const vojajKunigoj = troviVojaRetajnKunigojn( vojajRetajVojoj, DOKOJ );
-  const vojajKunigoPunktoj = vojajKunigoj.map( k => [ k.x, k.z ] as [ number, number ] );
-  const vojajFermitaj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.fermitaj ] ) );
-  const vojajRotacioj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.rotacio ] ) );
-  const ĉefajVojSpecimenoj = konstruiVojojn(sceno, vojDifinoj, alteco, dioritaMaterialo, andezitaMaterialo, vojajKunigoPunktoj );
-  konstruiIntersekcajnPlatojn( sceno, vojajKunigoPunktoj, alteco, dioritaMaterialo, andezitaMaterialo, vojajFermitaj, vojajRotacioj );
+  // ⟨ Unu reto, unu konstruado 📃 ⟩ — ĉiuj vojoj de la mondo ( la kradaj
+  // stratoj, la spronoj de ĉiuj konstruaĵoj, la doko-ŝtuparoj kaj la
+  // skulptitaj mondvojoj ) en UNU listo, kun ĉiuj iliaj kunigaj punktoj. Ĉiu
+  // kunigo do ricevas sian truon en ĉiuj vojoj kaj sian ununuran platon —
+  // inkluzive la kunigojn INTER la du retoj ( sprono al la kajo, la avenuo al
+  // la krada ringa vojo ). Antaŭe la krado kaj la mondo konstruiĝis aparte, do
+  // ĉiu tia kunigo restis sen truo kaj la du vojoj kuŝis unu en la alia.
+  const ĉiujDifinoj: VojDifino[] = [ ...kradajDifinoj, ...vojDifinoj ];
+  const ĉiujKunigoj: [ number, number ][] = [ ...kradajKunigoj, ...vojajKunigoPunktoj ];
+  const ĉiujFermitaj = new Map<string, [ number, number ]>([ ...kradajFermitaj, ...vojajFermitaj ]);
+  const ĉefajVojSpecimenoj = konstruiVojojn(sceno, ĉiujDifinoj, alteco, dioritaMaterialo, andezitaMaterialo, ĉiujKunigoj );
+  konstruiIntersekcajnPlatojn( sceno, ĉiujKunigoj, alteco, dioritaMaterialo, andezitaMaterialo, ĉiujFermitaj, vojajRotacioj, vojajDirektoj );
   // La APOGAĴOJ de la pontoj — la balustrado SUR la deko kaj la andezita arko SUB ĝi.
   for ( const p of pontaVojoj )
     konstruiPonton(sceno, p.ax, p.az, p.ay, p.bx, p.bz, p.by, p.w, alteco, skulptitaAkvo, andezitaMaterialo, oraMaterialo);
@@ -1205,10 +1311,9 @@ export async function konstruiUrbon(
   const ekskluziviRiveron = ( x: number, z: number ) => akvo(x, z);
   // La kunigitaj vojspecimenoj ( ambaŭ kradaj urboj + la spronoj + la kajo/
   // avenuo ) — la vegetajxo evitas ĉiujn vojojn de ambaŭ urboj.
-  const vojSpecimenoj = [
-    ...urboj.flatMap(r => [ ...r.vojSpecimenoj, ...r.spronajSpecimenoj ]),
-    ...ĉefajVojSpecimenoj,
-  ];
+  // La specimensampado de la UNU konstruado jam kovras ĉiujn vojojn — la
+  // kradajn stratojn, la spronojn kaj la skulptitajn mondvojojn.
+  const vojSpecimenoj = ĉefajVojSpecimenoj;
   // ⟪ Krada indekso por la voja ekskludo 📃 ⟫ — ĉelo-krado por ke la vegetajxo
   // ne skanu ĉiun vojspecimenon por ĉiu kandidata arbo ( O(1) anstataŭ O(n) ).
   const VOJA_ĈELO = 0o10;
@@ -1658,7 +1763,7 @@ export async function konstruiUrbon(
   return {
     konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj, konstruGrupoj,
     vojSpecimenoj, placajNodoj,    riverData, riveroNordOrienta, lago, skulptaAkvo, bestoj, petreloj, lampSistemo,
-    nebulSistemo, kanuoj, pussxlefoBeroj, npcoj, internaSistemo, xipo, vojDifinoj, vojDuonLargho: ( _g: number ) => 0o7/0o10,
+    nebulSistemo, kanuoj, pussxlefoBeroj, npcoj, internaSistemo, xipo, vojDifinoj: ĉiujDifinoj, vojDuonLargho: ( _g: number ) => 0o7/0o10,
     NPCLOKOJ, VESTA_LISTO,
   };
 }

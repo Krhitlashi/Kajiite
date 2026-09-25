@@ -5,13 +5,12 @@ import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
 
-// stuparo — Ĉu ĉi tiu vojo estas ŜTUPARO. Ĉiu intervalo fariĝas PLATA ŝtupo kun
-// vertikala riso anstataŭ dekliva rubando. La normalaj vojoj uzas la klinitan
-// "glatan" generacion kaj nur fariĝas eskalero super krutajxoj ( SOJA_SXVIPADO );
-// la ŝtuparoj elektas la egalan ŝtupon ĉiam — la doko-malsupreniro al la akvo
-// estas ordinara voja difino kun `stuparo: true`, do la ŝtupoj venas el la SAMA
-// voja maŝinaro kiel ĉiu strato ( la sama diorita/andezita sekco ).
-export interface VojDifino { pts: [ number, number ][]; w: number; heightFn?: ( x: number, z: number ) => number; stuparo?: boolean; kapoj?: boolean; }
+// stuparo — Historia marko por la doko-malsupreniro ( `stuparo: true` ). ĈIU vojo
+// nun ŝtupas ( vidu konstruiSegmentonEnBufrojn ) — la kampo restas nur por ke la
+// malnovaj difinoj kaj la ĉap-logiko ( kiuj ankoraŭ legas ĝin ) plu funkciu; ĝi
+// ne plu ŝanĝas la generacion. La doka ŝtuparo do venas el la SAMA voja maŝinaro
+// kiel ĉiu strato ( la sama diorita/andezita sekco ).
+export interface VojDifino { pts: [ number, number ][]; w: number; heightFn?: ( x: number, z: number ) => number; stuparo?: boolean; kapoj?: boolean; glata?: boolean; }
 
 /**
  * Konstruu ŝtupetan vojan segmenton inter du vojpunktoj.
@@ -72,6 +71,27 @@ function specimeniRotitajn(
     minimumo = Math.min( minimumo, h );
   }
   return { maksimumo, minimumo };
+}
+
+// plataAltoj — La SUPRO kaj la MINIMUMO de kuniga plato je la kunigo ( x, z )
+// kun la rotacio de la kunigo. La plato sidas je la maksimuma angula teren-alto
+// ( plus la sama levigxo kiel la vojoj — VOJA_SUPRO_LEVIGXO ), kaj la minimumo
+// restas por la profundo de la plato.
+// ⟨ Kial aparta funkcio 📃 ⟩ — la PONTaj finoj legas GXUSTE cxi tiun supran
+// valoron. Ponto alvenas SUR la kunigan platon ( gxia fino sidas sub la plato ),
+// do se la deko legus nur la terenon sub si, gxi finigxus gxis 0.4 unuojn sub la
+// plato kaj la ponto sxajnus duone enfosita cxe siaj surterigxejoj. Unu formulo,
+// du legantoj — la plato kaj la ponto restas samnivelaj.
+//     @param x, z ( number ) - La centro de la kunigo.
+//     @param rotacio ( number ) - La rotacio de la kunigo ( el rotacioPor ).
+//     @param heightFn ( function ) - La terena alta funkcio.
+//     @returns { supro, minimumo } ( object ) - La plata supro kaj la minimuma angula alto.
+export function plataAltoj(x: number, z: number, rotacio: number,
+  heightFn: ( x: number, z: number ) => number
+): { supro: number; minimumo: number } {
+  const altoj = specimeniRotitajn(x, z, VOJA_EKSTERA_DUONO, rotacio, heightFn);
+  return { supro: Math.max( heightFn(x, z), altoj.maksimumo ) + VOJA_SUPRO_LEVIGXO,
+    minimumo: altoj.minimumo };
 }
 
 // kreiEnanKornanArkon — La U-forma interna rando de la TUTA angulo en la
@@ -203,12 +223,6 @@ function matricoPor(dx: number, dz: number, x: number, y: number, z: number): TH
 // disvastiĝo inter la altaj kaj malaltaj anguloj + margxeno.
 const ANGULA_PROVOLIRO = 0o1/0o4;
 
-// SOJA_SXVIPADO — La falso-sojo de la DISKRETAJ ŝtupoj. Kiam la tereno falas
-// pli ol ĉi tiu alteco ene de UNU intervalo ( ~4 unuoj ), la ŝtupo fariĝas
-// plata eskalero ( la supro sidas je la alta rando, la vizaĝo tranĉas la
-// deklivon ) — sub la sojo la ŝtupo KLINIĜAS kaj la vojo fluas glate.
-const SOJA_SXVIPADO = 0o2;
-
 // specimeniAngulojn — La maksimuman kaj minimuman teren-altojn super la
 // kvar anguloj de rektangulo ( la voja ŝtupo aŭ la kruciĝa plato ).
 // La voja ŝtupo sidas je la maksimumo ( ĉiam super la grundo ) kaj la
@@ -262,7 +276,7 @@ function kreiVojajnBendojn(w: number,
 // polygonOffset. La bazo-materialoj ( diorita/andezita ) estas komunaj tra la
 // mondo, do cxiu uzanto klonas ilin kaj aldonas la teksajxon kaj la offset-
 // valorojn — la SAMA agordo en konstruiVojojn, konstruiIntersekcajnPlatojn,
-// konstruiRondajnKapojn kaj konstruiSpronon.
+// konstruiRondajnKapojn kaj la ordinaraj vojoj.
 //     @param dioritaMaterialo ( MeshStandardMaterial ) - La baza diorita materialo.
 //     @param andezitaMaterialo ( MeshStandardMaterial ) - La baza andezita materialo.
 //     @param centraF ( number ) - La polygonOffset-faktoro de la diorita centro.
@@ -284,28 +298,6 @@ function kreiVojojnMaterialojn(dioritaMaterialo: THREE.MeshStandardMaterial,
   bordaMaterialo.map = andezitaTx; bordaMaterialo.needsUpdate = true;
   bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = bordoF; bordaMaterialo.polygonOffsetUnits = bordoU;
   return { supraMaterialo, bordaMaterialo };
-}
-
-// konstruiSegmenton — Konstruu unu vojan segmenton ( la spronoj ). La ŝtupa
-// logiko vivas en konstruiSegmentonEnBufrojn — la KOMUNA glata generacio de
-// la ĉefaj vojoj kaj la spronoj ( neniu duobla kopio ). Ĉi tiu envolvaĵo
-// kreas proprajn bufrojn kaj kunigas ilin post la konstruado.
-//     @param x1, z1, x2, z2 ( number ) - La segmenta komenco kaj fino.
-//     @param bendoj ( VojBendo[] ) - La bendoj de la voja sekco.
-//     @param dikecoBaza ( number ) - La baza benda dikeco.
-//     @param heightFn ( ( x, z ) => number ) - La terena alteco.
-//     @param sceno ( Scene ) - La sceno.
-//     @returns nenio
-function konstruiSegmenton(x1: number, z1: number, x2: number, z2: number,
-  bendoj: VojBendo[],
-  dikecoBaza: number,
-  heightFn: ( x: number, z: number ) => number,
-  sceno: THREE.Scene,
-  stuparo = false
-): void {
-  const bufroj = kreiGeometriajnBufrojn();
-  konstruiSegmentonEnBufrojn(x1, z1, x2, z2, bendoj, dikecoBaza, heightFn, bufroj, stuparo);
-  bufroj.kunigi(sceno);
 }
 
 // VOJA_DIKECO — La dikeco de la voja plato: kiom alte la voja rubando staras
@@ -361,6 +353,20 @@ export const VOJA_TRUA_DUONO = VOJA_EKSTERA_DUONO + KORNA_R;
 // per sia propra surfaco, do la andezitaj flankoj de la vojoj ne povas kuŝi
 // super la dioritaj partoj de la plato ( tion faris la rektangulaj anguloj
 // antauxe ).
+//
+// ⟨ La perpendikulara tolero 📃 ⟩ — la kunigaj punktoj de la KRADA urbo sidas
+// ĝuste SUR la vojaj centrolinioj ( la linioj kruciĝas en la punkto mem ), do
+// ilia perpendikulara distanco estas nulo. Kelkaj skulptitaj vojoj tamen
+// FINIĜAS ĉe la RANDO de la vojo, kiun ili renkontas — la ponto kaj la avenuo
+// finiĝas ĉe VOJA_EKSTERA_DUONO de la kaja centrolinio, ne ĉe ĝi mem ( la deko
+// devas surteriĝi sur la kajan rubandon, ne trapasi ĝin ĝis la mezo ). Tia
+// kunigo sidas 1.475 unuojn FLANKEN de la finiĝanta vojo, do malstrikta tolero
+// estas nepra ĉe la segmentaj FINOJ; meze de vojo ĝi restas preskaŭ nula, ĉar
+// tie tranĉus nur kunigo, kiu apartenas al ALIA vojo — truo, kiun tiu plato ne
+// kovrus. Sen ĉi tiu apartigo la fino de la ponto neniam ricevis truon: ĝia
+// rubando penetris en la kunigan kvadraton, du pavimoj kuŝis samalte unu en la
+// alia, kaj la rekta andezita rando de la deko tranĉis la rondigitan kornon de
+// la plato.
 //     @param aX, aZ, bX, bZ ( number ) - La segmentaj finoj.
 //     @param longo ( number ) - La segmenta longo.
 //     @param kunigoj ( [ number, number ][] ) - Ĉiuj kunigaj punktoj.
@@ -374,11 +380,14 @@ function kreiSegmentajnPartojn(aX: number, aZ: number, bX: number, bZ: number,
   const truoj: [ number, number ][] = [];
   for ( const [ kX, kZ ] of kunigoj ) {
     const rx = kX - aX, rz = kZ - aZ;
-    // Nur la kunigoj SUR ĉi tiu linio — la perpendikulara distanco estas nula
-    // ( la kunigaj punktoj sidas sur la vojoj mem ).
-    if ( Math.abs(rx * ndz - rz * ndx) > 0o1/0o100 ) continue;
     const laux = rx * ndx + rz * ndz;
     if ( laux < -VOJA_TRUA_DUONO || laux > longo + VOJA_TRUA_DUONO ) continue;
+    const perpendikulara = Math.abs(rx * ndz - rz * ndx);
+    // ⟨ Meze — ĝuste sur la centrolinio 📃 ⟩ kaj ⟨ Ĉe la finoj — ĝis la
+    // rubanda rando 📃 ⟩ — vidu la klarigon super la funkcio.
+    const cxeFino = laux <= VOJA_TRUA_DUONO || laux >= longo - VOJA_TRUA_DUONO;
+    const perpendikularaTolero = ( cxeFino ? VOJA_EKSTERA_DUONO : 0o1/0o100 ) + 0o1/0o1000;
+    if ( perpendikulara > perpendikularaTolero ) continue;
     truoj.push([ Math.max(0, laux - VOJA_TRUA_DUONO), Math.min(longo, laux + VOJA_TRUA_DUONO) ]);
   }
   truoj.sort(( p, q ) => p[0] - q[0]);
@@ -444,7 +453,7 @@ export function konstruiVojojn(sceno: THREE.Scene,
         const px1 = aX + ndx * t0, pz1 = aZ + ndz * t0;
         const px2 = aX + ndx * t1, pz2 = aZ + ndz * t1;
         if ( konstruu ) {
-          konstruiSegmentonEnBufrojn(px1, pz1, px2, pz2, bendoj, VOJA_DIKECO, defAlt, bufroj, def.stuparo === true);
+          konstruiSegmentonEnBufrojn(px1, pz1, px2, pz2, bendoj, VOJA_DIKECO, defAlt, bufroj, def.glata === true);
           continue;
         }
         const mX = ( px1 + px2 ) / 2, mZ = ( pz1 + pz2 ) / 2;
@@ -531,24 +540,26 @@ export function konstruiVojojn(sceno: THREE.Scene,
 export interface VojSuprajxo { x1: number; z1: number; x2: number; z2: number; duono: number; y0: number; y1: number; }
 export const vojSuprajxoj: VojSuprajxo[] = [];
 
-// konstruiSegmentonEnBufrojn — La buffer-a internaĵo de konstruiSegmenton.
-// La ĉefaj vojoj kolektas ĉiujn difinojn en KOMUNAJN bufrojn ( unu po
-// materialo por la tuta reto ) kaj la spronoj kunigas per sia propra bufraro.
-// ⟨ GLATA generacio 📃 ⟩ — ĉiu ŝtupo specimenas la du RANDOJ ( la komenco kaj
-// la fino — la maksimuman kaj minimuman teren-altojn de iliaj lateralaj
-// anguloj ) kaj KLINIĜAS inter la du randaj niveloj — dekliva plana supro
-// kiu precize kunigas la najbarajn ŝtupojn ĉe la komuna rando ( la najbaroj
-// kunhavas randan specimenon ). Nur kiam la tereno falas pli ol
-// SOJA_SXVIPADO ene de unu intervalo, aŭ kiam la difino estas ŝtuparo
-// ( stuparo = true ), la ŝtupo fariĝas DISKRETA eskalero ( plata supro je la
-// alta rando, la vizaĝo tranĉas la deklivon ). La profundo ĉiam etendiĝas sub
-// la minimuman randan altecon + margxeno — neniu ŝvebanta rando, neniu sinko.
+// konstruiSegmentonEnBufrojn — La buffer-a internaĵo de unu voja segmento.
+// ĈIU vojo — la kradaj stratoj, la spronoj de la konstruaĵoj kaj la
+// skulptitaj mondvojoj — iras tra ĉi tiu SAMA funkcio, kolektite en la samajn
+// bufrojn ( unu po materialo por la tuta reto ).
+// ⟨ Nur ŝtupoj 📃 ⟩ — ĉiu ordinara intervalo estas PLATA ŝtupo. Ĝi specimenas la
+// du RANDOJN ( la komenco kaj la fino — la maksimuman kaj minimuman teren-altojn
+// de iliaj lateralaj anguloj ), KAJ la INTERNON de la intervalo ( kvaronaj
+// punktoj laŭlonge — vidu "Kromaj specimenoj meze" sube ), sidas je la ALTA
+// rando ( la maksimumo de ĉiuj specimenoj ) kaj havas vertikalan vizaĝon ĝis sub
+// la teron. La vojo NENIAM kliniĝas — la alto ŝanĝiĝas nur per la naturaj ŝtupoj,
+// kaj la najbaraj ŝtupoj kunhavas randan specimenon, do la transiro restas
+// preciza. La profundo ĉiam etendiĝas sub la minimuman specimenon + margxeno —
+// neniu ŝvebanta rando, neniu sinko. ( La nura escepto estas `glata: true` — la REKTA ponta
+// deko, kiu devas resti unu linio kun sia balustrado kaj arko. )
 function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikecoBaza: number,
   heightFn: ( x: number, z: number ) => number,
   bufroj: VojGeometriajBufroj,
-  stuparo = false
+  glata = false
 ): void {
   const difX = x2 - x1, difZ = z2 - z1;
   const longo = Math.hypot(difX, difZ);
@@ -577,39 +588,20 @@ function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: numb
     const h0b = heightFn(sx1 + latX, sz1 + latZ);
     const h1a = heightFn(sx2 - latX, sz2 - latZ);
     const h1b = heightFn(sx2 + latX, sz2 + latZ);
-    const maks0 = Math.max(h0a, h0b), minimum0 = Math.min(h0a, h0b);
-    const maks1 = Math.max(h1a, h1b), minimum1 = Math.min(h1a, h1b);
-    const s0 = maks0 + 0o1/0o100 + dikecoBaza;   // = maks0 + VOJA_SUPRO_LEVIGXO por vojoj
-    const s1 = maks1 + 0o1/0o100 + dikecoBaza;
-    const difo = s1 - s0;
-    // ⟨ La diskreta ŝtupo 📃 ⟩ — aŭ la tereno falas pli ol SOJA_SXVIPADO ene de
-    // unu intervalo, aŭ la vojo mem estas ŝtuparo ( `stuparo: true` ). En ambaŭ
-    // okazoj la ŝtupo fariĝas PLATA: supro je la ALTA rando kaj vertikala vizaĝo
-    // ĝis sub la teron. La ŝtuparo do faras ŝtupon ankaŭ je malgranda falo — la
-    // doko-malsupreniro malsupreniras per egalaj ŝtupoj anstataŭ glata deklivo.
-    const diskreta = stuparo || difo < -SOJA_SXVIPADO;
-    // Registru la piedeblan supraĵon de ĉi tiu ŝtupo — la plata eskalera
-    // ŝtupo sidas je s0 ĉe ambaŭ randoj, la klinita ŝtupo inter s0 kaj s1.
-    vojSuprajxoj.push({ x1: sx1, z1: sz1, x2: sx2, z2: sz2, duono: eksteraDuon, y0: s0, y1: diskreta ? s0 : s1 });
-    if ( diskreta ) {
-      // ⟨ Eskalera ŝtupo 📃 ⟩ — plata supro je la ALTA rando ( la sama nivelo kiel
-      // la klinita rando de la antaŭa ŝtupo — la transiro restas preciza ) kaj
-      // profundo ĝis sub la minimuman angulan altecon + margxeno — la vertikala
-      // vizaĝo montras la andezitan/dioritan bordon kiel la eskalera riso.
-      const supro = s0;
-      const dikeco = supro - ( Math.min(minimum0, minimum1) - ANGULA_PROVOLIRO );
-      const y = supro - dikeco;
-      for ( const bendo of bendoj ) {
-        const geometrio = kreiSegmentGeometrion(bendo.largho, pasoLongo, dikeco, bendo.ofseto);
-        bufroj.aldoni(geometrio, bendo.materialo, matricoPor(difX, difZ, movX, y, movZ));
-      }
-    } else {
-      // ⟨ Klinita ŝtupo 📃 ⟩ — la supro klino de s0 ( la komenc-rando ) ĝis s1
-      // ( la fin-rando ). La geometrio longiĝas al la dekliva longo kaj
-      // turniĝas je la dekliva angulo ĉirkaŭ la laterala akso — la
-      // horizontalan pied-signon restas ekzakte pasoLongo kaj la randaj
-      // suproj restas ekzakte s0 kaj s1 ( sin(ang) = difo / klinoL ). La
-      // profundo entombiĝas sub ambaŭ randaj minimumoj + margxeno.
+    const minimum0 = Math.min(h0a, h0b);
+    const minimum1 = Math.min(h1a, h1b);
+    const maks0 = Math.max(h0a, h0b);
+    const maks1 = Math.max(h1a, h1b);
+    if ( glata ) {
+      // ⟨ Glata deklivo ( nur la ponta deko ) 📃 ⟩ — la ponta deko estas unu
+      // REKTA trabo, kaj ĝia balustrado kaj arko ( konstruiPonton ) sekvas la
+      // saman rektan linion. Se la deko ŝtupus, la fostoj kaj la arko misalignus
+      // kun la ŝtupoj, do nur ĉi tiu speciala difino ( `glata: true` ) restas
+      // klinita — ĉiuj ordinaraj vojoj ŝtupas ( sube ).
+      const s0 = maks0 + 0o1/0o100 + dikecoBaza;
+      const s1 = maks1 + 0o1/0o100 + dikecoBaza;
+      const difo = s1 - s0;
+      vojSuprajxoj.push({ x1: sx1, z1: sz1, x2: sx2, z2: sz2, duono: eksteraDuon, y0: s0, y1: s1 });
       const klinoL = Math.hypot(pasoLongo, difo);
       const ang = Math.atan2(difo, pasoLongo);
       const dikeco = ( Math.max(s0 - minimum0, s1 - minimum1) + ANGULA_PROVOLIRO ) / Math.cos(ang);
@@ -619,6 +611,49 @@ function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: numb
         geometrio.rotateX(ang);
         bufroj.aldoni(geometrio, bendo.materialo, matricoPor(difX, difZ, movX, y, movZ));
       }
+      continue;
+    }
+    // ⟨ ĈIAM ŝtupoj, neniam deklivo 📃 ⟩ — ĉiu ordinara vojo NENIAM kliniĝas.
+    // Ĉiu intervalo estas PLATA ŝtupo, kies supro sidas je la ALTA rando de la
+    // intervalo ( la maksimumo de la du randaj specimenoj ), kaj la sekva
+    // intervalo komenciĝas je la sama komuna rando. La alto do ŝanĝiĝas per
+    // naturaj ŝtupoj — la riso estas ĝuste la terena falo trans unu intervalon —
+    // anstataŭ per glata malsupren-kurbiĝo. Ĉar la ŝtupo sidas je la alta rando,
+    // la vojo ĉiam kovras la terenon ( nek sinko nek elfluo ), kaj la profundo
+    // malsupreniras sub ambaŭ randajn minimumojn + margxenon — la vertikala
+    // vizaĝo montras la andezitan/dioritan bordon kiel la ŝtupa riso.
+    // ⟨ Kromaj specimenoj meze 📃 ⟩ — la tereno povas ELSTARI inter la du randoj
+    // de intervalo. La krado specimeniĝas ĉiun SKULPTA_PASOn ( 0o4 unuoj ), kaj la
+    // intervalaj randoj ne ĉiam falas sur kradonodon, do la maksimumo de la du
+    // randaj specimenoj povas preterlasi terenan elstaraĵon MEZE de la intervalo
+    // — la tero tiam pinĉas tra la plata supro ( ĝuste tio estis la "duone sub la
+    // tero" simptomo ĉe la kajo apud la riverbordo ). Ni do specimenas ankaŭ la
+    // INTERNON de la intervalo — kvaronaj punktoj laŭlonge kaj la mezo flanke —
+    // kaj prenas la maksimumon por la supro kaj la minimumon por la profundo. La
+    // randoj restas la samaj specimenoj, do la ŝtupoj daŭre kongruas ĉe la komunaj
+    // randoj kaj la alta rando de ĉiu intervalo restas la reganta.
+    let maksSupro = Math.max(maks0, maks1);
+    let minProfundo = Math.min(minimum0, minimum1);
+    for ( const f of [ 0o1/0o4, 0o1/0o2, 0o3/0o4 ] ) {
+      const mezaX = sx1 + ( sx2 - sx1 ) * f, mezaZ = sz1 + ( sz2 - sz1 ) * f;
+      const hmA = heightFn(mezaX - latX, mezaZ - latZ);
+      const hmB = heightFn(mezaX + latX, mezaZ + latZ);
+      const hmC = heightFn(mezaX, mezaZ);
+      if ( hmA > maksSupro ) maksSupro = hmA;
+      if ( hmB > maksSupro ) maksSupro = hmB;
+      if ( hmC > maksSupro ) maksSupro = hmC;
+      if ( hmA < minProfundo ) minProfundo = hmA;
+      if ( hmB < minProfundo ) minProfundo = hmB;
+      if ( hmC < minProfundo ) minProfundo = hmC;
+    }
+    const supro = maksSupro + 0o1/0o100 + dikecoBaza;
+    // Registru la piedeblan supraĵon de la ŝtupo — plata supro je supro.
+    vojSuprajxoj.push({ x1: sx1, z1: sz1, x2: sx2, z2: sz2, duono: eksteraDuon, y0: supro, y1: supro });
+    const dikeco = supro - ( minProfundo - ANGULA_PROVOLIRO );
+    const y = supro - dikeco;
+    for ( const bendo of bendoj ) {
+      const geometrio = kreiSegmentGeometrion(bendo.largho, pasoLongo, dikeco, bendo.ofseto);
+      bufroj.aldoni(geometrio, bendo.materialo, matricoPor(difX, difZ, movX, y, movZ));
     }
   }
 }
@@ -821,7 +856,8 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial,
   fermitaj: Map<string, [ number, number ]> = new Map(),
-  rotacioj: Map<string, number> = new Map()
+  rotacioj: Map<string, number> = new Map(),
+  direktoj: Map<string, [ number, number ][]> = new Map()
 ): void {
   if ( punktoj.length === 0 ) return;
   // La plato sidas super la vojoj kaj ĝiaj offsetoj estas la PLEJ FORTAJ (
@@ -831,7 +867,6 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
   // la rando de la kvadrato ( konstruiVojojn lasas la kunigajn truojn ), la
   // plato estas la sola supraĵo ene.
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -3, -2, -4, -5);
-  const dikeco = VOJA_SUPRO_LEVIGXO;
   const bufroj = kreiGeometriajnBufrojn();
   for ( const [ x, z ] of punktoj ) {
     // La brakoj de la kunigo — ĉiu komponento de la fermita direkto (±1 aŭ 0)
@@ -843,11 +878,11 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     const rotacio = rotacioj.get(x + "," + z) ?? 0;
     const rotKos = Math.cos( rotacio ), rotSin = Math.sin( rotacio );
     // ⟨ Angula specimenado 📃 ⟩ — la SUPRO restas je la malalta terena nivelo
-    // ( tereno + dikeco ) kaj leviĝas ĝis la maksimuma angula alto nur en
-    // deklivoj. La profundo etendiĝas sub la minimuman angulan altecon +
+    // ( tereno + VOJA_SUPRO_LEVIGXO ) kaj leviĝas ĝis la maksimuma angula alto
+    // nur en deklivoj. La profundo etendiĝas sub la minimuman angulan altecon +
     // margxeno — la flankaj muroj ĉiam enfosiĝas ( neniu ŝvebanta rando ).
-    const altoj = specimeniRotitajn(x, z, VOJA_EKSTERA_DUONO, rotacio, heightFn);
-    const supro = Math.max(heightFn(x, z) + dikeco, altoj.maksimumo + dikeco);
+    const altoj = plataAltoj(x, z, rotacio, heightFn);
+    const supro = altoj.supro;
     const platoDikeco = supro - ( altoj.minimumo - ANGULA_PROVOLIRO );
     const bazo = supro - platoDikeco;
     // ⟨ La kvadrantoj 📃 ⟩ — la plato konsistas el la kvar kvadrantoj, ĉiu kun
@@ -855,7 +890,20 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     // andezita parto. La samaj offsetoj kaj la sama profundo por ĉiuj, do la
     // partoj najbaras sen interkovri kaj neniu koincidaj-facoj batalo ekzistas.
     const aldoni = ( punktoj2: [ number, number ][], materialo: THREE.MeshStandardMaterial ): void => {
-      const rotaciitaj = punktoj2.map( p => [
+      // ⟨ Neniu plato preter braka fino 📃 ⟩ — la plato rajtas kovri nur la
+      // truon de la kunigo; preter la fino-linio de iu brako kusxas la vojo
+      // mem. La perpendikularaj brakoj jam respektas ĉiun limon ( iliaj arkoj
+      // estas tangeantaj kaj la stumpoj atingas la finon ekzakte ), do ĉi tiu
+      // tranĉo estas NE-AGO por la krada urbo kaj por ĉiu orta kunigo — ĝi
+      // forprenas nur la kojnojn, kiujn la OBLIKVAJ brakoj lasus. Sen ĝi la
+      // plato etendigxas gxis 0.4 unuojn en la vojon kaj ĝia rekta andezita
+      // rando aperas trans la kurbo de la korno.
+      let randaj = punktoj2;
+      for ( const d of lokajBrakoj ) {
+        randaj = tranĉi(randaj, d);
+        if ( randaj.length < 3 ) return;
+      }
+      const rotaciitaj = randaj.map( p => [
         rotKos * p[0] - rotSin * p[1],
         rotSin * p[0] + rotKos * p[1],
       ] as [ number, number ] );
@@ -869,11 +917,116 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     // mapas trans → z kaj laŭ → x, `lauxZ` male. Ambaŭ uzas la SAMAN argumentan
     // ordon, do unu formulo priskribas la sekcon en ĉiu kvadranto.
     const diorita = VOJA_DIORITA_DUONO, ekstera = VOJA_EKSTERA_DUONO;
+    const stumpofino = ekstera + KORNA_R;
+    // ⟨ La VERAJ brakoj 📃 ⟩ — la skulptitaj kunigoj liveras la direktojn de
+    // siaj brakoj, la kradaj ne ( ties brakoj ĉiam kuŝas sur la aksoj, do la
+    // aksa kadro estas ekzakta por ili ). La direktoj venas en mondaj
+    // koordinatoj, do ni turnas ilin en la lokan kadron per la INVERSO de la
+    // turno, kiun `aldoni` uzas ( rotKos·x + rotSin·z, −rotSin·x + rotKos·z ).
+    //
+    // ⟨ Kial la brakoj gravas 📃 ⟩ — la plato konstruiĝas en LOKA kadro kaj
+    // la anguloj ( la arkoj, la randaj stumpoj ) supozis, ke la brakoj kuŝas
+    // sur la aksoj. Ĉe malperpendikulara kunigo — la avenuo renkontas la
+    // kajon je 0o10 gxıs 0o13 gradoj — la OBLIKVA brako tiam NE kongruas kun
+    // la aksa stumpo: ĝia rekta andezita bordo ( kiu finigxas 2.075 unuojn
+    // de la centro ) tralikigxas en la rondigitan kornon de la plato kaj
+    // aperas kiel rekta linio trans la kurbo. Kun la veraj direktoj la
+    // stumpo, la tangentopunktoj kaj la arkoj sekvas la brakon mem, kaj la
+    // vojoj daŭras senfende en la platon.
+    const lokajBrakoj: [ number, number ][] = ( direktoj.get(x + "," + z) ?? [] )
+      .map( d => [ rotKos * d[0] + rotSin * d[1], -rotSin * d[0] + rotKos * d[1] ] as [ number, number ] )
+      .filter( d => Math.hypot(d[0], d[1]) > 0o1/0o1000 );
+    // unuo — la vektoro normaligita al longo 1.
+    const unuo = ( d: [ number, number ] ): [ number, number ] => {
+      const longo2 = Math.hypot(d[0], d[1]);
+      return [ d[0] / longo2, d[1] / longo2 ];
+    };
+    // normalo — la perpendikularo de d turnita al la flanko de `celo` ( la
+    // alia brako aŭ la kvadranta direkto ) — do la ofsetoj iras EN la kornon.
+    const normalo = ( d: [ number, number ], celo: [ number, number ] ): [ number, number ] => {
+      const n: [ number, number ] = [ -d[1], d[0] ];
+      return n[0] * celo[0] + n[1] * celo[1] < 0 ? [ d[1], -d[0] ] : n;
+    };
+    // ⟨ Tranĉo laŭ la braka fino 📃 ⟩ — la plato NE rajtas etendiĝi preter la
+    // finoj de siaj brakoj ( la vojaj truoj, VOJA_TRUA_DUONO ), alie ĝi kovrus
+    // la vojon mem per diorito. La perpendikularaj brakoj atingas sian finon
+    // ekzakte ( la anguloj estas tangeantaj al la bezonataj linioj ), sed la
+    // OBLIKVAJ NE — iliaj tangentpunktoj falas preter la fino-linio. Ni do
+    // tranĉas ĉiun angulan parton per la du duonaj ebenoj p · u ≤ fino.
+    const tranĉi = ( punktoj2: [ number, number ][], direkto: [ number, number ] ): [ number, number ][] => {
+      const ena: [ number, number ][] = [];
+      for ( let i = 0; i < punktoj2.length; i++ ) {
+        const a = punktoj2[i], b = punktoj2[( i + 1 ) % punktoj2.length];
+        const da = a[0] * direkto[0] + a[1] * direkto[1] - stumpofino;
+        const db = b[0] * direkto[0] + b[1] * direkto[1] - stumpofino;
+        if ( da <= 0 ) ena.push(a);
+        if (( da < 0 && db > 0 ) || ( da > 0 && db < 0 )) {
+          const t = da / ( da - db );
+          ena.push([ a[0] + ( b[0] - a[0] ) * t, a[1] + ( b[1] - a[1] ) * t ]);
+        }
+      }
+      return ena;
+    };
+    // arko — la INTERNajn punktojn de cirkla arko ĉirkaŭ c kun radiuso r, de
+    // la punkto a al la punkto b, laŭ la pli mallonga vojo ( la konveksa
+    // korno ). La finoj mem jam estas verticoj de la plurangulo.
+    const arko = ( c: [ number, number ], r: number, a: [ number, number ], b: [ number, number ] ): [ number, number ][] => {
+      const a0 = Math.atan2(a[1] - c[1], a[0] - c[0]);
+      let a1 = Math.atan2(b[1] - c[1], b[0] - c[0]);
+      while ( a1 - a0 > Math.PI ) a1 -= 2 * Math.PI;
+      while ( a0 - a1 > Math.PI ) a1 += 2 * Math.PI;
+      const punktoj2: [ number, number ][] = [];
+      for ( let i = 1; i < 0o10; i++ ) {
+        const ang = a0 + ( a1 - a0 ) * i / 0o10;
+        punktoj2.push([ c[0] + Math.cos(ang) * r, c[1] + Math.sin(ang) * r ]);
+      }
+      return punktoj2;
+    };
     for ( const sx of [ -1, 1 ] ) {
       for ( const sz of [ -1, 1 ] ) {
         const lauxX = ( trans: number, lauv: number ): [ number, number ] => [ sx * lauv, sz * trans ];
         const lauxZ = ( trans: number, lauv: number ): [ number, number ] => [ sx * trans, sz * lauv ];
         const brakoX = sx !== fx, brakoZ = sz !== fz;
+        // La brakoj de la kunigo, kiuj kuŝas en ĉi tiu kvadranto.
+        const kvadrantaj = lokajBrakoj.filter( d => sx * d[0] >= -0o1/0o1000 && sz * d[1] >= -0o1/0o1000 );
+        if ( brakoX && brakoZ && kvadrantaj.length === 2 ) {
+          // ⟨ DU brakoj, laŭ iliaj VERAJ direktoj 📃 ⟩ — u estas la pli
+          // aksa brako ( la trapasanta vojo ), w la alia ( la finigxanta ).
+          // nu kaj nw estas iliaj perpendikularoj EN la kornon. La korno-centro
+          // C kuŝas sur la komuna punkto de la du randoj ofsetitaj eksteren per
+          // ekstera + KORNA_R — la samaj du linioj, al kiuj la ekstera kurbo
+          // ( r = KORNA_R ) kaj la ena diorita rando ( r = KORNA_ENA_R ) estas
+          // tangeantaj, ĉar KORNA_ENA_R = KORNA_R + la borda larĝo.
+          const unuaAksa = Math.abs(kvadrantaj[0][0]) >= Math.abs(kvadrantaj[1][0]);
+          const u = unuo(unuaAksa ? kvadrantaj[0] : kvadrantaj[1]);
+          const w = unuo(unuaAksa ? kvadrantaj[1] : kvadrantaj[0]);
+          const nu = normalo(u, w), nw = normalo(w, u);
+          const det = u[1] * w[0] - u[0] * w[1];
+          if ( Math.abs(det) > 0o1/0o1000 ) {
+            const b0 = stumpofino * ( nw[0] - nu[0] ), b1 = stumpofino * ( nw[1] - nu[1] );
+            const alfa = ( -b0 * w[1] + w[0] * b1 ) / det;
+            const c: [ number, number ] = [ stumpofino * nu[0] + alfa * u[0], stumpofino * nu[1] + alfa * u[1] ];
+            const rEna = KORNA_ENA_R, rEkstera = KORNA_R;
+            const enaU: [ number, number ] = [ c[0] - rEna * nu[0], c[1] - rEna * nu[1] ];
+            const enaW: [ number, number ] = [ c[0] - rEna * nw[0], c[1] - rEna * nw[1] ];
+            const ekU: [ number, number ] = [ c[0] - rEkstera * nu[0], c[1] - rEkstera * nu[1] ];
+            const ekW: [ number, number ] = [ c[0] - rEkstera * nw[0], c[1] - rEkstera * nw[1] ];
+            const punkto = ( t: number, lauv: number ): [ number, number ] =>
+              [ u[0] * lauv + nu[0] * t, u[1] * lauv + nu[1] * t ];
+            const punktoW = ( t: number, lauv: number ): [ number, number ] =>
+              [ w[0] * lauv + nw[0] * t, w[1] * lauv + nw[1] * t ];
+            const diorito = tranĉi([ [ 0, 0 ], punkto(0, stumpofino), punkto(diorita, stumpofino), enaU,
+              ...arko(c, rEna, enaU, enaW), enaW, punktoW(diorita, stumpofino), punktoW(0, stumpofino) ], u);
+            const diorito2 = tranĉi(diorito, w);
+            if ( diorito2.length >= 3 ) aldoni(diorito2, supraMaterialo);
+            const bordo = tranĉi([ punkto(diorita, stumpofino), punkto(ekstera, stumpofino), ekU,
+              ...arko(c, rEkstera, ekU, ekW), ekW, punktoW(ekstera, stumpofino), punktoW(diorita, stumpofino),
+              enaW, ...arko(c, rEna, enaW, enaU), enaU ], u);
+            const bordo2 = tranĉi(bordo, w);
+            if ( bordo2.length >= 3 ) aldoni(bordo2, bordaMaterialo);
+            continue;
+          }
+        }
         if ( brakoX && brakoZ ) {
           // DU brakoj — la du vojoj renkontigxas en cxi tiu kvadranto. La korno
           // inkluzivas la konektitan vojon laux ties TUTA largxo kaj atingas
@@ -884,7 +1037,6 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
           // stumpoj reparas la truan intervalon per la sama sekco kiel la
           // vojoj, do la vojaj sekcoj dauras senfende en la kornon. Neniu
           // akra angulo restas, nek interne nek ekstere.
-          const stumpofino = ekstera + KORNA_R;
           const enaArko = kreiEnanKornanArkon(sx, sz, ekstera);
           const eksteraArko = kreiEksteranKurbanArkon(sx, sz, ekstera);
           aldoni([ [ 0, 0 ], lauxX(0, stumpofino), ...enaArko, lauxZ(0, stumpofino) ], supraMaterialo);
@@ -892,12 +1044,19 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
             ...eksteraArko.slice().reverse().slice(1, -1),
             [ sx * ekstera, sz * stumpofino ], lauxZ(diorita, stumpofino),
             ...enaArko.slice().reverse().slice(1, -1) ], bordaMaterialo);
+        } else if ( ( brakoX || brakoZ ) && kvadrantaj.length === 1 ) {
+          // UNU brako, laŭ sia VERA direkto — la voja sekco daŭras rekte tra
+          // la rando de la plato kaj atingas gxis la fino, kiun la voja truo
+          // lasas libera. Neniu angulo ekzistas, do nenio por rondigi.
+          const u = unuo(kvadrantaj[0]);
+          const nu = normalo(u, brakoX ? [ 0, sz ] : [ sx, 0 ]);
+          const p = ( t: number, lauv: number ): [ number, number ] =>
+            [ u[0] * lauv + nu[0] * t, u[1] * lauv + nu[1] * t ];
+          aldoni([ p(0, 0), p(0, stumpofino), p(diorita, stumpofino), p(diorita, 0) ], supraMaterialo);
+          aldoni([ p(diorita, 0), p(diorita, stumpofino), p(ekstera, stumpofino), p(ekstera, 0) ], bordaMaterialo);
         } else if ( brakoX || brakoZ ) {
-          // UNU brako — la voja sekco daŭras rekte tra la rando de la plato
-          // kaj atingas gxis la tangentopunkto, kiun la voja truo lasas libera.
-          // La stumpo reparas la truan intervalon per la sama sekco kiel la
-          // vojo; neniu angulo ekzistas, do nenio por rondigi.
-          const stumpofino = ekstera + KORNA_R;
+          // UNU brako, aksa kadro ( la krado ). La voja sekco daŭras rekte tra
+          // la rando de la plato; neniu angulo ekzistas, do nenio por rondigi.
           const l = brakoX ? lauxX : lauxZ;
           aldoni([ l(0, 0), l(0, stumpofino), l(diorita, stumpofino), l(diorita, 0) ], supraMaterialo);
           aldoni([ l(diorita, 0), l(diorita, stumpofino), l(ekstera, stumpofino), l(ekstera, 0) ], bordaMaterialo);
@@ -928,26 +1087,14 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
 // nenia angulo. Neniu aparta arka funkcio bezonatas — unu plato, unu paro da
 // materialoj, unu kunigo por la tuta reto.
 
-// konstruiSpronon — Konstruu ununuran voj-spronon de konstruajxa pordo gxis voja rando.
-// Uzas pli altan polygonOffset ol cefaj vojoj por certigi videblon.
-export function konstruiSpronon(x1: number, z1: number, x2: number, z2: number,
-  heightFn: ( x: number, z: number ) => number,
-  dioritaMaterialo: THREE.MeshStandardMaterial,
-  andezitaMaterialo: THREE.MeshStandardMaterial,
-  sceno: THREE.Scene
-): void {
-  const difX = x2 - x1, difZ = z2 - z1;
-  const longo = Math.hypot(difX, difZ);
-  if ( longo < 0o4/0o10 ) return;
-  // La porda vojo uzas la saman larghon kiel la regula vojreto.
-  const w = 0o16/0o10;
-  const dikeco = VOJA_DIKECO;
-  // La spronaj bendoj uzas pli altan polygonOffset ol la cefaj vojoj ( -4/-3
-  // kontraux -2/-1 ), por ke cxe la kunigxo kun la cefa vojo la sprono gajnu
-  // determinite ( neniu z-fighting inter la du vojoj ).
-  const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -4, -2, -3, -2);
-  konstruiSegmenton(x1, z1, x2, z2, kreiVojajnBendojn(w, supraMaterialo, bordaMaterialo), dikeco, heightFn, sceno);
-}
+// ⟨ La spronoj estas ORDINARAJ vojoj 📃 ⟩ — la vojeto de konstruaĵa pordo al
+// la strato NE plu havas propran konstruilon ( la malnova konstruiSpronon kun
+// sia propra bufraro kaj sia propra polygonOffset-hierarkio ). Ĝi estas
+// ordinara `VojDifino` en la SAMA listo kiel la kradaj kaj la skulptitaj
+// vojoj — la sama sekco, la samaj materialoj, la sama ŝtupa generacio, kaj —
+// ĉefe — la sama truo ĉe la kunigo kaj la sama kuniga plato. Tiel la sprono
+// ne plu povas kuŝi ene de la strato, kiun ĝi atingas, nek tralasiĝi tra la
+// rondigita korno de la plato.
 
 // konstruiFontanon — Konstruu placon kun fontana baseno kaj akva surfaco.
 export function konstruiFontanon(sceno: THREE.Scene,
