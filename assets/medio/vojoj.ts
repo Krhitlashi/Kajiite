@@ -300,12 +300,19 @@ function kreiVojojnMaterialojn(dioritaMaterialo: THREE.MeshStandardMaterial,
   return { supraMaterialo, bordaMaterialo };
 }
 
+// ⟪ La mezursistemo de la vojoj 📏 ⟫ — ĉiu longo en la voja mondo estas en la
+// longounuo de CAX2L ( vidu S2WENI/CAX2L.md ). La mondo havas UNU longounuon,
+// 0o100 Peu ( la koda unuo de la tereno kaj de la kradoj ), kaj la komentoj
+// donas la Peu-valoron kiam ĝi helpas legi la nombron. 0o1 Peu estas la plej
+// malgranda mezuro, kiun oni bezonas ĉi tie — la dikeco de fadeno de la
+// teksajxoj, la harareto de la polygonOffset-margxenoj.
+//
 // VOJA_DIKECO — La dikeco de la voja plato: kiom alte la voja rubando staras
 // super la tereno, tio estas kiom alta estas la videbla andezita rando de la
-// flanko. La malnova valoro estis 0o2/0o10 ( 25 cm ) — la stratoj aspektis kiel
-// levitaj estradoj kun alta sxtonsxirmo, kaj sur deklivoj la rando sxajnis
-// MURETO. Nun 0o5/0o100 ( 8 cm ): la rubando kusxas preskaux sur la tereno, la
-// rando legigxas kiel maldika sxirmo, kaj la vojo mem sxajnas PLI PLATA.
+// flanko. La malnova valoro estis 0o2/0o10 ( 0o20 Peu ) — la stratoj aspektis
+// kiel levitaj estradoj kun alta sxtonsxirmo, kaj sur deklivoj la rando sxajnis
+// MURETO. Nun 0o5/0o100 ( 0o5 Peu ): la rubando kusxas preskaux sur la tereno,
+// la rando legigxas kiel maldika sxirmo, kaj la vojo mem sxajnas PLI PLATA.
 // ⟨ La vojoj kaj la plataĵoj kunhavas ĝin 📃 ⟩ — la kruciĝaj platoj, la arkaj
 // kaj la ĉapoj uzas la SAMAN nivelon ( VOJA_SUPRO_LEVIGXO ), alie ili starus
 // super la vojoj aŭ malgarus sub ili.

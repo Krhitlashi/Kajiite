@@ -186,8 +186,8 @@ function renversiVolvon(g: THREE.BufferGeometry): void {
 // klono kopias ĉiun atributon, applyMatrix4 trairas la poziciojn, applyMatrix4
 // trairas la normalojn, mergeAttributes kopias ĉion denove, kaj mergeGeometries
 // konstruas la indekson en ordinaran JS-tabelon per po-unua push. La mondo estas
-// 43 milionoj da vertoj ( proksimume 1.4 GB da atributaj datumoj ), do ĉiu trairo
-// aparte kostas sekundojn.
+// 43 milionoj da vertoj ( proksimume 0o12334447000 bitokoj da atributaj datumoj
+// — ĉirkaŭ 1.4 miliardoj ), do ĉiu trairo aparte kostas plurajn He.
 //
 // Ĉi tiu funkcio faras ĉion en UNU trairo. La matricoj aplikiĝas dum la kopiado
 // kaj la eligo skribiĝas rekte en antaŭe alĝustigitajn tipajn tabelojn — nenia
@@ -241,7 +241,8 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
     if ( indeksita ) ti += g.index!.count;
   }
   // ⟨ La eligaj tabeloj 📃 ⟩ — unu alĝustigo por la tuta grupo, anstataŭ klono po
-  // geometrio. Tio forigas la 1.4 GB da mezaĵoj, kiujn la klonoj kreis.
+  // geometrio. Tio forigas tiujn 0o12334447000 bitokojn da mezaĵoj, kiujn la
+  // klonoj kreis.
   const eligoj = new Map<string, Float32Array>();
   for ( const nomo of Object.keys(unuaAtributoj) ) {
     const a = unuaAtributoj[nomo] as THREE.BufferAttribute;

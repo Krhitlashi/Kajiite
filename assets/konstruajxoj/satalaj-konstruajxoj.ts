@@ -210,7 +210,7 @@ function kreiDiamantanSvingon(
     // ⟨ Unu sola konturo 📃 ⟩ — la sama sekco por ĉiu ringo, de la bazo ĝis la
     // pinto. La antaŭa kodo morfe miksis du KONTOUROJN kun malsamaj punkt-ordonoj
     // ( la akran kaj la "rondigitan" ), kaj tiu miksajxo kavigis la lastajn
-    // milimetrojn de la bazo — la bazo aspektis distordita. Nun la sekco mem
+    // 0o1/0o20 Peuojn de la bazo — la bazo aspektis distordita. Nun la sekco mem
     // havas la rondigitajn angulojn, do neniu transiro necesas.
     const konturo = duonoj;
     // La sekco restas plena laux la sxafto kaj iom post iom transiras al la

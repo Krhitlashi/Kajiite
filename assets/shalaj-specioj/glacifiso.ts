@@ -540,7 +540,7 @@ export function gxisdatigiGlacifison(b: Besto, t: number, dt: number): void {
   // La nazo levigxas dum la supreniĝo ( la derivaĵo de la bobado ).
   b.grupo.rotation.x = -Math.cos(t * 0o2 + b.phase * 0o3) * 0o4/0o100;
 
-  // La korpa ondo — 0o11/0o12 ondoj sekunde, do malrapida naĝa ritmo. La
+  // La korpa ondo — 0o11/0o12 ondoj en He, do malrapida naĝa ritmo. La
   // amplekso KRESKAS malantaŭen ( la kapo preskaŭ ne moviĝas, la vosta
   // pedunklo batas ), kaj la fazmalfruo inter la artikoj faras la
   // vojaĝantan ondon. Antaŭe la meza segmento moviĝis PLI ol la vosta, do

@@ -114,7 +114,7 @@ function kreiDokanKadron(w: number, l: number, r: number, strio: number, dikeco:
 // ( VOJA_DIKECO ), ĉar la deko MEM estas voja rubando ( vidu malsupre ).
 // ⟨ Importita, ne kopiita 📃 ⟩ — la valoro venas rekte el la voja modulo. Antaŭe
 // ĝi estis kopio de la tiutempa voja dikeco ( 0o2/0o10 ); kiam la vojoj
-// maldikiĝis al 0o5/0o100, la ponto restus dika lampiro 25 cm super la
+// maldikiĝis al 0o5/0o100, la ponto restus dika lampiro 0o20 Peu super la
 // platformoj — ŝtupo ĉe ĉiu ponto-fino. Tiel la du valoroj restas unu.
 export const PONT_DEKA_DIKECO = VOJA_DIKECO;
 
@@ -213,7 +213,7 @@ export function konstruiPonton(
   // voja andezita bendo.
   const duon = largho / 4 + VOJA_BORDA_LARĜO;
   // ⟨ La arka maso estas harareto PLI LARĜA ol la deko 📃 ⟩ — la maso estas
-  // ekstrudita 0o1/0o500 ( ~3 mm ) preter la rando de la deko, do ĝiaj flankaj
+  // ekstrudita 0o1/0o500 ( 0o1/0o5 Peu ) preter la rando de la deko, do ĝiaj flankaj
   // facoj estas la VIDEBlaj facoj ĉe la rando: la rando-faco de la voja rubando
   // ( la sama ebeno ) restas malantaŭe, kaj la andezito de la arko kovras la randon
   // de la deko — vidu la supran komenton pri la profilo.
@@ -302,7 +302,7 @@ export function konstruiPonton(
   // tuta spano, kun la arka malfermo en ĝi — la andezito de la arko estas la rando
   // de la deko mem, kaj ĝi kurbiĝas en la arkon, kiel la kadro de la doko
   // daŭriĝas malsupren al la platformo. Antauxe la maso finiĝis ĉe la malsupro de
-  // la rubando ( la ok-centimetra rando de la deko restis super la ŝtono kiel
+  // la rubando ( la 0o5-Peua rando de la deko restis super la ŝtono kiel
   // lipo ) kaj ĝia malsupro kuŝis sur unu profunda nivelo ( apud la bordoj videblis
   // nur tiu maldika bendo ).
   //
@@ -361,7 +361,7 @@ export function konstruiPonton(
   // finaj facoj ( vertikalaj ) ĉe la bordoj — tiuj kuŝas en la tero, ĉar la vojo
   // sidas sur la bordo ĝuste tie.
   // ⟨ La supro de la maso — la SURFACO de la vojo, ne ĝia malsupro 📃 ⟩ — antaŭe
-  // la maso finiĝis ĉe la malsupro de la voja rubando, do la ok-centimetra rando de
+  // la maso finiĝis ĉe la malsupro de la voja rubando, do la 0o5-Peua rando de
   // la rubando ( la andezita bendo de la vojo ) staris SUPER la ŝtono kiel aparta
   // lipo — io pendanta super la arko. Nun la maso altiĝas ĝis la surfaco mem ( 0o1/
   // 0o200 sub ĝi, por ke la du supraj facoj ne z-flagru ), do la andezito de la arko
@@ -462,7 +462,7 @@ export function konstruiDokon(
   // ⟨ La sama dikeco kiel la vojoj 📃 ⟩ — la plej alta ŝtupo estas voja etendo,
   // do ĝia planko staras same alte super la tereno kiel la voja rubando. Kun la
   // malnova voja dikeco ili kongruis; kiam la vojoj maldikiĝis, la doko devis
-  // sekvi — alie ĉiu kajo havus 17-centimetran ŝtupon ĉe la eniro.
+  // sekvi — alie ĉiu kajo havus 0o12-Peuan ŝtupon ĉe la eniro.
   const dikeco = VOJA_DIKECO;
   // Rondigita fronto — la akva pinto de la doko.
   const antaŭaRadiuso = 0o4/0o10;

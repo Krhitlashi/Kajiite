@@ -190,10 +190,10 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
   const korbo = materialon("korbo",
     () => new THREE.MeshStandardMaterial({ color: 0xb89860, roughness: 0o63/0o100, map: korbaTeksajxon() }));
   // ⟨ La karno 📃 ⟩ — duonglobo, kiu SIDAS en la korbo: la interna fundo de la
-  // korbo estas ĉe 0o2/0o100 ( 3 cm ) kaj la bulka subo ĉe ~2 cm, do la bulko
-  // kuŝas EN la bovlo ( ĝia subo estas kaŝita de la interna fundo ) anstataŭ
-  // ŝvebi super ĝi. La centro 0o11/0o100 venas el la duon-alto de la platigita
-  // sfero ( radiuso 0o13/0o100 × 0o55/0o100 ≈ 0o11/0o100 ).
+  // korbo estas ĉe 0o2/0o100 ( 0o2 Peu ) kaj la bulka subo ĉe ~0o1 Peu, do la
+  // bulko kuŝas EN la bovlo ( ĝia subo estas kaŝita de la interna fundo )
+  // anstataŭ ŝvebi super ĝi. La centro 0o11/0o100 venas el la duon-alto de la
+  // platigita sfero ( radiuso 0o13/0o100 × 0o55/0o100 ≈ 0o11/0o100 ).
   const bulko = new THREE.Mesh(new THREE.SphereGeometry(0o13/0o100, 0o20, 0o12), karno);
   bulko.scale.set(1, 0o55/0o100, 1); bulko.position.y = 0o11/0o100;
   bulko.castShadow = true;
@@ -219,7 +219,7 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
   // diferenco inter "plektita korbo" kaj "tabureto".
   // ⟨ La korbo kusxu sur la tablo 📃 ⟩ — la bovlo estas malfermita cilindro, do
   // ĝia plej malsupra rando estis je 0o1/0o100 super la grupo-origino: la korbo
-  // ŝvebis 1.5 cm super la tabulo ( mezurite per la limiga skatolo ). La tuta
+  // ŝvebis 0o1 Peu super la tabulo ( mezurite per la limiga skatolo ). La tuta
   // korbo ( la bovlo, la interna fundo, la rimo kaj la stangetoj ) malsupreniĝas
   // per tiu sama kvanto, do ĝia rando tuŝas la tablon — sen kunebena faco ( la
   // bovlo ne havas fundan facon ), do neniu trembrilo.
@@ -349,7 +349,7 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
 //     @returns g ( THREE.Group ) - La glaso; la grupo-origino estas la subteno.
 export function glassMesh(f: MangxajxDatumo): THREE.Group {
   const g = new THREE.Group();
-  const subteno = 0o1/0o100;               // 1 cm da korko sub la glaso
+  const subteno = 0o1/0o100;               // 0o1 Peu da korko sub la glaso
   const vitro = materialon("vitro", () => new THREE.MeshStandardMaterial({
     color: 0xe0f0e8, transparent: true, opacity: 0o26 / 0o100, roughness: 0o6/0o100,
     depthWrite: false, side: THREE.DoubleSide, map: vitraTeksajxon(),
@@ -381,10 +381,10 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
   const surfaco = new THREE.Mesh(new THREE.CircleGeometry(0o45/0o1000, 0o20), materialon("surfaco:" + f.col,
     () => new THREE.MeshStandardMaterial({ color: f.col, roughness: 0o2/0o10, transparent: true, opacity: 0o63/0o100 })));
   // ⟨ La surfaco staru sur la likvaĵo 📃 ⟩ — la disko estis je 0o11/0o100 dum la
-  // likva cilindro finiĝas je 0o5/0o100 + 0o10/0o200 ( 0.14 ), do la videbla
-  // "surfaco" ŝvebis 3 cm super la trinkaĵo kaj la likvaĵo mem aspektis kiel
-  // aparta stango sub ĝi. Nun ĝi sidas ĝuste sur la cilindra supro; la eta levo
-  // ( 0o1/0o200 ) evitas la kunebenan trembrilon kun tiu supra faco.
+  // likva cilindro finiĝas je 0o5/0o100 + 0o10/0o200 ( 0o11/0o100 ), do la
+  // videbla "surfaco" ŝvebis 0o2 Peu super la trinkaĵo kaj la likvaĵo mem
+  // aspektis kiel aparta stango sub ĝi. Nun ĝi sidas ĝuste sur la cilindra supro;
+  // la eta levo ( 0o1/0o200 ) evitas la kunebenan trembrilon kun tiu supra faco.
   surfaco.rotation.x = -Math.PI / 2; surfaco.position.y = subteno + 0o5/0o100 + 0o10/0o200 + 0o1/0o200;
   g.add(surfaco);
   const menisko = new THREE.Mesh(new THREE.TorusGeometry(0o44/0o1000, 0o1/0o100, 5, 0o20), materialon("menisko",

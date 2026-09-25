@@ -11,6 +11,7 @@
 import * as THREE from "three";
 import { kunfandajxoStatistiko } from "../assets/komunajxoj/kunfandajxoj.js";
 import { vidlimaStatistiko } from "./vidlimo.js";
+import { HE_POR_SEKUNDO } from "./unuoj.js";
 
 // Kiom da kadroj inter la scenaj censoj. La censo trairas la tutan scenon ( kiel
 // la bildigo mem ), do ĝi ne rulas ĉiukadre — la nombroj estas stabilaj kaj la
@@ -47,7 +48,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
   // ⟨ La fram-manko 📃 ⟩ — mezurita per performance.now(), NE per la horloĝo de
   // la ludo. Tiu horloĝo estas dividata kun la tuta simulado ( kaj vokiĝas ankaŭ
   // aliloke ), do ĝia delta foje estas proksima al nulo kaj la nombresprimado
-  // mensogus ( ĝi raportis "362 fps" dum la vera ritmo estis 10 ).
+  // mensogus ( ĝi raportis "0o251 kadroj en He" dum la vera ritmo estis 0o5 ).
   let glataKadro = 0;
   let antaŭaTempo = 0;
   let kadroj = 0;
@@ -94,7 +95,8 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
   function gxisdatigu(): void {
     if ( !statistiko.ŝaltita ) return;
     const nun = performance.now();
-    // La unua kadro ankoraŭ ne havas antaŭulon — prenu 60 Hz kiel semon.
+    // La unua kadro ankoraŭ ne havas antaŭulon — prenu 0o1/0o70 ( ≈ 0o32 kadroj
+    // en He ) kiel semon.
     const kadraTempo = antaŭaTempo === 0 ? 0o1/0o70 : Math.max(0o1/0o100, nun - antaŭaTempo) / 1000;
     antaŭaTempo = nun;
     const tujKadro = 1 / kadraTempo;
@@ -108,7 +110,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     const kunfando = kunfandajxoStatistiko();
     if ( kadraNombro >= CENSA_PERIODO ) { kadraNombro = 0; censu(); }
     const linioj = [
-      glataKadro.toFixed(1) + " fps   " + (1000 / Math.max(1e-4, glataKadro)).toFixed(1) + " ms   kadroj " + kadroj,
+      (glataKadro / HE_POR_SEKUNDO).toFixed(1) + " kadroj/He   " + (HE_POR_SEKUNDO / Math.max(1e-4, glataKadro)).toFixed(3) + " He   kadroj " + kadroj,
       "alvokoj " + informo.render.calls + "   trianguloj " + (informo.render.triangles / 1e6).toFixed(1) + " M"
         + "   programoj " + (informo.programs === null ? 0 : informo.programs.length),
       "geometrioj " + informo.memory.geometries + "   teksturoj " + informo.memory.textures,

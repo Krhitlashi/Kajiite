@@ -109,7 +109,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // estis 3/4 antaux la ombro-volumena sekvo ) — plenumiĝas nur kiam la
   // ombro-volumeno moviĝas ( vidu gxisdatigiOmbron ) kaj alie nur ĉiun duan
   // kadron. Moviĝantaj ombroj ( la ludanto, la NPC-oj, la kanuoj ) prokrastiĝas
-  // maksimume du kadrojn — ĉe irado tio estas kelkaj centimetroj da ombra
+  // maksimume du kadrojn — ĉe irado tio estas kelkaj Peuoj da ombra
   // postiĝo, kion oni ne rimarkas — kaj la ombra duobla pasumo malaperas.
   bildilo.shadowMap.autoUpdate = false;
   // La frua bildigo okazas antaŭ la buklo — ĝi jam havu ombrojn.

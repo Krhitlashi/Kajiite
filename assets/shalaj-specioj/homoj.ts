@@ -533,7 +533,8 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
 // la brakoj kontraŭe al la samflanka kruro; starante, la brakoj nur balanciĝas
 // iomete. Transiroj inter stari kaj marŝi estas glataj ( movoFaktoro ).
 //     @param fig ( Figuro ) - La NPC-figuro por animacii.
-//     @param deltaTempo ( number ) - Delta tempo en sekundoj.
+//     @param deltaTempo ( number ) - Delta tempo en la unuo de la retumila
+//         tempigilo ( vidu src/unuoj.ts por la konverto al He ).
 //     @param t ( number ) - Malsupra tempo por oscedoj.
 //     @param alteco ( funkcio ) - Tera alta funkcio por sekvi la terenon.
 //     @param suprajxo ( funkcio ) - La piedebla supraĵo ( la vojoj, dokoj ) —

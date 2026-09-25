@@ -30,7 +30,7 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #balailo { z-index:8; opacity:0; transition:opacity .5s; }
 
 /* ⟪ Retikulo 📃 ⟫ */
-#retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .25s; }
+#retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .2336092301648s; }
 #retikulo.montri { opacity:.4375; }
 #retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--ក្ព៏); }
 #retikulo::before { width:16px; height:1px; top:50%; left:-8px; }
@@ -39,11 +39,11 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 /* ⟪ Tosto kaj prompto 📃 ⟫ */
 #tosto, #prompto { white-space:nowrap; opacity:0; pointer-events:none; }
 #tosto { position:fixed; z-index:5; top:50%; left:50%; transform:translate(-50%,-50%); transition:opacity .5s,transform .5s; flex-direction:row; flex-wrap:wrap; max-inline-size:25%; }
-#prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); transition:opacity .25s,transform .25s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
+#prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); transition:opacity .2336092301648s,transform .2336092301648s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
 #prompto.montri { transform:translateX(-50%); }
 
 /* ⟪ Supermeta ( helpo · plena mapo ) 📃 ⟫ */
-#supermeta { z-index:6; display:grid; place-items:center; opacity:0; pointer-events:none; transition:opacity .25s; }
+#supermeta { z-index:6; display:grid; place-items:center; opacity:0; pointer-events:none; transition:opacity .2336092301648s; }
 #supermeta.mapo { z-index:7; place-items:stretch; background:none; }
 #supermeta.mapo .interno { display:none; }
 #supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 64px); overflow:auto; padding:var(--អារេងព៏); justify-content:start; }
@@ -93,7 +93,7 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #informButono { position:fixed; z-index:5; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(var(--អារេងព៏) + var(--sat)); }
 /* La tri paneloj ( la pop-up kaj la du plenekranaj ) kunhavas la saman
    aperon — nur ilia geometrio malsamas. */
-#navPopUp, #informo, #vestaro { position:fixed; z-index:6; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .25s,transform .25s; border-radius:var(--អិត្ភេពឺ); }
+#navPopUp, #informo, #vestaro { position:fixed; z-index:6; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .2336092301648s,transform .2336092301648s; border-radius:var(--អិត្ភេពឺ); }
 #navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100% - 32px); max-block-size:calc(100% - 160px); overflow:auto; }
 #informo, #vestaro { display:flex; flex-direction:column; overflow:auto; overscroll-behavior:contain; left:calc(var(--អារេងព៏) + var(--sal)); right:calc(var(--អារេងព៏) + var(--sar)); }
 #informo { top:calc(72px + var(--sat)); bottom:calc(var(--អារេងព៏) + var(--sab)); }
@@ -111,7 +111,7 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 /* ⟪ Vestaro 📃 ⟫ */
 .vestaVico { display:flex; justify-content:center; flex-wrap:wrap; }
 #haraListo { display:flex; flex-direction:column; }
-.vestaKardo { cursor:pointer; transition:transform .25s,border-color .25s; }
+.vestaKardo { cursor:pointer; transition:transform .2336092301648s,border-color .2336092301648s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--តានេក២); }
 .harKoloroChip { inline-size:24px; block-size:24px; border-radius:var(--អិត្ភេមិ); border:var(--សាកព៏); align-self:center; }
 .vestaKardo.elektita { border-color:var(--ក្ព៏); }
@@ -141,5 +141,5 @@ body.tuŝa #mobKontroloj { display:block; }
 #mobJoystickBazo.sprinto #mobJoystickTenilo { background:radial-gradient(circle at 37.5% 37.5%,var(--តានេក២),var(--តានេកខេលេ)); }
 #mobButaroj { position:absolute; right:calc(var(--អារេងព៏) + 52px + var(--អារេង) + var(--sar)); bottom:calc(var(--អារេងព៏) + var(--sab)); display:flex; flex-direction:column; gap:var(--អារេង); pointer-events:none; }
 .mobBut { pointer-events:auto; }
-#mobButInterakti { opacity:0; pointer-events:none; transition:opacity .25s; }
+#mobButInterakti { opacity:0; pointer-events:none; transition:opacity .2336092301648s; }
 #mobButInterakti.montri { opacity:1; pointer-events:auto; }

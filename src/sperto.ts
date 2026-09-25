@@ -110,7 +110,8 @@ const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMateri
 ( window as unknown as { __sceno?: typeof sceno; __fotilo?: typeof fotilo } ).__fotilo = fotilo;
 
 // ⟪ La diagnoza surmetaĵo 📃 ⟫ — montras la nombrojn de la bildilo kaj de la
-// vidlimo ( FPS, desegnaj alvokoj, trianguloj, kaj kiuj scen-partoj pezas ).
+// vidlimo ( kadroj en He, desegnaj alvokoj, trianguloj, kaj kiuj scen-partoj
+// pezas ).
 // Ŝaltita per ?statistiko; sen la parametro ĝi nur dormas ( unu bulea testo
 // po kadro ). Vidu src/statistiko.ts.
 const statistiko = kreiStatistikon(bildilo, sceno, fotilo);
@@ -123,7 +124,7 @@ const statistiko = kreiStatistikon(bildilo, sceno, fotilo);
 // La ĉefa buklo ( animacii ) ekas post la urbo kaj la mapo-bakado — cxi tiu
 // malgranda frua buklo haltas tiam ( haltoFrua ).
 // ⟨ Kina drift 📃 ⟩ — dum la sxargxo la fotilo orbitas malrapide ( 0o1/0o10
-// radianoj po sekundo ) ĉirkaŭ la urba centro ( la sanktejo ) kun subtila
+// radianoj po He ) ĉirkaŭ la urba centro ( la sanktejo ) kun subtila
 // alta oscilo — kina enkonduko de la valo. Kiam la ĉefa buklo ekas, la
 // Orbit-regiloj transprenas sen salto ( la drifta radiuso 0o110 kuŝas inter
 // minDistance kaj maxDistance ).
@@ -180,11 +181,11 @@ spacigiInstancojn(sceno);
 // shader-programojn ( la materialoj × la lumoj × la ombra pasumo ) kaj alŝuti
 // la teksajxojn al la GPU. Three faras tion LAZE — je la unua fojo, kiam la
 // materialo aperas en la vido — kaj ĝuste tio estas la "lag" de la unuaj
-// sekundoj: ĉiu nova materialo ( nova arba specio, la interno de konstruajxo,
-// la akvo ) haltigas unu kadron por 30–200 ms, ĝuste kiam la ludanto turnas la
-// kapon aŭ eniras konstruajxon. La varmigo faras la saman laboron nun, sub la
-// ŝarĝa ekrano ( ĝi ankoraŭ kovras la scenon ), anstataŭ dise tra la unuaj
-// minutoj de la ludo. La tuta kosto estas unu plena kadro.
+// He-oj: ĉiu nova materialo ( nova arba specio, la interno de konstruajxo, la
+// akvo ) haltigas unu kadron por 0o1/0o20–0o34/0o100 He, ĝuste kiam la ludanto
+// turnas la kapon aŭ eniras konstruajxon. La varmigo faras la saman laboron nun,
+// sub la ŝarĝa ekrano ( ĝi ankoraŭ kovras la scenon ), anstataŭ dise tra la
+// unuaj 0o200 He de la ludo. La tuta kosto estas unu plena kadro.
 // ⟨ Kial malmultekosta 📃 ⟩ — la mondo KUNHAVAS la materialojn ( la kaŝmemoroj
 // de la moduloj: materialon, konstruajxaMaterialo, sxovu ), do la programoj
 // estas dekoj, ne centoj. La bakado de la mapo ( bakiMapon ) sekvas kaj ankaŭ
@@ -611,7 +612,7 @@ let tuŝaTempilo = 0;
 function montriTuŝajnKontrolojn(): void {
   document.body.classList.add("tuŝa");
   if ( tuŝaTempilo ) window.clearTimeout(tuŝaTempilo);
-  // Post 3 sekundoj sen tuŝo la kontroloj malaperas ( la sekva tuŝo revenigas ilin ).
+  // Post 0o63/0o10 He sen tuŝo la kontroloj malaperas ( la sekva tuŝo revenigas ilin ).
   tuŝaTempilo = window.setTimeout(() => {
     // Ne kaŝu dum la stirstango estas tenata. Touchend eble ne alvenas sur kaŝita zono.
     if ( joystickAktiva ) { montriTuŝajnKontrolojn(); return; }
@@ -1849,12 +1850,13 @@ function bakiMapon(): HTMLCanvasElement | null {
     // La nebula koloro de la ĉielo — la fora tono de la plena mapo. Legu ĝin
     // antaŭ ol la nebulo de la sceno malŝaltiĝas por la bake.
     if ( nebulo ) mapaNebulaKoloro = "#" + nebulo.color.getHexString();
-    // ⟨ Unu bufero 📃 ⟩ — antaŭe estis TRI plenaj kopioj de la bildo ( 26 MB
-    // ĉiu ): la lega bufero, dua tabelo por la ImageData, kaj la kopio kiun
-    // putImageData faras interne. Nun unu tabelo plenumas ĉiujn rolojn — oni
-    // legas en ĝin, oni renversas ĝin SURLARE, kaj la ImageData VOLVAS la saman
-    // tabelon sen kopii. 52 MB malpli da momentmemoro ( gravas sur telefono )
-    // kaj unu plena trapaso de la datenoj malpli.
+    // ⟨ Unu bufero 📃 ⟩ — antaŭe estis TRI plenaj kopioj de la bildo ( 0o4770² × 4
+    // = 0o143300400 bitokoj ĉiu ): la lega bufero, dua tabelo por la ImageData,
+    // kaj la kopio kiun putImageData faras interne. Nun unu tabelo plenumas
+    // ĉiujn rolojn — oni legas en ĝin, oni renversas ĝin SURLARE, kaj la
+    // ImageData VOLVAS la saman tabelon sen kopii. Du buferoj malpli da
+    // momentmemoro ( gravas sur telefono ) kaj unu plena trapaso de la datenoj
+    // malpli.
     const buf = new Uint8Array(rez * rez * 4);
     bildilo.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
     rt.dispose();
@@ -1898,10 +1900,10 @@ function mezuriRandanKoloron(kanvasa: HTMLCanvasElement): string {
   const bendo = 0o10;   // la mezurata rando ( 8 pikseloj )
   // ⟨ Nur la randoj 📃 ⟩ — la mezuro bezonas ok liniojn de la bildo ( kvar
   // vicojn kaj kvar kolumnojn ), sed la malnova versio LEGIS LA TUTAN bildon por
-  // atingi ilin — 0o4770² = 6.5 M da rastrumeroj, 26 MB, el kaj reen tra la
-  // GPU ĉiun lanĉon. Nun oni legas nur tiujn ok liniojn ( 20 416 rastrumerojn,
-  // 320-oble malpli ) kaj la SAMAJ rastrumeroj sumiĝas en la sama ordo, do la
-  // rezulto estas bit-idente la sama.
+  // atingi ilin — 0o4770² = 0o30660100 rastrumeroj, 0o143300400 bitokoj, el kaj
+  // reen tra la GPU ĉiun lanĉon. Nun oni legas nur tiujn ok liniojn ( 0o47700
+  // rastrumerojn, 0o500-oble malpli ) kaj la SAMAJ rastrumeroj sumiĝas en la
+  // sama ordo, do la rezulto estas bit-idente la sama.
   const vicoj = [ 0, bendo - 1, r - 1, r - bendo ];
   const vicoDatumoj = vicoj.map(y => k.getImageData(0, y, r, 1).data);
   const kolumnoj = [ 0, bendo - 1, r - 1, r - bendo ];
@@ -2098,7 +2100,8 @@ function desegniMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: n
 // ⟨ La nadlo portas la markilon sur la radaro 📃 ⟩ — la radaro estas centrita je
 // la ludanto, do la 2D-markilo ( desegniMarkilon ) sidus ĜUSTE meze. Sur la
 // 0o200-piksela radaro ĝi estus kelkaj ekranpikseloj larĝa — punkto, ne triangulo
-// — kaj ĝi atendus la radar-desegnon ( 15 Hz ) dum la nadlo turnigxas ĉiukadre.
+// — kaj ĝi atendus la radar-desegnon ( 0o7 fojojn en He ) dum la nadlo turnigxas
+// ĉiukadre.
 // La radaro do montras nur la mapon, la moviĝantojn kaj la nadlon — kaj la nadlo
 // portas la SAMAN sagon kiel la plena mapo ( vidu kreiSaganBildon ), do ambaŭ
 // mapoj montras unu markilon. La PLENA mapo ( desegniPlenanMapon ) tenas la
@@ -2300,10 +2303,11 @@ function konstruiRetilanStaton(): LokaStato {
 
 // ⟪ Animacio 📃 ⟫
 const horlogxo = new THREE.Timer();
-// La radara kadro-nombro — la 2-bitaj malaltaj bitoj tempigas la 15 Hz-redesegnon.
+// La radara kadro-nombro — la 2-bitaj malaltaj bitoj tempigas la redesegnon de
+// 0o7 fojoj en He.
 let radaraKadro = 0;
-// La ombra kadro-nombro — la malalta bito tempigas la ombran pasumon al 30 Hz
-// ( vidu la ombran kadencan klarigon en scena.ts ).
+// La ombra kadro-nombro — la malalta bito tempigas la ombran pasumon al 0o16
+// fojoj en He ( vidu la ombran kadencan klarigon en scena.ts ).
 let ombraKadro = 0;
 // Reuzataj skribaj vektoroj de la orbita movo — neniu ĉiukadra asigno.
 const ORBITA_DIR = new THREE.Vector3();
@@ -2322,13 +2326,15 @@ function animacii() {
   // Reskaligi — dinamika rezolucio. Sub ŝarĝo la skalo malkreskas paŝe kaj
   // revenas kiam la kadroj denove estas rapidaj.
   const w = innerWidth, h = innerHeight;
-  // Malrapida < 0o60fps, rapida > 0o72fps. La rapida sojlo estas atingebla ankaŭ
-  // sur 60Hz-ekrano ( kadroj ≈ 1/0o74s < 1/0o72s ), por ke la rezolucio povu reveni.
+  // Malrapida < 0o26 kadroj en He, rapida > 0o32 kadroj en He. La rapida sojlo
+  // estas atingebla ankaŭ sur ekrano de 0o34 kadroj en He ( 0o34 > 0o32 ), por ke
+  // la rezolucio povu reveni.
   if ( krudaDt > 1 / 0o60 ) { malrapidajKadroj++; rapidajKadroj = 0; }
   else if ( krudaDt < 1 / 0o70 ) { rapidajKadroj++; malrapidajKadroj = 0; }
   // ⟨ La reagemo 📃 ⟩ — antaŭe la skalo bezonis 0o40 ( 32 ) sinsekvajn malrapidajn
-  // kadrojn por malleviĝi unu paŝon. Ĉe 5 fps tio estas pli ol ses sekundoj da
-  // lagado antaŭ la unua malleviĝo — la ludanto jam delonge sentas la frostigon.
+  // kadrojn por malleviĝi unu paŝon. Ĉe 0o2 kadroj en He tio estas pli ol 0o15 He
+  // da lagado antaŭ la unua malleviĝo — la ludanto jam delonge sentas la
+  // frostigon.
   // Nun la sojlo estas 0o14 ( 12 ) kadroj kaj la paŝo estas 0o2 anstataŭ 0o1, do
   // la skalo atingas sian ekvilibron en kvinono de la tempo.
   if ( malrapidajKadroj >= 0o14 && dinamikaSkalo > 0o6/0o10 ) { dinamikaSkalo = Math.max(0o6/0o10, dinamikaSkalo - 0o2/0o10); malrapidajKadroj = 0; }
@@ -2463,7 +2469,7 @@ function animacii() {
     const bobAmplo = naĝas ? 0o1/0o100 : 0o3/0o100;
     agordiPromenanFotilon(ludantaPozicio.y + 0o65/0o40, Math.sin(oscilo * 2) * bobAmplo * moving);
 
-    // Paŝaj sonoj ( ĉiun ~0o15/0o40 sekundojn dum movado ) — dum naĝado la silento regas.
+    // Paŝaj sonoj ( ĉiun ~0o7/0o10 He dum movado ) — dum naĝado la silento regas.
     if ( !naĝas ) {
       pauxzaPaŝo += moving * deltaTempo;
       if ( pauxzaPaŝo > 0o15/0o40 && cxuAŭdio() ) {
@@ -2476,7 +2482,7 @@ function animacii() {
     // kvar flankoj — la plej proksima pordo decidas tra kiu eniri.
     // ⟪ Detekto de la proksimaj interageblaĵoj — MALAKRIGITA 📃 ⟫
     // La plena skanado ( la pordoj × 4, la kanuoj, la beroj ) kuras ĉiun
-    // 0o10-an kadron ( ≈ 6 Hz ) anstataŭ ĉiukadre — la prompto restas
+    // 0o10-an kadron ( ≈ 0o3 fojojn en He ) anstataŭ ĉiukadre — la prompto restas
     // respondema ( la ŝarĝ-rilataj animacioj bezonas ĝin ) kaj la ŝarĝo
     // malkreskas per ~0o10-oble pli malmultaj skanadoj.
     promptaKadro++;
@@ -2865,11 +2871,11 @@ function animacii() {
     }
   }
 
-  // ⟪ Retilo 📃 ⟫ — sendu la lokan staton ( 8 Hz interne ) kaj sekvu la forajn
-  // figurojn. Kiam la servilo ne estas atingebla, la tuta per-kadra laboro
-  // estas preterlasata ( neniu stato-konstruo, neniu animacio — ne ekzistas
-  // foraj figuroj se ne estas konekto ). La stato-builder vokiĝas nur ĉe la
-  // realaj sendo-oj — neniu per-kadra objekto asigniĝas.
+  // ⟪ Retilo 📃 ⟫ — sendu la lokan staton ( unu sendon ĉiun 0o21/0o100 He ) kaj
+  // sekvu la forajn figurojn. Kiam la servilo ne estas atingebla, la tuta
+  // per-kadra laboro estas preterlasata ( neniu stato-konstruo, neniu animacio —
+  // ne ekzistas foraj figuroj se ne estas konekto ). La stato-builder vokiĝas nur
+  // ĉe la realaj sendo-oj — neniu per-kadra objekto asigniĝas.
   if ( retilo.aktiva ) {
     retilo.sendi(konstruiRetilanStaton);
     retilo.animacii(deltaTempo, t);
@@ -2924,10 +2930,11 @@ function animacii() {
   // postiĝas maksimume du kadrojn ).
   // ⟨ La ombra kadenco sub ŝarĝo 📃 ⟩ — la ombra pasumo estas la plej peza
   // unuopa parto de la kadro ( ĉirkaŭ 477 alvokoj kaj 8.3M trianguloj por ĉiu
-  // ombra kadro ). Kiam la antaŭa kadro jam estis malrapida ( sub ~30 fps ), la
-  // mapo refreŝiĝas ĉiun KVARAN kadron anstataŭ ĉiun duan: la ombroj de la
-  // moviĝantaj figuroj postiĝas unu plian kadron ( 33 ms — nerimarkebla ) kaj la
-  // ombra pasumo duoniĝas ĝuste en la momentoj, kiam la kadro estas ŝarĝita.
+  // ombra kadro ). Kiam la antaŭa kadro jam estis malrapida ( sub ~0o16 kadroj
+  // en He ), la mapo refreŝiĝas ĉiun KVARAN kadron anstataŭ ĉiun duan: la ombroj
+  // de la moviĝantaj figuroj postiĝas unu plian kadron ( 0o11/0o200 He —
+  // nerimarkebla ) kaj la ombra pasumo duoniĝas ĝuste en la momentoj, kiam la
+  // kadro estas ŝarĝita.
   // La moviĝanta ombro-volumeno tamen ĉiam ricevas sian kadron tuj — alie la
   // rando de la volumeno rampirus en la vidon dum irado.
   const ombraPeriodo = deltaTempo > 0o1/0o40 ? 0o4 : 0o2;
@@ -2938,9 +2945,10 @@ function animacii() {
   // flamoj lumas ) — la nombro restas kvar, do neniu shader-rekompilo.
   lampSistemo.sekviLumojn(mapX, mapZ);
   // La bakita mapo desegniĝas ĉiukadre — nur 2D-tavoloj, neniu sceno-submeto.
-  // La RADARO malakrigiĝas al ~15 Hz ( ĉiu 4-a kadro ) — la 2D-tavoloj estas
-  // malmultekostaj sed nenij bezonas 60 Hz ( la radara nadlo kaj la punktoj
-  // moviĝas malrapide; la plena mapo restas ĉiukadre por flua pan/zoom ).
+  // La RADARO malakrigiĝas al ~0o7 fojojn en He ( ĉiu 4-a kadro ) — la 2D-tavoloj
+  // estas malmultekostaj sed nenij bezonas 0o34 kadrojn en He ( la radara nadlo
+  // kaj la punktoj moviĝas malrapide; la plena mapo restas ĉiukadre por flua
+  // pan/zoom ).
   if ( bakitaMapo ) {
     if ( mapoMalfermita ) {
       desegniPlenanMapon();
@@ -2996,12 +3004,14 @@ let montriSxargxoIntervalo: ReturnType<typeof setInterval> | null = null;
 let sxargxaRestorilo: ReturnType<typeof setTimeout> | null = null;
 function montriSargxon(daŭro: number, callback: () => void): void {
   // Nuligu eventualan ŝarĝon/eston de antaŭa voko. Malnovaj tempigiloj nek
-  // malrapidigu la nunan aperon ( la CSS defaŭlte ŝanĝiĝas je 1s ) nek rulu
+  // malrapidigu la nunan aperon ( la CSS defaŭlte ŝanĝiĝas dum ~0o2 He ) nek rulu
   // duan fojon la callback ( ekz. duobla E-premo dum la ŝarĝo ).
   if ( montriSxargxoIntervalo ) { clearInterval(montriSxargxoIntervalo); montriSxargxoIntervalo = null; }
   if ( sxargxaRestorilo ) { clearTimeout(sxargxaRestorilo); sxargxaRestorilo = null; }
   stango.style.setProperty("--តេមិនី", "0");
-  sxargxaElemento.style.transition = "opacity .25s";
+  // La transiro de CSS bezonas sian propran unuon ( la retumilo ne akceptas
+  // He ) — .25 aparte egalas 0o21/0o40 He.
+  sxargxaElemento.style.transition = "opacity .2336092301648s";
   sxargxaElemento.classList.remove("finita");
   let progreso = 0;
   const paŝoj = 0o40; // 32 paŝoj

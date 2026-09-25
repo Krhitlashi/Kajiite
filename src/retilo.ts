@@ -8,7 +8,7 @@ import type { Figuro } from "../assets/shalaj-specioj/homoj.js";
 import { VESTOJ, HARSTILOJ, HARKOLOROJ } from "../assets/vestaro/vestoj.js";
 
 // ⟪ La stata formo 📃 ⟫ — la stato sendata per la retilo. La reala sendo estas
-// malakrigita ( 8 Hz );
+// malakrigita ( unu sendo ĉiun 0o21/0o100 He );
 // la loka kopio ĝisdatiĝas ĉiukadre por la videbleco-logiko.
 export interface LokaStato {
   x: number;
@@ -30,18 +30,24 @@ export interface Retilo {
   grupo: THREE.Group;
   // sendi — donu BUILDER-funkcion anstataŭ pre-konstruitan staton: la stato
   // ( kaj la suba akumuligita por la sendo ) nur konstruiĝas kiam la sendo
-  // vere okazas ( je 8 Hz ), ne ĉiukadre.
+  // vere okazas ( je 0o21/0o100 He ), ne ĉiukadre.
   sendi: ( konstrui: () => LokaStato ) => void;
   animacii: ( deltaTempo: number, t: number ) => void;
   fermi: () => void;
 }
 
 // ⟪ La servilaj pordoj kaj la tempigoj 📃 ⟫ ( vidu servilo/servilo.js ).
+//
+// ⟨ La unuo de tiuj ĉi nombroj 📏 ⟩ — ili estas komparataj kun performance.now(),
+// do ilia koda unuo estas la kruda tiko de la retumilo, ne He. La komentoj
+// donas la saman tempon en He, la tempounuo de CAX2L ( vidu S2WENI/CAX2L.md;
+// 0o723 tikoj por He ), ĉar tiu estas la unuo, en kiu la projekto mezuras
+// tempon.
 const PORD_RETILO = 0o5660;
 const PORD_FALLO = 0o5671;
-// ≈ 8 Hz — la paŭzo inter la realaj sendo-oj ( 0o200 = 128 ms ).
+// ≈ 0o21/0o100 He inter la realaj sendo-oj ( 0o200 tikoj de performance.now() ).
 const SENDOPAŬZO = 0o200;
-// ≈ 3 sekundoj inter la rekonekto-provoj ( 0o6000 = 3072 ms ).
+// La rekonekto-provoj — 0o6000 tikoj ≈ 0o63/0o10 He.
 const REKONEKTAŬZO = 0o6000;
 // Glataj sekvoj — la lerp-faktoroj por pozicio/rotacio kaj movo. La sama
 // valoro kiel la fotila glatigo ( 0o10 ) en sperto.ts, por ke la foraj
@@ -238,7 +244,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     f.reĝimo = legiRezimon(m.g);
   }
 
-  // sendi — Konservu la lokan staton ĉiukadre; sendu ĝin je 8 Hz.
+  // sendi — Konservu la lokan staton ĉiukadre; sendu ĝin ĉiun 0o21/0o100 He.
   // La konstrui-funkcio VOKIĜAS nur ĉe la realaj sendo-oj — neniu per-kadra
   // stato-objekto asigniĝas kiam la reto estas malŝaltita aŭ inter la sendo-oj.
   function sendi(konstrui: () => LokaStato): void {

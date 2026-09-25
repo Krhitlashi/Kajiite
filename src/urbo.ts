@@ -914,7 +914,7 @@ export async function konstruiUrbon(
   // herbotufojn blokis la ĉefan trakon por la tuta daŭro — la ŝarĝa stango
   // haltis, la enkonduka kamera drivo frostis, la langeto ne respondis. Kun
   // cedoj inter la pezaj konstruiloj ĉiu bloko restas mallonga ( la cedo mem
-  // kostas malpli ol 4 ms — la tempigila krampo de la retumiloj ), do la
+  // kostas malpli ol 0o1/0o200 He — la tempigila krampo de la retumiloj ), do la
   // stango kaj la enkonduko daŭre moviĝas kaj la progreso aperas pli frue.
   // La vico de la cedoj sekvas la PESON de la konstruiloj: la arb- kaj
   // herbo-metantoj ( la multaj specimenoj kun la ekskludaj provoj ) ricevas

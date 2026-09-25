@@ -1225,7 +1225,8 @@ function buklo(){
   moviKlavare();
   // La akvo rekalkuliĝas unufoje po kadro kiam io ŝanĝis ĝin ( la tereno, la
   // fontoj, la nivelo ). Dum FONTA TRENO la kalkulo atendas la finon de la
-  // treno — alie ĉiu musmovado rulus la tutan kalkulon ( ~40 ms ).
+  // treno — alie ĉiu musmovado rulus la tutan kalkulon ( ~0o50 tikoj, tio
+  // estas ~0o5/0o100 He ).
   if ( akvoMalpura && !akvoTrenanta ) rekalkuliAkvon();
   // La vido neniam forlasas la skulptan kradon — ajna treno/zomo/klavera
   // movo estas alpinglita antaux la desegno.

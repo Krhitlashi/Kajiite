@@ -216,7 +216,7 @@ export function gxisdatigiPetrelojn(s: PetreloSistemo, t: number): void {
     const z = p.cz + Math.sin(p.angulo) * p.radio;
     // ⟨ La alto 📃 ⟩ — la celo estas la tereno sub la birdo plus sia propra
     // sekura alteco. La birdo ne saltas al ĝi. ĝi sekvas ĝin glate, do la
-    // leviĝo super kreston kaj la malsupren-glito okupas sekundojn, kiel la
+    // leviĝo super kreston kaj la malsupren-glito okupas plurajn He, kiel la
     // ŝvebo de vera marbirdo.
     const tereno = Math.max(s.altecoFn(x, z), 0o2);
     const antauxaY = p.flugY;

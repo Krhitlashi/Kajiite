@@ -60,11 +60,11 @@ const DIVIDA_FAKTORO = 0o3/0o2;   // 3/2 — dividu nur se la tavolo superas la 
 // ombro-pasumo. La malnova 0o400 estis elektita laŭ la sento ( "la nebulo
 // kovras ilin" ), ne laŭ la fakta denseco de la nebulo en la ludo.
 //
-// ⟨ Mezurite 📃 ⟩ — la sama panoramo ( la enkonduka orbita vido ) iris de 4.9
-// fps / 202 ms / 2317 alvokoj / 81.5 M trianguloj al 23.8 fps / 42 ms / 1303
-// alvokoj / 26.8 M trianguloj. Parto de tio venas de ĉi tiu limo kaj parto de
-// la forigita transira pasumo ( vidu scena.ts ) — ambaŭ forigas laboron, kiun
-// la ludanto neniam vidis.
+// ⟨ Mezurite 📃 ⟩ — la sama panoramo ( la enkonduka orbita vido ) iris de
+// 0o34/0o100 He por kadro / 2317 alvokoj / 81.5 M trianguloj al 0o6/0o100 He por
+// kadro / 1303 alvokoj / 26.8 M trianguloj. Parto de tio venas de ĉi tiu limo kaj
+// parto de la forigita transira pasumo ( vidu scena.ts ) — ambaŭ forigas laboron,
+// kiun la ludanto neniam vidis.
 const LIMO_FAKTORO = 0o100;        // 64
 const MIN_LIMO = 0o100;            // 64
 const MAKS_LIMO = 0o220;           // 144

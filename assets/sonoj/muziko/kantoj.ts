@@ -4,7 +4,7 @@
 import type { SonoEvento, Sekcio, SpuroDateno } from "./vokoj.js";
 import { F, PENT_E, SLENDRO, SL2, NYAM, PENT_A, mulberry } from "./vokoj.js";
 
-// ⟪ Reel 01 · Altiplano Dawn · 152 s 📃 ⟫
+// ⟪ Reel 01 · Altiplano Dawn · 0o505 He 📃 ⟫
 
 function buildTrack1(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -93,7 +93,7 @@ function buildTrack1(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 152, secs };
 }
 
-// ⟪ Reel 02 · Circuit of the Whirlwind · 160 s 📃 ⟫
+// ⟪ Reel 02 · Circuit of the Whirlwind · 0o526 He 📃 ⟫
 
 function buildTrack2(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -166,7 +166,7 @@ function buildTrack2(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 160, secs };
 }
 
-// ⟪ Reel 03 · Bronze Meridian · 168 s 📃 ⟫
+// ⟪ Reel 03 · Bronze Meridian · 0o550 He 📃 ⟫
 
 function buildTrack3(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -217,7 +217,7 @@ function buildTrack3(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 168, secs };
 }
 
-// ⟪ Reel 04 · Trough & Thunder · 176 s 📃 ⟫
+// ⟪ Reel 04 · Trough & Thunder · 0o571 He 📃 ⟫
 
 function buildTrack4(): SpuroDateno {
   const ev: SonoEvento[] = [];

@@ -7,8 +7,8 @@
 import { createHash, randomBytes } from "crypto";
 
 const GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-const PINGAŬZO = 0o51400; // 21 sekundoj — konservu la konektojn vivaj
-const MAX_MESAGXO = 0o400000; // 128 KiB — defenda limo kontraŭ tro grandaj kadroj
+const PINGAŬZO = 0o51400; // ≈ 0o55 He — konservu la konektojn vivaj
+const MAX_MESAGXO = 0o400000; // 0o400000 bitokoj — defenda limo kontraŭ grandaj kadroj
 
 // akceptaKapo — La Sec-WebSocket-Accept-kapo ( RFC 6455 ).
 function akceptaKapo(klavo) {

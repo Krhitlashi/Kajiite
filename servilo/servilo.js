@@ -36,7 +36,7 @@ function sciigiSSEKluentojn() {
       try { res.write(pakajxo); } catch { sseKlientoj.delete(res); }
     }
     reŝargaTempilo = null;
-  }, 0o100);   // 64 ms — la malakriga fenestro
+  }, 0o100);   // 0o100 tikoj ≈ 0o11/0o100 He — la malakriga fenestro
 }
 
 // komenciVidanReŝargon — Spekti dist/-on por sxangxoj.

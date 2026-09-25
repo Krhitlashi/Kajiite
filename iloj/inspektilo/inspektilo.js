@@ -394,7 +394,7 @@ sceno.add(krado);
 let specio = SPECOJ[0];
 let modelo = null;
 let animacio = null;       // la { bestoj } / { petreloj } objekto de la update-funkcio
-let tempo = 0;             // la animacia tempo ( sekundoj )
+let tempo = 0;             // la animacia tempo ( en la unuo de la tempigilo )
 let pauxzita = false;
 let rapido = 1;
 let pivotojMontritaj = false;

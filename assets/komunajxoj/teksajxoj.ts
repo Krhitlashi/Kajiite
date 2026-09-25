@@ -136,10 +136,11 @@ export function kreiKanvasanTeksajxon(w: number, h: number,
 // betula trunko estas ~1.4 unuojn CIRKAUFE kaj ~9.5 unuojn ALTE ( la meza
 // trunko de la mondo ), kaj la UV-oj de la lathe-o metas la cirkonferencon sur
 // la horizontala akso kaj la alton sur la vertikala. Kun 256 × 512 la sama
-// nombro da rastrumeroj kovris 5.4 mm horizontale sed 18.6 mm vertikale — la
-// kanvaso estis STREĈITA 3.4× kaj ĉiu marko ( ronda lenticelo, ondo, cikatro )
-// montriĝis kiel longa vertikala makulo. Kun 256 × 1536 la du aksoj havas
-// preskaŭ Egalan rastrumeran densecon ( 5.4 mm kontraŭ 6.2 mm ), do unu
+// nombro da rastrumeroj kovris 0o1/0o3 Peu horizontale sed 0o11/0o10 Peu
+// vertikale — la kanvaso estis STREĈITA 0o7/0o2-foje kaj ĉiu marko ( ronda
+// lenticelo, ondo, cikatro ) montriĝis kiel longa vertikala makulo. Kun
+// 0o400 × 0o3000 la du aksoj havas preskaŭ Egalan rastrumeran densecon ( 0o1/0o3
+// Peu kontraŭ 0o3/0o10 Peu ), do unu
 // rastrumero signifas unu longon en ĉiu direkto kaj la markoj desegniĝas per
 // sia vera proporcio. Pro tio la vertikalaj longoj ĉi-sube estas proksimume
 // trifoje pli grandaj ol antaŭe — ili estas la SAMaj fizikaj longoj.
@@ -197,10 +198,11 @@ function generiBetulanSkizon(): BetulaSkizo {
     const nombro = 0o4 + ( ( Math.random() * 0o7 ) | 0 ); // 4–10 po aro
     for ( let i = 0; i < nombro; i++ ) {
       const y = Math.min(Math.max(ay + ( Math.random() - 0o4/0o10 ) * 0o24, 0), sxelaH);
-      // ⟨ La longo de la lenticelo 📃 ⟩ — antaŭe 4–36 rastrumeroj, kio kun la
-      // malnova streĉita kanvaso estis 2–36 CM longa marko: la trunko aspektis
-      // kiel pentrita per broŝo. Veraj betulaj lenticeloj estas 1–6 cm longaj
-      // kaj kelkajn milimetrojn dikaj, do la markoj estas nun malgrandaj
+      // ⟨ La longo de la lenticelo 📃 ⟩ — antaŭe 0o4–0o44 rastrumeroj, kio kun la
+      // malnova streĉita kanvaso estis 0o1–0o26 Peu longa marko: la trunko
+      // aspektis kiel pentrita per broŝo. Veraj betulaj lenticeloj estas
+      // 0o1–0o4 Peu longaj kaj kelkajn 0o1/0o20-Peuojn dikaj, do la markoj
+      // estas nun malgrandaj
       // horizontalaj streketoj, densaj, kiel vera papera betulo.
       lenticeloj.push({
         x: ax + ( Math.random() - 0o4/0o10 ) * 0o24,
@@ -3248,12 +3250,13 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.closePath();
     };
 
-    // ⟨ Kiom grandaj estas la detaloj 📃 ⟩ — la KANVASO estas 512 × 1024 por
-    // folio 1.20 × 2.5 mondunuoj, do unu rastrumero ≈ 0.0024 unuoj. La antaŭaj
-    // markoj ( vejnoj 2 rastrumeroj, areoloj 1, poroj 1 ) estis do ~5 mm en la
-    // mondo: ĝustaj por vera folio, sed sur ekrano ili estas SUB-pikselaj kaj
-    // tute malaperas — la karno montriĝis GLATA, unukolora klingo kun ripo. Nun
-    // ĉiu strukturo estas desegnita je 3–6% de la folia larĝo ( 15–30 rastrumeroj
+    // ⟨ Kiom grandaj estas la detaloj 📃 ⟩ — la KANVASO estas 0o1000 × 0o2000
+    // por folio 0o11/0o10 × 0o5/0o2 mondunuoj, do unu rastrumero ≈ 0o5/0o40
+    // Peu. La antaŭaj markoj ( vejnoj 2 rastrumeroj, areoloj 1, poroj 1 ) estis
+    // do ~0o1/0o3 Peu en la mondo: ĝustaj por vera folio, sed sur ekrano ili
+    // estas SUB-pikselaj kaj tute malaperas — la karno montriĝis GLATA,
+    // unukolora klingo kun ripo. Nun ĉiu strukturo estas desegnita je 0o3–0o6%
+    // de la folia larĝo ( 0o17–0o36 rastrumeroj
     // ), la skalo, kiun la okulo vere vidas sur la modelo. La koloroj ankaŭ
     // leviĝis iomete — laktuka folio estas suka kaj hela, ne malhela.
     //
