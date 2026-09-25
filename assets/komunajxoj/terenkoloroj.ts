@@ -68,8 +68,15 @@ export function alternajDiagonalojn(segmentoj: number): Uint32Array {
 // la malseka lito apud la akvo, la sekherba deklivo, la roko kaj la neĝo.
 // La herbejaj koloroj ( HERBO_A, HERBO_B ) kaj ilia brua mikso restas la
 // sama baza herbo — nur la bordaj kaj subakvaj tavoloj aldoniĝis.
-const HERBO_A = new THREE.Color(0x485848);
-const HERBO_B = new THREE.Color(0x587058);
+//
+// ⟨ Iomete pli proksime al la gazono 📃 ⟩ — la malalta gazono ( vegetajxo.ts,
+// konstruiHerbanTavolon ) prenas sian KROMEon rekte de ĉi tiu paletro, do la du
+// konservas la saman huon per si mem. La heleco tamen iris malsupren ĉe la herbo
+// ( HERBA_MALHELIGO ) kaj supren ĉi tie — la grundo kaj la gazono renkontiĝas
+// meze, anstataŭ ke la gazono brilu kiel aparta, pli malhela aŭ pli hela tavolo.
+// La valoroj ankaŭ sekvas la kolor-regulon de KNAKEHE ( #nmnmnm kun m je 0 aŭ 8 ).
+const HERBO_A = new THREE.Color(0x506050);
+const HERBO_B = new THREE.Color(0x607860);
 const LITO = new THREE.Color(0x384848);
 const PROFUNDA = new THREE.Color(0x283838);
 const SEKHERBO = new THREE.Color(0x787850);

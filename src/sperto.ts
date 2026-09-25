@@ -8,6 +8,8 @@ import { VESTOJ, HARSTILOJ, HARKOLOROJ, kreiVestanAntauxrigardon, kreiHaranAntau
 import { animaciiFlammojn } from "../assets/konstruajxoj/hxeuxfa-lampo.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../assets/medio/akvo.js";
 import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../assets/shalaj-specioj/bestoj.js";
+import { gxisdatigiHerbon, HERBA_PUSANTOJ, HERBA_TAVOLA_NOMO } from "../assets/shalaj-specioj/vegetajxo.js";
+import type { HerbaPusanto } from "../assets/shalaj-specioj/vegetajxo.js";
 import { konstruiFiguron, gxisdatigiNpc, marŝSvingo } from "../assets/shalaj-specioj/homoj.js";
 import type { Figuro } from "../assets/shalaj-specioj/homoj.js";
 import { kreiRetilon } from "./retilo.js";
@@ -1834,6 +1836,16 @@ function bakiMapon(): HTMLCanvasElement | null {
       // kaŝado de la moviĝantoj ( alie la NPC-oj aperus sur la mapo ). La tuto
       // staras ene de la try, do la ŜALTO okazas ankaŭ se io ĵetas.
       vidlimojnMalŝalti();
+      // ⟨ La herbo ne bakigxas 📃 ⟩ — la malalta herbo estas preskaŭ unu pikselo
+      // sur la mapo ( 0o3/0o10 unuoj en mondo de 0o1400 ), sed gxi estas cent mil
+      // instancoj — la bakado de la tuta mondo kun la herbo kostus dekmilojn da
+      // trianguloj por preskaŭ nenia bildo. La koloron de la grundo jam portas
+      // la terena teksajxo, do la mapo ne sxangxigxas.
+      for ( const o of sceno.children ) {
+        if ( o.name !== HERBA_TAVOLA_NOMO ) continue;
+        kaŝitaj.push(o);
+        o.visible = false;
+      }
       for ( const n of npcoj ) { kaŝitaj.push(n.group); n.group.visible = false; }
       for ( const c of kanuoj ) { kaŝitaj.push(c.group); c.group.visible = false; }
       for ( const b of bestoj.bestoj ) { kaŝitaj.push(b.grupo); b.grupo.visible = false; }
@@ -2314,6 +2326,88 @@ const ORBITA_DIR = new THREE.Vector3();
 const ORBITA_FLANKO = new THREE.Vector3();
 const ORBITA_SUPRE = new THREE.Vector3(0, 1, 0);
 const ORBITA_OFSETA = new THREE.Vector3();
+
+// ⟪ La herbo-puŝantoj 📃 ⟫ — la gazono cedas sub la piedoj ( vidu
+// gxisdatigiHerbon en vegetajxo.ts ). La shadera tabelo havas HERBA_PUSANTOJ
+// glitojn, do nur tiom da figuroj premas samtempe — la plej proksimaj al la
+// vidpunkto, ĉar premon oni vidas nur apud si. La ludanto okupas la unuan
+// gliton dum promenado ( la fotilo povas esti malantaŭ la figuro, do ĝia
+// distanco ne gravas ).
+// ⟨ Neniu ĉiukadra rubo 📃 ⟩ — la glitoj REUZIĜAS el provizo kaj la kandidatoj
+// kolektiĝas per simpla enŝovo en kvar nombrojn, sen ordigo kaj sen novaj
+// objektoj. La trairado de la NPC-oj kaj de la bestoj okazas unufoje po kadro
+// kaj nur mezuras distancojn.
+const herbaPusaProvizo: HerbaPusanto[] = [
+  { x: 0, z: 0 }, { x: 0, z: 0 }, { x: 0, z: 0 }, { x: 0, z: 0 },
+];
+const herbajPusantoj: HerbaPusanto[] = [];
+// Kiom malproksime figuro ankoraŭ premas la herbon ( mondunuoj ).
+const PUSA_VIDO = 0o30;                  // 24
+const PUSA_VIDO2 = PUSA_VIDO * PUSA_VIDO;
+// La plej proksimaj figuroj, ordigitaj de la plej proksima — iliaj pozicioj kaj
+// la kvadratoj de iliaj distancoj. Reuzataj tabeloj, do neniu asigno po kadro.
+const pusxajLokojX = [ 0, 0, 0, 0 ];
+const pusxajLokojZ = [ 0, 0, 0, 0 ];
+const pusxajD = [ 0, 0, 0, 0 ];
+let pusxajNombro = 0;
+
+// proponuPusxanton — Konsideru unu figuron por la tabelo de la premo. La tabelo
+// estas ordigita de la plej proksima al la plej fora, do la kandidato enŝoviĝas
+// antaŭ la pli forajn kaj la plej fora elfalas ( se la tabelo estis plena ).
+//     @param x, z ( number ) - La piedo de la figuro.
+//     @param d2 ( number ) - La kvadrato de ĝia distanco al la vidpunkto.
+function proponuPusxanton(x: number, z: number, d2: number): void {
+  if ( pusxajNombro === HERBA_PUSANTOJ && d2 >= pusxajD[HERBA_PUSANTOJ - 1] ) return;
+  let i = Math.min(pusxajNombro, HERBA_PUSANTOJ - 1);
+  while ( i > 0 && pusxajD[i - 1] > d2 ) {
+    pusxajD[i] = pusxajD[i - 1];
+    pusxajLokojX[i] = pusxajLokojX[i - 1];
+    pusxajLokojZ[i] = pusxajLokojZ[i - 1];
+    i--;
+  }
+  pusxajD[i] = d2;
+  pusxajLokojX[i] = x;
+  pusxajLokojZ[i] = z;
+  if ( pusxajNombro < HERBA_PUSANTOJ ) pusxajNombro++;
+}
+
+// kolektiHerbajnPusantojn — La glitoj de la premo por ĉi tiu kadro. La vidpunkto
+// estas la FOTILO, ĉar ĝi estas ankaŭ la centro de la fado de la herbo.
+//     @param x, z ( number ) - La vidpunkto ( la fotilo ).
+//     @returns pusantoj ( readonly HerbaPusanto[] ) - La glitoj, la plej proksima
+//         unue. Nur la unuaj HERBA_PUSANTOJ uzas la shaderon.
+function kolektiHerbajnPusantojn(x: number, z: number): readonly HerbaPusanto[] {
+  herbajPusantoj.length = 0;
+  // ⟨ La ludanto 📃 ⟩ — ĉiam la unua, ĉar la herbo sub oniaj propraj piedoj cedas
+  // ankaŭ kiam la fotilo estas malantaŭ la figuro.
+  if ( rezimo === "walk" && !surKanoto ) {
+    const glito = herbaPusaProvizo[0];
+    glito.x = ludantaPozicio.x;
+    glito.z = ludantaPozicio.z;
+    herbajPusantoj.push(glito);
+  }
+  pusxajNombro = 0;
+  for ( const n of npcoj ) {
+    if ( !n.group.visible ) continue;
+    const dx = n.group.position.x - x, dz = n.group.position.z - z;
+    const d2 = dx * dx + dz * dz;
+    if ( d2 < PUSA_VIDO2 ) proponuPusxanton(n.group.position.x, n.group.position.z, d2);
+  }
+  for ( const b of bestoj.bestoj ) {
+    const dx = b.grupo.position.x - x, dz = b.grupo.position.z - z;
+    const d2 = dx * dx + dz * dz;
+    if ( d2 < PUSA_VIDO2 ) proponuPusxanton(b.grupo.position.x, b.grupo.position.z, d2);
+  }
+  const kiom = Math.min(pusxajNombro, HERBA_PUSANTOJ - herbajPusantoj.length);
+  for ( let i = 0; i < kiom; i++ ) {
+    const glito = herbaPusaProvizo[herbajPusantoj.length];
+    glito.x = pusxajLokojX[i];
+    glito.z = pusxajLokojZ[i];
+    herbajPusantoj.push(glito);
+  }
+  return herbajPusantoj;
+}
+
 function animacii() {
   requestAnimationFrame(animacii);
   // Timer ( anstataux la malnova Clock ) — update() devas voki cxiun kadron
@@ -2944,6 +3038,18 @@ function animacii() {
   // La kvar lampaj punktlumoj sekvu la saman vidpunkton ( la plej proksimaj
   // flamoj lumas ) — la nombro restas kvar, do neniu shader-rekompilo.
   lampSistemo.sekviLumojn(mapX, mapZ);
+  // ⟪ La herbo 📃 ⟫ — la vento ricevas la tempon kaj la vidpunkton. La herbo
+  // mem sidas senmove sur la tero ( la tabuloj konstruigxis unufoje ), do ĉi tiu
+  // estas la sola per-kadra kosto de la herbo — du skriboj, neniu matrico.
+  // ⟨ La centro de la herbo estas la FOTILO 📃 ⟩ — la fado kaj la vidlimo de la
+  // herbo mezuriĝas de la okulo, ne de la vidpunkto de la mapo ( mapX/mapZ — la
+  // orbita celo ). Kun la celo la gazono malgrandiĝis ĝuste apud la fotilo kaj
+  // pleniĝis nur ĉirkaŭ la punkto, kiun oni rigardas, do ju pli oni zumis
+  // proksimen, des malpli da herbo restis videbla — tio estis la eraro.
+  if ( rezimo !== "interior" ) {
+    const fotilaX = fotilo.position.x, fotilaZ = fotilo.position.z;
+    gxisdatigiHerbon(t, fotilaX, fotilaZ, kolektiHerbajnPusantojn(fotilaX, fotilaZ));
+  }
   // La bakita mapo desegniĝas ĉiukadre — nur 2D-tavoloj, neniu sceno-submeto.
   // La RADARO malakrigiĝas al ~0o7 fojojn en He ( ĉiu 4-a kadro ) — la 2D-tavoloj
   // estas malmultekostaj sed nenij bezonas 0o34 kadrojn en He ( la radara nadlo

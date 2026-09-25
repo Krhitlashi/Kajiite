@@ -9,7 +9,7 @@ const skakefani: Record<string, Record<string, string>> = {
   aih: {
     // Adjektivoj iras ANTAŬ la substantivo por priskriboj ( Iikrhia gramatika regulo ).
     // to signal a fused compound name rather than a mere description.
-    "titoloAranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞ • j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞",
+    "titoloAranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
     "subtitoloUrbo": "j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞ • j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ſɭᴜ ɭl̀ɹ ɭʃɔ",
     "eniri": "ſɭw ſ̀ȷᴜ",
     "butonoPromeni": "ſɭᴜ ɭʃᴜ",
@@ -227,7 +227,7 @@ const skakefani: Record<string, Record<string, string>> = {
   eo: {
     // Ĝustaj Esperantaj tradukoj por ĉiuj UI-ŝnuroj
     // IPA-bazitaj proksimumoj por kutimaj nomoj
-    "titoloAranis": "Aranis • Ĥusa Lotao",
+    "titoloAranis": "Aranis",
     "subtitoloUrbo": "Ĥusa Lotao • Lamuza Kajteo",
     "eniri": "Eniri",
     "butonoPromeni": "PROMENI",
@@ -390,7 +390,7 @@ const skakefani: Record<string, Record<string, string>> = {
   en: {
     // Ĝustaj anglaj tradukoj por ĉiuj UI-ŝnuroj
     // Fonetaj transskriboj ( de aih ) uzataj nur por kutimaj nomoj ( vesto * )
-    "titoloAranis": "Aranis • Khiss Lhota",
+    "titoloAranis": "Aranis",
     "subtitoloUrbo": "Khiss Lhota • Lhammithai Kayitteh",
     "eniri": "Enter",
     "butonoPromeni": "Walk",
@@ -553,7 +553,7 @@ const skakefani: Record<string, Record<string, string>> = {
   ja: {
     // Ĝustaj japanaj tradukoj por ĉiuj UI-ŝnuroj
     // Fonetaj transskriboj ( de aih ) uzataj nur por kutimaj nomoj ( vesto * )
-    "titoloAranis": "アラニス • ロタ・イーヒス",
+    "titoloAranis": "アラニス",
     "subtitoloUrbo": "ロタ・イーヒス • カジーテ・セラーミョヴ",
     "eniri": "入る",
     "butonoPromeni": "歩く",
@@ -704,7 +704,7 @@ const skakefani: Record<string, Record<string, string>> = {
   km: {
     // Kmeraj ( Kamboĝaj ) tradukoj por ĉiuj UI-ŝnuroj
     // Fonetaj proksimumoj en kmera skribo por kutimaj nomoj
-    "titoloAranis": "អរ៉ានីស • ឡូតា-អ៊ីហ៊ីស",
+    "titoloAranis": "អរ៉ានីស",
     "subtitoloUrbo": "ឡូតា-អ៊ីហ៊ីស • កាជីតេ-សេឡាមយ៉ូវ",
     "eniri": "ចូល",
     "butonoPromeni": "ដើរ",

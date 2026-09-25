@@ -14,7 +14,8 @@ import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantoj
   metiArbojnCxirkauLagon, konstruiHerbonCxirkauLagon, konstruiCakeojn, metiMontajnArbojn, konstruiMontajnRokojn,
   konstruiMontajnSubkreskajxojn, konstruiLaganSubkreskajxojn, kronaRadiusoLarika, kronaRadiusoHxsxaksxlefa,
   konstruiPussxlefojn, metiPussxlefojn, VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ, MONTAJ_BIOMOJ,
-  AKVAJ_PLANTOJ_BIOMOJ, EKVIZETO_BIOMOJ, konstruiMetitanRokon, konstruiMetitanFilikon } from "../assets/shalaj-specioj/vegetajxo.js";
+  AKVAJ_PLANTOJ_BIOMOJ, EKVIZETO_BIOMOJ, konstruiMetitanRokon, konstruiMetitanFilikon,
+  konstruiHerbanTavolon } from "../assets/shalaj-specioj/vegetajxo.js";
 import { kreiPussxlefojnBerojn, MangxajxItemo } from "../assets/mebloj/mangxajxoj.js";
 import { konstruiVojojn, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, plataAltoj, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO, KORNA_R } from "../assets/medio/vojoj.js";
 import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../assets/medio/doko.js";
@@ -30,6 +31,7 @@ import type { Figuro, Vesto } from "../assets/shalaj-specioj/homoj.js";
 import { kreiInternanSistemon, InternaSistemo } from "../assets/konstruajxoj/internoj.js";
 import { konstruiKrasesxagxon } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import type { Krasesxagxo } from "../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
+import { surPosxtelefono } from "./scena.js";
 import { riveroZ, alteco, montetaBazo, RIVERA_DUONLARĜO,
   LAGO_X, LAGO_RZ, RIVERA_BUŜO_X, riveraAkvaNivelo, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_FONTO_Z,
@@ -1348,7 +1350,14 @@ export async function konstruiUrbon(
       if ( Math.hypot(x - o.x, z - o.z) < m + 3 ) return true;
     }
     // La keŭfĥesoj staras en la herbejo — neniu planto tra ili.
-    for ( const l of keuxfhxesoLokoj ) if ( Math.hypot(x - l.x, z - l.z) < m + 0o25/0o10 ) return true;
+    // ⟨ Malgranda rando 📃 ⟩ — la strukturo estas mallarĝa ( R = 0.49, 3.6 alta ),
+    // sed la ekskludo estis 2.5 unuojn PLI granda ol la marĝeno de la vokanto. Ĉe
+    // la malalta herbo ( m = 2 ) tio forprenis diskon de 9 unuoj da diametro ĉirkaŭ
+    // ĉiu el la kvar keŭfĥesoj ĉe la anguloj de la centra sanktejo — la anguloj de
+    // la centra konstruaĵo restis sen herbo, dum la gazono finiĝis malproksime de
+    // la strukturoj. Nun la ekskludo estas nur iomete pli granda ol la disko de la
+    // makulo mem ( 1.35 ), do la herbo kreskas ĝis la piedo de ĉiu strukturo.
+    for ( const l of keuxfhxesoLokoj ) if ( Math.hypot(x - l.x, z - l.z) < m + 0o1/0o2 ) return true;
     return false;
   };
   const ekskluziviKonstruajxon = ( x: number, z: number, m: number ) => {
@@ -1403,15 +1412,30 @@ export async function konstruiUrbon(
   await jesi();
 
   // Liken-sxtonoj — en la arbaro; la metitaj pozicioj ankoras la likenojn.
-  const likenSxtonoj = konstruiLikenSxtonojn(sceno, 0o60, alteco, ekskluziviRiveron, ekskluziviVojojn);
+  // ⟨ Solidaj sxtonoj 📃 ⟩ — ili aldonas koliziojn, do ili evitu ankaŭ la
+  // konstruajxojn ( ne nur la vojojn kaj la akvon ).
+  const likenSxtonoj = konstruiLikenSxtonojn(sceno, 0o60, alteco, ekskluziviRiveron,
+    ekskluziviVojojn, ekskluziviKonstruajxon);
   await jesi();
 
   // Likeno — krustaj makuloj sur la grundo apud arboj kaj sxtonoj
-  konstruiLikenojn(sceno, 0o200, alteco, [ ...arboj, ...larikoj, ...hxsxaksxlefoj ], likenSxtonoj, ekskluziviRiveron, ekskluziviVojojn);
+  konstruiLikenojn(sceno, 0o200, alteco, [ ...arboj, ...larikoj, ...hxsxaksxlefoj ], likenSxtonoj,
+    ekskluziviRiveron, ekskluziviVojojn, false, ekskluziviKonstruajxon);
 
   // Herbo — densa herbtapiso en la arbaro kaj randoj
   konstruiHerbon(sceno, 0o1170, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
   await jesi();
+
+  // ⟪ La herba tavolo 📃 ⟫ — la malalta herbo de la TUTA mondo. Gxi ALDONIGXAS
+  // al la malnova herbo, ne anstatauxas gxin: la malnovaj tufoj restas la altaj,
+  // disaj herberoj de la arbaro kaj de la ebenaĵo ( vidu konstruiHerbon ), dum
+  // ĉi tiu krado metas malaltan, KONTINUAN gazonon sub ili — sen ĝi la grundo
+  // videblas inter la malnovaj tufoj. La tabuloj de la krado kaj la mallonga
+  // fada distanco ( vidu konstruiHerbanTavolon ) tenas la laboron de la GPU
+  // malgranda — nur la tabuloj apud la ludanto atingas la bildilon.
+  await konstruiHerbanTavolon(sceno, jesi, alteco, ekskluziviRiveron, ekskluziviVojojn,
+    ekskluziviKonstruajxon, [ ...VALAJ_BIOMOJ, ...EBENAJAJ_BIOMOJ ],
+    surPosxtelefono ? 0o5/0o10 : 0o10/0o10);
 
   // ⟪ Ebenaĵo 📃 ⟫ — la malalta grundo ekster la arbareroj. Nur etaj plantoj
   // kreskas tie ( herbo kaj purpuraj plantoj, dense ) — neniaj arboj, neniaj
@@ -1419,19 +1443,21 @@ export async function konstruiUrbon(
   // biomo; la arbareroj kaj la akvo restas liberaj, kaj la lokoj sen biomo
   // ( aŭtomata / nenio ) ricevas NENION — la ebenaĵo estas la plantohava
   // malalta grundo, kontraste al la nuda aŭtomata.
-  konstruiHerbon(sceno, 0o2000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
   await jesi();
+  konstruiHerbon(sceno, 0o2000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
   konstruiPurpurajnPlantojn(sceno, 0o1000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
   await jesi();
 
   // Musko montetoj — apud arboj tra la arbaro
-  konstruiMusxajnMontetojn(sceno, 0o200, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn);
+  konstruiMusxajnMontetojn(sceno, 0o200, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn,
+    ekskluziviKonstruajxon);
   await jesi();
 
 
   // Falintaj trunkoj — en la densa arbaro ( la konstruanto redonas la
   // centrojn kaj la piedajn randojn por la kolizioj de la supra bloko )
-  const falintajTrunkoj = konstruiFalintajnTrunkojn(sceno, 0o40, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn);
+  const falintajTrunkoj = konstruiFalintajnTrunkojn(sceno, 0o40, alteco, arboj, ekskluziviRiveron,
+    ekskluziviVojojn, ekskluziviKonstruajxon);
   await jesi();
 
   // Cetkuoj ( ſᶘɔ ɭʃƽɹ / Equisetum praealtum ) — la altaj senbranĉaj skuraj
@@ -1506,11 +1532,11 @@ export async function konstruiUrbon(
   const montajLarikaTrunkoj = konstruiLarikon(sceno, montajLarikoj);
   await jesi();
   const montajRokoj = konstruiMontajnRokojn(sceno, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn,
-    undefined, 0, 0o340, 0o260, 0o160, MONTAJ_BIOMOJ);
+    undefined, 0, 0o340, 0o260, 0o160, MONTAJ_BIOMOJ, ekskluziviKonstruajxon);
   // Likenoj sur la montaro — grupigitaj ĉirkaŭ la montaj arboj kaj rokoj,
   // kun la samaj spur-siluetaj formoj kaj alta disdono kiel la rokoj.
   konstruiLikenojn(sceno, 0o150, alteco, [ ...montajLarikoj, ...montajBetuloj ], montajRokoj,
-    ekskluziviRiveron, ekskluziviVojojn, true);
+    ekskluziviRiveron, ekskluziviVojojn, true, ekskluziviKonstruajxon);
   // Trunkaj likenoj sur la montaj larikoj kaj betuloj.
   konstruiTrunkajnLikenojn(sceno, [ montajLarikaTrunkoj, montajBetulaTrunkoj ], 0o62453);
 
@@ -1529,9 +1555,9 @@ export async function konstruiUrbon(
     -0o350, 0o64, MONTAJ_BIOMOJ);
   const neLarikaTrunkoj = konstruiLarikon(sceno, neLarikoj);
   const neRokoj = konstruiMontajnRokojn(sceno, 0o40, alteco, ekskluziviRiveron, ekskluziviVojojn,
-    624513, -0o350, 0o64, 0o40, 0o100, MONTAJ_BIOMOJ);
+    624513, -0o350, 0o64, 0o40, 0o100, MONTAJ_BIOMOJ, ekskluziviKonstruajxon);
   konstruiLikenojn(sceno, 0o60, alteco, [ ...neLarikoj, ...neBetuloj ], neRokoj,
-    ekskluziviRiveron, ekskluziviVojojn, true);
+    ekskluziviRiveron, ekskluziviVojojn, true, ekskluziviKonstruajxon);
   konstruiTrunkajnLikenojn(sceno, [ neLarikaTrunkoj, neBetulaTrunkoj ], 0o62450);
   // Subkreskajxo — verdaj filikoj, malaltaj purpuraj plantoj, purpuraj
   // filikoj, herbotufoj, musko-montetoj kaj likenoj tra la tutaj betulaj kaj

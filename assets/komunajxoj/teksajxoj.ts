@@ -1778,6 +1778,47 @@ export const kreiHerbErinanTeksajxon = sxovu((): THREE.CanvasTexture => {
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
 });
 
+// kreiHerbanTavolanKlinganTeksajxon — La teksajxo de unu klingo de la KONTINUA
+// herba tavolo ( la malalta gazono de konstruiHerbanTavolanGeometrion ).
+//
+// ⟨ Kial SENKOLORA 📃 ⟩ — la malnova klinga teksajxo ( kreiHerbanKlinganTeksajxon )
+// portas la verdon mem: ĝia gradiento iras de malhela freŝa verdo al hela, varma
+// pinto. La per-makula koloro de la tavolo povis do nur malheligi aux heligi tiun
+// saman verdon — la gazono neniam ekhavis la olivan, malseketan tonon de la
+// TERENO sub ĝi, kaj ĝi legiĝis kiel aparta, saturita tavolo sur la grundo. La
+// terena paletro ( terenkoloroj.ts — HERBO_A/HERBO_B, la roko, la neĝo kaj la
+// akvoborda tavolo ) estas MULTE pli trankvila ol la koloro de herba klingo.
+//
+// Ĉi tiu teksajxo portas do nur la LUMON — unu molan gradienton de meza grizo al
+// hela pinto, sen koloro kaj sen malhela bazo. La koloron alportas tute la
+// per-makula vertica koloro, kiun la tavolo prenas el la terena paletro
+// ( konstruiHerbanTavolon ), kun la biomaj parametroj ( HERBA_BIOMAJ_KOLOROJ ).
+// Ĉar la teksajxo estas griza kaj pura, la HUO kaj la SATURO de la gazono venas
+// rekte de la grundo — la herbo kaj la tereno havas la saman koloron, nur la
+// herbo estas pli hela.
+//
+// ⟨ SIMPLE 📃 ⟩ — la teksajxo estas nur UNU mola vertikala gradiento, sen la
+// malhela bazo. La formon, la kreston kaj la ombrojn portas la GEOMETRIO ( la tri
+// kolonoj de la rubando en kreiHerbanKlingon montras siajn proprajn lumojn ) kaj
+// la lumo de la sceno, do la teksajxo ne pentras malhelan straton sub la gazono
+// nek vejnetojn sur ĝi. La gazono restas pura kaj malpeza, kaj la koloro de la
+// tereno ne portas pentritajn makulojn.
+//     @returns teksajxo ( THREE.CanvasTexture ) - La preta teksajxo.
+export const kreiHerbanTavolanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
+  const w = 0o100, h = 0o400;
+  return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
+    // Unu gradiento — mola, sen malhela bazo. La unuaj du stopoj estas preskaŭ
+    // samaj, do la malsupro de la klingo ne montriĝas kiel nigra strato sub la
+    // gazono.
+    const gradiento = kunteksto.createLinearGradient(0, h, 0, 0);
+    gradiento.addColorStop(0, "#889088");
+    gradiento.addColorStop(0o1/0o2, "#a8b0a8");
+    gradiento.addColorStop(1, "#c8d0b8");
+    kunteksto.fillStyle = gradiento;
+    kunteksto.fillRect(0, 0, w, h);
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, anisotropio: 4 });
+});
+
 // kreiHerbanKlinganTeksajxon — La teksajxo de UNU herba klingo, por la
 // TRI-DIMENSIAJ klingoj de la herbo ( vidu kreiHerbanKlingon ).
 //
