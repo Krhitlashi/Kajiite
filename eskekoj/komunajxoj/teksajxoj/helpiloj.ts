@@ -29,16 +29,27 @@ export function senAlfa(koloro: string): string {
   return "transparent";
 }
 
-export function ombro(koloro: number, n = 0o1, alfa = 1): string {
-  const kanalo = ( sovo: number ): number =>
-    Math.max(0, ( ( koloro >> sovo ) & 0xff ) - n * 0x10);
-  return `rgba(${kanalo(0o20)},${kanalo(0o10)},${kanalo(0)},${alfa})`;
-}
-
-export function helo(koloro: number, n = 0o1, alfa = 1): string {
-  const kanalo = ( sovo: number ): number =>
-    Math.min(0xf8, ( ( koloro >> sovo ) & 0xff ) + n * 0x10);
-  return `rgba(${kanalo(0o20)},${kanalo(0o10)},${kanalo(0)},${alfa})`;
+export function larmo(k: CanvasRenderingContext2D, x: number, y: number, rad: number,
+  ang: number, koloro: string): void {
+  const tipX = x + Math.cos(ang) * rad * 0o22/0o10;
+  const tipY = y + Math.sin(ang) * rad * 0o22/0o10;
+  const b1 = ang + Math.PI / 2, b2 = ang - Math.PI / 2;
+  k.fillStyle = koloro;
+  k.beginPath();
+  k.moveTo(tipX, tipY);
+  k.quadraticCurveTo(
+    x + Math.cos(ang + 0o72/0o100) * rad * 0o15/0o10,
+    y + Math.sin(ang + 0o72/0o100) * rad * 0o15/0o10,
+    x + Math.cos(b1) * rad, y + Math.sin(b1) * rad
+  );
+  k.arc(x, y, rad, b1, b2, true);
+  k.quadraticCurveTo(
+    x + Math.cos(ang - 0o72/0o100) * rad * 0o15/0o10,
+    y + Math.sin(ang - 0o72/0o100) * rad * 0o15/0o10,
+    tipX, tipY
+  );
+  k.closePath();
+  k.fill();
 }
 
 export function desegniWrapajnNubojn(kunteksto: CanvasRenderingContext2D, s: number, alto: number,

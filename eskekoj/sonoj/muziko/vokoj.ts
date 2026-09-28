@@ -15,16 +15,6 @@ export const NYAM = [ 0, 190, 370, 510, 690, 860, 1030, 1200, 1390, 1560 ].map(c
 
 export const PENT_A = [ 0, 200, 400, 700, 900, 1200, 1400, 1600, 1900, 2100, 2400 ].map(c => 45 + c / 100);
 
-// ⟪ Seeded PRNG ( mulberry32 ) — la komuna modulo en ../hazardo.js 📃 ⟫
-
-import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
-
-// mulberry — La norma mulberry32-pliigo ( 0x6D2B79F5 ), por ke la kantoj
-// konservu siajn ekzaktajn notajn sekvencojn.
-export function mulberry(seed: number) {
-  return kreiHazardanGenerilon(seed);
-}
-
 // ⟪ Noiza bufrokaŝo 📃 ⟫
 
 let noiseCache: AudioBuffer | null = null;

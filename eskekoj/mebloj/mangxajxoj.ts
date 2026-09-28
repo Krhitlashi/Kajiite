@@ -6,6 +6,7 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
+import { kreiKlasikanHazardon } from "../komunajxoj/hazardo.js";
 import { TABLA_SUPRO } from "./tabloj.js";
 import { bulkaTeksajxon } from "../komunajxoj/teksajxoj/bulka-teksajxo.js";
 import { korbaTeksajxon } from "../komunajxoj/teksajxoj/korba-teksajxo.js";
@@ -41,22 +42,6 @@ function materialon(sxlosilo: string, krei: () => THREE.MeshStandardMaterial): T
   let m = materialaStoko.get(sxlosilo);
   if ( !m ) { m = krei(); materialaStoko.set(sxlosilo, m); }
   return m;
-}
-
-// punktaSemo — Determinisma pseudo-hazardo por la disĵetitaj markoj ( la likeno,
-// la pipro, la glaciaj pecoj ). La sama semo donas la saman aranĝon, do la bulko
-// aspektas same ĉiun fojon kaj la mondo ne ŝanĝiĝas inter la eniroj.
-//     @param semo ( number ) - La semo.
-//     @returns ( () => number ) - La sekva valoro en [ 0, 1 ).
-function punktaSemo(semo: number): () => number {
-  let s = semo >>> 0;
-  return () => {
-    s = ( s + 0x6D2B79F5 ) >>> 0;
-    let t = s;
-    t = Math.imul(t ^ ( t >>> 15 ), t | 1 );
-    t ^= t + Math.imul(t ^ ( t >>> 7 ), t | 61 );
-    return ( ( t ^ ( t >>> 14 ) ) >>> 0 ) / 4294967296;
-  };
 }
 
 // ⟪ La partoj de unu manĝaĵo, kunigitaj 📃 ⟫ — unu bulko aŭ glaso konsistas el
@@ -178,7 +163,7 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
   //          foliaro supre.
   //   fok2 — PIPRAJ PUNKTOJ ( malhelaj grajnoj ) kaj dolĉa miela ringo super ili:
   //          la pipro mordas, la bulko respondas dolĉe.
-  const hazardo = punktaSemo(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o10);
+  const hazardo = kreiKlasikanHazardon(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o10);
   const pintoY = 0o11/0o100;                       // la centro de la bulka sfero
   // ⟨ La surfaco, ne cilindro 📃 ⟩ — la ornamo devas SIDI sur la bulko. Antaŭe
   // ĉi tiu helpilo redonis fiksan radiuson ( 0o12/0o100 ) por ĉiu `levo`, tio
@@ -349,7 +334,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
   //   tla1 "SUKCENO super acido, mento sube" — dika miela tavolo ĉe la fundo kaj
   //        mielguto sur la rimo.
   //   tla2 "betulsuka FROSTO" — tri glacipecoj kaj frosta kolumo sur la rimo.
-  const hazardo = punktaSemo(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o100 + 7);
+  const hazardo = kreiKlasikanHazardon(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o100 + 7);
   if ( f.key === "tla0" ) {
     const fajrero = materialon("fajrero",
       () => new THREE.MeshStandardMaterial({

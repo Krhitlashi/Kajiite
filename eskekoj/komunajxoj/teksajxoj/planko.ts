@@ -1,47 +1,8 @@
 // ≺⧼ Planka teksajxo 🪵 ⧽≻
 import * as THREE from "three";
-import { deksesuma } from "../../vestaro/vestoj.js";
-
-function kreiRandomon(semo: number): () => number {
-  let a = semo >>> 0;
-  return () => {
-    a |= 0;
-    a = ( a + 0x6D2B79F5 ) | 0;
-    let t = Math.imul(a ^ ( a >>> 15 ), 1 | a);
-    t = ( t + Math.imul(t ^ ( t >>> 7 ), 61 | t) ) ^ t;
-    return ( ( t ^ ( t >>> 14 ) ) >>> 0 ) / 4294967296;
-  };
-}
-
-export function malheligi(koloro: string, f = 0o60/0o100): string {
-  const n = parseInt(koloro.slice(1), 16);
-  const r = Math.round(( ( n >> 16 ) & 255 ) * f);
-  const gg = Math.round(( ( n >> 8 ) & 255 ) * f);
-  const b = Math.round(( n & 255 ) * f);
-  return "#" + ( ( r << 16 ) | ( gg << 8 ) | b ).toString(16).padStart(6, "0");
-}
-
-function larmo(g: CanvasRenderingContext2D, x: number, y: number, rad: number, ang: number, koloro: string) {
-  const tipX = x + Math.cos(ang) * rad * 0o22/0o10;
-  const tipY = y + Math.sin(ang) * rad * 0o22/0o10;
-  const b1 = ang + Math.PI / 2, b2 = ang - Math.PI / 2;
-  g.fillStyle = koloro;
-  g.beginPath();
-  g.moveTo(tipX, tipY);
-  g.quadraticCurveTo(
-    x + Math.cos(ang + 0o72/0o100) * rad * 0o15/0o10,
-    y + Math.sin(ang + 0o72/0o100) * rad * 0o15/0o10,
-    x + Math.cos(b1) * rad, y + Math.sin(b1) * rad
-);
-  g.arc(x, y, rad, b1, b2, true);
-  g.quadraticCurveTo(
-    x + Math.cos(ang - 0o72/0o100) * rad * 0o15/0o10,
-    y + Math.sin(ang - 0o72/0o100) * rad * 0o15/0o10,
-    tipX, tipY
-);
-  g.closePath();
-  g.fill();
-}
+import { deksesuma, malheligi } from "../koloroj.js";
+import { kreiKlasikanHazardon } from "../hazardo.js";
+import { larmo } from "./helpiloj.js";
 
 export function generiPlankanTeksajxon(bazaKoloro: number, akcentaKoloro: number, semo: number): THREE.CanvasTexture {
   const c = document.createElement("canvas");
@@ -51,7 +12,7 @@ export function generiPlankanTeksajxon(bazaKoloro: number, akcentaKoloro: number
   const R = c.width / 2;
   const baza = deksesuma(bazaKoloro), akcenta = deksesuma(akcentaKoloro);
   const malhela = malheligi(baza);
-  const rnd = kreiRandomon(semo);
+  const rnd = kreiKlasikanHazardon(semo);
   const pintoj = rnd() < 0o5/0o10 ? 4 : 8;
   const larmoj = rnd() < 0o5/0o10;
   const ondo = [ 0o15/0o1000, 0o35/0o1000, 0o55/0o1000 ][Math.floor(rnd() * 3)];

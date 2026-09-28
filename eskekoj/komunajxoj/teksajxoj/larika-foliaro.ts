@@ -1,6 +1,7 @@
 // ≺⧼ Larika foliara teksajxo 🍃 ⧽≻
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon, ombro, sxovu } from "./helpiloj.js";
+import { ombro } from "../koloroj.js";
+import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
   const BAZO = 0xa8a850;

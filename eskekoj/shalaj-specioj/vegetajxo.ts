@@ -157,7 +157,7 @@ export function metiPussxlefojn(heightFn: ( x: number, z: number ) => number,
   semo = 0o62450,
   evituArbojn: ArboMetado[] = []
 ): ArboMetado[] {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   const placed: ArboMetado[] = [];
   // La metitaj arboj en la spaca haŝo — la interspaca demando O(1) po ĉelo
   // anstataŭ la lineara skanado de ĉiuj metitaj arboj po provo.
@@ -276,7 +276,7 @@ export function kreiArbarerojn(kvanto: number, worldRadius: number,
   excludeRivers: ( x: number, z: number ) => boolean,
   semo = 0o53104
 ): Grovo[] {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   return kreiGrovojn(kvanto, worldRadius, hazardaGenerilo, excludeRivers);
 }
 
@@ -310,7 +310,7 @@ export function metiArbojn(heightFn: ( x: number, z: number ) => number,
   kronaRadiuso: ( s: number ) => number = kronaRadiusoBetula,
   biomojFiltro?: readonly Biomo[]
 ): ArboMetado[] {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   const placed: ArboMetado[] = [];
   // La spaca haŝo tenas LA EVITU-ARBOJN kaj la jam metitajn — la linara
   // skanado ( plus la per-prova [ ...evituArbojn, ...placed ] asigno ) de la
@@ -388,7 +388,7 @@ export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
   xDuono = 0o340,
   biomojFiltro?: readonly Biomo[]
 ): ArboMetado[] {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   const placed: ArboMetado[] = [];
   // La spaca haŝo — la sama interspaca akcelo kiel en metiArbojn. La aro
   // de la valaj arboj restas por la mozaika interspaco ( O(1) hasado ).
@@ -522,7 +522,7 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[],
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): ArboMetado[] {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   // Tri malsamaj rokformoj — antaŭe ĉiuj blokoj en la mondo estis la SAMA
   // neperturbita dudekedro, do oni vidis la saman ŝtonon ripetitan sur la
   // tuta montaro. Ĉiu bloko nun elektas unu el tri formoj ( malsamaj semoj de
@@ -896,7 +896,7 @@ export function konstruiMontajnSubkreskajxojn(sceno: THREE.Scene,
   semo = 0o53133,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
 
   // La sama pieda fado kaj spur-silueta x-envelopo kiel en metiMontajnArbojn,
   // sed la bando kovras la tutan montaron ( la piedo gxis la norda piedo ) kaj
@@ -971,7 +971,7 @@ export function konstruiLaganSubkreskajxojn(sceno: THREE.Scene,
   semo = 0o53134,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
 
   const provizi = (): [ number, number ] | null => {
     let x: number, z: number;
@@ -1428,7 +1428,7 @@ function kreiTrunkanGeometrion(larghoBazo: number, larghoSupro: number,
 export function konstruiArbaron(sceno: THREE.Scene,
   arboj: ArboMetado[]
 ): THREE.InstancedMesh {
-  const hazardaGenerilo = mulberry32(77531);
+  const hazardaGenerilo = kreiVegetajxanHazardon(77531);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
   const sxelaBumpo = kreiSxelanBumpanTeksajxon();
   // La betula trunko — maldika kaj glata, kun radika larĝiĝo.
@@ -1627,7 +1627,7 @@ export function konstruiFilikojn(sceno: THREE.Scene,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = mulberry32(55661);
+  const hazardaGenerilo = kreiVegetajxanHazardon(55661);
   const filikaTeksajxo = kreiFilikanTeksajxon();
 
   // ⟨ Tri-dimensia filiko 📃 ⟩ — antaŭe ĉiu filiko estis DU KRUCITAJ KARTONOJ
@@ -1895,7 +1895,7 @@ function konstruiPeriferianFilikanAreon(sceno: THREE.Scene,
   semo: number,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   // ⟨ Tri-dimensia purpura filiko 📃 ⟩ — la sama arka fronda rozeto kiel la
   // verdaj filikoj, kun la purpuraj pinnoj. Antaŭe ĉiu planto estis KVAR
   // KRUCITAJ EBENOJ kun pentrita planto: la rektaj randaj randoj videblis, la
@@ -1957,7 +1957,7 @@ export function konstruiAltajnPurpurajnFilikojn(sceno: THREE.Scene,
   evituArbojn: ArboMetado[] = [],
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = mulberry32(0o53120);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o53120);
   const specoj = [
     { trunkaAlto: 0o74/0o10, kronaAlto: 0o73/0o10, kronaLargho: 0o16/0o10, nombro: 0o10, mallevo: 0o10/0o10, densa: false },
     { trunkaAlto: 0o56/0o10, kronaAlto: 0o54/0o10, kronaLargho: 0o12/0o10, nombro: 0o6, mallevo: 0o4/0o10, densa: true },
@@ -2213,7 +2213,7 @@ export function konstruiLikenSxtonojn(sceno: THREE.Scene,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): ArboMetado[] {
-  const hazardaGenerilo = mulberry32(99221);
+  const hazardaGenerilo = kreiVegetajxanHazardon(99221);
   const sxtonaGeometrio = konstruiRokGeometrion(0o33);
   const sxtonoj = new THREE.InstancedMesh(sxtonaGeometrio,
     kreiSxtonanMaterialon(), kvanto);
@@ -2395,7 +2395,7 @@ export function konstruiLikenojn(sceno: THREE.Scene,
   montara = false,
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): void {
-  const hazardaGenerilo = mulberry32(0o72331);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o72331);
 
   // Tri likenaj formoj — frutikoza ( arbusta ), folia ( plata ) kaj bisoida
   // ( lana ). Ĉiu havas sian geometrion kaj teksajxon; la loto elektas la
@@ -2516,7 +2516,7 @@ export function konstruiLikenojn(sceno: THREE.Scene,
 // krusto.
 //     @returns geometrio ( THREE.BufferGeometry ) - La krusta bulo.
 function konstruiTrunkanLikenBulon(): THREE.BufferGeometry {
-  const hazardaGenerilo = mulberry32(0o62455);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o62455);
   const geometrio = new THREE.IcosahedronGeometry(1, 1);
   const pozicioj = geometrio.attributes.position.array as Float32Array;
   const kvanto = pozicioj.length / 3;
@@ -2581,7 +2581,7 @@ export function konstruiTrunkajnLikenojn(sceno: THREE.Scene,
   trunkoj: THREE.InstancedMesh[],
   semo = 0o62451
 ): THREE.InstancedMesh {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   const likenaTeksajxo = kreiLikenanTeksajxon();
   const likenaBumpo = kreiLikenanBumpanTeksajxon();
 
@@ -2809,7 +2809,7 @@ function konstruiLarikanFoliaranGeometrion(): THREE.BufferGeometry {
 export function konstruiLarikon(sceno: THREE.Scene,
   arboj: ArboMetado[]
 ): THREE.InstancedMesh {
-  const hazardaGenerilo = mulberry32(33718);
+  const hazardaGenerilo = kreiVegetajxanHazardon(33718);
   const larikaTeksajxo = kreiLarikanSxelanTeksajxon();
   const larikaBumpo = kreiLarikanSxelanBumpanTeksajxon();
   // La larika trunko — pli maldika kaj pli alte pintiĝanta ol la betula, kun
@@ -3136,7 +3136,7 @@ function trunkopintaProfilon(t: number): number {
 export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
   arboj: ArboMetado[]
 ): THREE.InstancedMesh {
-  const hazardaGenerilo = mulberry32(0o62445);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o62445);
   const MAX_TAVOLOJ = 5;
   // Purpura trunko — kiel la aliaj purpuraj plantoj, ne betula ŝelo.
   // La segmentoj de la alto ( 0o24 = 20 ) estas tiom multaj, ke la pinta
@@ -3405,7 +3405,7 @@ export function konstruiHxsxaksxlefojn(sceno: THREE.Scene,
 export function konstruiPussxlefojn(sceno: THREE.Scene,
   plantoj: ArboMetado[]
 ): THREE.InstancedMesh {
-  const hazardaGenerilo = mulberry32(0o62450);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o62450);
   const MAX_TAVOLOJ = 2;
   // Purpura trunko — kiel la Ĥŝakŝlefo, nur pli maldika por la eta planto.
   const trunkaGeometrio = new THREE.CylinderGeometry(0o3/0o40, 0o5/0o40, 1, 0o30, 0o20);
@@ -4229,7 +4229,7 @@ export async function konstruiHerbanTavolon(
 //     @param semo ( number ) - La semo de la aranĝo ( ĉiuj tufoj samas ).
 //     @returns geometrio ( THREE.BufferGeometry ) - La tufo.
 function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeometry {
-  const hazardo = mulberry32(semo);
+  const hazardo = kreiVegetajxanHazardon(semo);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
   const seka = new THREE.Color();
@@ -4306,7 +4306,7 @@ function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeometry {
 //     @returns geometrio ( THREE.BufferGeometry ) - La tavolo.
 function konstruiHerbanTavolanGeometrion(flanko = 2.3, akso = 0o10, jit = 0.17,
   longo = 0.4, larghaFaktoro = 0o14/0o10, semo = 0o2715): THREE.BufferGeometry {
-  const hazardo = mulberry32(semo);
+  const hazardo = kreiVegetajxanHazardon(semo);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
   const seka = new THREE.Color();
@@ -4390,7 +4390,7 @@ export function konstruiHerbon(sceno: THREE.Scene,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = mulberry32(44261);
+  const hazardaGenerilo = kreiVegetajxanHazardon(44261);
   // ⟨ Veraj klingoj 📃 ⟩ — la tufo estas konstruata el 22 tri-dimensiaj
   // klingoj ( vidu kreiHerbanKlingon ), ne el krucitaj kartoj. La materialo ne
   // bezonas alfa-teston ( la formon portas la geometrio ) kaj la per-klingajn
@@ -4455,7 +4455,7 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): void {
-  const hazardaGenerilo = mulberry32(66173);
+  const hazardaGenerilo = kreiVegetajxanHazardon(66173);
   const muskaGeometrio = konstruiFlokanMuskanGeometrion();
   const muskaTeksturo = kreiMuskanTeksajxon();
   const muskaMaterialo = new THREE.MeshStandardMaterial({ map: muskaTeksturo, color: 0xffffff, roughness: 1 });
@@ -4537,7 +4537,7 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): [ number, number ][][] {
-  const hazardaGenerilo = mulberry32(22931);
+  const hazardaGenerilo = kreiVegetajxanHazardon(22931);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
   const sxelaBumpo = kreiSxelanBumpanTeksajxon();
   const trunkaGeometrio = new THREE.CylinderGeometry(0o3/0o10, 0o4/0o10, 1, 7, 1);
@@ -4831,7 +4831,7 @@ function instanciiKavalerbojn(sceno: THREE.Scene,
   maxAlto: number,
   proponu: ( h: () => number ) => { x: number; z: number } | null
 ): void {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   const materialo = new THREE.MeshStandardMaterial({ map: teksajxo, roughness: 0o7/0o10, color: 0xffffff });
   const kavalerboj = new THREE.InstancedMesh(geometrio, materialo, kvanto);
 
@@ -4922,7 +4922,7 @@ export function metiArbojnCxirkauLagon(heightFn: ( x: number, z: number ) => num
   kronaRadiuso: ( s: number ) => number = kronaRadiusoBetula,
   biomojFiltro?: readonly Biomo[]
 ): ArboMetado[] {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   const placed: ArboMetado[] = [];
   // La spaca haŝo — la sama interspaca akcelo kiel en metiArbojn.
   const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
@@ -4976,7 +4976,7 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   semo = 0o53122
 ): void {
-  const hazardaGenerilo = mulberry32(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
   // ⟨ Veraj klingoj 📃 ⟩ — la tufo estas konstruata el 22 tri-dimensiaj
   // klingoj ( vidu kreiHerbanKlingon ), ne el krucitaj kartoj. La materialo ne
   // bezonas alfa-teston ( la formon portas la geometrio ) kaj la per-klingajn
@@ -5166,10 +5166,10 @@ function hazardaKoloro(hazardaGenerilo: () => number, koloro: THREE.Color, palet
   return koloro;
 }
 
-function mulberry32(semo: number): () => number {
-  // La vegetajxa modulo uzas sian propran pliigon por konservi la ekzaktan
-  // seman sekvencon de la plantoj — ŝanĝi ĝin movus ĉiun arbon en la mondo.
-  return kreiHazardanGenerilon(semo, 0x682878F5);
-}
+// La vegetajxa modulo havas sian propran pliigon — ŝanĝi ĝin movus ĉiun arbon.
+const VEGETAJXA_PLIIGO = 0x682878F5;
+
+const kreiVegetajxanHazardon = (semo: number): ( () => number ) =>
+  kreiHazardanGenerilon(semo, VEGETAJXA_PLIIGO);
 
 

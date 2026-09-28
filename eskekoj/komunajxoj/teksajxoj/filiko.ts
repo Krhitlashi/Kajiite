@@ -1,6 +1,7 @@
 // ≺⧼ Filika teksajxo 🌿 ⧽≻
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon, ombro, sxovu } from "./helpiloj.js";
+import { ombro } from "../koloroj.js";
+import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export type FrondaPaletro = {
   kanvasaLargho: number;

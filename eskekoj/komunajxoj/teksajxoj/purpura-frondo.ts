@@ -1,7 +1,7 @@
 // ≺⧼ Purpura fronda teksajxo 🌿 ⧽≻
 import * as THREE from "three";
+import { ombro } from "../koloroj.js";
 import { kreiPinatanFrondon } from "./filiko.js";
-import { ombro } from "./helpiloj.js";
 
 export const purpuraFrondaKaŝo = new Map<boolean, THREE.CanvasTexture>();
 

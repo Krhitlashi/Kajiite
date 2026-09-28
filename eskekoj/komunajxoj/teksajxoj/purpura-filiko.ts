@@ -1,6 +1,7 @@
 // ≺⧼ Purpura filika teksajxo 🌿 ⧽≻
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon, ombro } from "./helpiloj.js";
+import { ombro } from "../koloroj.js";
+import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 
 export const purpuraFilikaKaŝo = new Map<boolean, THREE.CanvasTexture>();
 

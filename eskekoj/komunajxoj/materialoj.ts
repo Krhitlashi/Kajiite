@@ -1,6 +1,7 @@
 // ≺⧼ Materialoj 🎨 ⧽≻
 // Materiala modulo — komunaj materialaj fabrikoj por la tuta mondo
 import * as THREE from "three";
+import { ombraKoloro } from "./koloroj.js";
 import { kreiAndezitanTeksajxon } from "./teksajxoj/andezito.js";
 import { kreiAndezitanBumpanTeksajxon } from "./teksajxoj/andezito-bumpo.js";
 import { kreiDioritanTeksajxon } from "./teksajxoj/diorito.js";
@@ -53,7 +54,7 @@ export function kreiAndezitanMaterialon(map?: THREE.Texture): THREE.MeshStandard
 // malhelverda ( 0x082018 ), do la pordo de la sabla manĝejo kaj tiu de la verda
 // domo aspektis idente kaj la pordo neniam apartenis al sia konstruaĵo.
 // ⟨ La malheligo estas SUBTRAHO 📃 ⟩ La pordo estas la muro MINUS unu konstanto
-// ĉe ĉiu kanalo ( PORDA_SUBTRAHO, kiel koloro 0x080808 ). Subtraho anstataŭ
+// ĉe ĉiu kanalo ( ombraKoloro kun n = 0o1/0o2, kiel koloro 0x080808 ). Subtraho anstataŭ
 // multipliko tenas la nuancon de ĉiu tipo kaj konservas la #nmnmnm-formon de la
 // projektaj koloroj, ĉar la malaltaj duonbyteoj de la mur-koloroj estas 0 aŭ 8
 // ( la domo 0x184838 fariĝas 0x104030, la turo 0x205040 fariĝas 0x184838, la
@@ -81,20 +82,11 @@ export function kreiAndezitanMaterialon(map?: THREE.Texture): THREE.MeshStandard
 // ricevas neniun emision, do ĝia koloro en ĉiu lumo estas precize la mura
 // koloro minus la subtraho, kun la sama nuanco.
 //     @param muraMaterialo ( THREE.MeshStandardMaterial ) - La materialo de la
-//     muroj de la konstruaĵo. Ĝia koloro estas malheleigita por la pordo, kaj
+//     muroj de la konstruaĵo. Ĝia koloro estas malheligita por la pordo, kaj
 //     ĉiuj ceteraj ecoj ( angle la teksajxoj ) estas kopiitaj sen sxangxo.
-const PORDA_SUBTRAHO = 0x08;
-// malheleigi. Pli malhela versio de koloro, po unu kanalo en la sRGB-spaco ( la
-// sama spaco, en kiu la koloroj estas skribitaj en la fonto ).
-function malheleigi(koloro: number): number {
-  const r = Math.max(0, (( koloro >> 0o20 ) & 0xff) - PORDA_SUBTRAHO);
-  const g = Math.max(0, (( koloro >> 0o10 ) & 0xff) - PORDA_SUBTRAHO);
-  const b = Math.max(0, (koloro & 0xff) - PORDA_SUBTRAHO);
-  return ( r << 0o20 ) | ( g << 0o10 ) | b;
-}
 export function kreiPordanMaterialon(muraMaterialo: THREE.MeshStandardMaterial): THREE.MeshStandardMaterial {
   const pordo = muraMaterialo.clone();
-  pordo.color = new THREE.Color(malheleigi(muraMaterialo.color.getHex()));
+  pordo.color = new THREE.Color(ombraKoloro(muraMaterialo.color.getHex(), 0o1/0o2));
   // Neniu emisio — la klono jam portas la emision de la muro ( nigra ), do la
   // pordo restas precize la muro kun malheligita koloro. La antaŭa oranĝa
   // embero estas forigita ( vidu la klarigon supre ).

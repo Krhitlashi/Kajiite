@@ -1,6 +1,7 @@
 // ≺⧼ Purpura folia teksajxo 🍃 ⧽≻
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon, ombro, senAlfa, sxovu } from "./helpiloj.js";
+import { ombro } from "../koloroj.js";
+import { kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 
 export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
   const BAZO = 0xb868d0;

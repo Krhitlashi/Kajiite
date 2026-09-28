@@ -16,12 +16,12 @@ import { KonstruSpec, TIPARO, kreiKadranKurbon } from "./satalaj-konstruajxoj.js
 import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
 import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
 import { kreiPilolFenestranFormon, kreiStelanFenestranFormon, rondigiKonturon } from "../komunajxoj/formoj.js";
-import { deksesuma } from "../vestaro/vestoj.js";
+import { deksesuma, malheligi } from "../komunajxoj/koloroj.js";
 import { nomoAih } from "../../kantaoj/tradukoj.js";
 import { kreiMangxajxojn, MangxajxItemo, aldoniVaporon } from "../mebloj/mangxajxoj.js";
 import { aldoniTablon, aldoniSegxon, aldoniManĝtablon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
 import { kreiStelplenanTeksajxon, stelplenaTeksajxo } from "../komunajxoj/teksajxoj/stelplena-cxielo.js";
-import { generiPlankanTeksajxon, malheligi } from "../komunajxoj/teksajxoj/planko.js";
+import { generiPlankanTeksajxon } from "../komunajxoj/teksajxoj/planko.js";
 
 export interface PlankoInfo {
   /** Y-nivelo de la planko */

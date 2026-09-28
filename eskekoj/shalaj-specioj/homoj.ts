@@ -2,10 +2,10 @@
 // NPC-modulo. figuroj vagantaj tra la sxtupurbo de ornaveth-v2
 // Malalt-poligonaj figuroj kun tavoligitaj vestoj, foliaj manikoj, kvarstelo/rombo-motivoj
 import * as THREE from "three";
-import { deksesuma, kvarStelo, HARSTILOJ } from "../vestaro/vestoj.js";
+import { kvarStelo, HARSTILOJ } from "../vestaro/vestoj.js";
 import { kreiBuferanGeometrion, kunfandiGeometriojn, aplikiSkatolajnUvojn } from "../komunajxoj/kunfandajxoj.js";
 import { kreiHaranTeksajxon } from "../komunajxoj/teksajxoj/haro.js";
-import { ombro, helo } from "../komunajxoj/teksajxoj/helpiloj.js";
+import { deksesuma, ombro, helo } from "../komunajxoj/koloroj.js";
 import { kreiLederanTeksajxon } from "../komunajxoj/teksajxoj/ledo.js";
 import { kreiSxtofanBumpanTeksajxon } from "../komunajxoj/teksajxoj/sxtofo.js";
 import type { Vesto, Harstilo } from "../vestaro/vestoj.js";

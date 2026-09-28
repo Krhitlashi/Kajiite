@@ -1,6 +1,7 @@
 // ≺⧼ Betula foliara teksajxo 🍃 ⧽≻
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon, ombro, senAlfa, sxovu } from "./helpiloj.js";
+import { ombro } from "../koloroj.js";
+import { kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 
 export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
   const BAZO = 0xc8d8c0;

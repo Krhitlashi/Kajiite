@@ -1,5 +1,6 @@
 // ≺⧼ Purpura sxela teksajxo 🌳 ⧽≻
 import * as THREE from "three";
+import { liniejo } from "../koloroj.js";
 import { desegniWrapan, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 import { desegniStrion } from "./sxelo.js";
 
@@ -121,11 +122,6 @@ export const SXELA_BAZAJ_HALTOJ: [ number, [ number, number, number ] ][] = [
   [ 0.72, [ 0x5e, 0x3a, 0x60 ] ],
   [ 1, [ 0x6e, 0x46, 0x6a ] ],
 ];
-
-export function liniejo(kanalo: number): number {
-  const c = kanalo / 255;
-  return c <= 0.04045 ? c / 12.92 : Math.pow(( c + 0.055 ) / 1.055, 2.4);
-}
 
 export function sxelaBazaKoloro(t: number): [ number, number, number ] {
   const f = Math.min(1, Math.max(0, t));

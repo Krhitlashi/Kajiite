@@ -1,7 +1,8 @@
 // ≺⧼ Betula folia teksajxo 🍃 ⧽≻
 import * as THREE from "three";
 import { kreiHazardanGenerilon } from "../hazardo.js";
-import { kreiKanvasanTeksajxon, ombro, sxovu } from "./helpiloj.js";
+import { ombro } from "../koloroj.js";
+import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
   const BAZO = 0x98b078;

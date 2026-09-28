@@ -1,6 +1,8 @@
 // ≺⧼ Vestoj 👕 ⧽≻
 // Kostumaj teksturoj kun kvarpinta stelo kaj rombo-motivoj
 
+import { deksesuma } from "../komunajxoj/koloroj.js";
+
 // ⟪ La vestoj 📃 ⟫
 export interface Vesto {
   nomo: string;
@@ -24,8 +26,6 @@ export const VESTOJ: Vesto[] = [
   { nomo: "vestoCyan", ĉefa: 0x38a8a8, akcenta: 0xc8f0f0, interno: 0x185858, pantalono: 0x2858a0, botoj: 0x583818 },
 ];
 
-// deksesuma — Formatu decimalan koloron kiel #rrggbb-strako.
-export const deksesuma = ( c: number ): string => "#" + c.toString(0o20).padStart(0o6, "0");
 
 // ⟪ La har-stiloj 📃 ⟫ — haro-stiloj por la vestaro. Ĉiu stilo havas sian propran koloron,
 // do la elekto ŝanĝas kaj la formon kaj la nuancon de la haro.

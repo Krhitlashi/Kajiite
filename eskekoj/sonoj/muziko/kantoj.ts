@@ -2,14 +2,15 @@
 // La kantoj ( spuroj ) de la muziko — datumaro por la ludilo.
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "./vokoj.js";
-import { F, PENT_E, SLENDRO, SL2, NYAM, PENT_A, mulberry } from "./vokoj.js";
+import { F, PENT_E, SLENDRO, SL2, NYAM, PENT_A } from "./vokoj.js";
+import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
 
 // ⟪ Reel 01 · Altiplano Dawn · 0o505 He 📃 ⟫
 
 function buildTrack1(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  const r = mulberry(8117);
+  const r = kreiHazardanGenerilon(8117);
   const e8 = 0.4, bar = 2.4;
   const S = PENT_E;
   const add = ( t: number, i: string, f: number, d: number, v: number, x?: Record<string, number | boolean> ) =>
@@ -98,7 +99,7 @@ function buildTrack1(): SpuroDateno {
 function buildTrack2(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  const r = mulberry(2448);
+  const r = kreiHazardanGenerilon(2448);
   const beat = 0.625, bar = 0o5/0o2, f0 = 72.65;
   const kush = [ 0, 4, 2, 5, 3, 6, 4, 7, 5, 3, 2, 4 ];
   const kuts = [ 3, 6, 5, 2, 7, 4, 6, 1, 5, 2, 4, 0 ];
@@ -171,7 +172,7 @@ function buildTrack2(): SpuroDateno {
 function buildTrack3(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  const r = mulberry(3361);
+  const r = kreiHazardanGenerilon(3361);
   const SL = SLENDRO, bar = 3.375, bal = [ 0, 2, 4, 3, 2, 1, 2, 0 ];
 
   secs.push({ n: "Ombak opening", a: 0, b: 27 });
@@ -222,7 +223,7 @@ function buildTrack3(): SpuroDateno {
 function buildTrack4(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  const r = mulberry(4096);
+  const r = kreiHazardanGenerilon(4096);
   const P = PENT_A;
   const beat = 0o42 / 0o100;
   const bar = beat * 4;

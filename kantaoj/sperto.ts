@@ -4,7 +4,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { kreiKanoton, animaciiKanoton, gxisdatigiKanotanFizikon, Kanoto } from "../eskekoj/medio/transporto.js";
-import { VESTOJ, HARSTILOJ, HARKOLOROJ, kreiVestanAntauxrigardon, kreiHaranAntauxrigardon, deksesuma } from "../eskekoj/vestaro/vestoj.js";
+import { VESTOJ, HARSTILOJ, HARKOLOROJ, kreiVestanAntauxrigardon, kreiHaranAntauxrigardon } from "../eskekoj/vestaro/vestoj.js";
+import { deksesuma } from "../eskekoj/komunajxoj/koloroj.js";
 import { animaciiFlammojn } from "../eskekoj/konstruajxoj/hxeuxfa-lampo.js";
 import { gxisdatigiAkvon, cxuEnAkvo } from "../eskekoj/medio/akvo.js";
 import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../eskekoj/shalaj-specioj/bestoj.js";
