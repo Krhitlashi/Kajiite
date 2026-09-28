@@ -2,7 +2,7 @@
 // NPC-modulo. figuroj vagantaj tra la sxtupurbo de ornaveth-v2
 // Malalt-poligonaj figuroj kun tavoligitaj vestoj, foliaj manikoj, kvarstelo/rombo-motivoj
 import * as THREE from "three";
-import { deksesuma, kvarStelo, rombo, HARSTILOJ } from "../vestaro/vestoj.js";
+import { deksesuma, kvarStelo, HARSTILOJ } from "../vestaro/vestoj.js";
 import { kreiBuferanGeometrion, kunfandiGeometriojn, aplikiSkatolajnUvojn } from "../komunajxoj/kunfandajxoj.js";
 import { ombro, helo, kreiSxtofanBumpanTeksajxon, kreiHaranTeksajxon, kreiLederanTeksajxon } from "../komunajxoj/teksajxoj.js";
 import type { Vesto, Harstilo } from "../vestaro/vestoj.js";
@@ -10,7 +10,7 @@ import type { Vesto, Harstilo } from "../vestaro/vestoj.js";
 export type { Vesto };
 
 // --- Kanvasaj helpiloj ---
-// ( deksesuma, kvarStelo, rombo venas el vestoj.ts — la komuna vesta modulo )
+// ( deksesuma kaj kvarStelo venas el vestoj.ts — la komuna vesta modulo )
 
 // --- Vesta tekstura generatoro ---
 // vestaTeksajxaStoko — La vestaj teksturoj estas KOMUNAJOJ ( la ekstero dependas
@@ -111,6 +111,12 @@ const MALEOLO_Y = -0o64/0o200;                   // −0.40625 — la genuo ( 0.
 // paŝo. La sama nombro servas tri lokojn — la disigon de la brako, la disigon de
 // la maniko kaj la pivoton de la kubuta grupo — do ĝi estas nomita unufoje.
 const KUBUTO_Y = -0o256/0o1000;                  // −0.3398 — la kubuto
+// HALTO_GAMO — kiom la alto de unu figuro povas varii rilate al la baza modelo.
+// La homamaso aspektu kiel homoj, ne kiel vico da kopioj de la sama korpo ( des
+// pli videble nun, kiam la har-koloro, la har-stilo, la okuloj kaj la vesto jam
+// varias ). La vario tamen restu ETA — ± 5 %, do proksimume 9 cm ĉe plenkreskulo:
+// pli granda gamo legiĝus kiel infanoj kaj plenkreskuloj miksitaj.
+const HALTO_GAMO = 0o1/0o20;                     // 0.05
 
 // ⟪ La kanvasaj helpiloj 🖌️ ⟫
 
@@ -811,8 +817,15 @@ function pentriManikon(k: CanvasRenderingContext2D, o: Vesto): void {
   k.fillRect(0, 0, w, 0o10);
   k.fillStyle = ombro(A, 0o1, 0o5/0o10);
   k.fillRect(0, 0o10, w, 0o3);
-  // etaj romboj super la rimeno — la sama motivo kiel la cetero de la vesto.
-  for ( let i = 0; i < 0o10; i++ ) rombo(k, i * 0o20 + 0o10, 0o24, 0o5, 0o7, ombro(A, 0o1), null);
+  // ⟨ Kvarpintaj steloj super la rimeno 📃 ⟩ — la sama motivo kiel la brusta stelo
+  // ( kvarStelo ), sed malpli granda. Antaŭe ĉi tie estis etaj romboj, sed kvar
+  // akraj romboj tiel proksime al la tondita rando legiĝis kiel ortanguloj; la
+  // stelo havas la saman kvar-pintan silueton kiel la cetero de la vesto kaj
+  // malfermiĝas malsupren, do la rimeno kaj la stelo apartenas al la sama familia
+  // motivo. Ĉiu stelo estas 12 rastrumeroj larĝa ( r = 6 ), do la ok steloj
+  // disiĝas egale ĉirkaŭ la tubo ( 16 rastrumeroj po stelo ).
+  for ( let i = 0; i < 0o10; i++ )
+    kvarStelo(k, i * 0o20 + 0o10, 0o26, 0o6, ombro(A, 0o1));
   // la ŝultra motivo — kvarpinta stelo ĉe la kudro ( x = 0 kaj x = w estas la
   // sama punkto, do la stelo desegniĝas ĉe ambaŭ kaj unu plia frontas ).
   kvarStelo(k, 0, h - 0o24, 0o22, Ax);
@@ -978,6 +991,11 @@ export interface Figuro {
   celo: THREE.Vector3;
   atendo: number;
   rapido: number;
+  // ⟨ La figuro havas propran ALTON 📏 ⟩ — la grupo mem estas skaliita per eta
+  // faktoro ( vidu HALTO_GAMO kaj konstruiFiguron ), do la mondo havas homojn de
+  // malsamaj altoj. La nombro restas ĉi tie por kalkuloj, kiuj bezonas la realan
+  // alton de la figuro ( ekzemple etikedo super la kapo aŭ celo de rigardo ).
+  alto: number;
   marsoFazo: number;          // akumulita marŝa fazo ( paŝa oscilo )
   movoFaktoro: number;        // 0 = staras, 1 = marŝas ( glata transiro )
   // ⟨ La palpebrumo havas sian propran tempilon 📃 ⟩ — la palpebrumo okazas
@@ -1772,6 +1790,22 @@ function okulaMaterialo(indekso: number): THREE.MeshStandardMaterial {
   return m;
 }
 
+// ungaMaterialo — La materialo de la ungoj ( kaŝmemorita, unu por la tuta mondo ).
+// ⟨ Kial aparta materialo 📃 ⟩ — la ungo estas la SAMA haŭto, nur pli hela kaj pli
+// brila ( vera ungo estas travidebla kaj la karno sub ĝi lumas tra ĝi ). La
+// haŭta materialo estas dividita — ĝi ne portas tekston — do la ungo ne povas
+// preni alian koloron el ĝi per UV-oj kiel la buŝo faras. La ungo do estas aparta
+// geometrio kun aparta materialo. La materialo mem estas KAŜMEMORITA kaj dividita
+// inter ĉiuj figuroj — la ungoj havas neniun variaĵon po figuro.
+//     @returns materialo ( THREE.MeshStandardMaterial ) - La unga materialo.
+const UNGA_KOLORO = 0x987880;         // pli hela, pli varma kaj pli ruĝeta ol la haŭto
+let ungaMaterialoStoko: THREE.MeshStandardMaterial | null = null;
+function ungaMaterialo(): THREE.MeshStandardMaterial {
+  if ( !ungaMaterialoStoko ) ungaMaterialoStoko = new THREE.MeshStandardMaterial({
+    color: UNGA_KOLORO, roughness: 0o25/0o100 });
+  return ungaMaterialoStoko;
+}
+
 // ⟨ La har-materialoj 📃 ⟩ — kaŝmemoritaj po koloro. La haro nun portas sian
 // propran fadenan teksajxon ( kreiHaranTeksajxon ) kaj molan malvarm-bluan
 // brilon ( sheen ). Sen la kaŝo ĉiu unuopa NPC konstruus propran materialon — la
@@ -2386,7 +2420,8 @@ let figurajGeometrioj: {
   korpaPiedo: THREE.BufferGeometry; // la homa piedo ( en la maleola grupo de la ŝuo )
   brakoSupra: THREE.BufferGeometry; // la ŝultro kaj la bicepso
   brakoMalsupra: THREE.BufferGeometry; // la antaŭbrako plus la kubuta osto
-  mano: THREE.BufferGeometry;       // la manplato kaj la dikfingro
+  mano: THREE.BufferGeometry;       // la manplato, la dikfingro kaj la fingroj
+  ungoj: THREE.BufferGeometry;      // la ungoj de la fingroj ( sia materialo )
   interna: THREE.BufferGeometry;    // la interna ĉemizo ( kun la kolumo )
   roba: THREE.BufferGeometry;       // ↓ la vesto-modelo
   pantalonaSupra: THREE.BufferGeometry;
@@ -2928,6 +2963,96 @@ function kreiKorpanTorson(): THREE.BufferGeometry {
     })), centro(ringoj[ringoj.length - 0o1][0], ringoj[ringoj.length - 0o1][3]) ]);
 }
 
+// ⟪ La oreloj 👂 ⟫
+// ORELAJ_SEKCOJ — la profilo de la orelo, de la supra rimo malsupren. Ĉiu vico
+// estas [ la alto , la antaŭa rando , la malantaŭa rando , la elstaro ] rilate al
+// la kapcentro. La lasta nombro estas faktoro de ORELA_KLINO — vera orelo NE
+// staras egale for de la kapo laŭ sia tuta alto: la rimo elstaras plej multe
+// supre-meze ( la helikso ) kaj la lobo preskaŭ tuŝas la kapon.
+// ⟨ Kial PROPRa tabelo 📃 ⟩ — la malnova orelo estis premita GLOBO sur la flanko de
+// la kapo, metita per fiksitaj nombroj.
+// la kapo. Ĝi havis la ĝustan grandon sed neniun konturon — de antaŭe ĝi aspektis
+// kiel tubero kaj de la flanko kiel ronda makulo. Vera orelo estas ŜELO kun
+// vertikala konturo ( mallarĝa supre, plej profunda meze, mallarĝiĝanta al la
+// lobo ) kaj ĝia antaŭa rando KRESKAS el la vango, dum la rimo staras for de la
+// kapo. La tabelo do portas la du randojn de ĉiu sekco, kaj la sekcoj mem estas
+// elipsoj en la ( x, z ) ebeno ( vidu kreiOrelon ).
+const ORELAJ_SEKCOJ: [ number, number, number, number ][] = [
+  [ -0o4/0o1000,  -0o3/0o1000,  -0o10/0o1000, 0o5/0o10  ],   // −0.0078 — la supra rimo
+  [ -0o10/0o1000,  0o1/0o1000,  -0o22/0o1000, 0o7/0o10  ],   // −0.0156
+  [ -0o17/0o1000,  0o3/0o1000,  -0o27/0o1000, 0o1       ],   // −0.0293 — la plej elstara
+  [ -0o26/0o1000,  0o4/0o1000,  -0o30/0o1000, 0o1       ],   // −0.0430 — la plej profunda
+  [ -0o36/0o1000,  0o3/0o1000,  -0o26/0o1000, 0o6/0o10  ],   // −0.0586 — sub la mezo
+  [ -0o43/0o1000,  0o2/0o1000,  -0o20/0o1000, 0o5/0o10  ],   // −0.0684 — la lobo
+  [ -0o47/0o1000,  0o1/0o1000,  -0o10/0o1000, 0o4/0o10  ],   // −0.0762 — la pinto de la lobo
+];
+// ⟨ La tri profundoj de la orelo 📃 ⟩ — la sekca elipso sola ne sufiĉus, ĉar ĝi
+// estas simetria. La orela ŝelo do portas tri pliajn ŝovojn. ORELA_ENIRO tenas la
+// ANTAŬAN randon ene de la kranio ( la orelo elkreskas el la haŭto, ĝi ne flosas
+// apud ĝi ), ORELA_KLINO puŝas la MALANTAŬAN rimon eksteren ( la vera orelo
+// staras for de la kapo ) kaj ORELA_KONKO kavas la EKSTERAN flankon, do la rimo
+// legiĝas kiel rando anstataŭ kiel plata disko.
+const ORELA_ENIRO = 0o6/0o1000;      // 0.0117 — kiom profunde la antaŭa rando sidas
+const ORELA_KLINO = 0o15/0o1000;     // 0.0293 — kiom la malantaŭa rimo elstaras pli
+const ORELA_DIKO = 0o4/0o1000;       // 0.0078 — la duondikeco de la orela plato
+const ORELA_KONKO = 0o4/0o1000;      // 0.0078 — la profundo de la kavo ( la konko )
+
+// kreiOrelon — La orelo — ŝelo sur la flanko de la kranio.
+// ⟨ La sekcoj 📃 ⟩ — ĉiu sekco de la orelo estas elipso en la ( x, z ) ebeno ( la
+// dikeco laŭ x, la profundo laŭ z ), kaj laŭ la akso de la orelo ( y ) tiuj
+// elipsoj formas ŝelon. La mezo de ĉiu sekco sekvas la surfacon de la kranio (
+// vidu kapaSurfacon ), do la orelo sidas SUR la haŭto — la malnova globo estis
+// metita per fiksita nombro kaj trapikis la kranion se la kapo iam ŝanĝiĝus.
+// ⟨ La ventumiloj 📃 ⟩ — la du pintoj ( supre kaj ĉe la lobo ) fermas la ŝelon per
+// ventumilo ĉirkaŭ unu punkto, la sama konstruo kiel la kranio mem ( vidu
+// kreiKapanKranion ).
+//     @param dir ( number ) - −1 maldekstre, +1 dekstre.
+//     @returns geometrio ( THREE.BufferGeometry ) - La orelo ( ĉe la kapo ).
+function kreiOrelon(dir: number): THREE.BufferGeometry {
+  const K = 0o16;
+  // ⟨ La kavo ( la konko ) 📃 ⟩ — ĝi sidas sur la EKSTERA flanko ( kos > 0 ), meze
+  // inter la antaŭa kaj la malantaŭa randoj ( 1 − sin² ), do la orelo estas
+  // konkava meze kaj la rimo leviĝas ĉirkaŭ ĝi.
+  const kavo = (kos: number, sin: number) =>
+    Math.max(0, kos) * ( 0o1 - sin * sin );
+  // sekco — unu ringo de la orela ŝelo.
+  //     [ la alto , la antaŭa rando , la malantaŭa , la elstaro ]
+  const sekco = (dy: number, antaŭe: number, malantaŭe: number, elstaro: number)
+    : [ number, number, number ][] => {
+    const zc = ( antaŭe + malantaŭe ) / 0o2, d = ( antaŭe - malantaŭe ) / 0o2;
+    const [ surfaco ] = kapaSurfaco(0o1, dy, zc);
+    const xc = surfaco.x - ORELA_ENIRO;
+    const klino = ORELA_KLINO * elstaro;
+    return Array.from({ length: K }, ( _, i ) => {
+      const t = i / K * Math.PI * 0o2;
+      const kos = Math.cos(t), sin = Math.sin(t);
+      const x = xc + klino * ( 0o1 - sin ) / 0o2
+        + ORELA_DIKO * kos - ORELA_KONKO * kavo(kos, sin);
+      return [ dir * x, KAPA_Y + dy, zc + d * sin ] as [ number, number, number ];
+    });
+  };
+  // pinto — la ventumila centro, iomete preter la unua aŭ la lasta sekco.
+  const pinto = (dy: number, antaŭe: number, malantaŭe: number, elstaro: number)
+    : [ number, number, number ][] => {
+    const zc = ( antaŭe + malantaŭe ) / 0o2;
+    const [ surfaco ] = kapaSurfaco(0o1, dy, zc);
+    const x = surfaco.x - ORELA_ENIRO + ORELA_KLINO * elstaro * 0o1/0o2;
+    return Array.from({ length: K },
+      () => [ dir * x, KAPA_Y + dy, zc ] as [ number, number, number ]);
+  };
+  // ⟨ La ventumiloj SIDAS ekster la tabelo 📃 ⟩ — la unua kaj la lasta vicoj de la
+  // tabelo estas la randoj de la orela karno, do la ventumila punkto sidas iomete
+  // preter ili ( 0.0039 ) kaj la orelo finiĝas per mola kupolo anstataŭ per tranĉo.
+  const unua = ORELAJ_SEKCOJ[0], lasta = ORELAJ_SEKCOJ[ORELAJ_SEKCOJ.length - 0o1];
+  const preter = 0o2/0o1000;           // 0.0039
+  return kreiRinganSurfacon([
+    pinto(unua[0] + preter, unua[1], unua[2], unua[3]),
+    ...ORELAJ_SEKCOJ.map(([ dy, antaŭe, malantaŭe, elstaro ]) =>
+      sekco(dy, antaŭe, malantaŭe, elstaro)),
+    pinto(lasta[0] - preter, lasta[1], lasta[2], lasta[3]),
+  ]);
+}
+
 // kreiKorpanKruropon — La kruro de la homa modelo — la femuro kaj la tibio. La
 // geometrio mezuriĝas de la GENUO ( la mondo 0.5, la grundo 0.5 sub ĝi );
 // la mesho sidas ĉe genuoKompenso en la kruro-grupo, kies pivoto estas nun la
@@ -3122,8 +3247,14 @@ function kreiKorpanBrakon(): { supra: THREE.BufferGeometry; malsupra: THREE.Buff
 // ĉe vera mano ), kaj la dikfingro sidas ĉe la rando de la manplato kaj finiĝas
 // SUPER la fingra linio. La mano turniĝas −90° ĉirkaŭ y ( vidu konstruiFiguron ),
 // do ĝia larĝo iras laŭ la profundo de la brako.
-//     @returns geometrio ( THREE.BufferGeometry ) - La mano.
-function kreiKorpanManon(): THREE.BufferGeometry {
+// ⟨ La manoj portas UNGOJN 💅 ⟩ — ĉiu fingropinto nun havas ungon ( vidu la blokon
+// sub la dikfingro ). Ĝi estas aparta geometrio, ĉar la ungo estas pli hela kaj
+// pli brila ol la haŭto, do ĝi bezonas sian propran materialon; la fingroj mem
+// kaj la ungoj tamen legas la SAMAN profilon ( FINGRAJ_SEKCOJ ), do la ungo sidas
+// precize sur la dorso de ĉiu pinto.
+//     @returns ( { mano, ungoj } ) - La du geometrioj de la mano — la haŭto kaj la
+//         ungoj.
+function kreiKorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.BufferGeometry } {
   const K = 0o20;                    // la flankoj de ĉiu ringo
   const centro = ( y: number, x: number, z = 0 ) => Array.from({ length: K },
     () => [ x, y, z ] as [ number, number, number ]);
@@ -3155,50 +3286,238 @@ function kreiKorpanManon(): THREE.BufferGeometry {
     [ -0o46/0o1000, 0, 0o11/0o1000, 0o6/0o1000  ],
     [ -0o50/0o1000, 0, 0o4/0o1000,  0o3/0o1000  ],
   ]);
-  // fingro — unu fingro malsupren. La ringoj kuŝas egale inter la bazo kaj la
-  // pinto, la lastaj tri rondigas la pinton per kupolo, kaj la ringoj KURBIĝas
-  // antaŭen ( la kvina nombro ), do la fingroj pendas mole anstataŭ stari rekte
-  // kiel kombiloj. La bazo sidas sub la fingra linio, do ĝi malaperas en la
-  // manplaton kaj la kudro ne videblas.
-  const fingro = ( bazoX: number, pintoX: number, pinto: number ) => {
-    const bazoY = -0o30/0o1000;
-    const p = ( f: number ) => bazoY + ( pinto - bazoY ) * f;
-    const c = ( f: number ) => bazoX + ( pintoX - bazoX ) * f;
-    const z = ( f: number ) => 0o16/0o1000 * f * f;
-    const r = ( f: number, a: number, b: number ) =>
-      [ p(f), c(f), a / 0o1000, b / 0o1000, z(f) ] as
-        [ number, number, number, number, number ];
-    return tubo(0o2, [
-      r(0,           0o7, 0o7),
-      r(0o20/0o100,  0o7, 0o7),
-      r(0o40/0o100,  0o6, 0o6),
-      r(0o54/0o100,  0o6, 0o5),
-      r(0o64/0o100,  0o4, 0o5),
-      r(0o72/0o100,  0o4, 0o4),
-      r(0o76/0o100,  0o3, 0o3),
-      r(0o1,         0o2, 0o2),
-    ]);
+  // interpolo — la vico de tabelo ĉe la pozicio k, lineare inter du vicoj. La
+  // unua kolumno de ĉiu vico estas la ŝlosilo ( f aŭ y ), la ceteraj la valoroj.
+  // ⟨ La ŝlosiloj povas MALSUPRENIRI 📃 ⟩ — la fingra tabelo iras de f = 0 supren,
+  // sed la dikfingra tabelo estas skribita per la ALTO, do ĝiaj ŝlosiloj
+  // malsupreniras ( de la bazo al la pinto ). La direkto de la ŝlosiloj do
+  // mezuriĝas unue — sen tio ĉiu serĉo trovis la UNUAN vicon kaj la ungo de la
+  // dikfingro kolapsis al unu alto.
+  const interpolo = ( tabelo: number[][], k: number ): number[] => {
+    const signo = tabelo[0][0] > tabelo[tabelo.length - 0o1][0] ? -0o1 : 0o1;
+    if ( ( k - tabelo[0][0] ) * signo <= 0 ) return tabelo[0];
+    for ( let i = 0; i + 0o1 < tabelo.length; i++ ) {
+      const v0 = tabelo[i], v1 = tabelo[i + 0o1];
+      if ( ( k - v1[0] ) * signo <= 0 ) {
+        const t = ( k - v0[0] ) / ( v1[0] - v0[0] );
+        return v0.map(( v, j ) => v + ( v1[j] - v ) * t );
+      }
+    }
+    return tabelo[tabelo.length - 0o1];
   };
+  // ⟨ La profilo de la fingro 📃 ⟩ — la duonlarĝo kaj la duondikeco laŭ la longo
+  // de la fingro ( f = 0 ĉe la bazo, 1 ĉe la pinto ). La tabelo estas UNUOPA —
+  // ankaŭ la ungo legas ĝin, do la ungo kuŝas sur la vera dorso de la pinto.
+  // ⟨ La fingroj finiĝas per PLATA PULPO 📃 ⟩ — fingropinto ne estas pinto: ĝi
+  // restas preskaŭ same larĝa ĝis la lasta dekon ( la pulpo, kiun la ungo kovras )
+  // kaj nur poste rondiĝas, dum kvar vicoj ( ne du ), do la pinto estas RONDA
+  // anstataŭ plata tranĉo. La pinto do larĝas 0.0117 anstataŭ 0.0039, kaj la ungo
+  // ricevas pli larĝan liton el tio mem. La ungo komenciĝas ĉe la sama f kiel
+  // antaŭe ( 0.844 ), do la ŝanĝo de la tabelo ne movas la ungojn laŭlonge.
+  const FINGRAJ_SEKCOJ: [ number, number, number ][] = [   // [ f, duonlarĝo, duondikeco ]
+    [ 0,           0o7/0o1000, 0o7/0o1000 ],
+    [ 0o20/0o100,  0o6/0o1000, 0o6/0o1000 ],
+    [ 0o42/0o100,  0o6/0o1000, 0o6/0o1000 ],
+    [ 0o54/0o100,  0o6/0o1000, 0o5/0o1000 ],
+    [ 0o64/0o100,  0o5/0o1000, 0o5/0o1000 ],
+    [ 0o72/0o100,  0o5/0o1000, 0o4/0o1000 ],
+    [ 0o74/0o100,  0o4/0o1000, 0o3/0o1000 ],
+    [ 0o76/0o100,  0o3/0o1000, 0o3/0o1000 ],
+    [ 0o1,         0o2/0o1000, 0o2/0o1000 ],
+  ];
+  const FINGRA_BAZO_Y = -0o30/0o1000;    // −0.0469 — la fingroj eliras el ĉi tie
+  const fingraP = ( f: number, pinto: number ) =>
+    FINGRA_BAZO_Y + ( pinto - FINGRA_BAZO_Y ) * f;
+  const fingraC = ( f: number, bazoX: number, pintoX: number ) =>
+    bazoX + ( pintoX - bazoX ) * f;
+  // ⟨ La fingroj KURBIĝas antaŭen 📃 ⟩ — la fingroj pendas mole anstataŭ stari
+  // rekte kiel kombiloj. La kurbiĝo ankaŭ apartenas al la profilo de la ungo —
+  // la ungo nur havas ( x, y, z ) de ĉi tiuj tri funkcioj.
+  const fingraZ = ( f: number ) => 0o16/0o1000 * f * f;
+  const fingro = ( bazoX: number, pintoX: number, pinto: number ) => tubo(0o2,
+    FINGRAJ_SEKCOJ.map(( [ f, a, b ] ) => [ fingraP(f, pinto),
+      fingraC(f, bazoX, pintoX), a, b, fingraZ(f) ] as
+        [ number, number, number, number, number ]));
   // La kvar fingroj, [ baza-x, pinta-x, la pinto ]. Ili kovras la tutan larĝon
   // de la fingra linio, do la manplato mem ne faras breton flanke, kaj ili
   // etete disiĝas. La meza estas la plej longa, la malgranda la plej mallonga.
-  const fingroj = [
-    fingro(-0o25/0o1000, -0o27/0o1000, -0o124/0o1000),
-    fingro(-0o7/0o1000,  -0o10/0o1000, -0o130/0o1000),
-    fingro( 0o7/0o1000,   0o10/0o1000, -0o125/0o1000),
-    fingro( 0o25/0o1000,  0o27/0o1000, -0o100/0o1000),
+  const FINGROJ: [ number, number, number ][] = [
+    [ -0o25/0o1000, -0o27/0o1000, -0o124/0o1000 ],
+    [ -0o7/0o1000,  -0o10/0o1000, -0o130/0o1000 ],
+    [  0o7/0o1000,   0o10/0o1000, -0o125/0o1000 ],
+    [  0o25/0o1000,  0o27/0o1000, -0o100/0o1000 ],
   ];
-  // La dikfingro — el la INTERNO de la manplato, klinita eksteren. Ĝi estas pli
-  // mallonga ol la fingroj ( ĝia pinto finiĝas super la fingra linio ), kaj ĝia
-  // baza ventumilo sidas ene de la manplato, do ĝi ne aperas kiel kvina fingro.
-  const dikfingro = tubo(0o2, [
-    [  0o16/0o1000, 0o15/0o1000, 0o10/0o1000, 0o10/0o1000 ],
-    [ -0o4/0o1000,  0o25/0o1000, 0o10/0o1000, 0o10/0o1000 ],
-    [ -0o16/0o1000, 0o33/0o1000, 0o10/0o1000, 0o7/0o1000  ],
-    [ -0o24/0o1000, 0o37/0o1000, 0o7/0o1000,  0o7/0o1000  ],
-    [ -0o30/0o1000, 0o40/0o1000, 0o4/0o1000,  0o4/0o1000  ],
-  ]);
-  return kunfandiGeometriojn([ manplato, ...fingroj, dikfingro ]);
+  const fingroj = FINGROJ.map(( [ bazoX, pintoX, pinto ] ) => fingro(bazoX, pintoX, pinto));
+  // La dikfingro — el la INTERNO de la manplato, klinita eksteren. Ĝia baza
+  // ventumilo sidas ene de la manplato, do ĝi ne aperas kiel kvina fingro.
+  // ⟨ La dikfingro estas PULPO kun artiko 📃 ⟩ — vera dikfingro ne estas glata
+  // kolbaso: la proksimaj du trionoj mallarĝiĝas ĝis la artiko IP ( tie la haŭto
+  // sulkiĝas ), kaj la lasta triono estas preskaŭ SAMA larĝa — la plata pulpo, kiu
+  // portas la ungon kaj finiĝas per BLUNTAĴO. La antaŭa tabelo tenis 0.0156 tra la
+  // tuta proksima duono ( multe pli dika ol la artiko ) kaj finiĝis per 0.0078, do
+  // la dikfingro legiĝis kiel dika tubo kun pinto. Nun la duonlarĝo sekvas la verajn
+  // proporciojn — 0.0156 ( la MCP ) · 0.0137 ( la mezo ) · 0.0117 ( la artiko ) ·
+  // 0.0117 ( la pulpo ) · 0.0098 · 0.0059 ( la pinto ). La pinto ankaŭ kliniĝas
+  // iomete antaŭen ( la kvina kolumno ), kiel ripoza dikfingro, kaj en la pulpo la
+  // duonlarĝo ( 0o6 ) superas la duondikecon ( 0o5 ), do la pulpo estas PLATA.
+  const DIKFINGRAJ_SEKCOJ: [ number, number, number, number, number ][] = [   // [ y, centro-x, duonlarĝo, duondikeco, centro-z ]
+    [  0o16/0o1000, 0o14/0o1000, 0o10/0o1000, 0o10/0o1000, 0 ],
+    [ -0o4/0o1000,  0o25/0o1000, 0o10/0o1000, 0o10/0o1000, 0 ],
+    [ -0o23/0o1000, 0o32/0o1000, 0o7/0o1000,  0o7/0o1000,  0 ],
+    [ -0o31/0o1000, 0o36/0o1000, 0o6/0o1000,  0o6/0o1000,  0o1/0o1000 ],
+    [ -0o41/0o1000, 0o42/0o1000, 0o6/0o1000,  0o6/0o1000,  0o1/0o1000 ],
+    [ -0o46/0o1000, 0o44/0o1000, 0o6/0o1000,  0o5/0o1000,  0o2/0o1000 ],
+    [ -0o52/0o1000, 0o46/0o1000, 0o5/0o1000,  0o4/0o1000,  0o3/0o1000 ],
+    [ -0o56/0o1000, 0o47/0o1000, 0o3/0o1000,  0o3/0o1000,  0o4/0o1000 ],
+  ];
+  const dikfingro = tubo(0o2, DIKFINGRAJ_SEKCOJ);
+  const DIKFINGRA_BAZO_Y = DIKFINGRAJ_SEKCOJ[0][0];
+  const DIKFINGRA_PINTO_Y = DIKFINGRAJ_SEKCOJ[DIKFINGRAJ_SEKCOJ.length - 0o1][0];
+  // ⟨ La dikfingro havas sian propran parametron 📃 ⟩ — la ungo bezonas la akson de
+  // la fingro kiel funkcion, do la dikfingra tabelo ricevas f ( 0 ĉe la bazo, 1 ĉe
+  // la pinto ) kaj la vicoj estas interpolataj laŭ la alto.
+  const dikfingraSekco = ( f: number ): number[] => interpolo(DIKFINGRAJ_SEKCOJ,
+    DIKFINGRA_BAZO_Y + ( DIKFINGRA_PINTO_Y - DIKFINGRA_BAZO_Y ) * f);
+  // ⟪ La ungoj 💅 ⟫
+  // ⟨ Kial la ungo estas LENSO 📃 ⟩ — vera ungo estas maldika plato, kiu kurbiĝas
+  // kun la fingro. La ungo do estas malgranda tubo ( kiel la fingroj mem ) kun
+  // tre plata sekco. La plato estas GRANDA parto de la fingra pinto ( ĝi kovras
+  // preskaŭ la tutan dorson ) kaj ĝi elstaras nur kelkajn milimetrojn, do ĝi
+  // legiĝas kiel ungo anstataŭ kiel glubendo.
+  const UNGA_ELSTARO = 0o1/0o1000;   // 0.0020 — la baza elstaro ( meze )
+  // ⟨ La konturo de vera ungo 📃 ⟩ — preskaŭ ortangulo kun rondaj anguloj, ne
+  // folio. Ĉiu vico estas [ la pozicio , la konturo , la elstaro ]. La konturo
+  // mezuriĝas de la PLEJ LARĜA vico de la ungo mem ( ne de la fingro ), do la sama
+  // tabelo priskribas ĉiun ungon sendepende de ĝia larĝo. La ungo restas larĝa ĝis
+  // la kutiklo, kaj ankaŭ la ELSTARO kreskas malsupren — vera ungo sidas glate ĉe
+  // la kutiklo ( kie la haŭto ĝin tenas ) kaj LEVIĜAS ĉe la libera rando, kie ĝi
+  // apartiĝas de la karno.
+  // ⟨ La konturo estas GLATA 📃 ⟩ — antaŭe la tabelo havis nur kvar vicojn, do la
+  // konturo kaj la elstaro salte ŝanĝiĝis kaj la plato havis kvar videblajn
+  // FALDOJN ( ĝi aspektis kiel faldita papero ). Nun sep vicoj rampigas ilin, do
+  // la ungo estas glata kupolo, kiu maldikiĝas ĉe la kutiklo kaj leviĝas ĉe la
+  // libera rando.
+  const UNGAJ_PROFILO: [ number, number, number ][] = [
+    [ 0,           0o6/0o7,   0o1/0o10  ],   // la kutiklo — 0.857 / 0.125
+    [ 0o1/0o10,    0o15/0o16, 0o3/0o10  ],
+    [ 0o1/0o4,     0o1,       0o6/0o10  ],
+    [ 0o1/0o2,     0o1,       0o10/0o10 ],   // la plej larĝa kaj plej dika
+    [ 0o3/0o4,     0o1,       0o11/0o10 ],
+    [ 0o7/0o10,    0o31/0o32, 0o12/0o10 ],
+    [ 1,           0o31/0o32, 0o12/0o10 ],   // la libera rando — plej levita
+  ];
+  // ⟨ La ungo KURBIĝas laŭlarĝe 📃 ⟩ — vera ungo ne finiĝas per rekta tranĉo: la
+  // kutiklo formas arkon AL LA POJNO kaj la libera rando arkon AL LA PINTO, do la
+  // centro de ĉiu rando estas pli malproksima ol ĝiaj anguloj. La kurbo estas
+  // proporcia al la larĝo de la ungo mem, do la sama nombro taŭgas por la dikfingro
+  // kaj por la malgranda fingro.
+  const UNGA_KURBO = 0o3/0o10;      // 0.375 — kiom la randoj kurbiĝas
+  // ⟨ La ungo KUŜAS sur la fingro 📃 ⟩ — la plato ne estas globeto sur la pinto, ĝi
+  // estas ŝelo, kiu sekvas la fingran elipson: ĝia supro sidas ELSTARO super la
+  // haŭto, kaj ĝiaj flankaj randoj sidas SUR la haŭto, kie la elipso malaltiĝas. El
+  // tio la dikeco de la plato sekvas mem — LARĜA ungo devas esti pli dika ol
+  // mallarĝa, ĉar ĝi devas atingi la haŭton ĉe siaj du randoj. Sur dika kaj ronda
+  // dikfingro larĝa ungo do ŝvelus kiel globeto anstataŭ kuŝi kiel plato — sed la
+  // nova dikfingro estas plata, do lia ungo povas esti larĝa ( vidu larĝoF ).
+  const ungaAlto = ( b: number, larĝo: number ) =>
+    b * Math.sqrt(Math.max(0, 0o1 - larĝo * larĝo));   // la alto de la flankaj randoj
+  const ungaDiko = ( b: number, larĝo: number, elstaro: number ) =>
+    b + UNGA_ELSTARO * elstaro - ungaAlto(b, larĝo);   // de la rando ĝis la supro
+  // kreiUngon — unu ungo sur la dorso de la pinta parto de unu fingro.
+  //     @param akso ( f => [ x, y, z ] ) - La akso de la fingro.
+  //     @param sekco ( f => [ duonlarĝo, duondikeco ] ) - La dikeco de la fingro.
+  //     @param de, al ( number ) - La limoj de la ungo laŭ la fingro ( 0 … 1 ).
+  //     @param dorsa ( [ number, number ] ) - La unuobla dorsa direkto en la
+  //         ( x, z ) ebeno ( la dikfingro uzas la saman kiel la fingroj, ĉar
+  //         lia akso kuŝas en la ( x, y ) ebeno, do −z estas ĝuste perpendikla ).
+  //     @param larĝoF ( number = 0o7/0o10 , optional ) - Kiom de la fingra
+  //         duonlarĝo la ungo kovras ĉe sia plej larĝa vico.
+  //     @returns geometrio ( THREE.BufferGeometry ) - La ungo.
+  const kreiUngon = ( akso: ( f: number ) => [ number, number, number ],
+    sekco: ( f: number ) => [ number, number ], de: number, al: number,
+    dorsa: [ number, number ], larĝoF = 0o7/0o10 ) => {
+    const U = 0o20;                  // la flankoj de la unga sekco
+    const [ dx, dz ] = dorsa;
+    const lx = -dz, lz = dx;         // la perpendikularo — la larĝa akso
+    // la kurbo de la randoj — negativa ĉe la kutiklo, pozitiva ĉe la pinto
+    const kurbo = ( larĝo: number, t: number ) => UNGA_KURBO * larĝo * ( 0o2 * t - 0o1 );
+    const centro = ( f: number, konturoF: number, t: number ) => {
+      const [ x, y, z ] = akso(f);
+      const [ a, b ] = sekco(f);
+      const s = ungaAlto(b, larĝoF * konturoF);
+      const k = kurbo(a * larĝoF * konturoF, t);
+      return [ x + dx * s, y - k, z + dz * s ] as [ number, number, number ];
+    };
+    const ringo = ( f: number, konturoF: number, elstaroF: number, t: number ) => {
+      const [ cx, cy, cz ] = centro(f, konturoF, t);
+      const [ a, b ] = sekco(f);
+      const larĝo = a * larĝoF * konturoF;
+      const diko = ungaDiko(b, larĝoF * konturoF, elstaroF);
+      const k = kurbo(larĝo, t);
+      return Array.from({ length: U }, ( _, i ) => {
+        const ang = i / U * Math.PI * 0o2;
+        const kos = Math.cos(ang), sin = Math.sin(ang);
+        // ⟨ La ringo sekvas la fingron 📃 ⟩ — la larĝa akso kaj la dika akso estas
+        // tiuj de la fingro mem ( vidu tubon ), do la ventumiloj de la ungo montras
+        // eksteren same kiel tiuj de la fingro. La centro de la ringo antaŭeniras
+        // per la kurbo, kaj la anguloj restas sur la vico — tiel la randoj kurbiĝas.
+        return [ cx + lx * larĝo * kos - dx * diko * sin, cy + k * kos * kos,
+          cz + lz * larĝo * kos - dz * diko * sin ] as [ number, number, number ];
+      });
+    };
+    const ventumilo = ( f: number, konturoF: number, t: number ):
+      [ number, number, number ][] => Array.from({ length: U }, () => centro(f, konturoF, t));
+    // ⟨ La kutikla ventumilo estas PLATA 📃 ⟩ — ĝi sidas sur la sama alto kiel la
+    // unua sekco ( kiel la bazo de la fingroj mem, vidu tubon ), do la ungo finiĝas
+    // per rekta rando anstataŭ per pinta tegmento. La libera rando etendas iomete
+    // preter la lasta sekco, do ĝi rondiĝas.
+    const preter = ( al - de ) * 0o1/0o20;     // 0.0625
+    const lasta = UNGAJ_PROFILO[UNGAJ_PROFILO.length - 0o1];
+    const fino = 0o1 + preter / ( al - de );   // la parametro de la libera ventumilo
+    return kreiRinganSurfacon([
+      ventumilo(de, UNGAJ_PROFILO[0][1], 0),
+      ...UNGAJ_PROFILO.map(( [ t, konturoF, elstaroF ] ) =>
+        ringo(de + ( al - de ) * t, konturoF, elstaroF, t)),
+      ventumilo(al + preter, lasta[1], fino) ]);
+  };
+  // ⟨ La fingraj ungoj 📃 ⟩ — la sama ungo por ĉiu fingro, nur la akso malsamas.
+  // La ungo kovras la lastan sesonon de la fingro kaj finiĝas antaŭ la pinto mem,
+  // do la karno ĉirkaŭas ĝin kiel ĉe vera fingro. La ungo estas proksimume 1.3-oble
+  // pli longa ol larĝa, kiel vera ungo ( la malnova estis duoble tro longa ).
+  const UNGA_DE = 0o66/0o100, UNGA_AL = 0o76/0o100;    // 0.844 / 0.969
+  const fingraSekco = ( f: number ): [ number, number ] => {
+    const vico = interpolo(FINGRAJ_SEKCOJ, f);
+    return [ vico[1], vico[2] ];
+  };
+  const ungoj = [
+    ...FINGROJ.map(( [ bazoX, pintoX, pinto ] ) => kreiUngon(
+      ( f ) => [ fingraC(f, bazoX, pintoX), fingraP(f, pinto), fingraZ(f) ],
+      fingraSekco, UNGA_DE, UNGA_AL, [ 0, -0o1 ] )),
+    // ⟨ La ungo de la dikfingro 📃 ⟩ — ĝi estas multe pli MALVARĜA ol la dikfingro
+    // mem ( 0.625 de la duonlarĝo ). Tio estas la grava parto: la dikfingra sekco
+    // estas preskaŭ ronda, do ungo de 0.875 volvus sin duone malsupren sur la
+    // FLANKOJN de la fingro kaj legiĝus kiel ungo sur la flanko. Kun 0.625 la randoj
+    // de la plato sidas alte sur la dorso ( 0.78 de la profundo ) kaj la haŭto
+    // restas videbla flanke.
+    // ⟨ La libera rando atingas la PINTON, sed la ungo restas KONCISA 📃 ⟩ — la
+    // plato montriĝis tro longa kiam ĝi etendiĝis de la artiko al la pinto ( 1.6
+    // unuojn longa kontraŭ 1.0 larĝa = ovo ). Nun ĝi estas preskaŭ kvadrata ( 1.0
+    // je 1.0 , kiel vera dikfingra ungo ) kaj la tuta plato ŝoviĝis MALSupren, al la
+    // pinto mem: la libera rando sidas 0.25 unuojn ( du milimetrojn ) antaŭ la pinto,
+    // do la ungo finiĝas tie, kie la fingropinto rondiĝas, anstataŭ meze de la
+    // falango. La kutiklo ankoraŭ restas sub la artiko IP.
+    // Ĝi SIDAS rekte sur la dorso — la dikfingro estas klinita en la ( x, y ) ebeno,
+    // do −z restas perpendikla al lia akso kaj la ungo ne devas kliniĝi flanken.
+    kreiUngon(( f ) => {
+      const vico = dikfingraSekco(f);
+      return [ vico[1], vico[0], vico[4] ];
+    }, ( f ) => {
+      const vico = dikfingraSekco(f);
+      return [ vico[2], vico[3] ];
+    }, 0o27/0o32, 0o37/0o40, [ 0, -0o1 ], 0o5/0o10),
+  ];
+  return { mano: kunfandiGeometriojn([ manplato, ...fingroj, dikfingro ]),
+    ungoj: kunfandiGeometriojn(ungoj) };
 }
 
 // kreiKorpanPiedon — La piedo de la homa modelo, en la sama kadro kiel la BOTO
@@ -3370,24 +3689,13 @@ function figurajGeometriojn(): NonNullable<typeof figurajGeometrioj> {
   const kolo = new THREE.CylinderGeometry(0o56/0o1000, 0o71/0o1000, 0o5/0o40, 0o14, 0o1);
   kolo.translate(0, KOLO_Y, 0);
   const kapajPartoj: THREE.BufferGeometry[] = [ kapo, kolo ];
-  for ( const dir of [ -0o1, 0o1 ] ) {
-    // ⟨ La oreloj nun MONtriĝAS 📃 ⟩ — la malnova orelo sidis 0.148 de la akso,
-    // sed la kranio estas 0.168 larĝa je tiu alto, do la tuta orelo ( 0.148 ± 0.021 )
-    // restis INTERNE de ĝi kaj neniam videblis. Nun ĝi sidas ĉe la surfaco ( la
-    // elstaro estas 0.012 ) kaj malsupre de la okuloj, kie vera orelo sidas. La
-    // formo estas RONDA tubero — la unua provo estis mallarĝa kaj alta ovalo, kiu
-    // legis kiel naĝilo apud la makzelo.
-    // ⟨ La oreloj LEVIĜIS 📃 ⟩ — la orelo antaŭe pendis ĉe la mondo 1.553, nur 0.05
-    // sub la okuloj, do la aŭd-organo legis kvazaŭ ĝi pendus de la makzelo. Vera
-    // orelo etendiĝas de la brova linio ĝis la nazo, do ĝia centro sidas iomete sub
-    // la okuloj — 1.580. Ĉar la kranio LARĜIĜAS supren, la orelo iris ankaŭ 0.012
-    // eksteren ( la surfaco ĉe 1.580 estas 0.164 de la akso ), do ĝi ankoraŭ sidas
-    // sur la haŭto anstataŭ malaperi en la kapon.
-    const orelo = new THREE.SphereGeometry(0o1/0o40, 0o6, 0o5);
-    orelo.scale(0o3/0o4, 0o1, 0o3/0o4);
-    orelo.translate(dir * 0o116/0o1000, KAPA_Y - 0o27/0o1000, -0o10/0o1000);
-    kapajPartoj.push(orelo);
-  }
+  // ⟨ La oreloj nun estas ŜELOJ 📃 ⟩ — la malnova orelo estis premita GLOBO, do
+  // ĝi havis la ĝustan grandon sed neniun konturon. Nun ĉiu orelo estas ŝelo el
+  // sekcoj ( vidu kreiOrelon ) — ĝi elkreskas el la vango kaj finiĝas per rimo,
+  // kiu staras for de la kapo. La antaŭa rando sidas ene de la kranio, do la du
+  // formoj kunfandiĝas sen fendo, kaj la supra rimo restas sub la har-limo ( la
+  // haroj pasas 0.008 super la orelo ĉe la flanko — vidu kreiHaranĈapon ).
+  for ( const dir of [ -0o1, 0o1 ] ) kapajPartoj.push(kreiOrelon(dir));
   // ⟨ La nazo 📃 ⟩ — rondigita TRIANGULO sur la vizaĝa surfaco ( vidu kreiNazon ).
   // Ĝiaj antaŭaj versioj — skatolo ( kiu sidis tute INTERNE de la kapo kaj neniam
   // videblis ), poste globo ( kiu legiĝis kiel glata tubero ). La triangulo havas
@@ -3436,6 +3744,9 @@ function figurajGeometriojn(): NonNullable<typeof figurajGeometrioj> {
   const kruro = kreiKorpanKruropon();
   const brako = kreiKorpanBrakon();
   const pantalono = kreiPantalonan();
+  // ⟨ La mano kaj la ungoj 📃 ⟩ — la sama geometrio por ambaŭ manoj, sed la ungoj
+  // estas aparta geometrio, ĉar ili portas alian materialon ( vidu ungaMaterialon ).
+  const manoj = kreiKorpanManon();
   // ⟨ La maniko estas disigita ĉe la KUBUTO 📃 ⟩ — la sama alto kiel la brako ( vidu
   // kreiKorpanBrakon ), do la du partoj de la maniko fleksiĝas kune kun la brako.
   // La radiuso ĉe la kubuto estas la LINIA interpolo inter la ŝultro kaj la
@@ -3513,7 +3824,8 @@ function figurajGeometriojn(): NonNullable<typeof figurajGeometrioj> {
     korpaPiedo: kreiKorpanPiedon(),
     brakoSupra: brako.supra,
     brakoMalsupra: brako.malsupra,
-    mano: kreiKorpanManon(),
+    mano: manoj.mano,
+    ungoj: manoj.ungoj,
     interna: kreiInternanSxelon(),
     // ⟨ La vesto-modelo 📃 ⟩ — la robo, la pantalono, la manikoj kaj la ŝuoj. La
     // pantalono finiĝas ene de la bota ŝtipo ( vidu kreiPantalonan ), do la du
@@ -3673,8 +3985,24 @@ function haranGeometrion(stilo: Harstilo): THREE.BufferGeometry {
 //     @param o ( Vesto ) - La vesta objekto por koloroj.
 //     @param haroKlavo ( string = "haroMalalta" ) - La ŝlosilo de la elektita
 //         har-stilo ( sama kiel la nomo en HARSTILOJ ).
-export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
+//     @param alto ( number = hazarda ) - La alta faktoro de la figuro. Sen la
+//         argumento ĉiu figuro ricevas hazardan valoron en ± HALTO_GAMO, do la
+//         homamaso ne estas egala; oni povas doni difinitan valoron por rolulo
+//         kun fiksita alto ( aŭ por la ludanto, se ĝia alto gravas ).
+export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
+  alto?: number): Figuro {
   const g = new THREE.Group();
+  // ⟨ La alto VARIAS iomete 📏 ⟩ — la grupo SKALIĜAS per eta faktoro, do ĉiuj
+  // partoj ( la korpo, la vestoj kaj ĉiuj pivot-grupoj ) konservas siajn rilatojn
+  // kaj la marŝa animacio restas ĝusta — la turnoj de la animacio estas ANGULOJ,
+  // kiuj ne dependas de la skalo, kaj la artikaj altroj ( KUBUTO_Y, la koksoj )
+  // skalas kune kun la geometrio, do la mantelo kaj la manikoj ne disiĝas. La
+  // origino de la grupo estas ĉe la PIEDOJ, do la figuro restas sur la grundo.
+  // ⟨ Kial ne aparta geometrio 📃 ⟩ — skalo kostas nenion kaj la tuta figuro
+  // ( inkluzive de la kaŝitaj variantoj de la vesto kaj de la haro ) sekvas ĝin
+  // aŭtomate; aparta geometrio por ĉiu alto signifus rekonstrui la kanvasojn.
+  const altaFaktoro = alto ?? ( 0o1 + ( Math.random() * 0o2 - 0o1 ) * HALTO_GAMO );
+  g.scale.setScalar(altaFaktoro);
   const G = figurajGeometriojn();
   // La haŭto — UNU materialo por la kapo kaj la manoj. La okuloj havas sian
   // propran dividitan malhelan materialon ( VIZAĜO_M ), ĉar la har-koloro ne
@@ -3862,6 +4190,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   const manikoj: THREE.Mesh[] = [];
   const manikajMeshoj: THREE.Mesh[] = [];
   const manoj: THREE.Mesh[] = [];
+  const ungoj: THREE.Mesh[] = [];
   const brakoj: THREE.Mesh[] = [];
   const kubutajGrupoj: THREE.Group[] = [];
   for ( const [ brako, dir ] of [ [ brakoL, -0o1 ], [ brakoR, 0o1 ] ] as [ THREE.Group, number ][] ) {
@@ -3896,6 +4225,14 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
     // spegulado okazas antaŭe ) metas la manplaton kontraŭ la femuron kaj la
     // dikfingron antaŭen — la natura staranta mano de vera homo.
     mano.rotation.y = -dir * Math.PI / 0o2;
+    // ⟨ La ungoj estas GEFILOJ de la mano 📃 ⟩ — ilia geometrio mezuriĝas en la
+    // sama loka kadro kiel la manplato, do la spegulado, la turno kaj la alto de la
+    // mano validas por ili sen pliaj kalkuloj, kaj kiam la vesto kaŝas la manon la
+    // ungoj malaperas kun ĝi ( ili estas ankaŭ en la listo de la homa modelo ).
+    const ungo = new THREE.Mesh(G.ungoj, ungaMaterialo());
+    ungo.castShadow = false;
+    mano.add(ungo);
+    ungoj.push(ungo);
     manoj.push(mano);
     brakoj.push(haŭtaBrakо, haŭtaBrakоSub);
     // ⟨ La mano videblas sub la manumo 📃 ⟩ — la manika bazo estas −0.5 (± 0.0625
@@ -3975,7 +4312,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   // kaŝi, anstataŭi aŭ kolorigi unu modelon sen tuŝi la alian — la figuron oni ne
   // devas rekonsrui por tio.
   const korpoj: THREE.Mesh[] = [ kapo, vizaĝo, strikoj, palpebroj, torso, korpoL, korpoR,
-    kSubL, kSubR, korpaPiedoL, korpaPiedoR, ...brakoj, manoj[0], manoj[1],
+    kSubL, kSubR, korpaPiedoL, korpaPiedoR, ...brakoj, manoj[0], manoj[1], ...ungoj,
     ...haroMeshoj.values() ];
   const vestoj: THREE.Mesh[] = [ interno, ekstera, pL, pR, pSubL, pSubR,
     bL, bR, akcL, akcR, ...manikajMeshoj ];
@@ -3997,9 +4334,11 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta"): Figuro {
   for ( const b of brakoj ) b.castShadow = false;
   manoj[0].castShadow = false;
   manoj[1].castShadow = false;
+  for ( const ungo of ungoj ) ungo.castShadow = false;
 
   const fig: Figuro = {
     group: g,
+    alto: altaFaktoro,
     hejmo: new THREE.Vector3(),
     celo: new THREE.Vector3(),
     atendo: 0, rapido: 0o63/0o100,
