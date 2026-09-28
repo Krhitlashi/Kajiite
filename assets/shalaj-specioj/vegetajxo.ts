@@ -3,20 +3,37 @@
 // Noto. la betula specio similas al la paperbetulo ( Betula papyrifera ) —
 // blanka senŝeliĝanta ŝelo kaj larĝa, horizontala krono.
 import * as THREE from "three";
-import { kreiSxelanTeksajxon, kreiSxelanBumpanTeksajxon, kreiLarikanSxelanTeksajxon, kreiLarikanSxelanBumpanTeksajxon, kreiFilikanTeksajxon, kreiPurpuranFilikanTeksajxon,
-  kreiPurpuranFrondanTeksajxon, kreiPurpuranTronkofilikanTeksajxon,
-  kreiHerbanKlinganTeksajxon, kreiHerbanTavolanKlinganTeksajxon,
-  kreiLikenanTeksajxon, kreiLikenanBumpanTeksajxon, kreiPurpuranFolianTeksajxon, kreiPurpuranSxelanTeksajxon,
-  kreiPurpuranSxelanBumpanTeksajxon,
-  kreiPurpuranTrunkanTeksajxon, kreiPurpuranTrunkanBumpanTeksajxon,
-  kreiFrutikosanLikenanTeksajxon, kreiFolisanLikenanTeksajxon, kreiByssoidanLikenanTeksajxon,
-  kreiMuskanTeksajxon, kreiCetkuanTeksajxon, kreiCakeanTeksajxon,
-  kreiBetulanFoliaranTeksajxon, kreiBetulanFoliaranBumpanTeksajxon,
-  kreiBetulanFolianTeksajxon,
-  kreiLarikanFoliaranTeksajxon,
-  kreiDioritanTeksajxon, kreiDioritanBumpanTeksajxon,
-  kreiRokenTeksajxon, kreiRokenBumpanTeksajxon,
-  sxelaTrunkaKoloro, sxelaKolumKoloro } from "../komunajxoj/teksajxoj.js";
+import { kreiBetulanFoliaranTeksajxon } from "../komunajxoj/teksajxoj/betula-foliaro.js";
+import { kreiBetulanFoliaranBumpanTeksajxon } from "../komunajxoj/teksajxoj/betula-foliaro-bumpo.js";
+import { kreiBetulanFolianTeksajxon } from "../komunajxoj/teksajxoj/betula-folio.js";
+import { kreiByssoidanLikenanTeksajxon } from "../komunajxoj/teksajxoj/byssoida-likeno.js";
+import { kreiCakeanTeksajxon } from "../komunajxoj/teksajxoj/bakeo.js";
+import { kreiCetkuanTeksajxon } from "../komunajxoj/teksajxoj/cetkuo.js";
+import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
+import { kreiDioritanBumpanTeksajxon } from "../komunajxoj/teksajxoj/diorito-bumpo.js";
+import { kreiFilikanTeksajxon } from "../komunajxoj/teksajxoj/filiko.js";
+import { kreiFolisanLikenanTeksajxon } from "../komunajxoj/teksajxoj/folisa-likeno.js";
+import { kreiFrutikosanLikenanTeksajxon } from "../komunajxoj/teksajxoj/frutikosa-likeno.js";
+import { kreiHerbanKlinganTeksajxon } from "../komunajxoj/teksajxoj/klinga-herbo.js";
+import { kreiLarikanFoliaranTeksajxon } from "../komunajxoj/teksajxoj/larika-foliaro.js";
+import { kreiLarikanSxelanTeksajxon } from "../komunajxoj/teksajxoj/larika-sxelo.js";
+import { kreiLarikanSxelanBumpanTeksajxon } from "../komunajxoj/teksajxoj/larika-sxelo-bumpo.js";
+import { kreiLikenanTeksajxon } from "../komunajxoj/teksajxoj/likeno.js";
+import { kreiLikenanBumpanTeksajxon } from "../komunajxoj/teksajxoj/likeno-bumpo.js";
+import { kreiMuskanTeksajxon } from "../komunajxoj/teksajxoj/musko.js";
+import { kreiPurpuranFilikanTeksajxon } from "../komunajxoj/teksajxoj/purpura-filiko.js";
+import { kreiPurpuranFolianTeksajxon } from "../komunajxoj/teksajxoj/purpura-folio.js";
+import { kreiPurpuranFrondanTeksajxon } from "../komunajxoj/teksajxoj/purpura-frondo.js";
+import { kreiPurpuranSxelanTeksajxon, sxelaTrunkaKoloro, sxelaKolumKoloro } from "../komunajxoj/teksajxoj/purpura-sxelo.js";
+import { kreiPurpuranSxelanBumpanTeksajxon } from "../komunajxoj/teksajxoj/purpura-sxelo-bumpo.js";
+import { kreiPurpuranTrunkanTeksajxon } from "../komunajxoj/teksajxoj/purpura-trunko.js";
+import { kreiPurpuranTrunkanBumpanTeksajxon } from "../komunajxoj/teksajxoj/purpura-trunko-bumpo.js";
+import { kreiPurpuranTronkofilikanTeksajxon } from "../komunajxoj/teksajxoj/purpura-trunko-filiko.js";
+import { kreiRokenTeksajxon } from "../komunajxoj/teksajxoj/roko.js";
+import { kreiRokenBumpanTeksajxon } from "../komunajxoj/teksajxoj/roko-bumpo.js";
+import { kreiSxelanTeksajxon } from "../komunajxoj/teksajxoj/sxelo.js";
+import { kreiSxelanBumpanTeksajxon } from "../komunajxoj/teksajxoj/sxelo-bumpo.js";
+import { kreiHerbanTavolanKlinganTeksajxon } from "../komunajxoj/teksajxoj/tavola-klinga-herbo.js";
 import { kreiBuferanGeometrion, kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson } from "../komunajxoj/kunfandajxoj.js";
 import { kreiHazardanGenerilon } from "../komunajxoj/hazardo.js";
 import { terenaKoloroEn } from "../komunajxoj/terenkoloroj.js";

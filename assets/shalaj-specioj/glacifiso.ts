@@ -8,7 +8,7 @@
 // troviĝas en ĉi tiu dosiero. La komuna akva sistemo ( la rivera pozicio, la
 // bobado, la speco-elektado ) restas en bestoj.ts.
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj/helpiloj.js";
 import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
 import type { Besto, SpecoMalneto } from "./speco-tipoj.js";
 // La krada interpolo — la komuna kurbo de la ludo ( src/interpolo.ts ).

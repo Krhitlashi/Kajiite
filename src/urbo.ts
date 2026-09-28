@@ -4,7 +4,7 @@
 import * as THREE from "three";
 import { kunfandiMondajnMeshojn } from "../assets/komunajxoj/kunfandajxoj.js";
 import { konstruiSatalon, TIPARO, KonstruSpec } from "../assets/konstruajxoj/satalaj-konstruajxoj.js";
-import { kreiNebulanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
+import { kreiNebulanTeksajxon } from "../assets/komunajxoj/teksajxoj/nebulo.js";
 import { konstruiRiveron, konstruiRiveronNordan, konstruiLagon, konstruiSkulptitanAkvon, RiverData } from "../assets/medio/akvo.js";
 import { konstruiBestojn, BestoSistemo, konstruiPetrelojn, PetreloSistemo,
   konstruiMetitanBeston, konstruiMetitanPetrelon } from "../assets/shalaj-specioj/bestoj.js";

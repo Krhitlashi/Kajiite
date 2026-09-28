@@ -24,7 +24,7 @@
 // „mano“ kaj „vosto“.
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj/helpiloj.js";
 import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
 // La krada interpolo — la komuna kurbo de la ludo ( src/interpolo.ts ).
 import { katmullRom } from "../../src/interpolo.js";

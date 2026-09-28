@@ -10,7 +10,7 @@
 // piedoj kuŝas sur unu grundebeno.
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj/helpiloj.js";
 import type { Besto, SpecoMalneto } from "./speco-tipoj.js";
 
 // kreiKutiklanTeksajxon — La ĥitina ŝelo de la marlaraksxo: koloro kaj reliefo

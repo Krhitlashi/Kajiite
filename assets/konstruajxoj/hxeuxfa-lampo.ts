@@ -2,7 +2,8 @@
 // Trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj
 // sprajtoj. La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
 import * as THREE from "three";
-import { kreiBrilanTeksajxon, kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiBrilanTeksajxon } from "../komunajxoj/teksajxoj/brilo.js";
+import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
 // ⟨ La flama silueto 📃 ⟩ — la antaŭa flamo estis simpla KONUSO ( ConeGeometry

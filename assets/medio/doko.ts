@@ -1,7 +1,8 @@
 // ≺⧼ Doko ⚓ ⧽≻
 // Vojaj etendoj, kiuj malsupreniras al la akvo per ŝtuparo
 import * as THREE from "three";
-import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj/andezito.js";
+import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { aldoniKadranTubon } from "../konstruajxoj/satalaj-konstruajxoj.js";

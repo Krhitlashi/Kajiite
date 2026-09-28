@@ -6,8 +6,10 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { alteco, akvaNivelo, akvaNiveloProksima, glataPaso } from "./tereno.js";
 import { traduki } from "./tradukoj.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiFenestranMaterialon, kreiOranMaterialon } from "../assets/komunajxoj/materialoj.js";
-import { kreiTerenanTeksajxon, kreiNebulTavolanTeksajxon,
-  kreiGrundanTeksajxon, kreiGrundanBumpanTeksajxon } from "../assets/komunajxoj/teksajxoj.js";
+import { kreiGrundanTeksajxon } from "../assets/komunajxoj/teksajxoj/grundo.js";
+import { kreiGrundanBumpanTeksajxon } from "../assets/komunajxoj/teksajxoj/grundo-bumpo.js";
+import { kreiNebulTavolanTeksajxon } from "../assets/komunajxoj/teksajxoj/nebula-tavolo.js";
+import { kreiTerenanTeksajxon } from "../assets/komunajxoj/teksajxoj/tereno.js";
 import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
   terenaStrataKoloroEn } from "../assets/komunajxoj/terenkoloroj.js";
 import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,

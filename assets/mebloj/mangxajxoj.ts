@@ -5,7 +5,7 @@
 // ne en la konstruajxoj.
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj/helpiloj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { TABLA_SUPRO } from "./tabloj.js";
 

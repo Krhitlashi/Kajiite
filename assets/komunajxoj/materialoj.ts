@@ -1,10 +1,10 @@
 // ≺⧼ Materialoj 🎨 ⧽≻
 // Materiala modulo — komunaj materialaj fabrikoj por la tuta mondo
 import * as THREE from "three";
-import {
-  kreiDioritanTeksajxon, kreiAndezitanTeksajxon,
-  kreiDioritanBumpanTeksajxon, kreiAndezitanBumpanTeksajxon,
-} from "./teksajxoj.js";
+import { kreiAndezitanTeksajxon } from "./teksajxoj/andezito.js";
+import { kreiAndezitanBumpanTeksajxon } from "./teksajxoj/andezito-bumpo.js";
+import { kreiDioritanTeksajxon } from "./teksajxoj/diorito.js";
+import { kreiDioritanBumpanTeksajxon } from "./teksajxoj/diorito-bumpo.js";
 
 // kreiDioritanMaterialon — Diorita ŝtonmaterialo ( helgriza, POLURITA,
 // glata kaj reflekta ). La defaŭlta teksajxo montras la interplektitajn

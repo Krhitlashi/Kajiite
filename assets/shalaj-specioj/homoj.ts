@@ -4,7 +4,10 @@
 import * as THREE from "three";
 import { deksesuma, kvarStelo, HARSTILOJ } from "../vestaro/vestoj.js";
 import { kreiBuferanGeometrion, kunfandiGeometriojn, aplikiSkatolajnUvojn } from "../komunajxoj/kunfandajxoj.js";
-import { ombro, helo, kreiSxtofanBumpanTeksajxon, kreiHaranTeksajxon, kreiLederanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiHaranTeksajxon } from "../komunajxoj/teksajxoj/haro.js";
+import { ombro, helo } from "../komunajxoj/teksajxoj/helpiloj.js";
+import { kreiLederanTeksajxon } from "../komunajxoj/teksajxoj/ledo.js";
+import { kreiSxtofanBumpanTeksajxon } from "../komunajxoj/teksajxoj/sxtofo.js";
 import type { Vesto, Harstilo } from "../vestaro/vestoj.js";
 
 export type { Vesto };

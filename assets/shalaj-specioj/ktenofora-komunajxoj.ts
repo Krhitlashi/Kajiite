@@ -12,7 +12,7 @@
 // el la sama desegno, kiel ĉe la petrelo ): la meridionalaj kanaloj sub la
 // kombovicoj, la densiĝo ĉe la polusoj kaj la etaj grajnoj de la mesogleo.
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiKanvasanTeksajxon } from "../komunajxoj/teksajxoj/helpiloj.js";
 import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
 import type { Besto } from "./speco-tipoj.js";
 

@@ -3,7 +3,8 @@
 // Uzas rektangulajn Shape + ExtrudeGeometry por puraj longaj flankoj ( intersekcoj interkovras )
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { kreiDioritanTeksajxon, kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj.js";
+import { kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj/andezito.js";
+import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
 
 // stuparo — Historia marko por la doko-malsupreniro ( `stuparo: true` ). ĈIU vojo
 // nun ŝtupas ( vidu konstruiSegmentonEnBufrojn ) — la kampo restas nur por ke la
