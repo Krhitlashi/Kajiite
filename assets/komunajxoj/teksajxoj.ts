@@ -55,14 +55,31 @@ function senAlfa(koloro: string): string {
 // MainColor − n · 0x101010. Ĉiu malhela tavolo de folia teksajxo ( la foliombroj,
 // la vejnaj sulkoj kaj la konturo de la klingo ) deriviĝas el la bazkoloro de la
 // folio — neniu aparta hazarda nuanco. Ĉar la bazo estas de la formo #nmnmnm
-// ( la neparaj ciferoj 0 aux 8 ), ĉiu ombro restas en tiu sama familio.
+// ( la neparaj ciferoj 0 aux 8 ), ĉiu ombro restas en tiu sama familio. La
+// vestaj teksajxoj ( assets/vestaro ) uzas la saman regulon por siaj kudroj kaj
+// faldoj — unu fonto por la tuta mondo.
 //     @param koloro ( number ) - La bazkoloro de la folio ( 0xRRGGBB ).
 //     @param n ( number = 0o1 ) - Kiom da 0x101010-paŝoj malhelen.
 //     @param alfa ( number = 1 ) - La alfo de la rezulto.
 //     @returns ombro ( string ) - La koloro kiel "rgba(r,g,b,a)".
-function ombro(koloro: number, n = 0o1, alfa = 1): string {
+export function ombro(koloro: number, n = 0o1, alfa = 1): string {
   const kanalo = ( sovo: number ): number =>
     Math.max(0, ( ( koloro >> sovo ) & 0xff ) - n * 0x10);
+  return `rgba(${kanalo(0o20)},${kanalo(0o10)},${kanalo(0)},${alfa})`;
+}
+
+// helo — La kontraŭaĵo de ombro, MainColor + n · 0x101010. La helaj tavoloj de
+// teksajxo ( la elstaraj fadenoj de la vesto, la levitaj randoj de faldo )
+// restas en la sama #nmnmnm-familio kiel la bazo, same kiel la ombroj. Ĉiu
+// kanalo estas krampita je 0xf8 — la plej alta valoro, kiu ankoraŭ finiĝas per
+// 8 — do la rezulto neniam forlasas la familion ( 0x...f8 + 0x10 = 0x108 ).
+//     @param koloro ( number ) - La bazkoloro ( 0xRRGGBB ).
+//     @param n ( number = 0o1 ) - Kiom da 0x101010-paŝoj helen.
+//     @param alfa ( number = 1 ) - La alfo de la rezulto.
+//     @returns helo ( string ) - La koloro kiel "rgba(r,g,b,a)".
+export function helo(koloro: number, n = 0o1, alfa = 1): string {
+  const kanalo = ( sovo: number ): number =>
+    Math.min(0xf8, ( ( koloro >> sovo ) & 0xff ) + n * 0x10);
   return `rgba(${kanalo(0o20)},${kanalo(0o10)},${kanalo(0)},${alfa})`;
 }
 
@@ -892,6 +909,205 @@ function generiDioritajnKristalojn(): DioritaKristalo[] {
 // angulaj interplektitaj kristaloj kun maldikaj grajnrandoj. Ĉiu makulo kaj
 // kristalo ĉirkaŭvolvas la kahelajn randojn ( naŭ kopioj per tranĉaĵo ), do
 // la teksajxo estas PERFEKTE senkudra kaj ne montras bendojn kiam ĝi ripetiĝas.
+// kreiHaranTeksajxon — La teksajxo de la HARO. Vertikalaj hartufoj kun lumo en
+// la mezo de ĉiu tufo, fajnaj fadenoj inter ili kaj malvarmaj ( bluecaj ) sulkoj
+// en la ombroj. La teksajxo estas multiplikata per la har-koloro de la materialo,
+// do ĝi restas preskaŭ blanka — ĝi nur mallumigas la sulkojn kaj lumigas la
+// tufojn. ⟨ Kial bluecaj ombroj 📃 ⟩ La mondo estas malvarma kaj nebula, do la
+// malhela haro legiĝos blueca-nigra anstataŭ pure bruna. La fadenoj estas
+// plenaltaj laŭ la vertikalo, do ili ne bezonas vertikalan ĉirkaŭvolvon — la
+// horizontala volvaĵo repreniĝas per desegniWrapan por la tufoj kaj per limigita
+// starto por la etaj fadenoj.
+//     @returns teksajxo ( THREE.CanvasTexture ) - La preta har-teksajxo.
+export const kreiHaranTeksajxon = sxovu((): THREE.CanvasTexture => {
+  const s = 0o400;
+  return kreiKanvasanTeksajxon(s, s, ( k ) => {
+    k.fillStyle = "#dcdcdc"; k.fillRect(0, 0, s, s);
+    // ⟪ La hartufoj 📃 ⟫ — la haro legiĝas kiel haro nur se oni vidas TUFOJN, ne
+    // unuopajn fadenojn. Ĉiu tufo estas mallarĝa vertikala bendo kun mola
+    // gradiento ( la randoj malhelaj, la kerno hela ), do la tufoj legiĝas kiel
+    // rondaj kolonoj anstataŭ kiel plataj strioj.
+    // ⟨ Kial tiel multaj 📃 ⟩ — la antaŭa versio havis 0o74 tufojn, el kiuj la
+    // plej multaj estis 0o20 gxis 0o120 rastumerojn larĝaj, do la haro havis
+    // nur kelkajn grandajn lumojn kaj la fadenoj portis la tutan teksturon — la
+    // kapo legiĝis kiel ligna bovlo kun vertikala grajno. Nun 0o160 mallarĝaj
+    // tufoj ( 0o4 gxis 0o24 rastumeroj ) kun mola kontrasto portas la mason, kaj
+    // la fadenoj nur fendas ilin.
+    for ( let i = 0; i < 0o160; i++ ) {
+      const x = Math.random() * s;
+      const largho = 0o4 + Math.random() * 0o20;
+      const hela = Math.random() < 0o5/0o10;
+      const forteco = 0o16/0o100 + Math.random() * 0o20/0o100;
+      const pinto = hela
+        ? `rgba(252,251,247,${forteco})`
+        : `rgba(68,72,98,${forteco})`;
+      desegniWrapan(k, s, () => {
+        const g = k.createLinearGradient(x, 0, x + largho, 0);
+        g.addColorStop(0, senAlfa(pinto));
+        g.addColorStop(0o1/0o2, pinto);
+        g.addColorStop(1, senAlfa(pinto));
+        k.fillStyle = g;
+        k.fillRect(x, 0, largho, s);
+      });
+    }
+    // ⟪ La fadenoj 📃 ⟫ — la unuopaj haroj. Ili sekvas la tufojn, do ili ne estas
+    // perfekte vertikalaj — haro fendiĝas laŭ la kapo. La starto estas limigita al
+    // s − longo, do neniu streketo transiras la kahelan randon kaj la horizontala
+    // ĉirkaŭvolvo ne gravas ( la haro uzas la v-akson nur unufoje, kaj la u-akso
+    // estas preskaŭ plena ĉe la ĉapo ).
+    // ⟨ La fadeno havas sian propran gradienton 📃 ⟩ — antaŭe ĉiu fadeno estis
+    // egale hela de la radiko ĝis la pinto, do la haro legiĝis kiel la grajno de
+    // ligno. Nun ĉiu fadeno heliĝas ĉe la mezo kaj malaperas ĉe la du finoj, do
+    // la fadenoj legiĝas kiel unuopaj haroj ene de la tufo anstataŭ kiel strekoj.
+    // ⟨ La malvarmaj ombroj 📃 ⟩ — ĉiuj malhelaj fadenoj kaj ombroj estas bluaj
+    // ( 68,72,98 ), ne brunaj aŭ neŭtralaj. Tio estas la sama malvarmo kiel la
+    // nebulo kaj la griza ĉielo, kaj ĝi estas TIO, kio igas malhelan haron legiĝi
+    // blueca-nigra anstataŭ pure nigra.
+    k.lineCap = "round";
+    for ( let i = 0; i < 0o700; i++ ) {
+      const longo = 0o100 + ( ( Math.random() * 0o300 ) | 0 );
+      const klino = ( Math.random() - 0o5/0o10 ) * 0o1;
+      const forteco = 0o6/0o100 + Math.random() * 0o22/0o100;
+      const koloro = Math.random() < 0o5/0o10
+        ? `rgba(255,255,252,${forteco})`
+        : `rgba(68,72,98,${forteco})`;
+      const x = Math.random() * ( s - 0o4 ), y = Math.random() * ( s - longo );
+      const g = k.createLinearGradient(x, y, x + klino, y + longo);
+      g.addColorStop(0, senAlfa(koloro));
+      g.addColorStop(0o1/0o2, koloro);
+      g.addColorStop(1, senAlfa(koloro));
+      k.strokeStyle = g;
+      k.lineWidth = 1;
+      k.beginPath();
+      k.moveTo(x, y);
+      k.quadraticCurveTo(x + klino * 0o1/0o2, y + longo * 0o1/0o2, x + klino, y + longo);
+      k.stroke();
+    }
+    // Mola tuta malheligo al la supro ( la radikoj ) — la haro estas pli densa
+    // ĉe la kranio, do pli malhela tie.
+    const radikoj = k.createLinearGradient(0, 0, 0, s);
+    radikoj.addColorStop(0, "rgba(84,88,112,0.20)");
+    radikoj.addColorStop(0o5/0o10, "rgba(84,88,112,0.04)");
+    radikoj.addColorStop(1, "rgba(84,88,112,0)");
+    k.fillStyle = radikoj;
+    k.fillRect(0, 0, s, s);
+  }, [ 0o3, 0o1 ], { anisotropio: 0o4 });
+});
+
+// kreiLederanTeksajxon — La teksajxo de la LEDO ( la botoj ). Griza kaj hela,
+// ĉar la boto-materialo multiplikas ĝin per la koloro de la vesto. Fajna grajno
+// de uzita ledo, molaj makuloj, sulkoj ĉe la maleolo kaj kelkaj skrapaĵoj. La
+// SAMA teksajxo servas ankaŭ kiel bumpMap — la grajno kaj la sulkoj tiel ankaŭ
+// reliefiĝas, sen dua kanvaso.
+//     @returns teksajxo ( THREE.CanvasTexture ) - La preta leda teksajxo.
+export const kreiLederanTeksajxon = sxovu((): THREE.CanvasTexture => {
+  const s = 0o400;
+  return kreiKanvasanTeksajxon(s, s, ( k ) => {
+    k.fillStyle = "#d8d8d8"; k.fillRect(0, 0, s, s);
+    // Grand-skala leda malregulaĵo — la ledo ne estas egale griza.
+    desegniWrapajnNubojn(k, s, s, 0o20,
+      [ "rgba(240,240,236,0.24)", "rgba(120,118,112,0.18)", "rgba(168,166,160,0.20)" ],
+      0o10/0o100, 0o14/0o100);
+    // La sulkoj — molaj mallongaj kurbaj linioj, la faldoj de uzita boto ĉe la
+    // maleolo. Ĉiu portas helan rimon sub si, do ĝi legiĝas kiel kavaĵo.
+    for ( let i = 0; i < 0o24; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const longo = 0o20 + Math.random() * 0o60;
+      const ondo = ( Math.random() - 0o5/0o10 ) * 0o10;
+      const angulo = ( Math.random() - 0o5/0o10 ) * 0o2/0o10;
+      desegniWrapan(k, s, () => {
+        k.save();
+        k.translate(x, y);
+        k.rotate(angulo);
+        k.lineCap = "round";
+        k.strokeStyle = "rgba(126,124,118,0.22)";
+        k.lineWidth = 0o2;
+        k.beginPath();
+        k.moveTo(-longo / 0o2, 0);
+        k.quadraticCurveTo(0, ondo, longo / 0o2, 0);
+        k.stroke();
+        k.strokeStyle = "rgba(248,248,244,0.22)";
+        k.lineWidth = 0o1;
+        k.translate(0, 0o2);
+        k.beginPath();
+        k.moveTo(-longo / 0o2, 0);
+        k.quadraticCurveTo(0, ondo, longo / 0o2, 0);
+        k.stroke();
+        k.restore();
+      });
+    }
+    // La grajno — la fajna pora malregulaĵo de la ledo.
+    for ( let i = 0; i < 0o4000; i++ ) {
+      const largho = 0o1 + ( ( Math.random() * 0o2 ) | 0 );
+      const alto = 0o1 + ( ( Math.random() * 0o2 ) | 0 );
+      k.fillStyle = Math.random() < 0o5/0o10
+        ? `rgba(252,252,248,${0o5/0o100 + Math.random() * 0o12/0o100})`
+        : `rgba(104,102,98,${0o5/0o100 + Math.random() * 0o12/0o100})`;
+      k.fillRect(Math.random() * ( s - largho ), Math.random() * ( s - alto ), largho, alto);
+    }
+    // La skrapaĵoj — kelkaj helaj strekoj kie la supra tavolo de la ledo forviŝiĝis.
+    for ( let i = 0; i < 0o6; i++ ) {
+      const x = Math.random() * s, y = Math.random() * s;
+      const longo = 0o10 + Math.random() * 0o30;
+      desegniWrapan(k, s, () => {
+        k.strokeStyle = `rgba(250,250,246,${0o14/0o100 + Math.random() * 0o10/0o100})`;
+        k.lineWidth = 1;
+        k.beginPath();
+        k.moveTo(x, y);
+        k.lineTo(x + longo, y + ( Math.random() - 0o5/0o10 ) * 0o6);
+        k.stroke();
+      });
+    }
+  }, [ 0o2, 0o2 ], { anisotropio: 0o4 });
+});
+
+// kreiSxtofanBumpanTeksajxon — La reliefa teksajxo de la TUKO. Fajna interplekto
+// de vertikalaj kaj horizontalaj fadenoj plus molaj senordaj sulketoj — la sama
+// kanvaso servas kiel bumpMap KAJ kiel roughnessMap de ĉiuj vestaj materialoj
+// ( la interplekto malhele reliefiĝas kaj la sulkoj rompas la egalegan poluron
+// de la ŝtofo ). La teksajxo estas griza kaj RIPETEBLA je si mem ( la fadenoj
+// havas entjeran periodon kaj la sulkoj ĉirkaŭvolviĝas ), do ĝi povas ripetiĝi
+// multe sur granda robo sen videbla kudro. Restas en lineara koloro — la sama
+// regulo kiel la ceteraj reliefaj teksajxoj.
+//     @returns teksajxo ( THREE.CanvasTexture ) - La preta reliefa teksajxo.
+export const kreiSxtofanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
+  const s = 0o400;
+  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
+    kunteksto.fillStyle = "#808080";
+    kunteksto.fillRect(0, 0, s, s);
+    // ⟨ La interplekto devas resti preskaŭ nevidebla 📃 ⟩ — la unua versio
+    // desegnis akran kradon de 4-rastrumera periodo kun alfo 0.3, kaj la
+    // materialoj uzis ĝin kun granda bumpScale ( 0o1/0o100 ). Sur la kurba
+    // ŝtofo tio aliasis en reliefan muaron kaj la vesto legiĝis kiel trikita
+    // plasto, ne kiel tuko. Nun la periodo estas duoble pli longa, la fadenoj
+    // duoble pli larĝaj, la kontrasto kvarone pli malforta — la interplekto
+    // nur rompas la egalegan poluron anstataŭ desegni reton.
+    const paso = 0o10, fadeno = 0o2;
+    for ( let i = 0; i < s; i += paso ) {
+      const hela = ( i / paso ) % 0o2 === 0;
+      kunteksto.fillStyle = hela ? "rgba(168,168,168,0.13)" : "rgba(88,88,88,0.11)";
+      kunteksto.fillRect(i, 0, fadeno, s);
+      kunteksto.fillStyle = hela ? "rgba(88,88,88,0.11)" : "rgba(168,168,168,0.13)";
+      kunteksto.fillRect(0, i, s, fadeno);
+    }
+    // la fadena grando — etaj helaj kaj malhelaj punktoj, kiuj rompas la kradon.
+    for ( let i = 0; i < 0o400; i++ ) {
+      const w = 0o1 + ( ( Math.random() * 0o3 ) | 0 ), h = 0o1 + ( ( Math.random() * 0o3 ) | 0 );
+      const x = ( Math.random() * s ) | 0, y = ( Math.random() * s ) | 0;
+      const griz = Math.random() < 0o1/0o2 ? "rgba(200,200,200,0.14)" : "rgba(64,64,64,0.13)";
+      desegniWrapan(kunteksto, s, () => {
+        kunteksto.fillStyle = griz;
+        kunteksto.fillRect(x, y, w, h);
+      });
+    }
+    // Molaj sulketoj — la eluzitaj faldoj de portata vesto. Malaltaj kontrastoj,
+    // ĉirkaŭvolvitaj, do la ripeto restas nevidebla.
+    desegniWrapajnNubojn(kunteksto, s, s, 0o20,
+      [ "rgba(224,224,224,0.10)", "rgba(64,64,64,0.12)", "rgba(136,136,136,0.10)" ],
+      0o4/0o100, 0o10/0o100);
+  }, [ 1, 1 ], { sRGB: false, anisotropio: 0o10 });
+});
+
 export const kreiDioritanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o400;
   return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {

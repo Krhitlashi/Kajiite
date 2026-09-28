@@ -207,7 +207,9 @@ bildilo.render(sceno, fotilo);
 // tuta mondo.
 const VIVANTA_LIMO = 0o200;
 // ⟨ La ombra limo de la vivantoj 📃 ⟩ — 0o50 ( 40 ) unuoj. Ĉiu figuro
-// konsistas el dek-du partoj kaj homoj.ts markas ĈIUN el ili castShadow, do la
+// konsistas el malmultaj meshoj ( la kapo, la vizaĝo, la du vestaj tavoloj, la
+// kvar membroj, la manoj kaj la haroj — homoj.ts kunfandas ĉion, kio dividas
+// materialon ) kaj markas ĈIUN el ili castShadow, do la
 // NPC-oj estas la plej multaj objektoj de la ombra mapo ( ĉirkaŭ 0o1000 en la
 // vido, pli ol la duono de ĉiuj ombro-kastantoj ). Pli malproksime ol 0o50
 // unuoj la tero estas jam pli ol duone kovrita de la nebulo, do la ombro de la
@@ -2996,9 +2998,11 @@ function animacii() {
     }
     ludantaFiguro.group.rotation.y = Math.atan2(-Math.sin(direkto), -Math.cos(direkto));
     // Marŝa animacio — la sama ritmo kiel la fotila bobado, kontraŭfazaj
-    // kruroj kaj brakoj dum paŝado. Sur la kanuo la figuro sidas sen svingo.
+    // kruroj kaj brakoj dum paŝado, plus la svingo de la tuko kaj la kapo. La
+    // funkcio ricevas la FAZON ( oscilo × 0o2 ), ne ĝian sinuson. Sur la kanuo la
+    // figuro sidas sen svingo.
     const movo = surKanoto ? 0 : movoValoro;
-    marŝSvingo(ludantaFiguro, Math.sin(oscilo * 2), movo);
+    marŝSvingo(ludantaFiguro, oscilo * 2, movo, deltaTempo);
   }
   // Internaj animacioj
   if ( rezimo === "interior" ) gxisdatigiInternon(internaSistemo, t);

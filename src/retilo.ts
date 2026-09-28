@@ -292,15 +292,17 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       const movo = f.movo;
       if ( movo > 0o1/0o100 ) {
         f.fazo += deltaTempo * 0o4 * movo;
-        const paso = Math.sin(f.fazo);
-        marŝSvingo(f.figuro, paso, movo);
+        // marŝSvingo ricevas la FAZON, ne ĝian sinuson — la malfruo de la ŝtofo
+        // bezonas la kosenon ( vidu homoj.ts ).
+        marŝSvingo(f.figuro, f.fazo, movo, deltaTempo);
       } else {
-        // Stara idla balancado.
+        // Stara idla balancado — unue la komuna ritmo nuliĝas ( ankaŭ la tuko kaj
+        // la kapo, kiuj alie restus en sia lasta marŝa pozicio ), poste la idla
+        // balancado aldoniĝas al la brakoj.
+        marŝSvingo(f.figuro, f.fazo, 0, deltaTempo);
         const idla = Math.sin(t * 0o7 + f.fazo) * 0o2/0o100;
         f.figuro.brakoj[0].rotation.x = idla;
         f.figuro.brakoj[1].rotation.x = -idla;
-        f.figuro.kruroj[0].rotation.x = 0;
-        f.figuro.kruroj[1].rotation.x = 0;
       }
       g.visible = nia !== null && f.reĝimo !== "orbit" && f.interno === nia.interno;
     }

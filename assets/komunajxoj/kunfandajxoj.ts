@@ -69,6 +69,34 @@ export function kreiBuferanGeometrion(pozicioj: number[], indeksoj: number[],
   return geometrio;
 }
 
+// aplikiSkatolajnUvojn — Skatola projekcio de la UV-oj. La ekstrudaj geometrioj
+// ( kreiRondanKeston ) ricevas siajn UV-ojn rekte el la FORM-PLANO de la
+// ekstrudo, do por 0.2-unua skatolo ĉiu faco specimenas ege malgrandan parton de
+// la teksajxo — la leda grajno de la ŝuo malaperas kaj la boto restas plata
+// koloro. Skatola projekcio elektas la du aksojn de la plej granda normala
+// komponanto, do ĉiu faco ricevas la grajnon de antaŭe kaj la teksajxo legiĝas
+// egale sur ĉiuj flankoj.
+//     @param geometrio ( THREE.BufferGeometry ) - La geometrio ( modifiĝas ).
+//     @param skalo ( number = 0o1 ) - Kiom da teksturaj kaheloj po mondunuo.
+export function aplikiSkatolajnUvojn(geometrio: THREE.BufferGeometry, skalo = 0o1): void {
+  const pozicio = geometrio.getAttribute("position");
+  const normo = geometrio.getAttribute("normal");
+  if ( !normo ) geometrio.computeVertexNormals();
+  const n = geometrio.getAttribute("normal");
+  const uv = new Float32Array(pozicio.count * 2);
+  for ( let i = 0; i < pozicio.count; i++ ) {
+    const x = pozicio.getX(i), y = pozicio.getY(i), z = pozicio.getZ(i);
+    const ax = Math.abs(n.getX(i)), ay = Math.abs(n.getY(i)), az = Math.abs(n.getZ(i));
+    let u: number, v: number;
+    if ( ay >= ax && ay >= az ) { u = x; v = z; }        // horizontala faco
+    else if ( ax >= az ) { u = z; v = y; }               // faco al la flankoj
+    else { u = x; v = y; }                               // faco antaŭen/malantaŭen
+    uv[i * 0o2] = u * skalo;
+    uv[i * 0o2 + 0o1] = v * skalo;
+  }
+  geometrio.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+}
+
 // kunfandiDuGeometriojn — Kunfandas du geometriojn SEN indekso, konservante la
 // triangulan ordon kaj la UV-ojn. Ideala por plantoj kun alfa-testataj teksturoj.
 export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGeometry): THREE.BufferGeometry {
