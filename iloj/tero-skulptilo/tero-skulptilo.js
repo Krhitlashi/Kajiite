@@ -3,7 +3,7 @@
 // montojn, la riveron, la lagon — kiel la TUTAN terenon ( la natura tavolo en
 // tereno.ts estas plata ). La mapo montras nordon supre kaj orienton dekstren
 // ( la sama orientiĝo kiel la minimapo de la ludo ). La savo skribas la
-// rezulton rekte al src/tero-datumaro/, kiun la ludo legas kiel la teron.
+// rezulton rekte al kantaoj/tero-datumaro/, kiun la ludo legas kiel la teron.
 // La biomo ( tereno.ts ) venas TUTE de la PENTRITA tavolo. akvo ( la masko )
 // kaj la pentritaj montaro/valo/ebenaĵo/akvaj-plantoj/ekvizeto
 // ( SKULPTA_BIOMOJ ) — NENIU deriva biomo. La biomo-ilo PENTRAS la biomon
@@ -45,42 +45,42 @@
 // reliefo ( maldekstra
 // klako ). Savi skribas rekte al la dosiero per la File System Access API
 // ( Chromium ); aliaj retumiloj ricevas elŝuton.
-import { bazaAlteco } from "../../src/tereno.js";
-// La krada interpolo — la komuna kurbo de la ludo ( src/interpolo.ts ).
-import { katmullRom } from "../../src/interpolo.js";
+import { bazaAlteco } from "../../kantaoj/tereno.js";
+// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/interpolo.ts ).
+import { katmullRom } from "../../kantaoj/interpolo.js";
 // ⟪ La mapo 📃 ⟫ — la skulptilo redaktas UNU mapon samtempe. La mapoj estas
-// sendependaj mondoj ( src/tero-datumaro/mapoj.ts ); ĉiu havas sian propran
+// sendependaj mondoj ( kantaoj/tero-datumaro/mapoj.ts ); ĉiu havas sian propran
 // dosierujon kun la sep datumodosieroj. La registro venas permane ( nur etaj
 // datumoj kun la formo de ĉiu mapo ), la datumdosieroj de la elektita mapo
 // ŝarĝiĝas per dinamika importo — do nova mapo ne postulas ŝanĝojn ĉi tie.
 // La parametro ?mapo=<kodo> elektas la mapon ( la mapo-registruloj uzas ĝin por
 // ŝanĝi la mapon sen perdi la nunan staton — ili simple reŝargas la paĝon ).
-import { MAPOJ } from "../../src/tero-datumaro/mapoj.js";
-import { aktivaMapo, mapoDeKodo } from "../../src/tero-datumaro/mapregulo.js";
+import { MAPOJ } from "../../kantaoj/tero-datumaro/mapoj.js";
+import { aktivaMapo, mapoDeKodo } from "../../kantaoj/tero-datumaro/mapregulo.js";
 // La formo de la mondo ( la cirklo, la rondigita kvadrato aŭ la rondigita
 // triangulo ) — la sama modulo kiel la ludo ( scena.ts ), do la 2D-mapo, la
 // 3D-vido kaj la ludo montras la saman formon kaj la saman randon.
 import { FORMOJ, distancoDeFormo, formajRandPunktoj, kreiFormanBazon,
-  premuAlFormo, MONDO_BAZA_Y } from "../../assets/komunajxoj/mapformo.js";
+  premuAlFormo, MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
 // ⟪ La akvokalkulo 📃 ⟫ — la akvo estas DERIVITA de la fontoj ( la sama modulo
-// kiel la ludo, src/akvokalkulo.ts ). La ilo ne plu pentras la maskon: gxi
+// kiel la ludo, kantaoj/akvokalkulo.ts ). La ilo ne plu pentras la maskon: gxi
 // metas, movas kaj forigas FONTOJN, kaj la riveroj elfluas, la kavoj plenigxas
 // kaj la akva surfaco sekvas la terenon. La malnova pentrita masko restas kiel
 // la basenaj semoj ( la basenoj de la antaŭaj mapoj ).
 import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima,
-  specimenoDulineara } from "../../src/akvokalkulo.js";
+  specimenoDulineara } from "../../kantaoj/akvokalkulo.js";
 const mapoKodo = new URLSearchParams(location.search).get("mapo");
 const mapoDatumo = mapoDeKodo(mapoKodo);
 // La datumdosieroj de ĉiuj mapoj — unu globa importo, do aldoni mapon ne
 // postulas ŝanĝojn ĉi tie ( Vite malkonstruas import.meta.glob je la konstrno,
 // kontraŭe al dinamika importo kun variablo ).
 const MAPAJ_MODULOJ = import.meta.glob(
-  "../../src/tero-datumaro/*/{krado,akvo,akvofontoj,biomoj,bestoj,objektoj,urboj,vojoj}.ts");
+  "../../kantaoj/tero-datumaro/*/{krado,akvo,akvofontoj,biomoj,bestoj,objektoj,urboj,vojoj}.ts");
 // preniModulon — la datumdosiero de la nuna mapo.
 //     @param nomo ( string ) - "krado" | "akvo" | "biomoj" | "bestoj" | "objektoj" | "urboj" | "vojoj".
 //     @returns La modulo de la dosiero.
 async function preniModulon(nomo) {
-  const sxlosilo = "../../src/tero-datumaro/" + mapoDatumo.kodo + "/" + nomo + ".ts";
+  const sxlosilo = "../../kantaoj/tero-datumaro/" + mapoDatumo.kodo + "/" + nomo + ".ts";
   const sxargxi = MAPAJ_MODULOJ[sxlosilo];
   if ( !sxargxi ) throw new Error("Mankas la datumdosiero " + sxlosilo);
   return await sxargxi();
@@ -105,40 +105,40 @@ let mapoGrandeco = mapoDatumo.grandeco;
 // La mapo-registro, redaktebla — ĝi reskribiĝas al mapoj.ts ĉe la savo.
 let mapojRegistroj = MAPOJ.map(m => ( { ...m } ));
 // La urba krado — la Krado-langeto montras kaj redaktas la saman kradon kiun
-// la ludo konstruas el KradaArangxo ( src/krado.ts — pura modulo, komuna kun
+// la ludo konstruas el KradaArangxo ( kantaoj/krado.ts — pura modulo, komuna kun
 // la testilo iloj/testoj/krado/urbo.ts ). kreiKradanPlanon donas la plenan
 // planon ( konstruaĵoj, vojoj, spronoj ) kiel purajn datumojn por desegni;
 // validiKradon kontrolas la redaktitan kradon.
-import { kreiKradanPlanon, validiKradon, aldoniVojon, superajElDatumo, superojElDatumo } from "../../src/krado.js";
+import { kreiKradanPlanon, validiKradon, aldoniVojon, superajElDatumo, superojElDatumo } from "../../kantaoj/krado.js";
 // La malkodaj funkcioj — la UNU FONTO estas la rultempo de la ludo
-// ( src/tero-datumaro/rultempo.ts ). Antaŭe la samaj funkcioj estis
+// ( kantaoj/tero-datumaro/rultempo.ts ). Antaŭe la samaj funkcioj estis
 // kopiitaj ĉi tie Kaj en ŝablono por la savo — tri kopioj kiuj facile
 // devojiĝus. La savo ne plu reskribas rultempo.ts.
-import { dekodiInt16, dekodiMaskon, dekodiBiomon, dekodiBestojn } from "../../src/tero-datumaro/rultempo.js";
+import { dekodiInt16, dekodiMaskon, dekodiBiomon, dekodiBestojn } from "../../kantaoj/tero-datumaro/rultempo.js";
 // La komuna terena paletro — la sama bruo kaj la samaj kolor-tavoloj kiel
 // la ludo ( scena.ts ), do la 2D-mapo kaj la 3D-vido de la skulptilo
 // antaŭmontras la realajn kolorojn de la ludo.
 import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
-  terenaStrataKoloroEn } from "../../assets/komunajxoj/terenkoloroj.js";
+  terenaStrataKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 // La realaj konstruaĵoj de la ludo — la 3D-vido de la krado uzas la SAMAJN
 // konstruantojn kiel la ludo ( konstruiSatalon ), ne kolorajn kestojn.
-import { konstruiSatalon } from "../../assets/konstruajxoj/satalaj-konstruajxoj.js";
+import { konstruiSatalon } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 // La realaj specoj de la ludo — la objekta ilo konstruas la VERAN 3D-aspekton
 // de la metitaj objektoj ( samaj konstruantoj kiel la ludo ), por la 2D-bake
 // ( kiel la plena mapo ) kaj la 3D-vido.
 import { konstruiArbaron, konstruiLarikon, konstruiHxsxaksxlefojn, konstruiPussxlefojn,
-  konstruiMetitanRokon, konstruiMetitanFilikon } from "../../assets/shalaj-specioj/vegetajxo.js";
-import { konstruiMetitanBeston, konstruiMetitanPetrelon } from "../../assets/shalaj-specioj/bestoj.js";
-import { kreiKanoton } from "../../assets/medio/transporto.js";
-import { konstruiKrasesxagxon } from "../../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import { konstruiHxeuxfojn } from "../../assets/konstruajxoj/hxeuxfa-lampo.js";
-import { konstruiKeuxfhxeso } from "../../assets/mebloj/keuxfhxeso.js";
+  konstruiMetitanRokon, konstruiMetitanFilikon } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
+import { konstruiMetitanBeston, konstruiMetitanPetrelon } from "../../eskekoj/shalaj-specioj/bestoj.js";
+import { kreiKanoton } from "../../eskekoj/medio/transporto.js";
+import { konstruiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
+import { konstruiHxeuxfojn } from "../../eskekoj/konstruajxoj/hxeuxfa-lampo.js";
+import { konstruiKeuxfhxeso } from "../../eskekoj/mebloj/keuxfhxeso.js";
 import { kreiOranMaterialon, kreiFenestranMaterialon,
-  kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../assets/komunajxoj/materialoj.js";
+  kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 // La veraj vojoj de la ludo — la 3D-vido de la mond-nivelaj vojoj uzas la
 // SAMAjn dioritajn/andezitajn vojojn kiel la ludo ( konstruiVojojn ).
 import { konstruiVojojn, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn,
-  VOJA_SUPRO_LEVIGXO } from "../../assets/medio/vojoj.js";
+  VOJA_SUPRO_LEVIGXO } from "../../eskekoj/medio/vojoj.js";
 import { vojaDuonLargho as retoVojaDuonLargho, vojaKunigaDuono as retoVojaKunigaDuono,
   pontoDuonLargho as retoPontoDuonLargho, vojaProjekcio as retoVojaProjekcio,
   vojoKunfandiĝas as retoVojoKunfandiĝas,
@@ -146,9 +146,9 @@ import { vojaDuonLargho as retoVojaDuonLargho, vojaKunigaDuono as retoVojaKuniga
   vojajKunfandajxoj as retoVojajKunfandajxoj, plejProximaVojo as retoPlejProximaVojo,
   konektiDokonAlVojo as retoKonektiDokonAlVojo, troviVojaRetajnKunigojn,
   dokoLandaSegmento as retoDokoLandaSegmento,
-  DOKO_PLATFORMA_LARĜO } from "../../assets/medio/voj-reto.js";
-import { konstruiFiguron } from "../../assets/shalaj-specioj/homoj.js";
-import { VESTOJ } from "../../assets/vestaro/vestoj.js";
+  DOKO_PLATFORMA_LARĜO } from "../../eskekoj/medio/voj-reto.js";
+import { konstruiFiguron } from "../../eskekoj/shalaj-specioj/homoj.js";
+import { VESTOJ } from "../../eskekoj/vestaro/vestoj.js";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
@@ -325,7 +325,7 @@ function refari(){
 // ════════════════════════ Kradaj samploj ════════════════════════
 // La krada interpolo ( katmullRom ). Glata C1 kurbo sen la diagonalaj faldoj de
 // la dulineara interpolo — la montodeklivoj ne montras krestojn laŭ la
-// krad-diagonaloj. La kurbo venas de la komuna modulo src/interpolo.ts, la sama
+// krad-diagonaloj. La kurbo venas de la komuna modulo kantaoj/interpolo.ts, la sama
 // kiel la ludo kaj la specioj, do la kopioj ne povas devojiĝi.
 // deltoInterp — Dukuba ( Katmull-Rom ) interpolo super la skulpta krado. La
 // valoro cxe kradnodoj restas ekzakte la ĉela valoro; inter la nodoj la
@@ -351,7 +351,7 @@ function maskoInterp(x, z) {
 }
 // ⟨ La akvaj helpiloj 📃 ⟩ — la REZULTO de la akvokalkulo ( ne la pentrita
 // masko ). La ludo legas la samajn kampojn per la samaj specimenaj funkcioj
-// ( src/akvokalkulo.ts ), do la ilo kaj la ludo montras la saman akvon.
+// ( kantaoj/akvokalkulo.ts ), do la ilo kaj la ludo montras la saman akvon.
 const ORIGINO = [ X0, Z0 ];
 // akvaKavoInterp — la akva eltrancxo ( la riverlito mordita de la akvo ).
 function akvaKavoInterp(x, z) {
@@ -2704,7 +2704,7 @@ function sxaltiObjektojn(on) {
 
 // ════════════════════════ Krado 🏙️ ( la urba krado ) ════════════════════════
 // La Krado-langeto montras kaj redaktas la saman urban kradon kiun la ludo
-// konstruas el KradaArangxo ( src/urbo.ts → src/krado.ts — la sama pura
+// konstruas el KradaArangxo ( kantaoj/urbo.ts → kantaoj/krado.ts — la sama pura
 // modulo ). La konstruaĵoj montriĝas NUR dum ĉi tiu langeto estas aktiva —
 // en 2D sur la mapo ( desegniKradanTavolon ) kaj kiel reala 3D-aspekto en la
 // 3D-vido ( rekonstruiKradon3D — la VERAJ konstruaĵoj de la ludo ). La
@@ -2714,7 +2714,7 @@ function sxaltiObjektojn(on) {
 // La urboj — la kradaj aranĝoj kaj ofsetoj de SKULPTA_URBOJ ( la sama listo
 // kiun la ludo konstruas ). La urbo-elektilo en la Krado-panelo elektas la
 // urbon por redakti; la ŝanĝoj skribiĝas reen al la urbo kaj saviĝas al la
-// datumodosiero ( generiDosierojn skribas SKULPTA_URBOJ al src/tero-datumaro/urboj.ts ).
+// datumodosiero ( generiDosierojn skribas SKULPTA_URBOJ al kantaoj/tero-datumaro/urboj.ts ).
 let urboj = SKULPTA_URBOJ.map(u => ( { ...u } ));
 let elektitaUrbo = 0;                 // la elektita urbo ( la unua estas la ĉefa )
 let kradoGrandeco = urboj[0]?.arangxaGrando ?? 3;   // arangxaGrando ( 1–6 )
@@ -2734,7 +2734,7 @@ function sinkronigiSuperojn() {
 }
 let kradaPlanoCache = null;
 // La doko kaj la spacoŝipo — la mondaj trajtoj de la ĉefa urbo
-// ( SKULPTA_DOKOJ kaj SKULPTA_VOJOJ en src/tero-datumaro/vojoj.ts ),
+// ( SKULPTA_DOKOJ kaj SKULPTA_VOJOJ en kantaoj/tero-datumaro/vojoj.ts ),
 // redaktataj per la Vojoj sub-langeto de la Krado-panelo.
 let vojoj = SKULPTA_VOJOJ.length
   ? SKULPTA_VOJOJ.map(v => ( { ...v, punktoj: v.punktoj.map(p => [ p[0], p[1] ]) } ))
@@ -3810,7 +3810,7 @@ function desegniKradanTavolon(k, plano, X, Z, skalo) {
 let krada3DKonstruajxoj = [];
 // rekonstruiVojojn3D — la mond-nivelaj vojoj kiel reala 3D-aspekto en la
 // 3D-vido — la SAMAJ dioritaj/andezitaj vojoj kiel la ludo ( konstruiVojojn
-// el assets/medio/vojoj.ts ), sekvantaj la terenon ( kun la sama vertikala
+// el eskekoj/medio/vojoj.ts ), sekvantaj la terenon ( kun la sama vertikala
 // troigo kiel la tera meŝo ). Videblaj nur dum la Vojoj sub-langeto estas
 // aktiva ( vojojAktiva — sxaltiIlTabon / sxaltiSubTabojn administras la
 // videblecon ). Rekonstruiĝas ĉe ĉiu voja ŝanĝo ( gxisdatigiVojajnRegilojn ),
@@ -4667,7 +4667,7 @@ function cirkuloDeDatumojValidas() {
   } catch { return false; }
 }
 // La dosieraj titoloj — ĉiu datumodosiero komenciĝas per sia markilo, kiun la
-// konserva servilo kontrolas ( neniu fremda enhavo skribiĝas en src/ ).
+// konserva servilo kontrolas ( neniu fremda enhavo skribiĝas en kantaoj/ ).
 // rultempo.ts NE plu skribiĝas de la savo — ĝi estas la komuna modulo kies
 // funkciojn la skulptilo importas ( vidu la importon de tero-datumaro/rultempo ).
 // ⟪ La mapoj 📃 ⟫ — ĉiu mapo havas siajn sep datumodosierojn en sia propra
@@ -4675,7 +4675,7 @@ function cirkuloDeDatumojValidas() {
 // samaj; la konserva servilo kontrolas la markilon de ĉiu skribota dosiero, do
 // la dosieruja nomo povas esti ajna mapo de la registro.
 const DATUMDOSIEROJ = [ "krado", "akvo", "akvofontoj", "biomoj", "bestoj", "objektoj", "urboj", "vojoj" ];
-// dosierujo — la dosierujo de mapo en src/ ( ĉiam finiĝas per "/" ).
+// dosierujo — la dosierujo de mapo en kantaoj/ ( ĉiam finiĝas per "/" ).
 function dosierujo(kodo) { return "tero-datumaro/" + kodo + "/"; }
 const mapoDosierujo = dosierujo(mapoDatumo.kodo);
 const DOSIERA_TITOLO = {
@@ -4692,7 +4692,7 @@ const DOSIERA_TITOLO = {
 };
 // La datumoj vivas en PROPRAJ dosieroj ( la krado, akvo, biomoj, bestoj, la
 // objektoj, la urboj kaj la vojoj/dokoj aparte ) — la savo produktas la tutan
-// mapon de dosieroj en src/tero-datumaro/ ( rultempo.ts ne plu skribiĝas ).
+// mapon de dosieroj en kantaoj/tero-datumaro/ ( rultempo.ts ne plu skribiĝas ).
 function generiDosierojn(kodo = mapoDatumo.kodo){
   const dosierujoDeMapo = dosierujo(kodo);
   sinkronigiSuperojn();   // la vivaj ĉel-superoj al la urbo-datumo antaŭ la skribo
@@ -4730,7 +4730,7 @@ function generiDosierojn(kodo = mapoDatumo.kodo){
     "",
     "// ⟨ La akva tavolo 📃 ⟩ — la nivelo de la basenoj kaj la MALNOVA pentrita",
     "// akva masko ( nun nur la basenaj semoj — la akvo mem estas DERIVITA de la",
-    "// fontoj per src/akvokalkulo.ts ).",
+    "// fontoj per kantaoj/akvokalkulo.ts ).",
     "export const SKULPTA_AKVA_NIVELO = " + oktala(akvaNiveloValoro) + ";",
     "export const SKULPTA_AKVA_MASKO = " + JSON.stringify(masko64) + ";",
   ].join("\n");
@@ -4741,7 +4741,7 @@ function generiDosierojn(kodo = mapoDatumo.kodo){
     ...komunajKom,
     "",
     "// ⟨ La akvofontoj 📃 ⟩ — la fontoj de la akvo. La akvo ne plu pentrigxas:",
-    "// gxi fluas de cxi tiuj punktoj malsupren laux la tereno ( src/akvokalkulo.ts ),",
+    "// gxi fluas de cxi tiuj punktoj malsupren laux la tereno ( kantaoj/akvokalkulo.ts ),",
     "// plenigante la kavojn kaj eltrancxante la kanalojn. Cxiu fonto - x, z ( mondaj",
     "// unuoj ) kaj fluo ( pli granda fluo = pli profunda kaj pli larghxa rivero ).",
     "export const SKULPTA_AKVOFONTOJ = " + skribiValoron(fontoj) + ";",
@@ -4805,17 +4805,17 @@ function generiDosierojn(kodo = mapoDatumo.kodo){
     ...komunajKom,
     "",
     "// ⟨ La mapoj de la mondo 📃 ⟩ — ĉiu mapo estas SENDEPENDA mondo kun siaj propraj",
-    "// datumoj ( src/tero-datumaro/<kodo>/ — la krado, la akvo, la biomoj, la bestoj,",
+    "// datumoj ( kantaoj/tero-datumaro/<kodo>/ — la krado, la akvo, la biomoj, la bestoj,",
     "// la metitaj objektoj, la urboj kaj la vojoj/dokoj ). La terena skulptilo",
     "// elektas la mapon, redaktas ĝin kaj skribas la datumojn de tiu mapo; la ludo",
     "// legas la mapon markitan per aktiva ( tra la pordo aktiva.ts ).",
     "//",
-    "// formo — la formo de la tereno ( assets/komunajxoj/mapformo.ts ): la cirklo ( la",
+    "// formo — la formo de la tereno ( eskekoj/komunajxoj/mapformo.ts ): la cirklo ( la",
     "// defaŭlto ), la rondigita kvadrato aŭ la rondigita triangulo.",
     "// grandeco — la duon-grando de la formo en mondo-unuoj: la radiuso de la cirklo,",
     "// la duon-larĝo de la kvadrato aŭ la cirkumradiuso de la triangulo.",
     "//",
-    "// La tipo kaj la helpiloj loĝas en src/tero-datumaro/mapregulo.ts.",
+    "// La tipo kaj la helpiloj loĝas en kantaoj/tero-datumaro/mapregulo.ts.",
     "import type { MapoDatumo } from \"./mapregulo.js\";",
     "",
     "export const MAPOJ: MapoDatumo[] = [",
@@ -5112,7 +5112,7 @@ async function saviDosieron(){
     // Sen dosier-elektilo — elŝutu ĉiujn kvar dosierojn.
     for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) elSxuti(teksto, nomo);
     sxangxita = false;
-    statuso("Elsxutite. Metu la dosierojn al src/ kaj reŝargu la ludon");
+    statuso("Elsxutite. Metu la dosierojn al kantaoj/ kaj reŝargu la ludon");
     return;
   }
   // Cxiu dosiero havas sian propran memoritan tenilon ( aŭ novan elekton ).
@@ -5169,10 +5169,10 @@ async function sargiDosieron(){
   } catch { }
 }
 
-// ════════════════════════ Rekta savo al src/tero-datumaro ════════════════════════
+// ════════════════════════ Rekta savo al kantaoj/tero-datumaro ════════════════════════
 // La konserva servilo ( servilo/konservilo.mjs, npm run konservilo ) ricevas
 // la generitan dosierojn per POST kaj skribas ilin rekte al
-// src/tero-datumaro/ — sen dosier-elektilo kaj sen elŝuto. Se la servilo ne
+// kantaoj/tero-datumaro/ — sen dosier-elektilo kaj sen elŝuto. Se la servilo ne
 // kuras, la butono montras instrukcion anstataŭ silente malsukcesi.
 const KONSERVILO = "http://127.0.0.1:4173/";
 async function saviRekteAlDosiero(){
@@ -5196,7 +5196,7 @@ async function saviRekteAlDosiero(){
     const mesagxo = await respondo.text();
     if ( respondo.ok ) {
       sxangxita = false;
-      statuso("Savite rekte al src/ ✔️ ( " + mesagxo + " )");
+      statuso("Savite rekte al kantaoj/ ✔️ ( " + mesagxo + " )");
     } else {
       statuso("La konservilo rifuzis: " + mesagxo);
     }
@@ -5267,7 +5267,7 @@ mapoElektilo.addEventListener("change", () => sxaltiMapon(mapoElektilo.value));
 
 // skribiPerKonservilo — skribu dosierojn per la konserva servilo. Nova mapo
 // bezonas ĝin por krei siajn sep datumdosierojn ( la servilo ankaŭ kontrolas la
-// markilojn, do nenio fremda skribiĝas en src/ ).
+// markilojn, do nenio fremda skribiĝas en kantaoj/ ).
 //     @returns La respondo de la servilo, aŭ null kiam la skribo malsukcesis.
 async function skribiPerKonservilo(dosieroj) {
   try {

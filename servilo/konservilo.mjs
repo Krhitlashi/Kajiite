@@ -1,10 +1,10 @@
 // ≺⧼ Konserva servilo 💾 ⧽≻
 // Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). gxi
-// ricevas la generitan datumaron per POST kaj skribas gxin REKTE al src/ —
-// la datumoj vivas en PROPRAJ dosieroj en src/tero-datumaro/ ( la krado,
+// ricevas la generitan datumaron per POST kaj skribas gxin REKTE al kantaoj/ —
+// la datumoj vivas en PROPRAJ dosieroj en kantaoj/tero-datumaro/ ( la krado,
 // akvo, akvofontoj, biomoj, bestoj, objektoj, urboj kaj vojoj ), kaj la
 // skulptilo sendas ilin kiel JSON { dosieroj. { nomo. teksto } }. La skulptilo
-// montras la butonon „Savi rekte al src/ ✍️“ kiam cxi tiu servilo kuras — la
+// montras la butonon „Savi rekte al kantaoj/ ✍️“ kiam cxi tiu servilo kuras — la
 // savo tiam ne bezonas la dosier-elektilon nek elSxuton.
 //
 // Kuru.   npm run konservilo        ( au. node servilo/konservilo.mjs )
@@ -19,7 +19,7 @@ const PORD = 0o10115;                                // 4173
 // la patro de servilo/ ( la projekto ); NE uzu dirname sur gxi — tio forprenus
 // la lastan nomon ( Kajiite ) kaj la skribo irus al la patro de la projekto!
 const RADIKO = fileURLToPath(new URL("..", import.meta.url));
-const SRC = join(RADIKO, "src");
+const SRC = join(RADIKO, "kantaoj");
 
 // ⟪ La permesitaj datumdosieroj 📃 ⟫ — iliaj titol-markiloj — la servilo skribas nur
 // la sep datumdosierojn kun la ĝusta markilo, kaj nur en dosierujo de mapo
@@ -49,7 +49,7 @@ const REGISTRAJ = {
 // markiloDe — la titol-markilo de la donita dosiera vojo, aŭ null se la vojo ne
 // estas permesita. Akceptataj vojoj — tero-datumaro/<kodo>/<dosiero>.ts ( la
 // sep datumdosieroj ) kaj tero-datumaro/<registra>.ts ( mapoj.ts, aktiva.ts ).
-//     @param nomo ( string ) - La dosiera vojo ( relativaj al src/ ).
+//     @param nomo ( string ) - La dosiera vojo ( relativaj al kantaoj/ ).
 //     @returns La markilo, kiun la enhavo devas komencigi per, aŭ null.
 function markiloDe(nomo) {
   if ( typeof nomo !== "string" ) return null;
@@ -101,7 +101,7 @@ const servilo = createServer(async (peto, respondo) => {
     }
   }
   try {
-    // Sekurigu — la skulptilo skribas nur la datumodosierojn en src/, kaj
+    // Sekurigu — la skulptilo skribas nur la datumodosierojn en kantaoj/, kaj
     // cxiu dosiero devas komencigxi per sia markilo. Akceptu ankoraŭ la
     // malnovan platan korpon ( unu dosiero ) por retro-kongruo.
     let dosieroj;
@@ -129,7 +129,7 @@ const servilo = createServer(async (peto, respondo) => {
       skribitaj++;
     }
     respondo.writeHead(200, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("ok: " + skribitaj + " dosiero(j) al src/");
+    respondo.end("ok: " + skribitaj + " dosiero(j) al kantaoj/");
   } catch ( e ) {
     respondo.writeHead(500, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("Eraro: " + ( e && e.message ? e.message : String(e) ));
@@ -137,5 +137,5 @@ const servilo = createServer(async (peto, respondo) => {
 });
 
 servilo.listen(PORD, "127.0.0.1", () => {
-  console.log("Konservilo — http://127.0.0.1:" + PORD + " → src/tero-datumaro/<mapo>/ ( 7 datumodosieroj + la mapoj-registro )");
+  console.log("Konservilo — http://127.0.0.1:" + PORD + " → kantaoj/tero-datumaro/<mapo>/ ( 7 datumodosieroj + la mapoj-registro )");
 });

@@ -11,23 +11,23 @@
 // La ilo UZAS la ludajn konstruilojn rekte ( la samajn funkciojn kiel la urbo ),
 // do ĝi neniam devojiĝas de la ludo — kio aperas ĉi tie, tio aperas en la mondo.
 // La du kategorioj ( Naturo / Konstruaĵoj ) montriĝas per la samaj funkcioj; la
-// konstruaĵoj eĉ uzas la samajn specifojn kiel src/urbo.ts.
+// konstruaĵoj eĉ uzas la samajn specifojn kiel kantaoj/urbo.ts.
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { konstruiMetitanBeston, gxisdatigiBestojn, konstruiMetitanPetrelon,
-  gxisdatigiPetrelojn } from "../../assets/shalaj-specioj/bestoj.js";
+  gxisdatigiPetrelojn } from "../../eskekoj/shalaj-specioj/bestoj.js";
 import { konstruiSatalon, kreiKlinoTavolon, aldoniKadranTubon,
   aldoniPilolFenestron, aldoniEnirejon, aldoniSteleanSignon,
-  aldoniTavolanRandon, fenestraMargxeno } from "../../assets/konstruajxoj/satalaj-konstruajxoj.js";
-import { kreiOranMaterialon, kreiPordanMaterialon, kreiFenestranMaterialon } from "../../assets/komunajxoj/materialoj.js";
-import { konstruiKrasesxagxon, animaciiKrasesxagxon } from "../../assets/konstruajxoj/krasesxagxa-kosmosxipo.js";
+  aldoniTavolanRandon, fenestraMargxeno } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { kreiOranMaterialon, kreiPordanMaterialon, kreiFenestranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
+import { konstruiKrasesxagxon, animaciiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { konstruiArbaron, konstruiLarikon, konstruiHxsxaksxlefojn,
   konstruiPussxlefojn, konstruiMetitanRokon, konstruiFilikojn,
   konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn, konstruiAltajnPurpurajnFilikojn,
   konstruiHerbon, konstruiMusxajnMontetojn, konstruiFalintajnTrunkojn,
   konstruiCetkuojn, konstruiCakeojn, konstruiLaganSubkreskajxojn,
   konstruiMontajnSubkreskajxojn, konstruiMontajnRokojn, konstruiLikenojn,
-  konstruiLikenSxtonojn, konstruiTrunkajnLikenojn } from "../../assets/shalaj-specioj/vegetajxo.js";
+  konstruiLikenSxtonojn, konstruiTrunkajnLikenojn } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
 
 // ⟨ La helpiloj por la plantoj kaj la rokoj 📃 ⟩ — tiuj konstruiloj DISŜUTAS
 // siajn specimenojn tra la tuta mondo laŭ hazarda semo ( kaj akceptas filtrilojn
@@ -213,7 +213,7 @@ const SPECOJ = [
 ];
 
 // ⟨ La konstruaĵoj kaj iliaj partoj 📃 ⟩ — la dua kategorio. La konstruaĵoj uzas
-// EKZAKTE la specifojn de src/urbo.ts ( w = d = 8, la sama nombro da tavoloj kaj
+// EKZAKTE la specifojn de kantaoj/urbo.ts ( w = d = 8, la sama nombro da tavoloj kaj
 // la sama tavol-alto po tipo, sube = niveloj por la sankteja bazplato ), kun
 // `diamond: false`: la diamanta spegulo sub la konstruaĵo estas mondaĵo, kaj ĝi
 // duigus la modelon kaj fuŝus la kadrigon. La partoj montras unuopajn pecojn de
@@ -831,7 +831,7 @@ function animacii() {
 // ⟨ La hokoj 📃 ⟩ — por la konsolo de la retumilo. La ilo ne havas alian
 // interfacon por demandi la nunan modelon, do tiuj ĉi referencoj permesas
 // kontroli la scenon kaj la animacion permane ( kaj ripari la pozon de la
-// modelo dum la studado ). Vidu la saman skemon en src/sperto.ts.
+// modelo dum la studado ). Vidu la saman skemon en kantaoj/sperto.ts.
 window.inspektilo = {
   THREE, sceno, fotilo, regiloj, bildilo,
   modelo: () => modelo, animacio: () => animacio, tempo: () => tempo,

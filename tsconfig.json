@@ -17,8 +17,8 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
   "include": [
-    "src/**/*.ts",
-    "assets/**/*.ts",
+    "kantaoj/**/*.ts",
+    "eskekoj/**/*.ts",
     "types.d.ts"
   ],
   "exclude": [
