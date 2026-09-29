@@ -2,12 +2,12 @@
 // Urba konstruo. konstruajxoj, vojoj, placoj, lampoj, vegetajxo, nebulo, akvo kaj kanuoj.
 // Modula krada sistemo — vojoj kaj konstruajxaj pozicioj derivitaj de kradaj parametroj.
 import * as THREE from "three";
-import { kunfandiMondajnMeshojn } from "../eskekoj/komunajxoj/kunfandajxoj.js";
-import { konstruiSatalon, TIPARO, KonstruSpec } from "../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
-import { kreiNebulanTeksajxon } from "../eskekoj/komunajxoj/teksajxoj/nebulo.js";
-import { konstruiRiveron, konstruiRiveronNordan, konstruiLagon, konstruiSkulptitanAkvon, RiverData } from "../eskekoj/medio/akvo.js";
+import { kunfandiMondajnMeshojn } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
+import { konstruiSatalon, TIPARO, KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { kreiNebulanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/nebulo.js";
+import { konstruiRiveron, konstruiRiveronNordan, konstruiLagon, konstruiSkulptitanAkvon, RiverData } from "../../eskekoj/medio/akvo.js";
 import { konstruiBestojn, BestoSistemo, konstruiPetrelojn, PetreloSistemo,
-  konstruiMetitanBeston, konstruiMetitanPetrelon } from "../eskekoj/shalaj-specioj/bestoj.js";
+  konstruiMetitanBeston, konstruiMetitanPetrelon } from "../../eskekoj/shalaj-specioj/bestoj.js";
 import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
   konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn,
   konstruiFalintajnTrunkojn, konstruiCetkuojn, konstruiLikenojn, konstruiHxsxaksxlefojn, konstruiTrunkajnLikenojn,
@@ -15,33 +15,33 @@ import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantoj
   konstruiMontajnSubkreskajxojn, konstruiLaganSubkreskajxojn, kronaRadiusoLarika, kronaRadiusoHxsxaksxlefa,
   konstruiPussxlefojn, metiPussxlefojn, VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ, MONTAJ_BIOMOJ,
   AKVAJ_PLANTOJ_BIOMOJ, EKVIZETO_BIOMOJ, konstruiMetitanRokon, konstruiMetitanFilikon,
-  konstruiHerbanTavolon } from "../eskekoj/shalaj-specioj/vegetajxo.js";
-import { kreiPussxlefojnBerojn, MangxajxItemo } from "../eskekoj/mebloj/mangxajxoj.js";
-import { konstruiVojojn, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, plataAltoj, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO, KORNA_R } from "../eskekoj/medio/vojoj.js";
-import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../eskekoj/medio/doko.js";
-import { troviVojaRetajnKunigojn, type VojaRetoVojo, type VojaRetoKunigo } from "../eskekoj/medio/voj-reto.js";
+  konstruiHerbanTavolon } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
+import { kreiPussxlefojnBerojn, MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj.js";
+import { konstruiVojojn, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, plataAltoj, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO, KORNA_R } from "../../eskekoj/medio/vojoj.js";
+import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../../eskekoj/medio/doko.js";
+import { troviVojaRetajnKunigojn, type VojaRetoVojo, type VojaRetoKunigo } from "../../eskekoj/medio/voj-reto.js";
 import { kreiKradon, tipoDeBloko, kradajDerivajoj, skaniVojanReton, superajElDatumo,
   aplikiSuperojn } from "./krado.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
-import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../eskekoj/konstruajxoj/hxeuxfa-lampo.js";
-import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../eskekoj/mebloj/keuxfhxeso.js";
-import { kreiKanoton, Kanoto } from "../eskekoj/medio/transporto.js";
-import { konstruiFiguron, gxisdatigiNpc } from "../eskekoj/shalaj-specioj/homoj.js";
-import type { Figuro, Vesto } from "../eskekoj/shalaj-specioj/homoj.js";
-import { kreiInternanSistemon, InternaSistemo } from "../eskekoj/konstruajxoj/internoj.js";
-import { konstruiKrasesxagxon } from "../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import type { Krasesxagxo } from "../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import { surPosxtelefono } from "./scena.js";
+import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../../eskekoj/konstruajxoj/hxeuxfa-lampo.js";
+import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../../eskekoj/mebloj/keuxfhxeso.js";
+import { kreiKanoton, Kanoto } from "../../eskekoj/medio/transporto.js";
+import { konstruiFiguron, gxisdatigiNpc } from "../../eskekoj/shalaj-specioj/homoj.js";
+import type { Figuro, Vesto } from "../../eskekoj/shalaj-specioj/homoj.js";
+import { kreiInternanSistemon, InternaSistemo } from "../../eskekoj/konstruajxoj/internoj.js";
+import { konstruiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
+import type { Krasesxagxo } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
+import { surPosxtelefono } from "../bildo/scena.js";
 import { riveroZ, alteco, montetaBazo, RIVERA_DUONLARĜO,
   LAGO_X, LAGO_RZ, RIVERA_BUŜO_X, riveraAkvaNivelo, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_FONTO_Z,
   RIVERA_NORDORIENTA_DUONLARĜO, RIVERA_NORDORIENTA_BUŜO_Z,
   cxuEnNordorientaRivero, montaroNordOrienta, skulptitaAkvo, skulptaAkvaLimoj, akvo,
   akvaMeshNivelo, SKULPTA_PASO, SKULPTA_AKVA_NIVELO, SKULPTA_AKTIVA } from "./tereno.js";
-import { VESTOJ } from "../eskekoj/vestaro/vestoj.js";
-import { skulptitaBesto } from "./tero-datumaro/rultempo.js";
+import { VESTOJ } from "../../eskekoj/vestaro/vestoj.js";
+import { skulptitaBesto } from "../tero-datumaro/rultempo.js";
 import { SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_OBJEKTOJ,
-  SKULPTA_URBOJ, SKULPTA_VOJOJ, SKULPTA_DOKOJ } from "./tero-datumaro/aktiva.js";
+  SKULPTA_URBOJ, SKULPTA_VOJOJ, SKULPTA_DOKOJ } from "../tero-datumaro/aktiva.js";
 
 // NebulaSistemo — la nebulaj makuloj kiel UNU GPU-punktsistemo ( antaŭe
 // ĉirkaŭ 0o70 individuaj SpriteMaterial-oj, unu shader-programo kaj unu
@@ -278,7 +278,7 @@ function konstruiMetitajnObjektojn(
 // ⟪ Urba krado 📐 ⟫ — la ĉefurba krado estas DIAMANTA kruca aranĝo kun
 // kvar-flanka simetrio. La krada logiko ( kreiKradon, tipoDeRingo,
 // tipoDeBloko, fazoDeCelo, kradajDerivajoj kaj la tipoj KradaArangxo / CellType /
-// KradaĈelo ) vivas en kantaoj/krado.ts — pura modulo komuna kun la terena
+// KradaĈelo ) vivas en kantaoj/mondo/krado.ts — pura modulo komuna kun la terena
 // skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). La ludo importas ĝin de tie; la
 // skulptilo montras kaj redaktas la saman kradon per kreiKradanPlanon ( la
 // plena voja/sprona logiko kiel puraj datumoj ).
@@ -364,7 +364,7 @@ function konstruiKradanUrbon(
   // sube.
   aplikiSuperojn(ĉeloj, superoj);
   const kolizioj: { x: number; z: number; r: number }[] = [];
-  // La krado-derivaĵoj — komuna kun la skulptilo ( kantaoj/krado.ts ). PASXO 24/40,
+  // La krado-derivaĵoj — komuna kun la skulptilo ( kantaoj/mondo/krado.ts ). PASXO 24/40,
   // stacio 24 norde de la pinto, kvadrata stacidoma ringo 24×24 ĉirkaŭ la
   // pinta baranta domo ( norda flanko 12 norde — 0o14 ), BLOKO 8 ( kvar-bloka
   // ofseto — konstruaĵoj je ±8, kompakta bloko 24×24 ).

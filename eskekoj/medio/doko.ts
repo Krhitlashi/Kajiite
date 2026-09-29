@@ -12,7 +12,7 @@ export const DOKO_PLATFORMA_LARĜO = 0o16/0o10;
 export const DOKO_KADRA_LARĜO = 0o4/0o10;
 
 // DokaSekcio — unu EBENA, piedirebla parto de la doko, la LANDEJO ( la akva
-// parto ). La fiziko ( kantaoj/sperto.ts ) traktas ĉiun sekcion kiel rektangulan
+// parto ). La fiziko ( kantaoj/ludo/sperto.ts ) traktas ĉiun sekcion kiel rektangulan
 // platformon kun ebena supro. La ŝtuparo NE estas sekcio — ĝi estas ordinara
 // voja difino ( vidu stuparajPunktoj ), do la voja konstruilo faras ĝiajn
 // platajn ŝtupojn kaj la fiziko traktas ilin kiel vojajn surfacojn.
@@ -435,7 +435,7 @@ export function konstruiPonton(
 // la voja nivelo ( la kajo alvenas sen ŝtupo ) kaj la akva pinto malsupreniras
 // per ŝtupoj al la landejo super la akvo.
 //
-// ⟨ Unu ebena krado por la fiziko 📃 ⟩ — la kolizia modelo ( kantaoj/sperto.ts )
+// ⟨ Unu ebena krado por la fiziko 📃 ⟩ — la kolizia modelo ( kantaoj/ludo/sperto.ts )
 // traktas ĉiun doko-sekcion kiel REKTANGULAN platformon kun ebena supro, do la
 // doko raportas la landejon kiel sekcion. La ŝtupoj venas kiel vojaj surfacoj,
 // kaj ilia riso restas malpli alta ol 0o1/0o4, do la promenanto supreniras la
@@ -481,7 +481,7 @@ export function konstruiDokon(
   // Harareto pli ol la kadro, por ke la apudaj facoj ne z-flagru.
   const plenaProud = 0o1/0o500;
   // ⟨ La sojloj de la ŝtupoj 📃 ⟩ — la riso de la ŝtuparo ( vidu sube ) restas
-  // sub DU sojloj de la fiziko ( kantaoj/sperto.ts ). SolviDokanKolizion blokas
+  // sub DU sojloj de la fiziko ( kantaoj/ludo/sperto.ts ). SolviDokanKolizion blokas
   // punktojn pli ol 0o1/0o4 sub sekcia supro, kaj la piedirado komencas FALON
   // super 0o1/0o23/0o100 — do 0o1/0o5 promenatas glate ambauxdirekte.
 

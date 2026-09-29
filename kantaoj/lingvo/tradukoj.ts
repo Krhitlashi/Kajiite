@@ -2,7 +2,7 @@
 // La traduk-sistemo de Aranis — la kvin lingvoj ( aih, eo, en, ja, km ) kaj la
 // iloj por apliki ilin al la paĝo.
 import { gkAlIpa, ipaAlLingvo } from "./sonaj-reguloj.js";
-import { TIPARO } from "../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { TIPARO } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 
 const skakefani: Record<string, Record<string, string>> = {
   // ⟪ La aih-a lingvo ( Gawekiif ) 📃 ⟫
@@ -871,7 +871,7 @@ export function nomoAih(klavo: string, tipo = klavo): string {
 
 // Konstruaĵnomoj ( paqN ), trakonomoj ( trakoN ), manĝaĵnomoj
 // ( manĝFokN / manĝTlaN ) kaj la specifaj plantnomoj ( spec* ) povas esti
-// DERIVITAJ de la aih-a Gawekiif per la sonaj reguloj ( kantaoj/sonaj-reguloj.ts )
+// DERIVITAJ de la aih-a Gawekiif per la sonaj reguloj ( kantaoj/lingvo/sonaj-reguloj.ts )
 // kiam la aktiva lingvo ne havas propran tekston. En aih la gk-formo estas jam
 // la fonto, kaj eo/en konservas siajn eksplicitajn plantnomojn.
 // La aria-etikedoj de la trakoj ( ariaTrakoN ) uzas la derivitan trakonomon.

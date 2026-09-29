@@ -45,9 +45,9 @@
 // reliefo ( maldekstra
 // klako ). Savi skribas rekte al la dosiero per la File System Access API
 // ( Chromium ); aliaj retumiloj ricevas elŝuton.
-import { bazaAlteco } from "../../kantaoj/tereno.js";
-// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/interpolo.ts ).
-import { katmullRom } from "../../kantaoj/interpolo.js";
+import { bazaAlteco } from "../../kantaoj/mondo/tereno.js";
+// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/komunajxoj/interpolo.ts ).
+import { katmullRom } from "../../kantaoj/komunajxoj/interpolo.js";
 // ⟪ La mapo 📃 ⟫ — la skulptilo redaktas UNU mapon samtempe. La mapoj estas
 // sendependaj mondoj ( kantaoj/tero-datumaro/mapoj.ts ); ĉiu havas sian propran
 // dosierujon kun la sep datumodosieroj. La registro venas permane ( nur etaj
@@ -63,12 +63,12 @@ import { aktivaMapo, mapoDeKodo } from "../../kantaoj/tero-datumaro/mapregulo.js
 import { FORMOJ, distancoDeFormo, formajRandPunktoj, kreiFormanBazon,
   premuAlFormo, MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
 // ⟪ La akvokalkulo 📃 ⟫ — la akvo estas DERIVITA de la fontoj ( la sama modulo
-// kiel la ludo, kantaoj/akvokalkulo.ts ). La ilo ne plu pentras la maskon: gxi
+// kiel la ludo, kantaoj/mondo/akvokalkulo.ts ). La ilo ne plu pentras la maskon: gxi
 // metas, movas kaj forigas FONTOJN, kaj la riveroj elfluas, la kavoj plenigxas
 // kaj la akva surfaco sekvas la terenon. La malnova pentrita masko restas kiel
 // la basenaj semoj ( la basenoj de la antaŭaj mapoj ).
 import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima,
-  specimenoDulineara } from "../../kantaoj/akvokalkulo.js";
+  specimenoDulineara } from "../../kantaoj/mondo/akvokalkulo.js";
 const mapoKodo = new URLSearchParams(location.search).get("mapo");
 const mapoDatumo = mapoDeKodo(mapoKodo);
 // La datumdosieroj de ĉiuj mapoj — unu globa importo, do aldoni mapon ne
@@ -105,11 +105,11 @@ let mapoGrandeco = mapoDatumo.grandeco;
 // La mapo-registro, redaktebla — ĝi reskribiĝas al mapoj.ts ĉe la savo.
 let mapojRegistroj = MAPOJ.map(m => ( { ...m } ));
 // La urba krado — la Krado-langeto montras kaj redaktas la saman kradon kiun
-// la ludo konstruas el KradaArangxo ( kantaoj/krado.ts — pura modulo, komuna kun
+// la ludo konstruas el KradaArangxo ( kantaoj/mondo/krado.ts — pura modulo, komuna kun
 // la testilo iloj/testoj/krado/urbo.ts ). kreiKradanPlanon donas la plenan
 // planon ( konstruaĵoj, vojoj, spronoj ) kiel purajn datumojn por desegni;
 // validiKradon kontrolas la redaktitan kradon.
-import { kreiKradanPlanon, validiKradon, aldoniVojon, superajElDatumo, superojElDatumo } from "../../kantaoj/krado.js";
+import { kreiKradanPlanon, validiKradon, aldoniVojon, superajElDatumo, superojElDatumo } from "../../kantaoj/mondo/krado.js";
 // La malkodaj funkcioj — la UNU FONTO estas la rultempo de la ludo
 // ( kantaoj/tero-datumaro/rultempo.ts ). Antaŭe la samaj funkcioj estis
 // kopiitaj ĉi tie Kaj en ŝablono por la savo — tri kopioj kiuj facile
@@ -325,7 +325,7 @@ function refari(){
 // ════════════════════════ Kradaj samploj ════════════════════════
 // La krada interpolo ( katmullRom ). Glata C1 kurbo sen la diagonalaj faldoj de
 // la dulineara interpolo — la montodeklivoj ne montras krestojn laŭ la
-// krad-diagonaloj. La kurbo venas de la komuna modulo kantaoj/interpolo.ts, la sama
+// krad-diagonaloj. La kurbo venas de la komuna modulo kantaoj/komunajxoj/interpolo.ts, la sama
 // kiel la ludo kaj la specioj, do la kopioj ne povas devojiĝi.
 // deltoInterp — Dukuba ( Katmull-Rom ) interpolo super la skulpta krado. La
 // valoro cxe kradnodoj restas ekzakte la ĉela valoro; inter la nodoj la
@@ -351,7 +351,7 @@ function maskoInterp(x, z) {
 }
 // ⟨ La akvaj helpiloj 📃 ⟩ — la REZULTO de la akvokalkulo ( ne la pentrita
 // masko ). La ludo legas la samajn kampojn per la samaj specimenaj funkcioj
-// ( kantaoj/akvokalkulo.ts ), do la ilo kaj la ludo montras la saman akvon.
+// ( kantaoj/mondo/akvokalkulo.ts ), do la ilo kaj la ludo montras la saman akvon.
 const ORIGINO = [ X0, Z0 ];
 // akvaKavoInterp — la akva eltrancxo ( la riverlito mordita de la akvo ).
 function akvaKavoInterp(x, z) {
@@ -2704,7 +2704,7 @@ function sxaltiObjektojn(on) {
 
 // ════════════════════════ Krado 🏙️ ( la urba krado ) ════════════════════════
 // La Krado-langeto montras kaj redaktas la saman urban kradon kiun la ludo
-// konstruas el KradaArangxo ( kantaoj/urbo.ts → kantaoj/krado.ts — la sama pura
+// konstruas el KradaArangxo ( kantaoj/mondo/urbo.ts → kantaoj/mondo/krado.ts — la sama pura
 // modulo ). La konstruaĵoj montriĝas NUR dum ĉi tiu langeto estas aktiva —
 // en 2D sur la mapo ( desegniKradanTavolon ) kaj kiel reala 3D-aspekto en la
 // 3D-vido ( rekonstruiKradon3D — la VERAJ konstruaĵoj de la ludo ). La
@@ -4730,7 +4730,7 @@ function generiDosierojn(kodo = mapoDatumo.kodo){
     "",
     "// ⟨ La akva tavolo 📃 ⟩ — la nivelo de la basenoj kaj la MALNOVA pentrita",
     "// akva masko ( nun nur la basenaj semoj — la akvo mem estas DERIVITA de la",
-    "// fontoj per kantaoj/akvokalkulo.ts ).",
+    "// fontoj per kantaoj/mondo/akvokalkulo.ts ).",
     "export const SKULPTA_AKVA_NIVELO = " + oktala(akvaNiveloValoro) + ";",
     "export const SKULPTA_AKVA_MASKO = " + JSON.stringify(masko64) + ";",
   ].join("\n");
@@ -4741,7 +4741,7 @@ function generiDosierojn(kodo = mapoDatumo.kodo){
     ...komunajKom,
     "",
     "// ⟨ La akvofontoj 📃 ⟩ — la fontoj de la akvo. La akvo ne plu pentrigxas:",
-    "// gxi fluas de cxi tiuj punktoj malsupren laux la tereno ( kantaoj/akvokalkulo.ts ),",
+    "// gxi fluas de cxi tiuj punktoj malsupren laux la tereno ( kantaoj/mondo/akvokalkulo.ts ),",
     "// plenigante la kavojn kaj eltrancxante la kanalojn. Cxiu fonto - x, z ( mondaj",
     "// unuoj ) kaj fluo ( pli granda fluo = pli profunda kaj pli larghxa rivero ).",
     "export const SKULPTA_AKVOFONTOJ = " + skribiValoron(fontoj) + ";",

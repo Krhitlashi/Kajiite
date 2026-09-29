@@ -1,10 +1,10 @@
 // ≺⧼ Tereno ⛰️ ⧽≻
 // La terenaj alteco-funkcioj por la Aranis-valo.
-import { skulptaDelta, dekodiMaskon, skulptitaBiomo } from "./tero-datumaro/rultempo.js";
+import { skulptaDelta, dekodiMaskon, skulptitaBiomo } from "../tero-datumaro/rultempo.js";
 import { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO, SKULPTA_AKVOFONTOJ,
-  SKULPTA_AKTIVA, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_PASO } from "./tero-datumaro/aktiva.js";
-import { cxuEnFormo } from "../eskekoj/komunajxoj/mapformo.js";
-import { aktivaMapo } from "./tero-datumaro/mapregulo.js";
+  SKULPTA_AKTIVA, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_PASO } from "../tero-datumaro/aktiva.js";
+import { cxuEnFormo } from "../../eskekoj/komunajxoj/mapformo.js";
+import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima, specimenoDulineara,
   limojDeAkvo, AkvaKalkulo } from "./akvokalkulo.js";
 
@@ -250,13 +250,13 @@ export function bazaAlteco(x: number, z: number): number {
 // ⟪ Re-eksportoj 📃 ⟫ — la skulptita tavolo el la tero-datumaro, por ke la
 // konsumantoj ( sperto.ts, urbo.ts ) legu gxin de cxi tiu modulo kiel la
 // ceteran terenon.
-export { SKULPTA_PASO, SKULPTA_AKTIVA } from "./tero-datumaro/aktiva.js";
-export { SKULPTA_AKVA_NIVELO } from "./tero-datumaro/aktiva.js";
-export { SKULPTA_N, SKULPTA_ORIGINO } from "./tero-datumaro/aktiva.js";
+export { SKULPTA_PASO, SKULPTA_AKTIVA } from "../tero-datumaro/aktiva.js";
+export { SKULPTA_AKVA_NIVELO } from "../tero-datumaro/aktiva.js";
+export { SKULPTA_N, SKULPTA_ORIGINO } from "../tero-datumaro/aktiva.js";
 
 // ⟪ La akvokalkulo 📃 ⟫ — la tuta akva tavolo estas DERIVITA cxe la modulo-
 // sxargxo: la fontoj ( SKULPTA_AKVOFONTOJ ) kaj la malnovaj pentritaj basenoj
-// ( SKULPTA_AKVA_MASKO, la semoj ) pasas tra kantaoj/akvokalkulo.ts, kiu fluigas la
+// ( SKULPTA_AKVA_MASKO, la semoj ) pasas tra kantaoj/mondo/akvokalkulo.ts, kiu fluigas la
 // akvon malsupren, eltrancxas la kanalojn kaj plenigas la basenojn. La ludo ne
 // plu pentras akvon — la fontoj faras tion.
 const AKVA: AkvaKalkulo | null = ( () => {

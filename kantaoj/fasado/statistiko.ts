@@ -2,16 +2,16 @@
 // La diagnoza surmeto. La agordo de la bildigo estas nevidebla el la ludado.
 // oni vidas la fram-mankon sed ne KIU kostas ĝin. Ĉi tiu modulo
 // montras la verajn nombrojn de la bildilo ( renderer.info ) plus la staton de
-// la vidlimo ( kantaoj/vidlimo.ts ) kaj la objekto-censon de la sceno, do ĉiu
+// la vidlimo ( kantaoj/bildo/vidlimo.ts ) kaj la objekto-censon de la sceno, do ĉiu
 // plibonigo de la rendimento mezuriĝas anstataŭ diveniĝi.
 //
 // Ŝaltita per la adreso ?statistiko ( aŭ per la konzolo: statistiko.ŝalti(true) ).
 // La surmetaĵo algluiĝas al la supra maldekstra angulo kaj neniam kaptas la
 // muson — la ludado restas plene funkcia sub ĝi.
 import * as THREE from "three";
-import { kunfandajxoStatistiko } from "../eskekoj/komunajxoj/kunfandajxoj.js";
-import { vidlimaStatistiko } from "./vidlimo.js";
-import { HE_POR_SEKUNDO } from "./unuoj.js";
+import { kunfandajxoStatistiko } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
+import { vidlimaStatistiko } from "../bildo/vidlimo.js";
+import { HE_POR_SEKUNDO } from "../komunajxoj/unuoj.js";
 
 // Kiom da kadroj inter la scenaj censoj. La censo trairas la tutan scenon ( kiel
 // la bildigo mem ), do ĝi ne rulas ĉiukadre — la nombroj estas stabilaj kaj la

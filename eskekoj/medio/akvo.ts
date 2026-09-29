@@ -1,7 +1,7 @@
 // ≺⧼ Akvo 🌊 ⧽≻
 // Riveroj kun animaciaj ondoj kaj spegulaj reflektoj
 import * as THREE from "three";
-import { glataPaso } from "../../kantaoj/tereno.js";
+import { glataPaso } from "../../kantaoj/mondo/tereno.js";
 import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
 
 export type RiverData = { mesh: THREE.Mesh; waterSurfaceY: ( x: number, z: number ) => number };

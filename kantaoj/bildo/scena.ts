@@ -3,19 +3,19 @@
 // la grundo kaj la vetero.
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { alteco, akvaNivelo, akvaNiveloProksima, glataPaso } from "./tereno.js";
-import { traduki } from "./tradukoj.js";
-import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiFenestranMaterialon, kreiOranMaterialon } from "../eskekoj/komunajxoj/materialoj.js";
-import { kreiGrundanTeksajxon } from "../eskekoj/komunajxoj/teksajxoj/grundo.js";
-import { kreiGrundanBumpanTeksajxon } from "../eskekoj/komunajxoj/teksajxoj/grundo-bumpo.js";
-import { kreiNebulTavolanTeksajxon } from "../eskekoj/komunajxoj/teksajxoj/nebula-tavolo.js";
-import { kreiTerenanTeksajxon } from "../eskekoj/komunajxoj/teksajxoj/tereno.js";
+import { alteco, akvaNivelo, akvaNiveloProksima, glataPaso } from "../mondo/tereno.js";
+import { traduki } from "../lingvo/tradukoj.js";
+import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiFenestranMaterialon, kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
+import { kreiGrundanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/grundo.js";
+import { kreiGrundanBumpanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/grundo-bumpo.js";
+import { kreiNebulTavolanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/nebula-tavolo.js";
+import { kreiTerenanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/tereno.js";
 import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
-  terenaStrataKoloroEn } from "../eskekoj/komunajxoj/terenkoloroj.js";
+  terenaStrataKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,
-  MONDO_BAZA_Y } from "../eskekoj/komunajxoj/mapformo.js";
-import { aktivaMapo } from "./tero-datumaro/mapregulo.js";
-import { gxisdatigiSteleanVitron } from "../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+  MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
+import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
+import { gxisdatigiSteleanVitron } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 
 export function montriEraronon(sxargxaEl: HTMLElement): void {
   const d = document.createElement("div");

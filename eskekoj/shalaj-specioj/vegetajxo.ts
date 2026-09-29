@@ -38,7 +38,7 @@ import { kreiBuferanGeometrion, kunfandiDuGeometriojn, kunfandiGeometriojnSenInd
 import { kreiHazardanGenerilon } from "../komunajxoj/hazardo.js";
 import { terenaKoloroEn } from "../komunajxoj/terenkoloroj.js";
 import { glataPaso, akvaNivelo, biomo, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO,
-  type Biomo } from "../../kantaoj/tereno.js";
+  type Biomo } from "../../kantaoj/mondo/tereno.js";
 
 // ⟨ Geometrio ↔ metado 📃 ⟩ — la kronaj geometrioj estas unu unito altaj, sed
 // ilia RADIUSO dependas de la pingla longo. La metaj funkcioj skvamas per la

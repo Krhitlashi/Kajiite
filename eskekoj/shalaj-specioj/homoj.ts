@@ -4408,7 +4408,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
 // iomete. Transiroj inter stari kaj marŝi estas glataj ( movoFaktoro ).
 //     @param fig ( Figuro ) - La NPC-figuro por animacii.
 //     @param deltaTempo ( number ) - Delta tempo en la unuo de la retumila
-//         tempigilo ( vidu kantaoj/unuoj.ts por la konverto al He ).
+//         tempigilo ( vidu kantaoj/komunajxoj/unuoj.ts por la konverto al He ).
 //     @param t ( number ) - Malsupra tempo por oscedoj.
 //     @param alteco ( funkcio ) - Tera alta funkcio por sekvi la terenon.
 //     @param suprajxo ( funkcio ) - La piedebla supraĵo ( la vojoj, dokoj ) —

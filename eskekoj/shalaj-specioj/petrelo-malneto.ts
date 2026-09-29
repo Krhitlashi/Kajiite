@@ -25,8 +25,8 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
-// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/interpolo.ts ).
-import { katmullRom } from "../../kantaoj/interpolo.js";
+// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/komunajxoj/interpolo.ts ).
+import { katmullRom } from "../../kantaoj/komunajxoj/interpolo.js";
 import { petrelajTeksajxoj } from "../komunajxoj/teksajxoj/petrela-plumaro.js";
 
 // PetrelaStacio — unu sekco de la birda korpo. z kaj y estas la centro de la

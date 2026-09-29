@@ -4,7 +4,7 @@
 // La zigurato nomigxas satal ( j͑ʃᴜ ɭʃᴜͷ̗ ) en Iikrhia. noma formo. satalo.
 import * as THREE from "three";
 import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
-import { nomoAih } from "../../kantaoj/tradukoj.js";
+import { nomoAih } from "../../kantaoj/lingvo/tradukoj.js";
 import { kunfandiGeometriojn, kunfandiKajVeldoiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { kreiPordanMaterialon, kreiFenestranMaterialon, kreiOranMaterialon } from "../komunajxoj/materialoj.js";
 import { kreiPilolFenestranFormon, kreiStelanFenestranFormon, kreiRondigitanRektangulanFormon,

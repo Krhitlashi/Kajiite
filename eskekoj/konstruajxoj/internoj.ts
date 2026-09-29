@@ -17,7 +17,7 @@ import { generiSkribanTeksajxon } from "../komunajxoj/skripto-rivelilo.js";
 import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
 import { kreiPilolFenestranFormon, kreiStelanFenestranFormon, rondigiKonturon } from "../komunajxoj/formoj.js";
 import { deksesuma, malheligi } from "../komunajxoj/koloroj.js";
-import { nomoAih } from "../../kantaoj/tradukoj.js";
+import { nomoAih } from "../../kantaoj/lingvo/tradukoj.js";
 import { kreiMangxajxojn, MangxajxItemo, aldoniVaporon } from "../mebloj/mangxajxoj.js";
 import { aldoniTablon, aldoniSegxon, aldoniManĝtablon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
 import { kreiStelplenanTeksajxon, stelplenaTeksajxo } from "../komunajxoj/teksajxoj/stelplena-cxielo.js";

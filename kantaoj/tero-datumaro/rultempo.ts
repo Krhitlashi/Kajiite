@@ -8,9 +8,9 @@
 // reskribas ) — la mapoj estas sendependaj mondoj en siaj propraj dosierujoj.
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ,
   SKULPTA_AKVA_MASKO, SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
-// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/interpolo.ts ), la sama
+// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/komunajxoj/interpolo.ts ), la sama
 // kiun uzas la specioj kaj la terena skulptilo.
-import { katmullRom } from "../interpolo.js";
+import { katmullRom } from "../komunajxoj/interpolo.js";
 
 // ⟪ Dekodo 📃 ⟫ — unufoje cxe modulo-sxargxo. Malaktiva skulptajxo restas
 // malplena, por ke la ludo ne pagu la kradan logikon.
@@ -59,7 +59,7 @@ function valoroMasko(i: number, j: number): number {
 }
 
 // ⟨ Samplaj funkcioj 📃 ⟩ — dukuba ( Katmull-Rom ) interpolo super la krado.
-// La kurbo mem estas unu fonto en kantaoj/interpolo.ts — la krado, la specioj kaj
+// La kurbo mem estas unu fonto en kantaoj/komunajxoj/interpolo.ts — la krado, la specioj kaj
 // la terena skulptilo uzas la saman funkcion, do neniu kopio devojiĝas.
 
 // skulptaDelta — La skulptita delto de la tereno cxe monda pozicio. La

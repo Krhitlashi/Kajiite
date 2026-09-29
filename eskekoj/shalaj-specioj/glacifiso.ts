@@ -10,8 +10,8 @@
 import * as THREE from "three";
 import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
 import type { Besto, SpecoMalneto } from "./speco-tipoj.js";
-// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/interpolo.ts ).
-import { katmullRom } from "../../kantaoj/interpolo.js";
+// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/komunajxoj/interpolo.ts ).
+import { katmullRom } from "../../kantaoj/komunajxoj/interpolo.js";
 import { kreiGlacifisanHaŭtanTeksajxon } from "../komunajxoj/teksajxoj/glacifisa-hauxto.js";
 import { kreiGlacifisanNaĝilanTeksajxon } from "../komunajxoj/teksajxoj/glacifisa-nagxilo.js";
 

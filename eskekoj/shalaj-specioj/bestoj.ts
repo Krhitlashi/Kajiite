@@ -16,7 +16,7 @@
 // unufoje ), kaj ĉiu besto estas klono de sia malneto — la klonoj kunhavas la
 // samajn geometriojn kaj materialojn, do la bestoj ne kostas teksturojn po unu.
 import * as THREE from "three";
-import { alteco, akvaNivelo, biomo, cxuEnLago } from "../../kantaoj/tereno.js";
+import { alteco, akvaNivelo, biomo, cxuEnLago } from "../../kantaoj/mondo/tereno.js";
 import type { Besto, BestoSistemo, SpecoMalneto } from "./speco-tipoj.js";
 import { kreiKombovicanTeksajxon } from "../komunajxoj/teksajxoj/kombovico.js";
 import { trovuBestajnZonojn } from "./zono-trovilo.js";

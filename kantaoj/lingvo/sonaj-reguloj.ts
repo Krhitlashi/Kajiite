@@ -293,7 +293,7 @@ export function gkAlIpa(gkaTeksto: string): string {
   return avideKongruigi(densigita, ĈIUJ_GK).map(gk => ludo[gk] ?? gk).join("");
 }
 
-// ⟨ Rekta-runa demo 📃 ⟩ — node --experimental-strip-types kantaoj/sonaj-reguloj.ts
+// ⟨ Rekta-runa demo 📃 ⟩ — node --experimental-strip-types kantaoj/lingvo/sonaj-reguloj.ts
 if ( ( import.meta as unknown as { main?: boolean } ).main ) {
   const provoj: [ string, string ][] = [
     [ "paq0", "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ" ],

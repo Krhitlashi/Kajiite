@@ -174,7 +174,7 @@ export interface KunfandajOpcioj {
 }
 
 // La sumaj nombroj de ĉiuj kunfandoj ĝis nun — por la diagnoza surmetaĵo
-// ( kantaoj/statistiko.ts ). Unu nombro diras pli ol la tuta bildigo: "640 meshoj
+// ( kantaoj/fasado/statistiko.ts ). Unu nombro diras pli ol la tuta bildigo: "640 meshoj
 // fariĝis 34" pruvas la ŝparadon sen mezuri kadrojn.
 const kunfandajRezultoj = { antaŭe: 0, poste: 0 };
 
@@ -209,7 +209,7 @@ function renversiVolvon(g: THREE.BufferGeometry): void {
 }
 
 // ⟪ Rapida kunfando de transformitaj geometrioj 📃 ⟫ — la varma vojo de la monda
-// kunfando ( kantaoj/urbo.ts ). La ĝenerala vojo de three.js — geometry.clone(),
+// kunfando ( kantaoj/mondo/urbo.ts ). La ĝenerala vojo de three.js — geometry.clone(),
 // applyMatrix4() kaj mergeGeometries() — trairas la datumaron KVIN fojojn. La
 // klono kopias ĉiun atributon, applyMatrix4 trairas la poziciojn, applyMatrix4
 // trairas la normalojn, mergeAttributes kopias ĉion denove, kaj mergeGeometries

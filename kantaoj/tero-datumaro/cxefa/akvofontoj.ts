@@ -3,7 +3,7 @@
 // ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
 
 // ⟨ La akvofontoj 📃 ⟩ — la fontoj de la akvo. La akvo ne plu pentrigxas: la
-// fontoj difinas, kie gxi naskigxas, kaj la akvokalkulo ( kantaoj/akvokalkulo.ts )
+// fontoj difinas, kie gxi naskigxas, kaj la akvokalkulo ( kantaoj/mondo/akvokalkulo.ts )
 // fluigas gxin malsupren laux la tereno. Cxiu fonto - x, z ( mondaj unuoj ) kaj
 // fluo ( kiom da akvo el la fonto: pli granda fluo = pli profunda kaj pli larghxa
 // rivero, kaj pli granda baseno plenigita ). La fontoj estas redaktataj per la

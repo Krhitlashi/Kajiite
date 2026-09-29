@@ -6,7 +6,7 @@
 // dosieroj kune plenumas la saman rolon, kiun unu dosiero plenumas por la
 // akvaj specoj.
 import * as THREE from "three";
-import { biomo } from "../../kantaoj/tereno.js";
+import { biomo } from "../../kantaoj/mondo/tereno.js";
 import { trovuBestajnZonojn } from "./zono-trovilo.js";
 import { konstruiPetrelanModelon } from "./petrelo-malneto.js";
 

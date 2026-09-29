@@ -5,7 +5,7 @@
 // pentris per la tero-skulptilo ( la besta tavolo ). Ĉi tiu modulo legas tiun
 // tavolon kaj redonas la mondajn poziciojn — la akvaj bestoj uzas ĝin, kaj la
 // petreloj uzas ĝin kun alia bito.
-import { akvo } from "../../kantaoj/tereno.js";
+import { akvo } from "../../kantaoj/mondo/tereno.js";
 import { skulptitaBesto } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO } from "../../kantaoj/tero-datumaro/aktiva.js";
 

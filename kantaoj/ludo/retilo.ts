@@ -3,9 +3,9 @@
 // la aliaj ludantoj. La foraj ludantoj aperas kiel figuroj ( la sama modelo
 // kiel la NPC-oj ), kun glata sekvo de iliaj pozicioj kaj marŝaj animacioj.
 import * as THREE from "three";
-import { konstruiFiguron, marŝSvingo } from "../eskekoj/shalaj-specioj/homoj.js";
-import type { Figuro } from "../eskekoj/shalaj-specioj/homoj.js";
-import { VESTOJ, HARSTILOJ, HARKOLOROJ } from "../eskekoj/vestaro/vestoj.js";
+import { konstruiFiguron, marŝSvingo } from "../../eskekoj/shalaj-specioj/homoj.js";
+import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
+import { VESTOJ, HARSTILOJ, HARKOLOROJ } from "../../eskekoj/vestaro/vestoj.js";
 
 // ⟪ La stata formo 📃 ⟫ — la stato sendata per la retilo. La reala sendo estas
 // malakrigita ( unu sendo ĉiun 0o21/0o100 He );
