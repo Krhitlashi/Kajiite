@@ -203,24 +203,3 @@ export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}
   }
   return teksajxo;
 }
-
-// Generu rapidan glifan strion por UI-elementoj
-export function generiGlifanStrion(height: number, ink: string): HTMLCanvasElement {
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = 0o100;
-  kanvasa.height = height;
-  const kunteksto = kanvasa.getContext("2d")!;
-
-  const blokoLargho = 0o44;
-  const blokoAlto = blokoLargho * 0o14/0o10;
-  const interspaco = blokoAlto * 0o4/0o40;
-  const n = Math.floor(height / ( blokoAlto + interspaco ));
-
-  let y = height - 0o10;
-  for ( let b = 0; b < n; b++ ) {
-    glifaBloko(kunteksto, 0o10, y - blokoAlto, blokoLargho, blokoAlto, ink);
-    y -= ( blokoAlto + interspaco );
-  }
-
-  return kanvasa;
-}

@@ -26,7 +26,8 @@ import { kreiAgojn } from "./agoj.js";
 import { kreiKolizianKradon } from "../mondo/kolizioj.js";
 import { alteco } from "../mondo/tereno.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
-import { kreiScenon, ScenaSistemo } from "../bildo/scena.js";
+import { kreiScenon } from "../bildo/scena.js";
+import type { ScenaSistemo } from "../bildo/scena/tipoj.js";
 import { registriVivantojn, spacigiInstancojn } from "../bildo/vidlimo.js";
 import { kreiStatistikon } from "../fasado/statistiko.js";
 
@@ -36,7 +37,7 @@ import { kreiStatistikon } from "../fasado/statistiko.js";
 const mapoDatumoj = aktivaMapo();
 const mapoFormo = mapoDatumoj.formo;
 const mapoGrandeco = mapoDatumoj.grandeco;
-import type { UrbaSistemo } from "../mondo/urbo.js";
+import type { UrbaSistemo } from "../mondo/urbo/tipoj.js";
 import { konstruiUrbon } from "../mondo/urbo.js";
 import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
 import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, sfx, autoKomenci, registriPostAŭdio } from "../../eskekoj/sonoj/sonoro.js";

@@ -3,9 +3,8 @@
 // la plankaj krampoj, la helika ŝtuparo ( unu plena turno = unu etaĝo ), la
 // lita kaj manĝaĵa detekto kaj la elira prompto. La buklo vokas gxin unu fojon
 // ĉiukadre; gxi mem elektas ĉu ĝi agu ( nur en la interno ).
-import { heliksaAltecxo } from "../../eskekoj/konstruajxoj/internoj.js";
-import type { InternaSistemo } from "../../eskekoj/konstruajxoj/internoj.js";
-import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj.js";
+import { heliksaAltecxo, type InternaSistemo } from "../../eskekoj/konstruajxoj/internoj/tipoj.js";
+import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/tipoj.js";
 import { manĝaKlavo } from "../fasado/paneeloj.js";
 import { traduki } from "../lingvo/tradukoj.js";
 import { agordiPromenanFotilon, movoEniro } from "./piedirado.js";

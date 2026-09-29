@@ -7,7 +7,7 @@ import { radiusaDistanco } from "../../eskekoj/komunajxoj/mapformo.js";
 import type { MapFormo } from "../../eskekoj/komunajxoj/mapformo.js";
 import { cxuAŭdio, sfx } from "../../eskekoj/sonoj/sonoro.js";
 import { alteco, akvo, akvaNivelo } from "../mondo/tereno.js";
-import type { UrbaSistemo } from "../mondo/urbo.js";
+import type { UrbaSistemo } from "../mondo/urbo/tipoj.js";
 import { konstruaĵaNomo, traduki } from "../lingvo/tradukoj.js";
 import { agordiPromenanFotilon, movoEniro } from "./piedirado.js";
 import type { PiedaMondo, PiedaStato } from "./piedirado.js";

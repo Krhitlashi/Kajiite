@@ -1,6 +1,6 @@
 // ≺⧼ La arba trunko 🌳 ⧽≻
 // La komuna trunko de la arboj — la lathe-profilo kun radika larĝiĝo
-// ( kreiTrunkanGeometrion ), kiun kaj la betuloj ( betuloj.ts ) kaj la
+// ( kreiTrunkanGeometrion ), kiun kaj la betuloj ( betuloj/arbaro.ts ) kaj la
 // larikoj ( larikoj.ts ) kunhavas. Ĝi vivas ĉi tie anstataŭ duoble en ambaŭ
 // specioj.
 import * as THREE from "three";

@@ -2,8 +2,8 @@
 // La muzik-ludilo ( Web Audio ) — planas kaj ludas la kantojn de kantoj.js.
 
 import { KANTOJ } from "./kantoj.js";
-import { instrumento } from "./vokoj.js";
-import type { SonoEvento, Sekcio } from "./vokoj.js";
+import { instrumento } from "./vokoj/instrumento.js";
+import type { SonoEvento, Sekcio } from "./vokoj/tipoj.js";
 
 // ⟪ Ludila stato 📃 ⟫
 
@@ -195,9 +195,4 @@ export function sxargiTrako(i: number) {
 /** Get the current track index. */
 export function nunaTrako(): number {
   return L.cur;
-}
-
-/** Get total number of tracks. */
-export function nombroDaTrakoj(): number {
-  return KANTOJ.length;
 }

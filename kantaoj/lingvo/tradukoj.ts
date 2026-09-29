@@ -2,7 +2,7 @@
 // La traduk-sistemo de Aranis — la kvin lingvoj ( aih, eo, en, ja, km ) kaj la
 // iloj por apliki ilin al la paĝo.
 import { gkAlIpa, ipaAlLingvo } from "./sonaj-reguloj.js";
-import { TIPARO } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { TIPARO } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 
 const skakefani: Record<string, Record<string, string>> = {
   // ⟪ La aih-a lingvo ( Gawekiif ) 📃 ⟫

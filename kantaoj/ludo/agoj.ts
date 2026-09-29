@@ -9,7 +9,7 @@
 // eliro de konstruaĵo, la fermoj de la paneloj, la tosto ), venas kiel
 // parametroj — la modulo mem importas nur la sonojn, la tradukojn, la
 // manĝaĵajn klavojn kaj la konstruajn tiparojn.
-import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj.js";
+import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/tipoj.js";
 import type { Kanoto } from "../../eskekoj/medio/transporto.js";
 import { cxuAŭdio, sfx } from "../../eskekoj/sonoj/sonoro.js";
 import { traduki } from "../lingvo/tradukoj.js";

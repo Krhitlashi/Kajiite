@@ -8,8 +8,8 @@
 // La kartaj konstruiloj ( kreiPanelKarton, kreiNomlinion ) estas ankaŭ la
 // sxablono de la vestaro, do ili estas aparte eksportitaj — la vestara panelo
 // mem restas en la orkestrilo ( ĝi bezonas la ludantan figuron ).
-import { TIPARO, KonstruSpec, KonstruTipo } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
-import { FOKS, TLAS } from "../../eskekoj/mebloj/mangxajxoj.js";
+import { TIPARO, KonstruSpec, KonstruTipo } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
+import { FOKS, TLAS } from "../../eskekoj/mebloj/mangxajxoj/datumoj.js";
 import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
 import { aplikiVacepu } from "./efikoj.js";
 
@@ -93,7 +93,7 @@ const SPECIOJ: SpeciaDatumo[] = [
   { key: "specGlacifiso", flavorKey: "flvSpecGlacifiso", grupo: "besto", col: "#d0e8e880" },
   { key: "specMarlaraksxo", flavorKey: "flvSpecMarlaraksxo", grupo: "besto", col: "#c8b09080" },
   { key: "specNeĝopetrelo", flavorKey: "flvSpecNeĝopetrelo", grupo: "besto", col: "#f0f4f680" },
-  // Plantoj de la betularo ( el vegetajxo/betuloj.ts )
+  // Plantoj de la betularo ( el vegetajxo/betuloj/ )
   { key: "specBetulo", flavorKey: "flvSpecBetulo", grupo: "planto", col: "#a0b88880" },
   { key: "specLariko", flavorKey: "flvSpecLariko", grupo: "planto", col: "#c8b85880" },
   { key: "specHxsxaksxlefo", flavorKey: "flvSpecHxsxaksxlefo", grupo: "planto", col: "#a868c880" },

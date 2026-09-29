@@ -4,8 +4,10 @@
 // 5 tieroj supren, 5 malsupren (spegulitaj), LONGAs horizontalaj RONDIGITAJ fenestroj
 // sur cxiu nivelo krom la centra ( kie la pordoj estas ); flosas libere sen soklo aux signo
 import * as THREE from "three";
-import { aldoniKadranTubon, kreiKlinoTavolon, kreiKadranKurbon,
-  aldoniPilolFenestron, fenestraMargxeno } from "./satalaj-konstruajxoj.js";
+import { aldoniKadranTubon } from "./satalaj/pilieroj.js";
+import { aldoniPilolFenestron, fenestraMargxeno } from "./satalaj/fenestroj.js";
+import { kreiKlinoTavolon } from "./satalaj/formoj.js";
+import { kreiKadranKurbon } from "./satalaj/enirejo.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
 

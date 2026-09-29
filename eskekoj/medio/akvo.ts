@@ -451,7 +451,3 @@ export function cxuEnAkvo(x: number, z: number, riverFn: ( x: number ) => number
   const rz = riverFn(x);
   return Math.abs(z - rz) < riverHalfWidth;
 }
-
-export function akvaSurfacaY(x: number, z: number, river: RiverData): number {
-  return river.waterSurfaceY(x, z);
-}

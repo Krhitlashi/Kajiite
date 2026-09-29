@@ -5,8 +5,8 @@
 // la samajn valorojn sen longa listo de legiloj kaj skribiloj.
 import * as THREE from "three";
 import type { Kanoto } from "../../eskekoj/medio/transporto.js";
-import type { KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
-import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj.js";
+import type { KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
+import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/tipoj.js";
 
 // Rezimo — la tri reĝimoj de la ludo. La animacia buklo elektas per gxi la
 // promenan, la internan aŭ la orbitan blokon, kaj la retila stato sendas gxin

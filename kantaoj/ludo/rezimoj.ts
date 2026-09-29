@@ -8,9 +8,9 @@
 // unu objekto — la reĝimaj transiroj movas la ludanton kaj la fotilon rekte.
 import * as THREE from "three";
 import type { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { eniriInternon, eliriInternon as eliriElInterno, sxlosiloDeSpeco } from "../../eskekoj/konstruajxoj/internoj.js";
-import type { InternaSistemo } from "../../eskekoj/konstruajxoj/internoj.js";
-import type { KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { eniriInternon, eliriInternon as eliriElInterno } from "../../eskekoj/konstruajxoj/internoj.js";
+import { sxlosiloDeSpeco, type InternaSistemo } from "../../eskekoj/konstruajxoj/internoj/tipoj.js";
+import type { KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
 import type { LudantaAspekto } from "../fasado/vestejo.js";
 import type { Ludanto } from "./ludanto.js";

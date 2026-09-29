@@ -13,7 +13,7 @@
 import * as THREE from "three";
 import type { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { gxisdatigiAkvon } from "../../eskekoj/medio/akvo.js";
-import { animaciiFlammojn } from "../../eskekoj/konstruajxoj/hxeuxfa-lampo.js";
+import { animaciiFlammojn } from "../../eskekoj/konstruajxoj/hxeuxfa/animacio.js";
 import { gxisdatigiInternon } from "../../eskekoj/konstruajxoj/internoj.js";
 import { animaciiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../../eskekoj/shalaj-specioj/bestoj.js";
@@ -22,7 +22,7 @@ import { gxisdatigiHerbon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/v
 import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
 import type { MapFormo } from "../../eskekoj/komunajxoj/mapformo.js";
 import { alteco, akvaNivelo } from "../mondo/tereno.js";
-import type { UrbaSistemo } from "../mondo/urbo.js";
+import type { UrbaSistemo } from "../mondo/urbo/tipoj.js";
 import { gxisdatigiVidlimojn } from "../bildo/vidlimo.js";
 import type { Minimapo } from "../bildo/minimapo.js";
 import type { Statistiko } from "../fasado/statistiko.js";

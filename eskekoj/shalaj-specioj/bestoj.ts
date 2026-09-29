@@ -31,7 +31,6 @@ import type { Petrelo, PetreloSistemo } from "./petrelo.js";
 
 // La publika vizaĝo — la ludo importas ĉion el ĉi tiu modulo, same kiel
 // antaŭe, do la divido al la speco-dosieroj ne rompas la alvokantojn.
-export { BIOMO_DE_BESTO } from "./speco-tipoj.js";
 export type { Besto, BestoSistemo, SpecoMalneto } from "./speco-tipoj.js";
 export { gxisdatigiPetrelojn, konstruiMetitanPetrelon, konstruiPetrelojn };
 export type { Petrelo, PetreloSistemo };

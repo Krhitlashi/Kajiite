@@ -9,7 +9,7 @@
 // ludilo ) — la pop-upo nur butonumas ilin. Same la krepusko kaj la vetero
 // apartenas al kantaoj/bildo/scena.ts ( aplikiRezimon / aplikiVeteron ).
 import { realaKrepusko } from "../ludo/kalendaro.js";
-import type { Vetero } from "../bildo/scena.js";
+import type { Vetero } from "../bildo/scena/tipoj.js";
 
 // MenuajOpcioj — la elementoj sur kiuj la menuo auxskultas, plus la agoj de la
 // orkestrilo ( la panelaj fermoj ) kaj la sonaj kaj scenaj pordegoj.

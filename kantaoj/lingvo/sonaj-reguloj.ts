@@ -70,10 +70,6 @@ const ĈIUJ_IPA: string[] = Array.from(
   new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ , , ipa ] ) => ipa).filter(Boolean))
 ).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
-const ĈIUJ_LA3OS: string[] = Array.from(
-  new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ , la3 ] ) => la3).filter(Boolean))
-).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
-
 // Gawekiif ( denaska skribo ) ĵetona listo, plej-longa-unue, por gk → IPA.
 const ĈIUJ_GK: string[] = Array.from(
   new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ gk ] ) => gk).filter(Boolean))
@@ -271,15 +267,6 @@ export function ipaAlLingvo(ipaaTeksto: string, lingvaKodo: string): string {
     eligo.unshift("អ");
   }
   return eligo.join("");
-}
-
-/** Konvertu La3os ( kun nombra stenografio ) al IPA-fonema ĉeno. */
-export function la3osAlIpa(la3osaTeksto: string): string {
-  const trovilo: Record<string, string> = {};
-  for ( const [ , la3, ipa ] of [ ...KOMENCAĴ, ...INTERNAĴ ] ) if ( la3 && ipa ) trovilo[la3] = ipa;
-  let eksp = "";
-  for ( const ĉ of la3osaTeksto ) eksp += NUMERA_REV[ĉ] ?? ĉ;
-  return avideKongruigi(eksp, ĈIUJ_LA3OS).map(t => trovilo[t] ?? t).join("");
 }
 
 /**

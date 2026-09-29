@@ -1,8 +1,8 @@
 // ≺⧼ Kantoj 🎵 ⧽≻
 // La kantoj ( spuroj ) de la muziko — datumaro por la ludilo.
 
-import type { SonoEvento, Sekcio, SpuroDateno } from "./vokoj.js";
-import { F, PENT_E, SLENDRO, SL2, NYAM, PENT_A } from "./vokoj.js";
+import type { SonoEvento, Sekcio, SpuroDateno } from "./vokoj/tipoj.js";
+import { F, PENT_E, SLENDRO, SL2, NYAM, PENT_A } from "./vokoj/skaloj.js";
 import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
 
 // ⟪ Reel 01 · Altiplano Dawn · 0o505 He 📃 ⟫

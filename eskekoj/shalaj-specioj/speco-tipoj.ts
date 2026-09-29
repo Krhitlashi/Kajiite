@@ -8,17 +8,6 @@
 // specojn kaj estas la sola fasado, kiun la ludo uzas.
 import * as THREE from "three";
 
-// ⟨ Bestoj ↔ biomoj ( kiu vivas kie ) 📃 ⟩ — la kontrolo de la besta spawno.
-// La akvaj bestoj ( ktenoforoj, glacifiso, marlaraksxo ) vivas en la akva
-// biomo; la neĝopetreloj rondflugas super la montara biomo ( la neĝaj pintoj )
-// kaj super la akva ( la lago kaj la rivero ).
-export const BIOMO_DE_BESTO = {
-  ktenoforoj: "akvo",
-  glacifiso: "akvo",
-  marlaraksxo: "akvo",
-  neĝopetrelo: "montaro",
-} as const;
-
 export interface Besto {
   grupo: THREE.Group;
   korpo: THREE.Mesh;

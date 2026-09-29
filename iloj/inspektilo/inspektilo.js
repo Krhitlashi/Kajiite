@@ -21,7 +21,7 @@ import { konstruiSatalon, kreiKlinoTavolon, aldoniKadranTubon,
   aldoniTavolanRandon, fenestraMargxeno } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 import { kreiOranMaterialon, kreiPordanMaterialon, kreiFenestranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { konstruiKrasesxagxon, animaciiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import { konstruiArbaron } from "../../eskekoj/shalaj-specioj/vegetajxo/betuloj.js";
+import { konstruiArbaron } from "../../eskekoj/shalaj-specioj/vegetajxo/betuloj/arbaro.js";
 import { konstruiLarikon } from "../../eskekoj/shalaj-specioj/vegetajxo/larikoj.js";
 import { konstruiFilikojn } from "../../eskekoj/shalaj-specioj/vegetajxo/filikoj.js";
 import { konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,

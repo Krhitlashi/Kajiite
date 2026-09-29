@@ -3,7 +3,7 @@
 // la vojaj supraĵoj en unuforma haŝo-krado ( ĉeloj de 0o20 unuoj ). Ĝi
 // konstruiĝas unufoje, post la urba konstruado, kaj ĉiuj demandoj legas nur la
 // ĉelojn ĉirkaŭ la demando-punkto — O(1) anstataŭ plena skanado de la urbo.
-import { vojSuprajxoj } from "../../eskekoj/medio/vojoj.js";
+import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
 
 // KoliziaCirklo — la formo de urbo.kolizioj ( la trunkaj kaj lampaj kolizioj ).
 export interface KoliziaCirklo { x: number; z: number; r: number; }
@@ -53,7 +53,7 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
       }
     }
   }
-  // ⟨ Vojaj supraĵoj 📃 ⟩ — la vojaj konstruaj strioj ( el vojoj.ts ) en la saman
+  // ⟨ Vojaj supraĵoj 📃 ⟩ — la vojaj konstruaj strioj ( el vojoj/tipoj.ts ) en la saman
   // spatan kradon. vojaSuproY legas nur la ĉelojn ĉirkaŭ la punkto — O(1) po
   // kadro, kiel la koliziaj cirkloj kaj la dokaj platformoj.
   const vojaKrado = new Map<number, number[]>();
