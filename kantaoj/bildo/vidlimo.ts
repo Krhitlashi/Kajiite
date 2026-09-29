@@ -175,6 +175,37 @@ export function sekviVidlimon(obj: THREE.Object3D, limo: number, radiuso = 0o4,
   aldonu(obj, limo, radiuso, obj.position.x, obj.position.z, true, ombraLimo, ombraj);
 }
 
+// La du limoj de la vivantoj ( vidu la klarigon sube ).
+const VIVANTA_LIMO = 0o200;
+const VIVANTA_OMBRO = 0o50;
+
+// registriVivantojn — La vivantoj ( la NPC-oj, la kanuoj, la bestoj kaj la
+// petreloj ) registriĝas ĉe la vidlimo per sia PROPRA pozicio ( ili moviĝas ), do
+// ilia per-kadra animacio preterlasas la kaŝitojn.
+//
+// La vivanta limo — 0o200 ( 128 ) unuoj. Pli ol la nebula videbleco ( la figuroj
+// restu videblaj kiam ili alproksimiĝas el la nebulo ), malpli ol la tuta mondo.
+//
+// ⟨ La ombra limo de la vivantoj ⟩ — 0o50 ( 40 ) unuoj. Ĉiu figuro konsistas el
+// malmultaj meshoj ( la kapo, la vizaĝo, la du vestaj tavoloj, la kvar membroj,
+// la manoj kaj la haroj — homoj.ts kunfandas ĉion, kio dividas materialon ) kaj
+// markas ĈIUN el ili castShadow, do la NPC-oj estas la plej multaj objektoj de la
+// ombra mapo ( ĉirkaŭ 0o1000 en la vido, pli ol la duono de ĉiuj ombro-kastantoj ).
+// Pli malproksime ol 0o50 unuoj la tero estas jam pli ol duone kovrita de la
+// nebulo, do la ombro de la figuro apenaŭ videblas — sed ĝi kostis plenan desegnan
+// alvokon. La sama limo validas por la kanuoj ( malgranda ombro sur la akvo ).
+export function registriVivantojn(opcioj: {
+  npcoj: { group: THREE.Object3D }[];
+  kanuoj: { group: THREE.Object3D }[];
+  bestoj: { grupo: THREE.Object3D }[];
+  petreloj: { grupo: THREE.Object3D }[];
+}): void {
+  for (const n of opcioj.npcoj) sekviVidlimon(n.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO);
+  for (const k of opcioj.kanuoj) sekviVidlimon(k.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO);
+  for (const b of opcioj.bestoj) sekviVidlimon(b.grupo, VIVANTA_LIMO);
+  for (const p of opcioj.petreloj) sekviVidlimon(p.grupo, VIVANTA_LIMO);
+}
+
 // gxisdatigiVidlimojn — La per-kadra ĝisdatigo. Voku ĝin unufoje po kadro,
 // antaŭ bildilo.render, kun la vidpunkto ( la ludanto aŭ la orbita celo ).
 //     @param x, z ( number ) - La mondaj koordinatoj de la vidpunkto.

@@ -93,7 +93,7 @@ const SPECIOJ: SpeciaDatumo[] = [
   { key: "specGlacifiso", flavorKey: "flvSpecGlacifiso", grupo: "besto", col: "#d0e8e880" },
   { key: "specMarlaraksxo", flavorKey: "flvSpecMarlaraksxo", grupo: "besto", col: "#c8b09080" },
   { key: "specNeĝopetrelo", flavorKey: "flvSpecNeĝopetrelo", grupo: "besto", col: "#f0f4f680" },
-  // Plantoj de la betularo ( el vegetajxo.ts )
+  // Plantoj de la betularo ( el vegetajxo/betuloj.ts )
   { key: "specBetulo", flavorKey: "flvSpecBetulo", grupo: "planto", col: "#a0b88880" },
   { key: "specLariko", flavorKey: "flvSpecLariko", grupo: "planto", col: "#c8b85880" },
   { key: "specHxsxaksxlefo", flavorKey: "flvSpecHxsxaksxlefo", grupo: "planto", col: "#a868c880" },
@@ -130,7 +130,7 @@ export interface PanelajOpcioj {
   gxisdatigiRetikulon: () => void;
   fermiVestaron: () => void;
   skribiElektitan: ( spec: KonstruSpec | null ) => void;
-  eniriKonstruajxon: ( spec: KonstruSpec, bt: KonstruTipo ) => void;
+  eniriKonstruajxon: ( spec: KonstruSpec ) => void;
 }
 
 // Paneeloj — la agoj, kiujn la orkestrilo vokas el la paneloj ( la resto estas
@@ -300,7 +300,7 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     kartoStatistikoj.innerHTML = `<b>${traduki("statTieroj")}</b> ${spec.niveloj} · <b>${traduki("statDiamanto")}</b> ${spec.sube ? traduki("statJes") + " (" + spec.sube + ")" : traduki("statNe")}<br><b>${traduki("statTipo")}</b> ${btLabelo} · <b>${traduki("statPozicio")}</b> X${Math.round(spec.x)} Z${Math.round(spec.z)}`;
     kartoFlavor.textContent = traduki(bt.flavorKey);
     kartoElemento.classList.add("montri");
-    kartoEniri.onclick = () => eniriKonstruajxon(spec, bt);
+    kartoEniri.onclick = () => eniriKonstruajxon(spec);
     // La nova karto-enhavo bezonas la vacepu-vortojn ( aih ).
     aplikiVacepu();
   }

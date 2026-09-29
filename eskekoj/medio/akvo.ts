@@ -93,8 +93,8 @@ function konstruiRiveronLaŭAkso(sceno: THREE.Scene,
   uv.needsUpdate = true;
 
   return { mesh, waterSurfaceY: lauZ
-    ? ( x: number, z: number ) => akvoY(z)
-    : ( x: number, z: number ) => akvoY(x) };
+    ? ( _x: number, z: number ) => akvoY(z)
+    : ( x: number, _z: number ) => akvoY(x) };
 }
 
 // konstruiLagon — Konstruu lagon. Organika akvosurfaco ( la rando sekvas la
@@ -142,7 +142,7 @@ export function konstruiLagon(sceno: THREE.Scene,
   mesh.renderOrder = 0;
   sceno.add(mesh);
 
-  return { mesh, waterSurfaceY: ( x: number, z: number ) => akvoNivelo };
+  return { mesh, waterSurfaceY: ( _x: number, _z: number ) => akvoNivelo };
 }
 
 // konstruiRubandon — Kreu 3D rubando el punktoj kun largho kaj alta lifto.

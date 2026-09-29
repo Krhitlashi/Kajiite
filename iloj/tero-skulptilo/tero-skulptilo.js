@@ -126,8 +126,12 @@ import { konstruiSatalon } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj
 // La realaj specoj de la ludo — la objekta ilo konstruas la VERAN 3D-aspekton
 // de la metitaj objektoj ( samaj konstruantoj kiel la ludo ), por la 2D-bake
 // ( kiel la plena mapo ) kaj la 3D-vido.
-import { konstruiArbaron, konstruiLarikon, konstruiHxsxaksxlefojn, konstruiPussxlefojn,
-  konstruiMetitanRokon, konstruiMetitanFilikon } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
+import { konstruiArbaron } from "../../eskekoj/shalaj-specioj/vegetajxo/betuloj.js";
+import { konstruiLarikon } from "../../eskekoj/shalaj-specioj/vegetajxo/larikoj.js";
+import { konstruiHxsxaksxlefojn } from "../../eskekoj/shalaj-specioj/vegetajxo/hxsxaksxlefo.js";
+import { konstruiPussxlefojn } from "../../eskekoj/shalaj-specioj/vegetajxo/pussxlefo.js";
+import { konstruiMetitanRokon } from "../../eskekoj/shalaj-specioj/vegetajxo/rokoj.js";
+import { konstruiMetitanFilikon } from "../../eskekoj/shalaj-specioj/vegetajxo/filikoj.js";
 import { konstruiMetitanBeston, konstruiMetitanPetrelon } from "../../eskekoj/shalaj-specioj/bestoj.js";
 import { kreiKanoton } from "../../eskekoj/medio/transporto.js";
 import { konstruiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";

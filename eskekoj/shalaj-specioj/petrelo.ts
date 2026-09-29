@@ -127,13 +127,9 @@ function kreiPetrelon(sceno: THREE.Scene,
 // super la tereno ( aŭ super la akvonivelo super la lago ).
 //     @param kvanto ( number ) - Kiom da birdoj.
 //     @param altecoFn ( funkcio ) - Tereno, por la flugalto.
-//     @param riveroFn ( funkcio ) - Rivercentra funkcio z(x).
-//     @param lago ( objekto ) - La lago. x, z, r ( la birdoj rondflugas ĝin ).
 export function konstruiPetrelojn(sceno: THREE.Scene,
   kvanto: number,
-  altecoFn: ( x: number, z: number ) => number,
-  riveroFn: ( x: number ) => number,
-  lago?: { x: number; z: number; r: number }
+  altecoFn: ( x: number, z: number ) => number
 ): PetreloSistemo {
   const petreloj: Petrelo[] = [];
 

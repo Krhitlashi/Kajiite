@@ -8,7 +8,7 @@
 // ( desegniSaganFormon ) estas desegnata sur la plena mapo kaj sendata al la
 // radara nadlo kiel bildo, do ambaŭ mapoj montras unu markilon.
 import * as THREE from "three";
-import { HERBA_TAVOLA_NOMO } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
+import { HERBA_TAVOLA_NOMO } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/gazono.js";
 import { tuŝaGesto } from "../fasado/gestoj.js";
 import { vidlimojnMalŝalti, vidlimojnŜalti } from "./vidlimo.js";
 

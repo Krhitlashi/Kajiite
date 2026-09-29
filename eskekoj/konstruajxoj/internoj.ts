@@ -108,8 +108,6 @@ export function sxlosiloDeSpeco(spec: KonstruSpec): string {
 }
 
 // Dezajnaj konstantaj valoroj
-const MIST = 0xe8f0e8;
-const DIM = 0xa0b8a8;
 const GOLD = 0xd8b068;
 const GOLD_SOFT = 0xc8a858;
 const GOLD_WARM = 0xf8d898;
@@ -896,10 +894,6 @@ function restarigiInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: T
 export function eniriInternon(
   sys: InternaSistemo,
   spec: KonstruSpec,
-  dioritaMaterialo: THREE.MeshStandardMaterial,
-  andezitaMaterialo: THREE.MeshStandardMaterial,
-  oraMaterialo: THREE.MeshStandardMaterial,
-  eniraMaterialo: THREE.MeshStandardMaterial,
   cxefaSceno: THREE.Scene,
   pordaAngulo = 0,
   tolaKoloro: number,
@@ -982,7 +976,6 @@ export function eniriInternon(
   });
   // Komunaj materialoj por dekoracioj
   const oraBazaMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
-  const oraTrimMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
 
   const group = new THREE.Group();
   // Meblaro-materialoj — preferu la KOLOROJN de la konstruajxo ( muraTipo .

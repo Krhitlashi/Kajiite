@@ -172,7 +172,7 @@ const JA_KONSONANTAJ_RULEROJ: Record<string, [ string, string ]> = {
   tɬ: [ "tɬ", "ト" ],
 };
 
-function katakanaVico(kon: string, rulo: [ string, string ]): Record<string, string> {
+function katakanaVico(rulo: [ string, string ]): Record<string, string> {
   const [ speco, bazo ] = rulo;
   let vico: Record<string, string>;
   if ( speco === "gojūon" ) vico = { ...JA_GOJŪON[bazo] };
@@ -187,7 +187,7 @@ function katakanaVico(kon: string, rulo: [ string, string ]): Record<string, str
 
 const JA_KV_KOMBOJ: Record<string, string> = {};
 for ( const [ kon, rulo ] of Object.entries(JA_KONSONANTAJ_RULEROJ) ) {
-  for ( const [ vokalo, kana ] of Object.entries(katakanaVico(kon, rulo)) ) {
+  for ( const [ vokalo, kana ] of Object.entries(katakanaVico(rulo)) ) {
     JA_KV_KOMBOJ[kon + vokalo] = kana;
   }
 }

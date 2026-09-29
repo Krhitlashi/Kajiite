@@ -1,11 +1,12 @@
 // ≺⧼ La herbo-puŝantoj 🌿 ⧽≻
-// La gazono cedas sub la piedoj ( vidu gxisdatigiHerbon en vegetajxo.ts ). La
+// La gazono cedas sub la piedoj ( vidu gxisdatigiHerbon en
+// vegetajxo/herbo/vento.ts ). La
 // shadera tabelo havas HERBA_PUSANTOJ glitojn, do nur tiom da figuroj premas
 // samtempe — la plej proksimaj al la vidpunkto, ĉar premon oni vidas nur apud
 // si. La ludanto okupas la unuan gliton dum promenado ( la fotilo povas esti
 // malantaŭ la figuro, do ĝia distanco ne gravas ).
-import { HERBA_PUSANTOJ } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
-import type { HerbaPusanto } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
+import { HERBA_PUSANTOJ } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/vento.js";
+import type { HerbaPusanto } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/vento.js";
 import type { BestoSistemo } from "../../eskekoj/shalaj-specioj/speco-tipoj.js";
 import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
 

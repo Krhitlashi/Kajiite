@@ -3,7 +3,6 @@
 // de ĉiuj moduloj ( la urbo, la akvo, la bestoj, la panelaĵoj kaj la retilo ).
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { kreiKanoton, Kanoto } from "../../eskekoj/medio/transporto.js";
 import { VESTOJ } from "../../eskekoj/vestaro/vestoj.js";
 import { konstruiFiguron } from "../../eskekoj/shalaj-specioj/homoj.js";
 import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
@@ -11,7 +10,8 @@ import { kreiRetilon } from "./retilo.js";
 import { kreiMinimapon } from "../bildo/minimapo.js";
 import { aplikiVacepu, kreiEfikojn } from "../fasado/efikoj.js";
 import { kreiSargxilon } from "../fasado/sxargxo.js";
-import { kreiPaneelojn, manĝaKlavo } from "../fasado/paneeloj.js";
+import { kreiEnkondukon } from "../fasado/enkonduko.js";
+import { kreiPaneelojn } from "../fasado/paneeloj.js";
 import { kreiVestejon } from "../fasado/vestejo.js";
 import { kreiEnigojn } from "../fasado/enigoj.js";
 import { kreiMenuon } from "../fasado/menuo.js";
@@ -20,16 +20,14 @@ import { kreiAnimacion } from "./animacio.js";
 import { kreiLudanton } from "./ludanto.js";
 import { kreiKanuanton } from "./kanuado.js";
 import type { PiedaMondo } from "./piedirado.js";
-import type { LitoInfo } from "./ludanto.js";
+import { kreiAgojn } from "./agoj.js";
 
 
-import { TIPARO } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
-import { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj.js";
 import { kreiKolizianKradon } from "../mondo/kolizioj.js";
-import { alteco, RIVERA_DUONLARĜO, cxuEnLago, RIVERA_NORDORIENTA_DUONLARĜO, skulptitaAkvo } from "../mondo/tereno.js";
+import { alteco } from "../mondo/tereno.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { kreiScenon, ScenaSistemo } from "../bildo/scena.js";
-import { spacigiInstancojn, sekviVidlimon } from "../bildo/vidlimo.js";
+import { registriVivantojn, spacigiInstancojn } from "../bildo/vidlimo.js";
 import { kreiStatistikon } from "../fasado/statistiko.js";
 
 // ⟪ La formo de la mondo 📃 ⟫ — la tereno de la ludo havas la formon de la aktiva
@@ -41,7 +39,7 @@ const mapoGrandeco = mapoDatumoj.grandeco;
 import type { UrbaSistemo } from "../mondo/urbo.js";
 import { konstruiUrbon } from "../mondo/urbo.js";
 import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
-import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, sfx, rumble, autoKomenci, registriPostAŭdio } from "../../eskekoj/sonoj/sonoro.js";
+import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, sfx, autoKomenci, registriPostAŭdio } from "../../eskekoj/sonoj/sonoro.js";
 import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../../eskekoj/sonoj/muziko/ludilo.js";
 
 // ⟪ DOM-elementoj 📃 ⟫
@@ -58,7 +56,6 @@ const vestaVico = document.getElementById("vestaVico")!;
 const sxargxaElemento = document.getElementById("sxargxo")!;
 const stango = document.getElementById("stango")!;
 const sxargxaTitolo = document.getElementById("sxargxaTitolo")!;
-const vinjeto = document.getElementById("vinjeto")!;
 const retikulo = document.getElementById("retikulo")!;
 const balailo = document.getElementById("balailo")!;
 const svingo = document.getElementById("svingo")!;
@@ -114,46 +111,18 @@ const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMateri
 const statistiko = kreiStatistikon(bildilo, sceno, fotilo);
 ( window as unknown as { statistiko: typeof statistiko } ).statistiko = statistiko;
 
-// ⟪ Frua bildigo 📃 ⟫ — la ĉielo, la montoj kaj la tereno jam ekzistas en la
-// sceno antaŭ la urbo. Rendu ilin malantaŭ la glacia ŝarĝa kurtino ( la fono
-// de la malklarigita vitro ) anstataŭ nigra kanvaso. La konstrua cedoj ( jesi )
-// permesas al la retumilo pentri tiujn kadrojn inter la konstruaj sekcioj.
-// La ĉefa buklo ( animacii ) ekas post la urbo kaj la mapo-bakado — cxi tiu
-// malgranda frua buklo haltas tiam ( haltoFrua ).
-// ⟨ Kina drift 📃 ⟩ — dum la sxargxo la fotilo orbitas malrapide ( 0o1/0o10
-// radianoj po He ) ĉirkaŭ la urba centro ( la sanktejo ) kun subtila
-// alta oscilo — kina enkonduko de la valo. Kiam la ĉefa buklo ekas, la
-// Orbit-regiloj transprenas sen salto ( la drifta radiuso 0o110 kuŝas inter
-// minDistance kaj maxDistance ).
-let haltoFrua = false;
-const fruaBildigo = () => {
-  if ( haltoFrua ) return;
-  // Regrandigu se la fenestro sxangxigxis dum la sxargxo ( turnado, regrandigo ).
-  // Post setSize la komparo estas egala, do neniu rebufro okazas cxiukadre.
-  const fruaRatio = Math.min(devicePixelRatio, maksimumaRatio);
-  if ( kanvaso.width !== Math.floor(innerWidth * fruaRatio) || kanvaso.height !== Math.floor(innerHeight * fruaRatio) ) {
-    fotilo.aspect = innerWidth / innerHeight;
-    fotilo.updateProjectionMatrix();
-    bildilo.setSize(innerWidth, innerHeight);
-  }
-  const angulo = ( performance.now() / 0o1000 ) * 0o1/0o10;
-  fotilo.position.set(Math.cos(angulo) * 0o110, 0o30 + Math.sin(angulo * 0o1/0o2) * 0o4, Math.sin(angulo) * 0o110);
-  fotilo.lookAt(0, 0o10, 0);
-  bildilo.render(sceno, fotilo);
-  requestAnimationFrame(fruaBildigo);
-};
-fruaBildigo();
-
-const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, ( p ) => {
-  // La ekstera <cab6tem2>-stango ( la ekstera stilfolio ) plenigas sian
-  // ::before-on per la variablo --តេមិនី ( frakcio 0..1 ).
-  stango.style.setProperty("--តេមិនី", `${Math.round(p * 0o144) / 0o144}`);
-  const novaTitolo = p > 0o33/0o40 ? traduki("sxargxaNebulo") : p > 0o23/0o40 ? traduki("sxargxaTraboj") : p > 0o23/0o100 ? traduki("sxargxaSatalo") : null;
-  if ( novaTitolo !== null && sxargxaTitolo.textContent !== novaTitolo ) {
-    sxargxaTitolo.textContent = novaTitolo;
-    aplikiVacepu();
-  }
+// ⟪ La enkonduko 📃 ⟫ — la kina drivo de la fotilo sub la ŝarĝa kurteno, la
+// titolo kaj la progreso-stango, la GPU-varmigo kaj la fermo de la kurteno vivas
+// en kantaoj/fasado/enkonduko.ts. La frua buklo ekas ĉi tie ( la tereno jam
+// staras ) kaj la ĉefa buklo haltigas ĝin post la urbo.
+const enkonduko = kreiEnkondukon({
+  kanvaso, sxargxaElemento, stango, sxargxaTitolo,
+  bildilo, fotilo, sceno, maksimumaRatio,
+  traduki, aplikiVacepu,
 });
+enkonduko.komenci();
+
+const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, enkonduko.gxisdatigiProgreson);
 // La ceteraj sistemoj de la urbo ( la akvoj, la lampoj, la nebulo, la sxipo, la
 // beroj ) apartenas al la animacia buklo — la orkestrilo donas la TUTAN urban
 // sistemon al gxi per `mondo: urbo` sube.
@@ -161,62 +130,25 @@ const {
   konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
   bestoj, petreloj, kanuoj, npcoj, internaSistemo,
 } = urbo;
-// La urbo kaj la bakita mapo estas pretaj — haltu la fruan bildigon ( la ĉefa
-// buklo ekas ĉe la fino de la dosiero ).
-haltoFrua = true;
+// La urbo estas preta — haltu la enkondukan drivon ( la ĉefa buklo ekas ĉe la
+// fino de la dosiero ).
+enkonduko.halti();
 
 // ⟪ Vidlimo — la bildiga distanco 📃 ⟫ — la mondo registriĝas ĉe la vidlimo
 // ( kantaoj/bildo/vidlimo.ts ) tuj post la konstruado. La grandaj instancigitaj tavoloj
 // ( la arbaroj, la herbo, la rokoj ) disdividiĝas laŭ spaca krado, do ĉiu peco
 // havas propran limigan sferon: la vidkampo kaj la ombra fotilo povas forigi la
 // pecojn ekster la vido, kaj la distanca limo forigas la malgrandajn detalojn
-// antaŭ ol ili eĉ atingas la GPU-on. La vivantoj registriĝas per sia propra
-// pozicio ( ili moviĝas ) — ilia per-kadra animacio preterlasas la kaŝitojn.
+// antaŭ ol ili eĉ atingas la GPU-on. La vivantoj registriĝas per la sama modulo
+// ( registriVivantojn ) per sia propra pozicio.
 // Antaŭe la tuta arbaro ( miloj da instancoj ) kaj ĉiu figuro pasis tra la
 // vertica shadero ĉiukadre, kvankam la nebulo kaŝas ĉion trans ~0o200 unuoj.
 spacigiInstancojn(sceno);
+registriVivantojn({ npcoj, kanuoj, bestoj: bestoj.bestoj, petreloj: petreloj.petreloj });
 
-// ⟪ GPU-varmigo 📃 ⟫ — Antaŭ la unua lud-kadro la bildilo devas kompili la
-// shader-programojn ( la materialoj × la lumoj × la ombra pasumo ) kaj alŝuti
-// la teksajxojn al la GPU. Three faras tion LAZE — je la unua fojo, kiam la
-// materialo aperas en la vido — kaj ĝuste tio estas la "lag" de la unuaj
-// He-oj: ĉiu nova materialo ( nova arba specio, la interno de konstruajxo, la
-// akvo ) haltigas unu kadron por 0o1/0o20–0o34/0o100 He, ĝuste kiam la ludanto
-// turnas la kapon aŭ eniras konstruajxon. La varmigo faras la saman laboron nun,
-// sub la ŝarĝa ekrano ( ĝi ankoraŭ kovras la scenon ), anstataŭ dise tra la
-// unuaj 0o200 He de la ludo. La tuta kosto estas unu plena kadro.
-// ⟨ Kial malmultekosta 📃 ⟩ — la mondo KUNHAVAS la materialojn ( la kaŝmemoroj
-// de la moduloj: materialon, konstruajxaMaterialo, sxovu ), do la programoj
-// estas dekoj, ne centoj. La bakado de la mapo ( bakiMapon ) sekvas kaj ankaŭ
-// desegnas la tutan mondon, do ĝi ne plu trovas malvarman bildilon.
-// ⟨ La kialo de la griza kadro 📃 ⟩ — `compile` antaŭkompilas la ĉefan pasumon
-// por ĈIU materialo de la sceno ( ankaŭ por la objektoj malantaŭ la fotilo aŭ
-// forigitaj de la vidlimo ), sed ĝi ne kovras la OMBRAN pasumon — tiu havas
-// sian propran programon por ĉiu materialo. La plena kadro kun la ombroj
-// fermas tiun truon: la ombra programo kompiliĝas kaj la videblaj teksajxoj
-// alŝutiĝas.
-bildilo.compile(sceno, fotilo);
-bildilo.shadowMap.needsUpdate = true;
-bildilo.render(sceno, fotilo);
-
-// La vivanta limo — 0o200 ( 128 ) unuoj. Pli ol la nebula videbleco ( la
-// figuroj restu videblaj kiam ili alproksimiĝas el la nebulo ), malpli ol la
-// tuta mondo.
-const VIVANTA_LIMO = 0o200;
-// ⟨ La ombra limo de la vivantoj 📃 ⟩ — 0o50 ( 40 ) unuoj. Ĉiu figuro
-// konsistas el malmultaj meshoj ( la kapo, la vizaĝo, la du vestaj tavoloj, la
-// kvar membroj, la manoj kaj la haroj — homoj.ts kunfandas ĉion, kio dividas
-// materialon ) kaj markas ĈIUN el ili castShadow, do la
-// NPC-oj estas la plej multaj objektoj de la ombra mapo ( ĉirkaŭ 0o1000 en la
-// vido, pli ol la duono de ĉiuj ombro-kastantoj ). Pli malproksime ol 0o50
-// unuoj la tero estas jam pli ol duone kovrita de la nebulo, do la ombro de la
-// figuro apenaŭ videblas — sed ĝi kostis plenan desegnan alvokon. La sama limo
-// validas por la kanuoj ( malgranda ombro sur la akvo ).
-const VIVANTA_OMBRO = 0o50;
-for ( const n of npcoj ) sekviVidlimon(n.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO);
-for ( const k of kanuoj ) sekviVidlimon(k.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO);
-for ( const b of bestoj.bestoj ) sekviVidlimon(b.grupo, VIVANTA_LIMO);
-for ( const p of petreloj.petreloj ) sekviVidlimon(p.grupo, VIVANTA_LIMO);
+// ⟪ GPU-varmigo 📃 ⟫ — la antaŭkompilo de la shader-programoj kaj la unua
+// ombra kadro sub la kurteno ( vidu la klarigon en kantaoj/fasado/enkonduko.ts ).
+enkonduko.varmigi();
 
 // ⟪ Ludanta figuro 📃 ⟫ — la NPC-stila modelo de la ludanto. Videbla nur en
 // tria persono, kiam la rado malzomas eksteren dum promenado.
@@ -256,7 +188,6 @@ const { eniriKonstruajxon, eliriInternon, sxaltiRezimon } = kreiRezimojn({
   sceno, fotilo, regiloj, internaSistemo, ludantaFiguro, retilo,
   cxielo: scena.cxielo,
   lumoj: { hemiLumo: scena.hemiLumo, suna: scena.suna, sunaSprajto: scena.sunaSprajto },
-  materialoj: { diorito: dioritaMaterialo, andezito: andezitaMaterialo, oro: oraMaterialo, eniro: eniraMaterialo },
   alteco, sfx, cxuAŭdio, traduki, konstruaĵaNomo, aplikiVacepu,
   montriSargxon, montriTost, pulsiEfikon, fariBalailon,
   gxisdatigiRetikulon,
@@ -300,32 +231,25 @@ const menuo = kreiMenuon({
 });
 const { fermiNaviganPopUp } = menuo;
 
+// ⟪ La agoj 📃 ⟫ — la salto, la E-interago, la kuŝiĝo kaj la manĝado vivas en
+// kantaoj/ludo/agoj.ts. Ili bezonas la kanuan blokon kaj la minimapon, kiuj
+// naskiĝas poste ( ili bezonas la enigon kaj la kolizian kradon ), do tiuj du
+// venas kiel mallongaj pordegoj — la agoj vokiĝas nur en la klako.
+const { salti, agaEskapon, proviInterakti } = kreiAgojn({
+  ludanto, kanuoj, promptoElemento,
+  informo, vestaro, fxVarma, fxMenta,
+  montriTost, fermiInformon,
+  fermiVestaron: () => vestejo.fermi(),
+  eliriKanoton: ( c ) => kanuanto.eliri(c),
+  fermuMapon: () => { if ( minimapo.cxuMalfermita() ) { minimapo.fermi(); return true; } return false; },
+  eniriKonstruajxon, eliriInternon,
+});
+
 // ⟪ La enigo 📃 ⟫ — la klavaro, la stirstango, la rigarda gesto, la
 // telefonaj butonoj, la montra-seruro kaj la rado vivas en
 // kantaoj/fasado/enigoj.ts. La orkestrilo donas al ili la ludanton ( la
 // legilojn kaj la du movilojn de la fotilo ) kaj la agojn, kiujn ili vokas;
 // ili redonas la klav-staton, kiun la mova buklo legas.
-
-// salti — La salto ( Spaco aŭ la telefona butono ). La impuso kaj la forpuŝa
-// sono; la sona forto sekvas la nunan promenan rapidon ( movoValoro ), do kure
-// la forpuŝo kaj la aera ŝŝo estas pli laŭtaj ol de loko.
-function salti(): void {
-  if ( ludanto.rezimo !== "walk" || ludanto.surKanoto || !ludanto.estasSurTERENO ) return;
-  ludanto.rapidoY = 0o74/0o10;
-  ludanto.estasSurTERENO = false;
-  if ( cxuAŭdio() ) sfx.jump(0o4/0o10 + 0o6/0o10 * ludanto.movoValoro);
-}
-
-// agaEskapon — La Escape-klavo fermas la plej supran malfermitan aferon.
-// Kiam la PLENA MAPO estas malfermita, minimapo.fermi devas okupiĝi ( la nura
-// .montri-forigo lasus la mapon malfermita kaj la kompaso rifuzus remalfermi ĝin ).
-function agaEskapon(): void {
-  if ( informo.classList.contains("montri") ) fermiInformon();
-  else if ( vestaro.classList.contains("montri") ) vestejo.fermi();
-  else if ( minimapo.cxuMalfermita() ) minimapo.fermi();
-  else if ( ludanto.rezimo === "interior" ) { if ( ludanto.kuŝas ) leviĝi(); else eliriInternon(); }
-}
-
 const { klavoj, cxuSprintas, cxuSaltas } = kreiEnigojn({
   kanvaso, promptoElemento,
   joystickZono: mobJoystickZono, joystickBazo: mobJoystickBazo, joystickTenilo: mobJoystickTenilo,
@@ -401,117 +325,6 @@ document.getElementById("butHelpi")!.addEventListener("click", () => {
   aplikiVacepu();
 });
 
-// ⟪ Interagu (E-klavo) 📃 ⟫
-function proviInterakti() {
-  if ( ludanto.rezimo === "interior" ) {
-    if ( ludanto.kuŝas ) { leviĝi(); return; }
-    if ( ludanto.plejProksimaLito ) { kuŝiĝi(ludanto.plejProksimaLito); return; }
-    if ( ludanto.plejProksimaManĝaĵo && !ludanto.plejProksimaManĝaĵo.dead ) { konsumi(ludanto.plejProksimaManĝaĵo); return; }
-    eliriInternon(); return;
-  }
-  if ( ludanto.surKanoto ) {
-    const exit = kanuanto.eliri(ludanto.surKanoto);
-    ludanto.pozicio.set(exit.x, 0o155/0o100, exit.z);
-    ludanto.surKanoto = null;
-    promptoElemento.classList.remove("montri");
-    montriTost(traduki("eliri"));
-    return;
-  }
-  // En orbita reximo E movas la fotilon vertikale, do la pordo/kanuo
-  // interago validas nur dum promenado (ne kun malnovaj statoj).
-  if ( ludanto.plejProksimaPordo && ludanto.rezimo === "walk" ) {
-    const bt = TIPARO[ludanto.plejProksimaPordo.type] || TIPARO.domo;
-    eniriKonstruajxon(ludanto.plejProksimaPordo, bt, ludanto.aktivaPordaAngulo);
-    return;
-  }
-  let plejProksima: Kanoto | null = null;
-  let minDistanco = 6;
-  for ( const c of kanuoj ) {
-    const d = Math.hypot(c.x - ludanto.pozicio.x, c.z - ludanto.pozicio.z);
-    if ( d < minDistanco ) { minDistanco = d; plejProksima = c; }
-  }
-  if ( plejProksima ) {
-    ludanto.surKanoto = plejProksima;
-    plejProksima.vx = plejProksima.vz = 0;
-    promptoElemento.classList.remove("montri");
-    montriTost(traduki("regiloKanuo"));
-    if ( cxuAŭdio() ) sfx.splash();
-  }
-  // Pussxlefo-beroj — kolekti ( manĝi ) la beron funkcias same kiel manĝi la
-  // manĝaĵojn en la interno. Nur dum promenado — en orbito E movas la fotilon.
-  if ( ludanto.plejProksimaBero && !ludanto.plejProksimaBero.dead && ludanto.rezimo === "walk" ) {
-    konsumi(ludanto.plejProksimaBero);
-    return;
-  }
-}
-// kuŝiĝi — Kuŝi sur la lito. La fotilo malaltigas al la tola, la kapo sur la
-// kapkuseno ( +x loka ), rigardante la plafonon. La movado haltas ( la lito
-// forigas la movan blokon en la animacia buklo ) ĝis la leviĝo.
-function kuŝiĝi(l: LitoInfo): void {
-  ludanto.kuŝas = true;
-  ludanto.kuŝaStato = l;
-  const specH0 = ludanto.elektitaSpec!.flugoY ?? ( ludanto.elektitaSpec!.h0 || 0 );
-  // La kapo ripozas sur la kapkuseno ĉe la kapo-fino ( +x loka ). La korpo
-  // kuŝas sur la tola ( supro je 0o3/0o10 ) — la fotilo estas iomete super gxi.
-  const kapX = l.lokaX + l.largho / 2 - 0o3/0o10;
-  ludanto.pozicio.set(
-    l.specX + l.cosR * kapX - l.sinR * l.lokaZ,
-    specH0 + l.y + 0o3/0o10,
-    l.specZ + l.sinR * kapX + l.cosR * l.lokaZ
-);
-  // Rigardu la plafonon laŭ la longa akso de la lito ( al la piedo ).
-  ludanto.direkto = Math.atan2(l.cosR, l.sinR);
-  ludanto.klinigxo = 0o7/0o10;
-  ludanto.estasSurTERENO = true;
-  ludanto.rapidoY = 0;
-  ludanto.celDistanco = 0;
-  ludanto.kameraDistanco = 0;
-  promptoElemento.classList.remove("montri");
-  if ( cxuAŭdio() ) sfx.chime();
-}
-// leviĝi — Stari de la piedo de la lito, frontante la liton.
-function leviĝi(): void {
-  if ( !ludanto.kuŝaStato ) { ludanto.kuŝas = false; return; }
-  const l = ludanto.kuŝaStato;
-  ludanto.kuŝas = false;
-  ludanto.kuŝaStato = null;
-  const specH0 = ludanto.elektitaSpec!.flugoY ?? ( ludanto.elektitaSpec!.h0 || 0 );
-  const piedX = l.lokaX - l.largho / 2 - 0o6/0o10;
-  ludanto.pozicio.set(
-    l.specX + l.cosR * piedX - l.sinR * l.lokaZ,
-    specH0 + l.y,
-    l.specZ + l.sinR * piedX + l.cosR * l.lokaZ
-);
-  ludanto.direkto = Math.atan2(-l.cosR, -l.sinR);
-  ludanto.klinigxo = -0o1/0o20;
-  ludanto.estasSurTERENO = true;
-  ludanto.rapidoY = 0;
-  promptoElemento.classList.remove("montri");
-}
-function konsumi(item: MangxajxItemo) {
-  if ( !item || item.dead ) return;
-  item.dead = true;
-  const f = item.f, isFok = item.key.startsWith("fok"), m = item.mesh;
-  const start = performance.now();
-  // La animacio estas nuligebla — kiam la interno estas kasxita kaj reuzata,
-  // la pendanta malkresko ne plu rajtas tuŝi la reaperantan mangxajxon.
-  ( function ŝrumpi() {
-    const t = ( performance.now() - start ) / 480;
-    m.scale.setScalar(Math.max(0o1/0o2000, 1 - t));
-    if ( t < 1 ) item.malkreska = requestAnimationFrame(ŝrumpi); else { m.visible = false; item.malkreska = null; }
-  } )();
-  if ( isFok ) sfx.crunch(); else sfx.sip();
-  const foodKey = manĝaKlavo(f.key);
-  // En aih la gustoj de la novaj manĝaĵoj estas provizore malplenaj — montru
-  // la nomon sole anstataŭ la kruda traduka klavo.
-  const flavoro = traduki(foodKey + "Flavor");
-  montriTost("<i>" + traduki(foodKey) + "</i><br>" + ( flavoro === foodKey + "Flavor" ? "" : flavoro ));
-  const fx = document.getElementById(isFok ? "fxVarma" : "fxMenta")!;
-  fx.classList.remove("fxPulso");
-  void fx.offsetWidth;
-  fx.classList.add("fxPulso");
-}
-
 // ⟪ La krada kolizio 📃 ⟫ — la koliziaj cirkloj, la dokaj platformoj kaj la
 // vojaj supraĵoj en unuforma haŝo-krado ( kantaoj/mondo/kolizioj.ts ). La krado
 // konstruiĝas unufoje — ĉi tie, post la urba konstruado — kaj ĉiuj demandoj
@@ -538,7 +351,7 @@ const minimapo = kreiMinimapon({
   traduki, aplikiVacepu,
 });
 // La ŝarĝa ekrano finiĝas nur kiam ĉio estas preta ( konstruado + bakado ).
-sxargxaElemento.classList.add("finita");
+enkonduko.fini();
 gxisdatigiRetikulon();
 
 // ⟪ La animacio 📃 ⟫ — la ĉefa buklo ( la promenado, la interno, la kanuo, la

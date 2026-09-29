@@ -51,7 +51,6 @@ const ROB_Y_MALSUPRO = 0o7/0o16;                 // 0.4375 — la suba rando de 
 // ankoraŭ 0.125 da videbla pantalono antaŭ la bota rando ( 0.3125 ), do la
 // mantelo legiĝas longa sen kaŝi la botojn.
 const ROB_ALTO = 0o75/0o100;                     // 0.953125
-const ROB_Y_SUPRO = ROB_Y_MALSUPRO + ROB_ALTO;   // 1.390625 — la kolumo
 // ROB_PROFUNDO — Kiom PROFUNDA estas la robo rilate al sia larĝo. Homo estas pli
 // mallarĝa de antaŭe malantaŭen ol dekstre maldekstren, sed la robo estis
 // PERFEKTA CIRKLO — de supre ĝi legiĝis kiel granda disko kaj la figuro aspektis
@@ -103,7 +102,6 @@ const KAPA_Y = 0o15/0o10;                        // 1.625 — la centro de la ka
 // kontraŭ la paŝoj anstataŭ esti rigida parto de la korpo.
 const KOLO_Y = 0o135/0o100;                      // 1.453125 — la bazo de la kolo
 const SASA_Y = 0o212/0o200;                      // 1.078125 — la zono ( la plej mallarĝa torso-ringo )
-const SASA_DUONO = 0o1/0o20;                     // kiom dika la zono ( en mondunuoj )
 // MALEOLO_Y — la alto de la maleolo rilate al la koksa grupo de la kruro. La
 // piedo turniĝas ĉirkaŭ ĉi tiu punkto dum la paŝo ( la ruliĝo de la plando ), do
 // ĝi kongruas kun la plej alta sekco de la bota piedo ( vidu kreiBotan ).
@@ -137,18 +135,6 @@ function volviX(k: CanvasRenderingContext2D, formo: () => void): void {
     formo();
     k.restore();
   }
-}
-
-// kanvasaY — La kanvasa vico de donita mondalto sur vestparto ( la vico 0 estas
-// la supra rando de la parto ). Unu helpilo por la tuta konverto, por ke la
-// motivoj kaj la zono de la tri vestpartoj restu vicigitaj en la mondo.
-//     @param y ( number ) - La mondalto.
-//     @param ySupra ( number ) - La mondalto de la supra rando de la parto.
-//     @param alto ( number ) - La alto de la parto ( en mondunuoj ).
-//     @param h ( number ) - La kanvasa alto ( rastrumeroj ).
-//     @returns y ( number ) - La kanvasa vico.
-function kanvasaY(y: number, ySupra: number, alto: number, h: number): number {
-  return ( ySupra - y ) / alto * h;
 }
 
 // sxtofon — La tuka teksajxo de ĉiuj vestaj kanvasoj. Fajna interplekto

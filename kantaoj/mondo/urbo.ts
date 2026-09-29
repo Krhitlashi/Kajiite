@@ -3,19 +3,32 @@
 // Modula krada sistemo — vojoj kaj konstruajxaj pozicioj derivitaj de kradaj parametroj.
 import * as THREE from "three";
 import { kunfandiMondajnMeshojn } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
-import { konstruiSatalon, TIPARO, KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { konstruiSatalon, KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 import { kreiNebulanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/nebulo.js";
 import { konstruiRiveron, konstruiRiveronNordan, konstruiLagon, konstruiSkulptitanAkvon, RiverData } from "../../eskekoj/medio/akvo.js";
 import { konstruiBestojn, BestoSistemo, konstruiPetrelojn, PetreloSistemo,
   konstruiMetitanBeston, konstruiMetitanPetrelon } from "../../eskekoj/shalaj-specioj/bestoj.js";
-import { metiArbojn, konstruiArbaron, konstruiFilikojn, konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
-  konstruiAltajnPurpurajnFilikojn, konstruiLikenSxtonojn, konstruiLarikon, konstruiHerbon, konstruiMusxajnMontetojn,
-  konstruiFalintajnTrunkojn, konstruiCetkuojn, konstruiLikenojn, konstruiHxsxaksxlefojn, konstruiTrunkajnLikenojn,
-  metiArbojnCxirkauLagon, konstruiHerbonCxirkauLagon, konstruiCakeojn, metiMontajnArbojn, konstruiMontajnRokojn,
-  konstruiMontajnSubkreskajxojn, konstruiLaganSubkreskajxojn, kronaRadiusoLarika, kronaRadiusoHxsxaksxlefa,
-  konstruiPussxlefojn, metiPussxlefojn, VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ, MONTAJ_BIOMOJ,
-  AKVAJ_PLANTOJ_BIOMOJ, EKVIZETO_BIOMOJ, konstruiMetitanRokon, konstruiMetitanFilikon,
-  konstruiHerbanTavolon } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
+import { kronaRadiusoLarika, kronaRadiusoHxsxaksxlefa } from "../../eskekoj/shalaj-specioj/vegetajxo/kronoj.js";
+import { VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ, MONTAJ_BIOMOJ, EKVIZETO_BIOMOJ } from "../../eskekoj/shalaj-specioj/vegetajxo/biomoj.js";
+import { metiArbojn, metiMontajnArbojn, metiPussxlefojn,
+  metiArbojnCxirkauLagon } from "../../eskekoj/shalaj-specioj/vegetajxo/metoj.js";
+import { konstruiMontajnRokojn, konstruiMetitanRokon,
+  konstruiLikenSxtonojn } from "../../eskekoj/shalaj-specioj/vegetajxo/rokoj.js";
+import { konstruiLikenojn, konstruiTrunkajnLikenojn } from "../../eskekoj/shalaj-specioj/vegetajxo/likenoj.js";
+import { konstruiFilikojn, konstruiMetitanFilikon } from "../../eskekoj/shalaj-specioj/vegetajxo/filikoj.js";
+import { konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
+  konstruiAltajnPurpurajnFilikojn } from "../../eskekoj/shalaj-specioj/vegetajxo/purpuraj.js";
+import { konstruiHxsxaksxlefojn } from "../../eskekoj/shalaj-specioj/vegetajxo/hxsxaksxlefo.js";
+import { konstruiPussxlefojn } from "../../eskekoj/shalaj-specioj/vegetajxo/pussxlefo.js";
+import { konstruiArbaron } from "../../eskekoj/shalaj-specioj/vegetajxo/betuloj.js";
+import { konstruiLarikon } from "../../eskekoj/shalaj-specioj/vegetajxo/larikoj.js";
+import { konstruiMontajnSubkreskajxojn,
+  konstruiLaganSubkreskajxojn } from "../../eskekoj/shalaj-specioj/vegetajxo/subkreskajxoj.js";
+import { konstruiMusxajnMontetojn } from "../../eskekoj/shalaj-specioj/vegetajxo/muskoj.js";
+import { konstruiFalintajnTrunkojn } from "../../eskekoj/shalaj-specioj/vegetajxo/falintaj-trunkoj.js";
+import { konstruiCetkuojn, konstruiCakeojn } from "../../eskekoj/shalaj-specioj/vegetajxo/ekvizetoj.js";
+import { konstruiHerbon, konstruiHerbonCxirkauLagon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/tufoj.js";
+import { konstruiHerbanTavolon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/gazono.js";
 import { kreiPussxlefojnBerojn, MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj.js";
 import { konstruiVojojn, konstruiPeriferiajnPlatformojn, konstruiIntersekcajnPlatojn, plataAltoj, VojDifino, VOJA_SUPRO_LEVIGXO, VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO, KORNA_R } from "../../eskekoj/medio/vojoj.js";
 import { konstruiDokon, konstruiPonton, pontaDeko, PONT_FINA_LEVIGXO } from "../../eskekoj/medio/doko.js";
@@ -26,18 +39,18 @@ import type { KradaArangxo, CellType, AldonaBloko } from "./krado.js";
 import { konstruiHxeuxfojn, HxeuxfaSistemo } from "../../eskekoj/konstruajxoj/hxeuxfa-lampo.js";
 import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../../eskekoj/mebloj/keuxfhxeso.js";
 import { kreiKanoton, Kanoto } from "../../eskekoj/medio/transporto.js";
-import { konstruiFiguron, gxisdatigiNpc } from "../../eskekoj/shalaj-specioj/homoj.js";
+import { konstruiFiguron } from "../../eskekoj/shalaj-specioj/homoj.js";
 import type { Figuro, Vesto } from "../../eskekoj/shalaj-specioj/homoj.js";
 import { kreiInternanSistemon, InternaSistemo } from "../../eskekoj/konstruajxoj/internoj.js";
 import { konstruiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import type { Krasesxagxo } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { surPosxtelefono } from "../bildo/scena.js";
-import { riveroZ, alteco, montetaBazo, RIVERA_DUONLARĜO,
-  LAGO_X, LAGO_RZ, RIVERA_BUŜO_X, riveraAkvaNivelo, lagoZ, lagoNivelo, lagoRadio, cxuEnLago, akvaNivelo,
+import { riveroZ, alteco, RIVERA_DUONLARĜO,
+  LAGO_X, LAGO_RZ, RIVERA_BUŜO_X, riveraAkvaNivelo, lagoZ, lagoNivelo, lagoRadio, akvaNivelo,
   riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_FONTO_Z,
   RIVERA_NORDORIENTA_DUONLARĜO, RIVERA_NORDORIENTA_BUŜO_Z,
-  cxuEnNordorientaRivero, montaroNordOrienta, skulptitaAkvo, skulptaAkvaLimoj, akvo,
-  akvaMeshNivelo, SKULPTA_PASO, SKULPTA_AKVA_NIVELO, SKULPTA_AKTIVA } from "./tereno.js";
+  skulptitaAkvo, skulptaAkvaLimoj, akvo,
+  akvaMeshNivelo, SKULPTA_PASO, SKULPTA_AKTIVA } from "./tereno.js";
 import { VESTOJ } from "../../eskekoj/vestaro/vestoj.js";
 import { skulptitaBesto } from "../tero-datumaro/rultempo.js";
 import { SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_OBJEKTOJ,
@@ -348,8 +361,6 @@ function konstruiKradanUrbon(
   sceno: THREE.Scene,
   arangxo: KradaArangxo,
   ofseto: [ number, number ],
-  dioritaMaterialo: THREE.MeshStandardMaterial,
-  andezitaMaterialo: THREE.MeshStandardMaterial,
   oraMaterialo: THREE.MeshStandardMaterial,
   aldonajBlokoj: AldonaBloko[] = [],
   superoj?: Map<string, CellType>,
@@ -368,7 +379,7 @@ function konstruiKradanUrbon(
   // stacio 24 norde de la pinto, kvadrata stacidoma ringo 24×24 ĉirkaŭ la
   // pinta baranta domo ( norda flanko 12 norde — 0o14 ), BLOKO 8 ( kvar-bloka
   // ofseto — konstruaĵoj je ±8, kompakta bloko 24×24 ).
-  const { PASXO, nordaPinto, ringoX, ringoSuda, sudaVojo, stacioZ, staciaRingaNordo, BLOKO } = kradajDerivajoj(arangxo);
+  const { PASXO, nordaPinto, ringoX, sudaVojo, stacioZ, BLOKO } = kradajDerivajoj(arangxo);
 
   // Konstruu la urbon el la kvadrataj celloj
   let bldgIdx = 0;
@@ -684,11 +695,6 @@ function konstruiKradanUrbon(
   // aldonaj blokoj ricevas nenian vojan ringon kaj nenian spronon — ili
   // konstruigxas kiel starantaj konstruajxoj cxe siaj pozicioj.
 
-  // Voja duon-larĝo — la segmenta larĝo estas 0o16/0o10, do ĝia duon-larĝo estas 0o7/0o10.
-  function vojDuonLargho(_g: number): number {
-    return 0o7/0o10;
-  }
-
   // ⟪ Spronvojoj 📃 ⟫
   // ⟨ La spronoj estas ORDINARAJ vojoj 📃 ⟩ — la vojeto de konstruaĵa pordo al
   // la strato nun estas ordinara `VojDifino` en la SAMA listo kiel la kradaj
@@ -953,7 +959,7 @@ export async function konstruiUrbon(
     : [ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
   const urboj = urboListo.map(u => konstruiKradanUrbon(sceno,
     { arangxaGrando: u.arangxaGrando, blokaGrando: u.blokaGrando, keuxfhxeso: !!u.keuxfhxeso, lampoj: u.lampoj !== false },
-    [ u.ofsX, u.ofsZ ], dioritaMaterialo, andezitaMaterialo, oraMaterialo,
+    [ u.ofsX, u.ofsZ ], oraMaterialo,
     u.aldonajBlokoj ?? [], superajElDatumo(u.superoj)));
   const cefa = urboj[0];
   await raporti();
@@ -974,9 +980,6 @@ export async function konstruiUrbon(
   const kradajDifinoj: VojDifino[] = urboj.flatMap(r => r.vojDifinoj);
   const kradajKunigoj: [ number, number ][] = urboj.flatMap(r => r.kunigajPunktoj);
   const kradajFermitaj = new Map<string, [ number, number ]>(urboj.flatMap(r => [ ...r.kunigajFermitaj ]));
-  // La doka avenuo kongruas al la krada vojo de la ĈEFA urbo ( x=12, z=-60 ).
-  const { ringoX, sudaVojo } = cefa;
-
   // ⟪ Rivero 📃 ⟫
   // La ribono etendiĝas okcidenten ĝis la nova mondrando ( x ≤ 0o600 ),
   // do la rivero aspektas longa kaj solviĝas en la nebulon anstataŭ halti ĉe la
@@ -1371,20 +1374,20 @@ export async function konstruiUrbon(
   // malplenaj lokoj ekster la arbareroj estas la ebenaĵa biomo. La inter-arba
   // distanco estas malgranda, por ke la arbaro legiĝu kiel vera arbaro.
   const arboj = metiArbojn(alteco, 0o1400, 0o600, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
-    0o53104, [], 0o10, [], undefined, VALAJ_BIOMOJ);
+    0o53104, [], 0o10, undefined, VALAJ_BIOMOJ);
   const betulajTrunkoj = konstruiArbaron(sceno, arboj);
 
   // Larikoj — miksitaj kun betuloj por pli diversa arbaro
   // La inter-arba distanco estas malgranda, por ke la larikoj vere aperu
   // inter la betuloj — tro granda liberspaco lasis preskaŭ neniun lokon.
   const larikoj = metiArbojn(alteco, 0o700, 0o600, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
-    0o53114, arboj, 0o10, [], kronaRadiusoLarika, VALAJ_BIOMOJ);
+    0o53114, arboj, 0o10, kronaRadiusoLarika, VALAJ_BIOMOJ);
   const larikajTrunkoj = konstruiLarikon(sceno, larikoj);
 
   // Ĥŝakŝlefoj ( ı],ͷ̗ɔʞ ֭ſɭᶗ‹ᴜƽ ꞁȷ̀ᴜꞇ ) — purpuraj laktuk-arboj, 3–5
   // tavoloj de kvar grandaj kurbiĝintaj folioj kaj segmenta ŝelo
   const hxsxaksxlefoj = metiArbojn(alteco, 0o400, 0o600, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
-    0o62445, [ ...arboj, ...larikoj ], 0o10, [], kronaRadiusoHxsxaksxlefa, VALAJ_BIOMOJ);
+    0o62445, [ ...arboj, ...larikoj ], 0o10, kronaRadiusoHxsxaksxlefa, VALAJ_BIOMOJ);
   const hxsxaksxlefojTrunkoj = konstruiHxsxaksxlefojn(sceno, hxsxaksxlefoj);
 
   // Trunkaj likenoj — tridimensiaj krustaj buloj sur iuj arbotrunkoj. La
@@ -1681,7 +1684,7 @@ export async function konstruiUrbon(
   // ⟪ Ktenoforoj 📃 ⟫
   // Travideblaj kombuloj ( Beroe, Mnemiopsis, Pleŭrobrakia ) naĝas en la rivero,
   // evitante la dokojn. Ilia animacio okazas en sperto.ts ( gxisdatigiBestojn ).
-  const bestoj = konstruiBestojn(sceno, 0o30, riveroZ, riveraAkvaNivelo, RIVERA_DUONLARĜO,
+  const bestoj = konstruiBestojn(sceno, 0o30, riveroZ, riveraAkvaNivelo,
     { x: LAGO_X, z: lagoZ(), r: LAGO_RZ, nivelo: lagoNivelo() });
 
   // ⟨ Solida vegetaĵo 📃 ⟩ — nur la trunkoj, rokoj kaj falintaj trunkoj estas
@@ -1719,8 +1722,7 @@ export async function konstruiUrbon(
   // super la biomoj — triono super la montara biomo ( la neĝaj pintoj ), la
   // cetero super la vala lago kaj rivero. Ilia animacio okazas en sperto.ts
   // ( gxisdatigiPetrelojn ).
-  const petreloj = konstruiPetrelojn(sceno, 0o20, alteco, riveroZ,
-    { x: LAGO_X, z: lagoZ(), r: LAGO_RZ });
+  const petreloj = konstruiPetrelojn(sceno, 0o20, alteco);
   await raporti();
 
   // ⟪ NPC-agordo 📃 ⟫ — la vestoj vivas en eskekoj/vestaro/vestoj.ts ( VESTOJ );

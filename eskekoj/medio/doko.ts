@@ -241,7 +241,6 @@ export function konstruiPonton(
   // Kiom da fostoj po flanko — la SAMA ritmo (~2.5-unua interspaco) sendepende de
   // la ponta longo, do longa ponto ne ricevas maldensan balustradon.
   const poloj = Math.max(0o5, Math.round(longo / 0o25/0o10) + 1);
-  const polLargho = 0o7/0o40;           // 0.109 — la duon-larĝo de la diamanta sekco
   const polX = bendoX;                  // Sur la andezita flank-bendo de la deko.
   const geos: THREE.BufferGeometry[] = [];
   for ( const sX of [ -1, 1 ] ) {

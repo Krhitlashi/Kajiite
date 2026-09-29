@@ -105,7 +105,6 @@ export function konstruiBestojn(sceno: THREE.Scene,
   kvanto: number,
   riverFn: ( x: number ) => number,
   akvoYFn: ( x: number ) => number,
-  duonaLargho: number,
   lago?: { x: number; z: number; r: number; nivelo: number }
 ): BestoSistemo {
   const bestoj: Besto[] = [];

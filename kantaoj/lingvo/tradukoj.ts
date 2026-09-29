@@ -312,7 +312,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Vestaro-langetoj
     "taboVestoj": "Vestoj",
     "taboHararo": "Hararo",
-    // Bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo.ts )
+    // Bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo/ )
     "grupoBesto": "Besto",
     "grupoPlanto": "Planto",
     "specBeroe": "Beroo",
@@ -475,7 +475,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // Wardrobe tabs
     "taboVestoj": "Clothing",
     "taboHararo": "Hair",
-    // La bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo.ts )
+    // La bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo/ )
     "grupoBesto": "Animal",
     "grupoPlanto": "Plant",
     "specBeroe": "Beroe",
@@ -637,7 +637,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // ワードローブのタブ
     "taboVestoj": "服",
     "taboHararo": "髪",
-    // 谷の動物と植物 ( bestoj.ts と vegetajxo.ts から )
+    // 谷の動物と植物 ( bestoj.ts と vegetajxo/ から )
     "grupoBesto": "動物",
     "grupoPlanto": "植物",
     "specBeroe": "ベロー",
@@ -788,7 +788,7 @@ const skakefani: Record<string, Record<string, string>> = {
     // ផ្ទាំងសម្លៀកបំពាក់
     "taboVestoj": "សម្លៀកបំពាក់",
     "taboHararo": "សក់",
-    // សត្វ និងរុក្ខជាតិនៃជ្រលង ( ពី bestoj.ts និង vegetajxo.ts )
+    // សត្វ និងរុក្ខជាតិនៃជ្រលង ( ពី bestoj.ts និង vegetajxo/ )
     "grupoBesto": "សត្វ",
     "grupoPlanto": "រុក្ខជាតិ",
     "specBeroe": "បេរ៉ូ",
@@ -943,7 +943,6 @@ function aplikiSkakefanon(lingvo: string): void {
   aktivaLingvo = lingvo;
   // La skribo-direkto ( .menuPanel / #tosto ) sekvas la lingvon per html[lang=...].
   document.documentElement.lang = lingvo;
-  const vortaro = skakefani[lingvo] || skakefani.eo;
   document.querySelectorAll("[data-oskakefani]").forEach(el => {
     const klavo = el.getAttribute("data-oskakefani");
     if ( klavo ) {

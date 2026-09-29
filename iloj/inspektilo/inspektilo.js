@@ -21,13 +21,22 @@ import { konstruiSatalon, kreiKlinoTavolon, aldoniKadranTubon,
   aldoniTavolanRandon, fenestraMargxeno } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 import { kreiOranMaterialon, kreiPordanMaterialon, kreiFenestranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { konstruiKrasesxagxon, animaciiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import { konstruiArbaron, konstruiLarikon, konstruiHxsxaksxlefojn,
-  konstruiPussxlefojn, konstruiMetitanRokon, konstruiFilikojn,
-  konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn, konstruiAltajnPurpurajnFilikojn,
-  konstruiHerbon, konstruiMusxajnMontetojn, konstruiFalintajnTrunkojn,
-  konstruiCetkuojn, konstruiCakeojn, konstruiLaganSubkreskajxojn,
-  konstruiMontajnSubkreskajxojn, konstruiMontajnRokojn, konstruiLikenojn,
-  konstruiLikenSxtonojn, konstruiTrunkajnLikenojn } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
+import { konstruiArbaron } from "../../eskekoj/shalaj-specioj/vegetajxo/betuloj.js";
+import { konstruiLarikon } from "../../eskekoj/shalaj-specioj/vegetajxo/larikoj.js";
+import { konstruiFilikojn } from "../../eskekoj/shalaj-specioj/vegetajxo/filikoj.js";
+import { konstruiPurpurajnPlantojn, konstruiPurpurajnFilikojn,
+  konstruiAltajnPurpurajnFilikojn } from "../../eskekoj/shalaj-specioj/vegetajxo/purpuraj.js";
+import { konstruiHxsxaksxlefojn } from "../../eskekoj/shalaj-specioj/vegetajxo/hxsxaksxlefo.js";
+import { konstruiPussxlefojn } from "../../eskekoj/shalaj-specioj/vegetajxo/pussxlefo.js";
+import { konstruiMontajnRokojn, konstruiMetitanRokon,
+  konstruiLikenSxtonojn } from "../../eskekoj/shalaj-specioj/vegetajxo/rokoj.js";
+import { konstruiLikenojn, konstruiTrunkajnLikenojn } from "../../eskekoj/shalaj-specioj/vegetajxo/likenoj.js";
+import { konstruiMontajnSubkreskajxojn,
+  konstruiLaganSubkreskajxojn } from "../../eskekoj/shalaj-specioj/vegetajxo/subkreskajxoj.js";
+import { konstruiMusxajnMontetojn } from "../../eskekoj/shalaj-specioj/vegetajxo/muskoj.js";
+import { konstruiFalintajnTrunkojn } from "../../eskekoj/shalaj-specioj/vegetajxo/falintaj-trunkoj.js";
+import { konstruiCetkuojn, konstruiCakeojn } from "../../eskekoj/shalaj-specioj/vegetajxo/ekvizetoj.js";
+import { konstruiHerbon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/tufoj.js";
 
 // ⟨ La helpiloj por la plantoj kaj la rokoj 📃 ⟩ — tiuj konstruiloj DISŜUTAS
 // siajn specimenojn tra la tuta mondo laŭ hazarda semo ( kaj akceptas filtrilojn
@@ -79,7 +88,7 @@ const centri = ( grupo ) => {
 
 // ⟨ La specioj 📃 ⟩ — la kvin akvaj malnetoj de la besta modulo ( la indeksoj de
 // konstruiMetitanBeston ), la neĝopetrelo ( kiu havas sian propran flugilon ),
-// kaj la plantoj, la likenoj kaj la rokoj de vegetajxo.ts. La animacio-priskriboj
+// kaj la plantoj, la likenoj kaj la rokoj de vegetajxo/. La animacio-priskriboj
 // venas de la animacia bloko de gxisdatigiBestojn; la plantoj kaj la rokoj ne
 // havas animacion, do ili montras unu senmov­an momenton.
 const SPECOJ = [
@@ -104,7 +113,7 @@ const SPECOJ = [
     priskribo: "Eta mararaneo kun ok longegaj kruroj kaj ĥitina ŝelo ( segmentaj ringoj kaj tuberoj ). La korpo mem estas malgranda — la kruroj portas la specon, kaj ĉiuj ok piedoj kuŝas sur unu ebeno.",
     animacio: "Alterna metakrona paŝado: la kokso balaas la piedon ĉirkaŭ la vertikala akso de la besto kaj la genuo fleksiĝas dum la levo ( la piedo estas en la aero )." },
   // ⟨ La plantoj, la likenoj kaj la rokoj 📃 ⟩ — la samaj konstruiloj kiel la
-  // urbo ( vegetajxo.ts ). Neniu el ili havas animacion, do la momento-regilo
+  // urbo ( vegetajxo/ ). Neniu el ili havas animacion, do la momento-regilo
   // ne movas ilin — sed la kadrigo, la pivotaj aksoj kaj la dratkadro funkcias
   // same kiel ĉe la bestoj, kaj la specimeno montriĝas sola kaj centre.
   // „konstruu“ ricevas malplenan grupon; la konstruilo aldonas siajn meshojn.

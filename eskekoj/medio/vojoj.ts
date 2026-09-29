@@ -1108,9 +1108,7 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
 export function konstruiFontanon(sceno: THREE.Scene,
   x: number, z: number,
   heightFn: ( x: number, z: number ) => number,
-  dioritaMaterialo: THREE.MeshStandardMaterial,
-  andezitaMaterialo: THREE.MeshStandardMaterial,
-  oraMaterialo: THREE.MeshStandardMaterial
+  andezitaMaterialo: THREE.MeshStandardMaterial
 ): THREE.Mesh {
   const y = heightFn(x, z) + 0o2/0o10;
   // Placa disko

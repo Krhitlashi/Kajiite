@@ -18,7 +18,7 @@ import { gxisdatigiInternon } from "../../eskekoj/konstruajxoj/internoj.js";
 import { animaciiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../../eskekoj/shalaj-specioj/bestoj.js";
 import { gxisdatigiNpc, marŝSvingo } from "../../eskekoj/shalaj-specioj/homoj.js";
-import { gxisdatigiHerbon } from "../../eskekoj/shalaj-specioj/vegetajxo.js";
+import { gxisdatigiHerbon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/vento.js";
 import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
 import type { MapFormo } from "../../eskekoj/komunajxoj/mapformo.js";
 import { alteco, akvaNivelo } from "../mondo/tereno.js";
@@ -145,7 +145,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   }
 
   // ⟪ La herbo-puŝantoj 📃 ⟫ — la gazono cedas sub la piedoj ( vidu gxisdatigiHerbon
-  // en vegetajxo.ts ). La glitoj kaj la kandidata elekto vivas en
+  // en vegetajxo/herbo/vento.ts ). La glitoj kaj la kandidata elekto vivas en
   // kantaoj/ludo/herbo-pusantoj.ts — la buklo nur donas la fotilon ĉiukadre.
   const { kolekti: kolektiHerbajnPusantojn } = kreiHerbajnPusantojn({
     npcoj, bestoj,

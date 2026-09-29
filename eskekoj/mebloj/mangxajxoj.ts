@@ -462,7 +462,7 @@ export function kreiPussxlefojnBerojn(g: THREE.Object3D, plantoj: { x: number; h
   });
   const kernoMaterialo = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0o35/0o100 });
   // ⟨ La trunkopinta profilo 📃 ⟩ — la sama profilo kiel en konstruiPussxlefojn
-  // ( vegetajxo.ts ), ĉar la ŝela taso sidas sur la trunko kaj oni bezonas la
+  // ( vegetajxo/pussxlefo.ts ), ĉar la ŝela taso sidas sur la trunko kaj oni bezonas la
   // samajn mezurojn por trovi ĝian internon.
   const trunkopintaProfilon = ( t: number ): number => {
     if ( t <= 0.88 ) return 1;

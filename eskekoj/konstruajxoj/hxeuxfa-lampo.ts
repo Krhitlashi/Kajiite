@@ -2,7 +2,6 @@
 // Trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj
 // sprajtoj. La lampo nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
 import * as THREE from "three";
-import { kreiBrilanTeksajxon } from "../komunajxoj/teksajxoj/brilo.js";
 import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
@@ -78,83 +77,6 @@ function kreiFlamanGeometrion( alto: number, largho: number, ml: number,
   }
   geometrio.computeVertexNormals();
   return geometrio;
-}
-
-// facaAngulo — La angulo de la faco-centro kiu entenas teta. La kvarlata
-// kolono havas angulojn cxe 0°, 90°, 180°, 270° kaj rektajn facojn inter ili.
-function facaAngulo(teta: number): number {
-  return Math.round(( teta - Math.PI / 4 ) / ( Math.PI / 2 )) * ( Math.PI / 2 ) + Math.PI / 4;
-}
-
-// facaRadiuso — La radiuso de la FACETA kolona surfaco cxe alto u kaj angulo
-// teta. La sekco estas kvadrato ( anguloj cxe 0°, 90°, 180°, 270° je radiuso
-// r ), kaj la facoj estas rektaj linioj, do la radiuso cxe angulo teta estas
-// r·cos( 45° )/cos( teta - faco-centro ). La glata konusa formulo donus
-// radiuson r cxie, sed tio flosus super la plataj facoj.
-function facaRadiuso(u: number, teta: number, rBot: number, rTop: number, H: number): number {
-  const r = rBot - ( rBot - rTop ) * ( u / H );
-  const centro = facaAngulo(teta);
-  return r * Math.SQRT1_2 / Math.cos(teta - centro);
-}
-
-// kreiFacetanBendon — Diagonala bendo kiu cxirkauxvolvigxas la kvarlatan
-// konusan kolonon, sekvante la FACETAN surfacon ( ne la glatan konuson )
-// kaj iomete eksteren ( 0o1/0o200 ) por ne z-fajfi kun la kolono. La bendo
-// estas strio de kvarlateroj laux la centro-kurbo, kun fermaj cxapoj cxe la
-// du finoj. La alto-funkcio uJe decidas la kolon-alton por cxiu angulo — la
-// bendo povas faldegi aux volvigi diagonale laux la bezono.
-//     @param uJe ( (teta) => number ) - La kolon-alto por angulo teta.
-//     @param t0, t1 ( number ) - Komenca kaj fina anguloj ( radianoj ).
-//     @param largxo ( number ) - Larĝo de la bendo.
-//     @param rBot, rTop, H ( number ) - Kolonaj malsupra/supra radiusoj kaj alto.
-// @returns bendo
-function kreiFacetanBendon(uJe: ( teta: number ) => number, t0: number, t1: number, largxo: number, rBot: number, rTop: number, H: number): THREE.BufferGeometry {
-  const SEG = 0o20; // 16 segmentoj laux la bendo
-  const EPS = 0o1 / 0o200; // 1/128 — levita iomete super la faco
-  const centroj: THREE.Vector3[] = [];
-  const facoj: THREE.Vector3[] = [];
-  for ( let i = 0; i <= SEG; i++ ) {
-    const t = i / SEG;
-    const teta = t0 + ( t1 - t0 ) * t;
-    const u = uJe(teta);
-    const r = facaRadiuso(u, teta, rBot, rTop, H);
-    const y = -H / 2 + u;
-    const c = Math.cos(teta), s = Math.sin(teta);
-    const fc = facaAngulo(teta);
-    const nx = Math.cos(fc), nz = Math.sin(fc);
-    centroj.push(new THREE.Vector3(r * c + nx * EPS, y, r * s + nz * EPS));
-    facoj.push(new THREE.Vector3(nx, 0, nz));
-  }
-  // Larĝo-direktoj — perpendikulaj al la vojaĝo, en la faca ebeno.
-  const larghoj: THREE.Vector3[] = [];
-  for ( let i = 0; i <= SEG; i++ ) {
-    const antauxa = centroj[Math.max(0, i - 1)];
-    const sekva = centroj[Math.min(SEG, i + 1)];
-    const voja = new THREE.Vector3().subVectors(sekva, antauxa);
-    larghoj.push(new THREE.Vector3().crossVectors(facoj[i], voja).normalize());
-  }
-  const vertoj: number[] = [];
-  const indeksoj: number[] = [];
-  for ( let i = 0; i <= SEG; i++ ) {
-    const C = centroj[i], D = larghoj[i];
-    vertoj.push(C.x - D.x * largxo / 2, C.y - D.y * largxo / 2, C.z - D.z * largxo / 2);
-    vertoj.push(C.x + D.x * largxo / 2, C.y + D.y * largxo / 2, C.z + D.z * largxo / 2);
-  }
-  for ( let i = 0; i < SEG; i++ ) {
-    const a = i * 2, b = a + 1, c2 = a + 2, d = a + 3;
-    indeksoj.push(a, c2, b, b, c2, d);
-  }
-  // Fermaj cxapoj — la centroj kiel apartaj vertoj cxe la du finoj.
-  const lasta = SEG * 2;
-  vertoj.push(centroj[0].x, centroj[0].y, centroj[0].z);
-  vertoj.push(centroj[SEG].x, centroj[SEG].y, centroj[SEG].z);
-  const c0 = ( SEG + 1 ) * 2, cN = c0 + 1;
-  indeksoj.push(0, c0, 1, lasta, lasta + 1, cN);
-  const g = new THREE.BufferGeometry();
-  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(vertoj), 3));
-  g.setIndex(indeksoj);
-  g.computeVertexNormals();
-  return g;
 }
 
 // kreiFalekon — Unu SENINTERROMPA ora linio en faleko-formo sur unu faco de

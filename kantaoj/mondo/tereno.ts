@@ -195,7 +195,7 @@ export function alteco(x: number, z: number): number {
 // La biomo venas TUTE de la PENTRITA tavolo en tero-datumaro/biomoj.ts
 // ( SKULPTA_BIOMOJ,
 // la biomo-ilo de la skulptilo ) — nur la akvo ( la masko ) estas derivaĵo.
-// La plant-metaj kaj bestaj funkcioj ( vegetajxo.ts, bestoj.ts ) legas gxin
+// La plant-metaj kaj bestaj funkcioj ( vegetajxo/metoj.ts, bestoj.ts ) legas gxin
 // por elekti la specojn kaj la densecon — la biomo estas la kontrolo de kiu
 // kreskas kie.
 //   · akvo — la pentrita akvo ( la rivero kaj la lago de la skulptilo ).
@@ -243,7 +243,7 @@ export function biomo(x: number, z: number): Biomo {
 // alteco() = bazaAlteco + skulptaDelta + la akva eltrancxo, do la tuta tereno
 // estas redaktebla en iloj/tero-skulptilo/tero-skulptilo.html — ne plu kaŝita
 // procedura generado.
-export function bazaAlteco(x: number, z: number): number {
+export function bazaAlteco(_x: number, _z: number): number {
   return 0;
 }
 

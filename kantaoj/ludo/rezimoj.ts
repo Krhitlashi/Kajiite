@@ -37,12 +37,6 @@ export interface RezimajOpcioj {
     suna: THREE.DirectionalLight;
     sunaSprajto: THREE.Object3D;
   };
-  materialoj: {
-    diorito: THREE.MeshStandardMaterial;
-    andezito: THREE.MeshStandardMaterial;
-    oro: THREE.MeshStandardMaterial;
-    eniro: THREE.MeshStandardMaterial;
-  };
   alteco: ( x: number, z: number ) => number;
   sfx: { door(): void; chime(): void };
   cxuAŭdio: () => boolean;
@@ -60,7 +54,7 @@ export interface RezimajOpcioj {
 // Rezimoj — la agoj, kiujn la orkestrilo vokas el la reĝimoj ( la resto estas
 // private — la kaŝitaĵoj, la eniro kaj la eliro vivas ene ).
 export interface Rezimoj {
-  eniriKonstruajxon( spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }, pordaAngulo?: number ): void;
+  eniriKonstruajxon( spec: KonstruSpec, pordaAngulo?: number ): void;
   eliriInternon(): void;
   sxaltiRezimon(): void;
 }
@@ -69,7 +63,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
   const {
     kanvaso, butRezimo, kartoElemento, promptoElemento,
     sceno, fotilo, regiloj, internaSistemo, ludantaFiguro, retilo, ludanto,
-    cxielo, lumoj, materialoj, alteco,
+    cxielo, lumoj, alteco,
     sfx, cxuAŭdio, traduki, konstruaĵaNomo, aplikiVacepu,
     montriSargxon, montriTost, pulsiEfikon, fariBalailon,
     gxisdatigiRetikulon, legiVeston,
@@ -110,7 +104,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
   }
 
   // ⟪ Interna vido 📃 ⟫
-  function eniriKonstruajxon(spec: KonstruSpec, bt: { labelKey: string; flavorKey: string }, pordaAngulo = 0) {
+  function eniriKonstruajxon(spec: KonstruSpec, pordaAngulo = 0) {
     ludanto.sxtupaTurno = null;
     // Petu montrilan ŝloson sinĥrone, dum la gesto de la uzanto estas ankoraŭ aktiva.
     if ( document.pointerLockElement !== kanvaso ) kanvaso.requestPointerLock();
@@ -125,7 +119,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
         ludanto.rezimo = "interior";
         ludanto.elektitaSpec = spec;
         const aspekto = legiVeston();
-        const enirPunkto = eniriInternon(internaSistemo, spec, materialoj.diorito, materialoj.andezito, materialoj.oro, materialoj.eniro, sceno, pordaAngulo, aspekto.vesto.ĉefa, aspekto.vesto.akcenta);
+        const enirPunkto = eniriInternon(internaSistemo, spec, sceno, pordaAngulo, aspekto.vesto.ĉefa, aspekto.vesto.akcenta);
         kasxiEksteron();
         const specX = spec.x, specZ = spec.z;
         // La spacosxipa interno flosas ĉe la sxipo (flugoY) — la enira punkto estas

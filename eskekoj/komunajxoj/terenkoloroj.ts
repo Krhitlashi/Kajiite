@@ -69,7 +69,7 @@ export function alternajDiagonalojn(segmentoj: number): Uint32Array {
 // La herbejaj koloroj ( HERBO_A, HERBO_B ) kaj ilia brua mikso restas la
 // sama baza herbo — nur la bordaj kaj subakvaj tavoloj aldoniĝis.
 //
-// ⟨ Iomete pli proksime al la gazono 📃 ⟩ — la malalta gazono ( vegetajxo.ts,
+// ⟨ Iomete pli proksime al la gazono 📃 ⟩ — la malalta gazono ( vegetajxo/herbo/gazono.ts,
 // konstruiHerbanTavolon ) prenas sian KROMEon rekte de ĉi tiu paletro, do la du
 // konservas la saman huon per si mem. La heleco tamen iris malsupren ĉe la herbo
 // ( HERBA_MALHELIGO ) kaj supren ĉi tie — la grundo kaj la gazono renkontiĝas

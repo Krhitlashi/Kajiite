@@ -1,7 +1,7 @@
 // ≺⧼ Ludilo 🎧 ⧽≻
 // La muzik-ludilo ( Web Audio ) — planas kaj ludas la kantojn de kantoj.js.
 
-import { Kanto, KANTOJ } from "./kantoj.js";
+import { KANTOJ } from "./kantoj.js";
 import { instrumento } from "./vokoj.js";
 import type { SonoEvento, Sekcio } from "./vokoj.js";
 
@@ -135,8 +135,6 @@ export function ludi() {
   if ( !L.ctx ) return;
   if ( L.cur < 0 ) sxargi(hazardaTrako());
   if ( L.playing ) { paŭzi(); return; }
-
-  const T = KANTOJ[L.cur];
 
   L.bus = L.ctx.createGain();
   L.bus.gain.setValueAtTime(0.0001, L.ctx.currentTime);

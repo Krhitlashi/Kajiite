@@ -35,7 +35,7 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
   // delton trans la 2π-rivolon ( la frac salto 1→0 ne farigxu turno-salto ).
   let antauxaHeliksaFrac = 0;
 
-  function paŝi( deltaTempo: number, t: number ): void {
+  function paŝi( deltaTempo: number, _t: number ): void {
     if ( ludanto.rezimo !== "interior" ) return;
 
     // ⟪ Kuŝado 📃 ⟫
