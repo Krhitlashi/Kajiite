@@ -292,13 +292,13 @@ function eniri3D(): void {
     sceno3d.background = cieloTeksajxo;
     sceno3d.fog = new THREE.Fog(0xe0f0f0, 0o1000, 0o3000);
     fotilo3d = new THREE.PerspectiveCamera(50, 1, 1, 0o4770);
-    fotilo3d.position.set(0o400, 0o300, 0o400);   // ( 256, 192, 256 )
+    fotilo3d.position.set(0o400, 0o300, 0o400);   // ( 256, 192, 256 ) ។ ទីតាំងដំបូងរបស់កាមេរ៉ា
     bildilo3d = new THREE.WebGLRenderer({ canvas: mapo3d, antialias: true });
     // ពន្លឺ គឺពន្លឺមេឃក្នុងផ្ទះ និងព្រះអាទិត្យពីទិសពាយ័ព្យ។
     const hemo = new THREE.HemisphereLight(0xb8d8e8, 0x384838, 0.9);
     sceno3d.add(hemo);
     const suno = new THREE.DirectionalLight(0xf8f0d8, 1.1);
-    suno.position.set(-0o400, 0o470, 0o300);      // ( -256, 312, 192 )
+    suno.position.set(-0o400, 0o470, 0o300);      // ( -256, 312, 192 ) ។ ទីតាំងរបស់ព្រះអាទិត្យ
     sceno3d.add(suno);
     sceno3d.add(new THREE.AmbientLight(0x404848, 0.4));
     // សំណាញ់ដី គឺសំណាញ់ដូចការឆ្លាក់ ជាមួយពណ៌បញ្ឈរ។
@@ -384,8 +384,8 @@ function eniri3D(): void {
     regiloj3d.target.set(0, 0, 0);
     regiloj3d.enableDamping = true;
     regiloj3d.dampingFactor = 0o1/0o20;
-    regiloj3d.minDistance = 0o60;                    // 48
-    regiloj3d.maxDistance = 0o1400;                  // 768
+    regiloj3d.minDistance = 0o60;                    // 48 ។ ចម្ងាយជិតបំផុតនៃការពង្រីក
+    regiloj3d.maxDistance = 0o1400;                  // 768 ។ ចម្ងាយឆ្ងាយបំផុតនៃការពង្រីក
     regiloj3d.maxPolarAngle = Math.PI * 0.48;
     regiloj3d.mouseButtons = { LEFT: -1, MIDDLE: THREE.MOUSE.PAN, RIGHT: THREE.MOUSE.ROTATE };
     regiloj3d.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };

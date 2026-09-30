@@ -19,6 +19,38 @@ import { aldoniSteleanSignon } from "./satalaj/vitro.js";
 //     @param spec ( KonstruSpec ) - Konstruajxa specifo kun grandeco, tipo, nombro da tieroj.
 //     @param sceno ( THREE.Scene ) - Sceno al kiu aldoni la konstruajxon.
 //     @param selektajxoj ( THREE.Mesh[] ) - Listo de muso-selektajxoj por aldoni la murojn.
+// ⟨ Kaŝmemoro de la tavolaj geometrioj 📃 ⟩ — la mur-tavoloj kaj la oraj framoj
+// dependas NUR de ( tipo, tavoloj, larĝo, profundo, tavol-alto ). La krado havas
+// dekojn da IDENTAJ konstruaĵoj, do ili dividas la saman kunfanditan geometrion
+// anstataŭ resxovi la tutan tavolan buklon por ĉiu kopio — la plej peza parto de
+// la urba konstruado. La geometrio estas nur LEGATA poste ( la kunfando kaj la
+// spegulo klonas ĝin ), do la dividado estas sekura.
+const tavolajKashmemoroj = new Map<string, { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry }>();
+function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: number, estasStacio: boolean): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
+  const supraLargho = estasStacio ? w * 0o5/0o10 : Math.max(0o215/0o100, w * 0o23/0o100);
+  const supraProfundo = estasStacio ? d * 0o5/0o10 : Math.max(0o20/0o10, d * 0o23/0o100);
+  const malpliiX = ( w / 2 - supraLargho / 2 ) / Math.max(1, tiers - 1);
+  const malpliiZ = ( d / 2 - supraProfundo / 2 ) / Math.max(1, tiers - 1);
+  const klino = MURA_KLINO;
+  const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
+  for ( let i = 0; i < tiers; i++ ) {
+    const hw = w / 2 - i * malpliiX, hd = d / 2 - i * malpliiZ, y = i * tieroAlto;
+    const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto);
+    tavolo.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(tavolo);
+    for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
+    aldoniTavolanRandon(kadrajGeometrioj, hw, hd, y, klino, tieroAlto);
+  }
+  return { muroj: kunfandiGeometriojn(murajGeometrioj), kadroj: kunfandiGeometriojn(kadrajGeometrioj) };
+}
+function preniTavolajnGeometriojn(typeKey: string, w: number, d: number, tiers: number, tieroAlto: number): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
+  const klavo = typeKey + "|" + tiers + "|" + w + "|" + d + "|" + tieroAlto;
+  let g = tavolajKashmemoroj.get(klavo);
+  if ( !g ) {
+    g = tavolajGeometrioj(w, d, tiers, tieroAlto, typeKey === "stacioxipo");
+    tavolajKashmemoroj.set(klavo, g);
+  }
+  return g;
+}
 export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajxoj: THREE.Mesh[]): THREE.Group {
   const { niveloj: tiers, tieroAlto, w, d, type: typeKey, name } = spec;
   const sube = spec.sube || 0;
@@ -30,17 +62,11 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   const malpliiX = ( w / 2 - supraLargho / 2 ) / Math.max(1, tiers - 1), malpliiZ = ( d / 2 - supraProfundo / 2 ) / Math.max(1, tiers - 1);
   const T = TIPARO[typeKey] || TIPARO.domo;
   const muraKoloro = T.wall, kadraKoloro = T.frame;
-  const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
   // Klinitaj muroj. cxiu tavolo estas trapezoida (supro pli mallargxa ol bazo).
   const klino = MURA_KLINO;
-
-  for ( let i = 0; i < tiers; i++ ) {
-    const hw = w / 2 - i * malpliiX, hd = d / 2 - i * malpliiZ, y = i * tieroAlto;
-    const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto);
-    tavolo.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(tavolo);
-    for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
-    aldoniTavolanRandon(kadrajGeometrioj, hw, hd, y, klino, tieroAlto);
-  }
+  // La kunfanditaj mur- kaj fram-geometrioj venas el la kaŝmemoro ( muroj +
+  // kadroj ) — identaj konstruaĵoj dividas ilin.
+  const tavolaj = preniTavolajnGeometriojn(typeKey, w, d, tiers, tieroAlto);
   // NENIUJ sub-teraj muroj/pilieroj por la ekstera konstruajxo — la sub-teraj
   // niveloj estas konstruataj nur de la interno ( eniriInternon konstruas siajn
   // proprajn murojn/plankojn por ĉiu sub-tera etaĝo laux spec.sube ). Entombigita
@@ -76,12 +102,12 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     ? fenestraMaterialo()
     : konstruajxaMaterialo("eniro" + muraKoloro, () => kreiPordanMaterialon(muraMaterialo));
 
-  const muroj = new THREE.Mesh(kunfandiGeometriojn(murajGeometrioj), muraMaterialo);
+  const muroj = new THREE.Mesh(tavolaj.muroj, muraMaterialo);
   muroj.castShadow = muroj.receiveShadow = true;
   muroj.userData = { spec, buildingType: T };
   selektajxoj.push(muroj);
   group.add(muroj);
-  group.add(new THREE.Mesh(kunfandiGeometriojn(kadrajGeometrioj), kadraMaterialo));
+  group.add(new THREE.Mesh(tavolaj.kadroj, kadraMaterialo));
 
   // Uniforma enirejo por cxiuj tipoj — reuzebla komponanto. La sanktejo ricevas
   // pordojn sur CXIUJ kvar flankoj ( turnitaj kopioj de la sama pordo ).

@@ -73,7 +73,7 @@ import { mapoDatumo, mapoFormo, mapoGrandeco, agordiDosierojn,
 const MAPAJ_MODULOJ = import.meta.glob(
   "../../kantaoj/tero-datumaro/*/{krado,akvo,akvofontoj,biomoj,bestoj,objektoj,urboj,vojoj}.ts");
 // preniModulon ។ ឯកសារទិន្នន័យរបស់ផែនទីបច្ចុប្បន្ន។
-//     @param nomo ( string ) - "krado" | "akvo" | "biomoj" | "bestoj" | "objektoj" | "urboj" | "vojoj".
+//     @param nomo ( string ) - "krado" | "akvo" | "biomoj" | "bestoj" | "objektoj" | "urboj" | "vojoj" ។ ឈ្មោះឯកសារទិន្នន័យ
 //     @returns ម៉ូឌុលរបស់ឯកសារ។
 async function preniModulon(nomo: string): Promise<any> {
   const sxlosilo = "../../kantaoj/tero-datumaro/" + mapoDatumo.kodo + "/" + nomo + ".ts";
@@ -310,7 +310,7 @@ interface MovaTreno { tipo: "mov"; lastX: number; lastY: number }
 interface PenikaTreno { tipo: "peniko"; lastX: number; lastZ: number; tuŝitaj: Map<number, number> }
 type Treno = MovaTreno | PenikaTreno;
 let kursoro: Kursoro | null = null;             // ទីតាំងពិភពលោកចុងក្រោយរបស់កណ្ដុរ
-let treno: Treno | null = null;                 // { tipo, lastX, lastZ, ... }
+let treno: Treno | null = null;                 // { tipo, lastX, lastZ, ... } ។ ស្ថានភាពចលនាបច្ចុប្បន្ន
 let platigaCelo: number | null = null;          // កម្ពស់គោលដៅសម្រាប់ជក់រាបស្មើ
 let bezonoDesegno = true;
 

@@ -86,8 +86,8 @@ const mapo = elemento<HTMLCanvasElement>("mapo");
 // ឯកសារទិន្នន័យ ( generiDosierojn សរសេរ SKULPTA_URBOJ ទៅ kantaoj/tero-datumaro/urboj.ts )។
 export let urboj: SkulptaUrbo[] = [];  // ការតំឡើងក្រឡា និងតម្រុយ ( SKULPTA_URBOJ )
 export let elektitaUrbo = 0;            // ទីក្រុងដែលបានជ្រើស ( ទីមួយគឺមេ )
-export let kradoGrandeco = 3;           // arangxaGrando ( 1–6 )
-export let kradoBloko: "unu" | "kvar" = "unu";   // blokaGrando ( "unu" | "kvar" )
+export let kradoGrandeco = 3;           // arangxaGrando ( 1 ĝis 6 ) ។ ទំហំរៀបចំក្រឡា
+export let kradoBloko: "unu" | "kvar" = "unu";   // blokaGrando ( "unu" | "kvar" ) ។ ទំហំប្លុកក្រឡា
 export let kradoOfsX = 0, kradoOfsZ = 0;   // តម្រុយនៃចំណុចកណ្តាលក្រឡា
 export let kradoKeuxfhxeso = false;     // keŭfĥesoj ជុំវិញចំណុចកណ្តាល
 export let kradoLampoj = true;          // គំរូផ្លូវបួនចង្កៀង ( បើកតាមលំនាំដើម )
@@ -173,7 +173,7 @@ const aldonaBlokoForigiBtn = elemento<HTMLButtonElement>("aldonaBlokoForigi");
 export let elektitaVojo = 0;          // លេខលំដាប់ក្នុង vojoj
 export let elektitaPunkto = -1;       // ចំណុចនៃផ្លូវដែលបានជ្រើស ( -1 = គ្មាន )
 export let elektitaDoko = 0;          // លេខលំដាប់ក្នុង dokoj
-let vojaIlo: string = "movu";          // "movu" | "aldoni" | "forigi"
+let vojaIlo: string = "movu";          // "movu" | "aldoni" | "forigi" ។ ឧបករណ៍កែផ្លូវ
 // VojaCelo ។ គោលដៅនៃផ្ទាំងរងផ្លូវក្រោមការចុច ( ចំណុច
 // កំពង់ ឬផ្លូវខ្លួនឯង )។
 type VojaCelo = { speco: "punkto"; vojo: number; punkto: number }
