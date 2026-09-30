@@ -19,6 +19,7 @@
   "include": [
     "kantaoj/**/*.ts",
     "eskekoj/**/*.ts",
+    "iloj/**/*.ts",
     "types.d.ts"
   ],
   "exclude": [

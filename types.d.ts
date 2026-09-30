@@ -11,9 +11,13 @@ declare module "three/addons/controls/OrbitControls.js" {
     enabled: boolean;
     enableDamping: boolean;
     dampingFactor: number;
+    autoRotate: boolean;
+    autoRotateSpeed: number;
     maxPolarAngle: number;
     minDistance: number;
     maxDistance: number;
+    mouseButtons: { LEFT?: number; MIDDLE?: number; RIGHT?: number };
+    touches: { ONE?: number; TWO?: number };
     update(): void;
     dispose(): void;
     saveState(): void;
