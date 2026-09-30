@@ -303,7 +303,6 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       varying vec2 vUv;
       varying vec3 vWorldPos;
       varying float vHeight;
-      varying vec3 vNormal;
 
       void main() {
         vUv = uv;
@@ -326,16 +325,10 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         displacement *= smoothstep( 0.0, 0.5, max( 0.0, uv.y ) );
         vHeight = displacement;
 
-        // Analizaj derivaĵoj de la onda sumo ( ∂/∂x, ∂/∂z ) por korektaj normaloj
-        float c1 = cos(worldPos.x * 0.140625 + worldPos.z * 0.09375 + uTime * 0.703125);
-        float c2 = cos(worldPos.x * 0.078125 - worldPos.z * 0.125 + uTime * 1.09375 + 1.3125);
-        float c3 = cos((worldPos.x + worldPos.z) * 0.046875 + uTime * 0.5 + 2.125);
-        float c4 = cos(worldPos.x * 0.1875 + worldPos.z * 0.0625 + uTime * 0.90625 + 0.703125);
-        float s5 = sin((worldPos.x - worldPos.z) * 0.09375 + uTime * 0.59375 + 3.6875);
-        float dx = 0.1875 * 0.140625 * c1 + 0.140625 * 0.078125 * c2 + 0.078125 * 0.046875 * c3 + 0.0625 * 0.1875 * c4 - 0.046875 * 0.09375 * s5;
-        float dz = 0.1875 * 0.09375 * c1 - 0.140625 * 0.125 * c2 + 0.078125 * 0.046875 * c3 + 0.0625 * 0.0625 * c4 + 0.046875 * 0.09375 * s5;
-        vNormal = normalize(normal + vec3(-dx, 0.625, -dz));
-
+        // ⟨ La normaloj venas el la fragmento 📃 ⟩ — la analizaj derivaĵoj
+        // ( ∂/∂x, ∂/∂z ) kaj la normalo mem kalkulĝas en ondaNormalo ( vidu la
+        // fragmentan shaderon ), per-piksele, do ili ne perdiĝas sur la maldensa
+        // reto. Ĉi tie restas nur la displacado — la formo de la ondo.
         vec3 displacedPos = position + normal * displacement;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPos, 1.0);
       }
@@ -349,7 +342,32 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       varying vec2 vUv;
       varying vec3 vWorldPos;
       varying float vHeight;
-      varying vec3 vNormal;
+
+      // ⟨ La per-piksela ondo-normalo 📃 ⟩ — la grandaj ondoj ( la sama familio
+      // kiel la vertica displacado ) plus tri FJNAJ ondetoj, ĉiuj derivitaj ĉe la
+      // FRAGMENTO. Kial ne la vertica vNormal — la lago-reto havas nur ok ringojn,
+      // do ties normaloj estas preskaŭ ebenaj kaj la ondoj malaperas; per-piksela
+      // kalkulo portas la detalon sendepende de la reto. La forto ( 8.0 )
+      // pligrandigas la etajn deklivojn al videblaj lum-ŝanĝoj — la suna glito
+      // kaj la ĉiela reflekto vivas sur ĉiu ondeto.
+      vec3 ondaNormalo( vec3 p, float t ) {
+        float c1 = cos(p.x * 0.140625 + p.z * 0.09375 + t * 0.703125);
+        float c2 = cos(p.x * 0.078125 - p.z * 0.125 + t * 1.09375 + 1.3125);
+        float c3 = cos((p.x + p.z) * 0.046875 + t * 0.5 + 2.125);
+        float c4 = cos(p.x * 0.1875 + p.z * 0.0625 + t * 0.90625 + 0.703125);
+        float s5 = sin((p.x - p.z) * 0.09375 + t * 0.59375 + 3.6875);
+        float dx = 0.1875 * 0.140625 * c1 + 0.140625 * 0.078125 * c2
+          + 0.078125 * 0.046875 * c3 + 0.0625 * 0.1875 * c4 - 0.046875 * 0.09375 * s5;
+        float dz = 0.1875 * 0.09375 * c1 - 0.140625 * 0.125 * c2
+          + 0.078125 * 0.046875 * c3 + 0.0625 * 0.0625 * c4 + 0.046875 * 0.09375 * s5;
+        // La fajnaj ondetoj — mallongaj lumoj kaj ombroj sur la surfaco.
+        float s6 = sin(p.x * 0.625 + p.z * 0.4375 + t * 2.5);
+        float s7 = sin(p.x * 0.3125 - p.z * 0.8125 + t * 3.25);
+        float c8 = cos((p.x - p.z) * 1.1875 + t * 4.5);
+        dx += -0.02 * 0.625 * s6 - 0.016 * 0.3125 * s7 + 0.012 * 1.1875 * c8;
+        dz += -0.02 * 0.4375 * s6 + 0.016 * 0.8125 * s7 - 0.012 * 1.1875 * c8;
+        return normalize(vec3(-dx * 8.0, 1.0, -dz * 8.0));
+      }
 
       void main() {
         ${maskaKodo}
@@ -370,7 +388,8 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
 
         // Sunluma spegula brilo
         vec3 viewDir = normalize(cameraPosition - vWorldPos);
-        vec3 normal = normalize(vNormal);
+        // La per-piksela ondo-normalo ( vidu ondaNormalo supre ).
+        vec3 normal = ondaNormalo(vWorldPos, uTime);
         vec3 halfVec = normalize(viewDir + uSunDir);
 
         // Fresnel — reflekto kreskas ĉe malaltaj anguloj ( la sama 4-a potenco
@@ -379,17 +398,27 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float ndv = max(dot(viewDir, normal), 0.0);
         float fresnel = pow(1.0 - ndv, 4.0);
 
-        float spec = pow(max(dot(normal, halfVec), 0.0), 48.0) * 0.4375 * (0.5 + 0.5 * fresnel);
-        // La larĝa brileto estis tro forta ( la tuta surfaco aspektis lakta ĉe
-        // malaltaj anguloj ) — nun ĝi estas mallarĝa suna glito sur la ondoj.
-        float specWide = pow(max(dot(normal, halfVec), 0.0), 12.0) * 0.0625;
+        // ⟨ La suna glito 📃 ⟩ — pli akra ( eksponento 128 ) do la suno
+        // preskaŭ brulas sur la ondokrestoj, plus larĝa mola brilo por la
+        // ĉiela lumo disigita sur la ondoj.
+        float spec = pow(max(dot(normal, halfVec), 0.0), 128.0) * 0.6875 * (0.5 + 0.5 * fresnel);
+        float specWide = pow(max(dot(normal, halfVec), 0.0), 16.0) * 0.09375;
 
         // Subtila ondbrilo
         float shimmer = 0.5 + 0.5 * sin(vWorldPos.x * 0.3125 + vWorldPos.z * 0.25 + uTime * 2.0);
         shimmer *= 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 - vWorldPos.z * 0.3125 + uTime * 1.5);
 
         vec3 specColor = vec3(0.90625, 0.9375, 0.96875) * (spec + specWide);
-        vec3 fresnelColor = mix(vec3(0.3125, 0.40625, 0.5), vec3(0.5625, 0.6875, 0.8125), fresnel * 0.5);
+        // ⟨ La ĉiela reflekto laŭ la reflekta direkto 📃 ⟩ — kian ĉielon la
+        // ondo spegulas decidas la surĵeta direkto: supren la profunda zenita
+        // bluo, malsupren la hela horizonto. Antaŭe unu fiksa koloro, do la akvo
+        // aspektis kiel verda folio anstataŭ spegulo.
+        // ⟨ Du bluoj 📃 ⟩ — la zenito estas pli saturita ( la ĉiela koloro
+        // supren ) kaj la horizonto preskaŭ blanka, kiel ĉe vera akvo en la
+        // suno.
+        vec3 reflekto = reflect(-viewDir, normal);
+        float horizonta = pow(1.0 - clamp(abs(reflekto.y), 0.0, 1.0), 3.0);
+        vec3 fresnelColor = mix(vec3(0.21875, 0.34375, 0.46875), vec3(0.75, 0.84375, 0.9375), horizonta);
 
         // La ĉiela reflekto MIKSIĜAS en la akvon anstataŭ aldoniĝi sur ĝin.
         // La antaŭa aldono ( fresnelColor * 0.75 ) blankigis la tutan surfacon
@@ -397,7 +426,7 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         // videblis. La mikso konservas la akvan koloron sub la reflekto, do
         // la malprofunda bordo kaj la kolorŝanĝo kun la profundo restas videblaj
         // ankaŭ de la bordo.
-        vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.625) + specColor;
+        vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.75) + specColor;
 
         // Onda alteco donas malgrandan brilecon al la ondoj
         finalColor *= 1.0 + vHeight * 0.09375;

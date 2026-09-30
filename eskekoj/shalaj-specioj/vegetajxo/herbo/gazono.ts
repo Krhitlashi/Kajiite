@@ -88,18 +88,18 @@ const HERBA_FADO = HERBA_LIMO;   // 48
 // kaj la makuloj apud la ludanto estas la plej granda parto de la bildigata
 // mondo ( ĉirkaŭ 3000 makuloj × la klingoj ). Ĉi tiuj du nombroj estas la unuaj
 // kiujn oni turnu por la rendimento.
-// ⟨ Tri segmentoj 📃 ⟩ — la klingoj de la gazono estas mallongaj ( 0o6/0o20 =
-// 0.375 ), do tri segmentoj jam donas glatan arkon; la kvara aldonus 33% da
-// trianguloj por preskaŭ nenion videblan. La pufon portas la DENSEco kaj la
-// larĝo, ne la segmentoj.
-// ⟨ Pli densa 📃 ⟩ — 0o13 ( 11 ) klingoj po akso ( 121 po makulo ) anstataŭ 9
-// ( 81 ). Vidate de la okulo la gazono estas la malproksimaĵo de la piedoj, do
-// la interspaco de la klingoj estas tio, kion oni vidas — 0.209 unuoj anstataŭ
-// 0.256. La kosto estas 50% pli da trianguloj ( 1452 po makulo ), sed la pufon
-// kaj la densecon oni povas aĉeti nur per trianguloj; la mezuroj estas en la
-// raporto de la ago.
+// ⟨ Du segmentoj 📃 ⟩ — la klingoj estas mallongaj ( 0o6/0o20 = 0.375 ) kaj la
+// gazono estas malalta kampo, kiun oni rigardas de supre aŭ de malproksime; du
+// segmentoj donas sufiĉe glatan arkon por tio, kaj la tria aldoniĝus 50% da
+// trianguloj sur la plej multnombra geometrio de la mondo por preskaŭ nenion
+// videblan. La pufon portas la DENSEco kaj la LARĜO, ne la segmentoj.
+// ⟨ La kosto 📃 ⟩ — la gazono estas la plej multnombra bildigata geometrio: ĉiu
+// videbla makulo kostas klingojn × segmentojn. Kun 0o13 ( 11 ) klingoj ( 121 po
+// makulo ) kaj du segmentoj ĝi estas 968 trianguloj po makulo — 33% MALPLI ol
+// la antaŭa 0o13/3-kombinaĵo ( 1452 ). La elekto de la nombroj estas la unua
+// rendimenta turnilo de la projekto.
 const HERBA_TAVOLA_AKSOJ = 0o13;      // 11 klingoj po akso ( 121 po makulo )
-const HERBA_TAVOLA_SEGMENTOJ = 0o3;   // 3 segmentoj po klingo ( 12 trianguloj )
+const HERBA_TAVOLA_SEGMENTOJ = 0o2;   // 2 segmentoj po klingo ( 8 trianguloj )
 // ⟪ La variantoj de la aranĝo 📃 ⟫ — la klingoj de la gazono venas el unu
 // komuna geometrio, do sen tio la SAMA aranĝo ripetiĝus en ĉiu makulo de la
 // mondo ( nur turnita ) kaj la okulo tuj rekonus la tufon. Tri semoj ( kun
@@ -186,13 +186,19 @@ export async function konstruiHerbanTavolon(
   // krado: la makuloj elektas inter ili per haketo ( vidu kalkuliTufon ), do la
   // sama klingaro ne speguligxas tra la kampo. La geometrioj estas malgrandaj kaj
   // KOMUNAJ — la memoro kreskas per tri etaj bufroj, ne per la instancoj.
+  // ⟨ La larĝeco reprenas la kovron 📃 ⟩ — malpli da klingoj ( 0o13 anstataŭ
+  // 0o15 ) signifus malpli da kovro, sed kovro = nombro × larĝo. La klingoj do
+  // estas iom pli larĝaj ( ĉirkaŭ 20% ), kaj la horizonta kovro restas la sama
+  // dum la trianguloj falas — la larĝo ne kostas triangulojn, la nombro jes.
+  // La supra limo de la larĝo estas la folia aspekto: tro larĝaj klingoj
+  // legiĝas kiel folioj, ne kiel gazono.
   const variantoj: THREE.BufferGeometry[] = [
     konstruiHerbanTavolanGeometrion(2.3, HERBA_TAVOLA_AKSOJ,
-      0o6/0o100, 0o11/0o20, 0o16/0o10, 0o2715),
+      0o10/0o100, 0o11/0o20, 0o20/0o10, 0o2715),
     konstruiHerbanTavolanGeometrion(2.3, HERBA_TAVOLA_AKSOJ,
-      0o5/0o100, 0o23/0o40, 0o15/0o10, 0o4633),
+      0o7/0o100, 0o23/0o40, 0o22/0o10, 0o4633),
     konstruiHerbanTavolanGeometrion(2.3, HERBA_TAVOLA_AKSOJ - 1,
-      0o7/0o100, 0o21/0o40, 0o14/0o10, 0o6151),
+      0o11/0o100, 0o21/0o40, 0o17/0o10, 0o6151),
   ];
   // La pentrita mondo — la sama kadro kiun la biomoj mem kovras. La ĉeloj de la
   // krado estas mondaj ( la unua ĉelo de la mondo estas unuaCxelo ), do la sama
@@ -417,40 +423,29 @@ function konstruiHerbanTavolanGeometrion(flanko = 2.3, akso = 0o10, jit = 0.17,
       // La loko de la klingo — ĝia krada nodo plus malgranda delokigo.
       const rx = -duono + ( ix + 0o1/0o2 ) * pasxo + ( hazardo() - 0o1/0o2 ) * jit * 0o2;
       const rz = -duono + ( iz + 0o1/0o2 ) * pasxo + ( hazardo() - 0o1/0o2 ) * jit * 0o2;
-      const radiko = Math.hypot(rx, rz);
-      const disto = Math.min(1, radiko / duono);
-      // ⟨ La klingoj staras REKTE 📃 ⟩ — la gazono estas VERTIKALA. La klingoj
-      // leviĝas preskaŭ rekte el la tero kaj nur la rando de la makulo kliniĝas
-      // iomete eksteren ( ĝis 0o10/0o100 = 0.1875 ), ĝuste por kovri la kudron
-      // inter la najbaraj makuloj. Antaŭe la pinto forŝoviĝis ĝis 0.5625 unuojn dum
-      // la klingo altas nur 0.42 — la klingoj kuŝis preskaŭ PLATE sur la grundo kaj
-      // ĉiu makulo malfermiĝis kiel fontano, do la gazono aspektis sternita kaj
-      // la makuloj legiĝis kiel apartaj tufoj. Vertikale la klingo montras sian
-      // propran longon anstataŭ sian flankon.
-      const elen = 0o6/0o100 + disto * 0o10/0o100;
-      const dirx = radiko > 0 ? rx / radiko : 0;
-      const dirz = radiko > 0 ? rz / radiko : 0;
       // ⟨ La alt-vario 📃 ⟩ — la klingoj de unu makulo malsamas ( duono ĝis la
       // tuta longo ), do la supro de la gazono estas malebena kaj mola anstataŭ
       // plata; kaj ĉiu klingo sidas pli malpli egale — la malsamo venas de la
       // longo, ne de amasiĝo.
-      // ⟨ Sen randa levo 📃 ⟩ — la randoj ne plu estas pli altaj ol la mezo
-      // ( antaŭe disto multiplikis la longon ĝis 1.125 ). Tiu levo igis ĉiun
-      // makulon proprieta kupolo — vidata de proksime la gazono montriĝis kiel
-      // vicoj da apartaj tufoj anstataŭ unu egala kampo.
+      // ⟨ Sen randa levo 📃 ⟩ — la randoj ne plu estas pli altaj ol la mezo.
+      // Tiu levo igis ĉiun makulon proprieta kupolo — vidata de proksime la
+      // gazono montriĝis kiel vicoj da apartaj tufoj anstataŭ unu egala kampo.
       const klingoLongo = longo * ( 0o1/0o2 + hazardo() * 0o1/0o2 );
       const klingoLargho = ( 0.026 + hazardo() * 0.016 ) * larghaFaktoro
         * ( 0.9 + klingoLongo * 0.5 );
-      // ⟨ La delokigo de la klino 📃 ⟩ — al la malgranda randa klino aldoniĝas
-      // MALGRANDA hazarda parto ( 0o6/0o100 ), do la klingoj restas preskaŭ
-      // vertikalaj kaj nur iomete diferencas. Granda hazarda parto ( 0.12 antaŭe )
-      // disĵetis la klingojn en malegalajn amasetojn — precize la "amasigxo", kiun
-      // ni forprenas; la malsameco nun venas de la longo, la larĝo kaj la tordo,
-      // ne de hazarda direktado.
-      const klino = dirx * elen * ( 0.4 + hazardo() * 0.6 )
-        + ( hazardo() - 0o1/0o2 ) * 0o4/0o100;
-      const arko = dirz * elen * ( 0.4 + hazardo() * 0.6 )
-        + ( hazardo() - 0o1/0o2 ) * 0o4/0o100;
+      // ⟨ Neniu ventumilo 📃 ⟩ — antaŭe ĉiu makulo estis VENTUMILO: la klingoj
+      // kliniĝis FOR de la centro de la makulo ( la randa klino kreskis kun la
+      // distanco de la centro ), do ĉiu 2-unua kvadrato malfermiĝis kiel fontano
+      // kaj la kampo montriĝis kiel kudraĵo de apartaj pomponoj, kun videblaj
+      // disigaj linioj inter ili — TIO estis la "amasigxo". Nun la klingoj
+      // leviĝas preskaŭ REKTE kaj ilia malgranda klino estas pure hazarda ( sen
+      // direkto el la centro ), do la makuloj interplektiĝas en UNU ebenan kampon.
+      // ⟨ Kial hazarda, ne laŭ pozicio 📃 ⟩ — la klino ankoraŭ devas varii, alie
+      // ĉiuj klingoj estus perfekte vertikalaj kaj la kampo aspektus kiel broso.
+      // La hazarda parto estas MALGRANDA ( 0.06 ), do la klingoj restas preskaŭ
+      // vertikalaj — sen la fontana direkto de antaŭe.
+      const klino = ( hazardo() - 0o1/0o2 ) * 0o6/0o100;
+      const arko = ( hazardo() - 0o1/0o2 ) * 0o6/0o100;
       // ⟨ La tordo 📃 ⟩ — la klingoj estas larĝaj, do ilia ORIENTIĜO gravas: sen
       // tordo ĉiuj larĝaj flankoj turnigxus samdirekten kaj la kampo aspektus kiel
       // vicoj de folioj. La tordo restas modera ( 0o16/0o10 = 1.75 ) — la granda
