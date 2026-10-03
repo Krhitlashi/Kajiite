@@ -1,5 +1,4 @@
-// ≺⧼ Servilo 🖧 ⧽≻
-// Minimum statika dosierservilo por Kajiite — kun viva reŝargo (SSE) kaj la retilo ( multludado )
+// ≺⧼ ម៉ាស៊ីនមេ 🖧 ⧽≻
 import { createServer } from "http";
 import { readFile } from "fs/promises";
 import { watch } from "fs";
@@ -9,7 +8,7 @@ import { konektiRetilon } from "./retilo-servilo.js";
 
 const PORD = 0o5660;
 const PORD_FALLO = 0o5671;
-const RADIKO = fileURLToPath(new URL("..", import.meta.url)); // parent dir (project root)
+const RADIKO = fileURLToPath(new URL("..", import.meta.url));
 const DISTO = join(RADIKO, "dist");
 
 const MIMEOFINOJ = {
@@ -23,12 +22,11 @@ const MIMEOFINOJ = {
   ".map":  "application/json",
 };
 
-// ⟪ SSE-klientoj por viva reŝargo 📃 ⟫
+// ⟪ អតិថិជន SSE សម្រាប់ផ្ទុកបន្តផ្ទាល់ 📃 ⟫
 const sseKlientoj = new Set();
 let reŝargaTempilo = null;
 
 function sciigiSSEKluentojn() {
-  // Malakrigi. se tsc skribas plurajn dosierojn samtempe, sendu nur unu reŝargon
   if ( reŝargaTempilo ) clearTimeout(reŝargaTempilo);
   reŝargaTempilo = setTimeout(() => {
     const pakajxo = "event: reload\ndata: " + Date.now() + "\n\n";
@@ -36,14 +34,13 @@ function sciigiSSEKluentojn() {
       try { res.write(pakajxo); } catch { sseKlientoj.delete(res); }
     }
     reŝargaTempilo = null;
-  }, 0o100);   // 0o100 tikoj ≈ 0o11/0o100 He — la malakriga fenestro
+  }, 0o100);
 }
 
-// komenciVidanReŝargon — Spekti dist/-on por sxangxoj.
 function komenciVidanReŝargon() {
   try {
     watch(DISTO, { recursive: true }, ( _, dosiero ) => {
-      if ( !dosiero || dosiero.endsWith(".map") ) return; // saltu source map-ojn
+      if ( !dosiero || dosiero.endsWith(".map") ) return;
       sciigiSSEKluentojn();
     });
     console.log("Viva reŝargo — spektas dist/");
@@ -55,7 +52,6 @@ function komenciVidanReŝargon() {
 const servilo = createServer(async (peto, respondo) => {
   let url = ( peto.url === "/" ? "/index.html" : peto.url ).split("?")[0];
 
-  // SSE-punkto por viva reŝargo
   if ( url === "/__reload" ) {
     respondo.writeHead(200, {
       "Content-Type": "text/event-stream",
@@ -79,10 +75,7 @@ const servilo = createServer(async (peto, respondo) => {
   }
 });
 
-// La HTTP-stat-kodoj estas DEKUMAJ ( la retumila protokolo — 200, 403, 404 ).
-// La nura escepto de la 0o-oktala regulo — la kabloprotokolaj valoroj.
-
-// ⟪ La retilo 📃 ⟫ — WebSocket-servilo por la multludada sperto ( /retilo ).
+// ⟪ បណ្តាញ 📃 ⟫
 konektiRetilon(servilo, {
   jeAliĝo: ( id, kvanto ) => console.log("Retilo — " + id + " aliĝis ( " + kvanto + " aktiva )"),
   jeForiro: ( id, kvanto ) => console.log("Retilo — " + id + " foriris ( " + kvanto + " aktiva )"),

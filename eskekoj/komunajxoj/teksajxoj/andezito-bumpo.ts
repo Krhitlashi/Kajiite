@@ -1,4 +1,4 @@
-// ≺⧼ Andezita reliefa teksajxo 🧱 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់អង់ដេស៊ីត 🧱 ⧽≻
 import * as THREE from "three";
 import { hazard, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

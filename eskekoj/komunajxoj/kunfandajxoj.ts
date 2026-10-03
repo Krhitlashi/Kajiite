@@ -1,14 +1,7 @@
-// ≺⧼ Kunfandajxoj 🧩 ⧽≻
-// Kunfanda modulo — komunaj geometriaj kunfand-helpiloj por la tuta mondo
+// ≺⧼ ការរលាយបញ្ចូល 🧩 ⧽≻
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 
-// kunfandiGeometriojn — Kunfandas plurajn BufferGeometriojn en unu indeksitan
-// geometrion, konservante poziciojn, normalojn, UV-ojn kaj la indekson
-// ( 0o20/0o40-bita laŭ la vertokvanto ). Ne-indeksaj enigoj ricevas sintezitajn
-// sinsekvajn indeksojn. La UV-oj gravas por teksturitaj geometrioj ( ekz. la
-// keŭfĥeso-korpo kun sia bakita folia teksturo ) — sen ili la mapo neniam
-// specimeniĝas kaj la koloro aperas blanka.
 export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geos.length === 0 ) return new THREE.BufferGeometry();
   let tv = 0, ti = 0;
@@ -47,16 +40,6 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   return out;
 }
 
-// kreiBuferanGeometrion — Komuna pakado de bufera geometrio. Kreu la geometrion,
-// atribuu la poziciojn ( kaj laŭvole la UV-ojn aŭ laŭtorejn normalojn ), fiksu la
-// indekson kaj kalkulu la normalojn ( nur se ili ne estas aŭtoritaj ).
-//     @param pozicioj ( number[] ) - La verticaj pozicioj ( ×3 ).
-//     @param indeksoj ( number[] ) - La triangulaj indeksoj.
-//     @param agordoj ( object = {} ) - Laŭvolaj atributoj.
-//         uvoj ( number[] = undefined ) - La UV-oj ( ×2 ).
-//         normaloj ( number[] = undefined ) - Aŭtoritaj normaloj ( ×3 );
-//             se donita, la normaloj NE rekalkuliĝas.
-//     @returns geometrio ( THREE.BufferGeometry ) - La preta geometrio.
 export function kreiBuferanGeometrion(pozicioj: number[], indeksoj: number[],
   agordoj: { uvoj?: number[]; normaloj?: number[] } = {}
 ): THREE.BufferGeometry {
@@ -69,15 +52,6 @@ export function kreiBuferanGeometrion(pozicioj: number[], indeksoj: number[],
   return geometrio;
 }
 
-// aplikiSkatolajnUvojn — Skatola projekcio de la UV-oj. La ekstrudaj geometrioj
-// ( kreiRondanKeston ) ricevas siajn UV-ojn rekte el la FORM-PLANO de la
-// ekstrudo, do por 0.2-unua skatolo ĉiu faco specimenas ege malgrandan parton de
-// la teksajxo — la leda grajno de la ŝuo malaperas kaj la boto restas plata
-// koloro. Skatola projekcio elektas la du aksojn de la plej granda normala
-// komponanto, do ĉiu faco ricevas la grajnon de antaŭe kaj la teksajxo legiĝas
-// egale sur ĉiuj flankoj.
-//     @param geometrio ( THREE.BufferGeometry ) - La geometrio ( modifiĝas ).
-//     @param skalo ( number = 0o1 ) - Kiom da teksturaj kaheloj po mondunuo.
 export function aplikiSkatolajnUvojn(geometrio: THREE.BufferGeometry, skalo = 0o1): void {
   const pozicio = geometrio.getAttribute("position");
   const normo = geometrio.getAttribute("normal");
@@ -88,20 +62,16 @@ export function aplikiSkatolajnUvojn(geometrio: THREE.BufferGeometry, skalo = 0o
     const x = pozicio.getX(i), y = pozicio.getY(i), z = pozicio.getZ(i);
     const ax = Math.abs(n.getX(i)), ay = Math.abs(n.getY(i)), az = Math.abs(n.getZ(i));
     let u: number, v: number;
-    if ( ay >= ax && ay >= az ) { u = x; v = z; }        // horizontala faco
-    else if ( ax >= az ) { u = z; v = y; }               // faco al la flankoj
-    else { u = x; v = y; }                               // faco antaŭen/malantaŭen
+    if ( ay >= ax && ay >= az ) { u = x; v = z; }
+    else if ( ax >= az ) { u = z; v = y; }
+    else { u = x; v = y; }
     uv[i * 0o2] = u * skalo;
     uv[i * 0o2 + 0o1] = v * skalo;
   }
   geometrio.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
 }
 
-// kunfandiDuGeometriojn — Kunfandas du geometriojn SEN indekso, konservante la
-// triangulan ordon kaj la UV-ojn. Ideala por plantoj kun alfa-testataj teksturoj.
 export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGeometry): THREE.BufferGeometry {
-  // Ne-indeksaj geometrioj konservas la triangulan ordon dum kunfando;
-  // alie la indekso perdiĝas kaj duono de ĉiu ebeno neniam bildiĝas.
   const na = a.index ? a.toNonIndexed() : a;
   const nb = b.index ? b.toNonIndexed() : b;
   const aPos = na.getAttribute("position");
@@ -131,10 +101,7 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
   out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
   out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
   out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
-  // ⟨ La per-vertaj koloroj 📃 ⟩ — la herbo kaj la filikoj portas la nuancon de
-  // ĉiu folio en la vertica kolor-aro ( vertexColors ), kaj sen la kunfando de
-  // tiu atributo la tuta foliaro ricevus la koloron de la UNUA folio. Nur
-  // kunfandiĝas kiam AMBAŬ flankoj havas la atributon.
+  // ⟨ ពណ៌តាមកំពូល 📃 ⟩
   const aKol = na.getAttribute("color");
   const bKol = nb.getAttribute("color");
   if ( aKol && bKol ) {
@@ -146,47 +113,24 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
   return out;
 }
 
-// kunfandiGeometriojnSenIndekson — Redukta kunfando de pluraj geometrioj per
-// kunfandiDuGeometriojn ( sen indekso, kun UV-oj ).
 export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geometrioj.length === 0 ) return new THREE.BufferGeometry();
   return geometrioj.slice(1).reduce(( rezulto, geometrio ) => kunfandiDuGeometriojn(rezulto, geometrio), geometrioj[0]);
 }
 
-// ⟪ Kunfando de jam konstruitaj meshoj 📃 ⟫ — la supraj helpiloj kunfandas
-// GEOMETRIOJN dum la konstruado; ĉi tiu kunfandas meshojn kiuj jam staras en
-// la sceno. La urbaj konstruaĵoj estas la lasta granda fonto de desegnaj
-// alvokoj — ĉiu el la ~40 konstruaĵoj konsistas el 15-20 etaj meshoj ( la
-// pintaj randoj, la pordaj tuboj, la signoj, la fenestroj, la tabloj ), kaj
-// ĉiu el ili estas aparta alvoko en la ĉefa pasumo KAJ en la ombra pasumo.
-// La konstruaĵoj estas senmovaj, do ili povas dividi la samajn kunigitajn
-// meshojn.
+// ⟪ ការរលាយសំណាញ់ដែលសង់រួច 📃 ⟫
 
-// KunfandajOpcioj — La agordoj de kunfandiMondajnMeshojn.
-//     celo ( number = 0 ) - La spaca ĉela grandeco por la kunigoj ( 0 = unu
-//         kunigo por ĉiu materialo, sen spaca divido ). Ĉelo tenas la kunigojn
-//         malgrandaj, do la vidkampo ankoraŭ forigas la malproksimajn partojn.
-//     konservu ( funkcio = undefined ) - Kiuj meshoj restu APARTAJ ( la
-//         elekteblaj muroj — la klako bezonas la specon de unuopa konstruaĵo ).
 export interface KunfandajOpcioj {
   celo?: number;
   konservu?: ( m: THREE.Mesh ) => boolean;
 }
 
-// La sumaj nombroj de ĉiuj kunfandoj ĝis nun — por la diagnoza surmetaĵo
-// ( kantaoj/fasado/statistiko.ts ). Unu nombro diras pli ol la tuta bildigo: "640 meshoj
-// fariĝis 34" pruvas la ŝparadon sen mezuri kadrojn.
 const kunfandajRezultoj = { antaŭe: 0, poste: 0 };
 
-// kunfandajxoStatistiko — La sumaj nombroj de la kunfandoj.
-//     @returns ( { antaŭe, poste } ) - Kiom da meshoj estis kaj kiom restis.
 export function kunfandajxoStatistiko(): { antaŭe: number; poste: number } {
   return kunfandajRezultoj;
 }
 
-// renversiVolvon — Inversigu la triangulan ventumilon de geometrio ( por la
-// spegulitaj kopioj ). Indeksitaj geometrioj inversigas la indeksojn, senindeksaj
-// interŝanĝas la duan kaj trian verton de ĉiu triangulo en ĉiuj atributoj.
 function renversiVolvon(g: THREE.BufferGeometry): void {
   if ( g.index !== null ) {
     const arr = g.index.array;
@@ -208,69 +152,37 @@ function renversiVolvon(g: THREE.BufferGeometry): void {
   }
 }
 
-// ⟪ Rapida kunfando de transformitaj geometrioj 📃 ⟫ — la varma vojo de la monda
-// kunfando ( kantaoj/mondo/urbo.ts ). La ĝenerala vojo de three.js — geometry.clone(),
-// applyMatrix4() kaj mergeGeometries() — trairas la datumaron KVIN fojojn. La
-// klono kopias ĉiun atributon, applyMatrix4 trairas la poziciojn, applyMatrix4
-// trairas la normalojn, mergeAttributes kopias ĉion denove, kaj mergeGeometries
-// konstruas la indekson en ordinaran JS-tabelon per po-unua push. La mondo estas
-// 43 milionoj da vertoj ( proksimume 0o12334447000 bitokoj da atributaj datumoj
-// — ĉirkaŭ 1.4 miliardoj ), do ĉiu trairo aparte kostas plurajn He.
-//
-// Ĉi tiu funkcio faras ĉion en UNU trairo. La matricoj aplikiĝas dum la kopiado
-// kaj la eligo skribiĝas rekte en antaŭe alĝustigitajn tipajn tabelojn — nenia
-// klono, nenia rubaĵo por la rubkolektanto. La indekso skribiĝas rekte en tipan
-// tabelon, la sama leciono kiel la terena indekso ( terenkoloroj.ts ).
-//
-// La funkcio revenas null kiam la grupo ne taŭgas por la rapida vojo ( ne-indeksa
-// geometrio, malsamaj atributoj aŭ ne-afina matrico ). La alvokanto tiam uzas la
-// ĝeneralan vojon de three.js, do la kondiĉoj kontroliĝas ANTAŬ la unua skribo
-// kaj la rezulto NENIAM malsamas de la ĝenerala vojo.
+// ⟪ ការរលាយរហ័សនៃធរណីមាត្របំប្លែង 📃 ⟫
 
-// TransformitaPeco — unu fonta geometrio kun la mond-matrico, kiu bakos ĝin.
 export interface TransformitaPeco {
   geometrio: THREE.BufferGeometry;
   matrico: THREE.Matrix4;
 }
 
-// kunfandiTransformitajn — Kunfandu la donitajn geometriojn per unu trairo,
-// aplikante ĉies matricon dum la kopiado. La transformo sekvas three.js precize
-// ( la normaloj per la inverso-transpono de la 3×3 parto kaj posta normaligo )
-// — nur la vojo al la rezulto estas pli mallonga.
-//     @param pecoj ( TransformitaPeco[] ) - La fontoj kun iliaj mond-matricoj.
-//     @returns geometrio ( THREE.BufferGeometry | null ) - La kunigita geometrio,
-//         aŭ null se la grupo ne taŭgas por la rapida vojo.
 export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferGeometry | null {
   if ( pecoj.length === 0 ) return null;
   const unuaGeometrio = pecoj[0].geometrio;
-  // La grupo estas AŬ tute indeksa AŬ tute ne-indeksa — miksitaj grupoj revenas
-  // al la ĝenerala vojo. La ne-indeksaj grupoj estas la plantoj kaj la foliaro
-  // ( kunfandiDuGeometriojn forigas la indekson por konservi la triangulan ordon ).
   const indeksita = unuaGeometrio.index !== null;
   const unuaAtributoj = unuaGeometrio.attributes;
   const subskribo = Object.keys(unuaAtributoj).sort().join(",");
-  // ⟨ La kontrolo 📃 ⟩ — ĉio devas kongrui antaŭ la unua skribo, alie la kunfando
-  // silento misformus la datumaron.
+  // ⟨ ការត្រួតពិនិត្យ 📃 ⟩
   let tv = 0, ti = 0;
   for ( const p of pecoj ) {
     const g = p.geometrio;
     if ( ( g.index !== null ) !== indeksita ) return null;
     if ( Object.keys(g.attributes).sort().join(",") !== subskribo ) return null;
     const e = p.matrico.elements as unknown as number[];
-    // La afina testo — la rapida vojo ne faras la perspektivan dividon.
     if ( e[3] !== 0 || e[7] !== 0 || e[11] !== 0 || e[15] !== 1 ) return null;
     for ( const nomo of Object.keys(g.attributes) ) {
       const a = g.attributes[nomo] as THREE.BufferAttribute;
       const b = unuaAtributoj[nomo] as THREE.BufferAttribute;
       if ( a.itemSize !== b.itemSize || a.normalized !== b.normalized ) return null;
-      if ( !( a.array instanceof Float32Array ) ) return null;   // interplektitaj tabeloj ne taŭgas
+      if ( !( a.array instanceof Float32Array ) ) return null;
     }
     tv += ( g.attributes.position as THREE.BufferAttribute ).count;
     if ( indeksita ) ti += g.index!.count;
   }
-  // ⟨ La eligaj tabeloj 📃 ⟩ — unu alĝustigo por la tuta grupo, anstataŭ klono po
-  // geometrio. Tio forigas tiujn 0o12334447000 bitokojn da mezaĵoj, kiujn la
-  // klonoj kreis.
+  // ⟨ តារាងបញ្ចេញ 📃 ⟩
   const eligoj = new Map<string, Float32Array>();
   for ( const nomo of Object.keys(unuaAtributoj) ) {
     const a = unuaAtributoj[nomo] as THREE.BufferAttribute;
@@ -285,7 +197,7 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
     const e = p.matrico.elements as unknown as number[];
     const fontaPosicio = ( g.attributes.position as THREE.BufferAttribute ).array as Float32Array;
     const c = ( g.attributes.position as THREE.BufferAttribute ).count;
-    // ⟨ La pozicioj 📃 ⟩ — la afina mapo skribiĝas rekte en la eligon.
+    // ⟨ ទីតាំង 📃 ⟩
     const e0 = e[0], e1 = e[1], e2 = e[2], e4 = e[4], e5 = e[5], e6 = e[6],
       e8 = e[8], e9 = e[9], e10 = e[10], e12 = e[12], e13 = e[13], e14 = e[14];
     for ( let i = 0, j = vo * 3; i < c; i++, j += 3 ) {
@@ -295,10 +207,7 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
       eligoPosicio[j + 1] = e1 * x + e5 * y + e9 * z + e13;
       eligoPosicio[j + 2] = e2 * x + e6 * y + e10 * z + e14;
     }
-    // ⟨ La normaloj 📃 ⟩ — la inverso-transpono de la 3×3 parto kaj normaligo, la
-    // sama rezulto kiel applyNormalMatrix de three.js. La inverso-transpono estas
-    // la identeco por la puraj rotacioj ( la plej multaj el la metitaj kopioj ),
-    // sed la kalkulo estas unufoja po geometrio, ne po verto.
+    // ⟨ ន័រម៉ាល់ 📃 ⟩
     const fontaNormo = g.attributes.normal as THREE.BufferAttribute | undefined;
     if ( eligoNormo !== undefined && fontaNormo !== undefined ) {
       const fn = fontaNormo.array as Float32Array;
@@ -318,16 +227,13 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
         eligoNormo[j + 2] = nz / longo;
       }
     }
-    // ⟨ La ceteraj atributoj 📃 ⟩ — la UV-oj kaj la vertaj koloroj ne
-    // transformiĝas, do ili estas simpla memcpy en la eligon.
+    // ⟨ គុណលក្ខណៈដទៃ 📃 ⟩
     for ( const [ nomo, eligo ] of eligoj ) {
       if ( nomo === "position" || nomo === "normal" ) continue;
       const a = g.attributes[nomo] as THREE.BufferAttribute;
       eligo.set(a.array as Float32Array, vo * a.itemSize);
     }
-    // ⟨ La indeksoj 📃 ⟩ — la ventumilo inversiĝas MANE por la spegulitaj kopioj,
-    // la sama kialo kiel renversiVolvon supre. La indekso skribiĝas rekte en la
-    // tipan tabelon, sen la ordinara JS-tabelo de mergeGeometries.
+    // ⟨ លិបិក្រម 📃 ⟩
     const spegulo = p.matrico.determinant() < 0;
     if ( eligoIndekso !== null ) {
       const fontaIndekso = g.index!.array as Uint16Array | Uint32Array;
@@ -342,9 +248,7 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
       }
       io += fontaIndekso.length;
     } else if ( spegulo ) {
-      // ⟨ La ne-indeksa spegulo 📃 ⟩ — sen indekso la ventumilon oni inversigas
-      // interŝanĝante la duan kaj trian verton de ĉiu triangulo, ĉi tie en la ĴUS
-      // skribitaj eligaj tabeloj ( la fontaj tabeloj ne tuŝiĝas ).
+      // ⟨ កញ្ចក់ឆ្លុះគ្មានលិបិក្រម 📃 ⟩
       for ( const [ nomo, eligo ] of eligoj ) {
         const s = ( unuaAtributoj[nomo] as THREE.BufferAttribute ).itemSize;
         for ( let t = 0; t < c; t += 3 ) {
@@ -368,16 +272,6 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
   return out;
 }
 
-// kunfandiMondajnMeshojn — Kunfandu la senmovajn meshojn de la donitaj radikoj
-// en malmultaj meshoj PO ( materialo · ombra stato · bildiga ordo · tavolo ·
-// verto-signaturo · spaca ĉelo ). La geometrioj transformiĝas al la MONDA
-// spaco ( la kunigitaj meshoj havas identecon ), do la fontaj grupoj povas havi
-// ajnan transformon. La ORIGINALAJ geometrioj ne disponiĝas — ili povas esti
-// dividataj inter pluraj meshoj ( la spegulaj klonoj ) — nur la laboraj klonoj.
-//     @param gepatra ( THREE.Object3D ) - Kie la kunigitaj meshoj aldoniĝu.
-//     @param radikoj ( THREE.Object3D[] ) - La radikoj de la kunfandotaj arboj.
-//     @param opcioj ( KunfandajOpcioj = {} ) - La agordoj ( vidu supre ).
-//     @returns ( { antaŭe, poste } ) - Kiom da meshoj estis kaj kiom restis.
 export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.Object3D[],
   opcioj: KunfandajOpcioj = {}
 ): { antaŭe: number; poste: number } {
@@ -390,14 +284,11 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
     radiko.traverse(o => {
       if ( !o.visible ) return;
       const m = o as THREE.Mesh;
-      // Instancigitaj tavoloj, punktaj sistemoj kaj material-aroj restas siaj.
       if ( m.isMesh !== true || ( m as THREE.InstancedMesh ).isInstancedMesh === true ) return;
       if ( Array.isArray(m.material) ) return;
       if ( konservu !== undefined && konservu(m) ) return;
       antaŭe++;
       const geometrio = m.geometry;
-      // La verto-signaturo — mergeGeometries postulas identajn atributojn
-      // ( kaj indekson en ĉiuj aŭ en neniuj ).
       const signaturo = Object.keys(geometrio.attributes).sort().join(",")
         + ( geometrio.index === null ? "|n" : "|i" );
       const matrico = m.matrixWorld;
@@ -414,39 +305,29 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
   let poste = 0;
   for ( const listo of grupoj.values() ) {
     if ( listo.length < 2 ) { poste += listo.length; continue; }
-    // ⟨ La rapida vojo 📃 ⟩ — unu trairo kun la matricoj aplikataj dum la kopiado.
-    // Kiam la grupo ne taŭgas ( ne-indeksaj geometrioj, malsamaj atributoj ), la
-    // ĝenerala vojo de three.js restas la sama kiel antaŭe.
+    // ⟨ ផ្លូវលឿន 📃 ⟩
     let kunigita = kunfandiTransformitajn(listo.map(a => ({ geometrio: a.mesho.geometry, matrico: a.matrico })));
     if ( kunigita === null ) {
       const geometrioj = listo.map(a => {
-        const g = a.mesho.geometry.clone();   // la klono estas nia — vi povas disponigi ĝin
+        const g = a.mesho.geometry.clone();
         g.applyMatrix4(a.matrico);
-        // ⟨ La spegulitaj geometrioj 📃 ⟩ — la diamanta spegulo sub ĉiu konstruaĵo
-        // havas NEGATIVAN determinanton ( scale.y = -1 ). three.js inversigas la
-        // ventumilon de la trianguloj por tiaj objektoj dum bildigo ( frontFaceCW ),
-        // sed la bakita geometrio havas identecon — do la ventumilo inversiĝu
-        // MANE, alie la tuta spegulo malaperus malantaŭ la malantaŭaj facoj.
+        // ⟨ ធរណីមាត្រឆ្លុះ 📃 ⟩
         if ( a.matrico.determinant() < 0 ) renversiVolvon(g);
         return g;
       });
       kunigita = mergeGeometries(geometrioj, false);
       for ( const g of geometrioj ) g.dispose();
     }
-    if ( kunigita === null ) { poste += listo.length; continue; }   // ne kongruaj
+    if ( kunigita === null ) { poste += listo.length; continue; }
     const unua = listo[0].mesho;
     const mesho = new THREE.Mesh(kunigita, unua.material);
     mesho.castShadow = unua.castShadow;
     mesho.receiveShadow = unua.receiveShadow;
     mesho.renderOrder = unua.renderOrder;
     mesho.layers.mask = unua.layers.mask;
-    // La uzant-datumojn nur se ĉiuj anoj dividas la SAMAN objekton ( alie la
-    // kunigo portus la identecon de unu el ili ).
     let samaj: Record<string, unknown> | null = unua.userData;
     for ( const a of listo ) if ( a.mesho.userData !== samaj ) { samaj = null; break; }
     if ( samaj !== null ) mesho.userData = samaj;
-    // La nomo markas la kunigojn — la diagnoza censo ( statistiko.ts ) povas
-    // tiel apartigi ilin de la ceteraj scenaj objektoj.
     mesho.name = "kunigita";
     gepatra.add(mesho);
     for ( const a of listo ) a.mesho.removeFromParent();
@@ -457,20 +338,12 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
   return { antaŭe, poste };
 }
 
-// kunfandiKajVeldoiGeometriojn — Kunfandas la partojn en UNU geometrion kaj
-// VELDAS la koincidajn vertojn ( la ferma-kapo-rando kun la unua/lasta ringo
-// de la svingo ) kaj REKOMPUTAS la normalojn. la kapoj ombrigxas seninterrompe
-// — NENIA videbla kudro cxe la supro aux la malsupro; la supro estas unu glata
-// strukturo ( la hoka pinto kreskas el la sxafto, ne kusxas kiel kovrilo ).
 export function kunfandiKajVeldoiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geos.length === 0 ) return new THREE.BufferGeometry();
   const unu = kunfandiGeometriojn(geos);
   const pozicio = unu.getAttribute("position") as THREE.BufferAttribute;
   const idxArr = unu.getIndex()!.array as Uint16Array | Uint32Array;
   const tv = pozicio.count;
-  // Veldi. Koincidaj vertoj ( en 0o1/0o10000 ) dividas la saman indekson. La pli fajna
-  // krado gravas cxe la eta fina ringo. je 0o1/0o1000 pluraj najbaraj rondangulaj
-  // punktoj kunfalis en la saman verton kaj kreis la videblan krucan cxapon.
   const skalo = 4096;
   const mapo = new Map<string, number>();
   const novaIndekso = new Uint32Array(tv);

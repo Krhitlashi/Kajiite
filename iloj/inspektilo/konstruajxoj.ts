@@ -1,6 +1,4 @@
 // ≺⧼ ឧបករណ៍ពិនិត្យ ( អគារ ) 🔬 ⧽≻
-// វត្ថុ លក្ខណៈ និងតារាងរបស់អគារ ( ជាមួយផ្នែក
-// របស់ពួកវា ) គឺលក្ខណៈដូចក្នុង kantaoj/mondo/urbo.ts។
 import * as THREE from "three";
 import { konstruiSatalon } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 import { kreiKlinoTavolon } from "../../eskekoj/konstruajxoj/satalaj/formoj.js";
@@ -15,29 +13,16 @@ import type { Krasesxagxo } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosx
 import type { KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import type { ModelaSpecifo } from "./tipoj.js";
 
-// ⟨ អគារ និងផ្នែករបស់ពួកវា 📃 ⟩ គឺប្រភេទទីពីរ។ អគារប្រើ
-// លក្ខណៈដូចគ្នាបេះបិទនឹង kantaoj/mondo/urbo.ts ( w = d = 8 ចំនួនស្រទាប់ដូចគ្នា និង
-// កម្ពស់ស្រទាប់ដូចគ្នាតាមប្រភេទ ខាងក្រោម = កម្រិតសម្រាប់ជើងទម្រប្រាសាទ ) ជាមួយ
-// `diamond: false` ព្រោះកញ្ចក់ពេជ្រនៅក្រោមអគារជារបស់ពិភពលោក ហើយវា
-// នឹងបង្កើនគំរូទ្វេដង និងធ្វើឱ្យស៊ុមខូច។ ផ្នែកបង្ហាញបំណែកនីមួយៗរបស់
-// អគារ គឺសសរជ្រុង ស្រទាប់ បង្អួច ទ្វារ និង
-// ស្លាក ដោយប្រើឧបករណ៍សាងសង់ដូចគ្នា ដូច្នេះអាចសិក្សាពួកវាដោយឡែក។
+// ⟨ អគារ និងផ្នែករបស់ពួកវា 📃 ⟩
 export const oro = kreiOranMaterialon(0xd8b068);
-// ជញ្ជាំងផ្ទះ ( TIPARO.domo.wall )។
 export const muro = new THREE.MeshStandardMaterial({ color: 0x184838, roughness: 0o3/0o4, metalness: 0, envMapIntensity: 0 });
-// ⟨ ទ្វារផ្ទះ 📃 ⟩ វត្ថុទ្វារជាច្បាប់ចម្លងរបស់វត្ថុជញ្ជាំង
-// ដោយប្រើពណ៌ងងឹតជាង ( kreiPordanMaterialon ) ដូច្នេះផ្នែកទ្វារ
-// តែមួយបង្ហាញទ្វារផ្ទះដែលដំឡើងពីជញ្ជាំងផ្ទះ ជាមួយ
-// roughness ដូចគ្នា និងការគ្មានការឆ្លុះបញ្ចាំងដូចគ្នា។
+// ⟨ ទ្វារផ្ទះ 📃 ⟩
 export const enira = kreiPordanMaterialon(muro);
-// ទ្វាររបស់យានអវកាស ( សាលប្រជុំ និងស្ថានីយក្នុងទីក្រុងក៏ដូចគ្នា ) គឺ
-// កញ្ចក់បង្អួចជំនួសពណ៌ជញ្ជាំង។
 export const vitraEnira = kreiFenestranMaterialon();
-// កញ្ចក់បង្អួច គឺការកំណត់រួមដូចក្នុងពិភពលោក។
 export const vitro = kreiFenestranMaterialon();
-export const KLINO = 0o5/0o20;         // ជម្រាលដូចអគារទាំងអស់
-export const TIERO = 0o315/0o100;      // កម្ពស់ស្រទាប់ផ្ទះ ( 3.203 )
-export const HW = 0o10/0o2;            // កន្លះទទឹងរបស់អគារទំហំ 8 ឯកតា
+export const KLINO = 0o5/0o20;
+export const TIERO = 0o315/0o100;
+export const HW = 0o10/0o2;
 
 /* លក្ខណៈរួមរបស់ទីក្រុងសម្រាប់ប្រភេទសំណង់មួយ។
     @param tipo ( string ) - ប្រភេទសំណង់ ( domo, mangxejo, ... )។
@@ -60,24 +45,17 @@ export function aldoniTavolanSxelon(grupo: THREE.Object3D, klino: number, alto: 
   const geos: THREE.BufferGeometry[] = [];
   for ( const a of [ -1, 1 ] ) for ( const b of [ -1, 1 ] )
     aldoniKadranTubon(geos, a * hw, b * hw, 0, alto, a, b, true, klino);
-  // គែមមាសនៅខាងលើ គឺឧបករណ៍ជំនួយដូចគ្នានឹងពិភពលោក ដូច្នេះឧបករណ៍ពិនិត្យ
-  // បង្ហាញខ្សែកោងដូចគ្នា ( ពីមុនស្រទាប់តែមួយគ្មានវា )។
   aldoniTavolanRandon(geos, hw, hw, 0, klino, alto);
   for ( const geo of geos ) grupo.add(new THREE.Mesh(geo, oro));
 }
 
-// ⟨ យានអវកាស 📃 ⟩ ឧបករណ៍សាងសង់របស់យានត្រឡប់យានវិញ ( សំណាញ់បង្អួច
-// និងទិន្នន័យទ្វារ ) ប៉ុន្តែលក្ខណៈពិសេស konstruu ទទួលតែ
-// ក្រុម។ ដូច្នេះយាននៅទីនេះ ដើម្បីឱ្យរង្វិលជុំអាចធ្វើចលនាវាដោយអនុគមន៍
-// ដូចគ្នានឹងពិភពលោក ( animaciiKrasesxagxon )។
+// ⟨ យានអវកាស 📃 ⟩
 export let spacoSxipo: Krasesxagxo | null = null;
 
-// ⟨ ក្រុម និងឆាក 📃 ⟩ ឧបករណ៍សាងសង់របស់ហ្គេមប្រកាស ឬ THREE.Scene
-// ឬ THREE.Group ទោះបីពួកវាគ្រាន់តែបន្ថែមសំណាញ់។ ឧបករណ៍ពិនិត្យផ្តល់ធុង
-// តែមួយ ( ក្រុម )។ ឧបករណ៍ជំនួយបង្ហាញការបំប្លែងនៅកន្លែងតែមួយ។
+// ⟨ ក្រុម និងឆាក 📃 ⟩
 const kielGrupo = ( g: THREE.Scene ): THREE.Group => g as THREE.Object3D as THREE.Group;
 
-// ⟨ តារាងរបស់អគារ 📃 ⟩ អគារ ឬផ្នែកនីមួយៗជាមួយឧបករណ៍សាងសង់របស់វា
+// ⟨ តារាងរបស់អគារ 📃 ⟩
 export type Konstruajxo = ModelaSpecifo;
 export const KONSTRUAJXOJ: Konstruajxo[] = [
   { kodo: "bDomo", nomo: "Domo 🏠", indekso: -1, konstruajxo: true,
@@ -108,7 +86,7 @@ export const KONSTRUAJXOJ: Konstruajxo[] = [
     konstruu: ( g ) => konstruiSatalon(konstrSpec("sanktejo", 7, TIERO), g, []),
     priskribo: "La sanktejo — sep tavoloj kaj KVAR pordoj ( po unu sur ĉiu flanko, do la konstruaĵo estas turn-simetria kvar-oble ), kronita per ora piramida pinto anstataŭ plata tegmento. Ĝi estas la sola konstruaĵo kun la ora bazplato — nun PLATA ( 0.125 alta, kuŝanta rekte sur la grundo; antaŭe 0.297 alta sojlo ) — kaj la sola kun la NAĜETOJ: ĉe ĉiu pordo DU triangulaj oraj platoj, kiuj FRONTAS ANTAŬEN — ili kuŝas en la ebeno de la pordo kaj etendiĝas de la SUPRaj anguloj de la porda kadro malsupren al la MALSUPRA rando de la ora bazplato ( la pinto sidas en la ronda kadra tubo, la ekstera pinto sur la plato je ±4.28 ), kaj ilia interna rando sekvas la klinitan flankon de la pordo. Tial ĉi tiu specifo tenas `sube` super nulo.",
     animacio: "Neniu — la konstruaĵoj staras senmove." },
-  // ⟨ ផ្នែកទាំងឡាយ 📃 ⟩ គឺបំណែកនីមួយៗដោយឡែក ដើម្បីសិក្សាពួកវា។
+  // ⟨ ផ្នែកទាំងឡាយ 📃 ⟩
   { kodo: "pPiliero", nomo: "Angula piliero 🏛️", indekso: -1, konstruajxo: true,
     konstruu: ( g ) => {
       const geos: THREE.BufferGeometry[] = [];

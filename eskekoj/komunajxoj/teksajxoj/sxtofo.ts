@@ -1,4 +1,4 @@
-// ≺⧼ Sxtofa reliefa teksajxo 🧵 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់ក្រណាត់ 🧵 ⧽≻
 import * as THREE from "three";
 import { desegniWrapajnNubojn, desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

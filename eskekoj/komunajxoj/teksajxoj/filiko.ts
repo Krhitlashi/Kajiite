@@ -1,4 +1,4 @@
-// ≺⧼ Filika teksajxo 🌿 ⧽≻
+// ≺⧼ វាយនភាពហ្វីលីកា 🌿 ⧽≻
 import * as THREE from "three";
 import { ombro } from "../koloroj.js";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";

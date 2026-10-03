@@ -1,24 +1,10 @@
-// ≺⧼ Skulptita rultempo 📃 ⧽≻
-// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).
-// ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
+// ≺⧼ ពេលរត់ឆ្លាក់ 📃 ⧽≻
 
-// La malkodaj kaj samplaj funkcioj — sen gxi la ludo ne povas legi la
-// datumaron. La savo devas produkti kompletan modulon.
-// La datumoj venas de la AKTIVA mapo ( la pordo aktiva.ts, kiun la skulptilo
-// reskribas ) — la mapoj estas sendependaj mondoj en siaj propraj dosierujoj.
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ,
   SKULPTA_AKVA_MASKO, SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
-// La krada interpolo — la komuna kurbo de la ludo ( kantaoj/komunajxoj/interpolo.ts ), la sama
-// kiun uzas la specioj kaj la terena skulptilo.
 import { katmullRom } from "../komunajxoj/interpolo.js";
 
-// ⟪ Dekodo 📃 ⟫ — unufoje cxe modulo-sxargxo. Malaktiva skulptajxo restas
-// malplena, por ke la ludo ne pagu la kradan logikon.
-// Ĉi tiu dosiero estas la UNU FONTO de la malkodaj kaj samplaj funkcioj —
-// la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.js ) IMPORTAS ilin de ĉi tie, kaj
-// la savo de la skulptilo NE plu reskribas ĉi tiun dosieron ( ĝi skribas nur
-// la konstantajn dosierojn ). Iama la funkcioj estis kopiitaj en ŝablonon en
-// la skulptilo — la kopio devojiĝis facile, do ĝi estas forigita.
+// ⟪ ការឌិកូដ 📃 ⟫
 
 export function dekodiInt16(kruda: string): Int16Array | null {
   if ( kruda === "" ) return null;
@@ -58,15 +44,8 @@ function valoroMasko(i: number, j: number): number {
   return AKVA_MASKO![jj * SKULPTA_N + ii];
 }
 
-// ⟨ Samplaj funkcioj 📃 ⟩ — dukuba ( Katmull-Rom ) interpolo super la krado.
-// La kurbo mem estas unu fonto en kantaoj/komunajxoj/interpolo.ts — la krado, la specioj kaj
-// la terena skulptilo uzas la saman funkcion, do neniu kopio devojiĝas.
+// ⟨ អនុគមន៍គំរូ 📃 ⟩
 
-// skulptaDelta — La skulptita delto de la tereno cxe monda pozicio. La
-// valoro cxe kradnodoj restas ekzakte la ĉela valoro; inter la nodoj la
-// surfaco estas glata C1 — sen la dulinearaj diagonalaj krestoj.
-//     @param x, z ( number ) - Monda pozicio.
-//     @returns La delto en mondo-unuoj ( 0 se neniu skulptajxo ).
 export function skulptaDelta(x: number, z: number): number {
   if ( !DELTAJ ) return 0;
   const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
@@ -79,9 +58,6 @@ export function skulptaDelta(x: number, z: number): number {
   return m / 0o20;
 }
 
-// skulptitaAkvo — Cxu la punkto estas en la pentrita akvo ( la masko ).
-//     @param x, z ( number ) - Monda pozicio.
-//     @returns Cxu la masko kovras la punkton.
 export function skulptitaAkvo(x: number, z: number): boolean {
   if ( !AKVA_MASKO ) return false;
   const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
@@ -96,10 +72,6 @@ export function skulptitaAkvo(x: number, z: number): boolean {
   return m >= 0o1/0o2;
 }
 
-// skulptaAkvaLimoj — La plej malgranda kadro cxirkaŭ la pentrita akvo ( kun
-// unu cela rando da libero ), por ke la meshxo ne kovru la tutan mondon.
-// Nulaj se neniu akvo.
-//     @returns Kadro { x0, z0, x1, z1 } aux null.
 export function skulptaAkvaLimoj(): { x0: number; z0: number; x1: number; z1: number } | null {
   if ( !AKVA_MASKO ) return null;
   let imin = SKULPTA_N, imax = -1, jmin = SKULPTA_N, jmax = -1;
@@ -128,8 +100,6 @@ export function dekodiBiomon(kruda: string, kvanto: number): Uint8Array | null {
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
     const biomo = new Uint8Array(kvanto);
-    // 3 bitoj po ĉelo ( 0=aŭtomata, 1=montaro, 2=valo, 3=ebenaĵo,
-    // 4=akvaj-plantoj, 5=ekvizeto ) — ok ĉeloj po tri bajtoj.
     for ( let i = 0; i < kvanto; i++ ) {
       const b = i * 3;
       biomo[i] = ( bajtoj[b >> 3] >> (b & 7) )
@@ -145,8 +115,6 @@ export function dekodiBestojn(kruda: string, kvanto: number): Uint8Array | null 
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
     const bestoj = new Uint8Array(kvanto);
-    // 3 bitoj po ĉelo ( bitoj 1=akvaj bestoj, 2=petreloj, 4=NPC-oj ) — ok
-    // ĉeloj po tri bajtoj.
     for ( let i = 0; i < kvanto; i++ ) {
       const b = i * 3;
       bestoj[i] = ( bajtoj[b >> 3] >> (b & 7) )
@@ -157,12 +125,6 @@ export function dekodiBestojn(kruda: string, kvanto: number): Uint8Array | null 
   } catch { return null; }
 }
 
-// skulptitaBiomo — La pentrita biomo de la punkto ( la biomo-tavolo de la
-// skulptilo ). 0 = aŭtomata ( nenio ), 1 = montaro, 2 = valo, 3 = ebenaĵo,
-// 4 = akvaj-plantoj, 5 = ekvizeto. La ludo uzas gxin en biomo() ( tereno.ts )
-// — malplena ( 0 aux sen datumoj ) estas nenio, same kiel aŭtomata.
-//     @param x, z ( number ) - Monda pozicio.
-//     @returns La pentrita biomo ( 0-5 ), aux 0 se neniu biomo-tavolo.
 export function skulptitaBiomo(x: number, z: number): number {
   if ( !BIOMOJ ) return 0;
   const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
@@ -172,13 +134,6 @@ export function skulptitaBiomo(x: number, z: number): number {
   return BIOMOJ[j * SKULPTA_N + i];
 }
 
-// skulptitaBesto — La pentrita besta zono de la punkto ( la besta-tavolo de
-// la skulptilo ). bitoj 1 = akvaj bestoj, 2 = petreloj, 4 = NPC-oj — ĉelo
-// povas teni PLURAJN samtempe ( 3 = akvaj+petreloj, ktp ), kaj la defaŭltaj
-// lokoj estas bakitaj en la tavolon. Malplena ( 0 aux sen datumoj ) estas
-// nenio — nenia besto tie.
-//     @param x, z ( number ) - Monda pozicio.
-//     @returns La pentritaj bestaj bitoj ( 0-7 ), aux 0 se neniu besta-tavolo.
 export function skulptitaBesto(x: number, z: number): number {
   if ( !BESTOJ ) return 0;
   const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;

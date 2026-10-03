@@ -1,10 +1,6 @@
-// ≺⧼ Tradukoj — la kmerea 🗣️ ⧽≻
-// La kmereaj ( Kambogxaj ) tekstoj de la tuta interfaco.
-// La vortaro estas nur datumoj — la funkcioj logxas en tradukoj.ts.
+// ≺⧼ ការបកប្រែ , ភាសាខ្មែរ 🗣️ ⧽≻
 
 export const KM: Record<string, string> = {
-  // Kmeraj ( Kamboĝaj ) tradukoj por ĉiuj UI-ŝnuroj
-  // Fonetaj proksimumoj en kmera skribo por kutimaj nomoj
   "titoloAranis": "អរ៉ានីស",
   "subtitoloUrbo": "ឡូតា-អ៊ីហ៊ីស • កាជីតេ-សេឡាមយ៉ូវ",
   "eniri": "ចូល",
@@ -37,16 +33,11 @@ export const KM: Record<string, string> = {
   "regiloKanuo": "ការគ្រប់គ្រងទូក • WASD ដើម្បីបង្វែរ",
   "eliri": "ចេញ",
   "eniriKanuo": "ចូលទូក",
-  // Retilo ( multludado ) — tostoj
   "retiloAliĝis": "នរណាម្នាក់បានចូលរួម។",
   "retiloForiris": "នរណាម្នាក់បានចាកចេញ។",
-  // Food action labels
   "actGusti": "ភ្លក់ •",
   "actKuxi": "ដេក",
   "actLevi": "ក្រោក",
-  // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
-  // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
-  // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
   "manĝFok0Flavor": "នំប៉័ងលីខេន មានប៉ាវសាច់ទាខាងក្នុង។",
   "manĝFok1Flavor": "ទឹកខ្មេះត្សាហាល និងត្រីទឹកកក។",
   "manĝFok2Flavor": "ទឹកខ្មេះត្សាហាល ពីងពាងសមុទ្រ ត្រីទឹកកក និងស្លេហ្វ។",
@@ -54,42 +45,34 @@ export const KM: Record<string, string> = {
   "manĝTla1Flavor": "ទឹកខ្មេះ ម្ទេស យូស៊ុ ជីអង្កាម និងទឹកមានពពុះ។",
   "manĝTla2Flavor": "ទឹកខ្មេះ ទឹកប៊ីច ជីអង្កាម និងតែប៊ឺហ្គាម៉ុត។",
   "manĝPuss0Flavor": "ត្រជាក់ មានទឹក និងផ្អែមបន្តិច។",
-  // Konstruaĵkartaj etikedoj
-  // Konstruaĵkarta flava teksto
   "flvDomo": "ផ្ទះ។",
   "flvMangxejo": "កន្លែងបរិភោគអាហាររួម។",
   "flvKasafeo": "បន្ទប់ប្រជុំ។",
   "flvStacioxipo": "ស្ថានីយ។",
   "flvTuro": "អគារខ្ពស់។",
   "flvSanktejo": "មជ្ឈមណ្ឌល។",
-  // Card stats
   "statTieroj": "ជាន់",
   "statDiamanto": "ពេជ្រ",
   "statJes": "បាទ",
   "statNe": "ទេ",
   "statTipo": "ប្រភេទ",
   "statPozicio": "ទីតាំង",
-  // WebGL error
   "webglMesagxo": "កម្មវិធីរុករករបស់អ្នកមិនគាំទ្រ WebGL ទេ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នកសម្រាប់បទពិសោធន៍ពេញលេញ។",
   "webglDetalo": "អរ៉ានីស ត្រូវការ WebGL ដើម្បីដំណើរការ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នក ឬពិនិត្យការកំណត់ GPU របស់អ្នក។",
   "webglReprovi": "ព្យាយាមម្តងទៀត",
-  // Aria labels
   "ariaButPromeni": "ដើរ",
   "ariaButBruo": "សំឡេងផ្ទៃខាងក្រោយ",
   "ariaButOrbiti": "ទស្សនា",
   "ariaButLingvo": "ភាសា",
   "ariaSupermetaFermi": "បិទ",
-  // ផ្ទាំងព័ត៌មាន ( អាគារ • អាហារ • ប្រភេទ )
   "ariaInformButono": "បើកព័ត៌មាន",
   "titoloInformo": "ព័ត៌មាន",
   "subtitoloInformo": "អាគារ • អាហារ • ប្រភេទ",
   "tabKonstruajxoj": "អាគារ",
   "tabMangxajxoj": "អាហារ",
   "tabSpecioj": "ប្រភេទ",
-  // ផ្ទាំងសម្លៀកបំពាក់
   "taboVestoj": "សម្លៀកបំពាក់",
   "taboHararo": "សក់",
-  // សត្វ និងរុក្ខជាតិនៃជ្រលង ( ពី bestoj.ts និង vegetajxo/ )
   "grupoBesto": "សត្វ",
   "grupoPlanto": "រុក្ខជាតិ",
   "specBeroe": "បេរ៉ូ",
@@ -115,18 +98,13 @@ export const KM: Record<string, string> = {
   "flvSpecCetkuo": "រុក្ខជាតិខ្ពស់គ្មានមែក មានកោនគ្រាប់ពូជ។",
   "flvSpecCakeo": "រុក្ខជាតិខ្ពស់មានមែកជុំវិញ ដុះនៅមាត់បឹង។",
   "flvSpecPussxlefo": "រុក្ខជាតិសាឡាត់ពណ៌ស្វាយទំហំប៉ុនហ្វឺន មានផ្លែថ្លាដែលអាចបរិភោគបាន។",
-  // Aria-labeleto por la krepuska baskulo
   "ariaButKrepusko": "ប្តូររបៀបព្រលប់",
   "ariaDuskRegilo": "កម្រិតព្រលប់",
-  // អាកាសធាតុ — បរិយាកាសដែលអាចទាំងបួន
   "ariaButVetero": "អាកាសធាតុ",
   "veteroNebula": "អ័ព្ទ",
   "veteroPluva": "ភ្លៀង",
   "veteroHajla": "ព្រិលកក",
   "veteroNega": "ព្រិល",
-  // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
-  // Canvas alt text
-  // Clothing names ( phonetic approximations in Khmer script )
   "vestoVerdant": "ពណ៌បៃតង",
   "vestoHearth": "ពណ៌ត្នោត",
   "vestoMist": "ពណ៌ស",
@@ -137,11 +115,9 @@ export const KM: Record<string, string> = {
   "vestoRose": "ពណ៌ផ្កាឈូក",
   "vestoObsidian": "ពណ៌ខ្មៅ",
   "vestoCyan": "ពណ៌ស៊ីអាន",
-  // ម៉ូដសក់
   "sekcioHararo": "ម៉ូដសក់",
   "haroMalalta": "ខ្លី",
   "haroLonga": "វែង",
-  // ពណ៌សក់
   "sekcioHarKoloroj": "ពណ៌សក់",
   "harKoloroBruna": "ត្នោត",
   "harKoloroNigra": "ខ្មៅ",
@@ -149,6 +125,5 @@ export const KM: Record<string, string> = {
   "harKoloroKaŝtana": "ដើមទ្រូង",
   "harKoloroBlonda": "ទង់ដែង",
   "harKoloroGriza": "ប្រផេះ",
-  // Konstruaĵnomoj ( paqN )
   "muziko": "តន្ត្រី",
 };

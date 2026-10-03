@@ -1,6 +1,4 @@
-// ≺⧼ La didjxeridua voĉo 🐘 ⧽≻
-// La didjxeriduo — segildenta tono kun sub-baso, du bandoj kaj, por la longa
-// tono, la vivaj kirloj kaj la spira bruo ( didj ).
+// ≺⧼ សំឡេងដីជេរីឌូ 🐘 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
 export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1, toot = false) {

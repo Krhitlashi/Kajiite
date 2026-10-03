@@ -1,10 +1,4 @@
 // ≺⧼ ផែនទី និងឯកសារ 📃 ⧽≻
-// ទម្រង់ទិន្នន័យ និងឯកសាររបស់ឧបករណ៍ឆ្លាក់ដី គឺកូដលេខ
-// ( លេខគោលប្រាំបី ប្រភាគ π base64 ) បញ្ជីផែនទី ( tero-datumaro/mapoj.ts
-// និងទ្វារ aktiva.ts ) រូបរាងពិភពលោក និងការអាន និងការសរសេរ
-// ឯកសារទិន្នន័យទាំងប្រាំពីររបស់ផែនទី។ ស្ថានភាពកម្មវិធីកែសម្រួល ( ដេលតា ម៉ាស
-// តំបន់ជីវៈ សត្វ ប្រវត្តិ និងកម្មវិធីបង្ហាញ ) មកតាម agordiDosierojn ព្រោះ
-// ម៉ូឌុលអាន និងសរសេរពួកវាដូចម៉ូឌុលផ្សេងទៀត។
 import { MAPOJ } from "../../../kantaoj/tero-datumaro/mapoj.js";
 import { mapoDeKodo } from "../../../kantaoj/tero-datumaro/mapregulo.js";
 import { FORMOJ, formajRandPunktoj } from "../../../eskekoj/komunajxoj/mapformo.js";
@@ -24,8 +18,6 @@ import type { MetitaObjekto, SkulptaUrbo, SkulptaVojo, SkulptaPlatformo } from "
 import type { VojaPunkto } from "../../../eskekoj/medio/voj-reto.js";
 import type { HistoriaMomento } from "./historio.js";
 
-// ផែនទីអាសយដ្ឋាន ( ?mapo=<kodo> ) គឺបញ្ជី រូបរាងពិភពលោក និង
-// ចំណុចគែមនៃរូបរាង។ ហ្គេមខ្លួនឯងអានទ្វារ aktiva.ts។
 export const mapoKodo = new URLSearchParams(location.search).get("mapo");
 export const mapoDatumo = mapoDeKodo(mapoKodo);
 export let mapoFormo: MapFormo = mapoDatumo.formo;
@@ -41,14 +33,11 @@ export function oktala(valoro: number): string {
   }
   return ( n < 0 ? "-" : "" ) + "0o" + Math.abs(n).toString(8) + "/0o100";
 }
-// gcdn គឺភាគរយរួមធំបំផុត ( សម្រាប់ធ្វើឱ្យប្រភាគ π សាមញ្ញ )។
 export function gcdn(a: number, b: number): number {
   a = Math.abs(a); b = Math.abs(b);
   while ( b ) { const r = a % b; a = b; b = r; }
   return a || 1;
 }
-// piFrakcio គឺតើតម្លៃជាប្រភាគ π ពិត ( Math.PI, Math.PI/2,
-// 3*Math.PI/4, ... ) ឬទេ។ ត្រឡប់អត្ថបទនៃកន្សោមពិត ឬ null។
 export function piFrakcio(valoro: number): string | null {
   if ( !Number.isFinite(valoro) ) return null;
   const r = valoro / Math.PI;
@@ -69,11 +58,6 @@ export function piFrakcio(valoro: number): string | null {
   }
   return null;
 }
-// formatiNombron គឺរចនាប័ទ្មលេខរបស់ទិន្នន័យ។ ចំនួនគត់ជា
-// លេខគោលប្រាំបី ( 0o140 ជំនួស 96 ) ការបង្វិលជាប្រភាគ π ពិត
-// ( Math.PI / 2 ជំនួស 1.5707963267948966 ) ហើយ 1/64 ជា
-// ប្រភាគគោលប្រាំបី ( 0o340/0o100 ជំនួស 3.5 )។ មានតែសំណល់ចំនួនទសភាគ
-// ( ឧទាហរណ៍ z របស់កំពង់ដែលគណនាដោយខ្លួនឯង ) ដែលនៅជាទសភាគ។
 export function formatiNombron(valoro: number): string {
   if ( !Number.isFinite(valoro) ) return "null";
   if ( valoro === 0 ) return "0";
@@ -106,11 +90,6 @@ export function skribiValoron(valoro: unknown): string {
   }
   return "{ " + eroj.join(", ") + " }";
 }
-// parziValoron គឺកម្មវិធីញែកកន្សោមតូចសម្រាប់ទិន្នន័យរបស់ឧបករណ៍ឆ្លាក់។
-// ការរក្សាទុកសរសេរលេខជាគោលប្រាំបី ( 0o300 ) និងការបង្វិលជា
-// ប្រភាគ π ពិត ( Math.PI / 2, 3 * Math.PI / 4 ) ដែល JSON.parse
-// មិនអាចអានបាន ដូច្នេះការផ្ទុកឯកសារប្រើកម្មវិធីញែកនេះ។
-// ( JSON ផ្ទាល់ក៏អាចញែកបាន ព្រោះវាជាផ្នែករងនៃវេយ្យាករណ៍ )។
 /* កម្មវិធីញែកកន្សោមតូចសម្រាប់ទិន្នន័យរបស់ឧបករណ៍ឆ្លាក់។
     @param teksto ( string ) - កន្សោម ( ខ្លឹមសារដើមនៃឯកសារ )។
 @returns តម្លៃដែលបានញែក ( any ) ព្រោះលទ្ធផលជាទិន្នន័យឌីណាមិក។ */
@@ -195,7 +174,6 @@ export function parziValoron(teksto: string): any {
       if ( teksto[i] === "}" ) { i++; return o; }
       for ( ;; ) {
         sp();
-        // ក្បៀសបន្ទាប់ ( { ... , } ) គឺសញ្ញាបិទបញ្ចប់វត្ថុ។
         if ( teksto[i] === "}" ) { i++; return o; }
         const k = stringo();
         sp();
@@ -216,7 +194,6 @@ export function parziValoron(teksto: string): any {
       if ( teksto[i] === "]" ) { i++; return a; }
       for ( ;; ) {
         sp();
-        // ក្បៀសបន្ទាប់ ( [ ... , ] ) គឺសញ្ញាបិទបញ្ចប់អារេ។
         if ( teksto[i] === "]" ) { i++; return a; }
         a.push(valoro());
         sp();
@@ -239,8 +216,6 @@ export function parziValoron(teksto: string): any {
   return v;
 }
 export function bazo64DeBajtoj(bajtoj: Uint8Array): string {
-  // ប្លុកជាពហុគុណនៃ 3 ( 0o30000 = 12288 ) ដើម្បីឱ្យ btoa មិនបញ្ចូល
-  // សញ្ញាបំពេញ ( "=" ) នៅកណ្តាល ព្រោះវានឹងធ្វើឱ្យខ្សែអក្សរទាំងមូលខូច។
   let teksto = "";
   const bloko = 0o30000;
   for ( let i = 0; i < bajtoj.length; i += bloko ) {
@@ -260,8 +235,6 @@ export function bazo64DeMasko(maskoDatumoj: Uint8Array): string {
   return bazo64DeBajtoj(bajtoj);
 }
 export function bazo64DeBiomoj(biomoDatumoj: Uint8Array): string {
-  // 3 ប៊ីតក្នុងមួយក្រឡា ( 0=ស្វ័យប្រវត្តិ, 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប,
-  // 4=រុក្ខជាតិទឹក, 5=ekvizeto ) គឺប្រាំបីក្រឡាក្នុងបីបៃ។
   const bajtoj = new Uint8Array(Math.ceil(( biomoDatumoj.length * 3 ) / 8));
   for ( let i = 0; i < biomoDatumoj.length; i++ ) {
     const b = i * 3;
@@ -271,8 +244,6 @@ export function bazo64DeBiomoj(biomoDatumoj: Uint8Array): string {
   return bazo64DeBajtoj(bajtoj);
 }
 export function bazo64DeBestoj(bestoDatumoj: Uint8Array): string {
-  // 3 ប៊ីតក្នុងមួយក្រឡា ( ប៊ីត 1=សត្វទឹក, 2=បក្សីព្រិល, 4=NPC ) គឺប្រាំបី
-  // ក្រឡាក្នុងបីបៃ។
   const bajtoj = new Uint8Array(Math.ceil(bestoDatumoj.length * 3 / 8));
   for ( let i = 0; i < bestoDatumoj.length; i++ ) {
     const b = i * 3;
@@ -282,8 +253,6 @@ export function bazo64DeBestoj(bestoDatumoj: Uint8Array): string {
   }
   return bazo64DeBajtoj(bajtoj);
 }
-// kvantigiDeltojn គឺការបរិមាណរួម ( ភាពជាក់លាក់ 1/16 ឯកតា កំណត់ក្នុង
-// ដែន int16 ) សម្រាប់ទាំងការសរសេរ និងការត្រួតពិនិត្យខ្លួនឯង ដើម្បីឱ្យទាំងពីរត្រូវគ្នាជានិច្ច។
 export function kvantigiDeltojn(): Int16Array {
   const kvantigita = new Int16Array(N * N);
   for ( let i = 0; i < deltoj.length; i++ ) {
@@ -291,10 +260,6 @@ export function kvantigiDeltojn(): Int16Array {
   }
   return kvantigita;
 }
-// cirkuloValidas គឺការត្រួតពិនិត្យខ្លួនឯងមុនការសរសេរ។ វាកូដទិន្នន័យដោយអនុគមន៍
-// ដូចការរក្សាទុក ហើយឌីកូដវាម្តងទៀត ដោយប្រៀបធៀបនឹងដើម។
-// នេះចាប់បានរាល់ការខូចក្នុងការកូដ ( ឧទាហរណ៍ ប្លុកកាត់ លំដាប់
-// បៃខុស ) មុនពេលវាឈានដល់ឯកសារ។
 export function cirkuloValidas(): boolean {
   try {
     const kvantigita = kvantigiDeltojn();
@@ -318,9 +283,6 @@ export function cirkuloValidas(): boolean {
     return true;
   } catch { return false; }
 }
-// cirkuloDeDatumojValidas គឺការត្រួតពិនិត្យខ្លួនឯងដូចគ្នាសម្រាប់វត្ថុ ទីក្រុង និង
-// ផ្លូវ កំពង់។ ការធ្វើសេរៀល ( skribiValoron ) និងការញែកឡើងវិញ ( parziValoron )
-// ត្រូវតែត្រឡប់ទិន្នន័យដូចគ្នា បើមិនដូច្នេះការរក្សាទុកនឹងសរសេរឯកសារខូច។
 export function cirkuloDeDatumojValidas(): boolean {
   try {
     return JSON.stringify(parziValoron(skribiValoron(objektoj))) === JSON.stringify(objektoj)
@@ -330,39 +292,26 @@ export function cirkuloDeDatumojValidas(): boolean {
       && JSON.stringify(parziValoron(skribiValoron(dokoj))) === JSON.stringify(dokoj);
   } catch { return false; }
 }
-// ចំណងជើងឯកសារ គឺឯកសារទិន្នន័យនីមួយៗចាប់ផ្តើមដោយសញ្ញារបស់វា ដែល
-// ម៉ាស៊ីនមេរក្សាទុកពិនិត្យ ( ដូច្នេះគ្មានខ្លឹមសារបរទេសត្រូវសរសេរចូល kantaoj/ )។
-// rultempo.ts លែងត្រូវសរសេរដោយការរក្សាទុកទៀតទេ ព្រោះវាជាម៉ូឌុលរួមដែល
-// អនុគមន៍របស់វាត្រូវបាននាំចូលដោយឧបករណ៍ឆ្លាក់ ( សូមមើលការនាំចូល tero-datumaro/rultempo )។
-// ⟪ ផែនទីទាំងឡាយ 📃 ⟫ គឺផែនទីនីមួយៗមានឯកសារទិន្នន័យប្រាំពីររបស់វានៅក្នុងថត
-// ផ្ទាល់ខ្លួន ( tero-datumaro/<kodo>/ )។ សញ្ញារបស់ឯកសារនៅដដែល រីឯម៉ាស៊ីនមេ
-// រក្សាទុកពិនិត្យសញ្ញារបស់ឯកសារនីមួយៗដែលត្រូវសរសេរ ដូច្នេះ
-// ឈ្មោះថតអាចជាផែនទីណាមួយក្នុងបញ្ជី។
+// ⟪ ផែនទីទាំងឡាយ 📃 ⟫
 export const DATUMDOSIEROJ = [ "krado", "akvo", "akvofontoj", "biomoj", "bestoj", "objektoj", "urboj", "vojoj" ];
-// dosierujo គឺថតរបស់ផែនទីក្នុង kantaoj/ ( បញ្ចប់ដោយ "/" ជានិច្ច )។
 export function dosierujo(kodo: string): string { return "tero-datumaro/" + kodo + "/"; }
 export const mapoDosierujo = dosierujo(mapoDatumo.kodo);
 export const DOSIERA_TITOLO = {
-  [mapoDosierujo + "krado.ts"]: "// ≺⧼ Skulptita krado 📃 ⧽≻",
-  [mapoDosierujo + "akvo.ts"]: "// ≺⧼ Skulptita akvo 📃 ⧽≻",
+  [mapoDosierujo + "krado.ts"]: "// ≺⧼ ក្រឡាឆ្លាក់ 📃 ⧽≻",
+  [mapoDosierujo + "akvo.ts"]: "// ≺⧼ ទឹកឆ្លាក់ 📃 ⧽≻",
   [mapoDosierujo + "akvofontoj.ts"]: "// ≺⧼ Skulptitaj akvofontoj",
-  [mapoDosierujo + "biomoj.ts"]: "// ≺⧼ Skulptitaj biomoj 📃 ⧽≻",
-  [mapoDosierujo + "bestoj.ts"]: "// ≺⧼ Skulptitaj bestoj 📃 ⧽≻",
-  [mapoDosierujo + "objektoj.ts"]: "// ≺⧼ Skulptitaj objektoj 📃 ⧽≻",
-  [mapoDosierujo + "urboj.ts"]: "// ≺⧼ Skulptitaj urboj 📃 ⧽≻",
-  [mapoDosierujo + "vojoj.ts"]: "// ≺⧼ Skulptitaj vojoj 📃 ⧽≻",
-  "tero-datumaro/mapoj.ts": "// ≺⧼ Mapoj 🗺️ ⧽≻",
-  "tero-datumaro/aktiva.ts": "// ≺⧼ Aktiva mapo 📃 ⧽≻",
+  [mapoDosierujo + "biomoj.ts"]: "// ≺⧼ ជីវតំបន់ឆ្លាក់ 📃 ⧽≻",
+  [mapoDosierujo + "bestoj.ts"]: "// ≺⧼ សត្វឆ្លាក់ 📃 ⧽≻",
+  [mapoDosierujo + "objektoj.ts"]: "// ≺⧼ វត្ថុឆ្លាក់ 📃 ⧽≻",
+  [mapoDosierujo + "urboj.ts"]: "// ≺⧼ ទីក្រុងឆ្លាក់ 📃 ⧽≻",
+  [mapoDosierujo + "vojoj.ts"]: "// ≺⧼ ផ្លូវឆ្លាក់ 📃 ⧽≻",
+  "tero-datumaro/mapoj.ts": "// ≺⧼ ផែនទី 🗺️ ⧽≻",
+  "tero-datumaro/aktiva.ts": "// ≺⧼ ផែនទីសកម្ម 📃 ⧽≻",
 };
-// ទិន្នន័យរស់នៅក្នុងឯកសារផ្ទាល់ខ្លួន ( សំណាញ់ ទឹក តំបន់ជីវៈ សត្វ
-// វត្ថុ ទីក្រុង និងផ្លូវ កំពង់ ដោយឡែក ) ដូច្នេះការរក្សាទុកបង្កើតផែនទី
-// ឯកសារទាំងមូលក្នុង kantaoj/tero-datumaro/ ( rultempo.ts លែងត្រូវសរសេរទៀតទេ )។
 export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, string> {
   const dosierujoDeMapo = dosierujo(kodo);
-  sinkronigiSuperojn();   // ស្រទាប់ក្រឡាផ្ទាល់ទៅទិន្នន័យទីក្រុង មុនការសរសេរ
+  sinkronigiSuperojn();
   const kvantigita = kvantigiDeltojn();
-  // ទង់សកម្មដោយឡែក ព្រោះការផ្លាស់ប្តូរតែទឹកមិនគួរធ្វើឱ្យឯកសារហើម
-  // ដោយដេលតាសូន្យ 32 KB ហើយផ្ទុយមកវិញក៏ដូចគ្នា។
   let deltojAktivaj = false, maskoAktiva = false, biomojAktivaj = false, bestojAktivaj = false;
   for ( let i = 0; i < kvantigita.length; i++ ) if ( kvantigita[i] !== 0 ) { deltojAktivaj = true; break; }
   for ( let i = 0; i < masko.length; i++ ) if ( masko[i] ) { maskoAktiva = true; break; }
@@ -374,14 +323,14 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
   const besto64 = bestojAktivaj ? bazo64DeBestoj(bestoj) : "";
   const aktiva = deltojAktivaj || maskoAktiva || biomojAktivaj || bestojAktivaj;
   const komunajKom = [
-    "// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).",
-    "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.",
+    "// បង្កើតដោយឧបករណ៍ឆ្លាក់ដី ( iloj/tero-skulptilo/tero-skulptilo.html )។",
+    "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - កុំកែដោយដៃ។ ឧបករណ៍ឆ្លាក់សរសេរឯកសារឡើងវិញ។",
   ];
   const kradoTeksto = [
-    "// ≺⧼ Skulptita krado 📃 ⧽≻",
+    "// ≺⧼ ក្រឡាឆ្លាក់ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ La skulpta krado 📃 ⟩ — la paŝo, grandeco, origino, aktiva-flago kaj la deltoj.",
+    "// ⟨ ក្រឡាឆ្លាក់ 📃 ⟩ , ជំហាន , ទំហំ , ប្រភពដើម , ទង់សកម្ម និងដេលតា។",
     "export const SKULPTA_PASO = " + oktala(PASO) + ";",
     "export const SKULPTA_N = " + oktala(N) + ";",
     "export const SKULPTA_ORIGINO = [ " + oktala(X0) + ", " + oktala(Z0) + " ];",
@@ -389,97 +338,91 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "export const SKULPTA_DELTAJ = " + JSON.stringify(delta64) + ";",
   ].join("\n");
   const akvoTeksto = [
-    "// ≺⧼ Skulptita akvo 📃 ⧽≻",
+    "// ≺⧼ ទឹកឆ្លាក់ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ La akva tavolo 📃 ⟩ — la nivelo de la basenoj kaj la MALNOVA pentrita",
-    "// akva masko ( nun nur la basenaj semoj — la akvo mem estas DERIVITA de la",
-    "// fontoj per kantaoj/mondo/akvokalkulo.ts ).",
+    "// ⟨ ស្រទាប់ទឹក 📃 ⟩ , កម្រិតនៃអាង និងម៉ាសពណ៌ទឹកចាស់",
+    "// ( ឥឡូវគ្រាន់តែជាគ្រាប់អាង , ទឹកខ្លួនឯងកាត់បន្ថយពី",
+    "// ប្រភពតាម kantaoj/mondo/akvokalkulo.ts )។",
     "export const SKULPTA_AKVA_NIVELO = " + oktala(akvaNiveloValoro) + ";",
     "export const SKULPTA_AKVA_MASKO = " + JSON.stringify(masko64) + ";",
   ].join("\n");
-  // ប្រភពទឹក គឺការបញ្ចូលទឹក ព្រោះទន្លេហូរចេញពីពួកវា រណ្តៅ
-  // ពេញ ហើយប្រឡាយត្រូវបានកាត់។ ប្រភពនីមួយៗមាន x, z និងលំហូរ។
   const fontoTeksto = [
-    "// ≺⧼ Skulptitaj akvofontoj 🌊 ⧽≻",
+    "// ≺⧼ ប្រភពទឹកឆ្លាក់ 🌊 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ La akvofontoj 📃 ⟩ — la fontoj de la akvo. La akvo ne plu pentrigxas:",
-    "// gxi fluas de cxi tiuj punktoj malsupren laux la tereno ( kantaoj/mondo/akvokalkulo.ts ),",
-    "// plenigante la kavojn kaj eltrancxante la kanalojn. Cxiu fonto - x, z ( mondaj",
-    "// unuoj ) kaj fluo ( pli granda fluo = pli profunda kaj pli larghxa rivero ).",
+    "// ⟨ ប្រភពទឹក 📃 ⟩ , ប្រភពទឹក។ ទឹកលែងគូរទៀតទេ ,",
+    "// វាហូរពីចំណុចទាំងនេះចុះតាមដី ( kantaoj/mondo/akvokalkulo.ts ) ,",
+    "// បំពេញប្រហោង និងកាត់ស្នងទន្លេ។ ប្រភពនីមួយៗ - x, z ( ឯកតាពិភពលោក",
+    "// ) និងលំហូរ ( លំហូរធំជាង = ទន្លេជ្រៅនិងធំជាង )។",
     "export const SKULPTA_AKVOFONTOJ = " + skribiValoron(fontoj) + ";",
   ].join("\n");
   const biomoDosiero = [
-    "// ≺⧼ Skulptitaj biomoj 📃 ⧽≻",
+    "// ≺⧼ ជីវតំបន់ឆ្លាក់ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ La biomo-tavolo 📃 ⟩ ( 0=aŭtomata, 1=montaro, 2=valo, 3=ebenaĵo,",
-    "// 4=akvaj-plantoj, 5=ekvizeto ).",
+    "// ⟨ ស្រទាប់ជីវតំបន់ 📃 ⟩ ( 0=ស្វ័យប្រវត្តិ , 1=ភ្នំ , 2=ជ្រលង , 3=វាលរាប",
+    "// 4=រុក្ខជាតិទឹក , 5=ហូសេថេល )។",
     "export const SKULPTA_BIOMOJ = " + JSON.stringify(biomo64) + ";",
   ].join("\n");
   const bestoDosiero = [
-    "// ≺⧼ Skulptitaj bestoj 📃 ⧽≻",
+    "// ≺⧼ សត្វឆ្លាក់ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ La besta-tavolo 📃 ⟩ ( bitoj 1=akvaj bestoj, 2=petreloj, 4=NPC-oj ).",
+    "// ⟨ ស្រទាប់សត្វ 📃 ⟩ ( ប៊ីត 1=សត្វទឹក , 2=ផេត្រេល , 4=NPC )។",
     "export const SKULPTA_BESTOJ = " + JSON.stringify(besto64) + ";",
   ].join("\n");
-  // វត្ថុដែលបានដាក់ ជាមួយរចនាប័ទ្មលេខដូចទិន្នន័យផ្សេងទៀត។
   const objektoTeksto = [
-    "// ≺⧼ Skulptitaj objektoj 📃 ⧽≻",
+    "// ≺⧼ វត្ថុឆ្លាក់ 📃 ⧽≻",
     ...komunajKom,
-    "// La metitaj objektoj de la objekta ilo de la terena skulptilo — la kanuoj",
-    "// 🛶, la spacosxipo 🚀, la lampoj 🏮, la keuxfhxesoj ⭐ kaj la individuaj",
-    "// konstruajxoj 🏛️ estas ankaŭ objektoj. Malplena = neniu objekto.",
-    "// Cxiu objekto - x, z ( 0.25-algluita ), speco ( betulo | lariko | hxsxaksxlefo",
+    "// វត្ថុដាក់របស់ឧបករណ៍វត្ថុនៃឧបករណ៍ឆ្លាក់ដី , ទូកកាណូ",
+    "// 🛶 , យានអវកាស 🚀 , ចង្កៀង 🏮 , keuxfhxesoj ⭐ និងអគារ",
+    "// បុគ្គល 🏛️ ក៏ជាវត្ថុដែរ។ ទទេ = គ្មានវត្ថុ។",
+    "// វត្ថុនីមួយៗ - x, z ( ភ្ជាប់ 0.25 ) , ប្រភេទ ( betulo | lariko | hxsxaksxlefo",
     "// | pussxlefo | roko | filiko | akvabesto | petrelo | npco | sanktejo | turo",
-    "// | domo | mangxejo | kasafeo | stacio | hxeuxfo | hxeuxfoPlato | keuxfhxeso | kanuo | spacosxipo ),",
-    "// skalo, rotacio, bestospeco, radio, vesto, harstilo, filikaSpeco, stilo.",
+    "// | domo | mangxejo | kasafeo | stacio | hxeuxfo | hxeuxfoPlato | keuxfhxeso | kanuo | spacosxipo ) ,",
+    "// មាត្រដ្ឋាន , ការបង្វិល , ប្រភេទសត្វ , កាំ , សម្លៀកបំពាក់ , រចនាសក់ , ប្រភេទហ្វេន , រចនាប័ទ្ម។",
     "export const SKULPTA_OBJEKTOJ = " + skribiValoron(objektoj) + ";",
   ].join("\n");
   const urboTeksto = [
-    "// ≺⧼ Skulptitaj urboj 📃 ⧽≻",
+    "// ≺⧼ ទីក្រុងឆ្លាក់ 📃 ⧽≻",
     ...komunajKom,
-    "// La urboj de la mondo — la kradaj arangxoj kaj ofsetoj redaktataj per la",
-    "// Krado-langeto. La unua urbo estas la cefa. Cxiu urbo - nomo, arangxaGrando,",
-    "// blokaGrando ( unu | kvar ), ofsX, ofsZ, keuxfhxeso ( la kvar anguloj ĉirkaŭ",
-    "// la centro ), lampoj ( la kvar-lampa strato-ŝablono ), superoj ( la manaj",
-    "// ĉel-superoj — \"c,r\" kaj \"c,r,SUB\" → tipo ) kaj aldonajBlokoj",
-    "// ( x, z, tipo, rot, sub, stacia, konektita ).",
+    "// ទីក្រុងនៃពិភពលោក , ការរៀបចំក្រឡា និងអុហ្វសិតកែដោយ",
+    "// ផ្ទាំងក្រឡា។ ទីក្រុងទីមួយជាទីក្រុងមេ។ ទីក្រុងនីមួយៗ - ឈ្មោះ , arangxaGrando ,",
+    "// blokaGrando ( unu | kvar ) , ofsX, ofsZ, keuxfhxeso ( ជ្រុងទាំងបួនជុំវិញ",
+    "// កណ្តាល ) , lampoj ( គំរូផ្លូវចង្កៀងបួន ) , superoj ( ការដាក់លើក្រឡាដោយដៃ",
+    "// , \"c,r\" និង \"c,r,SUB\" → ប្រភេទ ) និង aldonajBlokoj",
+    "// ( x, z, tipo, rot, sub, stacia, konektita )។",
     "export const SKULPTA_URBOJ = " + skribiValoron(urboj) + ";",
   ].join("\n");
   const vojoTeksto = [
-    "// ≺⧼ Skulptitaj vojoj 📃 ⧽≻",
+    "// ≺⧼ ផ្លូវឆ្លាក់ 📃 ⧽≻",
     ...komunajKom,
-    "// La mond-nivelaj vojoj ( la kajo, la avenuo ) kiel polilinioj kun nomo kaj",
-    "// larĝo, kaj la dokaj platformoj kun pozicio kaj profundo — redaktataj per",
-    "// la Vojoj sub-langeto de la terena skulptilo.",
+    "// ផ្លូវកម្រិតពិភពលោក ( កំពង់ , មហាវិថី ) ជាប៉ូលីលីនដែលមានឈ្មោះ និង",
+    "// ទទឹង , និងវេទិកាចតុកោណដែលមានទីតាំង និងជម្រៅ , កែដោយ",
+    "// ផ្ទាំងផ្លូវរបស់ឧបករណ៍ឆ្លាក់ដី។",
     "export const SKULPTA_VOJOJ = " + skribiValoron(vojoj) + ";",
     "export const SKULPTA_DOKOJ = " + skribiValoron(dokoj) + ";",
   ].join("\n");
-  // ⟪ បញ្ជីផែនទី និងទ្វារ 📃 ⟫ គឺ mapoj.ts កាន់បញ្ជីផែនទី
-  // ( ជាមួយរូបរាងរបស់ផែនទីនីមួយៗ ) ហើយ aktiva.ts នាំចេញឡើងវិញនូវទិន្នន័យរបស់
-  // ផែនទីសកម្មសម្រាប់ហ្គេម។ ទាំងពីរត្រូវសរសេរឡើងវិញរាល់ការរក្សាទុក ដូច្នេះការជ្រើសផែនទី
-  // សកម្មផ្សេង ឬការផ្លាស់ប្តូររូបរាងគឺគ្រប់គ្រាន់ ( ព្រោះហ្គេមអានទ្វារនោះ )។
+  // ⟪ បញ្ជីផែនទី និងទ្វារ 📃 ⟫
   const mapoNuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
   if ( mapoNuna ) { mapoNuna.formo = mapoFormo; mapoNuna.grandeco = mapoGrandeco; }
   const mapojTeksto = [
-    "// ≺⧼ Mapoj 🗺️ ⧽≻",
+    "// ≺⧼ ផែនទី 🗺️ ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ La mapoj de la mondo 📃 ⟩ — ĉiu mapo estas SENDEPENDA mondo kun siaj propraj",
-    "// datumoj ( kantaoj/tero-datumaro/<kodo>/ — la krado, la akvo, la biomoj, la bestoj,",
-    "// la metitaj objektoj, la urboj kaj la vojoj/dokoj ). La terena skulptilo",
-    "// elektas la mapon, redaktas ĝin kaj skribas la datumojn de tiu mapo; la ludo",
-    "// legas la mapon markitan per aktiva ( tra la pordo aktiva.ts ).",
+    "// ⟨ ផែនទីនៃពិភពលោក 📃 ⟩ , ផែនទីនីមួយៗជាពិភពលោកឯករាជ្យដែលមានទិន្នន័យផ្ទាល់ខ្លួន",
+    "// ( kantaoj/tero-datumaro/<kodo>/ , ក្រឡា , ទឹក , ជីវតំបន់ , សត្វ ,",
+    "// វត្ថុដាក់ , ទីក្រុង និងផ្លូវ/ចតុកោណ )។ ឧបករណ៍ឆ្លាក់ដី",
+    "// ជ្រើសផែនទី , កែវា និងសរសេរទិន្នន័យផែនទីនោះ , ហ្គេម",
+    "// អានផែនទីដែលសម្គាល់ថាសកម្ម ( តាមច្រកទ្វារ aktiva.ts )។",
     "//",
-    "// formo — la formo de la tereno ( eskekoj/komunajxoj/mapformo.ts ): la cirklo ( la",
-    "// defaŭlto ), la rondigita kvadrato aŭ la rondigita triangulo.",
-    "// grandeco — la duon-grando de la formo en mondo-unuoj: la radiuso de la cirklo,",
-    "// la duon-larĝo de la kvadrato aŭ la cirkumradiuso de la triangulo.",
+    "// formo , ទម្រង់ដី ( eskekoj/komunajxoj/mapformo.ts ) , រង្វង់ (",
+    "// លំនាំដើម ) , ការ៉េមូល ឬត្រីកោណមូល។",
+    "// grandeco , កន្លះទំហំទម្រង់គិតជាឯកតាពិភពលោក , កាំរង្វង់ ,",
+    "// កន្លះទទឹងការ៉េ ឬកាំរង្វង់ជុំត្រីកោណ។",
     "//",
-    "// La tipo kaj la helpiloj loĝas en kantaoj/tero-datumaro/mapregulo.ts.",
+    "// ប្រភេទ និងឧបករណ៍ជំនួយស្ថិតនៅ kantaoj/tero-datumaro/mapregulo.ts។",
     "import type { MapoDatumo } from \"./mapregulo.js\";",
     "",
     "export const MAPOJ: MapoDatumo[] = [",
@@ -490,14 +433,14 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
   ].join("\n");
   const aktivaKodo = ( mapojRegistroj.find(m => m.aktiva) ?? mapojRegistroj[0] ).kodo;
   const aktivaTeksto = [
-    "// ≺⧼ Aktiva mapo 📃 ⧽≻",
+    "// ≺⧼ ផែនទីសកម្ម 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ La datumoj de la aktiva mapo 📃 ⟩ — la pordo al la datumoj de la mapo, kiun",
-    "// la ludo legas. La mapoj estas SENDEPENDAJ mondoj ( mapoj.ts ); ĉi tiu dosiero",
-    "// re-eksportas la sep datumdosierojn de UNU el ili, do la tuta ludo importas unu",
-    "// konatan pordon ( tereno.ts, urbo.ts, ... ) kaj neniam dosierujon. La skulptilo",
-    "// reskribas ĝin kiam ĝi ŝanĝas la aktivan mapon.",
+    "// ⟨ ទិន្នន័យផែនទីសកម្ម 📃 ⟩ , ច្រកទ្វារទៅទិន្នន័យផែនទីដែល",
+    "// ហ្គេមអាន។ ផែនទីទាំងនេះជាពិភពលោកឯករាជ្យ ( mapoj.ts ) , ឯកសារនេះ",
+    "// នាំចេញឡើងវិញនូវឯកសារទិន្នន័យទាំងប្រាំពីរនៃមួយក្នុងចំណោមពួកវា , ដូច្នេះហ្គេមទាំងមូលនាំចូលច្រក",
+    "// ស្គាល់មួយ ( tereno.ts, urbo.ts, ... ) ហើយមិនដែលនាំចូលថត។ ឧបករណ៍ឆ្លាក់",
+    "// សរសេរវាឡើងវិញពេលវាប្តូរផែនទីសកម្ម។",
     ...DATUMDOSIEROJ.map(d => "export * from \"./" + aktivaKodo + "/" + d + ".js\";"),
   ].join("\n");
   return {
@@ -513,10 +456,6 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "tero-datumaro/aktiva.ts": aktivaTeksto,
   };
 }
-// sxargiDatumaronElMapo គឺផ្ទុកទិន្នន័យពីផែនទីឯកសារ
-// ( { nomo. teksto } គឺឯកសារដែលបានបង្កើត ឬឯកសារមួយដែលបានជ្រើស )។ ថេរនីមួយៗ
-// ត្រូវបានរកនៅក្នុងឯកសារទាំងអស់ដែលបានផ្តល់ ដូច្នេះទម្រង់ចាស់ដែលមានតែ
-// ឯកសារមួយ ( ថេរទាំងអស់ក្នុង tero-datumo.ts ) នៅតែផ្ទុកបាន។
 export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean {
   const preni = ( nomo: string ): string | null => {
     const ankro = "export const " + nomo + " = ";
@@ -550,9 +489,6 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
   }
   const nivelo2 = oktalaNombro(preni("SKULPTA_AKVA_NIVELO"));
   const malpaku = ( s: string | null ): string | null => ( s === null ? null : s.replace(/^"|"$/g, "") );
-  // ស្រទាប់នីមួយៗផ្ទុកតែពេលសោរបស់វាមានក្នុងឯកសារដែល
-  // បានផ្តល់ ដូច្នេះការផ្ទុកឯកសារស្រទាប់មួយ ( ឧទាហរណ៍ biomoj.ts ) លែង
-  // លុបស្រទាប់ផ្សេង វត្ថុ ឬទីក្រុងទៀតទេ។
   const deltaKruda = malpaku(preni("SKULPTA_DELTAJ"));
   if ( deltaKruda !== null ) {
     deltoj.fill(0);
@@ -577,7 +513,6 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
     const be = dekodiBestojn(bestoKruda, N * N);
     if ( be ) bestoj.set(be);
   }
-  // ប្រភពទឹក គឺទឹកខ្លួនឯងជាដេរីវេ ( ព្រោះប្រភពជាការបញ្ចូល )។
   const fon = preni("SKULPTA_AKVOFONTOJ");
   if ( fon !== null ) {
     try {
@@ -627,7 +562,6 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
   if ( !urboj.length ) agordiUrbojn([ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ]);
   agordiElektitanUrbon(Math.max(0, Math.min(elektitaUrbo, urboj.length - 1)));
   elektiUrbon(elektitaUrbo);
-  // ផ្លូវ កំពង់ និងយានអវកាស គឺលក្ខណៈកម្រិតពិភពលោករបស់ទីក្រុងមេ។
   try {
     const parzV = voj ? parziValoron(voj) : null;
     if ( parzV && Array.isArray(parzV) ) agordiVojojn(parzV.map(( v: any ) => ( { ...v, punktoj: v.punktoj.map(( p: any ) => [ p[0], p[1] ] as VojaPunkto) } )));
@@ -644,8 +578,6 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
   gxisdatigiValorojn();
   historio.length = 0;
   refaraHistorio.length = 0;
-  // ទឹក គឺប្រភពដែលបានផ្ទុក និងកម្រិតដែលគណនាទឹកឡើងវិញ ( ការគណនា
-  // ខ្លួនឯងគូរផែនទី 2D និងទិដ្ឋភាព 3D ឡើងវិញ )។
   markiAkvonMalpuran();
   rekalkuliAkvon();
   return true;
@@ -659,7 +591,6 @@ export function sxargiDatumaronElKodo(): void {
   if ( b ) biomoj.set(b);
   const be = dekodiBestojn(SKULPTA_BESTOJ, N * N);
   if ( be ) bestoj.set(be);
-  // ប្រភពទឹករបស់ផែនទីសកម្ម ( ព្រោះផែនទីចាស់គ្មានឯកសារនោះ )។
   try {
     agordiFontojn(Array.isArray(SKULPTA_AKVOFONTOJ) ? SKULPTA_AKVOFONTOJ.map(f => ( { ...f } )) : []);
   } catch { agordiFontojn([]); }
@@ -667,15 +598,12 @@ export function sxargiDatumaronElKodo(): void {
   agordiElektitanObjekton(-1);
   gxisdatigiObjektoListon();
   rekonstruiObjektojn();
-  // ទីក្រុង គឺការតំរង់សំណាញ់ និងអុហ្វសិតរបស់ SKULPTA_URBOJ។ តម្លៃលំនាំដើម
-  // ជាទីក្រុងមេ បើបញ្ជីបាត់ ឬទទេ។
   try {
     agordiUrbojn(Array.isArray(SKULPTA_URBOJ) ? SKULPTA_URBOJ.map(u => ( { ...u } )) : []);
   } catch { agordiUrbojn([]); }
   if ( !urboj.length ) agordiUrbojn([ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ]);
   agordiElektitanUrbon(0);
   elektiUrbon(0);
-  // ផ្លូវ កំពង់ និងយានអវកាស គឺលក្ខណៈកម្រិតពិភពលោករបស់ទីក្រុងមេ។
   try {
     if ( SKULPTA_VOJOJ && Array.isArray(SKULPTA_VOJOJ) ) agordiVojojn(SKULPTA_VOJOJ.map(v => ( { ...v, punktoj: v.punktoj.map(p => [ p[0], p[1] ] as VojaPunkto) } )));
   } catch { }
@@ -686,10 +614,8 @@ export function sxargiDatumaronElKodo(): void {
   gxisdatigiVojajnRegilojn();
 }
 
-// ⟪ ចំណុចកាន់ឯកសារ ( File System Access API ) 📃 ⟫ ដែលចងចាំក្នុង IndexedDB
-// ដើម្បីឱ្យការរក្សាទុកបន្ទាប់សរសេរដោយផ្ទាល់ដោយគ្មានការជ្រើស។ ទិន្នន័យរស់នៅក្នុង
-// ឯកសារបួន ដូច្នេះឈ្មោះនីមួយៗមានចំណុចកាន់ដែលបានចងចាំរបស់វា។
-export let dosierajTeniloj: Record<string, FileSystemFileHandle> = {};   // ឈ្មោះ ( "tero-datumaro/krado.ts" ... ) → ចំណុចកាន់
+// ⟪ ចំណុចកាន់ឯកសារ ( File System Access API ) 📃 ⟫
+export let dosierajTeniloj: Record<string, FileSystemFileHandle> = {};
 /* បើកឃ្លាំងចំណុចកាន់របស់ IndexedDB ( ដែលចំណុចកាន់ឯកសារត្រូវបានចងចាំ )។
 @returns មូលដ្ឋានទិន្នន័យ ( Promise<IDBDatabase> )។ */
 export function idbMalfermi(): Promise<IDBDatabase> {
@@ -752,9 +678,6 @@ export function elSxuti(teksto: string, nomo: string): void {
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 0o4000);
 }
-// skribiPerTenilo គឺព្យាយាមសរសេរទិន្នន័យដោយចំណុចកាន់ដែលបានជ្រើស។ ត្រឡប់
-// ថាតើការសរសេរជោគជ័យ ព្រោះការបរាជ័យ ( ឧទាហរណ៍ ឯកសារដែលបានលុប ឬផ្លាស់ទី )
-// ត្រូវបានចាត់ចែងដោយ saviDosieron ដែលប្រគល់ការជ្រើសឡើងវិញ ឬទាញយកវា។
 export async function skribiPerTenilo(tenilo: FileSystemFileHandle, teksto: string): Promise<boolean> {
   try {
     const skribilo = await tenilo.createWritable();
@@ -767,22 +690,17 @@ export async function skribiPerTenilo(tenilo: FileSystemFileHandle, teksto: stri
 }
 export async function saviDosieron(): Promise<void> {
   const dosieroj = generiDosierojn();
-  // ការត្រួតពិនិត្យខ្លួនឯងមុនការសរសេរ ព្រោះបើការកូដមិនវិលជុំ
-  // ( ការឌីកូដអត្ថបទដែលត្រូវរក្សាទុកត្រឡប់ដី ឬទិន្នន័យផ្សេង ) មិនត្រូវសរសេរ
-  // ឯកសារខូចឡើយ។
   if ( !cirkuloValidas() || !cirkuloDeDatumojValidas() ){
     statuso("La datumaro ne validas — savo nuligita");
     return;
   }
   const elektilo = window.showSaveFilePicker;
   if ( !elektilo ) {
-    // បើគ្មានឧបករណ៍ជ្រើសឯកសារ គឺទាញយកឯកសារទាំងបួន។
     for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) elSxuti(teksto, nomo);
     markiSavitan();
     statuso("Elsxutite. Metu la dosierojn al kantaoj/ kaj reŝargu la ludon");
     return;
   }
-  // ឯកសារនីមួយៗមានចំណុចកាន់ដែលបានចងចាំរបស់វា ( ឬការជ្រើសថ្មី )។
   for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) {
     let tenilo: FileSystemFileHandle | null = dosierajTeniloj[nomo] ?? null;
     if ( tenilo && !await skribiPerTenilo(tenilo, teksto) ) {
@@ -801,7 +719,6 @@ export async function saviDosieron(): Promise<void> {
         return;
       }
       if ( !await skribiPerTenilo(tenilo, teksto) ) {
-        // ទោះបីការជ្រើសថ្មីបរាជ័យ ក៏មិនត្រូវបាត់ទិន្នន័យឡើយ ដូច្នេះវាទាញយកវា។
         elSxuti(teksto, nomo);
         continue;
       }
@@ -824,9 +741,6 @@ export async function sargiDosieron(): Promise<void> {
     const dosiero = await tenilo.getFile();
     const teksto = await dosiero.text();
     if ( sxargiDatumaronElMapo({ [ tenilo.name ]: teksto }) ) {
-      // ចងចាំចំណុចកាន់ក្រោមឈ្មោះឯកសារពេញ ( សោដូចគ្នាដែល
-      // ការរក្សាទុកប្រើ ) ព្រោះពីមុនឈ្មោះខ្លីមិនដែលត្រូវគ្នា ហើយ
-      // ចំណុចកាន់ដែលបានចងចាំមិនដែលត្រូវបានប្រើឡើងវិញ។
       const nomo = Object.keys(DOSIERA_TITOLO).find(n => n.split("/").pop() === tenilo.name) ?? tenilo.name;
       await konserviDosieranTenilon(tenilo, nomo);
       dosierajTeniloj[nomo] = tenilo;
@@ -838,14 +752,8 @@ export async function sargiDosieron(): Promise<void> {
 }
 
 // ⟪ ការរក្សាទុកផ្ទាល់ទៅ kantaoj/tero-datumaro 📃 ⟫
-// ម៉ាស៊ីនមេរក្សាទុក ( servilo/konservilo.mjs, npm run konservilo ) ទទួល
-// ឯកសារដែលបានបង្កើតតាម POST ហើយសរសេរពួកវាផ្ទាល់ទៅ
-// kantaoj/tero-datumaro/ ដោយគ្មានឧបករណ៍ជ្រើសឯកសារ និងគ្មានការទាញយក។ បើម៉ាស៊ីនមេមិន
-// ដំណើរការ ប៊ូតុងបង្ហាញការណែនាំ ជំនួសការបរាជ័យស្ងាត់។
 export const KONSERVILO = "http://127.0.0.1:4173/";
 export async function saviRekteAlDosiero(): Promise<void> {
-  // គ្មានការផ្លាស់ប្តូរ គឺមិនសរសេរ ( ព្រោះការសរសេរនឹងផ្លាស់ប្តូរពេលកែប្រែ ហើយ
-  // បើកហ្គេមឡើងវិញដោយ HMR ដោយគ្មានហេតុ )។
   if ( !cxuSxangxita() ) {
     statuso("Neniu ŝanĝo — la tereno jam estas en la dosieroj ✔️");
     return;
@@ -874,21 +782,11 @@ export async function saviRekteAlDosiero(): Promise<void> {
 }
 
 // ⟪ ផែនទីទាំងឡាយ 📃 ⟫
-// បន្ទះផែនទីជ្រើសផែនទីដែលកំពុងកែ ( ផែនទីនីមួយៗជាពិភពលោកឯករាជ្យ
-// ជាមួយឯកសារទិន្នន័យប្រាំពីរផ្ទាល់ខ្លួន ) បង្កើតផែនទីថ្មី ប្តូរឈ្មោះ លុប
-// ជ្រើសផែនទីសកម្ម ( ផែនទីដែលហ្គេមអាន ) និងកែ
-// រូបរាង និងទំហំពិភពលោក។ ទិន្នន័យផែនទីត្រូវបានផ្ទុកដោយ
-// ការនាំចូលឌីណាមិក ដូច្នេះការជ្រើសផែនទីផ្សេងផ្ទុកទំព័រឡើងវិញដោយ ?mapo=<kodo> ព្រោះ
-// ការផ្លាស់ប្តូរដែលមិនបានរក្សាទុករបស់ផែនទីបច្ចុប្បន្នត្រូវចាត់ចែងជាមុន ( ឧបករណ៍
-// សួរ )។ បញ្ជីផែនទី ( mapoj.ts ) និងទ្វារ ( aktiva.ts ) ត្រូវបានរក្សាទុក
-// ដោយប៊ូតុងដូចគ្នានឹងដី។
 export const mapoElektilo = elemento<HTMLSelectElement>("mapoElektilo");
 export const mapoFormoElektilo = elemento<HTMLSelectElement>("mapoFormoElektilo");
 export const mapoGrandecoEnigo = elemento<HTMLInputElement>("mapoGrandeco");
 export const mapoGrandecoValoro = elemento<HTMLElement>("mapoGrandecoValoro");
 
-// kodoDeNomo គឺឈ្មោះថតរបស់ផែនទីពីឈ្មោះ។ ច្បាប់ដូច
-// ម៉ាស៊ីនមេរក្សាទុកទទួល ( អក្សរតូច លេខ និងសញ្ញាដក 40 តួ )។
 export function kodoDeNomo(nomo: string): string {
   const anstatauxoj: Record<string, string> = { "ĉ": "c", "ĝ": "g", "ĥ": "h", "ĵ": "j", "ŝ": "s", "ŭ": "u", "ä": "a", "ö": "o", "ü": "u" };
   return nomo.toLowerCase()
@@ -897,8 +795,6 @@ export function kodoDeNomo(nomo: string): string {
     .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
 }
 
-// gxisdatigiMapajnElektilojn គឺបំពេញឧបករណ៍ជ្រើសផែនទី និងឧបករណ៍ជ្រើសរូបរាង
-// ដោយបញ្ជីបច្ចុប្បន្ន និងតម្លៃបច្ចុប្បន្ន។
 export function gxisdatigiMapajnElektilojn(): void {
   mapoElektilo.innerHTML = "";
   for ( const m of mapojRegistroj ) {
@@ -922,7 +818,6 @@ export function gxisdatigiMapajnElektilojn(): void {
 
 gxisdatigiMapajnElektilojn();
 
-// sxaltiMapon គឺប្តូរផែនទីដែលកំពុងកែ ( ផ្ទុកឡើងវិញដោយ ?mapo=<kodo> )។
 export function sxaltiMapon(kodo: string): void {
   if ( kodo === mapoDatumo.kodo ) return;
   if ( cxuSxangxita() && !confirm("Nesavitaj ŝanĝoj en ĉi tiu mapo — forlasi ilin?") ) {
@@ -933,10 +828,6 @@ export function sxaltiMapon(kodo: string): void {
 }
 mapoElektilo.addEventListener("change", () => sxaltiMapon(mapoElektilo.value));
 
-// skribiPerKonservilo គឺសរសេរឯកសារដោយម៉ាស៊ីនមេរក្សាទុក។ ផែនទីថ្មី
-// ត្រូវការវា ដើម្បីបង្កើតឯកសារទិន្នន័យប្រាំពីរ ( ម៉ាស៊ីនមេក៏ពិនិត្យ
-// សញ្ញាដែរ ដូច្នេះគ្មានអ្វីបរទេសត្រូវសរសេរចូល kantaoj/ )។
-//     @returns ការឆ្លើយតបរបស់ម៉ាស៊ីនមេ ឬ null ពេលការសរសេរបរាជ័យ។
 export async function skribiPerKonservilo(dosieroj: Record<string, string>): Promise<string | null> {
   try {
     const respondo = await fetch(KONSERVILO, {
@@ -954,9 +845,6 @@ export async function skribiPerKonservilo(dosieroj: Record<string, string>): Pro
   }
 }
 
-// mapoNova គឺផែនទីថ្មី ដែលចាប់ផ្តើមជាច្បាប់ចម្លងនៃផែនទីបច្ចុប្បន្ន ( ទិន្នន័យរបស់
-// ផែនទីបច្ចុប្បន្នត្រូវសរសេរទៅថតថ្មី ជាមួយបញ្ជីផែនទី )។ បន្ទាប់មក
-// ឧបករណ៍ប្តូរទៅផែនទីថ្មី ( ផ្ទុកឡើងវិញ )។
 export async function mapoNova(): Promise<void> {
   const nomo = prompt("Nomo de la nova mapo", "Nova mapo");
   if ( !nomo ) return;
@@ -975,8 +863,6 @@ export async function mapoNova(): Promise<void> {
   location.search = "?mapo=" + encodeURIComponent(kodo);
 }
 
-// mapoAlinomi គឺប្តូរឈ្មោះដែលបង្ហាញ ( ថតនៅដដែល ដូច្នេះ
-// ទិន្នន័យមិនផ្លាស់ទី )។
 export function mapoAlinomi(): void {
   const nuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
   const nomo = prompt("Nova nomo de la mapo", nuna ? nuna.nomo : mapoDatumo.kodo);
@@ -987,8 +873,6 @@ export function mapoAlinomi(): void {
   statuso("La nomo ŝanĝita — savu por skribi ĝin al mapoj.ts");
 }
 
-// mapoForigi គឺលុបផែនទីចេញពីបញ្ជី។ ឯកសារទិន្នន័យនៅសល់លើ
-// ឌីស ( ឧបករណ៍មិនលុបឯកសារ ) ដូច្នេះផែនទីអាចត្រឡប់មកវិញដោយដៃ។
 export function mapoForigi(): void {
   if ( mapojRegistroj.length <= 1 ) { statuso("La lasta mapo ne forigeblas"); return; }
   const nuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
@@ -1000,8 +884,6 @@ export function mapoForigi(): void {
   location.search = "?mapo=" + encodeURIComponent(sekva);
 }
 
-// mapoAktiva គឺជ្រើសផែនទីដែលហ្គេមអាន។ ទ្វារ aktiva.ts
-// ត្រូវសរសេរឡើងវិញពេលរក្សាទុក។
 export function mapoElektiAktivan(): void {
   for ( const m of mapojRegistroj ) m.aktiva = m.kodo === mapoDatumo.kodo;
   markiSxangxitan();
@@ -1009,8 +891,6 @@ export function mapoElektiAktivan(): void {
   statuso("Ĉi tiu mapo estos la mapo de la ludo post la savo ⭐");
 }
 
-// gxisdatigiFormon គឺរូបរាង ឬទំហំពិភពលោកបានផ្លាស់ប្តូរ។ ផែនទី 2D
-// ទិដ្ឋភាព 3D និង ( ក្រោយការរក្សាទុក ) ហ្គេមក៏បង្ហាញរូបរាងថ្មីដែរ។
 export function gxisdatigiFormon(): void {
   formajRandaj = formajRandPunktoj(mapoFormo, mapoGrandeco, 0o100);
   mapoGrandecoValoro.textContent = oktala(mapoGrandeco) + " · " + Math.round(mapoGrandeco) + " u";
@@ -1039,9 +919,7 @@ elemento<HTMLButtonElement>("savi").addEventListener("click", saviDosieron);
 elemento<HTMLButtonElement>("saviRekte").addEventListener("click", saviRekteAlDosiero);
 elemento<HTMLButtonElement>("sargi").addEventListener("click", sargiDosieron);
 
-// ⟪ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟫ គឺស្ថានភាព និងឧបករណ៍ជំនួយរបស់ម៉ូឌុលមេ។
-// តារាង និងប្រវត្តិមកតាមការយោង ( ព្រោះម៉ូឌុលសរសេរពួកវា
-// នៅនឹងកន្លែង ) រីឯអ្វីផ្សេងទៀតតាមការយោងទៅអនុគមន៍ផ្ទាល់ខ្លួនរបស់កម្មវិធីកែសម្រួល។
+// ⟪ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟫
 interface DosieraLigo {
   PASO: number;
   N: number;

@@ -1,56 +1,30 @@
-// ≺⧼ Konserva servilo 💾 ⧽≻
-// Eta loka servilo por la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ). gxi
-// ricevas la generitan datumaron per POST kaj skribas gxin REKTE al kantaoj/ —
-// la datumoj vivas en PROPRAJ dosieroj en kantaoj/tero-datumaro/ ( la krado,
-// akvo, akvofontoj, biomoj, bestoj, objektoj, urboj kaj vojoj ), kaj la
-// skulptilo sendas ilin kiel JSON { dosieroj. { nomo. teksto } }. La skulptilo
-// montras la butonon „Savi rekte al kantaoj/ ✍️“ kiam cxi tiu servilo kuras — la
-// savo tiam ne bezonas la dosier-elektilon nek elSxuton.
-//
-// Kuru.   npm run konservilo        ( au. node servilo/konservilo.mjs )
-// POST al http://127.0.0.1.4173/   korpo = JSON { dosieroj. { nomo. teksto } }
+// ≺⧼ ម៉ាស៊ីនមេរក្សាទុក 💾 ⧽≻
 import { createServer } from "http";
 import { writeFile, mkdir } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
-const PORD = 0o10115;                                // 4173
-// RADIKO — la projektradiko. new URL( "..", import.meta.url ) jam kondukas al
-// la patro de servilo/ ( la projekto ); NE uzu dirname sur gxi — tio forprenus
-// la lastan nomon ( Kajiite ) kaj la skribo irus al la patro de la projekto!
+const PORD = 0o10115;
 const RADIKO = fileURLToPath(new URL("..", import.meta.url));
 const SRC = join(RADIKO, "kantaoj");
 
-// ⟪ La permesitaj datumdosieroj 📃 ⟫ — iliaj titol-markiloj — la servilo skribas nur
-// la sep datumdosierojn kun la ĝusta markilo, kaj nur en dosierujo de mapo
-// ( tero-datumaro/<kodo>/ ). La mapoj estas sendependaj mondoj, do la dosieruja
-// nomo estas ajna simpla nomo — la markilo certigas, ke temas pri datumdosiero
-// de la skulptilo kaj ne pri fremda dosiero.
+// ⟪ ឯកសារទិន្នន័យដែលអនុញ្ញាត 📃 ⟫
 const DOSIEROJ = {
   "krado.ts": "// ≺⧼ Skulptita krado",
   "akvo.ts": "// ≺⧼ Skulptita akvo",
   "akvofontoj.ts": "// ≺⧼ Skulptitaj akvofontoj",
   "biomoj.ts": "// ≺⧼ Skulptitaj biomoj",
   "bestoj.ts": "// ≺⧼ Skulptitaj bestoj",
-  // rultempo.ts NE skribiĝas — ĝi estas la komuna modulo ( la malkodaj kaj
-  // samplaj funkcioj ) kiun la skulptilo importas; la savo skribas nur la
-  // konstantajn dosierojn.
   "objektoj.ts": "// ≺⧼ Skulptitaj objektoj",
   "urboj.ts": "// ≺⧼ Skulptitaj urboj",
   "vojoj.ts": "// ≺⧼ Skulptitaj vojoj",
 };
-// ⟪ La registraj dosieroj 📃 ⟫ — la mapoj sur la supra nivelo de tero-datumaro/ — la
-// listo de la mapoj kaj la pordo al la aktiva mapo.
+// ⟪ ឯកសារចុះបញ្ជី 📃 ⟫
 const REGISTRAJ = {
   "mapoj.ts": "// ≺⧼ Mapoj",
   "aktiva.ts": "// ≺⧼ Aktiva mapo",
 };
 
-// markiloDe — la titol-markilo de la donita dosiera vojo, aŭ null se la vojo ne
-// estas permesita. Akceptataj vojoj — tero-datumaro/<kodo>/<dosiero>.ts ( la
-// sep datumdosieroj ) kaj tero-datumaro/<registra>.ts ( mapoj.ts, aktiva.ts ).
-//     @param nomo ( string ) - La dosiera vojo ( relativaj al kantaoj/ ).
-//     @returns La markilo, kiun la enhavo devas komencigi per, aŭ null.
 function markiloDe(nomo) {
   if ( typeof nomo !== "string" ) return null;
   const datumo = /^tero-datumaro\/([a-z0-9\-]{1,40})\/([a-z0-9\-]+\.ts)$/.exec(nomo);
@@ -60,16 +34,12 @@ function markiloDe(nomo) {
   return null;
 }
 
-// ⟪ CORS 📃 ⟫ — la skulptilo kuras en Vite ( localhost.5172 ) kaj postulas la
-// alian originon. Loka ilo — la permeso estas larĝa sen risko.
+// ⟪ CORS 📃 ⟫
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
-
-// La HTTP-stat-kodoj estas DEKUMAJ ( la retumila protokolo — 200, 400, 405, 500 ).
-// La nura escepto de la 0o-oktala regulo — la kabloprotokolaj valoroj.
 
 const servilo = createServer(async (peto, respondo) => {
   if ( peto.method === "OPTIONS" ) {
@@ -87,9 +57,7 @@ const servilo = createServer(async (peto, respondo) => {
     respondo.end("Nur POST");
     return;
   }
-  // La korpo estas ĉirkaŭbarita — freneza kliento ne rajtas kreskigi la
-  // memoron senlima ( la datumaroj estas malpli ol unu megobajto ).
-  const KORPA_LIMO = 0o10 * 0o2000 * 0o2000;   // 8 MiB ( 0o10 × 0o2000 × 0o2000 )
+  const KORPA_LIMO = 0o10 * 0o2000 * 0o2000;
   let korpo = "";
   for await ( const peceto of peto ) {
     korpo += peceto;
@@ -101,9 +69,6 @@ const servilo = createServer(async (peto, respondo) => {
     }
   }
   try {
-    // Sekurigu — la skulptilo skribas nur la datumodosierojn en kantaoj/, kaj
-    // cxiu dosiero devas komencigxi per sia markilo. Akceptu ankoraŭ la
-    // malnovan platan korpon ( unu dosiero ) por retro-kongruo.
     let dosieroj;
     if ( korpo.trim().startsWith("{") ) {
       const parzita = JSON.parse(korpo);

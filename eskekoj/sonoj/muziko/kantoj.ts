@@ -1,11 +1,10 @@
-// ≺⧼ Kantoj 🎵 ⧽≻
-// La kantoj ( spuroj ) de la muziko — datumaro por la ludilo.
+// ≺⧼ ចម្រៀង 🎵 ⧽≻
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "./vokoj/tipoj.js";
 import { F, PENT_E, SLENDRO, SL2, NYAM, PENT_A } from "./vokoj/skaloj.js";
 import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
 
-// ⟪ Reel 01 · Altiplano Dawn · 0o505 He 📃 ⟫
+// ⟪ វិល 01 · អាល់ទីផ្លាណូអរុណ · 0o505 ហេ 📃 ⟫
 
 function buildTrack1(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -94,7 +93,7 @@ function buildTrack1(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 152, secs };
 }
 
-// ⟪ Reel 02 · Circuit of the Whirlwind · 0o526 He 📃 ⟫
+// ⟪ វិល 02 · សៀគ្វីខ្យល់កួច · 0o526 ហេ 📃 ⟫
 
 function buildTrack2(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -167,7 +166,7 @@ function buildTrack2(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 160, secs };
 }
 
-// ⟪ Reel 03 · Bronze Meridian · 0o550 He 📃 ⟫
+// ⟪ វិល 03 · មេរីឌានសំរិទ្ធ · 0o550 ហេ 📃 ⟫
 
 function buildTrack3(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -218,7 +217,7 @@ function buildTrack3(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 168, secs };
 }
 
-// ⟪ Reel 04 · Trough & Thunder · 0o571 He 📃 ⟫
+// ⟪ វិល 04 · រណ្តៅ និងផ្គរ · 0o571 ហេ 📃 ⟫
 
 function buildTrack4(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -300,7 +299,7 @@ function buildTrack4(): SpuroDateno {
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 176, secs };
 }
 
-// ⟪ Melodia helpilo 📃 ⟫
+// ⟪ ជំនួយមេឡូឌី 📃 ⟫
 
 interface MelNoto { p: number; d: number; l: number }
 
@@ -319,7 +318,7 @@ function mel(r: () => number, slots: number, lo: number, hi: number, start: numb
   return out;
 }
 
-// ⟪ Traka elporto 📃 ⟫
+// ⟪ ការនាំចេញត្រាក 📃 ⟫
 
 export interface Kanto {
   no: string;

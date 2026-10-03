@@ -1,4 +1,4 @@
-// ≺⧼ Citrusa teksajxo 🍋 ⧽≻
+// ≺⧼ វាយនភាពក្រូចឆ្មារ 🍋 ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 

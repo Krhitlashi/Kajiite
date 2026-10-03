@@ -1,5 +1,4 @@
-// ≺⧼ Transporto 🛶 ⧽≻
-// Kanuoj kun remada mekaniko kongrua al la arkitektura stilo
+// ≺⧼ ការដឹកជញ្ជូន 🛶 ⧽≻
 import * as THREE from "three";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
@@ -14,9 +13,6 @@ export interface Kanoto {
   bazaY: number;
 }
 
-// kreiKanoton — Kreu kanoton kun kareno, interno, traboj, finialoj kaj pagajilo.
-//     @param stilo ( "baza" | "satala" ) - La baza hela stilo aŭ la malhel-pina/
-//     ora "satala" stilo kongrua al la konstruajx-arkitekturo.
 export function kreiKanoton(sceno: THREE.Scene,
   x: number,
   z: number,
@@ -28,7 +24,6 @@ export function kreiKanoton(sceno: THREE.Scene,
   const group = new THREE.Group();
   const satala = stilo === "satala";
 
-  // kareno-formo
   const shape = new THREE.Shape();
   shape.moveTo(-0o223/0o100, 0);
   shape.bezierCurveTo(-0o14/0o10, 0o41/0o100, 0o14/0o10, 0o41/0o100, 0o223/0o100, 0);
@@ -44,14 +39,11 @@ export function kreiKanoton(sceno: THREE.Scene,
   });
   karenaGeometrio.rotateX(-Math.PI / 2);
 
-  // Malhel-pina kareno kun ora rando por la "satala" stilo; hela ligno por la baza.
   const karenaMaterialo = new THREE.MeshStandardMaterial({ color: satala ? 0x183830 : 0xc8b890, roughness: 0o6/0o10 });
   const kareno = new THREE.Mesh(karenaGeometrio, karenaMaterialo);
   kareno.castShadow = true;
   group.add(kareno);
 
-  // Ora gvarlinio — MALFERMA strio laŭ la supro de la kareno ( la ekstera lensa
-  // konturo kun truo enigita ≈0o72/0o100, do la malhela kareno restas videbla ).
   if ( satala ) {
     const randoFormo = shape.clone();
     const truo = new THREE.Path();
@@ -69,14 +61,12 @@ export function kreiKanoton(sceno: THREE.Scene,
     group.add(rando);
   }
 
-  // interno
   const internaGeometrio = karenaGeometrio.clone();
   const interno = new THREE.Mesh(internaGeometrio, new THREE.MeshStandardMaterial({ color: satala ? 0x081810 : 0x584028, roughness: 0o75/0o100 }));
   interno.scale.set(0o67/0o100, 0o7/0o10, 0o67/0o100);
   interno.position.y = 0o1/0o40;
   group.add(interno);
 
-  // traboj — oraj por la satala stilo, lignaj por la baza
   const lignaMaterialo = new THREE.MeshStandardMaterial({ color: satala ? 0xd8b068 : 0x483828, roughness: 0o33/0o40 });
   for ( const tx of [ -0o6/0o10, 0o6/0o10 ] ) {
     const trabo = new THREE.Mesh(new THREE.BoxGeometry(0o11/0o100, 0o1/0o20, 0o7/0o10), lignaMaterialo);
@@ -85,7 +75,6 @@ export function kreiKanoton(sceno: THREE.Scene,
     group.add(trabo);
   }
 
-  // pruo kaj pobo finialoj — diamantaj oktaedroj por la satala stilo, konusoj por la baza
   if ( satala ) {
     for ( const s of [ 1, -1 ] ) {
       const finialo = new THREE.Mesh(new THREE.OctahedronGeometry(0o7/0o100, 0), oraMaterialo);
@@ -105,7 +94,6 @@ export function kreiKanoton(sceno: THREE.Scene,
     group.add(t2);
   }
 
-  // pagajilo
   const tenilo = new THREE.CylinderGeometry(0o1/0o100, 0o1/0o100, 0o14/0o10, 6);
   const klingo = new THREE.BoxGeometry(0o5/0o40, 0o1/0o100, 0o27/0o100);
   klingo.translate(0, -0o33/0o40, 0);
@@ -128,10 +116,6 @@ export function kreiKanoton(sceno: THREE.Scene,
   };
 }
 
-// animaciiKanoton — Animaciu kanoton kun oscilado kaj rotacio lau rapido.
-//     @param c ( Kanoto ) - La kanota objekto.
-//     @param t ( number ) - Malsupra tempo.
-//     @param isRiding ( boolean ) - Cxu la ludanto rajdantas.
 export function animaciiKanoton(c: Kanoto, t: number, isRiding: boolean): void {
   const b = Math.sin(t * 0o155/0o100 + c.phase) * 0o1/0o40;
   c.group.position.set(c.x, c.bazaY + 0o3/0o40 + b, c.z);
@@ -143,7 +127,6 @@ export function animaciiKanoton(c: Kanoto, t: number, isRiding: boolean): void {
   c.group.rotation.x = klinigxo - ( isRiding ? Math.min(rapido, 4) * 0o1/0o100 : 0 );
 }
 
-// gxisdatigiKanotanFizikon — Gxisdatigu kanotan fizikon lau enigo kaj malfortigo.
 export function gxisdatigiKanotanFizikon(c: Kanoto,
   deltaTempo: number,
   fortoX: number,

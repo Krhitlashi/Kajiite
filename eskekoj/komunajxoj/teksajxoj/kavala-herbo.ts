@@ -1,4 +1,4 @@
-// ≺⧼ Kavala herba teksajxo 🌾 ⧽≻
+// ≺⧼ វាយនភាពស្មៅសេះ 🌾 ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 

@@ -1,10 +1,6 @@
-// ≺⧼ Tradukoj — la esperanta 🗣️ ⧽≻
-// La esperantaj tekstoj de la tuta interfaco.
-// La vortaro estas nur datumoj — la funkcioj logxas en tradukoj.ts.
+// ≺⧼ ការបកប្រែ , ភាសាអេស្ពេរ៉ង់តូ 🗣️ ⧽≻
 
 export const EO: Record<string, string> = {
-  // Ĝustaj Esperantaj tradukoj por ĉiuj UI-ŝnuroj
-  // IPA-bazitaj proksimumoj por kutimaj nomoj
   "titoloAranis": "Aranis",
   "subtitoloUrbo": "Ĥusa Lotao • Lamuza Kajteo",
   "eniri": "Eniri",
@@ -37,16 +33,11 @@ export const EO: Record<string, string> = {
   "regiloKanuo": "WASD por direkti",
   "eliri": "Eliri",
   "eniriKanuo": "Eniri kanuon",
-  // Retilo ( multludado ) — tostoj
   "retiloAliĝis": "Iu aliĝis.",
   "retiloForiris": "Iu foriris.",
-  // Food action labels
   "actGusti": "Guŝu •",
   "actKuxi": "Kuŝi",
   "actLevi": "Levi",
-  // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
-  // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
-  // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
   "manĝFok0Flavor": "Pano el likeno kun anasa baozi.",
   "manĝFok1Flavor": "Tsahal-vinagro kaj glacifiŝo.",
   "manĝFok2Flavor": "Tsahal-vinagro, mara araneo, glacifiŝo kaj ŝlefo.",
@@ -55,42 +46,34 @@ export const EO: Record<string, string> = {
   "manĝTla2Flavor": "Vinagro, betula suko, mento kaj bergamota teo.",
   "manĝPuss0": "Pusŝlefo-bero",
   "manĝPuss0Flavor": "Malvarmeta, akva krispo kun sukereta postgusto.",
-  // Konstruaĵkartaj etikedoj
-  // Konstruaĵkarta flava teksto
   "flvDomo": "Domo.",
   "flvMangxejo": "Komuna manĝejo.",
   "flvKasafeo": "Kunvenejo.",
   "flvStacioxipo": "Stacio.",
   "flvTuro": "Nubskrapulo.",
   "flvSanktejo": "Centro.",
-  // Card stats
   "statTieroj": "Tavoloj",
   "statDiamanto": "Diamanto",
   "statJes": "Jes",
   "statNe": "Ne",
   "statTipo": "Tipo",
   "statPozicio": "Pozicio",
-  // WebGL error
   "webglMesagxo": "Via retumilo ne subtenas WebGL. Ĝisdatigu vian retumilon por sperti la plenan sperton.",
   "webglDetalo": "Araniso postulas WebGL por funkcii. Ĝisdatigu vian retumilon aŭ kontrolu viajn GPU-agordojn.",
   "webglReprovi": "Reprovi",
-  // Aria labels
   "ariaButPromeni": "Promeni",
   "ariaButBruo": "Fona bruo",
   "ariaButOrbiti": "Orbito",
   "ariaButLingvo": "Ŝanĝi la lingvon de la urbo",
   "ariaSupermetaFermi": "Fermi",
-  // Informo-panelo ( konstruaĵoj • manĝaĵoj • specioj )
   "ariaInformButono": "Malfermi informojn",
   "titoloInformo": "Arazopuo",
   "subtitoloInformo": "Konstruaĵoj • manĝaĵoj • specioj",
   "tabKonstruajxoj": "Konstruaĵoj",
   "tabMangxajxoj": "Manĝaĵoj",
   "tabSpecioj": "Specioj",
-  // Vestaro-langetoj
   "taboVestoj": "Vestoj",
   "taboHararo": "Hararo",
-  // Bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo/ )
   "grupoBesto": "Besto",
   "grupoPlanto": "Planto",
   "specBeroe": "Beroo",
@@ -127,18 +110,13 @@ export const EO: Record<string, string> = {
   "flvSpecCakeo": "Granda branĉet-kirla ĉevalvosto ĉe la lagrando.",
   "specPussxlefo": "Pusŝlefo",
   "flvSpecPussxlefo": "Fern-granda purpura laktukplanto kun travideblaj manĝeblaj beroj.",
-  // Aria-labeleto por la krepuska baskulo
   "ariaButKrepusko": "Ŝalti krepuskan reĝimon",
   "ariaDuskRegilo": "Krepuska nivelo",
-  // Vetero — la kvar eblaj atmosferoj
   "ariaButVetero": "Vetero",
   "veteroNebula": "Nebula",
   "veteroPluva": "Pluva",
   "veteroHajla": "Hajla",
   "veteroNega": "Neĝa",
-  // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
-  // Canvas alt text
-  // Clothing names
   "vestoVerdant": "Verda",
   "vestoHearth": "Bruna",
   "vestoMist": "Blanka",
@@ -149,11 +127,9 @@ export const EO: Record<string, string> = {
   "vestoRose": "Roza",
   "vestoObsidian": "Nigra",
   "vestoCyan": "Cejana",
-  // Har-stiloj
   "sekcioHararo": "Harstiloj",
   "haroMalalta": "Mallonga",
   "haroLonga": "Longa",
-  // Har-koloroj
   "sekcioHarKoloroj": "Har-koloroj",
   "harKoloroBruna": "Bruna",
   "harKoloroNigra": "Nigra",
@@ -161,6 +137,5 @@ export const EO: Record<string, string> = {
   "harKoloroKaŝtana": "Kaŝtana",
   "harKoloroBlonda": "Blonda",
   "harKoloroGriza": "Griza",
-  // Konstruaĵnomoj ( paqN )
   "muziko": "Muziko",
 };

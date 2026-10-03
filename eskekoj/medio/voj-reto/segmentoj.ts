@@ -1,6 +1,4 @@
-// ≺⧼ Voja reto — segmentoj 🛣️ ⧽≻
-// La kvadrantoj de segmento kaj ilia interkovro — ĉu du vojaj
-// segmentoj kruciĝas.
+// ≺⧼ បណ្តាញផ្លូវ ផ្នែក 🛣️ ⧽≻
 import type { VojaPunkto } from "./tipoj.js";
 import { TOLERANCO } from "./tipoj.js";
 import { vojaProjekcio } from "./geometrio.js";

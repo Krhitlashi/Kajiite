@@ -1,18 +1,5 @@
-// ≺⧼ Voja reto — kunigoj 🛣️ ⧽≻
-// La kunigoj de la reto — la turno de la kuniga plato, la fermitaj
-// flankoj kaj la tuta serĉo de la kunigoj ( troviVojaRetajnKunigojn ).
-// rotacioPor — La turno de la kuniga plato. La plato konstruiĝas en LOKA kadro
-// ( la kvadranto-logiko de konstruiIntersekcajnPlatojn supozas ke la brakoj
-// kuŝas sur la aksoj ), do ni elektas la turnon kiu plej bone alineas la brakojn
-// al la aksoj. ⟨ Aliniu la TRAPASANTAJN brakojn 📃 ⟩ — antaŭe la poento nur
-// sumis |x| + |z|, kaj ĉe malperpendikulara T-kunigo ( ekz. la avenuo renkontas
-// la kajon je ~11° ) tio alineis la UNUOPAN finiĝantan brakon kaj lasis la
-// trapasantan paron oblique — la rekta andezita bordo de la trapasanta vojo tiam
-// misalignis kun la kurbo de la plato kaj ŝajnis traliki. Nun la PRIMA poento
-// estas kiom da brakoj kuŝas sur akso ( la trapasanta paro donas du, la
-// finiĝanta brako unu ), do la plato alineas la trapasantan vojon kaj la
-// finiĝanta brako restas malantaŭ la kurbo. La malnova poento restas kiel
-// egaliga kriterio.
+// ≺⧼ បណ្តាញផ្លូវ ការភ្ជាប់ 🛣️ ⧽≻
+// ⟨ តម្រឹមដៃដែលឆ្លងកាត់ 📃 ⟩
 import type { VojaPunkto, VojaRetoDoko, VojaRetoKunigo, VojaRetoVojo } from "./tipoj.js";
 import { TOLERANCO } from "./tipoj.js";
 import { vojaKunigaDuono, vojaProjekcio } from "./geometrio.js";

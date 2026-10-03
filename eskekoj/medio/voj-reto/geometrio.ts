@@ -1,6 +1,4 @@
-// ≺⧼ Voja reto — geometrio 🛣️ ⧽≻
-// La larĝoj kaj la projekcio de la vojoj — kiom larĝa estas vojo,
-// la kuniga duono kaj la plej proksima punkto sur segmento.
+// ≺⧼ បណ្តាញផ្លូវ ធរណីមាត្រ 🛣️ ⧽≻
 import type { VojaPunkto, VojaRetoVojo } from "./tipoj.js";
 import { TOLERANCO } from "./tipoj.js";
 import { VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO } from "../vojoj/mezuroj.js";

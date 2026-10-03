@@ -1,6 +1,4 @@
-// ≺⧼ La slentema voĉo 🔔 ⧽≻
-// La slentemo — kvar sinaj partoj kun malsamaj kadukoj kaj la frapa bruo
-// ( slenthem ).
+// ≺⧼ សំឡេងស្លេនថេម 🔔 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
 export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {

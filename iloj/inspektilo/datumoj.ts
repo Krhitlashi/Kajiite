@@ -1,7 +1,4 @@
 // ≺⧼ ឧបករណ៍ពិនិត្យ ( ទិន្នន័យ ) 🔬 ⧽≻
-// ឧបករណ៍ជំនួយសម្រាប់ឧបករណ៍សាងសង់ដែលបែងចែក ( ផ្ទៃរាប តម្រងទទេ
-// ការដាក់នៅកណ្តាល ) និងតារាងប្រភេទ គឺប្រភេទនីមួយៗជាមួយឧបករណ៍សាងសង់ កម្រិតទឹក
-// និងព័ត៌មានលម្អិតរបស់គំរូ។
 import * as THREE from "three";
 import { konstruiArbaron } from "../../eskekoj/shalaj-specioj/vegetajxo/betuloj/arbaro.js";
 import { konstruiLarikon } from "../../eskekoj/shalaj-specioj/vegetajxo/larikoj.js";
@@ -18,36 +15,14 @@ import { konstruiCetkuojn, konstruiCakeojn } from "../../eskekoj/shalaj-specioj/
 import { konstruiHerbon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/tufoj.js";
 import type { ModelaSpecifo } from "./tipoj.js";
 
-// ⟨ ឧបករណ៍ជំនួយសម្រាប់រុក្ខជាតិ និងថ្ម 📃 ⟩ ឧបករណ៍សាងសង់ទាំងនោះបែងចែក
-// គំរូរបស់ពួកវាទូទាំងពិភពលោកតាមពូជចៃដន្យ ( ហើយទទួលតម្រង
-// សម្រាប់ទន្លេ ផ្លូវ និងតំបន់ជីវៈ )។ សម្រាប់ឧបករណ៍ពិនិត្យ គេផ្តល់
-// ពិភពលោករាបស្មើ ( កម្ពស់ 0 ) គ្មានតម្រង និងបរិមាណតូច បន្ទាប់មកគេ
-// ដាក់ក្រុមនៅកណ្តាល គឺក្រុមទាំងមូលផ្លាស់ទីដូច្នេះចំណុចកណ្តាលនៃ
-// គំរូស្ថិតលើដើមកំណើត ហើយគោលរបស់ពួកវានៅលើដី។ បើគ្មានវា
-// គំរូនឹងលេចឡើងនៅកន្លែងណាមួយក្នុងពិភពលោក ( ឧទាហរណ៍ 200 ឯកតាខាងជើង ) ហើយស៊ុម
-// នឹងបង្ហាញវាលស្មៅទទេ។
+// ⟨ ឧបករណ៍ជំនួយសម្រាប់រុក្ខជាតិ និងថ្ម 📃 ⟩
 export const nulaAlto = () => 0;
 export const neniom = () => false;
-// ⟨ កំណត់ការបែងចែកឱ្យជាប់ 📃 ⟩ ឧបករណ៍សាងសង់ដែលបែងចែក ( ស្លែ រុក្ខជាតិក្រោម )
-// គ្មានប៉ារ៉ាម៉ែត្រតំបន់ទេ ព្រោះពួកវាបែងចែកគំរូរបស់ពួកវាទូទាំងពិភពលោក
-// តាមពូជ ដូច្នេះឧបករណ៍បង្ហាញចំណុចស្តើងខ្ចាត់ខ្ចាយរាប់រយឯកតា ហើយ
-// ស៊ុមមើលទៅទទេ។ ប៉ុន្តែតម្រងទន្លេ និងផ្លូវត្រូវបាន
-// សួរសម្រាប់បេក្ខជននីមួយៗ ដូច្នេះតម្រងដែលបដិសេធអ្វីៗក្រៅកាំតូច
-// រក្សាគំរូនៅក្នុងចំណុចមួយដែលអាចមើលឃើញ។
+// ⟨ កំណត់ការបែងចែកឱ្យជាប់ 📃 ⟩
 export const nurApud = ( radiuso: number ) => ( x: number, z: number ): boolean => Math.hypot(x, z) > radiuso;
-// រុក្ខជាតិក្រោមដើមឈើលើភ្នំបដិសេធអ្វីៗក្នុងរង្វង់ 16 ឯកតាពីចំណុចកណ្តាលពិភពលោក ( នៅទីនោះ
-// គឺទីក្រុង ) ដូច្នេះឧបករណ៍ដាក់យុថ្កានៅចម្ងាយ ព្រោះឧបករណ៍សាងសង់ប្រមូល
-// ភាគច្រើននៃគំរូជុំវិញយុថ្កានោះ ហើយតម្រងទីពីររក្សាពួកវា
-// នៅក្នុងរង្វង់តូចជុំវិញយុថ្កានោះ។ បន្ទាប់មក centri() នាំចំណុចទាំងមូលត្រឡប់ទៅ
-// ដើមកំណើត ដូច្នេះស៊ុមបង្ហាញពួកវាជាក្រុមតែមួយ។
 export const nurApudPunkto = ( cx: number, cz: number, radiuso: number ) => ( x: number, z: number ): boolean => Math.hypot(x - cx, z - cz) > radiuso;
 export const malproksimaAnkro = [ { x: 0o100, z: 0, h: 0, s: 1, r: 0 } ];
-// ឧបករណ៍សាងសង់លើភ្នំទទួលតែកន្លែងខ្ពស់ ( ពីលើបន្ទាត់ដើមឈើ ) ដូច្នេះ
-// ពួកវាត្រូវការកម្ពស់ពីលើដែនកំណត់ បើមិនដូច្នេះពួកវានឹងដាក់អ្វីៗទទេ ហើយស៊ុមបង្ហាញ
-// ដីទទេ។
 export const montaAlto = () => 0o24;
-// ស្លែ និងរុក្ខជាតិក្រោមខ្លះត្រូវការយុថ្កា ( ដើមឈើ ឬថ្ម ) ដើម្បី
-// ប្រមូលខ្លួនជាក្រុម។ យុថ្កាតូចមួយនៅដើមកំណើតគ្រប់គ្រាន់សម្រាប់ឧបករណ៍ពិនិត្យ។
 export const ankrArboj = [ { x: 0, z: 0, h: 0, s: 0o3/0o10 } ];
 /* ដាក់ក្រុមនៅកណ្តាល គឺក្រុមទាំងមូលផ្លាស់ទីដូច្នេះចំណុចកណ្តាលនៃ
    គំរូស្ថិតលើដើមកំណើត ហើយគោលរបស់ពួកវានៅលើដី។
@@ -56,11 +31,7 @@ export const centri = ( grupo: THREE.Object3D ): void => {
   grupo.updateMatrixWorld(true);
   const skatolo = new THREE.Box3().setFromObject(grupo);
   const centro = skatolo.getCenter(new THREE.Vector3());
-  // ⟨ ហេតុអ្វីត្រូវរុញកូន មិនមែនក្រុម 📃 ⟩ ព្រោះ mezuriModelon បណ្តោះអាសន្ន
-  // បិទទីតាំងរបស់ក្រុមមុនពេលវាស់ ដូច្នេះការរុញក្រុមនឹងបាត់
-  // ក្នុងការវាស់ ហើយស៊ុមនឹងដាក់កណ្តាលលើទីតាំងចាស់ក្នុងពិភពលោក។ ថ្មបាន
-  // ឈរនៅចម្ងាយ 280 ឯកតា ដូច្នេះអេក្រង់បង្ហាញតែមេឃ។ កូនផ្ទុក
-  // ការរុញដូចគ្នា ហើយនៅឯករាជ្យពីទីតាំងរបស់ក្រុម។
+  // ⟨ ហេតុអ្វីត្រូវរុញកូន មិនមែនក្រុម 📃 ⟩
   for ( const filo of grupo.children ) {
     filo.position.x -= centro.x;
     filo.position.y -= skatolo.min.y;
@@ -69,11 +40,7 @@ export const centri = ( grupo: THREE.Object3D ): void => {
   grupo.updateMatrixWorld(true);
 };
 
-// ⟨ ប្រភេទទាំងឡាយ 📃 ⟩ គឺសត្វទឹកទាំងប្រាំនៃម៉ូឌុលសត្វ ( លិបិក្រមរបស់
-// konstruiMetitanBeston ) បក្សីព្រិល ( ដែលមានឧបករណ៍ហោះផ្ទាល់ខ្លួន )
-// និងរុក្ខជាតិ ស្លែ និងថ្មនៃ vegetajxo/។ ការពិពណ៌នាចលនា
-// មកពីប្លុកចលនារបស់ gxisdatigiBestojn រីឯរុក្ខជាតិ និងថ្មមិន
-// មានចលនា ដូច្នេះពួកវាបង្ហាញពេលវេលាស្ងាត់តែមួយ។
+// ⟨ ប្រភេទទាំងឡាយ 📃 ⟩
 export type Specio = ModelaSpecifo;
 export const SPECOJ: Specio[] = [
   { kodo: "beroe", nomo: "Beroe 🥒", indekso: 0, grandeco: 0o12/0o10,
@@ -96,19 +63,12 @@ export const SPECOJ: Specio[] = [
     akva: true,
     priskribo: "Eta mararaneo kun ok longegaj kruroj kaj ĥitina ŝelo ( segmentaj ringoj kaj tuberoj ). La korpo mem estas malgranda — la kruroj portas la specon, kaj ĉiuj ok piedoj kuŝas sur unu ebeno.",
     animacio: "Alterna metakrona paŝado: la kokso balaas la piedon ĉirkaŭ la vertikala akso de la besto kaj la genuo fleksiĝas dum la levo ( la piedo estas en la aero )." },
-  // ⟨ រុក្ខជាតិ ស្លែ និងថ្ម 📃 ⟩ គឺឧបករណ៍សាងសង់ដូច
-  // ទីក្រុង ( vegetajxo/ )។ គ្មានមួយណាមានចលនាទេ ដូច្នេះឧបករណ៍បញ្ជាពេលវេលា
-  // មិនផ្លាស់ទីពួកវា ប៉ុន្តែការធ្វើស៊ុម អ័ក្សបង្វិល និងខ្សែសំណាញ់ដំណើរការ
-  // ដូចសត្វ ហើយគំរូបង្ហាញដោយឡែក និងនៅកណ្តាល។
-  // „konstruu“ ទទួលក្រុមទទេ ហើយឧបករណ៍សាងសង់បន្ថែមសំណាញ់របស់វា។
+  // ⟨ រុក្ខជាតិ ស្លែ និងថ្ម 📃 ⟩
   { kodo: "betulo", nomo: "Betulo 🌳", indekso: -1, grandeco: 1,
     akva: false, konstruu: ( g ) => konstruiArbaron(g, [ { x: 0, z: 0, h: 0, s: 1 } ]),
     priskribo: "Paperbetulo — blanka trunko kun nigraj lentokeloj kaj radika larĝiĝo, kaj ovoforma krono el ok kusenoj, ĉiu sur videbla branĉo. En la koro de ĉiu kuseno sidas malhela, malregula kerno — ĝi estas la ombro inter la folioj, ne videblaĵo mem — kaj ĉirkaŭ ĝi sidas la unuopaj folioj: kartetoj kun la UNU-FOLIA teksaĵo ( segildenta rando, vejnoj, tigo ) kaj alphaTest, do ĉiu folio montras sian veran formon. Ĉiu kartono havas sian propran nuancon ( vertexColors ) kaj ruliĝas ĉirkaŭ sia propra longa akso, do la foliaro ne estas unutona.",
     animacio: "Neniu — la arboj staras senmove ( la plantoj ne havas animacion en la ludo )." },
-  // ⟨ ដើមលើចំនួនបី 📃 ⟩ កម្ពស់របស់ដើមលើគឺចៃដន្យ ( 1.4 ដល់ 9.8 ឯកតា ) ហើយ
-  // វាកំណត់ទទឹងដើម និងទទឹងកំពូល ដូច្នេះគំរូតែមួយ
-  // នឹងបង្ហាញតែករណីមួយ។ ឧបករណ៍ដំឡើងបី គឺក្មេង មធ្យម និង
-  // ពេញវ័យ ជាមួយជួរដូចគ្នាដែលព្រៃដើមលើរបស់ពិភពលោកបង្ហាញ។
+  // ⟨ ដើមលើចំនួនបី 📃 ⟩
   { kodo: "lariko", nomo: "Lariko 🌲", indekso: -1, grandeco: 1,
     akva: false, konstruu: ( g ) => konstruiLarikon(g, [
       { x: -0o3/0o2, z: 0.4, h: 0, s: 0.45 },
@@ -189,11 +149,7 @@ export const SPECOJ: Specio[] = [
     animacio: "Neniu — la rokoj staras senmove." },
   { kodo: "montajRokoj", nomo: "Montaraj rokoj ⛰️", indekso: -1, grandeco: 1,
     akva: false,
-    // ⟨ ហេតុអ្វីមិនប្រើឧបករណ៍សាងសង់បែងចែក 📃 ⟩ ព្រោះ konstruiMontajnRokojn បដិសេធគ្រប់
-    // កន្លែងក្នុងរង្វង់ 72 ឯកតាពីចំណុចកណ្តាលពិភពលោក ( នៅទីនោះគឺទីក្រុង ) ដូច្នេះតម្រង
-    // មិនអាចរក្សាថ្មនៅជាប់ដើមកំណើតបានទេ។ ដូច្នេះឧបករណ៍ដំឡើងទម្រង់ទីបី
-    // ដោយខ្លួនឯង មួយបន្ទាប់ពីមួយ នៅរង្វង់តូច ជាមួយពូជដូច
-    // សំណាញ់ធាតុទីបីរបស់ពិភពលោក ( 0o7, 0o40, 0o71 )។
+    // ⟨ ហេតុអ្វីមិនប្រើឧបករណ៍សាងសង់បែងចែក 📃 ⟩
     konstruu: ( g ) => { konstruiMetitanRokon(g, -1.1, 0.4, nulaAlto, 0o12/0o20, 0, 0o7);
       konstruiMetitanRokon(g, 1.2, -0.9, nulaAlto, 0o15/0o20, 0, 0o40);
       konstruiMetitanRokon(g, 0o1/0o10, 1.3, nulaAlto, 0o1, 0, 0o71); },

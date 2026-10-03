@@ -1,8 +1,6 @@
-// ≺⧼ Skulptita krado 📃 ⧽≻
-// Kreita de la terena skulptilo ( iloj/tero-skulptilo/tero-skulptilo.html ).
-// ( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) - Ne redaktu mane. La skulptilo reskribas la dosieron.
+// ≺⧼ ក្រឡាឆ្លាក់ 📃 ⧽≻
 
-// ⟨ La skulpta krado 📃 ⟩ — la paŝo, grandeco, origino, aktiva-flago kaj la deltoj.
+// ⟨ ក្រឡាឆ្លាក់ 📃 ⟩
 export const SKULPTA_PASO = 0o4;
 export const SKULPTA_N = 0o300;
 export const SKULPTA_ORIGINO = [ -0o600, -0o600 ];

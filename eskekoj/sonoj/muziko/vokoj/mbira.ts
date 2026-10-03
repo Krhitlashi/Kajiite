@@ -1,5 +1,4 @@
-// ≺⧼ La mbira voĉo 🎹 ⧽≻
-// La mbira — kvar sinaj partoj kun frapa bruo kaj tremolo ( mbira ).
+// ≺⧼ សំឡេងមប៊ីរ៉ា 🎹 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
 export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {

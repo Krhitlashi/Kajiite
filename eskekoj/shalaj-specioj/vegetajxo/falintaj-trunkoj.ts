@@ -1,14 +1,10 @@
-// ≺⧼ La falintaj trunkoj 🪵 ⧽≻
-// La falintaj arbtrunkoj de la arbaro ( konstruiFalintajnTrunkojn ) —
-// longaj, hazarde klinitaj trunkaj pecoj kun siaj propraj piedaj randoj por
-// la kolizioj.
+// ≺⧼ ដើមឈើដួល 🪵 ⧽≻
 import * as THREE from "three";
 import { kreiSxelanTeksajxon } from "../../komunajxoj/teksajxoj/sxelo.js";
 import { kreiSxelanBumpanTeksajxon } from "../../komunajxoj/teksajxoj/sxelo-bumpo.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { PunktaHasho, punktoLibera, type ArboMetado } from "./metado.js";
 
-// konstruiFalintajnTrunkojn — Metu falintajn arbtrunkojn en la arbaron.
 export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   kvanto: number,
   heightFn: ( x: number, z: number ) => number,
@@ -46,13 +42,9 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
       x = Math.cos(a) * r;
       z = Math.sin(a) * r;
     }
-    // La trunko estas longa kaj solida — ĝia marĝeno estas pli granda ol tiu de
-    // la etaj plantoj, same kiel ĉe la vojoj ( la trunko atingas 0o23/0o10 unuojn
-    // de sia centro ).
     if ( excludeRivers(x, z) || excludePaths(x, z, 0o3)
       || ( excludeBuildings && excludeBuildings(x, z, 0o3) ) ) continue;
     if ( Math.hypot(x, z) < 0o20 ) continue;
-    // Eta interspaco — la falintaj trunkoj ne kuŝu krucigitaj sur la grundo.
     if ( !punktoLibera(metitajHasho, x, z, 0o3) ) continue;
 
     const longo = 0o12/0o10 + hazardaGenerilo() * 0o22/0o10;
@@ -61,13 +53,10 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
     M.compose(new THREE.Vector3(x, heightFn(x, z) + 0o4/0o10, z), Q, new THREE.Vector3(1, longo, 1));
     trunkoj.setMatrixAt(ti++, M);
     metitajHasho.meti(x, z, [ x, z ]);
-    // Piedaj randoj por la kolizioj — la sama Eulera rotacio ( yaw = angulo ),
-    // kiun la matrico uzas ( Rz unue klinas la akson al -x, Ry turnas ĝin ),
-    // do la ringo kongruas kun la vidita trunko.
     const angulo = E.y;
     const piedoj: [ number, number ][] = [];
     for ( let k = 0; k < 0o5; k++ ) {
-      const t = ( k + 0o1/0o2 ) / 0o5 - 0o1/0o2;   // -0o4/0o10 .. 0o4/0o10 laŭlonge
+      const t = ( k + 0o1/0o2 ) / 0o5 - 0o1/0o2;
       piedoj.push([ x - Math.cos(angulo) * longo * t, z + Math.sin(angulo) * longo * t ]);
     }
     falintajRandoj.push(piedoj);

@@ -1,11 +1,10 @@
-// ≺⧼ Ludilo 🎧 ⧽≻
-// La muzik-ludilo ( Web Audio ) — planas kaj ludas la kantojn de kantoj.js.
+// ≺⧼ ឧបករណ៍លេង 🎧 ⧽≻
 
 import { KANTOJ } from "./kantoj.js";
 import { instrumento } from "./vokoj/instrumento.js";
 import type { SonoEvento, Sekcio } from "./vokoj/tipoj.js";
 
-// ⟪ Ludila stato 📃 ⟫
+// ⟪ ស្ថានភាពឧបករណ៍លេង 📃 ⟫
 
 interface LudiloStato {
   ctx: AudioContext | null;
@@ -30,7 +29,7 @@ const L: LudiloStato = {
   playing: false, startAt: 0, pausedAt: null, timer: null, master: null,
 };
 
-// ⟪ Privataj helpiloj 📃 ⟫
+// ⟪ ជំនួយឯកជន 📃 ⟫
 
 function makeIR(ctx: AudioContext, dur: number, decay: number): AudioBuffer {
   const rate = ctx.sampleRate;
@@ -93,10 +92,6 @@ function finish() {
   }, 700);
 }
 
-// hazardaTrako — la indekso de hazarde elektita reelo. La unua ludado
-// ( L.cur < 0 ) elektas per ĉi tiu — ĉiu lanĉo de la ludo komenciĝas per ALIA
-// kanto anstataŭ ĉiam per la unua.
-//     @returns indekso ( number ) - La hazarda reela indekso.
 function hazardaTrako(): number {
   return Math.min(KANTOJ.length - 1, Math.floor(Math.random() * KANTOJ.length));
 }
@@ -116,21 +111,20 @@ function sxargi(i: number) {
   L.secs = T.data.secs;
 }
 
-// ⟪ Publika API 📃 ⟫
+// ⟪ API សាធារណៈ 📃 ⟫
 
-/** Initialise the music player with a shared AudioContext and master gain. */
+/** ចាប់ផ្តើមកម្មវិធីចាក់តន្ត្រីដោយ AudioContext រួម និង master gain។ */
 export function iniciati(ctx: AudioContext, master: GainNode) {
   L.ctx = ctx;
   L.master = master;
 
-  // Reverb
   if ( !L.reverb ) {
     L.reverb = ctx.createConvolver();
     L.reverb.buffer = makeIR(ctx, 3.0, 2.4);
   }
 }
 
-/** Start or resume playback. The FIRST start picks a random reel. */
+/** ចាប់ផ្តើម ឬបន្តការចាក់។ ការចាប់ផ្តើមដំបូងជ្រើសរើសរឹតចៃដន្យ។ */
 export function ludi() {
   if ( !L.ctx ) return;
   if ( L.cur < 0 ) sxargi(hazardaTrako());
@@ -161,7 +155,7 @@ export function ludi() {
   scheduleTick();
 }
 
-/** Pause playback. */
+/** ផ្អាកការចាក់។ */
 export function paŭzi() {
   if ( !L.playing || !L.ctx ) return;
   L.pausedAt = Math.min(L.dur, Math.max(0, L.ctx.currentTime - L.startAt));
@@ -170,7 +164,7 @@ export function paŭzi() {
   stopBus();
 }
 
-/** Stop playback and reset. */
+/** បញ្ឈប់ការចាក់ និងកំណត់ឡើងវិញ។ */
 export function halti() {
   if ( L.playing ) {
     if ( L.timer ) clearInterval(L.timer);
@@ -181,18 +175,18 @@ export function halti() {
   L.idx = 0;
 }
 
-/** Whether music is currently playing. */
+/** តើតន្ត្រីកំពុងចាក់ឬទេ។ */
 export function cxuLudas(): boolean {
   return L.playing;
 }
 
-/** Load a specific track by index. */
+/** ផ្ទុកបទជាក់លាក់តាមសន្ទស្សន៍។ */
 export function sxargiTrako(i: number) {
   if ( i < 0 || i >= KANTOJ.length ) return;
   sxargi(i);
 }
 
-/** Get the current track index. */
+/** ទទួលសន្ទស្សន៍បទបច្ចុប្បន្ន។ */
 export function nunaTrako(): number {
   return L.cur;
 }

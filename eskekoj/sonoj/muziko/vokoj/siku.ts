@@ -1,5 +1,4 @@
-// ≺⧼ La sikua voĉo 🎶 ⧽≻
-// La sikuo — sinaj harmonoj kun vibrado kaj banda spira bruo ( siku ).
+// ≺⧼ សំឡេងស៊ីគូ 🎶 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
 export function siku(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {

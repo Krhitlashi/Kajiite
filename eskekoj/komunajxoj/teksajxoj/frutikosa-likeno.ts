@@ -1,4 +1,4 @@
-// ≺⧼ Frutikosa likena teksajxo 🫐 ⧽≻
+// ≺⧼ វាយនភាពស្លែផ្លែ 🫐 ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

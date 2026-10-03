@@ -1,4 +1,4 @@
-// ≺⧼ Planka teksajxo 🪵 ⧽≻
+// ≺⧼ វាយនភាពក្តារ 🪵 ⧽≻
 import * as THREE from "three";
 import { deksesuma, malheligi } from "../koloroj.js";
 import { kreiKlasikanHazardon } from "../hazardo.js";

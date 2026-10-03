@@ -1,4 +1,4 @@
-// ≺⧼ Korba teksajxo 🧺 ⧽≻
+// ≺⧼ វាយនភាពកន្ត្រក 🧺 ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 

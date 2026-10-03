@@ -1,4 +1,4 @@
-// ≺⧼ Likena reliefa teksajxo 🪨 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់ស្លែ 🪨 ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 import { kreiLikenanKanvason } from "./likeno.js";

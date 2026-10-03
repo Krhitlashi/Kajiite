@@ -1,4 +1,4 @@
-// ≺⧼ Betula folia teksajxo 🍃 ⧽≻
+// ≺⧼ វាយនភាពស្លឹកប៊ឺច 🍃 ⧽≻
 import * as THREE from "three";
 import { kreiHazardanGenerilon } from "../hazardo.js";
 import { ombro } from "../koloroj.js";

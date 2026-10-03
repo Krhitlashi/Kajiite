@@ -1,4 +1,4 @@
-// ≺⧼ Grunda teksajxo 🟫 ⧽≻
+// ≺⧼ វាយនភាពដី 🟫 ⧽≻
 import * as THREE from "three";
 import { kreiHazardanGenerilon } from "../hazardo.js";
 import { desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";

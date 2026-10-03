@@ -1,9 +1,4 @@
-// ≺⧼ Rokoj 🪨 ⧽≻
-// La rokaj blokoj de la mondo — la kruda rokbloko ( konstruiRokGeometrion ), la
-// komuna ŝtona materialo ( kreiSxtonanMaterialon ), la montara rokzono
-// ( konstruiMontajnRokojn ), la unuopa roko de la terena skulptilo
-// ( konstruiMetitanRokon ) kaj la liken-kovritaj ŝtonoj de la arbaro
-// ( konstruiLikenSxtonojn ).
+// ≺⧼ ថ្ម 🪨 ⧽≻
 import * as THREE from "three";
 import { kreiRokenTeksajxon } from "../../komunajxoj/teksajxoj/roko.js";
 import { kreiRokenBumpanTeksajxon } from "../../komunajxoj/teksajxoj/roko-bumpo.js";
@@ -11,31 +6,15 @@ import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { montaKruteco, spronaDuono, type ArboMetado } from "./metado.js";
 import { glataPaso, biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
 
-// konstruiRokGeometrion — Kruda rokbloko. La antaŭa roko estis NEPERTURBITA
-// dudekedro: dek du identaj verticoj kaj dudek perfektaj trianguloj, do ĉiu
-// roko en la mondo aspektis kiel samegranda globo kun plataj facetoj nur ĉe la
-// anguloj de la geometrio. Nun ĉiu vertico estas puŝita laŭ sia radiuso per
-// hazarda faktoro ( la facetoj iĝas neregulaj kaj akraj, kiel rompita ŝtono ),
-// kaj la suba parto estas kunpremita, por ke la bloko kuŝu sur plata bazo en
-// la tero anstataŭ pendi per pinto.
-//     @param semo ( number ) - La hazardo-semo — la sama semo donas la saman rokon.
-//     @returns geometrio ( THREE.BufferGeometry ) - La roko, radiuso ~1.
 function konstruiRokGeometrion(semo = 1): THREE.BufferGeometry {
-  // ⟨ Pli da facoj 📃 ⟩ — dudekedro sen subdivido havas dudek triangulojn, do
-  // ĉiu faco estas granda plata telero; kune kun la plata bazo la bloko
-  // aspektis kiel frakasita kuko ( "splato" ). Kun unu subdivido ( okdek
-  // trianguloj ) la facoj malgrandiĝas kaj la silueto povas esti neregula sed
-  // GLATA, kiel rulita ŝtonego.
+  // ⟨ មុខច្រើនជាង 📃 ⟩
   const geometrio = new THREE.IcosahedronGeometry(1, 1);
   const pozicioj = geometrio.attributes.position;
   for ( let i = 0; i < pozicioj.count; i++ ) {
     let x = pozicioj.getX(i), y = pozicioj.getY(i), z = pozicioj.getZ(i);
     const longo = Math.hypot(x, y, z) || 1;
     const nx = x / longo, ny = y / longo, nz = z / longo;
-    // ⟨ Glata perturbo 📃 ⟩ — la radiuso venas el kelkaj sinusoj de la
-    // DIREKTO, ne el hazardo po vertico: najbaraj verticoj moviĝas kune, do la
-    // surfaco estas kontinua ondaro ( ŝveloj kaj kavoj ) anstataŭ hazarda
-    // pinglaro. La semo ŝanĝas la fazojn, do la tri formoj vere malsamas.
+    // ⟨ ការរំខានរលូន 📃 ⟩
     const ondo = ( ax: number, ay: number, az: number, ofto: number ): number =>
       Math.sin(( nx * ax + ny * ay + nz * az ) * 2 + ofto + semo * 0.7);
     const r = 1
@@ -43,8 +22,6 @@ function konstruiRokGeometrion(semo = 1): THREE.BufferGeometry {
       + 0.09 * ondo(0o1/0o2, 1.3, 0.9, 2.1)
       + 0.06 * ondo(1.7, 0.4, 1.1, 4.3);
     x *= r; z *= r;
-    // Nur ETA kunpremo — la antaŭa 0.6 ( kaj plia 0.5 sub la mezo ) faris
-    // telerojn. Ŝtonego estas iomete pli larĝa ol alta, ne plata.
     y *= r * 0.88;
     if ( y < 0 ) y *= 0.8;
     pozicioj.setXYZ(i, x, y, z);
@@ -53,15 +30,6 @@ function konstruiRokGeometrion(semo = 1): THREE.BufferGeometry {
   return geometrio;
 }
 
-// kreiSxtonanMaterialon — La komuna materialo de la rokoj. La roko estis
-// SENDEKORA — nur griza koloro, do ĉiu facetego aspektis kiel plata papero.
-// Poste ĝi portis la dioriton de la VOJOJ ( polurita pavimo: fajngrajna kaj
-// alta-kontrasta kun preskaŭ blankaj kaj preskaŭ nigraj eroj ), kiu sur granda
-// natura ŝtonego aspektis kiel punktita papero. Nun la rokoj havas Sian propran
-// paron — malalta kontrasto, pli grandaj eroj, fendoj kaj erodaj makuloj
-// ( kreiRokenTeksajxon kaj ĝia bumpo ) — dum la vojoj kaj la lampoj retenas la
-// poluritan dioriton. La reliefo ankaŭ estas pli forta ( 0.8 anstataŭ 0.4 ),
-// ĉar natura roko estas kruda, ne polurita.
 function kreiSxtonanMaterialon(): THREE.MeshStandardMaterial {
   return new THREE.MeshStandardMaterial({
     roughness: 0.9, metalness: 0,
@@ -70,19 +38,6 @@ function kreiSxtonanMaterialon(): THREE.MeshStandardMaterial {
   });
 }
 
-// konstruiMontajnRokojn — Metu rokajn blokojn sur la nordan montaron, sur la
-// altaj deklivoj kaj krestoj, kie la arboj malabundas. La rokoj sekvas la
-// terenon kaj ricevas malvarmajn grizojn por kongrui kun la montara roko.
-// La disdono samformas kun la monta arbaro — la sama spron-silueta x-envelopo
-// kaj suda fado — sed la alteca akcepto estas inversa. la rokoj densegas sur
-// la kresto kaj la supraj deklivoj ( kie la arboj fadas ), kaj dissolviĝas
-// malsupren en la arbaran zonon. Tiel la rokzono sekvas la naturan montan
-// silueton anstataŭ rektangulon.
-//     @param excludeBuildings ( funkcio ) - La konstruajxa ekskludo — nenia roko
-//         eniru konstruajxon ( aŭ ĝian ĝardenon ). La montaroj staras for de la
-//         urbo, sed la skulptitaj vojoj kaj dometoj iras ankaŭ tien.
-//     @returns metitaj ( ArboMetado[] ) - La pozicioj, por ke la likenoj povas
-//         grupigi ĉirkaŭ ili.
 export function konstruiMontajnRokojn(sceno: THREE.Scene,
   kvanto: number,
   heightFn: ( x: number, z: number ) => number,
@@ -97,10 +52,6 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): ArboMetado[] {
   const hazardaGenerilo = kreiVegetajxanHazardon(semo);
-  // Tri malsamaj rokformoj — antaŭe ĉiuj blokoj en la mondo estis la SAMA
-  // neperturbita dudekedro, do oni vidis la saman ŝtonon ripetitan sur la
-  // tuta montaro. Ĉiu bloko nun elektas unu el tri formoj ( malsamaj semoj de
-  // la perturbo ), kaj ĉiu el la tri estas aparta InstancedMesh.
   const SXTONAJ_FORMONOJ = 0o3;
   const sxtonaMaterialo = kreiSxtonanMaterialon();
   const sxtonajMeshoj: THREE.InstancedMesh[] = [];
@@ -116,23 +67,14 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const C = new THREE.Color();
-  // ⟨ La tono venas el la teksajxo 📃 ⟩ — la instanca koloro MULTIPLIĜAS kun
-  // la ŝtona teksajxo, do du mid-grizaj valoroj ( 0x8a kaj ~0x85 ) donas
-  // preskaŭ nigran rokon; la paletro do portas nur etan grizecan nuancon
-  // ( varma aŭ malvarma, kun kelkaj verdaj ) kaj la ŝtona tono mem restas en
-  // la teksajxo. Same en konstruiMetitanRokon.
+  // ⟨ សម្លេងមកពីវាយនភាព 📃 ⟩
   const paletro = [ 0xf2f2f0, 0xffffff, 0xe8e8e4, 0xf6f4f2, 0xece9e3, 0xeff0e2 ];
   const metitaj: ArboMetado[] = [];
   let li = 0;
   let gardilo = 0;
 
-  // La sama pieda fado kaj spron-silueta x-envelopo kiel en metiMontajnArbojn
-  // ( parametroj cx/xDuono/zMin/zDuono — la norda montaro kaj la nordorienta
-  // monto uzas la saman funkcion ), por ke la rokzono kongruu kun la arbarzono.
   const sudaFado = ( z: number ): number => glataPaso(zMin, zMin + 0o20, z);
   const xEnvelopo = ( z: number ): number => spronaDuono(xDuono, z, sudaFado);
-  // Alteca akcepto — inversa de la arbolinia fado. malmulta sub la arbolinio
-  // ( kie la arbaro vivas ), plena sur la kresto kaj la supraj deklivoj.
   const rokAkcepto = ( h: number ): number => glataPaso(0o16, 0o30, h);
 
   while ( li < kvanto && gardilo++ < 0o10000 ) {
@@ -140,25 +82,19 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
     if ( hazardaGenerilo() > sudaFado(z) ) continue;
     const x = cx + ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo(z);
     if ( Math.hypot(x, z) < 0o110 ) continue;
-    // La biomo — la rokoj sekvas la montaran biomon.
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
     if ( hazardaGenerilo() > rokAkcepto(heightFn(x, z)) ) continue;
     if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) ) continue;
     if ( excludeBuildings && excludeBuildings(x, z, 0o2) ) continue;
-    // Tro kruta deklivo — neniu roko ŝvebas sur la klifoj.
     if ( montaKruteco(heightFn, x, z) > 0o1 ) continue;
 
     const skaloY = 0o5/0o10 + hazardaGenerilo() * 0o5/0o10;
-    // ⟨ Ne tro plata 📃 ⟩ — la blokoj estas iomete pli larĝaj ol altaj kaj
-    // iomete pli longaj laŭ unu flanko, kiel rulitaj ŝtonegoj. Antaŭe la larĝo
-    // estis ĝis 1.3× la alto KAJ la geometrio mem estis 0.6 alta kaj 0.7 skvamita
-    // — la blokoj finiĝis je ~40% de sia larĝo kaj aspektis kiel splatoj.
+    // ⟨ មិនរាបស្មើពេក 📃 ⟩
     const skaloX = skaloY * ( 0.85 + hazardaGenerilo() * 0.3 );
     const skaloZ = skaloY * ( 0.85 + hazardaGenerilo() * 0.3 );
     E.set(hazardaGenerilo() * 0o15/0o40, hazardaGenerilo() * Math.PI * 2, hazardaGenerilo() * 0o15/0o40);
     Q.setFromEuler(E);
     const y = heightFn(x, z);
-    // Preskaŭ duone en la tero — la plata bazo restas sub la grundo.
     M.compose(new THREE.Vector3(x, y + skaloY * 0o2/0o10, z),
       Q,
       new THREE.Vector3(skaloX, skaloY * 0o11/0o12, skaloZ));
@@ -182,14 +118,6 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
   return metitaj;
 }
 
-// konstruiMetitanRokon — UNU montara roko cxe preciza pozicio ( la objekta
-// ilo de la terena skulptilo ). La sama ikosaedra roko kiel la montaraj
-// rokoj, kun hazarda grizeca tono kaj turno — la loka vario.
-//     @param x, z ( number ) - Monda pozicio.
-//     @param heightFn ( funkcio ) - Tera alta funkcio.
-//     @param skalo ( number ) - Grando ( la montaraj rokoj estas 0.5-1.0 ).
-//     @param rotacio ( number = -1 ) - La turno en radianoj; -1 = hazarda
-//     ( la montaraj rokoj ).
 export function konstruiMetitanRokon(sceno: THREE.Scene,
   x: number, z: number,
   heightFn: ( x: number, z: number ) => number,
@@ -199,8 +127,6 @@ export function konstruiMetitanRokon(sceno: THREE.Scene,
 ): THREE.InstancedMesh {
   const sxtonaGeometrio = konstruiRokGeometrion(semo);
   const sxtonoj = new THREE.InstancedMesh(sxtonaGeometrio, kreiSxtonanMaterialon(), 1);
-  // Vidu la rimarkon en konstruiMontajnRokojn — la instanca koloro multipliĝas
-  // kun la teksajxo, do ĝi restas preskaŭ blanka.
   const paletro = [ 0xf2f2f0, 0xffffff, 0xe8e8e4, 0xf6f4f2, 0xece9e3, 0xeff0e2 ];
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -211,8 +137,7 @@ export function konstruiMetitanRokon(sceno: THREE.Scene,
     rotacio >= 0 ? 0 : Math.random() * 0o15/0o40);
   Q.setFromEuler(E);
   const y = heightFn(x, z);
-  // ⟨ La bloko kuŝas EN la tero 📃 ⟩ — oni metas ĝin tiom profunde, ke la
-  // malsupra parto restas sub la grundo, sed ne tiom, ke ĝi malaperas.
+  // ⟨ ប្លុកកប់ក្នុងដី 📃 ⟩
   const skaloY = skalo * 0o11/0o12;
   const skaloXZ = skalo * ( 0.9 + Math.random() * 0.3 );
   M.compose(new THREE.Vector3(x, y + skaloY * 0o2/0o10, z),
@@ -225,14 +150,7 @@ export function konstruiMetitanRokon(sceno: THREE.Scene,
   return sxtonoj;
 }
 
-// konstruiLikenSxtonojn — Metu liken-kovritajn sxtonojn en la arbaron.
-// Kelkaj sxtonoj portas verdan likenan nuancon, la aliaj restas grizaj.
-// ⟨ La sxtonoj estas solidaj 📃 ⟩ — ili aldonas koliziojn, do ili devas resti
-// ekster la vojoj kaj la konstruajxoj; la ekskludoj estas la samaj kiel tiuj de
-// la arboj ( vidu la nomaron de la konstruiloj ).
-//     @param excludeBuildings ( funkcio ) - La konstruajxa ekskludo.
-//     @returns metitaj ( ArboMetado[] ) - La pozicioj de la metitaj sxtonoj,
-//         por ke la likenoj povas grupigi ĉirkaŭ ili.
+// ⟨ ថ្មរឹង 📃 ⟩
 export function konstruiLikenSxtonojn(sceno: THREE.Scene,
   kvanto: number,
   heightFn: ( x: number, z: number ) => number,
@@ -249,7 +167,6 @@ export function konstruiLikenSxtonojn(sceno: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const C = new THREE.Color();
-  // Verdete grizaj tonoj — ankaŭ pli helaj pro la nova ŝtona teksaĵo.
   const paletro = [ 0x88a090, 0x98a898, 0x88a090, 0xa8b890, 0xb8c8a0, 0x98a898 ];
   const metitaj: ArboMetado[] = [];
 

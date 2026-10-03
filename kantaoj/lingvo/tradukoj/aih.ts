@@ -1,12 +1,6 @@
-// ≺⧼ Tradukoj — la aiha lingvo 🗣️ ⧽≻
-// La aih-aj ( Gawekiif ) tekstoj de la tuta interfaco. La vortaro estas
-// nur datumoj — la traduk-funkcioj, la lingvo-sxaltado kaj la
-// DOM-aplikado restas en kantaoj/lingvo/tradukoj.ts.
-// La aih-aj formoj estas la FONTO de la derivitaj nomoj ( la sonaj reguloj ).
+// ≺⧼ ការបកប្រែ , ភាសាអៃហា 🗣️ ⧽≻
 
 export const AIH: Record<string, string> = {
-  // Adjektivoj iras ANTAŬ la substantivo por priskriboj ( Iikrhia gramatika regulo ).
-  // to signal a fused compound name rather than a mere description.
   "titoloAranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
   "subtitoloUrbo": "j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞ • j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ſɭᴜ ɭl̀ɹ ɭʃɔ",
   "eniri": "ſɭw ſ̀ȷᴜ",
@@ -32,9 +26,6 @@ export const AIH: Record<string, string> = {
   "regiloVesto": "ſ̀ȷᴜȝ • ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
   "titoloVojoj": "ſɭэ ֭ſɭэ",
   "subtitoloHelpo": "ſȷɔ ſɭ,ꞇ ʌ ſɭэ ʌ ſɭᴜ ſɭɔ ʌ ʃэ j͐ʃɜ ɭʃᴜ",
-  // MAPO DE ARANIS • La tuta valo de supre
-  // map = ʃᴜ j͐ʃɹ ı],ᴜ • of(SER,vowel) = j͑ʃɔƣ̋ • Aranis = ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞
-  // tuta = ꞁȷ̀ɔ ɽ͑ʃ'ɹ ֭ſɭᴜ • valo = j͐ʃɜ ɭʃᴜ • el( Loko ) = j͐ʃэ ɭl̀э • supro = j͑ʃɜ ſɭ,ᴜ
   "titoloMapo": "ʃᴜ j͐ʃɹ ı],ᴜ ʌ j͑ʃɔƣ̋ ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
   "subtitoloMapo": "ꞁȷ̀ɔ ɽ͑ʃ'ɹ ֭ſɭᴜ j͐ʃɜ ɭʃᴜ ʌ j͐ʃэ ɭl̀э j͑ʃɜ ſɭ,ᴜ",
   "actEliri": "j͑ʃwc̗ ɭʃᴜ • Esc",
@@ -42,56 +33,44 @@ export const AIH: Record<string, string> = {
   "regiloKanuo": "WASD • ſɭɹ j͑ʃɹ ſɭᴜ ɭl̀ɹ ʌ ſɭw ſ̀ȷᴜ",
   "eliri": "j͑ʃwc̗ ɭʃᴜ",
   "eniriKanuo": "ſɭw ſ̀ȷᴜ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",
-  // Retilo ( multludado ) — tostoj
   "retiloAliĝis": "ſɭw ſ̀ȷᴜ ʌ ⺓ ʌ ꞁȷ̀ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ʌ ŋᷠᴜƴ ⟅",
   "retiloForiris": "j͑ʃwc̗ ɭʃᴜ ʌ ⺓ ʌ ꞁȷ̀ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ʌ ŋᷠᴜƴ ⟅",
-  // Food action labels
   "actGusti": "ſ͔ɭɔȝ •",
   "actKuxi": "ſȷɔ˞ᴜ ɭʃᴜ",
   "actLevi": "j͑ʃᴜ ʃɜƽ",
-  // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
   "manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ı],ꞇƽ", "manĝFok1": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ſ͕ɭᴜ ɭʃɹ ᶅſᴜ", "manĝFok2": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ɭʃɜͷ̗ ı],w",
   "manĝTla0": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ • ɭʃɜ ſɭɹ", "manĝTla1": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ • ɭʃɹƽ", "manĝTla2": "ſ̀ȷᴜ ɭʃɹ ᶅſᴜ • j͐ʃᴜ ŋᷠɹⰱ",
-  // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
   "manĝFok0Flavor": "ſᶘэ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ ｡ ı],ꞇƽ ⟅",
   "manĝFok1Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſ͕ɭᴜ ɭʃɹ ᶅſᴜ ⟅",
   "manĝFok2Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ɭʃɜͷ̗ ı],w ｡ ſ͕ɭᴜ ɭʃɹ ᶅſᴜ ｡ ſ̀ȷɔ ı],ͷ̗ɔʞ ⟅",
   "manĝTla0Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſ̀ȷᴜ ſɭɔͷ̗ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſᶘᴜ v ſ͔ɭɔ ſןɹ j͑ʃᴜꞇ ⟅",
   "manĝTla1Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ɭʃɹƽ ｡ ſɟɔ ɭl̀ɹ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſᶘᴜ v ſ͔ɭɔ ſןɹ j͑ʃᴜꞇ ⟅",
   "manĝTla2Flavor": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſɭᶗ‹ɹ j͐ʃᴜ ŋᷠɹⰱ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſɟɔ ɭl̀ɹ v ֭ſɭᴜ }ʃɔ j͑ʃᴜꞇ ( ſᶘᴜ j͑ʃͷ̗ᴜʞ ꞁȷ̀ᴜꞇ ) ⟅",
-  // Pussxlefo-beroj — la nomo kombinas la ber-vorton kaj la plant-nomon.
   "manĝPuss0": "ſןꞇƽ j͑ʃɔ ſ̀ȷɔ ı],ͷ̗ɔʞ ſןɹɔ˞ ꞁȷ̀ᴜꞇ",
   "manĝPuss0Flavor": "ſᶘᴜ j͑ʃᴜꞇ ʌ j͐ʃᴜ ſɟɹ ⟅ ſɭɔ˞ɜƴ ʌ ſɭᴜ j͑ʃᴜ ʌ ı],ꞇͷ̗ ⟅",
-  // Konstrua karto-labeletoj el satalaj-konstruaĵoj.ts TIPARO
   "tipDomo": "ſɭᴜ ſןɹ",
   "tipMangxejo": "ſɭᴜ ſ͔ɭɔȝ",
   "tipKasafeo": "ſɭᴜ j͑ʃᴜ ſȷɔ",
   "tipStacioxipo": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
   "tipTuro": "ſןᴜȝ ᶅſw ſɭɹ",
   "tipSanktejo": "j͑ʃɜ j͑ʃƨɹ",
-  // Konstruaĵkarta flava teksto — ʌ apartigas kompletajn vortojn; spacoj interne
-  // vortaraj kunmetaĵoj restas ordinaraj silabaj apartigiloj.
   "flvDomo": "j͑ʃᴜ j͑ʃ'ɔ ſɭᴜ ſןɹ ⟅",
   "flvMangxejo": "ꞁȷ̀ɹ ſɭꞇ ʌ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ʌ j͑ʃᴜ ſ͔ɭɔȝ ⟅",
   "flvKasafeo": "j͑ʃᴜ ſɭɔ˞w j͐ʃ ʌ j͑ʃᴜ j͑ʃᴜ ſȷɔ ʌ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ⟅",
   "flvStacioxipo": "j͑ʃᴜ ı],ᴜ ɽ͑ʃ'ᴜȝ ʌ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ⟅",
   "flvTuro": "ᶅſw ſɭɹ ʌ ſןᴜȝ ⟅",
   "flvSanktejo": "j͑ʃɜ j͑ʃƨɹ ⟅",
-  // Karto-statistikaj labeletoj el sperto.ts
   "statTieroj": "ɭʃᴜ }ʃɔƽ",
   "statDiamanto": "ſɟꞇȝ ſɭᴜⰱ",
   "statJes": "ſɭɹ ֭ſɭɹ",
   "statNe": "ſɟɔ ֭ſɭɹ",
   "statTipo": "֭ſɭᴜ ı],ɔ",
   "statPozicio": "ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ",
-  // WebGL-eraro el scena.ts
   "webglMesagxo": "ſ͕ȷɜ ſɭɹ ɽ͑ʃ'ɔ ʌ WebGL ⟅",
   "webglDetalo": "ɭʃɔ ſ͕ɭᴜƴ ʌ WebGL ⟅ j͑ʃɹƣ̋ ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ ʌ ſɟᴜ ֭ſɭᴜ ſȷᴜ v ſɭɹ ſןɹ ⟅",
   "webglReprovi": "ɭʃɜ ŋᷠэ",
-  // aria-labeletoj el index.html kaj sperto.ts
   "ariaButKrepusko": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
   "ariaDuskRegilo": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
-  // Vetero — la kvar eblaj atmosferoj ( ſ͕ɭɹ ſᶘɜ )
   "ariaButVetero": "ſ͕ɭɹ ſᶘɜ",
   "veteroNebula": "ŋᷠᴜ ֭ſɭᴜ",
   "veteroPluva": "֭ſɭᴜ ɭʃᴜ",
@@ -102,18 +81,14 @@ export const AIH: Record<string, string> = {
   "ariaButOrbiti": "֭ſɭɹ j͑ʃɔ",
   "ariaButLingvo": "ſ͔ɭᴜ ᶅſɔ",
   "ariaSupermetaFermi": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
-  // Informo-panelo — tradukoj poste ( lasita malplena )
   "ariaInformButono": "ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ j͑ʃ'ɜ ſןɹ",
   "titoloInformo": "ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ j͑ʃ'ɜ ſןɹ",
   "subtitoloInformo": "ſןᴜȝ • ŋᷠɜⅎᶗ‹ • ɭ(ᴜͷ̗",
   "tabKonstruajxoj": "ſןᴜȝ",
   "tabMangxajxoj": "ŋᷠɜⅎᶗ‹",
   "tabSpecioj": "ɭ(ᴜͷ̗",
-  // Vestaro-langetoj — vortaraj vortoj ( j͑ʃɜȝ ɭʃɔ = vestoj, ſᶘᴜȝ = haroj )
   "taboVestoj": "j͑ʃɜȝ ɭʃɔ",
   "taboHararo": "ſᶘᴜȝ",
-  // Bestoj kaj plantoj de la valo — konservativaj, dictionary-kontrolitaj
-  // priskriboj. ʌ disigas kompletajn vortojn; prefiksoj restas kun la bazo.
   "grupoBesto": "ſןᴜ ſ͔ɭᴜ",
   "grupoPlanto": "ı],ᴜ ſ̀ȷɔ",
   "specBeroe": "j͐ʃɹᶗ‹ ſɭw ſןwƽ ꞁȷ̀ᴜꞇ",
@@ -126,7 +101,6 @@ export const AIH: Record<string, string> = {
   "flvSpecGlacifiso": "ᶅſɹ ʌ ſɭᴜ",
   "specMarlaraksxo": "ɭʃɜͷ̗ ı],w",
   "flvSpecMarlaraksxo": "j͑ʃɹ ɭʃɜͷ̗ ı],w",
-  // Neĝopetrelo ( ɭʃɔ ŋᷠɔƽ / Pagodroma nivea )
   "specNeĝopetrelo": "ɭʃɔ ŋᷠɔƽ",
   "flvSpecNeĝopetrelo": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
   "specBetulo": "j͐ʃᴜ ŋᷠɹⰱ",
@@ -155,8 +129,6 @@ export const AIH: Record<string, string> = {
   "ariaTrako1": "j͑ʃw ſɭʞɹȝ ɿ ſןᴜ ʃɜƽ ſ͔ɭɹ",
   "ariaTrako2": "j͑ʃw ſɭʞɹȝ ц ɭʃэʞ ɭʃꞇʞ",
   "ariaTrako3": "j͑ʃw ſɭʞɹȝ э j͐ʃɜ ɭʃᴜ ſɭᴜͷ̗ ɭʃɜ ı],ɔƽ",
-  // Canvas alt text
-  // Vesta nomoj ( custom names )
   "vestoVerdant": "j͐ʃᴜ̩ᴜ",
   "vestoHearth": "ſ̀ȷwɔ˞",
   "vestoMist": "ſ͔ɭэ",
@@ -167,11 +139,9 @@ export const AIH: Record<string, string> = {
   "vestoRose": "ᶅſɔ j͐ʃᴜ ſ͔ɭэ",
   "vestoObsidian": "֭ſɭw }ʃᴜ",
   "vestoCyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
-  // Har-stiloj ( komponitaj el vortaraj vortoj )
   "sekcioHararo": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
   "haroMalalta": "ſɟɹ }ʃᴜ ſᶘᴜȝ",
   "haroLonga": "j͑ʃᴜʞ",
-  // Har-koloroj ( vortaraj kolor-vortoj )
   "sekcioHarKoloroj": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
   "harKoloroBruna": "ſ̀ȷwɔ˞",
   "harKoloroNigra": "֭ſɭw }ʃᴜ j͑ʃᴜꞇ",
@@ -179,7 +149,6 @@ export const AIH: Record<string, string> = {
   "harKoloroKaŝtana": "ſɭɜᴜ̩ ſɭэ",
   "harKoloroBlonda": "ſɟꞇ",
   "harKoloroGriza": "֭ſɭwƽ",
-  // Konstruaj nomoj el realaj Iikrhiaj vortaraj vortoj ( Gawekiif )
   "paq0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
   "paq1": "ſɭᴜ ſןɹ",
   "paq2": "ſɭᴜ ᶅſw ſɭɹ",
@@ -214,7 +183,6 @@ export const AIH: Record<string, string> = {
   "paq31": "ſɭᴜɘ ꞁȷ̀ᴜ ſɟɔ",
   "paq32": "ſɭᴜ ɭ(ᴜͷ̗",
   "paq33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
-  // Trakonomoj ( trakoN ). Derivitaj de la aih-a Gawekiif per la sonaj reguloj.
   "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
   "trako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ᶅſɔ",
   "trako1": "ſןᴜ ʃɜƽ ſ͔ɭɹ",

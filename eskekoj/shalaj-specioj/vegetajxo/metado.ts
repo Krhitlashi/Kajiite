@@ -1,19 +1,7 @@
-// ≺⧼ Metado 📐 ⧽≻
-// La metaj iloj de la plantoj — la spaca haŝo-krado de la jam metitaj punktoj,
-// la interspacaj decidoj ( ĉu loko estas libera, kiom da spaco inter du kronoj,
-// kiom kruta la deklivo, kiom larĝa la sprona silueto ) kaj la arbareroj, ĉirkaŭ
-// kiuj la arboj kaj la plantoj klasteriĝas.
-//
-// La funkcioj de la SPECIA metado ( metiArbojn, metiPussxlefojn ktp ) vivas
-// apud siaj konstruiloj; ĉi tie restas nur la komuna ilaro, kiun ili kunhavas.
+// ≺⧼ ការដាក់ 📐 ⧽≻
 import { KRONA_LIBERO } from "./kronoj.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 
-// PunktaHasho — eta spaca haŝo-krado por la metaj bukloj. La minimumajn
-// distancojn antaŭe kontrolis lineara skanado de ĉiuj jam metitaj punktoj
-// ( O(n²) tra miloj da lokoj kaj dek miloj da provoj ) — la samaj demandoj
-// estas O(1) po ĉelo ĉi tie. La eroj estas generikaj ( [x,z] tufoj aŭ
-// ArboMetado ) kaj la demandobufro reuziĝas — neniu asigno po provo.
 export class PunktaHasho<T> {
   private ĉeloj = new Map<number, T[]>();
   private bufro: T[] = [];
@@ -26,11 +14,6 @@ export class PunktaHasho<T> {
     if ( !ĉ ) { ĉ = []; this.ĉeloj.set(ŝ, ĉ); }
     ĉ.push(ero);
   }
-  // najbaroj — ĉiuj eroj en la ĉeloj, kiujn la disko de `radiuso` ĉirkaŭ
-  // ( x, z ) tuŝas. Ĉiu punkto ene de la radiuso kuŝas en unu el ĉi tiuj
-  // ĉeloj ( la gamo estas la ekzacta floor-intervalo — la konservativa
-  // supertavolo en ĉelaj termoj ). Revenas la INTERNAN bufron — konsumu ĝin
-  // antaŭ la sekva voko ( la ĉi tieaj bukloj faras tion: skani, decidi, daŭrigi ).
   najbaroj(x: number, z: number, radiuso: number): T[] {
     this.bufro.length = 0;
     const cx0 = Math.floor(( x - radiuso ) / this.grandeco), cx1 = Math.floor(( x + radiuso ) / this.grandeco);
@@ -45,10 +28,6 @@ export class PunktaHasho<T> {
   }
 }
 
-// punktoLibera — la simpla interspaco-demando super [ x, z ]-tufo-hasho:
-// ĉu neniu metita punkto kuŝas ene de `minDist` de ( x, z )? La sama decido
-// kiel la malnova lineara skanado ( Math.hypot → kvadrata komparo — la sama
-// rezulto sen la hipot-kosto ), per ĉelaj demandoj anstataŭ O(n).
 export function punktoLibera(hasho: PunktaHasho<[ number, number ]>, x: number, z: number, minDist: number): boolean {
   const najbaroj = hasho.najbaroj(x, z, minDist);
   const m2 = minDist * minDist;
@@ -59,17 +38,9 @@ export function punktoLibera(hasho: PunktaHasho<[ number, number ]>, x: number, 
   return true;
 }
 
-// La inter-arba minimuma distanco — la pli granda de la baza interspaco kaj la
-// sumo de la du kronaj radiusoj plus la libero, por ke la foliaroj restu liberaj.
 export const interspaco = ( baza: number, rA: number, rB: number ): number =>
   Math.max(baza, rA + rB + KRONA_LIBERO);
 
-// montaKruteco — La plej granda altecdiferenco per unuo ĉe la punkto,
-// specimenita laŭ x kaj z ( pasxo 0o4 ). La sama dekliva mezurilo por la
-// montaj arboj, rokoj kaj subkreskajxoj — neniu objekto sxvebas sur la klifoj.
-//     @param heightFn ( funkcio ) - Tera alta funkcio.
-//     @param x, z ( number ) - La punkto.
-//     @returns kruteco ( number ) - Altecdiferenco per unuo.
 export function montaKruteco(heightFn: ( x: number, z: number ) => number, x: number, z: number): number {
   const paso = 0o4;
   const h0 = heightFn(x, z);
@@ -77,31 +48,18 @@ export function montaKruteco(heightFn: ( x: number, z: number ) => number, x: nu
     Math.abs(heightFn(x, z + paso) - h0)) / paso;
 }
 
-// spronaDuono — La duono-larĝo de la monta spur-silueto ĉe la punkto — pli
-// larĝa ĉe la piedo ( la spronoj disvastiĝas ), pli mallarĝa al la kresto.
-// La sama formo por la arbaro, la rokoj kaj la subkreskajxoj.
-//     @param xDuono ( number ) - La baza duono-larĝo.
-//     @param z ( number ) - La punkto.
-//     @param fado ( funkcio ) - La suda fado ( 0 ĉe la piedo, 1 sur la kresto ).
-//     @returns duono ( number ) - La duono-larĝo.
 export function spronaDuono(xDuono: number, z: number, fado: ( z: number ) => number): number {
   return xDuono * ( 0o75/0o100 + 0o25/0o100 * fado(z) );
 }
 
 export interface ArboMetado {
   x: number; z: number; h: number; s: number;
-  r?: number;   // krona radiuso — por la inter-arba interspaca kontrolo
-  plantAlto?: number;   // la REALA plant-alto — la Pussxlefaj beroj bezonas gxin
+  r?: number;
+  plantAlto?: number;
 }
 
-// Grovo — arbarera centro. La arboj kaj plantoj klasteriĝas ĉirkaŭ la centroj
-// anstataŭ formi uniforman ringon ĉirkaŭ la urbo — naturaj arbareroj kun
-// maldensaj paŭzoj inter ili.
 export interface Grovo { x: number; z: number; r: number; }
 
-// kreiGrovojn — Disigu arbarerojn nature tra la mondo. Hazardaj centroj kun
-// hazardaj radiusoj, nek egale spacigitaj nek en ringo. La centroj evitas la
-// urbon kaj la riveron; la arboj poste klasteriĝas ĉirkaŭ ili.
 export function kreiGrovojn(kvanto: number, worldRadius: number,
   hazardaGenerilo: () => number,
   excludeRivers: ( x: number, z: number ) => boolean
@@ -113,7 +71,7 @@ export function kreiGrovojn(kvanto: number, worldRadius: number,
     const radiuso = 0o40 + ( worldRadius - 0o40 ) * Math.sqrt(hazardaGenerilo());
     const x = Math.sin(angulo) * radiuso;
     const z = Math.cos(angulo) * radiuso;
-    if ( Math.hypot(x, z) < 0o40 ) continue;      // la urbo restas malfermita
+    if ( Math.hypot(x, z) < 0o40 ) continue;
     if ( excludeRivers(x, z) ) continue;
     if ( Math.abs(x) > worldRadius + 0o20 || Math.abs(z) > worldRadius + 0o20 ) continue;
     let troProksima = false;
@@ -127,9 +85,6 @@ export function kreiGrovojn(kvanto: number, worldRadius: number,
   return grovoj;
 }
 
-// kreiArbarerojn — Publika enirpunkto al kreiGrovojn. La samaj arbareroj estas
-// dividitaj inter la arbo-specoj, por ke betuloj, larikoj kaj Ĥŝakŝlefoj
-// miksiĝu en la samaj naturaj arbareroj.
 export function kreiArbarerojn(kvanto: number, worldRadius: number,
   excludeRivers: ( x: number, z: number ) => boolean,
   semo = 0o53104
@@ -138,9 +93,6 @@ export function kreiArbarerojn(kvanto: number, worldRadius: number,
   return kreiGrovojn(kvanto, worldRadius, hazardaGenerilo, excludeRivers);
 }
 
-// hazardaGrovaLoko — Hazarda punkto en hazarda arbarero. La dusuma disdono
-// ( sumo de du hazardoj ) densigas la centron kaj maldensigas la randon — la
-// natura arba klastero-formo, anstataŭ la uniforma disko de ringo.
 export function hazardaGrovaLoko(hazardaGenerilo: () => number, grovoj: Grovo[]): { x: number; z: number } {
   const g = grovoj[( hazardaGenerilo() * grovoj.length ) | 0];
   const angulo = hazardaGenerilo() * Math.PI * 2;

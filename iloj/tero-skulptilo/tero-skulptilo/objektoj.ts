@@ -1,11 +1,4 @@
 // ≺⧼ ឧបករណ៍វត្ថុ 🎯 ⧽≻
-// ឧបករណ៍វត្ថុ ដែលដោយឡែកពីជក់។ វាដាក់វត្ថុជាក់លាក់
-// ( រុក្ខជាតិ សត្វ NPC ) នៅទីតាំងជាក់លាក់ជាមួយលក្ខណៈ ជំនួស
-// ការគូរស្រទាប់។ ស្ថានភាព ( វត្ថុដែលបានដាក់ វត្ថុដែលជ្រើស ឧបករណ៍រង )
-// ឆាកដុត 2D ( ទិដ្ឋភាពពីលើសម្រាប់ផែនទី ) និងការមើលជាមុន 3D
-// ស្ថិតនៅទីនេះ ព្រោះឯកសារមេអានស្ថានភាពដោយផ្ទាល់ ( ការភ្ជាប់ផ្ទាល់របស់
-// ម៉ូឌុល ES ) ហើយផ្លាស់ប្តូរវាដោយអនុគមន៍កំណត់។ សំណាញ់ 3D ពិត
-// របស់វត្ថុដែលបានដាក់ស្ថិតក្នុងឆាក ( objektaGrupo3D ក្នុង vido3d.js )។
 import * as THREE from "three";
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { MONDO_HALFO, REZ } from "./mezuroj.js";
@@ -13,8 +6,6 @@ import { pentri } from "./bako.js";
 import { akvaNiveloDe } from "./akvo.js";
 import { triaDimensia, teraMesh, objektaGrupo3D, YTROIGO,
   gxisdatigi3DMeshon, gxisdatigi3DnIlon } from "./vido3d.js";
-// ឧបករណ៍សាងសង់ពិតរបស់ហ្គេម ព្រោះឧបករណ៍វត្ថុសាងសង់រូបរាង
-// ពិតរបស់វត្ថុដែលបានដាក់មួយៗ មិនមែនប្រអប់ពណ៌ទេ។
 import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 import { konstruiHxeuxfojn } from "../../../eskekoj/konstruajxoj/hxeuxfa/lampoj.js";
 import { konstruiKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
@@ -32,19 +23,15 @@ import { konstruiPeriferiajnPlatformojn } from "../../../eskekoj/medio/vojoj/per
 import { kreiAndezitanMaterialon } from "../../../eskekoj/komunajxoj/materialoj.js";
 import { VESTOJ } from "../../../eskekoj/vestaro/vestoj.js";
 import { elemento, elementoj, unua } from "../../komunajxoj/dom.js";
-// ទម្រង់ទិន្នន័យរបស់វត្ថុដែលបានដាក់ គឺដូចដែលហ្គេមអាន
-// ( kantaoj/mondo/urbo/tipoj.ts )។
 import type { MetitaObjekto } from "../../../kantaoj/mondo/urbo/tipoj.js";
 
-// ⟪ វត្ថុដែលបានដាក់ 📃 ⟫ គឺឧបករណ៍វត្ថុ ( ដោយឡែកពីជក់ ) ដាក់
-// វត្ថុមួយៗ ( រុក្ខជាតិ សត្វ NPC ) នៅទីតាំងជាក់លាក់
-// ជាមួយលក្ខណៈ។
-export let objektoj: MetitaObjekto[] = [];   // វត្ថុដែលបានដាក់ ( ទម្រង់ទិន្នន័យដូចហ្គេមអាន )
-export let objektaModo = false;         // តើឧបករណ៍វត្ថុសកម្ម ( ជំនួសជក់ )
-export let objektaIlo = "meti";         // ឧបករណ៍រងរបស់ឧបករណ៍វត្ថុ។ meti ➕ / movigi ✋ / forigi 🗑️
-export let objektaTrenata = -1;         // លិបិក្រមវត្ថុដែលកំពុងអូស ( Movu ✋ )
-export let objektoAktiva = "betulo";    // ប្រភេទដែលបានជ្រើស
-export let elektitaObjekto = -1;        // លិបិក្រមក្នុងបញ្ជី ( បំភ្លឺលើផែនទី )
+// ⟪ វត្ថុដែលបានដាក់ 📃 ⟫
+export let objektoj: MetitaObjekto[] = [];
+export let objektaModo = false;
+export let objektaIlo = "meti";
+export let objektaTrenata = -1;
+export let objektoAktiva = "betulo";
+export let elektitaObjekto = -1;
 const objektoProp: Record<string, number> = { skalo: 1, rotacio: 0, bestospeco: 0, radio: 4, vesto: 0, harstilo: 0, filikaSpeco: 0, stilo: 0 };
 const OBJEKTO_SPECOJ: Record<string, { nomo: string; koloro: string }> = {
   betulo:       { nomo: "Betulo 🌳",     koloro: "#a8d8a8" },
@@ -72,20 +59,14 @@ const OBJEKTO_BESTOSPECOJ = [ "Beroe", "Mnemiopsis", "Pleŭrobrakia", "Glacifiso
 const OBJEKTO_VESTOJ = [ "Verdant", "Hearth", "Mist", "Ember", "Azure", "Violet", "Gilt", "Rose", "Obsidian", "Cyan" ];
 const OBJEKTO_KANUAJ_STILOJ = [ "Baza", "Satala" ];
 
-// ⟪ ឆាកដុត 2D របស់វត្ថុ 📃 ⟫ គឺទិដ្ឋភាពពីលើនៃវត្ថុដែលបានដាក់
-// សម្រាប់ផែនទី 2D ដូចផែនទីពេញរបស់ហ្គេម។ សំណាញ់ 3D ពិតស្ថិតនៅ
-// ក្នុងឆាក ហើយរូបរាងនោះ ( objektaGrupo3D ) និងទិដ្ឋភាព 3D ទាំងមូលស្ថិតនៅ
-// ក្នុង iloj/tero-skulptilo/tero-skulptilo/vido3d.js។
+// ⟪ ឆាកដុត 2D របស់វត្ថុ 📃 ⟫
 export let objektaGrupo2D: THREE.Group | null = null;
 let objektaBakaSceno: THREE.Scene | null = null;
 let objektaBakaFotilo: THREE.OrthographicCamera | null = null;
 let objektaBakaRenderilo: THREE.WebGLRenderer | null = null;
 export let objektaBakaKanvaso: HTMLCanvasElement | null = null;
 
-// ⟪ ការភ្ជាប់ជាមួយកម្មវិធីកែសម្រួល 📃 ⟫ គឺការយោងរបស់ឯកសារមេ ដែល
-// ភ្ជាប់តែម្តងដោយ agordiObjektilon។ ស្ថានភាពកម្មវិធីកែសម្រួល ( ការពង្រីក
-// ប្រវត្តិ បន្ទាត់ស្ថានភាព ការគូរ ) និងវត្ថុរួមឆ្លងកាត់
-// ដូចនេះ។ ការពង្រីកផ្លាស់ប្តូរពេលប្រើ ដូច្នេះវាត្រូវបានអានដោយអនុគមន៍។
+// ⟪ ការភ្ជាប់ជាមួយកម្មវិធីកែសម្រួល 📃 ⟫
 interface ObjektaLigo {
   deltoInterp: ( x: number, z: number ) => number;
   maskoInterp: ( x: number, z: number ) => number;
@@ -139,9 +120,7 @@ export function agordiObjektilon(k: ObjektaLigo): void {
   gxisdatigiAgordojn = k.gxisdatigiAgordojn; gxisdatigiKursoro = k.gxisdatigiKursoro;
 }
 
-// ⟪ អនុគមន៍កំណត់ 📃 ⟫ គឺការសរសេរតែមួយគត់ទៅស្ថានភាពវត្ថុពី
-// ឯកសារមេ។ បញ្ជី និងជម្រើសត្រូវបានអានដោយផ្ទាល់ រីឯមានតែអ្វីដែល
-// ជំនួសពួកវា ( ការផ្ទុក ការត្រឡប់វិញ ) ប្រើអនុគមន៍ទាំងនេះ។
+// ⟪ អនុគមន៍កំណត់ 📃 ⟫
 /* ជំនួសបញ្ជីវត្ថុដែលបានដាក់ទាំងមូល ( ការផ្ទុក ការត្រឡប់វិញ )។
     @param listo ( MetitaObjekto[] ) - បញ្ជីថ្មី។ */
 export function agordiObjektojn(listo: MetitaObjekto[]): void { objektoj = Array.isArray(listo) ? listo : []; }
@@ -150,9 +129,6 @@ export function agordiObjektojn(listo: MetitaObjekto[]): void { objektoj = Array
 export function agordiElektitanObjekton(ind: number): void { elektitaObjekto = ind; }
 
 // ⟪ ឧបករណ៍វត្ថុ 🎯 ⟫
-// បន្ទះបង្ហាញប្រភេទដែលជ្រើស លក្ខណៈ កូអរដោនេផ្ទាល់របស់
-// ទ្រនិច និងបញ្ជីវត្ថុដែលបានដាក់។ បន្ទះវត្ថុ និង
-// ការកំណត់ជាកាត thala ពីរ ដែលឆ្លាស់គ្នា។
 const agordojPanel = elemento<HTMLElement>("agordojPanel");
 export const objektoPanel = elemento<HTMLElement>("objektoPanel");
 const objektoSpeco = elemento<HTMLSelectElement>("objektoSpeco");
@@ -184,12 +160,8 @@ export function metiObjekton(x: number, z: number): void {
   if ( Math.abs(x) > MONDO_HALFO || Math.abs(z) > MONDO_HALFO ) return;
   momenti();
   const o: MetitaObjekto = { x: Math.round(x * 4) / 4, z: Math.round(z * 4) / 4, speco: objektoAktiva };
-  // លក្ខណៈត្រូវបានចម្លងតាមឈ្មោះរបស់ពួកវា ព្រោះគ្រាប់រំកិល និងទិន្នន័យ
-  // កាន់វាលដូចគ្នា ( លើកលែងរចនាប័ទ្មកាណូ ដែលបន្ទាត់បន្ទាប់ចាត់ចែង )។
   const ecoj = o as unknown as Record<string, number>;
   for ( const k of Object.keys(objektoProp) ) ecoj[k] = objektoProp[k];
-  // រចនាប័ទ្មកាណូជាខ្សែអក្សរក្នុងទិន្នន័យ ( "baza" | "satala" )
-  // រីឯឧបករណ៍ជ្រើសកាន់លិបិក្រម។
   if ( o.speco === "kanuo" ) o.stilo = objektoProp.stilo === 1 ? "satala" : "baza";
   objektoj.push(o);
   markiSxangxitan();
@@ -255,7 +227,6 @@ objektaMetuBtn.addEventListener("click", () => {
     return;
   }
   if ( elektitaObjekto >= 0 && elektitaObjekto < objektoj.length ) {
-    // ផ្លាស់ទីវត្ថុដែលជ្រើសទៅកូអរដោនេដែលបានវាយ។
     momenti();
     const o = objektoj[elektitaObjekto];
     o.x = Math.round(x * 4) / 4;
@@ -271,15 +242,12 @@ objektaMetuBtn.addEventListener("click", () => {
   }
 });
 
-// ឧបករណ៍រងរបស់ឧបករណ៍វត្ថុ គឺ Meti ➕ ( ការចុចដាក់ ឬជ្រើស ) Movu ✋
-// ( អូសដើម្បីផ្លាស់ទីវត្ថុលើផែនទី ) និង Forigi 🗑️ ( ការចុចលុប )។
 elementoj<HTMLButtonElement>("#objektaIloj button").forEach(b => {
   b.addEventListener("click", () => {
     objektaIlo = b.dataset.objektaIlo ?? "meti";
     elementoj<HTMLButtonElement>("#objektaIloj button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   });
 });
-// ឧបករណ៍ជ្រើសប្រភេទ គឺការជ្រើសប្រភេទសាងសង់លក្ខណៈ និងការមើលជាមុនឡើងវិញ។
 objektoSpeco.addEventListener("change", () => {
   objektoAktiva = objektoSpeco.value;
   gxisdatigiObjektoPropOJn();
@@ -314,7 +282,6 @@ export function sxangiObjektanPozicion(ind: number, x: number, z: number): void 
   rekonstruiObjektojn();
   markiDesegnon();
 }
-// finiObjektanTrenon គឺដោះលែងវត្ថុដែលបានចាប់ ហើយធ្វើឱ្យបញ្ជីស្រស់។
 export function finiObjektanTrenon(): void {
   if ( objektaTrenata < 0 ) return;
   objektaTrenata = -1;
@@ -323,18 +290,8 @@ export function finiObjektanTrenon(): void {
   markiDesegnon();
 }
 
-// វត្ថុសំណង់ ( ឧបករណ៍វត្ថុដាក់សាតាល់មួយៗ ) គឺ
-// ប្រភេទដូចបន្ទះពណ៌សំណាញ់។
 const OBJEKTO_KONSTRUAJXOJ: Record<string, number> = { sanktejo: 1, turo: 1, domo: 1, mangxejo: 1, kasafeo: 1, stacio: 1 };
 
-// konstruiObjektonEn គឺសាងសង់រូបរាង 3D ពិតរបស់វត្ថុដែលបានដាក់មួយ
-// ( ឧបករណ៍សាងសង់ដូចហ្គេម ) ហើយបន្ថែមវាទៅក្រុម។ ឧបករណ៍
-// សាងសង់បន្ថែមទៅឆាក ដូច្នេះឆាកបណ្តោះអាសន្នប្រមូលសំណាញ់ ដែល
-// បន្ទាប់មកផ្ទេរទៅក្រុម។ កម្ពស់ដីជាកម្ពស់ 3D ដែលបំផ្លើស ( YTROIGO )
-// ដើម្បីឱ្យវត្ថុអង្គុយលើចំណោតនៃទិដ្ឋភាព 3D។ ជម្រើស { alto }
-// ជំនួសកម្ពស់ដី ( ការមើលជាមុនប្រើកម្ពស់សូន្យ ) ហើយ
-// { sxipaAlto } ជំនួសកម្ពស់ហោះរបស់យានអវកាស ( ការមើលជាមុនបង្ហាញវា
-// ជិតដីជាង ដើម្បីឱ្យវាស្ថិតក្នុងស៊ុម )។
 interface KonstruOpcioj {
   alto?: ( x: number, z: number ) => number;
   sxipaAlto?: number;
@@ -373,25 +330,16 @@ function konstruiObjektonEn(grupo: THREE.Object3D, o: MetitaObjekto, opcioj: Kon
     fig.group.rotation.y = o.rotacio ?? 0;
     grupo.add(fig.group);
   } else if ( o.speco === "kanuo" ) {
-    // កាណូអណ្តែតលើផ្ទៃទឹក ( កម្រិតដែលបំផ្លើសក្នុងទិដ្ឋភាព 3D )។
     const i = Math.max(0, Math.min(N - 1, Math.floor(( o.x - X0 ) / PASO)));
     const j = Math.max(0, Math.min(N - 1, Math.floor(( o.z - Z0 ) / PASO)));
     const niv = akvaNiveloDe(i, j, o.x, o.z);
-    // kreiKanoton បន្ថែមក្រុមនៅដើមកំណើត ហើយហ្គេមដាក់ទីតាំងវា
-    // ពេលចលនា ( animaciiKanoton )។ ការដុត និងទិដ្ឋភាព 3D ស្ថិតស្ថេរត្រូវការ
-    // ទីតាំងច្បាស់លាស់ បើមិនដូច្នេះកាណូទាំងអស់នឹងជាន់គ្នានៅ ( 0, 0 )។
     const kanoto = kreiKanoton(temp, o.x, o.z, o.rotacio ?? 0, ORA_MATERIALO,
       niv === null ? h(o.x, o.z) : niv * YTROIGO, o.stilo === "satala" ? "satala" : "baza");
     kanoto.group.position.set(o.x, niv === null ? h(o.x, o.z) : niv * YTROIGO, o.z);
     kanoto.group.rotation.y = o.rotacio ?? 0;
   } else if ( o.speco === "spacosxipo" ) {
-    // យានអវកាសអណ្តែតខ្ពស់លើស្ថានីយ គឺកម្ពស់ដែលបំផ្លើសក្នុងទិដ្ឋភាព 3D
-    // ហើយការដុតទិដ្ឋភាពពីលើបង្ហាញវាដោយឯករាជ្យពីកម្ពស់។
     konstruiKrasesxagxon(temp, o.x, sxipaAlto, o.z, ORA_MATERIALO, ENIRA_MATERIALO);
   } else if ( OBJEKTO_KONSTRUAJXOJ[o.speco] ) {
-    // សំណង់មួយៗ ( សាតាល់ ) គឺប្រភេទដូចបន្ទះពណ៌
-    // សំណាញ់ ( ស្ថានីយជាយានអវកាស ) ជាមួយស្រទាប់ និងកម្ពស់ដូច
-    // ក្នុង urbo.ts។ មាត្រដ្ឋានគុណនឹងជើង 8×8។
     const tipo = o.speco === "stacio" ? "stacioxipo" : o.speco;
     const niveloj = tipo === "stacioxipo" ? 3 : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
     const spec = {
@@ -403,11 +351,6 @@ function konstruiObjektonEn(grupo: THREE.Object3D, o: MetitaObjekto, opcioj: Kon
     };
     konstruiSatalon(spec, temp, []);
   } else if ( o.speco === "hxeuxfo" || o.speco === "hxeuxfoPlato" ) {
-    // ចង្កៀង គឺ hxeuxfo មួយនៅលើដី ( សសរ ចាន អណ្តាតភ្លើង ដូច
-    // ចង្កៀងសំណាញ់ ជាមួយវត្ថុឌីអូរីតរួម )។ ប្រភេទ
-    // hxeuxfoPlato ឈរលើចានពេជ្រមូល ( វេទិកាដូច
-    // ចង្កៀងរបស់ផែនទី គឺស្នូលឌីអូរីតជាមួយចិញ្ចៀនអង់ដេស៊ីត ) ដូច្នេះ
-    // ចង្កៀងទទួលគោលលើកដូចចង្កៀងសំប៉ែតរបស់ហ្គេម។
     if ( o.speco === "hxeuxfoPlato" ) {
       konstruiPeriferiajnPlatformojn(temp, [ [ o.x, o.z ] ], h, dioritaMaterialo(), kreiAndezitanMaterialon());
       konstruiHxeuxfojn(temp, [ { x: o.x, z: o.z, y: h(o.x, o.z) + 0o4/0o10 - 0o1/0o40, rotacio: o.rotacio ?? Math.PI / 4 } ], dioritaMaterialo(), ORA_MATERIALO);
@@ -415,22 +358,18 @@ function konstruiObjektonEn(grupo: THREE.Object3D, o: MetitaObjekto, opcioj: Kon
       konstruiHxeuxfojn(temp, [ { x: o.x, z: o.z, y: h(o.x, o.z), rotacio: o.rotacio ?? Math.PI / 4 } ], dioritaMaterialo(), ORA_MATERIALO);
     }
   } else if ( o.speco === "keuxfhxeso" ) {
-    // ខេអ៊ូហ្វហេសូ គឺរចនាសម្ព័ន្ធជើងផ្កាយមួយជាមួយឆ្អឹងជំនីមាសប្រាំមួយ។
     konstruiKeuxfhxeso(temp, [ { x: o.x, z: o.z, rot: o.rotacio ?? 0 } ], h, ORA_MATERIALO);
   }
   while ( temp.children.length ) grupo.add(temp.children[0]);
 }
 
-// kreiObjektanBakon គឺកម្មវិធីដុតសម្រាប់ផែនទី 2D។ កាមេរ៉ា
-// អ័រតូក្រាហ្វិកពីលើ ( ខាងជើងនៅខាងលើ ដូចផែនទីពេញរបស់ហ្គេម ) ជាមួយពន្លឺផ្ទាល់ខ្លួន
-// ដុតសំណាញ់ពិតចូលផ្ទាំងគំនូរថ្លា ( objektaBakaKanvaso )។
 function kreiObjektanBakon() {
   if ( objektaBakaRenderilo ) return;
   objektaBakaRenderilo = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   objektaBakaRenderilo.setSize(1024, 1024);
   objektaBakaRenderilo.setClearColor(0x000000, 0);
   objektaBakaFotilo = new THREE.OrthographicCamera(-MONDO_HALFO, MONDO_HALFO, MONDO_HALFO, -MONDO_HALFO, 1, 0o600);
-  objektaBakaFotilo.up.set(0, 0, 1);   // ខាងជើងនៅខាងលើ
+  objektaBakaFotilo.up.set(0, 0, 1);
   objektaBakaFotilo.position.set(0, 0o470, 0);
   objektaBakaFotilo.lookAt(0, 0, 0);
   objektaBakaSceno = new THREE.Scene();
@@ -444,9 +383,6 @@ function kreiObjektanBakon() {
   objektaBakaKanvaso = objektaBakaRenderilo.domElement;
 }
 
-// rekonstruiObjektojn គឺសាងសង់សំណាញ់ 3D ពិតរបស់វត្ថុដែលបានដាក់ទាំងអស់
-// ( ក្រោយការដាក់ ការលុប ការត្រឡប់វិញ និងការធ្វើឡើងវិញ ឬការផ្ទុក )។ ក្រុម 2D
-// ត្រូវបានដុតពីលើសម្រាប់ផែនទី រីឯក្រុម 3D ធ្វើឱ្យទិដ្ឋភាព 3D ស្រស់។
 export function rekonstruiObjektojn(): void {
   if ( objektoj.length > 0 ) kreiObjektanBakon();
   if ( objektaGrupo2D && objektaBakaRenderilo && objektaBakaSceno && objektaBakaFotilo ) {
@@ -460,11 +396,7 @@ export function rekonstruiObjektojn(): void {
   }
 }
 
-
-// ⟨ ការមើលជាមុនរបស់វត្ថុ 📃 ⟩ គឺការមើលជាមុន 3D ដែលជាទិដ្ឋភាពតូចវិលជុំ
-// នៃប្រភេទដែលជ្រើសក្នុងបន្ទះវត្ថុ។ ឧបករណ៍សាងសង់ដូចគ្នានឹង
-// ផែនទី និងការដុត ( konstruiObjektonEn ជាមួយកម្ពស់ដីសូន្យ និងយាននៅជិត
-// ដី ) ដាក់នៅកណ្តាលស៊ុម ហើយវិលយឺតៗរាល់ស៊ុម។
+// ⟨ ការមើលជាមុនរបស់វត្ថុ 📃 ⟩
 const objektaAntauxrigardo = elemento<HTMLCanvasElement>("objektaAntauxrigardo");
 export let objektaAntauxRenderilo: THREE.WebGLRenderer | null = null;
 export let objektaAntauxSceno: THREE.Scene | null = null;
@@ -485,13 +417,9 @@ function kreiObjektanAntauxrigardon(): void {
   objektaAntauxGrupo = new THREE.Group();
   objektaAntauxSceno.add(objektaAntauxGrupo);
 }
-// rekonstruiObjektanAntauxrigardon គឺសាងសង់ប្រភេទដែលជ្រើសក្នុងការ
-// មើលជាមុន ដាក់វានៅកណ្តាល ហើយដាក់កាមេរ៉ាឱ្យស្ថិតក្នុងស៊ុម។
 export function rekonstruiObjektanAntauxrigardon(): void {
   kreiObjektanAntauxrigardon();
   if ( !objektaAntauxGrupo || !objektaAntauxFotilo ) return;
-  // គ្មានការលុបធរណីមាត្រ ឬវត្ថុទេ ព្រោះវត្ថុទាំងនោះប្រើ
-  // វត្ថុរួម ( ORA_MATERIALO ) ដូច rekonstruiObjektojn ធ្វើ។
   while ( objektaAntauxGrupo.children.length ) objektaAntauxGrupo.remove(objektaAntauxGrupo.children[0]);
   objektaAntauxGrupo.position.set(0, 0, 0);
   objektaAntauxGrupo.rotation.set(0, 0, 0);
@@ -500,8 +428,6 @@ export function rekonstruiObjektanAntauxrigardon(): void {
     vesto: objektoProp.vesto, harstilo: objektoProp.harstilo, filikaSpeco: objektoProp.filikaSpeco,
     stilo: objektoProp.stilo === 1 ? "satala" : "baza" };
   konstruiObjektonEn(objektaAntauxGrupo, o, { alto: () => 0, sxipaAlto: 0o10 });
-  // ដាក់ក្នុងស៊ុម គឺកាមេរ៉ាមើលប្រអប់របស់វត្ថុ ហើយក្រុម
-  // ផ្លាស់ទីដើម្បីឱ្យវត្ថុវិលជុំវិញចំណុចកណ្តាលផ្ទាល់ខ្លួន។
   const kesto = new THREE.Box3().setFromObject(objektaAntauxGrupo);
   const grandeco = kesto.getSize(new THREE.Vector3()).length() || 0o10;
   const mezo = kesto.getCenter(new THREE.Vector3());
@@ -514,8 +440,6 @@ export function rekonstruiObjektanAntauxrigardon(): void {
   objektaAntauxFotilo.lookAt(0, 0, 0);
 }
 
-// gxisdatigiObjektoListon គឺបញ្ជីវត្ថុដែលបានដាក់។ ជ្រើសដើម្បី
-// បំភ្លឺលើផែនទី លុបដើម្បីលុប។
 export function gxisdatigiObjektoListon(): void {
   objektoListo.innerHTML = "";
   if ( objektoj.length === 0 ) {
@@ -526,15 +450,11 @@ export function gxisdatigiObjektoListon(): void {
     return;
   }
   objektoj.forEach(( o, i ) => {
-    // sabosuc2w2q គឺបន្ទាត់ផ្តេកនៃប្រធានបទសម្រាប់ប៊ូតុង ( ដូចជួរ
-    // តំរៀងរបស់ហ្គេម ) ដែលប៊ូតុងជ្រើស និង លុប ✕ នៅក្នុងជួរតែមួយ។
     const vico = document.createElement("sabosuc2w2q");
     const speco = OBJEKTO_SPECOJ[o.speco];
     const nomo = speco ? speco.nomo : o.speco;
     const butono = document.createElement("button");
     butono.textContent = nomo + "  ( " + o.x.toFixed(2) + ", " + o.z.toFixed(2) + " )";
-    // វត្ថុដែលបានជ្រើសបង្ហាញដោយរចនាប័ទ្មចុចដែលមានស្រាប់
-    // ( button[aria-pressed=true] ) ដោយគ្មានស្ទីលក្នុងបន្ទាត់។
     butono.setAttribute("aria-pressed", String(i === elektitaObjekto));
     butono.addEventListener("click", () => {
       elektitaObjekto = elektitaObjekto === i ? -1 : i;
@@ -550,9 +470,6 @@ export function gxisdatigiObjektoListon(): void {
   });
 }
 
-// gxisdatigiObjektoPropOJn គឺលក្ខណៈរបស់ប្រភេទដែលជ្រើស ( មាត្រដ្ឋានសម្រាប់ទាំងអស់
-// ការបង្វិល សម្លៀកបំពាក់ និងម៉ូដសក់សម្រាប់ NPC ប្រភេទសម្រាប់សត្វទឹក និងកាំហោះសម្រាប់
-// បក្សីព្រិល )។ សាងសង់ឡើងវិញពេលប្តូរប្រភេទ។
 export function gxisdatigiObjektoPropOJn(): void {
   const s = objektoAktiva;
   let html = "";
@@ -577,22 +494,15 @@ export function gxisdatigiObjektoPropOJn(): void {
   } else if ( s === "petrelo" ) {
     html += glitilo("Flugradiuso", "radio", 1, 20, 0o1/0o2, " un");
   } else if ( s === "roko" ) {
-    // បំរែបំរួលថ្ម គឺទំហំ និងការបង្វិល ( សម្លេង និងរូបរាង
-    // ចៃដន្យនៅរាល់ការដាក់ ដូចថ្មលើភ្នំ )។
     html += glitilo("Rotacio", "rotacio", 0, 6.283, 0o1/0o20, " rad");
   } else if ( s === "filiko" ) {
-    // បំរែបំរួលហ្វឺន គឺបៃតង ឬស្វាយ ( ហ្វឺនស្វាយនៅជ្រលង )។
     html += elektilo("Koloro", "filikaSpeco", [ "Verda", "Purpura" ]);
   } else if ( s === "kanuo" ) {
-    // ការបង្វិលកាណូអាចជាអវិជ្ជមាន ( ទិសអណ្តែតលើទន្លេ )។
     html += glitilo("Rotacio", "rotacio", -3.2, 3.2, 0o1/0o20, " rad");
     html += elektilo("Stilo", "stilo", OBJEKTO_KANUAJ_STILOJ);
   } else if ( OBJEKTO_KONSTRUAJXOJ[s] || s === "hxeuxfo" || s === "hxeuxfoPlato" || s === "keuxfhxeso" ) {
-    // សំណង់ ចង្កៀង និងខេអ៊ូហ្វហេសូត្រូវបានបង្វិល ដូច្នេះទ្វារ ឬ
-    // ឆ្អឹងជំនីប្រឈមមុខទិសដែលបានជ្រើស។
     html += glitilo("Rotacio", "rotacio", 0, 6.283, 0o1/0o20, " rad");
   }
-  // យានអវកាសគ្មានលក្ខណៈបន្ថែមទេ ព្រោះវាអណ្តែតលើស្ថានីយជានិច្ច។
   objektoPropOJ.innerHTML = html;
   elementoj<HTMLInputElement | HTMLSelectElement>("input[data-prop], select[data-prop]", objektoPropOJ).forEach(el => {
     el.addEventListener("input", () => {
@@ -602,14 +512,11 @@ export function gxisdatigiObjektoPropOJn(): void {
     el.addEventListener("change", () => {
       objektoProp[el.dataset.prop ?? ""] = +el.value;
       gxisdatigiPropValorojn();
-      // ការមើលជាមុនតាមលក្ខណៈដែលបានដោះលែង ( មាត្រដ្ឋាន ការបង្វិល )។
       rekonstruiObjektanAntauxrigardon();
     });
   });
   gxisdatigiPropValorojn();
 }
-// gxisdatigiPropValorojn គឺកម្មវិធីបង្ហាញតម្លៃក្បែរគ្រាប់រំកិល ( id របស់ propVal_
-// កើតឡើងដោយ HTML ខាងលើ ដូច្នេះពួកវាត្រូវបានរកជាធាតុដែលអាចជ្រើស )។
 function gxisdatigiPropValorojn(): void {
   elementoj<HTMLInputElement>("input[type=range]", objektoPropOJ).forEach(el => {
     const sp = unua<HTMLElement>("#propVal_" + String(el.dataset.prop));
@@ -617,19 +524,12 @@ function gxisdatigiPropValorojn(): void {
   });
 }
 
-// sxaltiObjektojn គឺបើកឧបករណ៍វត្ថុ ( ផ្ទាំង Objektoj 🎯 )។ វា
-// បិទជក់ បង្ហាញបន្ទះវត្ថុក្នុងកាតខាងក្រោម ហើយ
-// បើករបៀបវត្ថុ ( ឧបករណ៍រង Meti ➕ / Movu ✋ / Forigi 🗑️ សម្រេច
-// ការចុច )។
 /* បើកឧបករណ៍វត្ថុ ( ផ្ទាំង Objektoj 🎯 )។
     @param on ( boolean ) - តើរបៀបត្រូវបើកឬទេ។ */
 export function sxaltiObjektojn(on: boolean): void {
   objektaModo = on;
   gxisdatigiPenikaron();
   if ( on ) sxaltiIlTabon("objektoj");
-  // បន្ទះវត្ថុលេចឡើងតែពេលផ្ទាំងវត្ថុបើក បើមិនដូច្នេះ
-  // ការកំណត់បង្ហាញ ( ទាំងពីរជាកាត thala ហើយប្រធានបទផ្តល់
-  // display.flex ដូច្នេះការបង្ហាញច្បាស់លាស់ដោយស្ទីលក្នុងបន្ទាត់ )។
   objektoPanel.classList.toggle("kobe", !on);
   agordojPanel.classList.toggle("kobe", on);
   gxisdatigiAgordojn();

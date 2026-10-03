@@ -1,8 +1,4 @@
-// ≺⧼ Filikoj 🌱 ⧽≻
-// La verdaj filikoj de la vala biomo — la vala filikaro ( konstruiFilikojn ),
-// kiu kreskas proksime al la arboj kaj la vojrandoj, kaj la unuopa filiko de la
-// terena skulptilo ( konstruiMetitanFilikon ), kiu povas esti verda aŭ purpura.
-// La geometrio venas el la komuna fronda ilo ( vegetajxo/frondoj.js ).
+// ≺⧼ ហ្វីលីកា 🌱 ⧽≻
 import * as THREE from "three";
 import { kreiFilikanTeksajxon } from "../../komunajxoj/teksajxoj/filiko.js";
 import { kreiPurpuranFrondanTeksajxon } from "../../komunajxoj/teksajxoj/purpura-frondo.js";
@@ -11,7 +7,6 @@ import { konstruiFilikanRozeton, konstruiFrondanKronon, konstruiPurpuranRozeton 
 import { PunktaHasho, punktoLibera, kreiGrovojn, hazardaGrovaLoko, type ArboMetado } from "./metado.js";
 import { biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
 
-// konstruiFilikojn — Metu filikojn proksime al arboj kaj vojrandoj.
 export function konstruiFilikojn(sceno: THREE.Scene,
   kvanto: number,
   heightFn: ( x: number, z: number ) => number,
@@ -24,21 +19,8 @@ export function konstruiFilikojn(sceno: THREE.Scene,
   const hazardaGenerilo = kreiVegetajxanHazardon(55661);
   const filikaTeksajxo = kreiFilikanTeksajxon();
 
-  // ⟨ Tri-dimensia filiko 📃 ⟩ — antaŭe ĉiu filiko estis DU KRUCITAJ KARTONOJ
-  // kun bildo de filiko sur ili. De malproksime tio eĉ funkciis, sed ĝi estis
-  // plate: oni vidis la rektan randon de la ebenoj, la "kruco" montriĝis de
-  // supre kiel X, kaj la sama bildo ripetiĝis sur ĉiu specimeno. Nun la filiko
-  // estas vera rozeto da ARKAJ FRONDOJ — ĝi uzas la saman konstruilon kiel la
-  // grandaj purpuraj filikoj: ĉiu frondo estas rubando ( levita mezo-ripo, la
-  // raĥiso, kaj du flankoj kun la filika teksturo ), ĝi leviĝas el la grundo,
-  // malfermiĝas eksteren kaj ĝia pinto malleviĝas sub la propra pezo.
-  // ⟨ La proporcioj 📃 ⟩ — frondo estas mallarĝa kaj arka: ĉe larĝo 0.26 kontraŭ
-  // longo 1.15 ( kaj kun la malplenoj inter la pinnoj la videbla larĝo estas
-  // ~0.22 ) ĝi estas kvin-oble pli longa ol larĝa, kiel vera filika frondo.
-  // Dek frondoj sufiĉas — pli multe kaŝis la malplenojn inter la pinnoj kaj la
-  // rozeto legiĝis kiel solida karno. La frondoj leviĝas pli krute ol antaŭe
-  // ( 0.22 rad ) kaj kurbiĝas malpli, do la planto staras kiel filiko kaj ne
-  // malfermiĝas kiel agavo.
+  // ⟨ ហ្វីលីកាបីវិមាត្រ 📃 ⟩
+  // ⟨ សមាមាត្រ 📃 ⟩
   const filikaGeometrio = konstruiFrondanKronon(0o11, 0.32, 1.05, 0.20, 0.012, 0.62);
   const filikaMaterialo = new THREE.MeshStandardMaterial({ map: filikaTeksajxo, alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 });
   const filikoj = new THREE.InstancedMesh(filikaGeometrio, filikaMaterialo, kvanto);
@@ -49,8 +31,6 @@ export function konstruiFilikojn(sceno: THREE.Scene,
   const metitajHasho = new PunktaHasho<[ number, number ]>(0o4);
   let fi = 0;
   let gardilo = 0;
-  // Malfermaj filikoj — la foraj, ne-arbaj filikoj klasteriĝas en naturaj
-  // arbareroj tra la tuta vala biomo ( ±0o600 ) anstataŭ disiĝi tra la mapo.
   const filikaGrovoj = kreiGrovojn(Math.max(0o4, Math.floor(kvanto / 0o20)), 0o600, hazardaGenerilo, excludeRivers);
 
   while ( fi < kvanto && gardilo++ < 0o5660 ) {
@@ -73,15 +53,11 @@ export function konstruiFilikojn(sceno: THREE.Scene,
       z = loko.z;
     }
 
-    // La biomo — la filikoj restas en la vala biomo.
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
     if ( excludeRivers(x, z) || excludePaths(x, z, 2) || Math.hypot(x, z) < 0o16 ) continue;
-    // Eta interspaco — la filikoj ne kresku unu sur la alia ĉe la arboj.
     if ( !punktoLibera(metitajHasho, x, z, 0o2) ) continue;
 
     const skalo = 0o55/0o100 + hazardaGenerilo() * 0o63/0o100;
-    // Ankaŭ la filikoj kliniĝas iomete — rozeto, kiu staras perfekte vertikale,
-    // legiĝas kiel telero de supre.
     E.set(( hazardaGenerilo() - 0o5/0o10 ) * 0o2/0o10, hazardaGenerilo() * Math.PI * 2,
       ( hazardaGenerilo() - 0o5/0o10 ) * 0o2/0o10);
     Q.setFromEuler(E);
@@ -95,19 +71,7 @@ export function konstruiFilikojn(sceno: THREE.Scene,
   sceno.add(filikoj);
 }
 
-// konstruiMetitanFilikon — UNU filiko cxe preciza pozicio ( la objekta ilo
-// de la terena skulptilo ). Verda aux purpura ( filikaSpeco 0/1 ) kaj hazarda
-// turno.
-//
-// ⟨ Tri-dimensie 📃 ⟩ — ankaŭ ĉi tiu filiko estis DU KRUCITAJ KARTOJ, la
-// sama plataĵo kiel la valaj antaŭe: rektaj randaj ebenoj, X-forma kruco de
-// supre, kaj unu bildo ripetita sur ĉiu metita planto. Nun ĝi estas la sama
-// ARKA ROZETO da frondoj kiel la ceteraj filikoj ( konstruiFilikanRozeton ) —
-// la purpura varianto uzas la purpuran frondan geometrion.
-//     @param x, z ( number ) - Monda pozicio.
-//     @param heightFn ( funkcio ) - Tera alta funkcio.
-//     @param skalo ( number ) - Grando ( la valaj filikoj estas 0.55-1.18 ).
-//     @param filikaSpeco ( number = 0 ) - 0=verda, 1=purpura.
+// ⟨ បីវិមាត្រ 📃 ⟩
 export function konstruiMetitanFilikon(sceno: THREE.Scene,
   x: number, z: number,
   heightFn: ( x: number, z: number ) => number,

@@ -1,6 +1,4 @@
-// ≺⧼ La instrumenta dissendilo 🎛️ ⧽≻
-// La sola publika enirejo de la voĉoj — gxi elektas la instrumenton laux la
-// nomo de la sono-evento ( instrumento ).
+// ≺⧼ ឧបករណ៍ផ្សាយ 🎛️ ⧽≻
 import { siku } from "./siku.js";
 import { ocarina } from "./ocarina.js";
 import { didj } from "./didj.js";

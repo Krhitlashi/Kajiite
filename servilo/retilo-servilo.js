@@ -1,21 +1,14 @@
-// ≺⧼ Retilo-servilo 🖧 ⧽≻
-// Minimuma WebSocket-servilo por la multludada retilo.
-// Sen dependecoj. la manpremo ( SHA-1 ) kaj la kadroj estas pritraktitaj rekte.
-// Protokolo ( JSON ).
-//   Servilo → kliento . { t: "saluton", id } · { t: "aliĝis", id } · { t: "stato", id, ... } · { t: "foriris", id }
-//   Kliento → servilo . { t: "stato", x, y, z, r, m, n, k, i, g, v, h, c }
+// ≺⧼ ម៉ាស៊ីនមេបណ្តាញ 🖧 ⧽≻
 import { createHash, randomBytes } from "crypto";
 
 const GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-const PINGAŬZO = 0o51400; // ≈ 0o55 He — konservu la konektojn vivaj
-const MAX_MESAGXO = 0o400000; // 0o400000 bitokoj — defenda limo kontraŭ grandaj kadroj
+const PINGAŬZO = 0o51400;
+const MAX_MESAGXO = 0o400000;
 
-// akceptaKapo — La Sec-WebSocket-Accept-kapo ( RFC 6455 ).
 function akceptaKapo(klavo) {
   return createHash("sha1").update(klavo + GUID).digest("base64");
 }
 
-// pakigiTekston — Enkodu tekston kiel ununuran ne-maskitan teksto-kadron.
 function pakigiTekston(teksto) {
   const buf = Buffer.from(teksto, "utf8");
   const longo = buf.length;
@@ -23,7 +16,7 @@ function pakigiTekston(teksto) {
   if ( longo < 0o176 ) { kapo = Buffer.alloc(0o2); kapo[0o1] = longo; }
   else if ( longo < 0o200000 ) { kapo = Buffer.alloc(0o4); kapo[0o1] = 0o176; kapo.writeUInt16BE(longo, 0o2); }
   else { kapo = Buffer.alloc(0o10); kapo[0o1] = 0o177; kapo.writeBigUInt64BE(BigInt(longo), 0o2); }
-  kapo[0] = 0x81; // FIN + teksto
+  kapo[0] = 0x81;
   return Buffer.concat([ kapo, buf ]);
 }
 
@@ -37,10 +30,6 @@ function elsxuti(klientoj, kromId, teksto) {
   }
 }
 
-// konektiRetilon — Aligu la retilon al la ekzistanta HTTP-servilo. La klientoj
-// registriĝas per la upgrade-okazaĵo sur la vojo /retilo.
-//     @param servilo ( http.Server ) - La HTTP-servilo de la projekto.
-//     @param opcioj ( object = {} ) - { jeAliĝo, jeForiro } logokoj.
 export function konektiRetilon(servilo, opcioj = {}) {
   const klientoj = new Map();
   let sekvaNumero = 0;
@@ -50,10 +39,6 @@ export function konektiRetilon(servilo, opcioj = {}) {
     return randomBytes(0o4).toString("hex") + "-" + sekvaNumero.toString(0o10);
   }
 
-  // pritrakti — Ricevu unu kompletan mesaĝon kaj plusendu ĝin al la aliaj.
-  // Nur finiaj koordinatoj plusendiĝu — Infinity kaj NaN venas tra JSON.parse
-  // ( 1e999 → Infinity ) kun typeof "number", kaj ili venenigus la matricojn
-  // de ĉiuj foraj figuroj ĉe la ricevantoj.
   function finiajKoordinatoj(m) {
     return Number.isFinite(m.x) && Number.isFinite(m.y) && Number.isFinite(m.z)
       && ( m.r === undefined || Number.isFinite(m.r) )
@@ -68,9 +53,6 @@ export function konektiRetilon(servilo, opcioj = {}) {
     }
   }
 
-  // malpakigi — Legu la envenantajn kadrojn el la bufro; redonu la reston.
-  // Traktas. teksto ( kun fragmentado ), fermo, ping ( respondas pong ). Pong kaj
-  // kontrolaj kadroj estas ignorataj. Klientaj kadroj ĉiam estas maskitaj.
   function malpakigi(bufro, kliento) {
     let rest = bufro;
     while ( rest.length >= 0o2 ) {
@@ -88,9 +70,6 @@ export function konektiRetilon(servilo, opcioj = {}) {
         if ( l > BigInt(MAX_MESAGXO) ) { kliento.so.destroy(); return Buffer.alloc(0); }
         longo = Number(l);
       }
-      // Fragmenta defendo — pluraj malgrandaj kadroj sen FIN povas superi la
-      // limon po kadro. Se la jam akumuligitaj partoj transiras MAX_MESAGXON,
-      // la kliento estas forĵetita ( la sama politiko kiel unu tro granda kadro ).
       if ( opkodo === 0x0 || opkodo === 0x1 ) {
         const amasigita = kliento.partoj ? kliento.partoj.reduce(( n, p ) => n + p.length, 0) : 0;
         if ( amasigita + longo > MAX_MESAGXO ) { kliento.so.destroy(); return Buffer.alloc(0); }
@@ -109,7 +88,6 @@ export function konektiRetilon(servilo, opcioj = {}) {
         for ( let j = 0; j < dat.length; j++ ) dat[j] ^= masko[j % 0o4];
       }
       if ( opkodo === 0x1 || opkodo === 0x0 ) {
-        // Teksto ( kaj ĝiaj daŭrigaj pecoj ).
         if ( opkodo === 0x1 ) kliento.partoj = [];
         kliento.partoj.push(dat.toString("utf8"));
         if ( fina ) {
@@ -118,24 +96,18 @@ export function konektiRetilon(servilo, opcioj = {}) {
           pritrakti(kliento, teksto);
         }
       } else if ( opkodo === 0x8 ) {
-        // Fermo — resendu fermon kaj fermu.
         try { kliento.so.write(Buffer.from([ 0x88, 0x00 ])); } catch { /* fermita */ }
         kliento.so.end();
-        // Forigu la klienton ĉi tie — la &-fermo de la sojeto ankaŭ ekbruligas
-        // "close" sed la forigo estas idempotenta ( vidu sube ), do neniu
-        // duobla foriris-mesaĝo eliras.
         klientoj.delete(kliento.id);
         elsxuti(klientoj, kliento.id, JSON.stringify({ t: "foriris", id: kliento.id }));
         if ( opcioj.jeForiro ) opcioj.jeForiro(kliento.id, klientoj.size);
         return rest;
       } else if ( opkodo === 0x9 ) {
-        // Ping → pong ( la sama ŝarĝo ).
         const pong = Buffer.alloc(dat.length + 0o2);
         pong[0] = 0x8a; pong[1] = dat.length;
         dat.copy(pong, 0o2);
         kliento.so.write(pong);
       }
-      // Pong ( 0xa ) — nenio farenda.
     }
     return rest;
   }
@@ -162,7 +134,6 @@ export function konektiRetilon(servilo, opcioj = {}) {
       kliento.bufro = malpakigi(kliento.bufro, kliento);
     });
     so.on("close", () => {
-      // Idempotenta — la kadro-fermo ( opkodo 0x8 ) jam forigis kaj sciigis.
       if ( !klientoj.has(id) ) return;
       klientoj.delete(id);
       elsxuti(klientoj, id, JSON.stringify({ t: "foriris", id }));
@@ -171,8 +142,7 @@ export function konektiRetilon(servilo, opcioj = {}) {
     so.on("error", () => { try { so.destroy(); } catch { /* fermita */ } });
   });
 
-  // ⟨ La korbatado 📃 ⟩ — pingoj konservas la konektojn vivaj kaj forpurigas
-  // mortintojn.
+  // ⟨ ការវាយកន្ត្រក 📃 ⟩
   const koro = setInterval(() => {
     for ( const kliento of klientoj.values() ) {
       try { kliento.so.write(Buffer.from([ 0x89, 0x00 ])); } catch { kliento.so.destroy(); }

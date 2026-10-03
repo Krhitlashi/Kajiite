@@ -1,4 +1,4 @@
-// ≺⧼ Ktenofora ĝela teksajxo 🪼 ⧽≻
+// ≺⧼ វាយនភាពជែលកតេណូផរ 🪼 ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 

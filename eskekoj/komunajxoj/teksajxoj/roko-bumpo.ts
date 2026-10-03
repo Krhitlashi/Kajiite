@@ -1,4 +1,4 @@
-// ≺⧼ Roka reliefa teksajxo 🪨 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់ថ្ម 🪨 ⧽≻
 import * as THREE from "three";
 import { desegniWrapan, hazard, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 import { generiRokanSkizon } from "./roko.js";

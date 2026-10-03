@@ -1,4 +1,4 @@
-// ≺⧼ Cetkua teksajxo 🐋 ⧽≻
+// ≺⧼ វាយនភាពសេតគូ 🐋 ⧽≻
 import * as THREE from "three";
 import { kreiKavalErbanTeksajxon } from "./kavala-herbo.js";
 

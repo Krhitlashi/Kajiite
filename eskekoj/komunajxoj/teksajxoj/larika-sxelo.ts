@@ -1,4 +1,4 @@
-// ≺⧼ Larika sxela teksajxo 🌲 ⧽≻
+// ≺⧼ វាយនភាពសំបកល្មុត 🌲 ⧽≻
 import * as THREE from "three";
 import { desegniWrapajnNubojn, desegniWrapan, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 import { desegniHorizontanStrion, desegniStrion } from "./sxelo.js";

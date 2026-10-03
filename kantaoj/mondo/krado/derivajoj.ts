@@ -1,8 +1,5 @@
-// ≺⧼ La kradaj derivajoj 📏 ⧽≻
-// La krado-derivaĵoj el la aranĝo — la paŝo, la norda pinto, la ringoj, la
-// suda vojo, la stacidomaj mezuroj kaj la bloka letero ( kradajDerivajoj ).
+// ≺⧼ ដេរីវេក្រឡា 📏 ⧽≻
 import type { KradaArangxo } from "./tipoj.js";
-// La krado-derivaĵoj — la samaj formuloj kiel en konstruiKradanUrbon.
 export function kradajDerivajoj(arangxo: KradaArangxo): {
   PASXO: number; nordaPinto: number; ringoX: number; ringoSuda: number;
   sudaVojo: number; stacioZ: number; staciaRingaNordo: number; BLOKO: number;

@@ -1,6 +1,4 @@
-// ≺⧼ La skaloj 🎼 ⧽≻
-// La skalaj kaj tonaltaj helpiloj de la muziko — la agordoj ( A4, F ) kaj la
-// kvin gamoj ( PENT_E, SLENDRO, SL2, NYAM, PENT_A ).
+// ≺⧼ ស្កេល 🎼 ⧽≻
 export const A4 = 0o660;
 export const F = ( m: number ) => A4 * Math.pow(2, ( m - 69 ) / 12);
 

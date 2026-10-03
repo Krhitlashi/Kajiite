@@ -1,4 +1,4 @@
-// ≺⧼ Byssoida likena teksajxo 🕸️ ⧽≻
+// ≺⧼ វាយនភាពស្លែប៊ីសូអ៊ីត 🕸️ ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon, neregulaFormo, sxovu } from "./helpiloj.js";
 

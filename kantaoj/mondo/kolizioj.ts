@@ -1,22 +1,12 @@
-// ≺⧼ Krada kolizio 🧱 ⧽≻
-// La spaca krado de la promenado — la koliziaj cirkloj, la dokaj platformoj kaj
-// la vojaj supraĵoj en unuforma haŝo-krado ( ĉeloj de 0o20 unuoj ). Ĝi
-// konstruiĝas unufoje, post la urba konstruado, kaj ĉiuj demandoj legas nur la
-// ĉelojn ĉirkaŭ la demando-punkto — O(1) anstataŭ plena skanado de la urbo.
+// ≺⧼ ការប៉ះទង្គិចក្រឡា 🧱 ⧽≻
 import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
 
-// KoliziaCirklo — la formo de urbo.kolizioj ( la trunkaj kaj lampaj kolizioj ).
 export interface KoliziaCirklo { x: number; z: number; r: number; }
 
-// DokaPlatformo — la formo de urbo.dokoKolizioj ( la rotaciitaj dokaj platformoj ).
 export interface DokaPlatformo { x: number; z: number; w: number; d: number; rot: number; y: number; }
 
 export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: DokaPlatformo[]) {
-  // ⟪ Spaca krado 📃 ⟫ — unuforma haŝo-krado ( ĉeloj de 0o20 unuoj ) super la
-  // koliziaj cirkloj kaj la dokaj platformoj, konstruita unufoje post la urba
-  // konstruado. La ĉiukadraj demandoj ( solviKolizion · enDoko · dokaSuproY ·
-  // solviDokanKolizion ) legas nur la ĉelojn ĉirkaŭ la demando-punkto — O(1)
-  // anstataŭ plena skanado de la tuta urbo ĉiun kadron kaj ĉiun pasan.
+  // ⟪ ក្រឡាលំហ 📃 ⟫
   const KRADA_CXELO = 0o20;
   const kradaSxlosilo = ( cx: number, cz: number ): number => ( cx + 0o10000 ) * 0o20000 + cz + 0o10000;
   const koliziaKrado = new Map<number, number[]>();
@@ -34,7 +24,6 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
       }
     }
   }
-  // dokaAABBj — la rotaciitaj kadroj de la dokoj antaŭ-kalkulitaj por la demandoj
   const dokaAABBj: { hx: number; hz: number }[] = [];
   let plejGrandaDokaDuono = 0;
   for ( let i = 0; i < dokoKolizioj.length; i++ ) {
@@ -53,9 +42,7 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
       }
     }
   }
-  // ⟨ Vojaj supraĵoj 📃 ⟩ — la vojaj konstruaj strioj ( el vojoj/tipoj.ts ) en la saman
-  // spatan kradon. vojaSuproY legas nur la ĉelojn ĉirkaŭ la punkto — O(1) po
-  // kadro, kiel la koliziaj cirkloj kaj la dokaj platformoj.
+  // ⟨ ផ្ទៃផ្លូវ 📃 ⟩
   const vojaKrado = new Map<number, number[]>();
   for ( let i = 0; i < vojSuprajxoj.length; i++ ) {
     const v = vojSuprajxoj[i];
@@ -68,11 +55,6 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
       }
     }
   }
-  // vojaSuproY — La piedebla supro de la vojo ĉe ( x, z ), aŭ -Infinity. La strio
-  // estas la ŝtupa rektangulo de la konstruado ( la centro-segmento ± duono ) kaj
-  // la supro interpolas inter la randaj niveloj y0 → y1 laŭlonge de la strio ( la
-  // eskaleraj ŝtupoj havas y0 = y1 ).
-  //     @param marge ( number ) - La duona vasteco de la promenanto.
   function vojaSuproY(x: number, z: number, marge = 0): number {
     let y = -Infinity;
     const cx0 = Math.floor(( x - marge ) / KRADA_CXELO), cx1 = Math.floor(( x + marge ) / KRADA_CXELO);
@@ -95,9 +77,6 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
     return y;
   }
 
-  // kolektiKoliziojn / kolektiDokojn — la indeksoj de la kandidatoj en la ĉeloj
-  // ĉirkaŭ ( x, z ) kun duona vasteco `duono`. La epokaj stampoj forigas la
-  // duoblaĵojn de la grandaj cirkloj kiuj kovras plurajn ĉelojn.
   const koliziaKandidatoj: number[] = [];
   const dokaKandidatoj: number[] = [];
   const koliziaVidita = new Int32Array(kolizioj.length);
@@ -146,8 +125,6 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
     for ( let pass = 0; pass < 3; pass++ ) {
       let pusxoX = 0, pusxoZ = 0;
       let hit = false;
-      // Duobla raŭdo — la amasiĝinta puŝo ene de la paso movas la punkton, do
-      // la demando kovras ĝin per la duobla radiuso de la plej granda cirklo.
       const kandidatoj = kolektiKoliziojn(x, z, plejGrandaKoliziaR * 2 + 0o10, koliziaKandidatoj);
       for ( const i of kandidatoj ) {
         const c = kolizioj[i];
@@ -168,7 +145,6 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
     return { x, z };
   }
 
-  // enDoko — Cxu punkto estas ene de doka platformo (kun randa marĝeno)?
   function enDoko(x: number, z: number, marge: number): boolean {
     const kandidatoj = kolektiDokojn(x, z, plejGrandaDokaDuono + marge, dokaKandidatoj);
     for ( const i of kandidatoj ) {
@@ -181,9 +157,6 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
     return false;
   }
 
-  // dokaSuproY — Se la punkto staras super doka platformo, redonu la mondan Y de
-  // la platforma supro; alie -Infinity. La tereno sub la doko deklivas al la
-  // rivero, do sen ĉi tio la promenanto enfandus en la platformon.
   function dokaSuproY(x: number, z: number): number {
     let y = -Infinity;
     const kandidatoj = kolektiDokojn(x, z, plejGrandaDokaDuono, dokaKandidatoj);
@@ -197,9 +170,6 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
     return y;
   }
 
-  // solviDokanKolizion — Rektangula kolizio kun la dokaj platformoj. Oni rajtas
-  // stari SUR la doko ( supre ), sed ne eniri sub gxin. Nur punktoj sub la platforma
-  // supro (d.y) estas elpusxataj. marge = radiuso de la ento (ludanto 0o3/0o10, kanuo 0o5/0o4).
   function solviDokanKolizion(x: number, z: number, y: number, marge = 0o3/0o10): { x: number; z: number } {
     let rx = x, rz = z;
     for ( let pass = 0; pass < 3; pass++ ) {
@@ -218,7 +188,6 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
           let plx = 0, plz = 0;
           if ( penX < penZ ) plx = ( lx >= 0 ? 1 : -1 ) * penX;
           else plz = ( lz >= 0 ? 1 : -1 ) * penZ;
-          // Reen al monda spaco (rotaciita kadro)
           puŝoX += plx * cosR - plz * sinR;
           puŝoZ += plx * sinR + plz * cosR;
           hit = true;

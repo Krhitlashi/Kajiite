@@ -1,4 +1,4 @@
-// ≺⧼ Betula foliara reliefa teksajxo 🍃 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់ស្លឹកប៊ឺច 🍃 ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

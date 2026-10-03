@@ -1,4 +1,4 @@
-// ≺⧼ Keuxfhxesa folia teksajxo ⭐ ⧽≻
+// ≺⧼ វាយនភាពស្លឹកគីហ្វហេសូ ⭐ ⧽≻
 import * as THREE from "three";
 
 export function kreiFolianTeksajxon(): THREE.CanvasTexture {

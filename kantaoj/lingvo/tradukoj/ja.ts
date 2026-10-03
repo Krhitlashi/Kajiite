@@ -1,10 +1,6 @@
-// ≺⧼ Tradukoj — la japana 🗣️ ⧽≻
-// La japanaj tekstoj de la tuta interfaco.
-// La vortaro estas nur datumoj — la funkcioj logxas en tradukoj.ts.
+// ≺⧼ ការបកប្រែ , ភាសាជប៉ុន 🗣️ ⧽≻
 
 export const JA: Record<string, string> = {
-  // Ĝustaj japanaj tradukoj por ĉiuj UI-ŝnuroj
-  // Fonetaj transskriboj ( de aih ) uzataj nur por kutimaj nomoj ( vesto * )
   "titoloAranis": "アラニス",
   "subtitoloUrbo": "ロタ・イーヒス • カジーテ・セラーミョヴ",
   "eniri": "入る",
@@ -37,16 +33,11 @@ export const JA: Record<string, string> = {
   "regiloKanuo": "WASDで操縦",
   "eliri": "出る",
   "eniriKanuo": "カヌーに乗る",
-  // Retilo ( multludado ) — tostoj
   "retiloAliĝis": "誰かが加わりました。",
   "retiloForiris": "誰かが去りました。",
-  // Food action labels
   "actGusti": "味見 •",
   "actKuxi": "横になる",
   "actLevi": "起きる",
-  // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
-  // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
-  // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
   "manĝFok0Flavor": "リケンパンの鴨入り包子。",
   "manĝFok1Flavor": "ツァハラ酢とアイスフィッシュ。",
   "manĝFok2Flavor": "ツァハラ酢、ウミグモ、アイスフィッシュ、シュレフ。",
@@ -54,42 +45,34 @@ export const JA: Record<string, string> = {
   "manĝTla1Flavor": "酢、唐辛子、柚子、ミント、炭酸水。",
   "manĝTla2Flavor": "酢、白樺樹液、ミント、ベルガモット茶。",
   "manĝPuss0Flavor": "ひんやりと水気のある食感で、ほのかに甘い。",
-  // Konstruaĵkartaj etikedoj
-  // Konstruaĵkarta flava teksto
   "flvDomo": "家。",
   "flvMangxejo": "共同の食事処。",
   "flvKasafeo": "会議室。",
   "flvStacioxipo": "駅。",
   "flvTuro": "超高層建築。",
   "flvSanktejo": "中心。",
-  // Card stats
   "statTieroj": "階層",
   "statDiamanto": "ダイヤ",
   "statJes": "有",
   "statNe": "無",
   "statTipo": "種類",
   "statPozicio": "位置",
-  // WebGL error
   "webglMesagxo": "お使いのブラウザはWebGLをサポートしていません。ブラウザを更新してください。",
   "webglDetalo": "アラニスはWebGLが必要です。ブラウザを更新するか、GPU設定を確認してください。",
   "webglReprovi": "再試行",
-  // Aria labels
   "ariaButPromeni": "歩く",
   "ariaButBruo": "背景ノイズ",
   "ariaButOrbiti": "周回",
   "ariaButLingvo": "言語",
   "ariaSupermetaFermi": "閉じる",
-  // 情報パネル ( 建物 • 食べ物 • 種族 )
   "ariaInformButono": "情報を開く",
   "titoloInformo": "情報",
   "subtitoloInformo": "建物 • 食べ物 • 種族",
   "tabKonstruajxoj": "建物",
   "tabMangxajxoj": "食べ物",
   "tabSpecioj": "種族",
-  // ワードローブのタブ
   "taboVestoj": "服",
   "taboHararo": "髪",
-  // 谷の動物と植物 ( bestoj.ts と vegetajxo/ から )
   "grupoBesto": "動物",
   "grupoPlanto": "植物",
   "specBeroe": "ベロー",
@@ -115,18 +98,13 @@ export const JA: Record<string, string> = {
   "flvSpecCetkuo": "胞子嚢を持つ、高く枝分かれしないトクサ。",
   "flvSpecCakeo": "湖岸に生える、大きく枝が輪生するトクサ。",
   "flvSpecPussxlefo": "シダほどの大きさの紫色のレタス植物。透き通った食べられる実をつける。",
-  // Aria-labeleto por la krepuska baskulo
   "ariaButKrepusko": "夕暮れモードを切り替え",
   "ariaDuskRegilo": "夕暮れのレベル",
-  // 天気 — 四つの可能な大気
   "ariaButVetero": "天気",
   "veteroNebula": "霧",
   "veteroPluva": "雨",
   "veteroHajla": "雹",
   "veteroNega": "雪",
-  // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
-  // Canvas alt text
-  // Clothing names
   "vestoVerdant": "緑",
   "vestoHearth": "茶色",
   "vestoMist": "白",
@@ -137,11 +115,9 @@ export const JA: Record<string, string> = {
   "vestoRose": "桃色",
   "vestoObsidian": "黒",
   "vestoCyan": "シアン",
-  // 髪型
   "sekcioHararo": "髪型",
   "haroMalalta": "ショート",
   "haroLonga": "ロング",
-  // 髪の色
   "sekcioHarKoloroj": "髪の色",
   "harKoloroBruna": "茶色",
   "harKoloroNigra": "黒",
@@ -149,6 +125,5 @@ export const JA: Record<string, string> = {
   "harKoloroKaŝtana": "栗色",
   "harKoloroBlonda": "金髪",
   "harKoloroGriza": "グレー",
-  // Konstruaĵnomoj ( paqN )
   "muziko": "音楽",
 };

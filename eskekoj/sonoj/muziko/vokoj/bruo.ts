@@ -1,7 +1,4 @@
-// ≺⧼ La noiza bufro 🔊 ⧽≻
-// La duaranga noiz-fonto de la voĉoj — unu komuna bufro por la tuta paĝo
-// ( noiseCache, noiseBuf ) kaj la buferfontoj, kiujn la voĉoj miksas en sin
-// ( noiseSrc ).
+// ≺⧼ ប៊ូហ្វ័រសំឡេងរំខាន 🔊 ⧽≻
 let noiseCache: AudioBuffer | null = null;
 
 function noiseBuf(ctx: AudioContext) {

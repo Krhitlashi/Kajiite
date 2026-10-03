@@ -1,19 +1,8 @@
-// ≺⧼ Zono-trovilo 🔍 ⧽≻
-// La pentritaj ĉeloj de la besta tavolo ( la skulptilo ).
-//
-// La bestoj ne aperas ie ajn: ili naskiĝas nur en la ĉeloj, kiujn la ludanto
-// pentris per la tero-skulptilo ( la besta tavolo ). Ĉi tiu modulo legas tiun
-// tavolon kaj redonas la mondajn poziciojn — la akvaj bestoj uzas ĝin, kaj la
-// petreloj uzas ĝin kun alia bito.
+// ≺⧼ ការរកតំបន់ 🔍 ⧽≻
 import { akvo } from "../../kantaoj/mondo/tereno.js";
 import { skulptitaBesto } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO } from "../../kantaoj/tero-datumaro/aktiva.js";
 
-// trovuBestajnZonojn — la pentritaj ĉeloj de la besta-tavolo ( la skulptilo )
-// kun la donita bito ( 1=akvaj bestoj, 2=petreloj, 4=NPC-oj; ĉelo povas teni
-// plurajn ), kiel mondaj pozicioj. Malplena se neniu pentraĵo — nenia besto
-// tiam. Akvaj bestoj bezonas akvajn ĉelojn; la petreloj povas flugi super
-// ajna loko; la NPC-oj piediras nur sur tero ( la ludo filtras la akvon ).
 export function trovuBestajnZonojn(bito: number, nurAkvo: boolean): { x: number; z: number }[] {
   const zonoj: { x: number; z: number }[] = [];
   for ( let j = 0; j < SKULPTA_N; j++ ) {

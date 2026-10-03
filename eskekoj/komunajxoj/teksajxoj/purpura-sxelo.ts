@@ -1,4 +1,4 @@
-// ≺⧼ Purpura sxela teksajxo 🌳 ⧽≻
+// ≺⧼ វាយនភាពសំបកស្វាយ 🌳 ⧽≻
 import * as THREE from "three";
 import { liniejo } from "../koloroj.js";
 import { desegniWrapan, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";

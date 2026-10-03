@@ -1,16 +1,15 @@
-// ≺⧼ Vestoj 👕 ⧽≻
-// Kostumaj teksturoj kun kvarpinta stelo kaj rombo-motivoj
+// ≺⧼ សម្លៀកបំពាក់ 👕 ⧽≻
 
 import { deksesuma } from "../komunajxoj/koloroj.js";
 
-// ⟪ La vestoj 📃 ⟫
+// ⟪ សម្លៀកបំពាក់ 📃 ⟫
 export interface Vesto {
   nomo: string;
-  ĉefa: number;    // deksesuma
-  akcenta: number; // deksesuma
-  interno: number;   // deksesuma
-  pantalono: number; // deksesuma — kutime hela aŭ malhela bluo
-  botoj: number;     // deksesuma — kutime bruno
+  ĉefa: number;
+  akcenta: number;
+  interno: number;
+  pantalono: number;
+  botoj: number;
 }
 
 export const VESTOJ: Vesto[] = [
@@ -26,36 +25,33 @@ export const VESTOJ: Vesto[] = [
   { nomo: "vestoCyan", ĉefa: 0x38a8a8, akcenta: 0xc8f0f0, interno: 0x185858, pantalono: 0x2858a0, botoj: 0x583818 },
 ];
 
-
-// ⟪ La har-stiloj 📃 ⟫ — haro-stiloj por la vestaro. Ĉiu stilo havas sian propran koloron,
-// do la elekto ŝanĝas kaj la formon kaj la nuancon de la haro.
+// ⟪ បែបសក់ 📃 ⟫
 export interface Harstilo {
-  nomo: string;    // traduka klavo — ankaŭ la ŝlosilo de la grupo en la figuro
-  koloro: number;  // deksesuma — ĉefa har-koloro
+  nomo: string;
+  koloro: number;
 }
 
 export const HARSTILOJ: Harstilo[] = [
-  { nomo: "haroMalalta",  koloro: 0x281810 },  // mallonga — malhelbruna
-  { nomo: "haroLonga",    koloro: 0x181008 },  // longa — preskaŭ nigra
+  { nomo: "haroMalalta",  koloro: 0x281810 },
+  { nomo: "haroLonga",    koloro: 0x181008 },
 ];
 
-// ⟪ La har-koloroj 📃 ⟫ — paletro sendependa de la stilo. La ludanto povas kombini ajnan
-// stilon kun ajnan koloron; la stila koloro supre estas nur la antauxrigardo.
+// ⟪ ពណ៌សក់ 📃 ⟫
 export interface HarKoloro {
-  nomo: string;    // traduka klavo
-  koloro: number;  // deksesuma
+  nomo: string;
+  koloro: number;
 }
 
 export const HARKOLOROJ: HarKoloro[] = [
-  { nomo: "harKoloroBruna",   koloro: 0x382018 },  // malhelbruna
-  { nomo: "harKoloroNigra",   koloro: 0x101008 },  // preskaŭ nigra
-  { nomo: "harKoloroRuĝeta",  koloro: 0x783018 },  // ruĝeta bruna
-  { nomo: "harKoloroKaŝtana", koloro: 0x583820 },  // kaŝtana
-  { nomo: "harKoloroBlonda",  koloro: 0xb08850 },  // hela blonda
-  { nomo: "harKoloroGriza",   koloro: 0x889098 },  // griza
+  { nomo: "harKoloroBruna",   koloro: 0x382018 },
+  { nomo: "harKoloroNigra",   koloro: 0x101008 },
+  { nomo: "harKoloroRuĝeta",  koloro: 0x783018 },
+  { nomo: "harKoloroKaŝtana", koloro: 0x583820 },
+  { nomo: "harKoloroBlonda",  koloro: 0xb08850 },
+  { nomo: "harKoloroGriza",   koloro: 0x889098 },
 ];
 
-// ⟨ La motivoj 📃 ⟩
+// ⟨ លំនាំ 📃 ⟩
 export function kvarStelo(kunteksto: CanvasRenderingContext2D,
   cX: number, cy: number, r: number, koloro: string
 ): void {
@@ -84,8 +80,6 @@ export function rombo(kunteksto: CanvasRenderingContext2D,
   if ( bordo ) { kunteksto.strokeStyle = bordo; kunteksto.lineWidth = 0o4; kunteksto.stroke(); }
 }
 
-// rondaRechto — Desegnu plenigitajn rektangulojn kun iomete rondaj anguloj,
-// kongruante kun la rondaj anguloj de la 3D-ŝuoj.
 function rondaRechto(kunteksto: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number, r: number
 ): void {
@@ -103,9 +97,7 @@ function rondaRechto(kunteksto: CanvasRenderingContext2D,
   kunteksto.fill();
 }
 
-// ⟨ La antaŭrigardoj 📃 ⟩
-// kreiVestanAntauxrigardon — Kreu malgrandan antauxrigardan kanvason por vesta elekta karto.
-//     @param o ( Vesto ) - La vesta objekto por montri.
+// ⟨ ទិដ្ឋភាពខាងមុខ 📃 ⟩
 export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   const kanvasa = document.createElement("canvas");
   kanvasa.width = 0o210; kanvasa.height = 0o300;
@@ -117,7 +109,6 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   kunteksto.fillStyle = "rgba(6,16,12,0.9)";
   kunteksto.fillRect(0, 0, 0o210, 0o300);
 
-  // interna ĉemizo
   kunteksto.fillStyle = I;
   kunteksto.beginPath();
   kunteksto.moveTo(0o64, 0o64); kunteksto.lineTo(0o124, 0o64);
@@ -125,7 +116,6 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   kunteksto.closePath();
   kunteksto.fill();
 
-  // ekstera ĉemizo
   kunteksto.fillStyle = M;
   kunteksto.beginPath();
   kunteksto.moveTo(0o60, 0o60); kunteksto.lineTo(0o126, 0o60);
@@ -133,7 +123,6 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   kunteksto.closePath();
   kunteksto.fill();
 
-  // malsupra robo
   kunteksto.beginPath();
   kunteksto.moveTo(0o40, 0o160); kunteksto.lineTo(0o140, 0o160);
   kunteksto.lineTo(0o150, 0o230); kunteksto.lineTo(0o40, 0o230);
@@ -142,41 +131,30 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   kunteksto.fill();
   kunteksto.globalAlpha = 0o1;
 
-  // akcenta ornamo
   kunteksto.fillStyle = A;
   kunteksto.fillRect(0o40, 0o234, 0o110, 0o7);
 
-  // pantalono — du simetriaj kruroj ( hela aŭ malhela bluo ) sub la robo,
-  // centritaj ĉirkaŭ la korpo-akso kaj enŝoviĝantaj en la botojn.
   kunteksto.fillStyle = deksesuma(o.pantalono);
-  kunteksto.fillRect(0o46, 0o244, 0o14, 0o16);   // maldekstra kruro
-  kunteksto.fillRect(0o126, 0o244, 0o14, 0o16);  // dekstra kruro
+  kunteksto.fillRect(0o46, 0o244, 0o14, 0o16);
+  kunteksto.fillRect(0o126, 0o244, 0o14, 0o16);
 
-  // botoj — pli altaj, simetriaj ŝaftoj kun sxoforma piedo antaŭen kaj
-  // akcenta plando ĉe la malsupro, kun iomete rondaj anguloj kiel la 3D-ŝuoj.
-  // Ĉiu boto spegulas la alian ĉirkaŭ la akso.
   kunteksto.fillStyle = deksesuma(o.botoj);
-  rondaRechto(kunteksto, 0o45, 0o250, 0o16, 0o14, 0o3);   // ŝafto maldekstra
-  rondaRechto(kunteksto, 0o130, 0o250, 0o16, 0o14, 0o3);  // ŝafto dekstra
-  rondaRechto(kunteksto, 0o44, 0o260, 0o20, 0o6, 0o2);    // piedo maldekstra
-  rondaRechto(kunteksto, 0o124, 0o260, 0o20, 0o6, 0o2);   // piedo dekstra
+  rondaRechto(kunteksto, 0o45, 0o250, 0o16, 0o14, 0o3);
+  rondaRechto(kunteksto, 0o130, 0o250, 0o16, 0o14, 0o3);
+  rondaRechto(kunteksto, 0o44, 0o260, 0o20, 0o6, 0o2);
+  rondaRechto(kunteksto, 0o124, 0o260, 0o20, 0o6, 0o2);
   kunteksto.fillStyle = A;
-  rondaRechto(kunteksto, 0o40, 0o270, 0o30, 0o4, 0o1);    // plando maldekstra
-  rondaRechto(kunteksto, 0o110, 0o270, 0o30, 0o4, 0o1);   // plando dekstra
+  rondaRechto(kunteksto, 0o40, 0o270, 0o30, 0o4, 0o1);
+  rondaRechto(kunteksto, 0o110, 0o270, 0o30, 0o4, 0o1);
 
-  // butona plateto — vertikala akcenta linio laŭ la fronta centro
   kunteksto.fillStyle = A;
   kunteksto.fillRect(0o100, 0o66, 0o3, 0o104);
   for ( let i = 0; i < 0o3; i++ ) kunteksto.fillRect(0o102, 0o100 + i * 0o32, 0o3, 0o3);
 
-  // motivoj
   kvarStelo(kunteksto, 0o104, 0o124, 0o20, A);
   rombo(kunteksto, 0o66, 0o204, 0o11, 0o15, I, A);
   rombo(kunteksto, 0o122, 0o204, 0o11, 0o15, I, A);
 
-  // manikoj — simetriaj tuboj kliniĝantaj eksteren ( la maldekstra spegulas
-  // la dekstran ), finiĝantaj per foli-tondita rando kun akcenta rimo laŭ la
-  // tondo. La senkapa manekeno montras nur la vestojn.
   for ( const dir of [ -0o1, 0o1 ] ) {
     const cx = 0o104 + dir * 0o46;
     const eno = cx - dir * 0o4;
@@ -186,13 +164,11 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
     kunteksto.beginPath();
     kunteksto.moveTo(eno, ySup);
     kunteksto.lineTo(eno, yOrlo);
-    // du foli-pintoj pendantaj sub la pojno, spegulitaj per dir
     kunteksto.quadraticCurveTo(eno + dir * 0o3, yOrlo + 0o14, eno + dir * 0o6, yOrlo + 0o4);
     kunteksto.quadraticCurveTo(eno + dir * 0o11, yOrlo + 0o14, ekstero, yOrlo);
     kunteksto.lineTo(ekstero, ySup);
     kunteksto.closePath();
     kunteksto.fill();
-    // akcenta rimo laŭ la tondita malsupro
     kunteksto.strokeStyle = A;
     kunteksto.lineWidth = 0o3;
     kunteksto.beginPath();
@@ -205,12 +181,6 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   return kanvasa;
 }
 
-// kreiHaranAntauxrigardon — Kreu malgrandan antauxrigardan kanvason por hara
-// elekta karto. Busto ( ŝultroj, kolo, kapo ) kun la har-stilo desegnita laux
-// la silueto de la 3D-modelo.
-//     @param stilo ( Harstilo ) - La har-stilo por montri.
-//     @param koloro ( number = stilo.koloro ) - La nuanco por desegni ( kutime
-//         la nuna elektita har-koloro, por ke la karto spegulu la modelon ).
 export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLCanvasElement {
   const kanvasa = document.createElement("canvas");
   kanvasa.width = 0o210; kanvasa.height = 0o300;
@@ -221,7 +191,6 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
   kunteksto.fillStyle = "rgba(6,16,12,0.9)";
   kunteksto.fillRect(0, 0, 0o210, 0o300);
 
-  // Ŝultroj — malhela busto malantaŭ la kapo.
   kunteksto.fillStyle = "#282828";
   kunteksto.beginPath();
   kunteksto.moveTo(0o40, 0o300); kunteksto.lineTo(0o150, 0o300);
@@ -230,22 +199,15 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
   kunteksto.closePath();
   kunteksto.fill();
 
-  // Kolo.
   kunteksto.fillStyle = "#605050";
   kunteksto.fillRect(0o77, 0o102, 0o14, 0o20);
 
-  // Kapo.
   kunteksto.beginPath();
   kunteksto.arc(CX, KAPY, KAPR, 0, Math.PI * 0o2);
   kunteksto.fill();
 
-  // La stil-specifa haro — la ĉapo estas desegnata lasta, ĉar ĝi kuŝas super
-  // la kurteno. La du siluetoj estas klare distingeblaj. mallonga domo kaj
-  // longa kurteno.
   kunteksto.fillStyle = H;
   if ( stilo.nomo === "haroLonga" ) {
-    // Kurteno — longa haro kadranta la vizaĝon kaj falanta sur la ŝultrojn
-    // kun pinteca fringo.
     kunteksto.beginPath();
     kunteksto.moveTo(CX - KAPR, KAPY - 0o2);
     kunteksto.lineTo(CX - KAPR - 0o6, 0o136);
@@ -260,8 +222,6 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
     kunteksto.fill();
   }
 
-  // Ĉapo — la supro de la kapo, ĉe ĉiuj stiloj. Profunda domo ĝis la mezo de
-  // la kapo, por ke la mallonga silueto estu klara.
   kunteksto.beginPath();
   kunteksto.arc(CX, KAPY, KAPR + 0o2, Math.PI, Math.PI * 0o2);
   kunteksto.closePath();
@@ -269,5 +229,4 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
 
   return kanvasa;
 }
-
 

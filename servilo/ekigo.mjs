@@ -1,21 +1,10 @@
-// ≺⧼ Ekigo 🚀 ⧽≻
-// Lanĉu Vite, la retilo-servilon kaj la konserva-servilon kune
-// por disvolvo. `npm run dev` starigas ĉiujn tri procezojn. Vite ( la paĝo
-// sur 5172 ), servilo/servilo.js ( la retila WebSocket sur 0o5660 = 2992 )
-// kaj servilo/konservilo.mjs ( la rekta savo de la terena skulptilo sur
-// 0o10115 = 4173 ). Vite plusendas /retilo al la retilo-servilo ( vidu
-// vite.config.ts ), do la retilo konektiĝas tuj, sen malsukcesaj provoj kaj
-// sen konzol-eraroj.
-// Ambaŭ estas rektaj node-infanoj ( sen ŝelo ), por ke la fermo trafu la
-// verajn procezojn kaj neniu orfo restu.
+// ≺⧼ ការចាប់ផ្តើម 🚀 ⧽≻
 import { spawn } from "child_process";
 import { fileURLToPath } from "url";
 
 const RADIKO = fileURLToPath(new URL("..", import.meta.url));
 const infanoj = [];
 
-// ĉesigi — Fermu unu procezon. Sur Vindozo taskkill forigas ankaŭ la
-// infan-procezojn ( ne nur la tujan ).
 function ĉesigi(infano) {
   if ( !infano || infano.exitCode !== null || infano.signalCode !== null ) return;
   if ( process.platform === "win32" && infano.pid ) {
@@ -24,7 +13,6 @@ function ĉesigi(infano) {
   try { infano.kill(); } catch { /* jam fermita */ }
 }
 
-// lanĉi — Spawnu unu disvolvan procezon kun la samaj en/el/erar-fluoj.
 function lanĉi(argumentoj, nomo) {
   const infano = spawn(process.execPath, argumentoj, { cwd: RADIKO, stdio: "inherit" });
   infanoj.push(infano);
@@ -40,7 +28,6 @@ lanĉi([ "servilo/servilo.js" ], "retilo");
 lanĉi([ "node_modules/vite/bin/vite.js" ], "vite");
 lanĉi([ "servilo/konservilo.mjs" ], "konservilo");
 
-// Fermu la infanojn ĉe Ctrl+C / SIGTERM, por ke neniu orfo restu.
 for ( const signalo of [ "SIGINT", "SIGTERM" ] ) {
   process.on(signalo, () => {
     for ( const infano of infanoj ) ĉesigi(infano);

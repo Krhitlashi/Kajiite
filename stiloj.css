@@ -1,4 +1,4 @@
-/* ≺⧼ Stiloj 📃 ⧽≻ — lokaj stiloj super la ekstera stilfolio ( krhitlashi.github.io — kun <cab6tem2>, la ekstera ŝargstango ). La ekstera stilfolio posedas la surfacojn, la tipografion kaj la kolorojn — ĉi tie restas nur la geometrio de la ludo. */
+/* ≺⧼ ស្ទីល 📃 ⧽≻ */
 
 :root {
   --sat:env(safe-area-inset-top,0px);
@@ -7,13 +7,13 @@
   --sar:env(safe-area-inset-right,0px);
 }
 
-/* ⟪ Kanvaso 📃 ⟫ */
+/* ⟪ កាន់វ៉ាស់ 📃 ⟫ */
 html,body { block-size:100%; overflow:hidden; }
 body { display:block; overscroll-behavior:none; user-select:none; }
 #sceno { display:block; touch-action:none; cursor:grab; border-radius:0; border:none; }
 #sceno:active { cursor:grabbing; }
 
-/* ⟪ Plenekranaj tavoloj 📃 ⟫ */
+/* ⟪ ស្រទាប់ពេញអេក្រង់ 📃 ⟫ */
 #sceno,#vinjeto,#svingo,#fxVarma,#fxMenta,#balailo,#supermeta,#sxargxo,#mobKontroloj { position:fixed; inset:0; }
 #vinjeto,#svingo,#fxVarma,#fxMenta,#balailo { pointer-events:none; }
 #vinjeto { z-index:2; box-shadow:inset 0 0 256px var(--តានេកនេ១); transition:opacity 1s; }
@@ -25,74 +25,54 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #fxMenta { background:radial-gradient(88% 68% at 50% 37.5%,var(--តានេក),transparent 68%); }
 .fxPulso { animation:fxp 1s ease forwards; }
 @keyframes fxp { 0%{opacity:0} 32%{opacity:1} 100%{opacity:0} }
-/* La vitraj tavoloj ( balailo, sxargxo ) portas la eksteran .n2tase-klason — la
-   malklarigita vitro kaj la duobla gradiento venas de la ekstera stilfolio. */
+
 #balailo { z-index:8; opacity:0; transition:opacity .5s; }
 
-/* ⟪ Retikulo 📃 ⟫ */
+/* ⟪ ក្រឡាភ្នែក 📃 ⟫ */
 #retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .2336092301648s; }
 #retikulo.montri { opacity:.4375; }
 #retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--ក្ព៏); }
 #retikulo::before { width:16px; height:1px; top:50%; left:-8px; }
 #retikulo::after { width:1px; height:16px; left:50%; top:-8px; }
 
-/* ⟪ Tosto kaj prompto 📃 ⟫ */
+/* ⟪ សារលេចឡើង និងការណែនាំ 📃 ⟫ */
 #tosto, #prompto { white-space:nowrap; opacity:0; pointer-events:none; }
 #tosto { position:fixed; z-index:5; top:50%; left:50%; transform:translate(-50%,-50%); transition:opacity .5s,transform .5s; flex-direction:row; flex-wrap:wrap; max-inline-size:25%; }
 #prompto { position:fixed; z-index:3; left:50%; bottom:calc(88px + var(--sab)); transform:translateX(-50%) translateY(var(--អារេង)); padding:var(--អារេង) var(--អារេងព៏); transition:opacity .2336092301648s,transform .2336092301648s; cursor:pointer; border-radius:var(--អិត្ភេចិ); }
 #prompto.montri { transform:translateX(-50%); }
 
-/* ⟪ Supermeta ( helpo · plena mapo ) 📃 ⟫ */
+/* ⟪ ស្រទាប់លើ ( ជំនួយ · ផែនទីពេញ ) 📃 ⟫ */
 #supermeta { z-index:6; display:grid; place-items:center; opacity:0; pointer-events:none; transition:opacity .2336092301648s; }
 #supermeta.mapo { z-index:7; place-items:stretch; background:none; }
 #supermeta.mapo .interno { display:none; }
 #supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 64px); overflow:auto; padding:var(--អារេងព៏); justify-content:start; }
 #supermetaFermi { position:absolute; z-index:1; top:calc(var(--អារេងព៏) + var(--sat)); right:calc(var(--អារេងព៏) + var(--sar)); inline-size:52px; block-size:52px; color:var(--ក្ព៏); cursor:pointer; touch-action:manipulation; writing-mode:horizontal-tb; }
-/* La .montri-klaso montras panelon — la tosto kaj la balailo restas
-   alklak-traireblaj ( ili nur ŝanĝas opakecon ). */
+
 #karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#vestaro.montri { opacity:1; pointer-events:auto; }
 #tosto.montri,#balailo.montri { opacity:1; }
 
-/* ⟪ Kompaso kaj mapoj 📃 ⟫ */
+/* ⟪ ត្រីវិស័យ និងផែនទី 📃 ⟫ */
 #kompaso { position:fixed; z-index:3; top:calc(var(--អារេងព៏) + var(--sat)); right:calc(var(--អារេងព៏) + var(--sar)); inline-size:56px; block-size:56px; display:grid; place-items:center; overflow:hidden; border-radius:var(--អិត្ភេ); border:var(--សាកព៏); cursor:pointer; touch-action:manipulation; }
 .nadlo { position:absolute; inset:0; will-change:transform; }
 .nadlo span { position:absolute; top:0; left:50%; transform:translateX(-50%); color:#fff; -webkit-text-stroke:2px #000; paint-order:stroke fill; text-shadow:0 0 2px #000; }
-/* ⟨ La sago de la nadlo staras MEZE de la minimapo 📃 ⟩ — antauxe ĝi sidis
-   apud la supra rando ( `top:var(--អារេង)` ), do ĝi legiĝis kiel randa marko
-   kaj ne kiel la rigarda montrilo. Nun ĝi estas en la centro kaj turnigxas sur
-   sia propra loko ( .nadlo turnigxas ĉirkaŭ la centro de la 56-piksela kadro ),
-   do la radaro montras unu klaran triangulon meze. */
-/* ⟨ La SAMA sago kiel la markilo de la plena mapo 📃 ⟩ — antauxe ĉi tiu nadlo estis
-   propra triangulo farita per la borda artifiko ( `border-bottom` ), do la du mapoj
-   montris MALSAMAJN sagojn. Nun la formo venas el unu loko en la ludkodo
-   ( desegniSaganFormon ) kiel datum-URL-bildo, kiun la JS metras en --sago kaj
-   --sagoGrando ( PLI GRANDA ol la markilo de la plena mapo — la kompaso estas
-   nur 56-piksela, do la sama grandeco legigxus malgranda tie ); la sagoj do ne
-   povas disiriĝi. La nadlo restas DOM-elemento, ĉar
-   ĝi turnigxas ĉiukadre per CSS dum la radaro re-desegnigxas nur 15 Hz. La
-   fal-valoro estas nenia bildo — se la JS ne metus la propraĵon, la nadlo portus
-   nur la N-markon, do malplena kadro anstataŭ fremda sago. */
+/* ⟨ ព្រួញរបស់ទ្រនិចស្ថិតនៅកណ្តាលផែនទីតូច 📃 ⟩ */
+/* ⟨ ព្រួញដូចគ្នានឹងសញ្ញាសម្គាល់ផែនទីពេញ 📃 ⟩ */
 .nadlo::before { content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); inline-size:var(--sagoGrando,14px); block-size:var(--sagoGrando,14px); background-image:var(--sago); background-repeat:no-repeat; background-position:center; background-size:contain; }
 #minimapaKanvaso,#plenaKanvaso { inline-size:100%; block-size:100%; }
-/* La plena mapo absolute en #supermeta. Sen position:absolute la kanvaso estas
-   krado-elemento kies alton difinas ĝia propra interna grandeco ( la atributoj
-   width/height, kiujn la JS agordas al la klienta grandeco ) — la kanvaso tiam
-   kreskas super sian ujon kaj la mapo etendiĝas preter la ekrano. Absolute la
-   kanvaso plenigas #supermeta kaj la atributa grandeco ne plu influas la aranĝon. */
+
 #plenaKanvaso { position:absolute; inset:0; touch-action:none; cursor:grab; }
 #plenaKanvaso:active { cursor:grabbing; }
 
-/* ⟪ Karto de konstruaĵo 📃 ⟫ */
+/* ⟪ កាតអគារ 📃 ⟫ */
 #karto { position:fixed; z-index:3; left:calc(var(--អារេងព៏) + var(--sal)); bottom:calc(var(--អារេងព៏) + var(--sab)); inline-size:min(304px, calc(100% - 92px)); max-block-size:44%; overflow-y:auto; padding:var(--អារេងព៏); transform:translateY(24px); opacity:0; pointer-events:none; transition:transform .5s cubic-bezier(.1875,.875,.25,1),opacity .5s; }
 #karto.montri { transform:none; }
 .peco { display:inline-block; padding:var(--អារេង); border-radius:var(--អិត្ភេចិ); }
 
-/* ⟪ Flosaj butonoj kaj paneloj 📃 ⟫ */
+/* ⟪ ប៊ូតុងអណ្តែត និងបន្ទះ 📃 ⟫ */
 #navButono,.mobBut,#informButono { color:var(--ក្ព៏); cursor:pointer; touch-action:manipulation; inline-size:52px; block-size:52px; }
 #navButono { position:fixed; z-index:5; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab)); }
 #informButono { position:fixed; z-index:5; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(var(--អារេងព៏) + var(--sat)); }
-/* La tri paneloj ( la pop-up kaj la du plenekranaj ) kunhavas la saman
-   aperon — nur ilia geometrio malsamas. */
+
 #navPopUp, #informo, #vestaro { position:fixed; z-index:6; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .2336092301648s,transform .2336092301648s; border-radius:var(--អិត្ភេពឺ); }
 #navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100% - 32px); max-block-size:calc(100% - 160px); overflow:auto; }
 #informo, #vestaro { display:flex; flex-direction:column; overflow:auto; overscroll-behavior:contain; left:calc(var(--អារេងព៏) + var(--sal)); right:calc(var(--អារេងព៏) + var(--sar)); }
@@ -108,7 +88,7 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 .menuKrepusko { display:grid; grid-template-columns:64px 1fr; align-items:center; }
 #duskLabelo input[type=range] { flex:1; min-inline-size:0; }
 
-/* ⟪ Vestaro 📃 ⟫ */
+/* ⟪ សម្លៀកបំពាក់ 📃 ⟫ */
 .vestaVico { display:flex; justify-content:center; flex-wrap:wrap; }
 #haraListo { display:flex; flex-direction:column; }
 .vestaKardo { cursor:pointer; transition:transform .2336092301648s,border-color .2336092301648s; }
@@ -116,27 +96,24 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 .harKoloroChip { inline-size:24px; block-size:24px; border-radius:var(--អិត្ភេមិ); border:var(--សាកព៏); align-self:center; }
 .vestaKardo.elektita { border-color:var(--ក្ព៏); }
 
-/* ⟪ Ŝargado ( la ekstera <cab6tem2> ) 📃 ⟫ */
+/* ⟪ ការផ្ទុក ( <cab6tem2> ខាងក្រៅ ) 📃 ⟫ */
 #sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); transition:opacity 1s; }
 #sxargxo.finita { opacity:0; pointer-events:none; }
 #sxargxo cab6tem2 { inline-size:min(224px,48vh); transform:rotate(-90deg); margin-inline:calc((24px - min(224px,48vh)) / 2); align-self:center; flex:none; }
 
-/* ⟪ Skrib-reĝimoj 📃 ⟫ */
-/* La aih-a skribo-direkto venas de la ekstera .aih-klaso, kiun ĉiuj ĉi tiuj
-   elementoj portas — ĉi tie restas nur la ja-a escepto ( vertical-rl ). */
+/* ⟪ របៀបសរសេរ 📃 ⟫ */
+
 html[lang="ja"] .menuPanel, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
 html[lang="aih"] #prompto, html[lang="ja"] #prompto { left:auto; right:calc(var(--អារេងព៏) + var(--sar)); top:50%; bottom:auto; transform:translateY(-50%) translateX(var(--អារេង)); white-space:normal; max-inline-size:75%; overflow:hidden; }
 html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
 
-/* ⟪ Poŝtelefonaj kontroloj 📃 ⟫ */
+/* ⟪ ការគ្រប់គ្រងទូរស័ព្ទ 📃 ⟫ */
 #mobKontroloj { display:none; pointer-events:none; }
 body.tuŝa #mobKontroloj { display:block; }
 #mobJoystickZono { position:absolute; left:0; bottom:0; display:grid; place-items:end center; padding-bottom:var(--អារេងព៏); padding-left:var(--អារេងព៏); pointer-events:auto; touch-action:none; }
 #mobJoystickBazo { inline-size:128px; block-size:128px; border:var(--សាកព៏២); padding:0; }
 #mobJoystickBazo.aktiva { border-color:var(--ក្ព៏២); }
-/* La tenilo havas la ordinaran butonan surfacon de la temo ( la sama fono,
-   bordero kaj radiuso ). Dum forkuro — preter 0o3/0o4 de la radio — gxi prenas
-   la brilan gradion; tio estas la sola signo de la forkuro. */
+
 #mobJoystickTenilo { position:absolute; inset:0; margin:auto; inline-size:44px; block-size:44px; border-radius:var(--អិត្ភេ); background-color:var(--តានេក); border:var(--សាកព៏); pointer-events:none; }
 #mobJoystickBazo.sprinto #mobJoystickTenilo { background:radial-gradient(circle at 37.5% 37.5%,var(--តានេក២),var(--តានេកខេលេ)); }
 #mobButaroj { position:absolute; right:calc(var(--អារេងព៏) + 52px + var(--អារេង) + var(--sar)); bottom:calc(var(--អារេងព៏) + var(--sab)); display:flex; flex-direction:column; gap:var(--អារេង); pointer-events:none; }

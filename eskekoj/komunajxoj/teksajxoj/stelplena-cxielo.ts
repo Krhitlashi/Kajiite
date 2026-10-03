@@ -1,4 +1,4 @@
-// ≺⧼ Stelplena cxiela teksajxo ✨ ⧽≻
+// ≺⧼ វាយនភាពមេឃពេញផ្កាយ ✨ ⧽≻
 import * as THREE from "three";
 
 export let stelplenaTeksajxo: THREE.CanvasTexture | null = null;

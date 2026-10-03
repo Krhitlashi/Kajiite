@@ -1,4 +1,4 @@
-// ≺⧼ Larika sxela reliefa teksajxo 🌲 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់សំបកល្មុត 🌲 ⧽≻
 import * as THREE from "three";
 import { desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 import { generiLarikanSkizon } from "./larika-sxelo.js";

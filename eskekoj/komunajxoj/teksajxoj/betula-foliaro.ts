@@ -1,4 +1,4 @@
-// ≺⧼ Betula foliara teksajxo 🍃 ⧽≻
+// ≺⧼ វាយនភាពស្លឹកប៊ឺច 🍃 ⧽≻
 import * as THREE from "three";
 import { ombro } from "../koloroj.js";
 import { kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";

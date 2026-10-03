@@ -350,7 +350,7 @@ function gxisdatigiInformon(grupo: THREE.Object3D): void {
   nomo.textContent = specio.nomo;
   elemento<HTMLElement>("specoPriskribo").textContent = specio.priskribo;
   elemento<HTMLElement>("specoDatumoj").innerHTML =
-    "⟨ La animacio 📃 ⟩ " + specio.animacio + "<br>" +
+    "⟨ ចលនា 📃 ⟩ " + specio.animacio + "<br>" +
     "⟨ La modelo 📃 ⟩ " + meshoj + " meshoj · " + trianguloj +
       " trianguloj · " + materialoj.size + " materialoj" +
       ( instancoj ? " · " + instancoj + " instancoj" : "" ) +

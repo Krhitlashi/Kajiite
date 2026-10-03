@@ -1,4 +1,4 @@
-// ≺⧼ Vitra teksajxo 🥛 ⧽≻
+// ≺⧼ វាយនភាពកញ្ចក់ 🥛 ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 

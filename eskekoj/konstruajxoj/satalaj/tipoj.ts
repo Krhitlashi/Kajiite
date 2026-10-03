@@ -1,7 +1,4 @@
-// ≺⧼ La satalaj tipoj 🏗️ ⧽≻
-// La tiparoj kaj la speco de konstruaĵo — la tipaj etikedoj kaj muroj ( KonstruTipo ),
-// la tiparo ( TIPARO ), la konstru-speco ( KonstruSpec ) kaj la kaŝmemoro de la
-// konstruaĵaj materialoj ( konstruajxaMaterialo ).
+// ≺⧼ ប្រភេទសាតាឡា 🏗️ ⧽≻
 import * as THREE from "three";
 
 export interface KonstruTipo { labelKey: string; wall: number; frame: number; chip: string; flavorKey: string; }
@@ -16,10 +13,6 @@ export const TIPARO: Record<string, KonstruTipo> = {
 
 export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }
 
-// konstruajxaMaterialo — La komuna materiala cacheo de la satalaj konstruajxoj.
-// La sama ( tipo, koloro ) kombinajxo aperas en dekdekon da konstruaĵoj — la
-// cacheo redonas UNU materialon po ŝlosilo anstataŭ freŝa materialo po voko
-// ( malpli da materialoj = malpli da ŝanĝoj de materialo inter desegno-vokoj ).
 const konstruajxaMaterialaStoko = new Map<string, THREE.MeshStandardMaterial>();
 export function konstruajxaMaterialo(ŝlosilo: string, krei: () => THREE.MeshStandardMaterial): THREE.MeshStandardMaterial {
   let m = konstruajxaMaterialaStoko.get(ŝlosilo);

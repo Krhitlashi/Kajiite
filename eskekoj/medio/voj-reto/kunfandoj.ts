@@ -1,6 +1,4 @@
-// ≺⧼ Voja reto — kunfandoj 🛣️ ⧽≻
-// Ĉu vojo, doko aŭ vojo kaj doko interkovras — kaj la algluo de la
-// doko al la plej proksima vojo.
+// ≺⧼ បណ្តាញផ្លូវ ការរលាយ 🛣️ ⧽≻
 import type { VojaPunkto, VojaRetoDoko, VojaRetoVojo } from "./tipoj.js";
 import { ALGLUA_RANDO, TOLERANCO } from "./tipoj.js";
 import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO } from "../doko/tipoj.js";

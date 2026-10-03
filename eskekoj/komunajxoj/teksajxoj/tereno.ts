@@ -1,4 +1,4 @@
-// ≺⧼ Terena teksajxo 🗺️ ⧽≻
+// ≺⧼ វាយនភាពដី 🗺️ ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

@@ -1,4 +1,4 @@
-// ≺⧼ Betula sxela reliefa teksajxo 🌳 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់សំបកប៊ឺច 🌳 ⧽≻
 import * as THREE from "three";
 import { desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 import { desegniCikatron, desegniHorizontanStrion, desegniLenticelon, desegniStrion, desegniSxelighon, generiBetulanSkizon, sxelaH, sxelaW } from "./sxelo.js";

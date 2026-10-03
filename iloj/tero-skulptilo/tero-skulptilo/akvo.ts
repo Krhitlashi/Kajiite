@@ -1,36 +1,23 @@
 // ≺⧼ ទឹក 🌊 ⧽≻
-// ប្រព័ន្ធរងទឹករបស់ឧបករណ៍ឆ្លាក់ គឺប្រភព ( ការបញ្ចូលតែមួយគត់ ) ការគណនា
-// ទឹកដេរីវេ និងឧបករណ៍ជំនួយគំរូ ដែលការដុត 2D ( bako.js )
-// និងទិដ្ឋភាព 3D អាន។ ស្ថានភាពទឹកស្ថិតនៅទីនេះ ព្រោះឯកសារមេអាន
-// វាដោយផ្ទាល់ ( ការភ្ជាប់ផ្ទាល់របស់ម៉ូឌុល ES ) ហើយផ្លាស់ប្តូរវាដោយអនុគមន៍
-// កំណត់នៅខាងក្រោម។ ការគណនាខ្លួនឯងមកពីម៉ូឌុលរួម
-// kantaoj/mondo/akvokalkulo.ts គឺដូចហ្គេម ដូច្នេះឧបករណ៍ឆ្លាក់ និង
-// ហ្គេមបង្ហាញទឹកដូចគ្នា។
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { distancoDeFormo } from "../../../eskekoj/komunajxoj/mapformo.js";
 import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima,
   specimenoDulineara } from "../../../kantaoj/mondo/akvokalkulo.js";
-// ប្រភេទនៃការគណនាទឹក ( ម៉ូឌុលដូចហ្គេម ) និងនៃ
-// រូបរាងពិភពលោក ដែលឧបករណ៍ឆ្លាក់ និងហ្គេមចែករំលែកគ្នា ដូច្នេះប្រភព និង
-// លទ្ធផលមិនដែលបង្វែរពីហ្គេមទេ។
 import type { AkvaFonto, AkvaKalkulo } from "../../../kantaoj/mondo/akvokalkulo.js";
 import type { MapFormo } from "../../../eskekoj/komunajxoj/mapformo.js";
 export type { AkvaFonto };
 
-// ⟪ ស្ថានភាពទឹក 📃 ⟫ គឺប្រភព និងស្ថានភាពការងារទាំងពីរ។ ឯកសារមេ
-// អានពួកវាដោយផ្ទាល់ រីឯអនុគមន៍កំណត់ ( ខាងក្រោម ) គឺជាផ្លូវតែមួយ
-// ដើម្បីផ្លាស់ប្តូរពួកវាពីខាងក្រៅ។
+// ⟪ ស្ថានភាពទឹក 📃 ⟫
 export let fontoj: AkvaFonto[] = [];
-export let elektitaFonto = -1;    // ប្រភពដែលបានជ្រើស ( បំភ្លឺ )
-export let fontoTrenata = -1;     // ប្រភពដែលកំពុងអូស ( ការចាប់នៃការចុច )
-export let fluoValoro = 0o6;      // លំហូររបស់ប្រភពថ្មី ( គ្រាប់រំកិល )
-export let akvaRezulto: AkvaKalkulo | null = null;   // លទ្ធផលរបស់ kalkuliAkvon
-export let akvoMalpura = true;    // តើត្រូវគណនាទឹកឡើងវិញ ( ក្នុងរង្វិលជុំស៊ុម )
-export let akvoTrenanta = false;  // ពេលអូសប្រភព ទឹកមិនគណនាឡើងវិញរាល់ស៊ុមទេ
-export let akvaNiveloValoro = 0;  // កម្រិតទឹកដែលអាចកំណត់
+export let elektitaFonto = -1;
+export let fontoTrenata = -1;
+export let fluoValoro = 0o6;
+export let akvaRezulto: AkvaKalkulo | null = null;
+export let akvoMalpura = true;
+export let akvoTrenanta = false;
+export let akvaNiveloValoro = 0;
 
-// ⟨ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟩ គឺការយោងរបស់ឯកសារមេ។
-// agordiAkvon ភ្ជាប់ពួកវាតែម្តង។
+// ⟨ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟩
 interface AkvaLigo {
   masko: Uint8Array;
   deltoj: Float32Array;
@@ -93,20 +80,16 @@ export function agordiAkvon(k: AkvaLigo): void {
   markiSxangxitan = k.markiSxangxitan; markiDesegnon = k.markiDesegnon;
 }
 
-// ⟪ អនុគមន៍កំណត់ 📃 ⟫ គឺឯកសារមេផ្លាស់ប្តូរស្ថានភាពទឹកដោយ
-// អនុគមន៍ទាំងនេះ ( តម្លៃដែលនាំចូលគឺអានបានតែប៉ុណ្ណោះ )។
+// ⟪ អនុគមន៍កំណត់ 📃 ⟫
 export function agordiFontojn(listo: AkvaFonto[]): void { fontoj = listo; }
 export function agordiElektitanFonton(ind: number): void { elektitaFonto = ind; }
 export function agordiFontoTrenatan(ind: number): void { fontoTrenata = ind; }
 export function agordiFluoValoron(v: number): void { fluoValoro = v; }
 export function agordiAkvanNivelon(v: number): void { akvaNiveloValoro = v; }
 export function agordiAkvoTrenantan(b: boolean): void { akvoTrenanta = b; }
-// markiAkvonMalpuran គឺដីបានផ្លាស់ប្តូរ ( ដោយគ្មានទឹកខ្លួនឯង )។
 export function markiAkvonMalpuran() { akvoMalpura = true; }
 
-// ⟨ ឧបករណ៍ជំនួយទឹក 📃 ⟩ គឺលទ្ធផលនៃការគណនាទឹក ( មិនមែន
-// ម៉ាសដែលគូរដោយជក់ទេ )។ ហ្គេមអានវាលដូចគ្នាដោយអនុគមន៍គំរូដូចគ្នា
-// ( kantaoj/mondo/akvokalkulo.ts ) ដូច្នេះឧបករណ៍ និងហ្គេមបង្ហាញទឹកដូចគ្នា។
+// ⟨ ឧបករណ៍ជំនួយទឹក 📃 ⟩
 /* ព្រែកកាត់របស់ទឹក ( គ្រែទន្លេដែលទឹកកាត់ )។
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
@@ -186,9 +169,8 @@ export function akvoSxangxigxis(): void {
   markiSxangxitan();
 }
 
-// ⟨ ប្រភពទឹក 📃 ⟩ ឧបករណ៍ទឹកដាក់ ផ្លាស់ទី និងលុបប្រភព។ ទន្លេ
-// ហូរចេញពីពួកវា រណ្តៅពេញ ហើយប្រឡាយត្រូវបានកាត់។
-const FONTA_GLUO = 0o1/0o4;      // 0.25 គឺប្រភពជាប់គ្នាដូចវត្ថុ
+// ⟨ ប្រភពទឹក 📃 ⟩
+const FONTA_GLUO = 0o1/0o4;
 function algluiFonton(v: number): number { return Math.round(v / FONTA_GLUO) * FONTA_GLUO; }
 /* លិបិក្រមរបស់ប្រភពជិតបំផុតទៅចំណុច ( គិតជាឯកតាពិភពលោក ) ឬ -1
    បើគ្មានណាមួយនៅក្នុងកាំ។
@@ -228,14 +210,12 @@ export function forigiFonton(ind: number): void {
   akvoSxangxigxis();
   markiDesegnon();
 }
-// ⟨ ការអូសប្រភព 📃 ⟩ គឺចាប់ប្រភពមួយ ហើយអូសវា ( ទឹកត្រូវគណនាឡើងវិញ
-// នៅចុងបញ្ចប់នៃការអូស )។
+// ⟨ ការអូសប្រភព 📃 ⟩
 export function komenciFontanTrenon(ind: number, x: number, z: number): void {
   momenti();
   elektitaFonto = ind;
   fontoTrenata = ind;
   akvoTrenanta = true;
-  // គ្រាប់រំកិលគួរតាមលំហូររបស់ប្រភពដែលបានចាប់។
   fluoValoro = fontoj[ind].fluo;
   fluoRegilo().value = String(fluoValoro);
   gxisdatigiValorojn();
@@ -264,17 +244,10 @@ export function sxangxiFluonDeElektita(): void {
   }
 }
 
-// ⟨ ប្រភពចេញពីទឹកដែលគូរដោយជក់ 📃 ⟩ គឺម៉ាសទឹកចាស់ដែលគូរដោយជក់ប្រាប់កន្លែង
-// ដែលទឹកគួរនៅ ប៉ុន្តែមិនប្រាប់ថាទឹកមកពីណា។ សកម្មភាពនេះអានវា ហើយ
-// ដាក់ប្រភព ប៉ុន្តែមិនមែនមួយក្នុងមួយចំណុចដែលគូរទេ ព្រោះវាបញ្ចូលការគណនា ហើយ
-// មើលថាតើគោលដៅដែលគូរនៅស្ងួត បន្ទាប់មកដាក់ប្រភពនៅ
-// គោលដៅស្ងួតខ្ពស់បំផុត ហើយធ្វើឡើងវិញ។ ដូច្នេះប្រភពលេចឡើងតែកន្លែងដែលទឹកពិតជា
-// ត្រូវការចូល រីឯអាងពេញដោយខ្លួនឯង ( ពូជ ) ហើយ
-// ទន្លេរុញឡើងលើរហូតទឹកឈានដល់ទឹកដែលគូរទាំងអស់។
+// ⟨ ប្រភពចេញពីទឹកដែលគូរដោយជក់ 📃 ⟩
 /* ទាញប្រភពចេញពីទឹកចាស់ដែលគូរដោយជក់។
 @returns ប្រភពដែលបានដាក់ គោលដៅស្ងួតដែលនៅសល់ និងការគ្របដណ្តប់ ( object )។ */
 export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number; kovro: number } {
-  // កម្ពស់ដីរបស់ក្រឡាដែលគូរ គឺការគំរូតែម្តង។
   const H = new Float32Array(N * N);
   let profundaj = 0;
   for ( let id = 0; id < N * N; id++ ) {
@@ -286,17 +259,11 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
   const novaj: AkvaFonto[] = [];
   let sekaj = 0, antauxa = -0o1, malsukcesoj = 0;
   const [ fl, fg ] = formo();
-  // មានតែក្រឡាដែលគូរជ្រៅប៉ុណ្ណោះដែលសំខាន់ ព្រោះក្រឡានៅជាប់កម្រិតទឹក
-  // ( ច្រាំង ) នៅស្ងួតជានិច្ច ដ្បិតទឹកនៅទីនោះរាក់ពេក
-  // ដើម្បីកាត់ប្រឡាយ។ ប្រភពផ្តោតលើផ្នែកដែលផ្ទុកទឹកពិត។
   for ( let ripeto = 0; ripeto < 0o14 && malsukcesoj < 0o3; ripeto++ ) {
     const rez = kalkuliAkvon(N, PASO, ORIGINO,
       ( x, z ) => bazaAlteco(x, z) + deltoInterp(x, z),
       ( x, z ) => distancoDeFormo(fl, fg, x, z) <= 0,
       fontoj.concat(novaj), masko, { nivelo: akvaNiveloValoro });
-    // ក្រឡាដែលគូរដែលទឹកមិនទាន់ឈាន។ ក្រោមកម្រិតទឹក
-    // ក្រឡាជាអាង ហើយពូជបំពេញពួកវា ដូច្នេះពួកវាមិនសំខាន់
-    // សម្រាប់ប្រភពទេ រីឯពីលើកម្រិត ទន្លេត្រូវមកដល់។
     const sekajCxeloj = [];
     sekaj = 0;
     for ( let id = 0; id < N * N; id++ ) {
@@ -304,17 +271,12 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
       if ( H[id] <= akvaNiveloValoro + 0o1/0o2 ) continue;
       const ix = id % N, iz = ( id - ix ) / N;
       const x = X0 + ix * PASO, z = Z0 + iz * PASO;
-      // ក្រៅរូបរាងពិភពលោក គ្មានទន្លេណាមួយអាចហូរបានទេ ព្រោះទឹកដែលគូរនៅ
-      // ផែនទីចាស់លាតសន្ធឹងរហូតដល់គែមសំណាញ់។
       if ( distancoDeFormo(fl, fg, x, z) > 0 ) continue;
       if ( akvoCxe(rez, N, PASO, ORIGINO, x, z) ) continue;
       sekaj++;
       sekajCxeloj.push(id);
     }
     if ( sekaj <= 0o2 || !sekajCxeloj.length ) break;
-    // ខ្ពស់បំផុតមុនគេ ព្រោះទឹកត្រូវចូលពីលើ ហើយហូរចុះ។ គោលដៅ
-    // នៅជាប់ប្រភពដែលដាក់រួចមិនជួយទេ ( ទឹកថ្មីនឹងមិនមក ) ដូច្នេះយើង
-    // ឆ្លងកាត់ពួកវា ( ហើយរង្វិលជុំឈប់ បើការគ្របដណ្តប់លែងកើន )។
     sekajCxeloj.sort(( a, b ) => H[b] - H[a]);
     let elektita = -1;
     for ( const id of sekajCxeloj ) {
@@ -330,8 +292,6 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
     }
     if ( elektita < 0 ) break;
     const ix = elektita % N, iz = ( elektita - ix ) / N;
-    // លំហូរតាមទទឹងប្រឡាយនៅជាប់ប្រភព គឺទន្លេដែលគូរ
-    // ប្រាប់ថាទឹកគួរធំប៉ុនណា ( បង្អួច 5 ដង ដូច្នេះ /5 = ចំនួនក្រឡា )។
     let najbaraj = 0;
     for ( let dz = -0o2; dz <= 0o2; dz++ ) {
       for ( let dx = -0o2; dx <= 0o2; dx++ ) {
@@ -356,8 +316,6 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
     gxisdatigiValorojn();
     markiDesegnon();
   }
-  // ការគ្របដណ្តប់នៃក្រឡាដែលគូរជ្រៅ ( ពីលើកម្រិត ) គឺ
-  // ប៉ុន្មាននៃទន្លេចាស់ដែលប្រភពថ្មីបានសង្គ្រោះឡើងវិញ។
   const kovro = profundaj ? Math.round(( 0o1 - sekaj / profundaj ) * 0o144) : 0o144;
   statuso(novaj.length
     ? novaj.length + " fonto" + ( novaj.length === 1 ? "" : "j" ) + " metitaj — la akvo fluas malsupren"

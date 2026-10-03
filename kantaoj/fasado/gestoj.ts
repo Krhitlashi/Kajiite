@@ -1,22 +1,14 @@
-// ≺⧼ Tuŝaj gestoj 👆 ⧽≻
-// La komuna plur-fingra gesta motoro de la du kanvasoj — la rigarda kanvaso
-// ( kantaoj/ludo/sperto.ts ) kaj la plena mapo ( kantaoj/bildo/minimapo.ts ).
+// ≺⧼ កាយវិការប៉ះ 👆 ⧽≻
 
-// tuŝaGesto — La komuna plur-fingra gesta motoro de la du kanvasoj ( la
-// rigarda kanvaso kaj la plena mapo ). Tenas la punktan mapon, la pinĉan
-// bazon kaj la transiron de la restanta fingro, kaj transdonas la eventojn
-// al du alvokaj reĝimoj — unufingra tiro ( dx, dy ) kaj plur-fingra pinĉo
-// ( la bazo kaj la nova distanco ). La bazo renoviĝas ĉiun pinĉan kadron,
-// do la pinĉo renaskiĝas se la fingroj kunigxis kaj disigxas sen levigxo.
 export function tuŝaGesto(elemento: HTMLElement, agoj: {
-  akceptu?: ( e: PointerEvent ) => boolean;   // filtrilo por la eniro ( defaŭlte ĉiuj )
-  postEniro?: ( e: PointerEvent ) => void;    // vokita post kiam la punkto aliĝis
+  akceptu?: ( e: PointerEvent ) => boolean;
+  postEniro?: ( e: PointerEvent ) => void;
   jeTiro: ( dx: number, dy: number ) => void;
   jePinĉo: ( bazo: number, nova: number ) => void;
 }): void {
   const punktoj = new Map<number, { x: number; y: number }>();
-  let bazo = 0;                     // la fingra distanco ĉe la lasta mezurado ( 0 = ne pinĉas )
-  let unuaID: number | null = null; // la tiranta fingro ( null dum pinĉo )
+  let bazo = 0;
+  let unuaID: number | null = null;
   let lastaX = 0, lastaY = 0;
   const distancoInter = () => {
     const [ a, b ] = [ ...punktoj.values() ];
@@ -31,7 +23,7 @@ export function tuŝaGesto(elemento: HTMLElement, agoj: {
       unuaID = e.pointerId;
       lastaX = e.clientX; lastaY = e.clientY;
     } else {
-      unuaID = null; // la pinĉo anstataŭas la tiradon
+      unuaID = null;
     }
     if ( agoj.postEniro ) agoj.postEniro(e);
   });
@@ -52,7 +44,6 @@ export function tuŝaGesto(elemento: HTMLElement, agoj: {
   const finiGeston = ( e: PointerEvent ) => {
     punktoj.delete(e.pointerId);
     agordiBazon();
-    // Post la pinĉo la restanta fingro daŭrigas la tiradon.
     if ( punktoj.size === 1 ) {
       const restanta = [ ...punktoj.entries() ][0];
       unuaID = restanta[0];

@@ -1,4 +1,4 @@
-// ≺⧼ Marlaraksxa ĥitina teksajxo 🕷️ ⧽≻
+// ≺⧼ វាយនភាពសំបកពីងពាងសមុទ្រ 🕷️ ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 

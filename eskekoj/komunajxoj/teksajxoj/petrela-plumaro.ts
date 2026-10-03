@@ -1,4 +1,4 @@
-// ≺⧼ Petrela plumara teksajxo 🕊️ ⧽≻
+// ≺⧼ វាយនភាពស្លាបផេត្រេល 🕊️ ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 

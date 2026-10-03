@@ -1,30 +1,7 @@
-// ≺⧼ Sonaj reguloj 🗣️ ⧽≻
-// Iikrhiaj ( aih ) sonaj reguloj, alportitaj el iloj/sonaj-reguloj.py.
-//
-// Enhavas ĈIUJN 36 KOMENCAĴ + 45 INTERNAĴ = 81 sign-mapojn de la
-// kanonika skrib-konvertilo ( iikrhia-convert.mjs ). Ĉiu mapo havas
-// Gawekiif ( gk ), La3os ( latinliterigita ) kaj IPA ( Internacia Fonetika Alfabeto ).
-//
-// La tradukoj.ts traduk-sistemo uzas ĉi tiun modulon REKTE. La aih-aj ( Gawekiif )
-// konstruajx-nomoj estas kanonikaj, kaj ĉiu alia lingva nomo estas derivita ĉi tie
-// dum rultempo ( gk → IPA → cela lingvo ) anstataŭ esti mane konvertita.
-//
-// ⟪ Anglaj ortografiaj reguloj ( en ) 🏴󠁧󠁢󠁥󠁮󠁧󠁿 ⟫
-//   · VCV-duobligo — konsonanto inter mallonga vokalo kaj alia vokalo estas
-//     duobligita ( VCV → VCCV ), spegulante la anglan "dinner" kontraŭ "diner".
-//     Glitoj ( y, w ) NE estas duobligitaj ( "player", ne "playyer" ).
-//   · Mallaksaj vokaloj ɪ̈/ə/ɛ ( "ih"/"uh"/"eh" ) — skribitaj kun sia h-markilo
-//     defaŭlte; la markilo falas al simpla mallonga vokalo ( "i"/"u"/"e" ) kiam la
-//     sekva konsonanto estas duobligita aŭ duopo ( kiu jam signalas la mallongan
-//     vokalon. Lhamihth → Lhamith ) aŭ ĉe vort-fina konsonanto ( "it",
-//     "but", "pet" ). Antaŭ fina k → ick/uck/eck, antaŭ fina ŋ̥ → ihng/uhng/ehng.
-//   · i ( la streĉa vokalo ) — vort-fina "i" restas "i" ( Kapi ); antaŭ vort-fina
-//     konsonanto ĝi iĝas "ee" por ke "it" kaj "eet" restu distingaj; antaŭ unuopa
-//     konsonanto + vokalo ĝi iĝas "e" ( Tsiye → Tseye ); antaŭ fina k → "eek",
-//     antaŭ fina ŋ̥ → "ing".
-//   · Vort-fina ɛ konservas sian "eh"-markilon, por ke ĝi ne estu legata kiel silenta magia-e.
+// ≺⧼ ច្បាប់សំឡេង 🗣️ ⧽≻
+// ⟪ ច្បាប់អក្ខរាវិរុទ្ធអង់គ្លេស ( en ) 🏴󠁧󠁢󠁥󠁮󠁧󠁿 ⟫
 
-// ⟪ KOMENCAĴ ( 36 ) — silab-komencaj konsonantaj formoj 🗣️ ⟫
+// ⟪ ដើម ( 36 ) , ទម្រង់ព្យញ្ជនៈចាប់ផ្តើមព្យាង្គ 🗣️ ⟫
 const KOMENCAĴ: [ string, string, string ][] = [
   [ "ᶅſ", "w", "ⱱ̥" ], [ "ſן", "p", "p" ], [ "ſȷ", "f", "ɸ" ],
   [ "ʃ", "b", "ɸˠ" ], [ "ŋᷠ", "m", "m̥" ], [ "ɽ͑ʃ'", "r", "ɾ̪̥" ],
@@ -40,7 +17,7 @@ const KOMENCAĴ: [ string, string, string ][] = [
   [ "ȏ}ʃ", "n'", "ǃ̃" ], [ "ꞁȷ̀", "", "" ], [ "⺓", "piise", "pɪ̈sɛ" ],
 ];
 
-// ⟪ INTERNAĴ ( 45 ) — silab-internaj konsonantoj kaj vokaloj 🗣️ ⟫
+// ⟪ ខាងក្នុង ( 45 ) , ព្យញ្ជនៈ និងស្រៈក្នុងព្យាង្គ 🗣️ ⟫
 const INTERNAĴ: [ string, string, string ][] = [
   [ "п́", "w", "ⱱ̥" ], [ "ɘ", "p", "p" ], [ "ʞ", "f", "ɸ" ],
   [ "ɀ", "b", "ɸˠ" ], [ "c̭", "m", "m̥" ], [ "ƣ̋", "r", "ɾ̪̥" ],
@@ -54,14 +31,14 @@ const INTERNAĴ: [ string, string, string ][] = [
   [ "ᴜ̭ȏ", "c'", "ǂ" ], [ "ƨȏ", "t'", "ǃ" ], [ "c̭ȏ", "m'", "ʘ̃" ],
   [ "c̏ȏ", "nv'", "ǀ̃" ], [ "ŋoͩȏ", "nl'", "ǁ̃" ], [ "ⱷ̮̀ȏ", "y'", "ǂ̃" ],
   [ "c̗ȏ", "n'", "ǃ̃" ],
-  // ⟨ Vokal-internoj 🎶 ⟩
+  // ⟨ ស្រៈក្នុង 🎶 ⟩
   [ "ꞇ", "i", "i" ], [ "ɔ", "e", "ɛ" ], [ "ᴜ", "a", "a" ],
   [ "w", "u", "ə" ], [ "ɹ", "2", "ɪ̈" ], [ "ɜ", "o", "ɤ" ],
   [ "э", "6", "ɑ" ], [ "ɔⅎ", "0", "ɛ̃" ], [ "ɜⅎ", "7", "ɤ̃" ],
   [ "эⅎ", "4", "ɑ̃" ], [ "ᴜꞇ", "ai", "ə" ],
 ];
 
-// ⟨ Cifereca stenografio 🔢 ⟩
+// ⟨ ស្តេណូក្រាហ្វីឌីជីថល 🔢 ⟩
 const NUMERA: Record<string, string> = { ts: "1", ii: "2", tl: "3", au: "4", kz: "5", aa: "6", ou: "7", eu: "0" };
 const NUMERA_REV: Record<string, string> = {};
 for ( const [ v, k ] of Object.entries(NUMERA) ) NUMERA_REV[k] = v;
@@ -70,7 +47,6 @@ const ĈIUJ_IPA: string[] = Array.from(
   new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ , , ipa ] ) => ipa).filter(Boolean))
 ).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
-// Gawekiif ( denaska skribo ) ĵetona listo, plej-longa-unue, por gk → IPA.
 const ĈIUJ_GK: string[] = Array.from(
   new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ gk ] ) => gk).filter(Boolean))
 ).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
@@ -88,7 +64,7 @@ function avideKongruigi(teksto: string, tokenaListo: string[]): string[] {
   return ĵetonoj;
 }
 
-// ⟪ Lingvaj son-mapaj tabeloj 🌍 ⟫
+// ⟪ តារាងផែនទីសំឡេងភាសា 🌍 ⟫
 const MAPO_EO: Record<string, string> = {
   "ⱱ̥": "v", "p": "p", "ɸ": "f", "ɸˠ": "fĥ",
   "m̥": "m", "ɾ̪̥": "r", "θ": "z", "t": "t", "s̪": "sh",
@@ -143,7 +119,7 @@ const MAPO_KM: Record<string, string> = {
 
 const LINGVAJ_MAPOJ: Record<string, Record<string, string>> = { eo: MAPO_EO, en: MAPO_EN, ja: MAPO_JA, km: MAPO_KM };
 
-// ⟨ Japana katakana silabaro — generita programe ⛩️ ⟩
+// ⟨ តារាងកាតាកាណាជប៉ុន , បង្កើតដោយកម្មវិធី ⛩️ ⟩
 const JA_GOJŪON: Record<string, Record<string, string>> = {
   k: { a: "カ", i: "キ", ɛ: "ケ", ɤ: "コ" },
   s: { a: "サ", i: "シ", ɛ: "セ", ɤ: "ソ" },
@@ -191,78 +167,67 @@ for ( const [ kon, rulo ] of Object.entries(JA_KONSONANTAJ_RULEROJ) ) {
 const _JA_IPA: string[] = Array.from(new Set([ ...ĈIUJ_IPA, ...Object.keys(JA_KV_KOMBOJ) ]))
   .sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
-// ⟨ Anglaj ortografiaj helpiloj 🇬🇧 ⟩
+// ⟨ ជំនួយអក្ខរាវិរុទ្ធអង់គ្លេស 🇬🇧 ⟩
 const ANGLAJ_VOKALOJ = new Set([ "i", "ɛ", "a", "ə", "ɪ̈", "ɤ", "ɑ", "ɛ̃", "ɤ̃", "ɑ̃" ]);
 const ANGLAJ_MALFAVORAJ = new Set([ "ɪ̈", "ɛ", "ə", "ɛ̃", "ɤ̃", "ɑ̃" ]);
-// Glitoj kies duobligita literumado estas ne-angla ( "player", ne "playyer" ).
 const ANGLAJ_GLITOJ = new Set([ "ɟ̥̆", "ⱱ̥" ]);
 
 function duobligi(konsono: string): string {
   return konsono[0] + konsono;
 }
 
-/** Transskribu IPA-fonemojn en la anglan kun anglaj ortografiaj reguloj. */
+/** ចម្លងសូរស័ព្ទ IPA ទៅជាភាសាអង់គ្លេសដោយច្បាប់អក្ខរាវិរុទ្ធអង់គ្លេស។ */
 export function anglaKonverti(ipaaTeksto: string): string {
   const ĵetonoj = avideKongruigi(ipaaTeksto, ĈIUJ_IPA);
   const n = ĵetonoj.length;
   const eligo = ĵetonoj.map(t => MAPO_EN[t] ?? t);
 
-  // VCV-duobligo — duobligu konsonanton post mallonga vokalo antaŭ alia vokalo.
   for ( let i = 0; i < n - 2; i++ ) {
     if ( ANGLAJ_MALFAVORAJ.has(ĵetonoj[i]) && !ANGLAJ_VOKALOJ.has(ĵetonoj[i + 1]) && ANGLAJ_VOKALOJ.has(ĵetonoj[i + 2]) ) {
       if ( !ANGLAJ_GLITOJ.has(ĵetonoj[i + 1]) ) eligo[i + 1] = duobligi(eligo[i + 1]);
     }
   }
 
-  // Vokalaj reguloj — mallaksaj vokaloj ɪ̈/ə/ɛ ( "ih"/"uh"/"eh" ) kaj la streĉa i ( "ee" ).
-  // Mallaksa vokalo konservas sian h-markilon krom se la sekva konsonanto estas duobligita aŭ
-  // duopo ( kiu jam signalas la mallongan vokalon ), aŭ ĉe vort-fina
-  // konsonanto ( mallonga "it"/"but"/"pet" ). Fina k → ick/uck/eck; fina ŋ̥ →
-  // ihng/uhng/ehng. La streĉa i estas "i", "ee" ĉe vort-fina konsonanto ( "eet" ),
-  // kaj "e" antaŭ unuopa konsonanto + vokalo ( Tsiye → Tseye ).
   for ( let i = 0; i < n; i++ ) {
     const t = ĵetonoj[i];
     const lakso = t === "ɪ̈" || t === "ə" || t === "ɛ";
     if ( !lakso && t !== "i" ) continue;
-    // Trovu la konsonantan vicon post ĉi tiu vokalo.
     let j = i + 1;
     while ( j < n && !ANGLAJ_VOKALOJ.has(ĵetonoj[j]) ) j++;
-    const runLargho = j - i - 1;                 // konsonantoj intere
-    const finaKon = j >= n && runLargho > 0;     // la konsonanta vico atingas la vort-finon
+    const runLargho = j - i - 1;
+    const finaKon = j >= n && runLargho > 0;
     const unuaKon = runLargho > 0 ? ĵetonoj[i + 1] : null;
     const unuaSpel = runLargho > 0 ? eligo[i + 1] : "";
     if ( lakso ) {
       const mark = t === "ɪ̈" ? "ih" : t === "ə" ? "uh" : "eh";
       const mallonga = t === "ɪ̈" ? "i" : t === "ə" ? "u" : "e";
-      if ( finaKon && unuaKon === "k" ) { eligo[i] = mallonga; eligo[i + 1] = "ck"; }   // ick/uck/eck
-      else if ( finaKon && unuaKon === "ŋ̥" ) { eligo[i] = mark; }                       // ihng/uhng/ehng
-      else if ( finaKon ) { eligo[i] = mallonga; }                                      // "it"/"but"/"pet"
-      else if ( unuaSpel.length >= 2 ) { eligo[i] = mallonga; }                         // duobligita/duopo
-      else { eligo[i] = mark; }                                                       // defaŭlta markilo
-    } else { // i ( streĉa )
-      if ( finaKon && unuaKon === "k" ) { eligo[i] = "ee"; }                       // eek
-      else if ( finaKon && unuaKon === "ŋ̥" ) { eligo[i] = "i"; }                  // ing
-      else if ( finaKon ) { eligo[i] = "ee"; }                                     // "eet"
-      else if ( runLargho === 1 ) { eligo[i] = "e"; }                              // i-C-V → e ( Tsiye )
-      else { eligo[i] = "i"; }                                                   // Kapi
+      if ( finaKon && unuaKon === "k" ) { eligo[i] = mallonga; eligo[i + 1] = "ck"; }
+      else if ( finaKon && unuaKon === "ŋ̥" ) { eligo[i] = mark; }
+      else if ( finaKon ) { eligo[i] = mallonga; }
+      else if ( unuaSpel.length >= 2 ) { eligo[i] = mallonga; }
+      else { eligo[i] = mark; }
+    } else {
+      if ( finaKon && unuaKon === "k" ) { eligo[i] = "ee"; }
+      else if ( finaKon && unuaKon === "ŋ̥" ) { eligo[i] = "i"; }
+      else if ( finaKon ) { eligo[i] = "ee"; }
+      else if ( runLargho === 1 ) { eligo[i] = "e"; }
+      else { eligo[i] = "i"; }
     }
   }
   return eligo.join("");
 }
 
-/** Transskribu IPA-fonemojn en celan lingvon ( eo, en, ja, km ). */
+/** ចម្លងសូរស័ព្ទ IPA ទៅភាសាគោលដៅ ( eo, en, ja, km )។ */
 export function ipaAlLingvo(ipaaTeksto: string, lingvaKodo: string): string {
   if ( lingvaKodo === "en" ) return anglaKonverti(ipaaTeksto);
   const lingvaMapo: Record<string, string> = { ...( LINGVAJ_MAPOJ[lingvaKodo] ?? {} ) };
   let tokenaListo = ĈIUJ_IPA;
   if ( lingvaKodo === "ja" ) {
-    // Japane. Kunigu la CV-silab-kombinojn en la mapon kaj ĵetonigu plej-longa-unue.
     Object.assign(lingvaMapo, JA_KV_KOMBOJ);
     tokenaListo = _JA_IPA;
   }
   const ĵetonoj = avideKongruigi(ipaaTeksto, tokenaListo);
   const eligo = ĵetonoj.map(t => lingvaMapo[t] ?? t);
-  // Kmere. Vorto ne rajtas komenciĝi per nuda vokalo — prefiksi អ.
   if ( lingvaKodo === "km" && ĵetonoj.length && ANGLAJ_VOKALOJ.has(ĵetonoj[0]) ) {
     eligo.unshift("អ");
   }
@@ -270,8 +235,8 @@ export function ipaAlLingvo(ipaaTeksto: string, lingvaKodo: string): string {
 }
 
 /**
- * Konvertu Gawekiif ( denaska skribo ) rekte al IPA-fonema ĉeno.
- * Spacoj estas silab-apartigiloj en aih-vortoj kaj portas neniun sonon.
+ * បម្លែង Gawekiif ( អក្សរដើម ) ដោយផ្ទាល់ទៅជាខ្សែអក្សរសូរស័ព្ទ IPA។
+ * ចន្លោះគឺជាអ្នកបំបែកព្យាង្គក្នុងពាក្យ aih ហើយមិនផ្ទុកសំឡេងណាមួយឡើយ។
  */
 export function gkAlIpa(gkaTeksto: string): string {
   const densigita = gkaTeksto.replace(/\s+/g, "");
@@ -280,7 +245,7 @@ export function gkAlIpa(gkaTeksto: string): string {
   return avideKongruigi(densigita, ĈIUJ_GK).map(gk => ludo[gk] ?? gk).join("");
 }
 
-// ⟨ Rekta-runa demo 📃 ⟩ — node --experimental-strip-types kantaoj/lingvo/sonaj-reguloj.ts
+// ⟨ គំរូរត់ត្រង់ 📃 ⟩
 if ( ( import.meta as unknown as { main?: boolean } ).main ) {
   const provoj: [ string, string ][] = [
     [ "paq0", "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ" ],

@@ -1,4 +1,4 @@
-// ≺⧼ Purpura fronda teksajxo 🌿 ⧽≻
+// ≺⧼ វាយនភាពស្លឹកស្វាយ 🌿 ⧽≻
 import * as THREE from "three";
 import { ombro } from "../koloroj.js";
 import { kreiPinatanFrondon } from "./filiko.js";

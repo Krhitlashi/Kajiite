@@ -1,4 +1,4 @@
-// ≺⧼ Diorita reliefa teksajxo 🪨 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់ដាយ៉ូរីត 🪨 ⧽≻
 import * as THREE from "three";
 import { dioritaPaletro, generiDioritajnKristalojn } from "./diorito.js";
 import { desegniWrapan, hazard, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";

@@ -1,4 +1,4 @@
-// ≺⧼ Klinga herba teksajxo 🌾 ⧽≻
+// ≺⧼ វាយនភាពស្លឹកស្មៅ 🌾 ⧽≻
 import * as THREE from "three";
 import { kreiHazardanGenerilon } from "../hazardo.js";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";

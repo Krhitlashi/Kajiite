@@ -1,10 +1,6 @@
-// ≺⧼ Tradukoj — la angla 🗣️ ⧽≻
-// La anglaj tekstoj de la tuta interfaco.
-// La vortaro estas nur datumoj — la funkcioj logxas en tradukoj.ts.
+// ≺⧼ ការបកប្រែ , ភាសាអង់គ្លេស 🗣️ ⧽≻
 
 export const EN: Record<string, string> = {
-  // Ĝustaj anglaj tradukoj por ĉiuj UI-ŝnuroj
-  // Fonetaj transskriboj ( de aih ) uzataj nur por kutimaj nomoj ( vesto * )
   "titoloAranis": "Aranis",
   "subtitoloUrbo": "Khiss Lhota • Lhammithai Kayitteh",
   "eniri": "Enter",
@@ -37,16 +33,11 @@ export const EN: Record<string, string> = {
   "regiloKanuo": "WASD to steer",
   "eliri": "Exit",
   "eniriKanuo": "Enter canoe",
-  // Retilo ( multludado ) — tostoj
   "retiloAliĝis": "Someone joined.",
   "retiloForiris": "Someone left.",
-  // Food action labels
   "actGusti": "Taste •",
   "actKuxi": "Lie down",
   "actLevi": "Get up",
-  // Manĝaĵnomoj de la dosiero satalaj-konstruaĵoj.ts
-  // ( derivitaj de la aih-a Gawekiif per la sonaj reguloj )
-  // Gustotekstoj de la dosiero satalaj-konstruaĵoj.ts
   "manĝFok0Flavor": "Lichen bread with duck baozi.",
   "manĝFok1Flavor": "Tsahal vinegar and icefish.",
   "manĝFok2Flavor": "Tsahal vinegar, sea spider, icefish, and shlef.",
@@ -55,42 +46,34 @@ export const EN: Record<string, string> = {
   "manĝTla2Flavor": "Vinegar, birch sap, mint, and bergamot tea.",
   "manĝPuss0": "Shlef Piisu berry",
   "manĝPuss0Flavor": "A cool, watery pop with a faint sweet aftertaste.",
-  // Konstruaĵkartaj etikedoj
-  // Konstruaĵkarta flava teksto
   "flvDomo": "Domo.",
   "flvMangxejo": "Komuna manĝejo.",
   "flvKasafeo": "Kunvenejo.",
   "flvStacioxipo": "Stacio.",
   "flvTuro": "Nubskrapulo.",
   "flvSanktejo": "Centro.",
-  // Card stats
   "statTieroj": "Layers",
   "statDiamanto": "Diamond",
   "statJes": "Yes",
   "statNe": "No",
   "statTipo": "Type",
   "statPozicio": "Position",
-  // WebGL error
   "webglMesagxo": "Your browser does not support WebGL. Update your browser for the full experience.",
   "webglDetalo": "Aranis requires WebGL to run. Please update your browser or check your GPU settings.",
   "webglReprovi": "Retry",
-  // Aria labels
   "ariaButPromeni": "Walk",
   "ariaButBruo": "Background noise",
   "ariaButOrbiti": "Orbit",
   "ariaButLingvo": "Language",
   "ariaSupermetaFermi": "Close",
-  // Information panel ( buildings • food • species )
   "ariaInformButono": "Information",
   "titoloInformo": "Aravopii",
   "subtitoloInformo": "Buildings • Food • Species",
   "tabKonstruajxoj": "Buildings",
   "tabMangxajxoj": "Food",
   "tabSpecioj": "Species",
-  // Wardrobe tabs
   "taboVestoj": "Clothing",
   "taboHararo": "Hair",
-  // La bestoj kaj plantoj de la valo ( el bestoj.ts kaj vegetajxo/ )
   "grupoBesto": "Animal",
   "grupoPlanto": "Plant",
   "specBeroe": "Beroe",
@@ -127,18 +110,13 @@ export const EN: Record<string, string> = {
   "flvSpecCakeo": "Great branch-whorled horsetails at the lakeshore.",
   "specPussxlefo": "Shlef Piisu",
   "flvSpecPussxlefo": "A fern-sized purple lettuce plant with transparent edible berries.",
-  // Aria-labeleto por la krepuska baskulo
   "ariaButKrepusko": "Dusk",
   "ariaDuskRegilo": "Dusk level",
-  // Vetero — la kvar eblaj atmosferoj
   "ariaButVetero": "Weather",
   "veteroNebula": "Foggy",
   "veteroPluva": "Rainy",
   "veteroHajla": "Hail",
   "veteroNega": "Snowy",
-  // ariaTrakoN. Derivitaj ( prefikso + derivita trakonomo )
-  // Canvas alt text
-  // Clothing names
   "vestoVerdant": "Green",
   "vestoHearth": "Brown",
   "vestoMist": "White",
@@ -149,11 +127,9 @@ export const EN: Record<string, string> = {
   "vestoRose": "Pink",
   "vestoObsidian": "Black",
   "vestoCyan": "Cyan",
-  // Hair styles
   "sekcioHararo": "Hair styles",
   "haroMalalta": "Short",
   "haroLonga": "Long",
-  // Hair colors
   "sekcioHarKoloroj": "Hair colors",
   "harKoloroBruna": "Brown",
   "harKoloroNigra": "Black",
@@ -161,6 +137,5 @@ export const EN: Record<string, string> = {
   "harKoloroKaŝtana": "Chestnut",
   "harKoloroBlonda": "Blonde",
   "harKoloroGriza": "Gray",
-  // Konstruaĵnomoj ( en )
   "muziko": "Music",
 };

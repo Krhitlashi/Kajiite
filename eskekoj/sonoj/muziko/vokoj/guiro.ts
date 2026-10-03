@@ -1,5 +1,4 @@
-// ≺⧼ La gvira voĉo 🥁 ⧽≻
-// La gviro — aro da mallongaj bruaj tikoj, lauxvolonte kreskantaj ( guiro ).
+// ≺⧼ សំឡេងហ្គីរ៉ា 🥁 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
 export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number, vel = 1, opts: { cresc?: number } = {}) {

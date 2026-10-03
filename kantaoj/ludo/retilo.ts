@@ -1,67 +1,18 @@
-// ≺⧼ Retilo 🌐 ⧽≻
-// La multludada retilo por Aranis. Konektas al la servila WebSocket ( /retilo ) kaj interŝanĝas poziciojn kun
-// la aliaj ludantoj. La foraj ludantoj aperas kiel figuroj ( la sama modelo
-// kiel la NPC-oj ), kun glata sekvo de iliaj pozicioj kaj marŝaj animacioj.
+// ≺⧼ បណ្តាញ 🌐 ⧽≻
 import * as THREE from "three";
 import { konstruiFiguron, marŝSvingo } from "../../eskekoj/shalaj-specioj/homoj.js";
 import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
 import { VESTOJ, HARSTILOJ, HARKOLOROJ } from "../../eskekoj/vestaro/vestoj.js";
 
-// ⟪ La stata formo 📃 ⟫ — la stato sendata per la retilo. La reala sendo estas
-// malakrigita ( unu sendo ĉiun 0o21/0o100 He );
-// la loka kopio ĝisdatiĝas ĉiukadre por la videbleco-logiko.
+// ⟪ ទម្រង់ស្ថានភាព 📃 ⟫
 export interface LokaStato {
   x: number;
   y: number;
   z: number;
   direkto: number;
-  movo: number;      // 0..1 — mova intenseco ( por la marŝa animacio )
+  movo: number;
   naĝas: boolean;
   surKanuo: boolean;
-  interno: string;   // "" = ekstere; alie la identigilo de la konstruaĵo
-  reĝimo: "walk" | "interior" | "orbit";
-  vesto: number;     // indekso en VESTOJ
-  haro: number;      // indekso en HARSTILOJ
-  harKoloro: number; // indekso en HARKOLOROJ
-}
-
-export interface Retilo {
-  aktiva: boolean;
-  grupo: THREE.Group;
-  // sendi — donu BUILDER-funkcion anstataŭ pre-konstruitan staton: la stato
-  // ( kaj la suba akumuligita por la sendo ) nur konstruiĝas kiam la sendo
-  // vere okazas ( je 0o21/0o100 He ), ne ĉiukadre.
-  sendi: ( konstrui: () => LokaStato ) => void;
-  animacii: ( deltaTempo: number, t: number ) => void;
-  fermi: () => void;
-}
-
-// ⟪ La servilaj pordoj kaj la tempigoj 📃 ⟫ ( vidu servilo/servilo.js ).
-//
-// ⟨ La unuo de tiuj ĉi nombroj 📏 ⟩ — ili estas komparataj kun performance.now(),
-// do ilia koda unuo estas la kruda tiko de la retumilo, ne He. La komentoj
-// donas la saman tempon en He, la tempounuo de CAX2L ( vidu S2WENI/CAX2L.md;
-// 0o723 tikoj por He ), ĉar tiu estas la unuo, en kiu la projekto mezuras
-// tempon.
-const PORD_RETILO = 0o5660;
-const PORD_FALLO = 0o5671;
-// ≈ 0o21/0o100 He inter la realaj sendo-oj ( 0o200 tikoj de performance.now() ).
-const SENDOPAŬZO = 0o200;
-// La rekonekto-provoj — 0o6000 tikoj ≈ 0o63/0o10 He.
-const REKONEKTAŬZO = 0o6000;
-// Glataj sekvoj — la lerp-faktoroj por pozicio/rotacio kaj movo. La sama
-// valoro kiel la fotila glatigo ( 0o10 ) en sperto.ts, por ke la foraj
-// figuroj sekvu sian celon simile al la loka kamerao.
-const SEKVO = 0o10;
-const MOVOSEKVO = 0o10;
-
-interface ForaFiguro {
-  figuro: Figuro;
-  angulo: number;        // celo-direkto
-  x: number; y: number; z: number;  // celaj pozicioj
-  celMovo: number;
-  movo: number;          // nuna movo ( glata transiro )
-  fazo: number;          // marŝa fazo
   interno: string;
   reĝimo: "walk" | "interior" | "orbit";
   vesto: number;
@@ -69,11 +20,37 @@ interface ForaFiguro {
   harKoloro: number;
 }
 
-// kreiRetilon — Konektu al la retilo kaj redonu la kontrolon.
-//     @param sceno ( THREE.Scene ) - La sceno por la foraj figuroj.
-//     @param jeTost ( funkcio ) - Montru toston ( aliĝo/foriro ).
-//     @param traduki ( funkcio ) - Traduku la tosto-klavojn.
-//     @returns retilo ( Retilo ) - La retila kontrolo.
+export interface Retilo {
+  aktiva: boolean;
+  grupo: THREE.Group;
+  sendi: ( konstrui: () => LokaStato ) => void;
+  animacii: ( deltaTempo: number, t: number ) => void;
+  fermi: () => void;
+}
+
+// ⟪ ច្រកម៉ាស៊ីនមេ និងការកំណត់ពេល 📃 ⟫
+// ⟨ ឯកតានៃលេខទាំងនេះ 📏 ⟩
+const PORD_RETILO = 0o5660;
+const PORD_FALLO = 0o5671;
+const SENDOPAŬZO = 0o200;
+const REKONEKTAŬZO = 0o6000;
+const SEKVO = 0o10;
+const MOVOSEKVO = 0o10;
+
+interface ForaFiguro {
+  figuro: Figuro;
+  angulo: number;
+  x: number; y: number; z: number;
+  celMovo: number;
+  movo: number;
+  fazo: number;
+  interno: string;
+  reĝimo: "walk" | "interior" | "orbit";
+  vesto: number;
+  haro: number;
+  harKoloro: number;
+}
+
 export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => void, traduki: ( klavo: string ) => string): Retilo {
   const grupo = new THREE.Group();
   grupo.name = "retilo";
@@ -82,21 +59,13 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
   let so: WebSocket | null = null;
   let aktiva = false;
   let fermita = false;
-  let lastaSukcesa = "";          // la lasta sukcesa URL — provu ĝin unue
+  let lastaSukcesa = "";
   let provoIndekso = 0;
   let lastaStato: LokaStato | null = null;
   let lastaSendoTempo = 0;
   let rekonektaTempilo: ReturnType<typeof setTimeout> | null = null;
   const foraj = new Map<string, ForaFiguro>();
 
-  // retilaURLoj — La kandidataj retilaj URL-oj, en ordo de prefero.
-  //   1. Eksplicita agordo ( ?retilo=wss://... aŭ window.RETILO_SERVILO ).
-  //   2. La lasta sukcesa URL ( por rekonektoj ).
-  //   3. Sur loka gastiganto. la nuna paĝo-pordo, poste la servilaj pordoj.
-  //   4. Sur fora gastiganto ( ekz. Vercel ). la sama domajno per wss/ws, se oni
-  //      starigas reverse-proxy al la retilo-servilo.
-  // La protokolo sekvas la paĝon ( https → wss, http → ws ) por eviti miksitan
-  // enhavon — necesa kiam la paĝo estas servata de sekura gastiganto.
   function retilaURLoj(): string[] {
     const ujoj: string[] = [];
     const parametro = new URLSearchParams(location.search).get("retilo");
@@ -129,7 +98,6 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     }, REKONEKTAŬZO);
   }
 
-  // konekti — Provu la pordojn sinsekve ( la unua sukceso gajnas ).
   function konekti(): void {
     if ( fermita ) return;
     const listo = retilaURLoj();
@@ -166,7 +134,6 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     };
   }
 
-  // traktiMesagxon — Ricevu la mesaĝojn de la servilo ( stato / foriris ).
   function traktiMesagxon(teksto: string): void {
     let mesagxo: Record<string, any>;
     try { mesagxo = JSON.parse(teksto); } catch { return; }
@@ -187,17 +154,12 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     return g === "i" ? "interior" : g === "o" ? "orbit" : "walk";
   }
 
-  // finiaj — Ĉu la numera kampo de la mesaĝo estas uzebla? Infinity kaj NaN
-  // venas tra JSON.parse ( 1e999 → Infinity ) kaj havas typeof "number" —
-  // sen ĉi tiu defendo ili envenas en la lerp de animacii kaj venenigas la
-  // matricojn de la fora figuro por ĉiam.
   function finiaj(m: Record<string, any>): boolean {
     return Number.isFinite(m.x) && Number.isFinite(m.y) && Number.isFinite(m.z)
       && ( m.r === undefined || Number.isFinite(m.r) )
       && ( m.m === undefined || Number.isFinite(m.m) );
   }
 
-  // riceviStaton — Ĝisdatigu ( aŭ kreu ) la figuro de fora ludanto.
   function riceviStaton(m: Record<string, any>): void {
     if ( !finiaj(m) ) return;
     let f = foraj.get(m.id);
@@ -223,7 +185,6 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       grupo.add(figuro.group);
       jeTost(traduki("retiloAliĝis"));
     } else {
-      // La aspekto ŝanĝiĝas nur kiam ĝi vere ŝanĝiĝis ( la teksturoj estas koste re-generitaj ).
       if ( f.vesto !== m.v ) {
         f.vesto = m.v;
         f.figuro.agordiVeston(VESTOJ[m.v % VESTOJ.length] || VESTOJ[0]);
@@ -244,9 +205,6 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     f.reĝimo = legiRezimon(m.g);
   }
 
-  // sendi — Konservu la lokan staton ĉiukadre; sendu ĝin ĉiun 0o21/0o100 He.
-  // La konstrui-funkcio VOKIĜAS nur ĉe la realaj sendo-oj — neniu per-kadra
-  // stato-objekto asigniĝas kiam la reto estas malŝaltita aŭ inter la sendo-oj.
   function sendi(konstrui: () => LokaStato): void {
     if ( !aktiva || !so ) { lastaStato = null; return; }
     const nun = performance.now();
@@ -254,7 +212,6 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     lastaSendoTempo = nun;
     const stato = konstrui();
     lastaStato = stato;
-    // Duobla rondigo al 1/64 ( 0o100 ) — sufiĉa precizeco, malpli da bitokoj.
     const q = ( v: number ) => Math.round(v * 0o100) / 0o100;
     const pakajxo = JSON.stringify({
       t: "stato",
@@ -272,9 +229,6 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     so.send(pakajxo);
   }
 
-  // animacii — Glate sekvu la forajn figurojn kaj animaciu ilin ĉiukadre.
-  // Videblo. nur samlokaj ludantoj ( same ekstere aŭ en la SAMA interno );
-  // orbitantoj ( spektantoj ) neniam aperas kiel figuroj.
   function animacii(deltaTempo: number, t: number): void {
     const nia = lastaStato;
     for ( const f of foraj.values() ) {
@@ -283,22 +237,15 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       g.position.x += ( f.x - g.position.x ) * k;
       g.position.y += ( f.y - g.position.y ) * k;
       g.position.z += ( f.z - g.position.z ) * k;
-      // Rotacio — la plej mallonga arko ( la figuro-turno egalas la lokan konvertiĝon ).
       const celR = Math.atan2(-Math.sin(f.angulo), -Math.cos(f.angulo));
       let deltaR = ( ( celR - g.rotation.y + Math.PI ) % ( Math.PI * 2 ) + Math.PI * 2 ) % ( Math.PI * 2 ) - Math.PI;
       g.rotation.y += deltaR * k;
-      // Mova transiro kaj marŝa animacio ( la sama ritmo kiel la NPC-oj ).
       f.movo += ( f.celMovo - f.movo ) * Math.min(1, deltaTempo * MOVOSEKVO);
       const movo = f.movo;
       if ( movo > 0o1/0o100 ) {
         f.fazo += deltaTempo * 0o4 * movo;
-        // marŝSvingo ricevas la FAZON, ne ĝian sinuson — la malfruo de la ŝtofo
-        // bezonas la kosenon ( vidu homoj.ts ).
         marŝSvingo(f.figuro, f.fazo, movo, deltaTempo);
       } else {
-        // Stara idla balancado — unue la komuna ritmo nuliĝas ( ankaŭ la tuko kaj
-        // la kapo, kiuj alie restus en sia lasta marŝa pozicio ), poste la idla
-        // balancado aldoniĝas al la brakoj.
         marŝSvingo(f.figuro, f.fazo, 0, deltaTempo);
         const idla = Math.sin(t * 0o7 + f.fazo) * 0o2/0o100;
         f.figuro.brakoj[0].rotation.x = idla;
@@ -319,7 +266,5 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
 
   konekti();
 
-  // La getter tenas `aktiva` VIVA — la fermita variablo sxangxigxas dum la
-  // konektoj, kaj la return-objekto montru la nunan staton, ne la komencan.
   return { get aktiva() { return aktiva; }, grupo, sendi, animacii, fermi };
 }

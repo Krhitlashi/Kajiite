@@ -1,18 +1,7 @@
-// ≺⧼ Menuo 🎛 ⧽≻
-// La navigada pop-upo kaj gxia enhavo — la sona butono, la brua butono, la
-// traka selektilo, la krepuska regilo kaj la vetera ciklo. Ĉio ĉi estas pura
-// fasado super la sonaj kaj la scenaj moduloj; la modulo POSEDAS la krepuskan
-// valoron kaj la veteran indekson, kaj la orkestrilo nur donas al gxi la
-// elementojn kaj la agojn de la paneloj.
-//
-// La sono kaj la bruo jam vivas en eskekoj/sonoj/sonoro.js ( plus la muzika
-// ludilo ) — la pop-upo nur butonumas ilin. Same la krepusko kaj la vetero
-// apartenas al kantaoj/bildo/scena.ts ( aplikiRezimon / aplikiVeteron ).
+// ≺⧼ ម៉ឺនុយ 🎛 ⧽≻
 import { realaKrepusko } from "../ludo/kalendaro.js";
 import type { Vetero } from "../bildo/scena/tipoj.js";
 
-// MenuajOpcioj — la elementoj sur kiuj la menuo auxskultas, plus la agoj de la
-// orkestrilo ( la panelaj fermoj ) kaj la sonaj kaj scenaj pordegoj.
 export interface MenuajOpcioj {
   navPopUp: HTMLElement;
   navButono: HTMLElement;
@@ -46,8 +35,6 @@ export interface MenuajOpcioj {
   };
 }
 
-// Menuo — nur la pop-upa fermo elportas ( la vestejo kaj la panelaj klakoj
-// fermas la pop-upon post la propra ago ).
 export interface Menuo {
   fermiNaviganPopUp: () => void;
 }
@@ -60,16 +47,12 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     sonoro, muziko,
   } = opcioj;
 
-  // ⟪ Navigada pop-up 📃 ⟫
-  // La butono mem estas la fermilo. 二 fermita · 川 malfermita ( kaj la glifo
-  // sekvas la staton ).
+  // ⟪ ផ្ទាំងរុករក 📃 ⟫
   function gxisdatigiNavButonon() {
     navButono.textContent = navPopUp.classList.contains("montri") ? "川" : "二";
     navButono.setAttribute("aria-pressed", String(navPopUp.classList.contains("montri")));
   }
   function sxaltiNaviganPopUp() {
-    // Sub plenekrana panelo la pop-up kaŝiĝus malantaŭ ĝi ( ambaŭ z-6 ) —
-    // la menu-butono anstataŭe fermas la malfermitan panelon.
     if ( vestaro.classList.contains("montri") ) { fermiVestaron(); return; }
     if ( informo.classList.contains("montri") ) { fermiInformon(); return; }
     navPopUp.classList.toggle("montri");
@@ -84,7 +67,7 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     if ( e.target === navPopUp ) fermiNaviganPopUp();
   });
 
-  // ⟪ Aŭtomata komenco je unua tuŝo aŭ klako 📃 ⟫
+  // ⟪ ការចាប់ផ្តើមស្វ័យប្រវត្តិពេលប៉ះ ឬចុចដំបូង 📃 ⟫
   function gxisdatigiSonoranButonon(aktiva: boolean) {
     butSonoro.setAttribute("aria-pressed", String(aktiva));
     butSonoro.textContent = aktiva ? "♫" : "♬";
@@ -93,14 +76,14 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   sonoro.registriPostAŭdio(gxisdatigiSonoranButonon);
   document.addEventListener("pointerdown", () => sonoro.autoKomenci(), { once: true });
 
-  // ⟪ Sonora butono 📃 ⟫
+  // ⟪ ប៊ូតុងសំឡេង 📃 ⟫
   butSonoro.addEventListener("click", () => {
     const aktiva = sonoro.sxaltiAŭdion();
     gxisdatigiSonoranButonon(aktiva);
     fermiNaviganPopUp();
   });
 
-  // ⟪ Brua butono ( fona bruo aparta de la muziko ) 📃 ⟫
+  // ⟪ ប៊ូតុងសំឡេងរំខាន ( សំឡេងផ្ទៃខាងក្រោយដោយឡែកពីតន្ត្រី ) 📃 ⟫
   function gxisdatigiBruanButonon() {
     const aktiva = sonoro.cxuBruo();
     butBruo.setAttribute("aria-pressed", String(aktiva));
@@ -113,7 +96,7 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   });
   gxisdatigiBruanButonon();
 
-  // ⟪ Traka selektilo 📃 ⟫
+  // ⟪ អ្នកជ្រើសត្រាក 📃 ⟫
   function gxisdatigiTrakoButonojn() {
     const nuna = muziko.nunaTrako();
     document.querySelectorAll(".trakaBut").forEach(b => {
@@ -126,17 +109,13 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
       const i = parseInt(( b as HTMLElement ).dataset.trako || "0");
       const estisLudanta = muziko.cxuLudas();
       muziko.sxargiTrako(i);
-      // Ŝargado haltigas la malnovan buson; restartu ĉiufoje kiam la aŭdiosistemo
-      // estas ŝaltita.
       if ( estisLudanta || sonoro.cxuAŭdio() ) muziko.ludi();
       gxisdatigiTrakoButonojn();
     });
   });
 
-  // ⟪ Krepuska reĝimo 📃 ⟫
+  // ⟪ របៀបព្រលប់ 📃 ⟫
   let krepuskaValoro = Math.round(realaKrepusko() * 0o100) / 0o100;
-  // La regilo kaj la butono montru la saman valoron kiel la ĉielo — la ludo
-  // komenciĝas kun la reala taglumo, kaj la unua tuŝo de la regilo transprenas.
   duskRegilo.value = String(krepuskaValoro);
   butKrepusko.textContent = krepuskaValoro > 0o4/0o10 ? "☀" : "☽";
   butKrepusko.setAttribute("aria-pressed", String(krepuskaValoro > 0o4/0o10));
@@ -161,10 +140,7 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     aplikiRezimon(krepuskaValoro);
   });
 
-  // ⟪ Vetero ( nebula · pluva · hajla · nega ) 📃 ⟫
-  // Cikla butono apud la krepuska regilo — ĉiu klako ŝanĝas al la sekva vetero.
-  // La pluva, la hajla kaj la neĝa vetero ŝaltas la precipitan partiklan
-  // sistemon kaj ŝanĝas la atmosferon ( ĉielo, lumoj, nebulo ) en scena.ts.
+  // ⟪ អាកាសធាតុ ( អ័ព្ទ · ភ្លៀង · ព្រឹល · ព្រិល ) 📃 ⟫
   const VETERAJ: { kodo: Vetero; glifo: string; klavo: string }[] = [
     { kodo: "nebula", glifo: "☁", klavo: "veteroNebula" },
     { kodo: "pluva", glifo: "☂", klavo: "veteroPluva" },
@@ -177,7 +153,6 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     butVetero.textContent = v.glifo;
     butVetero.setAttribute("aria-label", traduki(v.klavo));
     veteroEtikedo.textContent = traduki(v.klavo);
-    // La nova etikedo ( aih ) bezonas la vacepu-vortojn.
     aplikiVacepu();
     aplikiVeteron(v.kodo);
   }
@@ -186,7 +161,6 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     gxisdatigiVeteranButonon();
     fermiNaviganPopUp();
   });
-  // Kiam la lingvo ŝanĝiĝas, la vetera etikedo refreŝiĝu ( la vetero mem restas ).
   window.addEventListener("lingvosxangxo", gxisdatigiVeteranButonon);
   gxisdatigiVeteranButonon();
 

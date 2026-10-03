@@ -1,19 +1,6 @@
-// ≺⧼ Mnemiopsis 🪼 ⧽≻
-// La loba ktenoforo de la rivero ( marmukso ). Preskaŭ same larĝa
-// kiel longa, travidela ĝelo kun LARĜA buŝa aperturo, DU grandaj buŝaj loboj
-// ( la plej karakteriza trajto de la lobaj kombuloj ) kaj kvar etaj aŭrikloj.
-//
-// ⟨ Kio estis rompita 📃 ⟩ — la du loboj estis premaj sferoj ĉe x = ±0.14, dum
-// la korpo estas 0.61 duon-larĝa tie: la loboj do sidis INTERNE de la korpo
-// kaj oni vidis ilin nur kiel nebulan makulon tra la ĝelo. Nun ili estas
-// ELTRUDITAJ PLATOJ pendigitaj de la buŝa rando, kun la onda libera rando de
-// vera Mnemiopsis, kaj ili sekvas la pulson de la korpo ( surfacxaParto ), do
-// la membrano ne malgluiĝas de la ĝelo.
-//
-// ⟨ La malgrandaj tentakloj 📃 ⟩ — plenkreskula Mnemiopsis NE havas la du
-// longajn tentaklojn de la cidipidaj kombuloj: ili restas kaŝitaj en la ingoj.
-// La modelo do havas du mallongajn, maldikajn tentaklojn apud la buŝo ( ili
-// ankaŭ portas la animacion de la palpoj, kiuj svingiĝas ).
+// ≺⧼ មនេមីអុបស៊ីស 🪼 ⧽≻
+// ⟨ អ្វីដែលបានបែក 📃 ⟩
+// ⟨ តង់តាក់តូច 📃 ⟩
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Besto, SpecoMalneto } from "./speco-tipoj.js";
@@ -22,31 +9,24 @@ import { aldoniKombovicojn, aplikiKtenoforanPulson, gluuSurfacxon, kreiKombilanM
   surfacxaParto } from "./ktenofora-komunajxoj.js";
 import { kreiGelanTeksajxon } from "../komunajxoj/teksajxoj/ktenofora-gelo.js";
 
-// La korpa profilo ( r, y ) de la buŝa poluso ĝis la aborala. Mnemiopsis estas
-// larĝa, ronda ĝelo — la buŝa aperturo mem estas larĝa ( 0.30 ), ĉar la du
-// loboj estas fakte la du duonoj de la buŝa surfaco.
 const PROFILO: [ number, number ][] = [
-  [ 0o23/0o100, -0o50/0o100 ],   // 0.30, -0.625 — la larĝa buŝa aperturo
-  [ 0o35/0o100, -0o43/0o100 ],   // 0.45, -0.55
-  [ 0o43/0o100, -0o33/0o100 ],   // 0.55, -0.42
-  [ 0o46/0o100, -0o20/0o100 ],   // 0.59, -0.25
-  [ 0o47/0o100, -0o3/0o100 ],    // 0.61, -0.05
-  [ 0o45/0o100, 0o20/0o100 ],    // 0.58, 0.25
-  [ 0o37/0o100, 0o33/0o100 ],    // 0.48, 0.42
-  [ 0o27/0o100, 0o43/0o100 ],    // 0.36, 0.55
-  [ 0o15/0o100, 0o47/0o100 ],    // 0.20, 0.61
-  [ 0o5/0o100, 0o50/0o100 ],     // la aborala poluso
+  [ 0o23/0o100, -0o50/0o100 ],
+  [ 0o35/0o100, -0o43/0o100 ],
+  [ 0o43/0o100, -0o33/0o100 ],
+  [ 0o46/0o100, -0o20/0o100 ],
+  [ 0o47/0o100, -0o3/0o100 ],
+  [ 0o45/0o100, 0o20/0o100 ],
+  [ 0o37/0o100, 0o33/0o100 ],
+  [ 0o27/0o100, 0o43/0o100 ],
+  [ 0o15/0o100, 0o47/0o100 ],
+  [ 0o5/0o100, 0o50/0o100 ],
 ];
 
-// kreiLobon — La formo de UNU buŝa lobo: ronda ventumilo, kiu pendas malsupren
-// kaj eksteren, kun ONDA libera rando ( tri malgrandaj lobetoj ), kiel ĉe vera
-// Mnemiopsis. La formo estas eltrudata al maldika plato.
 function kreiLobon(): THREE.ExtrudeGeometry {
   const formo = new THREE.Shape();
   formo.moveTo(0, 0);
   formo.quadraticCurveTo(0o34/0o100, -0o5/0o100, 0o30/0o100, -0o34/0o100);
   formo.quadraticCurveTo(0o24/0o100, -0o52/0o100, 0o12/0o100, -0o56/0o100);
-  // La onda libera rando — la tri lobetoj de la buŝa lobo.
   formo.quadraticCurveTo(0o5/0o100, -0o44/0o100, -0o2/0o100, -0o50/0o100);
   formo.quadraticCurveTo(-0o10/0o100, -0o40/0o100, -0o12/0o100, -0o46/0o100);
   formo.quadraticCurveTo(-0o16/0o100, -0o30/0o100, -0o10/0o100, -0o10/0o100);
@@ -70,8 +50,6 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
     roughness: 0o1/0o4, emissive: 0x285878, emissiveIntensity: 0o3/0o10,
     side: THREE.DoubleSide,
   });
-  // La gutkanalo — la stomako videbla tra la ĝelo, de la buŝo ĝis la aborala
-  // organo. Ĝi staras sur la akso, do la radia pulso ne movas ĝin.
   const stomako = new THREE.Mesh(
     new THREE.CylinderGeometry(0o24/0o1000, 0o74/0o1000, 0o1, 0o10),
     new THREE.MeshPhysicalMaterial({
@@ -85,11 +63,9 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   grupo.add(stomako);
 
   const lobaFormo = kreiLobon();
-  const buŝaY = -0o46/0o100 + 0o2/0o100;   // -0.594 — ĝuste super la buŝa rando
+  const buŝaY = -0o46/0o100 + 0o2/0o100;
   for ( const s of [ 0o1, -0o1 ] ) {
-    // ⟨ La buŝaj loboj 📃 ⟩ — DU grandaj plataj loboj, pendigitaj de la buŝa
-    // rando kaj turnitaj eksteren. Ili estas la plej videbla parto de la besto:
-    // antaŭe ili estis sferoj entombigitaj en la korpo.
+    // ⟨ បបូរមាត់ 📃 ⟩
     const lobo = new THREE.Mesh(lobaFormo, lobaMaterialo);
     lobo.name = "lobo";
     lobo.position.set(s * 0o24/0o100, buŝaY, 0);
@@ -98,8 +74,6 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
     lobo.userData.flanko = s;
     surfacxaParto(lobo);
     grupo.add(lobo);
-    // Kvar etaj aŭrikloj — la dua paro da lobetoj, pli malgrandaj kaj
-    // turnitaj antaŭen/malantaŭen, kiel ĉe vera Mnemiopsis.
     for ( const t of [ 0o1, -0o1 ] ) {
       const auriklo = new THREE.Mesh(lobaFormo, lobaMaterialo);
       auriklo.name = "lobo";
@@ -110,8 +84,7 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
       surfacxaParto(auriklo);
       grupo.add(auriklo);
     }
-    // ⟨ La reduktitaj tentakloj 📃 ⟩ — mallongaj kaj maldikaj, kun la flankaj
-    // tentiloj ( la gluaĵaj haroj ). Ili sidas apud la buŝo kaj svingiĝas.
+    // ⟨ តង់តាក់កាត់បន្ថយ 📃 ⟩
     const punktoj: THREE.Vector3[] = [];
     for ( let i = 0; i <= 0o10; i++ ) {
       const u = i / 0o10;
@@ -136,7 +109,6 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
     grupo.add(palpo);
   }
 
-  // La statocisto — la aborala sensorgano, sur la pinto de la korpo.
   const statocisto = new THREE.Mesh(
     new THREE.SphereGeometry(0o4/0o100, 0o10, 0o6).scale(0o1, 0o6/0o10, 0o1),
     new THREE.MeshPhysicalMaterial({
@@ -148,23 +120,18 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   surfacxaParto(statocisto);
   grupo.add(statocisto);
 
-  // Mnemiopsis — la malgranda rabemulo: multaj rapidaj, malfortaj pulsoj.
   return { malneto: grupo, platigxo: new THREE.Vector3(0o1, 0o1, 0o1),
     supro: 0o40/0o100, speco: "mnemiopsis",
     pulsaRapido: 0o34/0o10, pulsaForto: 0o1/0o20, pulsaOndo: 0o1/0o20,
     plata: 0o6/0o10 };
 }
 
-// gxisdatigiMnemiopsan — La buŝaj loboj malfermiĝas kaj fermiĝas ( tiel la
-// besto englutas planktonon ), la malgrandaj tentakloj treniĝas malantaŭen, kaj
-// ĉiuj partoj sur la korpa surfaco sekvas la pulson.
 export function gxisdatigiMnemiopsan(b: Besto, t: number): void {
   const pulso = aplikiKtenoforanPulson(b, t);
   const fazo = ktenoforaPulsaFazo(b, t);
   let i = 0;
   for ( const parto of b.animajxoj ) {
     if ( parto.name === "lobo" ) {
-      // La loboj malfermiĝas kaj fermiĝas — la buŝa membrano de la besto.
       const malfermo = 0o1 + Math.max(0, Math.sin(fazo + i * 0o5/0o10)) * 0o12/0o100;
       gluuSurfacxon(parto, pulso, { x: 1 + ( malfermo - 1 ) * 0o4/0o5,
         y: malfermo, z: 1 + ( malfermo - 1 ) * 0o4/0o5 });

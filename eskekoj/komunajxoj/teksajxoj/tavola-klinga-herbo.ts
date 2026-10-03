@@ -1,4 +1,4 @@
-// ≺⧼ Tavola klinga herba teksajxo 🌾 ⧽≻
+// ≺⧼ វាយនភាពស្មៅស្រទាប់ 🌾 ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

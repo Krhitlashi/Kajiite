@@ -1,29 +1,17 @@
-// ≺⧼ La musko-montetoj 🍀 ⧽≻
-// La mola, floka musko-monteto ( konstruiFlokanMuskanGeometrion ) kaj la
-// dismetado de la musketoj proksime al la arboj ( konstruiMusxajnMontetojn ).
-// La subkreskajxaj tavoloj ( subkreskajxoj.ts ) uzas la saman montetan
-// geometrion.
+// ≺⧼ ពំនូកស្លែ 🍀 ⧽≻
 import * as THREE from "three";
 import { kreiMuskanTeksajxon } from "../../komunajxoj/teksajxoj/musko.js";
 import { kunfandiGeometriojnSenIndekson } from "../../komunajxoj/kunfandajxoj.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { PunktaHasho, punktoLibera, type ArboMetado } from "./metado.js";
 
-// konstruiFlokanMuskanGeometrion — Konstruu molan, flokan musko-monton.
-// NENIU pli malalta platformo — la fadenoj mem formas la tutan monteton.
-// Pli multaj fadenoj ol antaŭe ( 0o240 = 160 anstataŭ 0o34 = 28 ), kun
-// monteta profilo ( pli longaj meze, pli mallongaj ĉe la rando ), por ke la
-// silueto restu kupola sen la glata baza kuseno kaj la denseco restu muskaj
-// anstataŭ aspekti kiel altaj herberoj.
 export function konstruiFlokanMuskanGeometrion(): THREE.BufferGeometry {
   const partoj: THREE.BufferGeometry[] = [];
-  const R = 0o7/0o10;   // monteta radiuso
+  const R = 0o7/0o10;
   const fadenoj = 0o230;
   for ( let i = 0; i < fadenoj; i++ ) {
     const a = Math.random() * Math.PI * 2;
     const r = Math.sqrt(Math.random()) * R;
-    // Monteta profilo — la fadenoj mallongiĝas al la rando, do sen la
-    // platformo la monteto restas kupola kaj ne iĝas plata broso.
     const profilo = 1 - r / R;
     const alto = ( 0o4/0o10 + Math.random() * 0o4/0o10 ) * ( 0o3/0o10 + 0o7/0o10 * profilo );
     const largho = 0o2/0o100 + Math.random() * 0o4/0o100;
@@ -38,7 +26,6 @@ export function konstruiFlokanMuskanGeometrion(): THREE.BufferGeometry {
   return kunfandiGeometriojnSenIndekson(partoj);
 }
 
-// konstruiMusxajnMontetojn — Metu musko montetojn proksime al arboj.
 export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
   kvanto: number,
   heightFn: ( x: number, z: number ) => number,
@@ -83,7 +70,6 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
     if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) ) continue;
     if ( excludeBuildings && excludeBuildings(x, z, 0o1) ) continue;
     if ( Math.hypot(x, z) < 0o20 ) continue;
-    // Eta interspaco — la musko montetoj restu apartaj, ne kunfanditaj.
     if ( !punktoLibera(metitajHasho, x, z, 0o2) ) continue;
 
     const skalo = 0o3/0o10 + hazardaGenerilo() * 0o5/0o10;
@@ -107,8 +93,6 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
     E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
     yawQ.setFromEuler(E);
     Q.multiply(yawQ);
-    // Sen la pli malalta platformo la fadenaj bazoj estas ĉe y = 0 — metu
-    // la monteton ĝuste sur la teron anstataŭ la malnova kusena ofseto.
     M.compose(new THREE.Vector3(x, y + 0o1/0o40, z), Q,
       new THREE.Vector3(skalo, skalo * 0o5/0o10, skalo));
     muskoj.setMatrixAt(mi++, M);

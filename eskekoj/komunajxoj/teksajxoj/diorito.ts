@@ -1,4 +1,4 @@
-// ≺⧼ Diorita teksajxo 🪨 ⧽≻
+// ≺⧼ វាយនភាពដាយ៉ូរីត 🪨 ⧽≻
 import * as THREE from "three";
 import { desegniWrapajnNubojn, desegniWrapan, hazard, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

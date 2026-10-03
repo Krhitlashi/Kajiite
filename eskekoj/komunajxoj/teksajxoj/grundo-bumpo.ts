@@ -1,4 +1,4 @@
-// ≺⧼ Grunda reliefa teksajxo 🟫 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់ដី 🟫 ⧽≻
 import * as THREE from "three";
 import { GRUNDA_RIPETO, GRUNDA_S, kreiGrundanKanvason } from "./grundo.js";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";

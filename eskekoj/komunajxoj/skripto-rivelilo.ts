@@ -1,10 +1,7 @@
-// ≺⧼ Skripta rivelilo 🔣 ⧽≻
-// Vertikala skribsistemo el octaveil-city
-// Uzas kurbajn vertikalajn liniojn ( vl ) kaj horizontalajn konektilojn ( hk ) kun
-// "plena bloko" kaj "maldekstre duono plena, dekstre nur supre" modeloj laux Description.md
+// ≺⧼ ឧបករណ៍បង្ហាញស្គ្រីប 🔣 ⧽≻
 import * as THREE from "three";
 
-// ⟪ La determinisma hazardo 📃 ⟫ — LCG por konsekvenca glifo-generado
+// ⟪ ចៃដន្យកំណត់បាន 📃 ⟫
 let _seed = 0x752;
 function hazardo(): number {
   _seed = ( _seed * 0x1663 + 0x1015 ) % 0x100000;
@@ -17,7 +14,6 @@ function hashiStringo(s: string): number {
   return h >>> 0;
 }
 
-// Nesimetra rondigita rektangulo ( 0o40px 0o20px 0o40px 0o20px motivo )
 function nesimetraRecto(kunteksto: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number,
   r: [ number, number, number, number ]
@@ -32,7 +28,7 @@ function nesimetraRecto(kunteksto: CanvasRenderingContext2D,
   kunteksto.closePath();
 }
 
-// ⟪ La glifa bloko 📃 ⟫ — Octaveil-stila bloko. kurbaj vertikalaj linioj + horizontalaj konektiloj
+// ⟪ ប្លុកអក្សរ 📃 ⟫
 function glifaBloko(kunteksto: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number,
   ink: string
@@ -43,7 +39,6 @@ function glifaBloko(kunteksto: CanvasRenderingContext2D,
   kunteksto.lineJoin = "round";
   kunteksto.lineWidth = w * 0o3/0o40;
 
-  // Vertikala linia helpilo — desegnas de malsupre al supre kun laŭvola kurbo
   const vl = ( fortoX: number, y0: number, y1: number, bend: number ): void => {
     kunteksto.beginPath();
     kunteksto.moveTo(x + w * fortoX, y + h * y0);
@@ -54,7 +49,6 @@ function glifaBloko(kunteksto: CanvasRenderingContext2D,
     kunteksto.stroke();
   };
 
-  // Horizontala konektilo
   const hk = ( x0: number, x1: number, fY: number, dip: number ): void => {
     kunteksto.beginPath();
     kunteksto.moveTo(x + w * x0, y + h * fY);
@@ -66,7 +60,6 @@ function glifaBloko(kunteksto: CanvasRenderingContext2D,
   };
 
   if ( hazardo() < 0o4/0o10 ) {
-    // Plena bloka modelo
     const n = 2 + ( ( hazardo() * 2 ) | 0 );
     for ( let i = 0; i < n; i++ ) {
       vl(0o15/0o100 + i * 0o23/0o40 / Math.max(1, n - 1),
@@ -74,7 +67,7 @@ function glifaBloko(kunteksto: CanvasRenderingContext2D,
         ( hazardo() - 0o15/0o40 ) * 0o15/0o40);
     }
     if ( hazardo() < 0o4/0o10 ) hk(0o1/0o10, 0o55/0o100, 0o5/0o40 + hazardo() * 0o3/0o40, 0o23/0o100);
-  } else {    // Maldekstre duono plena, dekstre nur supre ( laŭ Description.md )
+  } else {
     vl(0o11/0o100, 0o3/0o40, 0o27/0o40, ( hazardo() - 0o15/0o40 ) * 0o23/0o100);
     vl(0o5/0o20, 0o11/0o100, 0o55/0o100, ( hazardo() - 0o15/0o40 ) * 0o23/0o100);
     vl(0o23/0o40, 0o3/0o40, 0o15/0o40, ( hazardo() - 0o15/0o40 ) * 0o15/0o100);
@@ -84,7 +77,7 @@ function glifaBloko(kunteksto: CanvasRenderingContext2D,
   kunteksto.restore();
 }
 
-// ⟨ La skripta panelo 📃 ⟩ — desegnu ĝin malsupre al supre
+// ⟨ ផ្ទាំងស្គ្រីប 📃 ⟩
 function desegniSkripto(kunteksto: CanvasRenderingContext2D,
   W: number, H: number,
   ink: string, frame: string | null
@@ -104,7 +97,7 @@ function desegniSkripto(kunteksto: CanvasRenderingContext2D,
   const interspaco = blokoAlto * 0o5/0o40;
   const n = Math.max(2, Math.floor(( H * 0o55/0o100 ) / ( blokoAlto + interspaco )));
 
-  let y = H * 0o57/0o100 - blokoAlto; // Unua glifo sidas malalte, legado supreniras
+  let y = H * 0o57/0o100 - blokoAlto;
   for ( let b = 0; b < n; b++ ) {
     const cX = W / 2 + ( hazardo() - 0o15/0o40 ) * W * 0o3/0o40;
     glifaBloko(kunteksto, cX - blokoLargho / 2, y, blokoLargho, blokoAlto, ink);
@@ -119,11 +112,8 @@ export interface SkriptajOpcioj {
   bg?: string;
 }
 
-// generiSkriptanKanvason — Generu script-skriban kanvason kun determinismaj glifoj.
-//     @param opts ( SkriptajOpcioj ) - Opcioj por largho, alto, inko, koloroj, semo.
 export function generiSkriptanKanvason(opts: SkriptajOpcioj = {}): HTMLCanvasElement {
   const o = { w: 0o300, h: 0o460, ink: "#183828", frame: "#c8a058" as string | null, seedName: "", bg: "" as string | undefined, ...opts };
-  // Semu la RNG-on por determinisma eligo
   if ( o.seedName ) {
     _seed = ( hashiStringo(o.seedName) % 0xFFFF0 ) | 1;
   }
@@ -137,19 +127,13 @@ export function generiSkriptanKanvason(opts: SkriptajOpcioj = {}): HTMLCanvasEle
   return kanvasa;
 }
 
-// generiSkriptanURL — Generu data URL de script-skriba kanvaso.
-//     @param opts ( SkriptajOpcioj ) - Opcioj por la generado.
 export function generiSkriptanURL(opts: SkriptajOpcioj = {}): string {
   return generiSkriptanKanvason(opts).toDataURL();
 }
 
-// ⟪ La Gawekiif-tiparo 📃 ⟫ — la tiparo estas ŝarĝita per la ekstera krhitlashi-stylesheet
-// ( @font-face familio j͑ʃꞇȝ ), kune kun ĝiaj rezervaj familioj.
+// ⟪ ប្រភេទ Gawekiif 📃 ⟫
 const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
 
-// generiSkribanTeksajxon — Generu texturon kun REALA Gawekiif-teksto.
-// Skribita suben-supren, rompita je spacoj ( unua vorto malsupre, sekvaj supren ).
-// Reuzebla por la strat-signoj kaj la internaj platoj.
 export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}): THREE.CanvasTexture {
   const vortoj = teksto.split(/\s+/).filter(Boolean);
   const kanvasa = document.createElement("canvas");
@@ -167,9 +151,6 @@ export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}
     kunteksto.textAlign = "center";
     kunteksto.textBaseline = "middle";
     kunteksto.fillStyle = opts.ink || "#d8b068";
-    // Mezuru ĉe referenca grando ( 100px ) — tekstaj larĝoj skaliĝas lineare, do la
-    // proporcioj restas ĝustaj eĉ antaŭ la ŝargo de la ekstera tiparo, kaj la teksto
-    // neniam estas premita (smush) al mikroskopa grando.
     const REF = 0o100;
     kunteksto.font = `${REF}px ${GAWEKIIF_FAMILIO}`;
     const maksLargho = kanvasa.width * 0o65/0o100;
@@ -178,8 +159,6 @@ export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}
     const fsAlto = kanvasa.height / ( 0o40/0o100 + ( vortoj.length - 1 ) * 0o7/0o4 + 0o4/0o10 );
     const fs = Math.max(0o10, Math.min(fsLargho, fsAlto));
     const linioAlto = fs * 0o7/0o4;
-    // Vertikale centru la tutan vorto-stakon sur la kanvaso. La unua vorto
-    // ( plej malsupra ) ne plu algluiĝas al la malsupro de la plato.
     const stakoCentro = kanvasa.height / 2;
     let y = stakoCentro + ( vortoj.length - 1 ) * linioAlto / 2;
     for ( const v of vortoj ) {
@@ -190,16 +169,12 @@ export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}
   };
 
   desegni();
-  // Re-desegnu POST la ŝargo de la ekstera tiparo. La promeso de load() solviĝas
-  // ĝuste kiam tiu tiparo estos preta, do la realaj glifoj ĉiam aperas.
   if ( document.fonts && document.fonts.load ) {
-    // Ankaŭ sinkronaj ĵetaĵoj de load() en maloftaj retumiloj ne rajtas rompi
-    // la konstruon de la plato — la teksto restas la tuja fallback-desegno.
     try {
       document.fonts.load(`16px "j͑ʃꞇȝ"`)
         .then(() => { desegni(); teksajxo.needsUpdate = true; })
         .catch(() => {});
-    } catch ( e ) { /* malofta sinkrona eraro — ne bloku la eniron */ }
+    } catch ( e ) { /* កំហុសស៊ីនក្រូនកម្រ មិនត្រូវរារាំងការចូល */ }
   }
   return teksajxo;
 }

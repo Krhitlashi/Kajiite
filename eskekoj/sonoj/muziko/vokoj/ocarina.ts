@@ -1,5 +1,4 @@
-// ≺⧼ La okarina voĉo 🎺 ⧽≻
-// La okarino — du sinaj harmonoj kun vibrado kaj mola spira bruo ( ocarina ).
+// ≺⧼ សំឡេងអូការីណា 🎺 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
 export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {

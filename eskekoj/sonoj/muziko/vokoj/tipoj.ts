@@ -1,6 +1,4 @@
-// ≺⧼ La sonaj tipoj 🎵 ⧽≻
-// La datumaj tipoj de la muzikaj spuroj — la sono-evento ( SonoEvento ), la
-// sekcio ( Sekcio ) kaj la spurdatenoj ( SpuroDateno ).
+// ≺⧼ ប្រភេទសំឡេង 🎵 ⧽≻
 export interface SonoEvento {
   t: number;
   i: string;

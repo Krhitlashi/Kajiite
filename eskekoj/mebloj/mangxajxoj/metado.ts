@@ -1,8 +1,4 @@
-// ≺⧼ La metado de la manĝaĵoj 🍽️ ⧽≻
-// Manĝaĵ-objektoj ( bulkoj, glasoj, vaporoj ) kaj la mangx-sistemo. La samaj
-// objektoj sidas sur la tabloj kaj interne ( eniriInternon ) kaj ekstere
-// ( konstruiSatalon ), do ili vivas en la mebloj modulo, ne en la konstruajxoj.
-// La metado de la manĝaĵoj sur la tablojn ( kreiMangxajxojn ).
+// ≺⧼ ការដាក់អាហារ 🍽️ ⧽≻
 import * as THREE from "three";
 import { TABLA_SUPRO } from "../tabloj.js";
 import { bunMesh } from "./bulkoj.js";
@@ -10,8 +6,6 @@ import { glassMesh } from "./glasoj.js";
 import { FOKS, TLAS } from "./datumoj.js";
 import type { MangxajxDatumo } from "./datumoj.js";
 import type { MangxajxItemo } from "./tipoj.js";
-// kreiMangxajxojn — Metu mangxajxojn sur la tablojn ( aux laux la malnova aera arangxo se ne estas tabloj ).
-//     @param tabloj ( { x, z }[] ) - Tablo-centraj pozicioj; la mangxajxoj sidas sur la supro ( y ≈ 0o7/0o20 ).
 export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: { x: number; z: number }[] = []): MangxajxItemo[] {
   const items: MangxajxItemo[] = [];
   const metaDe = ( k: string ): MangxajxDatumo => FOKS.find(x => x.key === k) || TLAS.find(x => x.key === k)!;
@@ -23,7 +17,6 @@ export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: 
     items.push({ mesh: m, key: k, f: meta, pos: new THREE.Vector3(x, y, z), dead: false });
   };
   if ( tabloj.length > 0 ) {
-    // Mangxajxoj sidas sur la tabloj, kun malgrandaj ofsetoj por aspekti arangxitaj
     const suproY = TABLA_SUPRO;
     const mangxoj = [ "fok0", "tla0", "fok1", "tla1", "fok2", "tla2" ];
     tabloj.forEach(( t, i ) => {

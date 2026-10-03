@@ -1,6 +1,4 @@
-// ≺⧼ Voja reto — tipoj 🛣️ ⧽≻
-// La datumtipoj kaj la toleremoj de la voja reto — la punktoj, la vojoj,
-// la dokoj kaj la kunigoj ( la ejoj, kie la vojoj renkontiĝas ).
+// ≺⧼ បណ្តាញផ្លូវ ប្រភេទ 🛣️ ⧽≻
 export type VojaPunkto = [ number, number ];
 
 export interface VojaRetoVojo {

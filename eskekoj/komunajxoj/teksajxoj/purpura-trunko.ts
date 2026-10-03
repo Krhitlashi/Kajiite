@@ -1,4 +1,4 @@
-// ≺⧼ Purpura trunka teksajxo 🌳 ⧽≻
+// ≺⧼ វាយនភាពដើមស្វាយ 🌳 ⧽≻
 import * as THREE from "three";
 import { desegniWrapajnNubojn, desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

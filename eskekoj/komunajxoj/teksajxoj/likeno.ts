@@ -1,4 +1,4 @@
-// ≺⧼ Likena teksajxo 🪨 ⧽≻
+// ≺⧼ វាយនភាពស្លែ 🪨 ⧽≻
 import * as THREE from "three";
 import { neregulaFormo, senAlfa, sxovu } from "./helpiloj.js";
 

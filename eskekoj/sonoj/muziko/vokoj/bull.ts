@@ -1,6 +1,4 @@
-// ≺⧼ La bula voĉo 🐂 ⧽≻
-// La bulo — triangula tono tra bando kun malrapida kirlado kaj spira bruo
-// ( bull ).
+// ≺⧼ សំឡេងគោ 🐂 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
 export function bull(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {

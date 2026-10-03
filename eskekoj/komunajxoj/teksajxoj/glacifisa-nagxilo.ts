@@ -1,4 +1,4 @@
-// ≺⧼ Glacifisa naĝila teksajxo 🐟 ⧽≻
+// ≺⧼ វាយនភាពព្រុយត្រីទឹកកក 🐟 ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 

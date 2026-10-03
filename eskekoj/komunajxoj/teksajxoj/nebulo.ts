@@ -1,4 +1,4 @@
-// ≺⧼ Nebula teksajxo 🌫️ ⧽≻
+// ≺⧼ វាយនភាពអ័ព្ទ 🌫️ ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 

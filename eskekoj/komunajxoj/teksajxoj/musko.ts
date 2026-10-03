@@ -1,4 +1,4 @@
-// ≺⧼ Muska teksajxo 🌿 ⧽≻
+// ≺⧼ វាយនភាពស្លែ 🌿 ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

@@ -1,4 +1,4 @@
-// ≺⧼ Larika foliara teksajxo 🍃 ⧽≻
+// ≺⧼ វាយនភាពស្លឹកល្មុត 🍃 ⧽≻
 import * as THREE from "three";
 import { ombro } from "../koloroj.js";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";

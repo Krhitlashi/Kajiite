@@ -1,4 +1,4 @@
-// ≺⧼ Purpura trunka filika teksajxo 🌿 ⧽≻
+// ≺⧼ វាយនភាពដើមស្វាយហ្វីលីកា 🌿 ⧽≻
 import * as THREE from "three";
 import { ombro } from "../koloroj.js";
 import { kreiPinatanFrondon } from "./filiko.js";

@@ -1,4 +1,4 @@
-// ≺⧼ Purpura sxela reliefa teksajxo 🌳 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់សំបកស្វាយ 🌳 ⧽≻
 import * as THREE from "three";
 import { desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 import { desegniLaSxelanKolumon, desegniSxelajnPorojn, generiPuranSxelanSkizon, puraSxelaH, puraSxelaW } from "./purpura-sxelo.js";

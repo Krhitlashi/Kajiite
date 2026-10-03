@@ -1,5 +1,4 @@
-// ≺⧼ La vaporo ♨️ ⧽≻
-// La varma vaporo super la freŝe metita manĝaĵo ( aldoniVaporon ).
+// ≺⧼ ចំហាយ ♨️ ⧽≻
 import * as THREE from "three";
 
 export function aldoniVaporon(g: THREE.Group, local: THREE.Vector3): { cloud: THREE.Points; basePos: THREE.Vector3 } {

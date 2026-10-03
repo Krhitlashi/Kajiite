@@ -1,20 +1,10 @@
-// ≺⧼ La lampoj 🏮 ⧽≻
-// Trapezaj dioritaj kolonoj kun fajraj kronoj kaj brilaj sprajtoj. La lampo
-// nomigxas huf ( ֭ſɭwʞ ) en Iikrhia. noma formo. hxeuxfo.
-// La konstruo — la kolonoj, la bovloj, la oraj randoj, la flamaj manteloj kaj
-// la brilaj punktoj ( konstruiHxeuxfojn ).
+// ≺⧼ ចង្កៀង 🏮 ⧽≻
 import * as THREE from "three";
 import { kreiDioritanTeksajxon } from "../../komunajxoj/teksajxoj/diorito.js";
 import { kunfandiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 import { BOVLA_ALTO, kreiFlamanGeometrion, LANGA_ALTO } from "./flamo.js";
 import { kreiFalekon } from "./faleko.js";
 import type { HxeuxfaLoko, HxeuxfaSistemo } from "./tipoj.js";
-// konstruiHxeuxfojn — Konstruu trapezajn lampojn (hxeuxfojn) el bazoj, bovloj, flamoj kaj briletoj.
-//     @param dioritaMaterialo ( THREE.MeshStandardMaterial ) - La komuna monda
-//     diorita ŝtonmaterialo ( kreiDioritanMaterialon ), kiun la lampoj reuzas
-//     por siaj kolonoj kaj bovloj. La lampo prenas PROPRIAN klonon kun pli
-//     fajngrajna teksturo ( 4×4 anstataŭ 2×2 ), por ke la kristaloj konvenu
-//     al la malgranda skalo de la kolono kaj bovlo.
 export function konstruiHxeuxfojn(sceno: THREE.Scene,
   spots: HxeuxfaLoko[],
   dioritaMaterialo: THREE.MeshStandardMaterial,
@@ -25,11 +15,6 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   const orajGeometrioj: THREE.BufferGeometry[] = [];
   const flamajLokoj: THREE.Vector3[] = [];
 
-  // Lampa diorita materialo — klono kun pli fajngrajna teksturo. La komuna
-  // voja ripeto ( 2×2 ) montras tro grandajn kristalojn sur la malgranda
-  // kolono kaj bovlo; la 4×4 ripeto duonigas la grajnojn kaj konvenas al la
-  // lampa skalo. La teksturo-klonoj kunhavigas la bildon, do ili kostas nenion
-  // plian en memoro.
   const lampaMaterialo = dioritaMaterialo.clone();
   const lampaMap = ( dioritaMaterialo.map ?? kreiDioritanTeksajxon() ).clone();
   lampaMap.repeat.set(0o4, 0o4); lampaMap.needsUpdate = true;
@@ -41,22 +26,12 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   }
 
   for ( const p of spots ) {
-    // Trapeza kolono ( pli largxa cxe bazo )
     const rotacio = p.rotacio ?? Math.PI / 4;
     const pillar = new THREE.CylinderGeometry(0o5/0o40, 0o13/0o40, 0o155/0o40, 4, 1);
     pillar.rotateY(rotacio);
     pillar.translate(p.x, p.y + 0o155/0o100, p.z);
     kolonajGeometrioj.push(pillar);
 
-    // Diorita bovlo — fermita profilo. ekstera kurbo, rando, interna muro kaj fundo.
-    // La fermo forigas la tra-videblon (la interna flanko nun estas vera surfaco).
-    // La plata bazo havas la SAMAN radiuson kiel la kolona supro ( 0o5/0o40 =
-    // 0.156 ), do la bovlo sidas tute glate sur la kolono sen videbla paŝo aŭ
-    // superpendanta lipo — unu kontinua silueto. La interno estas MALKOLONGA,
-    // do la bovlo aspektas kiel malprofunda pelvo kaj la malhela ena kavo ne
-    // dominiĝas. Ĉiuj vertikalaj mezuroj estas FRAKCIOJ de BOVLA_ALTO, do la
-    // horizontala profilo ( la kurbo de la muro ) restas identa kiam la bovlo
-    // malaltiĝas.
     const profilo: THREE.Vector2[] = [
       new THREE.Vector2(0, 0),
       ...new THREE.SplineCurve([
@@ -72,26 +47,14 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     ];
     const bowl = new THREE.LatheGeometry(profilo, 4);
     bowl.rotateY(rotacio);
-    // La kolono estas 0o155/0o40 alta, do gia supro estas p.y + 0o155/0o40 ( ne 0o155/0o100 = centro ).
     bowl.translate(p.x, p.y + 0o155/0o40, p.z);
     bovlajGeometrioj.push(bowl);
 
-    // Ora rando cxe la MALUPRA flanko de la bovlo — la SAMA ora materialo
-    // kiel la konstruajxoj. MALdika bendo pli proksime al la bovla supro,
-    // kun marĝeno — gxi ne tusxas la bovlan lipon kaj la ekstera radiuso
-    // restas ene de la bovla rando. Gxi sekvas la bovlan deklivon kaj estas
-    // levita iomete ( 0o1/0o200 ) por legigxi kiel rando.
     const rando = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 4, 1);
     rando.rotateY(rotacio);
     rando.translate(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 0.875, p.z);
     orajGeometrioj.push(rando);
 
-    // Kvar APARTAJ falekoj — unu po faco. Cxiu faleko estas ferma buklo kun
-    // rondaj DUONCIRKLAJ kurboj cxe ambaux finoj ( la malsupra suben, la
-    // supra supren ) kaj brakoj kiuj sekvigas la kolonan konusigon kun
-    // KONSTANTA horizontala margxeno al la facaj randoj. La falekoj NE
-    // konektigxas unu al la alia — horizontala margxeno restas cxe la anguloj.
-    // La vertikalaj margxenoj estas malgrandaj.
     const falekaPinto = 0o32/0o10, falekaSubo = 0o1/0o4, falekaMargxeno = 0o1/0o20;
     for ( let k = 0; k < 4; k++ ) {
       const faleko = kreiFalekon(Math.PI / 4 + k * Math.PI / 2, falekaPinto, falekaSubo, falekaMargxeno, 0o1/0o40, 0o13/0o40, 0o5/0o40, 0o155/0o40);
@@ -100,10 +63,6 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
       orajGeometrioj.push(faleko);
     }
 
-    // Flamo levita. gia bazo sidas super la bovla rando ( ne sube en la bovlo ),
-    // kaj restas super la rando ecx cxe la plej alta flam-skalo. La deŝovo
-    // sekvas BOVLA_ALTO, do malaltiĝinta bovlo ankaŭ mallevas la flamon — la
-    // flamo restas la sama distanco super la rando.
     flamajLokoj.push(new THREE.Vector3(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 2, p.z));
   }
 
@@ -114,16 +73,10 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   const bovloj = new THREE.Mesh(kunfandiGeometriojn(bovlajGeometrioj), lampaMaterialo);
   sceno.add(bovloj);
 
-  // Oraj randoj kaj bendoj — la sama ora materialo kiel la konstruajxoj.
   const orajRandoj = new THREE.Mesh(kunfandiGeometriojn(orajGeometrioj), oraMaterialo);
   sceno.add(orajRandoj);
 
-  // ⟨ La flamo — tri tavoloj 📃 ⟩ — la antaŭa flamo estis DU opakaj konusoj
-  // ( unu oranĝa, unu flaveca ). Nun ĝi estas tri ALDONAJ tavoloj de la sama
-  // teardropo: la ekstera oranĝa koverto, la flava mezo kaj la blanka varma
-  // kerno ĉe la bazo. Ĉar la tavoloj aldonas sin ( AdditiveBlending ), la
-  // centro de la flamo brilas plej forte kaj la randoj glate malaperas — la
-  // flamo legiĝas kiel lumo, ne kiel oranĝa plasta konuso.
+  // ⟨ អណ្តាតភ្លើង ស្រទាប់បី 📃 ⟩
   const N = flamajLokoj.length;
   const flamaMaterialo = ( koloro: number, opaco: number ) => new THREE.MeshBasicMaterial({
     color: koloro, toneMapped: false, transparent: true, opacity: opaco,
@@ -142,12 +95,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   flamaKerno.frustumCulled = false;
   sceno.add(flamaEkstero, flamaInterno, flamaKerno);
 
-  // ⟨ La langoj 📃 ⟩ — la tri tavoloj supre estas SAMAKSIAJ lathe-korpoj, do
-  // la flamo havas unu glatan teardropan silueton kiu nur grimpas supren kaj
-  // malsupren. Vera flamo estas PLURAJ langoj: malgrandaj teardropoj, kiuj
-  // sidas sur la meĉo ĉirkaŭ la ĉefa lango, lekas supren unu post la alia kaj
-  // kliniĝas eksteren. Ĉiu lango havas sian propran bazan deŝovon, larĝon kaj
-  // fazon, do la flamo neniam aspektas kiel unu solida formo.
+  // ⟨ អណ្តាត 📃 ⟩
   const LANGOJ = 0o3;
   const flamaLangoj = new THREE.InstancedMesh(
     kreiFlamanGeometrion(LANGA_ALTO, 0o11/0o100, 0o6/0o10, 3.7),
@@ -157,8 +105,6 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   const langajBazoj: THREE.Vector3[] = [];
   const langajFazoj: number[] = [];
   flamajLokoj.forEach(() => {
-    // La langoj sidas ĉirkaŭ la meĉo ( radiuso ~0.07 ), ne centre — la ĉefa
-    // lango restas inter ili.
     const turno = Math.random() * Math.PI * 2;
     for ( let j = 0; j < LANGOJ; j++ ) {
       const a = turno + j / LANGOJ * Math.PI * 2 + ( Math.random() - 0o5/0o10 ) * 0o5/0o10;
@@ -169,7 +115,6 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     }
   });
 
-  // brilaj sprajtoj
   const gPozicio = new Float32Array(N * 3);
   const gSemo = new Float32Array(N);
   const gGrando = new Float32Array(N);
@@ -220,16 +165,11 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 
   const brilajPunktoj = new THREE.Points(gg, brilaMaterialo);
   brilajPunktoj.frustumCulled = false;
-  sceno.add(brilajPunktoj);  // ⟪ La kvar punktlumoj 📃 ⟫ — la plej proksimaj flamoj al la vidpunkto.
-  // Antaŭe la kvar lumoj elektiĝis UNUFOJE laŭ la distanco al la mond-origino
-  // kaj restis tie por ĉiam ( la lampo apud la ludanto restis malluma se li
-  // malproksimiĝis de la centro ). Nun ili sekvas la vidpunkton — la sama ideo
-  // kiel la suna ombro-volumeno. La NOMBRO restas konstanta, do la
-  // shader-programoj ne rekompiliĝas kiam la lumoj transloĝiĝas.
+  sceno.add(brilajPunktoj);
   const LUMOJ = Math.min(0o4, flamajLokoj.length);
   const punktajLumoj: THREE.PointLight[] = [];
-  const lumajIndeksoj: number[] = [];        // la flama indico de ĉiu lumo
-  const lumajDistancoj = new Float32Array(LUMOJ);   // la kvadrataj distancoj
+  const lumajIndeksoj: number[] = [];
+  const lumajDistancoj = new Float32Array(LUMOJ);
   for ( let k = 0; k < LUMOJ; k++ ) {
     const L = new THREE.PointLight(0xf89838, 0o15/0o40, 0o32, 2);
     sceno.add(L);
@@ -238,14 +178,8 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   }
 
   let lumCentroX = NaN, lumCentroZ = NaN;
-  // sekviLumojn — Aligu la kvar lumojn al la kvar plej proksimaj flamoj de la
-  // vidpunkto. La elekto estas unu trairo sen asigno — la tabeloj jam ekzistas.
-  //     @param x ( number ) - La mond-x de la vidpunkto.
-  //     @param z ( number ) - La mond-z de la vidpunkto.
   function sekviLumojn( x: number, z: number ): void {
     if ( LUMOJ === 0 ) return;
-    // Nur kiam la vidpunkto iris sufiĉe for — la flamoj mem ne moviĝas, do
-    // senmovaj lumoj ne bezonas reelekton ĉiukadre.
     if ( Math.abs(x - lumCentroX) < 0o2 && Math.abs(z - lumCentroZ) < 0o2 ) return;
     lumCentroX = x; lumCentroZ = z;
     for ( let k = 0; k < LUMOJ; k++ ) lumajDistancoj[k] = Infinity;
@@ -253,8 +187,6 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
       const p = flamajLokoj[i];
       const sxovX = p.x - x, sxovZ = p.z - z;
       const d = sxovX * sxovX + sxovZ * sxovZ;
-      // La plej malproksima el la tenataj — anstataŭigu ĝin se ĉi tiu flamo
-      // estas pli proksima.
       let plejMalproksima = 0;
       for ( let k = 1; k < LUMOJ; k++ ) if ( lumajDistancoj[k] > lumajDistancoj[plejMalproksima] ) plejMalproksima = k;
       if ( d < lumajDistancoj[plejMalproksima] ) {
@@ -262,13 +194,11 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
         lumajIndeksoj[plejMalproksima] = i;
       }
     }
-    // La lumo sidas iomete super la lampo — en la flamo mem.
     for ( let k = 0; k < LUMOJ; k++ ) {
       const p = flamajLokoj[lumajIndeksoj[k]];
       punktajLumoj[k].position.set(p.x, p.y + 0o23/0o100, p.z);
     }
   }
-  // La komenca elekto — la kvar plej proksimaj al la mond-origino, kiel antaŭe.
   sekviLumojn(0, 0);
 
   const M = new THREE.Matrix4();

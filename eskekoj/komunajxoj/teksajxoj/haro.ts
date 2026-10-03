@@ -1,4 +1,4 @@
-// ≺⧼ Hara teksajxo 💇 ⧽≻
+// ≺⧼ វាយនភាពសក់ 💇 ⧽≻
 import * as THREE from "three";
 import { desegniWrapan, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 

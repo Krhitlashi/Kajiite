@@ -1,6 +1,4 @@
-// ≺⧼ La inanga voĉo 🪕 ⧽≻
-// La inango — segildenta tono tra malfermigxanta filtro kun la duoblo kaj la
-// pluka bruo ( inanga ).
+// ≺⧼ សំឡេងអ៊ីណាងា 🪕 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
 export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1, opts: { dur?: number } = {}) {

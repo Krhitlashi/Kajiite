@@ -1,7 +1,4 @@
-// ≺⧼ La ŝipa interno 🚀 ⧽≻
-// La konstruo de la kosmoŝipa interno ( eniriSxipanInternon ) kun la liberigo de
-// la GPU-rimedoj ( forigiInternanGrupon ) kaj la litaj koloroj
-// ( aplikiLitajnKolorojn ).
+// ≺⧼ ខាងក្នុងយាន 🚀 ⧽≻
 import * as THREE from "three";
 import type { KonstruSpec } from "../satalaj/tipoj.js";
 import { kreiPilolFenestranFormon } from "../../komunajxoj/formoj.js";
@@ -9,10 +6,6 @@ import { kreiStelplenanTeksajxon, stelplenaTeksajxo } from "../../komunajxoj/tek
 import { GOLD, GOLD_WARM } from "./formoj.js";
 import { heliksaAltecxo, type HeliksoInfo, type InternaEnirPunkto, type InternaSistemo } from "./tipoj.js";
 
-// forigiInternanGrupon — Liberigu la GPU-rimedojn de forigata interno
-// ( geometrioj, materialoj, teksturoj ). La interno estas rekonstruita de nulo
-// ĉiun eniron, do ĉio en la grupo apartenas al ĝi — krom la komuna
-// stel-teksaĵo, kiu vivas modul-nivele kaj reuziĝas trans la eniroj.
 export function forigiInternanGrupon(grupo: THREE.Group): void {
   const viditajTeksajxoj = new Set<THREE.Texture>();
   const viditajMaterialoj = new Set<THREE.Material>();
@@ -23,7 +16,6 @@ export function forigiInternanGrupon(grupo: THREE.Group): void {
     for ( const mat of materialoj ) {
       if ( !mat || viditajMaterialoj.has(mat) ) continue;
       viditajMaterialoj.add(mat);
-      // La interno uzas nur la map/emissiveMap fendojn ( planko, plakedo, steloj ).
       const teksturoj = [ ( mat as THREE.MeshStandardMaterial ).map, ( mat as THREE.MeshStandardMaterial ).emissiveMap ];
       for ( const teks of teksturoj ) {
         if ( teks && teks !== stelplenaTeksajxo && !viditajTeksajxoj.has(teks) ) {
@@ -36,9 +28,6 @@ export function forigiInternanGrupon(grupo: THREE.Group): void {
   });
 }
 
-// aplikiLitajnKolorojn — Rekolorigu la litajn tolojn/kapkusenojn de kasxita
-// ( reuzata ) interno al la nuna vesto de la ludanto. La materialoj estas
-// kreitaj freŝaj kaj la malnovaj forigataj — ili apartenas nur al la lito.
 export function aplikiLitajnKolorojn(grupo: THREE.Group, tolaKoloro: number, kusenaKoloro: number): void {
   let tola: THREE.MeshStandardMaterial | null = null;
   let kusena: THREE.MeshStandardMaterial | null = null;
@@ -58,21 +47,13 @@ export function aplikiLitajnKolorojn(grupo: THREE.Group, tolaKoloro: number, kus
   });
 }
 
-// eniriSxipanInternon — La interno de la spacosxipo. Pluretagxa kareno-kabino
-// kun helika ŝtuparo tra la centro, stelvitralo, kapsulaj fenestroj, konzolo,
-// kapitana seĝo kaj hologramo. La kabino flosas CE LA SXIPO (spec.flugoY) — la
-// ludanto teleportigxas al la supro kie la sxipo vere estas.
 export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: THREE.Scene): InternaEnirPunkto {
   const grupo = new THREE.Group();
-  // La sxipo havas 5 suprajn kaj 5 subajn tierojn (vidu kraseŝaĝa-kosmoŝipo.ts); la
-  // interno sekvas ilin — unu etaĝo ĉe ĉiu tier-rando, kun helika ŝtuparo.
   const sxipaTiero = 0o163/0o40;
   const up = 5, down = up;
   const rMezCx = 0o17/0o4, rSupro = 0o3/0o4, rBoto = 0o155/0o100;
   const rHelikso = 1;
   const yB = -down * sxipaTiero, yT = up * sxipaTiero;
-  // Kareno-radiuso je loka alteco y (konusoj kongruantaj al la sxipa silueto,
-  // iomete ene por neniu z-fajfo kun la sxelo).
   const konusaR = ( y: number ): number =>
     y >= 0 ? rMezCx - ( rMezCx - rSupro ) * ( y / ( up * sxipaTiero ) )
            : rMezCx - ( rMezCx - rBoto ) * ( -y / ( down * sxipaTiero ) );
@@ -84,8 +65,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   const vitra = new THREE.MeshBasicMaterial({ color: 0x081018, map: kreiStelplenanTeksajxon(), toneMapped: false, side: THREE.DoubleSide });
   const sxtupMaterialo = new THREE.MeshStandardMaterial({ color: 0x283838, roughness: 0o67/0o100 });
 
-  // Helika ŝtuparo — sama strukturo kiel en la konstruajxoj. Unu plena turno
-  // po etaĝo, supren tra la supraj tieroj kaj suben tra la subaj.
   const helikso: HeliksoInfo = {
     rKol: 0o3/0o10, rEkster: rHelikso, perTurno: 0o14,
     turnoAlto: sxipaTiero, turnoAltoSub: sxipaTiero,
@@ -93,8 +72,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   };
   sys.helikso = helikso;
 
-  // Etaĝoj. La enira etaĝo je 0, subaj kaj supraj laŭ la tieroj. La klampo
-  // (hw/hd) estas kvadrato ene de la ronda kareno. r/√2 ĉe ĉiu etaĝo.
   sys.plankoj = [];
   for ( let j = down; j >= 1; j-- ) {
     const r = konusaR(-j * sxipaTiero);
@@ -105,8 +82,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
     sys.plankoj.push({ y: i * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, alto: sxipaTiero });
   }
 
-  // Kareno-muroj. Du konusoj ( supra kaj suba ) sekvantaj la sxipan silueton,
-  // kaj plafono ĉe la supro kun luma ringo.
   const supra = new THREE.Mesh(new THREE.CylinderGeometry(rSupro, rMezCx, up * sxipaTiero, 0o40, 1, true), kareno);
   supra.position.y = up * sxipaTiero / 2;
   grupo.add(supra);
@@ -120,7 +95,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   lumRingo.position.y = yT - 0o1/0o20;
   grupo.add(lumRingo);
 
-  // Etaĝaj diskoj. Plenaj ĉe la malsupro, ringaj ( kun helika truo ) aliloke.
   for ( const p of sys.plankoj ) {
     const r = p.hw * Math.SQRT2;
     const estasMalsupro = p.y === yB;
@@ -132,8 +106,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
 );
     planko.position.y = p.y + 0o1/0o40;
     grupo.add(planko);
-    // Ora ringo ĉe la enira etaĝo — SUPRE de la planko (0o5/0o100; la planko mem
-    // estas je 0o1/0o40, do 0o3/0o100 libero — neniu z-fajfo).
     if ( p.y === 0 ) {
       const ringo = new THREE.Mesh(new THREE.RingGeometry(r - 0o3/0o10, r - 0o1/0o20, 0o40).rotateX(-Math.PI / 2), oro);
       ringo.position.y = 0o5/0o100;
@@ -141,7 +113,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
     }
   }
 
-  // Helika ŝtuparo + centra kolono + ora spirala manrelo
   {
     const rMezo = ( helikso.rKol + helikso.rEkster ) / 2;
     const radiala = helikso.rEkster - helikso.rKol;
@@ -185,9 +156,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
     grupo.add(relo);
   }
 
-  // Fronta stelvitralo kun ora kadro (ĉe la enira etaĝo) — modesta grandeco,
-  // por ke ĝi ne elstaru preter la konusa kareno en la ŝipŝelon.
-  // iomete enen de la muro, por ke la anguloj ne elstaru preter la ŝipŝelo
   const vitraloZ = -( konusaR(0o23/0o4) - 0o1/0o4 );
   const vitralo = new THREE.Mesh(new THREE.PlaneGeometry(0o4, 0o25/0o10), vitra);
   vitralo.position.set(0, 0o23/0o4, vitraloZ);
@@ -199,8 +167,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   vitKadro.position.set(0, 0o23/0o4, vitraloZ);
   grupo.add(vitKadro);
 
-  // Flankaj LONGAs horizontalaj RONDIGITAJ fenestroj (gluaj al la kareno) —
-  // mallongaj, por ke la plataj piloloj ne elstaru preter la kurba muro.
   const kapsuloj: THREE.Mesh[] = [];
   const rKaps = konusaR(3 - 0o13/0o40);
   const kapsX = Math.sqrt(Math.max(0o1/0o4, rKaps * rKaps - ( 0o17/0o10 ) * ( 0o17/0o10 )));
@@ -214,7 +180,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
     kapsuloj.push(fen);
   }
 
-  // Konzolo kun brila ekrano
   const konzolo = new THREE.Mesh(new THREE.BoxGeometry(4, 0o3/0o2, 1), kareno);
   konzolo.position.set(0, 0o3/0o4, -0o5/0o2);
   konzolo.rotation.x = -0o1/0o10;
@@ -224,7 +189,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   ekrano.position.set(0, 0o25/0o20, -0o61/0o20);
   grupo.add(ekrano);
 
-  // Kapitana seĝo
   const sidilo = new THREE.Mesh(new THREE.BoxGeometry(0o13/0o10, 0o3/0o10, 0o13/0o10), malhela);
   sidilo.position.set(0, 0o3/0o10, -0o3/0o2);
   sidilo.castShadow = true; grupo.add(sidilo);
@@ -235,7 +199,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   tigo.position.set(0, 0o3/0o20, -0o3/0o2);
   grupo.add(tigo);
 
-  // Hologramo super la konzolo (la centro apartenas al la ŝtuparo)
   const holoringo = new THREE.Mesh(new THREE.TorusGeometry(0o72/0o100, 0o3/0o100, 0o10, 0o40), brila);
   holoringo.position.set(0, 0o7/0o2, -0o5/0o2);
   grupo.add(holoringo);
@@ -249,8 +212,6 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   hololumo.position.set(0, 0o7/0o2, -0o5/0o2);
   grupo.add(hololumo);
 
-  // Aera pordo ĉe la malantaŭo ( la enirejo ). Ora kadro kun brila panelo —
-  // modesta grandeco (0o3), por ke ĝi restu tute ene de la ŝipŝelo.
   const aerZ = konusaR(0o7/0o2) - 0o1/0o4;
   const aerKadro = new THREE.LineSegments(
     new THREE.EdgesGeometry(new THREE.BoxGeometry(0o3, 5, 0o1/0o40)),
@@ -262,14 +223,12 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   aerPordo.position.set(0, 0o7/0o2, aerZ);
   grupo.add(aerPordo);
 
-  // Lumigado
   const ambiento = new THREE.HemisphereLight(0xc0e8e0, 0x081010, 0o5/0o10);
   grupo.add(ambiento);
   const lumo = new THREE.PointLight(GOLD_WARM, 0o4/0o10, 0o14, 2);
   lumo.position.set(0, 7, 0);
   grupo.add(lumo);
 
-  // Animacioj. La hologramo rotacias, ekrano/fenestroj pulsas, la stelaro drivas.
   const ekranoMat = ekrano.material as THREE.MeshStandardMaterial;
   sys.animated.push({
     update: ( t: number ) => {
@@ -283,12 +242,10 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
     },
   });
 
-  // La kabino flosas ĉe la sxipo (flugoY), ne sur la tero.
   grupo.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
   grupo.rotation.y = spec.rot || 0;
   cxefaSceno.add(grupo);
   sys.currentGroup = grupo;
 
-  // Enira punkto ĉe la malantaŭa aera pordo (sur la enira etaĝo).
   return { x: 0, z: 0o5/0o2, y: 0o4/0o10, direkto: 0 };
 }

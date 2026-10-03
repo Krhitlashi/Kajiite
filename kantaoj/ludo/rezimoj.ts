@@ -1,11 +1,4 @@
-// ≺⧼ Reĝimoj 🚪 ⧽≻
-// La tri reĝimoj de la ludo — orbito, promeno kaj la interno de konstruaĵo — kaj
-// la transiroj inter ili. La modulo tenas la kaŝadon de la ekstera mondo dum la
-// interno, la eniron kaj la eliron de konstruaĵo, la etikedon de la reĝima
-// butono kaj gxian klak-traktanton.
-//
-// La stato de la ludanto vivas en kantaoj/ludo/ludanto.ts kaj venas ĉi tien kiel
-// unu objekto — la reĝimaj transiroj movas la ludanton kaj la fotilon rekte.
+// ≺⧼ របៀប 🚪 ⧽≻
 import * as THREE from "three";
 import type { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { eniriInternon, eliriInternon as eliriElInterno } from "../../eskekoj/konstruajxoj/internoj.js";
@@ -16,9 +9,6 @@ import type { LudantaAspekto } from "../fasado/vestejo.js";
 import type { Ludanto } from "./ludanto.js";
 import type { Retilo } from "./retilo.js";
 
-// RezimajOpcioj — la elementoj, la konstruaj sistemoj, la stato de la ludanto
-// kaj la agoj de la orkestrilo, kiujn la reĝimaj transiroj bezonas ( la ŝarĝa
-// kurteno, la balaila transiro, la tosto, la sono kaj la tradukoj ).
 export interface RezimajOpcioj {
   kanvaso: HTMLCanvasElement;
   butRezimo: HTMLElement;
@@ -51,8 +41,6 @@ export interface RezimajOpcioj {
   legiVeston: () => LudantaAspekto;
 }
 
-// Rezimoj — la agoj, kiujn la orkestrilo vokas el la reĝimoj ( la resto estas
-// private — la kaŝitaĵoj, la eniro kaj la eliro vivas ene ).
 export interface Rezimoj {
   eniriKonstruajxon( spec: KonstruSpec, pordaAngulo?: number ): void;
   eliriInternon(): void;
@@ -69,21 +57,17 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     gxisdatigiRetikulon, legiVeston,
   } = opcioj;
 
-  // forigiKanton — la ludanto eliras la kanuon ( la kanuo mem restas sur la akvo ).
   function forigiKanton(): void {
     ludanto.surKanoto = null;
     ludanto.pozicio.set(fotilo.position.x, 0o155/0o100, fotilo.position.z);
   }
-  // forigiKusxon — leviĝu de la lito kaj forgesu la liton ( norme ĉe la eliro ).
   function forigiKusxon(): void {
     ludanto.kuŝas = false;
     ludanto.kuŝaStato = null;
     ludanto.plejProksimaLito = null;
   }
 
-  // ⟪ Ekstera sceno dum interno 📃 ⟫ — kaŝu la tutan eksteran mondon ( konstruaĵojn,
-  // arbaron, terenon, akvon ), sed tenu la ĉielon kaj la lumojn. La internoj havas
-  // siajn proprajn lumojn, kaj la supra etaĝo estas malferma al la ĉielo.
+  // ⟪ ឆាកខាងក្រៅពេលនៅក្នុង 📃 ⟫
   let kaŝitajEksteraj: { o: THREE.Object3D; antauxa: boolean }[] = [];
   function kasxiEksteron(): void {
     if ( kaŝitajEksteraj.length > 0 ) return;
@@ -93,7 +77,6 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     ]);
     for ( const o of sceno.children ) {
       if ( tenataj.has(o) || o === internaSistemo.currentGroup ) continue;
-      // Konservu la antaŭan videblon, por ne revivigi objektojn kaŝitajn de aliaj kaŭzoj.
       kaŝitajEksteraj.push({ o, antauxa: o.visible });
       o.visible = false;
     }
@@ -103,15 +86,12 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     kaŝitajEksteraj = [];
   }
 
-  // ⟪ Interna vido 📃 ⟫
+  // ⟪ ទិដ្ឋភាពខាងក្នុង 📃 ⟫
   function eniriKonstruajxon(spec: KonstruSpec, pordaAngulo = 0) {
     ludanto.sxtupaTurno = null;
-    // Petu montrilan ŝloson sinĥrone, dum la gesto de la uzanto estas ankoraŭ aktiva.
     if ( document.pointerLockElement !== kanvaso ) kanvaso.requestPointerLock();
     if ( cxuAŭdio() ) sfx.door();
     pulsiEfikon();
-    // La internoj de jam vizititaj konstruajxoj estas kasxitaj kaj reuzataj —
-    // eniri ilin denove estas tuja, do la sxargxa kurteno mallongigxas.
     const jamKonstruita = internaSistemo.kasxo.has(sxlosiloDeSpeco(spec));
     montriSargxon(jamKonstruita ? 0o100 : 0o400, () => {
       ludanto.antauxaRezimo = ludanto.rezimo as "orbit" | "walk";
@@ -122,8 +102,6 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
         const enirPunkto = eniriInternon(internaSistemo, spec, sceno, pordaAngulo, aspekto.vesto.ĉefa, aspekto.vesto.akcenta);
         kasxiEksteron();
         const specX = spec.x, specZ = spec.z;
-        // La spacosxipa interno flosas ĉe la sxipo (flugoY) — la enira punkto estas
-        // ĉe la supro kie la sxipo vere estas, ne sur la tero.
         const specH0 = spec.flugoY ?? ( spec.h0 || 0 );
         const rot = spec.rot || 0;
         const cosR = Math.cos(rot), sinR = Math.sin(rot);
@@ -138,23 +116,16 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
         ludanto.estasSurTERENO = true;
         ludanto.rapidoY = 0;
         regiloj.enabled = false;
-        // Kaŝu la karton, sed NE malplenigu elektitaSpec ( necesa por interna movado ).
         kartoElemento.classList.remove("montri");
         montriTost(traduki("eniri") + " " + konstruaĵaNomo(spec.name, spec.type));
         gxisdatigiRetikulon();
       } catch ( eraro ) {
-        // Se la interno ne konstruigxis ( hazarda retumila/kanvasa eraro ), ne
-        // lasu la ludanton duone en la interno. reen al la antaŭa reĝimo kaj
-        // forigu eventualan partan internon. La ŝarĝa ekrano malaperas ĉiuokaze
-        // ( la finally en montriSargxon ).
         console.error("Eniro en la konstruajxon malsukcesis:", eraro);
         eliriElInterno(internaSistemo, sceno);
         restarigiEksteron();
         ludanto.rezimo = ludanto.antauxaRezimo || "orbit";
         ludanto.antauxaRezimo = null;
         regiloj.enabled = ludanto.rezimo === "orbit";
-        // En orbito la muso estas legata per clientX/Y, ne per movementX/Y — se la
-        // montra-seruro restus aktiva, la orbito ne plu respondus al la muso.
         if ( ludanto.rezimo === "orbit" && document.pointerLockElement === kanvaso ) document.exitPointerLock();
         gxisdatigiRezimanButonon();
         gxisdatigiRetikulon();
@@ -169,7 +140,6 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     if ( cxuAŭdio() ) sfx.door();
     pulsiEfikon();
     fariBalailon(() => {
-      // Restarigu la antaŭan reĝimon ( promeno aŭ orbito ).
       const estasWalk = ludanto.antauxaRezimo === "walk";
       ludanto.rezimo = ludanto.antauxaRezimo || "orbit";
       ludanto.antauxaRezimo = null;
@@ -177,7 +147,6 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
       if ( estasWalk ) {
         regiloj.enabled = false;
         if ( speco && speco.type === "stacioxipo" ) {
-          // El la sxipo (supre) — surgrundigu apud la kosmoporda stacio.
           const rot = speco.rot || 0;
           const pordX = speco.x + Math.sin(rot) * ( speco.d / 2 + 0o14/0o10 );
           const pordZ = speco.z + Math.cos(rot) * ( speco.d / 2 + 0o14/0o10 );
@@ -185,7 +154,6 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
           fotilo.position.set(pordX, alteco(pordX, pordZ) + 0o65/0o40, pordZ);
           ludanto.direkto = rot;
         } else {
-          // Agordu promenan staton laŭ la nuna fotila pozicio ( apud la konstruaĵa pordo ).
           ludanto.direkto = fotilo.rotation.y;
           ludanto.pozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
           fotilo.position.y = ludanto.pozicio.y + 0o65/0o40;
@@ -195,7 +163,6 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
         regiloj.enabled = true;
         if ( speco ) {
           if ( speco.type === "stacioxipo" ) {
-            // En orbito. Movu la fotilon malsupren al la stacio ( ne restu ĉe la sxipo ).
             regiloj.target.set(speco.x, ( speco.h0 || 0 ) + 0o14, speco.z);
             fotilo.position.set(speco.x, ( speco.h0 || 0 ) + 0o20, speco.z + 0o14);
           } else {
@@ -209,16 +176,13 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     });
   }
 
-  // ⟪ Rezima ŝaltilo 📃 ⟫
-  // Unu butono montras la nunan reĝimon kaj ŝaltas al la alia per klako.
+  // ⟪ កុងតាក់របៀប 📃 ⟫
   function gxisdatigiRezimanButonon() {
     butRezimo.textContent = traduki(ludanto.rezimo === "walk" ? "butonoPromeni" : "butonoOrbiti");
     butRezimo.setAttribute("aria-pressed", String(ludanto.rezimo === "walk"));
     butRezimo.setAttribute("aria-label", traduki(ludanto.rezimo === "walk" ? "ariaButPromeni" : "ariaButOrbiti"));
-    // La nova etikedo ( aih ) bezonas la vacepu-vortojn.
     aplikiVacepu();
   }
-  // Kiam la lingvo ŝanĝiĝas, la dinamika etikedo refreŝiĝu.
   window.addEventListener("lingvosxangxo", gxisdatigiRezimanButonon);
 
   function sxaltiRezimon() {
@@ -234,7 +198,6 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
       ludanto.pozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
       ludanto.estasSurTERENO = true;
     } else {
-      // Malplenigu la promen-reziman staton por ke E en orbito movu vertikale
       ludanto.plejProksimaPordo = null;
       promptoElemento.classList.remove("montri");
       regiloj.enabled = true;
@@ -244,7 +207,6 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
   }
   butRezimo.addEventListener("click", () => {
     sxaltiRezimon();
-    // En orbito enfokusigu la elektitan konstruaĵon (kiel antaŭe la ORBITI-butono).
     const speco = ludanto.elektitaSpec;
     if ( ludanto.rezimo === "orbit" && speco ) {
       regiloj.target.set(speco.x, speco.h0! + 0o14, speco.z);

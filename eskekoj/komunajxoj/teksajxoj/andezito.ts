@@ -1,4 +1,4 @@
-// ≺⧼ Andezita teksajxo 🧱 ⧽≻
+// ≺⧼ វាយនភាពអង់ដេស៊ីត 🧱 ⧽≻
 import * as THREE from "three";
 import { hazard, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

@@ -1,28 +1,12 @@
-// ≺⧼ La validigoj ✅ ⧽≻
-// La kontroloj de la plano per la reguloj de la krada urbo — spronoj, blokaj
-// spacoj, la kvar-obia simetrio kaj la vojoj en malplenaj regionoj
-// ( KradaProblemo, validiKradon ).
+// ≺⧼ ការផ្ទៀងផ្ទាត់ ✅ ⧽≻
 import type { KradaKonstruajxo, KradaPlano } from "./tipoj.js";
 export interface KradaProblemo { kodo: string; mesaĝo: string; }
 
-// validiKradon — kontrolas la planon per la reguloj de la krada urbo.
-//   · ĉiu ne-stacia konstruaĵo estas konektita per sprono ( neniu konstruaĵo
-//     sen vojo, neniu pendanta sprono al malplena tero );
-//   · neniu sprono transiras alian konstruaĵon;
-//   · kvar-bloka. ĉiu bloko havas vojojn sur ĉiuj kvar flankoj ( la voja
-//     bloko ), kaj la spaco inter la konstruaĵoj en la bloko egalas la
-//     distancon de la konstruaĵo al la vojo;
-//   · la TUTA krado estas simetria sub 90°-rotacio ( pozicioj kaj tipoj por
-//     ĉiuj konstruaĵoj; rotacioj ankaŭ por la kvar-bloka krado kaj por la
-//     ne-diagonalaj konstruaĵoj de la unu-bloka — la diagonalaj pordoj de la
-//     unu-bloka frontas norden/suden, heredaĵo de la originala urbo );
-//   · neniu vojo kuŝas en malplena regiono ( la korneroj de la diamanto ).
 export function validiKradon(plano: KradaPlano): KradaProblemo[] {
   const problemoj: KradaProblemo[] = [];
   const { arangxo, konstruaĵoj, vojoj, spronoj, PASXO } = plano;
   const konektitaj = new Set(spronoj.map(s => s.konstruajxo));
 
-  // 1. Ĉiu ne-stacia konstruaĵo havas spronon.
   for ( let i = 0; i < konstruaĵoj.length; i++ ) {
     const k = konstruaĵoj[i];
     if ( k.stacia || ( k.x === 0 && k.z === 0 ) ) continue;
@@ -31,10 +15,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     }
   }
 
-  // 2. Neniu sprono transiras alian konstruaĵon. La spronoj estas ĉiam
-  //    aks-paralelaj ( la pordo frontas laŭ la domina akso, la celo kuŝas sur
-  //    la sama linio ), do sufiĉas intervala interkovro sur ambaŭ aksoj.
-  const duonLarĝo = 0o10 / 2;   // la konstruaĵoj estas kvadrataj ( w = d = 0o10 )
+  const duonLarĝo = 0o10 / 2;
   for ( const sp of spronoj ) {
     const [ ax, az ] = sp.de, [ bx, bz ] = sp.al;
     const x1 = Math.min(ax, bx), x2 = Math.max(ax, bx);
@@ -48,7 +29,6 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     }
   }
 
-  // 3. Kvar-bloka. la voja bloko — ĉiu bloko havas vojojn sur ĉiuj kvar flankoj.
   if ( arangxo.blokaGrando === "kvar" ) {
     const M = PASXO / 2;
     const havasNS = ( rx: number, z: number ) => vojoj.some(v => v.orient === "NS" && Math.abs(v.poz - rx) < 0o1/0o1000 && v.de <= z && z <= v.al);
@@ -65,9 +45,6 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     }
   }
 
-  // 4. La TUTA krado simetria sub 90°-rotacio ( la stacio estas escepto — en
-  //    la unu-bloka ĝi sidas sur la norda akso, en la kvar-bloka ĝi estas la
-  //    rotacie-simetria centro ).
   const normalizi = ( r: number ) => { const m = ( ( r % ( 2 * Math.PI ) ) + 2 * Math.PI ) % ( 2 * Math.PI ); return m > Math.PI ? m - 2 * Math.PI : m; };
   const neStaciaj = konstruaĵoj.filter(k => !k.stacia);
   const signaturo = ( k: KradaKonstruajxo, rotita: boolean, kunRotacio: boolean ): string => {
@@ -85,10 +62,6 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     }
   };
   kontroliSimetrion(false, "simetrio-pozicia");
-  // La rotaciaj simetrioj. la kvar-bloka tenas poziciojn KAJ rotaciojn
-  // ekzakte; la unu-bloka tenas la rotaciojn de la ne-diagonalaj konstruaĵoj
-  // ( la diagonalaj pordoj — |x| = |z| — frontas norden/suden, la hereda
-  // fronta regulo de la originala urbo, kaj ne transformiĝas sub rotacio ).
   if ( arangxo.blokaGrando === "kvar" ) kontroliSimetrion(true, "simetrio-rotacia");
   else {
     const neDiagonalaj = neStaciaj.filter(k => Math.abs(k.x) !== Math.abs(k.z));
@@ -100,10 +73,6 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     }
   }
 
-  // 5. Kvar-bloka. la spaco inter la konstruaĵoj en la bloko ( 8 ) egalas la
-  //    distancon de la konstruaĵo al la vojo ( muro → voja centro = spur-longeco
-  //    + duonL ). La kvar konstruaĵoj de bloko sidas je ±BLOKO ( 8 ), duon-
-  //    larĝo 4 → la gapo inter apudaj muroj en la bloko estas 8.
   if ( arangxo.blokaGrando === "kvar" ) {
     const duonL = 0o7/0o10;
     for ( const sp of spronoj ) {
@@ -115,13 +84,6 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     }
   }
 
-  // 6. Neniu vojo en malplena regiono — la vojoj restas apud la blokoj ( la
-  //    korneroj de la diamanto kaj la regionoj preter la eksteraj blokoj
-  //    ricevas nenian vojon ). Ĉiu segmento havas siajn du finojn kaj sian
-  //    mezon ene de 2 pasxoj de la plej proksima ĉelo — la longaj "vostoj"
-  //    laŭ la rando ( de la kornera ŝtuparo al la kolumnaj blokoj ) pasas je
-  //    ~1.5 pasxoj, sed vojo tra la MEZO de malplena regiono ( pli ol 2
-  //    pasxoj de ĉiu ĉelo ) estas problemo.
   const ĉelPozoj = plano.ĉeloj.map(( [ c, r ] ) => [ c * PASXO, r * PASXO ] as [ number, number ]);
   const distMin = ( x: number, z: number ) =>
     Math.min(...ĉelPozoj.map(( [ cx, cz ] ) => Math.hypot(x - cx, z - cz)));

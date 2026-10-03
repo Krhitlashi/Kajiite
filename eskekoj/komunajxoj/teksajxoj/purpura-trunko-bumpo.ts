@@ -1,4 +1,4 @@
-// ≺⧼ Purpura trunka reliefa teksajxo 🌳 ⧽≻
+// ≺⧼ វាយនភាពចម្លាក់ដើមស្វាយ 🌳 ⧽≻
 import * as THREE from "three";
 import { desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 import { desegniPurpuranBendon, generiPurpuranTrunkanSkizon, purpuraTrunkaH, purpuraTrunkaW } from "./purpura-trunko.js";

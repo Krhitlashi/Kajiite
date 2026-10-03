@@ -1,4 +1,4 @@
-// ≺⧼ Folisa likena teksajxo 🍃 ⧽≻
+// ≺⧼ វាយនភាពស្លែស្លឹក 🍃 ⧽≻
 import * as THREE from "three";
 import { kreiKanvasanTeksajxon, neregulaFormo, sxovu } from "./helpiloj.js";
 

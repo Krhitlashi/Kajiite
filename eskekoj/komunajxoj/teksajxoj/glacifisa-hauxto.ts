@@ -1,4 +1,4 @@
-// ≺⧼ Glacifisa haŭta teksajxo 🐟 ⧽≻
+// ≺⧼ វាយនភាពស្បែកត្រីទឹកកក 🐟 ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 

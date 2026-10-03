@@ -1,4 +1,4 @@
-// ≺⧼ Roka teksajxo 🪨 ⧽≻
+// ≺⧼ វាយនភាពថ្ម 🪨 ⧽≻
 import * as THREE from "three";
 import { kreiHazardanGenerilon } from "../hazardo.js";
 import { desegniWrapajnNubojn, desegniWrapan, hazard, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";

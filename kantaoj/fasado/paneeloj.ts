@@ -1,27 +1,9 @@
-// ≺⧼ Paneloj 📖 ⧽≻
-// La informo-panelo ( konstruaĵoj · manĝaĵoj · specioj ) kaj la komunaj
-// panelkartoj. La butono (书) malfermas panelon kun tri langetoj — alklaki
-// konstruaĵon enfokusigas ĝin en orbito kaj montras la konatan karton, dum
-// manĝaĵoj kaj specioj montras sian informon en la sama karto ( sen la
-// Eniri-butono ).
-//
-// La kartaj konstruiloj ( kreiPanelKarton, kreiNomlinion ) estas ankaŭ la
-// sxablono de la vestaro, do ili estas aparte eksportitaj — la vestara panelo
-// mem restas en la orkestrilo ( ĝi bezonas la ludantan figuron ).
+// ≺⧼ ផ្ទាំង 📖 ⧽≻
 import { TIPARO, KonstruSpec, KonstruTipo } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import { FOKS, TLAS } from "../../eskekoj/mebloj/mangxajxoj/datumoj.js";
 import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
 import { aplikiVacepu } from "./efikoj.js";
 
-// kreiPanelKarton — La komuna sxablono de la panelkartoj ( ciihii.vestaKardo.aih ).
-// La kvar listoj ( konstruaĵoj, manĝaĵoj, specioj, vestaro ) malsamas nur en la
-// enhavo, la elektita-stato kaj la klak-traktanto — la sxablono vivas unu loke.
-//     @param enhavo ( HTMLElement [] , deviga ) - La eroj de la karto, en ordo
-//         ( [ ĉipo, nomo, gusto ] aŭ [ antaŭrigardo, nomo ] ).
-//     @param klako ( () => void , deviga ) - La klak-traktanto de la karto.
-//     @param elektita ( boolean , nedeviga ) - Se donita, markas la karton
-//         elektita kaj skribas aria-pressed ( la hararaj kaj har-koloraj kartoj ).
-// @returns la karta elemento
 export function kreiPanelKarton(enhavo: HTMLElement[], klako: () => void, elektita?: boolean): HTMLElement {
   const card = document.createElement("ciihii");
   card.className = "vestaKardo aih";
@@ -34,9 +16,6 @@ export function kreiPanelKarton(enhavo: HTMLElement[], klako: () => void, elekti
   return card;
 }
 
-// kreiNomlinion — La komuna <p class="vn"> ( la nomo ) de la panelkartoj.
-//     @param teksto ( string , deviga ) - La montrata nomo.
-// @returns la nom-elemento
 export function kreiNomlinion(teksto: string): HTMLParagraphElement {
   const nomo = document.createElement("p");
   nomo.className = "vn";
@@ -44,10 +23,6 @@ export function kreiNomlinion(teksto: string): HTMLParagraphElement {
   return nomo;
 }
 
-// kreiPeceton — La komuna kolora etikedo ( span.peco ) de la listoj.
-//     @param koloro ( string , deviga ) - La fona koloro de la etikedo.
-//     @param teksto ( string , deviga ) - La teksto de la etikedo.
-// @returns la etikeda elemento
 function kreiPeceton(koloro: string, teksto: string): HTMLSpanElement {
   const peco = document.createElement("span");
   peco.className = "peco";
@@ -56,29 +31,18 @@ function kreiPeceton(koloro: string, teksto: string): HTMLSpanElement {
   return peco;
 }
 
-// kreiGustlinion — La komuna <p class="gusto"> ( la gusto ) de la panelkartoj.
-//     @param flavorKlavo ( string , deviga ) - La traduka klavo de la gusto.
-// @returns la gust-elemento
 function kreiGustlinion(flavorKlavo: string): HTMLParagraphElement {
   const gusto = document.createElement("p");
   gusto.className = "gusto";
   const flavor = traduki(flavorKlavo);
-  // En aih la speciaj gustoj estas provizore malplenaj — montru malplenan linion.
   gusto.textContent = flavor === flavorKlavo ? "" : flavor;
   return gusto;
 }
 
-// manĝaKlavo — La traduka klavo de unu manĝaĵo ( "manĝ" + Kapitaligita ŝlosilo ).
-// UNU kapitalig-loko ( antaŭe tri kopioj en la listo, la konsumo kaj la prompto ).
 export function manĝaKlavo(ŝlosilo: string): string {
   return "manĝ" + ŝlosilo.charAt(0).toUpperCase() + ŝlosilo.slice(1);
 }
 
-// Speciaj datumoj — la bestoj kaj plantoj de la valo ( ne plu vestoj ).
-//     key       - traduka klavo por la nomo.
-//     flavorKey - traduka klavo por la gusto.
-//     grupo     - "besto" aŭ "planto" ( la ĉipo-etikedo ).
-//     col       - koloro de la ĉipo ( la sama kiel la 3D-specio ).
 interface SpeciaDatumo {
   key: string;
   flavorKey: string;
@@ -86,14 +50,12 @@ interface SpeciaDatumo {
   col: string;
 }
 const SPECIOJ: SpeciaDatumo[] = [
-  // Bestoj de la rivero kaj lago kaj de la ĉielo ( ĉiuj el bestoj.ts )
   { key: "specBeroe", flavorKey: "flvSpecBeroe", grupo: "besto", col: "#e8d8e080" },
   { key: "specMnemiopsis", flavorKey: "flvSpecMnemiopsis", grupo: "besto", col: "#d8e8f080" },
   { key: "specPleŭrobrakia", flavorKey: "flvSpecPleŭrobrakia", grupo: "besto", col: "#d8f0e880" },
   { key: "specGlacifiso", flavorKey: "flvSpecGlacifiso", grupo: "besto", col: "#d0e8e880" },
   { key: "specMarlaraksxo", flavorKey: "flvSpecMarlaraksxo", grupo: "besto", col: "#c8b09080" },
   { key: "specNeĝopetrelo", flavorKey: "flvSpecNeĝopetrelo", grupo: "besto", col: "#f0f4f680" },
-  // Plantoj de la betularo ( el vegetajxo/betuloj/ )
   { key: "specBetulo", flavorKey: "flvSpecBetulo", grupo: "planto", col: "#a0b88880" },
   { key: "specLariko", flavorKey: "flvSpecLariko", grupo: "planto", col: "#c8b85880" },
   { key: "specHxsxaksxlefo", flavorKey: "flvSpecHxsxaksxlefo", grupo: "planto", col: "#a868c880" },
@@ -107,9 +69,6 @@ const SPECIOJ: SpeciaDatumo[] = [
   { key: "specCakeo", flavorKey: "flvSpecCakeo", grupo: "planto", col: "#68885880" },
 ];
 
-// PanelajOpcioj — kion la paneloj bezonas de la orkestrilo: la elementojn de la
-// fasado, la speciajn datumojn kaj la kelkajn agojn, kiuj apartenas al la
-// orkestrilo ( la reĝimo, la orbit-regiloj, la eniro en konstruaĵon ).
 export interface PanelajOpcioj {
   informButono: HTMLElement;
   informo: HTMLElement;
@@ -133,8 +92,6 @@ export interface PanelajOpcioj {
   eniriKonstruajxon: ( spec: KonstruSpec ) => void;
 }
 
-// Paneeloj — la agoj, kiujn la orkestrilo vokas el la paneloj ( la resto estas
-// private — la langetoj kaj la listoj vivas ene ).
 export interface Paneeloj {
   fermiInformon(): void;
   montriKarton( spec: KonstruSpec, bt: KonstruTipo ): void;
@@ -188,16 +145,12 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     const tabo = ( b as HTMLElement ).dataset.tabo || "konstruajxoj";
     b.addEventListener("click", () => sxaltiInformanTabon(tabo));
   });
-  // Marku la komencan langeton kiel aktiva ( la unua sekcio estas videbla defaŭlte ).
   sxaltiInformanTabon("konstruajxoj");
-  // La vestaro-lingvetoj — la sama sxaltado, kun la vestoj videblaj defaŭlte.
   document.querySelectorAll("#vestaroTaboj button").forEach(b => {
     const tabo = ( b as HTMLElement ).dataset.tabo || "vestoj";
     b.addEventListener("click", () => sxaltiVestaranTabon(tabo));
   });
   sxaltiVestaranTabon("vestoj");
-  // Kiam la lingvo ŝanĝiĝas dum la panelo estas malfermita, replenu la listojn
-  // ( sama ŝablono kiel la rezima butono ).
   window.addEventListener("lingvosxangxo", () => {
     if ( informo.classList.contains("montri") ) plenigiInformon();
   });
@@ -245,8 +198,6 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     aplikiVacepu();
   }
 
-  // montriNeEnireblanKarton — Montru informon ( manĝaĵo/specio ) en la sama
-  // karto kiel konstruaĵoj, sed sen la Eniri-butono.
   function montriNeEnireblanKarton(nomo: string, chipo: string, koloro: string, flavorKlavo: string) {
     skribiElektitan(null);
     kartoNomo.textContent = nomo;
@@ -254,7 +205,6 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     kartoChip.style.background = koloro;
     kartoStatistikoj.innerHTML = "";
     const flavor = traduki(flavorKlavo);
-    // En aih la speciaj gustoj estas provizore malplenaj — montru malplenan linion.
     kartoFlavor.textContent = flavor === flavorKlavo ? "" : flavor;
     kartoEniri.style.display = "none";
     kartoElemento.classList.add("montri");
@@ -272,8 +222,6 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
   );
   }
 
-  // enfokusigiKonstruajxon — Integriĝo kun la ekzistanta orbit-sistemo. Iru al
-  // orbito, enfokusigu la konstruaĵon kaj montru ĝian karton ( kiel klako en orbito ).
   function enfokusigiKonstruajxon(spec: KonstruSpec, bt: KonstruTipo) {
     fermiInformon();
     const rezimo = legiRezimon();
@@ -288,10 +236,9 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     gxisdatigiRetikulon();
   }
 
-  // ⟪ Konstruajxa karto 📃 ⟫
+  // ⟪ កាតសំណង់ 📃 ⟫
   function montriKarton(spec: KonstruSpec, bt: KonstruTipo) {
     skribiElektitan(spec);
-    // Restarigu la Eniri-butonon ( montriNeEnireblanKarton kaŝas ĝin ).
     kartoEniri.style.display = "";
     kartoNomo.textContent = konstruaĵaNomo(spec.name, spec.type);
     const btLabelo = traduki(bt.labelKey);
@@ -301,7 +248,6 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     kartoFlavor.textContent = traduki(bt.flavorKey);
     kartoElemento.classList.add("montri");
     kartoEniri.onclick = () => eniriKonstruajxon(spec);
-    // La nova karto-enhavo bezonas la vacepu-vortojn ( aih ).
     aplikiVacepu();
   }
   function kasxiKarton() {

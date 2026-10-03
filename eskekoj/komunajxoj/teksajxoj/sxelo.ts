@@ -1,4 +1,4 @@
-// ≺⧼ Betula sxela teksajxo 🌳 ⧽≻
+// ≺⧼ វាយនភាពសំបកប៊ឺច 🌳 ⧽≻
 import * as THREE from "three";
 import { desegniWrapajnNubojn, desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

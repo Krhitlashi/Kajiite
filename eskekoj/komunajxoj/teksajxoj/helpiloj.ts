@@ -1,4 +1,4 @@
-// ≺⧼ Komunaj teksturaj helpiloj 🖌️ ⧽≻
+// ≺⧼ ជំនួយវាយនភាពរួម 🖌️ ⧽≻
 import * as THREE from "three";
 
 export const hazard = ( a: number, b: number ): number => a + Math.random() * ( b - a );

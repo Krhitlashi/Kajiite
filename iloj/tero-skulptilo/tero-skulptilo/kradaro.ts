@@ -1,26 +1,16 @@
 // ≺⧼ ទីក្រុងក្រឡា និងផ្លូវ 🏙️ ⧽≻
-// ផ្ទាំងក្រឡាបង្ហាញ និងកែសម្រួលក្រឡាទីក្រុងដូចគ្នាដែលហ្គេម
-// សាងសង់ពី KradaArangxo ព្រមទាំងផ្លូវ និងកំពង់នៅកម្រិតពិភពលោក។ ផ្នែកទាំងពីរ
-// គឺឧបករណ៍តែមួយ ។ ក្រឡា ភ្ជាប់ ទៅផ្លូវពិភពលោក ( ផ្លូវក្រឡារបស់ស្ថានី )
-// ហើយផ្លូវ បិទភ្ជាប់ ទៅបណ្តាញក្រឡា ដូច្នេះវាមិនញែកចេញពីគ្នា។
-// ស្ថានភាពអានដោយផ្ទាល់ ( តំណរស់របស់ ES module ) មានតែ
-// អនុគមន៍កំណត់ ( agordiDatumojn, agordiUrbojn, agordiVojojn, ... ) ទេដែលកែវា។
 import { MONDO_HALFO } from "./mezuroj.js";
 import { akvaRezulto, cxuAkvo } from "./akvo.js";
 import { bildilo3d } from "./vido3d.js";
 import { rekonstruiKradon3D, rekonstruiVojojn3D } from "./krado3d.js";
-// ម៉ូឌុលក្រឡាសុទ្ធដូចគ្នានឹងហ្គេម ( kantaoj/mondo/krado.ts )។
 import { kreiKradanPlanon } from "../../../kantaoj/mondo/krado/plano.js";
 import { validiKradon } from "../../../kantaoj/mondo/krado/validigo.js";
 import { aldoniVojon } from "../../../kantaoj/mondo/krado/aldonoj.js";
 import { superajElDatumo, superojElDatumo } from "../../../kantaoj/mondo/krado/superoj.js";
-// ប្រភេទទិន្នន័យរបស់ពិភពលោកឆ្លាក់ ។ ដូចគ្នានឹងអ្វីដែលហ្គេមអាន
-// ( kantaoj/mondo/urbo/tipoj.ts )។
 import type { SkulptaUrbo, SkulptaVojo, SkulptaPlatformo } from "../../../kantaoj/mondo/urbo/tipoj.js";
 import type { CellType, KradaPlano } from "../../../kantaoj/mondo/krado/tipoj.js";
 import type { VojaPunkto } from "../../../eskekoj/medio/voj-reto.js";
 import { elemento, elementoj } from "../../komunajxoj/dom.js";
-// ជំនួយការផ្លូវរបស់ហ្គេម ( ការលាយបញ្ចូល កំពង់ ការបិទភ្ជាប់ )។
 import { vojaDuonLargho as retoVojaDuonLargho, vojaKunigaDuono as retoVojaKunigaDuono,
   pontoDuonLargho as retoPontoDuonLargho, vojaProjekcio as retoVojaProjekcio,
   vojoKunfandiĝas as retoVojoKunfandiĝas,
@@ -30,9 +20,7 @@ import { vojaDuonLargho as retoVojaDuonLargho, vojaKunigaDuono as retoVojaKuniga
   dokoLandaSegmento as retoDokoLandaSegmento,
   DOKO_PLATFORMA_LARĜO } from "../../../eskekoj/medio/voj-reto.js";
 
-// ⟪ តំណជាមួយកម្មវិធីកែ 📃 ⟫ ។ ឯកសារយោងរបស់ឯកសារមេ ភ្ជាប់គ្នា
-// ម្តងដោយ agordiKradaron។ ទិដ្ឋភាព ( ចំណុចកណ្តាល និងការពង្រីក )
-// ផ្លាស់ប្តូរពេលប្រើ ដូច្នេះវាអានតាម FUNKCIOJ។
+// ⟪ តំណជាមួយកម្មវិធីកែ 📃 ⟫
 interface KradaLigo {
   vidCX: () => number;
   vidCZ: () => number;
@@ -58,47 +46,27 @@ export function agordiKradaron(k: KradaLigo): void {
   markiSxangxitan = k.markiSxangxitan; markiDesegnon = k.markiDesegnon;
 }
 
-// ⟪ អនុគមន៍កំណត់ 📃 ⟫ ។ ការសរសេរតែមួយគត់ទៅស្ថានភាពទីក្រុង និង
-// ផ្លូវពីឯកសារមេ ( ការផ្ទុកផែនទី ការត្រឡប់ក្រោយ និងការរក្សាទុក
-// មុនៗ )។ បញ្ជីអានដោយផ្ទាល់។
+// ⟪ អនុគមន៍កំណត់ 📃 ⟫
 export function agordiUrbojn(listo: SkulptaUrbo[]) { urboj = Array.isArray(listo) ? listo : []; }
 export function agordiElektitanUrbon(i: number) { elektitaUrbo = i; }
 export function agordiElektitanAldonanBlokon(i: number) { elektitaAldonaBloko = i; }
 export function agordiVojojn(listo: SkulptaVojo[]) { vojoj = Array.isArray(listo) ? listo : []; }
 export function agordiDokojn(listo: SkulptaPlatformo[]) { dokoj = Array.isArray(listo) ? listo : []; }
 
-// ផ្ទាំងគំនូសរបស់ផែនទី 2D ។ ស្រទាប់ក្រឡាគូរលើវា។
 const mapo = elemento<HTMLCanvasElement>("mapo");
 
-// ════════════════════════ ក្រឡា 🏙️ ( ក្រឡាទីក្រុង ) ════════════════════════
-// ផ្ទាំងក្រឡាបង្ហាញ និងកែសម្រួលក្រឡាទីក្រុងដូចគ្នាដែលហ្គេម
-// សាងសង់ពី KradaArangxo ( kantaoj/mondo/urbo.ts → kantaoj/mondo/krado.ts ។ ម៉ូឌុល
-// សុទ្ធដូចគ្នា )។ អគារបង្ហាញ តែ ពេលផ្ទាំងនេះសកម្មប៉ុណ្ណោះ ។
-// ក្នុង 2D លើផែនទី ( desegniKradanTavolon ) និងជារូបរាង 3D ពិតក្នុង
-// ទិដ្ឋភាព 3D ( rekonstruiKradon3D ។ អគារ ពិត របស់ហ្គេម រូបរាងនោះ
-// ស្ថិតនៅ tero-skulptilo/krado3d.js )។ ការកំណត់
-// ផ្លាស់ប្តូរការតំឡើង ( ទំហំ ប្លុក ) និងតម្រុយ បន្ទះពណ៌
-// ជ្រើសប្រភេទសម្រាប់ការកែដោយចុច ហើយសំណពីលើ ( Mapo "c,r" → ប្រភេទ )
-// ផ្លាស់ប្តូរ ឬបន្ថែមក្រឡាដោយដៃ។
-// ទីក្រុង ។ ការតំឡើងក្រឡា និងតម្រុយរបស់ SKULPTA_URBOJ ( បញ្ជីដូចគ្នា
-// ដែលហ្គេមសាងសង់ )។ កម្មវិធីជ្រើសទីក្រុងក្នុងផ្ទាំងក្រឡាជ្រើស
-// ទីក្រុងសម្រាប់កែ ការផ្លាស់ប្តូរត្រូវសរសេរត្រឡប់ទៅទីក្រុង និងរក្សាទុកទៅ
-// ឯកសារទិន្នន័យ ( generiDosierojn សរសេរ SKULPTA_URBOJ ទៅ kantaoj/tero-datumaro/urboj.ts )។
-export let urboj: SkulptaUrbo[] = [];  // ការតំឡើងក្រឡា និងតម្រុយ ( SKULPTA_URBOJ )
-export let elektitaUrbo = 0;            // ទីក្រុងដែលបានជ្រើស ( ទីមួយគឺមេ )
-export let kradoGrandeco = 3;           // arangxaGrando ( 1 ĝis 6 ) ។ ទំហំរៀបចំក្រឡា
-export let kradoBloko: "unu" | "kvar" = "unu";   // blokaGrando ( "unu" | "kvar" ) ។ ទំហំប្លុកក្រឡា
-export let kradoOfsX = 0, kradoOfsZ = 0;   // តម្រុយនៃចំណុចកណ្តាលក្រឡា
-export let kradoKeuxfhxeso = false;     // keŭfĥesoj ជុំវិញចំណុចកណ្តាល
-export let kradoLampoj = true;          // គំរូផ្លូវបួនចង្កៀង ( បើកតាមលំនាំដើម )
-export let kradoTipoElektita: CellType | "automata" = "automata";   // បន្ទះពណ៌ ( "automata" = ប្រភេទដែលបង្កើត )
-export let kradoSuperoj: Map<string, CellType> = new Map();   // "c,r" → ប្រភេទ ( unu ) ឬ "c,r,SUB" → ប្រភេទ ( kvar )
-export let vojoj: SkulptaVojo[] = [];   // ផ្លូវកម្រិតពិភពលោក ( SKULPTA_VOJOJ )
-export let dokoj: SkulptaPlatformo[] = [];   // កំពង់ ( SKULPTA_DOKOJ )
+export let urboj: SkulptaUrbo[] = [];
+export let elektitaUrbo = 0;
+export let kradoGrandeco = 3;
+export let kradoBloko: "unu" | "kvar" = "unu";
+export let kradoOfsX = 0, kradoOfsZ = 0;
+export let kradoKeuxfhxeso = false;
+export let kradoLampoj = true;
+export let kradoTipoElektita: CellType | "automata" = "automata";
+export let kradoSuperoj: Map<string, CellType> = new Map();
+export let vojoj: SkulptaVojo[] = [];
+export let dokoj: SkulptaPlatformo[] = [];
 
-// agordiDatumojn ។ ការផ្ទុកដំបូងរបស់ទិន្នន័យ ( ទីក្រុង ផ្លូវ
-// និងកំពង់នៃផែនទី )។ តម្លៃលំនាំដើម ( កំពង់ធំ មហាវិថី និងកំពង់ទាំងបី )
-// មានសុពលភាព ពេលផែនទីគ្មានផ្លូវសោះ ។ ដូចផែនទីចាស់។
 interface SkulptaDatumoj {
   urboj?: SkulptaUrbo[];
   vojoj?: SkulptaVojo[];
@@ -126,19 +94,12 @@ export function agordiDatumojn(datumoj: SkulptaDatumoj): void {
     : [ { x: -48, z: -108, profundo: 16 }, { x: 0, z: -98, profundo: 16 }, { x: 48, z: -88, profundo: 16 } ];
 }
 
-// sinkronigiSuperojn ។ សំណពីលើក្រឡារស់ ទៅទិន្នន័យទីក្រុងដែលរក្សាទុក
-// ( ការរក្សាទុកសរសេរពួកវាទៅ SKULPTA_URBOJ ហើយហ្គេមអនុវត្តពួកវា )។
 export function sinkronigiSuperojn() {
   const u = urboj[elektitaUrbo];
   if ( !u ) return;
   u.superoj = superojElDatumo(kradoSuperoj);
 }
 let kradaPlanoCache: ReturnType<typeof kreiKradanPlanon> | null = null;
-// កំពង់ និងផ្លូវជាលក្ខណៈពិភពលោករបស់ទីក្រុងមេ ( SKULPTA_DOKOJ
-// និង SKULPTA_VOJOJ ក្នុង kantaoj/tero-datumaro/vojoj.ts ) កែតាម
-// ផ្ទាំងរងផ្លូវនៃផ្ទាំងក្រឡា។ យានអវកាស និងទូកកាណូ
-// ជាវត្ថុ ( SKULPTA_OBJEKTOJ ) ។ កែ
-// ដោយឧបករណ៍វត្ថុ មិនមែនតាមផ្ទាំងរងផ្លូវទៀតទេ។
 export const kradaro = elemento<HTMLElement>("kradaro");
 export const kradoPanel = elemento<HTMLElement>("kradoPanel");
 const urboElektilo = elemento<HTMLSelectElement>("urboElektilo");
@@ -153,11 +114,8 @@ const kradoKeuxfhxesoEl = elemento<HTMLInputElement>("kradoKeuxfhxeso");
 const kradoLampojEl = elemento<HTMLInputElement>("kradoLampoj");
 const kradoRestarigiBtn = elemento<HTMLButtonElement>("kradoRestarigi");
 const kradoKopiiBtn = elemento<HTMLButtonElement>("kradoKopii");
-// ប្លុកបន្ថែម ។ សំណង់បន្ថែមរបស់ទីក្រុងដែលកំពុងកែ
-// ( ស្ថានីយានអវកាសរបស់ទីក្រុងមេគឺមួយ ) ដាក់ដោយឡែកពី
-// ការបង្កើតក្រឡា។ ប្លុកដែលបានជ្រើស និងការអូសលើផែនទី។
 export let elektitaAldonaBloko = -1;
-export let aldonaTrenata = -1;             // លេខលំដាប់នៃប្លុកបន្ថែមដែលកំពុងអូស
+export let aldonaTrenata = -1;
 const aldonaBlokoElektilo = elemento<HTMLSelectElement>("aldonaBlokoElektilo");
 const aldonaBlokoTipoEl = elemento<HTMLSelectElement>("aldonaBlokoTipo");
 const aldonaBlokoXEl = elemento<HTMLInputElement>("aldonaBlokoX");
@@ -167,15 +125,10 @@ const aldonaBlokoStaciaEl = elemento<HTMLInputElement>("aldonaBlokoStacia");
 const aldonaBlokoKonektitaEl = elemento<HTMLInputElement>("aldonaBlokoKonektita");
 const aldonaBlokoAldoniBtn = elemento<HTMLButtonElement>("aldonaBlokoAldoni");
 const aldonaBlokoForigiBtn = elemento<HTMLButtonElement>("aldonaBlokoForigi");
-// ផ្ទាំងរងផ្លូវនៃផ្ទាំងក្រឡា ។ ផ្លូវ ចំណុច កំពង់ ដែលបានជ្រើស និង
-// ឧបករណ៍រងលើផែនទី។ លក្ខណៈពិភពលោក ( ផ្លូវ កំពង់ ) កែនៅទីនេះ
-// ប៉ុន្តែនៅតែជាកម្រិតពិភពលោក ( ដើម្បីឱ្យវាភ្ជាប់ទីក្រុងច្រើនបាននៅអនាគត )។
-export let elektitaVojo = 0;          // លេខលំដាប់ក្នុង vojoj
-export let elektitaPunkto = -1;       // ចំណុចនៃផ្លូវដែលបានជ្រើស ( -1 = គ្មាន )
-export let elektitaDoko = 0;          // លេខលំដាប់ក្នុង dokoj
-let vojaIlo: string = "movu";          // "movu" | "aldoni" | "forigi" ។ ឧបករណ៍កែផ្លូវ
-// VojaCelo ។ គោលដៅនៃផ្ទាំងរងផ្លូវក្រោមការចុច ( ចំណុច
-// កំពង់ ឬផ្លូវខ្លួនឯង )។
+export let elektitaVojo = 0;
+export let elektitaPunkto = -1;
+export let elektitaDoko = 0;
+let vojaIlo: string = "movu";
 type VojaCelo = { speco: "punkto"; vojo: number; punkto: number }
   | { speco: "doko"; doko: number }
   | { speco: "vojo"; vojo: number };
@@ -200,25 +153,12 @@ const dokoRotacioEl = elemento<HTMLInputElement>("dokoRotacio");
 const dokoAldoniBtn = elemento<HTMLButtonElement>("dokoAldoni");
 const dokoForigiBtn = elemento<HTMLButtonElement>("dokoForigi");
 
-// kradoPlano ។ ផែនការបច្ចុប្បន្នជាមួយសំណពីលើ។ ការកែក្រឡាមានសុពលភាព
-// ភ្លាម។ ផ្លូវ សាខា និងអគារគណនាឡើងវិញជុំវិញក្រឡាដែលបានផ្លាស់ប្តូរ ឬ
-// បន្ថែម ។ តក្កដូចគ្នានឹងហ្គេម។ ប្លុក បន្ថែម របស់
-// ទីក្រុងដែលកំពុងកែ ( ស្ថានីយានអវកាស និងសំណង់បន្ថែមផ្សេងទៀត )
-// មកពីទិន្នន័យទីក្រុង ( aldonajBlokoj ) ។ ដោយឡែកពីការបង្កើតក្រឡា។
-// ពេលទីក្រុងមេត្រូវបានជ្រើស អ្នកសាងសង់ផ្លូវ ( aldoniVojon )
-// បន្ថែមមហាវិថីកំពង់ ។ ផ្លូវកម្រិតពិភពលោករបស់ទីក្រុងមេ។
 export function kradoPlano() {
   if ( !kradaPlanoCache ) {
     const u = urboj[elektitaUrbo];
     kradaPlanoCache = kreiKradanPlanon(
       { arangxaGrando: kradoGrandeco, blokaGrando: kradoBloko, lampoj: kradoLampoj },
       kradoSuperoj, u && u.aldonajBlokoj ? u.aldonajBlokoj : []);
-    // ផ្លូវកម្រិតពិភពលោក ភ្ជាប់ ទៅបណ្តាញក្រឡា ។ ចម្រៀក
-    // ស្របអ័ក្សលើ បន្ទាត់ ដូចគ្នានឹងផ្លូវក្រឡាដែលមានស្រាប់ ( ទីតាំង
-    // ស្មើគ្នា ) ត្រូវបានបន្ថែមជាផ្លូវក្រឡារបស់ស្ថានី។ បន្ទាប់មកក្រឡាបង្ហាញ
-    // ពួកវាជាផ្នែកបន្ថែមរបស់ខ្លួន ( ស្រទាប់ជាន់លើ 2D ទិដ្ឋភាព 3D និង
-    // សាខាឈានដល់ពួកវា ) ។ មហាវិថីរបស់ទីក្រុងមេគឺជាឧទាហរណ៍។
-    // វាបន្តផ្លូវ NS នៅ x=12 ទៅត្បូងដល់កំពង់។
     const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
     for ( const v of vojoj ) {
       if ( !v.punktoj || v.punktoj.length < 2 ) continue;
@@ -241,9 +181,6 @@ export function kradoPlano() {
   return kradaPlanoCache;
 }
 export function gxisdatigiKradon() {
-  // ផែនការមក តែងតែ ពី kradoPlano ។ អ្នកសាងសង់តែមួយគត់ ( វាបន្ថែម
-  // ដំបងផ្លូវតភ្ជាប់ផងដែរ )។ ពីមុនអនុគមន៍នេះសាងសង់
-  // ដោយគ្មានដំបង ហើយពួកវាបាត់នៅរាល់ការកែក្រឡា។
   kradaPlanoCache = null;
   kradoPlano();
   gxisdatigiKradajnStatistikojn();
@@ -254,9 +191,6 @@ function gxisdatigiKradajnStatistikojn() {
   const el = elemento<HTMLElement>("kradoStatistikoj");
   if ( !el || !kradaPlanoCache ) return;
   const plano = kradaPlanoCache;
-  // ការត្រួតពិនិត្យស៊ីមេទ្រីមានសុពលភាពតែចំពោះក្រឡាដែល បង្កើត ។ ការកែ
-  // ដោយដៃធ្វើឱ្យវាបែកដោយចេតនា ( ក្រឡាមួយផ្លាស់ប្តូរ មិនមែនកញ្ចក់
-  // ទាំងបួន )។ ស្ថិតិបង្ហាញបញ្ហារចនាសម្ព័ន្ធ។
   const problemoj = validiKradon(plano).filter(p => !p.kodo.startsWith("simetrio-"));
   const bazo = `${plano.ĉeloj.length} ĉeloj · ${plano.konstruaĵoj.length} konstruaĵoj · ${plano.vojoj.length} vojoj · ${plano.spronoj.length} spronoj`;
   el.textContent = problemoj.length
@@ -264,8 +198,6 @@ function gxisdatigiKradajnStatistikojn() {
     : bazo + " — ✓ strukture validas";
 }
 
-// gxisdatigiUrboElektilon ។ សាងសង់កម្មវិធីជ្រើសទីក្រុងឡើងវិញពីទីក្រុង។ ជម្រើស
-// នីមួយៗបង្ហាញឈ្មោះ និងតម្រុយ ទីក្រុងដែលបានជ្រើសនៅតែជ្រើស។
 export function gxisdatigiUrboElektilon() {
   urboElektilo.innerHTML = "";
   urboj.forEach(( u, i ) => {
@@ -279,9 +211,6 @@ export function gxisdatigiUrboElektilon() {
   urboForigiBtn.disabled = urboj.length <= 1;
 }
 
-// elektiUrbon ។ ផ្ទុកទីក្រុង ( ទំហំ ប្លុក តម្រុយ ឈ្មោះ ) ទៅ
-// កម្មវិធីកែ ហើយបង្ហាញក្រឡារបស់វា។ សំណពីលើ ( ការផ្លាស់ប្តូរក្រឡាដោយដៃ )
-// នៅដដែល ។ ការកែក្រឡាជាកម្មសិទ្ធិរបស់ទីក្រុងដែលកំពុងកែ។
 export function elektiUrbon(i: number) {
   elektitaUrbo = Math.max(0, Math.min(urboj.length - 1, i));
   const u = urboj[elektitaUrbo];
@@ -292,8 +221,6 @@ export function elektiUrbon(i: number) {
   kradoOfsZ = u.ofsZ;
   kradoKeuxfhxeso = !!u.keuxfhxeso;
   kradoLampoj = u.lampoj !== false;
-  // សំណពីលើក្រឡារបស់ទីក្រុង នេះ ។ ការកែរបស់ផ្ទាំងក្រឡាមិន
-  // រួមគ្នារវាងទីក្រុងទេ។
   kradoSuperoj = superajElDatumo(u.superoj) ?? new Map();
   kradoGrandecoEl.value = String(kradoGrandeco);
   kradoBlokoEl.value = kradoBloko;
@@ -307,9 +234,6 @@ export function elektiUrbon(i: number) {
   gxisdatigiKradon();
 }
 
-// skribiElektitanUrbon ។ សរសេរកម្មវិធីកែបច្ចុប្បន្នត្រឡប់ទៅទីក្រុង
-// ដែលបានជ្រើស ហើយសម្គាល់ទិន្នន័យថាបានផ្លាស់ប្តូរ ( ការរក្សាទុកសរសេរទីក្រុងទៅ
-// SKULPTA_URBOJ )។
 function skribiElektitanUrbon() {
   const u = urboj[elektitaUrbo];
   if ( !u ) return;
@@ -323,8 +247,6 @@ function skribiElektitanUrbon() {
   markiSxangxitan();
 }
 
-// gxisdatigiAldonaBlokojn ។ ផ្ទុកប្លុកបន្ថែមរបស់ទីក្រុងដែលកំពុងកែ
-// ទៅក្នុងកម្មវិធីកែ ( ប្លុកដែលបានជ្រើសនៅតែជ្រើស )។
 export function gxisdatigiAldonaBlokojn() {
   if ( !aldonaBlokoElektilo ) return;
   const u = urboj[elektitaUrbo];
@@ -351,8 +273,6 @@ export function gxisdatigiAldonaBlokojn() {
   markiDesegnon();
 }
 
-// skribiAldonanBlokon ។ អានកម្មវិធីកែទៅប្លុកបន្ថែមដែលបានជ្រើស ហើយ
-// សម្គាល់ទិន្នន័យថាបានផ្លាស់ប្តូរ ( ការរក្សាទុកសរសេរទីក្រុងទៅ SKULPTA_URBOJ )។
 function skribiAldonanBlokon() {
   const u = urboj[elektitaUrbo];
   const blokoj = u && u.aldonajBlokoj ? u.aldonajBlokoj : [];
@@ -368,8 +288,6 @@ function skribiAldonanBlokon() {
 }
 const ALDONA_TIPO_NOMOJ = { sanktejo: "Sanktejo", turo: "Turo", domo: "Domo", mangxejo: "Manĝejo", kasafeo: "Kasafeo", stacio: "Stacio" };
 
-// aldonaBlokoCxePunkto ។ លេខលំដាប់នៃប្លុកបន្ថែមដែលសញ្ញារបស់វាគ្របដណ្តប់
-// ចំណុចពិភពលោក ( ផ្អែកលើអេក្រង់ ដូចសញ្ញាទីក្រុង ) ឬ -1។
 export function aldonaBlokoCxePunkto(mx: number, mz: number) {
   const u = urboj[elektitaUrbo];
   const blokoj = u && u.aldonajBlokoj ? u.aldonajBlokoj : [];
@@ -385,8 +303,6 @@ export function aldonaBlokoCxePunkto(mx: number, mz: number) {
   return -1;
 }
 
-// komenciAldonaTrenon ។ ចាប់ប្លុកបន្ថែមដើម្បីផ្លាស់ទីវាលើផែនទី ( ការផ្លាស់ទី
-// អាចត្រឡប់វិញ ។ ប្រវត្តិថតរូបនៅពេលចាប់ )។
 export function komenciAldonaTrenon(i: number) {
   if ( aldonaTrenata >= 0 ) return;
   momenti();
@@ -414,14 +330,8 @@ export function finiAldonaTrenon() {
   markiDesegnon();
 }
 
-// gxisdatigiVojajnRegilojn ។ ផ្ទុកផ្លូវ ចំណុច កំពង់ និងកប៉ាល់
-// ទៅក្នុងកម្មវិធីកែនៃផ្ទាំងរងផ្លូវ ( ដែលបានជ្រើសនៅតែជ្រើស )។
 export function gxisdatigiVojajnRegilojn() {
   if ( !vojoElektilo ) return;
-  // ផែនការក្រឡាអាស្រ័យលើផ្លូវកម្រិតពិភពលោក ( ដំបងតភ្ជាប់ ) ។
-  // រាល់ការផ្លាស់ប្តូរនៅទីនេះធ្វើឱ្យឃ្លាំងសម្ងាត់ចាស់។ ផ្លូវ 3D សាងសង់ឡើងវិញនៅរាល់
-  // ការផ្លាស់ប្តូរ ប៉ុន្តែ មិន ពេលអូស ( ផែនទី 2D បង្ហាញការអូសរស់ ទិដ្ឋភាព 3D
-  // ធ្វើឱ្យស្រស់នៅចុងបញ្ចប់ )។
   kradaPlanoCache = null;
   if ( bildilo3d && !vojaTrenata ) rekonstruiVojojn3D();
   vojoElektilo.innerHTML = "";
@@ -527,7 +437,6 @@ function skribiDokoSekure() {
   markiDesegnon();
 }
 
-// gxisdatigiVojaStatistikojn ។ ជួរស្ថិតិផ្លូវ ( ចំនួន និងប្រវែង )។
 function gxisdatigiVojaStatistikojn() {
   const el = elemento<HTMLElement>("vojaStatistikoj");
   if ( !el ) return;
@@ -544,10 +453,6 @@ function gxisdatigiVojaStatistikojn() {
       + " vojo-doko, " + kunfandajxoj.dokoDoko + " doko-doko ) ⚠️" : "0 interkovridoj ✓" );
 }
 
-// vojaKunigoj ។ ចំនួនចុងផ្លូវដែលអង្គុយលើ ផ្លូវផ្សេង ( កំពូល ឬចម្រៀក )។
-// ស្ថិតិបង្ហាញថាតើបណ្តាញពិតជាតភ្ជាប់ ។ បើគ្មានការបិទភ្ជាប់
-// ផ្លូវមើលទៅភ្ជាប់លើផែនទី ប៉ុន្តែទុកចន្លោះប្រហោងក្នុងហ្គេម។
-//     @returns kunigoj ( number ) - ចំនួនចុងដែលបានតភ្ជាប់។
 function vojaKunigoj() {
   let kunigoj = 0;
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
@@ -578,8 +483,6 @@ function vojaKunigaDuono(v: SkulptaVojo): number {
 export function pontoDuonLargho(v: SkulptaVojo): number {
   return retoPontoDuonLargho(v);
 }
-
-
 
 function vojoKunfandiĝas(v: SkulptaVojo, kromVojo: number): boolean {
   return retoVojoKunfandiĝas(v, vojoj, dokoj, kromVojo);
@@ -618,9 +521,6 @@ function vojajKunfandajxoj() {
   return retoVojajKunfandajxoj(vojoj, dokoj);
 }
 
-// urboCxePunkto ។ លេខលំដាប់នៃទីក្រុងដែលសញ្ញារបស់វាគ្របដណ្តប់ចំណុចពិភពលោក
-// ( ប្រៀបធៀបលើអេក្រង់ )។ -1 បើគ្មាន។ ការបំប្លែងពិភពលោក → អេក្រង់ ដូចគ្នា
-// ដូចក្នុង desegniVidon។
 export function urboCxePunkto(mx: number, mz: number) {
   const duonw = mapo.width / 2, duonh = mapo.height / 2;
   const sx = duonw - ( mx - vidCX() ) * vidSkalo();
@@ -634,10 +534,6 @@ export function urboCxePunkto(mx: number, mz: number) {
   return -1;
 }
 
-// vojaCeloCxePunkto ។ គោលដៅនៃផ្ទាំងរងផ្លូវក្រោមចំណុចពិភពលោក
-// ឬ null។ លំដាប់ជ្រើស ។ ចំណុចនៃផ្លូវមុនគេ ( ជិតបំផុត
-// ក្នុងកាំអេក្រង់ ) បន្ទាប់មកកំពង់ ហើយបន្ទាត់ផ្លូវ
-// ( ចម្រៀកជិតបំផុត ) ចុងក្រោយ។
 function vojaCeloCxePunkto(mx: number, mz: number): VojaCelo | null {
   const r = 8 / vidSkalo();
   let plej: VojaCelo | null = null, plejD = r;
@@ -650,8 +546,6 @@ function vojaCeloCxePunkto(mx: number, mz: number): VojaCelo | null {
     }
   }
   if ( plej ) return plej;
-  // កំពង់ ។ ចំណុចត្រូវបំប្លែងទៅក្នុងស៊ុម មូលដ្ឋាន របស់កំពង់ ( ការបង្វិល
-  // បញ្ច្រាស ) ដូច្នេះវេទិកាដែលបង្វិលក៏ត្រូវចាប់តាមផ្ទៃពិតរបស់វា។
   for ( let di = 0; di < dokoj.length; di++ ) {
     const d = dokoj[di];
     const prof = d.profundo || 16;
@@ -674,12 +568,6 @@ function vojaCeloCxePunkto(mx: number, mz: number): VojaCelo | null {
   return null;
 }
 
-// sxangxiVojanCelon ។ ការកែដោយចុចលើផែនទី 2D ក្នុងផ្ទាំងរងផ្លូវ
-// នៃផ្ទាំងក្រឡា។
-// ឧបករណ៍រងសម្រេច។ ជ្រើស/ផ្លាស់ទី ✋ ជ្រើសចំណុច កំពង់ ជិតបំផុត
-// ឬកប៉ាល់ ( ហើយចាប់វាដើម្បីអូស ) ការចុចលើបន្ទាត់ផ្លូវ
-// ជ្រើសផ្លូវ។ បន្ថែមចំណុច ➕ បញ្ចូលចំណុចទៅផ្លូវដែលបានជ្រើស។
-// លុបចំណុច 🗑️ លុបចំណុចជិតបំផុត។
 export function sxangxiVojanCelon(mx: number, mz: number) {
   const proks = vojaCeloCxePunkto(mx, mz);
   if ( vojaIlo === "forigi" ) {
@@ -706,8 +594,6 @@ export function sxangxiVojanCelon(mx: number, mz: number) {
   markiDesegnon();
 }
 
-// komenciVojaTrenon ។ ចាប់ចំណុច កំពង់ ឬកប៉ាល់សម្រាប់ ជ្រើស/ផ្លាស់ទី ✋
-// ( ការផ្លាស់ទីអាចត្រឡប់វិញ ។ ប្រវត្តិថតរូបនៅពេលចាប់ )។
 function komenciVojaTrenon(celo: VojaCelo): void {
   if ( vojaTrenata ) return;
   momenti();
@@ -717,12 +603,6 @@ function komenciVojaTrenon(celo: VojaCelo): void {
   markiDesegnon();
 }
 
-// sxangiVojaPozicion ។ ធ្វើឱ្យទីតាំងរបស់គោលដៅដែលកំពុងអូស ( បិទភ្ជាប់
-// នឹង 0.5 ) ថ្មី ពេល ជ្រើស/ផ្លាស់ទី ✋។
-// kradaVojaAlglu ។ បន្ទាត់ផ្លូវក្រឡាជិតបំផុត ( បណ្តាញផ្លូវរបស់
-// ទីក្រុងបច្ចុប្បន្ន ) នៅចំណុចពិភពលោក ឬ null។ ផ្លូវ NS។ បន្ទាត់ឈរ នៅ x
-// ថេរ ផ្លូវ EW។ ផ្ដេក នៅ z ថេរ។ ការអូសចំណុចផ្លូវបិទភ្ជាប់ទៅ
-// បន្ទាត់ក្នុងរង្វង់គែម ដើម្បីឱ្យផ្លូវ ភ្ជាប់ ទៅក្រឡា។
 function kradaVojaAlglu(mx: number, mz: number) {
   const plano = kradoPlano();
   const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
@@ -732,10 +612,6 @@ function kradaVojaAlglu(mx: number, mz: number) {
     if ( r.orient === "NS" ) {
       const wx = ofsX + r.poz;
       const d = Math.abs(mx - wx);
-      // កូអរដោនេសេរីនៅលើក្រឡា 0.5 ដូចគ្នានឹងចំណុចផ្សេងទៀត។
-      // គ្មាន ដែនកំណត់លាតសន្ធឹង។ ចំណុចអាចរអិលលើបន្ទាត់ហួស
-      // ចន្លោះទីក្រុងផងដែរ ។ ផ្លូវបន្ទាប់មក បន្ត បន្ទាត់ក្រឡា ( មហាវិថី
-      // ភាគខាងត្បូងនៃទីក្រុងមេគឺជាឧទាហរណ៍ ) ហើយ ភ្ជាប់ ទៅក្រឡា។
       if ( d < plejD ) { plejD = d; plej = [ wx, Math.round(mz * 2) / 2 ]; }
     } else {
       const wz = ofsZ + r.poz;
@@ -745,22 +621,12 @@ function kradaVojaAlglu(mx: number, mz: number) {
   }
   return plej;
 }
-// kradaSegmentoAlglu ។ ចម្រៀកទាំងមូល A→B បិទភ្ជាប់ទៅបណ្តាញផ្លូវ
-// ក្រឡា។ បើចម្រៀកស្ទើរតែស្របនឹងបន្ទាត់ផ្លូវក្រឡា ហើយរាល់
-// ចំណុចរបស់វានៅក្នុងគែមបិទភ្ជាប់ ( 2.5 ) នៃបន្ទាត់នោះ វារអិល
-// លើបន្ទាត់ ។ ចុងទាំងពីរត្រង់ជួរគ្នា ដូច្នេះចម្រៀក ភ្ជាប់ ទៅ
-// ក្រឡា ( មិនមែនតែចំណុចចុងមួយ )។ ត្រឡប់ { linioX } ឬ { linioZ } (
-// ទីតាំងពិភពលោកនៃបន្ទាត់ ) ឬ null។
 function kradaSegmentoAlglu(ax: number, az: number, bx: number, bz: number) {
   const plano = kradoPlano();
   const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
   const rando = 0o5/0o2;
   const dx = bx - ax, dz = bz - az;
   if ( Math.hypot(dx, dz) < 1e-6 ) return null;
-  // NS ។ ចម្រៀកស្ទើរតែឈរ ( មុំទៅបញ្ឈរ ≤ ~14° )
-  // ជិតបន្ទាត់ NS។ គ្មាន ដែនកំណត់លាតសន្ធឹង។ ចម្រៀកអាចរអិលលើ
-  // បន្ទាត់ហួសចន្លោះទីក្រុងផងដែរ ហើយបន្ទាប់មក បន្ត បន្ទាត់
-  // ក្រឡា ( ដូចការបិទភ្ជាប់ចំណុចចុង )។
   if ( Math.abs(dx) <= 0o1/0o4 * Math.abs(dz) ) {
     let plej = null, plejD = rando;
     for ( const r of plano.vojoj ) {
@@ -771,7 +637,6 @@ function kradaSegmentoAlglu(ax: number, az: number, bx: number, bz: number) {
     }
     if ( plej !== null ) return { linioX: plej, linioZ: null };
   }
-  // EW ។ ចម្រៀកស្ទើរតែផ្ដេកជិតបន្ទាត់ EW។
   if ( Math.abs(dz) <= 0o1/0o4 * Math.abs(dx) ) {
     let plej = null, plejD = rando;
     for ( const r of plano.vojoj ) {
@@ -784,23 +649,7 @@ function kradaSegmentoAlglu(ax: number, az: number, bx: number, bz: number) {
   }
   return null;
 }
-// ⟨ ការតភ្ជាប់ស្វ័យប្រវត្តិនៃផ្លូវ 📃 ⟩ ។ ផ្លូវ ភ្ជាប់ គ្នាទៅវិញទៅមក ដើម្បី
-// កុំឱ្យអ្នកសាងសង់វាយកូអរដោនេដូចគ្នាពីរដង និងដើម្បីកុំឱ្យផ្លូវ
-// ត្រួតគ្នាដោយឆ្នូតជិតខាងពាក់កណ្តាល។ ការបិទភ្ជាប់ស្វែងរកលើ ផ្លូវ
-// កម្រិតពិភពលោកផ្សេងទៀត ហើយត្រឡប់ចំណុចពិភពលោក ដែលចំណុចកំពុងអូស
-// គួរអង្គុយ។
-//   · VERTICO ។ បើផ្លូវផ្សេងមានកំពូលក្នុងគែម ចំណុចអង្គុយ
-//     ចំ លើវា ។ ផ្លូវពីរបន្ទាប់មក ចែក ចំណុចដូចគ្នា ( ការតភ្ជាប់ពិតពី
-//     ចុងទៅចុង ឬពីចុងទៅមុំ ដូចមហាវិថីនៅកំពង់ )។
-//   · SEGMENTO ។ បើមិនដូច្នេះ បើចំណុចនៅជិត បន្ទាត់កណ្តាល នៃផ្លូវផ្សេង វា
-//     អង្គុយលើការបញ្ចាំង ។ ផ្លូវបន្ទាប់មកភ្ជាប់នៅ កណ្តាល នៃផ្លូវផ្សេង (
-//     ការតភ្ជាប់រាង T នៃស្ពានទៅកំពង់ខាងជើង )។ ការតភ្ជាប់អង្គុយចំលើ
-//     បន្ទាត់ មិនមែនលើក្រឡា 0.5 ។ ដូច្នេះផ្លូវពីរមិនអាចធ្លាក់ពាក់កណ្តាលបាន។
-// ផ្លូវ ដូចគ្នា មិនដែលបិទភ្ជាប់នឹងខ្លួនឯង ។ ចម្រៀករបស់វាផ្ទាល់គឺជាផ្លូវ
-// ខ្លួនឯង ហើយចំណុចលើពួកវាមិនមែនជាការតភ្ជាប់ទេ។
-//     @param mx, mz ( number ) - ចំណុចពិភពលោករបស់កណ្ដុរ។
-//     @param kromVojo ( number ) - លេខលំដាប់ផ្លូវដែលកំពុងអូស។
-//     @returns punkto ( [ number, number ] | null ) - ចំណុចតភ្ជាប់។
+// ⟨ ការតភ្ជាប់ស្វ័យប្រវត្តិនៃផ្លូវ 📃 ⟩
 const VOJA_ALGLUA_RANDO = 0o5/0o2;
 function vojaAlgluo(mx: number, mz: number, kromVojo: number, najbaro: VojaPunkto | null = null) {
   let plej = null, plejD = Infinity;
@@ -836,12 +685,6 @@ function vojaAlgluo(mx: number, mz: number, kromVojo: number, najbaro: VojaPunkt
   return plej;
 }
 
-// forigiDuoblajnPunktojn ។ លុបចំណុចតជាប់គ្នាដែលអង្គុយលើទីតាំង
-// ដូចគ្នា។ ការតភ្ជាប់ចុងពីរ ( ឬការអូសចំណុចលើអ្នកជិតខាងរបស់វា )
-// ទុកចំណុចស្ទួន ដែលបង្កើតចម្រៀក សូន្យ ។ ម៉ូឌុលផ្លូវគូរ
-// វាជាថ្នេរមើលឃើញ ហើយពហុបន្ទាត់រាយការណ៍ប្រវែងក្លែងក្លាយ។
-//     @param v ( object ) - ផ្លូវ ( ចំណុចផ្លាស់ប្តូរនៅនឹងកន្លែង )។
-//     @returns forigitaj ( number ) - ចំនួនចំណុចដែលបានលុប។
 function forigiDuoblajnPunktojn(v: SkulptaVojo): number {
   let forigitaj = 0;
   for ( let i = v.punktoj.length - 1; i > 0 && v.punktoj.length > 2; i-- ) {
@@ -851,11 +694,6 @@ function forigiDuoblajnPunktojn(v: SkulptaVojo): number {
   return forigitaj;
 }
 
-// konektiVojajnFinojn ។ តភ្ជាប់ចុង ទាំងពីរ នៃរាល់ផ្លូវជាមួយផ្លូវផ្សេងទៀត
-// ( កំពូល ឬចម្រៀក ) បើពួកវានៅក្នុងគែមបិទភ្ជាប់ ហើយលុប
-// ចំណុចស្ទួន។ មានតែ ចុង ទេដែលផ្លាស់ទី ។ កណ្តាល និងរូបរាងរបស់រាល់ផ្លូវ
-// នៅដូចអ្វីដែលអ្នកសាងសង់បានគូរ។
-//     @returns kunigoj ( number ) - ចំនួនចុងដែលអង្គុយលើផ្លូវផ្សេង។
 function konektiVojajnFinojn() {
   let kunigoj = 0;
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
@@ -894,9 +732,6 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
     for ( const ni of [ pi - 1, pi, pi + 1 ] ) {
       if ( ni >= 0 && ni < v.punktoj.length ) malnovaj.set(ni, [ ...v.punktoj[ni] ]);
     }
-    // ការបិទភ្ជាប់ តាមលំដាប់កម្លាំង ។ បណ្តាញក្រឡាមុនគេ ( ផ្លូវ
-    // ភ្ជាប់ ទៅទីក្រុង ) បន្ទាប់មក ផ្លូវ កម្រិតពិភពលោកផ្សេងទៀត ( ផ្លូវ
-    // ភ្ជាប់ គ្នាទៅវិញទៅមក ) ចុងក្រោយក្រឡា 0.5 សេរី។
     const kradaAlgluo = kradaVojaAlglu(mx, mz);
     let gx, gz;
     if ( kradaAlgluo ) {
@@ -908,11 +743,6 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
       if ( voja ) { gx = voja[0]; gz = voja[1]; }
       else { gx = Math.round(mx * 2) / 2; gz = Math.round(mz * 2) / 2; }
     }
-    // ការបិទភ្ជាប់ ចម្រៀក ។ បើចម្រៀកជិតខាង ( najbaro → ចំណុចកំពុងអូស )
-    // ស្ទើរតែស្របនឹងបន្ទាត់ផ្លូវក្រឡា ហើយជិត អ្នកជិតខាងក៏
-    // រអិលលើបន្ទាត់។ ចម្រៀកទាំងមូលបន្ទាប់មកត្រង់ជួរគ្នា ហើយ ភ្ជាប់
-    // ទៅក្រឡា ( មិនមែនតែចំណុចចុង )។ ពេលចម្រៀកពីររអិល ចំណុច
-    // មកដល់ចំណុចប្រសព្វនៃបន្ទាត់។
     let linioX = null, linioZ = null;
     for ( const ni of [ pi - 1, pi + 1 ] ) {
       const n = v.punktoj[ni];
@@ -958,8 +788,6 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
 
 export function finiVojaTrenon() {
   if ( !vojaTrenata ) return;
-  // ការអូសបានបញ្ចប់ ។ ចំណុចដែលបានតភ្ជាប់នៅលើផ្លូវផ្សេង ហើយ
-  // ចំណុចស្ទួនដែលអាចមាន ( អូសលើអ្នកជិតខាងខ្លួនឯង ) ត្រូវលុប។
   if ( vojaTrenata.speco === "punkto" ) {
     const v = vojoj[vojaTrenata.vojo];
     if ( v ) forigiDuoblajnPunktojn(v);
@@ -969,18 +797,12 @@ export function finiVojaTrenon() {
   markiDesegnon();
 }
 
-// aldoniVojanPunkton ។ បញ្ចូលចំណុចទៅផ្លូវដែលបានជ្រើសនៅពេលចុច
-// ( លើចម្រៀកជិតបំផុត ។ ចំណុចបែងចែកចម្រៀក បើ
-// ផ្លូវមានចំណុចតែមួយ ចំណុចថ្មីដាក់នៅពេលចុចខ្លួនឯង )។
 function aldoniVojanPunkton(mx: number, mz: number) {
   const v = vojoj[elektitaVojo];
   if ( !v ) return;
   const kopio: SkulptaVojo = { ...v, punktoj: v.punktoj.map(p => [ ...p ] as VojaPunkto) };
   const kunfandisAntaŭ = vojoKunfandiĝas(v, elektitaVojo);
   momenti();
-  // ការចុចបិទភ្ជាប់ទៅបណ្តាញផ្លូវក្រឡា បើវាជិតបន្ទាត់
-  // ផ្លូវក្រឡា ។ ចំណុចថ្មីបន្ទាប់មក ភ្ជាប់ ផ្លូវទៅក្រឡា
-  // ( ដូចការអូសចំណុចក្នុង ជ្រើស/ផ្លាស់ទី ✋ )។
   const algluo = kradaVojaAlglu(mx, mz);
   const gx = algluo ? algluo[0] : mx, gz = algluo ? algluo[1] : mz;
   if ( v.punktoj.length < 2 ) {
@@ -996,10 +818,6 @@ function aldoniVojanPunkton(mx: number, mz: number) {
       if ( d < plejD ) { plejD = d; plej = pi; plejT = t; }
     }
     const a = v.punktoj[plej], b = v.punktoj[plej + 1];
-    // ការបិទភ្ជាប់ ចម្រៀក ។ បើចម្រៀកដែលបែងចែក ( a→b ) ស្ទើរតែ
-    // ស្របនឹងបន្ទាត់ផ្លូវក្រឡា ហើយជិត ចម្រៀកទាំងមូល រអិលលើ
-    // បន្ទាត់។ a, b និងចំណុចថ្មីត្រង់ជួរគ្នា ដូច្នេះចម្រៀក ( និង
-    // ចម្រៀកពាក់កណ្តាលថ្មីពីរ ) ភ្ជាប់ ទៅក្រឡា។
     const seg = kradaSegmentoAlglu(a[0], a[1], b[0], b[1]);
     let nx, nz;
     if ( seg ) {
@@ -1013,8 +831,6 @@ function aldoniVojanPunkton(mx: number, mz: number) {
         nx = Math.round(( a[0] + plejT * ( b[0] - a[0] ) ) * 2) / 2;
       }
     } else {
-      // ចំណុចដែលបានបិទភ្ជាប់នៅ លើ បន្ទាត់ក្រឡា បើមិនដូច្នេះការបញ្ចាំងលើ
-      // ចម្រៀក ( បិទភ្ជាប់ 0.5 )។
       nx = algluo ? gx : Math.round(( a[0] + plejT * ( b[0] - a[0] ) ) * 2) / 2;
       nz = algluo ? gz : Math.round(( a[1] + plejT * ( b[1] - a[1] ) ) * 2) / 2;
     }
@@ -1034,7 +850,6 @@ function aldoniVojanPunkton(mx: number, mz: number) {
   markiDesegnon();
 }
 
-// forigiVojanPunkton ។ លុបចំណុច ( ផ្លូវនៅសល់យ៉ាងតិច 2 )។
 function forigiVojanPunkton(vi: number, pi: number) {
   const v = vojoj[vi];
   if ( !v || v.punktoj.length <= 2 ) return;
@@ -1047,18 +862,11 @@ function forigiVojanPunkton(vi: number, pi: number) {
   markiDesegnon();
 }
 
-// sxangxiKradanCelon ។ ការកែដោយចុចលើផែនទី 2D។ ប្រភេទបន្ទះពណ៌ដែលបានជ្រើស
-// ដាក់លើក្រឡា ( ឬ បន្ថែម ក្រឡាថ្មីនៅទីតាំងចុច ) ក្រឡា
-// Aŭtomata ⚙️ លុបសំណពីលើ ។ ក្រឡាត្រឡប់ទៅប្រភេទដែលបង្កើត ឬ
-// លុបចេញ បើវាត្រូវបានបន្ថែម។
 export function sxangxiKradanCelon(mx: number, mz: number) {
   const plano = kradoPlano();
   const PASXO = plano.PASXO;
   const c = Math.round(( mx - kradoOfsX ) / PASXO);
   const r = Math.round(( mz - kradoOfsZ ) / PASXO);
-  // ក្រឡាប្លុកបួន ។ ការចុចផ្លាស់ប្តូរសំណង់ បុគ្គល (
-  // ប្លុករង ) ក្រោមកណ្ដុរ មិនមែនប្លុកទាំងមូល។ ទីតាំងរងគឺ
-  // ជ្រុងជិតបំផុត ( NE, NW, SW, SE នៅ ±BLOKO ។ 8 )។
   if ( kradoBloko === "kvar" ) {
     const BLOKO = 0o10;
     const cx = kradoOfsX + c * PASXO, cz = kradoOfsZ + r * PASXO;
@@ -1070,9 +878,8 @@ export function sxangxiKradanCelon(mx: number, mz: number) {
     }
     const ŝ = c + "," + r + "," + String(plej);
     if ( kradoTipoElektita === "automata" ) {
-      if ( !kradoSuperoj.delete(ŝ) ) return;   // គ្មានសំណពីលើរង ។ គ្មានអ្វីផ្លាស់ប្តូរ
+      if ( !kradoSuperoj.delete(ŝ) ) return;
     } else {
-      // ដែនកំណត់ ។ ក្រឡាអាចលាតសន្ធឹងបានត្រឹមគែមពិភពលោកប៉ុណ្ណោះ។
       if ( Math.abs(c * PASXO + kradoOfsX) > MONDO_HALFO || Math.abs(r * PASXO + kradoOfsZ) > MONDO_HALFO ) return;
       kradoSuperoj.set(ŝ, kradoTipoElektita);
     }
@@ -1082,9 +889,8 @@ export function sxangxiKradanCelon(mx: number, mz: number) {
   }
   const ŝ = c + "," + r;
   if ( kradoTipoElektita === "automata" ) {
-    if ( !kradoSuperoj.delete(ŝ) ) return;   // គ្មានសំណពីលើ ។ គ្មានអ្វីផ្លាស់ប្តូរ
+    if ( !kradoSuperoj.delete(ŝ) ) return;
   } else {
-    // ដែនកំណត់ ។ ក្រឡាអាចលាតសន្ធឹងបានត្រឹមគែមពិភពលោកប៉ុណ្ណោះ។
     if ( Math.abs(c * PASXO + kradoOfsX) > MONDO_HALFO || Math.abs(r * PASXO + kradoOfsZ) > MONDO_HALFO ) return;
     kradoSuperoj.set(ŝ, kradoTipoElektita);
   }
@@ -1094,13 +900,6 @@ export function sxangxiKradanCelon(mx: number, mz: number) {
   gxisdatigiKradon();
 }
 
-// desegniKradanTavolon ។ ទីក្រុងក្រឡាលើបរិបទណាមួយ។ ផ្លូវ ( ឆ្នូត
-// ធំទូលាយ ) សាខា ( បន្ទាត់ស្តើង ) និងអគារ ( ការ៉េបង្វិល
-// តាមការបង្វិល ជាមួយចំណុចទ្វារពណ៌ស ។ ទ្វារ និងអគារ
-// ប្លុកបួនដែលបង្វិលមើលឃើញ )។ X/Z បំប្លែងកូអរដោនេផែនការ
-// ( ធៀបនឹងចំណុចកណ្តាលក្រឡា ) ទៅភីកសែល skalo គឺភីកសែលក្នុងមួយ
-// ឯកតាពិភពលោក។ ស្រទាប់គូរលើផែនទី 2D ( ជាមួយទិដ្ឋភាព និង
-// តម្រុយ )។
 const KRADAJ_KOLOROJ: Record<string, string> = {
   sanktejo: "#e0b840",
   turo: "#98a8b8",
@@ -1117,7 +916,6 @@ const KRADAJ_KOLOROJ: Record<string, string> = {
     @param skalo ( number ) - ភីកសែលក្នុងមួយឯកតាពិភពលោក។ */
 export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPlano,
   X: ( x: number ) => number, Z: ( z: number ) => number, skalo: number): void {
-  // ផ្លូវ ។ ចម្រៀកដូចគ្នានឹងហ្គេម ( ទទឹងពេញ 3.5 )។
   k.lineWidth = 0o7/0o2 * skalo;
   k.strokeStyle = "rgba(218,218,228,0.9)";
   k.beginPath();
@@ -1126,7 +924,6 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
     else { k.moveTo(X(v.poz), Z(v.de)); k.lineTo(X(v.poz), Z(v.al)); }
   }
   k.stroke();
-  // សាខា ។ ផ្លូវតូចទ្វារ ( ស្តើង )។
   k.lineWidth = Math.max(1, 1.4 * skalo);
   k.strokeStyle = "rgba(255,255,255,0.55)";
   k.beginPath();
@@ -1135,9 +932,7 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
     k.lineTo(X(sp.al[0]), Z(sp.al[1]));
   }
   k.stroke();
-  // អគារ ។ ការ៉េ ( 8×8 ) បង្វិលតាមការបង្វិល ទ្វារជា
-  // ចំណុចពណ៌សនៅចម្ងាយទ្វារ។
-  const radu = 5.657 * skalo;   // អង្កត់ទ្រូងពាក់កណ្តាលនៃ 8×8
+  const radu = 5.657 * skalo;
   for ( const b of plano.konstruaĵoj ) {
     const sx = X(b.x), sy = Z(b.z);
     const koloro = b.stacia ? KRADAJ_KOLOROJ.stacio : KRADAJ_KOLOROJ[b.tipo];
@@ -1163,15 +958,12 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
   }
 }
 
-// បន្ទះពណ៌ ។ ជ្រើសប្រភេទសម្រាប់ការកែដោយចុច។ Aŭtomata ⚙️ (
-// លំនាំដើម ) ត្រឡប់ក្រឡាទៅប្រភេទដែលបង្កើត ឬលុបអ្វីដែលបន្ថែម។
 elementoj<HTMLButtonElement>("#kradaro button").forEach(b => {
   b.addEventListener("click", () => {
     kradoTipoElektita = ( b.dataset.kradoTipo as CellType | undefined ) ?? "automata";
     elementoj<HTMLButtonElement>("#kradaro button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   });
 });
-// កម្មវិធីជ្រើសទីក្រុង ។ ជ្រើសទីក្រុងផ្ទុកការតំឡើងរបស់វាទៅកម្មវិធីកែ។
 urboElektilo.addEventListener("change", () => elektiUrbon(parseInt(urboElektilo.value, 10) || 0));
 urboNomoEl.addEventListener("input", () => {
   const u = urboj[elektitaUrbo];
@@ -1194,16 +986,12 @@ urboForigiBtn.addEventListener("click", () => {
   markiSxangxitan();
   markiDesegnon();
 });
-// ការកំណត់ ។ រាល់ការផ្លាស់ប្តូរសាងសង់ផែនការឡើងវិញភ្លាម ហើយសរសេរត្រឡប់ទៅ
-// ទីក្រុងដែលបានជ្រើស ( ការរក្សាទុកសរសេរទីក្រុងទៅ SKULPTA_URBOJ )។
 kradoGrandecoEl.addEventListener("change", () => { kradoGrandeco = parseInt(kradoGrandecoEl.value, 10); skribiElektitanUrbon(); gxisdatigiKradon(); });
 kradoBlokoEl.addEventListener("change", () => { kradoBloko = kradoBlokoEl.value as "unu" | "kvar"; skribiElektitanUrbon(); gxisdatigiKradon(); });
 kradoOfsXEl.addEventListener("change", () => { kradoOfsX = parseFloat(kradoOfsXEl.value) || 0; skribiElektitanUrbon(); gxisdatigiUrboElektilon(); gxisdatigiKradon(); });
 kradoOfsZEl.addEventListener("change", () => { kradoOfsZ = parseFloat(kradoOfsZEl.value) || 0; skribiElektitanUrbon(); gxisdatigiUrboElektilon(); gxisdatigiKradon(); });
 kradoKeuxfhxesoEl.addEventListener("change", () => { kradoKeuxfhxeso = kradoKeuxfhxesoEl.checked; skribiElektitanUrbon(); gxisdatigiKradon(); });
 kradoLampojEl.addEventListener("change", () => { kradoLampoj = kradoLampojEl.checked; skribiElektitanUrbon(); gxisdatigiKradon(); });
-// ប្លុកបន្ថែម ។ រាល់ការផ្លាស់ប្តូរសរសេរប្លុកត្រឡប់ទៅទីក្រុង ( ការរក្សាទុក
-// សរសេរទីក្រុងទៅ SKULPTA_URBOJ ) ហើយសាងសង់ផែនការឡើងវិញភ្លាម។
 aldonaBlokoElektilo.addEventListener("change", () => {
   elektitaAldonaBloko = parseInt(aldonaBlokoElektilo.value, 10) || 0;
   gxisdatigiAldonaBlokojn();
@@ -1211,10 +999,6 @@ aldonaBlokoElektilo.addEventListener("change", () => {
 });
 aldonaBlokoTipoEl.addEventListener("change", () => {
   skribiAldonanBlokon();
-  // ស្ថានី 🚀 ( stacia ) និងប្រភេទត្រូវគ្នា ។ ប្រភេទក្រៅ "stacio" បិទ
-  // ទង់ស្ថានី ( ទង់ធ្វើឱ្យប្លុកក្លាយជាប្រភេទស្ថានី ហើយលាក់
-  // ប្រភេទដែលបានជ្រើស )។ ទិន្នន័យចាស់ ( sanktejo + stacia ) នៅ
-  // មិនប៉ះពាល់ រហូតដល់ប្រភេទពិតជាត្រូវបានផ្លាស់ប្តូរ។
   const u = urboj[elektitaUrbo];
   const blokoj = u && u.aldonajBlokoj ? u.aldonajBlokoj : [];
   const b = blokoj[elektitaAldonaBloko];
@@ -1254,8 +1038,6 @@ aldonaBlokoForigiBtn.addEventListener("click", () => {
   gxisdatigiAldonaBlokojn();
   gxisdatigiKradon();
 });
-// ផ្ទាំងរងផ្លូវ ។ រាល់ការផ្លាស់ប្តូរសរសេរទិន្នន័យ ហើយសម្គាល់ឯកសារ
-// ថាបានផ្លាស់ប្តូរ ( ការរក្សាទុកសរសេរ SKULPTA_VOJOJ និង SKULPTA_DOKOJ )។
 vojoElektilo.addEventListener("change", () => {
   elektitaVojo = parseInt(vojoElektilo.value, 10) || 0;
   elektitaPunkto = -1;
@@ -1307,9 +1089,6 @@ vojoForigiBtn.addEventListener("click", () => {
   gxisdatigiVojajnRegilojn();
   markiDesegnon();
 });
-// „ភ្ជាប់ទាំងអស់ 🔗“ ។ ការចុចមួយតភ្ជាប់ចុងនៃផ្លូវទាំងអស់ ( បណ្តាញ
-// ទាំងមូល មិនមែនតែអ្វីដែលបានជ្រើស ) ហើយលុបចំណុចស្ទួន។ ប្រវត្តិ
-// ថតរូបម្តង ដូច្នេះការតភ្ជាប់ទាំងមូលអាចត្រឡប់វិញដោយ Ctrl+Z មួយ។
 vojoKonektiBtn.addEventListener("click", () => {
   momenti();
   let vojajKunigoj = 0, movaj = 0, rondoj = 0;
@@ -1411,5 +1190,3 @@ kradoKopiiBtn.addEventListener("click", async() => {
   }
 });
 
-// កម្រិតទឹកជាកម្មសិទ្ធិរបស់ជក់ទឹក 🌊 ។ វាបង្ហាញក្នុង
-// ការកំណត់តែពេលឧបករណ៍ទឹកសកម្ម ( មិនជាមួយឧបករណ៍ផ្សេង )។

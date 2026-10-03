@@ -1,6 +1,6 @@
-// ≺⧼ Eniro 🚪 ⧽≻
-// Eta enira modulo. La ĉefĉerpo ( three.js + la tuta mondo ) ŝargiĝas
-// nestronome, do la paĝo kaj la ŝargila supermetaĵo bildiĝas senprokraste.
-// Ankaŭ la foliumilo kaŝas la grandan ĉerpon aparte, do ĝiaj ramo-deponejaj
-// kopioj reuziĝas inter versioj sen re-elŝuto de la tuta paĝa kodo.
+// ≺⧼ ការបញ្ចូល 🚪 ⧽≻
+// ម៉ូឌុលចូលតូច។ តួសំខាន់ ( three.js + ពិភពលោកទាំងមូល ) ផ្ទុក
+// ដោយស្ងាត់ , ដូច្នេះទំព័រ និងស្រទាប់ផ្ទុកបង្ហាញភ្លាម។ ព្រមទាំងកម្មវិធីរុករកលាក់
+// តួធំដោយឡែក , ដូច្នេះច្បាប់ចម្លងឃ្លាំង ram របស់វាត្រូវបានប្រើឡើងវិញ
+// រវាងកំណែដោយមិនផ្ទុកកូដទំព័រទាំងមូលឡើងវិញ។
 import("./ludo/sperto.js");

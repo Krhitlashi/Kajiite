@@ -1,4 +1,4 @@
-// ≺⧼ Leda teksajxo 👞 ⧽≻
+// ≺⧼ វាយនភាពស្បែក 👞 ⧽≻
 import * as THREE from "three";
 import { desegniWrapajnNubojn, desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 

@@ -1,26 +1,12 @@
-// ≺⧼ Statistiko 📊 ⧽≻
-// La diagnoza surmeto. La agordo de la bildigo estas nevidebla el la ludado.
-// oni vidas la fram-mankon sed ne KIU kostas ĝin. Ĉi tiu modulo
-// montras la verajn nombrojn de la bildilo ( renderer.info ) plus la staton de
-// la vidlimo ( kantaoj/bildo/vidlimo.ts ) kaj la objekto-censon de la sceno, do ĉiu
-// plibonigo de la rendimento mezuriĝas anstataŭ diveniĝi.
-//
-// Ŝaltita per la adreso ?statistiko ( aŭ per la konzolo: statistiko.ŝalti(true) ).
-// La surmetaĵo algluiĝas al la supra maldekstra angulo kaj neniam kaptas la
-// muson — la ludado restas plene funkcia sub ĝi.
+// ≺⧼ ស្ថិតិ 📊 ⧽≻
 import * as THREE from "three";
 import { kunfandajxoStatistiko } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
 import { sferoDe, vidlimaStatistiko } from "../bildo/vidlimo.js";
 import { HE_POR_SEKUNDO } from "../komunajxoj/unuoj.js";
 
-// Kiom da kadroj inter la scenaj censoj. La censo trairas la tutan scenon ( kiel
-// la bildigo mem ), do ĝi ne rulas ĉiukadre — la nombroj estas stabilaj kaj la
-// krado de la surmetaĵo legiĝas pli bone.
-const CENSA_PERIODO = 0o34;   // 28
+const CENSA_PERIODO = 0o34;
 
 export interface Statistiko {
-  // La sceno kaj la bildilo ankaŭ elportas — la konzolo tiel povas esplori la
-  // scen-grafon ( statistiko.sceno.children, .render.info ) dum ludado.
   sceno: THREE.Scene;
   fotilo: THREE.Camera;
   bildilo: THREE.WebGLRenderer;
@@ -29,11 +15,6 @@ export interface Statistiko {
   gxisdatigu: () => void;
 }
 
-// kreiStatistikon — Konstruu la diagnozan surmetaĵon.
-//     @param bildilo ( THREE.WebGLRenderer ) - La bildilo legata ( info.render ).
-//     @param sceno ( THREE.Scene ) - La sceno por la objekto-censo.
-//     @param fotilo ( THREE.Camera ) - La aktiva fotilo por la vida censo.
-//     @returns ( Statistiko ) - La regilo ( ŝalti / gxisdatigu ).
 export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene,
   fotilo: THREE.Camera
 ): Statistiko {
@@ -45,10 +26,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     + "color:#d8b068;text-shadow:0 1px 2px #000,0 0 6px #000;display:none;";
   document.body.appendChild(surmetajxo);
 
-  // ⟨ La fram-manko 📃 ⟩ — mezurita per performance.now(), NE per la horloĝo de
-  // la ludo. Tiu horloĝo estas dividata kun la tuta simulado ( kaj vokiĝas ankaŭ
-  // aliloke ), do ĝia delta foje estas proksima al nulo kaj la nombresprimado
-  // mensogus ( ĝi raportis "0o251 kadroj en He" dum la vera ritmo estis 0o5 ).
+  // ⟨ ការខ្វះស៊ុម 📃 ⟩
   let glataKadro = 0;
   let antaŭaTempo = 0;
   let kadroj = 0;
@@ -64,8 +42,6 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     matrico.multiplyMatrices(fotilo.projectionMatrix, fotilo.matrixWorldInverse);
     frustumo.setFromProjectionMatrix(matrico);
     for ( const infano of sceno.children ) {
-      // `obj` = la objektoj kiuj pasus la vidkampon ( ≈ desegnaj alvokoj, ĉar
-      // ĉiu InstancedMesh estas unu alvoko ); `vid` = la instancoj ( la pezo ).
       let obj = 0, vid = 0;
       infano.traverse(o => {
         let gepatraVidebla = true;
@@ -75,11 +51,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
         if ( !gepatraVidebla ) return;
         const mesa = o as THREE.Mesh;
         if ( mesa.isMesh !== true || mesa.geometry === undefined ) return;
-        // ⟨ La sama sfero kiel la vidkampo 📃 ⟩ — la komuna sferoDe ( vidlimo.ts )
-        // kalkulas la sferon unufoje kaj ĝuste: por instancigita tavolo ĝi estas
-        // la UNIO de ĉiuj instancoj ( antaŭe la surmetaĵo uzis la sferon de la
-        // GEOMETRIO, pli malgrandan ol la disĵetitaj instancoj — la nombroj do
-        // povis malkongrui kun la alvokoj de la bildilo ).
+        // ⟨ ស្វ៊ែរដូចដែនមើល 📃 ⟩
         const sfero = sferoDe(o);
         if ( sfero === null ) return;
         SFERO.copy(sfero);
@@ -98,13 +70,9 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
   function gxisdatigu(): void {
     if ( !statistiko.ŝaltita ) return;
     const nun = performance.now();
-    // La unua kadro ankoraŭ ne havas antaŭulon — prenu 0o1/0o70 ( ≈ 0o32 kadroj
-    // en He ) kiel semon.
     const kadraTempo = antaŭaTempo === 0 ? 0o1/0o70 : Math.max(0o1/0o100, nun - antaŭaTempo) / 1000;
     antaŭaTempo = nun;
     const tujKadro = 1 / kadraTempo;
-    // La EMA ( 62/64 + 2/64 ≈ 32-kadra konstanto ) — la kruda nombro saltadas
-    // tro multe por legiĝi.
     glataKadro = glataKadro === 0 ? tujKadro : glataKadro * ( 0o76/0o100 ) + tujKadro * ( 0o2/0o100 );
     kadroj++;
     kadraNombro++;

@@ -1,4 +1,4 @@
-// ≺⧼ Bulka teksajxo 🍞 ⧽≻
+// ≺⧼ វាយនភាពនំបុ័ង 🍞 ⧽≻
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 
