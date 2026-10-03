@@ -39,7 +39,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
   } = opcioj;
 
   function salti(): void {
-    if ( ludanto.rezimo !== "walk" || ludanto.surKanoto || !ludanto.estasSurTERENO ) return;
+    if ( ludanto.rezimo !== "promeno" || ludanto.surKanoto || !ludanto.estasSurTERENO ) return;
     ludanto.rapidoY = 0o74/0o10;
     ludanto.estasSurTERENO = false;
     if ( cxuAŭdio() ) sfx.jump(0o4/0o10 + 0o6/0o10 * ludanto.movoValoro);
@@ -49,12 +49,12 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
     if ( informo.classList.contains("montri") ) fermiInformon();
     else if ( vestaro.classList.contains("montri") ) fermiVestaron();
     else if ( fermuMapon() ) { /* la mapo fermiĝis */ }
-    else if ( ludanto.rezimo === "interior" ) { if ( ludanto.kuŝas ) leviĝi(); else eliriInternon(); }
+    else if ( ludanto.rezimo === "interno" ) { if ( ludanto.kuŝas ) leviĝi(); else eliriInternon(); }
   }
 
   // ⟪ ធ្វើអន្តរកម្ម ( គ្រាប់ចុច E ) 📃 ⟫
   function proviInterakti() {
-    if ( ludanto.rezimo === "interior" ) {
+    if ( ludanto.rezimo === "interno" ) {
       if ( ludanto.kuŝas ) { leviĝi(); return; }
       if ( ludanto.plejProksimaLito ) { kuŝiĝi(ludanto.plejProksimaLito); return; }
       if ( ludanto.plejProksimaManĝaĵo && !ludanto.plejProksimaManĝaĵo.dead ) { konsumi(ludanto.plejProksimaManĝaĵo); return; }
@@ -68,7 +68,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
       montriTost(traduki("eliri"));
       return;
     }
-    if ( ludanto.plejProksimaPordo && ludanto.rezimo === "walk" ) {
+    if ( ludanto.plejProksimaPordo && ludanto.rezimo === "promeno" ) {
       eniriKonstruajxon(ludanto.plejProksimaPordo, ludanto.aktivaPordaAngulo);
       return;
     }
@@ -85,7 +85,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
       montriTost(traduki("regiloKanuo"));
       if ( cxuAŭdio() ) sfx.splash();
     }
-    if ( ludanto.plejProksimaBero && !ludanto.plejProksimaBero.dead && ludanto.rezimo === "walk" ) {
+    if ( ludanto.plejProksimaBero && !ludanto.plejProksimaBero.dead && ludanto.rezimo === "promeno" ) {
       konsumi(ludanto.plejProksimaBero);
       return;
     }
@@ -134,7 +134,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
     const f = item.f, isFok = item.key.startsWith("fok"), m = item.mesh;
     const start = performance.now();
     ( function ŝrumpi() {
-      const t = ( performance.now() - start ) / 480;
+      const t = ( performance.now() - start ) / 0o740;
       m.scale.setScalar(Math.max(0o1/0o2000, 1 - t));
       if ( t < 1 ) item.malkreska = requestAnimationFrame(ŝrumpi); else { m.visible = false; item.malkreska = null; }
     } )();

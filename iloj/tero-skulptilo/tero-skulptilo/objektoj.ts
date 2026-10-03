@@ -34,30 +34,30 @@ export let objektoAktiva = "betulo";
 export let elektitaObjekto = -1;
 const objektoProp: Record<string, number> = { skalo: 1, rotacio: 0, bestospeco: 0, radio: 4, vesto: 0, harstilo: 0, filikaSpeco: 0, stilo: 0 };
 const OBJEKTO_SPECOJ: Record<string, { nomo: string; koloro: string }> = {
-  betulo:       { nomo: "Betulo 🌳",     koloro: "#a8d8a8" },
-  lariko:       { nomo: "Lariko 🌲",     koloro: "#68a868" },
-  hxsxaksxlefo: { nomo: "Ĥŝakŝlefo 🥬", koloro: "#b880d0" },
-  pussxlefo:    { nomo: "Pussxlefo 🌱",  koloro: "#d8b0e8" },
-  roko:         { nomo: "Roko 🪨",       koloro: "#a0a0a0" },
-  filiko:       { nomo: "Filiko 🌿",     koloro: "#70c870" },
-  akvabesto:    { nomo: "Akva besto 🐟", koloro: "#80d0e8" },
-  petrelo:      { nomo: "Petrelo 🕊️",   koloro: "#e8e8e8" },
+  betulo:       { nomo: "បេធូឡា 🌳",     koloro: "#a8d8a8" },
+  lariko:       { nomo: "ឡារីក 🌲",     koloro: "#68a868" },
+  hxsxaksxlefo: { nomo: "ហ្សាក់ស្លេហ្វូ 🥬", koloro: "#b880d0" },
+  pussxlefo:    { nomo: "ពូសស្លេហ្វូ 🌱",  koloro: "#d8b0e8" },
+  roko:         { nomo: "ថ្ម 🪨",       koloro: "#a0a0a0" },
+  filiko:       { nomo: "ហ្វេន 🌿",     koloro: "#70c870" },
+  akvabesto:    { nomo: "សត្វទឹក 🐟", koloro: "#80d0e8" },
+  petrelo:      { nomo: "ផេត្រេល 🕊️",   koloro: "#e8e8e8" },
   npco:         { nomo: "NPC 🧍",        koloro: "#e0b070" },
-  sanktejo:     { nomo: "Sanktejo 🛕",   koloro: "#184038" },
-  turo:         { nomo: "Turo 🏢",       koloro: "#205040" },
-  domo:         { nomo: "Domo 🏠",       koloro: "#184838" },
-  mangxejo:     { nomo: "Manĝejo 🍽️",   koloro: "#584028" },
-  kasafeo:      { nomo: "Kasafeo 🏛️",   koloro: "#d8c898" },
-  stacio:       { nomo: "Stacio 🚀",     koloro: "#c8c8c8" },
-  hxeuxfo:      { nomo: "Lampo 🏮",      koloro: "#d8b068" },
-  hxeuxfoPlato: { nomo: "Lampo kun plato 🏮", koloro: "#b8c8c8" },
-  keuxfhxeso:   { nomo: "Keŭfĥeso ⭐",   koloro: "#60a0b8" },
-  kanuo:        { nomo: "Kanuo 🛶",      koloro: "#c8b890" },
-  spacosxipo:   { nomo: "Spacosxipo 🚀", koloro: "#d8b068" },
+  sanktejo:     { nomo: "ទីសក្ការៈ 🛕",   koloro: "#184038" },
+  turo:         { nomo: "ប៉ម 🏢",       koloro: "#205040" },
+  domo:         { nomo: "ផ្ទះ 🏠",       koloro: "#184838" },
+  mangxejo:     { nomo: "អាហារដ្ឋាន 🍽️",   koloro: "#584028" },
+  kasafeo:      { nomo: "ហាងកាហ្វេ 🏛️",   koloro: "#d8c898" },
+  stacio:       { nomo: "ស្ថានីយ 🚀",     koloro: "#c8c8c8" },
+  hxeuxfo:      { nomo: "ចង្កៀង 🏮",      koloro: "#d8b068" },
+  hxeuxfoPlato: { nomo: "ចង្កៀងមានផ្ទាំង 🏮", koloro: "#b8c8c8" },
+  keuxfhxeso:   { nomo: "គីហ្វហេសូ ⭐",   koloro: "#60a0b8" },
+  kanuo:        { nomo: "ទូកកាណូ 🛶",      koloro: "#c8b890" },
+  spacosxipo:   { nomo: "យានអវកាស 🚀", koloro: "#d8b068" },
 };
 const OBJEKTO_BESTOSPECOJ = [ "Beroe", "Mnemiopsis", "Pleŭrobrakia", "Glacifiso", "Marlaraksxo" ];
-const OBJEKTO_VESTOJ = [ "Verdant", "Hearth", "Mist", "Ember", "Azure", "Violet", "Gilt", "Rose", "Obsidian", "Cyan" ];
-const OBJEKTO_KANUAJ_STILOJ = [ "Baza", "Satala" ];
+const OBJEKTO_VESTOJ = [ "ពណ៌បៃតង", "ពណ៌ត្នោត", "ពណ៌ស", "ពណ៌ក្រហម", "ពណ៌ខៀវ", "ពណ៌ស្វាយ", "ពណ៌លឿង", "ពណ៌ផ្កាឈូក", "ពណ៌ខ្មៅ", "ពណ៌ស៊ីអាន" ];
+const OBJEKTO_KANUAJ_STILOJ = [ "គោល", "សាតាឡា" ];
 
 // ⟪ ឆាកដុត 2D របស់វត្ថុ 📃 ⟫
 export let objektaGrupo2D: THREE.Group | null = null;
@@ -145,11 +145,11 @@ const objektaMetuBtn = elemento<HTMLButtonElement>("objektaMetu");
     @param z ( number | null ) - ពិភពលោក z របស់ទ្រនិច។ */
 export function gxisdatigiKoordinatojn(x: number | null, z: number | null): void {
   if ( !koordinatajEl ) return;
-  if ( x === null || z === null ) { koordinatajEl.textContent = "—"; return; }
+  if ( x === null || z === null ) { koordinatajEl.textContent = "⋯"; return; }
   const h = bazaAlteco(x, z) + deltoInterp(x, z);
   const akva = maskoInterp(x, z) >= 0o1/0o2;
   koordinatajEl.textContent = "x " + x.toFixed(2) + "   z " + z.toFixed(2)
-    + "   y " + h.toFixed(2) + ( akva ? "   ( akvo )" : "" );
+    + "   y " + h.toFixed(2) + ( akva ? "   ( ទឹក )" : "" );
 }
 
 /* ដាក់វត្ថុដែលជ្រើសនៅទីតាំងនោះ ( ជាប់ 0.25 ) ជាមួយលក្ខណៈ
@@ -165,7 +165,7 @@ export function metiObjekton(x: number, z: number): void {
   if ( o.speco === "kanuo" ) o.stilo = objektoProp.stilo === 1 ? "satala" : "baza";
   objektoj.push(o);
   markiSxangxitan();
-  statuso("Nesavitaj ŝanĝoj");
+  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
   gxisdatigiObjektoListon();
   rekonstruiObjektojn();
   markiDesegnon();
@@ -178,7 +178,7 @@ export function metiObjekton(x: number, z: number): void {
     @param wz ( number ) - ពិភពលោក z របស់ការចុច។
 @returns លិបិក្រម ឬ -1 ( number )។ */
 export function objektoCxePunkto(wx: number, wz: number): number {
-  const disto = Math.max(0o5/0o2, 8 / vidSkalo());
+  const disto = Math.max(0o5/0o2, 0o10 / vidSkalo());
   let plej = -1, plejDisto = disto;
   for ( let i = 0; i < objektoj.length; i++ ) {
     const o = objektoj[i];
@@ -197,7 +197,7 @@ export function forigiObjekton(i: number): void {
   if ( elektitaObjekto === i ) elektitaObjekto = -1;
   else if ( elektitaObjekto > i ) elektitaObjekto--;
   markiSxangxitan();
-  statuso("Nesavitaj ŝanĝoj");
+  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
   gxisdatigiObjektoListon();
   sxargiObjektajnEnigojn();
   rekonstruiObjektojn();
@@ -213,17 +213,17 @@ export function sxargiObjektajnEnigojn(): void {
     const o = objektoj[elektitaObjekto];
     objektaXEnigo.value = String(o.x);
     objektaZEnigo.value = String(o.z);
-    objektaMetuBtn.textContent = "Movu elektitan ➡️";
+    objektaMetuBtn.textContent = "ផ្លាស់ទីដែលជ្រើស ➡️";
   } else {
-    objektaMetuBtn.textContent = "Meti ĉe koordinatoj ➕";
+    objektaMetuBtn.textContent = "ដាក់តាមកូអរដោនេ ➕";
   }
 }
 objektaMetuBtn.addEventListener("click", () => {
   const x = parseFloat(objektaXEnigo.value);
   const z = parseFloat(objektaZEnigo.value);
-  if ( !isFinite(x) || !isFinite(z) ) { statuso("Enigu nombrojn por x kaj z"); return; }
+  if ( !isFinite(x) || !isFinite(z) ) { statuso("បញ្ចូលលេខសម្រាប់ x និង z"); return; }
   if ( Math.abs(x) > MONDO_HALFO || Math.abs(z) > MONDO_HALFO ) {
-    statuso("La koordinatoj estas ekster la mondo");
+    statuso("កូអរដោនេនៅក្រៅពិភពលោក");
     return;
   }
   if ( elektitaObjekto >= 0 && elektitaObjekto < objektoj.length ) {
@@ -232,7 +232,7 @@ objektaMetuBtn.addEventListener("click", () => {
     o.x = Math.round(x * 4) / 4;
     o.z = Math.round(z * 4) / 4;
     markiSxangxitan();
-    statuso("Objekto movita — nesavitaj ŝanĝoj");
+    statuso("វត្ថុបានផ្លាស់ទី , ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
     gxisdatigiObjektoListon();
     sxargiObjektajnEnigojn();
     rekonstruiObjektojn();
@@ -265,7 +265,7 @@ export function komenciObjektanTrenon(ind: number, x: number, z: number): void {
   objektaTrenata = ind;
   elektitaObjekto = ind;
   markiSxangxitan();
-  statuso("Nesavitaj ŝanĝoj");
+  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
   gxisdatigiObjektoListon();
   sxargiObjektajnEnigojn();
   sxangiObjektanPozicion(ind, x, z);
@@ -366,7 +366,7 @@ function konstruiObjektonEn(grupo: THREE.Object3D, o: MetitaObjekto, opcioj: Kon
 function kreiObjektanBakon() {
   if ( objektaBakaRenderilo ) return;
   objektaBakaRenderilo = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  objektaBakaRenderilo.setSize(1024, 1024);
+  objektaBakaRenderilo.setSize(0o2000, 0o2000);
   objektaBakaRenderilo.setClearColor(0x000000, 0);
   objektaBakaFotilo = new THREE.OrthographicCamera(-MONDO_HALFO, MONDO_HALFO, MONDO_HALFO, -MONDO_HALFO, 1, 0o600);
   objektaBakaFotilo.up.set(0, 0, 1);
@@ -407,11 +407,11 @@ function kreiObjektanAntauxrigardon(): void {
   objektaAntauxRenderilo = new THREE.WebGLRenderer({ canvas: objektaAntauxrigardo, antialias: true, alpha: true });
   objektaAntauxRenderilo.setClearColor(0x000000, 0);
   objektaAntauxSceno = new THREE.Scene();
-  objektaAntauxFotilo = new THREE.PerspectiveCamera(40, 1, 1, 500);
-  objektaAntauxFotilo.position.set(16, 12, 16);
-  objektaAntauxSceno.add(new THREE.HemisphereLight(0xc8e0f0, 0x404840, 1.0));
+  objektaAntauxFotilo = new THREE.PerspectiveCamera(0o50, 1, 1, 0o764);
+  objektaAntauxFotilo.position.set(0o20, 0o14, 0o20);
+  objektaAntauxSceno.add(new THREE.HemisphereLight(0xc8e0f0, 0x404840, 0o10/0o10));
   const suno = new THREE.DirectionalLight(0xf8f0d8, 1.2);
-  suno.position.set(-10, 20, 8);
+  suno.position.set(-0o12, 0o24, 0o10);
   objektaAntauxSceno.add(suno);
   objektaAntauxSceno.add(new THREE.AmbientLight(0x505858, 0o1/0o2));
   objektaAntauxGrupo = new THREE.Group();
@@ -445,7 +445,7 @@ export function gxisdatigiObjektoListon(): void {
   if ( objektoj.length === 0 ) {
     const malplena = document.createElement("p");
     malplena.className = "kefhuruq";
-    malplena.textContent = "Neniu objekto — klaku sur la mapon por meti.";
+    malplena.textContent = "គ្មានវត្ថុ , ចុចលើផែនទីដើម្បីដាក់។";
     objektoListo.append(malplena);
     return;
   }
@@ -463,7 +463,7 @@ export function gxisdatigiObjektoListon(): void {
       markiDesegnon();
     });
     const forigi = document.createElement("button");
-    forigi.textContent = "Forigi ✕";
+    forigi.textContent = "លុប ✕";
     forigi.addEventListener("click", () => forigiObjekton(i));
     vico.append(butono, forigi);
     objektoListo.append(vico);
@@ -484,24 +484,24 @@ export function gxisdatigiObjektoPropOJn(): void {
       + opcioj.map(( op, i ) => "<option value=\"" + i + "\"" + ( objektoProp[klavo] === i ? " selected" : "" ) + ">" + op + "</option>").join("")
       + "</select></label>";
   };
-  html += glitilo("Skalo", "skalo", 0o1/0o4, 3, 0o1/0o20, "");
+  html += glitilo("ខ្នាត", "skalo", 0o1/0o4, 3, 0o1/0o20, "");
   if ( s === "npco" ) {
-    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0o1/0o20, " rad");
-    html += elektilo("Vesto", "vesto", OBJEKTO_VESTOJ);
-    html += elektilo("Harstilo", "harstilo", [ "Mallonga", "Longa" ]);
+    html += glitilo("រង្វិល", "rotacio", 0, 6.283, 0o1/0o20, " rad");
+    html += elektilo("សម្លៀកបំពាក់", "vesto", OBJEKTO_VESTOJ);
+    html += elektilo("រចនាសក់", "harstilo", [ "ខ្លី", "វែង" ]);
   } else if ( s === "akvabesto" ) {
-    html += elektilo("Speco", "bestospeco", OBJEKTO_BESTOSPECOJ);
+    html += elektilo("ប្រភេទ", "bestospeco", OBJEKTO_BESTOSPECOJ);
   } else if ( s === "petrelo" ) {
-    html += glitilo("Flugradiuso", "radio", 1, 20, 0o1/0o2, " un");
+    html += glitilo("កាំហោះ", "radio", 1, 0o24, 0o1/0o2, " un");
   } else if ( s === "roko" ) {
-    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0o1/0o20, " rad");
+    html += glitilo("រង្វិល", "rotacio", 0, 6.283, 0o1/0o20, " rad");
   } else if ( s === "filiko" ) {
-    html += elektilo("Koloro", "filikaSpeco", [ "Verda", "Purpura" ]);
+    html += elektilo("ពណ៌", "filikaSpeco", [ "បៃតង", "ស្វាយ" ]);
   } else if ( s === "kanuo" ) {
-    html += glitilo("Rotacio", "rotacio", -3.2, 3.2, 0o1/0o20, " rad");
-    html += elektilo("Stilo", "stilo", OBJEKTO_KANUAJ_STILOJ);
+    html += glitilo("រង្វិល", "rotacio", -3.2, 3.2, 0o1/0o20, " rad");
+    html += elektilo("រចនាប័ទ្ម", "stilo", OBJEKTO_KANUAJ_STILOJ);
   } else if ( OBJEKTO_KONSTRUAJXOJ[s] || s === "hxeuxfo" || s === "hxeuxfoPlato" || s === "keuxfhxeso" ) {
-    html += glitilo("Rotacio", "rotacio", 0, 6.283, 0o1/0o20, " rad");
+    html += glitilo("រង្វិល", "rotacio", 0, 6.283, 0o1/0o20, " rad");
   }
   objektoPropOJ.innerHTML = html;
   elementoj<HTMLInputElement | HTMLSelectElement>("input[data-prop], select[data-prop]", objektoPropOJ).forEach(el => {

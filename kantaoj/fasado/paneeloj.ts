@@ -82,7 +82,7 @@ export interface PanelajOpcioj {
   kartoFlavor: HTMLElement;
   kartoEniri: HTMLElement;
   konstruSpecoj: KonstruSpec[];
-  legiRezimon: () => "orbit" | "walk" | "interior";
+  legiRezimon: () => "orbito" | "promeno" | "interno";
   sxaltiRezimon: () => void;
   regiloj: { enabled: boolean; target: { set( x: number, y: number, z: number ): void }; update(): void };
   fotilo: { position: { set( x: number, y: number, z: number ): void } };
@@ -225,8 +225,8 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
   function enfokusigiKonstruajxon(spec: KonstruSpec, bt: KonstruTipo) {
     fermiInformon();
     const rezimo = legiRezimon();
-    if ( rezimo === "interior" ) return;
-    if ( rezimo === "walk" ) sxaltiRezimon();
+    if ( rezimo === "interno" ) return;
+    if ( rezimo === "promeno" ) sxaltiRezimon();
     regiloj.enabled = true;
     const h0 = spec.h0 || 0;
     regiloj.target.set(spec.x, h0 + 0o14, spec.z);

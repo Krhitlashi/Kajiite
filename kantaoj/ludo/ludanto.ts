@@ -4,7 +4,7 @@ import type { Kanoto } from "../../eskekoj/medio/transporto.js";
 import type { KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/tipoj.js";
 
-export type Rezimo = "orbit" | "walk" | "interior";
+export type Rezimo = "orbito" | "promeno" | "interno";
 
 export interface LitoInfo {
   specX: number; specZ: number; cosR: number; sinR: number;
@@ -13,7 +13,7 @@ export interface LitoInfo {
 
 export interface Ludanto {
   rezimo: Rezimo;
-  antauxaRezimo: "orbit" | "walk" | null;
+  antauxaRezimo: "orbito" | "promeno" | null;
   surKanoto: Kanoto | null;
   elektitaSpec: KonstruSpec | null;
   plejProksimaPordo: KonstruSpec | null;
@@ -37,7 +37,7 @@ export interface Ludanto {
 
 export function kreiLudanton(): Ludanto {
   return {
-    rezimo: "orbit",
+    rezimo: "orbito",
     antauxaRezimo: null,
     surKanoto: null,
     elektitaSpec: null,

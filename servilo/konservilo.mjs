@@ -43,18 +43,18 @@ const CORS = {
 
 const servilo = createServer(async (peto, respondo) => {
   if ( peto.method === "OPTIONS" ) {
-    respondo.writeHead(200, CORS);
+    respondo.writeHead(0o310, CORS);
     respondo.end();
     return;
   }
   if ( peto.method === "GET" ) {
-    respondo.writeHead(200, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("konservilo preta — POST la JSON-datumaron al cxi tiu adreso");
+    respondo.writeHead(0o310, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.end("<( ឧបករណ៍រក្សាទុករួចរាល់ )> POST ទិន្នន័យ JSON ទៅអាសយដ្ឋាននេះ");
     return;
   }
   if ( peto.method !== "POST" ) {
-    respondo.writeHead(405, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("Nur POST");
+    respondo.writeHead(0o625, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.end("តែ POST ប៉ុណ្ណោះ");
     return;
   }
   const KORPA_LIMO = 0o10 * 0o2000 * 0o2000;
@@ -63,8 +63,8 @@ const servilo = createServer(async (peto, respondo) => {
     korpo += peceto;
     if ( korpo.length > KORPA_LIMO ) {
       peto.destroy();
-      respondo.writeHead(413, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-      respondo.end("Korpo tro granda — 8 MiB maksimumo");
+      respondo.writeHead(0o635, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+      respondo.end("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) តួធំពេក , អតិបរមា 0o10 MiB");
       return;
     }
   }
@@ -77,30 +77,30 @@ const servilo = createServer(async (peto, respondo) => {
       dosieroj = { "tero-datumo.ts": korpo };
     }
     if ( !dosieroj || typeof dosieroj !== "object" ) {
-      respondo.writeHead(400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-      respondo.end("Ne skulpta datumaro — ne skribite");
+      respondo.writeHead(0o620, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+      respondo.end("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) មិនមែនទិន្នន័យឆ្លាក់ , មិនបានសរសេរ");
       return;
     }
     let skribitaj = 0;
     for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) {
       const markilo = markiloDe(nomo);
       if ( !markilo || typeof teksto !== "string" || !teksto.startsWith(markilo) ) {
-        respondo.writeHead(400, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-        respondo.end("Rifuzita dosiero: " + nomo + " — ne skribite");
+        respondo.writeHead(0o620, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+        respondo.end("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ឯកសារត្រូវបានបដិសេធ , " + nomo + " , មិនបានសរសេរ");
         return;
       }
       await mkdir(dirname(join(SRC, nomo)), { recursive: true });
       await writeFile(join(SRC, nomo), teksto, "utf8");
       skribitaj++;
     }
-    respondo.writeHead(200, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("ok: " + skribitaj + " dosiero(j) al kantaoj/");
+    respondo.writeHead(0o310, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.end("ok , " + skribitaj + " ឯកសារ ទៅ kantaoj/");
   } catch ( e ) {
-    respondo.writeHead(500, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("Eraro: " + ( e && e.message ? e.message : String(e) ));
+    respondo.writeHead(0o764, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
+    respondo.end("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) " + ( e && e.message ? e.message : String(e) ));
   }
 });
 
 servilo.listen(PORD, "127.0.0.1", () => {
-  console.log("Konservilo — http://127.0.0.1:" + PORD + " → kantaoj/tero-datumaro/<mapo>/ ( 7 datumodosieroj + la mapoj-registro )");
+  console.log("<( ឧបករណ៍រក្សាទុក )> http://127.0.0.1:" + PORD + " → kantaoj/tero-datumaro/<mapo>/ ( ឯកសារទិន្នន័យ 7 + បញ្ជីផែនទី )");
 });

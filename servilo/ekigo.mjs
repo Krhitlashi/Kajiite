@@ -8,16 +8,16 @@ const infanoj = [];
 function ĉesigi(infano) {
   if ( !infano || infano.exitCode !== null || infano.signalCode !== null ) return;
   if ( process.platform === "win32" && infano.pid ) {
-    try { spawn("taskkill", [ "/pid", String(infano.pid), "/T", "/F" ]); return; } catch { /* falu trae */ }
+    try { spawn("taskkill", [ "/pid", String(infano.pid), "/T", "/F" ]); return; } catch { /* ធ្លាក់ចុះតាមនោះ */ }
   }
-  try { infano.kill(); } catch { /* jam fermita */ }
+  try { infano.kill(); } catch { /* បានបិទរួចហើយ */ }
 }
 
 function lanĉi(argumentoj, nomo) {
   const infano = spawn(process.execPath, argumentoj, { cwd: RADIKO, stdio: "inherit" });
   infanoj.push(infano);
   infano.on("exit", ( kodo ) => {
-    console.log(`( ${nomo} foriris kun kodo ${kodo ?? 0} )`);
+    console.log(`<( ${nomo} បានចាកចេញដោយកូដ ${kodo ?? 0} )>`);
     for ( const alia of infanoj ) if ( alia !== infano ) ĉesigi(alia);
     process.exit(kodo ?? 0);
   });

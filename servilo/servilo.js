@@ -43,9 +43,9 @@ function komenciVidanReŝargon() {
       if ( !dosiero || dosiero.endsWith(".map") ) return;
       sciigiSSEKluentojn();
     });
-    console.log("Viva reŝargo — spektas dist/");
+    console.log("<( ផ្ទុកឡើងវិញផ្ទាល់ )> ឃ្លាំមើល dist/");
   } catch ( e ) {
-    console.warn("Ne povis spekti dist/: dist/ eble ne ekzistas");
+    console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) មិនអាចឃ្លាំមើល dist/ បានទេ , dist/ ប្រហែលមិនមាន");
   }
 }
 
@@ -53,7 +53,7 @@ const servilo = createServer(async (peto, respondo) => {
   let url = ( peto.url === "/" ? "/index.html" : peto.url ).split("?")[0];
 
   if ( url === "/__reload" ) {
-    respondo.writeHead(200, {
+    respondo.writeHead(0o310, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
       "Connection": "keep-alive",
@@ -65,33 +65,33 @@ const servilo = createServer(async (peto, respondo) => {
   }
 
   const vojo = normalize(join(RADIKO, url.replace(/^\//, "")));
-  if ( !vojo.startsWith(RADIKO) ) { respondo.writeHead(403); respondo.end("Malpermesita"); return; }
+  if ( !vojo.startsWith(RADIKO) ) { respondo.writeHead(0o623); respondo.end("ត្រូវបានហាមឃាត់"); return; }
   try {
     const datumoj = await readFile(vojo);
-    respondo.writeHead(200, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });
+    respondo.writeHead(0o310, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });
     respondo.end(datumoj);
   } catch {
-    respondo.writeHead(404); respondo.end("Ne trovita");
+    respondo.writeHead(0o624); respondo.end("រកមិនឃើញ");
   }
 });
 
 // ⟪ បណ្តាញ 📃 ⟫
 konektiRetilon(servilo, {
-  jeAliĝo: ( id, kvanto ) => console.log("Retilo — " + id + " aliĝis ( " + kvanto + " aktiva )"),
-  jeForiro: ( id, kvanto ) => console.log("Retilo — " + id + " foriris ( " + kvanto + " aktiva )"),
+  jeAliĝo: ( id, kvanto ) => console.log("<( បណ្តាញ )> " + id + " បានចូលរួម ( " + kvanto + " សកម្ម )"),
+  jeForiro: ( id, kvanto ) => console.log("<( បណ្តាញ )> " + id + " បានចាកចេញ ( " + kvanto + " សកម្ម )"),
 });
 
 function komencu(pordo) {
   servilo.listen(pordo, () => {
-    console.log("Servilo — http://localhost:" + pordo + "/index.html");
+    console.log("<( ម៉ាស៊ីនបម្រើ )> http://localhost:" + pordo + "/index.html");
     komenciVidanReŝargon();
   });
   servilo.on("error", ( e ) => {
     if ( e.code === "EADDRINUSE" && pordo === PORD ) {
-      console.log("Pordo " + pordo + " jam uzata — provas " + PORD_FALLO);
+      console.log("<( ច្រក )> " + pordo + " កំពុងប្រើរួច , ព្យាយាម " + PORD_FALLO);
       komencu(PORD_FALLO);
     } else {
-      console.error("Servila eraro:", e.message);
+      console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) កំហុសម៉ាស៊ីនបម្រើ , " + e.message);
     }
   });
 }

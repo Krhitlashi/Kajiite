@@ -351,11 +351,11 @@ function gxisdatigiInformon(grupo: THREE.Object3D): void {
   elemento<HTMLElement>("specoPriskribo").textContent = specio.priskribo;
   elemento<HTMLElement>("specoDatumoj").innerHTML =
     "⟨ ចលនា 📃 ⟩ " + specio.animacio + "<br>" +
-    "⟨ La modelo 📃 ⟩ " + meshoj + " meshoj · " + trianguloj +
-      " trianguloj · " + materialoj.size + " materialoj" +
-      ( instancoj ? " · " + instancoj + " instancoj" : "" ) +
-      ( specio.konstruajxo ? " · konstruaĵo aŭ parto"
-        : specio.konstruu ? " · planto aŭ roko" : " · skalo " + ( specio.grandeco ?? 1 ) );
+    "⟨ គំរូ 📃 ⟩ " + meshoj + " សំណាញ់ · " + trianguloj +
+      " ត្រីកោណ · " + materialoj.size + " សម្ភារៈ" +
+      ( instancoj ? " · " + instancoj + " ឧទាហរណ៍" : "" ) +
+      ( specio.konstruajxo ? " · អគារ ឬផ្នែក"
+        : specio.konstruu ? " · រុក្ខជាតិ ឬថ្ម" : " · ខ្នាត " + ( specio.grandeco ?? 1 ) );
 }
 
 /* លុបគំរូមុន សាងសង់ថ្មី ហើយដាក់វាក្នុងស៊ុម។
@@ -389,8 +389,8 @@ function elektiSpecio(nova: ModelaSpecifo): void {
 // ជំនួសខ្លឹមសាររបស់ #specaro ដូច្នេះគំរូដែលបានជ្រើស និងរូបភាពមិន
 // បាត់ពេលឆ្លាស់រវាងប្រភេទទេ។
 const KATEGORIOJ: Kategorio[] = [
-  { kodo: "naturo", nomo: "Naturo 🐾", titolo: "Specio 🐾", listo: SPECOJ },
-  { kodo: "konstruajxo", nomo: "Konstruaĵoj 🏛️", titolo: "Konstruaĵo aŭ parto 🏛️", listo: KONSTRUAJXOJ },
+  { kodo: "naturo", nomo: "ធម្មជាតិ 🐾", titolo: "ប្រភេទ 🐾", listo: SPECOJ },
+  { kodo: "konstruajxo", nomo: "អគារ 🏛️", titolo: "អគារ ឬផ្នែក 🏛️", listo: KONSTRUAJXOJ },
 ];
 const specaro = elemento<HTMLElement>("specaro");
 const tabaro = elemento<HTMLElement>("tabaro");

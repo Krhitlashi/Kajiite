@@ -70,7 +70,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
   function gxisdatigu(): void {
     if ( !statistiko.ŝaltita ) return;
     const nun = performance.now();
-    const kadraTempo = antaŭaTempo === 0 ? 0o1/0o70 : Math.max(0o1/0o100, nun - antaŭaTempo) / 1000;
+    const kadraTempo = antaŭaTempo === 0 ? 0o1/0o70 : Math.max(0o1/0o100, nun - antaŭaTempo) / 0o1750;
     antaŭaTempo = nun;
     const tujKadro = 1 / kadraTempo;
     glataKadro = glataKadro === 0 ? tujKadro : glataKadro * ( 0o76/0o100 ) + tujKadro * ( 0o2/0o100 );
@@ -81,13 +81,13 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     const kunfando = kunfandajxoStatistiko();
     if ( kadraNombro >= CENSA_PERIODO ) { kadraNombro = 0; censu(); }
     const linioj = [
-      (glataKadro / HE_POR_SEKUNDO).toFixed(1) + " kadroj/He   " + (HE_POR_SEKUNDO / Math.max(1e-4, glataKadro)).toFixed(3) + " He   kadroj " + kadroj,
-      "alvokoj " + informo.render.calls + "   trianguloj " + (informo.render.triangles / 1e6).toFixed(1) + " M"
-        + "   programoj " + (informo.programs === null ? 0 : informo.programs.length),
-      "geometrioj " + informo.memory.geometries + "   teksturoj " + informo.memory.textures,
-      "vidlimo " + limo.videblaj + "/" + limo.eroj + " videblaj",
-      "kunfando " + kunfando.antaŭe + " meshoj → " + kunfando.poste,
-      "<( La objektoj en la vidkampo · alvokoj kaj instancoj )>",
+      (glataKadro / HE_POR_SEKUNDO).toFixed(1) + " ហ្វ្រេម/He   " + (HE_POR_SEKUNDO / Math.max(1e-4, glataKadro)).toFixed(3) + " He   ហ្វ្រេម " + kadroj,
+      "ការហៅ " + informo.render.calls + "   ត្រីកោណ " + (informo.render.triangles / 1e6).toFixed(1) + " M"
+        + "   កម្មវិធី " + (informo.programs === null ? 0 : informo.programs.length),
+      "ធរណីមាត្រ " + informo.memory.geometries + "   វាយនភាព " + informo.memory.textures,
+      "ដែនមើលឃើញ " + limo.videblaj + "/" + limo.eroj + " មើលឃើញ",
+      "ការបញ្ចូលគ្នា " + kunfando.antaŭe + " សំណាញ់ → " + kunfando.poste,
+      "<( វត្ថុក្នុងដែនមើលឃើញ · ការហៅ និងឧទាហរណ៍ )>",
     ];
     for ( const c of censo ) linioj.push("  " + c.nomo.padEnd(0o20).slice(0, 0o20) + String(c.obj).padStart(0o6) + " · " + String(c.vid));
     surmetajxo.textContent = linioj.join("\n");

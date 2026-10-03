@@ -78,7 +78,7 @@ const MAPAJ_MODULOJ = import.meta.glob(
 async function preniModulon(nomo: string): Promise<any> {
   const sxlosilo = "../../kantaoj/tero-datumaro/" + mapoDatumo.kodo + "/" + nomo + ".ts";
   const sxargxi = MAPAJ_MODULOJ[sxlosilo];
-  if ( !sxargxi ) throw new Error("Mankas la datumdosiero " + sxlosilo);
+  if ( !sxargxi ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) បាត់ឯកសារទិន្នន័យ " + sxlosilo);
   return await sxargxi();
 }
 const { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_DELTAJ } = await preniModulon("krado");
@@ -355,7 +355,7 @@ function buklo(){
   // ការមើលជាមុនវត្ថុ ។ ទិដ្ឋភាពបង្វិលយឺតៗនៃប្រភេទដែលបានជ្រើស
   // ( តែពេលឧបករណ៍វត្ថុបើក ។ បើមិនដូច្នេះផ្ទាំងត្រូវបានលាក់ )។
   if ( objektaAntauxRenderilo && objektaAntauxGrupo && objektaModo && objektaAntauxSceno && objektaAntauxFotilo ) {
-    objektaAntauxGrupo.rotation.y = performance.now() / 1000 * 0.4;
+    objektaAntauxGrupo.rotation.y = performance.now() / 0o1750 * 0.4;
     objektaAntauxRenderilo.render(objektaAntauxSceno, objektaAntauxFotilo);
   }
   requestAnimationFrame(buklo);
@@ -570,7 +570,7 @@ mapo.addEventListener("wheel", ( e ) => {
   // ការពង្រីករលូន ។ កត្តាអិចស្ប៉ូណង់ស្យែលដូចគ្នានឹងផែនទីពេញរបស់ហ្គេម
   // ( ដេលតាលីនេអ៊ែរនៃការរំកិល ≈ 0o20 ភីកសែលក្នុងមួយជួរ ) ជំនួស
   // 1.5 ដងច្រើនពេកក្នុងមួយជំហានកង់។
-  const delt = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+  const delt = e.deltaMode === 1 ? e.deltaY * 0o20 : e.deltaY;
   const novaSkalo = Math.max(minimaSkalo(), Math.min(4, vidSkalo * Math.exp(-delt * 0o1/0o2000)));
   const rect = mapo.getBoundingClientRect();
   const px = ( e.clientX - rect.left ) * ( mapo.width / rect.width );
@@ -605,7 +605,7 @@ function gxisdatigiValorojn(){
   niveloRegilo.value = String(akvaNiveloValoro);
   elemento<HTMLElement>("niveloValoro").textContent = akvaNiveloValoro + " un";
   elemento<HTMLElement>("fluoValoro").textContent = fluoRegilo.value
-    + ( elektitaFonto >= 0 ? " ( elektita fonto )" : "" );
+    + ( elektitaFonto >= 0 ? " ( ប្រភពដែលជ្រើស )" : "" );
 }
 // ⟪ ផ្ទាំងឧបករណ៍ 📃 ⟫ ។ ដី 🏔️ ជីវភូមិ 🎨 សត្វ 🐾 និង វត្ថុ 🎯
 // ជាផ្ទាំងនៃកាតដូចគ្នា។ ផ្ទាំងដីផ្ទុកជក់
@@ -661,7 +661,7 @@ function gxisdatigiPenikaron() {
   elementoj<HTMLButtonElement>("#biomaro button, #bestaro button[data-besto]").forEach(x => {
     const speco = x.dataset.biomo !== undefined ? biomoAktiva : bestoAktiva;
     const valoro = x.dataset.biomo !== undefined ? x.dataset.biomo : x.dataset.besto ?? "0";
-    x.setAttribute("aria-pressed", String(!objektaModo && !moviga && parseInt(valoro, 10) === speco));
+    x.setAttribute("aria-pressed", String(!objektaModo && !moviga && parseInt(valoro, 0o12) === speco));
   });
   elementoj<HTMLButtonElement>("#kradaro button").forEach(x =>
     x.setAttribute("aria-pressed", String(x.dataset.kradoTipo === kradoTipoElektita)));
@@ -825,7 +825,7 @@ elementoj<HTMLButtonElement>("#terenaro button").forEach(b => {
 // ដែលត្រូវគូរ។ ផ្ទាំងជីវភូមិបង្ហាញបន្ទះពណ៌។
 elementoj<HTMLButtonElement>("#biomaro button").forEach(b => {
   b.addEventListener("click", () => {
-    agordiBiomon(parseInt(b.dataset.biomo ?? "0", 10));
+    agordiBiomon(parseInt(b.dataset.biomo ?? "0", 0o12));
     elementoj<HTMLButtonElement>("#biomaro button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
     // សម្លេះអាស្រ័យលើជីវភូមិដែលបានជ្រើស ។ ធ្វើឱ្យទិដ្ឋភាពឡើងពណ៌វិញ។
     pentri(0, 0, REZ - 1, REZ - 1);
@@ -837,7 +837,7 @@ elementoj<HTMLButtonElement>("#biomaro button").forEach(b => {
 // ដែលត្រូវគូរ។ ផ្ទាំងសត្វបង្ហាញបន្ទះពណ៌។
 elementoj<HTMLButtonElement>("#bestaro button[data-besto]").forEach(b => {
   b.addEventListener("click", () => {
-    agordiBeston(parseInt(b.dataset.besto ?? "0", 10));
+    agordiBeston(parseInt(b.dataset.besto ?? "0", 0o12));
     elementoj<HTMLButtonElement>("#bestaro button[data-besto]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
     // ទិដ្ឋភាពបង្ហាញតែប្រភេទដែលបានជ្រើស ។ ធ្វើឱ្យទិដ្ឋភាពឡើងពណ៌វិញ។
     pentri(0, 0, REZ - 1, REZ - 1);
@@ -885,9 +885,9 @@ function gxisdatigiAkvajnStatistikojn() {
   const s = akvaRezulto ? akvaRezulto.statistikoj
     : { fontoj: fontoj.length, kanaloj: 0, akvaj: 0, ternoj: 0 };
   const areo = Math.round(s.akvaj * PASO * PASO);
-  akvaStatistikoj.textContent = s.fontoj + " fonto" + ( s.fontoj === 1 ? "" : "j" )
-    + " · " + s.kanaloj + " kanalaj ĉeloj · " + s.akvaj + " akvaj ĉeloj ( " + areo + " u² )"
-    + ( s.ternoj ? " · " + s.ternoj + " montara terno" : "" );
+  akvaStatistikoj.textContent = s.fontoj + " ប្រភព"
+    + " · " + s.kanaloj + " ក្រឡាឆ្នាំង · " + s.akvaj + " ក្រឡាទឹក ( " + areo + " u² )"
+    + ( s.ternoj ? " · " + s.ternoj + " កំពូលភ្នំ" : "" );
 }
 gxisdatigiObjektoPropOJn();
 rekonstruiObjektanAntauxrigardon();

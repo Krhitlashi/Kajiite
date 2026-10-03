@@ -38,7 +38,7 @@ export function kreiPromenanton( opcioj: PromenajOpcioj ): Promenanto {
   let promptaKadro = 0;
 
   function paŝi( deltaTempo: number, t: number ): void {
-    if ( ludanto.rezimo !== "walk" || ludanto.surKanoto ) return;
+    if ( ludanto.rezimo !== "promeno" || ludanto.surKanoto ) return;
 
     const { movX, movZ, longo, fortoX, fortoZ, radX, radZ } = movoEniro(klavoj, ludanto.direkto);
     const sprinto = klavoj.ShiftLeft || klavoj.ShiftRight || cxuSprintas();
@@ -63,7 +63,7 @@ export function kreiPromenanton( opcioj: PromenajOpcioj ): Promenanto {
 
     const teraY = Math.max(alteco(ludanto.pozicio.x, ludanto.pozicio.z), dokaSuproY(ludanto.pozicio.x, ludanto.pozicio.z), vojaSuproY(ludanto.pozicio.x, ludanto.pozicio.z));
     const enAkvo = akvo(ludanto.pozicio.x, ludanto.pozicio.z);
-    const akvoY = enAkvo ? akvaNivelo(ludanto.pozicio.x, ludanto.pozicio.z) : -999;
+    const akvoY = enAkvo ? akvaNivelo(ludanto.pozicio.x, ludanto.pozicio.z) : -0o1747;
     const akvaProfundo = akvoY - teraY;
     const naĝas = enAkvo && akvaProfundo > 0 && ludanto.pozicio.y < akvoY + 0o6/0o10;
 

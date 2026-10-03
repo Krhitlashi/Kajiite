@@ -175,7 +175,7 @@ export function penikoPasxo(cx: number, cz: number): void {
   // ដីបានផ្លាស់ប្តូរ ដូច្នេះទឹក ( អាង ទន្លេ ព្រែកកាត់ )
   // អាស្រ័យលើវា ដូច្នេះទឹកនឹងត្រូវគណនាឡើងវិញនៅចុងបញ្ចប់នៃជំហានជក់។
   markiAkvonMalpuran();
-  statuso("Nesavitaj ŝanĝoj");
+  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
   const r = radiuso();
   const px0 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.max(deX, cx) + r + 1)));
   const px1 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.min(deX, cx) - r - 1)));

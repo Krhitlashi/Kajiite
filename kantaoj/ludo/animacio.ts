@@ -99,16 +99,16 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     let y = ludanto.pozicio.y;
     if ( kanoto ) {
       y = kanoto.bazaY + 0o3/0o20;
-    } else if ( movo.estisNaĝanta && ludanto.rezimo === "walk" ) {
+    } else if ( movo.estisNaĝanta && ludanto.rezimo === "promeno" ) {
       y = akvaNivelo(ludanto.pozicio.x, ludanto.pozicio.z) - 0o16/0o10;
     }
     return {
       x: ludanto.pozicio.x, y, z: ludanto.pozicio.z,
       direkto: ludanto.direkto,
-      movo: ludanto.rezimo === "walk" || ludanto.rezimo === "interior" ? ludanto.movoValoro : 0,
+      movo: ludanto.rezimo === "promeno" || ludanto.rezimo === "interno" ? ludanto.movoValoro : 0,
       naĝas: movo.estisNaĝanta,
       surKanuo: kanoto !== null,
-      interno: ludanto.rezimo === "interior" && ludanto.elektitaSpec ? `${Math.round(ludanto.elektitaSpec.x)}|${Math.round(ludanto.elektitaSpec.z)}` : "",
+      interno: ludanto.rezimo === "interno" && ludanto.elektitaSpec ? `${Math.round(ludanto.elektitaSpec.x)}|${Math.round(ludanto.elektitaSpec.z)}` : "",
       reĝimo: ludanto.rezimo,
       vesto: aspekto.vestoIdx,
       haro: aspekto.harStiloIdx,
@@ -120,7 +120,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   const { kolekti: kolektiHerbajnPusantojn } = kreiHerbajnPusantojn({
     npcoj, bestoj,
     ludanto: () => ludanto.pozicio,
-    promenas: () => ludanto.rezimo === "walk" && !ludanto.surKanoto,
+    promenas: () => ludanto.rezimo === "promeno" && !ludanto.surKanoto,
   });
 
   function animacii() {
@@ -161,7 +161,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     for ( const n of npcoj ) { if ( n.group.visible ) gxisdatigiNpc(n, deltaTempo, t, alteco, piedoj.kolizioj.vojaSuproY); }
 
     // ⟨ ការប៉ះទង្គិចជាមួយរូបមានជីវិត 📃 ⟩
-    if ( ludanto.rezimo === "walk" && !ludanto.surKanoto ) {
+    if ( ludanto.rezimo === "promeno" && !ludanto.surKanoto ) {
       for ( const n of npcoj ) {
         if ( !n.group.visible ) continue;
         const difX = ludanto.pozicio.x - n.group.position.x, difZ = ludanto.pozicio.z - n.group.position.z;
@@ -197,7 +197,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     // ⟪ រូបអ្នកលេង , មុំទីបី 📃 ⟫
     ludanto.kameraDistanco += ( ludanto.celDistanco - ludanto.kameraDistanco ) * Math.min(1, deltaTempo * 0o10);
     if ( ludanto.celDistanco < 0o1/0o20 ) ludanto.kameraDistanco = 0;
-    const vidasFiguron = ludanto.kameraDistanco > 0o1/0o20 && ( ludanto.rezimo === "walk" || ludanto.rezimo === "interior" );
+    const vidasFiguron = ludanto.kameraDistanco > 0o1/0o20 && ( ludanto.rezimo === "promeno" || ludanto.rezimo === "interno" );
     ludantaFiguro.group.visible = vidasFiguron;
     if ( vidasFiguron ) {
       const kanoto = ludanto.surKanoto;
@@ -205,7 +205,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
         ludantaFiguro.group.position.set(kanoto.x, kanoto.bazaY + 0o3/0o20, kanoto.z);
       } else {
         ludantaFiguro.group.position.set(ludanto.pozicio.x, ludanto.pozicio.y, ludanto.pozicio.z);
-        if ( ludanto.rezimo === "walk" && movo.estisNaĝanta ) {
+        if ( ludanto.rezimo === "promeno" && movo.estisNaĝanta ) {
           ludantaFiguro.group.position.y = akvaNivelo(ludanto.pozicio.x, ludanto.pozicio.z) - 0o16/0o10
             + Math.sin(t * 2 + ludanto.pozicio.x * 0o1/0o10) * 0o1/0o20;
         }
@@ -214,14 +214,14 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
       const movoFiguro = kanoto ? 0 : ludanto.movoValoro;
       marŝSvingo(ludantaFiguro, movo.oscilo * 2, movoFiguro, deltaTempo);
     }
-    if ( ludanto.rezimo === "interior" ) gxisdatigiInternon(internaSistemo, t);
+    if ( ludanto.rezimo === "interno" ) gxisdatigiInternon(internaSistemo, t);
 
     nebulSistemo.uTime.value = t;
 
-    const fx = ludanto.rezimo === "walk" ? -Math.sin(ludanto.direkto) : regiloj.target.x - fotilo.position.x;
-    const fz = ludanto.rezimo === "walk" ? -Math.cos(ludanto.direkto) : regiloj.target.z - fotilo.position.z;
-    const mapX = ludanto.rezimo === "orbit" ? regiloj.target.x : ludanto.pozicio.x;
-    const mapZ = ludanto.rezimo === "orbit" ? regiloj.target.z : ludanto.pozicio.z;
+    const fx = ludanto.rezimo === "promeno" ? -Math.sin(ludanto.direkto) : regiloj.target.x - fotilo.position.x;
+    const fz = ludanto.rezimo === "promeno" ? -Math.cos(ludanto.direkto) : regiloj.target.z - fotilo.position.z;
+    const mapX = ludanto.rezimo === "orbito" ? regiloj.target.x : ludanto.pozicio.x;
+    const mapZ = ludanto.rezimo === "orbito" ? regiloj.target.z : ludanto.pozicio.z;
     minimapo.gxisdatigi(fx, fz, mapX, mapZ);
     // ⟨ ចង្វាក់ស្រមោលក្រោមបន្ទុក 📃 ⟩
     const ombraPeriodo = deltaTempo > 0o1/0o40 ? 0o4 : 0o2;
@@ -231,7 +231,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     lampSistemo.sekviLumojn(mapX, mapZ);
     // ⟪ ស្មៅ 📃 ⟫
     // ⟨ កណ្តាលស្មៅគឺកាមេរ៉ា 📃 ⟩
-    if ( ludanto.rezimo !== "interior" ) {
+    if ( ludanto.rezimo !== "interno" ) {
       const fotilaX = fotilo.position.x, fotilaZ = fotilo.position.z;
       gxisdatigiHerbon(t, fotilaX, fotilaZ, kolektiHerbajnPusantojn(fotilaX, fotilaZ));
     }
@@ -244,7 +244,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
       }
     }
 
-    if ( ludanto.rezimo === "orbit" ) {
+    if ( ludanto.rezimo === "orbito" ) {
       const panX = ( klavoj.KeyD ? 1 : 0 ) - ( klavoj.KeyA ? 1 : 0 );
       const panZ = ( klavoj.KeyS ? 1 : 0 ) - ( klavoj.KeyW ? 1 : 0 );
       const panY = ( klavoj.KeyE ? 1 : 0 ) - ( klavoj.KeyQ ? 1 : 0 );
@@ -266,7 +266,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
 
     // ⟪ ដែនមើល 📃 ⟫
     // ⟨ កណ្តាលគឺកាមេរ៉ា មិនមែនគោលដៅ 📃 ⟩
-    if ( ludanto.rezimo !== "interior" ) gxisdatigiVidlimojn(fotilo.position.x, fotilo.position.z);
+    if ( ludanto.rezimo !== "interno" ) gxisdatigiVidlimojn(fotilo.position.x, fotilo.position.z);
 
     bildilo.render(sceno, fotilo);
     statistiko.gxisdatigu();

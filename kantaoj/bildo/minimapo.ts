@@ -118,7 +118,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       molaRandon(kanvasa, MAPA_BAKA_FADO);
       return kanvasa;
     } catch ( e ) {
-      console.warn("Mapa bakado ne havebla:", e);
+      console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ការដុតផែនទីមិនអាចប្រើបាន" , e);
       return null;
     }
   }
@@ -279,7 +279,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
 
   function malfermiMapon(): void {
     if ( mapoMalfermita ) return;
-    if ( !bakitaMapo ) { console.warn("Plena mapo ne havebla ( bakado malsukcesis )"); return; }
+    if ( !bakitaMapo ) { console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ផែនទីពេញមិនអាចប្រើបាន ( ការដុតបរាជ័យ )"); return; }
     if ( !plenaKanvaso ) {
       const kanvasa = document.createElement("canvas");
       kanvasa.id = "plenaKanvaso";
@@ -287,10 +287,10 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       kanvasa.height = innerHeight;
       plenaKanvaso = kanvasa;
       plenaKunteksto = kanvasa.getContext("2d");
-      if ( !plenaKunteksto ) { console.warn("Plena mapo ne havebla ( 2D-kunteksto )"); plenaKanvaso = null; return; }
+      if ( !plenaKunteksto ) { console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ផែនទីពេញមិនអាចប្រើបាន ( បរិបទ 2D )"); plenaKanvaso = null; return; }
       kanvasa.addEventListener("wheel", ( e ) => {
         e.preventDefault();
-        const delt = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+        const delt = e.deltaMode === 1 ? e.deltaY * 0o20 : e.deltaY;
         plenaDuono = Math.max(MINA_DUONO, Math.min(MAXA_DUONO, plenaDuono * Math.exp(delt * 0o1/0o2000)));
       }, { passive: false });
       const tiriPans = ( dx: number, dy: number ) => {

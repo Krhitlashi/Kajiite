@@ -194,7 +194,7 @@ export function metiFonton(x: number, z: number, fluo: number = fluoValoro): voi
   momenti();
   fontoj.push({ x: algluiFonton(x), z: algluiFonton(z), fluo });
   elektitaFonto = fontoj.length - 1;
-  statuso("Fonto metita ( fluo " + fluoValoro + " ) — la akvo fluas malsupren");
+  statuso("បានដាក់ប្រភព ( លំហូរ " + fluoValoro + " ) , ទឹកហូរចុះក្រោម");
   akvoSxangxigxis();
   markiDesegnon();
 }
@@ -206,7 +206,7 @@ export function forigiFonton(ind: number): void {
   fontoj.splice(ind, 1);
   elektitaFonto = -1;
   fontoTrenata = -1;
-  statuso("Fonto forigita");
+  statuso("ប្រភពត្រូវបានលុប");
   akvoSxangxigxis();
   markiDesegnon();
 }
@@ -233,7 +233,7 @@ export function finiFontanTrenon(): void {
   fontoTrenata = -1;
   akvoTrenanta = false;
   akvoSxangxigxis();
-  statuso("Fonto " + ( elektitaFonto + 1 ) + " movita — la akvo refreŝigxas");
+  statuso("ប្រភព " + ( elektitaFonto + 1 ) + " បានផ្លាស់ទី , ទឹកធ្វើឱ្យស្រស់ឡើងវិញ");
 }
 /* គ្រាប់រំកិលលំហូរពេលប្រើឧបករណ៍ប្រភព គឺបើមានប្រភពជ្រើស វាផ្លាស់ប្តូរ
    លំហូររបស់វា បើមិនដូច្នេះវាកំណត់លំហូររបស់ប្រភពបន្ទាប់។ */
@@ -318,9 +318,9 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
   }
   const kovro = profundaj ? Math.round(( 0o1 - sekaj / profundaj ) * 0o144) : 0o144;
   statuso(novaj.length
-    ? novaj.length + " fonto" + ( novaj.length === 1 ? "" : "j" ) + " metitaj — la akvo fluas malsupren"
-      + ( kovro < 0o144 ? " ( la malgrandaj fontoj ne kovras la tutan malnovan pentritan akvon )" : "" )
-    : ( profundaj ? "La akvo jam fluas — neniu fonto bezonata ( la pentrita akvo estas baseno )"
-      : "Neniu pentrita akvo trovigxis" ));
+    ? novaj.length + " ប្រភពបានដាក់ , ទឹកហូរចុះក្រោម"
+      + ( kovro < 0o144 ? " ( ប្រភពតូចៗមិនគ្របដណ្តប់ទឹកចាស់ដែលបានគូរទាំងអស់ទេ )" : "" )
+    : ( profundaj ? "ទឹកហូររួចហើយ , មិនត្រូវការប្រភព ( ទឹកដែលបានគូរគឺជាអាង )"
+      : "រកមិនឃើញទឹកដែលបានគូរ" ));
   return { fontoj: novaj, sekaj, kovro };
 }

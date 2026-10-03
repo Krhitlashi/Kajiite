@@ -29,9 +29,9 @@ export function oktala(valoro: number): string {
   const n = Math.round(valoro * 0o100);
   if ( n % 0o100 === 0 ) {
     const tuta = n / 0o100;
-    return ( tuta < 0 ? "-" : "" ) + "0o" + Math.abs(tuta).toString(8);
+    return ( tuta < 0 ? "-" : "" ) + "0o" + Math.abs(tuta).toString(0o10);
   }
-  return ( n < 0 ? "-" : "" ) + "0o" + Math.abs(n).toString(8) + "/0o100";
+  return ( n < 0 ? "-" : "" ) + "0o" + Math.abs(n).toString(0o10) + "/0o100";
 }
 export function gcdn(a: number, b: number): number {
   a = Math.abs(a); b = Math.abs(b);
@@ -64,11 +64,11 @@ export function formatiNombron(valoro: number): string {
   const p = piFrakcio(valoro);
   if ( p !== null ) return p;
   if ( Number.isInteger(valoro) && Math.abs(valoro) <= 0o7777777777 ) {
-    return ( valoro < 0 ? "-" : "" ) + "0o" + Math.abs(valoro).toString(8);
+    return ( valoro < 0 ? "-" : "" ) + "0o" + Math.abs(valoro).toString(0o10);
   }
   const n64 = valoro * 0o100;
   if ( Number.isInteger(n64) && Math.abs(n64) <= 0o7777777777 ) {
-    return ( n64 < 0 ? "-" : "" ) + "0o" + Math.abs(n64).toString(8) + "/0o100";
+    return ( n64 < 0 ? "-" : "" ) + "0o" + Math.abs(n64).toString(0o10) + "/0o100";
   }
   return String(valoro);
 }
@@ -96,7 +96,7 @@ export function skribiValoron(valoro: unknown): string {
 export function parziValoron(teksto: string): any {
   let i = 0;
   const sp = () => { while ( i < teksto.length && /\s/.test(teksto[i]) ) i++; };
-  const eraro = (): never => { throw new Error("Ne-analizebla esprimo ĉe " + i + ": " + teksto.slice(i, i + 0o40)); };
+  const eraro = (): never => { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) កន្សោមមិនអាចញែកនៅ " + i + " , " + teksto.slice(i, i + 0o40)); };
   function nombro(): number {
     sp();
     const m = teksto.slice(i).match(/^-?0o[0-7]+(?:\/0o[0-7]+)?|^-?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/);
@@ -107,8 +107,8 @@ export function parziValoron(teksto: string): any {
       const neg = s.startsWith("-");
       const kerno = neg ? s.slice(1) : s;
       const partoj = kerno.split("/");
-      let v = parseInt(partoj[0].slice(2), 8);
-      if ( partoj.length > 1 ) v = v / parseInt(partoj[1].slice(2), 8);
+      let v = parseInt(partoj[0].slice(2), 0o10);
+      if ( partoj.length > 1 ) v = v / parseInt(partoj[1].slice(2), 0o10);
       return neg ? -v : v;
     }
     return parseFloat(s);
@@ -158,7 +158,7 @@ export function parziValoron(teksto: string): any {
         else if ( n === "r" ) s += "\r";
         else if ( n === "b" ) s += "\b";
         else if ( n === "f" ) s += "\f";
-        else if ( n === "u" ) { s += String.fromCharCode(parseInt(teksto.slice(i + 2, i + 6), 16)); i += 4; }
+        else if ( n === "u" ) { s += String.fromCharCode(parseInt(teksto.slice(i + 2, i + 6), 0o20)); i += 4; }
         else s += n;
         i += 2;
       } else { s += c; i++; }
@@ -230,33 +230,33 @@ export function bazo64DeInt16(valoroj: Int16Array): string {
   return bazo64DeBajtoj(bajtoj);
 }
 export function bazo64DeMasko(maskoDatumoj: Uint8Array): string {
-  const bajtoj = new Uint8Array(Math.ceil(maskoDatumoj.length / 8));
+  const bajtoj = new Uint8Array(Math.ceil(maskoDatumoj.length / 0o10));
   for ( let i = 0; i < maskoDatumoj.length; i++ ) if ( maskoDatumoj[i] ) bajtoj[i >> 3] |= 1 << ( i & 7 );
   return bazo64DeBajtoj(bajtoj);
 }
 export function bazo64DeBiomoj(biomoDatumoj: Uint8Array): string {
-  const bajtoj = new Uint8Array(Math.ceil(( biomoDatumoj.length * 3 ) / 8));
+  const bajtoj = new Uint8Array(Math.ceil(( biomoDatumoj.length * 3 ) / 0o10));
   for ( let i = 0; i < biomoDatumoj.length; i++ ) {
     const b = i * 3;
     bajtoj[b >> 3] |= ( biomoDatumoj[i] & 7 ) << ( b & 7 );
-    if ( ( b & 7 ) > 5 ) bajtoj[( b >> 3 ) + 1] |= ( biomoDatumoj[i] & 7 ) >> (8 - ( b & 7 ));
+    if ( ( b & 7 ) > 5 ) bajtoj[( b >> 3 ) + 1] |= ( biomoDatumoj[i] & 7 ) >> (0o10 - ( b & 7 ));
   }
   return bazo64DeBajtoj(bajtoj);
 }
 export function bazo64DeBestoj(bestoDatumoj: Uint8Array): string {
-  const bajtoj = new Uint8Array(Math.ceil(bestoDatumoj.length * 3 / 8));
+  const bajtoj = new Uint8Array(Math.ceil(bestoDatumoj.length * 3 / 0o10));
   for ( let i = 0; i < bestoDatumoj.length; i++ ) {
     const b = i * 3;
     const v = bestoDatumoj[i] & 7;
     bajtoj[b >> 3] |= v << ( b & 7 );
-    if ( ( b & 7 ) > 5 ) bajtoj[( b >> 3 ) + 1] |= v >> (8 - ( b & 7 ));
+    if ( ( b & 7 ) > 5 ) bajtoj[( b >> 3 ) + 1] |= v >> (0o10 - ( b & 7 ));
   }
   return bazo64DeBajtoj(bajtoj);
 }
 export function kvantigiDeltojn(): Int16Array {
   const kvantigita = new Int16Array(N * N);
   for ( let i = 0; i < deltoj.length; i++ ) {
-    kvantigita[i] = Math.max(-32767, Math.min(32767, Math.round(deltoj[i] * 16)));
+    kvantigita[i] = Math.max(-0o77777, Math.min(0o77777, Math.round(deltoj[i] * 0o20)));
   }
   return kvantigita;
 }
@@ -474,8 +474,8 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
     const negativa = s.startsWith("-");
     const kerno = negativa ? s.slice(1) : s;
     const partoj = kerno.split("/");
-    const numeratoro = parseInt(partoj[0].replace(/^0o/, ""), 8);
-    const denominatoro = partoj.length > 1 ? parseInt(partoj[1].replace(/^0o/, ""), 8) : 1;
+    const numeratoro = parseInt(partoj[0].replace(/^0o/, ""), 0o10);
+    const denominatoro = partoj.length > 1 ? parseInt(partoj[1].replace(/^0o/, ""), 0o10) : 1;
     const valoro = numeratoro / denominatoro;
     return negativa ? -valoro : valoro;
   };
@@ -493,7 +493,7 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
   if ( deltaKruda !== null ) {
     deltoj.fill(0);
     const d = dekodiInt16(deltaKruda);
-    if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 16;
+    if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 0o20;
   }
   const maskoKruda = malpaku(preni("SKULPTA_AKVA_MASKO"));
   if ( maskoKruda !== null ) {
@@ -540,7 +540,7 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
   try {
     const parzitaj = uj !== null ? parziValoron(uj) : null;
     if ( parzitaj && Array.isArray(parzitaj) && parzitaj.length ) agordiUrbojn(parzitaj.map(u => ( {
-      nomo: String(u && u.nomo !== undefined ? u.nomo : "Urbo"),
+      nomo: String(u && u.nomo !== undefined ? u.nomo : "ទីក្រុង"),
       arangxaGrando: Number(u && u.arangxaGrando) || 1,
       blokaGrando: u && u.blokaGrando === "kvar" ? "kvar" : "unu",
       ofsX: Number(u && u.ofsX) || 0,
@@ -584,7 +584,7 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
 }
 export function sxargiDatumaronElKodo(): void {
   const d = dekodiInt16(SKULPTA_DELTAJ);
-  if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 16;
+  if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 0o20;
   const m = dekodiMaskon(SKULPTA_AKVA_MASKO, N * N);
   if ( m ) masko.set(m);
   const b = dekodiBiomon(SKULPTA_BIOMOJ, N * N);
@@ -684,27 +684,27 @@ export async function skribiPerTenilo(tenilo: FileSystemFileHandle, teksto: stri
     await skribilo.write(teksto);
     await skribilo.close();
     markiSavitan();
-    statuso("Savite rekte al " + tenilo.name + " ✔️");
+    statuso("បានរក្សាទុកផ្ទាល់ទៅ " + tenilo.name + " ✔️");
     return true;
   } catch { return false; }
 }
 export async function saviDosieron(): Promise<void> {
   const dosieroj = generiDosierojn();
   if ( !cirkuloValidas() || !cirkuloDeDatumojValidas() ){
-    statuso("La datumaro ne validas — savo nuligita");
+    statuso("ទិន្នន័យមិនត្រឹមត្រូវ , ការរក្សាទុកត្រូវបានលុបចោល");
     return;
   }
   const elektilo = window.showSaveFilePicker;
   if ( !elektilo ) {
     for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) elSxuti(teksto, nomo);
     markiSavitan();
-    statuso("Elsxutite. Metu la dosierojn al kantaoj/ kaj reŝargu la ludon");
+    statuso("បានទាញយក។ ដាក់ឯកសារទៅ kantaoj/ ហើយផ្ទុកហ្គេមឡើងវិញ");
     return;
   }
   for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) {
     let tenilo: FileSystemFileHandle | null = dosierajTeniloj[nomo] ?? null;
     if ( tenilo && !await skribiPerTenilo(tenilo, teksto) ) {
-      statuso("La memorita dosiero ne plu haveblas — elektu denove");
+      statuso("ឯកសារដែលចងចាំលែងមាន , ជ្រើសម្តងទៀត");
       await forgesiDosieranTenilon(nomo);
       tenilo = null;
     }
@@ -712,10 +712,10 @@ export async function saviDosieron(): Promise<void> {
       try {
         tenilo = await elektilo({
           suggestedName: nomo,
-          types: [ { description: "TypeScript datumaro", accept: { "text/plain": [ ".ts" ] } } ],
+          types: [ { description: "ទិន្នន័យ TypeScript", accept: { "text/plain": [ ".ts" ] } } ],
         });
       } catch {
-        statuso("La elekto nuligita — ŝanĝoj restas nesavitaj");
+        statuso("ការជ្រើសត្រូវបានលុបចោល , ការផ្លាស់ប្តូរនៅមិនបានរក្សាទុក");
         return;
       }
       if ( !await skribiPerTenilo(tenilo, teksto) ) {
@@ -730,12 +730,12 @@ export async function saviDosieron(): Promise<void> {
 export async function sargiDosieron(): Promise<void> {
   const elektilo = window.showOpenFilePicker;
   if ( !elektilo ) {
-    statuso("La dosier-ŝarĝo bezonas Chromium-on");
+    statuso("ការផ្ទុកឯកសារត្រូវការ Chromium");
     return;
   }
   try {
     const [ tenilo ] = await elektilo({
-      types: [ { description: "TypeScript datumaro", accept: { "text/plain": [ ".ts" ] } } ],
+      types: [ { description: "ទិន្នន័យ TypeScript", accept: { "text/plain": [ ".ts" ] } } ],
       multiple: false,
     });
     const dosiero = await tenilo.getFile();
@@ -744,9 +744,9 @@ export async function sargiDosieron(): Promise<void> {
       const nomo = Object.keys(DOSIERA_TITOLO).find(n => n.split("/").pop() === tenilo.name) ?? tenilo.name;
       await konserviDosieranTenilon(tenilo, nomo);
       dosierajTeniloj[nomo] = tenilo;
-      statuso("Ŝargite el " + tenilo.name + " 📂");
+      statuso("បានផ្ទុកពី " + tenilo.name + " 📂");
     } else {
-      statuso("La dosiero ne estas skulpta datumaro");
+      statuso("ឯកសារមិនមែនជាទិន្នន័យឆ្លាក់ទេ");
     }
   } catch { }
 }
@@ -755,12 +755,12 @@ export async function sargiDosieron(): Promise<void> {
 export const KONSERVILO = "http://127.0.0.1:4173/";
 export async function saviRekteAlDosiero(): Promise<void> {
   if ( !cxuSxangxita() ) {
-    statuso("Neniu ŝanĝo — la tereno jam estas en la dosieroj ✔️");
+    statuso("គ្មានការផ្លាស់ប្តូរ , ដីមាននៅក្នុងឯកសាររួចហើយ ✔️");
     return;
   }
   const dosieroj = generiDosierojn();
   if ( !cirkuloValidas() || !cirkuloDeDatumojValidas() ){
-    statuso("La datumaro ne validas — savo nuligita");
+    statuso("ទិន្នន័យមិនត្រឹមត្រូវ , ការរក្សាទុកត្រូវបានលុបចោល");
     return;
   }
   try {
@@ -772,12 +772,12 @@ export async function saviRekteAlDosiero(): Promise<void> {
     const mesagxo = await respondo.text();
     if ( respondo.ok ) {
       markiSavitan();
-      statuso("Savite rekte al kantaoj/ ✔️ ( " + mesagxo + " )");
+      statuso("បានរក្សាទុកផ្ទាល់ទៅ kantaoj/ ✔️ ( " + mesagxo + " )");
     } else {
-      statuso("La konservilo rifuzis: " + mesagxo);
+      statuso("ឧបករណ៍រក្សាទុកបដិសេធ , " + mesagxo);
     }
   } catch {
-    statuso("La konserva servilo ne kuras — kuru: npm run konservilo");
+    statuso("ម៉ាស៊ីនរក្សាទុកមិនដំណើរការ , រត់ , npm run konservilo");
   }
 }
 
@@ -792,7 +792,7 @@ export function kodoDeNomo(nomo: string): string {
   return nomo.toLowerCase()
     .replace(/[ĉĝĥĵŝŭäöü]/g, c => anstatauxoj[c] ?? c)
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 0o50);
 }
 
 export function gxisdatigiMapajnElektilojn(): void {
@@ -800,7 +800,7 @@ export function gxisdatigiMapajnElektilojn(): void {
   for ( const m of mapojRegistroj ) {
     const opcio = document.createElement("option");
     opcio.value = m.kodo;
-    opcio.textContent = m.nomo + ( m.aktiva ? " ⭐" : "" ) + ( m.kodo === mapoDatumo.kodo ? " ( nun redaktata )" : "" );
+    opcio.textContent = m.nomo + ( m.aktiva ? " ⭐" : "" ) + ( m.kodo === mapoDatumo.kodo ? " ( កំពុងកែ )" : "" );
     mapoElektilo.appendChild(opcio);
   }
   mapoElektilo.value = mapoDatumo.kodo;
@@ -820,7 +820,7 @@ gxisdatigiMapajnElektilojn();
 
 export function sxaltiMapon(kodo: string): void {
   if ( kodo === mapoDatumo.kodo ) return;
-  if ( cxuSxangxita() && !confirm("Nesavitaj ŝanĝoj en ĉi tiu mapo — forlasi ilin?") ) {
+  if ( cxuSxangxita() && !confirm("ការផ្លាស់ប្តូរមិនបានរក្សាទុកក្នុងផែនទីនេះ , បោះបង់វាទេ ?") ) {
     gxisdatigiMapajnElektilojn();
     return;
   }
@@ -837,46 +837,46 @@ export async function skribiPerKonservilo(dosieroj: Record<string, string>): Pro
     });
     const mesagxo = await respondo.text();
     if ( respondo.ok ) return mesagxo;
-    statuso("La konservilo rifuzis: " + mesagxo);
+    statuso("ឧបករណ៍រក្សាទុកបដិសេធ , " + mesagxo);
     return null;
   } catch {
-    statuso("La konserva servilo ne kuras — nova mapo bezonas ĝin ( npm run konservilo )");
+    statuso("ម៉ាស៊ីនរក្សាទុកមិនដំណើរការ , ផែនទីថ្មីត្រូវការវា ( npm run konservilo )");
     return null;
   }
 }
 
 export async function mapoNova(): Promise<void> {
-  const nomo = prompt("Nomo de la nova mapo", "Nova mapo");
+  const nomo = prompt("ឈ្មោះផែនទីថ្មី", "ផែនទីថ្មី");
   if ( !nomo ) return;
   const kodo = kodoDeNomo(nomo);
-  if ( !kodo ) { statuso("La nomo ne donas dosierujan nomon — uzu literojn aŭ ciferojn"); return; }
-  if ( mapojRegistroj.some(m => m.kodo === kodo) ) { statuso("Mapo kun tiu dosieruja nomo jam ekzistas"); return; }
+  if ( !kodo ) { statuso("ឈ្មោះមិនផ្តល់ឈ្មោះថតឯកសារ , ប្រើអក្សរ ឬលេខ"); return; }
+  if ( mapojRegistroj.some(m => m.kodo === kodo) ) { statuso("ផែនទីដែលមានឈ្មោះថតឯកសារនោះមានរួចហើយ"); return; }
   mapojRegistroj.push({ kodo, nomo, aktiva: false, formo: mapoFormo, grandeco: mapoGrandeco });
-  statuso("Kreanta la mapon " + kodo + " …");
+  statuso("កំពុងបង្កើតផែនទី " + kodo + " …");
   const rezulto = await skribiPerKonservilo(generiDosierojn(kodo));
   if ( !rezulto ) {
     mapojRegistroj = mapojRegistroj.filter(m => m.kodo !== kodo);
     gxisdatigiMapajnElektilojn();
     return;
   }
-  statuso("La mapo " + nomo + " kreita ✔️ — ŝaltante al ĝi");
+  statuso("ផែនទី " + nomo + " បានបង្កើត ✔️ , កំពុងប្តូរទៅវា");
   location.search = "?mapo=" + encodeURIComponent(kodo);
 }
 
 export function mapoAlinomi(): void {
   const nuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
-  const nomo = prompt("Nova nomo de la mapo", nuna ? nuna.nomo : mapoDatumo.kodo);
+  const nomo = prompt("ឈ្មោះថ្មីនៃផែនទី", nuna ? nuna.nomo : mapoDatumo.kodo);
   if ( !nomo ) return;
   if ( nuna ) nuna.nomo = nomo;
   markiSxangxitan();
   gxisdatigiMapajnElektilojn();
-  statuso("La nomo ŝanĝita — savu por skribi ĝin al mapoj.ts");
+  statuso("ឈ្មោះបានប្តូរ , រក្សាទុកដើម្បីសរសេរទៅ mapoj.ts");
 }
 
 export function mapoForigi(): void {
-  if ( mapojRegistroj.length <= 1 ) { statuso("La lasta mapo ne forigeblas"); return; }
+  if ( mapojRegistroj.length <= 1 ) { statuso("ផែនទីចុងក្រោយមិនអាចលុបបានទេ"); return; }
   const nuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
-  if ( !confirm("Forigi la mapon „" + ( nuna ? nuna.nomo : mapoDatumo.kodo ) + "“ el la registro? ( la dosieroj restas )") ) return;
+  if ( !confirm("លុបផែនទី „" + ( nuna ? nuna.nomo : mapoDatumo.kodo ) + "“ ចេញពីបញ្ជីឈ្មោះទេ ? ( ឯកសារនៅសល់ )") ) return;
   mapojRegistroj = mapojRegistroj.filter(m => m.kodo !== mapoDatumo.kodo);
   if ( !mapojRegistroj.some(m => m.aktiva) ) mapojRegistroj[0].aktiva = true;
   markiSxangxitan();
@@ -888,7 +888,7 @@ export function mapoElektiAktivan(): void {
   for ( const m of mapojRegistroj ) m.aktiva = m.kodo === mapoDatumo.kodo;
   markiSxangxitan();
   gxisdatigiMapajnElektilojn();
-  statuso("Ĉi tiu mapo estos la mapo de la ludo post la savo ⭐");
+  statuso("ផែនទីនេះនឹងជាផែនទីរបស់ហ្គេមបន្ទាប់ពីរក្សាទុក ⭐");
 }
 
 export function gxisdatigiFormon(): void {
@@ -897,8 +897,8 @@ export function gxisdatigiFormon(): void {
   markiSxangxitan();
   gxisdatigiFormon3D();
   gxisdatigiPlenan2Dn();
-  statuso("Formo " + mapoFormo + ", grandeco " + Math.round(mapoGrandeco)
-    + " — savu por skribi ĝin al mapoj.ts");
+  statuso("ទម្រង់ " + mapoFormo + " , ទំហំ " + Math.round(mapoGrandeco)
+    + " , រក្សាទុកដើម្បីសរសេរទៅ mapoj.ts");
 }
 
 mapoFormoElektilo.addEventListener("change", () => {

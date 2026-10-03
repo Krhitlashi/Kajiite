@@ -94,9 +94,9 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     pulsiEfikon();
     const jamKonstruita = internaSistemo.kasxo.has(sxlosiloDeSpeco(spec));
     montriSargxon(jamKonstruita ? 0o100 : 0o400, () => {
-      ludanto.antauxaRezimo = ludanto.rezimo as "orbit" | "walk";
+      ludanto.antauxaRezimo = ludanto.rezimo as "orbito" | "promeno";
       try {
-        ludanto.rezimo = "interior";
+        ludanto.rezimo = "interno";
         ludanto.elektitaSpec = spec;
         const aspekto = legiVeston();
         const enirPunkto = eniriInternon(internaSistemo, spec, sceno, pordaAngulo, aspekto.vesto.ĉefa, aspekto.vesto.akcenta);
@@ -120,13 +120,13 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
         montriTost(traduki("eniri") + " " + konstruaĵaNomo(spec.name, spec.type));
         gxisdatigiRetikulon();
       } catch ( eraro ) {
-        console.error("Eniro en la konstruajxon malsukcesis:", eraro);
+        console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ការចូលក្នុងអគារបរាជ័យ" , eraro);
         eliriElInterno(internaSistemo, sceno);
         restarigiEksteron();
-        ludanto.rezimo = ludanto.antauxaRezimo || "orbit";
+        ludanto.rezimo = ludanto.antauxaRezimo || "orbito";
         ludanto.antauxaRezimo = null;
-        regiloj.enabled = ludanto.rezimo === "orbit";
-        if ( ludanto.rezimo === "orbit" && document.pointerLockElement === kanvaso ) document.exitPointerLock();
+        regiloj.enabled = ludanto.rezimo === "orbito";
+        if ( ludanto.rezimo === "orbito" && document.pointerLockElement === kanvaso ) document.exitPointerLock();
         gxisdatigiRezimanButonon();
         gxisdatigiRetikulon();
       }
@@ -140,11 +140,11 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     if ( cxuAŭdio() ) sfx.door();
     pulsiEfikon();
     fariBalailon(() => {
-      const estasWalk = ludanto.antauxaRezimo === "walk";
-      ludanto.rezimo = ludanto.antauxaRezimo || "orbit";
+      const estasPromene = ludanto.antauxaRezimo === "promeno";
+      ludanto.rezimo = ludanto.antauxaRezimo || "orbito";
       ludanto.antauxaRezimo = null;
       const speco = ludanto.elektitaSpec;
-      if ( estasWalk ) {
+      if ( estasPromene ) {
         regiloj.enabled = false;
         if ( speco && speco.type === "stacioxipo" ) {
           const rot = speco.rot || 0;
@@ -178,21 +178,21 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
 
   // ⟪ កុងតាក់របៀប 📃 ⟫
   function gxisdatigiRezimanButonon() {
-    butRezimo.textContent = traduki(ludanto.rezimo === "walk" ? "butonoPromeni" : "butonoOrbiti");
-    butRezimo.setAttribute("aria-pressed", String(ludanto.rezimo === "walk"));
-    butRezimo.setAttribute("aria-label", traduki(ludanto.rezimo === "walk" ? "ariaButPromeni" : "ariaButOrbiti"));
+    butRezimo.textContent = traduki(ludanto.rezimo === "promeno" ? "butonoPromeni" : "butonoOrbiti");
+    butRezimo.setAttribute("aria-pressed", String(ludanto.rezimo === "promeno"));
+    butRezimo.setAttribute("aria-label", traduki(ludanto.rezimo === "promeno" ? "ariaButPromeni" : "ariaButOrbiti"));
     aplikiVacepu();
   }
   window.addEventListener("lingvosxangxo", gxisdatigiRezimanButonon);
 
   function sxaltiRezimon() {
-    if ( ludanto.rezimo === "interior" ) { eliriInternon(); return; }
+    if ( ludanto.rezimo === "interno" ) { eliriInternon(); return; }
     if ( ludanto.surKanoto ) forigiKanton();
     if ( cxuAŭdio() ) sfx.chime();
-    ludanto.rezimo = ludanto.rezimo === "orbit" ? "walk" : "orbit";
+    ludanto.rezimo = ludanto.rezimo === "orbito" ? "promeno" : "orbito";
     gxisdatigiRezimanButonon();
     gxisdatigiRetikulon();
-    if ( ludanto.rezimo === "walk" ) {
+    if ( ludanto.rezimo === "promeno" ) {
       regiloj.enabled = false;
       ludanto.direkto = Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
       ludanto.pozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
@@ -208,7 +208,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
   butRezimo.addEventListener("click", () => {
     sxaltiRezimon();
     const speco = ludanto.elektitaSpec;
-    if ( ludanto.rezimo === "orbit" && speco ) {
+    if ( ludanto.rezimo === "orbito" && speco ) {
       regiloj.target.set(speco.x, speco.h0! + 0o14, speco.z);
       regiloj.update();
     }

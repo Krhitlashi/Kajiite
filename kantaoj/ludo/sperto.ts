@@ -222,13 +222,13 @@ const { klavoj, cxuSprintas, cxuSaltas } = kreiEnigojn({
 
 // ⟪ ការបញ្ជាបណ្តាញ 📃 ⟫
 function gxisdatigiRetikulon() {
-  retikulo.classList.toggle("montri", ludanto.rezimo === "orbit");
+  retikulo.classList.toggle("montri", ludanto.rezimo === "orbito");
 }
 
 // ⟪ ចុចដើម្បីជ្រើស 📃 ⟫
 const radioRestilo = new THREE.Raycaster();
 kanvaso.addEventListener("click", ( e ) => {
-  if ( ludanto.rezimo !== "orbit" ) return;
+  if ( ludanto.rezimo !== "orbito" ) return;
   const muso = new THREE.Vector2(( e.clientX / innerWidth ) * 2 - 1, -( e.clientY / innerHeight ) * 2 + 1);
   radioRestilo.setFromCamera(muso, fotilo);
   const trafoj = radioRestilo.intersectObjects(selektajxoj);

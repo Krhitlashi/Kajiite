@@ -26,7 +26,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: MULT_SAMPLEA, powerPreference: "high-performance" });
   } catch {
     montriEraronon(sxargxaEl);
-    throw new Error("WebGL ne havebla");
+    throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) WebGL មិនអាចប្រើបាន");
   }
   bildilo.outputColorSpace = THREE.SRGBColorSpace;
   bildilo.toneMapping = THREE.ACESFilmicToneMapping;
@@ -48,7 +48,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   fotilo.position.set(0o40, 0o30, 0o100);
   fotilo.rotation.order = "YXZ";
 
-  const fotilaDuTan = 2 * Math.tan(fotilo.fov * Math.PI / 360);
+  const fotilaDuTan = 2 * Math.tan(fotilo.fov * Math.PI / 0o550);
 
   const pmremGenerilo = new THREE.PMREMGenerator(bildilo);
   sceno.environment = pmremGenerilo.fromScene(new RoomEnvironment(bildilo), 0o1/0o40).texture;

@@ -14,7 +14,7 @@
 @returns ធាតុនោះ ( T )។ */
 export function elemento<T extends HTMLElement = HTMLElement>(id: string): T {
   const el = document.getElementById(id) as T | null;
-  if ( !el ) throw new Error("Mankas la elemento #" + id + " en la pagxo");
+  if ( !el ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) បាត់ធាតុ #" + id + " ក្នុងទំព័រ");
   return el;
 }
 
@@ -24,7 +24,7 @@ export function elemento<T extends HTMLElement = HTMLElement>(id: string): T {
 @returns កុងតេក្ស 2D ( CanvasRenderingContext2D )។ */
 export function kunteksto2d(kanvaso: HTMLCanvasElement): CanvasRenderingContext2D {
   const k = kanvaso.getContext("2d");
-  if ( !k ) throw new Error("La 2D-kunteksto de la kanvaso ne haveblas");
+  if ( !k ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) បរិបទ 2D នៃផ្ទាំងគំនូរមិនអាចប្រើបាន");
   return k;
 }
 

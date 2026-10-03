@@ -248,7 +248,7 @@ export function rekonstruiFontojn3D(): void {
     const f = fontoj[i];
     const r = 0o1/0o2 + Math.min(1.6, f.fluo * 0.06);
     const sfero = new THREE.Mesh(
-      new THREE.SphereGeometry(r, 12, 8),
+      new THREE.SphereGeometry(r, 0o14, 0o10),
       new THREE.MeshStandardMaterial({
         color: i === elektitaFonto ? 0xd8f4ff : 0x48a8d0,
         emissive: 0x206080, roughness: 0.3, metalness: 0o1/0o10,
@@ -256,7 +256,7 @@ export function rekonstruiFontojn3D(): void {
     sfero.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + r, f.z);
     fontaGrupo3D.add(sfero);
     const ringo = new THREE.Mesh(
-      new THREE.TorusGeometry(r * 1.7, r * 0.16, 8, 20),
+      new THREE.TorusGeometry(r * 1.7, r * 0.16, 0o10, 0o24),
       new THREE.MeshStandardMaterial({ color: 0xe8f8ff, roughness: 0o1/0o2, metalness: 0 }));
     ringo.rotation.x = -Math.PI / 2;
     ringo.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + 0o1/0o4, f.z);
@@ -280,7 +280,7 @@ function eniri3D(): void {
     const cieloK = document.createElement("canvas");
     cieloK.width = 2; cieloK.height = 0o200;
     const ck = cieloK.getContext("2d");
-    if ( !ck ) throw new Error("La 2D-kunteksto de la ciela gradiento ne haveblas");
+    if ( !ck ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) បរិបទ 2D នៃជម្រាលមេឃមិនអាចប្រើបាន");
     const cieloGradiento = ck.createLinearGradient(0, 0, 0, 0o200);
     cieloGradiento.addColorStop(0, "#70a8d8");
     cieloGradiento.addColorStop(0o5/0o10, "#a8d0e8");
@@ -291,7 +291,7 @@ function eniri3D(): void {
     cieloTeksajxo.colorSpace = THREE.SRGBColorSpace;
     sceno3d.background = cieloTeksajxo;
     sceno3d.fog = new THREE.Fog(0xe0f0f0, 0o1000, 0o3000);
-    fotilo3d = new THREE.PerspectiveCamera(50, 1, 1, 0o4770);
+    fotilo3d = new THREE.PerspectiveCamera(0o62, 1, 1, 0o4770);
     fotilo3d.position.set(0o400, 0o300, 0o400);   // ( 256, 192, 256 ) ។ ទីតាំងដំបូងរបស់កាមេរ៉ា
     bildilo3d = new THREE.WebGLRenderer({ canvas: mapo3d, antialias: true });
     // ពន្លឺ គឺពន្លឺមេឃក្នុងផ្ទះ និងព្រះអាទិត្យពីទិសពាយ័ព្យ។
@@ -391,8 +391,8 @@ function eniri3D(): void {
     regiloj3d.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
     gxisdatigi3DMeshon({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
   } catch ( eraro ) {
-    console.error("La 3D-vido ne haveblas:", eraro);
-    statuso("La 3D-vido ne haveblas");
+    console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ទិដ្ឋភាព 3D មិនអាចប្រើបាន" , eraro);
+    statuso("ទិដ្ឋភាព 3D មិនអាចប្រើបាន");
     sxaltiVidon(false);
   }
 }
@@ -423,7 +423,7 @@ export function gxisdatigi3DMeshon(g: KradaRektangulo): void {
       // ត្រូវការវា ( ការបញ្ចូលដូចក្នុង scena.ts )។
       const [ , deklX, deklZ ] = deltoKunDerivajoj(x, z);
       const k = almetiBiomanNuancon(terenaKoloro255(h, x, z, Math.hypot(deklX, deklZ)), x, z, d);
-      skrapaLinia.setRGB(k[0] / 255, k[1] / 255, k[2] / 255, THREE.SRGBColorSpace);
+      skrapaLinia.setRGB(k[0] / 0o377, k[1] / 0o377, k[2] / 0o377, THREE.SRGBColorSpace);
       kol.array[v] = skrapaLinia.r;
       kol.array[v + 1] = skrapaLinia.g;
       kol.array[v + 2] = skrapaLinia.b;
@@ -610,7 +610,7 @@ function peniko3dPasxo(cx: number, cz: number): void {
   // ដីបានផ្លាស់ប្តូរ ដូច្នេះទឹក ( អាង ទន្លេ ព្រែកកាត់ )
   // អាស្រ័យលើវា ដូច្នេះទឹកនឹងត្រូវគណនាឡើងវិញនៅចុងបញ្ចប់នៃជំហានជក់។
   markiAkvonMalpuran();
-  statuso("Nesavitaj ŝanĝoj");
+  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
   const r = radiuso();
   const px0 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.max(deX, cx) + r + 1)));
   const px1 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.min(deX, cx) - r - 1)));

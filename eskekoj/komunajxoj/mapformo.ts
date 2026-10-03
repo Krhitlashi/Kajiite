@@ -4,9 +4,9 @@ import * as THREE from "three";
 export type MapFormo = "rondo" | "kvadrato" | "triangulo";
 
 export const FORMOJ: { kodo: MapFormo; nomo: string }[] = [
-  { kodo: "rondo", nomo: "Cirklo 🌐" },
-  { kodo: "kvadrato", nomo: "Kvadrato 🔲" },
-  { kodo: "triangulo", nomo: "Triangulo 🔺" },
+  { kodo: "rondo", nomo: "រង្វង់ 🌐" },
+  { kodo: "kvadrato", nomo: "ការ៉េ 🔲" },
+  { kodo: "triangulo", nomo: "ត្រីកោណ 🔺" },
 ];
 
 export const MONDO_BAZA_Y = -0o20;

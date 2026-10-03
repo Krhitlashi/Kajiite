@@ -11,7 +11,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     const k = konstruaĵoj[i];
     if ( k.stacia || ( k.x === 0 && k.z === 0 ) ) continue;
     if ( !konektitaj.has(i) ) {
-      problemoj.push({ kodo: "sen-sprono", mesaĝo: `konstruaĵo ${i} ( ${k.tipo} @ ${k.x},${k.z} ) havas neniun spronon` });
+      problemoj.push({ kodo: "sen-sprono", mesaĝo: `អគារ ${i} ( ${k.tipo} @ ${k.x},${k.z} ) គ្មាន sprono` });
     }
   }
 
@@ -24,7 +24,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
       if ( j === sp.konstruajxo ) continue;
       const k = konstruaĵoj[j];
       if ( x1 <= k.x + duonLarĝo && x2 >= k.x - duonLarĝo && z1 <= k.z + duonLarĝo && z2 >= k.z - duonLarĝo ) {
-        problemoj.push({ kodo: "sprono-transiras", mesaĝo: `sprono ${sp.konstruajxo} ( ${konstruaĵoj[sp.konstruajxo].tipo} ) transiras konstruaĵon ${j} ( ${k.tipo} @ ${k.x},${k.z} )` });
+        problemoj.push({ kodo: "sprono-transiras", mesaĝo: `sprono ${sp.konstruajxo} ( ${konstruaĵoj[sp.konstruajxo].tipo} ) ឆ្លងកាត់អគារ ${j} ( ${k.tipo} @ ${k.x},${k.z} )` });
       }
     }
   }
@@ -37,11 +37,11 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
       if ( c === 0 && r === 0 ) continue;
       const cx = c * PASXO, cz = r * PASXO;
       const mankas: string[] = [];
-      if ( !havasEW(cz + M, cx) ) mankas.push("nordo");
-      if ( !havasEW(cz - M, cx) ) mankas.push("sudo");
-      if ( !havasNS(cx - M, cz) ) mankas.push("okcidento");
-      if ( !havasNS(cx + M, cz) ) mankas.push("oriento");
-      if ( mankas.length ) problemoj.push({ kodo: "voja-bloko", mesaĝo: `bloko (${c},${r}) ${t} mankas vojojn: ${mankas.join(", ")}` });
+      if ( !havasEW(cz + M, cx) ) mankas.push("ជើង");
+      if ( !havasEW(cz - M, cx) ) mankas.push("ត្បូង");
+      if ( !havasNS(cx - M, cz) ) mankas.push("លិច");
+      if ( !havasNS(cx + M, cz) ) mankas.push("កើត");
+      if ( mankas.length ) problemoj.push({ kodo: "voja-bloko", mesaĝo: `ប្លុក (${c},${r}) ${t} ខ្វះផ្លូវ , ${mankas.join(", ")}` });
     }
   }
 
@@ -58,7 +58,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     const rotita = new Set(neStaciaj.map(k => signaturo(k, true, kunRotacio)));
     if ( originalo.size !== rotita.size || [ ...originalo ].some(s => !rotita.has(s)) ) {
       const mankantaj = [ ...originalo ].filter(s => !rotita.has(s)).slice(0, 4);
-      problemoj.push({ kodo, mesaĝo: `la krado ne estas 4-oble simetria — mankas: ${mankantaj.join(" ; ")}` });
+      problemoj.push({ kodo, mesaĝo: `ក្រឡាមិនស៊ីមេទ្រី 4 ដងទេ , ខ្វះ , ${mankantaj.join(" ; ")}` });
     }
   };
   kontroliSimetrion(false, "simetrio-pozicia");
@@ -69,7 +69,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     const rotita = new Set(neDiagonalaj.map(k => signaturo(k, true, true)));
     if ( originalo.size !== rotita.size || [ ...originalo ].some(s => !rotita.has(s)) ) {
       const mankantaj = [ ...originalo ].filter(s => !rotita.has(s)).slice(0, 4);
-      problemoj.push({ kodo: "simetrio-rotacia", mesaĝo: `la ne-diagonalaj rotacioj ne estas 4-oble simetriaj — mankas: ${mankantaj.join(" ; ")}` });
+      problemoj.push({ kodo: "simetrio-rotacia", mesaĝo: `ការបង្វិលមិនអង្កត់ទ្រូងមិនស៊ីមេទ្រី 4 ដងទេ , ខ្វះ , ${mankantaj.join(" ; ")}` });
     }
   }
 
@@ -79,7 +79,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
       const longo = Math.hypot(sp.al[0] - sp.de[0], sp.al[1] - sp.de[1]);
       const dist = longo + duonL;
       if ( Math.abs(dist - 0o10) > 0o1/0o1000 ) {
-        problemoj.push({ kodo: "spaco", mesaĝo: `sprono ${sp.konstruajxo}: distanco al vojo ${dist.toFixed(0o1)} ≠ 0o10 ( la spaco en la bloko )` });
+        problemoj.push({ kodo: "spaco", mesaĝo: `sprono ${sp.konstruajxo} , ចម្ងាយទៅផ្លូវ ${dist.toFixed(0o1)} ≠ 0o10 ( ចន្លោះក្នុងប្លុក )` });
       }
     }
   }
@@ -94,7 +94,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
       ? punktoj.map(x => distMin(x, v.poz))
       : punktoj.map(z => distMin(v.poz, z));
     if ( distoj.some(d => d > 2 * PASXO) ) {
-      problemoj.push({ kodo: "vojo-malplena", mesaĝo: `segmento ${v.orient} @ ${v.poz} ( ${v.de}..${v.al} ) pasas pli ol 2 pasxojn de la plej proksima ĉelo` });
+      problemoj.push({ kodo: "vojo-malplena", mesaĝo: `ចម្រៀក ${v.orient} @ ${v.poz} ( ${v.de}..${v.al} ) ឆ្ងាយជាង 2 pasxoj ពីក្រឡាជិតបំផុត` });
     }
   }
 

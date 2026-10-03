@@ -14,7 +14,7 @@ export interface LokaStato {
   naĝas: boolean;
   surKanuo: boolean;
   interno: string;
-  reĝimo: "walk" | "interior" | "orbit";
+  reĝimo: "promeno" | "interno" | "orbito";
   vesto: number;
   haro: number;
   harKoloro: number;
@@ -45,7 +45,7 @@ interface ForaFiguro {
   movo: number;
   fazo: number;
   interno: string;
-  reĝimo: "walk" | "interior" | "orbit";
+  reĝimo: "promeno" | "interno" | "orbito";
   vesto: number;
   haro: number;
   harKoloro: number;
@@ -150,8 +150,8 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     }
   }
 
-  function legiRezimon(g: any): "walk" | "interior" | "orbit" {
-    return g === "i" ? "interior" : g === "o" ? "orbit" : "walk";
+  function legiRezimon(g: any): "promeno" | "interno" | "orbito" {
+    return g === "i" ? "interno" : g === "o" ? "orbito" : "promeno";
   }
 
   function finiaj(m: Record<string, any>): boolean {
@@ -221,7 +221,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       n: stato.naĝas ? 1 : 0,
       k: stato.surKanuo ? 1 : 0,
       i: stato.interno,
-      g: stato.reĝimo === "interior" ? "i" : stato.reĝimo === "orbit" ? "o" : "w",
+      g: stato.reĝimo === "interno" ? "i" : stato.reĝimo === "orbito" ? "o" : "w",
       v: stato.vesto,
       h: stato.haro,
       c: stato.harKoloro,
@@ -251,7 +251,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
         f.figuro.brakoj[0].rotation.x = idla;
         f.figuro.brakoj[1].rotation.x = -idla;
       }
-      g.visible = nia !== null && f.reĝimo !== "orbit" && f.interno === nia.interno;
+      g.visible = nia !== null && f.reĝimo !== "orbito" && f.interno === nia.interno;
     }
   }
 

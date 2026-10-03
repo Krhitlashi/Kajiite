@@ -2,7 +2,7 @@
 import { tuŝaGesto } from "./gestoj.js";
 
 export interface EnigaLudanto {
-  rezimo(): "orbit" | "walk" | "interior";
+  rezimo(): "orbito" | "promeno" | "interno";
   kuŝas(): boolean;
   surKanoto(): boolean;
   movoValoro(): number;
@@ -153,7 +153,7 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
 
   // ⟪ ការបញ្ជាមើលលើទូរស័ព្ទដោយប៉ះ ( Pointer Events ) 📃 ⟫
   tuŝaGesto(kanvaso, {
-    akceptu: ( e ) => ( ludanto.rezimo() === "walk" || ludanto.rezimo() === "interior" ) && ( e.pointerType === "touch" || e.pointerType === "pen" ),
+    akceptu: ( e ) => ( ludanto.rezimo() === "promeno" || ludanto.rezimo() === "interno" ) && ( e.pointerType === "touch" || e.pointerType === "pen" ),
     postEniro: ( e ) => {
       try { kanvaso.setPointerCapture(e.pointerId); } catch { /* ignorata */ }
     },
@@ -178,7 +178,7 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
   butSalti.addEventListener("touchstart", ( e ) => {
     e.preventDefault();
     butSalti.setAttribute("aria-pressed", "true");
-    if ( ludanto.rezimo() === "walk" && !ludanto.surKanoto() ) {
+    if ( ludanto.rezimo() === "promeno" && !ludanto.surKanoto() ) {
       mobSaltiTenata = true;
       agoj.salti();
     }
@@ -188,16 +188,16 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
 
   // ⟪ សោបង្ហាញសម្រាប់ការដើរ ( ខាងក្រៅ និងខាងក្នុង ) 📃 ⟫
   kanvaso.addEventListener("click", () => {
-    if ( ludanto.rezimo() === "walk" || ludanto.rezimo() === "interior" ) kanvaso.requestPointerLock();
+    if ( ludanto.rezimo() === "promeno" || ludanto.rezimo() === "interno" ) kanvaso.requestPointerLock();
   });
   document.addEventListener("mousemove", ( e ) => {
-    if ( document.pointerLockElement !== kanvaso || ( ludanto.rezimo() !== "walk" && ludanto.rezimo() !== "interior" ) ) return;
+    if ( document.pointerLockElement !== kanvaso || ( ludanto.rezimo() !== "promeno" && ludanto.rezimo() !== "interno" ) ) return;
     ludanto.aldoniRigardon(-e.movementX * 0o1/0o1000, -e.movementY * 0o1/0o1000);
   });
 
   // ⟪ កង់ , ពីជិតទៅមុំទីបី 📃 ⟫
   kanvaso.addEventListener("wheel", ( e ) => {
-    if ( ( ludanto.rezimo() !== "walk" && ludanto.rezimo() !== "interior" ) || ludanto.kuŝas() ) return;
+    if ( ( ludanto.rezimo() !== "promeno" && ludanto.rezimo() !== "interno" ) || ludanto.kuŝas() ) return;
     e.preventDefault();
     const paŝo = e.deltaMode === 2 ? e.deltaY * 0o16 : e.deltaMode === 1 ? e.deltaY * 0o4/0o10 : e.deltaY * 0o3/0o400;
     ludanto.aldoniZumon(paŝo);

@@ -1,299 +1,299 @@
 <!DOCTYPE html>
-<html lang="eo">
+<html lang="km">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title> Terena skulptilo 🔨 </title>
+<title> ឧបករណ៍ឆ្លាក់ដី 🔨 </title>
 <link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
 <link rel="stylesheet" href="../stiloj.css">
 </head>
 <body class="tapufal">
-<p class="ksakap2sa"> Terena skulptilo 🔨 </p>
-<p class="kefhuruq"> Skulptu la valon — montojn, la riveron, la lagon — per penikoj kaj savu la rezulton rekte al la datumodosiero. La ludo legas la skulptajxon kiel la TUTAN terenon ( la natura tavolo estas plata ). La mapo montras nordon supre kaj orienton dekstren — la sama orientiĝo kiel la minimapo de la ludo. </p>
+<p class="ksakap2sa"> ឧបករណ៍ឆ្លាក់ដី 🔨 </p>
+<p class="kefhuruq"> ឆ្លាក់ជ្រលង , ភ្នំ , ទន្លេ , បឹង , ដោយជក់ ហើយរក្សាទុកលទ្ធផលដោយផ្ទាល់ទៅឯកសារទិន្នន័យ។ ហ្គេមអានការឆ្លាក់ជាដីទាំងមូល ( ស្រទាប់ធម្មជាតិរាបស្មើ )។ ផែនទីបង្ហាញខាងជើងនៅលើ និងខាងកើតនៅស្តាំ , តម្រង់ដូចគ្នានឹងផែនទីតូចរបស់ហ្គេម។ </p>
 <thala>
-  <p class="ksakap2sa"> Vido 🎥 </p>
+  <p class="ksakap2sa"> មើល 🎥 </p>
   <sabosuc2w2q>
     <button id="vido2d" aria-pressed="true"> 2D 🗺️ </button>
     <button id="vido3d" aria-pressed="false"> 3D ⛰️ </button>
   </sabosuc2w2q>
 </thala>
 <thala id="mapoPanel">
-  <p class="ksakap2sa"> Mapo 🗺️ </p>
-  <label> Mapo <select id="mapoElektilo"></select> </label>
+  <p class="ksakap2sa"> ផែនទី 🗺️ </p>
+  <label> ផែនទី <select id="mapoElektilo"></select> </label>
   <sabosuc2w2q>
-    <button id="mapoNova"> Nova mapo ➕ </button>
-    <button id="mapoAlinomi"> Alinomi ✏️ </button>
-    <button id="mapoForigi"> Forigi 🗑️ </button>
+    <button id="mapoNova"> ផែនទីថ្មី ➕ </button>
+    <button id="mapoAlinomi"> ប្តូរឈ្មោះ ✏️ </button>
+    <button id="mapoForigi"> លុប 🗑️ </button>
   </sabosuc2w2q>
   <sabosuc2w2q>
-    <button id="mapoAktiva"> Fari aktiva ⭐ </button>
+    <button id="mapoAktiva"> ធ្វើឱ្យសកម្ម ⭐ </button>
   </sabosuc2w2q>
-  <label> Formo <select id="mapoFormoElektilo"></select> </label>
-  <label> Grandeco <span id="mapoGrandecoValoro"></span> </label>
-  <input id="mapoGrandeco" type="range" min="96" max="768" step="8" value="384" aria-label="Grandeco de la mondo">
+  <label> ទម្រង់ <select id="mapoFormoElektilo"></select> </label>
+  <label> ទំហំ <span id="mapoGrandecoValoro"></span> </label>
+  <input id="mapoGrandeco" type="range" min="96" max="768" step="8" value="384" aria-label="ទំហំពិភពលោក">
 </thala>
 <canvas id="mapo" width="900" height="900"></canvas>
 <canvas id="mapo3d" width="900" height="900"></canvas>
 <thala>
-  <p class="ksakap2sa"> Iloj 🛠️ </p>
+  <p class="ksakap2sa"> ឧបករណ៍ 🛠️ </p>
   <sabosuc2w2q id="ilTaboj">
-    <button data-iltabo="tereno" aria-pressed="true"> Tereno 🏔️ </button>
-    <button data-iltabo="biomo" aria-pressed="false"> Biomo 🎨 </button>
-    <button data-iltabo="animaloj" aria-pressed="false"> Animaloj 🐾 </button>
-    <button data-iltabo="objektoj" aria-pressed="false"> Objektoj 🎯 </button>
-    <button data-iltabo="krado" aria-pressed="false"> Krado 🏙️ </button>
-    <button id="movigiIlo" aria-pressed="false"> Movigi ✋ </button>
+    <button data-iltabo="tereno" aria-pressed="true"> ដី 🏔️ </button>
+    <button data-iltabo="biomo" aria-pressed="false"> ជីវតំបន់ 🎨 </button>
+    <button data-iltabo="animaloj" aria-pressed="false"> សត្វ 🐾 </button>
+    <button data-iltabo="objektoj" aria-pressed="false"> វត្ថុ 🎯 </button>
+    <button data-iltabo="krado" aria-pressed="false"> ក្រឡា 🏙️ </button>
+    <button id="movigiIlo" aria-pressed="false"> ផ្លាស់ទី ✋ </button>
   </sabosuc2w2q>
   <sabosuc2w2q id="terenaro">
-    <button data-peniko="levi" aria-pressed="true"> Levi ⬆ </button>
-    <button data-peniko="malsuprenigi"> Malsuprenigi ⬇ </button>
-    <button data-peniko="platigi"> Platigi ▬ </button>
-    <button data-peniko="glatigi"> Glatigi ≋ </button>
-    <button data-peniko="akvo"> Akvofontoj 🌊 </button>
-    <button data-peniko="akvoforvisxi"> Forigi fonton 🗑️ </button>
-    <button id="fontojElPentrita" title="Metu fontojn aux la supraj finoj de la malnova pentrita akvo"> El pentrita akvo 🔁 </button>
-    <button data-peniko="forvisxi"> Forviŝi 🧽 </button>
+    <button data-peniko="levi" aria-pressed="true"> លើក ⬆ </button>
+    <button data-peniko="malsuprenigi"> បន្ទាប ⬇ </button>
+    <button data-peniko="platigi"> ធ្វើឱ្យរាបស្មើ ▬ </button>
+    <button data-peniko="glatigi"> ធ្វើឱ្យរលូន ≋ </button>
+    <button data-peniko="akvo"> ប្រភពទឹក 🌊 </button>
+    <button data-peniko="akvoforvisxi"> លុបប្រភព 🗑️ </button>
+    <button id="fontojElPentrita" title="ដាក់ប្រភពនៅចុងខាងលើនៃទឹកដែលបានគូរចាស់"> ពីទឹកដែលបានគូរ 🔁 </button>
+    <button data-peniko="forvisxi"> ជូត 🧽 </button>
   </sabosuc2w2q>
   <sabosuc2w2q id="biomaro" class="kobe">
-    <button data-biomo="1" aria-pressed="true"> Montaro ⛰️ </button>
-    <button data-biomo="2" aria-pressed="false"> Valo 🏞️ </button>
-    <button data-biomo="3" aria-pressed="false"> Ebenaĵo 🏜️ </button>
-    <button data-biomo="4" aria-pressed="false"> Akvaj plantoj 🌿 </button>
-    <button data-biomo="5" aria-pressed="false"> Ekvizeto 🌾 </button>
-    <button data-biomo="0" aria-pressed="false"> Aŭtomata ⚙️ </button>
+    <button data-biomo="1" aria-pressed="true"> ភ្នំ ⛰️ </button>
+    <button data-biomo="2" aria-pressed="false"> ជ្រលង 🏞️ </button>
+    <button data-biomo="3" aria-pressed="false"> វាលរាប 🏜️ </button>
+    <button data-biomo="4" aria-pressed="false"> រុក្ខជាតិទឹក 🌿 </button>
+    <button data-biomo="5" aria-pressed="false"> ហូសេថេល 🌾 </button>
+    <button data-biomo="0" aria-pressed="false"> ស្វ័យប្រវត្តិ ⚙️ </button>
   </sabosuc2w2q>
   <sabosuc2w2q id="bestaro" class="kobe">
-    <button data-besto="1" aria-pressed="true"> Akvaj bestoj 🐟 </button>
-    <button data-besto="2" aria-pressed="false"> Petreloj 🕊️ </button>
-    <button data-besto="4" aria-pressed="false"> NPC-oj 🧍 </button>
-    <button id="bestoForvisxo" aria-pressed="false"> Forviŝi 🧽 </button>
+    <button data-besto="1" aria-pressed="true"> សត្វទឹក 🐟 </button>
+    <button data-besto="2" aria-pressed="false"> ផេត្រេល 🕊️ </button>
+    <button data-besto="4" aria-pressed="false"> NPC 🧍 </button>
+    <button id="bestoForvisxo" aria-pressed="false"> ជូត 🧽 </button>
   </sabosuc2w2q>
   <sabosuc2w2q id="kradaro" class="kobe">
-    <button data-krado-tipo="automata" aria-pressed="true"> Aŭtomata ⚙️ </button>
-    <button data-krado-tipo="sanktejo" aria-pressed="false"> Sanktejo 🛕 </button>
-    <button data-krado-tipo="turo" aria-pressed="false"> Turo 🏢 </button>
-    <button data-krado-tipo="domo" aria-pressed="false"> Domo 🏠 </button>
-    <button data-krado-tipo="mangxejo" aria-pressed="false"> Manĝejo 🍽️ </button>
-    <button data-krado-tipo="kasafeo" aria-pressed="false"> Kasafeo 🏛️ </button>
-    <button data-krado-tipo="stacio" aria-pressed="false"> Stacio 🚀 </button>
+    <button data-krado-tipo="automata" aria-pressed="true"> ស្វ័យប្រវត្តិ ⚙️ </button>
+    <button data-krado-tipo="sanktejo" aria-pressed="false"> ទីសក្ការៈ 🛕 </button>
+    <button data-krado-tipo="turo" aria-pressed="false"> ប៉ម 🏢 </button>
+    <button data-krado-tipo="domo" aria-pressed="false"> ផ្ទះ 🏠 </button>
+    <button data-krado-tipo="mangxejo" aria-pressed="false"> អាហារដ្ឋាន 🍽️ </button>
+    <button data-krado-tipo="kasafeo" aria-pressed="false"> ហាងកាហ្វេ 🏛️ </button>
+    <button data-krado-tipo="stacio" aria-pressed="false"> ស្ថានីយ 🚀 </button>
   </sabosuc2w2q>
 </thala>
 <thala id="objektoPanel" class="kobe">
-  <p class="ksakap2sa"> Objektoj 🎯 </p>
+  <p class="ksakap2sa"> វត្ថុ 🎯 </p>
   <sabosuc2w2q id="objektaIloj">
-    <button data-objekta-ilo="meti" aria-pressed="true"> Meti ➕ </button>
-    <button data-objekta-ilo="movigi" aria-pressed="false"> Movu ✋ </button>
-    <button data-objekta-ilo="forigi" aria-pressed="false"> Forigi 🗑️ </button>
+    <button data-objekta-ilo="meti" aria-pressed="true"> ដាក់ ➕ </button>
+    <button data-objekta-ilo="movigi" aria-pressed="false"> ផ្លាស់ទី ✋ </button>
+    <button data-objekta-ilo="forigi" aria-pressed="false"> លុប 🗑️ </button>
   </sabosuc2w2q>
-  <label> Speco
+  <label> ប្រភេទ
     <select id="objektoSpeco">
-      <optgroup label="Plantoj 🌿">
-        <option value="betulo">Betulo 🌳</option>
-        <option value="lariko">Lariko 🌲</option>
-        <option value="hxsxaksxlefo">Ĥŝakŝlefo 🥬</option>
-        <option value="pussxlefo">Pussxlefo 🌱</option>
-        <option value="roko">Roko 🪨</option>
-        <option value="filiko">Filiko 🌿</option>
+      <optgroup label="រុក្ខជាតិ 🌿">
+        <option value="betulo">បេធូឡា 🌳</option>
+        <option value="lariko">ឡារីក 🌲</option>
+        <option value="hxsxaksxlefo">ហ្សាក់ស្លេហ្វូ 🥬</option>
+        <option value="pussxlefo">ពូសស្លេហ្វូ 🌱</option>
+        <option value="roko">ថ្ម 🪨</option>
+        <option value="filiko">ហ្វេន 🌿</option>
       </optgroup>
-      <optgroup label="Bestoj 🐾">
-        <option value="akvabesto">Akva besto 🐟</option>
-        <option value="petrelo">Petrelo 🕊️</option>
+      <optgroup label="សត្វ 🐾">
+        <option value="akvabesto">សត្វទឹក 🐟</option>
+        <option value="petrelo">ផេត្រេល 🕊️</option>
       </optgroup>
-      <optgroup label="Homoj 🧍">
+      <optgroup label="មនុស្ស 🧍">
         <option value="npco">NPC 🧍</option>
       </optgroup>
-      <optgroup label="Konstruaĵoj 🏛️">
-        <option value="sanktejo">Sanktejo 🛕</option>
-        <option value="turo">Turo 🏢</option>
-        <option value="domo">Domo 🏠</option>
-        <option value="mangxejo">Manĝejo 🍽️</option>
-        <option value="kasafeo">Kasafeo 🏛️</option>
-        <option value="stacio">Stacio 🚀</option>
+      <optgroup label="អគារ 🏛️">
+        <option value="sanktejo">ទីសក្ការៈ 🛕</option>
+        <option value="turo">ប៉ម 🏢</option>
+        <option value="domo">ផ្ទះ 🏠</option>
+        <option value="mangxejo">អាហារដ្ឋាន 🍽️</option>
+        <option value="kasafeo">ហាងកាហ្វេ 🏛️</option>
+        <option value="stacio">ស្ថានីយ 🚀</option>
       </optgroup>
-      <optgroup label="Mebloj ✨">
-        <option value="hxeuxfo">Lampo 🏮</option>
-        <option value="hxeuxfoPlato">Lampo kun plato 🏮</option>
-        <option value="keuxfhxeso">Keŭfĥeso ⭐</option>
+      <optgroup label="គ្រឿងសង្ហារឹម ✨">
+        <option value="hxeuxfo">ចង្កៀង 🏮</option>
+        <option value="hxeuxfoPlato">ចង្កៀងមានផ្ទាំង 🏮</option>
+        <option value="keuxfhxeso">គីហ្វហេសូ ⭐</option>
       </optgroup>
-      <optgroup label="Transporto 🚢">
-        <option value="kanuo">Kanuo 🛶</option>
-        <option value="spacosxipo">Spacosxipo 🚀</option>
+      <optgroup label="ការដឹកជញ្ជូន 🚢">
+        <option value="kanuo">ទូកកាណូ 🛶</option>
+        <option value="spacosxipo">យានអវកាស 🚀</option>
       </optgroup>
     </select>
   </label>
-  <p class="ksakap2sa"> Antaŭrigardo 🔍 </p>
+  <p class="ksakap2sa"> មើលជាមុន 🔍 </p>
   <canvas id="objektaAntauxrigardo" width="128" height="128"></canvas>
   <ariiba id="objektoPropOJ"></ariiba>
-  <p> Koordinatoj <span id="koordinatoj">—</span> </p>
+  <p> កូអរដោនេ <span id="koordinatoj">⋯</span> </p>
   <label> x <input id="objektaX" type="number" step="0.25" min="-384" max="384"> </label>
   <label> z <input id="objektaZ" type="number" step="0.25" min="-384" max="384"> </label>
-  <button id="objektaMetu"> Meti ĉe koordinatoj ➕ </button>
-  <p class="ksakap2sa"> Metitaj objektoj </p>
+  <button id="objektaMetu"> ដាក់តាមកូអរដោនេ ➕ </button>
+  <p class="ksakap2sa"> វត្ថុដាក់ </p>
   <ariiba id="objektoListo"></ariiba>
 </thala>
 <thala id="kradoPanel" class="kobe">
-  <p class="ksakap2sa"> Krado 🏙️ </p>
+  <p class="ksakap2sa"> ក្រឡា 🏙️ </p>
   <sabosuc2w2q id="kradoSubTaboj">
-    <button data-krado-sub="urboj" aria-pressed="true"> Urboj 🏙️ </button>
-    <button data-krado-sub="redakti" aria-pressed="false"> Redakti ✏️ </button>
-    <button data-krado-sub="blokoj" aria-pressed="false"> Aldonaj blokoj 🧱 </button>
-    <button data-krado-sub="vojoj" aria-pressed="false"> Vojoj 🛣️ </button>
+    <button data-krado-sub="urboj" aria-pressed="true"> ទីក្រុង 🏙️ </button>
+    <button data-krado-sub="redakti" aria-pressed="false"> កែ ✏️ </button>
+    <button data-krado-sub="blokoj" aria-pressed="false"> ប្លុកបន្ថែម 🧱 </button>
+    <button data-krado-sub="vojoj" aria-pressed="false"> ផ្លូវ 🛣️ </button>
   </sabosuc2w2q>
   <ciihii data-krado-sub-panel="urboj">
-  <label> Urbo
+  <label> ទីក្រុង
     <select id="urboElektilo"></select>
   </label>
-  <label> Nomo <input id="urboNomo" type="text" maxlength="40"> </label>
+  <label> ឈ្មោះ <input id="urboNomo" type="text" maxlength="40"> </label>
   <sabosuc2w2q>
-    <button id="urboAldoni"> Aldoni urbon ➕ </button>
-    <button id="urboForigi"> Forigi urbon 🗑️ </button>
+    <button id="urboAldoni"> បន្ថែមទីក្រុង ➕ </button>
+    <button id="urboForigi"> លុបទីក្រុង 🗑️ </button>
   </sabosuc2w2q>
   </ciihii>
   <ciihii data-krado-sub-panel="redakti" class="kobe">
-  <label> Grandeco
+  <label> ទំហំ
     <select id="kradoGrandeco">
-      <option value="1">1 — centro + kvar ĉirkaŭantaj</option>
-      <option value="2">2 — diamanto</option>
-      <option value="3" selected>3 — la nuna urbo</option>
-      <option value="4">4 — plena diamanto</option>
-      <option value="5">5 — plena diamanto</option>
-      <option value="6">6 — plena diamanto</option>
+      <option value="1">1 , កណ្តាល + បួនជុំវិញ</option>
+      <option value="2">2 , ពេជ្រ</option>
+      <option value="3" selected>3 , ទីក្រុងបច្ចុប្បន្ន</option>
+      <option value="4">4 , ពេជ្រពេញ</option>
+      <option value="5">5 , ពេជ្រពេញ</option>
+      <option value="6">6 , ពេជ្រពេញ</option>
     </select>
   </label>
-  <label> Bloko
+  <label> ប្លុក
     <select id="kradoBloko">
-      <option value="unu" selected>Unu — unu konstruaĵo po ĉelo</option>
-      <option value="kvar">Kvar — kvar konstruaĵoj en bloko</option>
+      <option value="unu" selected>មួយ , អគារមួយក្នុងមួយក្រឡា</option>
+      <option value="kvar">បួន , អគារបួនក្នុងមួយប្លុក</option>
     </select>
   </label>
-  <label> Ofseto x <input id="kradoOfsX" type="number" step="1" min="-384" max="384" value="0"> </label>
-  <label> Ofseto z <input id="kradoOfsZ" type="number" step="1" min="-384" max="384" value="0"> </label>
-  <label> <input id="kradoKeuxfhxeso" type="checkbox"> Keŭfĥesoj ⭐ ( la kvar anguloj ĉirkaŭ la centro ) </label>
-  <label> <input id="kradoLampoj" type="checkbox" checked> Lampoj 🏮 ( la kvar-lampa strato-ŝablono ) </label>
+  <label> អុហ្វសិត x <input id="kradoOfsX" type="number" step="1" min="-384" max="384" value="0"> </label>
+  <label> អុហ្វសិត z <input id="kradoOfsZ" type="number" step="1" min="-384" max="384" value="0"> </label>
+  <label> <input id="kradoKeuxfhxeso" type="checkbox"> គីហ្វហេសូ ⭐ ( ជ្រុងទាំងបួនជុំវិញកណ្តាល ) </label>
+  <label> <input id="kradoLampoj" type="checkbox" checked> ចង្កៀង 🏮 ( គំរូផ្លូវចង្កៀងបួន ) </label>
   </ciihii>
   <ciihii data-krado-sub-panel="blokoj" class="kobe">
-  <label> Bloko
+  <label> ប្លុក
     <select id="aldonaBlokoElektilo"></select>
   </label>
-  <label> Tipo
+  <label> ប្រភេទ
     <select id="aldonaBlokoTipo">
-      <option value="sanktejo">Sanktejo 🛕</option>
-      <option value="turo">Turo 🏢</option>
-      <option value="domo">Domo 🏠</option>
-      <option value="mangxejo">Manĝejo 🍽️</option>
-      <option value="kasafeo">Kasafeo 🏛️</option>
-      <option value="stacio">Stacio 🚀</option>
+      <option value="sanktejo">ទីសក្ការៈ 🛕</option>
+      <option value="turo">ប៉ម 🏢</option>
+      <option value="domo">ផ្ទះ 🏠</option>
+      <option value="mangxejo">អាហារដ្ឋាន 🍽️</option>
+      <option value="kasafeo">ហាងកាហ្វេ 🏛️</option>
+      <option value="stacio">ស្ថានីយ 🚀</option>
     </select>
   </label>
   <label> x <input id="aldonaBlokoX" type="number" step="any" min="-384" max="384"> </label>
   <label> z <input id="aldonaBlokoZ" type="number" step="any" min="-384" max="384"> </label>
-  <label> Turno <input id="aldonaBlokoRot" type="number" step="any" min="-6.3" max="6.3"> </label>
-  <label> <input id="aldonaBlokoStacia" type="checkbox"> Stacio 🚀 ( la ŝipo flugas super ĝi ) </label>
-  <label> <input id="aldonaBlokoKonektita" type="checkbox"> Konektita 🛣️ ( kuniĝas kun la voja reto, kiel la malnova stacidoma ĉelo ) </label>
+  <label> រង្វិល <input id="aldonaBlokoRot" type="number" step="any" min="-6.3" max="6.3"> </label>
+  <label> <input id="aldonaBlokoStacia" type="checkbox"> ស្ថានីយ 🚀 ( យានហោះពីលើវា ) </label>
+  <label> <input id="aldonaBlokoKonektita" type="checkbox"> ភ្ជាប់ 🛣️ ( តភ្ជាប់នឹងបណ្តាញផ្លូវ ដូចក្រឡាស្ថានីយចាស់ ) </label>
   <sabosuc2w2q>
-    <button id="aldonaBlokoAldoni"> Aldoni blokon ➕ </button>
-    <button id="aldonaBlokoForigi"> Forigi blokon 🗑️ </button>
+    <button id="aldonaBlokoAldoni"> បន្ថែមប្លុក ➕ </button>
+    <button id="aldonaBlokoForigi"> លុបប្លុក 🗑️ </button>
   </sabosuc2w2q>
   </ciihii>
   <ciihii id="vojojPanel" data-krado-sub-panel="vojoj" class="kobe">
   <sabosuc2w2q id="vojoSubTaboj">
-    <button data-vojo-sub="vojoj" aria-pressed="true"> Vojoj 🛣️ </button>
-    <button data-vojo-sub="punktoj" aria-pressed="false"> Punktoj 📍 </button>
-    <button data-vojo-sub="dokoj" aria-pressed="false"> Dokoj 🚢 </button>
-    <button data-vojo-sub="iloj" aria-pressed="false"> Mapaj iloj 🖱️ </button>
+    <button data-vojo-sub="vojoj" aria-pressed="true"> ផ្លូវ 🛣️ </button>
+    <button data-vojo-sub="punktoj" aria-pressed="false"> ចំណុច 📍 </button>
+    <button data-vojo-sub="dokoj" aria-pressed="false"> ចតុកោណ 🚢 </button>
+    <button data-vojo-sub="iloj" aria-pressed="false"> ឧបករណ៍ផែនទី 🖱️ </button>
   </sabosuc2w2q>
   <ciihii data-vojo-sub-panel="vojoj">
-  <label> Vojo
+  <label> ផ្លូវ
     <select id="vojoElektilo"></select>
   </label>
-  <label> Nomo <input id="vojoNomo" type="text" maxlength="40"> </label>
-  <label> Larĝo <input id="vojoLargxo" type="number" step="0.5" min="1" max="24" value="3.5"> </label>
+  <label> ឈ្មោះ <input id="vojoNomo" type="text" maxlength="40"> </label>
+  <label> ទទឹង <input id="vojoLargxo" type="number" step="0.5" min="1" max="24" value="3.5"> </label>
   <sabosuc2w2q>
-    <button id="vojoAldoni"> Aldoni vojon ➕ </button>
-    <button id="vojoForigi"> Forigi vojon 🗑️ </button>
-    <button id="vojoKonekti" title="Kunigu vojojn, pontojn kaj dokojn kun la plej proksima vojo"> Konekti vojojn kaj dokoj 🔗 </button>
+    <button id="vojoAldoni"> បន្ថែមផ្លូវ ➕ </button>
+    <button id="vojoForigi"> លុបផ្លូវ 🗑️ </button>
+    <button id="vojoKonekti" title="ភ្ជាប់ផ្លូវ ស្ពាន និងចតុកោណជាមួយផ្លូវជិតបំផុត"> ភ្ជាប់ផ្លូវ និងចតុកោណ 🔗 </button>
   </sabosuc2w2q>
   </ciihii>
   <ciihii data-vojo-sub-panel="punktoj" class="kobe">
-  <label> Punkto
+  <label> ចំណុច
     <select id="vojoPunktoElektilo"></select>
   </label>
   <sabosuc2w2q>
-    <button id="vojoPunktoAldoni"> Aldoni punkton ➕ </button>
-    <button id="vojoPunktoForigi"> Forigi punkton 🗑️ </button>
+    <button id="vojoPunktoAldoni"> បន្ថែមចំណុច ➕ </button>
+    <button id="vojoPunktoForigi"> លុបចំណុច 🗑️ </button>
   </sabosuc2w2q>
   <label> x <input id="vojoPunktoX" type="number" step="any" min="-384" max="384"> </label>
   <label> z <input id="vojoPunktoZ" type="number" step="any" min="-384" max="384"> </label>
   </ciihii>
   <ciihii data-vojo-sub-panel="dokoj" class="kobe">
-  <label> Doko
+  <label> ចតុកោណ
     <select id="dokoElektilo"></select>
   </label>
   <label> x <input id="dokoX" type="number" step="any" min="-384" max="384"> </label>
   <label> z <input id="dokoZ" type="number" step="any" min="-384" max="384"> </label>
-  <label> Profundo <input id="dokoProfundo" type="number" step="1" min="4" max="48"> </label>
-  <label> Turno <input id="dokoRotacio" type="number" step="any" min="-6.3" max="6.3"> </label>
+  <label> ជម្រៅ <input id="dokoProfundo" type="number" step="1" min="4" max="48"> </label>
+  <label> រង្វិល <input id="dokoRotacio" type="number" step="any" min="-6.3" max="6.3"> </label>
   <sabosuc2w2q>
-    <button id="dokoAldoni"> Aldoni dokon ➕ </button>
-    <button id="dokoForigi"> Forigi dokon 🗑️ </button>
+    <button id="dokoAldoni"> បន្ថែមចតុកោណ ➕ </button>
+    <button id="dokoForigi"> លុបចតុកោណ 🗑️ </button>
   </sabosuc2w2q>
   </ciihii>
   <ciihii data-vojo-sub-panel="iloj" class="kobe">
   <sabosuc2w2q id="vojaIloj">
-    <button data-voja-ilo="movu" aria-pressed="true"> Elektu/Movu ✋ </button>
-    <button data-voja-ilo="aldoni" aria-pressed="false"> Aldoni punkton ➕ </button>
-    <button data-voja-ilo="forigi" aria-pressed="false"> Forigi punkton 🗑️ </button>
+    <button data-voja-ilo="movu" aria-pressed="true"> ជ្រើស/ផ្លាស់ទី ✋ </button>
+    <button data-voja-ilo="aldoni" aria-pressed="false"> បន្ថែមចំណុច ➕ </button>
+    <button data-voja-ilo="forigi" aria-pressed="false"> លុបចំណុច 🗑️ </button>
   </sabosuc2w2q>
   </ciihii>
-  <p id="vojaStatistikoj" class="kefhuruq"> — </p>
+  <p id="vojaStatistikoj" class="kefhuruq"> ⋯ </p>
   <details class="flak">
-    <summary class="ksakap2sa"> Helpo ❓ </summary>
-    <p class="kefhuruq"> La Vojoj sub-langeto de la Krado-panelo redaktas la MOND-nivelajn vojojn kaj dokojn — la samajn kiujn la ludo konstruas el SKULPTA_VOJOJ kaj SKULPTA_DOKOJ ( kantaoj/tero-datumaro/vojoj.ts ) — tute aparte de la krada generado kaj de la urboj, por ke estonte ili povu konekti plurajn urbojn. La mapo montras ilin kiel la plena mapo de la ludo ( helgrizaj vojoj kun malhelaj bordoj, dokaj platformoj ). Elektu/Movu ✋ — klako sur vojon, punkton aux dokon elektas gxin, kaj la treno movas gxin ( 0.5-algluita ). Aldoni punkton ➕ — klako sur la mapon enmetas punkton en la elektitan vojon. Forigi punkton 🗑️ — klako sur punkton forigas gxin. La vojoj, pontoj kaj dokoj KONEKTIĜAS aŭtomate — voj-finoj algluiĝas al la rando de la najbara vojo aŭ al la landa flanko de doko, dum dokoj turniĝas kaj poziciiĝas tiel, ke ilia landa rando sidas sur la vojo. „Konekti vojojn kaj dokoj 🔗“ faras tion por la tuta reto. Kunigitaj vojoj ricevas la saman nodo-tranĉojn, rundo-platojn kaj liberfinajn ĉapojn kiel la krado, do la andezita vojrando ne finals portas en la dioritajn kunigojn. La statistik montras la konektojn kaj malakcepte la vojo-vojo, vojo-doko kaj doko-doko interkovridojn. La vojoj havas nomon kaj larĝon ( neniu fiksita valoro — cxiu vojo estas plene redaktebla polilinio ), la dokoj havas pozicion, profundon kaj turnon ( la turno 0 = la pinto suden, Math.PI = norden — la malproksima riverbordo ). La spacosxipo 🚀 kaj la kanuoj 🛶 estas OBJEKTOJ — metitaj kaj movataj per la objekta ilo ( SKULPTA_OBJEKTOJ en kantaoj/tero-datumaro/objektoj.ts ). Ĉiu ŝanĝo saviĝas al kantaoj/ per la Dosiero-butenoj. </p>
+    <summary class="ksakap2sa"> ជំនួយ ❓ </summary>
+    <p class="kefhuruq"> ផ្ទាំងរងផ្លូវនៃបន្ទះក្រឡាកែផ្លូវ និងចតុកោណកម្រិតពិភពលោក , ដូចគ្នានឹងអ្វីដែលហ្គេមសាងសង់ពី SKULPTA_VOJOJ និង SKULPTA_DOKOJ ( kantaoj/tero-datumaro/vojoj.ts ) , ដោយឡែកពីការបង្កើតក្រឡា និងទីក្រុង ដើម្បីឱ្យអនាគតពួកវាអាចភ្ជាប់ទីក្រុងជាច្រើន។ ផែនទីបង្ហាញពួកវាដូចផែនទីពេញរបស់ហ្គេម ( ផ្លូវប្រផេះភ្លឺជាមួយគែមខ្មៅ , វេទិកាចតុកោណ )។ ជ្រើស/ផ្លាស់ទី ✋ , ចុចលើផ្លូវ ចំណុច ឬចតុកោណដើម្បីជ្រើស ហើយអូសដើម្បីផ្លាស់ទី ( ភ្ជាប់ 0.5 )។ បន្ថែមចំណុច ➕ , ចុចលើផែនទីដើម្បីដាក់ចំណុចក្នុងផ្លូវដែលជ្រើស។ លុបចំណុច 🗑️ , ចុចលើចំណុចដើម្បីលុប។ ផ្លូវ ស្ពាន និងចតុកោណភ្ជាប់គ្នាដោយស្វ័យប្រវត្តិ , ចុងផ្លូវជាប់នឹងគែមផ្លូវជិតខាង ឬជ្រុងដីនៃចតុកោណ , ខណៈចតុកោណបង្វិល និងដាក់ខ្លួនឱ្យជ្រុងដីរបស់វាស្ថិតលើផ្លូវ។ ប៊ូតុង „ភ្ជាប់ផ្លូវ និងចតុកោណ 🔗“ ធ្វើដូច្នេះសម្រាប់បណ្តាញទាំងមូល។ ផ្លូវដែលភ្ជាប់ទទួលការកាត់ថ្នាំង , ផ្ទាំងមូល និងមួកចុងសេរីដូចក្រឡា។ ស្ថិតិបង្ហាញការតភ្ជាប់ និងការត្រួតគ្នាផ្លូវ-ផ្លូវ ផ្លូវ-ចតុកោណ និងចតុកោណ-ចតុកោណ។ ផ្លូវមានឈ្មោះ និងទទឹង ( គ្មានតម្លៃថេរ , ផ្លូវនីមួយៗជាប៉ូលីលីនកែបានពេញ ) , ចតុកោណមានទីតាំង ជម្រៅ និងរង្វិល។ យានអវកាស 🚀 និងទូកកាណូ 🛶 ជាវត្ថុ , ដាក់ និងផ្លាស់ទីដោយឧបករណ៍វត្ថុ ( SKULPTA_OBJEKTOJ ក្នុង kantaoj/tero-datumaro/objektoj.ts )។ ការផ្លាស់ប្តូរនីមួយៗរក្សាទុកទៅ kantaoj/ ដោយប៊ូតុងឯកសារ។ </p>
   </details>
   </ciihii>
-  <p id="kradoStatistikoj" class="kefhuruq"> — </p>
+  <p id="kradoStatistikoj" class="kefhuruq"> ⋯ </p>
   <details class="flak">
-    <summary class="ksakap2sa"> Helpo ❓ </summary>
-    <p class="kefhuruq"> La Krado-langeto montras la urban kradon super la tereno ( en 2D sur la mapo kaj kiel reala 3D-aspekto en la 3D-vido ) nur dum ĉi tiu langeto estas aktiva. Elektu tipon en la paletro kaj klaku sur ĉelo por ŝanĝi ĝian tipon ( aŭ aldoni novan ĉelon ); Aŭtomata ⚙️ resendas la ĉelon al la generita tipo ( aŭ forigas aldonitan ). La urbo-elektilo elektas la urbon por redakti — grandeco, bloko, ofseto kaj nomo — kaj la klako sur la markilon sur la mapo elektas la urbon tie. La ŝanĝoj validiĝas tuj kaj saviĝas al SKULPTA_URBOJ en kantaoj/tero-datumaro/urboj.ts; la ludo konstruas ĉiun urbon el tiu listo ( la unua estas la ĉefa ). En la kvar-bloka krado la klako ŝanĝas la INDIVIDUAN konstruajxon sub la kursoro ( la plej proksiman angulon ), ne la tutan blokon — la paletro inkluzivas ankaŭ la Stacion 🚀. La ALDONAJ blokoj 🧱 estas ekstraj konstruajxoj metitaj APARTE de la krada generado — la spacosxipa stacio de la cefa urbo estas unu ( la ŝipo flugas super ĝi, kaj la krado ne plu generas ĝin ĉe la supro ). La klako sur aldonan blokon sur la mapo elektas gxin kaj la treno movas gxin. La mond-nivelaj vojoj kaj la dokoj redaktigxas en la sub-langeto Vojoj 🛣️ de ĉi tiu panelo ( SKULPTA_VOJOJ kaj SKULPTA_DOKOJ en kantaoj/tero-datumaro/vojoj.ts ) — mond-nivelaj, por ke estonte ili povu konekti plurajn urbojn. „Kopii aranĝon 📋“ kopias la elektitan urbon por alglui aliloke. La statistikoj montras ĉu la krado estas valida. </p>
+    <summary class="ksakap2sa"> ជំនួយ ❓ </summary>
+    <p class="kefhuruq"> ផ្ទាំងក្រឡាបង្ហាញក្រឡាទីក្រុងលើដី ( ក្នុង 2D លើផែនទី និងជាទិដ្ឋភាព 3D ពិតក្នុងទិដ្ឋភាព 3D ) តែពេលផ្ទាំងនេះសកម្ម។ ជ្រើសប្រភេទក្នុងក្តារ ហើយចុចលើក្រឡាដើម្បីប្តូរប្រភេទ ( ឬបន្ថែមក្រឡាថ្មី ) , ស្វ័យប្រវត្តិ ⚙️ ត្រឡប់ក្រឡាទៅប្រភេទដែលបង្កើត ( ឬលុបអ្វីដែលបានបន្ថែម )។ ឧបករណ៍ជ្រើសទីក្រុងជ្រើសទីក្រុងដែលត្រូវកែ , ទំហំ ប្លុក អុហ្វសិត និងឈ្មោះ , ហើយការចុចលើសញ្ញាសម្គាល់លើផែនទីជ្រើសទីក្រុងនៅទីនោះ។ ការផ្លាស់ប្តូរមានសុពលភាពភ្លាម ហើយរក្សាទុកទៅ SKULPTA_URBOJ ក្នុង kantaoj/tero-datumaro/urboj.ts , ហ្គេមសាងសង់ទីក្រុងនីមួយៗពីបញ្ជីនោះ ( ទីមួយជាមេ )។ ក្នុងក្រឡាប្លុកបួន ការចុចប្តូរអគារបុគ្គលក្រោមទ្រនិច មិនមែនប្លុកទាំងមូល , ក្តាររួមបញ្ចូលទាំងស្ថានីយ 🚀។ ប្លុកបន្ថែម 🧱 ជាអគារបន្ថែមដាក់ដោយឡែកពីការបង្កើតក្រឡា , ស្ថានីយយានអវកាសនៃទីក្រុងមេជាមួយ ( យានហោះពីលើវា ហើយក្រឡាលែងបង្កើតវានៅខាងលើ )។ ការចុចលើប្លុកបន្ថែមលើផែនទីជ្រើសវា ហើយការអូសផ្លាស់ទីវា។ ផ្លូវ និងចតុកោណកម្រិតពិភពលោកកែក្នុងផ្ទាំងរងផ្លូវ 🛣️ នៃបន្ទះនេះ ( SKULPTA_VOJOJ និង SKULPTA_DOKOJ ក្នុង kantaoj/tero-datumaro/vojoj.ts )។ ប៊ូតុង „ចម្លងការរៀបចំ 📋“ ចម្លងទីក្រុងដែលជ្រើសដើម្បីបិទផ្សាយនៅកន្លែងផ្សេង។ ស្ថិតិបង្ហាញថាតើក្រឡាមានសុពលភាព។ </p>
   </details>
   <sabosuc2w2q>
-    <button id="kradoRestarigi"> Restarigi ĉelojn ♻️ </button>
-    <button id="kradoKopii"> Kopii aranĝon 📋 </button>
+    <button id="kradoRestarigi"> កំណត់ក្រឡាឡើងវិញ ♻️ </button>
+    <button id="kradoKopii"> ចម្លងការរៀបចំ 📋 </button>
   </sabosuc2w2q>
 </thala>
 <thala id="agordojPanel">
-  <p class="ksakap2sa"> Agordoj ⚙️ </p>
-  <label> Radiuso <span id="radiusoValoro"></span> </label>
-  <input id="radiuso" type="range" min="2" max="60" step="1" value="12" aria-label="Radiuso">
-  <label> Forto <span id="fortoValoro"></span> </label>
-  <input id="forto" type="range" min="0.02" max="1" step="0.02" value="0.16" aria-label="Forto">
-  <label id="akvaNivelaEtikedo"> Akva nivelo ( la basenoj ) <span id="niveloValoro"></span> </label>
-  <input id="akvaNivelo" type="range" min="-14" max="2" step="0.25" value="-4.5" aria-label="Akva nivelo">
-  <label id="akvaFluoEtikedo"> Fluo de la fonto <span id="fluoValoro"></span> </label>
-  <input id="akvaFluo" type="range" min="1" max="60" step="1" value="6" aria-label="Fluo de la fonto">
-  <p id="akvaStatistikoj" class="kefhuruq"> — </p>
+  <p class="ksakap2sa"> ការកំណត់ ⚙️ </p>
+  <label> កាំ <span id="radiusoValoro"></span> </label>
+  <input id="radiuso" type="range" min="2" max="60" step="1" value="12" aria-label="កាំ">
+  <label> កម្លាំង <span id="fortoValoro"></span> </label>
+  <input id="forto" type="range" min="0.02" max="1" step="0.02" value="0.16" aria-label="កម្លាំង">
+  <label id="akvaNivelaEtikedo"> កម្រិតទឹក ( អាង ) <span id="niveloValoro"></span> </label>
+  <input id="akvaNivelo" type="range" min="-14" max="2" step="0.25" value="-4.5" aria-label="កម្រិតទឹក">
+  <label id="akvaFluoEtikedo"> លំហូរប្រភព <span id="fluoValoro"></span> </label>
+  <input id="akvaFluo" type="range" min="1" max="60" step="1" value="6" aria-label="លំហូរប្រភព">
+  <p id="akvaStatistikoj" class="kefhuruq"> ⋯ </p>
 </thala>
 <thala>
-  <p class="ksakap2sa"> Faroj 🛠️ </p>
+  <p class="ksakap2sa"> សកម្មភាព 🛠️ </p>
   <sabosuc2w2q>
-    <button id="malfari"> Malfari ↩️ </button>
-    <button id="refari"> Refari ↪️ </button>
-    <button id="restarigi"> Restarigi ĉion ♻️ </button>
+    <button id="malfari"> មិនធ្វើវិញ ↩️ </button>
+    <button id="refari"> ធ្វើវិញ ↪️ </button>
+    <button id="restarigi"> កំណត់ទាំងអស់ឡើងវិញ ♻️ </button>
   </sabosuc2w2q>
 </thala>
 <thala>
-  <p class="ksakap2sa"> Dosiero 💾 </p>
+  <p class="ksakap2sa"> ឯកសារ 💾 </p>
   <sabosuc2w2q>
-    <button id="savi"> Savi al dosiero 💾 </button>
-    <button id="saviRekte"> Savi rekte al kantaoj/ ✍️ </button>
-    <button id="sargi"> Ŝargi dosieron 📂 </button>
+    <button id="savi"> រក្សាទុកជាឯកសារ 💾 </button>
+    <button id="saviRekte"> រក្សាទុកផ្ទាល់ទៅ kantaoj/ ✍️ </button>
+    <button id="sargi"> ផ្ទុកឯកសារ 📂 </button>
   </sabosuc2w2q>
-  <p id="statuso" class="kefhuruq"> Preta </p>
+  <p id="statuso" class="kefhuruq"> រួចរាល់ </p>
   <details class="flak">
-    <summary class="ksakap2sa"> Helpo ❓ </summary>
-    <p> „Savi rekte al kantaoj/ ✍️“ skribas rekte al la sep datumodosieroj en kantaoj/tero-datumaro/ ( krado.ts, akvo.ts, biomoj.ts, bestoj.ts, objektoj.ts, urboj.ts, vojoj.ts ) — <code>npm run dev</code> jam starigas la konservan servilon ( aŭ kuru <code>npm run konservilo</code> aparte ). rultempo.ts — la malkoda modulo — ne plu reskribiĝas; ĝi estas la komuna fonto kies funkciojn ĉi tiu ilo importas. „Savi al dosiero 💾“ uzas la dosier-elektilon aŭ elŝutas. </p>
-  <p> La mapo-panelo 🗺️ elektas la REDAKTATAN mapon. Ĉiu mapo estas sendependa mondo kun siaj propraj sep datumdosieroj en kantaoj/tero-datumaro/&lt;kodo&gt;/ — elekti alian mapon reŝargas la paĝon per ?mapo=&lt;kodo&gt; ( la ilo avertas pri nesavitaj ŝanĝoj ). „Nova mapo ➕“ kreas novan mapon, kiu komenciĝas kiel kopio de la nuna ( ĝi skribiĝas tuj per la konserva servilo, do la servilo devas kuri ); „Alinomi ✏️“ ŝanĝas la montratan nomon; „Forigi 🗑️“ forigas la mapon el la registro ( la dosieroj restas sur la disko ); „Fari aktiva ⭐“ elektas la mapon, kiun la LUDO legas — la aktiva mapo skribiĝas al la pordo aktiva.ts ĉe la savo. La FORMO de la mondo varias laŭ la mapo — la cirklo ( la defaŭlto ), la rondigita kvadrato aŭ la rondigita triangulo — kaj la grandeco estas la radiuso de la cirklo, la duon-larĝo de la kvadrato aŭ la cirkumradiuso de la triangulo. La tereno de la ludo estas ĝuste tiu formo: la ekstero malheliĝas sur la 2D-mapo, la 3D-vido montras la krutaĵon sub la rando, kaj la ludo konstruas la saman formon ( la sama modulo mapformo.ts ). La ŝango de la mapo-registro ( la mapoj kaj iliaj formoj ) saviĝas per la samaj butonoj kiel la tereno — „Savi rekte al kantaoj/ ✍️“ skribas ankaŭ mapoj.ts kaj aktiva.ts. </p>
-  <p> Uzado. Maldekstra klako kaj treno skulptas. Dekstra klako aŭ Shift kaj treno movas la vidon. La rado zomas. Duobla klako resendas la tutan vidon. La ilo Movigi ✋ permesas treni la vidon per la maldekstra klako — en la 2D-mapo gxi movas la mapon, en la 3D-vido gxi turnas la fotilon. WASD aŭ la sagoklavoj movas la vidon ankaŭ per la klavaro — en la 3D-vido Q/E supren/malsupren kaj Shift rapidigas, en la 2D-mapo +/- zomas. La peniko Akvo eltranĉas basenon sub la akva nivelo kaj pentras la maskon. La langeto Biomo 🎨 montras la biomo-paletron — Montaro, Valo, Ebenaĵo, Akvaj plantoj, Ekvizeto aŭ Aŭtomata — kiu PENTRAS la biomon rekte sur la biomo-tavolon, NENIAM ŝanĝante la teron mem ( nenia altigxo, nenia malaltigxo ). La ludo vidas nur la pentritan biomon. La AKVAJ biomoj ( Akvaj plantoj 🌿 kaj Ekvizeto 🌾 ) ekzistas nur SUR la akvo — la peniko pentras ilin nur en akvaj ĉeloj, kaj la teraj biomoj ( Montaro, Valo, Ebenaĵo ) neniam pentrigxas sur akvo. Aŭtomata forigas la pentraĵon cxiu loke — la loko revenas al nenio, same kiel loko sen datumoj. La paletro aperas nur kiam la biomo-langeto estas malfermita. Dum la biomo-langeto estas malfermita, la biomo-koloroj kovras la teron. Purpura sur la montara biomo, verda-blua sur la vala, pala helverda sur la ebenaĵo, profunda blu-verda sur la akvaj plantoj, helverda sur la ekvizeto — la nuda akvo montras sian koloron, kaj lokoj sen pentrajo restas sen nuanco; ferminte la ilon la tero montras siajn naturajn kolorojn. La langeto Animaloj 🐾 montras la besto-paletron — Akvaj bestoj 🐟, Petreloj 🕊️, NPC-oj 🧍 kaj la forviŝo Forviŝi 🧽 — kiu PENTRAS la bestajn zonojn sur la besta-tavolon, NENIAM ŝanĝante la teron. La akvaj bestoj naĝas nur en la pentritaj akvaj zonoj, la petreloj rondflugas nur super la pentritaj zonoj, la NPC-oj piediras nur sur la pentritaj teraj zonoj. La ĉelo povas teni PLURAJN specojn samtempe — pentri la duan sur la unua kombinas ilin; malplena ĉelo = nenia besto, kaj la defaŭltaj lokoj estas jam bakitaj en la tavolon. La SAMA ilo forvisxas. Sxaltinte Forviŝi 🧽, la elektita specio ( Akvaj bestoj, Petreloj aux NPC-oj ) forvisxigxas de la pentritaj ĉeloj — la ceteraj specoj restas. La besta vido montras NUR la elektitan specion — elektinte Akvaj bestoj, nur la akvaj-bestaj ĉeloj montrigxas ( kaj pentrante kaj forvisxante ); elektinte Petreloj, nur la petrelaj; elektinte NPC-oj, nur la NPC-aj. La akvaj bestoj naĝas nur en akvo ( ili pentrigxas nur sur akvaj ĉeloj ); la petreloj povas flugi super ajna loko, do ili pentrigxas kaj sur tero kaj sur akvo — oni povas meti ilin sur la samaj ĉeloj kiel la akvaj bestoj; la NPC-oj piediras nur sur tero ( ili pentrigxas nur sur teraj ĉeloj ). La akva peniko pentras la maskon super la tuta peniko kaj eltrancxas la basenon, do pentri novan lagon aux riveron estas facila — la Forvishi peniko forigas la akvon. La vido-Movigi ✋ butono loĝas en la ilo-karto, ekster la langetoj ( gxi sxaltas la movan reĝimon sen sxangxi la aktivan langeton; alia klako revenigas la lastan penikon ). La ilo-karto havas langetojn — Tereno 🏔️ ( la penikoj Levi, Malsuprenigi, Platigi, Glatigi, Akvo kaj Forviŝi ), Biomo 🎨, Animaloj 🐾 kaj Objektoj 🎯. La ilo Objektoj 🎯 metas INDIVIDUAJN objektojn cxe precizaj pozicioj kaj havas siajn proprajn sub-ilojn — Meti ➕ ( klako metas novan objekton sur libera tero; klako proksime de jam metita objekto ELEKTAS gxin ), Movu ✋ ( kaptu objekton kaj trenu gxin sur la mapo aux la reliefo ) kaj Forigi 🗑️ ( klako forigas la objekton; la klavo Forigi forigas la elektitan ). Elektu la specon ( Betulo, Lariko, Ĥŝakŝlefo, Pussxlefo, Roko, Filiko, Akva besto, Petrelo aux NPC ) kaj la ecojn ( skalo; por NPC-oj ankaŭ rotacio, vesto kaj harstilo; por akvaj bestoj la speco; por petreloj la flugradiuso; por rokoj la turno; por filikoj la koloro — verda aux purpura ) — la panelo montras la VIVAJN KOORDINATOJN ( x, z, y ) de la kursoro. La x kaj z-enigoj permesas tajpi precizajn koordinatojn — la butono metas novan objekton cxe ili, aux movas la elektitan objekton tien ( kiam unu estas elektita ). La listo montras cxiun metitan objekton kun siaj koordinatoj ( elektu por reliefigi, Forigi ✕ por forigi ). La metitaj objektoj montrigxas kiel en la plena mapo de la ludo ( la suprajn vido de ilia vera 3D-aspekto sur la 2D-mapo ) kaj kiel ilia vera 3D-aspekto en la 3D-vido. La ludo konstruas la metitajn objektojn cxe tiuj pozicioj. La akvaj bestoj naĝas nur en akvo, la petreloj rondflugas cxe la ankro, la NPC-oj piediras sur tero. En la 3D-vido la maldekstra klako skulptas, la dekstra turnas, la meza movas kaj la rado zomas. La koloro estas natura. Sablaj bordoj, malseka herbo apud la akvo, herbejoj, sekherbaj deklivoj, roko kaj neĝo sur la pintoj — la sama paletro kiel en la ludo. </p>
+    <summary class="ksakap2sa"> ជំនួយ ❓ </summary>
+    <p> ប៊ូតុង „រក្សាទុកផ្ទាល់ទៅ kantaoj/ ✍️“ សរសេរផ្ទាល់ទៅឯកសារទិន្នន័យទាំងប្រាំពីរក្នុង kantaoj/tero-datumaro/ ( krado.ts, akvo.ts, biomoj.ts, bestoj.ts, objektoj.ts, urboj.ts, vojoj.ts ) , <code>npm run dev</code> ចាប់ផ្តើមម៉ាស៊ីនរក្សាទុករួចហើយ ( ឬរត់ <code>npm run konservilo</code> ដោយឡែក )។ rultempo.ts ជាម៉ូឌុលឌិកូដ លែងសរសេរឡើងវិញ , វាជាប្រភពរួមដែលឧបករណ៍នេះនាំចូលអនុគមន៍។ ប៊ូតុង „រក្សាទុកជាឯកសារ 💾“ ប្រើឧបករណ៍ជ្រើសឯកសារ ឬទាញយក។ </p>
+  <p> ផ្ទាំងផែនទី 🗺️ ជ្រើសផែនទីដែលកែ។ ផែនទីនីមួយៗជាពិភពលោកឯករាជ្យជាមួយឯកសារទិន្នន័យប្រាំពីររៀងៗខ្លួនក្នុង kantaoj/tero-datumaro/&lt;kodo&gt;/ , ជ្រើសផែនទីផ្សេងផ្ទុកទំព័រឡើងវិញដោយ ?mapo=&lt;kodo&gt; ( ឧបករណ៍ព្រមានអំពីការផ្លាស់ប្តូរមិនបានរក្សាទុក )។ „ផែនទីថ្មី ➕“ បង្កើតផែនទីថ្មី ចាប់ផ្តើមជាច្បាប់ចម្លងនៃបច្ចុប្បន្ន ( វាសរសេរភ្លាមតាមម៉ាស៊ីនរក្សាទុក ដូច្នេះម៉ាស៊ីនត្រូវដំណើរការ ); „ប្តូរឈ្មោះ ✏️“ ប្តូរឈ្មោះដែលបង្ហាញ; „លុប 🗑️“ លុបផែនទីចេញពីបញ្ជីឈ្មោះ ( ឯកសារនៅលើឌីស ); „ធ្វើឱ្យសកម្ម ⭐“ ជ្រើសផែនទីដែលហ្គេមអាន , ផែនទីសកម្មសរសេរទៅច្រក aktiva.ts ពេលរក្សាទុក។ ទម្រង់នៃពិភពលោកខុសគ្នាតាមផែនទី , រង្វង់ ( លំនាំដើម ) , ការ៉េមូល ឬត្រីកោណមូល , ហើយទំហំជាកាំនៃរង្វង់ កន្លះទទឹងនៃការ៉េ ឬកាំរង្វង់ព័ទ្ធជុំវិញនៃត្រីកោណ។ ដីរបស់ហ្គេមគឺជាទម្រង់នោះផ្ទាល់ , ខាងក្រៅងងឹតលើផែនទី 2D , ទិដ្ឋភាព 3D បង្ហាញចំណោទក្រោមគែម , ហើយហ្គេមសាងសង់ទម្រង់ដូចគ្នា ( ម៉ូឌុលដូចគ្នា mapformo.ts )។ ការផ្លាស់ប្តូរនៃបញ្ជីឈ្មោះផែនទី ( ផែនទី និងទម្រង់របស់វា ) រក្សាទុកដោយប៊ូតុងដូចគ្នានឹងដី , „រក្សាទុកផ្ទាល់ទៅ kantaoj/ ✍️“ សរសេរទាំង mapoj.ts និង aktiva.ts ។ </p>
+  <p> ការប្រើប្រាស់។ ចុចឆ្វេងនិងអូសឆ្លាក់។ ចុចស្តាំ ឬ Shift និងអូសផ្លាស់ទីទិដ្ឋភាព។ កង់ពង្រីក។ ចុចពីរដងកំណត់ទិដ្ឋភាពទាំងមូលឡើងវិញ។ ឧបករណ៍ផ្លាស់ទី ✋ អនុញ្ញាតអូសទិដ្ឋភាពដោយចុចឆ្វេង , ក្នុងផែនទី 2D វាផ្លាស់ទីផែនទី , ក្នុងទិដ្ឋភាព 3D វាបង្វិលកាមេរ៉ា។ WASD ឬគ្រាប់ចុចព្រួញក៏ផ្លាស់ទីទិដ្ឋភាពដោយក្តារចុចដែរ , ក្នុងទិដ្ឋភាព 3D Q/E ឡើង/ចុះ ហើយ Shift បង្កើនល្បឿន , ក្នុងផែនទី 2D +/- ពង្រីក។ ជក់ទឹកកាត់អាងក្រោមកម្រិតទឹក ហើយគូររបាំង។ ផ្ទាំងជីវតំបន់ 🎨 បង្ហាញក្តារពណ៌ជីវតំបន់ , ភ្នំ ជ្រលង វាលរាប រុក្ខជាតិទឹក ហូសេថេល ឬស្វ័យប្រវត្តិ , ដែលគូរជីវតំបន់ផ្ទាល់លើស្រទាប់ជីវតំបន់ ដោយមិនដែលប្តូរដីខ្លួនឯង ( គ្មានការលើក គ្មានការបន្ទាប )។ ហ្គេមឃើញតែជីវតំបន់ដែលបានគូរ។ ជីវតំបន់ទឹក ( រុក្ខជាតិទឹក 🌿 និងហូសេថេល 🌾 ) មានតែលើទឹក , ជក់គូរពួកវាតែក្នុងក្រឡាទឹក , ហើយជីវតំបន់ដី ( ភ្នំ ជ្រលង វាលរាប ) មិនដែលគូរលើទឹក។ ស្វ័យប្រវត្តិលុបគំនូរគ្រប់កន្លែង , កន្លែងត្រឡប់ទៅទទេ ដូចកន្លែងគ្មានទិន្នន័យ។ ក្តារពណ៌បង្ហាញតែពេលផ្ទាំងជីវតំបន់បើក។ ពេលផ្ទាំងជីវតំបន់បើក ពណ៌ជីវតំបន់គ្របដី។ ពណ៌ស្វាយលើជីវតំបន់ភ្នំ , បៃតងខៀវលើជ្រលង , បៃតងស្លេកលើវាលរាប , ខៀវបៃតងជ្រៅលើរុក្ខជាតិទឹក , បៃតងស្លេកលើហូសេថេល , ទឹកអាក្រាតបង្ហាញពណ៌របស់វា , ហើយកន្លែងគ្មានគំនូរនៅគ្មានលំដាប់ពណ៌; បិទឧបករណ៍ ដីបង្ហាញពណ៌ធម្មជាតិរបស់វា។ ផ្ទាំងសត្វ 🐾 បង្ហាញក្តារពណ៌សត្វ , សត្វទឹក 🐟 , ផេត្រេល 🕊️ , NPC 🧍 និងការជូត ជូត 🧽 , ដែលគូរតំបន់សត្វលើស្រទាប់សត្វ ដោយមិនដែលប្តូរដី។ សត្វទឹកហែលតែក្នុងតំបន់ទឹកដែលបានគូរ , ផេត្រេលហោះជុំវិញតែលើតំបន់ដែលបានគូរ , NPC ដើរតែលើតំបន់ដីដែលបានគូរ។ ក្រឡាអាចផ្ទុកប្រភេទច្រើនក្នុងពេលតែមួយ , គូរទីពីរលើទីមួយបញ្ចូលពួកវា; ក្រឡាទទេ = គ្មានសត្វ , ហើយទីតាំងលំនាំដើមបានស្រាប់ក្នុងស្រទាប់។ ឧបករណ៍ដូចគ្នាជូត។ បើកការជូត 🧽 , ប្រភេទដែលជ្រើស ( សត្វទឹក ផេត្រេល ឬ NPC ) ត្រូវបានជូតចេញពីក្រឡាដែលបានគូរ , ប្រភេទដទៃនៅដដែល។ ទិដ្ឋភាពសត្វបង្ហាញតែប្រភេទដែលជ្រើស , ជ្រើសសត្វទឹក បង្ហាញតែក្រឡាសត្វទឹក ( ទាំងពេលគូរ និងជូត ); ជ្រើសផេត្រេល តែផេត្រេល; ជ្រើស NPC តែ NPC។ សត្វទឹកហែលតែក្នុងទឹក ( ពួកវាគូរតែលើក្រឡាទឹក ); ផេត្រេលហោះបានលើគ្រប់កន្លែង ដូច្នេះពួកវាគូរទាំងលើដី និងលើទឹក , អាចដាក់ពួកវាលើក្រឡាដូចសត្វទឹក; NPC ដើរតែលើដី ( ពួកវាគូរតែលើក្រឡាដី )។ ជក់ទឹកគូររបាំងលើជក់ទាំងមូល ហើយកាត់អាង ដូច្នេះគូរបឹង ឬទន្លេថ្មីគឺស្រួល , ជក់ជូតលុបទឹក។ ប៊ូតុងផ្លាស់ទីទិដ្ឋភាព ✋ ស្ថិតក្នុងកាតឧបករណ៍ ក្រៅផ្ទាំង ( វាបើករបៀបផ្លាស់ទីដោយមិនប្តូរផ្ទាំងសកម្ម; ចុចម្តងទៀតត្រឡប់ជក់ចុងក្រោយវិញ )។ កាតឧបករណ៍មានផ្ទាំង , ដី 🏔️ ( ជក់លើក បន្ទាប ធ្វើឱ្យរាបស្មើ ធ្វើឱ្យរលូន ទឹក និងជូត ) , ជីវតំបន់ 🎨 , សត្វ 🐾 និងវត្ថុ 🎯។ ឧបករណ៍វត្ថុ 🎯 ដាក់វត្ថុបុគ្គលនៅទីតាំងជាក់លាក់ ហើយមានឧបករណ៍រងផ្ទាល់ខ្លួន , ដាក់ ➕ ( ចុចដាក់វត្ថុថ្មីលើដីទំនេរ; ចុចជិតវត្ថុដែលបានដាក់ ជ្រើសវា ) , ផ្លាស់ទី ✋ ( កាន់វត្ថុ ហើយអូសវាលើផែនទី ឬដី ) និងលុប 🗑️ ( ចុចលុបវត្ថុ; គ្រាប់ចុចលុប លុបវត្ថុដែលជ្រើស )។ ជ្រើសប្រភេទ ( បេធូឡា ឡារីក ហ្សាក់ស្លេហ្វូ ពូសស្លេហ្វូ ថ្ម ហ្វេន សត្វទឹក ផេត្រេល ឬ NPC ) និងលក្ខណៈ ( ខ្នាត; សម្រាប់ NPC ក៏មានការរង្វិល សម្លៀកបំពាក់ និងសក់; សម្រាប់សត្វទឹក ប្រភេទ; សម្រាប់ផេត្រេល កាំហោះ; សម្រាប់ថ្ម ការបង្វិល; សម្រាប់ហ្វេន ពណ៌ , បៃតង ឬស្វាយ ) , ផ្ទាំងបង្ហាញកូអរដោនេរស់ ( x, z, y ) នៃកឺស័រ។ ប្រអប់ x និង z អនុញ្ញាតវាយកូអរដោនេជាក់លាក់ , ប៊ូតុងដាក់វត្ថុថ្មីនៅទីនោះ ឬផ្លាស់ទីវត្ថុដែលជ្រើសទៅទីនោះ ( ពេលមួយត្រូវបានជ្រើស )។ បញ្ជីបង្ហាញវត្ថុដែលបានដាក់ទាំងអស់ជាមួយកូអរដោនេរបស់វា ( ជ្រើសដើម្បីបន្លិច លុប ✕ ដើម្បីលុប )។ វត្ថុដែលបានដាក់បង្ហាញដូចក្នុងផែនទីពេញរបស់ហ្គេម ( ទិដ្ឋភាពពីលើនៃរូបរាង 3D ពិតរបស់វាលើផែនទី 2D ) និងជារូបរាង 3D ពិតក្នុងទិដ្ឋភាព 3D។ ហ្គេមសាងសង់វត្ថុដែលបានដាក់នៅទីតាំងទាំងនោះ។ សត្វទឹកហែលតែក្នុងទឹក , ផេត្រេលហោះជុំវិញយុថ្កា , NPC ដើរលើដី។ ក្នុងទិដ្ឋភាព 3D ចុចឆ្វេងឆ្លាក់ ចុចស្តាំបង្វិល ចុចកណ្តាលផ្លាស់ទី និងកង់ពង្រីក។ ពណ៌ជាធម្មជាតិ។ ឆ្នេរខ្សាច់ ស្មៅសើមក្បែរទឹក វាលស្មៅ ជម្រាលស្មៅស្ងួត ថ្ម និងព្រិលលើកំពូល , ក្តារពណ៌ដូចគ្នានឹងហ្គេម។ </p>
   </details>
 </thala>
 <script type="module" src="./tero-skulptilo.ts"></script>

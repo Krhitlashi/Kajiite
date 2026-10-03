@@ -257,9 +257,9 @@ if ( ( import.meta as unknown as { main?: boolean } ).main ) {
   ];
   for ( const [ nomo, gk ] of provoj ) {
     const ipa = gkAlIpa(gk);
-    console.log(`${nomo}: gk="${gk}" ipa="${ipa}"`);
+    console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo} gk="${gk}" ipa="${ipa}"`);
     for ( const lg of [ "eo", "en", "ja", "km" ] ) {
-      console.log(`   ${lg}: ${ipaAlLingvo(ipa, lg)}`);
+      console.log(`   ( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${lg} ${ipaAlLingvo(ipa, lg)}`);
     }
   }
 }

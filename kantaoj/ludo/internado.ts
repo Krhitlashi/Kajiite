@@ -27,7 +27,7 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
   let antauxaHeliksaFrac = 0;
 
   function paŝi( deltaTempo: number, _t: number ): void {
-    if ( ludanto.rezimo !== "interior" ) return;
+    if ( ludanto.rezimo !== "interno" ) return;
 
     // ⟪ ការដេក 📃 ⟫
     if ( ludanto.kuŝas ) {

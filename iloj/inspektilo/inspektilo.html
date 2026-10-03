@@ -1,49 +1,49 @@
 <!DOCTYPE html>
-<html lang="eo">
+<html lang="km">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title> Monda inspektilo 🔬 </title>
+<title> ឧបករណ៍ពិនិត្យពិភពលោក 🔬 </title>
 <link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
 <link rel="stylesheet" href="../stiloj.css">
 </head>
 <body class="tapufal">
-<p class="ksakap2sa"> Monda inspektilo 🔬 </p>
-<p class="kefhuruq"> La laborilo por la modeloj de la mondo — la bestoj kaj iliaj animacioj, la plantoj kaj la ŝtonoj, kaj la KONSTRUAĴOJ kun iliaj partoj ( la angulaj pilieroj, la pordoj, la signoj kaj la fenestroj ). Ĉiu modelo montriĝas SOLA en la kadro, centre, kun sia propra animacio — per la muso oni turnas kaj zumas libere, kaj la paŭzo montras unu pozon senmove. La informo-panelo rakontas la konstru-detalojn de la nuna modelo. </p>
+<p class="ksakap2sa"> ឧបករណ៍ពិនិត្យពិភពលោក 🔬 </p>
+<p class="kefhuruq"> ឧបករណ៍សម្រាប់គំរូនៃពិភពលោក , សត្វ និងចលនារបស់ពួកវា , រុក្ខជាតិ និងថ្ម , និងអគារជាមួយផ្នែករបស់ពួកវា ( សសរជ្រុង , ទ្វារ , ស្លាកសញ្ញា និងបង្អួច )។ គំរូនីមួយៗបង្ហាញតែម្នាក់ឯងក្នុងស៊ុម , នៅកណ្តាល , ជាមួយចលនាផ្ទាល់ខ្លួន , ដោយកូនកូទ គេបង្វិល និងពង្រីកដោយសេរី , ហើយការផ្អាកបង្ហាញឥរិយាបថមួយគ្មានចលនា។ បន្ទះព័ត៌មានប្រាប់ពីព័ត៌មានលម្អិតសំណង់នៃគំរូបច្ចុប្បន្ន។ </p>
 <thala>
-  <p class="ksakap2sa"> Kategorio 🗂️ </p>
+  <p class="ksakap2sa"> ប្រភេទ 🗂️ </p>
   <sabosuc2w2q id="tabaro"> </sabosuc2w2q>
-  <p class="ksakap2sa" id="grupoTitolo"> Specio 🐾 </p>
+  <p class="ksakap2sa" id="grupoTitolo"> ប្រភេទសត្វ 🐾 </p>
   <sabosuc2w2q id="specaro"> </sabosuc2w2q>
 </thala>
 <canvas id="bestoVido" width="900" height="900"> </canvas>
 <thala>
-  <p class="ksakap2sa"> Vidado 🎥 </p>
+  <p class="ksakap2sa"> ការមើល 🎥 </p>
   <sabosuc2w2q id="vidaro">
-    <button id="pauxzu" aria-pressed="false"> Paŭzo ⏸️ </button>
-    <button id="turnu" aria-pressed="true"> Aŭtomata turno 🔄 </button>
-    <button id="kadru"> Reen al la kadro 🎯 </button>
-    <button id="vidAntauxo"> Antaŭo 👁️ </button>
-    <button id="vidFlanko"> Flanko 👤 </button>
-    <button id="vidSupre"> Supre 🔭 </button>
-    <button id="vidSube"> Sube 🐛 </button>
-    <button id="zomoEn"> Zomo + 🔍 </button>
-    <button id="zomoEl"> Zomo − 🔎 </button>
-    <button id="pivotoj" aria-pressed="false"> Pivotaj aksoj ✛ </button>
-    <button id="drato" aria-pressed="false"> Dratkadro 🕸️ </button>
-    <button id="akvo" aria-pressed="true"> Akvo 🌊 </button>
-    <button id="krado" aria-pressed="true"> Krado ▦ </button>
-    <button id="fono" aria-pressed="false"> Hela fono 🔆 </button>
+    <button id="pauxzu" aria-pressed="false"> ផ្អាក ⏸️ </button>
+    <button id="turnu" aria-pressed="true"> ការបង្វិលស្វ័យប្រវត្តិ 🔄 </button>
+    <button id="kadru"> ត្រឡប់ទៅស៊ុម 🎯 </button>
+    <button id="vidAntauxo"> មុខ 👁️ </button>
+    <button id="vidFlanko"> ចំហៀង 👤 </button>
+    <button id="vidSupre"> លើ 🔭 </button>
+    <button id="vidSube"> ក្រោម 🐛 </button>
+    <button id="zomoEn"> ពង្រីក + 🔍 </button>
+    <button id="zomoEl"> បង្រួម − 🔎 </button>
+    <button id="pivotoj" aria-pressed="false"> អ័ក្សរង្វិល ✛ </button>
+    <button id="drato" aria-pressed="false"> ស៊ុមលួស 🕸️ </button>
+    <button id="akvo" aria-pressed="true"> ទឹក 🌊 </button>
+    <button id="krado" aria-pressed="true"> ក្រឡា ▦ </button>
+    <button id="fono" aria-pressed="false"> ផ្ទៃខាងក្រោយភ្លឺ 🔆 </button>
   </sabosuc2w2q>
-  <label> Rapido <span id="rapidoValoro"> </span>
-    <input id="rapido" type="range" min="0" max="3" step="0.25" value="1" aria-label="Rapido de la animacio">
+  <label> ល្បឿន <span id="rapidoValoro"> </span>
+    <input id="rapido" type="range" min="0" max="3" step="0.25" value="1" aria-label="ល្បឿនចលនា">
   </label>
-  <label> Momento <span id="momentoValoro"> 0.0 s </span>
-    <input id="momento" type="range" min="0" max="10" step="0.05" value="0" aria-label="La momento de la animacio">
+  <label> ពេល <span id="momentoValoro"> 0.0 s </span>
+    <input id="momento" type="range" min="0" max="10" step="0.05" value="0" aria-label="ពេលចលនា">
   </label>
 </thala>
 <thala id="informo">
-  <p class="ksakap2sa"> Informo 📄 </p>
+  <p class="ksakap2sa"> ព័ត៌មាន 📄 </p>
   <p class="ksakat2xa" id="specoNomo"> </p>
   <p id="specoPriskribo" class="kefhuruq"> </p>
   <p id="specoDatumoj"> </p>
