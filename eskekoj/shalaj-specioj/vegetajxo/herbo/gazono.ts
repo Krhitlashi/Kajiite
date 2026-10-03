@@ -361,6 +361,11 @@ export async function konstruiHerbanTavolon(
         mesho.instanceMatrix.needsUpdate = true;
         if ( mesho.instanceColor ) mesho.instanceColor.needsUpdate = true;
         mesho.name = HERBA_TAVOLA_NOMO;
+        // ⟨ La tabulo frostas 📃 ⟩ — ĝia propra matrico estas la idento ( la
+        // tufoj portas siajn transformojn en la instanca matrico ) kaj la tabulo
+        // neniam moviĝas post la konstruado, do three.js ne bezonas ĝin
+        // rekalkuli ĉiukadre ( vidu la klarigon pri la frostado en vidlimo.ts ).
+        mesho.matrixWorldAutoUpdate = false;
         sceno.add(mesho);
         // ⟨ La propra vidlimo 📃 ⟩ — la gazono NE uzas la komunan vidlimon de la
         // sceno ( kiu mezuras de la ludanto aŭ de la orbita celo ), ĉar ĝia fado

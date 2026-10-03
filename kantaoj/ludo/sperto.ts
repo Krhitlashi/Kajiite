@@ -28,7 +28,7 @@ import { alteco } from "../mondo/tereno.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { kreiScenon } from "../bildo/scena.js";
 import type { ScenaSistemo } from "../bildo/scena/tipoj.js";
-import { registriVivantojn, spacigiInstancojn } from "../bildo/vidlimo.js";
+import { registriKunigitajnMeshojn, registriVivantojn, spacigiInstancojn } from "../bildo/vidlimo.js";
 import { kreiStatistikon } from "../fasado/statistiko.js";
 
 // ⟪ La formo de la mondo 📃 ⟫ — la tereno de la ludo havas la formon de la aktiva
@@ -144,7 +144,21 @@ enkonduko.halti();
 // ( registriVivantojn ) per sia propra pozicio.
 // Antaŭe la tuta arbaro ( miloj da instancoj ) kaj ĉiu figuro pasis tra la
 // vertica shadero ĉiukadre, kvankam la nebulo kaŝas ĉion trans ~0o200 unuoj.
+// ⟨ La scenejo ne devigu la grafeon 📃 ⟩ — three.js vokas updateMatrixWorld
+// por la scenejo ĉiukadre, kaj ĉar la scenejo mem ricevas matrixWorldNeedsUpdate
+// ( matrixAutoUpdate estas ŝaltita defaŭlte ), ĝia devigo ( force ) trairas la
+// TUTAN grafeon: ĉiu objekto rekalkulas sian lokan kaj sian mondan matricon,
+// ĉu videbla ĉu ne. La scenejo mem havas la identan transformon kaj neniam
+// moviĝas, do ĝia propra ĝisdatigo estas senbezona — kaj kun ĝi malŝaltita la
+// frostigitaj objektoj ( la pecoj, la kunigoj, la gazonaj tabuloj ) tute
+// preterlasas la trairadon. La moviĝantaj objektoj tenas sian propran
+// matrixAutoUpdate, do ili plu ĝisdatiĝas normale.
+sceno.matrixAutoUpdate = false;
 spacigiInstancojn(sceno);
+// ⟨ La kunigitaj senmovaj meshoj 📃 ⟩ — la urbo kaj la metitaj objektoj
+// ( markitaj "kunigita" ) registriĝas por la DISTANCA limo. Sen tio ili estis
+// desegnataj ĝis la fora ebeno kvankam la nebulo kaŝas ĉion trans ~0o220 unuoj.
+registriKunigitajnMeshojn(sceno);
 registriVivantojn({ npcoj, kanuoj, bestoj: bestoj.bestoj, petreloj: petreloj.petreloj });
 
 // ⟪ GPU-varmigo 📃 ⟫ — la antaŭkompilo de la shader-programoj kaj la unua

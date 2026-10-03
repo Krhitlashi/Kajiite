@@ -382,7 +382,17 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     // En la interno la tuta ekstera mondo estas kaŝita de kasxiEksteron, do la
     // vidlimo ne tuŝu la videblecojn tie — alie ĝi revivigus la kaŝitajn eksterajn
     // objektojn. Alie la ĝisdatigo okazas ĉiun kadron, ĝuste antaŭ la bildigo.
-    if ( ludanto.rezimo !== "interior" ) gxisdatigiVidlimojn(mapX, mapZ);
+    //
+    // ⟨ La centro estas la FOTILO, ne la celo 📃 ⟩ — la nebulo ( FogExp2 )
+    // mezuriĝas de la OKULO: la denso estas almenaŭ 0o5/0o400 ( 5/256 ), do
+    // nenio videblas trans ~0o200 ( 135 ) unuoj de la fotilo, en ĉiu vetero.
+    // La centro de la vidlimo antaŭe estis mapX/mapZ — en la orbito tio estas la
+    // CELO, ne la fotilo. Kun la kamera distanco 0o330 ( 330 ) la tuta urbo
+    // sidas pli ol 0o200 for de la okulo ( tute nebula, pure blanka ekrano )
+    // sed restis desegnata ĉiukadre — dekoj da milionoj da trianguloj por
+    // nenio. En la promenado la fotilo kaj la ludanto estas preskaŭ la sama
+    // punkto, do tie la ŝanĝo apenaŭ videblas.
+    if ( ludanto.rezimo !== "interior" ) gxisdatigiVidlimojn(fotilo.position.x, fotilo.position.z);
 
     bildilo.render(sceno, fotilo);
     // La diagnoza surmetaĵo legas renderer.info POST la bildigo — tie la nombroj

@@ -10,7 +10,7 @@
 // muson — la ludado restas plene funkcia sub ĝi.
 import * as THREE from "three";
 import { kunfandajxoStatistiko } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
-import { vidlimaStatistiko } from "../bildo/vidlimo.js";
+import { sferoDe, vidlimaStatistiko } from "../bildo/vidlimo.js";
 import { HE_POR_SEKUNDO } from "../komunajxoj/unuoj.js";
 
 // Kiom da kadroj inter la scenaj censoj. La censo trairas la tutan scenon ( kiel
@@ -75,12 +75,15 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
         if ( !gepatraVidebla ) return;
         const mesa = o as THREE.Mesh;
         if ( mesa.isMesh !== true || mesa.geometry === undefined ) return;
-        if ( mesa.geometry.boundingSphere === null ) mesa.geometry.computeBoundingSphere();
-        SFERO.copy(mesa.geometry.boundingSphere!);
+        // ⟨ La sama sfero kiel la vidkampo 📃 ⟩ — la komuna sferoDe ( vidlimo.ts )
+        // kalkulas la sferon unufoje kaj ĝuste: por instancigita tavolo ĝi estas
+        // la UNIO de ĉiuj instancoj ( antaŭe la surmetaĵo uzis la sferon de la
+        // GEOMETRIO, pli malgrandan ol la disĵetitaj instancoj — la nombroj do
+        // povis malkongrui kun la alvokoj de la bildilo ).
+        const sfero = sferoDe(o);
+        if ( sfero === null ) return;
+        SFERO.copy(sfero);
         SFERO.applyMatrix4(o.matrixWorld);
-        // La limiga sfero de instancigita tavolo estas la UNIO de ĉiuj ĝiaj
-        // instancoj — la sama takso kiun la vidkampo mem faras, do la nombroj
-        // kongruas kun la alvokoj de la bildilo.
         if ( !frustumo.intersectsSphere(SFERO) ) return;
         const instancigita = o as THREE.InstancedMesh;
         obj++;

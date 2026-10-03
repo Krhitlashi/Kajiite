@@ -21,7 +21,7 @@ import { gxisdatigiSteleanVitron } from "../../eskekoj/konstruajxoj/satalaj/vitr
 import { montriEraronon } from "./scena/eraro.js";
 import { MAKS_RATIO, MULT_SAMPLEA, OMBRA_MAPO, surPosxtelefono } from "./scena/aparato.js";
 import { kreiCxielon } from "./scena/cxielo.js";
-import { kreiPaletrojn } from "./scena/paletroj.js";
+import { NEBULA_DENSO, kreiPaletrojn } from "./scena/paletroj.js";
 import { kreiVeterajnPartiklojn } from "./scena/precipitajxo.js";
 import type { ScenaSistemo, Vetero } from "./scena/tipoj.js";
 
@@ -65,11 +65,17 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
 
   const sceno = new THREE.Scene();
   // La nebulo estas laŭcela. Je la defaŭlta denseco ( la nebula vetero uzas
-  // 0o5/0o400 = 5/256 ) la urbo restas klara kaj la arbaro kaj la malproksimaj
-  // montoj fandas en atmosferan nebulaĵon — la proksima montaro ( 120–160
-  // for ) ankoraŭ leviĝas el la nebulo kiel malhelaj siluetoj. La paletraj
-  // veteroj povas pliigi aŭ malpliigi la densecon ( aplikiAtmosferon ).
-  sceno.fog = new THREE.FogExp2(0xc8d8d8, 0o1/0o100);
+  // NEBULA_DENSO = 0o5/0o400 = 5/256 ) la urbo restas klara kaj la arbaro kaj la
+  // malproksimaj montoj fandas en atmosferan nebulaĵon — la proksima montaro
+  // ( 120–160 for ) ankoraŭ leviĝas el la nebulo kiel malhelaj siluetoj. La
+  // paletraj veteroj povas pliigi aŭ malpliigi la densecon ( aplikiAtmosferon ).
+  // ⟨ Kial la paletra denseco 📃 ⟩ — antaŭe ĉi tie staris arbitra 0o1/0o100 (
+  // 1/64 ), dudek-kvinoble pli klara ol la plej klara paletra vetero. La
+  // vidlimo ( vidlimo.ts ) tamen forigas la geometrion laŭ la nebula videbleco:
+  // kun la arbitra denseco la unuaj kadroj ( antaŭ ol aplikiAtmosferon skribas
+  // la paletran) montrus objektojn forigitajn kvankam la nebulo ankoraŭ ne
+  // kovrus ilin. Nun la komenca denseco estas la sama, kiun la paletroj uzas.
+  sceno.fog = new THREE.FogExp2(0xc8d8d8, NEBULA_DENSO);
 
   const fotilo = new THREE.PerspectiveCamera(0o60, innerWidth / innerHeight, 0o15/0o40, 0o1400);
   fotilo.position.set(0o40, 0o30, 0o100);

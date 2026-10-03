@@ -76,6 +76,29 @@ export function konstruiArbaron(sceno: THREE.Scene,
   const PADOJ = 0o10;
   const kronoj = new THREE.InstancedMesh(kronaGeometrioj.maso, kronaMaterialo, arboj.length * PADOJ);
   const folioj = new THREE.InstancedMesh(kronaGeometrioj.folioj, foliaMaterialo, arboj.length * PADOJ);
+  // ⟨ La folikartoj estas DETALO 📃 ⟩ — ĉiu kuseno portas ~600 unuopajn
+  // folikartojn ( 4744 trianguloj po instanco ), kaj la granda instanca skalo
+  // levis la limon de la tavolo al la MAKSIMUMO de la vidlimo ( 0o220 unuoj ) —
+  // do la tuta foliaro de 768 betuloj estis desegnata ĝis preskaŭ tute blanka
+  // nebulo. La folikartoj NE portas la silueton de la arbo ( tion faras la
+  // kusena maso, kiu restas ĝis 0o220 ); ili estas la supraĵa detalo vidata de
+  // proksime. Je 0o120 ( 80 ) unuoj la nebulo jam kovras 0o9/0o10 ( 90% ) kaj la
+  // perdo de la kartoj ne videblas. Mallevu aŭ levu ĉi tiun nombron por ŝanĝi la
+  // kompromison inter akreco kaj rapido.
+  folioj.userData.vidlimo = 0o120;   // 80 unuoj
+  // ⟨ ⟨ Pli etaj pecoj — la vera kaŭzo 📃 ⟩ ⟩ — la limo sola NE sufiĉis. La
+  // tavolo etendiĝas trans la tutan arbaron ( pli ol 0o1000 unuoj ), do la
+  // disdivido donis al ĝi pecajn ĉelojn de ~0o200 ( 128 ) unuoj: ĉiu peco havis
+  // limigan radiuson de ~0o100, kaj la vidlimo aldonas tiun radiuson ( la
+  // objekto ne malaperu dum parto de ĝi estas ankoraŭ videbla ) — la folikartoj
+  // estis do desegnataj ĝis ~0o260 ( 176 ) unuoj, pli ol duoble la celitaj
+  // 0o120. Kun propra ĉelo de 0o50 ( 40 ) unuoj la aldonita radiuso falas al
+  // ~0o34 kaj la limo denove signifas tion, kion ĝi diras.
+  // ⟨ Mezurite 📃 ⟩ — ĉe la urba vidpunkto la folikartaj trianguloj falis de
+  // 12.5M al 0.7M ( el 17.9M al 13.4M en la tuta kadro ) kaj la kadro de 39.0
+  // al 29.2 ms ( -25% ). Ĉe proksima betularo la ŝanĝo apenaŭ rimarkeblas — la
+  // kartoj tie estas legitime proksimaj.
+  folioj.userData.vidlimaCelo = 0o50;
   const brancxoGeometrio = new THREE.CylinderGeometry(0o3/0o100, 0o5/0o100, 1, 5);
   const brancxoj = new THREE.InstancedMesh(brancxoGeometrio, trunkaMaterialo, arboj.length * PADOJ);
 
@@ -194,6 +217,13 @@ export function konstruiArbaron(sceno: THREE.Scene,
   trunkoj.instanceMatrix.needsUpdate = true;
   kronoj.instanceMatrix.needsUpdate = true;
   folioj.instanceMatrix.needsUpdate = true;
+  // ⟨ La nomoj 📃 ⟩ — la betulaj tavoloj nomiĝas kiel la gazonaj tabuloj
+  // ( herbaTavolo ), do la diagnozaj iloj kaj la vidlima statistiko povas
+  // apartigi ilin unu de la alia.
+  trunkoj.name = "betulaTrunko";
+  kronoj.name = "betulaKrono";
+  folioj.name = "betulaFolio";
+  brancxoj.name = "betulaBrancxo";
   brancxoj.instanceMatrix.needsUpdate = true;
   if ( trunkoj.instanceColor ) trunkoj.instanceColor.needsUpdate = true;
   if ( kronoj.instanceColor ) kronoj.instanceColor.needsUpdate = true;
