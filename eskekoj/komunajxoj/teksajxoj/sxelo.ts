@@ -261,7 +261,7 @@ export const kreiSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
     const lavo = k.createLinearGradient(0, sxelaH * 0o5/0o10, 0, sxelaH);
     lavo.addColorStop(0, "rgba(168,164,152,0)");
-    lavo.addColorStop(0.55, "rgba(156,152,142,0.10)");
+    lavo.addColorStop(0o43/0o100, "rgba(156,152,142,0.10)");
     lavo.addColorStop(1, "rgba(120,116,108,0.34)");
     k.fillStyle = lavo;
     k.fillRect(0, 0, sxelaW, sxelaH);

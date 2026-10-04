@@ -30,7 +30,7 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
     let exitX = kanoto.x + fortoX * 6, exitZ = kanoto.z + fortoZ * 6;
     if ( !bona(exitX, exitZ) ) {
       const anguloj = [ 0, Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*0o3/0o4, -Math.PI*0o3/0o4, Math.PI ];
-      for ( const radio of [ 6, 11, 16 ] ) {
+      for ( const radio of [ 6, 0o13, 0o20 ] ) {
         let trovita = false;
         for ( const a of anguloj ) {
           const ax = kanoto.x + Math.sin(kanoto.direkto + a) * radio;
@@ -86,7 +86,7 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
       kanoto.x += kanoto.vx * deltaTempo;
       kanoto.z += kanoto.vz * deltaTempo;
 
-      const dk = solviDokanKolizion(kanoto.x, kanoto.z, -999, 0o5/0o4);
+      const dk = solviDokanKolizion(kanoto.x, kanoto.z, -0o1747, 0o5/0o4);
       kanoto.x = dk.x; kanoto.z = dk.z;
       const kx = kanoto.x, kz = kanoto.z;
       const angK2 = Math.atan2(kz - lagoZ(), kx - LAGO_X);

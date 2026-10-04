@@ -26,17 +26,17 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
     const mezo = w / 2;
     const bazoY = h - 0o20/0o10;
     const pintoY = 0o30/0o10;
-    const raĥiso = ( t: number ): number => mezo + 0.11 * w * t * t;
+    const raĥiso = ( t: number ): number => mezo + 0o7/0o100 * w * t * t;
     const maksLongo = ( w / 2 - 2 ) * p.pinnaKovro / Math.cos(p.pinnaAngulo);
     const PAROJ = p.paroj;
     for ( let i = 0; i < PAROJ; i++ ) {
       const t = ( i + 0o5/0o10 ) / PAROJ;
       const y = bazoY - t * ( bazoY - pintoY );
       const x = raĥiso(t);
-      const vario = 0.86 + 0.28 * Math.abs(Math.sin(i * 12.9898) * 43758.5453 % 1);
+      const vario = 0o67/0o100 + 0o11/0o40 * Math.abs(Math.sin(i * 0o1477/0o100) * 0o12535643/0o100 % 1);
       const longo = maksLongo
-        * ( 0.70 + 0o5/0o20 * Math.sin(Math.PI * Math.min(1, t * 1.15)) )
-        * Math.pow(1 - t, 0.55) * vario;
+        * ( 0o55/0o100 + 0o5/0o20 * Math.sin(Math.PI * Math.min(1, t * 0o45/0o40)) )
+        * Math.pow(1 - t, 0o43/0o100) * vario;
       for ( const s of [ -1, 1 ] ) {
         const ang = s > 0 ? -p.pinnaAngulo : Math.PI + p.pinnaAngulo;
         const cos = Math.cos(ang), sin = Math.sin(ang);
@@ -66,7 +66,7 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
         kunteksto.closePath();
         kunteksto.fill();
         kunteksto.strokeStyle = p.rando;
-        kunteksto.lineWidth = 1.3;
+        kunteksto.lineWidth = 0o123/0o100;
         kunteksto.stroke();
         kunteksto.strokeStyle = p.vejno;
         kunteksto.lineWidth = 1;
@@ -80,8 +80,8 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
     kunteksto.beginPath();
     kunteksto.moveTo(mezo - p.raĥisoLargho, bazoY + 0o20/0o10);
     kunteksto.lineTo(mezo + p.raĥisoLargho, bazoY + 0o20/0o10);
-    kunteksto.lineTo(raĥiso(1) + 1.1, pintoY);
-    kunteksto.lineTo(raĥiso(1) - 1.1, pintoY);
+    kunteksto.lineTo(raĥiso(1) + 0o43/0o40, pintoY);
+    kunteksto.lineTo(raĥiso(1) - 0o43/0o40, pintoY);
     kunteksto.closePath();
     kunteksto.fill();
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
@@ -90,15 +90,15 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
 export const kreiFilikanTeksajxon = sxovu((): THREE.CanvasTexture => kreiPinatanFrondon({
   kanvasaLargho: 0o400,
   paroj: 0o24,
-  pinnaKovro: 0.88,
+  pinnaKovro: 0o7/0o10,
   pinnaAngulo: 0o1/0o2,
-  pinnaSvelto: 0.12,
-  pinnaLargho: 0.19,
-  lobaAmplitudo: 0.26,
-  lobaNombro: 2.6,
+  pinnaSvelto: 0o1/0o10,
+  pinnaLargho: 0o3/0o20,
+  lobaAmplitudo: 0o21/0o100,
+  lobaNombro: 0o123/0o40,
   folio: ( t, flanko ) =>
-    `rgb(${Math.round(62 + t * 26)},${Math.round(108 + t * 46 + ( flanko > 0 ? 5 : 0 ))},${Math.round(50 + t * 20)})`,
-  rando: ombro(0x386830, 0o2, 0.42),
+    `rgb(${Math.round(0o76 + t * 0o32)},${Math.round(0o154 + t * 0o56 + ( flanko > 0 ? 5 : 0 ))},${Math.round(0o62 + t * 0o24)})`,
+  rando: ombro(0x386830, 0o2, 0o33/0o100),
   vejno: "rgba(150,180,110,0.30)",
   raĥiso: "#65854e",
   raĥisoLargho: 4,

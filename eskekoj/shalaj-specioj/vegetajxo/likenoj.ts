@@ -169,7 +169,7 @@ export function konstruiLikenojn(sceno: THREE.Scene,
     normalo.crossVectors(enZ, enX).normalize();
     const vert = normalo.y;
     const horiz = Math.hypot(normalo.x, normalo.z);
-    const maxKruteco = Math.PI / 16;
+    const maxKruteco = Math.PI / 0o20;
     if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(vert, 0o1/0o2000)) > maxKruteco ) {
       const u = Math.tan(maxKruteco);
       const hx = normalo.x / horiz;

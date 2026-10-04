@@ -60,7 +60,7 @@ function ensureAudio() {
     o.frequency.value = f;
     o.detune.value = ( i - 1 ) * 4;
     const og = AC!.createGain();
-    og.gain.value = 0.022;
+    og.gain.value = 0o1/0o100;
     o.connect(og);
     og.connect(bruoGain!);
     o.start();
@@ -194,7 +194,7 @@ export function rumble(on: boolean) {
   if ( on && !rumbleNodes ) {
     const o = AC.createOscillator();
     o.type = "sine";
-    o.frequency.value = 38;
+    o.frequency.value = 0o46;
 
     const len = AC.sampleRate * 2;
     const b = AC.createBuffer(1, len, AC.sampleRate);
@@ -228,7 +228,7 @@ export function rumble(on: boolean) {
     const r = rumbleNodes;
     setTimeout(() => {
       try { r.o.stop(); r.n.stop(); } catch ( _ ) { /* jam haltigita */ }
-    }, 1200);
+    }, 0o2260);
     rumbleNodes = null;
   }
 }

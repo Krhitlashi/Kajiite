@@ -11,7 +11,7 @@ export function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, g
   sceno.add(mg);
   const oroMaterialo = konstruajxaMaterialo("spegulaOro",
     () => new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o7/0o10, roughness: 0o26/0o100, emissive: 0x302808, emissiveIntensity: 0o26/0o100 }));
-  const ringGeo = new THREE.RingGeometry(Math.max(0o1/0o100, w * 0o23/0o100 + 0o11/0o100), Math.max(0o2/0o100, w * 0o23/0o100 + 0o21/0o100), 32);
+  const ringGeo = new THREE.RingGeometry(Math.max(0o1/0o100, w * 0o23/0o100 + 0o11/0o100), Math.max(0o2/0o100, w * 0o23/0o100 + 0o21/0o100), 0o40);
   const ring = new THREE.Mesh(ringGeo, oroMaterialo);
   ring.rotation.x = -Math.PI / 2;
   ring.position.set(spec.x, ( spec.h0 || 0 ) + 0o1/0o100, spec.z);

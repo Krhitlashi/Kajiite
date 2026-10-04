@@ -101,9 +101,9 @@ export function terenaKoloro255(h: number, x: number, z: number, deklivo: number
   terenaKoloroEn(skrapaKoloro, h, x, z, deklivo, akvaNiveloProksima);
   skrapaKoloro.convertLinearToSRGB();
   return [
-    Math.max(0, Math.min(255, skrapaKoloro.r * 255)),
-    Math.max(0, Math.min(255, skrapaKoloro.g * 255)),
-    Math.max(0, Math.min(255, skrapaKoloro.b * 255)),
+    Math.max(0, Math.min(0o377, skrapaKoloro.r * 0o377)),
+    Math.max(0, Math.min(0o377, skrapaKoloro.g * 0o377)),
+    Math.max(0, Math.min(0o377, skrapaKoloro.b * 0o377)),
   ];
 }
 
@@ -124,11 +124,11 @@ const EBENAJA_NUANCO = [ 0o220, 0o300, 0o110 ]; // បៃតងស្រាល �
 const AKVAJ_PLANTOJ_NUANCO = [ 0o40, 0o200, 0o260 ]; // ខៀវបៃតងជ្រៅ គឺរុក្ខជាតិទឹក
 const EKVIZETO_NUANCO = [ 0o100, 0o260, 0o140 ];     // បៃតងស្រាល គឺ ekvizeto
 const BIOMA_NUANCO: Record<string, [ number[], number ]> = {
-  montaro: [ MONTA_NUANCO, 0.3 ],
-  valo: [ VALA_NUANCO, 0.3 ],
-  ebenaĵo: [ EBENAJA_NUANCO, 0.3 ],
-  "akvaj-plantoj": [ AKVAJ_PLANTOJ_NUANCO, 0.45 ],
-  ekvizeto: [ EKVIZETO_NUANCO, 0.45 ],
+  montaro: [ MONTA_NUANCO, 0o23/0o100 ],
+  valo: [ VALA_NUANCO, 0o23/0o100 ],
+  ebenaĵo: [ EBENAJA_NUANCO, 0o23/0o100 ],
+  "akvaj-plantoj": [ AKVAJ_PLANTOJ_NUANCO, 0o35/0o100 ],
+  ekvizeto: [ EKVIZETO_NUANCO, 0o35/0o100 ],
 };
 // ស្រទាប់សត្វបង្ហាញតែពេលឧបករណ៍សត្វ ( Animaloj 🐾 )
 // បើក។ ចំណុចខៀវស្រាលលើក្រឡាសត្វទឹក ចំណុចភ្លឺលើ
@@ -139,9 +139,9 @@ const AKVAJ_BESTOJ_NUANCO = [ 0o110, 0o220, 0o300 ];
 const PETRELA_NUANCO = [ 0o320, 0o320, 0o320 ];
 const NPCA_NUANCO = [ 0o320, 0o260, 0o110 ];
 const BESTO_NUANCO: Record<number, [ number[], number ]> = {
-  1: [ AKVAJ_BESTOJ_NUANCO, 0.35 ],
-  2: [ PETRELA_NUANCO, 0.35 ],
-  4: [ NPCA_NUANCO, 0.35 ],
+  1: [ AKVAJ_BESTOJ_NUANCO, 0o13/0o40 ],
+  2: [ PETRELA_NUANCO, 0o13/0o40 ],
+  4: [ NPCA_NUANCO, 0o13/0o40 ],
 };
 
 // biomoInterp គឺតំបន់ជីវៈដែលគូរនៅចំណុច ( ក្រឡាជិតបំផុតនៃ
@@ -223,17 +223,17 @@ function kolorigiAkvon(datumoj: Uint8ClampedArray, o: number, h: number, nivelo:
   let g = 0o150 - 0o110 * t;
   let b = 0o150 - 0o110 * t;
   if ( delta !== 0 ) {
-    const s = 0.15 + Math.min(0o1/0o2, Math.abs(delta) / 4);
+    const s = 0o5/0o40 + Math.min(0o1/0o2, Math.abs(delta) / 4);
     r += 0o30 * s; g -= 0o14 * s; b -= 0o20 * s;
   }
   // សម្លេងតំបន់ជីវៈ និងសត្វគ្របដណ្តប់ទឹកផងដែរ គឺតំបន់ជីវៈទឹក
   // ( រុក្ខជាតិទឹក ekvizeto ) និងសត្វទឹកត្រូវបានគូរលើទឹកផ្ទាល់។
   const k = almetiBiomanNuancon([ r, g, b ], x, z, delta);
   r = k[0]; g = k[1]; b = k[2];
-  datumoj[o] = Math.min(255, r * ombro);
-  datumoj[o + 1] = Math.min(255, g * ombro);
-  datumoj[o + 2] = Math.min(255, b * ombro);
-  datumoj[o + 3] = 255;
+  datumoj[o] = Math.min(0o377, r * ombro);
+  datumoj[o + 1] = Math.min(0o377, g * ombro);
+  datumoj[o + 2] = Math.min(0o377, b * ombro);
+  datumoj[o + 3] = 0o377;
 }
 
 // bicubaDerivata គឺដេរីវេនៃខ្សែកោង Katmull-Rom តាម t។
@@ -269,7 +269,7 @@ export function deltoKunDerivajoj(x: number, z: number): [ number, number, numbe
 // 0.7 ដល់ 1.2 គុណនឹងពណ៌ដី។ ដេរីវេមកពី
 // ផ្ទៃទ្វេកោងវិភាគ ( មូលដ្ឋានរាបស្មើ ដូច្នេះដេលតាគ្រប់គ្រាន់ )។
 export function rekalkuliDeklivojn(px0: number, py0: number, px1: number, py1: number): void {
-  const lumoX = -0.55, lumoY = 0.65, lumoZ = 0.52;
+  const lumoX = -0o43/0o100, lumoY = 0o25/0o40, lumoZ = 0o41/0o100;
   const lumoLen = Math.hypot(lumoX, lumoY, lumoZ);
   const minPx = Math.max(1, px0), maxPx = Math.min(REZ - 2, px1);
   const minPy = Math.max(1, py0), maxPy = Math.min(REZ - 2, py1);
@@ -280,10 +280,10 @@ export function rekalkuliDeklivojn(px0: number, py0: number, px1: number, py1: n
       const i = py * REZ + px;
       const [ , deklX, deklZ ] = deltoKunDerivajoj(x, z);
       deklivoGradientoj[i] = Math.hypot(deklX, deklZ);
-      const nx = -deklX * 2.2, nz = -deklZ * 2.2, ny = 1;
+      const nx = -deklX * 0o215/0o100, nz = -deklZ * 0o215/0o100, ny = 1;
       const len = Math.hypot(nx, ny, nz);
       const lumo = ( nx * lumoX + ny * lumoY + nz * lumoZ ) / len / lumoLen;
-      deklivoj[i] = 0.7 + 0o1/0o2 * Math.max(0, lumo);
+      deklivoj[i] = 0o55/0o100 + 0o1/0o2 * Math.max(0, lumo);
     }
   }
 }
@@ -316,10 +316,10 @@ export function pentri(px0: number, py0: number, px1: number, py1: number): void
         kolorigiAkvon(datumoj, o, h, nivelo, ombro, delta, x, z);
       } else {
         const k = almetiBiomanNuancon(terenaKoloro255(h, x, z, deklivoGradientoj[i] || 0), x, z, delta);
-        datumoj[o] = Math.min(255, k[0] * ombro);
-        datumoj[o + 1] = Math.min(255, k[1] * ombro);
-        datumoj[o + 2] = Math.min(255, k[2] * ombro);
-        datumoj[o + 3] = 255;
+        datumoj[o] = Math.min(0o377, k[0] * ombro);
+        datumoj[o + 1] = Math.min(0o377, k[1] * ombro);
+        datumoj[o + 2] = Math.min(0o377, k[2] * ombro);
+        datumoj[o + 3] = 0o377;
       }
     }
   }

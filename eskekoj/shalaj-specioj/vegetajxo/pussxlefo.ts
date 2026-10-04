@@ -30,7 +30,7 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
   });
   const folioj = new THREE.InstancedMesh(foliaGeometrio, foliaMaterialo, plantoj.length * ( MAX_TAVOLOJ * 4 + 0o24 ));
   const sxelaGeometrio = konstruiSxelanRingon();
-  const sxelaMaterialo = kreiSxelanRinganMaterialon(0.015, true);
+  const sxelaMaterialo = kreiSxelanRinganMaterialon(0o1/0o100, true);
   const sxeloj = new THREE.InstancedMesh(sxelaGeometrio, sxelaMaterialo, plantoj.length);
 
   const M = new THREE.Matrix4();
@@ -101,11 +101,11 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
     for ( let tavolo = 0; tavolo < PINTAJ_TAVOLOJ; tavolo++ ) {
       const tFrakcio = tavolo / ( PINTAJ_TAVOLOJ - 1 );
       const pintaY = pintaBazo + ( pintaAlto - pintaBazo ) * tFrakcio;
-      const elklino = 0.35 - tFrakcio * 0.30;
+      const elklino = 0o13/0o40 - tFrakcio * 0o23/0o100;
       const trunkaRadiuso = trunkaR(pintaY);
       // ⟨ កំពូលចុងស៊ីមេទ្រី 📃 ⟩
       const skalo = ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 )
-        * ( 0o3/0o4 - tFrakcio * 0.45 );
+        * ( 0o3/0o4 - tFrakcio * 0o35/0o100 );
       for ( let flanko = 0; flanko < 4; flanko++ ) {
         const angulo = flanko / 4 * Math.PI * 2;
         E.set(elklino, 0, 0);

@@ -75,8 +75,8 @@ const kreiKorpanTeksajxon = ( vPorZ: ( z: number ) => number ): THREE.CanvasText
         k.stroke();
       }
     }
-    const EKZ = 0.32, BEKX = 0.365;
-    for ( const u of [ 0.135, 0.865 ] ) {
+    const EKZ = 0o5/0o20, BEKX = 0o27/0o100;
+    for ( const u of [ 0o11/0o100, 0o67/0o100 ] ) {
       const vOkulo = vPorZ(EKZ), vBeko = vPorZ(BEKX);
       const yDe = ( 1 - vOkulo ) * KORPA_S, yAl = ( 1 - vBeko ) * KORPA_S;
       k.save();
@@ -118,8 +118,8 @@ const kreiKorpanBumpanTeksajxon = ( vPorZ: ( z: number ) => number ): THREE.Canv
         k.stroke();
       }
     }
-    const EKZ = 0.32, BEKX = 0.365;
-    for ( const u of [ 0.135, 0.865 ] ) {
+    const EKZ = 0o5/0o20, BEKX = 0o27/0o100;
+    for ( const u of [ 0o11/0o100, 0o67/0o100 ] ) {
       const vOkulo = vPorZ(EKZ), vBeko = vPorZ(BEKX);
       const yDe = ( 1 - vOkulo ) * KORPA_S, yAl = ( 1 - vBeko ) * KORPA_S;
       k.fillStyle = "rgba(104,104,104,0.55)";

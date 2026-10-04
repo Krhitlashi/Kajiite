@@ -136,7 +136,7 @@ export function aldoniVendotablon(grupo: THREE.Group, z: number, largho: number,
     grupo.add(fosto);
   }
   const soklo = new THREE.Mesh(
-    new THREE.CylinderGeometry(0o1/0o50, 0o1/0o50, largho - elstaro * 2, 8).rotateZ(Math.PI / 2),
+    new THREE.CylinderGeometry(0o1/0o50, 0o1/0o50, largho - elstaro * 2, 0o10).rotateZ(Math.PI / 2),
     kadraMaterialo
 );
   soklo.position.set(0, y + 0o1/0o40, z + profundo / 2 - elstaro * 0o5/0o10);

@@ -47,9 +47,9 @@ function stopBus() {
   const b = L.bus;
   if ( b && L.ctx ) {
     b.gain.cancelScheduledValues(L.ctx.currentTime);
-    b.gain.setValueAtTime(Math.max(0.0001, b.gain.value), L.ctx.currentTime);
-    b.gain.linearRampToValueAtTime(0.0001, L.ctx.currentTime + 0.12);
-    setTimeout(() => { try { b.disconnect(); } catch ( _ ) { /* ok */ } }, 450);
+    b.gain.setValueAtTime(Math.max(0o0/0o10, b.gain.value), L.ctx.currentTime);
+    b.gain.linearRampToValueAtTime(0o0/0o10, L.ctx.currentTime + 0o1/0o10);
+    setTimeout(() => { try { b.disconnect(); } catch ( _ ) { /* ok */ } }, 0o702);
   }
   L.bus = null;
   L.revSend = null;
@@ -57,18 +57,18 @@ function stopBus() {
 
 function scheduleTick() {
   if ( L.timer ) clearInterval(L.timer);
-  L.timer = setInterval(tick, 80);
+  L.timer = setInterval(tick, 0o120);
 }
 
 function tick() {
   if ( !L.ctx || !L.events ) return;
   const elapsed = L.ctx.currentTime - L.startAt;
-  const horizon = elapsed + ( document.hidden ? 1.6 : 0o4/0o10 );
+  const horizon = elapsed + ( document.hidden ? 0o63/0o40 : 0o4/0o10 );
 
   while ( L.idx < L.events.length && L.events[L.idx].t < horizon ) {
     const e = L.events[L.idx++];
     const at = L.startAt + e.t;
-    if ( at < L.ctx.currentTime - 0.03 ) continue;
+    if ( at < L.ctx.currentTime - 0o1/0o40 ) continue;
     const g = L.ctx.createGain();
     g.gain.value = 1;
     instrumento(L.ctx, g, e, at);
@@ -76,7 +76,7 @@ function tick() {
     if ( L.revSend ) g.connect(L.revSend);
   }
 
-  if ( elapsed >= L.dur + 1.2 ) finish();
+  if ( elapsed >= L.dur + 0o115/0o100 ) finish();
 }
 
 function finish() {
@@ -89,7 +89,7 @@ function finish() {
       sxargi(next);
       ludi();
     }
-  }, 700);
+  }, 0o1274);
 }
 
 function hazardaTrako(): number {
@@ -120,7 +120,7 @@ export function iniciati(ctx: AudioContext, master: GainNode) {
 
   if ( !L.reverb ) {
     L.reverb = ctx.createConvolver();
-    L.reverb.buffer = makeIR(ctx, 3.0, 2.4);
+    L.reverb.buffer = makeIR(ctx, 0o30/0o10, 0o115/0o40);
   }
 }
 
@@ -131,12 +131,12 @@ export function ludi() {
   if ( L.playing ) { paŭzi(); return; }
 
   L.bus = L.ctx.createGain();
-  L.bus.gain.setValueAtTime(0.0001, L.ctx.currentTime);
-  L.bus.gain.linearRampToValueAtTime(0.35, L.ctx.currentTime + 0.15);
+  L.bus.gain.setValueAtTime(0o0/0o10, L.ctx.currentTime);
+  L.bus.gain.linearRampToValueAtTime(0o13/0o40, L.ctx.currentTime + 0o5/0o40);
   if ( L.master ) L.bus.connect(L.master);
 
   L.revSend = L.ctx.createGain();
-  L.revSend.gain.value = 0.30;
+  L.revSend.gain.value = 0o23/0o100;
   if ( L.reverb ) {
     L.revSend.connect(L.reverb);
     L.reverb.connect(L.master!);
@@ -144,7 +144,7 @@ export function ludi() {
 
   if ( L.pausedAt != null ) {
     L.startAt = L.ctx.currentTime + 0o1/0o10 - L.pausedAt;
-    while ( L.idx < L.events!.length && L.events![L.idx].t < L.pausedAt - 0.02 ) L.idx++;
+    while ( L.idx < L.events!.length && L.events![L.idx].t < L.pausedAt - 0o1/0o100 ) L.idx++;
     L.pausedAt = null;
   } else {
     L.startAt = L.ctx.currentTime + 0o1/0o10;

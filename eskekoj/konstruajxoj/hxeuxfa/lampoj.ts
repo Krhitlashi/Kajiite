@@ -36,14 +36,14 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
       new THREE.Vector2(0, 0),
       ...new THREE.SplineCurve([
         new THREE.Vector2(0o5/0o40, 0),
-        new THREE.Vector2(0o2/0o10, BOVLA_ALTO * 0.42),
-        new THREE.Vector2(0o3/0o10, BOVLA_ALTO * 0.83),
+        new THREE.Vector2(0o2/0o10, BOVLA_ALTO * 0o33/0o100),
+        new THREE.Vector2(0o3/0o10, BOVLA_ALTO * 0o65/0o100),
         new THREE.Vector2(0o35/0o100, BOVLA_ALTO),
       ]).getPoints(0o10),
       new THREE.Vector2(0o31/0o100, BOVLA_ALTO),
-      new THREE.Vector2(0o3/0o20, BOVLA_ALTO * 0.67),
-      new THREE.Vector2(0o3/0o20, BOVLA_ALTO * 0.42),
-      new THREE.Vector2(0, BOVLA_ALTO * 0.42),
+      new THREE.Vector2(0o3/0o20, BOVLA_ALTO * 0o53/0o100),
+      new THREE.Vector2(0o3/0o20, BOVLA_ALTO * 0o33/0o100),
+      new THREE.Vector2(0, BOVLA_ALTO * 0o33/0o100),
     ];
     const bowl = new THREE.LatheGeometry(profilo, 4);
     bowl.rotateY(rotacio);
@@ -52,7 +52,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 
     const rando = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 4, 1);
     rando.rotateY(rotacio);
-    rando.translate(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 0.875, p.z);
+    rando.translate(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 0o7/0o10, p.z);
     orajGeometrioj.push(rando);
 
     const falekaPinto = 0o32/0o10, falekaSubo = 0o1/0o4, falekaMargxeno = 0o1/0o20;
@@ -82,13 +82,13 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     color: koloro, toneMapped: false, transparent: true, opacity: opaco,
     blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
   const flamaEkstero = new THREE.InstancedMesh(
-    kreiFlamanGeometrion(0o35/0o100, 0o21/0o100, 1, 0.7),
+    kreiFlamanGeometrion(0o35/0o100, 0o21/0o100, 1, 0o55/0o100),
     flamaMaterialo(0xff6a1e, 0o35/0o40), N);
   const flamaInterno = new THREE.InstancedMesh(
-    kreiFlamanGeometrion(0o23/0o100, 0o14/0o100, 0o3/0o4, 2.3),
+    kreiFlamanGeometrion(0o23/0o100, 0o14/0o100, 0o3/0o4, 0o223/0o100),
     flamaMaterialo(0xffb545, 0o33/0o40), N);
   const flamaKerno = new THREE.InstancedMesh(
-    kreiFlamanGeometrion(0o10/0o100, 0o4/0o100, 0o1/0o2, 5.1),
+    kreiFlamanGeometrion(0o10/0o100, 0o4/0o100, 0o1/0o2, 0o243/0o40),
     flamaMaterialo(0xfff4d0, 0o5/0o10), N);
   flamaEkstero.frustumCulled = false;
   flamaInterno.frustumCulled = false;
@@ -98,7 +98,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   // ⟨ អណ្តាត 📃 ⟩
   const LANGOJ = 0o3;
   const flamaLangoj = new THREE.InstancedMesh(
-    kreiFlamanGeometrion(LANGA_ALTO, 0o11/0o100, 0o6/0o10, 3.7),
+    kreiFlamanGeometrion(LANGA_ALTO, 0o11/0o100, 0o6/0o10, 0o355/0o100),
     flamaMaterialo(0xff8a2c, 0o17/0o40), N * LANGOJ);
   flamaLangoj.frustumCulled = false;
   sceno.add(flamaLangoj);

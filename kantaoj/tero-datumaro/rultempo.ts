@@ -103,7 +103,7 @@ export function dekodiBiomon(kruda: string, kvanto: number): Uint8Array | null {
     for ( let i = 0; i < kvanto; i++ ) {
       const b = i * 3;
       biomo[i] = ( bajtoj[b >> 3] >> (b & 7) )
-        | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 8 - ( b & 7 ) );
+        | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 0o10 - ( b & 7 ) );
       biomo[i] &= 7;
     }
     return biomo;
@@ -118,7 +118,7 @@ export function dekodiBestojn(kruda: string, kvanto: number): Uint8Array | null 
     for ( let i = 0; i < kvanto; i++ ) {
       const b = i * 3;
       bestoj[i] = ( bajtoj[b >> 3] >> (b & 7) )
-        | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 8 - ( b & 7 ) );
+        | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 0o10 - ( b & 7 ) );
       bestoj[i] &= 7;
     }
     return bestoj;

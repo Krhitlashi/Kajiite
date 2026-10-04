@@ -23,8 +23,8 @@ export function senAlfa(koloro: string): string {
   }
   const h = /^#([0-9a-f]{6})$/i.exec(koloro.trim());
   if ( h ) {
-    const n = parseInt(h[1], 16);
-    return `rgba(${( n >> 16 ) & 255},${( n >> 8 ) & 255},${n & 255},0)`;
+    const n = parseInt(h[1], 0o20);
+    return `rgba(${( n >> 0o20 ) & 0o377},${( n >> 0o10 ) & 0o377},${n & 0o377},0)`;
   }
   return "transparent";
 }

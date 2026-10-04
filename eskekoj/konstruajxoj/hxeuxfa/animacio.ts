@@ -50,19 +50,19 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
       const idx = i * langojPoLampo + j;
       const bazo = sys.langajBazoj[idx];
       const fazo = sys.langajFazoj[idx];
-      const osc = 0o1/0o2 + 0o1/0o2 * Math.sin(t * ( 0.85 + 0.3 * j ) + fazo + fazoFlama);
-      const sx = bazo.z * ( 0.35 + 0o3/0o4 * osc );
-      const sy = 0.3 + 1.3 * osc;
-      const klino = 0o1/0o10 + 0.32 * osc;
+      const osc = 0o1/0o2 + 0o1/0o2 * Math.sin(t * ( 0o33/0o40 + 0o23/0o100 * j ) + fazo + fazoFlama);
+      const sx = bazo.z * ( 0o13/0o40 + 0o3/0o4 * osc );
+      const sy = 0o23/0o100 + 0o123/0o100 * osc;
+      const klino = 0o1/0o10 + 0o5/0o20 * osc;
       const cx = bazo.x / Math.max(1e-6, Math.hypot(bazo.x, bazo.y));
       const cz = bazo.y / Math.max(1e-6, Math.hypot(bazo.x, bazo.y));
       FLAMA_E2.set(klino * cz, 0, -klino * cx);
       FLAMA_Q2.setFromEuler(FLAMA_E2);
       FLAMA_Q2.premultiply(Q);
       S.set(sx, sy, sx);
-      M.compose(TMP.set(p.x + bazo.x * ( 0.6 + 0.4 * osc ),
+      M.compose(TMP.set(p.x + bazo.x * ( 0o23/0o40 + 0o15/0o40 * osc ),
         p.y + ( sy - 1 ) * LANGA_ALTO / 2 * 0o7/0o10,
-        p.z + bazo.y * ( 0.6 + 0.4 * osc )), FLAMA_Q2, S);
+        p.z + bazo.y * ( 0o23/0o40 + 0o15/0o40 * osc )), FLAMA_Q2, S);
       sys.flamaLangoj.setMatrixAt(idx, M);
     }
   });

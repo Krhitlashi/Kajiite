@@ -13,7 +13,7 @@ export function generiPlankanTeksajxon(bazaKoloro: number, akcentaKoloro: number
   const baza = deksesuma(bazaKoloro), akcenta = deksesuma(akcentaKoloro);
   const malhela = malheligi(baza);
   const rnd = kreiKlasikanHazardon(semo);
-  const pintoj = rnd() < 0o5/0o10 ? 4 : 8;
+  const pintoj = rnd() < 0o5/0o10 ? 4 : 0o10;
   const larmoj = rnd() < 0o5/0o10;
   const ondo = [ 0o15/0o1000, 0o35/0o1000, 0o55/0o1000 ][Math.floor(rnd() * 3)];
   const fazo = rnd() < 0o5/0o10 ? 0 : Math.PI / 4;

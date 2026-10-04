@@ -7,8 +7,8 @@ export function bruo2D(x: number, z: number): number {
   const fx = x - ix, fz = z - iz;
   const h = ( xi: number, zi: number ): number => {
     let n = ( xi * 0x28f0f0 + zi * 0x28d8e8 ) | 0;
-    n = ( n ^ ( n >>> 13 ) ) * 0x48a028;
-    return ( ( n ^ ( n >>> 16 ) ) >>> 0 ) / 4294967296;
+    n = ( n ^ ( n >>> 0o15 ) ) * 0x48a028;
+    return ( ( n ^ ( n >>> 0o20 ) ) >>> 0 ) / 0o40000000000;
   };
   const a = h(ix, iz), b = h(ix + 1, iz), c = h(ix, iz + 1), d = h(ix + 1, iz + 1);
   const u = fx * fx * ( 3 - 2 * fx );

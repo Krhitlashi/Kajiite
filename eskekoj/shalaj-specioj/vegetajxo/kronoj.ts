@@ -1,6 +1,6 @@
 // ≺⧼ មាត្រកំពូល 🌳 ⧽≻
 
-export const KRONA_GEOMETRIA_RADIUSO = 0.49;
+export const KRONA_GEOMETRIA_RADIUSO = 0o37/0o100;
 export const TAVOLA_PROPORCIO = 0o10/0o12;
 
 export const PURPURAJ_TRUNKAJ_RADIOJ = { supro: 0o3/0o20, malsupro: 0o5/0o20 };

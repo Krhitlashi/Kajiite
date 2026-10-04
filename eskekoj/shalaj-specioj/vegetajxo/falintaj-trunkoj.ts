@@ -13,7 +13,7 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): [ number, number ][][] {
-  const hazardaGenerilo = kreiVegetajxanHazardon(22931);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o54623);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
   const sxelaBumpo = kreiSxelanBumpanTeksajxon();
   const trunkaGeometrio = new THREE.CylinderGeometry(0o3/0o10, 0o4/0o10, 1, 7, 1);

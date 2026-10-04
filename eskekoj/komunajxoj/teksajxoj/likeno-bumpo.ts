@@ -12,7 +12,7 @@ export const kreiLikenanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
     for ( let i = 0; i < d.length; i += 4 ) {
       const griz = d[i + 3] < 0o200
         ? 0o200
-        : ( 0o115 * d[i] + 0o230 * d[i + 1] + 0o35 * d[i + 2] ) >> 8;
+        : ( 0o115 * d[i] + 0o230 * d[i + 1] + 0o35 * d[i + 2] ) >> 0o10;
       d[i] = d[i + 1] = d[i + 2] = griz;
       d[i + 3] = 0o377;
     }

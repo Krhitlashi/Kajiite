@@ -54,7 +54,7 @@ const HERBA_MALHELIGO = 0o6/0o10;
 function herbaHasho(ix: number, iz: number): number {
   let h = Math.imul(ix, 0x27d4eb2d) ^ Math.imul(iz, 0x165667b1);
   h = Math.imul(h ^ ( h >>> 0o15 ), 0x2545f491);
-  return ( ( h ^ ( h >>> 0o13 ) ) >>> 0 ) / 4294967296;
+  return ( ( h ^ ( h >>> 0o13 ) ) >>> 0 ) / 0o40000000000;
 }
 
 export async function konstruiHerbanTavolon(
@@ -75,11 +75,11 @@ export async function konstruiHerbanTavolon(
   // ⟨ ការរៀបចំបី 📃 ⟩
   // ⟨ ទទឹងយកការគ្របដណ្តប់វិញ 📃 ⟩
   const variantoj: THREE.BufferGeometry[] = [
-    konstruiHerbanTavolanGeometrion(2.3, HERBA_TAVOLA_AKSOJ,
+    konstruiHerbanTavolanGeometrion(0o223/0o100, HERBA_TAVOLA_AKSOJ,
       0o10/0o100, 0o11/0o20, 0o20/0o10, 0o2715),
-    konstruiHerbanTavolanGeometrion(2.3, HERBA_TAVOLA_AKSOJ,
+    konstruiHerbanTavolanGeometrion(0o223/0o100, HERBA_TAVOLA_AKSOJ,
       0o7/0o100, 0o23/0o40, 0o22/0o10, 0o4633),
-    konstruiHerbanTavolanGeometrion(2.3, HERBA_TAVOLA_AKSOJ - 1,
+    konstruiHerbanTavolanGeometrion(0o223/0o100, HERBA_TAVOLA_AKSOJ - 1,
       0o11/0o100, 0o21/0o40, 0o17/0o10, 0o6151),
   ];
   const amplexo = SKULPTA_N * SKULPTA_PASO;
@@ -200,8 +200,8 @@ export async function konstruiHerbanTavolon(
 
 // ⟨ ហេតុអ្វីឧបករណ៍សង់ដោយឡែក 📃 ⟩
 // ⟨ រូបរាង 📃 ⟩
-function konstruiHerbanTavolanGeometrion(flanko = 2.3, akso = 0o10, jit = 0.17,
-  longo = 0.4, larghaFaktoro = 0o14/0o10, semo = 0o2715): THREE.BufferGeometry {
+function konstruiHerbanTavolanGeometrion(flanko = 0o223/0o100, akso = 0o10, jit = 0o13/0o100,
+  longo = 0o15/0o40, larghaFaktoro = 0o14/0o10, semo = 0o2715): THREE.BufferGeometry {
   const hazardo = kreiVegetajxanHazardon(semo);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
@@ -215,8 +215,8 @@ function konstruiHerbanTavolanGeometrion(flanko = 2.3, akso = 0o10, jit = 0.17,
       // ⟨ ការប្រែប្រួលកម្ពស់ 📃 ⟩
       // ⟨ គ្មានការលើកគែម 📃 ⟩
       const klingoLongo = longo * ( 0o1/0o2 + hazardo() * 0o1/0o2 );
-      const klingoLargho = ( 0.026 + hazardo() * 0.016 ) * larghaFaktoro
-        * ( 0.9 + klingoLongo * 0.5 );
+      const klingoLargho = ( 0o1/0o40 + hazardo() * 0o1/0o100 ) * larghaFaktoro
+        * ( 0o35/0o40 + klingoLongo * 0o4/0o10 );
       // ⟨ គ្មានកង្ហារ 📃 ⟩
       // ⟨ ហេតុអ្វីចៃដន្យ មិនតាមទីតាំង 📃 ⟩
       const klino = ( hazardo() - 0o1/0o2 ) * 0o6/0o100;
@@ -226,9 +226,9 @@ function konstruiHerbanTavolanGeometrion(flanko = 2.3, akso = 0o10, jit = 0.17,
       // ⟨ ដោយចៃដន្យ មិនតាមទីតាំង 📃 ⟩
       const sekaKlingo = hazardo() < 0o1/0o4;
       if ( sekaKlingo ) {
-        seka.setRGB(1.06, 0.84 + hazardo() * 0o1/0o10, 0.34 + hazardo() * 0.16 );
+        seka.setRGB(0o21/0o20, 0o33/0o40 + hazardo() * 0o1/0o10, 0o13/0o40 + hazardo() * 0o5/0o40 );
       } else {
-        verda.setRGB(0.72 + hazardo() * 0.34, 0.8 + hazardo() * 0.28, 0.62 + hazardo() * 0.3);
+        verda.setRGB(0o27/0o40 + hazardo() * 0o13/0o40, 0o63/0o100 + hazardo() * 0o11/0o40, 0o5/0o10 + hazardo() * 0o23/0o100);
       }
       // ⟨ ស្លឹក 📃 ⟩
       const klingo = kreiHerbanKlingon(klingoLongo, klingoLargho, klino, arko, tordo,

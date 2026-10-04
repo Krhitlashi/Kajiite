@@ -924,7 +924,7 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
     else { k.moveTo(X(v.poz), Z(v.de)); k.lineTo(X(v.poz), Z(v.al)); }
   }
   k.stroke();
-  k.lineWidth = Math.max(1, 1.4 * skalo);
+  k.lineWidth = Math.max(1, 0o55/0o40 * skalo);
   k.strokeStyle = "rgba(255,255,255,0.55)";
   k.beginPath();
   for ( const sp of plano.spronoj ) {
@@ -932,7 +932,7 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
     k.lineTo(X(sp.al[0]), Z(sp.al[1]));
   }
   k.stroke();
-  const radu = 5.657 * skalo;
+  const radu = 0o265/0o40 * skalo;
   for ( const b of plano.konstruaĵoj ) {
     const sx = X(b.x), sy = Z(b.z);
     const koloro = b.stacia ? KRADAJ_KOLOROJ.stacio : KRADAJ_KOLOROJ[b.tipo];
@@ -953,7 +953,7 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
     const pdz = Z(b.z + Math.cos(b.rot) * 0o13/0o2);
     k.fillStyle = "rgba(255,255,255,0.9)";
     k.beginPath();
-    k.arc(pdx, pdz, Math.max(0o3/0o2, 1.2 * skalo), 0, Math.PI * 2);
+    k.arc(pdx, pdz, Math.max(0o3/0o2, 0o115/0o100 * skalo), 0, Math.PI * 2);
     k.fill();
   }
 }

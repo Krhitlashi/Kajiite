@@ -12,7 +12,7 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   const pozicio = new Float32Array(tv * 3);
   const normo = new Float32Array(tv * 3);
   const uv = new Float32Array(tv * 2);
-  const idxArr = tv > 65535 ? new Uint32Array(ti) : new Uint16Array(ti);
+  const idxArr = tv > 0o177777 ? new Uint32Array(ti) : new Uint16Array(ti);
   let vo = 0, io = 0;
   for ( const g of geos ) {
     const p = g.getAttribute("position");
@@ -172,7 +172,7 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
     if ( ( g.index !== null ) !== indeksita ) return null;
     if ( Object.keys(g.attributes).sort().join(",") !== subskribo ) return null;
     const e = p.matrico.elements as unknown as number[];
-    if ( e[3] !== 0 || e[7] !== 0 || e[11] !== 0 || e[15] !== 1 ) return null;
+    if ( e[3] !== 0 || e[7] !== 0 || e[0o13] !== 0 || e[0o17] !== 1 ) return null;
     for ( const nomo of Object.keys(g.attributes) ) {
       const a = g.attributes[nomo] as THREE.BufferAttribute;
       const b = unuaAtributoj[nomo] as THREE.BufferAttribute;
@@ -188,7 +188,7 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
     const a = unuaAtributoj[nomo] as THREE.BufferAttribute;
     eligoj.set(nomo, new Float32Array(tv * a.itemSize));
   }
-  const eligoIndekso = indeksita ? ( tv > 65535 ? new Uint32Array(ti) : new Uint16Array(ti) ) : null;
+  const eligoIndekso = indeksita ? ( tv > 0o177777 ? new Uint32Array(ti) : new Uint16Array(ti) ) : null;
   const eligoPosicio = eligoj.get("position")!;
   const eligoNormo = eligoj.get("normal");
   let vo = 0, io = 0;
@@ -199,7 +199,7 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
     const c = ( g.attributes.position as THREE.BufferAttribute ).count;
     // ⟨ ទីតាំង 📃 ⟩
     const e0 = e[0], e1 = e[1], e2 = e[2], e4 = e[4], e5 = e[5], e6 = e[6],
-      e8 = e[8], e9 = e[9], e10 = e[10], e12 = e[12], e13 = e[13], e14 = e[14];
+      e8 = e[0o10], e9 = e[0o11], e10 = e[0o12], e12 = e[0o14], e13 = e[0o15], e14 = e[0o16];
     for ( let i = 0, j = vo * 3; i < c; i++, j += 3 ) {
       const s = i * 3;
       const x = fontaPosicio[s], y = fontaPosicio[s + 1], z = fontaPosicio[s + 2];
@@ -214,7 +214,7 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
       const nm = new THREE.Matrix3().getNormalMatrix(p.matrico);
       const m = nm.elements as unknown as number[];
       const m0 = m[0], m1 = m[1], m2 = m[2], m3 = m[3], m4 = m[4],
-        m5 = m[5], m6 = m[6], m7 = m[7], m8 = m[8];
+        m5 = m[5], m6 = m[6], m7 = m[7], m8 = m[0o10];
       for ( let i = 0, j = vo * 3; i < c; i++, j += 3 ) {
         const s = i * 3;
         const x = fn[s], y = fn[s + 1], z = fn[s + 2];
@@ -293,7 +293,7 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
         + ( geometrio.index === null ? "|n" : "|i" );
       const matrico = m.matrixWorld;
       const ĉelo = celo > 0
-        ? Math.floor(matrico.elements[12] / celo) + "," + Math.floor(matrico.elements[14] / celo)
+        ? Math.floor(matrico.elements[0o14] / celo) + "," + Math.floor(matrico.elements[0o16] / celo)
         : "-";
       const ŝlosilo = [ m.material.uuid, m.castShadow ? 1 : 0, m.receiveShadow ? 1 : 0,
         m.renderOrder, m.layers.mask, signaturo, ĉelo ].join("|");
@@ -344,7 +344,7 @@ export function kunfandiKajVeldoiGeometriojn(geos: THREE.BufferGeometry[]): THRE
   const pozicio = unu.getAttribute("position") as THREE.BufferAttribute;
   const idxArr = unu.getIndex()!.array as Uint16Array | Uint32Array;
   const tv = pozicio.count;
-  const skalo = 4096;
+  const skalo = 0o10000;
   const mapo = new Map<string, number>();
   const novaIndekso = new Uint32Array(tv);
   let nv = 0;

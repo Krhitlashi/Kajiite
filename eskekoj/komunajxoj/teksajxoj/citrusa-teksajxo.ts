@@ -9,8 +9,8 @@ export function citrusaTeksajxon(): THREE.CanvasTexture {
     k.fillStyle = "#fff6e0"; k.fillRect(0, 0, 0o100, 0o100);
     const c = 0o40;
     k.strokeStyle = "rgba(190,138,52,0.45)"; k.lineWidth = 1;
-    for ( let i = 0; i < 8; i++ ) {
-      const ang = i / 8 * Math.PI * 2;
+    for ( let i = 0; i < 0o10; i++ ) {
+      const ang = i / 0o10 * Math.PI * 2;
       k.beginPath(); k.moveTo(c, c);
       k.lineTo(c + Math.cos(ang) * 0o70, c + Math.sin(ang) * 0o70); k.stroke();
     }

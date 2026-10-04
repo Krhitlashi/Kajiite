@@ -53,7 +53,7 @@ export function kreiGelanTeksajxon( opcioj: GelajOpcioj ):
     kunteksto.fillStyle = reliefo ? "rgba(200,200,200,0.35)" : opcioj.kanalo;
     for ( let i = 0; i < grajnoj; i++ ) {
       const x = Math.random() * s, y = Math.random() * s;
-      const r = 0o1/0o2 + Math.random() * 1.2;
+      const r = 0o1/0o2 + Math.random() * 0o115/0o100;
       kunteksto.globalAlpha = 0o1/0o10 + Math.random() * 0o2/0o10;
       kunteksto.beginPath();
       kunteksto.arc(x, y, r, 0, Math.PI * 2);

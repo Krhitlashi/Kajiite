@@ -22,9 +22,9 @@ export function kreiKavalErbanTeksajxon(branĉa: boolean): THREE.CanvasTexture {
       kunteksto.fillRect(x, 0, w / 0o20 * 0o1/0o2, h);
     }
     kunteksto.fillStyle = "rgba(20,60,44,0.32)";
-    kunteksto.fillRect(0, 0, w, h * 0.12);
+    kunteksto.fillRect(0, 0, w, h * 0o1/0o10);
     kunteksto.fillStyle = "rgba(222,242,190,0.26)";
-    kunteksto.fillRect(0, h * 0.12, w, 2);
+    kunteksto.fillRect(0, h * 0o1/0o10, w, 2);
     for ( let i = 0; i < 0o70; i++ ) {
       const x = Math.random() * w, y = Math.random() * h;
       const koloro = i % 0o3 ? "rgba(24,78,58,0.20)" : "rgba(220,238,176,0.24)";

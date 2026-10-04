@@ -34,7 +34,7 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): void {
-  const hazardaGenerilo = kreiVegetajxanHazardon(66173);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o201175);
   const muskaGeometrio = konstruiFlokanMuskanGeometrion();
   const muskaTeksturo = kreiMuskanTeksajxon();
   const muskaMaterialo = new THREE.MeshStandardMaterial({ map: muskaTeksturo, color: 0xffffff, roughness: 1 });
@@ -81,7 +81,7 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
     normalo.crossVectors(enZ, enX).normalize();
     const vert = normalo.y;
     const horiz = Math.hypot(normalo.x, normalo.z);
-    const maxKruteco = Math.PI / 16;
+    const maxKruteco = Math.PI / 0o20;
     if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(vert, 0o1/0o2000)) > maxKruteco ) {
       const u = Math.tan(maxKruteco);
       const hx = normalo.x / horiz;

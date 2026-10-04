@@ -160,7 +160,7 @@ export function penikoPasxo(cx: number, cz: number): void {
   const t = treno;
   if ( !t ) return;
   const disto = Math.hypot(cx - t.lastX, cz - t.lastZ);
-  const pasoj = Math.max(1, Math.ceil(disto / 0.6));
+  const pasoj = Math.max(1, Math.ceil(disto / ( 0o23/0o40 )));
   for ( let k = 1; k <= pasoj; k++ ) {
     const px = t.lastX + ( cx - t.lastX ) * k / pasoj;
     const pz = t.lastZ + ( cz - t.lastZ ) * k / pasoj;

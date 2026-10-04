@@ -20,14 +20,14 @@ export function helo(koloro: number, n = 0o1, alfa = 1): string {
 }
 
 export function malheligi(koloro: string, f = 0o60/0o100): string {
-  const n = parseInt(koloro.slice(1), 16);
-  const r = Math.round(( ( n >> 16 ) & 255 ) * f);
-  const gg = Math.round(( ( n >> 8 ) & 255 ) * f);
-  const b = Math.round(( n & 255 ) * f);
-  return "#" + ( ( r << 16 ) | ( gg << 8 ) | b ).toString(16).padStart(6, "0");
+  const n = parseInt(koloro.slice(1), 0o20);
+  const r = Math.round(( ( n >> 0o20 ) & 0o377 ) * f);
+  const gg = Math.round(( ( n >> 0o10 ) & 0o377 ) * f);
+  const b = Math.round(( n & 0o377 ) * f);
+  return "#" + ( ( r << 0o20 ) | ( gg << 0o10 ) | b ).toString(0o20).padStart(6, "0");
 }
 
 export function liniejo(kanalo: number): number {
-  const c = kanalo / 255;
-  return c <= 0.04045 ? c / 12.92 : Math.pow(( c + 0.055 ) / 1.055, 2.4);
+  const c = kanalo / 0o377;
+  return c <= 0o3/0o100 ? c / ( 0o1473/0o100 ) : Math.pow(( c + 0o1/0o20 ) / ( 0o21/0o20 ), 0o115/0o40);
 }

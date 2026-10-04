@@ -60,7 +60,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
     tigo.rotation.z = 0o4/0o10;
     g.add(tigo);
     for ( let i = 0; i < 3; i++ ) {
-      const folio = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o50, 8, 6), mento);
+      const folio = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o50, 0o10, 6), mento);
       folio.scale.set(0o6/0o10, 0o3/0o10, 1);
       folio.position.set(0o4/0o100 + i * 0o1/0o100 - 0o1/0o50, mentaBazo + 0o2/0o100 + i * 0o1/0o100, 0o2/0o100);
       folio.rotation.z = 0o15/0o10 - i * 0o1/0o10;
@@ -87,7 +87,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
     const tavolo = new THREE.Mesh(new THREE.CylinderGeometry(0o44/0o1000, 0o43/0o1000, 0o4/0o100, 0o20), mielo);
     tavolo.position.y = subteno + 0o7/0o100;
     g.add(tavolo);
-    const guto = new THREE.Mesh(new THREE.SphereGeometry(0o2/0o100, 8, 6), mielo);
+    const guto = new THREE.Mesh(new THREE.SphereGeometry(0o2/0o100, 0o10, 6), mielo);
     guto.scale.set(1, 0o16/0o10, 1);
     guto.position.set(-0o7/0o100, subteno + 0o16/0o100, 0o3/0o100);
     g.add(guto);
@@ -106,7 +106,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
     }
     const frosto = materialon("frosto",
       () => new THREE.MeshStandardMaterial({ color: 0xe8f4f8, roughness: 0o2/0o10, transparent: true, opacity: 0o5/0o10, depthWrite: false }));
-    const kolumo = new THREE.Mesh(new THREE.TorusGeometry(0o6/0o100, 0o3/0o100, 8, 0o20).rotateX(Math.PI / 2), frosto);
+    const kolumo = new THREE.Mesh(new THREE.TorusGeometry(0o6/0o100, 0o3/0o100, 0o10, 0o20).rotateX(Math.PI / 2), frosto);
     kolumo.position.y = subteno + 0o12/0o100;
     g.add(kolumo);
   }

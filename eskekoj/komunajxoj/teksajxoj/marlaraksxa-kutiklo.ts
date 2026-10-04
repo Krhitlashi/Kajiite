@@ -10,7 +10,7 @@ export function kreiKutiklanTeksajxon(): { koloro: THREE.CanvasTexture; reliefo:
     for ( let i = 0; i < 0o6; i++ ) {
       const y = ( i + 0o1/0o2 ) / 0o6 * s;
       kunteksto.strokeStyle = reliefo ? "rgba(70,70,70,0.55)" : "rgba(146,112,76,0.8)";
-      kunteksto.lineWidth = s * 0.014;
+      kunteksto.lineWidth = s * 0o1/0o100;
       kunteksto.beginPath();
       kunteksto.moveTo(0, y);
       kunteksto.lineTo(s, y);
@@ -18,7 +18,7 @@ export function kreiKutiklanTeksajxon(): { koloro: THREE.CanvasTexture; reliefo:
     }
     for ( let i = 0; i < 0o300; i++ ) {
       const x = Math.random() * s, y = Math.random() * s;
-      const r = 0.6 + Math.random() * 1.1;
+      const r = 0o23/0o40 + Math.random() * 0o43/0o40;
       kunteksto.fillStyle = reliefo
         ? ( Math.random() < 0o1/0o2 ? "rgba(200,200,200,0.5)" : "rgba(80,80,80,0.45)" )
         : ( Math.random() < 0o1/0o2 ? "rgba(238,214,178,0.5)" : "rgba(168,132,94,0.45)" );

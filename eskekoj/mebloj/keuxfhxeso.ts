@@ -28,7 +28,7 @@ function sespintaStelo(rEkstera: number): THREE.Vector2[] {
 
 function glataPaso(u: number): number {
   const x = Math.min(1, Math.max(0, u));
-  return x * x * x * ( x * ( x * 6 - 15 ) + 10 );
+  return x * x * x * ( x * ( x * 6 - 0o17 ) + 0o12 );
 }
 function folioProfilo(t: number): number {
   const pezo = 0o53 / 0o100;
@@ -82,7 +82,7 @@ function starfruktKorpo(rEkstera: number, alto: number, ringoj: number): THREE.B
 
 function krestaRipo(rEkstera: number, alto: number, ang: number, dikeco: number): THREE.BufferGeometry {
   const ringoj = 0o40;
-  const flankoj = 8;
+  const flankoj = 0o10;
   const tuboRadiuso = dikeco * 0o5 / 0o10;
   const centroR = rEkstera - tuboRadiuso;
   const pozicioj: number[] = [];

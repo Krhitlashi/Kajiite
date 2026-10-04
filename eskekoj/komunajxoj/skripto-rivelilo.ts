@@ -9,8 +9,8 @@ function hazardo(): number {
 }
 
 function hashiStringo(s: string): number {
-  let h = 2166136261;
-  for ( let i = 0; i < s.length; i++ ) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  let h = 0o20107116705;
+  for ( let i = 0; i < s.length; i++ ) { h ^= s.charCodeAt(i); h = Math.imul(h, 0o100000623); }
   return h >>> 0;
 }
 

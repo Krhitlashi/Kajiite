@@ -3,20 +3,20 @@ import { noiseSrc } from "./bruo.js";
 
 export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {
   const g = ctx.createGain();
-  g.gain.value = 0.15 * vel;
+  g.gain.value = 0o5/0o40 * vel;
   g.connect(out);
 
-  const ratios = [ 1, 2.015, 3.98, 6.72 ];
-  const gains = [ 1, 0.4, 0.15, 0.06 ];
-  const decs = [ 1.7, 0.85, 0.32, 0.16 ];
+  const ratios = [ 1, 0o201/0o100, 0o377/0o100, 0o327/0o40 ];
+  const gains = [ 1, 0o15/0o40, 0o5/0o40, 0o1/0o20 ];
+  const decs = [ 0o155/0o100, 0o33/0o40, 0o5/0o20, 0o5/0o40 ];
   for ( let i = 0; i < 4; i++ ) {
     const o = ctx.createOscillator();
     o.type = "sine";
-    o.frequency.value = f * ratios[i] * ( 1 + ( Math.random() - 0o4/0o10 ) * 0.003 );
+    o.frequency.value = f * ratios[i] * ( 1 + ( Math.random() - 0o4/0o10 ) * 0o0/0o10 );
     const og = ctx.createGain();
-    const dd = decs[i] * ( 0o6/0o10 + vel * 0.45 );
+    const dd = decs[i] * ( 0o6/0o10 + vel * 0o35/0o100 );
     og.gain.setValueAtTime(gains[i], t);
-    og.gain.exponentialRampToValueAtTime(0.0001, t + dd);
+    og.gain.exponentialRampToValueAtTime(0o0/0o10, t + dd);
     o.connect(og);
     og.connect(g);
     o.start(t);
@@ -26,17 +26,17 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   const n = noiseSrc(ctx);
   const bp = ctx.createBiquadFilter();
   bp.type = "bandpass";
-  bp.frequency.value = 4000 + Math.random() * 900;
-  bp.Q.value = 1.3;
+  bp.frequency.value = 0o7640 + Math.random() * 0o1604;
+  bp.Q.value = 0o123/0o100;
   const ng = ctx.createGain();
-  ng.gain.setValueAtTime(0.0001, t);
-  ng.gain.exponentialRampToValueAtTime(0.08 * vel, t + 0.012);
-  ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+  ng.gain.setValueAtTime(0o0/0o10, t);
+  ng.gain.exponentialRampToValueAtTime(0o5/0o100 * vel, t + 0o1/0o100);
+  ng.gain.exponentialRampToValueAtTime(0o0/0o10, t + 0o43/0o100);
 
   const tr = ctx.createOscillator();
-  tr.frequency.value = 26 + Math.random() * 8;
+  tr.frequency.value = 0o32 + Math.random() * 0o10;
   const trg = ctx.createGain();
-  trg.gain.value = 0.022;
+  trg.gain.value = 0o1/0o100;
   tr.connect(trg);
   trg.connect(ng.gain);
 
@@ -44,7 +44,7 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   bp.connect(ng);
   ng.connect(out);
   n.start(t);
-  n.stop(t + 0.7);
+  n.stop(t + 0o55/0o100);
   tr.start(t);
-  tr.stop(t + 0.7);
+  tr.stop(t + 0o55/0o100);
 }

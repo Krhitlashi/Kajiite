@@ -52,7 +52,7 @@ export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.stroke();
     }
     for ( let i = 0; i < 0o70; i++ ) {
-      kunteksto.fillStyle = i % 0o3 ? "rgba(240,226,126,0.42)" : ombro(BAZO, 0o7, 0.38);
+      kunteksto.fillStyle = i % 0o3 ? "rgba(240,226,126,0.42)" : ombro(BAZO, 0o7, 0o3/0o10);
       kunteksto.fillRect(Math.random() * s, Math.random() * s, 1 + Math.random() * 0o2, 1 + Math.random() * 0o2);
     }
     kunteksto.lineCap = "round";
@@ -60,7 +60,7 @@ export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const a = -Math.PI / 2 + ( Math.random() - 0o5/0o10 ) * 0o6/0o10;
       const longo = 0o2 + Math.random() * 0o4;
-      kunteksto.strokeStyle = i % 0o4 ? "rgba(190,188,89,0.34)" : ombro(BAZO, 0o5, 0.32);
+      kunteksto.strokeStyle = i % 0o4 ? "rgba(190,188,89,0.34)" : ombro(BAZO, 0o5, 0o5/0o20);
       kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(x, y);

@@ -71,9 +71,9 @@ export const SPECOJ: Specio[] = [
   // ⟨ ដើមលើចំនួនបី 📃 ⟩
   { kodo: "lariko", nomo: "ឡារីក 🌲", indekso: -1, grandeco: 1,
     akva: false, konstruu: ( g ) => konstruiLarikon(g, [
-      { x: -0o3/0o2, z: 0.4, h: 0, s: 0.45 },
-      { x: 0o1/0o10, z: -0o1/0o2, h: 0, s: 0.72 },
-      { x: 1.7, z: 0.3, h: 0, s: 1 }]),
+      { x: -0o3/0o2, z: 0o15/0o40, h: 0, s: 0o35/0o100 },
+      { x: 0o1/0o10, z: -0o1/0o2, h: 0, s: 0o27/0o40 },
+      { x: 0o155/0o100, z: 0o23/0o100, h: 0, s: 1 }]),
     priskribo: "ឡារីកអាល់ផ្លូ , ដើមប្រផេះជាមួយផ្នែកឫសរីក , មែកស្តើងស្ងួតខ្លះលើដើមក្រោម , និងកំពូលម្ជុលពណ៌មាសរដូវស្លឹកឈើជ្រុះ , ស្រទាប់ 3 ទៅ 4 នៃស្ពឺកោណពីផ្លិតម្ជុល។ ប្រភេទនេះមានកម្ពស់ចៃដន្យខ្លាំង ( 1.4 ដល់ 9.8 ឯកតា ) , ហើយដើម និងមកុដសមស្របនឹងកម្ពស់ , ឧបករណ៍បង្ហាញបីក្នុងចំណោមពួកវា។",
     animacio: "គ្មាន , ដើមឈើឈរនឹង ( រុក្ខជាតិគ្មានចលនាក្នុងហ្គេម )។" },
   { kodo: "hxsxak", nomo: "ហ្សាក់ស្លេហ្វូ 🥬", indekso: -1, grandeco: 1,
@@ -150,9 +150,9 @@ export const SPECOJ: Specio[] = [
   { kodo: "montajRokoj", nomo: "ថ្មភ្នំ ⛰️", indekso: -1, grandeco: 1,
     akva: false,
     // ⟨ ហេតុអ្វីមិនប្រើឧបករណ៍សាងសង់បែងចែក 📃 ⟩
-    konstruu: ( g ) => { konstruiMetitanRokon(g, -1.1, 0.4, nulaAlto, 0o12/0o20, 0, 0o7);
-      konstruiMetitanRokon(g, 1.2, -0.9, nulaAlto, 0o15/0o20, 0, 0o40);
-      konstruiMetitanRokon(g, 0o1/0o10, 1.3, nulaAlto, 0o1, 0, 0o71); },
+    konstruu: ( g ) => { konstruiMetitanRokon(g, -0o43/0o40, 0o15/0o40, nulaAlto, 0o12/0o20, 0, 0o7);
+      konstruiMetitanRokon(g, 0o115/0o100, -0o35/0o40, nulaAlto, 0o15/0o20, 0, 0o40);
+      konstruiMetitanRokon(g, 0o1/0o10, 0o123/0o100, nulaAlto, 0o1, 0, 0o71); },
     priskribo: "ដុំថ្មនៃតំបន់អាល់ផ្លូ , រូបរាងបីខុសគ្នា ( គ្រាប់បីនៃរលកតែមួយ ) , នីមួយៗជាមួយមាត្រដ្ឋានមិនស្មើ ដូច្នេះភ្នំមិនបង្ហាញថ្មតែមួយស្ទួន។",
     animacio: "គ្មាន , ថ្មឈរនឹង។" },
   { kodo: "petrelo", nomo: "ផេត្រេលព្រិល 🕊️", indekso: -1, grandeco: 0o4,

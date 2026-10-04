@@ -246,17 +246,17 @@ export function rekonstruiFontojn3D(): void {
   }
   for ( let i = 0; i < fontoj.length; i++ ) {
     const f = fontoj[i];
-    const r = 0o1/0o2 + Math.min(1.6, f.fluo * 0.06);
+    const r = 0o1/0o2 + Math.min(0o63/0o40, f.fluo * 0o1/0o20);
     const sfero = new THREE.Mesh(
       new THREE.SphereGeometry(r, 0o14, 0o10),
       new THREE.MeshStandardMaterial({
         color: i === elektitaFonto ? 0xd8f4ff : 0x48a8d0,
-        emissive: 0x206080, roughness: 0.3, metalness: 0o1/0o10,
+        emissive: 0x206080, roughness: 0o23/0o100, metalness: 0o1/0o10,
       }));
     sfero.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + r, f.z);
     fontaGrupo3D.add(sfero);
     const ringo = new THREE.Mesh(
-      new THREE.TorusGeometry(r * 1.7, r * 0.16, 0o10, 0o24),
+      new THREE.TorusGeometry(r * 0o155/0o100, r * 0o5/0o40, 0o10, 0o24),
       new THREE.MeshStandardMaterial({ color: 0xe8f8ff, roughness: 0o1/0o2, metalness: 0 }));
     ringo.rotation.x = -Math.PI / 2;
     ringo.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + 0o1/0o4, f.z);
@@ -295,12 +295,12 @@ function eniri3D(): void {
     fotilo3d.position.set(0o400, 0o300, 0o400);   // ( 256, 192, 256 ) ។ ទីតាំងដំបូងរបស់កាមេរ៉ា
     bildilo3d = new THREE.WebGLRenderer({ canvas: mapo3d, antialias: true });
     // ពន្លឺ គឺពន្លឺមេឃក្នុងផ្ទះ និងព្រះអាទិត្យពីទិសពាយ័ព្យ។
-    const hemo = new THREE.HemisphereLight(0xb8d8e8, 0x384838, 0.9);
+    const hemo = new THREE.HemisphereLight(0xb8d8e8, 0x384838, 0o35/0o40);
     sceno3d.add(hemo);
-    const suno = new THREE.DirectionalLight(0xf8f0d8, 1.1);
+    const suno = new THREE.DirectionalLight(0xf8f0d8, 0o43/0o40);
     suno.position.set(-0o400, 0o470, 0o300);      // ( -256, 312, 192 ) ។ ទីតាំងរបស់ព្រះអាទិត្យ
     sceno3d.add(suno);
-    sceno3d.add(new THREE.AmbientLight(0x404848, 0.4));
+    sceno3d.add(new THREE.AmbientLight(0x404848, 0o15/0o40));
     // សំណាញ់ដី គឺសំណាញ់ដូចការឆ្លាក់ ជាមួយពណ៌បញ្ឈរ។
     const N1 = N + 1;
     const geometrio = new THREE.BufferGeometry();
@@ -309,7 +309,7 @@ function eniri3D(): void {
     geometrio.setIndex(new THREE.BufferAttribute(konstrui3DIndeksojn(), 1));
     inicializi3DKradon(geometrio);
     teraMesh = new THREE.Mesh(geometrio, new THREE.MeshStandardMaterial({
-      vertexColors: true, roughness: 0.92, metalness: 0,
+      vertexColors: true, roughness: 0o73/0o100, metalness: 0,
     }));
     sceno3d.add(teraMesh);
     // ចំណោត និងបាតពិភពលោក គឺរូបរាង និងបន្ទះពណ៌ដូចគ្នា
@@ -334,8 +334,8 @@ function eniri3D(): void {
     // ទឹកថ្លាពាក់កណ្តាល ដើម្បីឱ្យបាតដែលមានពណ៌ ( និង
     // ការឆ្លាក់ក្រោមផ្ទៃ ) មើលឃើញពេលកែសម្រួល។
     akvaMesh = new THREE.Mesh(akvaGeometrio, new THREE.MeshStandardMaterial({
-      color: 0x287888, transparent: true, opacity: 0.55,
-      roughness: 0.15, metalness: 0o1/0o10, side: THREE.DoubleSide,
+      color: 0x287888, transparent: true, opacity: 0o43/0o100,
+      roughness: 0o5/0o40, metalness: 0o1/0o10, side: THREE.DoubleSide,
     }));
     akvaMesh.renderOrder = 1;
     sceno3d.add(akvaMesh);
@@ -386,7 +386,7 @@ function eniri3D(): void {
     regiloj3d.dampingFactor = 0o1/0o20;
     regiloj3d.minDistance = 0o60;                    // 48 ។ ចម្ងាយជិតបំផុតនៃការពង្រីក
     regiloj3d.maxDistance = 0o1400;                  // 768 ។ ចម្ងាយឆ្ងាយបំផុតនៃការពង្រីក
-    regiloj3d.maxPolarAngle = Math.PI * 0.48;
+    regiloj3d.maxPolarAngle = Math.PI * 0o37/0o100;
     regiloj3d.mouseButtons = { LEFT: -1, MIDDLE: THREE.MOUSE.PAN, RIGHT: THREE.MOUSE.ROTATE };
     regiloj3d.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
     gxisdatigi3DMeshon({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
@@ -594,7 +594,7 @@ function peniko3dPasxo(cx: number, cz: number): void {
   const t = radiaTreno;
   if ( !t ) return;
   const disto = Math.hypot(cx - t.lastX, cz - t.lastZ);
-  const pasoj = Math.max(1, Math.ceil(disto / 0.6));
+  const pasoj = Math.max(1, Math.ceil(disto / ( 0o23/0o40 )));
   for ( let k = 1; k <= pasoj; k++ ) {
     const px = t.lastX + ( cx - t.lastX ) * k / pasoj;
     const pz = t.lastZ + ( cz - t.lastZ ) * k / pasoj;

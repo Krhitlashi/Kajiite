@@ -42,7 +42,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
   const rBazo = 0o3/0o40;
   const rSupro = 0o1/0o40;
   // ⟨ ឆ្អឹងជំនីរជ្រៅជាង 📃 ⟩
-  const flankoj = 8;
+  const flankoj = 0o10;
   const kresta = kunBrancetoj ? 0o16/0o100 : 0o22/0o100;
   for ( let i = 0; i < nodoj; i++ ) {
     const y0 = i * segmentaAlto;
@@ -58,19 +58,19 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
       if ( kunBrancetoj ) {
         const brancetoj = 0o12;
         const profilo = Math.sin(Math.PI * Math.min(1, ( i + 1 ) / nodoj));
-        const longeco = segmentaAlto * ( 1.1 + 2.1 * profilo );
-        const eliro = 0.10 + 0.45 * ( i / nodoj );
+        const longeco = segmentaAlto * ( 0o43/0o40 + 0o103/0o40 * profilo );
+        const eliro = 0o3/0o40 + 0o35/0o100 * ( i / nodoj );
         for ( let b = 0; b < brancetoj; b++ ) {
           const ang = b / brancetoj * Math.PI * 2 + i * 0o3/0o10;
           // ⟨ មែកកោង 📃 ⟩
-          const unua = longeco * 0.55, dua = longeco * 0.55;
-          const anguloj = [ eliro, eliro + 0.55 ];
+          const unua = longeco * 0o43/0o100, dua = longeco * 0o43/0o100;
+          const anguloj = [ eliro, eliro + 0o43/0o100 ];
           const longoj = [ unua, dua ];
           let bazo = new THREE.Vector3(Math.sin(ang) * r0, y0, Math.cos(ang) * r0);
           for ( let s = 0; s < 2; s++ ) {
             const a = anguloj[s], L = longoj[s];
             const peco = new THREE.ConeGeometry(
-              r0 * ( s === 0 ? 0.34 : 0.24 ), L, 4).translate(0, L / 2, 0);
+              r0 * ( s === 0 ? 0o13/0o40 : 0o17/0o100 ), L, 4).translate(0, L / 2, 0);
             const Mb = new THREE.Matrix4().makeRotationY(ang);
             Mb.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2 - a));
             peco.applyMatrix4(Mb);
@@ -80,7 +80,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
               Math.sin(ang) * Math.cos(a), Math.sin(a), Math.cos(ang) * Math.cos(a));
             bazo = bazo.clone().add(direkto.multiplyScalar(L));
             if ( s === 0 ) {
-              const artiko = new THREE.CylinderGeometry(r0 * 0.30, r0 * 0.30,
+              const artiko = new THREE.CylinderGeometry(r0 * 0o23/0o100, r0 * 0o23/0o100,
                 r0 * 0o1/0o2, 4).translate(0, r0 * 0o1/0o4, 0);
               const Ma = new THREE.Matrix4().makeRotationY(ang);
               Ma.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2 - a));
@@ -99,7 +99,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
           const ang = d / dentoj * Math.PI * 2;
           const dento = new THREE.ConeGeometry(r0 * 0o1/0o2, dentoAlto, 3);
           const M = new THREE.Matrix4().makeRotationY(ang);
-          M.multiply(new THREE.Matrix4().makeRotationX(0.22));
+          M.multiply(new THREE.Matrix4().makeRotationX(0o7/0o40));
           dento.applyMatrix4(M);
           dento.translate(Math.sin(ang) * r0 * 0o12/0o10,
             y0 + dentoAlto * 0o35/0o100, Math.cos(ang) * r0 * 0o12/0o10);
@@ -117,7 +117,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
     for ( let s = 0; s < skvamoj; s++ ) {
       const t = s / skvamoj;
       const rS = strobilaLargho * ( 1 - t * 0o6/0o10 );
-      const ringo = new THREE.CylinderGeometry(rS * 0o7/0o10, rS, 0o3/0o100, 8)
+      const ringo = new THREE.CylinderGeometry(rS * 0o7/0o10, rS, 0o3/0o100, 0o10)
         .translate(0, 1 + 0o4/0o100 + s * 0o3/0o100, 0);
       partoj.push(ringo);
     }
@@ -131,7 +131,7 @@ function konstruiKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo
   }
   // ⟨ សមាមាត្រដើម 📃 ⟩
   const geometrio = kunfandiGeometriojnSenIndekson(partoj);
-  geometrio.scale(0.42, 1, 0.42);
+  geometrio.scale(0o33/0o100, 1, 0o33/0o100);
   return geometrio;
 }
 
@@ -195,7 +195,7 @@ export function konstruiCetkuojn(sceno: THREE.Scene,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  instanciiKavalerbojn(sceno, kvanto, heightFn, 11593, konstruiCetkuanGeometrion(),
+  instanciiKavalerbojn(sceno, kvanto, heightFn, 0o26511, konstruiCetkuanGeometrion(),
     kreiCetkuanTeksajxon(), 0xf0f8e8, 0o14/0o10, 0o30/0o10, ( h ) => {
       const angulo = h() * Math.PI * 2;
       const radiuso = 0o20 + 0o177 * Math.sqrt(h());
@@ -218,7 +218,7 @@ export function konstruiCakeojn(sceno: THREE.Scene,
   akvoNiveloFn: ( x: number, z: number ) => number,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 11605,
+  semo = 0o26525,
   biomojFiltro?: readonly Biomo[]
 ): void {
   instanciiKavalerbojn(sceno, kvanto, heightFn, semo, konstruiCakeanGeometrion(),

@@ -201,7 +201,7 @@ export function rekonstruiKradon3D(): void {
   if ( kradaStaciaGrupo3D ) malplenigiGrupon(kradaStaciaGrupo3D);
   const plano = kradoPlano();
   const grundo = ( x: number, z: number ) => bazaAlteco(x, z) + deltoInterp(x, z);
-  const vojaMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8e0e8, roughness: 0.9 });
+  const vojaMaterialo = new THREE.MeshStandardMaterial({ color: 0xd8e0e8, roughness: 0o35/0o40 });
   const vojaAlto = 0o1/0o10 * 2;   // 0.25 ។ កម្ពស់ផ្ទៃផ្លូវស្ថានីយ
   for ( const v of plano.vojoj ) {
     // ផ្លូវស្ថានីយ ( ផ្នែកបន្ថែមនៃផ្លូវកម្រិតពិភពលោក ) ជាកម្មសិទ្ធិ

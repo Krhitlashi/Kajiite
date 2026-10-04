@@ -209,7 +209,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const malglata = ( u: number, v: number ): number => 1 - Math.abs(2 * bruo2D(u, v) - 1);
       const maso = bruo2D(x, z);
       // ⟨ ជ្រលង 📃 ⟩
-      const valo = 0.35 + 0.65 * maso * maso;
+      const valo = 0o13/0o40 + 0o25/0o40 * maso * maso;
       const pinto = malglata(x * 0o3, z * 0o3);
       const fajno = malglata(x * 0o4, z * 0o4);
       // ⟨ ឆ្អឹងខ្នង 📃 ⟩
@@ -476,7 +476,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const brosxaNombro = 0o30;
     for ( let i = 0; i < brosxaNombro; i++ ) {
       const bruo = bruo2D(i * 0o7/0o10, i * 0o11/0o10);
-      const angulo = i * 2.399963 + bruo * 0o1/0o2;
+      const angulo = i * 0o115/0o40 + bruo * 0o1/0o2;
       const disto = 0o30 + bruo2D(i * 0o13/0o10, i * 0o17/0o10) * 0o300;
       const x = Math.cos(angulo) * disto;
       const z = Math.sin(angulo) * disto;

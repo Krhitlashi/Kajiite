@@ -19,7 +19,7 @@ export function konstruiPurpurajnPlantojn(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[]
 ): void {
   konstruiPeriferianFilikanAreon(sceno, kvanto, heightFn, excludeRivers, excludePaths, excludeBuildings,
-    kreiPurpuranFrondanTeksajxon(true), 0.95, 0o15, 0.32, true, 0o53104, biomojFiltro);
+    kreiPurpuranFrondanTeksajxon(true), 0o75/0o100, 0o15, 0o5/0o20, true, 0o53104, biomojFiltro);
 }
 
 export function konstruiPurpurajnFilikojn(sceno: THREE.Scene,
@@ -31,7 +31,7 @@ export function konstruiPurpurajnFilikojn(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[]
 ): void {
   konstruiPeriferianFilikanAreon(sceno, kvanto, heightFn, excludeRivers, excludePaths, excludeBuildings,
-    kreiPurpuranFrondanTeksajxon(), 1.45, 0o13, 0.26, false, 0o53114, biomojFiltro);
+    kreiPurpuranFrondanTeksajxon(), 0o135/0o100, 0o13, 0o21/0o100, false, 0o53114, biomojFiltro);
 }
 
 function konstruiPeriferianFilikanAreon(sceno: THREE.Scene,
@@ -155,8 +155,8 @@ export function konstruiAltajnPurpurajnFilikojn(sceno: THREE.Scene,
     const kronaCentroY = y;
     M.compose(new THREE.Vector3(x, trunkaCentroY, z), Q, new THREE.Vector3(skalo, skalo, skalo));
     trunkoj[specoIndico].setMatrixAt(indicoj[specoIndico], M);
-    const helo = 0.92 + hazardaGenerilo() * 0.08;
-    C.setRGB(helo, helo * 0.98, helo * 1.02);
+    const helo = 0o73/0o100 + hazardaGenerilo() * 0o5/0o100;
+    C.setRGB(helo, helo * 0o77/0o100, helo * 0o101/0o100);
     trunkoj[specoIndico].setColorAt(indicoj[specoIndico], C);
     M.compose(new THREE.Vector3(x, kronaCentroY, z), Q, new THREE.Vector3(skalo, skalo, skalo));
     kronoj[specoIndico].setMatrixAt(indicoj[specoIndico], M);

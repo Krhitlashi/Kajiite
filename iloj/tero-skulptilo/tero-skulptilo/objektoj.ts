@@ -373,11 +373,11 @@ function kreiObjektanBakon() {
   objektaBakaFotilo.position.set(0, 0o470, 0);
   objektaBakaFotilo.lookAt(0, 0, 0);
   objektaBakaSceno = new THREE.Scene();
-  objektaBakaSceno.add(new THREE.HemisphereLight(0xb8d8e8, 0x384838, 0.9));
-  const suno = new THREE.DirectionalLight(0xf8f0d8, 1.1);
+  objektaBakaSceno.add(new THREE.HemisphereLight(0xb8d8e8, 0x384838, 0o35/0o40));
+  const suno = new THREE.DirectionalLight(0xf8f0d8, 0o43/0o40);
   suno.position.set(-0o400, 0o470, 0o300);
   objektaBakaSceno.add(suno);
-  objektaBakaSceno.add(new THREE.AmbientLight(0x404848, 0.4));
+  objektaBakaSceno.add(new THREE.AmbientLight(0x404848, 0o15/0o40));
   objektaGrupo2D = new THREE.Group();
   objektaBakaSceno.add(objektaGrupo2D);
   objektaBakaKanvaso = objektaBakaRenderilo.domElement;
@@ -410,7 +410,7 @@ function kreiObjektanAntauxrigardon(): void {
   objektaAntauxFotilo = new THREE.PerspectiveCamera(0o50, 1, 1, 0o764);
   objektaAntauxFotilo.position.set(0o20, 0o14, 0o20);
   objektaAntauxSceno.add(new THREE.HemisphereLight(0xc8e0f0, 0x404840, 0o10/0o10));
-  const suno = new THREE.DirectionalLight(0xf8f0d8, 1.2);
+  const suno = new THREE.DirectionalLight(0xf8f0d8, 0o115/0o100);
   suno.position.set(-0o12, 0o24, 0o10);
   objektaAntauxSceno.add(suno);
   objektaAntauxSceno.add(new THREE.AmbientLight(0x505858, 0o1/0o2));
@@ -432,10 +432,10 @@ export function rekonstruiObjektanAntauxrigardon(): void {
   const grandeco = kesto.getSize(new THREE.Vector3()).length() || 0o10;
   const mezo = kesto.getCenter(new THREE.Vector3());
   objektaAntauxGrupo.position.sub(mezo);
-  const disto = Math.max(0o14, grandeco * 0.9);
+  const disto = Math.max(0o14, grandeco * 0o35/0o40);
   objektaAntauxFotilo.near = Math.max(1, disto * 0o1/0o20);
   objektaAntauxFotilo.far = disto * 0o10 + 0o200;
-  objektaAntauxFotilo.position.set(disto * 0.8, disto * 0.65, disto * 0.8);
+  objektaAntauxFotilo.position.set(disto * 0o63/0o100, disto * 0o25/0o40, disto * 0o63/0o100);
   objektaAntauxFotilo.updateProjectionMatrix();
   objektaAntauxFotilo.lookAt(0, 0, 0);
 }
@@ -486,7 +486,7 @@ export function gxisdatigiObjektoPropOJn(): void {
   };
   html += glitilo("ខ្នាត", "skalo", 0o1/0o4, 3, 0o1/0o20, "");
   if ( s === "npco" ) {
-    html += glitilo("រង្វិល", "rotacio", 0, 6.283, 0o1/0o20, " rad");
+    html += glitilo("រង្វិល", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
     html += elektilo("សម្លៀកបំពាក់", "vesto", OBJEKTO_VESTOJ);
     html += elektilo("រចនាសក់", "harstilo", [ "ខ្លី", "វែង" ]);
   } else if ( s === "akvabesto" ) {
@@ -494,14 +494,14 @@ export function gxisdatigiObjektoPropOJn(): void {
   } else if ( s === "petrelo" ) {
     html += glitilo("កាំហោះ", "radio", 1, 0o24, 0o1/0o2, " un");
   } else if ( s === "roko" ) {
-    html += glitilo("រង្វិល", "rotacio", 0, 6.283, 0o1/0o20, " rad");
+    html += glitilo("រង្វិល", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
   } else if ( s === "filiko" ) {
     html += elektilo("ពណ៌", "filikaSpeco", [ "បៃតង", "ស្វាយ" ]);
   } else if ( s === "kanuo" ) {
-    html += glitilo("រង្វិល", "rotacio", -3.2, 3.2, 0o1/0o20, " rad");
+    html += glitilo("រង្វិល", "rotacio", -0o315/0o100, 0o315/0o100, 0o1/0o20, " rad");
     html += elektilo("រចនាប័ទ្ម", "stilo", OBJEKTO_KANUAJ_STILOJ);
   } else if ( OBJEKTO_KONSTRUAJXOJ[s] || s === "hxeuxfo" || s === "hxeuxfoPlato" || s === "keuxfhxeso" ) {
-    html += glitilo("រង្វិល", "rotacio", 0, 6.283, 0o1/0o20, " rad");
+    html += glitilo("រង្វិល", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
   }
   objektoPropOJ.innerHTML = html;
   elementoj<HTMLInputElement | HTMLSelectElement>("input[data-prop], select[data-prop]", objektoPropOJ).forEach(el => {

@@ -37,8 +37,8 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
     return g;
   };
   // ⟨ ចំនួនមុខ 📃 ⟩
-  const KERNELO_PLATIGO = 0.62;
-  const kerno = new THREE.IcosahedronGeometry(0.24, 2);
+  const KERNELO_PLATIGO = 0o5/0o10;
+  const kerno = new THREE.IcosahedronGeometry(0o17/0o100, 2);
   {
     const p = kerno.getAttribute("position");
     const n = kerno.getAttribute("normal");
@@ -47,8 +47,8 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
       const l = Math.hypot(x, y, z) || 1;
       const nx = x / l, ny = y / l, nz = z / l;
       // ⟨ ប្រេកង់ទាប 📃 ⟩
-      const ondo = 1 + 0.17 * Math.sin(nx * 4.1 + 1.3) * Math.cos(ny * 3.3 - 0.7)
-        + 0.12 * Math.sin(nz * 5.7 + 2.2) + 0.07 * Math.cos(nx * 7.3 + nz * 6.1);
+      const ondo = 1 + 0o13/0o100 * Math.sin(nx * 0o203/0o40 + 0o123/0o100) * Math.cos(ny * 0o323/0o100 - 0o55/0o100)
+        + 0o1/0o10 * Math.sin(nz * 0o555/0o100 + 0o215/0o100) + 0o1/0o20 * Math.cos(nx * 0o723/0o100 + nz * 0o303/0o40);
       p.setXYZ(i, x * ondo, y * ondo * KERNELO_PLATIGO, z * ondo);
       // ⟨ ន័រម៉ាល់រលូន 📃 ⟩
       const vn = Math.hypot(nx, ny / KERNELO_PLATIGO, nz) || 1;
@@ -56,22 +56,22 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
     }
   }
   // ⟨ ស្នូលមិនត្រូវមួយសម្លេង 📃 ⟩
-  partoj.push(kunVertikalaTinto(kerno, 0.55, 0.60, 0.42, 1.45, 1.50, 1.20));
+  partoj.push(kunVertikalaTinto(kerno, 0o43/0o100, 0o23/0o40, 0o33/0o100, 0o135/0o100, 0o14/0o10, 0o115/0o100));
   for ( let i = 0; i < 0o10; i++ ) {
     const z = Math.random() * 2 - 1;
     const ang = Math.random() * Math.PI * 2;
     const rFlanko = Math.sqrt(Math.max(0, 1 - z * z));
-    const r = 0.20 + Math.random() * 0.10;
-    const elstaro = new THREE.IcosahedronGeometry(0.035 + Math.random() * 0.04, 1);
+    const r = 0o15/0o100 + Math.random() * 0o3/0o40;
+    const elstaro = new THREE.IcosahedronGeometry(0o1/0o40 + Math.random() * 0o3/0o100, 1);
     elstaro.applyMatrix4(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(
       Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI)));
     elstaro.applyMatrix4(new THREE.Matrix4().makeScale(
-      0.8 + Math.random() * 0.4,
-      0.6 + Math.random() * 0.4,
-      0.8 + Math.random() * 0.4));
+      0o63/0o100 + Math.random() * 0o15/0o40,
+      0o23/0o40 + Math.random() * 0o15/0o40,
+      0o63/0o100 + Math.random() * 0o15/0o40));
     elstaro.translate(rFlanko * Math.cos(ang) * r, z * r * 0o1/0o2, rFlanko * Math.sin(ang) * r);
-    partoj.push(kunTinto(elstaro, 0.82 + Math.random() * 0.36, 0.84 + Math.random() * 0.36,
-      0.76 + Math.random() * 0.34));
+    partoj.push(kunTinto(elstaro, 0o15/0o20 + Math.random() * 0o27/0o100, 0o33/0o40 + Math.random() * 0o27/0o100,
+      0o61/0o100 + Math.random() * 0o13/0o40));
   }
 
   // ⟨ ហេតុអ្វីចតុកោណ 📃 ⟩
@@ -80,8 +80,8 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
     const geometrio = new THREE.PlaneGeometry(longo, largho, 0o2, 0o2)
       .translate(longo / 2, 0, 0);
     const pozicioj = geometrio.attributes.position;
-    const kurboLarĝe = largho * 0.36;
-    const kurboLonge = largho * 0.28;
+    const kurboLarĝe = largho * 0o27/0o100;
+    const kurboLonge = largho * 0o11/0o40;
     for ( let i = 0; i < pozicioj.count; i++ ) {
       const x = pozicioj.getX(i);
       const y = pozicioj.getY(i);
@@ -91,13 +91,13 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
     }
     geometrio.computeVertexNormals();
     // ⟨ ពណ៌ស្លឹកនីមួយៗ 📃 ⟩
-    const helo = 0.80 + Math.random() * 0.46;
-    const varmo = 0.86 + Math.random() * 0.14;
+    const helo = 0o63/0o100 + Math.random() * 0o35/0o100;
+    const varmo = 0o67/0o100 + Math.random() * 0o11/0o100;
     const koloroj = new Float32Array(pozicioj.count * 3);
     for ( let i = 0; i < pozicioj.count; i++ ) {
-      koloroj[i * 3] = helo * ( 0.96 + Math.random() * 0.08 );
-      koloroj[i * 3 + 1] = helo * ( 0.97 + Math.random() * 0.07 );
-      koloroj[i * 3 + 2] = helo * varmo * ( 0.94 + Math.random() * 0o1/0o10 );
+      koloroj[i * 3] = helo * ( 0o75/0o100 + Math.random() * 0o5/0o100 );
+      koloroj[i * 3 + 1] = helo * ( 0o37/0o40 + Math.random() * 0o1/0o20 );
+      koloroj[i * 3 + 2] = helo * varmo * ( 0o17/0o20 + Math.random() * 0o1/0o10 );
     }
     geometrio.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     return geometrio;
@@ -125,7 +125,7 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
   const LARĜA_PROPORCIO = 0o1/0o2;
 
   // ⟨ ស្លឹកធំពេក 📃 ⟩
-  const FOLIA_SKALO = 0.8;
+  const FOLIA_SKALO = 0o63/0o100;
 
   const faskoj = 0o17;
   for ( let i = 0; i < faskoj; i++ ) {
@@ -143,7 +143,7 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
         .translate(0, celo.length() / 2, 0);
       branĉeto.applyMatrix4(new THREE.Matrix4().makeRotationFromQuaternion(
         new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), direkto)));
-      partoj.push(kunTinto(branĉeto, 0.62, 0.6, 0.54));
+      partoj.push(kunTinto(branĉeto, 0o5/0o10, 0o23/0o40, 0o43/0o100));
     }
     const folioj = 0o3 + ( ( Math.random() * 0o2 ) | 0 );
     for ( let j = 0; j < folioj; j++ ) {
@@ -177,15 +177,15 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
     const rSupra = 0o30/0o100 * frakcio * Math.cos(spirala);
     const zSupra = 0o30/0o100 * frakcio * Math.sin(spirala);
     const rNun = Math.hypot(rSupra, zSupra);
-    const ySupra = 0.20 * Math.sqrt(Math.max(0, 1 - Math.pow(rNun / 0.30, 2))) + 0.012;
+    const ySupra = 0o15/0o100 * Math.sqrt(Math.max(0, 1 - Math.pow(rNun / ( 0o23/0o100 ), 2))) + 0o1/0o100;
     const celo = new THREE.Vector3(rSupra, ySupra, zSupra);
     const longo = ( 0o12/0o100 + Math.random() * 0o6/0o100 ) * FOLIA_SKALO;
-    const folio = kreiFolitufon(longo, longo * LARĜA_PROPORCIO * 0.9, 0o3);
-    const deklivo = Math.min(1, rNun / 0.30) * 0.85;
+    const folio = kreiFolitufon(longo, longo * LARĜA_PROPORCIO * 0o35/0o40, 0o3);
+    const deklivo = Math.min(1, rNun / ( 0o23/0o100 )) * 0o33/0o40;
     const a = Math.atan2(zSupra, rSupra);
     folio.applyMatrix4(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(
       0,
-      -a + ( Math.random() - 0o1/0o2 ) * 0.9,
+      -a + ( Math.random() - 0o1/0o2 ) * 0o35/0o40,
       -deklivo - Math.random() * 0o1/0o4, "YXZ")));
     folio.translate(celo.x, celo.y, celo.z);
     foliajPartoj.push(folio);
@@ -203,7 +203,7 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
     branĉeto.applyMatrix4(new THREE.Matrix4().makeRotationFromQuaternion(
       new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0),
         celo.clone().normalize())));
-    partoj.push(kunTinto(branĉeto, 0.62, 0.6, 0.54));
+    partoj.push(kunTinto(branĉeto, 0o5/0o10, 0o23/0o40, 0o43/0o100));
     for ( let j = 0; j < 0o3; j++ ) {
       // ⟨ ស្លឹកតាមគែម 📃 ⟩
       const longo = ( 0o13/0o100 + Math.random() * 0o6/0o100 ) * FOLIA_SKALO;

@@ -22,7 +22,7 @@ export function kreiHerbanKlingon(longo: number, largho: number, klino: number,
         : Math.pow(1 - ( t - 0o3/0o10 ) / ( 0o7/0o10 ), pintPotenco) )
       : Math.pow(1 - t, pintPotenco);
     const duonLarĝo = largho * 0o1/0o2 * profilo;
-    const kresto = duonLarĝo * 0.9 + largho * 0.12;
+    const kresto = duonLarĝo * 0o35/0o40 + largho * 0o1/0o10;
     const ang = tordo * t;
     const cos = Math.cos(ang), sin = Math.sin(ang);
     const kolonoj: [ number, number ][] = [

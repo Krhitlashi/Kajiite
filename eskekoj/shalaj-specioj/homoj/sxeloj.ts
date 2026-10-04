@@ -31,8 +31,8 @@ export function kreiFoliaTonditanTubon(suproR: number, malsuproR: number, suproY
   // ⟨ ចានជាស្មាខ្លួនឯង 📃 ⟩
   // ⟨ ចុងដៃអាវជាពំនូកទាប 🫧 ⟩
   if ( !fermitaSupro ) return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
-  const kupolAlto = suproR * 0.3;
-  const etapoj: [ number, number ][] = [ [ 0.62, 0.55 ], [ 0.30, 0.86 ] ];
+  const kupolAlto = suproR * 0o23/0o100;
+  const etapoj: [ number, number ][] = [ [ 0o5/0o10, 0o43/0o100 ], [ 0o23/0o100, 0o67/0o100 ] ];
   const bazoj: number[] = [];
   for ( const [ rF, yF ] of etapoj ) {
     bazoj.push(pozicioj.length / 0o3);

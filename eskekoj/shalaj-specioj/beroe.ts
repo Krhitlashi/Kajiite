@@ -7,17 +7,17 @@ import { aldoniKombovicojn, aplikiKtenoforanPulson, gluuSurfacxon, kreiKombilanM
 import { kreiGelanTeksajxon } from "../komunajxoj/teksajxoj/ktenofora-gelo.js";
 
 const PROFILO: [ number, number ][] = [
-  [ 0.21, -1.00 ],
-  [ 0.30, -0.95 ],
-  [ 0.34, -0.85 ],
-  [ 0.35, -0.65 ],
-  [ 0.35, -0.35 ],
-  [ 0.34, -0o1/0o20 ],
-  [ 0.32, 0o1/0o4 ],
-  [ 0.28, 0.50 ],
-  [ 0.22, 0.72 ],
-  [ 0.14, 0.88 ],
-  [ 0.06, 0.97 ],
+  [ 0o15/0o100, -0o10/0o10 ],
+  [ 0o23/0o100, -0o75/0o100 ],
+  [ 0o13/0o40, -0o33/0o40 ],
+  [ 0o13/0o40, -0o25/0o40 ],
+  [ 0o13/0o40, -0o13/0o40 ],
+  [ 0o13/0o40, -0o1/0o20 ],
+  [ 0o5/0o20, 0o1/0o4 ],
+  [ 0o11/0o40, 0o4/0o10 ],
+  [ 0o7/0o40, 0o27/0o40 ],
+  [ 0o11/0o100, 0o7/0o10 ],
+  [ 0o1/0o20, 0o37/0o40 ],
 ];
 
 export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {

@@ -18,7 +18,7 @@ function konstruiLarikanFoliaranGeometrion(): THREE.BufferGeometry {
   const kerno = new THREE.CylinderGeometry(KERNA_SUP, KERNA_BOT, ALTO, 0o12, 0o3);
   kerno.translate(0, ALTO / 2, 0);
   partoj.push(kerno);
-  const eksteraR = ( t: number ): number => 0o1/0o2 * Math.pow(1 - t, 0o7/0o10) + 0.02;
+  const eksteraR = ( t: number ): number => 0o1/0o2 * Math.pow(1 - t, 0o7/0o10) + 0o1/0o100;
   const kernaR = ( t: number ): number => KERNA_BOT + ( KERNA_SUP - KERNA_BOT ) * t;
 
   // ⟨ ម្ជុលកោង 📃 ⟩
@@ -105,10 +105,10 @@ function konstruiLarikanFoliaranGeometrion(): THREE.BufferGeometry {
 export function konstruiLarikon(sceno: THREE.Scene,
   arboj: ArboMetado[]
 ): THREE.InstancedMesh {
-  const hazardaGenerilo = kreiVegetajxanHazardon(33718);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o101666);
   const larikaTeksajxo = kreiLarikanSxelanTeksajxon();
   const larikaBumpo = kreiLarikanSxelanBumpanTeksajxon();
-  const trunkaGeometrio = kreiTrunkanGeometrion(0o5/0o20, 0o11/0o100, 0o5/0o20 * 1.38, 0o11);
+  const trunkaGeometrio = kreiTrunkanGeometrion(0o5/0o20, 0o11/0o100, 0o5/0o20 * 0o13/0o10, 0o11);
   const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: larikaTeksajxo, bumpMap: larikaBumpo, bumpScale: 0o6/0o10, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, arboj.length);
   if ( arboj.length === 0 ) return trunkoj;
@@ -139,9 +139,9 @@ export function konstruiLarikon(sceno: THREE.Scene,
 
   arboj.forEach(( t, i ) => {
     // ⟨ ដុះខ្លីដែរ 📃 ⟩
-    const h = (3.4 + t.s * 3.0) * (0.42 + hazardaGenerilo() * 1.0);
+    const h = (0o155/0o40 + t.s * 0o30/0o10) * (0o33/0o100 + hazardaGenerilo() * 0o10/0o10);
     // ⟨ ដើមតាមកម្ពស់ 📃 ⟩
-    const trunkaLargho = 0.30 + h * 0.075;
+    const trunkaLargho = 0o23/0o100 + h * 0o5/0o100;
     const Q = kreiKlinoQuaternionon(hazardaGenerilo, 0o3/0o20, hazardaGenerilo() * Math.PI * 2);
     const bazo = new THREE.Vector3(t.x, t.h, t.z);
     const pozicio = kreiPoziciilon(bazo, Q);
@@ -150,11 +150,11 @@ export function konstruiLarikon(sceno: THREE.Scene,
       new THREE.Vector3(trunkaLargho, h, trunkaLargho));
     trunkoj.setMatrixAt(i, M);
 
-    const helo = 0.92 + hazardaGenerilo() * 0.08;
+    const helo = 0o73/0o100 + hazardaGenerilo() * 0o5/0o100;
     C.setRGB(
-      helo * ( 0.98 + hazardaGenerilo() * 0.04 ),
-      helo * ( 0.95 + hazardaGenerilo() * 0o1/0o20 ),
-      helo * ( 0.90 + hazardaGenerilo() * 0.07 ));
+      helo * ( 0o77/0o100 + hazardaGenerilo() * 0o3/0o100 ),
+      helo * ( 0o75/0o100 + hazardaGenerilo() * 0o1/0o20 ),
+      helo * ( 0o35/0o40 + hazardaGenerilo() * 0o1/0o20 ));
     trunkoj.setColorAt(i, C);
     sxelaKoloro.copy(C);
 
@@ -162,7 +162,7 @@ export function konstruiLarikon(sceno: THREE.Scene,
     // ⟨ សមាមាត្រ 📃 ⟩
     // ⟨ ទទឹងមកពីការដាក់ 📃 ⟩
     // ⟨ កំពូលក៏តាមកម្ពស់ 📃 ⟩
-    const kronaRadiuso = Math.min(0o3/0o4 * kronaRadiusoLarika(t.s), 0.27 * h);
+    const kronaRadiuso = Math.min(0o3/0o4 * kronaRadiusoLarika(t.s), 0o21/0o100 * h);
     const bazaLargho = kronaRadiuso / KRONA_GEOMETRIA_RADIUSO;
     const kronaMinimumaY = kronaGeometrio.boundingBox!.min.y;
     const kronaMaksimumaY = kronaGeometrio.boundingBox!.max.y;

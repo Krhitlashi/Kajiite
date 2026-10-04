@@ -105,9 +105,9 @@ export function desegniVidon(): void {
       k.textBaseline = "bottom";
       k.lineWidth = 3;
       k.strokeStyle = "rgba(0,0,0,0.85)";
-      k.strokeText(u.nomo, sx, sy - 10);
+      k.strokeText(u.nomo, sx, sy - 0o12);
       k.fillStyle = elektita ? "#f8e8a8" : "#ffffff";
-      k.fillText(u.nomo, sx, sy - 10);
+      k.fillText(u.nomo, sx, sy - 0o12);
     });
     // វេទិកាកំពង់របស់ទីក្រុងមេ គឺការ៉េតូចៗនៅ
     // ទីតាំង x របស់កំពង់ ( កំពង់ និងមហាវិថីបង្ហាញក្នុងផែនការ )។
@@ -116,10 +116,10 @@ export function desegniVidon(): void {
         const dx = d.x;
         const sx = sxMondo(dx), sy = syMondo(d.z);
         k.fillStyle = "rgba(200,160,80,0.9)";
-        k.fillRect(sx - 4, sy - 4, 8, 8);
+        k.fillRect(sx - 4, sy - 4, 0o10, 0o10);
         k.strokeStyle = "rgba(0,0,0,0.5)";
         k.lineWidth = 1;
-        k.strokeRect(sx - 4, sy - 4, 8, 8);
+        k.strokeRect(sx - 4, sy - 4, 0o10, 0o10);
       }
     }
     // ប្លុកបន្ថែម គឺប្លុកដែលជ្រើសបំភ្លឺដោយចិញ្ចៀន ( សំណង់
@@ -133,7 +133,7 @@ export function desegniVidon(): void {
         k.strokeStyle = "#f8e8a8";
         k.lineWidth = 0o5/0o2;
         k.beginPath();
-        k.arc(bx, bz, 9, 0, Math.PI * 2);
+        k.arc(bx, bz, 0o11, 0, Math.PI * 2);
         k.stroke();
         k.lineWidth = 1;
       }
@@ -168,11 +168,11 @@ export function desegniVidon(): void {
         const sx = sxMondo(kradoOfsX + l.x), sy = syMondo(kradoOfsZ + l.z);
         k.fillStyle = "rgba(248,168,72,0.95)";
         k.beginPath();
-        k.arc(sx, sy, 2.2, 0, Math.PI * 2);
+        k.arc(sx, sy, 0o215/0o100, 0, Math.PI * 2);
         k.fill();
         k.fillStyle = "rgba(248,232,184,0.95)";
         k.beginPath();
-        k.arc(sx, sy, 1.1, 0, Math.PI * 2);
+        k.arc(sx, sy, 0o43/0o40, 0, Math.PI * 2);
         k.fill();
       }
     }
@@ -227,7 +227,7 @@ export function desegniVidon(): void {
     for ( let di = 0; di < dokoj.length; di++ ) {
       const d = dokoj[di];
       const elektita = di === elektitaDoko;
-      const w = 0o16/0o10, prof = d.profundo || 16, kadro = 0o4/0o10;
+      const w = 0o16/0o10, prof = d.profundo || 0o20, kadro = 0o4/0o10;
       const rotacio = d.rotacio ?? 0;
       const sxp = sxMondo(d.x), syp = syMondo(d.z);
       k.save();
@@ -247,7 +247,7 @@ export function desegniVidon(): void {
       const pintoY = ( prof / 2 + kadro ) * vidSkalo;
       k.fillStyle = elektita ? "rgba(150,200,240,0.95)" : "rgba(128,170,210,0.9)";
       k.beginPath();
-      k.moveTo(0, pintoY + 9);
+      k.moveTo(0, pintoY + 0o11);
       k.lineTo(-7, pintoY + 1);
       k.lineTo(7, pintoY + 1);
       k.closePath();
@@ -288,7 +288,7 @@ export function desegniVidon(): void {
     const elektita = i === elektitaFonto;
     const akvaIlo = penikoAktiva === "akvo" || penikoAktiva === "akvoforvisxi";
     const px = sxMondo(f.x), py = syMondo(f.z);
-    const r = Math.max(0o7/0o2, ( 1.2 + Math.min(2.4, f.fluo * 0.09) ) * vidSkalo * ( akvaIlo ? 1.25 : 1 ));
+    const r = Math.max(0o7/0o2, ( 0o115/0o100 + Math.min(0o115/0o40, f.fluo * 0o3/0o40) ) * vidSkalo * ( akvaIlo ? 0o12/0o10 : 1 ));
     k.beginPath();
     k.arc(px, py, r, 0, Math.PI * 2);
     k.fillStyle = elektita ? "rgba(150,230,255,0.9)" : "rgba(70,170,215,0.78)";
@@ -297,7 +297,7 @@ export function desegniVidon(): void {
     k.lineWidth = elektita ? 0o5/0o2 : 0o3/0o2;
     k.stroke();
     k.beginPath();
-    k.arc(px, py, r * 0.35, 0, Math.PI * 2);
+    k.arc(px, py, r * 0o13/0o40, 0, Math.PI * 2);
     k.fillStyle = "#ffffff";
     k.fill();
   }

@@ -9,7 +9,7 @@ import { superelipso, kreiRinganSurfacon } from "./formoj.js";
 export function kreiBotan(): { boto: THREE.BufferGeometry; akcentaj: THREE.BufferGeometry } {
   // ⟨ ដីមកពីជង្គង់ 📃 ⟩
   // ⟨ បាតជើងអណ្តែត 0.002 លើដី 📃 ⟩
-  const GRUNDO = -0o1/0o2 + 0.002;
+  const GRUNDO = -0o1/0o2 + 0o0/0o10;
   const PLANDA_ALTO = 0o3/0o200;
   const PLANDA_SUPRO = GRUNDO + PLANDA_ALTO;
   // ⟨ ស្បែកបញ្ចប់ក្រោមបាតជើង 📃 ⟩

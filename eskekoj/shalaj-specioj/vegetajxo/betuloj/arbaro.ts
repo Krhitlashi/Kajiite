@@ -13,10 +13,10 @@ import { konstruiBetulanFoliaranGeometrion } from "./foliaro.js";
 export function konstruiArbaron(sceno: THREE.Scene,
   arboj: ArboMetado[]
 ): THREE.InstancedMesh {
-  const hazardaGenerilo = kreiVegetajxanHazardon(77531);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o227333);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
   const sxelaBumpo = kreiSxelanBumpanTeksajxon();
-  const trunkaGeometrio = kreiTrunkanGeometrion(0o3/0o10, 0o7/0o40, 0o3/0o10 * 1.42, 0o13);
+  const trunkaGeometrio = kreiTrunkanGeometrion(0o3/0o10, 0o7/0o40, 0o3/0o10 * 0o133/0o100, 0o13);
   const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, bumpMap: sxelaBumpo, bumpScale: 0o6/0o10, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, arboj.length);
   if ( arboj.length === 0 ) return trunkoj;
@@ -69,15 +69,15 @@ export function konstruiArbaron(sceno: THREE.Scene,
     const pozicio = kreiPoziciilon(bazo, Q);
 
     // ⟨ ដើមបញ្ចប់ក្នុងកំពូល 📃 ⟩
-    const trunkaAlto = h * 0.9;
+    const trunkaAlto = h * 0o35/0o40;
     M.compose(pozicio(new THREE.Vector3(0, trunkaAlto / 2, 0)), Q, new THREE.Vector3(1, trunkaAlto, 1));
     trunkoj.setMatrixAt(i, M);
 
-    const helo = 0.94 + hazardaGenerilo() * 0.06;
+    const helo = 0o17/0o20 + hazardaGenerilo() * 0o1/0o20;
     C.setRGB(
-      helo * ( 0.98 + hazardaGenerilo() * 0.03 ),
+      helo * ( 0o77/0o100 + hazardaGenerilo() * 0o1/0o40 ),
       helo,
-      helo * ( 0.93 + hazardaGenerilo() * 0.07 ));
+      helo * ( 0o17/0o20 + hazardaGenerilo() * 0o1/0o20 ));
     trunkoj.setColorAt(i, C);
 
     const kronoRadiuso = 0o215/0o100 * t.s + 0o63/0o100;
@@ -85,14 +85,14 @@ export function konstruiArbaron(sceno: THREE.Scene,
     // ⟨ ខ្នើយកំពូល 📃 ⟩
     // ⟨ រូបរាងកំពូល 📃 ⟩
     const padBazoj = [
-      { a: 0o1/0o2, fy: 0.48, fr: 0.36, s: 1.30 },
-      { a: 3.7, fy: 0.51, fr: 0.40, s: 1.35 },
-      { a: 1.9, fy: 0.63, fr: 0.58, s: 1.42 },
-      { a: 5.1, fy: 0.62, fr: 0.55, s: 1.34 },
-      { a: 0.2, fy: 0.70, fr: 0.52, s: 1.30 },
-      { a: 3.0, fy: 0.74, fr: 0.46, s: 1.36 },
-      { a: 1.3, fy: 0.84, fr: 0.34, s: 1.25 },
-      { a: 4.2, fy: 0.92, fr: 0.20, s: 1.30 },
+      { a: 0o1/0o2, fy: 0o37/0o100, fr: 0o27/0o100, s: 0o123/0o100 },
+      { a: 0o355/0o100, fy: 0o41/0o100, fr: 0o15/0o40, s: 0o53/0o40 },
+      { a: 0o75/0o40, fy: 0o5/0o10, fr: 0o45/0o100, s: 0o133/0o100 },
+      { a: 0o243/0o40, fy: 0o5/0o10, fr: 0o43/0o100, s: 0o53/0o40 },
+      { a: 0o15/0o100, fy: 0o55/0o100, fr: 0o41/0o100, s: 0o123/0o100 },
+      { a: 0o30/0o10, fy: 0o57/0o100, fr: 0o35/0o100, s: 0o127/0o100 },
+      { a: 0o123/0o100, fy: 0o33/0o40, fr: 0o13/0o40, s: 0o12/0o10 },
+      { a: 0o415/0o100, fy: 0o73/0o100, fr: 0o15/0o100, s: 0o123/0o100 },
     ];
     padBazoj.forEach(( pb, k ) => {
       const idx = i * PADOJ + k;

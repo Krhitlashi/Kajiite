@@ -16,12 +16,12 @@ export function konstruiFilikojn(sceno: THREE.Scene,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = kreiVegetajxanHazardon(55661);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o154555);
   const filikaTeksajxo = kreiFilikanTeksajxon();
 
   // ⟨ ហ្វីលីកាបីវិមាត្រ 📃 ⟩
   // ⟨ សមាមាត្រ 📃 ⟩
-  const filikaGeometrio = konstruiFrondanKronon(0o11, 0.32, 1.05, 0.20, 0.012, 0.62);
+  const filikaGeometrio = konstruiFrondanKronon(0o11, 0o5/0o20, 0o103/0o100, 0o15/0o100, 0o1/0o100, 0o5/0o10);
   const filikaMaterialo = new THREE.MeshStandardMaterial({ map: filikaTeksajxo, alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 });
   const filikoj = new THREE.InstancedMesh(filikaGeometrio, filikaMaterialo, kvanto);
 
@@ -80,8 +80,8 @@ export function konstruiMetitanFilikon(sceno: THREE.Scene,
 ): THREE.InstancedMesh {
   const filikaTeksajxo = filikaSpeco === 1 ? kreiPurpuranFrondanTeksajxon(true) : kreiFilikanTeksajxon();
   const filikaGeometrio = filikaSpeco === 1
-    ? konstruiPurpuranRozeton(1.35, 0o13, 0.30, true)
-    : konstruiFilikanRozeton(1.30, 0o11, 0.20);
+    ? konstruiPurpuranRozeton(0o53/0o40, 0o13, 0o23/0o100, true)
+    : konstruiFilikanRozeton(0o123/0o100, 0o11, 0o15/0o100);
   const filikaMaterialo = new THREE.MeshStandardMaterial({ map: filikaTeksajxo, alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 });
   const filikoj = new THREE.InstancedMesh(filikaGeometrio, filikaMaterialo, 1);
   const M = new THREE.Matrix4();

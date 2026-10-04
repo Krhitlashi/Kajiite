@@ -68,7 +68,7 @@ export function eniriInternon(
     color: muraTipo.wall, roughness: 0o43/0o100, side: THREE.DoubleSide,
   });
   const plankSemo = ( ( spec.x * 0x9E3779B1 ) ^ ( spec.z * 0x85EBCA77 ) ^
-    spec.name.split("").reduce(( h, ch ) => ( h * 31 + ch.charCodeAt(0) ) | 0, 0) ) >>> 0;
+    spec.name.split("").reduce(( h, ch ) => ( h * 0o37 + ch.charCodeAt(0) ) | 0, 0) ) >>> 0;
   const plankoMaterialo = new THREE.MeshStandardMaterial({
     color: 0xffffff, map: generiPlankanTeksajxon(muraTipo.wall, muraTipo.frame, plankSemo), roughness: 0o55/0o100,
   });
@@ -78,7 +78,7 @@ export function eniriInternon(
   const kadraMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o7/0o10, roughness: 0o13/0o40 });
   const fenestraMaterialo = kreiFenestranMaterialon();
   const sxtupMaterialo = new THREE.MeshStandardMaterial({
-    color: parseInt(malheligi(deksesuma(muraTipo.wall), 0o6/0o10).slice(1), 16), roughness: 0o67/0o100,
+    color: parseInt(malheligi(deksesuma(muraTipo.wall), 0o6/0o10).slice(1), 0o20), roughness: 0o67/0o100,
   });
   const oraBazaMaterialo = new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0o3/0o10 });
 
@@ -267,7 +267,7 @@ export function eniriInternon(
       tolaKoloro, kusenaKoloro, sys.litkoj);
 
     if ( spec.type !== "kasafeo" && hw > 0o3/0o2 ) {
-      const trabaMaterialo = new THREE.MeshStandardMaterial({ color: parseInt(malheligi(deksesuma(muraTipo.wall), 0o3/0o10).slice(1), 16), roughness: 0o67/0o100 });
+      const trabaMaterialo = new THREE.MeshStandardMaterial({ color: parseInt(malheligi(deksesuma(muraTipo.wall), 0o3/0o10).slice(1), 0o20), roughness: 0o67/0o100 });
       for ( let i = 0; i < 2; i++ ) {
         const tx = ( i - 0o4/0o10 ) * hw * 0o7/0o10;
         const trabo = new THREE.Mesh(

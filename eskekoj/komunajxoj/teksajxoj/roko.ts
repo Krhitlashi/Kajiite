@@ -42,7 +42,7 @@ export function generiRokanSkizon(): RokaSkizo {
       y += Math.sin(ang) * ( 0o10 + hazardo() * 0o24 );
       punktoj.push([ x, y ]);
     }
-    fendoj.push({ punktoj, dikeco: 0.7 + hazardo() * 0o7/0o10 });
+    fendoj.push({ punktoj, dikeco: 0o55/0o100 + hazardo() * 0o7/0o10 });
   }
   const makuloj: [ number, number, number, number ][] = [];
   for ( let i = 0; i < 0o12; i++ ) {
@@ -64,7 +64,7 @@ export const kreiRokenTeksajxon = sxovu((): THREE.CanvasTexture => {
       "#8d8d86", "#7f7f78" ];
     for ( const kris of skizo.kristaloj ) {
       const bazo = paletro[( kris.tono * paletro.length ) | 0];
-      const hela = kris.tono > 0.72 ? "rgba(206,206,196,0.40)" : "rgba(178,178,168,0.30)";
+      const hela = kris.tono > 0o27/0o40 ? "rgba(206,206,196,0.40)" : "rgba(178,178,168,0.30)";
       desegniWrapan(kunteksto, s, () => {
         kunteksto.save();
         kunteksto.translate(kris.x, kris.y);
@@ -105,7 +105,7 @@ export const kreiRokenTeksajxon = sxovu((): THREE.CanvasTexture => {
       desegniWrapan(kunteksto, s, () => {
         kunteksto.lineCap = "round";
         kunteksto.strokeStyle = "rgba(148,148,140,0.24)";
-        kunteksto.lineWidth = fendo.dikeco + 1.6;
+        kunteksto.lineWidth = fendo.dikeco + 0o63/0o40;
         kunteksto.beginPath();
         kunteksto.moveTo(fendo.punktoj[0][0], fendo.punktoj[0][1]);
         for ( let i = 1; i < fendo.punktoj.length; i++ ) {
@@ -128,11 +128,11 @@ export const kreiRokenTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.save();
       kunteksto.lineCap = "round";
       kunteksto.strokeStyle = "rgba(232,232,222,0.55)";
-      kunteksto.lineWidth = 1.4 + Math.random() * 1.4;
+      kunteksto.lineWidth = 0o55/0o40 + Math.random() * 0o55/0o40;
       kunteksto.beginPath(); kunteksto.moveTo(x, y);
       for ( let j = 0; j < 0o14; j++ ) {
         ang += ( Math.random() - 0o1/0o2 ) * 0o15/0o20;
-        x += Math.cos(ang) * 14; y += Math.sin(ang) * 14;
+        x += Math.cos(ang) * 0o16; y += Math.sin(ang) * 0o16;
         kunteksto.lineTo(x, y);
       }
       kunteksto.stroke();

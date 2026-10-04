@@ -255,10 +255,10 @@ export function spacigiInstancojn(radiko: THREE.Object3D,
     ujoj.clear();
     let maksSkalo = 0;
     for (let i = 0; i < nombro; i++) {
-      const o = i * 16;
+      const o = i * 0o20;
       const skalo = Math.hypot(areo[o], areo[o + 1], areo[o + 2]);
       if (skalo > maksSkalo) maksSkalo = skalo;
-      const ŝlosilo = Math.floor(areo[o + 12] / tabelo) * 0o100000 + Math.floor(areo[o + 14] / tabelo);
+      const ŝlosilo = Math.floor(areo[o + 0o14] / tabelo) * 0o100000 + Math.floor(areo[o + 0o16] / tabelo);
       let ujo = ujoj.get(ŝlosilo);
       if (ujo === undefined) ujoj.set(ŝlosilo, ujo = []);
       ujo.push(i);
@@ -276,7 +276,7 @@ export function spacigiInstancojn(radiko: THREE.Object3D,
       const peco = new THREE.InstancedMesh(m.geometry, m.material, indeksoj.length);
       const pecaAreo = peco.instanceMatrix.array as Float32Array;
       for (let k = 0; k < indeksoj.length; k++) {
-        pecaAreo.set(areo.subarray(indeksoj[k] * 16, indeksoj[k] * 16 + 16), k * 16);
+        pecaAreo.set(areo.subarray(indeksoj[k] * 0o20, indeksoj[k] * 0o20 + 0o20), k * 0o20);
       }
       peco.count = indeksoj.length;
       peco.instanceMatrix.needsUpdate = true;

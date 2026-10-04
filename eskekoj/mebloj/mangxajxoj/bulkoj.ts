@@ -19,7 +19,7 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
   bulko.castShadow = true;
   g.add(bulko);
   // ⟨ ផ្នត់ 📃 ⟩
-  const faldaj = 8;
+  const faldaj = 0o10;
   for ( let i = 0; i < faldaj; i++ ) {
     const ang = i / faldaj * Math.PI * 2;
     const foldo = new THREE.Mesh(new THREE.CylinderGeometry(0o1/0o50, 0o3/0o100, 0o4/0o100, 4), karno);
@@ -29,7 +29,7 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
     foldo.castShadow = true;
     g.add(foldo);
   }
-  const pinto = new THREE.Mesh(new THREE.SphereGeometry(0o3/0o100, 0o10, 8), karno);
+  const pinto = new THREE.Mesh(new THREE.SphereGeometry(0o3/0o100, 0o10, 0o10), karno);
   pinto.position.y = 0o16/0o100;
   g.add(pinto);
   // ⟨ កន្ត្រក 📃 ⟩
@@ -98,7 +98,7 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
     tigo.rotation.z = 0o5/0o10;
     g.add(tigo);
     for ( let i = 0; i < 3; i++ ) {
-      const folio = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o50, 8, 6), mento);
+      const folio = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o50, 0o10, 6), mento);
       folio.scale.set(0o6/0o10, 0o3/0o10, 1);
       folio.position.set(i * 0o1/0o100 - 0o1/0o50, pintoY + 0o12/0o100 + i * 0o1/0o100, 0);
       folio.rotation.z = 0o15/0o10 - i * 0o1/0o10;

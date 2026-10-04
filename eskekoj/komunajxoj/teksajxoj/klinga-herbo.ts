@@ -9,27 +9,27 @@ export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
     const gradiento = kunteksto.createLinearGradient(0, h, 0, 0);
     gradiento.addColorStop(0, "#23481a");
     gradiento.addColorStop(0o1/0o4, "#3d7529");
-    gradiento.addColorStop(0.55, "#5d9c37");
-    gradiento.addColorStop(0.82, "#8cbb4d");
+    gradiento.addColorStop(0o43/0o100, "#5d9c37");
+    gradiento.addColorStop(0o15/0o20, "#8cbb4d");
     gradiento.addColorStop(1, "#c0c25e");
     kunteksto.fillStyle = gradiento;
     kunteksto.fillRect(0, 0, w, h);
     const meza = w / 2;
     const kresto = kunteksto.createLinearGradient(meza - 6, 0, meza + 6, 0);
     kresto.addColorStop(0, "rgba(18,44,12,0.30)");
-    kresto.addColorStop(0.35, "rgba(216,240,170,0.28)");
+    kresto.addColorStop(0o13/0o40, "rgba(216,240,170,0.28)");
     kresto.addColorStop(0o1/0o2, "rgba(228,248,186,0.34)");
-    kresto.addColorStop(0.65, "rgba(216,240,170,0.28)");
+    kresto.addColorStop(0o25/0o40, "rgba(216,240,170,0.28)");
     kresto.addColorStop(1, "rgba(18,44,12,0.30)");
     kunteksto.fillStyle = kresto;
-    kunteksto.fillRect(meza - 6, 0, 12, h);
+    kunteksto.fillRect(meza - 6, 0, 0o14, h);
     const hazardo = kreiHazardanGenerilon(0o2717);
     for ( let i = 0; i < 0o22; i++ ) {
       const x = hazardo() * w;
       const disto = Math.abs(x - meza) / meza;
       kunteksto.fillStyle = hazardo() < 0o1/0o2
-        ? `rgba(28,58,18,${0.10 + disto * 0.12})`
-        : `rgba(190,224,140,${0.07 + ( 1 - disto ) * 0.10})`;
+        ? `rgba(28,58,18,${0o3/0o40 + disto * 0o1/0o10})`
+        : `rgba(190,224,140,${0o1/0o20 + ( 1 - disto ) * 0o3/0o40})`;
       kunteksto.fillRect(x, 0, 1, h);
     }
     kunteksto.fillStyle = "rgba(20,44,14,0.34)";

@@ -7,15 +7,15 @@ export function kreiPussxlefojnBerojn(g: THREE.Object3D, plantoj: { x: number; h
   if ( plantoj.length === 0 ) return items;
   const f = PUSSXLEFO_BEROJ[0];
   const beroGeometrio = new THREE.SphereGeometry(1, 0o10, 0o10);
-  const kernoGeometrio = new THREE.SphereGeometry(1, 8, 6);
+  const kernoGeometrio = new THREE.SphereGeometry(1, 0o10, 6);
   const beroMaterialo = new THREE.MeshStandardMaterial({
     color: f.col, transparent: true, opacity: 0o45 / 0o100, roughness: 0o15/0o100, depthWrite: false,
   });
   const kernoMaterialo = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0o35/0o100 });
   // ⟨ ប្រវែងកាត់ចុងដើម 📃 ⟩
   const trunkopintaProfilon = ( t: number ): number => {
-    if ( t <= 0.88 ) return 1;
-    const u = Math.min(1, ( t - 0.88 ) / 0.12);
+    if ( t <= 0o7/0o10 ) return 1;
+    const u = Math.min(1, ( t - 0o7/0o10 ) / ( 0o1/0o10 ));
     return Math.sqrt(Math.max(0, 1 - u * u));
   };
   for ( const p of plantoj ) {

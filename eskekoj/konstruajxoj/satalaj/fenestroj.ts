@@ -28,7 +28,7 @@ export function fenestraMargxeno(facaRadiusoLarga: number): number {
 // ⟨ គ្មានរឹម 📃 ⟩
 export function fenestraLargho(facaRadiuso: number, fenAlto: number, margxeno?: number): number {
   if ( margxeno !== undefined ) return facaRadiuso * 2 - margxeno * 2;
-  return Math.min(facaRadiuso * 2 - 0o3/0o10, facaRadiuso * 4/3 + 0o1/0o4, fenAlto * 9);
+  return Math.min(facaRadiuso * 2 - 0o3/0o10, facaRadiuso * 4/3 + 0o1/0o4, fenAlto * 0o11);
 }
 
 // ⟨ ពេលវាមានប្រយោជន៍ 📃 ⟩

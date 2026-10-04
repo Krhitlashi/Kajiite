@@ -17,7 +17,7 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const r = s * ( 0o2/0o100 + Math.random() * 0o5/0o100 );
       const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-      const koloro = i % 0o3 ? "rgba(228,242,224,0.22)" : ombro(BAZO, 0o10, 0.16);
+      const koloro = i % 0o3 ? "rgba(228,242,224,0.22)" : ombro(BAZO, 0o10, 0o5/0o40);
       g.addColorStop(0, koloro);
       g.addColorStop(1, senAlfa(koloro));
       kunteksto.fillStyle = g;
@@ -68,7 +68,7 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const angulo = Math.random() * Math.PI * 2;
       const longo = 0o1 + Math.random() * 0o3;
-      kunteksto.strokeStyle = i % 0o3 ? ombro(BAZO, 0o5, 0.22) : "rgba(222,238,216,0.26)";
+      kunteksto.strokeStyle = i % 0o3 ? ombro(BAZO, 0o5, 0o7/0o40) : "rgba(222,238,216,0.26)";
       kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(x, y);

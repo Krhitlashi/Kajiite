@@ -28,15 +28,15 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
   gardiloLim = 0o10000
 ): void {
   // ⟨ រុក្ខជាតិបីវិមាត្រ 📃 ⟩
-  const filikaGeometrio = konstruiFilikanRozeton(1.35, 0o11, 0.20);
+  const filikaGeometrio = konstruiFilikanRozeton(0o53/0o40, 0o11, 0o15/0o100);
   const filikoj = new THREE.InstancedMesh(filikaGeometrio,
     new THREE.MeshStandardMaterial({ map: kreiFilikanTeksajxon(), alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 }), kvanto);
 
-  const purpuraGeometrio = konstruiPurpuranRozeton(1.55, 0o12, 0.22);
+  const purpuraGeometrio = konstruiPurpuranRozeton(0o143/0o100, 0o12, 0o7/0o40);
   const purpuraj = new THREE.InstancedMesh(purpuraGeometrio,
     new THREE.MeshStandardMaterial({ map: kreiPurpuranFrondanTeksajxon(), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), kvanto);
 
-  const malaltaGeometrio = konstruiPurpuranRozeton(0.95, 0o15, 0.32, true);
+  const malaltaGeometrio = konstruiPurpuranRozeton(0o75/0o100, 0o15, 0o5/0o20, true);
   const malaltaj = new THREE.InstancedMesh(malaltaGeometrio,
     new THREE.MeshStandardMaterial({ map: kreiPurpuranFrondanTeksajxon(true), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), kvanto);
 
@@ -130,8 +130,8 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
       const jaro = hazardaGenerilo() * Math.PI * 2;
       metiYaw(altajTrunkoj, ta, x, y + altaSpeco.trunkaAlto * skalo / 2, z, skalo, jaro);
       metiYaw(altajKronoj, ta, x, y, z, skalo, jaro);
-      const helo = 0.92 + hazardaGenerilo() * 0.08;
-      C.setRGB(helo, helo * 0.98, helo * 1.02);
+      const helo = 0o73/0o100 + hazardaGenerilo() * 0o5/0o100;
+      C.setRGB(helo, helo * 0o77/0o100, helo * 0o101/0o100);
       altajTrunkoj.setColorAt(ta, C);
       ta++;
     } else if ( speco < 0o11/0o10 ) {
@@ -143,7 +143,7 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
       normalo.crossVectors(enZ, enX).normalize();
       const vert = normalo.y;
       const horiz = Math.hypot(normalo.x, normalo.z);
-      const maxKruteco = Math.PI / 16;
+      const maxKruteco = Math.PI / 0o20;
       if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(vert, 0o1/0o2000)) > maxKruteco ) {
         const u = Math.tan(maxKruteco);
         const hx = normalo.x / horiz;
@@ -167,7 +167,7 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
       normalo.crossVectors(enZ, enX).normalize();
       const vert = normalo.y;
       const horiz = Math.hypot(normalo.x, normalo.z);
-      const maxKruteco = Math.PI / 16;
+      const maxKruteco = Math.PI / 0o20;
       if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(vert, 0o1/0o2000)) > maxKruteco ) {
         const u = Math.tan(maxKruteco);
         const hx = normalo.x / horiz;

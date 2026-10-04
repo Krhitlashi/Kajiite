@@ -70,7 +70,7 @@ export async function konstruiUrbon(
 ): Promise<UrbaSistemo> {
   // ⟪ វឌ្ឍនភាពផ្ទុក 📃 ⟫
   const jesi = (): Promise<void> => new Promise(r => setTimeout(r, 0));
-  const STAGOJ = 12;
+  const STAGOJ = 0o14;
   let stago = 0;
   const raporti = async (): Promise<void> => {
     stago = Math.min(STAGOJ, stago + 1);
@@ -392,7 +392,7 @@ export async function konstruiUrbon(
   konstruiHerbonCxirkauLagon(sceno, 0o300, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53122);
   konstruiCakeojn(sceno, 0o110, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
-    ekskluziviKonstruajxon, ekskluziviVojojn, 11605, EKVIZETO_BIOMOJ);
+    ekskluziviKonstruajxon, ekskluziviVojojn, 0o26525, EKVIZETO_BIOMOJ);
   konstruiLaganSubkreskajxojn(sceno, 0o470, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     [ ...lagArboj, ...lagLarikoj, ...lagHxsxaksxlefoj ], [ ...lagArboj, ...lagLarikoj, ...lagHxsxaksxlefoj ],
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53134, VALAJ_BIOMOJ);
@@ -425,7 +425,7 @@ export async function konstruiUrbon(
     -0o350, 0o64, MONTAJ_BIOMOJ);
   const neLarikaTrunkoj = konstruiLarikon(sceno, neLarikoj);
   const neRokoj = konstruiMontajnRokojn(sceno, 0o40, alteco, ekskluziviRiveron, ekskluziviVojojn,
-    624513, -0o350, 0o64, 0o40, 0o100, MONTAJ_BIOMOJ, ekskluziviKonstruajxon);
+    0o2303601, -0o350, 0o64, 0o40, 0o100, MONTAJ_BIOMOJ, ekskluziviKonstruajxon);
   konstruiLikenojn(sceno, 0o60, alteco, [ ...neLarikoj, ...neBetuloj ], neRokoj,
     ekskluziviRiveron, ekskluziviVojojn, true, ekskluziviKonstruajxon);
   konstruiTrunkajnLikenojn(sceno, [ neLarikaTrunkoj, neBetulaTrunkoj ], 0o62450);

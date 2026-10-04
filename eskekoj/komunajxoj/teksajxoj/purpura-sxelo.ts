@@ -46,7 +46,7 @@ export function generiPuranSxelanSkizon(): PuraSxelaSkizo {
     makuloj.push({
       x: w * ( i + 0o1/0o2 + ( j % 2 === 0 ? 0o1/0o4 : -0o1/0o4 ) ) / kolumnoj,
       y: h * ( j + 0o1/0o2 ) / vicoj,
-      r: h * 0.014,
+      r: h * 0o1/0o100,
       hela: ( i + j ) % 2 === 0,
     });
   }
@@ -74,7 +74,7 @@ export const SXELA_KOLUMO_NOMBRO = 0o10;
 
 export const SXELA_KOLUMO_BAZO = 0o1/0o20;
 
-export const SXELA_KOLUMO_MEZO = 0.96;
+export const SXELA_KOLUMO_MEZO = 0o75/0o100;
 
 export function desegniLaSxelanKolumon(k: CanvasRenderingContext2D,
   bando: [ string, string ], skvamo: string, vejno: string): void {
@@ -118,8 +118,8 @@ export function desegniLaSxelanKolumon(k: CanvasRenderingContext2D,
 
 export const SXELA_BAZAJ_HALTOJ: [ number, [ number, number, number ] ][] = [
   [ 0, [ 0x38, 0x20, 0x3e ] ],
-  [ 0.35, [ 0x4c, 0x2c, 0x54 ] ],
-  [ 0.72, [ 0x5e, 0x3a, 0x60 ] ],
+  [ 0o13/0o40, [ 0x4c, 0x2c, 0x54 ] ],
+  [ 0o27/0o40, [ 0x5e, 0x3a, 0x60 ] ],
   [ 1, [ 0x6e, 0x46, 0x6a ] ],
 ];
 

@@ -355,7 +355,7 @@ function buklo(){
   // ការមើលជាមុនវត្ថុ ។ ទិដ្ឋភាពបង្វិលយឺតៗនៃប្រភេទដែលបានជ្រើស
   // ( តែពេលឧបករណ៍វត្ថុបើក ។ បើមិនដូច្នេះផ្ទាំងត្រូវបានលាក់ )។
   if ( objektaAntauxRenderilo && objektaAntauxGrupo && objektaModo && objektaAntauxSceno && objektaAntauxFotilo ) {
-    objektaAntauxGrupo.rotation.y = performance.now() / 0o1750 * 0.4;
+    objektaAntauxGrupo.rotation.y = performance.now() / 0o1750 * 0o15/0o40;
     objektaAntauxRenderilo.render(objektaAntauxSceno, objektaAntauxFotilo);
   }
   requestAnimationFrame(buklo);
@@ -370,7 +370,7 @@ const prematajKlavoj = new Set<string>();
 function moviKlavare(){
   if ( !triaDimensia ) {
     // ផែនទី 2D ។ WASD/ព្រួញ អូសផែនទី +/- ពង្រីក។
-    const rapido = prematajKlavoj.has("Shift") ? 4 : 1.6;
+    const rapido = prematajKlavoj.has("Shift") ? 4 : 0o63/0o40;
     const paŝo = rapido / vidSkalo;
     let sxangxo = false;
     // klavoDeKodo បានផ្គូផ្គងគ្រាប់ចុចព្រួញទៅ w/a/s/d រួចហើយ ។ មានតែអក្សរ និង
@@ -379,8 +379,8 @@ function moviKlavare(){
     if ( prematajKlavoj.has("s") ) { vidCZ -= paŝo; sxangxo = true; }
     if ( prematajKlavoj.has("a") ) { vidCX += paŝo; sxangxo = true; }
     if ( prematajKlavoj.has("d") ) { vidCX -= paŝo; sxangxo = true; }
-    if ( prematajKlavoj.has("zomi") ) { vidSkalo = Math.min(4, vidSkalo * 1.04); sxangxo = true; }
-    if ( prematajKlavoj.has("malzomi") ) { vidSkalo = Math.max(minimaSkalo(), vidSkalo * 0.96); sxangxo = true; }
+    if ( prematajKlavoj.has("zomi") ) { vidSkalo = Math.min(4, vidSkalo * 0o103/0o100); sxangxo = true; }
+    if ( prematajKlavoj.has("malzomi") ) { vidSkalo = Math.max(minimaSkalo(), vidSkalo * 0o75/0o100); sxangxo = true; }
     if ( sxangxo ) bezonoDesegno = true;
     return;
   }
@@ -389,7 +389,7 @@ function moviKlavare(){
   // រអិលដោយមិនបង្វិល។ ល្បឿនតាមចម្ងាយទៅគោលដៅ ដូច្នេះទិដ្ឋភាព
   // ឆ្ងាយផ្លាស់ទីលឿនជាងជិត។
   const disto = fotilo3d.position.distanceTo(regiloj3d.target);
-  const rapido = ( prematajKlavoj.has("Shift") ? 3 : 1 ) * Math.max(1, disto * 0.02);
+  const rapido = ( prematajKlavoj.has("Shift") ? 3 : 1 ) * Math.max(1, disto * 0o1/0o100);
   const antaŭen = new THREE.Vector3().subVectors(regiloj3d.target, fotilo3d.position);
   antaŭen.y = 0;
   if ( antaŭen.lengthSq()< 1e-6 ) antaŭen.set(0, 0, -1);
@@ -401,8 +401,8 @@ function moviKlavare(){
   if ( prematajKlavoj.has("s") ) movo.addScaledVector(antaŭen, -rapido);
   if ( prematajKlavoj.has("d") ) movo.addScaledVector(dekstren, rapido);
   if ( prematajKlavoj.has("a") ) movo.addScaledVector(dekstren, -rapido);
-  if ( prematajKlavoj.has("e") ) movo.y += rapido * 0.8;
-  if ( prematajKlavoj.has("q") ) movo.y -= rapido * 0.8;
+  if ( prematajKlavoj.has("e") ) movo.y += rapido * 0o63/0o100;
+  if ( prematajKlavoj.has("q") ) movo.y -= rapido * 0o63/0o100;
   if ( movo.lengthSq()=== 0 ) return;
   regiloj3d.target.add(movo);
   fotilo3d.position.add(movo);

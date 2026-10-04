@@ -49,7 +49,7 @@ export function kreiSxelanRinganMaterialon(ripetoY: number, taso: boolean,
 }
 
 // ⟨ ចុងដើម 📃 ⟩
-const TRUNKOPINTA_KOMENCO = 0.88;
+const TRUNKOPINTA_KOMENCO = 0o7/0o10;
 export function trunkopintaProfilon(t: number): number {
   if ( t <= TRUNKOPINTA_KOMENCO ) return 1;
   const u = Math.min(1, ( t - TRUNKOPINTA_KOMENCO ) / ( 1 - TRUNKOPINTA_KOMENCO ));

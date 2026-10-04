@@ -16,25 +16,25 @@ export function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeomet
   const KLINGOJ = 0o34;
   for ( let i = 0; i < KLINGOJ; i++ ) {
     const ang = hazardo() * Math.PI * 2;
-    const r = 0.17 * Math.sqrt(hazardo());
+    const r = 0o13/0o100 * Math.sqrt(hazardo());
     const bazoX = Math.cos(ang) * r, bazoZ = Math.sin(ang) * r;
-    const elen = 0o5/0o10 + r * 0.7;
+    const elen = 0o5/0o10 + r * 0o55/0o100;
     // ⟨ ស្លឹកធំទូលាយ 📃 ⟩
     // ⟨ ទាប 📃 ⟩
-    const longo = 0.42 + hazardo() * 0.6;
-    const largho = ( 0.026 + hazardo() * 0.016 ) * ( 0.72 + longo * 0.4 );
+    const longo = 0o33/0o100 + hazardo() * 0o23/0o40;
+    const largho = ( 0o1/0o40 + hazardo() * 0o1/0o100 ) * ( 0o27/0o40 + longo * 0o15/0o40 );
     // ⟨ ធ្នូចុង 📃 ⟩
-    const arkaFaktoro = 0.55 + r * 2.2;
-    const klino = Math.cos(ang) * elen * ( 0.35 + hazardo() * 0.65 )
-      + ( hazardo() - 0o1/0o2 ) * 0.16;
-    const arko = Math.sin(ang) * elen * ( 0.35 + hazardo() * 0.65 ) * arkaFaktoro
-      + ( hazardo() - 0o1/0o2 ) * 0.16;
-    const tordo = ( hazardo() - 0o1/0o2 ) * 1.2;
+    const arkaFaktoro = 0o43/0o100 + r * 0o215/0o100;
+    const klino = Math.cos(ang) * elen * ( 0o13/0o40 + hazardo() * 0o25/0o40 )
+      + ( hazardo() - 0o1/0o2 ) * 0o5/0o40;
+    const arko = Math.sin(ang) * elen * ( 0o13/0o40 + hazardo() * 0o25/0o40 ) * arkaFaktoro
+      + ( hazardo() - 0o1/0o2 ) * 0o5/0o40;
+    const tordo = ( hazardo() - 0o1/0o2 ) * 0o115/0o100;
     const sekaKlingo = i % 0o4 === 0o1;
     if ( sekaKlingo ) {
-      seka.setRGB(1.06, 0.84 + hazardo() * 0o1/0o10, 0.34 + hazardo() * 0.16 );
+      seka.setRGB(0o21/0o20, 0o33/0o40 + hazardo() * 0o1/0o10, 0o13/0o40 + hazardo() * 0o5/0o40 );
     } else {
-      verda.setRGB(0.72 + hazardo() * 0.34, 0.8 + hazardo() * 0.28, 0.62 + hazardo() * 0.3);
+      verda.setRGB(0o27/0o40 + hazardo() * 0o13/0o40, 0o63/0o100 + hazardo() * 0o11/0o40, 0o5/0o10 + hazardo() * 0o23/0o100);
     }
     const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
       sekaKlingo ? seka : verda);
@@ -52,7 +52,7 @@ export function konstruiHerbon(sceno: THREE.Scene,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = kreiVegetajxanHazardon(44261);
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o126345);
   // ⟨ ស្លឹកពិត 📃 ⟩
   const herbaMaterialo = kreiHerbanMaterialon();
   const herboj = new THREE.InstancedMesh(konstruiHerbanTufanGeometrion(), herbaMaterialo, kvanto);
@@ -79,14 +79,14 @@ export function konstruiHerbon(sceno: THREE.Scene,
 
     // ⟨ គ្មានដុំឈរត្រង់ 📃 ⟩
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
-    E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0.16,
+    E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40,
       hazardaGenerilo() * Math.PI * 2,
-      ( hazardaGenerilo() - 0o1/0o2 ) * 0.16);
+      ( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,
-      new THREE.Vector3(skalo * ( 0.85 + hazardaGenerilo() * 0.3 ),
-        skalo * ( 0o3/0o4 + hazardaGenerilo() * 0.55 ),
-        skalo * ( 0.85 + hazardaGenerilo() * 0.3 )));
+      new THREE.Vector3(skalo * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 ),
+        skalo * ( 0o3/0o4 + hazardaGenerilo() * 0o43/0o100 ),
+        skalo * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 )));
     herboj.setMatrixAt(hi++, M);
     metitajHasho.meti(x, z, [ x, z ]);
   }
@@ -131,14 +131,14 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
 
     // ⟨ គ្មានដុំឈរត្រង់ 📃 ⟩
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
-    E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0.16,
+    E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40,
       hazardaGenerilo() * Math.PI * 2,
-      ( hazardaGenerilo() - 0o1/0o2 ) * 0.16);
+      ( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,
-      new THREE.Vector3(skalo * ( 0.85 + hazardaGenerilo() * 0.3 ),
-        skalo * ( 0o3/0o4 + hazardaGenerilo() * 0.55 ),
-        skalo * ( 0.85 + hazardaGenerilo() * 0.3 )));
+      new THREE.Vector3(skalo * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 ),
+        skalo * ( 0o3/0o4 + hazardaGenerilo() * 0o43/0o100 ),
+        skalo * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 )));
     herboj.setMatrixAt(hi++, M);
     metitajHasho.meti(x, z, [ x, z ]);
   }
