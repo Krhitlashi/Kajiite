@@ -1,4 +1,5 @@
 // ≺⧼ ការគណនាទឹក 🌊 ⧽≻
+import { katmullRom } from "../komunajxoj/interpolo.js";
 
 export interface AkvaFonto {
   x: number;
@@ -253,6 +254,21 @@ export function specimenoDulineara( krado: Float32Array | Uint8Array,
   const a = krado[j0 * n + i0], b = krado[j0 * n + i0 + 1];
   const c = krado[( j0 + 1 ) * n + i0], d = krado[( j0 + 1 ) * n + i0 + 1];
   return a * ( 1 - u ) * ( 1 - v ) + b * u * ( 1 - v ) + c * ( 1 - u ) * v + d * u * v;
+}
+
+export function specimenoBikuba( krado: Float32Array,
+  n: number, paso: number, origino: number[], x: number, z: number ): number {
+  const fx = ( x - origino[0] ) / paso, fz = ( z - origino[1] ) / paso;
+  const i0 = Math.floor(fx), j0 = Math.floor(fz);
+  const u = fx - i0, v = fz - j0;
+  const val = ( i: number, j: number ): number => {
+    const ii = Math.max(0, Math.min(n - 1, i));
+    const jj = Math.max(0, Math.min(n - 1, j));
+    return krado[jj * n + ii];
+  };
+  const vico = ( j: number ): number =>
+    katmullRom(val(i0 - 1, j), val(i0, j), val(i0 + 1, j), val(i0 + 2, j), u);
+  return Math.max(0, katmullRom(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v));
 }
 
 export function akvoCxe( rezulto: AkvaKalkulo, n: number, paso: number,

@@ -48,6 +48,8 @@ const MALHERBO = new THREE.Color(0x405840);
 const MARĈO = new THREE.Color(0x404038);
 const SILTO = new THREE.Color(0x788878);
 const GRUZO = new THREE.Color(0x888888);
+// ⟨ ច្រាំងខ្សាច់ 📃 ⟩
+const SABLO = new THREE.Color(0x989880);
 const STRATO_TERO = new THREE.Color(0x3c4836);
 const STRATO_MALMOLA = new THREE.Color(0x50483c);
 const STRATO_ROKO = new THREE.Color(0x585a56);
@@ -61,11 +63,16 @@ function bordiKoloron(celo: THREE.Color, h: number, x: number, z: number,
     + ( bruo2D(x / 0o40, z / 0o40) - 0o4/0o10 ) * 0o2/0o10;
   const sup = h - ( niveloFn ? niveloFn(x, z) : AKVO_NIVELO );
   if ( sup > 0 ) {
-    // ⟨ លើទឹក 📃 ⟩
-    const malherbaF = Math.max(0, Math.min(1, ( 0o14/0o10 - sup + bordaBruo ) / ( 0o14/0o10 )));
-    const margxaF = Math.max(0, Math.min(1, ( 0o6/0o10 - sup + bordaBruo ) / ( 0o6/0o10 )));
-    celo.lerp(MALHERBO, malherbaF * 0o6/0o10);
-    celo.lerp(MARĈO, margxaF * 0o7/0o10);
+    // ⟨ ច្រាំងខ្សាច់ក្រៅទឹក 📃 ⟩
+    const sabloF = Math.max(0, Math.min(1, ( 0o11/0o10 - sup + bordaBruo ) / ( 0o11/0o10 )));
+    celo.lerp(SABLO, sabloF * 0o7/0o10);
+    // ⟨ គ្រួសតូចៗតាមច្រាំង 📃 ⟩
+    const gruzoF = Math.max(0, Math.min(1, ( 0o6/0o10 - sup + bordaBruo ) / ( 0o6/0o10 )));
+    const granulo = Math.max(0, Math.min(1, ( bruo2D(x / 0o2, z / 0o2) - 0o45/0o100 ) * 0o14/0o10 ));
+    celo.lerp(GRUZO, Math.min(1, gruzoF * granulo * 0o16/0o10));
+    // ⟨ ស្មៅសើមនៅឆ្ងាយបន្តិច 📃 ⟩
+    const malherbaF = Math.max(0, Math.min(1, ( 0o16/0o10 - sup + bordaBruo ) / ( 0o16/0o10 )));
+    celo.lerp(MALHERBO, malherbaF * 0o25/0o100);
     return;
   }
   // ⟨ ក្រោមទឹក 📃 ⟩

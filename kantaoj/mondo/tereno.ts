@@ -4,7 +4,7 @@ import { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO, SKULPTA_AKVOFONTOJ,
   SKULPTA_AKTIVA, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_PASO } from "../tero-datumaro/aktiva.js";
 import { cxuEnFormo } from "../../eskekoj/komunajxoj/mapformo.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
-import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima, specimenoDulineara,
+import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima, specimenoBikuba,
   limojDeAkvo, AkvaKalkulo } from "./akvokalkulo.js";
 
 export function riveroZ(x: number): number { return 0o14 * Math.sin(x * 0o1/0o100) - 0o160; }
@@ -167,7 +167,8 @@ const AKVA: AkvaKalkulo | null = ( () => {
 
 export function akvaEltrancxo(x: number, z: number): number {
   if ( !AKVA ) return 0;
-  return specimenoDulineara(AKVA.kavoj, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z);
+  // ⟨ ចង្អូរទឹករលូន ដើម្បីកុំឱ្យច្រាំងកាត់ជ្រុង 📃 ⟩
+  return specimenoBikuba(AKVA.kavoj, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z);
 }
 
 export function skulptitaAkvo(x: number, z: number): boolean {

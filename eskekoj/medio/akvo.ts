@@ -168,9 +168,11 @@ export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
       const z = z0 + ( z1 - z0 ) * j / nz;
       const tero = altecoFn(x, z);
       const nivelo = niveloFn(x, z);
+      const profundo = nivelo - tero;
+      // ⟨ ទឹកលេចឡើងតែពេលដីទាបជាងកម្រិតទឹក 📃 ⟩
       pozicioj.push(x, nivelo + 0o1/0o20, z);
-      uvoj.push(0o1/0o2, Math.max(0, nivelo - tero));
-      maskoj.push(maskFn(x, z) && tero < nivelo - 0o1/0o100 ? 1 : 0);
+      uvoj.push(0o1/0o2, Math.max(0, profundo));
+      maskoj.push(profundo > 0 ? 1 : 0);
     }
   }
   for ( let j = 0; j < nz; j++ ) {
@@ -197,7 +199,7 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
   const maskaVertico = maskita ? "attribute float aAkvo;\nvarying float vAkvo;\n" : "";
   const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
   const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
-  const maskaKodo = maskita ? "if ( vAkvo < 0.5 ) discard;\n" : "";
+  const maskaKodo = "";
   const profundaKodo = maskita ? "if ( profundo <= 0.015625 ) discard;\n" : "";
   const malprofundaKodo = maskita
     ? "alpha *= smoothstep( 0.0, 0.0625, profundo );\n"

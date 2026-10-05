@@ -53,7 +53,7 @@ import { konstruiHxeuxfojn } from "../../eskekoj/konstruajxoj/hxeuxfa/lampoj.js"
 import { konstruiFilikojn } from "../../eskekoj/shalaj-specioj/vegetajxo/filikoj.js";
 import { konstruiPurpurajnPlantojn,
   konstruiPurpurajnFilikojn, konstruiAltajnPurpurajnFilikojn } from "../../eskekoj/shalaj-specioj/vegetajxo/purpuraj.js";
-import { konstruiLikenSxtonojn } from "../../eskekoj/shalaj-specioj/vegetajxo/rokoj.js";
+import { konstruiLikenSxtonojn, konstruiBordajnSxtonojn } from "../../eskekoj/shalaj-specioj/vegetajxo/rokoj.js";
 import { konstruiMontajnSubkreskajxojn,
   konstruiLaganSubkreskajxojn } from "../../eskekoj/shalaj-specioj/vegetajxo/subkreskajxoj.js";
 import { konstruiMontajnRokojn } from "../../eskekoj/shalaj-specioj/vegetajxo/rokoj.js";
@@ -342,6 +342,10 @@ export async function konstruiUrbon(
   // ⟨ ថ្មរឹង 📃 ⟩
   const likenSxtonoj = konstruiLikenSxtonojn(sceno, 0o60, alteco, ekskluziviRiveron,
     ekskluziviVojojn, ekskluziviKonstruajxon);
+  await jesi();
+
+  // ⟪ គ្រួសតាមច្រាំងទឹក 📃 ⟫
+  konstruiBordajnSxtonojn(sceno, alteco, ekskluziviVojojn, ekskluziviKonstruajxon);
   await jesi();
 
   konstruiLikenojn(sceno, 0o200, alteco, [ ...arboj, ...larikoj, ...hxsxaksxlefoj ], likenSxtonoj,

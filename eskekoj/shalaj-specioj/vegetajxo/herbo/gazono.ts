@@ -24,7 +24,6 @@ export interface HerbaTufo {
 const HERBA_CXELO = 0o2;
 export const HERBA_TAVOLA_NOMO = "herbaTavolo";
 const HERBA_TABELO = 0o20;
-const HERBA_JITERO = 0o6/0o20;
 const HERBA_LIMO = 0o60;
 // ⟨ ស្មើនឹងដែនកំណត់ 📃 ⟩
 const HERBA_FADO = HERBA_LIMO;
@@ -73,14 +72,16 @@ export async function konstruiHerbanTavolon(
   // ⟨ វាលស្មៅខ្ពស់ជាង 📃 ⟩
   // ⟨ ការផ្លាស់បន្ថយ 📃 ⟩
   // ⟨ ការរៀបចំបី 📃 ⟩
-  // ⟨ ទទឹងយកការគ្របដណ្តប់វិញ 📃 ⟩
+  // ⟨ ទទឹងស្មើក្រឡា ដើម្បីកុំឱ្យជាន់គ្នាជាដុំ 📃 ⟩
+  // ⟨ កម្រិតការរាយ ឱ្យនៅជិតគ្នាស្មើ មិនប្រមូលជាដុំ 📃 ⟩
+  // ⟨ វ៉ារ្យ៉ង់ទាំងបីក្រាស់ស្មើគ្នា ខុសតែគ្រាប់ពូជ កុំឱ្យក្រឡាខ្លះស្តើង 📃 ⟩
   const variantoj: THREE.BufferGeometry[] = [
-    konstruiHerbanTavolanGeometrion(0o223/0o100, HERBA_TAVOLA_AKSOJ,
-      0o10/0o100, 0o11/0o20, 0o20/0o10, 0o2715),
-    konstruiHerbanTavolanGeometrion(0o223/0o100, HERBA_TAVOLA_AKSOJ,
-      0o7/0o100, 0o23/0o40, 0o22/0o10, 0o4633),
-    konstruiHerbanTavolanGeometrion(0o223/0o100, HERBA_TAVOLA_AKSOJ - 1,
-      0o11/0o100, 0o21/0o40, 0o17/0o10, 0o6151),
+    konstruiHerbanTavolanGeometrion(HERBA_CXELO, HERBA_TAVOLA_AKSOJ,
+      0o6/0o100, 0o11/0o20, 0o20/0o10, 0o2715),
+    konstruiHerbanTavolanGeometrion(HERBA_CXELO, HERBA_TAVOLA_AKSOJ,
+      0o6/0o100, 0o11/0o20, 0o20/0o10, 0o4633),
+    konstruiHerbanTavolanGeometrion(HERBA_CXELO, HERBA_TAVOLA_AKSOJ,
+      0o6/0o100, 0o11/0o20, 0o20/0o10, 0o6151),
   ];
   const amplexo = SKULPTA_N * SKULPTA_PASO;
   const cxelojPoTabelo = Math.round(HERBA_TABELO / HERBA_CXELO);
@@ -107,8 +108,9 @@ export async function konstruiHerbanTavolon(
 
   const kalkuliTufon = ( ix: number, iz: number ): HerbaTufo | null => {
     if ( herbaHasho(ix, iz) > denso ) return null;
-    const x = ( ix + 0o1/0o2 ) * HERBA_CXELO + ( herbaHasho(ix + 0o3, iz) - 0o1/0o2 ) * HERBA_JITERO * 0o2;
-    const z = ( iz + 0o1/0o2 ) * HERBA_CXELO + ( herbaHasho(ix, iz + 0o5) - 0o1/0o2 ) * HERBA_JITERO * 0o2;
+    // ⟨ កណ្តាលក្រឡាត្រង់ ដើម្បីគ្របពេញដីទាំងស្រុង គ្មានចន្លោះទទេ 📃 ⟩
+    const x = ( ix + 0o1/0o2 ) * HERBA_CXELO;
+    const z = ( iz + 0o1/0o2 ) * HERBA_CXELO;
     const bi = biomo(x, z);
     if ( biomojFiltro && !biomojFiltro.includes(bi) ) return null;
     if ( excludeRivers(x, z) ) return null;
@@ -128,11 +130,11 @@ export async function konstruiHerbanTavolon(
     if ( normalo.y < 0 ) normalo.negate();
 
     // ⟨ ទទឹងនៅស្ទើរស្មើ 📃 ⟩
-    const sx = 0o11/0o12 + herbaHasho(ix + 0o11, iz) * 0o1/0o4;
-    const sz = 0o11/0o12 + herbaHasho(ix, iz + 0o11) * 0o1/0o4;
+    const sx = 0o1 - 0o1/0o40 + herbaHasho(ix + 0o11, iz) * 0o1/0o20;
+    const sz = 0o1 - 0o1/0o40 + herbaHasho(ix, iz + 0o11) * 0o1/0o20;
     // ⟨ កម្ពស់ដូចគ្នា 📃 ⟩
     // ⟨ ហេតុអ្វីមិនច្រើនជាង 📃 ⟩
-    const sy = 0o7/0o10 + herbaHasho(ix + 0o13, iz + 0o3) * 0o1/0o10;
+    const sy = 0o1 - 0o1/0o40 + herbaHasho(ix + 0o13, iz + 0o3) * 0o1/0o20;
     const klinLimito = Math.PI / 0o10;
     const horiz = Math.hypot(normalo.x, normalo.z);
     if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(normalo.y, 0o1/0o2000)) > klinLimito ) {
@@ -140,7 +142,8 @@ export async function konstruiHerbanTavolon(
       normalo.set(normalo.x / horiz * u, 1, normalo.z / horiz * u).normalize();
     }
     const q = new THREE.Quaternion().setFromUnitVectors(vertikala, normalo);
-    E.set(0, herbaHasho(ix + 0o15, iz + 0o7) * Math.PI * 2, 0);
+    // ⟨ បង្វិលត្រីមាស តែក្រឡានៅតែគ្របពេញគ្នា 📃 ⟩
+    E.set(0, Math.floor(herbaHasho(ix + 0o15, iz + 0o7) * 0o4) * ( Math.PI * 0o1/0o2 ), 0);
     q.multiply(Q.setFromEuler(E));
 
     // ⟨ វ៉ារ្យ៉ង់ការរៀបចំ 📃 ⟩
@@ -148,7 +151,7 @@ export async function konstruiHerbanTavolon(
       Math.floor(herbaHasho(ix + 0o21, iz + 0o27) * HERBA_TAVOLAJ_VARIANTOJ));
     // ⟨ ពណ៌លាំ 📃 ⟩
     return { x, z, y, sx, sy, sz, q, deklivo, biomo: bi, varianto,
-      nuanco: 0o17/0o20 + herbaHasho(ix + 0o17, iz + 0o13) * 0o1/0o10 };
+      nuanco: 0o1 - 0o1/0o40 + herbaHasho(ix + 0o17, iz + 0o13) * 0o1/0o20 };
   };
 
   for ( let tz = 0; tz < tabeloj; tz++ ) {

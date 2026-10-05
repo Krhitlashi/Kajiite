@@ -4,7 +4,8 @@ import { kreiRokenTeksajxon } from "../../komunajxoj/teksajxoj/roko.js";
 import { kreiRokenBumpanTeksajxon } from "../../komunajxoj/teksajxoj/roko-bumpo.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { montaKruteco, spronaDuono, type ArboMetado } from "./metado.js";
-import { glataPaso, biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
+import { glataPaso, biomo, akvo, akvaNivelo, SKULPTA_N, SKULPTA_PASO,
+  SKULPTA_ORIGINO, type Biomo } from "../../../kantaoj/mondo/tereno.js";
 
 function konstruiRokGeometrion(semo = 1): THREE.BufferGeometry {
   // ⟨ មុខច្រើនជាង 📃 ⟩
@@ -197,5 +198,77 @@ export function konstruiLikenSxtonojn(sceno: THREE.Scene,
   if ( sxtonoj.instanceColor ) sxtonoj.instanceColor.needsUpdate = true;
 
   sceno.add(sxtonoj);
+  return metitaj;
+}
+
+// ⟨ គ្រួសតាមច្រាំងទន្លេ និងបឹង 📃 ⟩
+/* ដាក់គ្រួសតូចៗនៅតាមក្រឡាដីដែលជាប់នឹងទឹក។
+    @param sceno ( THREE.Scene ) - ឆាកដែលបន្ថែមសំណាញ់។
+    @param heightFn ( ( x , z ) => number ) - អនុគមន៍កម្ពស់ដី។
+    @param excludePaths ( ( x , z , m ) => boolean ) - តំបន់ផ្លូវដែលត្រូវគេច។
+    @param excludeBuildings ( ( x , z , m ) => boolean , ជាជម្រើស ) - តំបន់សំណង់។
+@returns metitaj */
+export function konstruiBordajnSxtonojn(sceno: THREE.Scene,
+  heightFn: ( x: number, z: number ) => number,
+  excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
+  excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
+): ArboMetado[] {
+  const hazardaGenerilo = kreiVegetajxanHazardon(0o701234);
+  const FORMOJ = 0o3;
+  const materialo = kreiSxtonanMaterialon();
+  const kapacito = SKULPTA_N * 0o4;
+  const meshoj: THREE.InstancedMesh[] = [];
+  const nombroj = new Int32Array(FORMOJ);
+  for ( let f = 0; f < FORMOJ; f++ ) {
+    const mesho = new THREE.InstancedMesh(konstruiRokGeometrion(0o11 + f * 0o27), materialo, kapacito);
+    mesho.count = 0;
+    meshoj.push(mesho);
+  }
+
+  const M = new THREE.Matrix4();
+  const Q = new THREE.Quaternion();
+  const E = new THREE.Euler();
+  const C = new THREE.Color();
+  const paletro = [ 0x98a0a0, 0x888890, 0xa8a8a8, 0x909898, 0xb0a898 ];
+  const metitaj: ArboMetado[] = [];
+  const PASO = SKULPTA_PASO;
+
+  for ( let j = 0; j < SKULPTA_N; j++ ) {
+    for ( let i = 0; i < SKULPTA_N; i++ ) {
+      const x = SKULPTA_ORIGINO[0] + ( i + 0o1/0o2 ) * PASO;
+      const z = SKULPTA_ORIGINO[1] + ( j + 0o1/0o2 ) * PASO;
+      if ( akvo(x, z) ) continue;
+      // ⟨ ក្រឡាដីដែលជាប់នឹងទឹក 📃 ⟩
+      if ( !( akvo(x + PASO, z) || akvo(x - PASO, z)
+        || akvo(x, z + PASO) || akvo(x, z - PASO) ) ) continue;
+      if ( hazardaGenerilo() > 0o5/0o10 ) continue;
+      const jx = x + ( hazardaGenerilo() - 0o1/0o2 ) * PASO * 0o7/0o10;
+      const jz = z + ( hazardaGenerilo() - 0o1/0o2 ) * PASO * 0o7/0o10;
+      const y = heightFn(jx, jz);
+      if ( y < akvaNivelo(jx, jz) - 0o1/0o10 ) continue;
+      if ( excludePaths(jx, jz, 0o1) ) continue;
+      if ( excludeBuildings && excludeBuildings(jx, jz, 0o1) ) continue;
+      const skaloY = 0o5/0o40 + hazardaGenerilo() * 0o5/0o40;
+      const skaloXZ = skaloY * ( 0o35/0o40 + hazardaGenerilo() * 0o15/0o40 );
+      E.set(hazardaGenerilo() * 0o15/0o40, hazardaGenerilo() * Math.PI * 2, hazardaGenerilo() * 0o15/0o40);
+      Q.setFromEuler(E);
+      M.compose(new THREE.Vector3(jx, y + skaloY * 0o2/0o10, jz), Q,
+        new THREE.Vector3(skaloXZ, skaloY * 0o7/0o10, skaloXZ));
+      const forma = ( hazardaGenerilo() * FORMOJ ) | 0;
+      if ( nombroj[forma] >= kapacito ) continue;
+      meshoj[forma].setMatrixAt(nombroj[forma], M);
+      meshoj[forma].setColorAt(nombroj[forma], C.setHex(paletro[( hazardaGenerilo() * paletro.length ) | 0]));
+      nombroj[forma]++;
+      metitaj.push({ x: jx, z: jz, h: y, s: skaloY });
+    }
+  }
+
+  for ( let f = 0; f < FORMOJ; f++ ) {
+    const mesho = meshoj[f];
+    mesho.count = nombroj[f];
+    mesho.instanceMatrix.needsUpdate = true;
+    if ( mesho.instanceColor ) mesho.instanceColor.needsUpdate = true;
+    sceno.add(mesho);
+  }
   return metitaj;
 }
