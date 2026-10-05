@@ -41,6 +41,7 @@ import { konstruiHerbon,
   konstruiHerbonCxirkauLagon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/tufoj.js";
 import { konstruiHerbanTavolon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/gazono.js";
 import { plataAltoj } from "../../eskekoj/medio/vojoj/formoj.js";
+import { KEUXFHXESO_RADIO } from "../../eskekoj/mebloj/keuxfhxeso.js";
 import { KORNA_R, VOJA_BORDA_LARĜO,
   VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { konstruiPeriferiajnPlatformojn } from "../../eskekoj/medio/vojoj/periferio.js";
@@ -304,9 +305,40 @@ export async function konstruiUrbon(
       if ( o.speco !== "hxeuxfoPlato" ) continue;
       if ( Math.hypot(x - o.x, z - o.z) < m + 3 ) return true;
     }
-    // ⟨ គែមតូច 📃 ⟩
     for ( const l of keuxfhxesoLokoj ) if ( Math.hypot(x - l.x, z - l.z) < m + 0o1/0o2 ) return true;
     return false;
+  };
+
+  // ⟪ ចម្ងាយដល់បាតគីហ្វហេសូ , ដើម្បីឱ្យស្មៅមកដល់ជិតគីហ្វហេសូ និងកុំឱ្យមានកន្លែងទទេធំពេក ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟫
+  const keuxfhxesoKlaro = ( x: number, z: number, maks: number ): number => {
+    const limo = KEUXFHXESO_RADIO + maks;
+    const limo2 = limo * limo;
+    let plejProkximo = Infinity;
+    for ( const l of keuxfhxesoLokoj ) {
+      const ddx = x - l.x, ddz = z - l.z;
+      const d2 = ddx * ddx + ddz * ddz;
+      if ( d2 < limo2 && d2 < plejProkximo ) plejProkximo = d2;
+    }
+    return Math.sqrt( plejProkximo ) - KEUXFHXESO_RADIO;
+  };
+
+  // ⟪ ចម្ងាយដល់មជ្ឈប់ផ្លូវ , ដើម្បីកុំឱ្យស្មៅដុះចូលផ្លូវ និងដើម្បីកុំឱ្យមានកន្លែងទទេដែលធំ ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟫
+  const vojaKlaro = ( x: number, z: number, maks: number ): number => {
+    const r = Math.ceil(maks / VOJA_ĈELO) + 1;
+    const bx = Math.floor(x / VOJA_ĈELO), bz = Math.floor(z / VOJA_ĈELO);
+    let plejProkximo = Infinity;
+    for ( let dx = -r; dx <= r; dx++ ) {
+      for ( let dz = -r; dz <= r; dz++ ) {
+        const ĉelo = vojaKrado.get(( bx + dx ) * 0o100000 + ( bz + dz ));
+        if ( !ĉelo ) continue;
+        for ( const p of ĉelo ) {
+          const ddx = x - p.x, ddz = z - p.z;
+          const d2 = ddx * ddx + ddz * ddz;
+          if ( d2 < plejProkximo ) plejProkximo = d2;
+        }
+      }
+    }
+    return Math.sqrt( plejProkximo ) - VOJA_EKSTERA_DUONO;
   };
   const ekskluziviKonstruajxon = ( x: number, z: number, m: number ) => {
     for ( const s of konstruSpecoj ) if ( Math.hypot(x - s.x, z - s.z) < s.w * 0o23/0o40 + m ) return true;
@@ -357,7 +389,7 @@ export async function konstruiUrbon(
   // ⟪ ស្រទាប់ស្មៅ 📃 ⟫
   await konstruiHerbanTavolon(sceno, jesi, alteco, ekskluziviRiveron, ekskluziviVojojn,
     ekskluziviKonstruajxon, [ ...VALAJ_BIOMOJ, ...EBENAJAJ_BIOMOJ ],
-    surPosxtelefono ? 0o5/0o10 : 0o10/0o10);
+    surPosxtelefono ? 0o13 : 0o17, vojaKlaro, keuxfhxesoKlaro);
 
   // ⟪ វាលរាប 📃 ⟫
   await jesi();

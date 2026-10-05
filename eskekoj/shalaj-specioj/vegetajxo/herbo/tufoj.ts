@@ -7,7 +7,6 @@ import { biomo, type Biomo } from "../../../../kantaoj/mondo/tereno.js";
 import { kreiHerbanKlingon } from "./klingoj.js";
 import { kreiHerbanMaterialon } from "./vento.js";
 
-// ⟨ ដុំនៅដូចដើម 📃 ⟩
 export function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeometry {
   const hazardo = kreiVegetajxanHazardon(semo);
   const klingoj: THREE.BufferGeometry[] = [];
@@ -19,11 +18,8 @@ export function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeomet
     const r = 0o13/0o100 * Math.sqrt(hazardo());
     const bazoX = Math.cos(ang) * r, bazoZ = Math.sin(ang) * r;
     const elen = 0o5/0o10 + r * 0o55/0o100;
-    // ⟨ ស្លឹកធំទូលាយ 📃 ⟩
-    // ⟨ ទាប 📃 ⟩
     const longo = 0o33/0o100 + hazardo() * 0o23/0o40;
     const largho = ( 0o1/0o40 + hazardo() * 0o1/0o100 ) * ( 0o27/0o40 + longo * 0o15/0o40 );
-    // ⟨ ធ្នូចុង 📃 ⟩
     const arkaFaktoro = 0o43/0o100 + r * 0o215/0o100;
     const klino = Math.cos(ang) * elen * ( 0o13/0o40 + hazardo() * 0o25/0o40 )
       + ( hazardo() - 0o1/0o2 ) * 0o5/0o40;
@@ -53,7 +49,6 @@ export function konstruiHerbon(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[]
 ): void {
   const hazardaGenerilo = kreiVegetajxanHazardon(0o126345);
-  // ⟨ ស្លឹកពិត 📃 ⟩
   const herbaMaterialo = kreiHerbanMaterialon();
   const herboj = new THREE.InstancedMesh(konstruiHerbanTufanGeometrion(), herbaMaterialo, kvanto);
 
@@ -77,7 +72,6 @@ export function konstruiHerbon(sceno: THREE.Scene,
     if ( Math.hypot(x, z) < 0o16 ) continue;
     if ( !punktoLibera(metitajHasho, x, z, 0o12/0o10) ) continue;
 
-    // ⟨ គ្មានដុំឈរត្រង់ 📃 ⟩
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40,
       hazardaGenerilo() * Math.PI * 2,
@@ -108,7 +102,6 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
   semo = 0o53122
 ): void {
   const hazardaGenerilo = kreiVegetajxanHazardon(semo);
-  // ⟨ ស្លឹកពិត 📃 ⟩
   const herbaMaterialo = kreiHerbanMaterialon();
   const herboj = new THREE.InstancedMesh(konstruiHerbanTufanGeometrion(), herbaMaterialo, kvanto);
 
@@ -129,7 +122,6 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
     if ( heightFn(x, z) < akvoNiveloFn(x, z) ) continue;
     if ( !punktoLibera(metitajHasho, x, z, 0o12/0o10) ) continue;
 
-    // ⟨ គ្មានដុំឈរត្រង់ 📃 ⟩
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40,
       hazardaGenerilo() * Math.PI * 2,

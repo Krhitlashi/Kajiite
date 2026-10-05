@@ -5,9 +5,13 @@ import { kreiFolianTeksajxon } from "../komunajxoj/teksajxoj/keuxfhxesa-folio.js
 
 export interface KeuxfhxesoLoko {
   x: number; z: number;
-  /** ការតម្រង់ទិសស្រេចចិត្ត , រចនាសម្ព័ន្ធមានស៊ីមេទ្រី 6 ជ្រុង , ដូច្នេះវាគ្រាន់តែរៀបជួរឆ្អឹងជំនី។ */
+  /** ការតម្រង់ទិសស្រេចចិត្ត , រចនាសម្ពថន្ធមានស៊ីមេទ្រី 6 ជ្រុង , ដូច្នេះវាគ្រាន់តែរក្រជួរឆ្អឹងជំនី។ */
   rot?: number;
 }
+
+// ⟪ ចម្ងាយពីមជ្ឈប់គីហ្វហេសូ ដល់បាតស្មៅ 📏 ⟫
+// ⟨ ប្រើសម្រាប់កុំឱ្យស្មៅចូលក្នុងគីហ្វហេសូ , និងកុំឱ្យមានកន្លែងទទេធំពេក ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟩
+export const KEUXFHXESO_RADIO = 0o63/0o100;
 
 function sespintaStelo(rEkstera: number): THREE.Vector2[] {
   const punktoj: THREE.Vector2[] = [];
@@ -122,7 +126,7 @@ export function konstruiKeuxfhxeso(sceno: THREE.Scene,
   const murajGeometrioj: THREE.BufferGeometry[] = [];
   const kadrajGeometrioj: THREE.BufferGeometry[] = [];
 
-  const R = 0o63/0o100;
+  const R = KEUXFHXESO_RADIO;
   const ALTO = 0o36 / 0o10;
 
   const korpaSablono = starfruktKorpo(R, ALTO, 0o40);

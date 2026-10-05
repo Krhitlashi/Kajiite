@@ -4,15 +4,17 @@ import { kreiHerbanTavolanKlinganTeksajxon } from "../../../komunajxoj/teksajxoj
 import { terenaKoloroEn } from "../../../komunajxoj/terenkoloroj.js";
 import { kunfandiGeometriojnSenIndekson } from "../../../komunajxoj/kunfandajxoj.js";
 import { kreiVegetajxanHazardon } from "../hazardoj.js";
-import { biomo, akvaNivelo, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO,
+import { VOJA_EKSTERA_DUONO } from "../../../medio/vojoj/mezuroj.js";
+import { biomo, akvaNivelo, akvaNiveloProksima, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO,
   type Biomo } from "../../../../kantaoj/mondo/tereno.js";
 import { kreiHerbanKlingon } from "./klingoj.js";
 import { kreiHerbanMaterialon, herbajTavoloj } from "./vento.js";
 
-// ⟪ ស្រទាប់ស្មៅ 📃 ⟫
+// ⟪ ដុំស្មៅ 🌾 ⟫
 export interface HerbaTufo {
   x: number; z: number; y: number;
   sx: number; sy: number; sz: number;
+  gx: number; gz: number;
   q: THREE.Quaternion;
   nuanco: number;
   deklivo: number;
@@ -20,23 +22,31 @@ export interface HerbaTufo {
   varianto: number;
 }
 
-// ⟨ ក្រឡា និងក្តារ 📃 ⟩
+// ⟪ ក្រឡា និងក្តារ 📃 ⟫
 const HERBA_CXELO = 0o2;
 export const HERBA_TAVOLA_NOMO = "herbaTavolo";
-const HERBA_TABELO = 0o20;
+const HERBA_TABELO = 0o40;
 const HERBA_LIMO = 0o60;
-// ⟨ ស្មើនឹងដែនកំណត់ 📃 ⟩
 const HERBA_FADO = HERBA_LIMO;
 
-// ⟪ ស្លឹកវាលស្មៅបន្ត 📃 ⟫
-// ⟨ ផ្នែកពីរ 📃 ⟩
-// ⟨ តម្លៃ 📃 ⟩
-const HERBA_TAVOLA_AKSOJ = 0o13;
-const HERBA_TAVOLA_SEGMENTOJ = 0o2;
-// ⟪ វ៉ារ្យ៉ង់ការរៀបចំ 📃 ⟫
-const HERBA_TAVOLAJ_VARIANTOJ = 0o3;
+// ⟪ រូបរាងដុំស្មៅ 📃 ⟫
+const HERBA_LARGO = 0o33/0o10;
+const HERBA_CXELA_JITERO = 0o1/0o4;
+const HERBA_AKSOJ = 0o17;
+const HERBA_SEGMENTOJ = 0o2;
+const HERBA_VARIANTOJ = 0o3;
+const HERBA_TABELOJ_ANTUX_JESI = 0o4;
+const HERBA_KLINGA_ALTO = 0o14/0o100 + 0o2/0o10;
+const HERBA_DEKLIVA_LIMO = 0o7/0o10;
+const HERBA_DOKLIVA_LIMO = 0o13/0o20;
+const HERBA_SUKENO = 0o1/0o100;
 
-// ⟪ ប៉ារ៉ាម៉ែត្រពណ៌ជីវតំបន់ស្មៅ 🎨 ⟫
+// ⟪ អាងស្មៅ ដើម្បីកុំឱ្យចៃដន្យចូលក្នុងផ្លូវ 📃 ⟫
+// ⟨ ចៃដន្យអស់ចូលបំផុត ពីមជ្ឈប់ដុំ នៅទំហំមួយ , រួចសង្កត់តាមចៃដន្យដែលអាចធ្វើបាន ដើម្បីកុំឱ្យមានកន្លែងទទេធំ ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟩
+const HERBA_RADIO = HERBA_LARGO * 0o1/0o2 + ( 0o14/0o100 + 0o2/0o10 )
+  * ( 0o5/0o100 + 0o15/0o100 ) * ( 0o5/0o10 + 0o5/0o10 );
+
+// ⟪ ពណ៌តាមតំបន់ 🎨 ⟫
 export const HERBA_BIOMAJ_KOLOROJ:
   Partial<Record<Biomo, readonly [ number, number, number ]>> = {
     "valo": [ 0o1, 0o1, 0o1 ],
@@ -48,7 +58,7 @@ export const HERBA_BIOMAJ_KOLOROJ:
 
 const HERBA_BLANKA_KOLORO = new THREE.Color(0o1, 0o1, 0o1);
 
-const HERBA_MALHELIGO = 0o6/0o10;
+const HERBA_MALHELIGO = 0o62/0o100;
 
 function herbaHasho(ix: number, iz: number): number {
   let h = Math.imul(ix, 0x27d4eb2d) ^ Math.imul(iz, 0x165667b1);
@@ -56,6 +66,19 @@ function herbaHasho(ix: number, iz: number): number {
   return ( ( h ^ ( h >>> 0o13 ) ) >>> 0 ) / 0o40000000000;
 }
 
+function kreiTavolanGeometrion(varia: THREE.BufferGeometry, kvanto: number): THREE.BufferGeometry {
+  const geometrio = new THREE.BufferGeometry();
+  for ( const nomo of [ "position", "uv", "color" ] ) {
+    const atributo = varia.getAttribute(nomo);
+    if ( atributo ) geometrio.setAttribute(nomo, atributo);
+  }
+  const indekso = varia.getIndex();
+  if ( indekso ) geometrio.setIndex(indekso);
+  geometrio.setAttribute("herbaDoklivo", new THREE.InstancedBufferAttribute(new Float32Array(kvanto * 2), 2));
+  return geometrio;
+}
+
+// ⟪ ការសង់តាមក្រឡា 🏗 ⟫
 export async function konstruiHerbanTavolon(
   sceno: THREE.Scene,
   jesi: () => Promise<void>,
@@ -64,25 +87,16 @@ export async function konstruiHerbanTavolon(
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
   biomojFiltro?: readonly Biomo[],
-  denso = 0o10/0o10
+  aksoj = HERBA_AKSOJ,
+  vojaKlaro?: ( x: number, z: number, maks: number ) => number,
+  kruxaKlaro?: ( x: number, z: number, maks: number ) => number
 ): Promise<void> {
-  // ⟨ ស្លឹកគ្មានពណ៌ 📃 ⟩
-  const materialo = kreiHerbanMaterialon(HERBA_FADO, kreiHerbanTavolanKlinganTeksajxon());
-  // ⟨ សមាមាត្រស្លឹក 📃 ⟩
-  // ⟨ វាលស្មៅខ្ពស់ជាង 📃 ⟩
-  // ⟨ ការផ្លាស់បន្ថយ 📃 ⟩
-  // ⟨ ការរៀបចំបី 📃 ⟩
-  // ⟨ ទទឹងស្មើក្រឡា ដើម្បីកុំឱ្យជាន់គ្នាជាដុំ 📃 ⟩
-  // ⟨ កម្រិតការរាយ ឱ្យនៅជិតគ្នាស្មើ មិនប្រមូលជាដុំ 📃 ⟩
-  // ⟨ វ៉ារ្យ៉ង់ទាំងបីក្រាស់ស្មើគ្នា ខុសតែគ្រាប់ពូជ កុំឱ្យក្រឡាខ្លះស្តើង 📃 ⟩
-  const variantoj: THREE.BufferGeometry[] = [
-    konstruiHerbanTavolanGeometrion(HERBA_CXELO, HERBA_TAVOLA_AKSOJ,
-      0o6/0o100, 0o11/0o20, 0o20/0o10, 0o2715),
-    konstruiHerbanTavolanGeometrion(HERBA_CXELO, HERBA_TAVOLA_AKSOJ,
-      0o6/0o100, 0o11/0o20, 0o20/0o10, 0o4633),
-    konstruiHerbanTavolanGeometrion(HERBA_CXELO, HERBA_TAVOLA_AKSOJ,
-      0o6/0o100, 0o11/0o20, 0o20/0o10, 0o6151),
-  ];
+  const materialo = kreiHerbanMaterialon(HERBA_FADO, kreiHerbanTavolanKlinganTeksajxon(),
+    { doklivo: true, alto: HERBA_KLINGA_ALTO, svajo: 0o2/0o100, pusxo: 0o1/0o10 });
+  const variantoj: THREE.BufferGeometry[] = [];
+  for ( let v = 0; v < HERBA_VARIANTOJ; v++ ) {
+    variantoj.push(konstruiHerbanTavolanGeometrion(HERBA_LARGO, aksoj, 0o2715 + v * 0o1436));
+  }
   const amplexo = SKULPTA_N * SKULPTA_PASO;
   const cxelojPoTabelo = Math.round(HERBA_TABELO / HERBA_CXELO);
   const tabeloj = Math.ceil(amplexo / HERBA_TABELO);
@@ -96,9 +110,6 @@ export async function konstruiHerbanTavolon(
   const teraKoloro = new THREE.Color();
   const E = new THREE.Euler();
   const Q = new THREE.Quaternion();
-  const ena = new THREE.Vector3(), enX = new THREE.Vector3(), enZ = new THREE.Vector3();
-  const normalo = new THREE.Vector3();
-  const vertikala = new THREE.Vector3(0, 1, 0);
   const lokoj: HerbaTufo[][] = variantoj.map(() => []);
   const biomaKoloro = new Map<Biomo, THREE.Color>();
   for ( const nomo of Object.keys(HERBA_BIOMAJ_KOLOROJ) as Biomo[] ) {
@@ -107,10 +118,9 @@ export async function konstruiHerbanTavolon(
   }
 
   const kalkuliTufon = ( ix: number, iz: number ): HerbaTufo | null => {
-    if ( herbaHasho(ix, iz) > denso ) return null;
-    // ⟨ កណ្តាលក្រឡាត្រង់ ដើម្បីគ្របពេញដីទាំងស្រុង គ្មានចន្លោះទទេ 📃 ⟩
-    const x = ( ix + 0o1/0o2 ) * HERBA_CXELO;
-    const z = ( iz + 0o1/0o2 ) * HERBA_CXELO;
+    const x = ( ix + 0o1/0o2 + ( herbaHasho(ix, iz) - 0o1/0o2 ) * HERBA_CXELA_JITERO ) * HERBA_CXELO;
+    const z = ( iz + 0o1/0o2 + ( herbaHasho(ix + 0o27, iz + 0o11) - 0o1/0o2 ) * HERBA_CXELA_JITERO )
+      * HERBA_CXELO;
     const bi = biomo(x, z);
     if ( biomojFiltro && !biomojFiltro.includes(bi) ) return null;
     if ( excludeRivers(x, z) ) return null;
@@ -119,41 +129,47 @@ export async function konstruiHerbanTavolon(
     const y = heightFn(x, z);
     if ( y < akvaNivelo(x, z) + 0o1/0o10 ) return null;
 
-    // ⟨ គំរូពីរសម្រាប់ចម្លើយពីរ 📃 ⟩
-    const paso = HERBA_CXELO;
-    ena.set(x, y, z);
-    enX.set(x + paso, heightFn(x + paso, z), z).sub(ena);
-    enZ.set(x, heightFn(x, z + paso), z).sub(ena);
-    if ( Math.max(Math.abs(enX.y), Math.abs(enZ.y)) / paso > 0o7/0o10 ) return null;
-    const deklivo = Math.hypot(enX.y, enZ.y) / paso;
-    normalo.crossVectors(enZ, enX).normalize();
-    if ( normalo.y < 0 ) normalo.negate();
+    const paso = SKULPTA_PASO;
+    const gxo = ( heightFn(x + paso, z) - heightFn(x - paso, z) ) / ( 2 * paso );
+    const gzo = ( heightFn(x, z + paso) - heightFn(x, z - paso) ) / ( 2 * paso );
+    const deklivo = Math.hypot(gxo, gzo);
+    if ( deklivo > HERBA_DEKLIVA_LIMO ) return null;
+    const reteno = deklivo > HERBA_DOKLIVA_LIMO ? HERBA_DOKLIVA_LIMO / deklivo : 0o1;
+    const gxoR = gxo * reteno, gzoR = gzo * reteno;
 
-    // ⟨ ទទឹងនៅស្ទើរស្មើ 📃 ⟩
-    const sx = 0o1 - 0o1/0o40 + herbaHasho(ix + 0o11, iz) * 0o1/0o20;
-    const sz = 0o1 - 0o1/0o40 + herbaHasho(ix, iz + 0o11) * 0o1/0o20;
-    // ⟨ កម្ពស់ដូចគ្នា 📃 ⟩
-    // ⟨ ហេតុអ្វីមិនច្រើនជាង 📃 ⟩
-    const sy = 0o1 - 0o1/0o40 + herbaHasho(ix + 0o13, iz + 0o3) * 0o1/0o20;
-    const klinLimito = Math.PI / 0o10;
-    const horiz = Math.hypot(normalo.x, normalo.z);
-    if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(normalo.y, 0o1/0o2000)) > klinLimito ) {
-      const u = Math.tan(klinLimito);
-      normalo.set(normalo.x / horiz * u, 1, normalo.z / horiz * u).normalize();
+    const skalo = 0o1 - 0o1/0o20 + herbaHasho(ix + 0o21, iz + 0o17) * 0o2/0o10;
+    let sx = skalo * ( 0o1 - 0o1/0o40 + herbaHasho(ix + 0o3, iz + 0o32) * 0o1/0o20 );
+    let sz = skalo * ( 0o1 - 0o1/0o40 + herbaHasho(ix + 0o35, iz + 0o5) * 0o1/0o20 );
+    const sy = skalo * ( 0o1 - 0o1/0o10 + herbaHasho(ix + 0o13, iz + 0o7) * 0o2/0o10 );
+
+    // ⟨ បង្រួមដុំស្មៅនៅជិតផ្លូវ និងគីហ្វហេសូ , ដើម្បីកុំឱ្យចៃដន្យចូលក្នុង និងដើម្បីកុំឱ្យមានកន្លែងទទេធំពេក 📃 ⟩
+    const pleja = Math.max( sx, sz );
+    let limo = 0o1;
+    for ( const klaroFn of [ vojaKlaro, kruxaKlaro ] ) {
+      if ( !klaroFn ) continue;
+      const klaro = klaroFn( x, z, HERBA_RADIO );
+      if ( klaro <= 0 ) return null;
+      limo = Math.min( limo, klaro / ( HERBA_RADIO * pleja ) );
     }
-    const q = new THREE.Quaternion().setFromUnitVectors(vertikala, normalo);
-    // ⟨ បង្វិលត្រីមាស តែក្រឡានៅតែគ្របពេញគ្នា 📃 ⟩
-    E.set(0, Math.floor(herbaHasho(ix + 0o15, iz + 0o7) * 0o4) * ( Math.PI * 0o1/0o2 ), 0);
-    q.multiply(Q.setFromEuler(E));
+    if ( limo < 0o1 ) {
+      sx *= limo;
+      sz *= limo;
+    }
+    const yaw = herbaHasho(ix + 0o15, iz + 0o23) * Math.PI * 0o2;
+    Q.setFromEuler(E.set(0, yaw, 0));
+    const c = Math.cos(yaw), s = Math.sin(yaw);
+    const faktoro = sx / sy;
+    const gx = ( c * gxoR - s * gzoR ) * faktoro;
+    const gz = ( s * gxoR + c * gzoR ) * faktoro;
 
-    // ⟨ វ៉ារ្យ៉ង់ការរៀបចំ 📃 ⟩
-    const varianto = Math.min(HERBA_TAVOLAJ_VARIANTOJ - 1,
-      Math.floor(herbaHasho(ix + 0o21, iz + 0o27) * HERBA_TAVOLAJ_VARIANTOJ));
-    // ⟨ ពណ៌លាំ 📃 ⟩
-    return { x, z, y, sx, sy, sz, q, deklivo, biomo: bi, varianto,
+    const varianto = Math.min(HERBA_VARIANTOJ - 1,
+      Math.floor(herbaHasho(ix + 0o33, iz + 0o41) * HERBA_VARIANTOJ));
+    return { x, z, y: y - HERBA_SUKENO, sx, sy, sz, gx, gz,
+      q: Q.clone(), deklivo, biomo: bi, varianto,
       nuanco: 0o1 - 0o1/0o40 + herbaHasho(ix + 0o17, iz + 0o13) * 0o1/0o20 };
   };
 
+  let konstruitaj = 0;
   for ( let tz = 0; tz < tabeloj; tz++ ) {
     for ( let tx = 0; tx < tabeloj; tx++ ) {
       for ( let v = 0; v < lokoj.length; v++ ) lokoj[v].length = 0;
@@ -168,27 +184,28 @@ export async function konstruiHerbanTavolon(
       for ( let v = 0; v < lokoj.length; v++ ) {
         const tufoj = lokoj[v];
         if ( tufoj.length === 0 ) continue;
-        const mesho = new THREE.InstancedMesh(variantoj[v], materialo, tufoj.length);
+        const geometrio = kreiTavolanGeometrion(variantoj[v], tufoj.length);
+        const deklivoj = geometrio.getAttribute("herbaDoklivo") as THREE.InstancedBufferAttribute;
+        const mesho = new THREE.InstancedMesh(geometrio, materialo, tufoj.length);
         for ( let i = 0; i < tufoj.length; i++ ) {
           const tufo = tufoj[i];
           M.compose(P.set(tufo.x, tufo.y, tufo.z), tufo.q, S.set(tufo.sx, tufo.sy, tufo.sz));
           mesho.setMatrixAt(i, M);
-          // ⟨ ពណ៌មកពីដី 📃 ⟩
-          const tera = terenaKoloroEn(teraKoloro, tufo.y, tufo.x, tufo.z, tufo.deklivo, akvaNivelo);
+          deklivoj.setXY(i, tufo.gx, tufo.gz);
+          const tera = terenaKoloroEn(teraKoloro, tufo.y, tufo.x, tufo.z,
+            tufo.deklivo, akvaNiveloProksima);
           const teraLumo = Math.max(
             ( tera.r + tera.g * 0o2 + tera.b ) * 0o1/0o4, 0o1/0o100 );
-          // ⟨ ជិតដីជាង 📃 ⟩
           C.copy(tera).multiplyScalar(tufo.nuanco * HERBA_MALHELIGO / teraLumo)
             .multiply(biomaKoloro.get(tufo.biomo) ?? HERBA_BLANKA_KOLORO);
           mesho.setColorAt(i, C);
         }
+        deklivoj.needsUpdate = true;
         mesho.instanceMatrix.needsUpdate = true;
         if ( mesho.instanceColor ) mesho.instanceColor.needsUpdate = true;
         mesho.name = HERBA_TAVOLA_NOMO;
-        // ⟨ ក្តារកក 📃 ⟩
         mesho.matrixWorldAutoUpdate = false;
         sceno.add(mesho);
-        // ⟨ ដែនមើលផ្ទាល់ខ្លួន 📃 ⟩
         herbajTavoloj.push({
           mesho,
           cx: ( unuaX + cxelojPoTabelo * 0o1/0o2 ) * HERBA_CXELO,
@@ -196,46 +213,44 @@ export async function konstruiHerbanTavolon(
           limo: HERBA_LIMO + HERBA_TABELO * 0o7/0o10,
         });
       }
+      if ( ++konstruitaj % HERBA_TABELOJ_ANTUX_JESI === 0 ) await jesi();
     }
-    await jesi();
   }
+  await jesi();
 }
 
-// ⟨ ហេតុអ្វីឧបករណ៍សង់ដោយឡែក 📃 ⟩
-// ⟨ រូបរាង 📃 ⟩
-function konstruiHerbanTavolanGeometrion(flanko = 0o223/0o100, akso = 0o10, jit = 0o13/0o100,
-  longo = 0o15/0o40, larghaFaktoro = 0o14/0o10, semo = 0o2715): THREE.BufferGeometry {
+// ⟪ រូបរាងដុំស្មៅ 🌿 ⟫
+function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HERBA_AKSOJ,
+  semo = 0o2715): THREE.BufferGeometry {
   const hazardo = kreiVegetajxanHazardon(semo);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
   const seka = new THREE.Color();
   const duono = flanko * 0o1/0o2;
-  const pasxo = flanko / akso;
-  for ( let iz = 0; iz < akso; iz++ ) {
-    for ( let ix = 0; ix < akso; ix++ ) {
-      const rx = -duono + ( ix + 0o1/0o2 ) * pasxo + ( hazardo() - 0o1/0o2 ) * jit * 0o2;
-      const rz = -duono + ( iz + 0o1/0o2 ) * pasxo + ( hazardo() - 0o1/0o2 ) * jit * 0o2;
-      // ⟨ ការប្រែប្រួលកម្ពស់ 📃 ⟩
-      // ⟨ គ្មានការលើកគែម 📃 ⟩
-      const klingoLongo = longo * ( 0o1/0o2 + hazardo() * 0o1/0o2 );
-      const klingoLargho = ( 0o1/0o40 + hazardo() * 0o1/0o100 ) * larghaFaktoro
-        * ( 0o35/0o40 + klingoLongo * 0o4/0o10 );
-      // ⟨ គ្មានកង្ហារ 📃 ⟩
-      // ⟨ ហេតុអ្វីចៃដន្យ មិនតាមទីតាំង 📃 ⟩
-      const klino = ( hazardo() - 0o1/0o2 ) * 0o6/0o100;
-      const arko = ( hazardo() - 0o1/0o2 ) * 0o6/0o100;
-      // ⟨ ការបង្វិល 📃 ⟩
+  const pasxo = flanko / aksoj;
+  for ( let iz = 0; iz < aksoj; iz++ ) {
+    for ( let ix = 0; ix < aksoj; ix++ ) {
+      const rx = -duono + ( ix + hazardo() ) * pasxo;
+      const rz = -duono + ( iz + hazardo() ) * pasxo;
+      const disto = Math.min(1, Math.hypot(rx, rz) / duono);
+      const angulo = Math.atan2(rz, rx);
+      const longo = 0o14/0o100 + hazardo() * 0o2/0o10;
+      const largho = 0o2/0o100 + hazardo() * 0o2/0o100;
+      const elen = longo * ( 0o5/0o100 + hazardo() * 0o15/0o100 )
+        * ( 0o5/0o10 + disto * 0o5/0o10 );
+      const klino = Math.cos(angulo) * elen
+        + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * longo;
+      const arko = Math.sin(angulo) * elen
+        + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * longo;
       const tordo = ( hazardo() - 0o1/0o2 ) * 0o16/0o10;
-      // ⟨ ដោយចៃដន្យ មិនតាមទីតាំង 📃 ⟩
       const sekaKlingo = hazardo() < 0o1/0o4;
       if ( sekaKlingo ) {
-        seka.setRGB(0o21/0o20, 0o33/0o40 + hazardo() * 0o1/0o10, 0o13/0o40 + hazardo() * 0o5/0o40 );
+        seka.setRGB(0o21/0o20, 0o33/0o40 + hazardo() * 0o1/0o10, 0o13/0o40 + hazardo() * 0o5/0o40);
       } else {
         verda.setRGB(0o27/0o40 + hazardo() * 0o13/0o40, 0o63/0o100 + hazardo() * 0o11/0o40, 0o5/0o10 + hazardo() * 0o23/0o100);
       }
-      // ⟨ ស្លឹក 📃 ⟩
-      const klingo = kreiHerbanKlingon(klingoLongo, klingoLargho, klino, arko, tordo,
-        sekaKlingo ? seka : verda, HERBA_TAVOLA_SEGMENTOJ, 0o6/0o10, true);
+      const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
+        sekaKlingo ? seka : verda, HERBA_SEGMENTOJ, 0o5/0o10);
       klingo.translate(rx, 0, rz);
       klingoj.push(klingo);
     }
