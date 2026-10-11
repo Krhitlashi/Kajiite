@@ -11,6 +11,8 @@ export interface MenuajOpcioj {
   duskRegilo: HTMLInputElement;
   butVetero: HTMLElement;
   veteroEtikedo: HTMLElement;
+  butKonserviEliri: HTMLElement;
+  konserviEliri: () => void;
   vestaro: HTMLElement;
   informo: HTMLElement;
   fermiVestaron: () => void;
@@ -42,9 +44,9 @@ export interface Menuo {
 export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   const {
     navPopUp, navButono, butSonoro, butBruo, butKrepusko, duskRegilo,
-    butVetero, veteroEtikedo, vestaro, informo,
+    butVetero, veteroEtikedo, butKonserviEliri, vestaro, informo,
     fermiVestaron, fermiInformon, traduki, aplikiVacepu, aplikiRezimon, aplikiVeteron,
-    sonoro, muziko,
+    konserviEliri, sonoro, muziko,
   } = opcioj;
 
   // ⟪ ផ្ទាំងរុករក 📃 ⟫
@@ -163,6 +165,9 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   });
   window.addEventListener("lingvosxangxo", gxisdatigiVeteranButonon);
   gxisdatigiVeteranButonon();
+
+  // ⟪ ការរក្ទក់ និងការចេញពីពិភពលោក 📃 ⟫
+  butKonserviEliri.addEventListener("click", () => konserviEliri());
 
   return { fermiNaviganPopUp };
 }

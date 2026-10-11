@@ -13,6 +13,7 @@ import { kreiPaneelojn } from "../fasado/paneeloj.js";
 import { kreiVestejon } from "../fasado/vestejo.js";
 import { kreiEnigojn } from "../fasado/enigoj.js";
 import { kreiMenuon } from "../fasado/menuo.js";
+import { konserviEliriMondon } from "../fasado/mondoj.js";
 import { kreiRezimojn } from "./rezimoj.js";
 import { kreiAnimacion } from "./animacio.js";
 import { kreiLudanton } from "./ludanto.js";
@@ -178,9 +179,11 @@ const butKrepusko = document.getElementById("butKrepusko")!;
 const duskRegilo = document.getElementById("duskRegilo") as HTMLInputElement;
 const butVetero = document.getElementById("butVetero")!;
 const veteroEtikedo = document.getElementById("veteroEtikedo")!;
+const butKonserviEliri = document.getElementById("butKonserviEliri")!;
 const menuo = kreiMenuon({
   navPopUp, navButono, butSonoro, butBruo,
   butKrepusko, duskRegilo, butVetero, veteroEtikedo,
+  butKonserviEliri, konserviEliri: konserviEliriMondon,
   vestaro, informo,
   fermiVestaron: () => vestejo.fermi(), fermiInformon,
   traduki, aplikiVacepu,

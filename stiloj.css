@@ -82,6 +82,8 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 .menuPanel { position:relative; }
 .menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
 #informTaboj { grid-template-columns:repeat(3,minmax(0,1fr)); }
+/* ⟪ ប៊ូតុងការចាប់ផ្តើមតម្រង់ជាខ្សែ ( ជួរតែមួយ ) 📃 ⟫ */
+#komenco .menuAzioj { grid-template-columns:1fr; }
 #duskLabelo, #veteroEtikedo { flex-direction:row; align-items:center; }
 #veteroEtikedo { justify-content:center; text-align:center; }
 #trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); overflow:auto; }
@@ -103,7 +105,7 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 
 /* ⟪ របៀបសរសេរ 📃 ⟫ */
 
-html[lang="ja"] .menuPanel, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
+html[lang="ja"] .menuPanel, html[lang="ja"] #komenco, html[lang="ja"] #mondPagho, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
 html[lang="aih"] #prompto, html[lang="ja"] #prompto { left:auto; right:calc(var(--អារេងព៏) + var(--sar)); top:50%; bottom:auto; transform:translateY(-50%) translateX(var(--អារេង)); white-space:normal; max-inline-size:75%; overflow:hidden; }
 html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
 
@@ -120,3 +122,26 @@ body.tuŝa #mobKontroloj { display:block; }
 .mobBut { pointer-events:auto; }
 #mobButInterakti { opacity:0; pointer-events:none; transition:opacity .2336092301648s; }
 #mobButInterakti.montri { opacity:1; pointer-events:auto; }
+
+/* ⟪ ការចាប់ផ្តើម ( ទេសភាព · ក្រដាសស្តើង ) 📃 ⟫ */
+#komencoFono { position:fixed; z-index:10; inset:0; background-image:url("./panoramo.png"); background-size:cover; background-position:center; pointer-events:none; }
+/* ⟪ ពេលចូលពិភពលោក blur លែង fade ចេញភ្លាមៗ តែអក្សរនិងប៊ូតុងនៅ fade ទន្ទឹមគ្នា 📃 ⟫ */
+#komenco.finita ~ #komencoFono { visibility:hidden; }
+/* ⟪ aih sideways-lr ធ្វើឱ្យ block-size ស្មើនឹងទទឹង ដូច្នេះ block-size:100% គ្រប់គ្រងទទឹង 📃 ⟫ */
+/* ⟪ .aih ពីជាយស្តុកនាំ align-self:center មក ដែលធ្វើ box ថយមក fit-content ជំនួស stretch របស់ inset:0 ដូច្នេះត្រូវប្តូរទៅ stretch 📃 ⟫ */
+#komenco { position:fixed; z-index:11; inset:0; box-sizing:border-box; block-size:100%; display:grid; place-items:center; align-self:stretch; align-content:safe center; padding:var(--អារេងព៏); overflow:auto; }
+/* ⟪ blur និងស្រមោលស្រាត់ n2tase មិន fade ទេ មានតែមាតិកាទេដែល fade 📃 ⟫ */
+#komenco > h1, #komenco > maxema { transition:opacity .5s,visibility .5s; }
+/* ⟪ n2tase backdrop-filter ប្រែទៅជា blur លើ canvas ផ្ទាល់ពេល fade ដូច្នេះទាញចេញម្តងមួយៗ 📃 ⟫ */
+#komenco.finita { backdrop-filter:none; -webkit-backdrop-filter:none; background:none; pointer-events:none; }
+#komenco.finita > h1, #komenco.finita > maxema { opacity:0; visibility:hidden; }
+/* ⟪ maxema ពេញអេក្រង់ក្នុង aih ធ្វើប៊ូតុងខ្ពស់ពេក ដូច្នេះទុកឱ្យស្ទៃលើកម្រិតមាតិកា 📃 ⟫ */
+#komenco maxema { inline-size:auto; block-size:auto; }
+
+/* ⟪ ទំព័រពិភពលោក ( គ្រាប់ពូជ · <sak> · បញ្ជី ) 📃 ⟫ */
+/* ⟪ ទំព័រនេះអត់មាន n2tase ទេ ព្រោះ blur និងស្រមោលស្រាត់ស្ថិតនៅលើ #komenco រហូត ដូច្នេះ blur លែង fade ពេលប្តូរទៅមក 📃 ⟫ */
+#mondPagho { position:fixed; z-index:12; inset:0; box-sizing:border-box; block-size:100%; display:grid; place-items:center; align-self:stretch; align-content:safe center; padding:var(--អារេងព៏); overflow:auto; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2336092301648s,visibility .2336092301648s; }
+#mondPagho.montri { opacity:1; visibility:visible; pointer-events:auto; }
+/* ⟪ លាក់មាតិកាការចាប់ផ្តើម តែស្រមោលស្រាត់ blur នៅដដែល 📃 ⟫ */
+body:has(#mondPagho.montri) #komenco { pointer-events:none; }
+body:has(#mondPagho.montri) #komenco > h1, body:has(#mondPagho.montri) #komenco > maxema { opacity:0; visibility:hidden; }
