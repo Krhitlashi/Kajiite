@@ -12,7 +12,9 @@ export interface AgajOpcioj {
   kanuoj: Kanoto[];
   promptoElemento: HTMLElement;
   informo: HTMLElement;
-  vestaro: HTMLElement;
+  /*តើទំព័រសម្លៀកបំពាក់កំពុងបើកឬទេ ៖ Ctrl+Esc បិទវាមុន
+      @param cxuVestaroMalfermita ( function ) */
+  cxuVestaroMalfermita: () => boolean;
   fxVarma: HTMLElement;
   fxMenta: HTMLElement;
   montriTost: ( mesagxo: string ) => void;
@@ -33,7 +35,7 @@ export interface Agoj {
 export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
   const {
     ludanto, kanuoj,
-    promptoElemento, informo, vestaro, fxVarma, fxMenta,
+    promptoElemento, informo, cxuVestaroMalfermita, fxVarma, fxMenta,
     montriTost, fermiInformon, fermiVestaron, eliriKanoton, fermuMapon,
     eniriKonstruajxon, eliriInternon,
   } = opcioj;
@@ -47,7 +49,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
 
   function agaEskapon(): void {
     if ( informo.classList.contains("montri") ) fermiInformon();
-    else if ( vestaro.classList.contains("montri") ) fermiVestaron();
+    else if ( cxuVestaroMalfermita() ) fermiVestaron();
     else if ( fermuMapon() ) { /* la mapo fermiĝis */ }
     else if ( ludanto.rezimo === "interno" ) { if ( ludanto.kuŝas ) leviĝi(); else eliriInternon(); }
   }

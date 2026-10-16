@@ -1,6 +1,7 @@
 // ≺⧼ ចៃដន្យរុក្ខជាតិ 🎲 ⧽≻
 import * as THREE from "three";
 import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
+import { vegetajxaSemo } from "../../../kantaoj/tero-datumaro/rultempo.js";
 
 export function kreiKlinoQuaternionon(hazardaGenerilo: () => number, plenaKlinangulo: number, yaw: number): THREE.Quaternion {
   const turno = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, yaw, 0));
@@ -23,5 +24,7 @@ export function hazardaKoloro(hazardaGenerilo: () => number, koloro: THREE.Color
 
 export const VEGETAJXA_PLIIGO = 0x682878F5;
 
+// គ្រាប់ពូជនៃរុក្ខជាតិឆ្លងកាត់គ្រាប់ពូជរបស់ពិភពលោកសកម្ម , ដូច្នេះការរាយ
+// រុក្ខជាតិក៏ជារបស់គ្រាប់ពូជដែរ ។ ពិភពលោកដែលគ្មានគ្រាប់ពូជមិនប្តេរ ។
 export const kreiVegetajxanHazardon = (semo: number): ( () => number ) =>
-  kreiHazardanGenerilon(semo, VEGETAJXA_PLIIGO);
+  kreiHazardanGenerilon(vegetajxaSemo(semo), VEGETAJXA_PLIIGO);

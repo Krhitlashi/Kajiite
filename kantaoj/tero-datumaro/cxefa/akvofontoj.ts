@@ -6,4 +6,8 @@ export const SKULPTA_AKVOFONTOJ = [
   { "x": -0o334, "z": 0o30, "fluo": 0o20 },
   { "x": -0o300, "z": -0o254, "fluo": 0o20 },
   { "x": 0o214, "z": -0o134, "fluo": 0o22 },
+  { "x": -0o406, "z": 0o304, "fluo": 0o24 },
+  { "x": -0o154, "z": 0o230, "fluo": 0o24 },
+  { "x": 0o230, "z": 0o266, "fluo": 0o24 },
+  { "x": 0o74, "z": 0o254, "fluo": 0o22 },
 ];

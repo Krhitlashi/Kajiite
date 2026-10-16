@@ -1,20 +1,25 @@
 // ≺⧼ ការចាប់ផ្តើម 🎬 ⧽≻
 import { traduki } from "../lingvo/tradukoj.js";
+import { hazardaSemo, semoEnBazo8 } from "../mondo/semo.js";
+import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, autoKomenci, registriPostAŭdio } from "../../eskekoj/sonoj/sonoro.js";
 import type { MondoRecordo } from "./mondoj.js";
 import {
   agordiAktivanMondon, certigiCxefanMondon, duobligiMondon,
   forigiMondon, kreiMondon, legiMondojn, montriNomon,
 } from "./mondoj.js";
+// ⟨ ទំព័រដើម ( ព័ត៌មាន · ការកំណត់ · សម្លៀកបំពាក់ ) ត្រូវបានភ្ជាប់ដោយការនាំចូលនេះ 📃 ⟩
+import "./hejmpaghoj.js";
+import { kreiPaghon, fermiCxiujnPaghojn } from "./paghoj.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
 const komenco = document.getElementById("komenco")!;
-const mondPagho = document.getElementById("mondPagho")!;
 const butAranis = document.getElementById("butAranis")!;
 const butMondo = document.getElementById("butMondo")!;
-const mondReeniri = document.getElementById("mondReeniri")!;
 const sxonoEnigo = document.getElementById("sxonoEnigo") as HTMLInputElement;
 const butKreiMondon = document.getElementById("butKreiMondon")!;
 const mondListo = document.getElementById("mondListo")!;
+const butAgordoj = document.getElementById("butAgordoj")!;
+const butAgordLingvo = document.getElementById("butAgordLingvo");
 
 // ⟪ ស្ថានភាព 📃 ⟫
 let ludata = false;
@@ -71,7 +76,7 @@ function eniriMondon( mondo: MondoRecordo ): void {
   ludata = true;
   agordiAktivanMondon(mondo.id);
   komenco.classList.add("finita");
-  mondPagho.classList.remove("montri");
+  fermiCxiujnPaghojn();
   import("../ludo/sperto.js");
 }
 
@@ -79,19 +84,18 @@ function eniriMondon( mondo: MondoRecordo ): void {
 butAranis.addEventListener("click", () => eniriMondon(certigiCxefanMondon()));
 
 // ⟪ ទំព័របង្កើត និងផ្ទុកពិភពលោក 📃 ⟫
-butMondo.addEventListener("click", () => {
+const mondPagho = kreiPaghon("mondPagho", () => {
   montriListon();
-  mondPagho.classList.add("montri");
   sxonoEnigo.focus();
 });
-mondReeniri.addEventListener("click", () => mondPagho.classList.remove("montri"));
-mondPagho.addEventListener("click", ( e ) => {
-  if ( e.target === mondPagho ) mondPagho.classList.remove("montri");
-});
+butMondo.addEventListener("click", () => mondPagho.malfermi());
 
-// ⟪ ការបង្កើតពិភពលោក ( ព័ត៌មានគ្រាប់ពូជមកដល់ក្រោយ ) 📃 ⟫
+// ⟪ ការបង្កើតពិភពលោក 📃 ⟫
+// គ្រាប់ពូជទទេបង្កើតគ្រាប់ពូជចៃដន្យ ដើម្បីឱ្យគ្រប់ពិភពលោកដែលបានបង្កើត
+// មានដីផ្ទាល់ខ្លួន ។ ពិភពលោកចម្បង ( គ្មានគ្រាប់ពូជ ) ប្រើដីដែលឆ្លាក់ដោយដៃ ។
 function kreiElMondon(): void {
-  kreiMondon({ smino: sxonoEnigo.value });
+  const skribita = sxonoEnigo.value.trim();
+  kreiMondon({ smino: skribita || semoEnBazo8(hazardaSemo()) });
   sxonoEnigo.value = "";
   montriListon();
 }
@@ -121,3 +125,37 @@ mondListo.addEventListener("click", ( e ) => {
 
 // ⟪ ការផ្លាស់ភាសា 📃 ⟫
 window.addEventListener("lingvosxangxo", montriListon);
+
+// ⟪ ម៉ឺនុយការកំណត់ដាច់ដោយឡែក , ពេញអេក្រង់ដោយគ្មានផ្ទាំងលេចឡើង 📃 ⟫
+const butAgordSonoro = document.getElementById("butAgordSonoro");
+const butAgordBruo = document.getElementById("butAgordBruo");
+
+function gxisdatigiAgordSonoron(aktiva: boolean): void {
+  if ( !butAgordSonoro ) return;
+  butAgordSonoro.setAttribute("aria-pressed", String(aktiva));
+}
+
+function gxisdatigiAgordBruon(): void {
+  if ( !butAgordBruo ) return;
+  butAgordBruo.setAttribute("aria-pressed", String(cxuBruo()));
+}
+
+const agordPagho = kreiPaghon("agordPagho", () => {
+  gxisdatigiAgordSonoron(cxuAŭdio());
+  gxisdatigiAgordBruon();
+  ( butAgordLingvo as HTMLButtonElement | null )?.focus();
+});
+
+butAgordoj.addEventListener("click", () => agordPagho.malfermi());
+
+butAgordSonoro?.addEventListener("click", () => {
+  gxisdatigiAgordSonoron(sxaltiAŭdion());
+});
+butAgordBruo?.addEventListener("click", () => {
+  sxaltiBruon();
+  gxisdatigiAgordBruon();
+});
+registriPostAŭdio(gxisdatigiAgordSonoron);
+document.addEventListener("pointerdown", () => autoKomenci(), { once: true });
+gxisdatigiAgordSonoron(cxuAŭdio());
+gxisdatigiAgordBruon();

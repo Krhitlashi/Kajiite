@@ -170,6 +170,20 @@ export function agordiAktivanMondon( id: string ): void {
   }
 }
 
+/*អានកំណត់ត្រារបស់ពិភពលោកសកម្ម
+@return mondo ឬ null បើរកមិនឃើញ */
+export function aktivaMondo(): MondoRecordo | null {
+  const id = legiAktivanId();
+  if ( !id ) return null;
+  return legiMondojn().find(m => m.id === id) ?? null;
+}
+
+/*អានគ្រាប់ពូជរបស់ពិភពលោកសកម្ម
+@return smino ( string ) - ទទេ បើពិភពលោកនេះប្រើដីដែលឆ្លាក់ដោយដៃ */
+export function aktivaSemo(): string {
+  return ( aktivaMondo()?.smino ?? "" ).trim();
+}
+
 /*លុបការកំណត់ពិភពលោកសកម្ម */
 function foriguAktivan(): void {
   try {

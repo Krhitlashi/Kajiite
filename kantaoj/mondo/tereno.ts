@@ -1,6 +1,7 @@
 // ≺⧼ ដី ⛰️ ⧽≻
-import { skulptaDelta, dekodiMaskon, skulptitaBiomo } from "../tero-datumaro/rultempo.js";
-import { SKULPTA_AKVA_NIVELO, SKULPTA_AKVA_MASKO, SKULPTA_AKVOFONTOJ,
+import { skulptaDelta, skulptitaBiomo, aktivaAlteco, aktivajAkvofontoj,
+  aktivaAkvaMasko, cxuGeneritaTero } from "../tero-datumaro/rultempo.js";
+import { SKULPTA_AKVA_NIVELO,
   SKULPTA_AKTIVA, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_PASO } from "../tero-datumaro/aktiva.js";
 import { cxuEnFormo } from "../../eskekoj/komunajxoj/mapformo.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
@@ -143,8 +144,11 @@ export function biomo(x: number, z: number): Biomo {
   return "nenio";
 }
 
-export function bazaAlteco(_x: number, _z: number): number {
-  return 0;
+// ⟨ ស្រទាប់ធម្មជាតិ 📃 ⟩
+// ពិភពលោកដែលមានគ្រាប់ពូជបង្កើតស្រទាប់នេះពីគ្រាប់ពូជ ( generilo.ts ) ។
+// ពិភពលោកដែលគ្មានគ្រាប់ពូជរាបស្មើ ហើយដីទាំងមូលមកពីការឆ្លាក់ដោយដៃ ។
+export function bazaAlteco(x: number, z: number): number {
+  return aktivaAlteco(x, z);
 }
 
 // ⟪ ការនាំចេញឡើងវិញ 📃 ⟫
@@ -156,13 +160,14 @@ export { SKULPTA_N, SKULPTA_ORIGINO } from "../tero-datumaro/aktiva.js";
 const AKVA: AkvaKalkulo | null = ( () => {
   if ( !SKULPTA_AKTIVA ) return null;
   const mapo = aktivaMapo();
-  const semoj = dekodiMaskon(SKULPTA_AKVA_MASKO, SKULPTA_N * SKULPTA_N);
   return kalkuliAkvon(
     SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO as [number, number],
     sekaAlteco,
     ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z),
-    SKULPTA_AKVOFONTOJ, semoj,
-    { nivelo: SKULPTA_AKVA_NIVELO } );
+    aktivajAkvofontoj(), aktivaAkvaMasko(),
+    // ⟨ ពិភពលោកដែលបង្កើតពីគ្រាប់ពូជ , ទឹកហូរចុះរហូតដល់សមុទ្រ ឬបឹង ។
+    // ដីដែលឆ្លាក់ដោយដៃរក្សាទឹកដើមវិញ ។ 📃 ⟩
+    { nivelo: SKULPTA_AKVA_NIVELO, naturaFluo: cxuGeneritaTero() } );
 } )();
 
 export function akvaEltrancxo(x: number, z: number): number {

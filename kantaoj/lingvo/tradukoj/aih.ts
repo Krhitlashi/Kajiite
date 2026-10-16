@@ -200,5 +200,11 @@ export const AIH: Record<string, string> = {
   "ariaMondForigi": "֭ſɭɹͷ̗",
   "ariaMondDuobligi": "ſןw ſɟw ɭʃᴜ",
   "butonoKonserviEliri": "j͑ʃ'ɔ ſ̀ȷᴜȝ • j͑ʃwc̗ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ",
+  "titoloAgordoj": "ſɭw ſᶘɜ",
+  "subtitoloAgordoj": "ſ͔ɭᴜ ᶅſɔ • ʃɔ • j͑ʃп́ꞇ ſɭɔƴ • ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ j͑ʃɜȝ ɭʃɔ",
+  "butonoSono": "ʃɔ",
+  "butonoBruo": "ſȷᴜ ŋᷠᴜʞ",
+  "sekcioMuziko": "ʃɔ",
+  "titoloLingvo": "ſ͔ɭᴜ ᶅſɔ",
   "mondNomo": "}ʃᴜ j͐ʃᴜ",
 };

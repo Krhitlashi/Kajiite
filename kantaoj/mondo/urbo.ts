@@ -3,8 +3,7 @@ import * as THREE from "three";
 import { konstruiKradanUrbon } from "./urbo/krada-urbo.js";
 import { konstruiMetitajnObjektojn } from "./urbo/metitaj.js";
 import { kreiLampAldonilon } from "./urbo/lampoj.js";
-import type { NebulaSistemo, UrbaSistemo, SkulptaUrbo,
-  SkulptaVojo, SkulptaPlatformo, MetitaObjekto } from "./urbo/tipoj.js";
+import type { NebulaSistemo, UrbaSistemo, SkulptaUrbo, SkulptaVojo } from "./urbo/tipoj.js";
 import { RiverData, konstruiRiveron,
   konstruiRiveronNordan, konstruiLagon, konstruiSkulptitanAkvon } from "../../eskekoj/medio/akvo.js";
 import { konstruiBestojn, konstruiPetrelojn } from "../../eskekoj/shalaj-specioj/bestoj.js";
@@ -15,8 +14,7 @@ import type { Figuro, Vesto } from "../../eskekoj/shalaj-specioj/homoj.js";
 import type { InternaSistemo } from "../../eskekoj/konstruajxoj/internoj/tipoj.js";
 import { akvo, alteco, riveroZ, RIVERA_DUONLARĜO, LAGO_X, LAGO_RZ, RIVERA_BUŜO_X, riveraAkvaNivelo, lagoZ, lagoNivelo, lagoRadio,
   akvaNivelo, riveroNordOrientaX, riveraNordOrientaNivelo, RIVERA_NORDORIENTA_FONTO_Z, RIVERA_NORDORIENTA_DUONLARĜO, RIVERA_NORDORIENTA_BUŜO_Z, skulptitaAkvo, skulptaAkvaLimoj, akvaMeshNivelo, SKULPTA_PASO, SKULPTA_AKTIVA } from "./tereno.js";
-import { SKULPTA_OBJEKTOJ, SKULPTA_URBOJ, SKULPTA_VOJOJ,
-  SKULPTA_DOKOJ, SKULPTA_N, SKULPTA_ORIGINO } from "../tero-datumaro/aktiva.js";
+import { SKULPTA_N, SKULPTA_ORIGINO } from "../tero-datumaro/aktiva.js";
 import { konstruiHxsxaksxlefojn } from "../../eskekoj/shalaj-specioj/vegetajxo/hxsxaksxlefo.js";
 import { konstruiPussxlefojn } from "../../eskekoj/shalaj-specioj/vegetajxo/pussxlefo.js";
 import { konstruiArbaron } from "../../eskekoj/shalaj-specioj/vegetajxo/betuloj/arbaro.js";
@@ -49,7 +47,8 @@ import { konstruiDokon } from "../../eskekoj/medio/doko.js";
 import { PONT_FINA_LEVIGXO, pontaDeko, konstruiPonton } from "../../eskekoj/medio/doko/ponto.js";
 import { troviVojaRetajnKunigojn, VojaRetoVojo, VojaRetoKunigo } from "../../eskekoj/medio/voj-reto.js";
 import { surPosxtelefono } from "../bildo/scena/aparato.js";
-import { skulptitaBesto } from "../tero-datumaro/rultempo.js";
+import { skulptitaBesto, aktivajUrboj, aktivajVojoj, aktivajDokoj,
+  aktivajObjektoj, cxuGeneritaSetlejo, mondiaHazardo } from "../tero-datumaro/rultempo.js";
 import { konstruiHxeuxfojn } from "../../eskekoj/konstruajxoj/hxeuxfa/lampoj.js";
 import { konstruiFilikojn } from "../../eskekoj/shalaj-specioj/vegetajxo/filikoj.js";
 import { konstruiPurpurajnPlantojn,
@@ -80,8 +79,15 @@ export async function konstruiUrbon(
   };
   // ⟨ បំណែកនៃការសាងសង់ 📃 ⟩
 
-  const urboListo: SkulptaUrbo[] = SKULPTA_URBOJ.length
-    ? ( SKULPTA_URBOJ as SkulptaUrbo[] )
+  // ⟨ អ្វីដែលមនុស្សសាងសង់ ។ ក្នុងពិភពលោកដែលមានគ្រាប់ពូជ វាមកពីគ្រាប់ពូជ ,
+  // ក្នុងពិភពលោកដែលឆ្លាក់ដោយដៃ វាមកពីថត cxefa ។ 📃 ⟩
+  const hazardo = mondiaHazardo();
+  const URBOJ = aktivajUrboj();
+  const VOJOJ = aktivajVojoj();
+  const DOKOJ = aktivajDokoj();
+  const OBJEKTOJ = aktivajObjektoj();
+  const urboListo: SkulptaUrbo[] = URBOJ.length
+    ? URBOJ
     : [ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
   const urboj = urboListo.map(u => konstruiKradanUrbon(sceno,
     { arangxaGrando: u.arangxaGrando, blokaGrando: u.blokaGrando, keuxfhxeso: !!u.keuxfhxeso, lampoj: u.lampoj !== false },
@@ -119,7 +125,6 @@ export async function konstruiUrbon(
     : null;
 
   // ⟪ ចំណត , ច្រកចូលតាមច្រាំងទន្លេ 📃 ⟫
-  const DOKOJ = SKULPTA_DOKOJ as SkulptaPlatformo[];
   const dokoKolizioj: { x: number; z: number; w: number; d: number; rot: number; y: number }[] = [];
   const dokoLandajAltoj: number[] = [];
   // ⟨ ជណ្តើរចំណតជាផ្លូវ 📃 ⟩
@@ -197,7 +202,7 @@ export async function konstruiUrbon(
   const vojajRetajVojoj: VojaRetoVojo[] = [];
   // ⟨ ដំណាក់កាលទីមួយ , ទទឹងស្ពាន 📃 ⟩
   const pontajTrunkoj: ({ ax: number; az: number; bx: number; bz: number } | null)[] = [];
-  for ( const vojo of SKULPTA_VOJOJ as SkulptaVojo[] ) {
+  for ( const vojo of VOJOJ ) {
     const trunko = vojo.punktoj.length < 2 ? null : pontaTrunko(vojo);
     pontajTrunkoj.push(trunko);
     if ( vojo.punktoj.length < 2 ) continue;
@@ -212,8 +217,8 @@ export async function konstruiUrbon(
   // ⟨ ដៃពិតនៃការភ្ជាប់នីមួយៗ 📃 ⟩
   const vojajDirektoj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.direktaj ] ) );
   // ⟨ ដំណាក់កាលទីពីរ , និយមន័យ 📃 ⟩
-  for ( let vojaIndekso = 0; vojaIndekso < ( SKULPTA_VOJOJ as SkulptaVojo[] ).length; vojaIndekso++ ) {
-    const vojo = ( SKULPTA_VOJOJ as SkulptaVojo[] )[vojaIndekso];
+  for ( let vojaIndekso = 0; vojaIndekso < VOJOJ.length; vojaIndekso++ ) {
+    const vojo = VOJOJ[vojaIndekso];
     if ( vojo.punktoj.length < 2 ) continue;
     const trunko = pontajTrunkoj[vojaIndekso];
     let ponto: { ax: number; az: number; ay: number; bx: number; bz: number; by: number } | null = null;
@@ -247,10 +252,25 @@ export async function konstruiUrbon(
   for ( const p of pontaVojoj )
     konstruiPonton(sceno, p.ax, p.az, p.ay, p.bx, p.bz, p.by, p.w, alteco, skulptitaAkvo, andezitaMaterialo, oraMaterialo);
 
-  placajNodoj.push([ -0o124, -0o140 ]);
-  placajNodoj.push([ 0o124, -0o122 ]);
+  // ⟨ មហាវិថីកំពង់ ។ ក្នុងពិភពលោកដែលមានគ្រាប់ពូជ ចំណុចមកពីចុងផ្លូវ ,
+  // ក្នុងពិភពលោកដែលឆ្លាក់ដោយដៃ ពួកវាជាចំណុចដើម ។ 📃 ⟩
+  const placajFonto: [ number, number ][] = !cxuGeneritaSetlejo()
+    ? [ [ -0o124, -0o140 ], [ 0o124, -0o122 ] ]
+    : ( () => {
+      const finoj: [ number, number ][] = [];
+      for ( const vojo of VOJOJ ) {
+        if ( vojo.punktoj.length < 0o2 ) continue;
+        const [ x, z ] = vojo.punktoj[vojo.punktoj.length - 1];
+        // ⟨ ចុងផ្លូវដែលជាប់នឹងចំណតមានមហាវិថីរួចហើយ 📃 ⟩
+        if ( dokaLandaj.some(p => Math.hypot(p.x - x, p.z - z) < 0o20) ) continue;
+        finoj.push([ x, z ]);
+        if ( finoj.length >= 0o2 ) break;
+      }
+      return finoj;
+    } )();
+  for ( const p of placajFonto ) placajNodoj.push([ p[0], p[1] ]);
   for ( const [ dx, dz ] of dockaLandaRando ) placajNodoj.push([ dx, dz ]);
-  const dokaPlacajNodoj: [ number, number ][] = [ [ -0o124, -0o140 ], [ 0o124, -0o122 ], ...dockaLandaRando ];
+  const dokaPlacajNodoj: [ number, number ][] = [ ...placajFonto, ...dockaLandaRando ];
 
   await raporti();
 
@@ -261,7 +281,7 @@ export async function konstruiUrbon(
     for ( const [ dx, dz ] of [ [ -0o21/0o10, -0o21/0o10 ], [ 0o21/0o10, -0o21/0o10 ], [ -0o21/0o10, 0o21/0o10 ], [ 0o21/0o10, 0o21/0o10 ] ] ) addLamp(aX + dx, aZ + dz);
   }
 
-  for ( const o of SKULPTA_OBJEKTOJ ) {
+  for ( const o of OBJEKTOJ ) {
     if ( o.speco === "hxeuxfo" ) {
       lampLokoj.push({ x: o.x, z: o.z, y: alteco(o.x, o.z) + 0o1/0o40, rotacio: o.rotacio });
     } else if ( o.speco === "hxeuxfoPlato" ) {
@@ -301,7 +321,7 @@ export async function konstruiUrbon(
         }
       }
     }
-    for ( const o of SKULPTA_OBJEKTOJ ) {
+    for ( const o of OBJEKTOJ ) {
       if ( o.speco !== "hxeuxfoPlato" ) continue;
       if ( Math.hypot(x - o.x, z - o.z) < m + 3 ) return true;
     }
@@ -612,17 +632,17 @@ export async function konstruiUrbon(
   let provoj = 0;
   while ( npcoj.length < 0o230 && provoj < 0o2000 && npcZonoj.length > 0 ) {
     provoj++;
-    const loko = npcZonoj[( Math.random() * npcZonoj.length ) | 0];
-    const sX = loko.x + ( Math.random() - 0o1/0o2 ) * 0o3;
-    const sZ = loko.z + ( Math.random() - 0o1/0o2 ) * 0o3;
+    const loko = npcZonoj[( hazardo() * npcZonoj.length ) | 0];
+    const sX = loko.x + ( hazardo() - 0o1/0o2 ) * 0o3;
+    const sZ = loko.z + ( hazardo() - 0o1/0o2 ) * 0o3;
     if ( ekskluziviRiveron(sX, sZ) || ekskluziviKonstruajxon(sX, sZ, 3) ) continue;
-    const fig = konstruiFiguron(VESTA_LISTO[npcoj.length % VESTA_LISTO.length], Math.random() < 0o1/0o4 ? "haroLonga" : "haroMalalta");
+    const fig = konstruiFiguron(VESTA_LISTO[npcoj.length % VESTA_LISTO.length], hazardo() < 0o1/0o4 ? "haroLonga" : "haroMalalta");
     const h = alteco(sX, sZ);
     fig.group.position.set(sX, h, sZ);
     fig.hejmo.set(sX, h, sZ);
     fig.celo.set(sX, h, sZ);
-    fig.atendo = Math.random() * 4;
-    fig.rapido = 0o55/0o100 + Math.random() * 0o4/0o10;
+    fig.atendo = hazardo() * 4;
+    fig.rapido = 0o55/0o100 + hazardo() * 0o4/0o10;
     sceno.add(fig.group);
     npcoj.push(fig);
     NPCLOKOJ.push([ sX, sZ ]);
@@ -631,7 +651,7 @@ export async function konstruiUrbon(
 
   // ⟪ វត្ថុដាក់ ( ឧបករណ៍វត្ថុនៃឧបករណ៍ឆ្លាក់ ) 📃 ⟫
   const kanuoj: Kanoto[] = [];
-  const xipo = konstruiMetitajnObjektojn(sceno, SKULPTA_OBJEKTOJ as MetitaObjekto[],
+  const xipo = konstruiMetitajnObjektojn(sceno, OBJEKTOJ,
     alteco, akvo, akvaNivelo, bestoj, petreloj, npcoj, kanuoj, oraMaterialo, eniraMaterialo,
     selektajxoj);
   const stacioSxipo = cefa.konstruSpecoj.find(s => s.type === "stacioxipo");

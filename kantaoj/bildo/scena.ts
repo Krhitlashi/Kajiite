@@ -12,6 +12,7 @@ import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
 import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,
   MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
+import { montaraSemoBazo } from "../tero-datumaro/rultempo.js";
 import { gxisdatigiSteleanVitron } from "../../eskekoj/konstruajxoj/satalaj/vitro.js";
 import { montriEraronon } from "./scena/eraro.js";
 import { MAKS_RATIO, MULT_SAMPLEA, OMBRA_MAPO, surPosxtelefono } from "./scena/aparato.js";
@@ -396,11 +397,14 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const ringajKolonoj = 0o2000;
 
     // ⟨ ស្រទាប់ភ្នំ 📃 ⟩
-    kreiMontanRingon(krestaVagado(0o16, 0o10, 0o123/0o100), 0o240, ringajKolonoj, 0o40,
-      0o123/0o100, krestaAlto(1, 0o123/0o100), 0, montaMaterialo);
+    // គ្រាប់ពូជមកពីពិភពលោកសកម្ម ។ ពិភពលោកដែលគ្មានគ្រាប់ពូជរក្សា
+    // ជួរភ្នំដើមរបស់ដីដែលឆ្លាក់ដោយដៃ ។
+    const montaSemo = montaraSemoBazo();
+    kreiMontanRingon(krestaVagado(0o16, 0o10, montaSemo), 0o240, ringajKolonoj, 0o40,
+      montaSemo, krestaAlto(1, montaSemo), 0, montaMaterialo);
 
-    kreiMontanRingon(krestaVagado(0o200, 0o60, 0o123/0o100 + 0o40), 0o200, ringajKolonoj, 0o30,
-      0o123/0o100 + 0o20, krestaAlto(0o7/0o10, 0o123/0o100 + 0o20), 0o35/0o100, montaFona);
+    kreiMontanRingon(krestaVagado(0o200, 0o60, montaSemo + 0o40), 0o200, ringajKolonoj, 0o30,
+      montaSemo + 0o20, krestaAlto(0o7/0o10, montaSemo + 0o20), 0o35/0o100, montaFona);
   } )();
 
   // ⟪ ដី 📃 ⟫

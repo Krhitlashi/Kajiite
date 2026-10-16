@@ -3,6 +3,18 @@ import { TIPARO, KonstruSpec, KonstruTipo } from "../../eskekoj/konstruajxoj/sat
 import { FOKS, TLAS } from "../../eskekoj/mebloj/mangxajxoj/datumoj.js";
 import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
 import { aplikiVacepu } from "./efikoj.js";
+import { kreiPanelon } from "./paghoj.js";
+import type { Panelo } from "./paghoj.js";
+
+/*បង្កើតចំណងជើងផ្នែកមួយ , ដូចផ្នែកទាំងអស់ក្នុងបញ្ជី
+    @param klavo ( string ) - សោបកប្រែ
+@returns titolo */
+export function kreiSekcianTitolon( klavo: string ): HTMLParagraphElement {
+  const titolo = document.createElement("p");
+  titolo.className = "ksakap2sa aih";
+  titolo.textContent = traduki(klavo);
+  return titolo;
+}
 
 export function kreiPanelKarton(enhavo: HTMLElement[], klako: () => void, elektita?: boolean): HTMLElement {
   const card = document.createElement("ciihii");
@@ -43,7 +55,26 @@ export function manĝaKlavo(ŝlosilo: string): string {
   return "manĝ" + ŝlosilo.charAt(0).toUpperCase() + ŝlosilo.slice(1);
 }
 
-interface SpeciaDatumo {
+// ⟪ ផ្ទាំងប្តូរផ្ទាំងរួមរវាងផ្ទាំងលេចឡើង និងទំព័រពេញ 📃 ⟫
+export function sxaltiTabonEn( radiko: HTMLElement, tabo: string ): void {
+  radiko.querySelectorAll("button[data-tabo]").forEach(b => {
+    b.setAttribute("aria-pressed", String(( b as HTMLElement ).dataset.tabo === tabo));
+  });
+  radiko.querySelectorAll(".informSekcio").forEach(s => {
+    const sekcio = s as HTMLElement;
+    sekcio.style.display = sekcio.dataset.sekcio === tabo ? "" : "none";
+  });
+}
+
+export function ligiTabojn( radiko: HTMLElement, komencaTabo: string ): void {
+  radiko.querySelectorAll("button[data-tabo]").forEach(b => {
+    const tabo = ( b as HTMLElement ).dataset.tabo || komencaTabo;
+    b.addEventListener("click", () => sxaltiTabonEn(radiko, tabo));
+  });
+  sxaltiTabonEn(radiko, komencaTabo);
+}
+
+export interface SpeciaDatumo {
   key: string;
   flavorKey: string;
   grupo: "besto" | "planto";
@@ -69,6 +100,66 @@ const SPECIOJ: SpeciaDatumo[] = [
   { key: "specCakeo", flavorKey: "flvSpecCakeo", grupo: "planto", col: "#68885880" },
 ];
 
+// ⟪ បំពេញបញ្ជីរួមរវាងផ្ទាំងលេចឡើង និងទំព័រពេញ 📃 ⟫
+export function plenigiKonstruaListonEn(
+  konstruaListo: HTMLElement, konstruSpecoj: KonstruSpec[],
+  enfokusigi: ( spec: KonstruSpec, bt: KonstruTipo ) => void,
+): void {
+  konstruaListo.innerHTML = "";
+  for ( const spec of konstruSpecoj ) {
+    const bt = TIPARO[spec.type] || TIPARO.domo;
+    const card = kreiPanelKarton([
+      kreiPeceton(bt.chip, traduki(bt.labelKey)),
+      kreiNomlinion(konstruaĵaNomo(spec.name, spec.type)),
+    ], () => enfokusigi(spec, bt));
+    konstruaListo.appendChild(card);
+  }
+}
+
+export function plenigiMangxaListonEn(
+  mangxaListo: HTMLElement, montriKarton: ( nomKlavo: string ) => void,
+): void {
+  mangxaListo.innerHTML = "";
+  for ( const f of [ ...FOKS, ...TLAS ] ) {
+    const nomKlavo = manĝaKlavo(f.key);
+    const card = kreiPanelKarton([
+      kreiNomlinion(traduki(nomKlavo)),
+      kreiGustlinion(nomKlavo + "Flavor"),
+    ], () => montriKarton(nomKlavo));
+    mangxaListo.appendChild(card);
+  }
+}
+
+export function plenigiSpeciaListonEn(
+  speciaListo: HTMLElement, montriKarton: ( spec: SpeciaDatumo ) => void,
+): void {
+  speciaListo.innerHTML = "";
+  for ( const spec of SPECIOJ ) {
+    const card = kreiPanelKarton([
+      kreiPeceton(spec.col, traduki(spec.grupo === "besto" ? "grupoBesto" : "grupoPlanto")),
+      kreiNomlinion(traduki(spec.key)),
+      kreiGustlinion(spec.flavorKey),
+    ], () => montriKarton(spec));
+    speciaListo.appendChild(card);
+  }
+}
+
+export const KONSTRU_TIPOJ = [ "domo", "mangxejo", "kasafeo", "stacioxipo", "turo", "sanktejo", ];
+
+export function plenigiKonstruTipListonEn( listo: HTMLElement ): void {
+  listo.innerHTML = "";
+  for ( const tipo of KONSTRU_TIPOJ ) {
+    const bt = TIPARO[tipo];
+    if ( !bt ) continue;
+    const card = kreiPanelKarton([
+      kreiPeceton(bt.chip, traduki(bt.labelKey)),
+      kreiNomlinion(traduki(bt.labelKey)),
+      kreiGustlinion(bt.flavorKey),
+    ], () => {});
+    listo.appendChild(card);
+  }
+}
+
 export interface PanelajOpcioj {
   informButono: HTMLElement;
   informo: HTMLElement;
@@ -87,7 +178,6 @@ export interface PanelajOpcioj {
   regiloj: { enabled: boolean; target: { set( x: number, y: number, z: number ): void }; update(): void };
   fotilo: { position: { set( x: number, y: number, z: number ): void } };
   gxisdatigiRetikulon: () => void;
-  fermiVestaron: () => void;
   skribiElektitan: ( spec: KonstruSpec | null ) => void;
   eniriKonstruajxon: ( spec: KonstruSpec ) => void;
 }
@@ -103,92 +193,42 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     informButono, informo, konstruaListo, mangxaListo, speciaListo,
     kartoElemento, kartoNomo, kartoChip, kartoStatistikoj, kartoFlavor, kartoEniri,
     konstruSpecoj, legiRezimon, sxaltiRezimon, regiloj, fotilo,
-    gxisdatigiRetikulon, fermiVestaron, skribiElektitan, eniriKonstruajxon,
+    gxisdatigiRetikulon, skribiElektitan, eniriKonstruajxon,
   } = opcioj;
 
+  // ⟪ បន្ទះព័ត៌មាន ៖ ម៉ឺនុយដូចគ្នានឹងផ្ទាំងលេចឡើងដទៃ , បើកវាបិទម៉ឺនុយផ្សេង 📃 ⟫
+  const informoStato: Panelo = kreiPanelon("informo", plenigiInformon, gxisdatigiInformButonon);
+
   function gxisdatigiInformButonon() {
-    informButono.setAttribute("aria-pressed", String(informo.classList.contains("montri")));
+    informButono.setAttribute("aria-pressed", String(informoStato.cxuMalfermita()));
   }
   function sxaltiInformon() {
-    informo.classList.toggle("montri");
-    gxisdatigiInformButonon();
-    if ( informo.classList.contains("montri") ) {
-      fermiVestaron();
-      plenigiInformon();
-    }
+    if ( informoStato.cxuMalfermita() ) { informoStato.kasxi(); return; }
+    informoStato.malfermi();
   }
   function fermiInformon() {
-    informo.classList.remove("montri");
-    gxisdatigiInformButonon();
+    informoStato.fermi();
   }
   informButono.addEventListener("click", sxaltiInformon);
-  informo.addEventListener("click", ( e ) => {
-    if ( e.target === informo ) fermiInformon();
-  });
 
-  function sxaltiTabon(tabo: string, tabojId: string, paneloId: string) {
-    document.querySelectorAll(`#${tabojId} button`).forEach(b => {
-      b.setAttribute("aria-pressed", String(( b as HTMLElement ).dataset.tabo === tabo));
-    });
-    document.querySelectorAll(`#${paneloId} .informSekcio`).forEach(s => {
-      const sekcio = s as HTMLElement;
-      sekcio.style.display = sekcio.dataset.sekcio === tabo ? "" : "none";
-    });
-  }
-  function sxaltiInformanTabon(tabo: string) {
-    sxaltiTabon(tabo, "informTaboj", "informo");
-  }
-  function sxaltiVestaranTabon(tabo: string) {
-    sxaltiTabon(tabo, "vestaroTaboj", "vestaro");
-  }
-  document.querySelectorAll("#informTaboj button").forEach(b => {
-    const tabo = ( b as HTMLElement ).dataset.tabo || "konstruajxoj";
-    b.addEventListener("click", () => sxaltiInformanTabon(tabo));
-  });
-  sxaltiInformanTabon("konstruajxoj");
-  document.querySelectorAll("#vestaroTaboj button").forEach(b => {
-    const tabo = ( b as HTMLElement ).dataset.tabo || "vestoj";
-    b.addEventListener("click", () => sxaltiVestaranTabon(tabo));
-  });
-  sxaltiVestaranTabon("vestoj");
+  ligiTabojn(informo, "konstruajxoj");
+  ligiTabojn(document.getElementById("informPagho")!, "konstruajxoj");
+  ligiTabojn(document.getElementById("vestPagho")!, "vestoj");
+  ligiTabojn(document.getElementById("vestaro")!, "vestoj");
   window.addEventListener("lingvosxangxo", () => {
     if ( informo.classList.contains("montri") ) plenigiInformon();
   });
 
   function plenigiKonstruaListon() {
-    konstruaListo.innerHTML = "";
-    for ( const spec of konstruSpecoj ) {
-      const bt = TIPARO[spec.type] || TIPARO.domo;
-      const card = kreiPanelKarton([
-        kreiPeceton(bt.chip, traduki(bt.labelKey)),
-        kreiNomlinion(konstruaĵaNomo(spec.name, spec.type)),
-      ], () => enfokusigiKonstruajxon(spec, bt));
-      konstruaListo.appendChild(card);
-    }
+    plenigiKonstruaListonEn(konstruaListo, konstruSpecoj, enfokusigiKonstruajxon);
   }
 
   function plenigiMangxaListon() {
-    mangxaListo.innerHTML = "";
-    for ( const f of [ ...FOKS, ...TLAS ] ) {
-      const nomKlavo = manĝaKlavo(f.key);
-      const card = kreiPanelKarton([
-        kreiNomlinion(traduki(nomKlavo)),
-        kreiGustlinion(nomKlavo + "Flavor"),
-      ], () => montriManĝanKarton(nomKlavo));
-      mangxaListo.appendChild(card);
-    }
+    plenigiMangxaListonEn(mangxaListo, montriManĝanKarton);
   }
 
   function plenigiSpeciaListon() {
-    speciaListo.innerHTML = "";
-    for ( const spec of SPECIOJ ) {
-      const card = kreiPanelKarton([
-        kreiPeceton(spec.col, traduki(spec.grupo === "besto" ? "grupoBesto" : "grupoPlanto")),
-        kreiNomlinion(traduki(spec.key)),
-        kreiGustlinion(spec.flavorKey),
-      ], () => montriSpecianKarton(spec));
-      speciaListo.appendChild(card);
-    }
+    plenigiSpeciaListonEn(speciaListo, montriSpecianKarton);
   }
 
   function plenigiInformon() {
@@ -223,7 +263,7 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
   }
 
   function enfokusigiKonstruajxon(spec: KonstruSpec, bt: KonstruTipo) {
-    fermiInformon();
+    informoStato.kasxi();
     const rezimo = legiRezimon();
     if ( rezimo === "interno" ) return;
     if ( rezimo === "promeno" ) sxaltiRezimon();

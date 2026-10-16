@@ -138,5 +138,11 @@ export const KM: Record<string, string> = {
   "ariaMondForigi": "លុប",
   "ariaMondDuobligi": "ចម្លង",
   "butonoKonserviEliri": "រក្ទក់ និង ចេញពីពិភពលោក",
+  "titoloAgordoj": "ការកំណត់",
+  "subtitoloAgordoj": "ភាសា • សំឡេង • តន្ត្រី • សម្លៀកបំពាក់",
+  "butonoSono": "សំឡេង",
+  "butonoBruo": "សំឡេងផ្ទៃខាងក្រោយ",
+  "sekcioMuziko": "តន្ត្រី",
+  "titoloLingvo": "ភាសា",
   "mondNomo": "ពិភពលោក",
 };

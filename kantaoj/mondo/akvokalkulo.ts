@@ -12,6 +12,11 @@ export interface AkvaAgordoj {
   profundoMaks?: number;
   fluoSkalo?: number;
   minimumaProfundo?: number;
+  // ⟨ លំហូរធម្មជាតិ 📃 ⟩
+  // ពិភពលោកដែលមានគ្រាប់ពូជ , ទឹកហូរចុះរហូតដល់ទឹក ( សមុទ្រ ឬបឹង ) ។
+  // អាងបិទជិតក្លាយជាបឹងនៅកម្រិតច្រកចេញរបស់វា , ហើយខ្សែទឹកបន្តចុះពីច្រកនោះ ,
+  // ដូច្នេះទឹកអត់ឈប់នៅកម្ពស់ខ្ពស់ ហើយអត់កកកុញជាបឹងរាបធំៗនៅលើភ្នំ ។
+  naturaFluo?: boolean;
 }
 
 export interface AkvaKalkulo {
@@ -29,6 +34,11 @@ const NAJBAROJ: [number, number][] = [
 ];
 
 const EPS = 0o1/0o20;
+
+// ⟨ ទំហំអាងតូចបំផុត 📃 ⟩
+// អាងដែលធំជាងនេះ អត់ក្លាយជាបឹងទេ , ការបំពេញអាងធំនៅកម្រិតច្រកចេញរបស់វា
+// បង្កើតជាបឹងរាបធំៗនៅលើភ្នំ ។
+const BASENETO_MAKS = 0o30;
 
 export function kalkuliAkvon(
   n: number,
@@ -101,6 +111,8 @@ export function kalkuliAkvon(
   const kavoj = new Float32Array(N);
   const fluo = new Float32Array(N);
   const kanalo = new Uint8Array(N);
+  const naturaFluo = agordoj.naturaFluo === true;
+  const pasaVido = new Uint8Array(N);
 
   // ⟨ លំហូរ 📃 ⟩
   let ternoj = 0;
@@ -115,29 +127,64 @@ export function kalkuliAkvon(
     if ( restanta > 0 ) fontajCxeloj.push(starto);
     let id = starto;
     let sekuraj = 0;
+    // ⟨ ក្រឡាដែលផ្លូវនេះបានឆ្លងកាត់ ។ កុំត្រឡប់ទៅវិញ , បើអត់ទេ ទឹកនឹងវិល
+    // ក្នុងអាងបិទទៅវិញទៅមក ។ 📃 ⟩
+    if ( naturaFluo ) pasaVido.fill(0);
     while ( restanta > 0 && sekuraj++ < N && id >= 0 ) {
       if ( rando[id] ) break;
+      if ( naturaFluo ) pasaVido[id] = 1;
+      // ⟨ អាងបិទជិតតូចនៅលើគោក 📃 ⟩
+      // ក្រឡានេះនៅក្រោមកម្រិតច្រកចេញរបស់អាង ។ បើអាងតូច ទឹកកកកុញជាស្រះតូច
+      // ដែលមានផ្ទៃស្មើនឹងកម្រិតច្រកនោះ ។ បើអាងធំ ទឹកឆ្លងកាត់វា ព្រោះការបំពេញ
+      // អាងធំនឹងបង្កើតជាបឹងរាបធំៗនៅលើភ្នំ ( ដែលមិនធម្មជាតិ ) ។ 📃
+      if ( naturaFluo && H[id] >= nivelo && inundoj[id] > H[id] + EPS ) {
+        markiBaseneton(H, masko, niveloj, ene, n, id, inundoj[id]);
+      }
       fluo[id] += restanta;
       if ( !masko[id] ) kanalo[id] = 1;
       const i = id % n, j = ( id - i ) / n;
       let sekv = -1, sekvAlto = H[id];
       let plejFruta = -1, plejFrutaOrdo = ordo[id];
+      // ⟨ លំហូរធម្មជាតិ , ធ្លាក់តាមកម្រិតដែលបានបំពេញ ។ លំដាប់បង្ហូរជាការបំបែក
+      // ស្មើ , ក្នុងអាងដែលលិចទឹក ក្រឡាទាំងអស់មានកម្រិតដូចគ្នា ដូច្នេះទឹកទៅ
+      // រកច្រកចេញតាមលំដាប់ ។ ផ្ទៃដីក្រៅអាងមានកម្រិតស្មើកម្ពស់ដី ។ 📃 ⟩
+      let plejMalalta = -1, plejMalaltaInundo = Infinity, plejMalaltaOrdo = Infinity;
       for ( const [di, dj] of NAJBAROJ ) {
         const ni = i + di, nj = j + dj;
         if ( ni < 0 || nj < 0 || ni >= n || nj >= n ) continue;
         const nid = nj * n + ni;
         if ( !ene[nid] ) continue;
+        if ( naturaFluo ) {
+          if ( pasaVido[nid] ) continue;
+          if ( inundoj[nid] < plejMalaltaInundo
+            || ( inundoj[nid] === plejMalaltaInundo && ordo[nid] < plejMalaltaOrdo ) ) {
+            plejMalaltaInundo = inundoj[nid]; plejMalaltaOrdo = ordo[nid]; plejMalalta = nid;
+          }
+          continue;
+        }
         if ( H[nid] < sekvAlto - EPS ) { sekvAlto = H[nid]; sekv = nid; }
         if ( ordo[nid] >= 0 && ordo[nid] < plejFrutaOrdo ) { plejFrutaOrdo = ordo[nid]; plejFruta = nid; }
       }
+      if ( naturaFluo ) sekv = plejMalalta;
       if ( sekv < 0 ) {
-        if ( inundoj[id] > H[id] + EPS ) {
-          markiBasenon( H, masko, niveloj, ene, n, id, inundoj[id] );
-          kanalo[id] = 0;
+        // ⟨ គ្មានជម្រាលចុះ , ដីរាប ឬអាងបិទ 📃 ⟩
+        // ⟨ ពិភពលោកដែលបានឆ្លាក់ , អាងបិទក្លាយជាបឹង ។ ពិភពលោកដែលមានគ្រាប់ពូជ ,
+        // ទឹកឆ្លងកាត់អាងតាមលំដាប់បង្ហូរ ដើម្បីចេញតាមច្រកទាបបំផុត ហើយបន្តហូរចុះ 📃 ⟩
+        if ( !naturaFluo ) {
+          if ( inundoj[id] > H[id] + EPS ) {
+            markiBasenon( H, masko, niveloj, ene, n, id, inundoj[id] );
+            kanalo[id] = 0;
+          }
+          sekv = plejFruta;
         }
-        sekv = plejFruta;
         if ( sekv < 0 ) {
-          if ( !masko[id] ) { ternoj++; markiTernon( H, masko, niveloj, ene, n, id, nivelo ); kanalo[id] = 0; }
+          // ⟨ គ្មានក្រឡាបន្ត , កុំបង្កើតស្រះក្លែងក្លាយ ។ ពិភពលោកដែលបានឆ្លាក់រក្សា
+          // ស្រះបន្ថែមដើម្បីកុំឱ្យទឹកបាត់ ។ 📃 ⟩
+          if ( !naturaFluo && !masko[id] ) {
+            ternoj++;
+            markiTernon( H, masko, niveloj, ene, n, id, nivelo );
+            kanalo[id] = 0;
+          }
           break;
         }
       }
@@ -190,6 +237,15 @@ export function kalkuliAkvon(
     if ( H[id] < nivelo ) markiBasenon( H, masko, niveloj, ene, n, id, nivelo );
   }
 
+  // ⟨ កម្រិតនៃក្រឡាគោក 📃 ⟩
+  // ⟨ ក្រឡាដែលគ្មានទឹកទទួលកម្រិតក្រោមដីបន្តិច ។ បើអត់ទេ កម្រិតទឹករបស់ក្រឡា
+  // ជិតខាងលាតសន្ធឹងលើដីគោក ហើយទឹកលេចឡើងជាសន្លឹកអណ្តែត ។ 📃 ⟩
+  if ( naturaFluo ) {
+    for ( let id = 0; id < N; id++ ) {
+      if ( !masko[id] ) niveloj[id] = H[id] - 0o1/0o4;
+    }
+  }
+
   let akvaj = 0, kanaloj = 0;
   for ( let id = 0; id < N; id++ ) {
     if ( masko[id] ) {
@@ -205,6 +261,8 @@ function markiBasenon(
   n: number, starto: number, nivelo: number,
 ): void {
   if ( H[starto] >= nivelo ) return;
+  // ⟨ ស្រះនេះបានបំពេញរួចហើយ ។ កុំចំណាយពេលម្តងទៀត 📃 ⟩
+  if ( masko[starto] && niveloj[starto] === nivelo ) return;
   const vico = new Int32Array(n * n);
   let kapo = 0, vosto = 0;
   vico[vosto++] = starto;
@@ -223,6 +281,36 @@ function markiBasenon(
       vico[vosto++] = nid;
     }
   }
+}
+
+/*បំពេញអាងបិទជិតតូចមួយជាស្រះ
+    @param H,masko,niveloj,ene ( typed arrays ) - ក្រឡាដី និងលទ្ធផល
+    @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
+    @param starto ( number ) - ក្រឡាដែលចាប់ផ្តើម
+    @param nivelo ( number ) - កម្រិតទឹករបស់ស្រះ
+@returns plenigita ( boolean ) - ពិត បើអាងតូចល្មម ហើយបានបំពេញ */
+function markiBaseneton(
+  H: Float32Array, masko: Uint8Array, niveloj: Float32Array, ene: Uint8Array,
+  n: number, starto: number, nivelo: number,
+): boolean {
+  if ( H[starto] >= nivelo || masko[starto] ) return false;
+  const vico: number[] = [ starto ];
+  const viditaj = new Set<number>([ starto ]);
+  for ( let kapo = 0; kapo < vico.length; kapo++ ) {
+    if ( vico.length >= BASENETO_MAKS ) return false;
+    const id = vico[kapo];
+    const i = id % n, j = ( id - i ) / n;
+    for ( const [ di, dj ] of NAJBAROJ ) {
+      const ni = i + di, nj = j + dj;
+      if ( ni < 0 || nj < 0 || ni >= n || nj >= n ) continue;
+      const nid = nj * n + ni;
+      if ( viditaj.has(nid) || masko[nid] || !ene[nid] || H[nid] >= nivelo ) continue;
+      viditaj.add(nid);
+      vico.push(nid);
+    }
+  }
+  for ( const id of vico ) { masko[id] = 1; niveloj[id] = nivelo; }
+  return true;
 }
 
 function markiTernon(

@@ -138,5 +138,11 @@ export const JA: Record<string, string> = {
   "ariaMondForigi": "削除",
   "ariaMondDuobligi": "複製",
   "butonoKonserviEliri": "保存してワールドから出る",
+  "titoloAgordoj": "設定",
+  "subtitoloAgordoj": "言語・音・音楽・ワードローブ",
+  "butonoSono": "音",
+  "butonoBruo": "背景ノイズ",
+  "sekcioMuziko": "音楽",
+  "titoloLingvo": "言語",
   "mondNomo": "ワールド",
 };

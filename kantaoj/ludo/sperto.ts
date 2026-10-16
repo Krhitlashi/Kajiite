@@ -79,11 +79,6 @@ const konstruaListo = document.getElementById("konstruaListo")!;
 const mangxaListo = document.getElementById("mangxaListo")!;
 const speciaListo = document.getElementById("speciaListo")!;
 
-// ⟪ ធាតុផ្ទាំងសម្លៀកបំពាក់ 📃 ⟫
-const vestaro = document.getElementById("vestaro")!;
-const vestaListo = document.getElementById("vestaListo")!;
-const haraListo = document.getElementById("haraListo")!;
-
 // ⟪ បែបផែនមុខ និងវាំងននផ្ទុក 📃 ⟫
 const { montriTost, agordiPrompton, fariBalailon, pulsiEfikon } = kreiEfikojn({ tosto, promptoElemento, balailo, svingo, fxVarma, fxMenta });
 const { montriSargxon } = kreiSargxilon({ stango, sxargxaElemento });
@@ -169,7 +164,6 @@ const { fermiInformon, montriKarton, kasxiKarton } = kreiPaneelojn({
   sxaltiRezimon,
   regiloj, fotilo,
   gxisdatigiRetikulon,
-  fermiVestaron: () => vestejo.fermi(),
   skribiElektitan: ( spec ) => { ludanto.elektitaSpec = spec; },
   eniriKonstruajxon,
 });
@@ -184,7 +178,7 @@ const menuo = kreiMenuon({
   navPopUp, navButono, butSonoro, butBruo,
   butKrepusko, duskRegilo, butVetero, veteroEtikedo,
   butKonserviEliri, konserviEliri: konserviEliriMondon,
-  vestaro, informo,
+  cxuVestaroMalfermita: () => vestejo.cxuMalfermita(), informo,
   fermiVestaron: () => vestejo.fermi(), fermiInformon,
   traduki, aplikiVacepu,
   aplikiRezimon, aplikiVeteron,
@@ -196,7 +190,7 @@ const { fermiNaviganPopUp } = menuo;
 // ⟪ សកម្មភាព 📃 ⟫
 const { salti, agaEskapon, proviInterakti } = kreiAgojn({
   ludanto, kanuoj, promptoElemento,
-  informo, vestaro, fxVarma, fxMenta,
+  informo, cxuVestaroMalfermita: () => vestejo.cxuMalfermita(), fxVarma, fxMenta,
   montriTost, fermiInformon,
   fermiVestaron: () => vestejo.fermi(),
   eliriKanoton: ( c ) => kanuanto.eliri(c),
@@ -251,11 +245,10 @@ document.getElementById("supermetaFermi")!.addEventListener("click", () => {
   if ( minimapo.cxuMalfermita() ) minimapo.fermi(); else supermeta.classList.remove("montri");
 });
 
-// ⟪ បន្ទប់សម្លៀកបំពាក់ 📃 ⟫
-const vestejo = kreiVestejon({
-  vestaro, vestaListo, haraListo, ludantaFiguro,
-  montriTost, fermiInformon, fermiNaviganPopUp,
-});
+// ⟪ បន្ទប់សម្លៀកបំពាក់ ៖ ទំព័រតែមួយរួមជាមួយផ្ទាំងចាប់ផ្តើម 📃 ⟫
+// ⟨ ប៊ូតុងនៅក្នុងផ្ទាំងរុករកបើកវា , ដូច្នេះផ្ទាំងលេចឡើងបិទមុន 📃 ⟩
+const vestejo = kreiVestejon({ ludantaFiguro, montriTost });
+document.getElementById("butVesti")!.addEventListener("click", () => vestejo.malfermiEnMondo());
 
 // ⟪ ជំនួយ 📃 ⟫
 document.getElementById("butHelpi")!.addEventListener("click", () => {

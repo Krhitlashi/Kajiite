@@ -150,5 +150,11 @@ export const EN: Record<string, string> = {
   "ariaMondForigi": "Delete",
   "ariaMondDuobligi": "Duplicate",
   "butonoKonserviEliri": "Save and exit world",
+  "titoloAgordoj": "Settings",
+  "subtitoloAgordoj": "Language • sound • music • wardrobe",
+  "butonoSono": "Sound",
+  "butonoBruo": "Background noise",
+  "sekcioMuziko": "Music",
+  "titoloLingvo": "Language",
   "mondNomo": "World",
 };

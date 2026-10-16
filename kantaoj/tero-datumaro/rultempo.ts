@@ -1,8 +1,21 @@
 // ≺⧼ ពេលរត់ឆ្លាក់ 📃 ⧽≻
 
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ,
-  SKULPTA_AKVA_MASKO, SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
+  SKULPTA_AKVA_MASKO, SKULPTA_AKVA_NIVELO, SKULPTA_AKVOFONTOJ,
+  SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
 import { katmullRom } from "../komunajxoj/interpolo.js";
+import { kreiHazardanGenerilon } from "../../eskekoj/komunajxoj/hazardo.js";
+import { cxuEnFormo, distancoDeFormo } from "../../eskekoj/komunajxoj/mapformo.js";
+import { aktivaMapo } from "./mapregulo.js";
+import { aktivaSemo } from "../fasado/mondoj.js";
+import { semoDeTeksto, subSemo } from "../mondo/semo.js";
+import { generiTeron, type GeneritaTero } from "../mondo/generilo.js";
+import { generiSetlejon, type GeneritaSetlejo } from "../mondo/setlejo.js";
+import { SKULPTA_OBJEKTOJ, SKULPTA_URBOJ, SKULPTA_VOJOJ,
+  SKULPTA_DOKOJ } from "./aktiva.js";
+import type { SkulptaUrbo, SkulptaVojo, SkulptaPlatformo,
+  MetitaObjekto } from "../mondo/urbo/tipoj.js";
+import type { AkvaFonto } from "../mondo/akvokalkulo.js";
 
 // ⟪ ការឌិកូដ 📃 ⟫
 
@@ -27,10 +40,124 @@ export function dekodiMaskon(kruda: string, kvanto: number): Uint8Array | null {
   } catch { return null; }
 }
 
-const DELTAJ: Int16Array | null = SKULPTA_AKTIVA ? dekodiInt16(SKULPTA_DELTAJ) : null;
-const AKVA_MASKO: Uint8Array | null = SKULPTA_AKTIVA ? dekodiMaskon(SKULPTA_AKVA_MASKO, SKULPTA_N * SKULPTA_N) : null;
-const BIOMOJ: Uint8Array | null = SKULPTA_AKTIVA ? dekodiBiomon(SKULPTA_BIOMOJ, SKULPTA_N * SKULPTA_N) : null;
-const BESTOJ: Uint8Array | null = SKULPTA_AKTIVA ? dekodiBestojn(SKULPTA_BESTOJ, SKULPTA_N * SKULPTA_N) : null;
+// ⟪ ដីដែលបានបង្កើត 📃 ⟫
+// ពិភពលោកដែលមានគ្រាប់ពូជបង្កើតដីខ្លួនឯង ( កម្ពស់ ទឹក ជីវតំបន់ សត្វ ប្រភពទឹក ) ។
+// ពិភពលោកដែលគ្មានគ្រាប់ពូជប្រើដីដែលឆ្លាក់ដោយដៃក្នុងថត cxefa ។ ការអាន
+// គ្រាប់ពូជប្រើបញ្ជីពិភពលោកនៃម៉ាស៊ីន ដូច្នេះពិភពលោកសកម្មត្រូវកំណត់រួចមុន ។
+export const GENERITA_TERO: GeneritaTero | null = ( () => {
+  const semoTeksto = aktivaSemo();
+  if ( semoTeksto === "" ) return null;
+  const mapo = aktivaMapo();
+  return generiTeron(
+    semoDeTeksto(semoTeksto), SKULPTA_N, SKULPTA_PASO,
+    SKULPTA_ORIGINO as [ number, number ], SKULPTA_AKVA_NIVELO,
+    ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z));
+} )();
+
+// ⟪ អ្វីដែលមនុស្សសាងសង់ 📃 ⟫
+// ទីក្រុង ផ្លូវ ចំណត និងវត្ថុដាក់ក៏មកពីគ្រាប់ពូជដែរ ។ ពិភពលោកដែលគ្មាន
+// គ្រាប់ពូជប្រើអ្វីដែលឆ្លាក់ដោយដៃក្នុងថត cxefa ។
+export const GENERITA_SETLEJO: GeneritaSetlejo | null = ( () => {
+  if ( !GENERITA_TERO ) return null;
+  const mapo = aktivaMapo();
+  return generiSetlejon(GENERITA_TERO.semo, GENERITA_TERO, {
+    nivelo: SKULPTA_AKVA_NIVELO,
+    enFormo: ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z),
+    randoDeFormo: ( x, z ) => distancoDeFormo(mapo.formo, mapo.grandeco, x, z),
+  });
+} )();
+
+const DELTAJ: Int16Array | null = GENERITA_TERO || !SKULPTA_AKTIVA ? null : dekodiInt16(SKULPTA_DELTAJ);
+const AKVA_MASKO: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.akvaMasko
+  : SKULPTA_AKTIVA ? dekodiMaskon(SKULPTA_AKVA_MASKO, SKULPTA_N * SKULPTA_N) : null;
+const BIOMOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.biomoj
+  : SKULPTA_AKTIVA ? dekodiBiomon(SKULPTA_BIOMOJ, SKULPTA_N * SKULPTA_N) : null;
+const BESTOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.bestoj
+  : SKULPTA_AKTIVA ? dekodiBestojn(SKULPTA_BESTOJ, SKULPTA_N * SKULPTA_N) : null;
+
+// ⟪ ការនាំចេញរបស់ដីសកម្ម 📃 ⟫
+
+/*កម្ពស់ធម្មជាតិនៃពិភពលោកសកម្ម
+    @param x,z ( number ) - កូអរដោនេពិភពលោក
+@returns y ( number ) - សូន្យសម្រាប់ដីដែលឆ្លាក់ដោយដៃ */
+export function aktivaAlteco( x: number, z: number ): number {
+  return GENERITA_TERO ? GENERITA_TERO.alteco(x, z) : 0;
+}
+
+/*ប្រភពទឹកនៃពិភពលោកសកម្ម
+@returns fontoj ( AkvaFonto[] ) */
+export function aktivajAkvofontoj(): AkvaFonto[] {
+  return GENERITA_TERO ? GENERITA_TERO.fontoj : SKULPTA_AKVOFONTOJ;
+}
+
+/*គ្រាប់អាងទឹកនៃពិភពលោកសកម្ម
+@returns masko ( Uint8Array | null ) */
+export function aktivaAkvaMasko(): Uint8Array | null {
+  return AKVA_MASKO;
+}
+
+/*គ្រាប់ពូជរបស់ជួរភ្នំជុំវិញពិភពលោក
+@returns semo ( number ) */
+export function montaraSemoBazo(): number {
+  return GENERITA_TERO ? GENERITA_TERO.montaraSemoBazo : 0o123/0o100;
+}
+
+/*តើពិភពលោកសកម្មបង្កើតដីខ្លួនឯង
+@returns generita ( boolean ) */
+export function cxuGeneritaTero(): boolean {
+  return GENERITA_TERO !== null;
+}
+
+/*តើពិភពលោកសកម្មបង្កើតទីក្រុងខ្លួនឯង
+@returns generita ( boolean ) */
+export function cxuGeneritaSetlejo(): boolean {
+  return GENERITA_SETLEJO !== null;
+}
+
+/*ទីក្រុងនៃពិភពលោកសកម្ម
+@returns urboj ( SkulptaUrbo[] ) */
+export function aktivajUrboj(): SkulptaUrbo[] {
+  return GENERITA_SETLEJO ? GENERITA_SETLEJO.urboj : SKULPTA_URBOJ as SkulptaUrbo[];
+}
+
+/*ផ្លូវកម្រិតពិភពលោកនៃពិភពលោកសកម្ម
+@returns vojoj ( SkulptaVojo[] ) */
+export function aktivajVojoj(): SkulptaVojo[] {
+  return GENERITA_SETLEJO ? GENERITA_SETLEJO.vojoj : SKULPTA_VOJOJ as SkulptaVojo[];
+}
+
+/*ចំណតនៃពិភពលោកសកម្ម
+@returns dokoj ( SkulptaPlatformo[] ) */
+export function aktivajDokoj(): SkulptaPlatformo[] {
+  return GENERITA_SETLEJO ? GENERITA_SETLEJO.dokoj : SKULPTA_DOKOJ as SkulptaPlatformo[];
+}
+
+/*វត្ថុដាក់នៃពិភពលោកសកម្ម
+@returns objektoj ( MetitaObjekto[] ) */
+export function aktivajObjektoj(): MetitaObjekto[] {
+  return GENERITA_SETLEJO ? GENERITA_SETLEJO.objektoj : SKULPTA_OBJEKTOJ as MetitaObjekto[];
+}
+
+/*គ្រាប់ពូជនៃការរាយរុក្ខជាតិ ។ ក្នុងពិភពលោកដែលមានគ្រាប់ពូជ គ្រាប់ពូជ
+  ដើមត្រូវបានលាយជាមួយគ្រាប់ពូជរបស់ពិភពលោក ។
+    @param bazaSemo ( number ) - គ្រាប់ពូជដើមរបស់រុក្ខជាតិ
+@returns semo ( number ) */
+export function vegetajxaSemo( bazaSemo: number ): number {
+  if ( !GENERITA_TERO ) return bazaSemo;
+  return subSemo(GENERITA_TERO.semo, ( bazaSemo & 0o777777 ) + 0o1);
+}
+
+// ⟨ ស្ទ្រីមចៃដន្យដែលនៅសល់ 📃 ⟩
+// អ្វីដែលសល់ ( មនុស្ស , ផេត្រេល , ព្រិល ប្រភពចលនា ) ក៏មកពីគ្រាប់ពូជដែរ ,
+// ដូច្នេះពិភពលោកតែមួយផ្ដល់រូបរាងតែមួយរាល់ដង ។ ពិភពលោកដែលគ្មានគ្រាប់ពូជ
+// ប្រើ Math.random ដូចមុន ។ ហៅម្តងហើយចែកមុខងារដែលបានត្រឡប់ទៅអ្នកហៅ ។
+const MONDIA_PLIIGO = 0x7F4A7C15;
+const KANALO_SURTERA = 0o33;
+
+export function mondiaHazardo(): () => number {
+  if ( !GENERITA_TERO ) return Math.random;
+  return kreiHazardanGenerilon(subSemo(GENERITA_TERO.semo, KANALO_SURTERA), MONDIA_PLIIGO);
+}
 
 function valoroDelto(i: number, j: number): number {
   const ii = Math.max(0, Math.min(SKULPTA_N - 1, i));

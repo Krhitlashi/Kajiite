@@ -150,5 +150,11 @@ export const EO: Record<string, string> = {
   "ariaMondForigi": "Forigi",
   "ariaMondDuobligi": "Duobligi",
   "butonoKonserviEliri": "Konservi kaj eliri el la mondo",
+  "titoloAgordoj": "Agordoj",
+  "subtitoloAgordoj": "Lingvo • sono • muziko • vestaro",
+  "butonoSono": "Sono",
+  "butonoBruo": "Fona bruo",
+  "sekcioMuziko": "Muziko",
+  "titoloLingvo": "Lingvo",
   "mondNomo": "Mondo",
 };

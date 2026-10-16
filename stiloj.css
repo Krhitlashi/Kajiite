@@ -48,7 +48,7 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #supermeta .interno { position:relative; max-inline-size:512px; max-block-size:calc(100% - 64px); overflow:auto; padding:var(--អារេងព៏); justify-content:start; }
 #supermetaFermi { position:absolute; z-index:1; top:calc(var(--អារេងព៏) + var(--sat)); right:calc(var(--អារេងព៏) + var(--sar)); inline-size:52px; block-size:52px; color:var(--ក្ព៏); cursor:pointer; touch-action:manipulation; writing-mode:horizontal-tb; }
 
-#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#vestaro.montri { opacity:1; pointer-events:auto; }
+#karto.montri,#prompto.montri,#supermeta.montri,#navPopUp.montri,#informo.montri,#vestaro.montri,#lingvPopUp.montri { opacity:1; pointer-events:auto; }
 #tosto.montri,#balailo.montri { opacity:1; }
 
 /* ⟪ ត្រីវិស័យ និងផែនទី 📃 ⟫ */
@@ -73,17 +73,45 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #navButono { position:fixed; z-index:5; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab)); }
 #informButono { position:fixed; z-index:5; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(var(--អារេងព៏) + var(--sat)); }
 
-#navPopUp, #informo, #vestaro { position:fixed; z-index:6; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .2336092301648s,transform .2336092301648s; border-radius:var(--អិត្ភេពឺ); }
+#navPopUp, #informo, #vestaro, #lingvPopUp { position:fixed; z-index:6; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .2336092301648s,transform .2336092301648s; border-radius:var(--អិត្ភេពឺ); }
 #navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100% - 32px); max-block-size:calc(100% - 160px); overflow:auto; }
-#informo, #vestaro { display:flex; flex-direction:column; overflow:auto; overscroll-behavior:contain; left:calc(var(--អារេងព៏) + var(--sal)); right:calc(var(--អារេងព៏) + var(--sar)); }
+#informo, #vestaro, #lingvPopUp { display:flex; flex-direction:column; overflow:auto; overscroll-behavior:contain; left:calc(var(--អារេងព៏) + var(--sal)); right:calc(var(--អារេងព៏) + var(--sar)); }
 #informo { top:calc(72px + var(--sat)); bottom:calc(var(--អារេងព៏) + var(--sab)); }
-#vestaro { top:calc(var(--អារេងព៏) + var(--sat)); bottom:calc(72px + var(--sab)); }
-#navPopUp.montri, #informo.montri, #vestaro.montri { transform:none; }
+/* ⟨ ផ្ទាំងលេចឡើងក្នុងហ្គេម ៖ សម្លៀកបំពាក់ និង ភាសា 📃 ⟩ */
+#vestaro, #lingvPopUp { top:calc(var(--អារេងព៏) + var(--sat)); bottom:calc(72px + var(--sab)); }
+#navPopUp.montri, #informo.montri, #vestaro.montri, #lingvPopUp.montri { transform:none; }
 .menuPanel { position:relative; }
-.menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
-#informTaboj { grid-template-columns:repeat(3,minmax(0,1fr)); }
-/* ⟪ ប៊ូតុងការចាប់ផ្តើមតម្រង់ជាខ្សែ ( ជួរតែមួយ ) 📃 ⟫ */
-#komenco .menuAzioj { grid-template-columns:1fr; }
+/* ⟪ ជួរប៊ូតុងម៉ឺនុយ ៖ គ្រប់ម៉ឺនុយ ( ទំព័រពេញ និង ផ្ទាំងលេចឡើង ) ប្រើទំហំដូចគ្នា ៖ ជួរពេញទទឹង ។
+   ទទឹង , កម្ពស់ និងរឹមប៊ូតុងមកពីស្ទីលខាងក្រៅ ( button , thala , maxema ) ។
+   ទីនេះកំណត់តែចំនួនជួរឈរ , ការពេញទទឹង និងរឹមខាងក្នុងរបស់ផ្ទាំងលេចឡើង ។ 📃 ⟫ */
+.menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); inline-size:100%; }
+#informTaboj,#informPaghoTaboj { grid-template-columns:repeat(3,minmax(0,1fr)); }
+/* ⟨ បញ្ជី ៖ ជួរឈរតែមួយ ៖ ការចាប់ផ្តើម · ការកំណត់ · ភាសា 📃 ⟩ */
+#komenco .menuAzioj, #agordPagho .menuAzioj, #lingvPagho .menuAzioj, #lingvPopUp .menuAzioj { grid-template-columns:1fr; }
+/* ⟨ ផ្នែកខាងក្នុងទំព័រ , ផ្ទាំងផ្លាស់ផ្ទាំង និង ប៊ូតុងចេញ ៖ ពេញទទឹងដូចជួរដទៃ ។
+   box-sizing ចាំបាច់ ៖ ciihii និង ariiba នៅជាយស្តុកជា content-box , ដូច្នេះ
+   inline-size:100% នឹងលើសរឹមខាងក្នុងចេញក្រៅ ( ដូច #mondSxonoGrupo ពីមុន ) 📃 ⟩ */
+#agordSonaSekcio, #mondSxonoGrupo, #mondListo, .informSekcio { inline-size:100%; box-sizing:border-box; }
+#mondPaghoReeniri, #agordPaghoReeniri, #lingvPaghoReeniri, #informPaghoReeniri, #vestPaghoReeniri { inline-size:100%; box-sizing:border-box; }
+/* ⟨ ផ្ទាំងលេចឡើងក្នុងហ្គេម ៖ ប្រអប់ដូចទំព័រពេញ ៖ ពេញទទឹងអេក្រង់ ,
+   រឹមខាងក្នុងស្មើនឹងរឹមទំព័រ ៖ ដូច្នេះជួរដូចជួរទំព័រពេញ , ត្រង់គ្នាទាំងអស់ 📃 ⟩ */
+#navPopUp, #informo, #vestaro, #lingvPopUp { left:0; right:0; box-sizing:border-box; max-inline-size:none; }
+#navPopUp { inline-size:auto; }
+#navPopUp .menuPanel, #informo, #vestaro, #lingvPopUp {
+  padding-left:calc(var(--អារេងព៏) + var(--sal));
+  padding-right:calc(var(--អារេងព៏) + var(--sar));
+  /* ⟨ ស៊ុមចំហ៊្វែងនៅគែមអេក្រង់ ៖ មិនឃើញទេ , តែបន្ថែម 1px ដល់ទទឹងជួរ ៖ ដកចេញឱ្យជួរត្រង់នឹងទំព័រពេញ 📃 ⟩ */
+  border-left-width:0;
+  border-right-width:0;
+}
+/* ⟪ ផ្នែកសំឡេង និងតន្ត្រីក្នុងការកំណត់ ៖ សំឡេងគ្មានកាត , តន្ត្រីនៅក្នុងកាត 📃 ⟫ */
+/* ⟨ ផ្នែកខាងក្រៅគ្មានផ្ទៃខាងក្រោយ គ្មានស៊ុម , ដូចជាប្លុកធម្មតា 📃 ⟩ */
+.agordSekcio { display:flex; flex-direction:column; align-self:stretch; gap:var(--អារេងមិ); }
+.agordSekcio .ksakap2sa { align-self:stretch; }
+/* ⟨ កាតតន្ត្រី ៖ ចំណងជើងតន្ត្រី និងប៊ូតុងបទនៅខាងក្នុង 📃 ⟩ */
+#agordMuzikaSekcio { padding:var(--អារេង); gap:var(--អារេងមិ); }
+#agordSonoVico, #agordTrakaVico { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--អារេងមិ); }
+#agordTrakaVico { grid-template-columns:repeat(4,minmax(0,1fr)); overflow:auto; }
 #duskLabelo, #veteroEtikedo { flex-direction:row; align-items:center; }
 #veteroEtikedo { justify-content:center; text-align:center; }
 #trakaVico { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--អារេងមិ); overflow:auto; }
@@ -105,7 +133,9 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 
 /* ⟪ របៀបសរសេរ 📃 ⟫ */
 
-html[lang="ja"] .menuPanel, html[lang="ja"] #komenco, html[lang="ja"] #mondPagho, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
+html[lang="ja"] .menuPanel, html[lang="ja"] #komenco, html[lang="ja"] #mondPagho, html[lang="ja"] #agordPagho, html[lang="ja"] #informPagho, html[lang="ja"] #vestPagho, html[lang="ja"] #lingvPagho, html[lang="ja"] #tosto, html[lang="ja"] #karto, html[lang="ja"] #prompto, html[lang="ja"] #supermeta .interno, html[lang="ja"] .vestaKardo { writing-mode:vertical-rl; }
+/* ⟨ eo en km ផ្តេកវិញដូច tapufal 📃 ⟩ */
+html[lang="eo"] .aih, html[lang="en"] .aih, html[lang="km"] .aih, html[lang="eo"] #agordPagho, html[lang="en"] #agordPagho, html[lang="km"] #agordPagho { writing-mode:horizontal-tb; }
 html[lang="aih"] #prompto, html[lang="ja"] #prompto { left:auto; right:calc(var(--អារេងព៏) + var(--sar)); top:50%; bottom:auto; transform:translateY(-50%) translateX(var(--អារេង)); white-space:normal; max-inline-size:75%; overflow:hidden; }
 html[lang="aih"] #prompto.montri, html[lang="ja"] #prompto.montri { transform:translateY(-50%); }
 
@@ -135,13 +165,14 @@ body.tuŝa #mobKontroloj { display:block; }
 /* ⟪ n2tase backdrop-filter ប្រែទៅជា blur លើ canvas ផ្ទាល់ពេល fade ដូច្នេះទាញចេញម្តងមួយៗ 📃 ⟫ */
 #komenco.finita { backdrop-filter:none; -webkit-backdrop-filter:none; background:none; pointer-events:none; }
 #komenco.finita > h1, #komenco.finita > maxema { opacity:0; visibility:hidden; }
-/* ⟪ maxema ពេញអេក្រង់ក្នុង aih ធ្វើប៊ូតុងខ្ពស់ពេក ដូច្នេះទុកឱ្យស្ទៃលើកម្រិតមាតិកា 📃 ⟫ */
-#komenco maxema { inline-size:auto; block-size:auto; }
+/* ⟨ ប៊ូតុងការចាប់ផ្តើម ៖ ពេញទទឹងដូចម៉ឺនុយដទៃ ។ កម្ពស់មិនពេញអេក្រង់ ៖ ក្នុងអក្សរបញ្ឈរ
+   ( ja ) អ័ក្សបញ្ច្រាស , ដូច្នេះ block-size មិនត្រូវពេញ 📃 */
+html[lang="ja"] #komenco maxema { block-size:auto; }
 
 /* ⟪ ទំព័រពិភពលោក ( គ្រាប់ពូជ · <sak> · បញ្ជី ) 📃 ⟫ */
 /* ⟪ ទំព័រនេះអត់មាន n2tase ទេ ព្រោះ blur និងស្រមោលស្រាត់ស្ថិតនៅលើ #komenco រហូត ដូច្នេះ blur លែង fade ពេលប្តូរទៅមក 📃 ⟫ */
-#mondPagho { position:fixed; z-index:12; inset:0; box-sizing:border-box; block-size:100%; display:grid; place-items:center; align-self:stretch; align-content:safe center; padding:var(--អារេងព៏); overflow:auto; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2336092301648s,visibility .2336092301648s; }
-#mondPagho.montri { opacity:1; visibility:visible; pointer-events:auto; }
+#mondPagho,#agordPagho,#informPagho,#vestPagho,#lingvPagho { position:fixed; z-index:12; inset:0; box-sizing:border-box; block-size:100%; display:grid; place-items:center; align-self:stretch; align-content:safe center; padding:var(--អារេងព៏); overflow:auto; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2336092301648s,visibility .2336092301648s; }
+#mondPagho.montri,#agordPagho.montri,#informPagho.montri,#vestPagho.montri,#lingvPagho.montri { opacity:1; visibility:visible; pointer-events:auto; }
 /* ⟪ លាក់មាតិកាការចាប់ផ្តើម តែស្រមោលស្រាត់ blur នៅដដែល 📃 ⟫ */
-body:has(#mondPagho.montri) #komenco { pointer-events:none; }
-body:has(#mondPagho.montri) #komenco > h1, body:has(#mondPagho.montri) #komenco > maxema { opacity:0; visibility:hidden; }
+body:has(#mondPagho.montri,#agordPagho.montri,#informPagho.montri,#vestPagho.montri,#lingvPagho.montri) #komenco { pointer-events:none; }
+body:has(#mondPagho.montri,#agordPagho.montri,#informPagho.montri,#vestPagho.montri,#lingvPagho.montri) #komenco > h1, body:has(#mondPagho.montri,#agordPagho.montri,#informPagho.montri,#vestPagho.montri,#lingvPagho.montri) #komenco > maxema { opacity:0; visibility:hidden; }

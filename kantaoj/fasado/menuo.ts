@@ -1,6 +1,8 @@
 // ≺⧼ ម៉ឺនុយ 🎛 ⧽≻
 import { realaKrepusko } from "../ludo/kalendaro.js";
 import type { Vetero } from "../bildo/scena/tipoj.js";
+import { kreiPanelon } from "./paghoj.js";
+import type { Panelo } from "./paghoj.js";
 
 export interface MenuajOpcioj {
   navPopUp: HTMLElement;
@@ -13,7 +15,9 @@ export interface MenuajOpcioj {
   veteroEtikedo: HTMLElement;
   butKonserviEliri: HTMLElement;
   konserviEliri: () => void;
-  vestaro: HTMLElement;
+  /*តើទំព័រសម្លៀកបំពាក់កំពុងបើកឬទេ ៖ បើបើក ប៊ូតុងម៉ឺនុយបិទវាមុន
+      @param cxuVestaroMalfermita ( function ) */
+  cxuVestaroMalfermita: () => boolean;
   informo: HTMLElement;
   fermiVestaron: () => void;
   fermiInformon: () => void;
@@ -44,30 +48,27 @@ export interface Menuo {
 export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   const {
     navPopUp, navButono, butSonoro, butBruo, butKrepusko, duskRegilo,
-    butVetero, veteroEtikedo, butKonserviEliri, vestaro, informo,
+    butVetero, veteroEtikedo, butKonserviEliri, cxuVestaroMalfermita, informo,
     fermiVestaron, fermiInformon, traduki, aplikiVacepu, aplikiRezimon, aplikiVeteron,
     konserviEliri, sonoro, muziko,
   } = opcioj;
 
-  // ⟪ ផ្ទាំងរុករក 📃 ⟫
+  // ⟪ ផ្ទាំងរុករក ៖ ម៉ឺនុយដូចគ្នានឹងផ្ទាំងលេចឡើងដទៃ , បើកវាបិទម៉ឺនុយផ្សេង 📃 ⟫
   function gxisdatigiNavButonon() {
-    navButono.textContent = navPopUp.classList.contains("montri") ? "川" : "二";
-    navButono.setAttribute("aria-pressed", String(navPopUp.classList.contains("montri")));
+    const malfermita = navStato.cxuMalfermita();
+    navButono.textContent = malfermita ? "川" : "二";
+    navButono.setAttribute("aria-pressed", String(malfermita));
   }
+  const navStato: Panelo = kreiPanelon("navPopUp", undefined, gxisdatigiNavButonon);
   function sxaltiNaviganPopUp() {
-    if ( vestaro.classList.contains("montri") ) { fermiVestaron(); return; }
+    if ( cxuVestaroMalfermita() ) { fermiVestaron(); return; }
     if ( informo.classList.contains("montri") ) { fermiInformon(); return; }
-    navPopUp.classList.toggle("montri");
-    gxisdatigiNavButonon();
+    if ( navStato.cxuMalfermita() ) navStato.kasxi(); else navStato.malfermi();
   }
   function fermiNaviganPopUp() {
-    navPopUp.classList.remove("montri");
-    gxisdatigiNavButonon();
+    navStato.fermi();
   }
   navButono.addEventListener("click", sxaltiNaviganPopUp);
-  navPopUp.addEventListener("click", ( e ) => {
-    if ( e.target === navPopUp ) fermiNaviganPopUp();
-  });
 
   // ⟪ ការចាប់ផ្តើមស្វ័យប្រវត្តិពេលប៉ះ ឬចុចដំបូង 📃 ⟫
   function gxisdatigiSonoranButonon(aktiva: boolean) {
