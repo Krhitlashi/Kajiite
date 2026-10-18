@@ -208,21 +208,27 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const x = px / 0o100 + semo * 0o10;
       const z = pz / 0o100 + semo * 0o20 + 0o20;
       const malglata = ( u: number, v: number ): number => 1 - Math.abs(2 * bruo2D(u, v) - 1);
+      // ⟨ បំប្លែងទីតាំង ៖ ជួរភ្នំកោងវៀចវេរជាធម្មជាតិ មិនត្រង់ 📃 ⟩
+      const sx = x + ( bruo2D(x * 0o2 + 0o31, z * 0o2 + 0o7) - 0o1/0o2 ) * 0o4/0o10;
+      const sz = z + ( bruo2D(x * 0o2 - 0o13, z * 0o2 + 0o41) - 0o1/0o2 ) * 0o4/0o10;
       const maso = bruo2D(x, z);
       // ⟨ ជ្រលង 📃 ⟩
       const valo = 0o13/0o40 + 0o25/0o40 * maso * maso;
-      const pinto = malglata(x * 0o3, z * 0o3);
-      const fajno = malglata(x * 0o4, z * 0o4);
+      const pinto = malglata(sx * 0o3, sz * 0o3);
+      const fajno = malglata(sx * 0o4 + 0o11, sz * 0o4 - 0o5);
+      // ⟨ ជួរកណ្ដាល ៖ បំពេញចន្លោះរវាងកំពូលធំ និងធ្មេញតូច 📃 ⟩
+      const mezajxo = malglata(sx * 0o6 + 0o23, sz * 0o6 + 0o3);
       // ⟨ ឆ្អឹងខ្នង 📃 ⟩
-      const spino = malglata(x * ( 0o3/0o2 ) + 0o13, z * ( 0o3/0o2 ) + 0o27);
+      const spino = malglata(sx * ( 0o3/0o2 ) + 0o13, sz * ( 0o3/0o2 ) + 0o27);
       // ⟨ ធ្មេញ 📃 ⟩
-      const dentoj = malglata(x * 0o10, z * 0o10);
-      const grajno = malglata(x * 0o22, z * 0o22);
+      const dentoj = malglata(sx * 0o10, sz * 0o10);
+      const grajno = malglata(sx * 0o22, sz * 0o22);
       // ⟨ មាត្រទាំងមូល 📃 ⟩
       return 0o13
         + 0o36 * maso
-        + 0o10 * spino * ( 0o60/0o100 + 0o40/0o100 * ( 1 - maso ))
+        + 0o13 * spino * ( 0o60/0o100 + 0o40/0o100 * ( 1 - maso ))
         + 0o24 * pinto * valo
+        + 0o12 * mezajxo * ( 0o40/0o100 + 0o60/0o100 * valo )
         + 0o10 * fajno * ( 0o40/0o100 + 0o60/0o100 * valo )
         + 0o03 * dentoj * ( 0o40/0o100 + 0o60/0o100 * maso )
         + 0o02 * grajno * valo;
@@ -400,10 +406,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     // គ្រាប់ពូជមកពីពិភពលោកសកម្ម ។ ពិភពលោកដែលគ្មានគ្រាប់ពូជរក្សា
     // ជួរភ្នំដើមរបស់ដីដែលឆ្លាក់ដោយដៃ ។
     const montaSemo = montaraSemoBazo();
-    kreiMontanRingon(krestaVagado(0o16, 0o10, montaSemo), 0o240, ringajKolonoj, 0o40,
+    kreiMontanRingon(krestaVagado(0o16, 0o10, montaSemo), 0o240, ringajKolonoj, 0o100,
       montaSemo, krestaAlto(1, montaSemo), 0, montaMaterialo);
 
-    kreiMontanRingon(krestaVagado(0o200, 0o60, montaSemo + 0o40), 0o200, ringajKolonoj, 0o30,
+    kreiMontanRingon(krestaVagado(0o200, 0o60, montaSemo + 0o40), 0o200, ringajKolonoj, 0o60,
       montaSemo + 0o20, krestaAlto(0o7/0o10, montaSemo + 0o20), 0o35/0o100, montaFona);
   } )();
 

@@ -207,7 +207,7 @@ function prepariLingvajnMenuojn(): void {
   }
 }
 
-// ⟪ រកភាសាដែលចូលចិត្ត , lang= មានអាទិភាពដូចស្គ្រីបខាងក្រៅ 📃 ⟫
+// ⟪ រកភាសាចាប់ផ្តើម ៖ ភាសាដើមគឺ aih ។ lang= និងភាសាដែលរក្សាទុកមានអាទិភាព 📃 ⟫
 function detektiLingvon(): string {
   try {
     const parametro = new URLSearchParams(window.location.search).get("lang");
@@ -217,8 +217,6 @@ function detektiLingvon(): string {
     const konservita = localStorage.getItem("aranis-lingvo");
     if ( konservita && LINGVOJ.includes(konservita) ) return konservita;
   } catch { /* private browsing */ }
-  const lang = ( navigator.language || ( navigator as any ).userLanguage || "" ).split("-")[0];
-  if ( LINGVOJ.includes(lang) ) return lang;
   return "aih";
 }
 

@@ -26,7 +26,10 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 .fxPulso { animation:fxp 1s ease forwards; }
 @keyframes fxp { 0%{opacity:0} 32%{opacity:1} 100%{opacity:0} }
 
-#balailo { z-index:8; opacity:0; transition:opacity .5s; }
+/* ⟪ កញ្ចក់ស្រាត់ n2tase មិន fade ទេ ៖ ពេលលាក់ត្រូវបិទ backdrop-filter ដើម្បីកុំឱ្យ blur ជាប់ 📃 ⟫ */
+#balailo { z-index:8; opacity:0; transition:opacity .5s; backdrop-filter:none; -webkit-backdrop-filter:none; }
+/* ⟨ ពេលបង្ហាញ ៖ យក blur ពីអថេរតារាងខាងក្រៅវិញ 📃 ⟩ */
+#balailo.montri { backdrop-filter:var(--ច្ហិនី); -webkit-backdrop-filter:var(--ច្ហិនី); }
 
 /* ⟪ ក្រឡាភ្នែក 📃 ⟫ */
 #retikulo { position:fixed; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .2336092301648s; }
@@ -81,13 +84,9 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #vestaro, #lingvPopUp { top:calc(var(--អារេងព៏) + var(--sat)); bottom:calc(72px + var(--sab)); }
 #navPopUp.montri, #informo.montri, #vestaro.montri, #lingvPopUp.montri { transform:none; }
 .menuPanel { position:relative; }
-/* ⟪ ជួរប៊ូតុងម៉ឺនុយ ៖ គ្រប់ម៉ឺនុយ ( ទំព័រពេញ និង ផ្ទាំងលេចឡើង ) ប្រើទំហំដូចគ្នា ៖ ជួរពេញទទឹង ។
-   ទទឹង , កម្ពស់ និងរឹមប៊ូតុងមកពីស្ទីលខាងក្រៅ ( button , thala , maxema ) ។
-   ទីនេះកំណត់តែចំនួនជួរឈរ , ការពេញទទឹង និងរឹមខាងក្នុងរបស់ផ្ទាំងលេចឡើង ។ 📃 ⟫ */
-.menuAzioj { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); inline-size:100%; }
-#informTaboj,#informPaghoTaboj { grid-template-columns:repeat(3,minmax(0,1fr)); }
-/* ⟨ បញ្ជី ៖ ជួរឈរតែមួយ ៖ ការចាប់ផ្តើម · ការកំណត់ · ភាសា 📃 ⟩ */
-#komenco .menuAzioj, #agordPagho .menuAzioj, #lingvPagho .menuAzioj, #lingvPopUp .menuAzioj { grid-template-columns:1fr; }
+/* ⟪ ជួរប៊ូតុងម៉ឺនុយ 📃 ⟫ */
+/* ⟨ ជួរប៊ូតុងម៉ឺនុយប្រើ <maxema> ពីស្ទីលខាងក្រៅ ៖ ជួរឈរ , ពេញទំហំ , គ្មានកាត ។
+   ផ្ទាំងផ្លាស់ផ្ទាំងប្រើ <sabosuc2w2q> បន្ថែម class cakaxa ។ ដូច្នេះគ្មាន grid ខាងក្នុងទេ ។ 📃 ⟩ */
 /* ⟨ ផ្នែកខាងក្នុងទំព័រ , ផ្ទាំងផ្លាស់ផ្ទាំង និង ប៊ូតុងចេញ ៖ ពេញទទឹងដូចជួរដទៃ ។
    box-sizing ចាំបាច់ ៖ ciihii និង ariiba នៅជាយស្តុកជា content-box , ដូច្នេះ
    inline-size:100% នឹងលើសរឹមខាងក្នុងចេញក្រៅ ( ដូច #mondSxonoGrupo ពីមុន ) 📃 ⟩ */
@@ -128,7 +127,8 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 
 /* ⟪ ការផ្ទុក ( <cab6tem2> ខាងក្រៅ ) 📃 ⟫ */
 #sxargxo { z-index:9; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:var(--អារេងព៏); transition:opacity 1s; }
-#sxargxo.finita { opacity:0; pointer-events:none; }
+/* ⟪ វាំងននផ្ទុកក៏ជា n2tase ៖ បិទ backdrop-filter ភ្លាមពេលលាក់ ដូច្នេះ blur មិនជាប់លើអេក្រង់ពេលចូលពិភពលោក 📃 ⟫ */
+#sxargxo.finita { opacity:0; pointer-events:none; backdrop-filter:none; -webkit-backdrop-filter:none; }
 #sxargxo cab6tem2 { inline-size:min(224px,48vh); transform:rotate(-90deg); margin-inline:calc((24px - min(224px,48vh)) / 2); align-self:center; flex:none; }
 
 /* ⟪ របៀបសរសេរ 📃 ⟫ */
@@ -157,16 +157,16 @@ body.tuŝa #mobKontroloj { display:block; }
 #komencoFono { position:fixed; z-index:10; inset:0; background-image:url("./panoramo.png"); background-size:cover; background-position:center; pointer-events:none; }
 /* ⟪ ពេលចូលពិភពលោក blur លែង fade ចេញភ្លាមៗ តែអក្សរនិងប៊ូតុងនៅ fade ទន្ទឹមគ្នា 📃 ⟫ */
 #komenco.finita ~ #komencoFono { visibility:hidden; }
-/* ⟪ aih sideways-lr ធ្វើឱ្យ block-size ស្មើនឹងទទឹង ដូច្នេះ block-size:100% គ្រប់គ្រងទទឹង 📃 ⟫ */
-/* ⟪ .aih ពីជាយស្តុកនាំ align-self:center មក ដែលធ្វើ box ថយមក fit-content ជំនួស stretch របស់ inset:0 ដូច្នេះត្រូវប្តូរទៅ stretch 📃 ⟫ */
-#komenco { position:fixed; z-index:11; inset:0; box-sizing:border-box; block-size:100%; display:grid; place-items:center; align-self:stretch; align-content:safe center; padding:var(--អារេងព៏); overflow:auto; }
+/* ⟨ ស្រទាប់ពេញអេក្រង់លើទេសភាព ។ រូបរាងមាតិកាមកពីស្ទីលខាងក្រៅ
+   ( saxesukef , maxema , n2tase ) ។ ទីនេះកំណត់តែការដាក់ស្រទាប់និងកណ្តាល ។
+   align-self:stretch ចាំបាច់ ៖ class .aih នាំ align-self:center មក ។ 📃 ⟩ */
+#komenco { position:fixed; z-index:11; inset:0; box-sizing:border-box; display:grid; place-items:center; align-self:stretch; align-content:safe center; padding:var(--អារេងព៏); overflow:auto; }
 /* ⟪ blur និងស្រមោលស្រាត់ n2tase មិន fade ទេ មានតែមាតិកាទេដែល fade 📃 ⟫ */
 #komenco > h1, #komenco > maxema { transition:opacity .5s,visibility .5s; }
-/* ⟪ n2tase backdrop-filter ប្រែទៅជា blur លើ canvas ផ្ទាល់ពេល fade ដូច្នេះទាញចេញម្តងមួយៗ 📃 ⟫ */
+/* ⟪ ពេលចូលពិភពលោក ៖ n2tase មិន fade ដូច្នេះទាញ blur និងផ្ទៃចេញម្តងមួយៗ 📃 ⟫ */
 #komenco.finita { backdrop-filter:none; -webkit-backdrop-filter:none; background:none; pointer-events:none; }
 #komenco.finita > h1, #komenco.finita > maxema { opacity:0; visibility:hidden; }
-/* ⟨ ប៊ូតុងការចាប់ផ្តើម ៖ ពេញទទឹងដូចម៉ឺនុយដទៃ ។ កម្ពស់មិនពេញអេក្រង់ ៖ ក្នុងអក្សរបញ្ឈរ
-   ( ja ) អ័ក្សបញ្ច្រាស , ដូច្នេះ block-size មិនត្រូវពេញ 📃 */
+/* ⟨ ក្នុងអក្សរបញ្ឈរ ( ja ) អ័ក្សបញ្ច្រាស , ដូច្នេះ block-size មិនត្រូវពេញ 📃 ⟩ */
 html[lang="ja"] #komenco maxema { block-size:auto; }
 
 /* ⟪ ទំព័រពិភពលោក ( គ្រាប់ពូជ · <sak> · បញ្ជី ) 📃 ⟫ */

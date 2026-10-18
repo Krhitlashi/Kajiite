@@ -200,25 +200,31 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
   const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
   const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
   const maskaKodo = "";
-  const profundaKodo = maskita ? "if ( profundo <= 0.015625 ) discard;\n" : "";
+  const profundaKodo = maskita ? "if ( profundo <= 0.0 ) discard;\n" : "";
   const malprofundaKodo = maskita
-    ? "alpha *= smoothstep( 0.0, 0.0625, profundo );\n"
+    ? "alpha *= smoothstep( 0.0, 0.15625, profundo );\n"
     : "";
   const bordaKodo = maskita
-    ? "float bordaF = 1.0 - smoothstep( 0.02, 0.14, profundo );"
+    ? "float bordaF = 1.0 - smoothstep( 0.046875, 0.28125, profundo );"
     : "float bordaF = 1.0 - smoothstep( 1.0, 3.0, profundo );";
   return new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     transparent: true,
     depthWrite: false,
-    uniforms: {
-      uTime: { value: 0 },
-      uColorDeep: { value: new THREE.Color(0x083838) },
-      uColorShallow: { value: new THREE.Color(0x286858) },
-      uColorRipple: { value: new THREE.Color(0x387868) },
-      uSunDir: { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100).normalize() },
-    },
+    // ⟨ ទឹកចូលរួមក្នុងអ័ព្ទរបស់ឆាក ៖ ពីមុនទឹកនៅខ្មៅខុសប្លែកពីដី 📃 ⟩
+    fog: true,
+    uniforms: THREE.UniformsUtils.merge([
+      THREE.UniformsLib.fog,
+      {
+        uTime: { value: 0 },
+        uColorDeep: { value: new THREE.Color(0x0a3038) },
+        uColorShallow: { value: new THREE.Color(0x2f7263) },
+        uColorRipple: { value: new THREE.Color(0x3d8474) },
+        uSunDir: { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100).normalize() },
+      },
+    ]),
     vertexShader: `${maskaVertico}
+      #include <fog_pars_vertex>
       uniform float uTime;
       varying vec2 vUv;
       varying vec3 vWorldPos;
@@ -230,21 +236,27 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         vec4 worldPos = modelMatrix * vec4(position, 1.0);
         vWorldPos = worldPos.xyz;
 
-        float wave1 = sin(worldPos.x * 0.140625 + worldPos.z * 0.09375 + uTime * 0.703125) * 0.1875;
-        float wave2 = sin(worldPos.x * 0.078125 - worldPos.z * 0.125 + uTime * 1.09375 + 1.3125) * 0.140625;
-        float wave3 = sin((worldPos.x + worldPos.z) * 0.046875 + uTime * 0.5 + 2.125) * 0.078125;
-        float wave4 = sin(worldPos.x * 0.1875 + worldPos.z * 0.0625 + uTime * 0.90625 + 0.703125) * 0.0625;
-        float wave5 = cos((worldPos.x - worldPos.z) * 0.09375 + uTime * 0.59375 + 3.6875) * 0.046875;
+        float wave1 = sin(worldPos.x * 0.140625 + worldPos.z * 0.09375 + uTime * 0.703125) * 0.078125;
+        float wave2 = sin(worldPos.x * 0.078125 - worldPos.z * 0.125 + uTime * 1.09375 + 1.3125) * 0.05859375;
+        float wave3 = sin((worldPos.x + worldPos.z) * 0.046875 + uTime * 0.5 + 2.125) * 0.03125;
+        float wave4 = sin(worldPos.x * 0.1875 + worldPos.z * 0.0625 + uTime * 0.90625 + 0.703125) * 0.0234375;
+        float wave5 = cos((worldPos.x - worldPos.z) * 0.09375 + uTime * 0.59375 + 3.6875) * 0.01953125;
         float displacement = wave1 + wave2 + wave3 + wave4 + wave5;
         displacement *= smoothstep( 0.0, 0.5, max( 0.0, uv.y ) );
+        // ⟨ រលកថយតាមចម្ងាយ ៖ គែមទឹកឆ្ងាយកុំធ្មេញរណាស់ 📃 ⟩
+        float malproksimo = length( cameraPosition - worldPos.xyz );
+        displacement *= 1.0 / ( 1.0 + malproksimo * 0.046875 );
         vHeight = displacement;
 
         // ⟨ ន័រម៉ាល់មកពីបំណែក 📃 ⟩
         vec3 displacedPos = position + normal * displacement;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPos, 1.0);
+        vec4 mvPosition = modelViewMatrix * vec4(displacedPos, 1.0);
+        gl_Position = projectionMatrix * mvPosition;
+        #include <fog_vertex>
       }
     `,
     fragmentShader: `${maskaFragmento}
+      #include <fog_pars_fragment>
       uniform vec3 uColorDeep;
       uniform vec3 uColorShallow;
       uniform vec3 uColorRipple;
@@ -255,7 +267,7 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       varying float vHeight;
 
       // ⟨ ន័រម៉ាល់រលកក្នុងភិចសែល 📃 ⟩
-      vec3 ondaNormalo( vec3 p, float t ) {
+      vec3 ondaNormalo( vec3 p, float t, float malproksimo ) {
         float c1 = cos(p.x * 0.140625 + p.z * 0.09375 + t * 0.703125);
         float c2 = cos(p.x * 0.078125 - p.z * 0.125 + t * 1.09375 + 1.3125);
         float c3 = cos((p.x + p.z) * 0.046875 + t * 0.5 + 2.125);
@@ -265,12 +277,17 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
           + 0.078125 * 0.046875 * c3 + 0.0625 * 0.1875 * c4 - 0.046875 * 0.09375 * s5;
         float dz = 0.1875 * 0.09375 * c1 - 0.140625 * 0.125 * c2
           + 0.078125 * 0.046875 * c3 + 0.0625 * 0.0625 * c4 + 0.046875 * 0.09375 * s5;
-        float s6 = sin(p.x * 0.625 + p.z * 0.4375 + t * 2.5);
-        float s7 = sin(p.x * 0.3125 - p.z * 0.8125 + t * 3.25);
-        float c8 = cos((p.x - p.z) * 1.1875 + t * 4.5);
-        dx += -0.02 * 0.625 * s6 - 0.016 * 0.3125 * s7 + 0.012 * 1.1875 * c8;
-        dz += -0.02 * 0.4375 * s6 + 0.016 * 0.8125 * s7 - 0.012 * 1.1875 * c8;
-        return normalize(vec3(-dx * 8.0, 1.0, -dz * 8.0));
+        // ⟨ រលកល្អិត ៖ ធ្វើឱ្យផ្ទៃមិនរាបស្មើដូចកញ្ចក់ , តែថយតាមចម្ងាយ 📃 ⟩
+        float fado = 1.0 / ( 1.0 + malproksimo * 0.03125 );
+        float f1 = sin(p.x * 0.90625 + p.z * 0.703125 + t * 3.5);
+        float f2 = cos(p.x * 0.53125 - p.z * 1.15625 + t * 4.25 + 1.0625);
+        float f3 = sin(p.x * 1.34375 + p.z * 0.421875 + t * 5.25 + 2.375);
+        float f4 = cos(p.x * 0.28125 + p.z * 0.3125 - t * 2.25 + 3.125);
+        dx += fado * (-0.012 * 0.90625 * f1 - 0.009 * 0.53125 * f2
+          + 0.007 * 1.34375 * f3 - 0.010 * 0.28125 * f4);
+        dz += fado * (-0.012 * 0.703125 * f1 + 0.009 * 1.15625 * f2
+          + 0.007 * 0.421875 * f3 - 0.010 * 0.3125 * f4);
+        return normalize(vec3(-dx * 2.75, 1.0, -dz * 2.75));
       }
 
       void main() {
@@ -285,15 +302,15 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         baseColor = mix(baseColor, uColorRipple, wavePattern * 0.078125);
 
         vec3 viewDir = normalize(cameraPosition - vWorldPos);
-        vec3 normal = ondaNormalo(vWorldPos, uTime);
+        vec3 normal = ondaNormalo(vWorldPos, uTime, length(cameraPosition - vWorldPos));
         vec3 halfVec = normalize(viewDir + uSunDir);
 
         float ndv = max(dot(viewDir, normal), 0.0);
         float fresnel = pow(1.0 - ndv, 4.0);
 
         // ⟨ ការរអិលព្រះអាទិត្យ 📃 ⟩
-        float spec = pow(max(dot(normal, halfVec), 0.0), 128.0) * 0.6875 * (0.5 + 0.5 * fresnel);
-        float specWide = pow(max(dot(normal, halfVec), 0.0), 16.0) * 0.09375;
+        float spec = pow(max(dot(normal, halfVec), 0.0), 128.0) * 0.4375 * (0.5 + 0.5 * fresnel);
+        float specWide = pow(max(dot(normal, halfVec), 0.0), 16.0) * 0.0625;
 
         float shimmer = 0.5 + 0.5 * sin(vWorldPos.x * 0.3125 + vWorldPos.z * 0.25 + uTime * 2.0);
         shimmer *= 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 - vWorldPos.z * 0.3125 + uTime * 1.5);
@@ -305,13 +322,17 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float horizonta = pow(1.0 - clamp(abs(reflekto.y), 0.0, 1.0), 3.0);
         vec3 fresnelColor = mix(vec3(0.21875, 0.34375, 0.46875), vec3(0.75, 0.84375, 0.9375), horizonta);
 
-        vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.75) + specColor;
+        vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.5625) + specColor;
 
         finalColor *= 1.0 + vHeight * 0.09375;
 
+        // ⟨ ប្រឡាក់បាតខ្មៅស្តើង ៖ បង្ហាញខ្សែទឹកត្រង់ច្រាំង 📃 ⟩
+        float treMalprofunda = 1.0 - smoothstep( 0.0, 0.09375, profundo );
+        finalColor = mix( finalColor, finalColor * 0.65, treMalprofunda * 0.75 );
+
         float alpha = 0.09375 + 0.90625 * (1.0 - exp(-profundo * 0.25));
         alpha = mix(alpha, 1.0, fresnel * 0.5);
-        alpha = min(1.0, alpha + shimmer * 0.03125);
+        alpha = min(1.0, alpha + shimmer * 0.01953125);
         ${malprofundaKodo}
 
         // ⟨ ពពុះនៅគែម 📃 ⟩
@@ -319,12 +340,13 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         if ( bordaF > 0.0 ) {
           float lapado = 0.5 + 0.5 * sin( vWorldPos.x * 0.4375 + vWorldPos.z * 0.3125 + uTime * 0.875 );
           lapado *= 0.5 + 0.5 * sin( vWorldPos.x * 0.1875 - vWorldPos.z * 0.28125 - uTime * 0.5 );
-          float sxauxmo = bordaF * ( 0.25 + 0.75 * lapado ) * 0.4375;
+          float sxauxmo = bordaF * ( 0.25 + 0.75 * lapado ) * 0.5;
           finalColor = mix( finalColor, vec3( 0.9375, 0.96875, 0.96875 ), sxauxmo );
           alpha = max( alpha, sxauxmo * 0.875 );
         }
 
         gl_FragColor = vec4(finalColor, alpha);
+        #include <fog_fragment>
       }
     `,
   });
