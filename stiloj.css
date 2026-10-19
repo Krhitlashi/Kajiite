@@ -76,33 +76,38 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #navButono { position:fixed; z-index:5; inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(var(--អារេងព៏) + var(--sab)); }
 #informButono { position:fixed; z-index:5; inset-inline-start:calc(var(--អារេងព៏) + var(--sal)); inset-block-start:calc(var(--អារេងព៏) + var(--sat)); }
 
-#navPopUp, #informo, #vestaro, #lingvPopUp { position:fixed; z-index:6; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .2336092301648s,transform .2336092301648s; border-radius:var(--អិត្ភេពឺ); }
-#navPopUp { inset-inline-end:calc(var(--អារេងព៏) + var(--sar)); inset-block-end:calc(72px + var(--sab)); inline-size:max-content; max-inline-size:calc(100% - 32px); max-block-size:calc(100% - 160px); overflow:auto; }
-#informo, #vestaro, #lingvPopUp { display:flex; flex-direction:column; overflow:auto; overscroll-behavior:contain; left:calc(var(--អារេងព៏) + var(--sal)); right:calc(var(--អារេងព៏) + var(--sar)); }
-#informo { top:calc(72px + var(--sat)); bottom:calc(var(--អារេងព៏) + var(--sab)); }
-/* ⟨ ផ្ទាំងលេចឡើងក្នុងហ្គេម ៖ សម្លៀកបំពាក់ និង ភាសា 📃 ⟩ */
-#vestaro, #lingvPopUp { top:calc(var(--អារេងព៏) + var(--sat)); bottom:calc(72px + var(--sab)); }
+/* ⟪ ប្រអប់លេចឡើង ៖ ទាំងបួនតាមទំហំមាតិកា ៖ ទទឹងតាមមាតិកា , រមូរខាងក្នុង ,
+   មិនលូតពេញអេក្រង់ ។ ប្រើទំហំរូបវន្ត ( width ) ៖ #navPopUp ជា horizontal-tb
+   តែបីផ្សេងទៀតជា aih ( sideways-lr ) ៖ ដូច្នេះអ័ក្សឡូជិកបញ្ច្រាសគ្នា 📃 ⟫ */
+#navPopUp, #informo, #vestaro, #lingvPopUp { position:fixed; z-index:6; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .2336092301648s,transform .2336092301648s; border-radius:var(--អិត្ភេពឺ); box-sizing:border-box; overflow:auto; overscroll-behavior:contain; width:max-content; max-width:calc(100% - 32px); max-height:calc(100% - 88px); }
+/* ⟨ ជាប់ប៊ូតុង 二 ខាងក្រោមស្តាំ ហើយលូតឡើងលើ ៖ បន្ទះរុករក , សម្លៀកបំពាក់ , ភាសា 📃 ⟩ */
+#navPopUp, #vestaro, #lingvPopUp { right:calc(var(--អារេងព៏) + var(--sar)); bottom:calc(72px + var(--sab)); }
+/* ⟨ ជាប់ប៊ូតុង 书 ខាងលើឆ្វេង ហើយលូតចុះក្រោម ៖ បន្ទះព័ត៌មាន 📃 ⟩ */
+#informo { left:calc(var(--អារេងព៏) + var(--sal)); top:calc(72px + var(--sat)); }
+/* ⟨ បន្ទះរុករក ៖ ទុកចន្លោះខាងលើសម្រាប់ប៊ូតុង 书 ៖ 88px ,
+   ដូច្នេះកម្ពស់ត្រឹម 100% - ( 72px + 88px ) ជំនួស 100% - 88px ខាងលើ 📃 ⟩ */
+#navPopUp { max-height:calc(100% - 160px); }
 #navPopUp.montri, #informo.montri, #vestaro.montri, #lingvPopUp.montri { transform:none; }
 .menuPanel { position:relative; }
 /* ⟪ ជួរប៊ូតុងម៉ឺនុយ 📃 ⟫ */
 /* ⟨ ជួរប៊ូតុងម៉ឺនុយប្រើ <maxema> ពីស្ទីលខាងក្រៅ ៖ ជួរឈរ , ពេញទំហំ , គ្មានកាត ។
-   ផ្ទាំងផ្លាស់ផ្ទាំងប្រើ <sabosuc2w2q> បន្ថែម class cakaxa ។ ដូច្នេះគ្មាន grid ខាងក្នុងទេ ។ 📃 ⟩ */
+   ផ្ទាំងផ្លាស់ផ្ទាំងប្រើ <sabosuc2w2q> បន្ថែម class cakaxa ។
+   តែក្នុង aih ( sideways-lr ) maxema ដាក់ធាតុត្រង់ចុងឆ្វេងប៉ុណ្ណោះ ។
+   ពីមុន grid ចែកទំហំស្មើគ្នា ៖ ដូច្នេះត្រូវចែកបន្ថែមវិញ ដើម្បីរក្សាទីតាំងដើម 📃 ⟩ */
+/* ⟨ ជួរភាសាក្នុងផ្ទាំងលេចឡើង ៖ ប៊ូតុងភាសាចែកទំហំស្មើគ្នាដូចមុន ,
+   មិនមែនប្រមូលជាដុំតូចនៅម្ខាងទេ 📃 ⟩ */
+#lingvPopUpVico { display:grid; grid-template-columns:1fr; align-content:stretch; }
+/* ⟨ ប៊ូតុងផ្ទាំងផ្លាស់ផ្ទាំង ៖ ពីមុន grid បែងចែកកម្ពស់ស្មើគ្នា ( 1fr ) ។
+   cakaxa ដាក់ពួកវានៅកណ្តាលជាដុំតូច ៖ ដូច្នេះឱ្យពួកវាលូតវិញ 📃 ⟩ */
+#informTaboj > button, #informPaghoTaboj > button, #vestaroTaboj > button, #vestPaghoTaboj > button { flex:1 1 0; }
+/* ⟨ ជួរប៊ូតុងរុករក ៖ ពីមុន grid មាន 2 ជួរឈរ គឺ 3 ប៊ូតុង × 2 ជួរ ។
+   maxema ដាក់ទាំង 6 ក្នុងជួរតែមួយ ដែលធ្វើឱ្យបន្ទះធំជាងមុន ៖ ដូច្នេះចែក 2 ជួរវិញ 📃 ⟩ */
+#navPopUpVico { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
 /* ⟨ ផ្នែកខាងក្នុងទំព័រ , ផ្ទាំងផ្លាស់ផ្ទាំង និង ប៊ូតុងចេញ ៖ ពេញទទឹងដូចជួរដទៃ ។
    box-sizing ចាំបាច់ ៖ ciihii និង ariiba នៅជាយស្តុកជា content-box , ដូច្នេះ
    inline-size:100% នឹងលើសរឹមខាងក្នុងចេញក្រៅ ( ដូច #mondSxonoGrupo ពីមុន ) 📃 ⟩ */
 #agordSonaSekcio, #mondSxonoGrupo, #mondListo, .informSekcio { inline-size:100%; box-sizing:border-box; }
 #mondPaghoReeniri, #agordPaghoReeniri, #lingvPaghoReeniri, #informPaghoReeniri, #vestPaghoReeniri { inline-size:100%; box-sizing:border-box; }
-/* ⟨ ផ្ទាំងលេចឡើងក្នុងហ្គេម ៖ ប្រអប់ដូចទំព័រពេញ ៖ ពេញទទឹងអេក្រង់ ,
-   រឹមខាងក្នុងស្មើនឹងរឹមទំព័រ ៖ ដូច្នេះជួរដូចជួរទំព័រពេញ , ត្រង់គ្នាទាំងអស់ 📃 ⟩ */
-#navPopUp, #informo, #vestaro, #lingvPopUp { left:0; right:0; box-sizing:border-box; max-inline-size:none; }
-#navPopUp { inline-size:auto; }
-#navPopUp .menuPanel, #informo, #vestaro, #lingvPopUp {
-  padding-left:calc(var(--អារេងព៏) + var(--sal));
-  padding-right:calc(var(--អារេងព៏) + var(--sar));
-  /* ⟨ ស៊ុមចំហ៊្វែងនៅគែមអេក្រង់ ៖ មិនឃើញទេ , តែបន្ថែម 1px ដល់ទទឹងជួរ ៖ ដកចេញឱ្យជួរត្រង់នឹងទំព័រពេញ 📃 ⟩ */
-  border-left-width:0;
-  border-right-width:0;
-}
 /* ⟪ ផ្នែកសំឡេង និងតន្ត្រីក្នុងការកំណត់ ៖ សំឡេងគ្មានកាត , តន្ត្រីនៅក្នុងកាត 📃 ⟫ */
 /* ⟨ ផ្នែកខាងក្រៅគ្មានផ្ទៃខាងក្រោយ គ្មានស៊ុម , ដូចជាប្លុកធម្មតា 📃 ⟩ */
 .agordSekcio { display:flex; flex-direction:column; align-self:stretch; gap:var(--អារេងមិ); }

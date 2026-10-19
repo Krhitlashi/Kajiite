@@ -115,7 +115,45 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
 
 export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geometrioj.length === 0 ) return new THREE.BufferGeometry();
-  return geometrioj.slice(1).reduce(( rezulto, geometrio ) => kunfandiDuGeometriojn(rezulto, geometrio), geometrioj[0]);
+  if ( geometrioj.length === 1 ) return geometrioj[0];
+  // ⟨ ការរលាយម្តងតែម្តង 📃 ⟩
+  // ការរលាយម្តងមួយគូ ( fold ) ចម្លងតារាងទាំងមូលឡើងវិញរាល់ដង , ដូច្នេះ
+  // តម្លៃការងារកើនឡើងជាការ៉េ ។ ស្មៅមួយវាលប្រើបំណែករាប់រយ , ដូច្នេះ
+  // វាក្លាយជាការងារធ្ងន់បំផុតនៃការផ្ទុក ។ ការរាប់ម្តង រួចចម្លងម្តង គឺស្មើគ្នា ។
+  const neindeksitaj: THREE.BufferGeometry[] = new Array(geometrioj.length);
+  let tuto = 0;
+  let kunKoloro = true;
+  for ( let i = 0; i < geometrioj.length; i++ ) {
+    const g = geometrioj[i];
+    const n = g.index ? g.toNonIndexed() : g;
+    neindeksitaj[i] = n;
+    tuto += ( n.getAttribute("position") as THREE.BufferAttribute ).count;
+    if ( kunKoloro && n.getAttribute("color") === undefined ) kunKoloro = false;
+  }
+  const pozicio = new Float32Array(tuto * 3);
+  const normo = new Float32Array(tuto * 3);
+  const uv = new Float32Array(tuto * 2);
+  const koloroj = kunKoloro ? new Float32Array(tuto * 3) : null;
+  let vo = 0;
+  for ( const g of neindeksitaj ) {
+    const p = g.getAttribute("position") as THREE.BufferAttribute;
+    pozicio.set(p.array as Float32Array, vo * 3);
+    const n = g.getAttribute("normal");
+    if ( n ) normo.set(n.array as Float32Array, vo * 3);
+    const u = g.getAttribute("uv");
+    if ( u ) uv.set(u.array as Float32Array, vo * 2);
+    if ( koloroj !== null ) {
+      const k = g.getAttribute("color");
+      if ( k ) koloroj.set(k.array as Float32Array, vo * 3);
+    }
+    vo += p.count;
+  }
+  const out = new THREE.BufferGeometry();
+  out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
+  out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
+  out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+  if ( koloroj !== null ) out.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
+  return out;
 }
 
 // ⟪ ការរលាយសំណាញ់ដែលសង់រួច 📃 ⟫

@@ -24,6 +24,10 @@ export interface Figuro {
   alto: number;
   marsoFazo: number;
   movoFaktoro: number;
+  // ⟨ កម្ពស់គោលដែលរលូន ។ ការបន្ថែមលំអៀងដើរត្រូវធ្វើលើកម្ពស់នេះ មិនមែនលើ
+  //   position.y ដោយផ្ទាល់ទេ បើអត់ទេ លំអៀងនឹងកកកុញឡើងឥតឈប់ ។ NaN មានន័យថា
+  //   មិនទាន់ធ្វើសមកាលកម្មជាមួយ position.y នៅឡើយ ។ 📃 ⟩
+  grundaY: number;
   // ⟨ ការបែកភ្នែកមាននាឡិកាផ្ទាល់ 📃 ⟩
   palpebraFazo: number;
   palpebroj: THREE.Object3D;
@@ -247,6 +251,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
     atendo: 0, rapido: 0o63/0o100,
     marsoFazo: Math.random() * Math.PI * 0o2,
     movoFaktoro: 0,
+    grundaY: Number.NaN,
     palpebraFazo: Math.random() * PALPEBRA_INTERVALO,
     palpebroj,
     kruroj: [ kruroL, kruroR ],
@@ -295,6 +300,8 @@ export function marŝSvingo(
     | "torsoGrupo" | "sxuoj" | "haroGrupo" | "manikoj" | "palpebroj" | "palpebraFazo">,
   fazo: number, movo: number, deltaTempo = 0o1/0o60
 ): void {
+  // ⟨ ចំណាំ ៖ អនុគមន៍នេះបន្ថែមលំអៀងដើរលើ position.y ដោយ += ។
+  //   អ្នកហៅណាដែលរលូន position.y ត្រូវកំណត់វាទៅកម្ពស់គោលជាមុនសិន ។ 📃 ⟩
   const paso = Math.sin(fazo);
   const duobla = Math.sin(fazo * 0o2);
   // ⟨ ជើង 📃 ⟩
@@ -372,6 +379,8 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number,
     fig.celo.set(cx, Number.isFinite(cy) ? Math.max(cy, alteco(cx, cz)) : alteco(cx, cz), cz);
     fig.atendo = 0o3 + Math.random() * 0o4;
   }
+  // ⟨ សមកាលកម្មលើកទីមួយ ៖ កម្ពស់គោលចាប់ផ្តើមពីទីតាំងពិត 📃 ⟩
+  if ( Number.isNaN(fig.grundaY) ) fig.grundaY = fig.group.position.y;
   const difX = fig.celo.x - fig.group.position.x, difZ = fig.celo.z - fig.group.position.z;
   const d = Math.hypot(difX, difZ);
   const movas = d > 0o23/0o100;
@@ -383,9 +392,11 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number,
     fig.group.position.z += difZ / d * fig.rapido * deltaTempo;
     const teroY = alteco(fig.group.position.x, fig.group.position.z);
     const celoY = suprajxo ? Math.max(teroY, suprajxo(fig.group.position.x, fig.group.position.z)) : teroY;
-    fig.group.position.y = fig.group.position.y + ( celoY - fig.group.position.y ) * 0o15/0o100;
+    // ⟨ រលូនកម្ពស់គោល មិនមែនរលូន position.y ដែលមានលំអៀងដើរបន្ថែមរួចហើយ 📃 ⟩
+    fig.grundaY = fig.grundaY + ( celoY - fig.grundaY ) * 0o15/0o100;
     fig.group.rotation.y = Math.atan2(difX, difZ);
   }
+  fig.group.position.y = fig.grundaY;
   fig.group.rotation.z = Math.sin(t * 0o115/0o100 + fig.hejmo.x) * 0o1/0o100 * ( 0o1 - movo );
   const idlaBrako = Math.sin(t * 0o7 + fig.hejmo.z) * 0o2/0o100 * ( 0o1 - movo );
   marŝSvingo(fig, fig.marsoFazo, movo, deltaTempo);

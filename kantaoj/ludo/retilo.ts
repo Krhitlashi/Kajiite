@@ -41,6 +41,9 @@ interface ForaFiguro {
   figuro: Figuro;
   angulo: number;
   x: number; y: number; z: number;
+  // ⟨ កម្ពស់គោលដែលរលូន ។ លំអៀងដើររបស់ marŝSwingo ត្រូវបន្ថែមលើកម្ពស់នេះ
+  //   បើអត់ទេ វានឹងកកកុញនៅលើ group.position.y រាល់ស៊ុម ។ 📃 ⟩
+  grundaY: number;
   celMovo: number;
   movo: number;
   fazo: number;
@@ -174,6 +177,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
         figuro,
         angulo: m.r ?? 0,
         x: m.x, y: m.y, z: m.z,
+        grundaY: m.y,
         celMovo: m.m ?? 0,
         movo: 0,
         fazo: Math.random() * Math.PI * 2,
@@ -235,7 +239,10 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       const g = f.figuro.group;
       const k = Math.min(1, deltaTempo * SEKVO);
       g.position.x += ( f.x - g.position.x ) * k;
-      g.position.y += ( f.y - g.position.y ) * k;
+      // ⟨ រលូនកម្ពស់គោល មិនមែន position.y ដែលមានលំអៀងដើរបន្ថែមពីមុន ។ បើអត់ទេ
+      //   តួរបស់អ្នកលេងពីចម្ងាយនឹងអណ្តែតឡើងរាល់ស៊ុម ។ 📃 ⟩
+      f.grundaY += ( f.y - f.grundaY ) * k;
+      g.position.y = f.grundaY;
       g.position.z += ( f.z - g.position.z ) * k;
       const celR = Math.atan2(-Math.sin(f.angulo), -Math.cos(f.angulo));
       let deltaR = ( ( celR - g.rotation.y + Math.PI ) % ( Math.PI * 2 ) + Math.PI * 2 ) % ( Math.PI * 2 ) - Math.PI;

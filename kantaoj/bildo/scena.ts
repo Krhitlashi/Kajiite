@@ -302,15 +302,28 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const pasxoProfundo = profundo / sd;
       const pasxoAngulo = 2 * Math.PI * ( mapoGrandeco + 0o100 ) / sl;
       const altoj = new Float32Array(suprN);
+      // ⟨ តម្លៃអាស្រ័យលើជួរឈរ ៖ គណនាម្តង ប្រើគ្រប់ជួរដេក 📃 ⟩
+      // កំពូលភ្នំ និងគែមមិនប្រែតាមជម្រៅទេ ។ ការគណនាម្តងទៀតរាល់ជួរដេក
+      // គឺជាការខាតបង់ធំ ព្រោះមានជួរដេកច្រើន ។ តារាងទាំងនេះត្រូវជាលេខទ្វេ
+      // ដើម្បីកុំឱ្យបាត់ភាពជាក់លាក់ ។
+      const kolonajX = new Float64Array(kolonoj), kolonajZ = new Float64Array(kolonoj);
+      const kolonajNX = new Float64Array(kolonoj), kolonajNZ = new Float64Array(kolonoj);
+      const kolonajSkalo = new Float64Array(kolonoj), kolonajBordo = new Float64Array(kolonoj);
+      for ( let k = 0; k < kolonoj; k ++ ) {
+        const ang = k / sl * Math.PI * 0o2;
+        const ringo = ringaPunkto(kresto(ang), ang);
+        kolonajX[k] = ringo.x; kolonajZ[k] = ringo.z;
+        kolonajNX[k] = ringo.nx; kolonajNZ[k] = ringo.nz;
+        kolonajSkalo[k] = skalo(ang);
+        kolonajBordo[k] = alteco(ringo.x, ringo.z);
+      }
       // ⟪ ផ្ទៃលើ 📃 ⟫
       for ( let v = 0; v < vicoj; v ++ ) {
+        const tn = v / sd;
         for ( let k = 0; k < kolonoj; k ++ ) {
           const i = v * kolonoj + k;
-          const tn = v / sd;
-          const ang = k / sl * Math.PI * 0o2;
-          const ringo = ringaPunkto(kresto(ang), ang);
-          const x = ringo.x + ringo.nx * tn * profundo;
-          const z = ringo.z + ringo.nz * tn * profundo;
+          const x = kolonajX[k] + kolonajNX[k] * tn * profundo;
+          const z = kolonajZ[k] + kolonajNZ[k] * tn * profundo;
           // ⟨ ប្រវែងកាត់ភ្នំ 📃 ⟩
           const centro = 0o40/0o100 + 0o24/0o100 * bruo2D(x / 0o40 + semo * 0o10, z / 0o40 + semo * 0o30);
           const kr = Math.min(1, tn / centro);
@@ -318,11 +331,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
           const fal = glataPaso(centro, 1, tn);
           const profilo = kresko * ( 1 - fal );
           // ⟨ ការភ្ជាប់ទៅពិភពលោក 📃 ⟩
-          const bordo = alteco(ringo.x, ringo.z);
           const aligo = 1 - glataPaso(0, 0o1/0o4, tn);
           // ⟨ កម្ពស់មកពីកំពូល មិនមែនពីកំពូលភ្នំ 📃 ⟩
-          const y = bordo * aligo
-            + montaAlto(x, z, semo) * skalo(ang) * profilo
+          const y = kolonajBordo[k] * aligo
+            + montaAlto(x, z, semo) * kolonajSkalo[k] * profilo
             + MONDO_BAZA_Y * fal;
           altoj[i] = y;
           pozicioj[i * 3] = x; pozicioj[i * 3 + 1] = y; pozicioj[i * 3 + 2] = z;
@@ -508,7 +520,11 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       brosxoj.add(brosxo);
     }
     sceno.add(brosxoj);
-  } )(0o3000, 0o600);
+    // ⟨ យន្តហោះស្មើអង្កត់ផ្ចិតពិភពលោក ៖ ជំហាន 0o4 ដូចគ្នា
+    // ដូច្នេះកម្ពស់ និងពណ៌ក្នុងពិភពលោកមិនប្រែប្រួល ។ យន្តហោះធំពីមុនបង្កើត
+    // កំពូលជាង 80 ភាគ 100 នៅក្រៅទម្រង់ ហើយចុចវាត្រឡប់មកគែមវិញ ។
+    // តំបន់នោះមានគម្របរួចហើយ ។ 📃 ⟩
+  } )(0o1400, 0o300);
 
   // ⟪ វាលរាបជុំវិញ 📃 ⟫
   ( function konstruiĈirkaŭanEbenon(): void {
