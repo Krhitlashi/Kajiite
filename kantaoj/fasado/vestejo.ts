@@ -5,7 +5,7 @@ import { deksesuma } from "../../eskekoj/komunajxoj/koloroj.js";
 import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
 import { traduki } from "../lingvo/tradukoj.js";
 import { aplikiVacepu } from "./efikoj.js";
-import { kreiPanelKarton, kreiNomlinion, kreiSekcianTitolon } from "./paneeloj.js";
+import { kreiPanelKarton, kreiNomlinion, kreiSekcianTitolon, ligiTabojn, sxaltiTabonEn } from "./paneeloj.js";
 import { kreiPaghon, kreiPanelon } from "./paghoj.js";
 import type { Pagho, Panelo } from "./paghoj.js";
 
@@ -59,50 +59,90 @@ export function konserviVestaron( elekto: VestaElekto ): void {
   } catch { /* ការរុករកឯកជន */ }
 }
 
-// ⟪ បំពេញបញ្ជីសម្លៀកបំពាក់ 📃 ⟫
-export function plenigiVestajnListojn(
-  vestaListo: HTMLElement, haraListo: HTMLElement, elekto: VestaElekto,
-  onVesto: ( idx: number ) => void, onHaro: ( idx: number ) => void, onKoloro: ( idx: number ) => void,
-): void {
-  vestaListo.innerHTML = "";
+// ⟪ តួសម្លៀកបំពាក់រួម ៖ សង់ម្តង , ដាក់ចូលទំព័រពេញ ឬផ្ទាំងលេចឡើងតាមការបើក 📃 ⟫
+// ⟨ មានតែមួយផ្ទាំងបើកបាន ៖ ដូច្នេះតួតែមួយផ្លាស់ទីរវាងសែលទាំងពីរ ជំនួសការសង់ស្ទួន 📃 ⟩
+interface VestaraKorpo {
+  elemento: HTMLElement;
+  taboj: HTMLElement;
+  vestaListo: HTMLElement;
+  haraListo: HTMLElement;
+}
+
+const TABOJ: [ string, string ][] = [ [ "vestoj", "taboVestoj" ], [ "hararo", "taboHararo" ] ];
+
+function konstruiKorpon(): VestaraKorpo {
+  const elemento = document.createElement("div");
+  elemento.className = "vestaraKorpo";
+
+  const taboj = document.createElement("sabosuc2w2q");
+  taboj.className = "cakaxa vestaraTaboj";
+  for ( const [ tabo ] of TABOJ ) {
+    const butono = document.createElement("button");
+    butono.type = "button";
+    butono.dataset.tabo = tabo;
+    taboj.appendChild(butono);
+  }
+
+  const vestaSekcio = document.createElement("div");
+  vestaSekcio.className = "informSekcio";
+  vestaSekcio.dataset.sekcio = "vestoj";
+  const vestaListo = document.createElement("div");
+  vestaListo.className = "vestaVico";
+  vestaSekcio.appendChild(vestaListo);
+
+  const haraSekcio = document.createElement("div");
+  haraSekcio.className = "informSekcio";
+  haraSekcio.dataset.sekcio = "hararo";
+  const haraListo = document.createElement("div");
+  haraListo.className = "haraListo";
+  haraSekcio.appendChild(haraListo);
+
+  elemento.append(taboj, vestaSekcio, haraSekcio);
+  ligiTabojn(elemento, TABOJ[0][0]);
+  return { elemento, taboj, vestaListo, haraListo };
+}
+
+// ⟨ បំពេញបញ្ជីសម្លៀកបំពាក់ 📃 ⟩
+function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void {
+  korpo.vestaListo.innerHTML = "";
   VESTOJ.forEach(( o, vestoIdx ) => {
-    const card = kreiPanelKarton([
+    korpo.vestaListo.appendChild(kreiPanelKarton([
       kreiVestanAntauxrigardon(o),
       kreiNomlinion(traduki(o.nomo)),
-    ], () => onVesto(vestoIdx), vestoIdx === elekto.v);
-    vestaListo.appendChild(card);
+    ], () => elekti("vesto", vestoIdx), vestoIdx === elekto.v));
   });
-  haraListo.innerHTML = "";
-  haraListo.appendChild(kreiSekcianTitolon("sekcioHararo"));
+
+  korpo.haraListo.innerHTML = "";
+  korpo.haraListo.appendChild(kreiSekcianTitolon("sekcioHararo"));
   const stilaKartaro = document.createElement("div");
   stilaKartaro.className = "vestaVico";
   HARSTILOJ.forEach(( stilo, harIdx ) => {
-    const card = kreiPanelKarton([
+    stilaKartaro.appendChild(kreiPanelKarton([
       kreiHaranAntauxrigardon(stilo, HARKOLOROJ[elekto.c].koloro),
       kreiNomlinion(traduki(stilo.nomo)),
-    ], () => onHaro(harIdx), harIdx === elekto.h);
-    stilaKartaro.appendChild(card);
+    ], () => elekti("haro", harIdx), harIdx === elekto.h));
   });
-  haraListo.appendChild(stilaKartaro);
-  haraListo.appendChild(kreiSekcianTitolon("sekcioHarKoloroj"));
+  korpo.haraListo.appendChild(stilaKartaro);
+
+  korpo.haraListo.appendChild(kreiSekcianTitolon("sekcioHarKoloroj"));
   const koloraKartaro = document.createElement("div");
   koloraKartaro.className = "vestaVico";
   HARKOLOROJ.forEach(( harKoloro, kolorIdx ) => {
     const chip = document.createElement("span");
     chip.className = "harKoloroChip";
     chip.style.background = deksesuma(harKoloro.koloro);
-    const card = kreiPanelKarton([
+    koloraKartaro.appendChild(kreiPanelKarton([
       chip,
       kreiNomlinion(traduki(harKoloro.nomo)),
-    ], () => onKoloro(kolorIdx), kolorIdx === elekto.c);
-    koloraKartaro.appendChild(card);
+    ], () => elekti("koloro", kolorIdx), kolorIdx === elekto.c));
   });
-  haraListo.appendChild(koloraKartaro);
+  korpo.haraListo.appendChild(koloraKartaro);
 }
 
-// ⟪ ស្ថានភាពរួម ៖ បញ្ជីតែមួយសម្រាប់ទំព័រ ( ផ្ទាំងចាប់ផ្តើម ) និងផ្ទាំងលេចឡើង ( ហ្គេម ) 📃 ⟫
-interface VestajUjoj { vesta: HTMLElement; hara: HTMLElement; }
-const ujoj: VestajUjoj[] = [];
+// ⟨ ស្ថានភាពរួម ៖ តួតែមួយសម្រាប់ទំព័រពេញ ( ផ្ទាំងចាប់ផ្តើម ) និងផ្ទាំងលេចឡើង ( ហ្គេម ) 📃 ⟩
+let korpo: VestaraKorpo | null = null;
+let ujoPagho: HTMLElement | null = null;
+let ujoPanelo: HTMLElement | null = null;
 let preparita = false;
 let pagho: Pagho | null = null;
 let panelo: Panelo | null = null;
@@ -123,7 +163,7 @@ function sxargiKonservitan(): void {
   aktivaHarKoloro = HARKOLOROJ[aktivaHarKoloroIdx].koloro;
 }
 
-function aplikialVeston(): void {
+function aplikiVeston(): void {
   if ( !ludantaFiguro ) return;
   ludantaFiguro.agordiVeston(aktivaVesto);
   ludantaFiguro.agordiHaranStilon(aktivaHarStilo);
@@ -134,62 +174,71 @@ function konserviNunan(): void {
   konserviVestaron({ v: aktivaVestoIdx, h: aktivaHarStiloIdx, c: aktivaHarKoloroIdx });
 }
 
-// ⟨ ការជ្រើស ៖ បញ្ជីទាំងអស់ ( ទំព័រ និង ផ្ទាំងលេចឡើង ) ធ្វើបច្ចុប្បន្នភាពជាមួយគ្នា 📃 ⟩
-function plenigiVestaron(): void {
-  const elekto = { v: aktivaVestoIdx, h: aktivaHarStiloIdx, c: aktivaHarKoloroIdx };
-  for ( const ujo of ujoj ) {
-    plenigiVestajnListojn(ujo.vesta, ujo.hara, elekto, elektiVeston, elektiHaron, elektiKoloron);
+// ⟨ ការជ្រើស ៖ ប្រភេទទាំងបីចែកកូដជ្រើសតែមួយ , រួចធ្វើបច្ចុប្បន្នភាពទាំងអស់ 📃 ⟩
+type ElektaTipo = "vesto" | "haro" | "koloro";
+
+function nomoDe( tipo: ElektaTipo, idx: number ): string {
+  if ( tipo === "vesto" ) return VESTOJ[idx].nomo;
+  if ( tipo === "haro" ) return HARSTILOJ[idx].nomo;
+  return HARKOLOROJ[idx].nomo;
+}
+
+function elekti( tipo: ElektaTipo, idx: number ): void {
+  if ( tipo === "vesto" ) {
+    aktivaVesto = VESTOJ[idx];
+    aktivaVestoIdx = idx;
+  } else if ( tipo === "haro" ) {
+    aktivaHarStilo = HARSTILOJ[idx];
+    aktivaHarStiloIdx = idx;
+  } else {
+    aktivaHarKoloro = HARKOLOROJ[idx].koloro;
+    aktivaHarKoloroIdx = idx;
   }
+  aplikiVeston();
+  montriTost?.(traduki(nomoDe(tipo, idx)));
+  konserviNunan();
+  plenigiVestaron();
+}
+
+function gxisdatigiTabojn(): void {
+  if ( !korpo ) return;
+  for ( const [ tabo, klavo ] of TABOJ ) {
+    const butono = korpo.taboj.querySelector<HTMLElement>(`button[data-tabo="${tabo}"]`);
+    if ( butono ) butono.textContent = traduki(klavo);
+  }
+  const premata = korpo.taboj.querySelector<HTMLElement>("button[data-tabo][aria-pressed='true']");
+  sxaltiTabonEn(korpo.elemento, premata?.dataset.tabo || TABOJ[0][0]);
+}
+
+function plenigiVestaron(): void {
+  if ( !korpo ) return;
+  gxisdatigiTabojn();
+  plenigiVestajnListojn(korpo, { v: aktivaVestoIdx, h: aktivaHarStiloIdx, c: aktivaHarKoloroIdx });
   aplikiVacepu();
 }
 
-function elektiVeston( idx: number ): void {
-  aktivaVesto = VESTOJ[idx];
-  aktivaVestoIdx = idx;
-  aplikialVeston();
-  montriTost?.(traduki(aktivaVesto.nomo));
-  konserviNunan();
-  plenigiVestaron();
+// ⟨ ដាក់តួរួមចូលសែលដែលកំពុងបើក 📃 ⟩
+function surmeti( ujo: HTMLElement | null ): void {
+  if ( !ujo || !korpo || korpo.elemento.parentElement === ujo ) return;
+  ujo.appendChild(korpo.elemento);
 }
 
-function elektiHaron( idx: number ): void {
-  aktivaHarStilo = HARSTILOJ[idx];
-  aktivaHarStiloIdx = idx;
-  aplikialVeston();
-  montriTost?.(traduki(aktivaHarStilo.nomo));
-  konserviNunan();
-  plenigiVestaron();
-}
-
-function elektiKoloron( idx: number ): void {
-  aktivaHarKoloro = HARKOLOROJ[idx].koloro;
-  aktivaHarKoloroIdx = idx;
-  aplikialVeston();
-  montriTost?.(traduki(HARKOLOROJ[idx].nomo));
-  konserviNunan();
-  plenigiVestaron();
-}
-
-/*បង្កើតឬទាញយកទំព័រសម្លៀកបំពាក់ ៖ ទំព័រតែមួយសម្រាប់ទាំងអស់
+/*បង្កើតឬទាញយកទំព័រសម្លៀកបំពាក់ ៖ តួតែមួយសម្រាប់ទាំងអស់
     @param opcioj ( VestarajOpcioj ) - រូបលេង និងការជូនដំណឹង , បើមាន
 @returns vestejo */
 export function kreiVestejon( opcioj: VestarajOpcioj = {} ): Vestejo {
   if ( opcioj.ludantaFiguro ) {
     ludantaFiguro = opcioj.ludantaFiguro;
     sxargiKonservitan();
-    aplikialVeston();
+    aplikiVeston();
   }
   if ( opcioj.montriTost ) montriTost = opcioj.montriTost;
   if ( !preparita ) {
+    sxargiKonservitan();
     preparita = true;
-    for ( const [ vestaId, haraId ] of [
-      [ "paghoVestaListo", "paghoHaraListo" ],
-      [ "vestaListo", "haraListo" ],
-    ] ) {
-      const vesta = document.getElementById(vestaId);
-      const hara = document.getElementById(haraId);
-      if ( vesta && hara ) ujoj.push({ vesta, hara });
-    }
+    korpo = konstruiKorpon();
+    ujoPagho = document.getElementById("vestPagho")?.querySelector("[data-vestaraUjo]") ?? null;
+    ujoPanelo = document.getElementById("vestaro")?.querySelector("[data-vestaraUjo]") ?? null;
     if ( document.getElementById("vestPagho") ) pagho = kreiPaghon("vestPagho", plenigiVestaron);
     if ( document.getElementById("vestaro") ) panelo = kreiPanelon("vestaro", plenigiVestaron);
     window.addEventListener("lingvosxangxo", () => {
@@ -207,11 +256,13 @@ const vestejo: Vestejo = {
     }),
     plenigi: plenigiVestaron,
     malfermi: () => {
+      surmeti(ujoPagho);
       plenigiVestaron();
       pagho?.malfermi();
       aplikiVacepu();
     },
     malfermiEnMondo: () => {
+      surmeti(ujoPanelo);
       plenigiVestaron();
       panelo?.malfermi();
       aplikiVacepu();
@@ -234,5 +285,5 @@ export function aktivaVestaElekto(): VestaElekto {
 export function agordiVestanFiguron( figuro: Figuro ): void {
   ludantaFiguro = figuro;
   sxargiKonservitan();
-  aplikialVeston();
+  aplikiVeston();
 }

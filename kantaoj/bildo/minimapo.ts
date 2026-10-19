@@ -11,7 +11,7 @@ export interface MinimapajOpcioj {
   kompaso: HTMLElement;
   nadlo: HTMLElement;
   supermeta: HTMLElement;
-  vestaVico: HTMLElement;
+  supermetaEnhavo: HTMLElement;
   mapoGrandeco: number;
   movantoj: {
     npcoj: { group: THREE.Object3D }[];
@@ -34,7 +34,7 @@ export interface Minimapo {
 }
 
 export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
-  const { sceno, bildilo, miniKanvaso, kompaso, nadlo, supermeta, vestaVico,
+  const { sceno, bildilo, miniKanvaso, kompaso, nadlo, supermeta, supermetaEnhavo,
     mapoGrandeco, traduki, aplikiVacepu } = opcioj;
   const { npcoj, kanuoj, bestoj, petreloj } = opcioj.movantoj;
 
@@ -316,7 +316,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     mapaPanX = 0; mapaPanZ = 0;
     document.getElementById("supermetaTitolo")!.textContent = traduki("titoloMapo");
     document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloMapo");
-    vestaVico.innerHTML = "";
+    supermetaEnhavo.innerHTML = "";
     supermeta.appendChild(plenaKanvaso);
     supermeta.classList.add("mapo");
     mapoMalfermita = true;

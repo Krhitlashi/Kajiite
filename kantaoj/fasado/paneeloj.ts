@@ -16,7 +16,7 @@ export function kreiSekcianTitolon( klavo: string ): HTMLParagraphElement {
   return titolo;
 }
 
-export function kreiPanelKarton(enhavo: HTMLElement[], klako: () => void, elektita?: boolean): HTMLElement {
+export function kreiPanelKarton(enhavo: HTMLElement[], klako?: () => void, elektita?: boolean): HTMLElement {
   const card = document.createElement("ciihii");
   card.className = "vestaKardo aih";
   card.append(...enhavo);
@@ -24,7 +24,8 @@ export function kreiPanelKarton(enhavo: HTMLElement[], klako: () => void, elekti
     card.classList.toggle("elektita", elektita);
     card.setAttribute("aria-pressed", String(elektita));
   }
-  card.addEventListener("click", klako);
+  if ( klako ) card.addEventListener("click", klako);
+  else card.classList.add("neAktiva");
   return card;
 }
 
@@ -117,7 +118,7 @@ export function plenigiKonstruaListonEn(
 }
 
 export function plenigiMangxaListonEn(
-  mangxaListo: HTMLElement, montriKarton: ( nomKlavo: string ) => void,
+  mangxaListo: HTMLElement, montriKarton?: ( nomKlavo: string ) => void,
 ): void {
   mangxaListo.innerHTML = "";
   for ( const f of [ ...FOKS, ...TLAS ] ) {
@@ -125,13 +126,13 @@ export function plenigiMangxaListonEn(
     const card = kreiPanelKarton([
       kreiNomlinion(traduki(nomKlavo)),
       kreiGustlinion(nomKlavo + "Flavor"),
-    ], () => montriKarton(nomKlavo));
+    ], montriKarton ? () => montriKarton(nomKlavo) : undefined);
     mangxaListo.appendChild(card);
   }
 }
 
 export function plenigiSpeciaListonEn(
-  speciaListo: HTMLElement, montriKarton: ( spec: SpeciaDatumo ) => void,
+  speciaListo: HTMLElement, montriKarton?: ( spec: SpeciaDatumo ) => void,
 ): void {
   speciaListo.innerHTML = "";
   for ( const spec of SPECIOJ ) {
@@ -139,7 +140,7 @@ export function plenigiSpeciaListonEn(
       kreiPeceton(spec.col, traduki(spec.grupo === "besto" ? "grupoBesto" : "grupoPlanto")),
       kreiNomlinion(traduki(spec.key)),
       kreiGustlinion(spec.flavorKey),
-    ], () => montriKarton(spec));
+    ], montriKarton ? () => montriKarton(spec) : undefined);
     speciaListo.appendChild(card);
   }
 }
@@ -151,12 +152,10 @@ export function plenigiKonstruTipListonEn( listo: HTMLElement ): void {
   for ( const tipo of KONSTRU_TIPOJ ) {
     const bt = TIPARO[tipo];
     if ( !bt ) continue;
-    const card = kreiPanelKarton([
+    listo.appendChild(kreiPanelKarton([
       kreiPeceton(bt.chip, traduki(bt.labelKey)),
-      kreiNomlinion(traduki(bt.labelKey)),
       kreiGustlinion(bt.flavorKey),
-    ], () => {});
-    listo.appendChild(card);
+    ]));
   }
 }
 
@@ -213,8 +212,6 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
 
   ligiTabojn(informo, "konstruajxoj");
   ligiTabojn(document.getElementById("informPagho")!, "konstruajxoj");
-  ligiTabojn(document.getElementById("vestPagho")!, "vestoj");
-  ligiTabojn(document.getElementById("vestaro")!, "vestoj");
   window.addEventListener("lingvosxangxo", () => {
     if ( informo.classList.contains("montri") ) plenigiInformon();
   });

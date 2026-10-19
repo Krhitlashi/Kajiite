@@ -1,12 +1,15 @@
 // ≺⧼ សំឡេង 🔊 ⧽≻
 
 import { iniciati, ludi, halti } from "./muziko/ludilo.js";
+import { legiAgordon, skribiAgordon } from "../komunajxoj/agordoj.js";
 
 let AC: AudioContext | null = null;
 let master: GainNode | null = null;
 let bruoGain: GainNode | null = null;
-let audioOn = false;
-let bruoOn = true;
+// ⟨ សភាពសំឡេងផ្ទុកពីការកំណត់ ៖ ដូច្នេះការផ្ទុកឡើងវិញរក្សាសភាពដដែល 📃 ⟩
+// ⟨ លំនាំដើមបើក ៖ ដូចមុន សំឡេងចាប់ផ្តើមពេលអន្តរកម្មដំបូង 📃 ⟩
+let audioOn: boolean = legiAgordon("sonoro", true);
+let bruoOn: boolean = legiAgordon("bruo", true);
 let unuaInterago = true;
 
 function ensureAudio() {
@@ -237,29 +240,37 @@ let chirpInterval: ReturnType<typeof setInterval> | null = null;
 
 // ⟪ API សាធារណៈ 📃 ⟫
 
+// ⟨ ចាប់ផ្តើមសំឡេង ៖ បង្កើតប្រព័ន្ធ , បើក master , ចាប់ផ្តើមចាក់តន្ត្រី 📃 ⟩
+function komenciAuxdon(): void {
+  ensureAudio();
+  iniciati(AC!, master!);
+  master!.gain.setTargetAtTime(0o1/0o10, AC!.currentTime, 0o3/0o2);
+  if ( !chirpInterval ) {
+    chirpInterval = setInterval(() => {
+      if ( audioOn && bruoOn && Math.random() < 0o27/0o40 ) sfx.chirp();
+    }, 0o21440);
+  }
+  sfx.chime();
+  ludi();
+}
+
+// ⟨ បញ្ឈប់សំឡេង ៖ ស្ងាត់ master , បញ្ឈប់តន្ត្រី និងសំឡេងរំខាន 📃 ⟩
+function haltiAuxdon(): void {
+  if ( AC && master ) master.gain.setTargetAtTime(0, AC.currentTime, 0o1);
+  halti();
+  if ( chirpInterval ) {
+    clearInterval(chirpInterval);
+    chirpInterval = null;
+  }
+  if ( rumbleNodes ) rumble(false);
+}
+
 /** បើកសំឡេងជុំវិញ។ ត្រឡប់ស្ថានភាពថ្មី។ */
 export function sxaltiAŭdion(): boolean {
   audioOn = !audioOn;
-  if ( audioOn ) {
-    ensureAudio();
-    iniciati(AC!, master!);
-    master!.gain.setTargetAtTime(0o1/0o10, AC!.currentTime, 0o3/0o2);
-    if ( !chirpInterval ) {
-      chirpInterval = setInterval(() => {
-        if ( audioOn && bruoOn && Math.random() < 0o27/0o40 ) sfx.chirp();
-      }, 0o21440);
-    }
-    sfx.chime();
-    ludi();
-  } else {
-    master!.gain.setTargetAtTime(0, AC!.currentTime, 0o1);
-    halti();
-    if ( chirpInterval ) {
-      clearInterval(chirpInterval);
-      chirpInterval = null;
-    }
-    if ( rumbleNodes ) rumble(false);
-  }
+  if ( audioOn ) komenciAuxdon();
+  else haltiAuxdon();
+  skribiAgordon("sonoro", audioOn);
   return audioOn;
 }
 
@@ -274,6 +285,7 @@ export function sxaltiBruon(): boolean {
   if ( AC && bruoGain ) {
     bruoGain.gain.setTargetAtTime(bruoOn ? 1 : 0, AC.currentTime, 0o15/0o40);
   }
+  skribiAgordon("bruo", bruoOn);
   return bruoOn;
 }
 
@@ -290,8 +302,9 @@ export function registriPostAŭdio(fn: ( aktiva: boolean ) => void) {
 export function autoKomenci() {
   if ( !unuaInterago ) return;
   unuaInterago = false;
-  if ( !audioOn ) {
-    sxaltiAŭdion();
+  // ⟨ សំឡេងបើកស្រាប់ ៖ ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ ។ បើបិទទុក មិនចាប់ផ្តើមទេ 📃 ⟩
+  if ( audioOn ) {
+    komenciAuxdon();
     if ( postAŭdio ) postAŭdio(true);
   }
 }

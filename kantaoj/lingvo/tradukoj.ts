@@ -105,10 +105,10 @@ function aplikiSkakefanon(lingvo: string): void {
       if ( traduko !== klavo ) el.setAttribute("aria-label", traduko);
     }
   });
-  const butono = document.getElementById("butLingvo");
-  if ( butono ) butono.textContent = lingvo.toUpperCase();
-  const agordButono = document.getElementById("butAgordLingvo");
-  if ( agordButono ) agordButono.textContent = lingvo.toUpperCase();
+  // ⟪ ប៊ូតុងភាសាទាំងអស់ ( ការកំណត់ និងហ្គេម ) បង្ហាញកូដភាសា 📃 ⟫
+  document.querySelectorAll("[data-oskakefani-aria=\"ariaButLingvo\"]").forEach(el => {
+    el.textContent = lingvo.toUpperCase();
+  });
   try { localStorage.setItem("aranis-lingvo", lingvo); } catch { /* private browsing */ }
   try {
     const ruva = new URL(window.location.href);

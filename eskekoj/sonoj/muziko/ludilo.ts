@@ -3,6 +3,7 @@
 import { KANTOJ } from "./kantoj.js";
 import { instrumento } from "./vokoj/instrumento.js";
 import type { SonoEvento, Sekcio } from "./vokoj/tipoj.js";
+import { legiAgordon, skribiAgordon } from "../../komunajxoj/agordoj.js";
 
 // ⟪ ស្ថានភាពឧបករណ៍លេង 📃 ⟫
 
@@ -23,9 +24,13 @@ interface LudiloStato {
   master: GainNode | null;
 }
 
+// ⟨ បទចុងក្រោយដែលបានជ្រើស ៖ ផ្ទុកពីការកំណត់ , កាត់ឱ្យស្ថិតក្នុងជួរបទ 📃 ⟩
+const KONSERVITA_TRAKO = legiAgordon("trako", -0o1);
+const KOMENCA_TRAKO = KONSERVITA_TRAKO >= 0 && KONSERVITA_TRAKO < KANTOJ.length ? KONSERVITA_TRAKO : -0o1;
+
 const L: LudiloStato = {
   ctx: null, bus: null, revSend: null, reverb: null,
-  cur: -1, idx: 0, events: null, dur: 0, secs: null,
+  cur: KOMENCA_TRAKO, idx: 0, events: null, dur: 0, secs: null,
   playing: false, startAt: 0, pausedAt: null, timer: null, master: null,
 };
 
@@ -184,6 +189,7 @@ export function cxuLudas(): boolean {
 export function sxargiTrako(i: number) {
   if ( i < 0 || i >= KANTOJ.length ) return;
   sxargi(i);
+  skribiAgordon("trako", i);
 }
 
 /** ទទួលសន្ទស្សន៍បទបច្ចុប្បន្ន។ */

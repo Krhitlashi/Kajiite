@@ -3,12 +3,12 @@ import { realaKrepusko } from "../ludo/kalendaro.js";
 import type { Vetero } from "../bildo/scena/tipoj.js";
 import { kreiPanelon } from "./paghoj.js";
 import type { Panelo } from "./paghoj.js";
+import { sonregiloj } from "./sonregiloj.js";
+import { legiAgordon, skribiAgordon } from "../../eskekoj/komunajxoj/agordoj.js";
 
 export interface MenuajOpcioj {
   navPopUp: HTMLElement;
   navButono: HTMLElement;
-  butSonoro: HTMLElement;
-  butBruo: HTMLElement;
   butKrepusko: HTMLElement;
   duskRegilo: HTMLInputElement;
   butVetero: HTMLElement;
@@ -25,20 +25,6 @@ export interface MenuajOpcioj {
   aplikiVacepu: () => void;
   aplikiRezimon: ( valoro: number ) => void;
   aplikiVeteron: ( vetero: Vetero ) => void;
-  sonoro: {
-    registriPostAŭdio: ( f: ( aktiva: boolean ) => void ) => void;
-    autoKomenci: () => void;
-    sxaltiAŭdion: () => boolean;
-    cxuAŭdio: () => boolean;
-    sxaltiBruon: () => void;
-    cxuBruo: () => boolean;
-  };
-  muziko: {
-    nunaTrako: () => number;
-    cxuLudas: () => boolean;
-    sxargiTrako: ( i: number ) => void;
-    ludi: () => void;
-  };
 }
 
 export interface Menuo {
@@ -47,10 +33,10 @@ export interface Menuo {
 
 export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   const {
-    navPopUp, navButono, butSonoro, butBruo, butKrepusko, duskRegilo,
+    navPopUp, navButono, butKrepusko, duskRegilo,
     butVetero, veteroEtikedo, butKonserviEliri, cxuVestaroMalfermita, informo,
     fermiVestaron, fermiInformon, traduki, aplikiVacepu, aplikiRezimon, aplikiVeteron,
-    konserviEliri, sonoro, muziko,
+    konserviEliri,
   } = opcioj;
 
   // ⟪ ផ្ទាំងរុករក ៖ ម៉ឺនុយដូចគ្នានឹងផ្ទាំងលេចឡើងដទៃ , បើកវាបិទម៉ឺនុយផ្សេង 📃 ⟫
@@ -70,78 +56,38 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   }
   navButono.addEventListener("click", sxaltiNaviganPopUp);
 
-  // ⟪ ការចាប់ផ្តើមស្វ័យប្រវត្តិពេលប៉ះ ឬចុចដំបូង 📃 ⟫
-  function gxisdatigiSonoranButonon(aktiva: boolean) {
-    butSonoro.setAttribute("aria-pressed", String(aktiva));
-    butSonoro.textContent = aktiva ? "♫" : "♬";
-    gxisdatigiTrakoButonojn();
-  }
-  sonoro.registriPostAŭdio(gxisdatigiSonoranButonon);
-  document.addEventListener("pointerdown", () => sonoro.autoKomenci(), { once: true });
-
-  // ⟪ ប៊ូតុងសំឡេង 📃 ⟫
-  butSonoro.addEventListener("click", () => {
-    const aktiva = sonoro.sxaltiAŭdion();
-    gxisdatigiSonoranButonon(aktiva);
-    fermiNaviganPopUp();
-  });
-
-  // ⟪ ប៊ូតុងសំឡេងរំខាន ( សំឡេងផ្ទៃខាងក្រោយដោយឡែកពីតន្ត្រី ) 📃 ⟫
-  function gxisdatigiBruanButonon() {
-    const aktiva = sonoro.cxuBruo();
-    butBruo.setAttribute("aria-pressed", String(aktiva));
-    butBruo.textContent = aktiva ? "≋" : "≈";
-  }
-  butBruo.addEventListener("click", () => {
-    sonoro.sxaltiBruon();
-    gxisdatigiBruanButonon();
-    fermiNaviganPopUp();
-  });
-  gxisdatigiBruanButonon();
-
-  // ⟪ អ្នកជ្រើសត្រាក 📃 ⟫
-  function gxisdatigiTrakoButonojn() {
-    const nuna = muziko.nunaTrako();
-    document.querySelectorAll(".trakaBut").forEach(b => {
-      const i = parseInt(( b as HTMLElement ).dataset.trako || "0");
-      b.setAttribute("aria-pressed", String(i === nuna && muziko.cxuLudas()));
-    });
-  }
-  document.querySelectorAll(".trakaBut").forEach(b => {
-    b.addEventListener("click", () => {
-      const i = parseInt(( b as HTMLElement ).dataset.trako || "0");
-      const estisLudanta = muziko.cxuLudas();
-      muziko.sxargiTrako(i);
-      if ( estisLudanta || sonoro.cxuAŭdio() ) muziko.ludi();
-      gxisdatigiTrakoButonojn();
-    });
+  // ⟪ សំឡេង , សំឡេងរំខាន , បទ ៖ ចែករំលែកកូដជាមួយទំព័រការកំណត់ 📃 ⟫
+  // ⟨ បិទផ្ទាំងរុករកពេលបិទបើកសំឡេង ឬសំឡេងរំខាន ៖ ចុចបទមិនបិទទេ ដូចមុន 📃 ⟩
+  sonregiloj().ligi(navPopUp, ( speco ) => {
+    if ( speco !== "trako" ) fermiNaviganPopUp();
   });
 
   // ⟪ របៀបព្រលប់ 📃 ⟫
-  let krepuskaValoro = Math.round(realaKrepusko() * 0o100) / 0o100;
-  duskRegilo.value = String(krepuskaValoro);
-  butKrepusko.textContent = krepuskaValoro > 0o4/0o10 ? "☀" : "☽";
-  butKrepusko.setAttribute("aria-pressed", String(krepuskaValoro > 0o4/0o10));
-  aplikiRezimon(krepuskaValoro);
+  // ⟨ តម្លៃដែលបានរក្សាទុកមានអាទិភាព ។ បើគ្មាន គណនាតាមព្រះអាទិត្យពិត 📃 ⟩
+  let krepuskaValoro = 0;
+  function aplikiKrepuskon( valoro: number ): void {
+    krepuskaValoro = valoro;
+    duskRegilo.value = String(valoro);
+    const tage = valoro > 0o4/0o10;
+    butKrepusko.textContent = tage ? "☀" : "☽";
+    butKrepusko.setAttribute("aria-pressed", String(tage));
+    aplikiRezimon(valoro);
+  }
   butKrepusko.addEventListener("click", () => {
-    if ( krepuskaValoro > 0o4/0o10 ) {
-      krepuskaValoro = 0;
-      duskRegilo.value = "0";
-    } else {
-      krepuskaValoro = 1;
-      duskRegilo.value = "1";
-    }
-    butKrepusko.textContent = krepuskaValoro > 0o4/0o10 ? "☀" : "☽";
-    butKrepusko.setAttribute("aria-pressed", String(krepuskaValoro > 0o4/0o10));
-    aplikiRezimon(krepuskaValoro);
+    aplikiKrepuskon(krepuskaValoro > 0o4/0o10 ? 0 : 1);
+    skribiAgordon("krepusko", krepuskaValoro);
     fermiNaviganPopUp();
   });
   duskRegilo.addEventListener("input", () => {
-    krepuskaValoro = parseFloat(duskRegilo.value);
-    butKrepusko.textContent = krepuskaValoro > 0o4/0o10 ? "☀" : "☽";
-    butKrepusko.setAttribute("aria-pressed", String(krepuskaValoro > 0o4/0o10));
-    aplikiRezimon(krepuskaValoro);
+    aplikiKrepuskon(parseFloat(duskRegilo.value) || 0);
+    skribiAgordon("krepusko", krepuskaValoro);
   });
+  const konservitaKrepusko = legiAgordon("krepusko", -0o1);
+  aplikiKrepuskon(
+    konservitaKrepusko >= 0 && konservitaKrepusko <= 1
+      ? konservitaKrepusko
+      : Math.round(realaKrepusko() * 0o100) / 0o100
+  );
 
   // ⟪ អាកាសធាតុ ( អ័ព្ទ · ភ្លៀង · ព្រឹល · ព្រិល ) 📃 ⟫
   const VETERAJ: { kodo: Vetero; glifo: string; klavo: string }[] = [
@@ -150,7 +96,10 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     { kodo: "hajla", glifo: "⛈", klavo: "veteroHajla" },
     { kodo: "nega", glifo: "❄", klavo: "veteroNega" },
   ];
-  let veteraIndekso = 0;
+  // ⟨ អាកាសធាតុដែលបានរក្សាទុកមានអាទិភាព ។ បើគ្មាន ចាប់ផ្តើមពីអ័ព្ទ 📃 ⟩
+  const konservitaVetero = legiAgordon<string>("vetero", "");
+  const konservitaIndekso = VETERAJ.findIndex(v => v.kodo === konservitaVetero);
+  let veteraIndekso = konservitaIndekso >= 0 ? konservitaIndekso : 0;
   function gxisdatigiVeteranButonon(): void {
     const v = VETERAJ[veteraIndekso];
     butVetero.textContent = v.glifo;
@@ -162,12 +111,13 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   butVetero.addEventListener("click", () => {
     veteraIndekso = ( veteraIndekso + 1 ) % VETERAJ.length;
     gxisdatigiVeteranButonon();
+    skribiAgordon("vetero", VETERAJ[veteraIndekso].kodo);
     fermiNaviganPopUp();
   });
   window.addEventListener("lingvosxangxo", gxisdatigiVeteranButonon);
   gxisdatigiVeteranButonon();
 
-  // ⟪ ការរក្ទក់ និងការចេញពីពិភពលោក 📃 ⟫
+  // ⟪ ការរក្សាទុក និងការចេញពីពិភពលោក 📃 ⟫
   butKonserviEliri.addEventListener("click", () => konserviEliri());
 
   return { fermiNaviganPopUp };

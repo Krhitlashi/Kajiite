@@ -56,17 +56,17 @@
     <p class="ksakap2sa aih" data-oskakefani="sekcioMuziko">ʃɔ</p>
     <!-- ⟨ ប៊ូតុងសំឡេង ៖ គ្មានកាត , ដូចជួរប៊ូតុងធម្មតា 📃 ⟩ -->
     <sabosuc2w2q id="agordSonoVico">
-      <button id="butAgordSonoro" data-oskakefani="butonoSono" data-oskakefani-aria="ariaButSonoro">ʃɔ</button>
-      <button id="butAgordBruo" data-oskakefani="butonoBruo" data-oskakefani-aria="ariaButBruo">ſȷᴜ ŋᷠᴜʞ</button>
+      <button id="butAgordSonoro" data-sonregilo="sonoro" data-oskakefani="butonoSono" data-oskakefani-aria="ariaButSonoro">ʃɔ</button>
+      <button id="butAgordBruo" data-sonregilo="bruo" data-oskakefani="butonoBruo" data-oskakefani-aria="ariaButBruo">ſȷᴜ ŋᷠᴜʞ</button>
     </sabosuc2w2q>
     <!-- ⟨ ការជ្រើសបទ ៖ នៅក្នុងកាត , ជាមួយចំណងជើងតន្ត្រីដើមវិញ 📃 ⟩ -->
     <ciihii id="agordMuzikaSekcio">
       <label id="agordMuzikoEtikedo" data-oskakefani="muziko">j͑ʃп́ꞇ ſɭɔƴ</label>
       <sabosuc2w2q id="agordTrakaVico">
-        <button data-trako="0" data-oskakefani-aria="ariaTrako0">1</button>
-        <button data-trako="1" data-oskakefani-aria="ariaTrako1">2</button>
-        <button data-trako="2" data-oskakefani-aria="ariaTrako2">3</button>
-        <button data-trako="3" data-oskakefani-aria="ariaTrako3">4</button>
+        <button data-sonregilo="trako" data-trako="0" data-oskakefani-aria="ariaTrako0">1</button>
+        <button data-sonregilo="trako" data-trako="1" data-oskakefani-aria="ariaTrako1">2</button>
+        <button data-sonregilo="trako" data-trako="2" data-oskakefani-aria="ariaTrako2">3</button>
+        <button data-sonregilo="trako" data-trako="3" data-oskakefani-aria="ariaTrako3">4</button>
       </sabosuc2w2q>
     </ciihii>
   </div>
@@ -96,16 +96,11 @@
   <button id="informPaghoReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
 </div>
 
-<!-- ⟪ សម្លៀកបំពាក់ទំព័រពេញ ( ចែករំលែកមាតិកាជាមួយផ្ទាំងលេចឡើង ) 📃 ⟫ -->
+<!-- ⟪ សម្លៀកបំពាក់ទំព័រពេញ ( តួរួម បំពេញដោយ vestejo.ts , ចែករំលែកជាមួយផ្ទាំងលេចឡើង ) 📃 ⟫ -->
 <div id="vestPagho" class="aih">
   <h1 class="saxesukef" data-oskakefani="titoloTeksilo"></h1>
   <p class="ksakat2xa" data-oskakefani="subtitoloTeksilo"></p>
-  <sabosuc2w2q class="cakaxa" id="vestPaghoTaboj">
-    <button data-tabo="vestoj" data-oskakefani="taboVestoj"></button>
-    <button data-tabo="hararo" data-oskakefani="taboHararo"></button>
-  </sabosuc2w2q>
-  <div class="informSekcio" data-sekcio="vestoj"><div class="vestaVico" id="paghoVestaListo"></div></div>
-  <div class="informSekcio" data-sekcio="hararo"><div id="paghoHaraListo"></div></div>
+  <div class="vestaraUjo" data-vestaraUjo></div>
   <button id="vestPaghoReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
 </div>
 
@@ -156,16 +151,16 @@
       <button id="butVesti" data-oskakefani="butonoVestaro" data-oskakefani-aria="butonoVestaro">VESTARO</button>
       <button id="butHelpi" data-oskakefani="butonoHelpo" data-oskakefani-aria="butonoHelpo">?</button>
       <button id="butLingvo" data-oskakefani-aria="ariaButLingvo">AIH</button>
-      <button id="butSonoro" data-oskakefani-aria="ariaButSonoro">♬</button>
-      <button id="butBruo" data-oskakefani-aria="ariaButBruo">≋</button>
+      <button id="butSonoro" data-sonregilo="sonoro" data-glifo-aktiva="♫" data-glifo-malaktiva="♬" data-oskakefani-aria="ariaButSonoro">♬</button>
+      <button id="butBruo" data-sonregilo="bruo" data-glifo-aktiva="≋" data-glifo-malaktiva="≈" data-oskakefani-aria="ariaButBruo">≋</button>
     </maxema>
     <ciihii id="muzikoGrupo">
       <label id="muzikoEtikedo" data-oskakefani="muziko">MUZIKO</label>
       <sabosuc2w2q id="trakaVico">
-        <button class="trakaBut" data-trako="0" data-oskakefani-aria="ariaTrako0">1</button>
-        <button class="trakaBut" data-trako="1" data-oskakefani-aria="ariaTrako1">2</button>
-        <button class="trakaBut" data-trako="2" data-oskakefani-aria="ariaTrako2">3</button>
-        <button class="trakaBut" data-trako="3" data-oskakefani-aria="ariaTrako3">4</button>
+        <button data-sonregilo="trako" data-trako="0" data-oskakefani-aria="ariaTrako0">1</button>
+        <button data-sonregilo="trako" data-trako="1" data-oskakefani-aria="ariaTrako1">2</button>
+        <button data-sonregilo="trako" data-trako="2" data-oskakefani-aria="ariaTrako2">3</button>
+        <button data-sonregilo="trako" data-trako="3" data-oskakefani-aria="ariaTrako3">4</button>
       </sabosuc2w2q>
     </ciihii>
     <div class="menuKrepusko">
@@ -180,18 +175,13 @@
   </thala>
 </div>
 
-<!-- ⟪ សម្លៀកបំពាក់ក្នុងហ្គេម ( ផ្ទាំងលេចឡើង លើពិភពលោក ) 📃 ⟫ -->
+<!-- ⟪ សម្លៀកបំពាក់ក្នុងហ្គេម ( ផ្ទាំងលេចឡើង លើពិភពលោក , តួរួមជាមួយទំព័រពេញ ) 📃 ⟫ -->
 <thala id="vestaro" class="menuPanel n2tase aih">
     <div class="menuIdenteco">
       <p class="ksakap2sa" data-oskakefani="titoloTeksilo"></p>
       <p data-oskakefani="subtitoloTeksilo"></p>
     </div>
-    <sabosuc2w2q class="cakaxa" id="vestaroTaboj">
-      <button data-tabo="vestoj" data-oskakefani="taboVestoj"></button>
-      <button data-tabo="hararo" data-oskakefani="taboHararo"></button>
-    </sabosuc2w2q>
-    <div class="informSekcio" data-sekcio="vestoj"><div class="vestaVico" id="vestaListo"></div></div>
-    <div class="informSekcio" data-sekcio="hararo"><div id="haraListo"></div></div>
+    <div class="vestaraUjo" data-vestaraUjo></div>
     <button id="vestaroReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
 </thala>
 
@@ -221,7 +211,6 @@
     <div class="informSekcio" data-sekcio="specioj"><div class="vestaVico" id="speciaListo"></div></div>
 </thala>
 
-<!-- ⟨ សម្លៀកបំពាក់ ៖ ទំព័រពេញ ៖ បើកពីផ្ទាំងចាប់ផ្តើម និងពីផ្ទាំងរុករកក្នុងហ្គេម ។ មិនអណ្តែតលើផ្ទាំងផ្សេងទេ 📃 ⟩ -->
 <!-- ⟪ ការគ្រប់គ្រងទូរស័ព្ទ 📃 ⟫ -->
 <div id="mobKontroloj" aria-hidden="true">
   <div id="mobJoystickZono">
@@ -241,7 +230,7 @@
   <thala class="interno n2tase aih">
     <p class="ksakat2xa" id="supermetaTitolo" data-oskakefani="titoloTeksilo">LA TEKSILO 🧵</p>
     <p id="supermetaSupra" data-oskakefani="subtitoloTeksilo">Longaj cxemizoj · mallongaj manikoj · cxefa kaj akcenta</p>
-    <maxema class="vestaVico" id="vestaVico"></maxema>
+    <maxema class="supermetaVico" id="supermetaEnhavo"></maxema>
   </thala>
 </div>
 <div id="sxargxo" class="n2tase">

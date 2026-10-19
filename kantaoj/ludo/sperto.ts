@@ -36,8 +36,7 @@ const mapoGrandeco = mapoDatumoj.grandeco;
 import type { UrbaSistemo } from "../mondo/urbo/tipoj.js";
 import { konstruiUrbon } from "../mondo/urbo.js";
 import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
-import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, sfx, autoKomenci, registriPostAŭdio } from "../../eskekoj/sonoj/sonoro.js";
-import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../../eskekoj/sonoj/muziko/ludilo.js";
+import { cxuAŭdio, sfx } from "../../eskekoj/sonoj/sonoro.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
 const kanvaso = document.getElementById("sceno") as HTMLCanvasElement;
@@ -49,7 +48,7 @@ const kartoFlavor = document.getElementById("kartoFlavor")!;
 const kartoEniri = document.getElementById("kartoEniri")!;
 const promptoElemento = document.getElementById("prompto")!;
 const supermeta = document.getElementById("supermeta")!;
-const vestaVico = document.getElementById("vestaVico")!;
+const supermetaEnhavo = document.getElementById("supermetaEnhavo")!;
 const sxargxaElemento = document.getElementById("sxargxo")!;
 const stango = document.getElementById("stango")!;
 const sxargxaTitolo = document.getElementById("sxargxaTitolo")!;
@@ -63,9 +62,7 @@ const tosto = document.getElementById("tosto")!;
 // ⟪ ធាតុទូរស័ព្ទ 📃 ⟫
 const navPopUp = document.getElementById("navPopUp")!;
 const navButono = document.getElementById("navButono")!;
-const butSonoro = document.getElementById("butSonoro")!;
 const butRezimo = document.getElementById("butRezimo")!;
-const butBruo = document.getElementById("butBruo")!;
 const mobJoystickZono = document.getElementById("mobJoystickZono")!;
 const mobJoystickBazo = document.getElementById("mobJoystickBazo")!;
 const mobJoystickTenilo = document.getElementById("mobJoystickTenilo")!;
@@ -175,15 +172,13 @@ const butVetero = document.getElementById("butVetero")!;
 const veteroEtikedo = document.getElementById("veteroEtikedo")!;
 const butKonserviEliri = document.getElementById("butKonserviEliri")!;
 const menuo = kreiMenuon({
-  navPopUp, navButono, butSonoro, butBruo,
+  navPopUp, navButono,
   butKrepusko, duskRegilo, butVetero, veteroEtikedo,
   butKonserviEliri, konserviEliri: konserviEliriMondon,
   cxuVestaroMalfermita: () => vestejo.cxuMalfermita(), informo,
   fermiVestaron: () => vestejo.fermi(), fermiInformon,
   traduki, aplikiVacepu,
   aplikiRezimon, aplikiVeteron,
-  sonoro: { registriPostAŭdio, autoKomenci, sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo },
-  muziko: { nunaTrako, cxuLudas, sxargiTrako, ludi },
 });
 const { fermiNaviganPopUp } = menuo;
 
@@ -237,13 +232,15 @@ kanvaso.addEventListener("click", ( e ) => {
   }
 });
 
+// ⟪ ស្រទាប់លើរួម ( ជំនួយ និងផែនទីពេញ ) ៖ បិទដោយចុចខាងក្រៅ ឬប៊ូតុង 川 📃 ⟫
+function fermiSupermetan(): void {
+  if ( minimapo.cxuMalfermita() ) minimapo.fermi();
+  else supermeta.classList.remove("montri");
+}
 supermeta.addEventListener("click", ( e ) => {
-  if ( e.target !== supermeta ) return;
-  if ( minimapo.cxuMalfermita() ) minimapo.fermi(); else supermeta.classList.remove("montri");
+  if ( e.target === supermeta ) fermiSupermetan();
 });
-document.getElementById("supermetaFermi")!.addEventListener("click", () => {
-  if ( minimapo.cxuMalfermita() ) minimapo.fermi(); else supermeta.classList.remove("montri");
-});
+document.getElementById("supermetaFermi")!.addEventListener("click", fermiSupermetan);
 
 // ⟪ បន្ទប់សម្លៀកបំពាក់ ៖ ទំព័រតែមួយរួមជាមួយផ្ទាំងចាប់ផ្តើម 📃 ⟫
 // ⟨ ប៊ូតុងនៅក្នុងផ្ទាំងរុករកបើកវា , ដូច្នេះផ្ទាំងលេចឡើងបិទមុន 📃 ⟩
@@ -254,7 +251,7 @@ document.getElementById("butVesti")!.addEventListener("click", () => vestejo.mal
 document.getElementById("butHelpi")!.addEventListener("click", () => {
   document.getElementById("supermetaTitolo")!.textContent = traduki("titoloVojoj");
   document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloHelpo");
-  vestaVico.innerHTML = `<div class="statistikoj">
+  supermetaEnhavo.innerHTML = `<div class="statistikoj">
     <b>Orbit</b> · ${traduki("regiloOrbito")}<br>
     <b>Walk</b> · ${traduki("regiloPromeno")}<br>
     <b>WASD</b> · ${traduki("regiloMovado")}<br>
@@ -278,7 +275,7 @@ const kanuanto = kreiKanuanton({
 
 // ⟪ ផែនទីតូច 📃 ⟫
 const minimapo = kreiMinimapon({
-  sceno, bildilo, supermeta, vestaVico, mapoGrandeco,
+  sceno, bildilo, supermeta, supermetaEnhavo, mapoGrandeco,
   miniKanvaso: document.getElementById("minimapaKanvaso") as HTMLCanvasElement,
   kompaso: document.getElementById("kompaso")!,
   nadlo: document.getElementById("nadlo")!,

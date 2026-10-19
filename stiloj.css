@@ -99,7 +99,7 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #lingvPopUpVico { display:grid; grid-template-columns:1fr; align-content:stretch; }
 /* ⟨ ប៊ូតុងផ្ទាំងផ្លាស់ផ្ទាំង ៖ ពីមុន grid បែងចែកកម្ពស់ស្មើគ្នា ( 1fr ) ។
    cakaxa ដាក់ពួកវានៅកណ្តាលជាដុំតូច ៖ ដូច្នេះឱ្យពួកវាលូតវិញ 📃 ⟩ */
-#informTaboj > button, #informPaghoTaboj > button, #vestaroTaboj > button, #vestPaghoTaboj > button { flex:1 1 0; }
+#informTaboj > button, #informPaghoTaboj > button, .vestaraTaboj > button { flex:1 1 0; }
 /* ⟨ ជួរប៊ូតុងរុករក ៖ ពីមុន grid មាន 2 ជួរឈរ គឺ 3 ប៊ូតុង × 2 ជួរ ។
    maxema ដាក់ទាំង 6 ក្នុងជួរតែមួយ ដែលធ្វើឱ្យបន្ទះធំជាងមុន ៖ ដូច្នេះចែក 2 ជួរវិញ 📃 ⟩ */
 #navPopUpVico { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -123,10 +123,15 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 #duskLabelo input[type=range] { flex:1; min-inline-size:0; }
 
 /* ⟪ សម្លៀកបំពាក់ 📃 ⟫ */
-.vestaVico { display:flex; justify-content:center; flex-wrap:wrap; }
-#haraListo { display:flex; flex-direction:column; }
+/* ⟨ តួរួម ៖ សែលទាំងពីរផ្ទុកធាតុ ( data-vestaraUjo ) ដែលគ្មានប្រអប់ផ្ទាល់ខ្លួន ។
+   display:contents ធ្វើឱ្យកូនរបស់តួចូលរួមក្នុងប្លង់សែលដូចមុន ។ 📃 ⟩ */
+.vestaraUjo, .vestaraKorpo { display:contents; }
+.vestaVico, .supermetaVico { display:flex; justify-content:center; flex-wrap:wrap; }
+.haraListo { display:flex; flex-direction:column; }
 .vestaKardo { cursor:pointer; transition:transform .2336092301648s,border-color .2336092301648s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--តានេក២); }
+.vestaKardo.neAktiva { cursor:default; }
+.vestaKardo.neAktiva:hover { transform:none; border-color:var(--តានេក); }
 .harKoloroChip { inline-size:24px; block-size:24px; border-radius:var(--អិត្ភេមិ); border:var(--សាកព៏); align-self:center; }
 .vestaKardo.elektita { border-color:var(--ក្ព៏); }
 

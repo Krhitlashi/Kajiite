@@ -1,7 +1,6 @@
 // ≺⧼ ការចាប់ផ្តើម 🎬 ⧽≻
 import { traduki } from "../lingvo/tradukoj.js";
 import { hazardaSemo, semoEnBazo8 } from "../mondo/semo.js";
-import { sxaltiAŭdion, cxuAŭdio, sxaltiBruon, cxuBruo, autoKomenci, registriPostAŭdio } from "../../eskekoj/sonoj/sonoro.js";
 import type { MondoRecordo } from "./mondoj.js";
 import {
   agordiAktivanMondon, certigiCxefanMondon, duobligiMondon,
@@ -10,6 +9,7 @@ import {
 // ⟨ ទំព័រដើម ( ព័ត៌មាន · ការកំណត់ · សម្លៀកបំពាក់ ) ត្រូវបានភ្ជាប់ដោយការនាំចូលនេះ 📃 ⟩
 import "./hejmpaghoj.js";
 import { kreiPaghon, fermiCxiujnPaghojn } from "./paghoj.js";
+import { sonregiloj } from "./sonregiloj.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
 const komenco = document.getElementById("komenco")!;
@@ -127,35 +127,11 @@ mondListo.addEventListener("click", ( e ) => {
 window.addEventListener("lingvosxangxo", montriListon);
 
 // ⟪ ម៉ឺនុយការកំណត់ដាច់ដោយឡែក , ពេញអេក្រង់ដោយគ្មានផ្ទាំងលេចឡើង 📃 ⟫
-const butAgordSonoro = document.getElementById("butAgordSonoro");
-const butAgordBruo = document.getElementById("butAgordBruo");
-
-function gxisdatigiAgordSonoron(aktiva: boolean): void {
-  if ( !butAgordSonoro ) return;
-  butAgordSonoro.setAttribute("aria-pressed", String(aktiva));
-}
-
-function gxisdatigiAgordBruon(): void {
-  if ( !butAgordBruo ) return;
-  butAgordBruo.setAttribute("aria-pressed", String(cxuBruo()));
-}
-
+// ⟨ សំឡេង · សំឡេងរំខាន · បទ ៖ ចែករំលែកកូដជាមួយផ្ទាំងរុករកក្នុងហ្គេម 📃 ⟩
 const agordPagho = kreiPaghon("agordPagho", () => {
-  gxisdatigiAgordSonoron(cxuAŭdio());
-  gxisdatigiAgordBruon();
+  sonregiloj().gxisdatigi();
   ( butAgordLingvo as HTMLButtonElement | null )?.focus();
 });
+sonregiloj().ligi(document.getElementById("agordPagho")!);
 
 butAgordoj.addEventListener("click", () => agordPagho.malfermi());
-
-butAgordSonoro?.addEventListener("click", () => {
-  gxisdatigiAgordSonoron(sxaltiAŭdion());
-});
-butAgordBruo?.addEventListener("click", () => {
-  sxaltiBruon();
-  gxisdatigiAgordBruon();
-});
-registriPostAŭdio(gxisdatigiAgordSonoron);
-document.addEventListener("pointerdown", () => autoKomenci(), { once: true });
-gxisdatigiAgordSonoron(cxuAŭdio());
-gxisdatigiAgordBruon();
