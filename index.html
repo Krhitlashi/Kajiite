@@ -17,7 +17,7 @@
 <canvas id="sceno" aria-label="ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞"></canvas>
 
 <!-- ⟪ ការចាប់ផ្តើម ( ចូលពិភពលោកចម្បង , បង្កើត ឬផ្ទុកពិភពលោក ) 📃 ⟫ -->
-<div id="komenco" class="n2tase aih">
+<section id="komenco" class="n2tase aih">
   <h1 class="saxesukef" data-oskakefani="komenciTitolo">ſɭᴜ ɭl̀ɹ ɭʃɔ</h1>
   <!-- ⟨ ជួរប៊ូតុងម៉ឺនុយ ៖ maxema ពីស្ទីលខាងក្រៅ ផ្តល់ជួរកម្ពស់ពេញ , គ្មាន grid ខាងក្នុង 📃 ⟩ -->
   <maxema>
@@ -26,12 +26,12 @@
     <button id="butInformoj" data-oskakefani="titoloInformo" data-oskakefani-aria="ariaInformButono">ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ j͑ʃ'ɜ ſןɹ</button>
     <button id="butAgordoj" data-oskakefani="titoloAgordoj">ſɭw ſᶘɜ</button>
   </maxema>
-</div>
+</section>
 <!-- ⟪ ទេសភាពទីក្រុង ( ផ្ទៃខាងក្រោយនៃការចាប់ផ្តើម ) 📃 ⟫ -->
 <div id="komencoFono" aria-hidden="true"></div>
 
 <!-- ⟪ ទំព័រពិភពលោក ( គ្រាប់ពូជ , <sak> , បញ្ជីពិភពលោក ) 📃 ⟫ -->
-<div id="mondPagho" class="aih">
+<section id="mondPagho" class="aih">
   <h1 class="saxesukef" data-oskakefani="mondTitolo">}ʃᴜ j͐ʃᴜ</h1>
   <ciihii id="mondSxonoGrupo">
     <label for="sxonoEnigo" data-oskakefani="mondSxono">ſɟwƽ</label>
@@ -42,17 +42,15 @@
   <p class="ksakat2xa" data-oskakefani="mondSavitaListo">j͑ʃ'ɔ ſ̀ȷᴜȝ ꞁȷ̀ᴜꞇ ʌ }ʃᴜ j͐ʃᴜ</p>
   <ariiba id="mondListo"></ariiba>
   <button id="mondPaghoReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
-</div>
+</section>
 
 <!-- ⟪ ការកំណត់ ( ម៉ឺនុយដាច់ដោយឡែក , ពេញអេក្រង់ , បន្តផ្ទៃខាងក្រោយពេញ ) 📃 ⟫ -->
-<div id="agordPagho" class="aih">
+<section id="agordPagho" class="aih">
   <h1 class="saxesukef" data-oskakefani="titoloAgordoj">ſɭw ſᶘɜ</h1>
   <p class="ksakat2xa" data-oskakefani="subtitoloAgordoj"></p>
-  <maxema>
-    <button id="butAgordLingvo" data-oskakefani-aria="ariaButLingvo">AIH</button>
-    <button id="butAgordVestaro" data-oskakefani="butonoVestaro" data-oskakefani-aria="butonoVestaro">ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ j͑ʃɜȝ ɭʃɔ</button>
-  </maxema>
-  <div id="agordSonaSekcio" class="agordSekcio">
+  <button id="butAgordLingvo" data-oskakefani-aria="ariaButLingvo">AIH</button>
+  <button id="butAgordVestaro" data-oskakefani="butonoVestaro" data-oskakefani-aria="butonoVestaro">ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ j͑ʃɜȝ ɭʃɔ</button>
+  <section id="agordSonaSekcio" class="agordSekcio">
     <p class="ksakap2sa aih" data-oskakefani="sekcioMuziko">ʃɔ</p>
     <!-- ⟨ ប៊ូតុងសំឡេង ៖ គ្មានកាត , ដូចជួរប៊ូតុងធម្មតា 📃 ⟩ -->
     <sabosuc2w2q id="agordSonoVico">
@@ -69,20 +67,20 @@
         <button data-sonregilo="trako" data-trako="3" data-oskakefani-aria="ariaTrako3">4</button>
       </sabosuc2w2q>
     </ciihii>
-  </div>
+  </section>
   <button id="agordPaghoReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
-</div>
+</section>
 
 <!-- ⟪ ជ្រើសរើសភាសា ( បញ្ជាជំនួសការរំលង ) 📃 ⟫ -->
-<div id="lingvPagho" class="aih">
+<section id="lingvPagho" class="aih">
   <h1 class="saxesukef" data-oskakefani="titoloLingvo">ſ͔ɭᴜ ᶅſɔ</h1>
   <!-- ⟨ បញ្ជីភាសាត្រូវបានបំពេញដោយ tradukoj.ts , ដូចផ្ទាំងភាសាក្នុងហ្គេម 📃 ⟩ -->
   <maxema id="lingvPaghoVico"></maxema>
   <button id="lingvPaghoReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
-</div>
+</section>
 
 <!-- ⟪ ព័ត៌មានទំព័រពេញ ( ចែករំលែកមាតិកាជាមួយផ្ទាំងលេចឡើង ) 📃 ⟫ -->
-<div id="informPagho" class="aih">
+<section id="informPagho" class="aih">
   <h1 class="saxesukef" data-oskakefani="titoloInformo"></h1>
   <p class="ksakat2xa" data-oskakefani="subtitoloInformo"></p>
   <sabosuc2w2q class="cakaxa" id="informPaghoTaboj">
@@ -90,19 +88,19 @@
     <button data-tabo="mangxajxoj" data-oskakefani="tabMangxajxoj"></button>
     <button data-tabo="specioj" data-oskakefani="tabSpecioj"></button>
   </sabosuc2w2q>
-  <div class="informSekcio" data-sekcio="konstruajxoj"><div class="vestaVico" id="paghoKonstruaListo"></div></div>
-  <div class="informSekcio" data-sekcio="mangxajxoj"><div class="vestaVico" id="paghoMangxaListo"></div></div>
-  <div class="informSekcio" data-sekcio="specioj"><div class="vestaVico" id="paghoSpeciaListo"></div></div>
+  <section class="informSekcio" data-sekcio="konstruajxoj"><div class="vestaVico" id="paghoKonstruaListo"></div></section>
+  <section class="informSekcio" data-sekcio="mangxajxoj"><div class="vestaVico" id="paghoMangxaListo"></div></section>
+  <section class="informSekcio" data-sekcio="specioj"><div class="vestaVico" id="paghoSpeciaListo"></div></section>
   <button id="informPaghoReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
-</div>
+</section>
 
 <!-- ⟪ សម្លៀកបំពាក់ទំព័រពេញ ( តួរួម បំពេញដោយ vestejo.ts , ចែករំលែកជាមួយផ្ទាំងលេចឡើង ) 📃 ⟫ -->
-<div id="vestPagho" class="aih">
+<section id="vestPagho" class="aih">
   <h1 class="saxesukef" data-oskakefani="titoloTeksilo"></h1>
   <p class="ksakat2xa" data-oskakefani="subtitoloTeksilo"></p>
-  <div class="vestaraUjo" data-vestaraUjo></div>
+  <section class="vestaraUjo" data-vestaraUjo></section>
   <button id="vestPaghoReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
-</div>
+</section>
 
 <!-- ⟪ វីញេត 📃 ⟫ -->
 <div id="vinjeto"></div>
@@ -181,7 +179,7 @@
       <p class="ksakap2sa" data-oskakefani="titoloTeksilo"></p>
       <p data-oskakefani="subtitoloTeksilo"></p>
     </div>
-    <div class="vestaraUjo" data-vestaraUjo></div>
+    <section class="vestaraUjo" data-vestaraUjo></section>
     <button id="vestaroReeniri" data-oskakefani="eliri" data-oskakefani-aria="eliri">j͑ʃwc̗ ɭʃᴜ</button>
 </thala>
 
@@ -206,9 +204,9 @@
       <button data-tabo="mangxajxoj" data-oskakefani="tabMangxajxoj"></button>
       <button data-tabo="specioj" data-oskakefani="tabSpecioj"></button>
     </sabosuc2w2q>
-    <div class="informSekcio" data-sekcio="konstruajxoj"><div class="vestaVico" id="konstruaListo"></div></div>
-    <div class="informSekcio" data-sekcio="mangxajxoj"><div class="vestaVico" id="mangxaListo"></div></div>
-    <div class="informSekcio" data-sekcio="specioj"><div class="vestaVico" id="speciaListo"></div></div>
+    <section class="informSekcio" data-sekcio="konstruajxoj"><div class="vestaVico" id="konstruaListo"></div></section>
+    <section class="informSekcio" data-sekcio="mangxajxoj"><div class="vestaVico" id="mangxaListo"></div></section>
+    <section class="informSekcio" data-sekcio="specioj"><div class="vestaVico" id="speciaListo"></div></section>
 </thala>
 
 <!-- ⟪ ការគ្រប់គ្រងទូរស័ព្ទ 📃 ⟫ -->
