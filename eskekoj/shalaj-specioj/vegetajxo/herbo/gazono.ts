@@ -1,7 +1,7 @@
 // ≺⧼ វាលស្មៅ 🟩 ⧽≻
 import * as THREE from "three";
 import { kreiHerbanTavolanKlinganTeksajxon } from "../../../komunajxoj/teksajxoj/tavola-klinga-herbo.js";
-import { terenaKoloroEn } from "../../../komunajxoj/terenkoloroj.js";
+import { herbaKlingaKoloro, sekaHerbaKlingaKoloro, terenaKoloroEn } from "../../../komunajxoj/terenkoloroj.js";
 import { kunfandiGeometriojnSenIndekson } from "../../../komunajxoj/kunfandajxoj.js";
 import { kreiVegetajxanHazardon } from "../hazardoj.js";
 import { VOJA_EKSTERA_DUONO } from "../../../medio/vojoj/mezuroj.js";
@@ -57,8 +57,11 @@ export const HERBA_BIOMAJ_KOLOROJ:
   };
 
 const HERBA_BLANKA_KOLORO = new THREE.Color(0o1, 0o1, 0o1);
+// ⟨ ដុំស្មៅខ្លះប្រផេះ ខ្លះបៃតងចាស់ ៖ ដើម្បីកុំឱ្យវាលស្មៅស្មើគ្នាទាំងអស់ 📃 ⟩
+const HERBA_GRUZA_KOLORO = new THREE.Color(0o6/0o10, 0o66/0o100, 0o6/0o10);
+const HERBA_MALHELA_KOLORO = new THREE.Color(0o16/0o100, 0o3/0o10, 0o22/0o100);
 
-const HERBA_MALHELIGO = 0o62/0o100;
+const HERBA_MALHELIGO = 0o74/0o100;
 
 function herbaHasho(ix: number, iz: number): number {
   let h = Math.imul(ix, 0x27d4eb2d) ^ Math.imul(iz, 0x165667b1);
@@ -196,8 +199,19 @@ export async function konstruiHerbanTavolon(
             tufo.deklivo, akvaNiveloProksima);
           const teraLumo = Math.max(
             ( tera.r + tera.g * 0o2 + tera.b ) * 0o1/0o4, 0o1/0o100 );
-          C.copy(tera).multiplyScalar(tufo.nuanco * HERBA_MALHELIGO / teraLumo)
+          // ⟨ ដុំស្មៅមានក្តារពណ៌ផ្ទាល់ខ្លួន ៖ បៃតងស្រាល , ប្រផេះ , បៃតងចាស់ ។
+          // ដីមិនផ្តល់ពណ៌លឿងទេ ៖ វាគ្រាន់តែបន្ថយពន្លឺបន្តិចនៅកន្លែងងងឹត 📃 ⟩
+          herbaKlingaKoloro(C,
+            () => herbaHasho(Math.floor(tufo.x / 0o3), Math.floor(tufo.z / 0o3)));
+          const klingaLumo = Math.max(
+            ( C.r + C.g * 0o2 + C.b ) * 0o1/0o4, 0o1/0o100 );
+          const ombro = 0o15/0o20 + 0o5/0o40 * Math.min(1, teraLumo / ( 0o1/0o2 ));
+          C.multiplyScalar(tufo.nuanco * HERBA_MALHELIGO * ombro / klingaLumo)
             .multiply(biomaKoloro.get(tufo.biomo) ?? HERBA_BLANKA_KOLORO);
+          // ⟨ ចម្រុះពណ៌តាមដុំ ៖ ប្រផេះ និងបៃតងចាស់លាយចូលម្តងម្កាល 📃 ⟩
+          const vario = herbaHasho(Math.floor(tufo.x / 0o6), Math.floor(tufo.z / 0o6));
+          if ( vario < 0o1/0o4 ) C.lerp(HERBA_GRUZA_KOLORO, ( 0o1/0o4 - vario ) * 0o6/0o10);
+          else if ( vario > 0o3/0o4 ) C.lerp(HERBA_MALHELA_KOLORO, ( vario - 0o3/0o4 ) * 0o6/0o10);
           mesho.setColorAt(i, C);
         }
         deklivoj.needsUpdate = true;
@@ -243,11 +257,11 @@ function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HERBA_AKS
       const arko = Math.sin(angulo) * elen
         + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * longo;
       const tordo = ( hazardo() - 0o1/0o2 ) * 0o16/0o10;
-      const sekaKlingo = hazardo() < 0o1/0o4;
+      const sekaKlingo = hazardo() < 0o1/0o10;
       if ( sekaKlingo ) {
-        seka.setRGB(0o21/0o20, 0o33/0o40 + hazardo() * 0o1/0o10, 0o13/0o40 + hazardo() * 0o5/0o40);
+        sekaHerbaKlingaKoloro(seka, hazardo);
       } else {
-        verda.setRGB(0o27/0o40 + hazardo() * 0o13/0o40, 0o63/0o100 + hazardo() * 0o11/0o40, 0o5/0o10 + hazardo() * 0o23/0o100);
+        herbaKlingaKoloro(verda, hazardo);
       }
       const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
         sekaKlingo ? seka : verda, HERBA_SEGMENTOJ, 0o5/0o10);

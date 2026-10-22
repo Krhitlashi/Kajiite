@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj/andezito.js";
 import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";
-import { VOJA_DIKECO } from "./vojoj/mezuroj.js";
+import { VOJA_DIKECO, VOJA_EKSTERA_DUONO, KORNA_R } from "./vojoj/mezuroj.js";
 import { kreiDokanEksteranFormon, kreiDokanFormon, kreiDokanKadron } from "./doko/formoj.js";
 import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO, type DokaSekcio, type Doko } from "./doko/tipoj.js";
 
@@ -100,7 +100,8 @@ export function konstruiDokon(
     heightFn(mondaX(-flankaDuono, lz), mondaZ(-flankaDuono, lz)));
   // ⟨ កន្លែងជណ្តើរចាប់ផ្តើម 📃 ⟩
   const landejaMinimumo = 0o3;
-  const landejaMaksimumo = platformDepth * 0o3/0o4;
+  // ⟨ ចំណតយកត្រឹមពាក់កណ្តាល ៖ ជណ្តើរត្រូវមានកន្លែងរត់វែងល្មម 📃 ⟩
+  const landejaMaksimumo = platformDepth * 0o1/0o2;
   let stuparaZ0 = -duonL + landejaMaksimumo;
   for ( let lz = -duonL; lz < -duonL + landejaMaksimumo; lz += 0o1/0o4 ) {
     if ( aksaSupra(lz) - vojaY > landejaLocala ) { stuparaZ0 = lz; break; }
@@ -110,7 +111,16 @@ export function konstruiDokon(
   const landejaLongo = Math.max(landejaMinimumo, landejaZ0 + duonL);
   const landejaCentroZ = landejaZ0 - landejaLongo / 2;
   const sekcioj: DokaSekcio[] = [];
-  const stuparajPunktoj: [ number, number ][] = [];
+  // ⟨ ជណ្តើរ ៖ ចាប់ផ្តើមត្រង់គែមចានភ្ជាប់ , បញ្ចប់ត្រង់គែមចំណត ។
+  // ដូច្នេះជណ្តើរមិនលាក់នៅក្រោមចានទេ ។
+  // ចំណុចតែពីរ ៖ លេខជំហានត្រូវគណនាពេលដឹងកម្ពស់ចានភ្ជាប់ ។ 📃 ⟩
+  const stuparaKomencoLz = duonL - ( VOJA_EKSTERA_DUONO + KORNA_R );
+  const stuparajPunktoj: [ number, number ][] = landejaLocala >= dikeco ? [] : [
+    [ mondaX(0, stuparaKomencoLz), mondaZ(0, stuparaKomencoLz) ],
+    [ mondaX(0, landejaZ0), mondaZ(0, landejaZ0) ],
+  ];
+  // ⟨ ផ្ទៃដែលជណ្តើរឈប់ ៖ ខ្នងចំណត , ឬវេទិកាពេញ 📃 ⟩
+  const landejaY = vojaY + ( landejaLocala >= dikeco ? dikeco : landejaLocala );
 
   if ( landejaLocala >= dikeco ) {
     // ⟨ ចំណតនៅ ( ឬក្រោម ) ផ្ទៃទឹក 📃 ⟩
@@ -120,28 +130,6 @@ export function konstruiDokon(
     aldoniLandejon(landejaCentroZ, landejaLongo, landejaLocala);
     sekcioj.push({ lx: 0, lz: landejaCentroZ, w: plenaDuono * 2, d: landejaLongo,
       y: vojaY + landejaLocala });
-
-    // ⟨ ជណ្តើរជាផ្លូវធម្មតា 📃 ⟩
-    const STUPA_ALTIGXO = 0o3/0o20;
-    const STUPA_PASO = 0o1/0o20;
-    const STUPA_LONGO_MAKS = 0o3;
-    const stuparaSupra = ( lz: number ): number => Math.min(vojaY, aksaSupra(lz));
-    let lz = duonL + 0o3/0o2;
-    let nivelo = stuparaSupra(lz);
-    stuparajPunktoj.push([ mondaX(0, lz), mondaZ(0, lz) ]);
-    while ( lz > landejaZ0 + STUPA_PASO ) {
-      let rando = Math.max(landejaZ0, lz - STUPA_LONGO_MAKS);
-      for ( let testo = lz - STUPA_PASO; testo > rando + STUPA_PASO; testo -= STUPA_PASO ) {
-        if ( stuparaSupra(testo) <= nivelo - STUPA_ALTIGXO ) { rando = testo; break; }
-      }
-      rando = Math.max(landejaZ0, rando);
-      stuparajPunktoj.push([ mondaX(0, rando), mondaZ(0, rando) ]);
-      lz = rando;
-      nivelo = stuparaSupra(lz);
-    }
-    if ( lz > landejaZ0 + 0o1/0o100 ) {
-      stuparajPunktoj.push([ mondaX(0, landejaZ0), mondaZ(0, landejaZ0) ]);
-    }
   }
 
   group.position.set(x, vojaY, z);
@@ -149,5 +137,5 @@ export function konstruiDokon(
   sceno.add(group);
 
   return { group, x, z, platformWidth: vojaLargho, platformDepth,
-    platformY: vojaY + dikeco, sekcioj, stuparajPunktoj, stuparaSupro: vojaY };
+    platformY: vojaY + dikeco, landejaY, sekcioj, stuparajPunktoj };
 }

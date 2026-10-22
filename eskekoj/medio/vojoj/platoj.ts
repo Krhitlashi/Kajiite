@@ -1,8 +1,9 @@
 // ≺⧼ ចានភ្ជាប់ 🔲 ⧽≻
 import * as THREE from "three";
 import { ANGULA_PROVOLIRO, kreiGeometriajnBufrojn, kreiVojojnMaterialojn } from "./bufroj.js";
-import { kreiArkPunktojn, kreiEksteranKurbanArkon, kreiEnanKornanArkon, kreiFormonElPunktoj, kreiKvaronanRingon, plataAltoj } from "./formoj.js";
+import { kreiArkPunktojn, kreiEksteranKurbanArkon, kreiEnanKornanArkon, kreiFormonElPunktoj, kreiKvaronanRingon, vojaSuproDeKunigo } from "./formoj.js";
 import { KORNA_ENA_R, KORNA_R, VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO } from "./mezuroj.js";
+import type { VojKunigoAlto } from "./tipoj.js";
 
 export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
   punktoj: [ number, number ][],
@@ -11,7 +12,9 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
   andezitaMaterialo: THREE.MeshStandardMaterial,
   fermitaj: Map<string, [ number, number ]> = new Map(),
   rotacioj: Map<string, number> = new Map(),
-  direktoj: Map<string, [ number, number ][]> = new Map()
+  direktoj: Map<string, [ number, number ][]> = new Map(),
+  kunigoAltoj: VojKunigoAlto[] = [],
+  altojDeKunigo: Map<string, number> = new Map()
 ): void {
   if ( punktoj.length === 0 ) return;
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -3, -2, -4, -5);
@@ -22,8 +25,14 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     const rotacio = rotacioj.get(x + "," + z) ?? 0;
     const rotKos = Math.cos( rotacio ), rotSin = Math.sin( rotacio );
     // ⟨ ការគំរូជ្រុង 📃 ⟩
-    const altoj = plataAltoj(x, z, rotacio, heightFn);
-    const supro = altoj.supro;
+    // ⟨ កម្រិតចានភ្ជាប់ ៖ ចានភ្ជាប់ត្រូវដូចកម្រិតផ្លូវដែលឆ្លងចូលមក ដើម្បីកុំឱ្យចានលិចទៅផ្លូវ ។ 📃 ⟩
+    const konigita = kunigoAltoj.find( k => Math.hypot( k.x - x, k.z - z ) < 0o1/0o100 );
+    const bravoj = direktoj.get(x + "," + z) ?? [];
+    const altoj = konigita
+      ? { supro: konigita.alto,
+          minimumo: vojaSuproDeKunigo(x, z, bravoj, VOJA_EKSTERA_DUONO, heightFn).minimumo }
+      : vojaSuproDeKunigo(x, z, bravoj, VOJA_EKSTERA_DUONO, heightFn);
+    const supro = altojDeKunigo.get( x + "," + z ) ?? altoj.supro;
     const platoDikeco = supro - ( altoj.minimumo - ANGULA_PROVOLIRO );
     const bazo = supro - platoDikeco;
     // ⟨ ការ៉េបួន 📃 ⟩

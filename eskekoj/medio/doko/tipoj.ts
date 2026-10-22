@@ -19,7 +19,7 @@ export interface Doko {
   platformWidth: number;
   platformDepth: number;
   platformY: number;
+  landejaY: number;
   sekcioj: DokaSekcio[];
   stuparajPunktoj: [ number, number ][];
-  stuparaSupro: number;
 }

@@ -1,6 +1,6 @@
 // ≺⧼ ទម្រង់ផ្លូវ 📐 ⧽≻
 import * as THREE from "three";
-import { KORNA_ENA_R, KORNA_R, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO } from "./mezuroj.js";
+import { KORNA_ENA_R, KORNA_R, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./mezuroj.js";
 
 /**
  * សាងសង់ផ្នែកផ្លូវជាជំហានរវាងចំណុចផ្លូវពីរ។
@@ -48,6 +48,35 @@ export function plataAltoj(x: number, z: number, rotacio: number,
   const altoj = specimeniRotitajn(x, z, VOJA_EKSTERA_DUONO, rotacio, heightFn);
   return { supro: Math.max( heightFn(x, z), altoj.maksimumo ) + VOJA_SUPRO_LEVIGXO,
     minimumo: altoj.minimumo };
+}
+
+// ⟪ កម្រិតផ្លូវនៅចំណុចភ្ជាប់ 📏 ⟫
+// ⟨ កម្រិតផ្លូវនៅចំណុចភ្ជាប់ត្រូវដូចកម្រិតផ្លូវដែលឆ្លងចូលមក ដើម្បីកុំឱ្យចានភ្ជាប់លិចទៅផ្លូវ ។
+// ការស្ថានភាពនេះជាមូលដ្ឋានដែលប្រើសម្រាបផ្លូវ ចានភ្ជាប់ និងជណ្តើរចំណត ដើម្បីឱ្យពួកគេជាមួយគ្នា ។ 📃 ⟩
+export function vojaSuproDeKunigo(
+  x: number,
+  z: number,
+  direktoj: readonly [ number, number ][],
+  radiuso: number,
+  heightFn: ( x: number, z: number ) => number
+): { supro: number; minimumo: number } {
+  let maks = heightFn( x, z ), minimumo = maks;
+  for ( const [ dx, dz ] of direktoj ) {
+    const longo = Math.hypot( dx, dz );
+    if ( longo < 0o1/0o1000 ) continue;
+    const ux = dx / longo, uz = dz / longo;
+    const px = -uz * radiuso, pz = ux * radiuso;
+    // ⟨ ចំណុចដែលផ្លូវប៉ះចានភ្ជាប់ ៖ កម្រិតផ្លូវត្រូវស្មើគ្នានឹងចានភ្ជាប់នៅចំណុចនេះ ។ 📃 ⟩
+    const ex = x + ux * VOJA_TRUA_DUONO, ez = z + uz * VOJA_TRUA_DUONO;
+    for ( const f of [ -1, 1 ] ) {
+      for ( const [ bx, bz ] of [ [ x + px * f, z + pz * f ], [ ex + px * f, ez + pz * f ] ] ) {
+        const h = heightFn( bx, bz );
+        if ( h > maks ) maks = h;
+        if ( h < minimumo ) minimumo = h;
+      }
+    }
+  }
+  return { supro: maks + VOJA_SUPRO_LEVIGXO, minimumo };
 }
 
 export function kreiEnanKornanArkon(sx: number, sz: number, ekstera: number): [ number, number ][] {

@@ -173,8 +173,11 @@ body.tuŝa #mobKontroloj { display:block; }
 /* ⟪ ពេលចូលពិភពលោក blur លែង fade ចេញភ្លាមៗ តែអក្សរនិងប៊ូតុងនៅ fade ទន្ទឹមគ្នា 📃 ⟫ */
 #komenco.finita ~ #komencoFono { visibility:hidden; }
 /* ⟨ .n2tase , .aih , .saxesukef , maxema និង button មកពីស្ទីលខាងក្រៅ ។ class .aih កំណត់ align-self:center ដូច្នេះស្រទាប់ត្រូវ stretch 📃 ⟩ */
-#komenco, #mondPagho, #agordPagho, #informPagho, #vestPagho, #lingvPagho { position:fixed; inset:0; box-sizing:border-box; display:flex; flex-flow:column; align-items:stretch; align-self:stretch; padding:var(--អារេងព៏); overflow:auto; }
+#komenco, #mondPagho, #agordPagho, #informPagho, #vestPagho, #lingvPagho { position:fixed; inset:0; box-sizing:border-box; display:flex; flex-flow:column; align-items:stretch; align-self:stretch; justify-content:center; padding:var(--អារេងព៏); overflow:auto; }
 #komenco { z-index:11; }
+/* ⟨ ជួរប៊ូតុង៖ maxema ពេញទទឹងនឹងរុញជួរទាំងមូលទៅឆ្វេង ដូច្នេះទទឹងតាមខ្លឹមសារ
+   តែកម្ពស់នៅពេញ ដើម្បីឱ្យជួរនៅកណ្តាល 📃 ⟩ */
+#komenco > maxema, #mondPagho > maxema, #agordPagho > maxema, #informPagho > maxema, #vestPagho > maxema, #lingvPagho > maxema { block-size:max-content; }
 /* ⟪ blur និងស្រមោលស្រាត់ n2tase មិន fade ទេ មានតែមាតិកាទេដែល fade 📃 ⟫ */
 #komenco > h1, #komenco > maxema { transition:opacity .5s,visibility .5s; }
 /* ⟪ ពេលចូលពិភពលោក ៖ n2tase មិន fade ដូច្នេះទាញ blur និងផ្ទៃចេញម្តងមួយៗ 📃 ⟫ */

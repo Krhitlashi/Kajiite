@@ -12,6 +12,15 @@ export const PONT_FINA_LEVIGXO = PONT_DEKA_DIKECO;
 // ⟨ ភាពច្បាស់ទូក 📃 ⟩
 export const PONT_POL_LEVIGXO = 0o3/0o2;
 
+// ⟪ ចន្លោះពីទឹក 📏 ⟫
+// ⟨ ធ្នូត្រូវខ្ពស់ជាងរលក ៖ រលកលើកផ្ទៃទឹកបួនជាន់រួមគ្នាដល់ជាងពីរភាគបួន ,
+// បូកនឹងការលើកផ្ទៃទឹក ។ ដូច្នេះស្ពានទាបជាងនោះមើលទៅលិចទឹក ។ 📃 ⟩
+export const PONT_AKVA_KLARANCO = 0o1/0o2;
+
+/*កម្ពស់ផ្ទៃស្ពាននៅចំណុចមួយ តាមបន្ទាត់ត្រង់រវាងចុងទាំងពីរ
+    @param t ( number ) - 0 ដល់ 1 តាមបណ្តោយស្ពាន
+    @param ay,by ( number ) - កម្ពស់ចុងទាំងពីរ
+@returns y */
 export function pontaDeko(t: number, ay: number, by: number): number {
   return ay + ( by - ay ) * t;
 }
@@ -29,7 +38,8 @@ export function konstruiPonton(
   heightFn: ( x: number, z: number ) => number,
   cxuAkvo: ( x: number, z: number ) => boolean,
   andezitaMaterialo: THREE.MeshStandardMaterial,
-  oraMaterialo: THREE.MeshStandardMaterial
+  oraMaterialo: THREE.MeshStandardMaterial,
+  deko?: ( t: number ) => number
 ): void {
   const longo = Math.hypot(bx - ax, bz - az);
   if ( longo < 0o1/0o10 ) return;
@@ -46,7 +56,8 @@ export function konstruiPonton(
   const mondaX = (lx: number, lz: number) => ax + cosR * lx + sinR * lz;
   const mondaZ = (lx: number, lz: number) => az - sinR * lx + cosR * lz;
   const dekaDikeco = PONT_DEKA_DIKECO;
-  const arko = (t: number) => pontaDeko(t, ay, by);
+  // ⟨ ផ្ទៃស្ពាន ៖ ជាធម្មតាបន្ទាត់ត្រង់ , តែអ្នកហៅអាចផ្តល់ធ្នូផុតទឹក 📃 ⟩
+  const arko = deko ?? (( t: number ) => pontaDeko(t, ay, by));
   // ⟨ របារមាស 📃 ⟩
   const polAlto = 0o13/0o20;
   const poloj = Math.max(0o5, Math.round(longo / 0o25/0o10) + 1);
@@ -131,6 +142,12 @@ export function konstruiPonton(
     formo.lineTo(z, sube(z));
   }
   formo.lineTo(longo, suproDe(longo));
+  // ⟨ កំពូលអង់ដេស៊ីតដើរតាមផ្ទៃស្ពាន ៖ មិនមែនខ្សែត្រង់រវាងចុងទាំងពីរទេ ។
+  // បើវាត្រង់ វាឡើងលើសផ្លូវនៅកណ្តាលធ្នូ ។ 📃 ⟩
+  for ( let i = subajPunktoj - 1; i >= 1; i-- ) {
+    const z = longo * i / subajPunktoj;
+    formo.lineTo(z, suproDe(z));
+  }
   formo.closePath();
   const arkaGeometrio = new THREE.ExtrudeGeometry(formo, { depth: masaDuono * 2, bevelEnabled: false });
   arkaGeometrio.rotateY(-Math.PI / 2);

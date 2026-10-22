@@ -41,7 +41,7 @@ export function alternajDiagonalojn(segmentoj: number): Uint32Array {
   return indeksoj;
 }
 
-// ⟨ ក្ដៅជាងមុនបន្តិច , ដើម្បីកុំឱ្យស្លេកពេកក្នុងអ័ព្ទ 📃 ⟩
+// ⟨ ស្មៅបៃតងក្តៅបន្តិច ៖ បៃតងលឿងស្រាល និងបៃតងចាស់ ។ គ្មានម្លប់ខៀវទេ 📃 ⟩
 const HERBO_A = new THREE.Color(0x4e6949);
 const HERBO_B = new THREE.Color(0x6f8558);
 const SEKHERBO = new THREE.Color(0x8b8756);
@@ -72,6 +72,46 @@ function ombraKurbo(deklivo: number): number {
 // ⟨ ច្របាច់ចូលចន្លោះ 0 ដល់ 1 ៖ ដូច Math.max(0, Math.min(1, v)) តែមិនបង្កើតការហៅទ្វេ 📃 ⟩
 function fiksu01(v: number): number {
   return v < 0 ? 0 : v > 1 ? 1 : v;
+}
+
+// ⟪ ពណ៌ស្លឹកស្មៅ 🌾 ⟫
+// ⟨ គ្រួសារពណ៌ចម្រុះ ៖ បៃតងស្រាល , ប្រផេះ , បៃតងចាស់ និងបៃតងស្ពៃ ។
+// ស្លឹកនីមួយៗលាយពីគ្រួសារពីរ រួចរំកិលពន្លឺបន្តិច ។ គ្មានពណ៌លឿងទេ 📃 ⟩
+const KLINGAJ_KOLOROJ: readonly THREE.Color[] = [
+  new THREE.Color(0xa6c2ab),
+  new THREE.Color(0xb2b7ad),
+  new THREE.Color(0x4e6353),
+  new THREE.Color(0xc0c6bb),
+  new THREE.Color(0x7d9482),
+  new THREE.Color(0x99a99b),
+];
+
+function klingaIndekso(hazardo: () => number): number {
+  return Math.min(KLINGAJ_KOLOROJ.length - 1,
+    Math.floor(hazardo() * KLINGAJ_KOLOROJ.length));
+}
+
+/*ពណ៌ស្លឹកស្មៅស្រស់ ៖ លាយបៃតងស្ពៃ ប្រផេះ និងបៃតងចាស់
+    @param celo ( THREE.Color ) - វត្ថុសម្រាប់សរសេរ
+    @param hazardo ( function ) - លេខចៃដន្យ 0 ដល់ 1
+@returns celo */
+export function herbaKlingaKoloro(celo: THREE.Color, hazardo: () => number): THREE.Color {
+  const unua = KLINGAJ_KOLOROJ[klingaIndekso(hazardo)];
+  const dua = KLINGAJ_KOLOROJ[klingaIndekso(hazardo)];
+  celo.copy(unua).lerp(dua, hazardo() * 0o4/0o10);
+  return celo.multiplyScalar(0o7/0o10 + hazardo() * 0o5/0o10);
+}
+
+/*ពណ៌ស្លឹកស្មៅស្ងួត ៖ ប្រផេះបៃតង មិនលឿង
+    @param celo ( THREE.Color ) - វត្ថុសម្រាប់សរសេរ
+    @param hazardo ( function ) - លេខចៃដន្យ 0 ដល់ 1
+@returns celo */
+export function sekaHerbaKlingaKoloro(celo: THREE.Color, hazardo: () => number): THREE.Color {
+  const f = hazardo();
+  celo.setRGB(0o44/0o100 + f * 0o15/0o100,
+    0o50/0o100 + f * 0o12/0o100,
+    0o46/0o100 + f * 0o12/0o100);
+  return celo.multiplyScalar(0o7/0o10 + hazardo() * 0o4/0o10);
 }
 
 export function terenaStrataKoloroEn(celo: THREE.Color, y: number, surfY: number): THREE.Color {

@@ -72,6 +72,22 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     lampSistemo, nebulSistemo, npcoj, internaSistemo, xipo,
   } = mondo;
 
+  // ⟪ កាមេរ៉ាសម្រាប់ការអភិវឌ្ឍន៍ 📃 ⟫
+  // ⟨ មានតែក្នុង dev ៖ កំណត់កាមេរ៉ាត្រង់ចំណុចមួយ ដើម្បីមើលចំណែកជាក់លាក់
+  // ( ឧ . ជណ្តើរចំណត ) ដោយមិនបាច់ដើរទៅទីនោះ ។ 📃 ⟩
+  if ( ( import.meta as unknown as { env?: { DEV?: boolean } } ).env?.DEV === true ) {
+    ( window as unknown as { __rigardi?: unknown } ).__rigardi = {
+      fotilo, regiloj, ludanto,
+      al( x: number, y: number, z: number, distanco = 0o30, alto = 0o20 ): void {
+        ludanto.rezimo = "orbito";
+        ludanto.pozicio.set(x, y, z);
+        regiloj.target.set(x, y, z);
+        fotilo.position.set(x + distanco, y + alto, z + distanco);
+        regiloj.update();
+      },
+    };
+  }
+
   const movo = kreiPiedanStaton();
   const promenanto = kreiPromenanton({
     ludanto, movo, mondo, piedoj, klavoj, cxuSprintas, cxuSaltas,
@@ -83,6 +99,10 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
 
   // ⟪ ស្ថានភាពរង្វិលជុំ 📃 ⟫
   const horlogxo = new THREE.Timer();
+  // ⟨ ការភ្ជាប់ទៅឯកសារ ៖ ធាតុរង្វាស់ពេលលែងរាប់ពេលថេបលាក់ 📃 ⟩
+  horlogxo.connect(document);
+  let haltigita = false;
+  let kadraGeneracio = 0;
   let radaraKadro = 0;
   let ombraKadro = 0;
   let dinamikaSkalo = 1;
@@ -123,8 +143,52 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     promenas: () => ludanto.rezimo === "promeno" && !ludanto.surKanoto,
   });
 
-  function animacii() {
-    requestAnimationFrame(animacii);
+  // ⟪ រង្វិលជុំ និងការត្រឡប់មកវិញ 📃 ⟫
+  // ⟨ ថេបដែលលាក់មិនគូររូប ។ ទូរស័ព្ទអាចបោះបង់កុងតឺន័រ WebGL ពេលចាកចេញ ,
+  // ហើយការត្រឡប់មកវិញត្រូវចាប់ផ្តើមរង្វិលជុំឡើងវិញ ដើម្បីកុំឱ្យអេក្រង់នៅទទេ ។ 📃 ⟩
+  /*បញ្ឈប់រង្វិលជុំ ៖ ហៅពេលថេបលាក់ ឬកុងតឺន័រ WebGL បាត់បង់ */
+  function halti(): void {
+    haltigita = true;
+    kadraGeneracio++;
+  }
+
+  /*ចាប់ផ្តើមរង្វិលជុំឡើងវិញ ៖ ហៅពេលថេបមកវិញ ឬកុងតឺន័រ WebGL ត្រឡប់មកវិញ */
+  function restarti(): void {
+    haltigita = false;
+    horlogxo.reset();
+    animacii();
+  }
+
+  function animacii(): void {
+    // ⟨ លេខជំនាន់ ៖ រង្វិលជុំចាស់ឈប់ខ្លួនឯង ពេលមានរង្វិលជុំថ្មី 📃 ⟩
+    const mia = ++kadraGeneracio;
+    const kadro = (): void => {
+      if ( haltigita || mia !== kadraGeneracio ) return;
+      requestAnimationFrame(kadro);
+      bildigi();
+    };
+    requestAnimationFrame(kadro);
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if ( document.hidden ) { halti(); return; }
+    // ⟨ ការវាស់ហ្វ្រេមក្នុងពេលលាក់ថេបមិនត្រឹមត្រូវ , ដូច្នេះការបែងចែករូបភាពត្រឡប់ដើមវិញ 📃 ⟩
+    dinamikaSkalo = 1;
+    malrapidajKadroj = 0; rapidajKadroj = 0;
+    restarti();
+  });
+  // ⟨ កុងតឺន័រ WebGL បាត់បង់ និងត្រឡប់មកវិញ 📃 ⟩
+  kanvaso.addEventListener("webglcontextlost", ( e ) => {
+    e.preventDefault();
+    halti();
+  });
+  kanvaso.addEventListener("webglcontextrestored", () => {
+    // ⟨ ខ្លួនរបស់ three ដោះស្រាយការត្រឡប់មកវិញ ។ យើងគ្រាន់តែចាប់ផ្តើមរង្វិលជុំវិញ 📃 ⟩
+    horlogxo.reset();
+    restarti();
+  });
+
+  function bildigi(): void {
     horlogxo.update();
     const krudaDt = horlogxo.getDelta();
     const deltaTempo = Math.min(krudaDt, 0o3/0o100);

@@ -1,7 +1,7 @@
 // ≺⧼ មួកផ្លូវ 🌗 ⧽≻
 import * as THREE from "three";
 import { ANGULA_PROVOLIRO, kreiGeometriajnBufrojn, kreiVojojnMaterialojn, specimeniAngulojn } from "./bufroj.js";
-import { VOJA_SUPRO_LEVIGXO } from "./mezuroj.js";
+import { VOJA_BORDA_LARĜO } from "./mezuroj.js";
 
 // ⟨ ហេតុអ្វីថ្នាំងក្រឡាមិនទទួលមួក 📃 ⟩
 
@@ -43,23 +43,28 @@ function kreiRondanKapGeometrion(internaRadiuso: number, eksteraRadiuso: number,
 export function konstruiRondajnKapojn(sceno: THREE.Scene,
   nodoj: [ number, number ][],
   direktoj: [ number, number ][],
+  supraj: number[],
+  larĝoj: number[],
   heightFn: ( x: number, z: number ) => number,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial
 ): void {
   if ( nodoj.length === 0 ) return;
-  const dikeco = VOJA_SUPRO_LEVIGXO;
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -4, -2, -1, -1);
   const bufroj = kreiGeometriajnBufrojn();
   for ( let i = 0; i < nodoj.length; i++ ) {
     const [ x, z ] = nodoj[i];
     const [ dx, dz ] = direktoj[i];
-    const terenaY = heightFn(x, z);
-    const altoj = specimeniAngulojn(x, z, 0o13/0o10, 0o13/0o10, heightFn);
-    const kapDikeco = dikeco + ( terenaY + dikeco - altoj.minimumo ) + ANGULA_PROVOLIRO;
-    const y = terenaY + dikeco - kapDikeco;
-    bufroj.aldoni(kreiRondanKapGeometrion(0o7/0o10, 0o13/0o10, kapDikeco, dx, dz), bordaMaterialo, new THREE.Matrix4().makeTranslation(x, y, z));
-    bufroj.aldoni(kreiRondanKapGeometrion(0, 0o7/0o10, kapDikeco, dx, dz), supraMaterialo, new THREE.Matrix4().makeTranslation(x, y, z));
+    // ⟨ កម្រិតមួក ៖ ត្រូវដូចកម្រិតផ្លូវនៅចុងទៀត ដើម្បីកុំឱ្យមួកខុសពីផ្លូវ ។ 📃 ⟩
+    const supraY = supraj[i];
+    // ⟨ កាវទូនៃមួក ៖ ត្រូវស្មើគ្នានឹងទទឹងផ្លូវ ។ 📃 ⟩
+    const duon = larĝoj[i] / 2;
+    const ekstera = duon + VOJA_BORDA_LARĜO;
+    const minimumo = specimeniAngulojn(x, z, ekstera, ekstera, heightFn).minimumo;
+    const kapDikeco = supraY - ( minimumo - ANGULA_PROVOLIRO );
+    const y = supraY - kapDikeco;
+    bufroj.aldoni(kreiRondanKapGeometrion(duon, ekstera, kapDikeco, dx, dz), bordaMaterialo, new THREE.Matrix4().makeTranslation(x, y, z));
+    bufroj.aldoni(kreiRondanKapGeometrion(0, duon, kapDikeco, dx, dz), supraMaterialo, new THREE.Matrix4().makeTranslation(x, y, z));
   }
   bufroj.kunigi(sceno, false);
 }

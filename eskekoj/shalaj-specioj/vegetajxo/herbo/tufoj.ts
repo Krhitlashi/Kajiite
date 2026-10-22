@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { kunfandiGeometriojnSenIndekson } from "../../../komunajxoj/kunfandajxoj.js";
 import { kreiVegetajxanHazardon } from "../hazardoj.js";
 import { PunktaHasho, punktoLibera } from "../metado.js";
+import { herbaKlingaKoloro, sekaHerbaKlingaKoloro } from "../../../komunajxoj/terenkoloroj.js";
 import { biomo, type Biomo } from "../../../../kantaoj/mondo/tereno.js";
 import { kreiHerbanKlingon } from "./klingoj.js";
 import { kreiHerbanMaterialon } from "./vento.js";
@@ -26,11 +27,12 @@ export function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeomet
     const arko = Math.sin(ang) * elen * ( 0o13/0o40 + hazardo() * 0o25/0o40 ) * arkaFaktoro
       + ( hazardo() - 0o1/0o2 ) * 0o5/0o40;
     const tordo = ( hazardo() - 0o1/0o2 ) * 0o115/0o100;
-    const sekaKlingo = i % 0o4 === 0o1;
+    // ⟨ ស្លឹកស្ងួតមួយក្នុងដប់ ៖ ប្រផេះបៃតង , ដើម្បីកុំឱ្យស្មៅលឿង 📃 ⟩
+    const sekaKlingo = i % 0o10 === 0o1;
     if ( sekaKlingo ) {
-      seka.setRGB(0o21/0o20, 0o33/0o40 + hazardo() * 0o1/0o10, 0o13/0o40 + hazardo() * 0o5/0o40 );
+      sekaHerbaKlingaKoloro(seka, hazardo);
     } else {
-      verda.setRGB(0o27/0o40 + hazardo() * 0o13/0o40, 0o63/0o100 + hazardo() * 0o11/0o40, 0o5/0o10 + hazardo() * 0o23/0o100);
+      herbaKlingaKoloro(verda, hazardo);
     }
     const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
       sekaKlingo ? seka : verda);

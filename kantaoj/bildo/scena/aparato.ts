@@ -5,6 +5,7 @@
 // ⟨ ហេតុអ្វីបិទ MSAA ពេលដង់ស៊ីតេខ្ពស់ 📃 ⟩
 // ⟨ ហេតុអ្វីផែនទីស្រមោលតូចជាង 📃 ⟩
 export const surPosxtelefono: boolean = ( () => {
+  if ( typeof location !== "undefined" && location.search.includes("telefono") ) return true;
   const kohera = typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches;
   const ua = /Android|iPhone|iPad|iPod|Mobile|Silk|Kindle/i.test(navigator.userAgent);
   return kohera || ua;
