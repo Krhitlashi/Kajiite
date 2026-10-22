@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { kunfandiMondajnMeshojn } from "../../../eskekoj/komunajxoj/kunfandajxoj.js";
 import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
-import { KonstruSpec } from "../../../eskekoj/konstruajxoj/satalaj/tipoj.js";
+import { KonstruSpec, TIPAJ_NIVELOJ } from "../../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import type { VojDifino } from "../../../eskekoj/medio/vojoj/tipoj.js";
 import { kreiKradon, tipoDeBloko } from "../krado/celoj.js";
 import { kradajDerivajoj } from "../krado/derivajoj.js";
@@ -49,7 +49,7 @@ export function konstruiKradanUrbon(
   const kreiSpecon = ( x: number, z: number, type: CellType, rot: number, fiksita?: string ): void => {
     const estasStacio = type === "stacio";
     const specTipo = estasStacio ? "stacioxipo" : type;
-    const niveloj = estasStacio ? 3 : type === "sanktejo" ? 7 : type === "turo" ? 0o10 : 4;
+    const niveloj = estasStacio ? TIPAJ_NIVELOJ.stacioxipo : type === "sanktejo" ? 7 : type === "turo" ? 0o10 : 4;
     const w = 0o10, d = w;
     const tieroAlto = estasStacio ? 0o155/0o40
       : type === "sanktejo" ? 0o30/0o10 : type === "turo" ? 0o30/0o10 : type === "kasafeo" ? 0o155/0o40 : 0o315/0o100;
@@ -62,7 +62,7 @@ export function konstruiKradanUrbon(
     const cx = ofsX + col * PASXO, cz = ofsZ + row * PASXO;
     if ( col === 0 && row === 0 ) {
       if ( arangxo.blokaGrando === "kvar" ) {
-        konstruSpecoj.push({ x: ofsX, z: ofsZ, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true, fixed: "kvar" });
+        konstruSpecoj.push({ x: ofsX, z: ofsZ, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true, fixed: "kvar" });
         bldgIdx++;
       } else {
         kreiSpecon(ofsX, ofsZ, type, 0);
@@ -89,7 +89,7 @@ export function konstruiKradanUrbon(
   for ( const b of aldonajBlokoj ) {
     const fiksita = b.konektita ? "aldona-konektita" : "aldona";
     if ( b.stacia ) {
-      konstruSpecoj.push({ x: ofsX + b.x, z: ofsZ + b.z, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: 3, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: b.rot ?? 0, diamond: true, fixed: fiksita });
+      konstruSpecoj.push({ x: ofsX + b.x, z: ofsZ + b.z, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: b.rot ?? 0, diamond: true, fixed: fiksita });
       bldgIdx++;
     } else {
       kreiSpecon(ofsX + b.x, ofsZ + b.z, b.tipo, b.rot ?? 0, fiksita);

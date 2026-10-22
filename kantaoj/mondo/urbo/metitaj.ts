@@ -2,6 +2,7 @@
 import * as THREE from "three";
 import { kunfandiMondajnMeshojn } from "../../../eskekoj/komunajxoj/kunfandajxoj.js";
 import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { TIPAJ_NIVELOJ } from "../../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import { BestoSistemo, PetreloSistemo,
   konstruiMetitanBeston, konstruiMetitanPetrelon } from "../../../eskekoj/shalaj-specioj/bestoj.js";
 import { konstruiMetitanRokon } from "../../../eskekoj/shalaj-specioj/vegetajxo/rokoj.js";
@@ -74,7 +75,7 @@ export function konstruiMetitajnObjektojn(
     } else if ( o.speco === "sanktejo" || o.speco === "turo" || o.speco === "domo"
         || o.speco === "mangxejo" || o.speco === "kasafeo" || o.speco === "stacio" ) {
       const tipo = o.speco === "stacio" ? "stacioxipo" : o.speco;
-      const niveloj = tipo === "stacioxipo" ? 3 : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
+      const niveloj = tipo === "stacioxipo" ? TIPAJ_NIVELOJ.stacioxipo : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
       const w = 0o10 * ( o.skalo ?? 1 ), d = w;
       konstruiSatalon({
         x: o.x, z: o.z, type: tipo, name: "objekto",

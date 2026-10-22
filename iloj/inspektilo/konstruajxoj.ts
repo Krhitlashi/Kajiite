@@ -10,7 +10,7 @@ import { aldoniSteleanSignon } from "../../eskekoj/konstruajxoj/satalaj/vitro.js
 import { kreiOranMaterialon, kreiPordanMaterialon, kreiFenestranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { konstruiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import type { Krasesxagxo } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import type { KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
+import { TIPAJ_NIVELOJ, type KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import type { ModelaSpecifo } from "./tipoj.js";
 
 // ⟨ អគារ និងផ្នែករបស់ពួកវា 📃 ⟩
@@ -71,8 +71,8 @@ export const KONSTRUAJXOJ: Konstruajxo[] = [
     priskribo: "កន្លែងប្រជុំ , គ្រោងស្រទាប់បួនដូចគ្នា ប៉ុន្តែស្រទាប់ខ្ពស់ជាង ( 3.406 ) និងជញ្ជាំងពណ៌ក្រែម ( 0xd8c898 )។ វាជាអគារដំបូងជាមួយជួរបង្អួចថ្នាំវែង , បង្អួចផ្តេកមួយក្នុងមួយមុខក្នុងមួយស្រទាប់ ( មុខជាន់ផ្ទាល់ដីនៅទទេសម្រាប់ទ្វារ ) , នីមួយៗជាមួយគែមថ្នាំមាស។ កញ្ចក់ថ្លា ( opacity 0.7 ) ជាមួយការបញ្ចេញពន្លឺផ្ទាល់ខ្លួន ដូច្នេះបង្អួចភ្លឺពេលព្រលប់។",
     animacio: "គ្មាន , អគារឈរនឹង។" },
   { kodo: "bStacio", nomo: "ស្ថានីយ 🚀", indekso: -1, konstruajxo: true,
-    konstruu: ( g ) => konstruiSatalon(konstrSpec("stacioxipo", 3, 0o155/0o40), g, []),
-    priskribo: "ស្ថានីយ ដែលយានអវកាសហោះពីលើ។ ស្រទាប់បីជាមួយជម្រាលស្រាលជាងផ្ទះ ( ទទឹងខាងលើជាកន្លះនៃទទឹងមូលដ្ឋាន ជំនួស 0.2969 ដង ) , ជញ្ជាំងប្រផេះភ្លឺ ( 0xc8c8c8 ) , ផ្ទាំងថ្មជុំវិញបាតជាមួយឆ្នូតការ៉េមាស , សសរលំពែងបួនជាមួយចុងភ្លឺនៅជ្រុងផ្ទាំង , និងចិញ្ចៀនមាសលើដំបូល។ ជួរបង្អួចថ្នាំដូចគ្នានឹងកន្លែងប្រជុំ , ហើយដូចវា ទ្វាររបស់វាជាកញ្ចក់ដូចគ្នា ( មិនមែនពណ៌ជញ្ជាំង )។",
+    konstruu: ( g ) => konstruiSatalon(konstrSpec("stacioxipo", TIPAJ_NIVELOJ.stacioxipo, 0o155/0o40), g, []),
+    priskribo: "ស្ថានីយ ដែលយានអវកាសហោះពីលើ។ ស្រទាប់បួនជាមួយជម្រាលស្រាលជាងផ្ទះ ( ទទឹងខាងលើជាកន្លះនៃទទឹងមូលដ្ឋាន ជំនួស 0.2969 ដង ) , ជញ្ជាំងប្រផេះភ្លឺ ( 0xc8c8c8 ) , ផ្ទាំងថ្មជុំវិញបាតជាមួយឆ្នូតការ៉េមាស , សសរលំពែងបួនជាមួយចុងភ្លឺនៅជ្រុងផ្ទាំង , និងចិញ្ចៀនមាសលើដំបូល។ ជួរបង្អួចថ្នាំដូចគ្នានឹងកន្លែងប្រជុំ , ហើយដូចវា ទ្វាររបស់វាជាកញ្ចក់ដូចគ្នា ( មិនមែនពណ៌ជញ្ជាំង )។",
     animacio: "គ្មាន , អគារឈរនឹង។" },
   { kodo: "spacosxipo", nomo: "យានអវកាស 🛸", indekso: -1, konstruajxo: true, kosmosxipo: true,
     konstruu: ( g ) => { spacoSxipo = konstruiKrasesxagxon(g, 0, 0, 0, oro, vitraEnira); },

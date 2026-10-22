@@ -278,6 +278,14 @@ export async function konstruiUrbon(
   const ĉiujDifinoj: VojDifino[] = [ ...kradajDifinoj, ...vojDifinoj ];
   const ĉiujKunigoj: [ number, number ][] = [ ...kradajKunigoj, ...vojajKunigoPunktoj ];
   const ĉiujFermitaj = new Map<string, [ number, number ]>([ ...kradajFermitaj, ...vojajFermitaj ]);
+  // ⟨ មាត់ផ្លូវមកដល់ចំណុចក្រឡា ៖ ចានភ្ជាប់ត្រូវបើកពេញ ដូចប្រសព្វក្នុងទីក្រុងចម្បង ។
+  // ការបិទជ្រុងរបស់សំណាញ់សម្រាប់ចុងផ្លូវក្រឡា ។ បើផ្លូវភ្ជាប់មកដល់ទីនោះ
+  // ផ្លូវនឹងជាប់នឹងជ្រុងដែលបិទ ។ ដូច្នេះលុបការបិទនៅចុងផ្លូវភ្ជាប់ទាំងអស់ ។ 📃 ⟩
+  for ( const vojo of VOJOJ ) {
+    if ( vojo.punktoj.length < 0o2 ) continue;
+    for ( const p of [ vojo.punktoj[0], vojo.punktoj[vojo.punktoj.length - 1] ] )
+      ĉiujFermitaj.delete(p[0] + "," + p[1]);
+  }
   const altojDeKunigo = new Map<string, number>();
   const ĉefajVojSpecimenoj = konstruiVojojn(sceno, ĉiujDifinoj, alteco, dioritaMaterialo, andezitaMaterialo, ĉiujKunigoj,
     { akvaFn: akvaFino, kunigoAltoj: vojajKunigoAltoj, altojDeKunigo } );

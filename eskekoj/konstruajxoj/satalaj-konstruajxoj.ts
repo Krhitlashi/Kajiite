@@ -12,17 +12,35 @@ import { aldoniKadranTubon } from "./satalaj/pilieroj.js";
 import { konstruajxaMaterialo, TIPARO, type KonstruSpec } from "./satalaj/tipoj.js";
 import { aldoniSteleanSignon } from "./satalaj/vitro.js";
 
-// ⟨ ឃ្លាំងសម្ងាត់ធរណីមាត្រស្រទាប់ 📃 ⟩
-const tavolajKashmemoroj = new Map<string, { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry }>();
-function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: number, estasStacio: boolean): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
-  const supraLargho = estasStacio ? w * 0o5/0o10 : Math.max(0o215/0o100, w * 0o23/0o100);
-  const supraProfundo = estasStacio ? d * 0o5/0o10 : Math.max(0o20/0o10, d * 0o23/0o100);
+// ⟨ កម្រិតនៃស្រទាប់ 📃 ⟩
+export interface TavolaNivelo { y: number; hw: number; hd: number; }
+
+/* គណនាកម្រិតនៃស្រទាប់ទាំងអស់ ចាប់ពីស្រទាប់ក្រោមបំផុត។ អគារ
+   និងយានអវកាសប្រើលេខទាំងនេះដូចគ្នា ដូច្នេះស្រទាប់ និងបង្អួច
+   មានចន្លោះដូចគ្នា។
+    @param w ( number ) - ទទឹងមូលដ្ឋាន។
+    @param d ( number ) - ជម្រៅមូលដ្ឋាន។
+    @param tiers ( number ) - ចំនួនស្រទាប់។
+    @param tieroAlto ( number ) - កម្ពស់ស្រទាប់មួយ។
+@returns បញ្ជីស្រទាប់ ដោយ `y` ជាបាតស្រទាប់ ហើយ `hw` និង `hd` ជាកន្លះទទឹង និងកន្លះជម្រៅនៅបាត។ */
+export function tavolajNiveloj(w: number, d: number, tiers: number, tieroAlto: number): TavolaNivelo[] {
+  const supraLargho = Math.max(0o215/0o100, w * 0o23/0o100);
+  const supraProfundo = Math.max(0o20/0o10, d * 0o23/0o100);
   const malpliiX = ( w / 2 - supraLargho / 2 ) / Math.max(1, tiers - 1);
   const malpliiZ = ( d / 2 - supraProfundo / 2 ) / Math.max(1, tiers - 1);
+  const niveloj: TavolaNivelo[] = [];
+  for ( let i = 0; i < tiers; i++ ) {
+    niveloj.push({ y: i * tieroAlto, hw: w / 2 - i * malpliiX, hd: d / 2 - i * malpliiZ });
+  }
+  return niveloj;
+}
+
+// ⟨ ឃ្លាំងសម្ងាត់ធរណីមាត្រស្រទាប់ 📃 ⟩
+const tavolajKashmemoroj = new Map<string, { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry }>();
+function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: number): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
   const klino = MURA_KLINO;
   const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
-  for ( let i = 0; i < tiers; i++ ) {
-    const hw = w / 2 - i * malpliiX, hd = d / 2 - i * malpliiZ, y = i * tieroAlto;
+  for ( const { y, hw, hd } of tavolajNiveloj(w, d, tiers, tieroAlto) ) {
     const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto);
     tavolo.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(tavolo);
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
@@ -30,11 +48,11 @@ function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: numbe
   }
   return { muroj: kunfandiGeometriojn(murajGeometrioj), kadroj: kunfandiGeometriojn(kadrajGeometrioj) };
 }
-function preniTavolajnGeometriojn(typeKey: string, w: number, d: number, tiers: number, tieroAlto: number): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
+export function preniTavolajnGeometriojn(typeKey: string, w: number, d: number, tiers: number, tieroAlto: number): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
   const klavo = typeKey + "|" + tiers + "|" + w + "|" + d + "|" + tieroAlto;
   let g = tavolajKashmemoroj.get(klavo);
   if ( !g ) {
-    g = tavolajGeometrioj(w, d, tiers, tieroAlto, typeKey === "stacioxipo");
+    g = tavolajGeometrioj(w, d, tiers, tieroAlto);
     tavolajKashmemoroj.set(klavo, g);
   }
   return g;
@@ -42,10 +60,7 @@ function preniTavolajnGeometriojn(typeKey: string, w: number, d: number, tiers: 
 export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajxoj: THREE.Mesh[]): THREE.Group {
   const { niveloj: tiers, tieroAlto, w, d, type: typeKey, name } = spec;
   const sube = spec.sube || 0;
-  const estasStacio = typeKey === "stacioxipo";
-  const supraLargho = estasStacio ? w * 0o5/0o10 : Math.max(0o215/0o100, w * 0o23/0o100);
-  const supraProfundo = estasStacio ? d * 0o5/0o10 : Math.max(0o20/0o10, d * 0o23/0o100);
-  const malpliiX = ( w / 2 - supraLargho / 2 ) / Math.max(1, tiers - 1), malpliiZ = ( d / 2 - supraProfundo / 2 ) / Math.max(1, tiers - 1);
+  const supraLargho = Math.max(0o215/0o100, w * 0o23/0o100);
   const T = TIPARO[typeKey] || TIPARO.domo;
   const muraKoloro = T.wall, kadraKoloro = T.frame;
   const klino = MURA_KLINO;
@@ -114,15 +129,14 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     // ⟨ លេខរឹមមួយសម្រាប់អគារទាំងមូល 📃 ⟩
     const facoLarga = Math.min(w / 2, d / 2) - klino / 2;
     const fenMargxeno = fenestraMargxeno(facoLarga);
-    for ( let i = 0; i < tiers; i++ ) {
-      const hwT = w / 2 - i * malpliiX, hdT = d / 2 - i * malpliiZ;
-      const faco = Math.min(hwT, hdT) - klino / 2;
+    for ( const { y, hw, hd } of tavolajNiveloj(w, d, tiers, tieroAlto) ) {
+      const faco = Math.min(hw, hd) - klino / 2;
       // ⟨ ស្រទាប់តូចពេក 📃 ⟩
       const horizontala = faco * 2 - fenMargxeno * 2 >= fenAlto;
       if ( !horizontala && faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
-      const yC = i * tieroAlto + tieroAlto / 2;
+      const yC = y + tieroAlto / 2;
       for ( let f = 0; f < 4; f++ ) {
-        if ( i === 0 && f === 0 ) continue;
+        if ( y === 0 && f === 0 ) continue;
         aldoniPilolFenestron(group, kadraMaterialo, vitro, f, yC, faco,
           klino, tieroAlto, fenAlto, false, horizontala ? fenMargxeno : undefined,
           !horizontala);

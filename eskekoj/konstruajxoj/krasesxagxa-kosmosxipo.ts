@@ -1,11 +1,19 @@
 // ≺⧼ យានអវកាសគ្រោះថ្នាក់ 🚀 ⧽≻
 import * as THREE from "three";
-import { aldoniKadranTubon } from "./satalaj/pilieroj.js";
 import { aldoniPilolFenestron, fenestraMargxeno } from "./satalaj/fenestroj.js";
-import { kreiKlinoTavolon } from "./satalaj/formoj.js";
 import { kreiKadranKurbon } from "./satalaj/enirejo.js";
+import { MURA_KLINO } from "./satalaj/formoj.js";
+import { preniTavolajnGeometriojn, tavolajNiveloj } from "./satalaj-konstruajxoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
+
+// ⟪ រង្វាស់យាន 📏 ⟫
+// ⟨ ស្រទាប់ដូចអគារ 📃 ⟩
+// យានប្រើទទឹង កម្ពស់ស្រទាប់ និងជម្រាលដូចផ្ទះ ដូច្នេះស្រទាប់ និង
+// បង្អួចរបស់វាមានចន្លោះដូចអគារក្នុងទីក្រុង។
+export const SXIPA_LARGO = 0o10;
+export const SXIPA_TIERO = 0o315/0o100;
+export const SXIPA_NIVELOJ = 5;
 
 // ⟨ ទម្រង់ទ្វារពីរ 📃 ⟩
 // ⟨ ហេតុអ្វីមិននាឡិកាខ្សាច់ 📃 ⟩
@@ -45,8 +53,10 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   eniraMaterialo: THREE.MeshStandardMaterial
 ): Krasesxagxo {
   const group = new THREE.Group();
-  const tieroAlto = 0o163/0o40, up = 5, down = up, hw0 = 4;
-  const ins = ( 4 - 0o123/0o100 ) / 4;
+  const up = SXIPA_NIVELOJ, down = up;
+  const tieroAlto = SXIPA_TIERO;
+  const klino = MURA_KLINO;
+  const hw0 = SXIPA_LARGO / 2;
   const face = Math.atan2(-x, -z);
 
   const muraMaterialo = new THREE.MeshStandardMaterial({
@@ -55,31 +65,16 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   // ⟨ កញ្ចក់ដូចទីក្រុង 📃 ⟩
   const fenestraMaterialo = kreiFenestranMaterialon();
 
-  const murajGeometrioj: THREE.BufferGeometry[] = [];
-  const kadrajGeometrioj: THREE.BufferGeometry[] = [];
+  // ⟨ ស្រទាប់ដូចអគារ 📃 ⟩
+  // ⟨ ស្រទាប់ក្រោមជារូបឆ្លុះ 📃 ⟩
+  const supraj = preniTavolajnGeometriojn("spacosxipo", SXIPA_LARGO, SXIPA_LARGO, up, tieroAlto);
+  const subajMuroj = supraj.muroj.clone().rotateX(Math.PI);
+  const subajKadroj = supraj.kadroj.clone().rotateX(Math.PI);
 
-  const klino = 0o5/0o20;
-  for ( let i = 0; i < up; i++ ) {
-    const hw = hw0 - i * ins;
-    const yB = i * tieroAlto, yT = yB + tieroAlto;
-    murajGeometrioj.push(kreiKlinoTavolon(hw, hw, hw - klino, hw - klino, tieroAlto).translate(0, yB + tieroAlto / 2, 0));
-    for ( const a of [ -1, 1 ] ) for ( const b of [ -1, 1 ] ) {
-      aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yB, yT, a, b, true, klino);
-    }
-  }
-  for ( let j = 1; j <= down; j++ ) {
-    const hw = hw0 - ( j - 1 ) * ins;
-    const yTop = -( j - 1 ) * tieroAlto, yBot = -j * tieroAlto;
-    murajGeometrioj.push(kreiKlinoTavolon(hw - klino, hw - klino, hw, hw, tieroAlto).translate(0, ( yTop + yBot ) / 2, 0));
-    for ( const a of [ -1, 1 ] ) for ( const b of [ -1, 1 ] ) {
-      aldoniKadranTubon(kadrajGeometrioj, a * hw, b * hw, yBot, yTop, a, b, false, klino);
-    }
-  }
-
-  const muroj = new THREE.Mesh(kunfandiGeometriojn(murajGeometrioj), muraMaterialo);
+  const muroj = new THREE.Mesh(kunfandiGeometriojn([ supraj.muroj, subajMuroj ]), muraMaterialo);
   muroj.castShadow = true;
   group.add(muroj);
-  group.add(new THREE.Mesh(kunfandiGeometriojn(kadrajGeometrioj), oraMaterialo));
+  group.add(new THREE.Mesh(kunfandiGeometriojn([ supraj.kadroj, subajKadroj ]), oraMaterialo));
 
   const pordFormo = rondigitaDupordaFormo(0o233/0o100, 0o233/0o100 * 0o45/0o100, 0o11/0o4, 0o1/0o4);
   // ⟨ ទ្វារកម្រាស់ដូចអគារ 📃 ⟩
@@ -109,26 +104,22 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   }
 
   // ⟨ បង្អួច 📃 ⟩
-  // ⟨ បង្អួចយានធំជាងបន្តិច 📃 ⟩
-  const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100) * 0o11/0o10;
-  const niveloj: { y: number; faco: number; suba: boolean }[] = [];
-  for ( let i = 1; i < up; i++ ) {
-    niveloj.push({ y: i * tieroAlto + tieroAlto / 2, faco: hw0 - i * ins - klino / 2, suba: false });
-  }
-  for ( let j = 2; j <= down; j++ ) {
-    niveloj.push({ y: -j * tieroAlto + tieroAlto / 2, faco: hw0 - ( j - 1 ) * ins - klino / 2, suba: true });
-  }
-  // ⟨ លេខរឹមមួយសម្រាប់យានទាំងមូល 📃 ⟩
-  const facoPlejLarga = hw0 - ins - klino / 2;
-  const fenMargxeno = fenestraMargxeno(facoPlejLarga) * 0o3/0o4;
+  // ⟨ ចន្លោះដូចអគារ 📃 ⟩
+  const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
+  const facoPlejLarga = hw0 - klino / 2;
+  const fenMargxeno = fenestraMargxeno(facoPlejLarga);
+  const niveloj = tavolajNiveloj(SXIPA_LARGO, SXIPA_LARGO, up, tieroAlto);
   const fenestrajMretoj: THREE.Mesh[] = [];
-  for ( const lv of niveloj ) {
+  for ( let i = 1; i < up; i++ ) {
+    const faco = niveloj[i].hw - klino / 2;
     // ⟨ រង្វង់តូចពេក 📃 ⟩
-    const horizontala = lv.faco * 2 - fenMargxeno * 2 >= fenAlto;
-    if ( !horizontala && lv.faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
-    for ( let f = 0; f < 4; f++ ) {
+    const horizontala = faco * 2 - fenMargxeno * 2 >= fenAlto;
+    if ( !horizontala && faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
+    const vicoj: { y: number; suba: boolean }[] = [ { y: niveloj[i].y + tieroAlto / 2, suba: false } ];
+    if ( i < down ) vicoj.push({ y: -niveloj[i].y - tieroAlto / 2, suba: true });
+    for ( const vico of vicoj ) for ( let f = 0; f < 4; f++ ) {
       fenestrajMretoj.push(aldoniPilolFenestron(group, oraMaterialo, fenestraMaterialo,
-        f, lv.y, lv.faco, klino, tieroAlto, fenAlto, lv.suba,
+        f, vico.y, faco, klino, tieroAlto, fenAlto, vico.suba,
         horizontala ? fenMargxeno : undefined, !horizontala));
     }
   }

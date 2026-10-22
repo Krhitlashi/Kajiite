@@ -3,6 +3,7 @@ import * as THREE from "three";
 import type { KonstruSpec } from "../satalaj/tipoj.js";
 import { kreiPilolFenestranFormon } from "../../komunajxoj/formoj.js";
 import { kreiStelplenanTeksajxon, stelplenaTeksajxo } from "../../komunajxoj/teksajxoj/stelplena-cxielo.js";
+import { SXIPA_NIVELOJ, SXIPA_TIERO } from "../krasesxagxa-kosmosxipo.js";
 import { GOLD, GOLD_WARM } from "./formoj.js";
 import { heliksaAltecxo, type HeliksoInfo, type InternaEnirPunkto, type InternaSistemo } from "./tipoj.js";
 
@@ -49,8 +50,8 @@ export function aplikiLitajnKolorojn(grupo: THREE.Group, tolaKoloro: number, kus
 
 export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: THREE.Scene): InternaEnirPunkto {
   const grupo = new THREE.Group();
-  const sxipaTiero = 0o163/0o40;
-  const up = 5, down = up;
+  const sxipaTiero = SXIPA_TIERO;
+  const up = SXIPA_NIVELOJ, down = up;
   const rMezCx = 0o17/0o4, rSupro = 0o3/0o4, rBoto = 0o155/0o100;
   const rHelikso = 1;
   const yB = -down * sxipaTiero, yT = up * sxipaTiero;

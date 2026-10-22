@@ -6,6 +6,7 @@
 import * as THREE from "three";
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { TIPAJ_NIVELOJ } from "../../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import { konstruiHxeuxfojn } from "../../../eskekoj/konstruajxoj/hxeuxfa/lampoj.js";
 import { konstruiKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../../eskekoj/komunajxoj/materialoj.js";
@@ -227,7 +228,7 @@ export function rekonstruiKradon3D(): void {
     // ស្ថានីយដែលគូរដោយដៃ ( និងស្វ័យប្រវត្តិ ) សាងសង់ជាយានអវកាស។
     const tipo = ( b.stacia || b.tipo === "stacio" ) ? "stacioxipo" : b.tipo;
     const wx = kradoOfsX() + b.x, wz = kradoOfsZ() + b.z;
-    const niveloj = tipo === "stacioxipo" ? 3 : tipo === "turo" ? 0o10 : 4;
+    const niveloj = tipo === "stacioxipo" ? TIPAJ_NIVELOJ.stacioxipo : tipo === "turo" ? 0o10 : 4;
     const spec = {
       x: wx, z: wz, type: tipo, name: "krado" + i,
       niveloj, w: 0o10, d: 0o10,

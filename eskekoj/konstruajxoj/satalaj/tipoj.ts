@@ -11,6 +11,13 @@ export const TIPARO: Record<string, KonstruTipo> = {
   sanktejo: { labelKey: "tipSanktejo",  wall: 0x184038, frame: 0xe0c078, chip: "#e0c07880", flavorKey: "flvSanktejo" },
 };
 
+/* ចំនួនស្រទាប់លំនាំដើមរបស់ប្រភេទសំណង់មួយ ដូច្នេះកន្លែងទាំងអស់ប្រើ
+   លេខតែមួយ។
+@returns ចំនួនស្រទាប់តាមកូដប្រភេទ ដោយគ្មានតម្លៃលំនាំដើម។ */
+export const TIPAJ_NIVELOJ: Record<string, number> = {
+  domo: 4, mangxejo: 4, kasafeo: 4, stacioxipo: 4, turo: 0o10, sanktejo: 7,
+};
+
 export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }
 
 const konstruajxaMaterialaStoko = new Map<string, THREE.MeshStandardMaterial>();

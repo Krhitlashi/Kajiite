@@ -7,6 +7,7 @@ import { akvaNiveloDe } from "./akvo.js";
 import { triaDimensia, teraMesh, objektaGrupo3D, YTROIGO,
   gxisdatigi3DMeshon, gxisdatigi3DnIlon } from "./vido3d.js";
 import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
+import { TIPAJ_NIVELOJ } from "../../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import { konstruiHxeuxfojn } from "../../../eskekoj/konstruajxoj/hxeuxfa/lampoj.js";
 import { konstruiKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 import { konstruiKrasesxagxon } from "../../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
@@ -341,7 +342,7 @@ function konstruiObjektonEn(grupo: THREE.Object3D, o: MetitaObjekto, opcioj: Kon
     konstruiKrasesxagxon(temp, o.x, sxipaAlto, o.z, ORA_MATERIALO, ENIRA_MATERIALO);
   } else if ( OBJEKTO_KONSTRUAJXOJ[o.speco] ) {
     const tipo = o.speco === "stacio" ? "stacioxipo" : o.speco;
-    const niveloj = tipo === "stacioxipo" ? 3 : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
+    const niveloj = tipo === "stacioxipo" ? TIPAJ_NIVELOJ.stacioxipo : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
     const spec = {
       x: o.x, z: o.z, type: tipo, name: "objekto",
       niveloj, w: 0o10 * s, d: 0o10 * s,
