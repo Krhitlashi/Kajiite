@@ -1,7 +1,8 @@
 // ≺⧼ ការបកប្រែ , ភាសាជប៉ុន 🗣️ ⧽≻
 
 export const JA: Record<string, string> = {
-  "titoloAranis": "アラニス",
+  "titoloAranis": "聖域",
+  "titoloUrbo": "カジーテ",
   "subtitoloUrbo": "ロタ・イーヒス • カジーテ・セラーミョヴ",
   "eniri": "入る",
   "butonoPromeni": "歩く",
@@ -10,7 +11,7 @@ export const JA: Record<string, string> = {
   "butonoHelpo": "ヘルプ",
   "titoloTeksilo": "ザ・ルーム",
   "subtitoloTeksilo": "長いシャツ • 短い袖 • メインとアクセント",
-  "titoloSxargxo": "アラニス",
+  "titoloSxargxo": "ワールド",
   "sxargxaSubskribo": "建設中…",
   "sxargxaSatalo": "サタルを建設中",
   "sxargxaTraboj": "梁を持ち上げ中",
@@ -26,7 +27,7 @@ export const JA: Record<string, string> = {
   "regiloVesto": "ワードローブ",
   "titoloVojoj": "道",
   "subtitoloHelpo": "街のノート",
-  "titoloMapo": "アラニスの地図",
+  "titoloMapo": "ワールドマップ",
   "subtitoloMapo": "谷全体を上から見る",
   "actEliri": "Esc • 出る",
   "eliriKanuo": "カヌーから出る",
@@ -58,7 +59,7 @@ export const JA: Record<string, string> = {
   "statTipo": "種類",
   "statPozicio": "位置",
   "webglMesagxo": "お使いのブラウザはWebGLをサポートしていません。ブラウザを更新してください。",
-  "webglDetalo": "アラニスはWebGLが必要です。ブラウザを更新するか、GPU設定を確認してください。",
+  "webglDetalo": "カジーテはWebGLが必要です。ブラウザを更新するか、GPU設定を確認してください。",
   "webglReprovi": "再試行",
   "ariaButPromeni": "歩く",
   "ariaButBruo": "背景ノイズ",

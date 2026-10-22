@@ -1,7 +1,8 @@
 // ≺⧼ ការបកប្រែ , ភាសាខ្មែរ 🗣️ ⧽≻
 
 export const KM: Record<string, string> = {
-  "titoloAranis": "អរ៉ានីស",
+  "titoloAranis": "ទីជម្រក",
+  "titoloUrbo": "កាជីតេ",
   "subtitoloUrbo": "ឡូតា-អ៊ីហ៊ីស • កាជីតេ-សេឡាមយ៉ូវ",
   "eniri": "ចូល",
   "butonoPromeni": "ដើរ",
@@ -10,7 +11,7 @@ export const KM: Record<string, string> = {
   "butonoHelpo": "ជំនួយ",
   "titoloTeksilo": "តម្បាញ",
   "subtitoloTeksilo": "អាវវែង • ដៃខ្លី • ពណ៌ចម្បង និង ពណ៌បន្ទាប់",
-  "titoloSxargxo": "អរ៉ានីស",
+  "titoloSxargxo": "ពិភពលោក",
   "sxargxaSubskribo": "កំពុងសាងសង់",
   "sxargxaSatalo": "ហ្សីហ្គូរ៉ាត់កំពុងឡើង",
   "sxargxaTraboj": "ធ្នឹមឈើកំពុងគ្រាំ",
@@ -26,7 +27,7 @@ export const KM: Record<string, string> = {
   "regiloVesto": "សម្លៀកបំពាក់ • ប្តូរសំលៀកបំពាក់របស់អ្នក",
   "titoloVojoj": "ផ្លូវ",
   "subtitoloHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
-  "titoloMapo": "ផែនទីអារ៉ានីស",
+  "titoloMapo": "ផែនទីពិភពលោក",
   "subtitoloMapo": "ជ្រលងទាំងមូលពីលើ",
   "actEliri": "ចេញ • Esc",
   "eliriKanuo": "ដើម្បីចេញពីទូក",
@@ -58,7 +59,7 @@ export const KM: Record<string, string> = {
   "statTipo": "ប្រភេទ",
   "statPozicio": "ទីតាំង",
   "webglMesagxo": "កម្មវិធីរុករករបស់អ្នកមិនគាំទ្រ WebGL ទេ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នកសម្រាប់បទពិសោធន៍ពេញលេញ។",
-  "webglDetalo": "អរ៉ានីស ត្រូវការ WebGL ដើម្បីដំណើរការ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នក ឬពិនិត្យការកំណត់ GPU របស់អ្នក។",
+  "webglDetalo": "កាជីតេ ត្រូវការ WebGL ដើម្បីដំណើរការ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នក ឬពិនិត្យការកំណត់ GPU របស់អ្នក។",
   "webglReprovi": "ព្យាយាមម្តងទៀត",
   "ariaButPromeni": "ដើរ",
   "ariaButBruo": "សំឡេងផ្ទៃខាងក្រោយ",

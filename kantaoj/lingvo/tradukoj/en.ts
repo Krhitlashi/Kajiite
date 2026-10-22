@@ -1,7 +1,8 @@
 // ≺⧼ ការបកប្រែ , ភាសាអង់គ្លេស 🗣️ ⧽≻
 
 export const EN: Record<string, string> = {
-  "titoloAranis": "Aranis",
+  "titoloAranis": "Sanctuary",
+  "titoloUrbo": "Kajiite",
   "subtitoloUrbo": "Khiss Lhota • Lhammithai Kayitteh",
   "eniri": "Enter",
   "butonoPromeni": "Walk",
@@ -10,7 +11,7 @@ export const EN: Record<string, string> = {
   "butonoHelpo": "Help",
   "titoloTeksilo": "Loom",
   "subtitoloTeksilo": "Long shirts • Short sleeves • Main and accent",
-  "titoloSxargxo": "Aranis",
+  "titoloSxargxo": "World",
   "sxargxaSubskribo": "Loading",
   "sxargxaSatalo": "Constructing satals",
   "sxargxaTraboj": "Lifting beams",
@@ -26,7 +27,7 @@ export const EN: Record<string, string> = {
   "regiloVesto": "Wardrobe",
   "titoloVojoj": "Paths",
   "subtitoloHelpo": "City notes",
-  "titoloMapo": "Aranis Map",
+  "titoloMapo": "World Map",
   "subtitoloMapo": "The whole valley from above",
   "actEliri": "Esc • Exit",
   "eliriKanuo": "Exit canoe",
@@ -59,7 +60,7 @@ export const EN: Record<string, string> = {
   "statTipo": "Type",
   "statPozicio": "Position",
   "webglMesagxo": "Your browser does not support WebGL. Update your browser for the full experience.",
-  "webglDetalo": "Aranis requires WebGL to run. Please update your browser or check your GPU settings.",
+  "webglDetalo": "Kajiite requires WebGL to run. Please update your browser or check your GPU settings.",
   "webglReprovi": "Retry",
   "ariaButPromeni": "Walk",
   "ariaButBruo": "Background noise",

@@ -145,6 +145,8 @@ html[lang="km"] #informo, html[lang="km"] #vestaro, html[lang="km"] #lingvPopUp 
 /* ⟪ វាំងននផ្ទុកក៏ជា n2tase ៖ បិទ backdrop-filter ភ្លាមពេលលាក់ ដូច្នេះ blur មិនជាប់លើអេក្រង់ពេលចូលពិភពលោក 📃 ⟫ */
 #sxargxo.finita { opacity:0; pointer-events:none; backdrop-filter:none; }
 #sxargxo cab6tem2 { inline-size:min(224px,48vh); transform:rotate(-90deg); margin-inline:calc((24px - min(224px,48vh)) / 2); align-self:center; flex:none; }
+/* ⟪ ភាសាដទៃក្នុងវាំងននផ្ទុកក៏ប្រើពុម្ពអក្សររបស់ aih ដែរ ៖ បើមិនមានតួអក្សរ កម្មវិធីរុករកនឹងដូរទៅ system-ui 📃 ⟫ */
+html body.tapufal #sxargxo, html body.tapufal #sxargxo * { font-family:j͑ʃꞇȝ,"ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",system-ui,sans-serif; }
 
 /* ⟪ របៀបសរសេរ 📃 ⟫ */
 

@@ -116,8 +116,14 @@ export function kreiMondon( opcioj: KreaMondoOpcioj = {} ): MondoRecordo {
 export function certigiCxefanMondon(): MondoRecordo {
   const mondoj = legiMondojn();
   const ekzista = mondoj.find(m => m.id === CXEF_ANO);
-  if ( ekzista ) return ekzista;
-  return kreiMondon({ id: CXEF_ANO, klavo: "titoloAranis" });
+  if ( ekzista ) {
+    if ( ekzista.klavo !== "titoloUrbo" ) {
+      ekzista.klavo = "titoloUrbo";
+      skribiMondojn(mondoj);
+    }
+    return ekzista;
+  }
+  return kreiMondon({ id: CXEF_ANO, klavo: "titoloUrbo" });
 }
 
 /*លុបពិភពលោកចេញពីបញ្ជី

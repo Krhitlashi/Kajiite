@@ -2,6 +2,7 @@
 
 export const AIH: Record<string, string> = {
   "titoloAranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
+  "titoloUrbo": "ſɭᴜ ɭl̀ɹ ɭʃɔ",
   "subtitoloUrbo": "j͐ʃɜ ɭʃᴜ ꞁȷ̀ɹ ֭ſɭɹɔ˞ • j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ſɭᴜ ɭl̀ɹ ɭʃɔ",
   "eniri": "ſɭw ſ̀ȷᴜ",
   "butonoPromeni": "ſɭᴜ ɭʃᴜ",
@@ -10,7 +11,7 @@ export const AIH: Record<string, string> = {
   "butonoHelpo": "ſȷɔ ſɭ,ꞇ",
   "titoloTeksilo": "ſɟᴜ j͑ʃ'ᴜ ı],ͷ̗ɔʞ",
   "subtitoloTeksilo": "j͑ʃᴜ ֭ſɭᴜƽ ʌ ſɭ,ɹ ſ̀ȷɔ • ſɟɹ }ʃᴜ ʌ ɭʃᴜ ŋᷠᴜ v j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ • ſ͔ɭɔ j͐ʃɔɔ˞ ʌ ᶅſɔ ֭ſɭɹ ｡ ɭʃɜƽ v ֭ſɭᴜ ı],ɔ j͑ʃᴜꞇ",
-  "titoloSxargxo": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
+  "titoloSxargxo": "}ʃᴜ j͐ʃᴜ",
   "sxargxaSubskribo": "ſɭᶗ‹ɔ ʌ j͑ʃ'ɔ ſןᴜȝ",
   "sxargxaSatalo": "j͑ʃ'ɔ ſןᴜȝ ʌ j͑ʃᴜ ɭʃᴜͷ̗ ⟅",
   "sxargxaTraboj": "ı],ɔ ŋᷠᴜ ʌ ſɭᴜc̗ ɭʃɜ }ʃꞇ ⟅",
@@ -26,7 +27,7 @@ export const AIH: Record<string, string> = {
   "regiloVesto": "ſ̀ȷᴜȝ • ſ̀ȷᴜȝ ſɭw ſ̀ȷᴜ",
   "titoloVojoj": "ſɭэ ֭ſɭэ",
   "subtitoloHelpo": "ſȷɔ ſɭ,ꞇ ʌ ſɭэ ʌ ſɭᴜ ſɭɔ ʌ ʃэ j͐ʃɜ ɭʃᴜ",
-  "titoloMapo": "ʃᴜ j͐ʃɹ ı],ᴜ ʌ j͑ʃɔƣ̋ ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
+  "titoloMapo": "ʃᴜ j͐ʃɹ ı],ᴜ ʌ j͑ʃɔƣ̋ }ʃᴜ j͐ʃᴜ",
   "subtitoloMapo": "ꞁȷ̀ɔ ɽ͑ʃ'ɹ ֭ſɭᴜ j͐ʃɜ ɭʃᴜ ʌ j͐ʃэ ɭl̀э j͑ʃɜ ſɭ,ᴜ",
   "actEliri": "j͑ʃwc̗ ɭʃᴜ • Esc",
   "eliriKanuo": "j͑ʃwc̗ ɭʃᴜ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ",

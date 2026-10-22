@@ -1,7 +1,8 @@
 // ≺⧼ ការបកប្រែ , ភាសាអេស្ពេរ៉ង់តូ 🗣️ ⧽≻
 
 export const EO: Record<string, string> = {
-  "titoloAranis": "Aranis",
+  "titoloAranis": "Rifuĝo",
+  "titoloUrbo": "Kajteo",
   "subtitoloUrbo": "Ĥusa Lotao • Lamuza Kajteo",
   "eniri": "Eniri",
   "butonoPromeni": "PROMENI",
@@ -10,7 +11,7 @@ export const EO: Record<string, string> = {
   "butonoHelpo": "Helpo",
   "titoloTeksilo": "Teksilo",
   "subtitoloTeksilo": "Longaj ĉemizoj • mallongaj manikoj • ĉefa kaj akcenta",
-  "titoloSxargxo": "Araniso",
+  "titoloSxargxo": "Mondo",
   "sxargxaSubskribo": "Ŝargado...",
   "sxargxaSatalo": "Konstruado de satalaĵoj",
   "sxargxaTraboj": "Levado de traboj",
@@ -26,7 +27,7 @@ export const EO: Record<string, string> = {
   "regiloVesto": "Vestaro",
   "titoloVojoj": "Vojoj",
   "subtitoloHelpo": "Notoj pri la urbo",
-  "titoloMapo": "Mapo de Araniso",
+  "titoloMapo": "Mapo de la mondo",
   "subtitoloMapo": "La tuta valo de supre",
   "actEliri": "Esc • Eliri",
   "eliriKanuo": "Eliri kanuon",
@@ -59,7 +60,7 @@ export const EO: Record<string, string> = {
   "statTipo": "Tipo",
   "statPozicio": "Pozicio",
   "webglMesagxo": "Via retumilo ne subtenas WebGL. Ĝisdatigu vian retumilon por sperti la plenan sperton.",
-  "webglDetalo": "Araniso postulas WebGL por funkcii. Ĝisdatigu vian retumilon aŭ kontrolu viajn GPU-agordojn.",
+  "webglDetalo": "Kajteo postulas WebGL por funkcii. Ĝisdatigu vian retumilon aŭ kontrolu viajn GPU-agordojn.",
   "webglReprovi": "Reprovi",
   "ariaButPromeni": "Promeni",
   "ariaButBruo": "Fona bruo",
