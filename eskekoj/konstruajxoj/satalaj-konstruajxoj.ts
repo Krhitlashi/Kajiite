@@ -112,8 +112,9 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
       const brilo = new THREE.Mesh(new THREE.SphereGeometry(0o5/0o40, 0o10, 0o6), eniraMaterialo);
       brilo.position.set(sX * ( w / 2 + 0o15/0o10 ), 0o7/0o4 + 0o5/0o40, sZ * ( d / 2 + 0o15/0o10 )); group.add(brilo);
     }
+    // ⟨ ដីស្តង់នៅលើដំបូល ៖ តូចល្មមមិនហូសចុងដំបូល 📃 ⟩
     const roofY = tiers * tieroAlto;
-    const ringo = new THREE.Mesh(new THREE.RingGeometry(0o15/0o20, 0o23/0o20, 0o40).rotateX(-Math.PI / 2), kadraMaterialo);
+    const ringo = new THREE.Mesh(new THREE.RingGeometry(0o5/0o20, 0o11/0o20, 0o40).rotateX(-Math.PI / 2), kadraMaterialo);
     ringo.position.y = roofY + 0o1/0o40; group.add(ringo);
   }
 

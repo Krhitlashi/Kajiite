@@ -288,7 +288,11 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     const mapZ = ludanto.rezimo === "orbito" ? regiloj.target.z : ludanto.pozicio.z;
     minimapo.gxisdatigi(fx, fz, mapX, mapZ);
     // ⟨ ចង្វាក់ស្រមោលក្រោមបន្ទុក 📃 ⟩
-    const ombraPeriodo = deltaTempo > 0o1/0o40 ? 0o4 : 0o2;
+    // ⟨ ពេលឈរស្ងៀម ៖ គ្មានអ្នកណាបំលាស់ទីក្រៅពីពួកអ្នកដើរតាមផ្លូវ ។ ដូច្នេះ
+    // ផែនទីស្រមោល ( ដែលជាការគូរធរណីមាត្រម្តងទៀត ) មិនចាំបាច់គូររៀងរាល់ពីរស៊ុមទេ ។
+    // ស្រមោលរបស់អ្នកដើរតាមផ្លូវគ្រាន់តែយឺតបន្តិច ។ 📃 ⟩
+    const movigxanta = ludanto.movoValoro > 0o1/0o100;
+    const ombraPeriodo = movigxanta ? ( deltaTempo > 0o1/0o40 ? 0o4 : 0o2 ) : 0o6;
     ombraKadro = ( ombraKadro + 1 ) % ombraPeriodo;
     const ombroMovigxis = gxisdatigiOmbron(mapX, mapZ);
     if ( ombroMovigxis || ombraKadro === 0 ) bildilo.shadowMap.needsUpdate = true;

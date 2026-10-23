@@ -18,25 +18,36 @@ export function aldoniDiamantanSpegulon(sceno: THREE.Scene, spec: KonstruSpec, g
   sceno.add(ring);
 }
 
+// ⟨ គែមស្តើងខ្លាំង និងមានបបូរ 📃 ⟩
+const RANDO_LARGHO = 0o1/0o10;
+export const RANDO_ALTO = 0o1/0o40;
+
+/* ខ្សែគែមមួយជុំវិញរាងចតុកោណ ។ អគារ និងយានអវកាសប្រើខ្សែតែមួយនេះ
+   ដូច្នេះគែមកណ្តាលរបស់យានមានទំហំដូចគែមស្រទាប់អគារ ។
+    @param hw ( number ) - កន្លះទទឹង ។
+    @param hd ( number ) - កន្លះជម្រៅ ។
+    @param y ( number ) - បាតខ្សែ ។
+    @param klino ( number ) - ជម្រាលជញ្ជាំង ( 0 សម្រាប់ខ្សែឯករាជ្យ ) ។
+    @param alto ( number = RANDO_ALTO ) - កម្ពស់ខ្សែ ។
+@returns ធរណីមាត្រខ្សែ ដែលអាចដាក់ក្នុងក្រុមដោយផ្ទាល់ ។ */
+export function kreiTavolanRandanGeometrion(hw: number, hd: number, y: number,
+  klino: number, alto = RANDO_ALTO): THREE.BufferGeometry {
+  const randoR = 0o3/0o20;
+  const formo = kreiRondigitanRektangulanFormon(
+    ( hw - klino ) * 2 + RANDO_LARGHO, ( hd - klino ) * 2 + RANDO_LARGHO, randoR);
+  const truo = kreiRondigitanRektangulanFormon(
+    ( hw - klino ) * 2 - RANDO_LARGHO, ( hd - klino ) * 2 - RANDO_LARGHO,
+    Math.max(0o1/0o20, randoR - RANDO_LARGHO)).getPoints(0o40);
+  formo.holes.push(new THREE.Path(truo.reverse()));
+  const geo = new THREE.ExtrudeGeometry(formo, { depth: alto, bevelEnabled: false, curveSegments: 0o40 });
+  geo.rotateX(-Math.PI / 2);
+  geo.translate(0, y, 0);
+  return geo;
+}
+
 // ⟨ គែមលើមូល 📃 ⟩
 export function aldoniTavolanRandon(geos: THREE.BufferGeometry[], hw: number, hd: number, y: number, klino: number, tieroAlto: number): void {
-  // ⟨ គែមស្តើងខ្លាំង និងមានបបូរ 📃 ⟩
-  const randoLargho = 0o1/0o10;
-  const randoAlto = 0o1/0o40;
   const lipoAlto = 0o1/0o50;
-  const randoR = 0o3/0o20;
-  const randoBendo = (alto: number, bazaY: number): void => {
-    const formo = kreiRondigitanRektangulanFormon(
-      ( hw - klino ) * 2 + randoLargho, ( hd - klino ) * 2 + randoLargho, randoR);
-    const truo = kreiRondigitanRektangulanFormon(
-      ( hw - klino ) * 2 - randoLargho, ( hd - klino ) * 2 - randoLargho,
-      Math.max(0o1/0o20, randoR - randoLargho)).getPoints(0o40);
-    formo.holes.push(new THREE.Path(truo.reverse()));
-    const geo = new THREE.ExtrudeGeometry(formo, { depth: alto, bevelEnabled: false, curveSegments: 0o40 });
-    geo.rotateX(-Math.PI / 2);
-    geo.translate(0, bazaY, 0);
-    geos.push(geo);
-  };
-  randoBendo(randoAlto, y + tieroAlto - randoAlto);
-  randoBendo(lipoAlto, y + tieroAlto);
+  geos.push(kreiTavolanRandanGeometrion(hw, hd, y + tieroAlto - RANDO_ALTO, klino));
+  geos.push(kreiTavolanRandanGeometrion(hw, hd, y + tieroAlto, klino, lipoAlto));
 }

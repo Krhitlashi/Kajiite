@@ -68,7 +68,12 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   suno.shadow.camera.top = 0o100; suno.shadow.camera.bottom = -0o100;
   suno.shadow.camera.near = 0o20; suno.shadow.camera.far = 0o520;
   suno.shadow.camera.updateProjectionMatrix();
-  suno.shadow.bias = -0o1 / ( 0o2 * OMBRA_MAPO ); suno.shadow.normalBias = 0o4/0o10;
+  // ⟨ ទំហំដុំស្រមោល ៖ ផែនទីស្រមោលតូច ( ទូរស័ព្ទ ) មានដុំធំជាង ។ បើសម្លេងណរម៉ាល់
+  // តូចពេក , ដីបង្កើតឆ្នូតខ្មៅៗជាសំណាញ់ ( shadow acne ) ។ ដូច្នេះសម្លេង
+  // ត្រូវតាមទំហំដុំ ៖ ដុំធំ , សម្លេងធំ ។ 📃 ⟩
+  const ombraTekselo = 2 * 0o100 / OMBRA_MAPO;
+  suno.shadow.bias = -0o1 / ( 0o2 * OMBRA_MAPO );
+  suno.shadow.normalBias = Math.max(0o4/0o10, ombraTekselo * 0o22/0o10);
   sceno.add(suno, suno.target);
 
   // ⟪ ស្ព្រាយព្រះអាទិត្យ 📃 ⟫
@@ -93,7 +98,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   let lastaKrepusko = 0;
 
   // ⟪ ស្រមោលព្រះអាទិត្យ 📃 ⟫
-  const ombraTekselo = ( suno.shadow.camera.right - suno.shadow.camera.left ) / suno.shadow.mapSize.x;
+  const ombraTekseloKrado = ( suno.shadow.camera.right - suno.shadow.camera.left ) / suno.shadow.mapSize.x;
   const SUNA_DIREKTO = new THREE.Vector3().copy(suno.position).normalize();
   let sunaDistanco = suno.position.length();
   const OMBRA_DIR = new THREE.Vector3();
@@ -110,8 +115,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     if ( Math.abs(OMBRA_DIR.y) > 0o777/0o1000 ) OMBRA_SUP.set(0, 0, 1);
     OMBRA_DEX.crossVectors(OMBRA_SUP, OMBRA_DIR).normalize();
     OMBRA_SUP.crossVectors(OMBRA_DIR, OMBRA_DEX).normalize();
-    const dekstre = Math.round(( ombraCentroX * OMBRA_DEX.x + ombraCentroZ * OMBRA_DEX.z ) / ombraTekselo) * ombraTekselo;
-    const supre = Math.round(( ombraCentroX * OMBRA_SUP.x + ombraCentroZ * OMBRA_SUP.z ) / ombraTekselo) * ombraTekselo;
+    const dekstre = Math.round(( ombraCentroX * OMBRA_DEX.x + ombraCentroZ * OMBRA_DEX.z ) / ombraTekseloKrado) * ombraTekseloKrado;
+    const supre = Math.round(( ombraCentroX * OMBRA_SUP.x + ombraCentroZ * OMBRA_SUP.z ) / ombraTekseloKrado) * ombraTekseloKrado;
     OMBRA_CENTRO.set(0, 0, 0).addScaledVector(OMBRA_DEX, dekstre).addScaledVector(OMBRA_SUP, supre);
     suno.target.position.copy(OMBRA_CENTRO);
     suno.position.copy(OMBRA_CENTRO).addScaledVector(OMBRA_DIR, distanco);

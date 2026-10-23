@@ -252,7 +252,10 @@ export function konstruiTrunkajnLikenojn(sceno: THREE.Scene,
     map: likenaTeksajxo, bumpMap: likenaBumpo, bumpScale: 0o3/0o10,
     alphaTest: 0o10/0o40, side: THREE.DoubleSide, roughness: 1, color: 0xffffff,
   });
-  const kapacito = trunkoj.reduce(( sumo, tr ) => sumo + tr.count, 0) * 0o4;
+  // ⟨ ព្រៃបានបែងចែកជាក្រឡា , ដូច្នេះដើមមួយដែលបានមកអាចតំណាងឲ្យក្រឡាទាំងអស់ ។ 📃 ⟩
+  const ĉiujTrunkoj = trunkoj.flatMap(tr =>
+    ( tr.userData.ĉiujTrunkaj as THREE.InstancedMesh[] | undefined ) ?? [ tr ]);
+  const kapacito = ĉiujTrunkoj.reduce(( sumo, tr ) => sumo + tr.count, 0) * 0o4;
   const buloj = new THREE.InstancedMesh(buloGeometrio, buloMaterialo, kapacito);
 
   const M = new THREE.Matrix4();
@@ -267,7 +270,7 @@ export function konstruiTrunkajnLikenojn(sceno: THREE.Scene,
   const Qy = new THREE.Quaternion();
   let bi = 0;
 
-  for ( const trunko of trunkoj ) {
+  for ( const trunko of ĉiujTrunkoj ) {
     for ( let i = 0; i < trunko.count; i++ ) {
       if ( hazardaGenerilo() > 1/3 ) continue;
       trunko.getMatrixAt(i, M);

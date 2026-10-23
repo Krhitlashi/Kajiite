@@ -26,6 +26,15 @@ export interface HerbaTavolo {
   cx: number;
   cz: number;
   limo: number;
+  // ⟨ ស្មៅពីរកម្រិត ៖ ស្មៅជិតលម្អិត , ស្មៅឆ្ងាយស្តើងជាង ។ ស្មៅឆ្ងាយលាក់លើស្មៅ
+  // ស្តើង ៖ ដុំស្មៅនៅឆ្ងាយលាយចូលគ្នា , ដូច្នេះការបន្ថយកម្រិតមិនឃើញទេ ។ 📃 ⟩
+  detalaj: THREE.BufferGeometry;
+  malproksimaj: THREE.BufferGeometry;
+  // ⟨ កម្រិតឆ្ងាយវាស់ពីគែមក្រឡាមិនមែនពីចំណុចកណ្តាល ៖ ក្រឡាធំ , ដូច្នេះបើវាស់ពី
+  // កណ្តាល ស្មៅក្រោមជើងអ្នកលេងអាចក្លាយជាស្មៅស្តើង ។ 📃 ⟩
+  lodDistanco: number;
+  radiuso: number;
+  malproksima: boolean;
 }
 export const herbajTavoloj: HerbaTavolo[] = [];
 
@@ -146,7 +155,16 @@ export function gxisdatigiHerbon(t: number, x: number, z: number,
   for ( let i = 0; i < herbajTavoloj.length; i++ ) {
     const tavolo = herbajTavoloj[i];
     const dx = tavolo.cx - x, dz = tavolo.cz - z;
+    const disto2 = dx * dx + dz * dz;
     const limo = tavolo.limo;
-    tavolo.mesho.visible = dx * dx + dz * dz <= limo * limo;
+    tavolo.mesho.visible = disto2 <= limo * limo;
+    if ( !tavolo.mesho.visible ) continue;
+    // ⟨ ការឆ្លាស់កម្រិត ៖ អ៊ីស្តេរេសីសតូច ដើម្បីកុំឲ្យឆ្លាស់រាល់ស៊ុម ។ 📃 ⟩
+    const lod = tavolo.lodDistanco + tavolo.radiuso + ( tavolo.malproksima ? 0o6 : -0o6 );
+    const malproksima = disto2 > lod * lod;
+    if ( malproksima !== tavolo.malproksima ) {
+      tavolo.malproksima = malproksima;
+      tavolo.mesho.geometry = malproksima ? tavolo.malproksimaj : tavolo.detalaj;
+    }
   }
 }

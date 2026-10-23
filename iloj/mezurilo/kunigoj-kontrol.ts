@@ -98,7 +98,7 @@ for ( const D of DOKOJ ) {
   const risero = falto / nombro;
   const punktoj = kreiStuparajnPunktojn( doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro );
   vojDifinoj.push( { pts: punktoj, w: doko.platformWidth, stuparo: true, stuparaRisero: risero,
-    heightFn: kreiStuparanAlton( punktoj, starto - VOJA_SUPRO_LEVIGXO, risero ), grundoFn: alteco } );
+    heightFn: kreiStuparanAlton( punktoj, starto - risero - VOJA_SUPRO_LEVIGXO, risero ), grundoFn: alteco } );
 }
 const ĉiujKunigoj = [ ...kradajKunigoj, ...kunigoPunktoj ];
 konstruiVojojn( sceno, [ ...kradajDifinoj, ...vojDifinoj ], alteco, dioritaMaterialo, andezitaMaterialo, ĉiujKunigoj,

@@ -121,14 +121,28 @@ export function konstruiLarikon(sceno: THREE.Scene,
     side: THREE.DoubleSide,
   });
   const MAKS_TAVOLOJ = 0o4;
-  const kronoj = new THREE.InstancedMesh(kronaGeometrio, kronaMaterialo, arboj.length * MAKS_TAVOLOJ);
-
   // ⟨ មែកទទេ 📃 ⟩
   const BRANCXETOJ = 0o3;
   const brancxetaGeometrio = new THREE.CylinderGeometry(0o1/0o100, 0o5/0o100, 1, 4)
     .translate(0, 0o1/0o2, 0);
-  const brancxetoj = new THREE.InstancedMesh(brancxetaGeometrio, trunkaMaterialo,
-    arboj.length * BRANCXETOJ);
+  // ⟨ ក្រឡាដើមឈើ ៖ frustum culling ធ្វើការតាម mesh , ដូច្នេះក្រឡាដីមួយៗត្រូវ
+  // មាន mesh របស់ខ្លួន , បើមិនដូច្នេះព្រៃទាំងមូលគូររាល់ពេលដែលឃើញតែមួយចំណែក ។ 📃 ⟩
+  interface LarikaBukedo {
+    trunkoj: THREE.Matrix4[]; trunkojKoloroj: THREE.Color[];
+    kronoj: THREE.Matrix4[]; kronojKoloroj: THREE.Color[];
+    brancxetoj: THREE.Matrix4[]; brancxetojKoloroj: THREE.Color[];
+  }
+  const bukedoj = new Map<string, LarikaBukedo>();
+  const bukedoDe = ( x: number, z: number ): LarikaBukedo => {
+    const klavo = Math.floor(x / 0o100) + "," + Math.floor(z / 0o100);
+    let bukedo = bukedoj.get(klavo);
+    if ( !bukedo ) {
+      bukedo = { trunkoj: [], trunkojKoloroj: [], kronoj: [], kronojKoloroj: [],
+        brancxetoj: [], brancxetojKoloroj: [] };
+      bukedoj.set(klavo, bukedo);
+    }
+    return bukedo;
+  };
 
   const M = new THREE.Matrix4();
   const C = new THREE.Color();
@@ -145,17 +159,18 @@ export function konstruiLarikon(sceno: THREE.Scene,
     const Q = kreiKlinoQuaternionon(hazardaGenerilo, 0o3/0o20, hazardaGenerilo() * Math.PI * 2);
     const bazo = new THREE.Vector3(t.x, t.h, t.z);
     const pozicio = kreiPoziciilon(bazo, Q);
+    const bukedo = bukedoDe(t.x, t.z);
 
     M.compose(pozicio(new THREE.Vector3(0, h / 2, 0)), Q,
       new THREE.Vector3(trunkaLargho, h, trunkaLargho));
-    trunkoj.setMatrixAt(i, M);
+    bukedo.trunkoj.push(M.clone());
 
     const helo = 0o73/0o100 + hazardaGenerilo() * 0o5/0o100;
     C.setRGB(
       helo * ( 0o77/0o100 + hazardaGenerilo() * 0o3/0o100 ),
       helo * ( 0o75/0o100 + hazardaGenerilo() * 0o1/0o20 ),
       helo * ( 0o35/0o40 + hazardaGenerilo() * 0o1/0o20 ));
-    trunkoj.setColorAt(i, C);
+    bukedo.trunkojKoloroj.push(C.clone());
     sxelaKoloro.copy(C);
 
     const tavoloj = 0o3 + ( ( hazardaGenerilo() * 0o2 ) | 0 );
@@ -181,10 +196,8 @@ export function konstruiLarikon(sceno: THREE.Scene,
     let antaŭaSupro = h + 0o3/0o10 - kronoSumo;
     for ( let k = 0; k < MAKS_TAVOLOJ; k++ ) {
       if ( k >= tavoloj ) {
-        M.compose(pozicio(new THREE.Vector3(0, antaŭaSupro, 0)), Q,
-          new THREE.Vector3(0, 0, 0));
-        kronoj.setMatrixAt(i * MAKS_TAVOLOJ + k, M);
-        kronoj.setColorAt(i * MAKS_TAVOLOJ + k, hazardaKoloro(hazardaGenerilo, C, paletro));
+        // ⟨ ស្រទាប់ទទេ ៖ គ្មានធរណីមាត្រ , តែត្រូវឆ្លងកាត់ចៃដន្យដូចដើម 📃 ⟩
+        hazardaKoloro(hazardaGenerilo, C, paletro);
         continue;
       }
       const { largho: kronoLargho, alto: kronoAlto } = tavolajSkaloj[k];
@@ -196,8 +209,8 @@ export function konstruiLarikon(sceno: THREE.Scene,
         centroY,
         ( hazardaGenerilo() - 0o5/0o10 ) * 0o12/0o100)), Q,
         new THREE.Vector3(kronoLargho, kronoAlto, kronoLargho));
-      kronoj.setMatrixAt(i * MAKS_TAVOLOJ + k, M);
-      kronoj.setColorAt(i * MAKS_TAVOLOJ + k, hazardaKoloro(hazardaGenerilo, C, paletro));
+      bukedo.kronoj.push(M.clone());
+      bukedo.kronojKoloroj.push(hazardaKoloro(hazardaGenerilo, C, paletro).clone());
       antaŭaSupro = centroY + kronaMaksimumaY * kronoAlto;
     }
 
@@ -215,18 +228,45 @@ export function konstruiLarikon(sceno: THREE.Scene,
       M.compose(pozicio(new THREE.Vector3(
         Math.sin(ang) * trunkaR, yBrancxo, Math.cos(ang) * trunkaR)),
         Qb.premultiply(Q), new THREE.Vector3(trunkaLargho, longo, trunkaLargho));
-      brancxetoj.setMatrixAt(i * BRANCXETOJ + b, M);
-      brancxetoj.setColorAt(i * BRANCXETOJ + b, C.copy(sxelaKoloro).multiplyScalar(0o7/0o10));
+      bukedo.brancxetoj.push(M.clone());
+      bukedo.brancxetojKoloroj.push(C.copy(sxelaKoloro).multiplyScalar(0o7/0o10).clone());
     }
   });
 
-  trunkoj.instanceMatrix.needsUpdate = true;
-  kronoj.instanceMatrix.needsUpdate = true;
-  brancxetoj.instanceMatrix.needsUpdate = true;
-  if ( trunkoj.instanceColor ) trunkoj.instanceColor.needsUpdate = true;
-  if ( kronoj.instanceColor ) kronoj.instanceColor.needsUpdate = true;
-  if ( brancxetoj.instanceColor ) brancxetoj.instanceColor.needsUpdate = true;
-  trunkoj.castShadow = kronoj.castShadow = brancxetoj.castShadow = true;
-  sceno.add(trunkoj, kronoj, brancxetoj);
-  return trunkoj;
+  // ⟨ mesh មួយក្នុងមួយក្រឡា ។ 📃 ⟩
+  let unuaTrunko: THREE.InstancedMesh | null = null;
+  const ĉiujTrunkaj: THREE.InstancedMesh[] = [];
+  for ( const bukedo of bukedoj.values() ) {
+    const cxelajTrunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, bukedo.trunkoj.length);
+    const kronoj = new THREE.InstancedMesh(kronaGeometrio, kronaMaterialo, bukedo.kronoj.length);
+    const brancxetoj = new THREE.InstancedMesh(brancxetaGeometrio, trunkaMaterialo, bukedo.brancxetoj.length);
+    for ( let i = 0; i < bukedo.trunkoj.length; i++ ) {
+      cxelajTrunkoj.setMatrixAt(i, bukedo.trunkoj[i]);
+      cxelajTrunkoj.setColorAt(i, bukedo.trunkojKoloroj[i]);
+    }
+    for ( let i = 0; i < bukedo.kronoj.length; i++ ) {
+      kronoj.setMatrixAt(i, bukedo.kronoj[i]);
+      kronoj.setColorAt(i, bukedo.kronojKoloroj[i]);
+    }
+    for ( let i = 0; i < bukedo.brancxetoj.length; i++ ) {
+      brancxetoj.setMatrixAt(i, bukedo.brancxetoj[i]);
+      brancxetoj.setColorAt(i, bukedo.brancxetojKoloroj[i]);
+    }
+    cxelajTrunkoj.name = "larikaTrunko";
+    kronoj.name = "larikaKrono";
+    brancxetoj.name = "larikaBrancxo";
+    cxelajTrunkoj.instanceMatrix.needsUpdate = true;
+    kronoj.instanceMatrix.needsUpdate = true;
+    brancxetoj.instanceMatrix.needsUpdate = true;
+    if ( cxelajTrunkoj.instanceColor ) cxelajTrunkoj.instanceColor.needsUpdate = true;
+    if ( kronoj.instanceColor ) kronoj.instanceColor.needsUpdate = true;
+    if ( brancxetoj.instanceColor ) brancxetoj.instanceColor.needsUpdate = true;
+    cxelajTrunkoj.castShadow = kronoj.castShadow = brancxetoj.castShadow = true;
+    sceno.add(cxelajTrunkoj, kronoj, brancxetoj);
+    ĉiujTrunkaj.push(cxelajTrunkoj);
+    if ( !unuaTrunko ) unuaTrunko = cxelajTrunkoj;
+  }
+  const rezulto = unuaTrunko ?? trunkoj;
+  rezulto.userData.ĉiujTrunkaj = ĉiujTrunkaj;
+  return rezulto;
 }

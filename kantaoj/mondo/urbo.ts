@@ -240,8 +240,10 @@ export async function konstruiUrbon(
     const risero = falto / nombro;
     const punktoj = kreiStuparajnPunktojn(d.komenco, d.fino, nombro);
     // ⟨ ជណ្តើរមានគ្រឹះដូចផ្លូវ ៖ ចុះដល់ដីក្រោមទឹក , មិនអណ្តែតទេ 📃 ⟩
+    // ⟨ កម្រាលទីមួយចុះមួយកម្ពស់ជំហាន ៖ ផ្ទៃផ្លូវនៅមាត់ចានភ្ជាប់គឺជាកម្រាលលើគេ ,
+    // ដូច្នេះជំហានទាំងអស់ចុះមកត្រូវនឹងផ្ទៃចំណត , មិនខ្វះជំហានចុងក្រោយទេ ។ 📃 ⟩
     vojDifinoj.push({ pts: punktoj, w: d.larĝo, stuparo: true, stuparaRisero: risero,
-      heightFn: kreiStuparanAlton(punktoj, starto - VOJA_SUPRO_LEVIGXO, risero),
+      heightFn: kreiStuparanAlton(punktoj, starto - risero - VOJA_SUPRO_LEVIGXO, risero),
       grundoFn: alteco });
   }
   // ⟨ ដំណាក់កាលទីពីរ , និយមន័យ 📃 ⟩
@@ -449,9 +451,11 @@ export async function konstruiUrbon(
   await jesi();
 
   // ⟪ ស្រទាប់ស្មៅ 📃 ⟫
+  // ⟨ ចំនួនស្លឹកក្នុងដុំស្មៅ ៖ ស្មៅជាអ្នកចំណាយធំបំផុតក្នុងស៊ុម ( រាប់លានត្រីកោណ ) ។
+  // បន្ថយពី 15 មក 11 គឺស្មើនឹងកម្រិតដែលទូរស័ព្ទប្រើស្រាប់ ។ 📃 ⟩
   await konstruiHerbanTavolon(sceno, jesi, alteco, ekskluziviRiveron, ekskluziviVojojn,
     ekskluziviKonstruajxon, [ ...VALAJ_BIOMOJ, ...EBENAJAJ_BIOMOJ ],
-    surPosxtelefono ? 0o13 : 0o17, vojaKlaro, keuxfhxesoKlaro);
+    surPosxtelefono ? 0o11 : 0o13, vojaKlaro, keuxfhxesoKlaro);
 
   // ⟪ វាលរាប 📃 ⟫
   await jesi();

@@ -68,7 +68,7 @@ for ( const d of DOKOJ ) {
   vojSuprajxoj.length = 0;
   konstruiVojojn(sceno, [ { pts: punktoj, w: doko.platformWidth, stuparo: true,
     stuparaRisero: risero,
-    heightFn: kreiStuparanAlton(punktoj, starto - VOJA_SUPRO_LEVIGXO, risero) } ],
+    heightFn: kreiStuparanAlton(punktoj, starto - risero - VOJA_SUPRO_LEVIGXO, risero) } ],
     alteco, diorito, andezito, []);
   const surfacoj = vojSuprajxoj.map(s => s.y0);
   const saltoj: number[] = [];
@@ -81,7 +81,7 @@ for ( const d of DOKOJ ) {
   vojSuprajxoj.length = 0;
   konstruiVojojn(sceno, [ { pts: punktoj, w: doko.platformWidth, stuparo: true,
     stuparaRisero: risero,
-    heightFn: kreiStuparanAlton(punktoj, starto - VOJA_SUPRO_LEVIGXO, risero) } ],
+    heightFn: kreiStuparanAlton(punktoj, starto - risero - VOJA_SUPRO_LEVIGXO, risero) } ],
     alteco, diorito, andezito, kunigoj.map(k => [ k.x, k.z ] as [ number, number ]));
   const kunSurfacoj = vojSuprajxoj.map(s => s.y0);
   console.log("  ជាមួយរន្ធ " + kunSurfacoj.length + " , លើគេ " +

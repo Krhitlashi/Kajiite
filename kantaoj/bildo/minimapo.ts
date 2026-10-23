@@ -65,6 +65,9 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       const rt = new THREE.WebGLRenderTarget(rez, rez, {
         minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
       });
+      // ⟨ ចានគំនូរត្រូវសរសេរជាពណ៌ដូចអេក្រង់ ។ បើមិនកំណត់ , ចានគំនូរសរសេរជាលីនេអ៊ែរ
+      // ហើយផែនទីក្លាយជាងងឹត និងឆ្អែតពណ៌ខុសពីពិភពលោក ។ 📃 ⟩
+      rt.texture.colorSpace = THREE.SRGBColorSpace;
       const mapFotilo = new THREE.OrthographicCamera(-duono, duono, duono, -duono, 1, 0o230);
       mapFotilo.up.set(0, 0, 1);
       mapFotilo.position.set(0, 0o130, 0);

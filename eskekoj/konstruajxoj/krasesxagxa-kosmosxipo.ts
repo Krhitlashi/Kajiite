@@ -7,6 +7,7 @@ import { preniTavolajnGeometriojn, tavolajNiveloj } from "./satalaj-konstruajxoj
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
 
+
 // ⟪ រង្វាស់យាន 📏 ⟫
 // ⟨ ស្រទាប់ដូចអគារ 📃 ⟩
 // យានប្រើទទឹង កម្ពស់ស្រទាប់ និងជម្រាលដូចផ្ទះ ដូច្នេះស្រទាប់ និង
@@ -82,6 +83,14 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   const pordDikecoTuta = pordDikeco + pordBevelo * 2;
   // ⟨ កន្លែងប្លង់ទ្វារនៅ 📃 ⟩
   const pordaRadiuso = hw0 - 0o1/0o100;
+  // ⟨ ខ្សែមាសកណ្តាល ៖ តែលើផ្ទៃទ្វារប៉ុណ្ណោះ , មិនព័ទ្ធជុំវិញយានទេ ។ វាខ្ពស់ជាង
+  // គែមស្រទាប់ ដើម្បីឲ្យឃើញច្បាស់លើផ្ទៃទ្វារ , ហើយកាត់ស្លឹកទ្វារជាពីរ ។ 📃 ⟩
+  const CENTRA_RANDO_ALTO = 0o11/0o100;
+  const CENTRA_RANDO_LARGO = 0o233/0o100 + 0o5/0o100;
+  const CENTRA_RANDO_DIKECO = 0o12/0o100;
+  const centraRadiuso = pordaRadiuso + pordDikeco / 2 + pordBevelo / 2;
+  const centraGeometrio = new THREE.BoxGeometry(CENTRA_RANDO_LARGO, CENTRA_RANDO_ALTO,
+    CENTRA_RANDO_DIKECO);
   for ( let f = 0; f < 4; f++ ) {
     const enirejaGeometrio = new THREE.ExtrudeGeometry(pordFormo, {
       depth: pordDikeco, bevelEnabled: true, bevelSize: pordBevelo, bevelThickness: pordBevelo,
@@ -101,6 +110,14 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
     ornamo.position.set(Math.sin(f * Math.PI / 2) * pordaRadiuso, 0,
       Math.cos(f * Math.PI / 2) * pordaRadiuso);
     group.add(ornamo);
+
+    // ⟨ ខ្សែកណ្តាល ៖ រត់កាត់ទ្វារនេះ ។ វាលាតហួសគែមទ្វារបន្តិច ហើយចេញហួស
+    // ផ្ទៃទ្វារ ដូច្នេះឃើញច្បាស់ជាខ្សែមួយ ។ 📃 ⟩
+    const centra = new THREE.Mesh(centraGeometrio, oraMaterialo);
+    centra.rotation.y = f * Math.PI / 2;
+    centra.position.set(Math.sin(f * Math.PI / 2) * centraRadiuso, 0,
+      Math.cos(f * Math.PI / 2) * centraRadiuso);
+    group.add(centra);
   }
 
   // ⟨ បង្អួច 📃 ⟩

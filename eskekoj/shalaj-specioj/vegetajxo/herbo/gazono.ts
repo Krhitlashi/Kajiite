@@ -36,6 +36,11 @@ const HERBA_AKSOJ = 0o17;
 const HERBA_SEGMENTOJ = 0o2;
 const HERBA_VARIANTOJ = 0o3;
 const HERBA_TABELOJ_ANTUX_JESI = 0o4;
+// ⟨ ស្មៅឆ្ងាយ ៖ ស្មៅឆ្ងាយប្រើកំណាត់តែមួយ ។ ចំនួនស្លឹកដូចគ្នា , តែត្រីកោណពាក់កណ្តាល ។
+// ផ្លាស់កម្រិតតែខ្សែកោងស្លឹក , ដូច្នេះមិនឃើញលោត ។ កម្រិតនេះជាចម្ងាយពី
+// គែមក្រឡាស្មៅ ដល់ភ្នែកអ្នកលេង ។ 📃 ⟩
+const HERBA_LOD_DISTO = 0o16;
+const HERBA_LOD_SEGMENTOJ = 1;
 const HERBA_KLINGA_ALTO = 0o14/0o100 + 0o2/0o10;
 const HERBA_DEKLIVA_LIMO = 0o7/0o10;
 const HERBA_DOKLIVA_LIMO = 0o13/0o20;
@@ -69,7 +74,8 @@ function herbaHasho(ix: number, iz: number): number {
   return ( ( h ^ ( h >>> 0o13 ) ) >>> 0 ) / 0o40000000000;
 }
 
-function kreiTavolanGeometrion(varia: THREE.BufferGeometry, kvanto: number): THREE.BufferGeometry {
+function kreiTavolanGeometrion(varia: THREE.BufferGeometry, kvanto: number,
+  doklivo?: THREE.InstancedBufferAttribute): THREE.BufferGeometry {
   const geometrio = new THREE.BufferGeometry();
   for ( const nomo of [ "position", "uv", "color" ] ) {
     const atributo = varia.getAttribute(nomo);
@@ -77,7 +83,9 @@ function kreiTavolanGeometrion(varia: THREE.BufferGeometry, kvanto: number): THR
   }
   const indekso = varia.getIndex();
   if ( indekso ) geometrio.setIndex(indekso);
-  geometrio.setAttribute("herbaDoklivo", new THREE.InstancedBufferAttribute(new Float32Array(kvanto * 2), 2));
+  // ⟨ កម្រិតទាំងពីរប្រើទិន្នន័យទំហំជម្រាលតែមួយ ៖ ធនធានតែមួយ , មិនចំលងទ្វេទេ ។ 📃 ⟩
+  geometrio.setAttribute("herbaDoklivo", doklivo
+    ?? new THREE.InstancedBufferAttribute(new Float32Array(kvanto * 2), 2));
   return geometrio;
 }
 
@@ -99,6 +107,12 @@ export async function konstruiHerbanTavolon(
   const variantoj: THREE.BufferGeometry[] = [];
   for ( let v = 0; v < HERBA_VARIANTOJ; v++ ) {
     variantoj.push(konstruiHerbanTavolanGeometrion(HERBA_LARGO, aksoj, 0o2715 + v * 0o1436));
+  }
+  // ⟨ កម្រិតឆ្ងាយ ៖ ដុំស្មៅតែមួយទំហំដូចគ្នា , ស្លឹកដូចគ្នា , តែកំណាត់តែមួយ ។ 📃 ⟩
+  const malproksimajVariantoj: THREE.BufferGeometry[] = [];
+  for ( let v = 0; v < HERBA_VARIANTOJ; v++ ) {
+    malproksimajVariantoj.push(konstruiHerbanTavolanGeometrion(HERBA_LARGO, aksoj,
+      0o2715 + v * 0o1436, HERBA_LOD_SEGMENTOJ));
   }
   const amplexo = SKULPTA_N * SKULPTA_PASO;
   const cxelojPoTabelo = Math.round(HERBA_TABELO / HERBA_CXELO);
@@ -189,6 +203,7 @@ export async function konstruiHerbanTavolon(
         if ( tufoj.length === 0 ) continue;
         const geometrio = kreiTavolanGeometrion(variantoj[v], tufoj.length);
         const deklivoj = geometrio.getAttribute("herbaDoklivo") as THREE.InstancedBufferAttribute;
+        const malproksima = kreiTavolanGeometrion(malproksimajVariantoj[v], tufoj.length, deklivoj);
         const mesho = new THREE.InstancedMesh(geometrio, materialo, tufoj.length);
         for ( let i = 0; i < tufoj.length; i++ ) {
           const tufo = tufoj[i];
@@ -219,12 +234,19 @@ export async function konstruiHerbanTavolon(
         if ( mesho.instanceColor ) mesho.instanceColor.needsUpdate = true;
         mesho.name = HERBA_TAVOLA_NOMO;
         mesho.matrixWorldAutoUpdate = false;
+        // ⟨ ដែនសម្រាប់កាត់ ៖ គណនាម្តង ដើម្បីកុំឲ្យការឆ្លាស់កម្រិតប្តូរដែន ។ 📃 ⟩
+        mesho.computeBoundingSphere();
         sceno.add(mesho);
         herbajTavoloj.push({
           mesho,
           cx: ( unuaX + cxelojPoTabelo * 0o1/0o2 ) * HERBA_CXELO,
           cz: ( unuaZ + cxelojPoTabelo * 0o1/0o2 ) * HERBA_CXELO,
           limo: HERBA_LIMO + HERBA_TABELO * 0o7/0o10,
+          detalaj: geometrio,
+          malproksimaj: malproksima,
+          lodDistanco: HERBA_LOD_DISTO,
+          radiuso: HERBA_TABELO * Math.SQRT1_2,
+          malproksima: false,
         });
       }
       if ( ++konstruitaj % HERBA_TABELOJ_ANTUX_JESI === 0 ) await jesi();
@@ -235,7 +257,7 @@ export async function konstruiHerbanTavolon(
 
 // ⟪ រូបរាងដុំស្មៅ 🌿 ⟫
 function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HERBA_AKSOJ,
-  semo = 0o2715): THREE.BufferGeometry {
+  semo = 0o2715, segmentoj = HERBA_SEGMENTOJ): THREE.BufferGeometry {
   const hazardo = kreiVegetajxanHazardon(semo);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
@@ -264,7 +286,7 @@ function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HERBA_AKS
         herbaKlingaKoloro(verda, hazardo);
       }
       const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
-        sekaKlingo ? seka : verda, HERBA_SEGMENTOJ, 0o5/0o10);
+        sekaKlingo ? seka : verda, segmentoj, 0o5/0o10);
       klingo.translate(rx, 0, rz);
       klingoj.push(klingo);
     }
