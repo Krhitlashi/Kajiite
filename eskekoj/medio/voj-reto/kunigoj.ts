@@ -183,6 +183,8 @@ export function troviVojaRetajnKunigojn( vojoj: VojaRetoVojo[], dokoj: VojaRetoD
     }
     const direktaj = najajBravoj.length ? najajBravoj : k.direktaj;
     const rotacio = rotacioPor( direktaj );
-    return { x: k.x, z: k.z, direktaj: k.direktaj, rotacio, fermitaj: fermitajPor( lokajDirektaj( direktaj, rotacio ) ) };
+    // ⟨ ដៃទាំងអស់ ៖ ផ្លូវដែលឆ្លងកាត់ចំណុចនេះត្រូវមានដៃ , ទោះបីជាចំណុចនៅត្រង់កំពូលកោងរបស់វា ។
+    // បើខ្វះដៃ , ចានភ្ជាប់បិទផ្លូវនោះ ហើយជ្រុងមូលរបស់ចានកាត់ផ្លូវ ។ 📃 ⟩
+    return { x: k.x, z: k.z, direktaj, rotacio, fermitaj: fermitajPor( lokajDirektaj( direktaj, rotacio ) ) };
   } );
 }

@@ -8,13 +8,29 @@ import { biomo, type Biomo } from "../../../../kantaoj/mondo/tereno.js";
 import { kreiHerbanKlingon } from "./klingoj.js";
 import { kreiHerbanMaterialon } from "./vento.js";
 
-export function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeometry {
+// ⟨ ចំនួនស្លឹកក្នុងដុំស្មៅ ។ 📃 ⟩
+export const KLINGOJ_POR_TUFO = 0o34;
+
+// ⟨ ចម្ងាយរវាងដុំស្មៅនៅលើដី ។ 📃 ⟩
+export const TUFA_DISTO = 0o12/0o10;
+
+// ⟨ អ្នកផ្តល់ពណ៌ស្លឹក ៖ ឆាកពិតប្រើពណ៌ធម្មតា , ឧបករណ៍សាកល្បងអាចផ្តល់ពណ៌ខ្លួនឯង ។ 📃 ⟩
+export type KlingaKoloro = ( celo: THREE.Color, seka: boolean,
+  hazardo: () => number ) => void;
+
+function defauxlaKlingaKoloro( celo: THREE.Color, seka: boolean,
+  hazardo: () => number ): void {
+  if ( seka ) sekaHerbaKlingaKoloro(celo, hazardo);
+  else herbaKlingaKoloro(celo, hazardo);
+}
+
+export function konstruiHerbanTufanGeometrion(semo = 0o2715,
+  koloroDeKlingo: KlingaKoloro = defauxlaKlingaKoloro): THREE.BufferGeometry {
   const hazardo = kreiVegetajxanHazardon(semo);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
   const seka = new THREE.Color();
-  const KLINGOJ = 0o34;
-  for ( let i = 0; i < KLINGOJ; i++ ) {
+  for ( let i = 0; i < KLINGOJ_POR_TUFO; i++ ) {
     const ang = hazardo() * Math.PI * 2;
     const r = 0o13/0o100 * Math.sqrt(hazardo());
     const bazoX = Math.cos(ang) * r, bazoZ = Math.sin(ang) * r;
@@ -29,13 +45,10 @@ export function konstruiHerbanTufanGeometrion(semo = 0o2715): THREE.BufferGeomet
     const tordo = ( hazardo() - 0o1/0o2 ) * 0o115/0o100;
     // ⟨ ស្លឹកស្ងួតមួយក្នុងដប់ ៖ ប្រផេះបៃតង , ដើម្បីកុំឱ្យស្មៅលឿង 📃 ⟩
     const sekaKlingo = i % 0o10 === 0o1;
-    if ( sekaKlingo ) {
-      sekaHerbaKlingaKoloro(seka, hazardo);
-    } else {
-      herbaKlingaKoloro(verda, hazardo);
-    }
+    const klingaKoloro = sekaKlingo ? seka : verda;
+    koloroDeKlingo(klingaKoloro, sekaKlingo, hazardo);
     const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
-      sekaKlingo ? seka : verda);
+      klingaKoloro);
     klingo.translate(bazoX, 0, bazoZ);
     klingoj.push(klingo);
   }
@@ -72,7 +85,7 @@ export function konstruiHerbon(sceno: THREE.Scene,
     if ( excludePaths(x, z, 2) ) continue;
     if ( excludeBuildings(x, z, 2) ) continue;
     if ( Math.hypot(x, z) < 0o16 ) continue;
-    if ( !punktoLibera(metitajHasho, x, z, 0o12/0o10) ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, TUFA_DISTO) ) continue;
 
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40,
@@ -122,7 +135,7 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
     if ( Math.abs(x) > 0o450 || Math.abs(z) > 0o450 ) continue;
     if ( excludeRivers(x, z) || excludePaths(x, z, 2) || excludeBuildings(x, z, 2) ) continue;
     if ( heightFn(x, z) < akvoNiveloFn(x, z) ) continue;
-    if ( !punktoLibera(metitajHasho, x, z, 0o12/0o10) ) continue;
+    if ( !punktoLibera(metitajHasho, x, z, TUFA_DISTO) ) continue;
 
     const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40,

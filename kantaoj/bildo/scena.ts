@@ -15,7 +15,7 @@ import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { montaraSemoBazo } from "../tero-datumaro/rultempo.js";
 import { gxisdatigiSteleanVitron } from "../../eskekoj/konstruajxoj/satalaj/vitro.js";
 import { montriEraronon } from "./scena/eraro.js";
-import { MAKS_RATIO, MULT_SAMPLEA, OMBRA_MAPO, surPosxtelefono } from "./scena/aparato.js";
+import { MAKS_RATIO, MULT_SAMPLEA, OMBRA_MAPO } from "./scena/aparato.js";
 import { kreiCxielon } from "./scena/cxielo.js";
 import { NEBULA_DENSO, kreiPaletrojn } from "./scena/paletroj.js";
 import { kreiVeterajnPartiklojn } from "./scena/precipitajxo.js";
@@ -50,6 +50,29 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   fotilo.rotation.order = "YXZ";
 
   const fotilaDuTan = 2 * Math.tan(fotilo.fov * Math.PI / 0o550);
+
+  // ⟨ វាយនភាពដីតាមចម្ងាយ 📃 ⟩
+  // វាយនភាពដីញឹកញាប់ណាស់ ( ក្បឿងតូច ) ។ នៅចម្ងាយ , mip ត្រូវជ្រើសខុសៗគ្នាតាមជួរ
+  // អេក្រង់ , ហើយវាបង្ហាញជាខ្សែផ្តេក ។ ទូរស័ព្ទឃើញវាច្បាស់ជាង ។
+  // ដូច្នេះបន្ថយវាយនភាពតាមចម្ងាយ ៖ ជិតមានវាយនភាព , ឆ្ងាយប្រើពណ៌កំពូល ។ 📃 ⟩
+  // ⟨ ចម្ងាយផ្លាស់ប្តូរ ៖ តម្លៃតែមួយសម្រាប់គ្រប់ឧបករណ៍ ។ នៅចម្ងាយ , mip
+  // ត្រូវជ្រើសខុសៗគ្នាតាមជួរអេក្រង់ , ហើយវាបង្ហាញជាខ្សែផ្តេក ។ 📃 ⟩
+  const GRUNDA_FADO_EL = 0o14;
+  const GRUNDA_FADO_GXIS = 0o72;
+  const fadaGrundon = ( materialo: THREE.MeshStandardMaterial ): THREE.MeshStandardMaterial => {
+    materialo.onBeforeCompile = ( shadero ) => {
+      shadero.fragmentShader = shadero.fragmentShader.replace(
+        "#include <map_fragment>",
+        `#ifdef USE_MAP
+          vec4 sampledDiffuseColor = texture2D( map, vMapUv );
+          float grundFado = 1.0 - smoothstep( ${GRUNDA_FADO_EL.toFixed(1)}, ${GRUNDA_FADO_GXIS.toFixed(1)}, length( vViewPosition ) );
+          sampledDiffuseColor.rgb = mix( vec3( 1.0 ), sampledDiffuseColor.rgb, grundFado );
+          diffuseColor *= sampledDiffuseColor;
+        #endif`
+      );
+    };
+    return materialo;
+  };
 
   const pmremGenerilo = new THREE.PMREMGenerator(bildilo);
   sceno.environment = pmremGenerilo.fromScene(new RoomEnvironment(bildilo), 0o1/0o40).texture;
@@ -252,16 +275,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     // ⟨ វាយនភាពដូចដី 📃 ⟩
     const montaGrundo = kreiGrundanTeksajxon();
     const montaReliefo = kreiGrundanBumpanTeksajxon();
-    const montaMaterialo = new THREE.MeshStandardMaterial({
+    const montaMaterialo = fadaGrundon(new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o35/0o40, metalness: 0, vertexColors: true,
       map: montaGrundo, bumpMap: montaReliefo, bumpScale: 0o5/0o10,
       side: THREE.DoubleSide,
-    });
-    const montaFona = new THREE.MeshStandardMaterial({
+    }));
+    const montaFona = fadaGrundon(new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o37/0o40, metalness: 0, vertexColors: true,
       map: montaGrundo, bumpMap: montaReliefo, bumpScale: 0o5/0o10,
       side: THREE.DoubleSide,
-    });
+    }));
 
     function ringaPunkto(disto: number, ang: number): { x: number; z: number; nx: number; nz: number } {
       const rando = radiusaDistanco(mapoFormo, mapoGrandeco, ang) + disto;
@@ -468,12 +491,12 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     g.computeVertexNormals();
     // ⟨ វាយនភាពចម្លាក់ , តែលើឧបករណ៍ខ្លាំង 📃 ⟩
-    const grundMaterialo = new THREE.MeshStandardMaterial({
+    const grundMaterialo = fadaGrundon(new THREE.MeshStandardMaterial({
       vertexColors: true, roughness: 0o7/0o10,
       map: kreiGrundanTeksajxon(),
-      bumpMap: surPosxtelefono ? undefined : kreiGrundanBumpanTeksajxon(),
+      bumpMap: kreiGrundanBumpanTeksajxon(),
       bumpScale: 0o5/0o10,
-    });
+    }));
     const ground = new THREE.Mesh(g, grundMaterialo);
     ground.receiveShadow = true;
     sceno.add(ground);
@@ -580,9 +603,9 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     g.setAttribute("uv", new THREE.BufferAttribute(uvaj, 2));
     g.setIndex(indeksoj);
     g.computeVertexNormals();
-    const ebeno = new THREE.Mesh(g, new THREE.MeshStandardMaterial({
+    const ebeno = new THREE.Mesh(g, fadaGrundon(new THREE.MeshStandardMaterial({
       vertexColors: true, roughness: 0o7/0o10, map: kreiGrundanTeksajxon(),
-    }));
+    })));
     ebeno.frustumCulled = false;
     sceno.add(ebeno);
   } )();

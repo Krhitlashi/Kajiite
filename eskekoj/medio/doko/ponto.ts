@@ -1,159 +1,159 @@
 // ≺⧼ ស្ពាន 🌉 ⧽≻
 import * as THREE from "three";
-import { aldoniKadranTubon } from "../../konstruajxoj/satalaj/pilieroj.js";
-import { kunfandiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 import { VOJA_BORDA_LARĜO, VOJA_DIKECO } from "../vojoj/mezuroj.js";
 
-// ⟨ នាំចូល មិនចម្លង 📃 ⟩
+// ⟪ មាត្រស្ពាន 📏 ⟫
+// ⟨ កម្រាស់ផ្ទៃស្ពាន ៖ ដូចកម្រាស់ផ្លូវ ។ 📃 ⟩
 export const PONT_DEKA_DIKECO = VOJA_DIKECO;
 
 export const PONT_FINA_LEVIGXO = PONT_DEKA_DIKECO;
 
-// ⟨ ភាពច្បាស់ទូក 📃 ⟩
-export const PONT_POL_LEVIGXO = 0o3/0o2;
+// ⟨ កម្រាស់ជញ្ជាំងស្ពានក្រោមផ្ទៃនៅលើទឹក ។ 📃 ⟩
+export const PONT_KORPA_DIKECO = 0o2;
+
+// ⟨ ជម្រៅបន្ថែមក្រោមដី ៖ ជញ្ជាំងស្ពានចុះកប់ក្នុងដីបន្តិច ។ 📃 ⟩
+export const PONT_TERA_PROFUNDECO = 0o1/0o10;
+
+// ⟨ ចំណែកតូចបំផុតដែលចុងគ្របដណ្តប់ ៖ ស្ពានវែងមានធ្នូស្តើងនៅកណ្តាល ។ 📃 ⟩
+export const PONT_FINA_ORDO = 0o1/0o5;
+
+// ⟨ ចំណែកធំបំផុត ៖ ស្ពានខ្លីជ្រៅមិនអាចបត់ក្នុងប្រវែងតូច ។ 📃 ⟩
+export const PONT_FINA_ORDO_MAKSO = 0o1/0o2;
+
+// ⟨ ចំនួនគំរូតាមប្រវែងស្ពាន ៖ ស្ពានវែងត្រូវការគំរូច្រើនជាង ។ 📃 ⟩
+const PONT_SPECIMENOJ_POR_METRO = 0o4;
+const PONT_SPECIMENOJ_MINIMUME = 0o20;
+const PONT_SPECIMENOJ_MAKSIMUME = 0o200;
+
+/*ចំណែកប្រវែងស្ពានដែលកោងចុះដល់ដី
+    @param longo ( number ) - ប្រវែងស្ពាន
+    @param profundo ( number ) - ជម្រៅជញ្ជាំងនៅចុង
+@returns ordo ( number ) - ចំណែកនៅចុងនីមួយៗ
+    ស្ពានវែង ឬទាប ប្រើចំណែកតូច , ហើយស្ពានខ្លីជ្រៅប្រើចំណែកធំ
+    ដើម្បីឱ្យបាតកោងរលូនដោយគ្មានជញ្ជាំងឈរ ។ */
+export function pontaFinaOrdo( longo: number, profundo: number ): number {
+  if ( longo <= 0 ) return PONT_FINA_ORDO_MAKSO;
+  return Math.min(PONT_FINA_ORDO_MAKSO,
+    Math.max(PONT_FINA_ORDO, profundo / longo * 0o1/0o2));
+}
+
+/*កម្ពស់បាតស្ពានតាមបណ្តោយធ្នូ
+    @param longo ( number ) - ប្រវែងស្ពាន
+    @param supra ( function ) - កម្ពស់កំពូលស្ពាននៅ t ( 0..1 )
+    @param fundo ( function , optional ) - កម្ពស់ដីក្រោមស្ពាននៅ t
+@returns malsupra ( function ) - កម្ពស់បាតស្ពាននៅ t
+    ចុងទាំងពីរចុះដល់ដីដោយរលូន , កណ្តាលរក្សាកម្រាស់ថេរតាមផ្ទៃផ្លូវ ។ */
+export function kreiPontanSubon(
+  longo: number,
+  supra: ( t: number ) => number,
+  fundo?: ( t: number ) => number
+): ( t: number ) => number {
+  const arkaDikeco = Math.min(PONT_KORPA_DIKECO, longo / 0o4);
+  const profundaKomenco = fundo ? Math.max(0, supra(0) - fundo(0)) : 0;
+  const profundaFino = fundo ? Math.max(0, supra(1) - fundo(1)) : 0;
+  const ordoKomenco = pontaFinaOrdo(longo, profundaKomenco);
+  const ordoFino = pontaFinaOrdo(longo, profundaFino);
+  return ( t: number ): number => {
+    const supro = supra(t);
+    if ( !fundo ) return supro - arkaDikeco;
+    const plena = supro - fundo(t);
+    const bando = Math.max(0, Math.min(arkaDikeco, plena));
+    const u = Math.max(0, Math.min(1, t / ordoKomenco, ( 1 - t ) / ordoFino));
+    // ⟨ កោងចុះដល់ដីតែនៅចុងទាំងពីរ ៖ កណ្តាលតាមកោងផ្ទៃផ្លូវ ។ 📃 ⟩
+    const glata = u * u * ( 0o3 - 0o2 * u );
+    return supro - ( plena + ( bando - plena ) * glata );
+  };
+}
+
 
 // ⟪ ចន្លោះពីទឹក 📏 ⟫
 // ⟨ ធ្នូត្រូវខ្ពស់ជាងរលក ៖ រលកលើកផ្ទៃទឹកបួនជាន់រួមគ្នាដល់ជាងពីរភាគបួន ,
-// បូកនឹងការលើកផ្ទៃទឹក ។ ដូច្នេះស្ពានទាបជាងនោះមើលទៅលិចទឹក ។ 📃 ⟩
-export const PONT_AKVA_KLARANCO = 0o1/0o2;
+// បូកនឹងការលើកផ្ទៃទឹក ៗ ដូច្នេះស្ពានទាបជាងនោះមើលទៅលិចទឹក ៗ 📃 ⟩
+export const PONT_AKVA_KLARANCO = 0o2;
 
-/*កម្ពស់ផ្ទៃស្ពាននៅចំណុចមួយ តាមបន្ទាត់ត្រង់រវាងចុងទាំងពីរ
-    @param t ( number ) - 0 ដល់ 1 តាមបណ្តោយស្ពាន
-    @param ay,by ( number ) - កម្ពស់ចុងទាំងពីរ
-@returns y */
-export function pontaDeko(t: number, ay: number, by: number): number {
-  return ay + ( by - ay ) * t;
-}
-
-export function pontaPolSupro(t: number, dekaY: number, polAlto: number,
-  levigxo = PONT_POL_LEVIGXO): number {
-  return dekaY + polAlto + levigxo * Math.sin(Math.PI * t);
-}
-
+/*សាងសង់តួស្ពានក្រោមផ្ទៃផ្លូវ
+    @param sceno ( Scene ) - ឆាក
+    @param ax, az ( number ) - ចំណុចដើមធ្នូ
+    @param bx, bz ( number ) - ចំណុចចុងធ្នូ
+    @param largho ( number ) - ទទឹងផ្លូវ
+    @param andezitaMaterialo ( MeshStandardMaterial ) - វត្ថុអង់ដេស៊ីត
+    @param deko ( function ) - កម្ពស់ផ្ទៃស្ពាន
+    @param teraAlto ( function , optional ) - កម្ពស់ដីក្រោមស្ពាន */
 export function konstruiPonton(
   sceno: THREE.Scene,
-  ax: number, az: number, ay: number,
-  bx: number, bz: number, by: number,
+  ax: number, az: number,
+  bx: number, bz: number,
   largho: number,
-  heightFn: ( x: number, z: number ) => number,
-  cxuAkvo: ( x: number, z: number ) => boolean,
   andezitaMaterialo: THREE.MeshStandardMaterial,
-  oraMaterialo: THREE.MeshStandardMaterial,
-  deko?: ( t: number ) => number
+  deko: ( t: number ) => number,
+  teraAlto?: ( x: number, z: number ) => number
 ): void {
-  const longo = Math.hypot(bx - ax, bz - az);
-  if ( longo < 0o1/0o10 ) return;
-  const direkto = Math.atan2(bx - ax, bz - az);
-  // ⟨ ទទឹងនៃដប់ 📃 ⟩
-  const duon = largho / 4 + VOJA_BORDA_LARĜO;
-  // ⟨ ម៉ាស់ធ្នូជាសក់ធំជាងដប់ 📃 ⟩
-  const masaDuono = duon + 0o1/0o500;
-  const bendoX = largho / 4 + 0o1/0o10;
-  const grupo = new THREE.Group();
-  grupo.position.set(ax, 0, az);
-  grupo.rotation.y = direkto;
-  const cosR = Math.cos(direkto), sinR = Math.sin(direkto);
-  const mondaX = (lx: number, lz: number) => ax + cosR * lx + sinR * lz;
-  const mondaZ = (lx: number, lz: number) => az - sinR * lx + cosR * lz;
-  const dekaDikeco = PONT_DEKA_DIKECO;
-  // ⟨ ផ្ទៃស្ពាន ៖ ជាធម្មតាបន្ទាត់ត្រង់ , តែអ្នកហៅអាចផ្តល់ធ្នូផុតទឹក 📃 ⟩
-  const arko = deko ?? (( t: number ) => pontaDeko(t, ay, by));
-  // ⟨ របារមាស 📃 ⟩
-  const polAlto = 0o13/0o20;
-  const poloj = Math.max(0o5, Math.round(longo / 0o25/0o10) + 1);
-  const polX = bendoX;
-  const geos: THREE.BufferGeometry[] = [];
-  for ( const sX of [ -1, 1 ] ) {
-    for ( let i = 0; i < poloj; i++ ) {
-      const t = i / ( poloj - 1 );
-      const lz = longo * t;
-      const bazo = arko(t) - 0o1/0o100;
-      const supro = pontaPolSupro(t, bazo, polAlto);
-      // ⟨ ទំពក់យោលចូលក្នុង 📃 ⟩
-      aldoniKadranTubon(geos, sX * polX, lz, bazo, supro, -sX, 0, true, 0, true, 0);
-    }
-    const traboPunktoj: THREE.Vector3[] = [];
-    const trabajSekcioj = poloj * 2;
-    for ( let i = 0; i <= trabajSekcioj; i++ ) {
-      const t = i / trabajSekcioj;
-      traboPunktoj.push(new THREE.Vector3(sX * polX, pontaPolSupro(t, arko(t), polAlto), longo * t));
-    }
-    const trabaKurbo = new THREE.CatmullRomCurve3(traboPunktoj, false, "centripetal", 0);
-    const trabo = new THREE.Mesh(
-      new THREE.TubeGeometry(trabaKurbo, trabajSekcioj, 0o1/0o20, 0o10, false), oraMaterialo);
-    trabo.castShadow = true;
-    grupo.add(trabo);
-  }
-  const balustrado = new THREE.Mesh(kunfandiGeometriojn(geos), oraMaterialo);
-  balustrado.castShadow = true;
-  grupo.add(balustrado);
-  // ⟨ ធ្នូអង់ដេស៊ីត 📃 ⟩
-  // ⟨ ហេតុអ្វីវាមើលទៅដូចបន្តផ្លូវ 📃 ⟩
-  // ⟨ ការបើកមួយលើទឹក 📃 ⟩
-  // ⟨ ចំហៀងស្ពានជាអង់ដេស៊ីតដល់ផ្លូវ 📃 ⟩
-  // ⟨ កំពូល និងរង្វង់ 📃 ⟩
-  const ringaDikeco = 0o1/0o2;
-  const kronoY = arko(0o1/0o2) - dekaDikeco - ringaDikeco;
-  // ⟨ កន្លែងទឹក និងកន្លែងដីទាបបំផុត 📃 ⟩
-  const specimenoj = Math.max(0o10, Math.round(longo));
-  let akvoUnua = -1, akvoLasta = -1;
-  let teraFino = Infinity;
-  for ( let i = 0; i <= specimenoj; i++ ) {
-    const lz = longo * i / specimenoj;
-    if ( cxuAkvo(mondaX(0, lz), mondaZ(0, lz)) ) {
-      if ( akvoUnua < 0 ) akvoUnua = i;
-      akvoLasta = i;
-    }
-    for ( const lx of [ -bendoX, 0, bendoX ] )
-      teraFino = Math.min(teraFino, heightFn(mondaX(lx, lz), mondaZ(lx, lz)));
-  }
-  const arkMarĝeno = 0o1/0o20;
-  let arkaT0 = 0, arkaT1 = 1;
-  if ( akvoUnua >= 0 ) {
-    arkaT0 = Math.max(0, akvoUnua / specimenoj - arkMarĝeno);
-    arkaT1 = Math.min(1, akvoLasta / specimenoj + arkMarĝeno);
-  }
-  if ( arkaT1 - arkaT0 < 0o1/0o10 ) { arkaT0 = 0; arkaT1 = 1; }
-  const arkaLongo = ( arkaT1 - arkaT0 ) * longo;
-  // ⟨ ការលើកធ្នូ 📃 ⟩
-  let piedoY = kronoY - arkaLongo * 0o1/0o4;
-  piedoY = Math.min(piedoY, teraFino - 0o1/0o2);
-  const intradoso = (t: number) => piedoY + ( kronoY - piedoY ) * ( 1 - Math.pow(2 * t - 1, 2) );
-  // ⟨ កំពូលម៉ាស់ ផ្ទៃផ្លូវ មិនមែនបាតវា 📃 ⟩
-  const suproDe = (z: number) => arko(z / longo) - 0o1/0o200;
-  const arkaZ0 = arkaT0 * longo, arkaZ1 = arkaT1 * longo;
-  // ⟨ បាតតាមដី 📃 ⟩
-  const teraMalsupra = 0o1/0o4;
-  const teraLaterala = (z: number) => Math.min(
-    heightFn(mondaX(-masaDuono, z), mondaZ(-masaDuono, z)),
-    heightFn(mondaX(0, z), mondaZ(0, z)),
-    heightFn(mondaX(masaDuono, z), mondaZ(masaDuono, z)));
-  const sube = (z: number) => {
-    const tera = teraLaterala(z) - teraMalsupra;
-    if ( z <= arkaZ0 || z >= arkaZ1 ) return tera;
-    return Math.max(tera, intradoso(( z - arkaZ0 ) / ( arkaZ1 - arkaZ0 )));
-  };
+  const dx = bx - ax, dz = bz - az;
+  const longo = Math.hypot(dx, dz);
+  if ( longo < 0o1/0o100 ) return;
+  const ndx = dx / longo, ndz = dz / longo;
+
+  const duono = largho / 4 + VOJA_BORDA_LARĜO;
+  const fasadaLarĝo = Math.min(VOJA_BORDA_LARĜO, duono);
+  const kernoDuono = duono - fasadaLarĝo;
+  const pasxoj = Math.max(PONT_SPECIMENOJ_MINIMUME,
+    Math.min(PONT_SPECIMENOJ_MAKSIMUME,
+      Math.round(longo * PONT_SPECIMENOJ_POR_METRO)));
+  const supraAlto = ( t: number ): number => deko(t) - PONT_DEKA_DIKECO + 0o1/0o200;
+  // ⟨ បាតអង់ដេស៊ីតកោងចុះដល់ដីនៅចុងទាំងពីរ ហើយតាមកោងផ្លូវនៅកណ្តាល ។ 📃 ⟩
+  const malsupraAlto = kreiPontanSubon(longo, supraAlto,
+    teraAlto
+      ? ( t: number ) => Math.min(supraAlto(t),
+        teraAlto(ax + ndx * longo * t, az + ndz * longo * t) - PONT_TERA_PROFUNDECO)
+      : undefined);
   const formo = new THREE.Shape();
-  formo.moveTo(0, suproDe(0));
-  formo.lineTo(0, sube(0));
-  const subajPunktoj = 0o40;
-  for ( let i = 1; i <= subajPunktoj; i++ ) {
-    const z = longo * i / subajPunktoj;
-    formo.lineTo(z, sube(z));
+  formo.moveTo(0, malsupraAlto(0));
+  for ( let i = 1; i <= pasxoj; i++ ) {
+    const t = i / pasxoj;
+    formo.lineTo(longo * t, malsupraAlto(t));
   }
-  formo.lineTo(longo, suproDe(longo));
-  // ⟨ កំពូលអង់ដេស៊ីតដើរតាមផ្ទៃស្ពាន ៖ មិនមែនខ្សែត្រង់រវាងចុងទាំងពីរទេ ។
-  // បើវាត្រង់ វាឡើងលើសផ្លូវនៅកណ្តាលធ្នូ ។ 📃 ⟩
-  for ( let i = subajPunktoj - 1; i >= 1; i-- ) {
-    const z = longo * i / subajPunktoj;
-    formo.lineTo(z, suproDe(z));
+  for ( let i = pasxoj; i >= 0; i-- ) {
+    const t = i / pasxoj;
+    formo.lineTo(longo * t, supraAlto(t));
   }
   formo.closePath();
-  const arkaGeometrio = new THREE.ExtrudeGeometry(formo, { depth: masaDuono * 2, bevelEnabled: false });
-  arkaGeometrio.rotateY(-Math.PI / 2);
-  arkaGeometrio.translate(masaDuono, 0, 0);
-  const arkaMaso = new THREE.Mesh(arkaGeometrio, andezitaMaterialo);
-  arkaMaso.castShadow = arkaMaso.receiveShadow = true;
-  grupo.add(arkaMaso);
+
+  const kreiLonganGeometrion = ( profilo: THREE.Shape, larĝo: number, ofseto: number ): THREE.ExtrudeGeometry => {
+    const geometrio = new THREE.ExtrudeGeometry(profilo, { depth: larĝo, bevelEnabled: false });
+    geometrio.rotateY(-Math.PI / 2);
+    geometrio.translate(ofseto, 0, 0);
+    return geometrio;
+  };
+
+  const grupo = new THREE.Group();
+  grupo.position.set(ax, 0, az);
+  grupo.rotation.y = Math.atan2(dx, dz);
+  if ( kernoDuono > 0o1/0o1000 ) {
+    const geometrio = kreiLonganGeometrion(formo, kernoDuono * 2, kernoDuono);
+    const maŝo = new THREE.Mesh(geometrio, andezitaMaterialo);
+    maŝo.castShadow = true;
+    maŝo.receiveShadow = true;
+    grupo.add(maŝo);
+  }
+
+  // ⟨ អង់ដេស៊ីតគ្របជញ្ជាំងឈរនៅគែមផ្លូវ ៖ បាតរបស់វាក៏កោងឡើងតាមធ្នូដែរ ។ 📃 ⟩
+  const fasado = new THREE.Shape();
+  fasado.moveTo(0, malsupraAlto(0));
+  for ( let i = 1; i <= pasxoj; i++ ) {
+    const t = i / pasxoj;
+    fasado.lineTo(longo * t, malsupraAlto(t));
+  }
+  for ( let i = pasxoj; i >= 0; i-- ) {
+    const t = i / pasxoj;
+    fasado.lineTo(longo * t, deko(t) + 0o1/0o200);
+  }
+  fasado.closePath();
+  for ( const ofseto of [ duono, -kernoDuono ] ) {
+    const fasadaGeometrio = kreiLonganGeometrion(fasado, fasadaLarĝo, ofseto);
+    const fasadaMaŝo = new THREE.Mesh(fasadaGeometrio, andezitaMaterialo);
+    fasadaMaŝo.castShadow = true;
+    fasadaMaŝo.receiveShadow = true;
+    grupo.add(fasadaMaŝo);
+  }
   sceno.add(grupo);
 }

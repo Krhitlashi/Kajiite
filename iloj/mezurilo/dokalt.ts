@@ -1,17 +1,15 @@
 // ≺⧼ ការវាស់កម្ពស់ចំណត 🧪 ⧽≻
 import * as THREE from "three";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
-import { kreiStuparanAlton, kreiStuparajnPunktojn,
-  STUPA_RISERO_DOKA } from "../../eskekoj/medio/doko/stuparo.js";
+import { kreiStuparanAlton, kreiStuparajnPunktojn } from "../../eskekoj/medio/doko/stuparo.js";
 import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
 import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
 import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { plataAltoj, vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
-import { VOJA_EKSTERA_DUONO, KORNA_R, VOJA_BORDA_LARĜO,
-  VOJA_SUPRO_LEVIGXO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { surGrid, STUPA_RISERO, VOJA_SUPRO_LEVIGXO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { pontaFinAlto } from "./komunaj.js";
 
 const sceno = new THREE.Scene();
 const diorito = kreiDioritanMaterialon(new THREE.Texture());
@@ -20,28 +18,6 @@ const DOKOJ = aktivajDokoj();
 const VOJOJ = aktivajVojoj();
 const retaj = VOJOJ.filter(v => v.punktoj.length >= 2).map(v => ({ punktoj: v.punktoj, larĝo: v.larĝo }));
 const kunigoj = troviVojaRetajnKunigojn(retaj, DOKOJ);
-
-// ⟨ ដូច urbo.ts ៖ កម្ពស់ចានភ្ជាប់ 📃 ⟩
-function vojaSupro( x: number, z: number, larĝo: number ): number {
-  const duon = larĝo / 4 + VOJA_BORDA_LARĜO;
-  let maks = alteco(x, z);
-  for ( let i = 0; i < 0o10; i++ ) {
-    const ang = i * Math.PI / 4;
-    maks = Math.max(maks, alteco(x + Math.cos(ang) * duon, z + Math.sin(ang) * duon));
-  }
-  return maks + VOJA_SUPRO_LEVIGXO;
-}
-function pontaFinAlto( x: number, z: number, larĝo: number ): number {
-  let plejProksima = null, plejMallonga = Infinity;
-  for ( const k of kunigoj ) {
-    const d = Math.hypot(k.x - x, k.z - z);
-    if ( d < plejMallonga ) { plejMallonga = d; plejProksima = k; }
-  }
-  if ( plejProksima && plejMallonga < VOJA_EKSTERA_DUONO + KORNA_R )
-    return vojaSuproDeKunigo(plejProksima.x, plejProksima.z, plejProksima.direktaj,
-      VOJA_EKSTERA_DUONO, alteco).supro;
-  return vojaSupro(x, z, larĝo);
-}
 
 for ( const d of DOKOJ ) {
   const rot = d.rotacio ?? 0;
@@ -56,19 +32,17 @@ for ( const d of DOKOJ ) {
     akvo: +akvaNivelo(d.x, d.z).toFixed(4),
   });
   if ( doko.stuparajPunktoj.length < 2 ) continue;
-  const starto = pontaFinAlto(landaX, landaZ, doko.platformWidth);
+  const starto = surGrid(pontaFinAlto(landaX, landaZ, doko.platformWidth, kunigoj));
   const falto = starto - doko.landejaY;
-  const nombro = Math.max(1, Math.round(falto / STUPA_RISERO_DOKA));
-  const risero = falto / nombro;
+  const nombro = Math.max(1, Math.round(falto / STUPA_RISERO));
   const punktoj = kreiStuparajnPunktojn(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro);
   const trunko = Math.hypot(punktoj[0][0] - punktoj[nombro][0], punktoj[0][1] - punktoj[nombro][1]);
   console.log("  starto " + starto.toFixed(4) + " , falto " + falto.toFixed(4) +
-    " , nombro " + nombro + " , risero " + risero.toFixed(5) +
+    " , nombro " + nombro + " , risero " + STUPA_RISERO.toFixed(5) +
     " , paso " + ( trunko / nombro ).toFixed(5) );
   vojSuprajxoj.length = 0;
   konstruiVojojn(sceno, [ { pts: punktoj, w: doko.platformWidth, stuparo: true,
-    stuparaRisero: risero,
-    heightFn: kreiStuparanAlton(punktoj, starto - risero - VOJA_SUPRO_LEVIGXO, risero) } ],
+    heightFn: kreiStuparanAlton(punktoj, starto - STUPA_RISERO - VOJA_SUPRO_LEVIGXO) } ],
     alteco, diorito, andezito, []);
   const surfacoj = vojSuprajxoj.map(s => s.y0);
   const saltoj: number[] = [];
@@ -80,8 +54,7 @@ for ( const d of DOKOJ ) {
   // ⟨ ជាមួយរន្ធភ្ជាប់ពិត ៖ ចានភ្ជាប់កាត់ជំហានខាងលើឬអត់ 📃 ⟩
   vojSuprajxoj.length = 0;
   konstruiVojojn(sceno, [ { pts: punktoj, w: doko.platformWidth, stuparo: true,
-    stuparaRisero: risero,
-    heightFn: kreiStuparanAlton(punktoj, starto - risero - VOJA_SUPRO_LEVIGXO, risero) } ],
+    heightFn: kreiStuparanAlton(punktoj, starto - STUPA_RISERO - VOJA_SUPRO_LEVIGXO) } ],
     alteco, diorito, andezito, kunigoj.map(k => [ k.x, k.z ] as [ number, number ]));
   const kunSurfacoj = vojSuprajxoj.map(s => s.y0);
   console.log("  ជាមួយរន្ធ " + kunSurfacoj.length + " , លើគេ " +

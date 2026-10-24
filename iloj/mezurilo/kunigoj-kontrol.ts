@@ -6,9 +6,10 @@ import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
 import { konstruiIntersekcajnPlatojn } from "../../eskekoj/medio/vojoj/platoj.js";
-import { VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, KORNA_R, VOJA_BORDA_LARĜO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, KORNA_R, VOJA_BORDA_LARĜO,
+  STUPA_RISERO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { PONT_AKVA_KLARANCO } from "../../eskekoj/medio/doko/ponto.js";
-import { kreiStuparajnPunktojn, kreiStuparanAlton, STUPA_RISERO_DOKA } from "../../eskekoj/medio/doko/stuparo.js";
+import { kreiStuparajnPunktojn, kreiStuparanAlton } from "../../eskekoj/medio/doko/stuparo.js";
 import { konstruiPontanProfilon, havasAkvanTrunkon, kreiPontanAkvanTeston } from "../../kantaoj/mondo/urbo/ponto-profilo.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
 import { konstruiKradanUrbon } from "../../kantaoj/mondo/urbo/krada-urbo.js";
@@ -23,9 +24,6 @@ const kunigoPunktoj = kunigoj.map(k => [ k.x, k.z ] as [ number, number ]);
 const kunigoRotacioj = new Map(kunigoj.map(k => [ k.x + "," + k.z, k.rotacio ]));
 const kunigoDirektoj = new Map(kunigoj.map(k => [ k.x + "," + k.z, k.direktaj ]));
 const kunigoFermitaj = new Map(kunigoj.map(k => [ k.x + "," + k.z, k.fermitaj ]));
-const kunigoAltoj = kunigoj.map(k => ({ x: k.x, z: k.z,
-  alto: vojaSuproDeKunigo(k.x, k.z, k.direktaj, VOJA_EKSTERA_DUONO, alteco).supro }));
-const altojDeKunigo = new Map<string, number>();
 
 function vojaSupro(x: number, z: number, larĝo: number): number {
   const duon = larĝo / 4 + VOJA_BORDA_LARĜO;
@@ -78,7 +76,7 @@ for ( const vojo of VOJOJ ) {
       if ( !cxuPontaAkvo(x, z) ) return -Infinity;
       return akvaNivelo(x, z) + PONT_AKVA_KLARANCO;
     };
-    const profilo = konstruiPontanProfilon( vojo.punktoj, pontoLarĝo, vojaSupro, akvaSupro, pontaFinAlto, 0o2/0o10 );
+    const profilo = konstruiPontanProfilon( vojo.punktoj, pontoLarĝo, vojaSupro, akvaSupro, pontaFinAlto );
     heightFn = ( x, z ) => profilo.alto(x, z) - VOJA_SUPRO_LEVIGXO;
     glata = true;
   }
@@ -91,20 +89,20 @@ for ( const D of DOKOJ ) {
   const rotacio = D.rotacio ?? 0;
   const landaX = D.x + Math.sin( rotacio ) * ( D.profundo / 2 );
   const landaZ = D.z + Math.cos( rotacio ) * ( D.profundo / 2 );
-  const starto = pontaFinAlto( landaX, landaZ, doko.platformWidth );
+  const starto = surGrid( pontaFinAlto( landaX, landaZ, doko.platformWidth ) );
   const falto = starto - doko.landejaY;
-  if ( falto <= STUPA_RISERO_DOKA * 0o1/0o2 ) continue;
-  const nombro = Math.max( 1, Math.round( falto / STUPA_RISERO_DOKA ) );
-  const risero = falto / nombro;
+  if ( falto <= STUPA_RISERO * 0o1/0o2 ) continue;
+  const nombro = Math.max( 1, Math.round( falto / STUPA_RISERO ) );
   const punktoj = kreiStuparajnPunktojn( doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro );
-  vojDifinoj.push( { pts: punktoj, w: doko.platformWidth, stuparo: true, stuparaRisero: risero,
-    heightFn: kreiStuparanAlton( punktoj, starto - risero - VOJA_SUPRO_LEVIGXO, risero ), grundoFn: alteco } );
+  vojDifinoj.push( { pts: punktoj, w: doko.platformWidth, stuparo: true,
+    heightFn: kreiStuparanAlton( punktoj, starto - STUPA_RISERO - VOJA_SUPRO_LEVIGXO ),
+    grundoFn: alteco } );
 }
 const ĉiujKunigoj = [ ...kradajKunigoj, ...kunigoPunktoj ];
 konstruiVojojn( sceno, [ ...kradajDifinoj, ...vojDifinoj ], alteco, dioritaMaterialo, andezitaMaterialo, ĉiujKunigoj,
-  { akvaFn: akvaFino, kunigoAltoj, altojDeKunigo } );
+  { akvaFn: akvaFino } );
 konstruiIntersekcajnPlatojn( sceno, ĉiujKunigoj, alteco, dioritaMaterialo, andezitaMaterialo,
-  kunigoFermitaj, kunigoRotacioj, kunigoDirektoj, kunigoAltoj, altojDeKunigo );
+  kunigoFermitaj, kunigoRotacioj, kunigoDirektoj );
 
 // ⟨ ស្ក្សាប់ ៖ រកចន្លោះនៃចានភ្ជាប់ក្រោមផ្លូវ ។ 📃 ⟩
 const rc = new THREE.Raycaster();

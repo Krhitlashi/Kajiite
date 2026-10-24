@@ -2,11 +2,10 @@
 // ⟨ មើលថាតើផ្លូវឆ្លងទឹកទាំងអស់ក្លាយជាស្ពាន , ផ្ទៃស្ពានផុតទឹក ,
 // ស្ពានរត់តាមបន្ទាត់ផ្លូវ , និងគ្មានជំហានលោតធំតាមបណ្តោយផ្លូវ ។ 📃 ⟩
 import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
-import { alteco, skulptitaAkvo, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
+import { alteco, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { plataAltoj, vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
-import { VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, KORNA_R, VOJA_BORDA_LARĜO } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { PONT_AKVA_KLARANCO } from "../../eskekoj/medio/doko/ponto.js";
+import { cxuVeraAkvo, pontaFinAlto, vojaSupro } from "./komunaj.js";
 import { konstruiPontanProfilon, havasAkvanTrunkon,
   kreiPontanAkvanTeston } from "../../kantaoj/mondo/urbo/ponto-profilo.js";
 
@@ -16,33 +15,6 @@ console.log("vojoj", VOJOJ.length, "dokoj", DOKOJ.length);
 
 const retaj = VOJOJ.filter(v => v.punktoj.length >= 2).map(v => ({ punktoj: v.punktoj, larĝo: v.larĝo }));
 const kunigoj = troviVojaRetajnKunigojn(retaj, DOKOJ);
-
-function vojaSupro(x: number, z: number, larĝo: number): number {
-  const duon = larĝo / 4 + VOJA_BORDA_LARĜO;
-  let maks = alteco(x, z);
-  for (let i = 0; i < 8; i++) {
-    const ang = i * Math.PI / 4;
-    maks = Math.max(maks, alteco(x + Math.cos(ang) * duon, z + Math.sin(ang) * duon));
-  }
-  return maks + VOJA_SUPRO_LEVIGXO;
-}
-
-function pontaFinAlto(x: number, z: number, larĝo: number): number {
-  let plejProksima = null as null | { x: number; z: number; direktaj: [ number, number ][] };
-  let plejMallonga = Infinity;
-  for (const k of kunigoj) {
-    const d = Math.hypot(k.x - x, k.z - z);
-    if (d < plejMallonga) { plejMallonga = d; plejProksima = k; }
-  }
-  if (plejProksima && plejMallonga < VOJA_EKSTERA_DUONO + KORNA_R)
-    return vojaSuproDeKunigo(plejProksima.x, plejProksima.z, plejProksima.direktaj,
-      VOJA_EKSTERA_DUONO, alteco).supro;
-  return vojaSupro(x, z, larĝo);
-}
-
-// ⟨ ទឹកសម្រាប់ស្ពាន ៖ តែងាលើដី និងលាតលើសទទឹងផ្លូវទាំងមូល 📃 ⟩
-const cxuVeraAkvo = (x: number, z: number) =>
-  skulptitaAkvo(x, z) && alteco(x, z) < akvaNivelo(x, z) - 1 / 200;
 
 let pontoNombro = 0, trakNombro = 0, difektoj = 0;
 for (let v = 0; v < VOJOJ.length; v++) {
@@ -55,7 +27,8 @@ for (let v = 0; v < VOJOJ.length; v++) {
   pontoNombro++;
   const akvaSupro = (x: number, z: number) =>
     cxuPontaAkvo(x, z) ? akvaNivelo(x, z) + PONT_AKVA_KLARANCO : -Infinity;
-  const profilo = konstruiPontanProfilon(vojo.punktoj, w, vojaSupro, akvaSupro, pontaFinAlto, 2 / 8);
+  const profilo = konstruiPontanProfilon(vojo.punktoj, w, vojaSupro,
+    akvaSupro, ( x, z, larĝo ) => pontaFinAlto(x, z, larĝo, kunigoj));
   // ⟨ ជម្រាលតាមបណ្តោយផ្លូវ 📃 ⟩
   let maksSalto = 0, saltoLoko = 0;
   let antaŭa = profilo.alto(vojo.punktoj[0][0], vojo.punktoj[0][1]);

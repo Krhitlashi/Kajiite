@@ -11,7 +11,7 @@ import { aplikiSuperojn } from "../krado/superoj.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "../krado/tipoj.js";
 import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 import { riveroZ, alteco, akvo } from "../tereno.js";
-import { kreiLampAldonilon } from "./lampoj.js";
+import { kreiKvarLampAldonilon, kreiLampAldonilon, type LampLoko } from "./lampoj.js";
 
 export interface KradaUrbaRezulto {
   konstruSpecoj: KonstruSpec[];
@@ -23,7 +23,7 @@ export interface KradaUrbaRezulto {
   vojDifinoj: VojDifino[];
   kunigajPunktoj: [ number, number ][];
   kunigajFermitaj: Map<string, [ number, number ]>;
-  lampLokoj: { x: number; z: number; y: number; rotacio?: number }[];
+  lampLokoj: LampLoko[];
   keuxfhxesoLokoj: KeuxfhxesoLoko[];
   staciaPozicio: [ number, number ];
   ringoX: number;
@@ -319,27 +319,22 @@ export function konstruiKradanUrbon(
   // ⟨ បណ្តាញមួយ ការសាងសង់មួយ 📃 ⟩
 
   // ⟪ ចង្កៀង ( ផ្នែកក្រឡា ) 📃 ⟫
-  const lampLokoj: { x: number; z: number; y: number; rotacio?: number }[] = [];
+  const lampLokoj: LampLoko[] = [];
   const addLamp = kreiLampAldonilon(konstruSpecoj, lampLokoj);
+  const addLampGroup = kreiKvarLampAldonilon(addLamp, lampLokoj);
   if ( arangxo.lampoj !== false ) {
     for ( const [ aX, aZ ] of placajNodoj ) {
-      for ( const [ dx, dz ] of [ [ -0o21/0o10, -0o21/0o10 ], [ 0o21/0o10, -0o21/0o10 ], [ -0o21/0o10, 0o21/0o10 ], [ 0o21/0o10, 0o21/0o10 ] ] ) addLamp(aX + dx, aZ + dz);
+      addLampGroup(aX, aZ, 0o21/0o10);
     }
     for ( const gx of RETO_X ) {
       for ( const gz of RETO_Z ) {
         if ( Math.abs(gz - riveroZ(gx)) < 0o14 ) continue;
         if ( !realajIntersekcoj.has(gx + "," + gz) ) continue;
-        addLamp(gx + 0o23/0o10, gz + 0o23/0o10);
-        addLamp(gx + 0o23/0o10, gz - 0o23/0o10);
-        addLamp(gx - 0o23/0o10, gz + 0o23/0o10);
-        addLamp(gx - 0o23/0o10, gz - 0o23/0o10);
+        addLampGroup(gx, gz, 0o23/0o10);
       }
     }
     for ( const a of arkajNodoj ) {
-      addLamp(a.x + 0o23/0o10, a.z + 0o23/0o10);
-      addLamp(a.x + 0o23/0o10, a.z - 0o23/0o10);
-      addLamp(a.x - 0o23/0o10, a.z + 0o23/0o10);
-      addLamp(a.x - 0o23/0o10, a.z - 0o23/0o10);
+      addLampGroup(a.x, a.z, 0o23/0o10);
     }
   }
 

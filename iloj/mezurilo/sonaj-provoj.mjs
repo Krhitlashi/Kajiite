@@ -1,0 +1,860 @@
+//#region kantaoj/lingvo/sonaj-reguloj.ts
+const KOMENCAĴ = [
+	[
+		"ᶅſ",
+		"w",
+		"ⱱ̥"
+	],
+	[
+		"ſן",
+		"p",
+		"p"
+	],
+	[
+		"ſȷ",
+		"f",
+		"ɸ"
+	],
+	[
+		"ʃ",
+		"b",
+		"ɸˠ"
+	],
+	[
+		"ŋᷠ",
+		"m",
+		"m̥"
+	],
+	[
+		"ɽ͑ʃ'",
+		"r",
+		"ɾ̪̥"
+	],
+	[
+		"j͑ʃ'",
+		"v",
+		"θ"
+	],
+	[
+		"ɭʃ",
+		"t",
+		"t"
+	],
+	[
+		"ɭ(",
+		"d",
+		"s̪"
+	],
+	[
+		"ſᶘ",
+		"1",
+		"ts"
+	],
+	[
+		"j͑ʃ",
+		"s",
+		"s"
+	],
+	[
+		"}ʃ",
+		"n",
+		"n̥"
+	],
+	[
+		"ſ̀ȷ",
+		"3",
+		"tɬ"
+	],
+	[
+		"j͐ʃ",
+		"l",
+		"ɬ"
+	],
+	[
+		"ſɭˬ",
+		"5",
+		"kʂ"
+	],
+	[
+		"ſɭ,",
+		"z",
+		"ʂ"
+	],
+	[
+		"ɭl̀",
+		"j",
+		"ɟ̥̆"
+	],
+	[
+		"ſɟ",
+		"c",
+		"c"
+	],
+	[
+		"ı],",
+		"x",
+		"ç"
+	],
+	[
+		"ſ͕ȷ",
+		"y",
+		"ɲ̥"
+	],
+	[
+		"ſ͔ɭ",
+		"g",
+		"xʲ"
+	],
+	[
+		"ſɭ",
+		"k",
+		"k"
+	],
+	[
+		"֭ſɭ",
+		"h",
+		"x"
+	],
+	[
+		"ſ͕ɭ",
+		"q",
+		"ŋ̥"
+	],
+	[
+		"ȏſן",
+		"p'",
+		"ʘ"
+	],
+	[
+		"ȏɭʃ'",
+		"v'",
+		"ǀ"
+	],
+	[
+		"ȏſ̀ȷ",
+		"l'",
+		"ǁ"
+	],
+	[
+		"ȏſɟ",
+		"c'",
+		"ǂ"
+	],
+	[
+		"ȏɭʃ",
+		"t'",
+		"ǃ"
+	],
+	[
+		"ȏŋᷠ",
+		"m'",
+		"ʘ̃"
+	],
+	[
+		"ȏ}ʃ'",
+		"nv'",
+		"ǀ̃"
+	],
+	[
+		"ȏoͩſ̀ȷ",
+		"nl'",
+		"ǁ̃"
+	],
+	[
+		"ȏſ͕ȷ",
+		"y'",
+		"ǂ̃"
+	],
+	[
+		"ȏ}ʃ",
+		"n'",
+		"ǃ̃"
+	],
+	[
+		"ꞁȷ̀",
+		"",
+		""
+	],
+	[
+		"⺓",
+		"piise",
+		"pɪ̈sɛ"
+	]
+];
+const INTERNAĴ = [
+	[
+		"п́",
+		"w",
+		"ⱱ̥"
+	],
+	[
+		"ɘ",
+		"p",
+		"p"
+	],
+	[
+		"ʞ",
+		"f",
+		"ɸ"
+	],
+	[
+		"ɀ",
+		"b",
+		"ɸˠ"
+	],
+	[
+		"c̭",
+		"m",
+		"m̥"
+	],
+	[
+		"ƣ̋",
+		"r",
+		"ɾ̪̥"
+	],
+	[
+		"ⰱ",
+		"v",
+		"θ"
+	],
+	[
+		"ƨ",
+		"t",
+		"t"
+	],
+	[
+		"ԏ͕",
+		"d",
+		"s̪"
+	],
+	[
+		"ꝛ̗",
+		"1",
+		"ts"
+	],
+	[
+		"ɔ˞",
+		"s",
+		"s"
+	],
+	[
+		"c̗",
+		"n",
+		"n̥"
+	],
+	[
+		"ŋ",
+		"3",
+		"tɬ"
+	],
+	[
+		"ͷ̗",
+		"l",
+		"ɬ"
+	],
+	[
+		"ɯ",
+		"5",
+		"kʂ"
+	],
+	[
+		"ƴ",
+		"z",
+		"ʂ"
+	],
+	[
+		"ᴎ",
+		"j",
+		"ɟ̥̆"
+	],
+	[
+		"ᴜ̭",
+		"c",
+		"c"
+	],
+	[
+		"ᶗ‹",
+		"x",
+		"ç"
+	],
+	[
+		"ⱷ̮̀",
+		"y",
+		"ɲ̥"
+	],
+	[
+		"ɴ",
+		"g",
+		"xʲ"
+	],
+	[
+		"ƽ",
+		"k",
+		"k"
+	],
+	[
+		"ᴜ̩",
+		"h",
+		"x"
+	],
+	[
+		"ȝ",
+		"q",
+		"ŋ̥"
+	],
+	[
+		"ɘȏ",
+		"p'",
+		"ʘ"
+	],
+	[
+		"ⱷ᷐ȏ",
+		"v'",
+		"ǀ"
+	],
+	[
+		"ŋȏ",
+		"l'",
+		"ǁ"
+	],
+	[
+		"ᴜ̭ȏ",
+		"c'",
+		"ǂ"
+	],
+	[
+		"ƨȏ",
+		"t'",
+		"ǃ"
+	],
+	[
+		"c̭ȏ",
+		"m'",
+		"ʘ̃"
+	],
+	[
+		"c̏ȏ",
+		"nv'",
+		"ǀ̃"
+	],
+	[
+		"ŋoͩȏ",
+		"nl'",
+		"ǁ̃"
+	],
+	[
+		"ⱷ̮̀ȏ",
+		"y'",
+		"ǂ̃"
+	],
+	[
+		"c̗ȏ",
+		"n'",
+		"ǃ̃"
+	],
+	[
+		"ꞇ",
+		"i",
+		"i"
+	],
+	[
+		"ɔ",
+		"e",
+		"ɛ"
+	],
+	[
+		"ᴜ",
+		"a",
+		"a"
+	],
+	[
+		"w",
+		"u",
+		"ə"
+	],
+	[
+		"ɹ",
+		"2",
+		"ɪ̈"
+	],
+	[
+		"ɜ",
+		"o",
+		"ɤ"
+	],
+	[
+		"э",
+		"6",
+		"ɑ"
+	],
+	[
+		"ɔⅎ",
+		"0",
+		"ɛ̃"
+	],
+	[
+		"ɜⅎ",
+		"7",
+		"ɤ̃"
+	],
+	[
+		"эⅎ",
+		"4",
+		"ɑ̃"
+	],
+	[
+		"ᴜꞇ",
+		"ai",
+		"ə"
+	]
+];
+const NUMERA = {
+	ts: "1",
+	ii: "2",
+	tl: "3",
+	au: "4",
+	kz: "5",
+	aa: "6",
+	ou: "7",
+	eu: "0"
+};
+const NUMERA_REV = {};
+for (const [v, k] of Object.entries(NUMERA)) NUMERA_REV[k] = v;
+const ĈIUJ_IPA = Array.from(new Set([...KOMENCAĴ, ...INTERNAĴ].map(([, , ipa]) => ipa).filter(Boolean))).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
+const ĈIUJ_GK = Array.from(new Set([...KOMENCAĴ, ...INTERNAĴ].map(([gk]) => gk).filter(Boolean))).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
+function avideKongruigi(teksto, tokenaListo) {
+	const ĵetonoj = [];
+	let i = 0;
+	while (i < teksto.length) {
+		let trovita = false;
+		for (const t of tokenaListo) if (teksto.startsWith(t, i)) {
+			ĵetonoj.push(t);
+			i += t.length;
+			trovita = true;
+			break;
+		}
+		if (!trovita) {
+			ĵetonoj.push(teksto[i]);
+			i++;
+		}
+	}
+	return ĵetonoj;
+}
+const MAPO_EO = {
+	"ⱱ̥": "v",
+	"p": "p",
+	"ɸ": "f",
+	"ɸˠ": "fĥ",
+	"m̥": "m",
+	"ɾ̪̥": "r",
+	"θ": "z",
+	"t": "t",
+	"s̪": "sh",
+	"ts": "c",
+	"s": "s",
+	"n̥": "n",
+	"tɬ": "tl",
+	"ɬ": "l",
+	"kʂ": "kr",
+	"ʂ": "ĝ",
+	"ɟ̥̆": "j",
+	"c": "ĉ",
+	"ç": "ŝ",
+	"ɲ̥": "nj",
+	"xʲ": "ĥj",
+	"k": "k",
+	"x": "ĥ",
+	"ŋ̥": "nk",
+	"ʘ": "p",
+	"ǀ": "t",
+	"ǁ": "kl",
+	"ǂ": "ĉ",
+	"ǃ": "t",
+	"ʘ̃": "mp",
+	"ǀ̃": "nt",
+	"ǁ̃": "nkl",
+	"ǂ̃": "nĉ",
+	"ǃ̃": "nt",
+	"i": "i",
+	"ɛ": "e",
+	"a": "a",
+	"ə": "eŭ",
+	"ɪ̈": "u",
+	"ɤ": "o",
+	"ɑ": "aŭ",
+	"ɛ̃": "en",
+	"ɤ̃": "on",
+	"ɑ̃": "an",
+	"pɪ̈sɛ": "puse"
+};
+const MAPO_EN = {
+	"ⱱ̥": "w",
+	"p": "p",
+	"ɸ": "h",
+	"ɸˠ": "f",
+	"m̥": "m",
+	"ɾ̪̥": "r",
+	"θ": "th",
+	"t": "t",
+	"s̪": "s",
+	"ts": "ts",
+	"s": "s",
+	"n̥": "n",
+	"tɬ": "tl",
+	"ɬ": "lh",
+	"kʂ": "krh",
+	"ʂ": "rh",
+	"ɟ̥̆": "y",
+	"c": "ch",
+	"ç": "sh",
+	"ɲ̥": "ny",
+	"xʲ": "hy",
+	"k": "k",
+	"x": "kh",
+	"ŋ̥": "ng",
+	"ʘ": "p",
+	"ǀ": "tsk",
+	"ǁ": "kl",
+	"ǂ": "k",
+	"ǃ": "t",
+	"ʘ̃": "mp",
+	"ǀ̃": "ntsk",
+	"ǁ̃": "nkl",
+	"ǂ̃": "nk",
+	"ǃ̃": "nt",
+	"i": "i",
+	"ɛ": "e",
+	"a": "a",
+	"ə": "uh",
+	"ɪ̈": "ih",
+	"ɤ": "o",
+	"ɑ": "aw",
+	"ɛ̃": "en",
+	"ɤ̃": "on",
+	"ɑ̃": "an",
+	"pɪ̈sɛ": "pisseh"
+};
+const LINGVAJ_MAPOJ = {
+	eo: MAPO_EO,
+	en: MAPO_EN,
+	ja: {
+		"ⱱ̥": "ワ",
+		"p": "プ",
+		"ɸ": "フ",
+		"ɸˠ": "フ",
+		"m̥": "ム",
+		"ɾ̪̥": "ル",
+		"θ": "ス",
+		"t": "ト",
+		"s̪": "ス",
+		"ts": "ツ",
+		"s": "ス",
+		"n̥": "ヌン",
+		"tɬ": "トル",
+		"ɬ": "ラ",
+		"kʂ": "クル",
+		"ʂ": "シ",
+		"ɟ̥̆": "ユ",
+		"c": "チ",
+		"ç": "シ",
+		"ɲ̥": "ニュ",
+		"xʲ": "ヒ",
+		"k": "ク",
+		"x": "ホ",
+		"ŋ̥": "ン",
+		"ʘ": "プ",
+		"ǀ": "ツ",
+		"ǁ": "クル",
+		"ǂ": "ク",
+		"ǃ": "ト",
+		"ʘ̃": "ンプ",
+		"ǀ̃": "ンツ",
+		"ǁ̃": "ンクル",
+		"ǂ̃": "ンク",
+		"ǃ̃": "ント",
+		"i": "イ",
+		"ɛ": "エ",
+		"a": "ア",
+		"ə": "ア",
+		"ɪ̈": "ウ",
+		"ɤ": "オ",
+		"ɑ": "アー",
+		"ɛ̃": "エン",
+		"ɤ̃": "オン",
+		"ɑ̃": "アン",
+		"pɪ̈sɛ": "プセ"
+	},
+	km: {
+		"ⱱ̥": "វ",
+		"p": "ព",
+		"ɸ": "ផ",
+		"ɸˠ": "ភ",
+		"m̥": "ម",
+		"ɾ̪̥": "រ",
+		"θ": "ថ",
+		"t": "ត",
+		"s̪": "ស្ស",
+		"ts": "ត្ស",
+		"s": "ស",
+		"n̥": "ន",
+		"tɬ": "ត្ល",
+		"ɬ": "ល",
+		"kʂ": "ក្រ",
+		"ʂ": "ហ្រ",
+		"ɟ̥̆": "យ",
+		"c": "ច",
+		"ç": "ឆ",
+		"ɲ̥": "ញ",
+		"xʲ": "ខ",
+		"k": "ក",
+		"x": "ហ",
+		"ŋ̥": "ង",
+		"ʘ": "ប",
+		"ǀ": "ទ្ស",
+		"ǁ": "គ្ល",
+		"ǂ": "ជ",
+		"ǃ": "ទ",
+		"ʘ̃": "ម្ប",
+		"ǀ̃": "ញ្ជ",
+		"ǁ̃": "ង្ល",
+		"ǂ̃": "ង្ជ",
+		"ǃ̃": "ន្ទ",
+		"i": "ី",
+		"ɛ": "េ",
+		"a": "ា",
+		"ə": "ឺ",
+		"ɪ̈": "ិ",
+		"ɤ": "ុ",
+		"ɑ": "៏",
+		"ɛ̃": "េំ",
+		"ɤ̃": "ុំ",
+		"ɑ̃": "ំ",
+		"pɪ̈sɛ": "ពឺសេ"
+	}
+};
+const JA_GOJŪON = {
+	k: {
+		a: "カ",
+		i: "キ",
+		ɛ: "ケ",
+		ɤ: "コ"
+	},
+	s: {
+		a: "サ",
+		i: "シ",
+		ɛ: "セ",
+		ɤ: "ソ"
+	},
+	t: {
+		a: "タ",
+		i: "チ",
+		ɛ: "テ",
+		ɤ: "ト"
+	},
+	n: {
+		a: "ナ",
+		i: "ニ",
+		ɛ: "ネ",
+		ɤ: "ノ"
+	},
+	h: {
+		a: "ハ",
+		i: "ヒ",
+		ɛ: "ヘ",
+		ɤ: "ホ"
+	},
+	m: {
+		a: "マ",
+		i: "ミ",
+		ɛ: "メ",
+		ɤ: "モ"
+	},
+	y: {
+		a: "ヤ",
+		i: "イ",
+		ɛ: "イェ",
+		ɤ: "ヨ"
+	},
+	r: {
+		a: "ラ",
+		i: "リ",
+		ɛ: "レ",
+		ɤ: "ロ"
+	},
+	w: {
+		a: "ワ",
+		i: "ウィ",
+		ɛ: "ウェ",
+		ɤ: "ウオ"
+	},
+	p: {
+		a: "パ",
+		i: "ピ",
+		ɛ: "ペ",
+		ɤ: "ポ"
+	}
+};
+const JA_KONSONANTAJ_RULEROJ = {
+	k: ["gojūon", "k"],
+	c: ["yōon", "チ"],
+	t: ["gojūon", "t"],
+	ɸ: ["foreign", "フ"],
+	x: ["gojūon", "h"],
+	ç: ["yōon", "シ"],
+	m: ["gojūon", "m"],
+	m̥: ["gojūon", "m"],
+	s: ["gojūon", "s"],
+	n: ["gojūon", "n"],
+	n̥: ["gojūon", "n"],
+	ɬ: ["gojūon", "r"],
+	ɟ̥̆: ["gojūon", "y"],
+	ⱱ̥: ["gojūon", "w"],
+	xʲ: ["yōon", "ヒ"],
+	p: ["gojūon", "p"],
+	θ: ["gojūon", "s"],
+	kʂ: ["kʂ", "ク"],
+	ts: ["foreign", "ツ"],
+	ɾ̪̥: ["gojūon", "r"],
+	ɲ̥: ["yōon", "ニ"],
+	tɬ: ["tɬ", "ト"]
+};
+function katakanaVico(rulo) {
+	const [speco, bazo] = rulo;
+	let vico;
+	if (speco === "gojūon") vico = { ...JA_GOJŪON[bazo] };
+	else if (speco === "yōon") vico = {
+		a: bazo + "ャ",
+		i: bazo,
+		ɛ: bazo + "ェ",
+		ɤ: bazo + "ョ"
+	};
+	else if (speco === "foreign") vico = {
+		a: bazo + "ァ",
+		i: bazo + "ィ",
+		ɛ: bazo + "ェ",
+		ɤ: bazo + "ォ"
+	};
+	else if (speco === "kʂ") vico = {
+		a: bazo + "シャ",
+		i: bazo + "シ",
+		ɛ: bazo + "シェ",
+		ɤ: bazo + "ショ"
+	};
+	else if (speco === "tɬ") vico = {
+		a: bazo + "ラ",
+		i: bazo + "リ",
+		ɛ: bazo + "レ",
+		ɤ: bazo + "ロ"
+	};
+	else vico = {};
+	vico["ɑ"] = vico["a"] + "ー";
+	return vico;
+}
+const JA_KV_KOMBOJ = {};
+for (const [kon, rulo] of Object.entries(JA_KONSONANTAJ_RULEROJ)) for (const [vokalo, kana] of Object.entries(katakanaVico(rulo))) JA_KV_KOMBOJ[kon + vokalo] = kana;
+const _JA_IPA = Array.from(/* @__PURE__ */ new Set([...ĈIUJ_IPA, ...Object.keys(JA_KV_KOMBOJ)])).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
+const ANGLAJ_VOKALOJ = /* @__PURE__ */ new Set([
+	"i",
+	"ɛ",
+	"a",
+	"ə",
+	"ɪ̈",
+	"ɤ",
+	"ɑ",
+	"ɛ̃",
+	"ɤ̃",
+	"ɑ̃"
+]);
+const ANGLAJ_MALFAVORAJ = /* @__PURE__ */ new Set([
+	"ɪ̈",
+	"ɛ",
+	"ə",
+	"ɛ̃",
+	"ɤ̃",
+	"ɑ̃"
+]);
+const ANGLAJ_GLITOJ = /* @__PURE__ */ new Set(["ɟ̥̆", "ⱱ̥"]);
+function duobligi(konsono) {
+	return konsono[0] + konsono;
+}
+/** ចម្លងសូរស័ព្ទ IPA ទៅជាភាសាអង់គ្លេសដោយច្បាប់អក្ខរាវិរុទ្ធអង់គ្លេស។ */
+function anglaKonverti(ipaaTeksto) {
+	const ĵetonoj = avideKongruigi(ipaaTeksto, ĈIUJ_IPA);
+	const n = ĵetonoj.length;
+	const eligo = ĵetonoj.map((t) => MAPO_EN[t] ?? t);
+	for (let i = 0; i < n - 2; i++) if (ANGLAJ_MALFAVORAJ.has(ĵetonoj[i]) && !ANGLAJ_VOKALOJ.has(ĵetonoj[i + 1]) && ANGLAJ_VOKALOJ.has(ĵetonoj[i + 2])) {
+		if (!ANGLAJ_GLITOJ.has(ĵetonoj[i + 1])) eligo[i + 1] = duobligi(eligo[i + 1]);
+	}
+	for (let i = 0; i < n; i++) {
+		const t = ĵetonoj[i];
+		const lakso = t === "ɪ̈" || t === "ə" || t === "ɛ";
+		if (!lakso && t !== "i") continue;
+		let j = i + 1;
+		while (j < n && !ANGLAJ_VOKALOJ.has(ĵetonoj[j])) j++;
+		const runLargho = j - i - 1;
+		const finaKon = j >= n && runLargho > 0;
+		const unuaKon = runLargho > 0 ? ĵetonoj[i + 1] : null;
+		const unuaSpel = runLargho > 0 ? eligo[i + 1] : "";
+		if (lakso) {
+			const mark = t === "ɪ̈" ? "ih" : t === "ə" ? "uh" : "eh";
+			const mallonga = t === "ɪ̈" ? "i" : t === "ə" ? "u" : "e";
+			if (finaKon && unuaKon === "k") {
+				eligo[i] = mallonga;
+				eligo[i + 1] = "ck";
+			} else if (finaKon && unuaKon === "ŋ̥") eligo[i] = mark;
+			else if (finaKon) eligo[i] = mallonga;
+			else if (unuaSpel.length >= 2) eligo[i] = mallonga;
+			else eligo[i] = mark;
+		} else if (finaKon && unuaKon === "k") eligo[i] = "ee";
+		else if (finaKon && unuaKon === "ŋ̥") eligo[i] = "i";
+		else if (finaKon) eligo[i] = "ee";
+		else if (runLargho === 1) eligo[i] = "e";
+		else eligo[i] = "i";
+	}
+	return eligo.join("");
+}
+/** ចម្លងសូរស័ព្ទ IPA ទៅភាសាគោលដៅ ( eo, en, ja, km )។ */
+function ipaAlLingvo(ipaaTeksto, lingvaKodo) {
+	if (lingvaKodo === "en") return anglaKonverti(ipaaTeksto);
+	const lingvaMapo = { ...LINGVAJ_MAPOJ[lingvaKodo] ?? {} };
+	let tokenaListo = ĈIUJ_IPA;
+	if (lingvaKodo === "ja") {
+		Object.assign(lingvaMapo, JA_KV_KOMBOJ);
+		tokenaListo = _JA_IPA;
+	}
+	const ĵetonoj = avideKongruigi(ipaaTeksto, tokenaListo);
+	const eligo = ĵetonoj.map((t) => lingvaMapo[t] ?? t);
+	if (lingvaKodo === "km" && ĵetonoj.length && ANGLAJ_VOKALOJ.has(ĵetonoj[0])) eligo.unshift("អ");
+	return eligo.join("");
+}
+/**
+* បម្លែង Gawekiif ( អក្សរដើម ) ដោយផ្ទាល់ទៅជាខ្សែអក្សរសូរស័ព្ទ IPA។
+* ចន្លោះគឺជាអ្នកបំបែកព្យាង្គក្នុងពាក្យ aih ហើយមិនផ្ទុកសំឡេងណាមួយឡើយ។
+*/
+function gkAlIpa(gkaTeksto) {
+	const densigita = gkaTeksto.replace(/\s+/g, "");
+	const ludo = {};
+	for (const [gk, , ipa] of [...KOMENCAĴ, ...INTERNAĴ]) ludo[gk] = ipa;
+	return avideKongruigi(densigita, ĈIUJ_GK).map((gk) => ludo[gk] ?? gk).join("");
+}
+//#endregion
+//#region iloj/mezurilo/sonaj-provoj.ts
+for (const [nomo, gk] of [
+	["paq0", "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ"],
+	["paq1", "ſɭᴜ ſןɹ"],
+	["paq15", "j͐ʃᴜ ŋᷠɹⰱ"],
+	["paq22", "ſɟᴜ ſᶘɔ ɭl̀ɹȝ"],
+	["tipTuro", "ſןᴜȝ ᶅſw ſɭɹ"],
+	["paq33", "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ"]
+]) {
+	const ipa = gkAlIpa(gk);
+	console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo} gk="${gk}" ipa="${ipa}"`);
+	for (const lg of [
+		"eo",
+		"en",
+		"ja",
+		"km"
+	]) console.log(`   ( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${lg} ${ipaAlLingvo(ipa, lg)}`);
+}
+//#endregion
+export {};

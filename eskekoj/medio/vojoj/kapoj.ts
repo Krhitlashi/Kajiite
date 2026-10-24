@@ -1,6 +1,6 @@
 // ≺⧼ មួកផ្លូវ 🌗 ⧽≻
 import * as THREE from "three";
-import { ANGULA_PROVOLIRO, kreiGeometriajnBufrojn, kreiVojojnMaterialojn, specimeniAngulojn } from "./bufroj.js";
+import { ANGULA_PROVOLIRO, kreiGeometriajnBufrojn, kreiVojojnMaterialojn } from "./bufroj.js";
 import { VOJA_BORDA_LARĜO } from "./mezuroj.js";
 
 // ⟨ ហេតុអ្វីថ្នាំងក្រឡាមិនទទួលមួក 📃 ⟩
@@ -47,7 +47,8 @@ export function konstruiRondajnKapojn(sceno: THREE.Scene,
   larĝoj: number[],
   heightFn: ( x: number, z: number ) => number,
   dioritaMaterialo: THREE.MeshStandardMaterial,
-  andezitaMaterialo: THREE.MeshStandardMaterial
+  andezitaMaterialo: THREE.MeshStandardMaterial,
+  grundoFn: ( x: number, z: number ) => number = heightFn
 ): void {
   if ( nodoj.length === 0 ) return;
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -4, -2, -1, -1);
@@ -60,7 +61,15 @@ export function konstruiRondajnKapojn(sceno: THREE.Scene,
     // ⟨ កាវទូនៃមួក ៖ ត្រូវស្មើគ្នានឹងទទឹងផ្លូវ ។ 📃 ⟩
     const duon = larĝoj[i] / 2;
     const ekstera = duon + VOJA_BORDA_LARĜO;
-    const minimumo = specimeniAngulojn(x, z, ekstera, ekstera, heightFn).minimumo;
+    let minimumo = grundoFn(x, z);
+    const anguloMezo = Math.atan2(dz, dx);
+    for ( const r of [ duon, ekstera ] ) {
+      for ( let k = 0; k < 0o20; k++ ) {
+        const angulo = anguloMezo - Math.PI / 0o2 + Math.PI * k / 0o20;
+        minimumo = Math.min(minimumo,
+          grundoFn(x + Math.cos(angulo) * r, z + Math.sin(angulo) * r));
+      }
+    }
     const kapDikeco = supraY - ( minimumo - ANGULA_PROVOLIRO );
     const y = supraY - kapDikeco;
     bufroj.aldoni(kreiRondanKapGeometrion(duon, ekstera, kapDikeco, dx, dz), bordaMaterialo, new THREE.Matrix4().makeTranslation(x, y, z));

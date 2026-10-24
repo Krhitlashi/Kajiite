@@ -110,9 +110,12 @@ function aplikiSkakefanon(lingvo: string): void {
     el.textContent = lingvo.toUpperCase();
   });
   try { localStorage.setItem("aranis-lingvo", lingvo); } catch { /* private browsing */ }
+  // ⟨ ភាសាដើមមិនបានសរសេរក្នុង URL ទេ ៖ `lang=` បង្ហាញតែពេលអ្នកប្រើជ្រើសភាសាផ្សេង ។
+  // ដូច្នេះ URL ធម្មតានៅស្អាត , ហើយការផ្ទុកឡើងវិញមិនបន្ថែមអ្វីដោយខ្លួនឯងទេ ។ 📃 ⟩
   try {
     const ruva = new URL(window.location.href);
-    ruva.searchParams.set("lang", lingvo);
+    if ( lingvo === "aih" ) ruva.searchParams.delete("lang");
+    else ruva.searchParams.set("lang", lingvo);
     window.history.replaceState(null, "", ruva.toString());
   } catch { /* ignorata */ }
   if ( lingvo !== "aih" ) {

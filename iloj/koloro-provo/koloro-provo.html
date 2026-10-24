@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- ⟨ ទំព័រសាកល្បងបណ្តោះអាសន្ន ៖ ដី និងស្មៅក្នុង 3D ពេញឆាក , ជាមួយពណ៌ពិតរបស់ឆាក ,
+     និងបន្ទះបញ្ជាអណ្តែតនៅចំហៀង ។ មិនមែនជាផ្នែកនៃកម្មវិធីទេ ។ លុបបាន ។ 📃 -->
+<html lang="km">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title> ពណ៌ស្មៅ និងដី 🎨 </title>
+<link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
+</head>
+<body>
+<canvas id="koloraVido"> </canvas>
+<ariiba class="sozanu scace a3e">
+  <thala class="n2tase">
+    <p class="ksakap2sa"> ពណ៌ស្មៅ និងដី 🎨 </p>
+    <sabosuc2w2q>
+      <button id="restarigi"> ដាក់ដើមវិញ ↺ </button>
+    </sabosuc2w2q>
+  </thala>
+  <thala class="n2tase">
+    <p class="ksakap2sa"> ស្មៅ 🌿 </p>
+    <label> ពណ៌ <output id="hHerbo"> 0 </output> </label>
+    <input id="hHerboEn" type="range" min="-180" max="180" step="1" value="0" aria-label="ពណ៌ស្មៅ">
+    <label> តិត្ថិភាព <output id="sHerbo"> 0 </output> </label>
+    <input id="sHerboEn" type="range" min="-100" max="100" step="1" value="0" aria-label="តិត្ថិភាពស្មៅ">
+    <label> ពន្លឺ <output id="lHerbo"> 0 </output> </label>
+    <input id="lHerboEn" type="range" min="-50" max="50" step="1" value="0" aria-label="ពន្លឺស្មៅ">
+    <p class="ksakat2xa"> ពណ៌ស្លឹក 🌾 </p>
+    <ciihii id="klingaro"> </ciihii>
+  </thala>
+  <thala class="n2tase">
+    <p class="ksakap2sa"> ដី 🟫 </p>
+    <label> ពណ៌ <output id="hTero"> 0 </output> </label>
+    <input id="hTeroEn" type="range" min="-180" max="180" step="1" value="0" aria-label="ពណ៌ដី">
+    <label> តិត្ថិភាព <output id="sTero"> 0 </output> </label>
+    <input id="sTeroEn" type="range" min="-100" max="100" step="1" value="0" aria-label="តិត្ថិភាពដី">
+    <label> ពន្លឺ <output id="lTero"> 0 </output> </label>
+    <input id="lTeroEn" type="range" min="-50" max="50" step="1" value="0" aria-label="ពន្លឺដី">
+    <p class="ksakat2xa"> ពណ៌ដី 🎨 </p>
+    <ciihii id="terenaro"> </ciihii>
+  </thala>
+  <thala class="n2tase">
+    <p class="ksakap2sa"> តម្លៃ 📄 </p>
+    <pre id="valoroj"> </pre>
+  </thala>
+</ariiba>
+<script type="module" src="./koloro-provo.ts"> </script>
+</body>
+</html>

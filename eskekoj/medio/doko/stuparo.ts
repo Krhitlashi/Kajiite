@@ -1,9 +1,9 @@
 // ≺⧼ ជម្រាលជណ្តើរចំណត 📐 ⧽≻
+import { STUPA_RISERO } from "../vojoj/mezuroj.js";
 
 // ⟪ ជណ្តើរស្មើគ្នា 📏 ⟫
 // ⟨ ជណ្តើរចំណតចុះពីផ្ទៃចានភ្ជាប់ទៅផ្ទៃចំណត ។ ជំហានទាំងអស់ខ្ពស់ស្មើគ្នា ,
 // ហើយកម្រាលរបស់វាក៏ស្មើគ្នាដែរ ។ ដូច្នេះផ្លូវមិនលោតធ្លាក់ខ្លាំងនៅមាត់ច្រាំង ។ 📃 ⟩
-export const STUPA_RISERO_DOKA = 0o1/0o2;
 
 // ⟪ ចំណុចជណ្តើរ 📃 ⟫
 /*បង្កើតចំណុចជណ្តើរស្មើគ្នាតាមបន្ទាត់ត្រង់
@@ -27,49 +27,25 @@ export function kreiStuparajnPunktojn(
 }
 
 // ⟪ កម្ពស់ជណ្តើរ 📏 ⟫
-/*បង្កើតអនុគមន៍កម្ពស់ជណ្តើរស្មើគ្នា
+/* បង្កើតអនុគមន៍កម្ពស់តាមបន្ទាត់ជណ្តើរត្រង់
     @param punktoj ( [ number , number ] [ ] ) - ចំណុចជណ្តើរតាមលំដាប់
     @param supro ( number ) - កម្ពស់លើផ្ទៃនៃជំហានដំបូង
-    @param risero ( number ) - កម្ពស់ជំហាននីមួយៗ
 @returns alto ( function ) - កម្ពស់ថេរតាមជំហាន */
 export function kreiStuparanAlton(
   punktoj: readonly ( readonly [ number, number ] )[],
-  supro: number,
-  risero: number
+  supro: number
 ): ( x: number, z: number ) => number {
   const nombro = punktoj.length - 1;
   if ( nombro < 1 ) return () => supro;
-  const longoj: number[] = [];
-  let totalo = 0;
-  for ( let i = 0; i < nombro; i++ ) {
-    const longo = Math.hypot(punktoj[i + 1][0] - punktoj[i][0],
-      punktoj[i + 1][1] - punktoj[i][1]);
-    longoj.push(longo);
-    totalo += longo;
-  }
-  if ( totalo <= 0 ) return () => supro;
-  // ⟨ ជំហានពិត ៖ គម្លាតស្មើគ្នាតាមបណ្តោយបន្ទាត់ 📃 ⟩
-  const paso = totalo / nombro;
+  const [ komencoX, komencoZ ] = punktoj[0];
+  const [ finoX, finoZ ] = punktoj[nombro];
+  const diferencoX = finoX - komencoX, diferencoZ = finoZ - komencoZ;
+  const longoKvadrato = diferencoX * diferencoX + diferencoZ * diferencoZ;
+  if ( longoKvadrato <= 0 ) return () => supro;
   return ( x: number, z: number ): number => {
-    let plejBona = Infinity, indekso = 0, parametro = 0;
-    for ( let i = 0; i < nombro; i++ ) {
-      const [ ax, az ] = punktoj[i];
-      const [ bx, bz ] = punktoj[i + 1];
-      const difX = bx - ax, difZ = bz - az;
-      const kvadrato = difX * difX + difZ * difZ;
-      const t = kvadrato > 0
-        ? Math.max(0, Math.min(1, ( ( x - ax ) * difX + ( z - az ) * difZ ) / kvadrato))
-        : 0;
-      const px = ax + difX * t, pz = az + difZ * t;
-      const disto = ( x - px ) * ( x - px ) + ( z - pz ) * ( z - pz );
-      if ( disto < plejBona ) { plejBona = disto; indekso = i; parametro = t; }
-    }
-    let laux = 0;
-    for ( let i = 0; i < indekso; i++ ) laux += longoj[i];
-    laux += longoj[indekso] * parametro;
-    // ⟨ លេខជំហាន ៖ ចំណុចនៅត្រង់គែមជំហានធ្លាក់ទៅជំហានបន្ទាប់ 📃 ⟩
+    const t = ( ( x - komencoX ) * diferencoX + ( z - komencoZ ) * diferencoZ ) / longoKvadrato;
     const nivelo = Math.min(nombro - 1,
-      Math.max(0, Math.floor(laux / paso + 0o1/0o10000000)));
-    return supro - nivelo * risero;
+      Math.max(0, Math.floor(t * nombro + 0o1/0o10000000)));
+    return supro - nivelo * STUPA_RISERO;
   };
 }

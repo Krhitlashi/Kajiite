@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj/andezito.js";
 import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";
-import { VOJA_DIKECO } from "./vojoj/mezuroj.js";
+import { surGrid, VOJA_DIKECO, VOJA_SUPRO_LEVIGXO } from "./vojoj/mezuroj.js";
 import { kreiDokanEksteranFormon, kreiDokanFormon, kreiDokanKadron } from "./doko/formoj.js";
 import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO, type DokaSekcio, type Doko } from "./doko/tipoj.js";
 
@@ -16,7 +16,8 @@ export function konstruiDokon(
   direkto: number,
   heightFn: ( x: number, z: number ) => number,
   waterFn: ( x: number, z: number ) => number,
-  profundo = 0o14
+  profundo = 0o14,
+  grundoFn: ( x: number, z: number ) => number = heightFn
 ): Doko {
   const group = new THREE.Group();
   const vojaLargho = DOKO_PLATFORMA_LARĜO;
@@ -45,6 +46,8 @@ export function konstruiDokon(
   for ( const ofseto of [ -0o6/0o10, 0, 0o6/0o10 ] ) {
     vojaY = Math.max(vojaY, heightFn(landX + cosR * ofseto, landZ - sinR * ofseto));
   }
+  // ⟨ ចំណតនៅលើក្រឡាដូចផ្លូវ ៖ ដូច្នេះផ្លូវមកដល់ចំណតមួយជំហានប៉ុណ្ណោះ ។ 📃 ⟩
+  vojaY = surGrid(vojaY + VOJA_SUPRO_LEVIGXO) - VOJA_SUPRO_LEVIGXO;
 
   // ⟨ វេទិកា 📃 ⟩
   const aldoniLandejon = ( centroZ: number, longo: number, supro: number ): void => {
@@ -74,7 +77,7 @@ export function konstruiDokon(
     for ( const lz of [ -longo / 0o2 - kadraStrio, -longo / 0o4, 0, longo / 0o4, longo / 0o2 ] ) {
       for ( const lx of [ -plenaDuono, 0, plenaDuono ] ) {
         teraPlejProfunda = Math.min(teraPlejProfunda,
-          heightFn(mondaX(lx, centroZ + lz), mondaZ(lx, centroZ + lz)) - vojaY);
+          grundoFn(mondaX(lx, centroZ + lz), mondaZ(lx, centroZ + lz)) - vojaY);
       }
     }
     // ⟨ ពេលគ្មានទំហំអាចបំពេញ 📃 ⟩
@@ -93,7 +96,8 @@ export function konstruiDokon(
   };
 
   // ⟨ កម្ពស់វេទិកា 📃 ⟩
-  const landejaLocala = waterFn(x, z) - vojaY + 0o3/0o20;
+  // ⟨ កម្រិតចុះចតក៏នៅលើក្រឡា ៖ ជណ្តើរមានជំហានស្មើគ្នាបេះបិទ ។ 📃 ⟩
+  const landejaLocala = surGrid(waterFn(x, z) + 0o3/0o20) - vojaY;
   const flankaDuono = vojaLargho / 2 + 0o1/0o2;
   const aksaSupra = ( lz: number ): number => Math.max(
     heightFn(mondaX(flankaDuono, lz), mondaZ(flankaDuono, lz)),
