@@ -131,7 +131,8 @@ import { agordiAkvon, agordiFontojn, agordiElektitanFonton, agordiFluoValoron,
 // តំណរស់របស់ ES module ) មានតែអនុគមន៍កំណត់របស់ម៉ូឌុលនោះ
 // ទេដែលកែវា។ ផ្ទាំងគំនូស 2D និងផ្ទាំងគំនូស 3D ឆ្លាស់គ្នា ( sxaltiVidon )។
 import { agordiVidon, triaDimensia, bildilo3d, sceno3d, fotilo3d, regiloj3d, teraMesh,
-  kradaGrupo3D, kradaStaciaGrupo3D, vojaGrupo3D, mapo3d, gxisdatigi3DMeshon, gxisdatigi3DnIlon,
+  kradaGrupo3D, vojaGrupo3D, objektaGrupo3D, mapo3d,
+  gxisdatigi3DMeshon, gxisdatigi3DnIlon,
   gxisdatigi3DnPostPlena, rekonstruiFontojn3D, sxaltiVidon } from "./tero-skulptilo/vido3d.js";
 // ⟪ រូបរាង 3D នៃទីក្រុង 🏙️ ⟫ ។ ទីក្រុងក្រឡា ( ដែក ពិត របស់
 // ហ្គេម គ្រែគេង ចង្កៀង ) និងផ្លូវកម្រិតពិភពលោកជារូបរាង
@@ -157,7 +158,11 @@ import { agordiKradaron, agordiDatumojn, agordiElektitanAldonanBlokon, urboj, el
   vojaTrenata, kradaro, kradoPanel, kradoPlano, gxisdatigiKradon, elektiUrbon,
   gxisdatigiAldonaBlokojn, aldonaBlokoCxePunkto, komenciAldonaTrenon, sxangiAldonaPozicion,
   finiAldonaTrenon, gxisdatigiVojajnRegilojn, urboCxePunkto, sxangxiVojanCelon,
-  sxangiVojaPozicion, finiVojaTrenon, sxangxiKradanCelon } from "./tero-skulptilo/kradaro.js";
+  sxangiVojaPozicion, finiVojaTrenon, sxangxiKradanCelon, vidotajKradoj } from "./tero-skulptilo/kradaro.js";
+// ⟪ ផ្ទាំង មើលឃើញ 👁️ ⟫ ។ ស្រទាប់ដែលបើក/បិទបាន និងបញ្ជីទីក្រុងដែល
+// បង្ហាញ ។ ស្ថានភាពស្ថិតក្នុង videco.ts ហើយការគូរ 2D/3D អានវា ។
+import { agordiMontrendajnUrbojn, agordiVidanRefresxon, agordiVidecon,
+  cxuUrboMontrata, cxuVidebla, montrendajUrboj, montruUrbon, type VidaSpeco } from "./tero-skulptilo/videco.js";
 import * as THREE from "three";
 
 // ════════════════════════ ក្រឡាឆ្លាក់ ════════════════════════
@@ -202,7 +207,7 @@ function dioritaMaterialo(): THREE.MeshStandardMaterial {
 // បីចុងក្រោយជា FUNKCIOJ ព្រោះស្ថានភាពផ្លាស់ប្តូរពេលប្រើ )។
 agordiBakon({
   deltoj, biomoj, bestoj, N, PASO, X0, Z0,
-  deltoInterp, maskoInterp, akvaKavoInterp, akvaNiveloEn, cxuAkvo, akvaNiveloProksima,
+  deltoInterp, akvaKavoInterp, akvaNiveloEn, cxuAkvo, akvaNiveloProksima,
   peniko: () => penikoAktiva,
   besto: () => bestoAktiva,
 });
@@ -250,12 +255,10 @@ agordiVidon({
 // ដូចគ្នានឹងការដុត។ ស្ថានភាពផ្លាស់ប្តូរពេលប្រើ ដូច្នេះវាអាន
 // តាម FUNKCIOJ។
 agordiKradon3D({
-  deltoInterp, pontoDuonLargho, kradoPlano, dioritaMaterialo, vojojAktiva,
-  ORA_MATERIALO,
-  urboj: () => urboj, elektitaUrbo: () => elektitaUrbo,
+  dioritaMaterialo,
+  vidotajKradoj, ORA_MATERIALO,
+  urboj: () => urboj,
   vojoj: () => vojoj, dokoj: () => dokoj,
-  kradoOfsX: () => kradoOfsX, kradoOfsZ: () => kradoOfsZ,
-  aktivaTabo: () => aktivaTabo,
 });
 
 // ឧបករណ៍វត្ថុ ។ ការភ្ជាប់តែម្តងដូចការដុត ទឹក ទិដ្ឋភាព និង
@@ -264,7 +267,7 @@ agordiKradon3D({
 // សម្ភារៈរួម។ ការពង្រីកជា FUNKCIO ព្រោះវាផ្លាស់ប្តូរពេល
 // ប្រើ ហើយវាត្រូវបានកំណត់ខាងក្រោម។
 agordiObjektilon({
-  deltoInterp, maskoInterp, N, PASO, X0, Z0,
+  deltoInterp, N, PASO, X0, Z0,
   vidSkalo: () => vidSkalo,
   ORA_MATERIALO, ENIRA_MATERIALO, dioritaMaterialo,
   momenti, statuso,
@@ -317,7 +320,7 @@ let bezonoDesegno = true;
 import { historio, refaraHistorio, momenti, malfari, refari, agordiHistorion } from "./tero-skulptilo/historio.js";
 import { elemento, elementoj } from "../komunajxoj/dom.js";
 
-import { deltoInterp, maskoInterp, radiuso, forto, penikoAktiva, biomoAktiva, bestoAktiva, bestoForvisxa,
+import { deltoInterp, radiuso, forto, penikoAktiva, biomoAktiva, bestoAktiva, bestoForvisxa,
   cxuMovigi, penikoApliki, penikoPasxo, agordiPenikon, agordiBiomon, agordiBeston,
   agordiBestoForvisxon, agordiPenikojn } from "./tero-skulptilo/penikoj.js";
 // ════════════════════════ ការគូរ ════════════════════════
@@ -618,28 +621,53 @@ const ilTaboj = elementoj<HTMLButtonElement>("#ilTaboj button");
 const terenaro = elemento<HTMLElement>("terenaro");
 const biomaro = elemento<HTMLElement>("biomaro");
 const bestaro = elemento<HTMLElement>("bestaro");
+// តាប់ក្រឡា និងផ្លូវជា thala ដាច់ដោយឡែក ខាងក្រៅ ( មិននៅក្នុង )
+// ផ្ទាំងមាតិកា ។ មាតិការបស់តាប់នីមួយៗក៏ជា thala ដាច់ដោយឡែកដែរ ។
+const vojojPanel = elemento<HTMLElement>("vojojPanel");
+const vojoEnhavo = elemento<HTMLElement>("vojoEnhavo");
+const kradoEnhavo = elemento<HTMLElement>("kradoEnhavo");
+const vidoPanel = elemento<HTMLElement>("vidoPanel");
 let aktivaTabo = "tereno";
+// gxisdatigiPanelojn ។ បង្ហាញ/លាក់ thala មាតិកាទាំងអស់តាមផ្ទាំង
+// សកម្ម ។ ផ្ទាំងនីមួយៗជាបងប្អូនគ្នា ដូច្នេះគ្មានការលាក់ដោយឪពុកម្តាយទេ ។
+function gxisdatigiPanelojn(tabo: string = aktivaTabo): void {
+  terenaro.classList.toggle("kobe", tabo !== "tereno");
+  biomaro.classList.toggle("kobe", tabo !== "biomo");
+  bestaro.classList.toggle("kobe", tabo !== "animaloj");
+  const krado = tabo === "krado";
+  const sub = krado ? kradoSubTaboAktiva() : null;
+  const vojo = sub === "vojoj";
+  // តាប់ក្រឡា ។ បន្ទះពណ៌ក្រឡាបង្ហាញតែក្នុងផ្ទាំងរងដែលមិនមែនផ្លូវ។
+  kradoPanel.classList.toggle("kobe", !krado);
+  kradaro.classList.toggle("kobe", !krado || vojo);
+  elementoj<HTMLElement>("[data-krado-sub-panel]").forEach(p =>
+    p.classList.toggle("kobe", !krado || p.dataset.kradoSubPanel !== sub));
+  // តាប់ផ្លូវ ។ ផ្ទាំងរងរបស់វាបង្ហាញតែពេលផ្ទាំងរងផ្លូវសកម្ម។
+  vojojPanel.classList.toggle("kobe", !vojo);
+  const vojaSub = vojo ? vojoSubTaboAktiva() : null;
+  elementoj<HTMLElement>("[data-vojo-sub-panel]").forEach(p =>
+    p.classList.toggle("kobe", !vojo || p.dataset.vojoSubPanel !== vojaSub));
+  // ស្ថិតិ និងជំនួយរបស់តាប់នីមួយៗក៏ជា thala ដាច់ដោយឡែក។
+  kradoEnhavo.classList.toggle("kobe", !krado || vojo);
+  vojoEnhavo.classList.toggle("kobe", !vojo);
+  vidoPanel.classList.toggle("kobe", tabo !== "vido");
+}
 function sxaltiIlTabon(tabo: string): void {
   aktivaTabo = tabo;
   ilTaboj.forEach(b => { if ( b.dataset.iltabo ) b.setAttribute("aria-pressed", String(b.dataset.iltabo === tabo)); });
   // ផ្ទាំងទាំងនោះជា thala/sabosuc2w2q ។ ស្បែកផ្តល់ឱ្យពួកវា display.flex
   // ដែលនឹងគ្របលើគុណលក្ខណៈ hidden ដូច្នេះការលាក់គឺជាថ្នាក់ kobe។
-  terenaro.classList.toggle("kobe", tabo !== "tereno");
-  biomaro.classList.toggle("kobe", tabo !== "biomo");
-  bestaro.classList.toggle("kobe", tabo !== "animaloj");
-  // បន្ទះពណ៌ក្រឡាបង្ហាញតែក្នុងផ្ទាំងរងកែក្រឡារបស់
-  // ផ្ទាំងក្រឡា ។ ពេលផ្ទាំងរងផ្លូវ វាលាក់ខ្លួន។
-  kradaro.classList.toggle("kobe", tabo !== "krado" || kradoSubTaboAktiva() === "vojoj");
-  kradoPanel.classList.toggle("kobe", tabo !== "krado");
-  // ផ្លូវកម្រិតពិភពលោកក្នុងទិដ្ឋភាព 3D ។ តែពេលផ្ទាំងរងផ្លូវ។
-  if ( vojaGrupo3D ) vojaGrupo3D.visible = vojojAktiva();
-  // ទីក្រុងក្រឡាក្នុងទិដ្ឋភាព 3D ។ បង្ហាញតែក្នុងផ្ទាំងក្រឡា (
-  // ផ្លូវក្នុងក្រុម និងអគារផ្ទាល់ក្នុងឆាក )។ ផ្នែកបន្ថែម
-  // ស្ថានី ( ផ្លូវពិភពលោកជាផ្លូវក្រឡា ) បង្ហាញជាមួយក្រឡា
-  // ប៉ុន្តែ លាក់ ពេលផ្ទាំងរងផ្លូវ ។ ផ្លូវពិភពលោក ពិត បង្ហាញនៅទីនោះ។
-  if ( kradaGrupo3D ) kradaGrupo3D.visible = tabo === "krado";
-  if ( kradaStaciaGrupo3D ) kradaStaciaGrupo3D.visible = tabo === "krado" && !vojojAktiva();
-  krada3DKonstruajxoj.forEach(o => { o.visible = tabo === "krado"; });
+  // មាតិកាទាំងអស់ជា thala ឯករាជ្យ ។
+  gxisdatigiPanelojn(tabo);
+  // ⟪ ស្រទាប់ 3D 📃 ⟫ ។ ទីក្រុង ផ្លូវ និងវត្ថុបង្ហាញតាមការបើក/បិទក្នុង
+  // ផ្ទាំង មើលឃើញ 👁️ គ្រប់ផ្ទាំង ( លំនាំដើម បើកទាំងអស់ ) ។ ផ្លូវ និង
+  // កំពង់ជារចនាសម្ព័ន្ធពិភពលោក ដូច្នេះវាមិនអាស្រ័យលើផ្ទាំងទេ ។
+  if ( vojaGrupo3D ) vojaGrupo3D.visible = cxuVidebla("vojoj");
+  if ( kradaGrupo3D ) kradaGrupo3D.visible = cxuVidebla("krado");
+  krada3DKonstruajxoj.forEach(o => { o.visible = cxuVidebla("krado"); });
+  if ( objektaGrupo3D ) objektaGrupo3D.visible = cxuVidebla("objektoj");
+  // បញ្ជីទីក្រុងរបស់ផ្ទាំង មើលឃើញ តាមដានការជ្រើស និងការលុប ។
+  if ( tabo === "vido" ) gxisdatigiVidon();
   // ការកំណត់ដី ( កាំ កម្លាំង កម្រិត ) គឺសម្រាប់ជក់ ។
   // ផ្ទាំងវត្ថុ និងផ្ទាំងក្រឡា/ផ្លូវមានកាតផ្ទាល់ខ្លួន។
   // sxaltiObjektojn គ្រប់គ្រងការកំណត់សម្រាប់ផ្ទាំងវត្ថុ នៅទីនេះ
@@ -667,7 +695,10 @@ function gxisdatigiPenikaron() {
     x.setAttribute("aria-pressed", String(x.dataset.kradoTipo === kradoTipoElektita)));
   ilTaboj.forEach(b => {
     if ( !b.dataset.iltabo ) return;   // ប៊ូតុង ផ្លាស់ទីទិដ្ឋភាព មិនមែនផ្ទាំងទេ
+    // ផ្ទាំង មើលឃើញ 👁️ ប្រើឧបករណ៍ Movigi ✋ ដូច្នេះផ្ទាំងនៅបំភ្លឺ ទាះពេល
+    // ឧបករណ៍ផ្លាស់ទីកំពុងសកម្ម ( ដែលបង្ហាញលើប៊ូតុងរបស់ខ្លួនដោយឡែក ) ។
     const aktiva = objektaModo ? b.dataset.iltabo === "objektoj"
+      : aktivaTabo === "vido" ? b.dataset.iltabo === "vido"
       : moviga ? false
       : aktivaTabo === "krado" ? b.dataset.iltabo === "krado"
       : penikoAktiva === "biomo" ? b.dataset.iltabo === "biomo"
@@ -683,6 +714,9 @@ ilTaboj.forEach(b => {
     if ( tabo === "objektoj" ) { sxaltiObjektojn(true); return; }
     if ( objektaModo ) sxaltiObjektojn(false);
     if ( tabo === "krado" ) agordiPenikon("levi");   // ផ្ទាំងក្រឡាមិនមែនជក់ទេ
+    // ផ្ទាំង មើលឃើញ 👁️ ជាផ្ទាំងមើល ។ ឧបករណ៍ Movigi ✋ អនុញ្ញាតអូស
+    // ទិដ្ឋភាពដើម្បីមើលទីក្រុងច្រើន ហើយការគូរមិនផ្លាស់ប្ដូរទិន្នន័យ ។
+    else if ( tabo === "vido" ) agordiPenikon("movigi");
     else if ( tabo === "biomo" ) agordiPenikon("biomo");
     else if ( tabo === "animaloj" ) agordiPenikon("bestoj");
     else if ( penikoAktiva === "biomo" || penikoAktiva === "bestoj" ) agordiPenikon("levi");
@@ -714,6 +748,10 @@ function kradoSubTaboAktiva(): string | null {
 function vojojAktiva() {
   return aktivaTabo === "krado" && kradoSubTaboAktiva() === "vojoj";
 }
+function vojoSubTaboAktiva(): string | null {
+  const b = document.querySelector<HTMLButtonElement>("#vojoSubTaboj button[aria-pressed=\"true\"]");
+  return b ? b.dataset.vojoSub ?? null : null;
+}
 // ផ្ទាំងរងរបស់ផ្ទាំងក្រឡា ។ ទីក្រុង/កែ/ប្លុកបន្ថែម/ផ្លូវ
 // និង ( ក្នុងផ្ទាំងរងផ្លូវ ) ផ្លូវ/ចំណុច/កំពង់/ឧបករណ៍ផែនទី។ ប៊ូតុង
 // នីមួយៗមាន data-krado-sub ឬ data-vojo-sub ហើយផ្ទាំងរង
@@ -722,21 +760,10 @@ function vojojAktiva() {
 function sxaltiSubTabojn(prefikso: string): void {
   const aktiva = document.querySelector<HTMLButtonElement>(`#${prefikso}SubTaboj button[aria-pressed="true"]`);
   const tabo = aktiva ? aktiva.dataset[prefikso + "Sub"] : null;
-  // ផ្ទាំងគឺ `kradoPanel` ឬ `vojojPanel` ។ ចុងក្រោយមាន j ទ្វេ។
-  const panelo = document.getElementById(prefikso + "Panel") ?? document.getElementById(prefikso + "jPanel");
-  if ( !panelo ) return;
-  elementoj<HTMLElement>(`[data-${prefikso}-sub-panel]`, panelo).forEach(p => {
-    // ផ្ទាំងរងទាំងនោះជា ciihii ។ ស្បែកផ្តល់ឱ្យពួកវា display.flex ដែល
-    // នឹងគ្របលើគុណលក្ខណៈ hidden ដូច្នេះការលាក់គឺជាថ្នាក់ kobe។
-    p.classList.toggle("kobe", p.dataset[prefikso + "SubPanel"] !== tabo);
-  });
-  // ក្នុងផ្ទាំងក្រឡា បន្ទះពណ៌ក្រឡាបង្ហាញតែសម្រាប់ផ្ទាំងរងកែក្រឡា
-  // ។ ពេលផ្ទាំងរងផ្លូវ វាលាក់ខ្លួន ( ផែនទីកែ
-  // ផ្លូវ មិនមែនក្រឡា )។
+  // តាប់ និងមាតិកាជា thala ឯករាជ្យ ។ មាតិកាបើក/បិទតាមផ្ទាំង
+  // សកម្ម និងផ្ទាំងរងសកម្ម ( មិនតាមឪពុកម្តាយទេ )។
+  gxisdatigiPanelojn();
   if ( prefikso === "krado" && aktivaTabo === "krado" ) {
-    elemento<HTMLElement>("kradaro").classList.toggle("kobe", tabo === "vojoj");
-    if ( vojaGrupo3D ) vojaGrupo3D.visible = vojojAktiva();
-    if ( kradaStaciaGrupo3D ) kradaStaciaGrupo3D.visible = tabo !== "vojoj";
     if ( tabo === "vojoj" ) gxisdatigiVojajnRegilojn();
   }
 }
@@ -756,6 +783,67 @@ elementoj<HTMLButtonElement>("#kradoSubTaboj button, #vojoSubTaboj button").forE
 });
 sxaltiSubTabojn("krado");
 sxaltiSubTabojn("vojo");
+
+// ⟪ ផ្ទាំង មើលឃើញ 👁️ ⟫ ។ ប៊ូតុងស្រទាប់បើក/បិទការគូរ 2D និង 3D ,
+// ហើយបញ្ជីទីក្រុងជាប៊ូតុងដែលធីកបានច្រើន ។ ស្ថានភាពស្ថិតក្នុង
+// videco.ts ដូច្នេះការគូរអានវាដោយផ្ទាល់ ។
+const vidoUrbojEl = elemento<HTMLElement>("vidoUrboj");
+const vidoStatistikojEl = elemento<HTMLElement>("vidoStatistikoj");
+// gxisdatigiTavolojn ។ អនុវត្តការបើក/បិទស្រទាប់លើឆាក 3D ( 2D អាន
+// videco រាល់ការគូរ ) ។
+function gxisdatigiTavolojn(): void {
+  if ( kradaGrupo3D ) kradaGrupo3D.visible = cxuVidebla("krado");
+  if ( vojaGrupo3D ) vojaGrupo3D.visible = cxuVidebla("vojoj");
+  if ( objektaGrupo3D ) objektaGrupo3D.visible = cxuVidebla("objektoj");
+  krada3DKonstruajxoj.forEach(o => { o.visible = cxuVidebla("krado"); });
+  bezonoDesegno = true;
+}
+// gxisdatigiVidon ។ គូរប៊ូតុងទីក្រុងឡើងវិញ ( ធីក = បង្ហាញ ) និងស្ថិតិ ។
+function gxisdatigiVidon(): void {
+  vidoUrbojEl.innerHTML = "";
+  urboj.forEach(( u, i ) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.dataset.vidoUrbo = String(i);
+    b.setAttribute("aria-pressed", String(cxuUrboMontrata(i)));
+    b.textContent = u.nomo + ( i === elektitaUrbo ? " ✏️" : "" );
+    b.addEventListener("click", () => {
+      montruUrbon(i, !cxuUrboMontrata(i));
+      gxisdatigiKradon();
+      bezonoDesegno = true;
+    });
+    vidoUrbojEl.appendChild(b);
+  });
+  elementoj<HTMLButtonElement>("#vidoTavoloj button").forEach(b => {
+    const speco = b.dataset.vidoSpeco as VidaSpeco | undefined;
+    if ( speco ) b.setAttribute("aria-pressed", String(cxuVidebla(speco)));
+  });
+  const sxaltitaj = ( [ "krado", "vojoj", "objektoj", "fontoj", "signoj" ] as VidaSpeco[] )
+    .filter(s => cxuVidebla(s)).length;
+  vidoStatistikojEl.textContent = "បង្ហាញ " + montrendajUrboj().length + " / " + urboj.length
+    + " ទីក្រុង · " + sxaltitaj + " ស្រទាប់";
+}
+elementoj<HTMLButtonElement>("#vidoTavoloj button").forEach(b => {
+  b.addEventListener("click", () => {
+    const speco = b.dataset.vidoSpeco as VidaSpeco | undefined;
+    if ( !speco ) return;
+    agordiVidecon(speco, !cxuVidebla(speco));
+    gxisdatigiTavolojn();
+    gxisdatigiVidon();
+  });
+});
+elemento<HTMLButtonElement>("vidoCxiuj").addEventListener("click", () => {
+  agordiMontrendajnUrbojn(urboj.map(( _, i ) => i));
+  gxisdatigiKradon();
+  bezonoDesegno = true;
+});
+elemento<HTMLButtonElement>("vidoUnu").addEventListener("click", () => {
+  agordiMontrendajnUrbojn([ elektitaUrbo ]);
+  gxisdatigiKradon();
+  bezonoDesegno = true;
+});
+agordiVidanRefresxon(gxisdatigiVidon);
+gxisdatigiVidon();
 // ប៊ូតុង ផ្លាស់ទីទិដ្ឋភាព ។ ឧបករណ៍ទិដ្ឋភាពស្ថិតនៅក្នុងកាតឧបករណ៍ ក្រៅ
 // ផ្ទាំង។ វាបើករបៀបចលនាដោយមិនប្តូរផ្ទាំងសកម្ម។
 // ការចុចម្តងទៀត ( ឬជក់/ផ្ទាំងណាមួយ ) ត្រឡប់ជក់ចុងក្រោយ ( និង

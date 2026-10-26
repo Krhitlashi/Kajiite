@@ -9,6 +9,7 @@ import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { katmullRom } from "../../../kantaoj/komunajxoj/interpolo.js";
 import { terenaKoloroEn } from "../../../eskekoj/komunajxoj/terenkoloroj.js";
 import { MONDO, MONDO_HALFO, REZ } from "./mezuroj.js";
+import { cxuAkvoSurfaco } from "./akvo.js";
 import { kunteksto2d } from "../../komunajxoj/dom.js";
 
 // ⟪ ស្ថានភាពឆ្លាក់ 📃 ⟫ គឺការយោងមកពី agordiBakon តែម្តង ពេល
@@ -27,7 +28,6 @@ interface BakaLigo {
   X0: number;
   Z0: number;
   deltoInterp: ( x: number, z: number ) => number;
-  maskoInterp: ( x: number, z: number ) => number;
   akvaKavoInterp: ( x: number, z: number ) => number;
   akvaNiveloEn: ( x: number, z: number ) => number | null;
   cxuAkvo: ( x: number, z: number ) => boolean;
@@ -43,7 +43,6 @@ let PASO: number;
 let X0: number;
 let Z0: number;
 let deltoInterp: ( x: number, z: number ) => number;
-let maskoInterp: ( x: number, z: number ) => number;
 let akvaKavoInterp: ( x: number, z: number ) => number;
 let akvaNiveloEn: ( x: number, z: number ) => number | null;
 let cxuAkvo: ( x: number, z: number ) => boolean;
@@ -58,7 +57,7 @@ let bestoAktiva: () => number;
 export function agordiBakon(k: BakaLigo): void {
   deltoj = k.deltoj; biomoj = k.biomoj; bestoj = k.bestoj;
   N = k.N; PASO = k.PASO; X0 = k.X0; Z0 = k.Z0;
-  deltoInterp = k.deltoInterp; maskoInterp = k.maskoInterp; akvaKavoInterp = k.akvaKavoInterp;
+  deltoInterp = k.deltoInterp; akvaKavoInterp = k.akvaKavoInterp;
   akvaNiveloEn = k.akvaNiveloEn; cxuAkvo = k.cxuAkvo; akvaNiveloProksima = k.akvaNiveloProksima;
   penikoAktiva = k.peniko; bestoAktiva = k.besto;
 }
@@ -169,7 +168,9 @@ function bestoInterp(x: number, z: number): number {
 // គ្មានអ្វី គ្មានសម្លេង។ មានតែម៉ាស ( មិនមែនកម្ពស់ដី ) សម្រេចទឹក។
 function biomoDe(x: number, z: number): string {
   const pentrita = biomoInterp(x, z);
-  const akva = maskoInterp(x, z) >= 0o1/0o2;
+  // ⟨ ទឹកពិត 📃 ⟩ ៖ ទឹកមកពីការគណនា ( ប្រភព អាង ទន្លេ ) , មិនមែនម៉ាសចាស់ដែល
+  // បានគូរ ។ ដូច្នេះជីវភូមិទឹកបង្ហាញលើទន្លេដែលកើតពីប្រភពផងដែរ ។
+  const akva = cxuAkvoSurfaco(x, z);
   if ( pentrita === 4 && akva ) return "akvaj-plantoj";
   if ( pentrita === 5 && akva ) return "ekvizeto";
   if ( akva ) return "akvo";

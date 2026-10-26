@@ -14,11 +14,29 @@ export const NIVELA_GLATIGO = 0o6;
 // ⟨ ចម្ងាយបញ្ជាក់ការចុះ ៖ ផ្លូវចុះតែពេលដីនៅទាបគ្រប់ចម្ងាយនេះ ។ 📃 ⟩
 export const NIVELA_KONFIRMO = 0o10;
 
-// ⟨ ចំណុចឆ្លងកាត់ផ្លូវ ៖ ៗ គែមទាំងសងខាង , ពាក់កណ្តាល , និងកណ្តាល ។ 📃 ⟩
-const FLANKAJ = [ -0o1, -0o1/0o2, 0, 0o1/0o2, 0o1 ];
+// ⟨ ចម្ងាយអប្បបរមារវាងជំហាន 🦶 ⟩
+// ⟨ ជំហានមួយរាល់ចម្ងាយនេះ ៖ ជំហានខ្ពស់ ០.៥ មិនអាចដាក់ជាប់គ្នាបានទេ ,
+// បើមិនដូច្នេះផ្លូវលោតឡើង/ចុះដូចជណ្តើរឈរ ។ ដូច្នេះផ្លូវឡើងជាជម្រាលវែង
+// ជាងមុន ហើយគ្មានជំហានខ្ពស់លោតភ្លាមៗទេ ។ 📃 ⟩
+// ⟨ ជំហានមួយរាល់ចម្ងាយនេះ ៖ ស្មើនឹងចម្ងាយគំរូ ( NIVELA_PASO ) , ដូច្នេះផ្លូវចុះបាន
+// មួយជំហានក្នុងមួយគំរូ ។ មុននេះជំហានមួយរាល់ ១ ឯកតា , ដូច្នេះផ្លូវចុះបានតែ ០.៥
+// ក្នុងមួយឯកតា ។ ជម្រាលដីច្រើនចោទជាងនោះ , ដូច្នេះផ្លូវអណ្តែតខ្ពស់លើដីរាប់សិបឯកតា
+// ហើយជញ្ជាំងក្រោមវាខ្ពស់ទទេ ។ ឥឡូវផ្លូវតាមដីបានដល់ ១ ឯកតាក្នុងមួយឯកតា ។ 📃 ⟩
+export const NIVELA_STUPA_DISTO = 0o1/0o2;
 
 // ⟨ ចំណុចតាមបណ្តោយ ៖ ដើម , កណ្តាល , ចុង ។ 📃 ⟩
 const LAUXAJ = [ -0o1/0o2, 0, 0o1/0o2 ];
+
+// ⟨ ចំណុចជុំវិញ ៖ រង្វង់ជុំវិញចំណុចមួយ ។ ប្រើសម្រាប់ជើងផ្លូវ ។
+// ហេតុអ្វីរង្វង់ 📃 ⟩ ៖ មុននេះគែមផ្លូវគំរូតាមចំហៀងផ្លូវតែមួយទិស ។
+// ដូច្នេះផ្លូវដេកកើត/លិចអានតែជើងខាងជើងនិងខាងត្បូង , រីឯផ្លូវឈរ
+// អានតែជើងខាងកើតនិងខាងលិច ។ នៅដីជម្រាលមិនស្មើ , ផ្លូវពីរនៅកន្លែងតែមួយ
+// បានកម្ពស់ខុសគ្នា ។ ឥឡូវជើងផ្លូវជារង្វង់ ៖ កម្ពស់អាស្រ័យតែលើទីតាំង , មិនអាស្រ័យ
+// លើទិសដៅផ្លូវទេ ។ 📃 ⟩
+const RONDAJ = 0o10;
+const RONDAJ_RADIOJ = [ 0o1/0o2, 0o1 ];
+
+// ⟨ ចំណុចតាមបណ្តោយ ៖ ដើម , កណ្តាល , ចុង ។ 📃 ⟩
 
 export interface NivelaProfilo {
   // ⟨ កម្ពស់ផ្ទៃផ្លូវតាមលំដាប់គំរូ ។ 📃 ⟩
@@ -86,7 +104,9 @@ function glatigiValojn( valoroj: readonly number[], fenestro: number ): number[]
 @returns valoroj ( number [ ] ) - កម្ពស់ដែលមានច្រាំង */
 function kreiCxramgon( valoroj: readonly number[], disto: number ): number[] {
   const rezulto = [ ...valoroj ];
-  const risero = STUPA_RISERO * ( disto / NIVELA_PASO );
+  // ⟨ ជម្រាលអតិបរមា 📏 ⟩ ៖ ការឡើង/ចុះមិនលើសមួយជំហានក្នុងចម្ងាយ NIVELA_STUPA_DISTO ,
+  // ដូច្នេះកំពូលថ្មខ្ពស់ខ្លីមិនបង្កើតជណ្តើរឈរ ។
+  const risero = STUPA_RISERO * ( disto / NIVELA_STUPA_DISTO );
   for ( let i = 1; i < rezulto.length; i++ )
     rezulto[ i ] = Math.max(rezulto[ i ], rezulto[ i - 0o1 ] - risero);
   for ( let i = rezulto.length - 0o2; i >= 0; i-- )
@@ -105,19 +125,50 @@ function kreiTreadojn( celoj: readonly number[], disto: number ): number[] {
   const altoj: number[] = [];
   if ( celoj.length === 0 ) return altoj;
   const konfirmo = Math.max(1, Math.round(NIVELA_KONFIRMO / disto));
+  // ⟨ ចម្ងាយអប្បបរមារវាងជំហាន 🦶 ⟩ ៖ មួយជំហានក្នុងចម្ងាយ NIVELA_STUPA_DISTO ,
+  // ដូច្នេះការចុះមិនលឿនជាងការគ្រោងទេ ។ បើមិនដូច្នេះ ការចុះមួយជំហាន
+  // ក្នុងមួយគំរូ ( ០.៥ ) ហើយផ្លូវធ្លាក់ដូចជណ្តើរឈរ ។
+  const pasxojInterStupoj = Math.max(1, Math.round(NIVELA_STUPA_DISTO / disto));
   let nivelo = celoj[ 0 ];
+  let lastaStupo = -Infinity;
   for ( let i = 0; i < celoj.length; i++ ) {
     if ( celoj[ i ] > nivelo ) {
       nivelo = celoj[ i ];
-    } else if ( celoj[ i ] <= nivelo - STUPA_RISERO ) {
+      lastaStupo = i;
+    } else if ( celoj[ i ] <= nivelo - STUPA_RISERO && i - lastaStupo >= pasxojInterStupoj ) {
       let suba = true;
       for ( let j = i + 0o1; j <= Math.min(celoj.length - 0o1, i + konfirmo); j++ )
         if ( celoj[ j ] > nivelo - STUPA_RISERO ) { suba = false; break; }
-      if ( suba ) nivelo = Math.max(celoj[ i ], nivelo - STUPA_RISERO);
+      if ( suba ) {
+        nivelo = Math.max(celoj[ i ], nivelo - STUPA_RISERO);
+        lastaStupo = i;
+      }
     }
     altoj.push(nivelo);
   }
   return altoj;
+}
+
+// ⟪ ការឈានដល់កម្រិតចុងផ្លូវ 📏 ⟫
+/*នាំកម្រិតជំហានទៅរកកម្រិតគោលនៅចុងទាំងពីរ ៖ ផ្លូវមិនលោតកម្ពស់នៅមាត់ចានភ្ជាប់
+    ទេ ។ ការឡើងគឺភ្លាម , តែការចុះរង់ចាំការបញ្ជាក់ , ដូច្នេះផ្លូវដែលចុះពីលើភ្នំ
+    អាចនៅខ្ពស់ជាងកម្រិតគោលនៅចុងរបស់វា ។ ការកែនេះអនុញ្ញាតឱ្យចុះបាន
+    មួយជំហានរៀងរាល់ NIVELA_STUPA_DISTO ពីចុងម្ខាងៗ , តែមិនចុះក្រោមគម្រោងដី
+    ( celoj ) ទេ , ដូច្នេះផ្លូវមិនកប់ក្នុងដី ។ លទ្ធផលនៅលើក្រឡាដូចមុន ។
+    @param altoj ( number [ ] ) - កម្រិតជំហាន ( កែនៅនឹងកន្លែង )
+    @param celoj ( number [ ] ) - គម្រោងកម្ពស់ដី
+    @param situoj ( number [ ] ) - ចម្ងាយតាមបណ្តោយផ្លូវ
+    @param longo ( number ) - ប្រវែងផ្លូវសរុប */
+function kunveniguFinojn( altoj: number[], celoj: readonly number[], situoj: readonly number[], longo: number ): void {
+  if ( altoj.length < 0o3 ) return;
+  const fina = celoj[ celoj.length - 0o1 ];
+  const komenca = celoj[ 0 ];
+  for ( let i = 0; i < altoj.length; i++ ) {
+    const deStarto = Math.ceil(situoj[ i ] / NIVELA_STUPA_DISTO);
+    const deFino = Math.ceil(( longo - situoj[ i ] ) / NIVELA_STUPA_DISTO);
+    const limo = Math.min(komenca + deStarto * STUPA_RISERO, fina + deFino * STUPA_RISERO);
+    if ( altoj[ i ] > limo ) altoj[ i ] = Math.max(celoj[ i ], limo);
+  }
 }
 
 // ⟪ ការកំណត់កម្រិត 📏 ⟫
@@ -160,9 +211,14 @@ export function kreiNivelanProfilon(
     for ( const lauxa of LAUXAJ ) {
       const p = pozicio(s + lauxa * disto);
       mezo = Math.max(mezo, heightFn(p.x, p.z));
-      for ( const flanka of FLANKAJ )
-        rando = Math.max(rando, heightFn(p.x + p.latX * duono * flanka,
-          p.z + p.latZ * duono * flanka));
+      // ⟨ រង្វង់ជុំវិញចំណុច ៖ គ្មានទិសពិសេស , ដូច្នេះផ្លូវគ្រប់ទិសអានដីដូចគ្នា 📃 ⟩
+      for ( const radio of RONDAJ_RADIOJ ) {
+        for ( let i = 0; i < RONDAJ; i++ ) {
+          const angulo = i * Math.PI * 0o2 / RONDAJ;
+          rando = Math.max(rando, heightFn(p.x + Math.cos(angulo) * duono * radio,
+            p.z + Math.sin(angulo) * duono * radio));
+        }
+      }
     }
     centra.push(mezo);
     randoj.push(rando);
@@ -170,10 +226,17 @@ export function kreiNivelanProfilon(
   }
   const fenestro = Math.max(0, Math.round(NIVELA_GLATIGO / disto));
   // ⟨ កម្រិត = គែមរលូន ឬ កណ្តាលដី ៖ មិនកប់កណ្តាលបន្ទាត់ទេ , តែមិនលោតតាមពំនូកគែមខ្លី ។ 📃 ⟩
+  // ⟨ កណ្តាលក៏រលូនដែរ 📃 ⟩ ៖ មុននេះកណ្តាលជាតម្លៃឆៅ ។ ដីមានពំនូកតូចគ្រប់កន្លែង ,
+  // ដូច្នេះពំនូកមួយគំរូលើកផ្លូវភ្លាម , ហើយផ្លូវចុះវិញយឺត ។ ដូច្នេះកម្ពស់ផ្លូវ
+  // ទទឹងឡើងជាលំដាប់ , ហើយជញ្ជាំងក្រោមវាខ្ពស់ ។ ពំនូកដែលលើសដោយជំហានពេញ
+  // នៅតែលើកផ្លូវ , ដូច្នេះផ្លូវមិនកាត់ចូលថ្មទេ ។ 📃 ⟩
+  const centraj = glatigiValojn(centra, fenestro);
   const celoj: number[] = [];
   const glataj = glatigiValojn(randoj, fenestro);
   for ( let i = 0; i < glataj.length; i++ ) {
-    let celo = Math.max(glataj[ i ], centra[ i ]) + VOJA_SUPRO_LEVIGXO;
+    let kerno = centraj[ i ];
+    if ( centra[ i ] - centraj[ i ] > STUPA_RISERO ) kerno = centra[ i ];
+    let celo = Math.max(glataj[ i ], kerno) + VOJA_SUPRO_LEVIGXO;
     const p = pozicio(situoj[ i ]);
     if ( akvaFn ) {
       const akvo = akvaFn(p.x, p.z);
@@ -183,6 +246,7 @@ export function kreiNivelanProfilon(
   }
   // ⟨ គម្រោងត្រូវតែងតែនៅលើក្រឡា ៖ បើមិនដូច្នេះទេលេចចេញជំហានតូចៗដែលមើលឃើញ ។ 📃 ⟩
   const altoj = kreiTreadojn(kreiCxramgon(celoj, disto).map(alto => surGrid(alto)), disto);
+  kunveniguFinojn(altoj, celoj, situoj, longo);
   const altoCxe = ( s: number ): number => {
     const i = Math.max(0, Math.min(nombro, Math.round(s / disto)));
     return altoj[ i ];

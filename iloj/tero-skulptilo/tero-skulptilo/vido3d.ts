@@ -14,6 +14,7 @@ import type { FormaBazo, MapFormo } from "../../../eskekoj/komunajxoj/mapformo.j
 import { REZ, mondoxAlPikselo, mondozAlPikselo } from "./mezuroj.js";
 import type { KradaRektangulo } from "./mezuroj.js";
 import { elemento } from "../../komunajxoj/dom.js";
+import { cxuVidebla } from "./videco.js";
 import { terenaKoloro255, almetiBiomanNuancon, deltoKunDerivajoj,
   rekalkuliDeklivojn, pentri } from "./bako.js";
 // ទឹក គឺសំណាញ់ទឹកតាមកម្រិតនៃការគណនា ( មិនមែន
@@ -52,9 +53,8 @@ export let radiaPunkto: THREE.Vector3 | null = null;   // ការបាញ់�
 // បំពេញពួកវា ( rekonstruiObjektojn, rekonstruiKradon3D, rekonstruiVojojn3D )
 // ហើយបើកបិទភាពមើលឃើញរបស់ពួកវា រីឯក្រុមខ្លួនឯងកើតឡើងនៅទីនេះ ( eniri3D )។
 export let objektaGrupo3D: THREE.Group | null = null;
-export let kradaGrupo3D: THREE.Group | null = null;           // រូបរាង 3D របស់ទីក្រុងសំណាញ់ ( តែក្នុងផ្ទាំង សំណាញ់ )
-export let kradaStaciaGrupo3D: THREE.Group | null = null;     // ផ្លូវសំណាញ់របស់ស្ថានីយ ដែលលាក់ខ្លួនពេលផ្ទាំងរង ផ្លូវ
-export let vojaGrupo3D: THREE.Group | null = null;            // រូបរាង 3D របស់ផ្លូវកម្រិតពិភពលោក ( តែក្នុងផ្ទាំងរង ផ្លូវ )
+export let kradaGrupo3D: THREE.Group | null = null;           // រូបរាង 3D របស់អគារទីក្រុង ( តាមស្រទាប់ សំណាញ់ )
+export let vojaGrupo3D: THREE.Group | null = null;            // ផ្លូវ និងកំពង់ ( តាមស្រទាប់ ផ្លូវ )
 export const YTROIGO = 0o24/0o10;             // 2.5 គឺការបំផ្លើសបញ្ឈរសម្រាប់ចំណោត
 const RINGA_PUNKTOJ = 0o100;                  // 64 គឺចម្រៀកនៃចិញ្ចៀនជក់
 export const mapo3d = elemento<HTMLCanvasElement>("mapo3d");
@@ -357,25 +357,20 @@ function eniri3D(): void {
     // វត្ថុដែលបានដាក់ គឺសំណាញ់ 3D ពិត ( ឧបករណ៍សាងសង់ដូច
     // ហ្គេម ) ដែលសាងសង់ឡើងវិញរាល់ការផ្លាស់ប្តូរ។
     objektaGrupo3D = new THREE.Group();
+    objektaGrupo3D.visible = cxuVidebla("objektoj");
     sceno3d.add(objektaGrupo3D);
     rekonstruiObjektojn();
     // ទីក្រុងសំណាញ់ គឺរូបរាង 3D របស់ការតំរង់បច្ចុប្បន្ន។ មើលឃើញតែពេល
     // ផ្ទាំង សំណាញ់ សកម្ម ( sxaltiIlTabon គ្រប់គ្រងភាពមើលឃើញ )។
     kradaGrupo3D = new THREE.Group();
-    kradaGrupo3D.visible = aktivaTabo() === "krado";
+    kradaGrupo3D.visible = cxuVidebla("krado");
     sceno3d.add(kradaGrupo3D);
-    // ផ្លូវសំណាញ់របស់ស្ថានីយ គឺផ្នែកបន្ថែមនៃផ្លូវកម្រិតពិភពលោក (
-    // មហាវិថីកំពង់ )។ ពួកវាបង្ហាញជាមួយសំណាញ់ក្នុងផ្ទាំងរង
-    // កែក្រឡា ប៉ុន្តែលាក់ខ្លួនពេលផ្ទាំងរង ផ្លូវ ព្រោះនៅទីនោះ
-    // ផ្លូវពិតរបស់ពិភពលោកបង្ហាញ ហើយផ្លូវស្ថានីយនឹងស្ទួនលើផ្លូវដូចគ្នា។
-    kradaStaciaGrupo3D = new THREE.Group();
-    kradaStaciaGrupo3D.visible = aktivaTabo() === "krado" && !vojojAktiva();
-    sceno3d.add(kradaStaciaGrupo3D);
     rekonstruiKradon3D();
-    // ផ្លូវកម្រិតពិភពលោក គឺផ្លូវពិតរបស់ហ្គេម ( ឆ្នូតឌីអូរីត
-    // និងអង់ដេស៊ីត ) ដែលមើលឃើញតែពេលផ្ទាំងរង ផ្លូវ ( vojojAktiva )។
+    // ផ្លូវ និងកំពង់ គឺរបស់ពិតរបស់ហ្គេម ( ឆ្នូតឌីអូរីត អង់ដេស៊ីត និង
+    // វេទិកាកំពង់ ) ។ ពួកវាបង្ហាញតាមស្រទាប់ ផ្លូវ ( លំនាំដើម បើក )
+    // គ្រប់ផ្ទាំង ព្រោះផ្លូវជារចនាសម្ព័ន្ធរបស់ពិភពលោក ។
     vojaGrupo3D = new THREE.Group();
-    vojaGrupo3D.visible = vojojAktiva();
+    vojaGrupo3D.visible = cxuVidebla("vojoj");
     sceno3d.add(vojaGrupo3D);
     rekonstruiVojojn3D();
     // ការវិលជុំ។ ការចុចស្តាំបង្វិល ការចុចកណ្តាលផ្លាស់ទី កង់ពង្រីក រីឯ

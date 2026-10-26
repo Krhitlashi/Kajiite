@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- ⟨ ឆាកសាកល្បងផ្លូវ 3D 🛣️ ៖ ផ្លូវ ចានភ្ជាប់ កំពង់ និងជណ្តើរកំពង់ សាងសង់ដោយ
+     ឧបករណ៍ពិតរបស់ហ្គេម , ប៉ុន្តែលើដីតូចមួយ ។ ដូច្នេះការសាកល្បងផ្លូវមិនត្រូវផ្ទុក
+     ពិភពលោកទាំងមូលទេ ។ មិនមែនជាផ្នែកនៃកម្មវិធីកែទេ ។
+     ⟨ រចនាប័ទ្ម 📃 ⟩ ទំព័រនេះប្រើតែស្បែករួមរបស់គម្រោង ។ គ្មាន style ក្នុងទំព័រ
+     និងគ្មានថ្នាក់ថ្មីទេ ៖ ចានក្នុងទំព័រជាថ្នាក់ thala ដែលមានរួច ។ 📃 -->
+<html lang="km">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title> សាកល្បងផ្លូវ 3D 🛣️ </title>
+<link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
+<link rel="stylesheet" href="../stiloj.css">
+</head>
+<body class="cepufal">
+<p class="ksakap2sa"> សាកល្បងផ្លូវ 3D 🛣️ </p>
+<p class="kefhuruq"> អូសចំណុចក្នុងផែនទីតូច , ហើយផ្លូវ 3D សាងសង់ឡើងវិញភ្លាម ។ ឆាកនេះបង្ហាញផ្លូវ , ចានភ្ជាប់ , កំពង់ និងជណ្តើរកំពង់ ដែលសាងសង់ដោយឧបករណ៍ពិតរបស់ហ្គេម ។ </p>
+<thala>
+  <canvas id="vido3d" width="900" height="512"></canvas>
+  <canvas id="plano2d" width="440" height="440"></canvas>
+</thala>
+<thala>
+  <p class="ksakap2sa"> ផ្លូវ 🛣️ </p>
+  <sabosuc2w2q>
+    <button id="vojoNova"> ផ្លូវថ្មី ➕ </button>
+    <button id="dokoNova"> ចតុកោណថ្មី ⚓ </button>
+  </sabosuc2w2q>
+  <sabosuc2w2q>
+    <button id="vojoForigi"> លុបផ្លូវ 🗑️ </button>
+    <button id="restarigi"> ដាក់ដើមវិញ ↺ </button>
+  </sabosuc2w2q>
+  <p id="statuso" class="ksakat2xa"> </p>
+</thala>
+<thala>
+  <p class="ksakap2sa"> ដី 🏔️ </p>
+  <label> ជម្រាល <output id="deklivoValoro"> 0 </output> </label>
+  <input id="deklivo" type="range" min="-3" max="3" step="0.5" value="0" aria-label="ជម្រាលដី">
+  <label> កម្ពស់ទឹក <output id="akvoValoro"> -3 </output> </label>
+  <input id="akvoNivelo" type="range" min="-6" max="-0.5" step="0.5" value="-3" aria-label="កម្ពស់ទឹក">
+</thala>
+<script type="module" src="./provo-vojoj.ts"> </script>
+</body>
+</html>

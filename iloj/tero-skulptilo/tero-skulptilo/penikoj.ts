@@ -9,7 +9,7 @@ import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { REZ, mondoxAlPikselo, mondozAlPikselo } from "./mezuroj.js";
 import type { KradaRektangulo } from "./mezuroj.js";
 import { pentri, rekalkuliDeklivojn } from "./bako.js";
-import { markiAkvonMalpuran } from "./akvo.js";
+import { markiAkvonMalpuran, cxuAkvoCxelo } from "./akvo.js";
 
 // ⟪ គំរូតាមសំណាញ់ 📃 ⟫
 // ការបញ្ចូលតាមសំណាញ់ ( katmullRom )។ ខ្សែកោង C1 រលូន គ្មានផ្នត់តាមអង្កត់ទ្រូង
@@ -59,7 +59,10 @@ export function deltoCxelo(ix: number, iz: number): number {
 }
 
 // ⟪ ជក់ទាំងឡាយ 📃 ⟫
-export let penikoAktiva = "levi";
+// ⟨ ឧបករណ៍លំនាំដើម = ដៃ ✋ 📃 ⟩ ។ ការបើកទំព័រចាប់ផ្តើមក្នុងរបៀបផ្លាស់ទី
+// ទិដ្ឋភាព ( អូសផែនទី ) , ដូច្នេះការអូសមិនឆ្លាក់ដីដោយអចេតនា ។ ជក់ដីចាប់ផ្តើម
+// ពេលអ្នកប៉ះប៊ូតុងជក់ណាមួយ ។
+export let penikoAktiva = "movigi";
 export let biomoAktiva = 1;           // ជក់រងរបស់ឧបករណ៍តំបន់ជីវៈ ( 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប, 4=រុក្ខជាតិទឹក, 5=ekvizeto, 0=ស្វ័យប្រវត្តិ )
 export let bestoAktiva = 1;           // ជក់រងរបស់ឧបករណ៍សត្វ ( 1=សត្វទឹក, 2=បក្សីព្រិល, 4=NPC )
 export let bestoForvisxa = false;      // តើឧបករណ៍សត្វកំពុងលុប ( ឧបករណ៍ដូចគ្នា ) ជំនួសការគូរ
@@ -127,9 +130,10 @@ export function penikoApliki(cx: number, cz: number, r: number, fortoVal: number
         // ឧបករណ៍តំបន់ជីវៈគូរតំបន់ជីវៈផ្ទាល់លើស្រទាប់តំបន់ជីវៈ។ តំបន់ជីវៈ
         // ទឹក ( 4=រុក្ខជាតិទឹក, 5=ekvizeto ) មានតែនៅលើ
         // ទឹក ដូច្នេះជក់គូរវាតែក្នុងក្រឡាទឹក រីឯតំបន់ជីវៈលើដី
-        // ( 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប ) មិនដែលគូរលើទឹកទេ។
-        // ស្វ័យប្រវត្តិលុបការគូរនៅគ្រប់កន្លែង។ ដីផ្ទាល់មិនផ្លាស់ប្តូរទេ។
-        const akva = masko[idx] === 1;
+        // ( 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប ) មិនដែលគូរលើទឹកទេ។        // ស្វ័យប្រវត្តិលុបការគូរនៅគ្រប់កន្លែង ។ ដីផ្ទាល់មិនផ្លាស់ប្តូរទេ ។
+        // ⟨ ទឹកពិត 📃 ⟩ ៖ ការគូរជីវភូមិអានទឹកដេរីវេ ( ប្រភព , អាង , ទន្លេ ) ,
+        // មិនមែនម៉ាសចាស់ដែលបានគូរទេ ។ បើមិនដូច្នេះ ជីវភូមិទឹកគូរលើទន្លេមិនបាន ។
+        const akva = cxuAkvoCxelo(ix, iz);
         if ( biomoAktiva === 0 ) biomoj[idx] = 0;
         else if ( biomoAktiva >= 4 ? akva : !akva ) biomoj[idx] = biomoAktiva;
       } else if ( tipo === "bestoj" ) {
@@ -141,7 +145,8 @@ export function penikoApliki(cx: number, cz: number, r: number, fortoVal: number
         // ដើរតែលើដី ( មិនដែលលើទឹក )។ ការលុប ( ឧបករណ៍ដូចគ្នា
         // ដែលបើកដោយប៊ូតុង លុប 🧽 ក្នុងបន្ទះពណ៌ ) លុបតែ
         // ប្រភេទដែលបានជ្រើស រីឯអ្វីផ្សេងទៀតនៅដដែល។ ដីផ្ទាល់មិនផ្លាស់ប្តូរទេ។
-        const akva = masko[idx] === 1;
+        // ⟨ ទឹកពិត 📃 ⟩ ៖ សត្វទឹកហែលតែក្នុងទឹកដេរីវេ , មិនមែនក្នុងម៉ាសចាស់ទេ ។
+        const akva = cxuAkvoCxelo(ix, iz);
         if ( bestoForvisxa ) bestoj[idx] &= ~bestoAktiva;
         else if ( bestoAktiva === 1 ? akva : bestoAktiva === 4 ? !akva : true ) bestoj[idx] |= bestoAktiva;
       }

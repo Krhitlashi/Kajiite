@@ -145,6 +145,26 @@ export function akvaNiveloDe(i: number, j: number, _x: number, _z: number): numb
   const nivelo = akvaRezulto.niveloj[j * N + i];
   return Number.isNaN(nivelo) ? akvaNiveloValoro : nivelo;
 }
+/* តើក្រឡាសំណាញ់មួយជាទឹកពិត ( ម៉ាសទឹកដេរីវេ ) ។
+   ម៉ាសចាស់ដែលបានគូរ ( ម៉ាសដើម ) មិនសម្រេចទេ ៖ វាគ្រាន់តែជាគ្រាប់ពូជអាង , ដូច្នេះ
+   ទន្លេដែលមកពីប្រភពក៏ជាទឹកដែរ ។ ការអានក្រឡាផ្ទាល់គឺរហ័ស ( ជក់ហៅវារាល់ក្រឡា ) ។
+    @param i ( number ) - ជួរឈរសំណាញ់។
+    @param j ( number ) - ជួរសំណាញ់។
+@returns តើជាទឹក ( boolean )។ */
+export function cxuAkvoCxelo(i: number, j: number): boolean {
+  if ( !akvaRezulto || i < 0 || j < 0 || i >= N || j >= N ) return false;
+  return akvaRezulto.masko[ j * N + i ] === 1;
+}
+/* តើចំណុចជាទឹកពិត ( គំរូរលូន ) ។ ដូច cxuAkvoCxelo ប៉ុន្តែសម្រាប់ការគូរ
+   និងតំបន់ជីវៈដែលមិនមានលិបិក្រមក្រឡា ។
+    @param x ( number ) - ពិភពលោក x ។
+    @param z ( number ) - ពិភពលោក z ។
+@returns តើជាទឹក ( boolean )។ */
+export function cxuAkvoSurfaco(x: number, z: number): boolean {
+  if ( !cxuAkvo(x, z) ) return false;
+  const nivelo = akvaNiveloEn(x, z);
+  return nivelo === null || teraAlto(x, z) < nivelo - 0o1/0o100;
+}
 /* រត់ការគណនាទឹក។ ដីគឺដីស្ងួត ( ដេលតាដោយគ្មាន
    ព្រែកកាត់ ) បើមិនដូច្នេះការគណនានឹងធ្វើព្រែកកាត់របស់ខ្លួនឡើងវិញ ហើយប្រឡាយ
    នឹងជ្រៅគ្មានទីបញ្ចប់។ */

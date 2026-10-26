@@ -7,8 +7,9 @@
 import { MONDO, MONDO_HALFO, REZ } from "./mezuroj.js";
 import { bazaCanvas, pentri, rekalkuliDeklivojn } from "./bako.js";
 import { urboj, elektitaUrbo, vojoj, dokoj, elektitaVojo, elektitaPunkto, elektitaDoko,
-  elektitaAldonaBloko, kradoOfsX, kradoOfsZ, kradoPlano, vojaDuonLargho,
-  desegniKradanTavolon } from "./kradaro.js";
+  elektitaAldonaBloko, kradoOfsX, kradoOfsZ, vojaDuonLargho, vidotajKradoj,
+  planoDeUrbo, desegniKradanTavolon } from "./kradaro.js";
+import { cxuUrboMontrata, cxuVidebla } from "./videco.js";
 import { fontoj, elektitaFonto } from "./akvo.js";
 import { objektoj, objektaModo, elektitaObjekto, objektaBakaKanvaso } from "./objektoj.js";
 import { formajRandaj } from "./dosieroj.js";
@@ -67,7 +68,7 @@ export function desegniVidon(): void {
   k.stroke(formoVojo);
   // វត្ថុដែលបានដាក់ គឺការដុតពីលើនៃសំណាញ់ 3D ពិត ( ដូច
   // ផែនទីពេញរបស់ហ្គេម ) ថ្លានៅលើដី។
-  if ( objektaBakaKanvaso && objektoj.length > 0 ) {
+  if ( objektaBakaKanvaso && objektoj.length > 0 && cxuVidebla("objektoj") ) {
     // ការដុតមានខាងលិចនៅខាងឆ្វេង ( imgX 0 = x +MONDO_HALFO ) និង
     // ខាងជើងនៅខាងលើ គឺការតម្រង់ទិសដូចផ្ទាំងគំនូរមូលដ្ឋាន ដូច្នេះវាភ្ជាប់
     // នៅ sxMondo(MONDO_HALFO) ដូចគោល។ ( ការភ្ជាប់មុន sxMondo(-MONDO_HALFO)
@@ -80,16 +81,28 @@ export function desegniVidon(): void {
   // បង្ហាញតែពេលផ្ទាំង សំណាញ់ 🏙️ សកម្ម ( ព្រោះអគារមិនគួរ
   // បង្ហាញលើផែនទីក្នុងករណីផ្សេង )។ កូអរដោនេផែនការជាសាច់ញាតិទៅ
   // ចំណុចកណ្តាលសំណាញ់ ហើយអុហ្វសិតដាក់សំណាញ់ក្នុងពិភពលោក។
-  if ( aktivaTabo === "krado" ) {
-    desegniKradanTavolon(k, kradoPlano(), ( x: number ) => sxMondo(x + kradoOfsX), ( z: number ) => syMondo(z + kradoOfsZ), vidSkalo);
+  // ⟪ ទីក្រុងសំណាញ់ 🏙️ ⟫ ។ ស្រទាប់ក្រឡាបង្ហាញគ្រប់ផ្ទាំង ( លំនាំដើម បើក )
+  // ព្រោះទីក្រុងជារចនាសម្ព័ន្ធពិភពលោក ដែលគួរឃើញពេលកែដី ឬវត្ថុផងដែរ ។
+  {
+    // ស្រទាប់ក្រឡា ។ ផ្ទាំង មើលឃើញ 👁️ អាចបង្ហាញទីក្រុងច្រើនក្នុងពេល
+    // តែមួយ ដូច្នេះផែនការនីមួយៗត្រូវបានគូរជាមួយអុហ្វសិតរបស់ខ្លួន ។
+    if ( cxuVidebla("krado") ) {
+      for ( const krado of vidotajKradoj() ) {
+        desegniKradanTavolon(k, krado.plano, ( x: number ) => sxMondo(x + krado.ofsX),
+          ( z: number ) => syMondo(z + krado.ofsZ), vidSkalo);
+      }
+    }
     // សញ្ញាទីក្រុង គឺទីក្រុងនីមួយៗនៃ SKULPTA_URBOJ ជាពេជ្រ ជាមួយ
     // ឈ្មោះ ហើយទីក្រុងដែលជ្រើសត្រូវបំភ្លឺ។ ការចុចលើសញ្ញាជ្រើសទីក្រុង
     // ( ដោយ pointerdown របស់ផែនទី )។ សញ្ញាមានទំហំថេរលើ
     // អេក្រង់ ដើម្បីអានបាននៅគ្រប់ការពង្រីក។
-    urboj.forEach(( u, i ) => {
+    if ( cxuVidebla("signoj") ) urboj.forEach(( u, i ) => {
       const sx = sxMondo(u.ofsX), sy = syMondo(u.ofsZ);
       const elektita = i === elektitaUrbo;
-      k.fillStyle = elektita ? "rgba(255,214,64,0.95)" : "rgba(255,255,255,0.85)";
+      // ទីក្រុងដែលបានធីកក្នុងផ្ទាំង មើលឃើញ មានស៊ុមស្តើងបញ្ជាក់។
+      const montrata = cxuUrboMontrata(i);
+      k.fillStyle = elektita ? "rgba(255,214,64,0.95)"
+        : montrata ? "rgba(190,240,190,0.95)" : "rgba(255,255,255,0.85)";
       k.beginPath();
       k.moveTo(sx, sy - 7);
       k.lineTo(sx + 7, sy);
@@ -97,8 +110,8 @@ export function desegniVidon(): void {
       k.lineTo(sx - 7, sy);
       k.closePath();
       k.fill();
-      k.strokeStyle = elektita ? "#e0b840" : "rgba(0,0,0,0.5)";
-      k.lineWidth = elektita ? 0o5/0o2 : 1;
+      k.strokeStyle = elektita ? "#e0b840" : montrata ? "#5fa85f" : "rgba(0,0,0,0.5)";
+      k.lineWidth = elektita ? 0o5/0o2 : montrata ? 2 : 1;
       k.stroke();
       k.font = "bold 12px sans-serif";
       k.textAlign = "center";
@@ -111,7 +124,7 @@ export function desegniVidon(): void {
     });
     // វេទិកាកំពង់របស់ទីក្រុងមេ គឺការ៉េតូចៗនៅ
     // ទីតាំង x របស់កំពង់ ( កំពង់ និងមហាវិថីបង្ហាញក្នុងផែនការ )។
-    if ( elektitaUrbo === 0 ) {
+    if ( cxuVidebla("vojoj") && elektitaUrbo === 0 ) {
       for ( const d of dokoj ) {
         const dx = d.x;
         const sx = sxMondo(dx), sy = syMondo(d.z);
@@ -125,7 +138,7 @@ export function desegniVidon(): void {
     // ប្លុកបន្ថែម គឺប្លុកដែលជ្រើសបំភ្លឺដោយចិញ្ចៀន ( សំណង់
     // ខ្លួនឯងបង្ហាញក្នុងផែនការ )។ ការចុចលើសញ្ញា
     // ជ្រើសវា ហើយការអូសផ្លាស់ទីវា។
-    const uAld = urboj[elektitaUrbo];
+    const uAld = cxuVidebla("krado") && cxuUrboMontrata(elektitaUrbo) ? urboj[elektitaUrbo] : undefined;
     const aldonaj = uAld && uAld.aldonajBlokoj ? uAld.aldonajBlokoj : [];
     aldonaj.forEach(( b, i: number ) => {
       const bx = sxMondo(kradoOfsX + b.x), bz = syMondo(kradoOfsZ + b.z);
@@ -163,8 +176,8 @@ export function desegniVidon(): void {
     // និងផ្លូវប្រសព្វ ( ធរណីមាត្រដូចហ្គេម ពីផែនការ )។ ចំណុចលឿងក្តៅ
     // ជាមួយស្នូលភ្លឺ ដូចពន្លឺចង្កៀងក្នុងទិដ្ឋភាព 3D។
     if ( uAld && uAld.lampoj !== false ) {
-      const plano = kradoPlano();
-      for ( const l of plano.lampoj ) {
+      const plano = planoDeUrbo(elektitaUrbo);
+      for ( const l of plano ? plano.lampoj : [] ) {
         const sx = sxMondo(kradoOfsX + l.x), sy = syMondo(kradoOfsZ + l.z);
         k.fillStyle = "rgba(248,168,72,0.95)";
         k.beginPath();
@@ -177,11 +190,10 @@ export function desegniVidon(): void {
       }
     }
   }
-  // ផ្ទាំងរង ផ្លូវ នៃបន្ទះសំណាញ់ គឺផ្លូវ និងកំពង់កម្រិតពិភពលោក
-  // ដែលកែលើផែនទី លើទីក្រុងសំណាញ់ ( ដើម្បីឱ្យអាចភ្ជាប់
-  // ពួកវាទៅទីក្រុង )។ រូបរាងដូចផែនទីពេញរបស់ហ្គេម គឺ
+  // ផ្លូវ និងកំពង់កម្រិតពិភពលោក គូរលើផែនទីគ្រប់ផ្ទាំងតាមស្រទាប់ ផ្លូវ ។
+  // រូបរាងដូចផែនទីពេញរបស់ហ្គេម គឺ
   // ផ្លូវពណ៌ប្រផេះស្រាលជាមួយគែមអង់ដេស៊ីតងងឹត និងវេទិកាកំពង់។
-  if ( vojojAktiva() ) {
+  if ( cxuVidebla("vojoj") ) {
     // ផ្លូវ គឺបន្ទាត់ពហុកោណក្រាស់។ ឆ្នូតងងឹតខាងក្រៅ ( គែម
     // អង់ដេស៊ីត ទទឹងដូចកន្លះផ្លូវ ) និងស្នូលឌីអូរីតភ្លឺ ជាមួយ
     // ចុងមូលដូចក្បាលផ្លូវក្នុងហ្គេម។ ផ្លូវដែលជ្រើសត្រូវបំភ្លឺ។
@@ -252,6 +264,28 @@ export function desegniVidon(): void {
       k.lineTo(7, pintoY + 1);
       k.closePath();
       k.fill();
+      // ⟨ ចំណុចកំពូលកំពង់ 📃 ⟩ គឺចំណុចអូសនៅគែមខាងទឹក ។ អូសវាដើម្បី
+      // ពង្រីក ឬបង្រួមកំពង់ ( ចំណុចដីនៅស្ថិត ) ។ វាមានរង្វង់ស្ថិតលើ
+      // វេទិកាដូចចំណុចផ្លូវ , ហើយបំភ្លឺពេលកំពង់ត្រូវជ្រើស ។
+      const pintaY2 = ( prof / 2 ) * vidSkalo;
+      k.beginPath();
+      k.arc(0, pintaY2, elektita ? 6 : 5, 0, Math.PI * 2);
+      k.fillStyle = elektita ? "#f8e8a8" : "rgba(255,255,255,0.92)";
+      k.fill();
+      k.strokeStyle = "rgba(0,0,0,0.55)";
+      k.lineWidth = 1.5;
+      k.stroke();
+      // ⟨ ចំណុចចុងខាងដី 📃 ⟩ ។ អូសវាដើម្បីផ្លាស់ទី/បង្វិលកំពង់ , ហើយផ្លូវ
+      // អាចឈប់ត្រង់ចំណុចនេះដោយផ្ទាល់ ( ការភ្ជាប់ចំណុចទៅចំណុច ) ។
+      // ពណ៌បៃតងស្រាលដើម្បីបែងចែកពីចំណុចខាងទឹក ។
+      const landaY2 = -( prof / 2 ) * vidSkalo;
+      k.beginPath();
+      k.arc(0, landaY2, elektita ? 6 : 5, 0, Math.PI * 2);
+      k.fillStyle = elektita ? "#d8f0a8" : "rgba(216,240,168,0.92)";
+      k.fill();
+      k.strokeStyle = "rgba(0,0,0,0.55)";
+      k.lineWidth = 1.5;
+      k.stroke();
       k.restore();
     }
   }
@@ -283,7 +317,7 @@ export function desegniVidon(): void {
   // ចំណុចតាមលំហូរ ( គ្រាប់រំកិល ) ហើយប្រភពដែលជ្រើសមាន
   // ចិញ្ចៀនស។ ប្រភពគឺជាការបញ្ចូលតែមួយគត់របស់ទឹក ដូច្នេះពួកវាបង្ហាញ
   // ជានិច្ច ប៉ុន្តែការបំភ្លឺខ្លាំងជាងពេលប្រើឧបករណ៍ទឹក។
-  for ( let i = 0; i < fontoj.length; i++ ) {
+  if ( cxuVidebla("fontoj") ) for ( let i = 0; i < fontoj.length; i++ ) {
     const f = fontoj[i];
     const elektita = i === elektitaFonto;
     const akvaIlo = penikoAktiva === "akvo" || penikoAktiva === "akvoforvisxi";

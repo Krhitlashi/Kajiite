@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { MONDO_HALFO, REZ } from "./mezuroj.js";
 import { pentri } from "./bako.js";
-import { akvaNiveloDe } from "./akvo.js";
+import { akvaNiveloDe, cxuAkvoSurfaco } from "./akvo.js";
 import { triaDimensia, teraMesh, objektaGrupo3D, YTROIGO,
   gxisdatigi3DMeshon, gxisdatigi3DnIlon } from "./vido3d.js";
 import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
@@ -70,7 +70,6 @@ export let objektaBakaKanvaso: HTMLCanvasElement | null = null;
 // ⟪ ការភ្ជាប់ជាមួយកម្មវិធីកែសម្រួល 📃 ⟫
 interface ObjektaLigo {
   deltoInterp: ( x: number, z: number ) => number;
-  maskoInterp: ( x: number, z: number ) => number;
   vidSkalo: () => number;
   N: number;
   PASO: number;
@@ -89,7 +88,6 @@ interface ObjektaLigo {
   gxisdatigiKursoro: () => void;
 }
 let deltoInterp: ( x: number, z: number ) => number;
-let maskoInterp: ( x: number, z: number ) => number;
 let vidSkalo: () => number;
 let N: number;
 let PASO: number;
@@ -110,7 +108,7 @@ let gxisdatigiKursoro: () => void;
 /* agordiObjektilon គឺការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
     @param k ( ObjektaLigo ) - ការយោងរបស់ឯកសារមេ។ */
 export function agordiObjektilon(k: ObjektaLigo): void {
-  deltoInterp = k.deltoInterp; maskoInterp = k.maskoInterp;
+  deltoInterp = k.deltoInterp;
   vidSkalo = k.vidSkalo;
   N = k.N; PASO = k.PASO; X0 = k.X0; Z0 = k.Z0;
   ORA_MATERIALO = k.ORA_MATERIALO; ENIRA_MATERIALO = k.ENIRA_MATERIALO;
@@ -148,7 +146,8 @@ export function gxisdatigiKoordinatojn(x: number | null, z: number | null): void
   if ( !koordinatajEl ) return;
   if ( x === null || z === null ) { koordinatajEl.textContent = "⋯"; return; }
   const h = bazaAlteco(x, z) + deltoInterp(x, z);
-  const akva = maskoInterp(x, z) >= 0o1/0o2;
+  // ⟨ ទឹកពិត 📃 ⟩ ៖ ទឹកដេរីវេ ( ប្រភព , អាង , ទន្លេ ) , មិនមែនម៉ាសចាស់ដែលបានគូរ ។
+  const akva = cxuAkvoSurfaco(x, z);
   koordinatajEl.textContent = "x " + x.toFixed(2) + "   z " + z.toFixed(2)
     + "   y " + h.toFixed(2) + ( akva ? "   ( ទឹក )" : "" );
 }

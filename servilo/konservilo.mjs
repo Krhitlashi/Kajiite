@@ -9,20 +9,24 @@ const RADIKO = fileURLToPath(new URL("..", import.meta.url));
 const SRC = join(RADIKO, "kantaoj");
 
 // ⟪ ឯកសារទិន្នន័យដែលអនុញ្ញាត 📃 ⟫
+// ផ្ទៀងផ្ទាត់ដោយច្បាប់ចម្លងនៃឈ្មោះចេញ ( export const ... ) ដែលឧបករណ៍
+// ឆ្លាក់ដីសរសេរក្នុងឯកសារនីមួយៗ ។ បឋមកថាផ្លាស់ប្តូរអក្សរ ( ឈ្មោះ
+// ឯកសារជាភាសាខ្មែរ ) ដូច្នេះមិនត្រូវពឹងផ្អែកលើវាទេ ។ អត្ថបទត្រូវ
+// ចាប់ផ្តើមដោយយោបល់ ( ឯកសារទិន្នន័យទាំងអស់មានបឋមកថា ) ។
 const DOSIEROJ = {
-  "krado.ts": "// ≺⧼ Skulptita krado",
-  "akvo.ts": "// ≺⧼ Skulptita akvo",
-  "akvofontoj.ts": "// ≺⧼ Skulptitaj akvofontoj",
-  "biomoj.ts": "// ≺⧼ Skulptitaj biomoj",
-  "bestoj.ts": "// ≺⧼ Skulptitaj bestoj",
-  "objektoj.ts": "// ≺⧼ Skulptitaj objektoj",
-  "urboj.ts": "// ≺⧼ Skulptitaj urboj",
-  "vojoj.ts": "// ≺⧼ Skulptitaj vojoj",
+  "krado.ts": [ "export const SKULPTA_PASO", "export const SKULPTA_DELTAJ" ],
+  "akvo.ts": [ "export const SKULPTA_AKVA_NIVELO", "export const SKULPTA_AKVA_MASKO" ],
+  "akvofontoj.ts": [ "export const SKULPTA_AKVOFONTOJ" ],
+  "biomoj.ts": [ "export const SKULPTA_BIOMOJ" ],
+  "bestoj.ts": [ "export const SKULPTA_BESTOJ" ],
+  "objektoj.ts": [ "export const SKULPTA_OBJEKTOJ" ],
+  "urboj.ts": [ "export const SKULPTA_URBOJ" ],
+  "vojoj.ts": [ "export const SKULPTA_VOJOJ", "export const SKULPTA_DOKOJ" ],
 };
 // ⟪ ឯកសារចុះបញ្ជី 📃 ⟫
 const REGISTRAJ = {
-  "mapoj.ts": "// ≺⧼ Mapoj",
-  "aktiva.ts": "// ≺⧼ Aktiva mapo",
+  "mapoj.ts": [ "export const MAPOJ" ],
+  "aktiva.ts": [ "export * from \"./", "krado.js" ],
 };
 
 function markiloDe(nomo) {
@@ -32,6 +36,12 @@ function markiloDe(nomo) {
   const registra = /^tero-datumaro\/([a-z0-9\-]+\.ts)$/.exec(nomo);
   if ( registra ) return REGISTRAJ[registra[1]] ?? null;
   return null;
+}
+function cxefaDe(nomo, teksto) {
+  const bezonoj = markiloDe(nomo);
+  if ( !bezonoj || typeof teksto !== "string" ) return false;
+  if ( !teksto.startsWith("//") ) return false;
+  return bezonoj.every(b => teksto.includes(b));
 }
 
 // ⟪ CORS 📃 ⟫
@@ -83,8 +93,7 @@ const servilo = createServer(async (peto, respondo) => {
     }
     let skribitaj = 0;
     for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) {
-      const markilo = markiloDe(nomo);
-      if ( !markilo || typeof teksto !== "string" || !teksto.startsWith(markilo) ) {
+      if ( !cxefaDe(nomo, teksto) ) {
         respondo.writeHead(0o620, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
         respondo.end("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ឯកសារត្រូវបានបដិសេធ , " + nomo + " , មិនបានសរសេរ");
         return;

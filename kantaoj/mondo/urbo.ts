@@ -50,6 +50,7 @@ import { PONT_FINA_LEVIGXO, PONT_AKVA_KLARANCO, konstruiPonton } from "../../esk
 import { kreiStuparanAlton, kreiStuparajnPunktojn } from "../../eskekoj/medio/doko/stuparo.js";
 import { troviVojaRetajnKunigojn, VojaRetoVojo, VojaRetoKunigo } from "../../eskekoj/medio/voj-reto.js";
 import { gluiVojaFinon } from "./urbo/gluado.js";
+import { kreiBazanVojoAlton, kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { konstruiPontanProfilon, havasAkvanTrunkon, kreiPontanAkvanTeston,
   type PontoTrako } from "./urbo/ponto-profilo.js";
 import { surPosxtelefono } from "../bildo/scena/aparato.js";
@@ -132,29 +133,12 @@ export async function konstruiUrbon(
 
 
   // ⟨ ផ្ទៃផ្លូវឈរលើដីខ្ពស់ជិតខាង ហើយឡើងចុះទន់ៗ មិនកាត់ភ្នំ 📃 ⟩
-  const VOJA_TERA_KLINO = 0o1/0o4;
-  const VOJA_TERA_RADII = [ 0o1/0o2, 0o1, 0o2, 0o4, 0o10, 0o20 ];
-  const VOJA_TERA_ANGULOJ = 0o20;
-  const VOJA_ALTECA_KVANTO = 0o4;
-  const vojoAltecoMemoro = new Map<string, number>();
-  const bazaVojoAlteco = ( x: number, z: number ): number => {
-    const px = Math.round(x * VOJA_ALTECA_KVANTO) / VOJA_ALTECA_KVANTO;
-    const pz = Math.round(z * VOJA_ALTECA_KVANTO) / VOJA_ALTECA_KVANTO;
-    const klavo = px + "," + pz;
-    let milda = vojoAltecoMemoro.get(klavo);
-    if ( milda === undefined ) {
-      milda = alteco(px, pz);
-      for ( const r of VOJA_TERA_RADII ) {
-        for ( let i = 0; i < VOJA_TERA_ANGULOJ; i++ ) {
-          const angulo = i * Math.PI * 0o2 / VOJA_TERA_ANGULOJ;
-          milda = Math.max(milda,
-            alteco(px + Math.cos(angulo) * r, pz + Math.sin(angulo) * r) - VOJA_TERA_KLINO * r);
-        }
-      }
-      vojoAltecoMemoro.set(klavo, milda);
-    }
-    return Math.max(alteco(x, z), milda);
-  };
+  // ⟨ radius តូច និងជម្រាលចោទ 📏 ⟩ ៖ ផ្លូវគិតតែដីខ្ពស់ក្នុងរង្វង់ ៤ ឯកតា ។ មុននេះ
+  // វាគិតដល់ ២០ ឯកតា , ដូច្នេះភ្នំមួយឆ្ងាយ ១៥ ឯកតាលើកផ្លូវទាំងរង្វង់ ំ ហើយផ្លូវដើរ
+  // ខ្ពស់លើដីរាបដោយមិនចុះ ំ ជញ្ជាំងខាងក្រោមខ្ពស់ច្រើនជាន់ ។ ដីខ្ពស់ក្នុង
+  // ៤ ឯកតានៅតែលើកផ្លូវ , ដូច្នេះផ្លូវមិនកាត់ចូលជញ្ជាំងថ្មជិត ។ 📃 ⟩
+  // ⟨ វាលតែមួយសម្រាប់ផ្លូវទាំងអស់ , និងសម្រាប់ចំណតផង 📃 ⟩
+  const bazaVojoAlteco = kreiBazanVojoAlton(alteco);
   let vojoAlteco = bazaVojoAlteco;
 
   // ⟪ ចំណត , ច្រកចូលតាមច្រាំងទន្លេ 📃 ⟫
@@ -165,34 +149,6 @@ export async function konstruiUrbon(
     landaX: number; landaZ: number; larĝo: number; landejaY: number;
     komenco: [ number, number ]; fino: [ number, number ];
   }[] = [];
-  for ( let i = 0; i < DOKOJ.length; i++ ) {
-    const rotacio = DOKOJ[i].rotacio ?? 0;
-    const doko = konstruiDokon(sceno, DOKOJ[i].x, DOKOJ[i].z, rotacio,
-      vojoAlteco, akvaNivelo, DOKOJ[i].profundo, alteco);
-    // ⟨ ការប៉ះទង្គិចមួយក្នុងមួយផ្នែក 📃 ⟩
-    const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
-    for ( const s of doko.sekcioj ) {
-      dokoKolizioj.push({ x: DOKOJ[i].x + kos * s.lx + sin * s.lz,
-        z: DOKOJ[i].z - sin * s.lx + kos * s.lz, w: s.w, d: s.d, rot: rotacio, y: s.y });
-    }
-    dokoLandajAltoj.push(doko.platformY);
-    if ( doko.stuparajPunktoj.length >= 2 ) {
-      dokoStuparajDatumoj.push({
-        landaX: DOKOJ[i].x + sin * ( DOKOJ[i].profundo / 2 ),
-        landaZ: DOKOJ[i].z + kos * ( DOKOJ[i].profundo / 2 ),
-        larĝo: doko.platformWidth, landejaY: doko.landejaY,
-        komenco: doko.stuparajPunktoj[0], fino: doko.stuparajPunktoj[1],
-      });
-    }
-  }
-  // ⟪ ស្ពាន 📃 ⟫
-  // ⟨ ហេតុអ្វីចំណតមិនកំណត់ស្ពានទៀត 📃 ⟩
-  const dokaLandaj = DOKOJ.map(( d, i ) => {
-    const rotacio = d.rotacio ?? 0;
-    return { x: d.x + Math.sin(rotacio) * ( d.profundo / 2 ),
-      z: d.z + Math.cos(rotacio) * ( d.profundo / 2 ), y: dokoLandajAltoj[i] + PONT_FINA_LEVIGXO };
-  });
-  await raporti();
 
   // ⟪ កំពង់ និងមហាវិថីចំណត ( ទីក្រុងចម្បង ) 📃 ⟫
   const vojDifinoj: VojDifino[] = [];
@@ -256,6 +212,12 @@ export async function konstruiUrbon(
   // ⟨ ចុងផ្លូវដែលឈប់ខ្លីពីចានភ្ជាប់ ៖ ទាញទៅចានភ្ជាប់ជិតបំផុត ។
   // បើមិនទាញ , នៅសល់ចន្លោះស្មៅមួយជំហាននៅរវាងចុងផ្លូវ និងចានភ្ជាប់ ។
   // ចុងផ្លូវចំណតមិនត្រូវទាញទេ ៖ វាឈប់ត្រង់មាត់ចំណតដោយចេតនា ។ 📃 ⟩
+  // ⟨ មាត់ដីចំណត ៖ ទីតាំងតែប៉ុណ្ណោះ ។ កម្ពស់មកពីចំណតដែលសាងសង់ក្រោយ វាលផ្លូវ ។ 📃 ⟩
+  const dokaLandaj = DOKOJ.map(d => {
+    const rotacio = d.rotacio ?? 0;
+    return { x: d.x + Math.sin(rotacio) * ( d.profundo / 2 ),
+      z: d.z + Math.cos(rotacio) * ( d.profundo / 2 ), y: 0 };
+  });
   const antaŭajKunigoj = troviVojaRetajnKunigojn( vojajRetajVojoj, DOKOJ );
   const gluaCelo: [ number, number ][] = [ ...kradajKunigoj,
     ...antaŭajKunigoj.map( k => [ k.x, k.z ] as [ number, number ] ) ];
@@ -279,37 +241,36 @@ export async function konstruiUrbon(
   // ⟨ ដៃពិតនៃការភ្ជាប់នីមួយៗ 📃 ⟩
   const vojajDirektoj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.direktaj ] ) );
   // ⟨ កម្រិតរួមសម្រាប់ចានភ្ជាប់ និងចុងផ្លូវ 📃 ⟩
-  const VOJA_KUNIGA_RAMPO = 0o10;
-  const VOJA_KUNIGA_CELO = 0o20;
-  const VOJA_KUNIGA_RADIUSO = Math.hypot(VOJA_TRUA_DUONO, VOJA_EKSTERA_DUONO);
-  const kunigajFontoj = new Map<string, { x: number; z: number; alto: number }[]>();
-  const unikajKunigoj = new Map<string, [ number, number ]>();
-  for ( const [ x, z ] of [ ...kradajKunigoj, ...vojajKunigoPunktoj ] )
-    unikajKunigoj.set(x + "," + z, [ x, z ]);
-  for ( const [ klavo, [ x, z ] ] of unikajKunigoj ) {
-    const alto = surGrid(vojaSuproDeKunigo(x, z, vojajDirektoj.get(klavo) ?? [],
-      VOJA_EKSTERA_DUONO, bazaVojoAlteco).supro) - VOJA_SUPRO_LEVIGXO;
-    const cx = Math.floor(x / VOJA_KUNIGA_CELO), cz = Math.floor(z / VOJA_KUNIGA_CELO);
-    const ĉelaKlavo = cx + "," + cz;
-    const fontoj = kunigajFontoj.get(ĉelaKlavo) ?? [];
-    fontoj.push({ x, z, alto });
-    kunigajFontoj.set(ĉelaKlavo, fontoj);
-  }
-  vojoAlteco = ( x, z ) => {
-    let alto = bazaVojoAlteco(x, z);
-    const cx = Math.floor(x / VOJA_KUNIGA_CELO), cz = Math.floor(z / VOJA_KUNIGA_CELO);
-    for ( let dx = -0o1; dx <= 0o1; dx++ ) {
-      for ( let dz = -0o1; dz <= 0o1; dz++ ) {
-        for ( const fonto of kunigajFontoj.get(( cx + dx ) + "," + ( cz + dz )) ?? [] ) {
-          const distanco = Math.hypot(x - fonto.x, z - fonto.z);
-          if ( distanco > VOJA_KUNIGA_RADIUSO + VOJA_KUNIGA_RAMPO ) continue;
-          alto = Math.max(alto, fonto.alto - VOJA_TERA_KLINO
-            * Math.max(0, distanco - VOJA_KUNIGA_RADIUSO));
-        }
-      }
+  vojoAlteco = kreiVojoAlton(alteco, [
+    ...kradajKunigoj.map(([ x, z ]) => ( { x, z, direktaj: [] as [ number, number ][] } )),
+    ...vojajKunigoj ]);
+  await raporti();
+
+  // ⟪ ចំណត ⚓ ⟫
+  // ⟨ ចំណតអានវាលផ្លូវដូចគ្នា ៖ ដូច្នេះចំណតនិងផ្លូវឈរស្មើគ្នា ។ មុននេះចំណត
+  // សាងសង់មុនវាល , ដូច្នេះវាឈរទាបជាងផ្លូវមួយជំហានឬច្រើននៅមាត់ដី ។ 📃 ⟩
+  for ( let i = 0; i < DOKOJ.length; i++ ) {
+    const rotacio = DOKOJ[i].rotacio ?? 0;
+    const doko = konstruiDokon(sceno, DOKOJ[i].x, DOKOJ[i].z, rotacio,
+      vojoAlteco, akvaNivelo, DOKOJ[i].profundo, alteco);
+    // ⟨ ការប៉ះទង្គិចមួយក្នុងមួយផ្នែក 📃 ⟩
+    const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
+    for ( const s of doko.sekcioj ) {
+      dokoKolizioj.push({ x: DOKOJ[i].x + kos * s.lx + sin * s.lz,
+        z: DOKOJ[i].z - sin * s.lx + kos * s.lz, w: s.w, d: s.d, rot: rotacio, y: s.y });
     }
-    return alto;
-  };
+    dokoLandajAltoj.push(doko.platformY);
+    dokaLandaj[i].y = doko.platformY + PONT_FINA_LEVIGXO;
+    if ( doko.stuparajPunktoj.length >= 2 ) {
+      dokoStuparajDatumoj.push({
+        landaX: DOKOJ[i].x + sin * ( DOKOJ[i].profundo / 2 ),
+        landaZ: DOKOJ[i].z + kos * ( DOKOJ[i].profundo / 2 ),
+        larĝo: doko.platformWidth, landejaY: doko.landejaY,
+        komenco: doko.stuparajPunktoj[0], fino: doko.stuparajPunktoj[1],
+      });
+    }
+  }
+  await raporti();
   // ⟨ ជណ្តើរចំណត ៖ រត់ពីផ្ទៃចានភ្ជាប់ ចុះដល់ផ្ទៃចំណត ។
   // កម្ពស់ជំហាន និងកម្រាលជំហានស្មើគ្នាទាំងអស់ ។ 📃 ⟩
   for ( const d of dokoStuparajDatumoj ) {

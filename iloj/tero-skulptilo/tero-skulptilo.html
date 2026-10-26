@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
 <link rel="stylesheet" href="../stiloj.css">
 </head>
-<body class="tapufal">
+<body class="cepufal">
 <p class="ksakap2sa"> ឧបករណ៍ឆ្លាក់ដី 🔨 </p>
 <p class="kefhuruq"> ឆ្លាក់ជ្រលង , ភ្នំ , ទន្លេ , បឹង , ដោយជក់ ហើយរក្សាទុកលទ្ធផលដោយផ្ទាល់ទៅឯកសារទិន្នន័យ។ ហ្គេមអានការឆ្លាក់ជាដីទាំងមូល ( ស្រទាប់ធម្មជាតិរាបស្មើ )។ ផែនទីបង្ហាញខាងជើងនៅលើ និងខាងកើតនៅស្តាំ , តម្រង់ដូចគ្នានឹងផែនទីតូចរបស់ហ្គេម។ </p>
 <thala>
@@ -37,15 +37,19 @@
 <thala>
   <p class="ksakap2sa"> ឧបករណ៍ 🛠️ </p>
   <sabosuc2w2q id="ilTaboj">
-    <button data-iltabo="tereno" aria-pressed="true"> ដី 🏔️ </button>
+    <button data-iltabo="tereno" aria-pressed="false"> ដី 🏔️ </button>
     <button data-iltabo="biomo" aria-pressed="false"> ជីវតំបន់ 🎨 </button>
     <button data-iltabo="animaloj" aria-pressed="false"> សត្វ 🐾 </button>
     <button data-iltabo="objektoj" aria-pressed="false"> វត្ថុ 🎯 </button>
     <button data-iltabo="krado" aria-pressed="false"> ក្រឡា 🏙️ </button>
-    <button id="movigiIlo" aria-pressed="false"> ផ្លាស់ទី ✋ </button>
+    <button data-iltabo="vido" aria-pressed="false"> មើលឃើញ 👁️ </button>
+    <button id="movigiIlo" aria-pressed="true"> ផ្លាស់ទី ✋ </button>
   </sabosuc2w2q>
-  <sabosuc2w2q id="terenaro">
-    <button data-peniko="levi" aria-pressed="true"> លើក ⬆ </button>
+</thala>
+  <thala id="terenaro">
+  <p class="ksakap2sa"> ជក់ដី 🏔️ </p>
+  <sabosuc2w2q>
+    <button data-peniko="levi" aria-pressed="false"> លើក ⬆ </button>
     <button data-peniko="malsuprenigi"> បន្ទាប ⬇ </button>
     <button data-peniko="platigi"> ធ្វើឱ្យរាបស្មើ ▬ </button>
     <button data-peniko="glatigi"> ធ្វើឱ្យរលូន ≋ </button>
@@ -54,7 +58,10 @@
     <button id="fontojElPentrita" title="ដាក់ប្រភពនៅចុងខាងលើនៃទឹកដែលបានគូរចាស់"> ពីទឹកដែលបានគូរ 🔁 </button>
     <button data-peniko="forvisxi"> ជូត 🧽 </button>
   </sabosuc2w2q>
-  <sabosuc2w2q id="biomaro" class="kobe">
+  </thala>
+  <thala id="biomaro" class="kobe">
+  <p class="ksakap2sa"> ជីវតំបន់ 🎨 </p>
+  <sabosuc2w2q>
     <button data-biomo="1" aria-pressed="true"> ភ្នំ ⛰️ </button>
     <button data-biomo="2" aria-pressed="false"> ជ្រលង 🏞️ </button>
     <button data-biomo="3" aria-pressed="false"> វាលរាប 🏜️ </button>
@@ -62,13 +69,19 @@
     <button data-biomo="5" aria-pressed="false"> ហូសេថេល 🌾 </button>
     <button data-biomo="0" aria-pressed="false"> ស្វ័យប្រវត្តិ ⚙️ </button>
   </sabosuc2w2q>
-  <sabosuc2w2q id="bestaro" class="kobe">
+  </thala>
+  <thala id="bestaro" class="kobe">
+  <p class="ksakap2sa"> សត្វ 🐾 </p>
+  <sabosuc2w2q>
     <button data-besto="1" aria-pressed="true"> សត្វទឹក 🐟 </button>
     <button data-besto="2" aria-pressed="false"> ផេត្រេល 🕊️ </button>
     <button data-besto="4" aria-pressed="false"> NPC 🧍 </button>
     <button id="bestoForvisxo" aria-pressed="false"> ជូត 🧽 </button>
   </sabosuc2w2q>
-  <sabosuc2w2q id="kradaro" class="kobe">
+  </thala>
+  <thala id="kradaro" class="kobe">
+  <p class="ksakap2sa"> ប្រភេទក្រឡា 🏙️ </p>
+  <sabosuc2w2q>
     <button data-krado-tipo="automata" aria-pressed="true"> ស្វ័យប្រវត្តិ ⚙️ </button>
     <button data-krado-tipo="sanktejo" aria-pressed="false"> ទីសក្ការៈ 🛕 </button>
     <button data-krado-tipo="turo" aria-pressed="false"> ប៉ម 🏢 </button>
@@ -77,7 +90,7 @@
     <button data-krado-tipo="kasafeo" aria-pressed="false"> ហាងកាហ្វេ 🏛️ </button>
     <button data-krado-tipo="stacio" aria-pressed="false"> ស្ថានីយ 🚀 </button>
   </sabosuc2w2q>
-</thala>
+  </thala>
 <thala id="objektoPanel" class="kobe">
   <p class="ksakap2sa"> វត្ថុ 🎯 </p>
   <sabosuc2w2q id="objektaIloj">
@@ -139,7 +152,9 @@
     <button data-krado-sub="blokoj" aria-pressed="false"> ប្លុកបន្ថែម 🧱 </button>
     <button data-krado-sub="vojoj" aria-pressed="false"> ផ្លូវ 🛣️ </button>
   </sabosuc2w2q>
-  <ciihii data-krado-sub-panel="urboj">
+</thala>
+<thala data-krado-sub-panel="urboj" class="kobe">
+  <p class="ksakap2sa"> ទីក្រុង 🏙️ </p>
   <label> ទីក្រុង
     <select id="urboElektilo"></select>
   </label>
@@ -148,8 +163,9 @@
     <button id="urboAldoni"> បន្ថែមទីក្រុង ➕ </button>
     <button id="urboForigi"> លុបទីក្រុង 🗑️ </button>
   </sabosuc2w2q>
-  </ciihii>
-  <ciihii data-krado-sub-panel="redakti" class="kobe">
+  </thala>
+  <thala data-krado-sub-panel="redakti" class="kobe">
+  <p class="ksakap2sa"> កែក្រឡា ✏️ </p>
   <label> ទំហំ
     <select id="kradoGrandeco">
       <option value="1">1 , កណ្តាល + បួនជុំវិញ</option>
@@ -170,8 +186,9 @@
   <label> អុហ្វសិត z <input id="kradoOfsZ" type="number" step="1" min="-384" max="384" value="0"> </label>
   <label> <input id="kradoKeuxfhxeso" type="checkbox"> គីហ្វហេសូ ⭐ ( ជ្រុងទាំងបួនជុំវិញកណ្តាល ) </label>
   <label> <input id="kradoLampoj" type="checkbox" checked> ចង្កៀង 🏮 ( គំរូផ្លូវចង្កៀងបួន ) </label>
-  </ciihii>
-  <ciihii data-krado-sub-panel="blokoj" class="kobe">
+  </thala>
+  <thala data-krado-sub-panel="blokoj" class="kobe">
+  <p class="ksakap2sa"> ប្លុកបន្ថែម 🧱 </p>
   <label> ប្លុក
     <select id="aldonaBlokoElektilo"></select>
   </label>
@@ -194,15 +211,18 @@
     <button id="aldonaBlokoAldoni"> បន្ថែមប្លុក ➕ </button>
     <button id="aldonaBlokoForigi"> លុបប្លុក 🗑️ </button>
   </sabosuc2w2q>
-  </ciihii>
-  <ciihii id="vojojPanel" data-krado-sub-panel="vojoj" class="kobe">
+  </thala>
+  <thala id="vojojPanel" data-krado-sub-panel="vojoj" class="kobe">
+  <p class="ksakap2sa"> ផ្លូវ និងចតុកោណ 🛣️ </p>
   <sabosuc2w2q id="vojoSubTaboj">
     <button data-vojo-sub="vojoj" aria-pressed="true"> ផ្លូវ 🛣️ </button>
     <button data-vojo-sub="punktoj" aria-pressed="false"> ចំណុច 📍 </button>
     <button data-vojo-sub="dokoj" aria-pressed="false"> ចតុកោណ 🚢 </button>
     <button data-vojo-sub="iloj" aria-pressed="false"> ឧបករណ៍ផែនទី 🖱️ </button>
   </sabosuc2w2q>
-  <ciihii data-vojo-sub-panel="vojoj">
+</thala>
+<thala data-vojo-sub-panel="vojoj" class="kobe">
+  <p class="ksakap2sa"> ផ្លូវ 🛣️ </p>
   <label> ផ្លូវ
     <select id="vojoElektilo"></select>
   </label>
@@ -213,8 +233,9 @@
     <button id="vojoForigi"> លុបផ្លូវ 🗑️ </button>
     <button id="vojoKonekti" title="ភ្ជាប់ផ្លូវ ស្ពាន និងចតុកោណជាមួយផ្លូវជិតបំផុត"> ភ្ជាប់ផ្លូវ និងចតុកោណ 🔗 </button>
   </sabosuc2w2q>
-  </ciihii>
-  <ciihii data-vojo-sub-panel="punktoj" class="kobe">
+  </thala>
+  <thala data-vojo-sub-panel="punktoj" class="kobe">
+  <p class="ksakap2sa"> ចំណុច 📍 </p>
   <label> ចំណុច
     <select id="vojoPunktoElektilo"></select>
   </label>
@@ -224,8 +245,9 @@
   </sabosuc2w2q>
   <label> x <input id="vojoPunktoX" type="number" step="any" min="-384" max="384"> </label>
   <label> z <input id="vojoPunktoZ" type="number" step="any" min="-384" max="384"> </label>
-  </ciihii>
-  <ciihii data-vojo-sub-panel="dokoj" class="kobe">
+  </thala>
+  <thala data-vojo-sub-panel="dokoj" class="kobe">
+  <p class="ksakap2sa"> ចតុកោណ 🚢 </p>
   <label> ចតុកោណ
     <select id="dokoElektilo"></select>
   </label>
@@ -237,20 +259,24 @@
     <button id="dokoAldoni"> បន្ថែមចតុកោណ ➕ </button>
     <button id="dokoForigi"> លុបចតុកោណ 🗑️ </button>
   </sabosuc2w2q>
-  </ciihii>
-  <ciihii data-vojo-sub-panel="iloj" class="kobe">
+  </thala>
+  <thala data-vojo-sub-panel="iloj" class="kobe">
+  <p class="ksakap2sa"> ឧបករណ៍ផែនទី 🖱️ </p>
   <sabosuc2w2q id="vojaIloj">
     <button data-voja-ilo="movu" aria-pressed="true"> ជ្រើស/ផ្លាស់ទី ✋ </button>
     <button data-voja-ilo="aldoni" aria-pressed="false"> បន្ថែមចំណុច ➕ </button>
     <button data-voja-ilo="forigi" aria-pressed="false"> លុបចំណុច 🗑️ </button>
   </sabosuc2w2q>
-  </ciihii>
+  </thala>
+<thala id="vojoEnhavo" class="kobe">
   <p id="vojaStatistikoj" class="kefhuruq"> ⋯ </p>
   <details class="flak">
     <summary class="ksakap2sa"> ជំនួយ ❓ </summary>
-    <p class="kefhuruq"> ផ្ទាំងរងផ្លូវនៃបន្ទះក្រឡាកែផ្លូវ និងចតុកោណកម្រិតពិភពលោក , ដូចគ្នានឹងអ្វីដែលហ្គេមសាងសង់ពី SKULPTA_VOJOJ និង SKULPTA_DOKOJ ( kantaoj/tero-datumaro/vojoj.ts ) , ដោយឡែកពីការបង្កើតក្រឡា និងទីក្រុង ដើម្បីឱ្យអនាគតពួកវាអាចភ្ជាប់ទីក្រុងជាច្រើន។ ផែនទីបង្ហាញពួកវាដូចផែនទីពេញរបស់ហ្គេម ( ផ្លូវប្រផេះភ្លឺជាមួយគែមខ្មៅ , វេទិកាចតុកោណ )។ ជ្រើស/ផ្លាស់ទី ✋ , ចុចលើផ្លូវ ចំណុច ឬចតុកោណដើម្បីជ្រើស ហើយអូសដើម្បីផ្លាស់ទី ( ភ្ជាប់ 0.5 )។ បន្ថែមចំណុច ➕ , ចុចលើផែនទីដើម្បីដាក់ចំណុចក្នុងផ្លូវដែលជ្រើស។ លុបចំណុច 🗑️ , ចុចលើចំណុចដើម្បីលុប។ ផ្លូវ ស្ពាន និងចតុកោណភ្ជាប់គ្នាដោយស្វ័យប្រវត្តិ , ចុងផ្លូវជាប់នឹងគែមផ្លូវជិតខាង ឬជ្រុងដីនៃចតុកោណ , ខណៈចតុកោណបង្វិល និងដាក់ខ្លួនឱ្យជ្រុងដីរបស់វាស្ថិតលើផ្លូវ។ ប៊ូតុង „ភ្ជាប់ផ្លូវ និងចតុកោណ 🔗“ ធ្វើដូច្នេះសម្រាប់បណ្តាញទាំងមូល។ ផ្លូវដែលភ្ជាប់ទទួលការកាត់ថ្នាំង , ផ្ទាំងមូល និងមួកចុងសេរីដូចក្រឡា។ ស្ថិតិបង្ហាញការតភ្ជាប់ និងការត្រួតគ្នាផ្លូវ-ផ្លូវ ផ្លូវ-ចតុកោណ និងចតុកោណ-ចតុកោណ។ ផ្លូវមានឈ្មោះ និងទទឹង ( គ្មានតម្លៃថេរ , ផ្លូវនីមួយៗជាប៉ូលីលីនកែបានពេញ ) , ចតុកោណមានទីតាំង ជម្រៅ និងរង្វិល។ យានអវកាស 🚀 និងទូកកាណូ 🛶 ជាវត្ថុ , ដាក់ និងផ្លាស់ទីដោយឧបករណ៍វត្ថុ ( SKULPTA_OBJEKTOJ ក្នុង kantaoj/tero-datumaro/objektoj.ts )។ ការផ្លាស់ប្តូរនីមួយៗរក្សាទុកទៅ kantaoj/ ដោយប៊ូតុងឯកសារ។ </p>
+    <p class="kefhuruq"> ផ្ទាំងរងផ្លូវនៃបន្ទះក្រឡាកែផ្លូវ និងចតុកោណកម្រិតពិភពលោក , ដូចគ្នានឹងអ្វីដែលហ្គេមសាងសង់ពី SKULPTA_VOJOJ និង SKULPTA_DOKOJ ( kantaoj/tero-datumaro/vojoj.ts ) , ដោយឡែកពីការបង្កើតក្រឡា និងទីក្រុង ដើម្បីឱ្យអនាគតពួកវាអាចភ្ជាប់ទីក្រុងជាច្រើន។ ផែនទីបង្ហាញពួកវាដូចផែនទីពេញរបស់ហ្គេម ( ផ្លូវប្រផេះភ្លឺជាមួយគែមខ្មៅ , វេទិកាចតុកោណ )។ ជ្រើស/ផ្លាស់ទី ✋ , ចុចលើផ្លូវ ចំណុច ឬចតុកោណដើម្បីជ្រើស ហើយអូសដើម្បីផ្លាស់ទី ( ភ្ជាប់ 0.5 )។ បន្ថែមចំណុច ➕ , ចុចលើផ្លូវដើម្បីបន្ថែមចំណុចក្នុងផ្លូវនោះ ឬចុចកន្លែងទំនេរដើម្បីបន្ថែមក្នុងផ្លូវដែលបានជ្រើស , ចំណុចថ្មីបិទភ្ជាប់ទៅក្រឡាទីក្រុង ឬផ្លូវ/ចតុកោណជិតបំផុតបើនៅជិតគ្នា។ លុបចំណុច 🗑️ , ចុចលើចំណុចដើម្បីលុប ( ផ្លូវមួយត្រូវការចំណុចយ៉ាងតិចពីរ )។ ផ្លូវ ស្ពាន និងចតុកោណភ្ជាប់គ្នាដោយស្វ័យប្រវត្តិ , ចុងផ្លូវជាប់នៅចុងផ្លូវជិតខាង ( ឬនៅលើគែមផ្លូវជិតខាង ) , ខណៈចតុកោណងាកទៅរកទឹក ហើយភ្ជាប់ខ្លួនឯងទៅផ្លូវជិតបើមាន ( ការកែរង្វិលដោយដៃ នៅតែស្តាប់តាម )។ ប៊ូតុង „ភ្ជាប់ផ្លូវ និងចតុកោណ 🔗“ ធ្វើដូច្នេះសម្រាប់បណ្តាញទាំងមូល។ ផ្លូវដែលភ្ជាប់ទទួលការកាត់ថ្នាំង , ផ្ទាំងមូល និងមួកចុងសេរីដូចក្រឡា។ ស្ថិតិបង្ហាញការតភ្ជាប់ និងការត្រួតគ្នាផ្លូវ-ផ្លូវ ផ្លូវ-ចតុកោណ និងចតុកោណ-ចតុកោណ។ ផ្លូវមានឈ្មោះ និងទទឹង ( គ្មានតម្លៃថេរ , ផ្លូវនីមួយៗជាប៉ូលីលីនកែបានពេញ ) , ចតុកោណមានទីតាំង ជម្រៅ និងរង្វិល។ យានអវកាស 🚀 និងទូកកាណូ 🛶 ជាវត្ថុ , ដាក់ និងផ្លាស់ទីដោយឧបករណ៍វត្ថុ ( SKULPTA_OBJEKTOJ ក្នុង kantaoj/tero-datumaro/objektoj.ts )។ ការផ្លាស់ប្តូរនីមួយៗរក្សាទុកទៅ kantaoj/ ដោយប៊ូតុងឯកសារ។ ចតុកោណមានចំណុចនៅកំពូលខាងទឹក , ដែលអូសបានដើម្បីពង្រីក ឬបង្រួមកំពង់ , និងចំណុចនៅចុងខាងដី , ដែលអូសបានដើម្បីផ្លាស់ទី ឬបង្វិលកំពង់ ហើយផ្លូវអាចឈប់ត្រង់ចំណុចនោះដោយផ្ទាល់ ( ការភ្ជាប់ចំណុចទៅចំណុច ) ។ ចំណុចផ្លូវថ្មីបន្ថែមនៅជាប់នឹងចំណុចដែលបានជ្រើស ។ </p>
+    <p class="kefhuruq"> សាកល្បងផ្លូវ 3D ដោយមិនផ្ទុកពិភពលោកទាំងមូល ៖ <a href="../provo-vojoj/provo-vojoj.html"> ឆាកសាកល្បងផ្លូវ 🛣️ </a> </p>
   </details>
-  </ciihii>
+</thala>
+<thala id="kradoEnhavo" class="kobe">
   <p id="kradoStatistikoj" class="kefhuruq"> ⋯ </p>
   <details class="flak">
     <summary class="ksakap2sa"> ជំនួយ ❓ </summary>
@@ -260,6 +286,27 @@
     <button id="kradoRestarigi"> កំណត់ក្រឡាឡើងវិញ ♻️ </button>
     <button id="kradoKopii"> ចម្លងការរៀបចំ 📋 </button>
   </sabosuc2w2q>
+</thala>
+<thala id="vidoPanel" class="kobe">
+  <p class="ksakap2sa"> មើលឃើញ 👁️ </p>
+  <sabosuc2w2q id="vidoTavoloj">
+    <button data-vido-speco="krado" aria-pressed="true"> ក្រឡាទីក្រុង 🏙️ </button>
+    <button data-vido-speco="vojoj" aria-pressed="true"> ផ្លូវ និងចតុកោណ 🛣️ </button>
+    <button data-vido-speco="objektoj" aria-pressed="true"> វត្ថុ 🎯 </button>
+    <button data-vido-speco="fontoj" aria-pressed="true"> ប្រភពទឹក 🌊 </button>
+    <button data-vido-speco="signoj" aria-pressed="true"> សញ្ញាទីក្រុង 📍 </button>
+  </sabosuc2w2q>
+  <p class="ksakap2sa"> ទីក្រុងដែលកំពុងបង្ហាញ 🏙️ </p>
+  <ariiba id="vidoUrboj"></ariiba>
+  <sabosuc2w2q>
+    <button id="vidoCxiuj"> បង្ហាញទាំងអស់ ➕ </button>
+    <button id="vidoUnu"> តែទីក្រុងដែលកែ 🎯 </button>
+  </sabosuc2w2q>
+  <p id="vidoStatistikoj" class="kefhuruq"> ⋯ </p>
+  <details class="flak">
+    <summary class="ksakap2sa"> ជំនួយ ❓ </summary>
+    <p class="kefhuruq"> ផ្ទាំងនេះបើក/បិទស្រទាប់ និងជ្រើសទីក្រុងដែលបង្ហាញ ។ ក្រឡាទីក្រុង 🏙️ គឺផែនការក្រឡា និងអគារ 3D ( បង្ហាញគ្រប់ផ្ទាំង , លំនាំដើម បើក ) , ផ្លូវ និងចតុកោណ 🛣️ គឺផ្លូវកម្រិតពិភពលោក , វត្ថុ 🎯 គឺវត្ថុដែលបានដាក់ , ប្រភពទឹក 🌊 គឺចំណុចប្រភព ហើយសញ្ញាទីក្រុង 📍 គឺសញ្ញា និងឈ្មោះទីក្រុងលើផែនទី ។ ការបិទស្រទាប់លាក់តែការគូរ , ទិន្នន័យនៅដដែល ។ បញ្ជីទីក្រុងខាងក្រោមធីកទីក្រុងដែលចង់ឃើញ ។ អាចធីកបានច្រើនក្នុងពេលតែមួយ , ដូច្នេះទីក្រុងទាំងនោះបង្ហាញជាមួយគ្នាក្នុង 2D និង 3D ។ ការជ្រើសទីក្រុងក្នុងផ្ទាំងក្រឡា ( ឬចុចលើក្រឡារបស់វា ) បន្ថែមវាទៅបញ្ជីនេះដោយមិនលុបទីក្រុងផ្សេង ។ ប៊ូតុង „បង្ហាញទាំងអស់ ➕“ ធីកទាំងអស់ , ហើយ „តែទីក្រុងដែលកែ 🎯“ ទុកតែទីក្រុងដែលកំពុងកែ ។ សញ្ញាទីក្រុងដែលបង្ហាញមានស៊ុមបៃតង ។ </p>
+  </details>
 </thala>
 <thala id="agordojPanel">
   <p class="ksakap2sa"> ការកំណត់ ⚙️ </p>
