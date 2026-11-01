@@ -10,20 +10,22 @@ function rotacioPor( direktaj: VojaPunkto[] ): number {
   const anguloj: number[] = [];
   for ( const d of direktaj ) anguloj.push( Math.atan2( d[1], d[0] ), Math.atan2( d[1], d[0] ) + Math.PI / 2 );
   const aksaToleranco = 0o1/0o40;
-  let plejbona = 0, plejalta = -Infinity, plejAlineitaj = -1;
+  let plejbona = 0, plejAlineitaj = -1, plejAksa = -Infinity;
   for ( const angulo of anguloj ) {
     const kos = Math.cos( angulo ), sin = Math.sin( angulo );
-    let poento = 0, alineitaj = 0;
+    let aksa = 0, alineitaj = 0;
     for ( const d of direktaj ) {
-      const x = kos * d[0] + sin * d[1];
-      const z = -sin * d[0] + kos * d[1];
-      poento += Math.abs( x ) + Math.abs( z );
-      if ( Math.abs( x ) < aksaToleranco || Math.abs( z ) < aksaToleranco ) alineitaj++;
+      const x = Math.abs( kos * d[0] + sin * d[1] );
+      const z = Math.abs( -sin * d[0] + kos * d[1] );
+      // ⟨ ភាពជិតអ័ក្ស 📏 ⟩ ៖ ១ ពេលដៃត្រង់អ័ក្ស , ០.៧១ ពេលនៅ ៤៥ ដឺក្រេ ។
+      // មុននេះប្រើ |x|+|z| ដែលខ្ពស់បំផុតនៅ ៤៥ ដឺក្រេ , ដូច្នេះចានវិលចេញពីដៃ ។ 📃 ⟩
+      aksa += Math.max( x, z );
+      if ( x < aksaToleranco || z < aksaToleranco ) alineitaj++;
     }
     if ( alineitaj > plejAlineitaj
-      || ( alineitaj === plejAlineitaj && poento > plejalta + 0o1/0o1000 ) ) {
+      || ( alineitaj === plejAlineitaj && aksa > plejAksa + 0o1/0o1000 ) ) {
       plejAlineitaj = alineitaj;
-      plejalta = poento;
+      plejAksa = aksa;
       plejbona = angulo;
     }
   }

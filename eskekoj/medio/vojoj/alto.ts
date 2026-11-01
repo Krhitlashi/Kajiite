@@ -3,9 +3,11 @@
 // ដូច្នេះកម្ពស់ផ្លូវមិនអាស្រ័យលើទិសដៅរបស់ផ្លូវទេ ៖ វាជាវាលតែមួយលើផែនទី ,
 // ហើយផ្លូវគ្រប់ខ្សែអានវាលនោះ ។ ឯកសារនេះជាកន្លែងតែមួយសម្រាប់វាលនោះ ,
 // ដូច្នេះហ្គេម , ឆាកសាកល្បង និងឧបករណ៍វាស់អានលេខដូចគ្នា ។ 📃 ⟩
-import { surGrid, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
+import { surGrid, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, VOJA_TERA_KLINO,
   VOJA_TRUA_DUONO } from "./mezuroj.js";
 import { vojaSuproDeKunigo } from "./formoj.js";
+
+export { VOJA_TERA_KLINO };
 
 // ⟪ ចំណុចភ្ជាប់ 📏 ⟫
 export interface AltaKunigo {
@@ -15,9 +17,11 @@ export interface AltaKunigo {
 }
 
 // ⟪ ជម្រាលដី 📏 ⟫
-// ⟨ radius តូច និងជម្រាលចោទ ៖ ផ្លូវគិតតែដីខ្ពស់ក្នុងរង្វង់ ៤ ឯកតា ។ បើមិនដូច្នេះ
-// ភ្នំមួយឆ្ងាយ ១៥ ឯកតាលើកផ្លូវទាំងរង្វង់ ហើយផ្លូវដើរខ្ពស់លើដីរាបដោយមិនចុះ ។ 📃 ⟩
-export const VOJA_TERA_KLINO = 0o1/0o2;
+// ⟨ ជម្រាល VOJA_TERA_KLINO ស្ថិតក្នុង mezuroj.js ៖ ចានភ្ជាប់ក៏អានវាដែរ ។ 📃 ⟩
+// ⟨ ជម្រាលត្រូវស្មើនឹងជំហាន 🦶 ⟩ ៖ ផ្លូវឡើងដល់ ០.៥ ក្នុងចម្ងាយ ០.៥ ,
+// ដូច្នេះជម្រាលអតិបរមាគឺ ១ ឯកតាក្នុងមួយឯកតា ។ បើកោណចំណុចភ្ជាប់ចុះតែ ០.៥ ,
+// ផ្លូវរវាងចានពីរដែលខុសគ្នា ៦ ឯកតាក្នុងចម្ងាយ ១២ មិនអាចចុះដល់ចានទាបបានទេ ,
+// ដូច្នេះចានមួយត្រូវលើកខ្ពស់ ហើយផ្លូវអណ្តែតលើដី ។ 📃 ⟩
 // ⟨ រង្វង់តូច 📃 ⟩ ៖ មុននេះដល់ ៤ ឯកតា ។ ដីជម្រាល ១ ឯកតាក្នុងមួយឯកតា ំ ក្នុង ៤ ឯកតា
 // ាំ លើកផ្លូវដល់ ២ ឯកតា ។ ផ្លូវទទឹង ៣.៤ មានកន្លះ ២.៣៥ , ដូច្នេះរង្វង់ ២ ឯកតាគ្រប់គ្រាន់
 // ការពារការកាត់ចូលថ្មជិត , ហើយមិនលើកផ្លូវលើស ។ 📃 ⟩
@@ -67,6 +71,8 @@ export function kreiBazanVojoAlton(
 // ផ្លូវពីរដែលជួបគ្នាអាចឈរខុសកម្រិត , ហើយចានភ្ជាប់គ្របមិនជិត ។ 📃 ⟩
 export const VOJA_KUNIGA_RAMPO = 0o10;
 export const VOJA_KUNIGA_CELO = 0o20;
+// ⟨ ចម្ងាយស្វែងរកកោណ ៖ កោណអាចខ្ពស់ជាងដីច្រើន , ដូច្នេះស្វែងរកឆ្ងាយ ។ 📃 ⟩
+const KUNIGA_CXELOJ = 0o2;
 export const VOJA_KUNIGA_RADIUSO = Math.hypot(VOJA_TRUA_DUONO, VOJA_EKSTERA_DUONO);
 
 // ⟪ វាលរួម , ដី និងចំណុចភ្ជាប់ 📏 ⟫
@@ -99,11 +105,15 @@ export function kreiVojoAlton(
   return ( x, z ) => {
     let alto = bazaVojoAlteco(x, z);
     const cx = Math.floor(x / VOJA_KUNIGA_CELO), cz = Math.floor(z / VOJA_KUNIGA_CELO);
-    for ( let dx = -0o1; dx <= 0o1; dx++ ) {
-      for ( let dz = -0o1; dz <= 0o1; dz++ ) {
+    for ( let dx = -KUNIGA_CXELOJ; dx <= KUNIGA_CXELOJ; dx++ ) {
+      for ( let dz = -KUNIGA_CXELOJ; dz <= KUNIGA_CXELOJ; dz++ ) {
         for ( const fonto of fontoj.get(( cx + dx ) + "," + ( cz + dz )) ?? [] ) {
           const distanco = Math.hypot(x - fonto.x, z - fonto.z);
-          if ( distanco > VOJA_KUNIGA_RADIUSO + VOJA_KUNIGA_RAMPO ) continue;
+          // ⟨ កោណត្រូវរលាយទៅដី មិនកាត់ភ្លាម ៖ ការកាត់ត្រង់ចម្ងាយថេរ
+          // បង្កើតជញ្ជាំងឈរខ្ពស់ច្រើនឯកតា ។ ផ្លូវឆ្លងកាត់ជញ្ជាំងនោះ
+          // ហើយឃើញកម្រិតលោត ។ ដូច្នេះកោណបន្តចុះរហូតដល់ដី ។ 📃 ⟩
+          // ⟨ ការរំលង ៖ កោណដែលទាបជាងកម្រិតបច្ចុប្បន្នមិនអាចលើកវាបានទេ ។ 📃 ⟩
+          if ( distanco > VOJA_KUNIGA_RADIUSO + 0o2 * ( fonto.alto - alto ) ) continue;
           alto = Math.max(alto, fonto.alto - VOJA_TERA_KLINO
             * Math.max(0, distanco - VOJA_KUNIGA_RADIUSO));
         }

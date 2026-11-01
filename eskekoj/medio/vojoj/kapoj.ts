@@ -1,7 +1,7 @@
 // ≺⧼ មួកផ្លូវ 🌗 ⧽≻
 import * as THREE from "three";
 import { ANGULA_PROVOLIRO, kreiGeometriajnBufrojn, kreiVojojnMaterialojn } from "./bufroj.js";
-import { VOJA_BORDA_LARĜO } from "./mezuroj.js";
+import { VOJA_BORDA_LARĜO, VOJA_DIKECO } from "./mezuroj.js";
 
 // ⟨ ហេតុអ្វីថ្នាំងក្រឡាមិនទទួលមួក 📃 ⟩
 
@@ -70,7 +70,9 @@ export function konstruiRondajnKapojn(sceno: THREE.Scene,
           grundoFn(x + Math.cos(angulo) * r, z + Math.sin(angulo) * r));
       }
     }
-    const kapDikeco = supraY - ( minimumo - ANGULA_PROVOLIRO );
+    // ⟨ លើទឹក ៖ គ្មានបាត ៖ មួកស្តើងដូចផ្លូវ , មិនចុះដល់បាតទន្លេ ។ 📃 ⟩
+    const kapDikeco = Number.isFinite(minimumo)
+      ? supraY - ( minimumo - ANGULA_PROVOLIRO ) : VOJA_DIKECO;
     const y = supraY - kapDikeco;
     bufroj.aldoni(kreiRondanKapGeometrion(duon, ekstera, kapDikeco, dx, dz), bordaMaterialo, new THREE.Matrix4().makeTranslation(x, y, z));
     bufroj.aldoni(kreiRondanKapGeometrion(0, duon, kapDikeco, dx, dz), supraMaterialo, new THREE.Matrix4().makeTranslation(x, y, z));

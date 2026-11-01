@@ -9,7 +9,9 @@ export const PONT_DEKA_DIKECO = VOJA_DIKECO;
 export const PONT_FINA_LEVIGXO = PONT_DEKA_DIKECO;
 
 // ⟨ កម្រាស់ជញ្ជាំងស្ពានក្រោមផ្ទៃនៅលើទឹក ។ 📃 ⟩
-export const PONT_KORPA_DIKECO = 0o2;
+// ⟨ ស្តើងជាងមុន 📏 ⟩ ៖ មុននេះ ២ ឯកតា ។ ស្ពានក្រាស់ពីរឯកតាមើលទៅដូចជញ្ជាំងថ្ម
+// ខ្ពស់នៅលើទឹក ។ ឥឡូវស្ពានស្តើងដូចផ្លូវ , ដូច្នេះឃើញជាស្ពាន ។ 📃 ⟩
+export const PONT_KORPA_DIKECO = 0o6/0o10;
 
 // ⟨ ជម្រៅបន្ថែមក្រោមដី ៖ ជញ្ជាំងស្ពានចុះកប់ក្នុងដីបន្តិច ។ 📃 ⟩
 export const PONT_TERA_PROFUNDECO = 0o1/0o10;

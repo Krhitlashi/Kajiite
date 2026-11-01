@@ -2,3 +2,7 @@ S2WENI
 node_modules
 dist
 .*/
+# លទ្ធផលសាងសង់ឧបករណ៍វាស់ ( សាងសង់ដោយ iloj/mezurilo/konstruu.mjs )
+iloj/mezurilo/*.mjs
+!iloj/mezurilo/falsdomo.mjs
+!iloj/mezurilo/konstruu.mjs

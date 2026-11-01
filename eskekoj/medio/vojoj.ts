@@ -3,8 +3,9 @@ import * as THREE from "three";
 import { kreiGeometriajnBufrojn, kreiVojajnBendojn, kreiVojojnMaterialojn } from "./vojoj/bufroj.js";
 import { konstruiRondajnKapojn } from "./vojoj/kapoj.js";
 import { kreiNivelanProfilon } from "./vojoj/niveloj.js";
-import { VOJA_DIKECO, VOJA_SUPRO_LEVIGXO,
-  VOJA_TRUA_DUONO } from "./vojoj/mezuroj.js";
+import { VOJA_DIKECO, surGrid, VOJA_EKSTERA_DUONO,
+  VOJA_TRUA_DUONO, VOJA_SUPRO_LEVIGXO } from "./vojoj/mezuroj.js";
+import { vojaSuproDeKunigo } from "./vojoj/formoj.js";
 import { konstruiGlatanSegmenton, konstruiSegmentonEnBufrojn,
   konstruiUnuformajnStuparajnSegmentojn, kreiEksteranDuonon,
   kreiSegmentajnPartojn } from "./vojoj/segmentoj.js";
@@ -20,16 +21,44 @@ export function konstruiVojojn(sceno: THREE.Scene,
   opcioj: VojOpcioj = {}
 ): THREE.Vector3[] {
   const { akvaFn, grundoFn = heightFn } = opcioj;
+  // ⟨ បាតផ្លូវមិនចុះក្រោមទឹក 📏 ⟩ ៖ បាតអានដីពិត , ហើយដីក្រោមទឹកជាបាតទន្លេ ។
+  // បើបាតចុះដល់បាតទន្លេ , ផ្លូវក្លាយជាទំនប់ ហើយឃើញជាជញ្ជាំងក្នុងទឹក ។
+  // ដូច្នេះលើទឹក បាតមិនចុះទេ ៖ វាត្រឡប់ជាស្តើង , ដូចស្ពាន ។
+  // ផ្លូវនៅលើទឹកក៏មើលទៅដូចផ្លូវកំពង់ ។ 📃 ⟩
+  const fundaFn: ( x: number, z: number ) => number = akvaFn
+    ? ( x, z ) => {
+        const grundo = grundoFn(x, z);
+        const akvo = akvaFn(x, z);
+        if ( akvo <= -Infinity ) return grundo;
+        // ⟨ លិចក្រោមទឹក ៖ គ្មានបាត ៖ ផ្លូវស្តើងស្មើគ្នា ។ 📃 ⟩
+        if ( grundo < akvo ) return Infinity;
+        return grundo;
+      }
+    : grundoFn;
   const samples: THREE.Vector3[] = [];
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -2, -4, -1, -1);
 
   const bufroj = kreiGeometriajnBufrojn();
+  // ⟪ កម្ពស់ចានភ្ជាប់ 📏 ⟫
+  // ⟨ ផ្លូវត្រូវស្មើនឹងចានភ្ជាប់នៅមាត់ចាន ។ ចានអានវាលជុំវិញរង្វង់
+  // មិនមែនតែចំណុចកណ្តាល , ដូច្នេះផ្លូវត្រូវអានវិធីដូចគ្នា ។
+  // បើផ្លូវអានតែកណ្តាល , វានៅក្រោមចានមួយជំហាន ហើយមាត់ក្លាយជាជញ្ជាំង ។ 📃 ⟩
+  const platoj = new Map<string, number>();
+  const platoCxe = ( x: number, z: number ): number => {
+    const klavo = x + "," + z;
+    let alto = platoj.get(klavo);
+    if ( alto === undefined ) {
+      alto = surGrid(vojaSuproDeKunigo(x, z, [], VOJA_EKSTERA_DUONO, heightFn).supro);
+      platoj.set(klavo, alto);
+    }
+    return alto;
+  };
   // ⟨ កម្រិតផ្លូវនៅចុងក្រោយ ៖ ប្រើសម្រាប់មួកផ្លូវដែលឆ្លងចូលមកចានភ្ជាប់ ។ 📃 ⟩
   const kapoAltoj = new Map<VojDifino, { komenco: number | null; fino: number | null }>();
 
   for ( const def of defs ) {
     const defAlt = def.heightFn || heightFn;
-    const defGrundo = def.grundoFn ?? grundoFn;
+    const defGrundo = def.grundoFn ?? fundaFn;
     const bendoj = kreiVojajnBendojn(def.w, supraMaterialo, bordaMaterialo);
     const eksteraDuono = kreiEksteranDuonon(bendoj);
     kapoAltoj.set( def, { komenco: null, fino: null } );
@@ -58,7 +87,10 @@ export function konstruiVojojn(sceno: THREE.Scene,
     // ឬធ្លាក់ចូលរណ្តៅខ្លីនៅចន្លោះចម្រៀកបានទេ ។ 📃 ⟩
     const profilo = def.glata === true
       ? null
-      : kreiNivelanProfilon(def.pts, eksteraDuono, defAlt, akvaFn);
+      // ⟨ ចំណុចភ្ជាប់របស់ផ្លូវនេះ 📏 ⟩ ៖ កម្ពស់ចានភ្ជាប់អានដីដែលផ្លូវអាន ។
+      // ផ្លូវត្រូវឡើងដល់កម្រិតនោះនៅមាត់ចាន , ទោះចំណុចនៅកណ្តាលផ្លូវក៏ដោយ ។ 📃 ⟩
+      : kreiNivelanProfilon(def.pts, eksteraDuono, defAlt, akvaFn,
+        kunigoj.map(([ x, z ]) => ( { x, z, alto: platoCxe(x, z) } )));
     let unua: number | null = null, lasta: number | null = null;
     let starto = 0;
     for ( let i = 0; i < def.pts.length - 1; i++ ) {
@@ -139,7 +171,7 @@ export function konstruiVojojn(sceno: THREE.Scene,
   }
   for ( const [ altFn, grupo ] of kapoj ) {
     konstruiRondajnKapojn(sceno, grupo.nodoj, grupo.direktoj, grupo.supraj, grupo.larĝoj,
-      altFn, dioritaMaterialo, andezitaMaterialo, grundoFn);
+      altFn, dioritaMaterialo, andezitaMaterialo, fundaFn);
   }
   return samples;
 }

@@ -138,24 +138,45 @@ export function konstruiPontanProfilon(
   const startAlto = pontaFinAlto(...pozicio(0), larĝo);
   const finoAlto = pontaFinAlto(...pozicio(tuta), larĝo);
   const akvaDejo = plejLonganAkvanDejon(akvo);
-  // ⟨ ខ្សែត្រង់រវាងច្រាំងទាំងពីរ ៖ ធ្នូត្រូវបន្ថែមលើខ្សែនេះ ។ 📃 ⟩
+  // ⟨ ខ្សែដើរតាមដី , មិនមែនខ្សែត្រង់ពីចុងដល់ចុង 📏 ⟩
+  // ⟨ មូលហេតុ 📃 ⟩ ៖ មុននេះខ្សែជាបន្ទាត់ត្រង់រវាងកម្ពស់ចានទាំងពីរ ។ ដីរវាងវា
+  // អាចទាបជាងច្រើនឯកតា , ដូច្នេះផ្លូវទាំងមូលក្លាយជាស្ពានវែងអណ្តែតលើដី ,
+  // ហើយមុខចំហៀងរបស់វាខ្ពស់ដូចជញ្ជាំង ។ ឥឡូវខ្សែដើរតាមដី ,
+  // ហើយកែតម្រូវតែប៉ុន្មានដែលត្រូវការដើម្បីដល់កម្ពស់ចាននៅចុងទាំងពីរ ។
+  // ដូច្នេះផ្លូវចូលស្ពានចុះតាមដី , ហើយស្ពាននៅតែលើកតែលើទឹក ។ 📃 ⟩
+  const deltaStarto = startAlto - deka[ 0 ];
+  const deltaFino = finoAlto - deka[ specimenoj ];
   for ( let i = 0; i <= specimenoj; i++ ) {
     const t = i / specimenoj;
-    const glata = t * t * ( 0o3 - 0o2 * t );
-    deka[i] = startAlto + ( finoAlto - startAlto ) * glata;
+    deka[ i ] += deltaStarto * ( 0o1 - t ) + deltaFino * t;
   }
   if ( akvaDejo ) {
-    // ⟨ ធ្នូតែមួយរលូន ៖ សូន្យនៅច្រាំងទាំងពីរ , ខ្ពស់បំផុតនៅកណ្តាល ,
-    // ហើយខ្ពស់លើផ្ទៃទឹកគ្រប់កន្លែង ។ 📃 ⟩
-    let manko = 0;
-    for ( let i = 0; i <= specimenoj; i++ )
-      if ( akvo[i] > -Infinity ) manko = Math.max(manko, akvo[i] - deka[i]);
-    const akvaLongo = tuta * ( akvaDejo.end - akvaDejo.start ) / specimenoj;
-    const arkeĉo = Math.max(manko, Math.min(PONTA_AKVA_ARKECO, akvaLongo * 0o1/0o10));
-    for ( let i = 0; i <= specimenoj; i++ ) {
-      const t = i / specimenoj;
-      const arka = ( 0o1 - Math.cos(Math.PI * 0o2 * t) ) / 0o2;
-      deka[i] += arkeĉo * arka;
+    // ⟪ ធ្នូស្ពាន 🌉 ⟫
+    // ⟨ ធ្នូចេញពីច្រាំង ៖ ខ្ពស់នៅកណ្តាល , ស្មើច្រាំងនៅចុងទាំងពីរ ។ 📃 ⟩
+    // ⟨ បញ្ហាដើម 📃 ⟩ ៖ មុននេះខ្សែលើកដល់ផ្ទៃទឹកបូកចន្លោះភ្លាមនៅគំរូទឹកដំបូង ។
+    // ដីច្រាំងស្ថិតនៅកម្រិតទឹក , ដូច្នេះស្ពានលោតឡើងពីរឯកតាភ្លាម ៖ មាត់ស្ពាន
+    // ក្លាយជាជញ្ជាំងឈរ ។ ឥឡូវធ្នូចេញពីកម្ពស់ច្រាំង ហើយឡើងរលូនដល់កណ្តាល ,
+    // ដូច្នេះមាត់ស្ពានស្មើនឹងផ្លូវចូល ។ 📃 ⟩
+    const dejo = Math.max(1, akvaDejo.end - akvaDejo.start);
+    const bordoA = Math.max(0, akvaDejo.start - 0o1);
+    const bordoB = Math.min(specimenoj, akvaDejo.end + 0o1);
+    const bankoA = deka[ bordoA ], bankoB = deka[ bordoB ];
+    const akvaLongo = tuta * dejo / specimenoj;
+    // ⟨ កម្ពស់ធ្នូ ៖ ល្មមលើសទឹកបូកចន្លោះនៅកណ្តាល ។ 📃 ⟩
+    let arkeĉo = PONTA_AKVA_ARKECO * 0o1/0o10;
+    for ( let i = akvaDejo.start; i <= akvaDejo.end; i++ ) {
+      if ( akvo[ i ] <= -Infinity ) continue;
+      const f = ( i - akvaDejo.start ) / dejo;
+      const banko = bankoA + ( bankoB - bankoA ) * f;
+      arkeĉo = Math.max(arkeĉo, akvo[ i ] - banko);
+    }
+    // ⟨ ស្ពានវែងអាចធ្នូខ្ពស់ , ស្ពានខ្លីត្រូវធ្នូទាប 📃 ⟩ ៖ ធ្នូខ្ពស់លើប្រវែងខ្លី
+    // ធ្វើឱ្យផ្លូវចូលឡើងចោត , ដូច្នេះធ្នូកំណត់តាមប្រវែងដែនទឹក ។
+    arkeĉo = Math.min(arkeĉo, Math.max(PONTA_AKVA_ARKECO * 0o1/0o10, akvaLongo * 0o1/0o10));
+    for ( let i = akvaDejo.start; i <= akvaDejo.end; i++ ) {
+      const f = ( i - akvaDejo.start ) / dejo;
+      const banko = bankoA + ( bankoB - bankoA ) * f;
+      deka[ i ] = banko + arkeĉo * Math.sin(Math.PI * f);
     }
   }
 

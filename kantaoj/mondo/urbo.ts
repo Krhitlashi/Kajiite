@@ -155,9 +155,12 @@ export async function konstruiUrbon(
 
   // ⟨ ពីរដំណាក់កាល 📃 ⟩
   // ⟨ ដែនទឹកវែងគ្រប់គ្រាន់ធ្វើស្ពាន 📃 ⟩
-  // ⟨ ទឹកពិត ៖ មានផ្ទៃទឹកលើដី មិនមែនត្រឹមដែនទឹកឆ្លាក់ទេ 📃 ⟩
+  // ⟨ ទឹកពិត ៖ ចំណុចដែលនៅក្រោមផ្ទៃទឹក 📃 ⟩
+  // ⟨ ទឹកឆ្លាក់មិនចាំបាច់ 📏 ⟩ ៖ មុននេះត្រូវការម៉ាសទឹកឆ្លាក់ ។ ដូច្នេះក្នុងពិភពលោក
+  // ដែលមានគ្រាប់ពូជ ( ទន្លេធម្មជាតិ ) ផ្លូវមិនដឹងពីទឹក , ចុះដល់បាតទន្លេ , ហើយលិច ។
+  // ឥឡូវគ្រប់កន្លែងដែលដីទាបជាងកម្រិតទឹកជាទឹក ។ 📃 ⟩
   function cxuVeraAkvo( x: number, z: number ): boolean {
-    return skulptitaAkvo(x, z) && alteco(x, z) < akvaNivelo(x, z) - 0o1/0o200;
+    return alteco(x, z) < akvaNivelo(x, z) - 0o1/0o200;
   }
   // ⟨ ផ្ទឃ្លាំងទឹកសម្រាបផ្លូវ ៖ ផ្លូវដែលនៅលើទឹក ត្រូវនៅលើផ្ទឃ្លាំងទឹក មិនអាចកប់ក្នុងទឹកទេ ។ 📃 ⟩
   const akvaFino = ( x: number, z: number ): number =>
@@ -305,21 +308,29 @@ export async function konstruiUrbon(
     const trunko = akvajTrunkoj[vojaIndekso];
     // ⟨ ចំណុចដែលបានទាញទៅចានភ្ជាប់ ៖ ផ្លូវត្រូវចប់ត្រង់ចានភ្ជាប់ , មិនមែននៅមុនវាទេ 📃 ⟩
     const punktoj = gluitajPunktoj[vojaIndekso] ?? vojo.punktoj;
+    // ⟨ ស្ពានធំទូលាយជាងផ្លូវ ៖ តែកម្ពស់ដូចផ្លូវ ។ 📃 ⟩
     const vojaLarĝo = trunko ? ( vojo.pontoLarĝo ?? vojo.larĝo ) : vojo.larĝo;
     let pontaHeight: (( x: number, z: number ) => number) | undefined;
     let pontaGrundo: (( x: number, z: number ) => number) | undefined;
     if ( trunko ) {
       // ⟪ ផ្ទៃស្ពានផុតទឹក 📃 ⟫
-      // ⟨ ផ្លូវរលូនដើរតាមដី ៖ មិនអណ្តែតលើដី ហើយមិនលិចចូលទឹក ។
-      // លើទឹកវាឡើងដល់កម្រិតទឹកបូកចន្លោះ ដោយជម្រាលរលូនចេញពីមាត់ទឹក ។
-      // ស្ពានរត់តាមបន្ទាត់ផ្លូវ ៖ ចេញពីទឹកហើយចប់នៅមាត់ទឹក ។ 📃 ⟩
+      // ⟨ ធ្នូស្ពាន ៖ ផ្ទៃខ្ពស់នៅកណ្តាលទន្លេ , ហើយចុះដល់ច្រាំងទាំងពីរ ។
+      // ដូច្នេះមាត់ស្ពានស្មើនឹងផ្លូវចូល , ហើយគ្មានជញ្ជាំងឈរនៅមាត់ទឹក ។ 📃 ⟩
       const cxuPontaAkvo = kreiPontanAkvanTeston(punktoj, vojaLarĝo, cxuVeraAkvo);
       const profilo = konstruiPontanProfilon(
         punktoj, vojaLarĝo, vojaSupro,
         ( x, z ) => cxuPontaAkvo(x, z)
           ? akvaNivelo(x, z) + PONT_AKVA_KLARANCO : -Infinity,
         pontaFinAlto, alteco);
-      pontaHeight = ( x, z ) => profilo.alto(x, z) - VOJA_SUPRO_LEVIGXO;
+      // ⟪ ជំហានលើដី , ធ្នូលើទឹក 📏 ⟫
+      // ⟨ បញ្ហាដើម 📃 ⟩ ៖ ផ្លូវចូលស្ពានរលូនតាមដី ។ ដីជម្រាល , ដូច្នេះផ្លូវចូល
+      // ជាជម្រាលវែងរអិល , មិនមែនជណ្តើរដូចផ្លូវដីធម្មតា ។ ឥឡូវលើដីកម្ពស់បង្គត់
+      // ទៅក្រឡាជំហាន , ដូច្នេះផ្លូវចូលស្ពានជាជណ្តើរដូចផ្លូវឯទៀត ។
+      // លើទឹកកម្ពស់នៅតែរលូន ៖ ធ្នូស្ពានមិនក្លាយជាជណ្តើរទេ ។ 📃 ⟩
+      pontaHeight = ( x, z ) => {
+        const alto = profilo.alto(x, z);
+        return ( cxuPontaAkvo(x, z) ? alto : surGrid(alto) ) - VOJA_SUPRO_LEVIGXO;
+      };
       pontaGrundo = ( x, z ) => profilo.grundo(x, z);
       // ⟨ ស្ពានគឺជាការកោងឡើងនៃផ្លូវផ្ទាល់ ៖ គ្មានម៉ាស់បាត 📃 ⟩
       for ( const trako of profilo.trakoj )
@@ -349,6 +360,10 @@ export async function konstruiUrbon(
     for ( const p of [ vojo.punktoj[0], vojo.punktoj[vojo.punktoj.length - 1] ] )
       ĉiujFermitaj.delete(p[0] + "," + p[1]);
   }
+  // ⟨ បាតផ្លូវចុះដល់ដីពិត 📏 ⟩ ៖ មុននេះបាតអានវាលផ្លូវ ( រលូនជាងដី ) , ដូច្នេះ
+  // បាតនៅខ្ពស់ជាងដីដែលឃើញ , ហើយផ្លូវអណ្តែតលើស្មៅដោយចន្លោះខ្យល់ក្រោម ។
+  // ឥឡូវបាតអានដីពិត , ហើយមុខចំហៀងខ្ពស់ក្លាយជាស្មាជម្រាល ( SKIRTA_KLINO ) ,
+  // ដូច្នេះផ្លូវឈរលើដី ហើយគ្មានជញ្ជាំងថ្ម ។ 📃 ⟩
   const ĉefajVojSpecimenoj = konstruiVojojn(sceno, ĉiujDifinoj, vojoAlteco,
     dioritaMaterialo, andezitaMaterialo, ĉiujKunigoj,
     { akvaFn: akvaFino, grundoFn: alteco } );
@@ -779,6 +794,13 @@ export async function konstruiUrbon(
 
   // ⟪ ប្រព័ន្ធខាងក្នុង 📃 ⟫
   const internaSistemo: InternaSistemo = kreiInternanSistemon();
+
+  // ⟨ ការវិភាគសម្រាប់ឧបករណ៍វាស់ 📏 ⟩ ៖ វាលកម្ពស់ផ្លូវ , ចំណុចភ្ជាប់ និងនិយមន័យផ្លូវ
+  // ដែលសាងសង់ពិត ។ ទំព័រ `iloj/mezurilo/vido.html` អានវាដើម្បីវាស់ជាមួយពិភពលោកពិត ,
+  // ដូច្នេះការវាស់និងហ្គេមអានលេខតែមួយ ។ 📃 ⟩
+  ( globalThis as any ).__urboDiagnostiko = {
+    vojoAlteco, kunigoj: ĉiujKunigoj, difinoj: ĉiujDifinoj, bazaVojoAlteco,
+  };
 
   return {
     konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj, konstruGrupoj,

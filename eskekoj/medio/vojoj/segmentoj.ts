@@ -12,6 +12,48 @@ export interface SegmentaRezulto {
   lasta: number;
 }
 
+// ⟪ ជ្រុងជំហាន 📏 ⟫
+/*កម្ពស់ជ្រុងទាំងបួននៃជំហាន ៖ កំពូលសំប៉ែត , បាតដល់ដី
+    @param alto ( number ) - កម្រិតជំហាន
+    @param ax, az, bx, bz ( number ) - ចុងចម្រៀក
+    @param latX, latZ ( number ) - វ៉ិចទ័រចំហៀងទៅគែម
+    @param grundoFn ( function ) - កម្ពស់ដី
+    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
+@returns anguloj ( { suproj ; fundoj } ) - កំពូល និងបាត តាមលំដាប់ ដើមឆ្វេង , ដើមស្តាំ , ចុងស្តាំ , ចុងឆ្វេង */
+// ⟨ កំពូលសំប៉ែត 📃 ⟩ ៖ ជំហានជាថ្មសំប៉ែត ។ មុននេះកំពូលផ្អៀងតាមជម្រាលចំហៀង ,
+// ដូច្នេះផ្ទៃផ្លូវបង្វិល ។ ឥឡូវកំពូលសំប៉ែតទាំងបួនជ្រុង ,
+// ហើយមុខចំហៀងឈរត្រង់ ៖ ជណ្តើរថ្មធម្មតា ។ 📃 ⟩
+function angulojDeTreado(alto: number, ax: number, az: number, bx: number, bz: number,
+  latX: number, latZ: number, grundoFn: ( x: number, z: number ) => number,
+  dikecoBaza: number
+): { suproj: [ number, number, number, number ]; fundoj: [ number, number, number, number ] } {
+  const suproj: [ number, number, number, number ] = [ alto, alto, alto, alto ];
+  const fundoj: [ number, number, number, number ] = [ alto, alto, alto, alto ];
+  const anguloj: [ number, number ][] = [ [ ax - latX, az - latZ ], [ ax + latX, az + latZ ],
+    [ bx + latX, bz + latZ ], [ bx - latX, bz - latZ ] ];
+  for ( let i = 0; i < 0o4; i++ ) {
+    const grundo = grundoFn(anguloj[ i ][ 0 ], anguloj[ i ][ 1 ]);
+    fundoj[ i ] = Math.min(alto - dikecoBaza, grundo - ANGULA_PROVOLIRO);
+  }
+  return { suproj, fundoj };
+}
+
+// ⟪ ខ្សែនៅចន្លោះជ្រុង 📐 ⟫
+/*កម្ពស់ខ្សែតាមចម្ងាយចំហៀង ៖ ជ្រុងត្រូវបានភ្ជាប់ជាបន្ទាត់ត្រង់
+    @param anguloj ( [ number , number , number , number ] ) - កម្ពស់ជ្រុងទាំងបួន
+    @param g0, g1 ( number ) - ចម្ងាយចំហៀងនៃគែមខ្សែ
+    @param eksteraDuon ( number ) - កន្លះទទឹងខាងក្រៅ
+@returns valoroj ( [ number , number , number , number ] ) - កម្ពស់នៅគែមខ្សែ */
+function bendoAnguloj(anguloj: readonly [ number, number, number, number ],
+  g0: number, g1: number, eksteraDuon: number
+): [ number, number, number, number ] {
+  const f0 = Math.max(0, Math.min(1, ( g0 + eksteraDuon ) / ( 0o2 * eksteraDuon )));
+  const f1 = Math.max(0, Math.min(1, ( g1 + eksteraDuon ) / ( 0o2 * eksteraDuon )));
+  const miks = ( a: number, b: number, f: number ): number => a + ( b - a ) * f;
+  return [ miks(anguloj[ 0 ], anguloj[ 1 ], f0), miks(anguloj[ 0 ], anguloj[ 1 ], f1),
+    miks(anguloj[ 3 ], anguloj[ 2 ], f1), miks(anguloj[ 3 ], anguloj[ 2 ], f0) ];
+}
+
 /*កន្លែងដែលផ្លូវឆ្លងកាត់ចានភ្ជាប់ មិនត្រូវសាងសង់ជំហានទេ
     @param aX, aZ ( number ) - ចំណុចដើមចម្រៀក
     @param bX, bZ ( number ) - ចំណុចចុងចម្រៀក
@@ -73,19 +115,14 @@ export function konstruiUnuformajnStuparajnSegmentojn(x1: number, z1: number, x2
   const eksteraDuon = kreiEksteranDuonon(bendoj);
   const latX = -ndz * eksteraDuon, latZ = ndx * eksteraDuon;
   const supro = heightFn(mezaX, mezaZ) + VOJA_SUPRO_LEVIGXO;
-  let malsupro = Infinity;
-  for ( const t of [ 0, 0o1/0o2, 1 ] ) {
-    const x = x1 + difX * t, z = z1 + difZ * t;
-    for ( const flanko of [ -1, 0, 1 ] )
-      malsupro = Math.min(malsupro, grundoFn(x + latX * flanko, z + latZ * flanko));
-  }
-  const bazo = malsupro - ANGULA_PROVOLIRO;
-  const dikeco = Math.max(dikecoBaza, supro - bazo);
-  const fundo = supro - dikeco;
+  const anguloj = angulojDeTreado(supro, x1, z1, x2, z2, latX, latZ, grundoFn, dikecoBaza);
   vojSuprajxoj.push({ x1, z1, x2, z2, duono: eksteraDuon, y0: supro, y1: supro });
   for ( const bendo of bendoj ) {
-    const geometrio = kreiSegmentGeometrion(bendo.largho, longo, dikeco, bendo.ofseto);
-    bufroj.aldoni(geometrio, bendo.materialo, matricoPor(difX, difZ, mezaX, fundo, mezaZ));
+    const g0 = bendo.ofseto - bendo.largho / 0o2, g1 = bendo.ofseto + bendo.largho / 0o2;
+    const geometrio = kreiSegmentGeometrion(bendo.largho, longo,
+      bendoAnguloj(anguloj.suproj, g0, g1, eksteraDuon),
+      bendoAnguloj(anguloj.fundoj, g0, g1, eksteraDuon), bendo.ofseto);
+    bufroj.aldoni(geometrio, bendo.materialo, matricoPor(difX, difZ, mezaX, 0, mezaZ));
   }
   return { unua: supro, lasta: supro };
 }
@@ -126,22 +163,19 @@ export function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z
     const longoTread = Math.hypot(bx - ax, bz - az);
     if ( longoTread < 0o1/0o1000 ) continue;
     // ⟨ បាតដីក្រោមជំហាន ៖ ជណ្តើរចូលដល់ដី , មិនអណ្តែតលើទឹកទេ 📃 ⟩
-    let minProfundo = Infinity;
-    for ( const f of [ 0, 0o1/0o2, 1 ] ) {
-      const px = ax + ( bx - ax ) * f, pz = az + ( bz - az ) * f;
-      minProfundo = Math.min( minProfundo,
-        grundoFn(px - latX, pz - latZ), grundoFn(px, pz), grundoFn(px + latX, pz + latZ) );
-    }
-    const dikecoTread = Math.max(dikecoBaza, peco.alto - ( minProfundo - ANGULA_PROVOLIRO ));
-    const y = peco.alto - dikecoTread;
+    const anguloj = angulojDeTreado(peco.alto, ax, az, bx, bz, latX, latZ,
+      grundoFn, dikecoBaza);
     if ( unua === Infinity ) unua = peco.alto;
     lasta = peco.alto;
     vojSuprajxoj.push({ x1: ax, z1: az, x2: bx, z2: bz, duono: eksteraDuon,
       y0: peco.alto, y1: peco.alto });
     for ( const bendo of bendoj ) {
-      const geometrio = kreiSegmentGeometrion(bendo.largho, longoTread, dikecoTread, bendo.ofseto);
+      const g0 = bendo.ofseto - bendo.largho / 0o2, g1 = bendo.ofseto + bendo.largho / 0o2;
+      const geometrio = kreiSegmentGeometrion(bendo.largho, longoTread,
+        bendoAnguloj(anguloj.suproj, g0, g1, eksteraDuon),
+        bendoAnguloj(anguloj.fundoj, g0, g1, eksteraDuon), bendo.ofseto);
       bufroj.aldoni(geometrio, bendo.materialo,
-        matricoPor(difX, difZ, ( ax + bx ) / 2, y, ( az + bz ) / 2));
+        matricoPor(difX, difZ, ( ax + bx ) / 2, 0, ( az + bz ) / 2));
     }
   }
   return unua === Infinity ? null : { unua, lasta };
@@ -171,6 +205,10 @@ export function konstruiGlatanSegmenton(x1: number, z1: number, x2: number, z2: 
   const ndx = difX / longo, ndz = difZ / longo;
   const eksteraDuon = kreiEksteranDuonon(bendoj);
   const latX = -ndz * eksteraDuon, latZ = ndx * eksteraDuon;
+  // ⟪ ទម្រង់រលូន 📐 ⟫
+  // ⟨ ស្ពានជាទម្រង់តែមួយ 📃 ⟩ ៖ ស្ពានរលូន , មិនមែនជំហាន ។ ប្រអប់តូចៗតាម
+  // គំរូបង្កើតជាធ្មេញឃើញនៅគែម , ដូច្នេះស្ពានសាងសង់ជាទម្រង់មួយ ,
+  // ហើយហូរចេញតាមទទឹងផ្លូវ ។ 📃 ⟩
   const specimenoj: { s: number; supro: number; fundo: number }[] = [];
   for ( let i = 0; i <= steps; i++ ) {
     const s = longo * i / steps;

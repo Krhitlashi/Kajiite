@@ -1,6 +1,7 @@
 // ≺⧼ ទម្រង់ផ្លូវ 📐 ⧽≻
 import * as THREE from "three";
-import { KORNA_ENA_R, KORNA_R, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./mezuroj.js";
+import { KORNA_ENA_R, KORNA_R, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, VOJA_TERA_KLINO,
+  VOJA_TRUA_DUONO } from "./mezuroj.js";
 
 /**
  * សាងសង់ផ្នែកផ្លូវជាជំហានរវាងចំណុចផ្លូវពីរ។
@@ -53,6 +54,15 @@ export function plataAltoj(x: number, z: number, rotacio: number,
 // ⟪ កម្រិតផ្លូវនៅចំណុចភ្ជាប់ 📏 ⟫
 // ⟨ កម្រិតផ្លូវនៅចំណុចភ្ជាប់ត្រូវដូចកម្រិតផ្លូវដែលឆ្លងចូលមក ដើម្បីកុំឱ្យចានភ្ជាប់លិចទៅផ្លូវ ។
 // ការស្ថានភាពនេះជាមូលដ្ឋានដែលប្រើសម្រាបផ្លូវ ចានភ្ជាប់ និងជណ្តើរចំណត ដើម្បីឱ្យពួកគេជាមួយគ្នា ។ 📃 ⟩
+// ⟨ គ្រប់ជ្រុង 📃 ⟩ ៖ ចានភ្ជាប់មិនមែនត្រង់ដៃផ្លូវទេ ។ ជ្រុងរវាងដៃពីរក៏ជាផ្ទៃចានដែរ ,
+// ដូច្នេះកម្ពស់ត្រូវអានគែមជុំវិញទាំងមូល ។ បើអានតែដៃ , ដីខ្ពស់នៅជ្រុងមួយ
+// នៅក្រោមចាន , ហើយដីនោះចាក់ចេញក្រោមចាន ។ 📃 ⟩
+// ⟨ ជម្រាលដីសម្រាប់គែម 📏 ⟩ ៖ គែមត្រូវអានដូចវាលកម្ពស់ផ្លូវ ។ ដីដែលឆ្ងាយ r
+// ឯកតាអាចឡើងបាន VOJA_TERA_KLINO * r ឯកតា , ដូច្នេះវាត្រូវដកចំនួននោះ
+// មុនពេលប្រៀបធៀប ។ មុននេះចានអានគែមឆៅ , ដូច្នេះចាននៅលើជម្រាលរាបស្មើ
+// ឡើងដល់កម្ពស់ជើងភ្នំ ហើយផ្លូវដែលចេញពីវាអណ្តែតខ្ពស់លើដីរាប់ឯកតា ,
+// ហើយជញ្ជាំងក្រោមវាខ្ពស់ ។ ឥឡូវចាននៅលើជម្រាលស្មើនឹងដីកណ្តាលរបស់វា ,
+// ហើយឡើងតែលើដីដែលពិតជាខ្ពស់ជាងជម្រាលនោះ ( ពំនូក , ថ្ម ) ។ 📃 ⟩
 export function vojaSuproDeKunigo(
   x: number,
   z: number,
@@ -61,6 +71,18 @@ export function vojaSuproDeKunigo(
   heightFn: ( x: number, z: number ) => number
 ): { supro: number; minimumo: number } {
   let maks = heightFn( x, z ), minimumo = maks;
+  const konsideru = ( px: number, pz: number, r: number ): void => {
+    const h = heightFn( px, pz );
+    if ( h - VOJA_TERA_KLINO * r > maks ) maks = h - VOJA_TERA_KLINO * r;
+    if ( h < minimumo ) minimumo = h;
+  };
+  // ⟨ រង្វង់ជុំវិញចាន 📏 ⟩ ៖ គែមចានទាំងមូល , មិនមែនតែមាត់ដៃ ។
+  for ( const r of [ radiuso, VOJA_TRUA_DUONO ] ) {
+    for ( let i = 0; i < 0o20; i++ ) {
+      const angulo = i * Math.PI * 0o2 / 0o20;
+      konsideru( x + Math.cos(angulo) * r, z + Math.sin(angulo) * r, r );
+    }
+  }
   for ( const [ dx, dz ] of direktoj ) {
     const longo = Math.hypot( dx, dz );
     if ( longo < 0o1/0o1000 ) continue;
@@ -69,10 +91,9 @@ export function vojaSuproDeKunigo(
     // ⟨ ចំណុចដែលផ្លូវប៉ះចានភ្ជាប់ ៖ កម្រិតផ្លូវត្រូវស្មើគ្នានឹងចានភ្ជាប់នៅចំណុចនេះ ។ 📃 ⟩
     const ex = x + ux * VOJA_TRUA_DUONO, ez = z + uz * VOJA_TRUA_DUONO;
     for ( const f of [ -1, 1 ] ) {
-      for ( const [ bx, bz ] of [ [ x + px * f, z + pz * f ], [ ex + px * f, ez + pz * f ] ] ) {
-        const h = heightFn( bx, bz );
-        if ( h > maks ) maks = h;
-        if ( h < minimumo ) minimumo = h;
+      for ( const [ bx, bz, br ] of [ [ x + px * f, z + pz * f, radiuso ],
+        [ ex + px * f, ez + pz * f, Math.hypot(VOJA_TRUA_DUONO, radiuso) ] ] as [ number, number, number ][]) {
+        konsideru( bx, bz, br );
       }
     }
   }
@@ -102,13 +123,63 @@ export function kreiFormonElPunktoj(punktoj: [ number, number ][]): THREE.Shape 
   return formo;
 }
 
-export function kreiSegmentGeometrion(w: number, l: number, d: number, ofsetoX: number = 0): THREE.ExtrudeGeometry {
-  const formo = new THREE.Shape();
-  const duonW = w / 2, duonL = l / 2;
-  formo.moveTo(-duonW + ofsetoX, -duonL);
-  formo.lineTo(duonW + ofsetoX, -duonL);
-  formo.lineTo(duonW + ofsetoX, duonL);
-  formo.lineTo(-duonW + ofsetoX, duonL);
-  formo.closePath();
-  return new THREE.ExtrudeGeometry(formo, { depth: d, bevelEnabled: false });
+// ⟪ ប្រអប់ផ្លូវតាមដី 📐 ⟫
+/*បង្កើតប្រអប់នៃចម្រៀកផ្លូវ ៖ កំពូល និងបាតអាចជម្រាលតាមដីសងខាង
+    @param w ( number ) - ទទឹងខ្សែ
+    @param l ( number ) - ប្រវែងចម្រៀក
+    @param suproj ( [ number , number , number , number ] ) - កម្ពស់កំពូល តាមលំដាប់ ដើមឆ្វេង , ដើមស្តាំ , ចុងឆ្វេង , ចុងស្តាំ
+    @param fundoj ( [ number , number , number , number ] ) - កម្ពស់បាត តាមលំដាប់ដូចគ្នា
+    @param ofsetoX ( number ) - អុហ្វសិតចំហៀងនៃខ្សែ
+@returns geometrio ( BufferGeometry ) - ប្រអប់ដែលមានកម្ពស់ដាច់ខាត */
+// ⟨ ហេតុអ្វីកំពូលជម្រាល 📃 ⟩ ៖ ផ្ទៃផ្លូវសំប៉ែត , តែដីជម្រាលចំហៀង ។ បើកំពូលសំប៉ែត ,
+// គែមម្ខាងខ្ពស់លើដីច្រើន , ហើយឃើញជាជញ្ជាំងថ្មនៅក្រោមគែមផ្លូវគ្រប់កន្លែង
+// ដែលដីជម្រាល ។ កំពូលជម្រាលតាមដីធ្វើឱ្យគែមផ្លូវជិតដី , ដូច្នេះជញ្ជាំងខ្លី ។ 📃 ⟩
+// ⟪ មុខចំហៀងឈរ 📐 ⟫
+// ⟨ គែមផ្លូវឈរត្រង់ 📏 ⟩ ៖ មុខចំហៀងជាជញ្ជាំងថ្មឈរ , ដូចជណ្តើរថ្ម ។
+// ស្មាជម្រាលត្រូវបានដកចេញ ៖ វាធ្វើឱ្យគែមផ្លូវផ្អៀង ហើយផ្លូវមើលទៅធំទូលាយ ។ 📃 ⟩
+export function kreiSegmentGeometrion(w: number, l: number,
+  suproj: readonly [ number, number, number, number ],
+  fundoj: readonly [ number, number, number, number ],
+  ofsetoX: number = 0): THREE.BufferGeometry {
+  const x0 = -w / 2 + ofsetoX, x1 = w / 2 + ofsetoX;
+  const y0 = -l / 2, y1 = l / 2;
+  const p: [ number, number, number ][] = [
+    [ x0, y0, suproj[ 0 ] ], [ x1, y0, suproj[ 1 ] ],
+    [ x1, y1, suproj[ 2 ] ], [ x0, y1, suproj[ 3 ] ],
+    [ x0, y0, fundoj[ 0 ] ], [ x1, y0, fundoj[ 1 ] ],
+    [ x1, y1, fundoj[ 2 ] ], [ x0, y1, fundoj[ 3 ] ],
+  ];
+  // ⟨ ត្រីកោណតាមលំដាប់ក្រៅ 📃 ⟩ ៖ កំពូល , បាត , មុខ , ខ្នង , ឆ្វេង , ស្តាំ ។
+  // ⟨ UV តាមមុខ 📏 ⟩ ៖ មុននេះ UV ជាទីតាំង ( x , y ) ។ នៅមុខចំហៀង x ថេរ ,
+  // ដូច្នេះវាយនភាពត្រូវលាតជាបន្ទាត់មួយ ។ ដូច្នេះជំហានដែលមានមុខខ្ពស់
+  // បង្ហាញវាយនភាពលាត ។ ឥឡូវមុខនីមួយៗមាន UV តាមទិសផ្ទៃរបស់វា ៖
+  // ផ្ទៃខាងលើ/ក្រោម តាម ( x , y ) , មុខចំហៀង តាម ( បណ្តោយ , កម្ពស់ ) ។ 📃 ⟩
+  const kvadratoj: { ind: [ number, number, number, number ]; uv: ( q: [ number, number, number ] ) => [ number, number ] }[] = [
+    { ind: [ 0, 1, 2, 3 ], uv: q => [ q[ 0 ], q[ 1 ] ] },
+    { ind: [ 4, 7, 6, 5 ], uv: q => [ q[ 0 ], q[ 1 ] ] },
+    { ind: [ 0, 4, 5, 1 ], uv: q => [ q[ 0 ], q[ 2 ] ] },
+    { ind: [ 3, 2, 6, 7 ], uv: q => [ q[ 0 ], q[ 2 ] ] },
+    { ind: [ 0, 3, 7, 4 ], uv: q => [ q[ 1 ], q[ 2 ] ] },
+    { ind: [ 1, 5, 6, 2 ], uv: q => [ q[ 1 ], q[ 2 ] ] },
+  ];
+  const trianguloj: number[] = [];
+  const uvDe: (( q: [ number, number, number ] ) => [ number, number ])[] = [];
+  for ( const k of kvadratoj ) {
+    for ( const t of [ [ 0, 1, 2 ], [ 0, 2, 3 ] ] ) {
+      for ( const n of t ) { trianguloj.push(k.ind[ n ]); uvDe.push(k.uv); }
+    }
+  }
+  const pozicioj = new Float32Array(trianguloj.length * 3);
+  const uv = new Float32Array(trianguloj.length * 2);
+  for ( let i = 0; i < trianguloj.length; i++ ) {
+    const q = p[ trianguloj[ i ] ];
+    pozicioj[ i * 3 ] = q[ 0 ]; pozicioj[ i * 3 + 1 ] = q[ 1 ]; pozicioj[ i * 3 + 2 ] = q[ 2 ];
+    const k = uvDe[ i ](q);
+    uv[ i * 2 ] = k[ 0 ]; uv[ i * 2 + 1 ] = k[ 1 ];
+  }
+  const geometrio = new THREE.BufferGeometry();
+  geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+  geometrio.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+  geometrio.computeVertexNormals();
+  return geometrio;
 }

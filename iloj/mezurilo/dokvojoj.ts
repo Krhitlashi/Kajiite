@@ -2,32 +2,25 @@
 // ⟨ ពីរបញ្ហានៅតំបន់ចំណត ៖ ចានភ្ជាប់តូចជាងផ្លូវ , និងផ្លូវខ្ពស់ខុសគ្នា
 // រវាងខ្សែដេកនិងខ្សែឈរ ។ វាស់នៅទីនេះ , ដើម្បីកុំឱ្យការកែជាការស្មាន ។
 // វាស់តែផ្លូវឆ្លាក់និងចំណត ។ ផ្លូវក្រឡាទីក្រុងនៅឆ្ងាយ , ដូច្នេះមិនរាប់ ។ 📃 ⟩
-import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
+import { aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
-import { troviVojaRetajnKunigojn, vojaKunigaDuono } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
-import { kreiVojoAlton, kreiBazanVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
+import { vojaKunigaDuono } from "../../eskekoj/medio/voj-reto.js";
+import { kreiBazanVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
 import { VOJA_BORDA_LARĜO, VOJA_DIORITA_DUONO,
-  VOJA_EKSTERA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
-import { akvaFino } from "./komunaj.js";
+  VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { kreiBrakojn, kreiPlatajnPoligonojn } from "../../eskekoj/medio/vojoj/platoj.js";
+import { akvaFino, kreiMezuranMondon } from "./komunaj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
-const VOJOJ = aktivajVojoj().filter(v => v.punktoj.length >= 2);
-const DOKOJ = aktivajDokoj();
-const retaj = VOJOJ.map(v => ( { punktoj: v.punktoj, larĝo: v.larĝo } ));
-
 // ⟨ ដូច urbo.ts ៖ ចុងផ្លូវទាក់ទៅចានភ្ជាប់ , បន្ទាប់មករកចំណុចភ្ជាប់ម្តងទៀត 📃 ⟩
-const landoj = DOKOJ.map(d => {
-  const r = d.rotacio ?? 0;
-  return [ d.x + Math.sin(r) * ( d.profundo / 2 ), d.z + Math.cos(r) * ( d.profundo / 2 ) ] as VojaPunkto;
-});
-const antaŭaj = troviVojaRetajnKunigojn(retaj, DOKOJ);
-const celoj: VojaPunkto[] = [ ...antaŭaj.map(k => [ k.x, k.z ] as VojaPunkto) ];
-const gluitaj = VOJOJ.map((v, i) => gluiVojaFinon(v.punktoj, celoj, landoj.map(p => ( { x: p[0], z: p[1] } )),
-  VOJOJ.filter((_, j) => j !== i).map(o => o.punktoj)));
-const kunigoj = troviVojaRetajnKunigojn(
-  VOJOJ.map((v, i) => ( { punktoj: gluitaj[i], larĝo: v.larĝo } )), DOKOJ);
+// ⟨ ប្លុកសាងសង់ពិភពលោកនៅ `komunaj.ts` 📏 ⟩ ៖ ដូច្នេះការវាស់នេះអាន
+// ពិភពលោកដូចឧបករណ៍ឯទៀត ។ ទីក្រុងក្រឡាមិនរាប់ ( ដូចក្នុងឯកសារនេះ ) ។ 📃 ⟩
+const mondo = kreiMezuranMondon(false);
+const VOJOJ = mondo.vojoj;
+const DOKOJ = aktivajDokoj();
+const gluitaj = mondo.gluitaj;
+const kunigoj = mondo.kunigoj;
 
 // ⟪ ផ្នែកទីមួយ , ទទឹងចានភ្ជាប់ 📏 ⟫
 console.log("<( ទទឹងចានភ្ជាប់ )>");
@@ -56,39 +49,42 @@ for ( const k of kunigoj ) {
 }
 console.log(`  ចំណុចភ្ជាប់ ${kunigoj.length} , ចានតូចជាងផ្លូវ ${mallarĝaj}`);
 
-// ⟪ ផ្នែកទីពីរ , មាត់ចានដែលបើកឥតផ្លូវ 📏 ⟫
-// ⟨ ដូច platoj.ts ៖ ចានបែងជាបួនត្រីមាស ។ ត្រីមាសដែលបើកមាត់ត្រូវមានដៃ 📃 ⟩
+// ⟪ ផ្នែកទីពីរ , មាត់ចាន 📏 ⟫
+// ⟨ ចានធ្វើតាមដៃពិត ។ ដូច្នេះការពិនិត្យគឺ ៖ តើពហុកោណចានគ្របពីរជ្រុងមាត់ដៃនីមួយៗឬទេ ។
+// បើខ្វះ , ផ្លូវនឹងជាប់នឹងគែមចានដែលកាត់ចូល , ហើយលេចរន្ធឬជំហាន ។
+// ការរាប់តាមត្រីមាសចាស់មិនត្រឹមត្រូវទៀតទេ , ព្រោះចានលែងបែងជាការេ ។ 📃 ⟩
+function enaPoligono( px: number, pz: number, rando: readonly [ number, number ][]): boolean {
+  let ene = false;
+  for ( let i = 0, j = rando.length - 1; i < rando.length; j = i++ ) {
+    const [ xi, zi ] = rando[i], [ xj, zj ] = rando[j];
+    if ( ( zi > pz ) !== ( zj > pz )
+      && px < ( xj - xi ) * ( pz - zi ) / ( zj - zi ) + xi ) ene = !ene;
+  }
+  return ene;
+}
 console.log("<( មាត់ចាន )>");
 let malplenaj = 0;
 for ( const k of kunigoj ) {
-  const kos = Math.cos(k.rotacio), sin = Math.sin(k.rotacio);
-  const lokaj = k.direktaj
-    .map(d => [ kos * d[0] + sin * d[1], -sin * d[0] + kos * d[1] ] as VojaPunkto)
-    .filter(d => Math.hypot(d[0], d[1]) > 0o1/0o1000);
-  const [ fx, fz ] = k.fermitaj;  for ( const sx of [ -1, 1 ] ) {
-    for ( const sz of [ -1, 1 ] ) {
-      const kvadrantaj = lokaj.filter(d => sx * d[0] >= -0o1/0o1000 && sz * d[1] >= -0o1/0o1000 );
-      let brakoX = kvadrantaj.some( d => Math.abs( d[0] ) >= Math.abs( d[1] ));
-      let brakoZ = kvadrantaj.some( d => Math.abs( d[1] ) > Math.abs( d[0] ));
-      if ( brakoX && sx === fx ) brakoX = false;
-      if ( brakoZ && sz === fz ) brakoZ = false;
-      // ⟨ គ្មានដៃក្នុងត្រីមាស ៖ គ្រប់សាខាត្រូវបិទ ។ មាត់បើក = រន្ធទទេ 📃 ⟩
-      if ( kvadrantaj.length === 0 && ( brakoX || brakoZ ) ) {
-        malplenaj++;
-        console.log(`  ( ${k.x.toFixed(1)}, ${k.z.toFixed(1)} ) ត្រីមាស ${sx},${sz}` +
-          ` បើកមាត់ ${brakoX ? "X" : ""}${brakoZ ? "Z" : ""} តែគ្មានដៃ ,` +
-          ` ដៃ ${lokaj.length} , fermitaj ${fx},${fz}`);
-      }
+  const brakoj = kreiBrakojn(k.direktaj, k.fermitaj, k.rotacio);
+  const plato = kreiPlatajnPoligonojn(brakoj);
+  for ( const b of brakoj ) {
+    for ( const f of [ -1, 0, 1 ] ) {
+      const px = b.ux * VOJA_TRUA_DUONO * 0.98 - b.uz * VOJA_EKSTERA_DUONO * 0.9 * f;
+      const pz = b.uz * VOJA_TRUA_DUONO * 0.98 + b.ux * VOJA_EKSTERA_DUONO * 0.9 * f;
+      if ( enaPoligono(px, pz, plato.supraj) || plato.bandoj.some(r => enaPoligono(px, pz, r)) ) continue;
+      malplenaj++;
+      console.log(`  ( ${k.x.toFixed(1)}, ${k.z.toFixed(1)} ) ដៃ ${( b.ang * 180 / Math.PI ).toFixed(0)}°`
+        + ` ជ្រុង ${f} មិនគ្រប , ដៃ ${brakoj.length}`);
     }
   }
 }
-console.log(`  មាត់បើកឥតផ្លូវ ${malplenaj}`);
+console.log(`  មាត់ចានខ្វះ ${malplenaj}`);
 
 // ⟪ ផ្នែកទីបី , កម្ពស់ផ្លូវ 📏 ⟫
 // ⟨ baza = ដីតែម្នាក់ , ruluma = ដីបូកចំណុចភ្ជាប់ ។ ផ្លូវអាន ruluma 📃 ⟩
 console.log("<( កម្ពស់ផ្លូវ )>");
 const baza = kreiBazanVojoAlton(alteco);
-const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
+const vojoAlteco = mondo.vojoAlteco;
 let diferencoMaks = 0, diferencoLoko = "";
 for ( let i = 0; i < VOJOJ.length; i++ ) {
   const punktoj = gluitaj[i];
