@@ -3,7 +3,8 @@ import * as THREE from "three";
 import { matricoPor, ANGULA_PROVOLIRO, type VojBendo, type VojGeometriajBufroj } from "./bufroj.js";
 import { kreiSegmentGeometrion } from "./formoj.js";
 import { kreiNivelajnPecojn, type NivelaProfilo } from "./niveloj.js";
-import { VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./mezuroj.js";
+import { VOJA_EKSTERA_DUONO, VOJA_STUPA_RAMPO, VOJA_SUPRO_LEVIGXO,
+  VOJA_TRUA_DUONO } from "./mezuroj.js";
 import { vojSuprajxoj } from "./tipoj.js";
 
 // ⟪ កម្ពស់ចុងចម្រៀក 📃 ⟫
@@ -13,27 +14,26 @@ export interface SegmentaRezulto {
 }
 
 // ⟪ ជ្រុងជំហាន 📏 ⟫
-/*កម្ពស់ជ្រុងទាំងបួននៃជំហាន ៖ កំពូលសំប៉ែត , បាតដល់ដី
-    @param alto ( number ) - កម្រិតជំហាន
+/*កម្ពស់ជ្រុងទាំងបួននៃជំហាន ៖ កំពូលតាមកម្ពស់ចុងទាំងពីរ , បាតដល់ដី
+    @param altoA, altoB ( number ) - កម្រិតកំពូលនៅចុងដើម និងចុងចុង
     @param ax, az, bx, bz ( number ) - ចុងចម្រៀក
     @param latX, latZ ( number ) - វ៉ិចទ័រចំហៀងទៅគែម
     @param grundoFn ( function ) - កម្ពស់ដី
     @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
 @returns anguloj ( { suproj ; fundoj } ) - កំពូល និងបាត តាមលំដាប់ ដើមឆ្វេង , ដើមស្តាំ , ចុងស្តាំ , ចុងឆ្វេង */
-// ⟨ កំពូលសំប៉ែត 📃 ⟩ ៖ ជំហានជាថ្មសំប៉ែត ។ មុននេះកំពូលផ្អៀងតាមជម្រាលចំហៀង ,
-// ដូច្នេះផ្ទៃផ្លូវបង្វិល ។ ឥឡូវកំពូលសំប៉ែតទាំងបួនជ្រុង ,
-// ហើយមុខចំហៀងឈរត្រង់ ៖ ជណ្តើរថ្មធម្មតា ។ 📃 ⟩
-function angulojDeTreado(alto: number, ax: number, az: number, bx: number, bz: number,
+// ⟨ កំពូលតាមចុង 📃 ⟩ ៖ ផ្នែករាបមានកម្ពស់ស្មើគ្នាទាំងពីរចុង , ផ្នែកជម្រាលមាន
+// កម្ពស់ខុសគ្នា ៖ ដើមខ្ពស់ , ចុងទាប ។ មុខចំហៀងនៅតែឈរត្រង់ ។ 📃 ⟩
+function angulojDeTreado(altoA: number, altoB: number, ax: number, az: number, bx: number, bz: number,
   latX: number, latZ: number, grundoFn: ( x: number, z: number ) => number,
   dikecoBaza: number
 ): { suproj: [ number, number, number, number ]; fundoj: [ number, number, number, number ] } {
-  const suproj: [ number, number, number, number ] = [ alto, alto, alto, alto ];
-  const fundoj: [ number, number, number, number ] = [ alto, alto, alto, alto ];
+  const suproj: [ number, number, number, number ] = [ altoA, altoA, altoB, altoB ];
+  const fundoj: [ number, number, number, number ] = [ altoA, altoA, altoB, altoB ];
   const anguloj: [ number, number ][] = [ [ ax - latX, az - latZ ], [ ax + latX, az + latZ ],
     [ bx + latX, bz + latZ ], [ bx - latX, bz - latZ ] ];
   for ( let i = 0; i < 0o4; i++ ) {
     const grundo = grundoFn(anguloj[ i ][ 0 ], anguloj[ i ][ 1 ]);
-    fundoj[ i ] = Math.min(alto - dikecoBaza, grundo - ANGULA_PROVOLIRO);
+    fundoj[ i ] = Math.min(suproj[ i ] - dikecoBaza, grundo - ANGULA_PROVOLIRO);
   }
   return { suproj, fundoj };
 }
@@ -52,6 +52,81 @@ function bendoAnguloj(anguloj: readonly [ number, number, number, number ],
   const miks = ( a: number, b: number, f: number ): number => a + ( b - a ) * f;
   return [ miks(anguloj[ 0 ], anguloj[ 1 ], f0), miks(anguloj[ 0 ], anguloj[ 1 ], f1),
     miks(anguloj[ 3 ], anguloj[ 2 ], f1), miks(anguloj[ 3 ], anguloj[ 2 ], f0) ];
+}
+
+// ⟪ សាងសង់ជំហានមួយ 📏 ⟫
+/*សាងសង់ជំហានមួយ ៖ កំពូលរាប , មុខជម្រាល , និងបាតចុះដល់ដី
+    @param ax, az ( number ) - ចំណុចដើមជំហាន
+    @param bx, bz ( number ) - ចំណុចចុងជំហាន
+    @param alto ( number ) - កម្ពស់កំពូល
+    @param fala ( number ) - កម្ពស់ដែលមុខជំហានចុះទៅជំហានបន្ទាប់ ( ០ គ្មានជម្រាល )
+    @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
+    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
+    @param grundoFn ( function ) - កម្ពស់ដីក្រោម
+    @param bufroj ( VojGeometriajBufroj ) - កន្លែងប្រមូលធរណីមាត្រ
+@returns altoj ( [ number , number ] ) - កម្ពស់កំពូលនៅចុងដើម និងចុងចុង */
+// ⟨ អនុគមន៍តែមួយសម្រាប់ជំហានទាំងអស់ 📃 ⟩ ៖ ជណ្តើរចំណត ( កម្ពស់ថេរតាមអនុគមន៍កម្ពស់ )
+// និងផ្លូវកម្រិត ( កម្ពស់ថេរតាមបំណែកកម្រិត ) សាងសង់ជំហានដូចគ្នា ។ មុននេះកូដសាងសង់
+// ស្ទួនគ្នានៅក្នុងអនុគមន៍ពីរ , ដូច្នេះជំហានពីរប្រភេទអាចមើលខុសគ្នា ។ 📃 ⟩
+// ⟨ កំពូលរាប , មុខជម្រាល 📃 ⟩ ៖ កំពូលជំហានរាប និងស្របគ្នាទាំងអស់ , ដូច្នេះផ្លូវ
+// ត្រង់ មិនកោងតាមដី ។ ជម្រាលស្ថិតនៅមុខជំហាន ៖ ផ្នែកខាងចុងនៃកំពូលទ្រេតចុះទៅ
+// កម្រិតបន្ទាប់ ។ ដូច្នេះមុខជំហានមិនឈរត្រង់ ( ចុះផ្តេក ) ទេ , ហើយជំហានជាប់គ្នា ។ 📃 ⟩
+function aldoniTreadon(ax: number, az: number, bx: number, bz: number, alto: number,
+  fala: number,
+  bendoj: VojBendo[],
+  dikecoBaza: number,
+  grundoFn: ( x: number, z: number ) => number,
+  bufroj: VojGeometriajBufroj
+): [ number, number ] {
+  const difX = bx - ax, difZ = bz - az;
+  const longo = Math.hypot(difX, difZ);
+  const ndx = difX / longo, ndz = difZ / longo;
+  // ⟨ ប្រវែងជម្រាល 📏 ⟩ ៖ តាមជម្រាលកំណត់ , តែមិនលើសពាក់កណ្តាលជំហាន ,
+  // ដើម្បីឱ្យកំពូលរាបនៅសល់ជាកំពូលជំហានពិត ។
+  const rampo = fala === 0 ? 0
+    : Math.min(Math.abs(fala) * VOJA_STUPA_RAMPO, longo * 0o1/0o2);
+  if ( rampo <= 0o1/0o1000 ) {
+    aldoniBokson(ax, az, bx, bz, alto, alto, bendoj, dikecoBaza, grundoFn, bufroj);
+    return [ alto, alto ];
+  }
+  // ⟨ កំពូលរាប បន្ទាប់មកជម្រាល 📃 ⟩ ៖ ផ្នែកដំបូងរាប , ផ្នែកចុងទ្រេតចុះ ។
+  // ចុងជម្រាលស្ថិតនៅកម្រិតជំហានបន្ទាប់ , ដូច្នេះជំហានជាប់គ្នាដោយគ្មានមុខឈរ ។
+  const px = bx - ndx * rampo, pz = bz - ndz * rampo;
+  aldoniBokson(ax, az, px, pz, alto, alto, bendoj, dikecoBaza, grundoFn, bufroj);
+  aldoniBokson(px, pz, bx, bz, alto, alto - fala, bendoj, dikecoBaza, grundoFn, bufroj);
+  return [ alto, alto - fala ];
+}
+
+// ⟪ ប្រអប់ជំហានមួយ 📦 ⟫
+/*សាងសង់ប្រអប់មួយរបស់ជំហាន ៖ កំពូលតាមកម្ពស់ចុងទាំងពីរ , បាតចុះដល់ដី
+    @param ax, az ( number ) - ចំណុចដើម
+    @param bx, bz ( number ) - ចំណុចចុង
+    @param altoA, altoB ( number ) - កម្ពស់កំពូលនៅចុងដើម និងចុងចុង
+    @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
+    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
+    @param grundoFn ( function ) - កម្ពស់ដីក្រោម
+    @param bufroj ( VojGeometriajBufroj ) - កន្លែងប្រមូលធរណីមាត្រ */
+function aldoniBokson(ax: number, az: number, bx: number, bz: number, altoA: number, altoB: number,
+  bendoj: VojBendo[],
+  dikecoBaza: number,
+  grundoFn: ( x: number, z: number ) => number,
+  bufroj: VojGeometriajBufroj
+): void {
+  const difX = bx - ax, difZ = bz - az;
+  const longo = Math.hypot(difX, difZ);
+  if ( longo < 0o1/0o1000 ) return;
+  const eksteraDuon = kreiEksteranDuonon(bendoj);
+  const ndx = difX / longo, ndz = difZ / longo;
+  const latX = -ndz * eksteraDuon, latZ = ndx * eksteraDuon;
+  const anguloj = angulojDeTreado(altoA, altoB, ax, az, bx, bz, latX, latZ, grundoFn, dikecoBaza);
+  vojSuprajxoj.push({ x1: ax, z1: az, x2: bx, z2: bz, duono: eksteraDuon, y0: altoA, y1: altoB });
+  for ( const bendo of bendoj ) {
+    const g0 = bendo.ofseto - bendo.largho / 0o2, g1 = bendo.ofseto + bendo.largho / 0o2;
+    const geometrio = kreiSegmentGeometrion(bendo.largho, longo,
+      bendoAnguloj(anguloj.suproj, g0, g1, eksteraDuon),
+      bendoAnguloj(anguloj.fundoj, g0, g1, eksteraDuon), bendo.ofseto);
+    bufroj.aldoni(geometrio, bendo.materialo, matricoPor(difX, difZ, ( ax + bx ) / 0o2, 0, ( az + bz ) / 0o2));
+  }
 }
 
 /*កន្លែងដែលផ្លូវឆ្លងកាត់ចានភ្ជាប់ មិនត្រូវសាងសង់ជំហានទេ
@@ -99,32 +174,22 @@ export function kreiSegmentajnPartojn(aX: number, aZ: number, bX: number, bZ: nu
     @param heightFn ( function ) - កម្ពស់ផ្លូវ
     @param grundoFn ( function ) - កម្ពស់ដីក្រោម
     @param bufroj ( VojGeometriajBufroj ) - កន្លែងប្រមូលធរណីមាត្រ
+    @param fala ( number ) - កម្ពស់ដែលមុខជំហានចុះទៅជំហានបន្ទាប់ ( ០ គ្មានជម្រាល )
 @returns rezulto ( SegmentaRezulto | null ) - កម្ពស់ចុងទាំងពីរ */
 export function konstruiUnuformajnStuparajnSegmentojn(x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikecoBaza: number,
   heightFn: ( x: number, z: number ) => number,
   grundoFn: ( x: number, z: number ) => number,
-  bufroj: VojGeometriajBufroj
+  bufroj: VojGeometriajBufroj,
+  fala: number
 ): SegmentaRezulto | null {
   const difX = x2 - x1, difZ = z2 - z1;
   const longo = Math.hypot(difX, difZ);
   if ( longo < 0o1/0o100 ) return null;
-  const mezaX = ( x1 + x2 ) / 2, mezaZ = ( z1 + z2 ) / 2;
-  const ndx = difX / longo, ndz = difZ / longo;
-  const eksteraDuon = kreiEksteranDuonon(bendoj);
-  const latX = -ndz * eksteraDuon, latZ = ndx * eksteraDuon;
-  const supro = heightFn(mezaX, mezaZ) + VOJA_SUPRO_LEVIGXO;
-  const anguloj = angulojDeTreado(supro, x1, z1, x2, z2, latX, latZ, grundoFn, dikecoBaza);
-  vojSuprajxoj.push({ x1, z1, x2, z2, duono: eksteraDuon, y0: supro, y1: supro });
-  for ( const bendo of bendoj ) {
-    const g0 = bendo.ofseto - bendo.largho / 0o2, g1 = bendo.ofseto + bendo.largho / 0o2;
-    const geometrio = kreiSegmentGeometrion(bendo.largho, longo,
-      bendoAnguloj(anguloj.suproj, g0, g1, eksteraDuon),
-      bendoAnguloj(anguloj.fundoj, g0, g1, eksteraDuon), bendo.ofseto);
-    bufroj.aldoni(geometrio, bendo.materialo, matricoPor(difX, difZ, mezaX, 0, mezaZ));
-  }
-  return { unua: supro, lasta: supro };
+  const supro = heightFn(( x1 + x2 ) / 0o2, ( z1 + z2 ) / 0o2) + VOJA_SUPRO_LEVIGXO;
+  const [ unua, lasta ] = aldoniTreadon(x1, z1, x2, z2, supro, fala, bendoj, dikecoBaza, grundoFn, bufroj);
+  return { unua, lasta };
 }
 
 // ⟪ ផ្លូវជំហាន 📃 ⟫
@@ -151,32 +216,22 @@ export function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z
   const longo = Math.hypot(difX, difZ);
   const sDif = s1 - s0;
   if ( longo < 0o1/0o100 || sDif < 0o1/0o1000 ) return null;
-  const ndx = difX / longo, ndz = difZ / longo;
-  const eksteraDuon = kreiEksteranDuonon(bendoj);
-  const latX = -ndz * eksteraDuon, latZ = ndx * eksteraDuon;
   const pecoj = kreiNivelajnPecojn(profilo, s0, s1);
+  // ⟨ ជម្រាលមុខជំហាន 📏 ⟩ ៖ ជំហាននីមួយៗទ្រេតចុះទៅកម្រិតបំណែកបន្ទាប់ ។ បំណែកចុងក្រោយ
+  // គ្មានបំណែកបន្ទាប់ទេ , ដូច្នេះវាបញ្ចប់រាប ( មុខឈរតូច ) ហើយចានភ្ជាប់គ្របវា ។ 📃 ⟩
   let unua = Infinity, lasta = Infinity;
-  for ( const peco of pecoj ) {
+  for ( let i = 0; i < pecoj.length; i++ ) {
+    const peco = pecoj[i];
+    const sekva = pecoj[i + 1];
+    const fala = sekva ? peco.alto - sekva.alto : 0;
     const f0 = ( peco.s0 - s0 ) / sDif, f1 = ( peco.s1 - s0 ) / sDif;
     const ax = x1 + difX * f0, az = z1 + difZ * f0;
     const bx = x1 + difX * f1, bz = z1 + difZ * f1;
-    const longoTread = Math.hypot(bx - ax, bz - az);
-    if ( longoTread < 0o1/0o1000 ) continue;
+    if ( Math.hypot(bx - ax, bz - az) < 0o1/0o1000 ) continue;
     // ⟨ បាតដីក្រោមជំហាន ៖ ជណ្តើរចូលដល់ដី , មិនអណ្តែតលើទឹកទេ 📃 ⟩
-    const anguloj = angulojDeTreado(peco.alto, ax, az, bx, bz, latX, latZ,
-      grundoFn, dikecoBaza);
-    if ( unua === Infinity ) unua = peco.alto;
-    lasta = peco.alto;
-    vojSuprajxoj.push({ x1: ax, z1: az, x2: bx, z2: bz, duono: eksteraDuon,
-      y0: peco.alto, y1: peco.alto });
-    for ( const bendo of bendoj ) {
-      const g0 = bendo.ofseto - bendo.largho / 0o2, g1 = bendo.ofseto + bendo.largho / 0o2;
-      const geometrio = kreiSegmentGeometrion(bendo.largho, longoTread,
-        bendoAnguloj(anguloj.suproj, g0, g1, eksteraDuon),
-        bendoAnguloj(anguloj.fundoj, g0, g1, eksteraDuon), bendo.ofseto);
-      bufroj.aldoni(geometrio, bendo.materialo,
-        matricoPor(difX, difZ, ( ax + bx ) / 2, 0, ( az + bz ) / 2));
-    }
+    const [ altoA, altoB ] = aldoniTreadon(ax, az, bx, bz, peco.alto, fala, bendoj, dikecoBaza, grundoFn, bufroj);
+    if ( unua === Infinity ) unua = altoA;
+    lasta = altoB;
   }
   return unua === Infinity ? null : { unua, lasta };
 }
@@ -191,6 +246,10 @@ export function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z
     @param grundoFn ( function ) - កម្ពស់ដីក្រោម
     @param bufroj ( VojGeometriajBufroj ) - កន្លែងប្រមូលធរណីមាត្រ
 @returns rezulto ( SegmentaRezulto | null ) - កម្ពស់ចុងទាំងពីរ */
+// ⟨ ហេតុអ្វីស្ពានរលូន 📃 ⟩ ៖ ស្ពានជាចម្រៀកវែងតែមួយ មិនមែនជណ្តើរ ។ បើសាងសង់
+// ជាប្រអប់តាមជំហាន , ធ្នូក្លាយជាជណ្តើរថ្ម ហើយគែមប្រអប់ឃើញជាធ្មេញ ។ ដូច្នេះ
+// ស្ពានសាងសង់ជាទម្រង់តែមួយរត់តាមធ្នូ ៖ ខ្សែ និងសម្ភារៈដូចផ្លូវឯទៀត ,
+// តែផ្ទៃរលូន ។ ការប៉ះទង្គិចកត់តាមគំរូ , ដូច្នេះការដើរលើស្ពានតាមធ្នូ ។ 📃 ⟩
 export function konstruiGlatanSegmenton(x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikecoBaza: number,
@@ -205,10 +264,6 @@ export function konstruiGlatanSegmenton(x1: number, z1: number, x2: number, z2: 
   const ndx = difX / longo, ndz = difZ / longo;
   const eksteraDuon = kreiEksteranDuonon(bendoj);
   const latX = -ndz * eksteraDuon, latZ = ndx * eksteraDuon;
-  // ⟪ ទម្រង់រលូន 📐 ⟫
-  // ⟨ ស្ពានជាទម្រង់តែមួយ 📃 ⟩ ៖ ស្ពានរលូន , មិនមែនជំហាន ។ ប្រអប់តូចៗតាម
-  // គំរូបង្កើតជាធ្មេញឃើញនៅគែម , ដូច្នេះស្ពានសាងសង់ជាទម្រង់មួយ ,
-  // ហើយហូរចេញតាមទទឹងផ្លូវ ។ 📃 ⟩
   const specimenoj: { s: number; supro: number; fundo: number }[] = [];
   for ( let i = 0; i <= steps; i++ ) {
     const s = longo * i / steps;
@@ -239,12 +294,20 @@ export function konstruiGlatanSegmenton(x1: number, z1: number, x2: number, z2: 
   for ( const bendo of bendoj ) {
     const geometrio = new THREE.ExtrudeGeometry(formo, { depth: bendo.largho, bevelEnabled: false });
     geometrio.rotateY(-Math.PI / 2);
-    geometrio.translate(-bendo.ofseto + bendo.largho / 2, 0, 0);
+    geometrio.translate(-bendo.ofseto + bendo.largho / 0o2, 0, 0);
     bufroj.aldoni(geometrio, bendo.materialo, matrico);
   }
   const suproj = specimenoj.map(s => s.supro);
-  vojSuprajxoj.push({ x1, z1, x2, z2, duono: eksteraDuon,
-    y0: suproj[0], y1: suproj[suproj.length - 1] });
+  // ⟨ ការប៉ះទង្គិចតាមគំរូ 📏 ⟩ ៖ ចម្រៀកតែមួយកត់តែកម្ពស់ចុងពីរ , ដូច្នេះការដើរ
+  // តាមខ្សែត្រង់រវាងចុង ។ ធ្នូខ្ពស់នៅកណ្តាល , ដូច្នេះនៅកណ្តាលស្ពានការដើរ
+  // ទាបជាងផ្ទៃដែលឃើញ ។ ដូច្នេះកត់មួយក្នុងមួយគំរូ ៖ ការដើរតាមធ្នូ ។ 📃 ⟩
+  for ( let i = 1; i < specimenoj.length; i++ ) {
+    const antauxa = specimenoj[i - 1];
+    const nuna = specimenoj[i];
+    vojSuprajxoj.push({ x1: x1 + ndx * antauxa.s, z1: z1 + ndz * antauxa.s,
+      x2: x1 + ndx * nuna.s, z2: z1 + ndz * nuna.s, duono: eksteraDuon,
+      y0: antauxa.supro, y1: nuna.supro });
+  }
   return { unua: suproj[0], lasta: suproj[suproj.length - 1] };
 }
 

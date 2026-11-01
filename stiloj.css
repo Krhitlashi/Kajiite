@@ -31,12 +31,15 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 /* ⟨ ពេលបង្ហាញ ៖ យក blur ពីអថេរតារាងខាងក្រៅវិញ 📃 ⟩ */
 #balailo.montri { backdrop-filter:var(--ច្ហិនី); }
 
-/* ⟪ ក្រឡាភ្នែក 📃 ⟫ */
+/* ⟪ ក្រឡាភ្នែក 🎯 ⟫ */
+/* ⟨ បន្ទាត់បួន 📃 ⟩ */
 #retikulo { position:fixed; z-index:3; inset-block-start:50%; inset-inline-start:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .2336092301648s; writing-mode:horizontal-tb; }
 #retikulo.montri { opacity:.4375; }
-#retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--ក្ព៏); }
-#retikulo::before { inline-size:16px; block-size:1px; inset-block-start:50%; inset-inline-start:-8px; }
-#retikulo::after { inline-size:1px; block-size:16px; inset-inline-start:50%; inset-block-start:-8px; }
+/* ⟨ ដេក 📏 ⟩ ៖ ឆ្វេង −9.5 → −2.5 , ស្តាំ 2.5 → 9.5 ( ស្រមោលរាល 12px ) */
+#retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--ក្ព៏); border-radius:1px; }
+#retikulo::before { inline-size:7px; block-size:2px; inset-block-start:-1px; inset-inline-start:-9.5px; box-shadow:12px 0 0 var(--ក្ព៏); }
+/* ⟨ ឈរ 📏 ⟩ ៖ លើ −9.5 → −2.5 , ក្រោម 2.5 → 9.5 */
+#retikulo::after { inline-size:2px; block-size:7px; inset-block-start:-9.5px; inset-inline-start:-1px; box-shadow:0 12px 0 var(--ក្ព៏); }
 
 /* ⟪ សារលេចឡើង និងការណែនាំ 📃 ⟫ */
 #tosto, #prompto { white-space:nowrap; opacity:0; pointer-events:none; }

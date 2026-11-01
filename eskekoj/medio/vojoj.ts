@@ -69,11 +69,19 @@ export function konstruiVojojn(sceno: THREE.Scene,
     };
     if ( def.stuparo === true ) {
       let unua: number | null = null, lasta: number | null = null;
+      // ⟨ ជម្រាលមុខជំហាន 📏 ⟩ ៖ ជំហាននីមួយៗចុះទៅកម្រិតជំហានបន្ទាប់ ។
+      // កម្រិតអានត្រង់កណ្តាលចម្រៀក , ដូចអនុគមន៍សាងសង់ , ដូច្នេះជម្រាលត្រូវនឹងជំហានពិត ។
+      // ជំហានចុងក្រោយគ្មានជំហានបន្ទាប់ទេ , ដូច្នេះវារាបទាំងស្រុង ។ 📃 ⟩
+      const stupajAltoj: number[] = [];
+      for ( let i = 0; i < def.pts.length - 1; i++ )
+        stupajAltoj.push(defAlt(( def.pts[i][0] + def.pts[i + 1][0] ) / 0o2,
+          ( def.pts[i][1] + def.pts[i + 1][1] ) / 0o2));
       for ( let i = 0; i < def.pts.length - 1; i++ ) {
         const [ aX, aZ ] = def.pts[i];
         const [ bX, bZ ] = def.pts[i + 1];
+        const fala = i + 1 < stupajAltoj.length ? stupajAltoj[i] - stupajAltoj[i + 1] : 0;
         const rezulto = konstruiUnuformajnStuparajnSegmentojn(aX, aZ, bX, bZ, bendoj, VOJA_DIKECO,
-          defAlt, defGrundo, bufroj);
+          defAlt, defGrundo, bufroj, fala);
         if ( rezulto ) {
           if ( unua === null ) unua = rezulto.unua;
           lasta = rezulto.lasta;
@@ -85,10 +93,12 @@ export function konstruiVojojn(sceno: THREE.Scene,
     }
     // ⟨ កម្រិតទាំងអស់កំណត់ម្តង មុនការសាងសង់ ៖ ដូច្នេះជំហានមិនអាចលោត
     // ឬធ្លាក់ចូលរណ្តៅខ្លីនៅចន្លោះចម្រៀកបានទេ ។ 📃 ⟩
+    // ⟨ ផ្លូវទាំងអស់ចេញពីកន្លែងតែមួយ 📃 ⟩ ៖ ស្ពានមិនមែនប្រព័ន្ធដាច់ដោយឡែកទេ ។
+    // វាចូលរួមខ្សែ , សម្ភារៈ , មួកផ្លូវ និងការប៉ះទង្គិចដូចផ្លូវឯទៀត ។
+    // ភាពខុសគ្នាតែមួយ ៖ ផ្ទៃរបស់វារលូន , ព្រោះវាជាចម្រៀកវែងតែមួយ ( ធ្នូ ) ,
+    // មិនមែនជណ្តើរថ្មដូចផ្លូវលើដី ។ 📃 ⟩
     const profilo = def.glata === true
       ? null
-      // ⟨ ចំណុចភ្ជាប់របស់ផ្លូវនេះ 📏 ⟩ ៖ កម្ពស់ចានភ្ជាប់អានដីដែលផ្លូវអាន ។
-      // ផ្លូវត្រូវឡើងដល់កម្រិតនោះនៅមាត់ចាន , ទោះចំណុចនៅកណ្តាលផ្លូវក៏ដោយ ។ 📃 ⟩
       : kreiNivelanProfilon(def.pts, eksteraDuono, defAlt, akvaFn,
         kunigoj.map(([ x, z ]) => ( { x, z, alto: platoCxe(x, z) } )));
     let unua: number | null = null, lasta: number | null = null;
@@ -114,9 +124,9 @@ export function konstruiVojojn(sceno: THREE.Scene,
           continue;
         }
         // ⟨ រន្ធភ្ជាប់ ៖ ចានភ្ជាប់គ្របទីនោះ , តែកម្រិតត្រូវកត់ទុកសម្រាប់ការប៉ះទង្គិច ។ 📃 ⟩
-        const mX = ( px1 + px2 ) / 2, mZ = ( pz1 + pz2 ) / 2;
+        const mX = ( px1 + px2 ) / 0o2, mZ = ( pz1 + pz2 ) / 0o2;
         const kunigaSupro = profilo
-          ? profilo.altoCxe(starto + ( t0 + t1 ) / 2)
+          ? profilo.altoCxe(starto + ( t0 + t1 ) / 0o2)
           : Math.max(defAlt(mX, mZ)) + 0o1/0o100 + VOJA_DIKECO;
         vojSuprajxoj.push({ x1: px1, z1: pz1, x2: px2, z2: pz2, duono: eksteraDuono,
           y0: kunigaSupro, y1: kunigaSupro });

@@ -73,10 +73,11 @@ export function cxuMovigi(): boolean { return penikoAktiva === "movigi"; }
 export const radiuso = () => +radiusoRegilo.value;
 export const forto = () => +fortoRegilo.value;
 
-/* អនុវត្តជក់ទៅចំណុចមួយ ( ក្រឡានៅក្នុងកាំ )។
+/* អនុវត្តជក់ទៅចំណុចមួយ ( ក្រឡានៅក្នុងកាំ )។ ជក់ជាពេជ្រ ( មិនមែនរង្វង់ ) ៖ ចម្ងាយជា
+   |dx| + |dz| , ដូច្នេះគែមជក់តាមអ័ក្សក្រឡា ហើយជ្រុងស្រួចបួនស្ថិតលើអ័ក្ស x និង z ។
     @param cx ( number ) - ពិភពលោក x របស់ជក់។
     @param cz ( number ) - ពិភពលោក z របស់ជក់។
-    @param r ( number ) - កាំរបស់ជក់។
+    @param r ( number ) - កាំរបស់ជក់ ( ចម្ងាយពីកណ្តាលទៅជ្រុងស្រួច )។
     @param fortoVal ( number ) - កម្លាំង ( គ្រាប់រំកិល )។
     @param tipo ( string ) - ជក់កំពុងប្រើ។
     @param tuŝitaj ( Map<number, number> ) - ក្រឡាដែលបានប៉ះក្នុងជំហាន
@@ -95,7 +96,8 @@ export function penikoApliki(cx: number, cz: number, r: number, fortoVal: number
     const z = Z0 + iz * PASO;
     for ( let ix = ix0; ix <= ix1; ix++ ) {
       const x = X0 + ix * PASO;
-      const d = Math.hypot(x - cx, z - cz);
+      // ចម្ងាយពេជ្រ ៖ |dx| + |dz| ជំនួសរង្វង់ , ដូច្នេះក្រឡាដែលបានជក់ជាពេជ្រ ។
+      const d = Math.abs(x - cx) + Math.abs(z - cz);
       if ( d > r ) continue;
       const f = 1 - ( d / r ) * ( d / r );       // ការស្រអាប់រលូនទៅគែម
       const idx = iz * N + ix;

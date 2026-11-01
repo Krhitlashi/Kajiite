@@ -289,16 +289,25 @@ export function desegniVidon(): void {
       k.restore();
     }
   }
-  // ចិញ្ចៀនជក់ និងចំណុចកណ្តាល ដែលមិនមានក្នុងឧបករណ៍មើល Movigi ✋ ឬក្នុង
-  // ផ្ទាំង សំណាញ់ ( ព្រោះការចុចកែក្រឡា មិនមែនគូរ )។ ក្នុងឧបករណ៍វត្ថុ
-  // ចិញ្ចៀនមានកាំតូចថេរ ( ជើងរបស់វត្ថុ )។
+  // ពេជ្រជក់ និងចំណុចកណ្តាល ដែលមិនមានក្នុងឧបករណ៍មើល Movigi ✋ ឬក្នុង
+  // ផ្ទាំង សំណាញ់ ( ព្រោះការចុចកែក្រឡា មិនមែនគូរ )។ ជក់ជាពេជ្រ ( មិនមែនរង្វង់ ) ,
+  // ដូច្នេះគែមជក់តាមអ័ក្សក្រឡា ៖ ជ្រុងស្រួចបួននៅលើអ័ក្ស x និង z ។
+  // ក្នុងឧបករណ៍វត្ថុ ពេជ្រមានកាំតូចថេរ ( ជើងរបស់វត្ថុ )។
   if ( kursoro && !cxuMovigi() && aktivaTabo !== "krado" ){
     const sx2 = sxMondo(kursoro.x);
     const sy2 = syMondo(kursoro.z);
+    const r2 = ( objektaModo ? 0o3/0o2 : radiuso() ) * vidSkalo;
     k.strokeStyle = "rgba(255,255,255,0.8)";
     k.lineWidth = 0o3/0o2;
+    // ⟨ ជ្រុងស្រួច 📏 ⟩ ៖ ជក់ជាពេជ្រ , ដូច្នេះជ្រុងមិនត្រូវមូល ( ការគូរផ្លូវពីមុន
+    // ទុក lineJoin ជា round ) ។
+    k.lineJoin = "miter";
     k.beginPath();
-    k.arc(sx2, sy2, ( objektaModo ? 0o3/0o2 : radiuso() ) * vidSkalo, 0, Math.PI * 2);
+    k.moveTo(sx2, sy2 - r2);
+    k.lineTo(sx2 + r2, sy2);
+    k.lineTo(sx2, sy2 + r2);
+    k.lineTo(sx2 - r2, sy2);
+    k.closePath();
     k.stroke();
     k.beginPath();
     k.arc(sx2, sy2, 2, 0, Math.PI * 2);

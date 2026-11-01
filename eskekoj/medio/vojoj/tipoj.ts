@@ -6,8 +6,9 @@ export interface VojDifino {
   heightFn?: ( x: number, z: number ) => number;
   grundoFn?: ( x: number, z: number ) => number;
   stuparo?: boolean;
-  kapoj?: boolean;
+  // ⟨ ផ្ទៃរលូន 📃 ⟩ ៖ សម្រាប់ស្ពាន ។ ចម្រៀកវែងតែមួយរត់តាមធ្នូ , មិនមែនជណ្តើរ ។
   glata?: boolean;
+  kapoj?: boolean;
 }
 
 // ⟨ ជម្រើសសម្រាបផ្លូវ 📃 ⟩

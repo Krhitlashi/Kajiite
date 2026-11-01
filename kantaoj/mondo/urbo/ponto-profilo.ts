@@ -173,10 +173,14 @@ export function konstruiPontanProfilon(
     // ⟨ ស្ពានវែងអាចធ្នូខ្ពស់ , ស្ពានខ្លីត្រូវធ្នូទាប 📃 ⟩ ៖ ធ្នូខ្ពស់លើប្រវែងខ្លី
     // ធ្វើឱ្យផ្លូវចូលឡើងចោត , ដូច្នេះធ្នូកំណត់តាមប្រវែងដែនទឹក ។
     arkeĉo = Math.min(arkeĉo, Math.max(PONTA_AKVA_ARKECO * 0o1/0o10, akvaLongo * 0o1/0o10));
+    // ⟨ រាបនៅច្រាំង , កោងឡើងនៅកណ្តាល 📃 ⟩ ៖ មុននេះធ្នូជា sin ធម្មតា , ដែលឡើងចោត
+    // ភ្លាមនៅច្រាំង , ដូចធ្នូរង្វង់ពាក់កណ្តាល ។ ដូច្នេះស្ពានបត់ភ្លាមពីផ្លូវចូល ។
+    // sin² ចាប់ផ្តើមរាប ( ជម្រាលសូន្យនៅច្រាំង ) ហើយកោងឡើងខ្លាំងនៅពាក់កណ្តាល ,
+    // ដូច្នេះស្ពានចេញពីច្រាំងដោយរលូន ហើយកោងឡើងច្រើនជាងមុន ។ 📃 ⟩
     for ( let i = akvaDejo.start; i <= akvaDejo.end; i++ ) {
       const f = ( i - akvaDejo.start ) / dejo;
       const banko = bankoA + ( bankoB - bankoA ) * f;
-      deka[ i ] = banko + arkeĉo * Math.sin(Math.PI * f);
+      deka[ i ] = banko + arkeĉo * Math.sin(Math.PI * f) * Math.sin(Math.PI * f);
     }
   }
 

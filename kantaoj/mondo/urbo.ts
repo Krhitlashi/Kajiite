@@ -332,13 +332,15 @@ export async function konstruiUrbon(
         return ( cxuPontaAkvo(x, z) ? alto : surGrid(alto) ) - VOJA_SUPRO_LEVIGXO;
       };
       pontaGrundo = ( x, z ) => profilo.grundo(x, z);
-      // ⟨ ស្ពានគឺជាការកោងឡើងនៃផ្លូវផ្ទាល់ ៖ គ្មានម៉ាស់បាត 📃 ⟩
+      // ⟨ តួធ្នូរលូន 📃 ⟩ ៖ ផ្ទៃស្ពានរលូនតាមធ្នូ , ដូច្នេះតួធ្នូក៏រលូនដែរ ។
+      // បើតួធ្នូបង្គត់ទៅក្រឡាជំហាន , វាលាតឡើងលើផ្ទៃផ្លូវ ។ 📃 ⟩
       for ( const trako of profilo.trakoj )
         pontaVojoj.push({ ...trako, w: vojaLarĝo });
     }
     // ⟨ និយមន័យមួយក្នុងមួយផ្លូវ 📃 ⟩
     const difino: VojDifino = { pts: punktoj, w: vojaLarĝo / 2, kapoj: true };
-    // ⟨ មានតែដប់ស្ពាននៅរលូន 📃 ⟩
+    // ⟨ ស្ពានជាចម្រៀករលូន 📃 ⟩ ៖ ផ្លូវឯទៀតជាជណ្តើរថ្ម , តែស្ពានជាធ្នូតែមួយ ។
+    // វានៅតែសាងសង់ដោយ konstruiVojojn ជាមួយខ្សែ និងសម្ភារៈដូចគ្នា ។ 📃 ⟩
     if ( pontaHeight && pontaGrundo ) {
       difino.heightFn = pontaHeight;
       difino.grundoFn = pontaGrundo;

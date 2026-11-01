@@ -475,7 +475,8 @@ function radiaTrafo(e: PointerEvent): THREE.Vector3 | null {
   return trafoj.length > 0 ? trafoj[0].point : null;
 }
 
-/* ចិញ្ចៀនជក់តាមដីនៅចំណុចកាំរស្មី។
+/* ពេជ្រជក់តាមដីនៅចំណុចកាំរស្មី។ ជក់ជាពេជ្រ ( មិនមែនរង្វង់ ) ដូចក្នុងផែនទី 2D ,
+   ដូច្នេះបរិមាត្រដើរតាមជ្រុងទាំងបួននៃពេជ្រ ៖ កំពូល , ស្តាំ , បាត , ឆ្វេង ។
     @param p ( THREE.Vector3 | null ) - ចំណុចកាំរស្មី ឬ null ( លាក់វា )។ */
 function gxisdatigiRingon(p: THREE.Vector3 | null): void {
   if ( !ringaObjekto ) return;
@@ -483,9 +484,14 @@ function gxisdatigiRingon(p: THREE.Vector3 | null): void {
   const r = objektaModo() ? 0o3/0o2 : radiuso();
   const poz = ringaObjekto.geometry.attributes.position.array;
   for ( let a = 0; a <= RINGA_PUNKTOJ; a++ ) {
-    const ang = a / RINGA_PUNKTOJ * Math.PI * 2;
-    const x = p.x + Math.cos(ang) * r;
-    const z = p.z + Math.sin(ang) * r;
+    // ចំណុចតាមបរិមាត្រពេជ្រ ៖ បួនជ្រុងស្មើគ្នា , ដូច្នេះ a បែងចែកជា 4 ចម្រៀក ។
+    const t = a / RINGA_PUNKTOJ * 0o4;
+    const peco = Math.floor(t) % 0o4;
+    const f = t - Math.floor(t);
+    const deX = [ 0, 1, 0, -1 ][ peco ], deZ = [ -1, 0, 1, 0 ][ peco ];
+    const alX = [ 1, 0, -1, 0 ][ peco ], alZ = [ 0, 1, 0, -1 ][ peco ];
+    const x = p.x + ( deX + ( alX - deX ) * f ) * r;
+    const z = p.z + ( deZ + ( alZ - deZ ) * f ) * r;
     const h = teraAlto(x, z);
     poz[a * 3] = x;
     poz[a * 3 + 1] = h * YTROIGO;
