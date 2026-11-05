@@ -5,14 +5,14 @@
 import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
-import { VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO,
-  VOJA_TRUA_DUONO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { VOJA_EKSTERA_DUONO,
+  VOJA_TRUA_DUONO, surGrid, vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { havasAkvanTrunkon, kreiPontanAkvanTeston,
-  konstruiPontanProfilon } from "../../kantaoj/mondo/urbo/ponto-profilo.js";
+  konstruiPontanProfilon } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
 import { akvaFino, cxuVeraAkvo, vojaSupro } from "./komunaj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
@@ -100,7 +100,7 @@ function supraDeVojo( i: number ): VojaSupra {
       alto: ( x, z ) => profilo.alto(x, z),
       trunko, akvaStarto, akvaFino };
   }
-  const profilo = kreiNivelanProfilon(punktoj, larĝo / 4 + VOJA_BORDA_LARĜO,
+  const profilo = kreiNivelanProfilon(punktoj, vojaLarghoDuono( larĝo ),
     vojoAlteco, akvaFino, ankroj);
   return { alto: ( x, z ) => profilo.altoCxe(distancoDe(punktoj, x, z)),
     trunko, akvaStarto: 0, akvaFino: profilo.longo };

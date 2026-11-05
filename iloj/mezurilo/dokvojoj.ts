@@ -7,8 +7,8 @@ import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { vojaKunigaDuono } from "../../eskekoj/medio/voj-reto.js";
 import { kreiBazanVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
-import { VOJA_BORDA_LARĜO, VOJA_DIORITA_DUONO,
-  VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { VOJA_DIORITA_DUONO,
+  VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO, vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { kreiBrakojn, kreiPlatajnPoligonojn } from "../../eskekoj/medio/vojoj/platoj.js";
 import { akvaFino, kreiMezuranMondon } from "./komunaj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
@@ -102,7 +102,7 @@ for ( let i = 0; i < VOJOJ.length; i++ ) {
       if ( vojoAlteco(x, z) > altoMaks ) { altoMaks = vojoAlteco(x, z); altecoMaks = x.toFixed(1) + "," + z.toFixed(1); }
     }
   }
-  const difino = kreiNivelanProfilon(punktoj, VOJOJ[i].larĝo / 4 + VOJA_BORDA_LARĜO,
+  const difino = kreiNivelanProfilon(punktoj, vojaLarghoDuono( VOJOJ[i].larĝo ),
     vojoAlteco, akvaFino);
   let salto = 0, saltoLoko = "";
   let supremaj = 1;
@@ -141,7 +141,7 @@ let muroMaks = 0, muroLoko = "", muroAkva = false;
 let teroLiftoMaks = 0, teroLiftoLoko = "", ratĉetoMaks = 0, ratĉetoLoko = "";
 for ( let i = 0; i < VOJOJ.length; i++ ) {
   const punktoj = gluitaj[i];
-  const flanka = VOJOJ[i].larĝo / 4 + VOJA_BORDA_LARĜO;
+  const flanka = vojaLarghoDuono( VOJOJ[i].larĝo );
   const difino = kreiNivelanProfilon(punktoj, flanka, vojoAlteco, akvaFino);
   for ( let j = 0; j < difino.altoj.length; j++ ) {
     const p = pozicio(punktoj, difino.situoj[j]);

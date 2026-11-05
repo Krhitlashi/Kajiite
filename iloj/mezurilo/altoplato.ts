@@ -5,10 +5,10 @@
 import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiBazanVojoAlton, kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
-import { VOJA_BORDA_LARĜO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { akvaFino } from "./komunaj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
@@ -40,7 +40,7 @@ interface Plata {
 
 for ( let i = 0; i < VOJOJ.length; i++ ) {
   const punktoj = gluitaj[i];
-  const duono = VOJOJ[i].larĝo / 4 + VOJA_BORDA_LARĜO;
+  const duono = vojaLarghoDuono( VOJOJ[i].larĝo );
   const profilo = kreiNivelanProfilon(punktoj, duono, vojoAlteco, akvaFino);
   const platoj: Plata[] = [];
   let s0 = profilo.situoj[0], nuna = profilo.altoj[0];

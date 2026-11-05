@@ -10,7 +10,7 @@ import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 import { kreiDioritanMaterialon,
   kreiAndezitanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
-import { havasAkvanTrunkon, kreiPontanAkvanTeston } from "../../kantaoj/mondo/urbo/ponto-profilo.js";
+import { havasAkvanTrunkon, kreiPontanAkvanTeston } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
 import { surGrid, VOJA_TRUA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { akvaFino, cxuVeraAkvo } from "./komunaj.js";
 

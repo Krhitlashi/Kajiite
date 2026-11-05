@@ -1,9 +1,11 @@
-﻿// ≺⧼ ចានភ្ជាប់ 🔲 ⧽≻
+// ≺⧼ ចានភ្ជាប់ 🔲 ⧽≻
 import * as THREE from "three";
 import { ANGULA_PROVOLIRO, kreiGeometriajnBufrojn, kreiVojojnMaterialojn } from "./bufroj.js";
-import { kreiFormonElPunktoj, vojaSuproDeKunigo } from "./formoj.js";
-import { surGrid, VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO,
-  VOJA_TRUA_DUONO } from "./mezuroj.js";
+import { kreiPlataNivelon, kunigajBrakAltoj, vojaSuproDeKunigo,
+  type PlataNivelo } from "./formoj.js";
+import { kunigajNiveloj } from "./kunig-niveloj.js";
+import { surGrid, VOJA_BORDA_LARĜO, VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO,
+  VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./mezuroj.js";
 
 // ⟪ មុំនៃចានភ្ជាប់ 🧭 ⟫
 // ⟨ ចានភ្ជាប់ធ្វើតាមទិសដៃពិត ។ មុននេះវាបែងជាបួនជ្រុងតាមអ័ក្ស ,
@@ -21,6 +23,12 @@ export interface Brako {
   uz: number;
   nx: number;
   nz: number;
+  // ⟨ កន្លះទទឹងផ្លូវពិត 🛣️ ⟩ ៖ ចានត្រូវធំល្មមនឹងផ្លូវដែលចូលមក , មិនមែន
+  // តាមតម្លៃថេរទេ ។ បើចានតូចជាងផ្លូវ , ស្មាងងឹតរបស់ផ្លូវលាតចេញហួសចាន ,
+  // ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។ 📃 ⟩
+  duono: number;
+  // ⟨ កន្លះទទឹងរួមស្មា 📏 ⟩ ៖ កំពូលបូកស្មា ។
+  ekstera: number;
 }
 
 // ⟪ មុំធម្មតា 📐 ⟫
@@ -45,15 +53,16 @@ function samaAng(a: number, b: number): boolean {
 /*បំប្លែងទិសដៅទៅជាដៃដែលមានមុំ និងណរម៉ាល់
     @param direktoj ( [ number , number ] [ ] ) - ទិសដៅដៃ
 @returns brakoj ( Brako [ ] ) - ដៃតម្រៀបតាមមុំ */
-function brakojElDirektoj(direktoj: readonly [ number, number ][]): Brako[] {
+function brakojElDirektoj(direktoj: readonly [ number, number ][], duono: number): Brako[] {
   const rez: Brako[] = [];
+  const ekstera = duono + VOJA_BORDA_LARĜO;
   for ( const [ dx, dz ] of direktoj ) {
     const longo = Math.hypot(dx, dz);
     if ( longo < ANGULA_TOLERO ) continue;
     const ux = dx / longo, uz = dz / longo;
     const ang = normAng(Math.atan2(uz, ux));
     if ( rez.some(b => samaAng(b.ang, ang)) ) continue;
-    rez.push({ ang, ux, uz, nx: -uz, nz: ux });
+    rez.push({ ang, ux, uz, nx: -uz, nz: ux, duono, ekstera });
   }
   rez.sort(( a, b ) => a.ang - b.ang);
   return rez;
@@ -64,7 +73,7 @@ function brakojElDirektoj(direktoj: readonly [ number, number ][]): Brako[] {
     @param ferma ( [ number , number ] ) - ជ្រុងបិទ ( អ័ក្ស x និង z )
     @param rotacio ( number ) - មុំបង្វិលនៃចាន
 @returns brakoj ( Brako [ ] ) - ដៃតាមអ័ក្ស */
-function brakojElFermitaj(ferma: [ number, number ], rotacio: number): Brako[] {
+function brakojElFermitaj(ferma: [ number, number ], rotacio: number, duono: number): Brako[] {
   const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
   const lokaj: [ number, number ][] = [];
   if ( ferma[0] !== 1 ) lokaj.push([ 1, 0 ]);
@@ -72,7 +81,7 @@ function brakojElFermitaj(ferma: [ number, number ], rotacio: number): Brako[] {
   if ( ferma[1] !== 1 ) lokaj.push([ 0, 1 ]);
   if ( ferma[1] !== -1 ) lokaj.push([ 0, -1 ]);
   return brakojElDirektoj(lokaj.map(([ lx, lz ]) =>
-    [ kos * lx - sin * lz, sin * lx + kos * lz ] as [ number, number ]));
+    [ kos * lx - sin * lz, sin * lx + kos * lz ] as [ number, number ]), duono);
 }
 
 // ⟪ កាំនៃបន្ទះផ្លូវ 📏 ⟫
@@ -128,14 +137,14 @@ function filetoPor(unua: Brako, dua: Brako, delta: number): Fileto | null {
   // ដូច្នេះសហជីវនៃបន្ទះគ្របគ្រាន់ហើយ ។ ការបង្កើតធ្នូនៅទីនោះនឹងកាត់ចូលផ្លូវ ។ 📃 ⟩
   const t = ( cx - unua.ux * VOJA_TRUA_DUONO ) * unua.nx
     + ( cz - unua.uz * VOJA_TRUA_DUONO ) * unua.nz;
-  if ( t <= VOJA_EKSTERA_DUONO + ANGULA_TOLERO ) return null;
-  const rTop = t - VOJA_DIORITA_DUONO;
-  const rOut = t - VOJA_EKSTERA_DUONO;
+  if ( t <= unua.ekstera + ANGULA_TOLERO ) return null;
+  const rTop = t - unua.duono;
+  const rOut = t - unua.ekstera;
   if ( rTop <= ANGULA_TOLERO || rOut <= ANGULA_TOLERO ) return null;
-  const p0x = unua.ux * VOJA_TRUA_DUONO + unua.nx * VOJA_DIORITA_DUONO;
-  const p0z = unua.uz * VOJA_TRUA_DUONO + unua.nz * VOJA_DIORITA_DUONO;
-  const p1x = dua.ux * VOJA_TRUA_DUONO - dua.nx * VOJA_DIORITA_DUONO;
-  const p1z = dua.uz * VOJA_TRUA_DUONO - dua.nz * VOJA_DIORITA_DUONO;
+  const p0x = unua.ux * VOJA_TRUA_DUONO + unua.nx * unua.duono;
+  const p0z = unua.uz * VOJA_TRUA_DUONO + unua.nz * unua.duono;
+  const p1x = dua.ux * VOJA_TRUA_DUONO - dua.nx * dua.duono;
+  const p1z = dua.uz * VOJA_TRUA_DUONO - dua.nz * dua.duono;
   const phi0 = Math.atan2(p0z - cz, p0x - cx);
   const phi1 = Math.atan2(p1z - cz, p1x - cx);
   return { cx, cz, rTop, rOut, phi0, delta: angulaDiferenco(phi1, phi0) };
@@ -183,7 +192,7 @@ function kapoRadiuso(brakoj: readonly Brako[], angulo: number): number {
     if ( laux <= ANGULA_TOLERO ) continue;
     const fino = VOJA_TRUA_DUONO / laux;
     const flanko = Math.abs(Math.sin(rel));
-    const rando = flanko > ANGULA_TOLERO ? VOJA_EKSTERA_DUONO / flanko : Infinity;
+    const rando = flanko > ANGULA_TOLERO ? brako.ekstera / flanko : Infinity;
     if ( fino <= rando + ANGULA_TOLERO && fino < kapo ) kapo = fino;
   }
   return kapo;
@@ -192,14 +201,20 @@ function kapoRadiuso(brakoj: readonly Brako[], angulo: number): number {
 // ⟪ កាំគែមខាងលើ និងខាងក្រៅ 📏 ⟫
 function suproRadiuso(brakoj: readonly Brako[], fileto: Fileto | null, angulo: number): number {
   let r = VOJA_DIORITA_DUONO;
-  for ( const brako of brakoj ) r = Math.max(r, bendoRadiuso(brako, VOJA_DIORITA_DUONO, angulo));
+  for ( const brako of brakoj ) {
+    r = Math.max(r, brako.duono);
+    r = Math.max(r, bendoRadiuso(brako, brako.duono, angulo));
+  }
   if ( fileto ) r = Math.max(r, filetaRadiuso(fileto, fileto.rTop, angulo));
   return r;
 }
 
 function eksteraRadiuso(brakoj: readonly Brako[], fileto: Fileto | null, angulo: number): number {
   let r = VOJA_EKSTERA_DUONO;
-  for ( const brako of brakoj ) r = Math.max(r, bendoRadiuso(brako, VOJA_EKSTERA_DUONO, angulo));
+  for ( const brako of brakoj ) {
+    r = Math.max(r, brako.ekstera);
+    r = Math.max(r, bendoRadiuso(brako, brako.ekstera, angulo));
+  }
   if ( fileto ) r = Math.max(r, filetaRadiuso(fileto, fileto.rOut, angulo));
   return r;
 }
@@ -235,19 +250,25 @@ function angulojGap(a0: number, a1: number, rompoj: readonly number[]): number[]
     @param rotacio ( number ) - មុំបង្វិលនៃចាន
 @returns brakoj ( Brako [ ] ) - ដៃតម្រៀបតាមមុំ */
 export function kreiBrakojn(direktoj: readonly [ number, number ][],
-  ferma: [ number, number ] | undefined, rotacio: number): Brako[] {
-  const brakoj = brakojElDirektoj(direktoj);
+  ferma: [ number, number ] | undefined, rotacio: number,
+  duono: number = VOJA_DIORITA_DUONO): Brako[] {
+  const brakoj = brakojElDirektoj(direktoj, duono);
   if ( brakoj.length ) return brakoj;
   // ⟨ គ្មានព័ត៌មានដៃ 📃 ⟩ ៖ បើគ្មានទិសដៃ និងគ្មានការបិទជ្រុង ( ឧ. ចំណុចក្រឡាដែលការបិទ
   // ត្រូវលុប ព្រោះផ្លូវភ្ជាប់មកដល់ ) សន្មតជាប្រសព្វបួនជ្រុង ។ ចានមូលតូចមិនគ្រប់ទេ ,
   // ព្រោះផ្លូវកាត់រន្ធនៅ VOJA_TRUA_DUONO , ដូច្នេះរន្ធរង្វង់នៅមាត់ផ្លូវនឹងនៅទទេ ។ 📃 ⟩
-  return brakojElFermitaj(ferma ?? [ 0, 0 ], rotacio);
+  return brakojElFermitaj(ferma ?? [ 0, 0 ], rotacio, duono);
 }
 
 // ⟪ ពហុកោណចានភ្ជាប់ 🔲 ⟫
 export interface PlatajPoligonoj {
   supraj: [ number, number ][];
   bandoj: [ number, number ][][];
+  // ⟨ មុំ និងកាំនៃគែមកំពូល តាមលំដាប់ដូច `supraj` ។ ចានមិនរាបស្មើទេ ,
+  // ដូច្នេះកម្ពស់ត្រូវគណនាតាមមុំនៃចំណុចនីមួយៗ ។ 📃 ⟩
+  anguloj: number[];
+  rs: number[];
+  re: number[];
 }
 
 /*សាងសង់ពហុកោណកំពូល និងបន្ទះគែមរបស់ចានភ្ជាប់
@@ -257,7 +278,7 @@ export function kreiPlatajnPoligonojn(brakoj: readonly Brako[]): PlatajPoligonoj
   // ⟨ មុំបំបែក 📐 ⟩ ៖ មុំដែលគែមបន្ទះប្តូរពីមាត់ទៅចំហៀង ។
   const rompoj: number[] = [];
   for ( const brako of brakoj ) {
-    for ( const duono of [ VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO ] ) {
+    for ( const duono of [ brako.duono, brako.ekstera ] ) {
       const ofseto = Math.atan(duono / VOJA_TRUA_DUONO);
       rompoj.push(normAng(brako.ang + ofseto), normAng(brako.ang - ofseto));
     }
@@ -265,15 +286,18 @@ export function kreiPlatajnPoligonojn(brakoj: readonly Brako[]): PlatajPoligonoj
   const n = brakoj.length;
   const supraj: [ number, number ][] = [];
   const bandoj: [ number, number ][][] = [];
+  const anguloj: number[] = [];
+  const rsListo: number[] = [];
+  const reListo: number[] = [];
   for ( let i = 0; i < n; i++ ) {
     const a0 = brakoj[i].ang;
     const a1 = i + 1 < n ? brakoj[i + 1].ang : brakoj[0].ang + DUOBLA_PI;
     const delta = a1 - a0;
     const fileto = filetoPor(brakoj[i], brakoj[( i + 1 ) % n], delta);
-    const anguloj = angulojGap(a0, a1, rompoj);
+    const angulojGapListo = angulojGap(a0, a1, rompoj);
     const suprajGap: [ number, number ][] = [];
-    const bendoGap: { rs: number; re: number; kos: number; sin: number }[] = [];
-    for ( const angulo of anguloj ) {
+    const bendoGap: { rs: number; re: number; kos: number; sin: number; angulo: number }[] = [];
+    for ( const angulo of angulojGapListo ) {
       // ⟨ កាត់តាមមាត់ផ្លូវ 📏 ⟩ ៖ គែមក្រៅមិនលាតហួសបន្ទាត់កាត់ផ្លូវទេ ។
       // កំពូលក៏កាត់ដែរ , ព្រោះជ្រុងផ្លូវមួយចូលក្នុងបន្ទះផ្លូវផ្សេងនៅមុំទ្រេត ។ 📃 ⟩
       const limito = Math.min(eksteraRadiuso(brakoj, fileto, angulo),
@@ -282,12 +306,15 @@ export function kreiPlatajnPoligonojn(brakoj: readonly Brako[]): PlatajPoligonoj
       const re = limito;
       const kos = Math.cos(angulo), sin = Math.sin(angulo);
       suprajGap.push([ kos * rs, sin * rs ]);
-      bendoGap.push({ rs, re, kos, sin });
+      bendoGap.push({ rs, re, kos, sin, angulo });
     }
     for ( let j = 0; j < suprajGap.length; j++ ) {
       if ( i > 0 && j === 0 ) continue;
       if ( i + 1 === n && j === suprajGap.length - 1 ) continue;
       supraj.push(suprajGap[j]);
+      anguloj.push(bendoGap[j].angulo);
+      rsListo.push(bendoGap[j].rs);
+      reListo.push(bendoGap[j].re);
     }
     // ⟨ បន្ទះខាងក្រៅ 📏 ⟩ ៖ ខ្សែក្រៅទៅមុខ , ខ្សែក្នុងត្រឡប់ក្រោយ ។
     // ត្រង់ណាដែលខ្សែទាំងពីរជាប់គ្នា ( មាត់ដៃ ឬបន្ទាត់កាត់ ) បន្ទះមានទទឹងសូន្យ ។
@@ -313,7 +340,40 @@ export function kreiPlatajnPoligonojn(brakoj: readonly Brako[]): PlatajPoligonoj
       bandoj.push([ ...eksteraj, ...internaj.slice(1, -1).reverse() ]);
     }
   }
-  return { supraj, bandoj };
+  return { supraj, bandoj, anguloj, rs: rsListo, re: reListo };
+}
+
+// ⟪ កម្រិតចានភ្ជាប់ពីដៃ 📏 ⟫
+/*គណនាកម្រិតកំពូលចានភ្ជាប់ពីដៃដែលបានដោះស្រាយរួច ។ ផ្លូវ និងចានត្រូវប្រើ
+   អនុគមន៍នេះដូចគ្នា ។ បើផ្លូវអានពីទិសដៃឆៅ ហើយចានអានពីដៃសំយោគ ( ពេលទិសដៃទទេ ) ,
+   កម្រិតខុសគ្នាមួយជំហាន , ហើយឃើញជាជញ្ជាំងឈរ ។
+    @param x, z ( number ) - ពិភពលោក
+    @param brakoj ( readonly Brako [ ] ) - ដៃចាន
+    @param heightFn ( function ) - កម្ពស់វាល
+@returns supro ( number ) - កម្រិតកំពូលដែលបានបង្គត់ទៅក្រឡាជំហាន */
+export function kunigaPlataAlto(x: number, z: number, brakoj: readonly Brako[],
+  heightFn: ( x: number, z: number ) => number): number {
+  const direktoj = brakoj.map(b => [ b.ux, b.uz ] as [ number, number ]);
+  // ⟨ កាំអានកម្រិតនៅតែថេរ 📏 ⟩ ៖ ទទឹងចានធំជាងមុន , តែកាំអានកម្រិតមិនប្តូរទេ ។
+  // ការប្តូរកាំនឹងប្តូរកម្ពស់ផ្លូវទាំងអស់ , ដែលជាការប្តូរធំហួសពីបញ្ហាគែមចាន ។ 📃 ⟩
+  // ⟨ លុបការបង្គត់ឡើងក្រោយ 📃 ⟩ ៖ កម្រិតកំពូលមានរួចជា VOJA_SUPRO_LEVIGXO ,
+  // ដូច្នេះបង្គត់លើ `maks` ជាកម្រិតដែលចានអាន ។ 📃 ⟩
+  return surGrid(vojaSuproDeKunigo(x, z, direktoj, VOJA_EKSTERA_DUONO, heightFn).supro
+    - VOJA_SUPRO_LEVIGXO);
+}
+
+// ⟪ កម្រិតចានតាមដៃ 📏 ⟫
+// ⟨ ចានមួយ កម្ពស់ច្រើន 📃 ⟩ ៖ ចានមិនមានកម្ពស់តែមួយទេ ។ ដៃនីមួយៗមកពីដីរៀងខ្លួន ,
+// ដូច្នេះមាត់ដៃមានកម្រិតផ្លូវរៀងខ្លួន ។ ការអានវាលនៅមាត់ដៃត្រឡប់កម្រិតមាត់នោះ ,
+// ព្រោះវាលបង្កប់កម្រិតចានតាមទិសរួចហើយ ។ 📃 ⟩
+export function kunigaPlataNivelo(x: number, z: number, brakoj: readonly Brako[],
+  heightFn: ( x: number, z: number ) => number): PlataNivelo {
+  const direktoj = brakoj.map(b => [ b.ux, b.uz ] as [ number, number ]);
+  const duonoj = brakoj.map(b => b.duono);
+  const altoj = kunigajBrakAltoj(x, z, direktoj, duonoj, heightFn)
+    .map(alto => Number.isFinite(alto) ? alto : NaN);
+  const fallback = kunigaPlataAlto(x, z, brakoj, heightFn);
+  return kreiPlataNivelon(direktoj, duonoj, altoj, fallback);
 }
 
 export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
@@ -324,37 +384,98 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
   fermitaj: Map<string, [ number, number ]> = new Map(),
   rotacioj: Map<string, number> = new Map(),
   direktoj: Map<string, [ number, number ][]> = new Map(),
-  grundoFn: ( x: number, z: number ) => number = heightFn
+  grundoFn: ( x: number, z: number ) => number = heightFn,
+  duonoj: Map<string, number> = new Map()
 ): void {
   if ( punktoj.length === 0 ) return;
   const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -3, -2, -4, -5);
   const bufroj = kreiGeometriajnBufrojn();
   for ( const [ x, z ] of punktoj ) {
     const klavo = x + "," + z;
-    const brakoj = kreiBrakojn(direktoj.get(klavo) ?? [], fermitaj.get(klavo), rotacioj.get(klavo) ?? 0);
-    // ⟨ កម្រិតចានភ្ជាប់ ៖ អានគែមជុំវិញទាំងមូល , មិនមែនតែមាត់ដៃ ។ 📃 ⟩
-    const brakojDirektoj = brakoj.map(b => [ b.ux, b.uz ] as [ number, number ]);
-    const altoj = vojaSuproDeKunigo(x, z, brakojDirektoj, VOJA_EKSTERA_DUONO, heightFn);
-    const teraAltoj = vojaSuproDeKunigo(x, z, brakojDirektoj, VOJA_EKSTERA_DUONO, grundoFn);
-    const supro = surGrid(altoj.supro);
-    // ⟨ កម្រាស់អប្បបរមា 📏 ⟩ ៖ ចានអានជម្រាលដី , ដូច្នេះនៅជម្រាលចោទ
-    // កំពូលចានអាចទាបជាងដីបាតរបស់វា ។ កម្រាស់អវិជ្ជមានធ្វើឱ្យធរណីមាត្របែរជាប់ ,
-    // ដូច្នេះចានមានកម្រាស់យ៉ាងតិចមួយថ្នាក់ ។ 📃 ⟩
-    const platoDikeco = Math.max(ANGULA_PROVOLIRO,
-      supro - ( teraAltoj.minimumo - ANGULA_PROVOLIRO ));
-    const bazo = supro - platoDikeco;
-    // ⟨ គូរបន្ទះ 🧱 ⟩ ៖ គ្រប់ពហុកោណស្ថិតក្នុងកូអរដោនេធៀបនឹងចំណុចកណ្តាល ,
-    // ដូច្នេះគ្មានការបង្វិលបន្ថែមទេ ។ ទិសដៃដៃគឺជាទិសដៃពិភពលោក ។ 📃 ⟩
-    const aldoni = ( punktoj2: [ number, number ][], materialo: THREE.MeshStandardMaterial ): void => {
-      if ( punktoj2.length < 3 ) return;
-      const geometrio = new THREE.ExtrudeGeometry(kreiFormonElPunktoj(punktoj2),
-        { depth: platoDikeco, bevelEnabled: false });
-      geometrio.rotateX(-Math.PI / 2);
-      bufroj.aldoni(geometrio, materialo, new THREE.Matrix4().makeTranslation(x, bazo, z));
-    };
+    const brakoj = kreiBrakojn(direktoj.get(klavo) ?? [], fermitaj.get(klavo),
+      rotacioj.get(klavo) ?? 0, duonoj.get(klavo) ?? VOJA_DIORITA_DUONO);
+    // ⟪ ចានរាបតែមួយកម្រិត 📏 ⟫
+    // ⟨ កម្ពស់មកពីផ្លូវពិត 📃 ⟩ ៖ konstruiVojojn បានតាមដានកម្ពស់ផ្លូវតាមដៃ
+    // នីមួយៗ ហើយជ្រើសកម្រិតចានពីដៃទាបបំផុត ។ ចានទាំងមូលរាបស្មើនៅកម្រិត
+    // នោះ : គ្មានកង្ហារជម្រាល , គ្មានស្នាមកាត់កណ្តាល , គ្មានជ្រុងលើក ។
+    // ផ្លូវខ្ពស់ៗឡើងជាជំហានពីចានទៅរកកម្រិតរបស់វា ។ 📃 ⟩
+    const reg = kunigajNiveloj.get(klavo);
+    const plataAlto = reg ? reg.alto
+      : surGrid(kunigaPlataNivelo(x, z, brakoj, heightFn).alto);
     const poligonoj = kreiPlatajnPoligonojn(brakoj);
-    for ( const bendo of poligonoj.bandoj ) aldoni(bendo, bordaMaterialo);
-    aldoni(poligonoj.supraj, supraMaterialo);
+    const kvanto = poligonoj.supraj.length;
+    if ( kvanto < 3 ) continue;
+    const eksterajPozicioj: [ number, number ][] = poligonoj.anguloj.map((angulo, k) =>
+      [ Math.cos(angulo) * poligonoj.re[k], Math.sin(angulo) * poligonoj.re[k] ]);
+    // ⟨ បាតតាមដី 📏 ⟩ ៖ ចានជាបន្ទះស្តើងដែលតាមដី , មិនមែនប្លុកថ្មខ្ពស់ ។
+    // បាតអានដីត្រង់កាំខាងក្រៅ ( ជាកន្លែងដែលមុខចំហៀងឈរ ) មិនមែនកាំខាងក្នុង ។ 📃 ⟩
+    const malsupraj = eksterajPozicioj.map(p =>
+      Math.min(plataAlto, grundoFn(x + p[0], z + p[1])) - ANGULA_PROVOLIRO);
+    const centroMalsupra = Math.min(plataAlto - ANGULA_PROVOLIRO, ...malsupraj);
+    // ⟨ បណ្តោយគែមសម្រាប់ uv 📏 ⟩ ៖ មុខចំហៀងជាជញ្ជាំងឈរ ។ បើ uv តាម ( x , z ) ,
+    // វាយនភាពលាតជាបន្ទាត់មួយ ។ ដូច្នេះមុខចំហៀងប្រើ ( បណ្តោយគែម , កម្ពស់ ) ។ 📃 ⟩
+    const arkoj: number[] = [ 0 ];
+    for ( let k = 1; k < kvanto; k++ )
+      arkoj.push(arkoj[k - 0o1] + Math.max(0,
+        poligonoj.anguloj[k] - poligonoj.anguloj[k - 0o1]) * poligonoj.re[k]);
+    const tutaArko = arkoj[kvanto - 0o1] + Math.max(0,
+      poligonoj.anguloj[0] + DUOBLA_PI - poligonoj.anguloj[kvanto - 0o1]) * poligonoj.re[0];
+    // ⟨ សាងសង់ជាបួនផ្នែក 🧱 ⟩ ៖ កំពូល , បន្ទះខាងក្រៅ , មុខចំហៀង , និងបាត ។ 📃 ⟩
+    type P3 = [ number, number, number ];
+    type UV = [ number, number ];
+    const suprajPozicioj: number[] = [], suprajUV: number[] = [];
+    const bordajPozicioj: number[] = [], bordajUV: number[] = [];
+    const tri = ( pozicioj: number[], uv: number[], a: P3, b: P3, c: P3,
+      ua: UV, ub: UV, uc: UV ): void => {
+      pozicioj.push(a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2]);
+      uv.push(ua[0], ua[1], ub[0], ub[1], uc[0], uc[1]);
+    };
+    const plana = ( p: P3 ): UV => [ p[0], p[2] ];
+    const flanka = ( p: P3, arko: number ): UV => [ arko, p[1] ];
+    const punkto = ( k: number, r: number, y: number ): P3 =>
+      [ x + Math.cos(poligonoj.anguloj[k]) * r, y, z + Math.sin(poligonoj.anguloj[k]) * r ];
+    const centroSupraP: P3 = [ x, plataAlto, z ];
+    const centroBazo: P3 = [ x, centroMalsupra, z ];
+    for ( let k = 0; k < kvanto; k++ ) {
+      const k2 = ( k + 1 ) % kvanto;
+      const arko2 = k2 === 0 ? tutaArko : arkoj[k2];
+      const ena = punkto(k, poligonoj.rs[k], plataAlto);
+      const ena2 = punkto(k2, poligonoj.rs[k2], plataAlto);
+      const ekstera = punkto(k, poligonoj.re[k], plataAlto);
+      const ekstera2 = punkto(k2, poligonoj.re[k2], plataAlto);
+      const uEna = plana(ena), uEna2 = plana(ena2),
+        uEkstera = plana(ekstera), uEkstera2 = plana(ekstera2);
+      // ⟨ កំពូល ៖ កង្ហារពីកណ្តាល 📐 ⟩ ។
+      tri(suprajPozicioj, suprajUV, centroSupraP, ena2, ena,
+        plana(centroSupraP), uEna2, uEna);
+      // ⟨ បន្ទះខាងក្រៅ ៖ ចិញ្ចៀនរាបនៅកម្រិតចាន 📐 ⟩ ។
+      tri(bordajPozicioj, bordajUV, ena, ena2, ekstera2, uEna, uEna2, uEkstera2);
+      tri(bordajPozicioj, bordajUV, ena, ekstera2, ekstera, uEna, uEkstera2, uEkstera);
+      // ⟨ មុខចំហៀង ៖ ពីបាតដល់កំពូល 📐 ⟩ ។
+      const bazo = punkto(k, poligonoj.re[k], malsupraj[k]);
+      const bazo2 = punkto(k2, poligonoj.re[k2], malsupraj[k2]);
+      const ua = flanka(bazo, arkoj[k]), ue = flanka(ekstera, arkoj[k]),
+        ue2 = flanka(ekstera2, arko2), ub2 = flanka(bazo2, arko2);
+      tri(bordajPozicioj, bordajUV, bazo, ekstera, ekstera2, ua, ue, ue2);
+      tri(bordajPozicioj, bordajUV, bazo, ekstera2, bazo2, ua, ue2, ub2);
+      // ⟨ បាត ៖ បិទប្រអប់ 📐 ⟩ ។
+      tri(suprajPozicioj, suprajUV, centroBazo, bazo, bazo2,
+        plana(centroBazo), plana(bazo), plana(bazo2));
+    }
+    // ⟨ វាយនភាពត្រឡប់មកវិញ 🪨 ⟩ ៖ មុននេះធរណីមាត្រមានតែ position និង normal , គ្មាន uv ។
+    // សម្ភារៈមាន map , ដូច្នេះគ្រប់ចំណុចអាន uv ( 0 , 0 ) ហើយចានក្លាយជាពណ៌ប្រផេះរាប ។
+    // ឥឡូវផ្ទៃរាបប្រើ uv តាម ( x , z ) ពិភពលោក ហើយមុខចំហៀងប្រើ uv តាមគែម និងកម្ពស់ ។ 📃 ⟩
+    const alglui = ( pozicioj: number[], uv: number[],
+      materialo: THREE.MeshStandardMaterial ): void => {
+      if ( pozicioj.length < 9 ) return;
+      const geometrio = new THREE.BufferGeometry();
+      geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
+      geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+      geometrio.computeVertexNormals();
+      bufroj.aldoni(geometrio, materialo, new THREE.Matrix4());
+    };
+    alglui(suprajPozicioj, suprajUV, supraMaterialo);
+    alglui(bordajPozicioj, bordajUV, bordaMaterialo);
   }
   bufroj.kunigi(sceno);
 }

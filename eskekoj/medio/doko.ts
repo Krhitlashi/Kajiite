@@ -3,8 +3,9 @@ import * as THREE from "three";
 import { kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj/andezito.js";
 import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";
-import { surGrid, VOJA_DIKECO, VOJA_SUPRO_LEVIGXO } from "./vojoj/mezuroj.js";
+import { surGrid, VOJA_DIKECO, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./vojoj/mezuroj.js";
 import { kreiDokanEksteranFormon, kreiDokanFormon, kreiDokanKadron } from "./doko/formoj.js";
+import { registriDokanAlton } from "./vojoj/kunig-niveloj.js";
 import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO, type DokaSekcio, type Doko } from "./doko/tipoj.js";
 
 // ⟨ ហេតុអ្វីជណ្តើរ មិនវេទិការាប 📃 ⟩
@@ -48,6 +49,11 @@ export function konstruiDokon(
   }
   // ⟨ ចំណតនៅលើក្រឡាដូចផ្លូវ ៖ ដូច្នេះផ្លូវមកដល់ចំណតមួយជំហានប៉ុណ្ណោះ ។ 📃 ⟩
   vojaY = surGrid(vojaY + VOJA_SUPRO_LEVIGXO) - VOJA_SUPRO_LEVIGXO;
+  // ⟨ ចុះឈ្មោះកម្រិតចំណត 📏 ⟩ ៖ ចានភ្ជាប់នៅមាត់ដីត្រូវយកកម្រិតនេះ ។
+  // ផ្ទៃវេទិកាស្ថិតនៅ vojaY + VOJA_DIKECO , តិចជាងកម្រិតក្រឡា
+  // ( VOJA_SUPRO_LEVIGXO - VOJA_DIKECO ) ប៉ុណ្ណោះ ។ បើចានគណនាកម្រិតដោយ
+  // ច្បាប់ផ្សេង , ស្នាមដេករវាងផ្លូវនិងចំណតក្លាយជាជញ្ជាំងមួយជំហាន ។ 📃 ⟩
+  registriDokanAlton(landX, landZ, vojaY + VOJA_SUPRO_LEVIGXO);
 
   // ⟨ វេទិកា 📃 ⟩
   const aldoniLandejon = ( centroZ: number, longo: number, supro: number ): void => {
@@ -97,7 +103,10 @@ export function konstruiDokon(
 
   // ⟨ កម្ពស់វេទិកា 📃 ⟩
   // ⟨ កម្រិតចុះចតក៏នៅលើក្រឡា ៖ ជណ្តើរមានជំហានស្មើគ្នាបេះបិទ ។ 📃 ⟩
-  const landejaLocala = surGrid(waterFn(x, z) + 0o3/0o20) - vojaY;
+  // ⟨ ចំណតត្រូវរួបរួមជាមួយផ្លូវ ៖ កម្រិតរបស់វាមិនអាចទាបជាងផ្លូវបានទេ ,
+  // បើមិនដូច្នេះផ្លូវហោះលើវា ហើយចំណតនៅខាងក្រោមបង្កើតជញ្ជាំងឈរ ។
+  // ដូច្នេះកំណត់កម្រិតអប្បបរមាឱ្យស្មើ dikeco ( កម្រិតផ្លូវ ) ។ 📃 ⟩
+  const landejaLocala = Math.max(dikeco, surGrid(waterFn(x, z) + 0o3/0o20) - vojaY);
   const flankaDuono = vojaLargho / 2 + 0o1/0o2;
   const aksaSupra = ( lz: number ): number => Math.max(
     heightFn(mondaX(flankaDuono, lz), mondaZ(flankaDuono, lz)),
@@ -128,10 +137,17 @@ export function konstruiDokon(
   // ⟨ ផ្ទៃដែលជណ្តើរឈប់ ៖ ខ្នងចំណត , ឬវេទិកាពេញ 📃 ⟩
   const landejaY = vojaY + ( landejaLocala >= dikeco ? dikeco : landejaLocala );
 
+  // ⟨ វេទិកាឈប់ត្រង់គែមចានភ្ជាប់ 📏 ⟩ ៖ ចានភ្ជាប់ឈរនៅមាត់ដី , ហើយលាតចូលមកក្នុង
+  // ចំណតប្រវែង VOJA_TRUA_DUONO ។ បើវេទិកាលាតដល់មាត់ដី , ចាននិងវេទិកាជាន់គ្នា
+  // ពីរឯកតា ៖ កម្ពស់ខុសគ្នាបន្តិច , ដូច្នេះផ្ទៃពីរប៉ះគ្នាហើយលេចជាស្រទាប់ជាន់គ្នា ។
+  // ដូច្នេះវេទិកាចាប់ពីគែមចាន , ហើយចានបំពេញចន្លោះរហូតដល់មាត់ដី ។ 📃 ⟩
+  const landaInsido = VOJA_TRUA_DUONO;
+  const landaLongo = Math.max(0o2, platformDepth - landaInsido);
+  const landaCentroZ = -landaInsido / 0o2;
   if ( landejaLocala >= dikeco ) {
     // ⟨ ចំណតនៅ ( ឬក្រោម ) ផ្ទៃទឹក 📃 ⟩
-    aldoniLandejon(0, platformDepth, dikeco);
-    sekcioj.push({ lx: 0, lz: 0, w: plenaDuono * 2, d: platformDepth, y: vojaY + dikeco });
+    aldoniLandejon(landaCentroZ, landaLongo, dikeco);
+    sekcioj.push({ lx: 0, lz: landaCentroZ, w: plenaDuono * 2, d: landaLongo, y: vojaY + dikeco });
   } else {
     aldoniLandejon(landejaCentroZ, landejaLongo, landejaLocala);
     sekcioj.push({ lx: 0, lz: landejaCentroZ, w: plenaDuono * 2, d: landejaLongo,

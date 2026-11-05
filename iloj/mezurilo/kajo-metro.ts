@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { aktivajVojoj, aktivajDokoj, aktivajUrboj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
 import { VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO, surGrid, STUPA_RISERO } from "../../eskekoj/medio/vojoj/mezuroj.js";

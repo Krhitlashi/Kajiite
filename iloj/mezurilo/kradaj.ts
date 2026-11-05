@@ -9,7 +9,7 @@ import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
-import { surGrid, VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { surGrid, VOJA_EKSTERA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { akvaFino } from "./komunaj.js";
 import type { AltaKunigo } from "../../eskekoj/medio/vojoj/alto.js";
 import { aktivajVojoj } from "../../kantaoj/tero-datumaro/rultempo.js";

@@ -7,7 +7,7 @@ import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 import { PONT_AKVA_KLARANCO } from "../../eskekoj/medio/doko/ponto.js";
 import { cxuVeraAkvo, pontaFinAlto, vojaSupro } from "./komunaj.js";
 import { konstruiPontanProfilon, havasAkvanTrunkon,
-  kreiPontanAkvanTeston } from "../../kantaoj/mondo/urbo/ponto-profilo.js";
+  kreiPontanAkvanTeston } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
 
 const VOJOJ = aktivajVojoj();
 const DOKOJ = aktivajDokoj();

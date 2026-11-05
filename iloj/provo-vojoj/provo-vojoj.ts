@@ -9,12 +9,13 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
 import { konstruiIntersekcajnPlatojn } from "../../eskekoj/medio/vojoj/platoj.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
-import { kreiStuparanAlton, kreiStuparajnPunktojn } from "../../eskekoj/medio/doko/stuparo.js";
+import { kreiDokanStuparon } from "../../eskekoj/medio/doko/stuparo.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 import { kreiAndezitanMaterialon, kreiDioritanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
-import { STUPA_RISERO, VOJA_BORDA_LARĜO, VOJA_SUPRO_LEVIGXO,
-  surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
+import { VOJA_TRUA_DUONO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { vojaSupro } from "../../eskekoj/medio/vojoj/formoj.js";
+import { kreiBrakojn, kunigaPlataAlto } from "../../eskekoj/medio/vojoj/platoj.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import type { VojDifino } from "../../eskekoj/medio/vojoj/tipoj.js";
 import type { SkulptaPlatformo, SkulptaVojo } from "../../kantaoj/mondo/urbo/tipoj.js";
@@ -27,7 +28,7 @@ const RANDO = -34;
 const TRANSIRA = 20;
 const MARA_PROFUNDO = -8;
 
-let deklivo = 0;
+let deklivo = 3;
 let akvaNivelo = -3;
 // ⟨ សាកល្បងចានភ្ជាប់តែមួយ 📃 ⟩ ៖ លាក់ផ្លូវដើម្បីមើលចានភ្ជាប់ឯករាជ្យ ។
 let nurPlatoj = false;
@@ -40,7 +41,7 @@ let nurPlatoj = false;
 function grundo(x: number, z: number): number {
   const t = Math.max(0, Math.min(1, (x - RANDO) / TRANSIRA));
   const glata = t * t * (3 - 2 * t);
-  return MARA_PROFUNDO + (0 - MARA_PROFUNDO) * glata + deklivo * (z / GRANDO);
+  return MARA_PROFUNDO + (0 - MARA_PROFUNDO) * glata + deklivo * 8 * (z / GRANDO);
 }
 /* កម្រិតទឹក , ឬ −Infinity បើគ្មានទឹក ។ ទឹកមានតែខាងលិចឆ្នេរ ។
     @returns kម្រិត ( number )។ */
@@ -123,19 +124,9 @@ function akvaFino(x: number, z: number): number {
   return nivelo === -Infinity ? -Infinity : nivelo + 0.15;
 }
 
-/* ផ្ទៃផ្លូវ ៖ ខ្ពស់ជាងដីជុំវិញមួយកម្រិត ។ ដូច kantaoj/mondo/urbo.ts ។
-    @param x, z ( number ) - ពិភពលោក ។
-    @param largho ( number ) - ទទឹងផ្លូវ ។
-@returns kម្ពស់ផ្ទៃ ( number )។ */
-function vojaSupro(x: number, z: number, largho: number): number {
-  const duono = largho / 2 + VOJA_BORDA_LARĜO;
-  let maks = alteco(x, z);
-  for (let i = 0; i < 8; i++) {
-    const ang = i * Math.PI / 4;
-    maks = Math.max(maks, alteco(x + Math.cos(ang) * duono, z + Math.sin(ang) * duono));
-  }
-  return maks + VOJA_SUPRO_LEVIGXO;
-}
+// ⟪ កម្ពស់ផ្ទៃផ្លូវ 📏 ⟫
+// ⟨ រូបមន្តតែមួយនៅ formoj.js 📃 ⟩ ៖ មុននេះឆាកនេះប្រើ `largho / 2` ,
+// ដូច្នេះផ្ទៃផ្លូវធំជាងហ្គេមពីរដង ។ ឥឡូវអានអនុគមន៍រួម ។ 📃 ⟩
 
 // ⟪ កម្រិតរួមនៅចំណុចភ្ជាប់ 📏 ⟫
 // ⟨ វាលតែមួយ , ដូចហ្គេម 📃 ⟩ ៖ កម្ពស់ផ្លូវនៅទីនេះមកពី `kreiVojoAlton` , ដូច
@@ -182,6 +173,17 @@ function konstruiVojojn3D(): void {
     difinoj[i] = { ...difinoj[i], pts: gluiVojaFinon(difinoj[i].pts, celoj, dokoLandaj, aliaj) };
   }
   const harmoniigita = harmoniigi(difinoj);
+  // ⟨ កម្រិតចានភ្ជាប់ 📏 ⟩ ៖ ជណ្តើរចាប់ផ្តើមត្រង់កម្រិតចាន , ដូច pontaFinAlto
+  // ក្នុង kantaoj/mondo/urbo.ts ។ បើឆាកអានតែដី , កម្រាលខ្ពស់បំផុតនៃជណ្តើរ
+  // ខុសពីចាន , ហើយឃើញជាជញ្ជាំងឈរ ។
+  const platoNivele = (px: number, pz: number): number | null => {
+    for (const k of antauaj) {
+      if (Math.hypot(px - k.x, pz - k.z) > VOJA_TRUA_DUONO) continue;
+      const brakoj = kreiBrakojn(k.direktaj, k.fermitaj, k.rotacio, k.duono);
+      return kunigaPlataAlto(k.x, k.z, brakoj, harmoniigita);
+    }
+    return null;
+  };
   // ⟪ កំពង់ និងជណ្តើរ ⚓ ⟫ ។ កំពង់សាងសង់ដោយ konstruiDokon , ហើយជណ្តើររបស់វា
   // ជាផ្លូវជំហាន ( stuparo ) ដូច kantaoj/mondo/urbo.ts ។
   for (const d of dokoj) {
@@ -191,28 +193,32 @@ function konstruiVojojn3D(): void {
     if (doko.stuparajPunktoj.length < 2) continue;
     const sin = Math.sin(rotacio), kos = Math.cos(rotacio);
     const landaX = d.x + sin * (d.profundo / 2), landaZ = d.z + kos * (d.profundo / 2);
-    const starto = Math.max(surGrid(vojaSupro(landaX, landaZ, doko.platformWidth)), doko.platformY);
-    const falto = starto - doko.landejaY;
-    if (falto <= STUPA_RISERO * 0.5) continue;
-    const nombro = Math.max(1, Math.round(falto / STUPA_RISERO));
-    const punktoj = kreiStuparajnPunktojn(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro);
-    difinoj.push({ pts: punktoj, w: doko.platformWidth, stuparo: true, kapoj: false,
-      heightFn: kreiStuparanAlton(punktoj, starto - STUPA_RISERO - VOJA_SUPRO_LEVIGXO),
-      grundoFn: alteco });
+    const plato = platoNivele(landaX, landaZ);
+    const starto = Math.max(plato ?? surGrid(vojaSupro(landaX, landaZ, doko.platformWidth, alteco)),
+      doko.platformY);
+    const stuparo = kreiDokanStuparon(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1],
+      starto, doko.landejaY);
+    if (!stuparo) continue;
+    difinoj.push({ pts: stuparo.punktoj, w: doko.platformWidth, stuparo: true, kapoj: false,
+      heightFn: stuparo.alto, grundoFn: alteco });
   }
   const kunigoj = troviVojaRetajnKunigojn(
     difinoj.map(d => ({ punktoj: d.pts, larĝo: 2 * d.w })), dokoj);
   const protektoj = kunigoj.map(k => [ k.x, k.z ] as [ number, number ]);
   const diorito = kreiDioritanMaterialon();
   const andezito = kreiAndezitanMaterialon();
-  if (!nurPlatoj) konstruiVojojn(kielSceno(vojaGrupo), difinoj, harmoniigita, diorito, andezito,
-    protektoj, { akvaFn: akvaFino });
+  // ⟨ ដៃពិតរបស់ចានភ្ជាប់ 📃 ⟩ ៖ ផ្លូវត្រូវអានកម្រិតចានដូចចានសាងសង់ ,
+  // ដូច្នេះឆាកនេះត្រូវផ្ញើដៃទៅដូច kantaoj/mondo/urbo.ts ។
   const fermitaj = new Map<string, [ number, number ]>(kunigoj.map(k => [ k.x + "," + k.z, k.fermitaj ]));
   const rotacioj = new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.rotacio ]));
   const direktoj = new Map<string, [ number, number ][]>(
     kunigoj.map(k => [ k.x + "," + k.z, k.direktaj ]));
+  const duonoj = new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.duono ]));
+  if (!nurPlatoj) konstruiVojojn(kielSceno(vojaGrupo), difinoj, harmoniigita, diorito, andezito,
+    protektoj, { akvaFn: akvaFino, kunigajDirektoj: direktoj,
+      kunigajFermitaj: fermitaj, kunigajRotacioj: rotacioj, kunigajDuonoj: duonoj });
   konstruiIntersekcajnPlatojn(kielSceno(vojaGrupo), protektoj, harmoniigita,
-    diorito, andezito, fermitaj, rotacioj, direktoj, alteco);
+    diorito, andezito, fermitaj, rotacioj, direktoj, alteco, duonoj);
 }
 
 // ⟪ ដី និងទឹក 🏔️ ⟫ ។ កម្ពស់សំណាញ់ត្រូវបានគណនាឡើងវិញពេលជម្រាលប្តូរ ។

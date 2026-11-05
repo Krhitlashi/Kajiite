@@ -2,8 +2,8 @@
 // ⟨ ស្ពានរត់តាមបន្ទាត់ផ្លូវ , មិនមែនតាមខ្សែត្រង់រវាងចុងទាំងពីរ ៗ ។
 // ដូច្នេះផ្លូវកោងមិនបានស្ពានឆ្លងកាត់ស្មៅ ៗ 📃 ⟩
 
-import { VOJA_BORDA_LARĜO, VOJA_DIKECO } from "../../../eskekoj/medio/vojoj/mezuroj.js";
-import { ANGULA_PROVOLIRO } from "../../../eskekoj/medio/vojoj/bufroj.js";
+import { VOJA_DIKECO, surGrid, vojaLarghoDuono } from "./mezuroj.js";
+import { ANGULA_PROVOLIRO } from "./bufroj.js";
 
 export interface PontoTrako {
   ax: number; az: number;
@@ -40,7 +40,7 @@ export function kreiPontanAkvanTeston(
   larĝo: number,
   cxuAkvo: ( x: number, z: number ) => boolean
 ): ( x: number, z: number ) => boolean {
-  const flanko = Math.max(PONTA_BORDA_MARĜENO, larĝo / 4 + VOJA_BORDA_LARĜO + 1);
+  const flanko = Math.max( PONTA_BORDA_MARĜENO, vojaLarghoDuono( larĝo ) + 0o1 );
   return ( x, z ) => {
     let plejBona = Infinity, nx = 1, nz = 0;
     for ( let i = 0; i < punktoj.length - 1; i++ ) {
@@ -97,7 +97,8 @@ export function konstruiPontanProfilon(
   vojaSupro: ( x: number, z: number, larĝo: number ) => number,
   akvaSupro: ( x: number, z: number ) => number,
   pontaFinAlto: ( x: number, z: number, larĝo: number ) => number,
-  alteco?: ( x: number, z: number ) => number
+  alteco?: ( x: number, z: number ) => number,
+  mezajAnkoroj?: readonly { s: number; alto: number }[]
 ): PontoProfilo {
   const sekcioj: { ax: number; az: number; dx: number; dz: number; longo: number;
     l2: number; starto: number }[] = [];
@@ -144,11 +145,25 @@ export function konstruiPontanProfilon(
   // ហើយមុខចំហៀងរបស់វាខ្ពស់ដូចជញ្ជាំង ។ ឥឡូវខ្សែដើរតាមដី ,
   // ហើយកែតម្រូវតែប៉ុន្មានដែលត្រូវការដើម្បីដល់កម្ពស់ចាននៅចុងទាំងពីរ ។
   // ដូច្នេះផ្លូវចូលស្ពានចុះតាមដី , ហើយស្ពាននៅតែលើកតែលើទឹក ។ 📃 ⟩
-  const deltaStarto = startAlto - deka[ 0 ];
-  const deltaFino = finoAlto - deka[ specimenoj ];
+  // ⟨ ការកែតម្រូវតាមចំណុចយោង ៖ ដើម , ចន្លោះ , ចុង ។ ចំណុចចន្លោះ = ចំណុចភ្ជាប់ 📃 ⟩
+  const ankoroj: { s: number; delta: number }[] = [
+    { s: 0, delta: startAlto - deka[ 0 ] }
+  ];
+  if ( mezajAnkoroj ) {
+    for ( const a of mezajAnkoroj ) {
+      const idx = Math.max(0, Math.min(specimenoj, Math.round(a.s / tuta * specimenoj)));
+      ankoroj.push({ s: a.s, delta: a.alto - deka[ idx ] });
+    }
+  }
+  ankoroj.push({ s: tuta, delta: finoAlto - deka[ specimenoj ] });
+  ankoroj.sort(( a, b ) => a.s - b.s);
   for ( let i = 0; i <= specimenoj; i++ ) {
-    const t = i / specimenoj;
-    deka[ i ] += deltaStarto * ( 0o1 - t ) + deltaFino * t;
+    const s = tuta * i / specimenoj;
+    let j = 0;
+    while ( j < ankoroj.length - 2 && ankoroj[ j + 1 ].s <= s ) j++;
+    const a0 = ankoroj[ j ], a1 = ankoroj[ j + 1 ];
+    const t = a1.s > a0.s ? ( s - a0.s ) / ( a1.s - a0.s ) : 0;
+    deka[ i ] += a0.delta + ( a1.delta - a0.delta ) * t;
   }
   if ( akvaDejo ) {
     // ⟪ ធ្នូស្ពាន 🌉 ⟫
@@ -160,6 +175,11 @@ export function konstruiPontanProfilon(
     const dejo = Math.max(1, akvaDejo.end - akvaDejo.start);
     const bordoA = Math.max(0, akvaDejo.start - 0o1);
     const bordoB = Math.min(specimenoj, akvaDejo.end + 0o1);
+    // ⟨ ចិញ្ចៀនច្រាំងត្រូវរួបរួមជាមួយក្រឡាជំហាន ៖ ផ្លូវចូលស្ពានជាជណ្តើរ ( surGrid ) ,
+    // តែធ្នូទឹករលូន ( មិន surGrid ) ។ បើមិនត្រួបរួមច្រាំង , មាត់ស្ពានលោតឡើងពីរឯកតាពីផ្លូវចូល ។
+    // ដូច្នេះត្រួបរួមគំរូច្រាំងទៅក្រឡា ដើម្បីឱ្យមាត់ស្ពានស្មើនឹងផ្លូវចូល ។ 📃 ⟩
+    deka[ bordoA ] = surGrid(deka[ bordoA ]);
+    deka[ bordoB ] = surGrid(deka[ bordoB ]);
     const bankoA = deka[ bordoA ], bankoB = deka[ bordoB ];
     const akvaLongo = tuta * dejo / specimenoj;
     // ⟨ កម្ពស់ធ្នូ ៖ ល្មមលើសទឹកបូកចន្លោះនៅកណ្តាល ។ 📃 ⟩

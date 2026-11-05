@@ -34,7 +34,7 @@ for ( const d of DOKOJ ) {
   if ( doko.stuparajPunktoj.length < 2 ) continue;
   const starto = surGrid(pontaFinAlto(landaX, landaZ, doko.platformWidth, kunigoj));
   const falto = starto - doko.landejaY;
-  const nombro = Math.max(1, Math.round(falto / STUPA_RISERO));
+  const nombro = Math.max(2, Math.ceil(falto / STUPA_RISERO) + 1);
   const punktoj = kreiStuparajnPunktojn(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro);
   const trunko = Math.hypot(punktoj[0][0] - punktoj[nombro][0], punktoj[0][1] - punktoj[nombro][1]);
   console.log("  starto " + starto.toFixed(4) + " , falto " + falto.toFixed(4) +
@@ -42,7 +42,7 @@ for ( const d of DOKOJ ) {
     " , paso " + ( trunko / nombro ).toFixed(5) );
   vojSuprajxoj.length = 0;
   konstruiVojojn(sceno, [ { pts: punktoj, w: doko.platformWidth, stuparo: true,
-    heightFn: kreiStuparanAlton(punktoj, starto - STUPA_RISERO - VOJA_SUPRO_LEVIGXO) } ],
+    heightFn: kreiStuparanAlton(punktoj, starto - VOJA_SUPRO_LEVIGXO, doko.landejaY) } ],
     alteco, diorito, andezito, []);
   const surfacoj = vojSuprajxoj.map(s => s.y0);
   const saltoj: number[] = [];
@@ -54,7 +54,7 @@ for ( const d of DOKOJ ) {
   // ⟨ ជាមួយរន្ធភ្ជាប់ពិត ៖ ចានភ្ជាប់កាត់ជំហានខាងលើឬអត់ 📃 ⟩
   vojSuprajxoj.length = 0;
   konstruiVojojn(sceno, [ { pts: punktoj, w: doko.platformWidth, stuparo: true,
-    heightFn: kreiStuparanAlton(punktoj, starto - STUPA_RISERO - VOJA_SUPRO_LEVIGXO) } ],
+    heightFn: kreiStuparanAlton(punktoj, starto - VOJA_SUPRO_LEVIGXO, doko.landejaY) } ],
     alteco, diorito, andezito, kunigoj.map(k => [ k.x, k.z ] as [ number, number ]));
   const kunSurfacoj = vojSuprajxoj.map(s => s.y0);
   console.log("  ជាមួយរន្ធ " + kunSurfacoj.length + " , លើគេ " +

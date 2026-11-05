@@ -1,6 +1,6 @@
 // ≺⧼ ស្ពាន 🌉 ⧽≻
 import * as THREE from "three";
-import { VOJA_BORDA_LARĜO, VOJA_DIKECO } from "../vojoj/mezuroj.js";
+import { VOJA_BORDA_LARĜO, VOJA_DIKECO, vojaLarghoDuono } from "../vojoj/mezuroj.js";
 
 // ⟪ មាត្រស្ពាន 📏 ⟫
 // ⟨ កម្រាស់ផ្ទៃស្ពាន ៖ ដូចកម្រាស់ផ្លូវ ។ 📃 ⟩
@@ -95,7 +95,7 @@ export function konstruiPonton(
   if ( longo < 0o1/0o100 ) return;
   const ndx = dx / longo, ndz = dz / longo;
 
-  const duono = largho / 4 + VOJA_BORDA_LARĜO;
+  const duono = vojaLarghoDuono( largho );
   const fasadaLarĝo = Math.min(VOJA_BORDA_LARĜO, duono);
   const kernoDuono = duono - fasadaLarĝo;
   const pasxoj = Math.max(PONT_SPECIMENOJ_MINIMUME,

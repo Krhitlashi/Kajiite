@@ -2,7 +2,8 @@
 // ⟨ ផ្លូវសាងសង់ជាជំហានស្មើគ្នា ។ កម្រិតរបស់ជំហានកំណត់ម្តងតាមបណ្តោយផ្លូវទាំងមូល ,
 // ដើម្បីឱ្យផ្លូវមានលក្ខណៈបី ៖ មិនកប់ក្នុងដី , មិនលោតខ្ពស់លើសមួយជំហាន ,
 // ហើយមិនធ្លាក់ចូលរណ្តៅខ្លីរួចឡើងវិញ ។ 📃 ⟩
-import { VOJA_KUNIGA_RADIUSO, VOJA_TERA_KLINO } from "./alto.js";
+import { VOJA_TERA_KLINO } from "./alto.js";
+import { plataAltoCxe, type PlataNivelo } from "./formoj.js";
 import { STUPA_RISERO, subGrid, surGrid, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./mezuroj.js";
 
 // ⟪ ការគំរូ 📏 ⟫
@@ -252,6 +253,20 @@ export interface NivelaKunigo {
   z: number;
   // ⟨ កម្ពស់កំពូលចានភ្ជាប់ ។ 📃 ⟩
   alto: number;
+  // ⟨ កម្ពស់តាមដៃ ៖ ចានមិនមានកម្ពស់តែមួយទេ ។ ដៃនីមួយៗមានកម្រិតផ្លូវរៀងខ្លួន ,
+  // ដូច្នេះការកំណត់កម្រិតត្រូវអានកម្រិតតាមទិសនៃគំរូ ។ បើអានតែ `alto` ,
+  // ផ្លូវខាងទាបត្រូវឡើងដល់កម្រិតខ្ពស់បំផុត , ហើយមាត់ក្លាយជាជញ្ជាំង ។ 📃 ⟩
+  nivelo?: PlataNivelo;
+}
+
+/*កម្ពស់ចានតាមទិសនៃចំណុចមួយ
+    @param k ( NivelaKunigo ) - ចំណុចភ្ជាប់
+    @param px, pz ( number ) - ចំណុចផ្លូវ
+    @param d ( number ) - ចម្ងាយពីចំណុចភ្ជាប់
+@returns alto ( number ) - កម្ពស់ចានដែលផ្លូវមកដល់ */
+function kunigaAltoCxe(k: NivelaKunigo, px: number, pz: number, d: number): number {
+  if ( !k.nivelo || k.nivelo.altoj.length === 0 ) return k.alto;
+  return plataAltoCxe(k.nivelo, Math.atan2(pz - k.z, px - k.x), d);
 }
 
 // ⟪ ការកំណត់កម្រិត 📏 ⟫
@@ -349,37 +364,60 @@ export function kreiNivelanProfilon(
   // ខ្ពស់ជាងចាន ។ ដូច្នេះក្នុងរង្វង់ចាន ផ្លូវត្រូវស្មើនឹងចាន ,
   // ហើយក្រៅរង្វង់ ផ្លូវឡើងចុះបានតែតាមជម្រាលអតិបរមា ។
   // កម្រិតកំពូលនិងបាតជាប់គ្នា , ដូច្នេះមិនកើតជំហានថ្មីទេ ។ 📃 ⟩
-  if ( kunigoj && kunigoj.length ) {
+  // ⟨ ចានតែប៉ុណ្ណោះដែលផ្លូវនេះភ្ជាប់ 📏 ⟩ ៖ កោណរបស់ចានលាតគ្មានទីបញ្ចប់ ។
+  // បើគិតចានទាំងអស់ , ចានខ្ពស់មួយនៅឆ្ងាយលើកផ្លូវនៅមាត់ចានទាប ,
+  // ហើយចានទាបមួយនៅឆ្ងាយទាញផ្លូវចុះក្រោមមាត់ចានខ្ពស់ ។ ទាំងពីរធ្វើឱ្យមាត់
+  // ខុសកម្រិតពីចានមួយជំហាន ហើយក្លាយជាជញ្ជាំង ។ ផ្លូវភ្ជាប់តែចានដែលវាដើរ
+  // កាត់ក្នុងរង្វង់របស់វា , ដូច្នេះកោណគួរមកពីចានទាំងនោះតែប៉ុណ្ណោះ ។ 📃 ⟩
+  // ⟨ កោណចាប់ពីមាត់ចាន 📏 ⟩ ៖ ផ្លូវចេញពីចាននៅ VOJA_TRUA_DUONO , ដូចគ្នានឹង
+  // ការតម្រឹមកម្រិតចានក្នុង alto.ts ។ បើកោណចាប់ពីរង្វង់ធំជាងនេះ ,
+  // ផ្លូវខ្វះចម្ងាយឡើងរវាងចានពីរ , ហើយមាត់ចានទាបជាងចានមួយជំហាន ។ 📃 ⟩
+  const punktojCxe: { x: number; z: number }[] = situoj.map(s => pozicio(s));
+  const proksimaj: NivelaKunigo[] = kunigoj && kunigoj.length
+    ? kunigoj.filter(k => punktojCxe.some(p =>
+      Math.hypot(p.x - k.x, p.z - k.z) <= VOJA_TRUA_DUONO))
+    : [];
+  if ( proksimaj.length ) {
     for ( let i = 0; i < celoj.length; i++ ) {
-      const p = pozicio(situoj[ i ]);
+      const p = punktojCxe[ i ];
       let suba = -Infinity, supra = Infinity;
-      let dSuba = Infinity, dSupra = Infinity;
-      for ( const k of kunigoj ) {
+      for ( const k of proksimaj ) {
         const d = Math.hypot(p.x - k.x, p.z - k.z);
-        const deRando = VOJA_TERA_KLINO * Math.max(0, d - VOJA_KUNIGA_RADIUSO);
-        if ( k.alto - deRando > suba ) { suba = k.alto - deRando; dSuba = d; }
-        if ( k.alto + deRando < supra ) { supra = k.alto + deRando; dSupra = d; }
+        const deRando = VOJA_TERA_KLINO * Math.max(0, d - VOJA_TRUA_DUONO);
+        const altoK = kunigaAltoCxe(k, p.x, p.z, d);
+        suba = Math.max(suba, altoK - deRando);
+        supra = Math.min(supra, altoK + deRando);
       }
-      // ⟨ បាតឈ្នះតែពេលចាននោះនៅជិតជាង 📏 ⟩ ៖ ចានពីរជិតគ្នា ៖ ផ្លូវត្រូវដល់ចានខ្ពស់ ។
-      // តែចានមួយឆ្ងាយខ្ពស់មិនត្រូវលើកផ្លូវនៅមាត់ចានទាបទេ ។ បើលើក ,
-      // ផ្លូវឈប់ខ្ពស់ជាងចានពីរឯកតានៅមាត់ , ហើយគែមនោះជាជញ្ជាំងឈរ
-      // ដោយគ្មានជំហាន ។ 📃 ⟩
-      if ( supra < suba && dSuba <= dSupra ) supra = suba;
       // ⟨ គម្រោងនៅលើក្រឡាជានិច្ច 📏 ⟩ ៖ កម្រិតចានមិនស្មើក្រឡាទេ , ដូច្នេះការកំណត់
       // ខាងលើអាចទុកតម្លៃចន្លោះ ។ កម្រិតចន្លោះបង្កើតជំហានតូចៗមិនស្មើ ,
       // ហើយជំហានធំមួយលេចឡើងពេលបង្គត់ជាប់គ្នា ។ 📃 ⟩
       // ⟨ ការបង្គត់មានទិស 📏 ⟩ ៖ ព្រំដែនខាងលើបង្គត់ចុះ , ព្រំដែនខាងក្រោមបង្គត់ឡើង ។
       // បើបង្គត់ព្រំដែនខាងលើឡើង , ផ្លូវឡើងលើសចានកន្លះជំហាននៅជាប់មាត់ចាន ,
       // ហើយជំហាននោះក្លាយជាជញ្ជាំងខ្លីដែលមិនចាំបាច់ ។ 📃 ⟩
-      // ⟨ ការទាញចុះមិនកប់ផ្លូវ 📏 ⟩ ៖ ចានទាបជាងដីនៅលើជម្រាល ( ចានឥឡូវ
-      // អានជម្រាលដី ) ទាញគម្រោងចុះតាមកោណរបស់វា ។ បើទាញដល់ទីបំផុត ,
-      // ផ្លូវស្ថិតក្នុងដី ហើយដីគ្របវា ។ ដូច្នេះការទាញមានដែន ៖ គម្រោងមិន
-      // ធ្លាក់ក្រោមដីដែលផ្លូវត្រូវឈរលើវា ច្រើនជាងមួយជំហាន ។ ការកាត់
-      // មួយជំហានចូលជម្រាលមើលទៅដូចផ្លូវកាត់ជើងភ្នំ , តែផ្លូវនៅតែឃើញ ។ 📃 ⟩
-      if ( celoj[ i ] > supra )
-        celoj[ i ] = subGrid(supra);
-      // ⟨ បាតឈ្នះលើកំពូល ៖ ផ្លូវត្រូវដល់ចាន , ទោះកំពូលខ្លីជាងមួយជំហាន ។ 📃 ⟩
-      if ( celoj[ i ] < suba ) celoj[ i ] = surGrid(suba);
+      // ⟨ ការទាញចុះមិនកប់ផ្លូវ 📏 ⟩ ៖ កំពូលជាកោណរបស់ចាន , ដូច្នេះការទាញចុះ
+      // មិនធ្លាក់ក្រោមកម្រិតដែលផ្លូវអាចចុះពីចានបានទេ ។ បើទាញដល់ទីបំផុត ,
+      // ផ្លូវស្ថិតក្នុងដី , ហើយដីគ្របវា ។ ការកាត់មួយជំហានចូលជម្រាល
+      // មើលទៅដូចផ្លូវកាត់ជើងភ្នំ , តែផ្លូវនៅតែឃើញ ។ 📃 ⟩
+      // ⟨ កំពូលឈ្នះបាត 📏 ⟩ ៖ ការកំណត់បាតត្រូវធ្វើមុន , ការកំណត់កំពូលត្រូវធ្វើក្រោយ ។
+      // បើបាតធ្វើក្រោយ , ចានខ្ពស់មួយនៅឆ្ងាយលើកផ្លូវនៅមាត់ចានទាប ,
+      // ហើយផ្លូវឈប់ខ្ពស់ជាងចាននោះមួយជំហាន ។ មាត់ក្លាយជាជញ្ជាំងឈរ
+      // ដោយគ្មានជម្រាលឡើង ។ កំពូលក្រោយធានាថាផ្លូវដល់កម្រិតចាននៅមាត់ជានិច្ច ។ 📃 ⟩
+      // ⟨ ការបង្គត់មិនញ័រ 📏 ⟩ ៖ មុននេះបាតបង្គត់ឡើង រួចកំពូលបង្គត់ចុះ ដោយ
+      // ប្រើព្រំដែនដដែល ។ នៅមាត់ចាន កោណស្តើងជាងមួយជំហាន ( suba ≈ supra ,
+      // តម្លៃមិននៅលើក្រឡា ព្រោះផ្ទៃចានជាជម្រាល ) , ដូច្នេះបង្គត់ទាំងពីរប្រយុទ្ធគ្នា ៖
+      // ទីមួយលើកផ្លូវឡើង ទីពីរទាញវាចុះវិញ ។ ផ្លូវឈប់ទាបជាងមាត់ចានមួយជំហាន ,
+      // ហើយគ្មានជម្រាលឡើងទៅដៃខ្ពស់ៗ = ជញ្ជាំងឈរ ។ ឥឡូវគណនាព្រំដែនទាំងពីរ
+      // មុនកែតម្លៃ ៖ បើវាជាន់គ្នា យកក្រឡាដែលជិតផ្ទៃចានបំផុត ។ 📃 ⟩
+      const malsupra = surGrid(suba);
+      const supera = subGrid(supra);
+      if ( malsupra > supera ) {
+        const mezo = ( suba + supra ) / 0o2;
+        celoj[ i ] = Number.isFinite(mezo)
+          ? Math.round(mezo / STUPA_RISERO) * STUPA_RISERO
+          : celoj[ i ];
+      } else {
+        celoj[ i ] = Math.max(malsupra, Math.min(supera, celoj[ i ]));
+      }
     }
   }
   const altoj = kreiTreadojn(kreiCxramgon(celoj, disto).map(alto => surGrid(alto)), disto);
@@ -388,15 +426,15 @@ export function kreiNivelanProfilon(
   // ⟨ ជំហានចុះរកចានតាមល្បឿនមួយជំហានក្នុងមួយជំហានចម្ងាយ ។
   // បើមិនដូច្នេះ ផ្លូវរង់ចាំការបញ្ជាក់មុនការចុះ , ដូច្នេះកម្រិតខ្ពស់នៅជាប់មាត់ចាន
   // ហើយមាត់ក្លាយជាជញ្ជាំង ។ ការចុះនេះទាបជាងគម្រោងបាន , តែមិនទាបជាងគម្រោងទេ ។ 📃 ⟩
-  if ( kunigoj && kunigoj.length ) {
+  if ( proksimaj.length ) {
     for ( let i = 0; i < altoj.length; i++ ) {
-      const p = pozicio(situoj[ i ]);
+      const p = punktojCxe[ i ];
       let limo = Infinity;
-      for ( const k of kunigoj ) {
+      for ( const k of proksimaj ) {
         const d = Math.hypot(p.x - k.x, p.z - k.z);
         if ( d > VOJA_TRUA_DUONO + NIVELA_GLATIGO ) continue;
         const pasoj = Math.ceil(Math.max(0, d - VOJA_TRUA_DUONO) / NIVELA_STUPA_DISTO);
-        const l = k.alto + pasoj * STUPA_RISERO;
+        const l = kunigaAltoCxe(k, p.x, p.z, d) + pasoj * STUPA_RISERO;
         if ( l < limo ) limo = l;
       }
       if ( limo < altoj[ i ] ) altoj[ i ] = Math.max(celoj[ i ], limo);

@@ -234,8 +234,10 @@ function inicializi(): void {
   window.addEventListener("lingvosxangxo", markiAktivanLingvon);
 }
 
-if ( document.readyState === "loading" ) {
-  document.addEventListener("DOMContentLoaded", inicializi);
-} else {
-  inicializi();
+if ( typeof document !== "undefined" ) {
+  if ( document.readyState === "loading" ) {
+    document.addEventListener("DOMContentLoaded", inicializi);
+  } else {
+    inicializi();
+  }
 }

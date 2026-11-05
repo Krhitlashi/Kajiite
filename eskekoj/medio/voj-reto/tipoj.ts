@@ -19,6 +19,10 @@ export interface VojaRetoKunigo {
   direktaj: VojaPunkto[];
   rotacio: number;
   fermitaj: [ number, number ];
+  // ⟨ កន្លះទទឹងផ្លូវពិត 🛣️ ⟩ ៖ ចានភ្ជាប់សាងសង់តាមទទឹងនេះ , មិនមែនតាម
+  // តម្លៃថេរទេ ។ បើចានឆ្អឹងជំនីរតូចជាងផ្លូវ , ស្មាផ្លូវលាតចេញពីចាន ,
+  // ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។ 📃 ⟩
+  duono: number;
 }
 
 export const TOLERANCO = 0o1/0o1000;

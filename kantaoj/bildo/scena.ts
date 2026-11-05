@@ -59,6 +59,12 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // ត្រូវជ្រើសខុសៗគ្នាតាមជួរអេក្រង់ , ហើយវាបង្ហាញជាខ្សែផ្តេក ។ 📃 ⟩
   const GRUNDA_FADO_EL = 0o14;
   const GRUNDA_FADO_GXIS = 0o72;
+  // ⟨ ហេតុអ្វីត្រូវបន្ថយទាំងកម្ពស់ស្រមោល 📃 ⟩ ៖ វាយនភាពដីលាតរាប់រយដង ,
+  // ដូច្នេះនៅចម្ងាយ mip ធំខ្លាំង ។ ការបន្ថយពណ៌តែម្នាក់ឯងមិនគ្រប់ទេ ៖
+  // វាយនភាពកម្ពស់ ( bump ) នៅតែអាននៅចម្ងាយទាំងមូល , ហើយដេរីវេរបស់វា
+  // លោតនៅគ្រប់ព្រំដែនក្បឿង ។ ដូច្នេះដីបង្ហាញជាខ្សែត្រង់ស្របគ្នា ។
+  // ទូរស័ព្ទឃើញច្បាស់ជាង ៖ ផែនទីស្រមោលតូចជាង ហើយដង់ស៊ីតេអេក្រង់ខុស ។
+  // ដូច្នេះកម្ពស់ស្រមោលត្រូវបន្ថយដោយចម្ងាយដូចពណ៌ ។ 📃 ⟩
   const fadaGrundon = ( materialo: THREE.MeshStandardMaterial ): THREE.MeshStandardMaterial => {
     materialo.onBeforeCompile = ( shadero ) => {
       shadero.fragmentShader = shadero.fragmentShader.replace(
@@ -69,6 +75,15 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
           sampledDiffuseColor.rgb = mix( vec3( 1.0 ), sampledDiffuseColor.rgb, grundFado );
           diffuseColor *= sampledDiffuseColor;
         #endif`
+      );
+      // ⟨ កម្ពស់ស្រមោលតាមចម្ងាយ 📏 ⟩ ៖ `nonPerturbedNormal` ជានរម៉ាល់ដើមដែល
+      // បានរក្សាទុកមុន bump ។ លាយនរម៉ាល់ដែលបានប្រែត្រឡប់ទៅវាតាមកម្រិតដូចពណ៌ ។
+      // បើគ្មាន bump , នរម៉ាល់មិនប្រែ , ដូច្នេះការលាយនេះមិនធ្វើអ្វី ។ 📃 ⟩
+      shadero.fragmentShader = shadero.fragmentShader.replace(
+        "#include <normal_fragment_maps>",
+        `#include <normal_fragment_maps>
+        normal = normalize( mix( nonPerturbedNormal, normal,
+          1.0 - smoothstep( ${GRUNDA_FADO_EL.toFixed(1)}, ${GRUNDA_FADO_GXIS.toFixed(1)}, length( vViewPosition ) ) ) );`
       );
     };
     return materialo;

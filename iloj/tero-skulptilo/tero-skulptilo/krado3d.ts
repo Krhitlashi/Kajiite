@@ -10,13 +10,14 @@ import { konstruiHxeuxfojn } from "../../../eskekoj/konstruajxoj/hxeuxfa/lampoj.
 import { konstruiKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../../eskekoj/komunajxoj/materialoj.js";
 import { konstruiVojojn } from "../../../eskekoj/medio/vojoj.js";
-import { VOJA_AKVA_KLARANCO, VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
-  VOJA_TRUA_DUONO, STUPA_RISERO, surGrid } from "../../../eskekoj/medio/vojoj/mezuroj.js";
+import { VOJA_AKVA_KLARANCO, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
+  VOJA_TRUA_DUONO, surGrid } from "../../../eskekoj/medio/vojoj/mezuroj.js";
+import { vojaSupro as vojaSuproBaza } from "../../../eskekoj/medio/vojoj/formoj.js";
 import { konstruiIntersekcajnPlatojn } from "../../../eskekoj/medio/vojoj/platoj.js";
 import { troviVojaRetajnKunigojn } from "../../../eskekoj/medio/voj-reto.js";
 import { konstruiDokon } from "../../../eskekoj/medio/doko.js";
-import { gluiVojaFinon } from "../../../kantaoj/mondo/urbo/gluado.js";
-import { kreiStuparanAlton, kreiStuparajnPunktojn } from "../../../eskekoj/medio/doko/stuparo.js";
+import { gluiVojaFinon } from "../../../eskekoj/medio/vojoj/gluado.js";
+import { kreiDokanStuparon } from "../../../eskekoj/medio/doko/stuparo.js";
 // ទឹក គឺស្ពាន ( pontoVojo ) អានទឹកពីការគណនាដេរីវេ។
 import { akvaRezulto, akvaNiveloEn, cxuAkvo, teraAlto } from "./akvo.js";
 import { sceno3d, kradaGrupo3D, vojaGrupo3D, YTROIGO } from "./vido3d.js";
@@ -161,15 +162,9 @@ export function rekonstruiVojojn3D(): void {
   malplenigiGrupon(vojaGrupo3D);
   const alteco = ( x: number, z: number ): number => grundo3D(x, z);
   // ⟨ កម្ពស់ផ្ទៃផ្លូវនៅចំណុចមួយ ៖ ខ្ពស់ជាងដីជុំវិញមួយកម្រិត 📃 ⟩
-  const vojaSupro = ( x: number, z: number, largho: number ): number => {
-    const duono = largho / 4 + VOJA_BORDA_LARĜO;
-    let maks = alteco(x, z);
-    for ( let i = 0; i < 0o10; i++ ) {
-      const ang = i * Math.PI / 0o4;
-      maks = Math.max(maks, alteco(x + Math.cos(ang) * duono, z + Math.sin(ang) * duono));
-    }
-    return maks + VOJA_SUPRO_LEVIGXO;
-  };
+  // ⟨ រូបមន្តតែមួយនៅ formoj.js 📃 ⟩ ៖ ការមើលជាមុនអានអនុគមន៍រួម ។
+  const vojaSupro = ( x: number, z: number, largho: number ): number =>
+    vojaSuproBaza(x, z, largho, alteco);
   // ⟪ និយមន័យផ្លូវ 📃 ⟫ ។ ផ្លូវកម្រិតពិភពលោកមួយនិយមន័យ , ដូច្នេះវេន
   // មិនបង្គត់ ( ធ្នូត្រូវការបន្ទាត់ពហុកោណទាំងមូល ) ហើយការត្បាញថ្មចាប់ផ្តើម
   // ឡើងវិញនៅចម្រៀកនីមួយៗ ។ ហ្គេមប្រើបន្ទាត់ពហុកោណទាំងមូល ដូច្នេះ
@@ -279,13 +274,11 @@ export function rekonstruiVojojn3D(): void {
     // ⟨ កម្រាលលើគេ ៖ ផ្លូវចូលមក ឬវេទិកាខ្លួនឯង 📃 ⟩
     const starto = Math.max(surGrid(vojaSupro(landaX, landaZ, doko.platformWidth)),
       doko.platformY);
-    const falto = starto - doko.landejaY;
-    if ( falto <= STUPA_RISERO * 0o1/0o2 ) continue;
-    const nombro = Math.max(1, Math.round(falto / STUPA_RISERO));
-    const punktoj = kreiStuparajnPunktojn(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro);
-    difinoj.push({ pts: punktoj, w: doko.platformWidth, stuparo: true, kapoj: false,
-      heightFn: kreiStuparanAlton(punktoj, starto - STUPA_RISERO - VOJA_SUPRO_LEVIGXO),
-      grundoFn: alteco });
+    const stuparo = kreiDokanStuparon(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1],
+      starto, doko.landejaY);
+    if ( !stuparo ) continue;
+    difinoj.push({ pts: stuparo.punktoj, w: doko.platformWidth, stuparo: true, kapoj: false,
+      heightFn: stuparo.alto, grundoFn: alteco });
   }
   if ( !difinoj.length ) return;
   const protektoj: VojaPunkto[] = kunigoj.map(k => [ k.x, k.z ]);

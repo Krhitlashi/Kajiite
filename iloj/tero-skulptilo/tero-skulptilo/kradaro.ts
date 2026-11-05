@@ -13,7 +13,7 @@ import type { VojaPunkto } from "../../../eskekoj/medio/voj-reto.js";
 import { elemento, elementoj } from "../../komunajxoj/dom.js";
 import { agordiMontrendajnUrbojn, foriguUrbon, montrendajUrboj, refresxigiVidon, sekvuUrbon } from "./videco.js";
 import { vojaDuonLargho as retoVojaDuonLargho, vojaKunigaDuono as retoVojaKunigaDuono,
-  pontoDuonLargho as retoPontoDuonLargho, vojaProjekcio as retoVojaProjekcio,
+  vojaProjekcio as retoVojaProjekcio,
   vojoKunfandiĝas as retoVojoKunfandiĝas,
   dokoKunfandiĝas as retoDokoKunfandiĝas, dokoKonektasVojon as dokoKonektasVojonReto,
   vojajKunfandajxoj as retoVojajKunfandajxoj,
@@ -563,7 +563,7 @@ function vojaKunigaDuono(v: SkulptaVojo): number {
 }
 
 export function pontoDuonLargho(v: SkulptaVojo): number {
-  return retoPontoDuonLargho(v);
+  return retoVojaDuonLargho(v);
 }
 
 function vojoKunfandiĝas(v: SkulptaVojo, kromVojo: number): boolean {

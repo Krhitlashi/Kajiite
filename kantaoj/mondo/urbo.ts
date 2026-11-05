@@ -39,20 +39,22 @@ import { konstruiCetkuojn, konstruiCakeojn } from "../../eskekoj/shalaj-specioj/
 import { konstruiHerbon,
   konstruiHerbonCxirkauLagon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/tufoj.js";
 import { konstruiHerbanTavolon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/gazono.js";
-import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
+import { vojaSupro, vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { KEUXFHXESO_RADIO } from "../../eskekoj/mebloj/keuxfhxeso.js";
-import { VOJA_BORDA_LARĜO,
-  VOJA_AKVA_KLARANCO, VOJA_DIKECO, VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO, VOJA_SUPRO_LEVIGXO,
-  STUPA_RISERO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import {
+  VOJA_AKVA_KLARANCO, VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO,
+  VOJA_SUPRO_LEVIGXO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { konstruiPeriferiajnPlatformojn } from "../../eskekoj/medio/vojoj/periferio.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
 import { PONT_FINA_LEVIGXO, PONT_AKVA_KLARANCO, konstruiPonton } from "../../eskekoj/medio/doko/ponto.js";
-import { kreiStuparanAlton, kreiStuparajnPunktojn } from "../../eskekoj/medio/doko/stuparo.js";
-import { troviVojaRetajnKunigojn, VojaRetoVojo, VojaRetoKunigo } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "./urbo/gluado.js";
+import { kreiDokanStuparon } from "../../eskekoj/medio/doko/stuparo.js";
+import { troviVojaRetajnKunigojn, kunigajBrakojElVojoj,
+  VojaRetoVojo, VojaRetoKunigo } from "../../eskekoj/medio/voj-reto.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiBazanVojoAlton, kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { konstruiPontanProfilon, havasAkvanTrunkon, kreiPontanAkvanTeston,
-  type PontoTrako } from "./urbo/ponto-profilo.js";
+  type PontoTrako } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
+import { kreiBrakojn, kunigaPlataAlto } from "../../eskekoj/medio/vojoj/platoj.js";
 import { surPosxtelefono } from "../bildo/scena/aparato.js";
 import { skulptitaBesto, aktivajUrboj, aktivajVojoj, aktivajDokoj,
   aktivajObjektoj, cxuGeneritaSetlejo, mondiaHazardo } from "../tero-datumaro/rultempo.js";
@@ -186,17 +188,8 @@ export async function konstruiUrbon(
     const kunigo = troviProksimanKunigon(x, z);
     if ( kunigo )
       return surGrid(vojaSuproDeKunigo(kunigo.x, kunigo.z, kunigo.direktaj,
-        VOJA_EKSTERA_DUONO, vojoAlteco).supro);
-    return surGrid(vojaSupro(x, z, larĝo));
-  }
-  function vojaSupro( x: number, z: number, larĝo: number ): number {
-    const duon = larĝo / 4 + VOJA_BORDA_LARĜO;
-    let maks = vojoAlteco(x, z);
-    for ( let i = 0; i < 0o10; i++ ) {
-      const ang = i * Math.PI / 4;
-      maks = Math.max(maks, vojoAlteco(x + Math.cos(ang) * duon, z + Math.sin(ang) * duon));
-    }
-    return maks + VOJA_SUPRO_LEVIGXO;
+        VOJA_EKSTERA_DUONO, vojoAlteco).supro - VOJA_SUPRO_LEVIGXO);
+    return surGrid(vojaSupro(x, z, larĝo, vojoAlteco) - VOJA_SUPRO_LEVIGXO);
   }
 
   const pontaVojoj: ( PontoTrako & { w: number } )[] = [];
@@ -241,12 +234,34 @@ export async function konstruiUrbon(
   const vojajKunigoPunktoj = vojajKunigoj.map( k => [ k.x, k.z ] as [ number, number ] );
   const vojajFermitaj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.fermitaj ] ) );
   const vojajRotacioj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.rotacio ] ) );
-  // ⟨ ដៃពិតនៃការភ្ជាប់នីមួយៗ 📃 ⟩
-  const vojajDirektoj = new Map( vojajKunigoj.map( k => [ k.x + "," + k.z, k.direktaj ] ) );
+  // ⟨ កន្លះទទឹងផ្លូវពិត 📏 ⟩ ៖ ចានភ្ជាប់ត្រូវធំល្មមនឹងផ្លូវដែលចូលមក ,
+  // មិនមែនតាមតម្លៃថេរ ។ បើចានតូចជាងផ្លូវ , ស្មាងងឹតរបស់ផ្លូវលាតចេញ
+  // ហួសចាន , ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។ 📃 ⟩
+  const vojajDuonoj = new Map<string, number>(vojajKunigoj.map( k => [ k.x + "," + k.z, k.duono ] ) );
+  // ⟪ ដៃពីផ្លូវទាំងអស់ 📏 ⟫
+  // ⟨ ចំណុចក្រឡាគ្មានទិសដៃ 📃 ⟩ ៖ ចានរបស់វាសាងពីការបិទជ្រុង ។ តែផ្លូវដៃ
+  // អាចមកដល់ចំណុចនោះ ។ បើចានមិនដឹងពីផ្លូវនោះ , ចាននៅតែពីរដៃ ( ជ្រុង ) ,
+  // ហើយមាត់ផ្លូវទីបីកាត់ចូលជ្រុងមូល ។ ដូច្នេះដៃត្រូវមកពីផ្លូវពិតទាំងអស់ ។
+  // ដៃនេះក៏ចូលវាលកម្ពស់ ដើម្បីឱ្យផ្លូវនិងចានអានកម្រិតដូចគ្នា ។ 📃 ⟩
+  const ĉiujKunigajPunktoj: [ number, number ][] = [ ...kradajKunigoj, ...vojajKunigoPunktoj ];
+  const ĉiujRetajVojoj: VojaRetoVojo[] = [
+    ...kradajDifinoj.map( d => ( { punktoj: d.pts, larĝo: 0o2 * d.w } ) ),
+    ...vojajRetajVojoj ];
+  const derivitajBrakoj = kunigajBrakojElVojoj(ĉiujKunigajPunktoj, ĉiujRetajVojoj);
+  for ( const kunigo of vojajKunigoj ) {
+    const klavo = kunigo.x + "," + kunigo.z;
+    const listo = derivitajBrakoj.get(klavo) ?? [];
+    for ( const d of kunigo.direktaj )
+      if ( !listo.some( u => u[0] * d[0] + u[1] * d[1] > 0o1 - 0o1/0o1000 ) ) listo.push(d);
+    derivitajBrakoj.set(klavo, listo);
+    kunigo.direktaj = listo;
+  }
+  const vojajDirektoj = new Map<string, [ number, number ][]>(derivitajBrakoj);
   // ⟨ កម្រិតរួមសម្រាប់ចានភ្ជាប់ និងចុងផ្លូវ 📃 ⟩
-  vojoAlteco = kreiVojoAlton(alteco, [
-    ...kradajKunigoj.map(([ x, z ]) => ( { x, z, direktaj: [] as [ number, number ][] } )),
-    ...vojajKunigoj ]);
+  // ⟨ ផ្ទឃ្លាំងទឹក 📃 ⟩ ៖ បញ្ជូនផ្ទឃ្លាំងទឹកទៅវាលផ្លូវ ដូច្នេះកោណមិនលើកផ្លូវលើទឹក ។
+  vojoAlteco = kreiVojoAlton(alteco, ĉiujKunigajPunktoj.map(([ x, z ]) =>
+    ( { x, z, direktaj: derivitajBrakoj.get(x + "," + z) ?? [],
+      duono: vojajDuonoj.get(x + "," + z) ?? VOJA_DIORITA_DUONO } )), akvaFino);
   await raporti();
 
   // ⟪ ចំណត ⚓ ⟫
@@ -279,10 +294,6 @@ export async function konstruiUrbon(
   for ( const d of dokoStuparajDatumoj ) {
     // ⟨ ចាប់ផ្តើមត្រង់ផ្ទៃចានភ្ជាប់ ៖ មិនធ្លាក់ពីលើវាមួយកម្ពស់ធំ 📃 ⟩
     const starto = pontaFinAlto(d.landaX, d.landaZ, d.larĝo);
-    const falto = starto - d.landejaY;
-    if ( falto <= STUPA_RISERO * 0o1/0o2 ) continue;
-    // ⟨ ជំហានដូចផ្លូវ ៖ កម្រិតតែមួយសម្រាប់គ្រប់ជណ្តើរ ។ 📃 ⟩
-    const nombro = Math.max(1, Math.round(falto / STUPA_RISERO));
     const kunigo = troviProksimanKunigon(d.landaX, d.landaZ);
     let komenco = d.komenco;
     if ( kunigo ) {
@@ -293,13 +304,15 @@ export async function konstruiUrbon(
         komenco = [ kunigo.x + diferencoX * parto, kunigo.z + diferencoZ * parto ];
       }
     }
-    const punktoj = kreiStuparajnPunktojn(komenco, d.fino, nombro);
+    // ⟨ ជំហានដូចផ្លូវ ៖ កម្រិតតែមួយសម្រាប់គ្រប់ជណ្តើរ ។ 📃 ⟩
+    // ⟨ ចំណតស្មើផ្លូវ ៖ គ្មានជណ្តើរ , ផ្លូវនិងចំណតជាប់គ្នាផ្ទាល់ 📃 ⟩
+    const stuparo = kreiDokanStuparon(komenco, d.fino, starto, d.landejaY);
+    if ( !stuparo ) continue;
     // ⟨ ជណ្តើរមានគ្រឹះដូចផ្លូវ ៖ ចុះដល់ដីក្រោមទឹក , មិនអណ្តែតទេ 📃 ⟩
     // ⟨ កម្រាលទីមួយចុះមួយកម្ពស់ជំហាន ៖ ផ្ទៃផ្លូវនៅមាត់ចានភ្ជាប់គឺជាកម្រាលលើគេ ,
     // ដូច្នេះជំហានទាំងអស់ចុះមកត្រូវនឹងផ្ទៃចំណត , មិនខ្វះជំហានចុងក្រោយទេ ។ 📃 ⟩
-    vojDifinoj.push({ pts: punktoj, w: d.larĝo, stuparo: true,
-      heightFn: kreiStuparanAlton(punktoj, starto - STUPA_RISERO - VOJA_SUPRO_LEVIGXO),
-      grundoFn: alteco });
+    vojDifinoj.push({ pts: stuparo.punktoj, w: d.larĝo, stuparo: true,
+      heightFn: stuparo.alto, grundoFn: alteco });
   }
   // ⟨ ដំណាក់កាលទីពីរ , និយមន័យ 📃 ⟩
   for ( let vojaIndekso = 0; vojaIndekso < VOJOJ.length; vojaIndekso++ ) {
@@ -318,7 +331,7 @@ export async function konstruiUrbon(
       // ដូច្នេះមាត់ស្ពានស្មើនឹងផ្លូវចូល , ហើយគ្មានជញ្ជាំងឈរនៅមាត់ទឹក ។ 📃 ⟩
       const cxuPontaAkvo = kreiPontanAkvanTeston(punktoj, vojaLarĝo, cxuVeraAkvo);
       const profilo = konstruiPontanProfilon(
-        punktoj, vojaLarĝo, vojaSupro,
+        punktoj, vojaLarĝo, ( x, z, w ) => vojaSupro( x, z, w, vojoAlteco ),
         ( x, z ) => cxuPontaAkvo(x, z)
           ? akvaNivelo(x, z) + PONT_AKVA_KLARANCO : -Infinity,
         pontaFinAlto, alteco);
@@ -368,9 +381,12 @@ export async function konstruiUrbon(
   // ដូច្នេះផ្លូវឈរលើដី ហើយគ្មានជញ្ជាំងថ្ម ។ 📃 ⟩
   const ĉefajVojSpecimenoj = konstruiVojojn(sceno, ĉiujDifinoj, vojoAlteco,
     dioritaMaterialo, andezitaMaterialo, ĉiujKunigoj,
-    { akvaFn: akvaFino, grundoFn: alteco } );
+    { akvaFn: akvaFino, grundoFn: alteco, kunigajDirektoj: vojajDirektoj,
+      kunigajFermitaj: ĉiujFermitaj, kunigajRotacioj: vojajRotacioj,
+      kunigajDuonoj: vojajDuonoj } );
   konstruiIntersekcajnPlatojn( sceno, ĉiujKunigoj, vojoAlteco,
-    dioritaMaterialo, andezitaMaterialo, ĉiujFermitaj, vojajRotacioj, vojajDirektoj, alteco );
+    dioritaMaterialo, andezitaMaterialo, ĉiujFermitaj, vojajRotacioj, vojajDirektoj, alteco,
+    vojajDuonoj );
   // ⟨ ស្ពាន ៖ ផ្ទៃស្ពានគឺជាកម្រិតចានភ្ជាប់ខ្លួនឯង , ដូច្នេះគ្មានជំហានលោតនៅមាត់ទឹក ។ 📃 ⟩
   for ( const p of pontaVojoj )
     konstruiPonton(sceno, p.ax, p.az, p.bx, p.bz, p.w, andezitaMaterialo, p.deko, alteco);

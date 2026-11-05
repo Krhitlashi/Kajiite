@@ -6,11 +6,11 @@ import * as THREE from "three";
 import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
-import { VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
-  VOJA_TRUA_DUONO, STUPA_RISERO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
+  VOJA_TRUA_DUONO, STUPA_RISERO, vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
@@ -42,7 +42,7 @@ function proksima( x: number, z: number, limo: number ) {
 function finAlto( x: number, z: number, larĝo: number ): number {
   const k = proksima(x, z, VOJA_TRUA_DUONO);
   if ( k ) return vojaSuproDeKunigo(k.x, k.z, k.direktaj, VOJA_EKSTERA_DUONO, vojoAlteco).supro;
-  const duon = larĝo / 4 + VOJA_BORDA_LARĜO;
+  const duon = vojaLarghoDuono( larĝo );
   let maks = vojoAlteco(x, z);
   for ( let i = 0; i < 0o10; i++ ) {
     const ang = i * Math.PI / 4;

@@ -4,9 +4,9 @@
 import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiBazanVojoAlton, kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
-import { VOJA_BORDA_LARĜO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
 const VOJOJ = aktivajVojoj().filter(v => v.punktoj.length >= 2);
@@ -45,7 +45,7 @@ const punktoj = gluitaj[celo];
 let longo = 0;
 for ( let k = 0; k < punktoj.length - 1; k++ )
   longo += Math.hypot(punktoj[k + 1][0] - punktoj[k][0], punktoj[k + 1][1] - punktoj[k][1]);
-const flanka = VOJOJ[celo].larĝo / 4 + VOJA_BORDA_LARĜO;
+const flanka = vojaLarghoDuono( VOJOJ[celo].larĝo );
 console.log(`⟨ ${VOJOJ[celo].nomo} ⟩ ប្រវែង ${longo.toFixed(1)} កន្លះ ${flanka.toFixed(2)}`);
 const unua = Number(process.argv[3] ?? 0), lasta = Number(process.argv[4] ?? longo);
 for ( let s = unua; s <= lasta; s += 0o2 ) {

@@ -4,10 +4,11 @@
 // ផ្លូវត្រូវចុះ/ឡើងទៅដល់កម្រិតចានជាជំហាន , មិនលោតភ្លាមទេ ។ 📃 ⟩
 import * as THREE from "three";
 import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
-import { konstruiIntersekcajnPlatojn } from "../../eskekoj/medio/vojoj/platoj.js";
+import { konstruiIntersekcajnPlatojn, kreiBrakojn, kunigaPlataNivelo }
+  from "../../eskekoj/medio/vojoj/platoj.js";
+import { plataAltoDeKunigo } from "../../eskekoj/medio/vojoj/kunig-niveloj.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
-import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
-import { STUPA_RISERO, surGrid, VOJA_EKSTERA_DUONO }
+import { STUPA_RISERO, VOJA_EKSTERA_DUONO }
   from "../../eskekoj/medio/vojoj/mezuroj.js";
 import type { VojDifino } from "../../eskekoj/medio/vojoj/tipoj.js";
 
@@ -56,6 +57,7 @@ const kazoj: Kazo[] = [
 
 const PASHO = 0o1/0o4;
 let tutaMaks = 0;
+let tutaSenUv = 0;
 
 for ( const kazo of kazoj ) {
   const defs: VojDifino[] = kazo.brakoj.map(([ dx, dz ]) =>
@@ -63,13 +65,25 @@ for ( const kazo of kazoj ) {
   const kunigoj: [ number, number ][] = [ [ 0, 0 ] ];
   const vojoAlteco = kreiVojoAlton(kazo.tero, [ { x: 0, z: 0, direktaj: kazo.brakoj } ]);
   const sceno = new THREE.Scene();
-  konstruiVojojn(sceno, defs, vojoAlteco, diorito, andezito, kunigoj);
+  // ⟨ ព័ត៌មានចានដូចគ្នាសម្រាប់ផ្លូវ និងចាន 📏 ⟩ ៖ ហ្គេមបញ្ជូន direktoj/fermitaj/rotacioj
+  // ទៅ konstruiVojojn ដូចគ្នានឹងចាន ។ បើផ្លូវគ្មានព័ត៌មាននោះ , វាសំយោគដៃ
+  // តាមអ័ក្ស ហើយអានកម្រិតចានខុសពីចានពិត = ជញ្ជាំងក្លែងក្លាយ ។ 📃 ⟩
+  const direktoj = new Map<string, [ number, number ][]>([ [ "0,0", kazo.brakoj ] ]);
+  const fermitaj = new Map<string, [ number, number ]>([ [ "0,0", [ 0, 0 ] ] ]);
+  const rotacioj = new Map<string, number>([ [ "0,0", 0 ] ]);
+  konstruiVojojn(sceno, defs, vojoAlteco, diorito, andezito, kunigoj,
+    { kunigajDirektoj: direktoj, kunigajFermitaj: fermitaj, kunigajRotacioj: rotacioj });
   konstruiIntersekcajnPlatojn(sceno, kunigoj, vojoAlteco, diorito, andezito,
-    new Map([[ "0,0", [ 0, 0 ] ]]),
-    new Map([[ "0,0", 0 ]]),
-    new Map([[ "0,0", kazo.brakoj ]]));
-  const plato = surGrid(vojaSuproDeKunigo(0, 0, kazo.brakoj,
-    VOJA_EKSTERA_DUONO, vojoAlteco).supro);
+    fermitaj, rotacioj, direktoj);
+  // ⟨ វាយនភាព 📏 ⟩ ៖ សម្ភារៈផ្លូវមាន map ។ បើធរណីមាត្រគ្មាន uv , ចានលេចជាពណ៌រាប ។ 📃 ⟩
+  const senUv = sceno.children.filter(o =>
+    o instanceof THREE.Mesh && !o.geometry.getAttribute("uv")).length;
+  tutaSenUv += senUv;
+  // ⟨ កម្រិតចានរាប 📏 ⟩ ៖ ចានទាំងមូលនៅកម្រិតតែមួយដែលបានជ្រើសពី
+  // កម្ពស់ផ្លូវដែលបានតាមដានតាមដៃ ។ គ្រប់មាត់ត្រូវប្រៀបធៀបនឹងលេខនោះ ។ 📃 ⟩
+  const rezervo = kunigaPlataNivelo(0, 0,
+    kreiBrakojn(kazo.brakoj, [ 0, 0 ], 0), vojoAlteco).alto;
+  const plato = plataAltoDeKunigo("0,0") ?? rezervo;
   const rc = new THREE.Raycaster();
   let maks = 0, loko = 0, gradoMaks = 0, mankoj = 0, busxoMaks = 0;
   for ( const [ dx, dz ] of kazo.brakoj ) {
@@ -100,7 +114,9 @@ for ( const kazo of kazoj ) {
   console.log(`⟨ ${kazo.nomo} ⟩ ចាន ${plato.toFixed(2)}` +
     ` , លោតខ្ពស់បំផុត ${maks.toFixed(3)} @${loko.toFixed(2)} ដៃ ${gradoMaks}°` +
     ` , មាត់ខុសចាន ${busxoMaks.toFixed(3)}` +
-    ` , រន្ធ ${mankoj}` + ( rompo ? "  ⚠ ជញ្ជាំង" : "" ));
+    ` , រន្ធ ${mankoj} , គ្មាន uv ${senUv}` +
+    ( rompo ? "  ⚠ ជញ្ជាំង" : "" ) + ( senUv ? "  ⚠ គ្មានវាយនភាព" : "" ));
 }
 console.log(`លោតខ្ពស់បំផុតទាំងអស់ ${tutaMaks.toFixed(3)} , លីមីត ${STUPA_RISERO.toFixed(3)}` +
-  ( tutaMaks > STUPA_RISERO + TOLERO ? "  ſ̀ȷᴜ̩ ſɭɹ }ʃꞇ" : "" ));
+  ` , ធរណីមាត្រគ្មាន uv ${tutaSenUv}` +
+  ( tutaMaks > STUPA_RISERO + TOLERO || tutaSenUv > 0 ? "  ſ̀ȷᴜ̩ ſɭɹ }ʃꞇ" : "" ));

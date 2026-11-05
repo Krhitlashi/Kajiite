@@ -4,10 +4,10 @@ import * as THREE from "three";
 import { aktivajVojoj, aktivajDokoj, aktivajUrboj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
-import { VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { VOJA_EKSTERA_DUONO, surGrid, vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { konstruiKradanUrbon } from "../../kantaoj/mondo/urbo/krada-urbo.js";
 import { kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
@@ -65,7 +65,7 @@ const ankroj = ciujKunigoj.map(([x, z]) => ({ x, z, alto: platoCxe(x, z) }));
 for (let i = 0; i < VOJOJ.length; i++) {
   const v = VOJOJ[i] as any;
   const larĝo = v.pontoLarĝo ?? v.larĝo;
-  const p = kreiNivelanProfilon(gluitaj[i], larĝo / 4 + VOJA_BORDA_LARĜO, vojoAlteco, akvaFino, ankroj);
+  const p = kreiNivelanProfilon(gluitaj[i], vojaLarghoDuono( larĝo ), vojoAlteco, akvaFino, ankroj);
   const a = gluitaj[i][0], b = gluitaj[i][gluitaj[i].length - 1];
   console.log(`⟨ ${i} ${v.nomo} ⟩ ( ${a[0].toFixed(2)},${a[1].toFixed(2)} ) ំ` +
     ` ( ${b[0].toFixed(2)},${b[1].toFixed(2)} ) ប្រវែង ${p.longo.toFixed(1)}`);

@@ -4,7 +4,7 @@
 import * as THREE from "three";
 import { aktivajVojoj, aktivajDokoj, aktivajUrboj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { konstruiKradanUrbon } from "../../kantaoj/mondo/urbo/krada-urbo.js";
-import { gluiVojaFinon } from "../../kantaoj/mondo/urbo/gluado.js";
+import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { VOJA_EKSTERA_DUONO, VOJA_BORDA_LARĜO } from "../../eskekoj/medio/vojoj/mezuroj.js";
