@@ -7,8 +7,7 @@ import { alteco, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
 import { dokaAltoCxe } from "../../eskekoj/medio/vojoj/kunig-niveloj.js";
 import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO } from "../../eskekoj/medio/doko/tipoj.js";
-import { VOJA_DIKECO, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO,
-  surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { kreiMezuranMondon } from "./komunaj.js";
 
 const mondo = kreiMezuranMondon(false);
@@ -35,13 +34,11 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   // ⟨ កម្ពស់វេទិកា និងកម្ពស់ចាន ៖ បើខុសគ្នា , ចានលេចចេញពីវេទិកា ។ 📃 ⟩
   const landX = D.x + sin * ( D.profundo / 2 );
   const landZ = D.z + kos * ( D.profundo / 2 );
-  // ⟨ សាងចំណតពិត 📏 ⟩ ៖ វាចុះឈ្មោះកម្រិតដែលចានភ្ជាប់ត្រូវយក ។ បើ
-  // ឧបករណ៍គ្រាន់តែគណនាពីវាល , វារាយការចន្លោះចាស់ដែលលែងមានហើយ ។ 📃 ⟩
-  konstruiDokon(mondo.sceno, D.x, D.z, r, mondo.vojoAlteco, akvaNivelo, D.profundo, alteco);
-  let vojaY = mondo.vojoAlteco(landX, landZ);
-  for ( const ofseto of [ -0.75, 0, 0.75 ] )
-    vojaY = Math.max(vojaY, mondo.vojoAlteco(landX + kos * ofseto, landZ - sin * ofseto));
-  vojaY = surGrid(vojaY + VOJA_SUPRO_LEVIGXO) - VOJA_SUPRO_LEVIGXO;
+  // ⟨ សាងចំណតពិត 📏 ⟩ ៖ វាចុះឈ្មោះកម្រិតដែលចានភ្ជាប់ត្រូវយក ហើយ
+  // ត្រឡប់កម្ពស់វេទិកាទាប និងចំណុចជណ្តើរ ។ វេទិកាលែងស្មើចានទៀតទេ ,
+  // ព្រោះជណ្តើរភ្ជាប់គ្នា ។ 📃 ⟩
+  const dok = konstruiDokon(mondo.sceno, D.x, D.z, r, mondo.vojoAlteco,
+    akvaNivelo, D.profundo, alteco);
   const plato = dokaAltoCxe(landX, landZ) ?? mondo.platoCxe(landX, landZ);
   trafoj += ene;
   console.log(`ចំណត ${i} @(${D.x.toFixed(1)},${D.z.toFixed(1)}) ប្រវែង ${D.profundo.toFixed(2)}` +
@@ -49,8 +46,9 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   console.log(`  ចានជិត ${plejProksima.toFixed(2)} @${loko} លើអ័ក្ស ${plejLz.toFixed(2)}` +
     ` , គែមវេទិកា ${landaZ.toFixed(2)} , ចានក្នុងវេទិកា ${ene}` +
     ( ene ? "  ſ̀ȷᴜ̩ ſɭɹ }ʃꞇ" : "" ) );
-  console.log(`  វេទិកា ${( vojaY + VOJA_DIKECO ).toFixed(2)} ចាន ${plato.toFixed(2)}` +
-    ` ខុស ${( plato - vojaY - VOJA_DIKECO ).toFixed(2)}` +
+  console.log(`  វេទិកា ${dok.landejaY.toFixed(2)} ចាន ${plato.toFixed(2)}` +
+    ` ចុះ ${( plato - dok.landejaY ).toFixed(2)}` +
+    ` , ជណ្តើរ ${dok.stuparajPunktoj.length} ចំណុច` +
     ` , កន្លះទទឹងចាន ${VOJA_EKSTERA_DUONO.toFixed(2)} / វេទិកា ${hx.toFixed(2)}` +
     ` , ចានជ្រៅ ${VOJA_TRUA_DUONO.toFixed(2)}` );
 }

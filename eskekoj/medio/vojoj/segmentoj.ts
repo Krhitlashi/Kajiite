@@ -2,8 +2,8 @@
 import * as THREE from "three";
 import { matricoPor, ANGULA_PROVOLIRO, type VojBendo, type VojGeometriajBufroj } from "./bufroj.js";
 import { kreiSegmentGeometrion } from "./formoj.js";
-import { kreiNivelajnPecojn, type NivelaProfilo } from "./niveloj.js";
-import { VOJA_EKSTERA_DUONO, VOJA_STUPA_RAMPO, VOJA_SUPRO_LEVIGXO,
+import { type UnuformaTreado } from "./niveloj.js";
+import { rampaKuro, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
   VOJA_TRUA_DUONO } from "./mezuroj.js";
 import { vojSuprajxoj } from "./tipoj.js";
 
@@ -81,10 +81,11 @@ function aldoniTreadon(ax: number, az: number, bx: number, bz: number, alto: num
   const difX = bx - ax, difZ = bz - az;
   const longo = Math.hypot(difX, difZ);
   const ndx = difX / longo, ndz = difZ / longo;
-  // ⟨ ប្រវែងជម្រាល 📏 ⟩ ៖ តាមជម្រាលកំណត់ , តែមិនលើសពាក់កណ្តាលជំហាន ,
-  // ដើម្បីឱ្យកំពូលរាបនៅសល់ជាកំពូលជំហានពិត ។
-  const rampo = fala === 0 ? 0
-    : Math.min(Math.abs(fala) * VOJA_STUPA_RAMPO, longo * 0o1/0o2);
+  // ⟨ ប្រវែងជម្រាល 📏 ⟩ ៖ ច្បាប់តែមួយ rampaKuro គុណកម្ពស់ធ្លាក់នឹង VOJA_STUPA_RAMPO ។
+  // ជណ្តើរចំណតមានចម្រៀកគ្រប់គ្រាន់ , ដូច្នេះការកាត់ត្រឹម longo ជាការកាពារ
+  // ចុងចម្រៀកប៉ុណ្ណោះ ។ ផ្លូវធម្មតាមិនឆ្លងកាត់ទីនេះទេ , ព្រោះវាអានកាលវិភាគ
+  // ជម្រាលលើផ្លូវទាំងមូល មុនពេលកាត់ជាចម្រៀក ។ 📃 ⟩
+  const rampo = fala === 0 ? 0 : Math.min( rampaKuro( fala ), longo );
   if ( rampo <= 0o1/0o1000 ) {
     aldoniBokson(ax, az, bx, bz, alto, alto, bendoj, dikecoBaza, grundoFn, bufroj);
     return [ alto, alto ];
@@ -119,7 +120,8 @@ function aldoniBokson(ax: number, az: number, bx: number, bz: number, altoA: num
   const ndx = difX / longo, ndz = difZ / longo;
   const latX = -ndz * eksteraDuon, latZ = ndx * eksteraDuon;
   const anguloj = angulojDeTreado(altoA, altoB, ax, az, bx, bz, latX, latZ, grundoFn, dikecoBaza);
-  vojSuprajxoj.push({ x1: ax, z1: az, x2: bx, z2: bz, duono: eksteraDuon, y0: altoA, y1: altoB });
+  vojSuprajxoj.push({ x1: ax, z1: az, x2: bx, z2: bz, duono: eksteraDuon,
+    y0: altoA, y1: altoB, rampo: Math.abs( altoB - altoA ) > 0o1/0o1000 });
   for ( const bendo of bendoj ) {
     const g0 = bendo.ofseto - bendo.largho / 0o2, g1 = bendo.ofseto + bendo.largho / 0o2;
     const geometrio = kreiSegmentGeometrion(bendo.largho, longo,
@@ -193,21 +195,27 @@ export function konstruiUnuformajnStuparajnSegmentojn(x1: number, z1: number, x2
 }
 
 // ⟪ ផ្លូវជំហាន 📃 ⟫
-/*សាងសង់ចម្រៀកផ្លូវតាមកម្រិតដែលបានកំណត់
+/*កាត់កាលវិភាគជម្រាលឱ្យសមនឹងចម្រៀកដែលអាចសាងសង់បាន
     @param x1, z1 ( number ) - ចំណុចដើម
     @param x2, z2 ( number ) - ចំណុចចុង
     @param s0, s1 ( number ) - ចម្ងាយតាមបណ្តោយផ្លូវ
     @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
-    @param profilo ( NivelaProfilo ) - កម្រិតផ្លូវទាំងមូល
+    @param treadoj ( UnuformaTreado [ ] ) - កាលវិភាគលើផ្លូវទាំងមូល
     @param bufroj ( VojGeometriajBufroj ) - កន្លែងប្រមូលធរណីមាត្រ
     @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
     @param grundoFn ( function ) - កម្ពស់ដីក្រោម
 @returns rezulto ( SegmentaRezulto | null ) - កម្ពស់ចុងទាំងពីរ */
+// ⟨ កាត់ មិនមែនគណនាឡើងវិញ 📏 ⟩ ៖ ច្បាប់ជម្រាលទាំងអស់ស្ថិតក្នុង
+// kreiUnuformajnTreadojn ។ ទីនេះគ្រាន់តែយកផ្នែកនៃប្រអប់ដែលស្ថិតក្នុង
+// ចម្រៀកនេះ ហើយបកប្រែជាចំណុចពិភពលោក ។ កម្ពស់កាត់ជាលីនេអ៊ែរ ,
+// ដូច្នេះច្រាំងមិនប្រែប្រួលទេ ទោះបីចម្រៀកកាត់ពាក់កណ្តាលជម្រាលក៏ដោយ ។
+// ពីមុនចម្រៀកនីមួយៗបង្កើតបំណែកកម្រិតផ្ទាល់ខ្លួន ហើយបង្ហាប់ជម្រាល
+// ឱ្យសមនឹងបំណែកខ្លី , ដូច្នេះលេចជាជញ្ជាំងឈរ ។ 📃 ⟩
 export function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z2: number,
   s0: number,
   s1: number,
   bendoj: VojBendo[],
-  profilo: NivelaProfilo,
+  treadoj: readonly UnuformaTreado[],
   bufroj: VojGeometriajBufroj,
   dikecoBaza: number,
   grundoFn: ( x: number, z: number ) => number
@@ -216,20 +224,18 @@ export function konstruiSegmentonEnBufrojn(x1: number, z1: number, x2: number, z
   const longo = Math.hypot(difX, difZ);
   const sDif = s1 - s0;
   if ( longo < 0o1/0o100 || sDif < 0o1/0o1000 ) return null;
-  const pecoj = kreiNivelajnPecojn(profilo, s0, s1);
-  // ⟨ ជម្រាលមុខជំហាន 📏 ⟩ ៖ ជំហាននីមួយៗទ្រេតចុះទៅកម្រិតបំណែកបន្ទាប់ ។ បំណែកចុងក្រោយ
-  // គ្មានបំណែកបន្ទាប់ទេ , ដូច្នេះវាបញ្ចប់រាប ( មុខឈរតូច ) ហើយចានភ្ជាប់គ្របវា ។ 📃 ⟩
   let unua = Infinity, lasta = Infinity;
-  for ( let i = 0; i < pecoj.length; i++ ) {
-    const peco = pecoj[i];
-    const sekva = pecoj[i + 1];
-    const fala = sekva ? peco.alto - sekva.alto : 0;
-    const f0 = ( peco.s0 - s0 ) / sDif, f1 = ( peco.s1 - s0 ) / sDif;
+  for ( const t of treadoj ) {
+    const a = Math.max( t.s0, s0 ), b = Math.min( t.s1, s1 );
+    if ( b - a < 0o1/0o1000 ) continue;
+    const tDif = t.s1 - t.s0;
+    const altoCxe = ( s: number ): number =>
+      t.altoA + ( t.altoB - t.altoA ) * ( s - t.s0 ) / tDif;
+    const f0 = ( a - s0 ) / sDif, f1 = ( b - s0 ) / sDif;
     const ax = x1 + difX * f0, az = z1 + difZ * f0;
     const bx = x1 + difX * f1, bz = z1 + difZ * f1;
-    if ( Math.hypot(bx - ax, bz - az) < 0o1/0o1000 ) continue;
-    // ⟨ បាតដីក្រោមជំហាន ៖ ជណ្តើរចូលដល់ដី , មិនអណ្តែតលើទឹកទេ 📃 ⟩
-    const [ altoA, altoB ] = aldoniTreadon(ax, az, bx, bz, peco.alto, fala, bendoj, dikecoBaza, grundoFn, bufroj);
+    const altoA = altoCxe( a ), altoB = altoCxe( b );
+    aldoniBokson( ax, az, bx, bz, altoA, altoB, bendoj, dikecoBaza, grundoFn, bufroj );
     if ( unua === Infinity ) unua = altoA;
     lasta = altoB;
   }

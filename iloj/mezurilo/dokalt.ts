@@ -1,7 +1,7 @@
 // ≺⧼ ការវាស់កម្ពស់ចំណត 🧪 ⧽≻
 import * as THREE from "three";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
-import { kreiStuparanAlton, kreiStuparajnPunktojn } from "../../eskekoj/medio/doko/stuparo.js";
+import { kalkuliStupanNombron, kreiStuparanAlton, kreiStuparajnPunktojn } from "../../eskekoj/medio/doko/stuparo.js";
 import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
 import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
 import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
@@ -34,7 +34,7 @@ for ( const d of DOKOJ ) {
   if ( doko.stuparajPunktoj.length < 2 ) continue;
   const starto = surGrid(pontaFinAlto(landaX, landaZ, doko.platformWidth, kunigoj));
   const falto = starto - doko.landejaY;
-  const nombro = Math.max(2, Math.ceil(falto / STUPA_RISERO) + 1);
+  const nombro = kalkuliStupanNombron(falto);
   const punktoj = kreiStuparajnPunktojn(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro);
   const trunko = Math.hypot(punktoj[0][0] - punktoj[nombro][0], punktoj[0][1] - punktoj[nombro][1]);
   console.log("  starto " + starto.toFixed(4) + " , falto " + falto.toFixed(4) +

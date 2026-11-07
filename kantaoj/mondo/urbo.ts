@@ -55,6 +55,7 @@ import { kreiBazanVojoAlton, kreiVojoAlton } from "../../eskekoj/medio/vojoj/alt
 import { konstruiPontanProfilon, havasAkvanTrunkon, kreiPontanAkvanTeston,
   type PontoTrako } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
 import { kreiBrakojn, kunigaPlataAlto } from "../../eskekoj/medio/vojoj/platoj.js";
+import { dokaAltoCxe } from "../../eskekoj/medio/vojoj/kunig-niveloj.js";
 import { surPosxtelefono } from "../bildo/scena/aparato.js";
 import { skulptitaBesto, aktivajUrboj, aktivajVojoj, aktivajDokoj,
   aktivajObjektoj, cxuGeneritaSetlejo, mondiaHazardo } from "../tero-datumaro/rultempo.js";
@@ -184,6 +185,11 @@ export async function konstruiUrbon(
     return plejMallonga < VOJA_TRUA_DUONO ? plejProksima : null;
   }
   function pontaFinAlto( x: number, z: number, larĝo: number ): number {
+    // ⟨ ចំណត ⚓ ⟩ ៖ ចានភ្ជាប់នៅមាត់ចំណតយកកម្រិតដែលចំណតបានចុះឈ្មោះ ។
+    // ជណ្តើរចាប់ផ្តើមពីកម្រិតនោះ ហើយចុះដល់វេទិកាទាប ។ បើគណនាពីវាល
+    // វិញ , កម្រាលទីមួយខុសពីចាន ហើយឃើញជញ្ជាំងនៅក្បាលជណ្តើរ ។ 📃 ⟩
+    const doka = dokaAltoCxe(x, z);
+    if ( doka !== undefined ) return doka;
     // ⟨ កម្រិតចានភ្ជាប់ត្រូវដូចកម្រិតផ្លូវដែលឆ្លងចូលមក ដើម្បីកុំឱ្យចានលិចទៅផ្លូវ ។ 📃 ⟩
     const kunigo = troviProksimanKunigon(x, z);
     if ( kunigo )

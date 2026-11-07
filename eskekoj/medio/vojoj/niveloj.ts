@@ -4,11 +4,13 @@
 // ហើយមិនធ្លាក់ចូលរណ្តៅខ្លីរួចឡើងវិញ ។ 📃 ⟩
 import { VOJA_TERA_KLINO } from "./alto.js";
 import { plataAltoCxe, type PlataNivelo } from "./formoj.js";
-import { STUPA_RISERO, subGrid, surGrid, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./mezuroj.js";
+import { rampaKuro, STUPA_RAMPO_KURO, STUPA_RISERO, subGrid, surGrid,
+  VOJA_BURIAL_TOLERANCO, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./mezuroj.js";
 
 // ⟪ ការគំរូ 📏 ⟫
-// ⟨ ចម្ងាយរវាងគំរូកម្ពស់ ៖ ជំហានខ្លីបំផុតមួយ ។ 📃 ⟩
-export const NIVELA_PASO = 0o1/0o2;
+// ⟨ ចម្ងាយរវាងគំរូកម្ពស់ ៖ ស្មើនឹងប្រវែងជម្រាលនៃជំហានពេញមួយ ។
+// ដូច្នេះគំរូពីរជាប់គ្នាអាចផ្ទុកជម្រាលពេញមួយដោយមិនបង្ហាប់ ។ 📃 ⟩
+export const NIVELA_PASO = STUPA_RAMPO_KURO;
 
 // ⟨ ការរលូនខ្លី ៖ រណ្តៅ និងពំនូកខ្លីជាងចម្ងាយនេះត្រូវរលាយបាត់ ។ 📃 ⟩
 // ⟨ ធំជាងមុន 📏 ⟩ ៖ មុននេះ ៦ ។ ដីមានពំនូកតូចគ្រប់កន្លែង , ដូច្នេះផ្លូវឡើងចុះ
@@ -27,7 +29,7 @@ export const NIVELA_KONFIRMO = 0o10;
 // មួយជំហានក្នុងមួយគំរូ ។ មុននេះជំហានមួយរាល់ ១ ឯកតា , ដូច្នេះផ្លូវចុះបានតែ ០.៥
 // ក្នុងមួយឯកតា ។ ជម្រាលដីច្រើនចោទជាងនោះ , ដូច្នេះផ្លូវអណ្តែតខ្ពស់លើដីរាប់សិបឯកតា
 // ហើយជញ្ជាំងក្រោមវាខ្ពស់ទទេ ។ ឥឡូវផ្លូវតាមដីបានដល់ ១ ឯកតាក្នុងមួយឯកតា ។ 📃 ⟩
-export const NIVELA_STUPA_DISTO = 0o1/0o2;
+export const NIVELA_STUPA_DISTO = STUPA_RAMPO_KURO;
 
 // ⟨ ចំណុចតាមបណ្តោយ ៖ ដើម , កណ្តាល , ចុង ។ 📃 ⟩
 const LAUXAJ = [ -0o1/0o2, 0, 0o1/0o2 ];
@@ -305,11 +307,12 @@ export function kreiNivelanProfilon(
   // ដូច្នេះគែមខ្ពស់ៗខ្លីៗមិនត្រូវលើកកម្រិតផ្លូវទាំងមូលទេ ។ 📃 ⟩
   const centra: number[] = [];
   const randoj: number[] = [];
+  const randoMaks: number[] = [];
   const situoj: number[] = [];
   for ( let i = 0; i <= nombro; i++ ) {
     const s = i * disto;
     let mezo = -Infinity, rando = -Infinity;
-    let randoSumo = 0, randoNombro = 0;
+    let randoSumo = 0, randoNombro = 0, randoPlej = -Infinity;
     for ( const lauxa of LAUXAJ ) {
       const p = pozicio(s + lauxa * disto);
       mezo = Math.max(mezo, heightFn(p.x, p.z));
@@ -322,15 +325,18 @@ export function kreiNivelanProfilon(
         const flanka = duono * radio;
         for ( let i = 0; i < RONDAJ; i++ ) {
           const angulo = i * Math.PI * 0o2 / RONDAJ;
-          randoSumo += heightFn(p.x + Math.cos(angulo) * flanka,
+          const tero = heightFn(p.x + Math.cos(angulo) * flanka,
             p.z + Math.sin(angulo) * flanka);
+          randoSumo += tero;
           randoNombro++;
+          if ( tero > randoPlej ) randoPlej = tero;
         }
       }
     }
     rando = randoNombro > 0 ? randoSumo / randoNombro : mezo;
     centra.push(mezo);
     randoj.push(rando);
+    randoMaks.push(randoPlej);
     situoj.push(s);
   }
   const fenestro = Math.max(0, Math.round(NIVELA_GLATIGO / disto));
@@ -357,6 +363,45 @@ export function kreiNivelanProfilon(
   // ⟨ រណ្តៅរាក់ត្រូវបំពេញមុនការកំណត់ជំហាន 📃 ⟩ ៖ បើមិនដូច្នេះ ផ្លូវចុះចូល
   // ជ្រុងហើយឡើងវិញ ។ ការបំពេញធ្វើលើគម្រោង , ដូច្នេះស្មានៅតែជាដីពិត ។ 📃 ⟩
   const celoj = celojDeProfilo(celojTaj, disto);
+  // ⟨ ចានដែលផ្លូវនេះភ្ជាប់ 📏 ⟩ ៖ គណនាមុនបាត ព្រោះបាតត្រូវគោរព
+  // កោណរបស់ចានដូចគ្នា ។ មើលការពន្យល់ពេញខាងក្រោម ។ 📃 ⟩
+  const punktojCxe: { x: number; z: number }[] = situoj.map(s => pozicio(s));
+  const proksimaj: NivelaKunigo[] = kunigoj && kunigoj.length
+    ? kunigoj.filter(k => punktojCxe.some(p =>
+      Math.hypot(p.x - k.x, p.z - k.z) <= VOJA_TRUA_DUONO))
+    : [];
+  // ⟪ បាតដីដែលផ្លូវមិនអាចចុះក្រោម 📏 ⟫
+  // ⟨ កោណចានទាញផ្លូវចុះក្រោមដី 📃 ⟩ ៖ ការកំណត់កោណត្រូវទាញផ្លូវ
+  // មករកកម្រិតចាន , តែចានដែលស្ថិតនៅជើងភ្នំអាចទាបជាងដីដែលផ្លូវឆ្លង
+  // ច្រើនជំហាន ។ ពេលនោះផ្លូវបាត់ចូលក្នុងដី ហើយឃើញតែគែមរបស់វា ។
+  // ម្យ៉ាងទៀត kreiTreadojn ឡើងតែមួយជំហានក្នុងមួយគំរូ , ដូច្នេះវាអាច
+  // យឺតជាងដីដែលឡើងលឿន ។ បាតនេះគណនាពីវាលកម្ពស់ដែលផ្លូវអានផ្ទាល់ ,
+  // ដូច្នេះវាមិនទាបជាងដីពិតទេ ។ វាចូលរួមក្នុងគម្រោងមុនជំហាន និង
+  // ត្រូវពិនិត្យម្តងទៀតលើកម្រិតចុងក្រោយ ។ 📃 ⟩
+  // ⟨ គែមទាំងពីរត្រូវលើដី 📏 ⟩ ៖ បាតអានខ្ពស់បំផុតលើទទឹងផ្លូវទាំងមូល ។
+  // បើកំណត់អតិរេកគែមត្រឹមមួយជំហាន , គែមខាងខ្ពស់នៅតែកប់ចូលភ្នំ ហើយ
+  // ផ្លូវបាត់ជាពាក់កណ្តាល ។ កោណចានខាងក្រោមកំណត់ការលើកឱ្យជាប់មាត់ចាន ។ 📃 ⟩
+  // ⟨ បាតគោរពកោណចាន 📏 ⟩ ៖ បើបាតលើកផ្លូវខ្ពស់ជាងចានភ្លាមៗនៅមាត់ ,
+  // មាត់នោះក្លាយជាជញ្ជាំងឈរ ។ ដូច្នេះកំណត់បាតឱ្យមិនលើសកម្រិតចាន
+  // បូកមួយជំហាន បូកជម្រាលដែលផ្លូវអាចឡើងតាមចម្ងាយពីមាត់ចាន ។ 📃 ⟩
+  const planko = centra.map(( mezo, i ) => {
+    const bazo = surGrid(
+      Math.max(mezo, randoMaks[ i ])
+        + VOJA_SUPRO_LEVIGXO - VOJA_BURIAL_TOLERANCO);
+    let kapo = Infinity;
+    for ( const k of proksimaj ) {
+      const d = Math.hypot(punktojCxe[ i ].x - k.x, punktojCxe[ i ].z - k.z);
+      const ekstera = Math.max(0, d - VOJA_TRUA_DUONO);
+      // ⟨ មួយជំហានលើកោណ 📏 ⟩ ៖ បាតអាចខ្ពស់ជាងចានមួយជំហាន , បូក
+      // ជម្រាលដែលផ្លូវអាចឡើងតាមចម្ងាយ ។ ការបន្ថែមតូចជាងនេះទុកឱ្យ
+      // ផ្លូវកប់ក្នុងដីខ្ពស់ជាប់ចានដោយមិនលុបជញ្ជាំងចេញ ។ 📃 ⟩
+      const limo = k.alto + VOJA_TERA_KLINO * ekstera + STUPA_RISERO;
+      if ( limo < kapo ) kapo = limo;
+    }
+    return Number.isFinite(kapo) ? Math.min(bazo, subGrid(kapo)) : bazo;
+  });
+  for ( let i = 0; i < celoj.length; i++ )
+    if ( planko[ i ] > celoj[ i ] ) celoj[ i ] = planko[ i ];
   // ⟪ ចំណុចភ្ជាប់ត្រូវឈរលើចាន 📏 ⟫
   // ⟨ ការរលូនខ្លី និងការកំណត់ជំហាន លុបកំពូលតូចរបស់ចំណុចភ្ជាប់ ,
   // ព្រោះកំពូលនោះខ្លីជាងបង្អួច ។ ដូច្នេះផ្លូវនៅមាត់ចានទាបជាងចានច្រើនជំហាន ,
@@ -372,11 +417,6 @@ export function kreiNivelanProfilon(
   // ⟨ កោណចាប់ពីមាត់ចាន 📏 ⟩ ៖ ផ្លូវចេញពីចាននៅ VOJA_TRUA_DUONO , ដូចគ្នានឹង
   // ការតម្រឹមកម្រិតចានក្នុង alto.ts ។ បើកោណចាប់ពីរង្វង់ធំជាងនេះ ,
   // ផ្លូវខ្វះចម្ងាយឡើងរវាងចានពីរ , ហើយមាត់ចានទាបជាងចានមួយជំហាន ។ 📃 ⟩
-  const punktojCxe: { x: number; z: number }[] = situoj.map(s => pozicio(s));
-  const proksimaj: NivelaKunigo[] = kunigoj && kunigoj.length
-    ? kunigoj.filter(k => punktojCxe.some(p =>
-      Math.hypot(p.x - k.x, p.z - k.z) <= VOJA_TRUA_DUONO))
-    : [];
   if ( proksimaj.length ) {
     for ( let i = 0; i < celoj.length; i++ ) {
       const p = punktojCxe[ i ];
@@ -440,6 +480,84 @@ export function kreiNivelanProfilon(
       if ( limo < altoj[ i ] ) altoj[ i ] = Math.max(celoj[ i ], limo);
     }
   }
+  // ⟨ ពិនិត្យចុងក្រោយ 📏 ⟩ ៖ គ្មានជំហានណាអាចនៅក្រោមដីបានទេ , ទោះបី
+  // ការបញ្ជាក់ការចុះ ឬ កោណចានទាញវាចុះក៏ដោយ ។ 📃 ⟩
+  for ( let i = 0; i < altoj.length; i++ )
+    if ( planko[ i ] > altoj[ i ] ) altoj[ i ] = planko[ i ];
+  // ⟨ បាតមិនបង្កើតលោតថ្មី 📏 ⟩ ៖ បាតខ្ពស់មួយគំរូអាចលេចជាជញ្ជាំងឈរ
+  // បើគំរូជិតខាងនៅទាប ។ kreiCxramgon លើកគំរូជិតខាងឡើងតាមជម្រាល
+  // អតិបរមា , ដូច្នេះផ្លូវឡើងជាជំហានស្មើគ្នាមុនពេលដល់បាតនោះ ។ 📃 ⟩
+  const glatigitaj = kreiCxramgon(altoj, disto);
+  for ( let i = 0; i < altoj.length; i++ ) altoj[ i ] = glatigitaj[ i ];
+  // ⟪ ជម្រាលមិននៅក្នុងកន្លែងបត់ 📏 ⟫
+  // ⟨ មុខជំហានកាត់ជង្គង់មូល 📃 ⟩ ៖ aldoniTreadon ដាក់មុខជម្រាលនៅចុង
+  // បំណែកកម្រិតនីមួយៗ ។ បើព្រំដែនកម្រិតធ្លាក់លើចំណុចបត់ , មុខជម្រាល
+  // លេចជាឆ្នូតងងឹតកាត់ជង្គង់មូល ។ ដូច្នេះរក្សាកម្រិតតែមួយពេញរង្វង់
+  // ជង្គង់ ហើយរុញភាពខុសគ្នាចេញទៅគំរូក្រៅរង្វង់ មួយជំហានក្នុងមួយគំរូ ។
+  // ផ្លូវនៅតែរាបក្នុងបត់ ហើយជំហានកើតមុន ឬ ក្រោយបត់ ។ 📃 ⟩
+  const turnajSituoj: number[] = [];
+  let akumita = 0;
+  for ( let k = 0; k < punktoj.length - 0o1; k++ ) {
+    const ax = punktoj[ k ][ 0 ], az = punktoj[ k ][ 1 ];
+    const bx = punktoj[ k + 0o1 ][ 0 ], bz = punktoj[ k + 0o1 ][ 1 ];
+    const l1 = Math.hypot(bx - ax, bz - az);
+    if ( l1 < 0o1 / 0o1000 ) continue;
+    akumita += l1;
+    if ( k + 0o2 >= punktoj.length ) break;
+    const cx = punktoj[ k + 0o2 ][ 0 ], cz = punktoj[ k + 0o2 ][ 1 ];
+    const l2 = Math.hypot(cx - bx, cz - bz);
+    if ( l2 < 0o1 / 0o1000 ) continue;
+    const u1x = ( bx - ax ) / l1, u1z = ( bz - az ) / l1;
+    const u2x = ( cx - bx ) / l2, u2z = ( cz - bz ) / l2;
+    const turno = Math.abs(Math.atan2(u1x * u2z - u1z * u2x,
+      u1x * u2x + u1z * u2z));
+    if ( turno > 0o1 / 0o20 ) turnajSituoj.push(akumita);
+  }
+  if ( turnajSituoj.length > 0 ) {
+    const zono = duono + STUPA_RISERO;
+    const originalaj = [ ...altoj ];
+    const zonoj = turnajSituoj.map(sT => {
+      const meza = Math.max(0, Math.min(nombro, Math.round(sT / disto)));
+      let a = meza, b = meza;
+      while ( a > 0 && Math.abs(situoj[ a - 0o1 ] - sT) <= zono ) a--;
+      while ( b < nombro && Math.abs(situoj[ b + 0o1 ] - sT) <= zono ) b++;
+      let nivelo = originalaj[ meza ];
+      for ( let i = a; i <= b; i++ ) nivelo = Math.max(nivelo, planko[ i ]);
+      return { a, b, nivelo };
+    });
+    for ( let i = 0; i < altoj.length; i++ ) {
+      let suba = -Infinity, supra = Infinity;
+      for ( const z of zonoj ) {
+        const distanco = i < z.a ? z.a - i : i > z.b ? i - z.b : 0;
+        const marĝo = distanco * STUPA_RISERO;
+        suba = Math.max(suba, z.nivelo - marĝo);
+        supra = Math.min(supra, z.nivelo + marĝo);
+      }
+      altoj[ i ] = suba <= supra
+        ? Math.max(suba, Math.min(supra, originalaj[ i ]))
+        : originalaj[ i ];
+    }
+  }
+  // ⟪ កម្រិតក្រោមចានគឺកម្រិតចាន 📏 ⟫
+  // ⟨ ផ្លូវដែលចូល ឬ ចេញពីចានត្រូវឈរស្មើចានពិតនៅមាត់ចាន ។
+  // ពីមុនបាតដី និងការរលូនជម្រាលលើកគំរូនៅជិតចានឡើងលើកម្រិតចាន ,
+  // ព្រោះដីឡើងលឿនជាងជម្រាលអនុញ្ញាត ។ លទ្ធផលគឺជញ្ជាំងឈរនៅមាត់ចាន ។
+  // ឥឡូវគំរូដែលស្ថិតក្រោមចានត្រូវបង្ខំឱ្យស្មើចាន ។ ផ្នែកនោះមើលមិនឃើញ
+  // ទេ , ហើយកាលវិភាគជម្រាលដាក់ជម្រាលពេញមួយនៅលើផ្លូវដែលឃើញ ។ 📃 ⟩
+  if ( proksimaj.length ) {
+    for ( let i = 0; i < altoj.length; i++ ) {
+      const p = punktojCxe[ i ];
+      let plejMalgranda = Infinity, plata = NaN;
+      for ( const k of proksimaj ) {
+        const d = Math.hypot(p.x - k.x, p.z - k.z);
+        if ( d <= VOJA_TRUA_DUONO && d < plejMalgranda ) {
+          plejMalgranda = d;
+          plata = k.alto;
+        }
+      }
+      if ( Number.isFinite(plata) ) altoj[ i ] = plata;
+    }
+  }
   const altoCxe = ( s: number ): number => {
     const i = Math.max(0, Math.min(nombro, Math.round(s / disto)));
     return altoj[ i ];
@@ -447,36 +565,85 @@ export function kreiNivelanProfilon(
   return { altoj, celoj, situoj, longo, centraj, glataj, altoCxe };
 }
 
-// ⟪ បំណែកកម្រិត 📃 ⟫
-export interface NivelaPeco {
+// ⟪ ប្រអប់ផ្ទៃឯកសណ្ឋាន 📦 ⟫
+// ⟨ ប្រអប់មួយរត់ពី s0 ទៅ s1 , កម្ពស់ផ្ទៃប្រែប្រួលជាលីនេអ៊ែរ ។
+// ប្រអប់រាបមាន altoA ស្មើ altoB , ប្រអប់ជម្រាលមានច្រាំងដូចគ្នាគ្រប់ផ្លូវ ។ 📃 ⟩
+export interface UnuformaTreado {
   s0: number;
   s1: number;
-  alto: number;
+  altoA: number;
+  altoB: number;
 }
 
-/*បំបែកចម្រៀកផ្លូវជាបំណែកដែលមានកម្រិតថេរ
-    @param profilo ( NivelaProfilo ) - កម្រិតផ្លូវ
-    @param s0 ( number ) - ចម្ងាយចាប់ផ្តើម
-    @param s1 ( number ) - ចម្ងាយបញ្ចប់
-@returns pecoj ( NivelaPeco [ ] ) - បំណែកតាមលំដាប់ */
-export function kreiNivelajnPecojn(
-  profilo: NivelaProfilo,
-  s0: number,
-  s1: number
-): NivelaPeco[] {
-  const pecoj: NivelaPeco[] = [];
-  if ( s1 - s0 < 0o1/0o1000 ) return pecoj;
-  let komenco = s0;
-  let alto = profilo.altoCxe(s0);
-  for ( let i = 0; i < profilo.altoj.length; i++ ) {
-    const s = profilo.situoj[ i ];
-    if ( s <= s0 + 0o1/0o1000 || s >= s1 - 0o1/0o1000 ) continue;
-    const nuna = profilo.altoj[ i ];
-    if ( nuna === alto ) continue;
-    pecoj.push({ s0: komenco, s1: s, alto });
-    komenco = s;
-    alto = nuna;
+// ⟪ រន្ធចានភ្ជាប់ 📃 ⟫
+// ⟨ ចន្លោះដែលចានគ្របលើផ្លូវ ។ ជម្រាលមិនគួរចាប់ផ្តើមនៅក្រោមចានទេ ,
+// ព្រោះផ្នែកនោះមើលមិនឃើញ ហើយផ្លូវដែលឃើញចាប់ផ្តើមពាក់កណ្តាលជម្រាល ។ 📃 ⟩
+export interface VojaTruo {
+  s0: number;
+  s1: number;
+}
+
+// ⟪ កាលវិភាគជម្រាលលើផ្លូវទាំងមូល 📏 ⟫
+/*គណនាប្រអប់ផ្ទៃម្តងលើផ្លូវទាំងមូល មុនពេលកាត់ជាចម្រៀក ឬ រន្ធចានភ្ជាប់
+    @param profilo ( NivelaProfilo ) - កម្រិតផ្លូវទាំងមូល
+    @param truoj ( VojaTruo [ ] ) - រន្ធចានភ្ជាប់តាមចម្ងាយបណ្តោយផ្លូវ
+@returns treadoj ( UnuformaTreado [ ] ) - ប្រអប់រាប និងជម្រាល តាមលំដាប់ */
+// ⟨ ហេតុអ្វីផ្លូវទាំងមូល 📃 ⟩ ៖ ពីមុនជម្រាលគណនាក្នុងបំណែកកម្រិតនីមួយៗ ។
+// ចម្រៀកត្រង់ និងរន្ធចានភ្ជាប់កាត់បំណែកនៅចំណុចណាមួយ , មិនស្មើគំរូកម្ពស់ទេ ។
+// បំណែកដំបូងរបស់ចម្រៀកអាចខ្លីជាងប្រវែងជម្រាល , ហើយមុខជម្រាលត្រូវបង្ហាប់
+// រហូតឈរដូចជញ្ជាំង ។ ឥឡូវគណនាកាលវិភាគមុនកាត់ ៖ ជម្រាលនីមួយៗទទួល
+// ប្រវែង rampaKuro នៃកម្ពស់ធ្លាក់របស់វា , ហើយចម្រៀកគ្រាន់តែកាត់ប្រអប់ទាំងនោះ ។
+// កាត់ពាក់កណ្តាលជម្រាលនៅតែរក្សាច្រាំងដើម , ព្រោះកម្ពស់ប្រែជាលីនេអ៊ែរ ។ 📃 ⟩
+// ⟨ ព្រំដែនរុញទៅមុខ 📏 ⟩ ៖ បើគំរូកម្ពស់ជាប់គ្នាជាងប្រវែងជម្រាល , ជម្រាល
+// ចាប់ផ្តើមត្រង់កន្លែងដែលជម្រាលមុនបញ្ចប់ ហើយព្រំដែនកម្រិតរុញទៅមុខ
+// តាមចំនួនដែលចាំបាច់ ។ ផ្លូវក្លាយជាច្រាំងបន្ត , គ្មានមុខឈរ គ្មានជាន់គ្នា
+// និងគ្មានជម្រាលណាត្រូវបង្ហាប់ទេ ។ 📃 ⟩
+// ⟨ គែមចាន 📏 ⟩ ៖ ជម្រាលមិនចាប់ផ្តើមក្រោមចាន , តែចាប់ផ្តើមត្រង់គែម
+// ចេញរបស់វា ។ បើគ្មានចន្លោះគ្រប់គ្រាន់ , ព្រំដែនកម្រិតរុញទៅមុខដូចគ្នា ។ 📃 ⟩
+export function kreiUnuformajnTreadojn( profilo: NivelaProfilo,
+  truoj: readonly VojaTruo[] = [] ): UnuformaTreado[] {
+  const treadoj: UnuformaTreado[] = [];
+  const { altoj, situoj, longo } = profilo;
+  const eta = 0o1/0o1000;
+  if ( altoj.length === 0 || longo <= eta ) return treadoj;
+  const aldoni = ( s0: number, s1: number, altoA: number, altoB: number ): void => {
+    if ( s1 - s0 > eta ) treadoj.push({ s0, s1, altoA, altoB });
+  };
+  // ⟨ បញ្ចូលរន្ធជាប់គ្នា 📏 ⟩ ៖ ចានមួយអាចកាត់ចម្រៀកពីរជាប់គ្នា ។
+  const ordigitaj = truoj
+    .filter(t => t.s1 > 0 && t.s0 < longo)
+    .map(t => ({ s0: Math.max(0, t.s0), s1: Math.min(longo, t.s1) }))
+    .sort(( p, q ) => p.s0 - q.s0);
+  const kunfanditaj: VojaTruo[] = [];
+  for ( const t of ordigitaj ) {
+    const lasta = kunfanditaj[ kunfanditaj.length - 0o1 ];
+    if ( lasta && t.s0 <= lasta.s1 + eta ) lasta.s1 = Math.max(lasta.s1, t.s1);
+    else kunfanditaj.push({ ...t });
   }
-  pecoj.push({ s0: komenco, s1, alto });
-  return pecoj;
+  const eliroj = kunfanditaj.map(t => t.s1);
+  let lastaFino = 0;
+  let nivelo = altoj[ 0 ];
+  for ( let i = 1; i < altoj.length; i++ ) {
+    const fala = altoj[ i ] - nivelo;
+    if ( Math.abs( fala ) < eta ) { nivelo = altoj[ i ]; continue; }
+    let b = Math.min(longo, situoj[ i ]);
+    // ⟨ ព្រំដែនក្រោមចានរុញទៅមាត់ចាន 📏 ⟩ ៖ កម្រិតចានត្រូវបានបង្ខំ
+    // លើគំរូក្រោមចាន ។ បើទុកជម្រាលឱ្យបញ្ចប់ក្រោមចាន , ផ្លូវដែលឃើញ
+    // ចាប់ផ្តើមពាក់កណ្តាលជម្រាល ហើយលេចជាជញ្ជាំង ។ រុញព្រំដែនមក
+    // គែមចូលវិញ ដូច្នេះជម្រាលបញ្ចប់ត្រង់មាត់ចាន ។ 📃 ⟩
+    for ( const t of kunfanditaj )
+      if ( b > t.s0 + eta && b < t.s1 - eta ) { b = t.s0; break; }
+    const kuro = rampaKuro( fala );
+    let limo = lastaFino;
+    for ( const s1 of eliroj )
+      if ( s1 < b - eta ) limo = Math.max(limo, s1);
+    const komenco = Math.max( limo, b - kuro );
+    const fino = Math.max( b, komenco + kuro );
+    aldoni( lastaFino, komenco, nivelo, nivelo );
+    aldoni( komenco, fino, nivelo, altoj[ i ] );
+    lastaFino = fino;
+    nivelo = altoj[ i ];
+  }
+  aldoni( lastaFino, longo, nivelo, nivelo );
+  return treadoj;
 }

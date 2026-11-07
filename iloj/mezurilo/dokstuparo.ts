@@ -10,8 +10,10 @@ import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
-  VOJA_TRUA_DUONO, STUPA_RISERO, vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
+  VOJA_TRUA_DUONO, vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
+import { kreiDokanStuparon } from "../../eskekoj/medio/doko/stuparo.js";
+import { dokaAltoCxe } from "../../eskekoj/medio/vojoj/kunig-niveloj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
 const sceno = new THREE.Scene();
@@ -63,30 +65,32 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   const landaX = d.x + Math.sin(r) * ( d.profundo / 2 );
   const landaZ = d.z + Math.cos(r) * ( d.profundo / 2 );
   const larĝo = doko.platformWidth;
-  const starto = finAlto(landaX, landaZ, larĝo);
-  const falto = starto - doko.landejaY;
-  const nombro = Math.max(1, Math.round(falto / STUPA_RISERO));
+  // ⟨ អានកម្រិតចានដែលបានចុះឈ្មោះ 📏 ⟩ ៖ ដូច pontaFinAlto ក្នុងហ្គេម ។ 📃 ⟩
+  const starto = dokaAltoCxe(landaX, landaZ) ?? finAlto(landaX, landaZ, larĝo);
   // ⟨ ចំណុចចាប់ផ្តើមក្រោយការផ្លាស់ ៖ នៅមាត់ចានភ្ជាប់ 📃 ⟩
   const kunigo = proksima(landaX, landaZ, VOJA_TRUA_DUONO);
   let komenco = doko.stuparajPunktoj[0];
+  const fino = doko.stuparajPunktoj[1];
   if ( kunigo ) {
-    const dx = doko.stuparajPunktoj[1][0] - kunigo.x, dz = doko.stuparajPunktoj[1][1] - kunigo.z;
+    const dx = fino[0] - kunigo.x, dz = fino[1] - kunigo.z;
     const longo = Math.hypot(dx, dz);
     if ( longo > VOJA_TRUA_DUONO )
       komenco = [ kunigo.x + dx * VOJA_TRUA_DUONO / longo, kunigo.z + dz * VOJA_TRUA_DUONO / longo ];
   }
-  const plato = kunigo
-    ? vojaSuproDeKunigo(kunigo.x, kunigo.z, kunigo.direktaj, VOJA_EKSTERA_DUONO, vojoAlteco).supro
-    : NaN;
-  const startoStuparo = finAlto(komenco[0], komenco[1], larĝo);
-  const unua = starto - STUPA_RISERO;
-  const lasta = unua - ( nombro - 1 ) * STUPA_RISERO;
+  // ⟨ ហៅអនុគមន៍តែមួយដូចហ្គេម 📏 ⟩ ៖ កុំគណនាលេខជំហានដោយច្បាប់ផ្សេង ។ 📃 ⟩
+  const stuparo = kreiDokanStuparon(komenco, fino, starto, doko.landejaY);
+  if ( !stuparo ) {
+    console.log(`  ចំណត ${i} ៖ គ្មានជណ្តើរ , វេទិកា ${doko.landejaY.toFixed(3)}`);
+    continue;
+  }
+  const unua = stuparo.alto(komenco[0], komenco[1]) + VOJA_SUPRO_LEVIGXO;
+  const lasta = stuparo.alto(fino[0], fino[1]) + VOJA_SUPRO_LEVIGXO;
   console.log(`  ចំណត ${i} ( ${d.x.toFixed(1)}, ${d.z.toFixed(1)} )` +
-    ` ៖ ចាន ${Number.isNaN(plato) ? "-" : plato.toFixed(3)}` +
-    ` , មាត់ដី ${starto.toFixed(3)} , ជណ្តើរ ${startoStuparo.toFixed(3)}` +
-    ` , ជំហាន ${nombro} , លើ ${unua.toFixed(3)} , ក្រោម ${lasta.toFixed(3)}` +
-    ` , មាត់ចំណត ${doko.landejaY.toFixed(3)} , ចុងខុស ${( lasta - doko.landejaY ).toFixed(3)}` +
-    ` , ជំហានទីមួយក្រោមចាន ${( plato - unua ).toFixed(3)}` +
-    ` , វេទិកា ${doko.platformY.toFixed(2)} , ចម្ងាយ ${Math.hypot(komenco[0] - doko.stuparajPunktoj[0][0],
+    ` ៖ ចាន ${starto.toFixed(3)} , ជំហាន ${stuparo.nombro}` +
+    ` , លើ ${unua.toFixed(3)} , ក្រោម ${lasta.toFixed(3)}` +
+    ` , មាត់ចំណត ${doko.landejaY.toFixed(3)}` +
+    ` , ចុងខុស ${( lasta - doko.landejaY ).toFixed(3)}` +
+    ` , ក្បាលខុស ${( starto - unua ).toFixed(3)}` +
+    ` , ចម្ងាយ ${Math.hypot(komenco[0] - doko.stuparajPunktoj[0][0],
       komenco[1] - doko.stuparajPunktoj[0][1]).toFixed(2)}`);
 }

@@ -13,9 +13,10 @@ import { kreiVojoAlton, kreiBazanVojoAlton } from "../../eskekoj/medio/vojoj/alt
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
 import { punktoCxe } from "./komunaj.js";
 import { VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO, KORNA_R,
-  STUPA_RISERO, surGrid, VOJA_TRUA_DUONO, vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
+  STUPA_RISERO, surGrid, VOJA_TRUA_DUONO, VOJA_BURIAL_TOLERANCO,
+  vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { PONT_AKVA_KLARANCO } from "../../eskekoj/medio/doko/ponto.js";
-import { kreiStuparajnPunktojn, kreiStuparanAlton } from "../../eskekoj/medio/doko/stuparo.js";
+import { kalkuliStupanNombron, kreiStuparajnPunktojn, kreiStuparanAlton } from "../../eskekoj/medio/doko/stuparo.js";
 import { konstruiPontanProfilon, havasAkvanTrunkon, kreiPontanAkvanTeston } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
 import { konstruiKradanUrbon } from "../../kantaoj/mondo/urbo/krada-urbo.js";
@@ -23,6 +24,7 @@ import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { ANGULA_PROVOLIRO } from "../../eskekoj/medio/vojoj/bufroj.js";
 import { kunigajNiveloj } from "../../eskekoj/medio/vojoj/kunig-niveloj.js";
+import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
 
 const VOJOJ = aktivajVojoj();
 const DOKOJ = aktivajDokoj();
@@ -157,7 +159,7 @@ for ( const D of DOKOJ ) {
   const falto = starto - doko.landejaY;
   if ( falto <= STUPA_RISERO * 0o1/0o2 ) continue;
   // ⟨ ត្រូវមានយ៉ាងតិចពីរកថាប៉ាស ( ដូច urbo.ts ) ៖ កថាប៉ាសតែមួយរាបទាំងស្រុង ។ 📃 ⟩
-  const nombro = Math.max( 2, Math.ceil( falto / STUPA_RISERO ) + 1 );
+  const nombro = kalkuliStupanNombron( falto );
   // ⟨ ជណ្តើរចាប់ផ្តើមត្រង់មាត់ចាន ៖ បើវាចាប់ក្នុងចាន , ជំហានដំបូងលិចក្រោមចាន
   // ហើយជំហានដែលឃើញនៅមាត់ចានទាបជាងចានច្រើនជំហាន = ជញ្ជាំង ។ 📃 ⟩
   let komenco = doko.stuparajPunktoj[0];
@@ -236,6 +238,33 @@ konstruiIntersekcajnPlatojn( sceno, ĉiujKunigoj, vojoAlteco, dioritaMaterialo, 
   kunigoFermitaj, kunigoRotacioj, kunigoDirektoj, alteco, kunigoDuonoj );
 const vojMeshoj = sceno.children.filter(o => !antaŭajInfanoj.has(o));
 sceno.updateMatrixWorld(true);
+
+// ⟪ ផ្លូវដែលកប់ក្នុងដី 📏 ⟫
+// ⟨ វាស់លើផ្ទៃដែលបានសាងសង់ពិត , ទាំងខ្សែកណ្តាល និងគែមទាំងពីរ ។
+// ចានភ្ជាប់គ្របរន្ធ , ដូច្នេះរំលងចំណុចក្នុងរន្ធ ។ 📃 ⟩
+let plejEnterigxo = 0, enterigxintaj = 0, enterigxaLoko = "";
+for ( const peco of vojSuprajxoj ) {
+  const longo = Math.hypot(peco.x2 - peco.x1, peco.z2 - peco.z1);
+  if ( longo < 0o1 / 0o1000 ) continue;
+  const ndx = ( peco.x2 - peco.x1 ) / longo, ndz = ( peco.z2 - peco.z1 ) / longo;
+  for ( const f of [ 0, 0o1 / 0o4, 0o1 / 0o2, 0o3 / 0o4, 1 ] ) {
+    const cx = peco.x1 + ( peco.x2 - peco.x1 ) * f;
+    const cz = peco.z1 + ( peco.z2 - peco.z1 ) * f;
+    const supro = peco.y0 + ( peco.y1 - peco.y0 ) * f;
+    for ( const lat of [ -peco.duono, 0, peco.duono ] ) {
+      const px = cx - ndz * lat, pz = cz + ndx * lat;
+      const enterigxo = alteco(px, pz) - supro;
+      if ( enterigxo > VOJA_BURIAL_TOLERANCO ) enterigxintaj++;
+      if ( enterigxo > plejEnterigxo ) {
+        plejEnterigxo = enterigxo;
+        enterigxaLoko = `@${px.toFixed(1)},${pz.toFixed(1)} ផ្ទៃ ${supro.toFixed(2)}` +
+          ` ដី ${alteco(px, pz).toFixed(2)}`;
+      }
+    }
+  }
+}
+console.log(`ផ្លូវកប់ក្នុងដីជ្រៅបំផុត ${plejEnterigxo.toFixed(3)} ${enterigxaLoko}` +
+  ` , គំរូកប់ ${enterigxintaj}`);
 
 // ⟪ កម្ពស់ផ្លូវដែលបានតាមដានតាមដៃ 📏 ⟫
 // ⟨ បង្ហាញចានដែលដៃរបស់វាមិនស្មើគ្នា ។ បើគ្មាន , ការតាមដានបរាជ័យ

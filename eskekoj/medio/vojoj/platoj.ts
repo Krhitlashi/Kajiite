@@ -358,8 +358,18 @@ export function kunigaPlataAlto(x: number, z: number, brakoj: readonly Brako[],
   // ការប្តូរកាំនឹងប្តូរកម្ពស់ផ្លូវទាំងអស់ , ដែលជាការប្តូរធំហួសពីបញ្ហាគែមចាន ។ 📃 ⟩
   // ⟨ លុបការបង្គត់ឡើងក្រោយ 📃 ⟩ ៖ កម្រិតកំពូលមានរួចជា VOJA_SUPRO_LEVIGXO ,
   // ដូច្នេះបង្គត់លើ `maks` ជាកម្រិតដែលចានអាន ។ 📃 ⟩
-  return surGrid(vojaSuproDeKunigo(x, z, direktoj, VOJA_EKSTERA_DUONO, heightFn).supro
-    - VOJA_SUPRO_LEVIGXO);
+  // ⟨ មាត់ចានក៏ជាដី 📏 ⟩ ៖ vojaSuproDeKunigo អានត្រឹមកាំ VOJA_EKSTERA_DUONO ,
+  // តែផ្លូវចាប់ផ្តើមនៅ VOJA_TRUA_DUONO ។ នៅជម្រាល ដីនៅមាត់ខ្ពស់ជាងដី
+  // កណ្តាលច្រើន , ដូច្នេះចានទាបពេក ហើយផ្លូវដែលមិនកប់ត្រូវលោតឡើងភ្លាមៗ
+  // ពីចាន = ជញ្ជាំងឈរ ។ អានកម្ពស់ដីនៅមាត់ដៃនីមួយៗ ហើយយកខ្ពស់បំផុត ។
+  // អ្នកគណនាចាន អ្នកគណនាផ្លូវ និងឧបករណ៍វាស់ ទាំងអស់ហៅអនុគមន៍តែមួយនេះ ។ 📃 ⟩
+  const randaj = kunigajBrakAltoj(x, z, direktoj, brakoj.map(b => b.duono), heightFn)
+    .filter(Number.isFinite);
+  const randaSupro = randaj.length ? Math.max(...randaj) : -Infinity;
+  return Math.max(
+    surGrid(vojaSuproDeKunigo(x, z, direktoj, VOJA_EKSTERA_DUONO, heightFn).supro
+      - VOJA_SUPRO_LEVIGXO),
+    randaSupro );
 }
 
 // ⟪ កម្រិតចានតាមដៃ 📏 ⟫
@@ -397,7 +407,7 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     // ⟪ ចានរាបតែមួយកម្រិត 📏 ⟫
     // ⟨ កម្ពស់មកពីផ្លូវពិត 📃 ⟩ ៖ konstruiVojojn បានតាមដានកម្ពស់ផ្លូវតាមដៃ
     // នីមួយៗ ហើយជ្រើសកម្រិតចានពីដៃទាបបំផុត ។ ចានទាំងមូលរាបស្មើនៅកម្រិត
-    // នោះ : គ្មានកង្ហារជម្រាល , គ្មានស្នាមកាត់កណ្តាល , គ្មានជ្រុងលើក ។
+    // នោះ , គ្មានកង្ហារជម្រាល , គ្មានស្នាមកាត់កណ្តាល , គ្មានជ្រុងលើក ។
     // ផ្លូវខ្ពស់ៗឡើងជាជំហានពីចានទៅរកកម្រិតរបស់វា ។ 📃 ⟩
     const reg = kunigajNiveloj.get(klavo);
     const plataAlto = reg ? reg.alto

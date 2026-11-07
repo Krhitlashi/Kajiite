@@ -26,6 +26,14 @@ class FalsaKunteksto {
   drawImage() {} setLineDash() {} getLineDash() { return []; }
 }
 
+// ⟨ ផ្លូវគូរក្លែងក្លាយ 📏 ⟩ ៖ វាយនភាពស្លឹកឈើប្រើ Path2D ។ ឧបករណ៍វាស់
+// មិនគូរអ្វីទេ , ដូច្នេះគ្រាន់តែឱ្យវិធីសាស្ត្រហៅបាន ។ 📃 ⟩
+class FalsaPath2D {
+  moveTo() {} lineTo() {} closePath() {} arc() {} arcTo() {} rect() {} ellipse() {}
+  quadraticCurveTo() {} bezierCurveTo() {} translate() {} rotate() {} scale() {}
+  addPath() {}
+}
+
 class FalsaKanvaso {
   width = 1;
   height = 1;
@@ -85,6 +93,7 @@ const documento = {
   documentElement: new FalsaElemento(),
 };
 
+globalThis.Path2D = FalsaPath2D;
 globalThis.localStorage = falsaStokado;
 globalThis.document = documento;
 globalThis.window = globalThis;

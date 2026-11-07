@@ -8,8 +8,7 @@ import { aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
-import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
-import { surGrid, VOJA_EKSTERA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { kreiBrakojn, kunigaPlataAlto } from "../../eskekoj/medio/vojoj/platoj.js";
 import { akvaFino } from "./komunaj.js";
 import type { AltaKunigo } from "../../eskekoj/medio/vojoj/alto.js";
 import { aktivajVojoj } from "../../kantaoj/tero-datumaro/rultempo.js";
@@ -33,7 +32,12 @@ const platoCxe = ( x: number, z: number ): number => {
   const klavo = x + "," + z;
   let alto = platoj.get(klavo);
   if ( alto === undefined ) {
-    alto = surGrid(vojaSuproDeKunigo(x, z, [], VOJA_EKSTERA_DUONO, vojoAlteco).supro);
+    // ⟨ កម្រិតចានដូចហ្គេម 📏 ⟩ ៖ kunigaPlataAlto អានទាំងដីកណ្តាល
+    // និងដីនៅមាត់ដៃ ។ បើឧបករណ៍គណនាកម្រិតផ្សេង , វារាយការកប់
+    // ក្លែងក្លាយនៅជើងភ្នំ ។ 📃 ⟩
+    const k = kunigoj.find(n => n.x === x && n.z === z);
+    const brakoj = kreiBrakojn(k?.direktaj ?? [], undefined, 0);
+    alto = kunigaPlataAlto(x, z, brakoj, vojoAlteco);
     platoj.set(klavo, alto);
   }
   return alto;

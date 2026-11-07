@@ -21,6 +21,9 @@ const SALTO_LIMO = 0o1/0o2 + 0o1/0o4;
 const DIP_LIMO = 0o1/0o4;
 const DIP_DISTO = 0o6;
 
+// ⟨ មុខជំហានចោតលើសនេះគឺជាជញ្ជាំងស្ទើរ 📏 ⟩ ៖ ១ គឺ ៤៥ ដឺក្រេ , លើសតែបន្តិចទុកឱ្យការបង្គត់ ។
+const DEKLIVO_LIMO = 0o1 + 0o1/0o20;
+
 const sceno = new THREE.Scene();
 const diorito = kreiDioritanMaterialon(new THREE.Texture());
 const andezito = kreiAndezitanMaterialon(new THREE.Texture());
@@ -71,6 +74,7 @@ function plejProfundaDipo(
 }
 
 let tutaMaks = 0, difektaj = 0, provitaj = 0, pontoj = 0, tutaBurial = 0, tutaDipo = 0;
+let tutaDeklivo = 0, deklivoDifektaj = 0;
 for ( let v = 0; v < VOJOJ.length; v++ ) {
   const vojo = VOJOJ[v];
   if ( vojo.punktoj.length < 2 ) continue;
@@ -96,6 +100,20 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
     const salto = Math.abs(nuna.y0 - antaŭa.y0);
     if ( salto > maks ) { maks = salto; maksLoko = k; }
   }
+  // ⟨ មុខជំហាន ៖ ជម្រាលមុខជំហានមិនគួរចោតជាង ៤៥ ដឺក្រេ ។ 📃 ⟩
+  // ប្រអប់ជម្រាលមាន y0 ≠ y1 , ដូច្នេះវាស់ជម្រាលពីប្រអប់ទាំងនោះ ។ ១ គឺ ៤៥ ដឺក្រេ ។
+  let deklivoMaks = 0, deklivoLoko: [ number, number ] | null = null;
+  for ( const peco of vojSuprajxoj ) {
+    const salto = Math.abs(peco.y1 - peco.y0);
+    if ( salto < 0o1/0o1000 ) continue;
+    const longoPeco = Math.hypot(peco.x2 - peco.x1, peco.z2 - peco.z1);
+    if ( longoPeco < 0o1/0o1000 ) continue;
+    const deklivo = salto / longoPeco;
+    if ( deklivo > deklivoMaks ) {
+      deklivoMaks = deklivo;
+      deklivoLoko = [ ( peco.x1 + peco.x2 ) / 0o2, ( peco.z1 + peco.z2 ) / 0o2 ];
+    }
+  }
   // ⟨ ការចំណាំងក្រោមដី ៖ ផ្លូវមិនអាចកប់ក្នុងដី ។ 📃 ⟩
   const suproj: { y: number; x: number; z: number }[] = [];
   let maksBurial = 0, burialLoko: [ number, number ] | null = null;
@@ -115,6 +133,8 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
   if ( maks > SALTO_LIMO ) difektaj++;
   if ( maksBurial > tutaBurial ) tutaBurial = maksBurial;
   if ( dipo && dipo.profundo > tutaDipo ) tutaDipo = dipo.profundo;
+  if ( deklivoMaks > tutaDeklivo ) tutaDeklivo = deklivoMaks;
+  if ( deklivoMaks > DEKLIVO_LIMO ) deklivoDifektaj++;
   const loko = maksLoko >= 0 ? vojSuprajxoj[maksLoko] : null;
   const antaŭaPeco = maksLoko > 0 ? vojSuprajxoj[maksLoko - 1] : null;
   const tero = loko && antaŭaPeco
@@ -129,7 +149,10 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
     ( burialLoko ? ` @${burialLoko[0].toFixed(1)},${burialLoko[1].toFixed(1)}` : "" ) +
     ( maksBurial > 0o1/0o4 ? "  ⚠" : "" ) +
     ( dipo ? ` , រណ្តៅខ្លី ${dipo.profundo.toFixed(3)} @${dipo.x.toFixed(1)},${dipo.z.toFixed(1)}` : "" ) +
-    ( dipo && dipo.profundo > DIP_LIMO ? "  ⚠" : "" ));
+    ( dipo && dipo.profundo > DIP_LIMO ? "  ⚠" : "" ) +
+    ` , មុខចោត ${deklivoMaks.toFixed(2)}` +
+    ( deklivoLoko ? ` @${deklivoLoko[0].toFixed(1)},${deklivoLoko[1].toFixed(1)}` : "" ) +
+    ( deklivoMaks > DEKLIVO_LIMO ? "  ⚠" : "" ));
 }
 
 // ⟨ លទ្ធផលសង្ខេប 📃 ⟩
@@ -137,7 +160,9 @@ console.log(`ផ្លូវ ${provitaj} ( ស្ពាន ${pontoj} រំល�
   ` , លោតខ្ពស់បំផុត ${tutaMaks.toFixed(3)}` +
   ` , លើសលីមីត ${difektaj}` +
   ` , ចំណាំងក្រោមដីបំផុត ${tutaBurial.toFixed(3)}` +
-  ` , រណ្តៅខ្លីបំផុត ${tutaDipo.toFixed(3)}`);
+  ` , រណ្តៅខ្លីបំផុត ${tutaDipo.toFixed(3)}` +
+  ` , មុខចោតបំផុត ${tutaDeklivo.toFixed(2)}` +
+  ( deklivoDifektaj > 0 ? ` , ផ្លូវមុខចោត ${deklivoDifektaj}` : "" ));
 
 // ⟨ ចានភ្ជាប់ ៖ ខ្ពស់ជាងផ្លូវដែលមកដល់តែមួយជំហានប៉ុណ្ណោះ ។ 📃 ⟩
 vojSuprajxoj.length = 0;

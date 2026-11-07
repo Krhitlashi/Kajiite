@@ -1,10 +1,11 @@
 // ≺⧼ ចំណតទឹក ⚓ ⧽≻
 import * as THREE from "three";
-import { kreiAndezitanTeksajxon } from "../komunajxoj/teksajxoj/andezito.js";
-import { kreiDioritanTeksajxon } from "../komunajxoj/teksajxoj/diorito.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";
-import { surGrid, VOJA_DIKECO, VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./vojoj/mezuroj.js";
+import { kreiVojojnMaterialojn } from "./vojoj/bufroj.js";
+import { STUPA_RISERO, surGrid, VOJA_DIKECO, VOJA_SUPRO_LEVIGXO,
+  VOJA_TRUA_DUONO } from "./vojoj/mezuroj.js";
 import { kreiDokanEksteranFormon, kreiDokanFormon, kreiDokanKadron } from "./doko/formoj.js";
+import { kalkuliStupanNombron } from "./doko/stuparo.js";
 import { registriDokanAlton } from "./vojoj/kunig-niveloj.js";
 import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO, type DokaSekcio, type Doko } from "./doko/tipoj.js";
 
@@ -25,11 +26,10 @@ export function konstruiDokon(
   const platformDepth = profundo;
   // ⟨ កម្រាស់ដូចផ្លូវ 📃 ⟩
   const dikeco = VOJA_DIKECO;
-  const antaŭaRadiuso = 0o4/0o10;
-  const dioritaTeksajxo = kreiDioritanTeksajxon();
-  const andezitaTeksajxo = kreiAndezitanTeksajxon();
-  const diorito = kreiDioritanMaterialon(dioritaTeksajxo);
-  const andezito = kreiAndezitanMaterialon(andezitaTeksajxo);
+  // ⟨ សម្ភារៈផ្លូវរួម 📏 ⟩ ៖ វេទិកាចំណតជាផ្លូវមួយចម្រៀក , ដូច្នេះវាប្រើ
+  // វាយនភាព និង polygonOffset ដូចផ្លូវ មិនមែនបង្កើតប្រព័ន្ធសម្ភារៈផ្ទាល់ខ្លួន ។ 📃 ⟩
+  const { supraMaterialo: diorito, bordaMaterialo: andezito } = kreiVojojnMaterialojn(
+    kreiDioritanMaterialon(), kreiAndezitanMaterialon(), -0o2, -0o4, -0o1, -0o1 );
   // ⟨ លេខរួមពីរ 📃 ⟩
   const kadraStrio = DOKO_KADRA_LARĜO;
   const kadraMalsupro = -0o1/0o40;
@@ -59,7 +59,7 @@ export function konstruiDokon(
   const aldoniLandejon = ( centroZ: number, longo: number, supro: number ): void => {
     const bazo = supro - dikeco;
     const surfacaGeometrio = new THREE.ExtrudeGeometry(
-      kreiDokanFormon(vojaLargho, longo, antaŭaRadiuso),
+      kreiDokanFormon(vojaLargho, longo),
       { depth: dikeco, bevelEnabled: false }
     );
     surfacaGeometrio.rotateX(-Math.PI / 2);
@@ -69,7 +69,7 @@ export function konstruiDokon(
     group.add(surfaco);
 
     const rando = new THREE.Mesh(
-      kreiDokanKadron(vojaLargho, longo, antaŭaRadiuso, kadraStrio, dikeco + 0o1/0o20),
+      kreiDokanKadron(vojaLargho, longo, kadraStrio, dikeco + 0o1/0o20),
       andezito
     );
     rando.position.set(0, bazo + kadraMalsupro, centroZ);
@@ -90,7 +90,7 @@ export function konstruiDokon(
     if ( teraPlejProfunda < bazo + kadraMalsupro ) {
       const plenaMalsupro = teraPlejProfunda - 0o1/0o4;
       const plenaGeometrio = new THREE.ExtrudeGeometry(
-        kreiDokanEksteranFormon(vojaLargho, longo, antaŭaRadiuso, kadraStrio + plenaProud),
+        kreiDokanEksteranFormon(vojaLargho, longo, kadraStrio + plenaProud),
         { depth: plenaSupro - plenaMalsupro, bevelEnabled: false }
       );
       plenaGeometrio.rotateX(-Math.PI / 2);
@@ -101,58 +101,51 @@ export function konstruiDokon(
     }
   };
 
-  // ⟨ កម្ពស់វេទិកា 📃 ⟩
-  // ⟨ កម្រិតចុះចតក៏នៅលើក្រឡា ៖ ជណ្តើរមានជំហានស្មើគ្នាបេះបិទ ។ 📃 ⟩
-  // ⟨ ចំណតត្រូវរួបរួមជាមួយផ្លូវ ៖ កម្រិតរបស់វាមិនអាចទាបជាងផ្លូវបានទេ ,
-  // បើមិនដូច្នេះផ្លូវហោះលើវា ហើយចំណតនៅខាងក្រោមបង្កើតជញ្ជាំងឈរ ។
-  // ដូច្នេះកំណត់កម្រិតអប្បបរមាឱ្យស្មើ dikeco ( កម្រិតផ្លូវ ) ។ 📃 ⟩
-  const landejaLocala = Math.max(dikeco, surGrid(waterFn(x, z) + 0o3/0o20) - vojaY);
-  const flankaDuono = vojaLargho / 2 + 0o1/0o2;
-  const aksaSupra = ( lz: number ): number => Math.max(
-    heightFn(mondaX(flankaDuono, lz), mondaZ(flankaDuono, lz)),
-    heightFn(mondaX(-flankaDuono, lz), mondaZ(-flankaDuono, lz)));
-  // ⟨ កន្លែងជណ្តើរចាប់ផ្តើម 📃 ⟩
-  const landejaMinimumo = 0o3;
-  // ⟨ ចំណតយកត្រឹមពាក់កណ្តាល ៖ ជណ្តើរត្រូវមានកន្លែងរត់វែងល្មម 📃 ⟩
-  const landejaMaksimumo = platformDepth * 0o1/0o2;
-  let stuparaZ0 = -duonL + landejaMaksimumo;
-  for ( let lz = -duonL; lz < -duonL + landejaMaksimumo; lz += 0o1/0o4 ) {
-    if ( aksaSupra(lz) - vojaY > landejaLocala ) { stuparaZ0 = lz; break; }
+  // ⟪ វេទិកាទាប និងជណ្តើរ 📏 ⟫
+  // ⟨ ចំណតឈរលើទឹក 📃 ⟩ ៖ វេទិកាស្ថិតលើផ្ទៃទឹកបន្តិច , មិនមែនលើកម្រិតផ្លូវទេ ។
+  // មុននេះ Math.max( dikeco , ... ) បង្ខំវេទិកាឱ្យឡើងដល់កម្រិតផ្លូវជានិច្ច ,
+  // ដូច្នេះគ្មានជណ្តើរណាមួយត្រូវបានបង្កើតឡើយ ។ ឥឡូវបើផ្លូវខ្ពស់ជាងទឹក
+  // ច្រើនជាងពាក់កណ្តាលជំហាន , ចំណតមានជណ្តើរចុះពីគែមចានភ្ជាប់មកវេទិកា ។ 📃 ⟩
+  // ⟨ វេទិកាមិនកប់ក្នុងច្រាំង 📏 ⟩ ៖ មុននេះកម្រិតវេទិកាមកពីផ្ទៃទឹក
+  // តែមាត់ដីនៅជិតច្រាំងខ្ពស់ជាងផ្ទៃទឹក ។ ជណ្តើរចុះពីចានមកដល់
+  // វេទិកាទាប ហើយកថាប៉ាសចុងក្រោយបាត់ចូលក្នុងដី ។ អានដីខ្ពស់បំផុត
+  // ក្រោមវេទិកា ហើយលើកវេទិកាឱ្យឈរលើវា ។ ច្រាំងខ្ពស់ណាស់នៅមាត់ដី
+  // មិនរាប់ទេ ព្រោះចានភ្ជាប់ និងជណ្តើរគ្របតំបន់នោះរួចហើយ ។ 📃 ⟩
+  const antaŭaInsido = VOJA_TRUA_DUONO + 0o2;
+  let teraMaks = -Infinity;
+  for ( let lz = -duonL; lz <= duonL - antaŭaInsido; lz += 0o2 ) {
+    for ( const lx of [ -plenaDuono, 0, plenaDuono ] )
+      teraMaks = Math.max(teraMaks, grundoFn(mondaX(lx, lz), mondaZ(lx, lz)));
   }
-  // ⟨ ហើយពេលគែមនោះជិតពេក 📃 ⟩
-  const landejaZ0 = Math.min(stuparaZ0, -duonL + landejaMaksimumo);
-  const landejaLongo = Math.max(landejaMinimumo, landejaZ0 + duonL);
-  const landejaCentroZ = landejaZ0 - landejaLongo / 2;
-  const sekcioj: DokaSekcio[] = [];
-  // ⟨ ជណ្តើរ ៖ ចាប់ផ្តើមត្រង់មាត់ច្រាំងចំណត , បញ្ចប់ត្រង់គែមចំណត ។
-  // ចានភ្ជាប់ស្ថិតនៅចន្លោះ VOJA_EKSTERA_DUONO + KORNA_R ពីមាត់ច្រាំង , ដូច្នេះដៃរបស់
-  // ចានយ៉ាងតិចឈានដល់មាត់ច្រាំងជានិច្ច ។ បើជណ្តើរចាប់ចូលក្នុងលើសពីនេះ ,
-  // ហើយចាននៅឆ្ងាយ , នៅសល់ចន្លោះដីទទេដូចជំហានមួយបាត់នៅចុងជណ្តើរ ។
-  // ចំណុចតែពីរ ៖ លេខជំហានត្រូវគណនាពេលដឹងកម្ពស់ចានភ្ជាប់ ។ 📃 ⟩
-  const stuparaKomencoLz = duonL;
-  const stuparajPunktoj: [ number, number ][] = landejaLocala >= dikeco ? [] : [
-    [ mondaX(0, stuparaKomencoLz), mondaZ(0, stuparaKomencoLz) ],
-    [ mondaX(0, landejaZ0), mondaZ(0, landejaZ0) ],
-  ];
-  // ⟨ ផ្ទៃដែលជណ្តើរឈប់ ៖ ខ្នងចំណត , ឬវេទិកាពេញ 📃 ⟩
-  const landejaY = vojaY + ( landejaLocala >= dikeco ? dikeco : landejaLocala );
-
-  // ⟨ វេទិកាឈប់ត្រង់គែមចានភ្ជាប់ 📏 ⟩ ៖ ចានភ្ជាប់ឈរនៅមាត់ដី , ហើយលាតចូលមកក្នុង
-  // ចំណតប្រវែង VOJA_TRUA_DUONO ។ បើវេទិកាលាតដល់មាត់ដី , ចាននិងវេទិកាជាន់គ្នា
-  // ពីរឯកតា ៖ កម្ពស់ខុសគ្នាបន្តិច , ដូច្នេះផ្ទៃពីរប៉ះគ្នាហើយលេចជាស្រទាប់ជាន់គ្នា ។
-  // ដូច្នេះវេទិកាចាប់ពីគែមចាន , ហើយចានបំពេញចន្លោះរហូតដល់មាត់ដី ។ 📃 ⟩
-  const landaInsido = VOJA_TRUA_DUONO;
+  const ferdekaSupro = Math.max(surGrid(waterFn(x, z) + 0o3/0o20),
+    Number.isFinite(teraMaks) ? surGrid(teraMaks + VOJA_SUPRO_LEVIGXO) : -Infinity);
+  const plataSupro = vojaY + VOJA_SUPRO_LEVIGXO;
+  const falto = plataSupro - ferdekaSupro;
+  const havasStuparon = falto > STUPA_RISERO * 0o1/0o2;
+  const nombro = havasStuparon
+    ? kalkuliStupanNombron(falto) : 0;
+  // ⟨ ប្រវែងរត់របស់ជណ្តើរ 📏 ⟩ ៖ កថាប៉ាសនីមួយៗទទឹងពាក់កណ្តាលឯកតា ,
+  // តែមិនលើសពាក់កណ្តាលប្រវែងចំណត ដើម្បីនៅសល់វេទិកាគ្រប់គ្រាន់ ។ 📃 ⟩
+  const stuparaLongo = havasStuparon
+    ? Math.min(platformDepth * 0o1/0o2, Math.max(0o2, nombro * 0o1/0o2)) : 0;
+  const landejaLocala = havasStuparon ? ferdekaSupro - vojaY : dikeco;
+  // ⟨ វេទិកាចាប់ពីចុងជណ្តើរ 📏 ⟩ ៖ ចានគ្របដល់ VOJA_TRUA_DUONO ពីមាត់ដី ,
+  // ជណ្តើរយកចន្លោះបន្ទាប់ , ហើយវេទិកាយកអ្វីដែលនៅសល់ ។ 📃 ⟩
+  const landaInsido = VOJA_TRUA_DUONO + stuparaLongo;
   const landaLongo = Math.max(0o2, platformDepth - landaInsido);
   const landaCentroZ = -landaInsido / 0o2;
-  if ( landejaLocala >= dikeco ) {
-    // ⟨ ចំណតនៅ ( ឬក្រោម ) ផ្ទៃទឹក 📃 ⟩
-    aldoniLandejon(landaCentroZ, landaLongo, dikeco);
-    sekcioj.push({ lx: 0, lz: landaCentroZ, w: plenaDuono * 2, d: landaLongo, y: vojaY + dikeco });
-  } else {
-    aldoniLandejon(landejaCentroZ, landejaLongo, landejaLocala);
-    sekcioj.push({ lx: 0, lz: landejaCentroZ, w: plenaDuono * 2, d: landejaLongo,
-      y: vojaY + landejaLocala });
-  }
+  const sekcioj: DokaSekcio[] = [];
+  // ⟨ ចំណុចពីរ 📐 ⟩ ៖ គែមចានភ្ជាប់ ទៅ គែមវេទិកា ។ លេខជំហានពិត
+  // គណនាដោយ kreiDokanStuparon ពេលដឹងកម្ពស់ចានភ្ជាប់រួច ។ 📃 ⟩
+  const stuparaKomencoLz = duonL - VOJA_TRUA_DUONO;
+  const stuparaFinaLz = stuparaKomencoLz - stuparaLongo;
+  const stuparajPunktoj: [ number, number ][] = havasStuparon ? [
+    [ mondaX(0, stuparaKomencoLz), mondaZ(0, stuparaKomencoLz) ],
+    [ mondaX(0, stuparaFinaLz), mondaZ(0, stuparaFinaLz) ],
+  ] : [];
+  const landejaY = vojaY + landejaLocala;
+  aldoniLandejon(landaCentroZ, landaLongo, landejaLocala);
+  sekcioj.push({ lx: 0, lz: landaCentroZ, w: plenaDuono * 2, d: landaLongo, y: landejaY });
 
   group.position.set(x, vojaY, z);
   group.rotation.y = direkto;

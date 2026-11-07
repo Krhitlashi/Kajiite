@@ -10,9 +10,10 @@ import * as THREE from "three";
 import { aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
+import { kreiDokanStuparon } from "../../eskekoj/medio/doko/stuparo.js";
 import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
 import { konstruiIntersekcajnPlatojn } from "../../eskekoj/medio/vojoj/platoj.js";
-import { kunigajNiveloj } from "../../eskekoj/medio/vojoj/kunig-niveloj.js";
+import { dokaAltoCxe, kunigajNiveloj } from "../../eskekoj/medio/vojoj/kunig-niveloj.js";
 import { STUPA_RISERO, VOJA_TRUA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { kreiMezuranMondon } from "./komunaj.js";
 import type { VojDifino } from "../../eskekoj/medio/vojoj/tipoj.js";
@@ -28,6 +29,26 @@ const dokObjektoj = DOKOJ.map(D => konstruiDokon(sceno, D.x, D.z, D.rotacio ?? 0
 
 const defs: VojDifino[] = mondo.vojoj.map((v, i) =>
   ( { pts: mondo.gluitaj[ i ], w: v.larĝo / 2, kapoj: true } as VojDifino ));
+// ⟨ ជណ្តើរចំណតជាផ្លូវ 📏 ⟩ ៖ ដូច urbo.ts ។ បើឧបករណ៍មិនសាងវា ,
+// អ័ក្សចំណតឃើញរន្ធទទេរវាងចាននិងវេទិកា ហើយវាស់លោតខុស ។ 📃 ⟩
+for ( let i = 0; i < DOKOJ.length; i++ ) {
+  const D = DOKOJ[ i ], dok = dokObjektoj[ i ];
+  if ( dok.stuparajPunktoj.length < 0o2 ) continue;
+  const r = D.rotacio ?? 0;
+  const landaX = D.x + Math.sin(r) * ( D.profundo / 2 );
+  const landaZ = D.z + Math.cos(r) * ( D.profundo / 2 );
+  const starto = dokaAltoCxe(landaX, landaZ) ?? mondo.platoCxe(landaX, landaZ);
+  const fino = dok.stuparajPunktoj[ 1 ];
+  const dx = fino[ 0 ] - landaX, dz = fino[ 1 ] - landaZ;
+  const longo = Math.hypot(dx, dz);
+  const komenco: [ number, number ] = longo > VOJA_TRUA_DUONO
+    ? [ landaX + dx * VOJA_TRUA_DUONO / longo, landaZ + dz * VOJA_TRUA_DUONO / longo ]
+    : dok.stuparajPunktoj[ 0 ];
+  const stuparo = kreiDokanStuparon(komenco, fino, starto, dok.landejaY);
+  if ( !stuparo ) continue;
+  defs.push({ pts: stuparo.punktoj, w: dok.platformWidth, stuparo: true,
+    heightFn: stuparo.alto, grundoFn: alteco });
+}
 konstruiVojojn(sceno, defs, mondo.vojoAlteco, diorito, andezito, mondo.kunigajPunktoj,
   { kunigajDirektoj: mondo.mapoj.direktoj, kunigajFermitaj: mondo.mapoj.fermitaj,
     kunigajRotacioj: mondo.mapoj.rotacioj, kunigajDuonoj: mondo.mapoj.duonoj });

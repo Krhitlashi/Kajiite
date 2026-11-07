@@ -26,6 +26,17 @@ export function kreiStuparajnPunktojn(
   return punktoj;
 }
 
+// ⟪ ចំនួនកថាប៉ាសជណ្តើរ 📏 ⟫
+/*គណនាចំនួនកថាប៉ាស ដើម្បីឱ្យជំហាននីមួយៗមិនខ្ពស់ជាង STUPA_RISERO
+    @param falto ( number ) - កម្ពស់សរុបដែលជណ្តើរចុះ
+@returns nombro ( number ) - ចំនួនកថាប៉ាស ( យ៉ាងតិច ២ , ព្រោះកថាប៉ាសតែមួយរាបទាំងស្រុង ) */
+// ⟨ កន្លែងតែមួយសម្រាប់គ្រប់ជណ្តើរ 📃 ⟩ ៖ ចំណត , ឧបករណ៍វាស់ , និងការត្រួតពិនិត្យ
+// ធ្លាប់គណនារូបមន្តនេះដោយឡែក ។ បើរូបមន្តខុសគ្នា , ជណ្តើរតែមួយមាន
+// ចំនួនកថាប៉ាសខុសគ្នាតាមកន្លែងសាងសង់ ។ 📃 ⟩
+export function kalkuliStupanNombron( falto: number ): number {
+  return Math.max( 0o2, Math.ceil( falto / STUPA_RISERO ) + 0o1 );
+}
+
 // ⟪ កម្ពស់ជណ្តើរ 📏 ⟫
 // ⟨ ជំហានចុងក្រោយដល់ផ្ទៃចំណត 📃 ⟩ ៖ បើ fundo ត្រូវបានផ្តល់ , ជំហានចុងក្រោយចុះដល់កម្ពស់នោះ
 // ជំនួសការធ្លាក់ nombro * RISERO ដែលអាចលើសផ្ទៃចំណត ។ ដូច្នេះជណ្តើរតភ្ជាប់ចានភ្ជាប់
@@ -66,12 +77,17 @@ export function kreiDokanStuparon(
   if ( falto <= STUPA_RISERO * 0o1/0o2 ) return null;
   // ⟨ ជណ្តើរត្រូវមានយ៉ាងតិចពីរកថាប៉ាស ៖ កថាប៉ាសតែមួយរាបទាំងស្រុង ,
   // ដូច្នេះមាត់ចំណតក្លាយជាជញ្ជាំងឈរ ។ បង្ខំឱ្យយ៉ាងតិចពីរ ។ 📃 ⟩
-  const nombro = Math.max( 0o2, Math.ceil( falto / STUPA_RISERO ) + 0o1 );
+  const nombro = kalkuliStupanNombron( falto );
   const punktoj = kreiStuparajnPunktojn( komenco, fino, nombro );
+  // ⟨ កម្ពស់ផ្ទៃ មិនមែនកម្ពស់ដី 📏 ⟩ ៖ starto និង landejaY ជាកម្ពស់
+  // ផ្ទៃដែលឃើញ ។ kreiStuparanAlton ត្រឡប់កម្ពស់ដី ដែលអនុគមន៍សាងសង់
+  // បន្ថែម VOJA_SUPRO_LEVIGXO វិញ ។ ដូច្នេះទាំងពីរត្រូវដកវាចេញ , បើមិន
+  // ដូច្នេះកថាប៉ាសចុងក្រោយខ្ពស់ជាងវេទិកាហើយលេចជាបបូរមាត់តូច ។ 📃 ⟩
   return {
     punktoj,
     nombro,
-    alto: kreiStuparanAlton( punktoj, starto - VOJA_SUPRO_LEVIGXO, landejaY ),
+    alto: kreiStuparanAlton( punktoj, starto - VOJA_SUPRO_LEVIGXO,
+      landejaY - VOJA_SUPRO_LEVIGXO ),
   };
 }
 
@@ -102,7 +118,7 @@ export function kreiStuparanAlton(
     }
     // ⟨ ជំហានចុងស្មើនឹងផ្ទៃចំណត 📃 ⟩ ៖ ចែកកម្ពស់សរុបជា ( nombro - 0o1 ) ជំហាន
     // ដូច្នេះជំហានចុងក្រោយរាបនៅកម្ពស់ fundo ពិត ( មិនមែនចំណុចកណ្តាល ) ។ អ្នកហៅ
-    // ផ្តល់ nombro គ្រប់គ្រាន់ ( Math.max( 0o2 , Math.ceil( falto / STUPA_RISERO ) + 0o1 ) )
+    // ផ្តល់ nombro គ្រប់គ្រាន់ ( kalkuliStupanNombron( falto ) )
     // ដូច្នេះជំហាននីមួយៗតូចជាង STUPA_RISERO ។ 📃 ⟩
     const paŝo = ( supro - finaAlteco ) / ( nombro - 1 );
     return ( x: number, z: number ): number => {

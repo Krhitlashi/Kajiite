@@ -1,9 +1,10 @@
 // ≺⧼ ផ្លូវ 🛣️ ⧽≻
 import * as THREE from "three";
 import { kreiGeometriajnBufrojn, kreiVojajnBendojn, kreiVojojnMaterialojn } from "./vojoj/bufroj.js";
-import { konstruiRondajnKapojn } from "./vojoj/kapoj.js";
-import { kreiNivelanProfilon } from "./vojoj/niveloj.js";
-import { VOJA_DIKECO,
+import { aldoniRondajnPecojn, DUONA_RONDO, type RondaPeco } from "./vojoj/rondoj.js";
+import { kreiNivelanProfilon, kreiUnuformajnTreadojn,
+  type VojaTruo } from "./vojoj/niveloj.js";
+import { VOJA_BORDA_LARĜO, VOJA_DIKECO,
   VOJA_TRUA_DUONO, VOJA_SUPRO_LEVIGXO, STUPA_RISERO, surGrid } from "./vojoj/mezuroj.js";
 import { kreiBrakojn, kunigaPlataAlto, kunigaPlataNivelo } from "./vojoj/platoj.js";
 import { kunigajBrakAltoj } from "./vojoj/formoj.js";
@@ -66,17 +67,29 @@ function rampigiAlPlaton(
     const p = projekcioSurVojo(punktoj, kx, kz);
     return { x: kx, z: kz, s: p.s, distanco: p.distanco };
   }).filter(l => l.distanco <= duono + 0o1/0o100);
+  // ⟨ កោណទាំងពីរទិស 📏 ⟩ ៖ មុននេះ rezulto ចាប់ផ្តើមពី surfaco ហើយ
+  // គ្រាន់តែយក Math.min ជាមួយកោណនីមួយៗ ។ ដូច្នេះវាអាចទាញផ្លូវចុះ
+  // មករកចាន តែមិនអាចលើកផ្លូវឡើងដល់ចានខ្ពស់ជាងបានទេ ។ ចុងម្ខាង
+  // នៃស្ពាននៅទាបជាងចាន ហើយជម្រាលមិនកើតឡើង = ជញ្ជាំងឈរ ។ ឥឡូវ
+  // ប្រមូលព្រំដែនទាញឡើងទាំងអស់ និងព្រំដែនទាញចុះទាំងអស់ រួចកំណត់
+  // ផ្ទៃឱ្យនៅក្នុងចន្លោះនោះ ។ កោណឆ្ងាយរលាយទៅជាគ្មានកំណត់ ។ 📃 ⟩
   return ( x, z ) => {
     const surfaco = kruda( x, z ) + VOJA_SUPRO_LEVIGXO;
-    let rezulto = surfaco;
     const { s } = projekcioSurVojo(punktoj, x, z);
+    let suba = -Infinity, supra = Infinity;
     for ( const l of lokoj ) {
       const d = Math.abs(s - l.s);
       if ( d > VOJA_TRUA_DUONO + 0o20 ) continue;
       const p = plataAlto( l.x, l.z );
       const margxo = Math.max(0, d - VOJA_TRUA_DUONO);
-      rezulto = Math.min(rezulto, Math.max(p - margxo, Math.min(p + margxo, surfaco)));
+      suba = Math.max(suba, p - margxo);
+      supra = Math.min(supra, p + margxo);
     }
+    // ⟨ កោណជាន់គ្នា 📏 ⟩ ៖ ចានពីរខុសកម្រិតខ្លាំងពេកសម្រាប់ចម្ងាយ ។
+    // យកកណ្តាល ដើម្បីកុំឱ្យផ្លូវលោតពីកោណមួយទៅកោណមួយ ។ 📃 ⟩
+    const rezulto = suba <= supra
+      ? Math.max(suba, Math.min(supra, surfaco))
+      : ( suba + supra ) / 0o2;
     return rezulto - VOJA_SUPRO_LEVIGXO;
   };
 }
@@ -153,7 +166,8 @@ export function konstruiVojojn(sceno: THREE.Scene,
           + VOJA_SUPRO_LEVIGXO;
       return { ux: b.ux, uz: b.uz, alto: surGrid(alto), duono: b.duono };
     });
-    // ⟨ កម្រិតដី 📏 ⟩ ៖ ចានមិនអាចទាបជាងដីកណ្តាលទេ , បើមិនដូច្នេះដីគ្របវា ។
+    // ⟨ កម្រិតដី 📏 ⟩ ៖ ចានមិនអាចទាបជាងដីកណ្តាល ឬ ដីនៅមាត់ដៃទេ ។
+    // kunigaPlataAlto អានទាំងពីរ ហើយហ្គេម ចាន និងឧបករណ៍វាស់ប្រើវាដូចគ្នា ។ 📃 ⟩
     const rezervo = kunigaPlataAlto(kx, kz, brakoj, heightFn);
     // ⟨ ចាននៅមាត់ចំណត ⚓ ⟩ ៖ វេទិកាចំណតជាប់នឹងចានដោយផ្ទាល់ ។ ចានត្រូវ
     // យកកម្រិតវេទិកា , មិនមែនកម្រិតដែលគណនាពីផ្លូវទេ ។ ផ្លូវឡើង/ចុះ
@@ -176,6 +190,10 @@ export function konstruiVojojn(sceno: THREE.Scene,
   const platoCxe = plataAltoCxeKunigo;
   // ⟨ កម្រិតផ្លូវនៅចុងក្រោយ ៖ ប្រើសម្រាប់មួកផ្លូវដែលឆ្លងចូលមកចានភ្ជាប់ ។ 📃 ⟩
   const kapoAltoj = new Map<VojDifino, { komenco: number | null; fino: number | null }>();
+  // ⟨ គែមមូលទាំងអស់ 🌗 ⟩ ៖ ចុងផ្លូវសេរី និងជ្រុងកន្លែងបត់ ឆ្លងកាត់
+  // ប៊ូហ្វ័រតែមួយជាមួយចម្រៀកត្រង់ ។ ប្រមូលមុនគូរធរណីមាត្រ , ព្រោះ
+  // កម្ពស់របស់វាត្រូវស្ថិតលើកម្រិតផ្លូវដូចគ្នានឹងចម្រៀកទាំងពីរ ។ 📃 ⟩
+  const rondajPecoj: RondaPeco[] = [];
 
   for ( const def of defs ) {
     const krudaAlt = def.heightFn || heightFn;
@@ -264,6 +282,58 @@ export function konstruiVojojn(sceno: THREE.Scene,
       ? null
       : kreiNivelanProfilon(def.pts, eksteraDuono, defAlt, akvaFn,
         kunigoj.map(([ x, z ]) => ( { x, z, alto: platoCxe(x, z) } )));
+    // ⟨ កាលវិភាគជម្រាលម្តងសម្រាប់ផ្លូវទាំងមូល 📏 ⟩ ៖ ចម្រៀក និងរន្ធ
+    // ចានភ្ជាប់កាត់ផ្លូវនៅចំណុចណាមួយ ។ បើគណនាជម្រាលក្រោយកាត់ , បំណែកខ្លី
+    // បង្ហាប់ជម្រាលឱ្យឈរដូចជញ្ជាំង ។ គណនាមុនកាត់ រួចគ្រាន់តែកាត់ប្រអប់ ។ 📃 ⟩
+    // ⟨ គែមចេញនៃរន្ធ 📏 ⟩ ៖ ប្រមូលរន្ធពី kreiSegmentajnPartojn ដដែល
+    // ដែលកាត់ធរណីមាត្រ ។ កាលវិភាគប្រើវាដើម្បីកុំឱ្យជម្រាលចាប់ផ្តើម
+    // នៅក្រោមចាន ។ គ្មានច្បាប់កាត់ផ្លូវទីពីរទេ ។ 📃 ⟩
+    const truoj: VojaTruo[] = [];
+    if ( profilo ) {
+      let sTruo = 0;
+      for ( let i = 0; i < def.pts.length - 0o1; i++ ) {
+        const [ aX, aZ ] = def.pts[ i ], [ bX, bZ ] = def.pts[ i + 0o1 ];
+        const longo2 = Math.hypot(bX - aX, bZ - aZ);
+        if ( longo2 < 0o1/0o100 ) continue;
+        for ( const [ t0, t1, konstruuPec ] of
+          kreiSegmentajnPartojn(aX, aZ, bX, bZ, longo2, kunigoj) )
+          if ( !konstruuPec ) truoj.push({ s0: sTruo + t0, s1: sTruo + t1 });
+        sTruo += longo2;
+      }
+    }
+    const treadoj = profilo ? kreiUnuformajnTreadojn(profilo, truoj) : [];
+    // ⟪ ជង្គង់មូលនៅកន្លែងបត់ 🌗 ⟫
+    // ⟨ ចៀសចំណុចភ្ជាប់ 📏 ⟩ ៖ ចានភ្ជាប់មានធ្នូជ្រុងរួចហើយ ។ បើដាក់
+    // ជង្គង់លើវាទៀត , ផ្ទៃពីរជាន់គ្នាហើយលេចជាស្រទាប់ ។ 📃 ⟩
+    let akum = 0;
+    for ( let k = 1; k < def.pts.length - 0o1; k++ ) {
+      const antaux = def.pts[ k - 0o1 ], nuna = def.pts[ k ], sekva = def.pts[ k + 0o1 ];
+      const l1 = Math.hypot(nuna[ 0 ] - antaux[ 0 ], nuna[ 1 ] - antaux[ 1 ]);
+      const l2 = Math.hypot(sekva[ 0 ] - nuna[ 0 ], sekva[ 1 ] - nuna[ 1 ]);
+      akum += l1;
+      if ( l1 < 0o1/0o1000 || l2 < 0o1/0o1000 ) continue;
+      const u1x = ( nuna[ 0 ] - antaux[ 0 ] ) / l1, u1z = ( nuna[ 1 ] - antaux[ 1 ] ) / l1;
+      const u2x = ( sekva[ 0 ] - nuna[ 0 ] ) / l2, u2z = ( sekva[ 1 ] - nuna[ 1 ] ) / l2;
+      const turno = Math.abs(Math.atan2(u1x * u2z - u1z * u2x, u1x * u2x + u1z * u2z));
+      if ( turno < 0o1/0o20 ) continue;
+      let enTruo = false;
+      for ( const [ kx, kz ] of kunigoj ) {
+        if ( Math.hypot(nuna[ 0 ] - kx, nuna[ 1 ] - kz ) < VOJA_TRUA_DUONO + 0o1/0o10 ) {
+          enTruo = true; break;
+        }
+      }
+      if ( enTruo ) continue;
+      // ⟨ តែធ្នូនៃជ្រុងខាងក្នុង 📏 ⟩ ៖ មុននេះជង្គង់ជាចិញ្ចៀនពេញ , ដូច្នេះ
+      // អាន់ដេហ្ស៊ីតលាតលើឌីអូរីតនៃចម្រៀកត្រង់ទាំងពីរ ហើយលេចជាសំណល់
+      // នៅកណ្តាលផ្លូវ ។ ចន្លោះដែលគ្មានប្រអប់ចម្រៀកគឺជាក្រូចឆ្មាររវាង
+      // ទិសចូល និងទិសចេញ ។ កណ្តាលរបស់វាស្ថិតលើ u1 − u2 , ទំហំរបស់វា
+      // ស្មើនឹងមុំបត់ ។ គូរតែវិស័យនោះ គ្មានជាន់គ្នានឹងផ្លូវត្រង់ទេ ។ 📃 ⟩
+      rondajPecoj.push({ x: nuna[ 0 ], z: nuna[ 1 ],
+        mezo: Math.atan2(u1z - u2z, u1x - u2x), gamo: turno,
+        supro: profilo ? profilo.altoCxe(akum)
+          : defAlt(nuna[ 0 ], nuna[ 1 ]) + VOJA_SUPRO_LEVIGXO,
+        duono: def.w / 0o2, ekstera: eksteraDuono });
+    }
     let unua: number | null = null, lasta: number | null = null;
     let starto = 0;
     for ( let i = 0; i < def.pts.length - 1; i++ ) {
@@ -278,7 +348,7 @@ export function konstruiVojojn(sceno: THREE.Scene,
         if ( konstruuPec ) {
           const rezulto = profilo
             ? konstruiSegmentonEnBufrojn(px1, pz1, px2, pz2, starto + t0, starto + t1, bendoj,
-              profilo, bufroj, VOJA_DIKECO, defGrundo)
+              treadoj, bufroj, VOJA_DIKECO, defGrundo)
             : konstruiGlatanSegmenton(px1, pz1, px2, pz2, bendoj, VOJA_DIKECO, defAlt, defGrundo, bufroj);
           if ( rezulto ) {
             if ( unua === null ) unua = rezulto.unua;
@@ -299,12 +369,9 @@ export function konstruiVojojn(sceno: THREE.Scene,
     }
     notiFinon(unua, lasta);
   }
-  bufroj.kunigi(sceno);
-
   // ⟪ មួកផ្លូវចុងសេរី 🌗 ⟫
-  const kapoj = new Map<( x: number, z: number ) => number, {
-    nodoj: [ number, number ][]; direktoj: [ number, number ][];
-    supraj: number[]; larĝoj: number[]; }>();
+  // ⟨ ពាក់រង្វង់ពេញដូចចុងចំណត 📏 ⟩ ៖ ចុងផ្លូវប្រើទម្រង់ធ្នូរួមដូចគ្នា
+  // នឹងជង្គង់ , គ្រាន់តែទំហំធ្នូ π ជំនួសឱ្យមុំបត់ ។ 📃 ⟩
   const finokalkulo = new Map<string, number>();
   for ( const def of defs ) {
     if ( def.pts.length < 2 || def.kapoj !== true ) continue;
@@ -334,18 +401,15 @@ export function konstruiVojojn(sceno: THREE.Scene,
       if ( enTruo ) continue;
       kapoVidita.push([ fino[0], fino[1] ]);
       const defAlt = def.heightFn || heightFn;
-      let grupo = kapoj.get(defAlt);
-      if ( !grupo ) { grupo = { nodoj: [], direktoj: [], supraj: [], larĝoj: [] }; kapoj.set(defAlt, grupo); }
-      grupo.nodoj.push([ fino[0], fino[1] ]);
-      grupo.direktoj.push([ dx / direktaLongo, dz / direktaLongo ]);
-      grupo.supraj.push( supraY ?? defAlt(fino[0], fino[1]) + VOJA_SUPRO_LEVIGXO );
-      grupo.larĝoj.push( def.w );
+      rondajPecoj.push({ x: fino[ 0 ], z: fino[ 1 ],
+        mezo: Math.atan2(dz, dx), gamo: DUONA_RONDO,
+        duono: def.w / 0o2, ekstera: def.w / 0o2 + VOJA_BORDA_LARĜO,
+        supro: supraY ?? defAlt(fino[ 0 ], fino[ 1 ]) + VOJA_SUPRO_LEVIGXO });
     }
   }
-  for ( const [ altFn, grupo ] of kapoj ) {
-    konstruiRondajnKapojn(sceno, grupo.nodoj, grupo.direktoj, grupo.supraj, grupo.larĝoj,
-      altFn, dioritaMaterialo, andezitaMaterialo, fundaFn);
-  }
+  // ⟨ ផ្លូវទាំងអស់ជា Mesh តែមួយក្នុងមួយសម្ភារៈ 📏 ⟩ ។
+  aldoniRondajnPecojn(bufroj, rondajPecoj, supraMaterialo, bordaMaterialo, fundaFn);
+  bufroj.kunigi(sceno);
   return samples;
 }
 
