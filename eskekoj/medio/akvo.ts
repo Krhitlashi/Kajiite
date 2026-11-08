@@ -2,6 +2,7 @@
 import * as THREE from "three";
 import { glataPaso } from "../../kantaoj/mondo/tereno.js";
 import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
+import { kanakaKoloro } from "../komunajxoj/koloroj.js";
 
 export type RiverData = { mesh: THREE.Mesh; waterSurfaceY: ( x: number, z: number ) => number };
 
@@ -218,9 +219,15 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       THREE.UniformsLib.fog,
       {
         uTime: { value: 0 },
-        uColorDeep: { value: new THREE.Color(0x0a3038) },
-        uColorShallow: { value: new THREE.Color(0x2f7263) },
-        uColorRipple: { value: new THREE.Color(0x3d8474) },
+        // ⟨ ពណ៌ទឹកឆ្លងកាត់ kanakaKoloro ដើម្បីឱ្យគ្រប់ឆានែលជា KNAKEHE 📃 ⟩
+        uColorDeep: { value: new THREE.Color(kanakaKoloro(0x0a3038)) },
+        uColorShallow: { value: new THREE.Color(kanakaKoloro(0x2f7263)) },
+        uColorRipple: { value: new THREE.Color(kanakaKoloro(0x3d8474)) },
+        // ⟨ ចំណុចជម្រាល fresnel ពន្លឺ និងពពុះ ជាពណ៌ KNAKEHE ដូចពណ៌ទឹកដែរ 📃 ⟩
+        uFresnelA: { value: new THREE.Color(kanakaKoloro(0x8098b8)) },
+        uFresnelB: { value: new THREE.Color(kanakaKoloro(0xe0e8f8)) },
+        uSpecColor: { value: new THREE.Color(kanakaKoloro(0xf0f8f8)) },
+        uFoamColor: { value: new THREE.Color(kanakaKoloro(0xf8f8f8)) },
         uSunDir: { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100).normalize() },
       },
     ]),
@@ -261,6 +268,10 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       uniform vec3 uColorDeep;
       uniform vec3 uColorShallow;
       uniform vec3 uColorRipple;
+      uniform vec3 uFresnelA;
+      uniform vec3 uFresnelB;
+      uniform vec3 uSpecColor;
+      uniform vec3 uFoamColor;
       uniform vec3 uSunDir;
       uniform float uTime;
       varying vec2 vUv;
@@ -316,12 +327,12 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float shimmer = 0.5 + 0.5 * sin(vWorldPos.x * 0.3125 + vWorldPos.z * 0.25 + uTime * 2.0);
         shimmer *= 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 - vWorldPos.z * 0.3125 + uTime * 1.5);
 
-        vec3 specColor = vec3(0.90625, 0.9375, 0.96875) * (spec + specWide);
+        vec3 specColor = uSpecColor * (spec + specWide);
         // ⟨ ការឆ្លុះមេឃតាមទិសឆ្លុះ 📃 ⟩
         // ⟨ ពណ៌ខៀវពីរ 📃 ⟩
         vec3 reflekto = reflect(-viewDir, normal);
         float horizonta = pow(1.0 - clamp(abs(reflekto.y), 0.0, 1.0), 3.0);
-        vec3 fresnelColor = mix(vec3(0.21875, 0.34375, 0.46875), vec3(0.75, 0.84375, 0.9375), horizonta);
+        vec3 fresnelColor = mix(uFresnelA, uFresnelB, horizonta);
 
         vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.5625) + specColor;
 
@@ -342,7 +353,7 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
           float lapado = 0.5 + 0.5 * sin( vWorldPos.x * 0.4375 + vWorldPos.z * 0.3125 + uTime * 0.875 );
           lapado *= 0.5 + 0.5 * sin( vWorldPos.x * 0.1875 - vWorldPos.z * 0.28125 - uTime * 0.5 );
           float sxauxmo = bordaF * ( 0.25 + 0.75 * lapado ) * 0.5;
-          finalColor = mix( finalColor, vec3( 0.9375, 0.96875, 0.96875 ), sxauxmo );
+          finalColor = mix( finalColor, uFoamColor, sxauxmo );
           alpha = max( alpha, sxauxmo * 0.875 );
         }
 

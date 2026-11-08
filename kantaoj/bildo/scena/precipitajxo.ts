@@ -1,5 +1,6 @@
 // ≺⧼ ទឹកភ្លៀង 🌧 ⧽≻
 import * as THREE from "three";
+import { kanakaAlfo } from "../../../eskekoj/komunajxoj/koloroj.js";
 
 export function kreiVeterajnPartiklojn(sceno: THREE.Scene): {
   pluvo: THREE.Points;
@@ -57,7 +58,7 @@ export function kreiVeterajnPartiklojn(sceno: THREE.Scene): {
       uniforms: {
         uTime: { value: 0 },
         uColor: { value: new THREE.Color(0xa8c0d8) },
-        uOp: { value: 0o6/0o10 },
+        uOp: { value: kanakaAlfo(0o6/0o10) },
         uAncho: { value: 0o1/0o20 },
         uAng: { value: 0o2/0o10 },
         uScale: { value: 0o1000 },
@@ -211,7 +212,7 @@ export function kreiVeterajnPartiklojn(sceno: THREE.Scene): {
           float kerno = 1.0 - smoothstep(0.0, 0.35, d);
           float a = korpo * (0.5 + 0.5 * kerno) * (0.6 + 0.4 * vSeed);
           if (a < 0.02) discard;
-          gl_FragColor = vec4(mix(uColor, vec3(0.98, 0.99, 1.0), kerno), a * uOp);
+          gl_FragColor = vec4(mix(uColor, vec3(1.0), kerno), a * uOp);
         }
       `,
     });

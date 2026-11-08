@@ -130,7 +130,7 @@ function okulaTeksajxo(paletro: [ number, number ]): THREE.CanvasTexture {
   k.save();
   okulaFoliaVojo(k, W);
   k.clip();
-  k.fillStyle = "#FFFFFF";
+  k.fillStyle = "#ffffff";
   k.fillRect(0, 0, W, W);
   k.fillStyle = deksesuma(0xd0d0d0);
   k.fillRect(0, 0, W, W * 0o26/0o100);
@@ -146,7 +146,7 @@ function okulaTeksajxo(paletro: [ number, number ]): THREE.CanvasTexture {
   k.fillStyle = deksesuma(malsupra);
   k.fillRect(0, cy - da + tri * 0o2, W, tri + 0o1);
   // ⟨ ចំណុចពន្លឺ 📃 ⟩
-  k.fillStyle = "#FFFFFF";
+  k.fillStyle = "#ffffff";
   k.beginPath();
   k.arc(cx - dl * 0o34/0o100, cy - da * 0o44/0o100, dl * 0o26/0o100, 0, Math.PI * 0o2);
   k.fill();

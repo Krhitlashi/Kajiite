@@ -8,6 +8,7 @@ import { KRONA_GEOMETRIA_RADIUSO, TAVOLA_PROPORCIO, kronaRadiusoLarika } from ".
 import { kreiKlinoQuaternionon, kreiPoziciilon, hazardaKoloro, kreiVegetajxanHazardon } from "./hazardoj.js";
 import type { ArboMetado } from "./metado.js";
 import { kreiTrunkanGeometrion } from "./trunkoj.js";
+import { ombraKoloro } from "../../komunajxoj/koloroj.js";
 
 function konstruiLarikanFoliaranGeometrion(): THREE.BufferGeometry {
   const partoj: THREE.BufferGeometry[] = [];
@@ -229,7 +230,9 @@ export function konstruiLarikon(sceno: THREE.Scene,
         Math.sin(ang) * trunkaR, yBrancxo, Math.cos(ang) * trunkaR)),
         Qb.premultiply(Q), new THREE.Vector3(trunkaLargho, longo, trunkaLargho));
       bukedo.brancxetoj.push(M.clone());
-      bukedo.brancxetojKoloroj.push(C.copy(sxelaKoloro).multiplyScalar(0o7/0o10).clone());
+      // ⟨ ស្រមោលមែក ៖ ដក ៣ ជំហាន n0n0n0 ពីពណ៌សំបក , មិនគុណងងឹត 📃 ⟩
+      bukedo.brancxetojKoloroj.push(
+        C.setHex(ombraKoloro(sxelaKoloro.getHex(), 0o3)).clone());
     }
   });
 

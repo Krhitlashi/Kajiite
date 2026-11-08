@@ -23,8 +23,8 @@ const PROFILO: [ number, number ][] = [
 export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   const grupo = new THREE.Group();
   const gelo = kreiGelanTeksajxon({
-    bazo: "rgb(240,212,222)", kanalo: "rgb(198,140,168)",
-    poluso: "rgb(236,180,198)", polusaForto: 0o50/0o100, grajnoj: 0o500,
+    bazo: "rgb(240,208,216)", kanalo: "rgb(192,136,168)",
+    poluso: "rgb(232,176,192)", polusaForto: 0o50/0o100, grajnoj: 0o500,
   });
   const korpo = kreiKorpon(gelo, teksajxo, PROFILO, 0xe8d8e0, 0x285078);
   korpo.name = "korpo";

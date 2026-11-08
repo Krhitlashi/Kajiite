@@ -1334,7 +1334,7 @@ const KRADAJ_KOLOROJ: Record<string, string> = {
 export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPlano,
   X: ( x: number ) => number, Z: ( z: number ) => number, skalo: number): void {
   k.lineWidth = 0o7/0o2 * skalo;
-  k.strokeStyle = "rgba(218,218,228,0.9)";
+  k.strokeStyle = "rgba(216,216,224,0.9)";
   k.beginPath();
   for ( const v of plano.vojoj ) {
     if ( v.orient === "EW" ) { k.moveTo(X(v.de), Z(v.poz)); k.lineTo(X(v.al), Z(v.poz)); }

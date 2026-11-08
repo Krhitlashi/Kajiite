@@ -21,7 +21,7 @@ export const kreiPurpuranTrunkanBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
       });
     }
     for ( const bendo of skizo.bendoj ) {
-      desegniPurpuranBendon(kunteksto, bendo, "rgba(86,86,86,0.6)");
+      desegniPurpuranBendon(kunteksto, bendo, "rgba(80,80,80,0.6)");
       desegniPurpuranBendon(kunteksto, { ...bendo, y: bendo.y + bendo.alto }, "rgba(152,152,152,0.45)");
     }
     for ( const fibro of skizo.fibroj ) {
@@ -37,7 +37,7 @@ export const kreiPurpuranTrunkanBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
       });
     }
     for ( const skvamo of skizo.skvamoj ) {
-      const koloro = skvamo.hela ? "rgba(152,152,152,0.35)" : "rgba(94,94,94,0.40)";
+      const koloro = skvamo.hela ? "rgba(152,152,152,0.35)" : "rgba(88,88,88,0.40)";
       desegniWrapan(kunteksto, w, () => {
         kunteksto.fillStyle = koloro;
         kunteksto.beginPath(); kunteksto.arc(skvamo.x, skvamo.y, skvamo.r, 0, Math.PI * 2); kunteksto.fill();

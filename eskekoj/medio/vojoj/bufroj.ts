@@ -7,6 +7,11 @@ import { VOJA_BORDA_LARĜO } from "./mezuroj.js";
 
 // ⟪ ការភ្ជាប់ធរណីមាត្រ 📃 ⟫
 
+// ⟨ ផ្លូវមិនបញ្ចេញស្រមោល 📃 ⟩ ៖ ផ្ទៃផ្លូវ ចានភ្ជាប់ និងគែមមូលជាប់គ្នា
+// ហើយជាន់លើគ្នាបន្តិចនៅមាត់ ។ ពេលផ្លូវបញ្ចេញស្រមោល , ផែនទីស្រមោលឃើញ
+// ជាន់គ្នានោះជាខ្សែខ្មៅរវាងចំណុចភ្ជាប់ , ហើយផ្លូវមើលទៅដាច់ពីគ្នា ។
+// ដូច្នេះផ្លូវទទួលស្រមោលតែមិនបញ្ចេញ ។ សំណង់ដូចជាតួស្ពាន និងចំណត
+// នៅបញ្ចេញស្រមោលដោយខ្លួនឯង ។ 📃 ⟩
 export interface VojGeometriajBufroj {
   listoj: Map<THREE.Material, THREE.BufferGeometry[]>;
   aldoni(geometrio: THREE.BufferGeometry, materialo: THREE.Material, matrico: THREE.Matrix4): void;
@@ -23,7 +28,7 @@ export function kreiGeometriajnBufrojn(): VojGeometriajBufroj {
       if ( !listo ) { listo = []; listoj.set(materialo, listo); }
       listo.push(geometrio);
     },
-    kunigi(sceno: THREE.Scene, kastajOmbroj = true): void {
+    kunigi(sceno: THREE.Scene, kastajOmbroj = false): void {
       for ( const [ materialo, listo ] of listoj ) {
         if ( listo.length === 0 ) continue;
         const kunigita = mergeGeometries(listo, false);

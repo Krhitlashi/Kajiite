@@ -1,6 +1,6 @@
 // ≺⧼ សម្លៀកបំពាក់ 👕 ⧽≻
 
-import { deksesuma } from "../komunajxoj/koloroj.js";
+import { deksesuma, kanakaAlfo } from "../komunajxoj/koloroj.js";
 
 // ⟪ សម្លៀកបំពាក់ 📃 ⟫
 export interface Vesto {
@@ -106,7 +106,7 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   const A = deksesuma(o.akcenta);
   const I = deksesuma(o.interno);
 
-  kunteksto.fillStyle = "rgba(6,16,12,0.9)";
+  kunteksto.fillStyle = "rgba(0,16,8,0.9)";
   kunteksto.fillRect(0, 0, 0o210, 0o300);
 
   kunteksto.fillStyle = I;
@@ -127,7 +127,7 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   kunteksto.moveTo(0o40, 0o160); kunteksto.lineTo(0o140, 0o160);
   kunteksto.lineTo(0o150, 0o230); kunteksto.lineTo(0o40, 0o230);
   kunteksto.closePath();
-  kunteksto.globalAlpha = 0o73/0o100;
+  kunteksto.globalAlpha = kanakaAlfo(0o73/0o100);
   kunteksto.fill();
   kunteksto.globalAlpha = 0o1;
 
@@ -188,7 +188,7 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
   const H = deksesuma(koloro ?? stilo.koloro);
   const CX = 0o104, KAPY = 0o66, KAPR = 0o20;
 
-  kunteksto.fillStyle = "rgba(6,16,12,0.9)";
+  kunteksto.fillStyle = "rgba(0,16,8,0.9)";
   kunteksto.fillRect(0, 0, 0o210, 0o300);
 
   kunteksto.fillStyle = "#282828";

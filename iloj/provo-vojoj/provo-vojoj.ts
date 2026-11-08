@@ -14,6 +14,7 @@ import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 import { kreiAndezitanMaterialon, kreiDioritanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { VOJA_TRUA_DUONO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { vojaSupro } from "../../eskekoj/medio/vojoj/formoj.js";
+import { kanakaColoro } from "../../eskekoj/komunajxoj/koloroj.js";
 import { kreiBrakojn, kunigaPlataAlto } from "../../eskekoj/medio/vojoj/platoj.js";
 import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
@@ -225,9 +226,9 @@ function konstruiVojojn3D(): void {
 function gxisdatigiTeranon(): void {
   const poz = teraGeometrio.attributes.position;
   const kol = new THREE.BufferAttribute(new Float32Array(poz.count * 3), 3);
-  const herbo = new THREE.Color(0x4f7a42);
-  const sablo = new THREE.Color(0xc8b888);
-  const maro = new THREE.Color(0x2c4a50);
+  const herbo = kanakaColoro(new THREE.Color(0x4f7a42));
+  const sablo = kanakaColoro(new THREE.Color(0xc8b888));
+  const maro = kanakaColoro(new THREE.Color(0x2c4a50));
   for (let i = 0; i < poz.count; i++) {
     const x = poz.getX(i), z = poz.getZ(i);
     const y = grundo(x, z);
@@ -258,10 +259,10 @@ type Trenebla = { speco: "punkto"; vojo: number; punkto: number }
 let trenata: Trenebla | null = null;
 
 function desegniPlanon(): void {
-  pk.fillStyle = "#1c222e";
+  pk.fillStyle = "#182028";
   pk.fillRect(0, 0, plano.width, plano.height);
   // សមុទ្រ និងឆ្នេរ ។
-  pk.fillStyle = "#2b5a66";
+  pk.fillStyle = "#285860";
   pk.fillRect(0, 0, pikseloX(RANDO + TRANSIRA / 2), plano.height);
   pk.strokeStyle = "rgba(255,255,255,0.25)";
   pk.lineWidth = 1;

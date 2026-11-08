@@ -37,10 +37,10 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
     klingo.closePath();
     const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
-    gradiento.addColorStop(0, "#7ba55e");
-    gradiento.addColorStop(0o13/0o40, "#8fb471");
-    gradiento.addColorStop(0o3/0o4, "#a2c182");
-    gradiento.addColorStop(1, "#aecb8e");
+    gradiento.addColorStop(0, "#78a058");
+    gradiento.addColorStop(0o13/0o40, "#88b070");
+    gradiento.addColorStop(0o3/0o4, "#a0c080");
+    gradiento.addColorStop(1, "#a8c888");
     kunteksto.fillStyle = gradiento;
     kunteksto.fill(klingo);
     kunteksto.save();
@@ -56,13 +56,13 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const t = makuloHazardo();
       const y = mezo + ( makuloHazardo() - 0o1/0o2 ) * 2 * hwMax * makuloHazardo();
       const r = 0o215/0o100 + makuloHazardo() * 0o11;
-      kunteksto.fillStyle = i % 0o3 ? "rgba(206,224,178,0.13)" : ombro(BAZO, 0o3, 0o7/0o100);
+      kunteksto.fillStyle = i % 0o3 ? "rgba(200,224,176,0.13)" : ombro(BAZO, 0o3, 0o7/0o100);
       kunteksto.beginPath(); kunteksto.ellipse(xDe(t), y, r, r * 0o43/0o100, makuloHazardo() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
     }
     for ( let i = 0; i < 0o3000; i++ ) {
       const x = w * MARGENO + makuloHazardo() * longo;
       const y = mezo + ( makuloHazardo() - 0o1/0o2 ) * 2 * hwMax;
-      kunteksto.fillStyle = i % 0o2 ? "rgba(136,164,108,0.16)" : "rgba(214,232,190,0.14)";
+      kunteksto.fillStyle = i % 0o2 ? "rgba(136,160,104,0.16)" : "rgba(208,232,184,0.14)";
       kunteksto.fillRect(x, y, 0o63/0o40, 0o63/0o40);
     }
     kunteksto.lineCap = "round";
@@ -77,7 +77,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.moveTo(xDe(t), mezo + flanko * 0o123/0o40);
       kunteksto.quadraticCurveTo(xDe(t + 0o1/0o20), mezo + flanko * hwMax * 0o35/0o100, fino, pinto);
       kunteksto.stroke();
-      kunteksto.strokeStyle = "rgba(226,240,204,0.42)";
+      kunteksto.strokeStyle = "rgba(224,240,200,0.42)";
       kunteksto.lineWidth = 0o3/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(xDe(t), mezo);
@@ -85,7 +85,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
         pinto - flanko * 0o123/0o40);
       kunteksto.stroke();
     }
-    kunteksto.fillStyle = "rgba(228,242,204,0.34)";
+    kunteksto.fillStyle = "rgba(224,240,200,0.34)";
     kunteksto.beginPath();
     kunteksto.moveTo(xDe(0), mezo - 0o415/0o100);
     kunteksto.lineTo(xDe(0o37/0o40), mezo - 0o55/0o100);
@@ -99,7 +99,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     kunteksto.strokeStyle = ombro(BAZO, 0o6, 0o5/0o40);
     kunteksto.lineWidth = 2;
     kunteksto.stroke(klingo);
-    kunteksto.strokeStyle = "#9aa878";
+    kunteksto.strokeStyle = "#98a878";
     kunteksto.lineWidth = 0o315/0o100;
     kunteksto.lineCap = "butt";
     kunteksto.beginPath();

@@ -8,7 +8,7 @@ export function desegniFrutikosanTrunketon(k: CanvasRenderingContext2D, x: numbe
     const mx = x + kurbo * de, my = bazo - alto * de;
     const nx = x + kurbo * gxis, ny = bazo - alto * gxis;
     k.lineCap = "round";
-    k.strokeStyle = "rgba(70,82,68,0.82)";
+    k.strokeStyle = "rgba(64,80,64,0.82)";
     k.lineWidth = dikeco + 0o2;
     k.beginPath();
     k.moveTo(mx, my);
@@ -29,7 +29,7 @@ export function desegniFrutikosanTrunketon(k: CanvasRenderingContext2D, x: numbe
     k.beginPath(); k.ellipse(tx, ty, rad, rad * 0o5/0o10, 0, 0, Math.PI * 2); k.fill();
     k.fillStyle = "#b8a080";
     k.beginPath(); k.ellipse(tx, ty - 1, rad * 0o7/0o10, rad * 0o3/0o10, 0, 0, Math.PI * 2); k.fill();
-    k.strokeStyle = "rgba(224,214,178,0.75)";
+    k.strokeStyle = "rgba(224,208,176,0.75)";
     k.lineWidth = 1;
     k.beginPath(); k.arc(tx, ty - 1, rad * 0o7/0o10, Math.PI, Math.PI * 2); k.stroke();
   };
@@ -41,7 +41,7 @@ export function desegniFrutikosanTrunketon(k: CanvasRenderingContext2D, x: numbe
     const balto = alto * ( 0o2/0o10 + Math.random() * 0o2/0o10 );
     const bk = ( b % 2 ? 1 : -1 ) * ( 0o4 + Math.random() * 0o10 );
     const bx2 = bx + bk, by2 = by - balto;
-    k.strokeStyle = "rgba(70,82,68,0.82)"; k.lineWidth = 0o4; k.lineCap = "round";
+    k.strokeStyle = "rgba(64,80,64,0.82)"; k.lineWidth = 0o4; k.lineCap = "round";
     k.beginPath(); k.moveTo(bx, by);
     k.quadraticCurveTo(( bx + bx2 ) / 2, ( by + by2 ) / 2 - 0o2, bx2, by2); k.stroke();
     k.strokeStyle = "#c8d0b0"; k.lineWidth = 0o3; k.stroke();
@@ -50,7 +50,7 @@ export function desegniFrutikosanTrunketon(k: CanvasRenderingContext2D, x: numbe
     const fx = bx + ( bx2 - bx ) * ft, fy = by + ( by2 - by ) * ft;
     const fa = ( b % 2 ? 1 : -1 ) * ( 0o4 + Math.random() * 0o4 );
     const fy2 = fy - balto * ( 0o3/0o10 + Math.random() * 0o2/0o10 );
-    k.strokeStyle = "rgba(70,82,68,0.76)"; k.lineWidth = 0o3; k.lineCap = "round";
+    k.strokeStyle = "rgba(64,80,64,0.76)"; k.lineWidth = 0o3; k.lineCap = "round";
     k.beginPath(); k.moveTo(fx, fy);
     k.quadraticCurveTo(fx + fa * 0o4/0o10, ( fy + fy2 ) / 2 - 0o1, fx + fa, fy2); k.stroke();
     k.strokeStyle = "#d0d8c0"; k.lineWidth = 0o2; k.stroke();
@@ -61,7 +61,7 @@ export function desegniFrutikosanTrunketon(k: CanvasRenderingContext2D, x: numbe
     const t = Math.random();
     const px = x + kurbo * t + ( Math.random() - 0o5/0o10 ) * 0o4;
     const py = bazo - alto * t + ( Math.random() - 0o5/0o10 ) * 0o4;
-    k.fillStyle = Math.random() < 0o6/0o10 ? "rgba(224,230,202,0.8)" : "rgba(78,94,72,0.55)";
+    k.fillStyle = Math.random() < 0o6/0o10 ? "rgba(224,224,200,0.8)" : "rgba(72,88,72,0.55)";
     k.beginPath(); k.arc(px, py, 1 + Math.random() * 1, 0, Math.PI * 2); k.fill();
   }
 }

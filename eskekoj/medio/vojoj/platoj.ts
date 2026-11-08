@@ -398,7 +398,10 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
   duonoj: Map<string, number> = new Map()
 ): void {
   if ( punktoj.length === 0 ) return;
-  const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -3, -2, -4, -5);
+  // ⟨ លំដាប់ជម្រៅ 📏 ⟩ ៖ ស្មាងងឹត ( borda ) មិនត្រូវគូរលើកំពូលភ្លឺរបស់ផ្លូវទេ ។
+  //   ពីមុនស្មាចាននៅ (-4,-5) ជិតជាងកំពូលផ្លូវ (-2,-4) , ដូច្នេះនៅកន្លែងជាន់គ្នា
+  //   ស្មាងងឹតឈ្នះ ហើយលេចជាខ្សែងងឹតកាត់ផ្លូវ ។ ឥឡូវស្មាចាននៅក្រោយកំពូលទាំងពីរ ។ 📃 ⟩
+  const { supraMaterialo, bordaMaterialo } = kreiVojojnMaterialojn(dioritaMaterialo, andezitaMaterialo, -3, -2, -1, -3);
   const bufroj = kreiGeometriajnBufrojn();
   for ( const [ x, z ] of punktoj ) {
     const klavo = x + "," + z;
@@ -487,5 +490,5 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     alglui(suprajPozicioj, suprajUV, supraMaterialo);
     alglui(bordajPozicioj, bordajUV, bordaMaterialo);
   }
-  bufroj.kunigi(sceno);
+  bufroj.kunigi(sceno, false);
 }

@@ -7,8 +7,8 @@ export const kreiByssoidanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
   return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
     kunteksto.clearRect(0, 0, s, s);
     const cx = s / 2, cy = s / 2;
-    const bazajKoloroj = [ "rgba(72,82,68,0.70)", "rgba(92,96,78,0.68)", "rgba(110,108,88,0.64)" ];
-    const fibrajKoloroj = [ "rgba(220,220,198,0.82)", "rgba(194,198,174,0.78)", "rgba(154,164,136,0.72)", "rgba(238,232,204,0.76)" ];
+    const bazajKoloroj = [ "rgba(72,80,64,0.70)", "rgba(88,96,72,0.68)", "rgba(104,104,88,0.64)" ];
+    const fibrajKoloroj = [ "rgba(216,216,192,0.82)", "rgba(192,192,168,0.78)", "rgba(152,160,136,0.72)", "rgba(232,232,200,0.76)" ];
     const tufoj: { x: number; y: number; r: number }[] = [];
     const tufojNombro = 0o10 + ( ( Math.random() * 0o6 ) | 0 );
     for ( let i = 0; i < tufojNombro; i++ ) {
@@ -56,7 +56,7 @@ export const kreiByssoidanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
       const a = Math.random() * Math.PI * 2;
       const r = s * 0o15/0o100 * Math.sqrt(Math.random());
       const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
-      kunteksto.fillStyle = i % 0o3 ? "rgba(232,230,204,0.62)" : "rgba(72,76,64,0.58)";
+      kunteksto.fillStyle = i % 0o3 ? "rgba(232,224,200,0.62)" : "rgba(72,72,64,0.58)";
       kunteksto.fillRect(x, y, 0o1 + Math.random() * 0o2, 0o1 + Math.random() * 0o2);
     }
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });

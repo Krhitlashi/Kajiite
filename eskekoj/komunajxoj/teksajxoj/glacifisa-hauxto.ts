@@ -11,14 +11,14 @@ export function kreiGlacifisanHaŭtanTeksajxon( markoj: GlacifisajMarkoj ): THRE
   const w = 0o400, h = 0o1000;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
     const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
-    gradiento.addColorStop(0, "#93a9b4");
-    gradiento.addColorStop(0o14/0o100, "#6d8996");
-    gradiento.addColorStop(0o25/0o100, "#3d5666");
-    gradiento.addColorStop(0o36/0o100, "#6d8996");
-    gradiento.addColorStop(0o5/0o10, "#93a9b4");
-    gradiento.addColorStop(0o7/0o10, "#e4eff1");
-    gradiento.addColorStop(0o4/0o5, "#c4d8de");
-    gradiento.addColorStop(1, "#93a9b4");
+    gradiento.addColorStop(0, "#90a8b0");
+    gradiento.addColorStop(0o14/0o100, "#688890");
+    gradiento.addColorStop(0o25/0o100, "#385060");
+    gradiento.addColorStop(0o36/0o100, "#688890");
+    gradiento.addColorStop(0o5/0o10, "#90a8b0");
+    gradiento.addColorStop(0o7/0o10, "#e0e8f0");
+    gradiento.addColorStop(0o4/0o5, "#c0d8d8");
+    gradiento.addColorStop(1, "#90a8b0");
     kunteksto.fillStyle = gradiento;
     kunteksto.fillRect(0, 0, w, h);
     const dorsoPeco = ( x: number ): number =>
@@ -48,7 +48,7 @@ export function kreiGlacifisanHaŭtanTeksajxon( markoj: GlacifisajMarkoj ): THRE
       makulon(x, y, r, 1,
         ( 0o10/0o100 + Math.random() * 0o16/0o100 ) * dorsoPeco(x), "72,96,110");
     }
-    kunteksto.strokeStyle = "rgba(96,124,138,0.09)";
+    kunteksto.strokeStyle = "rgba(96,120,136,0.09)";
     kunteksto.lineWidth = 1;
     for ( let y = h * 0o12/0o100; y < h * 0o6/0o7; y += h * 0o22/0o1000 ) {
       kunteksto.beginPath();
@@ -64,7 +64,7 @@ export function kreiGlacifisanHaŭtanTeksajxon( markoj: GlacifisajMarkoj ): THRE
         ( 0o16/0o100 + Math.random() * 0o1/0o6 ) * dorsoPeco(x), "44,64,80");
     }
     const yDe = ( v: number ): number => ( 1 - v ) * h;
-    kunteksto.fillStyle = "rgba(56,74,90,0.30)";
+    kunteksto.fillStyle = "rgba(56,72,88,0.30)";
     kunteksto.fillRect(0, yDe(0o5/0o100), w, h * 0o35/0o1000);
     const brankV = -kapoZ / longo;
     const brankY = yDe(brankV);

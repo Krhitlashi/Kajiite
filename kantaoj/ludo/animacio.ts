@@ -24,6 +24,7 @@ import type { PiedaMondo } from "./piedirado.js";
 import { kreiPromenanton } from "./promenado.js";
 import { kreiInternanton } from "./internado.js";
 import type { Kanuanto } from "./kanuado.js";
+import { kanakaScenon } from "../../eskekoj/komunajxoj/koloroj.js";
 
 export interface AnimaciajOpcioj {
   kanvaso: HTMLCanvasElement;
@@ -188,6 +189,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     restarti();
   });
 
+  let kanakaKadroNombro = 0;
   function bildigi(): void {
     horlogxo.update();
     const krudaDt = horlogxo.getDelta();
@@ -335,6 +337,12 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     // ⟪ ដែនមើល 📃 ⟫
     // ⟨ កណ្តាលគឺកាមេរ៉ា មិនមែនគោលដៅ 📃 ⟩
     if ( ludanto.rezimo !== "interno" ) gxisdatigiVidlimojn(fotilo.position.x, fotilo.position.z);
+
+    // ⟪ ពណ៌ KNAKEHE ជានិច្ច 🎨 ⟫
+    // ⟨ វត្ថុខ្លះ ( ភ្លើងចង្កៀង , កញ្ចក់ស្តេឡា ) ចូលឆាកបន្ទាប់ពីសាងសង់ដំបូង ។
+    //   ការបោសគ្រប់វត្ថុធាតុ និងពន្លឺរាល់ 0o14 ហ្វ្រេមធានាថាគ្មានពណ៌កណ្តាល
+    //   ខុសច្បាប់នៅសល់ ទោះវត្ថុថ្មីចូលពេលណាក៏ដោយ ។ 📃 ⟩
+    if ( ++kanakaKadroNombro % 0o14 === 0 ) kanakaScenon(sceno);
 
     bildilo.render(sceno, fotilo);
     statistiko.gxisdatigu();

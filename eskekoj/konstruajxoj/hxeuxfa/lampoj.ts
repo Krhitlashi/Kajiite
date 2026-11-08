@@ -4,6 +4,7 @@ import { kreiDioritanTeksajxon } from "../../komunajxoj/teksajxoj/diorito.js";
 import { kunfandiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 import { BOVLA_ALTO, kreiFlamanGeometrion, LANGA_ALTO } from "./flamo.js";
 import { kreiFalekon } from "./faleko.js";
+import { kanakaKoloro, kanakaAlfo } from "../../komunajxoj/koloroj.js";
 import type { HxeuxfaLoko, HxeuxfaSistemo } from "./tipoj.js";
 export function konstruiHxeuxfojn(sceno: THREE.Scene,
   spots: HxeuxfaLoko[],
@@ -79,7 +80,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   // ⟨ អណ្តាតភ្លើង ស្រទាប់បី 📃 ⟩
   const N = flamajLokoj.length;
   const flamaMaterialo = ( koloro: number, opaco: number ) => new THREE.MeshBasicMaterial({
-    color: koloro, toneMapped: false, transparent: true, opacity: opaco,
+    color: kanakaKoloro(koloro), toneMapped: false, transparent: true, opacity: kanakaAlfo(opaco),
     blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
   const flamaEkstero = new THREE.InstancedMesh(
     kreiFlamanGeometrion(0o35/0o100, 0o21/0o100, 1, 0o55/0o100),
@@ -138,8 +139,8 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     blending: THREE.AdditiveBlending,
     uniforms: {
       uTime: { value: 0 },
-      uOp: { value: 0o15/0o40 },
-      uCol: { value: new THREE.Color(0xf8b058) },
+      uOp: { value: kanakaAlfo(0o15/0o40) },
+      uCol: { value: new THREE.Color(kanakaKoloro(0xf8b058)) },
       uPR: { value: 1 },
     },
     vertexShader: `

@@ -5,6 +5,7 @@ import { kreiCetkuanTeksajxon } from "../../komunajxoj/teksajxoj/cetkuo.js";
 import { kreiBuferanGeometrion, kunfandiGeometriojnSenIndekson } from "../../komunajxoj/kunfandajxoj.js";
 import { biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
+import { kanakaColoro } from "../../komunajxoj/koloroj.js";
 
 function kreiRibitanSegmenton(rMalsupra: number, rSupra: number, alto: number,
   flankoj: number, kresta: number): THREE.BufferGeometry {
@@ -177,7 +178,7 @@ function instanciiKavalerbojn(sceno: THREE.Scene,
     const y = heightFn(x, z);
     M.compose(new THREE.Vector3(x, y, z), Q, new THREE.Vector3(alto, alto, alto));
     kavalerboj.setMatrixAt(ki, M);
-    kavalerboj.setColorAt(ki, C.setHex(koloro).multiplyScalar(0o111/0o100 + hazardaGenerilo() * 0o15/0o100));
+    kavalerboj.setColorAt(ki, kanakaColoro(C.setHex(koloro).multiplyScalar(0o111/0o100 + hazardaGenerilo() * 0o15/0o100)));
     ki++;
   }
 

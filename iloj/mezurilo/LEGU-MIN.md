@@ -46,6 +46,7 @@ node --import ./iloj/mezurilo/falsdomo.mjs iloj/mezurilo/<ឯកសារ>.mjs [
 | `verifiki.ts` | បញ្ជាក់ថាកំណែចាស់ និងថ្មីផ្តល់លេខដូចគ្នាបេះបិទ |
 | `komparo.ts` | A/B ឆ្លាស់គ្នាក្នុងដំណើរការតែមួយ សម្រាប់ចំណុចក្តៅៗ |
 | `koloro.ts` | A/B ផ្លូវពណ៌ ៖ `terenkoloroj.ts` បច្ចុប្បន្ន ធៀបនឹងកំណែពី git |
+| `koloro-kontrol.ts` | ពណ៌ KNAKEHE ៖ គ្រប់ពណ៌ជា #nmnmnm , ស្រមោលជា MainColor ដក n0n0n0 |
 | `malnova-terenkoloroj.ts` | ច្បាប់ចម្លងនៃ `terenkoloroj.ts` នៅ `HEAD` សម្រាប់ A/B |
 | `montoj.ts` | ជួរភ្នំ ៖ A/B រវាងការគណនាតម្លៃជួរឈរម្តងទៀត និងការគណនាម្តង |
 | `akvo.ts` | ការគណនាទឹក ៖ A/B `akvokalkulo.ts` បច្ចុប្បន្ន ធៀបនឹង `malnova-akvokalkulo.ts` |

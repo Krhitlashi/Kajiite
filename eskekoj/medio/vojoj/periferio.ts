@@ -52,6 +52,6 @@ export function konstruiPeriferiajnPlatformojn(
 
     bufroj.aldoni(kreiRondanDiamanton(0o22/0o10, 0o2/0o10), supraMaterialo, bordoMatrico);
   }
-  bufroj.kunigi(sceno);
+  bufroj.kunigi(sceno, false);
   return lokoj;
 }

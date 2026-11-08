@@ -61,7 +61,7 @@ export function desegniVidon(): void {
   }
   formoVojo.closePath();
   formoEkstero.addPath(formoVojo);
-  k.fillStyle = "rgba(228,236,240,0.74)";
+  k.fillStyle = "rgba(224,232,240,0.74)";
   k.fill(formoEkstero, "evenodd");
   k.strokeStyle = "rgba(255,255,255,0.92)";
   k.lineWidth = 2;
@@ -101,8 +101,8 @@ export function desegniVidon(): void {
       const elektita = i === elektitaUrbo;
       // ទីក្រុងដែលបានធីកក្នុងផ្ទាំង មើលឃើញ មានស៊ុមស្តើងបញ្ជាក់។
       const montrata = cxuUrboMontrata(i);
-      k.fillStyle = elektita ? "rgba(255,214,64,0.95)"
-        : montrata ? "rgba(190,240,190,0.95)" : "rgba(255,255,255,0.85)";
+      k.fillStyle = elektita ? "rgba(255,208,64,0.95)"
+        : montrata ? "rgba(184,240,184,0.95)" : "rgba(255,255,255,0.85)";
       k.beginPath();
       k.moveTo(sx, sy - 7);
       k.lineTo(sx + 7, sy);
@@ -110,7 +110,7 @@ export function desegniVidon(): void {
       k.lineTo(sx - 7, sy);
       k.closePath();
       k.fill();
-      k.strokeStyle = elektita ? "#e0b840" : montrata ? "#5fa85f" : "rgba(0,0,0,0.5)";
+      k.strokeStyle = elektita ? "#e0b840" : montrata ? "#58a858" : "rgba(0,0,0,0.5)";
       k.lineWidth = elektita ? 0o5/0o2 : montrata ? 2 : 1;
       k.stroke();
       k.font = "bold 12px sans-serif";
@@ -155,7 +155,7 @@ export function desegniVidon(): void {
     // ពេលទីក្រុងដែលកំពុងកែមានពួកវា ) ដូចក្នុងទិដ្ឋភាព 3D។
     if ( uAld && uAld.keuxfhxeso ) {
       const R = 0o10;
-      k.fillStyle = "rgba(150,210,220,0.95)";
+      k.fillStyle = "rgba(144,208,216,0.95)";
       k.strokeStyle = "rgba(0,0,0,0.4)";
       k.lineWidth = 1;
       for ( let i = 0; i < 4; i++ ) {
@@ -213,8 +213,8 @@ export function desegniVidon(): void {
         punktoj.forEach(( p, i: number ) => i === 0 ? k.moveTo(p[0], p[1]) : k.lineTo(p[0], p[1]));
         k.stroke();
       };
-      spuro(duono, elektita ? "rgba(120,140,120,0.95)" : "rgba(90,98,88,0.9)");
-      spuro(centro, elektita ? "rgba(255,232,150,0.95)" : "rgba(216,216,208,0.95)");
+      spuro(duono, elektita ? "rgba(120,136,120,0.95)" : "rgba(88,96,88,0.9)");
+      spuro(centro, elektita ? "rgba(255,232,144,0.95)" : "rgba(216,216,208,0.95)");
       // ចំណុច គឺចំណុចដែលជ្រើសត្រូវបំភ្លឺ។
       punktoj.forEach(( p, i: number ) => {
         const aktiva = elektita && i === elektitaPunkto;
@@ -245,10 +245,10 @@ export function desegniVidon(): void {
       k.save();
       k.translate(sxp, syp);
       k.rotate(-rotacio);
-      k.fillStyle = elektita ? "rgba(120,140,120,0.95)" : "rgba(90,98,88,0.9)";
+      k.fillStyle = elektita ? "rgba(120,136,120,0.95)" : "rgba(88,96,88,0.9)";
       k.fillRect(-( w / 2 + kadro ) * vidSkalo, -( prof / 2 + kadro ) * vidSkalo,
         ( w + 2 * kadro ) * vidSkalo, ( prof + 2 * kadro ) * vidSkalo);
-      k.fillStyle = elektita ? "rgba(255,232,150,0.95)" : "rgba(216,216,208,0.95)";
+      k.fillStyle = elektita ? "rgba(255,232,144,0.95)" : "rgba(216,216,208,0.95)";
       k.fillRect(-( w / 2 ) * vidSkalo, -( prof / 2 ) * vidSkalo,
         w * vidSkalo, prof * vidSkalo);
       // ⟨ កំពូលខាងទឹក 📃 ⟩ គឺព្រួញនៅគែមខាងទឹក ( ខាងមុខ )។ បើគ្មានវា កំពង់
@@ -257,7 +257,7 @@ export function desegniVidon(): void {
       // កំពូល។ វាត្រូវបានគូរជាភិចសែលអេក្រង់ ( មិនមែនឯកតាពិភពលោក )
       // ព្រោះផែនទីខ្លួនឯងបង្ហាញពេលបង្រួមនៅក្នុងទំព័រ។
       const pintoY = ( prof / 2 + kadro ) * vidSkalo;
-      k.fillStyle = elektita ? "rgba(150,200,240,0.95)" : "rgba(128,170,210,0.9)";
+      k.fillStyle = elektita ? "rgba(144,200,240,0.95)" : "rgba(128,168,208,0.9)";
       k.beginPath();
       k.moveTo(0, pintoY + 0o11);
       k.lineTo(-7, pintoY + 1);
@@ -334,9 +334,9 @@ export function desegniVidon(): void {
     const r = Math.max(0o7/0o2, ( 0o115/0o100 + Math.min(0o115/0o40, f.fluo * 0o3/0o40) ) * vidSkalo * ( akvaIlo ? 0o12/0o10 : 1 ));
     k.beginPath();
     k.arc(px, py, r, 0, Math.PI * 2);
-    k.fillStyle = elektita ? "rgba(150,230,255,0.9)" : "rgba(70,170,215,0.78)";
+    k.fillStyle = elektita ? "rgba(144,224,255,0.9)" : "rgba(64,168,208,0.78)";
     k.fill();
-    k.strokeStyle = elektita ? "#ffffff" : "rgba(240,252,255,0.85)";
+    k.strokeStyle = elektita ? "#ffffff" : "rgba(240,248,255,0.85)";
     k.lineWidth = elektita ? 0o5/0o2 : 0o3/0o2;
     k.stroke();
     k.beginPath();

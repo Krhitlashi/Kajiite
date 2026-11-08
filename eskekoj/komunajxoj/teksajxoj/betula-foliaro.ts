@@ -17,13 +17,13 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const r = s * ( 0o2/0o100 + Math.random() * 0o5/0o100 );
       const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-      const koloro = i % 0o3 ? "rgba(228,242,224,0.22)" : ombro(BAZO, 0o10, 0o5/0o40);
+      const koloro = i % 0o3 ? "rgba(224,240,224,0.22)" : ombro(BAZO, 0o10, 0o5/0o40);
       g.addColorStop(0, koloro);
       g.addColorStop(1, senAlfa(koloro));
       kunteksto.fillStyle = g;
       kunteksto.beginPath(); kunteksto.ellipse(x, y, r, r * 0o7/0o10, Math.random() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
     }
-    const foliajKoloroj = [ "rgba(150,178,152,0.55)", "rgba(188,208,184,0.50)", "rgba(130,160,134,0.58)", "rgba(214,230,210,0.46)", "rgba(238,246,234,0.38)" ];
+    const foliajKoloroj = [ "rgba(144,176,152,0.55)", "rgba(184,208,184,0.50)", "rgba(128,160,128,0.58)", "rgba(208,224,208,0.46)", "rgba(232,240,232,0.38)" ];
     const desegniFolion = ( x: number, y: number, longo: number, largho: number, angulo: number, koloro: string ): void => {
       kunteksto.save();
       kunteksto.translate(x, y);
@@ -34,10 +34,10 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.quadraticCurveTo(0, -largho, longo, 0);
       kunteksto.quadraticCurveTo(0, largho, -longo, 0);
       kunteksto.fill();
-      kunteksto.strokeStyle = "rgba(242,250,238,0.55)";
+      kunteksto.strokeStyle = "rgba(240,248,232,0.55)";
       kunteksto.lineWidth = 0o1/0o2;
       kunteksto.beginPath(); kunteksto.moveTo(-longo * 0o3/0o4, 0); kunteksto.lineTo(longo * 0o3/0o4, 0); kunteksto.stroke();
-      kunteksto.strokeStyle = "rgba(242,250,238,0.30)";
+      kunteksto.strokeStyle = "rgba(240,248,232,0.30)";
       kunteksto.lineWidth = 0o1/0o4;
       kunteksto.beginPath();
       kunteksto.moveTo(-longo * 0o2/0o10, 0); kunteksto.lineTo(0, -largho * 0o63/0o100);
@@ -68,7 +68,7 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const angulo = Math.random() * Math.PI * 2;
       const longo = 0o1 + Math.random() * 0o3;
-      kunteksto.strokeStyle = i % 0o3 ? ombro(BAZO, 0o5, 0o7/0o40) : "rgba(222,238,216,0.26)";
+      kunteksto.strokeStyle = i % 0o3 ? ombro(BAZO, 0o5, 0o7/0o40) : "rgba(216,232,216,0.26)";
       kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(x, y);

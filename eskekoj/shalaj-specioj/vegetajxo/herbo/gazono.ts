@@ -2,6 +2,7 @@
 import * as THREE from "three";
 import { kreiHerbanTavolanKlinganTeksajxon } from "../../../komunajxoj/teksajxoj/tavola-klinga-herbo.js";
 import { herbaKlingaKoloro, sekaHerbaKlingaKoloro, terenaKoloroEn } from "../../../komunajxoj/terenkoloroj.js";
+import { kanakaColoro } from "../../../komunajxoj/koloroj.js";
 import { kunfandiGeometriojnSenIndekson } from "../../../komunajxoj/kunfandajxoj.js";
 import { kreiVegetajxanHazardon } from "../hazardoj.js";
 import { VOJA_EKSTERA_DUONO } from "../../../medio/vojoj/mezuroj.js";
@@ -34,7 +35,8 @@ const HERBA_LIMO = 0o40;
 const HERBA_FADO = HERBA_LIMO;
 
 // ⟪ រូបរាងដុំស្មៅ 📃 ⟫
-export const HERBA_LARGO = 0o33/0o10;
+// ⟨ វាលស្មៅ ៖ ស្លឹកខ្ពស់ជាងមុន , តែនៅជាវាលរាបស្មើ មិនមែនដុំស្មៅខ្ពស់ដាច់ៗ 📃 ⟩
+export const HERBA_LARGO = 0o26/0o10;
 const HERBA_CXELA_JITERO = 0o1/0o4;
 // ⟨ ស្មៅស្រាល ៖ ស្លឹកតិចជាងមុន , ហើយកំណាត់តែមួយ ។ ស្លឹកនីមួយៗសន្សំត្រីកោណ ។
 // ស្មៅជាអ្នកចំណាយធំបំផុតលើ GPU ៖ ដុំមួយមានស្លឹករាប់រយ ។ ការកំណត់តែមួយ
@@ -51,7 +53,9 @@ const HERBA_TABELOJ_ANTUX_JESI = 0o4;
 // គែមក្រឡាស្មៅ ដល់ភ្នែកអ្នកលេង ។ 📃 ⟩
 const HERBA_LOD_DISTO = 0o12;
 const HERBA_LOD_SEGMENTOJ = 1;
-const HERBA_KLINGA_ALTO = 0o14/0o100 + 0o2/0o10;
+// ⟨ កម្ពស់ស្លឹក ៖ ខ្យល់បក់តាមកម្ពស់ពិត , មិនបក់លើសស្លឹក ។ តម្លៃនេះត្រូវ
+//   នៅជិតកម្ពស់ស្លឹកខ្ពស់បំផុត ( longo ) ដើម្បីឱ្យចុងស្លឹកបក់ពេញ 📃 ⟩
+const HERBA_KLINGA_ALTO = 0o44/0o100;
 const HERBA_DEKLIVA_LIMO = 0o7/0o10;
 const HERBA_DOKLIVA_LIMO = 0o13/0o20;
 const HERBA_SUKENO = 0o1/0o100;
@@ -202,11 +206,14 @@ export function herbaTufaKoloroEn(celo: THREE.Color, teraKoloro: THREE.Color,
   const ombro = 0o15/0o20 + 0o5/0o40 * Math.min(1, teraLumo / ( 0o1/0o2 ));
   celo.multiplyScalar(tufo.nuanco * HERBA_MALHELIGO * ombro / klingaLumo)
     .multiply(biomaKoloro.get(tufo.biomo) ?? HERBA_BLANKA_KOLORO);
-  // ⟨ ចម្រុះពណ៌តាមដុំ ៖ ប្រផេះ និងបៃតងចាស់លាយចូលម្តងម្កាល 📃 ⟩
+  // ⟨ ចម្រុះពណ៌តាមដុំ ៖ ប្រផេះ និងបៃតងចាស់លាយចូលម្តងម្កាល ,
+  //   តែតិចជាងមុន ដូច្នេះវាលស្មៅរាបស្មើ មិនលោតពណ៌ខ្លាំង 📃 ⟩
   const vario = herbaHasho(Math.floor(tufo.x / 0o6), Math.floor(tufo.z / 0o6));
-  if ( vario < 0o1/0o4 ) celo.lerp(HERBA_GRUZA_KOLORO, ( 0o1/0o4 - vario ) * 0o6/0o10);
-  else if ( vario > 0o3/0o4 ) celo.lerp(HERBA_MALHELA_KOLORO, ( vario - 0o3/0o4 ) * 0o6/0o10);
-  return celo;
+  if ( vario < 0o1/0o4 ) celo.lerp(HERBA_GRUZA_KOLORO, ( 0o1/0o4 - vario ) * 0o4/0o10);
+  else if ( vario > 0o3/0o4 ) celo.lerp(HERBA_MALHELA_KOLORO, ( vario - 0o3/0o4 ) * 0o4/0o10);
+  // ⟨ បង្គត់ទៅ KNAKEHE ៖ គ្រប់ការគុណ និងលាយខាងលើបង្កើតតម្លៃកណ្តាល ,
+  //   ដូច្នេះពណ៌ដុំស្មៅចុងក្រោយត្រូវតែជា #nmnmnm 📃 ⟩
+  return kanakaColoro(celo);
 }
 
 // ⟨ វត្ថុធាតុសម្រាប់ស្រទាប់ស្មៅ ៖ ដូចឆាកពិត ។ ចម្ងាយបិទអាចពង្រីកបាន
@@ -328,8 +335,9 @@ export function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HE
       const rz = -duono + ( iz + hazardo() ) * pasxo;
       const disto = Math.min(1, Math.hypot(rx, rz) / duono);
       const angulo = Math.atan2(rz, rx);
-      const longo = 0o14/0o100 + hazardo() * 0o2/0o10;
-      const largho = 0o2/0o100 + hazardo() * 0o2/0o100;
+      // ⟨ ស្លឹកខ្ពស់ ៖ វាលស្មៅមានកម្ពស់ពិត , ចុងស្លឹកបក់តាមខ្យល់ 📃 ⟩
+      const longo = 0o22/0o100 + hazardo() * 0o26/0o100;
+      const largho = 0o4/0o100 + hazardo() * 0o2/0o100;
       const elen = longo * ( 0o5/0o100 + hazardo() * 0o15/0o100 )
         * ( 0o5/0o10 + disto * 0o5/0o10 );
       const klino = Math.cos(angulo) * elen
@@ -344,7 +352,7 @@ export function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HE
       else if ( sekaKlingo ) sekaHerbaKlingaKoloro(seka, hazardo);
       else herbaKlingaKoloro(verda, hazardo);
       const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
-        sekaKlingo ? seka : verda, segmentoj, 0o5/0o10);
+        sekaKlingo ? seka : verda, segmentoj, 0o4/0o10);
       klingo.translate(rx, 0, rz);
       klingoj.push(klingo);
     }

@@ -129,13 +129,13 @@ export function desegniLenticelon(k: CanvasRenderingContext2D, lent: BetulaLenti
   k.fillStyle = koloro;
   k.fill();
   k.lineCap = "round";
-  k.strokeStyle = "rgba(20,16,12,0.22)";
+  k.strokeStyle = "rgba(16,16,8,0.22)";
   k.lineWidth = d * 0o63/0o100;
   k.beginPath();
   k.moveTo(-duono * 0o72/0o100, kurb + d * 0o11/0o10);
   k.quadraticCurveTo(0, kurb + d * 0o6/0o10, duono * 0o72/0o100, kurb + d * 0o11/0o10);
   k.stroke();
-  k.strokeStyle = "rgba(255,255,250,0.30)";
+  k.strokeStyle = "rgba(255,255,248,0.30)";
   k.lineWidth = d * 0o5/0o10;
   k.beginPath();
   k.moveTo(-duono * 0o72/0o100, kurb - d * 0o11/0o10);
@@ -215,54 +215,54 @@ export const kreiSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
   return kreiKanvasanTeksajxon(sxelaW, sxelaH, ( k ) => {
     k.fillStyle = "#f8f8f0"; k.fillRect(0, 0, sxelaW, sxelaH);
     desegniWrapajnNubojn(k, sxelaW, sxelaH, 0o14,
-      [ "rgba(255,255,252,0.35)", "rgba(248,247,242,0.25)", "rgba(232,230,222,0.10)" ],
+      [ "rgba(255,255,248,0.35)", "rgba(248,240,240,0.25)", "rgba(232,224,216,0.10)" ],
       0o10/0o100, 0o12/0o100);
     const skizo = generiBetulanSkizon();
     for ( const strio of skizo.horizontajoj ) {
-      const koloro = `rgba(158,154,142,${0o1/0o20 + Math.random() * 0o1/0o20})`;
+      const koloro = `rgba(152,152,136,${0o1/0o20 + Math.random() * 0o1/0o20})`;
       desegniWrapan(k, sxelaW, () => { desegniHorizontanStrion(k, strio, koloro); });
     }
     for ( const strio of skizo.strioj ) {
-      const koloro = `rgba(176,172,158,${0o1/0o10 + Math.random() * 0o12/0o100})`;
+      const koloro = `rgba(176,168,152,${0o1/0o10 + Math.random() * 0o12/0o100})`;
       desegniWrapan(k, sxelaW, () => { desegniStrion(k, strio, koloro); });
     }
     for ( const strio of skizo.helajStrioj ) {
-      const koloro = `rgba(253,253,247,${0o3/0o20 + Math.random() * 0o3/0o20})`;
+      const koloro = `rgba(248,248,240,${0o3/0o20 + Math.random() * 0o3/0o20})`;
       desegniWrapan(k, sxelaW, () => { desegniStrion(k, strio, koloro); });
     }
     for ( const lent of skizo.lenticeloj ) {
       const maljuneco = lent.y / sxelaH;
-      const koloro = `rgba(26,23,19,${0o55/0o100 + maljuneco * 0o30/0o100})`;
+      const koloro = `rgba(24,16,16,${0o55/0o100 + maljuneco * 0o30/0o100})`;
       desegniWrapan(k, sxelaW, () => {
         desegniLenticelon(k, { ...lent, longo: lent.longo + 0o4, dikeco: lent.dikeco + 1 },
-          `rgba(152,134,104,${0o10/0o100 + maljuneco * 0o6/0o100})`);
+          `rgba(152,128,104,${0o10/0o100 + maljuneco * 0o6/0o100})`);
         desegniLenticelon(k, lent, koloro);
       });
     }
     for ( const sxel of skizo.sxelighoj ) {
       desegniWrapan(k, sxelaW, () => {
         desegniSxelighon(k, sxel,
-          `rgba(104,94,80,${sxel.malhelo})`,
-          "rgba(24,18,12,0.25)",
-          "rgba(252,251,245,0.85)");
+          `rgba(104,88,80,${sxel.malhelo})`,
+          "rgba(24,16,8,0.25)",
+          "rgba(248,248,240,0.85)");
       });
     }
     for ( const cik of skizo.cikatroj ) {
       desegniWrapan(k, sxelaW, () => {
-        desegniCikatron(k, cik, "rgba(96,88,74,0.50)", "rgba(250,250,242,0.55)");
+        desegniCikatron(k, cik, "rgba(96,88,72,0.50)", "rgba(248,248,240,0.55)");
       });
     }
     for ( let i = 0; i < 0o4000; i++ ) {
       const l = 0o1 + Math.random() * 0o10;
       k.fillStyle = Math.random() < 0o3/0o5
-        ? `rgba(120,116,104,${0o3/0o100 + Math.random() * 0o10/0o100})`
-        : `rgba(255,255,250,${0o5/0o100 + Math.random() * 0o10/0o100})`;
+        ? `rgba(120,112,104,${0o3/0o100 + Math.random() * 0o10/0o100})`
+        : `rgba(255,255,248,${0o5/0o100 + Math.random() * 0o10/0o100})`;
       k.fillRect(Math.random() * ( sxelaW - l ), Math.random() * sxelaH, l, 1);
     }
     const lavo = k.createLinearGradient(0, sxelaH * 0o5/0o10, 0, sxelaH);
-    lavo.addColorStop(0, "rgba(168,164,152,0)");
-    lavo.addColorStop(0o43/0o100, "rgba(156,152,142,0.10)");
-    lavo.addColorStop(1, "rgba(120,116,108,0.34)");
+    lavo.addColorStop(0, "rgba(168,160,152,0)");
+    lavo.addColorStop(0o43/0o100, "rgba(152,152,136,0.10)");
+    lavo.addColorStop(1, "rgba(120,112,104,0.34)");
     k.fillStyle = lavo;
     k.fillRect(0, 0, sxelaW, sxelaH);
   }, [ 1, 1 ], { anisotropio: 4 });

@@ -151,7 +151,7 @@ const tero = new THREE.Mesh(geometrioTero, new THREE.MeshStandardMaterial({
   vertexColors: true, roughness: 0o7/0o10, metalness: 0,
   map: kreiGrundanTeksajxon(),
   bumpMap: kreiGrundanBumpanTeksajxon(),
-  bumpScale: 0o5/0o10,
+  bumpScale: 0o2/0o10,
 }));
 sceno.add(tero);
 

@@ -11,6 +11,7 @@ import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
   terenaStrataKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,
   MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
+import { kanakaColoro, kanakaAlfo } from "../../eskekoj/komunajxoj/koloroj.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { montaraSemoBazo } from "../tero-datumaro/rultempo.js";
 import { gxisdatigiSteleanVitron } from "../../eskekoj/konstruajxoj/satalaj/vitro.js";
@@ -173,7 +174,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const t = lastaKrepusko;
     const d = PALETROJ[nunaVetero];
     const l = ( a: THREE.Color | THREE.Vector3 | number, b: THREE.Color | THREE.Vector3 | number ): any =>
-      a instanceof THREE.Color ? ( a as THREE.Color ).clone().lerp(b as THREE.Color, t) :
+      a instanceof THREE.Color ? kanakaColoro(( a as THREE.Color ).clone().lerp(b as THREE.Color, t)) :
       a instanceof THREE.Vector3 ? ( a as THREE.Vector3 ).clone().lerp(b as THREE.Vector3, t) :
       a + ( b as number - a ) * t;
     cxielajUniformoj.uTop.value = l(d.tago.top, d.krepusko.top);
@@ -182,12 +183,14 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     cxielajUniformoj.uSunCol.value = l(d.tago.sunCol, d.krepusko.sunCol);
     const sunDir = new THREE.Vector3().copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
     cxielajUniformoj.uSunDir.value = sunDir.clone().normalize();
-    sceno.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t);
+    // ⟨ ការលាយថ្ងៃ-ព្រលប់បង្កើតតម្លៃកណ្តាល ។ បង្គត់គ្រប់ពណ៌ពន្លឺ និងអ័ព្ទ
+    //   ត្រឡប់ទៅ #nmnmnm ដើម្បីកុំឱ្យពន្លឺរំលងច្បាប់ពណ៌ ។ 📃 ⟩
+    kanakaColoro(sceno.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t));
     ( sceno.fog as THREE.FogExp2 ).density = l(d.tago.nebulDenso, d.krepusko.nebulDenso);
-    hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t);
-    hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t);
+    kanakaColoro(hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t));
+    kanakaColoro(hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t));
     hemiLumo.intensity = l(d.tago.hemiInt, d.krepusko.hemiInt);
-    suno.color.copy(d.tago.sunCol).lerp(d.krepusko.sunCol, t);
+    kanakaColoro(suno.color.copy(d.tago.sunCol).lerp(d.krepusko.sunCol, t));
     suno.intensity = l(d.tago.sunInt, d.krepusko.sunInt);
     SUNA_DIREKTO.copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
     sunaDistanco = SUNA_DIREKTO.length();
@@ -196,7 +199,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     bildilo.toneMappingExposure = l(d.tago.ekspozicio, d.krepusko.ekspozicio);
     sunaSprajto.position.copy(sunDir).multiplyScalar(0o510);
     sunaSprajto.material.color.copy(suno.color);
-    sunaSprajto.material.opacity = l(d.tago.sprajtaOp, d.krepusko.sprajtaOp);
+    sunaSprajto.material.opacity = kanakaAlfo(l(d.tago.sprajtaOp, d.krepusko.sprajtaOp));
     eniraMaterialo.emissiveIntensity = l(0o3/0o100, 0o52/0o100);
     gxisdatigiSteleanVitron(t);
   }
@@ -506,11 +509,12 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     g.computeVertexNormals();
     // ⟨ វាយនភាពចម្លាក់ , តែលើឧបករណ៍ខ្លាំង 📃 ⟩
+    // ⟨ ស្មៅរាបស្មើ ៖ កម្ពស់ស្រមោលតិចជាងមុន , ដូច្នេះដីមិនមានរណ្តៅស្រួច 📃 ⟩
     const grundMaterialo = fadaGrundon(new THREE.MeshStandardMaterial({
       vertexColors: true, roughness: 0o7/0o10,
       map: kreiGrundanTeksajxon(),
       bumpMap: kreiGrundanBumpanTeksajxon(),
-      bumpScale: 0o5/0o10,
+      bumpScale: 0o2/0o10,
     }));
     const ground = new THREE.Mesh(g, grundMaterialo);
     ground.receiveShadow = true;

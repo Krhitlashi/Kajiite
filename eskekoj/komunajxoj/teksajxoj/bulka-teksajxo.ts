@@ -11,8 +11,8 @@ export function bulkaTeksajxon(): THREE.CanvasTexture {
       const r = 0o10 + Math.random() * 0o30;
       const x = Math.random() * 0o200, y = Math.random() * 0o200;
       const grad = k.createRadialGradient(x, y, 0, x, y, r);
-      grad.addColorStop(0, `rgba(196,176,150,${0o5/0o100 + Math.random() * 0o5/0o100})`);
-      grad.addColorStop(1, "rgba(196,176,150,0)");
+      grad.addColorStop(0, `rgba(192,176,144,${0o5/0o100 + Math.random() * 0o5/0o100})`);
+      grad.addColorStop(1, "rgba(192,176,144,0)");
       k.fillStyle = grad; k.beginPath(); k.arc(x, y, r, 0, Math.PI * 2); k.fill();
     }
     for ( let i = 0; i < 0o400; i++ ) {

@@ -99,7 +99,7 @@ export const kreiFilikanTeksajxon = sxovu((): THREE.CanvasTexture => kreiPinatan
   folio: ( t, flanko ) =>
     `rgb(${Math.round(0o76 + t * 0o32)},${Math.round(0o154 + t * 0o56 + ( flanko > 0 ? 5 : 0 ))},${Math.round(0o62 + t * 0o24)})`,
   rando: ombro(0x386830, 0o2, 0o33/0o100),
-  vejno: "rgba(150,180,110,0.30)",
-  raĥiso: "#65854e",
+  vejno: "rgba(144,176,104,0.30)",
+  raĥiso: "#608048",
   raĥisoLargho: 4,
 }));

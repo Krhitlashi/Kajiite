@@ -37,8 +37,8 @@ function kreiLobon(): THREE.ExtrudeGeometry {
 export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   const grupo = new THREE.Group();
   const gelo = kreiGelanTeksajxon({
-    bazo: "rgb(224,240,246)", kanalo: "rgb(160,196,214)",
-    poluso: "rgb(196,224,236)", polusaForto: 0o45/0o100, grajnoj: 0o460,
+    bazo: "rgb(224,240,240)", kanalo: "rgb(160,192,208)",
+    poluso: "rgb(192,224,232)", polusaForto: 0o45/0o100, grajnoj: 0o460,
   });
   const korpo = kreiKorpon(gelo, teksajxo, PROFILO, 0xd8e8f0, 0x285878);
   korpo.name = "korpo";

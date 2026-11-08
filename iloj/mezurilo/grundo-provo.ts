@@ -33,7 +33,7 @@ const senTeksajxo = !sxaltita("teksajxo");
 const senBumpo = !sxaltita("bumpo");
 const senOmbroj = !sxaltita("ombroj");
 const senNebulo = !sxaltita("nebulo");
-const bumpaForto = nombro("bumpoforto", 0o5/0o10);
+const bumpaForto = nombro("bumpoforto", 0o2/0o10);
 
 const materialoj = new Set<THREE.Material>();
 sceno.traverse(o => {

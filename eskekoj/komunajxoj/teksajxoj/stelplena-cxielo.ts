@@ -12,7 +12,7 @@ export function kreiStelplenanTeksajxon(): THREE.CanvasTexture {
   for ( let i = 0; i < 0o140; i++ ) {
     const x = Math.random() * c.width, y = Math.random() * c.height;
     const r = 0o5/0o10 + Math.random() * 0o15/0o10;
-    g.fillStyle = `rgba(214,240,255,${( 0o26/0o100 + Math.random() * 0o52/0o100 ).toFixed(2)})`;
+    g.fillStyle = `rgba(208,240,255,${( 0o26/0o100 + Math.random() * 0o52/0o100 ).toFixed(2)})`;
     g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
   }
   stelplenaTeksajxo = new THREE.CanvasTexture(c);

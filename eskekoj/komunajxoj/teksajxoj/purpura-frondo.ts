@@ -20,8 +20,8 @@ export function kreiPurpuranFrondanTeksajxon(densa: boolean = false): THREE.Canv
     folio: ( t, flanko ) =>
       `rgb(${Math.round(0o140 + t * 0o130 + ( flanko > 0 ? 0o20 : 0 ))},${Math.round(0o70 + t * 0o76)},${Math.round(0o226 + t * 0o124)})`,
     rando: ombro(0x603890, 0o3, 0o35/0o100),
-    vejno: "rgba(214,178,244,0.30)",
-    raĥiso: "#4a2a68",
+    vejno: "rgba(208,176,240,0.30)",
+    raĥiso: "#482868",
     raĥisoLargho: 4,
   });
   purpuraFrondaKaŝo.set(densa, teksajxo);

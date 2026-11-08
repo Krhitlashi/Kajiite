@@ -6,6 +6,6 @@
 
 #bestoVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; clip-path:inset(0 round var(--អិត្ភេ)); }
 
-#objektaAntauxrigardo { inline-size:50%; aspect-ratio:1 / 1; align-self:center; border-radius:var(--អិត្ភេ); clip-path:inset(0 round var(--អិត្ភេ)); background:linear-gradient(180deg,#6fa8d8,#a8d0e8 55%,#d8e8f0); }
+#objektaAntauxrigardo { inline-size:50%; aspect-ratio:1 / 1; align-self:center; border-radius:var(--អិត្ភេ); clip-path:inset(0 round var(--អិត្ភេ)); background:linear-gradient(180deg,#68a8d8,#a8d0e8 55%,#d8e8f0); }
 
 #vojaVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; clip-path:inset(0 round var(--អិត្ភេ)); }

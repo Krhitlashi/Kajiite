@@ -20,8 +20,8 @@ export function kreiPurpuranTronkofilikanTeksajxon(densa: boolean = false): THRE
     folio: ( t, flanko ) =>
       `rgb(${Math.round(0o150 + t * 0o126 + ( flanko > 0 ? 0o20 : 0 ))},${Math.round(0o74 + t * 0o76)},${Math.round(0o236 + t * 0o122)})`,
     rando: ombro(0x683898, 0o3, 0o35/0o100),
-    vejno: "rgba(214,178,244,0.28)",
-    raĥiso: "#4a2a68",
+    vejno: "rgba(208,176,240,0.28)",
+    raĥiso: "#482868",
     raĥisoLargho: 3,
   });
   purpuraTronkaFrondaKaŝo.set(densa, teksajxo);

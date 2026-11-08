@@ -10,7 +10,7 @@ export const kreiSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
     for ( let i = 0; i < 0o14; i++ ) {
       const r = sxelaH * ( 0o10/0o100 + Math.random() * 0o10/0o100 );
       const x = Math.random() * sxelaW, y = Math.random() * sxelaH;
-      const koloro = i % 2 ? "rgba(142,142,138,0.16)" : "rgba(74,74,74,0.14)";
+      const koloro = i % 2 ? "rgba(136,136,136,0.16)" : "rgba(72,72,72,0.14)";
       desegniWrapan(kunteksto, sxelaW, () => {
         const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
         g.addColorStop(0, koloro);
@@ -20,15 +20,15 @@ export const kreiSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
       });
     }
     for ( const strio of skizo.horizontajoj ) {
-      const koloro = "rgba(140,140,140,0.20)";
+      const koloro = "rgba(136,136,136,0.20)";
       desegniWrapan(kunteksto, sxelaW, () => { desegniHorizontanStrion(kunteksto, strio, koloro); });
     }
     for ( const strio of skizo.strioj ) {
-      const koloro = "rgba(146,146,146,0.35)";
+      const koloro = "rgba(144,144,144,0.35)";
       desegniWrapan(kunteksto, sxelaW, () => { desegniStrion(kunteksto, strio, koloro); });
     }
     for ( const strio of skizo.helajStrioj ) {
-      const koloro = "rgba(162,162,162,0.45)";
+      const koloro = "rgba(160,160,160,0.45)";
       desegniWrapan(kunteksto, sxelaW, () => { desegniStrion(kunteksto, strio, koloro); });
     }
     for ( const lent of skizo.lenticeloj ) {
@@ -47,7 +47,7 @@ export const kreiSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
     for ( const cik of skizo.cikatroj ) {
       desegniWrapan(kunteksto, sxelaW, () => {
-        desegniCikatron(kunteksto, cik, "rgba(104,104,104,0.55)", "rgba(150,150,150,0.5)");
+        desegniCikatron(kunteksto, cik, "rgba(104,104,104,0.55)", "rgba(144,144,144,0.5)");
       });
     }
     for ( let i = 0; i < 0o4000; i++ ) {

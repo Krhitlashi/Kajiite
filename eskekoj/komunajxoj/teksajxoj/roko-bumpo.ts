@@ -24,7 +24,7 @@ export const kreiRokenBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
         kunteksto.closePath();
         kunteksto.fillStyle = `rgb(${griz},${griz},${griz})`;
         kunteksto.fill();
-        kunteksto.strokeStyle = "rgb(58,58,58)";
+        kunteksto.strokeStyle = "rgb(56,56,56)";
         kunteksto.lineWidth = 1;
         kunteksto.stroke();
         kunteksto.restore();
@@ -41,7 +41,7 @@ export const kreiRokenBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
           kunteksto.lineTo(fendo.punktoj[i][0], fendo.punktoj[i][1]);
         }
         kunteksto.stroke();
-        kunteksto.strokeStyle = "rgb(148,148,148)";
+        kunteksto.strokeStyle = "rgb(144,144,144)";
         kunteksto.lineWidth = 1;
         kunteksto.stroke();
       });
@@ -49,7 +49,7 @@ export const kreiRokenBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
     for ( let i = 0; i < 0o600; i++ ) {
       const x = hazard(0, s), y = hazard(0, s);
       const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
-      const koloro = Math.random() > 0o5/0o10 ? "rgba(170,170,170,0.5)" : "rgba(92,92,92,0.5)";
+      const koloro = Math.random() > 0o5/0o10 ? "rgba(168,168,168,0.5)" : "rgba(88,88,88,0.5)";
       desegniWrapan(kunteksto, s, () => {
         kunteksto.fillStyle = koloro;
         kunteksto.fillRect(x, y, wd, hd);

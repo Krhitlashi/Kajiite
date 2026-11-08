@@ -1,6 +1,7 @@
 // ≺⧼ ពណ៌ដី 🎨 ⧽≻
 import * as THREE from "three";
 import { SKULPTA_AKVA_NIVELO } from "../../kantaoj/tero-datumaro/aktiva.js";
+import { kanakaColoro, ombraKoloro } from "./koloroj.js";
 
 /*សំឡេងតម្លៃនៅក្រឡាមួយ
     @param xi,zi ( number ) - ក្រឡាចំនួនគត់
@@ -74,7 +75,8 @@ export const TERENA_KOLOROJ: TerenajKoloroj = {
   herboB: new THREE.Color(0x407058),
   sekaHerbo: new THREE.Color(0x308068),
   roko: new THREE.Color(0x686860),
-  rokoOmbro: new THREE.Color(0x384038),
+  // ⟨ ស្រមោលថ្មមកពីថ្មដោយដក ៣ ជំហាន n0n0n0 , មិនមែនពណ៌ដាច់ដោយឡែក 📃 ⟩
+  rokoOmbro: new THREE.Color(ombraKoloro(0x686860, 0o3)),
   profunda: new THREE.Color(0x203038),
   malherbo: new THREE.Color(0x305840),
   marco: new THREE.Color(0x306850),
@@ -130,8 +132,12 @@ function klingaIndekso(hazardo: () => number): number {
 export function herbaKlingaKoloro(celo: THREE.Color, hazardo: () => number): THREE.Color {
   const unua = KLINGAJ_KOLOROJ[klingaIndekso(hazardo)];
   const dua = KLINGAJ_KOLOROJ[klingaIndekso(hazardo)];
-  celo.copy(unua).lerp(dua, hazardo() * 0o4/0o10);
-  return celo.multiplyScalar(0o7/0o10 + hazardo() * 0o5/0o10);
+  celo.copy(unua).lerp(dua, hazardo() * 0o3/0o10);
+  // ⟨ ពន្លឺស្លឹកត្រូវជិតគ្នា ៖ ស្មៅទន់ មិនចាំងខ្លាំង 📃 ⟩
+  celo.multiplyScalar(0o1 - 0o1/0o20 + hazardo() * 0o3/0o20);
+  // ⟨ បង្គត់ទៅ KNAKEHE ៖ ការលាយ និងគុណបង្កើតតម្លៃកណ្តាល , ដូច្នេះ
+  //   ពណ៌ចុងក្រោយត្រូវតែជា #nmnmnm គ្មានតម្លៃនៅចន្លោះ 📃 ⟩
+  return kanakaColoro(celo);
 }
 
 /*ពណ៌ស្លឹកស្មៅស្ងួត ៖ ប្រផេះបៃតង មិនលឿង
@@ -143,7 +149,8 @@ export function sekaHerbaKlingaKoloro(celo: THREE.Color, hazardo: () => number):
   celo.setRGB(SEKA_KLINGO.r + f * 0o15/0o100,
     SEKA_KLINGO.g + f * 0o12/0o100,
     SEKA_KLINGO.b + f * 0o12/0o100);
-  return celo.multiplyScalar(0o7/0o10 + hazardo() * 0o4/0o10);
+  celo.multiplyScalar(0o1 - 0o1/0o20 + hazardo() * 0o3/0o20);
+  return kanakaColoro(celo);
 }
 
 export function terenaStrataKoloroEn(celo: THREE.Color, y: number, surfY: number): THREE.Color {
@@ -169,18 +176,19 @@ export function terenaKoloroEn(celo: THREE.Color, h: number, x: number, z: numbe
   const makulo = 2 * bruo2D(x / 0o55, z / 0o55) - 1;
   const makulo2 = 2 * bruo2D(x / 0o13, z / 0o13) - 1;
   const makulo3 = 2 * bruo2D(x / 0o3, z / 0o3) - 1;
-  const malsekeco = 0o5/0o10 + 0o22/0o100 * makulo + 0o12/0o100 * makulo2 + 0o5/0o100 * makulo3;
+  // ⟨ ភាពខុសគ្នាតិច ៖ វាលស្មៅរាបស្មើ មិនលោតពណ៌ខ្លាំង 📃 ⟩
+  const malsekeco = 0o5/0o10 + 0o14/0o100 * makulo + 0o10/0o100 * makulo2 + 0o3/0o100 * makulo3;
   // ⟨ ការលាយនីមួយៗសរសេរត្រង់ៗ ដោយចេតនា ។ ការបិទ ( closure ) ក្នុងមួយការហៅ
   //   បន្ថែមការបែងចែកអង្គចងចាំ ហើយវាស់បានថាយឺតជាង ។ 📃 ⟩
   let r = P.herboA.r, g = P.herboA.g, b = P.herboA.b;
   let f = fiksu01(malsekeco);
   r += ( P.herboB.r - r ) * f; g += ( P.herboB.g - g ) * f; b += ( P.herboB.b - b ) * f;
   // ⟨ ស្មៅខ្ពស់កាន់តែស្ងួត 📃 ⟩
-  f = fiksu01(( h - 0o10 ) / 0o26) * 0o7/0o10;
+  f = fiksu01(( h - 0o10 ) / 0o26) * 0o4/0o10;
   r += ( P.sekaHerbo.r - r ) * f; g += ( P.sekaHerbo.g - g ) * f; b += ( P.sekaHerbo.b - b ) * f;
   // ⟨ ស្រមោលតាមជម្រាល ៖ ចំណោតចោទងងឹតជាង 📃 ⟩
   const ombro = ombraKurbo(deklivo);
-  f = ombro * 0o22/0o100;
+  f = ombro * 0o16/0o100;
   r += ( P.rokoOmbro.r - r ) * f; g += ( P.rokoOmbro.g - g ) * f; b += ( P.rokoOmbro.b - b ) * f;
   // ⟨ ថ្ម ៖ តាមជម្រាលជាចម្បង , តាមកម្ពស់បន្ថែមតិចៗ 📃 ⟩
   f = Math.max(

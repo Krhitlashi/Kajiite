@@ -5,7 +5,7 @@ import { neregulaFormo, senAlfa, sxovu } from "./helpiloj.js";
 export function pentriLikenanMakulon(kunteksto: CanvasRenderingContext2D, s: number): void {
   kunteksto.clearRect(0, 0, s, s);
   const cx = s / 2, cy = s / 2;
-  const nuboj = [ "rgba(224,232,200,0.4)", "rgba(136,152,120,0.35)", "rgba(88,104,72,0.3)", "rgba(196,208,150,0.4)", "rgba(152,164,140,0.35)" ];
+  const nuboj = [ "rgba(224,232,200,0.4)", "rgba(136,152,120,0.35)", "rgba(88,104,72,0.3)", "rgba(192,208,144,0.4)", "rgba(152,160,136,0.35)" ];
   for ( let i = 0; i < 0o20; i++ ) {
     const a = Math.random() * Math.PI * 2;
     const d = s * ( Math.random() * 0o1/0o10 );
@@ -73,7 +73,7 @@ export function pentriLikenanMakulon(kunteksto: CanvasRenderingContext2D, s: num
     kunteksto.beginPath();
     kunteksto.ellipse(0, 0, longo / 2 + largho, largho, 0, 0, Math.PI * 2);
     kunteksto.fill();
-    kunteksto.strokeStyle = "rgba(232,242,216,0.5)";
+    kunteksto.strokeStyle = "rgba(232,240,216,0.5)";
     kunteksto.lineWidth = 2;
     kunteksto.beginPath();
     kunteksto.ellipse(0, -1, longo / 2 + largho, largho, 0, Math.PI, Math.PI * 2);
@@ -94,7 +94,7 @@ export function pentriLikenanMakulon(kunteksto: CanvasRenderingContext2D, s: num
       if ( v === 0 ) kunteksto.moveTo(px, py); else kunteksto.lineTo(px, py);
     }
     kunteksto.closePath();
-    kunteksto.fillStyle = "rgba(210,220,190,0.46)";
+    kunteksto.fillStyle = "rgba(208,216,184,0.46)";
     kunteksto.fill();
     kunteksto.strokeStyle = aKoloro;
     kunteksto.lineWidth = 1;
@@ -144,8 +144,8 @@ export function pentriLikenanMakulon(kunteksto: CanvasRenderingContext2D, s: num
     const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
     const rad = s * ( 0o3/0o100 + Math.random() * 0o1/0o100 );
     const g = kunteksto.createRadialGradient(x, y, 0, x, y, rad);
-    g.addColorStop(0, "rgba(240,246,228,0.5)");
-    g.addColorStop(1, "rgba(240,246,228,0)");
+    g.addColorStop(0, "rgba(240,240,224,0.5)");
+    g.addColorStop(1, "rgba(240,240,224,0)");
     kunteksto.fillStyle = g;
     kunteksto.beginPath(); kunteksto.arc(x, y, rad, 0, Math.PI * 2); kunteksto.fill();
   }
@@ -156,8 +156,8 @@ export function pentriLikenanMakulon(kunteksto: CanvasRenderingContext2D, s: num
     const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
     const rad = s * ( 0o4/0o100 + Math.random() * 0o1/0o100 );
     const g = kunteksto.createRadialGradient(x, y, 0, x, y, rad);
-    g.addColorStop(0, "rgba(216,228,200,0.5)");
-    g.addColorStop(1, "rgba(216,228,200,0)");
+    g.addColorStop(0, "rgba(216,224,200,0.5)");
+    g.addColorStop(1, "rgba(216,224,200,0)");
     kunteksto.fillStyle = g;
     kunteksto.beginPath(); kunteksto.arc(x, y, rad, 0, Math.PI * 2); kunteksto.fill();
     for ( let p = 0; p < 0o6; p++ ) {
@@ -185,7 +185,7 @@ export function pentriLikenanMakulon(kunteksto: CanvasRenderingContext2D, s: num
     kunteksto.beginPath();
     kunteksto.arc(x, y, rad * 0o3/0o10, 0, Math.PI * 2);
     kunteksto.fill();
-    kunteksto.strokeStyle = "rgba(255,255,250,0.55)";
+    kunteksto.strokeStyle = "rgba(255,255,248,0.55)";
     kunteksto.lineWidth = 1;
     kunteksto.beginPath();
     kunteksto.arc(x, y, rad * 0o66/0o100, -Math.PI * 0o3/0o4, -Math.PI * 0o1/0o4);
@@ -199,8 +199,8 @@ export function pentriLikenanMakulon(kunteksto: CanvasRenderingContext2D, s: num
     kunteksto.fillRect(x, y, 1 + Math.random() * 1, 1 + Math.random() * 1);
   }
   const pruino = kunteksto.createRadialGradient(cx, cy, 0, cx, cy, s * 0o22/0o100);
-  pruino.addColorStop(0, "rgba(240,246,228,0.45)");
-  pruino.addColorStop(1, "rgba(240,246,228,0.12)");
+  pruino.addColorStop(0, "rgba(240,240,224,0.45)");
+  pruino.addColorStop(1, "rgba(240,240,224,0.12)");
   kunteksto.fillStyle = pruino;
   kunteksto.fillRect(0, 0, s, s);
 }

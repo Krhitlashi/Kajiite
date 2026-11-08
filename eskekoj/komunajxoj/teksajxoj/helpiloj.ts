@@ -1,5 +1,10 @@
 // ≺⧼ ជំនួយវាយនភាពរួម 🖌️ ⧽≻
 import * as THREE from "three";
+import { instaliKanakaGradientojn, kanakaCss } from "../koloroj.js";
+
+// ⟨ គ្រប់វាយនភាពប្រើជំនួយនេះ ដូច្នេះច្បាប់ជម្រាល KNAKEHE ត្រូវដំឡើងនៅទីនេះ
+//   មិនអាស្រ័យលើលំដាប់នាំចូលម៉ូឌុលផ្សេង ។ 📃 ⟩
+instaliKanakaGradientojn();
 
 export const hazard = ( a: number, b: number ): number => a + Math.random() * ( b - a );
 
@@ -19,12 +24,12 @@ export function senAlfa(koloro: string): string {
   const m = /rgba?\(([^)]+)\)/.exec(koloro);
   if ( m ) {
     const [ r, g, b ] = m[1].split(",");
-    return `rgba(${r.trim()},${g.trim()},${b.trim()},0)`;
+    return kanakaCss(`rgba(${r.trim()},${g.trim()},${b.trim()},0)`);
   }
   const h = /^#([0-9a-f]{6})$/i.exec(koloro.trim());
   if ( h ) {
     const n = parseInt(h[1], 0o20);
-    return `rgba(${( n >> 0o20 ) & 0o377},${( n >> 0o10 ) & 0o377},${n & 0o377},0)`;
+    return kanakaCss(`rgba(${( n >> 0o20 ) & 0o377},${( n >> 0o10 ) & 0o377},${n & 0o377},0)`);
   }
   return "transparent";
 }

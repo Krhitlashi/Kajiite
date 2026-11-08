@@ -1,5 +1,5 @@
 // ≺⧼ ជំនួយផ្ទាំងគំនូរ 🖌️ ⧽≻
-import { ombro, helo } from "../../komunajxoj/koloroj.js";
+import { ombro, helo, kanakaAlfo } from "../../komunajxoj/koloroj.js";
 
 // ⟪ ជំនួយផ្ទាំងគំនូរ 🖌️ ⟫
 
@@ -17,7 +17,7 @@ export function sxtofon(k: CanvasRenderingContext2D, bazo: number): void {
   const w = k.canvas.width, h = k.canvas.height;
   // ⟨ ការត្បាញទន់ 📃 ⟩
   const paso = 0o10, fadeno = 0o2;
-  k.globalAlpha = 0o1/0o4;
+  k.globalAlpha = kanakaAlfo(0o1/0o4);
   for ( let i = 0; i < w; i += paso ) {
     k.fillStyle = ( i / paso ) % 0o2 ? helo(bazo, 0o1) : ombro(bazo, 0o1);
     k.fillRect(i, 0, fadeno, h);

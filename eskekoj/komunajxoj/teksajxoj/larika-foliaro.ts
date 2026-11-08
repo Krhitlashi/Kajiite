@@ -13,7 +13,7 @@ export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
     gradiento.addColorStop(1, "#687048");
     kunteksto.fillStyle = gradiento;
     kunteksto.fillRect(0, 0, s, s);
-    const pinglajKoloroj = [ "rgba(239,216,105,0.62)", "rgba(204,190,84,0.60)", "rgba(168,168,84,0.58)", "rgba(88,102,52,0.56)", "rgba(224,168,64,0.60)" ];
+    const pinglajKoloroj = [ "rgba(232,216,104,0.62)", "rgba(200,184,80,0.60)", "rgba(168,168,80,0.58)", "rgba(88,96,48,0.56)", "rgba(224,168,64,0.60)" ];
     const desegniVentumilon = ( x: number, y: number, bazoAngulo: number, longo: number, koloroj: string[] ): void => {
       kunteksto.save();
       kunteksto.translate(x, y);
@@ -52,7 +52,7 @@ export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.stroke();
     }
     for ( let i = 0; i < 0o70; i++ ) {
-      kunteksto.fillStyle = i % 0o3 ? "rgba(240,226,126,0.42)" : ombro(BAZO, 0o7, 0o3/0o10);
+      kunteksto.fillStyle = i % 0o3 ? "rgba(240,224,120,0.42)" : ombro(BAZO, 0o7, 0o3/0o10);
       kunteksto.fillRect(Math.random() * s, Math.random() * s, 1 + Math.random() * 0o2, 1 + Math.random() * 0o2);
     }
     kunteksto.lineCap = "round";
@@ -60,7 +60,7 @@ export const kreiLarikanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = Math.random() * s, y = Math.random() * s;
       const a = -Math.PI / 2 + ( Math.random() - 0o5/0o10 ) * 0o6/0o10;
       const longo = 0o2 + Math.random() * 0o4;
-      kunteksto.strokeStyle = i % 0o4 ? "rgba(190,188,89,0.34)" : ombro(BAZO, 0o5, 0o5/0o20);
+      kunteksto.strokeStyle = i % 0o4 ? "rgba(184,184,88,0.34)" : ombro(BAZO, 0o5, 0o5/0o20);
       kunteksto.lineWidth = 0o1/0o2 + Math.random() * 0o1/0o2;
       kunteksto.beginPath();
       kunteksto.moveTo(x, y);

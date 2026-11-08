@@ -29,8 +29,8 @@ const TENTAKLA_LONGO = 0o130/0o100;
 export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   const grupo = new THREE.Group();
   const gelo = kreiGelanTeksajxon({
-    bazo: "rgb(226,244,236)", kanalo: "rgb(156,206,184)",
-    poluso: "rgb(196,232,214)", polusaForto: 0o45/0o100, grajnoj: 0o470,
+    bazo: "rgb(224,240,232)", kanalo: "rgb(152,200,184)",
+    poluso: "rgb(192,232,208)", polusaForto: 0o45/0o100, grajnoj: 0o470,
   });
   const korpo = kreiKorpon(gelo, teksajxo, PROFILO, 0xd8f0e8, 0x286858);
   korpo.name = "korpo";

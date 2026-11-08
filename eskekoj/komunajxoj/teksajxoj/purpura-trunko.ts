@@ -69,13 +69,13 @@ export const kreiPurpuranTrunkanTeksajxon = sxovu((): THREE.CanvasTexture => {
   return kreiKanvasanTeksajxon(w, h, ( k ) => {
     k.fillStyle = "#282038"; k.fillRect(0, 0, w, h);
     desegniWrapajnNubojn(k, w, h, 0o14,
-      [ "rgba(72,64,88,0.20)", "rgba(16,12,24,0.18)", "rgba(88,80,104,0.14)" ],
+      [ "rgba(72,64,88,0.20)", "rgba(16,8,24,0.18)", "rgba(88,80,104,0.14)" ],
       0o10/0o100, 0o14/0o100);
     const skizo = generiPurpuranTrunkanSkizon();
     for ( const fibro of skizo.fibroj ) {
       const koloro = fibro.tono < 0o5/0o10
         ? `rgba(96,88,112,${0o1/0o10 + Math.random() * 0o1/0o10})`
-        : `rgba(16,12,24,${0o1/0o10 + Math.random() * 0o1/0o10})`;
+        : `rgba(16,8,24,${0o1/0o10 + Math.random() * 0o1/0o10})`;
       desegniWrapan(k, w, () => {
         k.strokeStyle = koloro;
         k.lineWidth = 1;
@@ -106,7 +106,7 @@ export const kreiPurpuranTrunkanTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
     for ( const skvamo of skizo.skvamoj ) {
       desegniWrapan(k, w, () => {
-        k.fillStyle = "rgba(16,12,24,0.4)";
+        k.fillStyle = "rgba(16,8,24,0.4)";
         k.beginPath(); k.arc(skvamo.x, skvamo.y, skvamo.r, 0, Math.PI * 2); k.fill();
       });
     }

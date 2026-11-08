@@ -20,11 +20,11 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.closePath();
     };
     const karno = kunteksto.createLinearGradient(0, h, 0, 0);
-    karno.addColorStop(0, "#f0bcf4");
-    karno.addColorStop(0o11/0o100, "#dc96e6");
-    karno.addColorStop(0o1/0o2, "#bf6fd4");
-    karno.addColorStop(0o15/0o20, "#9a4eae");
-    karno.addColorStop(1, "#763486");
+    karno.addColorStop(0, "#f0b8f0");
+    karno.addColorStop(0o11/0o100, "#d890e0");
+    karno.addColorStop(0o1/0o2, "#b868d0");
+    karno.addColorStop(0o15/0o20, "#9848a8");
+    karno.addColorStop(1, "#703080");
     klingo();
     kunteksto.fillStyle = karno;
     kunteksto.fill();
@@ -35,7 +35,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       { t: 0o51/0o100, l: 0o3/0o20, d: -1 }, { t: 0o33/0o40, l: 0o3/0o20, d: 1 } ] ) {
       const sx = cx + ( f.t - 0o1/0o2 ) * w;
       const grad = kunteksto.createLinearGradient(sx - f.l * w, 0, sx + f.l * w, 0);
-      const koloro = f.d > 0 ? "rgba(255,238,255,0.10)" : ombro(BAZO, 0o11, 0o5/0o40);
+      const koloro = f.d > 0 ? "rgba(255,232,255,0.10)" : ombro(BAZO, 0o11, 0o5/0o40);
       grad.addColorStop(0, senAlfa(koloro));
       grad.addColorStop(0o1/0o2, koloro);
       grad.addColorStop(1, senAlfa(koloro));
@@ -47,7 +47,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const x = cx + ( Math.random() * 2 - 1 ) * duono(y);
       const r = h * ( 0o1/0o100 + Math.random() * 0o1/0o100 );
       const hela = Math.random() < 0o1/0o2;
-      const koloro = hela ? "rgba(255,238,255,0.10)" : ombro(BAZO, 0o11, 0o13/0o100);
+      const koloro = hela ? "rgba(255,232,255,0.10)" : ombro(BAZO, 0o11, 0o13/0o100);
       const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
       g.addColorStop(0, koloro);
       g.addColorStop(1, senAlfa(koloro));
@@ -64,7 +64,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     const ripoGradiento = kunteksto.createLinearGradient(cx - w * 0o1/0o20, 0, cx + w * 0o1/0o20, 0);
     ripoGradiento.addColorStop(0, ombro(BAZO, 0o12, 0o41/0o100));
     ripoGradiento.addColorStop(0o5/0o20, ombro(BAZO, 0o10, 0o1/0o10));
-    ripoGradiento.addColorStop(0o1/0o2, "rgba(255,244,255,0.46)");
+    ripoGradiento.addColorStop(0o1/0o2, "rgba(255,240,255,0.46)");
     ripoGradiento.addColorStop(0o13/0o20, ombro(BAZO, 0o10, 0o1/0o10));
     ripoGradiento.addColorStop(1, ombro(BAZO, 0o12, 0o41/0o100));
     kunteksto.fillStyle = ripoGradiento;
@@ -112,7 +112,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
       const l = h * 0o0/0o10 * ( 0o5/0o10 + Math.random() );
       kunteksto.fillStyle = Math.random() < 0o1/0o2
         ? ombro(BAZO, 0o6, 0o5/0o40 + Math.random() * 0o7/0o40)
-        : `rgba(248,228,254,${0o5/0o40 + Math.random() * 0o7/0o40})`;
+        : `rgba(248,224,248,${0o5/0o40 + Math.random() * 0o7/0o40})`;
       kunteksto.fillRect(x, y, l, l);
     }
     const brilo = kunteksto.createLinearGradient(0, h, 0, 0);
@@ -125,7 +125,7 @@ export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     kunteksto.lineWidth = h * 0o1/0o100;
     klingo();
     kunteksto.stroke();
-    kunteksto.strokeStyle = "rgba(246,226,252,0.42)";
+    kunteksto.strokeStyle = "rgba(240,224,248,0.42)";
     kunteksto.lineWidth = h * 0o0/0o10;
     klingo();
     kunteksto.stroke();

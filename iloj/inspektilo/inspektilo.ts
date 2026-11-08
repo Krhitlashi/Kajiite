@@ -19,6 +19,7 @@ import { animaciiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kos
 import { centri, SPECOJ } from "./datumoj.js";
 import { spacoSxipo, KONSTRUAJXOJ } from "./konstruajxoj.js";
 import { elemento, elementoj } from "../komunajxoj/dom.js";
+import { kanakaColoro, kanakaScenon } from "../../eskekoj/komunajxoj/koloroj.js";
 import type { ModelaSpecifo } from "./tipoj.js";
 import type { Besto, BestoSistemo, Petrelo, PetreloSistemo } from "../../eskekoj/shalaj-specioj/bestoj.js";
 import type { Krasesxagxo } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
@@ -48,7 +49,7 @@ interface Kategorio {
 // ពន្លឺព្រះអាទិត្យ ( ជាមួយស្រមោលដែលបង្ហាញរូបរាង ) និងពន្លឺបំពេញត្រជាក់ពីទិសផ្ទុយ។
 const sceno = new THREE.Scene();
 // ពណ៌ផ្ទៃខាងក្រោយនៅជាឯកសារយោង ព្រោះកុងតាក់ ផ្ទៃខាងក្រោយ សរសេរទៅវាដោយផ្ទាល់។
-const fonoKoloro = new THREE.Color(0x2e3f4a);
+const fonoKoloro = kanakaColoro(new THREE.Color(0x2e3f4a));
 sceno.background = fonoKoloro;
 
 const kanvaso = elemento<HTMLCanvasElement>("bestoVido");
@@ -112,6 +113,8 @@ sceno.add(grundo);
 const krado = new THREE.GridHelper(0o100, 0o40, 0x587068, 0x384a44);
 krado.position.y = 0o1/0o100;
 sceno.add(krado);
+// ⟨ បង្គត់ពណ៌ពន្លឺ និងវត្ថុធាតុស្តាទិចទាំងអស់ទៅ #nmnmnm 📃 ⟩
+kanakaScenon(sceno);
 
 // ⟨ ស្ថានភាព 📃 ⟩ គឺប្រភេទបច្ចុប្បន្ន គំរូ ប្រព័ន្ធចលនា និង
 // ការរាប់ពេលវេលា។
@@ -454,9 +457,9 @@ sxalti("fono", ( n: boolean ) => {
   // ផ្ទៃខាងក្រោយ គឺផ្ទៃសិក្សាងងឹត ឬផ្ទៃទឹកភ្លឺ។ ផ្ទៃខាងក្រោយភ្លឺ
   // បង្ហាញក្រុមតូចថ្លា ( ដែលខ្លួនជាឡាតាំងបាត់លើ
   // ផ្ទៃងងឹត ) និងរូបស្រមោលនៃផ្នែកងងឹត។
-  fonoKoloro.set(n ? 0xdce6ec : 0x2e3f4a);
-  grundoMaterialo.color.set(n ? 0x9fb0ab : 0x2a3a34);
-  akvaMaterialo.color.set(n ? 0x88b4c8 : 0x30708c);
+  kanakaColoro(fonoKoloro.set(n ? 0xdce6ec : 0x2e3f4a));
+  kanakaColoro(grundoMaterialo.color.set(n ? 0x9fb0ab : 0x2a3a34));
+  kanakaColoro(akvaMaterialo.color.set(n ? 0x88b4c8 : 0x30708c));
 });
 sxalti("pivotoj", ( n: boolean ) => {
   pivotojMontritaj = n;

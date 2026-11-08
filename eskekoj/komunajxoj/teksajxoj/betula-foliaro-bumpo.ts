@@ -10,7 +10,7 @@ export const kreiBetulanFoliaranBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
       const x = Math.random() * s, y = Math.random() * s;
       const r = s * ( 0o2/0o25 + Math.random() * 0o14/0o100 );
       const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, i % 2 ? "rgba(150,150,150,0.22)" : "rgba(64,64,64,0.22)");
+      g.addColorStop(0, i % 2 ? "rgba(144,144,144,0.22)" : "rgba(64,64,64,0.22)");
       g.addColorStop(1, "rgba(128,128,128,0)");
       kunteksto.fillStyle = g;
       kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
@@ -19,7 +19,7 @@ export const kreiBetulanFoliaranBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
       kunteksto.save();
       kunteksto.translate(x, y);
       kunteksto.rotate(angulo);
-      kunteksto.fillStyle = "rgba(158,158,158,0.34)";
+      kunteksto.fillStyle = "rgba(152,152,152,0.34)";
       kunteksto.beginPath();
       kunteksto.moveTo(-longo, 0);
       kunteksto.quadraticCurveTo(0, -largho, longo, 0);
@@ -46,7 +46,7 @@ export const kreiBetulanFoliaranBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
     for ( let i = 0; i < 0o40; i++ ) {
       const x = Math.random() * s, y = Math.random() * s;
       const r = 0o2 + Math.random() * 0o4;
-      kunteksto.fillStyle = "rgba(58,58,58,0.28)";
+      kunteksto.fillStyle = "rgba(56,56,56,0.28)";
       kunteksto.beginPath(); kunteksto.ellipse(x, y, r, r * 0o63/0o100, Math.random() * Math.PI, 0, Math.PI * 2); kunteksto.fill();
     }
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, sRGB: false, anisotropio: 4 });

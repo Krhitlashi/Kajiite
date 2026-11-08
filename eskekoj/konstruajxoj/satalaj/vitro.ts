@@ -4,6 +4,7 @@ import { generiSkribanTeksajxon } from "../../komunajxoj/skripto-rivelilo.js";
 import { nomoAih } from "../../../kantaoj/lingvo/tradukoj.js";
 import { kreiSteleanFormon } from "./formoj.js";
 import { konstruajxaMaterialo } from "./tipoj.js";
+import { kanakaColoro, kanakaKoloro } from "../../komunajxoj/koloroj.js";
 
 // ⟨ កញ្ចក់ត្រជាក់ គ្មាន `transmission` 📃 ⟩
 // ⟨ ហេតុអ្វីមិន `transmission` 📃 ⟩
@@ -14,7 +15,7 @@ function steleaVitro(): THREE.MeshStandardMaterial {
       color: 0xffffff, roughness: 0o5/0o10, metalness: 0,
       // ⟨ ស្រអាប់តិច 📃 ⟩
       transparent: true, opacity: 0o6/0o10,
-      emissive: 0x0a1a18, emissiveIntensity: 0o1/0o4,
+      emissive: kanakaKoloro(0x0a1a18), emissiveIntensity: 0o1/0o4,
     }));
 }
 
@@ -24,7 +25,7 @@ function steleaVitro(): THREE.MeshStandardMaterial {
 // ⟨ ពណ៌រួមមួយ 📃 ⟩
 const STELEA_INKO_TAGE = new THREE.Color(0xc2b32f);
 const STELEA_INKO_NOKTE = new THREE.Color(0xf2eea6);
-const steleaInkaKoloro = new THREE.Color().copy(STELEA_INKO_TAGE);
+const steleaInkaKoloro = kanakaColoro(new THREE.Color().copy(STELEA_INKO_TAGE));
 const steleaBordoKoloro = new THREE.Color(0xffffff);
 function steleaTeksto(mapo: THREE.Texture): THREE.ShaderMaterial {
   const im = mapo.image as { width: number; height: number };
@@ -66,9 +67,9 @@ export function gxisdatigiSteleanVitron(malhelo: number): void {
   if ( Math.abs(v - lastaVitraLumo) < 0o1/0o100 ) return;
   lastaVitraLumo = v;
   const m = steleaVitro();
-  m.color.setRGB(v, v, v);
-  steleaInkaKoloro.lerpColors(STELEA_INKO_NOKTE, STELEA_INKO_TAGE, v);
-  steleaBordoKoloro.setRGB(v, v, v);
+  kanakaColoro(m.color.setRGB(v, v, v));
+  kanakaColoro(steleaInkaKoloro.lerpColors(STELEA_INKO_NOKTE, STELEA_INKO_TAGE, v));
+  kanakaColoro(steleaBordoKoloro.setRGB(v, v, v));
   m.emissiveIntensity = v * 0o1/0o4;
 }
 let lastaVitraLumo = 1;

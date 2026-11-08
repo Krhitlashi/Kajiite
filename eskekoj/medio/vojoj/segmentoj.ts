@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { matricoPor, ANGULA_PROVOLIRO, type VojBendo, type VojGeometriajBufroj } from "./bufroj.js";
 import { kreiSegmentGeometrion } from "./formoj.js";
 import { type UnuformaTreado } from "./niveloj.js";
-import { rampaKuro, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
+import { rampaKuro, VOJA_EKSTERA_DUONO, VOJA_KUNIGA_SUPERPONO, VOJA_SUPRO_LEVIGXO,
   VOJA_TRUA_DUONO } from "./mezuroj.js";
 import { vojSuprajxoj } from "./tipoj.js";
 
@@ -152,7 +152,10 @@ export function kreiSegmentajnPartojn(aX: number, aZ: number, bX: number, bZ: nu
     const cxeFino = laux <= VOJA_TRUA_DUONO || laux >= longo - VOJA_TRUA_DUONO;
     const perpendikularaTolero = ( cxeFino ? VOJA_EKSTERA_DUONO : 0o1/0o100 ) + 0o1/0o1000;
     if ( perpendikulara > perpendikularaTolero ) continue;
-    truoj.push([ Math.max(0, laux - VOJA_TRUA_DUONO ), Math.min(longo, laux + VOJA_TRUA_DUONO ) ]);
+    // ⟨ រន្ធត្រូវតូចជាងគែមចានបន្តិច 📏 ⟩ ៖ ផ្លូវលាតចូលក្នុងចានដើម្បីជាន់គ្នា ,
+    // បិទចន្លោះតូចជាងភិកសែលដែលលេចជាខ្សែងងឹតនៅខ្សែកាត់ ។ 📃 ⟩
+    const kuna = VOJA_TRUA_DUONO - VOJA_KUNIGA_SUPERPONO;
+    truoj.push([ Math.max(0, laux - kuna ), Math.min(longo, laux + kuna ) ]);
   }
   truoj.sort(( p, q ) => p[0] - q[0] );
   const partoj: [ number, number, boolean ][] = [];

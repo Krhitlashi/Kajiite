@@ -159,7 +159,7 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     kunteksto.fillRect(0, 0, w, h);
     const skizo = generiPuranSxelanSkizon();
     for ( const makulo of skizo.makuloj ) {
-      const koloro = makulo.hela ? "rgba(178,128,186,0.13)" : "rgba(24,10,30,0.12)";
+      const koloro = makulo.hela ? "rgba(176,128,184,0.13)" : "rgba(24,8,24,0.12)";
       desegniWrapan(kunteksto, w, () => {
         const g = kunteksto.createRadialGradient(makulo.x, makulo.y, 0, makulo.x, makulo.y, makulo.r);
         g.addColorStop(0, koloro);
@@ -170,8 +170,8 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
     for ( const plato of skizo.platoj ) {
       const pinto = plato.hela
-        ? `rgba(158,110,166,${0o13/0o100 + Math.random() * 0o7/0o100})`
-        : `rgba(20,8,28,${0o15/0o100 + Math.random() * 0o7/0o100})`;
+        ? `rgba(152,104,160,${0o13/0o100 + Math.random() * 0o7/0o100})`
+        : `rgba(16,8,24,${0o15/0o100 + Math.random() * 0o7/0o100})`;
       desegniWrapan(kunteksto, w, () => {
         const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.largho, 0);
         g.addColorStop(0, senAlfa(pinto));
@@ -183,17 +183,17 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
     kunteksto.lineCap = "round";
     for ( const fendo of skizo.fendoj ) {
-      const korpo = fendo.tono < 0o1/0o2 ? "rgba(92,48,106,0.42)" : "rgba(26,10,34,0.48)";
+      const korpo = fendo.tono < 0o1/0o2 ? "rgba(88,48,104,0.42)" : "rgba(24,8,32,0.48)";
       const kernDikeco = Math.max(1, fendo.dikeco * 0o1/0o2);
       desegniWrapan(kunteksto, w, () => {
         desegniStrion(kunteksto, fendo, korpo);
-        desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(14,4,20,0.55)");
+        desegniStrion(kunteksto, { ...fendo, dikeco: kernDikeco }, "rgba(8,0,16,0.55)");
       });
     }
-    desegniSxelajnPorojn(kunteksto, 0o3/0o2, "rgba(20,8,24,0.11)", "rgba(176,138,180,0.10)");
+    desegniSxelajnPorojn(kunteksto, 0o3/0o2, "rgba(16,8,24,0.11)", "rgba(176,136,176,0.10)");
     desegniLaSxelanKolumon(kunteksto,
-      [ "rgba(14,6,20,0.09)", "rgba(255,248,255,0.07)" ],
-      "rgba(18,8,24,0.12)", "rgba(30,14,38,0.20)");
+      [ "rgba(8,0,16,0.09)", "rgba(255,248,255,0.07)" ],
+      "rgba(16,8,24,0.12)", "rgba(24,8,32,0.20)");
   }, [ 1, 1 ], { volvado: THREE.RepeatWrapping });
   teksajxo.wrapT = THREE.ClampToEdgeWrapping;
   return teksajxo;

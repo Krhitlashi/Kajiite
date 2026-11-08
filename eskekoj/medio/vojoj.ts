@@ -409,7 +409,9 @@ export function konstruiVojojn(sceno: THREE.Scene,
   }
   // ⟨ ផ្លូវទាំងអស់ជា Mesh តែមួយក្នុងមួយសម្ភារៈ 📏 ⟩ ។
   aldoniRondajnPecojn(bufroj, rondajPecoj, supraMaterialo, bordaMaterialo, fundaFn);
-  bufroj.kunigi(sceno);
+  // ⟨ ផ្លូវទទួលស្រមោលតែមិនបញ្ចេញ ៖ មាត់ចានជាន់គ្នាបន្តិច ,
+  //   ដូច្នេះស្រមោលខ្លួនឯងបង្កើតខ្សែខ្មៅរវាងចំណុចភ្ជាប់ 📃 ⟩
+  bufroj.kunigi(sceno, false);
   return samples;
 }
 
