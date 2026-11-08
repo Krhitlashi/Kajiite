@@ -12,7 +12,8 @@ const SRC = join(RADIKO, "kantaoj");
 // ផ្ទៀងផ្ទាត់ដោយច្បាប់ចម្លងនៃឈ្មោះចេញ ( export const ... ) ដែលឧបករណ៍
 // ឆ្លាក់ដីសរសេរក្នុងឯកសារនីមួយៗ ។ បឋមកថាផ្លាស់ប្តូរអក្សរ ( ឈ្មោះ
 // ឯកសារជាភាសាខ្មែរ ) ដូច្នេះមិនត្រូវពឹងផ្អែកលើវាទេ ។ អត្ថបទត្រូវ
-// ចាប់ផ្តើមដោយយោបល់ ( ឯកសារទិន្នន័យទាំងអស់មានបឋមកថា ) ។
+// ចាប់ផ្តើមដោយយោបល់ ( ឯកសារទិន្នន័យទាំងអស់មានបឋមកថា ) ។ ឯកសារ
+// ចុះបញ្ជីប្រើលំនាំបន្ទាត់ពេញ មិនមែនឃ្លារលុងពីរដាច់ពីគ្នាទេ ។
 const DOSIEROJ = {
   "krado.ts": [ "export const SKULPTA_PASO", "export const SKULPTA_DELTAJ" ],
   "akvo.ts": [ "export const SKULPTA_AKVA_NIVELO", "export const SKULPTA_AKVA_MASKO" ],
@@ -26,7 +27,7 @@ const DOSIEROJ = {
 // ⟪ ឯកសារចុះបញ្ជី 📃 ⟫
 const REGISTRAJ = {
   "mapoj.ts": [ "export const MAPOJ" ],
-  "aktiva.ts": [ "export * from \"./", "krado.js" ],
+  "aktiva.ts": [ /^export \* from "\.\/[a-z0-9\-]+\/krado\.js";/m ],
 };
 
 function markiloDe(nomo) {
@@ -41,7 +42,7 @@ function cxefaDe(nomo, teksto) {
   const bezonoj = markiloDe(nomo);
   if ( !bezonoj || typeof teksto !== "string" ) return false;
   if ( !teksto.startsWith("//") ) return false;
-  return bezonoj.every(b => teksto.includes(b));
+  return bezonoj.every( b => typeof b === "string" ? teksto.includes( b ) : b.test( teksto ) );
 }
 
 // ⟪ CORS 📃 ⟫
@@ -79,37 +80,42 @@ const servilo = createServer(async (peto, respondo) => {
     }
   }
   try {
-    let dosieroj;
+    let dosieroj = null;
     if ( korpo.trim().startsWith("{") ) {
       const parzita = JSON.parse(korpo);
       dosieroj = parzita && typeof parzita === "object" ? parzita.dosieroj || parzita : null;
-    } else {
-      dosieroj = { "tero-datumo.ts": korpo };
     }
     if ( !dosieroj || typeof dosieroj !== "object" ) {
       respondo.writeHead(0o620, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
       respondo.end("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) មិនមែនទិន្នន័យឆ្លាក់ , មិនបានសរសេរ");
       return;
     }
-    let skribitaj = 0;
-    for ( const [ nomo, teksto ] of Object.entries(dosieroj) ) {
+    // ⟨ ពិនិត្យគ្រប់ឯកសារជាមុនសិន ។ បើឯកសារណាមួយខុស គ្មានឯកសារណាត្រូវសរសេរ
+    //   ទាល់តែសោះ , កុំឱ្យទិន្នន័យផែនទីនៅពាក់កណ្តាល ។ 📃 ⟩
+    const enskribotaj = Object.entries(dosieroj);
+    for ( const [ nomo, teksto ] of enskribotaj ) {
       if ( !cxefaDe(nomo, teksto) ) {
         respondo.writeHead(0o620, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
         respondo.end("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ឯកសារត្រូវបានបដិសេធ , " + nomo + " , មិនបានសរសេរ");
         return;
       }
+    }
+    let skribitaj = 0;
+    for ( const [ nomo, teksto ] of enskribotaj ) {
       await mkdir(dirname(join(SRC, nomo)), { recursive: true });
       await writeFile(join(SRC, nomo), teksto, "utf8");
       skribitaj++;
     }
     respondo.writeHead(0o310, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("ok , " + skribitaj + " ឯកសារ ទៅ kantaoj/");
+    respondo.end("ok , 0o" + skribitaj.toString(8) + " ឯកសារ ទៅ kantaoj/");
   } catch ( e ) {
     respondo.writeHead(0o764, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) " + ( e && e.message ? e.message : String(e) ));
   }
 });
 
+const KVANTO_DOSIEROJ = "0o" + Object.keys(DOSIEROJ).length.toString(8);
+
 servilo.listen(PORD, "127.0.0.1", () => {
-  console.log("<( ឧបករណ៍រក្សាទុក )> http://127.0.0.1:" + PORD + " → kantaoj/tero-datumaro/<mapo>/ ( ឯកសារទិន្នន័យ 7 + បញ្ជីផែនទី )");
+  console.log("<( ឧបករណ៍រក្សាទុក )> http://127.0.0.1:" + PORD + " → kantaoj/tero-datumaro/<mapo>/ ( ឯកសារទិន្នន័យ " + KVANTO_DOSIEROJ + " + បញ្ជីផែនទី )");
 });

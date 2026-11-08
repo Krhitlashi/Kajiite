@@ -60,9 +60,11 @@ export function larmo(k: CanvasRenderingContext2D, x: number, y: number, rad: nu
 export function desegniWrapajnNubojn(kunteksto: CanvasRenderingContext2D, s: number, alto: number,
   n: number, paletro: string[], minimumo: number, amplekso: number,
   hazardo?: ( a: number, b: number ) => number): void {
-  const elekti = hazardo ?? Math.random;
+  // ⟨ Math.random មិនយកអាគុយម៉ង់ a និង b ទេ , ដូច្នេះបើគ្មានឧបករណ៍ចៃដន្យ
+  //   ផ្ទាល់ខ្លួន ត្រូវប្រើ hazard ដែលគោរពចន្លោះនោះ ។ កាំក៏ត្រូវប្រើឧបករណ៍ដដែល ។ 📃 ⟩
+  const elekti = hazardo ?? hazard;
   for ( let i = 0; i < n; i++ ) {
-    const r = alto * ( minimumo + Math.random() * amplekso );
+    const r = alto * elekti(minimumo, minimumo + amplekso);
     const x = elekti(0, s), y = elekti(0, alto);
     const koloro = paletro[i % paletro.length];
     desegniWrapan(kunteksto, s, () => {

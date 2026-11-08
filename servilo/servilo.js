@@ -22,6 +22,23 @@ const MIMEOFINOJ = {
   ".map":  "application/json",
 };
 
+// ⟪ តែថតនិងឯកសារដែលទំព័រត្រូវការ 📃 ⟫
+// ម៉ាស៊ីនមេនេះបម្រើ WS ផងដែរ , ដូច្នេះការពិនិត្យត្រឹម RADIKO មិនគ្រប់គ្រាន់ទេ ។
+// គ្មានហេតុផលឱ្យ HTTP អាន .git , node_modules , servilo ឬថតលាក់ផ្សេងៗ ។
+const PERMESITAJ_RADIKOJ = new Set([
+  "index.html", "stiloj.css", "panoramo.png",
+  "kantaoj", "eskekoj", "iloj", "dist",
+]);
+
+function cxuPermesita( vojo ) {
+  if ( !vojo.startsWith(RADIKO) ) return false;
+  const resto = vojo.slice(RADIKO.length).replace( /\\/g, "/" );
+  const partoj = resto.split( "/" );
+  if ( partoj.some( p => p === "" || p === "." || p === ".." || p.startsWith(".") ) ) return false;
+  const radiko = partoj[0];
+  return PERMESITAJ_RADIKOJ.has( radiko ) || radiko.endsWith(".ico");
+}
+
 // ⟪ អតិថិជន SSE សម្រាប់ផ្ទុកបន្តផ្ទាល់ 📃 ⟫
 const sseKlientoj = new Set();
 let reŝargaTempilo = null;
@@ -65,7 +82,7 @@ const servilo = createServer(async (peto, respondo) => {
   }
 
   const vojo = normalize(join(RADIKO, url.replace(/^\//, "")));
-  if ( !vojo.startsWith(RADIKO) ) { respondo.writeHead(0o623); respondo.end("ត្រូវបានហាមឃាត់"); return; }
+  if ( !cxuPermesita(vojo) ) { respondo.writeHead(0o623); respondo.end("ត្រូវបានហាមឃាត់"); return; }
   try {
     const datumoj = await readFile(vojo);
     respondo.writeHead(0o310, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });

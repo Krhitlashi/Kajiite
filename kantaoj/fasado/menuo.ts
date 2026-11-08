@@ -64,13 +64,15 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
 
   // ⟪ របៀបព្រលប់ 📃 ⟫
   // ⟨ តម្លៃដែលបានរក្សាទុកមានអាទិភាព ។ បើគ្មាន គណនាតាមព្រះអាទិត្យពិត 📃 ⟩
+  // ⟨ aplikiRezimon លាយពី tago ទៅ krepusko តាម t , ដូច្នេះ 0 ជាថ្ងៃ ហើយ 1 ជាព្រលប់ ។
+  //   រូបតំណាងបង្ហាញស្ថានភាពបច្ចុប្បន្ន , ចំណែក aria-pressed ប្រាប់ថារបៀបព្រលប់បើកឬទេ ។ 📃 ⟩
   let krepuskaValoro = 0;
   function aplikiKrepuskon( valoro: number ): void {
     krepuskaValoro = valoro;
     duskRegilo.value = String(valoro);
-    const tage = valoro > 0o4/0o10;
-    butKrepusko.textContent = tage ? "☀" : "☽";
-    butKrepusko.setAttribute("aria-pressed", String(tage));
+    const nokte = valoro > 0o4/0o10;
+    butKrepusko.textContent = nokte ? "☽" : "☀";
+    butKrepusko.setAttribute("aria-pressed", String(nokte));
     aplikiRezimon(valoro);
   }
   butKrepusko.addEventListener("click", () => {
