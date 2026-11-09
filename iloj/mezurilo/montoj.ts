@@ -4,7 +4,8 @@
 import * as THREE from "three";
 import { bruo2D, terenaKoloroEn, terenaStrataKoloroEn }
   from "../../eskekoj/komunajxoj/terenkoloroj.js";
-import { alteco, glataPaso } from "../../kantaoj/mondo/tereno.js";
+import { alteco } from "../../kantaoj/mondo/tereno.js";
+import { glataPaso } from "../../kantaoj/komunajxoj/interpolo.js";
 import { radiusaDistanco, MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
 import { aktivaMapo } from "../../kantaoj/tero-datumaro/mapregulo.js";
 import { montaraSemoBazo } from "../../kantaoj/tero-datumaro/rultempo.js";

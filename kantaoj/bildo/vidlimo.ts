@@ -149,7 +149,7 @@ export function registriKunigitajnMeshojn(radiko: THREE.Object3D, nomo = "kunigi
   return registritaj;
 }
 
-// ⟨ ដែនកំណត់ស្រមោលរបស់មានជីវិត ⟩
+// ⟨ ដែនកំណត់ស្រមោលរបស់មានជីវិត 📃 ⟩
 export function registriVivantojn(opcioj: {
   npcoj: { group: THREE.Object3D }[];
   kanuoj: { group: THREE.Object3D }[];

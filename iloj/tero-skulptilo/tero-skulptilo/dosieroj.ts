@@ -1,8 +1,9 @@
 // ≺⧼ ផែនទី និងឯកសារ 📃 ⧽≻
 import { MAPOJ } from "../../../kantaoj/tero-datumaro/mapoj.js";
+import manifesto from "../../../kantaoj/tero-datumaro/manifesto.json" with { type: "json" };
 import { mapoDeKodo } from "../../../kantaoj/tero-datumaro/mapregulo.js";
 import { FORMOJ, formajRandPunktoj } from "../../../eskekoj/komunajxoj/mapformo.js";
-import { dekodiInt16, dekodiMaskon, dekodiBiomon, dekodiBestojn } from "../../../kantaoj/tero-datumaro/rultempo.js";
+import { dekodiInt16, dekodiMaskon, dekodi3Bit } from "../../../kantaoj/tero-datumaro/rultempo.js";
 import { agordiFontojn, agordiElektitanFonton, agordiFontoTrenatan, agordiAkvanNivelon,
   akvaNiveloValoro, fontoj, markiAkvonMalpuran, rekalkuliAkvon } from "./akvo.js";
 import { agordiObjektojn, agordiElektitanObjekton, gxisdatigiObjektoListon,
@@ -41,10 +42,10 @@ export function gcdn(a: number, b: number): number {
 export function piFrakcio(valoro: number): string | null {
   if ( !Number.isFinite(valoro) ) return null;
   const r = valoro / Math.PI;
-  if ( Math.abs(r) < 1e-9 ) return "0";
+  if ( Math.abs(r) < 0o10 ** -0o12 ) return "0";
   for ( let d = 1; d <= 0o20; d++ ) {
     const k = Math.round(r * d);
-    if ( Math.abs(r - k / d) < 1e-7 ) {
+    if ( Math.abs(r - k / d) < 0o10 ** -0o11 ) {
       if ( k === 0 ) return "0";
       const g = gcdn(k, d);
       const kk = k / g, dd = d / g;
@@ -265,8 +266,8 @@ export function cirkuloValidas(): boolean {
     const kvantigita = kvantigiDeltojn();
     const d = dekodiInt16(bazo64DeInt16(kvantigita));
     const m = dekodiMaskon(bazo64DeMasko(masko), N * N);
-    const b = dekodiBiomon(bazo64DeBiomoj(biomoj), N * N);
-    const be = dekodiBestojn(bazo64DeBestoj(bestoj), N * N);
+    const b = dekodi3Bit(bazo64DeBiomoj(biomoj), N * N);
+    const be = dekodi3Bit(bazo64DeBestoj(bestoj), N * N);
     if ( !d || !m || !b || !be || d.length !== kvantigita.length ) return false;
     for ( let i = 0; i < kvantigita.length; i++ ) {
       if ( d[i] !== kvantigita[i] ) return false;
@@ -293,13 +294,13 @@ export function cirkuloDeDatumojValidas(): boolean {
   } catch { return false; }
 }
 // ⟪ ផែនទីទាំងឡាយ 📃 ⟫
-export const DATUMDOSIEROJ = [ "krado", "akvo", "akvofontoj", "biomoj", "bestoj", "objektoj", "urboj", "vojoj" ];
+export const DATUMDOSIEROJ = Object.keys(manifesto.datumaj).map(n => n.replace(/\.ts$/, ""));
 export function dosierujo(kodo: string): string { return "tero-datumaro/" + kodo + "/"; }
 export const mapoDosierujo = dosierujo(mapoDatumo.kodo);
 export const DOSIERA_TITOLO = {
   [mapoDosierujo + "krado.ts"]: "// ≺⧼ ក្រឡាឆ្លាក់ 📃 ⧽≻",
   [mapoDosierujo + "akvo.ts"]: "// ≺⧼ ទឹកឆ្លាក់ 📃 ⧽≻",
-  [mapoDosierujo + "akvofontoj.ts"]: "// ≺⧼ Skulptitaj akvofontoj",
+  [mapoDosierujo + "akvofontoj.ts"]: "// ≺⧼ ប្រភពទឹកឆ្លាក់ 🌊 ⧽≻",
   [mapoDosierujo + "biomoj.ts"]: "// ≺⧼ ជីវតំបន់ឆ្លាក់ 📃 ⧽≻",
   [mapoDosierujo + "bestoj.ts"]: "// ≺⧼ សត្វឆ្លាក់ 📃 ⧽≻",
   [mapoDosierujo + "objektoj.ts"]: "// ≺⧼ វត្ថុឆ្លាក់ 📃 ⧽≻",
@@ -438,7 +439,7 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "",
     "// ⟨ ទិន្នន័យផែនទីសកម្ម 📃 ⟩ , ច្រកទ្វារទៅទិន្នន័យផែនទីដែល",
     "// ហ្គេមអាន។ ផែនទីទាំងនេះជាពិភពលោកឯករាជ្យ ( mapoj.ts ) , ឯកសារនេះ",
-    "// នាំចេញឡើងវិញនូវឯកសារទិន្នន័យទាំងប្រាំពីរនៃមួយក្នុងចំណោមពួកវា , ដូច្នេះហ្គេមទាំងមូលនាំចូលច្រក",
+    "// នាំចេញឡើងវិញនូវឯកសារទិន្នន័យទាំង 0o" + DATUMDOSIEROJ.length.toString(0o10) + " នៃមួយក្នុងចំណោមពួកវា , ដូច្នេះហ្គេមទាំងមូលនាំចូលច្រក",
     "// ស្គាល់មួយ ( tereno.ts, urbo.ts, ... ) ហើយមិនដែលនាំចូលថត។ ឧបករណ៍ឆ្លាក់",
     "// សរសេរវាឡើងវិញពេលវាប្តូរផែនទីសកម្ម។",
     ...DATUMDOSIEROJ.map(d => "export * from \"./" + aktivaKodo + "/" + d + ".js\";"),
@@ -504,13 +505,13 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
   const biomoKruda = malpaku(preni("SKULPTA_BIOMOJ"));
   if ( biomoKruda !== null ) {
     biomoj.fill(0);
-    const b = dekodiBiomon(biomoKruda, N * N);
+    const b = dekodi3Bit(biomoKruda, N * N);
     if ( b ) biomoj.set(b);
   }
   const bestoKruda = malpaku(preni("SKULPTA_BESTOJ"));
   if ( bestoKruda !== null ) {
     bestoj.fill(0);
-    const be = dekodiBestojn(bestoKruda, N * N);
+    const be = dekodi3Bit(bestoKruda, N * N);
     if ( be ) bestoj.set(be);
   }
   const fon = preni("SKULPTA_AKVOFONTOJ");
@@ -587,9 +588,9 @@ export function sxargiDatumaronElKodo(): void {
   if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 0o20;
   const m = dekodiMaskon(SKULPTA_AKVA_MASKO, N * N);
   if ( m ) masko.set(m);
-  const b = dekodiBiomon(SKULPTA_BIOMOJ, N * N);
+  const b = dekodi3Bit(SKULPTA_BIOMOJ, N * N);
   if ( b ) biomoj.set(b);
-  const be = dekodiBestojn(SKULPTA_BESTOJ, N * N);
+  const be = dekodi3Bit(SKULPTA_BESTOJ, N * N);
   if ( be ) bestoj.set(be);
   try {
     agordiFontojn(Array.isArray(SKULPTA_AKVOFONTOJ) ? SKULPTA_AKVOFONTOJ.map(f => ( { ...f } )) : []);

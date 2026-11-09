@@ -4,8 +4,9 @@ import { kreiRokenTeksajxon } from "../../komunajxoj/teksajxoj/roko.js";
 import { kreiRokenBumpanTeksajxon } from "../../komunajxoj/teksajxoj/roko-bumpo.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { montaKruteco, spronaDuono, type ArboMetado } from "./metado.js";
-import { glataPaso, biomo, akvo, akvaNivelo, SKULPTA_N, SKULPTA_PASO,
+import { biomo, akvo, akvaNivelo, SKULPTA_N, SKULPTA_PASO,
   SKULPTA_ORIGINO, type Biomo } from "../../../kantaoj/mondo/tereno.js";
+import { glataPaso } from "../../../kantaoj/komunajxoj/interpolo.js";
 
 function konstruiRokGeometrion(semo = 1): THREE.BufferGeometry {
   // ⟨ មុខច្រើនជាង 📃 ⟩

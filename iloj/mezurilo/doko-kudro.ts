@@ -59,7 +59,7 @@ sceno.updateMatrixWorld(true);
 
 const rc = new THREE.Raycaster();
 const y = ( x: number, z: number ): number | null => {
-  rc.set(new THREE.Vector3(x, 80, z), new THREE.Vector3(0, -1, 0));
+  rc.set(new THREE.Vector3(x, 0o120, z), new THREE.Vector3(0, -1, 0));
   const h = rc.intersectObjects(sceno.children, true);
   return h.length ? h[0].point.y : null;
 };
@@ -74,7 +74,7 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   const dok = dokObjektoj[ i ];
   const klavo = landX + "," + landZ;
   const reg = kunigajNiveloj.get(klavo);
-  // ⟨ find the nearest registered intersection (gluing may shift the point) ⟩
+  // ⟨ រកចំណុចប្រសព្វដែលបានចុះបញ្ជីជិតបំផុត 📃 ⟩ ការបិទភ្ជាប់អាចរំកិលចំណុច ។
   let plej: { k: string; n: typeof reg } = { k: "", n: undefined };
   let dist = Infinity;
   for ( const [ k, n ] of kunigajNiveloj ) {

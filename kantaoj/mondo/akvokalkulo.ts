@@ -1,5 +1,5 @@
 // ≺⧼ ការគណនាទឹក 🌊 ⧽≻
-import { katmullRom } from "../komunajxoj/interpolo.js";
+import { bikubaSpecimeno } from "../komunajxoj/interpolo.js";
 
 export interface AkvaFonto {
   x: number;
@@ -358,32 +358,10 @@ export function specimenoDulineara( krado: Float32Array | Uint8Array,
   return a * ( 1 - u ) * ( 1 - v ) + b * u * ( 1 - v ) + c * ( 1 - u ) * v + d * u * v;
 }
 
-/*ច្របាច់លេខក្រឡាចូលក្នុងដែនតារាង
-    @param v ( number ) - លេខក្រឡាដែលអាចហួសដែន
-    @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
-@returns i ( number ) - ក្រឡាក្នុងដែន 0 ដល់ n-1 */
-function fiksuKradon( v: number, n: number ): number {
-  const n1 = n - 1;
-  return v < 0 ? 0 : v > n1 ? n1 : v;
-}
-
 export function specimenoBikuba( krado: Float32Array,
   n: number, paso: number, origino: number[], x: number, z: number ): number {
   const fx = ( x - origino[0] ) / paso, fz = ( z - origino[1] ) / paso;
-  const i0 = Math.floor(fx), j0 = Math.floor(fz);
-  const u = fx - i0, v = fz - j0;
-  // ⟨ ជួរឈរ និងជួរដេកដែលបានច្របាច់ ៖ គណនាម្តង ប្រើច្រើន 📃 ⟩
-  // ជៀសវាងការបង្កើត closure រាល់ពេលហៅ ព្រោះមុខងារនេះរត់រាល់កំពូលដី ។
-  const c0 = fiksuKradon(i0 - 1, n), c1 = fiksuKradon(i0, n);
-  const c2 = fiksuKradon(i0 + 1, n), c3 = fiksuKradon(i0 + 2, n);
-  const r0 = fiksuKradon(j0 - 1, n) * n, r1 = fiksuKradon(j0, n) * n;
-  const r2 = fiksuKradon(j0 + 1, n) * n, r3 = fiksuKradon(j0 + 2, n) * n;
-  return Math.max(0, katmullRom(
-    katmullRom(krado[r0 + c0], krado[r0 + c1], krado[r0 + c2], krado[r0 + c3], u),
-    katmullRom(krado[r1 + c0], krado[r1 + c1], krado[r1 + c2], krado[r1 + c3], u),
-    katmullRom(krado[r2 + c0], krado[r2 + c1], krado[r2 + c2], krado[r2 + c3], u),
-    katmullRom(krado[r3 + c0], krado[r3 + c1], krado[r3 + c2], krado[r3 + c3], u),
-    v));
+  return Math.max(0, bikubaSpecimeno(krado, n, fx, fz));
 }
 
 export function akvoCxe( rezulto: AkvaKalkulo, n: number, paso: number,

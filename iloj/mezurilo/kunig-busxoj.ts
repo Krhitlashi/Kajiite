@@ -22,7 +22,7 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x999999 });
     @param gradoj ( number ) - មុំដឺក្រេ
 @returns direkto ( [ number , number ] ) - ទិសដៃឯកតា */
 function direkto( gradoj: number ): [ number, number ] {
-  const r = gradoj * Math.PI / 180;
+  const r = gradoj * Math.PI / 0o264;
   return [ Math.cos(r), Math.sin(r) ];
 }
 
@@ -36,22 +36,22 @@ interface Kazo {
 // ⟨ ដីជម្រាល និងដីភ្នំ 📏 ⟩ ៖ ផ្លូវត្រូវតាមដីដោយជំហាន ។
 const kazoj: Kazo[] = [
   { nomo: "បួនជ្រុង , ជម្រាល x",
-    brakoj: [ direkto(0), direkto(90), direkto(180), direkto(270) ],
+    brakoj: [ direkto(0), direkto(0o132), direkto(0o264), direkto(0o416) ],
     tero: ( x ) => x * 0o1/0o2, longo: 0o10 },
   { nomo: "បួនជ្រុង , ជម្រាល xz",
-    brakoj: [ direkto(0), direkto(90), direkto(180), direkto(270) ],
+    brakoj: [ direkto(0), direkto(0o132), direkto(0o264), direkto(0o416) ],
     tero: ( x, z ) => x * 0o1/0o2 + z * 0o1/0o4, longo: 0o10 },
   { nomo: "បួនជ្រុង , ភ្នំកណ្តាល",
-    brakoj: [ direkto(0), direkto(90), direkto(180), direkto(270) ],
+    brakoj: [ direkto(0), direkto(0o132), direkto(0o264), direkto(0o416) ],
     tero: ( x, z ) => 0o4 - Math.hypot(x, z) * 0o1/0o2, longo: 0o10 },
   { nomo: "តួ T , ជម្រាល x",
-    brakoj: [ direkto(0), direkto(90), direkto(180) ],
+    brakoj: [ direkto(0), direkto(0o132), direkto(0o264) ],
     tero: ( x ) => x * 0o1/0o2, longo: 0o10 },
   { nomo: "បួនជ្រុងទ្រេត , ជម្រាល x",
-    brakoj: [ direkto(30), direkto(120), direkto(210), direkto(300) ],
+    brakoj: [ direkto(0o36), direkto(0o170), direkto(0o322), direkto(0o454) ],
     tero: ( x ) => x * 0o1/0o2, longo: 0o10 },
   { nomo: "ពីរដៃ , ជម្រាល x",
-    brakoj: [ direkto(0), direkto(180) ],
+    brakoj: [ direkto(0), direkto(0o264) ],
     tero: ( x ) => x * 0o1/0o2, longo: 0o10 },
 ];
 
@@ -87,11 +87,11 @@ for ( const kazo of kazoj ) {
   const rc = new THREE.Raycaster();
   let maks = 0, loko = 0, gradoMaks = 0, mankoj = 0, busxoMaks = 0;
   for ( const [ dx, dz ] of kazo.brakoj ) {
-    const grado = Math.round(Math.atan2(dz, dx) * 180 / Math.PI);
+    const grado = Math.round(Math.atan2(dz, dx) * 0o264 / Math.PI);
     let antaŭa = NaN;
     // ⟨ ចុងដៃសាកល្បង ៖ វាជាចុងសេរី , ដូច្នេះមិនរាប់ជារន្ធទេ 📏 ⟩
     for ( let r = 0; r < kazo.longo - TOLERO; r += PASHO ) {
-      rc.set(new THREE.Vector3(dx * r, 80, dz * r), new THREE.Vector3(0, -1, 0));
+      rc.set(new THREE.Vector3(dx * r, 0o120, dz * r), new THREE.Vector3(0, -1, 0));
       const h = rc.intersectObjects(sceno.children, true);
       if ( h.length === 0 ) { mankoj++; antaŭa = NaN; continue; }
       const y = h[ 0 ].point.y;
@@ -103,7 +103,7 @@ for ( const kazo of kazoj ) {
     }
     // ⟨ មាត់ចាន ៖ កម្ពស់ផ្លូវភ្លាមៗខាងក្រៅចាន ត្រូវស្មើចាន 📏 ⟩
     const rMouth = VOJA_EKSTERA_DUONO + 0o1/0o2;
-    rc.set(new THREE.Vector3(dx * rMouth, 80, dz * rMouth), new THREE.Vector3(0, -1, 0));
+    rc.set(new THREE.Vector3(dx * rMouth, 0o120, dz * rMouth), new THREE.Vector3(0, -1, 0));
     const h = rc.intersectObjects(sceno.children, true);
     const y = h.length ? h[ 0 ].point.y : NaN;
     const diferenco = Math.abs(y - plato);

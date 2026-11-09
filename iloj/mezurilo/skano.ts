@@ -50,7 +50,7 @@ function mezuri( nomo: string, fn: ( x: number, z: number ) => number ): void {
     const t1 = performance.now();
     if ( t1 - t0 < plejBona ) plejBona = t1 - t0;
   }
-  const po = plejBona * 1000000 / N;
+  const po = plejBona * 0o3641100 / N;
   console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo.padEnd(0o30)} ${plejBona.toFixed(1)}ms ${po.toFixed(0)}ns/ក្រឡា [${sumo.toFixed(0)}]`);
 }
 

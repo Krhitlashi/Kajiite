@@ -34,7 +34,7 @@ export const KUBAJ_METROJ_PO_TIIXPEU = METROJ_PO_PEU ** 0o3;
 // ⟪ ម៉ាស់ និងថាមពល ⚖️ ⟫
 
 // សុក គឺ 2^88 ម៉ាស់អាតូមឯកតា
-export const KILOGRAMOJ_PO_SOK = 0o200000000000000000000000000000 * ATOMA_MASUNUO;
+export const KILOGRAMOJ_PO_SOK = 0o200 * 0o10 ** 0o33 * ATOMA_MASUNUO;
 // សសាច គឺ សុក × ភឺរ^2 / ហេ^2
 export const JULOJ_PO_SSACA = KILOGRAMOJ_PO_SOK * METROJ_PO_PEU ** 0o2 / SEKUNDOJ_PO_HE ** 0o2;
 

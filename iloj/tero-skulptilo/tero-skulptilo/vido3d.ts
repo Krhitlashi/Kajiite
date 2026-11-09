@@ -567,7 +567,7 @@ function peniko3dKomenci(e: PointerEvent): void {
   momenti();
   agordiAkvoTrenantan(true);
   agordiPlatiganCelon(peniko() === "platigi" ? bazaAlteco(p.x, p.z) + deltoInterp(p.x, p.z) : null);
-  radiaTreno = { lastX: p.x, lastZ: p.z, ix0: 1e9, ix1: -1e9, iz0: 1e9, iz1: -1e9, tuŝitaj: new Map<number, number>() };
+  radiaTreno = { lastX: p.x, lastZ: p.z, ix0: 0o10 ** 0o12, ix1: -( 0o10 ** 0o12 ), iz0: 0o10 ** 0o12, iz1: -( 0o10 ** 0o12 ), tuŝitaj: new Map<number, number>() };
   peniko3dPasxo(p.x, p.z);
 }
 function peniko3dMovi(e: PointerEvent): void {

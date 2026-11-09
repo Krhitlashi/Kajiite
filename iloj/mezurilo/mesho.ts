@@ -72,7 +72,7 @@ function punktoCxe(pts: readonly [number, number][], s: number): { x: number; z:
     const [x1, z1] = pts[k], [x2, z2] = pts[k + 1];
     const lo = Math.hypot(x2 - x1, z2 - z1);
     if (s <= kur + lo || k === pts.length - 2) {
-      const t = lo < 1e-9 ? 0 : Math.max(0, Math.min(1, (s - kur) / lo));
+      const t = lo < 0o10 ** -0o12 ? 0 : Math.max(0, Math.min(1, (s - kur) / lo));
       return { x: x1 + (x2 - x1) * t, z: z1 + (z2 - z1) * t };
     }
     kur += lo;
@@ -158,7 +158,7 @@ function skanuSaltojn(nomo: string, pts: [number, number][], duono: number): voi
   const p = kreiNivelanProfilon(pts, duono, vojoAlteco, akvaFino, ankroj);
   for (let j = 1; j < p.altoj.length; j++) {
     const d = p.altoj[j] - p.altoj[j - 1];
-    if (Math.abs(d) > 0.5 + 1e-6) {
+    if (Math.abs(d) > 0.5 + 0o10 ** -0o7) {
       const q = punktoCxe(pts, p.situoj[j]);
       saltoj.push({ nomo, salto: d, de: p.altoj[j - 1], al: p.altoj[j], x: q.x, z: q.z });
     }

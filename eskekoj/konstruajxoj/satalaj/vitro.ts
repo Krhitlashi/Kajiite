@@ -93,8 +93,8 @@ export function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: stri
   const facePoz = faceGeo.getAttribute("position");
   const faceUV = faceGeo.getAttribute("uv");
   const faceUjo = faceGeo.boundingBox!;
-  const faceLargho = Math.max(1e-6, faceUjo.max.x - faceUjo.min.x);
-  const faceAlto = Math.max(1e-6, faceUjo.max.y - faceUjo.min.y);
+  const faceLargho = Math.max(0o10 ** -0o7, faceUjo.max.x - faceUjo.min.x);
+  const faceAlto = Math.max(0o10 ** -0o7, faceUjo.max.y - faceUjo.min.y);
   // ⟨ អក្សរតូចជាងមុខបន្តិច 📃 ⟩
   const tekstaSkalo = 0o7/0o6;
   for ( let i = 0; i < faceUV.count; i++ ) {

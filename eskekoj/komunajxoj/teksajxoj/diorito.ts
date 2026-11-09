@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពដាយ៉ូរីត 🪨 ⧽≻
 import * as THREE from "three";
-import { desegniWrapajnNubojn, desegniWrapan, hazard, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
+import { desegniWrapajnNubojn, desegniWrapajnMakulojn, desegniWrapanKristalon, hazard, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export interface DioritaKristalo {
   x: number; y: number; rx: number; ry: number; angulo: number;
@@ -67,46 +67,27 @@ export const kreiDioritanTeksajxon = sxovu((): THREE.CanvasTexture => {
       const kris = kristaloj[i];
       const pal = dioritaPaletro[kris.indekso];
       const rando = grajnRandoj[kris.indekso < 0o4 ? 0 : ( kris.indekso < 0o10 ? 1 : 2 )];
-      desegniWrapan(kunteksto, s, () => {
-        kunteksto.save();
-        kunteksto.translate(kris.x, kris.y);
-        kunteksto.rotate(kris.angulo);
-        const g = kunteksto.createLinearGradient(-kris.rx, -kris.ry, kris.rx, kris.ry);
+      desegniWrapanKristalon(kunteksto, s, kris, ( k ) => {
+        const g = k.createLinearGradient(-kris.rx, -kris.ry, kris.rx, kris.ry);
         g.addColorStop(0, pal.hela);
         g.addColorStop(0o7/0o10, pal.bazo);
         g.addColorStop(1, pal.malhela);
-        kunteksto.beginPath();
-        for ( let v = 0; v < kris.verticoj.length; v++ ) {
-          const a = ( v / kris.verticoj.length ) * Math.PI * 2;
-          const r = kris.verticoj[v];
-          const px = Math.cos(a) * kris.rx * r;
-          const py = Math.sin(a) * kris.ry * r;
-          if ( v === 0 ) kunteksto.moveTo(px, py); else kunteksto.lineTo(px, py);
-        }
-        kunteksto.closePath();
-        kunteksto.fillStyle = g;
-        kunteksto.fill();
-        kunteksto.strokeStyle = rando;
-        kunteksto.lineWidth = 1;
-        kunteksto.stroke();
-        kunteksto.restore();
+        k.fillStyle = g;
+        k.fill();
+        k.strokeStyle = rando;
+        k.lineWidth = 1;
+        k.stroke();
       });
     }
-    for ( let i = 0; i < 0o640; i++ ) {
+    desegniWrapajnMakulojn(kunteksto, s, 0o640, ( i ) => {
       const wd = hazard(0o1, 0o3), hd = hazard(0o1, 0o3);
       const x = hazard(0, s), y = hazard(0, s);
-      desegniWrapan(kunteksto, s, () => {
-        kunteksto.fillStyle = i % 2 ? "rgba(80,80,72,0.45)" : "rgba(168,168,160,0.5)";
-        kunteksto.fillRect(x, y, wd, hd);
-      });
-    }
-    for ( let i = 0; i < 0o110; i++ ) {
+      return [ x, y, wd, hd, i % 2 ? "rgba(80,80,72,0.45)" : "rgba(168,168,160,0.5)" ];
+    });
+    desegniWrapajnMakulojn(kunteksto, s, 0o110, () => {
       const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
       const x = hazard(0, s), y = hazard(0, s);
-      desegniWrapan(kunteksto, s, () => {
-        kunteksto.fillStyle = "rgba(248,248,240,0.85)";
-        kunteksto.fillRect(x, y, wd, hd);
-      });
-    }
+      return [ x, y, wd, hd, "rgba(248,248,240,0.85)" ];
+    });
   }, [ 0o2, 0o2 ], { volvado: THREE.RepeatWrapping, anisotropio: 4 });
 });

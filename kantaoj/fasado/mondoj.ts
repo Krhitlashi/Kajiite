@@ -81,7 +81,7 @@ function normaligi( kruda: unknown ): MondoRecordo | null {
 /*បង្កើតលេខសម្គាល់ថ្មី
 @return id */
 function novaId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 0o10);
+  return Date.now().toString(0o10) + Math.random().toString(0o10).slice(2, 0o10);
 }
 
 /*ឈ្មោះសម្រាប់បង្ហាញ ប្រើសោបកប្រែបើមាន

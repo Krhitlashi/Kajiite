@@ -7,7 +7,7 @@ import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 
-const CELO: [ number, number ] = [ 112, -121 ];
+const CELO: [ number, number ] = [ 0o160, -0o171 ];
 const VOJOJ = aktivajVojoj();
 const DOKOJ = aktivajDokoj();
 const sceno = new THREE.Scene();

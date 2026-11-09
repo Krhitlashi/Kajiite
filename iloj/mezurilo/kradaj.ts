@@ -56,7 +56,7 @@ function punktoCxe( pts: readonly [ number, number ][], s: number ): { x: number
     const [ x1, z1 ] = pts[ k ], [ x2, z2 ] = pts[ k + 1 ];
     const lo = Math.hypot(x2 - x1, z2 - z1);
     if ( s <= kur + lo || k === pts.length - 2 ) {
-      const t = lo < 0o1/0o1000000 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / lo));
+      const t = lo < 0o10 ** -0o6 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / lo));
       return { x: x1 + ( x2 - x1 ) * t, z: z1 + ( z2 - z1 ) * t };
     }
     kur += lo;

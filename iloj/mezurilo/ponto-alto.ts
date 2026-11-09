@@ -36,7 +36,7 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
     const [ ax, az ] = vojo.punktoj[s];
     const [ bx, bz ] = vojo.punktoj[s + 1];
     const longo = Math.hypot(bx - ax, bz - az);
-    const n = Math.max(8, Math.round(longo * 4));
+    const n = Math.max(0o10, Math.round(longo * 4));
     for ( let k = 1; k <= n; k++ ) {
       const t = k / n;
       const x = ax + (bx - ax) * t, z = az + (bz - az) * t;

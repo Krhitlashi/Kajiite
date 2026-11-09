@@ -3,8 +3,8 @@ import { TIPARO, KonstruSpec, KonstruTipo } from "../../eskekoj/konstruajxoj/sat
 import { FOKS, TLAS } from "../../eskekoj/mebloj/mangxajxoj/datumoj.js";
 import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
 import { aplikiVacepu } from "./efikoj.js";
-import { kreiPanelon } from "./paghoj.js";
-import type { Panelo } from "./paghoj.js";
+import { kreiStaton } from "./paghoj.js";
+import type { Stato } from "./paghoj.js";
 
 /*បង្កើតចំណងជើងផ្នែកមួយ , ដូចផ្នែកទាំងអស់ក្នុងបញ្ជី
     @param klavo ( string ) - សោបកប្រែ
@@ -196,7 +196,7 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
   } = opcioj;
 
   // ⟪ បន្ទះព័ត៌មាន ៖ ម៉ឺនុយដូចគ្នានឹងផ្ទាំងលេចឡើងដទៃ , បើកវាបិទម៉ឺនុយផ្សេង 📃 ⟫
-  const informoStato: Panelo = kreiPanelon("informo", plenigiInformon, gxisdatigiInformButonon);
+  const informoStato: Stato = kreiStaton("informo", plenigiInformon, gxisdatigiInformButonon);
 
   function gxisdatigiInformButonon() {
     informButono.setAttribute("aria-pressed", String(informoStato.cxuMalfermita()));

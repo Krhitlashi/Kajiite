@@ -8,7 +8,7 @@ import { kreiLikenanBumpanTeksajxon } from "../../komunajxoj/teksajxoj/likeno-bu
 import { kreiBuferanGeometrion, kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson } from "../../komunajxoj/kunfandajxoj.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { PunktaHasho, punktoLibera, spronaDuono, type ArboMetado } from "./metado.js";
-import { glataPaso } from "../../../kantaoj/mondo/tereno.js";
+import { glataPaso } from "../../../kantaoj/komunajxoj/interpolo.js";
 
 export function konstruiKrustanLikenGeometrion(): THREE.BufferGeometry {
   const segmentoj = 0o40, ringoj = 0o4;

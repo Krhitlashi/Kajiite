@@ -8,7 +8,7 @@ import {
 } from "./mondoj.js";
 // ⟨ ទំព័រដើម ( ព័ត៌មាន · ការកំណត់ · សម្លៀកបំពាក់ ) ត្រូវបានភ្ជាប់ដោយការនាំចូលនេះ 📃 ⟩
 import "./hejmpaghoj.js";
-import { kreiPaghon, fermiCxiujnPaghojn } from "./paghoj.js";
+import { kreiStaton, fermiCxiujnPaghojn } from "./paghoj.js";
 import { sonregiloj } from "./sonregiloj.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
@@ -84,7 +84,7 @@ function eniriMondon( mondo: MondoRecordo ): void {
 butAranis.addEventListener("click", () => eniriMondon(certigiCxefanMondon()));
 
 // ⟪ ទំព័របង្កើត និងផ្ទុកពិភពលោក 📃 ⟫
-const mondPagho = kreiPaghon("mondPagho", () => {
+const mondPagho = kreiStaton("mondPagho", () => {
   montriListon();
   sxonoEnigo.focus();
 });
@@ -128,7 +128,7 @@ window.addEventListener("lingvosxangxo", montriListon);
 
 // ⟪ ម៉ឺនុយការកំណត់ដាច់ដោយឡែក , ពេញអេក្រង់ដោយគ្មានផ្ទាំងលេចឡើង 📃 ⟫
 // ⟨ សំឡេង · សំឡេងរំខាន · បទ ៖ ចែករំលែកកូដជាមួយផ្ទាំងរុករកក្នុងហ្គេម 📃 ⟩
-const agordPagho = kreiPaghon("agordPagho", () => {
+const agordPagho = kreiStaton("agordPagho", () => {
   sonregiloj().gxisdatigi();
   ( butAgordLingvo as HTMLButtonElement | null )?.focus();
 });

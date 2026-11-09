@@ -54,7 +54,7 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x0000ff });
   let plej = 0;
   for ( const [ x, z ] of [ [ 0o1, -0o1 ], [ 0o3 / 0o4, -0o3 / 0o4 ],
     [ 0o6 / 0o5, -0o1 / 0o2 ] ] as [ number, number ][] ) {
-    rc.set(new THREE.Vector3(x, 80, z), new THREE.Vector3(0, -1, 0));
+    rc.set(new THREE.Vector3(x, 0o120, z), new THREE.Vector3(0, -1, 0));
     const h = rc.intersectObjects(sceno.children, true);
     if ( h.length > plej ) plej = h.length;
   }

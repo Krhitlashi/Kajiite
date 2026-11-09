@@ -4,6 +4,7 @@
 // នេះសុទ្ធ ( គ្មាន DOM គ្មានផ្ទុកក្នុងម៉ាស៊ីន ) ដូច្នេះការធ្វើតេស្តខាងក្រៅ
 // អាចនាំចូលបាន ។ ឧបករណ៍ឆ្លាក់ដីមិននាំចូលឯកសារនេះទេ ។
 import { subSemo } from "./semo.js";
+import { glata, glataPaso } from "../komunajxoj/interpolo.js";
 import type { AkvaFonto } from "./akvokalkulo.js";
 
 // ⟨ ឆានែលគ្រាប់ពូជរង 📃 ⟩
@@ -95,8 +96,8 @@ function miksu( a: number, b: number, s: number ): number {
 function bruo( x: number, z: number, s: number ): number {
   const ix = Math.floor(x), iz = Math.floor(z);
   const fx = x - ix, fz = z - iz;
-  const u = fx * fx * ( 3 - 2 * fx );
-  const v = fz * fz * ( 3 - 2 * fz );
+  const u = glata(fx);
+  const v = glata(fz);
   const a = miksu(ix, iz, s);
   const b = miksu(ix + 1, iz, s);
   const c = miksu(ix, iz + 1, s);
@@ -136,15 +137,6 @@ function kresto( x: number, z: number, oktoj: number, s: number ): number {
     f *= 0o2;
   }
   return sumo / normo;
-}
-
-/*ការលាយរលូនរវាងសូន្យ និងមួយ
-    @param lo,hi ( number ) - ព្រំដែន
-    @param v ( number ) - តម្លៃ
-@returns t ( number ) - 0 ដល់ 1 */
-function molaPaso( lo: number, hi: number, v: number ): number {
-  const t = Math.max(0, Math.min(1, ( v - lo ) / ( hi - lo )));
-  return t * t * ( 3 - 2 * t );
 }
 
 /*បង្កើតដីទាំងមូលពីគ្រាប់ពូជ
@@ -206,7 +198,7 @@ export function generiTeron(
     const hakiloj = multoblaBruo(x / HAKILA_SKALO, z / HAKILA_SKALO, 0o3, sHakiloj) - 0o1/0o2;
     const ondetoj = multoblaBruo(x / ONDETA_SKALO, z / ONDETA_SKALO, 0o4, sOndetoj) - 0o1/0o2;
     const bazo = ( kontinento - mediano ) * KONTINENTA_FORTO + KONTINENTA_LEVIGXO;
-    const montaraMasko = molaPaso(sojlo - MONTARA_SOJL_LO, sojlo + MONTARA_SOJL_HI, kontinento);
+    const montaraMasko = glataPaso(sojlo - MONTARA_SOJL_LO, sojlo + MONTARA_SOJL_HI, kontinento);
     return bazo + montaro * montaro * MONTARA_FORTO * montaraMasko * montoFaktoro
       + hakiloj * HAKILA_FORTO + ondetoj * ONDETA_FORTO;
   }

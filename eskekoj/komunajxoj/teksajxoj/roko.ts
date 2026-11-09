@@ -1,7 +1,8 @@
 // ≺⧼ វាយនភាពថ្ម 🪨 ⧽≻
 import * as THREE from "three";
 import { kreiHazardanGenerilon } from "../hazardo.js";
-import { desegniWrapajnNubojn, desegniWrapan, hazard, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
+import { desegniWrapajnNubojn, desegniWrapajnMakulojn, desegniWrapan, desegniWrapanKristalon,
+  desegniFendanVojon, hazard, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 
 export interface RokaKristalo {
   x: number; y: number; angulo: number; rx: number; ry: number;
@@ -65,29 +66,17 @@ export const kreiRokenTeksajxon = sxovu((): THREE.CanvasTexture => {
     for ( const kris of skizo.kristaloj ) {
       const bazo = paletro[( kris.tono * paletro.length ) | 0];
       const hela = kris.tono > 0o27/0o40 ? "rgba(200,200,192,0.40)" : "rgba(176,176,168,0.30)";
-      desegniWrapan(kunteksto, s, () => {
-        kunteksto.save();
-        kunteksto.translate(kris.x, kris.y);
-        kunteksto.rotate(kris.angulo);
-        kunteksto.beginPath();
-        for ( let v = 0; v < kris.verticoj.length; v++ ) {
-          const a = ( v / kris.verticoj.length ) * Math.PI * 2;
-          const r = kris.verticoj[v];
-          const px = Math.cos(a) * kris.rx * r, py = Math.sin(a) * kris.ry * r;
-          if ( v === 0 ) kunteksto.moveTo(px, py); else kunteksto.lineTo(px, py);
-        }
-        kunteksto.closePath();
-        kunteksto.fillStyle = bazo;
-        kunteksto.fill();
-        const g = kunteksto.createLinearGradient(-kris.rx, -kris.ry, kris.rx, kris.ry);
+      desegniWrapanKristalon(kunteksto, s, kris, ( k ) => {
+        k.fillStyle = bazo;
+        k.fill();
+        const g = k.createLinearGradient(-kris.rx, -kris.ry, kris.rx, kris.ry);
         g.addColorStop(0, hela);
         g.addColorStop(0o6/0o10, senAlfa(hela));
-        kunteksto.fillStyle = g;
-        kunteksto.fill();
-        kunteksto.strokeStyle = "rgba(56,56,48,0.16)";
-        kunteksto.lineWidth = 1;
-        kunteksto.stroke();
-        kunteksto.restore();
+        k.fillStyle = g;
+        k.fill();
+        k.strokeStyle = "rgba(56,56,48,0.16)";
+        k.lineWidth = 1;
+        k.stroke();
       });
     }
     for ( const m of skizo.makuloj ) {
@@ -106,19 +95,10 @@ export const kreiRokenTeksajxon = sxovu((): THREE.CanvasTexture => {
         kunteksto.lineCap = "round";
         kunteksto.strokeStyle = "rgba(144,144,136,0.24)";
         kunteksto.lineWidth = fendo.dikeco + 0o63/0o40;
-        kunteksto.beginPath();
-        kunteksto.moveTo(fendo.punktoj[0][0], fendo.punktoj[0][1]);
-        for ( let i = 1; i < fendo.punktoj.length; i++ ) {
-          kunteksto.lineTo(fendo.punktoj[i][0], fendo.punktoj[i][1]);
-        }
+        desegniFendanVojon(kunteksto, fendo.punktoj);
         kunteksto.stroke();
         kunteksto.strokeStyle = "rgba(48,48,40,0.46)";
         kunteksto.lineWidth = fendo.dikeco;
-        kunteksto.beginPath();
-        kunteksto.moveTo(fendo.punktoj[0][0], fendo.punktoj[0][1]);
-        for ( let i = 1; i < fendo.punktoj.length; i++ ) {
-          kunteksto.lineTo(fendo.punktoj[i][0], fendo.punktoj[i][1]);
-        }
         kunteksto.stroke();
       });
     }
@@ -141,14 +121,12 @@ export const kreiRokenTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.stroke();
       kunteksto.restore();
     }
-    for ( let i = 0; i < 0o600; i++ ) {
+    desegniWrapajnMakulojn(kunteksto, s, 0o600, ( i ) => {
       const x = hazard(0, s), y = hazard(0, s);
       const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
-      desegniWrapan(kunteksto, s, () => {
-        kunteksto.fillStyle = i % 0o7 === 0 ? "rgba(224,224,216,0.60)"
-          : ( i % 2 ? "rgba(96,96,88,0.30)" : "rgba(176,176,168,0.34)" );
-        kunteksto.fillRect(x, y, wd, hd);
-      });
-    }
+      const koloro = i % 0o7 === 0 ? "rgba(224,224,216,0.60)"
+        : ( i % 2 ? "rgba(96,96,88,0.30)" : "rgba(176,176,168,0.34)" );
+      return [ x, y, wd, hd, koloro ];
+    });
   }, [ 0o3, 0o3 ], { volvado: THREE.RepeatWrapping, anisotropio: 4 });
 });

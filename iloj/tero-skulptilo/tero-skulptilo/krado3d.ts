@@ -212,7 +212,7 @@ export function rekonstruiVojojn3D(): void {
   // ⟪ ការទាញចុងផ្លូវ 🧲 ⟫ ។ ចុងផ្លូវដែលឈប់ខ្លីពីចំណុចភ្ជាប់ ( ឬពីផ្លូវផ្សេង )
   // ទាញទៅចំណុចនោះ ។ បើមិនទាញ , ចុងផ្លូវបង្កើតចំណុចភ្ជាប់ផ្ទាល់ខ្លួន
   // ហើយចានភ្ជាប់ពីរជាប់គ្នា -> ស្នាមប្រេះនិងជំហាន ។ ( ដូច
-  // kantaoj/mondo/urbo.ts : gluiVojaFinon )
+  // gluiVojaFinon នៅ kantaoj/mondo/urbo.ts )
   const dokoLandaj: { x: number; z: number }[] = dokoj().map(d => {
     const rotacio = d.rotacio ?? 0;
     return { x: d.x + Math.sin(rotacio) * ( d.profundo / 2 ),

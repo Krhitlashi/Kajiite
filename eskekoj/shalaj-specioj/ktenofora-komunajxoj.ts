@@ -38,7 +38,7 @@ export function profiloR( profilo: [ number, number ][], y: number ): number {
     const [ r1, y1 ] = ordigitaj[i];
     const [ r0, y0 ] = ordigitaj[i - 1];
     if ( y <= y1 ) {
-      const t = ( y - y0 ) / Math.max(1e-6, y1 - y0);
+      const t = ( y - y0 ) / Math.max(0o10 ** -0o7, y1 - y0);
       return r0 + ( r1 - r0 ) * t;
     }
   }
@@ -72,7 +72,7 @@ export function aldoniKombovicojn(grupo: THREE.Group, profilo: [ number, number 
       const s = ( p + 0o1/0o2 ) / platoj * meridiano;
       let i = 1;
       while ( i < profilo.length - 1 && arkoj[i] < s ) i++;
-      const t0 = ( s - arkoj[i - 1] ) / Math.max(1e-6, arkoj[i] - arkoj[i - 1]);
+      const t0 = ( s - arkoj[i - 1] ) / Math.max(0o10 ** -0o7, arkoj[i] - arkoj[i - 1]);
       const r = profilo[i - 1][0] + ( profilo[i][0] - profilo[i - 1][0] ) * t0;
       const y = profilo[i - 1][1] + ( profilo[i][1] - profilo[i - 1][1] ) * t0;
       const dr = profilo[i][0] - profilo[i - 1][0];

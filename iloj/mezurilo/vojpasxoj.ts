@@ -93,7 +93,7 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
   let maks = 0, maksLoko = -1, kalkulo = 0;
   for ( let k = 1; k < vojSuprajxoj.length; k++ ) {
     const antaŭa = vojSuprajxoj[k - 1], nuna = vojSuprajxoj[k];
-    if ( Math.hypot(antaŭa.x2 - nuna.x1, antaŭa.z2 - nuna.z1) > 0o1/0o10000 ) continue;
+    if ( Math.hypot(antaŭa.x2 - nuna.x1, antaŭa.z2 - nuna.z1) > 0o10 ** -0o4 ) continue;
     // ⟨ ចន្លោះរន្ធភ្ជាប់ ៖ ចានគ្របដណ្តប់ទីនោះ 📃 ⟩
     if ( distoAlKunigo(nuna.x1, nuna.z1) <= VOJA_TRUA_DUONO * 0o2 ) continue;
     kalkulo++;

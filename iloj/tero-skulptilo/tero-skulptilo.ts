@@ -395,7 +395,7 @@ function moviKlavare(){
   const rapido = ( prematajKlavoj.has("Shift") ? 3 : 1 ) * Math.max(1, disto * 0o1/0o100);
   const antaŭen = new THREE.Vector3().subVectors(regiloj3d.target, fotilo3d.position);
   antaŭen.y = 0;
-  if ( antaŭen.lengthSq()< 1e-6 ) antaŭen.set(0, 0, -1);
+  if ( antaŭen.lengthSq()< 0o10 ** -0o7 ) antaŭen.set(0, 0, -1);
   antaŭen.normalize();
   // វ៉ិចទ័រស្តាំ ។ ផលគុណវ៉ិចទ័រ ( ទៅមុខ × ឡើងលើ ) ជាមួយ Y-ឡើងលើ។ ( -fz, 0, fx )។
   const dekstren = new THREE.Vector3(-antaŭen.z, 0, antaŭen.x);

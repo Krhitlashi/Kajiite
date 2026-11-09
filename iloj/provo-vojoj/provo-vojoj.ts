@@ -24,12 +24,12 @@ import type { VojDifino } from "../../eskekoj/medio/vojoj/tipoj.js";
 import type { SkulptaPlatformo, SkulptaVojo } from "../../kantaoj/mondo/urbo/tipoj.js";
 
 // ⟪ ព្រំដែនឆាក 📏 ⟫ ។ ឆាកតូចដែលមានឆ្នេរនៅខាងលិច ( −x ) ។
-const GRANDO = 120;
+const GRANDO = 0o170;
 const DUONO = GRANDO / 2;
 // ⟨ ឆ្នេរ ៖ ដីនៅ x > −0o42 , សមុទ្រនៅខាងឆ្វេង ។ 📃 ⟩
-const RANDO = -34;
-const TRANSIRA = 20;
-const MARA_PROFUNDO = -8;
+const RANDO = -0o42;
+const TRANSIRA = 0o24;
+const MARA_PROFUNDO = -0o10;
 
 let deklivo = 3;
 let akvaNivelo = -3;
@@ -44,7 +44,7 @@ let nurPlatoj = false;
 function grundo(x: number, z: number): number {
   const t = Math.max(0, Math.min(1, (x - RANDO) / TRANSIRA));
   const glata = t * t * (3 - 2 * t);
-  return MARA_PROFUNDO + (0 - MARA_PROFUNDO) * glata + deklivo * 8 * (z / GRANDO);
+  return MARA_PROFUNDO + (0 - MARA_PROFUNDO) * glata + deklivo * 0o10 * (z / GRANDO);
 }
 /* កម្រិតទឹក , ឬ −Infinity បើគ្មានទឹក ។ ទឹកមានតែខាងលិចឆ្នេរ ។
     @returns kម្រិត ( number )។ */
@@ -59,12 +59,12 @@ let dokoj: SkulptaPlatformo[] = [];
 function antauaStato(): { vojoj: SkulptaVojo[]; dokoj: SkulptaPlatformo[] } {
   return {
     vojoj: [
-      { nomo: "Nordo", larĝo: 3.5, punktoj: [ [ -6, -34 ], [ -6, -6 ], [ -6, 24 ] ] },
-      { nomo: "Oriento", larĝo: 3.5, punktoj: [ [ -6, -6 ], [ 20, -6 ] ] },
-      { nomo: "Okcidento", larĝo: 3.5, punktoj: [ [ -6, -6 ], [ -20, -6 ] ] },
-      { nomo: "Kajo", larĝo: 3.5, punktoj: [ [ -20, -6 ], [ -30, -6 ] ] },
+      { nomo: "Nordo", larĝo: 3.5, punktoj: [ [ -6, -0o42 ], [ -6, -6 ], [ -6, 0o30 ] ] },
+      { nomo: "Oriento", larĝo: 3.5, punktoj: [ [ -6, -6 ], [ 0o24, -6 ] ] },
+      { nomo: "Okcidento", larĝo: 3.5, punktoj: [ [ -6, -6 ], [ -0o24, -6 ] ] },
+      { nomo: "Kajo", larĝo: 3.5, punktoj: [ [ -0o24, -6 ], [ -0o36, -6 ] ] },
     ],
-    dokoj: [ { x: -38, z: -6, profundo: 16, rotacio: Math.PI / 2 } ],
+    dokoj: [ { x: -0o46, z: -6, profundo: 0o20, rotacio: Math.PI / 2 } ],
   };
 }
 
@@ -82,10 +82,10 @@ const bildilo = new THREE.WebGLRenderer({ canvas: elemento("vido3d") as HTMLCanv
 agordiBildilon( bildilo, { pikslaRacio: Math.min( 0o2, globalThis.devicePixelRatio || 1 ) } );
 const sceno = new THREE.Scene();
 sceno.background = new THREE.Color(0xa8d0e8);
-const fotilo = new THREE.PerspectiveCamera(50, 1, 1, 600);
-fotilo.position.set(46, 40, 54);
+const fotilo = new THREE.PerspectiveCamera(0o62, 1, 1, 0o1130);
+fotilo.position.set(0o56, 0o50, 0o66);
 const regiloj = new OrbitControls(fotilo, bildilo.domElement);
-regiloj.target.set(-14, 0, -2);
+regiloj.target.set(-0o16, 0, -2);
 regiloj.enableDamping = true;
 regiloj.dampingFactor = 0.08;
 regiloj.maxPolarAngle = Math.PI * 0.48;
@@ -99,7 +99,7 @@ kreiCxefajnLumojn( sceno, {
 agordiMedion( sceno, bildilo );
 
 // ⟪ ដី 🏔️ ⟫ ។ សំណាញ់ដែលអាចគណនាឡើងវិញពេលជម្រាលប្តូរ ។
-const TERENA_SEGMENTOJ = 60;
+const TERENA_SEGMENTOJ = 0o74;
 const teraGeometrio = new THREE.PlaneGeometry(GRANDO, GRANDO, TERENA_SEGMENTOJ, TERENA_SEGMENTOJ);
 teraGeometrio.rotateX(-Math.PI / 2);
 const teraMesh = new THREE.Mesh(teraGeometrio, new THREE.MeshStandardMaterial({
@@ -108,7 +108,7 @@ const teraMesh = new THREE.Mesh(teraGeometrio, new THREE.MeshStandardMaterial({
 sceno.add(teraMesh);
 
 // ⟪ ទឹក 🌊 ⟫ ។ បន្ទះថ្លានៅកម្រិតទឹក , ខាងលិចឆ្នេរ ។
-const akvaGeometrio = new THREE.PlaneGeometry(90, GRANDO);
+const akvaGeometrio = new THREE.PlaneGeometry(0o132, GRANDO);
 akvaGeometrio.rotateX(-Math.PI / 2);
 const akvaMesh = new THREE.Mesh(akvaGeometrio, new THREE.MeshStandardMaterial({
   color: 0x287888, transparent: true, opacity: 0.55, roughness: 0.1, metalness: 0.1,
@@ -245,13 +245,13 @@ function gxisdatigiTeranon(): void {
   poz.needsUpdate = true;
   teraGeometrio.setAttribute("color", kol);
   teraGeometrio.computeVertexNormals();
-  akvaMesh.position.set(-30 - 45, akvaNivelo, 0);
+  akvaMesh.position.set(-0o36 - 0o55, akvaNivelo, 0);
 }
 
 // ⟪ ផែនទីតូច 2D 🗺️ ⟫ ។ អូសចំណុចផ្លូវ និងកំពូលកំពង់ ។
 const plano = elemento("plano2d") as HTMLCanvasElement;
-plano.width = 440;
-plano.height = 440;
+plano.width = 0o670;
+plano.height = 0o670;
 const pk = plano.getContext("2d")!;
 const pikseloX = (x: number): number => (DUONO - x) / GRANDO * plano.width;
 const pikseloZ = (z: number): number => (DUONO - z) / GRANDO * plano.height;
@@ -375,7 +375,7 @@ plano.addEventListener("pointermove", (e) => {
       const sin = Math.sin(rotacio), kos = Math.cos(rotacio);
       const bazoX = d.x + sin * (d.profundo / 2), bazoZ = d.z + kos * (d.profundo / 2);
       const t = (mx - bazoX) * -sin + (mz - bazoZ) * -kos;
-      const prof = Math.round(Math.max(4, Math.min(40, t)) * 2) / 2;
+      const prof = Math.round(Math.max(4, Math.min(0o50, t)) * 2) / 2;
       d.profundo = prof;
       d.x = Math.round((bazoX - sin * prof / 2) * 2) / 2;
       d.z = Math.round((bazoZ - kos * prof / 2) * 2) / 2;
@@ -407,12 +407,12 @@ function statuso(teksto: string): void {
 // ⟪ ប៊ូតុង 🛠️ ⟫
 elemento("vojoNova").addEventListener("click", () => {
   vojoj.push({ nomo: "Vojo " + (vojoj.length + 1), larĝo: 3.5,
-    punktoj: [ [ 10, 10 ], [ 10, 30 ] ] });
+    punktoj: [ [ 0o12, 0o12 ], [ 0o12, 0o36 ] ] });
   statuso("ផ្លូវថ្មីនៅខាងស្តាំ ។ អូសចំណុចរបស់វាក្នុងផែនទីតូច ។");
   petiRekonstruon();
 });
 elemento("dokoNova").addEventListener("click", () => {
-  dokoj.push({ x: -38, z: 14, profundo: 16, rotacio: Math.PI / 2 });
+  dokoj.push({ x: -0o46, z: 0o16, profundo: 0o20, rotacio: Math.PI / 2 });
   statuso("ចតុកោណថ្មីនៅឆ្នេរ ។ អូសកំពូលរបស់វាដើម្បីពង្រីក ។");
   petiRekonstruon();
 });

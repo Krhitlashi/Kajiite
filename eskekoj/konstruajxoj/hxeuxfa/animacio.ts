@@ -54,8 +54,8 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
       const sx = bazo.z * ( 0o13/0o40 + 0o3/0o4 * osc );
       const sy = 0o23/0o100 + 0o123/0o100 * osc;
       const klino = 0o1/0o10 + 0o5/0o20 * osc;
-      const cx = bazo.x / Math.max(1e-6, Math.hypot(bazo.x, bazo.y));
-      const cz = bazo.y / Math.max(1e-6, Math.hypot(bazo.x, bazo.y));
+      const cx = bazo.x / Math.max(0o10 ** -0o7, Math.hypot(bazo.x, bazo.y));
+      const cz = bazo.y / Math.max(0o10 ** -0o7, Math.hypot(bazo.x, bazo.y));
       FLAMA_E2.set(klino * cz, 0, -klino * cx);
       FLAMA_Q2.setFromEuler(FLAMA_E2);
       FLAMA_Q2.premultiply(Q);

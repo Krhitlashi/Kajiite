@@ -109,3 +109,73 @@ export function neregulaFormo(k: CanvasRenderingContext2D, fx: number, fy: numbe
   }
   k.closePath();
 }
+
+// ⟪ ម៉ាស៊ីនវាយនភាពរួម 🖌️ ⟫
+// ⟨ ថ្ម និងដាយ៉ូរីតគូរគ្រាប់ត្បូង និងចំណុចតូចៗតាមទម្រង់ដូចគ្នា ៖
+//   ពណ៌ និងកម្ពស់ខុសគ្នាតែនៅជំហានលាបប៉ុណ្ណោះ ។ 📃 ⟩
+
+export interface KristalaFormo {
+  x: number; y: number; angulo: number; rx: number; ry: number; verticoj: number[];
+}
+
+/*គូរគ្រាប់ត្បូងពហុកោណដែលបានវិល ៖ ផ្លូវរួចហើយហៅ pentri ដើម្បីលាប
+    @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
+    @param s ( number ) - ទទឹងក្រណាត់សម្រាប់រុំ
+    @param kris ( KristalaFormo ) - ទីតាំង និងកំពូល
+    @param pentri ( ( k ) => void ) - លាប fill និង stroke */
+export function desegniWrapanKristalon(k: CanvasRenderingContext2D, s: number,
+  kris: KristalaFormo, pentri: ( k: CanvasRenderingContext2D ) => void): void {
+  desegniWrapan(k, s, () => {
+    k.save();
+    k.translate(kris.x, kris.y);
+    k.rotate(kris.angulo);
+    k.beginPath();
+    for ( let v = 0; v < kris.verticoj.length; v++ ) {
+      const a = ( v / kris.verticoj.length ) * Math.PI * 2;
+      const r = kris.verticoj[v];
+      const px = Math.cos(a) * kris.rx * r;
+      const py = Math.sin(a) * kris.ry * r;
+      if ( v === 0 ) k.moveTo(px, py); else k.lineTo(px, py);
+    }
+    k.closePath();
+    pentri(k);
+    k.restore();
+  });
+}
+
+/*គូរចំណុចតូចៗច្រើនដែលរុំជុំក្រណាត់
+    @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
+    @param s ( number ) - ទទឹងក្រណាត់
+    @param n ( number ) - ចំនួនចំណុច
+    @param specimeno ( ( i ) => [ x , y , wd , hd , koloro ] ) - យកតម្លៃចៃដន្យតាមលំដាប់ដើម */
+export function desegniWrapajnMakulojn(k: CanvasRenderingContext2D, s: number, n: number,
+  specimeno: ( i: number ) => [ number, number, number, number, string ]): void {
+  for ( let i = 0; i < n; i++ ) {
+    const [ x, y, wd, hd, koloro ] = specimeno(i);
+    desegniWrapan(k, s, () => {
+      k.fillStyle = koloro;
+      k.fillRect(x, y, wd, hd);
+    });
+  }
+}
+
+/*ផ្លូវខ្សែបត់នៃស្នាមប្រេះ ៖ អ្នកហៅ stroke ខ្លួនឯង
+    @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
+    @param punktoj ( [ number , number ][] ) - កំពូលខ្សែ */
+export function desegniFendanVojon(k: CanvasRenderingContext2D, punktoj: [ number, number ][]): void {
+  k.beginPath();
+  k.moveTo(punktoj[0][0], punktoj[0][1]);
+  for ( let i = 1; i < punktoj.length; i++ ) {
+    k.lineTo(punktoj[i][0], punktoj[i][1]);
+  }
+}
+
+/*ផ្លូវស្លឹករាងពងក្រពើ ៖ អ្នកហៅ fill ខ្លួនឯង
+    @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
+    @param longo,largho ( number ) - ពាក់កណ្តាលប្រវែង និងទទឹង */
+export function desegniFolianVojon(k: CanvasRenderingContext2D, longo: number, largho: number): void {
+  k.beginPath();
+  k.moveTo(-longo, 0);
+  k.quadraticCurveTo(0, -largho, longo, 0);
+  k.quadraticCurveTo(0, largho, -longo, 0);
+}

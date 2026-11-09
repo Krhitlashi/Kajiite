@@ -1,6 +1,6 @@
 // ≺⧼ ម៉ាស៊ីនមេរក្សាទុក 💾 ⧽≻
 import { createServer } from "http";
-import { writeFile, mkdir } from "fs/promises";
+import { writeFile, mkdir, readFile } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -9,25 +9,20 @@ const RADIKO = fileURLToPath(new URL("..", import.meta.url));
 const SRC = join(RADIKO, "kantaoj");
 
 // ⟪ ឯកសារទិន្នន័យដែលអនុញ្ញាត 📃 ⟫
-// ផ្ទៀងផ្ទាត់ដោយច្បាប់ចម្លងនៃឈ្មោះចេញ ( export const ... ) ដែលឧបករណ៍
-// ឆ្លាក់ដីសរសេរក្នុងឯកសារនីមួយៗ ។ បឋមកថាផ្លាស់ប្តូរអក្សរ ( ឈ្មោះ
-// ឯកសារជាភាសាខ្មែរ ) ដូច្នេះមិនត្រូវពឹងផ្អែកលើវាទេ ។ អត្ថបទត្រូវ
-// ចាប់ផ្តើមដោយយោបល់ ( ឯកសារទិន្នន័យទាំងអស់មានបឋមកថា ) ។ ឯកសារ
-// ចុះបញ្ជីប្រើលំនាំបន្ទាត់ពេញ មិនមែនឃ្លារលុងពីរដាច់ពីគ្នាទេ ។
-const DOSIEROJ = {
-  "krado.ts": [ "export const SKULPTA_PASO", "export const SKULPTA_DELTAJ" ],
-  "akvo.ts": [ "export const SKULPTA_AKVA_NIVELO", "export const SKULPTA_AKVA_MASKO" ],
-  "akvofontoj.ts": [ "export const SKULPTA_AKVOFONTOJ" ],
-  "biomoj.ts": [ "export const SKULPTA_BIOMOJ" ],
-  "bestoj.ts": [ "export const SKULPTA_BESTOJ" ],
-  "objektoj.ts": [ "export const SKULPTA_OBJEKTOJ" ],
-  "urboj.ts": [ "export const SKULPTA_URBOJ" ],
-  "vojoj.ts": [ "export const SKULPTA_VOJOJ", "export const SKULPTA_DOKOJ" ],
-};
+// បញ្ជីតែមួយនៅ kantaoj/tero-datumaro/manifesto.json , ចែករំលែកជាមួយ
+// ឧបករណ៍ឆ្លាក់ដី ។ ផ្ទៀងផ្ទាត់ដោយច្បាប់ចម្លងនៃឈ្មោះចេញ
+// ( export const ... ) ដែលឧបករណ៍ឆ្លាក់ដីសរសេរក្នុងឯកសារនីមួយៗ ។
+// បឋមកថាផ្លាស់ប្តូរអក្សរ ( ឈ្មោះឯកសារជាភាសាខ្មែរ ) ដូច្នេះមិនត្រូវ
+// ពឹងផ្អែកលើវាទេ ។ អត្ថបទត្រូវចាប់ផ្តើមដោយយោបល់ ( ឯកសារទិន្នន័យ
+// ទាំងអស់មានបឋមកថា ) ។ ឯកសារចុះបញ្ជីប្រើលំនាំបន្ទាត់ពេញ
+// មិនមែនឃ្លារលុងពីរដាច់ពីគ្នាទេ ។
+const manifesto = JSON.parse(await readFile(join(SRC, "tero-datumaro", "manifesto.json"), "utf8"));
+const DOSIEROJ = manifesto.datumaj;
+const datumajNomoj = Object.keys(DOSIEROJ).map(n => n.replace(/\.ts$/, ""));
 // ⟪ ឯកសារចុះបញ្ជី 📃 ⟫
 const REGISTRAJ = {
-  "mapoj.ts": [ "export const MAPOJ" ],
-  "aktiva.ts": [ /^export \* from "\.\/[a-z0-9\-]+\/krado\.js";/m ],
+  "mapoj.ts": manifesto.registraj["mapoj.ts"],
+  "aktiva.ts": [ new RegExp("^export \\* from \"\\./[a-z0-9\\-]+/(" + datumajNomoj.join("|") + ")\\.js\";", "m") ],
 };
 
 function markiloDe(nomo) {

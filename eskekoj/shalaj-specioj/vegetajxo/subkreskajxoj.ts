@@ -9,7 +9,8 @@ import { kreiPurpuranFrondanTeksajxon } from "../../komunajxoj/teksajxoj/purpura
 import { kreiPurpuranTrunkanTeksajxon } from "../../komunajxoj/teksajxoj/purpura-trunko.js";
 import { kreiPurpuranTrunkanBumpanTeksajxon } from "../../komunajxoj/teksajxoj/purpura-trunko-bumpo.js";
 import { kreiPurpuranTronkofilikanTeksajxon } from "../../komunajxoj/teksajxoj/purpura-trunko-filiko.js";
-import { glataPaso, biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
+import { biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
+import { glataPaso } from "../../../kantaoj/komunajxoj/interpolo.js";
 import { PURPURAJ_TRUNKAJ_RADIOJ, KRONA_LIBERO, kronaRadiusoBetula } from "./kronoj.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { PunktaHasho, punktoLibera, montaKruteco, spronaDuono, type ArboMetado } from "./metado.js";

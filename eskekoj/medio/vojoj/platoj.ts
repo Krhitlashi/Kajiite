@@ -480,7 +480,7 @@ export function konstruiIntersekcajnPlatojn(sceno: THREE.Scene,
     // ឥឡូវផ្ទៃរាបប្រើ uv តាម ( x , z ) ពិភពលោក ហើយមុខចំហៀងប្រើ uv តាមគែម និងកម្ពស់ ។ 📃 ⟩
     const alglui = ( pozicioj: number[], uv: number[],
       materialo: THREE.MeshStandardMaterial ): void => {
-      if ( pozicioj.length < 9 ) return;
+      if ( pozicioj.length < 0o11 ) return;
       const geometrio = new THREE.BufferGeometry();
       geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
       geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));

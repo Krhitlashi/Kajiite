@@ -1,6 +1,7 @@
 // ≺⧼ ពណ៌ដី 🎨 ⧽≻
 import * as THREE from "three";
 import { SKULPTA_AKVA_NIVELO } from "../../kantaoj/tero-datumaro/aktiva.js";
+import { glata } from "../../kantaoj/komunajxoj/interpolo.js";
 import { kanakaColoro, ombraKoloro } from "./koloroj.js";
 
 /*សំឡេងតម្លៃនៅក្រឡាមួយ
@@ -17,8 +18,8 @@ export function bruo2D(x: number, z: number): number {
   const fx = x - ix, fz = z - iz;
   const a = bruoKrado(ix, iz), b = bruoKrado(ix + 1, iz);
   const c = bruoKrado(ix, iz + 1), d = bruoKrado(ix + 1, iz + 1);
-  const u = fx * fx * ( 3 - 2 * fx );
-  const v = fz * fz * ( 3 - 2 * fz );
+  const u = glata(fx);
+  const v = glata(fz);
   return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
 }
 

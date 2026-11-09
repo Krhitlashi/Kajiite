@@ -118,7 +118,7 @@ function distancoDe( punktoj: readonly VojaPunkto[], x: number, z: number ): num
     const dx = b[0] - a[0], dz = b[1] - a[1];
     const l2 = dx * dx + dz * dz;
     const longo = Math.sqrt(l2);
-    if ( longo < 0o1/0o1000000 ) continue;
+    if ( longo < 0o10 ** -0o6 ) continue;
     const t = Math.max(0, Math.min(1, ( ( x - a[0] ) * dx + ( z - a[1] ) * dz ) / l2));
     const d = Math.hypot(a[0] + dx * t - x, a[1] + dz * t - z);
     if ( d < plejBona ) { plejBona = d; plejS = kur + longo * t; }
@@ -138,7 +138,7 @@ function punktoCxe( punktoj: readonly VojaPunkto[], s: number ): { x: number; z:
     const a = punktoj[k], b = punktoj[k + 1];
     const longo = Math.hypot(b[0] - a[0], b[1] - a[1]);
     if ( s <= kur + longo || k === punktoj.length - 2 ) {
-      const t = longo < 0o1/0o1000000 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / longo));
+      const t = longo < 0o10 ** -0o6 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / longo));
       return { x: a[0] + ( b[0] - a[0] ) * t, z: a[1] + ( b[1] - a[1] ) * t };
     }
     kur += longo;

@@ -6,8 +6,8 @@ import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
 import { traduki } from "../lingvo/tradukoj.js";
 import { aplikiVacepu } from "./efikoj.js";
 import { kreiPanelKarton, kreiNomlinion, kreiSekcianTitolon, ligiTabojn, sxaltiTabonEn } from "./paneeloj.js";
-import { kreiPaghon, kreiPanelon } from "./paghoj.js";
-import type { Pagho, Panelo } from "./paghoj.js";
+import { kreiStaton } from "./paghoj.js";
+import type { Stato } from "./paghoj.js";
 
 export interface LudantaAspekto {
   vesto: Vesto;
@@ -144,8 +144,8 @@ let korpo: VestaraKorpo | null = null;
 let ujoPagho: HTMLElement | null = null;
 let ujoPanelo: HTMLElement | null = null;
 let preparita = false;
-let pagho: Pagho | null = null;
-let panelo: Panelo | null = null;
+let pagho: Stato | null = null;
+let panelo: Stato | null = null;
 let ludantaFiguro: Figuro | null = null;
 let montriTost: ( ( mesagxo: string ) => void ) | null = null;
 
@@ -239,8 +239,8 @@ export function kreiVestejon( opcioj: VestarajOpcioj = {} ): Vestejo {
     korpo = konstruiKorpon();
     ujoPagho = document.getElementById("vestPagho")?.querySelector("[data-vestaraUjo]") ?? null;
     ujoPanelo = document.getElementById("vestaro")?.querySelector("[data-vestaraUjo]") ?? null;
-    if ( document.getElementById("vestPagho") ) pagho = kreiPaghon("vestPagho", plenigiVestaron);
-    if ( document.getElementById("vestaro") ) panelo = kreiPanelon("vestaro", plenigiVestaron);
+    if ( document.getElementById("vestPagho") ) pagho = kreiStaton("vestPagho", plenigiVestaron);
+    if ( document.getElementById("vestaro") ) panelo = kreiStaton("vestaro", plenigiVestaron);
     window.addEventListener("lingvosxangxo", () => {
       if ( vestejo.cxuMalfermita() ) plenigiVestaron();
     });

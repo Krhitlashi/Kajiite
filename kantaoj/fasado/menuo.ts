@@ -1,8 +1,8 @@
 // ≺⧼ ម៉ឺនុយ 🎛 ⧽≻
 import { realaKrepusko } from "../ludo/kalendaro.js";
 import type { Vetero } from "../bildo/scena/tipoj.js";
-import { kreiPanelon } from "./paghoj.js";
-import type { Panelo } from "./paghoj.js";
+import { kreiStaton } from "./paghoj.js";
+import type { Stato } from "./paghoj.js";
 import { sonregiloj } from "./sonregiloj.js";
 import { legiAgordon, skribiAgordon } from "../../eskekoj/komunajxoj/agordoj.js";
 
@@ -45,7 +45,7 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     navButono.textContent = malfermita ? "川" : "二";
     navButono.setAttribute("aria-pressed", String(malfermita));
   }
-  const navStato: Panelo = kreiPanelon("navPopUp", undefined, gxisdatigiNavButonon);
+  const navStato: Stato = kreiStaton("navPopUp", undefined, gxisdatigiNavButonon);
   function sxaltiNaviganPopUp() {
     if ( cxuVestaroMalfermita() ) { fermiVestaron(); return; }
     if ( informo.classList.contains("montri") ) { fermiInformon(); return; }

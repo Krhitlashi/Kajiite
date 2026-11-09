@@ -11,8 +11,6 @@ export interface Stato {
   kasxi(): void;
   cxuMalfermita(): boolean;
 }
-export type Pagho = Stato;
-export type Panelo = Stato;
 
 const statoj = new Map<string, Stato>();
 const malfermoj = new Map<string, ( () => void )[]>();
@@ -75,24 +73,6 @@ export function kreiStaton( id: string, onMalfermi?: () => void, jeSxangxo?: () 
     if ( e.target === elemento ) stato.fermi();
   });
   return stato;
-}
-
-/*ទំព័រពេញ ៖ ដូចម៉ឺនុយដទៃ តែពេញអេក្រង់ និងជំនួសមាតិកាខាងក្រោយ
-    @param paghoId ( string ) - លេខសម្គាល់ទំព័រ
-    @param onMalfermi ( function , optional ) - ដំណើរការមុនបើក
-    @param jeSxangxo ( function , optional ) - ដំណើរការពេលបើក ឬបិទ
-@returns pagho */
-export function kreiPaghon( paghoId: string, onMalfermi?: () => void, jeSxangxo?: () => void ): Pagho {
-  return kreiStaton(paghoId, onMalfermi, jeSxangxo);
-}
-
-/*ផ្ទាំងលេចឡើង ៖ ដូចទំព័រពេញ តែអណ្តែតលើពិភពលោក ។ ប្រើក្នុងហ្គេម
-    @param paneloId ( string ) - លេខសម្គាល់ផ្ទាំង
-    @param onMalfermi ( function , optional ) - ដំណើរការមុនបើក
-    @param jeSxangxo ( function , optional ) - ដំណើរការពេលបើក ឬបិទ
-@returns panelo */
-export function kreiPanelon( paneloId: string, onMalfermi?: () => void, jeSxangxo?: () => void ): Panelo {
-  return kreiStaton(paneloId, onMalfermi, jeSxangxo);
 }
 
 /*បិទម៉ឺនុយទាំងអស់ និងលុបប្រវត្តិ ៖ ប្រើពេលចូលពិភពលោក */

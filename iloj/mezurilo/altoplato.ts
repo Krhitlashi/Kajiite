@@ -81,7 +81,7 @@ function pozicioEn( punktoj: readonly VojaPunkto[], s: number ): { x: number; z:
     const a = punktoj[k], b = punktoj[k + 1];
     const longo = Math.hypot(b[0] - a[0], b[1] - a[1]);
     if ( s > kur + longo && k < punktoj.length - 2 ) { kur += longo; continue; }
-    const t = longo < 1e-9 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / longo));
+    const t = longo < 0o10 ** -0o12 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / longo));
     return { x: a[0] + ( b[0] - a[0] ) * t, z: a[1] + ( b[1] - a[1] ) * t };
   }
   return { x: punktoj[0][0], z: punktoj[0][1] };

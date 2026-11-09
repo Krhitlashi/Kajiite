@@ -1,5 +1,6 @@
 // ≺⧼ ការដាក់រុក្ខជាតិ 🌳 ⧽≻
-import { glataPaso, akvaNivelo, biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
+import { akvaNivelo, biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
+import { glataPaso } from "../../../kantaoj/komunajxoj/interpolo.js";
 import { KRONA_LIBERO, kronaRadiusoBetula, kronaRadiusoPussxlefa } from "./kronoj.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { PunktaHasho, interspaco, montaKruteco, spronaDuono, type ArboMetado } from "./metado.js";

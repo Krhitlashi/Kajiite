@@ -13,7 +13,7 @@ export interface SonajRegiloj {
   gxisdatigi(): void;
 }
 
-const SONREGILOJ = '[data-sonregilo]';
+const SONREGILOJ = "[data-sonregilo]";
 const ELEKTOJ = '[data-sonregilo="sonoro"],[data-sonregilo="bruo"],[data-sonregilo="trako"]';
 
 let ununura: SonajRegiloj | null = null;

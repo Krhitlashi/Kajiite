@@ -120,9 +120,9 @@ function kreiPlatanFunkcion(
     }
     return nivelo;
   };
-  // ⟨ កម្រិតចានរាបដូចហ្គេម 📏 ⟩ ៖ បើ konstruiVojojn បានតាមដានកម្ពស់ផ្លូវ
+  // ⟨ កម្រិតចានរាបដូចហ្គេម 📏 ⟩ បើ konstruiVojojn បានតាមដានកម្ពស់ផ្លូវ
   // តាមដៃរួចហើយ , អានកម្រិតដែលវាជ្រើស ។ បើគ្មាន ( ឧបករណ៍ដែលមិនគូរ
-  // ធរណីមាត្រ ) , យកកម្រិតដីដូចអនុគមន៍បម្រុងរបស់ហ្គេម ។ កុំយកមធ្យមដៃចាស់ :
+  // ធរណីមាត្រ ) , យកកម្រិតដីដូចអនុគមន៍បម្រុងរបស់ហ្គេម ។ កុំយកមធ្យមដៃចាស់ ,
   // វាធ្វើឱ្យប្រវត្តិរូបឧបករណ៍ខុសពីផ្លូវពិត ។ 📃 ⟩
   const platoCxe = ( x: number, z: number ): number => {
     const klavo = x + "," + z;
@@ -265,7 +265,7 @@ export function punktoCxe( punktoj: readonly ( readonly [ number, number ] )[],
     const [ x1, z1 ] = punktoj[ k ], [ x2, z2 ] = punktoj[ k + 1 ];
     const lo = Math.hypot(x2 - x1, z2 - z1);
     if ( s <= akum + lo || k === punktoj.length - 2 ) {
-      const t = lo < 0o1/0o1000000000 ? 0 : Math.max(0, Math.min(1, ( s - akum ) / lo));
+      const t = lo < 0o10 ** -0o11 ? 0 : Math.max(0, Math.min(1, ( s - akum ) / lo));
       return { x: x1 + ( x2 - x1 ) * t, z: z1 + ( z2 - z1 ) * t };
     }
     akum += lo;

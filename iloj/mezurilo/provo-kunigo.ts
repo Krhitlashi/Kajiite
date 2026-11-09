@@ -19,7 +19,7 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x999999 });
 function defsPor(brakoj: readonly [ number, number ][]): VojDifino[] {
   return brakoj.map(([ dx, dz ]) => {
     const longo = Math.hypot(dx, dz);
-    return { pts: [[ 0, 0 ], [ dx / longo * 8, dz / longo * 8 ]], w: 1.75 } as VojDifino;
+    return { pts: [[ 0, 0 ], [ dx / longo * 0o10, dz / longo * 0o10 ]], w: 1.75 } as VojDifino;
   });
 }
 
@@ -70,13 +70,13 @@ function analizi(nomo: string, sceno: THREE.Scene, brakoj: [ number , number ][]
     for ( let z = -limo; z <= limo; z += paŝo ) {
       if ( !atenduKovron(x, z, brakoj) ) continue;
       provitaj++;
-      rc.set(new THREE.Vector3(x, 40, z), new THREE.Vector3(0, -1, 0));
+      rc.set(new THREE.Vector3(x, 0o50, z), new THREE.Vector3(0, -1, 0));
       const h = rc.intersectObjects(sceno.children, true);
       const suproj: number[] = [];
       for ( const p of h ) if ( p.face && Math.abs(p.face.normal.y) > 0.5 ) suproj.push(p.point.y);
       suproj.sort((a, b) => b - a);
       for ( let i = 1; i < suproj.length; i++ ) {
-        if ( Math.abs(suproj[i - 1] - suproj[i]) < 1e-4 ) {
+        if ( Math.abs(suproj[i - 1] - suproj[i]) < 0o10 ** -0o4 ) {
           duoblaj++;
           duoblajPunktoj.push(`${x.toFixed(2)},${z.toFixed(2)}`);
           break;
@@ -86,8 +86,8 @@ function analizi(nomo: string, sceno: THREE.Scene, brakoj: [ number , number ][]
     }
   }
   console.log(`⟨ ${nomo} ⟩ គំរូ ${provitaj} , ចន្លោះ ${mankoj.length} , ជាន់គ្នា ${duoblaj}`);
-  if ( mankoj.length ) console.log("  រន្ធ " + mankoj.slice(0, 12).join(" "));
-  if ( duoblajPunktoj.length ) console.log("  ជាន់ " + duoblajPunktoj.slice(0, 12).join(" "));
+  if ( mankoj.length ) console.log("  រន្ធ " + mankoj.slice(0, 0o14).join(" "));
+  if ( duoblajPunktoj.length ) console.log("  ជាន់ " + duoblajPunktoj.slice(0, 0o14).join(" "));
 }
 
 // ⟨ មុំគិតជាដឺក្រេ 📐 ⟩
@@ -95,7 +95,7 @@ function analizi(nomo: string, sceno: THREE.Scene, brakoj: [ number , number ][]
     @param gradoj ( number ) - មុំដឺក្រេ
 @returns direkto ( [ number , number ] ) - ទិសដៃឯកតា */
 function direkto(gradoj: number): [ number, number ] {
-  const r = gradoj * Math.PI / 180;
+  const r = gradoj * Math.PI / 0o264;
   return [ Math.cos(r), Math.sin(r) ];
 }
 
@@ -178,17 +178,17 @@ function kontroluMolon( nomo: string, brakoj: Brako[] ): void {
 
 // ⟨ ករណីឯកត្តា ៖ សំណាញ់ទីក្រុង ។ 📃 ⟩
 const kazoj: { nomo: string; brakoj: [ number, number ][] }[] = [
-  { nomo: "បួនជ្រុង 0 90 180 270", brakoj: [ direkto(0), direkto(90), direkto(180), direkto(270) ]},
-  { nomo: "តួ T 0 90 180", brakoj: [ direkto(0), direkto(90), direkto(180) ]},
-  { nomo: "ជ្រុងខាង 0 90", brakoj: [ direkto(0), direkto(90) ]},
-  { nomo: "ជ្រុងស្រួច 0 60", brakoj: [ direkto(0), direkto(60) ]},
+  { nomo: "បួនជ្រុង 0 90 180 270", brakoj: [ direkto(0), direkto(0o132), direkto(0o264), direkto(0o416) ]},
+  { nomo: "តួ T 0 90 180", brakoj: [ direkto(0), direkto(0o132), direkto(0o264) ]},
+  { nomo: "ជ្រុងខាង 0 90", brakoj: [ direkto(0), direkto(0o132) ]},
+  { nomo: "ជ្រុងស្រួច 0 60", brakoj: [ direkto(0), direkto(0o74) ]},
   // ⟨ ករណីមុំបំពាន ៖ ចានត្រូវតាមដៃពិត , មិនតាមអ័ក្ស ។ 📃 ⟩
-  { nomo: "បួនជ្រុង 30 120 210 300", brakoj: [ direkto(30), direkto(120), direkto(210), direkto(300) ]},
-  { nomo: "បួនជ្រុង 20 110 200 290", brakoj: [ direkto(20), direkto(110), direkto(200), direkto(290) ]},
-  { nomo: "បីដៃ 0 135 270", brakoj: [ direkto(0), direkto(135), direkto(270) ]},
-  { nomo: "បីដៃ 0 60 200", brakoj: [ direkto(0), direkto(60), direkto(200) ]},
-  { nomo: "បីដៃ 0 35 100", brakoj: [ direkto(0), direkto(35), direkto(100) ]},
-  { nomo: "បីដៃ 15 95 175", brakoj: [ direkto(15), direkto(95), direkto(175) ]},
+  { nomo: "បួនជ្រុង 30 120 210 300", brakoj: [ direkto(0o36), direkto(0o170), direkto(0o322), direkto(0o454) ]},
+  { nomo: "បួនជ្រុង 20 110 200 290", brakoj: [ direkto(0o24), direkto(0o156), direkto(0o310), direkto(0o442) ]},
+  { nomo: "បីដៃ 0 135 270", brakoj: [ direkto(0), direkto(0o207), direkto(0o416) ]},
+  { nomo: "បីដៃ 0 60 200", brakoj: [ direkto(0), direkto(0o74), direkto(0o310) ]},
+  { nomo: "បីដៃ 0 35 100", brakoj: [ direkto(0), direkto(0o43), direkto(0o144) ]},
+  { nomo: "បីដៃ 15 95 175", brakoj: [ direkto(0o17), direkto(0o137), direkto(0o257) ]},
 ];
 
 for ( const kazo of kazoj ) {
@@ -196,6 +196,6 @@ for ( const kazo of kazoj ) {
   kontroluMolon(kazo.nomo, kreiBrakojn(kazo.brakoj, undefined, 0));
 }
 // ⟨ គ្មានព័ត៌មាន ៖ ត្រូវគ្របដូចប្រសព្វបួនជ្រុង 📃 ⟩
-const aksaKruco: [ number, number ][] = [ direkto(0), direkto(90), direkto(180), direkto(270) ];
+const aksaKruco: [ number, number ][] = [ direkto(0), direkto(0o132), direkto(0o264), direkto(0o416) ];
 analizi("គ្មានដៃ ( សន្មតបួនជ្រុង )", scenoPor(null), aksaKruco);
 kontroluMolon("គ្មានដៃ ( សន្មតបួនជ្រុង )", kreiBrakojn([], [ 0, 0 ], 0));

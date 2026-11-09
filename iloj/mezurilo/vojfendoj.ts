@@ -40,7 +40,7 @@ const landoj = DOKOJ.map( d => {
 function projekcio( x: number, z: number, a: readonly [ number, number ], b: readonly [ number, number ] ) {
   const dx = b[0] - a[0], dz = b[1] - a[1];
   const l2 = dx * dx + dz * dz;
-  if ( l2 < 1e-9 ) return null;
+  if ( l2 < 0o10 ** -0o12 ) return null;
   const t = Math.max(0, Math.min(1, ( ( x - a[0] ) * dx + ( z - a[1] ) * dz ) / l2));
   const px = a[0] + dx * t, pz = a[1] + dz * t;
   return { d: Math.hypot(px - x, pz - z), x: px, z: pz };

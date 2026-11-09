@@ -1,7 +1,7 @@
 // ≺⧼ វាយនភាពស្លឹកប៊ឺច 🍃 ⧽≻
 import * as THREE from "three";
 import { ombro } from "../koloroj.js";
-import { kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
+import { desegniFolianVojon, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 
 export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
   const BAZO = 0xc8d8c0;
@@ -29,10 +29,7 @@ export const kreiBetulanFoliaranTeksajxon = sxovu((): THREE.CanvasTexture => {
       kunteksto.translate(x, y);
       kunteksto.rotate(angulo);
       kunteksto.fillStyle = koloro;
-      kunteksto.beginPath();
-      kunteksto.moveTo(-longo, 0);
-      kunteksto.quadraticCurveTo(0, -largho, longo, 0);
-      kunteksto.quadraticCurveTo(0, largho, -longo, 0);
+      desegniFolianVojon(kunteksto, longo, largho);
       kunteksto.fill();
       kunteksto.strokeStyle = "rgba(240,248,232,0.55)";
       kunteksto.lineWidth = 0o1/0o2;

@@ -81,8 +81,8 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     const kunfando = kunfandajxoStatistiko();
     if ( kadraNombro >= CENSA_PERIODO ) { kadraNombro = 0; censu(); }
     const linioj = [
-      (glataKadro / HE_POR_SEKUNDO).toFixed(1) + " ហ្វ្រេម/He   " + (HE_POR_SEKUNDO / Math.max(1e-4, glataKadro)).toFixed(3) + " He   ហ្វ្រេម " + kadroj,
-      "ការហៅ " + informo.render.calls + "   ត្រីកោណ " + (informo.render.triangles / 1e6).toFixed(1) + " M"
+      (glataKadro / HE_POR_SEKUNDO).toFixed(1) + " ហ្វ្រេម/He   " + (HE_POR_SEKUNDO / Math.max(0o10 ** -0o4, glataKadro)).toFixed(3) + " He   ហ្វ្រេម " + kadroj,
+      "ការហៅ " + informo.render.calls + "   ត្រីកោណ " + (informo.render.triangles / 0o10 ** 0o7).toFixed(1) + " M"
         + "   កម្មវិធី " + (informo.programs === null ? 0 : informo.programs.length),
       "ធរណីមាត្រ " + informo.memory.geometries + "   វាយនភាព " + informo.memory.textures,
       "ដែនមើលឃើញ " + limo.videblaj + "/" + limo.eroj + " មើលឃើញ",

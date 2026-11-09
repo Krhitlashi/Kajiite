@@ -26,7 +26,7 @@ const rc = new THREE.Raycaster();
 // នៅកម្ពស់ដូចគ្នា ហើយពិនិត្យថាមានឌីអូរីតដែរឬទេ ។ សម្ភារៈឌីអូរីត
 // មាន polygonOffset ខ្លាំងជាង ដូច្នេះ GPU គូរវានៅមុខជានិច្ច ។ 📃 ⟩
 function materialoCxe( x: number, z: number ): string {
-  rc.set(new THREE.Vector3(x, 80, z), new THREE.Vector3(0, -1, 0));
+  rc.set(new THREE.Vector3(x, 0o120, z), new THREE.Vector3(0, -1, 0));
   const h = rc.intersectObjects(sceno.children, true);
   if ( !h.length ) return "គ្មាន";
   const supro = h[ 0 ].point.y;

@@ -11,12 +11,12 @@ import { kreiMezuranMondon } from "./komunaj.js";
 const mondo = kreiMezuranMondon(false);
 const baza = kreiBazanVojoAlton(alteco);
 
-const celoj: [ number, number ][] = [ [ 20, -64 ], [ 53, -36 ], [ 56, -36 ], [ 92, -60 ] ];
+const celoj: [ number, number ][] = [ [ 0o24, -0o100 ], [ 0o65, -0o44 ], [ 0o70, -0o44 ], [ 0o134, -0o74 ] ];
 for ( const [ qx, qz ] of celoj ) {
   console.log(`\nចំណុច ${qx},${qz} ដី ${alteco(qx, qz).toFixed(2)}`);
   for ( const k of mondo.kunigoj ) {
     const d = Math.hypot(k.x - qx, k.z - qz);
-    if ( d > 10 ) continue;
+    if ( d > 0o12 ) continue;
     const brakoj = kreiBrakojn(mondo.mapoj.direktoj.get(k.x + "," + k.z) ?? [],
       mondo.mapoj.fermitaj.get(k.x + "," + k.z),
       mondo.mapoj.rotacioj.get(k.x + "," + k.z) ?? 0,

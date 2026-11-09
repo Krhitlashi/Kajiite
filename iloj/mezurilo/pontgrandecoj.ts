@@ -50,16 +50,16 @@ for ( const longo of NASA ) {
   for ( const t of SUPRAJ ) {
     if ( !valida(subo(t)) || !valida(supra(t)) ) { problemoj.push("លេខខូច"); break; }
     if ( subo(t) > supra(t) ) { problemoj.push("បាតលើសកំពូល"); break; }
-    if ( subo(t) < FUNDO - 1e-6 ) { problemoj.push("បាតក្រោមដី"); break; }
+    if ( subo(t) < FUNDO - 0o10 ** -0o7 ) { problemoj.push("បាតក្រោមដី"); break; }
   }
 
   // ⟨ ចុងទាំងពីរចុះដល់ដី , និងស៊ីមេទ្រី 📃 ⟩
   const finaDikeco = dikecoCxe(supra, subo, 0);
   const finaDikecoB = dikecoCxe(supra, subo, 1);
-  if ( Math.abs(finaDikeco - ( supra(0) - FUNDO )) > 1e-6 ) problemoj.push("ចុងខ្លី");
-  if ( Math.abs(finaDikecoB - ( supra(1) - FUNDO )) > 1e-6 ) problemoj.push("ចុងខ្លី ( ចុង )");
+  if ( Math.abs(finaDikeco - ( supra(0) - FUNDO )) > 0o10 ** -0o7 ) problemoj.push("ចុងខ្លី");
+  if ( Math.abs(finaDikecoB - ( supra(1) - FUNDO )) > 0o10 ** -0o7 ) problemoj.push("ចុងខ្លី ( ចុង )");
   for ( const t of SUPRAJ )
-    if ( Math.abs(subo(t) - subo(1 - t)) > 1e-6 ) { problemoj.push("មិនស៊ីមេទ្រី"); break; }
+    if ( Math.abs(subo(t) - subo(1 - t)) > 0o10 ** -0o7 ) { problemoj.push("មិនស៊ីមេទ្រី"); break; }
 
   // ⟨ ចំណែកចុងតោនទៅតាមជម្រៅ ៖ ធ្នូនៅកណ្តាល ។ 📃 ⟩
   const tolero = 0.02;
@@ -76,13 +76,13 @@ for ( const longo of NASA ) {
   }
   if ( arkaStarto > ordo + tolero ) problemoj.push("ចុងធំពេក");
   if ( Math.abs(arkaStarto - ( 1 - arkaFino )) > tolero ) problemoj.push("មិននៅកណ្តាល");
-  if ( dikecoCxe(supra, subo, 0o1/0o2 ) < bando - 1e-6 ) problemoj.push("កណ្តាលខ្លីពេក");
+  if ( dikecoCxe(supra, subo, 0o1/0o2 ) < bando - 0o10 ** -0o7 ) problemoj.push("កណ្តាលខ្លីពេក");
 
   // ⟨ បាតឡើងជាប់គ្នាពីចុងទៅកណ្តាល ៖ គ្មានកន្លែងចុះវិញ 📃 ⟩
   let antaŭa = subo(0);
   for ( let i = 1; i <= 0o100; i++ ) {
     const d = subo(i / 0o200);
-    if ( d < antaŭa - 1e-6 ) { problemoj.push("បាតចុះវិញ"); break; }
+    if ( d < antaŭa - 0o10 ** -0o7 ) { problemoj.push("បាតចុះវិញ"); break; }
     antaŭa = d;
   }
 

@@ -1,6 +1,7 @@
 // ≺⧼ ឆាក 🎬 ⧽≻
 import * as THREE from "three";
-import { alteco, akvaNivelo, akvaNiveloProksima, glataPaso } from "../mondo/tereno.js";
+import { alteco, akvaNivelo, akvaNiveloProksima } from "../mondo/tereno.js";
+import { glataPaso } from "../komunajxoj/interpolo.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiFenestranMaterialon, kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { kreiGrundanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/grundo.js";
 import { kreiGrundanBumpanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/grundo-bumpo.js";

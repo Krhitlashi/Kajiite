@@ -1,0 +1,16 @@
+{
+  "datumaj": {
+    "krado.ts": [ "export const SKULPTA_PASO", "export const SKULPTA_DELTAJ" ],
+    "akvo.ts": [ "export const SKULPTA_AKVA_NIVELO", "export const SKULPTA_AKVA_MASKO" ],
+    "akvofontoj.ts": [ "export const SKULPTA_AKVOFONTOJ" ],
+    "biomoj.ts": [ "export const SKULPTA_BIOMOJ" ],
+    "bestoj.ts": [ "export const SKULPTA_BESTOJ" ],
+    "objektoj.ts": [ "export const SKULPTA_OBJEKTOJ" ],
+    "urboj.ts": [ "export const SKULPTA_URBOJ" ],
+    "vojoj.ts": [ "export const SKULPTA_VOJOJ", "export const SKULPTA_DOKOJ" ]
+  },
+  "registraj": {
+    "mapoj.ts": [ "export const MAPOJ" ],
+    "aktiva.ts": []
+  }
+}

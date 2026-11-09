@@ -14,7 +14,7 @@ import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
 // បង្អួចរបស់វាមានចន្លោះដូចអគារក្នុងទីក្រុង។
 export const SXIPA_LARGO = 0o10;
 export const SXIPA_TIERO = 0o315/0o100;
-export const SXIPA_NIVELOJ = 5;
+export const SXIPA_NIVELOJ = 0o5;
 
 // ⟨ ទម្រង់ទ្វារពីរ 📃 ⟩
 // ⟨ ហេតុអ្វីមិននាឡិកាខ្សាច់ 📃 ⟩

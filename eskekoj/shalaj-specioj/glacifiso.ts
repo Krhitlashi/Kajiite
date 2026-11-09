@@ -124,7 +124,7 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
   });
 
   const densigitaj = subdividuStaciojn(GLACIFISA_PROFILO, 0o2);
-  const jeZ = ( z: number ): number => densigitaj.findIndex(s => s.z <= z + 0o1/0o10000);
+  const jeZ = ( z: number ): number => densigitaj.findIndex(s => s.z <= z + 0o10 ** -0o4);
   const tranĉi = ( de: number, ĝis: number ): FiŝaStacio[] => densigitaj.slice(de, ĝis + 1);
   const kapFino = jeZ(GLACIFISA_KAPO_Z);
   const mezFino = jeZ(GLACIFISA_MEZO_Z);

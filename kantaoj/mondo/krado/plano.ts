@@ -120,8 +120,8 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
       if ( ns.orient !== "NS" ) continue;
       for ( const ew of vojoj ) {
         if ( ew.orient !== "EW" ) continue;
-        if ( ew.poz < ns.de - 1e-6 || ew.poz > ns.al + 1e-6 ) continue;
-        if ( ns.poz < ew.de - 1e-6 || ns.poz > ew.al + 1e-6 ) continue;
+        if ( ew.poz < ns.de - 0o10 ** -0o7 || ew.poz > ns.al + 0o10 ** -0o7 ) continue;
+        if ( ns.poz < ew.de - 0o10 ** -0o7 || ns.poz > ew.al + 0o10 ** -0o7 ) continue;
         for ( const [ dx, dz ] of krucaKvaropoOfsetoj ) aldoniLampon(ns.poz + dx, ew.poz + dz);
       }
     }

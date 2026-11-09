@@ -14,7 +14,7 @@ export function kreiKadranKurbon(formo: THREE.Path, z: number,
       punktoj.push(new THREE.Vector3(partoj[i].x, partoj[i].y, z));
     }
   }
-  if ( punktoj.length > 1 && punktoj[0].distanceTo(punktoj[punktoj.length - 1]) < 1e-6 ) punktoj.pop();
+  if ( punktoj.length > 1 && punktoj[0].distanceTo(punktoj[punktoj.length - 1]) < 0o10 ** -0o7 ) punktoj.pop();
   for ( let i = 0; i < punktoj.length - 1; i++ ) putho.add(new THREE.LineCurve3(punktoj[i], punktoj[i + 1]));
   return putho;
 }

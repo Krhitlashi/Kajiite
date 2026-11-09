@@ -22,7 +22,7 @@ for (let i = 0; i < VOJOJ.length; i++) {
       const [ x1, z1 ] = punktoj[ k ], [ x2, z2 ] = punktoj[ k + 1 ];
       const lo = Math.hypot(x2 - x1, z2 - z1);
       if (s <= kur + lo || k === punktoj.length - 2) {
-        const t = lo < 1e-9 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / lo));
+        const t = lo < 0o10 ** -0o12 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / lo));
         q = [ x1 + ( x2 - x1 ) * t, z1 + ( z2 - z1 ) * t ];
         break;
       }

@@ -32,7 +32,7 @@ konstruiIntersekcajnPlatojn(sceno, urbo.kunigajPunktoj, vojoAlteco, diorito, and
   urbo.kunigajFermitaj);
 const rc = new THREE.Raycaster();
 
-for ( const celo of [ [ 20, -108 ], [ 68, -132 ] ] ) {
+for ( const celo of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
   const [ cx, cz ] = celo;
   const klavo = cx + "," + cz;
   const fermita = urbo.kunigajFermitaj.get(klavo);
@@ -45,7 +45,7 @@ for ( const celo of [ [ 20, -108 ], [ 68, -132 ] ] ) {
     [ "ជើង", 0, -1 ], [ "ត្បូង", 0, 1 ] ] as const ) {
     const vicoj: string[] = [];
     for ( let r = 0; r <= 6; r += 0.5 ) {
-      rc.set(new THREE.Vector3(cx + ux * r, 80, cz + uz * r), new THREE.Vector3(0, -1, 0));
+      rc.set(new THREE.Vector3(cx + ux * r, 0o120, cz + uz * r), new THREE.Vector3(0, -1, 0));
       const h = rc.intersectObjects(sceno.children, true).find(x => x.object.visible);
       vicoj.push(`${r}:${h ? h.point.y.toFixed(2) : "-"}`);
     }

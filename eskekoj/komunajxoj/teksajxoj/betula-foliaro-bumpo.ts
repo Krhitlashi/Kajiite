@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពចម្លាក់ស្លឹកប៊ឺច 🍃 ⧽≻
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
+import { desegniFolianVojon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export const kreiBetulanFoliaranBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
@@ -20,10 +20,7 @@ export const kreiBetulanFoliaranBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
       kunteksto.translate(x, y);
       kunteksto.rotate(angulo);
       kunteksto.fillStyle = "rgba(152,152,152,0.34)";
-      kunteksto.beginPath();
-      kunteksto.moveTo(-longo, 0);
-      kunteksto.quadraticCurveTo(0, -largho, longo, 0);
-      kunteksto.quadraticCurveTo(0, largho, -longo, 0);
+      desegniFolianVojon(kunteksto, longo, largho);
       kunteksto.fill();
       kunteksto.strokeStyle = "rgba(96,96,96,0.30)";
       kunteksto.lineWidth = 0o1/0o2;

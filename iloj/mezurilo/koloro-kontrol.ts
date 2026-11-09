@@ -22,7 +22,7 @@ function estasKanaka(koloro: number): boolean {
   if ( koloro === 0xffffff || koloro === 0x000000 ) return true;
   for ( const sovo of [ 0o20, 0o10, 0 ] ) {
     const m = ( koloro >> sovo ) & 0xf;
-    if ( m !== 0 && m !== 8 ) return false;
+    if ( m !== 0 && m !== 0o10 ) return false;
   }
   return true;
 }
@@ -88,7 +88,7 @@ kontroli("hslKanaka ក្រហមខុស", ( ( rugxa >> 0o20 ) & 0xff ) > ( 
 // ⟨ rgbaKanaka ត្រូវបញ្ចេញឆានែល KNAKEHE 📃 ⟩
 const rgba = rgbaKanaka(0x547442, 0o5/0o10);
 const nombroj = rgba.match(/\d+/g)?.slice(0, 0o3).map(Number) ?? [];
-const kanalaKanaka = ( c: number ): boolean => ( c & 0xf ) === 0 || ( c & 0xf ) === 8;
+const kanalaKanaka = ( c: number ): boolean => ( c & 0xf ) === 0 || ( c & 0xf ) === 0o10;
 kontroli("rgbaKanaka មានឆានែលខុស",
   nombroj.length === 0o3 && nombroj.every(kanalaKanaka));
 

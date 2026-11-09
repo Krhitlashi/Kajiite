@@ -33,7 +33,7 @@ const nombro = ( i: number, defaŭlto: number ): number => {
 // ⟨ មិនអានពិភពលោក 📏 ⟩ ៖ ជម្រើសនេះសាងសង់បន្ទាត់សាកល្បង ,
 // ដូច្នេះវារត់លឿន ហើយមិនអាស្រ័យលើគ្រាប់ពូជ ។ 📃 ⟩
 function nivelo(): void {
-  const punktoj: [ number, number ][] = [ [ 0, 0 ], [ 10, 0 ] ];
+  const punktoj: [ number, number ][] = [ [ 0, 0 ], [ 0o12, 0 ] ];
   const h = ( x: number ): number => x * 0.2;
   const p = kreiNivelanProfilon(punktoj, 1.475, h, undefined, [ { x: 5, z: 0, alto: 4 } ]);
   console.log(`ប្រវែង ${p.longo} , គំរូ ${p.altoj.length}`);
@@ -115,9 +115,9 @@ function kruda(): void {
 function tereno(): void {
   const X = nombro(3, 0), Z = nombro(4, 0);
   const paŝo = nombro(5, 0.5), radio = nombro(6, 3);
-  for ( let dz = -radio; dz <= radio + 0o1/0o1000000000; dz += paŝo ) {
+  for ( let dz = -radio; dz <= radio + 0o10 ** -0o11; dz += paŝo ) {
     const vico: string[] = [];
-    for ( let dx = -radio; dx <= radio + 0o1/0o1000000000; dx += paŝo )
+    for ( let dx = -radio; dx <= radio + 0o10 ** -0o11; dx += paŝo )
       vico.push(alteco(X + dx, Z + dz).toFixed(1));
     console.log(`${( Z + dz ).toFixed(1)} ${vico.join(" ")}`);
   }
@@ -137,7 +137,7 @@ function punkto(): void {
     ` , ចានពីដី ${surGrid(vojaSuproDeKunigo(X, Z, [], VOJA_EKSTERA_DUONO, alteco).supro).toFixed(2)}`);
   const proksimaj = m.kunigajPunktoj
     .map(([ x, z ]) => ( { x, z, d: Math.hypot(x - X, z - Z) } ))
-    .sort((a, b) => a.d - b.d).slice(0, 12);
+    .sort((a, b) => a.d - b.d).slice(0, 0o14);
   for ( const k of proksimaj ) {
     const propra = surGrid(vojaSuproDeKunigo(k.x, k.z, [], VOJA_EKSTERA_DUONO, baza).supro)
       - VOJA_SUPRO_LEVIGXO;

@@ -6,7 +6,7 @@ import {
   plenigiMangxaListonEn, plenigiSpeciaListonEn, plenigiKonstruTipListonEn,
 } from "./paneeloj.js";
 import { kreiVestejon } from "./vestejo.js";
-import { kreiPaghon } from "./paghoj.js";
+import { kreiStaton } from "./paghoj.js";
 import { aplikiVacepu } from "./efikoj.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
@@ -25,7 +25,7 @@ function plenigiInformPaghon(): void {
   aplikiVacepu();
 }
 
-const informPagho = kreiPaghon("informPagho", plenigiInformPaghon);
+const informPagho = kreiStaton("informPagho", plenigiInformPaghon);
 ligiTabojn(document.getElementById("informPagho")!, "konstruajxoj");
 butInformoj.addEventListener("click", () => informPagho.malfermi());
 

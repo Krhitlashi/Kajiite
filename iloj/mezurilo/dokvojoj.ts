@@ -34,7 +34,7 @@ for ( const k of kunigoj ) {
       const a = gluitaj[i][s], b = gluitaj[i][s + 1];
       const dx = b[0] - a[0], dz = b[1] - a[1];
       const longo2 = dx * dx + dz * dz;
-      if ( longo2 < 1e-9 ) continue;
+      if ( longo2 < 0o10 ** -0o12 ) continue;
       const t = Math.max(0, Math.min(1, ( ( k.x - a[0] ) * dx + ( k.z - a[1] ) * dz ) / longo2 ));
       if ( Math.hypot(a[0] + dx * t - k.x, a[1] + dz * t - k.z) > 0o1/0o2 ) continue;
       if ( duono > plej ) { plej = duono; nomo = VOJOJ[i].nomo; }
@@ -129,7 +129,7 @@ function pozicio( punktoj: readonly VojaPunkto[], s: number ) {
     const a = punktoj[k], b = punktoj[k + 1];
     const longo = Math.hypot(b[0] - a[0], b[1] - a[1]);
     if ( s > kur + longo && k < punktoj.length - 2 ) { kur += longo; continue; }
-    const t = longo < 1e-9 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / longo));
+    const t = longo < 0o10 ** -0o12 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / longo));
     return { x: a[0] + ( b[0] - a[0] ) * t, z: a[1] + ( b[1] - a[1] ) * t,
       latX: -( b[1] - a[1] ) / longo, latZ: ( b[0] - a[0] ) / longo };
   }

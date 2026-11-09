@@ -76,7 +76,7 @@ export function radiusaDistanco( formo: MapFormo, grandeco: number, ang: number 
     const a = verticoj[i], b = verticoj[( i + 1 ) % verticoj.length];
     const dx = b[0] - a[0], dz = b[1] - a[1];
     const determinanto = ux * dz - uz * dx;
-    if ( Math.abs(determinanto) < 1e-9 ) continue;
+    if ( Math.abs(determinanto) < 0o10 ** -0o12 ) continue;
     const t = ( a[0] * dz - a[1] * dx ) / determinanto;
     if ( t > plej && cxuEnMalrondigita(normaloj, inradiusoj, ux * t, uz * t) ) plej = t;
   }
@@ -92,7 +92,7 @@ export function radiusaDistanco( formo: MapFormo, grandeco: number, ang: number 
 
 export function distancoDeFormo( formo: MapFormo, grandeco: number, x: number, z: number ): number {
   const r = Math.hypot(x, z);
-  if ( r < 1e-9 ) return -radiusaDistanco(formo, grandeco, 0);
+  if ( r < 0o10 ** -0o12 ) return -radiusaDistanco(formo, grandeco, 0);
   return r - radiusaDistanco(formo, grandeco, Math.atan2(z, x));
 }
 
@@ -103,7 +103,7 @@ export function cxuEnFormo( formo: MapFormo, grandeco: number, x: number, z: num
 export function premuAlFormo( formo: MapFormo, grandeco: number, x: number, z: number,
   eligo: { x: number; z: number } ): boolean {
   const r = Math.hypot(x, z);
-  if ( r < 1e-9 ) return false;
+  if ( r < 0o10 ** -0o12 ) return false;
   const ang = Math.atan2(z, x);
   const rando = radiusaDistanco(formo, grandeco, ang);
   if ( r <= rando ) return false;

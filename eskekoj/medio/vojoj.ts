@@ -28,7 +28,7 @@ function projekcioSurVojo( punktoj: readonly ( readonly [ number, number ] )[],
     const [ bx, bz ] = punktoj[ i + 0o1 ];
     const dx = bx - ax, dz = bz - az;
     const longo = Math.hypot(dx, dz);
-    if ( longo < 0o1/0o1000000 ) continue;
+    if ( longo < 0o10 ** -0o6 ) continue;
     const t = Math.max(0, Math.min(1, ( ( x - ax ) * dx + ( z - az ) * dz ) / ( longo * longo ) ));
     const distanco = Math.hypot(x - ( ax + dx * t ), z - ( az + dz * t ));
     if ( distanco < plej ) { plej = distanco; plejS = akum + longo * t; }

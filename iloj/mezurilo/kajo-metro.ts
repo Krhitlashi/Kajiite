@@ -15,7 +15,7 @@ import { akvaFino } from "./komunaj.js";
 
 const CXU_URBO = process.argv[2] !== "sen";
 const GRANDO = Number(process.argv[3] ?? 4);
-const OFS_X = Number(process.argv[4] ?? 8);
+const OFS_X = Number(process.argv[4] ?? 0o10);
 const OFS_Z = Number(process.argv[5] ?? 0);
 const TERO_PLATO = process.argv[6] === "tero";
 const VOJOJ = aktivajVojoj().filter(v => v.punktoj.length >= 2);
@@ -70,7 +70,7 @@ function punktoCxe(pts: readonly [number, number][], s: number): { x: number; z:
     const [x1, z1] = pts[k], [x2, z2] = pts[k + 1];
     const lo = Math.hypot(x2 - x1, z2 - z1);
     if (s <= kur + lo || k === pts.length - 2) {
-      const t = lo < 1e-9 ? 0 : Math.max(0, Math.min(1, (s - kur) / lo));
+      const t = lo < 0o10 ** -0o12 ? 0 : Math.max(0, Math.min(1, (s - kur) / lo));
       return { x: x1 + (x2 - x1) * t, z: z1 + (z2 - z1) * t };
     }
     kur += lo;
@@ -124,7 +124,7 @@ for (let i = 0; i < VOJOJ.length; i++) {
   }
   for (let j = 1; j < p.altoj.length; j++) {
     const s = Math.abs(p.altoj[j] - p.altoj[j - 1]);
-    if (s > STUPA_RISERO + 1e-6) { saltoj++; if (s > maksSalto) maksSalto = s; }
+    if (s > STUPA_RISERO + 0o10 ** -0o7) { saltoj++; if (s > maksSalto) maksSalto = s; }
   }
   const a = gluitaj[i][0], b = gluitaj[i][gluitaj[i].length - 1];
   const ma = alteco(a[0], a[1]), mb = alteco(b[0], b[1]);

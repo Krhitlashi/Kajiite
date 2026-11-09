@@ -1,7 +1,6 @@
 // ≺⧼ អេកវីសេត 🌾 ⧽≻
 import * as THREE from "three";
-import { kreiCakeanTeksajxon } from "../../komunajxoj/teksajxoj/bakeo.js";
-import { kreiCetkuanTeksajxon } from "../../komunajxoj/teksajxoj/cetkuo.js";
+import { kreiKavalErbanTeksajxon } from "../../komunajxoj/teksajxoj/kavala-herbo.js";
 import { kreiBuferanGeometrion, kunfandiGeometriojnSenIndekson } from "../../komunajxoj/kunfandajxoj.js";
 import { biomo, type Biomo } from "../../../kantaoj/mondo/tereno.js";
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
@@ -197,7 +196,7 @@ export function konstruiCetkuojn(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[]
 ): void {
   instanciiKavalerbojn(sceno, kvanto, heightFn, 0o26511, konstruiCetkuanGeometrion(),
-    kreiCetkuanTeksajxon(), 0xf0f8e8, 0o14/0o10, 0o30/0o10, ( h ) => {
+    kreiKavalErbanTeksajxon(false), 0xf0f8e8, 0o14/0o10, 0o30/0o10, ( h ) => {
       const angulo = h() * Math.PI * 2;
       const radiuso = 0o20 + 0o177 * Math.sqrt(h());
       const x = Math.sin(angulo) * radiuso;
@@ -223,7 +222,7 @@ export function konstruiCakeojn(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[]
 ): void {
   instanciiKavalerbojn(sceno, kvanto, heightFn, semo, konstruiCakeanGeometrion(),
-    kreiCakeanTeksajxon(), 0xe8f8e0, 0o12/0o10, 0o24/0o10, ( h ) => {
+    kreiKavalErbanTeksajxon(true), 0xe8f8e0, 0o12/0o10, 0o24/0o10, ( h ) => {
       const angulo = h() * Math.PI * 2;
       const radiuso = radioFn(angulo) + h() * 0o10;
       const x = cx + Math.cos(angulo) * radiuso;

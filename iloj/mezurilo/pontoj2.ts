@@ -53,7 +53,7 @@ for (let v = 0; v < VOJOJ.length; v++) {
     trakNombro++;
     const difX = trako.bx - trako.ax, difZ = trako.bz - trako.az;
     const longo = Math.hypot(difX, difZ);
-    const specimenoj = Math.max(16, Math.round(longo * 4));
+    const specimenoj = Math.max(0o20, Math.round(longo * 4));
     let minKlar = Infinity, minLoko = 0, subAkvo = 0, subTero = 0, superTero = 0;
     let maksSaltoTrako = 0;
     let antaŭaT = trako.deko(0);
@@ -73,7 +73,7 @@ for (let v = 0; v < VOJOJ.length; v++) {
         if (klar <= 0) subAkvo++;
       }
     }
-    const difekta = subAkvo > 0 || minKlar < PONT_AKVA_KLARANCO - 1e-6 || maksSaltoTrako > 0.3;
+    const difekta = subAkvo > 0 || minKlar < PONT_AKVA_KLARANCO - 0o10 ** -0o7 || maksSaltoTrako > 0.3;
     if (difekta) difektoj++;
     console.log(`  trako ${trako.ax.toFixed(1)},${trako.az.toFixed(1)}` +
       ` -> ${trako.bx.toFixed(1)},${trako.bz.toFixed(1)}` +

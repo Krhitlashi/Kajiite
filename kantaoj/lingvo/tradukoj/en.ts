@@ -92,7 +92,7 @@ export const EN: Record<string, string> = {
   "specBetulo": "Birch",
   "flvSpecBetulo": "A tree with white wood.",
   "specLariko": "Alpine larch",
-  "flvSpecLariko": "The alpine larch ( Larix lyallii ) — a small montane conifer that drops its needles and turns gold in autumn.",
+  "flvSpecLariko": "The alpine larch ( Larix lyallii ), a small montane conifer that drops its needles and turns gold in autumn.",
   "specHxsxaksxlefo": "Shlef Hshaku",
   "flvSpecHxsxaksxlefo": "A purple lettuce tree with curled leaves. Used to make vinegar.",
   "specFiliko": "Fern",

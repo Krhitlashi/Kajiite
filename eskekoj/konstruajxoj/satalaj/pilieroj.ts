@@ -19,8 +19,8 @@ export function kreiPilierkadrojn(curve: THREE.Curve<THREE.Vector3>, segmentoj: 
     const ta = curve.getTangentAt(i / segmentoj).normalize();
     const m = ta;
     V.copy(H).addScaledVector(m, -H.dot(m));
-    if ( V.lengthSq() < 1e-8 ) V.copy(antauxaV).addScaledVector(m, -antauxaV.dot(m));
-    if ( V.lengthSq() < 1e-8 ) V.copy(antauxaU);
+    if ( V.lengthSq() < 0o10 ** -0o11 ) V.copy(antauxaV).addScaledVector(m, -antauxaV.dot(m));
+    if ( V.lengthSq() < 0o10 ** -0o11 ) V.copy(antauxaU);
     V.normalize();
     U.crossVectors(m, V).normalize();
     L.addVectors(V, U).multiplyScalar(Math.SQRT1_2);

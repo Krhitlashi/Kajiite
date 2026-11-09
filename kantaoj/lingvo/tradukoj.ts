@@ -1,7 +1,7 @@
 // ≺⧼ ការបកប្រែ 🗣️ ⧽≻
 import { gkAlIpa, ipaAlLingvo } from "./sonaj-reguloj.js";
-import { kreiPaghon, kreiPanelon } from "../fasado/paghoj.js";
-import type { Pagho, Panelo } from "../fasado/paghoj.js";
+import { kreiStaton } from "../fasado/paghoj.js";
+import type { Stato } from "../fasado/paghoj.js";
 import { TIPARO } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import { AIH } from "./tradukoj/aih.js";
 import { EO } from "./tradukoj/eo.js";
@@ -153,8 +153,8 @@ export function agordiLingvon( lingvo: string ): void {
 }
 
 // ⟪ ជ្រើសរើសភាសា ៖ បញ្ជីតែមួយសម្រាប់ទំព័រ ( ផ្ទាំងចាប់ផ្តើម ) និងផ្ទាំងលេចឡើង ( ហ្គេម ) 📃 ⟫
-let lingvPagho: Pagho | null = null;
-let lingvPopUp: Panelo | null = null;
+let lingvPagho: Stato | null = null;
+let lingvPopUp: Stato | null = null;
 
 function markiAktivanLingvon(): void {
   document.querySelectorAll("[data-lingvo]").forEach(el => {
@@ -192,8 +192,8 @@ function prepariLingvajnMenuojn(): void {
   const popaUjo = document.getElementById("lingvPopUpVico");
   if ( paghaUjo ) plenigiLingvanListon(paghaUjo);
   if ( popaUjo ) plenigiLingvanListon(popaUjo);
-  lingvPagho = document.getElementById("lingvPagho") ? kreiPaghon("lingvPagho", markiAktivanLingvon) : null;
-  lingvPopUp = document.getElementById("lingvPopUp") ? kreiPanelon("lingvPopUp", markiAktivanLingvon) : null;
+  lingvPagho = document.getElementById("lingvPagho") ? kreiStaton("lingvPagho", markiAktivanLingvon) : null;
+  lingvPopUp = document.getElementById("lingvPopUp") ? kreiStaton("lingvPopUp", markiAktivanLingvon) : null;
   for ( const ujo of [ paghaUjo, popaUjo ] ) {
     ujo?.addEventListener("click", ( e ) => {
       const butono = ( e.target as HTMLElement ).closest("button[data-lingvo]") as HTMLElement | null;

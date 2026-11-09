@@ -48,7 +48,7 @@ export function gluiVojaFinon(
           const a = vojo[k], b = vojo[k + 1];
           const sx = b[0] - a[0], sz = b[1] - a[1];
           const l2 = sx * sx + sz * sz;
-          if ( l2 < 0o1/0o1000000 ) continue;
+          if ( l2 < 0o10 ** -0o6 ) continue;
           const t = Math.max(0, Math.min(1, ( ( e[0] - a[0] ) * sx + ( e[1] - a[1] ) * sz ) / l2));
           const px = a[0] + sx * t, pz = a[1] + sz * t;
           const disto = Math.hypot(px - e[0], pz - e[1]);

@@ -48,7 +48,7 @@ export function kreiPontanAkvanTeston(
       const [ bx, bz ] = punktoj[i + 1];
       const dx = bx - ax, dz = bz - az;
       const l2 = dx * dx + dz * dz;
-      if ( l2 < 0o1/0o1000000 ) continue;
+      if ( l2 < 0o10 ** -0o6 ) continue;
       const t = Math.max(0, Math.min(1, ( ( x - ax ) * dx + ( z - az ) * dz ) / l2));
       const px = ax + dx * t, pz = az + dz * t;
       const disto = ( x - px ) * ( x - px ) + ( z - pz ) * ( z - pz );

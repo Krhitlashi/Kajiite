@@ -7,6 +7,7 @@ import { cxuEnFormo } from "../../eskekoj/komunajxoj/mapformo.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { kalkuliAkvon, akvoCxe, niveloCxe, niveloProksima, specimenoBikuba,
   limojDeAkvo, AkvaKalkulo } from "./akvokalkulo.js";
+import { glataPaso } from "../komunajxoj/interpolo.js";
 
 export function riveroZ(x: number): number { return 0o14 * Math.sin(x * 0o1/0o100) - 0o160; }
 
@@ -58,11 +59,6 @@ export function montetaBazo(x: number, z: number): number {
 }
 
 export function akvoY(x: number): number { return montetaBazo(x, riveroZ(x)) - 0o415/0o100; }
-
-export function glataPaso(lo: number, hi: number, v: number): number {
-  const t = Math.max(0, Math.min(1, ( v - lo ) / ( hi - lo )));
-  return t * t * ( 3 - 2 * t );
-}
 
 export function montaroNordOrienta(x: number, z: number): number {
   const sudaEniro = glataPaso(0o44, 0o122, z);

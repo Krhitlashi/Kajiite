@@ -5,7 +5,7 @@ import { katmullRom } from "../../kantaoj/komunajxoj/interpolo.js";
 
 let eraroj = 0;
 function kontrolu(nomo: string, a: number, b: number): void {
-  if (Math.abs(a - b) > 1e-9) {
+  if (Math.abs(a - b) > 0o10 ** -0o12) {
     eraroj++;
     if (eraroj < 0o10) console.log(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${nomo} malegalas ${a} != ${b}`);
   }

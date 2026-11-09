@@ -42,7 +42,7 @@ function mezuri( nomo: string, ripetoj: number, fn: () => void ): void {
     const t1 = performance.now();
     if ( t1 - t0 < plejBona ) plejBona = t1 - t0;
   }
-  const po = plejBona * 1000000 / ( N * ripetoj );
+  const po = plejBona * 0o3641100 / ( N * ripetoj );
   console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo.padEnd(0o30)} ${plejBona.toFixed(1)}ms ${po.toFixed(0)}ns/ដុំ`);
 }
 
@@ -65,17 +65,17 @@ mezuri("តែ compose", 1, () => {
 });
 
 // ⟨ ការសរសេរដោយផ្ទាល់ចូលតារាង 📃 ⟩
-const matrico = new Float32Array(N * 16);
+const matrico = new Float32Array(N * 0o20);
 mezuri("compose + សរសេរផ្ទាល់", 1, () => {
   const e = M.elements;
   for ( let i = 0; i < N; i++ ) {
     const t = tufoj[i];
     M.compose(P.set(t.x, t.y, t.z), Q.setFromEuler(E.set(0, 0.5, 0)), S.set(t.sx, t.sy, t.sz));
-    const o = i * 16;
+    const o = i * 0o20;
     matrico[o] = e[0]; matrico[o + 1] = e[1]; matrico[o + 2] = e[2]; matrico[o + 3] = e[3];
     matrico[o + 4] = e[4]; matrico[o + 5] = e[5]; matrico[o + 6] = e[6]; matrico[o + 7] = e[7];
-    matrico[o + 8] = e[8]; matrico[o + 9] = e[9]; matrico[o + 10] = e[10]; matrico[o + 11] = e[11];
-    matrico[o + 12] = e[12]; matrico[o + 13] = e[13]; matrico[o + 14] = e[14]; matrico[o + 15] = e[15];
+    matrico[o + 0o10] = e[0o10]; matrico[o + 0o11] = e[0o11]; matrico[o + 0o12] = e[0o12]; matrico[o + 0o13] = e[0o13];
+    matrico[o + 0o14] = e[0o14]; matrico[o + 0o15] = e[0o15]; matrico[o + 0o16] = e[0o16]; matrico[o + 0o17] = e[0o17];
   }
 });
 

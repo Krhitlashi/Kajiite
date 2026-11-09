@@ -6,7 +6,7 @@ let citrusaTeksajxo: THREE.CanvasTexture | null = null;
 
 export function citrusaTeksajxon(): THREE.CanvasTexture {
   return citrusaTeksajxo ??= kreiKanvasanTeksajxon(0o100, 0o100, ( k ) => {
-    k.fillStyle = "#fff0e0"; k.fillRect(0, 0, 0o100, 0o100);
+    k.fillStyle = "#f8f0e0"; k.fillRect(0, 0, 0o100, 0o100);
     const c = 0o40;
     k.strokeStyle = "rgba(184,136,48,0.45)"; k.lineWidth = 1;
     for ( let i = 0; i < 0o10; i++ ) {

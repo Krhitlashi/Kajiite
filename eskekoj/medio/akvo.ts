@@ -1,6 +1,6 @@
 // ≺⧼ ទឹក 🌊 ⧽≻
 import * as THREE from "three";
-import { glataPaso } from "../../kantaoj/mondo/tereno.js";
+import { glataPaso } from "../../kantaoj/komunajxoj/interpolo.js";
 import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
 import { kanakaKoloro } from "../komunajxoj/koloroj.js";
 

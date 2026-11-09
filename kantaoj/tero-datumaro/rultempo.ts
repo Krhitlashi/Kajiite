@@ -3,7 +3,7 @@
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ,
   SKULPTA_AKVA_MASKO, SKULPTA_AKVA_NIVELO, SKULPTA_AKVOFONTOJ,
   SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
-import { katmullRom } from "../komunajxoj/interpolo.js";
+import { bikubaSpecimeno } from "../komunajxoj/interpolo.js";
 import { kreiHazardanGenerilon } from "../../eskekoj/komunajxoj/hazardo.js";
 import { cxuEnFormo, distancoDeFormo } from "../../eskekoj/komunajxoj/mapformo.js";
 import { aktivaMapo } from "./mapregulo.js";
@@ -71,9 +71,9 @@ const DELTAJ: Int16Array | null = GENERITA_TERO || !SKULPTA_AKTIVA ? null : deko
 const AKVA_MASKO: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.akvaMasko
   : SKULPTA_AKTIVA ? dekodiMaskon(SKULPTA_AKVA_MASKO, SKULPTA_N * SKULPTA_N) : null;
 const BIOMOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.biomoj
-  : SKULPTA_AKTIVA ? dekodiBiomon(SKULPTA_BIOMOJ, SKULPTA_N * SKULPTA_N) : null;
+  : SKULPTA_AKTIVA ? dekodi3Bit(SKULPTA_BIOMOJ, SKULPTA_N * SKULPTA_N) : null;
 const BESTOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.bestoj
-  : SKULPTA_AKTIVA ? dekodiBestojn(SKULPTA_BESTOJ, SKULPTA_N * SKULPTA_N) : null;
+  : SKULPTA_AKTIVA ? dekodi3Bit(SKULPTA_BESTOJ, SKULPTA_N * SKULPTA_N) : null;
 
 // ⟪ ការនាំចេញរបស់ដីសកម្ម 📃 ⟫
 
@@ -159,65 +159,31 @@ export function mondiaHazardo(): () => number {
   return kreiHazardanGenerilon(subSemo(GENERITA_TERO.semo, KANALO_SURTERA), MONDIA_PLIIGO);
 }
 
-/*ច្របាច់លេខក្រឡាចូលក្នុងដែនតារាង
-    @param v ( number ) - លេខក្រឡាដែលអាចហួសដែន
-@returns i ( number ) - ក្រឡាក្នុងដែន 0 ដល់ SKULPTA_N-1 */
-function fiksuKradon(v: number): number {
-  const n1 = SKULPTA_N - 1;
-  return v < 0 ? 0 : v > n1 ? n1 : v;
-}
-
 // ⟨ អនុគមន៍គំរូ 📃 ⟩
 
 export function skulptaDelta(x: number, z: number): number {
   if ( !DELTAJ ) return 0;
   const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
   const fz = ( z - SKULPTA_ORIGINO[1] ) / SKULPTA_PASO;
-  const i0 = Math.floor(fx), j0 = Math.floor(fz);
-  const u = fx - i0, v = fz - j0;
-  // ⟨ ជួរឈរ និងជួរដេកដែលបានច្របាច់ ៖ គណនាម្តង ប្រើច្រើន 📃 ⟩
-  // ជៀសវាងការបង្កើត closure រាល់ពេលហៅ ព្រោះមុខងារនេះរត់រាល់កំពូលដី ។
-  const c0 = fiksuKradon(i0 - 1), c1 = fiksuKradon(i0);
-  const c2 = fiksuKradon(i0 + 1), c3 = fiksuKradon(i0 + 2);
-  const r0 = fiksuKradon(j0 - 1) * SKULPTA_N, r1 = fiksuKradon(j0) * SKULPTA_N;
-  const r2 = fiksuKradon(j0 + 1) * SKULPTA_N, r3 = fiksuKradon(j0 + 2) * SKULPTA_N;
-  const T = DELTAJ;
-  const m = katmullRom(
-    katmullRom(T[r0 + c0], T[r0 + c1], T[r0 + c2], T[r0 + c3], u),
-    katmullRom(T[r1 + c0], T[r1 + c1], T[r1 + c2], T[r1 + c3], u),
-    katmullRom(T[r2 + c0], T[r2 + c1], T[r2 + c2], T[r2 + c3], u),
-    katmullRom(T[r3 + c0], T[r3 + c1], T[r3 + c2], T[r3 + c3], u),
-    v);
-  return m / 0o20;
+  return bikubaSpecimeno(DELTAJ, SKULPTA_N, fx, fz) / 0o20;
 }
 
-export function dekodiBiomon(kruda: string, kvanto: number): Uint8Array | null {
+/*ឌិកូដតម្លៃ 3 ប៊ីតក្នុងមួយក្រឡា ពី base64 ៖ ជីវតំបន់ និងសត្វប្រើទ្រង់ទ្រាយតែមួយ
+    @param kruda ( string ) - ខ្សែ base64
+    @param kvanto ( number ) - ចំនួនក្រឡា
+@returns valoroj ( Uint8Array | null ) */
+export function dekodi3Bit(kruda: string, kvanto: number): Uint8Array | null {
   if ( kruda === "" ) return null;
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const biomo = new Uint8Array(kvanto);
+    const valoroj = new Uint8Array(kvanto);
     for ( let i = 0; i < kvanto; i++ ) {
       const b = i * 3;
-      biomo[i] = ( bajtoj[b >> 3] >> (b & 7) )
+      valoroj[i] = ( bajtoj[b >> 3] >> (b & 7) )
         | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 0o10 - ( b & 7 ) );
-      biomo[i] &= 7;
+      valoroj[i] &= 7;
     }
-    return biomo;
-  } catch { return null; }
-}
-
-export function dekodiBestojn(kruda: string, kvanto: number): Uint8Array | null {
-  if ( kruda === "" ) return null;
-  try {
-    const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const bestoj = new Uint8Array(kvanto);
-    for ( let i = 0; i < kvanto; i++ ) {
-      const b = i * 3;
-      bestoj[i] = ( bajtoj[b >> 3] >> (b & 7) )
-        | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 0o10 - ( b & 7 ) );
-      bestoj[i] &= 7;
-    }
-    return bestoj;
+    return valoroj;
   } catch { return null; }
 }
 

@@ -135,16 +135,16 @@ export let elektitaDoko = 0;
 let vojaIlo: string = "movu";
 type VojaCelo = { speco: "punkto"; vojo: number; punkto: number }
   | { speco: "doko"; doko: number }
-  // ⟨ ចំណុចកំពូលកំពង់ ( ខាងទឹក ) ៖ អូសវាដើម្បីពង្រីក/បង្រួមកំពង់ ។ 📃 ⟩
+  // ⟨ ចំណុចកំពូលកំពង់ ( ខាងទឹក ) , អូសវាដើម្បីពង្រីក/បង្រួមកំពង់ ។ 📃 ⟩
   | { speco: "dokoPinto"; doko: number }
-  // ⟨ ចំណុចចុងកំពង់ខាងដី ៖ អូសវាដើម្បីផ្លាស់ទី/បង្វិលកំពង់ , ហើយវាជាចំណុច
+  // ⟨ ចំណុចចុងកំពង់ខាងដី , អូសវាដើម្បីផ្លាស់ទី/បង្វិលកំពង់ , ហើយវាជាចំណុច
   // ភ្ជាប់សម្រាប់ផ្លូវ ។ 📃 ⟩
   | { speco: "dokoLando"; doko: number }
   | { speco: "vojo"; vojo: number };
 export let vojaTrenata: VojaCelo | null = null;
-// ⟨ គោលកំពង់ខាងដី ៖ ជាប់ពេលអូសកំពូល , ដូច្នេះកំពង់រីកចេញទៅទឹក 📃 ⟩
+// ⟨ គោលកំពង់ខាងដី , ជាប់ពេលអូសកំពូល , ដូច្នេះកំពង់រីកចេញទៅទឹក 📃 ⟩
 let dokoPintaBazo: { x: number; z: number; ax: number; az: number } | null = null;
-// ⟨ គោលកំពង់ខាងទឹក ៖ ជាប់ពេលអូសចុងខាងដី , ដូច្នេះចុងទឹកមិនផ្លាស់ទី 📃 ⟩
+// ⟨ គោលកំពង់ខាងទឹក , ជាប់ពេលអូសចុងខាងដី , ដូច្នេះចុងទឹកមិនផ្លាស់ទី 📃 ⟩
 let dokoLandaBazo: { x: number; z: number } | null = null;
 // ⟨ ប្រវែងកំពង់តិចបំផុត និងច្រើនបំផុត 📏 ⟩
 export const DOKO_PROFUNDO_MIN = 4;
@@ -198,14 +198,14 @@ export function kradoPlano() {
       if ( !v.punktoj || v.punktoj.length < 2 ) continue;
       for ( let i = 0; i < v.punktoj.length - 1; i++ ) {
         const a = v.punktoj[i], b = v.punktoj[i + 1];
-        if ( Math.abs(a[0] - b[0]) < 1e-6 ) {
+        if ( Math.abs(a[0] - b[0]) < 0o10 ** -0o7 ) {
           const poz = a[0] - ofsX;
-          if ( kradaPlanoCache.vojoj.some(r => r.orient === "NS" && Math.abs(r.poz - poz) < 1e-6) )
+          if ( kradaPlanoCache.vojoj.some(r => r.orient === "NS" && Math.abs(r.poz - poz) < 0o10 ** -0o7) )
             aldoniVojon(kradaPlanoCache, "NS", poz,
               Math.min(a[1], b[1]) - ofsZ, Math.max(a[1], b[1]) - ofsZ, true);
-        } else if ( Math.abs(a[1] - b[1]) < 1e-6 ) {
+        } else if ( Math.abs(a[1] - b[1]) < 0o10 ** -0o7 ) {
           const poz = a[1] - ofsZ;
-          if ( kradaPlanoCache.vojoj.some(r => r.orient === "EW" && Math.abs(r.poz - poz) < 1e-6) )
+          if ( kradaPlanoCache.vojoj.some(r => r.orient === "EW" && Math.abs(r.poz - poz) < 0o10 ** -0o7) )
             aldoniVojon(kradaPlanoCache, "EW", poz,
               Math.min(a[0], b[0]) - ofsX, Math.max(a[0], b[0]) - ofsX, true);
         }
@@ -504,7 +504,7 @@ function skribiDokoSekure() {
   // ដោយស្វ័យប្រវត្តី ( ឬតភ្ជាប់ទៅផ្លូវជិត ) ។
   const antaupaRot = d.rotacio ?? 0;
   const novaRot = parseFloat(dokoRotacioEl.value) || 0;
-  const rotacioMano = Math.abs(novaRot - antaupaRot) > 1e-9;
+  const rotacioMano = Math.abs(novaRot - antaupaRot) > 0o10 ** -0o12;
   d.x = parseFloat(dokoXEl.value) || 0;
   d.z = parseFloat(dokoZEl.value) || 0;
   d.profundo = Math.max(4, parseFloat(dokoProfundoEl.value) || 0o20);
@@ -595,7 +595,7 @@ function konektiDokojnAlVojojn() {
   return kunigoj;
 }
 
-// ⟨ កំពង់ងាកទៅរកទឹក 📃 ⟫
+// ⟨ កំពង់ងាកទៅរកទឹក 📃 ⟩
 // កំពង់ងាកខ្លួនឯងទៅរកទឹកដោយស្វ័យប្រវត្តី ។ រង្វង់ទិស ៣០ និងបីរយាង
 // ក្នុងទិសនីមួយៗ ផ្ទៀងផ្ទាត់ថាខាងសមុទ្រ ( ទិសផ្ទុយនឹងទិសដី ) ជាទឹក
 // ហើយខាងដីនៅពីក្រោយស្ងួត ។ ពិន្ទុច្រើនឈ្នះ ហើយពិន្ទុស្មើគ្នាទុក
@@ -623,8 +623,8 @@ function akvaAngulo(d: SkulptaPlatformo): number | null {
       }
     }
     if ( !cxuAkvo(d.x - sx * duon * 0o3, d.z - sz * duon * 0o3) ) poento += 0o1/0o2;
-    if ( poento > plejPoento + 1e-9
-      || ( Math.abs(poento - plejPoento) <= 1e-9
+    if ( poento > plejPoento + 0o10 ** -0o12
+      || ( Math.abs(poento - plejPoento) <= 0o10 ** -0o12
         && distoAnguloj(ang, nuna) < distoAnguloj(plejAngulo, nuna) ) ) {
       plejPoento = poento;
       plejAngulo = ang;
@@ -642,7 +642,7 @@ export function orientiDokon(d: SkulptaPlatformo, kromDoko = -1): boolean {
   const antaupa = d.rotacio ?? 0;
   if ( konektiDokonAlVojo(d, kromDoko) ) return ( d.rotacio ?? 0 ) !== antaupa;
   const angulo = akvaAngulo(d);
-  if ( angulo === null || Math.abs(angulo - antaupa) < 1e-9 ) return false;
+  if ( angulo === null || Math.abs(angulo - antaupa) < 0o10 ** -0o12 ) return false;
   if ( dokoKunfandiĝas({ ...d, rotacio: angulo }, kromDoko) ) return false;
   d.rotacio = angulo;
   return true;
@@ -690,7 +690,7 @@ function vojaCeloCxePunkto(mx: number, mz: number, ignoriPunktojn = false): Voja
     }
     if ( plej ) return plej;
   }
-  // ⟨ ចំណុចចុងកំពង់ទាំងពីរ 📃 ⟩ ៖ ខាងទឹក ( អូស = ពង្រីក ) និងខាងដី
+  // ⟨ ចំណុចចុងកំពង់ទាំងពីរ 📃 ⟩ , ខាងទឹក ( អូស = ពង្រីក ) និងខាងដី
   // ( អូស = ផ្លាស់ទី/បង្វិល , ហើយជាចំណុចភ្ជាប់ផ្លូវ ) ។ ជ្រើសចំណុចជិតបំផុត ។
   let plejDoko: { speco: "dokoPinto" | "dokoLando"; doko: number } | null = null;
   let plejDokoD = r;
@@ -776,7 +776,7 @@ function komenciVojaTrenon(celo: VojaCelo): void {
   } else if ( celo.speco === "dokoLando" ) {
     const d = dokoj[celo.doko];
     if ( !d ) return;
-    // ⟨ គោលទឹក ៖ ចំណុចចុងខាងទឹកនៅស្ថិត , ចុងខាងដីដើរតាមទ្រនិច 📃 ⟩
+    // ⟨ គោលទឹក , ចំណុចចុងខាងទឹកនៅស្ថិត , ចុងខាងដីដើរតាមទ្រនិច 📃 ⟩
     const pinto = dokoPinto(d);
     dokoLandaBazo = { x: pinto.x, z: pinto.z };
   }
@@ -787,7 +787,7 @@ function komenciVojaTrenon(celo: VojaCelo): void {
 }
 
 function kradaVojaAlglu(mx: number, mz: number) {
-  // ⟨ ចំណុចប្រសព្វសំណាញ់ 🎯 ⟩ ៖ ការភ្ជាប់ផ្លូវទៅផ្លូវសំណាញ់ត្រូវទៅចំចំណុចប្រសព្វ
+  // ⟨ ចំណុចប្រសព្វសំណាញ់ 🎯 ⟩ , ការភ្ជាប់ផ្លូវទៅផ្លូវសំណាញ់ត្រូវទៅចំចំណុចប្រសព្វ
   // ( មិនមែនកណ្តាលចម្រៀក ) ដូច្នេះចានភ្ជាប់និងជ្រុងផ្លូវលេចឡើង ។
   const pinto = plejProksimaPinto(kradajPintoj(), mx, mz);
   if (pinto) return [ pinto[0], pinto[1] ];
@@ -813,7 +813,7 @@ function kradaSegmentoAlglu(ax: number, az: number, bx: number, bz: number) {
   const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
   const rando = 0o5/0o2;
   const dx = bx - ax, dz = bz - az;
-  if ( Math.hypot(dx, dz) < 1e-6 ) return null;
+  if ( Math.hypot(dx, dz) < 0o10 ** -0o7 ) return null;
   if ( Math.abs(dx) <= 0o1/0o4 * Math.abs(dz) ) {
     let plej = null, plejD = rando;
     for ( const r of plano.vojoj ) {
@@ -838,10 +838,10 @@ function kradaSegmentoAlglu(ax: number, az: number, bx: number, bz: number) {
 }
 // ⟪ ការបិទភ្ជាប់ចំណុច 🎯 ⟫
 // ⟨ ចំណុចភ្ជាប់ , មិនមែនគែមផ្លូវ 📃 ⟩ គឺផ្លូវពីរភ្ជាប់គ្នាបានល្អតែពេលចុងជួប
-// ចំណុចតែមួយ ៖ ចំណុចប្រសព្វសំណាញ់ទីក្រុង , កំពូលផ្លូវ , ឬមាត់កំពង់ ។
+// ចំណុចតែមួយ , ចំណុចប្រសព្វសំណាញ់ទីក្រុង , កំពូលផ្លូវ , ឬមាត់កំពង់ ។
 // ការបិទភ្ជាប់ទៅគែមផ្លូវបង្កើតចុងកណ្តាលផ្លូវ ដែលមើលទៅដូចផ្លូវកាត់ ។
 const VOJA_PINTA_RANDO = 0o5/0o2;
-// ⟨ ការឃ្លាំងទុក ៖ ចំណុចសំណាញ់គឺថេរតាមផែនការ 📃 ⟩ ។ ការគណនាដំបូងគឺ
+// ⟨ ការឃ្លាំងទុក , ចំណុចសំណាញ់គឺថេរតាមផែនការ 📃 ⟩ ។ ការគណនាដំបូងគឺ
 // O ( ns × ew ) , ដូច្នេះវាត្រូវធ្វើតែម្តងក្នុងមួយផែនការ ( ការអូសហៅវារាល់
 // ចលនាកណ្ដុរ ) ។ ផែនការថ្មី = វត្ថុថ្មី , ដូច្នេះ WeakMap គឺជាការឃ្លាំងត្រឹមត្រូវ ។
 const kradajPintajKasxoj = new WeakMap<KradaPlano, VojaPunkto[]>();
@@ -861,8 +861,8 @@ function kradajRelativajPintoj(plano: KradaPlano): VojaPunkto[] {
   for (const r of ns) { aldoni(r.poz, r.de); aldoni(r.poz, r.al); }
   for (const r of ew) { aldoni(r.de, r.poz); aldoni(r.al, r.poz); }
   for (const a of ns) for (const b of ew) {
-    if (b.poz < a.de - 1e-6 || b.poz > a.al + 1e-6) continue;
-    if (a.poz < b.de - 1e-6 || a.poz > b.al + 1e-6) continue;
+    if (b.poz < a.de - 0o10 ** -0o7 || b.poz > a.al + 0o10 ** -0o7) continue;
+    if (a.poz < b.de - 0o10 ** -0o7 || a.poz > b.al + 0o10 ** -0o7) continue;
     aldoni(a.poz, b.poz);
   }
   for (const s of plano.spronoj) {
@@ -926,7 +926,7 @@ function plejProksimaPinto(punktoj: VojaPunkto[], mx: number, mz: number): VojaP
 // ⟨ ការតភ្ជាប់ស្វ័យប្រវត្តិនៃផ្លូវ 📃 ⟩
 const VOJA_ALGLUA_RANDO = 0o5/0o2;
 function vojaAlgluo(mx: number, mz: number, kromVojo: number, najbaro: VojaPunkto | null = null) {
-  // ⟨ ចំណុចភ្ជាប់ឈ្នះមុន 📃 ⟩ ៖ បើចុងផ្លូវនៅជិតកំពូលផ្លូវផ្សេង , មាត់កំពង់ ,
+  // ⟨ ចំណុចភ្ជាប់ឈ្នះមុន 📃 ⟩ , បើចុងផ្លូវនៅជិតកំពូលផ្លូវផ្សេង , មាត់កំពង់ ,
   // ឬចំណុចប្រសព្វសំណាញ់ ចុងនោះត្រូវទៅចំចំណុចនោះ ។
   const pinto = plejProksimaPinto(pintajAlgluoj(kromVojo), mx, mz);
   if (pinto) return [ pinto[0], pinto[1] ];
@@ -942,7 +942,7 @@ function vojaAlgluo(mx: number, mz: number, kromVojo: number, najbaro: VojaPunkt
       if ( !projekcio || projekcio.d > rando ) continue;
       const dx = b[0] - a[0], dz = b[1] - a[1], longo = Math.hypot(dx, dz);
       const nx = -dz / longo, nz = dx / longo;
-      // ⟨ ចុងជួបចុង ⟩ ។ បើចំណុចធ្លាក់នៅជិតចុងផ្លូវផ្សេង ( ជ្រុង ឬផ្លូវ
+      // ⟨ ចុងជួបចុង 📃 ⟩ ។ បើចំណុចធ្លាក់នៅជិតចុងផ្លូវផ្សេង ( ជ្រុង ឬផ្លូវ
       // បន្តគ្នា ) តភ្ជាប់នៅចុងនោះផ្ទាល់ ជំនួសឱ្យបញ្ជូលទៅគែមដែល
       // ធ្វើឱ្យចុងផ្លូវលោតថ្លេងកណ្តាលទទឹងផ្លូវ ។
       if ( longo > 0 ) {
@@ -980,7 +980,7 @@ function forigiDuoblajnPunktojn(v: SkulptaVojo): number {
   let forigitaj = 0;
   for ( let i = v.punktoj.length - 1; i > 0 && v.punktoj.length > 2; i-- ) {
     const a = v.punktoj[i], b = v.punktoj[i - 1];
-    if ( Math.hypot(a[0] - b[0], a[1] - b[1]) < 1e-6 ) { v.punktoj.splice(i, 1); forigitaj++; }
+    if ( Math.hypot(a[0] - b[0], a[1] - b[1]) < 0o10 ** -0o7 ) { v.punktoj.splice(i, 1); forigitaj++; }
   }
   return forigitaj;
 }
@@ -996,7 +996,7 @@ function konektiVojajnFinojn() {
       const najbaro = pi === 0 ? v.punktoj[1] : v.punktoj[lasta - 1];
       const algluo = vojaAlgluo(p[0], p[1], vi, najbaro);
       if ( !algluo ) continue;
-      if ( Math.hypot(algluo[0] - p[0], algluo[1] - p[1]) < 1e-6 ) continue;
+      if ( Math.hypot(algluo[0] - p[0], algluo[1] - p[1]) < 0o10 ** -0o7 ) continue;
       const kiuKunfandisAntaŭ = vojoKunfandiĝas(v, vi);
       p[0] = algluo[0];
       p[1] = algluo[1];
@@ -1026,12 +1026,12 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
     const kradaAlgluo = kradaVojaAlglu(mx, mz);
     const najbaro = pi > 0 ? v.punktoj[pi - 1] : v.punktoj[1];
     const voja = vojaAlgluo(mx, mz, c.vojo, najbaro);
-    // ⟨ បិទភ្ជាប់ណាជិតជាងគេ ⟩ — ក្រឡាទីក្រុង ឬចុង/គែមផ្លូវផ្សេង ។
+    // ⟨ បិទភ្ជាប់ណាជិតជាងគេ 📃 ⟩ ក្រឡាទីក្រុង ឬចុង/គែមផ្លូវផ្សេង ។
     // មុនក្រឡាតែងឈ្នះ ដែលធ្វើឱ្យចំណុចលោតចេញពីផ្លូវដែលកំពុងតភ្ជាប់
     // ពេលមានទាំងពីរនៅជិតគ្នា ។
     const dKrada = kradaAlgluo ? Math.hypot(kradaAlgluo[0] - mx, kradaAlgluo[1] - mz) : Infinity;
     const dVoja = voja ? Math.hypot(voja[0] - mx, voja[1] - mz) : Infinity;
-    // ⟨ ចំណុចភ្ជាប់ឈ្នះមុន 📃 ⟩ ៖ ការភ្ជាប់ផ្លូវទៅផ្លូវត្រូវនៅចំចំណុចតែមួយ ។
+    // ⟨ ចំណុចភ្ជាប់ឈ្នះមុន 📃 ⟩ , ការភ្ជាប់ផ្លូវទៅផ្លូវត្រូវនៅចំចំណុចតែមួយ ។
     // បើខ្សែសំណាញ់ឈ្នះ , ចំណុចលោតចេញពីចំណុចភ្ជាប់ ហើយការភ្ជាប់បាក់ ។
     const pinto = plejProksimaPinto(pintajAlgluoj(c.vojo), mx, mz);
     let gx, gz;
@@ -1066,7 +1066,7 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
     const antaupa = { ...d };
     d.x = Math.round(mx * 2) / 2;
     d.z = Math.round(mz * 2) / 2;
-    // អូសកំពង់ ៖ តភ្ជាប់ទៅផ្លូវជិត ( ជម្រើសដែលងាកទៅទឹក ) ឬបើគ្មាន
+    // អូសកំពង់ , តភ្ជាប់ទៅផ្លូវជិត ( ជម្រើសដែលងាកទៅទឹក ) ឬបើគ្មាន
     // ផ្លូវ ងាកទៅរកទឹកដោយស្វ័យប្រវត្តី ។
     orientiDokon(d, c.doko);
     if ( dokoKunfandiĝas(d, c.doko) ) {
@@ -1079,7 +1079,7 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
     const d = dokoj[c.doko];
     if ( !d || !dokoPintaBazo ) return;
     const antaupa = { ...d };
-    // ⟨ កំពូលអូស ៖ ចំណុចដីនៅស្ថិត , កំពូលដើរតាមទ្រនិច , ប្រវែងកំពង់
+    // ⟨ កំពូលអូស , ចំណុចដីនៅស្ថិត , កំពូលដើរតាមទ្រនិច , ប្រវែងកំពង់
     // = ចម្ងាយតាមអ័ក្សពីគោលដី ។ ដូច្នេះកំពង់ពង្រីក/បង្រួម ហើយ
     // ចំណុចទឹកផ្លាស់ទីផងដែរ , ដោយមិនលើកចំណុចដីចេញពីច្រាំង ។
     // បង្គត់ទៅ ០.៥ ដូចការអូសដទៃ ។ 📃 ⟩
@@ -1098,7 +1098,7 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
     const d = dokoj[c.doko];
     if ( !d || !dokoLandaBazo ) return;
     const antaupa = { ...d };
-    // ⟨ ចុងដីអូស ៖ ចុងទឹកនៅស្ថិត , ចុងដីដើរតាមទ្រនិច , ហើយកំពង់បង្វិលតាម ។
+    // ⟨ ចុងដីអូស , ចុងទឹកនៅស្ថិត , ចុងដីដើរតាមទ្រនិច , ហើយកំពង់បង្វិលតាម ។
     // ជម្រៅ = ចម្ងាយពីចុងទឹក , ដូច្នេះការអូសក៏ពង្រីក/បង្រួមកំពង់ ។ 📃 ⟩
     const b = dokoLandaBazo;
     const dx = mx - b.x, dz = mz - b.z;
@@ -1167,7 +1167,7 @@ function aldoniVojanPunkton(vi: number, mx: number, mz: number): boolean {
     v.punktoj.push([ nx, nz ]);
     elektitaPunkto = v.punktoj.length - 1;
   } else {
-    // ⟨ គោលដៅ = ចម្រៀកជាប់នឹងចំណុចដែលជ្រើស , ឬចម្រៀកជិតបំផុត ⟩
+    // ⟨ គោលដៅ = ចម្រៀកជាប់នឹងចំណុចដែលជ្រើស , ឬចម្រៀកជិតបំផុត 📃 ⟩
     // ចំណុចថ្មីត្រូវបញ្ចូលជាប់នឹងចំណុចដែលបានជ្រើស ( មុន ឬក្រោយវា ) ,
     // ដូច្នេះការបន្ថែមចំណុចនៅកន្លែងដែលកំពុងកែ ។ បើគ្មានចំណុចជ្រើស ,
     // ចម្រៀកជិតបំផុតនឹងទ្រនិចឈ្នះ ។
@@ -1181,11 +1181,11 @@ function aldoniVojanPunkton(vi: number, mx: number, mz: number): boolean {
       if ( d < plejD ) { plejD = d; plej = pi; plejT = t; }
     };
     if ( elektisCxiTiu && elektitaAntaue <= lasta ) {
-      // ⟨ ចម្រៀកក្រោយចំណុចដែលជ្រើស , ឬចម្រៀកមុនវាបើវាជាចំណុចចុងក្រោយ ⟩
+      // ⟨ ចម្រៀកក្រោយចំណុចដែលជ្រើស , ឬចម្រៀកមុនវាបើវាជាចំណុចចុងក្រោយ 📃 ⟩
       const km = elektitaAntaue < lasta ? elektitaAntaue : Math.max(0, lasta - 1);
       plej = km;
       projekcii(km);
-      // ⟨ នៅជាប់នឹងចំណុចជ្រើសជានិច្ច 📃 ⟩ ៖ បើការចុចនៅឆ្ងាយពីចម្រៀកនោះ ,
+      // ⟨ នៅជាប់នឹងចំណុចជ្រើសជានិច្ច 📃 ⟩ , បើការចុចនៅឆ្ងាយពីចម្រៀកនោះ ,
       // ការបញ្ចាំងត្រូវនឹងចុងម្ខាង ( = ចំណុចដែលមានរួច ) ដូច្នេះចំណុចថ្មី
       // មិនត្រូវបានបន្ថែមទេ ។ ដូច្នេះបម្រុងការបញ្ចាំងក្នុងកណ្តាលចម្រៀក ។
       if ( plejT < 0.2 || plejT > 0.8 ) plejT = 0.5;
@@ -1196,7 +1196,7 @@ function aldoniVojanPunkton(vi: number, mx: number, mz: number): boolean {
     const a = v.punktoj[plej], b = v.punktoj[plej + 1];
     nx = a[0] + plejT * ( b[0] - a[0] );
     nz = a[1] + plejT * ( b[1] - a[1] );
-    // ⟨ ការបិទភ្ជាប់ ⟩ ១ សមានីក្រឡាទីក្រុង ២ ផ្លូវ/ចតុកោណផ្សេង ។
+    // ⟨ ការបិទភ្ជាប់ 📃 ⟩ ១ សមានីក្រឡាទីក្រុង ២ ផ្លូវ/ចតុកោណផ្សេង ។
     // បិទភ្ជាប់តែបើជិតគោល ដូច្នេះចំណុចថ្មីមិនលោតចេញពីផ្លូវទេ ។
     const seg = kradaSegmentoAlglu(a[0], a[1], b[0], b[1]);
     if ( seg ) {

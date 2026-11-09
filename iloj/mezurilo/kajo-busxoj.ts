@@ -14,7 +14,7 @@ import { kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { akvaFino } from "./komunaj.js";
 
 const GRANDO = Number(process.argv[2] ?? 4);
-const OFS_X = Number(process.argv[3] ?? 8);
+const OFS_X = Number(process.argv[3] ?? 0o10);
 const OFS_Z = Number(process.argv[4] ?? 0);
 const VOJOJ = aktivajVojoj().filter(v => v.punktoj.length >= 2);
 const DOKOJ = aktivajDokoj();

@@ -92,7 +92,7 @@ export const EO: Record<string, string> = {
   "specBetulo": "Betulo",
   "flvSpecBetulo": "Arbo kun blanka ligno.",
   "specLariko": "Alpa lariko",
-  "flvSpecLariko": "La alpa lariko ( Larix lyallii ) — malgranda alpina konifero, kiu perdas siajn pinglojn aŭtune kaj orflaviĝas.",
+  "flvSpecLariko": "La alpa lariko ( Larix lyallii ), malgranda alpina konifero, kiu perdas siajn pinglojn aŭtune kaj orflaviĝas.",
   "specHxsxaksxlefo": "Ĥŝakŝlefo",
   "flvSpecHxsxaksxlefo": "Purpura laktukarbo kun kurbaj folioj. Uzata por fari vinagron.",
   "specFiliko": "Filiko",

@@ -63,14 +63,14 @@ export function rampaKuro( fala: number ): number {
 }
 
 export function surGrid( alto: number ): number {
-  return Math.ceil( alto / STUPA_RISERO - 0o1/0o1000000 ) * STUPA_RISERO;
+  return Math.ceil( alto / STUPA_RISERO - 0o10 ** -0o6 ) * STUPA_RISERO;
 }
 
 // ⟨ កម្រិតកំពូល ៖ ព្រំដែនខាងលើត្រូវបង្គត់ចុះក្រោម , មិនឡើងលើទេ ។
 // បើបង្គត់ឡើង , ផ្លូវលើកខ្លួនឯងលើសចានកន្លះជំហាននៅមាត់ចាន ,
 // ហើយជំហាននោះនៅសល់ជាជញ្ជាំងខ្លី ។ បង្គត់ចុះរក្សាព្រំដែនដើម ។ 📃 ⟩
 export function subGrid( alto: number ): number {
-  return Math.floor( alto / STUPA_RISERO + 0o1/0o1000000 ) * STUPA_RISERO;
+  return Math.floor( alto / STUPA_RISERO + 0o10 ** -0o6 ) * STUPA_RISERO;
 }
 
 // ⟪ កម្រិតការចូលក្នុងដី 📏 ⟫
