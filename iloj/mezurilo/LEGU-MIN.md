@@ -81,7 +81,6 @@ node --import ./iloj/mezurilo/falsdomo.mjs iloj/mezurilo/<ឯកសារ>.mjs [
 | `skulpta.ts` | ឆាកឆ្លាក់ដី ធៀបនឹងថេរផ្លូវ |
 | `gluprovo.ts` | រន្ធភ្ជាប់ដែលបានបង្កើត និងទិសដៃរបស់វា |
 | `provo-kunigo.ts` | ការសាកល្បងចំណុចភ្ជាប់ ( ឆាកសាកល្បង ) |
-| `vido.ts` | ទំព័រថតរូបពិភពលោកពិត ( `vido.html` ) |
 | `sonaj-provoj.ts` | ការបម្លែងសំឡេង ៖ Gawekiif ទៅ IPA និងទៅអក្សរឡាតាំង |
 
 ## ⟪ ស៊ើបអង្កេតផ្លូវ 🔬 ⟫

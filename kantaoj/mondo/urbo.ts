@@ -820,7 +820,7 @@ export async function konstruiUrbon(
   const internaSistemo: InternaSistemo = kreiInternanSistemon();
 
   // ⟨ ការវិភាគសម្រាប់ឧបករណ៍វាស់ 📏 ⟩ ៖ វាលកម្ពស់ផ្លូវ , ចំណុចភ្ជាប់ និងនិយមន័យផ្លូវ
-  // ដែលសាងសង់ពិត ។ ទំព័រ `iloj/mezurilo/vido.html` អានវាដើម្បីវាស់ជាមួយពិភពលោកពិត ,
+  // ដែលសាងសង់ពិត ។ ឧបករណ៍វាស់អានវាដើម្បីវាស់ជាមួយពិភពលោកពិត ,
   // ដូច្នេះការវាស់និងហ្គេមអានលេខតែមួយ ។ 📃 ⟩
   ( globalThis as any ).__urboDiagnostiko = {
     vojoAlteco, kunigoj: ĉiujKunigoj, difinoj: ĉiujDifinoj, bazaVojoAlteco,

@@ -55,20 +55,6 @@ export function matricoPor(dx: number, dz: number, x: number, y: number, z: numb
 
 export const ANGULA_PROVOLIRO = 0o1/0o4;
 
-export function specimeniAngulojn(x: number, z: number, duonX: number, duonZ: number,
-  heightFn: ( x: number, z: number ) => number
-): { maksimumo: number; minimumo: number } {
-  let maksimumo = -Infinity, minimumo = Infinity;
-  for ( const sx of [ -duonX, duonX ] ) {
-    for ( const sz of [ -duonZ, duonZ ] ) {
-      const h = heightFn(x + sx, z + sz);
-      if ( h > maksimumo ) maksimumo = h;
-      if ( h < minimumo ) minimumo = h;
-    }
-  }
-  return { maksimumo, minimumo };
-}
-
 export interface VojBendo {
   largho: number;
   ofseto: number;

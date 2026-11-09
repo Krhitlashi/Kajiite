@@ -11,7 +11,6 @@ export const VOJA_BORDA_LARĜO = 0o3/0o5;
 export const VOJA_EKSTERA_DUONO = VOJA_DIORITA_DUONO + VOJA_BORDA_LARĜO;
 
 export const KORNA_R = VOJA_BORDA_LARĜO;
-export const KORNA_ENA_R = VOJA_BORDA_LARĜO + KORNA_R;
 
 export const VOJA_TRUA_DUONO = VOJA_EKSTERA_DUONO + KORNA_R;
 
@@ -73,9 +72,6 @@ export function surGrid( alto: number ): number {
 export function subGrid( alto: number ): number {
   return Math.floor( alto / STUPA_RISERO + 0o1/0o1000000 ) * STUPA_RISERO;
 }
-
-// ⟨ ចំណុចដែលផ្លូវចាប់ផ្តើមឡើងដល់កម្រិតជណ្តើរ ដើម្បីបំពោះកម្រិតផ្លូវ និងកម្រិតចានភ្ជាប់ ដើម្បីកុំឱ្យចានលិចទៅចាន ។ 📃 ⟩
-export const VOJA_STUPA_TOLERANCO = 0o1/0o2;
 
 // ⟪ កម្រិតការចូលក្នុងដី 📏 ⟫
 // ⟨ ផ្លូវមិនអាចស្រាងជាងនេះចូលក្នុងដីបានទេ ។ កម្រិតផ្លូវអាចត្រូវក្រោមដីបន្តិចប៉ុណ្ណោះមិនអាចកប់ក្នុងដីបានទេ ។ 📃 ⟩

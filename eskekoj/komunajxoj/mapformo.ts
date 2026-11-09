@@ -17,7 +17,7 @@ export type Alto = ( x: number, z: number ) => number;
 
 export type StrataKoloro = ( c: THREE.Color, y: number, surfY: number ) => void;
 
-export function formoRondo( formo: MapFormo, grandeco: number ): number {
+function formoRondo( formo: MapFormo, grandeco: number ): number {
   return formo === "rondo" ? grandeco : grandeco * ANGULA_PROPORCIO;
 }
 

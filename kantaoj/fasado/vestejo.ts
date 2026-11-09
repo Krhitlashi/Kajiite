@@ -273,17 +273,3 @@ const vestejo: Vestejo = {
     },
     cxuMalfermita: () => Boolean(pagho?.cxuMalfermita() || panelo?.cxuMalfermita()),
 };
-
-/*សម្លៀកបំពាក់សកម្មរបស់ពិភពលោក ៖ សម្រាប់ការរក្សាទុក
-@returns elekto ( VestaElekto ) */
-export function aktivaVestaElekto(): VestaElekto {
-  return { v: aktivaVestoIdx, h: aktivaHarStiloIdx, c: aktivaHarKoloroIdx };
-}
-
-/*អនុវត្តសម្លៀកបំពាក់ដែលបានរក្សាទុកទៅរូបលេងថ្មី
-    @param figuro ( Figuro ) - រូបលេង */
-export function agordiVestanFiguron( figuro: Figuro ): void {
-  ludantaFiguro = figuro;
-  sxargiKonservitan();
-  aplikiVeston();
-}

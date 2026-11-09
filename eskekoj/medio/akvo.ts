@@ -370,8 +370,3 @@ export function gxisdatigiAkvon(river: RiverData, t: number): void {
     mat.uniforms.uTime.value = t;
   }
 }
-
-export function cxuEnAkvo(x: number, z: number, riverFn: ( x: number ) => number, riverHalfWidth: number): boolean {
-  const rz = riverFn(x);
-  return Math.abs(z - rz) < riverHalfWidth;
-}

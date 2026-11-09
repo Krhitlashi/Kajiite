@@ -144,10 +144,6 @@ export function nunaLingvo(): string {
   return aktivaLingvo;
 }
 
-export function cxuLingvo( lingvo: string ): boolean {
-  return LINGVOJ.includes(lingvo);
-}
-
 // ⟪ ជ្រើសភាសាដោយផ្ទាល់ , ដោយគ្មានការរំលង 📃 ⟫
 /*ដាក់ភាសាមួយឱ្យសកម្ម , ហើយធ្វើបច្ចុប្បន្នភាព UI
     @param lingvo ( string ) - កូដភាសា ៖ aih , eo , en , ja , km */

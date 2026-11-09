@@ -10,11 +10,6 @@ const ATOMA_MASUNUO = 0o2325145304344 / 0o11316646250265033043640461210440000000
 const ELEKTRONVOLTO = 0o13737643172 / 0o10047716274370450046042000000000;
 const BOLCMANA_KONSTANTO = 0o5210451 / 0o120617017534665620574524000000000;
 
-// ⟪ ច្បាប់ហ្គេម 📃 ⟫
-
-// ⟨ ភឺរ 📏 ⟩
-export const PEU_POR_KODUNUO = 0o100;
-
 // ⟪ ពេលវេលា 🕛 ⟫
 
 // ហេ គឺ 2^32 វដ្តសេស្យូម 133
@@ -49,14 +44,6 @@ export const JULOJ_PO_SSACA = KILOGRAMOJ_PO_SOK * METROJ_PO_PEU ** 0o2 / SEKUNDO
 export const KELVINOJ_PO_HIA = ELEKTRONVOLTO / 0o10000 / BOLCMANA_KONSTANTO;
 
 // ⟪ បម្លែង 📃 ⟫
-
-/* បម្លែងឯកតាកូដទៅជាភឺរហ្គេម
-    @param kodunuoj ( number ) - ចំនួនឯកតាកូដ។
-@returns peu
-    ចំនួនភឺរហ្គេម មិនមែនភឺររូបវិទ្យាទេ។ */
-export function alPeu(kodunuoj: number): number {
-  return kodunuoj * PEU_POR_KODUNUO;
-}
 
 /* បម្លែងមិល្លីវិនាទីទៅជាហេ
     @param milisekundoj ( number ) - ចំនួនមិល្លីវិនាទី។

@@ -127,10 +127,6 @@ export function generiSkriptanKanvason(opts: SkriptajOpcioj = {}): HTMLCanvasEle
   return kanvasa;
 }
 
-export function generiSkriptanURL(opts: SkriptajOpcioj = {}): string {
-  return generiSkriptanKanvason(opts).toDataURL();
-}
-
 // ⟪ ប្រភេទ Gawekiif 📃 ⟫
 const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
 

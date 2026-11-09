@@ -2,7 +2,7 @@
 
 // ⟪ ប្រតិទិន CAX2L 📃 ⟫
 
-export const SUNLATITUDO = 0o55;
+const SUNLATITUDO = 0o55;
 
 const IKRIHIA_EPOKO = Date.UTC(0o3732, 0o10, 6);
 const IKRIHIA_JANUARO = 0o166;

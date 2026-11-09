@@ -1,6 +1,5 @@
 // ≺⧼ ការដាក់ 📐 ⧽≻
 import { KRONA_LIBERO } from "./kronoj.js";
-import { kreiVegetajxanHazardon } from "./hazardoj.js";
 
 export class PunktaHasho<T> {
   private ĉeloj = new Map<number, T[]>();
@@ -83,14 +82,6 @@ export function kreiGrovojn(kvanto: number, worldRadius: number,
   }
   if ( grovoj.length === 0 ) grovoj.push({ x: 0o70, z: 0o70, r: 0o40 });
   return grovoj;
-}
-
-export function kreiArbarerojn(kvanto: number, worldRadius: number,
-  excludeRivers: ( x: number, z: number ) => boolean,
-  semo = 0o53104
-): Grovo[] {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
-  return kreiGrovojn(kvanto, worldRadius, hazardaGenerilo, excludeRivers);
 }
 
 export function hazardaGrovaLoko(hazardaGenerilo: () => number, grovoj: Grovo[]): { x: number; z: number } {
