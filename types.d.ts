@@ -21,14 +21,6 @@ declare module "three/addons/controls/OrbitControls.js" {
   }
 }
 
-declare module "three/addons/environments/RoomEnvironment.js" {
-  import * as THREE from "three";
-  export class RoomEnvironment extends THREE.Scene {
-    constructor(renderer?: THREE.WebGLRenderer);
-    dispose(): void;
-  }
-}
-
 declare module "three/addons/utils/BufferGeometryUtils.js" {
   import * as THREE from "three";
   export function mergeGeometries(geometries: THREE.BufferGeometry[], useGroups?: boolean): THREE.BufferGeometry;

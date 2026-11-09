@@ -24,6 +24,8 @@ import { konstruiPeriferiajnPlatformojn } from "../../../eskekoj/medio/vojoj/per
 import { kreiAndezitanMaterialon } from "../../../eskekoj/komunajxoj/materialoj.js";
 import { VESTOJ } from "../../../eskekoj/vestaro/vestoj.js";
 import { elemento, elementoj, unua } from "../../komunajxoj/dom.js";
+import { aplikiLampaFalon, agordiMedion, kreiCxefajnLumojn }
+  from "../../../eskekoj/komunajxoj/lumo.js";
 import type { MetitaObjekto } from "../../../kantaoj/mondo/urbo/tipoj.js";
 
 // ⟪ វត្ថុដែលបានដាក់ 📃 ⟫
@@ -365,6 +367,8 @@ function konstruiObjektonEn(grupo: THREE.Object3D, o: MetitaObjekto, opcioj: Kon
 
 function kreiObjektanBakon() {
   if ( objektaBakaRenderilo ) return;
+  // ⟨ ពន្លឺចង្កៀងកោងរួម មុនពេលបង្កើតវត្ថុធាតុ ។ 📃 ⟩
+  aplikiLampaFalon();
   objektaBakaRenderilo = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   objektaBakaRenderilo.setSize(0o2000, 0o2000);
   objektaBakaRenderilo.setClearColor(0x000000, 0);
@@ -373,11 +377,15 @@ function kreiObjektanBakon() {
   objektaBakaFotilo.position.set(0, 0o470, 0);
   objektaBakaFotilo.lookAt(0, 0, 0);
   objektaBakaSceno = new THREE.Scene();
-  objektaBakaSceno.add(new THREE.HemisphereLight(0xb8d8e8, 0x384838, 0o35/0o40));
-  const suno = new THREE.DirectionalLight(0xf8f0d8, 0o43/0o40);
-  suno.position.set(-0o400, 0o470, 0o300);
-  objektaBakaSceno.add(suno);
-  objektaBakaSceno.add(new THREE.AmbientLight(0x404848, 0o15/0o40));
+  // ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
+  kreiCxefajnLumojn( objektaBakaSceno, {
+    cxielaKoloro: 0xb8d8e8, grundoKoloro: 0x384838, cxielaIntenso: 0o35/0o40,
+    sunaKoloro: 0xf8f0d8, sunaIntenso: 0o43/0o40,
+    sunaPozicio: [ -0o400, 0o470, 0o300 ],
+    plenigaKoloro: 0x404848, plenigaIntenso: 0o15/0o40,
+  } );
+  // ⟨ ការឆ្លុះស្តើង សម្រាប់វត្ថុធាតុដែក និងកញ្ចក់ ។ 📃 ⟩
+  agordiMedion( objektaBakaSceno, objektaBakaRenderilo, { intenso: 0o1/0o10 } );
   objektaGrupo2D = new THREE.Group();
   objektaBakaSceno.add(objektaGrupo2D);
   objektaBakaKanvaso = objektaBakaRenderilo.domElement;
@@ -409,11 +417,15 @@ function kreiObjektanAntauxrigardon(): void {
   objektaAntauxSceno = new THREE.Scene();
   objektaAntauxFotilo = new THREE.PerspectiveCamera(0o50, 1, 1, 0o764);
   objektaAntauxFotilo.position.set(0o20, 0o14, 0o20);
-  objektaAntauxSceno.add(new THREE.HemisphereLight(0xc8e0f0, 0x404840, 0o10/0o10));
-  const suno = new THREE.DirectionalLight(0xf8f0d8, 0o115/0o100);
-  suno.position.set(-0o12, 0o24, 0o10);
-  objektaAntauxSceno.add(suno);
-  objektaAntauxSceno.add(new THREE.AmbientLight(0x505858, 0o1/0o2));
+  // ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
+  kreiCxefajnLumojn( objektaAntauxSceno, {
+    cxielaKoloro: 0xc8e0f0, grundoKoloro: 0x404840, cxielaIntenso: 0o1,
+    sunaKoloro: 0xf8f0d8, sunaIntenso: 0o115/0o100,
+    sunaPozicio: [ -0o12, 0o24, 0o10 ],
+    plenigaKoloro: 0x505858, plenigaIntenso: 0o1/0o2,
+  } );
+  // ⟨ ការឆ្លុះរួម សម្រាប់ការមើលវត្ថុជាមុន ។ 📃 ⟩
+  agordiMedion( objektaAntauxSceno, objektaAntauxRenderilo, { intenso: 0o1/0o4 } );
   objektaAntauxGrupo = new THREE.Group();
   objektaAntauxSceno.add(objektaAntauxGrupo);
 }

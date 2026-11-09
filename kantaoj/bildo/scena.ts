@@ -1,6 +1,5 @@
 // ≺⧼ ឆាក 🎬 ⧽≻
 import * as THREE from "three";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { alteco, akvaNivelo, akvaNiveloProksima, glataPaso } from "../mondo/tereno.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiFenestranMaterialon, kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { kreiGrundanTeksajxon } from "../../eskekoj/komunajxoj/teksajxoj/grundo.js";
@@ -12,6 +11,8 @@ import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
 import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,
   MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
 import { kanakaColoro, kanakaAlfo } from "../../eskekoj/komunajxoj/koloroj.js";
+import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
+  from "../../eskekoj/komunajxoj/lumo.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { montaraSemoBazo } from "../tero-datumaro/rultempo.js";
 import { gxisdatigiSteleanVitron } from "../../eskekoj/konstruajxoj/satalaj/vitro.js";
@@ -23,6 +24,10 @@ import { kreiVeterajnPartiklojn } from "./scena/precipitajxo.js";
 import type { ScenaSistemo, Vetero } from "./scena/tipoj.js";
 
 export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): ScenaSistemo {
+  // ⟪ ពន្លឺចង្កៀងកោងលើផ្ទៃ 📃 ⟫
+  // ⟨ ការធ្លាក់ពន្លឺកោង និងជំហាន -101010 រស់នៅក្នុងម៉ូឌុលរួម lampaFalo ៖
+  // ហ្គេម និងទំព័រឧទាហរណ៍ប្រើគណិតវិទ្យាតែមួយ ។ តម្លៃលំនាំដើមដូចហ្គេមគ្រប់ខ្ទង់ ។ 📃 ⟩
+  aplikiLampaFalon();
   let bildilo: THREE.WebGLRenderer;
   try {
     bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: MULT_SAMPLEA, powerPreference: "high-performance" });
@@ -30,14 +35,11 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     montriEraronon(sxargxaEl);
     throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) WebGL មិនអាចប្រើបាន");
   }
-  bildilo.outputColorSpace = THREE.SRGBColorSpace;
-  bildilo.toneMapping = THREE.ACESFilmicToneMapping;
-  bildilo.shadowMap.enabled = true;
-  bildilo.shadowMap.type = THREE.PCFShadowMap;
+  agordiBildilon( bildilo, { ombroj: true, ombraTipo: THREE.PCFShadowMap,
+    pikslaRacio: Math.min( devicePixelRatio, MAKS_RATIO ) } );
   // ⟪ ចង្វាក់ស្រមោល 📃 ⟫
   bildilo.shadowMap.autoUpdate = false;
   bildilo.shadowMap.needsUpdate = true;
-  bildilo.setPixelRatio(Math.min(devicePixelRatio, MAKS_RATIO));
   // ⟪ ច្រកផ្លាស់ប្តូរ , បានលុប 📃 ⟫
   // ⟨ អ្វីដែលបានប្រែ 📃 ⟩
   bildilo.setSize(innerWidth, innerHeight);
@@ -90,30 +92,24 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     return materialo;
   };
 
-  const pmremGenerilo = new THREE.PMREMGenerator(bildilo);
-  sceno.environment = pmremGenerilo.fromScene(new RoomEnvironment(bildilo), 0o1/0o40).texture;
-  pmremGenerilo.dispose();
+  // ⟨ បរិស្ថានឆ្លុះរួម ៖ មេឃតែមួយដែលបំភ្លឺឆាក ក៏បង្កើតការឆ្លុះដែរ ។ 📃 ⟩
+  const medio = agordiMedion( sceno, bildilo );
 
   const { cxielo, cxielajUniformoj } = kreiCxielon(sceno);
 
   // ⟪ ពន្លឺ 📃 ⟫
-  const hemiLumo = new THREE.HemisphereLight(0xc8e0e8, 0x485848, 0o63/0o100);
-  sceno.add(hemiLumo);
-  const suno = new THREE.DirectionalLight(0xf8f0d8, 0o45/0o40);
-  suno.position.set(0o110, 0o160, 0o40);
-  suno.castShadow = true;
-  suno.shadow.mapSize.set(OMBRA_MAPO, OMBRA_MAPO);
-  suno.shadow.camera.left = -0o100; suno.shadow.camera.right = 0o100;
-  suno.shadow.camera.top = 0o100; suno.shadow.camera.bottom = -0o100;
-  suno.shadow.camera.near = 0o20; suno.shadow.camera.far = 0o520;
-  suno.shadow.camera.updateProjectionMatrix();
-  // ⟨ ទំហំដុំស្រមោល ៖ ផែនទីស្រមោលតូច ( ទូរស័ព្ទ ) មានដុំធំជាង ។ បើសម្លេងណរម៉ាល់
-  // តូចពេក , ដីបង្កើតឆ្នូតខ្មៅៗជាសំណាញ់ ( shadow acne ) ។ ដូច្នេះសម្លេង
-  // ត្រូវតាមទំហំដុំ ៖ ដុំធំ , សម្លេងធំ ។ 📃 ⟩
   const ombraTekselo = 2 * 0o100 / OMBRA_MAPO;
-  suno.shadow.bias = -0o1 / ( 0o2 * OMBRA_MAPO );
-  suno.shadow.normalBias = Math.max(0o4/0o10, ombraTekselo * 0o22/0o10);
-  sceno.add(suno, suno.target);
+  const { hemiLumo, suno } = kreiCxefajnLumojn( sceno, {
+    cxielaKoloro: 0xc8e0e8, grundoKoloro: 0x485848, cxielaIntenso: 0o63/0o100,
+    sunaKoloro: 0xf8f0d8, sunaIntenso: 0o45/0o40, sunaPozicio: [ 0o110, 0o160, 0o40 ],
+    ombroj: true, ombraMapo: OMBRA_MAPO, ombraDuono: 0o100,
+    ombraProksima: 0o20, ombraMalproksima: 0o520,
+    // ⟨ ទំហំដុំស្រមោល ៖ ផែនទីស្រមោលតូច ( ទូរស័ព្ទ ) មានដុំធំជាង ។ បើសម្លេងណរម៉ាល់
+    // តូចពេក , ដីបង្កើតឆ្នូតខ្មៅៗជាសំណាញ់ ( shadow acne ) ។ ដូច្នេះសម្លេង
+    // ត្រូវតាមទំហំដុំ ៖ ដុំធំ , សម្លេងធំ ។ 📃 ⟩
+    ombraBiaso: -0o1 / ( 0o2 * OMBRA_MAPO ),
+    ombraNormalBiaso: Math.max( 0o4/0o10, ombraTekselo * 0o22/0o10 ),
+  } );
 
   // ⟪ ស្ព្រាយព្រះអាទិត្យ 📃 ⟫
   const molaTeksturo = ( () => {
@@ -190,6 +186,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     kanakaColoro(hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t));
     kanakaColoro(hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t));
     hemiLumo.intensity = l(d.tago.hemiInt, d.krepusko.hemiInt);
+    // ⟨ ពន្លឺបរិស្ថានលិចតាមព្រលប់ ដើម្បីកុំឱ្យវាលុបជំហានស្រមោលចង្កៀង 📃 ⟩
+    // ⟨ កញ្ចក់ឆ្លុះអានពណ៌ដូចមេឃ ៖ ដែក និងកញ្ចក់ឆ្លុះមេឃដែលបំភ្លឺឆាក ។ 📃 ⟩
+    medio.gxisdatigi({
+      supro: cxielajUniformoj.uTop.value,
+      mezo: cxielajUniformoj.uMid.value,
+      subo: cxielajUniformoj.uBot.value,
+      sunaKoloro: cxielajUniformoj.uSunCol.value,
+      sunaDirekto: cxielajUniformoj.uSunDir.value,
+      intenso: l(0o1, 0o2/0o10),
+    });
     kanakaColoro(suno.color.copy(d.tago.sunCol).lerp(d.krepusko.sunCol, t));
     suno.intensity = l(d.tago.sunInt, d.krepusko.sunInt);
     SUNA_DIREKTO.copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);

@@ -1,5 +1,6 @@
 // ≺⧼ ប្រភេទ 📃 ⧽≻
 import * as THREE from "three";
+import type { CxielajUniformoj } from "../../../eskekoj/komunajxoj/lumo.js";
 
 export type Vetero = "nebula" | "pluva" | "hajla" | "nega";
 
@@ -22,7 +23,7 @@ export interface ScenaSistemo {
   eniraMaterialo: THREE.MeshStandardMaterial;
   oraMaterialo: THREE.MeshStandardMaterial;
   cxielo: THREE.Mesh;
-  cxielajUniformoj: Record<string, THREE.IUniform>;
+  cxielajUniformoj: CxielajUniformoj;
   hemiLumo: THREE.HemisphereLight;
   suna: THREE.DirectionalLight;
   sunaSprajto: THREE.Sprite;

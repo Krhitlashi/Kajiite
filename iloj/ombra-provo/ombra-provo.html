@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- ⟨ ឆាកសាកល្បងស្រមោលចង្កៀង 🏮 ៖ ឆាកជ្រុងជញ្ជាំងពីរ និងដី ជាមួយចង្កៀងមួយ ។
+     ការធ្លាក់ពន្លឺកោង និងជំហាន -101010 មកពីម៉ូឌុលរួម lampaFalo ដែលហ្គេមប្រើពិត ។
+     អូសបង្វិល កង់ពង្រីក ។ បន្ទះបញ្ជាអណ្តែតនៅចំហៀងកែរស់គ្រប់តម្លៃ ។ ខ្សែកាត់ 2D
+     បង្ហាញជណ្តើរជំហានធៀបនឹងខ្សែរលូន ។ តម្លៃដើមមកពីម៉ូឌុលនោះដោយផ្ទាល់ ។ 📃 ⟩ -->
+<html lang="km">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title> ឆាកសាកល្បងស្រមោលចង្កៀង 🏮 </title>
+<link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
+<link rel="stylesheet" href="../stiloj.css">
+</head>
+<body>
+<canvas id="ombraVido"> </canvas>
+<ariiba id="ombraPanelo" class="sozanu scace a3e">
+  <thala class="n2tase">
+    <p class="ksakap2sa"> ឆាកសាកល្បងស្រមោលចង្កៀង 🏮 </p>
+    <sabosuc2w2q>
+      <button id="restarigi"> ដាក់ដើមវិញ ↺ </button>
+      <button id="hazardo"> ចៃដន្យ 🎲 </button>
+      <button id="elporti"> រក្សាទុករូប 🖼️ </button>
+    </sabosuc2w2q>
+  </thala>
+  <thala class="n2tase">
+    <p class="ksakap2sa"> ពន្លឺ 🔥 </p>
+    <label> កម្លាំង <output id="fortoVal"> 16 </output> </label>
+    <input id="forto" type="range" min="0" max="40" step="0.5" value="16" aria-label="កម្លាំងចង្កៀង">
+    <label> កម្ពស់ <output id="altoVal"> 4 </output> </label>
+    <input id="alto" type="range" min="2" max="8" step="0.1" value="4" aria-label="កម្ពស់ចង្កៀង">
+    <label> ចម្ងាយបិទ <output id="distVal"> 32 </output> </label>
+    <input id="dist" type="range" min="8" max="48" step="1" value="32" aria-label="ចម្ងាយបិទ">
+    <label> ថ្ងៃ ↔ ព្រលប់ <output id="ambientoVal"> 0.15 </output> </label>
+    <input id="ambiento" type="range" min="0" max="1" step="0.01" value="0.15" aria-label="ពន្លឺបរិយាកាស">
+  </thala>
+  <thala class="n2tase">
+    <p class="ksakap2sa"> ខ្សែកោង 📐 </p>
+    <label> ផ្តេក <output id="horizontalaVal"> 0.75 </output> </label>
+    <input id="horizontala" type="range" min="0.3" max="1.5" step="0.01" value="0.75" aria-label="កោងផ្តេក">
+    <label> បញ្ឈរលើ <output id="vertikalaVal"> 2 </output> </label>
+    <input id="vertikala" type="range" min="0.5" max="4" step="0.05" value="2" aria-label="កោងបញ្ឈរលើ">
+    <label> បញ្ឈរក្រោម <output id="vertikalaSubVal"> 0.625 </output> </label>
+    <input id="vertikalaSub" type="range" min="0.2" max="2" step="0.025" value="0.625" aria-label="កោងបញ្ឈរក្រោម">
+    <label> កន្ទុយ <output id="vostVal"> 2 </output> </label>
+    <input id="vost" type="range" min="0" max="6" step="0.1" value="2" aria-label="កន្ទុយអ័ិចស្ប៉ូណង់ស្យែល">
+  </thala>
+  <thala class="n2tase">
+    <p class="ksakap2sa"> ជំហាន -101010 🪜 </p>
+    <label> ចំនួនជំហាន <output id="bandVal"> 16 </output> </label>
+    <input id="band" type="range" min="4" max="32" step="1" value="16" aria-label="ចំនួនជំហាន">
+    <label> គែមជំហាន <output id="transVal"> 0.12 </output> </label>
+    <input id="trans" type="range" min="0.02" max="1" step="0.01" value="0.12" aria-label="ភាពមុតគែមជំហាន">
+    <label> <input id="kvant" type="checkbox" checked> បង្ហាញជំហាន 🪜 </label>
+    <p class="ksakat2xa"> បិទដើម្បីមើលខ្សែរលូនធៀប </p>
+  </thala>
+  <thala class="n2tase">
+    <p class="ksakap2sa"> ខ្សែកាត់ 📉 </p>
+    <canvas id="ombraSekcio" width="640" height="360"> </canvas>
+    <p class="kefhuruq"> ខ្សែក្រោមជាជណ្តើរជំហាន ខ្សែស្តើងជាការធ្លាក់រលូន ។ គ្រប់ជំហានថយ 0x10 ក្នុងមួយឆានែល ។ </p>
+  </thala>
+  <thala class="n2tase">
+    <p class="ksakap2sa"> តម្លៃ 📄 </p>
+    <pre id="valoroj"> </pre>
+  </thala>
+</ariiba>
+<script type="module" src="./ombra-provo.ts"> </script>
+</body>
+</html>

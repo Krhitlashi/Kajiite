@@ -25,7 +25,7 @@ export function kreiPaletrojn(): Record<Vetero, VeteraDuopo> {
         top: new THREE.Color(0x182848), mid: new THREE.Color(0x586088), bot: new THREE.Color(0xb88868),
         sunCol: new THREE.Color(0xf8b880), fog: new THREE.Color(0x686880),
         hemiSky: new THREE.Color(0x304068), hemiGnd: new THREE.Color(0x182820),
-        sunPos: new THREE.Vector3(-0o110, 0o40, -0o100), sunInt: 0o16/0o40, hemiInt: 0o40/0o100,
+        sunPos: new THREE.Vector3(-0o110, 0o40, -0o100), sunInt: 0o12/0o40, hemiInt: 0o25/0o100,
         sprajtaOp: 0o54/0o100, ekspozicio: 0o74/0o100, nebulDenso: NEBULA_DENSO,
       },
     },

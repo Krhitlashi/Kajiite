@@ -13,6 +13,7 @@ interface ImportMeta {
 interface Window {
   skulptilo?: Record<string, unknown>;
   inspektilo?: Record<string, unknown>;
+  ombra?: Record<string, unknown>;
   // ⟨ ឧបករណ៍ជ្រើសឯកសារ 📃 ⟩ គឺ File System Access API។ ប្រភេទធម្មតារបស់
   // TypeScript មិនមានពួកវាទេ ( API មានតែក្នុង Chromium ) ដូច្នេះឧបករណ៍
   // ប្រកាសអនុគមន៍ទាំងពីរនៅទីនេះ។ អាគុយម៉ង់ស្រេចចិត្តនៅតែបើកចំហ។

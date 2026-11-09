@@ -5,6 +5,7 @@ import { kunfandiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 import { BOVLA_ALTO, kreiFlamanGeometrion, LANGA_ALTO } from "./flamo.js";
 import { kreiFalekon } from "./faleko.js";
 import { kanakaKoloro, kanakaAlfo } from "../../komunajxoj/koloroj.js";
+import { LAMPA_LUMO } from "../../komunajxoj/lampaFalo.js";
 import type { HxeuxfaLoko, HxeuxfaSistemo } from "./tipoj.js";
 export function konstruiHxeuxfojn(sceno: THREE.Scene,
   spots: HxeuxfaLoko[],
@@ -124,7 +125,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   flamajLokoj.forEach(( p, i ) => {
     gPozicio.set([ p.x, p.y + 0o15/0o100, p.z ], i * 3);
     gSemo[i] = Math.random() * 0o140;
-    gGrando[i] = 0o20 + Math.random() * 0o10;
+    gGrando[i] = 0o12 + Math.random() * 0o6;
     phases.push(Math.random() * Math.PI * 2);
   });
 
@@ -158,8 +159,17 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
       uniform vec3 uCol; uniform float uOp;
       varying float vA;
       void main() {
-        float d = length(gl_PointCoord - vec2(0.5));
-        gl_FragColor = vec4(uCol, smoothstep(0.5, 0.0, d) * uOp * vA);
+        vec2 p = ( gl_PointCoord - vec2( 0.5 ) ) * 2.0;
+        float r = length( p );
+        float ang = atan( p.y, p.x );
+        // ⟨ ការ៉េបង្វិល ៖ ជ្រុងកោងចូលខ្លាំង គែមរលាយថ្នម 📃 ⟩
+        float f = abs( mod( ang + 0.7853982, 1.5707963 ) - 0.7853982 );
+        float korpo = pow( pow( cos( f ), 0.6 ) + pow( sin( f ), 0.6 ), -1.6667 );
+        float R = korpo;
+        float stelo = 1.0 - smoothstep( R - 0.3, R, r );
+        float pleneco = 0.25 + 0.75 * ( 1.0 - smoothstep( 0.0, R, r ) );
+        float kerno = 1.0 - smoothstep( 0.0, 0.3, r );
+        gl_FragColor = vec4( uCol, max( stelo * pleneco, kerno * 0.85 ) * uOp * vA );
       }
     `,
   });
@@ -172,7 +182,8 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   const lumajIndeksoj: number[] = [];
   const lumajDistancoj = new Float32Array(LUMOJ);
   for ( let k = 0; k < LUMOJ; k++ ) {
-    const L = new THREE.PointLight(0xf89838, 0o15/0o40, 0o32, 2);
+    const L = new THREE.PointLight( LAMPA_LUMO.koloro, LAMPA_LUMO.forto,
+      LAMPA_LUMO.distanco, LAMPA_LUMO.falo );
     sceno.add(L);
     punktajLumoj.push(L);
     lumajIndeksoj.push(k);

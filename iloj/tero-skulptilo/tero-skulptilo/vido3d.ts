@@ -7,6 +7,8 @@
 // ប្រវត្តិ វត្ថុ ) ដែលស្ថិតនៅក្នុងឯកសារមេ។
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
+  from "../../../eskekoj/komunajxoj/lumo.js";
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { alternajDiagonalojn, terenaStrataKoloroEn } from "../../../eskekoj/komunajxoj/terenkoloroj.js";
 import { premuAlFormo, kreiFormanBazon, MONDO_BAZA_Y } from "../../../eskekoj/komunajxoj/mapformo.js";
@@ -294,13 +296,18 @@ function eniri3D(): void {
     fotilo3d = new THREE.PerspectiveCamera(0o62, 1, 1, 0o4770);
     fotilo3d.position.set(0o400, 0o300, 0o400);   // ( 256, 192, 256 ) ។ ទីតាំងដំបូងរបស់កាមេរ៉ា
     bildilo3d = new THREE.WebGLRenderer({ canvas: mapo3d, antialias: true });
-    // ពន្លឺ គឺពន្លឺមេឃក្នុងផ្ទះ និងព្រះអាទិត្យពីទិសពាយ័ព្យ។
-    const hemo = new THREE.HemisphereLight(0xb8d8e8, 0x384838, 0o35/0o40);
-    sceno3d.add(hemo);
-    const suno = new THREE.DirectionalLight(0xf8f0d8, 0o43/0o40);
-    suno.position.set(-0o400, 0o470, 0o300);      // ( -256, 312, 192 ) ។ ទីតាំងរបស់ព្រះអាទិត្យ
-    sceno3d.add(suno);
-    sceno3d.add(new THREE.AmbientLight(0x404848, 0o15/0o40));
+    agordiBildilon( bildilo3d );
+    // ⟨ ពន្លឺចង្កៀងកោងរួម ដូចហ្គេម និងឆាកឧទាហរណ៍ផ្សេង ។ 📃 ⟩
+    aplikiLampaFalon();
+    // ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
+    kreiCxefajnLumojn( sceno3d, {
+      cxielaKoloro: 0xb8d8e8, grundoKoloro: 0x384838, cxielaIntenso: 0o35/0o40,
+      sunaKoloro: 0xf8f0d8, sunaIntenso: 0o43/0o40,
+      sunaPozicio: [ -0o400, 0o470, 0o300 ],
+      plenigaKoloro: 0x404848, plenigaIntenso: 0o15/0o40,
+    } );
+    // ⟨ ការឆ្លុះរួម ដើម្បីឱ្យវត្ថុធាតុដែក និងទឹកឆ្លុះដូចហ្គេម ។ 📃 ⟩
+    agordiMedion( sceno3d, bildilo3d );
     // សំណាញ់ដី គឺសំណាញ់ដូចការឆ្លាក់ ជាមួយពណ៌បញ្ឈរ។
     const N1 = N + 1;
     const geometrio = new THREE.BufferGeometry();

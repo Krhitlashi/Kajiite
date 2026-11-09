@@ -69,7 +69,7 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
 
   for ( let k = 0; k < sys.punktajLumoj.length; k++ ) {
     const fazo = sys.phases[sys.lumajIndeksoj[k]];
-    sys.punktajLumoj[k].intensity = 0o15/0o40 * ( 0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2) );
+    sys.punktajLumoj[k].intensity = 0o3/0o2 * ( 0o27/0o40 + 0o11/0o40 * Math.sin(t * 0o15 + fazo) * Math.sin(t * 0o723/0o100 + fazo * 2) );
   }
 
   sys.flamaEkstero.instanceMatrix.needsUpdate = true;

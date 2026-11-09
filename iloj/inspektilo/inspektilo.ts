@@ -14,6 +14,8 @@
 // សំណង់ប្រើលក្ខណៈដូចក្នុង kantaoj/mondo/urbo.ts ទៀតផង។
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
+  from "../../eskekoj/komunajxoj/lumo.js";
 import { konstruiMetitanBeston, gxisdatigiBestojn, konstruiMetitanPetrelon, gxisdatigiPetrelojn } from "../../eskekoj/shalaj-specioj/bestoj.js";
 import { animaciiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { centri, SPECOJ } from "./datumoj.js";
@@ -51,11 +53,12 @@ const sceno = new THREE.Scene();
 // ពណ៌ផ្ទៃខាងក្រោយនៅជាឯកសារយោង ព្រោះកុងតាក់ ផ្ទៃខាងក្រោយ សរសេរទៅវាដោយផ្ទាល់។
 const fonoKoloro = kanakaColoro(new THREE.Color(0x2e3f4a));
 sceno.background = fonoKoloro;
+// ⟨ ពន្លឺចង្កៀងកោងរួម ដូចហ្គេម និងឆាកឧទាហរណ៍ផ្សេង ។ 📃 ⟩
+aplikiLampaFalon();
 
 const kanvaso = elemento<HTMLCanvasElement>("bestoVido");
 const bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: true });
-bildilo.shadowMap.enabled = true;
-bildilo.shadowMap.type = THREE.PCFShadowMap;
+agordiBildilon( bildilo, { ombroj: true, ombraTipo: THREE.PCFShadowMap } );
 
 const fotilo = new THREE.PerspectiveCamera(0o50, 1, 0o1/0o20, 0o4000);
 const regiloj = new OrbitControls(fotilo, kanvaso);
@@ -63,28 +66,16 @@ regiloj.enableDamping = true;
 regiloj.autoRotate = true;
 regiloj.autoRotateSpeed = 0o3/0o2;
 
-const cxielaLumo = new THREE.HemisphereLight(0xe0f0f8, 0x50705a, 0o17/0o10);
-sceno.add(cxielaLumo);
-const sunlumo = new THREE.DirectionalLight(0xfff4e0, 0o16/0o10);
-sunlumo.position.set(0o6, 0o11, 0o5);
-sunlumo.castShadow = true;
-sunlumo.shadow.mapSize.set(0o1000, 0o1000);
-// ⟨ សម្លេងស្រមោល 📃 ⟩ ព្រោះជើងរបស់ពីងពាងសមុទ្រស្តើងខ្លាំង ដូច្នេះ
-// ផែនទីស្រមោលពន្លឺប៉ះលើផ្ទៃរបស់វាផ្ទាល់ ហើយគូរត្រីកោណ
-// ងងឹតនៅជង្គង់ ( shadow acne )។ តម្លៃសម្លេង និងសម្លេងណរម៉ាល់
-// នាំការប្រៀបធៀបឱ្យជិតផ្ទៃខ្លួនឯង។
-sunlumo.shadow.bias = -0o1/0o2000;
-sunlumo.shadow.normalBias = 0o1/0o100;
+// ⟨ ពន្លឺមេឃ និងព្រះអាទិត្យ តាមឧបករណ៍រួម ។ 📃 ⟩
+const { suno: sunlumo } = kreiCxefajnLumojn( sceno, {
+  cxielaKoloro: 0xe0f0f8, grundoKoloro: 0x50705a, cxielaIntenso: 0o17/0o10,
+  sunaKoloro: 0xfff4e0, sunaIntenso: 0o16/0o10, sunaPozicio: [ 0o6, 0o11, 0o5 ],
+  ombroj: true, ombraMapo: 0o1000, ombraDuono: 0o30, ombraProksima: 0o1/0o2,
+  ombraMalproksima: 0o100, ombraBiaso: -0o1/0o2000, ombraNormalBiaso: 0o1/0o100,
+} );
 const ombraDuono = 0o30;
-sunlumo.shadow.camera.left = -ombraDuono;
-sunlumo.shadow.camera.right = ombraDuono;
-sunlumo.shadow.camera.top = ombraDuono;
-sunlumo.shadow.camera.bottom = -ombraDuono;
-sunlumo.shadow.camera.near = 0o1/0o2;
-sunlumo.shadow.camera.far = 0o100;
-sunlumo.shadow.camera.updateProjectionMatrix();
-sceno.add(sunlumo);
-sceno.add(sunlumo.target);
+// ⟨ ការឆ្លុះរួម សម្រាប់វត្ថុធាតុដែក និងកញ្ចក់ ។ 📃 ⟩
+agordiMedion( sceno, bildilo );
 const kontrauxLumo = new THREE.DirectionalLight(0xa8c0d8, 0o7/0o10);
 kontrauxLumo.position.set(-0o7, 0o4, -0o6);
 sceno.add(kontrauxLumo);

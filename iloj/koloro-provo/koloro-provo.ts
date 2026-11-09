@@ -5,7 +5,8 @@
 // ដើរដោយ W A S D , បង្វិលដោយកណ្តុរ ។ បើក `iloj/koloro-provo/koloro-provo.html` ។ លុបបាន ។ 📃 ⟩
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
+  from "../../eskekoj/komunajxoj/lumo.js";
 import {
   KLINGAJ_KOLOROJ, SEKA_KLINGO, TERENA_KOLOROJ,
   bruo2D, herbaKlingaKoloro, sekaHerbaKlingaKoloro,
@@ -99,11 +100,11 @@ const agordo = {
 // ⟪ ឆាក 📷 ⟫
 const kanvaso = document.getElementById("koloraVido") as HTMLCanvasElement;
 const bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: true });
-// ⟨ សន្ទះគូរមានទំហំបង្អួចពិត ៖ គ្មានស្ទីលក្នុងចំណាំ ។ 📃 ⟩
-bildilo.setPixelRatio(1);
-bildilo.outputColorSpace = THREE.SRGBColorSpace;
-bildilo.toneMapping = THREE.ACESFilmicToneMapping;
+// ⟨ សន្ទះគូរមានទំហំបង្អួចពិត ៖ គ្មានស្ទីលក្នុងចំណាំ ។ ការកំណត់រួមមកពីម៉ូឌុល lumo ។ 📃 ⟩
+agordiBildilon( bildilo, { pikslaRacio: 0o1 } );
 bildilo.toneMappingExposure = PALETRO.ekspozicio;
+// ⟨ ពន្លឺចង្កៀងកោងរួម ដូចហ្គេម ។ 📃 ⟩
+aplikiLampaFalon();
 const sceno = new THREE.Scene();
 sceno.fog = new THREE.FogExp2(PALETRO.fog.getHex(), PALETRO.nebulDenso * 0o1/0o4);
 
@@ -122,20 +123,19 @@ cxielajUniformoj.uBot.value.copy(PALETRO.bot);
 cxielajUniformoj.uSunCol.value.copy(PALETRO.sunCol);
 cxielajUniformoj.uSunDir.value.copy(PALETRO.sunPos).normalize();
 
-// ⟨ ពន្លឺ ៖ ដូចហ្គេម , ពីបាលេត ។ 📃 ⟩
-const hemiLumo = new THREE.HemisphereLight(PALETRO.hemiSky, PALETRO.hemiGnd,
-  PALETRO.hemiInt);
-sceno.add(hemiLumo);
-const suno = new THREE.DirectionalLight(PALETRO.sunCol, PALETRO.sunInt);
-suno.position.copy(PALETRO.sunPos);
-suno.target.position.set(0, 0, 0);
-sceno.add(suno, suno.target);
+// ⟨ ពន្លឺ ៖ ដូចហ្គេម , ពីបាលេត , តាមឧបករណ៍រួម ។ 📃 ⟩
+kreiCxefajnLumojn( sceno, {
+  cxielaKoloro: PALETRO.hemiSky, grundoKoloro: PALETRO.hemiGnd,
+  cxielaIntenso: PALETRO.hemiInt, sunaKoloro: PALETRO.sunCol,
+  sunaIntenso: PALETRO.sunInt,
+  sunaPozicio: [ PALETRO.sunPos.x, PALETRO.sunPos.y, PALETRO.sunPos.z ],
+} );
 
-// ⟨ ពន្លឺបរិយាកាស ៖ ដូចហ្គេម ។ 📃 ⟩
-const pmremGenerilo = new THREE.PMREMGenerator(bildilo);
-sceno.environment = pmremGenerilo.fromScene(new RoomEnvironment(bildilo),
-  0o1/0o40).texture;
-pmremGenerilo.dispose();
+// ⟨ ពន្លឺបរិយាកាស ៖ ដូចហ្គេម , តាមឧបករណ៍រួម ។ កញ្ចក់ឆ្លុះអានពណ៌មេឃតែមួយ ។ 📃 ⟩
+agordiMedion( sceno, bildilo, {
+  supro: PALETRO.top, mezo: PALETRO.mid, subo: PALETRO.bot,
+  sunaKoloro: PALETRO.sunCol, sunaDirekto: PALETRO.sunPos.clone().normalize(),
+} );
 
 // ⟪ ដី : ក្រឡាតូចៗតាមកម្ពស់សាកល្បង 📃 ⟫
 const geometrioTero = new THREE.PlaneGeometry(GRANDO, GRANDO, SEGMENTOJ, SEGMENTOJ);

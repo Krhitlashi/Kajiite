@@ -6,6 +6,8 @@
 // អាចមើលឃើញភ្លាម ។
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
+  from "../../eskekoj/komunajxoj/lumo.js";
 import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
 import { konstruiIntersekcajnPlatojn } from "../../eskekoj/medio/vojoj/platoj.js";
 import { konstruiDokon } from "../../eskekoj/medio/doko.js";
@@ -74,8 +76,10 @@ function kielSceno(g: THREE.Object3D): THREE.Scene {
 }
 
 // ⟪ ឆាក 3D 🎥 ⟫
+// ⟨ ពន្លឺចង្កៀងកោងរួម ដូចហ្គេម និងឆាកឧទាហរណ៍ផ្សេង ។ 📃 ⟩
+aplikiLampaFalon();
 const bildilo = new THREE.WebGLRenderer({ canvas: elemento("vido3d") as HTMLCanvasElement, antialias: true });
-bildilo.setPixelRatio(Math.min(2, globalThis.devicePixelRatio || 1));
+agordiBildilon( bildilo, { pikslaRacio: Math.min( 0o2, globalThis.devicePixelRatio || 1 ) } );
 const sceno = new THREE.Scene();
 sceno.background = new THREE.Color(0xa8d0e8);
 const fotilo = new THREE.PerspectiveCamera(50, 1, 1, 600);
@@ -85,12 +89,14 @@ regiloj.target.set(-14, 0, -2);
 regiloj.enableDamping = true;
 regiloj.dampingFactor = 0.08;
 regiloj.maxPolarAngle = Math.PI * 0.48;
-// ពន្លឺ គឺដូចទិដ្ឋភាព 3D របស់កម្មវិធីកែ ។
-sceno.add(new THREE.HemisphereLight(0xb8d8e8, 0x384838, 1.1));
-const suno = new THREE.DirectionalLight(0xf8f0d8, 1.5);
-suno.position.set(-40, 60, 30);
-sceno.add(suno);
-sceno.add(new THREE.AmbientLight(0x404848, 0.35));
+// ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
+kreiCxefajnLumojn( sceno, {
+  cxielaKoloro: 0xb8d8e8, grundoKoloro: 0x384838, cxielaIntenso: 0o11/0o10,
+  sunaKoloro: 0xf8f0d8, sunaIntenso: 0o3/0o2, sunaPozicio: [ -0o50, 0o74, 0o36 ],
+  plenigaKoloro: 0x404848, plenigaIntenso: 0o27/0o100,
+} );
+// ⟨ ការឆ្លុះរួម សម្រាប់វត្ថុធាតុដែក និងកញ្ចក់ ។ 📃 ⟩
+agordiMedion( sceno, bildilo );
 
 // ⟪ ដី 🏔️ ⟫ ។ សំណាញ់ដែលអាចគណនាឡើងវិញពេលជម្រាលប្តូរ ។
 const TERENA_SEGMENTOJ = 60;
