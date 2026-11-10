@@ -13,7 +13,7 @@ import { VOJA_EKSTERA_DUONO,
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { havasAkvanTrunkon, kreiPontanAkvanTeston,
   konstruiPontanProfilon } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
-import { akvaFino, cxuVeraAkvo, vojaSupro } from "./komunaj.js";
+import { akvaFino, cxuVeraAkvo, vojaSupro, punktoCxe as punktoCxeBaza } from "./komunaj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
 // ⟨ រណ្តៅខ្លី ៖ ចុះហើយឡើងវិញក្នុងចម្ងាយនេះ 📏 ⟩
@@ -132,20 +132,9 @@ function distancoDe( punktoj: readonly VojaPunkto[], x: number, z: number ): num
     @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param s ( number ) - ចម្ងាយតាមបណ្តោយ
 @returns p ( { x , z } ) - ចំណុច */
-function punktoCxe( punktoj: readonly VojaPunkto[], s: number ): { x: number; z: number } {
-  let kur = 0;
-  for ( let k = 0; k < punktoj.length - 1; k++ ) {
-    const a = punktoj[k], b = punktoj[k + 1];
-    const longo = Math.hypot(b[0] - a[0], b[1] - a[1]);
-    if ( s <= kur + longo || k === punktoj.length - 2 ) {
-      const t = longo < 0o10 ** -0o6 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / longo));
-      return { x: a[0] + ( b[0] - a[0] ) * t, z: a[1] + ( b[1] - a[1] ) * t };
-    }
-    kur += longo;
-  }
-  const p = punktoj[ punktoj.length - 1 ];
-  return { x: p[0], z: p[1] };
-}
+// ⟨ អនុគមន៍រួមនៅ komunaj ជាមួយកម្រិតធំជាងរបស់ឧបករណ៍នេះ 📃 ⟩
+const punktoCxe = ( punktoj: readonly VojaPunkto[], s: number ): { x: number; z: number } =>
+  punktoCxeBaza( punktoj, s, 0o10 ** -0o6 );
 
 // ⟪ រណ្តៅខ្លី 📏 ⟫
 /*រករណ្តៅដែលធ្លាក់ចុះរួចឡើងវិញក្នុងចម្ងាយខ្លី

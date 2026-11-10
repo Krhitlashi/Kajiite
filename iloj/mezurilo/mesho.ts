@@ -12,7 +12,7 @@ import { VOJA_BORDA_LARĜO, VOJA_EKSTERA_DUONO, surGrid } from "../../eskekoj/me
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { konstruiKradanUrbon } from "../../kantaoj/mondo/urbo/krada-urbo.js";
 import { kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
-import { akvaFino } from "./komunaj.js";
+import { akvaFino, punktoCxe as punktoCxeBaza } from "./komunaj.js";
 
 const GRIDO = 0o4; // ជំហានសំណាញ់ដី ( SKULPTA_PASO )
 // ⟨ ដីសំណាញ់ 📏 ⟩ ៖ បន្ទាត់ត្រង់រវាងចំណុចរាល់ 4 ឯកតា ។
@@ -66,20 +66,9 @@ const platoCxe = (x: number, z: number): number => {
 };
 const ankroj = ciujKunigoj.map(([x, z]) => ({ x, z, alto: platoCxe(x, z) }));
 
-function punktoCxe(pts: readonly [number, number][], s: number): { x: number; z: number } {
-  let kur = 0;
-  for (let k = 0; k < pts.length - 1; k++) {
-    const [x1, z1] = pts[k], [x2, z2] = pts[k + 1];
-    const lo = Math.hypot(x2 - x1, z2 - z1);
-    if (s <= kur + lo || k === pts.length - 2) {
-      const t = lo < 0o10 ** -0o12 ? 0 : Math.max(0, Math.min(1, (s - kur) / lo));
-      return { x: x1 + (x2 - x1) * t, z: z1 + (z2 - z1) * t };
-    }
-    kur += lo;
-  }
-  const q = pts[pts.length - 1];
-  return { x: q[0], z: q[1] };
-}
+// ⟨ អនុគមន៍រួមនៅ komunaj ជាមួយកម្រិតរបស់ឧបករណ៍នេះ 📃 ⟩
+const punktoCxe = ( pts: readonly [ number, number ][], s: number ): { x: number; z: number } =>
+  punktoCxeBaza( pts, s, 0o10 ** -0o12 );
 
 for (let i = 0; i < VOJOJ.length; i++) {
   const v = VOJOJ[i] as any;

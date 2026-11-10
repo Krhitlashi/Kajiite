@@ -257,15 +257,19 @@ export function distoAlKunigo( kunigajPunktoj: readonly [ number, number ][],
 /*ចំណុចនៅចម្ងាយមួយតាមបណ្តោយបន្ទាត់ផ្លូវ
     @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param s ( number ) - ចម្ងាយតាមបណ្តោយ
+    @param eps ( number = 0o10 ** -0o11 , optional ) - កម្រិតប្រវែងអប្បបរមា
 @returns punkto ( { x , z } ) - ចំណុច */
+// ⟨ ឧបករណ៍ខ្លះប្រើកម្រិតខុសគ្នាសម្រាប់ផ្នែកខ្លីបំផុត ។ ពីមុនគ្រប់ឧបករណ៍
+//   ចម្លងអនុគមន៍ទាំងមូលដើម្បីប្តូរតែលេខមួយ ។ ឥឡូវអនុគមន៍មួយ
+//   ហើយឧបករណ៍នីមួយៗបញ្ជូនកម្រិតរបស់ខ្លួន ។ 📃 ⟩
 export function punktoCxe( punktoj: readonly ( readonly [ number, number ] )[],
-  s: number ): { x: number; z: number } {
+  s: number, eps = 0o10 ** -0o11 ): { x: number; z: number } {
   let akum = 0;
   for ( let k = 0; k < punktoj.length - 1; k++ ) {
     const [ x1, z1 ] = punktoj[ k ], [ x2, z2 ] = punktoj[ k + 1 ];
     const lo = Math.hypot(x2 - x1, z2 - z1);
     if ( s <= akum + lo || k === punktoj.length - 2 ) {
-      const t = lo < 0o10 ** -0o11 ? 0 : Math.max(0, Math.min(1, ( s - akum ) / lo));
+      const t = lo < eps ? 0 : Math.max(0, Math.min(1, ( s - akum ) / lo));
       return { x: x1 + ( x2 - x1 ) * t, z: z1 + ( z2 - z1 ) * t };
     }
     akum += lo;

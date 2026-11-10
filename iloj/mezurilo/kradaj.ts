@@ -9,7 +9,7 @@ import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
 import { kreiBrakojn, kunigaPlataAlto } from "../../eskekoj/medio/vojoj/platoj.js";
-import { akvaFino } from "./komunaj.js";
+import { akvaFino, punktoCxe as punktoCxeBaza } from "./komunaj.js";
 import type { AltaKunigo } from "../../eskekoj/medio/vojoj/alto.js";
 import { aktivajVojoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
@@ -50,20 +50,9 @@ console.log(`ផ្លូវក្រឡា ${difinoj.length} , ចំណុច�
     @param pts ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param s ( number ) - ចម្ងាយតាមបណ្តោយ
 @returns p ( { x , z } ) - ចំណុច */
-function punktoCxe( pts: readonly [ number, number ][], s: number ): { x: number; z: number } {
-  let kur = 0;
-  for ( let k = 0; k < pts.length - 1; k++ ) {
-    const [ x1, z1 ] = pts[ k ], [ x2, z2 ] = pts[ k + 1 ];
-    const lo = Math.hypot(x2 - x1, z2 - z1);
-    if ( s <= kur + lo || k === pts.length - 2 ) {
-      const t = lo < 0o10 ** -0o6 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / lo));
-      return { x: x1 + ( x2 - x1 ) * t, z: z1 + ( z2 - z1 ) * t };
-    }
-    kur += lo;
-  }
-  const p = pts[ pts.length - 1 ];
-  return { x: p[ 0 ], z: p[ 1 ] };
-}
+// ⟨ អនុគមន៍រួមនៅ komunaj ជាមួយកម្រិតធំជាងរបស់ឧបករណ៍នេះ 📃 ⟩
+const punktoCxe = ( pts: readonly [ number, number ][], s: number ): { x: number; z: number } =>
+  punktoCxeBaza( pts, s, 0o10 ** -0o6 );
 
 // ⟨ កម្រិតតាមផ្លូវនីមួយៗ 📏 ⟩
 let plataj = 0, maksPlata = 0, maksPlataVojo = "";
