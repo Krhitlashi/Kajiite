@@ -16,7 +16,9 @@ export interface HerbaTufo {
   x: number; z: number; y: number;
   sx: number; sy: number; sz: number;
   gx: number; gz: number;
-  q: THREE.Quaternion;
+  // ⟨ រក្សាតែមុំ មិនរក្សា Quaternion មួយសម្រាប់គ្រប់ដុំស្មៅ ។
+  //   មានដុំរាប់សែន ហើយ Quaternion ត្រូវបង្កើតឡើងវិញនៅពេលសរសេរមាត្រី ។ 📃 ⟩
+  yaw: number;
   nuanco: number;
   deklivo: number;
   biomo: Biomo;
@@ -167,7 +169,6 @@ export function kalkuliHerbanTufon(ix: number, iz: number,
     sz *= limo;
   }
   const yaw = herbaHasho(ix + 0o15, iz + 0o23) * Math.PI * 0o2;
-  TUF_Q.setFromEuler(TUF_E.set(0, yaw, 0));
   const c = Math.cos(yaw), s = Math.sin(yaw);
   const faktoro = sx / sy;
   const gx = ( c * gxoR - s * gzoR ) * faktoro;
@@ -176,7 +177,7 @@ export function kalkuliHerbanTufon(ix: number, iz: number,
   const varianto = Math.min(HERBA_VARIANTOJ - 1,
     Math.floor(herbaHasho(ix + 0o33, iz + 0o41) * HERBA_VARIANTOJ));
   return { x, z, y: y - HERBA_SUKENO, sx, sy, sz, gx, gz,
-    q: TUF_Q.clone(), deklivo, biomo: bi, varianto,
+    yaw, deklivo, biomo: bi, varianto,
     nuanco: 0o1 - 0o1/0o40 + herbaHasho(ix + 0o17, iz + 0o13) * 0o1/0o20 };
 }
 
@@ -287,7 +288,8 @@ export async function konstruiHerbanTavolon(
         const mesho = new THREE.InstancedMesh(geometrio, materialo, tufoj.length);
         for ( let i = 0; i < tufoj.length; i++ ) {
           const tufo = tufoj[i];
-          M.compose(P.set(tufo.x, tufo.y, tufo.z), tufo.q, S.set(tufo.sx, tufo.sy, tufo.sz));
+          TUF_Q.setFromEuler(TUF_E.set(0, tufo.yaw, 0));
+          M.compose(P.set(tufo.x, tufo.y, tufo.z), TUF_Q, S.set(tufo.sx, tufo.sy, tufo.sz));
           mesho.setMatrixAt(i, M);
           deklivoj.setXY(i, tufo.gx, tufo.gz);
           mesho.setColorAt(i, herbaTufaKoloroEn(C, teraKoloro, tufo, biomaKoloro));

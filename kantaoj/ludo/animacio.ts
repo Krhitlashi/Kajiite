@@ -113,6 +113,19 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   const ORBITA_SUPRE = new THREE.Vector3(0, 1, 0);
   const ORBITA_OFSETA = new THREE.Vector3();
 
+  // ⟨ ទំហំអេក្រង់ និង ដង់ស៊ីតេភីកសែល អានតែពេលប្តូរ មិនអានរាល់ហ្វ្រេម 📃 ⟩
+  let ekranaLargxo = innerWidth, ekranaAlto = innerHeight, aparataRatio = devicePixelRatio;
+  const gxisdatigiEkranon = (): void => {
+    ekranaLargxo = innerWidth; ekranaAlto = innerHeight; aparataRatio = devicePixelRatio;
+  };
+  window.addEventListener("resize", gxisdatigiEkranon);
+  // ⟨ ស្លាក បញ្ចប់ ត្រូវបានបន្ថែមម្តង ហើយមិនដកចេញ ។ អ្នកសង្កេតជំនួស
+  //   classList.contains រាល់ហ្វ្រេម ។ 📃 ⟩
+  let sxargxoFinita = sxargxaElemento.classList.contains("finita");
+  new MutationObserver(() => {
+    sxargxoFinita = sxargxaElemento.classList.contains("finita");
+  }).observe(sxargxaElemento, { attributes: true, attributeFilter: [ "class" ] });
+
   // ⟪ ស្ថានភាពបណ្តាញ 📃 ⟫
   function konstruiRetilanStaton(): LokaStato {
     const aspekto = legiVeston();
@@ -176,6 +189,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     // ⟨ ការវាស់ហ្វ្រេមក្នុងពេលលាក់ថេបមិនត្រឹមត្រូវ , ដូច្នេះការបែងចែករូបភាពត្រឡប់ដើមវិញ 📃 ⟩
     dinamikaSkalo = 1;
     malrapidajKadroj = 0; rapidajKadroj = 0;
+    gxisdatigiEkranon();
     restarti();
   });
   // ⟨ កុងតឺន័រ WebGL បាត់បង់ និងត្រឡប់មកវិញ 📃 ⟩
@@ -190,19 +204,20 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   });
 
   let kanakaKadroNombro = 0;
+  let kanakaPlenaNombro = 0;
   function bildigi(): void {
     horlogxo.update();
     const krudaDt = horlogxo.getDelta();
     const deltaTempo = Math.min(krudaDt, 0o3/0o100);
     const t = horlogxo.getElapsed();
 
-    const w = innerWidth, h = innerHeight;
+    const w = ekranaLargxo, h = ekranaAlto;
     if ( krudaDt > 1 / 0o60 ) { malrapidajKadroj++; rapidajKadroj = 0; }
     else if ( krudaDt < 1 / 0o70 ) { rapidajKadroj++; malrapidajKadroj = 0; }
     // ⟨ ភាពឆ្លើយតប 📃 ⟩
     if ( malrapidajKadroj >= 0o14 && dinamikaSkalo > 0o6/0o10 ) { dinamikaSkalo = Math.max(0o6/0o10, dinamikaSkalo - 0o2/0o10); malrapidajKadroj = 0; }
     else if ( rapidajKadroj >= 0o130 && dinamikaSkalo < 1 ) { dinamikaSkalo = Math.min(1, dinamikaSkalo + 0o1/0o10); rapidajKadroj = 0; }
-    const aktivaRatio = Math.min(devicePixelRatio, maksimumaRatio) * dinamikaSkalo;
+    const aktivaRatio = Math.min(aparataRatio, maksimumaRatio) * dinamikaSkalo;
     if ( kanvaso.width !== Math.floor(w * aktivaRatio) || kanvaso.height !== Math.floor(h * aktivaRatio) ) {
       fotilo.aspect = w / h; fotilo.updateProjectionMatrix();
       bildilo.setPixelRatio(aktivaRatio);
@@ -308,7 +323,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     if ( minimapo.cxuBakita() ) {
       if ( minimapo.cxuMalfermita() ) {
         minimapo.desegniPlenanMapon();
-      } else if ( sxargxaElemento.classList.contains("finita") ) {
+      } else if ( sxargxoFinita ) {
         radaraKadro = ( radaraKadro + 1 ) & 3;
         if ( radaraKadro === 0 ) minimapo.desegniRadaron();
       }
@@ -340,9 +355,12 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
 
     // ⟪ ពណ៌ KNAKEHE ជានិច្ច 🎨 ⟫
     // ⟨ វត្ថុខ្លះ ( ភ្លើងចង្កៀង , កញ្ចក់ស្តេឡា ) ចូលឆាកបន្ទាប់ពីសាងសង់ដំបូង ។
-    //   ការបោសគ្រប់វត្ថុធាតុ និងពន្លឺរាល់ 0o14 ហ្វ្រេមធានាថាគ្មានពណ៌កណ្តាល
-    //   ខុសច្បាប់នៅសល់ ទោះវត្ថុថ្មីចូលពេលណាក៏ដោយ ។ 📃 ⟩
-    if ( ++kanakaKadroNombro % 0o14 === 0 ) kanakaScenon(sceno);
+    //   ការបោសរាល់ 0o14 ហ្វ្រេមបង្គត់តែវត្ថុធាតុថ្មី ។ រៀងរាល់ 0o20 បោស
+    //   មួយដងបង្គត់គ្រប់វត្ថុធាតុឡើងវិញ ដើម្បីចាប់ពណ៌ដែលប្រែក្រោយមក ។ 📃 ⟩
+    if ( ++kanakaKadroNombro % 0o14 === 0 ) {
+      kanakaPlenaNombro++;
+      kanakaScenon(sceno, kanakaPlenaNombro % 0o20 === 0);
+    }
 
     bildilo.render(sceno, fotilo);
     statistiko.gxisdatigu();

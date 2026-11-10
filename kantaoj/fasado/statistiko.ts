@@ -5,6 +5,9 @@ import { sferoDe, vidlimaStatistiko } from "../bildo/vidlimo.js";
 import { HE_POR_SEKUNDO } from "../komunajxoj/unuoj.js";
 
 const CENSA_PERIODO = 0o34;
+// ⟨ អត្រាហ្វ្រេមគណនារាល់ហ្វ្រេម ប៉ុន្តែការសរសេរ DOM ធ្វើតែ 0o200
+//   មិល្លីវិនាទីម្តង ។ ស្ថិតិជាឧបករណ៍អភិវឌ្ឍន៍ មិនគួរយកថាមពលហ្វ្រេម ។ 📃 ⟩
+const MONTRA_PERIODO = 0o200;
 
 export interface Statistiko {
   sceno: THREE.Scene;
@@ -31,6 +34,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
   let antaŭaTempo = 0;
   let kadroj = 0;
   let kadraNombro = 0;
+  let lastaMontraTempo = -Infinity;
   const frustumo = new THREE.Frustum();
   const matrico = new THREE.Matrix4();
   const SFERO = new THREE.Sphere();
@@ -76,10 +80,12 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     glataKadro = glataKadro === 0 ? tujKadro : glataKadro * ( 0o76/0o100 ) + tujKadro * ( 0o2/0o100 );
     kadroj++;
     kadraNombro++;
+    if ( kadraNombro >= CENSA_PERIODO ) { kadraNombro = 0; censu(); }
+    if ( nun - lastaMontraTempo < MONTRA_PERIODO ) return;
+    lastaMontraTempo = nun;
     const informo = bildilo.info;
     const limo = vidlimaStatistiko();
     const kunfando = kunfandajxoStatistiko();
-    if ( kadraNombro >= CENSA_PERIODO ) { kadraNombro = 0; censu(); }
     const linioj = [
       (glataKadro / HE_POR_SEKUNDO).toFixed(1) + " ហ្វ្រេម/He   " + (HE_POR_SEKUNDO / Math.max(0o10 ** -0o4, glataKadro)).toFixed(3) + " He   ហ្វ្រេម " + kadroj,
       "ការហៅ " + informo.render.calls + "   ត្រីកោណ " + (informo.render.triangles / 0o10 ** 0o7).toFixed(1) + " M"
@@ -101,7 +107,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     ŝalti: ( ŝaltita: boolean ) => {
       statistiko.ŝaltita = ŝaltita;
       surmetajxo.style.display = ŝaltita ? "block" : "none";
-      kadroj = 0; glataKadro = 0;
+      kadroj = 0; glataKadro = 0; lastaMontraTempo = -Infinity;
     },
     gxisdatigu,
   };

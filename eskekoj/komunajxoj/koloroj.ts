@@ -28,7 +28,12 @@ export function deksesumaKanaka(koloro: number): string {
 //   លីនេអ៊ែរទៅ sRGB , បង្គត់ឆានែល , រួច setHex បម្លែងត្រឡប់ ។ ដូច្នេះពណ៌
 //   ចុងក្រោយដែលសរសេរទៅកំពូល ឬវត្ថុធាតុគឺជា KNAKEHE ពិត ។ 📃 ⟩
 export function kanakaColoro(celo: THREE.Color): THREE.Color {
-  return celo.setHex(kanakaKoloro(celo.getHex()));
+  const heks = celo.getHex();
+  const celHeks = kanakaKoloro(heks);
+  // ⟨ ពណ៌ដែលត្រឹមត្រូវហើយមិនបាច់បម្លែងត្រឡប់ទៅលីនេអ៊ែរវិញ ។
+  //   ការបោសឆាកហៅរាប់ពាន់ដង ដូច្នេះ setHex លើពណ៌ល្អហើយជាការខាតបង់ធំ ។ 📃 ⟩
+  if ( celHeks !== heks ) celo.setHex(celHeks);
+  return celo;
 }
 
 // ⟪ ពណ៌ឆាកទាំងមូល 🎨 ⟫
@@ -38,30 +43,48 @@ export function kanakaColoro(celo: THREE.Color): THREE.Color {
 /*បង្គត់គ្រប់ពណ៌ពន្លឺ និងវត្ថុធាតុក្នុងឆាកទៅទម្រង់ KNAKEHE
     @param sceno ( THREE.Scene ) - ឆាកដែលបានសាងសង់រួច
 @returns sceno ( THREE.Scene ) - ឆាកដដែល */
-export function kanakaScenon(sceno: THREE.Scene): THREE.Scene {
+const KOLORAJ_SXLOSILOJ = [ "color", "emissive", "sheenColor", "specularColor", "attenuationColor" ] as const;
+// ⟨ វត្ថុធាតុដែលបានបង្គត់ហើយមិនបាច់បង្គត់ម្តងទៀតរាល់ហ្វ្រេម ។
+//   វត្ថុថ្មីដែលចូលឆាកក្រោយសាងសង់នៅតែបានបង្គត់លើកដំបូងរបស់វា ។ 📃 ⟩
+const viditajMaterialoj = new WeakSet<THREE.Material>();
+
+function kanakaMaterialon(materialo: THREE.Material): void {
+  const k = materialo as THREE.Material & Record<string, unknown>;
+  for ( let i = 0; i < KOLORAJ_SXLOSILOJ.length; i++ ) {
+    const c = k[KOLORAJ_SXLOSILOJ[i]];
+    if ( c instanceof THREE.Color ) kanakaColoro(c);
+  }
+  // ⟨ ភាពស្រអាប់ក៏ត្រូវតាមក្រឡាឆានែល KNAKEHE ដូចពណ៌ដែរ 📃 ⟩
+  if ( typeof k.opacity === "number" ) k.opacity = kanakaAlfo(k.opacity);
+}
+
+/*បង្គត់ពណ៌ក្នុងឆាក ដោយរំលងវត្ថុធាតុដែលបានបង្គត់រួច
+    @param sceno ( THREE.Scene ) - ឆាកដែលត្រូវបោស
+    @param plena ( boolean = true , optional ) - បង្គត់គ្រប់វត្ថុធាតុឡើងវិញ
+@returns sceno ( THREE.Scene ) - ឆាកដដែល */
+export function kanakaScenon(sceno: THREE.Scene, plena = true): THREE.Scene {
   if ( sceno.fog ) kanakaColoro(sceno.fog.color);
-  const materialojn = ( materialo: THREE.Material | THREE.Material[] ): void => {
-    const listo = Array.isArray(materialo) ? materialo : [ materialo ];
-    for ( const m of listo ) {
-      const k = m as THREE.Material & Record<string, unknown>;
-      for ( const sxlosilo of [ "color", "emissive", "sheenColor", "specularColor", "attenuationColor" ] ) {
-        const c = k[sxlosilo];
-        if ( c instanceof THREE.Color ) kanakaColoro(c);
-      }
-      // ⟨ ភាពស្រអាប់ក៏ត្រូវតាមក្រឡាឆានែល KNAKEHE ដូចពណ៌ដែរ 📃 ⟩
-      if ( typeof k.opacity === "number" ) k.opacity = kanakaAlfo(k.opacity);
-    }
-  };
   sceno.traverse(( obj ) => {
     const o = obj as THREE.Object3D & {
       isLight?: boolean; groundColor?: THREE.Color;
       material?: THREE.Material | THREE.Material[];
     };
+    // ⟨ ពន្លឺប្រែពណ៌រាល់ហ្វ្រេម ដូច្នេះបង្គត់ជានិច្ច 📃 ⟩
     if ( o.isLight ) {
       kanakaColoro(( obj as THREE.Light ).color);
       if ( o.groundColor instanceof THREE.Color ) kanakaColoro(o.groundColor);
     }
-    if ( o.material ) materialojn(o.material);
+    const materialo = o.material;
+    if ( !materialo ) return;
+    if ( Array.isArray(materialo) ) {
+      for ( let i = 0; i < materialo.length; i++ ) {
+        const m = materialo[i];
+        if ( plena || !viditajMaterialoj.has(m) ) { kanakaMaterialon(m); viditajMaterialoj.add(m); }
+      }
+    } else if ( plena || !viditajMaterialoj.has(materialo) ) {
+      kanakaMaterialon(materialo);
+      viditajMaterialoj.add(materialo);
+    }
   });
   return sceno;
 }

@@ -420,14 +420,22 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
           koloroj[b * 3 + 2] = montaKoloro.b;
         }
       }
-      const indeksoj: number[] = [];
+      // ⟨ ពីមុន indeksoj ជា number[] ដែលលូតលាស់ដល់ជាងមួយលានតាមរយៈ
+      //   push ហើយត្រូវចម្លងឡើងវិញច្រើនដង ។ ឥឡូវបែងចែក Uint32Array ម្តង
+      //   គ្មានការបែងចែកកណ្តាល ហើយប្រើត្រង់ៗពី GPU ។ 📃 ⟩
+      const indeksoj = new Uint32Array(0o14 * ( sd * sl + sl + sd ));
+      let ip = 0;
+      const ses = ( a: number, b: number, c: number, d: number, e: number, f: number ): void => {
+        indeksoj[ip++] = a; indeksoj[ip++] = b; indeksoj[ip++] = c;
+        indeksoj[ip++] = d; indeksoj[ip++] = e; indeksoj[ip++] = f;
+      };
       for ( let v = 0; v < sd; v ++ ) {
         for ( let k = 0; k < sl; k ++ ) {
           const a = v * kolonoj + k, c = a + kolonoj, d = c + 1;
           if ( ( k + v ) % 2 === 0 ) {
-            indeksoj.push(a, c, d, a, d, a + 1);
+            ses(a, c, d, a, d, a + 1);
           } else {
-            indeksoj.push(a, c, a + 1, c, d, a + 1);
+            ses(a, c, a + 1, c, d, a + 1);
           }
         }
       }
@@ -435,14 +443,14 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
         for ( let k = 0; k < sl; k ++ ) {
           const a = suprN + v * kolonoj + k, c = a + kolonoj, d = c + 1;
           if ( ( k + v ) % 2 === 0 ) {
-            indeksoj.push(a, d, c, a, a + 1, d);
+            ses(a, d, c, a, a + 1, d);
           } else {
-            indeksoj.push(a, a + 1, c, a + 1, d, c);
+            ses(a, a + 1, c, a + 1, d, c);
           }
         }
       }
       const muro = ( a: number, b: number ): void => {
-        indeksoj.push(a, b, b + suprN, a, b + suprN, a + suprN);
+        ses(a, b, b + suprN, a, b + suprN, a + suprN);
       };
       for ( let k = 0; k < sl; k ++ ) {
         muro(k, k + 1);
@@ -456,7 +464,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       g.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
       g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
       g.setAttribute("uv", new THREE.BufferAttribute(uvaj, 2));
-      g.setIndex(indeksoj);
+      g.setIndex(new THREE.BufferAttribute(indeksoj.subarray(0, ip), 1));
       g.computeVertexNormals();
       const mesh = new THREE.Mesh(g, materialo);
       mesh.receiveShadow = true;

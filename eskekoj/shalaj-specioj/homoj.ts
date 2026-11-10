@@ -11,6 +11,10 @@ import { HALTO_GAMO, INTERNO_PIVOTO_Y, KOLO_Y, KUBUTO_Y, MALEOLO_Y, SASA_Y } fro
 import { OKULAJ_ELEKTOJ, PALPEBRA_DAURO, PALPEBRA_FERMO, PALPEBRA_INTERVALO, okulaMaterialo } from "./homoj/okuloj.js";
 import { palpebraPivoto } from "./homoj/vizagxo.js";
 
+// ⟨ ចំនួនជំហានពណ៌សក់ ។ ពណ៌ចៃដន្យគ្មានដែនកំណត់បង្កើត
+//   MeshPhysicalMaterial ថ្មីមួយក្នុងឃ្លាំងរាល់រូប គឺរាប់រយវត្ថុធាតុ ។ 📃 ⟩
+const HARAJ_NUANCOJ = 0o20;
+
 export interface Figuro {
   group: THREE.Group;
   agordiVeston: ( o: Vesto ) => void;
@@ -66,7 +70,8 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
   const vizaĝo = new THREE.Mesh(G.vizaĝo,
     okulaMaterialo(OKULAJ_ELEKTOJ[Math.floor(Math.random() * OKULAJ_ELEKTOJ.length)]));
 
-  harKoloro.lerpColors(harKoloroA, harKoloroB, Math.random());
+  harKoloro.lerpColors(harKoloroA, harKoloroB,
+    Math.floor(Math.random() * HARAJ_NUANCOJ) / ( HARAJ_NUANCOJ - 1 ));
   const haroM = haraMaterialo(harKoloro.getHex());
   // ⟨ ចិញ្ចើម និងរោមភ្នែកពាក់វត្ថុសក់ 📃 ⟩
   const strikoj = new THREE.Mesh(G.vizaĝajStrikoj, haroM);
