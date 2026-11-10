@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពស្លឹកប៊ឺច 🍃 ⧽≻
 import * as THREE from "three";
-import { kreiHazardanGenerilon } from "../hazardo.js";
+import { kf2Sakxo } from "../hazardo.js";
 import { ombro } from "../koloroj.js";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
@@ -51,7 +51,7 @@ export const kreiBetulanFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
     transLarĝo.addColorStop(1, ombro(BAZO, 0o10, 0o3/0o20));
     kunteksto.fillStyle = transLarĝo;
     kunteksto.fillRect(0, 0, w, h);
-    const makuloHazardo = kreiHazardanGenerilon(0o2716);
+    const makuloHazardo = kf2Sakxo(0o2716);
     for ( let i = 0; i < 0o440; i++ ) {
       const t = makuloHazardo();
       const y = mezo + ( makuloHazardo() - 0o1/0o2 ) * 2 * hwMax * makuloHazardo();

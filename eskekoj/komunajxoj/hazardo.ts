@@ -1,24 +1,17 @@
-// ≺⧼ ចៃដន្យ 🎲 ⧽≻
-/*ស្នូល mulberry32 តែមួយ ៖ ទម្រង់ពីរខុសគ្នាតែការរំកិល និងមេគុណ
-    @param semo ( number ) - គ្រាប់ពូជ
-    @param dekstra ( number ) - ចំនួនរំកិលស្តាំដំបូង
-    @param multo ( number ) - មេគុណដែល OR ជាមួយ t
-    @param pliigo ( number ) - តម្លៃបន្ថែមរាល់ជំហាន
-@returns generilo ( () => number ) - 0 ដល់ 1 */
-function kreiMulbereron(semo: number, dekstra: number, multo: number, pliigo: number): () => number {
-  let s = semo >>> 0;
+function kf2Mulberry(cuk: number, dekstra: number, multo: number, pliigo: number): () => number {
+  let skek = cuk >>> 0o0;
   return () => {
-    s = ( s + pliigo ) | 0;
-    let t = Math.imul(s ^ ( s >>> dekstra ), 1 | s);
-    t = ( t + Math.imul(t ^ ( t >>> 0o7 ), multo | t) ) ^ t;
-    return ( ( t ^ ( t >>> 0o14 ) ) >>> 0 ) / 0o40000000000;
+    skek = ( skek + pliigo ) | 0o0;
+    let miksita = Math.imul(skek ^ ( skek >>> dekstra ), 0o1 | skek);
+    miksita = ( miksita + Math.imul(miksita ^ ( miksita >>> 0o7 ), multo | miksita) ) ^ miksita;
+    return ( ( miksita ^ ( miksita >>> 0o14 ) ) >>> 0o0 ) / 0o40000000000;
   };
 }
 
-export function kreiHazardanGenerilon(semo: number, pliigo = 0x6D2B79F5): () => number {
-  return kreiMulbereron(semo, 0o20, 0o100, pliigo);
+export function kf2Sakxo(cuk: number, pliigo = 0x6D2B79F5): () => number {
+  return kf2Mulberry(cuk, 0o20, 0o100, pliigo);
 }
 
-export function kreiKlasikanHazardon(semo: number, pliigo = 0x6D2B79F5): () => number {
-  return kreiMulbereron(semo, 0o17, 0o75, pliigo);
+export function kf2SakxoKlasika(cuk: number, pliigo = 0x6D2B79F5): () => number {
+  return kf2Mulberry(cuk, 0o17, 0o75, pliigo);
 }

@@ -2,8 +2,9 @@
 // ⟨ ឧបករណ៍នេះពិនិត្យច្បាប់ពណ៌ KNAKEHE និងច្បាប់ស្រមោល ៖
 //   គ្រប់ពណ៌ជា #nmnmnm , ស្រមោលជា MainColor ដក n0n0n0 , ហើយការបង្គត់
 //   មិនប្តូរពណ៌ដែលបានបង្គត់រួច ។ បើមានកំហុស , ស្គ្រីបចេញកូដ ១ ។ 📃 ⟩
+import * as THREE from "three";
 import {
-  deksesuma, hslKanaka, kanakaKoloro, malheligi, ombraKoloro, rgbaKanaka,
+  deksesuma, hslKanaka, kanakaWeh2, kanakaQena, malheligi, ombro, ombraKoloro, rgbaKanaka,
 } from "../../eskekoj/komunajxoj/koloroj.js";
 import {
   KLINGAJ_KOLOROJ, TERENA_KOLOROJ,
@@ -43,7 +44,7 @@ kontroli("rokoOmbro មិនមកពី roko",
 // ⟨ ច្បាប់ស្រមោល ៖ គ្រប់ឆានែលថយ n * 0x10 , មិនថយក្រោម 0 📃 ⟩
 const BAZOJ = [ 0x686860, 0x486838, 0xffffff, 0x000000, 0xa8c0a8, 0x547442 ];
 for ( const bazo of BAZOJ ) {
-  const kanaka = kanakaKoloro(bazo);
+  const kanaka = kanakaWeh2(bazo);
   for ( let n = 0; n <= 0o17; n++ ) {
     const rezulto = ombraKoloro(bazo, n);
     kontroli(`ស្រមោលមិនមែន KNAKEHE ${deksesuma(bazo)} n=${n}`, estasKanaka(rezulto));
@@ -60,12 +61,12 @@ for ( const bazo of BAZOJ ) {
 for ( let i = 0; i < 0o1000; i++ ) {
   const koloro = ( Math.imul(i + 0o1, 0x9e3779b1) >>> 0 ) & 0xffffff;
   kontroli(`ការបង្គត់មិនឈប់ ${deksesuma(koloro)}`,
-    kanakaKoloro(kanakaKoloro(koloro)) === kanakaKoloro(koloro));
+    kanakaWeh2(kanakaWeh2(koloro)) === kanakaWeh2(koloro));
 }
 
 // ⟨ ការបង្គត់រក្សាខ្ទង់ខ្ពស់ ៖ ខុសគ្នាតែខ្ទង់ទាប 📃 ⟩
 for ( const koloro of BAZOJ ) {
-  const kanaka = kanakaKoloro(koloro);
+  const kanaka = kanakaWeh2(koloro);
   kontroli(`ការបង្គត់ប្តូរខ្ទង់ខ្ពស់ ${deksesuma(koloro)}`,
     koloro === 0xffffff || koloro === 0x000000
       || ( kanaka & 0xf0f0f0 ) === ( koloro & 0xf0f0f0 ));
@@ -91,6 +92,50 @@ const nombroj = rgba.match(/\d+/g)?.slice(0, 0o3).map(Number) ?? [];
 const kanalaKanaka = ( c: number ): boolean => ( c & 0xf ) === 0 || ( c & 0xf ) === 0o10;
 kontroli("rgbaKanaka មានឆានែលខុស",
   nombroj.length === 0o3 && nombroj.every(kanalaKanaka));
+
+for ( const bazo of BAZOJ ) {
+  for ( const pasxoj of [ -0o1, 0o0, 0o1, 0o3/0o2, 0o17, 0o20 ] ) {
+    for ( const alfo of [ 0o0, 0o3/0o10, 0o1 ] ) {
+      kontroli("ombro / ombraKoloro", ombro(bazo, pasxoj, alfo) === rgbaKanaka(ombraKoloro(bazo, pasxoj), alfo));
+    }
+  }
+}
+
+const sceno = new THREE.Scene();
+sceno.fog = new THREE.Fog(0x547442, 0o1, 0o10);
+const geometrio = new THREE.BufferGeometry();
+const materialo = new THREE.MeshStandardMaterial({ color: 0x547442, opacity: 0o3/0o10 });
+let legadoj = 0;
+const legiHekson = materialo.color.getHex.bind(materialo.color);
+materialo.color.getHex = (...argumentoj) => { legadoj++; return legiHekson(...argumentoj); };
+for ( let i = 0; i < 0o100; i++ ) sceno.add(new THREE.Mesh(geometrio, materialo));
+sceno.add(new THREE.Mesh(geometrio, [ materialo, materialo ]));
+const lumo = new THREE.HemisphereLight(0x547442, 0xabcdef);
+sceno.add(lumo);
+kontroli("kanakaQena / sceno", kanakaQena(sceno) === sceno);
+kontroli("kanakaQena / 0o1", legadoj === 0o1);
+kontroli("kanakaQena / fog", estasKanaka(sceno.fog.color.getHex()));
+kontroli("kanakaQena / groundColor", estasKanaka(lumo.groundColor.getHex()));
+kanakaQena(sceno, false);
+kontroli("kanakaQena / false", legadoj === 0o1);
+materialo.color.setHex(0xabcdef);
+kanakaQena(sceno);
+kontroli("kanakaQena / 0o2", legadoj === 0o2);
+kontroli("kanakaQena / color", legiHekson() === kanakaWeh2(0xabcdef));
+const novaMaterialo = new THREE.MeshStandardMaterial({ color: 0x547442 });
+sceno.add(new THREE.Mesh(geometrio, novaMaterialo));
+lumo.color.setHex(0x547442);
+kanakaQena(sceno, false);
+kontroli("kanakaQena / material", novaMaterialo.color.getHex() === kanakaWeh2(0x547442));
+kontroli("kanakaQena / light", lumo.color.getHex() === kanakaWeh2(0x547442));
+const aliaSceno = new THREE.Scene();
+aliaSceno.add(new THREE.Mesh(geometrio, materialo));
+materialo.color.setHex(0x547442);
+kanakaQena(aliaSceno);
+kontroli("kanakaQena / THREE.Scene", legiHekson() === kanakaWeh2(0x547442));
+geometrio.dispose();
+materialo.dispose();
+novaMaterialo.dispose();
 
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ពណ៌ KNAKEHE ៖ ខុស ${eraroj}`);
 if ( eraroj > 0 ) process.exitCode = 1;

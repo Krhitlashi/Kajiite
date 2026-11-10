@@ -10,7 +10,7 @@ import { lampaFaloSrgbJS, LAMPA_FALO_DEFAUXLTA, LAMPA_LUMO, aplikiViglanLampanFa
   kreiLampaFaloUniformojn, ligiLampajnUniformojn, agordiBildilon, agordiMedion,
   type LampaFaloAgordo } from "../../eskekoj/komunajxoj/lumo.js";
 import { kreiFlamanGeometrion } from "../../eskekoj/konstruajxoj/hxeuxfa/flamo.js";
-import { kanakaKoloro, kanakaAlfo, ombraKoloro, deksesuma }
+import { kanakaWeh2, kanakaAlfo, ombraKoloro, deksesuma }
   from "../../eskekoj/komunajxoj/koloroj.js";
 import { elemento, kunteksto2d } from "../komunajxoj/dom.js";
 
@@ -92,7 +92,7 @@ kapo.add( bovlo );
 
 // ⟨ អណ្តាតភ្លើងបីស្រទាប់ ដូចហ្គេម ។ 📃 ⟩
 const flamaMaterialo = ( koloro: number, opaco: number ) => new THREE.MeshBasicMaterial({
-  color: kanakaKoloro( koloro ), toneMapped: false, transparent: true,
+  color: kanakaWeh2( koloro ), toneMapped: false, transparent: true,
   opacity: kanakaAlfo( opaco ), blending: THREE.AdditiveBlending,
   depthWrite: false, side: THREE.DoubleSide });
 const flamoj = [
@@ -110,7 +110,7 @@ const brila = new THREE.ShaderMaterial({
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
   uniforms: {
     uTime: { value: 0 }, uOp: { value: kanakaAlfo( 0o15/0o40 ) },
-    uCol: { value: new THREE.Color( kanakaKoloro( 0xf8b058 ) ) },
+    uCol: { value: new THREE.Color( kanakaWeh2( 0xf8b058 ) ) },
     uPR: { value: bildilo.getPixelRatio() },
   },
   vertexShader: `

@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពថ្ម 🪨 ⧽≻
 import * as THREE from "three";
-import { kreiHazardanGenerilon } from "../hazardo.js";
+import { kf2Sakxo } from "../hazardo.js";
 import { desegniWrapajnNubojn, desegniWrapajnMakulojn, desegniWrapan, desegniWrapanKristalon,
   desegniFendanVojon, hazard, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 
@@ -18,7 +18,7 @@ export interface RokaSkizo {
 }
 
 export function generiRokanSkizon(): RokaSkizo {
-  const hazardo = kreiHazardanGenerilon(0o2731);
+  const hazardo = kf2Sakxo(0o2731);
   const s = 0o400;
   const kristaloj: RokaKristalo[] = [];
   for ( let i = 0; i < 0o46; i++ ) {

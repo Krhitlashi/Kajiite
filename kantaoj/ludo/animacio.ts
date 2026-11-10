@@ -24,7 +24,7 @@ import type { PiedaMondo } from "./piedirado.js";
 import { kreiPromenanton } from "./promenado.js";
 import { kreiInternanton } from "./internado.js";
 import type { Kanuanto } from "./kanuado.js";
-import { kanakaScenon } from "../../eskekoj/komunajxoj/koloroj.js";
+import { kanakaQena } from "../../eskekoj/komunajxoj/koloroj.js";
 
 export interface AnimaciajOpcioj {
   kanvaso: HTMLCanvasElement;
@@ -359,7 +359,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     //   មួយដងបង្គត់គ្រប់វត្ថុធាតុឡើងវិញ ដើម្បីចាប់ពណ៌ដែលប្រែក្រោយមក ។ 📃 ⟩
     if ( ++kanakaKadroNombro % 0o14 === 0 ) {
       kanakaPlenaNombro++;
-      kanakaScenon(sceno, kanakaPlenaNombro % 0o20 === 0);
+      kanakaQena(sceno, kanakaPlenaNombro % 0o20 === 0);
     }
 
     bildilo.render(sceno, fotilo);

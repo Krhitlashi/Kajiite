@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពដី 🟫 ⧽≻
 import * as THREE from "three";
-import { kreiHazardanGenerilon } from "../hazardo.js";
+import { kf2Sakxo } from "../hazardo.js";
 import { radialaGradiento, rgbaKanaka } from "../koloroj.js";
 import { desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
@@ -11,7 +11,7 @@ export function kreiGrundanKanvason(koloro: boolean): HTMLCanvasElement {
   const kanvasa = document.createElement("canvas");
   kanvasa.width = kanvasa.height = s;
   const k = kanvasa.getContext("2d")!;
-  const semo = kreiHazardanGenerilon(0o2710);
+  const semo = kf2Sakxo(0o2710);
   const hazardo = ( a: number, b: number ): number => a + semo() * ( b - a );
   k.fillStyle = koloro ? "#ffffff" : "#d8d8d8";
   k.fillRect(0, 0, s, s);

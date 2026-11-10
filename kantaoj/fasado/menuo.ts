@@ -4,7 +4,7 @@ import type { Vetero } from "../bildo/scena/tipoj.js";
 import { kreiStaton } from "./paghoj.js";
 import type { Stato } from "./paghoj.js";
 import { sonregiloj } from "./sonregiloj.js";
-import { legiAgordon, skribiAgordon } from "../../eskekoj/komunajxoj/agordoj.js";
+import { vefalKu1o, ve3aqKu1o } from "../../eskekoj/komunajxoj/agordoj.js";
 
 export interface MenuajOpcioj {
   navPopUp: HTMLElement;
@@ -77,14 +77,14 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   }
   butKrepusko.addEventListener("click", () => {
     aplikiKrepuskon(krepuskaValoro > 0o4/0o10 ? 0 : 1);
-    skribiAgordon("krepusko", krepuskaValoro);
+    ve3aqKu1o("krepusko", krepuskaValoro);
     fermiNaviganPopUp();
   });
   duskRegilo.addEventListener("input", () => {
     aplikiKrepuskon(parseFloat(duskRegilo.value) || 0);
-    skribiAgordon("krepusko", krepuskaValoro);
+    ve3aqKu1o("krepusko", krepuskaValoro);
   });
-  const konservitaKrepusko = legiAgordon("krepusko", -0o1);
+  const konservitaKrepusko = vefalKu1o("krepusko", -0o1);
   aplikiKrepuskon(
     konservitaKrepusko >= 0 && konservitaKrepusko <= 1
       ? konservitaKrepusko
@@ -99,7 +99,7 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     { kodo: "nega", glifo: "❄", klavo: "veteroNega" },
   ];
   // ⟨ អាកាសធាតុដែលបានរក្សាទុកមានអាទិភាព ។ បើគ្មាន ចាប់ផ្តើមពីអ័ព្ទ 📃 ⟩
-  const konservitaVetero = legiAgordon<string>("vetero", "");
+  const konservitaVetero = vefalKu1o<string>("vetero", "");
   const konservitaIndekso = VETERAJ.findIndex(v => v.kodo === konservitaVetero);
   let veteraIndekso = konservitaIndekso >= 0 ? konservitaIndekso : 0;
   function gxisdatigiVeteranButonon(): void {
@@ -113,7 +113,7 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   butVetero.addEventListener("click", () => {
     veteraIndekso = ( veteraIndekso + 1 ) % VETERAJ.length;
     gxisdatigiVeteranButonon();
-    skribiAgordon("vetero", VETERAJ[veteraIndekso].kodo);
+    ve3aqKu1o("vetero", VETERAJ[veteraIndekso].kodo);
     fermiNaviganPopUp();
   });
   window.addEventListener("lingvosxangxo", gxisdatigiVeteranButonon);

@@ -28,7 +28,7 @@ import { kreiScenon } from "../bildo/scena.js";
 import type { ScenaSistemo } from "../bildo/scena/tipoj.js";
 import { registriKunigitajnMeshojn, registriVivantojn, spacigiInstancojn } from "../bildo/vidlimo.js";
 import { kreiStatistikon } from "../fasado/statistiko.js";
-import { kanakaScenon } from "../../eskekoj/komunajxoj/koloroj.js";
+import { kanakaQena } from "../../eskekoj/komunajxoj/koloroj.js";
 
 // ⟪ រូបរាងពិភពលោក 📃 ⟫
 const mapoDatumoj = aktivaMapo();
@@ -126,7 +126,7 @@ sceno.add(ludantaFiguro.group);
 // ⟪ ពណ៌ KNAKEHE គ្រប់ពន្លឺ 🎨 ⟫
 // ⟨ បន្ទាប់ពីគ្រប់វត្ថុចូលឆាក បង្គត់ពណ៌ពន្លឺ អ័ព្ទ និងវត្ថុធាតុទាំងអស់
 //   ទៅ #nmnmnm ។ ការលាយថ្ងៃ-ព្រលប់បន្តបង្គត់ក្នុង aplikiAtmosferon ។ 📃 ⟩
-kanakaScenon(sceno);
+kanakaQena(sceno);
 
 // ⟪ បណ្តាញ ( លេងច្រើននាក់ ) 📃 ⟫
 const retilo = kreiRetilon(sceno, montriTost, traduki);

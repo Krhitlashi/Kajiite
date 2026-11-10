@@ -1,7 +1,7 @@
 // ≺⧼ នំ 🥟 ⧽≻
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { kreiKlasikanHazardon } from "../../komunajxoj/hazardo.js";
+import { kf2SakxoKlasika } from "../../komunajxoj/hazardo.js";
 import { bulkaTeksajxon } from "../../komunajxoj/teksajxoj/bulka-teksajxo.js";
 import { korbaTeksajxon } from "../../komunajxoj/teksajxoj/korba-teksajxo.js";
 import { kunfandiPartojn } from "./kunfando.js";
@@ -54,7 +54,7 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
     g.add(stango);
   }
   // ⟪ វ៉ារ្យ៉ង់តាមការពិពណ៌នា 📃 ⟫
-  const hazardo = kreiKlasikanHazardon(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o10);
+  const hazardo = kf2SakxoKlasika(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o10);
   const pintoY = 0o11/0o100;
   // ⟨ ផ្ទៃ មិនមែនស៊ីឡាំង 📃 ⟩
   const bulkaRadiuso = 0o13/0o100, bulkaAlto = 0o55/0o100;

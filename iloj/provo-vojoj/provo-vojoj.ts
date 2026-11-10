@@ -16,7 +16,7 @@ import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 import { kreiAndezitanMaterialon, kreiDioritanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { VOJA_TRUA_DUONO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { vojaSupro } from "../../eskekoj/medio/vojoj/formoj.js";
-import { kanakaColoro } from "../../eskekoj/komunajxoj/koloroj.js";
+import { kanakaWeh2Color } from "../../eskekoj/komunajxoj/koloroj.js";
 import { kreiBrakojn, kunigaPlataAlto } from "../../eskekoj/medio/vojoj/platoj.js";
 import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
 import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
@@ -232,9 +232,9 @@ function konstruiVojojn3D(): void {
 function gxisdatigiTeranon(): void {
   const poz = teraGeometrio.attributes.position;
   const kol = new THREE.BufferAttribute(new Float32Array(poz.count * 3), 3);
-  const herbo = kanakaColoro(new THREE.Color(0x4f7a42));
-  const sablo = kanakaColoro(new THREE.Color(0xc8b888));
-  const maro = kanakaColoro(new THREE.Color(0x2c4a50));
+  const herbo = kanakaWeh2Color(new THREE.Color(0x4f7a42));
+  const sablo = kanakaWeh2Color(new THREE.Color(0xc8b888));
+  const maro = kanakaWeh2Color(new THREE.Color(0x2c4a50));
   for (let i = 0; i < poz.count; i++) {
     const x = poz.getX(i), z = poz.getZ(i);
     const y = grundo(x, z);

@@ -4,7 +4,7 @@ import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTA
   SKULPTA_AKVA_MASKO, SKULPTA_AKVA_NIVELO, SKULPTA_AKVOFONTOJ,
   SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
 import { bikubaSpecimeno } from "../komunajxoj/interpolo.js";
-import { kreiHazardanGenerilon } from "../../eskekoj/komunajxoj/hazardo.js";
+import { kf2Sakxo } from "../../eskekoj/komunajxoj/hazardo.js";
 import { cxuEnFormo, distancoDeFormo } from "../../eskekoj/komunajxoj/mapformo.js";
 import { aktivaMapo } from "./mapregulo.js";
 import { aktivaSemo } from "../fasado/mondoj.js";
@@ -156,7 +156,7 @@ const KANALO_SURTERA = 0o33;
 
 export function mondiaHazardo(): () => number {
   if ( !GENERITA_TERO ) return Math.random;
-  return kreiHazardanGenerilon(subSemo(GENERITA_TERO.semo, KANALO_SURTERA), MONDIA_PLIIGO);
+  return kf2Sakxo(subSemo(GENERITA_TERO.semo, KANALO_SURTERA), MONDIA_PLIIGO);
 }
 
 // ⟨ អនុគមន៍គំរូ 📃 ⟩

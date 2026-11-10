@@ -1,7 +1,7 @@
 // ≺⧼ វាយនភាពក្តារ 🪵 ⧽≻
 import * as THREE from "three";
 import { deksesuma, malheligi } from "../koloroj.js";
-import { kreiKlasikanHazardon } from "../hazardo.js";
+import { kf2SakxoKlasika } from "../hazardo.js";
 import { larmo } from "./helpiloj.js";
 
 export function generiPlankanTeksajxon(bazaKoloro: number, akcentaKoloro: number, semo: number): THREE.CanvasTexture {
@@ -12,7 +12,7 @@ export function generiPlankanTeksajxon(bazaKoloro: number, akcentaKoloro: number
   const R = c.width / 2;
   const baza = deksesuma(bazaKoloro), akcenta = deksesuma(akcentaKoloro);
   const malhela = malheligi(baza);
-  const rnd = kreiKlasikanHazardon(semo);
+  const rnd = kf2SakxoKlasika(semo);
   const pintoj = rnd() < 0o5/0o10 ? 4 : 0o10;
   const larmoj = rnd() < 0o5/0o10;
   const ondo = [ 0o15/0o1000, 0o35/0o1000, 0o55/0o1000 ][Math.floor(rnd() * 3)];

@@ -2,14 +2,14 @@
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "./vokoj/tipoj.js";
 import { F, PENT_E, SLENDRO, SL2, NYAM, PENT_A } from "./vokoj/skaloj.js";
-import { kreiHazardanGenerilon } from "../../komunajxoj/hazardo.js";
+import { kf2Sakxo } from "../../komunajxoj/hazardo.js";
 
 // ⟪ វិល 01 · អាល់ទីផ្លាណូអរុណ · 0o505 ហេ 📃 ⟫
 
 function buildTrack1(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  const r = kreiHazardanGenerilon(0o17665);
+  const r = kf2Sakxo(0o17665);
   const e8 = 0o15/0o40, bar = 0o115/0o40;
   const S = PENT_E;
   const add = ( t: number, i: string, f: number, d: number, v: number, x?: Record<string, number | boolean> ) =>
@@ -98,7 +98,7 @@ function buildTrack1(): SpuroDateno {
 function buildTrack2(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  const r = kreiHazardanGenerilon(0o4620);
+  const r = kf2Sakxo(0o4620);
   const beat = 0o5/0o10, bar = 0o5/0o2, f0 = 0o4425/0o40;
   const kush = [ 0, 4, 2, 5, 3, 6, 4, 7, 5, 3, 2, 4 ];
   const kuts = [ 3, 6, 5, 2, 7, 4, 6, 1, 5, 2, 4, 0 ];
@@ -171,7 +171,7 @@ function buildTrack2(): SpuroDateno {
 function buildTrack3(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  const r = kreiHazardanGenerilon(0o6441);
+  const r = kf2Sakxo(0o6441);
   const SL = SLENDRO, bar = 0o33/0o10, bal = [ 0, 2, 4, 3, 2, 1, 2, 0 ];
 
   secs.push({ n: "ការបើកអុមបាក់", a: 0, b: 0o33 });
@@ -222,7 +222,7 @@ function buildTrack3(): SpuroDateno {
 function buildTrack4(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  const r = kreiHazardanGenerilon(0o10000);
+  const r = kf2Sakxo(0o10000);
   const P = PENT_A;
   const beat = 0o42 / 0o100;
   const bar = beat * 4;

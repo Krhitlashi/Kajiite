@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពស្លឹកស្មៅ 🌾 ⧽≻
 import * as THREE from "three";
-import { kreiHazardanGenerilon } from "../hazardo.js";
+import { kf2Sakxo } from "../hazardo.js";
 import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
@@ -24,7 +24,7 @@ export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
     kresto.addColorStop(1, "rgba(16,32,24,0.30)");
     kunteksto.fillStyle = kresto;
     kunteksto.fillRect(meza - 6, 0, 0o14, h);
-    const hazardo = kreiHazardanGenerilon(0o2717);
+    const hazardo = kf2Sakxo(0o2717);
     for ( let i = 0; i < 0o22; i++ ) {
       const x = hazardo() * w;
       const disto = Math.abs(x - meza) / meza;

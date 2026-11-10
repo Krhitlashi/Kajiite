@@ -1,15 +1,15 @@
 // ≺⧼ សំឡេង 🔊 ⧽≻
 
 import { iniciati, ludi, halti } from "./muziko/ludilo.js";
-import { legiAgordon, skribiAgordon } from "../komunajxoj/agordoj.js";
+import { vefalKu1o, ve3aqKu1o } from "../komunajxoj/agordoj.js";
 
 let AC: AudioContext | null = null;
 let master: GainNode | null = null;
 let bruoGain: GainNode | null = null;
 // ⟨ សភាពសំឡេងផ្ទុកពីការកំណត់ ៖ ដូច្នេះការផ្ទុកឡើងវិញរក្សាសភាពដដែល 📃 ⟩
 // ⟨ លំនាំដើមបើក ៖ ដូចមុន សំឡេងចាប់ផ្តើមពេលអន្តរកម្មដំបូង 📃 ⟩
-let audioOn: boolean = legiAgordon("sonoro", true);
-let bruoOn: boolean = legiAgordon("bruo", true);
+let audioOn: boolean = vefalKu1o("sonoro", true);
+let bruoOn: boolean = vefalKu1o("bruo", true);
 let unuaInterago = true;
 
 function ensureAudio() {
@@ -270,7 +270,7 @@ export function sxaltiAŭdion(): boolean {
   audioOn = !audioOn;
   if ( audioOn ) komenciAuxdon();
   else haltiAuxdon();
-  skribiAgordon("sonoro", audioOn);
+  ve3aqKu1o("sonoro", audioOn);
   return audioOn;
 }
 
@@ -285,7 +285,7 @@ export function sxaltiBruon(): boolean {
   if ( AC && bruoGain ) {
     bruoGain.gain.setTargetAtTime(bruoOn ? 1 : 0, AC.currentTime, 0o15/0o40);
   }
-  skribiAgordon("bruo", bruoOn);
+  ve3aqKu1o("bruo", bruoOn);
   return bruoOn;
 }
 

@@ -1,7 +1,7 @@
 // ≺⧼ កែវ 🥛 ⧽≻
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { kreiKlasikanHazardon } from "../../komunajxoj/hazardo.js";
+import { kf2SakxoKlasika } from "../../komunajxoj/hazardo.js";
 import { vitraTeksajxon } from "../../komunajxoj/teksajxoj/vitra-teksajxo.js";
 import { citrusaTeksajxon } from "../../komunajxoj/teksajxoj/citrusa-teksajxo.js";
 import { kunfandiPartojn } from "./kunfando.js";
@@ -68,7 +68,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
     }
   }
   // ⟪ វ៉ារ្យ៉ង់តាមការពិពណ៌នា 📃 ⟫
-  const hazardo = kreiKlasikanHazardon(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o100 + 7);
+  const hazardo = kf2SakxoKlasika(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o100 + 7);
   if ( f.key === "tla0" ) {
     const fajrero = materialon("fajrero",
       () => new THREE.MeshStandardMaterial({

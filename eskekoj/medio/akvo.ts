@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { glataPaso } from "../../kantaoj/komunajxoj/interpolo.js";
 import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
-import { kanakaKoloro } from "../komunajxoj/koloroj.js";
+import { kanakaWeh2 } from "../komunajxoj/koloroj.js";
 
 export type RiverData = { mesh: THREE.Mesh; waterSurfaceY: ( x: number, z: number ) => number };
 
@@ -219,15 +219,14 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       THREE.UniformsLib.fog,
       {
         uTime: { value: 0 },
-        // ⟨ ពណ៌ទឹកឆ្លងកាត់ kanakaKoloro ដើម្បីឱ្យគ្រប់ឆានែលជា KNAKEHE 📃 ⟩
-        uColorDeep: { value: new THREE.Color(kanakaKoloro(0x0a3038)) },
-        uColorShallow: { value: new THREE.Color(kanakaKoloro(0x2f7263)) },
-        uColorRipple: { value: new THREE.Color(kanakaKoloro(0x3d8474)) },
+        uColorDeep: { value: new THREE.Color(kanakaWeh2(0x0a3038)) },
+        uColorShallow: { value: new THREE.Color(kanakaWeh2(0x2f7263)) },
+        uColorRipple: { value: new THREE.Color(kanakaWeh2(0x3d8474)) },
         // ⟨ ចំណុចជម្រាល fresnel ពន្លឺ និងពពុះ ជាពណ៌ KNAKEHE ដូចពណ៌ទឹកដែរ 📃 ⟩
-        uFresnelA: { value: new THREE.Color(kanakaKoloro(0x8098b8)) },
-        uFresnelB: { value: new THREE.Color(kanakaKoloro(0xe0e8f8)) },
-        uSpecColor: { value: new THREE.Color(kanakaKoloro(0xf0f8f8)) },
-        uFoamColor: { value: new THREE.Color(kanakaKoloro(0xf8f8f8)) },
+        uFresnelA: { value: new THREE.Color(kanakaWeh2(0x8098b8)) },
+        uFresnelB: { value: new THREE.Color(kanakaWeh2(0xe0e8f8)) },
+        uSpecColor: { value: new THREE.Color(kanakaWeh2(0xf0f8f8)) },
+        uFoamColor: { value: new THREE.Color(kanakaWeh2(0xf8f8f8)) },
         uSunDir: { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100).normalize() },
       },
     ]),

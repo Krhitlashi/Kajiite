@@ -11,7 +11,7 @@ import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
   terenaStrataKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,
   MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
-import { kanakaColoro, kanakaAlfo } from "../../eskekoj/komunajxoj/koloroj.js";
+import { kanakaWeh2Color, kanakaAlfo } from "../../eskekoj/komunajxoj/koloroj.js";
 import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
   from "../../eskekoj/komunajxoj/lumo.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
@@ -171,7 +171,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const t = lastaKrepusko;
     const d = PALETROJ[nunaVetero];
     const l = ( a: THREE.Color | THREE.Vector3 | number, b: THREE.Color | THREE.Vector3 | number ): any =>
-      a instanceof THREE.Color ? kanakaColoro(( a as THREE.Color ).clone().lerp(b as THREE.Color, t)) :
+      a instanceof THREE.Color ? kanakaWeh2Color(( a as THREE.Color ).clone().lerp(b as THREE.Color, t)) :
       a instanceof THREE.Vector3 ? ( a as THREE.Vector3 ).clone().lerp(b as THREE.Vector3, t) :
       a + ( b as number - a ) * t;
     cxielajUniformoj.uTop.value = l(d.tago.top, d.krepusko.top);
@@ -182,10 +182,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     cxielajUniformoj.uSunDir.value = sunDir.clone().normalize();
     // ⟨ ការលាយថ្ងៃ-ព្រលប់បង្កើតតម្លៃកណ្តាល ។ បង្គត់គ្រប់ពណ៌ពន្លឺ និងអ័ព្ទ
     //   ត្រឡប់ទៅ #nmnmnm ដើម្បីកុំឱ្យពន្លឺរំលងច្បាប់ពណ៌ ។ 📃 ⟩
-    kanakaColoro(sceno.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t));
+    kanakaWeh2Color(sceno.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t));
     ( sceno.fog as THREE.FogExp2 ).density = l(d.tago.nebulDenso, d.krepusko.nebulDenso);
-    kanakaColoro(hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t));
-    kanakaColoro(hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t));
+    kanakaWeh2Color(hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t));
+    kanakaWeh2Color(hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t));
     hemiLumo.intensity = l(d.tago.hemiInt, d.krepusko.hemiInt);
     // ⟨ ពន្លឺបរិស្ថានលិចតាមព្រលប់ ដើម្បីកុំឱ្យវាលុបជំហានស្រមោលចង្កៀង 📃 ⟩
     // ⟨ កញ្ចក់ឆ្លុះអានពណ៌ដូចមេឃ ៖ ដែក និងកញ្ចក់ឆ្លុះមេឃដែលបំភ្លឺឆាក ។ 📃 ⟩
@@ -197,7 +197,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       sunaDirekto: cxielajUniformoj.uSunDir.value,
       intenso: l(0o1, 0o2/0o10),
     });
-    kanakaColoro(suno.color.copy(d.tago.sunCol).lerp(d.krepusko.sunCol, t));
+    kanakaWeh2Color(suno.color.copy(d.tago.sunCol).lerp(d.krepusko.sunCol, t));
     suno.intensity = l(d.tago.sunInt, d.krepusko.sunInt);
     SUNA_DIREKTO.copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
     sunaDistanco = SUNA_DIREKTO.length();

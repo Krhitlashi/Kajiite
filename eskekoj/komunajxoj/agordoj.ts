@@ -1,57 +1,47 @@
-// ≺⧼ ចំណង់ចំណូលចិត្ត ⚙ ⧽≻
-// ការកំណត់របស់អ្នកលេង ( សំឡេង · សំឡេងរំខាន · បទ · ព្រលប់ · អាកាសធាតុ ) ។
-// រក្សាទុកក្នុង ( localStorage ) ដូច្នេះការផ្ទុកទំព័រឡើងវិញមិនបាត់ ។
-// តម្លៃខុសប្រភេទត្រូវបានមិនយកចិត្តទុកដាក់ ៖ ដូច្នេះទិន្នន័យចាស់មិនបំផ្លាញហ្គេម ។
+export type Ku1oSkek = boolean | number | string;
 
-export type AgordaValoro = boolean | number | string;
+export function kf2Ku1o(ksaka: string) {
+  let hax2ni: Record<string, Ku1oSkek> | null = null;
+  let konservenda = false;
 
-const SXLOSILO = "aranis-agordoj";
-
-let memoro: Record<string, AgordaValoro> | null = null;
-
-/*អានតារាងទាំងមូលពីផ្ទុក ។ អានតែម្តង រួចរក្សាក្នុងចងចាំ
-@returns tabelo តារាងតម្លៃ ( ទទេ បើគ្មាន ) */
-function legiTabelon(): Record<string, AgordaValoro> {
-  if ( memoro ) return memoro;
-  const tabelo: Record<string, AgordaValoro> = {};
-  memoro = tabelo;
-  try {
-    const kruda = localStorage.getItem(SXLOSILO);
-    if ( !kruda ) return tabelo;
-    const dato: unknown = JSON.parse(kruda);
-    if ( !dato || typeof dato !== "object" ) return tabelo;
-    for ( const [ klavo, valoro ] of Object.entries( dato as Record<string, unknown> ) ) {
-      if ( typeof valoro === "boolean" || typeof valoro === "number" || typeof valoro === "string" ) {
-        if ( typeof valoro === "number" && !Number.isFinite(valoro) ) continue;
-        tabelo[klavo] = valoro;
+  function vefalCax2l(): Record<string, Ku1oSkek> {
+    if ( hax2ni ) return hax2ni;
+    const cax2l: Record<string, Ku1oSkek> = Object.create(null);
+    hax2ni = cax2l;
+    try {
+      const kruda = localStorage.getItem(ksaka);
+      if ( !kruda ) return cax2l;
+      const skek: unknown = JSON.parse(kruda);
+      if ( !skek || typeof skek !== "object" || Array.isArray(skek) ) return cax2l;
+      for ( const [ ku1oKsaka, ku1oSkek ] of Object.entries(skek) ) {
+        if ( typeof ku1oSkek === "boolean" || typeof ku1oSkek === "string"
+          || ( typeof ku1oSkek === "number" && Number.isFinite(ku1oSkek) ) ) {
+          cax2l[ku1oKsaka] = ku1oSkek;
+        }
       }
+    } catch {}
+    return cax2l;
+  }
+
+  function vefalKu1o<T extends Ku1oSkek>(ku1oKsaka: string, apriora: T): T {
+    const skek = vefalCax2l()[ku1oKsaka];
+    return skek === undefined || typeof skek !== typeof apriora ? apriora : skek as T;
+  }
+
+  function ve3aqKu1o(ku1oKsaka: string, skek: Ku1oSkek): void {
+    const cax2l = vefalCax2l();
+    if ( !Object.is(cax2l[ku1oKsaka], skek) ) {
+      cax2l[ku1oKsaka] = skek;
+      konservenda = true;
     }
-  } catch { /* ផ្ទុកទំនេរ */ }
-  return tabelo;
+    if ( !konservenda ) return;
+    try {
+      localStorage.setItem(ksaka, JSON.stringify(cax2l));
+      konservenda = false;
+    } catch {}
+  }
+
+  return { vefalKu1o, ve3aqKu1o };
 }
 
-/*សរសេរតារាងទាំងមូលទៅផ្ទុក
-    @param tabelo ( Record<string, AgordaValoro> ) - តារាងថ្មី */
-function skribiTabelon( tabelo: Record<string, AgordaValoro> ): void {
-  memoro = tabelo;
-  try {
-    localStorage.setItem(SXLOSILO, JSON.stringify(tabelo));
-  } catch { /* ផ្ទុកទំនេរ */ }
-}
-
-/*អានការកំណត់មួយ ។ បើគ្មាន ឬខុសប្រភេទ ត្រឡប់តម្លៃលំនាំដើម
-    @param sxlosilo ( string ) - សោការកំណត់
-    @param apriora ( AgordaValoro ) - តម្លៃលំនាំដើម
-@returns valoro */
-export function legiAgordon<T extends AgordaValoro>( sxlosilo: string, apriora: T ): T {
-  const valoro = legiTabelon()[sxlosilo];
-  if ( valoro === undefined || typeof valoro !== typeof apriora ) return apriora;
-  return valoro as T;
-}
-
-/*សរសេរការកំណត់មួយ ដោយរក្សាតម្លៃផ្សេងទៀតដដែល
-    @param sxlosilo ( string ) - សោការកំណត់
-    @param valoro ( AgordaValoro ) - តម្លៃថ្មី */
-export function skribiAgordon( sxlosilo: string, valoro: AgordaValoro ): void {
-  skribiTabelon({ ...legiTabelon(), [ sxlosilo ]: valoro });
-}
+export const { vefalKu1o, ve3aqKu1o } = kf2Ku1o("aranis-agordoj");

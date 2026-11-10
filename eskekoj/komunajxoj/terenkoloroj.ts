@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { SKULPTA_AKVA_NIVELO } from "../../kantaoj/tero-datumaro/aktiva.js";
 import { glata } from "../../kantaoj/komunajxoj/interpolo.js";
-import { kanakaColoro, ombraKoloro } from "./koloroj.js";
+import { kanakaWeh2Color, ombraKoloro } from "./koloroj.js";
 
 /*សំឡេងតម្លៃនៅក្រឡាមួយ
     @param xi,zi ( number ) - ក្រឡាចំនួនគត់
@@ -138,7 +138,7 @@ export function herbaKlingaKoloro(celo: THREE.Color, hazardo: () => number): THR
   celo.multiplyScalar(0o1 - 0o1/0o20 + hazardo() * 0o3/0o20);
   // ⟨ បង្គត់ទៅ KNAKEHE ៖ ការលាយ និងគុណបង្កើតតម្លៃកណ្តាល , ដូច្នេះ
   //   ពណ៌ចុងក្រោយត្រូវតែជា #nmnmnm គ្មានតម្លៃនៅចន្លោះ 📃 ⟩
-  return kanakaColoro(celo);
+  return kanakaWeh2Color(celo);
 }
 
 /*ពណ៌ស្លឹកស្មៅស្ងួត ៖ ប្រផេះបៃតង មិនលឿង
@@ -151,7 +151,7 @@ export function sekaHerbaKlingaKoloro(celo: THREE.Color, hazardo: () => number):
     SEKA_KLINGO.g + f * 0o12/0o100,
     SEKA_KLINGO.b + f * 0o12/0o100);
   celo.multiplyScalar(0o1 - 0o1/0o20 + hazardo() * 0o3/0o20);
-  return kanakaColoro(celo);
+  return kanakaWeh2Color(celo);
 }
 
 export function terenaStrataKoloroEn(celo: THREE.Color, y: number, surfY: number): THREE.Color {

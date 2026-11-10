@@ -3,7 +3,7 @@
 import { KANTOJ } from "./kantoj.js";
 import { instrumento } from "./vokoj/instrumento.js";
 import type { SonoEvento, Sekcio } from "./vokoj/tipoj.js";
-import { legiAgordon, skribiAgordon } from "../../komunajxoj/agordoj.js";
+import { vefalKu1o, ve3aqKu1o } from "../../komunajxoj/agordoj.js";
 
 // ⟪ ស្ថានភាពឧបករណ៍លេង 📃 ⟫
 
@@ -25,7 +25,7 @@ interface LudiloStato {
 }
 
 // ⟨ បទចុងក្រោយដែលបានជ្រើស ៖ ផ្ទុកពីការកំណត់ , កាត់ឱ្យស្ថិតក្នុងជួរបទ 📃 ⟩
-const KONSERVITA_TRAKO = legiAgordon("trako", -0o1);
+const KONSERVITA_TRAKO = vefalKu1o("trako", -0o1);
 const KOMENCA_TRAKO = KONSERVITA_TRAKO >= 0 && KONSERVITA_TRAKO < KANTOJ.length ? KONSERVITA_TRAKO : -0o1;
 
 const L: LudiloStato = {
@@ -189,7 +189,7 @@ export function cxuLudas(): boolean {
 export function sxargiTrako(i: number) {
   if ( i < 0 || i >= KANTOJ.length ) return;
   sxargi(i);
-  skribiAgordon("trako", i);
+  ve3aqKu1o("trako", i);
 }
 
 /** ទទួលសន្ទស្សន៍បទបច្ចុប្បន្ន។ */

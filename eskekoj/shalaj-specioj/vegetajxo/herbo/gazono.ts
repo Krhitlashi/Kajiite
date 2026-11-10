@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { kreiHerbanTavolanKlinganTeksajxon } from "../../../komunajxoj/teksajxoj/tavola-klinga-herbo.js";
 import { herbaKlingaKoloro, sekaHerbaKlingaKoloro, terenaKoloroEn } from "../../../komunajxoj/terenkoloroj.js";
-import { kanakaColoro } from "../../../komunajxoj/koloroj.js";
+import { kanakaWeh2Color } from "../../../komunajxoj/koloroj.js";
 import { kunfandiGeometriojnSenIndekson } from "../../../komunajxoj/kunfandajxoj.js";
 import { kreiVegetajxanHazardon } from "../hazardoj.js";
 import { VOJA_EKSTERA_DUONO } from "../../../medio/vojoj/mezuroj.js";
@@ -214,7 +214,7 @@ export function herbaTufaKoloroEn(celo: THREE.Color, teraKoloro: THREE.Color,
   else if ( vario > 0o3/0o4 ) celo.lerp(HERBA_MALHELA_KOLORO, ( vario - 0o3/0o4 ) * 0o4/0o10);
   // ⟨ បង្គត់ទៅ KNAKEHE ៖ គ្រប់ការគុណ និងលាយខាងលើបង្កើតតម្លៃកណ្តាល ,
   //   ដូច្នេះពណ៌ដុំស្មៅចុងក្រោយត្រូវតែជា #nmnmnm 📃 ⟩
-  return kanakaColoro(celo);
+  return kanakaWeh2Color(celo);
 }
 
 // ⟨ វត្ថុធាតុសម្រាប់ស្រទាប់ស្មៅ ៖ ដូចឆាកពិត ។ ចម្ងាយបិទអាចពង្រីកបាន
