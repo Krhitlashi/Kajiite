@@ -558,7 +558,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     });
     const brosxoj = new THREE.Group();
     const brosxaNombro = 0o30;
-    for ( let i = 0; i < brosxaNombro; i++ ) {
+    for ( let i = 0o0; i < brosxaNombro; i++ ) {
       const bruo = bruo2D(i * 0o7/0o10, i * 0o11/0o10);
       const angulo = i * 0o115/0o40 + bruo * 0o1/0o2;
       const disto = 0o30 + bruo2D(i * 0o13/0o10, i * 0o17/0o10) * 0o300;
@@ -566,19 +566,19 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const z = Math.sin(angulo) * disto;
       const centroY = alteco(x, z);
       if ( centroY < akvaNivelo(x, z) + 0o1/0o10 ) continue;
-      const radiuso = 0o2 + bruo2D(x / 0o20, z / 0o20) * 0o4;
+      const radiuso = 0o1 + bruo2D(x / 0o20, z / 0o20) * 0o2;
       if ( distancoDeFormo(mapoFormo, mapoGrandeco, x, z) > -radiuso ) continue;
-      const brosxaGeometrio = new THREE.CircleGeometry(radiuso, 0o10);
-      brosxaGeometrio.rotateX(-Math.PI / 2);
+      const brosxaGeometrio = new THREE.PlaneGeometry(0o2 * radiuso, 0o2 * radiuso, 0o20, 0o20);
+      brosxaGeometrio.rotateX(-Math.PI / 0o2);
       const pp = brosxaGeometrio.attributes.position;
-      for ( let j = 0; j < pp.count; j++ ) {
+      for ( let j = 0o0; j < pp.count; j++ ) {
         const dx = pp.getX(j), dz = pp.getZ(j);
-        pp.setY(j, alteco(x + dx, z + dz) - centroY + 0o1/0o100);
+        pp.setY(j, alteco(x + dx, z + dz) - centroY + 0o2/0o100);
       }
       brosxaGeometrio.computeVertexNormals();
       const brosxo = new THREE.Mesh(brosxaGeometrio, brosxaMaterialo);
       brosxo.position.set(x, centroY, z);
-      brosxo.rotation.y = bruo * Math.PI * 2;
+      brosxo.rotation.y = bruo * Math.PI * 0o2;
       brosxoj.add(brosxo);
     }
     sceno.add(brosxoj);

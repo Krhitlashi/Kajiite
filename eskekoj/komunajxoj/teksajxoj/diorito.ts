@@ -1,93 +1,10 @@
 // ≺⧼ វាយនភាពដាយ៉ូរីត 🪨 ⧽≻
 import * as THREE from "three";
-import { desegniWrapajnNubojn, desegniWrapajnMakulojn, desegniWrapanKristalon, hazard, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
-
-export interface DioritaKristalo {
-  x: number; y: number; rx: number; ry: number; angulo: number;
-  indekso: number;
-  verticoj: number[];
-}
-
-export const dioritaPaletro = [
-  { hela: "#f8f8f0", bazo: "#f0f0e8", malhela: "#d8d8d0", reliefo: 0o54/0o100 },
-  { hela: "#f0f0e8", bazo: "#e8e8e0", malhela: "#d0d0c8", reliefo: 0o52/0o100 },
-  { hela: "#e8e8e0", bazo: "#e0e0d8", malhela: "#c8c8c0", reliefo: 0o50/0o100 },
-  { hela: "#e0e0d8", bazo: "#d8d8d0", malhela: "#c0c0b8", reliefo: 0o46/0o100 },
-  { hela: "#d8d8d0", bazo: "#d0d0c8", malhela: "#b8b8b0", reliefo: 0o44/0o100 },
-  { hela: "#d0d0c8", bazo: "#c8c8c0", malhela: "#b0b0a8", reliefo: 0o42/0o100 },
-  { hela: "#c0c0b8", bazo: "#b8b8b0", malhela: "#a0a098", reliefo: 0o40/0o100 },
-  { hela: "#b0b0a8", bazo: "#a8a8a0", malhela: "#909088", reliefo: 0o36/0o100 },
-  { hela: "#a0a098", bazo: "#989890", malhela: "#808078", reliefo: 0o34/0o100 },
-  { hela: "#909088", bazo: "#888880", malhela: "#787870", reliefo: 0o32/0o100 },
-  { hela: "#707068", bazo: "#686860", malhela: "#505048", reliefo: 0o26/0o100 },
-  { hela: "#606058", bazo: "#585850", malhela: "#484840", reliefo: 0o24/0o100 },
-  { hela: "#505048", bazo: "#484840", malhela: "#383830", reliefo: 0o22/0o100 },
-  { hela: "#404038", bazo: "#383830", malhela: "#282820", reliefo: 0o20/0o100 },
-  { hela: "#303028", bazo: "#282820", malhela: "#181810", reliefo: 0o16/0o100 },
-];
-
-export function elektiDioritanIndekson(): number {
-  const r = Math.random();
-  if ( r < 0o32/0o100 ) return ( Math.random() * 0o4 ) | 0;
-  if ( r < 0o54/0o100 ) return 0o4 + ( ( Math.random() * 0o4 ) | 0 );
-  return 0o10 + ( ( Math.random() * 0o4 ) | 0 );
-}
-
-export let dioritajKristaloj: DioritaKristalo[] | null = null;
-
-export function generiDioritajnKristalojn(): DioritaKristalo[] {
-  if ( dioritajKristaloj ) return dioritajKristaloj;
-  const listo: DioritaKristalo[] = [];
-  for ( let i = 0; i < 0o340; i++ ) {
-    const n = 0o4 + ( ( Math.random() * 0o4 ) | 0 );
-    const verticoj: number[] = [];
-    for ( let v = 0; v < n; v++ ) verticoj.push(0o7/0o10 + Math.random() * 0o3/0o10);
-    listo.push({
-      x: hazard(0, 0o400), y: hazard(0, 0o400),
-      rx: hazard(0o4, 0o14), ry: hazard(0o3, 0o11),
-      angulo: hazard(0, Math.PI),
-      indekso: elektiDioritanIndekson(),
-      verticoj,
-    });
-  }
-  dioritajKristaloj = listo;
-  return listo;
-}
+import { desegniKonturanTeksajxon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export const kreiDioritanTeksajxon = sxovu((): THREE.CanvasTexture => {
-  const s = 0o400;
-  return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
-    kunteksto.fillStyle = "#d8d8d0"; kunteksto.fillRect(0, 0, s, s);
-    desegniWrapajnNubojn(kunteksto, s, s, 0o20,
-      [ "rgba(248,248,240,0.3)", "rgba(104,104,96,0.18)", "rgba(168,168,160,0.26)", "rgba(136,136,128,0.16)" ],
-      0o14/0o100, 0o16/0o100, hazard);
-    const kristaloj = generiDioritajnKristalojn();
-    const grajnRandoj = [ "rgba(48,48,40,0.4)", "rgba(40,40,32,0.4)", "rgba(16,16,8,0.45)" ];
-    for ( let i = 0; i < kristaloj.length; i++ ) {
-      const kris = kristaloj[i];
-      const pal = dioritaPaletro[kris.indekso];
-      const rando = grajnRandoj[kris.indekso < 0o4 ? 0 : ( kris.indekso < 0o10 ? 1 : 2 )];
-      desegniWrapanKristalon(kunteksto, s, kris, ( k ) => {
-        const g = k.createLinearGradient(-kris.rx, -kris.ry, kris.rx, kris.ry);
-        g.addColorStop(0, pal.hela);
-        g.addColorStop(0o7/0o10, pal.bazo);
-        g.addColorStop(1, pal.malhela);
-        k.fillStyle = g;
-        k.fill();
-        k.strokeStyle = rando;
-        k.lineWidth = 1;
-        k.stroke();
-      });
-    }
-    desegniWrapajnMakulojn(kunteksto, s, 0o640, ( i ) => {
-      const wd = hazard(0o1, 0o3), hd = hazard(0o1, 0o3);
-      const x = hazard(0, s), y = hazard(0, s);
-      return [ x, y, wd, hd, i % 2 ? "rgba(80,80,72,0.45)" : "rgba(168,168,160,0.5)" ];
-    });
-    desegniWrapajnMakulojn(kunteksto, s, 0o110, () => {
-      const wd = 1 + Math.random() * 2, hd = 1 + Math.random() * 2;
-      const x = hazard(0, s), y = hazard(0, s);
-      return [ x, y, wd, hd, "rgba(248,248,240,0.85)" ];
-    });
-  }, [ 0o2, 0o2 ], { volvado: THREE.RepeatWrapping, anisotropio: 4 });
+  const grandeco = 0o1000;
+  return kreiKanvasanTeksajxon(grandeco, grandeco, ( kunteksto ) => {
+    desegniKonturanTeksajxon(kunteksto, [ 0xe8e8e0, 0xd8d8d0, 0xb8b8b0, 0x888880 ], 0o4617, 0o6, 0o6);
+  }, [ 0o2, 0o2 ], { volvado: THREE.RepeatWrapping, anisotropio: 0o4 });
 });

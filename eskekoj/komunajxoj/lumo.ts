@@ -161,6 +161,30 @@ export interface BildilaAgordo {
     @param agordo ( BildilaAgordo = {} , optional ) - ជម្រើសនៃការកំណត់ ។
 @returns void */
 export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgordo = {} ): void {
+  if ( !THREE.ShaderChunk.colorspace_fragment.includes("konturaPasxo") ) {
+    // ⟨ ជម្រាលត្រូវដក 101010 ពីពណ៌គោល មិនមែនពីពណ៌ដែលពន្លឺលាយឡើយ
+    //   ដូច្នេះស្រមោលរក្សាពណ៌ដើមរបស់វត្ថុនីមួយៗ ។ លេខទសភាគព្រោះ GLSL គ្មានអដ្ឋមាន ។ 📃 ⟩
+    THREE.ShaderChunk.colorspace_fragment += `
+      #if defined( STANDARD ) && defined( OPAQUE ) && !defined( USE_TRANSMISSION )
+        if ( metalnessFactor < 0.5 ) {
+          float konturaPasxo = ${0o20 / 0o377};
+          float konturaKrado = ${0o377 / 0o10};
+          // ⟨ GLSL គ្មានលេខអដ្ឋមាន ៖ ថេរជាប្រភាគអដ្ឋមានបង្គត់ 📃 ⟩
+          vec3 konturaSrgb = mix( diffuseColor.rgb * ${0o147 / 0o10},
+            ${0o104 / 0o100} * pow( diffuseColor.rgb, vec3( ${0o5 / 0o14} ) ) - ${0o7 / 0o200},
+            step( vec3( ${0o1 / 0o400} ), diffuseColor.rgb ) );
+          vec3 konturaBazo = floor( konturaSrgb * konturaKrado + ${0o1 / 0o2} ) / konturaKrado;
+          float konturaHelo = max( gl_FragColor.r, max( gl_FragColor.g, gl_FragColor.b ) );
+          float konturaBazaHelo = max( konturaBazo.r, max( konturaBazo.g, konturaBazo.b ) );
+          float konturaNivelo = max( ${0o0}.0, ( konturaBazaHelo - konturaHelo ) / konturaPasxo );
+          float konturaRando = min( fwidth( konturaNivelo ), ${0o1 / 0o10} );
+          float konturaBando = floor( konturaNivelo ) + smoothstep(
+            ${0o1 / 0o2} - konturaRando, ${0o1 / 0o2} + max( konturaRando, ${0o1 / 0o20000} ), fract( konturaNivelo ) );
+          gl_FragColor.rgb = max( vec3( ${0o0}.0 ), konturaBazo - vec3( konturaBando * konturaPasxo ) );
+        }
+      #endif
+    `;
+  }
   bildilo.outputColorSpace = THREE.SRGBColorSpace;
   bildilo.toneMapping = THREE.ACESFilmicToneMapping;
   bildilo.toneMappingExposure = agordo.ekspozicio ?? 0o1;

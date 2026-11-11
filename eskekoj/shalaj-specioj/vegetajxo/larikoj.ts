@@ -110,7 +110,7 @@ export function konstruiLarikon(sceno: THREE.Scene,
   const larikaTeksajxo = kreiLarikanSxelanTeksajxon();
   const larikaBumpo = kreiLarikanSxelanBumpanTeksajxon();
   const trunkaGeometrio = kreiTrunkanGeometrion(0o5/0o20, 0o11/0o100, 0o5/0o20 * 0o13/0o10, 0o11);
-  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: larikaTeksajxo, bumpMap: larikaBumpo, bumpScale: 0o6/0o10, roughness: 0o55/0o100 });
+  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: larikaTeksajxo, bumpMap: larikaBumpo, bumpScale: 0o1/0o20, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, arboj.length);
   if ( arboj.length === 0 ) return trunkoj;
 

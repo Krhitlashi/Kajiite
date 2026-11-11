@@ -29,7 +29,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
   const sxelaTeksajxo = kreiSxelanTeksajxon();
   const sxelaBumpo = kreiSxelanBumpanTeksajxon();
   const trunkaGeometrio = kreiTrunkanGeometrion(0o3/0o10, 0o7/0o40, 0o3/0o10 * 0o133/0o100, 0o13);
-  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, bumpMap: sxelaBumpo, bumpScale: 0o6/0o10, roughness: 0o55/0o100 });
+  const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, bumpMap: sxelaBumpo, bumpScale: 0o1/0o20, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, arboj.length);
   if ( arboj.length === 0 ) return trunkoj;
 
@@ -47,7 +47,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
   // ⟨ vertexColors 📃 ⟩
   const kronaMaterialo = new THREE.MeshStandardMaterial({
     map: masaTeksajxo, color: 0xffffff, roughness: 0o35/0o40,
-    bumpMap: masaBumpo, bumpScale: 0o12/0o10,
+    bumpMap: masaBumpo, bumpScale: 0o1/0o40,
     vertexColors: true,
     side: THREE.DoubleSide,
   });
@@ -62,7 +62,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
   const M = new THREE.Matrix4();
   const C = new THREE.Color();
   // ⟨ បន្ទះពីរ 📃 ⟩
-  const paletroFolioj = [ 0xeef4dc, 0xe2ecc6, 0xf6f8ea, 0xd6e4b8, 0xe8f0d2 ];
+  const paletroFolioj = [ 0xe8f0d8, 0xe0e8c0, 0xf0f8e8, 0xd0e0b8, 0xe8f0d0 ];
   // ⟨ ស្នូលមិនត្រូវខ្មៅ 📃 ⟩
   const paletroMaso = [ 0x51703f, 0x476437, 0x5b7a48, 0x3f5a33, 0x4d6b3d ];
 

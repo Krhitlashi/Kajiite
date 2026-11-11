@@ -1,7 +1,7 @@
 // ≺⧼ វាយនភាពហ្វីលីកា 🌿 ⧽≻
 import * as THREE from "three";
 import { ombro } from "../koloroj.js";
-import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
+import { desegniKonturanFormon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export type FrondaPaletro = {
   kanvasaLargho: number;
@@ -22,22 +22,22 @@ export type FrondaPaletro = {
 export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
   const w = p.kanvasaLargho, h = 0o1000;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
-    kunteksto.clearRect(0, 0, w, h);
-    const mezo = w / 2;
+    kunteksto.clearRect(0o0, 0o0, w, h);
+    const mezo = w / 0o2;
     const bazoY = h - 0o20/0o10;
     const pintoY = 0o30/0o10;
     const raĥiso = ( t: number ): number => mezo + 0o7/0o100 * w * t * t;
-    const maksLongo = ( w / 2 - 2 ) * p.pinnaKovro / Math.cos(p.pinnaAngulo);
+    const maksLongo = ( w / 0o2 - 0o2 ) * p.pinnaKovro / Math.cos(p.pinnaAngulo);
     const PAROJ = p.paroj;
-    for ( let i = 0; i < PAROJ; i++ ) {
+    for ( let i = 0o0; i < PAROJ; i++ ) {
       const t = ( i + 0o5/0o10 ) / PAROJ;
       const y = bazoY - t * ( bazoY - pintoY );
       const x = raĥiso(t);
       const vario = 0o67/0o100 + 0o11/0o40 * Math.abs(Math.sin(i * 0o1477/0o100) * 0o12535643/0o100 % 1);
       const longo = maksLongo
-        * ( 0o55/0o100 + 0o5/0o20 * Math.sin(Math.PI * Math.min(1, t * 0o45/0o40)) )
-        * Math.pow(1 - t, 0o43/0o100) * vario;
-      for ( const s of [ -1, 1 ] ) {
+        * ( 0o55/0o100 + 0o5/0o20 * Math.sin(Math.PI * Math.min(0o1, t * 0o45/0o40)) )
+        * Math.pow(0o1 - t, 0o43/0o100) * vario;
+      for ( const s of [ -0o1, 0o1 ] ) {
         const ang = s > 0 ? -p.pinnaAngulo : Math.PI + p.pinnaAngulo;
         const cos = Math.cos(ang), sin = Math.sin(ang);
         const pintoX = x + cos * longo;
@@ -45,31 +45,28 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
         const ctrlX = x + cos * longo * 0o1/0o2;
         const ctrlY = y + sin * longo * 0o1/0o2 - 0o1/0o20 * longo;
         const flar = longo * p.pinnaLargho;
-        const N = 0o10;
+        const N = 0o100;
         const randoA: number[][] = [];
         const randoB: number[][] = [];
-        for ( let k = 0; k <= N; k++ ) {
+        for ( let k = 0o0; k <= N; k++ ) {
           const u = k / N;
-          const m = 1 - u;
-          const cx = m * m * x + 2 * m * u * ctrlX + u * u * pintoX;
-          const cy = m * m * y + 2 * m * u * ctrlY + u * u * pintoY;
+          const m = 0o1 - u;
+          const cx = m * m * x + 0o2 * m * u * ctrlX + u * u * pintoX;
+          const cy = m * m * y + 0o2 * m * u * ctrlY + u * u * pintoY;
           const hw = flar * Math.sin(Math.PI * u)
-            * ( 1 + p.lobaAmplitudo * Math.sin(Math.PI * u * p.lobaNombro) );
+            * ( 0o1 + p.lobaAmplitudo * Math.sin(Math.PI * u * p.lobaNombro) );
           randoA.push([ cx - sin * hw, cy + cos * hw ]);
           randoB.push([ cx + sin * hw, cy - cos * hw ]);
         }
-        kunteksto.fillStyle = p.folio(t, s);
-        kunteksto.beginPath();
-        kunteksto.moveTo(x, y);
-        for ( const p of randoA ) kunteksto.lineTo(p[0], p[1]);
-        for ( let k = randoB.length - 1; k >= 0; k-- ) kunteksto.lineTo(randoB[k][0], randoB[k][1]);
-        kunteksto.closePath();
-        kunteksto.fill();
-        kunteksto.strokeStyle = p.rando;
-        kunteksto.lineWidth = 0o123/0o100;
-        kunteksto.stroke();
+        const formo = new Path2D();
+        formo.moveTo(x, y);
+        for ( const punkto of randoA ) formo.lineTo(punkto[0o0], punkto[0o1]);
+        for ( let k = randoB.length - 0o1; k >= 0o0; k-- ) formo.lineTo(randoB[k][0o0], randoB[k][0o1]);
+        formo.closePath();
+        desegniKonturanFormon(kunteksto, formo, new THREE.Color(p.folio(t, s)).getHex(),
+          flar / 0o10, 0o1/0o2);
         kunteksto.strokeStyle = p.vejno;
-        kunteksto.lineWidth = 1;
+        kunteksto.lineWidth = 0o1;
         kunteksto.beginPath();
         kunteksto.moveTo(x, y);
         kunteksto.quadraticCurveTo(ctrlX, ctrlY, pintoX, pintoY);
@@ -80,11 +77,11 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
     kunteksto.beginPath();
     kunteksto.moveTo(mezo - p.raĥisoLargho, bazoY + 0o20/0o10);
     kunteksto.lineTo(mezo + p.raĥisoLargho, bazoY + 0o20/0o10);
-    kunteksto.lineTo(raĥiso(1) + 0o43/0o40, pintoY);
-    kunteksto.lineTo(raĥiso(1) - 0o43/0o40, pintoY);
+    kunteksto.lineTo(raĥiso(0o1) + 0o43/0o40, pintoY);
+    kunteksto.lineTo(raĥiso(0o1) - 0o43/0o40, pintoY);
     kunteksto.closePath();
     kunteksto.fill();
-  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
+  }, [ 0o1, 0o1 ], { volvado: THREE.ClampToEdgeWrapping });
 }
 
 export const kreiFilikanTeksajxon = sxovu((): THREE.CanvasTexture => kreiPinatanFrondon({
@@ -97,9 +94,9 @@ export const kreiFilikanTeksajxon = sxovu((): THREE.CanvasTexture => kreiPinatan
   lobaAmplitudo: 0o21/0o100,
   lobaNombro: 0o123/0o40,
   folio: ( t, flanko ) =>
-    `rgb(${Math.round(0o76 + t * 0o32)},${Math.round(0o154 + t * 0o56 + ( flanko > 0 ? 5 : 0 ))},${Math.round(0o62 + t * 0o24)})`,
+    `rgb(${Math.round(0o76 + t * 0o32)},${Math.round(0o154 + t * 0o56 + ( flanko > 0 ? 0o4 : 0o0 ))},${Math.round(0o62 + t * 0o24)})`,
   rando: ombro(0x386830, 0o2, 0o33/0o100),
   vejno: "rgba(144,176,104,0.30)",
   raĥiso: "#608048",
-  raĥisoLargho: 4,
+  raĥisoLargho: 0o4,
 }));

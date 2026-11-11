@@ -9,8 +9,7 @@ import { biomo, akvo, akvaNivelo, SKULPTA_N, SKULPTA_PASO,
 import { glataPaso } from "../../../kantaoj/komunajxoj/interpolo.js";
 
 function konstruiRokGeometrion(semo = 1): THREE.BufferGeometry {
-  // ⟨ មុខច្រើនជាង 📃 ⟩
-  const geometrio = new THREE.IcosahedronGeometry(1, 1);
+  const geometrio = new THREE.SphereGeometry(0o1, 0o20, 0o10);
   const pozicioj = geometrio.attributes.position;
   for ( let i = 0; i < pozicioj.count; i++ ) {
     let x = pozicioj.getX(i), y = pozicioj.getY(i), z = pozicioj.getZ(i);
@@ -36,7 +35,7 @@ function kreiSxtonanMaterialon(): THREE.MeshStandardMaterial {
   return new THREE.MeshStandardMaterial({
     roughness: 0o35/0o40, metalness: 0,
     map: kreiRokenTeksajxon(),
-    bumpMap: kreiRokenBumpanTeksajxon(), bumpScale: 0o4/0o5,
+    bumpMap: kreiRokenBumpanTeksajxon(), bumpScale: 0o1/0o20,
   });
 }
 
@@ -70,7 +69,7 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
   const E = new THREE.Euler();
   const C = new THREE.Color();
   // ⟨ សម្លេងមកពីវាយនភាព 📃 ⟩
-  const paletro = [ 0xf2f2f0, 0xffffff, 0xe8e8e4, 0xf6f4f2, 0xece9e3, 0xeff0e2 ];
+  const paletro = [ 0xf0f0f0, 0xffffff, 0xe8e8e0, 0xf0f0e8, 0xe8e8e0, 0xe8f0e0 ];
   const metitaj: ArboMetado[] = [];
   let li = 0;
   let gardilo = 0;
@@ -129,7 +128,7 @@ export function konstruiMetitanRokon(sceno: THREE.Scene,
 ): THREE.InstancedMesh {
   const sxtonaGeometrio = konstruiRokGeometrion(semo);
   const sxtonoj = new THREE.InstancedMesh(sxtonaGeometrio, kreiSxtonanMaterialon(), 1);
-  const paletro = [ 0xf2f2f0, 0xffffff, 0xe8e8e4, 0xf6f4f2, 0xece9e3, 0xeff0e2 ];
+  const paletro = [ 0xf0f0f0, 0xffffff, 0xe8e8e0, 0xf0f0e8, 0xe8e8e0, 0xe8f0e0 ];
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();

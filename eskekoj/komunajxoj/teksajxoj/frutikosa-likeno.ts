@@ -1,81 +1,65 @@
 // ≺⧼ វាយនភាពស្លែផ្លែ 🫐 ⧽≻
 import * as THREE from "three";
-import { kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
+import { ombro } from "../koloroj.js";
+import { kf2Sakxo } from "../hazardo.js";
+import { desegniKonturanFormon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
-export function desegniFrutikosanTrunketon(k: CanvasRenderingContext2D, x: number, bazo: number, alto: number, kurbo: number): void {
+// ⟨ ដើមតូចបញ្ឈរ ៖ ផ្ទាំងឆ្លុះគ្នាត្រូវការរូបរាងបញ្ឈរដែលមានគែមមូល 📃 ⟩
+function trunketaVojo(x: number, bazo: number, alto: number, kurbo: number, dikeco: number): Path2D {
+  const vojo = new Path2D();
   const pintoX = x + kurbo, pintoY = bazo - alto;
-  const segmento = ( de: number, gxis: number, dikeco: number ): void => {
-    const mx = x + kurbo * de, my = bazo - alto * de;
-    const nx = x + kurbo * gxis, ny = bazo - alto * gxis;
-    k.lineCap = "round";
-    k.strokeStyle = "rgba(64,80,64,0.82)";
-    k.lineWidth = dikeco + 0o2;
-    k.beginPath();
-    k.moveTo(mx, my);
-    k.quadraticCurveTo(( mx + nx ) / 2 + kurbo * 0o3/0o10, ( my + ny ) / 2, nx, ny);
-    k.stroke();
-    k.strokeStyle = dikeco > 0o3 ? "#b0c0a0" : "#c8d0b8";
-    k.lineWidth = dikeco;
-    k.beginPath();
-    k.moveTo(mx, my - dikeco * 0o1/0o4);
-    k.quadraticCurveTo(( mx + nx ) / 2 + kurbo * 0o3/0o10, ( my + ny ) / 2 - dikeco * 0o1/0o4, nx, ny - dikeco * 0o1/0o4);
-    k.stroke();
-  };
-  for ( let i = 0; i < 0o3; i++ ) segmento(i / 0o3, ( i + 1 ) / 0o3, 0o6 - i * 0o1);
-  const desegniTason = ( tx: number, ty: number, rad: number ): void => {
-    k.fillStyle = "rgba(72,72,56,0.9)";
-    k.beginPath(); k.ellipse(tx, ty + 1, rad * 0o12/0o10, rad * 0o7/0o10, 0, 0, Math.PI * 2); k.fill();
-    k.fillStyle = "#988068";
-    k.beginPath(); k.ellipse(tx, ty, rad, rad * 0o5/0o10, 0, 0, Math.PI * 2); k.fill();
-    k.fillStyle = "#b8a080";
-    k.beginPath(); k.ellipse(tx, ty - 1, rad * 0o7/0o10, rad * 0o3/0o10, 0, 0, Math.PI * 2); k.fill();
-    k.strokeStyle = "rgba(224,208,176,0.75)";
-    k.lineWidth = 1;
-    k.beginPath(); k.arc(tx, ty - 1, rad * 0o7/0o10, Math.PI, Math.PI * 2); k.stroke();
-  };
-  const branĉoj = 0o2 + ( ( Math.random() * 0o3 ) | 0 );
-  for ( let b = 0; b < branĉoj; b++ ) {
-    const t = 0o3/0o10 + b * 0o2/0o10 + Math.random() * 0o1/0o10;
-    const bx = x + kurbo * t + ( b % 2 ? 0o6 : -0o6 );
-    const by = bazo - alto * t;
-    const balto = alto * ( 0o2/0o10 + Math.random() * 0o2/0o10 );
-    const bk = ( b % 2 ? 1 : -1 ) * ( 0o4 + Math.random() * 0o10 );
-    const bx2 = bx + bk, by2 = by - balto;
-    k.strokeStyle = "rgba(64,80,64,0.82)"; k.lineWidth = 0o4; k.lineCap = "round";
-    k.beginPath(); k.moveTo(bx, by);
-    k.quadraticCurveTo(( bx + bx2 ) / 2, ( by + by2 ) / 2 - 0o2, bx2, by2); k.stroke();
-    k.strokeStyle = "#c8d0b0"; k.lineWidth = 0o3; k.stroke();
-    desegniTason(bx2, by2, 0o3 + Math.random() * 0o2);
-    const ft = 0o6/0o10;
-    const fx = bx + ( bx2 - bx ) * ft, fy = by + ( by2 - by ) * ft;
-    const fa = ( b % 2 ? 1 : -1 ) * ( 0o4 + Math.random() * 0o4 );
-    const fy2 = fy - balto * ( 0o3/0o10 + Math.random() * 0o2/0o10 );
-    k.strokeStyle = "rgba(64,80,64,0.76)"; k.lineWidth = 0o3; k.lineCap = "round";
-    k.beginPath(); k.moveTo(fx, fy);
-    k.quadraticCurveTo(fx + fa * 0o4/0o10, ( fy + fy2 ) / 2 - 0o1, fx + fa, fy2); k.stroke();
-    k.strokeStyle = "#d0d8c0"; k.lineWidth = 0o2; k.stroke();
-    desegniTason(fx + fa, fy2, 0o2 + Math.random() * 0o1);
-  }
-  desegniTason(pintoX, pintoY, 0o3 + Math.random() * 0o2);
-  for ( let i = 0; i < 0o20; i++ ) {
-    const t = Math.random();
-    const px = x + kurbo * t + ( Math.random() - 0o5/0o10 ) * 0o4;
-    const py = bazo - alto * t + ( Math.random() - 0o5/0o10 ) * 0o4;
-    k.fillStyle = Math.random() < 0o6/0o10 ? "rgba(224,224,200,0.8)" : "rgba(72,88,72,0.55)";
-    k.beginPath(); k.arc(px, py, 1 + Math.random() * 1, 0, Math.PI * 2); k.fill();
-  }
+  const pintoR = dikeco * 0o3/0o10;
+  vojo.moveTo(x - dikeco / 0o2, bazo);
+  vojo.quadraticCurveTo(pintoX - pintoR, bazo - alto * 0o5/0o10, pintoX - pintoR, pintoY);
+  vojo.arc(pintoX, pintoY, pintoR, Math.PI, Math.PI * 0o2);
+  vojo.quadraticCurveTo(pintoX + pintoR, bazo - alto * 0o5/0o10, x + dikeco / 0o2, bazo);
+  vojo.closePath();
+  return vojo;
+}
+
+function tasoVojo(tx: number, ty: number, rad: number): Path2D {
+  const vojo = new Path2D();
+  vojo.ellipse(tx, ty, rad, rad * 0o6/0o10, 0, 0o0, Math.PI * 0o2);
+  return vojo;
 }
 
 export const kreiFrutikosanLikenanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const s = 0o200;
   return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
-    kunteksto.clearRect(0, 0, s, s);
-    const trunketoj = 0o10;
-    for ( let i = 0; i < trunketoj; i++ ) {
-      const x = s * ( 0o2/0o10 + Math.random() * 0o4/0o10 );
-      const alto = s * ( 0o3/0o10 + Math.random() * 0o16/0o100 );
-      const kurbo = ( Math.random() - 0o5/0o10 ) * s * 0o1/0o20;
-      desegniFrutikosanTrunketon(kunteksto, x, s * 0o17/0o20, alto, kurbo);
+    kunteksto.clearRect(0o0, 0o0, s, s);
+    const hazardo = kf2Sakxo(0o5234);
+    const bazo = s * 0o17/0o20;
+    const bazoj = [ 0xb0c0a0, 0xc8d0b8, 0xa8b898, 0xc0c8a8 ];
+    const kuseno = new Path2D();
+    kuseno.ellipse(s / 0o2, bazo, s * 0o2/0o10, s * 0o4/0o100, 0, 0o0, Math.PI * 0o2);
+    desegniKonturanFormon(kunteksto, kuseno, 0x889878, s * 0o1/0o60, s * 0o1/0o140);
+    const desegniTason = ( tx: number, ty: number, rad: number ): void => {
+      desegniKonturanFormon(kunteksto, tasoVojo(tx, ty, rad), 0xb8a080, s * 0o1/0o140, s * 0o1/0o400);
+      kunteksto.fillStyle = ombro(0xb8a080, 0o3);
+      kunteksto.beginPath();
+      kunteksto.ellipse(tx, ty, rad * 0o4/0o10, rad * 0o2/0o10, 0, 0o0, Math.PI * 0o2);
+      kunteksto.fill();
+    };
+    const trunketoj = 0o7;
+    for ( let i = 0o0; i < trunketoj; i++ ) {
+      const x = s * ( 0o2/0o10 + hazardo() * 0o5/0o10 );
+      const alto = s * ( 0o3/0o10 + hazardo() * 0o2/0o10 );
+      const kurbo = ( hazardo() - 0o5/0o10 ) * s * 0o1/0o10;
+      const dikeco = s * ( 0o2/0o100 + hazardo() * 0o1/0o100 );
+      desegniKonturanFormon(kunteksto, trunketaVojo(x, bazo, alto, kurbo, dikeco),
+        bazoj[i % bazoj.length], s * 0o1/0o140, s * 0o1/0o400);
+      const branĉoj = 0o1 + ( ( hazardo() * 0o2 ) | 0 );
+      for ( let b = 0o0; b < branĉoj; b++ ) {
+        const t = 0o3/0o10 + b * 0o2/0o10 + hazardo() * 0o1/0o10;
+        const bx = x + kurbo * t, by = bazo - alto * t;
+        const balto = alto * ( 0o2/0o10 + hazardo() * 0o2/0o10 );
+        const bk = ( b % 0o2 ? 1 : -1 ) * s * ( 0o3/0o100 + hazardo() * 0o3/0o100 );
+        const bd = dikeco * 0o6/0o10;
+        desegniKonturanFormon(kunteksto, trunketaVojo(bx, by, balto, bk, bd),
+          bazoj[( i + 1 ) % bazoj.length], s * 0o1/0o200, s * 0o1/0o400);
+        desegniTason(bx + bk, by - balto, bd * ( 0o1 + hazardo() * 0o4/0o10 ));
+      }
+      desegniTason(x + kurbo, bazo - alto, dikeco * ( 0o1 + hazardo() * 0o4/0o10 ));
     }
-  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
+  }, [ 0o1, 0o1 ], { volvado: THREE.ClampToEdgeWrapping });
 });

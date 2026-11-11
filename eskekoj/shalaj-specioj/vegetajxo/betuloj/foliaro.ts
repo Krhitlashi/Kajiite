@@ -94,10 +94,10 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
     const helo = 0o63/0o100 + Math.random() * 0o35/0o100;
     const varmo = 0o67/0o100 + Math.random() * 0o11/0o100;
     const koloroj = new Float32Array(pozicioj.count * 3);
-    for ( let i = 0; i < pozicioj.count; i++ ) {
-      koloroj[i * 3] = helo * ( 0o75/0o100 + Math.random() * 0o5/0o100 );
-      koloroj[i * 3 + 1] = helo * ( 0o37/0o40 + Math.random() * 0o1/0o20 );
-      koloroj[i * 3 + 2] = helo * varmo * ( 0o17/0o20 + Math.random() * 0o1/0o10 );
+    for ( let i = 0o0; i < pozicioj.count; i++ ) {
+      koloroj[i * 0o3] = helo * 0o17/0o20;
+      koloroj[i * 0o3 + 0o1] = helo;
+      koloroj[i * 0o3 + 0o2] = helo * varmo;
     }
     geometrio.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
     return geometrio;

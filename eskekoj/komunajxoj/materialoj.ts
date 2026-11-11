@@ -12,7 +12,7 @@ export function kreiDioritanMaterialon(map?: THREE.Texture, envMapIntensity?: nu
     map: map ?? kreiDioritanTeksajxon(),
     bumpMap: kreiDioritanBumpanTeksajxon(),
     bumpScale: 0o1/0o100,
-    roughness: 0o1/0o10,
+    roughness: 0o7/0o10,
     metalness: 0o1/0o20,
   });
   if ( envMapIntensity !== undefined ) m.envMapIntensity = envMapIntensity;
