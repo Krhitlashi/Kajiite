@@ -31,16 +31,21 @@ function kanakaPukek(pukek: THREE.Material): void {
   if ( typeof skek.opacity === "number" ) skek.opacity = kanakaAlfo(skek.opacity);
 }
 
-export function kanakaQena(qena: THREE.Scene, plena = true): THREE.Scene {
-  if ( qena.fog ) kanakaWeh2Color(qena.fog.color);
+// ⟪ ការឆ្លងកាត់ឆាក 📃 ⟫
+type Traktanto = ( pukek: THREE.Material ) => void;
+
+function fariTraktanton(plena: boolean): Traktanto {
   const hax2ni = plena ? new WeakSet<THREE.Material>() : pukekHax2ni;
-  const trakti = ( pukek: THREE.Material ): void => {
+  return ( pukek: THREE.Material ): void => {
     if ( hax2ni.has(pukek) ) return;
     kanakaPukek(pukek);
     hax2ni.add(pukek);
     if ( plena ) pukekHax2ni.add(pukek);
   };
-  qena.traverse(( skek ) => {
+}
+
+function traktiArbon(radiko: THREE.Object3D, trakti: Traktanto): void {
+  radiko.traverse(( skek ) => {
     const objekto = skek as THREE.Object3D & {
       isLight?: boolean; groundColor?: THREE.Color;
       material?: THREE.Material | THREE.Material[];
@@ -57,7 +62,55 @@ export function kanakaQena(qena: THREE.Scene, plena = true): THREE.Scene {
       trakti(pukek);
     }
   });
+}
+
+// ⟪ វត្ថុដែលចូលឆាកក្រោយចាប់ផ្តើម 📃 ⟫
+// ⟨ ពីមុនរាល់ 0o14 ហ្វ្រេមឆ្លងកាត់ឆាកទាំងមូល ដើម្បីរកវត្ថុធាតុថ្មីតែ
+//   ពីរបី ។ ឆាកមានវត្ថុរាប់ពាន់ ហើយការឆ្លងកាត់បង្កើតហ្វ្រេមយឺតរៀងរាល់
+//   ១២ ហ្វ្រេម ។ ឥឡូវតាមដានតែអ្វីដែល add បានបន្ថែម ហើយឆ្លងកាត់តែដើមឈើ
+//   តូចរបស់វា ។ លទ្ធផលពណ៌ដដែល គ្មានការឆ្លងកាត់ធំក្នុងហ្វ្រេមណាមួយ ។ 📃 ⟩
+const atendajKanaka: THREE.Object3D[] = [];
+const viditajKanakaRadikoj = new WeakSet<THREE.Object3D>();
+let spuriloInstalita = false;
+
+/* ដំឡើងអ្នកតាមដានវត្ថុថ្មី បន្ទាប់ពីបង្គត់ពណ៌លើកដំបូង ។
+    @returns void */
+export function instaliKanakaSpurilon(): void {
+  if ( spuriloInstalita ) return;
+  spuriloInstalita = true;
+  const origina = THREE.Object3D.prototype.add as unknown as
+    ( this: THREE.Object3D, ...objektoj: THREE.Object3D[] ) => THREE.Object3D;
+  const spurita = function ( this: THREE.Object3D,
+    ...objektoj: THREE.Object3D[] ): THREE.Object3D {
+    for ( let i = 0; i < objektoj.length; i++ ) atendajKanaka.push(objektoj[i]);
+    return origina.apply(this, objektoj);
+  };
+  THREE.Object3D.prototype.add = spurita as typeof THREE.Object3D.prototype.add;
+}
+
+export function kanakaQena(qena: THREE.Scene, plena = true): THREE.Scene {
+  if ( qena.fog ) kanakaWeh2Color(qena.fog.color);
+  traktiArbon(qena, fariTraktanton(plena));
+  // ⟨ ការឆ្លងកាត់ពេញគ្របដណ្តប់គ្រប់យ៉ាង ដូច្នេះជួររង់ចាំលែងចាំបាច់ ។ 📃 ⟩
+  atendajKanaka.length = 0;
   return qena;
+}
+
+/* បង្គត់ពណ៌តែវត្ថុថ្មី ដោយមិនឆ្លងកាត់ឆាកទាំងមូល ។
+    @param qena ( THREE.Scene ) - ឆាកដែលមានអ័ព្ទត្រូវបង្គត់ ។
+@returns void */
+export function kanakaQenaNovajn(qena: THREE.Scene): void {
+  if ( qena.fog ) kanakaWeh2Color(qena.fog.color);
+  if ( atendajKanaka.length === 0 ) return;
+  const radikoj = atendajKanaka.splice(0, atendajKanaka.length);
+  const trakti = fariTraktanton(false);
+  for ( let i = 0; i < radikoj.length; i++ ) {
+    const radiko = radikoj[i];
+    // ⟨ វត្ថុដែលដែនមើលដាក់ចូលវិញ មិនមែនវត្ថុថ្មីទេ ។ 📃 ⟩
+    if ( viditajKanakaRadikoj.has(radiko) ) continue;
+    viditajKanakaRadikoj.add(radiko);
+    traktiArbon(radiko, trakti);
+  }
 }
 
 function kanakaKanalo(skek: number): number {

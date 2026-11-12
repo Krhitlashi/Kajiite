@@ -71,11 +71,19 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // ដូច្នេះកម្ពស់ស្រមោលត្រូវបន្ថយដោយចម្ងាយដូចពណ៌ ។ 📃 ⟩
   const fadaGrundon = ( materialo: THREE.MeshStandardMaterial ): THREE.MeshStandardMaterial => {
     materialo.onBeforeCompile = ( shadero ) => {
+      // ⟨ ការរសាត់គណនាម្តងក្នុងមួយភីកសែល មិនមែនពីរដង ។ ពីមុន
+      //   map_fragment និង normal_fragment_maps យក length ផ្ទួនគ្នាលើគ្រប់
+      //   ភីកសែលនៃដីដែលគ្របដណ្តប់អេក្រង់ ។ លទ្ធផលដដែល ។ 📃 ⟩
+      shadero.fragmentShader = shadero.fragmentShader.replace(
+        "#include <common>",
+        `#include <common>
+        float grundFado = 1.0;`
+      );
       shadero.fragmentShader = shadero.fragmentShader.replace(
         "#include <map_fragment>",
-        `#ifdef USE_MAP
+        `grundFado = 1.0 - smoothstep( ${GRUNDA_FADO_EL.toFixed(1)}, ${GRUNDA_FADO_GXIS.toFixed(1)}, length( vViewPosition ) );
+        #ifdef USE_MAP
           vec4 sampledDiffuseColor = texture2D( map, vMapUv );
-          float grundFado = 1.0 - smoothstep( ${GRUNDA_FADO_EL.toFixed(1)}, ${GRUNDA_FADO_GXIS.toFixed(1)}, length( vViewPosition ) );
           sampledDiffuseColor.rgb = mix( vec3( 1.0 ), sampledDiffuseColor.rgb, grundFado );
           diffuseColor *= sampledDiffuseColor;
         #endif`
@@ -86,8 +94,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       shadero.fragmentShader = shadero.fragmentShader.replace(
         "#include <normal_fragment_maps>",
         `#include <normal_fragment_maps>
-        normal = normalize( mix( nonPerturbedNormal, normal,
-          1.0 - smoothstep( ${GRUNDA_FADO_EL.toFixed(1)}, ${GRUNDA_FADO_GXIS.toFixed(1)}, length( vViewPosition ) ) ) );`
+        normal = normalize( mix( nonPerturbedNormal, normal, grundFado ) );`
       );
     };
     return materialo;
@@ -135,6 +142,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
 
   // ⟪ ស្រមោលព្រះអាទិត្យ 📃 ⟫
   const ombraTekseloKrado = ( suno.shadow.camera.right - suno.shadow.camera.left ) / suno.shadow.mapSize.x;
+  // ⟨ ពីមុនចំណុចកណ្តាលផែនទីស្រមោលចាប់រាល់តេកសែល ប្រហែល 0o1/0o10 ឯកតា ។
+  //   អ្នកលេងដើរលើសនោះរាល់ហ្វ្រេម ដូច្នេះផែនទីស្រមោលត្រូវគូរធរណីមាត្រ
+  //   ទាំងមូលឡើងវិញរាល់ហ្វ្រេម ទោះបីស្រមោលវត្ថុស្ងៀមមិនប្រែក៏ដោយ ។
+  //   ឥឡូវចាប់ឱ្យជាប់នឹងជំហានប្រហែល 0o1 ឯកតា តែនៅតែជាពហុគុណពិត
+  //   នៃតេកសែល ដូច្នេះស្រមោលមិនរអិល ។ កាមេរ៉ាស្រមោលគ្របដណ្តប់ 0o200
+  //   ឯកតា ហើយស្រមោលគណនាពីធរណីមាត្រ មិនមែនពីភ្នែកអ្នកលេង ។ 📃 ⟩
+  const OMBRA_SNUPO = ombraTekseloKrado * Math.max( 0o1, Math.round( 0o1 / ombraTekseloKrado ) );
   const SUNA_DIREKTO = new THREE.Vector3().copy(suno.position).normalize();
   let sunaDistanco = suno.position.length();
   const OMBRA_DIR = new THREE.Vector3();
@@ -151,8 +165,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     if ( Math.abs(OMBRA_DIR.y) > 0o777/0o1000 ) OMBRA_SUP.set(0, 0, 1);
     OMBRA_DEX.crossVectors(OMBRA_SUP, OMBRA_DIR).normalize();
     OMBRA_SUP.crossVectors(OMBRA_DIR, OMBRA_DEX).normalize();
-    const dekstre = Math.round(( ombraCentroX * OMBRA_DEX.x + ombraCentroZ * OMBRA_DEX.z ) / ombraTekseloKrado) * ombraTekseloKrado;
-    const supre = Math.round(( ombraCentroX * OMBRA_SUP.x + ombraCentroZ * OMBRA_SUP.z ) / ombraTekseloKrado) * ombraTekseloKrado;
+    const dekstre = Math.round(( ombraCentroX * OMBRA_DEX.x + ombraCentroZ * OMBRA_DEX.z ) / OMBRA_SNUPO) * OMBRA_SNUPO;
+    const supre = Math.round(( ombraCentroX * OMBRA_SUP.x + ombraCentroZ * OMBRA_SUP.z ) / OMBRA_SNUPO) * OMBRA_SNUPO;
     OMBRA_CENTRO.set(0, 0, 0).addScaledVector(OMBRA_DEX, dekstre).addScaledVector(OMBRA_SUP, supre);
     suno.target.position.copy(OMBRA_CENTRO);
     suno.position.copy(OMBRA_CENTRO).addScaledVector(OMBRA_DIR, distanco);

@@ -33,9 +33,19 @@ interface Vidlima {
   subLimoj: SubLimo[];
 }
 
-const registro: Vidlima[] = [];
+// ⟨ វត្ថុស្ងៀម ភាគច្រើនលើសគេ ។ ភាពមើលឃើញរបស់វាប្រែតែពេលកាមេរ៉ាផ្លាស់ទី ។
+//   វត្ថុផ្លាស់ទី មានតិច តែត្រូវពិនិត្យរាល់ហ្វ្រេម ព្រោះទីតាំងវាប្រែដោយខ្លួនឯង ។
+//   បំបែកបញ្ជីទាំងពីរ ដូច្នេះរង្វិលជុំធំមិនរត់លើអ្វីដែលមិនប្រែ ។ 📃 ⟩
+const statikaj: Vidlima[] = [];
+const movigxantaj: Vidlima[] = [];
 let aktiva = true;
 let spacigita = false;
+// ⟨ អ៊ីស្តេរេស៊ីសតូចបំផុតគឺ limo * 0o1/0o10 ។ limo តូចបំផុតគឺ MIN_LIMO ,
+//   ដូច្នេះខ្សែបន្ទាត់ព្រំដែនធំជាង 0o6 ។ កាមេរ៉ាផ្លាស់ 0o2 មិនអាចរំលងវាបាន ។
+//   បើវត្ថុថ្មីចូលបញ្ជី ឬ ដែនមើលបើកឡើងវិញ , ពិនិត្យគ្រប់យ៉ាងភ្លាម ។ 📃 ⟩
+const STATIKA_MOVA_SOJLO2 = 0o2 * 0o2;
+let lastaStatikaX = Infinity, lastaStatikaZ = Infinity;
+let devigiStatikan = true;
 
 const SFERO_CENTRO = new THREE.Vector3();
 
@@ -77,9 +87,12 @@ function radiusoDe(obj: THREE.Object3D, sfero: THREE.Sphere | null = sferoDe(obj
 function aldonu(obj: THREE.Object3D, limo: number, radiuso: number,
   cx: number, cz: number, sekvi: boolean, subLimoj: SubLimo[] = []): void {
   // ⟨ វត្ថុស្ងៀមកក 📃 ⟩
-  if (!sekvi) obj.matrixWorldAutoUpdate = false;
-  registro.push({ obj, gepatro: obj.parent, limo, limoPluso: limo * LIMO_HISTEREZO, radiuso, cx, cz, sekvi,
-    subLimoj });
+  if (!sekvi) {
+    obj.matrixWorldAutoUpdate = false;
+    devigiStatikan = true;
+  }
+  ( sekvi ? movigxantaj : statikaj ).push({ obj, gepatro: obj.parent, limo,
+    limoPluso: limo * LIMO_HISTEREZO, radiuso, cx, cz, sekvi, subLimoj });
 }
 
 export function registriVidlimon(obj: THREE.Object3D, limo: number): void {
@@ -171,13 +184,12 @@ function reAlDonu(obj: THREE.Object3D, gepatro: THREE.Object3D | null): void {
   if (obj.parent === null && gepatro !== null) gepatro.add(obj);
 }
 
-export function gxisdatigiVidlimojn(x: number, z: number): void {
-  if (!aktiva) return;
-  for (let i = 0; i < registro.length; i++) {
-    const e = registro[i];
+function gxisdatigiAron(aro: Vidlima[], x: number, z: number): void {
+  for (let i = 0; i < aro.length; i++) {
+    const e = aro[i];
     const obj = e.obj;
-    let cx = e.cx, cz = e.cz;
-    if (e.sekvi) { cx = obj.position.x; cz = obj.position.z; }
+    const cx = e.sekvi ? obj.position.x : e.cx;
+    const cz = e.sekvi ? obj.position.z : e.cz;
     const limo = (obj.visible ? e.limoPluso : e.limo) + e.radiuso;
     const dx = cx - x, dz = cz - z;
     const disto2 = dx * dx + dz * dz;
@@ -198,28 +210,47 @@ export function gxisdatigiVidlimojn(x: number, z: number): void {
   }
 }
 
+export function gxisdatigiVidlimojn(x: number, z: number): void {
+  if (!aktiva) return;
+  // ⟨ វត្ថុស្ងៀម ៖ លទ្ធផលដដែលរហូតដល់កាមេរ៉ាផ្លាស់គ្រប់គ្រាន់ ។
+  //   អ៊ីស្តេរេស៊ីសធានាថាគ្មានវត្ថុលោតភ្លឹក ពេលរំលងហ្វ្រេម ។ 📃 ⟩
+  const dx = x - lastaStatikaX, dz = z - lastaStatikaZ;
+  if (devigiStatikan || dx * dx + dz * dz > STATIKA_MOVA_SOJLO2) {
+    lastaStatikaX = x; lastaStatikaZ = z;
+    devigiStatikan = false;
+    gxisdatigiAron(statikaj, x, z);
+  }
+  gxisdatigiAron(movigxantaj, x, z);
+}
+
+function porCxiunEron(ago: (e: Vidlima) => void): void {
+  for (let i = 0; i < statikaj.length; i++) ago(statikaj[i]);
+  for (let i = 0; i < movigxantaj.length; i++) ago(movigxantaj[i]);
+}
+
 export function vidlimojnMalŝalti(): void {
   aktiva = false;
-  for (let i = 0; i < registro.length; i++) {
-    const e = registro[i];
+  porCxiunEron((e) => {
     e.obj.visible = true;
     if (e.sekvi) reAlDonu(e.obj, e.gepatro);
     for (let k = 0; k < e.subLimoj.length; k++) aplikiSubLimon(e.subLimoj[k], true);
-  }
+  });
 }
 
 export function vidlimojnŜalti(): void {
   aktiva = true;
+  devigiStatikan = true;
 }
 
 export function vidlimaStatistiko(): { eroj: number; videblaj: number; limoj: number[] } {
   let videblaj = 0;
   const limoj = new Set<number>();
-  for (const e of registro) {
+  porCxiunEron((e) => {
     if (e.obj.visible) videblaj++;
     limoj.add(e.limo);
-  }
-  return { eroj: registro.length, videblaj, limoj: [ ...limoj ].sort((a, b) => a - b) };
+  });
+  return { eroj: statikaj.length + movigxantaj.length, videblaj,
+    limoj: [ ...limoj ].sort((a, b) => a - b) };
 }
 
 // ⟪ ការបែងចែកលំហ 📃 ⟫

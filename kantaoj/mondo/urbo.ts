@@ -166,8 +166,12 @@ export async function konstruiUrbon(
     return alteco(x, z) < akvaNivelo(x, z) - 0o1/0o200;
   }
   // ⟨ ផ្ទឃ្លាំងទឹកសម្រាបផ្លូវ ៖ ផ្លូវដែលនៅលើទឹក ត្រូវនៅលើផ្ទឃ្លាំងទឹក មិនអាចកប់ក្នុងទឹកទេ ។ 📃 ⟩
-  const akvaFino = ( x: number, z: number ): number =>
-    cxuVeraAkvo( x, z ) ? akvaNivelo( x, z ) + VOJA_AKVA_KLARANCO : -Infinity;
+  // ⟨ អានកម្រិតទឹកម្តង ⟩ ៖ ការធៀប និងលទ្ធផលប្រើកម្រិតតែមួយ ។ មុននេះហៅ
+  // `cxuVeraAkvo` រួចហៅម្តងទៀត , ដូច្នេះកម្រិតទឹកត្រូវគណនាពីរដងលើទឹក ។ 📃 ⟩
+  const akvaFino = ( x: number, z: number ): number => {
+    const nivelo = akvaNivelo( x, z );
+    return alteco( x, z ) < nivelo - 0o1/0o200 ? nivelo + VOJA_AKVA_KLARANCO : -Infinity;
+  };
   // ⟨ ស្ពានតែពេលទឹកលាតលើសផ្លូវទាំងមូល ៖ ផ្លូវកំពង់នៅមាត់ទឹកនៅតែជាផ្លូវ 📃 ⟩
   function akvaTrunko( vojo: SkulptaVojo ): boolean {
     if ( vojo.punktoj.length < 0o2 ) return false;

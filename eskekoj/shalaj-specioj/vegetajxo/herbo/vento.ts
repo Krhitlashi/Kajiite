@@ -37,6 +37,8 @@ export interface HerbaTavolo {
   malproksima: boolean;
 }
 export const herbajTavoloj: HerbaTavolo[] = [];
+// ⟨ កាមេរ៉ាឈរស្ងៀមពេលងាកមើល ។ បញ្ជីក្រឡាមិនប្រែ ដូច្នេះរំលងរង្វិលជុំធំ ។ 📃 ⟩
+let lastaHerbaX = Infinity, lastaHerbaZ = Infinity;
 
 // ⟪ ជម្រើសសម្ភារៈស្មៅ 📃 ⟫
 export interface HerbaMaterialajOpcioj {
@@ -87,47 +89,61 @@ export function kreiHerbanMaterialon(limo = 0o100,
       "#include <begin_vertex>",
       `#include <begin_vertex>
       {
+        // ⟨ គុណមាត្រីពីរដងជាមួយវ៉ិចទ័រ ជំនួសឱ្យគុណមាត្រីមាត្រី ។ លទ្ធផលដូចគ្នា
+        //   តែចំនួនគុណតិចជាងពាក់កណ្តាល លើវើតិចរាប់លានរបស់ស្មៅ ។ 📃 ⟩
         vec3 herbaPunkt = transformed;
         #ifdef USE_INSTANCING
-          herbaPunkt = ( modelMatrix * instanceMatrix * vec4( transformed, 1.0 ) ).xyz;
+          herbaPunkt = ( modelMatrix * ( instanceMatrix * vec4( transformed, 1.0 ) ) ).xyz;
         #endif
-        #ifdef HERBA_DOKLIVO
-          transformed.y += dot( herbaDoklivo, transformed.xz );
-        #endif
+        // ⟨ ប្រភពដុំស្មៅគឺជួរឈរទី 0o3 នៃ instanceMatrix រួចហើយ ។ ពីមុន
+        //   គុណមាត្រីទាំងពីរដើម្បីបានតែចំណុច ( 0 , 0 , 0 , 1 ) ។ 📃 ⟩
         vec3 herbaBazo = herbaPunkt;
         #ifdef USE_INSTANCING
-          herbaBazo = ( modelMatrix * instanceMatrix * vec4( 0.0, 0.0, 0.0, 1.0 ) ).xyz;
+          herbaBazo = ( modelMatrix * instanceMatrix[ 3 ] ).xyz;
         #endif
         float herbaDisto = distance( herbaBazo.xz, uHerbaFotilo );
         float herbaFado = 1.0 - smoothstep( uHerbaLimo * 0.75, uHerbaLimo, herbaDisto );
-        float herbaMaske = clamp( transformed.y / uHerbaAlto, 0.0, 1.0 );
-        float herbaFazo = herbaPunkt.x * 0.53125 + herbaPunkt.z * 0.3125;
-        float herbaOndo = sin( uHerbaTempo * 1.703125 + herbaFazo )
-          + 0.5 * sin( uHerbaTempo * 3.09375 + herbaFazo * 1.90625 );
-        transformed.x += herbaOndo * uHerbaSvajo * herbaMaske * herbaMaske;
-        transformed.z += herbaOndo * uHerbaSvajo * 0.6455 * herbaMaske * herbaMaske;
-        #ifdef USE_INSTANCING
-          vec3 pusxaSumo = vec3( 0.0 );
-          for ( int pi = 0; pi < ${HERBA_PUSANTOJ}; pi ++ ) {
-            vec4 pusxo = uHerbaPusantoj[ pi ];
-            if ( pusxo.w <= 0.0 ) continue;
-            vec2 pusxaFor = herbaPunkt.xz - pusxo.xy;
-            float pusxaDisto = length( pusxaFor );
-            if ( pusxaDisto >= pusxo.z ) continue;
-            vec2 pusxaDir = pusxaFor / max( pusxaDisto, 0.0001 );
-            float pusxaPezo = 1.0 - pusxaDisto / pusxo.z;
-            pusxaPezo *= pusxaPezo;
-            float pusxaOndo = 1.0 + 0.25 * sin( uHerbaTempo * 7.0 - pusxaDisto * 4.0 );
-            pusxaSumo += vec3( pusxaDir.x, -0.6, pusxaDir.y )
-              * ( pusxo.w * pusxaPezo * pusxaOndo );
-          }
-          mat3 pusxaM = mat3( instanceMatrix );
-          vec3 pusxaLoka = vec3( dot( pusxaM[ 0 ], pusxaSumo ), dot( pusxaM[ 1 ], pusxaSumo ),
-            dot( pusxaM[ 2 ], pusxaSumo ) )
-          / vec3( dot( pusxaM[ 0 ], pusxaM[ 0 ] ), dot( pusxaM[ 1 ], pusxaM[ 1 ] ),
-            dot( pusxaM[ 2 ], pusxaM[ 2 ] ) );
-          transformed += pusxaLoka * ( uHerbaPusxo * herbaMaske * herbaMaske );
-        #endif
+        // ⟨ ពេលរសាត់ដល់សូន្យ គ្រប់ការបន្ថែមខាងក្រោមត្រូវគុណនឹងសូន្យវិញ ។
+        //   ដុំស្មៅទាំងមូលមាន herbaFado តែមួយ ដូច្នេះសាខាមិនបែកខ្ញែក ។
+        //   រំលងខ្យល់ និង អ្នករុញ លើដុំដែលមិនបង្ហាញស្រាប់ ។ 📃 ⟩
+        if ( herbaFado > 0.0 ) {
+          #ifdef HERBA_DOKLIVO
+            transformed.y += dot( herbaDoklivo, transformed.xz );
+          #endif
+          float herbaMaske = clamp( transformed.y / uHerbaAlto, 0.0, 1.0 );
+          float herbaFazo = herbaPunkt.x * 0.53125 + herbaPunkt.z * 0.3125;
+          float herbaOndo = sin( uHerbaTempo * 1.703125 + herbaFazo )
+            + 0.5 * sin( uHerbaTempo * 3.09375 + herbaFazo * 1.90625 );
+          transformed.x += herbaOndo * uHerbaSvajo * herbaMaske * herbaMaske;
+          transformed.z += herbaOndo * uHerbaSvajo * 0.6455 * herbaMaske * herbaMaske;
+          #ifdef USE_INSTANCING
+            vec3 pusxaSumo = vec3( 0.0 );
+            for ( int pi = 0; pi < ${HERBA_PUSANTOJ}; pi ++ ) {
+              vec4 pusxo = uHerbaPusantoj[ pi ];
+              if ( pusxo.w <= 0.0 ) continue;
+              vec2 pusxaFor = herbaPunkt.xz - pusxo.xy;
+              float pusxaDisto = length( pusxaFor );
+              if ( pusxaDisto >= pusxo.z ) continue;
+              vec2 pusxaDir = pusxaFor / max( pusxaDisto, 0.0001 );
+              float pusxaPezo = 1.0 - pusxaDisto / pusxo.z;
+              pusxaPezo *= pusxaPezo;
+              float pusxaOndo = 1.0 + 0.25 * sin( uHerbaTempo * 7.0 - pusxaDisto * 4.0 );
+              pusxaSumo += vec3( pusxaDir.x, -0.6, pusxaDir.y )
+                * ( pusxo.w * pusxaPezo * pusxaOndo );
+            }
+            // ⟨ ពីមុន mat3 និង ចំណែកប្រាំមួយត្រូវគណនាលើគ្រប់វើតិច
+            //   ទោះបីគ្មានអ្នករុញណាមួយនៅជិតក៏ដោយ ។ ពេលផលបូកសូន្យ
+            //   លទ្ធផលចែកក៏សូន្យដែរ ដូច្នេះរំលងបាន ។ 📃 ⟩
+            if ( dot( pusxaSumo, pusxaSumo ) > 0.0 ) {
+              mat3 pusxaM = mat3( instanceMatrix );
+              vec3 pusxaLoka = vec3( dot( pusxaM[ 0 ], pusxaSumo ), dot( pusxaM[ 1 ], pusxaSumo ),
+                dot( pusxaM[ 2 ], pusxaSumo ) )
+              / vec3( dot( pusxaM[ 0 ], pusxaM[ 0 ] ), dot( pusxaM[ 1 ], pusxaM[ 1 ] ),
+                dot( pusxaM[ 2 ], pusxaM[ 2 ] ) );
+              transformed += pusxaLoka * ( uHerbaPusxo * herbaMaske * herbaMaske );
+            }
+          #endif
+        }
         transformed *= herbaFado;
       }`
     );
@@ -152,6 +168,10 @@ export function gxisdatigiHerbon(t: number, x: number, z: number,
         pusanto.radiuso ?? HERBA_PUSA_RADIO, pusanto.forto ?? 1);
     }
   }
+  // ⟨ ពេលវត្ថុធាតុបានធ្វើបច្ចុប្បន្នភាពហើយ កាមេរ៉ាមិនផ្លាស់ គ្រប់ក្រឡា
+  //   រក្សាភាពមើលឃើញ និង កម្រិតដដែល ។ លទ្ធផលដូចគ្នាបេះបិទ ។ 📃 ⟩
+  if ( x === lastaHerbaX && z === lastaHerbaZ ) return;
+  lastaHerbaX = x; lastaHerbaZ = z;
   for ( let i = 0; i < herbajTavoloj.length; i++ ) {
     const tavolo = herbajTavoloj[i];
     const dx = tavolo.cx - x, dz = tavolo.cz - z;

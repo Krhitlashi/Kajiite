@@ -28,7 +28,7 @@ import { kreiScenon } from "../bildo/scena.js";
 import type { ScenaSistemo } from "../bildo/scena/tipoj.js";
 import { registriKunigitajnMeshojn, registriVivantojn, spacigiInstancojn } from "../bildo/vidlimo.js";
 import { kreiStatistikon } from "../fasado/statistiko.js";
-import { kanakaQena } from "../../eskekoj/komunajxoj/koloroj.js";
+import { kanakaQena, instaliKanakaSpurilon } from "../../eskekoj/komunajxoj/koloroj.js";
 
 // ⟪ រូបរាងពិភពលោក 📃 ⟫
 const mapoDatumoj = aktivaMapo();
@@ -115,9 +115,6 @@ spacigiInstancojn(sceno);
 registriKunigitajnMeshojn(sceno);
 registriVivantojn({ npcoj, kanuoj, bestoj: bestoj.bestoj, petreloj: petreloj.petreloj });
 
-// ⟪ ការកម្តៅ GPU 📃 ⟫
-enkonduko.varmigi();
-
 // ⟪ រូបអ្នកលេង 📃 ⟫
 const ludantaFiguro: Figuro = konstruiFiguron(VESTOJ[0]);
 ludantaFiguro.group.visible = false;
@@ -127,6 +124,8 @@ sceno.add(ludantaFiguro.group);
 // ⟨ បន្ទាប់ពីគ្រប់វត្ថុចូលឆាក បង្គត់ពណ៌ពន្លឺ អ័ព្ទ និងវត្ថុធាតុទាំងអស់
 //   ទៅ #nmnmnm ។ ការលាយថ្ងៃ-ព្រលប់បន្តបង្គត់ក្នុង aplikiAtmosferon ។ 📃 ⟩
 kanakaQena(sceno);
+// ⟨ បន្ទាប់ពីនេះ វត្ថុដែលចូលឆាកត្រូវបង្គត់ពណ៌ភ្លាម មិនចាំបាច់ឆ្លងកាត់ឆាកវិញ ។ 📃 ⟩
+instaliKanakaSpurilon();
 
 // ⟪ បណ្តាញ ( លេងច្រើននាក់ ) 📃 ⟫
 const retilo = kreiRetilon(sceno, montriTost, traduki);
@@ -288,6 +287,11 @@ const minimapo = kreiMinimapon({
   movantoj: { npcoj, kanuoj, bestoj, petreloj },
   traduki, aplikiVacepu,
 });
+// ⟪ ការកម្តៅ GPU 📃 ⟫
+// ⟨ កម្តៅបន្ទាប់ពីឆាកចប់ 📃 ⟩ ៖ រូបអ្នកលេង , ពណ៌ KNAKEHE និងផែនទីតូចបន្ថែម
+// វត្ថុធាតុថ្មី ។ បើកម្តៅមុនពួកវា , ស៊ុមដំបូងដែលអ្នកលេងឃើញត្រូវចងក្រងកម្មវិធី
+// ស្រមោលដែលនៅខ្វះម្តងមួយៗ ហើយឆាកកក ។ ដូច្នេះកម្តៅនៅទីនេះ ខណៈវាំងនននៅបិទ ។ 📃 ⟩
+enkonduko.varmigi();
 enkonduko.fini();
 gxisdatigiRetikulon();
 

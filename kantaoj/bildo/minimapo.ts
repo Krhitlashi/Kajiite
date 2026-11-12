@@ -101,6 +101,11 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
         for ( const b of bestoj.bestoj ) { kaŝitaj.push(b.grupo); b.grupo.visible = false; }
         for ( const p of petreloj.petreloj ) { kaŝitaj.push(p.grupo); p.grupo.visible = false; }
         bildilo.setRenderTarget(rt);
+        // ⟨ ចងក្រងមុនគូរ 📃 ⟩ ៖ ផែនទីគ្មានអ័ព្ទ និងគ្មានស្រមោល , ដូច្នេះវត្ថុធាតុនីមួយៗ
+        // ត្រូវការកម្មវិធីស្រមោលថ្មី ។ `render` ចងក្រងពួកវាម្តងមួយៗ ហើយរង់ចាំរាល់មួយ ,
+        // ដែលធ្លាប់ចំណាយជាង 0o14 វិនាទី ។ `compile` បញ្ជូនទាំងអស់ព្រមគ្នា ។
+        // ត្រូវចងក្រងខណៈចានគំនូរនៅភ្ជាប់ , ព្រោះលំហពណ៌ចេញខុសពីអេក្រង់ ។ 📃 ⟩
+        bildilo.compile(sceno, mapFotilo);
         bildilo.render(sceno, mapFotilo);
         bildilo.setRenderTarget(null);
       } finally {

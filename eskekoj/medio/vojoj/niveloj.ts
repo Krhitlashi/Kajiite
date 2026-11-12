@@ -112,16 +112,21 @@ function glatigiValojn( valoroj: readonly number[], fenestro: number ): number[]
   const n = valoroj.length;
   if ( n < 0o3 || fenestro < 0o1 ) return [ ...valoroj ];
   const rezulto: number[] = [];
+  // ⟨ ប្រអប់តែមួយ 📏 ⟩ ៖ មុននេះបង្អួចនីមួយៗបង្កើតអារេថ្មី រួចតម្រៀបដោយ
+  // អនុគមន៍ប្រៀបធៀប ។ ការរលូនរត់លើគំរូរាប់ពាន់ក្នុងមួយផ្លូវ , ដូច្នេះសំរាម
+  // និងការហៅអនុគមន៍ប្រៀបធៀបកើនច្រើន ។ ប្រអប់លេខតែមួយតម្រៀបតាមលំដាប់លេខ
+  // ដោយមិនបង្កើតអ្វីថ្មីរាល់គំរូ ។ 📃 ⟩
+  const bufro = new Float64Array(0o2 * fenestro + 0o1);
   for ( let i = 0; i < n; i++ ) {
     // ⟨ បង្អួចស៊ីមេទ្រី 📏 ⟩ ៖ បង្អួចត្រូវខ្លីនៅជិតចុង ។ បើវាលាតដល់ចុង ,
     // វាមានតែខាងក្នុង , ដូច្នេះមេដ្យានទាញកម្ពស់ចុងទៅខាងក្នុងផ្លូវ ។
     // នៅដីជម្រាល ផ្លូវក៏ខ្ពស់ជាងចានភ្ជាប់មួយជំហាន , ហើយមាត់ក្លាយជាជញ្ជាំងឈរ ។ 📃 ⟩
     const duono = Math.min(fenestro, i, n - 0o1 - i);
-    const fenestroValoroj: number[] = [];
-    for ( let j = i - duono; j <= i + duono; j++ )
-      fenestroValoroj.push(valoroj[ j ]);
-    fenestroValoroj.sort(( p, q ) => p - q);
-    rezulto.push(fenestroValoroj[ fenestroValoroj.length >> 1 ]);
+    const kvanto = 0o2 * duono + 0o1;
+    for ( let j = 0; j < kvanto; j++ ) bufro[ j ] = valoroj[ i - duono + j ];
+    const vico = bufro.subarray(0, kvanto);
+    vico.sort();
+    rezulto.push(vico[ kvanto >> 1 ]);
   }
   return rezulto;
 }
@@ -279,13 +284,46 @@ function kunigaAltoCxe(k: NivelaKunigo, px: number, pz: number, d: number): numb
     @param akvaFn ( function , optional ) - កម្ពស់ទឹកបូកចន្លោះ , ឬ -Infinity
     @param kunigoj ( NivelaKunigo [ ] , optional ) - ចំណុចភ្ជាប់ដែលផ្លូវត្រូវឡើងដល់
 @returns profilo ( NivelaProfilo ) - កម្រិតគ្រប់គំរូ */
-export function kreiNivelanProfilon(
+// ⟪ ឃ្លាំងគំរូដី 📏 ⟫
+// ⟨ គំរូដីធ្វើម្តងក្នុងមួយផ្លូវ 📃 ⟩ ៖ ផ្លូវនីមួយៗត្រូវបានសួរកម្ពស់ពីរដង ៖
+// ម្តងដើម្បីរកកម្រិតមាត់ដៃនៅចំណុចភ្ជាប់ , ម្តងទៀតដើម្បីសាងសង់ធរណីមាត្រ ។
+// ការគំរូដីជាផ្នែកថ្លៃបំផុតនៃការសាងសង់ផ្លូវ , ហើយធាតុចូលទាំងពីរដងដូចគ្នា ។
+// ដូច្នេះលទ្ធផលគំរូត្រូវរក្សាទុកតាមអារេចំណុចផ្លូវ , ហើយប្រើឡើងវិញ ។ 📃 ⟩
+interface NivelaSpecimeno {
+  duono: number;
+  heightFn: ( x: number, z: number ) => number;
+  akvaFn?: ( x: number, z: number ) => number;
+  nombro: number;
+  disto: number;
+  longo: number;
+  centra: number[];
+  randoMaks: number[];
+  situoj: number[];
+  centraj: number[];
+  glataj: number[];
+  celojTaj: number[];
+  punktojCxe: { x: number; z: number }[];
+}
+
+const SPECIMENA_MEMORO =
+  new WeakMap<readonly ( readonly [ number, number ] )[], NivelaSpecimeno>();
+
+/*គំរូដីក្រោមផ្លូវ និងគែមរបស់វា ៖ កណ្តាល , មធ្យមគែម , គែមខ្ពស់បំផុត
+    @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
+    @param duono ( number ) - កន្លះទទឹងផ្ទៃផ្លូវ
+    @param heightFn ( function ) - កម្ពស់ដីដែលផ្លូវដើរ
+    @param akvaFn ( function , optional ) - កម្ពស់ទឹកបូកចន្លោះ , ឬ -Infinity
+@returns specimeno ( NivelaSpecimeno | null ) - null បើផ្លូវគ្មានប្រវែង */
+function specimeniTeron(
   punktoj: readonly ( readonly [ number, number ] )[],
   duono: number,
   heightFn: ( x: number, z: number ) => number,
-  akvaFn?: ( x: number, z: number ) => number,
-  kunigoj?: readonly NivelaKunigo[]
-): NivelaProfilo {
+  akvaFn?: ( x: number, z: number ) => number
+): NivelaSpecimeno | null {
+  const konservita = SPECIMENA_MEMORO.get(punktoj);
+  if ( konservita && konservita.duono === duono
+    && konservita.heightFn === heightFn && konservita.akvaFn === akvaFn )
+    return konservita;
   const sekcioj: Sekcio[] = [];
   let longo = 0;
   for ( let i = 0; i < punktoj.length - 1; i++ ) {
@@ -297,12 +335,20 @@ export function kreiNivelanProfilon(
     sekcioj.push({ ax, az, dx, dz, longo: longo2, starto: longo });
     longo += longo2;
   }
-  if ( sekcioj.length === 0 || longo < 0o1/0o100 )
-    return { altoj: [ 0 ], celoj: [ 0 ], situoj: [ 0 ], longo: 0,
-      centraj: [ 0 ], glataj: [ 0 ], altoCxe: () => 0 };
+  if ( sekcioj.length === 0 || longo < 0o1/0o100 ) return null;
   const pozicio = kreiPozician(sekcioj, longo);
   const nombro = Math.max(1, Math.ceil(longo / NIVELA_PASO));
   const disto = longo / nombro;
+  // ⟨ រង្វង់គំរូគណនាម្តង 📏 ⟩ ៖ មុំ និងកាំមិនប្រែប្រួលតាមគំរូ ។ បើគណនា sin/cos
+  // រាល់គំរូ , ការគំរូដីចំណាយពេលភាគច្រើនលើត្រីកោណមាត្រជំនួសឱ្យការអានដី ។ 📃 ⟩
+  const rondajOfsetoj: ( readonly [ number, number ] )[] = [];
+  for ( const radio of RONDAJ_RADIOJ ) {
+    const flanka = duono * radio;
+    for ( let i = 0; i < RONDAJ; i++ ) {
+      const angulo = i * Math.PI * 0o2 / RONDAJ;
+      rondajOfsetoj.push([ Math.cos(angulo) * flanka, Math.sin(angulo) * flanka ]);
+    }
+  }
   // ⟨ កណ្តាលបន្ទាត់ ៖ ជាន់ដីដែលផ្លូវត្រូវឈរ ។ គែមទាំងពីរជាប់ជម្រាល ,
   // ដូច្នេះគែមខ្ពស់ៗខ្លីៗមិនត្រូវលើកកម្រិតផ្លូវទាំងមូលទេ ។ 📃 ⟩
   const centra: number[] = [];
@@ -321,16 +367,11 @@ export function kreiNivelanProfilon(
       // តាមជម្រាលមានដីខ្ពស់នៅខាងម្ខាង , ដូច្នេះកម្ពស់ខ្ពស់នោះលើកផ្លូវទាំងមូល ,
       // ហើយផ្លូវអណ្តែតលើដីខាងទាបរាប់សិបឯកតា ដោយមិនចុះ ។ មធ្យមយកកម្រិត
       // កណ្តាលនៃដីក្រោមផ្លូវ ៖ ខាងខ្ពស់កាត់ចូល , ខាងទាបបំពេញ , ដូចផ្លូវពិត ។ 📃 ⟩
-      for ( const radio of RONDAJ_RADIOJ ) {
-        const flanka = duono * radio;
-        for ( let i = 0; i < RONDAJ; i++ ) {
-          const angulo = i * Math.PI * 0o2 / RONDAJ;
-          const tero = heightFn(p.x + Math.cos(angulo) * flanka,
-            p.z + Math.sin(angulo) * flanka);
-          randoSumo += tero;
-          randoNombro++;
-          if ( tero > randoPlej ) randoPlej = tero;
-        }
+      for ( const [ ofsX, ofsZ ] of rondajOfsetoj ) {
+        const tero = heightFn(p.x + ofsX, p.z + ofsZ);
+        randoSumo += tero;
+        randoNombro++;
+        if ( tero > randoPlej ) randoPlej = tero;
       }
     }
     rando = randoNombro > 0 ? randoSumo / randoNombro : mezo;
@@ -346,8 +387,8 @@ export function kreiNivelanProfilon(
   // ទទឹងឡើងជាលំដាប់ , ហើយជញ្ជាំងក្រោមវាខ្ពស់ ។ ពំនូកដែលលើសដោយជំហានពេញ
   // នៅតែលើកផ្លូវ , ដូច្នេះផ្លូវមិនកាត់ចូលថ្មទេ ។ 📃 ⟩
   const centraj = glatigiValojn(centra, fenestro);
-  const celojTaj: number[] = [];
   const glataj = glatigiValojn(randoj, fenestro);
+  const celojTaj: number[] = [];
   for ( let i = 0; i < glataj.length; i++ ) {
     let kerno = centraj[ i ];
     if ( centra[ i ] - centraj[ i ] > STUPA_RISERO ) kerno = centra[ i ];
@@ -359,13 +400,32 @@ export function kreiNivelanProfilon(
     }
     celojTaj.push(celo);
   }
+  const specimeno: NivelaSpecimeno = { duono, heightFn, akvaFn, nombro, disto, longo,
+    centra, randoMaks, situoj, centraj, glataj, celojTaj,
+    punktojCxe: situoj.map(s => pozicio(s)) };
+  SPECIMENA_MEMORO.set(punktoj, specimeno);
+  return specimeno;
+}
+
+export function kreiNivelanProfilon(
+  punktoj: readonly ( readonly [ number, number ] )[],
+  duono: number,
+  heightFn: ( x: number, z: number ) => number,
+  akvaFn?: ( x: number, z: number ) => number,
+  kunigoj?: readonly NivelaKunigo[]
+): NivelaProfilo {
+  const specimeno = specimeniTeron(punktoj, duono, heightFn, akvaFn);
+  if ( !specimeno )
+    return { altoj: [ 0 ], celoj: [ 0 ], situoj: [ 0 ], longo: 0,
+      centraj: [ 0 ], glataj: [ 0 ], altoCxe: () => 0 };
+  const { nombro, disto, longo, centra, randoMaks, situoj,
+    centraj, glataj, celojTaj, punktojCxe } = specimeno;
   // ⟨ គម្រោងត្រូវតែងតែនៅលើក្រឡា ៖ បើមិនដូច្នេះទេលេចចេញជំហានតូចៗដែលមើលឃើញ ។ 📃 ⟩
   // ⟨ រណ្តៅរាក់ត្រូវបំពេញមុនការកំណត់ជំហាន 📃 ⟩ ៖ បើមិនដូច្នេះ ផ្លូវចុះចូល
   // ជ្រុងហើយឡើងវិញ ។ ការបំពេញធ្វើលើគម្រោង , ដូច្នេះស្មានៅតែជាដីពិត ។ 📃 ⟩
   const celoj = celojDeProfilo(celojTaj, disto);
   // ⟨ ចានដែលផ្លូវនេះភ្ជាប់ 📏 ⟩ ៖ គណនាមុនបាត ព្រោះបាតត្រូវគោរព
   // កោណរបស់ចានដូចគ្នា ។ មើលការពន្យល់ពេញខាងក្រោម ។ 📃 ⟩
-  const punktojCxe: { x: number; z: number }[] = situoj.map(s => pozicio(s));
   const proksimaj: NivelaKunigo[] = kunigoj && kunigoj.length
     ? kunigoj.filter(k => punktojCxe.some(p =>
       Math.hypot(p.x - k.x, p.z - k.z) <= VOJA_TRUA_DUONO))

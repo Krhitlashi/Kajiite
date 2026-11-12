@@ -16,25 +16,86 @@ import { konstruiGlatanSegmenton, konstruiSegmentonEnBufrojn,
 import { vojSuprajxoj, type VojDifino, type VojOpcioj } from "./vojoj/tipoj.js";
 
 // ⟪ ចម្ងាយតាមបណ្តោយផ្លូវ 📏 ⟫
+// ⟨ តារាងចម្រៀកគណនាម្តង 📃 ⟩ ៖ មាត់ដៃនីមួយៗនៃចំណុចភ្ជាប់ត្រូវប្រៀបធៀបនឹង
+// ផ្លូវទាំងអស់ ។ បើគណនាប្រវែងចម្រៀកឡើងវិញរាល់ដង , Math.hypot រត់រាប់សែនដង
+// លើផ្លូវដែលនៅឆ្ងាយ ។ តារាងនេះរក្សាប្រវែង និងព្រំដែនរបស់ផ្លូវម្តង , ហើយ
+// ព្រំដែនអនុញ្ញាតឱ្យរំលងផ្លូវឆ្ងាយដោយមិនគណនាអ្វីទាំងអស់ ។ 📃 ⟩
+interface VojaProjekcio {
+  minX: number;
+  maxX: number;
+  minZ: number;
+  maxZ: number;
+  partoj: { ax: number; az: number; dx: number; dz: number;
+    longo: number; kvadrato: number; akum: number }[];
+}
+
+const PROJEKTA_MEMORO =
+  new WeakMap<readonly ( readonly [ number, number ] )[], VojaProjekcio>();
+
+function projekcioDe( punktoj: readonly ( readonly [ number, number ] )[] ): VojaProjekcio {
+  const konservita = PROJEKTA_MEMORO.get(punktoj);
+  if ( konservita ) return konservita;
+  const partoj: VojaProjekcio["partoj"] = [];
+  let akum = 0;
+  let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+  for ( let i = 0; i < punktoj.length - 0o1; i++ ) {
+    const [ ax, az ] = punktoj[ i ];
+    const [ bx, bz ] = punktoj[ i + 0o1 ];
+    const dx = bx - ax, dz = bz - az;
+    const longo = Math.hypot(dx, dz);
+    if ( ax < minX ) minX = ax;
+    if ( ax > maxX ) maxX = ax;
+    if ( bx < minX ) minX = bx;
+    if ( bx > maxX ) maxX = bx;
+    if ( az < minZ ) minZ = az;
+    if ( az > maxZ ) maxZ = az;
+    if ( bz < minZ ) minZ = bz;
+    if ( bz > maxZ ) maxZ = bz;
+    if ( longo < 0o10 ** -0o6 ) continue;
+    partoj.push({ ax, az, dx, dz, longo, kvadrato: longo * longo, akum });
+    akum += longo;
+  }
+  const projekcio: VojaProjekcio = { minX, maxX, minZ, maxZ, partoj };
+  PROJEKTA_MEMORO.set(punktoj, projekcio);
+  return projekcio;
+}
+
 /*រកចំណុចជិតបំផុតលើបន្ទាត់ផ្លូវ និងចម្ងាយរបស់វាពីដើម
     @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param x, z ( number ) - ចំណុចស្វែងរក
 @returns { s , distanco } ( object ) - ចម្ងាយតាមបណ្តោយ និងចម្ងាយកាត់ */
 function projekcioSurVojo( punktoj: readonly ( readonly [ number, number ] )[],
   x: number, z: number ): { s: number; distanco: number } {
-  let akum = 0, plej = Infinity, plejS = 0;
-  for ( let i = 0; i < punktoj.length - 0o1; i++ ) {
-    const [ ax, az ] = punktoj[ i ];
-    const [ bx, bz ] = punktoj[ i + 0o1 ];
-    const dx = bx - ax, dz = bz - az;
-    const longo = Math.hypot(dx, dz);
-    if ( longo < 0o10 ** -0o6 ) continue;
-    const t = Math.max(0, Math.min(1, ( ( x - ax ) * dx + ( z - az ) * dz ) / ( longo * longo ) ));
-    const distanco = Math.hypot(x - ( ax + dx * t ), z - ( az + dz * t ));
-    if ( distanco < plej ) { plej = distanco; plejS = akum + longo * t; }
-    akum += longo;
+  let plej = Infinity, plejS = 0;
+  for ( const parto of projekcioDe(punktoj).partoj ) {
+    const t = Math.max(0, Math.min(1,
+      ( ( x - parto.ax ) * parto.dx + ( z - parto.az ) * parto.dz ) / parto.kvadrato ));
+    const distanco = Math.hypot(x - ( parto.ax + parto.dx * t ),
+      z - ( parto.az + parto.dz * t ));
+    if ( distanco < plej ) { plej = distanco; plejS = parto.akum + parto.longo * t; }
   }
   return { s: plejS, distanco: plej };
+}
+
+/*ចម្ងាយកាត់ទៅផ្លូវ ឬ Infinity បើផ្លូវនៅឆ្ងាយជាង limo
+    @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
+    @param x, z ( number ) - ចំណុចស្វែងរក
+    @param limo ( number ) - ចម្ងាយអតិបរមាដែលអ្នកហៅយកចិត្តទុកដាក់
+@returns distanco ( number ) - ចម្ងាយកាត់ ឬ Infinity */
+function distancoAlVojo( punktoj: readonly ( readonly [ number, number ] )[],
+  x: number, z: number, limo: number ): number {
+  const projekcio = projekcioDe(punktoj);
+  if ( x < projekcio.minX - limo || x > projekcio.maxX + limo
+    || z < projekcio.minZ - limo || z > projekcio.maxZ + limo ) return Infinity;
+  let plej = Infinity;
+  for ( const parto of projekcio.partoj ) {
+    const t = Math.max(0, Math.min(1,
+      ( ( x - parto.ax ) * parto.dx + ( z - parto.az ) * parto.dz ) / parto.kvadrato ));
+    const distanco = Math.hypot(x - ( parto.ax + parto.dx * t ),
+      z - ( parto.az + parto.dz * t ));
+    if ( distanco < plej ) plej = distanco;
+  }
+  return plej;
 }
 
 // ⟪ ជម្រាលផ្លូវរលូនចូលចាន 📏 ⟫
@@ -156,8 +217,9 @@ export function konstruiVojojn(sceno: THREE.Scene,
       const pz = kz + b.uz * ( VOJA_TRUA_DUONO + 0o1/0o4 );
       let plej = Infinity, alto = NaN;
       for ( let i = 0; i < defs.length; i++ ) {
-        const { distanco } = projekcioSurVojo(defs[ i ].pts, px, pz);
-        if ( distanco > naturaj[ i ].duono + 0o1/0o100 ) continue;
+        const limo = naturaj[ i ].duono + 0o1/0o100;
+        const distanco = distancoAlVojo(defs[ i ].pts, px, pz, limo);
+        if ( distanco > limo ) continue;
         if ( distanco < plej ) { plej = distanco; alto = naturaj[ i ].altoCxe(px, pz); }
       }
       // ⟨ ជ្រុងបិទ 📏 ⟩ ៖ គ្មានផ្លូវមកដល់ដៃនេះ , អានវាលជុំវិញជំនួស ។

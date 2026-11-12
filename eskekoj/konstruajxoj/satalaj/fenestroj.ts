@@ -31,6 +31,53 @@ export function fenestraLargho(facaRadiuso: number, fenAlto: number, margxeno?: 
   return Math.min(facaRadiuso * 2 - 0o3/0o10, facaRadiuso * 4/3 + 0o1/0o4, fenAlto * 0o11);
 }
 
+// ⟨ ឃ្លាំងធរណីមាត្របង្អួច 📃 ⟩ ៖ អគារជាច្រើនមានស្រទាប់ដូចគ្នា , ដូច្នេះបង្អួចរបស់ពួកវា
+// មានរូបរាងដូចគ្នាទាំងស្រុង ។ ទីតាំង និងការបង្វិលខុសគ្នា , តែធរណីមាត្រអាស្រ័យតែលើ
+// ទំហំទាំងនេះ ។ ការកាត់រូបរាងផ្កាយដែលមានរន្ធចំណាយពេលច្រើន , ដូច្នេះធ្វើម្តង ។ 📃 ⟩
+const fenestrajKashmemoroj = new Map<string, { vitro: THREE.BufferGeometry; kadro: THREE.BufferGeometry }>();
+
+function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
+  tieroAlto: number, vertikala: boolean
+): { vitro: THREE.BufferGeometry; kadro: THREE.BufferGeometry } {
+  const klavo = `${ww}|${fenAlto}|${facaRadiuso}|${tieroAlto}|${vertikala ? 1 : 0}`;
+  const trovita = fenestrajKashmemoroj.get(klavo);
+  if ( trovita ) return trovita;
+  // ⟨ ការបង្វិលបញ្ឈរ 📃 ⟩
+  const formo = kreiPilolFenestranFormon(ww, fenAlto);
+  const vitro = new THREE.ShapeGeometry(formo, 0o100);
+  if ( vertikala ) {
+    vitro.rotateZ(Math.PI / 2);
+    vitro.translate(fenAlto / 2, ww / 2, 0);
+  }
+  // ⟨ ស៊ុមមាសជាចានរាប 📃 ⟩
+  // ⟨ ហេតុអ្វីផ្កាយហើម 📃 ⟩
+  const kadroLargho = 0o1/0o10, kadroDikeco = 0o1/0o20;
+  // ⟨ ចុងចំហៀងនៅលើមុខ 📃 ⟩
+  // ⟨ ទំហំទទេប៉ុន្មាន 📃 ⟩
+  const liberoLonga = vertikala ? ( tieroAlto - ww ) * 0o1/0o2 : facaRadiuso - ww * 0o1/0o2;
+  const liberoMallonga = vertikala ? facaRadiuso - fenAlto * 0o1/0o2
+    : ( tieroAlto - fenAlto ) * 0o1/0o2;
+  const pintoSupre = fenAlto * 0o1/0o2;
+  const pintoFlanko = Math.max(0, Math.min(pintoSupre, liberoLonga - kadroLargho - 0o1/0o100));
+  const pintoMallonga = Math.max(0, Math.min(pintoSupre,
+    liberoMallonga - kadroLargho - 0o1/0o100));
+  // ⟨ គ្មានជ្រុង 📃 ⟩
+  const stelo = rondigiKonturon(
+    kreiStelanFenestranFormon(ww, fenAlto, kadroLargho, pintoFlanko, pintoMallonga).getPoints(0o20),
+    kadroRondigo);
+  const truo = kreiPilolFenestranFormon(ww - 0o1/0o100, fenAlto - 0o1/0o100).getPoints(0o20);
+  stelo.holes.push(new THREE.Path(truo.reverse()));
+  const kadro = new THREE.ExtrudeGeometry(stelo,
+    { depth: kadroDikeco, bevelEnabled: false, curveSegments: 0o10 });
+  if ( vertikala ) {
+    kadro.rotateZ(Math.PI / 2);
+    kadro.translate(fenAlto / 2, ww / 2, 0);
+  }
+  const nova = { vitro, kadro };
+  fenestrajKashmemoroj.set(klavo, nova);
+  return nova;
+}
+
 // ⟨ ពេលវាមានប្រយោជន៍ 📃 ⟩
 export function aldoniPilolFenestron(
   group: THREE.Group, kadraMaterialo: THREE.MeshStandardMaterial,
@@ -51,40 +98,10 @@ export function aldoniPilolFenestron(
     fenestraSubFaco(facaRadiuso, klino, fenAltoTuta, tieroAlto, suba));
   monto.rotation.x = suba ? klinaAngulo : -klinaAngulo;
   faco.add(monto);
-  // ⟨ ការបង្វិលបញ្ឈរ 📃 ⟩
-  const formo = kreiPilolFenestranFormon(ww, fenAlto);
-  const fenGeometrio = new THREE.ShapeGeometry(formo, 0o100);
-  if ( vertikala ) {
-    fenGeometrio.rotateZ(Math.PI / 2);
-    fenGeometrio.translate(fenAlto / 2, ww / 2, 0);
-  }
-  const fen = new THREE.Mesh(fenGeometrio, fenestraMaterialo);
+  const { vitro, kadro } = fenestrajGeometrioj(ww, fenAlto, facaRadiuso, tieroAlto, vertikala);
+  const fen = new THREE.Mesh(vitro, fenestraMaterialo);
   monto.add(fen);
-  // ⟨ ស៊ុមមាសជាចានរាប 📃 ⟩
-  // ⟨ ហេតុអ្វីផ្កាយហើម 📃 ⟩
-  const kadroLargho = 0o1/0o10, kadroDikeco = 0o1/0o20;
-  // ⟨ ចុងចំហៀងនៅលើមុខ 📃 ⟩
-  // ⟨ ទំហំទទេប៉ុន្មាន 📃 ⟩
-  const liberoLonga = vertikala ? ( tieroAlto - ww ) * 0o1/0o2 : facaRadiuso - ww * 0o1/0o2;
-  const liberoMallonga = vertikala ? facaRadiuso - fenAlto * 0o1/0o2
-    : ( tieroAlto - fenAlto ) * 0o1/0o2;
-  const pintoSupre = fenAlto * 0o1/0o2;
-  const pintoFlanko = Math.max(0, Math.min(pintoSupre, liberoLonga - kadroLargho - 0o1/0o100));
-  const pintoMallonga = Math.max(0, Math.min(pintoSupre,
-    liberoMallonga - kadroLargho - 0o1/0o100));
-  // ⟨ គ្មានជ្រុង 📃 ⟩
-  const stelo = rondigiKonturon(
-    kreiStelanFenestranFormon(ww, fenAlto, kadroLargho, pintoFlanko, pintoMallonga).getPoints(0o20),
-    kadroRondigo);
-  const truo = kreiPilolFenestranFormon(ww - 0o1/0o100, fenAlto - 0o1/0o100).getPoints(0o20);
-  stelo.holes.push(new THREE.Path(truo.reverse()));
-  const kadroGeometrio = new THREE.ExtrudeGeometry(stelo,
-    { depth: kadroDikeco, bevelEnabled: false, curveSegments: 0o10 });
-  if ( vertikala ) {
-    kadroGeometrio.rotateZ(Math.PI / 2);
-    kadroGeometrio.translate(fenAlto / 2, ww / 2, 0);
-  }
-  monto.add(new THREE.Mesh(kadroGeometrio, kadraMaterialo));
+  monto.add(new THREE.Mesh(kadro, kadraMaterialo));
   group.add(faco);
   return fen;
 }

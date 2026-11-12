@@ -312,16 +312,32 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float wavePattern = 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 + vWorldPos.z * 0.15625 + uTime * 0.5);
         baseColor = mix(baseColor, uColorRipple, wavePattern * 0.078125);
 
-        vec3 viewDir = normalize(cameraPosition - vWorldPos);
-        vec3 normal = ondaNormalo(vWorldPos, uTime, length(cameraPosition - vWorldPos));
+        // ⟨ យកប្រវែងម្តង សម្រាប់ទាំង viewDir និង ការរសាត់រលក ។ ពីមុន
+        //   normalize និង length គណនាឫសដូចគ្នាពីរដងក្នុងមួយភីកសែល ។ 📃 ⟩
+        vec3 alVido = cameraPosition - vWorldPos;
+        float malproksimo = length(alVido);
+        vec3 viewDir = alVido / malproksimo;
+        vec3 normal = ondaNormalo(vWorldPos, uTime, malproksimo);
         vec3 halfVec = normalize(viewDir + uSunDir);
 
         float ndv = max(dot(viewDir, normal), 0.0);
-        float fresnel = pow(1.0 - ndv, 4.0);
+        float fresnelBazo = 1.0 - ndv;
+        fresnelBazo *= fresnelBazo;
+        float fresnel = fresnelBazo * fresnelBazo;
 
         // ⟨ ការរអិលព្រះអាទិត្យ 📃 ⟩
-        float spec = pow(max(dot(normal, halfVec), 0.0), 128.0) * 0.4375 * (0.5 + 0.5 * fresnel);
-        float specWide = pow(max(dot(normal, halfVec), 0.0), 16.0) * 0.0625;
+        // ⟨ pow ជា exp2 និង log2 លើគ្រប់ភីកសែលទឹក ។ ស្វ័យគុណផ្តល់
+        //   ស្វ័យគុណដូចគ្នាដោយគុណធម្មតាប៉ុន្មានដង ហើយចែករំលែក
+        //   តម្លៃមូលដ្ឋានរវាងស្ពិគុណធំ និង ស្ពិគុណធំទូលាយ ។ 📃 ⟩
+        float ndh = max(dot(normal, halfVec), 0.0);
+        float ndh2 = ndh * ndh;
+        float ndh4 = ndh2 * ndh2;
+        float ndh8 = ndh4 * ndh4;
+        float ndh16 = ndh8 * ndh8;
+        float ndh32 = ndh16 * ndh16;
+        float ndh64 = ndh32 * ndh32;
+        float spec = ( ndh64 * ndh64 ) * 0.4375 * (0.5 + 0.5 * fresnel);
+        float specWide = ndh16 * 0.0625;
 
         float shimmer = 0.5 + 0.5 * sin(vWorldPos.x * 0.3125 + vWorldPos.z * 0.25 + uTime * 2.0);
         shimmer *= 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 - vWorldPos.z * 0.3125 + uTime * 1.5);
@@ -330,7 +346,8 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         // ⟨ ការឆ្លុះមេឃតាមទិសឆ្លុះ 📃 ⟩
         // ⟨ ពណ៌ខៀវពីរ 📃 ⟩
         vec3 reflekto = reflect(-viewDir, normal);
-        float horizonta = pow(1.0 - clamp(abs(reflekto.y), 0.0, 1.0), 3.0);
+        float horizontaBazo = 1.0 - clamp(abs(reflekto.y), 0.0, 1.0);
+        float horizonta = horizontaBazo * horizontaBazo * horizontaBazo;
         vec3 fresnelColor = mix(uFresnelA, uFresnelB, horizonta);
 
         vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.5625) + specColor;

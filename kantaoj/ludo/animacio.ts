@@ -24,7 +24,7 @@ import type { PiedaMondo } from "./piedirado.js";
 import { kreiPromenanton } from "./promenado.js";
 import { kreiInternanton } from "./internado.js";
 import type { Kanuanto } from "./kanuado.js";
-import { kanakaQena } from "../../eskekoj/komunajxoj/koloroj.js";
+import { kanakaQena, kanakaQenaNovajn } from "../../eskekoj/komunajxoj/koloroj.js";
 
 export interface AnimaciajOpcioj {
   kanvaso: HTMLCanvasElement;
@@ -204,7 +204,8 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   });
 
   let kanakaKadroNombro = 0;
-  let kanakaPlenaNombro = 0;
+  // ⟨ រយៈពេលបោសពេញនៅដដែល តែហ្វ្រេមផ្សេងៗលែងឆ្លងកាត់ឆាក ។ 📃 ⟩
+  const KANAKA_PLENA_PERIODO = 0o14 * 0o20;
   function bildigi(): void {
     horlogxo.update();
     const krudaDt = horlogxo.getDelta();
@@ -243,29 +244,34 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
 
     // ⟨ ការប៉ះទង្គិចជាមួយរូបមានជីវិត 📃 ⟩
     if ( ludanto.rezimo === "promeno" && !ludanto.surKanoto ) {
+      // ⟨ ពិនិត្យចម្ងាយការេមុន ទើបយកឫស ។ រូបភាគច្រើននៅឆ្ងាយ ហើយ
+      //   Math.hypot លើគ្រប់រូបរាល់ហ្វ្រេមជាការខ្ជះខ្ជាយ ។ លទ្ធផលដដែល ។ 📃 ⟩
+      const NPC_MIN2 = ( 0o7/0o10 ) * ( 0o7/0o10 );
+      const BESTA_MIN2 = ( 0o5/0o10 ) * ( 0o5/0o10 );
+      const MINIMA2 = ( 0o1/0o20000 ) * ( 0o1/0o20000 );
       for ( const n of npcoj ) {
         if ( !n.group.visible ) continue;
-        const difX = ludanto.pozicio.x - n.group.position.x, difZ = ludanto.pozicio.z - n.group.position.z;
-        const d = Math.hypot(difX, difZ);
-        const min = 0o7/0o10;
-        if ( d < min && d > 0o1/0o20000 ) {
-          const pen = min - d;
-          ludanto.pozicio.x += ( difX / d ) * pen * 0o1/0o2;
-          ludanto.pozicio.z += ( difZ / d ) * pen * 0o1/0o2;
-          n.group.position.x -= ( difX / d ) * pen * 0o1/0o2;
-          n.group.position.z -= ( difZ / d ) * pen * 0o1/0o2;
-        }
+        const difX = ludanto.pozicio.x - n.group.position.x;
+        const difZ = ludanto.pozicio.z - n.group.position.z;
+        const d2 = difX * difX + difZ * difZ;
+        if ( d2 >= NPC_MIN2 || d2 <= MINIMA2 ) continue;
+        const d = Math.sqrt(d2);
+        const pen = ( 0o7/0o10 - d ) * 0o1/0o2 / d;
+        ludanto.pozicio.x += difX * pen;
+        ludanto.pozicio.z += difZ * pen;
+        n.group.position.x -= difX * pen;
+        n.group.position.z -= difZ * pen;
       }
       for ( const b of bestoj.bestoj ) {
         if ( !b.grupo.visible ) continue;
-        const difX = ludanto.pozicio.x - b.grupo.position.x, difZ = ludanto.pozicio.z - b.grupo.position.z;
-        const d = Math.hypot(difX, difZ);
-        const min = 0o5/0o10;
-        if ( d < min && d > 0o1/0o20000 ) {
-          const pen = min - d;
-          ludanto.pozicio.x += ( difX / d ) * pen;
-          ludanto.pozicio.z += ( difZ / d ) * pen;
-        }
+        const difX = ludanto.pozicio.x - b.grupo.position.x;
+        const difZ = ludanto.pozicio.z - b.grupo.position.z;
+        const d2 = difX * difX + difZ * difZ;
+        if ( d2 >= BESTA_MIN2 || d2 <= MINIMA2 ) continue;
+        const d = Math.sqrt(d2);
+        const pen = ( 0o5/0o10 - d ) / d;
+        ludanto.pozicio.x += difX * pen;
+        ludanto.pozicio.z += difZ * pen;
       }
     }
 
@@ -354,13 +360,10 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     if ( ludanto.rezimo !== "interno" ) gxisdatigiVidlimojn(fotilo.position.x, fotilo.position.z);
 
     // ⟪ ពណ៌ KNAKEHE ជានិច្ច 🎨 ⟫
-    // ⟨ វត្ថុខ្លះ ( ភ្លើងចង្កៀង , កញ្ចក់ស្តេឡា ) ចូលឆាកបន្ទាប់ពីសាងសង់ដំបូង ។
-    //   ការបោសរាល់ 0o14 ហ្វ្រេមបង្គត់តែវត្ថុធាតុថ្មី ។ រៀងរាល់ 0o20 បោស
-    //   មួយដងបង្គត់គ្រប់វត្ថុធាតុឡើងវិញ ដើម្បីចាប់ពណ៌ដែលប្រែក្រោយមក ។ 📃 ⟩
-    if ( ++kanakaKadroNombro % 0o14 === 0 ) {
-      kanakaPlenaNombro++;
-      kanakaQena(sceno, kanakaPlenaNombro % 0o20 === 0);
-    }
+    // ⟨ វត្ថុថ្មីបង្គត់ភ្លាម ពេលវាចូលឆាក ដោយមិនឆ្លងកាត់ឆាកទាំងមូល ។
+    //   បោសពេញនៅរយៈពេលដើមដដែល ដើម្បីចាប់ពណ៌ដែលប្រែក្រោយមក ។ 📃 ⟩
+    kanakaQenaNovajn(sceno);
+    if ( ++kanakaKadroNombro % KANAKA_PLENA_PERIODO === 0 ) kanakaQena(sceno, true);
 
     bildilo.render(sceno, fotilo);
     statistiko.gxisdatigu();

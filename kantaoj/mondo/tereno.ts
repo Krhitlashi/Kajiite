@@ -18,17 +18,33 @@ export const LAGO_X = -0o270;
 export const LAGO_RX = 0o60;
 export const LAGO_RZ = 0o110;
 export const RIVERA_ENFLUO_X = LAGO_X + LAGO_RX - 0o10;
-export function lagoZ(): number { return riveroZ(RIVERA_ENFLUO_X) + 0o30; }
-export function lagoNivelo(): number { return akvoY(RIVERA_ENFLUO_X); }
+// ⟨ តម្លៃថេរ 📏 ⟩ ៖ ទីតាំង និងកម្រិតបឹងមិនប្រែប្រួលទេ ។ មុននេះគណនាឡើងវិញ
+// រាល់ការហៅ , ហើយការអានកម្រិតទឹកមួយចំណាយពេលភាគច្រើនលើត្រីកោណមាត្រ
+// ដែលឲ្យលទ្ធផលដូចដើមជានិច្ច ។ វាលកម្ពស់ផ្លូវអានកម្រិតទឹករាប់លានដង ។ 📃 ⟩
+const LAGO_Z = riveroZ(RIVERA_ENFLUO_X) + 0o30;
+const LAGO_NIVELO = akvoY(RIVERA_ENFLUO_X);
+export function lagoZ(): number { return LAGO_Z; }
+export function lagoNivelo(): number { return LAGO_NIVELO; }
 export function lagoRadio(ang: number): number {
   const ondo = Math.sin(0o4 * ang + 0o23/0o20) + 0o1/0o2 * Math.sin(0o13 * ang + 0o7/0o10);
   const rx = LAGO_RX * ( 0o1 + 0o6/0o100 * ondo * 0o53/0o100 );
   const rz = LAGO_RZ * ( 0o1 + 0o6/0o100 * ondo * 0o53/0o100 );
   return 1 / Math.sqrt(( Math.cos(ang) / rx ) ** 2 + ( Math.sin(ang) / rz ) ** 2);
 }
+// ⟨ ព្រំដែនកាំ 📏 ⟩ ៖ កាំនៃពងក្រពើស្ថិតរវាងអ័ក្សខ្លីបំផុត និងអ័ក្សវែងបំផុតរបស់វា ។
+// រលកប្តូរអ័ក្សបានតែ ០.០៦ គុណ ០.៥៣ នៃទំហំរលក , ដូច្នេះព្រំដែនស្គាល់មុន ។
+// ចំណុចក្រៅព្រំដែនលើ ឬក្នុងព្រំដែនក្រោមមិនបាច់គណនាមុំ និងកាំពិតទេ ។
+// គម្លាតតូចមួយការពារការបង្គត់កន្ទុយលេខនៅព្រំដែន ។ 📃 ⟩
+const LAGO_R_MIN = LAGO_RX * ( 0o1 + 0o6/0o100 * ( -0o3/0o2 ) * 0o53/0o100 )
+  * ( 0o1 - 0o1/0o1000000 );
+const LAGO_R_MAKS = LAGO_RZ * ( 0o1 + 0o6/0o100 * ( 0o3/0o2 ) * 0o53/0o100 )
+  * ( 0o1 + 0o1/0o1000000 );
 export function cxuEnLago(x: number, z: number): boolean {
-  const ang = Math.atan2(z - lagoZ(), x - LAGO_X);
-  return Math.hypot(x - LAGO_X, z - lagoZ()) < lagoRadio(ang);
+  const dx = x - LAGO_X, dz = z - LAGO_Z;
+  const distanco = Math.hypot(dx, dz);
+  if ( distanco >= LAGO_R_MAKS ) return false;
+  if ( distanco < LAGO_R_MIN ) return true;
+  return distanco < lagoRadio(Math.atan2(dz, dx));
 }
 
 export const RIVERA_BUŜO_X: number = ( () => {
@@ -41,7 +57,11 @@ export const RIVERA_BUŜO_X: number = ( () => {
 
 export function riveraAkvaNivelo(x: number): number {
   const m = glataPaso(RIVERA_BUŜO_X - 0o110, RIVERA_BUŜO_X, x);
-  return akvoY(x) * ( 1 - m ) + lagoNivelo() * m;
+  // ⟨ ចុងទាំងពីរ 📏 ⟩ ៖ ទម្ងន់សូន្យ ឬមួយមានន័យថាផ្នែកម្ខាងទទេ ។ គុណនឹងសូន្យ
+  // មិនផ្លាស់លទ្ធផល , ដូច្នេះរំលងការគណនាផ្នែកនោះ ។ ចំណុចភាគច្រើននៅឆ្ងាយពីមាត់បឹង ។ 📃 ⟩
+  if ( m === 0 ) return akvoY(x);
+  if ( m === 1 ) return LAGO_NIVELO;
+  return akvoY(x) * ( 1 - m ) + LAGO_NIVELO * m;
 }
 
 export function akvaNivelo(x: number, z: number): number {
@@ -102,10 +122,12 @@ export const RIVERA_NORDORIENTA_BUŜO_Z: number = ( () => {
 } )();
 
 export function riveraNordOrientaNivelo(z: number): number {
-  const x = riveroNordOrientaX(z);
-  const tero = montetaBazo(x, z) + montaroNordOrienta(x, z);
   const m = 1 - glataPaso(RIVERA_NORDORIENTA_BUŜO_Z, RIVERA_NORDORIENTA_BUŜO_Z + 0o110, z);
-  return ( tero - 0o415/0o100 ) * ( 1 - m ) + lagoNivelo() * m;
+  if ( m === 1 ) return LAGO_NIVELO;
+  const x = riveroNordOrientaX(z);
+  const tero = montetaBazo(x, z) + montaroNordOrienta(x, z) - 0o415/0o100;
+  if ( m === 0 ) return tero;
+  return tero * ( 1 - m ) + LAGO_NIVELO * m;
 }
 
 export function cxuEnNordorientaRivero(x: number, z: number): boolean {

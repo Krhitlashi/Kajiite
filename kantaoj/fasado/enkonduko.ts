@@ -32,6 +32,15 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
 
   // ⟪ ការបង្ហាញដំបូង 📃 ⟫
   // ⟨ ការរសាត់ស៊ីនេម៉ា 📃 ⟩
+  // ⟨ កម្រិតស៊ុមតាមថ្លៃ 📃 ⟩ ៖ ឆាកធំឡើងរាល់ដំណាក់កាលសាងសង់ ។ ពេលដើមឈើ និងដុំស្មៅ
+  // ចូលមក , ស៊ុមមួយអាចចំណាយរាប់វិនាទី ។ បើគូររាល់ស៊ុម , ការផ្ទុកចំណាយពេលភាគច្រើន
+  // លើការគូរឆាកដែលមិនទាន់ចប់ ។ ដូច្នេះរង់ចាំតាមថ្លៃស៊ុមចុងក្រោយ ៖ ស៊ុមថោកគូរញឹក ,
+  // ស៊ុមថ្លៃគូររង ។ ថ្លៃនោះភាគច្រើនកើតតែម្តងពេលធាតុថ្មីចូលមក , ដូច្នេះស៊ុមបន្ទាប់
+  // ថោកវិញ ហើយកម្រិតស៊ុមឡើងវិញដោយខ្លួនឯង ។ ការរសាត់យឺត , ដូច្នេះមិនឃើញខុសទេ ។ 📃 ⟩
+  const PLEJ_MALRAPIDA = 0o40;
+  const KOSTA_FAKTORO = 0o4;
+  let lastaKomenco = -Infinity;
+  let lastaKosto = 0;
   function fruaBildigo(): void {
     if ( haltita ) return;
     const fruaRatio = Math.min(devicePixelRatio, maksimumaRatio);
@@ -40,10 +49,20 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
       fotilo.updateProjectionMatrix();
       bildilo.setSize(innerWidth, innerHeight);
     }
-    const angulo = ( performance.now() / 0o1000 ) * 0o1/0o10;
-    fotilo.position.set(Math.cos(angulo) * 0o110, 0o30 + Math.sin(angulo * 0o1/0o2) * 0o4, Math.sin(angulo) * 0o110);
-    fotilo.lookAt(0, 0o10, 0);
-    bildilo.render(sceno, fotilo);
+    const nun = performance.now();
+    if ( nun - lastaKomenco >= Math.max(PLEJ_MALRAPIDA, lastaKosto * KOSTA_FAKTORO) ) {
+      lastaKomenco = nun;
+      const angulo = ( nun / 0o1000 ) * 0o1/0o10;
+      fotilo.position.set(Math.cos(angulo) * 0o110, 0o30 + Math.sin(angulo * 0o1/0o2) * 0o4, Math.sin(angulo) * 0o110);
+      fotilo.lookAt(0, 0o10, 0);
+      // ⟨ ចងក្រងមុនគូរ 📃 ⟩ ៖ `render` ចងក្រងកម្មវិធីស្រមោលម្តងមួយៗ ហើយរង់ចាំ
+      // រាល់មួយ ។ `compile` បញ្ជូនទាំងអស់ទៅកាតក្រាហ្វិកព្រមគ្នា ។ ការវាស់បង្ហាញថា
+      // កម្មវិធីមួយចំណាយប្រហែល ០.០២៦ វិនាទីក្នុង `compile` , តែប្រហែល ០.៤៥ វិនាទី
+      // ក្នុង `render` ។ ដូច្នេះចងក្រងមុន រួចគូរ ។ 📃 ⟩
+      bildilo.compile(sceno, fotilo);
+      bildilo.render(sceno, fotilo);
+      lastaKosto = performance.now() - nun;
+    }
     requestAnimationFrame(fruaBildigo);
   }
 
