@@ -174,12 +174,35 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgo
             ${0o104 / 0o100} * pow( diffuseColor.rgb, vec3( ${0o5 / 0o14} ) ) - ${0o7 / 0o200},
             step( vec3( ${0o1 / 0o400} ), diffuseColor.rgb ) );
           vec3 konturaBazo = floor( konturaSrgb * konturaKrado + ${0o1 / 0o2} ) / konturaKrado;
-          float konturaHelo = max( gl_FragColor.r, max( gl_FragColor.g, gl_FragColor.b ) );
-          float konturaBazaHelo = max( konturaBazo.r, max( konturaBazo.g, konturaBazo.b ) );
-          float konturaNivelo = max( ${0o0}.0, ( konturaBazaHelo - konturaHelo ) / konturaPasxo );
-          float konturaRando = min( fwidth( konturaNivelo ), ${0o1 / 0o10} );
+          // ⟨ នរម៉ាល់រលូន ៖ ពន្លឺខ្ពស់និងស្រមោលងងឹតជាច្រើនថ្នាក់ 📃 ⟩
+          #ifdef FLAT_SHADED
+            vec3 konturaNormalo = normal;
+          #else
+            vec3 konturaNormalo = normalize( vNormal )
+              * ( float( gl_FrontFacing ) * ${0o2}.0 - ${0o1}.0 );
+          #endif
+          #if NUM_DIR_LIGHTS > 0
+            float konturaFronto = dot( konturaNormalo, directionalLights[ 0 ].direction );
+          #else
+            float konturaFronto = ${0o7 / 0o10};
+          #endif
+          float konturaSuna = min( ${0o2}.0, max( ${0o0}.0,
+            ( ${0o7 / 0o10} - konturaFronto ) * ${0o2}.0 ) );
+          // ⟨ របាំងគែម ៖ ពីមុន 1 - | dot( n , V ) | ប្រើទិសមើល ។ លើដីរាប
+          //   វាប្រែជារង្វង់ងងឹតដែលកាំវាតាមកម្ពស់កាមេរ៉ា ហើយរង្វង់រំកិល
+          //   ជិតអ្នកលេងពេលមើលត្រង់ ។ ឥឡូវម៉ាស់អានទិសនរម៉ាល់ធៀបនឹងឡើងលើ
+          //   នៃពិភពលោក ដែលមិនប្រែពេលកាមេរ៉ាងាក់ ។ ដីរាបគ្មានរង្វង់ ,
+          //   ផ្ទៃឈរនិងគែមកោងនៅរក្សាថ្នាក់ងងឹត ។ 📃 ⟩
+          vec3 konturaSupo = normalize( viewMatrix[ 1 ].xyz );
+          float konturaRandaMasko = ${0o1}.0 - smoothstep( ${0o6 / 0o10},
+            ${0o7 / 0o10}, abs( dot( konturaNormalo, konturaSupo ) ) );
+          float konturaRando = ( ${0o1}.0 - abs( dot( konturaNormalo, normalize( vViewPosition ) ) ) )
+            * konturaRandaMasko;
+          float konturaNivelo = konturaSuna + pow( konturaRando, ${0o2}.0 ) * ${0o3}.0;
+          // ⟨ ថ្នាក់ច្បាស់មិនព្រិល ៖ គែមរលូនតាម fwidth 📃 ⟩
+          float konturaLar = max( fwidth( konturaNivelo ), ${0o1 / 0o20000} );
           float konturaBando = floor( konturaNivelo ) + smoothstep(
-            ${0o1 / 0o2} - konturaRando, ${0o1 / 0o2} + max( konturaRando, ${0o1 / 0o20000} ), fract( konturaNivelo ) );
+            ${0o1 / 0o2} - konturaLar, ${0o1 / 0o2} + konturaLar, fract( konturaNivelo ) );
           gl_FragColor.rgb = max( vec3( ${0o0}.0 ), konturaBazo - vec3( konturaBando * konturaPasxo ) );
         }
       #endif

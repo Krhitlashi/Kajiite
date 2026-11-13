@@ -5,10 +5,10 @@ import { desegniKonturanFormon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.
 function kreiKlingon(): Path2D {
   const klingo = new Path2D();
   klingo.moveTo(0o40, 0o200);
-  klingo.bezierCurveTo(0o40, 0o110, 0o140, 0o50, 0o300, 0o50);
-  klingo.bezierCurveTo(0o440, 0o50, 0o640, 0o120, 0o740, 0o200);
-  klingo.bezierCurveTo(0o640, 0o260, 0o440, 0o330, 0o300, 0o330);
-  klingo.bezierCurveTo(0o140, 0o330, 0o40, 0o270, 0o40, 0o200);
+  klingo.bezierCurveTo(0o40, 0o110, 0o140, 0o60, 0o300, 0o60);
+  klingo.bezierCurveTo(0o440, 0o60, 0o640, 0o100, 0o740, 0o200);
+  klingo.bezierCurveTo(0o640, 0o300, 0o440, 0o340, 0o300, 0o340);
+  klingo.bezierCurveTo(0o140, 0o340, 0o40, 0o270, 0o40, 0o200);
   klingo.closePath();
   return klingo;
 }

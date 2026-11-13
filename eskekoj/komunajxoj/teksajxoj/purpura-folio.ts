@@ -4,11 +4,11 @@ import { desegniKonturanFormon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.
 
 function kreiKlingon(): Path2D {
   const klingo = new Path2D();
-  klingo.moveTo(0o40, 0o1000);
-  klingo.bezierCurveTo(0o40, 0o500, 0o140, 0o200, 0o400, 0o100);
-  klingo.bezierCurveTo(0o660, 0o200, 0o740, 0o500, 0o740, 0o1000);
+  klingo.moveTo(0o400, 0o60);
+  klingo.bezierCurveTo(0o600, 0o140, 0o740, 0o400, 0o740, 0o1000);
   klingo.bezierCurveTo(0o740, 0o1400, 0o600, 0o1700, 0o400, 0o1700);
   klingo.bezierCurveTo(0o200, 0o1700, 0o40, 0o1400, 0o40, 0o1000);
+  klingo.bezierCurveTo(0o40, 0o400, 0o200, 0o140, 0o400, 0o60);
   klingo.closePath();
   return klingo;
 }

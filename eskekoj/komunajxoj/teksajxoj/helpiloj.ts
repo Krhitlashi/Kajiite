@@ -164,7 +164,7 @@ function periodaBruo(semo: number, kradX: number, kradY: number): ( x: number, y
   };
 }
 
-const fluajKampoj = new Map<string, { niveloj: Uint8Array; distancoj: Float32Array }>();
+const fluajKampoj = new Map<string, { niveloj: Uint8Array; distancoj: Float32Array; frakcioj: Float32Array }>();
 
 export function desegniFluanTeksajxon(kunteksto: CanvasRenderingContext2D,
   paletro: readonly number[], semo: number, bandoj = 0o6, reliefo = false): void {
@@ -189,6 +189,7 @@ export function desegniFluanTeksajxon(kunteksto: CanvasRenderingContext2D,
       }
     }
     const niveloj = new Uint8Array(largho * alto);
+    const frakcioj = new Float32Array(largho * alto);
     const distancoj = new Float32Array(largho * alto);
     for ( let y = 0o0; y < alto; y++ ) {
       for ( let x = 0o0; x < largho; x++ ) {
@@ -203,10 +204,11 @@ export function desegniFluanTeksajxon(kunteksto: CanvasRenderingContext2D,
           - kampoj[Math.max(0o0, y - 0o1) * largho + x] ) / 0o2;
         const grad = Math.hypot(gx, gy) * bandoj;
         const frac = b - niv;
+        frakcioj[i] = frac;
         distancoj[i] = Math.min(frac, 0o1 - frac) / Math.max(grad, 0o1/0o10000);
       }
     }
-    kampo = { niveloj, distancoj };
+    kampo = { niveloj, distancoj, frakcioj };
     fluajKampoj.set(klavo, kampo);
   }
   const bildo = kunteksto.createImageData(largho, alto);
@@ -215,7 +217,8 @@ export function desegniFluanTeksajxon(kunteksto: CanvasRenderingContext2D,
   for ( let indekso = 0o0; indekso < kampo.niveloj.length; indekso++ ) {
     const niv = kampo.niveloj[indekso];
     const banda = reliefo ? 0x808080 + Math.min(niv, 0o7) * 0x101010 : ombraKoloro(paletro[0o0], niv);
-    const fono = reliefo ? 0x707070 : ombraKoloro(banda, 0o1);
+    // ⟨ ចន្លោះជាពណ៌កណ្ដាលរវាងពីរជាន់ មិនមែនខ្មៅជាងទាំងពីរ 📃 ⟩
+    const fono = banda + ( kampo.frakcioj[indekso] < 0o1/0o2 ? 0x080808 : -0x080808 );
     const kovro = Math.min(0o1, Math.max(0o0,
       ( kampo.distancoj[indekso] - interspaco + glata ) / ( 0o2 * glata )));
     for ( let kanalo = 0o0; kanalo < 0o3; kanalo++ ) {
