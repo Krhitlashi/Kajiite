@@ -18,7 +18,25 @@ export function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: num
   const rT = Math.max(0o1/0o20, Math.hypot(hwT, hdT));
   const g = new THREE.CylinderGeometry(rT, rB, alto, 4, 1);
   g.rotateY(Math.PI / 4);
-  return g;
+  // ⟨ uv ក្នុងមួយមុខ ៖ ជម្រាលរុំជាប់គែមមុខនីមួយៗ មិនមែនរុំជុំវិញ 📃 ⟩
+  const ng = g.toNonIndexed();
+  const poz = ng.getAttribute("position");
+  const uv = ng.getAttribute("uv");
+  const kvarono = Math.PI / 0o2;
+  const okono = Math.PI / 0o4;
+  for (let i = 0; i < poz.count; i += 3) {
+    let cx = 0; let cz = 0;
+    for (let j = 0; j < 3; j++) { cx += poz.getX(i + j); cz += poz.getZ(i + j); }
+    const fi = Math.floor((Math.atan2(cx, cz) + okono) / kvarono);
+    const centro = fi * kvarono;
+    for (let j = 0; j < 3; j++) {
+      const ang = Math.atan2(poz.getX(i + j), poz.getZ(i + j)) - centro;
+      const dAng = Math.atan2(Math.sin(ang), Math.cos(ang));
+      uv.setX(i + j, Math.min(1, Math.max(0, (dAng + okono) / kvarono)));
+    }
+  }
+  uv.needsUpdate = true;
+  return ng;
 }
 
 // ⟨ ជ្រុងណាត្រូវមូល 📃 ⟩

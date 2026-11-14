@@ -1,5 +1,6 @@
 // ≺⧼ ទឹក 🌊 ⧽≻
 import * as THREE from "three";
+import { KONTURA_GLSL } from "../komunajxoj/lumo.js";
 import { glataPaso } from "../../kantaoj/komunajxoj/interpolo.js";
 import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
 import { kanakaWeh2 } from "../komunajxoj/koloroj.js";
@@ -262,7 +263,7 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         #include <fog_vertex>
       }
     `,
-    fragmentShader: `${maskaFragmento}
+    fragmentShader: `${KONTURA_GLSL}${maskaFragmento}
       #include <fog_pars_fragment>
       uniform vec3 uColorDeep;
       uniform vec3 uColorShallow;
@@ -351,6 +352,8 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         vec3 fresnelColor = mix(uFresnelA, uFresnelB, horizonta);
 
         vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.5625) + specColor;
+        // ⟨ ពណ៌គោលរួមទាំងការឆ្លុះមេឃ និងពពុះ ៖ ថ្នាក់ដកពីពណ៌ខ្លួនឯង 📃 ⟩
+        vec3 bazaAkvo = finalColor;
 
         finalColor *= 1.0 + vHeight * 0.09375;
 
@@ -370,10 +373,14 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
           lapado *= 0.5 + 0.5 * sin( vWorldPos.x * 0.1875 - vWorldPos.z * 0.28125 - uTime * 0.5 );
           float sxauxmo = bordaF * ( 0.25 + 0.75 * lapado ) * 0.5;
           finalColor = mix( finalColor, uFoamColor, sxauxmo );
+          bazaAkvo = mix( bazaAkvo, uFoamColor, sxauxmo );
           alpha = max( alpha, sxauxmo * 0.875 );
         }
 
-        gl_FragColor = vec4(finalColor, alpha);
+        // ⟨ ថ្នាក់រួម ៖ រលក និងច្រាំងងងឹតជាជំហាន ពណ៌នៅក្នុងប៉ាឡែតខ្លួនឯង 📃 ⟩
+        vec3 kvantAkvo = konturaKrado( bazaAkvo )
+          - vec3( konturaBando( konturaNiveloDeLumo( bazaAkvo, finalColor ) ) * KONTURA_PASXO );
+        gl_FragColor = vec4( max( vec3( 0.0 ), kvantAkvo ), alpha );
         #include <fog_fragment>
       }
     `,

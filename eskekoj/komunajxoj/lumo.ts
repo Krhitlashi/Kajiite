@@ -11,6 +11,66 @@ export { aplikiLampaFalon, aplikiViglanLampanFalon, kreiLampaFaloUniformojn,
 export type { LampaLumo, LampaFaloAgordo, LampaFaloTokenoj, LampaFaloUniformoj }
   from "./lampaFalo.js";
 
+// ⟨ វាលកោងរួមតែមួយ ៖ សម្ភារៈជាប់ខ្លួន ទឹក និងមេឃហៅមុខងារដូចគ្នា គ្មានផ្លូវដាច់ដោយឡែក 📃 ⟩
+export const KONTURA_GLSL = `
+const float KONTURA_PASXO = ${0o20 / 0o377};
+const float KONTURA_KRADO = ${0o377 / 0o10};
+vec3 konturaSrgb( vec3 lin ) {
+  return mix( lin * ${0o147 / 0o10},
+    ${0o104 / 0o100} * pow( lin, vec3( ${0o5 / 0o14} ) ) - ${0o7 / 0o200},
+    step( vec3( ${0o1 / 0o400} ), lin ) );
+}
+vec3 konturaKrado( vec3 koloro ) {
+  return floor( koloro * KONTURA_KRADO + ${0o1 / 0o2} ) / KONTURA_KRADO;
+}
+vec3 konturaBazo( vec3 lin ) { return konturaKrado( konturaSrgb( lin ) ); }
+float konturaLumo( vec3 koloro ) {
+  return dot( koloro, vec3( ${0o155 / 0o1000}, ${0o556 / 0o1000}, ${0o45 / 0o1000} ) );
+}
+float konturaBando( float nivelo ) {
+  #if __VERSION__ >= 300
+    float lar = max( fwidth( nivelo ), ${0o1 / 0o20000} );
+  #else
+    float lar = ${0o1 / 0o40};
+  #endif
+  return floor( nivelo ) + smoothstep(
+    ${0o1 / 0o2} - lar, ${0o1 / 0o2} + lar, fract( nivelo ) );
+}
+float konturaNiveloDeLumo( vec3 baza, vec3 lumita ) {
+  return clamp( ( konturaLumo( konturaKrado( baza ) ) - konturaLumo( lumita ) )
+    / KONTURA_PASXO, ${0o0}.0, ${0o4}.0 );
+}
+float konturaKampo( vec3 normalo, vec3 vido, vec2 uv, vec3 supo, vec3 lumo ) {
+  float suna = min( ${0o2}.0, max( ${0o0}.0,
+    ( ${0o7 / 0o10} - dot( normalo, lumo ) ) * ${0o2}.0 ) );
+  vec2 kUv = clamp( uv, vec2( ${0o0}.0 ), vec2( ${0o1}.0 ) );
+  float uvValida = step( ${0o1 / 0o20000}, uv.x + uv.y );
+  float vertikala = mix( ${0o1 / 0o4},
+    min( kUv.y, ${0o1}.0 - kUv.y ) * ${0o1 / 0o2}, uvValida );
+  float cx = mix( ${0o0}.0,
+    ${0o1}.0 - min( kUv.x, ${0o1}.0 - kUv.x ) * ${0o2}.0, uvValida );
+  float cy = ${0o1}.0 - vertikala * ${0o4}.0;
+  float s4 = pow( pow( cx, ${0o4}.0 ) + pow( cy, ${0o4}.0 ), ${0o1 / 0o4} );
+  float s2 = length( vec2( cx, cy ) );
+  float s = mix( s2, s4, smoothstep( ${0o1 / 0o2}, ${0o1}.0, s4 ) );
+  float cxielo = smoothstep( -${0o1 / 0o4}, ${0o3 / 0o4},
+    dot( reflect( vido, normalo ), supo ) ) * ( ${0o1}.0 - s ) * ${0o1 / 0o2};
+  float eno = max( ${0o0}.0, ( s - ${0o3 / 0o4} ) * ${0o10}.0 );
+  eno *= ${0o1}.0 - smoothstep( ${0o1 / 0o2}, ${0o3 / 0o4}, abs( dot( normalo, supo ) ) );
+  float absVido = abs( dot( normalo, vido ) );
+  float vidoFalo = smoothstep( ${0o1 / 0o4}, ${0o3 / 0o4}, absVido );
+  float rando = pow( ${0o1}.0 - absVido, ${0o2}.0 ) * ${0o3}.0;
+  rando *= ${0o1}.0 - smoothstep( ${0o1 / 0o2}, ${0o3 / 0o4}, abs( dot( normalo, supo ) ) );
+  float oriento = suna * ${0o1 / 0o2};
+  return max( ${0o0}.0, eno * vidoFalo * oriento + rando
+    + ${0o1 / 0o2} * suna - cxielo * vidoFalo );
+}
+vec3 konturaKoloro( vec3 bazaLin, float nivelo ) {
+  return max( vec3( ${0o0}.0 ),
+    konturaBazo( bazaLin ) - vec3( konturaBando( nivelo ) * KONTURA_PASXO ) );
+}
+`;
+
 // ⟪ មេឃរួម 🌤 ⟫
 // ⟨ មេឃតែមួយសម្រាប់ឆាក និងកញ្ចក់ឆ្លុះ ។ លេខក្នុងខ្សែជាទសភាគ ព្រោះ GLSL
 // គ្មានលេខអដ្ឋមាន ។ គ្រប់ឆាកប្រើវត្ថុធាតុនេះ ដើម្បីកុំឱ្យមេឃខុសគ្នា ។ 📃 ⟩
@@ -30,11 +90,15 @@ varying vec3 vDir;
 void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
 
 export const CXIELA_FRAGMENTO = `precision highp float;
+${KONTURA_GLSL}
 varying vec3 vDir;
 uniform vec3 uTop,uMid,uBot,uSunCol,uSunDir;
 void main(){vec3 d=normalize(vDir);float h=clamp(d.y,-0.203125,1.0);
-vec3 koloro=mix(uBot,uMid,smoothstep(-0.015625,0.234375,h));koloro=mix(koloro,uTop,smoothstep(0.1875,0.71875,h));
-koloro+=uSunCol*pow(max(dot(d,normalize(uSunDir)),0.0),28.0);
+// ⟨ កម្ពស់ជាថ្នាក់ ៖ មេឃឆ្នូតរលូនតាម fwidth 📃 ⟩
+float hb=konturaBando(h*${0o20}.0)/${0o20}.0;
+vec3 koloro=mix(uBot,uMid,smoothstep(-0.015625,0.234375,hb));koloro=mix(koloro,uTop,smoothstep(0.1875,0.71875,hb));
+float suna=konturaBando(pow(max(dot(d,normalize(uSunDir)),0.0),28.0)*${0o4}.0)/${0o4}.0;
+koloro=konturaKrado(koloro+uSunCol*suna);
 gl_FragColor=vec4(koloro,1.0);}`;
 
 /* បង្កើតវត្ថុធាតុមេឃ ដែលប្រើទាំងលើឆាក និងក្នុងកញ្ចក់ឆ្លុះ ។
@@ -161,50 +225,41 @@ export interface BildilaAgordo {
     @param agordo ( BildilaAgordo = {} , optional ) - ជម្រើសនៃការកំណត់ ។
 @returns void */
 export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgordo = {} ): void {
-  if ( !THREE.ShaderChunk.colorspace_fragment.includes("konturaPasxo") ) {
-    // ⟨ ជម្រាលត្រូវដក 101010 ពីពណ៌គោល មិនមែនពីពណ៌ដែលពន្លឺលាយឡើយ
-    //   ដូច្នេះស្រមោលរក្សាពណ៌ដើមរបស់វត្ថុនីមួយៗ ។ លេខទសភាគព្រោះ GLSL គ្មានអដ្ឋមាន ។ 📃 ⟩
+  if ( !THREE.ShaderChunk.uv_pars_vertex.includes( "vKonturaUv" ) ) {
+    // ⟨ ផ្ញើ uv ទៅគ្រប់សម្ភារៈស្តង់ដារ ៖ ជម្រាលកោងតាមគែមលើ-ក្រោមគ្រប់វត្ថុ គ្មានផ្លូវដាច់ដោយឡែក 📃 ⟩
+    THREE.ShaderChunk.uv_pars_vertex += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\n";
+    THREE.ShaderChunk.uv_vertex += "\nvKonturaUv = uv;\n#ifdef USE_INSTANCING\nvKonturaPoz = ( modelViewMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz;\n#else\nvKonturaPoz = ( modelViewMatrix * vec4( position, 1.0 ) ).xyz;\n#endif\n";
+    THREE.ShaderChunk.uv_pars_fragment += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\n";
+  }
+  if ( !THREE.ShaderChunk.color_pars_fragment.includes( "konturaKampo" ) ) {
+    // ⟨ មុខងាររួមនៅកំពូល fragment ៖ សម្ភារៈជាប់ខ្លួនទាំងអស់ប្រើវាលតែមួយ 📃 ⟩
+    THREE.ShaderChunk.color_pars_fragment = KONTURA_GLSL + THREE.ShaderChunk.color_pars_fragment;
+  }
+  if ( !THREE.ShaderChunk.colorspace_fragment.includes( "konturaKampo" ) ) {
+    // ⟨ គ្រប់សម្ភារៈផ្ទៃ ៖ ស្តង់ដារ រូបវន្ត phong lambert basic រួមទាំងលោហៈ ថ្លា និង transmission 📃 ⟩
     THREE.ShaderChunk.colorspace_fragment += `
-      #if defined( STANDARD ) && defined( OPAQUE ) && !defined( USE_TRANSMISSION )
-        if ( metalnessFactor < 0.5 ) {
-          float konturaPasxo = ${0o20 / 0o377};
-          float konturaKrado = ${0o377 / 0o10};
-          // ⟨ GLSL គ្មានលេខអដ្ឋមាន ៖ ថេរជាប្រភាគអដ្ឋមានបង្គត់ 📃 ⟩
-          vec3 konturaSrgb = mix( diffuseColor.rgb * ${0o147 / 0o10},
-            ${0o104 / 0o100} * pow( diffuseColor.rgb, vec3( ${0o5 / 0o14} ) ) - ${0o7 / 0o200},
-            step( vec3( ${0o1 / 0o400} ), diffuseColor.rgb ) );
-          vec3 konturaBazo = floor( konturaSrgb * konturaKrado + ${0o1 / 0o2} ) / konturaKrado;
-          // ⟨ នរម៉ាល់រលូន ៖ ពន្លឺខ្ពស់និងស្រមោលងងឹតជាច្រើនថ្នាក់ 📃 ⟩
+      #if defined( STANDARD ) || defined( PHONG ) || defined( LAMBERT ) || defined( BASIC )
+        #if defined( BASIC )
+          vec3 konturaNormalo = normalize( cross( dFdx( vKonturaPoz ), dFdy( vKonturaPoz ) ) )
+            * ( float( gl_FrontFacing ) * ${0o2}.0 - ${0o1}.0 );
+          vec3 konturaVido = normalize( -vKonturaPoz );
+        #else
           #ifdef FLAT_SHADED
             vec3 konturaNormalo = normal;
           #else
             vec3 konturaNormalo = normalize( vNormal )
               * ( float( gl_FrontFacing ) * ${0o2}.0 - ${0o1}.0 );
           #endif
-          #if NUM_DIR_LIGHTS > 0
-            float konturaFronto = dot( konturaNormalo, directionalLights[ 0 ].direction );
-          #else
-            float konturaFronto = ${0o7 / 0o10};
-          #endif
-          float konturaSuna = min( ${0o2}.0, max( ${0o0}.0,
-            ( ${0o7 / 0o10} - konturaFronto ) * ${0o2}.0 ) );
-          // ⟨ របាំងគែម ៖ ពីមុន 1 - | dot( n , V ) | ប្រើទិសមើល ។ លើដីរាប
-          //   វាប្រែជារង្វង់ងងឹតដែលកាំវាតាមកម្ពស់កាមេរ៉ា ហើយរង្វង់រំកិល
-          //   ជិតអ្នកលេងពេលមើលត្រង់ ។ ឥឡូវម៉ាស់អានទិសនរម៉ាល់ធៀបនឹងឡើងលើ
-          //   នៃពិភពលោក ដែលមិនប្រែពេលកាមេរ៉ាងាក់ ។ ដីរាបគ្មានរង្វង់ ,
-          //   ផ្ទៃឈរនិងគែមកោងនៅរក្សាថ្នាក់ងងឹត ។ 📃 ⟩
-          vec3 konturaSupo = normalize( viewMatrix[ 1 ].xyz );
-          float konturaRandaMasko = ${0o1}.0 - smoothstep( ${0o6 / 0o10},
-            ${0o7 / 0o10}, abs( dot( konturaNormalo, konturaSupo ) ) );
-          float konturaRando = ( ${0o1}.0 - abs( dot( konturaNormalo, normalize( vViewPosition ) ) ) )
-            * konturaRandaMasko;
-          float konturaNivelo = konturaSuna + pow( konturaRando, ${0o2}.0 ) * ${0o3}.0;
-          // ⟨ ថ្នាក់ច្បាស់មិនព្រិល ៖ គែមរលូនតាម fwidth 📃 ⟩
-          float konturaLar = max( fwidth( konturaNivelo ), ${0o1 / 0o20000} );
-          float konturaBando = floor( konturaNivelo ) + smoothstep(
-            ${0o1 / 0o2} - konturaLar, ${0o1 / 0o2} + konturaLar, fract( konturaNivelo ) );
-          gl_FragColor.rgb = max( vec3( ${0o0}.0 ), konturaBazo - vec3( konturaBando * konturaPasxo ) );
-        }
+          vec3 konturaVido = normalize( vViewPosition );
+        #endif
+        vec3 konturaSupo = normalize( viewMatrix[ 1 ].xyz );
+        #if NUM_DIR_LIGHTS > 0
+          vec3 konturaLumo = directionalLights[ 0 ].direction;
+        #else
+          vec3 konturaLumo = normalize( vec3( ${0o1 / 0o2}, ${0o3 / 0o4}, ${0o1 / 0o4} ) );
+        #endif
+        gl_FragColor.rgb = konturaKoloro( diffuseColor.rgb,
+          konturaKampo( konturaNormalo, konturaVido, vKonturaUv, konturaSupo, konturaLumo ) );
       #endif
     `;
   }
