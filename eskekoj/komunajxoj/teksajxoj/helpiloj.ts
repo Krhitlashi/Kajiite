@@ -29,7 +29,7 @@ export function desegniKonturanTeksajxon(kunteksto: CanvasRenderingContext2D,
   const { width: largho, height: alto } = kunteksto.canvas;
   const klavo = [ largho, alto, semo, kolumnoj, vicoj ].join("/");
   const pasxo = Math.min(largho / kolumnoj, alto / vicoj);
-  let kampo = konturajKampoj.get(klavo);
+  let kampo = legiKampon(konturajKampoj, klavo);
   if ( !kampo ) {
     const hazardo = kf2Sakxo(semo);
     const centroj = Array.from({ length: kolumnoj * vicoj }, ( _, indekso ) => ({
@@ -110,7 +110,7 @@ export function desegniKonturanTeksajxon(kunteksto: CanvasRenderingContext2D,
       distancoj.set(glatigitaj);
     }
     kampo = { distancoj, cxeloj };
-    konturajKampoj.set(klavo, kampo);
+    skribiKampon(konturajKampoj, klavo, kampo);
   }
   const bildo = kunteksto.createImageData(largho, alto);
   const interspaco = pasxo / 0o40, bando = pasxo / 0o20;
@@ -170,7 +170,7 @@ export function desegniFluanTeksajxon(kunteksto: CanvasRenderingContext2D,
   paletro: readonly number[], semo: number, bandoj = 0o6, reliefo = false): void {
   const { width: largho, height: alto } = kunteksto.canvas;
   const klavo = [ largho, alto, semo, bandoj ].join("/");
-  let kampo = fluajKampoj.get(klavo);
+  let kampo = legiKampon(fluajKampoj, klavo);
   if ( !kampo ) {
     const warpX = periodaBruo(semo + 0o303, 0o4, 0o4);
     const warpY = periodaBruo(semo + 0o404, 0o4, 0o4);
@@ -209,7 +209,7 @@ export function desegniFluanTeksajxon(kunteksto: CanvasRenderingContext2D,
       }
     }
     kampo = { niveloj, distancoj, frakcioj };
-    fluajKampoj.set(klavo, kampo);
+    skribiKampon(fluajKampoj, klavo, kampo);
   }
   const bildo = kunteksto.createImageData(largho, alto);
   const interspaco = largho / 0o400;
@@ -309,6 +309,41 @@ export function desegniWrapajnNubojn(kunteksto: CanvasRenderingContext2D, s: num
 export function sxovu(fn: () => THREE.CanvasTexture): () => THREE.CanvasTexture {
   let kaŝita: THREE.CanvasTexture | null = null;
   return () => ( kaŝita ??= fn() );
+}
+
+// ⟪ វាលគណនាមានទំហំកំណត់ 📃 ⟫
+// ⟨ វាលចម្ងាយ និង វាលហូរធំជាងរូបភាពខ្លួនឯង តែប្រើតែពេលគូរលើកដំបូង ។
+//   តារាងទាំងពីររក្សាតែគ្រាប់ថ្មីៗបំផុត ដូច្នេះអង្គចងចាំមិនកើនគ្មានទីបញ្ចប់
+//   ពេលឧបករណ៍បង្កើតវាយនភាពថ្មីៗពេលលេង ។ 📃 ⟩
+const KAMPA_LIMO = 0o10;
+
+function legiKampon<K, V>(kampo: Map<K, V>, klavo: K): V | undefined {
+  const valoro = kampo.get(klavo);
+  if ( valoro === undefined ) return undefined;
+  kampo.delete(klavo);
+  kampo.set(klavo, valoro);
+  return valoro;
+}
+
+function skribiKampon<K, V>(kampo: Map<K, V>, klavo: K, valoro: V): void {
+  kampo.delete(klavo);
+  kampo.set(klavo, valoro);
+  while ( kampo.size > KAMPA_LIMO ) {
+    const plejMalnova = kampo.keys().next();
+    if ( plejMalnova.done ) break;
+    kampo.delete(plejMalnova.value);
+  }
+}
+
+// ⟨ ក្រណាត់ត្រូវរក្សាពិកសែលដើមជានិច្ច ។ ការដោះលែងវាធ្វើឱ្យវាយនភាពខ្មៅ ព្រោះ
+//   ច្លើនដែលបង្កើតក្រោយ , ការកំណត់ needsUpdate និង ការត្រឡប់មកវិញរបស់បរិបទ WebGL
+//   សុទ្ធតែផ្ទុកឡើងវិញពីក្រណាត់ដដែល ។ គូរឡើងវិញក៏មិនត្រឹមត្រូវដែរ ព្រោះអ្នកគូរ
+//   ជាច្រើនប្រើ Math.random ហើយវាលចម្ងាយត្រូវគណនាឡើងវិញយឺតណាស់ ។ 📃 ⟩
+export function liberigiTeksajxajnKampojn(): void {
+  // ⟨ ក្រោយគូរគ្រប់វាយនភាពរួច វាលទាំងនេះលែងប្រើ ។ នេះជាផ្នែកធំបំផុតនៃ
+  //   អង្គចងចាំ ហើយការដោះលែងវាមិនប៉ះរូបភាពលើក្រណាត់ទេ ។ 📃 ⟩
+  konturajKampoj.clear();
+  fluajKampoj.clear();
 }
 
 export function kreiKanvasanTeksajxon(w: number, h: number,

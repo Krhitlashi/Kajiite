@@ -198,7 +198,8 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     halti();
   });
   kanvaso.addEventListener("webglcontextrestored", () => {
-    // ⟨ ខ្លួនរបស់ three ដោះស្រាយការត្រឡប់មកវិញ ។ យើងគ្រាន់តែចាប់ផ្តើមរង្វិលជុំវិញ 📃 ⟩
+    // ⟨ ខ្លួនរបស់ three ផ្ទុកវាយនភាពឡើងវិញពីក្រណាត់ដើមដែលនៅរក្សាពិកសែល ។
+    //   មិនគូរឡើងវិញទេ ព្រោះអ្នកគូរខ្លះប្រើចៃដន្យ ហើយរូបភាពត្រូវនៅដដែល ។ 📃 ⟩
     horlogxo.reset();
     restarti();
   });

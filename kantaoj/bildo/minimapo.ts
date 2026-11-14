@@ -1,6 +1,7 @@
 // ≺⧼ ផែនទីតូច 🧭 ⧽≻
 import * as THREE from "three";
 import { HERBA_TAVOLA_NOMO } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/gazono.js";
+import { devigiHerbanGxisdatigon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/vento.js";
 import { tuŝaGesto } from "../fasado/gestoj.js";
 import { vidlimojnMalŝalti, vidlimojnŜalti } from "./vidlimo.js";
 
@@ -113,6 +114,9 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
         bildilo.shadowMap.enabled = ombroj;
         for ( const o of kaŝitaj ) o.visible = true;
         vidlimojnŜalti();
+        // ⟨ ការដុតផែនទីបិទភាពមើលឃើញរបស់ក្រឡាទាំងអស់ ហើយបើកវាឡើងវិញដោយ
+        //   មិនដឹងចម្ងាយ ។ បង្ខំឱ្យប្រព័ន្ធស្មៅគណនាឡើងវិញលើស៊ុមបន្ទាប់ ។ 📃 ⟩
+        devigiHerbanGxisdatigon();
       }
       if ( nebulo ) mapaNebulaKoloro = "#" + nebulo.color.getHexString();
       // ⟨ ប៊ូហ្វ័រមួយ 📃 ⟩

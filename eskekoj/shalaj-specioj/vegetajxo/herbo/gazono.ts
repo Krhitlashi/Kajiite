@@ -9,7 +9,7 @@ import { VOJA_EKSTERA_DUONO } from "../../../medio/vojoj/mezuroj.js";
 import { biomo, akvaNivelo, akvaNiveloProksima, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO,
   type Biomo } from "../../../../kantaoj/mondo/tereno.js";
 import { kreiHerbanKlingon } from "./klingoj.js";
-import { kreiHerbanMaterialon, herbajTavoloj } from "./vento.js";
+import { kreiHerbanMaterialon, herbajTavoloj, devigiHerbanGxisdatigon } from "./vento.js";
 
 // ⟪ ដុំស្មៅ 🌾 ⟫
 export interface HerbaTufo {
@@ -50,11 +50,12 @@ export const HERBA_VARIANTOJ = 0o3;
 export const HERBA_SEMO = 0o2715;
 export const HERBA_SEMA_PASO = 0o1436;
 const HERBA_TABELOJ_ANTUX_JESI = 0o4;
-// ⟨ ស្មៅឆ្ងាយ ៖ ស្មៅឆ្ងាយប្រើកំណាត់តែមួយ ។ ចំនួនស្លឹកដូចគ្នា , តែត្រីកោណពាក់កណ្តាល ។
-// ផ្លាស់កម្រិតតែខ្សែកោងស្លឹក , ដូច្នេះមិនឃើញលោត ។ កម្រិតនេះជាចម្ងាយពី
-// គែមក្រឡាស្មៅ ដល់ភ្នែកអ្នកលេង ។ 📃 ⟩
+// ⟨ ស្មៅឆ្ងាយ ៖ ស្លឹកនីមួយៗរក្សាតែជួរឈរខាងមុខ 0o3 ជំនួសឱ្យ 0o5 ។ ទីតាំង
+//   និង រូបរាងខាងមុខនៅដដែលដូចកម្រិតជិត , ដូច្នេះការប្តូរកម្រិតមិនឃើញលោត ។
+//   កម្រិតនេះជាចម្ងាយពីគែមក្រឡាស្មៅ ដល់ភ្នែកអ្នកលេង ។ 📃 ⟩
 const HERBA_LOD_DISTO = 0o12;
 const HERBA_LOD_SEGMENTOJ = 1;
+const HERBA_LOD_KOLONOJ = 0o3;
 // ⟨ កម្ពស់ស្លឹក ៖ ខ្យល់បក់តាមកម្ពស់ពិត , មិនបក់លើសស្លឹក ។ តម្លៃនេះត្រូវ
 //   នៅជិតកម្ពស់ស្លឹកខ្ពស់បំផុត ( longo ) ដើម្បីឱ្យចុងស្លឹកបក់ពេញ 📃 ⟩
 const HERBA_KLINGA_ALTO = 0o44/0o100;
@@ -243,11 +244,12 @@ export async function konstruiHerbanTavolon(
     variantoj.push(konstruiHerbanTavolanGeometrion(HERBA_LARGO, aksoj,
       HERBA_SEMO + v * HERBA_SEMA_PASO));
   }
-  // ⟨ កម្រិតឆ្ងាយ ៖ ដុំស្មៅតែមួយទំហំដូចគ្នា , ស្លឹកដូចគ្នា , តែកំណាត់តែមួយ ។ 📃 ⟩
+  // ⟨ កម្រិតឆ្ងាយ ៖ ទីតាំងស្លឹកដូចគ្នា , តែជួរឈរឆ្លងកាត់តិចជាង ។ 📃 ⟩
   const malproksimajVariantoj: THREE.BufferGeometry[] = [];
   for ( let v = 0; v < HERBA_VARIANTOJ; v++ ) {
     malproksimajVariantoj.push(konstruiHerbanTavolanGeometrion(HERBA_LARGO, aksoj,
-      HERBA_SEMO + v * HERBA_SEMA_PASO, HERBA_LOD_SEGMENTOJ));
+      HERBA_SEMO + v * HERBA_SEMA_PASO, HERBA_LOD_SEGMENTOJ, undefined,
+      HERBA_LOD_KOLONOJ));
   }
   const amplexo = SKULPTA_N * SKULPTA_PASO;
   const cxelojPoTabelo = Math.round(HERBA_TABELO / HERBA_CXELO);
@@ -313,6 +315,9 @@ export async function konstruiHerbanTavolon(
           radiuso: HERBA_TABELO * Math.SQRT1_2,
           malproksima: false,
         });
+        // ⟨ ក្រឡាថ្មីចូលឆាកជាបណ្តើរៗ ។ កាមេរ៉ាអាចឈរស្ងៀម , ដូច្នេះបង្ខំឱ្យ
+        //   ពិនិត្យភាពមើលឃើញ និង កម្រិតឡើងវិញលើស៊ុមបន្ទាប់ ។ 📃 ⟩
+        devigiHerbanGxisdatigon();
       }
       if ( ++konstruitaj % HERBA_TABELOJ_ANTUX_JESI === 0 ) await jesi();
     }
@@ -323,7 +328,8 @@ export async function konstruiHerbanTavolon(
 // ⟪ រូបរាងដុំស្មៅ 🌿 ⟫
 export function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HERBA_AKSOJ,
   semo = HERBA_SEMO, segmentoj = HERBA_SEGMENTOJ,
-  klingaKoloro?: ( celo: THREE.Color, seka: boolean, hazardo: () => number ) => void
+  klingaKoloro?: ( celo: THREE.Color, seka: boolean, hazardo: () => number ) => void,
+  kolonoj = 0o5
 ): THREE.BufferGeometry {
   const hazardo = kreiVegetajxanHazardon(semo);
   const klingoj: THREE.BufferGeometry[] = [];
@@ -354,7 +360,7 @@ export function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HE
       else if ( sekaKlingo ) sekaHerbaKlingaKoloro(seka, hazardo);
       else herbaKlingaKoloro(verda, hazardo);
       const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
-        sekaKlingo ? seka : verda, segmentoj, 0o4/0o10);
+        sekaKlingo ? seka : verda, segmentoj, 0o4/0o10, kolonoj);
       klingo.translate(rx, 0, rz);
       klingoj.push(klingo);
     }

@@ -40,10 +40,8 @@ export function konstruiArbaron(sceno: THREE.Scene,
   // ⟨ ការធ្វើម្តងទៀត 📃 ⟩
   const masaTeksajxo = kreiBetulanFoliaranTeksajxon().clone();
   masaTeksajxo.repeat.set(3, 3);
-  masaTeksajxo.needsUpdate = true;
   const masaBumpo = kreiBetulanFoliaranBumpanTeksajxon().clone();
   masaBumpo.repeat.set(3, 3);
-  masaBumpo.needsUpdate = true;
   // ⟨ vertexColors 📃 ⟩
   const kronaMaterialo = new THREE.MeshStandardMaterial({
     map: masaTeksajxo, color: 0xffffff, roughness: 0o35/0o40,

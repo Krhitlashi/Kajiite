@@ -36,7 +36,6 @@ export function kreiSxelanRinganMaterialon(ripetoY: number, taso: boolean,
     const klono = t.clone() as THREE.Texture;
     klono.repeat.set(1, ripetoY);
     klono.offset.set(0, offsetY);
-    klono.needsUpdate = true;
     return klono;
   };
   // ⟨ ចម្លាក់ធ្លាក់ចុះ 📃 ⟩

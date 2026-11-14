@@ -3,7 +3,10 @@ import * as THREE from "three";
 
 export function kreiHerbanKlingon(longo: number, largho: number, klino: number,
   arko: number, tordo: number, koloro: THREE.Color, segmentoj = 0o4,
-  pintPotenco = 0o7/0o10): THREE.BufferGeometry {
+  pintPotenco = 0o7/0o10, petitajKolonoj = 0o5): THREE.BufferGeometry {
+  // ⟨ កំណាត់ឆ្លងកាត់មាន 0o5 ចំណុច ។ ជួរឈរតិចជាង 0o3 បង្កើតត្រីកោណគ្មានផ្ទៃ ,
+  //   ហើយច្រើនជាង 0o5 អានចំណុចដែលគ្មាន ។ ទាំងពីរធ្វើឱ្យស្មៅបាត់ភ្លឹក ។ 📃 ⟩
+  const KOLONOJ = Math.max(0o3, Math.min(0o5, Math.round(petitajKolonoj)));
   const SEGMENTOJ = segmentoj;
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
@@ -22,25 +25,26 @@ export function kreiHerbanKlingon(longo: number, largho: number, klino: number,
     const sekcioj: [ number, number ][] = [
       [ -duonLarĝo, 0 ], [ 0, kresto ], [ duonLarĝo, 0 ],
       [ duonLarĝo, -dikeco ], [ -duonLarĝo, -dikeco ]];
-    for ( let kol = 0; kol < 0o5; kol++ ) {
+    for ( let kol = 0; kol < KOLONOJ; kol++ ) {
       const dx = sekcioj[kol][0], dz = sekcioj[kol][1];
       pozicioj.push(cx + dx * cos - dz * sin, longo * t, cz + dx * sin + dz * cos);
-      uvoj.push(kol / 0o4, t);
+      uvoj.push(kol / ( KOLONOJ - 0o1 ), t);
       koloroj.push(koloro.r, koloro.g, koloro.b);
     }
   }
   for ( let i = 0; i < SEGMENTOJ; i++ ) {
-    for ( let kol = 0; kol < 0o5; kol++ ) {
-      const sek = ( kol + 1 ) % 0o5;
-      const a = i * 0o5 + kol, b = i * 0o5 + sek;
-      const c = a + 0o5, d = b + 0o5;
+    for ( let kol = 0; kol < KOLONOJ; kol++ ) {
+      const sek = ( kol + 0o1 ) % KOLONOJ;
+      const a = i * KOLONOJ + kol, b = i * KOLONOJ + sek;
+      const c = a + KOLONOJ, d = b + KOLONOJ;
       indeksoj.push(a, c, b, b, c, d);
     }
   }
-  const fino = SEGMENTOJ * 0o5;
-  indeksoj.push(0, 2, 1, 0, 3, 2, 0, 4, 3);
-  indeksoj.push(fino, fino + 1, fino + 2, fino, fino + 2, fino + 3,
-    fino, fino + 3, fino + 4);
+  const fino = SEGMENTOJ * KOLONOJ;
+  for ( let k = 0o1; k < KOLONOJ - 0o1; k++ ) {
+    indeksoj.push(0, k + 0o1, k);
+    indeksoj.push(fino, fino + k, fino + k + 0o1);
+  }
   const geometrio = new THREE.BufferGeometry();
   geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
   geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));

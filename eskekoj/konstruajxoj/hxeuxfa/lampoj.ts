@@ -18,12 +18,14 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   const flamajLokoj: THREE.Vector3[] = [];
 
   const lampaMaterialo = dioritaMaterialo.clone();
+  // ⟨ repeat ប្តូរតែម៉ាត្រី UV លើ CPU ។ ការកំណត់ needsUpdate បង្ខំឱ្យផ្ទុក
+  //   ពិកសែលទាំងអស់ឡើង GPU ម្តងទៀតដោយឥតប្រយោជន៍ ។ 📃 ⟩
   const lampaMap = ( dioritaMaterialo.map ?? kreiDioritanTeksajxon() ).clone();
-  lampaMap.repeat.set(0o4, 0o4); lampaMap.needsUpdate = true;
+  lampaMap.repeat.set(0o4, 0o4);
   lampaMaterialo.map = lampaMap;
   if ( dioritaMaterialo.bumpMap ) {
     const lampaBump = dioritaMaterialo.bumpMap.clone();
-    lampaBump.repeat.set(0o4, 0o4); lampaBump.needsUpdate = true;
+    lampaBump.repeat.set(0o4, 0o4);
     lampaMaterialo.bumpMap = lampaBump;
   }
 

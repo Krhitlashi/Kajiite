@@ -29,6 +29,7 @@ import type { ScenaSistemo } from "../bildo/scena/tipoj.js";
 import { registriKunigitajnMeshojn, registriVivantojn, spacigiInstancojn } from "../bildo/vidlimo.js";
 import { kreiStatistikon } from "../fasado/statistiko.js";
 import { kanakaQena, instaliKanakaSpurilon } from "../../eskekoj/komunajxoj/koloroj.js";
+import { liberigiTeksajxajnKampojn } from "../../eskekoj/komunajxoj/teksajxoj/helpiloj.js";
 
 // ⟪ រូបរាងពិភពលោក 📃 ⟫
 const mapoDatumoj = aktivaMapo();
@@ -293,6 +294,9 @@ const minimapo = kreiMinimapon({
 // ស្រមោលដែលនៅខ្វះម្តងមួយៗ ហើយឆាកកក ។ ដូច្នេះកម្តៅនៅទីនេះ ខណៈវាំងនននៅបិទ ។ 📃 ⟩
 enkonduko.varmigi();
 enkonduko.fini();
+// ⟨ ដោះលែងវាលចម្ងាយ និង វាលហូរ ព្រោះវាលទាំងនោះធំហើយលែងប្រើ ។
+//   ក្រណាត់នៅរក្សាពិកសែលដើម ដូច្នេះការផ្ទុកឡើងវិញមិនធ្វើឱ្យខ្មៅទេ ។ 📃 ⟩
+liberigiTeksajxajnKampojn();
 gxisdatigiRetikulon();
 
 // ⟪ ចលនា 📃 ⟫

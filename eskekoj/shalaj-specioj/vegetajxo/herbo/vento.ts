@@ -37,8 +37,16 @@ export interface HerbaTavolo {
   malproksima: boolean;
 }
 export const herbajTavoloj: HerbaTavolo[] = [];
-// ⟨ កាមេរ៉ាឈរស្ងៀមពេលងាកមើល ។ បញ្ជីក្រឡាមិនប្រែ ដូច្នេះរំលងរង្វិលជុំធំ ។ 📃 ⟩
+// ⟨ អ៊ីស្តេរេស៊ីសនៃការឆ្លាស់កម្រិត ។ ចន្លោះនេះធំជាងចលនាកាមេរ៉ាមួយស៊ុម ។ 📃 ⟩
+const HERBA_LOD_HISTEREZO = 0o6;
+// ⟨ កាមេរ៉ាឈរស្ងៀមពេលងាកមើល ។ បញ្ជីក្រឡាមិនប្រែ ដូច្នេះរំលងរង្វិលជុំធំ ។
+//   តែក្រឡាថ្មី ឬ ភាពមើលឃើញដែលអ្នកផ្សេងប្តូរ ត្រូវពិនិត្យឡើងវិញភ្លាម ។ 📃 ⟩
 let lastaHerbaX = Infinity, lastaHerbaZ = Infinity;
+let herbaDevigita = true;
+
+export function devigiHerbanGxisdatigon(): void {
+  herbaDevigita = true;
+}
 
 // ⟪ ជម្រើសសម្ភារៈស្មៅ 📃 ⟫
 export interface HerbaMaterialajOpcioj {
@@ -169,8 +177,9 @@ export function gxisdatigiHerbon(t: number, x: number, z: number,
     }
   }
   // ⟨ ពេលវត្ថុធាតុបានធ្វើបច្ចុប្បន្នភាពហើយ កាមេរ៉ាមិនផ្លាស់ គ្រប់ក្រឡា
-  //   រក្សាភាពមើលឃើញ និង កម្រិតដដែល ។ លទ្ធផលដូចគ្នាបេះបិទ ។ 📃 ⟩
-  if ( x === lastaHerbaX && z === lastaHerbaZ ) return;
+  //   រក្សាភាពមើលឃើញ និង កម្រិតដដែល ។ ការបង្ខំគ្របដណ្តប់លើករណីនេះ ។ 📃 ⟩
+  if ( !herbaDevigita && x === lastaHerbaX && z === lastaHerbaZ ) return;
+  herbaDevigita = false;
   lastaHerbaX = x; lastaHerbaZ = z;
   for ( let i = 0; i < herbajTavoloj.length; i++ ) {
     const tavolo = herbajTavoloj[i];
@@ -179,8 +188,11 @@ export function gxisdatigiHerbon(t: number, x: number, z: number,
     const limo = tavolo.limo;
     tavolo.mesho.visible = disto2 <= limo * limo;
     if ( !tavolo.mesho.visible ) continue;
-    // ⟨ ការឆ្លាស់កម្រិត ៖ អ៊ីស្តេរេសីសតូច ដើម្បីកុំឲ្យឆ្លាស់រាល់ស៊ុម ។ 📃 ⟩
-    const lod = tavolo.lodDistanco + tavolo.radiuso + ( tavolo.malproksima ? 0o6 : -0o6 );
+    // ⟨ ការឆ្លាស់កម្រិត ៖ ពេលនៅជិត ត្រូវឆ្លងចម្ងាយធំជាងមុនទើបទៅឆ្ងាយ ។
+    //   ពេលនៅឆ្ងាយ ត្រូវចូលជិតជាងមុនទើបត្រឡប់មកជិត ។ បើសញ្ញាប្រែ , គ្រប់ក្រឡា
+    //   ក្នុងចន្លោះអ៊ីស្តេរេស៊ីសប្តូរធរណីមាត្ររាល់ស៊ុម ហើយស្មៅភ្លឹក ។ 📃 ⟩
+    const lod = tavolo.lodDistanco + tavolo.radiuso
+      + ( tavolo.malproksima ? -HERBA_LOD_HISTEREZO : HERBA_LOD_HISTEREZO );
     const malproksima = disto2 > lod * lod;
     if ( malproksima !== tavolo.malproksima ) {
       tavolo.malproksima = malproksima;
