@@ -340,7 +340,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     mapaPanX = 0; mapaPanZ = 0;
     postuliPlenanMapon();
     document.getElementById("supermetaTitolo")!.textContent = traduki("titoloMapo");
-    document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloMapo");
+    document.getElementById("supermetaSupra")!.textContent = "";
     supermetaEnhavo.innerHTML = "";
     supermeta.appendChild(plenaKanvaso);
     supermeta.classList.add("mapo");

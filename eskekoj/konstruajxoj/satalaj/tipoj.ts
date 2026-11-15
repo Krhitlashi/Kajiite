@@ -3,12 +3,12 @@ import * as THREE from "three";
 
 export interface KonstruTipo { labelKey: string; wall: number; frame: number; chip: string; flavorKey: string; }
 export const TIPARO: Record<string, KonstruTipo> = {
-  domo:   { labelKey: "tipDomo",      wall: 0x184838, frame: 0xd8b068, chip: "#78a88880", flavorKey: "flvDomo" },
-  mangxejo:  { labelKey: "tipMangxejo",  wall: 0x584028, frame: 0xd8c898, chip: "#c8a86880", flavorKey: "flvMangxejo" },
-  kasafeo: { labelKey: "tipKasafeo",    wall: 0xd8c898, frame: 0xd8b068, chip: "#e0d0a880", flavorKey: "flvKasafeo" },
-  stacioxipo: { labelKey: "tipStacioxipo", wall: 0xc8c8c8, frame: 0xd8b068, chip: "#c8c8c880", flavorKey: "flvStacioxipo" },
-  turo:   { labelKey: "tipTuro",        wall: 0x205040, frame: 0xd8b068, chip: "#88b8a080", flavorKey: "flvTuro" },
-  sanktejo: { labelKey: "tipSanktejo",  wall: 0x184038, frame: 0xe0c078, chip: "#e0c07880", flavorKey: "flvSanktejo" },
+  domo:   { labelKey: "konstruTipoDomo",      wall: 0x184838, frame: 0xd8b068, chip: "#78a88880", flavorKey: "konstruPriskriboDomo" },
+  mangxejo:  { labelKey: "konstruTipoMangxejo",  wall: 0x584028, frame: 0xd8c898, chip: "#c8a86880", flavorKey: "konstruPriskriboMangxejo" },
+  kasafeo: { labelKey: "konstruTipoKasafeo",    wall: 0xd8c898, frame: 0xd8b068, chip: "#e0d0a880", flavorKey: "konstruPriskriboKasafeo" },
+  stacioxipo: { labelKey: "konstruTipoStacioxipo", wall: 0xc8c8c8, frame: 0xd8b068, chip: "#c8c8c880", flavorKey: "konstruPriskriboStacioxipo" },
+  turo:   { labelKey: "konstruTipoTuro",        wall: 0x205040, frame: 0xd8b068, chip: "#88b8a080", flavorKey: "konstruPriskriboTuro" },
+  sanktejo: { labelKey: "konstruTipoSanktejo",  wall: 0x184038, frame: 0xe0c078, chip: "#e0c07880", flavorKey: "konstruPriskriboSanktejo" },
 };
 
 /* ចំនួនស្រទាប់លំនាំដើមរបស់ប្រភេទសំណង់មួយ ដូច្នេះកន្លែងទាំងអស់ប្រើ

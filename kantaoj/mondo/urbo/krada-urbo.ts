@@ -55,14 +55,14 @@ export function konstruiKradanUrbon(
       : type === "sanktejo" ? 0o30/0o10 : type === "turo" ? 0o30/0o10 : type === "kasafeo" ? 0o155/0o40 : 0o315/0o100;
     const sube = estasStacio ? undefined : niveloj;
     const tieroAltoSub = 0o123/0o40;
-    konstruSpecoj.push({ x, z, type: specTipo, name: "paq" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot, diamond: true, fixed: fiksita });
+    konstruSpecoj.push({ x, z, type: specTipo, name: "konstruNomo" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot, diamond: true, fixed: fiksita });
     bldgIdx++;
   };
   for ( const [ col, row, type ] of ĉeloj ) {
     const cx = ofsX + col * PASXO, cz = ofsZ + row * PASXO;
     if ( col === 0 && row === 0 ) {
       if ( arangxo.blokaGrando === "kvar" ) {
-        konstruSpecoj.push({ x: ofsX, z: ofsZ, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true, fixed: "kvar" });
+        konstruSpecoj.push({ x: ofsX, z: ofsZ, type: "stacioxipo", name: "konstruNomo" + bldgIdx, niveloj: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true, fixed: "kvar" });
         bldgIdx++;
       } else {
         kreiSpecon(ofsX, ofsZ, type, 0);
@@ -89,7 +89,7 @@ export function konstruiKradanUrbon(
   for ( const b of aldonajBlokoj ) {
     const fiksita = b.konektita ? "aldona-konektita" : "aldona";
     if ( b.stacia ) {
-      konstruSpecoj.push({ x: ofsX + b.x, z: ofsZ + b.z, type: "stacioxipo", name: "paq" + bldgIdx, niveloj: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: b.rot ?? 0, diamond: true, fixed: fiksita });
+      konstruSpecoj.push({ x: ofsX + b.x, z: ofsZ + b.z, type: "stacioxipo", name: "konstruNomo" + bldgIdx, niveloj: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: b.rot ?? 0, diamond: true, fixed: fiksita });
       bldgIdx++;
     } else {
       kreiSpecon(ofsX + b.x, ofsZ + b.z, b.tipo, b.rot ?? 0, fiksita);

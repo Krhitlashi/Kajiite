@@ -180,7 +180,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
   function gxisdatigiRezimanButonon() {
     butRezimo.textContent = traduki(ludanto.rezimo === "promeno" ? "butonoPromeni" : "butonoOrbiti");
     butRezimo.setAttribute("aria-pressed", String(ludanto.rezimo === "promeno"));
-    butRezimo.setAttribute("aria-label", traduki(ludanto.rezimo === "promeno" ? "ariaButPromeni" : "ariaButOrbiti"));
+    butRezimo.setAttribute("aria-label", traduki(ludanto.rezimo === "promeno" ? "butonoPromeni" : "butonoOrbiti"));
     aplikiVacepu();
   }
   window.addEventListener("lingvosxangxo", gxisdatigiRezimanButonon);

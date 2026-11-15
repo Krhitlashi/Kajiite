@@ -69,7 +69,7 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
   // ⟪ វឌ្ឍនភាពនៃការសាងសង់ 📃 ⟫
   function gxisdatigiProgreson( procento: number ): void {
     stango.style.setProperty("--តេមិនី", `${Math.round(procento * 0o144) / 0o144}`);
-    const novaTitolo = procento > 0o33/0o40 ? traduki("sxargxaNebulo") : procento > 0o23/0o40 ? traduki("sxargxaTraboj") : procento > 0o23/0o100 ? traduki("sxargxaSatalo") : null;
+    const novaTitolo = procento > 0o33/0o40 ? traduki("sxargxoNebulo") : procento > 0o23/0o100 ? traduki("sxargxoSatalo") : null;
     if ( novaTitolo !== null && sxargxaTitolo.textContent !== novaTitolo ) {
       sxargxaTitolo.textContent = novaTitolo;
       aplikiVacepu();

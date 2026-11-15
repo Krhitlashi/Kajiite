@@ -37,7 +37,7 @@ const mapoFormo = mapoDatumoj.formo;
 const mapoGrandeco = mapoDatumoj.grandeco;
 import type { UrbaSistemo } from "../mondo/urbo/tipoj.js";
 import { konstruiUrbon } from "../mondo/urbo.js";
-import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
+import { traduki, kunKlavo, konstruaĵaNomo } from "../lingvo/tradukoj.js";
 import { cxuAŭdio, sfx } from "../../eskekoj/sonoj/sonoro.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
@@ -254,18 +254,26 @@ const vestejo = kreiVestejon({ ludantaFiguro, montriTost });
 document.getElementById("butVesti")!.addEventListener("click", () => vestejo.malfermiEnMondo());
 
 // ⟪ ជំនួយ 📃 ⟫
+// ⟨ ជួរនីមួយៗ ៖ សោអត្ថបទ , សោគន្លឹះ ។ សញ្ញា • មកពីកូដ , មិនមែនពីវចនានុក្រមទេ ។ 📃 ⟩
+const HELPAJ_VICOJ: [ string, string ][] = [
+  [ "regiloOrbito", "klavoTreni" ],
+  [ "regiloPromeno", "klavoPromeno" ],
+  [ "regiloMovado", "klavoKuro" ],
+  [ "regiloSalto", "klavoSalto" ],
+  [ "regiloEniri", "klavoEniri" ],
+  [ "regiloMapo", "klavoMapo" ],
+  [ "regiloEliri", "klavoEliri" ],
+  [ "regiloSpajroj", "klavoKlako" ],
+  [ "agoGusti", "klavoEniri" ],
+  [ "agoKuxi", "klavoEniri" ],
+  [ "agoLevi", "klavoEniri" ],
+];
 document.getElementById("butHelpi")!.addEventListener("click", () => {
   document.getElementById("supermetaTitolo")!.textContent = traduki("titoloVojoj");
   document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloHelpo");
-  supermetaEnhavo.innerHTML = `<div class="statistikoj">
-    <b>Orbit</b> · ${traduki("regiloOrbito")}<br>
-    <b>Walk</b> · ${traduki("regiloPromeno")}<br>
-    <b>WASD</b> · ${traduki("regiloMovado")}<br>
-    <b>E</b> · ${traduki("regiloEniri")}<br>
-    <b>M</b> · ${traduki("regiloMapo")}<br>
-    <b>Escape</b> · ${traduki("regiloEliri")}<br>
-    <b>Click spires</b> · ${traduki("regiloSpajroj")}<br>
-  </div>`;
+  supermetaEnhavo.innerHTML = `<div class="statistikoj">` +
+    HELPAJ_VICOJ.map(([ teksto, klavo ]) => kunKlavo(teksto, klavo, true)).join("<br>") +
+    `</div>`;
   supermeta.classList.add("montri");
   aplikiVacepu();
 });

@@ -113,7 +113,7 @@ function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void
   });
 
   korpo.haraListo.innerHTML = "";
-  korpo.haraListo.appendChild(kreiSekcianTitolon("sekcioHararo"));
+  korpo.haraListo.appendChild(kreiSekcianTitolon("haroSekcio"));
   const stilaKartaro = document.createElement("div");
   stilaKartaro.className = "vestaVico";
   HARSTILOJ.forEach(( stilo, harIdx ) => {
@@ -124,7 +124,7 @@ function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void
   });
   korpo.haraListo.appendChild(stilaKartaro);
 
-  korpo.haraListo.appendChild(kreiSekcianTitolon("sekcioHarKoloroj"));
+  korpo.haraListo.appendChild(kreiSekcianTitolon("harKoloroSekcio"));
   const koloraKartaro = document.createElement("div");
   koloraKartaro.className = "vestaVico";
   HARKOLOROJ.forEach(( harKoloro, kolorIdx ) => {

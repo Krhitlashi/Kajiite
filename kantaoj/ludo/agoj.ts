@@ -2,7 +2,7 @@
 import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/tipoj.js";
 import type { Kanoto } from "../../eskekoj/medio/transporto.js";
 import { cxuAŭdio, sfx } from "../../eskekoj/sonoj/sonoro.js";
-import { traduki } from "../lingvo/tradukoj.js";
+import { traduki, kunKlavo } from "../lingvo/tradukoj.js";
 import { manĝaKlavo } from "../fasado/paneeloj.js";
 import type { LitoInfo, Ludanto } from "./ludanto.js";
 import type { Rezimoj } from "./rezimoj.js";
@@ -67,7 +67,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
       ludanto.pozicio.set(exit.x, 0o155/0o100, exit.z);
       ludanto.surKanoto = null;
       promptoElemento.classList.remove("montri");
-      montriTost(traduki("eliri"));
+      montriTost(traduki("regiloEliri"));
       return;
     }
     if ( ludanto.plejProksimaPordo && ludanto.rezimo === "promeno" ) {
@@ -84,7 +84,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
       ludanto.surKanoto = plejProksima;
       plejProksima.vx = plejProksima.vz = 0;
       promptoElemento.classList.remove("montri");
-      montriTost(traduki("regiloKanuo"));
+      montriTost(kunKlavo("regiloKanuo", "klavoPromeno"));
       if ( cxuAŭdio() ) sfx.splash();
     }
     if ( ludanto.plejProksimaBero && !ludanto.plejProksimaBero.dead && ludanto.rezimo === "promeno" ) {
@@ -142,8 +142,8 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
     } )();
     if ( isFok ) sfx.crunch(); else sfx.sip();
     const foodKey = manĝaKlavo(f.key);
-    const flavoro = traduki(foodKey + "Flavor");
-    montriTost("<i>" + traduki(foodKey) + "</i><br>" + ( flavoro === foodKey + "Flavor" ? "" : flavoro ));
+    const flavoro = traduki(foodKey + "Gusto");
+    montriTost("<i>" + traduki(foodKey) + "</i><br>" + ( flavoro === foodKey + "Gusto" ? "" : flavoro ));
     const fx = isFok ? fxVarma : fxMenta;
     fx.classList.remove("fxPulso");
     void fx.offsetWidth;

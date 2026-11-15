@@ -121,8 +121,7 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
         fotilo.position.set(kanoto.x, kanoto.bazaY + 0o3/0o40 + 0o21/0o40, kanoto.z);
         fotilo.rotation.set(ludanto.klinigxo, kanoto.direkto, 0);
       }
-      agordiPrompton(`<span class="klavo">E</span> ` + traduki("eliriKanuo"));
-      promptoElemento.classList.add("montri");
+      promptoElemento.classList.remove("montri");
       ludanto.pozicio.set(kanoto.x, 0o155/0o100, kanoto.z);
     }
 

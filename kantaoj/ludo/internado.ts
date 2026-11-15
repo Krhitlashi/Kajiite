@@ -35,7 +35,7 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
       ludanto.kameraDistanco = 0;
       piedoj.fotilo.position.set(ludanto.pozicio.x, ludanto.pozicio.y + 0o1/0o10, ludanto.pozicio.z);
       piedoj.fotilo.rotation.set(ludanto.klinigxo, ludanto.direkto, 0);
-      agordiPrompton(`<span class="klavo">E</span> ` + traduki("actLevi"));
+      agordiPrompton(`<span class="klavo">E</span> ` + traduki("agoLevi"));
       promptoElemento.classList.add("montri");
       return;
     }
@@ -165,14 +165,14 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
     }
     ludanto.plejProksimaManĝaĵo = proksimaManĝaĵo;
     if ( proksimaLito ) {
-      agordiPrompton(`<span class="klavo">E</span> ` + traduki("actKuxi"));
+      agordiPrompton(`<span class="klavo">E</span> ` + traduki("agoKuxi"));
       promptoElemento.classList.add("montri");
     } else if ( proksimaManĝaĵo ) {
-      const prefikso = traduki("actGusti");
+      const prefikso = traduki("agoGusti");
       agordiPrompton(`<span class="klavo">E</span> ${prefikso} ${traduki(manĝaKlavo(proksimaManĝaĵo.f.key))}`);
       promptoElemento.classList.add("montri");
     } else {
-      agordiPrompton(`<span class="klavo">E</span> ` + traduki("actEliri"));
+      agordiPrompton(`<span class="klavo">E</span> ` + traduki("regiloEliri"));
       promptoElemento.classList.add("montri");
     }
   }

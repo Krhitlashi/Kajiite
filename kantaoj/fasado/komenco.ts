@@ -48,9 +48,9 @@ function kreiVicon( mondo: MondoRecordo ): HTMLElement {
   nomo.textContent = montriNomon(mondo);
   const grupo = document.createElement("sabosuc2w2q");
   grupo.appendChild(nomo);
-  grupo.appendChild(kreiButonon("步", "ariaMondRestauri", "eni", mondo.id));
-  grupo.appendChild(kreiButonon("多", "ariaMondDuobligi", "duobligi", mondo.id));
-  grupo.appendChild(kreiButonon("川", "ariaMondForigi", "forigi", mondo.id));
+  grupo.appendChild(kreiButonon("步", "ariaMondoRestauri", "eni", mondo.id));
+  grupo.appendChild(kreiButonon("多", "ariaMondoDuobligi", "duobligi", mondo.id));
+  grupo.appendChild(kreiButonon("川", "ariaMondoForigi", "forigi", mondo.id));
   vico.appendChild(grupo);
   return vico;
 }

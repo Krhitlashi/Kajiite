@@ -4,12 +4,12 @@
 import { gkAlIpa, ipaAlLingvo } from "../../kantaoj/lingvo/sonaj-reguloj.js";
 
 const PROVOJ: [ string, string ][] = [
-  [ "paq0", "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ" ],
-  [ "paq1", "ſɭᴜ ſןɹ" ],
-  [ "paq15", "j͐ʃᴜ ŋᷠɹⰱ" ],
-  [ "paq22", "ſɟᴜ ſᶘɔ ɭl̀ɹȝ" ],
-  [ "tipTuro", "ſןᴜȝ ᶅſw ſɭɹ" ],
-  [ "paq33", "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ" ],
+  [ "konstruNomo0", "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ" ],
+  [ "konstruNomo1", "ſɭᴜ ſןɹ" ],
+  [ "konstruNomo15", "j͐ʃᴜ ŋᷠɹⰱ" ],
+  [ "konstruNomo22", "ſɟᴜ ſᶘɔ ɭl̀ɹȝ" ],
+  [ "konstruTipoTuro", "ſןᴜȝ ᶅſw ſɭɹ" ],
+  [ "konstruNomo33", "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ" ],
 ];
 
 for ( const [ nomo, gk ] of PROVOJ ) {

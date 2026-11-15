@@ -165,11 +165,8 @@ export function kreiPromenanton( opcioj: PromenajOpcioj ): Promenanto {
     if ( ludanto.plejProksimaPordo ) {
       agordiPrompton(`<span class="klavo">E</span> ` + traduki("eniri") + ` ` + konstruaĵaNomo(ludanto.plejProksimaPordo.name, ludanto.plejProksimaPordo.type));
       promptoElemento.classList.add("montri");
-    } else if ( proksimaKanuo && !ludanto.surKanoto ) {
-      agordiPrompton(`<span class="klavo">E</span> ` + traduki("eniriKanuo"));
-      promptoElemento.classList.add("montri");
     } else if ( proksimaBero && !ludanto.surKanoto ) {
-      const prefikso = traduki("actGusti");
+      const prefikso = traduki("agoGusti");
       agordiPrompton(`<span class="klavo">E</span> ${prefikso} ${traduki("manĝPuss0")}`);
       promptoElemento.classList.add("montri");
     } else if ( !ludanto.surKanoto ) {

@@ -52,7 +52,7 @@ function alHe( sek: number ): string {
     @param i ( number ) - លេខសន្ទស្សន៍បទ
 @returns ឈ្មោះបទ ( string ) */
 function nomoDeTrako( i: number ): string {
-  return AIH["trako" + i] ?? KANTOJ[i].title;
+  return AIH["muzikTrako" + i] ?? KANTOJ[i].title;
 }
 
 // ⟪ បញ្ជីបទ 📃 ⟫

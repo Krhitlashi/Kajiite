@@ -28,26 +28,18 @@ export function nomoAih(klavo: string, tipo = klavo): string {
   return skakefani.aih[TIPARO[tipo]?.labelKey ?? ""] ?? klavo;
 }
 
-const ARIA_TRAKO_PREFIKSO: Record<string, ( n: number ) => string> = {
-  eo: n => "Elekti trakon " + n + " ",
-  en: n => "Select track " + n + " ",
-  ja: n => "トラック " + n + " を選択 ",
-  km: n => "ជ្រើសរើសបទ " + n + " ",
-};
 const SPECIFIKAJ_PLANTNOMOJ = new Set([
-  "specBetulo", "specLariko", "specHxsxaksxlefo", "specPussxlefo", "specFiliko", "specPurpuraFiliko",
-  "specLikeno", "specHerbo", "specMusko", "specCetkuo", "specCakeo",
+  "specioBetulo", "specioLariko", "specioHxsxaksxlefo", "specioPussxlefo", "specioFiliko", "specioPurpuraFiliko",
+  "specioLikeno", "specioHerbo", "specioMusko", "specioCetkuo", "specioCakeo",
 ]);
 const KONSTRUAJ_NOMOJ = new Set([
-  "tipDomo", "tipMangxejo", "tipKasafeo", "tipStacioxipo", "tipTuro", "tipSanktejo",
+  "konstruTipoDomo", "konstruTipoMangxejo", "konstruTipoKasafeo", "konstruTipoStacioxipo", "konstruTipoTuro", "konstruTipoSanktejo",
 ]);
 
 function deriviNomon(klavo: string): string | null {
   if ( aktivaLingvo === "aih" ) return null;
-  const aria = /^ariaTrako(\d+)$/.exec(klavo);
-  const bazo = aria ? "trako" + aria[1] : klavo;
-  if ( !/^(paq|trako|manĝFok|manĝTla|manĝPuss)\d+$/.test(bazo) && !SPECIFIKAJ_PLANTNOMOJ.has(bazo) && !KONSTRUAJ_NOMOJ.has(bazo) ) return null;
-  const aihFormo = skakefani.aih[bazo];
+  if ( !/^(konstruNomo|muzikTrako|manĝFok|manĝTla|manĝPuss)\d+$/.test(klavo) && !SPECIFIKAJ_PLANTNOMOJ.has(klavo) && !KONSTRUAJ_NOMOJ.has(klavo) ) return null;
+  const aihFormo = skakefani.aih[klavo];
   if ( !aihFormo ) return null;
   const nomo = aihFormo
     .split("•")
@@ -55,10 +47,6 @@ function deriviNomon(klavo: string): string | null {
     .join(" • ");
   if ( !nomo ) return null;
   const kap = nomo.charAt(0).toUpperCase() + nomo.slice(1);
-  if ( aria ) {
-    const pre = ARIA_TRAKO_PREFIKSO[aktivaLingvo] ?? ARIA_TRAKO_PREFIKSO.eo;
-    return pre(parseInt(aria[1]) + 1) + kap;
-  }
   return kap;
 }
 
@@ -69,6 +57,15 @@ export function traduki(klavo: string): string {
   const derivita = deriviNomon(klavo);
   if ( derivita ) return derivita;
   return rekta || klavo;
+}
+
+/*ភ្ជាប់អត្ថបទជំនួយជាមួយគន្លឹះ ៖ អត្ថបទ • គន្លឹះ
+    @param teksto ( string ) - សោអត្ថបទ
+    @param klavo ( string ) - សោគន្លឹះ
+    @param grasa ( boolean ) - ដាក់គន្លឹះក្នុងអក្សរដិត */
+export function kunKlavo( teksto: string, klavo: string, grasa = false ): string {
+  const etikedo = traduki(klavo);
+  return traduki(teksto) + " • " + ( grasa ? `<b>${etikedo}</b>` : etikedo );
 }
 
 export function konstruaĵaNomo(klavo: string, tipo = klavo): string {
@@ -106,7 +103,7 @@ function aplikiSkakefanon(lingvo: string): void {
     }
   });
   // ⟪ ប៊ូតុងភាសាទាំងអស់ ( ការកំណត់ និងហ្គេម ) បង្ហាញកូដភាសា 📃 ⟫
-  document.querySelectorAll("[data-oskakefani-aria=\"ariaButLingvo\"]").forEach(el => {
+  document.querySelectorAll("[data-oskakefani-aria=\"ariaLingvoButono\"]").forEach(el => {
     el.textContent = lingvo.toUpperCase();
   });
   try { localStorage.setItem("aranis-lingvo", lingvo); } catch { /* private browsing */ }
