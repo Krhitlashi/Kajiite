@@ -34,6 +34,25 @@ const L: LudiloStato = {
   playing: false, startAt: 0, pausedAt: null, timer: null, master: null,
 };
 
+// ⟪ តំបន់តន្ត្រី 📃 ⟫
+
+const URBAJ_TRAKOJ = [ 4, 5, 6, 7 ];
+const MONDAJ_TRAKOJ = [ 0, 1, 2, 3 ];
+let enUrbo = false;
+// ⟨ ការបន្តស្វ័យប្រវត្តិ ៖ ហ្គេមបន្តទៅបទបន្ទាប់ , ឧបករណ៍ចាក់អាចបិទបាន 📃 ⟩
+let aŭtomata = true;
+
+function hazardaEl( listo: number[] ): number {
+  return listo[Math.floor(Math.random() * listo.length)];
+}
+
+/*ជ្រើសបទបន្ទាប់តាមតំបន់ ៖ ក្នុងក្រុងបទក្រុង , ក្រៅក្រុងបទពិភពលោក
+@returns sekva ( number ) */
+function sekvaTrako(): number {
+  if ( enUrbo ) return hazardaEl(URBAJ_TRAKOJ);
+  return hazardaEl(MONDAJ_TRAKOJ);
+}
+
 // ⟪ ជំនួយឯកជន 📃 ⟫
 
 function makeIR(ctx: AudioContext, dur: number, decay: number): AudioBuffer {
@@ -88,7 +107,8 @@ function finish() {
   if ( L.timer ) clearInterval(L.timer);
   L.playing = false;
   stopBus();
-  const next = ( L.cur + 1 ) % KANTOJ.length;
+  if ( !aŭtomata ) return;
+  const next = sekvaTrako();
   setTimeout(() => {
     if ( !L.playing ) {
       sxargi(next);
@@ -98,7 +118,7 @@ function finish() {
 }
 
 function hazardaTrako(): number {
-  return Math.min(KANTOJ.length - 1, Math.floor(Math.random() * KANTOJ.length));
+  return sekvaTrako();
 }
 
 function sxargi(i: number) {
@@ -195,4 +215,42 @@ export function sxargiTrako(i: number) {
 /** ទទួលសន្ទស្សន៍បទបច្ចុប្បន្ន។ */
 export function nunaTrako(): number {
   return L.cur;
+}
+
+/** ទទួលពេលកន្លងផ្ទុកនៃបទបច្ចុប្បន្នគិតជាវិនាទី។ ឈប់រាប់ពេលផ្អាក។ */
+export function progreso(): number {
+  if ( !L.ctx ) return 0;
+  if ( !L.playing ) return L.pausedAt ?? 0;
+  return Math.min(L.dur, Math.max(0, L.ctx.currentTime - L.startAt));
+}
+
+/*លោតទៅពេលជាក់លាក់ក្នុងបទបច្ចុប្បន្ន ។ បើកំពុងចាក់ វាបន្តចាក់ពីទីនោះ បើផ្អាក វាចងចាំទីនោះ
+    @param sek ( number ) - ពេលគិតជាវិនាទី */
+export function salti( sek: number ): void {
+  if ( !L.ctx || !L.events || L.cur < 0 ) return;
+  const celo = Math.min(L.dur, Math.max(0, sek));
+  const ludis = L.playing;
+  if ( L.timer ) clearInterval(L.timer);
+  L.playing = false;
+  stopBus();
+  L.pausedAt = celo;
+  if ( ludis ) ludi();
+}
+
+/*កំណត់ការបន្តស្វ័យប្រវត្តិ ៖ បើបិទ បទឈប់ពេលចប់ មិនលោតទៅបទបន្ទាប់
+    @param on ( boolean ) - តើត្រូវបន្តស្វ័យប្រវត្តិឬទេ */
+export function agordiAŭtomatan( on: boolean ): void {
+  aŭtomata = on;
+}
+
+/*កំណត់តំបន់តន្ត្រី ៖ ក្នុងក្រុង ឬពិភពលោក ។ ប្តូរបទភ្លាមបើកំពុងចាក់ ហើយបទបច្ចុប្បន្នមិនសមនឹងតំបន់ថ្មី
+    @param urbo ( boolean ) - តើអ្នកលេងកំពុងនៅក្នុងក្រុងឬទេ */
+export function agordiMuzikanLokon( urbo: boolean ) {
+  if ( urbo === enUrbo ) return;
+  enUrbo = urbo;
+  if ( !L.playing ) return;
+  const permesitaj = urbo ? URBAJ_TRAKOJ : MONDAJ_TRAKOJ;
+  if ( permesitaj.includes(L.cur) ) return;
+  sxargi(sekvaTrako());
+  ludi();
 }

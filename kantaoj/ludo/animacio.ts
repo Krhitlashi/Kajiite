@@ -25,6 +25,21 @@ import { kreiPromenanton } from "./promenado.js";
 import { kreiInternanton } from "./internado.js";
 import type { Kanuanto } from "./kanuado.js";
 import { kanakaQena, kanakaQenaNovajn } from "../../eskekoj/komunajxoj/koloroj.js";
+import { agordiMuzikanLokon } from "../../eskekoj/sonoj/muziko/ludilo.js";
+import { aktivajUrboj } from "../tero-datumaro/rultempo.js";
+
+/*តើចំណុចមួយនៅក្នុងព្រំដែនក្រុងណាមួយឬទេ ៖ ចម្ងាយ Manhattan ធៀបនឹងក្រឡាចតុកោណ
+    @param x ( number ) - ទីតាំង X
+    @param z ( number ) - ទីតាំង Z
+@returns enUrbo ( boolean ) */
+function cxuEnUrbo( x: number, z: number ): boolean {
+  for ( const u of aktivajUrboj() ) {
+    const pasxo = u.blokaGrando === "kvar" ? 0o40 : 0o30;
+    const limo = ( u.arangxaGrando + 1 ) * pasxo + 0o20;
+    if ( Math.abs(x - u.ofsX) + Math.abs(z - u.ofsZ) <= limo ) return true;
+  }
+  return false;
+}
 
 export interface AnimaciajOpcioj {
   kanvaso: HTMLCanvasElement;
@@ -205,6 +220,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   });
 
   let kanakaKadroNombro = 0;
+  let muzikaLokoT = 0;
   // ⟨ រយៈពេលបោសពេញនៅដដែល តែហ្វ្រេមផ្សេងៗលែងឆ្លងកាត់ឆាក ។ 📃 ⟩
   const KANAKA_PLENA_PERIODO = 0o14 * 0o20;
   function bildigi(): void {
@@ -240,6 +256,11 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     promenanto.paŝi(deltaTempo, t);
     internanto.paŝi(deltaTempo, t);
     kanuanto.paŝi(deltaTempo, t);
+    // ⟨ តន្ត្រីតាមតំបន់ ៖ ពិនិត្យក្រុងរាល់ពាក់កណ្តាលវិនាទី 📃 ⟩
+    if ( t - muzikaLokoT > 0o1/0o2 ) {
+      muzikaLokoT = t;
+      agordiMuzikanLokon(cxuEnUrbo(ludanto.pozicio.x, ludanto.pozicio.z));
+    }
 
     for ( const n of npcoj ) { if ( n.group.visible ) gxisdatigiNpc(n, deltaTempo, t, alteco, piedoj.kolizioj.vojaSuproY); }
 

@@ -75,9 +75,9 @@ const falsaStokado = {
 
 // ⟨ ពិភពលោកដែលមានគ្រាប់ពូជ ៖ ការបង្កើតដី និងសំណង់ដើរតាមគ្រាប់ពូជនេះ ។ 📃 ⟩
 stokejo.set("aranis-mondoj", JSON.stringify([
-  { id: "aranis", klavo: "titoloUrbo", nomo: "Ĉefa", smino: semo, tempo: 0 },
+  { id: "kajiite", klavo: "titoloUrbo", nomo: "Ĉefa", smino: semo, tempo: 0 },
 ]));
-stokejo.set("aranis-aktiva-mondo", "aranis");
+stokejo.set("aranis-aktiva-mondo", "kajiite");
 
 const documento = {
   createElement( tag ) { const el = new FalsaElemento(); el.tagName = tag; return el; },
