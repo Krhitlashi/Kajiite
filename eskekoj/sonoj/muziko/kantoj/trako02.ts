@@ -2,7 +2,7 @@
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F, NYAM } from "../vokoj/skaloj.js";
-import { HE, QE, bateto, rondHe } from "../vokoj/tempo.js";
+import { HE, QE, bateto, rondHe, rondBpq } from "../vokoj/tempo.js";
 import { kf2Sakxo } from "../../../komunajxoj/hazardo.js";
 
 export function buildTrack2(): SpuroDateno {
@@ -10,7 +10,7 @@ export function buildTrack2(): SpuroDateno {
   const secs: Sekcio[] = [];
   const r = kf2Sakxo(0o4620);
   // ⟨ ចង្វាក់ ៖ បាតក្នុងមួយគុយអេ 📃 ⟩
-  const BPQ = 0o60;
+  const BPQ = rondBpq( 0o60 );
   const beat = bateto(BPQ), bar = beat * 0o4, f0 = 0o4425/0o40;
   const DAUX = rondHe(bar * 0o100);
   const kush = [ 0, 4, 2, 5, 3, 6, 4, 7, 5, 3, 2, 4 ];
@@ -41,6 +41,8 @@ export function buildTrack2(): SpuroDateno {
       ev.push({ t: t0 + p * pu + pu / 2, i: "mbira", f: F(NYAM[kuts[p]] + 0o14), d: pu * 0o4, v: 0o4/0o10 });
     }
     ev.push({ t: t0 + bar / 2, i: "inanga", f: F(NYAM[4] - 0o14), d: 0o2 * HE, v: 0o23/0o40, dur: 0o2 * HE });
+    ev.push({ t: t0, i: "kiiqflak", f: F(NYAM[1]), d: HE / 0o2, v: 0o6/0o10 });
+    if ( b % 0o2 === 0 ) ev.push({ t: t0 + bar / 0o2, i: "kiiqflak", f: F(NYAM[2]), d: HE / 0o3, v: 0o43/0o100 });
   }
 
   secs.push({ n: "សំឡេងត្រែ និងធ្យូង", a: 0o41 * bar, b: 0o55 * bar });
@@ -67,6 +69,8 @@ export function buildTrack2(): SpuroDateno {
     ev.push({ t: t0, i: "inanga", f: F(NYAM[0] - 0o14), d: 0o2 * HE, v: 0o55/0o100, dur: 0o2 * HE });
     ev.push({ t: t0 + bar / 2, i: "inanga", f: F(NYAM[5] - 0o14), d: pu * 0o4, v: 0o25/0o40, dur: pu * 0o4 });
     if ( b % 3 === 2 ) ev.push({ t: t0 + 3 * beat, i: "didj", f: f0 * 0o201/0o100, d: pu * 0o5/0o2, v: 0o35/0o40, toot: true });
+    ev.push({ t: t0, i: "kiiqflak", f: F(NYAM[0] + 0o2), d: HE / 0o2, v: 0o63/0o100 });
+    if ( b % 0o4 === 0o3 ) ev.push({ t: t0 + bar / 0o2, i: "kiiqflak", f: F(NYAM[2]), d: HE / 0o3, v: 0o55/0o100 });
   }
 
   secs.push({ n: "ធ្យូងរសាត់", a: 0o71 * bar, b: DAUX });

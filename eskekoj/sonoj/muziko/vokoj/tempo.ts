@@ -30,3 +30,10 @@ export function okono( bpq: number ): number {
 export function rondHe( sek: number ): number {
   return Math.round( sek / HE ) * HE;
 }
+
+/* បង្គត់ចំនួនបាតក្នុងមួយគុយអេទៅគុណនឹងគោលប្រាំបីដែលនៅជិតបំផុត
+    @param bpq ( number ) - បាតក្នុងមួយគុយអេ
+@returns បាតក្នុងមួយគុយអេដែលបង្គត់ហើយ ( number ) */
+export function rondBpq( bpq: number ): number {
+  return Math.round( bpq / 0o10 ) * 0o10;
+}

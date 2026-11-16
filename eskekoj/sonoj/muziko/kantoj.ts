@@ -23,9 +23,9 @@ export interface Kanto {
 
 export const KANTOJ: Kanto[] = [
   { no: "01", title: "អរុណខ្ពង់រាបខ្ពស់", instrs: [ "siku", "ocarina", "guiro", "inanga" ], data: buildTrack1() },
-  { no: "02", title: "វដ្តនៃខ្យល់កួច", instrs: [ "didj", "bull", "mbira", "inanga" ], data: buildTrack2() },
-  { no: "03", title: "ខ្សែបណ្តោយសំរិទ្ធ", instrs: [ "slenthem", "mbira", "ocarina", "guiro" ], data: buildTrack3() },
-  { no: "04", title: "រណ្តៅ និងផ្គរ", instrs: [ "inanga", "siku", "bull", "mbira", "guiro" ], data: buildTrack4() },
+  { no: "02", title: "វដ្តនៃខ្យល់កួច", instrs: [ "didj", "bull", "mbira", "inanga", "kiiqflak" ], data: buildTrack2() },
+  { no: "03", title: "ខ្សែបណ្តោយសំរិទ្ធ", instrs: [ "slenthem", "mbira", "ocarina", "guiro", "kiiqflak" ], data: buildTrack3() },
+  { no: "04", title: "រណ្តៅ និងផ្គរ", instrs: [ "inanga", "siku", "bull", "mbira", "guiro", "kiiqflak" ], data: buildTrack4() },
   { no: "05", title: "អៃស៊ីអាគ្រីក្នុងក្រុង", instrs: [ "siku", "didj", "guiro", "bull", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack5() },
   { no: "06", title: "អៃស៊ីអាគ្រីក្នុងផ្សារ", instrs: [ "siku", "didj", "guiro", "bull", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack6() },
   { no: "07", title: "អៃស៊ីអាគ្រីពេលល្ងាច", instrs: [ "siku", "didj", "guiro", "bull", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack7() },

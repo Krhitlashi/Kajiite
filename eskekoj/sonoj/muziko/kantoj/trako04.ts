@@ -2,7 +2,7 @@
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F, PENT_A } from "../vokoj/skaloj.js";
-import { HE, bateto } from "../vokoj/tempo.js";
+import { HE, bateto, rondBpq } from "../vokoj/tempo.js";
 import { kf2Sakxo } from "../../../komunajxoj/hazardo.js";
 import { mel } from "./komunajxoj.js";
 
@@ -12,7 +12,7 @@ export function buildTrack4(): SpuroDateno {
   const r = kf2Sakxo(0o10000);
   const P = PENT_A;
   // ⟨ ចង្វាក់ ៖ បាតក្នុងមួយគុយអេ 📃 ⟩
-  const BPQ = 0o70;
+  const BPQ = rondBpq( 0o70 );
   const beat = bateto(BPQ);
   const bar = beat * 4, pu = bar / 0o10;
   const ost = [ 0, 3, 1, 4, 2, 4, 1, 3 ];
@@ -44,6 +44,8 @@ export function buildTrack4(): SpuroDateno {
     for ( let k = 0; k < 4; k++ ) ev.push({ t: t0 + k * bar / 4, i: "guiro", d: HE / 0o10, v: 0o35/0o100 });
     if ( b % 4 === 0 ) ev.push({ t: t0, i: "siku", f: F(P[0o11]), d: bar * 0o163/0o100, v: 0o23/0o40 });
     if ( b % 4 === 2 ) ev.push({ t: t0 + bar / 2, i: "siku", f: F(P[7]), d: bar * 0o55/0o40, v: 0o43/0o100 });
+    ev.push({ t: t0, i: "kiiqflak", f: F(P[2]), d: HE / 0o2, v: 0o63/0o100 });
+    if ( b % 0o2 === 0 ) ev.push({ t: t0 + bar / 0o2, i: "kiiqflak", f: F(P[3]), d: HE / 0o3, v: 0o43/0o100 });
   }
 
   secs.push({ n: "ហុកកេត", a: 0o60 * bar, b: 0o100 * bar });

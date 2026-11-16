@@ -5,10 +5,12 @@ import { noiseSrc } from "./bruo.js";
 const ETA = 0o1/0o20000;
 
 export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1, toot = false) {
-  const g = ctx.createGain(), pk = ( toot ? 0o3/0o40 : 0o5/0o40 ) * vel;
+  const g = ctx.createGain(), pk = ( toot ? 0o3/0o40 : 0o20/0o100 ) * vel;
+  const atk = toot ? 0o1/0o20 : 0o1/0o10;
+  const rel = toot ? 0o5/0o100 : 0o2/0o10;
   g.gain.setValueAtTime(ETA, t);
-  g.gain.exponentialRampToValueAtTime(pk, t + ( toot ? 0o1/0o20 : 0o55/0o100 ));
-  g.gain.setValueAtTime(pk, t + Math.max(toot ? 0o1/0o20 : 0o63/0o100, dur - ( toot ? 0o5/0o100 : 0o35/0o40 )));
+  g.gain.exponentialRampToValueAtTime(pk, t + atk);
+  g.gain.setValueAtTime(pk, t + Math.max(atk, dur - rel));
   g.gain.exponentialRampToValueAtTime(ETA, t + dur);
   g.gain.setValueAtTime(0o0/0o10, t + dur);
   g.connect(out);
@@ -21,22 +23,23 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   sub.type = "sine";
   sub.frequency.value = f;
   const sg = ctx.createGain();
-  sg.gain.value = toot ? 0o5/0o40 : 0o4/0o10;
+  sg.gain.value = toot ? 0o5/0o40 : 0o10/0o10;
 
   const lp = ctx.createBiquadFilter();
   lp.type = "lowpass";
-  lp.frequency.value = toot ? 0o2570 : 0o1464;
+  lp.frequency.value = toot ? 0o2570 : 0o1300;
   lp.Q.value = 0o55/0o40;
 
+  // ⟨ ឯកសារពិតមានចង្វាក់ជិត 0o1032 និង 0o1234 ហឺត មិនមែនកំពូលខ្ពស់ៗ 📃 ⟩
   const f1 = ctx.createBiquadFilter();
   f1.type = "bandpass";
-  f1.frequency.value = toot ? 0o1666 : 0o714;
-  f1.Q.value = toot ? 4 : 7;
+  f1.frequency.value = toot ? 0o1234 : 0o1032;
+  f1.Q.value = toot ? 4 : 0o5;
 
   const f2 = ctx.createBiquadFilter();
   f2.type = "bandpass";
-  f2.frequency.value = toot ? 0o3554 : 0o2032;
-  f2.Q.value = 6;
+  f2.frequency.value = toot ? 0o2032 : 0o1234;
+  f2.Q.value = 0o4;
 
   const mix = ctx.createGain();
   mix.gain.value = 0o63/0o100;
@@ -47,8 +50,12 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   lp.connect(mix);
   mix.connect(f1);
   f1.connect(g);
+  // ⟨ កំពូលទីពីរត្រូវស្ងាត់ជាង ទើបត្រូវនឹងក្រវិលថ្នាំង 0o600 ទៅ 0o1200 ហឺត 📃 ⟩
+  const f2g = ctx.createGain();
+  f2g.gain.value = toot ? 0o6/0o10 : 0o3/0o100;
   mix.connect(f2);
-  f2.connect(g);
+  f2.connect(f2g);
+  f2g.connect(g);
 
   const extras: ( OscillatorNode | AudioBufferSourceNode )[] = [];
   if ( !toot ) {
@@ -67,9 +74,9 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     l2g.connect(f2.frequency);
 
     const am = ctx.createOscillator();
-    am.frequency.value = 0o103/0o40 + Math.random() * 0o63/0o100;
+    am.frequency.value = 0o14/0o10 + Math.random() * 0o1/0o10;
     const amg = ctx.createGain();
-    amg.gain.value = 0o1/0o20;
+    amg.gain.value = 0o15/0o100;
     am.connect(amg);
     amg.connect(mix.gain);
 
@@ -79,7 +86,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     nf.frequency.value = 0o404;
     nf.Q.value = 0o63/0o100;
     const ng = ctx.createGain();
-    ng.gain.value = 0o1/0o100;
+    ng.gain.value = 0o6/0o1000;
     n.connect(nf);
     nf.connect(ng);
     ng.connect(g);

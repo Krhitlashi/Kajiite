@@ -7,10 +7,13 @@ import { bull } from "./bull.js";
 import { slenthem } from "./slenthem.js";
 import { inanga } from "./inanga.js";
 import { mbira } from "./mbira.js";
+import { kiiqflak } from "./kiiqflak.js";
 import type { SonoEvento } from "./tipoj.js";
+import { faktoro } from "./vario.js";
 export function instrumento(ctx: AudioContext, out: AudioNode, e: SonoEvento, t: number) {
   const f = e.f ?? 0;
-  const v = ( e.v == null ? 1 : e.v );
+  // ⟨ កម្លាំងដៃមិនស្មើគ្នារាល់ដង ទោះជាឧបករណ៍ណាក៏ដោយ 📃 ⟩
+  const v = ( e.v == null ? 1 : e.v ) * faktoro( 0o5/0o100 );
   const d = ( e.d == null ? 1 : e.d );
 
   switch ( e.i ) {
@@ -22,5 +25,6 @@ export function instrumento(ctx: AudioContext, out: AudioNode, e: SonoEvento, t:
     case "slenthem": slenthem(ctx, out, t, f, v); break;
     case "inanga":   inanga(ctx, out, t, f, v, e); break;
     case "mbira":    mbira(ctx, out, t, f, v); break;
+    case "kiiqflak": kiiqflak(ctx, out, t, d, f, v); break;
   }
 }

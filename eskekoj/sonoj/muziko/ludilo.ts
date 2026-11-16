@@ -7,6 +7,12 @@ import { vefalKu1o, ve3aqKu1o } from "../../komunajxoj/agordoj.js";
 
 // ⟪ ស្ថានភាពឧបករណ៍លេង 📃 ⟫
 
+interface AktivaNoto {
+  i: string;
+  de: number;
+  gxis: number;
+}
+
 interface LudiloStato {
   ctx: AudioContext | null;
   bus: GainNode | null;
@@ -22,6 +28,7 @@ interface LudiloStato {
   pausedAt: number | null;
   timer: ReturnType<typeof setInterval> | null;
   master: GainNode | null;
+  aktivaj: AktivaNoto[];
 }
 
 // ⟨ បទចុងក្រោយដែលបានជ្រើស ៖ ផ្ទុកពីការកំណត់ , កាត់ឱ្យស្ថិតក្នុងជួរបទ 📃 ⟩
@@ -32,6 +39,7 @@ const L: LudiloStato = {
   ctx: null, bus: null, revSend: null, reverb: null,
   cur: KOMENCA_TRAKO, idx: 0, events: null, dur: 0, secs: null,
   playing: false, startAt: 0, pausedAt: null, timer: null, master: null,
+  aktivaj: [],
 };
 
 // ⟪ តំបន់តន្ត្រី 📃 ⟫
@@ -41,9 +49,28 @@ const MONDAJ_TRAKOJ = [ 0, 1, 2, 3 ];
 let enUrbo = false;
 // ⟨ ការបន្តស្វ័យប្រវត្តិ ៖ ហ្គេមបន្តទៅបទបន្ទាប់ , ឧបករណ៍ចាក់អាចបិទបាន 📃 ⟩
 let aŭtomata = true;
+// ⟨ ភ្ជាប់ reverb ទៅ master តែម្ដង កុំឱ្យច្រើនដងពេលចាក់បទថ្មី 📃 ⟩
+let reverbKonektita = false;
 
 function hazardaEl( listo: number[] ): number {
   return listo[Math.floor(Math.random() * listo.length)];
+}
+
+/*រយៈពេលដែលឧបករណ៍នៅតែឮ សម្រាប់បង្ហាញឧបករណ៍កំពុងលេង
+   @param e ( SonoEvento ) - ព្រឹត្តិការណ៍សំឡេង
+@returns វិនាទី ( number ) */
+function notLongo( e: SonoEvento ): number {
+  const d = e.dur ?? e.d ?? 0o1;
+  switch ( e.i ) {
+    case "slenthem": return 0o223/0o40;
+    case "mbira":    return 0o155/0o100;
+    case "inanga":   return d * 0o15/0o10;
+    case "siku":     return d * 0o3;
+    case "ocarina":  return d + 0o23/0o100;
+    case "kiiqflak": return d + 0o1/0o10;
+    case "guiro":    return d + 0o3/0o100;
+    default:         return d;
+  }
 }
 
 /*ជ្រើសបទបន្ទាប់តាមតំបន់ ៖ ក្នុងក្រុងបទក្រុង , ក្រៅក្រុងបទពិភពលោក
@@ -77,6 +104,7 @@ function stopBus() {
   }
   L.bus = null;
   L.revSend = null;
+  L.aktivaj.length = 0;
 }
 
 function scheduleTick() {
@@ -96,6 +124,7 @@ function tick() {
     const g = L.ctx.createGain();
     g.gain.value = 1;
     instrumento(L.ctx, g, e, at);
+    L.aktivaj.push({ i: e.i, de: at, gxis: at + notLongo(e) });
     if ( L.bus ) g.connect(L.bus);
     if ( L.revSend ) g.connect(L.revSend);
   }
@@ -130,6 +159,7 @@ function sxargi(i: number) {
   L.pausedAt = null;
   L.cur = i;
   L.idx = 0;
+  L.aktivaj = [];
   const T = KANTOJ[i];
   L.events = T.data.events;
   L.dur = T.data.dur;
@@ -147,6 +177,10 @@ export function iniciati(ctx: AudioContext, master: GainNode) {
     L.reverb = ctx.createConvolver();
     L.reverb.buffer = makeIR(ctx, 0o30/0o10, 0o115/0o40);
   }
+  if ( !reverbKonektita && L.reverb ) {
+    L.reverb.connect(master);
+    reverbKonektita = true;
+  }
 }
 
 /** ចាប់ផ្តើម ឬបន្តការចាក់។ ការចាប់ផ្តើមដំបូងជ្រើសរើសរឹតចៃដន្យ។ */
@@ -162,10 +196,7 @@ export function ludi() {
 
   L.revSend = L.ctx.createGain();
   L.revSend.gain.value = 0o23/0o100;
-  if ( L.reverb ) {
-    L.revSend.connect(L.reverb);
-    L.reverb.connect(L.master!);
-  }
+  if ( L.reverb ) L.revSend.connect(L.reverb);
 
   if ( L.pausedAt != null ) {
     L.startAt = L.ctx.currentTime + 0o1/0o10 - L.pausedAt;
@@ -203,6 +234,18 @@ export function halti() {
 /** តើតន្ត្រីកំពុងចាក់ឬទេ។ */
 export function cxuLudas(): boolean {
   return L.playing;
+}
+
+/*ឧបករណ៍ដែលកំពុងឮពេលនេះ ។ ប្រើសម្រាប់ប្លែងប៊ូតុងសាកល្បងសំឡេងក្នុង muzikilo 📃 */
+export function nunajInstrumentoj(): string[] {
+  if ( !L.ctx || !L.playing ) return [];
+  const now = L.ctx.currentTime;
+  if ( L.aktivaj.length ) L.aktivaj = L.aktivaj.filter( a => a.gxis >= now );
+  const nunaj = new Set<string>();
+  for ( const a of L.aktivaj ) {
+    if ( a.de <= now ) nunaj.add( a.i );
+  }
+  return [ ...nunaj ];
 }
 
 /** ផ្ទុកបទជាក់លាក់តាមសន្ទស្សន៍។ */

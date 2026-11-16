@@ -2,7 +2,7 @@
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F, PENT_E } from "../vokoj/skaloj.js";
-import { HE, okono } from "../vokoj/tempo.js";
+import { HE, okono, rondBpq } from "../vokoj/tempo.js";
 import { kf2Sakxo } from "../../../komunajxoj/hazardo.js";
 import { mel } from "./komunajxoj.js";
 
@@ -11,7 +11,7 @@ export function buildTrack1(): SpuroDateno {
   const secs: Sekcio[] = [];
   const r = kf2Sakxo(0o17665);
   // ⟨ ចង្វាក់ ៖ បាតក្នុងមួយគុយអេ 📃 ⟩
-  const BPQ = 0o45;
+  const BPQ = rondBpq( 0o45 );
   const e8 = okono(BPQ), bar = e8 * 0o6;
   const S = PENT_E;
   const add = ( t: number, i: string, f: number, d: number, v: number, x?: Record<string, number | boolean> ) =>
@@ -83,14 +83,15 @@ export function buildTrack1(): SpuroDateno {
   }
 
   secs.push({ n: "ការរលាយ", a: 0o70 * bar, b: 0o505 * HE });
-  add(0o443 * HE, "siku", F(S[5]), 0o7 * HE, 0o6/0o10);
-  add(0o443 * HE, "inanga", F(S[0] - 0o14), 0o11 * HE, 0o23/0o40, { dur: 0o11 * HE });
-  add(0o453 * HE, "ocarina", F(S[0o11]), 0o5 * HE, 0o4/0o10);
-  add(0o454 * HE, "inanga", F(S[2] - 0o14), 0o6 * HE, 0o4/0o10, { dur: 0o6 * HE });
-  add(0o463 * HE, "siku", F(S[4]), 0o7 * HE, 0o23/0o40);
-  add(0o472 * HE, "guiro", 0, 0o3 * HE, 0o23/0o40, { cresc: 1 });
-  add(0o474 * HE, "inanga", F(S[0] - 0o14), 0o11 * HE, 0o43/0o100, { dur: 0o11 * HE });
-  add(0o476 * HE, "siku", F(S[0]), 0o7 * HE, 0o43/0o100);
+  // ⟨ ពេលចុងក្រោយវាស់ពីដើមផ្នែក ឱ្យនៅជាប់នឹងចង្វាក់ថ្មី 📃 ⟩
+  add(0o70 * bar, "siku", F(S[5]), 0o7 * HE, 0o6/0o10);
+  add(0o70 * bar, "inanga", F(S[0] - 0o14), 0o11 * HE, 0o23/0o40, { dur: 0o11 * HE });
+  add(0o70 * bar + 0o10 * HE, "ocarina", F(S[0o11]), 0o5 * HE, 0o4/0o10);
+  add(0o70 * bar + 0o11 * HE, "inanga", F(S[2] - 0o14), 0o6 * HE, 0o4/0o10, { dur: 0o6 * HE });
+  add(0o70 * bar + 0o20 * HE, "siku", F(S[4]), 0o7 * HE, 0o23/0o40);
+  add(0o70 * bar + 0o30 * HE, "guiro", 0, 0o3 * HE, 0o23/0o40, { cresc: 1 });
+  add(0o70 * bar + 0o32 * HE, "inanga", F(S[0] - 0o14), 0o11 * HE, 0o43/0o100, { dur: 0o11 * HE });
+  add(0o70 * bar + 0o34 * HE, "siku", F(S[0]), 0o7 * HE, 0o43/0o100);
 
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 0o505 * HE, secs };
 }

@@ -2,7 +2,7 @@
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F, SLENDRO, SL2 } from "../vokoj/skaloj.js";
-import { HE, bateto, rondHe } from "../vokoj/tempo.js";
+import { HE, bateto, rondHe, rondBpq } from "../vokoj/tempo.js";
 import { kf2Sakxo } from "../../../komunajxoj/hazardo.js";
 import { mel } from "./komunajxoj.js";
 
@@ -12,7 +12,7 @@ export function buildTrack3(): SpuroDateno {
   const r = kf2Sakxo(0o6441);
   const SL = SLENDRO, bal = [ 0, 2, 4, 3, 2, 1, 2, 0 ];
   // ⟨ ចង្វាក់ ៖ បាតក្នុងមួយគុយអេ 📃 ⟩
-  const BPQ = 0o43;
+  const BPQ = rondBpq( 0o43 );
   const bar = bateto(BPQ) * 0o4, pu = bar / 0o10;
   const DAUX = rondHe(bar * 0o60);
 
@@ -32,6 +32,9 @@ export function buildTrack3(): SpuroDateno {
       if ( o.ocarina ) {
         const ph = mel(r, 0o10, 3, 0o10, 5, 0o55/0o100);
         ph.forEach(n => ev.push({ t: tb + n.p * ( bar / 0o10 ), i: "ocarina", f: F(SL2[n.d]), d: n.l * ( bar / 0o10 ) * 0o35/0o40, v: 0o55/0o100 }));
+      }
+      if ( o.kotekan && ( b === 0 || b === 0o4 ) ) {
+        ev.push({ t: tb, i: "kiiqflak", f: F(SL[0] - 0o5), d: HE / 0o2, v: 0o63/0o100 });
       }
       if ( o.kotekan ) {
         const pu = bar / 0o10;
@@ -55,6 +58,7 @@ export function buildTrack3(): SpuroDateno {
   ev.push({ t: 0o56 * bar + pu * 0o5, i: "guiro", d: pu * 0o3, v: 0o55/0o100, cresc: 1 });
   ev.push({ t: 0o57 * bar + pu * 0o1, i: "slenthem", f: F(SL[0]), d: pu * 0o2, v: 1 });
   ev.push({ t: 0o57 * bar + pu * 0o1, i: "slenthem", f: F(SL[0] - 0o14), d: pu * 0o2, v: 1 });
+  ev.push({ t: 0o57 * bar + pu * 0o1, i: "kiiqflak", f: F(SL[0] - 0o5), d: HE, v: 0o43/0o100 });
 
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: DAUX, secs };
 }
