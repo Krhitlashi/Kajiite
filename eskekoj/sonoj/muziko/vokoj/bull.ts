@@ -1,12 +1,16 @@
 // ≺⧼ សំឡេងគោ 🐂 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
+// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+const ETA = 0o1/0o20000;
+
 export function bull(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
   const g = ctx.createGain(), pk = 0o1/0o10 * vel;
-  g.gain.setValueAtTime(0o0/0o10, t);
+  g.gain.setValueAtTime(ETA, t);
   g.gain.exponentialRampToValueAtTime(pk, t + dur * 0o5/0o20);
   g.gain.setValueAtTime(pk, t + dur * 0o27/0o40);
-  g.gain.exponentialRampToValueAtTime(0o0/0o10, t + dur);
+  g.gain.exponentialRampToValueAtTime(ETA, t + dur);
+  g.gain.setValueAtTime(0o0/0o10, t + dur);
   g.connect(out);
 
   const am2 = ctx.createGain();

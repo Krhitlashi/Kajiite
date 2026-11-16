@@ -7,9 +7,9 @@ import { KANTOJ } from "../../eskekoj/sonoj/muziko/kantoj.js";
 import { iniciati, ludi, halti, sxargiTrako, nunaTrako, cxuLudas, progreso, salti, agordiAŭtomatan } from "../../eskekoj/sonoj/muziko/ludilo.js";
 import { AIH } from "../../kantaoj/lingvo/tradukoj/aih.js";
 import { elemento } from "../komunajxoj/dom.js";
+import { HE } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
 
 // ⟨ ហេ ៖ 2^32 ជុំវិញសេស្យូម ១៣៣ គិតជាវិនាទី 📃 ⟩
-const HE = 0o40000000000 / 9192631770;
 
 const baskuliBut = elemento<HTMLButtonElement>("baskuli");
 const haltiBut = elemento<HTMLButtonElement>("halti");

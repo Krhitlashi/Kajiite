@@ -1,12 +1,16 @@
 // ≺⧼ សំឡេងអ៊ីណាងា 🪕 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
+// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+const ETA = 0o1/0o20000;
+
 export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1, opts: { dur?: number } = {}) {
   const d = opts.dur || 0o75/0o100;
   const g = ctx.createGain();
-  g.gain.setValueAtTime(0o0/0o10, t);
+  g.gain.setValueAtTime(ETA, t);
   g.gain.exponentialRampToValueAtTime(0o15/0o100 * vel, t + 0o1/0o100);
-  g.gain.exponentialRampToValueAtTime(0o0/0o10, t + d);
+  g.gain.exponentialRampToValueAtTime(ETA, t + d);
+  g.gain.setValueAtTime(0o0/0o10, t + d);
   g.connect(out);
 
   const o = ctx.createOscillator();
@@ -38,7 +42,8 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   bp.Q.value = 0o215/0o100;
   const ng = ctx.createGain();
   ng.gain.setValueAtTime(0o3/0o100 * vel, t);
-  ng.gain.exponentialRampToValueAtTime(0o0/0o10, t + 0o1/0o10);
+  ng.gain.exponentialRampToValueAtTime(ETA, t + 0o1/0o10);
+  ng.gain.setValueAtTime(0o0/0o10, t + 0o1/0o10);
   n.connect(bp);
   bp.connect(ng);
   ng.connect(out);

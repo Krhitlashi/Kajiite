@@ -1,6 +1,9 @@
 // ≺⧼ សំឡេងមប៊ីរ៉ា 🎹 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
+// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+const ETA = 0o1/0o20000;
+
 export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {
   const g = ctx.createGain();
   g.gain.value = 0o5/0o40 * vel;
@@ -16,7 +19,8 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
     const og = ctx.createGain();
     const dd = decs[i] * ( 0o6/0o10 + vel * 0o35/0o100 );
     og.gain.setValueAtTime(gains[i], t);
-    og.gain.exponentialRampToValueAtTime(0o0/0o10, t + dd);
+    og.gain.exponentialRampToValueAtTime(ETA, t + dd);
+    og.gain.setValueAtTime(0o0/0o10, t + dd);
     o.connect(og);
     og.connect(g);
     o.start(t);
@@ -29,9 +33,10 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   bp.frequency.value = 0o7640 + Math.random() * 0o1604;
   bp.Q.value = 0o123/0o100;
   const ng = ctx.createGain();
-  ng.gain.setValueAtTime(0o0/0o10, t);
+  ng.gain.setValueAtTime(ETA, t);
   ng.gain.exponentialRampToValueAtTime(0o5/0o100 * vel, t + 0o1/0o100);
-  ng.gain.exponentialRampToValueAtTime(0o0/0o10, t + 0o43/0o100);
+  ng.gain.exponentialRampToValueAtTime(ETA, t + 0o43/0o100);
+  ng.gain.setValueAtTime(0o0/0o10, t + 0o43/0o100);
 
   const tr = ctx.createOscillator();
   tr.frequency.value = 0o32 + Math.random() * 0o10;

@@ -1,6 +1,9 @@
 // ≺⧼ សំឡេងស្លេនថេម 🔔 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
+// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+const ETA = 0o1/0o20000;
+
 export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {
   const g = ctx.createGain();
   g.gain.value = 0o13/0o100 * vel;
@@ -15,7 +18,8 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
     o.frequency.value = f * ratios[i] * ( 1 + ( Math.random() - 0o4/0o10 ) * 0o0/0o10 );
     const og = ctx.createGain();
     og.gain.setValueAtTime(gains[i], t);
-    og.gain.exponentialRampToValueAtTime(0o0/0o10, t + decs[i]);
+    og.gain.exponentialRampToValueAtTime(ETA, t + decs[i]);
+    og.gain.setValueAtTime(0o0/0o10, t + decs[i]);
     o.connect(og);
     og.connect(g);
     o.start(t);
@@ -28,7 +32,8 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   lp.frequency.value = 0o574;
   const ng = ctx.createGain();
   ng.gain.setValueAtTime(0o3/0o40 * vel, t);
-  ng.gain.exponentialRampToValueAtTime(0o0/0o10, t + 0o1/0o40);
+  ng.gain.exponentialRampToValueAtTime(ETA, t + 0o1/0o40);
+  ng.gain.setValueAtTime(0o0/0o10, t + 0o1/0o40);
   n.connect(lp);
   lp.connect(ng);
   ng.connect(out);

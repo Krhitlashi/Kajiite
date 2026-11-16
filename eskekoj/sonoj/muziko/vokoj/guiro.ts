@@ -1,6 +1,9 @@
 // ≺⧼ សំឡេងហ្គីរ៉ា 🥁 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
+// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+const ETA = 0o1/0o20000;
+
 export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number, vel = 1, opts: { cresc?: number } = {}) {
   const ticks = dur < 0o5/0o100 ? 1 : Math.max(2, Math.round(dur / ( 0o1/0o40 )));
   const step = dur / ticks;
@@ -15,7 +18,8 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
     let v = ( 0o3/0o40 + Math.random() * 0o1/0o20 ) * vel;
     if ( opts.cresc ) v *= 0o13/0o40 + 0o6/0o10 * ( i / ticks );
     g.gain.setValueAtTime(v, tt);
-    g.gain.exponentialRampToValueAtTime(0o0/0o10, tt + 0o3/0o100);
+    g.gain.exponentialRampToValueAtTime(ETA, tt + 0o3/0o100);
+    g.gain.setValueAtTime(0o0/0o10, tt + 0o3/0o100);
     n.connect(bp);
     bp.connect(g);
     g.connect(out);

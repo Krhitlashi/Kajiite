@@ -1,12 +1,16 @@
 // ≺⧼ សំឡេងដីជេរីឌូ 🐘 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
+// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+const ETA = 0o1/0o20000;
+
 export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1, toot = false) {
   const g = ctx.createGain(), pk = ( toot ? 0o3/0o40 : 0o5/0o40 ) * vel;
-  g.gain.setValueAtTime(0o0/0o10, t);
+  g.gain.setValueAtTime(ETA, t);
   g.gain.exponentialRampToValueAtTime(pk, t + ( toot ? 0o1/0o20 : 0o55/0o100 ));
   g.gain.setValueAtTime(pk, t + Math.max(toot ? 0o1/0o20 : 0o63/0o100, dur - ( toot ? 0o5/0o100 : 0o35/0o40 )));
-  g.gain.exponentialRampToValueAtTime(0o0/0o10, t + dur);
+  g.gain.exponentialRampToValueAtTime(ETA, t + dur);
+  g.gain.setValueAtTime(0o0/0o10, t + dur);
   g.connect(out);
 
   const o = ctx.createOscillator();
