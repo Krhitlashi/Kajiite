@@ -4,7 +4,7 @@
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F } from "../vokoj/skaloj.js";
 import { HE, okono } from "../vokoj/tempo.js";
-import { motifo, U1, U2, U0, MIN_BB } from "./komunajxoj.js";
+import { motifo, treni, U1, U2, U0, MIN_BB } from "./komunajxoj.js";
 
 export function buildTrack5(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -44,6 +44,8 @@ export function buildTrack5(): SpuroDateno {
     motifo(ev, t0, e8, am ? U2 : U1, b < 0o4 ? "ocarina" : "siku", b < 0o4 ? 0o63/0o100 : 0o55/0o100);
     akompani(t0, am, b >= 0o4);
     if ( b === 0o3 || b === 0o5 ) ev.push({ t: t0 + 6 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
+    // ⟨ ហ៊ីវេអូសខ្លីក្រោមមេឡូឌី ៖ ពីរដងចុងបារ ដូចដៃអូសសាកលើខ្សែ 📃 ⟩
+    if ( b < 0o4 ) treni(ev, t0 + 0o6 * e8, e8, MIN_BB, [ [ 0, 9 ], [ 0o3, 7 ] ], 0o33/0o40);
   }
 
   secs.push({ n: "ការឆ្លើយតបពេញ", a: 0o12 * bar, b: 0o22 * bar });
@@ -55,6 +57,8 @@ export function buildTrack5(): SpuroDateno {
     ev.push({ t: t0, i: "siku", f: F(am ? 0o75 : 0o101), d: bar * 0o75/0o100, v: 0o23/0o40 });
     akompani(t0, am, true);
     if ( b % 0o2 === 1 ) ev.push({ t: t0 + 3 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
+    // ⟨ ហ៊ីវេលេងមេឡូឌីអូការីណា ៖ អូសយូរជាងធ្នូ ក្រោមសំឡេងអូការីណាមួយវិកល 📃 ⟩
+    if ( b % 0o2 === 1 ) motifo(ev, t0, e8, am ? U2 : U1, "hiwe", 0o23/0o40, 0o17/0o20, -0o14);
   }
 
   secs.push({ n: "ចន្លោះដកដង្ហើម", a: 0o22 * bar, b: 0o24 * bar });
@@ -66,6 +70,9 @@ export function buildTrack5(): SpuroDateno {
   ev.push({ t: 0o23 * bar, i: "slenthem", f: F(0o54), d: e8 * 0o2, v: 0o33/0o40 });
   [ 0, 6 ].forEach(k => ev.push({ t: 0o22 * bar + k * e8, i: "guiro", d: HE / 0o10, v: 0o23/0o40 }));
   ev.push({ t: 0o23 * bar + 6 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
+  // ⟨ ហ៊ីវេបំពេញចន្លោះដកដង្ហើម ៖ អូសយូរមួយ រួចអូសខ្លីពីរបញ្ចប់ 📃 ⟩
+  ev.push({ t: 0o22 * bar, i: "hiwe", f: F(MIN_BB[9] - 0o14), d: 0o10 * e8, v: 0o25/0o40 });
+  treni(ev, 0o23 * bar + 0o2 * e8, e8, MIN_BB, [ [ 0, 7 ], [ 0o4, 5 ] ], 0o33/0o40, 0o10/0o10);
 
   secs.push({ n: "មេឡូឌីចុងក្រោយ", a: 0o24 * bar, b: 0o32 * bar });
   ev.push({ t: 0o24 * bar, i: "tjurunga", f: 0o507, d: 0o21 * HE, v: 0o63/0o100 });
@@ -76,6 +83,8 @@ export function buildTrack5(): SpuroDateno {
     motifo(ev, t0, e8, am ? U2 : U1, "siku", 0o33/0o40, 0o17/0o20, 0o14);
     akompani(t0, am, true);
     if ( b % 0o2 === 0 ) ev.push({ t: t0 + 6 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
+    // ⟨ ហ៊ីវេលេងស្របស៊ីគូ ៖ ខ្សែអូសយូរមួយខ្ទង់ក្រោមស៊ីគូ 📃 ⟩
+    if ( b % 0o2 === 0 ) motifo(ev, t0, e8, am ? U2 : U1, "hiwe", 0o25/0o40, 0o17/0o20, -0o14);
   }
 
   secs.push({ n: "ការរលាយក្រុង", a: 0o32 * bar, b: 0o520 * HE });
@@ -86,6 +95,9 @@ export function buildTrack5(): SpuroDateno {
   ev.push({ t: 0o33 * bar, i: "slenthem", f: F(0o45), d: e8 * 0o2, v: 0o33/0o40 });
   [ 0, 3, 6, 9 ].forEach(( k, j ) => ev.push({ t: 0o32 * bar + k * e8, i: "inanga", f: F(MIN_BB[[ 5, 7, 9, 7 ][j]]), d: e8 * 0o5/0o3, v: 0o23/0o40, dur: e8 * 0o5/0o3 }));
   ev.push({ t: 0o33 * bar + 6 * e8, i: "guiro", d: e8 * 0o3/0o2, v: 0o33/0o40, cresc: 1 });
+  // ⟨ ហ៊ីវេអូសចុងក្រោយ ៖ ខ្សែអូសយូររួចអូសខ្លីបញ្ចប់ 📃 ⟩
+  ev.push({ t: 0o32 * bar, i: "hiwe", f: F(MIN_BB[5] - 0o14), d: 0o10 * e8, v: 0o33/0o40 });
+  ev.push({ t: 0o32 * bar + 0o12 * e8, i: "hiwe", f: F(MIN_BB[1] - 0o14), d: 0o7 * e8, v: 0o23/0o40 });
 
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 0o520 * HE, secs };
 }

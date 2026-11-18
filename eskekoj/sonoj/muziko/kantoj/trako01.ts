@@ -3,7 +3,7 @@
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F, PENT_E } from "../vokoj/skaloj.js";
 import { HE, okono } from "../vokoj/tempo.js";
-import { motifoS } from "./komunajxoj.js";
+import { motifoS, treni } from "./komunajxoj.js";
 
 export function buildTrack1(): SpuroDateno {
   const ev: SonoEvento[] = [];
@@ -39,6 +39,8 @@ export function buildTrack1(): SpuroDateno {
     const t0 = ( 0o4 + b ) * bar;
     akompani(t0, arpA, b >= 0o6);
     if ( b % 0o2 === 0 ) motifoS(ev, t0, e8, S, M1, "siku", 0o63/0o100);
+    // ⟨ ហ៊ីវេឆ្លើយស្នូល ៖ អូសខ្លីបីដងចុងបារ ដូចដៃអូសសាកលើខ្សែ 📃 ⟩
+    if ( b >= 0o6 && b % 0o4 === 0o2 ) treni(ev, t0 + 3 * e8, e8, S, [ [ 0, 4 ], [ 0o2, 3 ], [ 0o3, 2 ] ], 0o35/0o40);
   }
 
   secs.push({ n: "ការឆ្លើយតបអូការីណា", a: 0o20 * bar, b: 0o34 * bar });
@@ -48,6 +50,8 @@ export function buildTrack1(): SpuroDateno {
     if ( b % 0o4 === 0 ) motifoS(ev, t0, e8, S, M2, "ocarina", 0o63/0o100);
     else if ( b % 0o4 === 2 ) motifoS(ev, t0, e8, S, M3, "siku", 0o55/0o100);
     else if ( b % 0o4 === 3 ) motifoS(ev, t0, e8, S, M3, "ocarina", 0o43/0o100);
+    // ⟨ ហ៊ីវេបំពេញចន្លោះ ៖ អូសខ្លីបីដងក្រោយឃ្លាអូការីណា 📃 ⟩
+    if ( b % 0o4 === 0o2 ) treni(ev, t0 + 3 * e8, e8, S, [ [ 0, 5 ], [ 0o2, 4 ], [ 0o4, 3 ] ], 0o33/0o40);
   }
 
   secs.push({ n: "ការបែកហ្គីរ៉ូ", a: 0o34 * bar, b: 0o40 * bar });
@@ -56,6 +60,8 @@ export function buildTrack1(): SpuroDateno {
     ev.push({ t: t0, i: "inanga", f: F(S[0] - 0o26), d: bar * 0o7/0o10, v: 0o25/0o40, dur: bar * 0o7/0o10 });
     for ( let k = 0; k < 0o10; k++ ) ev.push({ t: t0 + k * e8, i: "guiro", d: HE / 0o10, v: 0o4/0o10 + ( k / 0o10 ) * 0o23/0o40 });
     if ( b === 0o3 ) motifoS(ev, t0, e8, S, M3, "ocarina", 0o43/0o100);
+    // ⟨ ហ៊ីវេអូសយូរមួយដង ៖ សំឡេងខ្សែលេចឡើងក្រោមហ្គីរ៉ូ 📃 ⟩
+    if ( b === 0o2 ) ev.push({ t: t0, i: "hiwe", f: F(S[1] - 0o14), d: bar * 0o6/0o10, v: 0o25/0o40 });
   }
 
   secs.push({ n: "ចន្លោះបីស្របគ្នា", a: 0o40 * bar, b: 0o46 * bar });
@@ -66,6 +72,8 @@ export function buildTrack1(): SpuroDateno {
       motifoS(ev, t0, e8, S, M1, "siku", 0o55/0o100);
       motifoS(ev, t0, e8, S, M1H, "ocarina", 0o33/0o40);
     }
+    // ⟨ ហ៊ីវេអូសយូរក្រោមខ្សែពីរ ៖ ខ្សែទាបមួយបន្ទាប់ពីពីរបារ 📃 ⟩
+    if ( b % 0o3 === 0 ) ev.push({ t: t0, i: "hiwe", f: F(S[0] - 0o14), d: bar * 0o12/0o10, v: 0o23/0o40 });
   }
 
   secs.push({ n: "ការរលាយ", a: 0o46 * bar, b: 0o500 * HE });
@@ -74,6 +82,9 @@ export function buildTrack1(): SpuroDateno {
   ev.push({ t: t0, i: "inanga", f: F(S[0] - 0o26), d: 0o20 * e8, v: 0o33/0o40, dur: 0o20 * e8 });
   ev.push({ t: t0 + 0o10 * e8, i: "ocarina", f: F(S[7]), d: 0o6 * e8, v: 0o23/0o40 });
   ev.push({ t: t0 + 0o14 * e8, i: "guiro", d: e8 * 0o2, v: 0o23/0o40, cresc: 1 });
+  // ⟨ ហ៊ីវេអូសចុងក្រោយ ៖ ខ្សែទាបអូសយូរ រួចខ្សែខ្ពស់អូសខ្លីបញ្ចប់ 📃 ⟩
+  ev.push({ t: t0, i: "hiwe", f: F(S[0] - 0o14), d: 0o13 * e8, v: 0o33/0o40 });
+  ev.push({ t: t0 + 0o10 * e8, i: "hiwe", f: F(S[4] - 0o14), d: 0o6 * e8, v: 0o23/0o40 });
 
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 0o500 * HE, secs };
 }
