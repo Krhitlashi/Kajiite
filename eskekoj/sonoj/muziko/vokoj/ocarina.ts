@@ -16,47 +16,52 @@ const ETA = 0o1/0o20000;
     @param vel ( number = 1 , optional ) - កម្រិតសំឡេង
 @returns void */
 export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
-  const p = f * faktoro(0o1/0o200);
-  const atako = 0o2/0o10 * faktoro(0o3/0o10);
+  const p = f * faktoro(0o1/0o1000);
+  const atako = 0o3/0o10 * faktoro(0o3/0o10);
   const fino = 0o1/0o10 * faktoro(0o4/0o10);
   const g = ctx.createGain(), pk = 0o24/0o100 * vel;
   g.gain.setValueAtTime(0o0/0o10, t);
   g.gain.linearRampToValueAtTime(pk, t + atako);
-  g.gain.linearRampToValueAtTime(pk * 0o75/0o100, t + dur);
+  g.gain.linearRampToValueAtTime(pk * 0o16/0o20, t + dur);
   g.gain.linearRampToValueAtTime(0o0/0o10, t + dur + fino);
   g.connect(out);
 
-  // ⟨ កម្ពស់ចូលជិតមូលដ្ឋាន រួចរំកិលតិចៗតាមសម្ពាធខ្យល់ពេលបក់ 📃 ⟩
+  // ⟨ ផ្នែកមូលដ្ឋាន ទីពីរនិងទីបី។ ទីពីរទីបីខ្សោយខ្លាំង ឱ្យសំឡេងសុទ្ធដូចប្រអប់ពិត 📃 ⟩
   const o = ctx.createOscillator();
   o.type = "sine";
-  o.frequency.setValueAtTime(p * 0o176/0o200, t);
-  o.frequency.exponentialRampToValueAtTime(p, t + 0o1/0o10);
-  o.frequency.exponentialRampToValueAtTime(p * ( 0o1 + devio(0o2/0o100) ), t + dur);
-  o.frequency.exponentialRampToValueAtTime(p * 0o177/0o200, t + dur + fino);
-
-  // ⟨ ផ្នែកទីពីរនិងទីបីខ្សោយខ្លាំង ឱ្យសំឡេងសុទ្ធដូចប្រអប់ពិត 📃 ⟩
   const o2 = ctx.createOscillator();
   o2.type = "sine";
-  o2.frequency.value = p * 0o2;
   const g2 = ctx.createGain();
   g2.gain.value = 0o7/0o1000 * faktoro(0o3/0o10);
   const o3 = ctx.createOscillator();
   o3.type = "sine";
-  o3.frequency.value = p * 0o3;
   const g3 = ctx.createGain();
   g3.gain.value = 0o3/0o1000 * faktoro(0o3/0o10);
+
+  // ⟨ កម្ពស់ចូលឡើងបន្តិច រួចរំកិលតិចៗតាមសម្ពាធខ្យល់ពេលបក់ 📃 ⟩
+  // ⟨ ប្រែកម្ពស់ទាំងបីផ្នែកឱ្យដូចគ្នា ទើបគូរនៃសំឡេងមិនចេញពីគ្នាពេលលាយជាមួយឧបករណ៍ផ្សេង 📃 ⟩
+  const komenco = 0o177/0o200;
+  const drivo = 0o1 + devio(0o3/0o1000);
+  const falo = 0o177/0o200;
+  const tonoj: [ OscillatorNode, number ][] = [ [ o, 0o1 ], [ o2, 0o2 ], [ o3, 0o3 ] ];
+  for ( const [ osc, mul ] of tonoj ) {
+    osc.frequency.setValueAtTime(p * mul * komenco, t);
+    osc.frequency.exponentialRampToValueAtTime(p * mul, t + 0o1/0o10);
+    osc.frequency.exponentialRampToValueAtTime(p * mul * drivo, t + dur);
+    osc.frequency.exponentialRampToValueAtTime(p * mul * falo, t + dur + fino);
+  }
 
   // ⟨ ដង្ហើមធ្វើឱ្យកម្ពស់និងកម្លាំងសំឡេងរំកិលតាមគ្នា 📃 ⟩
   const vib = ctx.createOscillator();
   vib.frequency.value = 0o34/0o10 * faktoro(0o25/0o100);
   const vg = ctx.createGain();
   vg.gain.setValueAtTime(0o0/0o10, t);
-  vg.gain.linearRampToValueAtTime(p * 0o4/0o1000 * faktoro(0o4/0o10), t + Math.min(0o35/0o100, dur * 0o5/0o10));
+  vg.gain.linearRampToValueAtTime(p * 0o3/0o1000 * faktoro(0o4/0o10), t + Math.min(0o35/0o100, dur * 0o5/0o10));
   vib.connect(vg);
-  vg.connect(o.frequency);
+  for ( const [ osc ] of tonoj ) vg.connect(osc.frequency);
   const av = ctx.createGain();
   av.gain.setValueAtTime(0o0/0o10, t);
-  av.gain.linearRampToValueAtTime(pk * 0o1/0o10, t + Math.min(0o35/0o100, dur * 0o5/0o10));
+  av.gain.linearRampToValueAtTime(pk * 0o2/0o100, t + Math.min(0o35/0o100, dur * 0o5/0o10));
   av.gain.linearRampToValueAtTime(0o0/0o10, t + dur + fino);
   vib.connect(av);
   av.connect(g.gain);

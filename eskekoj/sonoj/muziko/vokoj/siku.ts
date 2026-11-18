@@ -21,7 +21,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   const d = Math.max(0o1/0o10, dur * faktoro(0o5/0o100));
   const srFin = d * 0o3;
   // ⟨ កម្ពស់ប្រែតាមដង្ហើម និងបំពេរនីមួយៗ 📃 ⟩
-  const p = f * faktoro(0o3/0o1000);
+  const p = f * faktoro(0o1/0o1000);
   const atako = 0o1/0o10 * faktoro(0o3/0o10);
   const fino = 0o2/0o10 * faktoro(0o4/0o10);
   const pinto = 0o15/0o100 * faktoro(0o7/0o100);
@@ -64,22 +64,23 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   ts.connect(tube);
   const tonoj = [
     [ 0o1, 0o1 ],
-    [ 0o2, 0o2/0o100 + spirto * 0o2/0o100 + blovo * 0o14/0o100 ],
-    [ 0o3, 0o4/0o100 + spirto * 0o3/0o100 + blovo * 0o6/0o100 ],
+    [ 0o2, 0o5/0o100 + spirto * 0o3/0o100 + blovo * 0o10/0o100 ],
+    [ 0o3, 0o2/0o100 + spirto * 0o2/0o100 + blovo * 0o4/0o100 ],
     [ 0o4, 0o6/0o1000 + blovo * 0o1/0o100 ],
     [ 0o5, 0o1/0o100 + spirto * 0o6/0o1000 ],
     [ 0o6, 0o5/0o1000 + blovo * 0o4/0o100 ],
   ];
+  // ⟨ ការប្រែកម្ពស់បក់ចូលនិងចុង ត្រូវដូចគ្នាសម្រាប់គ្រប់ផ្នែក ទើបផ្នែកនៅចុះគ្នាជាផ្នែកនៃសំឡេងតែមួយ 📃 ⟩
+  const komenco = 0o1 + devio(0o3/0o1000);
+  const falo = 0o177/0o200 + devio(0o1/0o1000);
   const osc: OscillatorNode[] = [];
   for ( const [ mul, amp0 ] of tonoj ) {
     const o = ctx.createOscillator();
     o.type = "sine";
     // ⟨ បក់ចូលជិតកម្ពស់មូលដ្ឋាន ខ្លះលើសខ្លះខ្វះបន្តិច រួចស្ងប់ 📃 ⟩
-    const komenco = 0o1 + devio(0o2/0o100);
     o.frequency.setValueAtTime(p * mul * komenco, t);
     o.frequency.exponentialRampToValueAtTime(p * mul, t + 0o6/0o100 * faktoro(0o3/0o10));
     // ⟨ សម្ពាធខ្យល់ធ្លាក់ កម្ពស់ចុះបន្តិចនៅចុងបទ 📃 ⟩
-    const falo = 0o177/0o200 + devio(0o5/0o1000);
     o.frequency.setValueAtTime(p * mul, t + d * 0o6/0o10);
     o.frequency.exponentialRampToValueAtTime(p * mul * falo, t + d + fino * 0o6/0o10);
     const og = ctx.createGain();
