@@ -299,12 +299,16 @@ let postAŭdio: ( ( aktiva: boolean ) => void ) | null = null;
 export function registriPostAŭdio(fn: ( aktiva: boolean ) => void) {
   postAŭdio = fn;
 }
-export function autoKomenci() {
-  if ( !unuaInterago ) return;
+/*តើការហៅនេះបានចាប់ផ្តើមសំឡេងឬទេ ៖ ប្រើដើម្បីកុំឱ្យប៊ូតុងបិទវិញភ្លាម
+@returns true បើទើបចាប់ផ្តើម ( boolean ) */
+export function autoKomenci(): boolean {
+  if ( !unuaInterago ) return false;
   unuaInterago = false;
   // ⟨ សំឡេងបើកស្រាប់ ៖ ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ ។ បើបិទទុក មិនចាប់ផ្តើមទេ 📃 ⟩
   if ( audioOn ) {
     komenciAuxdon();
     if ( postAŭdio ) postAŭdio(true);
+    return true;
   }
+  return false;
 }

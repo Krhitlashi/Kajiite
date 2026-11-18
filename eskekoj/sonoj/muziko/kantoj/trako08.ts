@@ -1,4 +1,4 @@
-// ≺⧼ វិល 08 · អៃស៊ីអាគ្រីពេលយប់ · 0o440 ហេ 🎵 ⧽≻
+// ≺⧼ វិល 08 · ſɭɘᴜ ֭ſɭᴜ · 0o440 ហេ 🎵 ⧽≻
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F } from "../vokoj/skaloj.js";

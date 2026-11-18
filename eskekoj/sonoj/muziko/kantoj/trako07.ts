@@ -1,4 +1,4 @@
-// ≺⧼ វិល 07 · អៃស៊ីអាគ្រីពេលល្ងាច · 0o520 ហេ 🎵 ⧽≻
+// ≺⧼ វិល 07 · j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ · 0o520 ហេ 🎵 ⧽≻
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F } from "../vokoj/skaloj.js";

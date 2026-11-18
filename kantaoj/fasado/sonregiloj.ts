@@ -52,9 +52,13 @@ function kreiSonregilojn(): SonajRegiloj {
       const celo = ( e.target as HTMLElement ).closest<HTMLElement>(SONREGILOJ);
       if ( !celo || !radiko.contains(celo) ) return;
       const speco = celo.dataset.sonregilo;
-      if ( speco === "sonoro" ) sxaltiAŭdion();
-      else if ( speco === "bruo" ) sxaltiBruon();
+      if ( speco === "sonoro" ) {
+        // ⟨ ការចុចដំបូងចាប់ផ្តើមសំឡេង ៖ កុំបិទវិញភ្លាមដូចការបិទបើកធម្មតា 📃 ⟩
+        if ( !autoKomenci() ) sxaltiAŭdion();
+      }
+      else if ( speco === "bruo" ) { autoKomenci(); sxaltiBruon(); }
       else if ( speco === "trako" ) {
+        autoKomenci();
         const estisLudanta = cxuLudas();
         sxargiTrako(parseInt(celo.dataset.trako || "0"));
         if ( estisLudanta || cxuAŭdio() ) ludi();
@@ -74,7 +78,12 @@ export function sonregiloj(): SonajRegiloj {
   if ( ununura ) return ununura;
   ununura = kreiSonregilojn();
   registriPostAŭdio(() => ununura!.gxisdatigi());
-  document.addEventListener("pointerdown", () => autoKomenci(), { once: true });
+  // ⟨ ចាប់ផ្តើមសំឡេងនៅអន្តរកម្មដំបូង ៖ រំលងប៊ូតុងសំឡេង ពួកវាគ្រប់គ្រងខ្លួនឯង 📃 ⟩
+  const aŭtoStarto = ( e: Event ) => {
+    if ( ( e.target as HTMLElement ).closest(SONREGILOJ) ) return;
+    if ( autoKomenci() ) document.removeEventListener("pointerdown", aŭtoStarto);
+  };
+  document.addEventListener("pointerdown", aŭtoStarto);
   ununura.gxisdatigi();
   return ununura;
 }

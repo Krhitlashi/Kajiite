@@ -34,6 +34,20 @@ export function motifo(ev: SonoEvento[], t0: number, e8: number, noto: [ number,
   for ( const [ p, m, l ] of noto ) ev.push({ t: t0 + p * e8, i, f: F(m + trans), d: l * e8 * du, v });
 }
 
+/*គូរមេឡូឌីតាមស្កេល ៖ p ជាទីតាំងគិតជាភាគប្រាំបី , dg ជាដឺក្រេស្កេល , l ជាប្រវែង
+    @param ev ( SonoEvento[] ) - បញ្ជីព្រឹត្តិការណ៍
+    @param t0 ( number ) - ពេលចាប់ផ្តើម
+    @param e8 ( number ) - រយៈពេលភាគប្រាំបី
+    @param skalo ( number[] ) - ស្កេលកម្រិតសំឡេង
+    @param noto ( tuple[] ) - ណោតរបស់មេឡូឌីជាដឺក្រេ
+    @param i ( string ) - ឧបករណ៍
+    @param v ( number ) - កម្រិតសំឡេង
+    @param du ( number = 0o17/0o20 , optional ) - ភាគរយប្រវែងណោត
+    @param trans ( number = 0 , optional ) - ការផ្លាស់ទីកម្រិតសំឡេង */
+export function motifoS(ev: SonoEvento[], t0: number, e8: number, skalo: number[], noto: [ number, number, number ][], i: string, v: number, du = 0o17/0o20, trans = 0) {
+  for ( const [ p, dg, l ] of noto ) ev.push({ t: t0 + p * e8, i, f: F(skalo[dg] + trans), d: l * e8 * du, v });
+}
+
 // ⟪ ជំនួយមេឡូឌី 📃 ⟫
 
 export interface MelNoto { p: number; d: number; l: number }
