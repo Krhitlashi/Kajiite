@@ -48,6 +48,19 @@ export function motifoS(ev: SonoEvento[], t0: number, e8: number, skalo: number[
   for ( const [ p, dg, l ] of noto ) ev.push({ t: t0 + p * e8, i, f: F(skalo[dg] + trans), d: l * e8 * du, v });
 }
 
+/*គូរលំនាំអូសខ្សែហ៊ីវេ ៖ ការអូសខ្លីៗដដែលៗដូចដៃអូសលើខ្សែ
+    ទីតាំងជាភាគប្រាំបី , ដឺក្រេយកពីស្កេល ហើយរាល់អូសមានរយៈពេលខ្លី
+    @param ev ( SonoEvento[] ) - បញ្ជីព្រឹត្តិការណ៍
+    @param t0 ( number ) - ពេលចាប់ផ្ដើម
+    @param e8 ( number ) - រយៈពេលភាគប្រាំបី
+    @param skalo ( number[] ) - ស្កេលកម្រិតសំឡេង
+    @param noto ( tuple[] ) - ទីតាំងនិងដឺក្រេនៃការអូស
+    @param v ( number ) - កម្រិតសំឡេង
+    @param du ( number = 0o3/0o4 , optional ) - ភាគរយប្រវែងការអូស */
+export function treni(ev: SonoEvento[], t0: number, e8: number, skalo: number[], noto: [ number, number ][], v: number, du = 0o3/0o4) {
+  for ( const [ p, dg ] of noto ) ev.push({ t: t0 + p * e8, i: "hiwe", f: F(skalo[dg]), d: e8 * du, v });
+}
+
 // ⟪ ជំនួយមេឡូឌី 📃 ⟫
 
 export interface MelNoto { p: number; d: number; l: number }

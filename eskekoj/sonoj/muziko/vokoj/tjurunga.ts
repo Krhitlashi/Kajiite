@@ -19,8 +19,8 @@ const PARTALOJ = [
 export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
   const p = f * 0o31/0o100 * faktoro(0o1/0o200);
   const g = ctx.createGain(), pk = 0o16/0o100 * vel;
-  const atk = Math.min(0o3/0o10, dur * 0o3/0o10);
-  const rel = Math.min(0o4/0o10, dur * 0o3/0o10);
+  const atk = Math.min(0o1/0o40, dur * 0o1/0o4);
+  const rel = Math.min(0o1/0o10, dur * 0o1/0o4);
   g.gain.setValueAtTime(ETA, t);
   g.gain.exponentialRampToValueAtTime(pk, t + atk);
   g.gain.setValueAtTime(pk, t + Math.max(atk, dur - rel));
@@ -32,6 +32,11 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   const am = ctx.createGain();
   am.gain.value = 0o55/0o100;
   const who = ctx.createOscillator();
+  // ⟨ កំពូលសំឡេងត្រូវត្រង់ដើមណោត ដើម្បីឱ្យចូលចង្វាក់ភ្លាម 📃 ⟩
+  who.setPeriodicWave(ctx.createPeriodicWave(
+    new Float32Array([ 0o0, 0o1 ]),
+    new Float32Array([ 0o0, 0o0 ])
+  ));
   who.frequency.value = 0o15/0o10 * faktoro(0o15/0o100);
   const wg = ctx.createGain();
   wg.gain.value = 0o42/0o100;

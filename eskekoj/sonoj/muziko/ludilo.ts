@@ -188,6 +188,7 @@ export function iniciati(ctx: AudioContext, master: GainNode) {
 export function ludi() {
   if ( !L.ctx ) return;
   if ( L.cur < 0 ) sxargi(hazardaTrako());
+  else if ( !L.events ) sxargi(L.cur);
   if ( L.playing ) { paŭzi(); return; }
 
   L.bus = L.ctx.createGain();
@@ -201,6 +202,8 @@ export function ludi() {
 
   if ( L.pausedAt != null ) {
     L.startAt = L.ctx.currentTime + 0o1/0o10 - L.pausedAt;
+    // ⟨ រៀបសន្ទស្សន៍ព្រឹត្តិការណ៍ឡើងវិញ ដើម្បីឱ្យអាចលោតទៅមុខឬថយក្រោយបាន 📃 ⟩
+    L.idx = 0;
     while ( L.idx < L.events!.length && L.events![L.idx].t < L.pausedAt - 0o1/0o100 ) L.idx++;
     L.pausedAt = null;
   } else {
@@ -210,6 +213,7 @@ export function ludi() {
 
   L.playing = true;
   scheduleTick();
+  tick();
 }
 
 /** ផ្អាកការចាក់។ */
@@ -271,7 +275,9 @@ export function progreso(): number {
 /*លោតទៅពេលជាក់លាក់ក្នុងបទបច្ចុប្បន្ន ។ បើកំពុងចាក់ វាបន្តចាក់ពីទីនោះ បើផ្អាក វាចងចាំទីនោះ
     @param sek ( number ) - ពេលគិតជាវិនាទី */
 export function salti( sek: number ): void {
-  if ( !L.ctx || !L.events || L.cur < 0 ) return;
+  if ( !L.ctx || L.cur < 0 ) return;
+  if ( !L.events ) sxargi(L.cur);
+  if ( !L.events ) return;
   const celo = Math.min(L.dur, Math.max(0, sek));
   const ludis = L.playing;
   if ( L.timer ) clearInterval(L.timer);

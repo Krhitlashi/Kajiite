@@ -1,7 +1,7 @@
 // ≺⧼ សំឡេងអូការីណា 🎺 ⧽≻
 // ប្រអប់សំឡេងហែលមហ៊ុនស៊ីសាំង មានសំឡេងសុទ្ធជាងគេ ផ្នែកទីពីរខ្សោយខ្លាំង។
 // ការបក់ចូលទន់ភ្លន់ កម្ពស់រំកិលតិចៗតាមសម្ពាធខ្យល់ ហើយខ្យល់ឮនៅជិតកម្ពស់មូលដ្ឋាន។
-import { noiseSrc } from "./bruo.js";
+import { noiseSrc, startNoise, jetTurbulence } from "./bruo.js";
 import { devio, faktoro } from "./vario.js";
 
 // ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
@@ -17,58 +17,84 @@ const ETA = 0o1/0o20000;
 @returns void */
 export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
   const p = f * faktoro(0o1/0o1000);
-  const atako = 0o3/0o10 * faktoro(0o3/0o10);
-  const fino = 0o1/0o10 * faktoro(0o4/0o10);
+  // ⟨ បក់ចូលលឿនជាប់ចង្វាក់ ឡើងភ្លាមរួចស្ងប់ ទើបណោតមិនយឺតពីបាត 📃 ⟩
+  const atako = 0o5/0o100 * faktoro(0o1/0o10);
+  const fino = 0o6/0o100 * faktoro(0o1/0o10);
   const g = ctx.createGain(), pk = 0o24/0o100 * vel;
   g.gain.setValueAtTime(0o0/0o10, t);
+  g.gain.linearRampToValueAtTime(pk * 0o7/0o10, t + atako * 0o4/0o10);
   g.gain.linearRampToValueAtTime(pk, t + atako);
   g.gain.linearRampToValueAtTime(pk * 0o16/0o20, t + dur);
   g.gain.linearRampToValueAtTime(0o0/0o10, t + dur + fino);
   g.connect(out);
 
-  // ⟨ ផ្នែកមូលដ្ឋាន ទីពីរនិងទីបី។ ទីពីរទីបីខ្សោយខ្លាំង ឱ្យសំឡេងសុទ្ធដូចប្រអប់ពិត 📃 ⟩
-  const o = ctx.createOscillator();
-  o.type = "sine";
-  const o2 = ctx.createOscillator();
-  o2.type = "sine";
-  const g2 = ctx.createGain();
-  g2.gain.value = 0o7/0o1000 * faktoro(0o3/0o10);
-  const o3 = ctx.createOscillator();
-  o3.type = "sine";
-  const g3 = ctx.createGain();
-  g3.gain.value = 0o3/0o1000 * faktoro(0o3/0o10);
-
-  // ⟨ កម្ពស់ចូលឡើងបន្តិច រួចរំកិលតិចៗតាមសម្ពាធខ្យល់ពេលបក់ 📃 ⟩
-  // ⟨ ប្រែកម្ពស់ទាំងបីផ្នែកឱ្យដូចគ្នា ទើបគូរនៃសំឡេងមិនចេញពីគ្នាពេលលាយជាមួយឧបករណ៍ផ្សេង 📃 ⟩
-  const komenco = 0o177/0o200;
+  // ⟨ កម្លាំងផ្នែកប្រែតិចៗ ៣ ទៅ ៨ ភាគរយ កុំឱ្យឮថារលកឡើងចុះ 📃 ⟩
+  const tonoj: [ number, number, number, number ][] = [
+    [ 0o1, 0o1, 0o3, 0o2/0o100 ],
+    [ 0o2, 0o7/0o1000, 0o5, 0o3/0o100 ],
+    [ 0o3, 0o3/0o1000, 0o7, 0o3/0o100 ],
+    [ 0o4, 0o2/0o10000, 0o12, 0o4/0o100 ],
+    [ 0o5, 0o1/0o20000, 0o15, 0o4/0o100 ],
+    [ 0o6, 0o1/0o40000, 0o21, 0o5/0o100 ],
+    [ 0o7, 0o1/0o40000, 0o25, 0o5/0o100 ],
+    [ 0o10, 0o1/0o40000, 0o31, 0o5/0o100 ],
+  ];
+  // ⟨ ច្រកចូលរួម កម្លាំងផ្នែកហើមស្រកតាមខ្យល់បក់ 📃 ⟩
+  const ts = ctx.createGain();
+  ts.gain.value = 0o1;
+  const osc: OscillatorNode[] = [];
+  const turbTaps: { cutoff: number; frac: number; node: GainNode }[] = [];
+  // ⟨ កម្ពស់ចាប់ផ្តើមខុសគ្នាតិចៗ ហើយស្ងប់លឿនតាមសម្ពាធខ្យល់ 📃 ⟩
+  // ⟨ ប្រែកម្ពស់គ្រប់ផ្នែកឱ្យដូចគ្នា ទើបគូរនៃសំឡេងមិនចេញពីគ្នាពេលលាយជាមួយឧបករណ៍ផ្សេង 📃 ⟩
+  const komenco = 0o1 + devio(0o2/0o1000);
   const drivo = 0o1 + devio(0o3/0o1000);
   const falo = 0o177/0o200;
-  const tonoj: [ OscillatorNode, number ][] = [ [ o, 0o1 ], [ o2, 0o2 ], [ o3, 0o3 ] ];
-  for ( const [ osc, mul ] of tonoj ) {
-    osc.frequency.setValueAtTime(p * mul * komenco, t);
-    osc.frequency.exponentialRampToValueAtTime(p * mul, t + 0o1/0o10);
-    osc.frequency.exponentialRampToValueAtTime(p * mul * drivo, t + dur);
-    osc.frequency.exponentialRampToValueAtTime(p * mul * falo, t + dur + fino);
+  for ( const [ mul, amp0, cutoff, frac ] of tonoj ) {
+    const o = ctx.createOscillator();
+    o.type = "sine";
+    o.frequency.setValueAtTime(p * mul * komenco, t);
+    o.frequency.exponentialRampToValueAtTime(p * mul, t + 0o6/0o100);
+    o.frequency.exponentialRampToValueAtTime(p * mul * drivo, t + dur);
+    o.frequency.exponentialRampToValueAtTime(p * mul * falo, t + dur + fino);
+    const og = ctx.createGain();
+    og.gain.value = amp0 * faktoro(0o3/0o10);
+    const am = ctx.createGain();
+    am.gain.value = 0o1;
+    o.connect(og);
+    og.connect(am);
+    am.connect(ts);
+    turbTaps.push({ cutoff, frac: frac * faktoro(0o2/0o100), node: am });
+    o.start(t);
+    o.stop(t + dur + fino + 0o1/0o100);
+    osc.push(o);
   }
 
   // ⟨ ដង្ហើមធ្វើឱ្យកម្ពស់និងកម្លាំងសំឡេងរំកិលតាមគ្នា 📃 ⟩
+  // ⟨ ដង្ហើមញ័រ 0o55/0o10 ហឺត តាមការវាស់ពីសំឡេងគំរូ ឱ្យឮថាជាឧបករណ៍ពិត មិនមែនសំឡេងឋិតិវន្ត 📃 ⟩
   const vib = ctx.createOscillator();
-  vib.frequency.value = 0o34/0o10 * faktoro(0o25/0o100);
+  vib.frequency.value = 0o55/0o10 * faktoro(0o1/0o10);
+  // ⟨ ល្បឿនញ័រប្រែតិចៗ កុំឱ្យឮថាញ័រធំរំជួលជារលក 📃 ⟩
+  const vwob = ctx.createOscillator();
+  vwob.frequency.value = 0o7/0o10 * faktoro(0o4/0o10);
+  const vwg = ctx.createGain();
+  vwg.gain.value = 0o12/0o100;
+  vwob.connect(vwg);
+  vwg.connect(vib.frequency);
   const vg = ctx.createGain();
   vg.gain.setValueAtTime(0o0/0o10, t);
-  vg.gain.linearRampToValueAtTime(p * 0o3/0o1000 * faktoro(0o4/0o10), t + Math.min(0o35/0o100, dur * 0o5/0o10));
+  vg.gain.linearRampToValueAtTime(p * 0o1/0o100 * faktoro(0o2/0o10), t + Math.min(0o12/0o100, dur * 0o3/0o10));
   vib.connect(vg);
-  for ( const [ osc ] of tonoj ) vg.connect(osc.frequency);
+  for ( const o of osc ) vg.connect(o.frequency);
+  // ⟨ ខ្យល់បក់ធ្វើឱ្យគ្រប់ផ្នែកហើមស្រកដោយមូលហេតុតែមួយ តែល្បឿនខុសគ្នា 📃 ⟩
+  jetTurbulence(ctx, t, t + dur + fino + 0o1/0o100, turbTaps);
   const av = ctx.createGain();
   av.gain.setValueAtTime(0o0/0o10, t);
-  av.gain.linearRampToValueAtTime(pk * 0o2/0o100, t + Math.min(0o35/0o100, dur * 0o5/0o10));
+  av.gain.linearRampToValueAtTime(pk * 0o4/0o100, t + Math.min(0o12/0o100, dur * 0o3/0o10));
   av.gain.linearRampToValueAtTime(0o0/0o10, t + dur + fino);
   vib.connect(av);
   av.connect(g.gain);
 
   // ⟨ ខ្យល់រំញ័រយឺតៗធ្វើឱ្យសំឡេងមានស្នាមខ្យល់នៅជាប់កម្ពស់មូលដ្ឋាន ដូចខ្យល់បក់ពិត 📃 ⟩
-  const ts = ctx.createGain();
-  ts.gain.value = 0o1;
   const mn = noiseSrc(ctx);
   const mlp = ctx.createBiquadFilter();
   mlp.type = "lowpass";
@@ -80,8 +106,8 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   mlp2.Q.value = 0o7/0o10;
   const mg = ctx.createGain();
   mg.gain.setValueAtTime(ETA, t);
-  mg.gain.exponentialRampToValueAtTime(0o1 * vel * faktoro(0o3/0o10), t + 0o5/0o100);
-  mg.gain.exponentialRampToValueAtTime(0o6/0o10 * vel * faktoro(0o4/0o10), t + 0o3/0o10);
+  mg.gain.exponentialRampToValueAtTime(0o1 * vel * faktoro(0o3/0o10), t + 0o2/0o100);
+  mg.gain.exponentialRampToValueAtTime(0o6/0o10 * vel * faktoro(0o4/0o10), t + 0o5/0o100);
   mg.gain.exponentialRampToValueAtTime(0o1 * vel, t + dur);
   mg.gain.exponentialRampToValueAtTime(ETA, t + dur + fino);
   mg.gain.setValueAtTime(0o0/0o10, t + dur + fino);
@@ -96,21 +122,23 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   vfg.gain.value = p * 0o2/0o100;
   vandro.connect(vfg);
   vfg.connect(mlp.frequency);
-  // ⟨ ខ្យល់ស្រាលៗនៅជុំវិញផ្នែកខ្ពស់ៗ ឱ្យមានខ្លួនបន្តិចដូចប្រអប់ពិត 📃 ⟩
+  // ⟨ ខ្យល់ស្រាលៗនៅជុំវិញផ្នែកខ្ពស់ៗ ឱ្យមានខ្លួនបន្តិចដូចប្រអប់ពិត ។ ខ្យល់របស់ប្រអប់មិនកាត់ត្រឹមបួនដងនៃកម្ពស់ទេ ។ វាលាតដល់ខ្ពស់ ទើបសំឡេងមិនរាបស្មើដូចស៊ីនុស 📃 ⟩
   const fono = noiseSrc(ctx);
   const flp = ctx.createBiquadFilter();
   flp.type = "lowpass";
-  flp.frequency.value = Math.min(0o10000, p * 0o4);
+  flp.frequency.value = 0o15000;
   flp.Q.value = 0o7/0o10;
+  // ⟨ ឆ្នុកខ្យល់នៅកន្លែងដដែលគ្រប់កម្ពស់ មិនរំកិលតាមកម្ពស់ប្រអប់ ។ ប្រអប់ខ្ពស់មិនត្រូវមានខ្យល់ខ្ពស់ជាងប្រអប់ទាបទេ 📃 ⟩
   const fbrancoj: [ number, number, number ][] = [
-    [ 0o2, 0o6, 0o6/0o100 ],
-    [ 0o3, 0o6, 0o34/0o1000 ],
-    [ 0o4, 0o14, 0o1/0o100 ],
+    [ 0o1200, 0o12/0o10, 0o5/0o100 ],
+    [ 0o2600, 0o11/0o10, 0o26/0o1000 ],
+    [ 0o5400, 0o11/0o10, 0o4/0o1000 ],
+    [ 0o11400, 0o10/0o10, 0o2/0o1000 ],
   ];
   for ( const [ mul, q, amp ] of fbrancoj ) {
     const fbp = ctx.createBiquadFilter();
     fbp.type = "bandpass";
-    fbp.frequency.value = p * mul * faktoro(0o2/0o100);
+    fbp.frequency.value = mul * faktoro(0o2/0o100);
     fbp.Q.value = q;
     const fbg = ctx.createGain();
     fbg.gain.value = amp * faktoro(0o2/0o10);
@@ -119,20 +147,14 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
     fbg.connect(flp);
   }
   const fng = ctx.createGain();
-  fng.gain.setValueAtTime(ETA, t);
-  fng.gain.exponentialRampToValueAtTime(0o3/0o10 * vel * faktoro(0o3/0o10), t + 0o5/0o100);
-  fng.gain.exponentialRampToValueAtTime(0o2/0o10 * vel * faktoro(0o4/0o10), t + 0o3/0o10);
-  fng.gain.exponentialRampToValueAtTime(0o3/0o10 * vel, t + dur);
+  fng.gain.setValueAtTime(0o0/0o10, t);
+  fng.gain.linearRampToValueAtTime(0o1/0o10 * vel, t + Math.min(atako, dur * 0o4/0o10));
+  fng.gain.setValueAtTime(0o1/0o10 * vel, t + dur);
   fng.gain.exponentialRampToValueAtTime(ETA, t + dur + fino);
   fng.gain.setValueAtTime(0o0/0o10, t + dur + fino);
   flp.connect(fng);
   fng.connect(g);
 
-  o.connect(ts);
-  o2.connect(g2);
-  g2.connect(ts);
-  o3.connect(g3);
-  g3.connect(ts);
   ts.connect(g);
 
   // ⟨ ខ្យល់បន្ទប់សល់យូរជាងសំឡេង កុំឱ្យចន្លោះរវាងដង្ហើមស្ងាត់ភ្លាម 📃 ⟩
@@ -155,7 +177,8 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   rlp.connect(rg);
   rg.connect(out);
 
-  [ o, o2, o3, vib, mn, fono, vandro ].forEach(x => { x.start(t); x.stop(t + dur + fino + 0o1/0o100); });
-  room.start(t);
-  room.stop(t + roomFin + 0o1/0o10);
+  [ vib, vwob, vandro ].forEach(x => { x.start(t); x.stop(t + dur + fino + 0o1/0o100); });
+  startNoise(mn, t); mn.stop(t + dur + fino + 0o1/0o100);
+  startNoise(fono, t); fono.stop(t + dur + fino + 0o1/0o100);
+  startNoise(room, t); room.stop(t + roomFin + 0o1/0o10);
 }
