@@ -46,7 +46,7 @@ export function buildTrack7(): SpuroDateno {
   }
 
   secs.push({ n: "ការឆ្លើយតបពេញ", a: 0o12 * bar, b: 0o22 * bar });
-  ev.push({ t: 0o12 * bar, i: "bull", f: 0o406, d: 0o21 * HE, v: 0o63/0o100 });
+  ev.push({ t: 0o12 * bar, i: "tjurunga", f: 0o406, d: 0o21 * HE, v: 0o63/0o100 });
   ev.push({ t: 0o12 * bar, i: "didj", f: f0, d: 0o10 * bar, v: 0o63/0o100 });
   for ( let b = 0; b < 0o10; b++ ) {
     const t0 = ( 0o12 + b ) * bar, am = b % 0o2 === 1;
@@ -57,7 +57,7 @@ export function buildTrack7(): SpuroDateno {
   }
 
   secs.push({ n: "ចន្លោះដកដង្ហើម", a: 0o22 * bar, b: 0o24 * bar });
-  ev.push({ t: 0o22 * bar, i: "bull", f: 0o304, d: 0o23 * HE, v: 0o33/0o40 });
+  ev.push({ t: 0o22 * bar, i: "tjurunga", f: 0o304, d: 0o23 * HE, v: 0o33/0o40 });
   ev.push({ t: 0o22 * bar, i: "didj", f: f0, d: 0o2 * bar, v: 0o43/0o100 });
   motifo(ev, 0o22 * bar, e8, B0, "siku", 0o55/0o100);
   motifo(ev, 0o23 * bar, e8, [ [ 0, 0o100, 4 ], [ 6, 0o76, 4 ] ], "siku", 0o43/0o100);
@@ -67,7 +67,7 @@ export function buildTrack7(): SpuroDateno {
   ev.push({ t: 0o23 * bar + 6 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
 
   secs.push({ n: "មេឡូឌីចុងក្រោយ", a: 0o24 * bar, b: 0o32 * bar });
-  ev.push({ t: 0o24 * bar, i: "bull", f: 0o507, d: 0o21 * HE, v: 0o63/0o100 });
+  ev.push({ t: 0o24 * bar, i: "tjurunga", f: 0o507, d: 0o21 * HE, v: 0o63/0o100 });
   ev.push({ t: 0o24 * bar, i: "didj", f: f0, d: 0o6 * bar, v: 0o63/0o100 });
   for ( let b = 0; b < 0o6; b++ ) {
     const t0 = ( 0o24 + b ) * bar, am = b % 0o2 === 1;

@@ -25,6 +25,23 @@ const REGISTRAJ = {
   "aktiva.ts": [ new RegExp("^export \\* from \"\\./[a-z0-9\\-]+/(" + datumajNomoj.join("|") + ")\\.js\";", "m") ],
 };
 
+// ⟪ ឯកសារតន្ត្រី 📃 ⟫
+// ឧបករណ៍កែតន្ត្រី ( iloj/muzik-redaktilo/muzik-redaktilo.html ) សរសេរវិល
+// ទៅ eskekoj/sonoj/muziko/kantoj/trakoNN.ts និងបញ្ជីវិល kantoj.ts ។
+// វិលនីមួយៗត្រូវមានអនុគមន៍ buildTrackN និងប្រភេទ SpuroDateno ,
+// បញ្ជីត្រូវមាន KANTOJ ។ លេខវិលជាលេខគោលដប់ក្នុងឈ្មោះឯកសារ ( 01..99 )។
+const MUZIKO = join(RADIKO, "eskekoj", "sonoj", "muziko");
+function muzikaMarkilo(nomo) {
+  if ( typeof nomo !== "string" ) return null;
+  const trako = /^muziko\/trako(\d{2})\.ts$/.exec(nomo);
+  if ( trako ) {
+    const n = parseInt(trako[1], 0o12);
+    if ( n < 0o1 || n > 0o143 ) return null;
+    return [ "export function buildTrack" + n + "(", "SpuroDateno" ];
+  }
+  if ( nomo === "muziko/kantoj.ts" ) return [ "export const KANTOJ" ];
+  return null;
+}
 function markiloDe(nomo) {
   if ( typeof nomo !== "string" ) return null;
   const datumo = /^tero-datumaro\/([a-z0-9\-]{1,40})\/([a-z0-9\-]+\.ts)$/.exec(nomo);
@@ -34,10 +51,14 @@ function markiloDe(nomo) {
   return null;
 }
 function cxefaDe(nomo, teksto) {
-  const bezonoj = markiloDe(nomo);
+  const bezonoj = markiloDe(nomo) ?? muzikaMarkilo(nomo);
   if ( !bezonoj || typeof teksto !== "string" ) return false;
   if ( !teksto.startsWith("//") ) return false;
   return bezonoj.every( b => typeof b === "string" ? teksto.includes( b ) : b.test( teksto ) );
+}
+
+function celoDe(nomo) {
+  return nomo.startsWith("muziko/") ? join(MUZIKO, nomo.slice(0o7)) : join(SRC, nomo);
 }
 
 // ⟪ CORS 📃 ⟫
@@ -55,7 +76,7 @@ const servilo = createServer(async (peto, respondo) => {
   }
   if ( peto.method === "GET" ) {
     respondo.writeHead(0o310, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("<( ឧបករណ៍រក្សាទុករួចរាល់ )> POST ទិន្នន័យ JSON ទៅអាសយដ្ឋាននេះ");
+    respondo.end("<( ឧបករណ៍រក្សាទុករួចរាល់ )> POST ទិន្នន័យ JSON ទៅអាសយដ្ឋាននេះ ( ដី ឬតន្ត្រី )");
     return;
   }
   if ( peto.method !== "POST" ) {
@@ -97,8 +118,8 @@ const servilo = createServer(async (peto, respondo) => {
     }
     let skribitaj = 0;
     for ( const [ nomo, teksto ] of enskribotaj ) {
-      await mkdir(dirname(join(SRC, nomo)), { recursive: true });
-      await writeFile(join(SRC, nomo), teksto, "utf8");
+      await mkdir(dirname(celoDe(nomo)), { recursive: true });
+      await writeFile(celoDe(nomo), teksto, "utf8");
       skribitaj++;
     }
     respondo.writeHead(0o310, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
@@ -112,5 +133,5 @@ const servilo = createServer(async (peto, respondo) => {
 const KVANTO_DOSIEROJ = "0o" + Object.keys(DOSIEROJ).length.toString(8);
 
 servilo.listen(PORD, "127.0.0.1", () => {
-  console.log("<( ឧបករណ៍រក្សាទុក )> http://127.0.0.1:" + PORD + " → kantaoj/tero-datumaro/<mapo>/ ( ឯកសារទិន្នន័យ " + KVANTO_DOSIEROJ + " + បញ្ជីផែនទី )");
+  console.log("<( ឧបករណ៍រក្សាទុក )> http://127.0.0.1:" + PORD + " → kantaoj/tero-datumaro/<mapo>/ ( ឯកសារទិន្នន័យ " + KVANTO_DOSIEROJ + " + បញ្ជីផែនទី ) , muziko/ → eskekoj/sonoj/muziko/ ( វិល + បញ្ជីវិល )");
 });

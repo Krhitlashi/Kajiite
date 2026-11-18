@@ -36,8 +36,8 @@ export function buildTrack2(): SpuroDateno {
 
   secs.push({ n: "ខ្យល់កួចផុសឡើង", a: 0o12 * bar, b: 0o20 * bar });
   ev.push({ t: 0o12 * bar, i: "didj", f: f0, d: 0o6 * bar, v: 0o63/0o100 });
-  ev.push({ t: 0o12 * bar + 0o2 * e8, i: "bull", f: 0o334, d: 0o21 * HE, v: 0o63/0o100 });
-  ev.push({ t: 0o15 * bar, i: "bull", f: 0o406, d: 0o23 * HE, v: 0o35/0o40 });
+  ev.push({ t: 0o12 * bar + 0o2 * e8, i: "tjurunga", f: 0o334, d: 0o21 * HE, v: 0o63/0o100 });
+  ev.push({ t: 0o15 * bar, i: "tjurunga", f: 0o406, d: 0o23 * HE, v: 0o35/0o40 });
   for ( let b = 0; b < 0o6; b++ ) {
     const t0 = ( 0o12 + b ) * bar;
     mbira(t0, kuts, 0o14, 0o4/0o10);
@@ -57,8 +57,8 @@ export function buildTrack2(): SpuroDateno {
 
   secs.push({ n: "វដ្តពេញ", a: 0o26 * bar, b: 0o33 * bar });
   ev.push({ t: 0o26 * bar, i: "didj", f: f0, d: 0o5 * bar, v: 0o63/0o100 });
-  ev.push({ t: 0o26 * bar + 0o2 * e8, i: "bull", f: 0o507, d: 0o17 * HE, v: 0o63/0o100 });
-  ev.push({ t: 0o31 * bar, i: "bull", f: 0o446, d: 0o17 * HE, v: 0o55/0o100 });
+  ev.push({ t: 0o26 * bar + 0o2 * e8, i: "tjurunga", f: 0o507, d: 0o17 * HE, v: 0o63/0o100 });
+  ev.push({ t: 0o31 * bar, i: "tjurunga", f: 0o446, d: 0o17 * HE, v: 0o55/0o100 });
   for ( let b = 0; b < 0o5; b++ ) {
     const t0 = ( 0o26 + b ) * bar;
     mbira(t0, b % 0o2 ? kuts : kush, b % 0o4 > 1 ? 0o14 : 0, 0o23/0o40);

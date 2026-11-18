@@ -25,11 +25,11 @@ export interface Kanto {
 // ⟨ ឈ្មោះបទយកពីវចនានុក្រម aih ៖ ជាឈ្មោះពិត មិនមែនឈ្មោះបណ្តោះអាសន្ន 📃 ⟩
 export const KANTOJ: Kanto[] = [
   { no: "01", title: AIH["muzikTrako0"], instrs: [ "siku", "ocarina", "guiro", "inanga" ], data: buildTrack1() },
-  { no: "02", title: AIH["muzikTrako1"], instrs: [ "didj", "bull", "mbira", "inanga", "kiiqflak" ], data: buildTrack2() },
+  { no: "02", title: AIH["muzikTrako1"], instrs: [ "didj", "tjurunga", "mbira", "inanga", "kiiqflak" ], data: buildTrack2() },
   { no: "03", title: AIH["muzikTrako2"], instrs: [ "slenthem", "mbira", "ocarina", "guiro", "kiiqflak" ], data: buildTrack3() },
-  { no: "04", title: AIH["muzikTrako3"], instrs: [ "inanga", "siku", "bull", "mbira", "guiro", "kiiqflak" ], data: buildTrack4() },
-  { no: "05", title: AIH["muzikTrako4"], instrs: [ "siku", "didj", "guiro", "bull", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack5() },
-  { no: "06", title: AIH["muzikTrako5"], instrs: [ "siku", "didj", "guiro", "bull", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack6() },
-  { no: "07", title: AIH["muzikTrako6"], instrs: [ "siku", "didj", "guiro", "bull", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack7() },
-  { no: "08", title: AIH["muzikTrako7"], instrs: [ "siku", "didj", "guiro", "bull", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack8() },
+  { no: "04", title: AIH["muzikTrako3"], instrs: [ "inanga", "siku", "tjurunga", "mbira", "guiro", "kiiqflak" ], data: buildTrack4() },
+  { no: "05", title: AIH["muzikTrako4"], instrs: [ "siku", "didj", "guiro", "tjurunga", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack5() },
+  { no: "06", title: AIH["muzikTrako5"], instrs: [ "siku", "didj", "guiro", "tjurunga", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack6() },
+  { no: "07", title: AIH["muzikTrako6"], instrs: [ "siku", "didj", "guiro", "tjurunga", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack7() },
+  { no: "08", title: AIH["muzikTrako7"], instrs: [ "siku", "didj", "guiro", "tjurunga", "slenthem", "inanga", "mbira", "ocarina" ], data: buildTrack8() },
 ];

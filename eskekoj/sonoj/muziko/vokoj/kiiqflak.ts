@@ -1,7 +1,8 @@
 // ≺⧼ សំឡេង ſɭɹȝ ſȷͷ̗ᴜƽ ꞁȷ̀ᴜꞇ 🥁 ⧽≻
-// ការវាយមួយមានពីរផ្នែក ។ ស្បែកស្គរបន្លឺខ្លីៗ ហើយខ្សែដែលរឹតលើស្បែកញ័រ
-// បន្ថែមសំឡេងរដិបរដុបខ្ពស់ៗ ។ ឯកសារពិតបង្ហាញកំពូលទាបប្រហែល 0o100 ហឺត
-// និង 0o224 ហឺត សំឡេងញ័រខ្សែរហូតដល់ 0o11000 ហឺត ហើយរលត់អស់ក្នុង 0o22/0o100 វិនាទី ។
+// ការវាយមួយមានពីរផ្នែក ។ ស្បែកស្គរបន្លឺទាបជាងគេ ហើយខ្សែដែលរឹតលើស្បែកញ័រ
+// បន្ថែមសំឡេងរដិបរដុបស្រាលជាងស្បែក ។ ឯកសារពិតបង្ហាញថាខ្សែញ័រភ្លាមពេលប៉ះ
+// ក្នុងក្រុមកំពូល 0o1300–0o3100 ហឺត ហើយអត្រាញ័ររដិបរដុបប្រហែល 0o64 ហឺត ។
+// ថាមពលភាគច្រើននៅក្រោម 0o450 ហឺត ដូច្នេះស្បែកត្រូវលេចធ្លោជាងខ្សែ។
 import { noiseSrc } from "./bruo.js";
 import { faktoro } from "./vario.js";
 
@@ -10,33 +11,37 @@ const ETA = 0o1/0o20000;
 
 /* របៀបញ័រស្បែកស្គរ ។ សមាមាត្រទាំងនេះមិនមែនជាចំនួនគត់ទេ ដូចស្បែកមូលពិត
    ដែលរបៀបទីពីរស្ថិតនៅប្រហែល 0o145/0o100 នៃរបៀបមេ ។
-   របៀបខ្ពស់រលត់លឿនជាង ដូចក្នុងការវាយពិត 📃 */
+   របៀបមេរលត់យឺត ដូចស្គរពិតដែលនៅរោទ៍ក្រោយការវាយ 📃 */
 const MODOJ: Array<[ number, number, number ]> = [
-  [ 0o1,           0o7/0o10, 0o31/0o100 ],
-  [ 0o145/0o100,   0o3/0o10, 0o23/0o100 ],
-  [ 0o211/0o100,   0o17/0o100, 0o15/0o100 ],
-  [ 0o274/0o100,   0o1/0o10, 0o11/0o100 ],
+  [ 0o1,           0o10/0o10, 0o130/0o100 ],
+  [ 0o133/0o100,   0o34/0o100, 0o160/0o100 ],
+  [ 0o213/0o100,   0o21/0o100, 0o64/0o100 ],
+  [ 0o274/0o100,   0o1/0o10, 0o40/0o100 ],
 ];
 
 // ⟨ ខ្យល់ក្នុងខ្លួនស្គរ និងខ្យល់ក្នុងបន្ទប់ ទាបជាងស្បែក 📃 ⟩
 const AEROJ: Array<[ number, number, number ]> = [
-  [ 0o36/0o100, 0o7/0o10, 0o24/0o100 ],
-  [ 0o54/0o100, 0o35/0o100, 0o20/0o100 ],
+  [ 0o36/0o100, 0o6/0o10, 0o30/0o100 ],
+  [ 0o54/0o100, 0o4/0o10, 0o22/0o100 ],
 ];
 
-/* ខ្សែដែលរឹតលើស្បែកញ័រលឿនជាងស្បែក ហើយបន្លឺកំពូលខ្ពស់ៗ
-   ដែលរលត់រហ័ស ។ ខ្សែនីមួយៗមានគូបន្តិច ដើម្បីឱ្យឮញ័រ មិនឮស្មើរាល់ដង 📃 */
-const KORDOJ: Array<[ number, number, number ]> = [
-  [ 0o364/0o100, 0o44/0o1000, 0o13/0o100 ],
-  [ 0o562/0o100, 0o24/0o1000, 0o10/0o100 ],
-  [ 0o764/0o100, 0o12/0o1000, 0o7/0o100 ],
+/* ខ្សែដែលរឹតលើស្បែកញ័រ ៖ កំពូលថ្លាៗឮតែខ្លីៗពេលប៉ះ កុំឱ្យរោទ៍យូរដូចលោហធាតុ ។
+   សំឡេងញ័របន្តភាគច្រើនមកពីខ្យល់រដិបរដុបខាងក្រោម មិនមែនពីកំពូលទាំងនេះទេ ។
+   គូនីមួយៗឃ្លាតគ្នាមិនស្មើ ដើម្បីឱ្យញ័ររដិបរដុបច្រើនអត្រាលាយគ្នា 📃 */
+const KORDOJ: Array<[ number, number, number, number ]> = [
+  [ 0o472/0o100,  0o24/0o1000, 0o34/0o100, 0o6/0o1000 ],
+  [ 0o546/0o100,  0o17/0o1000, 0o31/0o100, 0o10/0o1000 ],
+  [ 0o624/0o100,  0o14/0o1000, 0o26/0o100, 0o12/0o1000 ],
+  [ 0o706/0o100,  0o11/0o1000, 0o23/0o100, 0o14/0o1000 ],
+  [ 0o770/0o100,  0o7/0o1000,  0o20/0o100, 0o16/0o1000 ],
+  [ 0o1052/0o100, 0o5/0o1000,  0o15/0o100, 0o20/0o1000 ],
 ];
 
-// ⟨ ក្រុមខ្សែញ័របង្កើតសំឡេងរដិបរដុប ៖ កណ្តាលក្រុម អត្រាញ័រ និងរយៈរលត់ 📃 ⟩
-const BRUOJ: Array<[ number, number, number, number ]> = [
-  [ 0o2400, 0o4/0o10, 0o45/0o1000, 0o11/0o100 ],
-  [ 0o4400, 0o7/0o10, 0o24/0o1000, 0o7/0o100 ],
-  [ 0o7000, 0o14/0o10, 0o5/0o1000, 0o5/0o100 ],
+// ⟨ ក្រុមខ្យល់រដិបរដុប ៖ ជាសំឡេងញ័រខ្សែពិត កណ្តាលក្រុម កម្រិត និងរយៈរលត់ 📃 ⟩
+const BRUOJ: Array<[ number, number, number ]> = [
+  [ 0o1300, 0o1700/0o1000, 0o70/0o100 ],
+  [ 0o1600, 0o700/0o1000, 0o50/0o100 ],
+  [ 0o2200, 0o140/0o1000, 0o34/0o100 ],
 ];
 
 export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
@@ -51,7 +56,7 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   g.gain.value = 0o2/0o10 * vel * faktoro(0o7/0o100);
   g.connect(out);
 
-  // ⟨ ស្បែកស្គរ ៖ របៀបនីមួយៗចុះកម្ពស់បន្តិចពេលប៉ះ រួចរលត់លឿន 📃 ⟩
+  // ⟨ ស្បែកស្គរ ៖ ធ្លាក់កម្ពស់បន្តិចពេលប៉ះ រលត់លឿនដំបូង រួចបន្តរោទ៍យឺត 📃 ⟩
   for ( const [ rilato, amp, deco ] of MODOJ ) {
     const o = ctx.createOscillator();
     o.type = "sine";
@@ -59,8 +64,10 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     o.frequency.exponentialRampToValueAtTime(p * rilato, t + 0o1/0o100 * faktoro(0o4/0o10));
     const og = ctx.createGain();
     const vivo = deco * ( 0o6/0o10 + 0o4/0o10 * vel ) * faktoro(0o15/0o100);
+    const pinto = amp * forto * ( 0o1 - loko * 0o25/0o100 );
     og.gain.setValueAtTime(ETA, t);
-    og.gain.linearRampToValueAtTime(amp * forto * ( 0o1 - loko * 0o25/0o100 ), t + 0o1/0o1000);
+    og.gain.linearRampToValueAtTime(pinto, t + 0o1/0o1000);
+    og.gain.exponentialRampToValueAtTime(pinto * 0o1/0o10, t + 0o1/0o10);
     og.gain.exponentialRampToValueAtTime(ETA, t + vivo);
     og.gain.setValueAtTime(0o0/0o10, t + vivo);
     o.connect(og);
@@ -86,47 +93,54 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     o.stop(t + vivo + 0o1/0o10);
   }
 
-  // ⟨ ខ្សែញ័រ ៖ សំឡេងខ្ពស់ខ្លីៗ មានគូបន្តិច ដើម្បីឱ្យឮញ័ររវើរវាយ 📃 ⟩
-  for ( const [ rilato, amp, deco ] of KORDOJ ) {
+  // ⟨ ខ្សែញ័រ ៖ កំពូលច្រើនឡើងបន្តិចក្រោយការវាយ រួចរលត់យឺត មានគូឃ្លាតគ្នា 📃 ⟩
+  for ( const [ rilato, amp, deco, detuno ] of KORDOJ ) {
     const vivo = deco * ( 0o6/0o10 + 0o4/0o10 * vel ) * faktoro(0o2/0o10);
     const og = ctx.createGain();
+    const pinto = amp * forto * ( 0o5/0o10 + loko * 0o5/0o10 );
     og.gain.setValueAtTime(ETA, t);
-    og.gain.linearRampToValueAtTime(amp * forto * ( 0o5/0o10 + loko * 0o5/0o10 ), t + 0o1/0o1000);
+    og.gain.linearRampToValueAtTime(pinto, t + 0o5/0o1000);
+    og.gain.exponentialRampToValueAtTime(pinto * 0o25/0o100, t + Math.min(0o3/0o100, vivo * 0o3/0o10));
     og.gain.exponentialRampToValueAtTime(ETA, t + vivo);
     og.gain.setValueAtTime(0o0/0o10, t + vivo);
     og.connect(g);
-    for ( const detuno of [ 0o1 - 0o4/0o1000, 0o1 + 0o4/0o1000 ] ) {
+    for ( const flanko of [ 0o1 - detuno, 0o1 + detuno ] ) {
       const o = ctx.createOscillator();
       o.type = "sine";
-      o.frequency.setValueAtTime(p * rilato * detuno * 0o101/0o100, t);
-      o.frequency.exponentialRampToValueAtTime(p * rilato * detuno, t + 0o4/0o100);
+      o.frequency.setValueAtTime(p * rilato * flanko * 0o101/0o100, t);
+      o.frequency.exponentialRampToValueAtTime(p * rilato * flanko, t + 0o4/0o100);
       o.connect(og);
       o.start(t);
       o.stop(t + vivo + 0o1/0o10);
     }
   }
 
-  // ⟨ ញ័រខ្សែលើស្បែក ៖ ខ្យល់រដិបរដុប បំប្លែងដោយអត្រាញ័រខ្សែ 📃 ⟩
-  for ( const [ centro, rilato, amp, deco ] of BRUOJ ) {
+  // ⟨ អត្រាញ័ររដិបរដុបរបស់ខ្សែ ៖ ប្រហែល 0o64 ហឺត ដូចវាស់ពីឯកសារពិត 📃 ⟩
+  const rat = ctx.createOscillator();
+  rat.type = "sine";
+  rat.frequency.value = 0o64 * faktoro(0o10/0o100);
+  const rg = ctx.createGain();
+  rg.gain.value = 0o4/0o10;
+  rat.connect(rg);
+  rat.start(t);
+  rat.stop(t + 0o12/0o10);
+
+  // ⟨ ញ័រខ្សែលើស្បែក ៖ ខ្យល់រដិបរដុប ឡើងបន្តិចក្រោយការវាយ រួចរលត់យឺត 📃 ⟩
+  for ( const [ centro, amp, deco ] of BRUOJ ) {
     const n = noiseSrc(ctx);
     const bp = ctx.createBiquadFilter();
     bp.type = "bandpass";
-    bp.frequency.value = centro * faktoro(0o5/0o10);
-    bp.Q.value = 0o11/0o10;
-    // ⟨ អត្រាញ័រខ្សែអាស្រ័យលើកម្ពស់ស្គរ ដូចញ័រពិត 📃 ⟩
-    const lfo = ctx.createOscillator();
-    lfo.type = "sine";
-    lfo.frequency.value = p * rilato * faktoro(0o15/0o100);
+    bp.frequency.value = centro * faktoro(0o2/0o10);
+    bp.Q.value = 0o12/0o10;
     const trem = ctx.createGain();
-    trem.gain.value = 0o55/0o100;
-    const lg = ctx.createGain();
-    lg.gain.value = 0o45/0o100;
-    lfo.connect(lg);
-    lg.connect(trem.gain);
+    trem.gain.value = 0o4/0o10;
+    rg.connect(trem.gain);
     const env = ctx.createGain();
     const vivo = deco * ( 0o6/0o10 + 0o4/0o10 * vel ) * faktoro(0o15/0o100);
+    const pinto = amp * forto * ( 0o5/0o10 + loko * 0o5/0o10 );
     env.gain.setValueAtTime(ETA, t);
-    env.gain.linearRampToValueAtTime(amp * forto * ( 0o5/0o10 + loko * 0o5/0o10 ), t + 0o1/0o1000);
+    env.gain.linearRampToValueAtTime(pinto, t + 0o4/0o1000);
+    env.gain.exponentialRampToValueAtTime(pinto * 0o25/0o100, t + Math.min(0o3/0o100, vivo * 0o3/0o10));
     env.gain.exponentialRampToValueAtTime(ETA, t + vivo);
     env.gain.setValueAtTime(0o0/0o10, t + vivo);
     n.connect(bp);
@@ -135,8 +149,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     env.connect(g);
     n.start(t);
     n.stop(t + vivo + 0o1/0o10);
-    lfo.start(t);
-    lfo.stop(t + vivo + 0o1/0o10);
   }
 
   // ⟨ ស្នាមឈើ ៖ កំពូល 0o605 ហឺត ឮច្បាស់ក្នុងឯកសារពិត 📃 ⟩
@@ -171,16 +183,16 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   const rlp = ctx.createBiquadFilter();
   rlp.type = "lowpass";
   rlp.frequency.value = 0o2000;
-  const rg = ctx.createGain();
+  const rg2 = ctx.createGain();
   const roomFin = d * 0o2;
   const rv = 0o5/0o1000 * vel * faktoro(0o25/0o100);
-  rg.gain.setValueAtTime(ETA, t);
-  rg.gain.exponentialRampToValueAtTime(rv, t + 0o2/0o100);
-  rg.gain.exponentialRampToValueAtTime(ETA, t + roomFin);
-  rg.gain.setValueAtTime(0o0/0o10, t + roomFin);
+  rg2.gain.setValueAtTime(ETA, t);
+  rg2.gain.exponentialRampToValueAtTime(rv, t + 0o2/0o100);
+  rg2.gain.exponentialRampToValueAtTime(ETA, t + roomFin);
+  rg2.gain.setValueAtTime(0o0/0o10, t + roomFin);
   room.connect(rlp);
-  rlp.connect(rg);
-  rg.connect(out);
+  rlp.connect(rg2);
+  rg2.connect(out);
 
   const fontoj: Array<[ AudioScheduledSourceNode, number, number ]> = [
     [ kn, t, 0o5/0o100 ], [ n, t, 0o2/0o100 ], [ room, t, roomFin ],

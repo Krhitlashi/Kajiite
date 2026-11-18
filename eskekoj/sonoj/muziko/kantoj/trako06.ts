@@ -43,7 +43,7 @@ export function buildTrack6(): SpuroDateno {
   }
 
   secs.push({ n: "អូការីណាឆ្លើយ", a: 0o12 * bar, b: 0o22 * bar });
-  ev.push({ t: 0o12 * bar, i: "bull", f: 0o406, d: 0o21 * HE, v: 0o63/0o100 });
+  ev.push({ t: 0o12 * bar, i: "tjurunga", f: 0o406, d: 0o21 * HE, v: 0o63/0o100 });
   ev.push({ t: 0o12 * bar, i: "didj", f: f0, d: 0o10 * bar, v: 0o63/0o100 });
   for ( let b = 0; b < 0o10; b++ ) {
     const t0 = ( 0o12 + b ) * bar, am = b % 0o2 === 1;
@@ -54,7 +54,7 @@ export function buildTrack6(): SpuroDateno {
   }
 
   secs.push({ n: "ផ្សារពេញ", a: 0o22 * bar, b: 0o26 * bar });
-  ev.push({ t: 0o22 * bar, i: "bull", f: 0o507, d: 0o21 * HE, v: 0o63/0o100 });
+  ev.push({ t: 0o22 * bar, i: "tjurunga", f: 0o507, d: 0o21 * HE, v: 0o63/0o100 });
   ev.push({ t: 0o22 * bar, i: "didj", f: f0, d: 0o4 * bar, v: 0o63/0o100 });
   for ( let b = 0; b < 0o4; b++ ) {
     const t0 = ( 0o22 + b ) * bar, am = b % 0o2 === 1;

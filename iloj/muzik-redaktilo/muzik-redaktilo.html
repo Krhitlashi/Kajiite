@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-- ⟨ ឧបករណ៍កែតន្ត្រី 🎹 ៖ កែ និងបង្កើតវិលតន្ត្រីរបស់ហ្គេមដោយផ្ទាំងណោត
+     ប្រើសំឡេងឧបករណ៍ពិតរបស់ហ្គេម ( vokoj ) ដូច្នេះសំឡេងដែលឮគឺដូចគ្នានឹងក្នុងហ្គេម ។
+     រក្សាទុកជាឯកសារ trakoNN.ts ទៅថត kantoj/ ដើម្បីឱ្យហ្គេមចាក់វិលថ្មី ។ 📃 ⟩ -->
+<html lang="km">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title> ឧបករណ៍កែតន្ត្រី 🎹 </title>
+<link rel="stylesheet" href="https://krhitlashi.github.io/%D6%AD%C5%BF%C9%AD%E1%B4%9C%20%C4%B1__%C9%94.css">
+<link rel="stylesheet" href="../stiloj.css">
+</head>
+<body class="cepufal">
+<h1 class="saxesukef"> ឧបករណ៍កែតន្ត្រី 🎹 </h1>
+<p class="kefhuruq"> កែ និងបង្កើតវិលតន្ត្រីរបស់ហ្គេម ។ គូរណោតលើផ្ទាំង , ចាក់ស្តាប់ដោយសំឡេងឧបករណ៍ពិត , រួចរក្សាទុកទៅហ្គេម ។ </p>
+<thala class="cakaxa">
+  <sak>
+    <a href="../../index.html"> ហ្គេម 🎮 </a>
+    <a href="../muzikilo/muzikilo.html"> ចាក់ចម្រៀង 🎧 </a>
+  </sak>
+</thala>
+<thala class="n2tase">
+  <p class="ksakap2sa"> ការចាក់ 🎧 </p>
+  <sabosuc2w2q>
+    <button id="ludi" aria-label="ចាក់ ឬផ្អាក"> ▶ </button>
+    <button id="halti" aria-label="បញ្ឈប់"> ⏹ </button>
+    <button id="ciklo" aria-pressed="true" aria-label="ចាក់វិលជុំ"> 🔁 </button>
+    <button id="metronomo" aria-pressed="false" aria-label="មេត្រូណូម"> 🎯 </button>
+  </sabosuc2w2q>
+  <p id="pozicio"> 0o0 បារ · 0o0 ហេ </p>
+  <p id="sekcioNuna" class="ksakat2xa"> </p>
+  <label> កម្រិតសំឡេង <output id="volVal"> 0o4/0o5 </output> </label>
+  <input id="volumo" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="កម្រិតសំឡេង">
+  <label> បន្ទប់សំឡេង <output id="revVal"> 0o23/0o100 </output> </label>
+  <input id="reverb" type="range" min="0" max="1" step="0.01" value="0.18" aria-label="បន្ទប់សំឡេង">
+</thala>
+<thala class="n2tase">
+  <p class="ksakap2sa"> វិល 🎵 </p>
+  <label> វិល <select id="trakoElektilo"></select> </label>
+  <sabosuc2w2q>
+    <button id="trakoNova"> វិលថ្មី ➕ </button>
+    <button id="trakoDuplikati"> ចម្លងវិល 📋 </button>
+  </sabosuc2w2q>
+  <label> ឈ្មោះ <input id="titolo" type="text" maxlength="60"> </label>
+  <label> ចង្វាក់ ( បាតកក្នុងមួយគុយអេ )
+    <select id="bpq">
+      <option value="16"> 0o20 </option>
+      <option value="24"> 0o30 </option>
+      <option value="32" selected> 0o40 </option>
+      <option value="48"> 0o60 </option>
+      <option value="64"> 0o100 </option>
+    </select>
+  </label>
+  <label> ភាគប្រាំបីក្នុងមួយបារ
+    <select id="ppb">
+      <option value="6"> 0o6 </option>
+      <option value="8" selected> 0o10 </option>
+      <option value="12"> 0o14 </option>
+      <option value="16"> 0o20 </option>
+    </select>
+  </label>
+  <label> បារ <input id="baroj" type="number" min="1" max="512" step="1" value="16"> </label>
+  <p id="statistikoj" class="kefhuruq"> ⋯ </p>
+</thala>
+<canvas id="rulo" width="1280" height="720" data-ilo="elekti"></canvas>
+<thala class="n2tase">
+  <p class="ksakap2sa"> ឧបករណ៍កែ 🛠️ </p>
+  <sabosuc2w2q id="iloButonoj">
+    <button data-ilo="elekti" aria-pressed="true"> ជ្រើស ✋ </button>
+    <button data-ilo="desegni" aria-pressed="false"> គូរ ✏️ </button>
+    <button data-ilo="forigi" aria-pressed="false"> ជូត 🧽 </button>
+  </sabosuc2w2q>
+  <label> ក្រឡា
+    <select id="kapto">
+      <option value="1"> 0o1 ( ភាគប្រាំបី ) </option>
+      <option value="2" selected> 0o1/0o2 </option>
+      <option value="4"> 0o1/0o4 </option>
+      <option value="0"> គ្មានក្រឡា </option>
+    </select>
+  </label>
+  <label> ប្រវែងដើម
+    <select id="defLongo">
+      <option value="1"> 0o1 ភាគ </option>
+      <option value="2" selected> 0o2 ភាគ </option>
+      <option value="4"> 0o4 ភាគ </option>
+      <option value="8"> 0o10 ភាគ </option>
+    </select>
+  </label>
+  <label> កម្លាំងណោត <output id="velVal"> 0o6/0o10 </output> </label>
+  <input id="velo" type="range" min="0.05" max="1" step="0.01" value="0.6" aria-label="កម្លាំងណោត">
+  <label> ពង្រីកពេលវេលា <output id="zomTempVal"> 0o144 </output> </label>
+  <input id="zomoTempo" type="range" min="20" max="600" step="4" value="100" aria-label="ពង្រីកពេលវេលា">
+  <label> ពង្រីកជួរដេក <output id="zomVicVal"> 0o16 </output> </label>
+  <input id="zomoVico" type="range" min="8" max="32" step="1" value="14" aria-label="ពង្រីកជួរដេក">
+  <sabosuc2w2q>
+    <button id="kradoMontri" aria-pressed="true"> ក្រឡា 📐 </button>
+    <button id="sekciojMontri" aria-pressed="true"> កំណាត់ 🧩 </button>
+  </sabosuc2w2q>
+  <p class="ksakap2sa"> ណោតដែលជ្រើស 🎯 </p>
+  <p id="elektoNombro" class="kefhuruq"> គ្មានណោតជ្រើស </p>
+  <label> កម្លាំង <output id="elektoVelVal"> ⋯ </output> </label>
+  <input id="elektoVelo" type="range" min="0.05" max="1" step="0.01" value="0.6" aria-label="កម្លាំងណោតដែលជ្រើស" disabled>
+  <sabosuc2w2q>
+    <button id="elektoSupren"> ឡើង ⬆ </button>
+    <button id="elektoMalsupren"> ចុះ ⬇ </button>
+    <button id="elektoOktSupren"> ឡើង 0o10 ⏫ </button>
+    <button id="elektoOktMalsupren"> ចុះ 0o10 ⏬ </button>
+  </sabosuc2w2q>
+  <sabosuc2w2q>
+    <button id="elektoCresc" aria-pressed="false"> រីក 📈 </button>
+    <button id="elektoToot" aria-pressed="false"> សូរខ្លី 📯 </button>
+  </sabosuc2w2q>
+  <sabosuc2w2q>
+    <button id="elektoKvantigi"> តម្រឹមក្រឡា 🧲 </button>
+    <button id="elektoDuplikati"> ចម្លងណោត 📋 </button>
+    <button id="elektoForigi"> លុប 🗑️ </button>
+  </sabosuc2w2q>
+  <sabosuc2w2q>
+    <button id="malfari"> មិនធ្វើវិញ ↩️ </button>
+    <button id="refari"> ធ្វើវិញ ↪️ </button>
+  </sabosuc2w2q>
+</thala>
+<thala class="n2tase">
+  <p class="ksakap2sa"> ឧបករណ៍ភ្លេង 🎛️ </p>
+  <ariiba id="instrListo"></ariiba>
+  <label> បន្ថែម
+    <select id="instrAldoni"></select>
+  </label>
+  <button id="instrAldoniBut"> បន្ថែមឧបករណ៍ ➕ </button>
+  <p class="kefhuruq"> 🔇 បិទសំឡេង , 🎧 ស្តាប់តែឧបករណ៍នេះ , ▶ ស្តាប់សំឡេង , ✕ ដកចេញ ។ ពណ៌នៃឧបករណ៍នីមួយៗគឺជាពណ៌ណោតរបស់វានៅលើផ្ទាំង ។ </p>
+</thala>
+<thala class="n2tase">
+  <p class="ksakap2sa"> កំណាត់ 🧩 </p>
+  <ariiba id="sekcioListo"></ariiba>
+  <button id="sekcioAldoni"> បន្ថែមកំណាត់នៅទីនេះ ➕ </button>
+</thala>
+<thala class="n2tase">
+  <p class="ksakap2sa"> ឯកសារ 💾 </p>
+  <sabosuc2w2q>
+    <button id="savi"> រក្សាទុកជាឯកសារ 💾 </button>
+    <button id="saviRekte"> រក្សាទុកផ្ទាល់ទៅហ្គេម ✍️ </button>
+    <button id="sargi"> ផ្ទុកឯកសារ 📂 </button>
+    <button id="wav"> នាំចេញ WAV 🎚️ </button>
+  </sabosuc2w2q>
+  <p id="statuso" class="kefhuruq"> រួចរាល់ </p>
+  <details class="flak">
+    <summary class="ksakap2sa"> ជំនួយ ❓ </summary>
+    <p class="kefhuruq"> ផ្ទាំងណោតបង្ហាញកម្ពស់សំឡេងជាជួរដេក ( លេខគោលប្រាំបីនៅឆ្វេង ) និងពេលវេលាពីឆ្វេងទៅស្តាំ ។ ជួរក្រោមគេជាជួរហ្គីរ៉ូ 🥁 ។ ឧបករណ៍ជ្រើស ✋ , ចុចណោតដើម្បីជ្រើស ( Shift បន្ថែម ) , អូសដើម្បីផ្លាស់ទី , អូសគែមស្តាំដើម្បីប្តូរប្រវែង , អូសកន្លែងទទេដើម្បីជ្រើសច្រើន , ចុចពីរដងកន្លែងទទេដើម្បីដាក់ណោតថ្មី ។ ឧបករណ៍គូរ ✏️ , អូសកន្លែងទទេដើម្បីគូរណោតថ្មីតាមប្រវែងដែលអូស ។ ឧបករណ៍ជូត 🧽 , ចុច ឬអូសលើណោតដើម្បីលុប ។ ចុចលើបន្ទាត់ខាងលើដើម្បីលោតទៅទីនោះ ។ កង់កណ្តាល ឬចុចស្តាំអូសដើម្បីផ្លាស់ទីទិដ្ឋភាព , កង់រំកិលពេលវេលា , Shift និងកង់រំកិលជួរដេក , Ctrl និងកង់ពង្រីកពេលវេលា , Alt និងកង់ពង្រីកជួរដេក ។ គ្រាប់ចុចដកលុបណោតដែលជ្រើស , Space ចាក់ ឬផ្អាក , Ctrl+Z មិនធ្វើវិញ , Ctrl+Y ធ្វើវិញ , Ctrl+C ចម្លង , Ctrl+V ភ្ជាប់ចម្លង , Ctrl+A ជ្រើសទាំងអស់ , ព្រួញឆ្វេងស្តាំរំកិលតាមក្រឡា , ព្រួញឡើងចុះប្តូរកម្ពស់ ។ </p>
+    <p class="kefhuruq"> ការចាក់ប្រើសំឡេងឧបករណ៍ពិតរបស់ហ្គេម ។ 🔁 ចាក់វិលជុំ , 🎯 មេត្រូណូមចុចតាមបារ និងបាតក ។ ការកែណោតខណៈកំពុងចាក់នឹងឮភ្លាម ។ ប៊ូតុង 🔇 និង 🎧 ក្នុងបញ្ជីឧបករណ៍បិទ ឬស្តាប់តែឧបករណ៍នោះ ។ កំណាត់ 🧩 ជាផ្នែករបស់វិលដែលហ្គេមបង្ហាញឈ្មោះខណៈចាក់ , បន្ថែមកំណាត់នៅទីនេះដាក់កំណាត់ថ្មីចាប់ពីទីតាំងបច្ចុប្បន្ន ។ </p>
+    <p class="kefhuruq"> រក្សាទុកផ្ទាល់ទៅហ្គេម ✍️ សរសេរវិលទៅ eskekoj/sonoj/muziko/kantoj/trakoNN.ts និងបញ្ជីវិល kantoj.ts តាមម៉ាស៊ីនរក្សាទុក ( npm run dev ចាប់ផ្តើមវារួចហើយ ) ។ ហ្គេមអានវិលទាំងនេះពេលផ្ទុកឡើងវិញ ។ រក្សាទុកជាឯកសារ 💾 ប្រើឧបករណ៍ជ្រើសឯកសារ ឬទាញយក ។ ផ្ទុកឯកសារ 📂 អានវិលដែលឧបករណ៍នេះបានបង្កើត ។ នាំចេញ WAV 🎚️ ផ្តល់សំឡេងវិលទាំងមូលជាឯកសារសំឡេង ។ វិលដើមទាំង 0o10 របស់ហ្គេមផ្ទុកចូលកែបាន , ឈ្មោះដើមរបស់វារក្សាទុកតាមវចនានុក្រម ។ </p>
+  </details>
+</thala>
+<script type="module" src="./muzik-redaktilo.ts"> </script>
+</body>
+</html>

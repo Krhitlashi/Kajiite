@@ -40,9 +40,9 @@ export function buildTrack4(): SpuroDateno {
   }
 
   secs.push({ n: "ព្យុះឡើង", a: 0o26 * bar, b: 0o42 * bar });
-  ev.push({ t: 0o26 * bar + 0o2 * e8, i: "bull", f: 0o304, d: 0o23 * HE, v: 0o63/0o100 });
-  ev.push({ t: 0o32 * bar, i: "bull", f: 0o351, d: 0o25 * HE, v: 0o35/0o40 });
-  ev.push({ t: 0o37 * bar, i: "bull", f: 0o406, d: 0o21 * HE, v: 0o55/0o100 });
+  ev.push({ t: 0o26 * bar + 0o2 * e8, i: "tjurunga", f: 0o304, d: 0o23 * HE, v: 0o63/0o100 });
+  ev.push({ t: 0o32 * bar, i: "tjurunga", f: 0o351, d: 0o25 * HE, v: 0o35/0o40 });
+  ev.push({ t: 0o37 * bar, i: "tjurunga", f: 0o406, d: 0o21 * HE, v: 0o55/0o100 });
   for ( let b = 0; b < 0o14; b++ ) {
     const t0 = ( 0o26 + b ) * bar;
     ostinato(t0, 0, 0o43/0o100);
@@ -66,8 +66,8 @@ export function buildTrack4(): SpuroDateno {
   }
 
   secs.push({ n: "មេឃពេញ", a: 0o52 * bar, b: 0o57 * bar });
-  ev.push({ t: 0o52 * bar, i: "bull", f: 0o406, d: 0o21 * HE, v: 1 });
-  ev.push({ t: 0o55 * bar, i: "bull", f: 0o446, d: 0o15 * HE, v: 0o35/0o40 });
+  ev.push({ t: 0o52 * bar, i: "tjurunga", f: 0o406, d: 0o21 * HE, v: 1 });
+  ev.push({ t: 0o55 * bar, i: "tjurunga", f: 0o446, d: 0o15 * HE, v: 0o35/0o40 });
   for ( let b = 0; b < 0o5; b++ ) {
     const t0 = ( 0o52 + b ) * bar;
     ostinato(t0, 0, 0o23/0o40);

@@ -69,6 +69,7 @@ function notLongo( e: SonoEvento ): number {
     case "ocarina":  return d + 0o23/0o100;
     case "kiiqflak": return d + 0o1/0o10;
     case "guiro":    return d + 0o3/0o100;
+    case "hiwe":     return d + 0o7/0o10;
     default:         return d;
   }
 }
