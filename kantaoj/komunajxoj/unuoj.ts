@@ -53,6 +53,20 @@ export function alHe(milisekundoj: number): number {
   return milisekundoj * HE_POR_MILISEKUNDO;
 }
 
+/* សរសេរលេខជាគោល 0o10 ដោយមានខ្នាតតូចកំណត់ ។
+    @param valoro ( number ) - តម្លៃដែលត្រូវសរសេរ
+    @param precizeco ( number = 0o2 ) - ចំនួនខ្ទង់ក្រោយចុច
+@returns teksto */
+export function alOkto( valoro: number, precizeco = 0o2 ): string {
+  const negativa = valoro < 0;
+  const faktoro = 0o10 ** precizeco;
+  const rondigita = Math.round(Math.abs(valoro) * faktoro);
+  const entiero = Math.floor(rondigita / faktoro);
+  const frakcio = precizeco === 0 ? ""
+    : "." + ( rondigita % faktoro ).toString(0o10).padStart(precizeco, "0");
+  return ( negativa ? "-" : "" ) + "0o" + entiero.toString(0o10) + frakcio;
+}
+
 // ⟪ តារាងឯកតា 📇 ⟫
 
 type Dimensio = "tempo" | "longo" | "areo" | "volumeno" | "maso" | "energio" | "temperaturo";

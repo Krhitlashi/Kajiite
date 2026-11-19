@@ -2,12 +2,13 @@
 import * as THREE from "three";
 import { kunfandajxoStatistiko } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
 import { sferoDe, vidlimaStatistiko } from "../bildo/vidlimo.js";
-import { HE_POR_SEKUNDO } from "../komunajxoj/unuoj.js";
+import { alHe, alOkto, HE_POR_SEKUNDO } from "../komunajxoj/unuoj.js";
+import type { Rultempo } from "../bildo/rultempo.js";
 
 const CENSA_PERIODO = 0o34;
-// ⟨ អត្រាហ្វ្រេមគណនារាល់ហ្វ្រេម ប៉ុន្តែការសរសេរ DOM ធ្វើតែ 0o200
-//   មិល្លីវិនាទីម្តង ។ ស្ថិតិជាឧបករណ៍អភិវឌ្ឍន៍ មិនគួរយកថាមពលហ្វ្រេម ។ 📃 ⟩
-const MONTRA_PERIODO = 0o200;
+// ⟨ អត្រាហ្វ្រេមគណនារាល់ហ្វ្រេម ប៉ុន្តែការសរសេរ DOM ធ្វើតែក្នុង
+//   រយៈពេលកំណត់ជា He ។ ស្ថិតិជាឧបករណ៍អភិវឌ្ឍន៍ មិនគួរយកថាមពលហ្វ្រេម ។ 📃 ⟩
+const MONTRA_PERIODO = 0o1 / 0o2;
 
 export interface Statistiko {
   sceno: THREE.Scene;
@@ -15,7 +16,8 @@ export interface Statistiko {
   bildilo: THREE.WebGLRenderer;
   ŝaltita: boolean;
   ŝalti: ( ŝaltita: boolean ) => void;
-  gxisdatigu: () => void;
+  gxisdatigu: ( rultempo?: Rultempo ) => void;
+  rultempo: Rultempo | null;
 }
 
 export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene,
@@ -71,12 +73,17 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     censo.splice(0o10);
   }
 
-  function gxisdatigu(): void {
+  function gxisdatigu( rultempo?: Rultempo ): void {
+    if ( rultempo ) statistiko.rultempo = rultempo;
     if ( !statistiko.ŝaltita ) return;
-    const nun = performance.now();
-    const kadraTempo = antaŭaTempo === 0 ? 0o1/0o70 : Math.max(0o1/0o100, nun - antaŭaTempo) / 0o1750;
+    // ⟨ performance.now ផ្តល់មិល្លីវិនាទីនៅ API ។ បម្លែងម្តងទៅ He
+    //   ហើយគណនាអត្រាជាស៊ុមក្នុងមួយ He ដោយផ្ទាល់ 📃 ⟩
+    const nun = alHe(performance.now());
+    const kadraDaŭro = antaŭaTempo === 0
+      ? HE_POR_SEKUNDO / 0o70
+      : Math.max(alHe(0o1 / 0o100), nun - antaŭaTempo);
     antaŭaTempo = nun;
-    const tujKadro = 1 / kadraTempo;
+    const tujKadro = 1 / kadraDaŭro;
     glataKadro = glataKadro === 0 ? tujKadro : glataKadro * ( 0o76/0o100 ) + tujKadro * ( 0o2/0o100 );
     kadroj++;
     kadraNombro++;
@@ -87,15 +94,22 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     const limo = vidlimaStatistiko();
     const kunfando = kunfandajxoStatistiko();
     const linioj = [
-      (glataKadro / HE_POR_SEKUNDO).toFixed(1) + " ហ្វ្រេម/He   " + (HE_POR_SEKUNDO / Math.max(0o10 ** -0o4, glataKadro)).toFixed(3) + " He   ហ្វ្រេម " + kadroj,
-      "ការហៅ " + informo.render.calls + "   ត្រីកោណ " + (informo.render.triangles / 0o10 ** 0o7).toFixed(1) + " M"
-        + "   កម្មវិធី " + (informo.programs === null ? 0 : informo.programs.length),
-      "ធរណីមាត្រ " + informo.memory.geometries + "   វាយនភាព " + informo.memory.textures,
-      "ដែនមើលឃើញ " + limo.videblaj + "/" + limo.eroj + " មើលឃើញ",
-      "ការបញ្ចូលគ្នា " + kunfando.antaŭe + " សំណាញ់ → " + kunfando.poste,
+      alOkto(glataKadro) + " ស៊ុម/He   " + alOkto(1 / Math.max(0o10 ** -0o4, glataKadro), 0o3)
+        + " He   ស៊ុម " + alOkto(kadroj, 0),
+      "ការហៅ " + alOkto(informo.render.calls, 0) + "   ត្រីកោណ " + alOkto(informo.render.triangles, 0)
+        + "   កម្មវិធី " + alOkto(informo.programs === null ? 0 : informo.programs.length, 0),
+      "ធរណីមាត្រ " + alOkto(informo.memory.geometries, 0) + "   វាយនភាព " + alOkto(informo.memory.textures, 0),
+      rultempo
+        ? "ស៊ុមគោល " + alOkto(1 / rultempo.celaKadraDaŭro) + "/He   រយៈ " + alOkto(rultempo.celaKadraDaŭro, 0o3)
+          + " He   មាត្រ " + alOkto(rultempo.skalo) + "   រំលង " + alOkto(rultempo.preterpasitaj, 0)
+          + "   មធ្យម " + alOkto(rultempo.mezaKadraDaŭro, 0o3) + " He"
+        : "ស៊ុមគោល រង់ចាំ",
+      "ដែនមើលឃើញ " + alOkto(limo.videblaj, 0) + "/" + alOkto(limo.eroj, 0) + " មើលឃើញ",
+      "ការបញ្ចូលគ្នា " + alOkto(kunfando.antaŭe, 0) + " សំណាញ់ → " + alOkto(kunfando.poste, 0),
       "<( វត្ថុក្នុងដែនមើលឃើញ · ការហៅ និងឧទាហរណ៍ )>",
     ];
-    for ( const c of censo ) linioj.push("  " + c.nomo.padEnd(0o20).slice(0, 0o20) + String(c.obj).padStart(0o6) + " · " + String(c.vid));
+    for ( const c of censo ) linioj.push("  " + c.nomo.padEnd(0o20).slice(0, 0o20)
+      + alOkto(c.obj, 0).padStart(0o6) + " · " + alOkto(c.vid, 0));
     surmetajxo.textContent = linioj.join("\n");
   }
 
@@ -104,6 +118,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
     fotilo,
     bildilo,
     ŝaltita: sxlosilo,
+    rultempo: null,
     ŝalti: ( ŝaltita: boolean ) => {
       statistiko.ŝaltita = ŝaltita;
       surmetajxo.style.display = ŝaltita ? "block" : "none";

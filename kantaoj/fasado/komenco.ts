@@ -10,6 +10,7 @@ import {
 import "./hejmpaghoj.js";
 import { kreiStaton, fermiCxiujnPaghojn } from "./paghoj.js";
 import { sonregiloj } from "./sonregiloj.js";
+import { montriSargxanEraron } from "../bildo/scena/eraro.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
 const komenco = document.getElementById("komenco")!;
@@ -77,7 +78,10 @@ function eniriMondon( mondo: MondoRecordo ): void {
   agordiAktivanMondon(mondo.id);
   komenco.classList.add("finita");
   fermiCxiujnPaghojn();
-  import("../ludo/sperto.js");
+  import("../ludo/sperto.js").catch(( eraro: unknown ) => {
+    // ⟨ ការនាំចូល ឬ សាងសង់បរាជ័យមិនត្រូវទុកវាំងននផ្ទុកជារៀងរហូត 📃 ⟩
+    montriSargxanEraron(document.getElementById("sxargxo")!, eraro);
+  });
 }
 
 // ⟪ ប៊ូតុងចូល 📃 ⟫

@@ -1,6 +1,5 @@
 // ≺⧼ ការរលាយបញ្ចូល 🧩 ⧽≻
 import * as THREE from "three";
-import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 
 export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geos.length === 0 ) return new THREE.BufferGeometry();
@@ -156,7 +155,7 @@ export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[
   return out;
 }
 
-// ⟪ ការរលាយសំណាញ់ដែលសង់រួច 📃 ⟫
+// ⟪ ការបង្កើតឧទាហរណ៍សំណាញ់ដែលសង់រួច 📃 ⟫
 
 export interface KunfandajOpcioj {
   celo?: number;
@@ -167,27 +166,6 @@ const kunfandajRezultoj = { antaŭe: 0, poste: 0 };
 
 export function kunfandajxoStatistiko(): { antaŭe: number; poste: number } {
   return kunfandajRezultoj;
-}
-
-function renversiVolvon(g: THREE.BufferGeometry): void {
-  if ( g.index !== null ) {
-    const arr = g.index.array;
-    for ( let i = 0; i < arr.length; i += 3 ) {
-      const t = arr[i + 1]; arr[i + 1] = arr[i + 2]; arr[i + 2] = t;
-    }
-    g.index.needsUpdate = true;
-    return;
-  }
-  for ( const nomo of Object.keys(g.attributes) ) {
-    const at = g.attributes[nomo], s = at.itemSize, arr = at.array as Float32Array;
-    for ( let i = 0; i + 2 < at.count; i += 3 ) {
-      for ( let k = 0; k < s; k++ ) {
-        const a = ( i + 1 ) * s + k, b = ( i + 2 ) * s + k, t = arr[a];
-        arr[a] = arr[b]; arr[b] = t;
-      }
-    }
-    at.needsUpdate = true;
-  }
 }
 
 // ⟪ ការរលាយរហ័សនៃធរណីមាត្របំប្លែង 📃 ⟫
@@ -327,7 +305,7 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
       if ( konservu !== undefined && konservu(m) ) return;
       antaŭe++;
       const geometrio = m.geometry;
-      const signaturo = Object.keys(geometrio.attributes).sort().join(",")
+      const signaturo = geometrio.uuid + "|" + Object.keys(geometrio.attributes).sort().join(",")
         + ( geometrio.index === null ? "|n" : "|i" );
       const matrico = m.matrixWorld;
       const ĉelo = celo > 0
@@ -343,22 +321,13 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
   let poste = 0;
   for ( const listo of grupoj.values() ) {
     if ( listo.length < 2 ) { poste += listo.length; continue; }
-    // ⟨ ផ្លូវលឿន 📃 ⟩
-    let kunigita = kunfandiTransformitajn(listo.map(a => ({ geometrio: a.mesho.geometry, matrico: a.matrico })));
-    if ( kunigita === null ) {
-      const geometrioj = listo.map(a => {
-        const g = a.mesho.geometry.clone();
-        g.applyMatrix4(a.matrico);
-        // ⟨ ធរណីមាត្រឆ្លុះ 📃 ⟩
-        if ( a.matrico.determinant() < 0 ) renversiVolvon(g);
-        return g;
-      });
-      kunigita = mergeGeometries(geometrioj, false);
-      for ( const g of geometrioj ) g.dispose();
-    }
-    if ( kunigita === null ) { poste += listo.length; continue; }
+    // ⟨ គំរូដដែលមាន UUID ដូចគ្នាប្រើគំរូតែមួយនៅ GPU 📃 ⟩
+    // ការចម្លងកំពូលទៅគំរូធំបង្កើនស្មាម និង រារាំងការកាត់តាមចម្ងាយ ។
+    // InstancedMesh រក្សាគំរូដើម និង មាត្រីពិភពលោក ហើយអាចបំបែកជាក្រឡាបន្តបាន ។
     const unua = listo[0].mesho;
-    const mesho = new THREE.Mesh(kunigita, unua.material);
+    const mesho = new THREE.InstancedMesh(unua.geometry, unua.material, listo.length);
+    for ( let i = 0; i < listo.length; i++ ) mesho.setMatrixAt(i, listo[i].matrico);
+    mesho.instanceMatrix.needsUpdate = true;
     mesho.castShadow = unua.castShadow;
     mesho.receiveShadow = unua.receiveShadow;
     mesho.renderOrder = unua.renderOrder;

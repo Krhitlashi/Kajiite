@@ -1,5 +1,6 @@
 // ≺⧼ ការណែនាំ 🎬 ⧽≻
 import * as THREE from "three";
+import { montriSargxanEraron } from "../bildo/scena/eraro.js";
 
 export interface EnkondukajOpcioj {
   kanvaso: HTMLCanvasElement;
@@ -29,6 +30,15 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
   } = opcioj;
 
   let haltita = false;
+  let kuntekstoPerdita = false;
+  kanvaso.addEventListener("webglcontextlost", ( e ) => {
+    e.preventDefault();
+    kuntekstoPerdita = true;
+    bildilo.shadowMap.enabled = false;
+  });
+  kanvaso.addEventListener("webglcontextrestored", () => {
+    kuntekstoPerdita = false;
+  });
 
   // ⟪ ការបង្ហាញដំបូង 📃 ⟫
   // ⟨ ការរសាត់ស៊ីនេម៉ា 📃 ⟩
@@ -43,6 +53,10 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
   let lastaKosto = 0;
   function fruaBildigo(): void {
     if ( haltita ) return;
+    if ( document.hidden || kuntekstoPerdita ) {
+      requestAnimationFrame(fruaBildigo);
+      return;
+    }
     const fruaRatio = Math.min(devicePixelRatio, maksimumaRatio);
     if ( kanvaso.width !== Math.floor(innerWidth * fruaRatio) || kanvaso.height !== Math.floor(innerHeight * fruaRatio) ) {
       fotilo.aspect = innerWidth / innerHeight;
@@ -59,8 +73,14 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
       // រាល់មួយ ។ `compile` បញ្ជូនទាំងអស់ទៅកាតក្រាហ្វិកព្រមគ្នា ។ ការវាស់បង្ហាញថា
       // កម្មវិធីមួយចំណាយប្រហែល ០.០២៦ វិនាទីក្នុង `compile` , តែប្រហែល ០.៤៥ វិនាទី
       // ក្នុង `render` ។ ដូច្នេះចងក្រងមុន រួចគូរ ។ 📃 ⟩
-      bildilo.compile(sceno, fotilo);
-      bildilo.render(sceno, fotilo);
+      try {
+        bildilo.compile(sceno, fotilo);
+        bildilo.render(sceno, fotilo);
+      } catch ( eraro ) {
+        halti();
+        montriSargxanEraron(sxargxaElemento, eraro);
+        return;
+      }
       lastaKosto = performance.now() - nun;
     }
     requestAnimationFrame(fruaBildigo);
@@ -80,6 +100,7 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
   // ⟨ ហេតុអ្វីថោក 📃 ⟩
   // ⟨ មូលហេតុស៊ុមប្រផេះ 📃 ⟩
   function varmigi(): void {
+    if ( kuntekstoPerdita || document.hidden ) return;
     bildilo.compile(sceno, fotilo);
     bildilo.shadowMap.needsUpdate = true;
     bildilo.render(sceno, fotilo);

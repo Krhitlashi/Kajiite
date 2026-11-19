@@ -4,6 +4,7 @@ import { HERBA_TAVOLA_NOMO } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/
 import { devigiHerbanGxisdatigon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/vento.js";
 import { tuŝaGesto } from "../fasado/gestoj.js";
 import { vidlimojnMalŝalti, vidlimojnŜalti } from "./vidlimo.js";
+import { MALPOTENCA_APARATO } from "./scena/aparato.js";
 
 export interface MinimapajOpcioj {
   sceno: THREE.Scene;
@@ -27,6 +28,7 @@ export interface MinimapajOpcioj {
 export interface Minimapo {
   gxisdatigi(vidX: number, vidZ: number, centroX: number, centroZ: number): void;
   cxuBakita(): boolean;
+  pretigi(): void;
   cxuMalfermita(): boolean;
   malfermi(): void;
   fermi(): void;
@@ -44,6 +46,10 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   let plenaKanvaso: HTMLCanvasElement | null = null;
   let plenaKunteksto: CanvasRenderingContext2D | null = null;
   let bakitaMapo: HTMLCanvasElement | null = null;
+  let mapaBakado = false;
+  let mapaMalsukcesis = false;
+  let mapaPetita = false;
+  let malfermoAtendas = false;
   let mapX = 0, mapZ = 0;
   let vidX = 0, vidZ = 0;
 
@@ -52,12 +58,11 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   const MINA_DUONO = 0o10;
   const MAXA_DUONO = Math.round(PLENA_DUONO * 0o15/0o10);
   const MAPA_BAKA_DUONO = 0o1270;
-  // ⟨ ចានគំនូរ 0o4770 ជ្រុងត្រូវការប៊ូហ្វ័រ 0o143302660 បៃ និង អានត្រឡប់
-  //   ពី GPU ដោយបង្ខំ ។ 0o3000 ជ្រុងនៅតែគ្រប់គ្រាន់សម្រាប់ទិដ្ឋភាពពេញ
-  //   ហើយកាត់បន្ថយប៊ូហ្វ័រ អានត្រឡប់ និង ការត្រឡប់ជួរប្រហែល 0o3 ដង ។
-  //   ហ្វាដូត្រូវធ្វើមាត្រដ្ឋានតាមគុណភាពថ្មី ដើម្បីរក្សាគែមដដែល ។ 📃 ⟩
-  const MAPA_BAKA_REZ = 0o3000;
-  const MAPA_BAKA_FADO = 0o230;
+  // ⟨ ផែនទីគូរតែពេលអ្នកប្រើស្នើ ។ ចានគំនូរតូចកាត់ទាំងការងារ GPU
+  //   និង ស្មាមអានត្រឡប់ ហើយគុណភាពផ្លាស់ទីក៏តាម maxTextureSize 📃 ⟩
+  const MAPA_BAKA_REZ = Math.min(MALPOTENCA_APARATO ? 0o1000 : 0o2000,
+    bildilo.capabilities.maxTextureSize);
+  const MAPA_BAKA_FADO = Math.round(0o230 * MAPA_BAKA_REZ / 0o3000);
   let mapaRandaKoloro = "#585848";
   let mapaNebulaKoloro = "#c8d8d8";
   let plenaDuono = PLENA_DUONO;
@@ -70,11 +75,11 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   function postuliPlenanMapon(): void { lastaPlenaMapoTempo = -Infinity; }
 
   function bakiMapon(): HTMLCanvasElement | null {
+    const rez = MAPA_BAKA_REZ, duono = MAPA_BAKA_DUONO;
+    const rt = new THREE.WebGLRenderTarget(rez, rez, {
+      minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
+    });
     try {
-      const rez = MAPA_BAKA_REZ, duono = MAPA_BAKA_DUONO;
-      const rt = new THREE.WebGLRenderTarget(rez, rez, {
-        minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
-      });
       // ⟨ ចានគំនូរត្រូវសរសេរជាពណ៌ដូចអេក្រង់ ។ បើមិនកំណត់ , ចានគំនូរសរសេរជាលីនេអ៊ែរ
       // ហើយផែនទីក្លាយជាងងឹត និងឆ្អែតពណ៌ខុសពីពិភពលោក ។ 📃 ⟩
       rt.texture.colorSpace = THREE.SRGBColorSpace;
@@ -82,47 +87,42 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       mapFotilo.up.set(0, 0, 1);
       mapFotilo.position.set(0, 0o130, 0);
       mapFotilo.lookAt(0, 0, 0);
-      // ⟨ ភ្នំលើផែនទី 📃 ⟩
-      const nebulo = sceno.fog;
-      sceno.fog = null;
-      const ombroj = bildilo.shadowMap.enabled;
-      bildilo.shadowMap.enabled = false;
-      const kaŝitaj: THREE.Object3D[] = [];
+      // ⟨ រក្សាអ័ព្ទ និង ស្រមោលដូចឆាកចម្បង ។ ការបិទពួកវាបង្កើត
+      //   shader programs ថ្មីសម្រាប់វត្ថុរាប់ពាន់ ហើយអាចធ្វើឱ្យ Edge អស់ស្មាម 📃 ⟩
+      const kaŝitaj: { obj: THREE.Object3D; videbla: boolean }[] = [];
+      const kaŝu = ( obj: THREE.Object3D ): void => {
+        kaŝitaj.push({ obj, videbla: obj.visible });
+        obj.visible = false;
+      };
       try {
         // ⟨ ដែនមើលបិទ 📃 ⟩
         vidlimojnMalŝalti();
         // ⟨ ស្មៅមិនក្តៅ 📃 ⟩
         for ( const o of sceno.children ) {
           if ( o.name !== HERBA_TAVOLA_NOMO ) continue;
-          kaŝitaj.push(o);
-          o.visible = false;
+          kaŝu(o);
         }
-        for ( const n of npcoj ) { kaŝitaj.push(n.group); n.group.visible = false; }
-        for ( const c of kanuoj ) { kaŝitaj.push(c.group); c.group.visible = false; }
-        for ( const b of bestoj.bestoj ) { kaŝitaj.push(b.grupo); b.grupo.visible = false; }
-        for ( const p of petreloj.petreloj ) { kaŝitaj.push(p.grupo); p.grupo.visible = false; }
+        for ( const n of npcoj ) kaŝu(n.group);
+        for ( const c of kanuoj ) kaŝu(c.group);
+        for ( const b of bestoj.bestoj ) kaŝu(b.grupo);
+        for ( const p of petreloj.petreloj ) kaŝu(p.grupo);
         bildilo.setRenderTarget(rt);
-        // ⟨ ចងក្រងមុនគូរ 📃 ⟩ ៖ ផែនទីគ្មានអ័ព្ទ និងគ្មានស្រមោល , ដូច្នេះវត្ថុធាតុនីមួយៗ
-        // ត្រូវការកម្មវិធីស្រមោលថ្មី ។ `render` ចងក្រងពួកវាម្តងមួយៗ ហើយរង់ចាំរាល់មួយ ,
-        // ដែលធ្លាប់ចំណាយជាង 0o14 វិនាទី ។ `compile` បញ្ជូនទាំងអស់ព្រមគ្នា ។
-        // ត្រូវចងក្រងខណៈចានគំនូរនៅភ្ជាប់ , ព្រោះលំហពណ៌ចេញខុសពីអេក្រង់ ។ 📃 ⟩
-        bildilo.compile(sceno, mapFotilo);
+        // ⟨ ឆាកចម្បងបានចងក្រងរួចហើយ ។ ការចងក្រងឆាកទាំងមូលម្តងទៀត
+        //   មុនផែនទីបង្កើនស្មាម និង ពេលផ្ទុកដោយមិនចាំបាច់ 📃 ⟩
         bildilo.render(sceno, mapFotilo);
-        bildilo.setRenderTarget(null);
       } finally {
-        sceno.fog = nebulo;
-        bildilo.shadowMap.enabled = ombroj;
-        for ( const o of kaŝitaj ) o.visible = true;
+        // ⟨ សូម្បីការគូរបរាជ័យក៏ត្រូវដកចានគំនូរ និង ស្ថានភាពចាស់ចេញ 📃 ⟩
+        bildilo.setRenderTarget(null);
+        for ( const ero of kaŝitaj ) ero.obj.visible = ero.videbla;
         vidlimojnŜalti();
         // ⟨ ការដុតផែនទីបិទភាពមើលឃើញរបស់ក្រឡាទាំងអស់ ហើយបើកវាឡើងវិញដោយ
         //   មិនដឹងចម្ងាយ ។ បង្ខំឱ្យប្រព័ន្ធស្មៅគណនាឡើងវិញលើស៊ុមបន្ទាប់ ។ 📃 ⟩
         devigiHerbanGxisdatigon();
       }
-      if ( nebulo ) mapaNebulaKoloro = "#" + nebulo.color.getHexString();
+      if ( sceno.fog ) mapaNebulaKoloro = "#" + sceno.fog.color.getHexString();
       // ⟨ ប៊ូហ្វ័រមួយ 📃 ⟩
       const buf = new Uint8Array(rez * rez * 4);
       bildilo.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
-      rt.dispose();
       const tempVico = new Uint8Array(rez * 4);
       for ( let y = 0; y < ( rez >> 1 ); y++ ) {
         const supra = y * rez * 4, malsupra = ( rez - 1 - y ) * rez * 4;
@@ -141,6 +141,9 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     } catch ( e ) {
       console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ការដុតផែនទីមិនអាចប្រើបាន" , e);
       return null;
+    } finally {
+      // ⟨ ការអាន ឬ ការបម្លែងបរាជ័យក៏មិនទុក GPU render target នៅឡើយ 📃 ⟩
+      rt.dispose();
     }
   }
 
@@ -298,9 +301,54 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     desegniMovantajnPunktojn(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
   }
 
+  // ⟨ ផែនទីជាជម្រើសបន្ថែម មិនមែនលក្ខខណ្ឌចូលពិភពលោក 📃 ⟩
+  // រង់ចាំស៊ុមហ្គេមមួយ រួចទុកពេលឱ្យកម្មវិធីរុករកបង្ហាញវា ។ ការបរាជ័យ
+  // បិទតែផែនទី ហើយមិនបញ្ឈប់ពិភពលោក ឬ ព្យាយាមបង្កើត GPU context ថ្មីជាប់ៗគ្នាទេ ។
+  function pretigi(): void {
+    if ( bakitaMapo || mapaBakado || mapaMalsukcesis ) return;
+    mapaPetita = true;
+    mapaBakado = true;
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        let sukcesis = false;
+        try {
+          if ( document.hidden || bildilo.getContext().isContextLost() ) return;
+          bakitaMapo = bakiMapon();
+          sukcesis = bakitaMapo !== null;
+        } catch ( e ) {
+          console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ការរៀបចំផែនទីបរាជ័យ", e);
+        } finally {
+          mapaBakado = false;
+        }
+        if ( sukcesis ) {
+          mapaPetita = false;
+          if ( malfermoAtendas ) {
+            malfermoAtendas = false;
+            malfermiMapon();
+          }
+          return;
+        }
+        mapaPetita = false;
+        mapaMalsukcesis = true;
+        malfermoAtendas = false;
+        kompaso.style.display = "none";
+      }, 0);
+    });
+  }
+  document.addEventListener("visibilitychange", () => {
+    if ( !document.hidden && mapaPetita ) pretigi();
+  });
+  bildilo.domElement.addEventListener("webglcontextrestored", () => {
+    if ( mapaPetita ) pretigi();
+  });
+
   function malfermiMapon(): void {
     if ( mapoMalfermita ) return;
-    if ( !bakitaMapo ) { console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ផែនទីពេញមិនអាចប្រើបាន ( ការដុតបរាជ័យ )"); return; }
+    if ( !bakitaMapo ) {
+      malfermoAtendas = true;
+      pretigi();
+      return;
+    }
     if ( !plenaKanvaso ) {
       const kanvasa = document.createElement("canvas");
       kanvasa.id = "plenaKanvaso";
@@ -364,7 +412,6 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   });
 
   miniKanvaso.width = miniKanvaso.height = 0o200;
-    bakitaMapo = bakiMapon();
   const SAGO_NADLA_GRANDO = 0o24;
   const sagoBildo = kreiSaganBildon(SAGO_NADLA_GRANDO);
   if ( sagoBildo ) {
@@ -385,7 +432,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   }
 
   return {
-    gxisdatigi, malfermi: malfermiMapon, fermi: fermiMapon,
+    gxisdatigi, pretigi, malfermi: malfermiMapon, fermi: fermiMapon,
     cxuMalfermita: () => mapoMalfermita, cxuBakita: () => bakitaMapo !== null,
     desegniRadaron, desegniPlenanMapon,
   };

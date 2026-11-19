@@ -18,7 +18,7 @@ import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { montaraSemoBazo } from "../tero-datumaro/rultempo.js";
 import { gxisdatigiSteleanVitron } from "../../eskekoj/konstruajxoj/satalaj/vitro.js";
 import { montriEraronon } from "./scena/eraro.js";
-import { MAKS_RATIO, MULT_SAMPLEA, OMBRA_MAPO } from "./scena/aparato.js";
+import { MAKS_RATIO, MULT_SAMPLEA, OMBRA_MAPO, OMBROJ } from "./scena/aparato.js";
 import { kreiCxielon } from "./scena/cxielo.js";
 import { NEBULA_DENSO, kreiPaletrojn } from "./scena/paletroj.js";
 import { kreiVeterajnPartiklojn } from "./scena/precipitajxo.js";
@@ -31,12 +31,14 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   aplikiLampaFalon();
   let bildilo: THREE.WebGLRenderer;
   try {
-    bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: MULT_SAMPLEA, powerPreference: "high-performance" });
+    // ⟨ ឱ្យប្រព័ន្ធជ្រើសកាតក្រាហ្វិក ដើម្បីកុំបង្ខំកាតដែលចំណាយថាមពល
+    //   ពេលកម្មវិធីផ្សេងក៏ត្រូវការវា ។ 📃 ⟩
+    bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: MULT_SAMPLEA, powerPreference: "default" });
   } catch {
     montriEraronon(sxargxaEl);
     throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) WebGL មិនអាចប្រើបាន");
   }
-  agordiBildilon( bildilo, { ombroj: true, ombraTipo: THREE.PCFShadowMap,
+  agordiBildilon( bildilo, { ombroj: OMBROJ, ombraTipo: THREE.PCFShadowMap,
     pikslaRacio: Math.min( devicePixelRatio, MAKS_RATIO ) } );
   // ⟪ ចង្វាក់ស្រមោល 📃 ⟫
   bildilo.shadowMap.autoUpdate = false;
@@ -110,7 +112,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   const { hemiLumo, suno } = kreiCxefajnLumojn( sceno, {
     cxielaKoloro: 0xc8e0e8, grundoKoloro: 0x485848, cxielaIntenso: 0o63/0o100,
     sunaKoloro: 0xf8f0d8, sunaIntenso: 0o45/0o40, sunaPozicio: [ 0o110, 0o160, 0o40 ],
-    ombroj: true, ombraMapo: OMBRA_MAPO, ombraDuono: 0o100,
+    ombroj: OMBROJ, ombraMapo: OMBRA_MAPO, ombraDuono: 0o100,
     ombraProksima: 0o20, ombraMalproksima: 0o520,
     // ⟨ ទំហំដុំស្រមោល ៖ ផែនទីស្រមោលតូច ( ទូរស័ព្ទ ) មានដុំធំជាង ។ បើសម្លេងណរម៉ាល់
     // តូចពេក , ដីបង្កើតឆ្នូតខ្មៅៗជាសំណាញ់ ( shadow acne ) ។ ដូច្នេះសម្លេង

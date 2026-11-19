@@ -44,7 +44,7 @@ function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
   if ( trovita ) return trovita;
   // ⟨ ការបង្វិលបញ្ឈរ 📃 ⟩
   const formo = kreiPilolFenestranFormon(ww, fenAlto);
-  const vitro = new THREE.ShapeGeometry(formo, 0o100);
+  const vitro = new THREE.ShapeGeometry(formo, 0o20);
   if ( vertikala ) {
     vitro.rotateZ(Math.PI / 2);
     vitro.translate(fenAlto / 2, ww / 2, 0);
@@ -63,12 +63,12 @@ function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
     liberoMallonga - kadroLargho - 0o1/0o100));
   // ⟨ គ្មានជ្រុង 📃 ⟩
   const stelo = rondigiKonturon(
-    kreiStelanFenestranFormon(ww, fenAlto, kadroLargho, pintoFlanko, pintoMallonga).getPoints(0o20),
+    kreiStelanFenestranFormon(ww, fenAlto, kadroLargho, pintoFlanko, pintoMallonga).getPoints(0o10),
     kadroRondigo);
-  const truo = kreiPilolFenestranFormon(ww - 0o1/0o100, fenAlto - 0o1/0o100).getPoints(0o20);
+  const truo = kreiPilolFenestranFormon(ww - 0o1/0o100, fenAlto - 0o1/0o100).getPoints(0o10);
   stelo.holes.push(new THREE.Path(truo.reverse()));
   const kadro = new THREE.ExtrudeGeometry(stelo,
-    { depth: kadroDikeco, bevelEnabled: false, curveSegments: 0o10 });
+    { depth: kadroDikeco, bevelEnabled: false, curveSegments: 0o4 });
   if ( vertikala ) {
     kadro.rotateZ(Math.PI / 2);
     kadro.translate(fenAlto / 2, ww / 2, 0);

@@ -46,7 +46,7 @@ function preniEnirejajnGeometriojn(): EnirejajGeometrioj {
   const pordo = new THREE.ExtrudeGeometry(shape, { depth: PORD_DIKECO, bevelEnabled: true, bevelSize: PORD_BEVELO, bevelThickness: PORD_BEVELO, bevelSegments: 2, curveSegments: 0o20 });
   // ⟨ ស៊ុមគ្របទ្វារទាំងមូល 📃 ⟩
   const kadraKurbo = kreiKadranKurbon(shape, PORD_Z + PORD_DIKECO / 2);
-  const kadro = new THREE.TubeGeometry(kadraKurbo, 0o200, PORD_DIKECO_TUTA / 2, 0o14, true);
+  const kadro = new THREE.TubeGeometry(kadraKurbo, 0o40, PORD_DIKECO_TUTA / 2, 0o10, true);
   // ⟨ ព្រុយជាស្លាបតូចទៅមុខ 📃 ⟩
   // ⟨ ហេតុអ្វីប្លង់មិនមែនប្លង់បញ្ឈរធម្មតា 📃 ⟩
   const bazaX = BLOKA_LARGHO / 2;

@@ -133,7 +133,9 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
   const talonoS0 = folia ? folia.talonoS0 : 0;
   const s = 0o7/0o40;
   const H = new THREE.Vector3(sX, 0, sZ).normalize();
-  const SEG = upward || folio ? 0o140 : 0o40;
+  // ⟨ គំរូត្រីកោណត្រូវរក្សារាង ប៉ុន្តែស្លាបមិនត្រូវការ 0o140 ផ្នែក
+  //   ទេនៅពេលប្រើ instancing ។ 0o40 គ្រប់គ្រាន់សម្រាប់ខ្សែកោងតូច 📃 ⟩
+  const SEG = 0o40;
   const kadroj = kreiPilierkadrojn(curve, SEG, H);
   const partoj: THREE.BufferGeometry[] = [];
   if ( upward || folio ) {

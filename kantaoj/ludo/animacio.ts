@@ -27,6 +27,9 @@ import type { Kanuanto } from "./kanuado.js";
 import { kanakaQena, kanakaQenaNovajn } from "../../eskekoj/komunajxoj/koloroj.js";
 import { agordiMuzikanLokon } from "../../eskekoj/sonoj/muziko/ludilo.js";
 import { aktivajUrboj } from "../tero-datumaro/rultempo.js";
+import { alHe } from "../komunajxoj/unuoj.js";
+import { kreiRultemon } from "../bildo/rultempo.js";
+import { MALPOTENCA_APARATO } from "../bildo/scena/aparato.js";
 
 /*តើចំណុចមួយនៅក្នុងព្រំដែនក្រុងណាមួយឬទេ ៖ ចម្ងាយ Manhattan ធៀបនឹងក្រឡាចតុកោណ
     @param x ( number ) - ទីតាំង X
@@ -121,8 +124,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   let kadraGeneracio = 0;
   let radaraKadro = 0;
   let ombraKadro = 0;
-  let dinamikaSkalo = 1;
-  let malrapidajKadroj = 0, rapidajKadroj = 0;
+  const rultempo = kreiRultemon({ malmultekosta: MALPOTENCA_APARATO });
   const ORBITA_DIR = new THREE.Vector3();
   const ORBITA_FLANKO = new THREE.Vector3();
   const ORBITA_SUPRE = new THREE.Vector3(0, 1, 0);
@@ -183,33 +185,43 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
 
   /*ចាប់ផ្តើមរង្វិលជុំឡើងវិញ ៖ ហៅពេលថេបមកវិញ ឬកុងតឺន័រ WebGL ត្រឡប់មកវិញ */
   function restarti(): void {
+    if ( document.hidden ) return;
     haltigita = false;
     horlogxo.reset();
+    rultempo.restarigi();
     animacii();
   }
 
   function animacii(): void {
+    if ( document.hidden ) { halti(); return; }
+    rultempo.agordiFokuson(document.hasFocus());
     // ⟨ លេខជំនាន់ ៖ រង្វិលជុំចាស់ឈប់ខ្លួនឯង ពេលមានរង្វិលជុំថ្មី 📃 ⟩
     const mia = ++kadraGeneracio;
-    const kadro = (): void => {
+    const kadro = ( nun: number ): void => {
       if ( haltigita || mia !== kadraGeneracio ) return;
       requestAnimationFrame(kadro);
-      bildigi();
+      // ⟨ ស៊ុមដែលមិនដល់ពេលមិនធ្វើបច្ចុប្បន្នភាព ឬ គូរទេ ។ 📃 ⟩
+      if ( rultempo.bildigu(alHe(nun)) ) bildigi();
     };
     requestAnimationFrame(kadro);
   }
 
   document.addEventListener("visibilitychange", () => {
     if ( document.hidden ) { halti(); return; }
-    // ⟨ ការវាស់ហ្វ្រេមក្នុងពេលលាក់ថេបមិនត្រឹមត្រូវ , ដូច្នេះការបែងចែករូបភាពត្រឡប់ដើមវិញ 📃 ⟩
-    dinamikaSkalo = 1;
-    malrapidajKadroj = 0; rapidajKadroj = 0;
+    // ⟨ រក្សាកម្រិតដែលរៀនរួច ដើម្បីកុំគូរធំភ្លាមពេលត្រឡប់មកវិញ ។ 📃 ⟩
     gxisdatigiEkranon();
     restarti();
   });
+  window.addEventListener("blur", () => rultempo.agordiFokuson(false));
+  window.addEventListener("focus", () => rultempo.agordiFokuson(true));
+  window.addEventListener("pagehide", halti);
+  window.addEventListener("pageshow", restarti);
   // ⟨ កុងតឺន័រ WebGL បាត់បង់ និងត្រឡប់មកវិញ 📃 ⟩
   kanvaso.addEventListener("webglcontextlost", ( e ) => {
     e.preventDefault();
+    // ⟨ កុំចូលផ្លូវដែលធ្វើឱ្យ context បាត់ម្តងទៀត 📃 ⟩
+    bildilo.shadowMap.enabled = false;
+    aparataRatio = Math.min(aparataRatio, 0o1);
     halti();
   });
   kanvaso.addEventListener("webglcontextrestored", () => {
@@ -230,12 +242,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     const t = horlogxo.getElapsed();
 
     const w = ekranaLargxo, h = ekranaAlto;
-    if ( krudaDt > 1 / 0o60 ) { malrapidajKadroj++; rapidajKadroj = 0; }
-    else if ( krudaDt < 1 / 0o70 ) { rapidajKadroj++; malrapidajKadroj = 0; }
-    // ⟨ ភាពឆ្លើយតប 📃 ⟩
-    if ( malrapidajKadroj >= 0o14 && dinamikaSkalo > 0o6/0o10 ) { dinamikaSkalo = Math.max(0o6/0o10, dinamikaSkalo - 0o2/0o10); malrapidajKadroj = 0; }
-    else if ( rapidajKadroj >= 0o130 && dinamikaSkalo < 1 ) { dinamikaSkalo = Math.min(1, dinamikaSkalo + 0o1/0o10); rapidajKadroj = 0; }
-    const aktivaRatio = Math.min(aparataRatio, maksimumaRatio) * dinamikaSkalo;
+    const aktivaRatio = Math.min(aparataRatio, maksimumaRatio) * rultempo.skalo;
     if ( kanvaso.width !== Math.floor(w * aktivaRatio) || kanvaso.height !== Math.floor(h * aktivaRatio) ) {
       fotilo.aspect = w / h; fotilo.updateProjectionMatrix();
       bildilo.setPixelRatio(aktivaRatio);
@@ -388,7 +395,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     if ( ++kanakaKadroNombro % KANAKA_PLENA_PERIODO === 0 ) kanakaQena(sceno, true);
 
     bildilo.render(sceno, fotilo);
-    statistiko.gxisdatigu();
+    statistiko.gxisdatigu(rultempo);
   }
 
   return { animacii };

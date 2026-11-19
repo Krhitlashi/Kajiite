@@ -45,6 +45,8 @@ node --import ./iloj/mezurilo/falsdomo.mjs iloj/mezurilo/<ឯកសារ>.mjs [
 | `tero.ts` | សាងសង់ដីតាមដំណាក់កាល ព្រមទាំង A/B ផ្លូវពណ៌ |
 | `verifiki.ts` | បញ្ជាក់ថាកំណែចាស់ និងថ្មីផ្តល់លេខដូចគ្នាបេះបិទ |
 | `komparo.ts` | A/B ឆ្លាស់គ្នាក្នុងដំណើរការតែមួយ សម្រាប់ចំណុចក្តៅៗ |
+| `rultempo.ts` | គោលនយោបាយស៊ុម និង ដង់ស៊ីតេភីកសែល ៖ អេក្រង់លឿន អេក្រង់មិនស្ម៾ ឧបករណ៍ខ្សោយ និង ផ្ទាំងគ្មានផ្ទាំងផ្តិត ។ លទ្ធផលជា He និង គោល 0o10 ទាំងអស់ ។ ជាការធៀបម៉ូដែល មិនមែនលទ្ធផលឧបករណ៍ពិត |
+| `mapo-sxargxo.ts` | ផែនទីរត់តែពេលអ្នកប្រើស្នើ មិនមែនពេលពិភពលោកទើបបើក ។ ពិនិត្យការបរាជ័យអាន , ការដោះលែង render target , ការបិទផែនទីដោយមិនបញ្ឈប់ពិភពលោក និង ការបន្តបន្ទាប់ពី GPU context restored |
 | `koloro.ts` | A/B ផ្លូវពណ៌ ៖ `terenkoloroj.ts` បច្ចុប្បន្ន ធៀបនឹងកំណែពី git |
 | `koloro-kontrol.ts` | ពណ៌ KNAKEHE ៖ គ្រប់ពណ៌ជា #nmnmnm , ស្រមោលជា MainColor ដក n0n0n0 |
 | `malnova-terenkoloroj.ts` | ច្បាប់ចម្លងនៃ `terenkoloroj.ts` នៅ `HEAD` សម្រាប់ A/B |
@@ -52,6 +54,8 @@ node --import ./iloj/mezurilo/falsdomo.mjs iloj/mezurilo/<ឯកសារ>.mjs [
 | `akvo.ts` | ការគណនាទឹក ៖ A/B `akvokalkulo.ts` បច្ចុប្បន្ន ធៀបនឹង `malnova-akvokalkulo.ts` |
 | `malnova-akvokalkulo.ts` | ច្បាប់ចម្លងនៃ `akvokalkulo.ts` នៅ `HEAD` សម្រាប់ A/B |
 | `kunfando.ts` | ការរលាយធរណីមាត្រ ៖ A/B រវាងការរលាយម្តងមួយគូ និងការរលាយម្តងតែម្តង |
+| `kunfando-instancoj.ts` | ការបង្កើតឧទាហរណ៍ដោយគំរូតែមួយ ៖ UUID មាត្រីពិភពលោក និង ការបំបែកលំហ |
+| `arkitekturo.ts` | ចំនួនកំពូល ត្រីកោណ និង ធរណីមាត្រស្រទាប់ ច្រកចូល និង បង្អួច ដើម្បីវាស់ការកាត់ tessellation |
 | `herbo.ts` | វាលស្មៅ ៖ ការស្កេនក្រឡា និងការសង់ដុំស្មៅ |
 | `skano.ts` | តម្លៃមុខងារដីម្តងមួយៗលើក្រឡាទាំងអស់ ( `biomo` , `alteco` , ... ) |
 | `tufoj.ts` | បំណែកនៃការសង់ដុំស្មៅម្តងមួយៗ ( `compose` , `setMatrixAt` , ពណ៌ ) |
