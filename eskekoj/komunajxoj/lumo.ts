@@ -178,6 +178,7 @@ export type CxielajUniformoj = {
   uBot: THREE.IUniform< THREE.Color >;
   uSunCol: THREE.IUniform< THREE.Color >;
   uSunDir: THREE.IUniform< THREE.Vector3 >;
+  uNokto: THREE.IUniform< number >;
 };
 
 export const CXIELA_VERTEKS0 = `precision highp float;
@@ -191,13 +192,78 @@ export const CXIELA_FRAGMENTO = `precision highp float;
 ${KONTURA_GLSL}
 varying vec3 vDir;
 uniform vec3 uTop,uMid,uBot,uSunCol,uSunDir;
-void main(){vec3 d=normalize(vDir);float h=clamp(d.y,-0.203125,1.0);
-// ⟨ កម្ពស់ជាថ្នាក់ ៖ មេឃឆ្នូតរលូនតាម fwidth 📃 ⟩
-float hb=konturaBando(h*${0o20}.0)/${0o20}.0;
-vec3 koloro=mix(uBot,uMid,smoothstep(-0.015625,0.234375,hb));koloro=mix(koloro,uTop,smoothstep(0.1875,0.71875,hb));
-float suna=konturaBando(pow(max(dot(d,normalize(uSunDir)),0.0),28.0)*${0o4}.0)/${0o4}.0;
-koloro=konturaKrado(koloro+uSunCol*suna);
-gl_FragColor=vec4(koloro,1.0);}`;
+uniform float uNokto;
+float stelaHazardo( vec2 p ) {
+  vec3 haz = fract( vec3( p.xyx ) * ${0o63 / 0o1000} );
+  haz += dot( haz, haz.yzx + ${0o40 + 0o1 / 0o3} );
+  return fract( ( haz.x + haz.y ) * haz.z );
+}
+float stelaFormo( vec2 p ) {
+  float r = length( p );
+  float ang = atan( p.y, p.x );
+  float f = abs( mod( ang + ${Math.PI / 0o4}, ${Math.PI / 0o2} ) - ${Math.PI / 0o4} );
+  float R = pow( pow( cos( f ), ${0o3 / 0o5} ) + pow( sin( f ), ${0o3 / 0o5} ), ${-0o5 / 0o3} );
+  return ${0o1}.0 - smoothstep( max( ${0o0}.0, R - ${0o1 / 0o10} ), R, r );
+}
+void main() {
+  vec3 d = normalize( vDir );
+  float h = clamp( d.y, ${-0o15 / 0o100}, ${0o1}.0 );
+  // ⟨ កម្ពស់ជាថ្នាក់ ៖ មេឃឆ្នូតរលូនតាម fwidth 📃 ⟩
+  float hb = konturaBando( h * ${0o20}.0 ) / ${0o20}.0;
+  vec3 baza = mix( uBot, uMid, smoothstep( ${-0o1 / 0o100}, ${0o17 / 0o100}, hb ) );
+  baza = mix( baza, uTop, smoothstep( ${0o3 / 0o20}, ${0o27 / 0o40}, hb ) );
+  // ⟨ កាំឆ្នូតបួនជ្រុង ធ្វើតាមរាងផ្កាយរបស់ព្រះអាទិត្យ 📃 ⟩
+  vec3 sunaDirekto = normalize( uSunDir );
+  vec3 sunaHelpo = abs( sunaDirekto.y ) < ${0o7 / 0o10}
+    ? vec3( ${0o0}.0, ${0o1}.0, ${0o0}.0 ) : vec3( ${0o1}.0, ${0o0}.0, ${0o0}.0 );
+  vec3 sunaX = normalize( cross( sunaHelpo, sunaDirekto ) );
+  vec3 sunaY = cross( sunaDirekto, sunaX );
+  float sunaAntau = dot( d, sunaDirekto );
+  vec2 sunaP = abs( vec2( dot( d, sunaX ), dot( d, sunaY ) )
+    / max( sunaAntau, ${0o1 / 0o400} ) );
+  float sunaH = ( ${0o1}.0 - smoothstep( ${0o1 / 0o400}, ${0o1 / 0o200}, sunaP.y ) )
+    * ( ${0o1}.0 - smoothstep( ${0o1 / 0o20}, ${0o3 / 0o20}, sunaP.x ) );
+  float sunaV = ( ${0o1}.0 - smoothstep( ${0o1 / 0o400}, ${0o1 / 0o200}, sunaP.x ) )
+    * ( ${0o1}.0 - smoothstep( ${0o1 / 0o20}, ${0o3 / 0o20}, sunaP.y ) );
+  float sunaFalo = ${0o1}.0 - smoothstep( ${0o1 / 0o100}, ${0o3 / 0o20}, max( sunaP.x, sunaP.y ) );
+  float sunaHalo = pow( max( sunaAntau, ${0o0}.0 ), ${0o200}.0 ) * ${0o1 / 0o2};
+  float sunaKampo = max( sunaHalo, max( sunaH, sunaV ) * sunaFalo ) * step( ${0o0}.0, sunaAntau );
+  float suna = konturaBando( sunaKampo * ${0o4}.0 ) / ${0o4}.0;
+  baza += uSunCol * suna * ${0o1 / 0o2};
+  // ⟨ គ្រប់ជាន់មេឃដក 101010 ពីពណ៌គោល ដោយប្រើមុខងារវត្ថុដដែល 📃 ⟩
+  float nivelo = ( ${0o1}.0 - smoothstep( ${0o0}.0, ${0o27 / 0o40}, hb ) ) * ${0o3}.0;
+  vec3 koloro = konturaKoloro( baza, nivelo );
+  // ⟨ ផ្កាយបួនកាំរាវរលូនលើមុខបាល់ប្រាំមួយ ទីតាំងថេរនៅពេលរាត្រី 📃 ⟩
+  vec3 stelaAbs = abs( d );
+  vec2 stelaUv;
+  float stelaVizagxo;
+  if ( stelaAbs.y >= stelaAbs.x && stelaAbs.y >= stelaAbs.z ) {
+    stelaUv = d.xz / stelaAbs.y;
+    stelaVizagxo = d.y > ${0o0}.0 ? ${0o0}.0 : ${0o1}.0;
+  } else if ( stelaAbs.x >= stelaAbs.z ) {
+    stelaUv = d.yz / stelaAbs.x;
+    stelaVizagxo = d.x > ${0o0}.0 ? ${0o2}.0 : ${0o3}.0;
+  } else {
+    stelaUv = d.xy / stelaAbs.z;
+    stelaVizagxo = d.z > ${0o0}.0 ? ${0o4}.0 : ${0o5}.0;
+  }
+  vec2 stelaKrado = stelaUv * ${0o20}.0;
+  vec2 stelaId = floor( stelaKrado ) + vec2( stelaVizagxo * ${0o21}.0, stelaVizagxo * ${0o37}.0 );
+  vec2 stelaLoka = fract( stelaKrado ) - ${0o1 / 0o2};
+  vec2 stelaOfseto = ( vec2( stelaHazardo( stelaId + ${0o21}.0 ),
+    stelaHazardo( stelaId + ${0o43}.0 ) ) - ${0o1 / 0o2} ) * ${0o1 / 0o2};
+  float stelaGrando = ${0o1 / 0o20} + stelaHazardo( stelaId + ${0o65}.0 ) * ${0o1 / 0o20};
+  float stelaElekto = step( ${0o17 / 0o20}, stelaHazardo( stelaId ) );
+  float stelaMasko = stelaFormo( ( stelaLoka - stelaOfseto ) / stelaGrando ) * stelaElekto;
+  float stelaNokto = smoothstep( ${0o3 / 0o10}, ${0o7 / 0o10}, uNokto );
+  float stelaHorizonto = smoothstep( ${-0o1 / 0o40}, ${0o3 / 0o40}, d.y );
+  float stelaAlfo = stelaMasko * stelaNokto * stelaHorizonto;
+  vec3 stelaBazo = vec3( ${0o50 / 0o100}, ${0o60 / 0o100}, ${0o1}.0 );
+  float stelaOmbro = floor( stelaHazardo( stelaId + ${0o107}.0 ) * ${0o3}.0 );
+  vec3 stelaKoloro = konturaKoloro( stelaBazo, stelaOmbro );
+  koloro = konturaKrado( mix( koloro, stelaKoloro, stelaAlfo ) );
+  gl_FragColor = vec4( koloro, ${0o1}.0 );
+}`;
 
 /* បង្កើតវត្ថុធាតុមេឃ ដែលប្រើទាំងលើឆាក និងក្នុងកញ្ចក់ឆ្លុះ ។
     @param uniformoj ( CxielajUniformoj ) - ពណ៌បីជាន់ ពណ៌ព្រះអាទិត្យ និងទិសព្រះអាទិត្យ ។
@@ -222,6 +288,7 @@ export interface MediaAgordo {
   subo: THREE.ColorRepresentation;
   sunaKoloro: THREE.ColorRepresentation;
   sunaDirekto: THREE.Vector3;
+  nokto: number;
   intenso: number;
 }
 
@@ -235,6 +302,7 @@ const DEFAUXLTA_MEDIO: MediaAgordo = {
   supro: 0x78a8c0, mezo: 0xb8d0d8, subo: 0xe0e8e8,
   sunaKoloro: 0xf8f0d8,
   sunaDirekto: new THREE.Vector3( 0o4/0o10, 0o63/0o100, 0o23/0o100 ),
+  nokto: 0o0,
   intenso: MEDIA_INTENSO,
 };
 
@@ -257,6 +325,7 @@ export function agordiMedion( sceno: THREE.Scene, bildilo: THREE.WebGLRenderer,
     uBot: { value: new THREE.Color( DEFAUXLTA_MEDIO.subo ) },
     uSunCol: { value: new THREE.Color( DEFAUXLTA_MEDIO.sunaKoloro ) },
     uSunDir: { value: DEFAUXLTA_MEDIO.sunaDirekto.clone() },
+    uNokto: { value: DEFAUXLTA_MEDIO.nokto },
   };
   // ⟨ ឆាកតូចមួយសម្រាប់កញ្ចក់ ៖ គ្រាន់តែមេឃ គ្មានដី គ្មានវត្ថុ ។ 📃 ⟩
   const reflektaSceno = new THREE.Scene();
@@ -268,6 +337,7 @@ export function agordiMedion( sceno: THREE.Scene, bildilo: THREE.WebGLRenderer,
   let meza = new THREE.Color( DEFAUXLTA_MEDIO.mezo );
   let malsupra = new THREE.Color( DEFAUXLTA_MEDIO.subo );
   let suna = new THREE.Color( DEFAUXLTA_MEDIO.sunaKoloro );
+  let nokto = DEFAUXLTA_MEDIO.nokto;
   let intenso = DEFAUXLTA_MEDIO.intenso;
 
   function krei(): void {
@@ -283,10 +353,14 @@ export function agordiMedion( sceno: THREE.Scene, bildilo: THREE.WebGLRenderer,
     const m = new THREE.Color( nova.mezo ?? meza );
     const b = new THREE.Color( nova.subo ?? malsupra );
     const s = new THREE.Color( nova.sunaKoloro ?? suna );
+    const novaNokto = nova.nokto ?? nokto;
     const sxangxo = malsamajKoloroj( nuna, t ) || malsamajKoloroj( meza, m )
-      || malsamajKoloroj( malsupra, b ) || malsamajKoloroj( suna, s );
+      || malsamajKoloroj( malsupra, b ) || malsamajKoloroj( suna, s )
+      || Math.abs( novaNokto - nokto ) > MEDIA_SOJLO;
     nuna.copy( t ); meza.copy( m ); malsupra.copy( b ); suna.copy( s );
     if ( nova.sunaDirekto ) uniformoj.uSunDir.value.copy( nova.sunaDirekto );
+    nokto = novaNokto;
+    uniformoj.uNokto.value = nokto;
     intenso = nova.intenso ?? intenso;
     if ( !sxangxo && celo ) { sceno.environmentIntensity = intenso; return; }
     uniformoj.uTop.value.copy( t );

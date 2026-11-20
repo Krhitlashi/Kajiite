@@ -13,9 +13,16 @@ export function kreiCxielon(sceno: THREE.Scene): {
     uBot: { value: new THREE.Color(0xe0e8e8) },
     uSunCol: { value: new THREE.Color(0xf8f0d8) },
     uSunDir: { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100) },
+    uNokto: { value: 0o0 },
   };
   const cxielaGeometrio = new THREE.SphereGeometry(0o1170, 0o30, 0o20);
   const cxielo = new THREE.Mesh(cxielaGeometrio, kreiCxielanMaterialon(cxielajUniformoj));
+  // ⟨ មេឃតាមកាមេរ៉ានៅគ្រប់ទីតាំង កុំឱ្យផ្នែកខាងលើហួសចម្ងាយកាត់រហូតខ្មៅ 📃 ⟩
+  cxielo.frustumCulled = false;
+  cxielo.onBeforeRender = ( _bildilo, _sceno, fotilo ) => {
+    cxielo.position.copy(fotilo.position);
+    cxielo.updateMatrixWorld();
+  };
   sceno.add(cxielo);
   return { cxielo, cxielajUniformoj };
 }

@@ -120,17 +120,15 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   } );
 
   // ⟪ ស្ព្រាយព្រះអាទិត្យ 📃 ⟫
-  const molaTeksturo = ( () => {
-    const cv = document.createElement("canvas"); cv.width = cv.height = 0o400;
-    const ctx = cv.getContext("2d")!;
-    const gr = ctx.createRadialGradient(0o200, 0o200, 0o10, 0o200, 0o200, 0o200);
-    gr.addColorStop(0, "rgba(255,255,255,0.85)"); gr.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = gr; ctx.fillRect(0, 0, 0o400, 0o400);
-    return new THREE.CanvasTexture(cv);
-  } )();
+  // ⟨ ផ្កាយបួនកាំរាវរលូន ពណ៌ KNAKEHE និងស៊ុមតូចដើម្បីគែមមិនជាភីកសែល 📃 ⟩
+  const sunaTeksturo = new THREE.TextureLoader().load(new URL("./scena/suno.png", import.meta.url).href);
+  sunaTeksturo.colorSpace = THREE.SRGBColorSpace;
+  sunaTeksturo.magFilter = THREE.LinearFilter;
+  sunaTeksturo.minFilter = THREE.LinearMipmapLinearFilter;
+  sunaTeksturo.generateMipmaps = true;
   const sunaSprajto = new THREE.Sprite(new THREE.SpriteMaterial({
-    map: molaTeksturo, color: 0xf8f0d8, transparent: true, opacity: 0o30/0o100,
-    blending: THREE.AdditiveBlending, depthWrite: false, fog: false,
+    map: sunaTeksturo, color: 0xf8f0d8, transparent: true, opacity: 0o30/0o100,
+    blending: THREE.AdditiveBlending, depthWrite: false, fog: false, toneMapped: false,
   }));
   sunaSprajto.scale.setScalar(0o56);
   sceno.add(sunaSprajto);
@@ -192,6 +190,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     cxielajUniformoj.uMid.value = l(d.tago.mid, d.krepusko.mid);
     cxielajUniformoj.uBot.value = l(d.tago.bot, d.krepusko.bot);
     cxielajUniformoj.uSunCol.value = l(d.tago.sunCol, d.krepusko.sunCol);
+    cxielajUniformoj.uNokto.value = t;
     const sunDir = new THREE.Vector3().copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
     cxielajUniformoj.uSunDir.value = sunDir.clone().normalize();
     // ⟨ ការលាយថ្ងៃ-ព្រលប់បង្កើតតម្លៃកណ្តាល ។ បង្គត់គ្រប់ពណ៌ពន្លឺ និងអ័ព្ទ
@@ -209,6 +208,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       subo: cxielajUniformoj.uBot.value,
       sunaKoloro: cxielajUniformoj.uSunCol.value,
       sunaDirekto: cxielajUniformoj.uSunDir.value,
+      nokto: t,
       intenso: l(0o1, 0o2/0o10),
     });
     kanakaWeh2Color(suno.color.copy(d.tago.sunCol).lerp(d.krepusko.sunCol, t));
