@@ -367,7 +367,7 @@ export function rekonstruiKradon3D(): void {
       const wx = ofsX + b.x, wz = ofsZ + b.z;
       const antaŭ = sceno3d.children.length;
       konstruiSatalon(kradaSpeco(tipo, wx, wz, b.rot, "krado" + krado.indekso + "_" + i),
-        sceno3d, selektajxoj);
+        sceno3d, selektajxoj, grundo3D);
       // konstruiSatalon បន្ថែមក្រុម ច្បាប់ចម្លងកញ្ចក់ និងចិញ្ចៀន
       // មាសផ្ទាល់ទៅឆាក ដូច្នេះតាមដានទាំងអស់សម្រាប់ការលុប និងភាពមើលឃើញ។
       krada3DKonstruajxoj.push(...sceno3d.children.slice(antaŭ));

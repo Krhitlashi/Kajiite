@@ -4,7 +4,7 @@
 // សាមញ្ញគ្រប់ប្រវែង ហើយវាស់រូបរាងរបស់វា ។ 📃 ⟩
 import * as THREE from "three";
 import { konstruiPonton, kreiPontanSubon, pontaFinaOrdo,
-  PONT_KORPA_DIKECO, PONT_TERA_PROFUNDECO }
+  PONT_KORPA_DIKECO, PONT_TERA_PROFUNDECO, PONT_VOJA_SUPERPONO }
   from "../../eskekoj/medio/doko/ponto.js";
 
 // ⟨ ស្ពានពិសោធន៍ ៖ ដីទាបជាងផ្ទៃស្ពានគ្រប់កន្លែង 📃 ⟩
@@ -110,8 +110,9 @@ for ( const longo of NASA ) {
       problemoj.push("បាតមិនដល់ដី");
     if ( Math.abs(bbox.max.y - ( supra(0o1/0o2) + 0o1/0o200 )) > 0.05 )
       problemoj.push("កំពូលខុស");
-    if ( Math.abs(( bbox.max.x - bbox.min.x ) - longo) > 0.05
-      && Math.abs(( bbox.max.z - bbox.min.z ) - longo) > 0.05 ) problemoj.push("ប្រវែងខុស");
+    const tutaLongo = longo + PONT_VOJA_SUPERPONO * 0o2;
+    if ( Math.abs(( bbox.max.x - bbox.min.x ) - tutaLongo) > 0.05
+      && Math.abs(( bbox.max.z - bbox.min.z ) - tutaLongo) > 0.05 ) problemoj.push("ប្រវែងខុស");
   }
 
   if ( problemoj.length ) difektoj++;

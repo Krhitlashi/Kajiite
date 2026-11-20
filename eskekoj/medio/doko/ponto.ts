@@ -17,6 +17,10 @@ export const PONT_KORPA_DIKECO = 0o6/0o10;
 // ⟨ ជម្រៅបន្ថែមក្រោមដី ៖ ជញ្ជាំងស្ពានចុះកប់ក្នុងដីបន្តិច ។ 📃 ⟩
 export const PONT_TERA_PROFUNDECO = 0o1/0o10;
 
+// ⟨ ជាន់ចូលផ្លូវនៅចុងទាំងពីរ 📏 ⟩ ៖ ផ្ទៃប៉ះគ្នាត្រង់បន្ទាត់តែមួយ
+// ទុករន្ធតូចក្រោមស្ពាន ។ តួស្ពានលាតចូលក្រោមផ្លូវដើម្បីបិទរន្ធនោះ ។ 📃 ⟩
+export const PONT_VOJA_SUPERPONO = 0o1/0o2;
+
 // ⟨ ចំណែកតូចបំផុតដែលចុងគ្របដណ្តប់ ៖ ស្ពានវែងមានធ្នូស្តើងនៅកណ្តាល ។ 📃 ⟩
 export const PONT_FINA_ORDO = 0o1/0o5;
 
@@ -94,6 +98,20 @@ export function konstruiPonton(
   const dx = bx - ax, dz = bz - az;
   const longo = Math.hypot(dx, dz);
   if ( longo < 0o1/0o100 ) return;
+  // ⟨ វាយនភាពតាមឯកតា មិនមែនតាមស្ពានទាំងមូល 📏 ⟩ ៖ uv1 រក្សាកូអរដោនេ
+  // មុខដើម ខណៈ uv រាបសម្រាប់ខ្សែកោង ។ ប្រើ uv1 សម្រាប់ផ្ទៃ និង bump
+  // ដើម្បីកុំឱ្យគ្រាប់ថ្មលាតជាខ្សែវែងតាមមុខចំហៀងស្ពាន ។ 📃 ⟩
+  const pontaMaterialo = andezitaMaterialo.clone();
+  if ( pontaMaterialo.map ) {
+    pontaMaterialo.map = pontaMaterialo.map.clone();
+    pontaMaterialo.map.channel = 1;
+    pontaMaterialo.map.needsUpdate = true;
+  }
+  if ( pontaMaterialo.bumpMap ) {
+    pontaMaterialo.bumpMap = pontaMaterialo.bumpMap.clone();
+    pontaMaterialo.bumpMap.channel = 1;
+    pontaMaterialo.bumpMap.needsUpdate = true;
+  }
   const ndx = dx / longo, ndz = dz / longo;
 
   const duono = vojaLarghoDuono( largho );
@@ -109,17 +127,35 @@ export function konstruiPonton(
       ? ( t: number ) => Math.min(supraAlto(t),
         teraAlto(ax + ndx * longo * t, az + ndz * longo * t) - PONT_TERA_PROFUNDECO)
       : undefined);
-  const formo = new THREE.Shape();
-  formo.moveTo(0, malsupraAlto(0));
-  for ( let i = 1; i <= pasxoj; i++ ) {
-    const t = i / pasxoj;
-    formo.lineTo(longo * t, malsupraAlto(t));
-  }
-  for ( let i = pasxoj; i >= 0; i-- ) {
-    const t = i / pasxoj;
-    formo.lineTo(longo * t, supraAlto(t));
-  }
-  formo.closePath();
+  const suboJe = ( s: number ): number => {
+    const t = Math.max(0, Math.min(1, s / longo));
+    let subo = malsupraAlto(t);
+    if ( teraAlto && ( s < 0 || s > longo ) ) {
+      const grundo = teraAlto(ax + ndx * s, az + ndz * s) - PONT_TERA_PROFUNDECO;
+      subo = Math.min(subo, grundo);
+    }
+    return subo;
+  };
+  const kreiProfilon = ( supra: ( t: number ) => number ): THREE.Shape => {
+    const profilo = new THREE.Shape();
+    profilo.moveTo(-PONT_VOJA_SUPERPONO, suboJe(-PONT_VOJA_SUPERPONO));
+    profilo.lineTo(0, malsupraAlto(0));
+    for ( let i = 1; i <= pasxoj; i++ ) {
+      const t = i / pasxoj;
+      profilo.lineTo(longo * t, malsupraAlto(t));
+    }
+    profilo.lineTo(longo + PONT_VOJA_SUPERPONO, suboJe(longo + PONT_VOJA_SUPERPONO));
+    profilo.lineTo(longo + PONT_VOJA_SUPERPONO, supra(1));
+    profilo.lineTo(longo, supra(1));
+    for ( let i = pasxoj - 1; i >= 0; i-- ) {
+      const t = i / pasxoj;
+      profilo.lineTo(longo * t, supra(t));
+    }
+    profilo.lineTo(-PONT_VOJA_SUPERPONO, supra(0));
+    profilo.closePath();
+    return profilo;
+  };
+  const formo = kreiProfilon(supraAlto);
 
   const kreiLonganGeometrion = ( profilo: THREE.Shape, larĝo: number, ofseto: number ): THREE.ExtrudeGeometry => {
     const geometrio = new THREE.ExtrudeGeometry(profilo, { depth: larĝo, bevelEnabled: false });
@@ -133,27 +169,17 @@ export function konstruiPonton(
   grupo.rotation.y = Math.atan2(dx, dz);
   if ( kernoDuono > 0o1/0o1000 ) {
     const geometrio = kreiLonganGeometrion(formo, kernoDuono * 2, kernoDuono);
-    const maŝo = new THREE.Mesh(geometrio, andezitaMaterialo);
+    const maŝo = new THREE.Mesh(geometrio, pontaMaterialo);
     maŝo.castShadow = true;
     maŝo.receiveShadow = true;
     grupo.add(maŝo);
   }
 
   // ⟨ អង់ដេស៊ីតគ្របជញ្ជាំងឈរនៅគែមផ្លូវ ៖ បាតរបស់វាក៏កោងឡើងតាមធ្នូដែរ ។ 📃 ⟩
-  const fasado = new THREE.Shape();
-  fasado.moveTo(0, malsupraAlto(0));
-  for ( let i = 1; i <= pasxoj; i++ ) {
-    const t = i / pasxoj;
-    fasado.lineTo(longo * t, malsupraAlto(t));
-  }
-  for ( let i = pasxoj; i >= 0; i-- ) {
-    const t = i / pasxoj;
-    fasado.lineTo(longo * t, deko(t) + 0o1/0o200);
-  }
-  fasado.closePath();
+  const fasado = kreiProfilon(( t: number ) => deko(t) + 0o1/0o200);
   for ( const ofseto of [ duono, -kernoDuono ] ) {
     const fasadaGeometrio = kreiLonganGeometrion(fasado, fasadaLarĝo, ofseto);
-    const fasadaMaŝo = new THREE.Mesh(fasadaGeometrio, andezitaMaterialo);
+    const fasadaMaŝo = new THREE.Mesh(fasadaGeometrio, pontaMaterialo);
     fasadaMaŝo.castShadow = true;
     fasadaMaŝo.receiveShadow = true;
     grupo.add(fasadaMaŝo);

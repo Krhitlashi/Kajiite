@@ -300,24 +300,49 @@ export function konstruiVojojn(sceno: THREE.Scene,
       // ⟨ ជម្រាលមុខជំហាន 📏 ⟩ ៖ ជំហាននីមួយៗចុះទៅកម្រិតជំហានបន្ទាប់ ។
       // កម្រិតអានត្រង់កណ្តាលចម្រៀក , ដូចអនុគមន៍សាងសង់ , ដូច្នេះជម្រាលត្រូវនឹងជំហានពិត ។
       // ជំហានចុងក្រោយគ្មានជំហានបន្ទាប់ទេ , ដូច្នេះវារាបទាំងស្រុង ។ 📃 ⟩
+      // ⟨ កម្រាលមិនកប់ក្នុងដី 📏 ⟩ ៖ ប្រវត្តិរូបជណ្តើរចំណតដឹងតែកម្រិតចាន
+      // និងវេទិកា ។ ដីអាចខ្ពស់ជាងជម្រាលនៅកណ្តាល ឬនៅគែមកម្រាល ។ អានទទឹង
+      // ពេញនៃកម្រាលនីមួយៗ ហើយលើកវាឱ្យនៅលើដីខ្ពស់បំផុត ។ 📃 ⟩
+      const teraPlanko = ( ax: number, az: number, bx: number, bz: number ): number => {
+        const longo = Math.hypot(bx - ax, bz - az);
+        if ( longo < 0o1/0o1000 ) return -Infinity;
+        const latX = -( bz - az ) / longo * eksteraDuono;
+        const latZ = ( bx - ax ) / longo * eksteraDuono;
+        let planko = -Infinity;
+        for ( const t of [ 0, 0o1/0o2, 1 ] ) {
+          const px = ax + ( bx - ax ) * t, pz = az + ( bz - az ) * t;
+          for ( const flanko of [ -1, 0, 1 ] ) {
+            const grundo = defGrundo(px + latX * flanko, pz + latZ * flanko);
+            if ( !Number.isFinite(grundo) ) continue;
+            const akvo = akvaFn?.(px + latX * flanko, pz + latZ * flanko) ?? -Infinity;
+            // ⟨ កម្រាលក្រោមទឹកឡើងមួយជំហាន 📏 ⟩ ៖ កម្ពស់ថ្មីនៅតែក្រោម
+            // ផ្ទៃទឹក ដូច្នេះជណ្តើរលេចច្បាស់ដោយមិនក្លាយជាស្ពានទាប ។ 📃 ⟩
+            const levigita = Math.min(grundo + VOJA_SUPRO_LEVIGXO + STUPA_RISERO,
+              akvo - VOJA_SUPRO_LEVIGXO);
+            planko = Math.max(planko, grundo + VOJA_SUPRO_LEVIGXO, levigita);
+          }
+        }
+        return planko;
+      };
       const stupajAltoj: number[] = [];
       const lastaIndekso = def.pts.length - 0o2;
       for ( let i = 0; i < def.pts.length - 1; i++ ) {
-        const mezo = stupaAlto(( def.pts[i][0] + def.pts[i + 1][0] ) / 0o2,
-          ( def.pts[i][1] + def.pts[i + 1][1] ) / 0o2);
-        stupajAltoj.push(mezo);
+        const [ ax, az ] = def.pts[i], [ bx, bz ] = def.pts[i + 1];
+        const mezo = stupaAlto(( ax + bx ) / 0o2, ( az + bz ) / 0o2);
+        stupajAltoj.push(Math.max(mezo, teraPlanko(ax, az, bx, bz)));
       }
       // ⟨ ចុងជណ្តើរយកកម្រិតចានដោយផ្ទាល់ 📏 ⟩ ៖ ការអានត្រង់កណ្តាលចម្រៀកមិនគ្រប់ទេ ,
       // ព្រោះចំណុចកណ្តាលអាចនៅឆ្ងាយពីចាន ។ ដូច្នេះចម្រៀកដំបូង និងចុងក្រោយ
-      // យកកម្រិតចានដោយផ្ទាល់ ។ 📃 ⟩
+      // យកកម្រិតចាន លើកលែងតែដីនៅទីនោះខ្ពស់ជាង ។ 📃 ⟩
       // ⟨ ជម្រាលចុងយកកម្រិតពីអនុគមន៍កម្ពស់ ៖ មិនប្រើជំហានថេរ STUPA_RISERO ទេ ។
       // បើប្រើជំហានថេរ , ចំណតដែលធ្លាក់តិច ( ឧ. 0.4 ) នឹងលើសជំហាន 0.5 ហើយ
       // ជណ្តើរលិចក្រោមផ្ទៃចំណត រួចឡើងវិញ = ជញ្ជាំងឈរ ។ អនុគមន៍កម្ពស់ដឹងជំហានពិត
       // ដូច្នេះចានភ្ជាប់បានរាបដល់ផ្ទៃចំណតដោយគ្មានជញ្ជាំង ។ 📃 ⟩
       if ( lastaIndekso >= 0 ) {
-        if ( unuaPlato !== null ) stupajAltoj[0] = defAlt(def.pts[0][0], def.pts[0][1]);
-        if ( lastaPlato !== null ) stupajAltoj[lastaIndekso] =
-          defAlt(def.pts[lastaIndekso + 1][0], def.pts[lastaIndekso + 1][1]);
+        if ( unuaPlato !== null ) stupajAltoj[0] = Math.max(stupajAltoj[0],
+          defAlt(def.pts[0][0], def.pts[0][1]));
+        if ( lastaPlato !== null ) stupajAltoj[lastaIndekso] = Math.max(stupajAltoj[lastaIndekso],
+          defAlt(def.pts[lastaIndekso + 1][0], def.pts[lastaIndekso + 1][1]));
       }
       for ( let i = 0; i < def.pts.length - 1; i++ ) {
         const [ aX, aZ ] = def.pts[i];

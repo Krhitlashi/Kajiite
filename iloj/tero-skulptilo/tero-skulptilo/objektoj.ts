@@ -351,7 +351,7 @@ function konstruiObjektonEn(grupo: THREE.Object3D, o: MetitaObjekto, opcioj: Kon
       rot: o.rotacio ?? 0, diamond: true, h0: h(o.x, o.z),
       sube: tipo === "stacioxipo" ? 0 : niveloj, tieroAltoSub: 0o123/0o40,
     };
-    konstruiSatalon(spec, temp, []);
+    konstruiSatalon(spec, temp, [], h);
   } else if ( o.speco === "hxeuxfo" || o.speco === "hxeuxfoPlato" ) {
     if ( o.speco === "hxeuxfoPlato" ) {
       konstruiPeriferiajnPlatformojn(temp, [ [ o.x, o.z ] ], h, dioritaMaterialo(), kreiAndezitanMaterialon());

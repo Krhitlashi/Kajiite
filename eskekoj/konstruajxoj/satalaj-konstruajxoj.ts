@@ -6,7 +6,8 @@ import { kreiRondigitanRektangulanFormon, aplikoKlinajnUvojn, normaligiUvojn } f
 import { aldoniManĝtablon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
 import { aldoniEnirejon } from "./satalaj/enirejo.js";
 import { aldoniPilolFenestron, fenestraMargxeno, fenestraMaterialo } from "./satalaj/fenestroj.js";
-import { kreiKlinoTavolon, MURA_KLINO } from "./satalaj/formoj.js";
+import { kreiKlinoTavolon, MURA_KLINO, SANKTEJA_BAZPLATO_ALTO,
+  SANKTEJA_BAZPLATO_KROMO } from "./satalaj/formoj.js";
 import { aldoniDiamantanSpegulon, aldoniTavolanRandon } from "./satalaj/ornamoj.js";
 import { aldoniKadranTubon } from "./satalaj/pilieroj.js";
 import { konstruajxaMaterialo, TIPARO, type KonstruSpec } from "./satalaj/tipoj.js";
@@ -64,8 +65,33 @@ export function preniTavolajnGeometriojn(typeKey: string, w: number, d: number, 
   }
   return g;
 }
-export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajxoj: THREE.Mesh[]): THREE.Group {
+/*រកកម្ពស់មូលដ្ឋានដែលគ្របផ្ទៃមូលដ្ឋាននៅលើដីទាំងអស់
+    @param spec ( KonstruSpec ) - ទីតាំង និងទំហំអគារ
+    @param grundoFn ( function , optional ) - កម្ពស់ដីពិភពលោក
+@returns alto ( number ) - កម្ពស់ Y របស់ក្រុមអគារ */
+function satalaBazaAlteco(spec: KonstruSpec,
+  grundoFn?: ( x: number, z: number ) => number): number {
+  const centro = spec.h0 || 0;
+  if ( spec.type !== "sanktejo" || !grundoFn ) return centro;
+  const duonoX = ( spec.w + 0o72/0o100 ) / 0o2;
+  const duonoZ = ( spec.d + 0o72/0o100 ) / 0o2;
+  const kos = Math.cos(spec.rot), sin = Math.sin(spec.rot);
+  let alto = centro;
+  for ( let ix = -0o4; ix <= 0o4; ix++ ) {
+    for ( let iz = -0o4; iz <= 0o4; iz++ ) {
+      const lx = ix / 0o4 * duonoX, lz = iz / 0o4 * duonoZ;
+      const wx = spec.x + kos * lx + sin * lz;
+      const wz = spec.z - sin * lx + kos * lz;
+      alto = Math.max(alto, grundoFn(wx, wz) + 0o1/0o100);
+    }
+  }
+  return alto;
+}
+
+export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajxoj: THREE.Mesh[],
+  grundoFn?: ( x: number, z: number ) => number): THREE.Group {
   const { niveloj: tiers, tieroAlto, w, d, type: typeKey, name } = spec;
+  spec.h0 = satalaBazaAlteco(spec, grundoFn);
   const sube = spec.sube || 0;
   const supraLargho = Math.max(0o215/0o100, w * 0o23/0o100);
   const T = TIPARO[typeKey] || TIPARO.domo;
@@ -173,10 +199,10 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
   }
   if ( sube > 0 && typeKey === "sanktejo" ) {
     // ⟨ មូលដ្ឋានរាបស្មើជាង 📃 ⟩
-    const kadroW = w + 0o72/0o100, kadroD = d + 0o72/0o100;
+    const kadroW = w + SANKTEJA_BAZPLATO_KROMO, kadroD = d + SANKTEJA_BAZPLATO_KROMO;
     const dikeco = 0o1/0o2;
     const rAnguloj = 0o1/0o2;
-    const platoAlto = 0o1/0o10;
+    const platoAlto = SANKTEJA_BAZPLATO_ALTO;
     const kadroFormo = kreiRondigitanRektangulanFormon(kadroW, kadroD, rAnguloj);
     const ena = kreiRondigitanRektangulanFormon(
       kadroW - dikeco * 2, kadroD - dikeco * 2, Math.max(0o1/0o20, rAnguloj - dikeco)
@@ -184,10 +210,13 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     kadroFormo.holes.push(new THREE.Path(ena.reverse()));
     const kadroGeo = new THREE.ExtrudeGeometry(kadroFormo, { depth: platoAlto, bevelEnabled: false, curveSegments: 0o40 });
     kadroGeo.rotateX(-Math.PI / 2);
-    group.add(new THREE.Mesh(kadroGeo, kadraMaterialo));
+    const bazplato = new THREE.Mesh(kadroGeo, kadraMaterialo);
+    bazplato.name = "sankteja-bazplato";
+    bazplato.castShadow = bazplato.receiveShadow = true;
+    group.add(bazplato);
   }
 
-  group.position.set(spec.x, spec.h0 || 0, spec.z);
+  group.position.set(spec.x, spec.h0, spec.z);
   group.rotation.y = spec.rot;
   sceno.add(group);
   if ( spec.diamond ) aldoniDiamantanSpegulon(sceno, spec, group, w);

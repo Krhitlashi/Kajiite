@@ -151,7 +151,7 @@ export function konstruiKradanUrbon(
 
   const konstruGrupoj: THREE.Group[] = [];
   const antaŭajGefiloj = new Set<THREE.Object3D>(sceno.children);
-  konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiSatalon(s, sceno, selektajxoj)));
+  konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiSatalon(s, sceno, selektajxoj, alteco)));
   // ⟪ អគារទីក្រុងរលាយ 📃 ⟫
   const konservotaj = new Set<THREE.Object3D>(selektajxoj);
   kunfandiMondajnMeshojn(sceno, sceno.children.filter(o => !antaŭajGefiloj.has(o)), {

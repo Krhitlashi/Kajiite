@@ -84,7 +84,7 @@ export function konstruiMetitajnObjektojn(
           : tipo === "turo" ? 0o30/0o10 : tipo === "kasafeo" ? 0o155/0o40 : 0o315/0o100,
         rot: o.rotacio ?? 0, diamond: true, h0: altecoFn(o.x, o.z),
         sube: tipo === "stacioxipo" ? 0 : niveloj, tieroAltoSub: 0o123/0o40,
-      }, sceno, selektajxoj);
+      }, sceno, selektajxoj, altecoFn);
     }
   }
   // ⟨ ការរលាយអគារដែលបានដាក់ 📃 ⟩

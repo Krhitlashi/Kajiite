@@ -1,6 +1,8 @@
 // ≺⧼ ច្រកចូល 🚪 ⧽≻
 import * as THREE from "three";
-import { MURA_KLINO, rondigitaTrapezaFormo } from "./formoj.js";
+import { ConvexGeometry } from "three/addons/geometries/ConvexGeometry.js";
+import { MURA_KLINO, rondigitaTrapezaFormo, SANKTEJA_BAZPLATO_ALTO,
+  SANKTEJA_BAZPLATO_KROMO } from "./formoj.js";
 import { pretigiKonturajnUvojn, pretigiKonturajnUvojnLaŭProfilo } from "../../komunajxoj/formoj.js";
 
 // ⟨ ហេតុអ្វី 📃 ⟩
@@ -32,7 +34,6 @@ const PORD_Z = -0o1/0o100;
 interface EnirejajGeometrioj {
   pordo: THREE.BufferGeometry;
   kadro: THREE.BufferGeometry;
-  nagetoj: THREE.BufferGeometry[];
 }
 
 // ⟨ ឃ្លាំងធរណីមាត្រច្រកចូល 📃 ⟩ ៖ អគារនីមួយៗដាក់ច្រកចូលនៅទីតាំង និងផ្អៀងខុសគ្នា ,
@@ -43,59 +44,64 @@ let enirejajKashmemoro: EnirejajGeometrioj | null = null;
 function preniEnirejajnGeometriojn(): EnirejajGeometrioj {
   if ( enirejajKashmemoro ) return enirejajKashmemoro;
   // ⟨ ស៊ុមស៊ីមេទ្រី 📃 ⟩
-  const shape = rondigitaTrapezaFormo(BLOKA_LARGHO, TW, EH, 0o1/0o4, 0o1/0o4);
+  const pordaRondo = 0o1/0o4;
+  const shape = rondigitaTrapezaFormo(BLOKA_LARGHO, TW, EH, pordaRondo, pordaRondo);
   const pordo = new THREE.ExtrudeGeometry(shape, { depth: PORD_DIKECO, bevelEnabled: true, bevelSize: PORD_BEVELO, bevelThickness: PORD_BEVELO, bevelSegments: 2, curveSegments: 0o20 });
   // ⟨ uv1 រក្សាវាយនភាព ។ uv ធ្វើតាមទទឹង trapeza នៃមុខទ្វារ ដើម្បីកុំកាត់ខ្សែកោងនៅជ្រុង 📃 ⟩
   pretigiKonturajnUvojnLaŭProfilo(pordo, [ [ 0, BLOKA_LARGHO ], [ EH, TW ] ]);
   // ⟨ ស៊ុមគ្របទ្វារទាំងមូល 📃 ⟩
   const kadraKurbo = kreiKadranKurbon(shape, PORD_Z + PORD_DIKECO / 2);
   const kadro = new THREE.TubeGeometry(kadraKurbo, 0o40, PORD_DIKECO_TUTA / 2, 0o10, true);
-  // ⟨ ព្រុយជាស្លាបតូចទៅមុខ 📃 ⟩
-  // ⟨ ហេតុអ្វីប្លង់មិនមែនប្លង់បញ្ឈរធម្មតា 📃 ⟩
+  enirejajKashmemoro = { pordo, kadro };
+  return enirejajKashmemoro;
+}
+
+/*សាងសង់ព្រុយពីជ្រុងទ្វារទៅផ្ទៃខាងលើចានមូលដ្ឋាន
+    @param tieroAlto ( number ) - កម្ពស់ស្រទាប់ដែលកំណត់ផ្អៀងទ្វារ
+@returns nagetoj ( BufferGeometry [ ] ) - ព្រុយឆ្វេង និងស្តាំ */
+function kreiNagetojn( tieroAlto: number ): THREE.BufferGeometry[] {
   const bazaX = BLOKA_LARGHO / 2;
   const supraX = TW / 2;
   const nagetaDikeco = 0o1/0o20;
-  // ⟨ មូលដ្ឋានព្រុយនៅលើចានមូលដ្ឋាន 📃 ⟩
-  const nagetaProfundo = 0o3/0o10;
   const zMebl = PORD_Z + PORD_DIKECO / 2;
+  const angulo = tieroAlto > 0 ? -Math.atan(MURA_KLINO / tieroAlto) : 0;
+  const kos = Math.cos(angulo), sin = Math.sin(angulo);
+  const celZ = SANKTEJA_BAZPLATO_KROMO / 2;
+  // ⟨ បម្លែងចំណុចលើចានទៅកូអរដោនេទ្វារផ្អៀង 📏 ⟩ ៖ ក្រោយបង្វិលក្រុម ,
+  // ព្រុយប៉ះផ្ទៃខាងលើចាន នៅគែមខាងក្រៅពិតប្រាកដ ។ 📃 ⟩
+  const celY = kos * SANKTEJA_BAZPLATO_ALTO + sin * celZ;
+  const lokaCelZ = -sin * SANKTEJA_BAZPLATO_ALTO + kos * celZ;
   const nagetoj: THREE.BufferGeometry[] = [];
   for ( const sX of [ -1, 1 ] ) {
     const malsupra = new THREE.Vector3(sX * bazaX, 0, zMebl);
     const supra = new THREE.Vector3(sX * supraX, EH, zMebl);
-    const lauxFlanko = supra.clone().sub(malsupra);
-    const longo = lauxFlanko.length();
-    const unuo = lauxFlanko.clone().divideScalar(longo);
-    const antauxen = new THREE.Vector3(0, 0, 1);
-    const normalo = new THREE.Vector3().crossVectors(unuo, antauxen).normalize();
-    const triangulo = new THREE.Shape();
-    triangulo.moveTo(0, 0);
-    triangulo.lineTo(longo, 0);
-    triangulo.lineTo(0, nagetaProfundo);
-    triangulo.closePath();
-    const geometrio = new THREE.ExtrudeGeometry(triangulo, { depth: nagetaDikeco, bevelEnabled: false });
-    // ⟨ មុខត្រីកោណរបស់ព្រុយ ៖ bary ឱ្យខ្សែកោងស្របនឹងគែមត្រីកោណទាំងបី 📃 ⟩
+    const ekstera = new THREE.Vector3(sX * bazaX, celY, lokaCelZ);
+    const unuo = supra.clone().sub(malsupra).normalize();
+    const normalo = new THREE.Vector3().crossVectors(unuo, new THREE.Vector3(0, 0, 1)).normalize();
+    const punktoj: THREE.Vector3[] = [];
+    for ( const p of [ malsupra, supra, ekstera ] ) {
+      punktoj.push(p.clone().addScaledVector(normalo, -nagetaDikeco / 0o2));
+      punktoj.push(p.clone().addScaledVector(normalo, nagetaDikeco / 0o2));
+    }
+    const geometrio = new ConvexGeometry(punktoj);
     const np = geometrio.getAttribute("position") as THREE.BufferAttribute;
-    const nn = geometrio.getAttribute("normal") as THREE.BufferAttribute;
     const ek = new Float32Array(np.count * 4);
-    const anguloj: [ number, number ][] = [ [ 0, 0 ], [ longo, 0 ], [ 0, nagetaProfundo ] ];
+    const kovrilo = new Float32Array(np.count);
+    const anguloj = [ malsupra, supra, ekstera ];
     for ( let i = 0; i < np.count; i++ ) {
-      if ( Math.abs(nn.getZ(i)) < 0o7 / 0o10 ) continue;
-      const px = np.getX(i), py = np.getY(i);
+      const punkto = new THREE.Vector3().fromBufferAttribute(np, i);
       let plejProksima = 0, plejMalgranda = Infinity;
-      for ( let a = 0; a < 3; a++ ) {
-        const d = ( px - anguloj[a][0] ) ** 2 + ( py - anguloj[a][1] ) ** 2;
+      for ( let a = 0; a < anguloj.length; a++ ) {
+        const d = punkto.distanceToSquared(anguloj[a]);
         if ( d < plejMalgranda ) { plejMalgranda = d; plejProksima = a; }
       }
       ek[i * 4 + plejProksima] = 1;
     }
     geometrio.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(ek, 4));
-    const matrico = new THREE.Matrix4().makeBasis(unuo, antauxen, normalo);
-    matrico.setPosition(malsupra.clone().addScaledVector(normalo, -nagetaDikeco / 2));
-    geometrio.applyMatrix4(matrico);
+    geometrio.setAttribute("aKonturaKovrilo", new THREE.BufferAttribute(kovrilo, 1));
     nagetoj.push(pretigiKonturajnUvojn(geometrio));
   }
-  enirejajKashmemoro = { pordo, kadro, nagetoj };
-  return enirejajKashmemoro;
+  return nagetoj;
 }
 
 export function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: THREE.MeshStandardMaterial, eniraMaterialo: THREE.MeshStandardMaterial, flankoj = 1, tieroAlto = 0, nagetoj = false): void {
@@ -110,7 +116,12 @@ export function aldoniEnirejon(group: THREE.Group, d: number, kadraMaterialo: TH
   // ⟨ ទ្វារផ្អៀងតាមជញ្ជាំង 📃 ⟩
   if ( tieroAlto > 0 ) klinGrupo.rotation.x = -Math.atan(MURA_KLINO / tieroAlto);
   // ⟨ ព្រុយនៃអគារកណ្តាល 📃 ⟩
-  if ( nagetoj ) for ( const g of geo.nagetoj ) klinGrupo.add(new THREE.Mesh(g, kadraMaterialo));
+  if ( nagetoj ) for ( const g of kreiNagetojn(tieroAlto) ) {
+    const nageto = new THREE.Mesh(g, kadraMaterialo);
+    nageto.name = "porda-nageto";
+    nageto.castShadow = nageto.receiveShadow = true;
+    klinGrupo.add(nageto);
+  }
   for ( let i = 0; i < flankoj; i++ ) {
     const kopio = i === 0 ? pordGrupo : pordGrupo.clone();
     kopio.rotation.y = i * Math.PI / 2;

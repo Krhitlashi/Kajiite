@@ -4,6 +4,10 @@ import { aplikoKlinajnUvojn } from "../../komunajxoj/formoj.js";
 
 export const MURA_KLINO = 0o5/0o20;
 
+// ⟨ ចានអគារកណ្តាល 📏 ⟩ ៖ ព្រុយទ្វារ និងចានប្រើមាត្រដូចគ្នា ។ 📃 ⟩
+export const SANKTEJA_BAZPLATO_KROMO = 0o72/0o100;
+export const SANKTEJA_BAZPLATO_ALTO = 0o1/0o10;
+
 export function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number, rb: number, rt: number): THREE.Shape {
   const s = new THREE.Shape(), sl = ( blokoLargho / 2 - tw / 2 ) / h;
   s.moveTo(-blokoLargho / 2 + rb, 0); s.lineTo(blokoLargho / 2 - rb, 0);
