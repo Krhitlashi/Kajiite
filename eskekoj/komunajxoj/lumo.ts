@@ -4,6 +4,7 @@
 // ទាំងពន្លឺមេឃ-ព្រះអាទិត្យ និងបរិស្ថានឆ្លុះ PMREM , ដូច្នេះការឆ្លុះមកពី
 // ប្រភពពន្លឺតែមួយ ។ ការកំណត់សន្ទះគូរក៏រស់នៅទីនេះដែរ ។ 📃 ⟩
 import * as THREE from "three";
+import { aplikiLampaFalon } from "./lampaFalo.js";
 
 export { aplikiLampaFalon, aplikiViglanLampanFalon, kreiLampaFaloUniformojn,
   ligiLampajnUniformojn, LAMPA_FALO_DEFAUXLTA, LAMPA_FALO_NOMOJ, LAMPA_LUMO, lampaFaloGLSL,
@@ -322,10 +323,41 @@ export interface BildilaAgordo {
     @param agordo ( BildilaAgordo = {} , optional ) - ជម្រើសនៃការកំណត់ ។
 @returns void */
 export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgordo = {} ): void {
+  // ⟨ សន្ទះគូរទាំងអស់ទទួលជំហានពណ៌ផ្ទៃ និងពន្លឺចង្កៀងដូចគ្នា 📃 ⟩
+  aplikiLampaFalon();
   if ( !THREE.ShaderChunk.uv_pars_vertex.includes( "vKonturaUv" ) ) {
     // ⟨ ផ្ញើ uv ទៅគ្រប់សម្ភារៈស្តង់ដារ ៖ ជម្រាលកោងតាមគែមលើ-ក្រោមគ្រប់វត្ថុ គ្មានផ្លូវដាច់ដោយឡែក 📃 ⟩
-    THREE.ShaderChunk.uv_pars_vertex += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\nattribute vec4 aKonturaEkstra;\nvarying vec3 vKonturaBary;\nvarying vec3 vKonturaFlanko;\n";
-    THREE.ShaderChunk.uv_vertex += "\nvKonturaUv = uv;\n#ifdef USE_INSTANCING\nvKonturaPoz = ( modelViewMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz;\n#else\nvKonturaPoz = ( modelViewMatrix * vec4( position, 1.0 ) ).xyz;\n#endif\nvKonturaBary = aKonturaEkstra.w > 0.5 ? vec3( 0.0 ) : aKonturaEkstra.xyz;\n#ifdef USE_INSTANCING\nvKonturaFlanko = aKonturaEkstra.w > 0.5 ? normalize( mat3( modelViewMatrix ) * mat3( instanceMatrix ) * aKonturaEkstra.xyz ) : vec3( 0.0 );\n#else\nvKonturaFlanko = aKonturaEkstra.w > 0.5 ? normalize( mat3( modelViewMatrix ) * aKonturaEkstra.xyz ) : vec3( 0.0 );\n#endif\n";
+    THREE.ShaderChunk.uv_pars_vertex += `
+      varying vec2 vKonturaUv;
+      varying vec3 vKonturaPoz;
+      #ifndef USE_UV1
+        attribute vec2 uv1;
+      #endif
+      attribute float aKonturaKovrilo;
+      attribute vec4 aKonturaEkstra;
+      varying vec3 vKonturaBary;
+      varying vec3 vKonturaFlanko;
+    `;
+    THREE.ShaderChunk.uv_vertex += `
+      vKonturaUv = uv;
+      // ⟨ uv1 គឺផ្ទៃពេញ ។ តម្លៃវិជ្ជមានជ្រើសតែផ្នែកដែលមិនត្រូវបានគ្រប 📃 ⟩
+      if ( aKonturaKovrilo < -0.5 ) {
+        vKonturaUv = uv1;
+      } else if ( aKonturaKovrilo > 0.0 ) {
+        vKonturaUv.y = ( uv.y - aKonturaKovrilo ) / max( 1.0 - aKonturaKovrilo, 0.000030517578125 );
+      }
+      #ifdef USE_INSTANCING
+        vKonturaPoz = ( modelViewMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz;
+      #else
+        vKonturaPoz = ( modelViewMatrix * vec4( position, 1.0 ) ).xyz;
+      #endif
+      vKonturaBary = aKonturaEkstra.w > 0.5 ? vec3( 0.0 ) : aKonturaEkstra.xyz;
+      #ifdef USE_INSTANCING
+        vKonturaFlanko = aKonturaEkstra.w > 0.5 ? normalize( mat3( modelViewMatrix ) * mat3( instanceMatrix ) * aKonturaEkstra.xyz ) : vec3( 0.0 );
+      #else
+        vKonturaFlanko = aKonturaEkstra.w > 0.5 ? normalize( mat3( modelViewMatrix ) * aKonturaEkstra.xyz ) : vec3( 0.0 );
+      #endif
+    `;
     THREE.ShaderChunk.uv_pars_fragment += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\nvarying vec3 vKonturaBary;\nvarying vec3 vKonturaFlanko;\n";
   }
   if ( !THREE.ShaderChunk.color_pars_fragment.includes( "konturaKampo" ) ) {
@@ -333,10 +365,10 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgo
     THREE.ShaderChunk.color_pars_fragment = KONTURA_GLSL + THREE.ShaderChunk.color_pars_fragment;
   }
   if ( !THREE.ShaderChunk.colorspace_fragment.includes( "konturaKampo" ) ) {
-    // ⟨ គ្រប់សម្ភារៈផ្ទៃ ៖ ស្តង់ដារ រូបវន្ត phong lambert basic រួមទាំងលោហៈ ថ្លា និង transmission 📃 ⟩
+    // ⟨ ផ្ទៃជាប់ខ្លួនទាំងអស់ ៖ standard physical phong lambert toon basic និង matcap 📃 ⟩
     THREE.ShaderChunk.colorspace_fragment += `
-      #if defined( STANDARD ) || defined( PHONG ) || defined( LAMBERT ) || defined( BASIC )
-        #if defined( BASIC )
+      #if defined( STANDARD ) || defined( PHONG ) || defined( LAMBERT ) || defined( TOON ) || defined( BASIC ) || defined( MATCAP )
+        #if defined( BASIC ) || defined( MATCAP )
           vec3 konturaNormalo = normalize( cross( dFdx( vKonturaPoz ), dFdy( vKonturaPoz ) ) )
             * ( float( gl_FrontFacing ) * ${0o2}.0 - ${0o1}.0 );
         #else
@@ -348,7 +380,7 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgo
           #endif
         #endif
         vec3 konturaSupo = normalize( viewMatrix[ 1 ].xyz );
-        #if NUM_DIR_LIGHTS > 0
+        #if !defined( BASIC ) && !defined( MATCAP ) && NUM_DIR_LIGHTS > 0
           vec3 konturaLumo = directionalLights[ 0 ].direction;
         #else
           vec3 konturaLumo = normalize( vec3( ${0o1 / 0o2}, ${0o3 / 0o4}, ${0o1 / 0o4} ) );

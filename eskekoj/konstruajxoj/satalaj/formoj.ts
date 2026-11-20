@@ -14,12 +14,13 @@ export function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number
   return s;
 }
 
-export function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: number, alto: number): THREE.BufferGeometry {
+export function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: number,
+  alto: number, kovrajSkaloj: readonly [ number, number ] = [ 0, 0 ]): THREE.BufferGeometry {
   const rB = Math.max(0o1/0o20, Math.hypot(hwB, hdB));
   const rT = Math.max(0o1/0o20, Math.hypot(hwT, hdT));
   const g = new THREE.CylinderGeometry(rT, rB, alto, 4, 1);
   g.rotateY(Math.PI / 4);
-  return aplikoKlinajnUvojn(g, rB, rT);
+  return aplikoKlinajnUvojn(g, rB, rT, false, kovrajSkaloj);
 }
 
 // ⟨ ជ្រុងណាត្រូវមូល 📃 ⟩

@@ -6,7 +6,7 @@
 // អាចមើលឃើញភ្លាម ។
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
+import { agordiBildilon, agordiMedion, kreiCxefajnLumojn }
   from "../../eskekoj/komunajxoj/lumo.js";
 import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
 import { konstruiIntersekcajnPlatojn } from "../../eskekoj/medio/vojoj/platoj.js";
@@ -76,8 +76,7 @@ function kielSceno(g: THREE.Object3D): THREE.Scene {
 }
 
 // ⟪ ឆាក 3D 🎥 ⟫
-// ⟨ ពន្លឺចង្កៀងកោងរួម ដូចហ្គេម និងឆាកឧទាហរណ៍ផ្សេង ។ 📃 ⟩
-aplikiLampaFalon();
+// ⟨ agordiBildilon បញ្ចូលពន្លឺចង្កៀងកោង និងជំហានពណ៌រួម 📃 ⟩
 const bildilo = new THREE.WebGLRenderer({ canvas: elemento("vido3d") as HTMLCanvasElement, antialias: true });
 agordiBildilon( bildilo, { pikslaRacio: Math.min( 0o2, globalThis.devicePixelRatio || 1 ) } );
 const sceno = new THREE.Scene();

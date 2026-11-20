@@ -12,7 +12,7 @@ import { bruo2D, alternajDiagonalojn, terenaKoloroEn,
 import { premuAlFormo, distancoDeFormo, radiusaDistanco, kreiFormanBazon,
   MONDO_BAZA_Y } from "../../eskekoj/komunajxoj/mapformo.js";
 import { kanakaWeh2Color, kanakaAlfo } from "../../eskekoj/komunajxoj/koloroj.js";
-import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
+import { agordiBildilon, agordiMedion, kreiCxefajnLumojn }
   from "../../eskekoj/komunajxoj/lumo.js";
 import { aktivaMapo } from "../tero-datumaro/mapregulo.js";
 import { montaraSemoBazo } from "../tero-datumaro/rultempo.js";
@@ -26,9 +26,7 @@ import type { ScenaSistemo, Vetero } from "./scena/tipoj.js";
 
 export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): ScenaSistemo {
   // ⟪ ពន្លឺចង្កៀងកោងលើផ្ទៃ 📃 ⟫
-  // ⟨ ការធ្លាក់ពន្លឺកោង និងជំហាន -101010 រស់នៅក្នុងម៉ូឌុលរួម lampaFalo ៖
-  // ហ្គេម និងទំព័រឧទាហរណ៍ប្រើគណិតវិទ្យាតែមួយ ។ តម្លៃលំនាំដើមដូចហ្គេមគ្រប់ខ្ទង់ ។ 📃 ⟩
-  aplikiLampaFalon();
+  // ⟨ agordiBildilon បញ្ចូលទាំងការធ្លាក់ពន្លឺកោង និងជំហានពណ៌រួម 📃 ⟩
   let bildilo: THREE.WebGLRenderer;
   try {
     // ⟨ ឱ្យប្រព័ន្ធជ្រើសកាតក្រាហ្វិក ដើម្បីកុំបង្ខំកាតដែលចំណាយថាមពល

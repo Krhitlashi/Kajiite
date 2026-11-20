@@ -1,7 +1,7 @@
 // ≺⧼ ច្រកចូល 🚪 ⧽≻
 import * as THREE from "three";
 import { MURA_KLINO, rondigitaTrapezaFormo } from "./formoj.js";
-import { pretigiKonturajnUvojn } from "../../komunajxoj/formoj.js";
+import { pretigiKonturajnUvojn, pretigiKonturajnUvojnLaŭProfilo } from "../../komunajxoj/formoj.js";
 
 // ⟨ ហេតុអ្វី 📃 ⟩
 export function kreiKadranKurbon(formo: THREE.Path, z: number,
@@ -45,8 +45,8 @@ function preniEnirejajnGeometriojn(): EnirejajGeometrioj {
   // ⟨ ស៊ុមស៊ីមេទ្រី 📃 ⟩
   const shape = rondigitaTrapezaFormo(BLOKA_LARGHO, TW, EH, 0o1/0o4, 0o1/0o4);
   const pordo = new THREE.ExtrudeGeometry(shape, { depth: PORD_DIKECO, bevelEnabled: true, bevelSize: PORD_BEVELO, bevelThickness: PORD_BEVELO, bevelSegments: 2, curveSegments: 0o20 });
-  // ⟨ uv1 រក្សាវាយនភាព , uv រាប 0..1 ដើម្បីខ្សែកោងរុំពីគែមទ្វារចូលក្នុង 📃 ⟩
-  pretigiKonturajnUvojn(pordo);
+  // ⟨ uv1 រក្សាវាយនភាព ។ uv ធ្វើតាមទទឹង trapeza នៃមុខទ្វារ ដើម្បីកុំកាត់ខ្សែកោងនៅជ្រុង 📃 ⟩
+  pretigiKonturajnUvojnLaŭProfilo(pordo, [ [ 0, BLOKA_LARGHO ], [ EH, TW ] ]);
   // ⟨ ស៊ុមគ្របទ្វារទាំងមូល 📃 ⟩
   const kadraKurbo = kreiKadranKurbon(shape, PORD_Z + PORD_DIKECO / 2);
   const kadro = new THREE.TubeGeometry(kadraKurbo, 0o40, PORD_DIKECO_TUTA / 2, 0o10, true);

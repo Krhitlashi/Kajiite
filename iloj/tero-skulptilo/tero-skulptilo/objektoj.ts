@@ -24,7 +24,7 @@ import { konstruiPeriferiajnPlatformojn } from "../../../eskekoj/medio/vojoj/per
 import { kreiAndezitanMaterialon } from "../../../eskekoj/komunajxoj/materialoj.js";
 import { VESTOJ } from "../../../eskekoj/vestaro/vestoj.js";
 import { elemento, elementoj, unua } from "../../komunajxoj/dom.js";
-import { aplikiLampaFalon, agordiMedion, kreiCxefajnLumojn }
+import { agordiBildilon, agordiMedion, kreiCxefajnLumojn }
   from "../../../eskekoj/komunajxoj/lumo.js";
 import type { MetitaObjekto } from "../../../kantaoj/mondo/urbo/tipoj.js";
 
@@ -367,9 +367,8 @@ function konstruiObjektonEn(grupo: THREE.Object3D, o: MetitaObjekto, opcioj: Kon
 
 function kreiObjektanBakon() {
   if ( objektaBakaRenderilo ) return;
-  // ⟨ ពន្លឺចង្កៀងកោងរួម មុនពេលបង្កើតវត្ថុធាតុ ។ 📃 ⟩
-  aplikiLampaFalon();
   objektaBakaRenderilo = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  agordiBildilon( objektaBakaRenderilo );
   objektaBakaRenderilo.setSize(0o2000, 0o2000);
   objektaBakaRenderilo.setClearColor(0x000000, 0);
   objektaBakaFotilo = new THREE.OrthographicCamera(-MONDO_HALFO, MONDO_HALFO, MONDO_HALFO, -MONDO_HALFO, 1, 0o600);
@@ -413,6 +412,7 @@ export let objektaAntauxGrupo: THREE.Group | null = null;
 function kreiObjektanAntauxrigardon(): void {
   if ( objektaAntauxRenderilo ) return;
   objektaAntauxRenderilo = new THREE.WebGLRenderer({ canvas: objektaAntauxrigardo, antialias: true, alpha: true });
+  agordiBildilon( objektaAntauxRenderilo );
   objektaAntauxRenderilo.setClearColor(0x000000, 0);
   objektaAntauxSceno = new THREE.Scene();
   objektaAntauxFotilo = new THREE.PerspectiveCamera(0o50, 1, 1, 0o764);

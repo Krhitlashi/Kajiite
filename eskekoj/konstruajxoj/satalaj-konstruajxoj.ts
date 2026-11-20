@@ -40,8 +40,15 @@ const tavolajKashmemoroj = new Map<string, { muroj: THREE.BufferGeometry; kadroj
 function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: number): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
   const klino = MURA_KLINO;
   const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
-  for ( const { y, hw, hd } of tavolajNiveloj(w, d, tiers, tieroAlto) ) {
-    const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto);
+  const niveloj = tavolajNiveloj(w, d, tiers, tieroAlto);
+  for ( let i = 0; i < niveloj.length; i++ ) {
+    const { y, hw, hd } = niveloj[ i ];
+    const malsupra = niveloj[ i - 1 ], supra = niveloj[ i + 1 ];
+    // ⟨ ការគ្របគណនាពីផ្ទៃជិតខាងពិត ។ គ្មានការកំណត់ពិសេសសម្រាប់ស្រទាប់កំពូល 📃 ⟩
+    const supraKovrilo = supra ? Math.min( 1, supra.hw / ( hw - klino ), supra.hd / ( hd - klino ) ) : 0;
+    const subaKovrilo = malsupra ? Math.min( 1, ( malsupra.hw - klino ) / hw, ( malsupra.hd - klino ) / hd ) : 0;
+    const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto,
+      [ supraKovrilo, subaKovrilo ]);
     tavolo.translate(0, y + tieroAlto / 2, 0); murajGeometrioj.push(tavolo);
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) aldoniKadranTubon(kadrajGeometrioj, sX * hw, sZ * hd, y, y + tieroAlto, sX, sZ, true, klino);
     aldoniTavolanRandon(kadrajGeometrioj, hw, hd, y, klino, tieroAlto);

@@ -5,6 +5,7 @@ import { kreiKadranKurbon } from "./satalaj/enirejo.js";
 import { MURA_KLINO } from "./satalaj/formoj.js";
 import { preniTavolajnGeometriojn, tavolajNiveloj } from "./satalaj-konstruajxoj.js";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
+import { pretigiKonturajnUvojnLaŭProfilo } from "../komunajxoj/formoj.js";
 import { kreiFenestranMaterialon } from "../komunajxoj/materialoj.js";
 
 
@@ -77,7 +78,10 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   group.add(muroj);
   group.add(new THREE.Mesh(kunfandiGeometriojn([ supraj.kadroj, subajKadroj ]), oraMaterialo));
 
-  const pordFormo = rondigitaDupordaFormo(0o233/0o100, 0o233/0o100 * 0o45/0o100, 0o11/0o4, 0o1/0o4);
+  const pordaBlokaLargho = 0o233 / 0o100;
+  const pordaSupraLargho = pordaBlokaLargho * 0o45 / 0o100;
+  const pordaAlto = 0o11 / 0o4;
+  const pordFormo = rondigitaDupordaFormo(pordaBlokaLargho, pordaSupraLargho, pordaAlto, 0o1/0o4);
   // ⟨ ទ្វារកម្រាស់ដូចអគារ 📃 ⟩
   const pordDikeco = 0o7/0o100, pordBevelo = 0o1/0o40;
   const pordDikecoTuta = pordDikeco + pordBevelo * 2;
@@ -96,6 +100,11 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
       depth: pordDikeco, bevelEnabled: true, bevelSize: pordBevelo, bevelThickness: pordBevelo,
       bevelSegments: 2, curveSegments: 0o20,
     });
+    // ⟨ មុខ trapeza ទាំងពីរទទួល uv ដាច់ដោយឡែក ដូច្នេះផ្នែកខាងក្រោមមិនបញ្ច្រាសខ្សែកោង 📃 ⟩
+    pretigiKonturajnUvojnLaŭProfilo(enirejaGeometrio, [
+      [ -pordaAlto, pordaSupraLargho ], [ 0, pordaBlokaLargho ],
+      [ pordaAlto, pordaSupraLargho ],
+    ]);
     const enirejaMreto = new THREE.Mesh(enirejaGeometrio, eniraMaterialo);
     enirejaMreto.rotation.y = f * Math.PI / 2;
     enirejaMreto.position.set(Math.sin(f * Math.PI / 2) * pordaRadiuso, 0,

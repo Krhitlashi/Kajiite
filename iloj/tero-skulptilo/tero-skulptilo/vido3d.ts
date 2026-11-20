@@ -7,7 +7,7 @@
 // ប្រវត្តិ វត្ថុ ) ដែលស្ថិតនៅក្នុងឯកសារមេ។
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { aplikiLampaFalon, agordiBildilon, agordiMedion, kreiCxefajnLumojn }
+import { agordiBildilon, agordiMedion, kreiCxefajnLumojn }
   from "../../../eskekoj/komunajxoj/lumo.js";
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { alternajDiagonalojn, terenaStrataKoloroEn } from "../../../eskekoj/komunajxoj/terenkoloroj.js";
@@ -297,8 +297,6 @@ function eniri3D(): void {
     fotilo3d.position.set(0o400, 0o300, 0o400);   // ( 256, 192, 256 ) ។ ទីតាំងដំបូងរបស់កាមេរ៉ា
     bildilo3d = new THREE.WebGLRenderer({ canvas: mapo3d, antialias: true });
     agordiBildilon( bildilo3d );
-    // ⟨ ពន្លឺចង្កៀងកោងរួម ដូចហ្គេម និងឆាកឧទាហរណ៍ផ្សេង ។ 📃 ⟩
-    aplikiLampaFalon();
     // ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
     kreiCxefajnLumojn( sceno3d, {
       cxielaKoloro: 0xb8d8e8, grundoKoloro: 0x384838, cxielaIntenso: 0o35/0o40,

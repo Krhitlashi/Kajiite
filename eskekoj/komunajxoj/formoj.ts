@@ -155,15 +155,50 @@ export function pretigiKonturajnUvojn<G extends THREE.BufferGeometry>(geometrio:
   return geometrio;
 }
 
+// ⟨ uv តាមផ្ទៃពិតសម្រាប់ទ្វារ ៖ ទទឹងផ្លាស់ប្តូរតាមកម្ពស់ ដូច្នេះខ្សែកោង
+//   មិនកាត់នៅជ្រុងទ្វារទេ ។ គូរនីមួយៗក្នុង profilo គឺ [ y, ទទឹងពេញ ] 📃 ⟩
+export function pretigiKonturajnUvojnLaŭProfilo<G extends THREE.BufferGeometry>(
+  geometrio: G, profilo: readonly ( readonly [ number, number ] )[] ): G {
+  pretigiKonturajnUvojn( geometrio );
+  if ( profilo.length < 0o2 ) return geometrio;
+  const poz = geometrio.getAttribute( "position" ) as THREE.BufferAttribute;
+  const nor = geometrio.getAttribute( "normal" ) as THREE.BufferAttribute | undefined;
+  const uv = geometrio.getAttribute( "uv" ) as THREE.BufferAttribute;
+  for ( let i = 0; i < uv.count; i++ ) {
+    // ⟨ មុខមុខ និងមុខក្រោយប៉ុណ្ណោះ ៖ គែម និង bevel រក្សា uv របស់ផ្ទៃខ្លួន 📃 ⟩
+    if ( nor && Math.abs( nor.getZ( i ) ) < 0o777 / 0o1000 ) continue;
+    const y = poz.getY( i );
+    let suba = profilo[ 0 ], supra = profilo[ profilo.length - 0o1 ];
+    for ( let k = 0o1; k < profilo.length; k++ ) {
+      if ( y <= profilo[ k ][ 0o0 ] ) {
+        suba = profilo[ k - 0o1 ];
+        supra = profilo[ k ];
+        break;
+      }
+    }
+    const alto = supra[ 0o0 ] - suba[ 0o0 ];
+    const t = Math.max( 0, Math.min( 0o1, alto > 0o10 ** -0o7 ? ( y - suba[ 0o0 ] ) / alto : 0 ) );
+    const largho = suba[ 0o1 ] + ( supra[ 0o1 ] - suba[ 0o1 ] ) * t;
+    if ( largho > 0o10 ** -0o7 ) uv.setX( i, poz.getX( i ) / largho + 0o1 / 0o2 );
+  }
+  uv.needsUpdate = true;
+  return geometrio;
+}
+
 // ⟨ uv តាមមុខសម្រាប់ស៊ីឡាំង/កោណ/ឡាត់ ៤ ជ្រុង ៖
 //   ចំហៀង u តាមមុខនីមួយៗ ( មិនរុំជុំវិញ ), គម្រប u,v រាបតាមការ៉េមុខ ។
 //   ត្រូវហៅមុន translate ព្រោះ atan2 ជុំវិញគោលក្នុងតំបន់ ។ 📃 ⟩
 export function aplikoKlinajnUvojn(geometrio: THREE.BufferGeometry,
-  rB: number, rT: number, nurFlankoj = false): THREE.BufferGeometry {
+  rB: number, rT: number, nurFlankoj = false,
+  kovrajSkaloj: readonly [ number, number ] = [ 0, 0 ]): THREE.BufferGeometry {
   const g = geometrio.index ? geometrio.toNonIndexed() : geometrio;
   const poz = g.getAttribute("position") as THREE.BufferAttribute;
   const norm = g.getAttribute("normal") as THREE.BufferAttribute;
   const uv = g.getAttribute("uv") as THREE.BufferAttribute;
+  // ⟨ uv1 រក្សាផ្ទៃពេញ ។ aKonturaKovrilo បញ្ជាក់ផ្នែកដែលស្រទាប់ផ្សេងគ្រប 📃 ⟩
+  const bazaUv = uv.clone();
+  g.setAttribute("uv1", bazaUv);
+  const kovrilo = new Float32Array(poz.count);
   const duonoB = rB * Math.SQRT1_2, duonoT = rT * Math.SQRT1_2;
   const kvarono = Math.PI / 2, okono = Math.PI / 4;
   // ⟨ កោណចុងស្រួច ៖ មុខចំហៀងជាត្រីកោណ ដូច្នេះផ្ញើ bary ឱ្យខ្សែកោងស្របគែមទាំងបី 📃 ⟩
@@ -184,7 +219,14 @@ export function aplikoKlinajnUvojn(geometrio: THREE.BufferGeometry,
       if (supren && !nurFlankoj) {
         const duono = norm.getY(i) > 0 ? duonoT : duonoB;
         const d = duono > 0o1 / 0o10000 ? duono : 1;
-        uv.setXY(j, x / (2 * d) + 0o1 / 0o2, z / (2 * d) + 0o1 / 0o2);
+        // ⟨ គម្របមានបួនផ្ទៃដាច់ដោយឡែក ៖ uv1 រក្សាគម្របពេញសម្រាប់ផ្ទៃដែលគ្មានអ្វីគ្រប 📃 ⟩
+        const kovraSkalo = norm.getY(i) > 0 ? kovrajSkaloj[ 0 ] : kovrajSkaloj[ 1 ];
+        kovrilo[ j ] = kovraSkalo > 0 ? Math.min( 1, kovraSkalo ) : -1;
+        const lokaX = x * Math.cos(centro) - z * Math.sin(centro);
+        const lokaZ = x * Math.sin(centro) + z * Math.cos(centro);
+        // ⟨ uv1 ប្រើកូអរដោនេផ្ទៃក្រោយបង្វិល ដូច្នេះជំហានស្របនឹងគែម មិនមែនគម្របដើមរបស់ CylinderGeometry 📃 ⟩
+        bazaUv.setXY(j, x / (2 * d) + 0o1 / 0o2, z / (2 * d) + 0o1 / 0o2);
+        uv.setXY(j, lokaX / (2 * d) + 0o1 / 0o2, lokaZ / d);
       } else {
         const ang = Math.atan2(x, z) - centro;
         const dAng = Math.atan2(Math.sin(ang), Math.cos(ang));
@@ -197,6 +239,8 @@ export function aplikoKlinajnUvojn(geometrio: THREE.BufferGeometry,
     }
   }
   uv.needsUpdate = true;
+  bazaUv.needsUpdate = true;
   g.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(ekstra, 4));
+  g.setAttribute("aKonturaKovrilo", new THREE.BufferAttribute(kovrilo, 1));
   return g;
 }
