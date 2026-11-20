@@ -111,8 +111,8 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
   // ⟨ ខ្សែកោងជ្រុងមូលរុំចូលដោយបកប្រែជាន់តាមកាមេរ៉ានិងពន្លឺ 📃 ⟩
   float radio1 = ${0o3 / 0o20} * zomskalo;
   float limo1 = ${0o1 / 0o10} * zomskalo;
-  float limo2 = ${0o3 / 0o10} * zomskalo;
-  float limo3 = ${0o5 / 0o10} * zomskalo;
+  float limo2 = ${0o5 / 0o20} * zomskalo;
+  float limo3 = ${0o1 / 0o2} * zomskalo;
   // ⟨ បន្ថែមកាំតាមការរុញចូល ដើម្បីរក្សាជ្រុងមូលនៅគ្រប់ជាន់ 📃 ⟩
   float radio2 = min( radio1 + ( limo2 - limo1 ) * ${0o1 / 0o2},
     ${0o1 / 0o2 - 0o1 / 0o100} );
@@ -123,8 +123,8 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
   vec2 direkto = tugVec / max( tugDistanco, ${0o1 / 0o10000} );
   float movo = min( tugDistanco * ${0o1 / 0o4}, ${0o1 / 0o20} ) * tugskalo;
   float en1 = konturaEnmeto( kUv - direkto * movo * ${0o1 / 0o4}, radio1 );
-  float en2 = konturaEnmeto( kUv - direkto * movo * ${0o5 / 0o4}, radio2 );
-  float en3 = konturaEnmeto( kUv - direkto * movo * ${0o11 / 0o4}, radio3 );
+  float en2 = konturaEnmeto( kUv - direkto * movo * ${0o1}.0, radio2 );
+  float en3 = konturaEnmeto( kUv - direkto * movo * ${0o7 / 0o4}, radio3 );
   float nivelo = ${0o3}.0
     - konturaTransiro( en1, limo1 )
     - konturaTransiro( en2, limo2 )
@@ -140,8 +140,8 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
     vec3 direktoT = centroOfsetoT / max( centroDistancoT, ${0o1 / 0o10000} );
     float movoT = min( centroDistancoT * ${0o1 / 0o2}, ${0o1 / 0o24} ) * zomskalo;
     vec3 b1 = bary - direktoT * movoT * ${0o1 / 0o2};
-    vec3 b2 = bary - direktoT * movoT * ${0o3 / 0o2};
-    vec3 b3 = bary - direktoT * movoT * ${0o5 / 0o2};
+    vec3 b2 = bary - direktoT * movoT * ${0o5 / 0o4};
+    vec3 b3 = bary - direktoT * movoT * ${0o2}.0;
     float enT1 = clamp( konturaSmin( konturaSmin( b1.x, b1.y, ${0o1 / 0o10} ),
       b1.z, ${0o1 / 0o10} ) * ${0o3}.0, ${0o0}.0, ${0o1}.0 );
     float enT2 = clamp( konturaSmin( konturaSmin( b2.x, b2.y, ${0o1 / 0o10} ),
@@ -150,8 +150,8 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
       b3.z, ${0o1 / 0o10} ) * ${0o3}.0, ${0o0}.0, ${0o1}.0 );
     nivelo = ${0o3}.0
       - konturaTransiro( enT1, ${0o1 / 0o10} * zomskalo )
-      - konturaTransiro( enT2, ${0o3 / 0o10} * zomskalo )
-      - konturaTransiro( enT3, ${0o5 / 0o10} * zomskalo )
+      - konturaTransiro( enT2, ${0o5 / 0o20} * zomskalo )
+      - konturaTransiro( enT3, ${0o1 / 0o2} * zomskalo )
       + suna * ${0o1 / 0o4};
   } else if ( length( flanko ) > ${0o1 / 0o20000} ) {
     // ⟨ ចិញ្ចើមជាន់លើ ៖ បួនម្ខាងដាច់ពីគ្នា ខ្សែកោងតែលើម្ខាងដែលពន្លឺប៉ះ 📃 ⟩
