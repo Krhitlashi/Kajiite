@@ -1,5 +1,6 @@
 // ≺⧼ ស្ពាន 🌉 ⧽≻
 import * as THREE from "three";
+import { pretigiKonturajnUvojn } from "../../komunajxoj/formoj.js";
 import { VOJA_BORDA_LARĜO, VOJA_DIKECO, vojaLarghoDuono } from "../vojoj/mezuroj.js";
 
 // ⟪ មាត្រស្ពាន 📏 ⟫
@@ -124,7 +125,7 @@ export function konstruiPonton(
     const geometrio = new THREE.ExtrudeGeometry(profilo, { depth: larĝo, bevelEnabled: false });
     geometrio.rotateY(-Math.PI / 2);
     geometrio.translate(ofseto, 0, 0);
-    return geometrio;
+    return pretigiKonturajnUvojn(geometrio);
   };
 
   const grupo = new THREE.Group();

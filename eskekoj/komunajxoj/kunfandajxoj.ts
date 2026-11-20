@@ -11,16 +11,23 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   const pozicio = new Float32Array(tv * 3);
   const normo = new Float32Array(tv * 3);
   const uv = new Float32Array(tv * 2);
+  // ⟨ uv1 និង aKonturaEkstra ត្រូវរស់រានមានជីវិតឆ្លងការរលាយ ខ្សែកោងនិងវាយនភាពកុំបាត់ 📃 ⟩
+  const uv1 = new Float32Array(tv * 2);
+  const ekstra = new Float32Array(tv * 4);
   const idxArr = tv > 0o177777 ? new Uint32Array(ti) : new Uint16Array(ti);
   let vo = 0, io = 0;
   for ( const g of geos ) {
     const p = g.getAttribute("position");
     const n = g.getAttribute("normal");
     const u = g.getAttribute("uv");
+    const u1 = g.getAttribute("uv1");
+    const ek = g.getAttribute("aKonturaEkstra");
     const c = p.count;
     pozicio.set(p.array as Float32Array, vo * 3);
     if ( n ) normo.set(n.array as Float32Array, vo * 3);
     if ( u ) uv.set(u.array as Float32Array, vo * 2);
+    if ( u1 ) uv1.set(u1.array as Float32Array, vo * 2);
+    if ( ek ) ekstra.set(ek.array as Float32Array, vo * 4);
     const indico = g.index;
     if ( indico ) {
       for ( let i = 0; i < indico.array.length; i++ ) idxArr[io + i] = indico.array[i] + vo;
@@ -35,6 +42,8 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
   out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
   out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+  out.setAttribute("uv1", new THREE.BufferAttribute(uv1, 2));
+  out.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(ekstra, 4));
   out.setIndex(new THREE.BufferAttribute(idxArr, 1));
   return out;
 }
@@ -362,14 +371,21 @@ export function kunfandiKajVeldoiGeometriojn(geos: THREE.BufferGeometry[]): THRE
     else { mapo.set(sxlosilo, nv); novaIndekso[i] = nv; nv++; }
   }
   const veldita = new Float32Array(nv * 3);
+  const fontaUv = unu.getAttribute("uv") as THREE.BufferAttribute | undefined;
+  const velditaUv = fontaUv ? new Float32Array(nv * 2) : null;
   for ( let i = 0; i < tv; i++ ) {
     veldita[novaIndekso[i]*3] = pozicio.getX(i);
     veldita[novaIndekso[i]*3+1] = pozicio.getY(i);
     veldita[novaIndekso[i]*3+2] = pozicio.getZ(i);
+    if ( velditaUv && fontaUv ) {
+      velditaUv[novaIndekso[i]*2] = fontaUv.getX(i);
+      velditaUv[novaIndekso[i]*2+1] = fontaUv.getY(i);
+    }
   }
   for ( let i = 0; i < idxArr.length; i++ ) idxArr[i] = novaIndekso[idxArr[i]];
   const out = new THREE.BufferGeometry();
   out.setAttribute("position", new THREE.BufferAttribute(veldita, 3));
+  if ( velditaUv ) out.setAttribute("uv", new THREE.BufferAttribute(velditaUv, 2));
   out.setIndex(new THREE.BufferAttribute(idxArr, 1));
   out.computeVertexNormals();
   return out;

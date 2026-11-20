@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 import { kreiOranMaterialon, kreiPordanMaterialon } from "../komunajxoj/materialoj.js";
-import { kreiRondigitanRektangulanFormon } from "../komunajxoj/formoj.js";
+import { kreiRondigitanRektangulanFormon, aplikoKlinajnUvojn, normaligiUvojn } from "../komunajxoj/formoj.js";
 import { aldoniManĝtablon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
 import { aldoniEnirejon } from "./satalaj/enirejo.js";
 import { aldoniPilolFenestron, fenestraMargxeno, fenestraMaterialo } from "./satalaj/fenestroj.js";
@@ -89,7 +89,10 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     typeKey === "sanktejo" ? 4 : 1, tieroAlto, typeKey === "sanktejo");
 
   if ( typeKey === "sanktejo" ) {
-    const pintajxo = new THREE.Mesh(new THREE.ConeGeometry(supraLargho * 0o43/0o100, 0o63/0o40, 4).rotateY(Math.PI / 4), kadraMaterialo);
+    const pintaRadiuso = supraLargho * 0o43/0o100;
+    const pintaGeo = aplikoKlinajnUvojn(
+      new THREE.ConeGeometry(pintaRadiuso, 0o63/0o40, 4).rotateY(Math.PI / 4), pintaRadiuso, 0);
+    const pintajxo = new THREE.Mesh(pintaGeo, kadraMaterialo);
     pintajxo.position.y = tiers * tieroAlto + 0o63/0o100; pintajxo.castShadow = true; group.add(pintajxo);
   }
 
@@ -98,7 +101,12 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     const apronGeo = new THREE.ExtrudeGeometry(apronFormo, { depth: 0o3/0o40, bevelEnabled: false, curveSegments: 0o10 });
     apronGeo.rotateX(-Math.PI / 2);
     apronGeo.translate(0, -0o1/0o40, 0);
-    const apron = new THREE.Mesh(apronGeo, muraMaterialo);
+    apronGeo.setAttribute("uv1", (apronGeo.getAttribute("uv") as THREE.BufferAttribute).clone());
+    normaligiUvojn(apronGeo);
+    const apronMaterialo = muraMaterialo.clone();
+    if ( apronMaterialo.map ) { apronMaterialo.map = apronMaterialo.map.clone(); apronMaterialo.map.channel = 1; apronMaterialo.map.needsUpdate = true; }
+    if ( apronMaterialo.bumpMap ) { apronMaterialo.bumpMap = apronMaterialo.bumpMap.clone(); apronMaterialo.bumpMap.channel = 1; apronMaterialo.bumpMap.needsUpdate = true; }
+    const apron = new THREE.Mesh(apronGeo, apronMaterialo);
     apron.receiveShadow = true; group.add(apron);
     for ( const sZ of [ -1, 1 ] ) {
       const b1 = new THREE.BoxGeometry(w + 4, 0o1/0o20, 0o5/0o20); b1.translate(0, 0o7/0o100, sZ * ( d / 2 + 0o4/0o10 )); group.add(new THREE.Mesh(b1, kadraMaterialo));

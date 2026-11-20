@@ -1,6 +1,6 @@
 // ≺⧼ វេទិកាជុំវិញ 💠 ⧽≻
 import * as THREE from "three";
-import { kreiGeometriajnBufrojn } from "./bufroj.js";
+import { kreiGeometriajnBufrojn, kreiVojojnMaterialojn } from "./bufroj.js";
 
 function kreiRondanDiamanton(radiuso: number, dikeco: number): THREE.ExtrudeGeometry {
   const rondo = radiuso * 0o1/0o4, k = radiuso - rondo;
@@ -25,14 +25,9 @@ export function konstruiPeriferiajnPlatformojn(
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial
 ): [ number, number ][] {
-  const subaMaterialo = andezitaMaterialo.clone();
-  subaMaterialo.polygonOffset = true;
-  subaMaterialo.polygonOffsetFactor = -1;
-  subaMaterialo.polygonOffsetUnits = -1;
-  const supraMaterialo = dioritaMaterialo.clone();
-  supraMaterialo.polygonOffset = true;
-  supraMaterialo.polygonOffsetFactor = -2;
-  supraMaterialo.polygonOffsetUnits = -1;
+  // ⟨ វាយនភាពអាន uv1 ដូចផ្លូវ ៖ uv រាបនៅសល់សម្រាប់ខ្សែកោង 📃 ⟩
+  const { supraMaterialo, bordaMaterialo: subaMaterialo } = kreiVojojnMaterialojn(
+    dioritaMaterialo, andezitaMaterialo, -0o2, -0o1, -0o1, -0o1 );
 
   const bufroj = kreiGeometriajnBufrojn();
   for ( const [ x, z ] of lokoj ) {

@@ -1,6 +1,7 @@
 // ≺⧼ ប៊ូហ្វ័រ និងខ្សែផ្លូវ 🧱 ⧽≻
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import { pretigiKonturajnUvojn } from "../../komunajxoj/formoj.js";
 import { kreiAndezitanTeksajxon } from "../../komunajxoj/teksajxoj/andezito.js";
 import { kreiDioritanTeksajxon } from "../../komunajxoj/teksajxoj/diorito.js";
 import { VOJA_BORDA_LARĜO } from "./mezuroj.js";
@@ -24,6 +25,7 @@ export function kreiGeometriajnBufrojn(): VojGeometriajBufroj {
     listoj,
     aldoni(geometrio: THREE.BufferGeometry, materialo: THREE.Material, matrico: THREE.Matrix4): void {
       if ( matrico ) geometrio.applyMatrix4(matrico);
+      pretigiKonturajnUvojn(geometrio);
       let listo = listoj.get(materialo);
       if ( !listo ) { listo = []; listoj.set(materialo, listo); }
       listo.push(geometrio);
@@ -79,13 +81,24 @@ export function kreiVojojnMaterialojn(dioritaMaterialo: THREE.MeshStandardMateri
   centraF: number, centraU: number,
   bordoF: number, bordoU: number
 ): { supraMaterialo: THREE.MeshStandardMaterial; bordaMaterialo: THREE.MeshStandardMaterial } {
-  const dioritaTx = kreiDioritanTeksajxon();
-  const andezitaTx = kreiAndezitanTeksajxon();
+  // ⟨ វាយនភាពជាកាស ៖ ត្រូវចម្លងមុនប្តូរឆានែល កុំឱ្យប៉ះសម្ភារៈថ្មគ្រប់កន្លែង 📃 ⟩
+  const dioritaTx = kreiDioritanTeksajxon().clone();
+  const andezitaTx = kreiAndezitanTeksajxon().clone();
+  dioritaTx.channel = 1; andezitaTx.channel = 1;
+  dioritaTx.needsUpdate = true; andezitaTx.needsUpdate = true;
   const supraMaterialo = dioritaMaterialo.clone();
   supraMaterialo.map = dioritaTx; supraMaterialo.needsUpdate = true;
+  if ( supraMaterialo.bumpMap ) {
+    supraMaterialo.bumpMap = supraMaterialo.bumpMap.clone();
+    supraMaterialo.bumpMap.channel = 1; supraMaterialo.bumpMap.needsUpdate = true;
+  }
   supraMaterialo.polygonOffset = true; supraMaterialo.polygonOffsetFactor = centraF; supraMaterialo.polygonOffsetUnits = centraU;
   const bordaMaterialo = andezitaMaterialo.clone();
   bordaMaterialo.map = andezitaTx; bordaMaterialo.needsUpdate = true;
+  if ( bordaMaterialo.bumpMap ) {
+    bordaMaterialo.bumpMap = bordaMaterialo.bumpMap.clone();
+    bordaMaterialo.bumpMap.channel = 1; bordaMaterialo.bumpMap.needsUpdate = true;
+  }
   bordaMaterialo.polygonOffset = true; bordaMaterialo.polygonOffsetFactor = bordoF; bordaMaterialo.polygonOffsetUnits = bordoU;
   return { supraMaterialo, bordaMaterialo };
 }

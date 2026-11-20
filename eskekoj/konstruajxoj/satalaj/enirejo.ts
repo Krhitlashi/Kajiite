@@ -1,6 +1,7 @@
 // ≺⧼ ច្រកចូល 🚪 ⧽≻
 import * as THREE from "three";
 import { MURA_KLINO, rondigitaTrapezaFormo } from "./formoj.js";
+import { pretigiKonturajnUvojn } from "../../komunajxoj/formoj.js";
 
 // ⟨ ហេតុអ្វី 📃 ⟩
 export function kreiKadranKurbon(formo: THREE.Path, z: number,
@@ -44,6 +45,8 @@ function preniEnirejajnGeometriojn(): EnirejajGeometrioj {
   // ⟨ ស៊ុមស៊ីមេទ្រី 📃 ⟩
   const shape = rondigitaTrapezaFormo(BLOKA_LARGHO, TW, EH, 0o1/0o4, 0o1/0o4);
   const pordo = new THREE.ExtrudeGeometry(shape, { depth: PORD_DIKECO, bevelEnabled: true, bevelSize: PORD_BEVELO, bevelThickness: PORD_BEVELO, bevelSegments: 2, curveSegments: 0o20 });
+  // ⟨ uv1 រក្សាវាយនភាព , uv រាប 0..1 ដើម្បីខ្សែកោងរុំពីគែមទ្វារចូលក្នុង 📃 ⟩
+  pretigiKonturajnUvojn(pordo);
   // ⟨ ស៊ុមគ្របទ្វារទាំងមូល 📃 ⟩
   const kadraKurbo = kreiKadranKurbon(shape, PORD_Z + PORD_DIKECO / 2);
   const kadro = new THREE.TubeGeometry(kadraKurbo, 0o40, PORD_DIKECO_TUTA / 2, 0o10, true);
@@ -70,10 +73,26 @@ function preniEnirejajnGeometriojn(): EnirejajGeometrioj {
     triangulo.lineTo(0, nagetaProfundo);
     triangulo.closePath();
     const geometrio = new THREE.ExtrudeGeometry(triangulo, { depth: nagetaDikeco, bevelEnabled: false });
+    // ⟨ មុខត្រីកោណរបស់ព្រុយ ៖ bary ឱ្យខ្សែកោងស្របនឹងគែមត្រីកោណទាំងបី 📃 ⟩
+    const np = geometrio.getAttribute("position") as THREE.BufferAttribute;
+    const nn = geometrio.getAttribute("normal") as THREE.BufferAttribute;
+    const ek = new Float32Array(np.count * 4);
+    const anguloj: [ number, number ][] = [ [ 0, 0 ], [ longo, 0 ], [ 0, nagetaProfundo ] ];
+    for ( let i = 0; i < np.count; i++ ) {
+      if ( Math.abs(nn.getZ(i)) < 0o7 / 0o10 ) continue;
+      const px = np.getX(i), py = np.getY(i);
+      let plejProksima = 0, plejMalgranda = Infinity;
+      for ( let a = 0; a < 3; a++ ) {
+        const d = ( px - anguloj[a][0] ) ** 2 + ( py - anguloj[a][1] ) ** 2;
+        if ( d < plejMalgranda ) { plejMalgranda = d; plejProksima = a; }
+      }
+      ek[i * 4 + plejProksima] = 1;
+    }
+    geometrio.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(ek, 4));
     const matrico = new THREE.Matrix4().makeBasis(unuo, antauxen, normalo);
     matrico.setPosition(malsupra.clone().addScaledVector(normalo, -nagetaDikeco / 2));
     geometrio.applyMatrix4(matrico);
-    nagetoj.push(geometrio);
+    nagetoj.push(pretigiKonturajnUvojn(geometrio));
   }
   enirejajKashmemoro = { pordo, kadro, nagetoj };
   return enirejajKashmemoro;

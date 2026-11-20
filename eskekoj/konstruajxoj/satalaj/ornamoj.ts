@@ -41,6 +41,33 @@ export function kreiTavolanRandanGeometrion(hw: number, hd: number, y: number,
   formo.holes.push(new THREE.Path(truo.reverse()));
   const geo = new THREE.ExtrudeGeometry(formo, { depth: alto, bevelEnabled: false, curveSegments: 0o40 });
   geo.rotateX(-Math.PI / 2);
+  // ⟨ ចិញ្ចើមបួនម្ខាង ៖ ម្ខាងនីមួយៗមាន uv 0..1 ផ្ទាល់ខ្លួន ខ្សែកោងរុំតាមគែមចិញ្ចើមនោះ
+  //   ហើយ aKonturaEkstra ប្រាប់ទិសម្ខាង ដើម្បីឱ្យខ្សែកោងលេចតែលើម្ខាងដែលពន្លឺប៉ះ 📃 ⟩
+  const poz = geo.getAttribute("position") as THREE.BufferAttribute;
+  const nor = geo.getAttribute("normal") as THREE.BufferAttribute;
+  const uv = geo.getAttribute("uv") as THREE.BufferAttribute;
+  const ekstra = new Float32Array(poz.count * 4);
+  const outerX = hw - klino + RANDO_LARGHO / 2, innerX = hw - klino - RANDO_LARGHO / 2;
+  const outerZ = hd - klino + RANDO_LARGHO / 2, innerZ = hd - klino - RANDO_LARGHO / 2;
+  for ( let i = 0; i < poz.count; i++ ) {
+    const vx = poz.getX(i), vy = poz.getY(i), vz = poz.getZ(i);
+    const flanke = Math.abs(nor.getY(i)) > 0o7 / 0o10;
+    const ax = Math.abs(vx) / outerX, az = Math.abs(vz) / outerZ;
+    let u: number, v: number, fx = 0, fz = 0;
+    if ( ax >= az ) {
+      fx = Math.sign(vx) || 1;
+      u = vz / ( 2 * outerZ ) + 0o1 / 0o2;
+      v = flanke ? ( Math.abs(vx) - innerX ) / RANDO_LARGHO : vy / alto;
+    } else {
+      fz = Math.sign(vz) || 1;
+      u = vx / ( 2 * outerX ) + 0o1 / 0o2;
+      v = flanke ? ( Math.abs(vz) - innerZ ) / RANDO_LARGHO : vy / alto;
+    }
+    uv.setXY(i, Math.min(1, Math.max(0, u)), Math.min(1, Math.max(0, v)));
+    if ( flanke ) { ekstra[i * 4] = fx; ekstra[i * 4 + 2] = fz; ekstra[i * 4 + 3] = 1; }
+  }
+  uv.needsUpdate = true;
+  geo.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(ekstra, 4));
   geo.translate(0, y, 0);
   return geo;
 }

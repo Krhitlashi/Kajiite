@@ -40,30 +40,127 @@ float konturaNiveloDeLumo( vec3 baza, vec3 lumita ) {
   return clamp( ( konturaLumo( konturaKrado( baza ) ) - konturaLumo( lumita ) )
     / KONTURA_PASXO, ${0o0}.0, ${0o4}.0 );
 }
-float konturaKampo( vec3 normalo, vec3 vido, vec2 uv, vec3 supo, vec3 lumo ) {
-  float suna = min( ${0o2}.0, max( ${0o0}.0,
-    ( ${0o7 / 0o10} - dot( normalo, lumo ) ) * ${0o2}.0 ) );
+float konturaSmin( float a, float b, float k ) {
+  float h = clamp( ${0o1 / 0o2} + ${0o1 / 0o2} * ( b - a ) / k, ${0o0}.0, ${0o1}.0 );
+  return mix( b, a, h ) - k * h * ( ${0o1}.0 - h );
+}
+float konturaTransiro( float valoro, float limo ) {
+  #if __VERSION__ >= 300
+    float lar = max( fwidth( valoro ), ${0o1 / 0o20000} );
+  #else
+    float lar = ${0o1 / 0o40};
+  #endif
+  return smoothstep( limo - lar, limo + lar, valoro );
+}
+float konturaEnmeto( vec2 uv, float radio ) {
+  vec2 q = abs( uv - vec2( ${0o1 / 0o2} ) ) - vec2( ${0o1 / 0o2} - radio );
+  float dKvar = length( max( q, vec2( ${0o0}.0 ) ) )
+    + min( max( q.x, q.y ), ${0o0}.0 ) - radio;
+  return clamp( -dKvar * ${0o2}.0, ${0o0}.0, ${0o1}.0 );
+}
+vec2 konturaUvoDirekto( vec3 direkto, vec3 normalo, vec3 aksoU, vec3 aksoV ) {
+  vec3 projekcio = direkto - normalo * dot( direkto, normalo );
+  float longoU = dot( aksoU, aksoU );
+  float krucProdukto = dot( aksoU, aksoV );
+  float longoV = dot( aksoV, aksoV );
+  float determinanto = longoU * longoV - krucProdukto * krucProdukto;
+  if ( determinanto <= ${0o1 / 0o10000} ) return vec2( ${0o0}.0 );
+  vec2 komponantoj = vec2(
+    ( dot( projekcio, aksoU ) * longoV - dot( projekcio, aksoV ) * krucProdukto ) / determinanto,
+    ( dot( projekcio, aksoV ) * longoU - dot( projekcio, aksoU ) * krucProdukto ) / determinanto );
+  float komponantaLongo = length( komponantoj );
+  if ( komponantaLongo <= ${0o1 / 0o10000} ) return vec2( ${0o0}.0 );
+  return komponantoj / komponantaLongo * length( projekcio );
+}
+float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
+  vec3 bary, vec3 flanko ) {
+  float suna = clamp( ${0o1 / 0o2} - dot( normalo, lumo ) * ${0o1 / 0o2},
+    ${0o0}.0, ${0o1}.0 );
+  // ⟨ វាលតែមួយគ្រប់វត្ថុ ៖ ខ្សែកោងចេញពីគែមក្រៅរបស់មុខ រុំចូលក្នុងតាមគែមនោះ 📃 ⟩
+  float uvValida = step( ${0o1 / 0o20000}, length( uv ) );
   vec2 kUv = clamp( uv, vec2( ${0o0}.0 ), vec2( ${0o1}.0 ) );
-  float uvValida = step( ${0o1 / 0o20000}, uv.x + uv.y );
-  float vertikala = mix( ${0o1 / 0o4},
-    min( kUv.y, ${0o1}.0 - kUv.y ) * ${0o1 / 0o2}, uvValida );
-  float cx = mix( ${0o0}.0,
-    ${0o1}.0 - min( kUv.x, ${0o1}.0 - kUv.x ) * ${0o2}.0, uvValida );
-  float cy = ${0o1}.0 - vertikala * ${0o4}.0;
-  float s4 = pow( pow( cx, ${0o4}.0 ) + pow( cy, ${0o4}.0 ), ${0o1 / 0o4} );
-  float s2 = length( vec2( cx, cy ) );
-  float s = mix( s2, s4, smoothstep( ${0o1 / 0o2}, ${0o1}.0, s4 ) );
-  float cxielo = smoothstep( -${0o1 / 0o4}, ${0o3 / 0o4},
-    dot( reflect( vido, normalo ), supo ) ) * ( ${0o1}.0 - s ) * ${0o1 / 0o2};
-  float eno = max( ${0o0}.0, ( s - ${0o3 / 0o4} ) * ${0o10}.0 );
-  eno *= ${0o1}.0 - smoothstep( ${0o1 / 0o2}, ${0o3 / 0o4}, abs( dot( normalo, supo ) ) );
-  float absVido = abs( dot( normalo, vido ) );
-  float vidoFalo = smoothstep( ${0o1 / 0o4}, ${0o3 / 0o4}, absVido );
-  float rando = pow( ${0o1}.0 - absVido, ${0o2}.0 ) * ${0o3}.0;
-  rando *= ${0o1}.0 - smoothstep( ${0o1 / 0o2}, ${0o3 / 0o4}, abs( dot( normalo, supo ) ) );
-  float oriento = suna * ${0o1 / 0o2};
-  return max( ${0o0}.0, eno * vidoFalo * oriento + rando
-    + ${0o1 / 0o2} * suna - cxielo * vidoFalo );
+  // ⟨ គោលក្នុងមុខ ៖ ទិសពន្លឺ និងកាមេរ៉ាបញ្ចាំងលើផ្ទៃកំណត់ចំណុចកណ្ដាល 📃 ⟩
+  vec3 help = abs( dot( normalo, supo ) ) < ${0o7 / 0o10}
+    ? supo : vec3( ${0o1}.0, ${0o0}.0, ${0o0}.0 );
+  vec3 tanU = normalize( cross( help, normalo ) );
+  vec3 tanV = cross( normalo, tanU );
+  vec2 lumT = vec2( dot( lumo, tanU ), dot( lumo, tanV ) );
+  vec3 kameraDirekto = normalize( -pozicio );
+  vec2 vidT = vec2( dot( kameraDirekto, tanU ), dot( kameraDirekto, tanV ) );
+  vec3 centroPozicio = pozicio;
+  float distanco = length( pozicio );
+  #if __VERSION__ >= 300
+    vec2 uvoX = dFdx( uv );
+    vec2 uvoY = dFdy( uv );
+    vec3 pozicioX = dFdx( pozicio );
+    vec3 pozicioY = dFdy( pozicio );
+    float determinanto = uvoX.x * uvoY.y - uvoY.x * uvoX.y;
+    if ( abs( determinanto ) > ${0o1 / 0o10000} ) {
+      vec3 aksoU = ( pozicioX * uvoY.y - pozicioY * uvoX.y ) / determinanto;
+      vec3 aksoV = ( pozicioY * uvoX.x - pozicioX * uvoY.x ) / determinanto;
+      centroPozicio = pozicio + aksoU * ( ${0o1 / 0o2} - uv.x )
+        + aksoV * ( ${0o1 / 0o2} - uv.y );
+      kameraDirekto = normalize( -centroPozicio );
+      distanco = length( centroPozicio );
+      lumT = konturaUvoDirekto( lumo, normalo, aksoU, aksoV );
+      vidT = konturaUvoDirekto( kameraDirekto, normalo, aksoU, aksoV );
+    }
+  #endif
+  float zomskalo = clamp( distanco / ${0o30}.0, ${0o7 / 0o10}, ${0o11 / 0o10} );
+  float tugskalo = clamp( distanco / ${0o30}.0, ${0o7 / 0o10}, ${0o5 / 0o4} );
+  // ⟨ ខ្សែកោងជ្រុងមូលរុំចូលដោយបកប្រែជាន់តាមកាមេរ៉ានិងពន្លឺ 📃 ⟩
+  float radio1 = ${0o3 / 0o20} * zomskalo;
+  float limo1 = ${0o1 / 0o10} * zomskalo;
+  float limo2 = ${0o3 / 0o10} * zomskalo;
+  float limo3 = ${0o5 / 0o10} * zomskalo;
+  // ⟨ បន្ថែមកាំតាមការរុញចូល ដើម្បីរក្សាជ្រុងមូលនៅគ្រប់ជាន់ 📃 ⟩
+  float radio2 = min( radio1 + ( limo2 - limo1 ) * ${0o1 / 0o2},
+    ${0o1 / 0o2 - 0o1 / 0o100} );
+  float radio3 = min( radio1 + ( limo3 - limo1 ) * ${0o1 / 0o2},
+    ${0o1 / 0o2 - 0o1 / 0o100} );
+  vec2 tugVec = lumT + vidT * ${0o3 / 0o2};
+  float tugDistanco = length( tugVec );
+  vec2 direkto = tugVec / max( tugDistanco, ${0o1 / 0o10000} );
+  float movo = min( tugDistanco * ${0o1 / 0o4}, ${0o1 / 0o20} ) * tugskalo;
+  float en1 = konturaEnmeto( kUv - direkto * movo * ${0o1 / 0o4}, radio1 );
+  float en2 = konturaEnmeto( kUv - direkto * movo * ${0o5 / 0o4}, radio2 );
+  float en3 = konturaEnmeto( kUv - direkto * movo * ${0o11 / 0o4}, radio3 );
+  float nivelo = ${0o3}.0
+    - konturaTransiro( en1, limo1 )
+    - konturaTransiro( en2, limo2 )
+    - konturaTransiro( en3, limo3 )
+    + suna * ${0o1 / 0o4};
+  // ⟨ មុខត្រីកោណ ៖ ខ្សែកោងស្របនឹងគែមទាំងបី ជ្រុងមូលតាម smin 📃 ⟩
+  if ( length( bary ) > ${0o1 / 0o20000} ) {
+    vec2 of = ( lumT + vidT * ${0o3 / 0o2} ) * ${0o1 / 0o4};
+    vec3 cb = vec3( ${0o1 / 0o3} )
+      + vec3( of.x, of.y, -of.x - of.y ) * ${0o3 / 0o5};
+    vec3 centroOfsetoT = cb - vec3( ${0o1 / 0o3} );
+    float centroDistancoT = length( centroOfsetoT );
+    vec3 direktoT = centroOfsetoT / max( centroDistancoT, ${0o1 / 0o10000} );
+    float movoT = min( centroDistancoT * ${0o1 / 0o2}, ${0o1 / 0o24} ) * zomskalo;
+    vec3 b1 = bary - direktoT * movoT * ${0o1 / 0o2};
+    vec3 b2 = bary - direktoT * movoT * ${0o3 / 0o2};
+    vec3 b3 = bary - direktoT * movoT * ${0o5 / 0o2};
+    float enT1 = clamp( konturaSmin( konturaSmin( b1.x, b1.y, ${0o1 / 0o10} ),
+      b1.z, ${0o1 / 0o10} ) * ${0o3}.0, ${0o0}.0, ${0o1}.0 );
+    float enT2 = clamp( konturaSmin( konturaSmin( b2.x, b2.y, ${0o1 / 0o10} ),
+      b2.z, ${0o1 / 0o10} ) * ${0o3}.0, ${0o0}.0, ${0o1}.0 );
+    float enT3 = clamp( konturaSmin( konturaSmin( b3.x, b3.y, ${0o1 / 0o10} ),
+      b3.z, ${0o1 / 0o10} ) * ${0o3}.0, ${0o0}.0, ${0o1}.0 );
+    nivelo = ${0o3}.0
+      - konturaTransiro( enT1, ${0o1 / 0o10} * zomskalo )
+      - konturaTransiro( enT2, ${0o3 / 0o10} * zomskalo )
+      - konturaTransiro( enT3, ${0o5 / 0o10} * zomskalo )
+      + suna * ${0o1 / 0o4};
+  } else if ( length( flanko ) > ${0o1 / 0o20000} ) {
+    // ⟨ ចិញ្ចើមជាន់លើ ៖ បួនម្ខាងដាច់ពីគ្នា ខ្សែកោងតែលើម្ខាងដែលពន្លឺប៉ះ 📃 ⟩
+    float lit = clamp( dot( flanko, lumo ) * ${0o1 / 0o2} + ${0o1 / 0o2},
+      ${0o0}.0, ${0o1}.0 );
+    nivelo = mix( suna * ${0o1 / 0o2}, nivelo,
+      smoothstep( ${0o2 / 0o5}, ${0o7 / 0o10}, lit ) );
+  }
+  return mix( suna * ${0o1 / 0o2}, nivelo, uvValida );
 }
 vec3 konturaKoloro( vec3 bazaLin, float nivelo ) {
   return max( vec3( ${0o0}.0 ),
@@ -227,9 +324,9 @@ export interface BildilaAgordo {
 export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgordo = {} ): void {
   if ( !THREE.ShaderChunk.uv_pars_vertex.includes( "vKonturaUv" ) ) {
     // ⟨ ផ្ញើ uv ទៅគ្រប់សម្ភារៈស្តង់ដារ ៖ ជម្រាលកោងតាមគែមលើ-ក្រោមគ្រប់វត្ថុ គ្មានផ្លូវដាច់ដោយឡែក 📃 ⟩
-    THREE.ShaderChunk.uv_pars_vertex += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\n";
-    THREE.ShaderChunk.uv_vertex += "\nvKonturaUv = uv;\n#ifdef USE_INSTANCING\nvKonturaPoz = ( modelViewMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz;\n#else\nvKonturaPoz = ( modelViewMatrix * vec4( position, 1.0 ) ).xyz;\n#endif\n";
-    THREE.ShaderChunk.uv_pars_fragment += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\n";
+    THREE.ShaderChunk.uv_pars_vertex += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\nattribute vec4 aKonturaEkstra;\nvarying vec3 vKonturaBary;\nvarying vec3 vKonturaFlanko;\n";
+    THREE.ShaderChunk.uv_vertex += "\nvKonturaUv = uv;\n#ifdef USE_INSTANCING\nvKonturaPoz = ( modelViewMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz;\n#else\nvKonturaPoz = ( modelViewMatrix * vec4( position, 1.0 ) ).xyz;\n#endif\nvKonturaBary = aKonturaEkstra.w > 0.5 ? vec3( 0.0 ) : aKonturaEkstra.xyz;\n#ifdef USE_INSTANCING\nvKonturaFlanko = aKonturaEkstra.w > 0.5 ? normalize( mat3( modelViewMatrix ) * mat3( instanceMatrix ) * aKonturaEkstra.xyz ) : vec3( 0.0 );\n#else\nvKonturaFlanko = aKonturaEkstra.w > 0.5 ? normalize( mat3( modelViewMatrix ) * aKonturaEkstra.xyz ) : vec3( 0.0 );\n#endif\n";
+    THREE.ShaderChunk.uv_pars_fragment += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\nvarying vec3 vKonturaBary;\nvarying vec3 vKonturaFlanko;\n";
   }
   if ( !THREE.ShaderChunk.color_pars_fragment.includes( "konturaKampo" ) ) {
     // ⟨ មុខងាររួមនៅកំពូល fragment ៖ សម្ភារៈជាប់ខ្លួនទាំងអស់ប្រើវាលតែមួយ 📃 ⟩
@@ -242,7 +339,6 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgo
         #if defined( BASIC )
           vec3 konturaNormalo = normalize( cross( dFdx( vKonturaPoz ), dFdy( vKonturaPoz ) ) )
             * ( float( gl_FrontFacing ) * ${0o2}.0 - ${0o1}.0 );
-          vec3 konturaVido = normalize( -vKonturaPoz );
         #else
           #ifdef FLAT_SHADED
             vec3 konturaNormalo = normal;
@@ -250,7 +346,6 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgo
             vec3 konturaNormalo = normalize( vNormal )
               * ( float( gl_FrontFacing ) * ${0o2}.0 - ${0o1}.0 );
           #endif
-          vec3 konturaVido = normalize( vViewPosition );
         #endif
         vec3 konturaSupo = normalize( viewMatrix[ 1 ].xyz );
         #if NUM_DIR_LIGHTS > 0
@@ -259,7 +354,8 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgo
           vec3 konturaLumo = normalize( vec3( ${0o1 / 0o2}, ${0o3 / 0o4}, ${0o1 / 0o4} ) );
         #endif
         gl_FragColor.rgb = konturaKoloro( diffuseColor.rgb,
-          konturaKampo( konturaNormalo, konturaVido, vKonturaUv, konturaSupo, konturaLumo ) );
+          konturaKampo( konturaNormalo, vKonturaUv, vKonturaPoz, konturaSupo,
+            konturaLumo, vKonturaBary, vKonturaFlanko ) );
       #endif
     `;
   }

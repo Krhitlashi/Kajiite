@@ -1,6 +1,7 @@
 // ≺⧼ ចំណតទឹក ⚓ ⧽≻
 import * as THREE from "three";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../komunajxoj/materialoj.js";
+import { pretigiKonturajnUvojn } from "../komunajxoj/formoj.js";
 import { kreiVojojnMaterialojn } from "./vojoj/bufroj.js";
 import { STUPA_RISERO, surGrid, VOJA_DIKECO, VOJA_SUPRO_LEVIGXO,
   VOJA_TRUA_DUONO } from "./vojoj/mezuroj.js";
@@ -63,13 +64,14 @@ export function konstruiDokon(
       { depth: dikeco, bevelEnabled: false }
     );
     surfacaGeometrio.rotateX(-Math.PI / 2);
+    pretigiKonturajnUvojn(surfacaGeometrio);
     const surfaco = new THREE.Mesh(surfacaGeometrio, diorito);
     surfaco.position.set(0, bazo, centroZ);
     surfaco.castShadow = surfaco.receiveShadow = true;
     group.add(surfaco);
 
     const rando = new THREE.Mesh(
-      kreiDokanKadron(vojaLargho, longo, kadraStrio, dikeco + 0o1/0o20),
+      pretigiKonturajnUvojn(kreiDokanKadron(vojaLargho, longo, kadraStrio, dikeco + 0o1/0o20)),
       andezito
     );
     rando.position.set(0, bazo + kadraMalsupro, centroZ);
@@ -94,6 +96,7 @@ export function konstruiDokon(
         { depth: plenaSupro - plenaMalsupro, bevelEnabled: false }
       );
       plenaGeometrio.rotateX(-Math.PI / 2);
+      pretigiKonturajnUvojn(plenaGeometrio);
       const plenaMaso = new THREE.Mesh(plenaGeometrio, andezito);
       plenaMaso.position.set(0, plenaMalsupro, centroZ);
       plenaMaso.castShadow = plenaMaso.receiveShadow = true;

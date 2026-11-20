@@ -1,7 +1,7 @@
 // ≺⧼ បង្អួចរាងគ្រាប់ 🪟 ⧽≻
 import * as THREE from "three";
 import { kreiFenestranMaterialon } from "../../komunajxoj/materialoj.js";
-import { kreiPilolFenestranFormon, kreiStelanFenestranFormon, rondigiKonturon } from "../../komunajxoj/formoj.js";
+import { kreiPilolFenestranFormon, kreiStelanFenestranFormon, rondigiKonturon, normaligiUvojn } from "../../komunajxoj/formoj.js";
 import { konstruajxaMaterialo } from "./tipoj.js";
 
 // ⟨ បង្អួចរាងគ្រាប់ 📃 ⟩
@@ -73,7 +73,7 @@ function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
     kadro.rotateZ(Math.PI / 2);
     kadro.translate(fenAlto / 2, ww / 2, 0);
   }
-  const nova = { vitro, kadro };
+  const nova = { vitro: normaligiUvojn(vitro), kadro: normaligiUvojn(kadro) };
   fenestrajKashmemoroj.set(klavo, nova);
   return nova;
 }

@@ -1,6 +1,7 @@
 // ≺⧼ សសរមាស 🏛️ ⧽≻
 import * as THREE from "three";
 import { kunfandiKajVeldoiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
+import { normaligiUvojn } from "../../komunajxoj/formoj.js";
 import { diamantajDuonoj } from "./formoj.js";
 
 export interface Pilierkadroj {
@@ -40,6 +41,8 @@ export function kreiDiamantanSvingon(
   const ringoj = segmentoj + 1;
   const punktoj = Array.from({ length: ringoj }, ( _, i ) => curve.getPointAt(i / ( ringoj - 1 )));
   const vertoj: number[] = [];
+  const uvoj: number[] = [];
+  const poFaco = RINGO / 4;
   for ( let i = 0; i < ringoj; i++ ) {
     let p = punktoj[i];
     if ( i === segmentoj && tipLongeco > 0 ) {
@@ -54,11 +57,15 @@ export function kreiDiamantanSvingon(
     // ⟨ ហេតុអ្វីទទឹងមិនគុណ 📃 ⟩
     const skalo = talonoS0 > 0 ? 1 - ( 1 - finialaSkalo ) * glata : 1;
     const largxaSkalo = talonoS0 > 0 ? 1 - ( 1 - finialaLargho ) * glata : 1;
-    for ( const [ a, c ] of konturo ) vertoj.push(
-      p.x + L.x * a * skalo + W.x * c * largxaSkalo,
-      p.y + L.y * a * skalo + W.y * c * largxaSkalo,
-      p.z + L.z * a * skalo + W.z * c * largxaSkalo
-);
+    for ( let j = 0; j < konturo.length; j++ ) {
+      const [ a, c ] = konturo[j];
+      vertoj.push(
+        p.x + L.x * a * skalo + W.x * c * largxaSkalo,
+        p.y + L.y * a * skalo + W.y * c * largxaSkalo,
+        p.z + L.z * a * skalo + W.z * c * largxaSkalo
+      );
+      uvoj.push( ( j % poFaco ) / poFaco, i / ( ringoj - 1 ) );
+    }
   }
   const indeksoj: number[] = [];
   for ( let i = 0; i < segmentoj; i++ ) {
@@ -70,6 +77,7 @@ export function kreiDiamantanSvingon(
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(vertoj), 3));
+  g.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(uvoj), 2));
   g.setIndex(indeksoj);
   g.computeVertexNormals();
   return g;
@@ -88,7 +96,7 @@ export function kreiRondigitanDiamantanKapon(
   const kapo = new THREE.ShapeGeometry(formo);
   kapo.applyMatrix4(new THREE.Matrix4().makeBasis(n, b, ta));
   kapo.translate(p.x, p.y, p.z);
-  return kapo;
+  return normaligiUvojn(kapo);
 }
 
 export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: number, yB: number, yT: number, sX: number, sZ: number, upward: boolean, klino = 0, folio = true, fora = 0o101/0o1000): void {

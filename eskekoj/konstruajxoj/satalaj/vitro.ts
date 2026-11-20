@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { generiSkribanTeksajxon } from "../../komunajxoj/skripto-rivelilo.js";
 import { nomoAih } from "../../../kantaoj/lingvo/tradukoj.js";
 import { kreiSteleanFormon } from "./formoj.js";
+import { pretigiKonturajnUvojn } from "../../komunajxoj/formoj.js";
 import { konstruajxaMaterialo } from "./tipoj.js";
 import { kanakaWeh2Color, kanakaWeh2 } from "../../komunajxoj/koloroj.js";
 
@@ -39,7 +40,11 @@ function steleaTeksto(mapo: THREE.Texture): THREE.ShaderMaterial {
     },
     transparent: true, depthWrite: false, toneMapped: false,
     vertexShader: `varying vec2 vUv;
-    void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); }`,
+    void main(){ vUv = uv; vec4 poz = vec4( position, 1.0 );
+    #ifdef USE_INSTANCING
+      poz = instanceMatrix * poz;
+    #endif
+    gl_Position = projectionMatrix * modelViewMatrix * poz; }`,
     fragmentShader: `precision highp float;
     uniform sampler2D uMapo; uniform vec3 uInko; uniform vec3 uBordo;
     uniform vec2 uTeksele; uniform float uDikeco; varying vec2 vUv;
@@ -79,8 +84,12 @@ export function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: stri
   const teksajxo = generiSkribanTeksajxon(nomoAih(name, tipo), { w: 0o300, h: 0o1516, ink: "#ffffff" });
   teksajxo.wrapS = teksajxo.wrapT = THREE.ClampToEdgeWrapping;
   const signaY = 0o1/0o100;
+  // ⟨ uv រាបតាមមុខនីមួយៗ ៖ ខ្សែកោងរុំពីគែមស្តេឡាចូលក្នុង មិនកាត់នៅចំហៀង 📃 ⟩
+  const steleaGeo = pretigiKonturajnUvojn(new THREE.ExtrudeGeometry(
+    kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10),
+    { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }));
   const steleo = new THREE.Mesh(
-    new THREE.ExtrudeGeometry(kreiSteleanFormon(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10), { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }),
+    steleaGeo,
     // ⟨ ស្តេឡាជាកញ្ចក់ត្រជាក់ 📃 ⟩
     // ⟨ ហេតុអ្វីមិន `transmission` 📃 ⟩
     // ⟨ ហេតុអ្វីពណ៌ភ្លឺ 📃 ⟩
@@ -104,5 +113,5 @@ export function aldoniSteleanSignon(group: THREE.Group, name: string, tipo: stri
   }
   faceUV.needsUpdate = true;
   const face = new THREE.Mesh(faceGeo, steleaTeksto(teksajxo));
-  face.position.set(w * 0o13/0o40, signaY, d / 2 + 0o111/0o100 + 0o1/0o300); group.add(face);
+  face.position.set(w * 0o13/0o40, signaY, d / 2 + 0o112/0o100); group.add(face);
 }

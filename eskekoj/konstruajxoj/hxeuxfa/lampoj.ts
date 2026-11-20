@@ -1,6 +1,7 @@
 // ≺⧼ ចង្កៀង 🏮 ⧽≻
 import * as THREE from "three";
 import { kreiDioritanTeksajxon } from "../../komunajxoj/teksajxoj/diorito.js";
+import { aplikoKlinajnUvojn } from "../../komunajxoj/formoj.js";
 import { kunfandiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 import { BOVLA_ALTO, kreiFlamanGeometrion, LANGA_ALTO } from "./flamo.js";
 import { kreiFalekon } from "./faleko.js";
@@ -33,8 +34,9 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     const rotacio = p.rotacio ?? Math.PI / 4;
     const pillar = new THREE.CylinderGeometry(0o5/0o40, 0o13/0o40, 0o155/0o40, 4, 1);
     pillar.rotateY(rotacio);
-    pillar.translate(p.x, p.y + 0o155/0o100, p.z);
-    kolonajGeometrioj.push(pillar);
+    const pillarGeo = aplikoKlinajnUvojn(pillar, 0o13/0o40, 0o5/0o40);
+    pillarGeo.translate(p.x, p.y + 0o155/0o100, p.z);
+    kolonajGeometrioj.push(pillarGeo);
 
     const profilo: THREE.Vector2[] = [
       new THREE.Vector2(0, 0),
@@ -51,13 +53,15 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     ];
     const bowl = new THREE.LatheGeometry(profilo, 4);
     bowl.rotateY(rotacio);
-    bowl.translate(p.x, p.y + 0o155/0o40, p.z);
-    bovlajGeometrioj.push(bowl);
+    const bowlGeo = aplikoKlinajnUvojn(bowl, 0, 0, true);
+    bowlGeo.translate(p.x, p.y + 0o155/0o40, p.z);
+    bovlajGeometrioj.push(bowlGeo);
 
     const rando = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 4, 1);
     rando.rotateY(rotacio);
-    rando.translate(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 0o7/0o10, p.z);
-    orajGeometrioj.push(rando);
+    const randoGeo = aplikoKlinajnUvojn(rando, 0o57/0o200, 0o70/0o200);
+    randoGeo.translate(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 0o7/0o10, p.z);
+    orajGeometrioj.push(randoGeo);
 
     const falekaPinto = 0o32/0o10, falekaSubo = 0o1/0o4, falekaMargxeno = 0o1/0o20;
     for ( let k = 0; k < 4; k++ ) {

@@ -38,6 +38,9 @@ export function kreiAndezitanMaterialon(map?: THREE.Texture): THREE.MeshStandard
 export function kreiPordanMaterialon(muraMaterialo: THREE.MeshStandardMaterial): THREE.MeshStandardMaterial {
   const pordo = muraMaterialo.clone();
   pordo.color = new THREE.Color(ombraKoloro(muraMaterialo.color.getHex(), 0o1/0o2));
+  // ⟨ វាយនភាពអាន uv1 , ខ្សែកោងអាន uv រាបក្នុងមុខទ្វារ 📃 ⟩
+  if ( pordo.map ) { pordo.map = pordo.map.clone(); pordo.map.channel = 1; pordo.map.needsUpdate = true; }
+  if ( pordo.bumpMap ) { pordo.bumpMap = pordo.bumpMap.clone(); pordo.bumpMap.channel = 1; pordo.bumpMap.needsUpdate = true; }
   return pordo;
 }
 
