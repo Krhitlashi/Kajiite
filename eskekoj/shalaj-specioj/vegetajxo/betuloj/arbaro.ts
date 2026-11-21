@@ -1,7 +1,5 @@
 // ≺⧼ ព្រៃប៊ឺច 🌲 ⧽≻
 import * as THREE from "three";
-import { kreiBetulanFoliaranTeksajxon } from "../../../komunajxoj/teksajxoj/betula-foliaro.js";
-import { kreiBetulanFoliaranBumpanTeksajxon } from "../../../komunajxoj/teksajxoj/betula-foliaro-bumpo.js";
 import { kreiBetulanFolianTeksajxon } from "../../../komunajxoj/teksajxoj/betula-folio.js";
 import { kreiSxelanTeksajxon } from "../../../komunajxoj/teksajxoj/sxelo.js";
 import { kreiSxelanBumpanTeksajxon } from "../../../komunajxoj/teksajxoj/sxelo-bumpo.js";
@@ -28,43 +26,29 @@ export function konstruiArbaron(sceno: THREE.Scene,
   const hazardaGenerilo = kreiVegetajxanHazardon(0o227333);
   const sxelaTeksajxo = kreiSxelanTeksajxon();
   const sxelaBumpo = kreiSxelanBumpanTeksajxon();
-  const trunkaGeometrio = kreiTrunkanGeometrion(0o3/0o10, 0o7/0o40, 0o3/0o10 * 0o133/0o100, 0o13);
+  const trunkaGeometrio = kreiTrunkanGeometrion(0o1/0o4, 0o1/0o40, 0o3/0o10, 0o14);
   const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, bumpMap: sxelaBumpo, bumpScale: 0o1/0o20, roughness: 0o55/0o100 });
   const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, arboj.length);
   if ( arboj.length === 0 ) return trunkoj;
 
   const kronaGeometrioj = konstruiBetulanFoliaranGeometrion();
-  // ⟨ ស្លឹកពីរជាន់ 📃 ⟩
-  // ⟨ ចម្លាក់ស្លឹក 📃 ⟩
-  // ⟨ មាត្រវាយនភាព 📃 ⟩
-  // ⟨ ការធ្វើម្តងទៀត 📃 ⟩
-  const masaTeksajxo = kreiBetulanFoliaranTeksajxon().clone();
-  masaTeksajxo.repeat.set(3, 3);
-  const masaBumpo = kreiBetulanFoliaranBumpanTeksajxon().clone();
-  masaBumpo.repeat.set(3, 3);
-  // ⟨ vertexColors 📃 ⟩
   const kronaMaterialo = new THREE.MeshStandardMaterial({
-    map: masaTeksajxo, color: 0xffffff, roughness: 0o35/0o40,
-    bumpMap: masaBumpo, bumpScale: 0o1/0o40,
-    vertexColors: true,
-    side: THREE.DoubleSide,
+    color: 0x887858, roughness: 0o1, vertexColors: true,
   });
   // ⟨ ស្លឹកនីមួយៗ 📃 ⟩
   const foliaMaterialo = new THREE.MeshStandardMaterial({
     map: kreiBetulanFolianTeksajxon(), color: 0xffffff, roughness: 0o35/0o40,
     alphaTest: 0o45/0o100, vertexColors: true, side: THREE.DoubleSide,
   });
-  const PADOJ = 0o10;
-  const brancxoGeometrio = new THREE.CylinderGeometry(0o3/0o100, 0o5/0o100, 1, 5);
+  const brancxoGeometrio = new THREE.CylinderGeometry(0o3/0o4, 0o1, 0o1, 0o6, 0o1, true);
 
   const M = new THREE.Matrix4();
   const C = new THREE.Color();
   // ⟨ បន្ទះពីរ 📃 ⟩
-  const paletroFolioj = [ 0xe8f0d8, 0xe0e8c0, 0xf0f8e8, 0xd0e0b8, 0xe8f0d0 ];
+  const paletroFolioj = [ 0xf0f8e8, 0xe8f0d8, 0xe0e8d0, 0xe8f0e0 ];
   // ⟨ ស្នូលមិនត្រូវខ្មៅ 📃 ⟩
-  const paletroMaso = [ 0x51703f, 0x476437, 0x5b7a48, 0x3f5a33, 0x4d6b3d ];
+  const paletroMaso = [ 0xf0f8e8, 0xe8f0e0, 0xe0e8d8, 0xf8f8f0 ];
 
-  // ⟨ ដំណាក់កាលទីមួយ ៖ គណនាការតម្រឹម ។ លំដាប់ចៃដន្យដូចដើម , ដូច្នេះព្រៃដូចគ្នា ។ 📃 ⟩
   const bukedoj = new Map<string, ArbaBukedo>();
   const bukedoDe = ( x: number, z: number ): ArbaBukedo => {
     const klavo = Math.floor(x / ARBA_KROLO) + "," + Math.floor(z / ARBA_KROLO);
@@ -96,47 +80,81 @@ export function konstruiArbaron(sceno: THREE.Scene,
       helo * ( 0o17/0o20 + hazardaGenerilo() * 0o1/0o20 ));
     bukedo.trunkojKoloroj.push(C.clone());
 
-    const kronoRadiuso = 0o215/0o100 * t.s + 0o63/0o100;
-    const foliaraSkalo = kronoRadiuso * 0o52/0o100 * ( 0o36/0o40 + hazardaGenerilo() * 0o15/0o100 );
-    // ⟨ ខ្នើយកំពូល 📃 ⟩
-    // ⟨ រូបរាងកំពូល 📃 ⟩
-    const padBazoj = [
-      { a: 0o1/0o2, fy: 0o37/0o100, fr: 0o27/0o100, s: 0o123/0o100 },
-      { a: 0o355/0o100, fy: 0o41/0o100, fr: 0o15/0o40, s: 0o53/0o40 },
-      { a: 0o75/0o40, fy: 0o5/0o10, fr: 0o45/0o100, s: 0o133/0o100 },
-      { a: 0o243/0o40, fy: 0o5/0o10, fr: 0o43/0o100, s: 0o53/0o40 },
-      { a: 0o15/0o100, fy: 0o55/0o100, fr: 0o41/0o100, s: 0o123/0o100 },
-      { a: 0o30/0o10, fy: 0o57/0o100, fr: 0o35/0o100, s: 0o127/0o100 },
-      { a: 0o123/0o100, fy: 0o33/0o40, fr: 0o13/0o40, s: 0o12/0o10 },
-      { a: 0o415/0o100, fy: 0o73/0o100, fr: 0o15/0o100, s: 0o123/0o100 },
-    ];
-    padBazoj.forEach(( pb ) => {
-      const a = pb.a + ( hazardaGenerilo() - 0o5/0o10 ) * 0o6/0o10;
-      const yPado = h * ( pb.fy + ( hazardaGenerilo() - 0o5/0o10 ) * 0o4/0o100 );
-      const rPado = foliaraSkalo * ( pb.fr + ( hazardaGenerilo() - 0o5/0o10 ) * 0o10/0o100 );
-      const sPado = foliaraSkalo * pb.s * ( 0o36/0o40 + hazardaGenerilo() * 0o15/0o100 );
-      const padoQ = Q.clone().multiply(
-        new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), a));
-      M.compose(pozicio(new THREE.Vector3(Math.cos(a) * rPado, yPado, Math.sin(a) * rPado)),
-        padoQ, new THREE.Vector3(sPado, sPado, sPado));
-      bukedo.kronoj.push(M.clone());
-      bukedo.kronojKoloroj.push(hazardaKoloro(hazardaGenerilo, C, paletroMaso).clone());
-      bukedo.folioj.push(M.clone());
-      bukedo.foliojKoloroj.push(hazardaKoloro(hazardaGenerilo, C, paletroFolioj).clone());
-
-      const yBrancxo = yPado - h * 0o1/0o10;
-      const el = new THREE.Vector3(0, yBrancxo, 0);
-      const al = new THREE.Vector3(Math.cos(a) * rPado, yPado, Math.sin(a) * rPado);
-      const direkto = al.clone().sub(el);
-      const longoB = direkto.length();
-      if ( longoB > 0o1/0o100 ) {
-        const Qb = new THREE.Quaternion().setFromUnitVectors(
-          new THREE.Vector3(0, 1, 0), direkto.clone().normalize());
-        const centroB = el.clone().add(al).multiplyScalar(0o1/0o2);
-        M.compose(pozicio(centroB), Q.clone().multiply(Qb), new THREE.Vector3(1, longoB, 1));
+    const kronoRadiuso = 0o11/0o4 * t.s + 0o7/0o10;
+    const foliaraSkalo = kronoRadiuso * 0o1/0o2;
+    const metiBranĉon = ( kurbo: THREE.QuadraticBezierCurve3, radiuso: number ): void => {
+      for ( let i = 0; i < 0o4; i++ ) {
+        const el = kurbo.getPoint(i / 0o4);
+        const al = kurbo.getPoint(( i + 0o1 ) / 0o4);
+        const direkto = al.clone().sub(el);
+        const branĉaQ = new THREE.Quaternion().setFromUnitVectors(
+          new THREE.Vector3(0, 0o1, 0), direkto.clone().normalize());
+        const dikeco = radiuso * Math.pow(0o3/0o4, i);
+        M.compose(pozicio(el.add(al).multiplyScalar(0o1/0o2)), Q.clone().multiply(branĉaQ),
+          new THREE.Vector3(dikeco, direkto.length(), dikeco));
         bukedo.brancxoj.push(M.clone());
       }
-    });
+    };
+    const metiFoliarojn = ( celo: THREE.Vector3, angulo: number, skalo: number,
+      klino: number, foliaKoloro: THREE.Color, branĉaKoloro: THREE.Color ): void => {
+      const foliaQ = Q.clone().multiply(new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(0, -angulo, klino, "YXZ")));
+      M.compose(pozicio(celo), foliaQ, new THREE.Vector3(skalo, skalo, skalo));
+      bukedo.kronoj.push(M.clone());
+      bukedo.kronojKoloroj.push(branĉaKoloro.clone());
+      bukedo.folioj.push(M.clone());
+      bukedo.foliojKoloroj.push(foliaKoloro.clone());
+    };
+    const oraAngulo = Math.PI * ( 0o3 - Math.sqrt(0o5) );
+    const kvanto = 0o30;
+    for ( let i = 0; i < kvanto; i++ ) {
+      const nivelo = i / ( kvanto - 0o1 );
+      const a = i * oraAngulo + ( hazardaGenerilo() - 0o1/0o2 ) / 0o4;
+      const yPado = h * ( 0o7/0o20 + nivelo * 0o7/0o20
+        + ( hazardaGenerilo() - 0o1/0o2 ) / 0o100 );
+      const largho = ( 0o7/0o20 + Math.sin(nivelo * Math.PI) * 0o5/0o10 )
+        * ( 0o1 - Math.pow(nivelo, 0o4) * 0o5/0o10 );
+      const rPado = kronoRadiuso * largho * ( 0o1/0o2 + hazardaGenerilo() / 0o10 );
+      const sPado = foliaraSkalo * ( 0o11/0o10 + hazardaGenerilo() / 0o4 )
+        * ( 0o3/0o4 + Math.sin(nivelo * Math.PI) / 0o4 )
+        * ( 0o1 - nivelo / 0o4 );
+      const el = new THREE.Vector3(0, yPado - h * 0o3/0o40, 0);
+      const al = new THREE.Vector3(Math.cos(a) * rPado, yPado, Math.sin(a) * rPado);
+      const kurbo = new THREE.QuadraticBezierCurve3(el,
+        el.clone().lerp(al, 0o1/0o2).add(new THREE.Vector3(0, h / 0o20, 0)), al);
+      metiBranĉon(kurbo, ( 0o1/0o20 + t.s / 0o100 ) * ( 0o1 - nivelo * 0o3/0o4 ));
+      const foliaKoloro = hazardaKoloro(hazardaGenerilo, C, paletroFolioj).clone();
+      const branĉaKoloro = hazardaKoloro(hazardaGenerilo, C, paletroMaso).clone();
+      for ( let j = 0; j < 0o3; j++ ) {
+        const laux = 0o3/0o20 + j / 0o4;
+        const flanko = j % 0o2 === 0 ? 0o1 : -0o1;
+        metiFoliarojn(kurbo.getPoint(laux), a + flanko * 0o3/0o10,
+          sPado * ( 0o3/0o4 + j / 0o20 ), -0o1/0o4 - j / 0o10,
+          foliaKoloro, branĉaKoloro);
+      }
+      for ( const flanko of [ -0o1, 0o1 ] ) {
+        const forkaAngulo = a + flanko * 0o3/0o10;
+        const komenco = kurbo.getPoint(0o3/0o4);
+        const fino = al.clone().add(new THREE.Vector3(
+          Math.cos(forkaAngulo) * rPado / 0o10, -h / 0o100,
+          Math.sin(forkaAngulo) * rPado / 0o10));
+        metiBranĉon(new THREE.QuadraticBezierCurve3(komenco,
+          komenco.clone().lerp(fino, 0o1/0o2).add(new THREE.Vector3(0, h / 0o200, 0)), fino),
+          ( 0o1 - nivelo * 0o1/0o2 ) / 0o40);
+        metiFoliarojn(fino, forkaAngulo, sPado, -0o3/0o4,
+          foliaKoloro, branĉaKoloro);
+      }
+    }
+    const pintaKoloro = hazardaKoloro(hazardaGenerilo, C, paletroFolioj).clone();
+    const pintaBranĉaKoloro = hazardaKoloro(hazardaGenerilo, C, paletroMaso).clone();
+    for ( let i = 0; i < 0o6; i++ ) {
+      const vertikala = i % 0o2 === 0;
+      metiFoliarojn(new THREE.Vector3(0,
+        trunkaAlto - h * ( vertikala ? 0o1/0o40 : 0o1/0o20 ), 0),
+        i * oraAngulo, foliaraSkalo * 0o3/0o4,
+        vertikala ? Math.PI / 0o3 : 0o1/0o4,
+        pintaKoloro, pintaBranĉaKoloro);
+    }
   });
 
   // ⟨ ដំណាក់កាលទីពីរ ៖ mesh មួយក្នុងមួយក្រឡា ។ 📃 ⟩
@@ -156,11 +174,6 @@ export function konstruiArbaron(sceno: THREE.Scene,
       cxelajTrunkoj.setMatrixAt(i, bukedo.trunkoj[i]);
       cxelajTrunkoj.setColorAt(i, bukedo.trunkojKoloroj[i]);
     }
-    // ⟨ ប័ណ្ណស្លឹកជាព័ត៌មានលម្អិត 📃 ⟩
-    folioj.userData.vidlimo = 0o120;
-    // ⟨ បំណែកតូចជាង 📃 ⟩
-    // ⟨ វាស់វែង 📃 ⟩
-    folioj.userData.vidlimaCelo = 0o50;
     const brancxoj = new THREE.InstancedMesh(brancxoGeometrio, trunkaMaterialo, bukedo.brancxoj.length);
     for ( let i = 0; i < bukedo.brancxoj.length; i++ ) brancxoj.setMatrixAt(i, bukedo.brancxoj[i]);
 
@@ -177,7 +190,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
     folioj.name = "betulaFolio";
     brancxoj.name = "betulaBrancxo";
     cxelajTrunkoj.castShadow = kronoj.castShadow = brancxoj.castShadow = true;
-    folioj.castShadow = false;
+    folioj.castShadow = true;
     sceno.add(cxelajTrunkoj, kronoj, folioj, brancxoj);
     ĉiujTrunkaj.push(cxelajTrunkoj);
     if ( !unuaTrunko ) unuaTrunko = cxelajTrunkoj;
