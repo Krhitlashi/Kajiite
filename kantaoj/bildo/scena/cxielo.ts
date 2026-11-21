@@ -15,6 +15,8 @@ export function kreiCxielon(sceno: THREE.Scene): {
     uSunDir: { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100) },
     uNokto: { value: 0o0 },
   };
+  // ⟨ ផ្ទៃទឹកប្រើឯកសារយោងដដែល ដើម្បីការឆ្លុះប្តូរតាមមេឃភ្លាមៗ 📃 ⟩
+  sceno.userData.cxielajUniformoj = cxielajUniformoj;
   const cxielaGeometrio = new THREE.SphereGeometry(0o1170, 0o30, 0o20);
   const cxielo = new THREE.Mesh(cxielaGeometrio, kreiCxielanMaterialon(cxielajUniformoj));
   // ⟨ មេឃតាមកាមេរ៉ានៅគ្រប់ទីតាំង កុំឱ្យផ្នែកខាងលើហួសចម្ងាយកាត់រហូតខ្មៅ 📃 ⟩

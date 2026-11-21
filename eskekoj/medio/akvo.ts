@@ -1,6 +1,7 @@
 // ≺⧼ ទឹក 🌊 ⧽≻
 import * as THREE from "three";
 import { KONTURA_GLSL } from "../komunajxoj/lumo.js";
+import type { CxielajUniformoj } from "../komunajxoj/lumo.js";
 import { glataPaso } from "../../kantaoj/komunajxoj/interpolo.js";
 import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
 import { kanakaWeh2 } from "../komunajxoj/koloroj.js";
@@ -54,7 +55,7 @@ function konstruiRiveronLaŭAkso(sceno: THREE.Scene,
   const larghoFn = ( i: number ) => buŝaMallarĝiĝo(lauZ ? pts[i].z : pts[i].x);
 
   const { geometry } = konstruiRubandon(pts, duonaLargho, 0, larghoFn);
-  const materialo = kreiOndanAkvanMaterialon();
+  const materialo = kreiOndanAkvanMaterialon(sceno);
   const mesh = new THREE.Mesh(geometry, materialo);
   mesh.renderOrder = 0;
   sceno.add(mesh);
@@ -99,7 +100,7 @@ export function konstruiLagon(sceno: THREE.Scene,
     }
   }
   const geometrio = kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
-  const materialo = kreiOndanAkvanMaterialon();
+  const materialo = kreiOndanAkvanMaterialon(sceno);
   const mesh = new THREE.Mesh(geometrio, materialo);
   mesh.renderOrder = 0;
   sceno.add(mesh);
@@ -191,14 +192,16 @@ export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
   geometrio.setAttribute("aAkvo", new THREE.BufferAttribute(new Float32Array(maskoj), 1));
   geometrio.setIndex(indeksoj);
   geometrio.computeVertexNormals();
-  const materialo = kreiOndanAkvanMaterialon(true);
+  const materialo = kreiOndanAkvanMaterialon(sceno, true);
   const mesh = new THREE.Mesh(geometrio, materialo);
   mesh.renderOrder = 0;
   sceno.add(mesh);
   return { mesh, waterSurfaceY: niveloFn };
 }
 
-function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
+function kreiOndanAkvanMaterialon(sceno: THREE.Scene, maskita = false): THREE.ShaderMaterial {
+  // ⟨ ទឹក និងមេឃចែកគ្នានូវពណ៌ និងទិសព្រះអាទិត្យដដែល ក្នុងគ្រប់អាកាសធាតុ 📃 ⟩
+  const cxielo = sceno.userData.cxielajUniformoj as CxielajUniformoj | undefined;
   const maskaVertico = maskita ? "attribute float aAkvo;\nvarying float vAkvo;\n" : "";
   const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
   const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
@@ -207,10 +210,8 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
   const malprofundaKodo = maskita
     ? "alpha *= smoothstep( 0.0, 0.15625, profundo );\n"
     : "";
-  const bordaKodo = maskita
-    ? "float bordaF = 1.0 - smoothstep( 0.046875, 0.28125, profundo );"
-    : "float bordaF = 1.0 - smoothstep( 1.0, 3.0, profundo );";
-  return new THREE.ShaderMaterial({
+  const bordaKodo = "float bordaF = 1.0 - smoothstep( 0.0625, 0.75, profundo );";
+  const materialo = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     transparent: true,
     depthWrite: false,
@@ -220,15 +221,17 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       THREE.UniformsLib.fog,
       {
         uTime: { value: 0 },
-        uColorDeep: { value: new THREE.Color(kanakaWeh2(0x0a3038)) },
-        uColorShallow: { value: new THREE.Color(kanakaWeh2(0x2f7263)) },
-        uColorRipple: { value: new THREE.Color(kanakaWeh2(0x3d8474)) },
-        // ⟨ ចំណុចជម្រាល fresnel ពន្លឺ និងពពុះ ជាពណ៌ KNAKEHE ដូចពណ៌ទឹកដែរ 📃 ⟩
-        uFresnelA: { value: new THREE.Color(kanakaWeh2(0x8098b8)) },
-        uFresnelB: { value: new THREE.Color(kanakaWeh2(0xe0e8f8)) },
+        uColorDeep: { value: new THREE.Color(kanakaWeh2(0x185868)) },
+        uColorShallow: { value: new THREE.Color(kanakaWeh2(0x389898)) },
+        uColorRipple: { value: new THREE.Color(kanakaWeh2(0x68b8b0)) },
+        // ⟨ ការឆ្លុះអានពណ៌មេឃផ្ទាល់ ដើម្បីទឹកមានពណ៌ត្រឹមត្រូវគ្រប់ពេល 📃 ⟩
+        uTop: cxielo?.uTop ?? { value: new THREE.Color(kanakaWeh2(0x78a8c0)) },
+        uMid: cxielo?.uMid ?? { value: new THREE.Color(kanakaWeh2(0xb8d0d8)) },
+        uBot: cxielo?.uBot ?? { value: new THREE.Color(kanakaWeh2(0xe0e8e8)) },
+        uSunCol: cxielo?.uSunCol ?? { value: new THREE.Color(kanakaWeh2(0xf8f0d8)) },
         uSpecColor: { value: new THREE.Color(kanakaWeh2(0xf0f8f8)) },
         uFoamColor: { value: new THREE.Color(kanakaWeh2(0xf8f8f8)) },
-        uSunDir: { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100).normalize() },
+        uSunDir: cxielo?.uSunDir ?? { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100).normalize() },
       },
     ]),
     vertexShader: `${maskaVertico}
@@ -268,8 +271,10 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       uniform vec3 uColorDeep;
       uniform vec3 uColorShallow;
       uniform vec3 uColorRipple;
-      uniform vec3 uFresnelA;
-      uniform vec3 uFresnelB;
+      uniform vec3 uTop;
+      uniform vec3 uMid;
+      uniform vec3 uBot;
+      uniform vec3 uSunCol;
       uniform vec3 uSpecColor;
       uniform vec3 uFoamColor;
       uniform vec3 uSunDir;
@@ -311,7 +316,8 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         vec3 baseColor = mix(uColorShallow, uColorDeep, sorbado);
 
         float wavePattern = 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 + vWorldPos.z * 0.15625 + uTime * 0.5);
-        baseColor = mix(baseColor, uColorRipple, wavePattern * 0.078125);
+        wavePattern *= 0.5 + 0.5 * sin(vWorldPos.x * 0.09375 - vWorldPos.z * 0.25 - uTime * 0.375);
+        baseColor = mix(baseColor, uColorRipple, wavePattern * 0.125);
 
         // ⟨ យកប្រវែងម្តង សម្រាប់ទាំង viewDir និង ការរសាត់រលក ។ ពីមុន
         //   normalize និង length គណនាឫសដូចគ្នាពីរដងក្នុងមួយភីកសែល ។ 📃 ⟩
@@ -321,10 +327,11 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         vec3 normal = ondaNormalo(vWorldPos, uTime, malproksimo);
         vec3 halfVec = normalize(viewDir + uSunDir);
 
+        // ⟨ សមីការ Schlick ផ្តល់ការឆ្លុះតិចពេលមើលត្រង់ និងច្រើនពេលមើលទាប 📃 ⟩
         float ndv = max(dot(viewDir, normal), 0.0);
         float fresnelBazo = 1.0 - ndv;
-        fresnelBazo *= fresnelBazo;
-        float fresnel = fresnelBazo * fresnelBazo;
+        float fresnelBazo2 = fresnelBazo * fresnelBazo;
+        float fresnel = 0.02 + 0.98 * fresnelBazo2 * fresnelBazo2 * fresnelBazo;
 
         // ⟨ ការរអិលព្រះអាទិត្យ 📃 ⟩
         // ⟨ pow ជា exp2 និង log2 លើគ្រប់ភីកសែលទឹក ។ ស្វ័យគុណផ្តល់
@@ -337,33 +344,43 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         float ndh16 = ndh8 * ndh8;
         float ndh32 = ndh16 * ndh16;
         float ndh64 = ndh32 * ndh32;
-        float spec = ( ndh64 * ndh64 ) * 0.4375 * (0.5 + 0.5 * fresnel);
-        float specWide = ndh16 * 0.0625;
+        float spec = ( ndh64 * ndh64 ) * 0.75 * (0.5 + 0.5 * fresnel);
+        float specWide = ndh16 * 0.09375;
 
         float shimmer = 0.5 + 0.5 * sin(vWorldPos.x * 0.3125 + vWorldPos.z * 0.25 + uTime * 2.0);
         shimmer *= 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 - vWorldPos.z * 0.3125 + uTime * 1.5);
 
-        vec3 specColor = uSpecColor * (spec + specWide);
-        // ⟨ ការឆ្លុះមេឃតាមទិសឆ្លុះ 📃 ⟩
-        // ⟨ ពណ៌ខៀវពីរ 📃 ⟩
+        vec3 specColor = mix(uSpecColor, uSunCol, 0.5) * (spec + specWide);
+        // ⟨ ទិសឆ្លុះជ្រើសជាន់មេឃ ហើយពន្លឺព្រះអាទិត្យបង្កើតចំណុចភ្លឺលើរលក 📃 ⟩
         vec3 reflekto = reflect(-viewDir, normal);
-        float horizontaBazo = 1.0 - clamp(abs(reflekto.y), 0.0, 1.0);
-        float horizonta = horizontaBazo * horizontaBazo * horizontaBazo;
-        vec3 fresnelColor = mix(uFresnelA, uFresnelB, horizonta);
+        float cxielaAlteco = clamp(reflekto.y, 0.0, 1.0);
+        vec3 fresnelColor = mix(uBot, uMid, smoothstep(0.0, 0.3125, cxielaAlteco));
+        fresnelColor = mix(fresnelColor, uTop, smoothstep(0.25, 0.875, cxielaAlteco));
+        float reflektaSuno = max(dot(reflekto, normalize(uSunDir)), 0.0);
+        float reflektaSuno2 = reflektaSuno * reflektaSuno;
+        float reflektaSuno4 = reflektaSuno2 * reflektaSuno2;
+        float reflektaSuno8 = reflektaSuno4 * reflektaSuno4;
+        float reflektaSuno16 = reflektaSuno8 * reflektaSuno8;
+        float reflektaSuno32 = reflektaSuno16 * reflektaSuno16;
+        float reflektaSuno64 = reflektaSuno32 * reflektaSuno32;
+        float reflektaSuno128 = reflektaSuno64 * reflektaSuno64;
+        float sunaDisko = reflektaSuno128 * reflektaSuno128 * 0.5;
+        fresnelColor += uSunCol * sunaDisko;
 
-        vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.5625) + specColor;
-        // ⟨ ពណ៌គោលរួមទាំងការឆ្លុះមេឃ និងពពុះ ៖ ថ្នាក់ដកពីពណ៌ខ្លួនឯង 📃 ⟩
+        vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.875) + specColor;
+        // ⟨ ពណ៌គោលរួមទាំងការឆ្លុះមេឃ និងពពុះ ដើម្បីរក្សាជំហានពណ៌របស់ពិភពលោក 📃 ⟩
         vec3 bazaAkvo = finalColor;
 
         finalColor *= 1.0 + vHeight * 0.09375;
 
-        // ⟨ ប្រឡាក់បាតខ្មៅស្តើង ៖ បង្ហាញខ្សែទឹកត្រង់ច្រាំង 📃 ⟩
-        float treMalprofunda = 1.0 - smoothstep( 0.0, 0.09375, profundo );
-        finalColor = mix( finalColor, finalColor * 0.65, treMalprofunda * 0.75 );
+        // ⟨ ទឹករាក់មានពណ៌ច្បាស់ ដើម្បីបំបែកវាពីដី និងបង្ហាញគែមទឹក 📃 ⟩
+        float treMalprofunda = 1.0 - smoothstep( 0.0, 0.125, profundo );
+        finalColor = mix(finalColor, uColorShallow, treMalprofunda * 0.5);
 
-        float alpha = 0.09375 + 0.90625 * (1.0 - exp(-profundo * 0.25));
-        alpha = mix(alpha, 1.0, fresnel * 0.5);
-        alpha = min(1.0, alpha + shimmer * 0.01953125);
+        // ⟨ ស្រទាប់ទឹកមើលឃើញថែមទៀត ប៉ុន្តែដីក្រោមនៅមើលឃើញក្នុងទឹករាក់ 📃 ⟩
+        float alpha = 0.25 + 0.75 * (1.0 - exp(-profundo * 0.375));
+        alpha = mix(alpha, 1.0, fresnel * 0.75);
+        alpha = min(1.0, alpha + shimmer * 0.03125 + spec * 0.5);
         ${malprofundaKodo}
 
         // ⟨ ពពុះនៅគែម 📃 ⟩
@@ -371,10 +388,12 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
         if ( bordaF > 0.0 ) {
           float lapado = 0.5 + 0.5 * sin( vWorldPos.x * 0.4375 + vWorldPos.z * 0.3125 + uTime * 0.875 );
           lapado *= 0.5 + 0.5 * sin( vWorldPos.x * 0.1875 - vWorldPos.z * 0.28125 - uTime * 0.5 );
-          float sxauxmo = bordaF * ( 0.25 + 0.75 * lapado ) * 0.5;
-          finalColor = mix( finalColor, uFoamColor, sxauxmo );
-          bazaAkvo = mix( bazaAkvo, uFoamColor, sxauxmo );
-          alpha = max( alpha, sxauxmo * 0.875 );
+          float bordaOndo = 0.5 + 0.5 * sin(profundo * 18.0 - uTime * 1.75 + lapado * 3.0);
+          float sxauxmaLinio = smoothstep(0.625, 0.9375, bordaOndo);
+          float sxauxmo = bordaF * (0.1875 + 0.5 * lapado + 0.3125 * sxauxmaLinio);
+          finalColor = mix(finalColor, uFoamColor, sxauxmo);
+          bazaAkvo = mix(bazaAkvo, uFoamColor, sxauxmo);
+          alpha = max(alpha, sxauxmo * 0.9375);
         }
 
         // ⟨ ថ្នាក់រួម ៖ រលក និងច្រាំងងងឹតជាជំហាន ពណ៌នៅក្នុងប៉ាឡែតខ្លួនឯង 📃 ⟩
@@ -385,6 +404,12 @@ function kreiOndanAkvanMaterialon(maskita = false): THREE.ShaderMaterial {
       }
     `,
   });
+  // ⟨ UniformsUtils.merge ចម្លងតម្លៃ ដូច្នេះភ្ជាប់ឯកសារយោងមេឃឡើងវិញបន្ទាប់ពីបង្កើត 📃 ⟩
+  if ( cxielo ) Object.assign(materialo.uniforms, {
+    uTop: cxielo.uTop, uMid: cxielo.uMid, uBot: cxielo.uBot,
+    uSunCol: cxielo.uSunCol, uSunDir: cxielo.uSunDir,
+  });
+  return materialo;
 }
 
 export function gxisdatigiAkvon(river: RiverData, t: number): void {
