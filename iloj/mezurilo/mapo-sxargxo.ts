@@ -13,6 +13,8 @@ interface FiksaStato {
   kompiligitaj: number;
   forigitaj: number;
   celoj: ( THREE.WebGLRenderTarget | null )[];
+  // ⟨ ដង់ស៊ីតេអ័ព្ទខណៈគូរ ៖ -0o1 មានន័យថាគ្មានអ័ព្ទ 📃 ⟩
+  densoj: number[];
 }
 
 function certigi( kondiĉo: boolean, mesaĝo: string ): void {
@@ -42,10 +44,11 @@ function elemento<T extends HTMLElement>(): T {
   return el;
 }
 
-function kreiFikston(): { mapo: Minimapo; stato: FiksaStato; kompaso: HTMLElement;
+function kreiFikston( agordiScenon?: ( sceno: THREE.Scene ) => void ): {
+  mapo: Minimapo; stato: FiksaStato; kompaso: HTMLElement; sceno: THREE.Scene;
   restarigi: () => void } {
   const stato: FiksaStato = {
-    perdita: false, fiasku: false, bildigitaj: 0, kompiligitaj: 0, forigitaj: 0, celoj: [],
+    perdita: false, fiasku: false, bildigitaj: 0, kompiligitaj: 0, forigitaj: 0, celoj: [], densoj: [],
   };
   const kompaso = elemento<HTMLElement>();
   const domElement = elemento<HTMLCanvasElement>();
@@ -59,7 +62,10 @@ function kreiFikston(): { mapo: Minimapo; stato: FiksaStato; kompaso: HTMLElemen
     shadowMap: { enabled: false },
     getContext: () => ({ isContextLost: () => stato.perdita }),
     compile: () => { stato.kompiligitaj++; },
-    render: () => { stato.bildigitaj++; },
+    render: () => {
+      stato.bildigitaj++;
+      stato.densoj.push(sceno.fog instanceof THREE.FogExp2 ? sceno.fog.density : -0o1);
+    },
     setRenderTarget: ( celo: THREE.WebGLRenderTarget | null ) => {
       stato.celoj.push(celo);
       celo?.addEventListener("dispose", () => { stato.forigitaj++; });
@@ -69,6 +75,7 @@ function kreiFikston(): { mapo: Minimapo; stato: FiksaStato; kompaso: HTMLElemen
     },
   } as unknown as THREE.WebGLRenderer;
   const sceno = new THREE.Scene();
+  agordiScenon?.( sceno );
   const mapo = kreiMinimapon({
     sceno,
     bildilo,
@@ -85,7 +92,7 @@ function kreiFikston(): { mapo: Minimapo; stato: FiksaStato; kompaso: HTMLElemen
     aplikiVacepu: () => {},
   });
   return {
-    mapo, stato, kompaso,
+    mapo, stato, kompaso, sceno,
     restarigi: () => {
       stato.perdita = false;
       jeRestaŭro?.();
@@ -112,6 +119,21 @@ certigi( sukcesa.stato.forigitaj === 1, "render target មិនបានដោ�
 certigi( sukcesa.stato.celoj.at(-1) === null, "render target សកម្មមិនបានដកចេញ" );
 certigi( sukcesa.mapo.cxuBakita(), "ផែនទីជោគជ័យមិនបានសម្គាល់" );
 
+// ⟨ ការហៅពីរដងក្នុងពេលតែមួយចែកការដុតតែមួយ 📃 ⟩
+const duopa = kreiFikston();
+await Promise.all([ duopa.mapo.pretigi(), duopa.mapo.pretigi() ]);
+certigi( duopa.stato.bildigitaj === 1, "ការហៅពីរដងបានដុតពីរដង" );
+certigi( duopa.mapo.cxuBakita(), "ការហៅពីរដងមិនបានបញ្ចប់ផែនទី" );
+
+// ⟨ ផ្ទាំងលាក់ ៖ មិនដុត , ប៉ុន្តែសន្យាត្រូវបញ្ចប់ ដើម្បីកុំឱ្យវាំងននផ្ទុកជាប់ 📃 ⟩
+const kasxita = kreiFikston();
+const dokumento = globalThis.document as unknown as { hidden?: boolean };
+dokumento.hidden = true;
+await kasxita.mapo.pretigi();
+certigi( kasxita.stato.bildigitaj === 0 && !kasxita.mapo.cxuBakita(),
+  "ផ្ទាំងលាក់បានដុតផែនទី" );
+dokumento.hidden = false;
+
 // ⟨ ការអានបរាជ័យត្រូវដោះលែង និង បិទតែផែនទី មិនព្យាយាមជាប់ៗគ្នា 📃 ⟩
 const malsukcesa = kreiFikston();
 malsukcesa.stato.fiasku = true;
@@ -137,5 +159,19 @@ perdita.restarigi();
 await atendi(() => perdita.stato.bildigitaj === 1);
 certigi( perdita.stato.bildigitaj === 1 && perdita.mapo.cxuBakita(),
   "ការត្រឡប់ GPU មិនបានបន្តផែនទី" );
+
+// ⟨ អ័ព្ទបិទខណៈដុត ហើយស្តារវិញ 📃 ⟩
+// កាមេរ៉ាផែនទីនៅខ្ពស់ , ដូច្នេះអ័ព្ទធម្មតាគ្របដណ្តប់ផែនទីទាំងមូល ។
+// បើមិនបិទ , ផែនទីក្លាយជាផ្ទៃពណ៌ស ។
+const NEBULA_DENSO_PROVO = 0o5 / 0o400;
+const nebula = kreiFikston(( sceno ) => {
+  sceno.fog = new THREE.FogExp2(0xc8d8d8, NEBULA_DENSO_PROVO);
+});
+nebula.mapo.pretigi();
+await atendi(() => nebula.stato.bildigitaj === 1);
+certigi( nebula.stato.densoj[0] === 0, "អ័ព្ទមិនបានបិទខណៈដុតផែនទី" );
+certigi( nebula.sceno.fog instanceof THREE.FogExp2
+  && nebula.sceno.fog.density === NEBULA_DENSO_PROVO, "អ័ព្ទមិនបានស្តារក្រោយដុត" );
+certigi( nebula.mapo.cxuBakita(), "ផែនទីដែលមានអ័ព្ទមិនបានសម្គាល់" );
 
 console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ការផ្ទុកផែនទីយឺត ការបរាជ័យ និង ការដោះលែងទាំងអស់ត្រឹមត្រូវ");

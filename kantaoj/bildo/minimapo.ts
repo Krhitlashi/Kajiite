@@ -28,7 +28,8 @@ export interface MinimapajOpcioj {
 export interface Minimapo {
   gxisdatigi(vidX: number, vidZ: number, centroX: number, centroZ: number): void;
   cxuBakita(): boolean;
-  pretigi(): void;
+  // ⟨ សន្យាបញ្ចប់ពេលការដុតចប់ ឬ ពេលវាមិនអាចធ្វើបានឥឡូវ 📃 ⟩
+  pretigi(): Promise<void>;
   cxuMalfermita(): boolean;
   malfermi(): void;
   fermi(): void;
@@ -58,10 +59,12 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   const MINA_DUONO = 0o10;
   const MAXA_DUONO = Math.round(PLENA_DUONO * 0o15/0o10);
   const MAPA_BAKA_DUONO = 0o1270;
-  // ⟨ ផែនទីគូរតែពេលអ្នកប្រើស្នើ ។ ចានគំនូរតូចកាត់ទាំងការងារ GPU
+  // ⟨ ផែនទីដុតតែម្តង , ក្រោយពេលពិភពលោកផ្ទុករួច ។ ចានគំនូរតូចកាត់ទាំងការងារ GPU
   //   និង ស្មាមអានត្រឡប់ ហើយគុណភាពផ្លាស់ទីក៏តាម maxTextureSize 📃 ⟩
   const MAPA_BAKA_REZ = Math.min(MALPOTENCA_APARATO ? 0o1000 : 0o2000,
     bildilo.capabilities.maxTextureSize);
+  // ⟨ កាំរង្វង់ឆ្លុះផែនទី , គិតជាផ្នែកនៃទំហំផែនទី ។ គែមការ៉េត្រូវបើក
+  //   ចំហៀង មិនមែនបិទជាប់ ទើបមិនឃើញក្រឡាចតុកោណពណ៌សជុំវិញផែនទី 📃 ⟩
   const MAPA_BAKA_FADO = Math.round(0o230 * MAPA_BAKA_REZ / 0o3000);
   let mapaRandaKoloro = "#585848";
   let mapaNebulaKoloro = "#c8d8d8";
@@ -87,14 +90,30 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       mapFotilo.up.set(0, 0, 1);
       mapFotilo.position.set(0, 0o130, 0);
       mapFotilo.lookAt(0, 0, 0);
-      // ⟨ រក្សាអ័ព្ទ និង ស្រមោលដូចឆាកចម្បង ។ ការបិទពួកវាបង្កើត
-      //   shader programs ថ្មីសម្រាប់វត្ថុរាប់ពាន់ ហើយអាចធ្វើឱ្យ Edge អស់ស្មាម 📃 ⟩
+      // ⟨ រក្សាស្រមោលដូចឆាកចម្បង ។ ការបិទវាបង្កើត shader programs ថ្មី
+      //   សម្រាប់វត្ថុរាប់ពាន់ ហើយអាចធ្វើឱ្យ Edge អស់ស្មាម 📃 ⟩
       const kaŝitaj: { obj: THREE.Object3D; videbla: boolean }[] = [];
       const kaŝu = ( obj: THREE.Object3D ): void => {
         kaŝitaj.push({ obj, videbla: obj.visible });
         obj.visible = false;
       };
+      // ⟨ អ័ព្ទបិទពេលដុតផែនទី ។ កាមេរ៉ាផែនទីនៅខ្ពស់ ,
+      //   ដូច្នេះអ័ព្ទធម្មតាគ្របដណ្តប់ស្ទើរតែទាំងអស់ , ហើយផែនទីក្លាយជាផ្ទៃស ។
+      //   ការកំណត់ដង់ស៊ីតេជា 0 មិនបង្កើតកម្មវិធីស្រមោលថ្មីទេ ,
+      //   ខុសពីការដកអ័ព្ទចេញទាំងស្រុង 📃 ⟩
+      const nebulo = sceno.fog;
+      let restarigiNebulon = (): void => {};
       try {
+        if ( nebulo instanceof THREE.FogExp2 ) {
+          const denso = nebulo.density;
+          nebulo.density = 0;
+          restarigiNebulon = (): void => { nebulo.density = denso; };
+        } else if ( nebulo ) {
+          const proksima = nebulo.near, malproksima = nebulo.far;
+          nebulo.near = 0o100000;
+          nebulo.far = 0o100000 + 1;
+          restarigiNebulon = (): void => { nebulo.near = proksima; nebulo.far = malproksima; };
+        }
         // ⟨ ដែនមើលបិទ 📃 ⟩
         vidlimojnMalŝalti();
         // ⟨ ស្មៅមិនក្តៅ 📃 ⟩
@@ -112,6 +131,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
         bildilo.render(sceno, mapFotilo);
       } finally {
         // ⟨ សូម្បីការគូរបរាជ័យក៏ត្រូវដកចានគំនូរ និង ស្ថានភាពចាស់ចេញ 📃 ⟩
+        restarigiNebulon();
         bildilo.setRenderTarget(null);
         for ( const ero of kaŝitaj ) ero.obj.visible = ero.videbla;
         vidlimojnŜalti();
@@ -304,36 +324,52 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   // ⟨ ផែនទីជាជម្រើសបន្ថែម មិនមែនលក្ខខណ្ឌចូលពិភពលោក 📃 ⟩
   // រង់ចាំស៊ុមហ្គេមមួយ រួចទុកពេលឱ្យកម្មវិធីរុករកបង្ហាញវា ។ ការបរាជ័យ
   // បិទតែផែនទី ហើយមិនបញ្ឈប់ពិភពលោក ឬ ព្យាយាមបង្កើត GPU context ថ្មីជាប់ៗគ្នាទេ ។
-  function pretigi(): void {
-    if ( bakitaMapo || mapaBakado || mapaMalsukcesis ) return;
+  // ⟨ អ្នករង់ចាំការដុត ៖ វាំងននផ្ទុករង់ចាំរហូតរ៉ាដារួចរាល់ ។
+  //   បើការដុតពន្យារ , ពួកគេត្រូវដោះលែងដើម្បីកុំឱ្យហ្គេមជាប់ជារៀងរហូត 📃 ⟩
+  let bakajSolvantoj: ( () => void )[] = [];
+  function solviBakadon(): void {
+    const solvantoj = bakajSolvantoj;
+    bakajSolvantoj = [];
+    for ( const solvi of solvantoj ) solvi();
+  }
+
+  function pretigi(): Promise<void> {
+    if ( bakitaMapo || mapaMalsukcesis ) return Promise.resolve();
+    const promeso = new Promise<void>(( solvi ) => { bakajSolvantoj.push(solvi); });
+    if ( mapaBakado ) return promeso;
     mapaPetita = true;
     mapaBakado = true;
     requestAnimationFrame(() => {
       setTimeout(() => {
-        let sukcesis = false;
+        let provis = false;
         try {
-          if ( document.hidden || bildilo.getContext().isContextLost() ) return;
-          bakitaMapo = bakiMapon();
-          sukcesis = bakitaMapo !== null;
+          if ( !document.hidden && !bildilo.getContext().isContextLost() ) {
+            provis = true;
+            bakitaMapo = bakiMapon();
+          }
         } catch ( e ) {
           console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ការរៀបចំផែនទីបរាជ័យ", e);
         } finally {
           mapaBakado = false;
         }
-        if ( sukcesis ) {
-          mapaPetita = false;
+        // ⟨ មិនបានសាកល្បង ( ផ្ទាំងលាក់ ឬ GPU បាត់ ) ៖ ទុកសំណើទុក
+        //   ហើយព្រឹត្តិការណ៍បន្តនឹងហៅម្តងទៀត 📃 ⟩
+        if ( !provis ) { solviBakadon(); return; }
+        mapaPetita = false;
+        if ( bakitaMapo ) {
           if ( malfermoAtendas ) {
             malfermoAtendas = false;
             malfermiMapon();
           }
-          return;
+        } else {
+          mapaMalsukcesis = true;
+          malfermoAtendas = false;
+          kompaso.style.display = "none";
         }
-        mapaPetita = false;
-        mapaMalsukcesis = true;
-        malfermoAtendas = false;
-        kompaso.style.display = "none";
+        solviBakadon();
       }, 0);
     });
+    return promeso;
   }
   document.addEventListener("visibilitychange", () => {
     if ( !document.hidden && mapaPetita ) pretigi();
