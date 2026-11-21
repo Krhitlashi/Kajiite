@@ -22,6 +22,58 @@ export function desegniKonturanFormon(kunteksto: CanvasRenderingContext2D, formo
   kunteksto.restore();
 }
 
+export function desegniFluanStrekon(kunteksto: CanvasRenderingContext2D,
+  punktoj: readonly [ number, number ][], koloro: number, dikeco: number): void {
+  const [ komenco, regiloUnu, regiloDu, fino ] = punktoj;
+  const maldekstra: [ number, number ][] = [], dekstra: [ number, number ][] = [];
+  for ( let i = 0o0; i <= 0o100; i++ ) {
+    const t = i / 0o100, u = 0o1 - t;
+    const x = u ** 0o3 * komenco[0o0] + 0o3 * u * u * t * regiloUnu[0o0]
+      + 0o3 * u * t * t * regiloDu[0o0] + t ** 0o3 * fino[0o0];
+    const y = u ** 0o3 * komenco[0o1] + 0o3 * u * u * t * regiloUnu[0o1]
+      + 0o3 * u * t * t * regiloDu[0o1] + t ** 0o3 * fino[0o1];
+    const dx = 0o3 * u * u * ( regiloUnu[0o0] - komenco[0o0] )
+      + 0o6 * u * t * ( regiloDu[0o0] - regiloUnu[0o0] )
+      + 0o3 * t * t * ( fino[0o0] - regiloDu[0o0] );
+    const dy = 0o3 * u * u * ( regiloUnu[0o1] - komenco[0o1] )
+      + 0o6 * u * t * ( regiloDu[0o1] - regiloUnu[0o1] )
+      + 0o3 * t * t * ( fino[0o1] - regiloDu[0o1] );
+    const largho = dikeco / 0o2 * ( 0o3/0o4 + Math.sin(t * Math.PI) / 0o4 );
+    const longo = Math.hypot(dx, dy) || 0o1;
+    maldekstra.push([ x - dy / longo * largho, y + dx / longo * largho ]);
+    dekstra.push([ x + dy / longo * largho, y - dx / longo * largho ]);
+  }
+  const formo = new Path2D();
+  formo.moveTo(maldekstra[0o0][0o0], maldekstra[0o0][0o1]);
+  for ( const [ x, y ] of maldekstra.slice(0o1) ) formo.lineTo(x, y);
+  for ( const [ x, y ] of dekstra.reverse() ) formo.lineTo(x, y);
+  formo.closePath();
+  for ( const [ x, y ] of [ komenco, fino ] ) {
+    formo.moveTo(x + dikeco * 0o3/0o10, y);
+    formo.arc(x, y, dikeco * 0o3/0o10, 0o0, Math.PI * 0o2, true);
+    formo.closePath();
+  }
+  kunteksto.save();
+  kunteksto.fillStyle = ombro(koloro, 0o0);
+  kunteksto.fill(formo);
+  kunteksto.restore();
+}
+
+export function molaStelaVojo(x: number, y: number, largho: number, alto: number): Path2D {
+  const vojo = new Path2D();
+  vojo.moveTo(x, y - alto);
+  vojo.bezierCurveTo(x + largho / 0o10, y - alto, x + largho / 0o10, y - alto / 0o2, x + largho / 0o4, y - alto / 0o4);
+  vojo.bezierCurveTo(x + largho / 0o2, y - alto / 0o10, x + largho, y - alto / 0o10, x + largho, y);
+  vojo.bezierCurveTo(x + largho, y + alto / 0o10, x + largho / 0o2, y + alto / 0o10, x + largho / 0o4, y + alto / 0o4);
+  vojo.bezierCurveTo(x + largho / 0o10, y + alto / 0o2, x + largho / 0o10, y + alto, x, y + alto);
+  vojo.bezierCurveTo(x - largho / 0o10, y + alto, x - largho / 0o10, y + alto / 0o2, x - largho / 0o4, y + alto / 0o4);
+  vojo.bezierCurveTo(x - largho / 0o2, y + alto / 0o10, x - largho, y + alto / 0o10, x - largho, y);
+  vojo.bezierCurveTo(x - largho, y - alto / 0o10, x - largho / 0o2, y - alto / 0o10, x - largho / 0o4, y - alto / 0o4);
+  vojo.bezierCurveTo(x - largho / 0o10, y - alto / 0o2, x - largho / 0o10, y - alto, x, y - alto);
+  vojo.closePath();
+  return vojo;
+}
+
 const konturajKampoj = new Map<string, { distancoj: Float32Array; cxeloj: Uint16Array }>();
 
 export function desegniKonturanTeksajxon(kunteksto: CanvasRenderingContext2D,

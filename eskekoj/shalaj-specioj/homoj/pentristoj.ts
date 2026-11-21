@@ -1,6 +1,7 @@
 // ≺⧼ ជាងគូរផ្ទាំង 🖌️ ⧽≻
 import * as THREE from "three";
-import { deksesuma, ombro, helo } from "../../komunajxoj/koloroj.js";
+import { deksesuma, ombro, helo, ombraKoloro } from "../../komunajxoj/koloroj.js";
+import { desegniFluanStrekon, molaStelaVojo } from "../../komunajxoj/teksajxoj/helpiloj.js";
 import { kvarStelo, type Vesto } from "../../vestaro/vestoj.js";
 import { volviX, sxtofon, faldo, stebo, bordiKurbon, rondaRombo } from "./kanvaso.js";
 import { malfermaDuono } from "./malfermo.js";
@@ -30,17 +31,26 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
   k.lineJoin = "round";
 
   // ⟨ អង្កត់ទ្រូង 📃 ⟩
-  k.strokeStyle = ombro(M, 0o2, 0o4/0o10);
-  k.lineWidth = 0o2;
-  for ( const dir of [ -0o1, 0o1 ] ) {
-    k.beginPath();
-    k.moveTo(0o200 + dir * 0o50, 0o62);
-    k.quadraticCurveTo(0o200 + dir * 0o46, 0o160, 0o200 + dir * 0o40, 0o200);
-    k.stroke();
-    k.beginPath();
-    k.moveTo(0o200 + dir * 0o40, 0o340);
-    k.quadraticCurveTo(0o200 + dir * 0o64, 0o420, 0o200 + dir * 0o64, 0o470);
-    k.stroke();
+  const flankajStrekoj: [ number, number, number ][] = [
+    [ 0o0, ombraKoloro(M, 0o1), 0o6 ],
+    [ 0o10, ombraKoloro(A, 0o1), 0o4 ],
+    [ 0o20, ombraKoloro(M, 0o2), 0o3 ],
+  ];
+  for ( const direkto of [ -0o1, 0o1 ] ) {
+    for ( const [ eĥo, koloro, dikeco ] of flankajStrekoj ) {
+      desegniFluanStrekon(k, [
+        [ 0o200 + direkto * ( 0o60 + eĥo ), 0o134 + eĥo ],
+        [ 0o200 + direkto * ( 0o114 + eĥo ), 0o170 ],
+        [ 0o200 + direkto * ( 0o110 + eĥo ), 0o270 ],
+        [ 0o200 + direkto * ( 0o70 + eĥo ), 0o334 - eĥo ],
+      ], koloro, dikeco);
+      desegniFluanStrekon(k, [
+        [ 0o200 + direkto * ( 0o70 + eĥo ), 0o354 + eĥo ],
+        [ 0o200 + direkto * ( 0o134 + eĥo / 0o2 ), 0o430 ],
+        [ 0o200 + direkto * ( 0o130 + eĥo / 0o2 ), 0o620 ],
+        [ 0o200 + direkto * ( 0o100 + eĥo ), 0o720 - eĥo ],
+      ], koloro, dikeco);
+    }
   }
 
   // ⟨ កអាវ 📃 ⟩
@@ -93,21 +103,21 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
     k.quadraticCurveTo(ax, 0o120 + sy * 0o21, 0o200 + sx * 0o32, 0o120 + sy * 0o17);
     k.stroke();
   }
-  const eĥaj: [ number, number, string ][] = [
-    [ 0o1,        0o2, ombro(M, 0o2, 0o5/0o10) ],
-    [ 0o7/0o10,   0o3, ombro(A, 0o1, 0o45/0o100) ],
-    [ 0o44/0o100, 0o2, ombro(M, 0o3, 0o5/0o10) ],
+  const eĥaj: [ number, number, number ][] = [
+    [ 0o1,        0o3, ombraKoloro(M, 0o2) ],
+    [ 0o7/0o10,   0o4, ombraKoloro(A, 0o1) ],
+    [ 0o44/0o100, 0o2, ombraKoloro(M, 0o3) ],
   ];
-  for ( const sy of [ -0o1, 0o1 ] ) {
-    const bazoY = 0o120 + sy * 0o42;
-    for ( const [ s, dik, kol ] of eĥaj ) {
-      const du = 0o34 * s, al = 0o24 * s;
-      k.strokeStyle = kol;
-      k.lineWidth = dik;
-      k.beginPath();
-      k.moveTo(0o200 - du, bazoY);
-      k.quadraticCurveTo(0o200, bazoY + sy * al * 0o2, 0o200 + du, bazoY);
-      k.stroke();
+  for ( const direkto of [ -0o1, 0o1 ] ) {
+    const bazoY = 0o120 + direkto * 0o42;
+    for ( const [ skalo, dikeco, koloro ] of eĥaj ) {
+      const duono = 0o34 * skalo, alto = 0o24 * skalo;
+      desegniFluanStrekon(k, [
+        [ 0o200 - duono, bazoY ],
+        [ 0o200 - duono / 0o2, bazoY + direkto * alto * 0o13/0o10 ],
+        [ 0o200 + duono / 0o2, bazoY + direkto * alto * 0o13/0o10 ],
+        [ 0o200 + duono, bazoY ],
+      ], koloro, dikeco);
     }
   }
 
@@ -115,109 +125,122 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
   k.lineCap = "round";
   k.lineJoin = "round";
   // ⟨ V កអាវ 📃 ⟩
-  k.strokeStyle = Ax;
-  k.lineWidth = 0o3;
   volviX(k, () => {
-    k.beginPath();
-    k.moveTo(-0o37, 0o70);
-    k.lineTo(0, 0o200);
-    k.lineTo(0o37, 0o70);
-    k.stroke();
+    desegniFluanStrekon(k, [
+      [ -0o37, 0o70 ], [ -0o34, 0o230 ], [ 0o34, 0o230 ], [ 0o37, 0o70 ],
+    ], A, 0o6);
+    desegniFluanStrekon(k, [
+      [ -0o27, 0o64 ], [ -0o24, 0o174 ], [ 0o24, 0o174 ], [ 0o27, 0o64 ],
+    ], ombraKoloro(M, 0o2), 0o2);
   });
   // ⟨ ជើងស្មា 📃 ⟩
-  k.strokeStyle = ombro(M, 0o2, 0o5/0o10);
-  k.lineWidth = 0o2;
   volviX(k, () => {
-    for ( const dir of [ -0o1, 0o1 ] ) {
-      k.beginPath();
-      k.moveTo(dir * 0o64, 0o70);
-      k.lineTo(dir * 0o60, 0o130);
-      k.lineTo(dir * 0o54, 0o70);
-      k.stroke();
+    for ( const direkto of [ -0o1, 0o1 ] ) {
+      desegniFluanStrekon(k, [
+        [ direkto * 0o64, 0o70 ], [ direkto * 0o72, 0o142 ],
+        [ direkto * 0o46, 0o142 ], [ direkto * 0o54, 0o70 ],
+      ], ombraKoloro(M, 0o2), 0o3);
     }
   });
   // ⟨ ពេជ្រធំ 📃 ⟩
   volviX(k, () => {
-    for ( const dir of [ -0o1, 0o1 ] ) {
-      k.strokeStyle = ombro(M, 0o2, 0o5/0o10);
-      k.lineWidth = 0o2;
-      k.beginPath();
-      k.moveTo(0, 0o226);
-      k.quadraticCurveTo(dir * 0o32, 0o340, dir * 0o50, 0o444);
-      k.stroke();
-      k.strokeStyle = Ax;
-      k.lineWidth = 0o3;
-      k.beginPath();
-      k.moveTo(dir * 0o50, 0o444);
-      k.quadraticCurveTo(dir * 0o36, 0o516, dir * 0o21, 0o570);
-      k.stroke();
+    for ( const direkto of [ -0o1, 0o1 ] ) {
+      desegniFluanStrekon(k, [
+        [ 0o0, 0o226 ], [ direkto * 0o34, 0o270 ],
+        [ direkto * 0o50, 0o374 ], [ direkto * 0o50, 0o444 ],
+      ], ombraKoloro(M, 0o2), 0o3);
+      desegniFluanStrekon(k, [
+        [ direkto * 0o50, 0o444 ], [ direkto * 0o50, 0o510 ],
+        [ direkto * 0o26, 0o544 ], [ direkto * 0o21, 0o570 ],
+      ], A, 0o6);
+      desegniFluanStrekon(k, [
+        [ direkto * 0o14, 0o236 ], [ direkto * 0o52, 0o270 ],
+        [ direkto * 0o64, 0o342 ], [ direkto * 0o60, 0o400 ],
+      ], ombraKoloro(M, 0o1), 0o2);
+      desegniFluanStrekon(k, [
+        [ direkto * 0o62, 0o474 ], [ direkto * 0o64, 0o540 ],
+        [ direkto * 0o44, 0o604 ], [ direkto * 0o30, 0o624 ],
+      ], ombraKoloro(M, 0o2), 0o2);
     }
   });
-  // ⟨ ត្បូងកណ្តាល 📃 ⟩
-  const juvelo = (duono: number, alto: number, koloro: string) => {
-    k.fillStyle = koloro;
-    k.beginPath();
-    k.moveTo(0, 0o370 - alto);
-    k.lineTo(duono, 0o370);
-    k.lineTo(0, 0o370 + alto);
-    k.lineTo(-duono, 0o370);
-    k.closePath();
-    k.fill();
-  };
   volviX(k, () => {
-    juvelo(0o21, 0o100, Ax);
-    juvelo(0o6, 0o30, Mx);
+    for ( const direkto of [ -0o1, 0o1 ] ) {
+      for ( const y of [ 0o260, 0o520 ] ) {
+        k.save();
+        k.translate(direkto * 0o40, y);
+        k.rotate(direkto * Math.PI / 0o10);
+        const folio = new Path2D();
+        folio.moveTo(0o0, -0o14);
+        folio.bezierCurveTo(0o6, -0o14, 0o14, 0o6, 0o0, 0o14);
+        folio.bezierCurveTo(-0o14, 0o6, -0o6, -0o14, 0o0, -0o14);
+        folio.closePath();
+        k.strokeStyle = ombro(A, 0o1);
+        k.lineWidth = 0o3;
+        k.stroke(folio);
+        desegniFluanStrekon(k, [
+          [ 0o0, -0o6 ], [ 0o3, -0o2 ], [ 0o3, 0o2 ], [ 0o0, 0o6 ],
+        ], ombraKoloro(M, 0o1), 0o3);
+        k.restore();
+      }
+    }
+  });
+
+  // ⟨ ត្បូងកណ្តាល 📃 ⟩
+  volviX(k, () => {
+    k.fillStyle = Ax;
+    k.fill(molaStelaVojo(0o0, 0o370, 0o21, 0o100));
+    k.fillStyle = Mx;
+    k.fill(molaStelaVojo(0o0, 0o370, 0o6, 0o30));
   });
   // ⟨ ជើងក្រោម 📃 ⟩
-  k.strokeStyle = Ax;
-  k.lineWidth = 0o3;
   volviX(k, () => {
-    k.beginPath();
-    k.moveTo(-0o17, 0o660);
-    k.lineTo(0, 0o600);
-    k.lineTo(0o17, 0o660);
-    k.stroke();
+    desegniFluanStrekon(k, [
+      [ -0o17, 0o660 ], [ -0o14, 0o560 ], [ 0o14, 0o560 ], [ 0o17, 0o660 ],
+    ], A, 0o6);
+    desegniFluanStrekon(k, [
+      [ -0o10, 0o700 ], [ -0o6, 0o622 ], [ 0o6, 0o622 ], [ 0o10, 0o700 ],
+    ], ombraKoloro(M, 0o2), 0o2);
   });
 
   // ⟨ ខ្នងទទួលលំនាំច្រើនជាង 🖌️ ⟩
   // ⟨ ធ្នូចំហៀង 📃 ⟩
-  const dorsEĥoj: [ number, number, number, number, string ][] = [
-    [ 0o54, 0o70,  0o30, 0o2, ombro(M, 0o2, 0o45/0o100) ],
-    [ 0o62, 0o104, 0o42, 0o3, ombro(A, 0o1, 0o5/0o10) ],
+  const dorsEĥoj: [ number, number, number, number, number ][] = [
+    [ 0o54, 0o70,  0o30, 0o2, ombraKoloro(M, 0o2) ],
+    [ 0o62, 0o104, 0o42, 0o3, ombraKoloro(A, 0o1) ],
+    [ 0o72, 0o114, 0o52, 0o2, ombraKoloro(M, 0o1) ],
   ];
   volviX(k, () => {
-    for ( const dir of [ -0o1, 0o1 ] ) {
+    for ( const direkto of [ -0o1, 0o1 ] ) {
       for ( const [ ena, ekstera, duonalto, dikeco, koloro ] of dorsEĥoj ) {
-        k.strokeStyle = koloro;
-        k.lineWidth = dikeco;
-        k.beginPath();
-        k.moveTo(dir * ena, 0o444 - duonalto);
-        k.quadraticCurveTo(dir * ekstera, 0o444, dir * ena, 0o444 + duonalto);
-        k.stroke();
+        desegniFluanStrekon(k, [
+          [ direkto * ena, 0o444 - duonalto ],
+          [ direkto * ekstera, 0o444 - duonalto / 0o2 ],
+          [ direkto * ekstera, 0o444 + duonalto / 0o2 ],
+          [ direkto * ena, 0o444 + duonalto ],
+        ], koloro, dikeco);
       }
     }
   });
   // ⟨ ឆ្នូតស្មា 📃 ⟩
-  k.strokeStyle = ombro(A, 0o1, 0o45/0o100);
-  k.lineWidth = 0o2;
   volviX(k, () => {
-    for ( const dir of [ -0o1, 0o1 ] ) {
-      k.beginPath();
-      k.moveTo(dir * 0o46, 0o34);
-      k.lineTo(dir * 0o42, 0o114);
-      k.stroke();
+    for ( const direkto of [ -0o1, 0o1 ] ) {
+      desegniFluanStrekon(k, [
+        [ direkto * 0o46, 0o34 ], [ direkto * 0o60, 0o54 ],
+        [ direkto * 0o44, 0o100 ], [ direkto * 0o42, 0o114 ],
+      ], ombraKoloro(A, 0o1), 0o3);
     }
   });
   // ⟨ ជ្រុងនៅក្រណាត់ 📃 ⟩
-  k.strokeStyle = ombro(M, 0o2, 0o45/0o100);
-  k.lineWidth = 0o2;
   volviX(k, () => {
-    for ( const dir of [ -0o1, 0o1 ] ) {
-      k.beginPath();
-      k.moveTo(dir * 0o24, h - 0o64);
-      k.lineTo(dir * 0o40, h - 0o44);
-      k.lineTo(dir * 0o56, h - 0o66);
-      k.stroke();
+    for ( const direkto of [ -0o1, 0o1 ] ) {
+      for ( const eĥo of [ 0o0, 0o12 ] ) {
+        desegniFluanStrekon(k, [
+          [ direkto * 0o24, h - 0o64 - eĥo ],
+          [ direkto * 0o34, h - 0o34 - eĥo ],
+          [ direkto * 0o46, h - 0o34 - eĥo ],
+          [ direkto * 0o56, h - 0o66 - eĥo ],
+        ], ombraKoloro(M, 0o2), 0o2);
+      }
     }
   });
 
@@ -249,13 +272,21 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
   k.lineJoin = "round";
 
   // ⟨ គំនូរមានខ្សែបញ្ឈរ 📃 ⟩
-  for ( const dx of [ -0o126, -0o56, 0o56, 0o126 ] ) {
-    k.strokeStyle = ombro(I, 0o3, 0o6/0o10);
-    k.lineWidth = 0o2;
-    k.beginPath();
-    k.moveTo(0o200 + dx, MARGENO + 0o20);
-    k.lineTo(0o200 + dx, h - MARGENO);
-    k.stroke();
+  for ( const distanco of [ 0o56, 0o126 ] ) {
+    for ( const direkto of [ -0o1, 0o1 ] ) {
+      desegniFluanStrekon(k, [
+        [ 0o200 + direkto * distanco, MARGENO + 0o20 ],
+        [ 0o200 + direkto * ( distanco + 0o22 ), 0o240 ],
+        [ 0o200 + direkto * ( distanco - 0o20 ), 0o500 ],
+        [ 0o200 + direkto * distanco, h - MARGENO ],
+      ], ombraKoloro(I, 0o2), 0o3);
+      desegniFluanStrekon(k, [
+        [ 0o200 + direkto * ( distanco + 0o10 ), 0o220 ],
+        [ 0o200 + direkto * ( distanco + 0o24 ), 0o330 ],
+        [ 0o200 + direkto * ( distanco - 0o6 ), 0o504 ],
+        [ 0o200 + direkto * ( distanco + 0o10 ), 0o620 ],
+      ], ombraKoloro(I, 0o1), 0o2);
+    }
   }
 
   // ⟨ ធ្នូកអាវ 📃 ⟩
@@ -276,21 +307,39 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
   k.lineCap = "round";
   k.lineJoin = "round";
   // ⟨ ជើងចុះក្រោម 📃 ⟩
-  const sxevrono = ( yPinto: number, duono: number, koloro: string, dikeco: number ) => {
-    k.strokeStyle = koloro;
-    k.lineWidth = dikeco;
-    k.beginPath();
-    k.moveTo(0o200 - duono, 0o600);
-    k.lineTo(0o200 - duono * 0o3/0o10, yPinto + duono * 0o3/0o10);
-    k.quadraticCurveTo(0o200 - duono * 0o1/0o5, yPinto, 0o200, yPinto);
-    k.quadraticCurveTo(0o200 + duono * 0o1/0o5, yPinto, 0o200 + duono * 0o3/0o10, yPinto + duono * 0o3/0o10);
-    k.lineTo(0o200 + duono, 0o600);
-    k.stroke();
+  const sxevrono = ( yPinto: number, duono: number, koloro: number, dikeco: number ) => {
+    const regiloY = yPinto - ( 0o600 - yPinto ) / 0o3;
+    desegniFluanStrekon(k, [
+      [ 0o200 - duono, 0o600 ],
+      [ 0o200 - duono * 0o5/0o10, regiloY ],
+      [ 0o200 + duono * 0o5/0o10, regiloY ],
+      [ 0o200 + duono, 0o600 ],
+    ], koloro, dikeco);
   };
-  sxevrono(0o250, 0o52, ombro(I, 0o2, 0o5/0o10), 0o2);
-  sxevrono(0o330, 0o40, ombro(I, 0o3, 0o6/0o10), 0o2);
-  sxevrono(0o410, 0o30, ombro(A, 0o1), 0o2);
-  sxevrono(0o470, 0o20, Ax, 0o2);
+  sxevrono(0o250, 0o52, ombraKoloro(I, 0o2), 0o3);
+  sxevrono(0o330, 0o40, ombraKoloro(I, 0o3), 0o2);
+  sxevrono(0o410, 0o30, ombraKoloro(A, 0o1), 0o3);
+  sxevrono(0o470, 0o20, A, 0o4);
+  for ( const direkto of [ -0o1, 0o1 ] ) {
+    desegniFluanStrekon(k, [
+      [ 0o200 + direkto * 0o6, 0o504 ],
+      [ 0o200 + direkto * 0o16, 0o524 ],
+      [ 0o200 + direkto * 0o22, 0o564 ],
+      [ 0o200 + direkto * 0o12, 0o604 ],
+    ], ombraKoloro(I, 0o2), 0o3);
+    desegniFluanStrekon(k, [
+      [ 0o200 + direkto * 0o4, 0o530 ],
+      [ 0o200 + direkto * 0o10, 0o544 ],
+      [ 0o200 + direkto * 0o14, 0o574 ],
+      [ 0o200 + direkto * 0o6, 0o614 ],
+    ], ombraKoloro(A, 0o1), 0o2);
+    desegniFluanStrekon(k, [
+      [ 0o200 + direkto * 0o16, 0o644 ],
+      [ 0o200 + direkto * 0o22, 0o662 ],
+      [ 0o200 + direkto * 0o14, 0o720 ],
+      [ 0o200 + direkto * 0o4, 0o744 ],
+    ], ombraKoloro(I, 0o2), 0o3);
+  }
 
   // ⟨ ផ្កាយចំហៀងទ្រូង និងក្រោមចង្កេះ 📃 ⟩
   for ( const dx of [ -0o102, 0o102 ] ) {
@@ -305,8 +354,12 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
   // ⟨ ខ្នង 📃 ⟩
   volviX(k, () => kvarStelo(k, 0, 0o166, 0o20, ombro(I, 0o2)));
   volviX(k, () => {
-    k.fillStyle = ombro(I, 0o1, 0o4/0o10);
-    k.fillRect(-0o2, MARGENO, 0o4, h - MARGENO * 0o2);
+    for ( const direkto of [ -0o1, 0o1 ] ) {
+      desegniFluanStrekon(k, [
+        [ direkto * 0o4, MARGENO ], [ direkto * 0o34, 0o250 ],
+        [ direkto * 0o24, 0o510 ], [ direkto * 0o4, h - MARGENO ],
+      ], ombraKoloro(I, 0o1), 0o3);
+    }
   });
 
   // ⟨ ចង្កេះទទេទាំងស្រុង 📃 ⟩
@@ -325,11 +378,28 @@ function pentriPantalonon(k: CanvasRenderingContext2D, o: Vesto): void {
   faldo(k, 0o340, 0o24, P, 0o1, 0o25/0o100);
   // ⟨ ខ្សែសង្កត់ជាបញ្ឈរ 📃 ⟩
   // ⟨ ខ្សែស្តើង និងនៅជ្រុងទាំងបួន 📃 ⟩
-  for ( const x of [ 0o40, 0o140, 0o240, 0o340 ] ) {
-    k.fillStyle = ombro(A, 0o1, 0o5/0o10);
-    k.fillRect(x - 0o2, 0, 0o5, h);
-    k.fillStyle = Ax;
-    k.fillRect(x - 0o1, 0, 0o3, h);
+  const pantalonajPaneloj: [ number, number ][] = [
+    [ 0o40, 0o1 ], [ 0o140, -0o1 ], [ 0o240, 0o1 ], [ 0o340, -0o1 ],
+  ];
+  for ( const [ x, direkto ] of pantalonajPaneloj ) {
+    desegniFluanStrekon(k, [
+      [ x, 0o10 ], [ x + direkto * 0o20, 0o240 ],
+      [ x - direkto * 0o20, 0o540 ], [ x, h - 0o10 ],
+    ], A, 0o6);
+    desegniFluanStrekon(k, [
+      [ x + direkto * 0o12, 0o110 ], [ x + direkto * 0o32, 0o274 ],
+      [ x - direkto * 0o2, 0o524 ], [ x + direkto * 0o12, 0o720 ],
+    ], ombraKoloro(A, 0o1), 0o3);
+    for ( const flanko of [ -0o1, 0o1 ] ) {
+      desegniFluanStrekon(k, [
+        [ x + flanko * 0o14, 0o304 ], [ x + flanko * 0o36, 0o370 ],
+        [ x + flanko * 0o34, 0o520 ], [ x + flanko * 0o12, 0o610 ],
+      ], ombraKoloro(P, 0o1), 0o3);
+      desegniFluanStrekon(k, [
+        [ x + flanko * 0o20, 0o344 ], [ x + flanko * 0o30, 0o410 ],
+        [ x + flanko * 0o26, 0o500 ], [ x + flanko * 0o16, 0o554 ],
+      ], ombraKoloro(P, 0o2), 0o2);
+    }
   }
   // ⟨ ខ្សែសង្កត់នៅចង្កេះ 📃 ⟩
   k.fillStyle = Ax;
@@ -369,6 +439,30 @@ function pentriManikon(k: CanvasRenderingContext2D, o: Vesto): void {
   k.fillRect(0, 0, w, 0o10);
   k.fillStyle = ombro(A, 0o1, 0o5/0o10);
   k.fillRect(0, 0o10, w, 0o3);
+  for ( const centro of [ 0o0, w / 0o2 ] ) {
+    volviX(k, () => {
+      for ( const direkto of [ -0o1, 0o1 ] ) {
+        desegniFluanStrekon(k, [
+          [ centro + direkto * 0o6, 0o42 ],
+          [ centro + direkto * 0o34, 0o54 ],
+          [ centro + direkto * 0o32, 0o114 ],
+          [ centro + direkto * 0o10, 0o132 ],
+        ], ombraKoloro(A, 0o1), 0o4);
+        desegniFluanStrekon(k, [
+          [ centro + direkto * 0o14, 0o46 ],
+          [ centro + direkto * 0o44, 0o66 ],
+          [ centro + direkto * 0o40, 0o124 ],
+          [ centro + direkto * 0o26, 0o144 ],
+        ], ombraKoloro(M, 0o2), 0o3);
+        desegniFluanStrekon(k, [
+          [ centro + direkto * 0o4, 0o56 ],
+          [ centro + direkto * 0o20, 0o66 ],
+          [ centro + direkto * 0o16, 0o106 ],
+          [ centro + direkto * 0o4, 0o116 ],
+        ], ombraKoloro(M, 0o1), 0o2);
+      }
+    });
+  }
   // ⟨ ផ្កាយបួនចុងលើខ្សែ 📃 ⟩
   for ( let i = 0; i < 0o10; i++ )
     kvarStelo(k, i * 0o20 + 0o10, 0o26, 0o6, ombro(A, 0o1));

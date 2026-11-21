@@ -1,132 +1,122 @@
-// ≺⧼ វាយនភាពក្តារ 🪵 ⧽≻
 import * as THREE from "three";
-import { deksesuma, malheligi } from "../koloroj.js";
+import { ombro, ombraKoloro, helo } from "../koloroj.js";
 import { kf2SakxoKlasika } from "../hazardo.js";
-import { larmo } from "./helpiloj.js";
+import { desegniFluanStrekon, molaStelaVojo } from "./helpiloj.js";
 
 export function generiPlankanTeksajxon(bazaKoloro: number, akcentaKoloro: number, semo: number): THREE.CanvasTexture {
-  const c = document.createElement("canvas");
-  c.width = c.height = 0o2000;
-  const g = c.getContext("2d")!;
-  const cx = c.width / 2, cy = c.height / 2;
-  const R = c.width / 2;
-  const baza = deksesuma(bazaKoloro), akcenta = deksesuma(akcentaKoloro);
-  const malhela = malheligi(baza);
-  const rnd = kf2SakxoKlasika(semo);
-  const pintoj = rnd() < 0o5/0o10 ? 4 : 0o10;
-  const larmoj = rnd() < 0o5/0o10;
-  const ondo = [ 0o15/0o1000, 0o35/0o1000, 0o55/0o1000 ][Math.floor(rnd() * 3)];
-  const fazo = rnd() < 0o5/0o10 ? 0 : Math.PI / 4;
-  const interŝanĝi = rnd() < 0o5/0o10;
-  g.fillStyle = baza;
-  g.fillRect(0, 0, c.width, c.height);
-  const grad = g.createRadialGradient(cx, cy, 0, cx, cy, R);
-  grad.addColorStop(0, akcenta + "22");
-  grad.addColorStop(1, akcenta + "00");
-  g.fillStyle = grad;
-  g.fillRect(0, 0, c.width, c.height);
-  const angulaR = R * 0o7/0o100;
-  for ( const sx of [ -1, 1 ] ) for ( const sy of [ -1, 1 ] ) {
-    const ax = cx + sx * R * 0o60/0o100;
-    const ay = cy + sy * R * 0o60/0o100;
-    const enen = Math.atan2(cy - ay, cx - ax);
-    if ( larmoj ) {
-      larmo(g, ax, ay, angulaR, enen, akcenta);
-      g.fillStyle = baza;
-      g.beginPath();
-      g.arc(ax, ay, angulaR * 0o45/0o100, 0, Math.PI * 2);
-      g.fill();
-    } else {
-      g.strokeStyle = akcenta;
-      g.lineWidth = R * 0o12/0o1000;
-      g.beginPath();
-      g.arc(ax, ay, angulaR, 0, Math.PI * 2);
-      g.stroke();
-      g.beginPath();
-      g.arc(ax, ay, angulaR * 0o55/0o100, 0, Math.PI * 2);
-      g.stroke();
-      g.fillStyle = akcenta;
-      g.beginPath();
-      g.arc(ax, ay, angulaR * 0o25/0o100, 0, Math.PI * 2);
-      g.fill();
-    }
+  const kanvasa = document.createElement("canvas");
+  kanvasa.width = kanvasa.height = 0o2000;
+  const kunteksto = kanvasa.getContext("2d")!;
+  const radio = kanvasa.width / 0o2;
+  const hazardo = kf2SakxoKlasika(semo);
+  const folia = hazardo() < 0o1/0o2;
+  const fazo = hazardo() < 0o1/0o2 ? 0o0 : Math.PI / 0o4;
+  const spegulo = hazardo() < 0o1/0o2 ? -0o1 : 0o1;
+  const centraSkalo = 0o30/0o100 + hazardo() / 0o40;
+  const dikeco = radio / 0o40;
+  kunteksto.fillStyle = ombro(bazaKoloro, 0o0);
+  kunteksto.fillRect(0o0, 0o0, kanvasa.width, kanvasa.height);
+  kunteksto.translate(radio, radio);
+  kunteksto.lineCap = "round";
+  kunteksto.lineJoin = "round";
+
+  kunteksto.save();
+  kunteksto.rotate(fazo);
+  for ( const [ skalo, koloro ] of [
+    [ centraSkalo, ombro(akcentaKoloro, 0o0) ],
+    [ centraSkalo * 0o5/0o10, ombro(akcentaKoloro, 0o1) ],
+  ] as const ) {
+    kunteksto.fillStyle = koloro;
+    kunteksto.fill(molaStelaVojo(0o0, 0o0, radio * skalo, radio * skalo));
   }
-  const stelo = ( p: number, ekstera: number, ena: number, ofseto = 0 ) => {
-    g.fillStyle = akcenta;
-    g.beginPath();
-    for ( let i = 0; i <= p * 2; i++ ) {
-      const ang = ofseto + ( i / ( p * 2 ) ) * Math.PI * 2;
-      const rad = i % 2 === 0 ? ekstera : ena;
-      const x = cx + Math.cos(ang) * rad;
-      const y = cy + Math.sin(ang) * rad;
-      if ( i === 0 ) { g.moveTo(x, y); continue; }
-      const prevAng = ofseto + ( ( i - 1 ) / ( p * 2 ) ) * Math.PI * 2;
-      const midAng = ( prevAng + ang ) / 2;
-      const midRad = ena + ( ekstera - ena ) * 0o23/0o100;
-      g.quadraticCurveTo(
-        cx + Math.cos(midAng) * midRad,
-        cy + Math.sin(midAng) * midRad,
-        x, y
-);
+  kunteksto.restore();
+
+  const streko = ( punktoj: [ number, number ][], koloro: number, largho = dikeco ): void => {
+    desegniFluanStrekon(kunteksto, punktoj.map(( [ x, y ] ) => [ x * radio, y * radio ]), koloro, largho);
+  };
+  for ( let flanko = 0o0; flanko < 0o4; flanko++ ) {
+    kunteksto.save();
+    kunteksto.rotate(flanko * Math.PI / 0o2);
+    kunteksto.scale(spegulo, 0o1);
+
+    streko([
+      [ -0o36/0o100, -0o6/0o100 ], [ -0o6/0o100, -0o6/0o100 ],
+      [ -0o6/0o100, -0o36/0o100 ], [ 0o0, -0o36/0o100 ],
+    ], ombraKoloro(akcentaKoloro, 0o1));
+    streko([
+      [ 0o0, -0o36/0o100 ], [ 0o6/0o100, -0o36/0o100 ],
+      [ 0o6/0o100, -0o6/0o100 ], [ 0o36/0o100, -0o6/0o100 ],
+    ], ombraKoloro(akcentaKoloro, 0o1));
+
+    for ( const direkto of [ -0o1, 0o1 ] ) {
+      streko([
+        [ direkto * 0o36/0o100, -0o30/0o100 ], [ direkto * 0o26/0o100, -0o32/0o100 ],
+        [ direkto * 0o22/0o100, -0o42/0o100 ], [ direkto * 0o22/0o100, -0o46/0o100 ],
+      ], ombraKoloro(bazaKoloro, 0o1), dikeco * 0o3/0o4);
+      streko([
+        [ direkto * 0o30/0o100, -0o50/0o100 ], [ direkto * 0o32/0o100, -0o56/0o100 ],
+        [ direkto * 0o26/0o100, -0o66/0o100 ], [ direkto * 0o26/0o100, -0o70/0o100 ],
+      ], ombraKoloro(akcentaKoloro, 0o2), dikeco * 0o3/0o4);
     }
-    g.closePath();
-    g.fill();
-  };
-  const stelEkstera = R * 0o22/0o100;
-  stelo(pintoj, stelEkstera, stelEkstera * 0o4/0o10, pintoj === 4 ? Math.PI / 4 : 0);
-  g.fillStyle = akcenta;
-  g.beginPath();
-  g.arc(cx, cy, R * 0o45/0o1000, 0, Math.PI * 2);
-  g.fill();
-  g.fillStyle = baza;
-  g.beginPath();
-  g.arc(cx, cy, R * 0o2/0o100, 0, Math.PI * 2);
-  g.fill();
-  g.fillStyle = akcenta;
-  g.beginPath();
-  g.arc(cx, cy, R * 0o7/0o1000, 0, Math.PI * 2);
-  g.fill();
-  const flankaLinio = ( inseto: number, largho: number, koloro: string ) => {
-    g.strokeStyle = koloro;
-    g.lineWidth = largho;
-    g.beginPath();
-    g.moveTo(cx - R + inseto, cy - R + inseto);
-    g.lineTo(cx + R - inseto, cy - R + inseto);
-    g.lineTo(cx + R - inseto, cy + R - inseto);
-    g.lineTo(cx - R + inseto, cy + R - inseto);
-    g.lineTo(cx - R + inseto, cy - R + inseto);
-    g.stroke();
-  };
-  flankaLinio(R * 0o45/0o1000, R * 0o2/0o100, akcenta);
-  flankaLinio(R * 0o7/0o100, R * 0o1/0o100, malhela);
-  const spuri = ( skalo: number, inversa: boolean ) => {
-    const punktoj = 0o230;
-    for ( let i = 0; i <= punktoj; i++ ) {
-      const t = ( i / punktoj ) * Math.PI * 2 * ( inversa ? -1 : 1 );
-      const k = 0o32/0o10;
-      const c = Math.pow(Math.abs(Math.cos(t)), k) + Math.pow(Math.abs(Math.sin(t)), k);
-      const rad = ( skalo / Math.pow(c, 1 / k) ) * ( 1 + ondo * Math.sin(4 * t + fazo) );
-      const x = cx + Math.cos(t) * rad;
-      const y = cy + Math.sin(t) * rad;
-      if ( i === 0 ) g.moveTo(x, y); else g.lineTo(x, y);
+
+    const petalo = new Path2D();
+    petalo.moveTo(0o0, -radio * 0o52/0o100);
+    petalo.bezierCurveTo(-radio * 0o20/0o100, -radio * 0o62/0o100,
+      -radio * 0o20/0o100, -radio * 0o72/0o100, 0o0, -radio * 0o72/0o100);
+    petalo.bezierCurveTo(radio * 0o20/0o100, -radio * 0o72/0o100,
+      radio * 0o20/0o100, -radio * 0o62/0o100, 0o0, -radio * 0o52/0o100);
+    petalo.closePath();
+    kunteksto.strokeStyle = ombro(akcentaKoloro, 0o2);
+    kunteksto.lineWidth = dikeco;
+    kunteksto.stroke(petalo);
+    streko([
+      [ -0o4/0o100, -0o64/0o100 ], [ -0o4/0o100, -0o62/0o100 ],
+      [ -0o2/0o100, -0o60/0o100 ], [ 0o0, -0o60/0o100 ],
+    ], ombraKoloro(akcentaKoloro, 0o1), dikeco * 0o3/0o4);
+    streko([
+      [ 0o0, -0o60/0o100 ], [ 0o2/0o100, -0o60/0o100 ],
+      [ 0o4/0o100, -0o62/0o100 ], [ 0o4/0o100, -0o64/0o100 ],
+    ], ombraKoloro(akcentaKoloro, 0o1), dikeco * 0o3/0o4);
+
+    kunteksto.save();
+    kunteksto.translate(radio * 0o42/0o100, -radio * 0o42/0o100);
+    kunteksto.rotate(-Math.PI / 0o4);
+    const folio = new Path2D();
+    const duono = radio * 0o6/0o100, longo = radio * 0o14/0o100;
+    folio.moveTo(0o0, -longo);
+    folio.bezierCurveTo(duono, -longo, duono * 0o2, longo / 0o2, 0o0, longo);
+    folio.bezierCurveTo(-duono * 0o2, longo / 0o2, -duono, -longo, 0o0, -longo);
+    folio.closePath();
+    kunteksto.strokeStyle = ombro(akcentaKoloro, 0o2);
+    kunteksto.lineWidth = dikeco;
+    if ( folia ) {
+      kunteksto.fillStyle = ombro(bazaKoloro, 0o1);
+      kunteksto.fill(folio);
     }
-    g.closePath();
-  };
-  const bendo = ( rIn: number, rEk: number, koloro: string ) => {
-    g.fillStyle = koloro;
-    g.beginPath();
-    spuri(rEk, false);
-    spuri(rIn, true);
-    g.fill("evenodd");
-  };
-  const bendoPaŝo = R * 0o55/0o1000;
-  const bendoLargho = bendoPaŝo * 0o55/0o100;
-  let bendoN = 0;
-  for ( let s = R * 0o31/0o100; s + bendoLargho < R * 0o60/0o100; s += bendoPaŝo ) {
-    bendo(s, s + bendoLargho, ( bendoN + ( interŝanĝi ? 1 : 0 ) ) % 2 === 0 ? akcenta : malhela);
-    bendoN++;
+    kunteksto.stroke(folio);
+    desegniFluanStrekon(kunteksto, [
+      [ 0o0, -longo / 0o2 ], [ duono / 0o2, -longo / 0o4 ],
+      [ duono / 0o2, longo / 0o4 ], [ 0o0, longo / 0o2 ],
+    ], ombraKoloro(akcentaKoloro, 0o1), dikeco * 0o3/0o4);
+    kunteksto.restore();
+
+    for ( let nivelo = 0o0; nivelo < 0o2; nivelo++ ) {
+      const sxovo = nivelo * 0o6/0o100;
+      streko([
+        [ 0o42/0o100, -0o76/0o100 - sxovo ], [ 0o60/0o100, -0o76/0o100 - sxovo ],
+        [ 0o76/0o100 + sxovo, -0o60/0o100 ], [ 0o76/0o100 + sxovo, -0o42/0o100 ],
+      ], ombraKoloro(bazaKoloro, nivelo === 0o0 ? 0o1 : 0o0), dikeco * 0o3/0o4);
+    }
+    kunteksto.strokeStyle = helo(bazaKoloro, 0o1);
+    kunteksto.lineWidth = dikeco * 0o3/0o4;
+    kunteksto.beginPath();
+    kunteksto.moveTo(radio * 0o60/0o100, -radio * 0o76/0o100);
+    kunteksto.quadraticCurveTo(radio * 0o74/0o100, -radio * 0o74/0o100, radio * 0o76/0o100, -radio * 0o60/0o100);
+    kunteksto.stroke();
+    kunteksto.restore();
   }
-  const teksajxo = new THREE.CanvasTexture(c);
+
+  const teksajxo = new THREE.CanvasTexture(kanvasa);
   teksajxo.colorSpace = THREE.SRGBColorSpace;
   teksajxo.anisotropy = 0o10;
   return teksajxo;

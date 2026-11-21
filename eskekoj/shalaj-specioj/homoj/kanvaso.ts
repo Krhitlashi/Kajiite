@@ -17,12 +17,12 @@ export function sxtofon(k: CanvasRenderingContext2D, bazo: number): void {
   const w = k.canvas.width, h = k.canvas.height;
   // ⟨ ការត្បាញទន់ 📃 ⟩
   const paso = 0o10, fadeno = 0o2;
-  k.globalAlpha = kanakaAlfo(0o1/0o4);
+  k.globalAlpha = kanakaAlfo(0o1/0o20);
   for ( let i = 0; i < w; i += paso ) {
     k.fillStyle = ( i / paso ) % 0o2 ? helo(bazo, 0o1) : ombro(bazo, 0o1);
     k.fillRect(i, 0, fadeno, h);
   }
-  k.globalAlpha = 0o1/0o2;
+  k.globalAlpha = kanakaAlfo(0o1/0o10);
   for ( let i = 0; i < h; i += paso ) {
     k.fillStyle = ( i / paso ) % 0o2 ? ombro(bazo, 0o1) : helo(bazo, 0o1);
     k.fillRect(0, i, w, fadeno);

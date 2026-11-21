@@ -1,6 +1,7 @@
 // ≺⧼ សម្លៀកបំពាក់ 👕 ⧽≻
 
 import { deksesuma, kanakaAlfo } from "../komunajxoj/koloroj.js";
+import { molaStelaVojo } from "../komunajxoj/teksajxoj/helpiloj.js";
 
 // ⟪ សម្លៀកបំពាក់ 📃 ⟫
 export interface Vesto {
@@ -55,15 +56,8 @@ export const HARKOLOROJ: HarKoloro[] = [
 export function kvarStelo(kunteksto: CanvasRenderingContext2D,
   cX: number, cy: number, r: number, koloro: string
 ): void {
-  const s = r * 0o7/0o40;
   kunteksto.fillStyle = koloro;
-  kunteksto.beginPath();
-  kunteksto.moveTo(cX, cy - r);
-  kunteksto.quadraticCurveTo(cX + s, cy - s, cX + r, cy);
-  kunteksto.quadraticCurveTo(cX + s, cy + s, cX, cy + r);
-  kunteksto.quadraticCurveTo(cX - s, cy + s, cX - r, cy);
-  kunteksto.quadraticCurveTo(cX - s, cy - s, cX, cy - r);
-  kunteksto.fill();
+  kunteksto.fill(molaStelaVojo(cX, cy, r, r));
 }
 
 export function rombo(kunteksto: CanvasRenderingContext2D,
