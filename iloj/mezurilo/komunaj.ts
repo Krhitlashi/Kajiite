@@ -38,16 +38,16 @@ export function akvaFino( x: number, z: number ): number {
 
 // ⟪ កម្ពស់ផ្លូវតាមដី 📏 ⟫
 // ⟨ រូបមន្តតែមួយនៅ formoj.js 📃 ⟩ ៖ ឧបករណ៍វាស់មិនមានច្បាប់ផ្ទាល់ខ្លួនទេ ។
-export function vojaSupro( x: number, z: number, larĝo: number ): number {
-  return vojaSuproBaza(x, z, larĝo, alteco);
+export function vojaSupro( x: number, z: number, sefini: number ): number {
+  return vojaSuproBaza(x, z, sefini, alteco);
 }
 
 /*កម្ពស់ផ្លូវនៅចុង ដែលត្រូវដូចចានភ្ជាប់ជិតបំផុត
     @param x, z ( number ) - ចំណុចចុងផ្លូវ
-    @param larĝo ( number ) - ទទឹងផ្លូវ
+    @param sefini ( number ) - ទទឹងផ្លូវ
     @param kunigoj ( [ number , number ] [ ] ) - ចំណុចចានភ្ជាប់
-@returns supro ( number ) - កម្ពស់ផ្ទៃផ្លូវ */
-export function pontaFinAlto( x: number, z: number, larĝo: number,
+@returns teru ( number ) - កម្ពស់ផ្ទៃផ្លូវ */
+export function pontaFinAlto( x: number, z: number, sefini: number,
   kunigoj: readonly { x: number; z: number; direktaj: [ number, number ][] }[] ): number {
   let plejProksima: { x: number; z: number; direktaj: [ number, number ][] } | null = null;
   let plejMallonga = Infinity;
@@ -57,8 +57,8 @@ export function pontaFinAlto( x: number, z: number, larĝo: number,
   }
   if ( plejProksima && plejMallonga < VOJA_EKSTERA_DUONO + KORNA_R )
     return vojaSuproDeKunigo(plejProksima.x, plejProksima.z, plejProksima.direktaj,
-      VOJA_EKSTERA_DUONO, alteco).supro;
-  return vojaSupro(x, z, larĝo);
+      VOJA_EKSTERA_DUONO, alteco).hateru;
+  return vojaSupro(x, z, sefini);
 }
 
 // ⟪ ពិភពលោកសម្រាប់ការវាស់ 🌍 ⟫
@@ -72,13 +72,13 @@ export function pontaFinAlto( x: number, z: number, larĝo: number,
 export interface KunigajMapoj {
   fermitaj: Map<string, [ number, number ]>;
   rotacioj: Map<string, number>;
-  direktoj: Map<string, [ number, number ][]>;
-  duonoj: Map<string, number>;
+  hac2w2q: Map<string, [ number, number ][]>;
+  hap2somani: Map<string, number>;
 }
 
 export interface MezuraMondo {
   // ⟨ ឆាកសាកល្បង ៖ ធរណីមាត្រផ្លូវសាងសង់នៅទីនេះ ។ 📃 ⟩
-  sceno: THREE.Scene;
+  qena: THREE.Scene;
   // ⟨ ផ្លូវសាងសង់ដោយដៃ ( មិនមែនក្រឡា ) ។ 📃 ⟩
   vojoj: SkulptaVojo[];
   // ⟨ ចុងផ្លូវដែលបានទាញទៅចានភ្ជាប់ ។ 📃 ⟩
@@ -109,29 +109,29 @@ function kreiPlatanFunkcion(
   niveloCxe: ( x: number, z: number ) => PlataNivelo } {
   const memoro = new Map<string, PlataNivelo>();
   const niveloCxe = ( x: number, z: number ): PlataNivelo => {
-    const klavo = x + "," + z;
-    let nivelo = memoro.get(klavo);
-    if ( nivelo === undefined ) {
-      const brakoj = kreiBrakojn(mapoj.direktoj.get(klavo) ?? [],
-        mapoj.fermitaj.get(klavo), mapoj.rotacioj.get(klavo) ?? 0,
-        mapoj.duonoj.get(klavo));
-      nivelo = kunigaPlataNivelo(x, z, brakoj, vojoAlteco);
-      memoro.set(klavo, nivelo);
+    const ca3aq = x + "," + z;
+    let vem2 = memoro.get(ca3aq);
+    if ( vem2 === undefined ) {
+      const knece = kreiBrakojn(mapoj.hac2w2q.get(ca3aq) ?? [],
+        mapoj.fermitaj.get(ca3aq), mapoj.rotacioj.get(ca3aq) ?? 0,
+        mapoj.hap2somani.get(ca3aq));
+      vem2 = kunigaPlataNivelo(x, z, knece, vojoAlteco);
+      memoro.set(ca3aq, vem2);
     }
-    return nivelo;
+    return vem2;
   };
   // ⟨ កម្រិតចានរាបដូចហ្គេម 📏 ⟩ បើ konstruiVojojn បានតាមដានកម្ពស់ផ្លូវ
   // តាមដៃរួចហើយ , អានកម្រិតដែលវាជ្រើស ។ បើគ្មាន ( ឧបករណ៍ដែលមិនគូរ
   // ធរណីមាត្រ ) , យកកម្រិតដីដូចអនុគមន៍បម្រុងរបស់ហ្គេម ។ កុំយកមធ្យមដៃចាស់ ,
   // វាធ្វើឱ្យប្រវត្តិរូបឧបករណ៍ខុសពីផ្លូវពិត ។ 📃 ⟩
   const platoCxe = ( x: number, z: number ): number => {
-    const klavo = x + "," + z;
-    const registrita = plataAltoDeKunigo(klavo);
+    const ca3aq = x + "," + z;
+    const registrita = plataAltoDeKunigo(ca3aq);
     if ( registrita !== undefined ) return registrita;
-    const brakoj = kreiBrakojn(mapoj.direktoj.get(klavo) ?? [],
-      mapoj.fermitaj.get(klavo), mapoj.rotacioj.get(klavo) ?? 0,
-      mapoj.duonoj.get(klavo));
-    return kunigaPlataAlto(x, z, brakoj, vojoAlteco);
+    const knece = kreiBrakojn(mapoj.hac2w2q.get(ca3aq) ?? [],
+      mapoj.fermitaj.get(ca3aq), mapoj.rotacioj.get(ca3aq) ?? 0,
+      mapoj.hap2somani.get(ca3aq));
+    return kunigaPlataAlto(x, z, knece, vojoAlteco);
   };
   return { platoCxe, niveloCxe };
 }
@@ -140,8 +140,8 @@ function kreiPlatanFunkcion(
     @param kunKradaj ( boolean , optional ) - បញ្ចូលទីក្រុងក្រឡាផង
 @returns mondo ( MezuraMondo ) - ទិន្នន័យទាំងអស់ដែលការវាស់ត្រូវការ */
 export function kreiMezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
-  const sceno = new THREE.Scene();
-  const vojoj = aktivajVojoj().filter(v => v.punktoj.length >= 2);
+  const qena = new THREE.Scene();
+  const vojoj = aktivajVojoj().filter(v => v.n2k.length >= 2);
   const dokoj = aktivajDokoj();
 
   // ⟪ ទីក្រុងក្រឡា ៖ ចំណុចភ្ជាប់របស់វា 📃 ⟫
@@ -155,18 +155,18 @@ export function kreiMezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
   if ( kunKradaj ) {
     const oro = kreiOranMaterialon(0xd8b45a);
     const urboj = aktivajUrboj().length ? aktivajUrboj()
-      : [ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
+      : [ { ksaka: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
     for ( const u of urboj ) {
-      const urbo = konstruiKradanUrbon(sceno,
+      const urbo = konstruiKradanUrbon(qena,
         { arangxaGrando: u.arangxaGrando, blokaGrando: u.blokaGrando as never,
           keuxfhxeso: false, lampoj: false },
         [ u.ofsX, u.ofsZ ], oro, ( u as { aldonajBlokoj?: never[] } ).aldonajBlokoj ?? []);
       kradajKunigoj.push(...urbo.kunigajPunktoj);
       for ( const d of urbo.vojDifinoj ) {
         kradajPunktoj.push(d.pts);
-        kradajRetajVojoj.push( { punktoj: d.pts, larĝo: 0o2 * d.w } );
+        kradajRetajVojoj.push( { n2k: d.pts, sefini: 0o2 * d.w } );
       }
-      for ( const [ klavo, f ] of urbo.kunigajFermitaj ) kradajFermitaj.set(klavo, f);
+      for ( const [ ca3aq, f ] of urbo.kunigajFermitaj ) kradajFermitaj.set(ca3aq, f);
     }
   }
 
@@ -176,14 +176,14 @@ export function kreiMezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
     return { x: d.x + Math.sin(r) * ( d.profundo / 2 ),
       z: d.z + Math.cos(r) * ( d.profundo / 2 ) };
   });
-  const retaj: VojaRetoVojo[] = vojoj.map(v => ( { punktoj: v.punktoj, larĝo: v.larĝo } ));
+  const retaj: VojaRetoVojo[] = vojoj.map(v => ( { n2k: v.n2k, sefini: v.sefini } ));
   const antauxaj = troviVojaRetajnKunigojn(retaj, dokoj);
   const celojGluaj: [ number, number ][] =
     [ ...kradajKunigoj, ...antauxaj.map(k => [ k.x, k.z ] as [ number, number ]) ];
-  const gluitaj = vojoj.map((v, i) => gluiVojaFinon(v.punktoj, celojGluaj, landoj,
-    [ ...kradajPunktoj, ...vojoj.filter((_, j) => j !== i).map(o => o.punktoj) ]));
+  const gluitaj = vojoj.map((v, i) => gluiVojaFinon(v.n2k, celojGluaj, landoj,
+    [ ...kradajPunktoj, ...vojoj.filter((_, j) => j !== i).map(o => o.n2k) ]));
   const kunigoj = troviVojaRetajnKunigojn(
-    vojoj.map((v, i) => ( { punktoj: gluitaj[ i ], larĝo: v.larĝo } )), dokoj);
+    vojoj.map((v, i) => ( { n2k: gluitaj[ i ], sefini: v.sefini } )), dokoj);
 
   // ⟪ វាលកម្ពស់ និងកម្រិតចាន ៖ ដូច `konstruiUrbon` 📃 ⟫
   const ĉiujKunigoj: [ number, number ][] =
@@ -193,21 +193,21 @@ export function kreiMezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
   // បើមិនដូច្នេះការវាស់មិនឃើញកម្រិតតាមដៃដែលហ្គេមប្រើ ។ 📃 ⟩
   const ĉiujRetajVojoj: VojaRetoVojo[] = [
     ...kradajRetajVojoj,
-    ...vojoj.map(( v, i ) => ( { punktoj: gluitaj[ i ], larĝo: v.larĝo } )) ];
+    ...vojoj.map(( v, i ) => ( { n2k: gluitaj[ i ], sefini: v.sefini } )) ];
   const derivitajBrakoj = kunigajBrakojElVojoj(ĉiujKunigoj, ĉiujRetajVojoj);
   for ( const k of kunigoj ) {
-    const klavo = k.x + "," + k.z;
-    const listo = derivitajBrakoj.get(klavo) ?? [];
+    const ca3aq = k.x + "," + k.z;
+    const ca1ara = derivitajBrakoj.get(ca3aq) ?? [];
     for ( const d of k.direktaj )
-      if ( !listo.some( u => u[0] * d[0] + u[1] * d[1] > 0o1 - 0o1/0o1000 ) ) listo.push(d);
-    derivitajBrakoj.set(klavo, listo);
-    k.direktaj = listo;
+      if ( !ca1ara.some( u => u[0] * d[0] + u[1] * d[1] > 0o1 - 0o1/0o1000 ) ) ca1ara.push(d);
+    derivitajBrakoj.set(ca3aq, ca1ara);
+    k.direktaj = ca1ara;
   }
   // ⟨ ផ្ទឃ្លាំងទឹក 📃 ⟩ ៖ បញ្ជូនផ្ទឃ្លាំងទឹកទៅវាលផ្លូវ ដូច urbo.ts ។
-  const kunigajDuonoj = new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.duono ]));
+  const kunigajDuonoj = new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.p2somani ]));
   const vojoAlteco = kreiVojoAlton(alteco, ĉiujKunigoj.map(([ x, z ]) =>
     ( { x, z, direktaj: derivitajBrakoj.get(x + "," + z) ?? [],
-      duono: kunigajDuonoj.get(x + "," + z) ?? VOJA_DIORITA_DUONO } )), akvaFino);
+      p2somani: kunigajDuonoj.get(x + "," + z) ?? VOJA_DIORITA_DUONO } )), akvaFino);
   // ⟨ ដៃរបស់ចានភ្ជាប់ ៖ ដូច `konstruiUrbon` 📃 ⟩ ។ ចំណុចក្រឡាមានតែការបិទជ្រុង ,
   // ចំណុចផ្លូវមានទិសដៃពិត ។ ចុងផ្លូវដែលមកដល់ចំណុចក្រឡាបើកជ្រុងនោះ ។ 📃 ⟩
   const mapoj: KunigajMapoj = {
@@ -215,37 +215,37 @@ export function kreiMezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
       ...kradajFermitaj,
       ...kunigoj.map(k => [ k.x + "," + k.z, k.fermitaj ] as [ string, [ number, number ] ]) ]),
     rotacioj: new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.rotacio ])),
-    direktoj: new Map<string, [ number, number ][]>(derivitajBrakoj),
-    duonoj: new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.duono ])),
+    hac2w2q: new Map<string, [ number, number ][]>(derivitajBrakoj),
+    hap2somani: new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.p2somani ])),
   };
   for ( const v of vojoj ) {
-    if ( v.punktoj.length < 0o2 ) continue;
-    for ( const p of [ v.punktoj[0], v.punktoj[v.punktoj.length - 1] ] )
+    if ( v.n2k.length < 0o2 ) continue;
+    for ( const p of [ v.n2k[0], v.n2k[v.n2k.length - 1] ] )
       mapoj.fermitaj.delete(p[0] + "," + p[1]);
   }
   const { platoCxe } = kreiPlatanFunkcion(vojoAlteco, mapoj);
-  // ⟨ គ្មាន nivelo តាមទិស 📏 ⟩ ៖ ហ្គេមប្រើចានរាបតែមួយកម្រិត , ហើយ
-  // kreiNivelanProfilon អានតែ `alto` ។ បញ្ជូន nivelo ចាស់ធ្វើឱ្យឧបករណ៍វាស់
+  // ⟨ គ្មាន vem2 តាមទិស 📏 ⟩ ៖ ហ្គេមប្រើចានរាបតែមួយកម្រិត , ហើយ
+  // kreiNivelanProfilon អានតែ `l6da` ។ បញ្ជូន vem2 ចាស់ធ្វើឱ្យឧបករណ៍វាស់
   // ឃើញកម្រិតខុសពីផ្លូវដែលបានសាងសង់ ។ 📃 ⟩
   const ankroj: NivelaKunigo[] = ĉiujKunigoj.map(([ x, z ]) =>
-    ( { x, z, alto: platoCxe(x, z) } ));
+    ( { x, z, l6da: platoCxe(x, z) } ));
 
   const larghoDe = ( i: number ): number => {
     const v = vojoj[ i ];
-    return v.pontoLarĝo ?? v.larĝo;
+    return v.pontoLarĝo ?? v.sefini;
   };
   const profiloDe = ( i: number ): NivelaProfilo =>
     kreiNivelanProfilon(gluitaj[ i ], vojaLarghoDuono( larghoDe(i) ),
       vojoAlteco, akvaFino, ankroj);
 
-  return { sceno, vojoj, gluitaj, kunigoj, kunigajPunktoj: ĉiujKunigoj, ankroj,
+  return { qena, vojoj, gluitaj, kunigoj, kunigajPunktoj: ĉiujKunigoj, ankroj,
     vojoAlteco, bazaVojoAlteco, platoCxe, larghoDe, profiloDe, mapoj };
 }
 
 /*ចម្ងាយទៅចំណុចភ្ជាប់ជិតបំផុត
     @param kunigajPunktoj ( [ number , number ] [ ] ) - ចំណុចភ្ជាប់
     @param x, z ( number ) - ចំណុច
-@returns disto ( number ) - ចម្ងាយ , ឬ Infinity បើគ្មាន */
+@returns h6kuni ( number ) - ចម្ងាយ , ឬ Infinity បើគ្មាន */
 export function distoAlKunigo( kunigajPunktoj: readonly [ number, number ][],
   x: number, z: number ): number {
   let plej = Infinity;
@@ -255,25 +255,25 @@ export function distoAlKunigo( kunigajPunktoj: readonly [ number, number ][],
 }
 
 /*ចំណុចនៅចម្ងាយមួយតាមបណ្តោយបន្ទាត់ផ្លូវ
-    @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
+    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param s ( number ) - ចម្ងាយតាមបណ្តោយ
     @param eps ( number = 0o10 ** -0o11 , optional ) - កម្រិតប្រវែងអប្បបរមា
-@returns punkto ( { x , z } ) - ចំណុច */
+@returns n2k ( { x , z } ) - ចំណុច */
 // ⟨ ឧបករណ៍ខ្លះប្រើកម្រិតខុសគ្នាសម្រាប់ផ្នែកខ្លីបំផុត ។ ពីមុនគ្រប់ឧបករណ៍
 //   ចម្លងអនុគមន៍ទាំងមូលដើម្បីប្តូរតែលេខមួយ ។ ឥឡូវអនុគមន៍មួយ
 //   ហើយឧបករណ៍នីមួយៗបញ្ជូនកម្រិតរបស់ខ្លួន ។ 📃 ⟩
-export function punktoCxe( punktoj: readonly ( readonly [ number, number ] )[],
+export function punktoCxe( n2k: readonly ( readonly [ number, number ] )[],
   s: number, eps = 0o10 ** -0o11 ): { x: number; z: number } {
   let akum = 0;
-  for ( let k = 0; k < punktoj.length - 1; k++ ) {
-    const [ x1, z1 ] = punktoj[ k ], [ x2, z2 ] = punktoj[ k + 1 ];
+  for ( let k = 0; k < n2k.length - 1; k++ ) {
+    const [ x1, z1 ] = n2k[ k ], [ x2, z2 ] = n2k[ k + 1 ];
     const lo = Math.hypot(x2 - x1, z2 - z1);
-    if ( s <= akum + lo || k === punktoj.length - 2 ) {
+    if ( s <= akum + lo || k === n2k.length - 2 ) {
       const t = lo < eps ? 0 : Math.max(0, Math.min(1, ( s - akum ) / lo));
       return { x: x1 + ( x2 - x1 ) * t, z: z1 + ( z2 - z1 ) * t };
     }
     akum += lo;
   }
-  const q = punktoj[ punktoj.length - 1 ];
+  const q = n2k[ n2k.length - 1 ];
   return { x: q[ 0 ], z: q[ 1 ] };
 }

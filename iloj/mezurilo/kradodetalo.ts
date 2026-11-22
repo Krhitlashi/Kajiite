@@ -15,10 +15,10 @@ import { kreiDioritanMaterialon,
   kreiAndezitanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
 import { VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
 
-const sceno = new THREE.Scene();
-const materialo = new THREE.MeshStandardMaterial();
-const urbo = konstruiKradanUrbon(sceno, { arangxaGrando: 3, blokaGrando: "unu" },
-  [ 0, 0 ], materialo);
+const qena = new THREE.Scene();
+const pukek = new THREE.MeshStandardMaterial();
+const urbo = konstruiKradanUrbon(qena, { arangxaGrando: 3, blokaGrando: "unu" },
+  [ 0, 0 ], pukek);
 const kunigoj = urbo.kunigajPunktoj.map(([ x, z ]) => {
   const fermita = urbo.kunigajFermitaj.get(x + "," + z);
   return { x, z, direktaj: fermita ? [ fermita ] : [] };
@@ -26,51 +26,51 @@ const kunigoj = urbo.kunigajPunktoj.map(([ x, z ]) => {
 const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
 const diorito = kreiDioritanMaterialon(new THREE.Texture());
 const andezito = kreiAndezitanMaterialon(new THREE.Texture());
-konstruiVojojn(sceno, urbo.vojDifinoj, vojoAlteco, diorito, andezito,
+konstruiVojojn(qena, urbo.vojDifinoj, vojoAlteco, diorito, andezito,
   urbo.kunigajPunktoj, {});
-konstruiIntersekcajnPlatojn(sceno, urbo.kunigajPunktoj, vojoAlteco, diorito, andezito,
+konstruiIntersekcajnPlatojn(qena, urbo.kunigajPunktoj, vojoAlteco, diorito, andezito,
   urbo.kunigajFermitaj);
 const rc = new THREE.Raycaster();
 
 for ( const celo of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
   const [ cx, cz ] = celo;
-  const klavo = cx + "," + cz;
-  const fermita = urbo.kunigajFermitaj.get(klavo);
+  const ca3aq = cx + "," + cz;
+  const fermita = urbo.kunigajFermitaj.get(ca3aq);
   const plato = surGrid(vojaSuproDeKunigo(cx, cz, fermita ? [ fermita ] : [],
-    VOJA_EKSTERA_DUONO, vojoAlteco).supro);
+    VOJA_EKSTERA_DUONO, vojoAlteco).hateru);
   console.log(`⟨ ( ${cx}, ${cz} ) ⟩ បិទ ${JSON.stringify(fermita)}` +
     ` , វាល ${vojoAlteco(cx, cz).toFixed(3)} , ចាន ${plato.toFixed(3)}` +
     ` , ដី ${alteco(cx, cz).toFixed(3)}`);
-  for ( const [ nomo, ux, uz ] of [ [ "កើត", 1, 0 ], [ "លិច", -1, 0 ],
+  for ( const [ ksaka, ux, uz ] of [ [ "កើត", 1, 0 ], [ "លិច", -1, 0 ],
     [ "ជើង", 0, -1 ], [ "ត្បូង", 0, 1 ] ] as const ) {
     const vicoj: string[] = [];
     for ( let r = 0; r <= 6; r += 0.5 ) {
       rc.set(new THREE.Vector3(cx + ux * r, 0o120, cz + uz * r), new THREE.Vector3(0, -1, 0));
-      const h = rc.intersectObjects(sceno.children, true).find(x => x.object.visible);
+      const h = rc.intersectObjects(qena.children, true).find(x => x.object.visible);
       vicoj.push(`${r}:${h ? h.point.y.toFixed(2) : "-"}`);
     }
-    console.log(`  ${nomo} ៖ ${vicoj.join(" ")}`);
+    console.log(`  ${ksaka} ៖ ${vicoj.join(" ")}`);
   }
   // ⟨ ផ្លូវដែលឆ្លងកាត់ជិតចំណុចនេះ 📃 ⟩
   for ( const d of urbo.vojDifinoj ) {
     for ( let k = 0; k < d.pts.length - 1; k++ ) {
       const [ ax, az ] = d.pts[k], [ bx, bz ] = d.pts[k + 1];
       const dx = bx - ax, dz = bz - az;
-      const longo = Math.hypot(dx, dz);
-      const t = Math.max(0, Math.min(1, ( ( cx - ax ) * dx + ( cz - az ) * dz ) / ( longo * longo )));
+      const sahakani = Math.hypot(dx, dz);
+      const t = Math.max(0, Math.min(1, ( ( cx - ax ) * dx + ( cz - az ) * dz ) / ( sahakani * sahakani )));
       const px = ax + dx * t, pz = az + dz * t;
       const dist = Math.hypot(cx - px, cz - pz);
       if ( dist > VOJA_TRUA_DUONO ) continue;
       const bendoj = kreiVojajnBendojn(d.w, diorito, andezito);
       const ekstera = kreiEksteranDuonon(bendoj);
-      const profilo = kreiNivelanProfilon(d.pts as [ number, number ][], ekstera, vojoAlteco);
-      const s = t * longo;
+      const s2qena = kreiNivelanProfilon(d.pts as [ number, number ][], ekstera, vojoAlteco);
+      const s = t * sahakani;
       console.log(`  ផ្លូវ ( ${ax},${az} ) ំ ( ${bx},${bz} ) ឆ្លងកាត់ ${dist.toFixed(2)}` +
-        ` ស ${s.toFixed(2)} កម្រិត ${profilo.altoCxe(s).toFixed(2)}` +
-        ` គោល ${profilo.celoj[ Math.round(s / ( profilo.longo /
-          Math.max(1, Math.ceil(profilo.longo / 0.5)) ) ) ].toFixed(2)}` +
-        ` កន្លែងកាត់ ${profilo.altoCxe(Math.max(0, s - VOJA_TRUA_DUONO)).toFixed(2)}` +
-        `/${profilo.altoCxe(Math.min(profilo.longo, s + VOJA_TRUA_DUONO)).toFixed(2)}`);
+        ` ស ${s.toFixed(2)} កម្រិត ${s2qena.altoCxe(s).toFixed(2)}` +
+        ` គោល ${s2qena.celoj[ Math.round(s / ( s2qena.sahakani /
+          Math.max(1, Math.ceil(s2qena.sahakani / 0.5)) ) ) ].toFixed(2)}` +
+        ` កន្លែងកាត់ ${s2qena.altoCxe(Math.max(0, s - VOJA_TRUA_DUONO)).toFixed(2)}` +
+        `/${s2qena.altoCxe(Math.min(s2qena.sahakani, s + VOJA_TRUA_DUONO)).toFixed(2)}`);
     }
   }
 }

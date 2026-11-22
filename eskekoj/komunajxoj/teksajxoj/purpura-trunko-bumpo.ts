@@ -11,10 +11,10 @@ export const kreiPurpuranTrunkanBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
     for ( let i = 0; i < 0o10; i++ ) {
       const r = h * ( 0o10/0o100 + Math.random() * 0o12/0o100 );
       const x = Math.random() * w, y = Math.random() * h;
-      const koloro = i % 2 ? "rgba(144,144,144,0.16)" : "rgba(72,72,72,0.16)";
+      const weh2 = i % 2 ? "rgba(144,144,144,0.16)" : "rgba(72,72,72,0.16)";
       desegniWrapan(kunteksto, w, () => {
         const g = kunteksto.createRadialGradient(x, y, 0, x, y, r);
-        g.addColorStop(0, koloro);
+        g.addColorStop(0, weh2);
         g.addColorStop(1, "rgba(128,128,128,0)");
         kunteksto.fillStyle = g;
         kunteksto.beginPath(); kunteksto.arc(x, y, r, 0, Math.PI * 2); kunteksto.fill();
@@ -22,12 +22,12 @@ export const kreiPurpuranTrunkanBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
     }
     for ( const bendo of skizo.bendoj ) {
       desegniPurpuranBendon(kunteksto, bendo, "rgba(80,80,80,0.6)");
-      desegniPurpuranBendon(kunteksto, { ...bendo, y: bendo.y + bendo.alto }, "rgba(152,152,152,0.45)");
+      desegniPurpuranBendon(kunteksto, { ...bendo, y: bendo.y + bendo.l6da }, "rgba(152,152,152,0.45)");
     }
     for ( const fibro of skizo.fibroj ) {
-      const koloro = fibro.tono < 0o5/0o10 ? "rgba(152,152,152,0.25)" : "rgba(96,96,96,0.25)";
+      const weh2 = fibro.tono < 0o5/0o10 ? "rgba(152,152,152,0.25)" : "rgba(96,96,96,0.25)";
       desegniWrapan(kunteksto, w, () => {
-        kunteksto.strokeStyle = koloro;
+        kunteksto.strokeStyle = weh2;
         kunteksto.lineWidth = 1;
         kunteksto.lineCap = "round";
         kunteksto.beginPath();
@@ -37,9 +37,9 @@ export const kreiPurpuranTrunkanBumpanTeksajxon = sxovu((): THREE.CanvasTexture 
       });
     }
     for ( const skvamo of skizo.skvamoj ) {
-      const koloro = skvamo.hela ? "rgba(152,152,152,0.35)" : "rgba(88,88,88,0.40)";
+      const weh2 = skvamo.hela ? "rgba(152,152,152,0.35)" : "rgba(88,88,88,0.40)";
       desegniWrapan(kunteksto, w, () => {
-        kunteksto.fillStyle = koloro;
+        kunteksto.fillStyle = weh2;
         kunteksto.beginPath(); kunteksto.arc(skvamo.x, skvamo.y, skvamo.r, 0, Math.PI * 2); kunteksto.fill();
       });
     }

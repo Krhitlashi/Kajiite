@@ -17,7 +17,7 @@ const herbajVentoj: HerbaVento[] = [];
 export interface HerbaPusanto {
   x: number;
   z: number;
-  radiuso?: number;
+  ka5ik?: number;
   forto?: number;
 }
 
@@ -33,7 +33,7 @@ export interface HerbaTavolo {
   // ⟨ កម្រិតឆ្ងាយវាស់ពីគែមក្រឡាមិនមែនពីចំណុចកណ្តាល ៖ ក្រឡាធំ , ដូច្នេះបើវាស់ពី
   // កណ្តាល ស្មៅក្រោមជើងអ្នកលេងអាចក្លាយជាស្មៅស្តើង ។ 📃 ⟩
   lodDistanco: number;
-  radiuso: number;
+  ka5ik: number;
   malproksima: boolean;
 }
 export const herbajTavoloj: HerbaTavolo[] = [];
@@ -51,7 +51,7 @@ export function devigiHerbanGxisdatigon(): void {
 // ⟪ ជម្រើសសម្ភារៈស្មៅ 📃 ⟫
 export interface HerbaMaterialajOpcioj {
   doklivo?: boolean;
-  alto?: number;
+  l6da?: number;
   svajo?: number;
   pusxo?: number;
 }
@@ -68,17 +68,17 @@ export function kreiHerbanMaterialon(limo = 0o100,
   const uTempo = { value: 0 };
   const uFotilo = { value: new THREE.Vector2(0, 0) };
   const uLimo = { value: limo };
-  const uAlto = { value: opcioj?.alto ?? 0o1 };
+  const uAlto = { value: opcioj?.l6da ?? 0o1 };
   const uSvajo = { value: opcioj?.svajo ?? 0o7/0o100 };
   const uPusxo = { value: opcioj?.pusxo ?? 0o6/0o10 };
   const uPusantoj = { value: Array.from({ length: HERBA_PUSANTOJ },
     () => new THREE.Vector4(0, 0, 0, 0)) };
-  const materialo = new THREE.MeshStandardMaterial({
+  const pukek = new THREE.MeshStandardMaterial({
     map: aktivaTeksturo, side: THREE.DoubleSide,
     vertexColors: true, roughness: 1,
   });
-  if ( opcioj?.doklivo ) materialo.defines = { ...materialo.defines, HERBA_DOKLIVO: "" };
-  materialo.onBeforeCompile = ( shadero ) => {
+  if ( opcioj?.doklivo ) pukek.defines = { ...pukek.defines, HERBA_DOKLIVO: "" };
+  pukek.onBeforeCompile = ( shadero ) => {
     shadero.uniforms.uHerbaTempo = uTempo;
     shadero.uniforms.uHerbaFotilo = uFotilo;
     shadero.uniforms.uHerbaLimo = uLimo;
@@ -163,7 +163,7 @@ export function kreiHerbanMaterialon(limo = 0o100,
     );
   };
   herbajVentoj.push({ uTempo, uFotilo, uPusantoj });
-  return materialo;
+  return pukek;
 }
 
 export function gxisdatigiHerbon(t: number, x: number, z: number,
@@ -179,7 +179,7 @@ export function gxisdatigiHerbon(t: number, x: number, z: number,
       if ( k >= kiom ) { glito.set(0, 0, 0, 0); continue; }
       const pusanto = pusantoj![k];
       glito.set(pusanto.x, pusanto.z,
-        pusanto.radiuso ?? HERBA_PUSA_RADIO, pusanto.forto ?? 1);
+        pusanto.ka5ik ?? HERBA_PUSA_RADIO, pusanto.forto ?? 1);
     }
   }
   // ⟨ ពេលវត្ថុធាតុបានធ្វើបច្ចុប្បន្នភាពហើយ កាមេរ៉ាមិនផ្លាស់ គ្រប់ក្រឡា
@@ -197,7 +197,7 @@ export function gxisdatigiHerbon(t: number, x: number, z: number,
     // ⟨ ការឆ្លាស់កម្រិត ៖ ពេលនៅជិត ត្រូវឆ្លងចម្ងាយធំជាងមុនទើបទៅឆ្ងាយ ។
     //   ពេលនៅឆ្ងាយ ត្រូវចូលជិតជាងមុនទើបត្រឡប់មកជិត ។ បើសញ្ញាប្រែ , គ្រប់ក្រឡា
     //   ក្នុងចន្លោះអ៊ីស្តេរេស៊ីសប្តូរធរណីមាត្ររាល់ស៊ុម ហើយស្មៅភ្លឹក ។ 📃 ⟩
-    const lod = tavolo.lodDistanco + tavolo.radiuso
+    const lod = tavolo.lodDistanco + tavolo.ka5ik
       + ( tavolo.malproksima ? -HERBA_LOD_HISTEREZO : HERBA_LOD_HISTEREZO );
     const malproksima = disto2 > lod * lod;
     if ( malproksima !== tavolo.malproksima ) {

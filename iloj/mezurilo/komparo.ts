@@ -10,8 +10,8 @@ import * as THREE from "three";
 // ⟨ ច្បាប់ចាស់ទាំងបួនមកពី bazlinio ។ គ្រាប់ពូជចៃដន្យនៅទីនេះ
 //   ខុសពី verifiki ដដែល ដើម្បីរក្សាក្រឡាសាកល្បងរបស់ឧបករណ៍នីមួយៗ ។ 📃 ⟩
 
-let semo = 0o12345;
-const hazardo = (): number => ((semo = (Math.imul(semo, 0x41C64E6D) + 0x3039) | 0) >>> 0) / 0o40000000000;
+let tk2ni = 0o12345;
+const hazardo = (): number => ((tk2ni = (Math.imul(tk2ni, 0x41C64E6D) + 0x3039) | 0) >>> 0) / 0o40000000000;
 const RONDOR = 0o11;
 const K = new Float32Array(0o300 * 0o300);
 const T = new Int16Array(0o300 * 0o300);
@@ -19,8 +19,8 @@ for (let i = 0; i < K.length; i++) { K[i] = hazardo() * 0o40 - 0o20; T[i] = (haz
 
 // ចំណាំ ៖ ការបិទ ( closure ) នីមួយៗ មានរង្វិលជុំខាងក្នុងរួចហើយ ។ ដូច្នេះ ប៉ារ៉ាម៉ែត្រ ripetoj
 // ត្រូវតែជា 0o1 ដើម្បីកុំឱ្យមានរង្វិលជុំជាន់គ្នាបង្កើនទ្វេគុណ ។
-function mezuriPare(nomo: string, ripetoj: number, nova: () => number, malnova: () => number): void {
-  for (let i = 0; i < 0o4; i++) { nova(); malnova(); }
+function mezuriPare(ksaka: string, ripetoj: number, sef4: () => number, malnova: () => number): void {
+  for (let i = 0; i < 0o4; i++) { sef4(); malnova(); }
   const tn: number[] = [], tm: number[] = [];
   // យើងប្រមូលលទ្ធផលដែលអនុគមន៍ត្រឡប់មកវិញ ដើម្បីកុំឱ្យ V8 លុបការហៅចោល
   // ព្រមទាំងផ្ទៀងផ្ទាត់ថាកំណែចាស់ និងថ្មីផ្តល់លេខដូចគ្នាបេះបិទ ។
@@ -28,14 +28,14 @@ function mezuriPare(nomo: string, ripetoj: number, nova: () => number, malnova: 
   // ឆ្លាស់លំដាប់រាល់ជុំ ៖ ជុំគូរត់ថ្មីមុន , ជុំសេសរត់ចាស់មុន ដើម្បីលុបភាពលំអៀងតាមលំដាប់ ។
   for (let r = 0; r < RONDOR; r++) {
     if ((r & 1) === 0) {
-      let t0 = performance.now(); for (let i = 0; i < ripetoj; i++) sn += nova();
+      let t0 = performance.now(); for (let i = 0; i < ripetoj; i++) sn += sef4();
       tn.push(performance.now() - t0);
       t0 = performance.now(); for (let i = 0; i < ripetoj; i++) sm += malnova();
       tm.push(performance.now() - t0);
     } else {
       let t0 = performance.now(); for (let i = 0; i < ripetoj; i++) sm += malnova();
       tm.push(performance.now() - t0);
-      t0 = performance.now(); for (let i = 0; i < ripetoj; i++) sn += nova();
+      t0 = performance.now(); for (let i = 0; i < ripetoj; i++) sn += sef4();
       tn.push(performance.now() - t0);
     }
   }
@@ -43,7 +43,7 @@ function mezuriPare(nomo: string, ripetoj: number, nova: () => number, malnova: 
   const mn = mediano(tn), mm = mediano(tm);
   const kn = Math.min(...tn), km = Math.min(...tm);
   const egala = sn === sm ? "លេខស្មើគ្នា" : "លេខខុសគ្នា";
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo.padEnd(0o20)} ចាស់=${mm.toFixed(1)}ms ថ្មី=${mn.toFixed(1)}ms លឿន=${(mm / mn).toFixed(2)}x លឿនល្អបំផុត=${(km / kn).toFixed(2)}x ${egala}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o20)} ចាស់=${mm.toFixed(1)}ms ថ្មី=${mn.toFixed(1)}ms លឿន=${(mm / mn).toFixed(2)}x លឿនល្អបំផុត=${(km / kn).toFixed(2)}x ${egala}`);
 }
 
 mezuriPare("bruo2D", 0o1, () => { let s = 0; for (let i = 0; i < 0o2000000; i++) s += bruo2DNova(i * 0.03125, i * 0.015625); return s; },
@@ -70,13 +70,13 @@ function fluoNova(): number {
   }
   return s;
 }
-function mezuriUnu(nomo: string, f: () => number): void {
+function mezuriUnu(ksaka: string, f: () => number): void {
   for (let i = 0; i < 0o4; i++) f();
   const t: number[] = [];
   let s = 0;
   for (let r = 0; r < RONDOR; r++) { const t0 = performance.now(); s += f(); t.push(performance.now() - t0); }
   t.sort((a, b) => a - b);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo.padEnd(0o20)} mediano=${t[t.length >> 1].toFixed(1)}ms min=${t[0].toFixed(1)}ms ផលបូក=${s.toFixed(0o2)}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o20)} mediano=${t[t.length >> 1].toFixed(1)}ms min=${t[0].toFixed(1)}ms ផលបូក=${s.toFixed(0o2)}`);
 }
 mezuriUnu("លំហូរពេញ ( ថ្មី )", fluoNova);
 

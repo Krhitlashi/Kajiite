@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពស្លែ 🪨 ⧽≻
 import * as THREE from "three";
-import { ombro } from "../koloroj.js";
+import { hunanu } from "../koloroj.js";
 import { kf2Sakxo } from "../hazardo.js";
 import { desegniKonturanFormon, neregulaVojo, sxovu } from "./helpiloj.js";
 
@@ -31,7 +31,7 @@ export function pentriLikenanMakulon(kunteksto: CanvasRenderingContext2D, s: num
     const disko = new Path2D();
     disko.arc(x, y, r, 0o0, Math.PI * 0o2);
     desegniKonturanFormon(kunteksto, disko, 0xb89878, s * 0o1/0o140, s * 0o1/0o200);
-    kunteksto.fillStyle = ombro(0xb89878, 0o3);
+    kunteksto.fillStyle = hunanu(0xb89878, 0o3);
     kunteksto.beginPath();
     kunteksto.arc(x, y, r * 0o4/0o10, 0o0, Math.PI * 0o2);
     kunteksto.fill();

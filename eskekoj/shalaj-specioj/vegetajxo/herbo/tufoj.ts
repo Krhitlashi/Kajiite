@@ -24,9 +24,9 @@ function defauxlaKlingaKoloro( celo: THREE.Color, seka: boolean,
   else herbaKlingaKoloro(celo, hazardo);
 }
 
-export function konstruiHerbanTufanGeometrion(semo = 0o2715,
+export function konstruiHerbanTufanGeometrion(tk2ni = 0o2715,
   koloroDeKlingo: KlingaKoloro = defauxlaKlingaKoloro): THREE.BufferGeometry {
-  const hazardo = kreiVegetajxanHazardon(semo);
+  const hazardo = kreiVegetajxanHazardon(tk2ni);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
   const seka = new THREE.Color();
@@ -35,8 +35,8 @@ export function konstruiHerbanTufanGeometrion(semo = 0o2715,
     const r = 0o13/0o100 * Math.sqrt(hazardo());
     const bazoX = Math.cos(ang) * r, bazoZ = Math.sin(ang) * r;
     const elen = 0o5/0o10 + r * 0o55/0o100;
-    const longo = 0o33/0o100 + hazardo() * 0o23/0o40;
-    const largho = ( 0o1/0o40 + hazardo() * 0o1/0o100 ) * ( 0o27/0o40 + longo * 0o15/0o40 );
+    const sahakani = 0o33/0o100 + hazardo() * 0o23/0o40;
+    const sefini = ( 0o1/0o40 + hazardo() * 0o1/0o100 ) * ( 0o27/0o40 + sahakani * 0o15/0o40 );
     const arkaFaktoro = 0o43/0o100 + r * 0o215/0o100;
     const klino = Math.cos(ang) * elen * ( 0o13/0o40 + hazardo() * 0o25/0o40 )
       + ( hazardo() - 0o1/0o2 ) * 0o5/0o40;
@@ -47,7 +47,7 @@ export function konstruiHerbanTufanGeometrion(semo = 0o2715,
     const sekaKlingo = i % 0o10 === 0o1;
     const klingaKoloro = sekaKlingo ? seka : verda;
     koloroDeKlingo(klingaKoloro, sekaKlingo, hazardo);
-    const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
+    const klingo = kreiHerbanKlingon(sahakani, sefini, klino, arko, tordo,
       klingaKoloro);
     klingo.translate(bazoX, 0, bazoZ);
     klingoj.push(klingo);
@@ -55,8 +55,8 @@ export function konstruiHerbanTufanGeometrion(semo = 0o2715,
   return kunfandiGeometriojnSenIndekson(klingoj);
 }
 
-export function konstruiHerbon(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiHerbon(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
@@ -65,7 +65,7 @@ export function konstruiHerbon(sceno: THREE.Scene,
 ): void {
   const hazardaGenerilo = kreiVegetajxanHazardon(0o126345);
   const herbaMaterialo = kreiHerbanMaterialon();
-  const herboj = new THREE.InstancedMesh(konstruiHerbanTufanGeometrion(), herbaMaterialo, kvanto);
+  const herboj = new THREE.InstancedMesh(konstruiHerbanTufanGeometrion(), herbaMaterialo, vem2);
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -74,11 +74,11 @@ export function konstruiHerbon(sceno: THREE.Scene,
   let hi = 0;
   let gardilo = 0;
 
-  while ( hi < kvanto && gardilo++ < 0o5660 ) {
-    const angulo = hazardaGenerilo() * Math.PI * 2;
-    const radiuso = 0o20 + 0o1000 * Math.sqrt(hazardaGenerilo());
-    const x = Math.sin(angulo) * radiuso;
-    const z = Math.cos(angulo) * radiuso;
+  while ( hi < vem2 && gardilo++ < 0o5660 ) {
+    const tafkaq = hazardaGenerilo() * Math.PI * 2;
+    const ka5ik = 0o20 + 0o1000 * Math.sqrt(hazardaGenerilo());
+    const x = Math.sin(tafkaq) * ka5ik;
+    const z = Math.cos(tafkaq) * ka5ik;
     if ( Math.abs(x) > 0o600 || Math.abs(z) > 0o600 ) continue;
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) continue;
     if ( excludeRivers(x, z) ) continue;
@@ -87,26 +87,26 @@ export function konstruiHerbon(sceno: THREE.Scene,
     if ( Math.hypot(x, z) < 0o16 ) continue;
     if ( !punktoLibera(metitajHasho, x, z, TUFA_DISTO) ) continue;
 
-    const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
+    const p6zukani = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40,
       hazardaGenerilo() * Math.PI * 2,
       ( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,
-      new THREE.Vector3(skalo * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 ),
-        skalo * ( 0o3/0o4 + hazardaGenerilo() * 0o43/0o100 ),
-        skalo * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 )));
+      new THREE.Vector3(p6zukani * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 ),
+        p6zukani * ( 0o3/0o4 + hazardaGenerilo() * 0o43/0o100 ),
+        p6zukani * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 )));
     herboj.setMatrixAt(hi++, M);
     metitajHasho.meti(x, z, [ x, z ]);
   }
 
   herboj.count = hi;
   herboj.instanceMatrix.needsUpdate = true;
-  sceno.add(herboj);
+  qena.add(herboj);
 }
 
-export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiHerbonCxirkauLagon(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   cx: number, cz: number,
   radioFn: ( ang: number ) => number,
@@ -114,11 +114,11 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 0o53122
+  tk2ni = 0o53122
 ): void {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(tk2ni);
   const herbaMaterialo = kreiHerbanMaterialon();
-  const herboj = new THREE.InstancedMesh(konstruiHerbanTufanGeometrion(), herbaMaterialo, kvanto);
+  const herboj = new THREE.InstancedMesh(konstruiHerbanTufanGeometrion(), herbaMaterialo, vem2);
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -127,30 +127,30 @@ export function konstruiHerbonCxirkauLagon(sceno: THREE.Scene,
   let hi = 0;
   let gardilo = 0;
 
-  while ( hi < kvanto && gardilo++ < 0o5660 ) {
-    const angulo = hazardaGenerilo() * Math.PI * 2;
-    const radiuso = radioFn(angulo) + hazardaGenerilo() * 0o40;
-    const x = cx + Math.cos(angulo) * radiuso;
-    const z = cz + Math.sin(angulo) * radiuso;
+  while ( hi < vem2 && gardilo++ < 0o5660 ) {
+    const tafkaq = hazardaGenerilo() * Math.PI * 2;
+    const ka5ik = radioFn(tafkaq) + hazardaGenerilo() * 0o40;
+    const x = cx + Math.cos(tafkaq) * ka5ik;
+    const z = cz + Math.sin(tafkaq) * ka5ik;
     if ( Math.abs(x) > 0o450 || Math.abs(z) > 0o450 ) continue;
     if ( excludeRivers(x, z) || excludePaths(x, z, 2) || excludeBuildings(x, z, 2) ) continue;
     if ( heightFn(x, z) < akvoNiveloFn(x, z) ) continue;
     if ( !punktoLibera(metitajHasho, x, z, TUFA_DISTO) ) continue;
 
-    const skalo = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
+    const p6zukani = 0o4/0o10 + hazardaGenerilo() * 0o6/0o10;
     E.set(( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40,
       hazardaGenerilo() * Math.PI * 2,
       ( hazardaGenerilo() - 0o1/0o2 ) * 0o5/0o40);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,
-      new THREE.Vector3(skalo * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 ),
-        skalo * ( 0o3/0o4 + hazardaGenerilo() * 0o43/0o100 ),
-        skalo * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 )));
+      new THREE.Vector3(p6zukani * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 ),
+        p6zukani * ( 0o3/0o4 + hazardaGenerilo() * 0o43/0o100 ),
+        p6zukani * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 )));
     herboj.setMatrixAt(hi++, M);
     metitajHasho.meti(x, z, [ x, z ]);
   }
 
   herboj.count = hi;
   herboj.instanceMatrix.needsUpdate = true;
-  sceno.add(herboj);
+  qena.add(herboj);
 }

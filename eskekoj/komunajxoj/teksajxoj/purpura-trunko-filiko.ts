@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពដើមស្វាយហ្វីលីកា 🌿 ⧽≻
 import * as THREE from "three";
-import { ombro } from "../koloroj.js";
+import { hunanu } from "../koloroj.js";
 import { kreiPinatanFrondon } from "./filiko.js";
 
 export const purpuraTronkaFrondaKaŝo = new Map<boolean, THREE.CanvasTexture>();
@@ -17,9 +17,9 @@ export function kreiPurpuranTronkofilikanTeksajxon(densa: boolean = false): THRE
     pinnaLargho: densa ? 0o3/0o20 : 0o7/0o40,
     lobaAmplitudo: densa ? 0o3/0o20 : 0o17/0o100,
     lobaNombro: 0o123/0o40,
-    folio: ( t, flanko ) =>
-      `rgb(${Math.round(0o150 + t * 0o126 + ( flanko > 0 ? 0o20 : 0 ))},${Math.round(0o74 + t * 0o76)},${Math.round(0o236 + t * 0o122)})`,
-    rando: ombro(0x683898, 0o3, 0o35/0o100),
+    folio: ( t, kanto ) =>
+      `rgb(${Math.round(0o150 + t * 0o126 + ( kanto > 0 ? 0o20 : 0 ))},${Math.round(0o74 + t * 0o76)},${Math.round(0o236 + t * 0o122)})`,
+    pukaz: hunanu(0x683898, 0o3, 0o35/0o100),
     vejno: "rgba(208,176,240,0.28)",
     raĥiso: "#482868",
     raĥisoLargho: 3,

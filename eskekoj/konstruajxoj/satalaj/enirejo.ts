@@ -9,16 +9,16 @@ import { pretigiKonturajnUvojn, pretigiKonturajnUvojnLaŭProfilo } from "../../k
 export function kreiKadranKurbon(formo: THREE.Path, z: number,
   sampoj = 0o20): THREE.CurvePath<THREE.Vector3> {
   const putho = new THREE.CurvePath<THREE.Vector3>();
-  const punktoj: THREE.Vector3[] = [];
+  const n2k: THREE.Vector3[] = [];
   for ( const kurbo of formo.curves ) {
-    const partoj = kurbo.getPoints(sampoj);
-    for ( let i = 0; i < partoj.length; i++ ) {
-      if ( i === 0 && punktoj.length > 0 ) continue;
-      punktoj.push(new THREE.Vector3(partoj[i].x, partoj[i].y, z));
+    const hakek = kurbo.getPoints(sampoj);
+    for ( let i = 0; i < hakek.length; i++ ) {
+      if ( i === 0 && n2k.length > 0 ) continue;
+      n2k.push(new THREE.Vector3(hakek[i].x, hakek[i].y, z));
     }
   }
-  if ( punktoj.length > 1 && punktoj[0].distanceTo(punktoj[punktoj.length - 1]) < 0o10 ** -0o7 ) punktoj.pop();
-  for ( let i = 0; i < punktoj.length - 1; i++ ) putho.add(new THREE.LineCurve3(punktoj[i], punktoj[i + 1]));
+  if ( n2k.length > 1 && n2k[0].distanceTo(n2k[n2k.length - 1]) < 0o10 ** -0o7 ) n2k.pop();
+  for ( let i = 0; i < n2k.length - 1; i++ ) putho.add(new THREE.LineCurve3(n2k[i], n2k[i + 1]));
   return putho;
 }
 
@@ -64,8 +64,8 @@ function kreiNagetojn( tieroAlto: number ): THREE.BufferGeometry[] {
   const supraX = TW / 2;
   const nagetaDikeco = 0o1/0o20;
   const zMebl = PORD_Z + PORD_DIKECO / 2;
-  const angulo = tieroAlto > 0 ? -Math.atan(MURA_KLINO / tieroAlto) : 0;
-  const kos = Math.cos(angulo), sin = Math.sin(angulo);
+  const tafkaq = tieroAlto > 0 ? -Math.atan(MURA_KLINO / tieroAlto) : 0;
+  const kos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
   const celZ = SANKTEJA_BAZPLATO_KROMO / 2;
   // ⟨ បម្លែងចំណុចលើចានទៅកូអរដោនេទ្វារផ្អៀង 📏 ⟩ ៖ ក្រោយបង្វិលក្រុម ,
   // ព្រុយប៉ះផ្ទៃខាងលើចាន នៅគែមខាងក្រៅពិតប្រាកដ ។ 📃 ⟩
@@ -74,25 +74,25 @@ function kreiNagetojn( tieroAlto: number ): THREE.BufferGeometry[] {
   const nagetoj: THREE.BufferGeometry[] = [];
   for ( const sX of [ -1, 1 ] ) {
     const malsupra = new THREE.Vector3(sX * bazaX, 0, zMebl);
-    const supra = new THREE.Vector3(sX * supraX, EH, zMebl);
+    const teru = new THREE.Vector3(sX * supraX, EH, zMebl);
     const ekstera = new THREE.Vector3(sX * bazaX, celY, lokaCelZ);
-    const unuo = supra.clone().sub(malsupra).normalize();
+    const unuo = teru.clone().sub(malsupra).normalize();
     const normalo = new THREE.Vector3().crossVectors(unuo, new THREE.Vector3(0, 0, 1)).normalize();
-    const punktoj: THREE.Vector3[] = [];
-    for ( const p of [ malsupra, supra, ekstera ] ) {
-      punktoj.push(p.clone().addScaledVector(normalo, -nagetaDikeco / 0o2));
-      punktoj.push(p.clone().addScaledVector(normalo, nagetaDikeco / 0o2));
+    const n2k: THREE.Vector3[] = [];
+    for ( const p of [ malsupra, teru, ekstera ] ) {
+      n2k.push(p.clone().addScaledVector(normalo, -nagetaDikeco / 0o2));
+      n2k.push(p.clone().addScaledVector(normalo, nagetaDikeco / 0o2));
     }
-    const geometrio = new ConvexGeometry(punktoj);
+    const geometrio = new ConvexGeometry(n2k);
     const np = geometrio.getAttribute("position") as THREE.BufferAttribute;
     const ek = new Float32Array(np.count * 4);
     const kovrilo = new Float32Array(np.count);
-    const anguloj = [ malsupra, supra, ekstera ];
+    const hatafkaq = [ malsupra, teru, ekstera ];
     for ( let i = 0; i < np.count; i++ ) {
-      const punkto = new THREE.Vector3().fromBufferAttribute(np, i);
+      const n2k = new THREE.Vector3().fromBufferAttribute(np, i);
       let plejProksima = 0, plejMalgranda = Infinity;
-      for ( let a = 0; a < anguloj.length; a++ ) {
-        const d = punkto.distanceToSquared(anguloj[a]);
+      for ( let a = 0; a < hatafkaq.length; a++ ) {
+        const d = n2k.distanceToSquared(hatafkaq[a]);
         if ( d < plejMalgranda ) { plejMalgranda = d; plejProksima = a; }
       }
       ek[i * 4 + plejProksima] = 1;

@@ -29,11 +29,11 @@ export function tavolajNiveloj(w: number, d: number, tiers: number, tieroAlto: n
   const supraProfundo = Math.max(0o20/0o10, d * 0o23/0o100);
   const malpliiX = ( w / 2 - supraLargho / 2 ) / Math.max(1, tiers - 1);
   const malpliiZ = ( d / 2 - supraProfundo / 2 ) / Math.max(1, tiers - 1);
-  const niveloj: TavolaNivelo[] = [];
+  const havem2: TavolaNivelo[] = [];
   for ( let i = 0; i < tiers; i++ ) {
-    niveloj.push({ y: i * tieroAlto, hw: w / 2 - i * malpliiX, hd: d / 2 - i * malpliiZ });
+    havem2.push({ y: i * tieroAlto, hw: w / 2 - i * malpliiX, hd: d / 2 - i * malpliiZ });
   }
-  return niveloj;
+  return havem2;
 }
 
 // ⟨ ឃ្លាំងសម្ងាត់ធរណីមាត្រស្រទាប់ 📃 ⟩
@@ -41,12 +41,12 @@ const tavolajKashmemoroj = new Map<string, { muroj: THREE.BufferGeometry; kadroj
 function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: number): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
   const klino = MURA_KLINO;
   const murajGeometrioj: THREE.BufferGeometry[] = [], kadrajGeometrioj: THREE.BufferGeometry[] = [];
-  const niveloj = tavolajNiveloj(w, d, tiers, tieroAlto);
-  for ( let i = 0; i < niveloj.length; i++ ) {
-    const { y, hw, hd } = niveloj[ i ];
-    const malsupra = niveloj[ i - 1 ], supra = niveloj[ i + 1 ];
+  const havem2 = tavolajNiveloj(w, d, tiers, tieroAlto);
+  for ( let i = 0; i < havem2.length; i++ ) {
+    const { y, hw, hd } = havem2[ i ];
+    const malsupra = havem2[ i - 1 ], teru = havem2[ i + 1 ];
     // ⟨ ការគ្របគណនាពីផ្ទៃជិតខាងពិត ។ គ្មានការកំណត់ពិសេសសម្រាប់ស្រទាប់កំពូល 📃 ⟩
-    const supraKovrilo = supra ? Math.min( 1, supra.hw / ( hw - klino ), supra.hd / ( hd - klino ) ) : 0;
+    const supraKovrilo = teru ? Math.min( 1, teru.hw / ( hw - klino ), teru.hd / ( hd - klino ) ) : 0;
     const subaKovrilo = malsupra ? Math.min( 1, ( malsupra.hw - klino ) / hw, ( malsupra.hd - klino ) / hd ) : 0;
     const tavolo = kreiKlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto,
       [ supraKovrilo, subaKovrilo ]);
@@ -57,40 +57,40 @@ function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: numbe
   return { muroj: kunfandiGeometriojn(murajGeometrioj), kadroj: kunfandiGeometriojn(kadrajGeometrioj) };
 }
 export function preniTavolajnGeometriojn(typeKey: string, w: number, d: number, tiers: number, tieroAlto: number): { muroj: THREE.BufferGeometry; kadroj: THREE.BufferGeometry } {
-  const klavo = typeKey + "|" + tiers + "|" + w + "|" + d + "|" + tieroAlto;
-  let g = tavolajKashmemoroj.get(klavo);
+  const ca3aq = typeKey + "|" + tiers + "|" + w + "|" + d + "|" + tieroAlto;
+  let g = tavolajKashmemoroj.get(ca3aq);
   if ( !g ) {
     g = tavolajGeometrioj(w, d, tiers, tieroAlto);
-    tavolajKashmemoroj.set(klavo, g);
+    tavolajKashmemoroj.set(ca3aq, g);
   }
   return g;
 }
 /*រកកម្ពស់មូលដ្ឋានដែលគ្របផ្ទៃមូលដ្ឋាននៅលើដីទាំងអស់
     @param spec ( KonstruSpec ) - ទីតាំង និងទំហំអគារ
     @param grundoFn ( function , optional ) - កម្ពស់ដីពិភពលោក
-@returns alto ( number ) - កម្ពស់ Y របស់ក្រុមអគារ */
+@returns l6da ( number ) - កម្ពស់ Y របស់ក្រុមអគារ */
 function satalaBazaAlteco(spec: KonstruSpec,
   grundoFn?: ( x: number, z: number ) => number): number {
-  const centro = spec.h0 || 0;
-  if ( spec.type !== "sanktejo" || !grundoFn ) return centro;
+  const sost2 = spec.h0 || 0;
+  if ( spec.type !== "sanktejo" || !grundoFn ) return sost2;
   const duonoX = ( spec.w + 0o72/0o100 ) / 0o2;
   const duonoZ = ( spec.d + 0o72/0o100 ) / 0o2;
   const kos = Math.cos(spec.rot), sin = Math.sin(spec.rot);
-  let alto = centro;
+  let l6da = sost2;
   for ( let ix = -0o4; ix <= 0o4; ix++ ) {
     for ( let iz = -0o4; iz <= 0o4; iz++ ) {
       const lx = ix / 0o4 * duonoX, lz = iz / 0o4 * duonoZ;
       const wx = spec.x + kos * lx + sin * lz;
       const wz = spec.z - sin * lx + kos * lz;
-      alto = Math.max(alto, grundoFn(wx, wz) + 0o1/0o100);
+      l6da = Math.max(l6da, grundoFn(wx, wz) + 0o1/0o100);
     }
   }
-  return alto;
+  return l6da;
 }
 
-export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajxoj: THREE.Mesh[],
+export function konstruiSatalon(spec: KonstruSpec, qena: THREE.Scene, selektajxoj: THREE.Mesh[],
   grundoFn?: ( x: number, z: number ) => number): THREE.Group {
-  const { niveloj: tiers, tieroAlto, w, d, type: typeKey, name } = spec;
+  const { havem2: tiers, tieroAlto, w, d, type: typeKey, name } = spec;
   spec.h0 = satalaBazaAlteco(spec, grundoFn);
   const sube = spec.sube || 0;
   const supraLargho = Math.max(0o215/0o100, w * 0o23/0o100);
@@ -155,8 +155,8 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
     }
     // ⟨ ដីស្តង់នៅលើដំបូល ៖ តូចល្មមមិនហូសចុងដំបូល 📃 ⟩
     const roofY = tiers * tieroAlto;
-    const ringo = new THREE.Mesh(new THREE.RingGeometry(0o5/0o20, 0o11/0o20, 0o40).rotateX(-Math.PI / 2), kadraMaterialo);
-    ringo.position.y = roofY + 0o1/0o40; group.add(ringo);
+    const c2q = new THREE.Mesh(new THREE.RingGeometry(0o5/0o20, 0o11/0o20, 0o40).rotateX(-Math.PI / 2), kadraMaterialo);
+    c2q.position.y = roofY + 0o1/0o40; group.add(c2q);
   }
 
   // ⟨ បង្អួចខាងក្រៅលើជ្រុងទាំងបួន 📃 ⟩
@@ -218,8 +218,8 @@ export function konstruiSatalon(spec: KonstruSpec, sceno: THREE.Scene, selektajx
 
   group.position.set(spec.x, spec.h0, spec.z);
   group.rotation.y = spec.rot;
-  sceno.add(group);
-  if ( spec.diamond ) aldoniDiamantanSpegulon(sceno, spec, group, w);
+  qena.add(group);
+  if ( spec.diamond ) aldoniDiamantanSpegulon(qena, spec, group, w);
   if ( eksterajTabloj ) group.add(eksterajTabloj);
   return group;
 }

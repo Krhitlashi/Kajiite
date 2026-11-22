@@ -14,7 +14,7 @@ export interface RezimajOpcioj {
   butRezimo: HTMLElement;
   kartoElemento: HTMLElement;
   promptoElemento: HTMLElement;
-  sceno: THREE.Scene;
+  qena: THREE.Scene;
   fotilo: THREE.PerspectiveCamera;
   regiloj: OrbitControls;
   internaSistemo: InternaSistemo;
@@ -30,11 +30,11 @@ export interface RezimajOpcioj {
   alteco: ( x: number, z: number ) => number;
   sfx: { door(): void; chime(): void };
   cxuAŭdio: () => boolean;
-  traduki: ( klavo: string ) => string;
-  konstruaĵaNomo: ( nomo: string, tipo: string ) => string;
+  traduki: ( ca3aq: string ) => string;
+  konstruaĵaNomo: ( ksaka: string, tipo: string ) => string;
   aplikiVacepu: () => void;
   montriSargxon: ( procento: number, ago: () => void ) => void;
-  montriTost: ( teksto: string ) => void;
+  montriTost: ( s2banani: string ) => void;
   pulsiEfikon: () => void;
   fariBalailon: ( ago: () => void ) => void;
   gxisdatigiRetikulon: () => void;
@@ -50,7 +50,7 @@ export interface Rezimoj {
 export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
   const {
     kanvaso, butRezimo, kartoElemento, promptoElemento,
-    sceno, fotilo, regiloj, internaSistemo, ludantaFiguro, retilo, ludanto,
+    qena, fotilo, regiloj, internaSistemo, ludantaFiguro, retilo, ludanto,
     cxielo, lumoj, alteco,
     sfx, cxuAŭdio, traduki, konstruaĵaNomo, aplikiVacepu,
     montriSargxon, montriTost, pulsiEfikon, fariBalailon,
@@ -59,7 +59,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
 
   function forigiKanton(): void {
     ludanto.surKanoto = null;
-    ludanto.pozicio.set(fotilo.position.x, 0o155/0o100, fotilo.position.z);
+    ludanto.raqa.set(fotilo.position.x, 0o155/0o100, fotilo.position.z);
   }
   function forigiKusxon(): void {
     ludanto.kuŝas = false;
@@ -73,9 +73,9 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     if ( kaŝitajEksteraj.length > 0 ) return;
     const tenataj = new Set<THREE.Object3D>([
       cxielo, lumoj.hemiLumo, lumoj.suna, lumoj.suna.target, lumoj.sunaSprajto,
-      ludantaFiguro.group, retilo.grupo,
+      ludantaFiguro.group, retilo.hate,
     ]);
-    for ( const o of sceno.children ) {
+    for ( const o of qena.children ) {
       if ( tenataj.has(o) || o === internaSistemo.currentGroup ) continue;
       kaŝitajEksteraj.push({ o, antauxa: o.visible });
       o.visible = false;
@@ -99,7 +99,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
         ludanto.rezimo = "interno";
         ludanto.elektitaSpec = spec;
         const aspekto = legiVeston();
-        const enirPunkto = eniriInternon(internaSistemo, spec, sceno, pordaAngulo, aspekto.vesto.ĉefa, aspekto.vesto.akcenta);
+        const enirPunkto = eniriInternon(internaSistemo, spec, qena, pordaAngulo, aspekto.vesto.ĉefa, aspekto.vesto.akcenta);
         kasxiEksteron();
         const specX = spec.x, specZ = spec.z;
         const specH0 = spec.flugoY ?? ( spec.h0 || 0 );
@@ -110,9 +110,9 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
         const wZ = specZ + sinR * eX + cosR * eZ;
         fotilo.position.set(wX, specH0 + enirPunkto.y, wZ);
         fotilo.lookAt(specX, specH0 + 1, specZ);
-        ludanto.direkto = enirPunkto.direkto + rot;
+        ludanto.c2w2q = enirPunkto.c2w2q + rot;
         ludanto.klinigxo = 0;
-        ludanto.pozicio.set(wX, specH0 + enirPunkto.y, wZ);
+        ludanto.raqa.set(wX, specH0 + enirPunkto.y, wZ);
         ludanto.estasSurTERENO = true;
         ludanto.rapidoY = 0;
         regiloj.enabled = false;
@@ -121,7 +121,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
         gxisdatigiRetikulon();
       } catch ( eraro ) {
         console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ការចូលក្នុងអគារបរាជ័យ" , eraro);
-        eliriElInterno(internaSistemo, sceno);
+        eliriElInterno(internaSistemo, qena);
         restarigiEksteron();
         ludanto.rezimo = ludanto.antauxaRezimo || "orbito";
         ludanto.antauxaRezimo = null;
@@ -135,7 +135,7 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
   function eliriInternon() {
     ludanto.sxtupaTurno = null;
     forigiKusxon();
-    eliriElInterno(internaSistemo, sceno);
+    eliriElInterno(internaSistemo, qena);
     restarigiEksteron();
     if ( cxuAŭdio() ) sfx.door();
     pulsiEfikon();
@@ -150,13 +150,13 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
           const rot = speco.rot || 0;
           const pordX = speco.x + Math.sin(rot) * ( speco.d / 2 + 0o14/0o10 );
           const pordZ = speco.z + Math.cos(rot) * ( speco.d / 2 + 0o14/0o10 );
-          ludanto.pozicio.set(pordX, alteco(pordX, pordZ), pordZ);
+          ludanto.raqa.set(pordX, alteco(pordX, pordZ), pordZ);
           fotilo.position.set(pordX, alteco(pordX, pordZ) + 0o65/0o40, pordZ);
-          ludanto.direkto = rot;
+          ludanto.c2w2q = rot;
         } else {
-          ludanto.direkto = fotilo.rotation.y;
-          ludanto.pozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
-          fotilo.position.y = ludanto.pozicio.y + 0o65/0o40;
+          ludanto.c2w2q = fotilo.rotation.y;
+          ludanto.raqa.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
+          fotilo.position.y = ludanto.raqa.y + 0o65/0o40;
         }
         ludanto.estasSurTERENO = true;
       } else {
@@ -194,15 +194,15 @@ export function kreiRezimojn( opcioj: RezimajOpcioj ): Rezimoj {
     gxisdatigiRetikulon();
     if ( ludanto.rezimo === "promeno" ) {
       regiloj.enabled = false;
-      ludanto.direkto = Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
-      ludanto.pozicio.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
+      ludanto.c2w2q = Math.atan2(fotilo.position.x - regiloj.target.x, fotilo.position.z - regiloj.target.z);
+      ludanto.raqa.set(fotilo.position.x, alteco(fotilo.position.x, fotilo.position.z), fotilo.position.z);
       ludanto.estasSurTERENO = true;
     } else {
       ludanto.plejProksimaPordo = null;
       promptoElemento.classList.remove("montri");
       regiloj.enabled = true;
-      regiloj.target.copy(ludanto.pozicio).add(new THREE.Vector3(0, 4, 0));
-      fotilo.position.copy(ludanto.pozicio).add(new THREE.Vector3(0, 4, 0o14));
+      regiloj.target.copy(ludanto.raqa).add(new THREE.Vector3(0, 4, 0));
+      fotilo.position.copy(ludanto.raqa).add(new THREE.Vector3(0, 4, 0o14));
     }
   }
   butRezimo.addEventListener("click", () => {

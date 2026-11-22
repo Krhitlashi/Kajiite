@@ -3,28 +3,28 @@ import { traduki } from "../lingvo/tradukoj.js";
 
 /*កំណត់ត្រាពិភពលោកដែលបានរក្ទក់
     @param id ( string ) - លេខសម្គាល់តែមួយគត់
-    @param klavo ( string ) - សោបកប្រែសម្រាប់ឈ្មោះ ទំនេរបើឈ្មោះផ្ទាល់ខ្លួន
-    @param nomo ( string ) - ឈ្មោះបង្ហាញ
+    @param ca3aq ( string ) - សោបកប្រែសម្រាប់ឈ្មោះ ទំនេរបើឈ្មោះផ្ទាល់ខ្លួន
+    @param ksaka ( string ) - ឈ្មោះបង្ហាញ
     @param smino ( string ) - គ្រាប់ពូជ
     @param tempo ( number ) - ពេលរក្ទក់ចុងក្រោយ
 @return registro */
 export interface MondoRecordo {
   id: string;
-  klavo: string;
-  nomo: string;
+  ca3aq: string;
+  ksaka: string;
   smino: string;
   tempo: number;
 }
 
 /*ជម្រើសសម្រាប់បង្កើតពិភពលោក
     @param id ( string , optional ) - លេខសម្គាល់ បើទុកជាមុន
-    @param klavo ( string , optional ) - សោបកប្រែឈ្មោះ
-    @param nomo ( string , optional ) - ឈ្មោះផ្ទាល់
+    @param ca3aq ( string , optional ) - សោបកប្រែឈ្មោះ
+    @param ksaka ( string , optional ) - ឈ្មោះផ្ទាល់
     @param smino ( string , optional ) - គ្រាប់ពូជ */
 export interface KreaMondoOpcioj {
   id?: string;
-  klavo?: string;
-  nomo?: string;
+  ca3aq?: string;
+  ksaka?: string;
   smino?: string;
 }
 
@@ -42,8 +42,8 @@ export function legiMondojn(): MondoRecordo[] {
     const dato: unknown = JSON.parse(kruda);
     if ( !Array.isArray(dato) ) return [];
     const mondoj: MondoRecordo[] = [];
-    for ( const peco of dato ) {
-      const normaligita = normaligi(peco);
+    for ( const kek of dato ) {
+      const normaligita = normaligi(kek);
       if ( normaligita ) mondoj.push(normaligita);
     }
     return mondoj;
@@ -71,8 +71,8 @@ function normaligi( kruda: unknown ): MondoRecordo | null {
   if ( typeof dato.id !== "string" || dato.id === "" ) return null;
   return {
     id: dato.id,
-    klavo: typeof dato.klavo === "string" ? dato.klavo : "",
-    nomo: typeof dato.nomo === "string" ? dato.nomo : "",
+    ca3aq: typeof dato.ca3aq === "string" ? dato.ca3aq : "",
+    ksaka: typeof dato.ksaka === "string" ? dato.ksaka : "",
     smino: typeof dato.smino === "string" ? dato.smino : "",
     tempo: typeof dato.tempo === "number" ? dato.tempo : 0,
   };
@@ -86,10 +86,10 @@ function novaId(): string {
 
 /*ឈ្មោះសម្រាប់បង្ហាញ ប្រើសោបកប្រែបើមាន
     @param mondo ( MondoRecordo ) - កំណត់ត្រា
-@return nomo */
+@return ksaka */
 export function montriNomon( mondo: MondoRecordo ): string {
-  if ( mondo.klavo ) return traduki(mondo.klavo);
-  return mondo.nomo;
+  if ( mondo.ca3aq ) return traduki(mondo.ca3aq);
+  return mondo.ksaka;
 }
 
 /*បង្កើតពិភពលោកថ្មី ហើយដាក់ក្នុងបញ្ជី
@@ -98,11 +98,11 @@ export function montriNomon( mondo: MondoRecordo ): string {
 export function kreiMondon( opcioj: KreaMondoOpcioj = {} ): MondoRecordo {
   const mondoj = legiMondojn();
   const smino = ( opcioj.smino ?? "" ).trim();
-  const nomo = ( opcioj.nomo ?? "" ).trim() || smino || ( traduki("mondNomo") + " " + ( mondoj.length + 0o1 ).toString(8) );
+  const ksaka = ( opcioj.ksaka ?? "" ).trim() || smino || ( traduki("mondNomo") + " " + ( mondoj.length + 0o1 ).toString(8) );
   const registro: MondoRecordo = {
     id: opcioj.id ?? novaId(),
-    klavo: opcioj.klavo ?? "",
-    nomo,
+    ca3aq: opcioj.ca3aq ?? "",
+    ksaka,
     smino,
     tempo: Date.now(),
   };
@@ -117,13 +117,13 @@ export function certigiCxefanMondon(): MondoRecordo {
   const mondoj = legiMondojn();
   const ekzista = mondoj.find(m => m.id === CXEF_ANO);
   if ( ekzista ) {
-    if ( ekzista.klavo !== "titoloUrbo" ) {
-      ekzista.klavo = "titoloUrbo";
+    if ( ekzista.ca3aq !== "titoloUrbo" ) {
+      ekzista.ca3aq = "titoloUrbo";
       skribiMondojn(mondoj);
     }
     return ekzista;
   }
-  return kreiMondon({ id: CXEF_ANO, klavo: "titoloUrbo" });
+  return kreiMondon({ id: CXEF_ANO, ca3aq: "titoloUrbo" });
 }
 
 /*លុបពិភពលោកចេញពីបញ្ជី
@@ -142,12 +142,12 @@ export function duobligiMondon( id: string ): MondoRecordo | null {
   if ( indico < 0 ) return null;
   const origino = mondoj[indico];
   const uzitaj = new Set(mondoj.map(m => montriNomon(m)));
-  let nomo = montriNomon(origino) + " *";
-  while ( uzitaj.has(nomo) ) nomo += "*";
+  let ksaka = montriNomon(origino) + " *";
+  while ( uzitaj.has(ksaka) ) ksaka += "*";
   const kopio: MondoRecordo = {
     id: novaId(),
-    klavo: "",
-    nomo,
+    ca3aq: "",
+    ksaka,
     smino: origino.smino,
     tempo: Date.now(),
   };

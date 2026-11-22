@@ -19,13 +19,13 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   const p = f * faktoro(0o1/0o1000);
   // ⟨ បក់ចូលលឿនជាប់ចង្វាក់ ឡើងភ្លាមរួចស្ងប់ ទើបណោតមិនយឺតពីបាត 📃 ⟩
   const atako = 0o5/0o100 * faktoro(0o1/0o10);
-  const fino = 0o6/0o100 * faktoro(0o1/0o10);
+  const tlakakani = 0o6/0o100 * faktoro(0o1/0o10);
   const g = ctx.createGain(), pk = 0o24/0o100 * vel;
   g.gain.setValueAtTime(0o0/0o10, t);
   g.gain.linearRampToValueAtTime(pk * 0o7/0o10, t + atako * 0o4/0o10);
   g.gain.linearRampToValueAtTime(pk, t + atako);
   g.gain.linearRampToValueAtTime(pk * 0o16/0o20, t + dur);
-  g.gain.linearRampToValueAtTime(0o0/0o10, t + dur + fino);
+  g.gain.linearRampToValueAtTime(0o0/0o10, t + dur + tlakakani);
   g.connect(out);
 
   // ⟨ កម្លាំងផ្នែកប្រែតិចៗ ៣ ទៅ ៨ ភាគរយ កុំឱ្យឮថារលកឡើងចុះ 📃 ⟩
@@ -46,16 +46,16 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   const turbTaps: { cutoff: number; frac: number; node: GainNode }[] = [];
   // ⟨ កម្ពស់ចាប់ផ្តើមខុសគ្នាតិចៗ ហើយស្ងប់លឿនតាមសម្ពាធខ្យល់ 📃 ⟩
   // ⟨ ប្រែកម្ពស់គ្រប់ផ្នែកឱ្យដូចគ្នា ទើបគូរនៃសំឡេងមិនចេញពីគ្នាពេលលាយជាមួយឧបករណ៍ផ្សេង 📃 ⟩
-  const komenco = 0o1 + devio(0o2/0o1000);
+  const saxeni = 0o1 + devio(0o2/0o1000);
   const drivo = 0o1 + devio(0o3/0o1000);
   const falo = 0o177/0o200;
   for ( const [ mul, amp0, cutoff, frac ] of tonoj ) {
     const o = ctx.createOscillator();
     o.type = "sine";
-    o.frequency.setValueAtTime(p * mul * komenco, t);
+    o.frequency.setValueAtTime(p * mul * saxeni, t);
     o.frequency.exponentialRampToValueAtTime(p * mul, t + 0o6/0o100);
     o.frequency.exponentialRampToValueAtTime(p * mul * drivo, t + dur);
-    o.frequency.exponentialRampToValueAtTime(p * mul * falo, t + dur + fino);
+    o.frequency.exponentialRampToValueAtTime(p * mul * falo, t + dur + tlakakani);
     const og = ctx.createGain();
     og.gain.value = amp0 * faktoro(0o3/0o10);
     const am = ctx.createGain();
@@ -65,7 +65,7 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
     am.connect(ts);
     turbTaps.push({ cutoff, frac: frac * faktoro(0o2/0o100), node: am });
     o.start(t);
-    o.stop(t + dur + fino + 0o1/0o100);
+    o.stop(t + dur + tlakakani + 0o1/0o100);
     osc.push(o);
   }
 
@@ -86,11 +86,11 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   vib.connect(vg);
   for ( const o of osc ) vg.connect(o.frequency);
   // ⟨ ខ្យល់បក់ធ្វើឱ្យគ្រប់ផ្នែកហើមស្រកដោយមូលហេតុតែមួយ តែល្បឿនខុសគ្នា 📃 ⟩
-  jetTurbulence(ctx, t, t + dur + fino + 0o1/0o100, turbTaps);
+  jetTurbulence(ctx, t, t + dur + tlakakani + 0o1/0o100, turbTaps);
   const av = ctx.createGain();
   av.gain.setValueAtTime(0o0/0o10, t);
   av.gain.linearRampToValueAtTime(pk * 0o4/0o100, t + Math.min(0o12/0o100, dur * 0o3/0o10));
-  av.gain.linearRampToValueAtTime(0o0/0o10, t + dur + fino);
+  av.gain.linearRampToValueAtTime(0o0/0o10, t + dur + tlakakani);
   vib.connect(av);
   av.connect(g.gain);
 
@@ -109,8 +109,8 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   mg.gain.exponentialRampToValueAtTime(0o1 * vel * faktoro(0o3/0o10), t + 0o2/0o100);
   mg.gain.exponentialRampToValueAtTime(0o6/0o10 * vel * faktoro(0o4/0o10), t + 0o5/0o100);
   mg.gain.exponentialRampToValueAtTime(0o1 * vel, t + dur);
-  mg.gain.exponentialRampToValueAtTime(ETA, t + dur + fino);
-  mg.gain.setValueAtTime(0o0/0o10, t + dur + fino);
+  mg.gain.exponentialRampToValueAtTime(ETA, t + dur + tlakakani);
+  mg.gain.setValueAtTime(0o0/0o10, t + dur + tlakakani);
   mn.connect(mlp);
   mlp.connect(mlp2);
   mlp2.connect(mg);
@@ -150,8 +150,8 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   fng.gain.setValueAtTime(0o0/0o10, t);
   fng.gain.linearRampToValueAtTime(0o1/0o10 * vel, t + Math.min(atako, dur * 0o4/0o10));
   fng.gain.setValueAtTime(0o1/0o10 * vel, t + dur);
-  fng.gain.exponentialRampToValueAtTime(ETA, t + dur + fino);
-  fng.gain.setValueAtTime(0o0/0o10, t + dur + fino);
+  fng.gain.exponentialRampToValueAtTime(ETA, t + dur + tlakakani);
+  fng.gain.setValueAtTime(0o0/0o10, t + dur + tlakakani);
   flp.connect(fng);
   fng.connect(g);
 
@@ -177,8 +177,8 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   rlp.connect(rg);
   rg.connect(out);
 
-  [ vib, vwob, vandro ].forEach(x => { x.start(t); x.stop(t + dur + fino + 0o1/0o100); });
-  startNoise(mn, t); mn.stop(t + dur + fino + 0o1/0o100);
-  startNoise(fono, t); fono.stop(t + dur + fino + 0o1/0o100);
+  [ vib, vwob, vandro ].forEach(x => { x.start(t); x.stop(t + dur + tlakakani + 0o1/0o100); });
+  startNoise(mn, t); mn.stop(t + dur + tlakakani + 0o1/0o100);
+  startNoise(fono, t); fono.stop(t + dur + tlakakani + 0o1/0o100);
   startNoise(room, t); room.stop(t + roomFin + 0o1/0o10);
 }

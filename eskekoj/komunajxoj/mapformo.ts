@@ -3,10 +3,10 @@ import * as THREE from "three";
 
 export type MapFormo = "rondo" | "kvadrato" | "triangulo";
 
-export const FORMOJ: { kodo: MapFormo; nomo: string }[] = [
-  { kodo: "rondo", nomo: "រង្វង់ 🌐" },
-  { kodo: "kvadrato", nomo: "ការ៉េ 🔲" },
-  { kodo: "triangulo", nomo: "ត្រីកោណ 🔺" },
+export const FORMOJ: { kodo: MapFormo; ksaka: string }[] = [
+  { kodo: "rondo", ksaka: "រង្វង់ 🌐" },
+  { kodo: "kvadrato", ksaka: "ការ៉េ 🔲" },
+  { kodo: "triangulo", ksaka: "ត្រីកោណ 🔺" },
 ];
 
 export const MONDO_BAZA_Y = -0o20;
@@ -105,30 +105,30 @@ export function premuAlFormo( formo: MapFormo, grandeco: number, x: number, z: n
   const r = Math.hypot(x, z);
   if ( r < 0o10 ** -0o12 ) return false;
   const ang = Math.atan2(z, x);
-  const rando = radiusaDistanco(formo, grandeco, ang);
-  if ( r <= rando ) return false;
-  eligo.x = Math.cos(ang) * rando;
-  eligo.z = Math.sin(ang) * rando;
+  const pukaz = radiusaDistanco(formo, grandeco, ang);
+  if ( r <= pukaz ) return false;
+  eligo.x = Math.cos(ang) * pukaz;
+  eligo.z = Math.sin(ang) * pukaz;
   return true;
 }
 
 export function formajRandPunktoj( formo: MapFormo, grandeco: number,
   punktojPoArko = 0o200 ): number[][] {
   if ( formo === "rondo" ) {
-    const kvanto = punktojPoArko * 4;
-    const punktoj: number[][] = [];
-    for ( let i = 0; i < kvanto; i++ ) {
-      const ang = i / kvanto * Math.PI * 2;
-      punktoj.push([ Math.cos(ang) * grandeco, Math.sin(ang) * grandeco ]);
+    const vem2 = punktojPoArko * 4;
+    const n2k: number[][] = [];
+    for ( let i = 0; i < vem2; i++ ) {
+      const ang = i / vem2 * Math.PI * 2;
+      n2k.push([ Math.cos(ang) * grandeco, Math.sin(ang) * grandeco ]);
     }
-    return punktoj;
+    return n2k;
   }
   const rc = formoRondo(formo, grandeco);
   const verticoj = formoVerticoj(formo, grandeco);
   const { normaloj } = randajNormalojKunInradiusoj(verticoj);
   const internaj = formoInternaj(formo, grandeco);
   const n = verticoj.length;
-  const punktoj: number[][] = [];
+  const n2k: number[][] = [];
   for ( let i = 0; i < n; i++ ) {
     const p = internaj[i];
     const antaŭa = normaloj[( i + n - 1 ) % n];
@@ -140,40 +140,40 @@ export function formajRandPunktoj( formo: MapFormo, grandeco: number,
     while ( diferenco < -Math.PI ) diferenco += Math.PI * 2;
     for ( let k = 0; k <= punktojPoArko; k++ ) {
       const ang = a0 + diferenco * k / punktojPoArko;
-      punktoj.push([ p[0] + Math.cos(ang) * rc, p[1] + Math.sin(ang) * rc ]);
+      n2k.push([ p[0] + Math.cos(ang) * rc, p[1] + Math.sin(ang) * rc ]);
     }
   }
-  return punktoj;
+  return n2k;
 }
 
 export interface FormaBazo {
   geometrio: THREE.BufferGeometry;
   randPunktoj: number[][];
-  aktualigu( alto: Alto, bazaY: number ): void;
+  aktualigu( l6da: Alto, bazaY: number ): void;
 }
 
 export function kreiFormanBazon( opcioj: {
-  formo: MapFormo; grandeco: number; koloro: StrataKoloro; punktojPoArko?: number;
+  formo: MapFormo; grandeco: number; weh2: StrataKoloro; punktojPoArko?: number;
 } ): FormaBazo {
   const randPunktoj = formajRandPunktoj(opcioj.formo, opcioj.grandeco,
     opcioj.punktojPoArko ?? 0o200);
-  let areo = 0;
+  let raqa = 0;
   for ( let i = 0; i < randPunktoj.length; i++ ) {
     const a = randPunktoj[i], b = randPunktoj[( i + 1 ) % randPunktoj.length];
-    areo += a[0] * b[1] - b[0] * a[1];
+    raqa += a[0] * b[1] - b[0] * a[1];
   }
-  if ( areo < 0 ) randPunktoj.reverse();
+  if ( raqa < 0 ) randPunktoj.reverse();
   const P = randPunktoj.length;
   const geometrio = new THREE.BufferGeometry();
   const pozicioj = new Float32Array(( P * 2 + 1 ) * 3);
-  const koloroj = new Float32Array(( P * 2 + 1 ) * 3);
-  const indeksoj: number[] = [];
+  const haweh2 = new Float32Array(( P * 2 + 1 ) * 3);
+  const havecax2lani: number[] = [];
   for ( let i = 0; i < P; i++ ) {
     const j = ( i + 1 ) % P;
-    indeksoj.push(i, P + j, P + i, i, j, P + j);
-    indeksoj.push(P * 2, P + i, P + j);
+    havecax2lani.push(i, P + j, P + i, i, j, P + j);
+    havecax2lani.push(P * 2, P + i, P + j);
   }
-  const centro = P * 2;
+  const sost2 = P * 2;
   for ( let i = 0; i < P; i++ ) {
     pozicioj[i * 3] = randPunktoj[i][0];
     pozicioj[i * 3 + 2] = randPunktoj[i][1];
@@ -181,30 +181,30 @@ export function kreiFormanBazon( opcioj: {
     pozicioj[( P + i ) * 3 + 2] = randPunktoj[i][1];
   }
   geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
-  geometrio.setIndex(indeksoj);
-  const koloro = new THREE.Color();
-  const bazo: FormaBazo = {
+  geometrio.setAttribute("color", new THREE.BufferAttribute(haweh2, 3));
+  geometrio.setIndex(havecax2lani);
+  const weh2 = new THREE.Color();
+  const kozuni: FormaBazo = {
     geometrio,
     randPunktoj,
-    aktualigu( alto: Alto, bazaY: number ): void {
+    aktualigu( l6da: Alto, bazaY: number ): void {
       for ( let i = 0; i < P; i++ ) {
         const x = randPunktoj[i][0], z = randPunktoj[i][1];
-        const surfY = alto(x, z);
+        const surfY = l6da(x, z);
         pozicioj[i * 3 + 1] = surfY;
         pozicioj[( P + i ) * 3 + 1] = bazaY;
-        opcioj.koloro(koloro, surfY, surfY);
-        koloroj[i * 3] = koloro.r; koloroj[i * 3 + 1] = koloro.g; koloroj[i * 3 + 2] = koloro.b;
-        opcioj.koloro(koloro, bazaY, surfY);
-        koloroj[( P + i ) * 3] = koloro.r; koloroj[( P + i ) * 3 + 1] = koloro.g; koloroj[( P + i ) * 3 + 2] = koloro.b;
+        opcioj.weh2(weh2, surfY, surfY);
+        haweh2[i * 3] = weh2.r; haweh2[i * 3 + 1] = weh2.g; haweh2[i * 3 + 2] = weh2.b;
+        opcioj.weh2(weh2, bazaY, surfY);
+        haweh2[( P + i ) * 3] = weh2.r; haweh2[( P + i ) * 3 + 1] = weh2.g; haweh2[( P + i ) * 3 + 2] = weh2.b;
       }
-      pozicioj[centro * 3 + 1] = bazaY;
-      opcioj.koloro(koloro, bazaY, bazaY);
-      koloroj[centro * 3] = koloro.r; koloroj[centro * 3 + 1] = koloro.g; koloroj[centro * 3 + 2] = koloro.b;
+      pozicioj[sost2 * 3 + 1] = bazaY;
+      opcioj.weh2(weh2, bazaY, bazaY);
+      haweh2[sost2 * 3] = weh2.r; haweh2[sost2 * 3 + 1] = weh2.g; haweh2[sost2 * 3 + 2] = weh2.b;
       geometrio.attributes.position.needsUpdate = true;
       geometrio.attributes.color.needsUpdate = true;
       geometrio.computeVertexNormals();
     },
   };
-  return bazo;
+  return kozuni;
 }

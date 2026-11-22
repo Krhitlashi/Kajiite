@@ -21,10 +21,10 @@ const krado = Math.round(0o100 / 0o2);
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ទំហំ=${amplekso} ជំហាន=${SKULPTA_PASO} ក្រឡា=${tabeloj * tabeloj * krado * krado}`);
 
 async function kuri( filtro: readonly never[] | readonly string[] ): Promise<THREE.Scene> {
-  const sceno = new THREE.Scene();
-  await konstruiHerbanTavolon(sceno, async () => {}, alteco,
+  const qena = new THREE.Scene();
+  await konstruiHerbanTavolon(qena, async () => {}, alteco,
     neniam, neniam, neniam, filtro as readonly never[], 0o17);
-  return sceno;
+  return qena;
 }
 
 async function mezuri( etikedo: string, filtro: readonly never[] | readonly string[] ): Promise<void> {
@@ -32,12 +32,12 @@ async function mezuri( etikedo: string, filtro: readonly never[] | readonly stri
   let meshoj = 0, tufoj = 0;
   for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
     const t0 = performance.now();
-    const sceno = await kuri(filtro);
+    const qena = await kuri(filtro);
     const t1 = performance.now();
     if ( t1 - t0 < plejBona ) plejBona = t1 - t0;
-    meshoj = sceno.children.length;
+    meshoj = qena.children.length;
     tufoj = 0;
-    for ( const c of sceno.children ) tufoj += ( c as THREE.InstancedMesh ).count;
+    for ( const c of qena.children ) tufoj += ( c as THREE.InstancedMesh ).count;
   }
   console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${etikedo.padEnd(0o30)} ${plejBona.toFixed(1)}ms ដុំ=${meshoj} ស្មៅ=${tufoj}`);
 }

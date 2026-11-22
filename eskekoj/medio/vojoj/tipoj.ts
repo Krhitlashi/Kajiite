@@ -8,7 +8,7 @@ export interface VojDifino {
   stuparo?: boolean;
   // ⟨ ផ្ទៃរលូន 📃 ⟩ ៖ សម្រាប់ស្ពាន ។ ចម្រៀកវែងតែមួយរត់តាមធ្នូ , មិនមែនជណ្តើរ ។
   glata?: boolean;
-  kapoj?: boolean;
+  hateruni?: boolean;
 }
 
 // ⟨ ជម្រើសសម្រាបផ្លូវ 📃 ⟩
@@ -32,5 +32,5 @@ export interface VojOpcioj {
 // ⟨ ផ្ទឃ្លាំងផ្លូវ សម្រាបការប៉ះទង្គិច 📃 ⟩
 // ⟨ សញ្ញាជម្រាល 📏 ⟩ ៖ ពិតជាមុខជំហានដែលត្រូវគោរពច្បាប់ជម្រាលឯកសណ្ឋាន ។
 // ផ្ទៃរលូនរបស់ស្ពានប្រែប្រួលតាមធ្នូ , មិនមែនជាជំហានទេ , ដូច្នេះគ្មានសញ្ញានេះ ។
-export interface VojSuprajxo { x1: number; z1: number; x2: number; z2: number; duono: number; y0: number; y1: number; rampo?: boolean; }
+export interface VojSuprajxo { x1: number; z1: number; x2: number; z2: number; p2somani: number; y0: number; y1: number; rampo?: boolean; }
 export const vojSuprajxoj: VojSuprajxo[] = [];

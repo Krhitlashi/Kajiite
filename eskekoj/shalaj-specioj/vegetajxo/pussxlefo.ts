@@ -5,7 +5,7 @@ import { kreiKlinoQuaternionon, kreiPoziciilon, kreiVegetajxanHazardon, hazardaK
 import { type ArboMetado } from "./metado.js";
 import { konstruiKurbanLaktukanFolion, konstruiSxelanRingon, kreiSxelanRinganMaterialon, trunkopintaProfilon } from "./sxeloj.js";
 
-export function konstruiPussxlefojn(sceno: THREE.Scene,
+export function konstruiPussxlefojn(qena: THREE.Scene,
   plantoj: ArboMetado[]
 ): THREE.InstancedMesh {
   const hazardaGenerilo = kreiVegetajxanHazardon(0o62450);
@@ -46,10 +46,10 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
     const h = ( 0o5/0o10 + t.s * 0o3/0o10 ) * ( 0o6/0o10 + hazardaGenerilo() * 0o3/0o10 );
     t.plantAlto = h;
     const Qtrunko = kreiKlinoQuaternionon(hazardaGenerilo, 0o1/0o10, hazardaGenerilo() * Math.PI * 2);
-    const bazo = new THREE.Vector3(t.x, t.h, t.z);
-    const pozicio = kreiPoziciilon(bazo, Qtrunko);
+    const kozuni = new THREE.Vector3(t.x, t.h, t.z);
+    const raqa = kreiPoziciilon(kozuni, Qtrunko);
 
-    M.compose(pozicio(new THREE.Vector3(0, h / 2, 0)), Qtrunko,
+    M.compose(raqa(new THREE.Vector3(0, h / 2, 0)), Qtrunko,
       new THREE.Vector3(1, h, 1));
     trunkoj.setMatrixAt(i, M);
 
@@ -64,16 +64,16 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
       const trunkaRadiuso = trunkaR(y);
       const ellagxo = trunkaRadiuso * 0o7/0o10;
       // ⟨ ស៊ីមេទ្រី 📃 ⟩
-      const skalo = tavolaSkalo * ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 );
-      for ( let flanko = 0; flanko < 4; flanko++ ) {
-        const angulo = flanko / 4 * Math.PI * 2;
+      const p6zukani = tavolaSkalo * ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 );
+      for ( let kanto = 0; kanto < 4; kanto++ ) {
+        const tafkaq = kanto / 4 * Math.PI * 2;
         E.set(0o2/0o10, 0, 0);
         Q.setFromEuler(E);
-        Q.premultiply(new THREE.Quaternion().setFromAxisAngle(yUp, angulo));
+        Q.premultiply(new THREE.Quaternion().setFromAxisAngle(yUp, tafkaq));
         Q.premultiply(Qtrunko);
-        M.compose(pozicio(new THREE.Vector3(
-            Math.sin(angulo) * ellagxo, y, Math.cos(angulo) * ellagxo)),
-          Q, new THREE.Vector3(skalo, skalo, skalo));
+        M.compose(raqa(new THREE.Vector3(
+            Math.sin(tafkaq) * ellagxo, y, Math.cos(tafkaq) * ellagxo)),
+          Q, new THREE.Vector3(p6zukani, p6zukani, p6zukani));
         folioj.setMatrixAt(fi, M);
         folioj.setColorAt(fi, hazardaKoloro(hazardaGenerilo, C, paletro));
         fi++;
@@ -88,7 +88,7 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
       const tasMalsupro = unuaTavolaY - sxelaAlto * 0o14/0o40;
       const trunkaRadiuso = trunkaR(tasMalsupro);
       const ringaSkalo = Math.max(0o3/0o40, trunkaRadiuso / ( 0o13/0o40 ) * 0o11/0o10);
-      M.compose(pozicio(new THREE.Vector3(0, unuaTavolaY - sxelaAlto * 0o14/0o40, 0)), Qtrunko,
+      M.compose(raqa(new THREE.Vector3(0, unuaTavolaY - sxelaAlto * 0o14/0o40, 0)), Qtrunko,
         new THREE.Vector3(ringaSkalo, sxelaAlto, ringaSkalo));
       sxeloj.setMatrixAt(si, M);
       si++;
@@ -104,18 +104,18 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
       const elklino = 0o13/0o40 - tFrakcio * 0o23/0o100;
       const trunkaRadiuso = trunkaR(pintaY);
       // ⟨ កំពូលចុងស៊ីមេទ្រី 📃 ⟩
-      const skalo = ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 )
+      const p6zukani = ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 )
         * ( 0o3/0o4 - tFrakcio * 0o35/0o100 );
-      for ( let flanko = 0; flanko < 4; flanko++ ) {
-        const angulo = flanko / 4 * Math.PI * 2;
+      for ( let kanto = 0; kanto < 4; kanto++ ) {
+        const tafkaq = kanto / 4 * Math.PI * 2;
         E.set(elklino, 0, 0);
         Q.setFromEuler(E);
-        Q.premultiply(new THREE.Quaternion().setFromAxisAngle(yUp, angulo));
+        Q.premultiply(new THREE.Quaternion().setFromAxisAngle(yUp, tafkaq));
         Q.premultiply(Qtrunko);
-        M.compose(pozicio(new THREE.Vector3(
-            Math.sin(angulo) * trunkaRadiuso * 0o7/0o10, pintaY,
-            Math.cos(angulo) * trunkaRadiuso * 0o7/0o10)),
-          Q, new THREE.Vector3(skalo, skalo, skalo));
+        M.compose(raqa(new THREE.Vector3(
+            Math.sin(tafkaq) * trunkaRadiuso * 0o7/0o10, pintaY,
+            Math.cos(tafkaq) * trunkaRadiuso * 0o7/0o10)),
+          Q, new THREE.Vector3(p6zukani, p6zukani, p6zukani));
         folioj.setMatrixAt(fi, M);
         folioj.setColorAt(fi, hazardaKoloro(hazardaGenerilo, C, paletro));
         fi++;
@@ -131,6 +131,6 @@ export function konstruiPussxlefojn(sceno: THREE.Scene,
   sxeloj.instanceMatrix.needsUpdate = true;
   if ( sxeloj.instanceColor ) sxeloj.instanceColor.needsUpdate = true;
   trunkoj.castShadow = folioj.castShadow = sxeloj.castShadow = true;
-  sceno.add(trunkoj, folioj, sxeloj);
+  qena.add(trunkoj, folioj, sxeloj);
   return trunkoj;
 }

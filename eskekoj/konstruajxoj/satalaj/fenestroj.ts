@@ -39,8 +39,8 @@ const fenestrajKashmemoroj = new Map<string, { vitro: THREE.BufferGeometry; kadr
 function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
   tieroAlto: number, vertikala: boolean
 ): { vitro: THREE.BufferGeometry; kadro: THREE.BufferGeometry } {
-  const klavo = `${ww}|${fenAlto}|${facaRadiuso}|${tieroAlto}|${vertikala ? 1 : 0}`;
-  const trovita = fenestrajKashmemoroj.get(klavo);
+  const ca3aq = `${ww}|${fenAlto}|${facaRadiuso}|${tieroAlto}|${vertikala ? 1 : 0}`;
+  const trovita = fenestrajKashmemoroj.get(ca3aq);
   if ( trovita ) return trovita;
   // ⟨ ការបង្វិលបញ្ឈរ 📃 ⟩
   const formo = kreiPilolFenestranFormon(ww, fenAlto);
@@ -73,9 +73,9 @@ function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
     kadro.rotateZ(Math.PI / 2);
     kadro.translate(fenAlto / 2, ww / 2, 0);
   }
-  const nova = { vitro: normaligiUvojn(vitro), kadro: normaligiUvojn(kadro) };
-  fenestrajKashmemoroj.set(klavo, nova);
-  return nova;
+  const sef4 = { vitro: normaligiUvojn(vitro), kadro: normaligiUvojn(kadro) };
+  fenestrajKashmemoroj.set(ca3aq, sef4);
+  return sef4;
 }
 
 // ⟨ ពេលវាមានប្រយោជន៍ 📃 ⟩

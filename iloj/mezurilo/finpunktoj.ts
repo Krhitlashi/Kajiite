@@ -8,35 +8,35 @@ import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
 import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
 import { VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
 
-const VOJOJ = aktivajVojoj().filter(v => v.punktoj.length >= 2);
+const VOJOJ = aktivajVojoj().filter(v => v.n2k.length >= 2);
 const DOKOJ = aktivajDokoj();
-const retaj = VOJOJ.map(v => ( { punktoj: v.punktoj, larĝo: v.larĝo } ));
+const retaj = VOJOJ.map(v => ( { n2k: v.n2k, sefini: v.sefini } ));
 const kunigoj = troviVojaRetajnKunigojn(retaj, DOKOJ);
 const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
 
 console.log("<( ចំណុចភ្ជាប់ )>");
 for ( const k of kunigoj ) {
-  const supro = vojaSuproDeKunigo(k.x, k.z, k.direktaj, VOJA_EKSTERA_DUONO, vojoAlteco).supro;
-  console.log(`  ( ${k.x.toFixed(2)}, ${k.z.toFixed(2)} ) ចាន ${supro.toFixed(2)}` +
+  const teru = vojaSuproDeKunigo(k.x, k.z, k.direktaj, VOJA_EKSTERA_DUONO, vojoAlteco).hateru;
+  console.log(`  ( ${k.x.toFixed(2)}, ${k.z.toFixed(2)} ) ចាន ${teru.toFixed(2)}` +
     ` , ដី ${alteco(k.x, k.z).toFixed(2)} , ដៃ ${k.direktaj.length}` +
     ( k.fermitaj ? " , បិទ" : "" ));
 }
 
 console.log("<( ចុងផ្លូវ )>");
 for ( let i = 0; i < VOJOJ.length; i++ ) {
-  const p = VOJOJ[i].punktoj;
-  for ( const [ nomo, q ] of [ [ "ដើម", p[0] ], [ "ចុង", p[p.length - 1] ] ] as const ) {
+  const p = VOJOJ[i].n2k;
+  for ( const [ ksaka, q ] of [ [ "ដើម", p[0] ], [ "ចុង", p[p.length - 1] ] ] as const ) {
     let plej = Infinity, proksima: typeof kunigoj[number] | null = null;
     for ( const k of kunigoj ) {
       const d = Math.hypot(k.x - q[0], k.z - q[1]);
       if ( d < plej ) { plej = d; proksima = k; }
     }
-    const supro = proksima && plej < VOJA_TRUA_DUONO * 0o2
+    const teru = proksima && plej < VOJA_TRUA_DUONO * 0o2
       ? vojaSuproDeKunigo(proksima.x, proksima.z, proksima.direktaj, VOJA_EKSTERA_DUONO,
-        vojoAlteco).supro : NaN;
-    console.log(`  ${i} ${VOJOJ[i].nomo} ${nomo} ( ${q[0].toFixed(2)}, ${q[1].toFixed(2)} )` +
+        vojoAlteco).hateru : NaN;
+    console.log(`  ${i} ${VOJOJ[i].ksaka} ${ksaka} ( ${q[0].toFixed(2)}, ${q[1].toFixed(2)} )` +
       ` , ចម្ងាយ ${plej.toFixed(2)}` +
-      ` , ចាន ${Number.isNaN(supro) ? "-" : supro.toFixed(2)}` +
+      ` , ចាន ${Number.isNaN(teru) ? "-" : teru.toFixed(2)}` +
       ` , ដី ${alteco(q[0], q[1]).toFixed(2)}`);
   }
 }

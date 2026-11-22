@@ -11,10 +11,10 @@ export const kreiPurpuranSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture =
     kunteksto.fillRect(0, 0, w, h);
     const skizo = generiPuranSxelanSkizon();
     for ( const makulo of skizo.makuloj ) {
-      const koloro = makulo.hela ? "rgba(152,152,152,0.12)" : "rgba(72,72,72,0.12)";
+      const weh2 = makulo.hela ? "rgba(152,152,152,0.12)" : "rgba(72,72,72,0.12)";
       desegniWrapan(kunteksto, w, () => {
         const g = kunteksto.createRadialGradient(makulo.x, makulo.y, 0, makulo.x, makulo.y, makulo.r);
-        g.addColorStop(0, koloro);
+        g.addColorStop(0, weh2);
         g.addColorStop(1, "rgba(128,128,128,0)");
         kunteksto.fillStyle = g;
         kunteksto.beginPath(); kunteksto.arc(makulo.x, makulo.y, makulo.r, 0, Math.PI * 2); kunteksto.fill();
@@ -22,12 +22,12 @@ export const kreiPurpuranSxelanBumpanTeksajxon = sxovu((): THREE.CanvasTexture =
     }
     for ( const plato of skizo.platoj ) {
       desegniWrapan(kunteksto, w, () => {
-        const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.largho, 0);
+        const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.sefini, 0);
         g.addColorStop(0, "rgba(128,128,128,0)");
         g.addColorStop(0o1/0o2, plato.hela ? "rgba(152,152,152,0.45)" : "rgba(112,112,112,0.35)");
         g.addColorStop(1, "rgba(128,128,128,0)");
         kunteksto.fillStyle = g;
-        kunteksto.fillRect(plato.x, 0, plato.largho, h);
+        kunteksto.fillRect(plato.x, 0, plato.sefini, h);
       });
     }
     kunteksto.lineCap = "round";

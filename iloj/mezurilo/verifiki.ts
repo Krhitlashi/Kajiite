@@ -4,10 +4,10 @@ import { specimenoBikuba, specimenoDulineara } from "../../kantaoj/mondo/akvokal
 import { bruo2DMalnova, bikubaMalnova, deltoMalnova, deltoNova } from "./bazlinio.js";
 
 let eraroj = 0;
-function kontrolu(nomo: string, a: number, b: number): void {
+function kontrolu(ksaka: string, a: number, b: number): void {
   if (Math.abs(a - b) > 0o10 ** -0o12) {
     eraroj++;
-    if (eraroj < 0o10) console.log(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${nomo} malegalas ${a} != ${b}`);
+    if (eraroj < 0o10) console.log(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${ksaka} malegalas ${a} != ${b}`);
   }
 }
 
@@ -33,8 +33,8 @@ for (let i = 0; i < 0o100000; i++) {
 }
 // ⟨ តេស្តគែម ៖ ក្រៅដែន 📃 ⟩
 for (const [x, z] of [[-0o10000, -0o10000], [0o10000, 0o10000], [-0o600, -0o600], [0, 0]]) {
-  kontrolu("bikuba rando", specimenoBikuba(K, N, 0o4, O, x, z), bikubaMalnova(K, N, 0o4, O, x, z));
-  kontrolu("delto rando", deltoNova(T, N, 0o4, O, x, z), deltoMalnova(T, N, 0o4, O, x, z));
+  kontrolu("bikuba pukaz", specimenoBikuba(K, N, 0o4, O, x, z), bikubaMalnova(K, N, 0o4, O, x, z));
+  kontrolu("delto pukaz", deltoNova(T, N, 0o4, O, x, z), deltoMalnova(T, N, 0o4, O, x, z));
 }
 // ⟨ specimenoDulineara មិនប្រែ 📃 ⟩
 kontrolu("dulineara", specimenoDulineara(K, N, 0o4, O, 0o10, 0o20), specimenoDulineara(K, N, 0o4, O, 0o10, 0o20));

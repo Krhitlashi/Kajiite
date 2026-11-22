@@ -13,47 +13,47 @@ const VOJOJ = aktivajVojoj();
 const DOKOJ = aktivajDokoj();
 console.log("vojoj", VOJOJ.length, "dokoj", DOKOJ.length);
 
-const retaj = VOJOJ.filter(v => v.punktoj.length >= 2).map(v => ({ punktoj: v.punktoj, larĝo: v.larĝo }));
+const retaj = VOJOJ.filter(v => v.n2k.length >= 2).map(v => ({ n2k: v.n2k, sefini: v.sefini }));
 const kunigoj = troviVojaRetajnKunigojn(retaj, DOKOJ);
 
 let pontoNombro = 0, trakNombro = 0, difektoj = 0;
 for (let v = 0; v < VOJOJ.length; v++) {
-  const vojo = VOJOJ[v];
-  if (vojo.punktoj.length < 2) continue;
-  const w = vojo.pontoLarĝo ?? vojo.larĝo;
-  const cxuPontaAkvo = kreiPontanAkvanTeston(vojo.punktoj, w, cxuVeraAkvo);
-  const akva = havasAkvanTrunkon(vojo.punktoj, cxuPontaAkvo);
-  if (!akva) { console.log(`vojo ${v} ${vojo.nomo} , គ្មានស្ពាន`); continue; }
+  const k6h6 = VOJOJ[v];
+  if (k6h6.n2k.length < 2) continue;
+  const w = k6h6.pontoLarĝo ?? k6h6.sefini;
+  const cxuPontaAkvo = kreiPontanAkvanTeston(k6h6.n2k, w, cxuVeraAkvo);
+  const akva = havasAkvanTrunkon(k6h6.n2k, cxuPontaAkvo);
+  if (!akva) { console.log(`k6h6 ${v} ${k6h6.ksaka} , គ្មានស្ពាន`); continue; }
   pontoNombro++;
   const akvaSupro = (x: number, z: number) =>
     cxuPontaAkvo(x, z) ? akvaNivelo(x, z) + PONT_AKVA_KLARANCO : -Infinity;
-  const profilo = konstruiPontanProfilon(vojo.punktoj, w, vojaSupro,
-    akvaSupro, ( x, z, larĝo ) => pontaFinAlto(x, z, larĝo, kunigoj));
+  const s2qena = konstruiPontanProfilon(k6h6.n2k, w, vojaSupro,
+    akvaSupro, ( x, z, sefini ) => pontaFinAlto(x, z, sefini, kunigoj));
   // ⟨ ជម្រាលតាមបណ្តោយផ្លូវ 📃 ⟩
   let maksSalto = 0, saltoLoko = 0;
-  let antaŭa = profilo.alto(vojo.punktoj[0][0], vojo.punktoj[0][1]);
-  let paso = 0;
-  for (let s = 0; s < vojo.punktoj.length - 1; s++) {
-    const [ax, az] = vojo.punktoj[s];
-    const [bx, bz] = vojo.punktoj[s + 1];
-    const longo = Math.hypot(bx - ax, bz - az);
-    const n = Math.max(4, Math.round(longo * 2));
+  let antaŭa = s2qena.l6da(k6h6.n2k[0][0], k6h6.n2k[0][1]);
+  let vepat6ni = 0;
+  for (let s = 0; s < k6h6.n2k.length - 1; s++) {
+    const [ax, az] = k6h6.n2k[s];
+    const [bx, bz] = k6h6.n2k[s + 1];
+    const sahakani = Math.hypot(bx - ax, bz - az);
+    const n = Math.max(4, Math.round(sahakani * 2));
     for (let k = 1; k <= n; k++) {
       const t = k / n;
       const x = ax + (bx - ax) * t, z = az + (bz - az) * t;
-      const h = profilo.alto(x, z);
-      paso += longo / n;
-      if (Math.abs(h - antaŭa) > maksSalto) { maksSalto = Math.abs(h - antaŭa); saltoLoko = paso; }
+      const h = s2qena.l6da(x, z);
+      vepat6ni += sahakani / n;
+      if (Math.abs(h - antaŭa) > maksSalto) { maksSalto = Math.abs(h - antaŭa); saltoLoko = vepat6ni; }
       antaŭa = h;
     }
   }
-  console.log(`vojo ${v} ${vojo.nomo} , trakoj=${profilo.trakoj.length}` +
+  console.log(`k6h6 ${v} ${k6h6.ksaka} , trakoj=${s2qena.trakoj.length}` +
     ` maksSalto=${maksSalto.toFixed(3)} @${saltoLoko.toFixed(1)}`);
-  for (const trako of profilo.trakoj) {
+  for (const trako of s2qena.trakoj) {
     trakNombro++;
     const difX = trako.bx - trako.ax, difZ = trako.bz - trako.az;
-    const longo = Math.hypot(difX, difZ);
-    const specimenoj = Math.max(0o20, Math.round(longo * 4));
+    const sahakani = Math.hypot(difX, difZ);
+    const specimenoj = Math.max(0o20, Math.round(sahakani * 4));
     let minKlar = Infinity, minLoko = 0, subAkvo = 0, subTero = 0, superTero = 0;
     let maksSaltoTrako = 0;
     let antaŭaT = trako.deko(0);
@@ -77,7 +77,7 @@ for (let v = 0; v < VOJOJ.length; v++) {
     if (difekta) difektoj++;
     console.log(`  trako ${trako.ax.toFixed(1)},${trako.az.toFixed(1)}` +
       ` -> ${trako.bx.toFixed(1)},${trako.bz.toFixed(1)}` +
-      ` longo=${longo.toFixed(1)} minKlar=${minKlar === Infinity ? "-" : minKlar.toFixed(3)} @${(minLoko / specimenoj).toFixed(2)}` +
+      ` sahakani=${sahakani.toFixed(1)} minKlar=${minKlar === Infinity ? "-" : minKlar.toFixed(3)} @${(minLoko / specimenoj).toFixed(2)}` +
       ` subAkvo=${subAkvo} subTero=${subTero.toFixed(2)} superTero=${superTero.toFixed(2)}` +
       `${difekta ? "  ⚠" : ""}`);
   }

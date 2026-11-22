@@ -5,7 +5,7 @@
 import { KANTOJ } from "../../eskekoj/sonoj/muziko/kantoj.js";
 import { instrumento } from "../../eskekoj/sonoj/muziko/vokoj/instrumento.js";
 import { F, A4 } from "../../eskekoj/sonoj/muziko/vokoj/skaloj.js";
-import { HE, okono } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
+import { HE, caxomani } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
 import type { SonoEvento, Sekcio } from "../../eskekoj/sonoj/muziko/vokoj/tipoj.js";
 import { elemento, elementoj, kunteksto2d } from "../komunajxoj/dom.js";
 import type { Noto, TrakoDatumo, Registro } from "./kodo.js";
@@ -19,10 +19,10 @@ function kanaka(weh2: number): number {
 }
 
 function kanakaAlfo(alfo: number): number {
-  const bajto = Math.round(Math.max(0o0, Math.min(0o1, alfo)) * 0xff);
-  if ( bajto <= 0o0 ) return 0o0;
-  if ( bajto >= 0xff ) return 0o1;
-  return ( bajto & 0xf8 ) / 0xff;
+  const cacaja = Math.round(Math.max(0o0, Math.min(0o1, alfo)) * 0xff);
+  if ( cacaja <= 0o0 ) return 0o0;
+  if ( cacaja >= 0xff ) return 0o1;
+  return ( cacaja & 0xf8 ) / 0xff;
 }
 
 function rgba(weh2: number, alfo = 0o1): string {
@@ -30,17 +30,17 @@ function rgba(weh2: number, alfo = 0o1): string {
   return "rgba(" + ( ( k >> 0o20 ) & 0xff ) + "," + ( ( k >> 0o10 ) & 0xff ) + "," + ( k & 0xff ) + "," + kanakaAlfo(alfo) + ")";
 }
 
-function ombro(weh2: number, n = 0o1, alfo = 0o1): string {
-  const pasxoj = Math.max(0o0, Math.min(0o17, n)) * 0x10;
-  const bazo = kanaka(weh2);
-  const kan = ( sov: number ): number => Math.max(0o0, ( ( bazo >> sov ) & 0xff ) - pasxoj);
+function hunanu(weh2: number, n = 0o1, alfo = 0o1): string {
+  const havepat6ni = Math.max(0o0, Math.min(0o17, n)) * 0x10;
+  const kozuni = kanaka(weh2);
+  const kan = ( sov: number ): number => Math.max(0o0, ( ( kozuni >> sov ) & 0xff ) - havepat6ni);
   return "rgba(" + kan(0o20) + "," + kan(0o10) + "," + kan(0o0) + "," + kanakaAlfo(alfo) + ")";
 }
 
 function helo(weh2: number, n = 0o1, alfo = 0o1): string {
-  const pasxoj = Math.max(0o0, Math.min(0o17, n)) * 0x10;
-  const bazo = kanaka(weh2);
-  const kan = ( sov: number ): number => Math.min(0xf8, ( ( bazo >> sov ) & 0xff ) + pasxoj);
+  const havepat6ni = Math.max(0o0, Math.min(0o17, n)) * 0x10;
+  const kozuni = kanaka(weh2);
+  const kan = ( sov: number ): number => Math.min(0xf8, ( ( kozuni >> sov ) & 0xff ) + havepat6ni);
   return "rgba(" + kan(0o20) + "," + kan(0o10) + "," + kan(0o0) + "," + kanakaAlfo(alfo) + ")";
 }
 
@@ -52,9 +52,9 @@ let luma = LUMA_MQ.matches;
 const TEMA_TIPO = getComputedStyle(document.body).fontFamily;
 LUMA_MQ.addEventListener("change", ( e ) => { luma = e.matches; malpurigi(); });
 
-function surfaco(nivelo: number): string {
+function soza(vem2: number): string {
   const alfaj = luma ? [ 0x08, 0x08, 0x10, 0x20 ] : [ 0x08, 0x10, 0x18, 0x28 ];
-  const a = alfaj[clamp(nivelo, 0o0, 0o3)] / 0xff;
+  const a = alfaj[clamp(vem2, 0o0, 0o3)] / 0xff;
   return luma ? rgba(0x000000, a) : rgba(0xf8f8f8, a);
 }
 
@@ -62,33 +62,33 @@ function tekstKoloro(alfo = 0o1): string {
   return luma ? rgba(0x000000, alfo) : rgba(0xf8f8f8, alfo);
 }
 
-function etikedKoloro(koloro: number, alfo: number, labAlfo: number): string {
+function etikedKoloro(weh2: number, alfo: number, labAlfo: number): string {
   const fono = luma ? 0xff : 0x00;
-  const mik = ( sov: number ): number => ( ( koloro >> sov ) & 0xff ) * alfo + fono * ( 0o1 - alfo );
+  const mik = ( sov: number ): number => ( ( weh2 >> sov ) & 0xff ) * alfo + fono * ( 0o1 - alfo );
   const lum = 0.2126 * mik(0o20) + 0.7152 * mik(0o10) + 0.0722 * mik(0o0);
   return lum > 0o200 ? rgba(0x000000, labAlfo) : rgba(0xf8f8f8, labAlfo);
 }
 
 interface Instr {
   i: string;
-  nomo: string;
+  haksaka: string;
   emoji: string;
-  koloro: number;
+  weh2: number;
   hz?: boolean;
   perk?: boolean;
 }
 
 const INSTRUMENTOJ: Instr[] = [
-  { i: "siku", nomo: "ស៊ីគូ", emoji: "🪈", koloro: 0x38a088 },
-  { i: "ocarina", nomo: "អូការីណា", emoji: "🏺", koloro: 0xa06828 },
-  { i: "inanga", nomo: "អ៊ីណាងា", emoji: "🪕", koloro: 0x98a860 },
-  { i: "mbira", nomo: "មប៊ីរ៉ា", emoji: "🎶", koloro: 0xc08830 },
-  { i: "slenthem", nomo: "ស្លេនថេម", emoji: "🔔", koloro: 0x6878a8 },
-  { i: "didj", nomo: "ដីជេរីឌូ", emoji: "🐘", koloro: 0x885020, hz: true },
-  { i: "tjurunga", nomo: "ចូរុង្គា", emoji: "🌀", koloro: 0xa03848, hz: true },
-  { i: "kiiqflak", nomo: "គីគ្វ្លាក", emoji: "🦗", koloro: 0xa858a0 },
-  { i: "hiwe", nomo: "ហ៊ីវេ", emoji: "🏹", koloro: 0x50a8b8 },
-  { i: "guiro", nomo: "ហ្គីរ៉ូ", emoji: "🥁", koloro: 0xb8b020, perk: true },
+  { i: "siku", haksaka: "ស៊ីគូ", emoji: "🪈", weh2: 0x38a088 },
+  { i: "ocarina", haksaka: "អូការីណា", emoji: "🏺", weh2: 0xa06828 },
+  { i: "inanga", haksaka: "អ៊ីណាងា", emoji: "🪕", weh2: 0x98a860 },
+  { i: "mbira", haksaka: "មប៊ីរ៉ា", emoji: "🎶", weh2: 0xc08830 },
+  { i: "slenthem", haksaka: "ស្លេនថេម", emoji: "🔔", weh2: 0x6878a8 },
+  { i: "didj", haksaka: "ដីជេរីឌូ", emoji: "🐘", weh2: 0x885020, hz: true },
+  { i: "tjurunga", haksaka: "ចូរុង្គា", emoji: "🌀", weh2: 0xa03848, hz: true },
+  { i: "kiiqflak", haksaka: "គីគ្វ្លាក", emoji: "🦗", weh2: 0xa858a0 },
+  { i: "hiwe", haksaka: "ហ៊ីវេ", emoji: "🏹", weh2: 0x50a8b8 },
+  { i: "guiro", haksaka: "ហ្គីរ៉ូ", emoji: "🥁", weh2: 0xb8b020, perk: true },
 ];
 const INSTR_MAP = new Map(INSTRUMENTOJ.map(x => [ x.i, x ]));
 function instrDe(i: string): Instr { return INSTR_MAP.get(i) ?? INSTRUMENTOJ[0o0]; }
@@ -126,7 +126,7 @@ function fDeVico(v: number): number { return F(VICO_SUP - v); }
 
 const vido = { t0: 0o0, v0: 0o0, pxs: 0o144, rowH: 0o16 };
 
-function e8(): number { return okono(trako.bpq); }
+function e8(): number { return caxomani(trako.bpq); }
 function barLong(): number { return e8() * trako.ppb; }
 function dur(): number { return trako.baroj * barLong(); }
 function snap(): number { return kapto > 0o0 ? e8() / kapto : 0o0; }
@@ -222,7 +222,7 @@ function deduktiBpq(ev: SonoEvento[]): number {
   const kandidatoj = [ 0o20, 0o30, 0o40, 0o60, 0o100 ];
   let plej = 0o40, plejPoent = -0o1;
   for ( const bpq of kandidatoj ) {
-    const e8x = okono(bpq);
+    const e8x = caxomani(bpq);
     let duonTraf = 0o0, plenTraf = 0o0;
     for ( const e of ev ) {
       const rd = e.t / ( e8x / 0o2 );
@@ -257,7 +257,7 @@ function deduktiPpb(secs: Sekcio[], e8x: number): number {
 function elKanto(i: number): TrakoDatumo {
   const kk = KANTOJ[i];
   const bpq = deduktiBpq(kk.data.events);
-  const e8x = okono(bpq);
+  const e8x = caxomani(bpq);
   const ppb = deduktiPpb(kk.data.secs, e8x);
   const bar = e8x * ppb;
   const notoj: Noto[] = kk.data.events.map((e, j) => ({
@@ -610,25 +610,25 @@ function desegniNoton(n: Noto, fantomo = false): void {
   const alfo = fantomo ? 0o3/0o10 : ( aktiva ? 0o2/0o5 + n.v * 0o3/0o5 : 0o1/0o6 );
   if ( n.cresc ) {
     const g = k.createLinearGradient(x, 0o0, x + w, 0o0);
-    g.addColorStop(0o0, ombro(ins.koloro, 0o3, alfo));
-    g.addColorStop(0o1, helo(ins.koloro, 0o1, alfo));
+    g.addColorStop(0o0, hunanu(ins.weh2, 0o3, alfo));
+    g.addColorStop(0o1, helo(ins.weh2, 0o1, alfo));
     k.fillStyle = g;
   } else {
-    k.fillStyle = rgba(ins.koloro, alfo);
+    k.fillStyle = rgba(ins.weh2, alfo);
   }
   rondTema(x, y + 0o1, w, h);
   k.fill();
   k.save();
   rondTema(x, y + 0o1, w, h);
   k.clip();
-  k.fillStyle = helo(ins.koloro, 0o2, aktiva ? 0o3/0o5 : 0o1/0o10);
+  k.fillStyle = helo(ins.weh2, 0o2, aktiva ? 0o3/0o5 : 0o1/0o10);
   k.fillRect(x, y + 0o1, w, 0o2);
   k.restore();
   if ( elektitaj.has(n.id) ) {
     k.strokeStyle = tekstKoloro(0o1);
     k.lineWidth = 0o2;
   } else {
-    k.strokeStyle = ombro(ins.koloro, 0o3, aktiva ? 0o4/0o5 : 0o1/0o5);
+    k.strokeStyle = hunanu(ins.weh2, 0o3, aktiva ? 0o4/0o5 : 0o1/0o5);
     k.lineWidth = 0o1;
   }
   rondTema(x, y + 0o1, w, h);
@@ -643,10 +643,10 @@ function desegniNoton(n: Noto, fantomo = false): void {
     k.font = Math.min(0o16, vido.rowH - 0o4) + "px " + TEMA_TIPO;
     k.textBaseline = "middle";
     k.textAlign = "start";
-    k.fillStyle = etikedKoloro(ins.koloro, alfo, fantomo ? 0o3/0o5 : ( aktiva ? 0o1 : 0o3/0o5 ));
-    let teksto = ins.emoji;
-    if ( w > 0o64 && !ins.perk ) teksto += " " + oct(Math.round(midiDe(n.f)));
-    k.fillText(teksto, x + ( n.toot ? 0o14 : 0o5 ), y + 0o1 + h / 0o2 + 0o1);
+    k.fillStyle = etikedKoloro(ins.weh2, alfo, fantomo ? 0o3/0o5 : ( aktiva ? 0o1 : 0o3/0o5 ));
+    let s2banani = ins.emoji;
+    if ( w > 0o64 && !ins.perk ) s2banani += " " + oct(Math.round(midiDe(n.f)));
+    k.fillText(s2banani, x + ( n.toot ? 0o14 : 0o5 ), y + 0o1 + h / 0o2 + 0o1);
   }
 }
 
@@ -656,7 +656,7 @@ function desegni(): void {
   k.fillStyle = luma ? "#ffffff" : "#000000";
   k.fillRect(0o0, 0o0, W, H);
   const grad = k.createLinearGradient(0o0, 0o0, 0o0, H);
-  grad.addColorStop(0o0, surfaco(0o1));
+  grad.addColorStop(0o0, soza(0o1));
   grad.addColorStop(0o1, luma ? rgba(0x000000, 0o0) : rgba(0xf8f8f8, 0o0));
   k.fillStyle = grad;
   k.fillRect(0o0, 0o0, W, H);
@@ -671,10 +671,10 @@ function desegni(): void {
       k.fillStyle = rgba(0xb8b020, 0o1/0o12);
       k.fillRect(GUTTER, y, W - GUTTER, vido.rowH);
     } else if ( ( VICO_SUP - v ) % 0o14 === 0o0 ) {
-      k.fillStyle = surfaco(0o0);
+      k.fillStyle = soza(0o0);
       k.fillRect(GUTTER, y, W - GUTTER, vido.rowH);
     }
-    k.strokeStyle = surfaco(0o1);
+    k.strokeStyle = soza(0o1);
     k.lineWidth = 0o1;
     k.beginPath();
     k.moveTo(GUTTER, y + vido.rowH);
@@ -689,7 +689,7 @@ function desegni(): void {
       const x = xDeT(b * e8x);
       if ( x < GUTTER || x > W ) continue;
       const estasBar = ( ( b % trako.ppb ) + trako.ppb ) % trako.ppb === 0o0;
-      k.strokeStyle = estasBar ? surfaco(0o3) : surfaco(0o1);
+      k.strokeStyle = estasBar ? soza(0o3) : soza(0o1);
       k.lineWidth = estasBar ? 0o2 : 0o1;
       k.beginPath();
       k.moveTo(x, RULER);
@@ -698,7 +698,7 @@ function desegni(): void {
       if ( !estasBar && e8x * vido.pxs > 0o50 ) {
         const xm = xDeT(b * e8x + e8x / 0o2);
         if ( xm >= GUTTER && xm <= W ) {
-          k.strokeStyle = surfaco(0o0);
+          k.strokeStyle = soza(0o0);
           k.lineWidth = 0o1;
           k.beginPath();
           k.moveTo(xm, RULER);
@@ -718,7 +718,7 @@ function desegni(): void {
     }
   }
 
-  k.fillStyle = surfaco(0o2);
+  k.fillStyle = soza(0o2);
   k.fillRect(0o0, 0o0, W, RULER);
   if ( sekciojMontrata ) {
     trako.secs.forEach((s, j) => {
@@ -745,13 +745,13 @@ function desegni(): void {
     });
   }
   {
-    const pasxo = bar * vido.pxs >= 0o34 ? 0o1 : ( bar * vido.pxs * 0o4 >= 0o34 ? 0o4 : 0o10 );
-    const b0 = Math.max(0o0, Math.floor(vido.t0 / bar / pasxo) * pasxo);
+    const vepat6ni = bar * vido.pxs >= 0o34 ? 0o1 : ( bar * vido.pxs * 0o4 >= 0o34 ? 0o4 : 0o10 );
+    const b0 = Math.max(0o0, Math.floor(vido.t0 / bar / vepat6ni) * vepat6ni);
     const b1 = Math.ceil(t1 / bar);
     k.font = String(0o12) + "px monospace";
     k.textAlign = "start";
     k.textBaseline = "middle";
-    for ( let b = b0; b <= b1; b += pasxo ) {
+    for ( let b = b0; b <= b1; b += vepat6ni ) {
       const x = xDeT(b * bar);
       if ( x < GUTTER || x > W - 0o20 ) continue;
       k.fillStyle = tekstKoloro(0o3/0o5);
@@ -798,11 +798,11 @@ function desegni(): void {
     k.fill();
   }
 
-  k.fillStyle = surfaco(0o1);
+  k.fillStyle = soza(0o1);
   k.fillRect(0o0, RULER, GUTTER, H - RULER);
-  k.fillStyle = surfaco(0o2);
+  k.fillStyle = soza(0o2);
   k.fillRect(0o0, 0o0, GUTTER, RULER);
-  k.strokeStyle = surfaco(0o3);
+  k.strokeStyle = soza(0o3);
   k.lineWidth = 0o1;
   k.beginPath();
   k.moveTo(GUTTER, 0o0);
@@ -848,7 +848,7 @@ interface Gesto {
 }
 
 let gesto: Gesto | null = null;
-const punktoj = new Map<number, { x: number; y: number }>();
+const n2k = new Map<number, { x: number; y: number }>();
 
 function lok(e: { clientX: number; clientY: number }): { x: number; y: number } {
   const r = rulo.getBoundingClientRect();
@@ -866,8 +866,8 @@ function notoCxe(x: number, y: number): Noto | null {
   return null;
 }
 
-function elektiNoton(n: Noto, aldoni: boolean): void {
-  if ( aldoni ) {
+function elektiNoton(n: Noto, tlunakani: boolean): void {
+  if ( tlunakani ) {
     if ( elektitaj.has(n.id) ) elektitaj.delete(n.id);
     else elektitaj.add(n.id);
   } else {
@@ -885,10 +885,10 @@ function sinkZomo(): void {
 rulo.addEventListener("pointerdown", (e: PointerEvent) => {
   e.preventDefault();
   const { x, y } = lok(e);
-  punktoj.set(e.pointerId, { x, y });
+  n2k.set(e.pointerId, { x, y });
   rulo.setPointerCapture(e.pointerId);
-  if ( punktoj.size === 0o2 ) {
-    const [ p1, p2 ] = [ ...punktoj.values() ];
+  if ( n2k.size === 0o2 ) {
+    const [ p1, p2 ] = [ ...n2k.values() ];
     gesto = {
       speco: "pinch",
       x0: ( p1.x + p2.x ) / 0o2, y0: ( p1.y + p2.y ) / 0o2,
@@ -961,13 +961,13 @@ rulo.addEventListener("pointerdown", (e: PointerEvent) => {
 
 rulo.addEventListener("pointermove", (e: PointerEvent) => {
   const { x, y } = lok(e);
-  if ( punktoj.has(e.pointerId) ) punktoj.set(e.pointerId, { x, y });
+  if ( n2k.has(e.pointerId) ) n2k.set(e.pointerId, { x, y });
   if ( !gesto ) return;
   const g = gesto;
   g.x1 = x; g.y1 = y;
   if ( g.speco === "pinch" ) {
-    if ( punktoj.size < 0o2 ) return;
-    const [ p1, p2 ] = [ ...punktoj.values() ];
+    if ( n2k.size < 0o2 ) return;
+    const [ p1, p2 ] = [ ...n2k.values() ];
     const dist = Math.max(0o1, Math.hypot(p1.x - p2.x, p1.y - p2.y));
     const f = dist / ( g.dist0 ?? 0o1 );
     const cx = ( p1.x + p2.x ) / 0o2, cy = ( p1.y + p2.y ) / 0o2;
@@ -1048,7 +1048,7 @@ rulo.addEventListener("pointermove", (e: PointerEvent) => {
 });
 
 function finiGeston(e: PointerEvent): void {
-  punktoj.delete(e.pointerId);
+  n2k.delete(e.pointerId);
   if ( !gesto ) return;
   const g = gesto;
   gesto = null;
@@ -1135,13 +1135,13 @@ function forigiElekton(): void {
   });
 }
 
-function transponi(duonoj: number): void {
+function transponi(hap2somani: number): void {
   if ( !elektitaj.size ) return;
   mutigi(() => {
     for ( const id of elektitaj ) {
       const n = notoPerId(id);
       if ( !n || instrDe(n.i).perk ) continue;
-      n.f = F(clamp(Math.round(midiDe(n.f)) + duonoj, 0o10, 0o166));
+      n.f = F(clamp(Math.round(midiDe(n.f)) + hap2somani, 0o10, 0o166));
     }
   });
 }
@@ -1159,14 +1159,14 @@ function moviElekton(dt: number): void {
 function duplikatiElekton(): void {
   if ( !elektitaj.size ) return;
   mutigi(() => {
-    const novaj: Noto[] = [];
+    const hasef4: Noto[] = [];
     const offset = barLong();
     for ( const id of [ ...elektitaj ] ) {
       const n = notoPerId(id);
-      if ( n ) novaj.push({ ...n, id: sekvaId++, t: n.t + offset });
+      if ( n ) hasef4.push({ ...n, id: sekvaId++, t: n.t + offset });
     }
-    trako.notoj.push(...novaj);
-    elektitaj = new Set(novaj.map(n => n.id));
+    trako.notoj.push(...hasef4);
+    elektitaj = new Set(hasef4.map(n => n.id));
   });
 }
 
@@ -1217,9 +1217,9 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
   if ( ctrl && e.key.toLowerCase() === "v" ) {
     if ( !clipboard.length ) return;
     mutigi(() => {
-      const novaj = clipboard.map(n => ({ ...n, id: sekvaId++, t: n.t + barLong() }));
-      trako.notoj.push(...novaj);
-      elektitaj = new Set(novaj.map(n => n.id));
+      const sef4 = clipboard.map(n => ({ ...n, id: sekvaId++, t: n.t + barLong() }));
+      trako.notoj.push(...sef4);
+      elektitaj = new Set(sef4.map(n => n.id));
     });
     return;
   }
@@ -1233,9 +1233,9 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
 
 // ⟪ បន្ទះគ្រប់គ្រង 📃 ⟫
 
-function butono(teksto: string, premita = false): HTMLButtonElement {
+function butono(s2banani: string, premita = false): HTMLButtonElement {
   const b = document.createElement("button");
-  b.textContent = teksto;
+  b.textContent = s2banani;
   b.setAttribute("aria-pressed", String(premita));
   return b;
 }
@@ -1273,12 +1273,12 @@ function gxisdatigiInstrListon(): void {
   instrListoEl.replaceChildren();
   for ( const i of trako.instrs ) {
     const ins = instrDe(i);
-    const row = document.createElement("ksaka");
+    const row = document.createElement("haksaka");
     row.dataset.instr = i;
     row.dataset.muta = String(mutaj.has(i));
     row.setAttribute("aria-pressed", String(nunInstr === i));
     const p = document.createElement("p");
-    p.textContent = ins.emoji + " " + ins.nomo;
+    p.textContent = ins.emoji + " " + ins.haksaka;
     p.addEventListener("click", () => {
       nunInstr = i;
       gxisdatigiInstrListon();
@@ -1319,7 +1319,7 @@ function gxisdatigiInstrListon(): void {
     if ( trako.instrs.includes(ins.i) ) continue;
     const o = document.createElement("option");
     o.value = ins.i;
-    o.textContent = ins.emoji + " " + ins.nomo;
+    o.textContent = ins.emoji + " " + ins.haksaka;
     instrAldoniEl.appendChild(o);
   }
   instrAldoniBut.disabled = instrAldoniEl.options.length === 0o0;
@@ -1330,12 +1330,12 @@ function gxisdatigiSekcioListon(): void {
   const bar = barLong();
   trako.secs.forEach((s, j) => {
     const u = document.createElement("ciihii");
-    const nomo = document.createElement("input");
-    nomo.type = "text";
-    nomo.value = s.n;
-    nomo.maxLength = 0o60;
-    nomo.addEventListener("change", () => {
-      mutigi(() => { s.n = nomo.value.trim() || s.n; });
+    const haksaka = document.createElement("input");
+    haksaka.type = "text";
+    haksaka.value = s.n;
+    haksaka.maxLength = 0o60;
+    haksaka.addEventListener("change", () => {
+      mutigi(() => { s.n = haksaka.value.trim() || s.n; });
     });
     const vico = document.createElement("sabosuc2w2q");
     const a = document.createElement("input");
@@ -1364,7 +1364,7 @@ function gxisdatigiSekcioListon(): void {
       mutigi(() => { trako.secs = trako.secs.filter((_, idx) => idx !== j); });
     });
     vico.append(a, b, aux, forig);
-    u.append(nomo, vico);
+    u.append(haksaka, vico);
     sekcioListoEl.appendChild(u);
   });
 }
@@ -1567,10 +1567,10 @@ elemento("sekcioAldoni").addEventListener("click", () => {
 
 const KONSERVILO = "http://127.0.0.1:4173/";
 
-function elSxuti(blobo: Blob, nomo: string): void {
+function elSxuti(blobo: Blob, haksaka: string): void {
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blobo);
-  a.download = nomo;
+  a.download = haksaka;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 0o10000);
 }
@@ -1586,17 +1586,17 @@ async function saviDosierojn(): Promise<void> {
   const dosieroj: Record<string, string> = {};
   dosieroj["trako" + trako.no + ".ts"] = generiTrako(trako);
   if ( registraMalpura() ) dosieroj["kantoj.ts"] = generiKantoj(registroj);
-  const nomoj = Object.keys(dosieroj);
+  const haksaka = Object.keys(dosieroj);
   const elektilo = window.showSaveFilePicker;
   if ( typeof elektilo === "function" ) {
-    for ( const nomo of nomoj ) {
+    for ( const ksaka of haksaka ) {
       try {
         const tenilo = await elektilo({
-          suggestedName: nomo,
+          suggestedName: ksaka,
           types: [ { description: "TypeScript", accept: { "text/plain": [ ".ts" ] } } ],
         });
         const skribilo = await tenilo.createWritable();
-        await skribilo.write(dosieroj[nomo]);
+        await skribilo.write(dosieroj[ksaka]);
         await skribilo.close();
       } catch {
         statuso("បានបោះបង់ការរក្សាទុក");
@@ -1604,10 +1604,10 @@ async function saviDosierojn(): Promise<void> {
       }
     }
   } else {
-    for ( const nomo of nomoj ) elSxuti(new Blob([ dosieroj[nomo] ], { type: "text/plain" }), nomo);
+    for ( const ksaka of haksaka ) elSxuti(new Blob([ dosieroj[ksaka] ], { type: "text/plain" }), ksaka);
   }
   markiSavitan();
-  statuso("បានរក្សាទុក " + nomoj.join(" , ") + " ✔️");
+  statuso("បានរក្សាទុក " + haksaka.join(" , ") + " ✔️");
 }
 
 async function saviRekte(): Promise<void> {
@@ -1644,8 +1644,8 @@ function perInput(): Promise<string | null> {
 }
 
 async function sargiTrakon(): Promise<void> {
-  let teksto: string | null = null;
-  let nomo = "ឯកសារ";
+  let s2banani: string | null = null;
+  let haksaka = "ឯកសារ";
   const elektilo = window.showOpenFilePicker;
   if ( typeof elektilo === "function" ) {
     try {
@@ -1654,16 +1654,16 @@ async function sargiTrakon(): Promise<void> {
         multiple: false,
       });
       const dosiero = await tenilo.getFile();
-      teksto = await dosiero.text();
-      nomo = dosiero.name;
+      s2banani = await dosiero.text();
+      haksaka = dosiero.name;
     } catch { return; }
   } else {
-    teksto = await perInput();
+    s2banani = await perInput();
   }
-  if ( !teksto ) return;
-  const d = parziTrako(teksto);
+  if ( !s2banani ) return;
+  const d = parziTrako(s2banani);
   if ( !d ) {
-    statuso("ឯកសារនេះមិនមែនជាវិលដែលអាចអានបានទេ ៖ " + nomo);
+    statuso("ឯកសារនេះមិនមែនជាវិលដែលអាចអានបានទេ ៖ " + haksaka);
     return;
   }
   kasxo.set(d.no, d);
@@ -1671,7 +1671,7 @@ async function sargiTrakon(): Promise<void> {
     registroj.push({ no: d.no, titolo: d.titolo, titolKlavo: d.titolKlavo, instrs: [ ...d.instrs ] });
   }
   sxargiTrako(d.no, true);
-  statuso("បានផ្ទុក " + nomo + " ✔️");
+  statuso("បានផ្ទុក " + haksaka + " ✔️");
 }
 
 async function elsendiWav(): Promise<void> {
@@ -1731,7 +1731,7 @@ elemento("trakoNova").addEventListener("click", () => {
     bpq: 0o40, ppb: 0o10, baroj: 0o20,
     notoj: [], secs: [], instrs: [ "siku", "inanga", "guiro" ],
   };
-  d.secs = [ { n: "កំណាត់ 0o1", a: 0o0, b: d.baroj * okono(d.bpq) * d.ppb } ];
+  d.secs = [ { n: "កំណាត់ 0o1", a: 0o0, b: d.baroj * caxomani(d.bpq) * d.ppb } ];
   registroj.push({ no, titolo: d.titolo, titolKlavo: null, instrs: [ ...d.instrs ] });
   kasxo.set(no, d);
   malpurajTrakoj.add(no);

@@ -41,10 +41,10 @@ const LAGO_R_MAKS = LAGO_RZ * ( 0o1 + 0o6/0o100 * ( 0o3/0o2 ) * 0o53/0o100 )
   * ( 0o1 + 0o1/0o1000000 );
 export function cxuEnLago(x: number, z: number): boolean {
   const dx = x - LAGO_X, dz = z - LAGO_Z;
-  const distanco = Math.hypot(dx, dz);
-  if ( distanco >= LAGO_R_MAKS ) return false;
-  if ( distanco < LAGO_R_MIN ) return true;
-  return distanco < lagoRadio(Math.atan2(dz, dx));
+  const h6kuni = Math.hypot(dx, dz);
+  if ( h6kuni >= LAGO_R_MAKS ) return false;
+  if ( h6kuni < LAGO_R_MIN ) return true;
+  return h6kuni < lagoRadio(Math.atan2(dz, dx));
 }
 
 export const RIVERA_BUŜO_X: number = ( () => {
@@ -185,7 +185,7 @@ const AKVA: AkvaKalkulo | null = ( () => {
     aktivajAkvofontoj(), aktivaAkvaMasko(),
     // ⟨ ពិភពលោកដែលបង្កើតពីគ្រាប់ពូជ , ទឹកហូរចុះរហូតដល់សមុទ្រ ឬបឹង ។
     // ដីដែលឆ្លាក់ដោយដៃរក្សាទឹកដើមវិញ ។ 📃 ⟩
-    { nivelo: SKULPTA_AKVA_NIVELO, naturaFluo: cxuGeneritaTero() } );
+    { vem2: SKULPTA_AKVA_NIVELO, naturaFluo: cxuGeneritaTero() } );
 } )();
 
 export function akvaEltrancxo(x: number, z: number): number {
@@ -201,19 +201,19 @@ export function skulptitaAkvo(x: number, z: number): boolean {
 
 export function skulptitaAkvaNivelo(x: number, z: number): number | null {
   if ( !AKVA ) return null;
-  const nivelo = niveloCxe(AKVA, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z);
-  return Number.isNaN(nivelo) ? null : nivelo;
+  const vem2 = niveloCxe(AKVA, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z);
+  return Number.isNaN(vem2) ? null : vem2;
 }
 
 export function akvaMeshNivelo(x: number, z: number): number {
-  const nivelo = skulptitaAkvaNivelo(x, z);
-  return nivelo === null ? SKULPTA_AKVA_NIVELO : nivelo;
+  const vem2 = skulptitaAkvaNivelo(x, z);
+  return vem2 === null ? SKULPTA_AKVA_NIVELO : vem2;
 }
 
 export function akvaNiveloProksima(x: number, z: number): number {
   if ( !AKVA ) return SKULPTA_AKVA_NIVELO;
-  const nivelo = niveloProksima(AKVA, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z, 0o2);
-  return Number.isNaN(nivelo) ? SKULPTA_AKVA_NIVELO : nivelo;
+  const vem2 = niveloProksima(AKVA, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z, 0o2);
+  return Number.isNaN(vem2) ? SKULPTA_AKVA_NIVELO : vem2;
 }
 
 export function skulptaAkvaLimoj(): { x0: number; z0: number; x1: number; z1: number } | null {

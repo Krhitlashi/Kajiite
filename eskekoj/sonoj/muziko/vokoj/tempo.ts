@@ -13,6 +13,6 @@ export const QE = SEKUNDOJ_PO_QE;
 /* ប្រវែងណោតភាគប្រាំបីគិតជាវិនាទី ពាក់កណ្តាលបាតក
     @param bpq ( number ) - បាតក្នុងមួយគុយអេ ជាគោលប្រាំបី
 @returns វិនាទី ( number ) */
-export function okono( bpq: number ): number {
+export function caxomani( bpq: number ): number {
   return QE / bpq / 0o2;
 }

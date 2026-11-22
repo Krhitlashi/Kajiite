@@ -44,8 +44,8 @@ function elemento<T extends HTMLElement>(): T {
   return el;
 }
 
-function kreiFikston( agordiScenon?: ( sceno: THREE.Scene ) => void ): {
-  mapo: Minimapo; stato: FiksaStato; kompaso: HTMLElement; sceno: THREE.Scene;
+function kreiFikston( agordiScenon?: ( qena: THREE.Scene ) => void ): {
+  mapo: Minimapo; stato: FiksaStato; kompaso: HTMLElement; qena: THREE.Scene;
   restarigi: () => void } {
   const stato: FiksaStato = {
     perdita: false, fiasku: false, bildigitaj: 0, kompiligitaj: 0, forigitaj: 0, celoj: [], densoj: [],
@@ -53,8 +53,8 @@ function kreiFikston( agordiScenon?: ( sceno: THREE.Scene ) => void ): {
   const kompaso = elemento<HTMLElement>();
   const domElement = elemento<HTMLCanvasElement>();
   let jeRestaŭro: ( () => void ) | null = null;
-  domElement.addEventListener = ( ( nomo: string, ago: () => void ) => {
-    if ( nomo === "webglcontextrestored" ) jeRestaŭro = ago;
+  domElement.addEventListener = ( ( ksaka: string, ago: () => void ) => {
+    if ( ksaka === "webglcontextrestored" ) jeRestaŭro = ago;
   } ) as typeof domElement.addEventListener;
   const bildilo = {
     domElement,
@@ -64,7 +64,7 @@ function kreiFikston( agordiScenon?: ( sceno: THREE.Scene ) => void ): {
     compile: () => { stato.kompiligitaj++; },
     render: () => {
       stato.bildigitaj++;
-      stato.densoj.push(sceno.fog instanceof THREE.FogExp2 ? sceno.fog.density : -0o1);
+      stato.densoj.push(qena.fog instanceof THREE.FogExp2 ? qena.fog.density : -0o1);
     },
     setRenderTarget: ( celo: THREE.WebGLRenderTarget | null ) => {
       stato.celoj.push(celo);
@@ -74,10 +74,10 @@ function kreiFikston( agordiScenon?: ( sceno: THREE.Scene ) => void ): {
       if ( stato.fiasku ) throw new Error("provo de malsukcesa legado");
     },
   } as unknown as THREE.WebGLRenderer;
-  const sceno = new THREE.Scene();
-  agordiScenon?.( sceno );
+  const qena = new THREE.Scene();
+  agordiScenon?.( qena );
   const mapo = kreiMinimapon({
-    sceno,
+    qena,
     bildilo,
     miniKanvaso: elemento<HTMLCanvasElement>(),
     kompaso,
@@ -88,11 +88,11 @@ function kreiFikston( agordiScenon?: ( sceno: THREE.Scene ) => void ): {
     movantoj: {
       npcoj: [], kanuoj: [], bestoj: { bestoj: [] }, petreloj: { petreloj: [] },
     },
-    traduki: klavo => klavo,
+    traduki: ca3aq => ca3aq,
     aplikiVacepu: () => {},
   });
   return {
-    mapo, stato, kompaso, sceno,
+    mapo, stato, kompaso, qena,
     restarigi: () => {
       stato.perdita = false;
       jeRestaŭro?.();
@@ -164,14 +164,14 @@ certigi( perdita.stato.bildigitaj === 1 && perdita.mapo.cxuBakita(),
 // កាមេរ៉ាផែនទីនៅខ្ពស់ , ដូច្នេះអ័ព្ទធម្មតាគ្របដណ្តប់ផែនទីទាំងមូល ។
 // បើមិនបិទ , ផែនទីក្លាយជាផ្ទៃពណ៌ស ។
 const NEBULA_DENSO_PROVO = 0o5 / 0o400;
-const nebula = kreiFikston(( sceno ) => {
-  sceno.fog = new THREE.FogExp2(0xc8d8d8, NEBULA_DENSO_PROVO);
+const nebula = kreiFikston(( qena ) => {
+  qena.fog = new THREE.FogExp2(0xc8d8d8, NEBULA_DENSO_PROVO);
 });
 nebula.mapo.pretigi();
 await atendi(() => nebula.stato.bildigitaj === 1);
 certigi( nebula.stato.densoj[0] === 0, "អ័ព្ទមិនបានបិទខណៈដុតផែនទី" );
-certigi( nebula.sceno.fog instanceof THREE.FogExp2
-  && nebula.sceno.fog.density === NEBULA_DENSO_PROVO, "អ័ព្ទមិនបានស្តារក្រោយដុត" );
+certigi( nebula.qena.fog instanceof THREE.FogExp2
+  && nebula.qena.fog.density === NEBULA_DENSO_PROVO, "អ័ព្ទមិនបានស្តារក្រោយដុត" );
 certigi( nebula.mapo.cxuBakita(), "ផែនទីដែលមានអ័ព្ទមិនបានសម្គាល់" );
 
 console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ការផ្ទុកផែនទីយឺត ការបរាជ័យ និង ការដោះលែងទាំងអស់ត្រឹមត្រូវ");

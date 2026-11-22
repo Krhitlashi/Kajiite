@@ -4,7 +4,7 @@ import { MAPOJ } from "./mapoj.js";
 
 export interface MapoDatumo {
   kodo: string;
-  nomo: string;
+  ksaka: string;
   aktiva?: boolean;
   formo: MapFormo;
   grandeco: number;

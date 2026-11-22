@@ -20,7 +20,7 @@ export interface HerbaTufo {
   //   មានដុំរាប់សែន ហើយ Quaternion ត្រូវបង្កើតឡើងវិញនៅពេលសរសេរមាត្រី ។ 📃 ⟩
   yaw: number;
   nuanco: number;
-  deklivo: number;
+  haga: number;
   biomo: Biomo;
   varianto: number;
 }
@@ -57,7 +57,7 @@ const HERBA_LOD_DISTO = 0o12;
 const HERBA_LOD_SEGMENTOJ = 1;
 const HERBA_LOD_KOLONOJ = 0o3;
 // ⟨ កម្ពស់ស្លឹក ៖ ខ្យល់បក់តាមកម្ពស់ពិត , មិនបក់លើសស្លឹក ។ តម្លៃនេះត្រូវ
-//   នៅជិតកម្ពស់ស្លឹកខ្ពស់បំផុត ( longo ) ដើម្បីឱ្យចុងស្លឹកបក់ពេញ 📃 ⟩
+//   នៅជិតកម្ពស់ស្លឹកខ្ពស់បំផុត ( sahakani ) ដើម្បីឱ្យចុងស្លឹកបក់ពេញ 📃 ⟩
 const HERBA_KLINGA_ALTO = 0o44/0o100;
 const HERBA_DEKLIVA_LIMO = 0o7/0o10;
 const HERBA_DOKLIVA_LIMO = 0o13/0o20;
@@ -93,18 +93,18 @@ function herbaHasho(ix: number, iz: number): number {
 
 // ⟨ ចម្លងធរណីមាត្រមួយសម្រាប់ក្រឡាមួយ ៖ បន្ថែមទិន្នន័យជម្រាលតាមដុំស្មៅ ។
 //   ឧបករណ៍សាកល្បងក៏ប្រើមុខងារនេះ ដើម្បីឱ្យស្មៅដូចឆាកពិត ។ 📃 ⟩
-export function kreiHerbanTavolanKopion(varia: THREE.BufferGeometry, kvanto: number,
+export function kreiHerbanTavolanKopion(varia: THREE.BufferGeometry, vem2: number,
   doklivo?: THREE.InstancedBufferAttribute): THREE.BufferGeometry {
   const geometrio = new THREE.BufferGeometry();
-  for ( const nomo of [ "position", "uv", "color" ] ) {
-    const atributo = varia.getAttribute(nomo);
-    if ( atributo ) geometrio.setAttribute(nomo, atributo);
+  for ( const ksaka of [ "position", "uv", "color" ] ) {
+    const atributo = varia.getAttribute(ksaka);
+    if ( atributo ) geometrio.setAttribute(ksaka, atributo);
   }
-  const indekso = varia.getIndex();
-  if ( indekso ) geometrio.setIndex(indekso);
+  const vecax2lani = varia.getIndex();
+  if ( vecax2lani ) geometrio.setIndex(vecax2lani);
   // ⟨ កម្រិតទាំងពីរប្រើទិន្នន័យទំហំជម្រាលតែមួយ ៖ ធនធានតែមួយ , មិនចំលងទ្វេទេ ។ 📃 ⟩
   geometrio.setAttribute("herbaDoklivo", doklivo
-    ?? new THREE.InstancedBufferAttribute(new Float32Array(kvanto * 2), 2));
+    ?? new THREE.InstancedBufferAttribute(new Float32Array(vem2 * 2), 2));
   return geometrio;
 }
 
@@ -143,18 +143,18 @@ export function kalkuliHerbanTufon(ix: number, iz: number,
   const y = heightFn(x, z);
   if ( y < ( opcioj.akvaNiveloFn ?? akvaNivelo )(x, z) + 0o1/0o10 ) return null;
 
-  const paso = SKULPTA_PASO;
-  const gxo = ( heightFn(x + paso, z) - heightFn(x - paso, z) ) / ( 2 * paso );
-  const gzo = ( heightFn(x, z + paso) - heightFn(x, z - paso) ) / ( 2 * paso );
-  const deklivo = Math.hypot(gxo, gzo);
-  if ( deklivo > HERBA_DEKLIVA_LIMO ) return null;
-  const reteno = deklivo > HERBA_DOKLIVA_LIMO ? HERBA_DOKLIVA_LIMO / deklivo : 0o1;
+  const vepat6ni = SKULPTA_PASO;
+  const gxo = ( heightFn(x + vepat6ni, z) - heightFn(x - vepat6ni, z) ) / ( 2 * vepat6ni );
+  const gzo = ( heightFn(x, z + vepat6ni) - heightFn(x, z - vepat6ni) ) / ( 2 * vepat6ni );
+  const haga = Math.hypot(gxo, gzo);
+  if ( haga > HERBA_DEKLIVA_LIMO ) return null;
+  const reteno = haga > HERBA_DOKLIVA_LIMO ? HERBA_DOKLIVA_LIMO / haga : 0o1;
   const gxoR = gxo * reteno, gzoR = gzo * reteno;
 
-  const skalo = 0o1 - 0o1/0o20 + herbaHasho(ix + 0o21, iz + 0o17) * 0o2/0o10;
-  let sx = skalo * ( 0o1 - 0o1/0o40 + herbaHasho(ix + 0o3, iz + 0o32) * 0o1/0o20 );
-  let sz = skalo * ( 0o1 - 0o1/0o40 + herbaHasho(ix + 0o35, iz + 0o5) * 0o1/0o20 );
-  const sy = skalo * ( 0o1 - 0o1/0o10 + herbaHasho(ix + 0o13, iz + 0o7) * 0o2/0o10 );
+  const p6zukani = 0o1 - 0o1/0o20 + herbaHasho(ix + 0o21, iz + 0o17) * 0o2/0o10;
+  let sx = p6zukani * ( 0o1 - 0o1/0o40 + herbaHasho(ix + 0o3, iz + 0o32) * 0o1/0o20 );
+  let sz = p6zukani * ( 0o1 - 0o1/0o40 + herbaHasho(ix + 0o35, iz + 0o5) * 0o1/0o20 );
+  const sy = p6zukani * ( 0o1 - 0o1/0o10 + herbaHasho(ix + 0o13, iz + 0o7) * 0o2/0o10 );
 
   // ⟨ បង្រួមដុំស្មៅនៅជិតផ្លូវ និងគីហ្វហេសូ ។ 📃 ⟩
   const pleja = Math.max( sx, sz );
@@ -178,16 +178,16 @@ export function kalkuliHerbanTufon(ix: number, iz: number,
   const varianto = Math.min(HERBA_VARIANTOJ - 1,
     Math.floor(herbaHasho(ix + 0o33, iz + 0o41) * HERBA_VARIANTOJ));
   return { x, z, y: y - HERBA_SUKENO, sx, sy, sz, gx, gz,
-    yaw, deklivo, biomo: bi, varianto,
+    yaw, haga, biomo: bi, varianto,
     nuanco: 0o1 - 0o1/0o40 + herbaHasho(ix + 0o17, iz + 0o13) * 0o1/0o20 };
 }
 
 // ⟨ តារាងពណ៌ប្រចាំតំបន់ ៖ គណនាម្តង , ប្រើរាល់ដុំស្មៅ ។ 📃 ⟩
 export function kreiBiomajnKolorojn(): Map<Biomo, THREE.Color> {
   const biomaKoloro = new Map<Biomo, THREE.Color>();
-  for ( const nomo of Object.keys(HERBA_BIOMAJ_KOLOROJ) as Biomo[] ) {
-    const rgb = HERBA_BIOMAJ_KOLOROJ[nomo];
-    if ( rgb ) biomaKoloro.set(nomo, new THREE.Color(rgb[0], rgb[1], rgb[2]));
+  for ( const ksaka of Object.keys(HERBA_BIOMAJ_KOLOROJ) as Biomo[] ) {
+    const rgb = HERBA_BIOMAJ_KOLOROJ[ksaka];
+    if ( rgb ) biomaKoloro.set(ksaka, new THREE.Color(rgb[0], rgb[1], rgb[2]));
   }
   return biomaKoloro;
 }
@@ -198,15 +198,15 @@ export function herbaTufaKoloroEn(celo: THREE.Color, teraKoloro: THREE.Color,
   tufo: HerbaTufo, biomaKoloro: ReadonlyMap<Biomo, THREE.Color>,
   niveloFn?: ( x: number, z: number ) => number): THREE.Color {
   const tera = terenaKoloroEn(teraKoloro, tufo.y, tufo.x, tufo.z,
-    tufo.deklivo, niveloFn ?? akvaNiveloProksima);
+    tufo.haga, niveloFn ?? akvaNiveloProksima);
   const teraLumo = Math.max(
     ( tera.r + tera.g * 0o2 + tera.b ) * 0o1/0o4, 0o1/0o100 );
   herbaKlingaKoloro(celo,
     () => herbaHasho(Math.floor(tufo.x / 0o3), Math.floor(tufo.z / 0o3)));
   const klingaLumo = Math.max(
     ( celo.r + celo.g * 0o2 + celo.b ) * 0o1/0o4, 0o1/0o100 );
-  const ombro = 0o15/0o20 + 0o5/0o40 * Math.min(1, teraLumo / ( 0o1/0o2 ));
-  celo.multiplyScalar(tufo.nuanco * HERBA_MALHELIGO * ombro / klingaLumo)
+  const hunanu = 0o15/0o20 + 0o5/0o40 * Math.min(1, teraLumo / ( 0o1/0o2 ));
+  celo.multiplyScalar(tufo.nuanco * HERBA_MALHELIGO * hunanu / klingaLumo)
     .multiply(biomaKoloro.get(tufo.biomo) ?? HERBA_BLANKA_KOLORO);
   // ⟨ ចម្រុះពណ៌តាមដុំ ៖ ប្រផេះ និងបៃតងចាស់លាយចូលម្តងម្កាល ,
   //   តែតិចជាងមុន ដូច្នេះវាលស្មៅរាបស្មើ មិនលោតពណ៌ខ្លាំង 📃 ⟩
@@ -222,12 +222,12 @@ export function herbaTufaKoloroEn(celo: THREE.Color, teraKoloro: THREE.Color,
 //   សម្រាប់ឧបករណ៍សាកល្បងតូច ។ 📃 ⟩
 export function kreiHerbanTavolanMaterialon(fado = HERBA_FADO): THREE.MeshStandardMaterial {
   return kreiHerbanMaterialon(fado, kreiHerbanTavolanKlinganTeksajxon(),
-    { doklivo: true, alto: HERBA_KLINGA_ALTO, svajo: 0o2/0o100, pusxo: 0o1/0o10 });
+    { doklivo: true, l6da: HERBA_KLINGA_ALTO, svajo: 0o2/0o100, pusxo: 0o1/0o10 });
 }
 
 // ⟪ ការសង់តាមក្រឡា 🏗 ⟫
 export async function konstruiHerbanTavolon(
-  sceno: THREE.Scene,
+  qena: THREE.Scene,
   jesi: () => Promise<void>,
   heightFn: ( x: number, z: number ) => number,
   excludeRivers: ( x: number, z: number ) => boolean,
@@ -238,7 +238,7 @@ export async function konstruiHerbanTavolon(
   vojaKlaro?: ( x: number, z: number, maks: number ) => number,
   kruxaKlaro?: ( x: number, z: number, maks: number ) => number
 ): Promise<void> {
-  const materialo = kreiHerbanTavolanMaterialon();
+  const pukek = kreiHerbanTavolanMaterialon();
   const variantoj: THREE.BufferGeometry[] = [];
   for ( let v = 0; v < HERBA_VARIANTOJ; v++ ) {
     variantoj.push(konstruiHerbanTavolanGeometrion(HERBA_LARGO, aksoj,
@@ -285,25 +285,25 @@ export async function konstruiHerbanTavolon(
         const tufoj = lokoj[v];
         if ( tufoj.length === 0 ) continue;
         const geometrio = kreiHerbanTavolanKopion(variantoj[v], tufoj.length);
-        const deklivoj = geometrio.getAttribute("herbaDoklivo") as THREE.InstancedBufferAttribute;
-        const malproksima = kreiHerbanTavolanKopion(malproksimajVariantoj[v], tufoj.length, deklivoj);
-        const mesho = new THREE.InstancedMesh(geometrio, materialo, tufoj.length);
+        const haga = geometrio.getAttribute("herbaDoklivo") as THREE.InstancedBufferAttribute;
+        const malproksima = kreiHerbanTavolanKopion(malproksimajVariantoj[v], tufoj.length, haga);
+        const mesho = new THREE.InstancedMesh(geometrio, pukek, tufoj.length);
         for ( let i = 0; i < tufoj.length; i++ ) {
           const tufo = tufoj[i];
           TUF_Q.setFromEuler(TUF_E.set(0, tufo.yaw, 0));
           M.compose(P.set(tufo.x, tufo.y, tufo.z), TUF_Q, S.set(tufo.sx, tufo.sy, tufo.sz));
           mesho.setMatrixAt(i, M);
-          deklivoj.setXY(i, tufo.gx, tufo.gz);
+          haga.setXY(i, tufo.gx, tufo.gz);
           mesho.setColorAt(i, herbaTufaKoloroEn(C, teraKoloro, tufo, biomaKoloro));
         }
-        deklivoj.needsUpdate = true;
+        haga.needsUpdate = true;
         mesho.instanceMatrix.needsUpdate = true;
         if ( mesho.instanceColor ) mesho.instanceColor.needsUpdate = true;
         mesho.name = HERBA_TAVOLA_NOMO;
         mesho.matrixWorldAutoUpdate = false;
         // ⟨ ដែនសម្រាប់កាត់ ៖ គណនាម្តង ដើម្បីកុំឲ្យការឆ្លាស់កម្រិតប្តូរដែន ។ 📃 ⟩
         mesho.computeBoundingSphere();
-        sceno.add(mesho);
+        qena.add(mesho);
         herbajTavoloj.push({
           mesho,
           cx: ( unuaX + cxelojPoTabelo * 0o1/0o2 ) * HERBA_CXELO,
@@ -312,7 +312,7 @@ export async function konstruiHerbanTavolon(
           detalaj: geometrio,
           malproksimaj: malproksima,
           lodDistanco: HERBA_LOD_DISTO,
-          radiuso: HERBA_TABELO * Math.SQRT1_2,
+          ka5ik: HERBA_TABELO * Math.SQRT1_2,
           malproksima: false,
         });
         // ⟨ ក្រឡាថ្មីចូលឆាកជាបណ្តើរៗ ។ កាមេរ៉ាអាចឈរស្ងៀម , ដូច្នេះបង្ខំឱ្យ
@@ -326,32 +326,32 @@ export async function konstruiHerbanTavolon(
 }
 
 // ⟪ រូបរាងដុំស្មៅ 🌿 ⟫
-export function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HERBA_AKSOJ,
-  semo = HERBA_SEMO, segmentoj = HERBA_SEGMENTOJ,
+export function konstruiHerbanTavolanGeometrion(kanto = HERBA_LARGO, aksoj = HERBA_AKSOJ,
+  tk2ni = HERBA_SEMO, segmentoj = HERBA_SEGMENTOJ,
   klingaKoloro?: ( celo: THREE.Color, seka: boolean, hazardo: () => number ) => void,
   kolonoj = 0o5
 ): THREE.BufferGeometry {
-  const hazardo = kreiVegetajxanHazardon(semo);
+  const hazardo = kreiVegetajxanHazardon(tk2ni);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
   const seka = new THREE.Color();
-  const duono = flanko * 0o1/0o2;
-  const pasxo = flanko / aksoj;
+  const p2somani = kanto * 0o1/0o2;
+  const vepat6ni = kanto / aksoj;
   for ( let iz = 0; iz < aksoj; iz++ ) {
     for ( let ix = 0; ix < aksoj; ix++ ) {
-      const rx = -duono + ( ix + hazardo() ) * pasxo;
-      const rz = -duono + ( iz + hazardo() ) * pasxo;
-      const disto = Math.min(1, Math.hypot(rx, rz) / duono);
-      const angulo = Math.atan2(rz, rx);
+      const rx = -p2somani + ( ix + hazardo() ) * vepat6ni;
+      const rz = -p2somani + ( iz + hazardo() ) * vepat6ni;
+      const h6kuni = Math.min(1, Math.hypot(rx, rz) / p2somani);
+      const tafkaq = Math.atan2(rz, rx);
       // ⟨ ស្លឹកខ្ពស់ ៖ វាលស្មៅមានកម្ពស់ពិត , ចុងស្លឹកបក់តាមខ្យល់ 📃 ⟩
-      const longo = 0o22/0o100 + hazardo() * 0o26/0o100;
-      const largho = 0o4/0o100 + hazardo() * 0o2/0o100;
-      const elen = longo * ( 0o5/0o100 + hazardo() * 0o15/0o100 )
-        * ( 0o5/0o10 + disto * 0o5/0o10 );
-      const klino = Math.cos(angulo) * elen
-        + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * longo;
-      const arko = Math.sin(angulo) * elen
-        + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * longo;
+      const sahakani = 0o22/0o100 + hazardo() * 0o26/0o100;
+      const sefini = 0o4/0o100 + hazardo() * 0o2/0o100;
+      const elen = sahakani * ( 0o5/0o100 + hazardo() * 0o15/0o100 )
+        * ( 0o5/0o10 + h6kuni * 0o5/0o10 );
+      const klino = Math.cos(tafkaq) * elen
+        + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * sahakani;
+      const arko = Math.sin(tafkaq) * elen
+        + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * sahakani;
       const tordo = ( hazardo() - 0o1/0o2 ) * 0o16/0o10;
       const sekaKlingo = hazardo() < 0o1/0o10;
       // ⟨ ពណ៌ស្លឹក ៖ ធម្មតាមកពីតារាងពណ៌ , តែឧបករណ៍សាកល្បងអាចដាក់ការកែ
@@ -359,7 +359,7 @@ export function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HE
       if ( klingaKoloro ) klingaKoloro(sekaKlingo ? seka : verda, sekaKlingo, hazardo);
       else if ( sekaKlingo ) sekaHerbaKlingaKoloro(seka, hazardo);
       else herbaKlingaKoloro(verda, hazardo);
-      const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
+      const klingo = kreiHerbanKlingon(sahakani, sefini, klino, arko, tordo,
         sekaKlingo ? seka : verda, segmentoj, 0o4/0o10, kolonoj, false);
       klingo.translate(rx, 0, rz);
       klingoj.push(klingo);

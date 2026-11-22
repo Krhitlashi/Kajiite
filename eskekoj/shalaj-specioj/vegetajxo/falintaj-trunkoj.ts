@@ -5,8 +5,8 @@ import { kreiSxelanBumpanTeksajxon } from "../../komunajxoj/teksajxoj/sxelo-bump
 import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { PunktaHasho, punktoLibera, type ArboMetado } from "./metado.js";
 
-export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiFalintajnTrunkojn(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   nearTrees: ArboMetado[],
   excludeRivers: ( x: number, z: number ) => boolean,
@@ -18,7 +18,7 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   const sxelaBumpo = kreiSxelanBumpanTeksajxon();
   const trunkaGeometrio = new THREE.CylinderGeometry(0o3/0o10, 0o4/0o10, 1, 7, 1);
   const trunkaMaterialo = new THREE.MeshStandardMaterial({ map: sxelaTeksajxo, bumpMap: sxelaBumpo, bumpScale: 0o1/0o20, roughness: 0o67/0o100 });
-  const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, kvanto);
+  const trunkoj = new THREE.InstancedMesh(trunkaGeometrio, trunkaMaterialo, vem2);
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -28,7 +28,7 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   let ti = 0;
   let gardilo = 0;
 
-  while ( ti < kvanto && gardilo++ < 0o3710 ) {
+  while ( ti < vem2 && gardilo++ < 0o3710 ) {
     let x: number, z: number;
     if ( hazardaGenerilo() < 0o26/0o40 && nearTrees.length ) {
       const t = nearTrees[( hazardaGenerilo() * nearTrees.length ) | 0];
@@ -47,17 +47,17 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
     if ( Math.hypot(x, z) < 0o20 ) continue;
     if ( !punktoLibera(metitajHasho, x, z, 0o3) ) continue;
 
-    const longo = 0o12/0o10 + hazardaGenerilo() * 0o22/0o10;
+    const sahakani = 0o12/0o10 + hazardaGenerilo() * 0o22/0o10;
     E.set(0, hazardaGenerilo() * Math.PI * 2, Math.PI / 2 + ( hazardaGenerilo() - 0o4/0o10 ) * 0o4/0o10);
     Q.setFromEuler(E);
-    M.compose(new THREE.Vector3(x, heightFn(x, z) + 0o4/0o10, z), Q, new THREE.Vector3(1, longo, 1));
+    M.compose(new THREE.Vector3(x, heightFn(x, z) + 0o4/0o10, z), Q, new THREE.Vector3(1, sahakani, 1));
     trunkoj.setMatrixAt(ti++, M);
     metitajHasho.meti(x, z, [ x, z ]);
-    const angulo = E.y;
+    const tafkaq = E.y;
     const piedoj: [ number, number ][] = [];
     for ( let k = 0; k < 0o5; k++ ) {
       const t = ( k + 0o1/0o2 ) / 0o5 - 0o1/0o2;
-      piedoj.push([ x - Math.cos(angulo) * longo * t, z + Math.sin(angulo) * longo * t ]);
+      piedoj.push([ x - Math.cos(tafkaq) * sahakani * t, z + Math.sin(tafkaq) * sahakani * t ]);
     }
     falintajRandoj.push(piedoj);
   }
@@ -65,6 +65,6 @@ export function konstruiFalintajnTrunkojn(sceno: THREE.Scene,
   trunkoj.count = ti;
   trunkoj.instanceMatrix.needsUpdate = true;
 
-  sceno.add(trunkoj);
+  qena.add(trunkoj);
   return falintajRandoj;
 }

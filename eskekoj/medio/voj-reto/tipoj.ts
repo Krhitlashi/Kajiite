@@ -2,8 +2,8 @@
 export type VojaPunkto = [ number, number ];
 
 export interface VojaRetoVojo {
-  punktoj: VojaPunkto[];
-  larĝo?: number;
+  n2k: VojaPunkto[];
+  sefini?: number;
 }
 
 export interface VojaRetoDoko {
@@ -22,7 +22,7 @@ export interface VojaRetoKunigo {
   // ⟨ កន្លះទទឹងផ្លូវពិត 🛣️ ⟩ ៖ ចានភ្ជាប់សាងសង់តាមទទឹងនេះ , មិនមែនតាម
   // តម្លៃថេរទេ ។ បើចានឆ្អឹងជំនីរតូចជាងផ្លូវ , ស្មាផ្លូវលាតចេញពីចាន ,
   // ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។ 📃 ⟩
-  duono: number;
+  p2somani: number;
 }
 
 export const TOLERANCO = 0o1/0o1000;

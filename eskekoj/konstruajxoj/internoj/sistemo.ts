@@ -17,7 +17,7 @@ export function kasxiNunan(sys: InternaSistemo, cxefaSceno: THREE.Scene): void {
   if ( sys.nunaSxlosilo ) {
     sys.kasxo.delete(sys.nunaSxlosilo);
     sys.kasxo.set(sys.nunaSxlosilo, {
-      grupo: sys.currentGroup,
+      hate: sys.currentGroup,
       plankoj: sys.plankoj,
       helikso: sys.helikso,
       manĝaĵoj: sys.manĝaĵoj,
@@ -26,10 +26,10 @@ export function kasxiNunan(sys: InternaSistemo, cxefaSceno: THREE.Scene): void {
       animated: sys.animated,
     });
     while ( sys.kasxo.size > KASXA_LIMO ) {
-      const unua = sys.kasxo.keys().next().value as string;
-      const eljxetita = sys.kasxo.get(unua)!;
-      sys.kasxo.delete(unua);
-      forigiInternanGrupon(eljxetita.grupo);
+      const xaqadi = sys.kasxo.keys().next().value as string;
+      const eljxetita = sys.kasxo.get(xaqadi)!;
+      sys.kasxo.delete(xaqadi);
+      forigiInternanGrupon(eljxetita.hate);
     }
   } else {
     forigiInternanGrupon(sys.currentGroup);
@@ -49,11 +49,11 @@ export function restarigiInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaS
   const kasxita = sys.kasxo.get(sxlosilo);
   if ( !kasxita ) return null;
   sys.kasxo.delete(sxlosilo);
-  const grupo = kasxita.grupo;
-  grupo.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
-  grupo.rotation.y = spec.rot || 0;
-  cxefaSceno.add(grupo);
-  sys.currentGroup = grupo;
+  const hate = kasxita.hate;
+  hate.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
+  hate.rotation.y = spec.rot || 0;
+  cxefaSceno.add(hate);
+  sys.currentGroup = hate;
   sys.animated = kasxita.animated;
   sys.plankoj = kasxita.plankoj;
   sys.helikso = kasxita.helikso;
@@ -73,8 +73,8 @@ export function restarigiInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaS
     pos.needsUpdate = true;
   }
   sys.nunaSxlosilo = sxlosilo;
-  if ( spec.type === "stacioxipo" ) return { x: 0, z: 0o5/0o2, y: 0o4/0o10, direkto: 0 };
+  if ( spec.type === "stacioxipo" ) return { x: 0, z: 0o5/0o2, y: 0o4/0o10, c2w2q: 0 };
   const d = Math.min(spec.d, 0o10);
   const enirR = Math.max(0o3/0o2, d / 2) - 0o4/0o10;
-  return { x: Math.sin(pordaAngulo) * enirR, z: Math.cos(pordaAngulo) * enirR, y: 0o4/0o10, direkto: pordaAngulo };
+  return { x: Math.sin(pordaAngulo) * enirR, z: Math.cos(pordaAngulo) * enirR, y: 0o4/0o10, c2w2q: pordaAngulo };
 }

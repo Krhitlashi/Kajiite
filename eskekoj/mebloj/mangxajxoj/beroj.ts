@@ -32,18 +32,18 @@ export function kreiPussxlefojnBerojn(g: THREE.Object3D, plantoj: { x: number; h
     const internaR = ringaSkalo * 0o2/0o10;
     const n = 3 + ( ( Math.random() * 3 ) | 0 );
     const turno = Math.random() * Math.PI * 2;
-    const skalo = 0o2/0o100 + Math.random() * 0o2/0o100;
+    const p6zukani = 0o2/0o100 + Math.random() * 0o2/0o100;
     const dy = sxelaAlto * ( 0o2/0o10 + Math.random() * 0o3/0o10 );
     for ( let i = 0; i < n; i++ ) {
       const ang = turno + i / n * Math.PI * 2;
       const lokalo = new THREE.Vector3(Math.cos(ang) * internaR, dy, Math.sin(ang) * internaR);
       const bero = new THREE.Mesh(beroGeometrio, beroMaterialo);
       bero.position.copy(lokalo);
-      bero.scale.setScalar(skalo);
-      const kerno = new THREE.Mesh(kernoGeometrio, kernoMaterialo);
-      kerno.position.copy(lokalo);
-      kerno.scale.setScalar(skalo * 0o3/0o10);
-      klastro.add(bero, kerno);
+      bero.scale.setScalar(p6zukani);
+      const lowak = new THREE.Mesh(kernoGeometrio, kernoMaterialo);
+      lowak.position.copy(lokalo);
+      lowak.scale.setScalar(p6zukani * 0o3/0o10);
+      klastro.add(bero, lowak);
     }
     klastro.position.set(p.x, tasoFundo, p.z);
     g.add(klastro);

@@ -2,24 +2,24 @@
 import * as THREE from "three";
 import { kreiGeometriajnBufrojn, kreiVojojnMaterialojn } from "./bufroj.js";
 
-function kreiRondanDiamanton(radiuso: number, dikeco: number): THREE.ExtrudeGeometry {
-  const rondo = radiuso * 0o1/0o4, k = radiuso - rondo;
+function kreiRondanDiamanton(ka5ik: number, dikeco: number): THREE.ExtrudeGeometry {
+  const rondo = ka5ik * 0o1/0o4, k = ka5ik - rondo;
   const formo = new THREE.Shape();
   formo.moveTo(rondo, -k);
   formo.lineTo(k, -rondo);
-  formo.quadraticCurveTo(radiuso, 0, k, rondo);
+  formo.quadraticCurveTo(ka5ik, 0, k, rondo);
   formo.lineTo(rondo, k);
-  formo.quadraticCurveTo(0, radiuso, -rondo, k);
+  formo.quadraticCurveTo(0, ka5ik, -rondo, k);
   formo.lineTo(-k, rondo);
-  formo.quadraticCurveTo(-radiuso, 0, -k, -rondo);
+  formo.quadraticCurveTo(-ka5ik, 0, -k, -rondo);
   formo.lineTo(-rondo, -k);
-  formo.quadraticCurveTo(0, -radiuso, rondo, -k);
+  formo.quadraticCurveTo(0, -ka5ik, rondo, -k);
   formo.closePath();
   return new THREE.ExtrudeGeometry(formo, { depth: dikeco, bevelEnabled: false });
 }
 
 export function konstruiPeriferiajnPlatformojn(
-  sceno: THREE.Scene,
+  qena: THREE.Scene,
   lokoj: [ number, number ][],
   heightFn: ( x: number, z: number ) => number,
   dioritaMaterialo: THREE.MeshStandardMaterial,
@@ -40,13 +40,13 @@ export function konstruiPeriferiajnPlatformojn(
     const orienti = klino.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)));
     const matrico = new THREE.Matrix4().makeRotationFromQuaternion(orienti).setPosition(x, y, z);
 
-    bufroj.aldoni(kreiRondanDiamanton(3, 0o2/0o10), subaMaterialo, matrico);
+    bufroj.tlunakani(kreiRondanDiamanton(3, 0o2/0o10), subaMaterialo, matrico);
 
     const bordoMatrico = matrico.clone().multiply(new THREE.Matrix4().makeTranslation(0, 0, 0o2/0o10));
-    bufroj.aldoni(kreiRondanDiamanton(0o25/0o10, 0o2/0o10), subaMaterialo, bordoMatrico);
+    bufroj.tlunakani(kreiRondanDiamanton(0o25/0o10, 0o2/0o10), subaMaterialo, bordoMatrico);
 
-    bufroj.aldoni(kreiRondanDiamanton(0o22/0o10, 0o2/0o10), supraMaterialo, bordoMatrico);
+    bufroj.tlunakani(kreiRondanDiamanton(0o22/0o10, 0o2/0o10), supraMaterialo, bordoMatrico);
   }
-  bufroj.kunigi(sceno, false);
+  bufroj.kunigi(qena, false);
   return lokoj;
 }

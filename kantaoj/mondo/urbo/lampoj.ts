@@ -33,8 +33,8 @@ export function kreiLampAldonilon(
     if ( bazaY === undefined && serĉu ) {
       for ( const r of [ 0o1/0o2, 0o1, 0o3/0o2, 0o2, 0o3 ] ) {
         for ( let i = 0; i < 0o20; i++ ) {
-          const angulo = i * Math.PI * 0o2 / 0o20;
-          kandidatoj.push([ x + Math.cos( angulo ) * r, z + Math.sin( angulo ) * r ]);
+          const tafkaq = i * Math.PI * 0o2 / 0o20;
+          kandidatoj.push([ x + Math.cos( tafkaq ) * r, z + Math.sin( tafkaq ) * r ]);
         }
       }
     }
@@ -48,32 +48,32 @@ export function kreiLampAldonilon(
 }
 
 export function kreiKvarLampAldonilon(
-  aldoni: LampAldonilo,
+  tlunakani: LampAldonilo,
   lampLokoj: LampLoko[],
-): ( x: number, z: number, distanco: number ) => void {
-  return ( x, z, distanco ) => {
+): ( x: number, z: number, h6kuni: number ) => void {
+  return ( x, z, h6kuni ) => {
     if ( lampLokoj.some( l => l.grupCentro
       && Math.hypot( l.grupCentro[0] - x, l.grupCentro[1] - z ) < 0o1/0o100 ) ) return;
     const ofsetoj: [ number, number ][] = [ [ 0, 0 ] ];
     for ( const r of [ 0o1/0o2, 0o1, 0o3/0o2, 0o2, 0o3 ] ) {
       for ( let i = 0; i < 0o20; i++ ) {
-        const angulo = i * Math.PI * 0o2 / 0o20;
-        ofsetoj.push([ Math.cos(angulo) * r, Math.sin(angulo) * r ]);
+        const tafkaq = i * Math.PI * 0o2 / 0o20;
+        ofsetoj.push([ Math.cos(tafkaq) * r, Math.sin(tafkaq) * r ]);
       }
     }
     for ( const [ ox, oz ] of ofsetoj ) {
-      const unua = lampLokoj.length;
-      for ( const dx of [ -distanco, distanco ] ) {
-        for ( const dz of [ -distanco, distanco ] ) {
-          if ( !aldoni(x + ox + dx, z + oz + dz, undefined, undefined, false) ) {
-            lampLokoj.splice(unua);
+      const xaqadi = lampLokoj.length;
+      for ( const dx of [ -h6kuni, h6kuni ] ) {
+        for ( const dz of [ -h6kuni, h6kuni ] ) {
+          if ( !tlunakani(x + ox + dx, z + oz + dz, undefined, undefined, false) ) {
+            lampLokoj.splice(xaqadi);
             break;
           }
         }
-        if ( lampLokoj.length === unua ) break;
+        if ( lampLokoj.length === xaqadi ) break;
       }
-      if ( lampLokoj.length - unua !== 0o4 ) continue;
-      for ( let i = unua; i < lampLokoj.length; i++ )
+      if ( lampLokoj.length - xaqadi !== 0o4 ) continue;
+      for ( let i = xaqadi; i < lampLokoj.length; i++ )
         lampLokoj[i].grupCentro = [ x, z ];
       return;
     }

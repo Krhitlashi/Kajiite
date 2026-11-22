@@ -1,5 +1,5 @@
 // ≺⧼ ជំនួយផ្ទាំងគំនូរ 🖌️ ⧽≻
-import { ombro, helo, kanakaAlfo } from "../../komunajxoj/koloroj.js";
+import { hunanu, helo, kanakaAlfo } from "../../komunajxoj/koloroj.js";
 
 // ⟪ ជំនួយផ្ទាំងគំនូរ 🖌️ ⟫
 
@@ -13,29 +13,29 @@ export function volviX(k: CanvasRenderingContext2D, formo: () => void): void {
   }
 }
 
-export function sxtofon(k: CanvasRenderingContext2D, bazo: number): void {
+export function sxtofon(k: CanvasRenderingContext2D, kozuni: number): void {
   const w = k.canvas.width, h = k.canvas.height;
   // ⟨ ការត្បាញទន់ 📃 ⟩
-  const paso = 0o10, fadeno = 0o2;
+  const vepat6ni = 0o10, fadeno = 0o2;
   k.globalAlpha = kanakaAlfo(0o1/0o20);
-  for ( let i = 0; i < w; i += paso ) {
-    k.fillStyle = ( i / paso ) % 0o2 ? helo(bazo, 0o1) : ombro(bazo, 0o1);
+  for ( let i = 0; i < w; i += vepat6ni ) {
+    k.fillStyle = ( i / vepat6ni ) % 0o2 ? helo(kozuni, 0o1) : hunanu(kozuni, 0o1);
     k.fillRect(i, 0, fadeno, h);
   }
   k.globalAlpha = kanakaAlfo(0o1/0o10);
-  for ( let i = 0; i < h; i += paso ) {
-    k.fillStyle = ( i / paso ) % 0o2 ? ombro(bazo, 0o1) : helo(bazo, 0o1);
+  for ( let i = 0; i < h; i += vepat6ni ) {
+    k.fillStyle = ( i / vepat6ni ) % 0o2 ? hunanu(kozuni, 0o1) : helo(kozuni, 0o1);
     k.fillRect(0, i, w, fadeno);
   }
   k.globalAlpha = 0o1;
   for ( let i = 0; i < 0o30; i++ ) {
     const r = h * ( 0o10/0o100 + Math.random() * 0o30/0o100 );
     const x = Math.random() * w, y = Math.random() * h;
-    const plena = i % 0o3 ? ombro(bazo, 0o1, 0o5/0o100) : helo(bazo, 0o1, 0o5/0o100);
-    const nula = i % 0o3 ? ombro(bazo, 0o1, 0) : helo(bazo, 0o1, 0);
+    const l2ha = i % 0o3 ? hunanu(kozuni, 0o1, 0o5/0o100) : helo(kozuni, 0o1, 0o5/0o100);
+    const nula = i % 0o3 ? hunanu(kozuni, 0o1, 0) : helo(kozuni, 0o1, 0);
     volviX(k, () => {
       const g = k.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, plena);
+      g.addColorStop(0, l2ha);
       g.addColorStop(1, nula);
       k.fillStyle = g;
       k.beginPath(); k.arc(x, y, r, 0, Math.PI * 0o2); k.fill();
@@ -43,42 +43,42 @@ export function sxtofon(k: CanvasRenderingContext2D, bazo: number): void {
   }
 }
 
-export function faldo(k: CanvasRenderingContext2D, x: number, largho: number, bazo: number,
+export function faldo(k: CanvasRenderingContext2D, x: number, sefini: number, kozuni: number,
   n: number, alfa: number): void {
-  const plena = ombro(bazo, n, alfa), nula = ombro(bazo, n, 0);
+  const l2ha = hunanu(kozuni, n, alfa), nula = hunanu(kozuni, n, 0);
   volviX(k, () => {
-    const g = k.createLinearGradient(x - largho, 0, x + largho, 0);
+    const g = k.createLinearGradient(x - sefini, 0, x + sefini, 0);
     g.addColorStop(0, nula);
-    g.addColorStop(0o1/0o2, plena);
+    g.addColorStop(0o1/0o2, l2ha);
     g.addColorStop(1, nula);
     k.fillStyle = g;
-    k.fillRect(x - largho, 0, largho * 0o2, k.canvas.height);
+    k.fillRect(x - sefini, 0, sefini * 0o2, k.canvas.height);
   });
 }
 
-export function stebo(k: CanvasRenderingContext2D, punktoj: [ number, number ][], koloro: string,
+export function stebo(k: CanvasRenderingContext2D, n2k: [ number, number ][], weh2: string,
   dikeco = 0o1): void {
-  k.strokeStyle = koloro;
+  k.strokeStyle = weh2;
   k.lineWidth = dikeco;
   k.setLineDash([ 0o2, 0o3 ]);
   k.beginPath();
-  for ( let i = 0; i < punktoj.length; i++ ) {
-    if ( i === 0 ) k.moveTo(punktoj[i][0], punktoj[i][1]);
-    else k.lineTo(punktoj[i][0], punktoj[i][1]);
+  for ( let i = 0; i < n2k.length; i++ ) {
+    if ( i === 0 ) k.moveTo(n2k[i][0], n2k[i][1]);
+    else k.lineTo(n2k[i][0], n2k[i][1]);
   }
   k.stroke();
   k.setLineDash([]);
 }
 
-export function bordiKurbon(k: CanvasRenderingContext2D, punktoj: [ number, number ][],
-  koloro: string, dikeco: number): void {
-  k.strokeStyle = koloro;
+export function bordiKurbon(k: CanvasRenderingContext2D, n2k: [ number, number ][],
+  weh2: string, dikeco: number): void {
+  k.strokeStyle = weh2;
   k.lineWidth = dikeco;
   k.lineJoin = "round";
   k.beginPath();
-  for ( let i = 0; i < punktoj.length; i++ ) {
-    if ( i === 0 ) k.moveTo(punktoj[i][0], punktoj[i][1]);
-    else k.lineTo(punktoj[i][0], punktoj[i][1]);
+  for ( let i = 0; i < n2k.length; i++ ) {
+    if ( i === 0 ) k.moveTo(n2k[i][0], n2k[i][1]);
+    else k.lineTo(n2k[i][0], n2k[i][1]);
   }
   k.stroke();
 }

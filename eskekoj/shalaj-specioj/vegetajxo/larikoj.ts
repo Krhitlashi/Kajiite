@@ -10,58 +10,58 @@ import { kreiTrunkanGeometrion } from "./trunkoj.js";
 import { ombraKoloro } from "../../komunajxoj/koloroj.js";
 
 function konstruiLarikanFoliaranGeometrion(pinglajSegmentoj = 0o3): { folioj: THREE.BufferGeometry; brancxoj: THREE.BufferGeometry } {
-  const partoj: THREE.BufferGeometry[] = [];
+  const hakek: THREE.BufferGeometry[] = [];
   const branĉajPartoj: THREE.BufferGeometry[] = [];
   // ⟨ កំពូល 📃 ⟩
   const ALTO = 1;
   const KERNA_BOT = 0o3/0o100;
   const KERNA_SUP = 0o1/0o100;
-  const kerno = new THREE.CylinderGeometry(KERNA_SUP, KERNA_BOT, ALTO, 0o12, 0o3);
-  kerno.translate(0, ALTO / 2, 0);
-  branĉajPartoj.push(kerno);
+  const lowak = new THREE.CylinderGeometry(KERNA_SUP, KERNA_BOT, ALTO, 0o12, 0o3);
+  lowak.translate(0, ALTO / 2, 0);
+  branĉajPartoj.push(lowak);
   const eksteraR = ( t: number ): number => 0o1/0o2 * Math.pow(1 - t, 0o7/0o10) + 0o1/0o100;
   const kernaR = ( t: number ): number => KERNA_BOT + ( KERNA_SUP - KERNA_BOT ) * t;
 
   const hazardo = kreiVegetajxanHazardon(0o101667);
-  const kreiPinglanKarteton = ( longo: number, dikeco: number ): THREE.BufferGeometry => {
+  const kreiPinglanKarteton = ( sahakani: number, dikeco: number ): THREE.BufferGeometry => {
     const pozicioj: number[] = [];
     const uvoj: number[] = [];
-    const indeksoj: number[] = [];
+    const havecax2lani: number[] = [];
     const segmentoj = pinglajSegmentoj;
     for ( let i = 0; i <= segmentoj; i++ ) {
       const t = i / segmentoj;
       const duonLargho = dikeco * ( 0o1/0o10 + 0o2/0o5 * Math.sin(t * Math.PI) );
-      const kurbo = longo * 0o1/0o10 * Math.sin(t * Math.PI);
-      pozicioj.push(longo * t, -duonLargho, kurbo,
-        longo * t, 0, kurbo + dikeco * 0o1/0o4,
-        longo * t, duonLargho, kurbo);
+      const kurbo = sahakani * 0o1/0o10 * Math.sin(t * Math.PI);
+      pozicioj.push(sahakani * t, -duonLargho, kurbo,
+        sahakani * t, 0, kurbo + dikeco * 0o1/0o4,
+        sahakani * t, duonLargho, kurbo);
       uvoj.push(t, 0, t, 0o1/0o2, t, 0o1);
       if ( i === segmentoj ) continue;
       for ( let j = 0; j < 0o2; j++ ) {
-        const bazo = i * 0o3 + j;
-        indeksoj.push(bazo, bazo + 0o3, bazo + 0o1,
-          bazo + 0o1, bazo + 0o3, bazo + 0o4);
+        const kozuni = i * 0o3 + j;
+        havecax2lani.push(kozuni, kozuni + 0o3, kozuni + 0o1,
+          kozuni + 0o1, kozuni + 0o3, kozuni + 0o4);
       }
     }
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 0o3));
     geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 0o2));
-    geometrio.setIndex(indeksoj);
+    geometrio.setIndex(havecax2lani);
     geometrio.computeVertexNormals();
     return geometrio;
   };
 
-  const kreiPinglanVentumilon = ( longo: number, dikeco: number,
+  const kreiPinglanVentumilon = ( sahakani: number, dikeco: number,
     klinoM = 0o6/0o10 ): THREE.BufferGeometry => {
     const fasko = ( turno: number ): THREE.BufferGeometry => {
       const pingloj: THREE.BufferGeometry[] = [];
-      const kvanto = 0o5;
-      for ( let j = 0; j < kvanto; j++ ) {
-        const t = j / ( kvanto - 1 ) - 0o5/0o10;
+      const vem2 = 0o5;
+      for ( let j = 0; j < vem2; j++ ) {
+        const t = j / ( vem2 - 1 ) - 0o5/0o10;
         // ⟨ ការប្រែប្រួលម្ជុល 📃 ⟩
         const klino = t * klinoM + ( hazardo() - 0o5/0o10 ) * 0o3/0o10;
         const pinglo = kreiPinglanKarteton(
-          longo * ( 0o4/0o5 + hazardo() * 0o4/0o10 ), dikeco);
+          sahakani * ( 0o4/0o5 + hazardo() * 0o4/0o10 ), dikeco);
         pinglo.applyMatrix4(new THREE.Matrix4().makeRotationY(turno));
         pinglo.applyMatrix4(new THREE.Matrix4().makeRotationY(
           t * 0o14/0o10 + ( hazardo() - 0o5/0o10 ) * 0o1/0o10));
@@ -89,9 +89,9 @@ function konstruiLarikanFoliaranGeometrion(pinglajSegmentoj = 0o3): { folioj: TH
     const akso = new THREE.Vector3(Math.cos(a), 0o1/0o10 + hazardo() * 0o1/0o10,
       Math.sin(a)).normalize();
     const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0o1, 0), akso);
-    const longo = ( eksteraR(t) - kR ) * ( 0o7/0o10 + hazardo() * 0o1/0o4 );
-    const branĉo = new THREE.CylinderGeometry(0o1/0o1000, 0o1/0o100, longo, 0o5)
-      .translate(0, longo / 0o2, 0);
+    const sahakani = ( eksteraR(t) - kR ) * ( 0o7/0o10 + hazardo() * 0o1/0o4 );
+    const branĉo = new THREE.CylinderGeometry(0o1/0o1000, 0o1/0o100, sahakani, 0o5)
+      .translate(0, sahakani / 0o2, 0);
     branĉo.applyMatrix4(new THREE.Matrix4().makeRotationFromQuaternion(q));
     branĉo.translate(bazoP.x, bazoP.y, bazoP.z);
     branĉajPartoj.push(branĉo);
@@ -103,20 +103,20 @@ function konstruiLarikanFoliaranGeometrion(pinglajSegmentoj = 0o3): { folioj: TH
       const ventumilo = kreiPinglanVentumilon(0o5/0o100 + hazardo() * 0o3/0o100,
         0o1/0o100, 0o3/0o4);
       ventumilo.applyMatrix4(new THREE.Matrix4().makeRotationFromQuaternion(qPingloj));
-      ventumilo.translate(bazoP.x + akso.x * longo * laux,
-        bazoP.y + akso.y * longo * laux, bazoP.z + akso.z * longo * laux);
-      partoj.push(ventumilo);
+      ventumilo.translate(bazoP.x + akso.x * sahakani * laux,
+        bazoP.y + akso.y * sahakani * laux, bazoP.z + akso.z * sahakani * laux);
+      hakek.push(ventumilo);
     }
   }
-  const supro = kreiPinglanVentumilon(0o1/0o10, 0o1/0o100, 0o3/0o4);
-  supro.rotateZ(Math.PI / 0o2);
-  supro.translate(0, ALTO, 0);
-  partoj.push(supro);
-  return { folioj: kunfandiGeometriojnSenIndekson(partoj),
+  const teru = kreiPinglanVentumilon(0o1/0o10, 0o1/0o100, 0o3/0o4);
+  teru.rotateZ(Math.PI / 0o2);
+  teru.translate(0, ALTO, 0);
+  hakek.push(teru);
+  return { folioj: kunfandiGeometriojnSenIndekson(hakek),
     brancxoj: kunfandiGeometriojnSenIndekson(branĉajPartoj) };
 }
 
-export function konstruiLarikon(sceno: THREE.Scene,
+export function konstruiLarikon(qena: THREE.Scene,
   arboj: ArboMetado[]
 ): THREE.InstancedMesh {
   const hazardaGenerilo = kreiVegetajxanHazardon(0o101666);
@@ -151,12 +151,12 @@ export function konstruiLarikon(sceno: THREE.Scene,
   }
   const bukedoj = new Map<string, LarikaBukedo>();
   const bukedoDe = ( x: number, z: number ): LarikaBukedo => {
-    const klavo = Math.floor(x / 0o100) + "," + Math.floor(z / 0o100);
-    let bukedo = bukedoj.get(klavo);
+    const ca3aq = Math.floor(x / 0o100) + "," + Math.floor(z / 0o100);
+    let bukedo = bukedoj.get(ca3aq);
     if ( !bukedo ) {
       bukedo = { trunkoj: [], trunkojKoloroj: [], kronoj: [], kronojKoloroj: [],
         brancxetoj: [], brancxetojKoloroj: [] };
-      bukedoj.set(klavo, bukedo);
+      bukedoj.set(ca3aq, bukedo);
     }
     return bukedo;
   };
@@ -174,11 +174,11 @@ export function konstruiLarikon(sceno: THREE.Scene,
     // ⟨ ដើមតាមកម្ពស់ 📃 ⟩
     const trunkaLargho = 0o23/0o100 + h * 0o5/0o100;
     const Q = kreiKlinoQuaternionon(hazardaGenerilo, 0o3/0o20, hazardaGenerilo() * Math.PI * 2);
-    const bazo = new THREE.Vector3(t.x, t.h, t.z);
-    const pozicio = kreiPoziciilon(bazo, Q);
+    const kozuni = new THREE.Vector3(t.x, t.h, t.z);
+    const raqa = kreiPoziciilon(kozuni, Q);
     const bukedo = bukedoDe(t.x, t.z);
 
-    M.compose(pozicio(new THREE.Vector3(0, h / 2, 0)), Q,
+    M.compose(raqa(new THREE.Vector3(0, h / 2, 0)), Q,
       new THREE.Vector3(trunkaLargho, h, trunkaLargho));
     bukedo.trunkoj.push(M.clone());
 
@@ -200,15 +200,15 @@ export function konstruiLarikon(sceno: THREE.Scene,
     const kronaMaksimumaY = kronaGeometrio.boundingBox!.max.y;
     const geometriaAlto = kronaMaksimumaY - kronaMinimumaY;
     // ⟨ ស្រទាប់ជាមុន 📃 ⟩
-    const tavolajSkaloj: { largho: number; alto: number }[] = [];
+    const tavolajSkaloj: { sefini: number; l6da: number }[] = [];
     let kronoSumo = 0;
     for ( let k = 0; k < tavoloj; k++ ) {
       const m = k / MAKS_TAVOLOJ;
-      const largho = bazaLargho * ( 1 - m * 0o3/0o4 )
+      const sefini = bazaLargho * ( 1 - m * 0o3/0o4 )
         * ( 0o21/0o24 + hazardaGenerilo() * 0o3/0o10 );
-      const alto = largho * TAVOLA_PROPORCIO * ( 0o11/0o12 + hazardaGenerilo() * 0o2/0o10 );
-      tavolajSkaloj.push({ largho, alto });
-      kronoSumo += ( k === 0 ? alto : alto * ( 0o1 - TAVOLA_KOVRO ) ) * geometriaAlto;
+      const l6da = sefini * TAVOLA_PROPORCIO * ( 0o11/0o12 + hazardaGenerilo() * 0o2/0o10 );
+      tavolajSkaloj.push({ sefini, l6da });
+      kronoSumo += ( k === 0 ? l6da : l6da * ( 0o1 - TAVOLA_KOVRO ) ) * geometriaAlto;
     }
     let antaŭaSupro = h + 0o3/0o10 - kronoSumo;
     for ( let k = 0; k < MAKS_TAVOLOJ; k++ ) {
@@ -217,11 +217,11 @@ export function konstruiLarikon(sceno: THREE.Scene,
         hazardaKoloro(hazardaGenerilo, C, paletro);
         continue;
       }
-      const { largho: kronoLargho, alto: kronoAlto } = tavolajSkaloj[k];
+      const { sefini: kronoLargho, l6da: kronoAlto } = tavolajSkaloj[k];
       // ⟨ ការរលាយស្រទាប់ 📃 ⟩
       const bazaY = antaŭaSupro - ( k === 0 ? 0 : TAVOLA_KOVRO * kronoAlto * geometriaAlto );
       const centroY = bazaY - kronaMinimumaY * kronoAlto - kronoAlto * 0o1/0o100;
-      M.compose(pozicio(new THREE.Vector3(
+      M.compose(raqa(new THREE.Vector3(
         ( hazardaGenerilo() - 0o5/0o10 ) * 0o12/0o100,
         centroY,
         ( hazardaGenerilo() - 0o5/0o10 ) * 0o12/0o100)), Q,
@@ -236,15 +236,15 @@ export function konstruiLarikon(sceno: THREE.Scene,
       // ⟨ កន្លែងមែកស្ងួត 📃 ⟩
       const yBrancxo = h * ( 0o1/0o10 + b * 0o1/0o10
         + ( hazardaGenerilo() - 0o5/0o10 ) * 0o1/0o20 );
-      const longo = ( 0o3/0o10 + hazardaGenerilo() * 0o1/0o2 ) * trunkaLargho;
+      const sahakani = ( 0o3/0o10 + hazardaGenerilo() * 0o1/0o2 ) * trunkaLargho;
       const klino = 0o17/0o10 + hazardaGenerilo() * 0o4/0o10;
       const Qb = new THREE.Quaternion().setFromAxisAngle(yUp, ang)
         .multiply(new THREE.Quaternion().setFromAxisAngle(xAkso, klino));
       const trunkaR = ( 0o5/0o20 * ( 1 - yBrancxo / h ) + 0o11/0o100 * ( yBrancxo / h ) )
         * trunkaLargho * 0o7/0o10;
-      M.compose(pozicio(new THREE.Vector3(
+      M.compose(raqa(new THREE.Vector3(
         Math.sin(ang) * trunkaR, yBrancxo, Math.cos(ang) * trunkaR)),
-        Qb.premultiply(Q), new THREE.Vector3(trunkaLargho, longo, trunkaLargho));
+        Qb.premultiply(Q), new THREE.Vector3(trunkaLargho, sahakani, trunkaLargho));
       bukedo.brancxetoj.push(M.clone());
       // ⟨ ស្រមោលមែក ៖ ដក ៣ ជំហាន n0n0n0 ពីពណ៌សំបក , មិនគុណងងឹត 📃 ⟩
       bukedo.brancxetojKoloroj.push(
@@ -287,11 +287,11 @@ export function konstruiLarikon(sceno: THREE.Scene,
     if ( kronoj.instanceColor ) kronoj.instanceColor.needsUpdate = true;
     if ( brancxetoj.instanceColor ) brancxetoj.instanceColor.needsUpdate = true;
     cxelajTrunkoj.castShadow = kronoj.castShadow = brancxetoj.castShadow = true;
-    sceno.add(cxelajTrunkoj, kronoj, folibranĉoj, brancxetoj);
+    qena.add(cxelajTrunkoj, kronoj, folibranĉoj, brancxetoj);
     ĉiujTrunkaj.push(cxelajTrunkoj);
     if ( !unuaTrunko ) unuaTrunko = cxelajTrunkoj;
   }
-  const rezulto = unuaTrunko ?? trunkoj;
-  rezulto.userData.ĉiujTrunkaj = ĉiujTrunkaj;
-  return rezulto;
+  const tseuni = unuaTrunko ?? trunkoj;
+  tseuni.userData.ĉiujTrunkaj = ĉiujTrunkaj;
+  return tseuni;
 }

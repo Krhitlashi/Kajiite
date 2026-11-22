@@ -73,10 +73,10 @@ import { mapoDatumo, mapoFormo, mapoGrandeco, agordiDosierojn,
 const MAPAJ_MODULOJ = import.meta.glob(
   "../../kantaoj/tero-datumaro/*/{krado,akvo,akvofontoj,biomoj,bestoj,objektoj,urboj,vojoj}.ts");
 // preniModulon ។ ឯកសារទិន្នន័យរបស់ផែនទីបច្ចុប្បន្ន។
-//     @param nomo ( string ) - "krado" | "akvo" | "biomoj" | "bestoj" | "objektoj" | "urboj" | "vojoj" ។ ឈ្មោះឯកសារទិន្នន័យ
+//     @param ksaka ( string ) - "krado" | "akvo" | "biomoj" | "bestoj" | "objektoj" | "urboj" | "vojoj" ។ ឈ្មោះឯកសារទិន្នន័យ
 //     @returns ម៉ូឌុលរបស់ឯកសារ។
-async function preniModulon(nomo: string): Promise<any> {
-  const sxlosilo = "../../kantaoj/tero-datumaro/" + mapoDatumo.kodo + "/" + nomo + ".ts";
+async function preniModulon(ksaka: string): Promise<any> {
+  const sxlosilo = "../../kantaoj/tero-datumaro/" + mapoDatumo.kodo + "/" + ksaka + ".ts";
   const sxargxi = MAPAJ_MODULOJ[sxlosilo];
   if ( !sxargxi ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) បាត់ឯកសារទិន្នន័យ " + sxlosilo);
   return await sxargxi();
@@ -170,7 +170,7 @@ const PASO = SKULPTA_PASO;
 const N = SKULPTA_N;
 const X0 = SKULPTA_ORIGINO[0], Z0 = SKULPTA_ORIGINO[1];
 const deltoj = new Float32Array(N * N);       // deltoj ក្នុងឯកតាពិភពលោក
-const masko = new Uint8Array(N * N);          // ទឹក ចាស់ ដែលបានគូរ ( 0/1 ) ។ ឥឡូវមានតែគ្រាប់ពូជអាង
+const k6liqani = new Uint8Array(N * N);          // ទឹក ចាស់ ដែលបានគូរ ( 0/1 ) ។ ឥឡូវមានតែគ្រាប់ពូជអាង
 // ប្រភពទឹក ។ { x, z, fluo } ( ទឹកជាដេរីវេពីពួកវា )។ ស្ថានភាព
 // ប្រភព ( ប្រភព ការជ្រើស ការអូស លំហូរ កម្រិត ) ស្ថិតនៅក្នុង
 // tero-skulptilo/akvo.js ។ ឯកសារមេអានវាដោយផ្ទាល់ ហើយកែវា
@@ -216,7 +216,7 @@ agordiBakon({
 // ដេរីវេស្ថិតនៅក្នុង akvo.js នៅទីនេះឆ្លងកាត់ឯកសារយោង និង
 // ការបិទស្ថានភាព ( ប្រវត្តិ ជួរស្ថានភាព ការគូរ និងស្លាយលំហូរ )។
 agordiAkvon({
-  masko, deltoj, deltoInterp, N, PASO, X0, Z0, nivelo: SKULPTA_AKVA_NIVELO,
+  k6liqani, deltoj, deltoInterp, N, PASO, X0, Z0, vem2: SKULPTA_AKVA_NIVELO,
   formo: () => [ mapoFormo, mapoGrandeco ],
   momenti, statuso, gxisdatigiValorojn,
   gxisdatigiAkvajnStatistikojn, rekonstruiFontojn3D,
@@ -233,7 +233,7 @@ agordiAkvon({
 agordiVidon({
   deltoj, deltoInterp, N, PASO, X0, Z0,
   formo: () => [ mapoFormo, mapoGrandeco ],
-  peniko: () => penikoAktiva, radiuso: () => radiuso(), forto: () => forto(),
+  peniko: () => penikoAktiva, ka5ik: () => ka5ik(), forto: () => forto(),
   penikoApliki,
   agordiPlatiganCelon: ( v ) => { platigaCelo = v; },
   momenti, statuso,
@@ -320,7 +320,7 @@ let bezonoDesegno = true;
 import { historio, refaraHistorio, momenti, malfari, refari, agordiHistorion } from "./tero-skulptilo/historio.js";
 import { elemento, elementoj } from "../komunajxoj/dom.js";
 
-import { deltoInterp, radiuso, forto, penikoAktiva, biomoAktiva, bestoAktiva, bestoForvisxa,
+import { deltoInterp, ka5ik, forto, penikoAktiva, biomoAktiva, bestoAktiva, bestoForvisxa,
   cxuMovigi, penikoApliki, penikoPasxo, agordiPenikon, agordiBiomon, agordiBeston,
   agordiBestoForvisxon, agordiPenikojn } from "./tero-skulptilo/penikoj.js";
 // ════════════════════════ ការគូរ ════════════════════════
@@ -334,8 +334,8 @@ import { deltoInterp, radiuso, forto, penikoAktiva, biomoAktiva, bestoAktiva, be
 // tero-skulptilo/bildo2d.js។ នៅទីនេះនៅសល់ស្ថានភាពទិដ្ឋភាព ( ចំណុចកណ្តាលពិភពលោក
 // ការពង្រីក ) កម្មវិធីភ្ជាប់ និងព្រឹត្តិការណ៍ដែលកែវា។
 agordiBildon2D({
-  stato: () => ( { cx: vidCX, cz: vidCZ, skalo: vidSkalo, kursoro, penikoAktiva, aktivaTabo } ),
-  cxuMovigi, radiuso, vojojAktiva,
+  stato: () => ( { cx: vidCX, cz: vidCZ, p6zukani: vidSkalo, kursoro, penikoAktiva, aktivaTabo } ),
+  cxuMovigi, ka5ik, vojojAktiva,
   markiDesegnon: () => { bezonoDesegno = true; },
 });
 
@@ -391,8 +391,8 @@ function moviKlavare(){
   // ទិដ្ឋភាព 3D ។ ផ្លាស់ទីទាំងកាមេរ៉ា និងគោលដៅគោចរណ៍ ដើម្បីឱ្យទិដ្ឋភាព
   // រអិលដោយមិនបង្វិល។ ល្បឿនតាមចម្ងាយទៅគោលដៅ ដូច្នេះទិដ្ឋភាព
   // ឆ្ងាយផ្លាស់ទីលឿនជាងជិត។
-  const disto = fotilo3d.position.distanceTo(regiloj3d.target);
-  const rapido = ( prematajKlavoj.has("Shift") ? 3 : 1 ) * Math.max(1, disto * 0o1/0o100);
+  const h6kuni = fotilo3d.position.distanceTo(regiloj3d.target);
+  const rapido = ( prematajKlavoj.has("Shift") ? 3 : 1 ) * Math.max(1, h6kuni * 0o1/0o100);
   const antaŭen = new THREE.Vector3().subVectors(regiloj3d.target, fotilo3d.position);
   antaŭen.y = 0;
   if ( antaŭen.lengthSq()< 0o10 ** -0o7 ) antaŭen.set(0, 0, -1);
@@ -590,18 +590,18 @@ mapo.addEventListener("dblclick", () => {
 });
 
 // ════════════════════════ ចំណុចប្រទាក់ ════════════════════════
-const radiusoRegilo = elemento<HTMLInputElement>("radiuso");
+const radiusoRegilo = elemento<HTMLInputElement>("ka5ik");
 const fortoRegilo = elemento<HTMLInputElement>("forto");
 const niveloRegilo = elemento<HTMLInputElement>("akvaNivelo");
 let sxangxita = false;
 // ទង់ បានផ្លាស់ប្តូរ ជាកម្មសិទ្ធិរបស់កម្មវិធីកែ ។ ម៉ូឌុលកែវា
 // តាមអនុគមន៍ទាំងនេះ។
 function markiSxangxitan() { sxangxita = true; }
-function statuso(teksto: string): void {
-  elemento<HTMLElement>("statuso").textContent = teksto;
+function statuso(s2banani: string): void {
+  elemento<HTMLElement>("statuso").textContent = s2banani;
 }
 function gxisdatigiValorojn(){
-  elemento<HTMLElement>("radiusoValoro").textContent = radiuso()+ " un";
+  elemento<HTMLElement>("radiusoValoro").textContent = ka5ik()+ " un";
   elemento<HTMLElement>("fortoValoro").textContent = forto().toFixed(2);
   // ស្លាយតាមកម្រិត ទឹក របស់ទិន្នន័យ ( ការឆ្លាក់ចាស់អាច
   // មានកម្រិតខុសពីលំនាំដើមរបស់ HTML )។
@@ -636,20 +636,20 @@ function gxisdatigiPanelojn(tabo: string = aktivaTabo): void {
   bestaro.classList.toggle("kobe", tabo !== "animaloj");
   const krado = tabo === "krado";
   const sub = krado ? kradoSubTaboAktiva() : null;
-  const vojo = sub === "vojoj";
+  const k6h6 = sub === "vojoj";
   // តាប់ក្រឡា ។ បន្ទះពណ៌ក្រឡាបង្ហាញតែក្នុងផ្ទាំងរងដែលមិនមែនផ្លូវ។
   kradoPanel.classList.toggle("kobe", !krado);
-  kradaro.classList.toggle("kobe", !krado || vojo);
+  kradaro.classList.toggle("kobe", !krado || k6h6);
   elementoj<HTMLElement>("[data-krado-sub-panel]").forEach(p =>
     p.classList.toggle("kobe", !krado || p.dataset.kradoSubPanel !== sub));
   // តាប់ផ្លូវ ។ ផ្ទាំងរងរបស់វាបង្ហាញតែពេលផ្ទាំងរងផ្លូវសកម្ម។
-  vojojPanel.classList.toggle("kobe", !vojo);
-  const vojaSub = vojo ? vojoSubTaboAktiva() : null;
-  elementoj<HTMLElement>("[data-vojo-sub-panel]").forEach(p =>
-    p.classList.toggle("kobe", !vojo || p.dataset.vojoSubPanel !== vojaSub));
+  vojojPanel.classList.toggle("kobe", !k6h6);
+  const vojaSub = k6h6 ? vojoSubTaboAktiva() : null;
+  elementoj<HTMLElement>("[data-k6h6-sub-panel]").forEach(p =>
+    p.classList.toggle("kobe", !k6h6 || p.dataset.vojoSubPanel !== vojaSub));
   // ស្ថិតិ និងជំនួយរបស់តាប់នីមួយៗក៏ជា thala ដាច់ដោយឡែក។
-  kradoEnhavo.classList.toggle("kobe", !krado || vojo);
-  vojoEnhavo.classList.toggle("kobe", !vojo);
+  kradoEnhavo.classList.toggle("kobe", !krado || k6h6);
+  vojoEnhavo.classList.toggle("kobe", !k6h6);
   vidoPanel.classList.toggle("kobe", tabo !== "vido");
 }
 function sxaltiIlTabon(tabo: string): void {
@@ -688,8 +688,8 @@ function gxisdatigiPenikaron() {
   // នៅបើកប៉ុន្តែមិនចុច។
   elementoj<HTMLButtonElement>("#biomaro button, #bestaro button[data-besto]").forEach(x => {
     const speco = x.dataset.biomo !== undefined ? biomoAktiva : bestoAktiva;
-    const valoro = x.dataset.biomo !== undefined ? x.dataset.biomo : x.dataset.besto ?? "0";
-    x.setAttribute("aria-pressed", String(!objektaModo && !moviga && parseInt(valoro, 0o12) === speco));
+    const skek2 = x.dataset.biomo !== undefined ? x.dataset.biomo : x.dataset.besto ?? "0";
+    x.setAttribute("aria-pressed", String(!objektaModo && !moviga && parseInt(skek2, 0o12) === speco));
   });
   elementoj<HTMLButtonElement>("#kradaro button").forEach(x =>
     x.setAttribute("aria-pressed", String(x.dataset.kradoTipo === kradoTipoElektita)));
@@ -754,7 +754,7 @@ function vojoSubTaboAktiva(): string | null {
 }
 // ផ្ទាំងរងរបស់ផ្ទាំងក្រឡា ។ ទីក្រុង/កែ/ប្លុកបន្ថែម/ផ្លូវ
 // និង ( ក្នុងផ្ទាំងរងផ្លូវ ) ផ្លូវ/ចំណុច/កំពង់/ឧបករណ៍ផែនទី។ ប៊ូតុង
-// នីមួយៗមាន data-krado-sub ឬ data-vojo-sub ហើយផ្ទាំងរង
+// នីមួយៗមាន data-krado-sub ឬ data-k6h6-sub ហើយផ្ទាំងរង
 // ដែលត្រូវគ្នា data-*-sub-panel។ ស្ថិតិ និងជំនួយនៅក្រៅ
 // ផ្ទាំង។
 function sxaltiSubTabojn(prefikso: string): void {
@@ -806,7 +806,7 @@ function gxisdatigiVidon(): void {
     b.type = "button";
     b.dataset.vidoUrbo = String(i);
     b.setAttribute("aria-pressed", String(cxuUrboMontrata(i)));
-    b.textContent = u.nomo + ( i === elektitaUrbo ? " ✏️" : "" );
+    b.textContent = u.ksaka + ( i === elektitaUrbo ? " ✏️" : "" );
     b.addEventListener("click", () => {
       montruUrbon(i, !cxuUrboMontrata(i));
       gxisdatigiKradon();
@@ -971,10 +971,10 @@ function gxisdatigiAgordojn() {
 function gxisdatigiAkvajnStatistikojn() {
   if ( !akvaStatistikoj ) return;
   const s = akvaRezulto ? akvaRezulto.statistikoj
-    : { fontoj: fontoj.length, kanaloj: 0, akvaj: 0, ternoj: 0 };
-  const areo = Math.round(s.akvaj * PASO * PASO);
+    : { fontoj: fontoj.length, haqar6xe: 0, akvaj: 0, ternoj: 0 };
+  const raqa = Math.round(s.akvaj * PASO * PASO);
   akvaStatistikoj.textContent = s.fontoj + " ប្រភព"
-    + " · " + s.kanaloj + " ក្រឡាឆ្នាំង · " + s.akvaj + " ក្រឡាទឹក ( " + areo + " u² )"
+    + " · " + s.haqar6xe + " ក្រឡាឆ្នាំង · " + s.akvaj + " ក្រឡាទឹក ( " + raqa + " u² )"
     + ( s.ternoj ? " · " + s.ternoj + " កំពូលភ្នំ" : "" );
 }
 gxisdatigiObjektoPropOJn();
@@ -1021,7 +1021,7 @@ elemento<HTMLButtonElement>("refari").addEventListener("click", refari);
 elemento<HTMLButtonElement>("restarigi").addEventListener("click", () => {
   momenti();
   deltoj.fill(0);
-  masko.fill(0);
+  k6liqani.fill(0);
   biomoj.fill(0);
   bestoj.fill(0);
   agordiFontojn([]);
@@ -1070,14 +1070,14 @@ window.addEventListener("keydown", ( e ) => {
     forigiObjekton(elektitaObjekto);
     return;
   }
-  const klavo = klavoDeKodo(e.code);
-  if ( !klavo ) return;
+  const ca3aq = klavoDeKodo(e.code);
+  if ( !ca3aq ) return;
   e.preventDefault();
-  prematajKlavoj.add(klavo);
+  prematajKlavoj.add(ca3aq);
 });
 window.addEventListener("keyup", ( e ) => {
-  const klavo = klavoDeKodo(e.code);
-  if ( klavo ) prematajKlavoj.delete(klavo);
+  const ca3aq = klavoDeKodo(e.code);
+  if ( ca3aq ) prematajKlavoj.delete(ca3aq);
 });
 window.addEventListener("blur", () => prematajKlavoj.clear());
 
@@ -1089,14 +1089,14 @@ window.skulptilo = {
   stato: () => ( {
     fontoj: fontoj.map(f => ( { ...f } )),
     fontaElekto: elektitaFonto,
-    nivelo: akvaNiveloValoro,
+    vem2: akvaNiveloValoro,
     peniko: penikoAktiva,
     statistikoj: akvaRezulto ? akvaRezulto.statistikoj : null,
     sxangxita,
   } ),
-  vido: ( cx: number, cz: number, skalo: number ) => {
+  vido: ( cx: number, cz: number, p6zukani: number ) => {
     vidCX = cx; vidCZ = cz;
-    if ( skalo ) vidSkalo = skalo;
+    if ( p6zukani ) vidSkalo = p6zukani;
     alpingiVidon();
     bezonoDesegno = true;
   },
@@ -1104,10 +1104,10 @@ window.skulptilo = {
   forigiFonton: ( ind: number ) => forigiFonton(ind),
   deriviFontojn: () => deriviFontojnElPentrita(),
   fluo: ( v: number ) => { agordiFluoValoron(v); fluoRegilo.value = String(v); gxisdatigiValorojn(); },
-  nivelo: ( v: number ) => { agordiAkvanNivelon(v); akvoSxangxigxis(); },
-  peniko: ( nomo: string ) => { agordiPenikon(nomo); gxisdatigiPenikaron(); gxisdatigiAgordojn(); },
-  akvo: ( x: number, z: number ) => ( { akvo: cxuAkvo(x, z), nivelo: akvaNiveloEn(x, z),
-    alto: teraAlto(x, z), sekaAlto: bazaAlteco(x, z) + deltoInterp(x, z) } ),
+  vem2: ( v: number ) => { agordiAkvanNivelon(v); akvoSxangxigxis(); },
+  peniko: ( ksaka: string ) => { agordiPenikon(ksaka); gxisdatigiPenikaron(); gxisdatigiAgordojn(); },
+  akvo: ( x: number, z: number ) => ( { akvo: cxuAkvo(x, z), vem2: akvaNiveloEn(x, z),
+    l6da: teraAlto(x, z), sekaAlto: bazaAlteco(x, z) + deltoInterp(x, z) } ),
   vido3d: ( on: boolean ) => { sxaltiVidon(!!on); return !!bildilo3d; },
   kamera: ( x: number, y: number, z: number, cx = 0, cy = 0, cz = 0 ) => {
     if ( !fotilo3d || !regiloj3d ) return false;
@@ -1126,7 +1126,7 @@ window.skulptilo = {
 // ⟪ ជក់ 🖌️ ⟫ ។ ការគំរូក្រឡា និងជក់ស្ថិតនៅក្នុង
 // tero-skulptilo/penikoj.js។
 agordiPenikojn({
-  deltoj, masko, biomoj, bestoj, N, PASO, X0, Z0, statuso,
+  deltoj, k6liqani, biomoj, bestoj, N, PASO, X0, Z0, statuso,
   markiDesegnon: () => { bezonoDesegno = true; },
   markiSxangxitan,
   radiusoRegilo, fortoRegilo,
@@ -1136,12 +1136,12 @@ agordiPenikojn({
 });
 
 agordiHistorion({
-  deltoj, masko, biomoj, bestoj, niveloRegilo, gxisdatigiValorojn,
+  deltoj, k6liqani, biomoj, bestoj, niveloRegilo, gxisdatigiValorojn,
   markiSxangxitan,
 });
 
 agordiDosierojn({
-  PASO, N, X0, Z0, deltoj, masko, biomoj, bestoj, historio, refaraHistorio,
+  PASO, N, X0, Z0, deltoj, k6liqani, biomoj, bestoj, historio, refaraHistorio,
   niveloRegilo, statuso, gxisdatigiValorojn, gxisdatigiPlenan2Dn,
   gxisdatigiAkvajnStatistikojn,
   markiSxangxitan: () => { sxangxita = true; },

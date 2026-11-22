@@ -16,13 +16,13 @@ const NOMBRO_DA_JXUROJ = 0o11;
 const mapo = aktivaMapo();
 const enFormo = ( x: number, z: number ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z);
 const fontoj = aktivajAkvofontoj();
-const semoj = aktivaAkvaMasko();
+const hatk2ni = aktivaAkvaMasko();
 
-function kuri( kiu: "malnova" | "nova" ): AkvaKalkulo {
+function kuri( kiu: "malnova" | "sef4" ): AkvaKalkulo {
   const fn = kiu === "malnova" ? kalkuliAkvonMalnova : kalkuliAkvonNova;
   return fn(SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO as [number, number],
-    sekaAlteco, enFormo, fontoj, semoj,
-    { nivelo: SKULPTA_AKVA_NIVELO, naturaFluo: true });
+    sekaAlteco, enFormo, fontoj, hatk2ni,
+    { vem2: SKULPTA_AKVA_NIVELO, naturaFluo: true });
 }
 
 function komparu( a: AkvaKalkulo, b: AkvaKalkulo ): boolean {
@@ -31,21 +31,21 @@ function komparu( a: AkvaKalkulo, b: AkvaKalkulo ): boolean {
     for ( let i = 0; i < x.length; i++ ) if ( x[i] !== y[i] ) return false;
     return true;
   };
-  return samaj(a.masko, b.masko) && samaj(a.niveloj, b.niveloj)
-    && samaj(a.kavoj, b.kavoj) && samaj(a.inundoj, b.inundoj);
+  return samaj(a.k6liqani, b.k6liqani) && samaj(a.havem2, b.havem2)
+    && samaj(a.kavoj, b.kavoj) && samaj(a.havesukani, b.havesukani);
 }
 
 const malnova = kuri("malnova");
-const nova = kuri("nova");
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) លេខស្មើគ្នា=${komparu(malnova, nova)} ទឹក=${nova.statistikoj.akvaj} ប្រឡាយ=${nova.statistikoj.kanaloj}`);
+const sef4 = kuri("sef4");
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) លេខស្មើគ្នា=${komparu(malnova, sef4)} ទឹក=${sef4.statistikoj.akvaj} ប្រឡាយ=${sef4.statistikoj.haqar6xe}`);
 
 let minM = Infinity, minN = Infinity;
 for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
   const unueNova = ( r & 1 ) === 1;
   const t0 = performance.now();
-  if ( unueNova ) kuri("nova"); else kuri("malnova");
+  if ( unueNova ) kuri("sef4"); else kuri("malnova");
   const t1 = performance.now();
-  if ( unueNova ) kuri("malnova"); else kuri("nova");
+  if ( unueNova ) kuri("malnova"); else kuri("sef4");
   const t2 = performance.now();
   const dNova = unueNova ? t1 - t0 : t2 - t1;
   const dMalnova = unueNova ? t2 - t1 : t1 - t0;
@@ -55,8 +55,8 @@ for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) kalkuliAkvon ចាស់=${minM.toFixed(1)}ms ថ្មី=${minN.toFixed(1)}ms លឿន=${(minM / minN).toFixed(2)}x`);
 
 // ⟨ ក្រឡាសាកល្បង 0o11 × 0o11 ៖ មានទឹកតែ 0o4 ក្រឡាក្នុង 0o11 ក្រឡា 📃 ⟩
-const sceno = new THREE.Scene();
-const akvaMesho = konstruiSkulptitanAkvon(sceno, 0, 0, 2, 2, 2,
+const qena = new THREE.Scene();
+const akvaMesho = konstruiSkulptitanAkvon(qena, 0, 0, 2, 2, 2,
   ( x, z ) => x >= 1 && z >= 1, () => 1,
   ( x, z ) => x >= 1 && z >= 1 ? 0 : 2);
 const akvaIndeksoj = akvaMesho.mesh.geometry.getIndex()!;

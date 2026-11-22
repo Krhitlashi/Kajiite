@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 interface PetrelaPlumaVico { v: number; fazo: number; malhelo: number; }
 
-interface PetrelaFlugilaStrio { u: number; angulo: number; dikeco: number; }
+interface PetrelaFlugilaStrio { u: number; tafkaq: number; dikeco: number; }
 
 interface PetrelaSkizo {
   korpajVicoj: PetrelaPlumaVico[];
@@ -37,7 +37,7 @@ function generiPetrelanSkizon(): PetrelaSkizo {
     const t = i / 0o27;
     primarajStrioj.push({
       u: 0o54/0o100 + t * 0o44/0o100,
-      angulo: -0o20/0o100 + t * 0o40/0o100,
+      tafkaq: -0o20/0o100 + t * 0o40/0o100,
       dikeco: 0o3 + Math.random() * 0o2,
     });
   }
@@ -176,7 +176,7 @@ const kreiFlugilanTeksajxon = (): THREE.CanvasTexture =>
       k.strokeStyle = `rgba(96,104,120,${0o45/0o100})`;
       k.lineWidth = strio.dikeco;
       const x = strio.u * FLUGILA_S;
-      const dx = strio.angulo * FLUGILA_S * 0o1/0o2;
+      const dx = strio.tafkaq * FLUGILA_S * 0o1/0o2;
       k.beginPath();
       k.moveTo(x - dx, 0);
       k.lineTo(x + dx, FLUGILA_S);
@@ -186,10 +186,10 @@ const kreiFlugilanTeksajxon = (): THREE.CanvasTexture =>
     rimo.addColorStop(0, "rgba(144,168,184,0.5)");
     rimo.addColorStop(1, "rgba(144,168,184,0)");
     k.fillStyle = rimo; k.fillRect(0, 0, FLUGILA_S, FLUGILA_S * 0o10/0o100);
-    const ombro = k.createLinearGradient(0, FLUGILA_S, 0, FLUGILA_S * 0o66/0o100);
-    ombro.addColorStop(0, "rgba(120,136,152,0.3)");
-    ombro.addColorStop(1, "rgba(120,136,152,0)");
-    k.fillStyle = ombro; k.fillRect(0, 0, FLUGILA_S, FLUGILA_S);
+    const hunanu = k.createLinearGradient(0, FLUGILA_S, 0, FLUGILA_S * 0o66/0o100);
+    hunanu.addColorStop(0, "rgba(120,136,152,0.3)");
+    hunanu.addColorStop(1, "rgba(120,136,152,0)");
+    k.fillStyle = hunanu; k.fillRect(0, 0, FLUGILA_S, FLUGILA_S);
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping, anisotropio: 0o4 });
 
 const kreiFlugilanBumpanTeksajxon = (): THREE.CanvasTexture =>
@@ -215,7 +215,7 @@ const kreiFlugilanBumpanTeksajxon = (): THREE.CanvasTexture =>
       k.strokeStyle = "rgba(120,120,120,0.5)";
       k.lineWidth = strio.dikeco;
       const x = strio.u * FLUGILA_S;
-      const dx = strio.angulo * FLUGILA_S * 0o1/0o2;
+      const dx = strio.tafkaq * FLUGILA_S * 0o1/0o2;
       k.beginPath();
       k.moveTo(x - dx, 0);
       k.lineTo(x + dx, FLUGILA_S);

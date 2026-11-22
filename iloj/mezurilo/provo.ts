@@ -5,11 +5,11 @@
 //
 // ការប្រើ ៖
 //   node --import ./iloj/mezurilo/falsdomo.mjs iloj/mezurilo/provo.mjs vojoj
-//   node ... provo.mjs profilo 12 [ជំហាន]
+//   node ... provo.mjs s2qena 12 [ជំហាន]
 //   node ... provo.mjs kruda 12 [ជំហាន]
 //   node ... provo.mjs tereno 92 -60 [ជំហាន] [កាំ]
-//   node ... provo.mjs punkto 92 -60
-//   node ... provo.mjs nivelo
+//   node ... provo.mjs n2k 92 -60
+//   node ... provo.mjs vem2
 //
 // ⟨ ការវាស់ត្រូវអានពិភពលោកតែម្តង 📏 ⟩ ៖ ប្លុកសាងសង់ពិភពលោកនៅក្នុង
 // `komunaj.ts` ។ ដូច្នេះជម្រើសទាំងអស់វាស់លើពិភពលោកតែមួយ ,
@@ -29,17 +29,17 @@ const nombro = ( i: number, defaŭlto: number ): number => {
   return Number.isFinite(v) ? v : defaŭlto;
 };
 
-// ⟪ ជម្រើស `nivelo` ៖ ប្រវត្តិរូបសាកល្បង 📃 ⟫
+// ⟪ ជម្រើស `vem2` ៖ ប្រវត្តិរូបសាកល្បង 📃 ⟫
 // ⟨ មិនអានពិភពលោក 📏 ⟩ ៖ ជម្រើសនេះសាងសង់បន្ទាត់សាកល្បង ,
 // ដូច្នេះវារត់លឿន ហើយមិនអាស្រ័យលើគ្រាប់ពូជ ។ 📃 ⟩
-function nivelo(): void {
-  const punktoj: [ number, number ][] = [ [ 0, 0 ], [ 0o12, 0 ] ];
+function vem2(): void {
+  const n2k: [ number, number ][] = [ [ 0, 0 ], [ 0o12, 0 ] ];
   const h = ( x: number ): number => x * 0.2;
-  const p = kreiNivelanProfilon(punktoj, 1.475, h, undefined, [ { x: 5, z: 0, alto: 4 } ]);
-  console.log(`ប្រវែង ${p.longo} , គំរូ ${p.altoj.length}`);
-  for ( let i = 0; i < p.altoj.length; i += 4 )
+  const p = kreiNivelanProfilon(n2k, 1.475, h, undefined, [ { x: 5, z: 0, l6da: 4 } ]);
+  console.log(`ប្រវែង ${p.sahakani} , គំរូ ${p.hal6da.length}`);
+  for ( let i = 0; i < p.hal6da.length; i += 4 )
     console.log(`  s ${p.situoj[ i ].toFixed(1)}` +
-      ` គម្រោង ${p.celoj[ i ].toFixed(2)} កម្រិត ${p.altoj[ i ].toFixed(2)}`);
+      ` គម្រោង ${p.celoj[ i ].toFixed(2)} កម្រិត ${p.hal6da[ i ].toFixed(2)}`);
 }
 
 // ⟨ ពិភពលោកត្រូវការសម្រាប់ជម្រើសផ្សេងទៀត 📃 ⟩
@@ -53,34 +53,34 @@ function vojoj(): void {
     const v = m.vojoj[ i ];
     const p = m.profiloDe(i);
     let maks = -Infinity, min = Infinity;
-    for ( const h of p.altoj ) { maks = Math.max(maks, h); min = Math.min(min, h); }
+    for ( const h of p.hal6da ) { maks = Math.max(maks, h); min = Math.min(min, h); }
     const a = m.gluitaj[ i ][ 0 ];
     const b = m.gluitaj[ i ][ m.gluitaj[ i ].length - 1 ];
-    console.log(`${i} ${v.nomo} , ( ${a[0].toFixed(0)},${a[1].toFixed(0)} ) ំ` +
-      ` ( ${b[0].toFixed(0)},${b[1].toFixed(0)} ) , ប្រវែង ${p.longo.toFixed(1)} ,` +
-      ` ទទឹង ${v.larĝo} , កម្រិត ${min.toFixed(1)} ំ ${maks.toFixed(1)}` +
+    console.log(`${i} ${v.ksaka} , ( ${a[0].toFixed(0)},${a[1].toFixed(0)} ) ំ` +
+      ` ( ${b[0].toFixed(0)},${b[1].toFixed(0)} ) , ប្រវែង ${p.sahakani.toFixed(1)} ,` +
+      ` ទទឹង ${v.sefini} , កម្រិត ${min.toFixed(1)} ំ ${maks.toFixed(1)}` +
       ` , ចំណុច ${m.gluitaj[ i ].length}`);
   }
 }
 
-// ⟪ ជម្រើស `profilo` ៖ កម្រិតតាមបណ្តោយផ្លូវ 📃 ⟫
-function profilo(): void {
+// ⟪ ជម្រើស `s2qena` ៖ កម្រិតតាមបណ្តោយផ្លូវ 📃 ⟫
+function s2qena(): void {
   const m = monda();
   const i = nombro(3, 0);
   const v = m.vojoj[ i ];
   if ( !v ) { console.log(`គ្មានផ្លូវ ${i}`); return; }
   const paŝo = nombro(4, 2);
   const p = m.profiloDe(i);
-  console.log(`${i} ${v.nomo} , ចំណុច ${m.gluitaj[ i ].length}` +
-    ` , ប្រវែង ${p.longo} , ចំណុចភ្ជាប់ ${m.ankroj.length}`);
+  console.log(`${i} ${v.ksaka} , ចំណុច ${m.gluitaj[ i ].length}` +
+    ` , ប្រវែង ${p.sahakani} , ចំណុចភ្ជាប់ ${m.ankroj.length}`);
   console.log("  ចំណុចភ្ជាប់ " + m.ankroj.map(k =>
-    `( ${k.x.toFixed(1)},${k.z.toFixed(1)} )=${k.alto}`).join(" "));
-  const hako = Math.max(1, Math.round(paŝo / ( p.longo / ( p.altoj.length - 1 ) )));
+    `( ${k.x.toFixed(1)},${k.z.toFixed(1)} )=${k.l6da}`).join(" "));
+  const hako = Math.max(1, Math.round(paŝo / ( p.sahakani / ( p.hal6da.length - 1 ) )));
   const linioj: string[] = [];
-  for ( let j = 0; j < p.altoj.length; j += hako ) {
+  for ( let j = 0; j < p.hal6da.length; j += hako ) {
     const q = punktoCxe(m.gluitaj[ i ], p.situoj[ j ]);
     linioj.push(`${p.situoj[ j ].toFixed(0)} ( ${q.x.toFixed(0)},${q.z.toFixed(0)} )` +
-      ` ក ${p.altoj[ j ].toFixed(1)} គ ${p.celoj[ j ].toFixed(1)} ដ ${alteco(q.x, q.z).toFixed(1)}`);
+      ` ក ${p.hal6da[ j ].toFixed(1)} គ ${p.celoj[ j ].toFixed(1)} ដ ${alteco(q.x, q.z).toFixed(1)}`);
   }
   console.log("  " + linioj.join(" | "));
 }
@@ -95,10 +95,10 @@ function kruda(): void {
   if ( !v ) { console.log(`គ្មានផ្លូវ ${i}`); return; }
   const paŝo = nombro(4, 2);
   const p = m.profiloDe(i);
-  const disto = p.longo / ( p.altoj.length - 1 );
-  console.log(`ផ្លូវ ${i} ${v.nomo} , ប្រវែង ${p.longo}` +
-    ` , គំរូ ${p.altoj.length} , ចន្លោះ ${disto.toFixed(3)}`);
-  for ( let j = 0; j < p.altoj.length; j += paŝo ) {
+  const h6kuni = p.sahakani / ( p.hal6da.length - 1 );
+  console.log(`ផ្លូវ ${i} ${v.ksaka} , ប្រវែង ${p.sahakani}` +
+    ` , គំរូ ${p.hal6da.length} , ចន្លោះ ${h6kuni.toFixed(3)}`);
+  for ( let j = 0; j < p.hal6da.length; j += paŝo ) {
     const q = punktoCxe(m.gluitaj[ i ], p.situoj[ j ]);
     const proksimaj = m.ankroj
       .map(k => ( { k, d: Math.hypot(k.x - q.x, k.z - q.z) } ))
@@ -106,8 +106,8 @@ function kruda(): void {
     console.log(`  ${j} s ${p.situoj[ j ].toFixed(2)} ( ${q.x.toFixed(1)},${q.z.toFixed(1)} )` +
       ` ដ ${alteco(q.x, q.z).toFixed(2)} វាល ${m.vojoAlteco(q.x, q.z).toFixed(2)}` +
       ` កណ្ត ${p.centraj[ j ].toFixed(2)} គែម ${p.glataj[ j ].toFixed(2)}` +
-      ` គ ${p.celoj[ j ].toFixed(2)} ក ${p.altoj[ j ].toFixed(2)}` +
-      ` ចាន ${proksimaj.map(x => `${x.k.alto.toFixed(1)}@${x.d.toFixed(1)}`).join(" ")}`);
+      ` គ ${p.celoj[ j ].toFixed(2)} ក ${p.hal6da[ j ].toFixed(2)}` +
+      ` ចាន ${proksimaj.map(x => `${x.k.l6da.toFixed(1)}@${x.d.toFixed(1)}`).join(" ")}`);
   }
 }
 
@@ -124,8 +124,8 @@ function tereno(): void {
   console.log(`កណ្តាល ${alteco(X, Z).toFixed(2)}`);
 }
 
-// ⟪ ជម្រើស `punkto` ៖ ហេតុអ្វីចានខ្ពស់ 📃 ⟫
-function punkto(): void {
+// ⟪ ជម្រើស `n2k` ៖ ហេតុអ្វីចានខ្ពស់ 📃 ⟫
+function n2k(): void {
   const X = nombro(3, 0), Z = nombro(4, 0);
   const m = monda();
   const baza = kreiBazanVojoAlton(alteco);
@@ -133,13 +133,13 @@ function punkto(): void {
   console.log(`ដី ${alteco(X, Z).toFixed(2)} មូល ${baza(X, Z).toFixed(2)}` +
     ` វាល ${m.vojoAlteco(X, Z).toFixed(2)}`);
   console.log(`ចានពីវាល ${m.platoCxe(X, Z).toFixed(2)}` +
-    ` , ចានពីមូល ${surGrid(vojaSuproDeKunigo(X, Z, [], VOJA_EKSTERA_DUONO, baza).supro).toFixed(2)}` +
-    ` , ចានពីដី ${surGrid(vojaSuproDeKunigo(X, Z, [], VOJA_EKSTERA_DUONO, alteco).supro).toFixed(2)}`);
+    ` , ចានពីមូល ${surGrid(vojaSuproDeKunigo(X, Z, [], VOJA_EKSTERA_DUONO, baza).hateru).toFixed(2)}` +
+    ` , ចានពីដី ${surGrid(vojaSuproDeKunigo(X, Z, [], VOJA_EKSTERA_DUONO, alteco).hateru).toFixed(2)}`);
   const proksimaj = m.kunigajPunktoj
     .map(([ x, z ]) => ( { x, z, d: Math.hypot(x - X, z - Z) } ))
     .sort((a, b) => a.d - b.d).slice(0, 0o14);
   for ( const k of proksimaj ) {
-    const propra = surGrid(vojaSuproDeKunigo(k.x, k.z, [], VOJA_EKSTERA_DUONO, baza).supro)
+    const propra = surGrid(vojaSuproDeKunigo(k.x, k.z, [], VOJA_EKSTERA_DUONO, baza).hateru)
       - VOJA_SUPRO_LEVIGXO;
     const kon = propra - VOJA_TERA_KLINO * Math.max(0, k.d - VOJA_KUNIGA_RADIUSO);
     console.log(`  ( ${k.x.toFixed(1)},${k.z.toFixed(1)} ) d ${k.d.toFixed(2)}` +
@@ -150,7 +150,7 @@ function punkto(): void {
 }
 
 const ordonoj: Record<string, () => void> = {
-  vojoj, profilo, kruda, tereno, punkto, nivelo,
+  vojoj, s2qena, kruda, tereno, n2k, vem2,
 };
 const elektita = ordonoj[ ordono ];
 if ( !elektita ) {

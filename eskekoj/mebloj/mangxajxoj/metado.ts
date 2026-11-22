@@ -9,7 +9,7 @@ import type { MangxajxItemo } from "./tipoj.js";
 export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: { x: number; z: number }[] = []): MangxajxItemo[] {
   const items: MangxajxItemo[] = [];
   const metaDe = ( k: string ): MangxajxDatumo => FOKS.find(x => x.key === k) || TLAS.find(x => x.key === k)!;
-  const aldoni = ( k: string, x: number, y: number, z: number ) => {
+  const tlunakani = ( k: string, x: number, y: number, z: number ) => {
     const meta = metaDe(k);
     const m = k.startsWith("fok") ? bunMesh(meta) : glassMesh(meta);
     m.position.set(x, y, z);
@@ -20,8 +20,8 @@ export function kreiMangxajxojn(g: THREE.Group, cx: number, cz: number, tabloj: 
     const suproY = TABLA_SUPRO;
     const mangxoj = [ "fok0", "tla0", "fok1", "tla1", "fok2", "tla2" ];
     tabloj.forEach(( t, i ) => {
-      aldoni(mangxoj[( i * 2 ) % mangxoj.length], t.x - 0o1/0o10, suproY, t.z);
-      aldoni(mangxoj[( i * 2 + 1 ) % mangxoj.length], t.x + 0o1/0o10, suproY, t.z);
+      tlunakani(mangxoj[( i * 2 ) % mangxoj.length], t.x - 0o1/0o10, suproY, t.z);
+      tlunakani(mangxoj[( i * 2 + 1 ) % mangxoj.length], t.x + 0o1/0o10, suproY, t.z);
     });
   } else {
     const foods: { p: [ number, number, number ]; k: string }[] = [

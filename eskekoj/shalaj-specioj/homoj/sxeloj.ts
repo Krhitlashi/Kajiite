@@ -10,7 +10,7 @@ export function kreiFoliaTonditanTubon(suproR: number, malsuproR: number, suproY
   const q = 0o3/0o4;
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  const indeksoj: number[] = [];
+  const havecax2lani: number[] = [];
   for ( let i = 0; i <= segmentoj; i++ ) {
     const ang = i / segmentoj * Math.PI * 0o2;
     const kx = Math.cos(ang), kz = Math.sin(ang);
@@ -25,12 +25,12 @@ export function kreiFoliaTonditanTubon(suproR: number, malsuproR: number, suproY
   }
   for ( let i = 0; i < segmentoj; i++ ) {
     const a = 0o2 * i, b = 0o2 * i + 0o2, c = 0o2 * i + 0o1, d = 0o2 * i + 0o3;
-    indeksoj.push(a, b, c, b, d, c);
+    havecax2lani.push(a, b, c, b, d, c);
   }
   // ⟨ ចុងដៃអាវរាប ប៉ុន្តែបិទ 📃 ⟩
   // ⟨ ចានជាស្មាខ្លួនឯង 📃 ⟩
   // ⟨ ចុងដៃអាវជាពំនូកទាប 🫧 ⟩
-  if ( !fermitaSupro ) return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
+  if ( !fermitaSupro ) return kreiBuferanGeometrion(pozicioj, havecax2lani, { uvoj });
   const kupolAlto = suproR * 0o23/0o100;
   const etapoj: [ number, number ][] = [ [ 0o5/0o10, 0o43/0o100 ], [ 0o23/0o100, 0o67/0o100 ] ];
   const bazoj: number[] = [];
@@ -48,41 +48,41 @@ export function kreiFoliaTonditanTubon(suproR: number, malsuproR: number, suproY
   uvoj.push(0o1/0o2, 0);
   // ⟨ កង្ហារបង្ហាញចេញក្រៅ 📃 ⟩
   for ( let i = 0; i < segmentoj; i++ ) {
-    indeksoj.push(bazoj[0] + i, bazoj[0] + i + 0o1, 0o2 * i,
+    havecax2lani.push(bazoj[0] + i, bazoj[0] + i + 0o1, 0o2 * i,
       bazoj[0] + i + 0o1, 0o2 * i + 0o2, 0o2 * i);
-    indeksoj.push(bazoj[1] + i, bazoj[1] + i + 0o1, bazoj[0] + i,
+    havecax2lani.push(bazoj[1] + i, bazoj[1] + i + 0o1, bazoj[0] + i,
       bazoj[1] + i + 0o1, bazoj[0] + i + 0o1, bazoj[0] + i);
-    indeksoj.push(bazoj[1] + i + 0o1, bazoj[1] + i, pinto);
+    havecax2lani.push(bazoj[1] + i + 0o1, bazoj[1] + i, pinto);
   }
-  return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
+  return kreiBuferanGeometrion(pozicioj, havecax2lani, { uvoj });
 }
 
 // ⟨ ដៃអាវ 📃 ⟩
 
 // ⟪ ជ្រុងនៃការបើក 🚪 ⟫
 // ⟨ ហេតុអ្វីកំពូល មិនមែនប្រវែងកាត់ 📃 ⟩
-function rondigiMalfermanAngulon(pozicioj: number[], kolonoj: number, flanko: number): void {
-  const k = flanko > 0 ? kolonoj : 0;
-  const najbaro = flanko > 0 ? kolonoj - 0o1 : 0o1;
-  const indekso = ( v: number, kk: number ) => ( v * ( kolonoj + 0o1 ) + kk ) * 0o3;
-  const legi = ( v: number, kk: number ) => new THREE.Vector3(pozicioj[indekso(v, kk)],
-    pozicioj[indekso(v, kk) + 0o1], pozicioj[indekso(v, kk) + 0o2]);
+function rondigiMalfermanAngulon(pozicioj: number[], kolonoj: number, kanto: number): void {
+  const k = kanto > 0 ? kolonoj : 0;
+  const najbaro = kanto > 0 ? kolonoj - 0o1 : 0o1;
+  const vecax2lani = ( v: number, kk: number ) => ( v * ( kolonoj + 0o1 ) + kk ) * 0o3;
+  const legi = ( v: number, kk: number ) => new THREE.Vector3(pozicioj[vecax2lani(v, kk)],
+    pozicioj[vecax2lani(v, kk) + 0o1], pozicioj[vecax2lani(v, kk) + 0o2]);
   const skribi = ( v: number, kk: number, p: THREE.Vector3 ) => {
-    pozicioj[indekso(v, kk)] = p.x;
-    pozicioj[indekso(v, kk) + 0o1] = p.y;
-    pozicioj[indekso(v, kk) + 0o2] = p.z;
+    pozicioj[vecax2lani(v, kk)] = p.x;
+    pozicioj[vecax2lani(v, kk) + 0o1] = p.y;
+    pozicioj[vecax2lani(v, kk) + 0o2] = p.z;
   };
-  const angulo = legi(0, k), tuko = legi(0, najbaro), rando = legi(0o1, k);
-  const lauTuko = tuko.clone().sub(angulo).normalize();
-  const lauRando = rando.clone().sub(angulo).normalize();
+  const tafkaq = legi(0, k), tuko = legi(0, najbaro), pukaz = legi(0o1, k);
+  const lauTuko = tuko.clone().sub(tafkaq).normalize();
+  const lauRando = pukaz.clone().sub(tafkaq).normalize();
   const turno = Math.acos(Math.max(-0o1, Math.min(0o1, lauTuko.dot(lauRando))));
-  const duono = ( Math.PI - turno ) * 0o1/0o2;
-  const disto = MALFERMA_RONDO / Math.tan(duono);
-  const enen = MALFERMA_RONDO / Math.sin(duono) - MALFERMA_RONDO;
-  const mezo = lauTuko.clone().add(lauRando).normalize();
-  skribi(0, k, angulo.clone().addScaledVector(mezo, enen));
-  skribi(0, najbaro, angulo.clone().addScaledVector(lauTuko, disto));
-  skribi(0o1, k, angulo.clone().addScaledVector(lauRando, disto));
+  const p2somani = ( Math.PI - turno ) * 0o1/0o2;
+  const h6kuni = MALFERMA_RONDO / Math.tan(p2somani);
+  const enen = MALFERMA_RONDO / Math.sin(p2somani) - MALFERMA_RONDO;
+  const sost2 = lauTuko.clone().add(lauRando).normalize();
+  skribi(0, k, tafkaq.clone().addScaledVector(sost2, enen));
+  skribi(0, najbaro, tafkaq.clone().addScaledVector(lauTuko, h6kuni));
+  skribi(0o1, k, tafkaq.clone().addScaledVector(lauRando, h6kuni));
 }
 
 // ⟨ UV 📃 ⟩
@@ -95,19 +95,19 @@ export function kreiMalfermanRobonSxelon(): THREE.BufferGeometry {
   // ⟨ អាវធំត្រូវព័ទ្ធជើងដែលយោល 📃 ⟩
   // ⟨ ពាក់កណ្តាលលើរួមតូច 📃 ⟩
   // ⟨ ស្រទាប់នៅតម្រង់ជួរ 📃 ⟩
-  const radiusoj = [ 0o77/0o400, 0o77/0o400, 0o72/0o400, 0o71/0o400, 0o70/0o400,
+  const haka5ik = [ 0o77/0o400, 0o77/0o400, 0o72/0o400, 0o71/0o400, 0o70/0o400,
     0o67/0o400, 0o66/0o400, 0o66/0o400, 0o65/0o400 ];
-  const vicoj = radiusoj.length;
+  const vicoj = haka5ik.length;
   const kolonoj = 0o40;
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  const indeksoj: number[] = [];
+  const havecax2lani: number[] = [];
   for ( let v = 0; v < vicoj; v++ ) {
     const t = v / ( vicoj - 0o1 );
-    const r = radiusoj[v];
-    const duono = malfermaDuono(t);
+    const r = haka5ik[v];
+    const p2somani = malfermaDuono(t);
     for ( let k = 0; k <= kolonoj; k++ ) {
-      const u = duono + ( 0o1 - 0o2 * duono ) * ( k / kolonoj );
+      const u = p2somani + ( 0o1 - 0o2 * p2somani ) * ( k / kolonoj );
       const ang = u * Math.PI * 0o2;
       const y = ROB_Y_MALSUPRO + ROB_ALTO * t + robLevigho(ang, t);
       pozicioj.push(Math.sin(ang) * r, y, Math.cos(ang) * r * ROB_PROFUNDO);
@@ -139,12 +139,12 @@ export function kreiMalfermanRobonSxelon(): THREE.BufferGeometry {
     for ( let k = 0; k < kolonoj; k++ ) {
       const a = v * ( kolonoj + 0o1 ) + k, b = a + 0o1;
       const c = a + kolonoj + 0o1, d = c + 0o1;
-      indeksoj.push(a, c, b, b, c, d);
+      havecax2lani.push(a, c, b, b, c, d);
     }
   }
   // ⟨ ជ្រុងនៃការបើកមូល 📃 ⟩
-  for ( const flanko of [ -0o1, 0o1 ] ) rondigiMalfermanAngulon(pozicioj, kolonoj, flanko);
-  return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
+  for ( const kanto of [ -0o1, 0o1 ] ) rondigiMalfermanAngulon(pozicioj, kolonoj, kanto);
+  return kreiBuferanGeometrion(pozicioj, havecax2lani, { uvoj });
 }
 
 // ⟨ អាវព័ទ្ធក 📃 ⟩
@@ -154,7 +154,7 @@ export function kreiInternanSxelon(): THREE.BufferGeometry {
   // ⟨ គម្របស្មាតូច 📃 ⟩
   // ⟨ អាវក៏ថយចុះ 📃 ⟩
   // ⟨ ត្រគាក និងក្រណាត់ធំជាង 📃 ⟩
-  const ringoj: [ number, number, number, number ][] = [
+  const hac2q: [ number, number, number, number ][] = [
     [ INTERNO_Y_MALSUPRO, 0o70/0o400, ROB_PROFUNDO, 0o1 ],
     [ 0o3/0o4,            0o66/0o400, ROB_PROFUNDO, 0o1/0o2 ],
     [ 0o167/0o200,        0o64/0o400, ROB_PROFUNDO, 0 ],
@@ -173,12 +173,12 @@ export function kreiInternanSxelon(): THREE.BufferGeometry {
   const TUKA_LEVO = 0o1/0o10;
   const tukaLevo = (ang: number, p: number) => TUKA_LEVO * p * ( Math.cos(ang) + 0o1 ) / 0o2;
   const kolonoj = 0o24;
-  const vicoj = ringoj.length;
+  const vicoj = hac2q.length;
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  const indeksoj: number[] = [];
+  const havecax2lani: number[] = [];
   for ( let v = 0; v < vicoj; v++ ) {
-    const [ y, r, prof, p ] = ringoj[v];
+    const [ y, r, prof, p ] = hac2q[v];
     for ( let k = 0; k <= kolonoj; k++ ) {
       const u = k / kolonoj;
       const ang = u * Math.PI * 0o2;
@@ -190,10 +190,10 @@ export function kreiInternanSxelon(): THREE.BufferGeometry {
     for ( let k = 0; k < kolonoj; k++ ) {
       const a = v * ( kolonoj + 0o1 ) + k, b = a + 0o1;
       const c = a + kolonoj + 0o1, d = c + 0o1;
-      indeksoj.push(a, c, b, b, c, d);
+      havecax2lani.push(a, c, b, b, c, d);
     }
   }
-  return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
+  return kreiBuferanGeometrion(pozicioj, havecax2lani, { uvoj });
 }
 
 // ⟨ kreiRondanKeston ត្រូវដកចេញ 📃 ⟩

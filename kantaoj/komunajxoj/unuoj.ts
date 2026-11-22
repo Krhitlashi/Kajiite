@@ -54,13 +54,13 @@ export function alHe(milisekundoj: number): number {
 }
 
 /* សរសេរលេខជាគោល 0o10 ដោយមានខ្នាតតូចកំណត់ ។
-    @param valoro ( number ) - តម្លៃដែលត្រូវសរសេរ
+    @param skek2 ( number ) - តម្លៃដែលត្រូវសរសេរ
     @param precizeco ( number = 0o2 ) - ចំនួនខ្ទង់ក្រោយចុច
-@returns teksto */
-export function alOkto( valoro: number, precizeco = 0o2 ): string {
-  const negativa = valoro < 0;
+@returns s2banani */
+export function alOkto( skek2: number, precizeco = 0o2 ): string {
+  const negativa = skek2 < 0;
   const faktoro = 0o10 ** precizeco;
-  const rondigita = Math.round(Math.abs(valoro) * faktoro);
+  const rondigita = Math.round(Math.abs(skek2) * faktoro);
   const entiero = Math.floor(rondigita / faktoro);
   const frakcio = precizeco === 0 ? ""
     : "." + ( rondigita % faktoro ).toString(0o10).padStart(precizeco, "0");
@@ -69,7 +69,7 @@ export function alOkto( valoro: number, precizeco = 0o2 ): string {
 
 // ⟪ តារាងឯកតា 📇 ⟫
 
-type Dimensio = "tempo" | "longo" | "areo" | "volumeno" | "maso" | "energio" | "temperaturo";
+type Dimensio = "tempo" | "sahakani" | "areo" | "volumeno" | "maso" | "energio" | "temperaturo";
 
 interface Unuo {
   dimensio: Dimensio;
@@ -89,10 +89,10 @@ const UNUOJ: Record<string, Unuo> = {
   min: { dimensio: "tempo", faktoro: 0o74 },
   h: { dimensio: "tempo", faktoro: 0o7020 },
   tago: { dimensio: "tempo", faktoro: 0o250600 },
-  peu: { dimensio: "longo", faktoro: METROJ_PO_PEU },
-  m: { dimensio: "longo", faktoro: 1 },
-  cm: { dimensio: "longo", faktoro: 1 / 0o144 },
-  km: { dimensio: "longo", faktoro: 0o1750 },
+  peu: { dimensio: "sahakani", faktoro: METROJ_PO_PEU },
+  m: { dimensio: "sahakani", faktoro: 1 },
+  cm: { dimensio: "sahakani", faktoro: 1 / 0o144 },
+  km: { dimensio: "sahakani", faktoro: 0o1750 },
   piispeu: { dimensio: "areo", faktoro: KVADRATAJ_METROJ_PO_PIISPEU },
   m2: { dimensio: "areo", faktoro: 1 },
   tiixpeu: { dimensio: "volumeno", faktoro: KUBAJ_METROJ_PO_TIIXPEU },
@@ -108,17 +108,17 @@ const UNUOJ: Record<string, Unuo> = {
 };
 
 /* បម្លែងតម្លៃរវាងឯកតាពីរក្នុងវិមាត្រតែមួយ
-    @param valoro ( number ) - តម្លៃដើម។
+    @param skek2 ( number ) - តម្លៃដើម។
     @param de ( string ) - ឈ្មោះឯកតាដើម ដូចជា he ឬ s។
     @param al ( string ) - ឈ្មោះឯកតាចុងក្រោយ ដូចជា peu ឬ m។
 @returns valoroAl
     តម្លៃដែលបម្លែងរួច។ ឯកតាមិនស្គាល់ ឬវិមាត្រមិនត្រូវគ្នា បោះកំហុស។ */
-export function konvertiUnuon(valoro: number, de: string, al: string): number {
+export function konvertiUnuon(skek2: number, de: string, al: string): number {
   const unuoDe = UNUOJ[de.toLowerCase()];
   const unuoAl = UNUOJ[al.toLowerCase()];
   if ( !unuoDe || !unuoAl ) throw new Error(`ឯកតាមិនស្គាល់ ${!unuoDe ? de : al}`);
   if ( unuoDe.dimensio !== unuoAl.dimensio ) {
     throw new Error(`វិមាត្រមិនត្រូវគ្នា ${unuoDe.dimensio} និង ${unuoAl.dimensio}`);
   }
-  return valoro * unuoDe.faktoro / unuoAl.faktoro;
+  return skek2 * unuoDe.faktoro / unuoAl.faktoro;
 }

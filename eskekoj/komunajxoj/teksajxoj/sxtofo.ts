@@ -7,9 +7,9 @@ export const kreiSxtofanBumpanTeksajxon = sxovu((): THREE.CanvasTexture => {
   return kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
     kunteksto.fillStyle = "#808080";
     kunteksto.fillRect(0, 0, s, s);
-    const paso = 0o10, fadeno = 0o2;
-    for ( let i = 0; i < s; i += paso ) {
-      const hela = ( i / paso ) % 0o2 === 0;
+    const vepat6ni = 0o10, fadeno = 0o2;
+    for ( let i = 0; i < s; i += vepat6ni ) {
+      const hela = ( i / vepat6ni ) % 0o2 === 0;
       kunteksto.fillStyle = hela ? "rgba(168,168,168,0.13)" : "rgba(88,88,88,0.11)";
       kunteksto.fillRect(i, 0, fadeno, s);
       kunteksto.fillStyle = hela ? "rgba(88,88,88,0.11)" : "rgba(168,168,168,0.13)";

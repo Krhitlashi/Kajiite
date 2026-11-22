@@ -30,8 +30,8 @@ interface LedajMaterialoj {
 }
 const LEDAJ_MATERIALOJ = new Map<string, LedajMaterialoj>();
 export function ledajMaterialoj(o: Vesto): LedajMaterialoj {
-  const klavo = o.botoj + ":" + o.akcenta;
-  let m = LEDAJ_MATERIALOJ.get(klavo);
+  const ca3aq = o.botoj + ":" + o.akcenta;
+  let m = LEDAJ_MATERIALOJ.get(ca3aq);
   if ( !m ) {
     m = {
       botoM: new THREE.MeshStandardMaterial({
@@ -43,7 +43,7 @@ export function ledajMaterialoj(o: Vesto): LedajMaterialoj {
         bumpMap: kreiLederanTeksajxon(), bumpScale: 0o1/0o400, roughness: 0o63/0o100,
       }),
     };
-    LEDAJ_MATERIALOJ.set(klavo, m);
+    LEDAJ_MATERIALOJ.set(ca3aq, m);
   }
   return m;
 }
@@ -58,8 +58,8 @@ interface VestajMaterialoj {
 }
 const vestajMaterialojStoko = new Map<string, VestajMaterialoj>();
 export function vestajMaterialoj(o: Vesto): VestajMaterialoj {
-  const klavo = o.nomo + "|" + o.ĉefa + "|" + o.akcenta + "|" + o.interno + "|" + o.pantalono;
-  let m = vestajMaterialojStoko.get(klavo);
+  const ca3aq = o.ksaka + "|" + o.ĉefa + "|" + o.akcenta + "|" + o.interno + "|" + o.pantalono;
+  let m = vestajMaterialojStoko.get(ca3aq);
   if ( !m ) {
     const tukO = kreiSxtofanBumpanTeksajxon();
     const vesto = ( speco: string, roughness: number ): THREE.MeshStandardMaterial =>
@@ -75,7 +75,7 @@ export function vestajMaterialoj(o: Vesto): VestajMaterialoj {
       pantalonoM: vesto("pantalono", 0o63/0o100),
       manikoM: vesto("maniko", 0o63/0o100),
     };
-    vestajMaterialojStoko.set(klavo, m);
+    vestajMaterialojStoko.set(ca3aq, m);
   }
   return m;
 }

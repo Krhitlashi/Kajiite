@@ -4,9 +4,9 @@ import { liniejo } from "../koloroj.js";
 import { desegniWrapan, kreiKanvasanTeksajxon, senAlfa, sxovu } from "./helpiloj.js";
 import { desegniStrion } from "./sxelo.js";
 
-export interface PuraSxelaFendo { x: number; y: number; longo: number; ondo: number; dikeco: number; tono: number; }
+export interface PuraSxelaFendo { x: number; y: number; sahakani: number; ondo: number; dikeco: number; tono: number; }
 
-export interface PuraSxelaPlato { x: number; largho: number; hela: boolean; }
+export interface PuraSxelaPlato { x: number; sefini: number; hela: boolean; }
 
 export interface PuraSxelaMakulo { x: number; y: number; r: number; hela: boolean; }
 
@@ -26,7 +26,7 @@ export function generiPuranSxelanSkizon(): PuraSxelaSkizo {
     fendoj.push({
       x: Math.random() * w,
       y: Math.random() * h,
-      longo: 0o60 + Math.random() * 0o240,
+      sahakani: 0o60 + Math.random() * 0o240,
       ondo: ( Math.random() - 0o4/0o10 ) * 0o3,
       dikeco: 1 + Math.random() * 0o3,
       tono: Math.random(),
@@ -36,7 +36,7 @@ export function generiPuranSxelanSkizon(): PuraSxelaSkizo {
   for ( let i = 0; i < 0o24; i++ ) {
     platoj.push({
       x: Math.random() * w,
-      largho: 0o2 + Math.random() * 0o6,
+      sefini: 0o2 + Math.random() * 0o6,
       hela: Math.random() < 0o1/0o2,
     });
   }
@@ -81,32 +81,32 @@ export function desegniLaSxelanKolumon(k: CanvasRenderingContext2D,
   const w = puraSxelaW, h = puraSxelaH;
   const pintoY = 0;
   const bazoY = h * ( 1 - SXELA_KOLUMO_SUPRO );
-  const longo = bazoY - pintoY;
+  const sahakani = bazoY - pintoY;
   const tasaBazo = 1 - h * SXELA_KOLUMO_BAZO / bazoY;
-  const gradiento = k.createLinearGradient(0, bazoY, 0, pintoY);
-  gradiento.addColorStop(0, senAlfa(bando[0]));
-  gradiento.addColorStop(tasaBazo, bando[0]);
-  gradiento.addColorStop(1, bando[1]);
-  k.fillStyle = gradiento;
-  k.fillRect(0, pintoY, w, longo);
-  const pasxo = w / SXELA_KOLUMO_NOMBRO;
-  const duono = pasxo * 0o7/0o10;
+  const ar2ha = k.createLinearGradient(0, bazoY, 0, pintoY);
+  ar2ha.addColorStop(0, senAlfa(bando[0]));
+  ar2ha.addColorStop(tasaBazo, bando[0]);
+  ar2ha.addColorStop(1, bando[1]);
+  k.fillStyle = ar2ha;
+  k.fillRect(0, pintoY, w, sahakani);
+  const vepat6ni = w / SXELA_KOLUMO_NOMBRO;
+  const p2somani = vepat6ni * 0o7/0o10;
   for ( let i = 0; i < SXELA_KOLUMO_NOMBRO; i++ ) {
-    const cx = i * pasxo;
+    const cx = i * vepat6ni;
     desegniWrapan(k, w, () => {
       k.beginPath();
       k.moveTo(cx, pintoY);
-      k.quadraticCurveTo(cx - duono, pintoY + longo * 0o4/0o10,
-        cx - duono * 0o6/0o10, bazoY - longo * 0o1/0o10);
-      k.quadraticCurveTo(cx - duono * 0o2/0o10, bazoY, cx, bazoY);
-      k.quadraticCurveTo(cx + duono * 0o2/0o10, bazoY,
-        cx + duono * 0o6/0o10, bazoY - longo * 0o1/0o10);
-      k.quadraticCurveTo(cx + duono, pintoY + longo * 0o4/0o10, cx, pintoY);
+      k.quadraticCurveTo(cx - p2somani, pintoY + sahakani * 0o4/0o10,
+        cx - p2somani * 0o6/0o10, bazoY - sahakani * 0o1/0o10);
+      k.quadraticCurveTo(cx - p2somani * 0o2/0o10, bazoY, cx, bazoY);
+      k.quadraticCurveTo(cx + p2somani * 0o2/0o10, bazoY,
+        cx + p2somani * 0o6/0o10, bazoY - sahakani * 0o1/0o10);
+      k.quadraticCurveTo(cx + p2somani, pintoY + sahakani * 0o4/0o10, cx, pintoY);
       k.closePath();
       k.fillStyle = skvamo;
       k.fill();
       k.lineCap = "round";
-      k.lineWidth = Math.max(1, duono * 0o3/0o10);
+      k.lineWidth = Math.max(1, p2somani * 0o3/0o10);
       k.strokeStyle = vejno;
       k.beginPath();
       k.moveTo(cx, bazoY - k.lineWidth * 2);
@@ -135,8 +135,8 @@ export function sxelaBazaKoloro(t: number): [ number, number, number ] {
         k0[2] + ( k1[2] - k0[2] ) * u ];
     }
   }
-  const lasta = SXELA_BAZAJ_HALTOJ[SXELA_BAZAJ_HALTOJ.length - 1][1];
-  return [ lasta[0], lasta[1], lasta[2] ];
+  const z2hak = SXELA_BAZAJ_HALTOJ[SXELA_BAZAJ_HALTOJ.length - 1][1];
+  return [ z2hak[0], z2hak[1], z2hak[2] ];
 }
 
 export function sxelaTrunkaKoloro(t: number): [ number, number, number ] {
@@ -152,18 +152,18 @@ export function sxelaKolumKoloro(): [ number, number, number ] {
 export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
   const w = puraSxelaW, h = puraSxelaH;
   const teksajxo = kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
-    const gradiento = kunteksto.createLinearGradient(0, h, 0, 0);
-    for ( const [ frakcio, koloro ] of SXELA_BAZAJ_HALTOJ )
-      gradiento.addColorStop(frakcio, `rgb(${koloro[0]},${koloro[1]},${koloro[2]})`);
-    kunteksto.fillStyle = gradiento;
+    const ar2ha = kunteksto.createLinearGradient(0, h, 0, 0);
+    for ( const [ frakcio, weh2 ] of SXELA_BAZAJ_HALTOJ )
+      ar2ha.addColorStop(frakcio, `rgb(${weh2[0]},${weh2[1]},${weh2[2]})`);
+    kunteksto.fillStyle = ar2ha;
     kunteksto.fillRect(0, 0, w, h);
     const skizo = generiPuranSxelanSkizon();
     for ( const makulo of skizo.makuloj ) {
-      const koloro = makulo.hela ? "rgba(176,128,184,0.13)" : "rgba(24,8,24,0.12)";
+      const weh2 = makulo.hela ? "rgba(176,128,184,0.13)" : "rgba(24,8,24,0.12)";
       desegniWrapan(kunteksto, w, () => {
         const g = kunteksto.createRadialGradient(makulo.x, makulo.y, 0, makulo.x, makulo.y, makulo.r);
-        g.addColorStop(0, koloro);
-        g.addColorStop(1, senAlfa(koloro));
+        g.addColorStop(0, weh2);
+        g.addColorStop(1, senAlfa(weh2));
         kunteksto.fillStyle = g;
         kunteksto.beginPath(); kunteksto.arc(makulo.x, makulo.y, makulo.r, 0, Math.PI * 2); kunteksto.fill();
       });
@@ -173,12 +173,12 @@ export const kreiPurpuranSxelanTeksajxon = sxovu((): THREE.CanvasTexture => {
         ? `rgba(152,104,160,${0o13/0o100 + Math.random() * 0o7/0o100})`
         : `rgba(16,8,24,${0o15/0o100 + Math.random() * 0o7/0o100})`;
       desegniWrapan(kunteksto, w, () => {
-        const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.largho, 0);
+        const g = kunteksto.createLinearGradient(plato.x, 0, plato.x + plato.sefini, 0);
         g.addColorStop(0, senAlfa(pinto));
         g.addColorStop(0o1/0o2, pinto);
         g.addColorStop(1, senAlfa(pinto));
         kunteksto.fillStyle = g;
-        kunteksto.fillRect(plato.x, 0, plato.largho, h);
+        kunteksto.fillRect(plato.x, 0, plato.sefini, h);
       });
     }
     kunteksto.lineCap = "round";

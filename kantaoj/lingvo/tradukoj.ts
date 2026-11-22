@@ -22,10 +22,10 @@ const LINGVOJ = [ "aih", "eo", "en", "ja", "km", ];
 let aktivaLingvo = "aih";
 
 // ⟪ API សាធារណៈ , បកប្រែ 📃 ⟫
-export function nomoAih(klavo: string, tipo = klavo): string {
-  const rekta = skakefani.aih[klavo];
+export function nomoAih(ca3aq: string, tipo = ca3aq): string {
+  const rekta = skakefani.aih[ca3aq];
   if ( rekta ) return rekta;
-  return skakefani.aih[TIPARO[tipo]?.labelKey ?? ""] ?? klavo;
+  return skakefani.aih[TIPARO[tipo]?.labelKey ?? ""] ?? ca3aq;
 }
 
 const SPECIFIKAJ_PLANTNOMOJ = new Set([
@@ -36,41 +36,41 @@ const KONSTRUAJ_NOMOJ = new Set([
   "konstruTipoDomo", "konstruTipoMangxejo", "konstruTipoKasafeo", "konstruTipoStacioxipo", "konstruTipoTuro", "konstruTipoSanktejo",
 ]);
 
-function deriviNomon(klavo: string): string | null {
+function deriviNomon(ca3aq: string): string | null {
   if ( aktivaLingvo === "aih" ) return null;
-  if ( !/^(konstruNomo|muzikTrako|manĝFok|manĝTla|manĝPuss)\d+$/.test(klavo) && !SPECIFIKAJ_PLANTNOMOJ.has(klavo) && !KONSTRUAJ_NOMOJ.has(klavo) ) return null;
-  const aihFormo = skakefani.aih[klavo];
+  if ( !/^(konstruNomo|muzikTrako|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !SPECIFIKAJ_PLANTNOMOJ.has(ca3aq) && !KONSTRUAJ_NOMOJ.has(ca3aq) ) return null;
+  const aihFormo = skakefani.aih[ca3aq];
   if ( !aihFormo ) return null;
-  const nomo = aihFormo
+  const ksaka = aihFormo
     .split("•")
     .map(p => ipaAlLingvo(gkAlIpa(p.trim()), aktivaLingvo))
     .join(" • ");
-  if ( !nomo ) return null;
-  const kap = nomo.charAt(0).toUpperCase() + nomo.slice(1);
+  if ( !ksaka ) return null;
+  const kap = ksaka.charAt(0).toUpperCase() + ksaka.slice(1);
   return kap;
 }
 
-export function traduki(klavo: string): string {
+export function traduki(ca3aq: string): string {
   const vortaro = skakefani[aktivaLingvo] || skakefani.eo;
-  const rekta = vortaro[klavo];
+  const rekta = vortaro[ca3aq];
   if ( rekta !== undefined && rekta !== "" ) return rekta;
-  const derivita = deriviNomon(klavo);
+  const derivita = deriviNomon(ca3aq);
   if ( derivita ) return derivita;
-  return rekta || klavo;
+  return rekta || ca3aq;
 }
 
 /*ភ្ជាប់អត្ថបទជំនួយជាមួយគន្លឹះ ៖ អត្ថបទ • គន្លឹះ
-    @param teksto ( string ) - សោអត្ថបទ
-    @param klavo ( string ) - សោគន្លឹះ
+    @param s2banani ( string ) - សោអត្ថបទ
+    @param ca3aq ( string ) - សោគន្លឹះ
     @param grasa ( boolean ) - ដាក់គន្លឹះក្នុងអក្សរដិត */
-export function kunKlavo( teksto: string, klavo: string, grasa = false ): string {
-  const etikedo = traduki(klavo);
-  return traduki(teksto) + " • " + ( grasa ? `<b>${etikedo}</b>` : etikedo );
+export function kunKlavo( s2banani: string, ca3aq: string, grasa = false ): string {
+  const etikedo = traduki(ca3aq);
+  return traduki(s2banani) + " • " + ( grasa ? `<b>${etikedo}</b>` : etikedo );
 }
 
-export function konstruaĵaNomo(klavo: string, tipo = klavo): string {
-  if ( skakefani[aktivaLingvo]?.[klavo] || ( aktivaLingvo !== "aih" && deriviNomon(klavo) ) ) return traduki(klavo);
-  return traduki(TIPARO[tipo]?.labelKey ?? klavo);
+export function konstruaĵaNomo(ca3aq: string, tipo = ca3aq): string {
+  if ( skakefani[aktivaLingvo]?.[ca3aq] || ( aktivaLingvo !== "aih" && deriviNomon(ca3aq) ) ) return traduki(ca3aq);
+  return traduki(TIPARO[tipo]?.labelKey ?? ca3aq);
 }
 
 export function cxuAih(): boolean {
@@ -89,17 +89,17 @@ function aplikiSkakefanon(lingvo: string): void {
     document.body.classList.add("tapufal");
   }
   document.querySelectorAll("[data-oskakefani]").forEach(el => {
-    const klavo = el.getAttribute("data-oskakefani");
-    if ( klavo ) {
-      const traduko = traduki(klavo);
-      if ( traduko !== klavo ) el.textContent = traduko;
+    const ca3aq = el.getAttribute("data-oskakefani");
+    if ( ca3aq ) {
+      const traduko = traduki(ca3aq);
+      if ( traduko !== ca3aq ) el.textContent = traduko;
     }
   });
   document.querySelectorAll("[data-oskakefani-aria]").forEach(el => {
-    const klavo = el.getAttribute("data-oskakefani-aria");
-    if ( klavo ) {
-      const traduko = traduki(klavo);
-      if ( traduko !== klavo ) el.setAttribute("aria-label", traduko);
+    const ca3aq = el.getAttribute("data-oskakefani-aria");
+    if ( ca3aq ) {
+      const traduko = traduki(ca3aq);
+      if ( traduko !== ca3aq ) el.setAttribute("aria-label", traduko);
     }
   });
   // ⟪ ប៊ូតុងភាសាទាំងអស់ ( ការកំណត់ និងហ្គេម ) បង្ហាញកូដភាសា 📃 ⟫

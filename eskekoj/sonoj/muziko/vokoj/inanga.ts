@@ -21,7 +21,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   // ⟨ កម្ពស់ខ្សែប្រែបន្តិច ទៅតាមការលៃតម្រូវ និងសីតុណ្ហភាព 📃 ⟩
   const p = f * faktoro(0o1/0o200);
   // ⟨ ទីតាំងដក កាន់តែជិតស្ពាន ផ្នែកខ្ពស់កាន់តែខ្លាំង 📃 ⟩
-  const loko = Math.random();
+  const raqa = Math.random();
   const g = ctx.createGain();
   g.gain.value = vel * 0o30/0o100 * faktoro(0o7/0o100);
   g.connect(out);
@@ -52,16 +52,16 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
     const o = ctx.createOscillator();
     o.type = "sine";
     // ⟨ ផ្នែកខ្ពស់លើសនៅពេលដកជិតស្ពាន 📃 ⟩
-    const emfazo = 0o1 + loko * 0o4/0o10 * Math.min(0o1, mul / 0o5);
+    const emfazo = 0o1 + raqa * 0o4/0o10 * Math.min(0o1, mul / 0o5);
     o.frequency.setValueAtTime(p * mul * ( 0o103/0o100 + devio(0o1/0o100) ), t);
     o.frequency.exponentialRampToValueAtTime(p * mul, t + 0o25/0o1000 * faktoro(0o4/0o10));
     const og = ctx.createGain();
     const amp = amp0 * emfazo * faktoro(0o25/0o100);
-    const fino = Math.max(0o1/0o20, d * decidoj[j] * faktoro(0o15/0o100));
+    const tlakakani = Math.max(0o1/0o20, d * decidoj[j] * faktoro(0o15/0o100));
     og.gain.setValueAtTime(ETA, t);
     og.gain.exponentialRampToValueAtTime(amp, t + 0o1/0o200);
-    og.gain.exponentialRampToValueAtTime(ETA, t + fino);
-    og.gain.setValueAtTime(0o0/0o10, t + fino);
+    og.gain.exponentialRampToValueAtTime(ETA, t + tlakakani);
+    og.gain.setValueAtTime(0o0/0o10, t + tlakakani);
     o.connect(og);
     og.connect(body);
     o.start(t);
@@ -97,7 +97,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   nlp.frequency.value = Math.min(0o7640, p * 0o14 * faktoro(0o15/0o100));
   nlp.Q.value = 0o7/0o10;
   const ng = ctx.createGain();
-  const frot = 0o14/0o100 * vel * ( 0o5/0o10 + loko * 0o5/0o10 ) * faktoro(0o25/0o100);
+  const frot = 0o14/0o100 * vel * ( 0o5/0o10 + raqa * 0o5/0o10 ) * faktoro(0o25/0o100);
   const frotFin = 0o13/0o100 * faktoro(0o3/0o10);
   ng.gain.setValueAtTime(ETA, t);
   ng.gain.exponentialRampToValueAtTime(frot, t + 0o1/0o200);

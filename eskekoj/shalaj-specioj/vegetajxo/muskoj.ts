@@ -6,28 +6,28 @@ import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { PunktaHasho, punktoLibera, type ArboMetado } from "./metado.js";
 
 export function konstruiFlokanMuskanGeometrion(): THREE.BufferGeometry {
-  const partoj: THREE.BufferGeometry[] = [];
+  const hakek: THREE.BufferGeometry[] = [];
   const R = 0o7/0o10;
   const fadenoj = 0o230;
   for ( let i = 0; i < fadenoj; i++ ) {
     const a = Math.random() * Math.PI * 2;
     const r = Math.sqrt(Math.random()) * R;
-    const profilo = 1 - r / R;
-    const alto = ( 0o4/0o10 + Math.random() * 0o4/0o10 ) * ( 0o3/0o10 + 0o7/0o10 * profilo );
-    const largho = 0o2/0o100 + Math.random() * 0o4/0o100;
+    const s2qena = 1 - r / R;
+    const l6da = ( 0o4/0o10 + Math.random() * 0o4/0o10 ) * ( 0o3/0o10 + 0o7/0o10 * s2qena );
+    const sefini = 0o2/0o100 + Math.random() * 0o4/0o100;
     const klino = 0o1/0o10 + Math.random() * 0o2/0o10;
-    const fadeno = new THREE.ConeGeometry(largho, alto, 4).translate(0, alto / 2, 0);
+    const fadeno = new THREE.ConeGeometry(sefini, l6da, 4).translate(0, l6da / 2, 0);
     const akso = new THREE.Vector3(-Math.sin(a), 0, Math.cos(a));
     fadeno.applyMatrix4(new THREE.Matrix4().makeRotationAxis(akso, klino));
     fadeno.rotateY(a + ( Math.random() - 0o5/0o10 ) * 0o2/0o10);
     fadeno.translate(Math.cos(a) * r, 0, Math.sin(a) * r);
-    partoj.push(fadeno);
+    hakek.push(fadeno);
   }
-  return kunfandiGeometriojnSenIndekson(partoj);
+  return kunfandiGeometriojnSenIndekson(hakek);
 }
 
-export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiMusxajnMontetojn(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   nearTrees: ArboMetado[],
   excludeRivers: ( x: number, z: number ) => boolean,
@@ -38,7 +38,7 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
   const muskaGeometrio = konstruiFlokanMuskanGeometrion();
   const muskaTeksturo = kreiMuskanTeksajxon();
   const muskaMaterialo = new THREE.MeshStandardMaterial({ map: muskaTeksturo, color: 0xffffff, roughness: 1 });
-  const muskoj = new THREE.InstancedMesh(muskaGeometrio, muskaMaterialo, kvanto);
+  const muskoj = new THREE.InstancedMesh(muskaGeometrio, muskaMaterialo, vem2);
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -53,7 +53,7 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
   let mi = 0;
   let gardilo = 0;
 
-  while ( mi < kvanto && gardilo++ < 0o3710 ) {
+  while ( mi < vem2 && gardilo++ < 0o3710 ) {
     let x: number, z: number;
     if ( hazardaGenerilo() < 0o26/0o40 && nearTrees.length ) {
       const t = nearTrees[( hazardaGenerilo() * nearTrees.length ) | 0];
@@ -72,12 +72,12 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
     if ( Math.hypot(x, z) < 0o20 ) continue;
     if ( !punktoLibera(metitajHasho, x, z, 0o2) ) continue;
 
-    const skalo = 0o3/0o10 + hazardaGenerilo() * 0o5/0o10;
+    const p6zukani = 0o3/0o10 + hazardaGenerilo() * 0o5/0o10;
     const y = heightFn(x, z);
-    const paso = skalo * 0o1/0o2;
+    const vepat6ni = p6zukani * 0o1/0o2;
     ena.set(x, y, z);
-    enX.set(x + paso, heightFn(x + paso, z), z).sub(ena);
-    enZ.set(x, heightFn(x, z + paso), z).sub(ena);
+    enX.set(x + vepat6ni, heightFn(x + vepat6ni, z), z).sub(ena);
+    enZ.set(x, heightFn(x, z + vepat6ni), z).sub(ena);
     normalo.crossVectors(enZ, enX).normalize();
     const vert = normalo.y;
     const horiz = Math.hypot(normalo.x, normalo.z);
@@ -94,12 +94,12 @@ export function konstruiMusxajnMontetojn(sceno: THREE.Scene,
     yawQ.setFromEuler(E);
     Q.multiply(yawQ);
     M.compose(new THREE.Vector3(x, y + 0o1/0o40, z), Q,
-      new THREE.Vector3(skalo, skalo * 0o5/0o10, skalo));
+      new THREE.Vector3(p6zukani, p6zukani * 0o5/0o10, p6zukani));
     muskoj.setMatrixAt(mi++, M);
     metitajHasho.meti(x, z, [ x, z ]);
   }
 
   muskoj.count = mi;
   muskoj.instanceMatrix.needsUpdate = true;
-  sceno.add(muskoj);
+  qena.add(muskoj);
 }

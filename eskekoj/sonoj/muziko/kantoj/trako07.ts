@@ -2,7 +2,7 @@
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F } from "../vokoj/skaloj.js";
-import { HE, okono } from "../vokoj/tempo.js";
+import { HE, caxomani } from "../vokoj/tempo.js";
 import { motifo, treni, A1, A2, B0, MAJ_C } from "./komunajxoj.js";
 
 export function buildTrack7(): SpuroDateno {
@@ -10,20 +10,20 @@ export function buildTrack7(): SpuroDateno {
   const secs: Sekcio[] = [];
   // ⟨ ចង្វាក់ ៖ បាតក្នុងមួយគុយអេ 📃 ⟩
   const BPQ = 0o40;
-  const e8 = okono(BPQ), bar = e8 * 0o14;
+  const e8 = caxomani(BPQ), bar = e8 * 0o14;
   const f0 = F(0o44);
   const arpC = [ 7, 9, 11, 9, 7, 9, 11, 12, 11, 9, 7, 9 ];
   const arpAm = [ 5, 7, 9, 7, 5, 7, 9, 11, 9, 7, 5, 7 ];
 
-  const akompani = ( t0: number, am: boolean, plena: boolean ) => {
+  const akompani = ( t0: number, am: boolean, l2ha: boolean ) => {
     const arp = am ? arpAm : arpC;
     for ( let k = 0; k < 0o14; k++ ) {
       ev.push({ t: t0 + k * e8, i: "inanga", f: F(MAJ_C[arp[k]] - 0o14), d: e8 * 0o2, v: 0o4/0o10, dur: e8 * 0o2 });
-      ev.push({ t: t0 + k * e8, i: "guiro", d: HE / 0o10, v: ( k % 0o3 === 0 ) ? ( plena ? 0o43/0o100 : 0o4/0o10 ) : ( plena ? 0o23/0o40 : 0o13/0o40 ) });
+      ev.push({ t: t0 + k * e8, i: "guiro", d: HE / 0o10, v: ( k % 0o3 === 0 ) ? ( l2ha ? 0o43/0o100 : 0o4/0o10 ) : ( l2ha ? 0o23/0o40 : 0o13/0o40 ) });
     }
-    ev.push({ t: t0, i: "slenthem", f: F(am ? 0o55 : 0o60), d: e8 * 0o2, v: plena ? 0o35/0o40 : 0o33/0o40 });
+    ev.push({ t: t0, i: "slenthem", f: F(am ? 0o55 : 0o60), d: e8 * 0o2, v: l2ha ? 0o35/0o40 : 0o33/0o40 });
     ev.push({ t: t0 + 6 * e8, i: "slenthem", f: F(am ? 0o50 : 0o53), d: e8 * 0o2, v: 0o33/0o40 });
-    if ( plena ) for ( let k = 0; k < 0o14; k++ ) {
+    if ( l2ha ) for ( let k = 0; k < 0o14; k++ ) {
       const dg = Math.min(0o16, arp[k] + ( k % 0o2 ? 0 : 0o3 ));
       ev.push({ t: t0 + k * e8 + ( k % 0o2 ? e8 / 2 : 0 ), i: "mbira", f: F(MAJ_C[dg] + 0o14), d: e8 * 0o2, v: k % 0o2 ? 0o35/0o100 : 0o43/0o100 });
     }

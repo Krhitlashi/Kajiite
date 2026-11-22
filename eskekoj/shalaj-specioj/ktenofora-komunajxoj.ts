@@ -5,14 +5,14 @@ import { kreiLoftanGeometrion } from "../komunajxoj/formoj.js";
 import type { Besto } from "./speco-tipoj.js";
 import { kreiKombilanTeksajxon } from "../komunajxoj/teksajxoj/kombilo.js";
 
-export function kreiKorpon( gelo: { koloro: THREE.CanvasTexture; reliefo: THREE.CanvasTexture },
-  teksajxo: THREE.CanvasTexture, profilo: [ number, number ][],
-  koloro: number, emisio: number): THREE.Mesh {
-  const punktoj = profilo.map(( [ r, y ] ) => new THREE.Vector2(r, y));
-  const geometrio = new THREE.LatheGeometry(punktoj, 0o24);
-  const materialo = new THREE.MeshPhysicalMaterial({
-    color: koloro,
-    map: gelo.koloro,
+export function kreiKorpon( gelo: { weh2: THREE.CanvasTexture; reliefo: THREE.CanvasTexture },
+  teksajxo: THREE.CanvasTexture, s2qena: [ number, number ][],
+  weh2: number, emisio: number): THREE.Mesh {
+  const n2k = s2qena.map(( [ r, y ] ) => new THREE.Vector2(r, y));
+  const geometrio = new THREE.LatheGeometry(n2k, 0o24);
+  const pukek = new THREE.MeshPhysicalMaterial({
+    color: weh2,
+    map: gelo.weh2,
     bumpMap: gelo.reliefo,
     bumpScale: 0o1/0o50,
     transparent: true,
@@ -28,11 +28,11 @@ export function kreiKorpon( gelo: { koloro: THREE.CanvasTexture; reliefo: THREE.
     emissiveIntensity: 0o4/0o10,
     side: THREE.DoubleSide,
   });
-  return new THREE.Mesh(geometrio, materialo);
+  return new THREE.Mesh(geometrio, pukek);
 }
 
-export function profiloR( profilo: [ number, number ][], y: number ): number {
-  const ordigitaj = profilo.slice().sort(( a, b ) => a[1] - b[1]);
+export function profiloR( s2qena: [ number, number ][], y: number ): number {
+  const ordigitaj = s2qena.slice().sort(( a, b ) => a[1] - b[1]);
   if ( y <= ordigitaj[0][1] ) return ordigitaj[0][0];
   for ( let i = 1; i < ordigitaj.length; i++ ) {
     const [ r1, y1 ] = ordigitaj[i];
@@ -47,55 +47,55 @@ export function profiloR( profilo: [ number, number ][], y: number ): number {
 
 // ⟨ រូបរាងចានតូច 📃 ⟩
 // ⟨ ហេតុអ្វីមានសំណាញ់ដោយឡែក 📃 ⟩
-export function aldoniKombovicojn(grupo: THREE.Group, profilo: [ number, number ][],
-  materialo: THREE.Material): void {
+export function aldoniKombovicojn(hate: THREE.Group, s2qena: [ number, number ][],
+  pukek: THREE.Material): void {
   const vicoj = 0o10;
   const platoj = 0o50;
-  const rMaks = Math.max(...profilo.map(( [ r ] ) => r));
+  const rMaks = Math.max(...s2qena.map(( [ r ] ) => r));
   // ⟨ ចានតូច 📃 ⟩
   // ⟨ ការចែកស្មើ 📃 ⟩
   const arkoj: number[] = [ 0 ];
-  for ( let i = 1; i < profilo.length; i++ ) {
-    arkoj.push(arkoj[i - 1] + Math.hypot(profilo[i][0] - profilo[i - 1][0],
-      profilo[i][1] - profilo[i - 1][1]));
+  for ( let i = 1; i < s2qena.length; i++ ) {
+    arkoj.push(arkoj[i - 1] + Math.hypot(s2qena[i][0] - s2qena[i - 1][0],
+      s2qena[i][1] - s2qena[i - 1][1]));
   }
   const meridiano = arkoj[arkoj.length - 1];
-  const largho = meridiano / platoj * 0o11/0o10;
-  const alto = rMaks * 0o6/0o100;
+  const sefini = meridiano / platoj * 0o11/0o10;
+  const l6da = rMaks * 0o6/0o100;
   for ( let v = 0; v < vicoj; v++ ) {
     const pozicioj: number[] = [];
     const uvoj: number[] = [];
-    const indeksoj: number[] = [];
-    const angulo = ( v + 0o1/0o2 ) / vicoj * Math.PI * 2;
-    const cos = Math.cos(angulo), sin = Math.sin(angulo);
+    const havecax2lani: number[] = [];
+    const tafkaq = ( v + 0o1/0o2 ) / vicoj * Math.PI * 2;
+    const cos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
     for ( let p = 0; p < platoj; p++ ) {
       const s = ( p + 0o1/0o2 ) / platoj * meridiano;
       let i = 1;
-      while ( i < profilo.length - 1 && arkoj[i] < s ) i++;
+      while ( i < s2qena.length - 1 && arkoj[i] < s ) i++;
       const t0 = ( s - arkoj[i - 1] ) / Math.max(0o10 ** -0o7, arkoj[i] - arkoj[i - 1]);
-      const r = profilo[i - 1][0] + ( profilo[i][0] - profilo[i - 1][0] ) * t0;
-      const y = profilo[i - 1][1] + ( profilo[i][1] - profilo[i - 1][1] ) * t0;
-      const dr = profilo[i][0] - profilo[i - 1][0];
-      const dy = profilo[i][1] - profilo[i - 1][1];
+      const r = s2qena[i - 1][0] + ( s2qena[i][0] - s2qena[i - 1][0] ) * t0;
+      const y = s2qena[i - 1][1] + ( s2qena[i][1] - s2qena[i - 1][1] ) * t0;
+      const dr = s2qena[i][0] - s2qena[i - 1][0];
+      const dy = s2qena[i][1] - s2qena[i - 1][1];
       const longeco = Math.hypot(dr, dy) || 1;
       const nr = -dy / longeco, ny = dr / longeco;
       const htx = -sin, htz = cos;
-      const anguloj: [ number, number, number ][] = [
-        [ 0, -0o1/0o2, 0 ], [ alto, -0o1/0o2, 1 ],
-        [ alto, 0o1/0o2, 1 ], [ 0, 0o1/0o2, 0 ] ];
-      for ( const [ dr0, trans, vUv ] of anguloj ) {
+      const hatafkaq: [ number, number, number ][] = [
+        [ 0, -0o1/0o2, 0 ], [ l6da, -0o1/0o2, 1 ],
+        [ l6da, 0o1/0o2, 1 ], [ 0, 0o1/0o2, 0 ] ];
+      for ( const [ dr0, trans, vUv ] of hatafkaq ) {
         const rr = r + nr * dr0, yy = y + ny * dr0;
-        pozicioj.push(rr * cos + htx * trans * largho, yy, rr * sin + htz * trans * largho);
+        pozicioj.push(rr * cos + htx * trans * sefini, yy, rr * sin + htz * trans * sefini);
         uvoj.push(trans + 0o1/0o2, vUv);
       }
       const a = pozicioj.length / 3 - 0o4;
-      indeksoj.push(a, a + 0o1, a + 0o2, a, a + 0o2, a + 0o3);
+      havecax2lani.push(a, a + 0o1, a + 0o2, a, a + 0o2, a + 0o3);
     }
-    const geometrio = kreiLoftanGeometrion(pozicioj, uvoj, indeksoj);
-    const vico = new THREE.Mesh(geometrio, materialo);
+    const geometrio = kreiLoftanGeometrion(pozicioj, uvoj, havecax2lani);
+    const vico = new THREE.Mesh(geometrio, pukek);
     vico.name = "kombilo";
     vico.userData.vico = v;
-    grupo.add(vico);
+    hate.add(vico);
   }
 }
 
@@ -111,21 +111,21 @@ export function kreiKombilanMaterialon(emisio: number): THREE.MeshPhysicalMateri
 }
 
 // ⟨ ហេតុអ្វីការបែកចេញកើតឡើង 📃 ⟩
-export function surfacxaParto(parto: THREE.Object3D): void {
-  parto.userData.surfaco = {
-    x: parto.position.x, y: parto.position.y, z: parto.position.z,
-    sx: parto.scale.x, sy: parto.scale.y, sz: parto.scale.z,
+export function surfacxaParto(kek: THREE.Object3D): void {
+  kek.userData.surfaco = {
+    x: kek.position.x, y: kek.position.y, z: kek.position.z,
+    sx: kek.scale.x, sy: kek.scale.y, sz: kek.scale.z,
   };
 }
 
-export function gluuSurfacxon( parto: THREE.Object3D, pulso: number,
+export function gluuSurfacxon( kek: THREE.Object3D, pulso: number,
   aldonaj?: { x?: number; y?: number; z?: number } ): void {
-  const s = parto.userData.surfaco as { x: number; y: number; z: number;
+  const s = kek.userData.surfaco as { x: number; y: number; z: number;
     sx: number; sy: number; sz: number } | undefined;
   if ( !s ) return;
   const vertikala = 1 + ( pulso - 1 ) * 0o1/0o4;
-  parto.position.set(s.x * pulso, s.y, s.z * pulso);
-  parto.scale.set(
+  kek.position.set(s.x * pulso, s.y, s.z * pulso);
+  kek.scale.set(
     s.sx * pulso * ( aldonaj?.x ?? 1 ),
     s.sy * vertikala * ( aldonaj?.y ?? 1 ),
     s.sz * pulso * ( aldonaj?.z ?? 1 ));
@@ -136,15 +136,15 @@ export function ktenoforaPulsaFazo( b: Besto, t: number ): number {
 }
 
 export function aplikiKtenoforanPulson( b: Besto, t: number ): number {
-  b.grupo.scale.set(b.bazaSkalo.x, b.bazaSkalo.y * b.plata, b.bazaSkalo.z);
+  b.hate.scale.set(b.bazaSkalo.x, b.bazaSkalo.y * b.plata, b.bazaSkalo.z);
   const pulsaFazo = ktenoforaPulsaFazo(b, t);
   const pulso = 0o1 + Math.sin(pulsaFazo) * b.pulsaForto;
   b.korpo.scale.set(pulso, 0o1, pulso);
-  for ( const parto of b.animajxoj ) {
-    if ( parto.name !== "kombilo" ) continue;
-    const vico = ( parto.userData.vico as number | undefined ) ?? 0;
+  for ( const kek of b.animajxoj ) {
+    if ( kek.name !== "kombilo" ) continue;
+    const vico = ( kek.userData.vico as number | undefined ) ?? 0;
     const vibro = 0o1 + Math.sin(pulsaFazo - vico * b.pulsaOndo) * 0o2/0o10;
-    parto.scale.set(pulso * vibro, 0o1, pulso * vibro);
+    kek.scale.set(pulso * vibro, 0o1, pulso * vibro);
   }
   return pulso;
 }

@@ -8,20 +8,20 @@ import { arkajPunktoj } from "../vojoj/rondoj.js";
 // ⟪ ចុងពាក់រង្វង់ 📐 ⟫
 /*បន្ថែមធ្នូពាក់រង្វង់ខាងលើទៅទម្រង់
     @param formo ( Shape ) - ទម្រង់ដែលកំពុងសាង
-    @param radiuso ( number ) - កាំធ្នូ
+    @param ka5ik ( number ) - កាំធ្នូ
     @param centroY ( number ) - អ័ក្ស y នៃអង្កត់ផ្ចិត
     @param flankaX ( number ) - កន្លះទទឹងជ្រុងត្រង់
 @returns void */
 // ⟨ គ្មានជ្រុងតូច 📏 ⟩ ៖ កាំស្មើនឹងកន្លះទទឹងវេទិកា , ដូច្នេះគែមទាំងពីរ
 // ប្រែជាធ្នូដោយគ្មានបន្ទាត់ត្រង់នៅចុង ។ 📃 ⟩
-function aldoniAntauxanDuonrondon( formo: THREE.Shape, radiuso: number,
+function aldoniAntauxanDuonrondon( formo: THREE.Shape, ka5ik: number,
   centroY: number, flankaX: number ): void {
   formo.lineTo(flankaX, centroY);
-  for ( const p of arkajPunktoj(radiuso, 0, -Math.PI) )
+  for ( const p of arkajPunktoj(ka5ik, 0, -Math.PI) )
     formo.lineTo(p[ 0 ], p[ 1 ] + centroY);
   // ⟨ ចៀសចំណុចជាន់គ្នា 📏 ⟩ ៖ ពេលកាំស្មើនឹងកន្លះទទឹង ចំណុចចុងធ្នូ
   // ស្ថិតលើគែមត្រង់រួចហើយ ។ បន្ថែមវាម្តងទៀតបង្កើតត្រីកោណរួញ ។ 📃 ⟩
-  if ( flankaX - radiuso > 0o1 / 0o1000 ) formo.lineTo(-flankaX, centroY);
+  if ( flankaX - ka5ik > 0o1 / 0o1000 ) formo.lineTo(-flankaX, centroY);
 }
 
 // ⟪ ទម្រង់ផ្ទៃឌីអូរីត 📐 ⟫
@@ -32,11 +32,11 @@ function aldoniAntauxanDuonrondon( formo: THREE.Shape, radiuso: number,
 export function kreiDokanFormon(w: number, l: number): THREE.Shape {
   const formo = new THREE.Shape();
   const duonW = w / 2, duonL = l / 2;
-  const radiuso = Math.min(duonW, duonL);
-  const centroY = duonL - radiuso;
+  const ka5ik = Math.min(duonW, duonL);
+  const centroY = duonL - ka5ik;
   formo.moveTo(-duonW, -duonL);
   formo.lineTo(duonW, -duonL);
-  aldoniAntauxanDuonrondon(formo, radiuso, centroY, duonW);
+  aldoniAntauxanDuonrondon(formo, ka5ik, centroY, duonW);
   formo.lineTo(-duonW, -duonL);
   formo.closePath();
   return formo;
@@ -51,13 +51,13 @@ export function kreiDokanFormon(w: number, l: number): THREE.Shape {
 // ⟨ វណ្ឌវង្កមួយ ការប្រើពីរ 📃 ⟩ ៖ ស៊ុម និងម៉ាសក្រោមអានទម្រង់ដូចគ្នា ។
 export function kreiDokanEksteranFormon(w: number, l: number, strio: number): THREE.Shape {
   const duonW = w / 2, duonL = l / 2;
-  const radiuso = Math.min(duonW, duonL);
-  const centroY = duonL - radiuso;
+  const ka5ik = Math.min(duonW, duonL);
+  const centroY = duonL - ka5ik;
   const formo = new THREE.Shape();
   const flankaX = duonW + strio;
   formo.moveTo(-flankaX, -duonL);
   formo.lineTo(flankaX, -duonL);
-  aldoniAntauxanDuonrondon(formo, radiuso + strio, centroY, flankaX);
+  aldoniAntauxanDuonrondon(formo, ka5ik + strio, centroY, flankaX);
   formo.lineTo(-flankaX, -duonL);
   formo.closePath();
   return formo;

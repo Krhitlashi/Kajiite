@@ -27,7 +27,7 @@ interface KradaLigo {
   vidCZ: () => number;
   vidSkalo: () => number;
   momenti: () => void;
-  statuso: ( teksto: string ) => void;
+  statuso: ( s2banani: string ) => void;
   markiSxangxitan: () => void;
   markiDesegnon: () => void;
 }
@@ -35,7 +35,7 @@ let vidCX: () => number;
 let vidCZ: () => number;
 let vidSkalo: () => number;
 let momenti: () => void;
-let statuso: ( teksto: string ) => void;
+let statuso: ( s2banani: string ) => void;
 let markiSxangxitan: () => void;
 let markiDesegnon: () => void;
 
@@ -48,11 +48,11 @@ export function agordiKradaron(k: KradaLigo): void {
 }
 
 // ⟪ អនុគមន៍កំណត់ 📃 ⟫
-export function agordiUrbojn(listo: SkulptaUrbo[]) { urboj = Array.isArray(listo) ? listo : []; }
+export function agordiUrbojn(ca1ara: SkulptaUrbo[]) { urboj = Array.isArray(ca1ara) ? ca1ara : []; }
 export function agordiElektitanUrbon(i: number) { elektitaUrbo = i; }
 export function agordiElektitanAldonanBlokon(i: number) { elektitaAldonaBloko = i; }
-export function agordiVojojn(listo: SkulptaVojo[]) { vojoj = Array.isArray(listo) ? listo : []; }
-export function agordiDokojn(listo: SkulptaPlatformo[]) { dokoj = Array.isArray(listo) ? listo : []; }
+export function agordiVojojn(ca1ara: SkulptaVojo[]) { vojoj = Array.isArray(ca1ara) ? ca1ara : []; }
+export function agordiDokojn(ca1ara: SkulptaPlatformo[]) { dokoj = Array.isArray(ca1ara) ? ca1ara : []; }
 
 const mapo = elemento<HTMLCanvasElement>("mapo");
 
@@ -86,9 +86,9 @@ export function agordiDatumojn(datumoj: SkulptaDatumoj): void {
   kradoLampoj = urboj[0]?.lampoj !== false;
   const datumajVojoj = datumoj.vojoj ?? [];
   vojoj = datumajVojoj.length
-    ? datumajVojoj.map(v => ( { ...v, punktoj: v.punktoj.map(pp => [ pp[0], pp[1] ] as VojaPunkto) } ))
-    : [ { nomo: "Kajo", larĝo: 0o7/0o2, punktoj: [ [ -0o124, -0o140 ], [ -0o70, -0o150 ], [ -0o60, -0o144 ], [ 0, -0o132 ], [ 0o60, -0o120 ], [ 0o70, -0o124 ], [ 0o124, -0o122 ] ] },
-        { nomo: "Avenuo", larĝo: 0o7/0o2, punktoj: [ [ 0o14, -0o100 ], [ 0o14, -0o130 ] ] } ];
+    ? datumajVojoj.map(v => ( { ...v, n2k: v.n2k.map(pp => [ pp[0], pp[1] ] as VojaPunkto) } ))
+    : [ { ksaka: "Kajo", sefini: 0o7/0o2, n2k: [ [ -0o124, -0o140 ], [ -0o70, -0o150 ], [ -0o60, -0o144 ], [ 0, -0o132 ], [ 0o60, -0o120 ], [ 0o70, -0o124 ], [ 0o124, -0o122 ] ] },
+        { ksaka: "Avenuo", sefini: 0o7/0o2, n2k: [ [ 0o14, -0o100 ], [ 0o14, -0o130 ] ] } ];
   const datumajDokoj = datumoj.dokoj ?? [];
   dokoj = datumajDokoj.length
     ? datumajDokoj.map(d => ( { ...d } ))
@@ -133,14 +133,14 @@ export let elektitaVojo = 0;
 export let elektitaPunkto = -1;
 export let elektitaDoko = 0;
 let vojaIlo: string = "movu";
-type VojaCelo = { speco: "punkto"; vojo: number; punkto: number }
+type VojaCelo = { speco: "punkto"; k6h6: number; n2k: number }
   | { speco: "doko"; doko: number }
   // ⟨ ចំណុចកំពូលកំពង់ ( ខាងទឹក ) , អូសវាដើម្បីពង្រីក/បង្រួមកំពង់ ។ 📃 ⟩
   | { speco: "dokoPinto"; doko: number }
   // ⟨ ចំណុចចុងកំពង់ខាងដី , អូសវាដើម្បីផ្លាស់ទី/បង្វិលកំពង់ , ហើយវាជាចំណុច
   // ភ្ជាប់សម្រាប់ផ្លូវ ។ 📃 ⟩
   | { speco: "dokoLando"; doko: number }
-  | { speco: "vojo"; vojo: number };
+  | { speco: "vojo"; k6h6: number };
 export let vojaTrenata: VojaCelo | null = null;
 // ⟨ គោលកំពង់ខាងដី , ជាប់ពេលអូសកំពូល , ដូច្នេះកំពង់រីកចេញទៅទឹក 📃 ⟩
 let dokoPintaBazo: { x: number; z: number; ax: number; az: number } | null = null;
@@ -195,9 +195,9 @@ export function kradoPlano() {
       kradoSuperoj, u && u.aldonajBlokoj ? u.aldonajBlokoj : []);
     const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
     for ( const v of vojoj ) {
-      if ( !v.punktoj || v.punktoj.length < 2 ) continue;
-      for ( let i = 0; i < v.punktoj.length - 1; i++ ) {
-        const a = v.punktoj[i], b = v.punktoj[i + 1];
+      if ( !v.n2k || v.n2k.length < 2 ) continue;
+      for ( let i = 0; i < v.n2k.length - 1; i++ ) {
+        const a = v.n2k[i], b = v.n2k[i + 1];
         if ( Math.abs(a[0] - b[0]) < 0o10 ** -0o7 ) {
           const poz = a[0] - ofsX;
           if ( kradaPlanoCache.vojoj.some(r => r.orient === "NS" && Math.abs(r.poz - poz) < 0o10 ** -0o7) )
@@ -233,17 +233,17 @@ export function planoDeUrbo(i: number): KradaPlano | null {
 }
 /* vidotajKradoj ។ បញ្ជីទីក្រុងដែលត្រូវគូរជាមួយ ( ជាមួយផែនការ និង
    អុហ្វសិតរបស់ពួកវា ) ។ ផ្ទាំង មើលឃើញ 👁️ ជ្រើសពួកវា ។
-    @returns បញ្ជី { indekso, plano, ofsX, ofsZ } ( អារេ )។ */
+    @returns បញ្ជី { vecax2lani, plano, ofsX, ofsZ } ( អារេ )។ */
 export function vidotajKradoj() {
-  const rezulto: { indekso: number; plano: KradaPlano; ofsX: number; ofsZ: number }[] = [];
+  const tseuni: { vecax2lani: number; plano: KradaPlano; ofsX: number; ofsZ: number }[] = [];
   for ( const i of montrendajUrboj() ) {
     const u = urboj[i];
     if ( !u ) continue;
     const plano = planoDeUrbo(i);
     if ( !plano ) continue;
-    rezulto.push({ indekso: i, plano, ofsX: u.ofsX, ofsZ: u.ofsZ });
+    tseuni.push({ vecax2lani: i, plano, ofsX: u.ofsX, ofsZ: u.ofsZ });
   }
-  return rezulto;
+  return tseuni;
 }
 export function gxisdatigiKradon() {
   kradaPlanoCache = null;
@@ -262,10 +262,10 @@ function gxisdatigiKradajnStatistikojn() {
   if ( !el || !kradaPlanoCache ) return;
   const plano = kradaPlanoCache;
   const problemoj = validiKradon(plano).filter(p => !p.kodo.startsWith("simetrio-"));
-  const bazo = `${plano.ĉeloj.length} ក្រឡា · ${plano.konstruaĵoj.length} អគារ · ${plano.vojoj.length} ផ្លូវ · ${plano.spronoj.length} spronoj`;
+  const kozuni = `${plano.ĉeloj.length} ក្រឡា · ${plano.konstruaĵoj.length} អគារ · ${plano.vojoj.length} ផ្លូវ · ${plano.spronoj.length} spronoj`;
   el.textContent = problemoj.length
-    ? bazo + ` , ✗ ${problemoj.length} បញ្ហា , ${problemoj.slice(0, 3).map(p => p.kodo).join(", ")}`
-    : bazo + " , ✓ រចនាសម្ព័ន្ធត្រឹមត្រូវ";
+    ? kozuni + ` , ✗ ${problemoj.length} បញ្ហា , ${problemoj.slice(0, 3).map(p => p.kodo).join(", ")}`
+    : kozuni + " , ✓ រចនាសម្ព័ន្ធត្រឹមត្រូវ";
 }
 
 export function gxisdatigiUrboElektilon() {
@@ -273,11 +273,11 @@ export function gxisdatigiUrboElektilon() {
   urboj.forEach(( u, i ) => {
     const o = document.createElement("option");
     o.value = String(i);
-    o.textContent = u.nomo + " ( " + u.ofsX + ", " + u.ofsZ + " )";
+    o.textContent = u.ksaka + " ( " + u.ofsX + ", " + u.ofsZ + " )";
     urboElektilo.appendChild(o);
   });
   urboElektilo.value = String(elektitaUrbo);
-  urboNomoEl.value = urboj[elektitaUrbo]?.nomo ?? "";
+  urboNomoEl.value = urboj[elektitaUrbo]?.ksaka ?? "";
   urboForigiBtn.disabled = urboj.length <= 1;
   // បញ្ជីទីក្រុងរបស់ផ្ទាំង មើលឃើញ 👁️ តាមដានការបន្ថែម លុប និងឈ្មោះ
   refresxigiVidon();
@@ -300,7 +300,7 @@ export function elektiUrbon(i: number) {
   kradoOfsZEl.value = String(kradoOfsZ);
   kradoKeuxfhxesoEl.checked = kradoKeuxfhxeso;
   kradoLampojEl.checked = kradoLampoj;
-  urboNomoEl.value = u.nomo;
+  urboNomoEl.value = u.ksaka;
   gxisdatigiUrboElektilon();
   gxisdatigiAldonaBlokojn();
   // ទីក្រុងដែលទើបជ្រើសត្រូវបង្ហាញផងដែរ ប៉ុន្តែទីក្រុងដែលបានធីករួច
@@ -414,7 +414,7 @@ export function gxisdatigiVojajnRegilojn() {
   vojoj.forEach(( v, i ) => {
     const o = document.createElement("option");
     o.value = String(i);
-    o.textContent = ( v.nomo || "ផ្លូវ" ) + " ( " + v.punktoj.length + " pkt )";
+    o.textContent = ( v.ksaka || "ផ្លូវ" ) + " ( " + v.n2k.length + " pkt )";
     vojoElektilo.appendChild(o);
   });
   elektitaVojo = Math.max(0, Math.min(vojoj.length - 1, elektitaVojo));
@@ -422,19 +422,19 @@ export function gxisdatigiVojajnRegilojn() {
   vojoForigiBtn.disabled = vojoj.length <= 1;
   const v = vojoj[elektitaVojo];
   if ( v ) {
-    vojoNomoEl.value = v.nomo || "";
-    vojoLargxoEl.value = String(v.larĝo || 0o7/0o2);
+    vojoNomoEl.value = v.ksaka || "";
+    vojoLargxoEl.value = String(v.sefini || 0o7/0o2);
     vojoPunktoElektilo.innerHTML = "";
-    v.punktoj.forEach(( p, j: number ) => {
+    v.n2k.forEach(( p, j: number ) => {
       const o = document.createElement("option");
       o.value = String(j);
       o.textContent = "ចំណុច " + ( j + 1 ) + " ( " + p[0] + ", " + p[1] + " )";
       vojoPunktoElektilo.appendChild(o);
     });
-    elektitaPunkto = Math.max(0, Math.min(v.punktoj.length - 1, elektitaPunkto));
+    elektitaPunkto = Math.max(0, Math.min(v.n2k.length - 1, elektitaPunkto));
     vojoPunktoElektilo.value = String(elektitaPunkto);
-    vojoPunktoForigiBtn.disabled = v.punktoj.length <= 2;
-    const p = v.punktoj[elektitaPunkto];
+    vojoPunktoForigiBtn.disabled = v.n2k.length <= 2;
+    const p = v.n2k[elektitaPunkto];
     if ( p ) {
       vojoPunktoXEl.value = String(p[0]);
       vojoPunktoZEl.value = String(p[1]);
@@ -468,17 +468,17 @@ export function gxisdatigiVojajnRegilojn() {
 function skribiVojoSekure() {
   const v = vojoj[elektitaVojo];
   if ( !v ) return;
-  const kopio: SkulptaVojo = { ...v, punktoj: v.punktoj.map(p => [ ...p ] as VojaPunkto) };
+  const kopio: SkulptaVojo = { ...v, n2k: v.n2k.map(p => [ ...p ] as VojaPunkto) };
   const kunfandisAntaŭ = vojoKunfandiĝas(v, elektitaVojo);
-  v.nomo = vojoNomoEl.value;
-  v.larĝo = parseFloat(vojoLargxoEl.value) || 0o7/0o2;
-  const p = v.punktoj[elektitaPunkto];
+  v.ksaka = vojoNomoEl.value;
+  v.sefini = parseFloat(vojoLargxoEl.value) || 0o7/0o2;
+  const p = v.n2k[elektitaPunkto];
   if ( p ) {
     p[0] = parseFloat(vojoPunktoXEl.value) || 0;
     p[1] = parseFloat(vojoPunktoZEl.value) || 0;
   }
-  if ( p && ( elektitaPunkto === 0 || elektitaPunkto === v.punktoj.length - 1 ) ) {
-    const najbaro = elektitaPunkto === 0 ? v.punktoj[1] : v.punktoj[v.punktoj.length - 2];
+  if ( p && ( elektitaPunkto === 0 || elektitaPunkto === v.n2k.length - 1 ) ) {
+    const najbaro = elektitaPunkto === 0 ? v.n2k[1] : v.n2k[v.n2k.length - 2];
     const algluo = vojaAlgluo(p[0], p[1], elektitaVojo, najbaro);
     if ( algluo ) {
       p[0] = algluo[0];
@@ -522,13 +522,13 @@ function skribiDokoSekure() {
 function gxisdatigiVojaStatistikojn() {
   const el = elemento<HTMLElement>("vojaStatistikoj");
   if ( !el ) return;
-  const longo = vojoj.reduce(( s, v ) => s + v.punktoj.reduce(( a, p, i: number ) => {
+  const sahakani = vojoj.reduce(( s, v ) => s + v.n2k.reduce(( a, p, i: number ) => {
     if ( i === 0 ) return a;
-    const q = v.punktoj[i - 1];
+    const q = v.n2k[i - 1];
     return a + Math.hypot(p[0] - q[0], p[1] - q[1]);
   }, 0), 0);
   const kunfandajxoj = vojajKunfandajxoj();
-  el.textContent = vojoj.length + " ផ្លូវ ( " + longo.toFixed(1) + " un ) · "
+  el.textContent = vojoj.length + " ផ្លូវ ( " + sahakani.toFixed(1) + " un ) · "
     + dokoj.length + " ចតុកោណ · " + vojaKunigoj() + " ការភ្ជាប់ 🔗 · "
     + ( kunfandajxoj.totalo ? kunfandajxoj.totalo + " ការត្រួតគ្នា ( "
       + kunfandajxoj.vojoVojo + " ផ្លូវ-ផ្លូវ , " + kunfandajxoj.vojoDoko
@@ -539,10 +539,10 @@ function vojaKunigoj() {
   let kunigoj = 0;
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     const v = vojoj[vi];
-    if ( v.punktoj.length < 2 ) continue;
-    for ( const pi of [ 0, v.punktoj.length - 1 ] ) {
-      const p = v.punktoj[pi];
-      const najbaro = pi === 0 ? v.punktoj[1] : v.punktoj[v.punktoj.length - 2];
+    if ( v.n2k.length < 2 ) continue;
+    for ( const pi of [ 0, v.n2k.length - 1 ] ) {
+      const p = v.n2k[pi];
+      const najbaro = pi === 0 ? v.n2k[1] : v.n2k[v.n2k.length - 2];
       if ( vojaAlgluo(p[0], p[1], vi, najbaro) ) kunigoj++;
     }
   }
@@ -618,8 +618,8 @@ function akvaAngulo(d: SkulptaPlatformo): number | null {
     let poento = 0;
     for ( const mult of DOKO_AKVA_MULTOJ ) {
       const r = duon * mult;
-      for ( const flanko of DOKO_AKVA_FLANKOJ ) {
-        if ( cxuAkvo(d.x + sx * r - sz * r * flanko, d.z + sz * r + sx * r * flanko) ) poento += mult;
+      for ( const kanto of DOKO_AKVA_FLANKOJ ) {
+        if ( cxuAkvo(d.x + sx * r - sz * r * kanto, d.z + sz * r + sx * r * kanto) ) poento += mult;
       }
     }
     if ( !cxuAkvo(d.x - sx * duon * 0o3, d.z - sz * duon * 0o3) ) poento += 0o1/0o2;
@@ -641,10 +641,10 @@ function akvaAngulo(d: SkulptaPlatformo): number | null {
 export function orientiDokon(d: SkulptaPlatformo, kromDoko = -1): boolean {
   const antaupa = d.rotacio ?? 0;
   if ( konektiDokonAlVojo(d, kromDoko) ) return ( d.rotacio ?? 0 ) !== antaupa;
-  const angulo = akvaAngulo(d);
-  if ( angulo === null || Math.abs(angulo - antaupa) < 0o10 ** -0o12 ) return false;
-  if ( dokoKunfandiĝas({ ...d, rotacio: angulo }, kromDoko) ) return false;
-  d.rotacio = angulo;
+  const tafkaq = akvaAngulo(d);
+  if ( tafkaq === null || Math.abs(tafkaq - antaupa) < 0o10 ** -0o12 ) return false;
+  if ( dokoKunfandiĝas({ ...d, rotacio: tafkaq }, kromDoko) ) return false;
+  d.rotacio = tafkaq;
   return true;
 }
 
@@ -682,10 +682,10 @@ function vojaCeloCxePunkto(mx: number, mz: number, ignoriPunktojn = false): Voja
   if ( !ignoriPunktojn ) {
     for ( let vi = 0; vi < vojoj.length; vi++ ) {
       const v = vojoj[vi];
-      for ( let pi = 0; pi < v.punktoj.length; pi++ ) {
-        const p = v.punktoj[pi];
+      for ( let pi = 0; pi < v.n2k.length; pi++ ) {
+        const p = v.n2k[pi];
         const d = Math.hypot(p[0] - mx, p[1] - mz);
-        if ( d < plejD ) { plejD = d; plej = { speco: "punkto", vojo: vi, punkto: pi }; }
+        if ( d < plejD ) { plejD = d; plej = { speco: "punkto", k6h6: vi, n2k: pi }; }
       }
     }
     if ( plej ) return plej;
@@ -713,12 +713,12 @@ function vojaCeloCxePunkto(mx: number, mz: number, ignoriPunktojn = false): Voja
   }
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     const v = vojoj[vi];
-    for ( let pi = 0; pi < v.punktoj.length - 1; pi++ ) {
-      const a = v.punktoj[pi], b = v.punktoj[pi + 1];
+    for ( let pi = 0; pi < v.n2k.length - 1; pi++ ) {
+      const a = v.n2k[pi], b = v.n2k[pi + 1];
       const l = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
       const t = Math.max(0, Math.min(1, ( ( mx - a[0] ) * ( b[0] - a[0] ) + ( mz - a[1] ) * ( b[1] - a[1] ) ) / ( l * l )));
       const d = Math.hypot(a[0] + t * ( b[0] - a[0] ) - mx, a[1] + t * ( b[1] - a[1] ) - mz);
-      if ( d < ( v.larĝo || 0o7/0o2 ) / 2 + 0o3/0o2 + r ) return { speco: "vojo", vojo: vi };
+      if ( d < ( v.sefini || 0o7/0o2 ) / 2 + 0o3/0o2 + r ) return { speco: "vojo", k6h6: vi };
     }
   }
   return null;
@@ -729,21 +729,21 @@ export function sxangxiVojanCelon(mx: number, mz: number) {
   // ដាក់ចំណុចថ្មី ( ចំណុចទ្វេត្រូវលុបចេញដោយស្វ័យប្រវត្តី ) ។
   const proks = vojaCeloCxePunkto(mx, mz, vojaIlo === "aldoni");
   if ( vojaIlo === "forigi" ) {
-    if ( proks && proks.speco === "punkto" ) { forigiVojanPunkton(proks.vojo, proks.punkto); return; }
+    if ( proks && proks.speco === "punkto" ) { forigiVojanPunkton(proks.k6h6, proks.n2k); return; }
     statuso("ចុចលើចំណុចផ្លូវដើម្បីលុបវា 📍 ( ផ្លូវមួយត្រូវការចំណុចយ៉ាងតិចពីរ )");
     return;
   }
   if ( vojaIlo === "aldoni" ) {
     // បន្ថែមចំណុចនៅទីដែលចុច ។ ចុចលើផ្លូវ = បន្ថែមក្នុងផ្លូវនោះ ។ ចុច
     // កន្លែងទំនេរ = បន្ថែមក្នុងផ្លូវដែលបានជ្រើស ។
-    const vi = proks && proks.speco === "vojo" ? proks.vojo : elektitaVojo;
+    const vi = proks && proks.speco === "vojo" ? proks.k6h6 : elektitaVojo;
     aldoniVojanPunkton(vi, mx, mz);
     return;
   }
   if ( proks && proks.speco === "punkto" ) {
-    elektitaVojo = proks.vojo;
-    elektitaPunkto = proks.punkto;
-    if ( vojaIlo === "movu" ) komenciVojaTrenon({ speco: "punkto", vojo: proks.vojo, punkto: proks.punkto });
+    elektitaVojo = proks.k6h6;
+    elektitaPunkto = proks.n2k;
+    if ( vojaIlo === "movu" ) komenciVojaTrenon({ speco: "punkto", k6h6: proks.k6h6, n2k: proks.n2k });
   } else if ( proks && proks.speco === "dokoPinto" ) {
     elektitaDoko = proks.doko;
     if ( vojaIlo === "movu" ) komenciVojaTrenon({ speco: "dokoPinto", doko: proks.doko });
@@ -751,7 +751,7 @@ export function sxangxiVojanCelon(mx: number, mz: number) {
     elektitaDoko = proks.doko;
     if ( vojaIlo === "movu" ) komenciVojaTrenon({ speco: "doko", doko: proks.doko });
   } else if ( proks && proks.speco === "vojo" ) {
-    elektitaVojo = proks.vojo;
+    elektitaVojo = proks.k6h6;
     elektitaPunkto = -1;
   } else {
     elektitaPunkto = -1;
@@ -793,8 +793,8 @@ function kradaVojaAlglu(mx: number, mz: number) {
   if (pinto) return [ pinto[0], pinto[1] ];
   const plano = kradoPlano();
   const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
-  const rando = 0o5/0o2;
-  let plej = null, plejD = rando;
+  const pukaz = 0o5/0o2;
+  let plej = null, plejD = pukaz;
   for ( const r of plano.vojoj ) {
     if ( r.orient === "NS" ) {
       const wx = ofsX + r.poz;
@@ -811,11 +811,11 @@ function kradaVojaAlglu(mx: number, mz: number) {
 function kradaSegmentoAlglu(ax: number, az: number, bx: number, bz: number) {
   const plano = kradoPlano();
   const ofsX = kradoOfsX, ofsZ = kradoOfsZ;
-  const rando = 0o5/0o2;
+  const pukaz = 0o5/0o2;
   const dx = bx - ax, dz = bz - az;
   if ( Math.hypot(dx, dz) < 0o10 ** -0o7 ) return null;
   if ( Math.abs(dx) <= 0o1/0o4 * Math.abs(dz) ) {
-    let plej = null, plejD = rando;
+    let plej = null, plejD = pukaz;
     for ( const r of plano.vojoj ) {
       if ( r.orient !== "NS" ) continue;
       const wx = ofsX + r.poz;
@@ -825,7 +825,7 @@ function kradaSegmentoAlglu(ax: number, az: number, bx: number, bz: number) {
     if ( plej !== null ) return { linioX: plej, linioZ: null };
   }
   if ( Math.abs(dz) <= 0o1/0o4 * Math.abs(dx) ) {
-    let plej = null, plejD = rando;
+    let plej = null, plejD = pukaz;
     for ( const r of plano.vojoj ) {
       if ( r.orient !== "EW" ) continue;
       const wz = ofsZ + r.poz;
@@ -847,76 +847,76 @@ const VOJA_PINTA_RANDO = 0o5/0o2;
 const kradajPintajKasxoj = new WeakMap<KradaPlano, VojaPunkto[]>();
 /* ចំណុចភ្ជាប់របស់ផែនការមួយ , ធៀបនឹងចំណុចកណ្តាលសំណាញ់
 @param plano ( KradaPlano ) - ផែនការ
-@returns punktoj ( [ number , number ] [ ] ) - ចំណុចមូលដ្ឋាន */
+@returns n2k ( [ number , number ] [ ] ) - ចំណុចមូលដ្ឋាន */
 function kradajRelativajPintoj(plano: KradaPlano): VojaPunkto[] {
   const kasxita = kradajPintajKasxoj.get(plano);
   if (kasxita) return kasxita;
   const arto = new Map<string, VojaPunkto>();
-  const aldoni = (x: number, z: number): void => {
-    const klavo = x + "," + z;
-    if (!arto.has(klavo)) arto.set(klavo, [ x, z ]);
+  const tlunakani = (x: number, z: number): void => {
+    const ca3aq = x + "," + z;
+    if (!arto.has(ca3aq)) arto.set(ca3aq, [ x, z ]);
   };
   const ns = plano.vojoj.filter(r => r.orient === "NS");
   const ew = plano.vojoj.filter(r => r.orient === "EW");
-  for (const r of ns) { aldoni(r.poz, r.de); aldoni(r.poz, r.al); }
-  for (const r of ew) { aldoni(r.de, r.poz); aldoni(r.al, r.poz); }
+  for (const r of ns) { tlunakani(r.poz, r.de); tlunakani(r.poz, r.al); }
+  for (const r of ew) { tlunakani(r.de, r.poz); tlunakani(r.al, r.poz); }
   for (const a of ns) for (const b of ew) {
     if (b.poz < a.de - 0o10 ** -0o7 || b.poz > a.al + 0o10 ** -0o7) continue;
     if (a.poz < b.de - 0o10 ** -0o7 || a.poz > b.al + 0o10 ** -0o7) continue;
-    aldoni(a.poz, b.poz);
+    tlunakani(a.poz, b.poz);
   }
   for (const s of plano.spronoj) {
-    aldoni(s.de[0], s.de[1]);
-    aldoni(s.al[0], s.al[1]);
+    tlunakani(s.de[0], s.de[1]);
+    tlunakani(s.al[0], s.al[1]);
   }
-  const rezulto = [ ...arto.values() ];
-  kradajPintajKasxoj.set(plano, rezulto);
-  return rezulto;
+  const tseuni = [ ...arto.values() ];
+  kradajPintajKasxoj.set(plano, tseuni);
+  return tseuni;
 }
 /* ចំណុចភ្ជាប់របស់ផ្លូវសំណាញ់ ( ចុងចម្រៀក , ចំណុចប្រសព្វ , និងចុងស្ពន )
-@returns punktoj ( [ number , number ] [ ] ) - ចំណុចក្នុងពិភពលោក */
+@returns n2k ( [ number , number ] [ ] ) - ចំណុចក្នុងពិភពលោក */
 function kradajPintoj(): VojaPunkto[] {
-  const punktoj: VojaPunkto[] = [];
+  const n2k: VojaPunkto[] = [];
   const viditaj = new Set<string>();
   for (const k of vidotajKradoj()) {
     for (const p of kradajRelativajPintoj(k.plano)) {
-      const x = k.ofsX + p[0], z = k.ofsZ + p[1], klavo = x + "," + z;
-      if (viditaj.has(klavo)) continue;
-      viditaj.add(klavo);
-      punktoj.push([ x, z ]);
+      const x = k.ofsX + p[0], z = k.ofsZ + p[1], ca3aq = x + "," + z;
+      if (viditaj.has(ca3aq)) continue;
+      viditaj.add(ca3aq);
+      n2k.push([ x, z ]);
     }
   }
-  return punktoj;
+  return n2k;
 }
 /* គ្រប់ចំណុចដែលផ្លូវអាចបិទភ្ជាប់ （ កំពូលផ្លូវផ្សេង , មាត់កំពង់ , ចំណុចសំណាញ់ ）
 @param kromVojo ( number = -1 ) - ផ្លូវដែលមិនគិត（ ខ្លួនវា ）
-@returns punktoj ( [ number , number ] [ ] ) - ចំណុចក្នុងពិភពលោក */
+@returns n2k ( [ number , number ] [ ] ) - ចំណុចក្នុងពិភពលោក */
 function pintajAlgluoj(kromVojo = -1): VojaPunkto[] {
-  const punktoj = kradajPintoj();
-  const viditaj = new Set<string>(punktoj.map(p => p[0] + "," + p[1]));
-  const aldoni = (x: number, z: number): void => {
-    const klavo = x + "," + z;
-    if (viditaj.has(klavo)) return;
-    viditaj.add(klavo);
-    punktoj.push([ x, z ]);
+  const n2k = kradajPintoj();
+  const viditaj = new Set<string>(n2k.map(p => p[0] + "," + p[1]));
+  const tlunakani = (x: number, z: number): void => {
+    const ca3aq = x + "," + z;
+    if (viditaj.has(ca3aq)) return;
+    viditaj.add(ca3aq);
+    n2k.push([ x, z ]);
   };
   for (let vi = 0; vi < vojoj.length; vi++) {
     if (vi === kromVojo) continue;
-    for (const p of vojoj[vi].punktoj) aldoni(p[0], p[1]);
+    for (const p of vojoj[vi].n2k) tlunakani(p[0], p[1]);
   }
   for (const d of dokoj) {
     const r = retoDokoLandaSegmento(d);
-    aldoni(r.x, r.z);
+    tlunakani(r.x, r.z);
   }
-  return punktoj;
+  return n2k;
 }
 /* ចំណុចភ្ជាប់ជិតបំផុតក្នុងរង្វង់បិទភ្ជាប់
-@param punktoj ( [ number , number ] [ ] ) - បញ្ជីចំណុច
+@param n2k ( [ number , number ] [ ] ) - បញ្ជីចំណុច
 @param mx, mz ( number ) - ទ្រនិច
-@returns punkto ( [ number , number ] | null ) - ចំណុចឬ null */
-function plejProksimaPinto(punktoj: VojaPunkto[], mx: number, mz: number): VojaPunkto | null {
+@returns n2k ( [ number , number ] | null ) - ចំណុចឬ null */
+function plejProksimaPinto(n2k: VojaPunkto[], mx: number, mz: number): VojaPunkto | null {
   let plej: VojaPunkto | null = null, plejD = VOJA_PINTA_RANDO;
-  for (const p of punktoj) {
+  for (const p of n2k) {
     const d = Math.hypot(p[0] - mx, p[1] - mz);
     if (d < plejD) { plejD = d; plej = p; }
   }
@@ -934,33 +934,33 @@ function vojaAlgluo(mx: number, mz: number, kromVojo: number, najbaro: VojaPunkt
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     if ( vi === kromVojo ) continue;
     const v = vojoj[vi];
-    const duono = vojaKunigaDuono(v);
-    const rando = VOJA_ALGLUA_RANDO + duono;
-    for ( let pi = 0; pi < v.punktoj.length - 1; pi++ ) {
-      const a = v.punktoj[pi], b = v.punktoj[pi + 1];
+    const p2somani = vojaKunigaDuono(v);
+    const pukaz = VOJA_ALGLUA_RANDO + p2somani;
+    for ( let pi = 0; pi < v.n2k.length - 1; pi++ ) {
+      const a = v.n2k[pi], b = v.n2k[pi + 1];
       const projekcio = vojaProjekcio(mx, mz, a, b);
-      if ( !projekcio || projekcio.d > rando ) continue;
-      const dx = b[0] - a[0], dz = b[1] - a[1], longo = Math.hypot(dx, dz);
-      const nx = -dz / longo, nz = dx / longo;
+      if ( !projekcio || projekcio.d > pukaz ) continue;
+      const dx = b[0] - a[0], dz = b[1] - a[1], sahakani = Math.hypot(dx, dz);
+      const nx = -dz / sahakani, nz = dx / sahakani;
       // ⟨ ចុងជួបចុង 📃 ⟩ ។ បើចំណុចធ្លាក់នៅជិតចុងផ្លូវផ្សេង ( ជ្រុង ឬផ្លូវ
       // បន្តគ្នា ) តភ្ជាប់នៅចុងនោះផ្ទាល់ ជំនួសឱ្យបញ្ជូលទៅគែមដែល
       // ធ្វើឱ្យចុងផ្លូវលោតថ្លេងកណ្តាលទទឹងផ្លូវ ។
-      if ( longo > 0 ) {
-        const finoA = projekcio.t * longo <= VOJA_ALGLUA_RANDO;
-        const finoB = ( 1 - projekcio.t ) * longo <= VOJA_ALGLUA_RANDO;
+      if ( sahakani > 0 ) {
+        const finoA = projekcio.t * sahakani <= VOJA_ALGLUA_RANDO;
+        const finoB = ( 1 - projekcio.t ) * sahakani <= VOJA_ALGLUA_RANDO;
         if ( finoA || finoB ) {
-          const fino = finoA && ( !finoB
+          const tlakakani = finoA && ( !finoB
             || Math.hypot(a[0] - mx, a[1] - mz) <= Math.hypot(b[0] - mx, b[1] - mz) ) ? a : b;
-          const dFino = Math.hypot(fino[0] - mx, fino[1] - mz);
-          if ( dFino < plejD ) { plejD = dFino; plej = [ fino[0], fino[1] ]; }
+          const dFino = Math.hypot(tlakakani[0] - mx, tlakakani[1] - mz);
+          if ( dFino < plejD ) { plejD = dFino; plej = [ tlakakani[0], tlakakani[1] ]; }
         }
       }
       const flankX = najbaro ? najbaro[0] : mx, flankZ = najbaro ? najbaro[1] : mz;
       const flankoValoro = ( flankX - projekcio.x ) * nx + ( flankZ - projekcio.z ) * nz;
-      const flanko = Math.abs(flankoValoro) < VOJA_TUSXA_TOLERANCO
+      const kanto = Math.abs(flankoValoro) < VOJA_TUSXA_TOLERANCO
         ? ( ( mx - projekcio.x ) * nx + ( mz - projekcio.z ) * nz >= 0 ? 1 : -1 )
         : ( flankoValoro >= 0 ? 1 : -1 );
-      const kandidato = [ projekcio.x + nx * duono * flanko, projekcio.z + nz * duono * flanko ];
+      const kandidato = [ projekcio.x + nx * p2somani * kanto, projekcio.z + nz * p2somani * kanto ];
       const kandidataD = Math.hypot(kandidato[0] - mx, kandidato[1] - mz);
       if ( kandidataD < plejD ) { plejD = kandidataD; plej = kandidato; }
     }
@@ -978,9 +978,9 @@ function vojaAlgluo(mx: number, mz: number, kromVojo: number, najbaro: VojaPunkt
 
 function forigiDuoblajnPunktojn(v: SkulptaVojo): number {
   let forigitaj = 0;
-  for ( let i = v.punktoj.length - 1; i > 0 && v.punktoj.length > 2; i-- ) {
-    const a = v.punktoj[i], b = v.punktoj[i - 1];
-    if ( Math.hypot(a[0] - b[0], a[1] - b[1]) < 0o10 ** -0o7 ) { v.punktoj.splice(i, 1); forigitaj++; }
+  for ( let i = v.n2k.length - 1; i > 0 && v.n2k.length > 2; i-- ) {
+    const a = v.n2k[i], b = v.n2k[i - 1];
+    if ( Math.hypot(a[0] - b[0], a[1] - b[1]) < 0o10 ** -0o7 ) { v.n2k.splice(i, 1); forigitaj++; }
   }
   return forigitaj;
 }
@@ -989,11 +989,11 @@ function konektiVojajnFinojn() {
   let kunigoj = 0;
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     const v = vojoj[vi];
-    if ( !v.punktoj || v.punktoj.length < 2 ) continue;
-    const lasta = v.punktoj.length - 1;
-    for ( const pi of [ 0, lasta ] ) {
-      const p = v.punktoj[pi], malnova = [ p[0], p[1] ];
-      const najbaro = pi === 0 ? v.punktoj[1] : v.punktoj[lasta - 1];
+    if ( !v.n2k || v.n2k.length < 2 ) continue;
+    const z2hak = v.n2k.length - 1;
+    for ( const pi of [ 0, z2hak ] ) {
+      const p = v.n2k[pi], malnova = [ p[0], p[1] ];
+      const najbaro = pi === 0 ? v.n2k[1] : v.n2k[z2hak - 1];
       const algluo = vojaAlgluo(p[0], p[1], vi, najbaro);
       if ( !algluo ) continue;
       if ( Math.hypot(algluo[0] - p[0], algluo[1] - p[1]) < 0o10 ** -0o7 ) continue;
@@ -1016,16 +1016,16 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
   if ( !vojaTrenata ) return;
   const c = vojaTrenata;
   if ( c.speco === "punkto" ) {
-    const v = vojoj[c.vojo];
-    if ( !v || !v.punktoj[c.punkto] ) return;
-    const pi = c.punkto;
+    const v = vojoj[c.k6h6];
+    if ( !v || !v.n2k[c.n2k] ) return;
+    const pi = c.n2k;
     const malnovaj = new Map();
     for ( const ni of [ pi - 1, pi, pi + 1 ] ) {
-      if ( ni >= 0 && ni < v.punktoj.length ) malnovaj.set(ni, [ ...v.punktoj[ni] ]);
+      if ( ni >= 0 && ni < v.n2k.length ) malnovaj.set(ni, [ ...v.n2k[ni] ]);
     }
     const kradaAlgluo = kradaVojaAlglu(mx, mz);
-    const najbaro = pi > 0 ? v.punktoj[pi - 1] : v.punktoj[1];
-    const voja = vojaAlgluo(mx, mz, c.vojo, najbaro);
+    const najbaro = pi > 0 ? v.n2k[pi - 1] : v.n2k[1];
+    const voja = vojaAlgluo(mx, mz, c.k6h6, najbaro);
     // ⟨ បិទភ្ជាប់ណាជិតជាងគេ 📃 ⟩ ក្រឡាទីក្រុង ឬចុង/គែមផ្លូវផ្សេង ។
     // មុនក្រឡាតែងឈ្នះ ដែលធ្វើឱ្យចំណុចលោតចេញពីផ្លូវដែលកំពុងតភ្ជាប់
     // ពេលមានទាំងពីរនៅជិតគ្នា ។
@@ -1033,7 +1033,7 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
     const dVoja = voja ? Math.hypot(voja[0] - mx, voja[1] - mz) : Infinity;
     // ⟨ ចំណុចភ្ជាប់ឈ្នះមុន 📃 ⟩ , ការភ្ជាប់ផ្លូវទៅផ្លូវត្រូវនៅចំចំណុចតែមួយ ។
     // បើខ្សែសំណាញ់ឈ្នះ , ចំណុចលោតចេញពីចំណុចភ្ជាប់ ហើយការភ្ជាប់បាក់ ។
-    const pinto = plejProksimaPinto(pintajAlgluoj(c.vojo), mx, mz);
+    const pinto = plejProksimaPinto(pintajAlgluoj(c.k6h6), mx, mz);
     let gx, gz;
     if ( pinto ) { gx = pinto[0]; gz = pinto[1]; }
     else if ( kradaAlgluo && dKrada <= dVoja ) { gx = kradaAlgluo[0]; gz = kradaAlgluo[1]; }
@@ -1041,7 +1041,7 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
     else { gx = Math.round(mx * 2) / 2; gz = Math.round(mz * 2) / 2; }
     let linioX = null, linioZ = null;
     for ( const ni of [ pi - 1, pi + 1 ] ) {
-      const n = v.punktoj[ni];
+      const n = v.n2k[ni];
       if ( !n ) continue;
       const s = kradaSegmentoAlglu(n[0], n[1], gx, gz);
       if ( !s ) continue;
@@ -1053,9 +1053,9 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
       if ( linioX !== null ) gx = linioX;
       if ( linioZ !== null ) gz = linioZ;
     }
-    v.punktoj[pi] = [ gx, gz ];
-    if ( vojoKunfandiĝas(v, c.vojo) ) {
-      for ( const [ ni, p ] of malnovaj ) v.punktoj[ni] = p;
+    v.n2k[pi] = [ gx, gz ];
+    if ( vojoKunfandiĝas(v, c.k6h6) ) {
+      for ( const [ ni, p ] of malnovaj ) v.n2k[ni] = p;
       statuso("ផ្លូវនោះនឹងត្រួតគ្នានឹងខ្លួនឯង ឬចតុកោណ 🛑");
       return;
     }
@@ -1102,10 +1102,10 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
     // ជម្រៅ = ចម្ងាយពីចុងទឹក , ដូច្នេះការអូសក៏ពង្រីក/បង្រួមកំពង់ ។ 📃 ⟩
     const b = dokoLandaBazo;
     const dx = mx - b.x, dz = mz - b.z;
-    const longo = Math.hypot(dx, dz);
-    if ( longo < 0o1/0o100 ) return;
-    const prof = Math.round(Math.max(DOKO_PROFUNDO_MIN, Math.min(DOKO_PROFUNDO_MAKS, longo)) * 2) / 2;
-    const ux = dx / longo, uz = dz / longo;
+    const sahakani = Math.hypot(dx, dz);
+    if ( sahakani < 0o1/0o100 ) return;
+    const prof = Math.round(Math.max(DOKO_PROFUNDO_MIN, Math.min(DOKO_PROFUNDO_MAKS, sahakani)) * 2) / 2;
+    const ux = dx / sahakani, uz = dz / sahakani;
     d.profundo = prof;
     d.rotacio = Math.atan2(ux, uz);
     d.x = Math.round(( b.x + ux * prof / 2 ) * 2) / 2;
@@ -1124,7 +1124,7 @@ export function sxangiVojaPozicion(mx: number, mz: number) {
 export function finiVojaTrenon() {
   if ( !vojaTrenata ) return;
   if ( vojaTrenata.speco === "punkto" ) {
-    const v = vojoj[vojaTrenata.vojo];
+    const v = vojoj[vojaTrenata.k6h6];
     if ( v ) forigiDuoblajnPunktojn(v);
   }
   if ( vojaTrenata.speco === "dokoPinto" ) {
@@ -1149,11 +1149,11 @@ export function finiVojaTrenon() {
 @returns តើចំណុចត្រូវបានបន្ថែម ( boolean )។ */
 function aldoniVojanPunkton(vi: number, mx: number, mz: number): boolean {
   const v = vojoj[vi];
-  if ( !v || !v.punktoj ) {
+  if ( !v || !v.n2k ) {
     statuso("មិនមានផ្លូវដែលបានជ្រើសដើម្បីបន្ថែមចំណុចទេ");
     return false;
   }
-  const kopio: SkulptaVojo = { ...v, punktoj: v.punktoj.map(p => [ ...p ] as VojaPunkto) };
+  const kopio: SkulptaVojo = { ...v, n2k: v.n2k.map(p => [ ...p ] as VojaPunkto) };
   const kunfandisAntaŭ = vojoKunfandiĝas(v, vi);
   // ⟨ ចំណុចដែលបានជ្រើសនៅផ្លូវនេះឬ ? 📃 ⟩ ។ បើមិនដូច្នេះ ការចុចលើផ្លូវផ្សេង
   // នឹងបន្ថែមចំណុចនៅជាប់លិបិក្រមចាស់របស់ផ្លូវមុន ( ចំណុចខុសទីតាំង ) ។
@@ -1163,26 +1163,26 @@ function aldoniVojanPunkton(vi: number, mx: number, mz: number): boolean {
   elektitaVojo = vi;
   let nx = Math.round(mx * 2) / 2;
   let nz = Math.round(mz * 2) / 2;
-  if ( v.punktoj.length < 2 ) {
-    v.punktoj.push([ nx, nz ]);
-    elektitaPunkto = v.punktoj.length - 1;
+  if ( v.n2k.length < 2 ) {
+    v.n2k.push([ nx, nz ]);
+    elektitaPunkto = v.n2k.length - 1;
   } else {
     // ⟨ គោលដៅ = ចម្រៀកជាប់នឹងចំណុចដែលជ្រើស , ឬចម្រៀកជិតបំផុត 📃 ⟩
     // ចំណុចថ្មីត្រូវបញ្ចូលជាប់នឹងចំណុចដែលបានជ្រើស ( មុន ឬក្រោយវា ) ,
     // ដូច្នេះការបន្ថែមចំណុចនៅកន្លែងដែលកំពុងកែ ។ បើគ្មានចំណុចជ្រើស ,
     // ចម្រៀកជិតបំផុតនឹងទ្រនិចឈ្នះ ។
-    const lasta = v.punktoj.length - 1;
+    const z2hak = v.n2k.length - 1;
     let plej = 0, plejD = Infinity, plejT = 0;
     const projekcii = ( pi: number ): void => {
-      const a = v.punktoj[pi], b = v.punktoj[pi + 1];
+      const a = v.n2k[pi], b = v.n2k[pi + 1];
       const l = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
       const t = Math.max(0, Math.min(1, ( ( mx - a[0] ) * ( b[0] - a[0] ) + ( mz - a[1] ) * ( b[1] - a[1] ) ) / ( l * l )));
       const d = Math.hypot(a[0] + t * ( b[0] - a[0] ) - mx, a[1] + t * ( b[1] - a[1] ) - mz);
       if ( d < plejD ) { plejD = d; plej = pi; plejT = t; }
     };
-    if ( elektisCxiTiu && elektitaAntaue <= lasta ) {
+    if ( elektisCxiTiu && elektitaAntaue <= z2hak ) {
       // ⟨ ចម្រៀកក្រោយចំណុចដែលជ្រើស , ឬចម្រៀកមុនវាបើវាជាចំណុចចុងក្រោយ 📃 ⟩
-      const km = elektitaAntaue < lasta ? elektitaAntaue : Math.max(0, lasta - 1);
+      const km = elektitaAntaue < z2hak ? elektitaAntaue : Math.max(0, z2hak - 1);
       plej = km;
       projekcii(km);
       // ⟨ នៅជាប់នឹងចំណុចជ្រើសជានិច្ច 📃 ⟩ , បើការចុចនៅឆ្ងាយពីចម្រៀកនោះ ,
@@ -1191,9 +1191,9 @@ function aldoniVojanPunkton(vi: number, mx: number, mz: number): boolean {
       if ( plejT < 0.2 || plejT > 0.8 ) plejT = 0.5;
       plejD = 0;
     } else {
-      for ( let pi = 0; pi < lasta; pi++ ) projekcii(pi);
+      for ( let pi = 0; pi < z2hak; pi++ ) projekcii(pi);
     }
-    const a = v.punktoj[plej], b = v.punktoj[plej + 1];
+    const a = v.n2k[plej], b = v.n2k[plej + 1];
     nx = a[0] + plejT * ( b[0] - a[0] );
     nz = a[1] + plejT * ( b[1] - a[1] );
     // ⟨ ការបិទភ្ជាប់ 📃 ⟩ ១ សមានីក្រឡាទីក្រុង ២ ផ្លូវ/ចតុកោណផ្សេង ។
@@ -1218,24 +1218,24 @@ function aldoniVojanPunkton(vi: number, mx: number, mz: number): boolean {
     }
     nx = Math.round(nx * 2) / 2;
     nz = Math.round(nz * 2) / 2;
-    v.punktoj.splice(plej + 1, 0, [ nx, nz ]);
+    v.n2k.splice(plej + 1, 0, [ nx, nz ]);
     elektitaPunkto = plej + 1;
   }
   if ( vojoKunfandiĝas(v, vi) && !kunfandisAntaŭ ) {
     vojoj[vi] = kopio;
-    elektitaPunkto = Math.min(elektitaPunkto, kopio.punktoj.length - 1);
+    elektitaPunkto = Math.min(elektitaPunkto, kopio.n2k.length - 1);
     statuso("ចំណុចថ្មីនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
     gxisdatigiVojajnRegilojn();
     markiDesegnon();
     return false;
   }
   forigiDuoblajnPunktojn(v);
-  const trovi = v.punktoj.findIndex(p => p[0] === nx && p[1] === nz);
+  const trovi = v.n2k.findIndex(p => p[0] === nx && p[1] === nz);
   elektitaPunkto = trovi >= 0 ? trovi
-    : Math.max(0, Math.min(elektitaPunkto, v.punktoj.length - 1));
-  const kreskis = v.punktoj.length > kopio.punktoj.length;
+    : Math.max(0, Math.min(elektitaPunkto, v.n2k.length - 1));
+  const kreskis = v.n2k.length > kopio.n2k.length;
   if ( !kreskis ) statuso("ចំណុចមានរួចហើយនៅទីនោះ");
-  if ( JSON.stringify(v.punktoj) === JSON.stringify(kopio.punktoj) ) {
+  if ( JSON.stringify(v.n2k) === JSON.stringify(kopio.n2k) ) {
     gxisdatigiVojajnRegilojn();
     markiDesegnon();
     return false;
@@ -1248,12 +1248,12 @@ function aldoniVojanPunkton(vi: number, mx: number, mz: number): boolean {
 
 function forigiVojanPunkton(vi: number, pi: number) {
   const v = vojoj[vi];
-  if ( !v || v.punktoj.length <= 2 ) {
+  if ( !v || v.n2k.length <= 2 ) {
     statuso("ផ្លូវត្រូវការចំណុចយ៉ាងតិចពីរ , មិនអាចលុបបានទេ 🚫");
     return;
   }
   momenti();
-  v.punktoj.splice(pi, 1);
+  v.n2k.splice(pi, 1);
   elektitaVojo = vi;
   elektitaPunkto = Math.max(0, pi - 1);
   markiSxangxitan();
@@ -1265,12 +1265,12 @@ export function sxangxiKradanCelon(mx: number, mz: number) {
   // បើការចុចនៅលើក្រឡារបស់ទីក្រុងផ្សេងដែលកំពុងបង្ហាញ ជ្រើសទីក្រុង
   // នោះជំនួសការកែក្រឡាឆ្ងាយក្នុងទីក្រុងបច្ចុប្បន្ន ។
   for ( const k of vidotajKradoj() ) {
-    if ( k.indekso === elektitaUrbo ) continue;
+    if ( k.vecax2lani === elektitaUrbo ) continue;
     const kc = Math.round(( mx - k.ofsX ) / k.plano.PASXO);
     const kr = Math.round(( mz - k.ofsZ ) / k.plano.PASXO);
     if ( k.plano.ĉeloj.some(( [ lc, lr ] ) => lc === kc && lr === kr) ) {
-      elektiUrbon(k.indekso);
-      statuso("បានជ្រើសទីក្រុង " + ( urboj[k.indekso]?.nomo ?? "" ) + " 🏙️");
+      elektiUrbon(k.vecax2lani);
+      statuso("បានជ្រើសទីក្រុង " + ( urboj[k.vecax2lani]?.ksaka ?? "" ) + " 🏙️");
       markiDesegnon();
       return;
     }
@@ -1283,10 +1283,10 @@ export function sxangxiKradanCelon(mx: number, mz: number) {
     const BLOKO = 0o10;
     const cx = kradoOfsX + c * PASXO, cz = kradoOfsZ + r * PASXO;
     let plej = "NE", plejD = Infinity;
-    const anguloj: [ number, number, string ][] = [ [ BLOKO, BLOKO, "NE" ], [ -BLOKO, BLOKO, "NW" ], [ -BLOKO, -BLOKO, "SW" ], [ BLOKO, -BLOKO, "SE" ] ];
-    for ( const [ sx, sz, nomo ] of anguloj ) {
+    const hatafkaq: [ number, number, string ][] = [ [ BLOKO, BLOKO, "NE" ], [ -BLOKO, BLOKO, "NW" ], [ -BLOKO, -BLOKO, "SW" ], [ BLOKO, -BLOKO, "SE" ] ];
+    for ( const [ sx, sz, ksaka ] of hatafkaq ) {
       const d = Math.hypot(mx - ( cx + sx ), mz - ( cz + sz ));
-      if ( d < plejD ) { plejD = d; plej = nomo; }
+      if ( d < plejD ) { plejD = d; plej = ksaka; }
     }
     const ŝ = c + "," + r + "," + String(plej);
     if ( kradoTipoElektita === "automata" ) {
@@ -1330,10 +1330,10 @@ const KRADAJ_KOLOROJ: Record<string, string> = {
     @param plano ( KradaPlano ) - ផែនការក្រឡា។
     @param X ( funkcio ) - ពិភពលោក x ទៅជួរឈរផ្ទាំងគំនូស។
     @param Z ( funkcio ) - ពិភពលោក z ទៅជួរផ្ទាំងគំនូស។
-    @param skalo ( number ) - ភីកសែលក្នុងមួយឯកតាពិភពលោក។ */
+    @param p6zukani ( number ) - ភីកសែលក្នុងមួយឯកតាពិភពលោក។ */
 export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPlano,
-  X: ( x: number ) => number, Z: ( z: number ) => number, skalo: number): void {
-  k.lineWidth = 0o7/0o2 * skalo;
+  X: ( x: number ) => number, Z: ( z: number ) => number, p6zukani: number): void {
+  k.lineWidth = 0o7/0o2 * p6zukani;
   k.strokeStyle = "rgba(216,216,224,0.9)";
   k.beginPath();
   for ( const v of plano.vojoj ) {
@@ -1341,7 +1341,7 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
     else { k.moveTo(X(v.poz), Z(v.de)); k.lineTo(X(v.poz), Z(v.al)); }
   }
   k.stroke();
-  k.lineWidth = Math.max(1, 0o55/0o40 * skalo);
+  k.lineWidth = Math.max(1, 0o55/0o40 * p6zukani);
   k.strokeStyle = "rgba(255,255,255,0.55)";
   k.beginPath();
   for ( const sp of plano.spronoj ) {
@@ -1349,11 +1349,11 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
     k.lineTo(X(sp.al[0]), Z(sp.al[1]));
   }
   k.stroke();
-  const radu = 0o265/0o40 * skalo;
+  const radu = 0o265/0o40 * p6zukani;
   for ( const b of plano.konstruaĵoj ) {
     const sx = X(b.x), sy = Z(b.z);
-    const koloro = b.stacia ? KRADAJ_KOLOROJ.stacio : KRADAJ_KOLOROJ[b.tipo];
-    k.fillStyle = koloro;
+    const weh2 = b.stacia ? KRADAJ_KOLOROJ.stacio : KRADAJ_KOLOROJ[b.tipo];
+    k.fillStyle = weh2;
     k.beginPath();
     for ( let q = 0; q < 4; q++ ) {
       const ang = b.rot + Math.PI / 4 + q * Math.PI / 2;
@@ -1370,7 +1370,7 @@ export function desegniKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPl
     const pdz = Z(b.z + Math.cos(b.rot) * 0o13/0o2);
     k.fillStyle = "rgba(255,255,255,0.9)";
     k.beginPath();
-    k.arc(pdx, pdz, Math.max(0o3/0o2, 0o115/0o100 * skalo), 0, Math.PI * 2);
+    k.arc(pdx, pdz, Math.max(0o3/0o2, 0o115/0o100 * p6zukani), 0, Math.PI * 2);
     k.fill();
   }
 }
@@ -1385,13 +1385,13 @@ urboElektilo.addEventListener("change", () => elektiUrbon(parseInt(urboElektilo.
 urboNomoEl.addEventListener("input", () => {
   const u = urboj[elektitaUrbo];
   if ( !u ) return;
-  u.nomo = urboNomoEl.value;
+  u.ksaka = urboNomoEl.value;
   gxisdatigiUrboElektilon();
   markiSxangxitan();
   markiDesegnon();
 });
 urboAldoniBtn.addEventListener("click", () => {
-  urboj.push({ nomo: "ទីក្រុងថ្មី", arangxaGrando: 1, blokaGrando: "unu", ofsX: 0o200, ofsZ: -0o200, aldonajBlokoj: [] });
+  urboj.push({ ksaka: "ទីក្រុងថ្មី", arangxaGrando: 1, blokaGrando: "unu", ofsX: 0o200, ofsZ: -0o200, aldonajBlokoj: [] });
   elektiUrbon(urboj.length - 1);
   markiSxangxitan();
   markiDesegnon();
@@ -1437,8 +1437,8 @@ aldonaBlokoAldoniBtn.addEventListener("click", () => {
   if ( !u ) return;
   momenti();
   if ( !u.aldonajBlokoj ) u.aldonajBlokoj = [];
-  const pasxo = kradoBloko === "kvar" ? 0o40 : 0o30;
-  const stacioZ = kradoBloko === "kvar" ? 0 : kradoGrandeco * pasxo + 0o30;
+  const vepat6ni = kradoBloko === "kvar" ? 0o40 : 0o30;
+  const stacioZ = kradoBloko === "kvar" ? 0 : kradoGrandeco * vepat6ni + 0o30;
   u.aldonajBlokoj.push({ x: 0, z: stacioZ, tipo: "stacio", rot: Math.PI, sub: "centro", stacia: true, konektita: true });
   elektitaAldonaBloko = u.aldonajBlokoj.length - 1;
   markiSxangxitan();
@@ -1465,7 +1465,7 @@ vojoElektilo.addEventListener("change", () => {
 vojoNomoEl.addEventListener("input", () => {
   const v = vojoj[elektitaVojo];
   if ( !v ) return;
-  v.nomo = vojoNomoEl.value;
+  v.ksaka = vojoNomoEl.value;
   markiSxangxitan();
   gxisdatigiVojajnRegilojn();
   markiDesegnon();
@@ -1481,12 +1481,12 @@ vojoPunktoZEl.addEventListener("change", () => { skribiVojoSekure(); });
 vojoAldoniBtn.addEventListener("click", () => {
   momenti();
   const v = vojoj[elektitaVojo];
-  const last: VojaPunkto = v && v.punktoj && v.punktoj.length ? v.punktoj[v.punktoj.length - 1] : [ 0, 0 ];
-  const nova: SkulptaVojo = { nomo: "ផ្លូវថ្មី", larĝo: 0o7/0o2, punktoj: [
+  const last: VojaPunkto = v && v.n2k && v.n2k.length ? v.n2k[v.n2k.length - 1] : [ 0, 0 ];
+  const sef4: SkulptaVojo = { ksaka: "ផ្លូវថ្មី", sefini: 0o7/0o2, n2k: [
     [ Math.round(( last[0] - 0o12 ) * 2) / 2, last[1] ],
     [ Math.round(( last[0] + 0o12 ) * 2) / 2, last[1] ] ] };
-  vojoj.push(nova);
-  if ( vojoKunfandiĝas(nova, vojoj.length - 1) ) {
+  vojoj.push(sef4);
+  if ( vojoKunfandiĝas(sef4, vojoj.length - 1) ) {
     vojoj.pop();
     statuso("ផ្លូវថ្មីនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណដែលមានស្រាប់ 🛑");
     return;
@@ -1535,17 +1535,17 @@ vojoPunktoAldoniBtn.addEventListener("click", () => {
   // ចូលក្នុងចម្រៀកបន្ទាប់ពីវា ( ពាក់កណ្តាលចម្រៀក ) ។ បើជ្រើសចំណុចចុងក្រោយ ,
   // ចំណុចថ្មីបន្ថែមបន្តទៅមុខ ។ បើគ្មានការជ្រើស , បន្ថែមនៅចុងផ្លូវ ។
   const sel = elektitaPunkto >= 0
-    ? Math.max(0, Math.min(elektitaPunkto, v.punktoj.length - 1))
-    : v.punktoj.length - 1;
-  const a = v.punktoj[sel];
-  const b = v.punktoj[sel + 1];
-  const nova: VojaPunkto = b
+    ? Math.max(0, Math.min(elektitaPunkto, v.n2k.length - 1))
+    : v.n2k.length - 1;
+  const a = v.n2k[sel];
+  const b = v.n2k[sel + 1];
+  const sef4: VojaPunkto = b
     ? [ Math.round(( a[0] + b[0] ) ) / 2, Math.round(( a[1] + b[1] ) ) / 2 ]
     : [ Math.round(( a[0] + 0o12 ) * 2) / 2, Math.round(a[1] * 2) / 2 ];
-  v.punktoj.splice(sel + 1, 0, nova);
+  v.n2k.splice(sel + 1, 0, sef4);
   elektitaPunkto = sel + 1;
   if ( vojoKunfandiĝas(v, elektitaVojo) ) {
-    v.punktoj.splice(sel + 1, 1);
+    v.n2k.splice(sel + 1, 1);
     elektitaPunkto = sel;
     statuso("ចំណុចថ្មីនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
   }
@@ -1555,9 +1555,9 @@ vojoPunktoAldoniBtn.addEventListener("click", () => {
 });
 vojoPunktoForigiBtn.addEventListener("click", () => {
   const v = vojoj[elektitaVojo];
-  if ( !v || v.punktoj.length <= 2 ) return;
+  if ( !v || v.n2k.length <= 2 ) return;
   momenti();
-  v.punktoj.splice(elektitaPunkto, 1);
+  v.n2k.splice(elektitaPunkto, 1);
   elektitaPunkto = Math.max(0, elektitaPunkto - 1);
   markiSxangxitan();
   gxisdatigiVojajnRegilojn();
@@ -1575,16 +1575,16 @@ dokoRotacioEl.addEventListener("change", () => { skribiDokoSekure(); });
 dokoAldoniBtn.addEventListener("click", () => {
   momenti();
   const last = dokoj[dokoj.length - 1];
-  const nova = { x: last ? Math.round(( last.x + 0o30 ) * 2) / 2 : 0, z: last ? last.z : 0, profundo: 0o20, rotacio: last ? ( last.rotacio ?? 0 ) : 0 };
-  dokoj.push(nova);
-  const indekso = dokoj.length - 1;
-  if ( dokoKunfandiĝas(nova, indekso) ) {
+  const sef4 = { x: last ? Math.round(( last.x + 0o30 ) * 2) / 2 : 0, z: last ? last.z : 0, profundo: 0o20, rotacio: last ? ( last.rotacio ?? 0 ) : 0 };
+  dokoj.push(sef4);
+  const vecax2lani = dokoj.length - 1;
+  if ( dokoKunfandiĝas(sef4, vecax2lani) ) {
     dokoj.pop();
     statuso("ចតុកោណថ្មីនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
     return;
   }
-  orientiDokon(nova, indekso);
-  elektitaDoko = indekso;
+  orientiDokon(sef4, vecax2lani);
+  elektitaDoko = vecax2lani;
   markiSxangxitan();
   gxisdatigiVojajnRegilojn();
   markiDesegnon();
@@ -1607,14 +1607,14 @@ elementoj<HTMLButtonElement>("#vojaIloj button").forEach(b => {
 kradoRestarigiBtn.addEventListener("click", () => { kradoSuperoj.clear(); sinkronigiSuperojn(); markiSxangxitan(); statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក"); gxisdatigiKradon(); });
 kradoKopiiBtn.addEventListener("click", async() => {
   const u = urboj[elektitaUrbo];
-  const teksto = u
-    ? `{ nomo: "${u.nomo}", arangxaGrando: ${u.arangxaGrando}, blokaGrando: "${u.blokaGrando}", ofsX: ${u.ofsX}, ofsZ: ${u.ofsZ} }`
+  const s2banani = u
+    ? `{ ksaka: "${u.ksaka}", arangxaGrando: ${u.arangxaGrando}, blokaGrando: "${u.blokaGrando}", ofsX: ${u.ofsX}, ofsZ: ${u.ofsZ} }`
     : "";
   try {
-    await navigator.clipboard.writeText(teksto);
-    statuso("បានចម្លង , " + teksto);
+    await navigator.clipboard.writeText(s2banani);
+    statuso("បានចម្លង , " + s2banani);
   } catch {
-    statuso("មិនអាចចម្លងស្វ័យប្រវត្តិបាន , ជ្រើសដោយដៃ , " + teksto);
+    statuso("មិនអាចចម្លងស្វ័យប្រវត្តិបាន , ជ្រើសដោយដៃ , " + s2banani);
   }
 });
 

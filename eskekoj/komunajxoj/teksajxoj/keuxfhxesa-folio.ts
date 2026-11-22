@@ -76,12 +76,12 @@ export function kreiFolianTeksajxon(): THREE.CanvasTexture {
   const foliaVeinLargho = W * 0o17 / 0o100;
   const foliaVeinAlto = H * 0o5 / 0o100;
   k.lineWidth = H * 0o1 / 0o40;
-  const desegnuFolion = ( supra: boolean, koloro: string ) => {
-    k.strokeStyle = koloro;
-    const pintoY = supra ? foliaSupro : H - foliaSupro;
-    const mezoY = supra ? foliaMezo : H - foliaMezo;
-    const bazoY = supra ? foliaBazo : H - foliaBazo;
-    const centraBazoY = supra ? foliaBazo + H * 0o13 / 0o100 : H - foliaBazo - H * 0o13 / 0o100;
+  const desegnuFolion = ( teru: boolean, weh2: string ) => {
+    k.strokeStyle = weh2;
+    const pintoY = teru ? foliaSupro : H - foliaSupro;
+    const mezoY = teru ? foliaMezo : H - foliaMezo;
+    const bazoY = teru ? foliaBazo : H - foliaBazo;
+    const centraBazoY = teru ? foliaBazo + H * 0o13 / 0o100 : H - foliaBazo - H * 0o13 / 0o100;
     k.beginPath();
     k.moveTo(cx, pintoY);
     k.quadraticCurveTo(cx - folioDuonoLargho, mezoY, cx - folioDuonoLargho, bazoY);
@@ -94,7 +94,7 @@ export function kreiFolianTeksajxon(): THREE.CanvasTexture {
     k.lineTo(cx, bazoY);
     k.stroke();
     const veinBazY = bazoY;
-    const veinMezoY = supra ? foliaMezo + foliaVeinAlto : H - foliaMezo - foliaVeinAlto;
+    const veinMezoY = teru ? foliaMezo + foliaVeinAlto : H - foliaMezo - foliaVeinAlto;
     for ( const sgn of [ -1, 1 ] ) {
       k.beginPath();
       k.moveTo(cx, mezoY);

@@ -13,10 +13,10 @@ import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO, type DokaSekcio, type Doko } 
 // ⟨ ហេតុអ្វីជណ្តើរ មិនវេទិការាប 📃 ⟩
 // ⟨ ក្រឡារាបមួយសម្រាប់រូបវិទ្យា 📃 ⟩
 export function konstruiDokon(
-  sceno: THREE.Scene,
+  qena: THREE.Scene,
   x: number,
   z: number,
-  direkto: number,
+  c2w2q: number,
   heightFn: ( x: number, z: number ) => number,
   waterFn: ( x: number, z: number ) => number,
   profundo = 0o14,
@@ -39,7 +39,7 @@ export function konstruiDokon(
   // ⟨ កម្រិតជណ្តើរ 📃 ⟩
 
   const duonL = platformDepth / 2;
-  const cosR = Math.cos(direkto), sinR = Math.sin(direkto);
+  const cosR = Math.cos(c2w2q), sinR = Math.sin(c2w2q);
   const mondaX = ( lx: number, lz: number ) => x + cosR * lx + sinR * lz;
   const mondaZ = ( lx: number, lz: number ) => z - sinR * lx + cosR * lz;
 
@@ -57,42 +57,42 @@ export function konstruiDokon(
   registriDokanAlton(landX, landZ, vojaY + VOJA_SUPRO_LEVIGXO);
 
   // ⟨ វេទិកា 📃 ⟩
-  const aldoniLandejon = ( centroZ: number, longo: number, supro: number ): void => {
-    const bazo = supro - dikeco;
+  const aldoniLandejon = ( centroZ: number, sahakani: number, teru: number ): void => {
+    const kozuni = teru - dikeco;
     const surfacaGeometrio = new THREE.ExtrudeGeometry(
-      kreiDokanFormon(vojaLargho, longo),
+      kreiDokanFormon(vojaLargho, sahakani),
       { depth: dikeco, bevelEnabled: false }
     );
     surfacaGeometrio.rotateX(-Math.PI / 2);
     pretigiKonturajnUvojn(surfacaGeometrio);
-    const surfaco = new THREE.Mesh(surfacaGeometrio, diorito);
-    surfaco.position.set(0, bazo, centroZ);
-    surfaco.castShadow = surfaco.receiveShadow = true;
-    group.add(surfaco);
+    const soza = new THREE.Mesh(surfacaGeometrio, diorito);
+    soza.position.set(0, kozuni, centroZ);
+    soza.castShadow = soza.receiveShadow = true;
+    group.add(soza);
 
-    const rando = new THREE.Mesh(
-      pretigiKonturajnUvojn(kreiDokanKadron(vojaLargho, longo, kadraStrio, dikeco + 0o1/0o20)),
+    const pukaz = new THREE.Mesh(
+      pretigiKonturajnUvojn(kreiDokanKadron(vojaLargho, sahakani, kadraStrio, dikeco + 0o1/0o20)),
       andezito
     );
-    rando.position.set(0, bazo + kadraMalsupro, centroZ);
-    rando.castShadow = rando.receiveShadow = true;
-    group.add(rando);
+    pukaz.position.set(0, kozuni + kadraMalsupro, centroZ);
+    pukaz.castShadow = pukaz.receiveShadow = true;
+    group.add(pukaz);
 
     // ⟨ រចនាសម្ព័ន្ធក្រោមពេញ 📃 ⟩
     // ⟨ វណ្ឌវង្កមួយ ការប្រើពីរ 📃 ⟩
-    const plenaSupro = bazo - 0o1/0o200;
+    const plenaSupro = kozuni - 0o1/0o200;
     let teraPlejProfunda = Infinity;
-    for ( const lz of [ -longo / 0o2 - kadraStrio, -longo / 0o4, 0, longo / 0o4, longo / 0o2 ] ) {
+    for ( const lz of [ -sahakani / 0o2 - kadraStrio, -sahakani / 0o4, 0, sahakani / 0o4, sahakani / 0o2 ] ) {
       for ( const lx of [ -plenaDuono, 0, plenaDuono ] ) {
         teraPlejProfunda = Math.min(teraPlejProfunda,
           grundoFn(mondaX(lx, centroZ + lz), mondaZ(lx, centroZ + lz)) - vojaY);
       }
     }
     // ⟨ ពេលគ្មានទំហំអាចបំពេញ 📃 ⟩
-    if ( teraPlejProfunda < bazo + kadraMalsupro ) {
+    if ( teraPlejProfunda < kozuni + kadraMalsupro ) {
       const plenaMalsupro = teraPlejProfunda - 0o1/0o4;
       const plenaGeometrio = new THREE.ExtrudeGeometry(
-        kreiDokanEksteranFormon(vojaLargho, longo, kadraStrio + plenaProud),
+        kreiDokanEksteranFormon(vojaLargho, sahakani, kadraStrio + plenaProud),
         { depth: plenaSupro - plenaMalsupro, bevelEnabled: false }
       );
       plenaGeometrio.rotateX(-Math.PI / 2);
@@ -151,8 +151,8 @@ export function konstruiDokon(
   sekcioj.push({ lx: 0, lz: landaCentroZ, w: plenaDuono * 2, d: landaLongo, y: landejaY });
 
   group.position.set(x, vojaY, z);
-  group.rotation.y = direkto;
-  sceno.add(group);
+  group.rotation.y = c2w2q;
+  qena.add(group);
 
   return { group, x, z, platformWidth: vojaLargho, platformDepth,
     platformY: vojaY + dikeco, landejaY, sekcioj, stuparajPunktoj };

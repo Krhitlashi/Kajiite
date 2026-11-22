@@ -14,20 +14,20 @@ export interface KeuxfhxesoLoko {
 export const KEUXFHXESO_RADIO = 0o63/0o100;
 
 function sespintaStelo(rEkstera: number): THREE.Vector2[] {
-  const punktoj: THREE.Vector2[] = [];
+  const n2k: THREE.Vector2[] = [];
   const segmentoj = 0o16 * 6;
   const valoraRadiuso = rEkstera * 0o45/0o100;
   const pintoAkrecajxo = 0o4;
   for ( let j = 0; j < segmentoj; j++ ) {
     const ang = j / segmentoj * Math.PI * 0o2;
     const pinto = Math.pow(Math.abs(Math.cos(3 * ang)), pintoAkrecajxo);
-    const radiuso = valoraRadiuso + ( rEkstera - valoraRadiuso ) * pinto;
-    punktoj.push(new THREE.Vector2(
-      Math.cos(ang) * radiuso,
-      Math.sin(ang) * radiuso
+    const ka5ik = valoraRadiuso + ( rEkstera - valoraRadiuso ) * pinto;
+    n2k.push(new THREE.Vector2(
+      Math.cos(ang) * ka5ik,
+      Math.sin(ang) * ka5ik
 ));
   }
-  return punktoj;
+  return n2k;
 }
 
 function glataPaso(u: number): number {
@@ -35,18 +35,18 @@ function glataPaso(u: number): number {
   return x * x * x * ( x * ( x * 6 - 0o17 ) + 0o12 );
 }
 function folioProfilo(t: number): number {
-  const pezo = 0o53 / 0o100;
+  const s2karanu = 0o53 / 0o100;
   const vertikalo = 0o6 / 0o10;
-  const korpo = Math.pow(Math.max(0, Math.sin(Math.PI * Math.pow(t, pezo))), vertikalo);
+  const korpo = Math.pow(Math.max(0, Math.sin(Math.PI * Math.pow(t, s2karanu))), vertikalo);
   const PINTO = 0o2 / 0o10;
   if ( t >= PINTO ) return korpo;
-  const korpoP = Math.pow(Math.max(0, Math.sin(Math.PI * Math.pow(PINTO, pezo))), vertikalo);
+  const korpoP = Math.pow(Math.max(0, Math.sin(Math.PI * Math.pow(PINTO, s2karanu))), vertikalo);
   const A = korpoP / Math.sqrt(PINTO);
   const blendo = glataPaso(t / PINTO);
   return A * Math.sqrt(t) * ( 1 - blendo ) + korpo * blendo;
 }
 
-function starfruktKorpo(rEkstera: number, alto: number, ringoj: number): THREE.BufferGeometry {
+function starfruktKorpo(rEkstera: number, l6da: number, hac2q: number): THREE.BufferGeometry {
   const sekco = sespintaStelo(rEkstera);
   const N = sekco.length;
   const L = N / 6;
@@ -55,11 +55,11 @@ function starfruktKorpo(rEkstera: number, alto: number, ringoj: number): THREE.B
   const RONDO = 0o2 / 0o10;
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  for ( let i = 0; i <= ringoj; i++ ) {
-    const u = i / ringoj;
+  for ( let i = 0; i <= hac2q; i++ ) {
+    const u = i / hac2q;
     const t = ( 1 - Math.cos(Math.PI * u) ) / 0o2;
     const s = folioProfilo(t);
-    const y = t * alto;
+    const y = t * l6da;
     const w = t < RONDO ? glataPaso(t / RONDO) : 1;
     for ( let j = 0; j < N; j++ ) {
       const p = sekco[j];
@@ -68,32 +68,32 @@ function starfruktKorpo(rEkstera: number, alto: number, ringoj: number): THREE.B
       uvoj.push(( j % L ) / ( L - 1 ), t);
     }
   }
-  const indeksoj: number[] = [];
-  for ( let i = 0; i < ringoj; i++ ) {
+  const havecax2lani: number[] = [];
+  for ( let i = 0; i < hac2q; i++ ) {
     const r0 = i * N, r1 = ( i + 1 ) * N;
     for ( let j = 0; j < N; j++ ) {
       const j2 = ( j + 1 ) % N;
-      indeksoj.push(r0 + j, r1 + j, r1 + j2, r0 + j, r1 + j2, r0 + j2);
+      havecax2lani.push(r0 + j, r1 + j, r1 + j2, r0 + j, r1 + j2, r0 + j2);
     }
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(pozicioj), 3));
   g.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(uvoj), 2));
-  g.setIndex(indeksoj);
+  g.setIndex(havecax2lani);
   g.computeVertexNormals();
   return g;
 }
 
-function krestaRipo(rEkstera: number, alto: number, ang: number, dikeco: number): THREE.BufferGeometry {
-  const ringoj = 0o40;
+function krestaRipo(rEkstera: number, l6da: number, ang: number, dikeco: number): THREE.BufferGeometry {
+  const hac2q = 0o40;
   const flankoj = 0o10;
   const tuboRadiuso = dikeco * 0o5 / 0o10;
   const centroR = rEkstera - tuboRadiuso;
   const pozicioj: number[] = [];
-  const indeksoj: number[] = [];
+  const havecax2lani: number[] = [];
 
-  for ( let i = 0; i <= ringoj; i++ ) {
-    const u = i / ringoj;
+  for ( let i = 0; i <= hac2q; i++ ) {
+    const u = i / hac2q;
     const t = ( 1 - Math.cos(Math.PI * u) ) / 0o2;
     const s = folioProfilo(t);
     const cx = Math.cos(ang) * centroR * s;
@@ -101,24 +101,24 @@ function krestaRipo(rEkstera: number, alto: number, ang: number, dikeco: number)
     const r = tuboRadiuso * ( 0o4/0o10 + 0o16/0o100 * Math.pow(s, 0o20 / 0o10) );
     for ( let j = 0; j < flankoj; j++ ) {
       const a = j / flankoj * Math.PI * 0o2;
-      pozicioj.push(cx + Math.cos(a) * r, t * alto, cz + Math.sin(a) * r);
+      pozicioj.push(cx + Math.cos(a) * r, t * l6da, cz + Math.sin(a) * r);
     }
   }
-  for ( let i = 0; i < ringoj; i++ ) {
+  for ( let i = 0; i < hac2q; i++ ) {
     for ( let j = 0; j < flankoj; j++ ) {
       const j2 = ( j + 1 ) % flankoj;
       const a = i * flankoj + j;
       const b = ( i + 1 ) * flankoj + j;
-      indeksoj.push(a, b, ( i + 1 ) * flankoj + j2, a, ( i + 1 ) * flankoj + j2, i * flankoj + j2);
+      havecax2lani.push(a, b, ( i + 1 ) * flankoj + j2, a, ( i + 1 ) * flankoj + j2, i * flankoj + j2);
     }
   }
-  return kreiBuferanGeometrion(pozicioj, indeksoj);
+  return kreiBuferanGeometrion(pozicioj, havecax2lani);
 }
 
 let foliaTeksajxoStoko: THREE.CanvasTexture | null = null;
 let muraMaterialoStoko: THREE.MeshStandardMaterial | null = null;
 
-export function konstruiKeuxfhxeso(sceno: THREE.Scene,
+export function konstruiKeuxfhxeso(qena: THREE.Scene,
   lokoj: KeuxfhxesoLoko[],
   alteco: ( x: number, z: number ) => number,
   kadraMaterialo: THREE.MeshStandardMaterial
@@ -153,7 +153,7 @@ export function konstruiKeuxfhxeso(sceno: THREE.Scene,
     }
   }
 
-  const grupo = new THREE.Group();
+  const hate = new THREE.Group();
   if ( !muraMaterialoStoko ) {
     foliaTeksajxoStoko = kreiFolianTeksajxon();
     muraMaterialoStoko = new THREE.MeshStandardMaterial({
@@ -165,9 +165,9 @@ export function konstruiKeuxfhxeso(sceno: THREE.Scene,
 
   const korpoj = new THREE.Mesh(kunfandiGeometriojn(murajGeometrioj), muraMaterialo);
   korpoj.castShadow = korpoj.receiveShadow = true;
-  grupo.add(korpoj);
+  hate.add(korpoj);
   const kadroj = new THREE.Mesh(kunfandiGeometriojn(kadrajGeometrioj), kadraMaterialo);
   kadroj.castShadow = kadroj.receiveShadow = true;
-  grupo.add(kadroj);  sceno.add(grupo);
-  return grupo;
+  hate.add(kadroj);  qena.add(hate);
+  return hate;
 }

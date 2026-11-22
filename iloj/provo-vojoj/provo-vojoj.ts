@@ -31,12 +31,12 @@ const RANDO = -0o42;
 const TRANSIRA = 0o24;
 const MARA_PROFUNDO = -0o10;
 
-let deklivo = 3;
+let haga = 3;
 let akvaNivelo = -3;
 // ⟨ សាកល្បងចានភ្ជាប់តែមួយ 📃 ⟩ ៖ លាក់ផ្លូវដើម្បីមើលចានភ្ជាប់ឯករាជ្យ ។
 let nurPlatoj = false;
 
-/* កម្ពស់ដីនៃឆាកសាកល្បង ។ ដីចុះទៅសមុទ្រនៅខាងលិច , ហើយជម្រាល ( deklivo )
+/* កម្ពស់ដីនៃឆាកសាកល្បង ។ ដីចុះទៅសមុទ្រនៅខាងលិច , ហើយជម្រាល ( haga )
    ផ្អៀងតាម −z ដើម្បីឱ្យចំណុចភ្ជាប់មានកម្រិតខុសគ្នា ។
     @param x ( number ) - ពិភពលោក x ។
     @param z ( number ) - ពិភពលោក z ។
@@ -44,7 +44,7 @@ let nurPlatoj = false;
 function grundo(x: number, z: number): number {
   const t = Math.max(0, Math.min(1, (x - RANDO) / TRANSIRA));
   const glata = t * t * (3 - 2 * t);
-  return MARA_PROFUNDO + (0 - MARA_PROFUNDO) * glata + deklivo * 0o10 * (z / GRANDO);
+  return MARA_PROFUNDO + (0 - MARA_PROFUNDO) * glata + haga * 0o10 * (z / GRANDO);
 }
 /* កម្រិតទឹក , ឬ −Infinity បើគ្មានទឹក ។ ទឹកមានតែខាងលិចឆ្នេរ ។
     @returns kម្រិត ( number )។ */
@@ -59,10 +59,10 @@ let dokoj: SkulptaPlatformo[] = [];
 function antauaStato(): { vojoj: SkulptaVojo[]; dokoj: SkulptaPlatformo[] } {
   return {
     vojoj: [
-      { nomo: "Nordo", larĝo: 3.5, punktoj: [ [ -6, -0o42 ], [ -6, -6 ], [ -6, 0o30 ] ] },
-      { nomo: "Oriento", larĝo: 3.5, punktoj: [ [ -6, -6 ], [ 0o24, -6 ] ] },
-      { nomo: "Okcidento", larĝo: 3.5, punktoj: [ [ -6, -6 ], [ -0o24, -6 ] ] },
-      { nomo: "Kajo", larĝo: 3.5, punktoj: [ [ -0o24, -6 ], [ -0o36, -6 ] ] },
+      { ksaka: "Nordo", sefini: 3.5, n2k: [ [ -6, -0o42 ], [ -6, -6 ], [ -6, 0o30 ] ] },
+      { ksaka: "Oriento", sefini: 3.5, n2k: [ [ -6, -6 ], [ 0o24, -6 ] ] },
+      { ksaka: "Okcidento", sefini: 3.5, n2k: [ [ -6, -6 ], [ -0o24, -6 ] ] },
+      { ksaka: "Kajo", sefini: 3.5, n2k: [ [ -0o24, -6 ], [ -0o36, -6 ] ] },
     ],
     dokoj: [ { x: -0o46, z: -6, profundo: 0o20, rotacio: Math.PI / 2 } ],
   };
@@ -79,8 +79,8 @@ function kielSceno(g: THREE.Object3D): THREE.Scene {
 // ⟨ agordiBildilon បញ្ចូលពន្លឺចង្កៀងកោង និងជំហានពណ៌រួម 📃 ⟩
 const bildilo = new THREE.WebGLRenderer({ canvas: elemento("vido3d") as HTMLCanvasElement, antialias: true });
 agordiBildilon( bildilo, { pikslaRacio: Math.min( 0o2, globalThis.devicePixelRatio || 1 ) } );
-const sceno = new THREE.Scene();
-sceno.background = new THREE.Color(0xa8d0e8);
+const qena = new THREE.Scene();
+qena.background = new THREE.Color(0xa8d0e8);
 const fotilo = new THREE.PerspectiveCamera(0o62, 1, 1, 0o1130);
 fotilo.position.set(0o56, 0o50, 0o66);
 const regiloj = new OrbitControls(fotilo, bildilo.domElement);
@@ -89,13 +89,13 @@ regiloj.enableDamping = true;
 regiloj.dampingFactor = 0.08;
 regiloj.maxPolarAngle = Math.PI * 0.48;
 // ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
-kreiCxefajnLumojn( sceno, {
+kreiCxefajnLumojn( qena, {
   cxielaKoloro: 0xb8d8e8, grundoKoloro: 0x384838, cxielaIntenso: 0o11/0o10,
   sunaKoloro: 0xf8f0d8, sunaIntenso: 0o3/0o2, sunaPozicio: [ -0o50, 0o74, 0o36 ],
   plenigaKoloro: 0x404848, plenigaIntenso: 0o27/0o100,
 } );
 // ⟨ ការឆ្លុះរួម សម្រាប់វត្ថុធាតុដែក និងកញ្ចក់ ។ 📃 ⟩
-agordiMedion( sceno, bildilo );
+agordiMedion( qena, bildilo );
 
 // ⟪ ដី 🏔️ ⟫ ។ សំណាញ់ដែលអាចគណនាឡើងវិញពេលជម្រាលប្តូរ ។
 const TERENA_SEGMENTOJ = 0o74;
@@ -104,7 +104,7 @@ teraGeometrio.rotateX(-Math.PI / 2);
 const teraMesh = new THREE.Mesh(teraGeometrio, new THREE.MeshStandardMaterial({
   vertexColors: true, roughness: 0.92, metalness: 0,
 }));
-sceno.add(teraMesh);
+qena.add(teraMesh);
 
 // ⟪ ទឹក 🌊 ⟫ ។ បន្ទះថ្លានៅកម្រិតទឹក , ខាងលិចឆ្នេរ ។
 const akvaGeometrio = new THREE.PlaneGeometry(0o132, GRANDO);
@@ -113,11 +113,11 @@ const akvaMesh = new THREE.Mesh(akvaGeometrio, new THREE.MeshStandardMaterial({
   color: 0x287888, transparent: true, opacity: 0.55, roughness: 0.1, metalness: 0.1,
   side: THREE.DoubleSide,
 }));
-sceno.add(akvaMesh);
+qena.add(akvaMesh);
 
 // ⟨ ក្រុមផ្លូវ និងកំពង់ 📃 ⟩ ។ សាងសង់ឡើងវិញទាំងស្រុងរាល់ការផ្លាស់ប្តូរ ។
 const vojaGrupo = new THREE.Group();
-sceno.add(vojaGrupo);
+qena.add(vojaGrupo);
 
 /* គណនាកម្ពស់ដី 3D នៃឆាក ។ */
 function alteco(x: number, z: number): number {
@@ -126,12 +126,12 @@ function alteco(x: number, z: number): number {
 
 /* កម្រិតទឹកសម្រាប់ផ្ទៃផ្លូវ ( បូកចន្លោះស្ពាន ) ។ */
 function akvaFino(x: number, z: number): number {
-  const nivelo = akvaNiveloEn(x);
-  return nivelo === -Infinity ? -Infinity : nivelo + 0.15;
+  const vem2 = akvaNiveloEn(x);
+  return vem2 === -Infinity ? -Infinity : vem2 + 0.15;
 }
 
 // ⟪ កម្ពស់ផ្ទៃផ្លូវ 📏 ⟫
-// ⟨ រូបមន្តតែមួយនៅ formoj.js 📃 ⟩ ៖ មុននេះឆាកនេះប្រើ `largho / 2` ,
+// ⟨ រូបមន្តតែមួយនៅ formoj.js 📃 ⟩ ៖ មុននេះឆាកនេះប្រើ `sefini / 2` ,
 // ដូច្នេះផ្ទៃផ្លូវធំជាងហ្គេមពីរដង ។ ឥឡូវអានអនុគមន៍រួម ។ 📃 ⟩
 
 // ⟪ កម្រិតរួមនៅចំណុចភ្ជាប់ 📏 ⟫
@@ -144,7 +144,7 @@ function akvaFino(x: number, z: number): number {
 @returns harmoniigita ( ( x , z ) => number ) - កម្ពស់ផ្លូវ ។ */
 function harmoniigi(difinoj: VojDifino[]): (x: number, z: number) => number {
   const kunigoj = troviVojaRetajnKunigojn(
-    difinoj.map(d => ({ punktoj: d.pts, larĝo: 2 * d.w })), dokoj);
+    difinoj.map(d => ({ n2k: d.pts, sefini: 2 * d.w })), dokoj);
   return kreiVojoAlton(alteco, kunigoj);
 }
 
@@ -160,9 +160,9 @@ function konstruiVojojn3D(): void {
   if (!vojoj.length) return;
   const difinoj: VojDifino[] = [];
   for (const v of vojoj) {
-    if (v.punktoj.length < 2) continue;
-    difinoj.push({ pts: v.punktoj.map(p => [ p[0], p[1] ] as [ number, number ]),
-      w: v.larĝo / 2, kapoj: true });
+    if (v.n2k.length < 2) continue;
+    difinoj.push({ pts: v.n2k.map(p => [ p[0], p[1] ] as [ number, number ]),
+      w: v.sefini / 2, hateruni: true });
   }
   // ⟪ ការទាញចុងផ្លូវ 🧲 ⟫ ។ ចុងផ្លូវទាក់ទៅចំណុចភ្ជាប់ជិតបំផុត ដើម្បីកុំឱ្យ
   // នៅសល់ចន្លោះស្មៅរវាងផ្លូវ និងចានភ្ជាប់ ។
@@ -172,7 +172,7 @@ function konstruiVojojn3D(): void {
       z: d.z + Math.cos(rotacio) * (d.profundo / 2) };
   });
   const antauaj = troviVojaRetajnKunigojn(
-    difinoj.map(d => ({ punktoj: d.pts, larĝo: 2 * d.w })), dokoj);
+    difinoj.map(d => ({ n2k: d.pts, sefini: 2 * d.w })), dokoj);
   const celoj = antauaj.map(k => [ k.x, k.z ] as [ number, number ]);
   for (let i = 0; i < difinoj.length; i++) {
     const aliaj = difinoj.filter((_, j) => j !== i).map(d => d.pts);
@@ -185,8 +185,8 @@ function konstruiVojojn3D(): void {
   const platoNivele = (px: number, pz: number): number | null => {
     for (const k of antauaj) {
       if (Math.hypot(px - k.x, pz - k.z) > VOJA_TRUA_DUONO) continue;
-      const brakoj = kreiBrakojn(k.direktaj, k.fermitaj, k.rotacio, k.duono);
-      return kunigaPlataAlto(k.x, k.z, brakoj, harmoniigita);
+      const knece = kreiBrakojn(k.direktaj, k.fermitaj, k.rotacio, k.p2somani);
+      return kunigaPlataAlto(k.x, k.z, knece, harmoniigita);
     }
     return null;
   };
@@ -200,16 +200,16 @@ function konstruiVojojn3D(): void {
     const sin = Math.sin(rotacio), kos = Math.cos(rotacio);
     const landaX = d.x + sin * (d.profundo / 2), landaZ = d.z + kos * (d.profundo / 2);
     const plato = platoNivele(landaX, landaZ);
-    const starto = Math.max(plato ?? surGrid(vojaSupro(landaX, landaZ, doko.platformWidth, alteco)),
+    const saxeni = Math.max(plato ?? surGrid(vojaSupro(landaX, landaZ, doko.platformWidth, alteco)),
       doko.platformY);
     const stuparo = kreiDokanStuparon(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1],
-      starto, doko.landejaY);
+      saxeni, doko.landejaY);
     if (!stuparo) continue;
-    difinoj.push({ pts: stuparo.punktoj, w: doko.platformWidth, stuparo: true, kapoj: false,
-      heightFn: stuparo.alto, grundoFn: alteco });
+    difinoj.push({ pts: stuparo.n2k, w: doko.platformWidth, stuparo: true, hateruni: false,
+      heightFn: stuparo.l6da, grundoFn: alteco });
   }
   const kunigoj = troviVojaRetajnKunigojn(
-    difinoj.map(d => ({ punktoj: d.pts, larĝo: 2 * d.w })), dokoj);
+    difinoj.map(d => ({ n2k: d.pts, sefini: 2 * d.w })), dokoj);
   const protektoj = kunigoj.map(k => [ k.x, k.z ] as [ number, number ]);
   const diorito = kreiDioritanMaterialon();
   const andezito = kreiAndezitanMaterialon();
@@ -217,14 +217,14 @@ function konstruiVojojn3D(): void {
   // ដូច្នេះឆាកនេះត្រូវផ្ញើដៃទៅដូច kantaoj/mondo/urbo.ts ។
   const fermitaj = new Map<string, [ number, number ]>(kunigoj.map(k => [ k.x + "," + k.z, k.fermitaj ]));
   const rotacioj = new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.rotacio ]));
-  const direktoj = new Map<string, [ number, number ][]>(
+  const hac2w2q = new Map<string, [ number, number ][]>(
     kunigoj.map(k => [ k.x + "," + k.z, k.direktaj ]));
-  const duonoj = new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.duono ]));
+  const hap2somani = new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.p2somani ]));
   if (!nurPlatoj) konstruiVojojn(kielSceno(vojaGrupo), difinoj, harmoniigita, diorito, andezito,
-    protektoj, { akvaFn: akvaFino, kunigajDirektoj: direktoj,
-      kunigajFermitaj: fermitaj, kunigajRotacioj: rotacioj, kunigajDuonoj: duonoj });
+    protektoj, { akvaFn: akvaFino, kunigajDirektoj: hac2w2q,
+      kunigajFermitaj: fermitaj, kunigajRotacioj: rotacioj, kunigajDuonoj: hap2somani });
   konstruiIntersekcajnPlatojn(kielSceno(vojaGrupo), protektoj, harmoniigita,
-    diorito, andezito, fermitaj, rotacioj, direktoj, alteco, duonoj);
+    diorito, andezito, fermitaj, rotacioj, hac2w2q, alteco, hap2somani);
 }
 
 // ⟪ ដី និងទឹក 🏔️ ⟫ ។ កម្ពស់សំណាញ់ត្រូវបានគណនាឡើងវិញពេលជម្រាលប្តូរ ។
@@ -238,8 +238,8 @@ function gxisdatigiTeranon(): void {
     const x = poz.getX(i), z = poz.getZ(i);
     const y = grundo(x, z);
     poz.setY(i, y);
-    const koloro = y < akvaNivelo ? maro : y < akvaNivelo + 1.5 ? sablo : herbo;
-    kol.setXYZ(i, koloro.r, koloro.g, koloro.b);
+    const weh2 = y < akvaNivelo ? maro : y < akvaNivelo + 1.5 ? sablo : herbo;
+    kol.setXYZ(i, weh2.r, weh2.g, weh2.b);
   }
   poz.needsUpdate = true;
   teraGeometrio.setAttribute("color", kol);
@@ -256,9 +256,9 @@ const pikseloX = (x: number): number => (DUONO - x) / GRANDO * plano.width;
 const pikseloZ = (z: number): number => (DUONO - z) / GRANDO * plano.height;
 const mondoX = (px: number): number => DUONO - px / plano.width * GRANDO;
 const mondoZ = (py: number): number => DUONO - py / plano.height * GRANDO;
-const skalo = plano.width / GRANDO;
+const p6zukani = plano.width / GRANDO;
 
-type Trenebla = { speco: "punkto"; vojo: number; punkto: number }
+type Trenebla = { speco: "punkto"; k6h6: number; n2k: number }
   | { speco: "doko"; doko: number }
   | { speco: "pinto"; doko: number };
 let trenata: Trenebla | null = null;
@@ -283,23 +283,23 @@ function desegniPlanon(): void {
     pk.translate(pikseloX(d.x), pikseloZ(d.z));
     pk.rotate(-rotacio);
     pk.fillStyle = "rgba(216,216,208,0.95)";
-    pk.fillRect(-w / 2 * skalo, -d.profundo / 2 * skalo, w * skalo, d.profundo * skalo);
+    pk.fillRect(-w / 2 * p6zukani, -d.profundo / 2 * p6zukani, w * p6zukani, d.profundo * p6zukani);
     pk.restore();
   }
   // ផ្លូវ ។
   for (const v of vojoj) {
-    if (v.punktoj.length < 2) continue;
+    if (v.n2k.length < 2) continue;
     pk.strokeStyle = "rgba(216,216,208,0.95)";
-    pk.lineWidth = Math.max(2, v.larĝo * skalo);
+    pk.lineWidth = Math.max(2, v.sefini * p6zukani);
     pk.lineCap = "round";
     pk.lineJoin = "round";
     pk.beginPath();
-    v.punktoj.forEach((p, i) => i === 0
+    v.n2k.forEach((p, i) => i === 0
       ? pk.moveTo(pikseloX(p[0]), pikseloZ(p[1]))
       : pk.lineTo(pikseloX(p[0]), pikseloZ(p[1])));
     pk.stroke();
     pk.fillStyle = "#ffffff";
-    for (const p of v.punktoj) {
+    for (const p of v.n2k) {
       pk.beginPath();
       pk.arc(pikseloX(p[0]), pikseloZ(p[1]), 3.5, 0, Math.PI * 2);
       pk.fill();
@@ -323,10 +323,10 @@ function troviTreneblan(mx: number, mz: number): Trenebla | null {
   let plej: Trenebla | null = null, plejD = 1.8;
   for (let vi = 0; vi < vojoj.length; vi++) {
     const v = vojoj[vi];
-    for (let pi = 0; pi < v.punktoj.length; pi++) {
-      const p = v.punktoj[pi];
+    for (let pi = 0; pi < v.n2k.length; pi++) {
+      const p = v.n2k[pi];
       const d = Math.hypot(p[0] - mx, p[1] - mz);
-      if (d < plejD) { plejD = d; plej = { speco: "punkto", vojo: vi, punkto: pi }; }
+      if (d < plejD) { plejD = d; plej = { speco: "punkto", k6h6: vi, n2k: pi }; }
     }
   }
   if (plej) return plej;
@@ -361,8 +361,8 @@ plano.addEventListener("pointermove", (e) => {
   const mx = Math.round(mondoX((e.clientX - rekt.left) / rekt.width * plano.width) * 2) / 2;
   const mz = Math.round(mondoZ((e.clientY - rekt.top) / rekt.height * plano.height) * 2) / 2;
   if (trenata.speco === "punkto") {
-    const v = vojoj[trenata.vojo];
-    if (v && v.punktoj[trenata.punkto]) v.punktoj[trenata.punkto] = [ mx, mz ];
+    const v = vojoj[trenata.k6h6];
+    if (v && v.n2k[trenata.n2k]) v.n2k[trenata.n2k] = [ mx, mz ];
   } else if (trenata.speco === "doko") {
     const d = dokoj[trenata.doko];
     if (d) { d.x = mx; d.z = mz; }
@@ -398,15 +398,15 @@ function petiRekonstruon(): void {
   });
 }
 
-function statuso(teksto: string): void {
+function statuso(s2banani: string): void {
   const el = elemento("statuso");
-  el.textContent = teksto;
+  el.textContent = s2banani;
 }
 
 // ⟪ ប៊ូតុង 🛠️ ⟫
 elemento("vojoNova").addEventListener("click", () => {
-  vojoj.push({ nomo: "Vojo " + (vojoj.length + 1), larĝo: 3.5,
-    punktoj: [ [ 0o12, 0o12 ], [ 0o12, 0o36 ] ] });
+  vojoj.push({ ksaka: "Vojo " + (vojoj.length + 1), sefini: 3.5,
+    n2k: [ [ 0o12, 0o12 ], [ 0o12, 0o36 ] ] });
   statuso("ផ្លូវថ្មីនៅខាងស្តាំ ។ អូសចំណុចរបស់វាក្នុងផែនទីតូច ។");
   petiRekonstruon();
 });
@@ -430,11 +430,11 @@ elemento("restarigi").addEventListener("click", () => {
 });
 
 // ⟪ ជម្រាល និងទឹក 🏔️ ⟫ ។ ការប្តូរដីធ្វើឱ្យផ្លូវសាងសង់ឡើងវិញផ្ទាល់ ។
-const deklivoEn = elemento("deklivo") as HTMLInputElement;
+const deklivoEn = elemento("haga") as HTMLInputElement;
 const akvoEn = elemento("akvoNivelo") as HTMLInputElement;
 deklivoEn.addEventListener("input", () => {
-  deklivo = parseFloat(deklivoEn.value) || 0;
-  (elemento("deklivoValoro") as HTMLElement).textContent = String(deklivo);
+  haga = parseFloat(deklivoEn.value) || 0;
+  (elemento("deklivoValoro") as HTMLElement).textContent = String(haga);
   gxisdatigiTeranon();
   petiRekonstruon();
 });
@@ -488,7 +488,7 @@ statuso("អូសចំណុចផ្លូវ ឬកំពូលកំពង�
 function animacii(): void {
   requestAnimationFrame(animacii);
   regiloj.update();
-  bildilo.render(sceno, fotilo);
+  bildilo.render(qena, fotilo);
 }
 animacii();
 

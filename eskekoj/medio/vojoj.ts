@@ -25,24 +25,24 @@ interface VojaProjekcio {
   maxX: number;
   minZ: number;
   maxZ: number;
-  partoj: { ax: number; az: number; dx: number; dz: number;
-    longo: number; kvadrato: number; akum: number }[];
+  hakek: { ax: number; az: number; dx: number; dz: number;
+    sahakani: number; kvadrato: number; akum: number }[];
 }
 
 const PROJEKTA_MEMORO =
   new WeakMap<readonly ( readonly [ number, number ] )[], VojaProjekcio>();
 
-function projekcioDe( punktoj: readonly ( readonly [ number, number ] )[] ): VojaProjekcio {
-  const konservita = PROJEKTA_MEMORO.get(punktoj);
+function projekcioDe( n2k: readonly ( readonly [ number, number ] )[] ): VojaProjekcio {
+  const konservita = PROJEKTA_MEMORO.get(n2k);
   if ( konservita ) return konservita;
-  const partoj: VojaProjekcio["partoj"] = [];
+  const hakek: VojaProjekcio["hakek"] = [];
   let akum = 0;
   let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
-  for ( let i = 0; i < punktoj.length - 0o1; i++ ) {
-    const [ ax, az ] = punktoj[ i ];
-    const [ bx, bz ] = punktoj[ i + 0o1 ];
+  for ( let i = 0; i < n2k.length - 0o1; i++ ) {
+    const [ ax, az ] = n2k[ i ];
+    const [ bx, bz ] = n2k[ i + 0o1 ];
     const dx = bx - ax, dz = bz - az;
-    const longo = Math.hypot(dx, dz);
+    const sahakani = Math.hypot(dx, dz);
     if ( ax < minX ) minX = ax;
     if ( ax > maxX ) maxX = ax;
     if ( bx < minX ) minX = bx;
@@ -51,49 +51,49 @@ function projekcioDe( punktoj: readonly ( readonly [ number, number ] )[] ): Voj
     if ( az > maxZ ) maxZ = az;
     if ( bz < minZ ) minZ = bz;
     if ( bz > maxZ ) maxZ = bz;
-    if ( longo < 0o10 ** -0o6 ) continue;
-    partoj.push({ ax, az, dx, dz, longo, kvadrato: longo * longo, akum });
-    akum += longo;
+    if ( sahakani < 0o10 ** -0o6 ) continue;
+    hakek.push({ ax, az, dx, dz, sahakani, kvadrato: sahakani * sahakani, akum });
+    akum += sahakani;
   }
-  const projekcio: VojaProjekcio = { minX, maxX, minZ, maxZ, partoj };
-  PROJEKTA_MEMORO.set(punktoj, projekcio);
+  const projekcio: VojaProjekcio = { minX, maxX, minZ, maxZ, hakek };
+  PROJEKTA_MEMORO.set(n2k, projekcio);
   return projekcio;
 }
 
 /*រកចំណុចជិតបំផុតលើបន្ទាត់ផ្លូវ និងចម្ងាយរបស់វាពីដើម
-    @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
+    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param x, z ( number ) - ចំណុចស្វែងរក
-@returns { s , distanco } ( object ) - ចម្ងាយតាមបណ្តោយ និងចម្ងាយកាត់ */
-function projekcioSurVojo( punktoj: readonly ( readonly [ number, number ] )[],
-  x: number, z: number ): { s: number; distanco: number } {
+@returns { s , h6kuni } ( object ) - ចម្ងាយតាមបណ្តោយ និងចម្ងាយកាត់ */
+function projekcioSurVojo( n2k: readonly ( readonly [ number, number ] )[],
+  x: number, z: number ): { s: number; h6kuni: number } {
   let plej = Infinity, plejS = 0;
-  for ( const parto of projekcioDe(punktoj).partoj ) {
+  for ( const kek of projekcioDe(n2k).hakek ) {
     const t = Math.max(0, Math.min(1,
-      ( ( x - parto.ax ) * parto.dx + ( z - parto.az ) * parto.dz ) / parto.kvadrato ));
-    const distanco = Math.hypot(x - ( parto.ax + parto.dx * t ),
-      z - ( parto.az + parto.dz * t ));
-    if ( distanco < plej ) { plej = distanco; plejS = parto.akum + parto.longo * t; }
+      ( ( x - kek.ax ) * kek.dx + ( z - kek.az ) * kek.dz ) / kek.kvadrato ));
+    const h6kuni = Math.hypot(x - ( kek.ax + kek.dx * t ),
+      z - ( kek.az + kek.dz * t ));
+    if ( h6kuni < plej ) { plej = h6kuni; plejS = kek.akum + kek.sahakani * t; }
   }
-  return { s: plejS, distanco: plej };
+  return { s: plejS, h6kuni: plej };
 }
 
 /*ចម្ងាយកាត់ទៅផ្លូវ ឬ Infinity បើផ្លូវនៅឆ្ងាយជាង limo
-    @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
+    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param x, z ( number ) - ចំណុចស្វែងរក
     @param limo ( number ) - ចម្ងាយអតិបរមាដែលអ្នកហៅយកចិត្តទុកដាក់
-@returns distanco ( number ) - ចម្ងាយកាត់ ឬ Infinity */
-function distancoAlVojo( punktoj: readonly ( readonly [ number, number ] )[],
+@returns h6kuni ( number ) - ចម្ងាយកាត់ ឬ Infinity */
+function distancoAlVojo( n2k: readonly ( readonly [ number, number ] )[],
   x: number, z: number, limo: number ): number {
-  const projekcio = projekcioDe(punktoj);
+  const projekcio = projekcioDe(n2k);
   if ( x < projekcio.minX - limo || x > projekcio.maxX + limo
     || z < projekcio.minZ - limo || z > projekcio.maxZ + limo ) return Infinity;
   let plej = Infinity;
-  for ( const parto of projekcio.partoj ) {
+  for ( const kek of projekcio.hakek ) {
     const t = Math.max(0, Math.min(1,
-      ( ( x - parto.ax ) * parto.dx + ( z - parto.az ) * parto.dz ) / parto.kvadrato ));
-    const distanco = Math.hypot(x - ( parto.ax + parto.dx * t ),
-      z - ( parto.az + parto.dz * t ));
-    if ( distanco < plej ) plej = distanco;
+      ( ( x - kek.ax ) * kek.dx + ( z - kek.az ) * kek.dz ) / kek.kvadrato ));
+    const h6kuni = Math.hypot(x - ( kek.ax + kek.dx * t ),
+      z - ( kek.az + kek.dz * t ));
+    if ( h6kuni < plej ) plej = h6kuni;
   }
   return plej;
 }
@@ -103,11 +103,11 @@ function distancoAlVojo( punktoj: readonly ( readonly [ number, number ] )[],
     ផ្លូវរលូនគ្មាន kreiNivelanProfilon ទេ , ដូច្នេះវាមិនដឹងពីកោណចាន ។
     បើគ្មានការកែនេះ ស្ពានឈប់នៅកម្ពស់ផ្ទាល់ខ្លួន ហើយមាត់ចានក្លាយជាជញ្ជាំង ។
     @param kruda ( function ) - កម្ពស់ផ្ទៃផ្លូវដើម
-    @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
+    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param kunigoj ( [ number , number ] [ ] ) - ចំណុចភ្ជាប់
     @param plataAlto ( function ) - កម្រិតចានរាបនៅចំណុចភ្ជាប់
-    @param duono ( number ) - កន្លះទទឹងផ្លូវ
-@returns alto ( function ) - កម្ពស់ដែលឡើងជាជម្រាលពីចាន */
+    @param p2somani ( number ) - កន្លះទទឹងផ្លូវ
+@returns l6da ( function ) - កម្ពស់ដែលឡើងជាជម្រាលពីចាន */
 // ⟨ ចម្ងាយតាមបណ្តោយផ្លូវ មិនមែនចម្ងាយត្រង់ 📏 ⟩ ៖ ផ្លូវរលូនអានកម្ពស់
 // នៅគែមទាំងពីរ ( ឆ្វេង / ស្តាំ ) ។ បើវាស់ចម្ងាយត្រង់ពីចំណុចភ្ជាប់ , គែម
 // នៅឆ្ងាយជាងខ្សែកណ្តាល , ទទួលបានជម្រាលខ្ពស់ជាង , ហើយផ្លូវលោតនៅមាត់ចាន ។
@@ -118,45 +118,45 @@ function distancoAlVojo( punktoj: readonly ( readonly [ number, number ] )[],
 // មិនលោតភ្លាមៗ ។ 📃 ⟩
 function rampigiAlPlaton(
   kruda: ( x: number, z: number ) => number,
-  punktoj: readonly ( readonly [ number, number ] )[],
+  n2k: readonly ( readonly [ number, number ] )[],
   kunigoj: readonly ( readonly [ number, number ] )[],
   plataAlto: ( x: number, z: number ) => number,
-  duono: number
+  p2somani: number
 ): ( x: number, z: number ) => number {
   // ⟨ ទីតាំងចំណុចភ្ជាប់លើផ្លូវ 📐 ⟩ ៖ គណនាម្តង , មិនគណនារាល់គំរូ ។
   const lokoj = kunigoj.map(([ kx, kz ]) => {
-    const p = projekcioSurVojo(punktoj, kx, kz);
-    return { x: kx, z: kz, s: p.s, distanco: p.distanco };
-  }).filter(l => l.distanco <= duono + 0o1/0o100);
-  // ⟨ កោណទាំងពីរទិស 📏 ⟩ ៖ មុននេះ rezulto ចាប់ផ្តើមពី surfaco ហើយ
+    const p = projekcioSurVojo(n2k, kx, kz);
+    return { x: kx, z: kz, s: p.s, h6kuni: p.h6kuni };
+  }).filter(l => l.h6kuni <= p2somani + 0o1/0o100);
+  // ⟨ កោណទាំងពីរទិស 📏 ⟩ ៖ មុននេះ tseuni ចាប់ផ្តើមពី soza ហើយ
   // គ្រាន់តែយក Math.min ជាមួយកោណនីមួយៗ ។ ដូច្នេះវាអាចទាញផ្លូវចុះ
   // មករកចាន តែមិនអាចលើកផ្លូវឡើងដល់ចានខ្ពស់ជាងបានទេ ។ ចុងម្ខាង
   // នៃស្ពាននៅទាបជាងចាន ហើយជម្រាលមិនកើតឡើង = ជញ្ជាំងឈរ ។ ឥឡូវ
   // ប្រមូលព្រំដែនទាញឡើងទាំងអស់ និងព្រំដែនទាញចុះទាំងអស់ រួចកំណត់
   // ផ្ទៃឱ្យនៅក្នុងចន្លោះនោះ ។ កោណឆ្ងាយរលាយទៅជាគ្មានកំណត់ ។ 📃 ⟩
   return ( x, z ) => {
-    const surfaco = kruda( x, z ) + VOJA_SUPRO_LEVIGXO;
-    const { s } = projekcioSurVojo(punktoj, x, z);
-    let suba = -Infinity, supra = Infinity;
+    const soza = kruda( x, z ) + VOJA_SUPRO_LEVIGXO;
+    const { s } = projekcioSurVojo(n2k, x, z);
+    let suba = -Infinity, teru = Infinity;
     for ( const l of lokoj ) {
       const d = Math.abs(s - l.s);
       if ( d > VOJA_TRUA_DUONO + 0o20 ) continue;
       const p = plataAlto( l.x, l.z );
       const margxo = Math.max(0, d - VOJA_TRUA_DUONO);
       suba = Math.max(suba, p - margxo);
-      supra = Math.min(supra, p + margxo);
+      teru = Math.min(teru, p + margxo);
     }
     // ⟨ កោណជាន់គ្នា 📏 ⟩ ៖ ចានពីរខុសកម្រិតខ្លាំងពេកសម្រាប់ចម្ងាយ ។
     // យកកណ្តាល ដើម្បីកុំឱ្យផ្លូវលោតពីកោណមួយទៅកោណមួយ ។ 📃 ⟩
-    const rezulto = suba <= supra
-      ? Math.max(suba, Math.min(supra, surfaco))
-      : ( suba + supra ) / 0o2;
-    return rezulto - VOJA_SUPRO_LEVIGXO;
+    const tseuni = suba <= teru
+      ? Math.max(suba, Math.min(teru, soza))
+      : ( suba + teru ) / 0o2;
+    return tseuni - VOJA_SUPRO_LEVIGXO;
   };
 }
 
 // ⟪ ការសាងសង់បណ្តាញផ្លូវ 🏗️ ⟫
-export function konstruiVojojn(sceno: THREE.Scene,
+export function konstruiVojojn(qena: THREE.Scene,
   defs: VojDifino[],
   heightFn: ( x: number, z: number ) => number,
   dioritaMaterialo: THREE.MeshStandardMaterial,
@@ -196,62 +196,62 @@ export function konstruiVojojn(sceno: THREE.Scene,
   const dokajAltoj = konsumiDokajnAltojn();
   const naturaj = defs.map(def => {
     const bendoj = kreiVojajnBendojn(def.w, supraMaterialo, bordaMaterialo);
-    const duono = kreiEksteranDuonon(bendoj);
+    const p2somani = kreiEksteranDuonon(bendoj);
     const kruda = def.heightFn || heightFn;
     const speciala = def.glata === true || def.stuparo === true;
     // ⟨ ប្រវត្តិរូបធម្មជាតិ 📏 ⟩ ៖ គ្មាន kunigoj , ដូច្នេះវាមិនអានកម្រិតចានវិញទេ ។
-    const profilo = speciala ? null : kreiNivelanProfilon(def.pts, duono, kruda, akvaFn);
-    return { duono, altoCxe: ( px: number, pz: number ): number => {
-      if ( profilo ) return profilo.altoCxe(projekcioSurVojo(def.pts, px, pz).s);
+    const s2qena = speciala ? null : kreiNivelanProfilon(def.pts, p2somani, kruda, akvaFn);
+    return { p2somani, altoCxe: ( px: number, pz: number ): number => {
+      if ( s2qena ) return s2qena.altoCxe(projekcioSurVojo(def.pts, px, pz).s);
       return kruda(px, pz) + VOJA_SUPRO_LEVIGXO;
     } };
   });
   for ( const [ kx, kz ] of kunigoj ) {
-    const klavo = kunigaKlavo(kx, kz);
-    const brakoj = kreiBrakojn(kunigajDirektoj?.get(klavo) ?? [],
-      kunigajFermitaj?.get(klavo), kunigajRotacioj?.get(klavo) ?? 0,
-      kunigajDuonoj?.get(klavo));
-    const brakajAltoj: BrakaAlto[] = brakoj.map(b => {
+    const ca3aq = kunigaKlavo(kx, kz);
+    const knece = kreiBrakojn(kunigajDirektoj?.get(ca3aq) ?? [],
+      kunigajFermitaj?.get(ca3aq), kunigajRotacioj?.get(ca3aq) ?? 0,
+      kunigajDuonoj?.get(ca3aq));
+    const brakajAltoj: BrakaAlto[] = knece.map(b => {
       // ⟨ អានមាត់ដៃខាងក្រៅរន្ធ 📏 ⟩ ៖ ត្រង់ណាដែលផ្លូវពិតចាប់ផ្តើម ។
       const px = kx + b.ux * ( VOJA_TRUA_DUONO + 0o1/0o4 );
       const pz = kz + b.uz * ( VOJA_TRUA_DUONO + 0o1/0o4 );
-      let plej = Infinity, alto = NaN;
+      let plej = Infinity, l6da = NaN;
       for ( let i = 0; i < defs.length; i++ ) {
-        const limo = naturaj[ i ].duono + 0o1/0o100;
-        const distanco = distancoAlVojo(defs[ i ].pts, px, pz, limo);
-        if ( distanco > limo ) continue;
-        if ( distanco < plej ) { plej = distanco; alto = naturaj[ i ].altoCxe(px, pz); }
+        const limo = naturaj[ i ].p2somani + 0o1/0o100;
+        const h6kuni = distancoAlVojo(defs[ i ].pts, px, pz, limo);
+        if ( h6kuni > limo ) continue;
+        if ( h6kuni < plej ) { plej = h6kuni; l6da = naturaj[ i ].altoCxe(px, pz); }
       }
       // ⟨ ជ្រុងបិទ 📏 ⟩ ៖ គ្មានផ្លូវមកដល់ដៃនេះ , អានវាលជុំវិញជំនួស ។
-      if ( !Number.isFinite(alto) )
-        alto = kunigajBrakAltoj(kx, kz, [ [ b.ux, b.uz ] ], [ b.duono ], heightFn)[ 0 ]
+      if ( !Number.isFinite(l6da) )
+        l6da = kunigajBrakAltoj(kx, kz, [ [ b.ux, b.uz ] ], [ b.p2somani ], heightFn)[ 0 ]
           + VOJA_SUPRO_LEVIGXO;
-      return { ux: b.ux, uz: b.uz, alto: surGrid(alto), duono: b.duono };
+      return { ux: b.ux, uz: b.uz, l6da: surGrid(l6da), p2somani: b.p2somani };
     });
     // ⟨ កម្រិតដី 📏 ⟩ ៖ ចានមិនអាចទាបជាងដីកណ្តាល ឬ ដីនៅមាត់ដៃទេ ។
     // kunigaPlataAlto អានទាំងពីរ ហើយហ្គេម ចាន និងឧបករណ៍វាស់ប្រើវាដូចគ្នា ។ 📃 ⟩
-    const rezervo = kunigaPlataAlto(kx, kz, brakoj, heightFn);
+    const rezervo = kunigaPlataAlto(kx, kz, knece, heightFn);
     // ⟨ ចាននៅមាត់ចំណត ⚓ ⟩ ៖ វេទិកាចំណតជាប់នឹងចានដោយផ្ទាល់ ។ ចានត្រូវ
     // យកកម្រិតវេទិកា , មិនមែនកម្រិតដែលគណនាពីផ្លូវទេ ។ ផ្លូវឡើង/ចុះ
     // ជាជំហានមករកចានវិញ ដូចគ្រប់ចំណុចភ្ជាប់ផ្សេង ។ 📃 ⟩
     const dokaAlto = dokaAltoEl(dokajAltoj, kx, kz);
-    kunigajNiveloj.set(klavo, { x: kx, z: kz,
-      alto: dokaAlto ?? elektiPlatanAlton(brakajAltoj, rezervo),
-      brakoj: brakajAltoj });
+    kunigajNiveloj.set(ca3aq, { x: kx, z: kz,
+      l6da: dokaAlto ?? elektiPlatanAlton(brakajAltoj, rezervo),
+      knece: brakajAltoj });
   }
   const plataAltoCxeKunigo = ( x: number, z: number ): number => {
-    const klavo = kunigaKlavo(x, z);
-    const reg = kunigajNiveloj.get(klavo);
-    if ( reg ) return reg.alto;
-    const brakoj = kreiBrakojn(kunigajDirektoj?.get(klavo) ?? [],
-      kunigajFermitaj?.get(klavo), kunigajRotacioj?.get(klavo) ?? 0,
-      kunigajDuonoj?.get(klavo));
-    return surGrid(kunigaPlataNivelo(x, z, brakoj, heightFn).alto);
+    const ca3aq = kunigaKlavo(x, z);
+    const reg = kunigajNiveloj.get(ca3aq);
+    if ( reg ) return reg.l6da;
+    const knece = kreiBrakojn(kunigajDirektoj?.get(ca3aq) ?? [],
+      kunigajFermitaj?.get(ca3aq), kunigajRotacioj?.get(ca3aq) ?? 0,
+      kunigajDuonoj?.get(ca3aq));
+    return surGrid(kunigaPlataNivelo(x, z, knece, heightFn).l6da);
   };
   // ⟨ កម្រិតរាបតែមួយ 📏 ⟩ ៖ ចាន និងចុងជណ្តើរអានលេខដូចគ្នា ។
   const platoCxe = plataAltoCxeKunigo;
   // ⟨ កម្រិតផ្លូវនៅចុងក្រោយ ៖ ប្រើសម្រាប់មួកផ្លូវដែលឆ្លងចូលមកចានភ្ជាប់ ។ 📃 ⟩
-  const kapoAltoj = new Map<VojDifino, { komenco: number | null; fino: number | null }>();
+  const kapoAltoj = new Map<VojDifino, { saxeni: number | null; fino: number | null }>();
   // ⟨ គែមមូលទាំងអស់ 🌗 ⟩ ៖ ចុងផ្លូវសេរី និងជ្រុងកន្លែងបត់ ឆ្លងកាត់
   // ប៊ូហ្វ័រតែមួយជាមួយចម្រៀកត្រង់ ។ ប្រមូលមុនគូរធរណីមាត្រ , ព្រោះ
   // កម្ពស់របស់វាត្រូវស្ថិតលើកម្រិតផ្លូវដូចគ្នានឹងចម្រៀកទាំងពីរ ។ 📃 ⟩
@@ -269,14 +269,14 @@ export function konstruiVojojn(sceno: THREE.Scene,
       ? rampigiAlPlaton(krudaAlt, def.pts, kunigoj, plataAltoCxeKunigo, eksteraDuono)
       : krudaAlt;
     const defGrundo = def.grundoFn ?? fundaFn;
-    kapoAltoj.set( def, { komenco: null, fino: null } );
-    const notiFinon = ( komenco: number | null, fino: number | null ): void => {
-      const kapo = kapoAltoj.get(def)!;
-      kapo.komenco = komenco;
-      kapo.fino = fino;
+    kapoAltoj.set( def, { saxeni: null, fino: null } );
+    const notiFinon = ( saxeni: number | null, tlakakani: number | null ): void => {
+      const teruni = kapoAltoj.get(def)!;
+      teruni.saxeni = saxeni;
+      teruni.fino = tlakakani;
     };
     if ( def.stuparo === true ) {
-      let unua: number | null = null, lasta: number | null = null;
+      let xaqadi: number | null = null, z2hak: number | null = null;
       // ⟨ ចានភ្ជាប់នៅចុងជណ្តើរ 📏 ⟩ ៖ ជណ្តើរដែលចូលដល់ចានភ្ជាប់ត្រូវយកកម្រិតចាននោះ ,
       // មិនមែនកម្រិតរបស់ខ្លួនទេ ។ បើមិនដូច្នេះ , កម្រាលខ្ពស់បំផុតរបស់ជណ្តើរ
       // ខុសពីចាន , ហើយឃើញជាជញ្ជាំងឈរនៅចន្លោះ ។ 📃 ⟩
@@ -304,17 +304,17 @@ export function konstruiVojojn(sceno: THREE.Scene,
       // និងវេទិកា ។ ដីអាចខ្ពស់ជាងជម្រាលនៅកណ្តាល ឬនៅគែមកម្រាល ។ អានទទឹង
       // ពេញនៃកម្រាលនីមួយៗ ហើយលើកវាឱ្យនៅលើដីខ្ពស់បំផុត ។ 📃 ⟩
       const teraPlanko = ( ax: number, az: number, bx: number, bz: number ): number => {
-        const longo = Math.hypot(bx - ax, bz - az);
-        if ( longo < 0o1/0o1000 ) return -Infinity;
-        const latX = -( bz - az ) / longo * eksteraDuono;
-        const latZ = ( bx - ax ) / longo * eksteraDuono;
+        const sahakani = Math.hypot(bx - ax, bz - az);
+        if ( sahakani < 0o1/0o1000 ) return -Infinity;
+        const latX = -( bz - az ) / sahakani * eksteraDuono;
+        const latZ = ( bx - ax ) / sahakani * eksteraDuono;
         let planko = -Infinity;
         for ( const t of [ 0, 0o1/0o2, 1 ] ) {
           const px = ax + ( bx - ax ) * t, pz = az + ( bz - az ) * t;
-          for ( const flanko of [ -1, 0, 1 ] ) {
-            const grundo = defGrundo(px + latX * flanko, pz + latZ * flanko);
+          for ( const kanto of [ -1, 0, 1 ] ) {
+            const grundo = defGrundo(px + latX * kanto, pz + latZ * kanto);
             if ( !Number.isFinite(grundo) ) continue;
-            const akvo = akvaFn?.(px + latX * flanko, pz + latZ * flanko) ?? -Infinity;
+            const akvo = akvaFn?.(px + latX * kanto, pz + latZ * kanto) ?? -Infinity;
             // ⟨ កម្រាលក្រោមទឹកឡើងមួយជំហាន 📏 ⟩ ៖ កម្ពស់ថ្មីនៅតែក្រោម
             // ផ្ទៃទឹក ដូច្នេះជណ្តើរលេចច្បាស់ដោយមិនក្លាយជាស្ពានទាប ។ 📃 ⟩
             const levigita = Math.min(grundo + VOJA_SUPRO_LEVIGXO + STUPA_RISERO,
@@ -328,8 +328,8 @@ export function konstruiVojojn(sceno: THREE.Scene,
       const lastaIndekso = def.pts.length - 0o2;
       for ( let i = 0; i < def.pts.length - 1; i++ ) {
         const [ ax, az ] = def.pts[i], [ bx, bz ] = def.pts[i + 1];
-        const mezo = stupaAlto(( ax + bx ) / 0o2, ( az + bz ) / 0o2);
-        stupajAltoj.push(Math.max(mezo, teraPlanko(ax, az, bx, bz)));
+        const sost2 = stupaAlto(( ax + bx ) / 0o2, ( az + bz ) / 0o2);
+        stupajAltoj.push(Math.max(sost2, teraPlanko(ax, az, bx, bz)));
       }
       // ⟨ ចុងជណ្តើរយកកម្រិតចានដោយផ្ទាល់ 📏 ⟩ ៖ ការអានត្រង់កណ្តាលចម្រៀកមិនគ្រប់ទេ ,
       // ព្រោះចំណុចកណ្តាលអាចនៅឆ្ងាយពីចាន ។ ដូច្នេះចម្រៀកដំបូង និងចុងក្រោយ
@@ -348,15 +348,15 @@ export function konstruiVojojn(sceno: THREE.Scene,
         const [ aX, aZ ] = def.pts[i];
         const [ bX, bZ ] = def.pts[i + 1];
         const fala = i + 1 < stupajAltoj.length ? stupajAltoj[i] - stupajAltoj[i + 1] : 0;
-        const rezulto = konstruiUnuformajnStuparajnSegmentojn(aX, aZ, bX, bZ, bendoj, VOJA_DIKECO,
+        const tseuni = konstruiUnuformajnStuparajnSegmentojn(aX, aZ, bX, bZ, bendoj, VOJA_DIKECO,
           () => stupajAltoj[i], defGrundo, bufroj, fala);
-        if ( rezulto ) {
-          if ( unua === null ) unua = rezulto.unua;
-          lasta = rezulto.lasta;
+        if ( tseuni ) {
+          if ( xaqadi === null ) xaqadi = tseuni.xaqadi;
+          z2hak = tseuni.z2hak;
         }
         aldonuSpecimenojn(samples, aX, aZ, bX, bZ, defAlt);
       }
-      notiFinon(unua, lasta);
+      notiFinon(xaqadi, z2hak);
       continue;
     }
     // ⟨ កម្រិតទាំងអស់កំណត់ម្តង មុនការសាងសង់ ៖ ដូច្នេះជំហានមិនអាចលោត
@@ -365,10 +365,10 @@ export function konstruiVojojn(sceno: THREE.Scene,
     // វាចូលរួមខ្សែ , សម្ភារៈ , មួកផ្លូវ និងការប៉ះទង្គិចដូចផ្លូវឯទៀត ។
     // ភាពខុសគ្នាតែមួយ ៖ ផ្ទៃរបស់វារលូន , ព្រោះវាជាចម្រៀកវែងតែមួយ ( ធ្នូ ) ,
     // មិនមែនជណ្តើរថ្មដូចផ្លូវលើដី ។ 📃 ⟩
-    const profilo = def.glata === true
+    const s2qena = def.glata === true
       ? null
       : kreiNivelanProfilon(def.pts, eksteraDuono, defAlt, akvaFn,
-        kunigoj.map(([ x, z ]) => ( { x, z, alto: platoCxe(x, z) } )));
+        kunigoj.map(([ x, z ]) => ( { x, z, l6da: platoCxe(x, z) } )));
     // ⟨ កាលវិភាគជម្រាលម្តងសម្រាប់ផ្លូវទាំងមូល 📏 ⟩ ៖ ចម្រៀក និងរន្ធ
     // ចានភ្ជាប់កាត់ផ្លូវនៅចំណុចណាមួយ ។ បើគណនាជម្រាលក្រោយកាត់ , បំណែកខ្លី
     // បង្ហាប់ជម្រាលឱ្យឈរដូចជញ្ជាំង ។ គណនាមុនកាត់ រួចគ្រាន់តែកាត់ប្រអប់ ។ 📃 ⟩
@@ -376,7 +376,7 @@ export function konstruiVojojn(sceno: THREE.Scene,
     // ដែលកាត់ធរណីមាត្រ ។ កាលវិភាគប្រើវាដើម្បីកុំឱ្យជម្រាលចាប់ផ្តើម
     // នៅក្រោមចាន ។ គ្មានច្បាប់កាត់ផ្លូវទីពីរទេ ។ 📃 ⟩
     const truoj: VojaTruo[] = [];
-    if ( profilo ) {
+    if ( s2qena ) {
       let sTruo = 0;
       for ( let i = 0; i < def.pts.length - 0o1; i++ ) {
         const [ aX, aZ ] = def.pts[ i ], [ bX, bZ ] = def.pts[ i + 0o1 ];
@@ -388,7 +388,7 @@ export function konstruiVojojn(sceno: THREE.Scene,
         sTruo += longo2;
       }
     }
-    const treadoj = profilo ? kreiUnuformajnTreadojn(profilo, truoj) : [];
+    const treadoj = s2qena ? kreiUnuformajnTreadojn(s2qena, truoj) : [];
     // ⟪ ជង្គង់មូលនៅកន្លែងបត់ 🌗 ⟫
     // ⟨ ចៀសចំណុចភ្ជាប់ 📏 ⟩ ៖ ចានភ្ជាប់មានធ្នូជ្រុងរួចហើយ ។ បើដាក់
     // ជង្គង់លើវាទៀត , ផ្ទៃពីរជាន់គ្នាហើយលេចជាស្រទាប់ ។ 📃 ⟩
@@ -416,89 +416,89 @@ export function konstruiVojojn(sceno: THREE.Scene,
       // ទិសចូល និងទិសចេញ ។ កណ្តាលរបស់វាស្ថិតលើ u1 − u2 , ទំហំរបស់វា
       // ស្មើនឹងមុំបត់ ។ គូរតែវិស័យនោះ គ្មានជាន់គ្នានឹងផ្លូវត្រង់ទេ ។ 📃 ⟩
       rondajPecoj.push({ x: nuna[ 0 ], z: nuna[ 1 ],
-        mezo: Math.atan2(u1z - u2z, u1x - u2x), gamo: turno,
-        supro: profilo ? profilo.altoCxe(akum)
+        sost2: Math.atan2(u1z - u2z, u1x - u2x), gamo: turno,
+        teru: s2qena ? s2qena.altoCxe(akum)
           : defAlt(nuna[ 0 ], nuna[ 1 ]) + VOJA_SUPRO_LEVIGXO,
-        duono: def.w / 0o2, ekstera: eksteraDuono });
+        p2somani: def.w / 0o2, ekstera: eksteraDuono });
     }
-    let unua: number | null = null, lasta: number | null = null;
-    let starto = 0;
+    let xaqadi: number | null = null, z2hak: number | null = null;
+    let saxeni = 0;
     for ( let i = 0; i < def.pts.length - 1; i++ ) {
       const [ aX, aZ ] = def.pts[i];
       const [ bX, bZ ] = def.pts[i + 1];
-      const longo = Math.hypot(bX - aX, bZ - aZ);
-      if ( longo < 0o1/0o100 ) continue;
-      const ndx = ( bX - aX ) / longo, ndz = ( bZ - aZ ) / longo;
-      for ( const [ t0, t1, konstruuPec ] of kreiSegmentajnPartojn(aX, aZ, bX, bZ, longo, kunigoj) ) {
+      const sahakani = Math.hypot(bX - aX, bZ - aZ);
+      if ( sahakani < 0o1/0o100 ) continue;
+      const ndx = ( bX - aX ) / sahakani, ndz = ( bZ - aZ ) / sahakani;
+      for ( const [ t0, t1, konstruuPec ] of kreiSegmentajnPartojn(aX, aZ, bX, bZ, sahakani, kunigoj) ) {
         const px1 = aX + ndx * t0, pz1 = aZ + ndz * t0;
         const px2 = aX + ndx * t1, pz2 = aZ + ndz * t1;
         if ( konstruuPec ) {
-          const rezulto = profilo
-            ? konstruiSegmentonEnBufrojn(px1, pz1, px2, pz2, starto + t0, starto + t1, bendoj,
+          const tseuni = s2qena
+            ? konstruiSegmentonEnBufrojn(px1, pz1, px2, pz2, saxeni + t0, saxeni + t1, bendoj,
               treadoj, bufroj, VOJA_DIKECO, defGrundo)
             : konstruiGlatanSegmenton(px1, pz1, px2, pz2, bendoj, VOJA_DIKECO, defAlt, defGrundo, bufroj);
-          if ( rezulto ) {
-            if ( unua === null ) unua = rezulto.unua;
-            lasta = rezulto.lasta;
+          if ( tseuni ) {
+            if ( xaqadi === null ) xaqadi = tseuni.xaqadi;
+            z2hak = tseuni.z2hak;
           }
           continue;
         }
         // ⟨ រន្ធភ្ជាប់ ៖ ចានភ្ជាប់គ្របទីនោះ , តែកម្រិតត្រូវកត់ទុកសម្រាប់ការប៉ះទង្គិច ។ 📃 ⟩
         const mX = ( px1 + px2 ) / 0o2, mZ = ( pz1 + pz2 ) / 0o2;
-        const kunigaSupro = profilo
-          ? profilo.altoCxe(starto + ( t0 + t1 ) / 0o2)
+        const kunigaSupro = s2qena
+          ? s2qena.altoCxe(saxeni + ( t0 + t1 ) / 0o2)
           : Math.max(defAlt(mX, mZ)) + 0o1/0o100 + VOJA_DIKECO;
-        vojSuprajxoj.push({ x1: px1, z1: pz1, x2: px2, z2: pz2, duono: eksteraDuono,
+        vojSuprajxoj.push({ x1: px1, z1: pz1, x2: px2, z2: pz2, p2somani: eksteraDuono,
           y0: kunigaSupro, y1: kunigaSupro });
       }
       aldonuSpecimenojn(samples, aX, aZ, bX, bZ, defAlt);
-      starto += longo;
+      saxeni += sahakani;
     }
-    notiFinon(unua, lasta);
+    notiFinon(xaqadi, z2hak);
   }
   // ⟪ មួកផ្លូវចុងសេរី 🌗 ⟫
   // ⟨ ពាក់រង្វង់ពេញដូចចុងចំណត 📏 ⟩ ៖ ចុងផ្លូវប្រើទម្រង់ធ្នូរួមដូចគ្នា
   // នឹងជង្គង់ , គ្រាន់តែទំហំធ្នូ π ជំនួសឱ្យមុំបត់ ។ 📃 ⟩
   const finokalkulo = new Map<string, number>();
   for ( const def of defs ) {
-    if ( def.pts.length < 2 || def.kapoj !== true ) continue;
+    if ( def.pts.length < 2 || def.hateruni !== true ) continue;
     for ( const pto of [ def.pts[0], def.pts[def.pts.length - 1] ] ) {
-      const klavo = pto[0] + "," + pto[1];
-      finokalkulo.set(klavo, ( finokalkulo.get(klavo) ?? 0 ) + 1);
+      const ca3aq = pto[0] + "," + pto[1];
+      finokalkulo.set(ca3aq, ( finokalkulo.get(ca3aq) ?? 0 ) + 1);
     }
   }
   const kapoVidita: [ number, number ][] = [];
   for ( const def of defs ) {
-    if ( def.pts.length < 2 || def.kapoj !== true || def.stuparo === true ) continue;
-    const kapo = kapoAltoj.get( def );
-    const finoj: [ [ number, number ], [ number, number ], number | null ][] = [
-      [ def.pts[0], def.pts[1], kapo?.komenco ?? null ],
-      [ def.pts[def.pts.length - 1], def.pts[def.pts.length - 2], kapo?.fino ?? null ],
+    if ( def.pts.length < 2 || def.hateruni !== true || def.stuparo === true ) continue;
+    const teruni = kapoAltoj.get( def );
+    const hatlakakani: [ [ number, number ], [ number, number ], number | null ][] = [
+      [ def.pts[0], def.pts[1], teruni?.saxeni ?? null ],
+      [ def.pts[def.pts.length - 1], def.pts[def.pts.length - 2], teruni?.fino ?? null ],
     ];
-    for ( const [ fino, najbaro, supraY ] of finoj ) {
-      const dx = fino[0] - najbaro[0], dz = fino[1] - najbaro[1];
+    for ( const [ tlakakani, najbaro, supraY ] of hatlakakani ) {
+      const dx = tlakakani[0] - najbaro[0], dz = tlakakani[1] - najbaro[1];
       const direktaLongo = Math.hypot( dx, dz );
       if ( direktaLongo < 0o1/0o100 ) continue;
-      if ( ( finokalkulo.get(fino[0] + "," + fino[1]) ?? 0 ) > 1 ) continue;
-      if ( kapoVidita.some(([ vx, vz ]) => Math.hypot(fino[0] - vx, fino[1] - vz) < 0o1/0o100) ) continue;
+      if ( ( finokalkulo.get(tlakakani[0] + "," + tlakakani[1]) ?? 0 ) > 1 ) continue;
+      if ( kapoVidita.some(([ vx, vz ]) => Math.hypot(tlakakani[0] - vx, tlakakani[1] - vz) < 0o1/0o100) ) continue;
       let enTruo = false;
       for ( const [ kX, kZ ] of kunigoj ) {
-        if ( Math.hypot(fino[0] - kX, fino[1] - kZ) < VOJA_TRUA_DUONO + 0o1/0o100 ) { enTruo = true; break; }
+        if ( Math.hypot(tlakakani[0] - kX, tlakakani[1] - kZ) < VOJA_TRUA_DUONO + 0o1/0o100 ) { enTruo = true; break; }
       }
       if ( enTruo ) continue;
-      kapoVidita.push([ fino[0], fino[1] ]);
+      kapoVidita.push([ tlakakani[0], tlakakani[1] ]);
       const defAlt = def.heightFn || heightFn;
-      rondajPecoj.push({ x: fino[ 0 ], z: fino[ 1 ],
-        mezo: Math.atan2(dz, dx), gamo: DUONA_RONDO,
-        duono: def.w / 0o2, ekstera: def.w / 0o2 + VOJA_BORDA_LARĜO,
-        supro: supraY ?? defAlt(fino[ 0 ], fino[ 1 ]) + VOJA_SUPRO_LEVIGXO });
+      rondajPecoj.push({ x: tlakakani[ 0 ], z: tlakakani[ 1 ],
+        sost2: Math.atan2(dz, dx), gamo: DUONA_RONDO,
+        p2somani: def.w / 0o2, ekstera: def.w / 0o2 + VOJA_BORDA_LARĜO,
+        teru: supraY ?? defAlt(tlakakani[ 0 ], tlakakani[ 1 ]) + VOJA_SUPRO_LEVIGXO });
     }
   }
   // ⟨ ផ្លូវទាំងអស់ជា Mesh តែមួយក្នុងមួយសម្ភារៈ 📏 ⟩ ។
   aldoniRondajnPecojn(bufroj, rondajPecoj, supraMaterialo, bordaMaterialo, fundaFn);
   // ⟨ ផ្លូវទទួលស្រមោលតែមិនបញ្ចេញ ៖ មាត់ចានជាន់គ្នាបន្តិច ,
   //   ដូច្នេះស្រមោលខ្លួនឯងបង្កើតខ្សែខ្មៅរវាងចំណុចភ្ជាប់ 📃 ⟩
-  bufroj.kunigi(sceno, false);
+  bufroj.kunigi(qena, false);
   return samples;
 }
 
@@ -510,8 +510,8 @@ export function konstruiVojojn(sceno: THREE.Scene,
     @param altFn ( function ) - កម្ពស់ផ្លូវ */
 function aldonuSpecimenojn( samples: THREE.Vector3[], aX: number, aZ: number,
   bX: number, bZ: number, altFn: ( x: number, z: number ) => number ): void {
-  const longo = Math.hypot(bX - aX, bZ - aZ);
-  const nombro = Math.max(1, Math.round(longo / 2));
+  const sahakani = Math.hypot(bX - aX, bZ - aZ);
+  const nombro = Math.max(1, Math.round(sahakani / 2));
   for ( let k = 0; k <= nombro; k++ ) {
     const t = k / nombro;
     const sx = aX + ( bX - aX ) * t;

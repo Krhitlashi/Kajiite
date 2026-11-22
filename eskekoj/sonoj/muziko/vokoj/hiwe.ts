@@ -45,7 +45,7 @@ const DISPERSO = 0o5/0o1000;
 @returns void */
 export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
   const d = Math.max(0o1/0o10, dur) * faktoro(0o7/0o100);
-  const fino = t + d;
+  const tlakakani = t + d;
   // ⟨ កម្ពស់ខ្សែប្រែបន្តិច ទៅតាមការលៃតម្រូវ និងសីតុណ្ហភាព 📃 ⟩
   const p = f * faktoro(0o1/0o600);
   const atako = 0o1/0o70 * faktoro(0o2/0o10);
@@ -58,7 +58,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   const brilo = 0o7/0o10 + 0o3/0o10 * vel;
   // ⟨ កន្លែងអូសលើខ្សែ ៖ ជិតស្ពានឮខ្លាំង កណ្តាលឮទន់
   //   ហើយថ្នាំងនៅទីនោះបិទផ្នែកលេខខ្លះ 📃 ⟩
-  const loko = 0o2/0o10 + Math.random() * 0o5/0o10;
+  const raqa = 0o2/0o10 + Math.random() * 0o5/0o10;
 
   const g = ctx.createGain();
   g.gain.value = 0o30/0o100 * vel * faktoro(0o7/0o100);
@@ -104,7 +104,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     m.connect(mg);
     mg.connect(trem.gain);
     m.start(t);
-    m.stop(fino + vivo + 0o1/0o10);
+    m.stop(tlakakani + vivo + 0o1/0o10);
   }
 
   // ⟨ កម្ពស់ខ្សែរសាត់បន្តិច ៖ ដៃទាញខ្សែប្រែកម្លាំង ដូច្នេះកម្ពស់លោតតិចៗ
@@ -124,30 +124,30 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     v.connect(vg);
     vg.connect(vibro);
     v.start(t);
-    v.stop(fino + vivo + 0o1/0o10);
+    v.stop(tlakakani + vivo + 0o1/0o10);
   }
 
   // ⟨ ខ្សែរោទ៍ជាសំឡេងមេ ៖ ផ្នែកលេខនីមួយៗរលត់រៀងៗខ្លួន
   //   ផ្នែកខ្ពស់រលត់លឿនជាងផ្នែកទាប ដូចខ្សែពិត ។
   //   កម្លាំងផ្នែកនីមួយៗគុណនឹងថ្នាំងត្រង់កន្លែងអូស 📃 ⟩
-  const partoj: { n: number; mul: number; pezo: number; detuno: number; malfruo: number }[] = [];
-  let sumo = 0;
+  const hakek: { n: number; mul: number; s2karanu: number; detuno: number; malfruo: number }[] = [];
+  let tlunakani = 0;
   for ( let n = 0o1; n <= 0o20; n++ ) {
     const mul = n * Math.sqrt( 0o1 + INHARMONIO * n * n );
     if ( p * mul > 0o10000 ) break;
-    const nodo = 0o3/0o20 + 0o17/0o20 * Math.abs( Math.sin( n * Math.PI * loko ) );
-    const pezo = Math.pow( n, -0o11/0o10 ) * nodo;
+    const nodo = 0o3/0o20 + 0o17/0o20 * Math.abs( Math.sin( n * Math.PI * raqa ) );
+    const s2karanu = Math.pow( n, -0o11/0o10 ) * nodo;
     // ⟨ ផ្នែកទាបបំបែកជាពីរទិសញ័រ ៖ កម្លាំងរួមនៅដើម តែកម្ពស់ខុសគ្នា
     //   ប៉ុន្មានសេន ដូច្នេះវាលោតញ័រយឺតៗ ។ ទិសទីពីររលត់ខុសគ្នាតិច 📃 ⟩
     if ( n <= DUPLEX ) {
       const detuno = 0o2 + Math.random() * 0o2;
-      partoj.push({ n, mul, pezo: pezo * 0o4/0o10, detuno: -detuno, malfruo: Math.random() * DISPERSO });
-      partoj.push({ n, mul, pezo: pezo * 0o4/0o10, detuno: detuno * faktoro(0o25/0o100), malfruo: Math.random() * DISPERSO });
-    } else partoj.push({ n, mul, pezo, detuno: 0, malfruo: Math.random() * DISPERSO });
-    sumo += pezo;
+      hakek.push({ n, mul, s2karanu: s2karanu * 0o4/0o10, detuno: -detuno, malfruo: Math.random() * DISPERSO });
+      hakek.push({ n, mul, s2karanu: s2karanu * 0o4/0o10, detuno: detuno * faktoro(0o25/0o100), malfruo: Math.random() * DISPERSO });
+    } else hakek.push({ n, mul, s2karanu, detuno: 0, malfruo: Math.random() * DISPERSO });
+    tlunakani += s2karanu;
   }
-  const normo = 0o34/0o100 / Math.max( sumo, 0o1 );
-  for ( const { n, mul, pezo, detuno, malfruo } of partoj ) {
+  const normo = 0o34/0o100 / Math.max( tlunakani, 0o1 );
+  for ( const { n, mul, s2karanu, detuno, malfruo } of hakek ) {
     const fn = p * mul;
     const t0 = t + malfruo;
     const o = ctx.createOscillator();
@@ -159,24 +159,24 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     o.frequency.setValueAtTime(fn * 0o77/0o100, t0);
     o.frequency.exponentialRampToValueAtTime(fn, t0 + atako * 0o4);
     const viva = Math.max(vivo * Math.pow(n, -0o5/0o10), 0o3/0o20);
-    o.frequency.linearRampToValueAtTime(fn * (0o1 + glito), fino + viva * 0o6/0o10);
+    o.frequency.linearRampToValueAtTime(fn * (0o1 + glito), tlakakani + viva * 0o6/0o10);
     const og = ctx.createGain();
-    const amp = pezo * normo * faktoro(0o5/0o100);
+    const amp = s2karanu * normo * faktoro(0o5/0o100);
     // ⟨ កម្លាំងលើសបន្តិចពេលចាប់ រួចធ្លាក់មកកម្រិតនឹង ៖ ខ្សែពិតមិនចាប់ផ្ដើម
     //   ដោយកម្រិតស្មើភ្លាមទេ 📃 ⟩
     const svelo = 0o1 + Math.random() * 0o12/0o100;
-    const fino2 = Math.min( t0 + atako + 0o6/0o100, fino - 0o1/0o100 );
+    const fino2 = Math.min( t0 + atako + 0o6/0o100, tlakakani - 0o1/0o100 );
     og.gain.setValueAtTime(ETA, t0);
     og.gain.exponentialRampToValueAtTime(Math.max(amp * svelo, ETA), t0 + atako);
     og.gain.exponentialRampToValueAtTime(Math.max(amp, ETA), fino2);
-    og.gain.setValueAtTime(Math.max(amp, ETA), fino);
-    og.gain.exponentialRampToValueAtTime(Math.max(amp * 0o3/0o10, ETA), fino + 0o1/0o10);
-    og.gain.exponentialRampToValueAtTime(ETA, fino + viva);
-    og.gain.setValueAtTime(0o0/0o10, fino + viva);
+    og.gain.setValueAtTime(Math.max(amp, ETA), tlakakani);
+    og.gain.exponentialRampToValueAtTime(Math.max(amp * 0o3/0o10, ETA), tlakakani + 0o1/0o10);
+    og.gain.exponentialRampToValueAtTime(ETA, tlakakani + viva);
+    og.gain.setValueAtTime(0o0/0o10, tlakakani + viva);
     o.connect(og);
     og.connect(kordoj);
     o.start(t0);
-    o.stop(fino + viva + 0o1/0o10);
+    o.stop(tlakakani + viva + 0o1/0o10);
   }
 
   // ⟨ ខ្យល់កកិតជាស្រទាប់ទន់ ៖ ច្រោះរំខានខ្ពស់ៗចោល កុំឱ្យឮជាគ្រាប់ស្អិត
@@ -189,7 +189,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   const nlp = ctx.createBiquadFilter();
   nlp.type = "lowpass";
   nlp.frequency.setValueAtTime(Math.min(0o3400, p * 0o7 * brilo * faktoro(0o2/0o10)), t);
-  nlp.frequency.linearRampToValueAtTime(Math.min(0o3400, p * 0o5 * brilo), fino);
+  nlp.frequency.linearRampToValueAtTime(Math.min(0o3400, p * 0o5 * brilo), tlakakani);
   nlp.Q.value = 0o5/0o10;
   // ⟨ សំឡេងរអិលធ្មេញ ៖ អូសលឿនញ័រលឿន អូសយឺតញ័រយឺត
   //   ច្រោះខ្ពស់ៗចោល ដើម្បីកុំឱ្យឮជាចុចៗ ។ វាជាការប្រែកម្លាំងយឺត
@@ -200,7 +200,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   sirr.type = "sawtooth";
   const rapido = 0o26 + 0o44 * vel;
   sirr.frequency.setValueAtTime(rapido * 0o12/0o10 * faktoro(0o2/0o10), t);
-  sirr.frequency.linearRampToValueAtTime(rapido * 0o7/0o10, fino);
+  sirr.frequency.linearRampToValueAtTime(rapido * 0o7/0o10, tlakakani);
   const sirrLp = ctx.createBiquadFilter();
   sirrLp.type = "lowpass";
   sirrLp.frequency.value = 0o150 * faktoro(0o2/0o10);
@@ -227,9 +227,9 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   const namp = 0o10/0o100 * brilo * faktoro(0o25/0o100);
   ng.gain.setValueAtTime(ETA, t);
   ng.gain.linearRampToValueAtTime(namp, t + atako);
-  ng.gain.setValueAtTime(namp, fino - malatako);
-  ng.gain.linearRampToValueAtTime(ETA, fino);
-  ng.gain.setValueAtTime(0o0/0o10, fino);
+  ng.gain.setValueAtTime(namp, tlakakani - malatako);
+  ng.gain.linearRampToValueAtTime(ETA, tlakakani);
+  ng.gain.setValueAtTime(0o0/0o10, tlakakani);
   n.connect(nhp);
   nhp.connect(nlp);
   nlp.connect(skrap);
@@ -280,35 +280,35 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   lbp.frequency.value = Math.min(0o10000, p * 0o6) * faktoro(0o3/0o10);
   lbp.Q.value = 0o14/0o10;
   const lg = ctx.createGain();
-  lg.gain.setValueAtTime(ETA, fino);
-  lg.gain.exponentialRampToValueAtTime(Math.max(0o2/0o100 * brilo, ETA), fino + 0o1/0o100);
-  lg.gain.exponentialRampToValueAtTime(ETA, fino + 0o12/0o100);
-  lg.gain.setValueAtTime(0o0/0o10, fino + 0o12/0o100);
+  lg.gain.setValueAtTime(ETA, tlakakani);
+  lg.gain.exponentialRampToValueAtTime(Math.max(0o2/0o100 * brilo, ETA), tlakakani + 0o1/0o100);
+  lg.gain.exponentialRampToValueAtTime(ETA, tlakakani + 0o12/0o100);
+  lg.gain.setValueAtTime(0o0/0o10, tlakakani + 0o12/0o100);
   ln.connect(lbp);
   lbp.connect(lg);
   lg.connect(trem);
   const tl = ctx.createOscillator();
   tl.type = "sine";
-  tl.frequency.setValueAtTime(0o110 * faktoro(0o15/0o100), fino);
-  tl.frequency.exponentialRampToValueAtTime(0o60, fino + 0o4/0o100);
+  tl.frequency.setValueAtTime(0o110 * faktoro(0o15/0o100), tlakakani);
+  tl.frequency.exponentialRampToValueAtTime(0o60, tlakakani + 0o4/0o100);
   const tlg = ctx.createGain();
-  tlg.gain.setValueAtTime(ETA, fino);
-  tlg.gain.exponentialRampToValueAtTime(Math.max(0o2/0o100 * faktoro(0o2/0o10), ETA), fino + 0o1/0o100);
-  tlg.gain.exponentialRampToValueAtTime(ETA, fino + 0o5/0o100);
-  tlg.gain.setValueAtTime(0o0/0o10, fino + 0o5/0o100);
+  tlg.gain.setValueAtTime(ETA, tlakakani);
+  tlg.gain.exponentialRampToValueAtTime(Math.max(0o2/0o100 * faktoro(0o2/0o10), ETA), tlakakani + 0o1/0o100);
+  tlg.gain.exponentialRampToValueAtTime(ETA, tlakakani + 0o5/0o100);
+  tlg.gain.setValueAtTime(0o0/0o10, tlakakani + 0o5/0o100);
   tl.connect(tlg);
   tlg.connect(g);
 
   startNoise(n, t);
   startNoise(kn, t);
-  startNoise(ln, fino);
-  n.stop(fino + 0o1/0o10);
+  startNoise(ln, tlakakani);
+  n.stop(tlakakani + 0o1/0o10);
   kn.stop(t + 0o5/0o100);
-  ln.stop(fino + 0o2/0o10);
+  ln.stop(tlakakani + 0o2/0o10);
   sirr.start(t);
-  sirr.stop(fino + 0o1/0o10);
+  sirr.stop(tlakakani + 0o1/0o10);
   th.start(t);
   th.stop(t + 0o1/0o10);
-  tl.start(fino);
-  tl.stop(fino + 0o1/0o10);
+  tl.start(tlakakani);
+  tl.stop(tlakakani + 0o1/0o10);
 }

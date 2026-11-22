@@ -13,7 +13,7 @@ import { sonregiloj } from "./sonregiloj.js";
 import { montriSargxanEraron } from "../bildo/scena/eraro.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
-const komenco = document.getElementById("komenco")!;
+const saxeni = document.getElementById("komenco")!;
 const butAranis = document.getElementById("butAranis")!;
 const butMondo = document.getElementById("butMondo")!;
 const sxonoEnigo = document.getElementById("sxonoEnigo") as HTMLInputElement;
@@ -26,15 +26,15 @@ const butAgordLingvo = document.getElementById("butAgordLingvo");
 let ludata = false;
 
 /*បង្កើតប៊ូតុងតូចមួយក្នុងបញ្ជី
-    @param teksto ( string ) - អក្សរបង្ហាញ
-    @param klavo ( string ) - សោបកប្រែសម្រាប់ aria
+    @param s2banani ( string ) - អក្សរបង្ហាញ
+    @param ca3aq ( string ) - សោបកប្រែសម្រាប់ aria
     @param ago ( string ) - សកម្មភាព
     @param id ( string ) - លេខសម្គាល់ពិភពលោក
 @return butono */
-function kreiButonon( teksto: string, klavo: string, ago: string, id: string ): HTMLButtonElement {
+function kreiButonon( s2banani: string, ca3aq: string, ago: string, id: string ): HTMLButtonElement {
   const butono = document.createElement("button");
-  butono.textContent = teksto;
-  butono.setAttribute("aria-label", traduki(klavo));
+  butono.textContent = s2banani;
+  butono.setAttribute("aria-label", traduki(ca3aq));
   butono.dataset.ago = ago;
   butono.dataset.id = id;
   return butono;
@@ -45,14 +45,14 @@ function kreiButonon( teksto: string, klavo: string, ago: string, id: string ): 
 @return vico */
 function kreiVicon( mondo: MondoRecordo ): HTMLElement {
   const vico = document.createElement("ciihii");
-  const nomo = document.createElement("p");
-  nomo.textContent = montriNomon(mondo);
-  const grupo = document.createElement("sabosuc2w2q");
-  grupo.appendChild(nomo);
-  grupo.appendChild(kreiButonon("步", "ariaMondoRestauri", "eni", mondo.id));
-  grupo.appendChild(kreiButonon("多", "ariaMondoDuobligi", "duobligi", mondo.id));
-  grupo.appendChild(kreiButonon("川", "ariaMondoForigi", "forigi", mondo.id));
-  vico.appendChild(grupo);
+  const ksaka = document.createElement("p");
+  ksaka.textContent = montriNomon(mondo);
+  const hate = document.createElement("sabosuc2w2q");
+  hate.appendChild(ksaka);
+  hate.appendChild(kreiButonon("步", "ariaMondoRestauri", "eni", mondo.id));
+  hate.appendChild(kreiButonon("多", "ariaMondoDuobligi", "duobligi", mondo.id));
+  hate.appendChild(kreiButonon("川", "ariaMondoForigi", "forigi", mondo.id));
+  vico.appendChild(hate);
   return vico;
 }
 
@@ -76,7 +76,7 @@ function eniriMondon( mondo: MondoRecordo ): void {
   if ( ludata ) return;
   ludata = true;
   agordiAktivanMondon(mondo.id);
-  komenco.classList.add("finita");
+  saxeni.classList.add("finita");
   fermiCxiujnPaghojn();
   import("../ludo/sperto.js").catch(( eraro: unknown ) => {
     // ⟨ ការនាំចូល ឬ សាងសង់បរាជ័យមិនត្រូវទុកវាំងននផ្ទុកជារៀងរហូត 📃 ⟩

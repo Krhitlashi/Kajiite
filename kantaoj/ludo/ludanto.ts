@@ -8,7 +8,7 @@ export type Rezimo = "orbito" | "promeno" | "interno";
 
 export interface LitoInfo {
   specX: number; specZ: number; cosR: number; sinR: number;
-  lokaX: number; lokaZ: number; y: number; largho: number;
+  lokaX: number; lokaZ: number; y: number; sefini: number;
 }
 
 export interface Ludanto {
@@ -22,9 +22,9 @@ export interface Ludanto {
   plejProksimaBero: MangxajxItemo | null;
   plejProksimaKanuo: Kanoto | null;
   sxtupaTurno: number | null;
-  direkto: number;
+  c2w2q: number;
   klinigxo: number;
-  pozicio: THREE.Vector3;
+  raqa: THREE.Vector3;
   rapidoY: number;
   estasSurTERENO: boolean;
   kameraDistanco: number;
@@ -47,9 +47,9 @@ export function kreiLudanton(): Ludanto {
     plejProksimaBero: null,
     plejProksimaKanuo: null,
     sxtupaTurno: null,
-    direkto: 0,
+    c2w2q: 0,
     klinigxo: -0o1/0o20,
-    pozicio: new THREE.Vector3(0, 0o5/0o40, 0o44),
+    raqa: new THREE.Vector3(0, 0o5/0o40, 0o44),
     rapidoY: 0,
     estasSurTERENO: false,
     kameraDistanco: 0,

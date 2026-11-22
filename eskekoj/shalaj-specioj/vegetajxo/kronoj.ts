@@ -3,7 +3,7 @@
 export const KRONA_GEOMETRIA_RADIUSO = 0o37/0o100;
 export const TAVOLA_PROPORCIO = 0o10/0o12;
 
-export const PURPURAJ_TRUNKAJ_RADIOJ = { supro: 0o3/0o20, malsupro: 0o5/0o20 };
+export const PURPURAJ_TRUNKAJ_RADIOJ = { teru: 0o3/0o20, psaz: 0o5/0o20 };
 
 export const KRONA_LIBERO = 0o2;
 

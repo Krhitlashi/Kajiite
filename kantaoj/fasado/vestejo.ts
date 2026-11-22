@@ -108,7 +108,7 @@ function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void
   VESTOJ.forEach(( o, vestoIdx ) => {
     korpo.vestaListo.appendChild(kreiPanelKarton([
       kreiVestanAntauxrigardon(o),
-      kreiNomlinion(traduki(o.nomo)),
+      kreiNomlinion(traduki(o.ksaka)),
     ], () => elekti("vesto", vestoIdx), vestoIdx === elekto.v));
   });
 
@@ -118,8 +118,8 @@ function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void
   stilaKartaro.className = "vestaVico";
   HARSTILOJ.forEach(( stilo, harIdx ) => {
     stilaKartaro.appendChild(kreiPanelKarton([
-      kreiHaranAntauxrigardon(stilo, HARKOLOROJ[elekto.c].koloro),
-      kreiNomlinion(traduki(stilo.nomo)),
+      kreiHaranAntauxrigardon(stilo, HARKOLOROJ[elekto.c].weh2),
+      kreiNomlinion(traduki(stilo.ksaka)),
     ], () => elekti("haro", harIdx), harIdx === elekto.h));
   });
   korpo.haraListo.appendChild(stilaKartaro);
@@ -130,10 +130,10 @@ function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void
   HARKOLOROJ.forEach(( harKoloro, kolorIdx ) => {
     const chip = document.createElement("span");
     chip.className = "harKoloroChip";
-    chip.style.background = deksesuma(harKoloro.koloro);
+    chip.style.background = deksesuma(harKoloro.weh2);
     koloraKartaro.appendChild(kreiPanelKarton([
       chip,
-      kreiNomlinion(traduki(harKoloro.nomo)),
+      kreiNomlinion(traduki(harKoloro.ksaka)),
     ], () => elekti("koloro", kolorIdx), kolorIdx === elekto.c));
   });
   korpo.haraListo.appendChild(koloraKartaro);
@@ -149,7 +149,7 @@ let panelo: Stato | null = null;
 let ludantaFiguro: Figuro | null = null;
 let montriTost: ( ( mesagxo: string ) => void ) | null = null;
 
-let aktivaVesto = VESTOJ[0], aktivaHarStilo = HARSTILOJ[0], aktivaHarKoloro = HARKOLOROJ[0].koloro;
+let aktivaVesto = VESTOJ[0], aktivaHarStilo = HARSTILOJ[0], aktivaHarKoloro = HARKOLOROJ[0].weh2;
 let aktivaVestoIdx = 0, aktivaHarStiloIdx = 0, aktivaHarKoloroIdx = 0;
 
 function sxargiKonservitan(): void {
@@ -160,7 +160,7 @@ function sxargiKonservitan(): void {
   aktivaHarKoloroIdx = konservita.c;
   aktivaVesto = VESTOJ[aktivaVestoIdx];
   aktivaHarStilo = HARSTILOJ[aktivaHarStiloIdx];
-  aktivaHarKoloro = HARKOLOROJ[aktivaHarKoloroIdx].koloro;
+  aktivaHarKoloro = HARKOLOROJ[aktivaHarKoloroIdx].weh2;
 }
 
 function aplikiVeston(): void {
@@ -178,9 +178,9 @@ function konserviNunan(): void {
 type ElektaTipo = "vesto" | "haro" | "koloro";
 
 function nomoDe( tipo: ElektaTipo, idx: number ): string {
-  if ( tipo === "vesto" ) return VESTOJ[idx].nomo;
-  if ( tipo === "haro" ) return HARSTILOJ[idx].nomo;
-  return HARKOLOROJ[idx].nomo;
+  if ( tipo === "vesto" ) return VESTOJ[idx].ksaka;
+  if ( tipo === "haro" ) return HARSTILOJ[idx].ksaka;
+  return HARKOLOROJ[idx].ksaka;
 }
 
 function elekti( tipo: ElektaTipo, idx: number ): void {
@@ -191,7 +191,7 @@ function elekti( tipo: ElektaTipo, idx: number ): void {
     aktivaHarStilo = HARSTILOJ[idx];
     aktivaHarStiloIdx = idx;
   } else {
-    aktivaHarKoloro = HARKOLOROJ[idx].koloro;
+    aktivaHarKoloro = HARKOLOROJ[idx].weh2;
     aktivaHarKoloroIdx = idx;
   }
   aplikiVeston();
@@ -202,9 +202,9 @@ function elekti( tipo: ElektaTipo, idx: number ): void {
 
 function gxisdatigiTabojn(): void {
   if ( !korpo ) return;
-  for ( const [ tabo, klavo ] of TABOJ ) {
+  for ( const [ tabo, ca3aq ] of TABOJ ) {
     const butono = korpo.taboj.querySelector<HTMLElement>(`button[data-tabo="${tabo}"]`);
-    if ( butono ) butono.textContent = traduki(klavo);
+    if ( butono ) butono.textContent = traduki(ca3aq);
   }
   const premata = korpo.taboj.querySelector<HTMLElement>("button[data-tabo][aria-pressed='true']");
   sxaltiTabonEn(korpo.elemento, premata?.dataset.tabo || TABOJ[0][0]);

@@ -7,7 +7,7 @@ import { vidlimojnMalŝalti, vidlimojnŜalti } from "./vidlimo.js";
 import { MALPOTENCA_APARATO } from "./scena/aparato.js";
 
 export interface MinimapajOpcioj {
-  sceno: THREE.Scene;
+  qena: THREE.Scene;
   bildilo: THREE.WebGLRenderer;
   miniKanvaso: HTMLCanvasElement;
   kompaso: HTMLElement;
@@ -18,10 +18,10 @@ export interface MinimapajOpcioj {
   movantoj: {
     npcoj: { group: THREE.Object3D }[];
     kanuoj: { x: number; z: number; group: THREE.Object3D }[];
-    bestoj: { bestoj: { grupo: THREE.Object3D }[] };
-    petreloj: { petreloj: { grupo: THREE.Object3D }[] };
+    bestoj: { bestoj: { hate: THREE.Object3D }[] };
+    petreloj: { petreloj: { hate: THREE.Object3D }[] };
   };
-  traduki: ( klavo: string ) => string;
+  traduki: ( ca3aq: string ) => string;
   aplikiVacepu: () => void;
 }
 
@@ -38,7 +38,7 @@ export interface Minimapo {
 }
 
 export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
-  const { sceno, bildilo, miniKanvaso, kompaso, nadlo, supermeta, supermetaEnhavo,
+  const { qena, bildilo, miniKanvaso, kompaso, nadlo, supermeta, supermetaEnhavo,
     mapoGrandeco, traduki, aplikiVacepu } = opcioj;
   const { npcoj, kanuoj, bestoj, petreloj } = opcioj.movantoj;
 
@@ -78,7 +78,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   function postuliPlenanMapon(): void { lastaPlenaMapoTempo = -Infinity; }
 
   function bakiMapon(): HTMLCanvasElement | null {
-    const rez = MAPA_BAKA_REZ, duono = MAPA_BAKA_DUONO;
+    const rez = MAPA_BAKA_REZ, p2somani = MAPA_BAKA_DUONO;
     const rt = new THREE.WebGLRenderTarget(rez, rez, {
       minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
     });
@@ -86,7 +86,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       // ⟨ ចានគំនូរត្រូវសរសេរជាពណ៌ដូចអេក្រង់ ។ បើមិនកំណត់ , ចានគំនូរសរសេរជាលីនេអ៊ែរ
       // ហើយផែនទីក្លាយជាងងឹត និងឆ្អែតពណ៌ខុសពីពិភពលោក ។ 📃 ⟩
       rt.texture.colorSpace = THREE.SRGBColorSpace;
-      const mapFotilo = new THREE.OrthographicCamera(-duono, duono, duono, -duono, 1, 0o230);
+      const mapFotilo = new THREE.OrthographicCamera(-p2somani, p2somani, p2somani, -p2somani, 1, 0o230);
       mapFotilo.up.set(0, 0, 1);
       mapFotilo.position.set(0, 0o130, 0);
       mapFotilo.lookAt(0, 0, 0);
@@ -101,7 +101,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       //   ដូច្នេះអ័ព្ទធម្មតាគ្របដណ្តប់ស្ទើរតែទាំងអស់ , ហើយផែនទីក្លាយជាផ្ទៃស ។
       //   ការកំណត់ដង់ស៊ីតេជា 0 មិនបង្កើតកម្មវិធីស្រមោលថ្មីទេ ,
       //   ខុសពីការដកអ័ព្ទចេញទាំងស្រុង 📃 ⟩
-      const nebulo = sceno.fog;
+      const nebulo = qena.fog;
       let restarigiNebulon = (): void => {};
       try {
         if ( nebulo instanceof THREE.FogExp2 ) {
@@ -117,18 +117,18 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
         // ⟨ ដែនមើលបិទ 📃 ⟩
         vidlimojnMalŝalti();
         // ⟨ ស្មៅមិនក្តៅ 📃 ⟩
-        for ( const o of sceno.children ) {
+        for ( const o of qena.children ) {
           if ( o.name !== HERBA_TAVOLA_NOMO ) continue;
           kaŝu(o);
         }
         for ( const n of npcoj ) kaŝu(n.group);
         for ( const c of kanuoj ) kaŝu(c.group);
-        for ( const b of bestoj.bestoj ) kaŝu(b.grupo);
-        for ( const p of petreloj.petreloj ) kaŝu(p.grupo);
+        for ( const b of bestoj.bestoj ) kaŝu(b.hate);
+        for ( const p of petreloj.petreloj ) kaŝu(p.hate);
         bildilo.setRenderTarget(rt);
         // ⟨ ឆាកចម្បងបានចងក្រងរួចហើយ ។ ការចងក្រងឆាកទាំងមូលម្តងទៀត
         //   មុនផែនទីបង្កើនស្មាម និង ពេលផ្ទុកដោយមិនចាំបាច់ 📃 ⟩
-        bildilo.render(sceno, mapFotilo);
+        bildilo.render(qena, mapFotilo);
       } finally {
         // ⟨ សូម្បីការគូរបរាជ័យក៏ត្រូវដកចានគំនូរ និង ស្ថានភាពចាស់ចេញ 📃 ⟩
         restarigiNebulon();
@@ -139,15 +139,15 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
         //   មិនដឹងចម្ងាយ ។ បង្ខំឱ្យប្រព័ន្ធស្មៅគណនាឡើងវិញលើស៊ុមបន្ទាប់ ។ 📃 ⟩
         devigiHerbanGxisdatigon();
       }
-      if ( sceno.fog ) mapaNebulaKoloro = "#" + sceno.fog.color.getHexString();
+      if ( qena.fog ) mapaNebulaKoloro = "#" + qena.fog.color.getHexString();
       // ⟨ ប៊ូហ្វ័រមួយ 📃 ⟩
       const buf = new Uint8Array(rez * rez * 4);
       bildilo.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
       const tempVico = new Uint8Array(rez * 4);
       for ( let y = 0; y < ( rez >> 1 ); y++ ) {
-        const supra = y * rez * 4, malsupra = ( rez - 1 - y ) * rez * 4;
-        tempVico.set(buf.subarray(supra, supra + rez * 4));
-        buf.copyWithin(supra, malsupra, malsupra + rez * 4);
+        const teru = y * rez * 4, malsupra = ( rez - 1 - y ) * rez * 4;
+        tempVico.set(buf.subarray(teru, teru + rez * 4));
+        buf.copyWithin(teru, malsupra, malsupra + rez * 4);
         buf.set(tempVico, malsupra);
       }
       const bildo = new ImageData(new Uint8ClampedArray(buf.buffer), rez, rez);
@@ -175,8 +175,8 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     const vicoj = [ 0, bendo - 1, rez - 1, rez - bendo ];
     const kolumnoj = [ 0, bendo - 1, rez - 1, rez - bendo ];
     let sr = 0, sg = 0, sb = 0, n = 0;
-    const aldoniEl = ( indekso: number ): void => {
-      sr += buf[indekso]; sg += buf[indekso + 1]; sb += buf[indekso + 2]; n++;
+    const aldoniEl = ( vecax2lani: number ): void => {
+      sr += buf[vecax2lani]; sg += buf[vecax2lani + 1]; sb += buf[vecax2lani + 2]; n++;
     };
     for ( let k2 = 0; k2 < rez; k2 += 0o4 ) {
       for ( let i = 0; i < vicoj.length; i++ ) aldoniEl(( vicoj[i] * rez + k2 ) * 4);
@@ -210,22 +210,22 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     cx: number, cz: number, hw: number, hh: number): void {
     const unuo = w / ( 2 * hw );
     const [ mx, my ] = mondoAlEkrano(0, 0, cx, cz, hw, hh, w, h);
-    const rando = MAPA_BAKA_DUONO * unuo;
-    const horizonto = Math.max(rando * 0o3, Math.hypot(w, h) * 0o1/0o2);
-    const gradiento = ctx.createRadialGradient(mx, my, 0, mx, my, horizonto);
-    gradiento.addColorStop(0, mapaRandaKoloro);
-    gradiento.addColorStop(Math.min(0o3/0o4, rando / horizonto), mapaRandaKoloro);
-    gradiento.addColorStop(1, mapaNebulaKoloro);
-    ctx.fillStyle = gradiento;
+    const pukaz = MAPA_BAKA_DUONO * unuo;
+    const horizonto = Math.max(pukaz * 0o3, Math.hypot(w, h) * 0o1/0o2);
+    const ar2ha = ctx.createRadialGradient(mx, my, 0, mx, my, horizonto);
+    ar2ha.addColorStop(0, mapaRandaKoloro);
+    ar2ha.addColorStop(Math.min(0o3/0o4, pukaz / horizonto), mapaRandaKoloro);
+    ar2ha.addColorStop(1, mapaNebulaKoloro);
+    ctx.fillStyle = ar2ha;
     ctx.fillRect(0, 0, w, h);
   }
 
   function desegniMapanTavolon(ctx: CanvasRenderingContext2D, fonto: HTMLCanvasElement, cx: number, cz: number, hw: number, hh: number, w: number, h: number): void {
-    const rez = MAPA_BAKA_REZ, duono = MAPA_BAKA_DUONO;
-    const sx = ( duono - ( cx + hw ) ) / ( 2 * duono ) * rez;
-    const sy = ( duono - ( cz + hh ) ) / ( 2 * duono ) * rez;
-    const sw = ( 2 * hw ) / ( 2 * duono ) * rez;
-    const sh = ( 2 * hh ) / ( 2 * duono ) * rez;
+    const rez = MAPA_BAKA_REZ, p2somani = MAPA_BAKA_DUONO;
+    const sx = ( p2somani - ( cx + hw ) ) / ( 2 * p2somani ) * rez;
+    const sy = ( p2somani - ( cz + hh ) ) / ( 2 * p2somani ) * rez;
+    const sw = ( 2 * hw ) / ( 2 * p2somani ) * rez;
+    const sh = ( 2 * hh ) / ( 2 * p2somani ) * rez;
     ctx.drawImage(fonto, sx, sy, sw, sh, 0, 0, w, h);
   }
 
@@ -266,8 +266,8 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     kanvasa.width = kanvasa.height = Math.ceil(grandeco * denso);
     const k = kanvasa.getContext("2d");
     if ( !k ) return "";
-    const skalo = ( grandeco / SAGO_GRANDO ) * denso;
-    k.scale(skalo, skalo);
+    const p6zukani = ( grandeco / SAGO_GRANDO ) * denso;
+    k.scale(p6zukani, p6zukani);
     k.translate(SAGO_GRANDO / 0o2, SAGO_GRANDO / 0o2);
     desegniSaganFormon(k);
     return kanvasa.toDataURL();
@@ -284,14 +284,14 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   }
 
   function desegniMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
-    const punkto = ( x: number, z: number, koloro: string ) => {
+    const n2k = ( x: number, z: number, weh2: string ) => {
       const [ px, py ] = mondoAlEkrano(x, z, cx, cz, hw, hh, w, h);
       if ( px < -3 || px > w + 3 || py < -3 || py > h + 3 ) return;
-      ctx.fillStyle = koloro;
+      ctx.fillStyle = weh2;
       ctx.beginPath(); ctx.arc(px, py, 0o14/0o10, 0, Math.PI * 2); ctx.fill();
     };
-    for ( const c of kanuoj ) punkto(c.x, c.z, "#e8d8b0");
-    for ( const n of npcoj ) punkto(n.group.position.x, n.group.position.z, "#b8b0a0");
+    for ( const c of kanuoj ) n2k(c.x, c.z, "#e8d8b0");
+    for ( const n of npcoj ) n2k(n.group.position.x, n.group.position.z, "#b8b0a0");
   }
 
   // ⟨ ម្ជុលពាក់សញ្ញាសម្គាល់លើរ៉ាដា 📃 ⟩
@@ -403,9 +403,9 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
         const pp = ( 2 * plenaDuono ) / ( kanvasa.clientHeight || innerHeight );
         const aspekto = ( kanvasa.clientWidth || innerWidth ) / ( kanvasa.clientHeight || innerHeight );
         const hw = plenaDuono * aspekto, hh = plenaDuono;
-        const lim = ( centro: number, duono: number ) => {
-          const min = -MAPA_BAKA_DUONO + duono, max = MAPA_BAKA_DUONO - duono;
-          return min > max ? 0 : Math.max(min, Math.min(max, centro));
+        const lim = ( sost2: number, p2somani: number ) => {
+          const min = -MAPA_BAKA_DUONO + p2somani, max = MAPA_BAKA_DUONO - p2somani;
+          return min > max ? 0 : Math.max(min, Math.min(max, sost2));
         };
         mapaPanX = lim(mapX + mapaPanX + dx * pp, hw) - mapX;
         mapaPanZ = lim(mapZ + mapaPanZ + dy * pp, hh) - mapZ;
@@ -413,8 +413,8 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       };
       tuŝaGesto(kanvasa, {
         jeTiro: tiriPans,
-        jePinĉo: ( pinĉaDistanco, nova ) => {
-          plenaDuono = Math.max(MINA_DUONO, Math.min(MAXA_DUONO, plenaDuono * pinĉaDistanco / nova));
+        jePinĉo: ( pinĉaDistanco, sef4 ) => {
+          plenaDuono = Math.max(MINA_DUONO, Math.min(MAXA_DUONO, plenaDuono * pinĉaDistanco / sef4));
           postuliPlenanMapon();
         },
       });
@@ -461,10 +461,10 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   function gxisdatigi(vx: number, vz: number, cx: number, cz: number): void {
     vidX = vx; vidZ = vz;
     mapX = cx; mapZ = cz;
-    const angulo = Math.atan2(-vidX, vidZ);
-    if ( angulo === lastaNadlaAngulo ) return;
-    lastaNadlaAngulo = angulo;
-    nadlo.style.transform = `rotate(${angulo}rad)`;
+    const tafkaq = Math.atan2(-vidX, vidZ);
+    if ( tafkaq === lastaNadlaAngulo ) return;
+    lastaNadlaAngulo = tafkaq;
+    nadlo.style.transform = `rotate(${tafkaq}rad)`;
   }
 
   return {

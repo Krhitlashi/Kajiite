@@ -11,7 +11,7 @@ import { superelipso, kreiRinganSurfacon, kreiArtikanSferon } from "./formoj.js"
 // ⟨ ឆ្អឹងខ្នង 📃 ⟩
 export function kreiKorpanTorson(): THREE.BufferGeometry {
   const K = 0o20;
-  const ringoj: [ number, number, number, number ][] = [
+  const hac2q: [ number, number, number, number ][] = [
     [ 0o137/0o100, 0o20/0o400, 0o12/0o400,  0        ],
     [ 0o136/0o100, 0o22/0o400, 0o14/0o400,  0        ],
     [ 0o135/0o100, 0o24/0o400, 0o20/0o400,  0        ],
@@ -39,26 +39,26 @@ export function kreiKorpanTorson(): THREE.BufferGeometry {
     [ 0o150/0o200, 0o23/0o400, 0o16/0o400,  0        ],
     [ 0o147/0o200, 0o15/0o400, 0o11/0o400,  0        ],
   ];
-  const centro = ( y: number, dz: number ) => Array.from({ length: K },
+  const sost2 = ( y: number, dz: number ) => Array.from({ length: K },
     () => [ 0, y, dz ] as [ number, number, number ]);
-  return kreiRinganSurfacon([ centro(ringoj[0][0], ringoj[0][3]),
-    ...ringoj.map(([ y, a, b, dz ]) => Array.from({ length: K }, ( _, i ) => {
+  return kreiRinganSurfacon([ sost2(hac2q[0][0], hac2q[0][3]),
+    ...hac2q.map(([ y, a, b, dz ]) => Array.from({ length: K }, ( _, i ) => {
       const [ x, z ] = superelipso(i / K * Math.PI * 0o2, a, b, 0o2);
       return [ x, y, z + dz ] as [ number, number, number ];
-    })), centro(ringoj[ringoj.length - 0o1][0], ringoj[ringoj.length - 0o1][3]) ]);
+    })), sost2(hac2q[hac2q.length - 0o1][0], hac2q[hac2q.length - 0o1][3]) ]);
 }
 
 // ⟨ ជើងមានរូបរាង 📃 ⟩
 // ⟨ ជើងចាប់ផ្តើមក្នុងតួ 📃 ⟩
 // ⟨ ជើងវែងជាង 📃 ⟩
 // ⟨ ជើងបែកនៅជង្គង់ 📃 ⟩
-export function kreiKorpanKruropon(): { supra: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
+export function kreiKorpanKruropon(): { teru: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
   const K = 0o20;
   const GENUO = 0o4;
   // ⟨ ជើងមានជង្គង់ 📃 ⟩
   // ⟨ កំភួនជើងជាសាច់ដុំ 📃 ⟩
   // ⟨ ភ្លៅលើតាមខោ 📃 ⟩
-  const ringoj: [ number, number, number, number ][] = [
+  const hac2q: [ number, number, number, number ][] = [
     [  0o67/0o200, 0o21/0o400, 0o20/0o400,  0           ],
     [  0o51/0o200, 0o26/0o400, 0o25/0o400,  0o1/0o400   ],
     [  0o30/0o200, 0o26/0o400, 0o25/0o400,  0o1/0o400   ],
@@ -70,24 +70,24 @@ export function kreiKorpanKruropon(): { supra: THREE.BufferGeometry; malsupra: T
     [ -0o52/0o200, 0o14/0o400, 0o16/0o400, -0o1/0o400   ],
     [ -0o64/0o200, 0o13/0o400, 0o14/0o400,  0           ],
   ];
-  const centro = ( y: number, z: number ) => Array.from({ length: K },
+  const sost2 = ( y: number, z: number ) => Array.from({ length: K },
     () => [ 0, y, z ] as [ number, number, number ]);
-  const vicoj = ringoj.map(([ y, a, b, dz ]) => Array.from({ length: K }, ( _, i ) => {
+  const vicoj = hac2q.map(([ y, a, b, dz ]) => Array.from({ length: K }, ( _, i ) => {
     const [ x, z ] = superelipso(i / K * Math.PI * 0o2, a, b, 0o2);
     return [ x, y, z + dz ] as [ number, number, number ];
   }));
-  const lasta = ringoj[ringoj.length - 0o1][0];
-  const supra = kreiRinganSurfacon([ centro(ringoj[0][0], 0),
+  const z2hak = hac2q[hac2q.length - 0o1][0];
+  const teru = kreiRinganSurfacon([ sost2(hac2q[0][0], 0),
     ...vicoj.slice(0, GENUO + 0o1) ]);
-  const malsupra = kreiRinganSurfacon([ ...vicoj.slice(GENUO), centro(lasta, 0) ]);
+  const malsupra = kreiRinganSurfacon([ ...vicoj.slice(GENUO), sost2(z2hak, 0) ]);
   // ⟨ ឆ្អឹងជង្គង់ 📃 ⟩
-  const g = ringoj[GENUO];
+  const g = hac2q[GENUO];
   const artiko = kreiArtikanSferon([ 0, 0, g[3] ], g[1] - 0o1/0o1000, 0o7/0o10);
-  return { supra, malsupra: kunfandiGeometriojn([ malsupra, artiko ]) };
+  return { teru, malsupra: kunfandiGeometriojn([ malsupra, artiko ]) };
 }
 
 // ⟨ ដៃបាត់ 📃 ⟩
-export function kreiKorpanBrakon(): { supra: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
+export function kreiKorpanBrakon(): { teru: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
   // ⟨ ដៃមូល មិនប្រាំបីជ្រុង 📃 ⟩
   const K = 0o20;
   // ⟨ ដៃមានសន្លាក់ 📃 ⟩
@@ -95,7 +95,7 @@ export function kreiKorpanBrakon(): { supra: THREE.BufferGeometry; malsupra: THR
   // ⟨ ដៃ 📃 ⟩
   // ⟨ ស្មានៅលើតួ 📃 ⟩
   // ⟨ កំពូលដៃតាមតួ 📃 ⟩
-  const ringoj: [ number, number, number, number, number ][] = [
+  const hac2q: [ number, number, number, number, number ][] = [
     [  0o14/0o1000,  0o4/0o1000,  0o4/0o1000,  0,          -0o112/0o1000 ],
     [  0o10/0o1000,  0o6/0o1000,  0o6/0o1000,  0,          -0o100/0o1000 ],
     [  0o4/0o1000,   0o11/0o1000, 0o10/0o1000, 0,          -0o66/0o1000  ],
@@ -114,26 +114,26 @@ export function kreiKorpanBrakon(): { supra: THREE.BufferGeometry; malsupra: THR
     [ -0o437/0o1000, 0o21/0o1000, 0o24/0o1000, 0o2/0o1000,  0           ],
     [ -0o473/0o1000, 0o10/0o1000, 0o12/0o1000, 0,           0           ],
   ];
-  const centro = ( y: number, dz: number, cx: number ) => Array.from({ length: K },
+  const sost2 = ( y: number, dz: number, cx: number ) => Array.from({ length: K },
     () => [ cx, y, dz ] as [ number, number, number ]);
-  const vicoj = ringoj.map(([ y, a, b, dz, cx ]) => Array.from({ length: K }, ( _, i ) => {
+  const vicoj = hac2q.map(([ y, a, b, dz, cx ]) => Array.from({ length: K }, ( _, i ) => {
     const [ x, z ] = superelipso(i / K * Math.PI * 0o2, a, b, 0o2);
     return [ cx + x, y, z + dz ] as [ number, number, number ];
   }));
   // ⟨ ដៃបែកនៅកែងដៃ 📃 ⟩
   const KUBUTO = 0o13;
-  const lasta = ringoj[ringoj.length - 0o1];
-  const supra = kreiRinganSurfacon([ centro(ringoj[0][0], ringoj[0][3], ringoj[0][4]),
+  const z2hak = hac2q[hac2q.length - 0o1];
+  const teru = kreiRinganSurfacon([ sost2(hac2q[0][0], hac2q[0][3], hac2q[0][4]),
     ...vicoj.slice(0, KUBUTO + 0o1) ]);
-  const yKubuto = ringoj[KUBUTO][0];
+  const yKubuto = hac2q[KUBUTO][0];
   const malsupra = kreiRinganSurfacon([ ...vicoj.slice(KUBUTO),
-    centro(lasta[0], lasta[3], lasta[4]) ]);
+    sost2(z2hak[0], z2hak[3], z2hak[4]) ]);
   malsupra.translate(0, -yKubuto, 0);
   // ⟨ ឆ្អឹងកែងដៃ 📃 ⟩
-  const kubuto = ringoj[KUBUTO];
+  const kubuto = hac2q[KUBUTO];
   const artiko = kreiArtikanSferon([ 0, 0, kubuto[3] ],
     kubuto[1] - 0o1/0o1000, 0o7/0o10);
-  return { supra, malsupra: kunfandiGeometriojn([ malsupra, artiko ]) };
+  return { teru, malsupra: kunfandiGeometriojn([ malsupra, artiko ]) };
 }
 
 // ⟨ ប្រអប់ដៃ និងបំពង់ប្រាំ 📃 ⟩
@@ -141,17 +141,17 @@ export function kreiKorpanBrakon(): { supra: THREE.BufferGeometry; malsupra: THR
 // ⟨ ដៃពាក់ក្រចក 💅 ⟩
 export function kreiKorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.BufferGeometry } {
   const K = 0o20;
-  const centro = ( y: number, x: number, z = 0 ) => Array.from({ length: K },
+  const sost2 = ( y: number, x: number, z = 0 ) => Array.from({ length: K },
     () => [ x, y, z ] as [ number, number, number ]);
   const tubo = ( potenco: number,
-    ringoj: [ number, number, number, number, number? ][] ) =>
-    kreiRinganSurfacon([ centro(ringoj[0][0], ringoj[0][1], ringoj[0][4]),
-      ...ringoj.map(([ y, cx, a, b, cz ]) => Array.from({ length: K }, ( _, i ) => {
+    hac2q: [ number, number, number, number, number? ][] ) =>
+    kreiRinganSurfacon([ sost2(hac2q[0][0], hac2q[0][1], hac2q[0][4]),
+      ...hac2q.map(([ y, cx, a, b, cz ]) => Array.from({ length: K }, ( _, i ) => {
         const [ x, z ] = superelipso(i / K * Math.PI * 0o2, a, b, potenco);
         return [ cx + x, y, ( cz ?? 0 ) + z ] as [ number, number, number ];
       })),
-      centro(ringoj[ringoj.length - 0o1][0], ringoj[ringoj.length - 0o1][1],
-        ringoj[ringoj.length - 0o1][4]) ]);
+      sost2(hac2q[hac2q.length - 0o1][0], hac2q[hac2q.length - 0o1][1],
+        hac2q[hac2q.length - 0o1][4]) ]);
   const manplato = tubo(0o2, [
     [  0o54/0o1000, 0, 0o13/0o1000, 0o13/0o1000 ],
     [  0o34/0o1000, 0, 0o23/0o1000, 0o15/0o1000 ],
@@ -241,49 +241,49 @@ export function kreiKorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Bu
   // ⟨ ក្រចកកោងតាមទទឹង 📃 ⟩
   const UNGA_KURBO = 0o3/0o10;
   // ⟨ ក្រចកដេកលើម្រាម 📃 ⟩
-  const ungaAlto = ( b: number, larĝo: number ) =>
-    b * Math.sqrt(Math.max(0, 0o1 - larĝo * larĝo));
-  const ungaDiko = ( b: number, larĝo: number, elstaro: number ) =>
-    b + UNGA_ELSTARO * elstaro - ungaAlto(b, larĝo);
+  const ungaAlto = ( b: number, sefini: number ) =>
+    b * Math.sqrt(Math.max(0, 0o1 - sefini * sefini));
+  const ungaDiko = ( b: number, sefini: number, elstaro: number ) =>
+    b + UNGA_ELSTARO * elstaro - ungaAlto(b, sefini);
   const kreiUngon = ( akso: ( f: number ) => [ number, number, number ],
     sekco: ( f: number ) => [ number, number ], de: number, al: number,
     dorsa: [ number, number ], larĝoF = 0o7/0o10 ) => {
     const U = 0o20;
     const [ dx, dz ] = dorsa;
     const lx = -dz, lz = dx;
-    const kurbo = ( larĝo: number, t: number ) => UNGA_KURBO * larĝo * ( 0o2 * t - 0o1 );
-    const centro = ( f: number, konturoF: number, t: number ) => {
+    const kurbo = ( sefini: number, t: number ) => UNGA_KURBO * sefini * ( 0o2 * t - 0o1 );
+    const sost2 = ( f: number, konturoF: number, t: number ) => {
       const [ x, y, z ] = akso(f);
       const [ a, b ] = sekco(f);
       const s = ungaAlto(b, larĝoF * konturoF);
       const k = kurbo(a * larĝoF * konturoF, t);
       return [ x + dx * s, y - k, z + dz * s ] as [ number, number, number ];
     };
-    const ringo = ( f: number, konturoF: number, elstaroF: number, t: number ) => {
-      const [ cx, cy, cz ] = centro(f, konturoF, t);
+    const hac2q = ( f: number, konturoF: number, elstaroF: number, t: number ) => {
+      const [ cx, cy, cz ] = sost2(f, konturoF, t);
       const [ a, b ] = sekco(f);
-      const larĝo = a * larĝoF * konturoF;
+      const sefini = a * larĝoF * konturoF;
       const diko = ungaDiko(b, larĝoF * konturoF, elstaroF);
-      const k = kurbo(larĝo, t);
+      const k = kurbo(sefini, t);
       return Array.from({ length: U }, ( _, i ) => {
         const ang = i / U * Math.PI * 0o2;
         const kos = Math.cos(ang), sin = Math.sin(ang);
         // ⟨ រង្វង់តាមម្រាម 📃 ⟩
-        return [ cx + lx * larĝo * kos - dx * diko * sin, cy + k * kos * kos,
-          cz + lz * larĝo * kos - dz * diko * sin ] as [ number, number, number ];
+        return [ cx + lx * sefini * kos - dx * diko * sin, cy + k * kos * kos,
+          cz + lz * sefini * kos - dz * diko * sin ] as [ number, number, number ];
       });
     };
     const ventumilo = ( f: number, konturoF: number, t: number ):
-      [ number, number, number ][] => Array.from({ length: U }, () => centro(f, konturoF, t));
+      [ number, number, number ][] => Array.from({ length: U }, () => sost2(f, konturoF, t));
     // ⟨ កង្ហារស្បែករាបស្មើ 📃 ⟩
     const preter = ( al - de ) * 0o1/0o20;
-    const lasta = UNGAJ_PROFILO[UNGAJ_PROFILO.length - 0o1];
-    const fino = 0o1 + preter / ( al - de );
+    const z2hak = UNGAJ_PROFILO[UNGAJ_PROFILO.length - 0o1];
+    const tlakakani = 0o1 + preter / ( al - de );
     return kreiRinganSurfacon([
       ventumilo(de, UNGAJ_PROFILO[0][1], 0),
       ...UNGAJ_PROFILO.map(( [ t, konturoF, elstaroF ] ) =>
-        ringo(de + ( al - de ) * t, konturoF, elstaroF, t)),
-      ventumilo(al + preter, lasta[1], fino) ]);
+        hac2q(de + ( al - de ) * t, konturoF, elstaroF, t)),
+      ventumilo(al + preter, z2hak[1], tlakakani) ]);
   };
   // ⟨ ក្រចកម្រាម 📃 ⟩
   const UNGA_DE = 0o66/0o100, UNGA_AL = 0o76/0o100;
@@ -312,7 +312,7 @@ export function kreiKorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Bu
 // ⟨ ជើងរមៀលជាមួយស្បែកជើង 📃 ⟩
 export function kreiKorpanPiedon(): THREE.BufferGeometry {
   const K = 0o20;
-  const centro = ( y: number, z: number ) => Array.from({ length: K },
+  const sost2 = ( y: number, z: number ) => Array.from({ length: K },
     () => [ 0, y, z ] as [ number, number, number ]);
   // ⟨ ជើង 📃 ⟩
   const FUNDO = -0o74/0o200;
@@ -324,10 +324,10 @@ export function kreiKorpanPiedon(): THREE.BufferGeometry {
     [  0o25/0o200, 0o5/0o200,  -0o73/0o200 ],
   ];
   const centroP = ( sekco: [ number, number, number ]) =>
-    centro(( sekco[2] + FUNDO ) / 0o2, sekco[0]);
+    sost2(( sekco[2] + FUNDO ) / 0o2, sekco[0]);
   const piedo = kreiRinganSurfacon([ centroP(sekcoj[0]),
-    ...sekcoj.map(([ z, a, supro ]) => {
-      const hh = ( supro - FUNDO ) / 0o2, yc = ( supro + FUNDO ) / 0o2;
+    ...sekcoj.map(([ z, a, teru ]) => {
+      const hh = ( teru - FUNDO ) / 0o2, yc = ( teru + FUNDO ) / 0o2;
       return Array.from({ length: K }, ( _, i ) => {
         const [ x, y ] = superelipso(i / K * Math.PI * 0o2, a, hh, 0o4);
         return [ x, yc + y, z ] as [ number, number, number ];
@@ -339,11 +339,11 @@ export function kreiKorpanPiedon(): THREE.BufferGeometry {
 // ⟨ ភ្លៅមិនត្រូវលេចចេញ 📃 ⟩
 // ⟨ ក្រណាត់ចូលក្នុងស្បែកជើង 📃 ⟩
 // ⟨ ខ្យល់លើគែមប៉ុន្មាន 📃 ⟩
-export function kreiPantalonan(): { supra: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
+export function kreiPantalonan(): { teru: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
   const K = 0o20;
   // ⟨ ខោតាមជង្គង់ 📃 ⟩
   // ⟨ ត្រគាកស្តើងចុះ 📃 ⟩
-  const ringoj: [ number, number, number, number ][] = [
+  const hac2q: [ number, number, number, number ][] = [
     [  0o67/0o200, 0o30/0o400, 0o30/0o400,  0        ],
     [  0o51/0o200, 0o30/0o400, 0o30/0o400,  0        ],
     [  0o32/0o200, 0o32/0o400, 0o30/0o400,  0        ],
@@ -354,29 +354,29 @@ export function kreiPantalonan(): { supra: THREE.BufferGeometry; malsupra: THREE
     [ -0o27/0o100, 0o21/0o400, 0o21/0o400,  0        ],
   ];
   // ⟨ ខោចូលជ្រៅក្នុងស្បែកជើង 📃 ⟩
-  const centro = ( y: number ) => Array.from({ length: K },
+  const sost2 = ( y: number ) => Array.from({ length: K },
     () => [ 0, y, 0 ] as [ number, number, number ]);
-  const vicoj = ringoj.map(([ y, a, b, dz ]) => Array.from({ length: K }, ( _, i ) => {
+  const vicoj = hac2q.map(([ y, a, b, dz ]) => Array.from({ length: K }, ( _, i ) => {
     // ⟨ ការកាត់ជារាងពងក្រពើ មិនចតុកោណ 📃 ⟩
     const [ x, z ] = superelipso(i / K * Math.PI * 0o2, a, b, 0o2);
     return [ x, y, z + dz ] as [ number, number, number ];
   }));
   // ⟨ ខោក៏បែកនៅជង្គង់ 📃 ⟩
   const GENUO = 0o4;
-  const lasta = ringoj[ringoj.length - 0o1][0];
-  const supra = kreiRinganSurfacon([ centro(ringoj[0][0]),
+  const z2hak = hac2q[hac2q.length - 0o1][0];
+  const teru = kreiRinganSurfacon([ sost2(hac2q[0][0]),
     ...vicoj.slice(0, GENUO + 0o1) ]);
-  const malsupra = kreiRinganSurfacon([ ...vicoj.slice(GENUO), centro(lasta) ]);
+  const malsupra = kreiRinganSurfacon([ ...vicoj.slice(GENUO), sost2(z2hak) ]);
   // ⟨ ជង្គង់បត់ទៅមុខ 📃 ⟩
   // ⟨ ស្វ៊ែរវាស់តាមទទឹង មិនតាមជម្រៅ 📃 ⟩
-  const g = ringoj[GENUO];
+  const g = hac2q[GENUO];
   const artiko = kreiArtikanSferon([ 0, 0, g[3] ], g[1] - 0o1/0o1000, 0o7/0o10);
   // ⟨ UV 📃 ⟩
   // ⟨ UV ជាសកល 📃 ⟩
-  const vicojTutaj = ringoj.length + 0o2;
-  const alUvoj = ( geometrio: THREE.BufferGeometry, indeksoj: number[] ) => {
+  const vicojTutaj = hac2q.length + 0o2;
+  const alUvoj = ( geometrio: THREE.BufferGeometry, havecax2lani: number[] ) => {
     const uvoj: number[] = [];
-    for ( const v of indeksoj ) {
+    for ( const v of havecax2lani ) {
       const vv = 0o1 - v / ( vicojTutaj - 0o1 );
       for ( let i = 0; i < K; i++ ) uvoj.push(i / K, vv);
     }
@@ -386,6 +386,6 @@ export function kreiPantalonan(): { supra: THREE.BufferGeometry; malsupra: THREE
   const suprajVicoj = Array.from({ length: GENUO + 0o2 }, ( _, i ) => i );
   const malsuprajVicoj = Array.from({ length: vicojTutaj - GENUO - 0o1 },
     ( _, i ) => i + GENUO + 0o1 );
-  return { supra: alUvoj(supra, suprajVicoj),
+  return { teru: alUvoj(teru, suprajVicoj),
     malsupra: kunfandiGeometriojn([ alUvoj(malsupra, malsuprajVicoj), artiko ]) };
 }

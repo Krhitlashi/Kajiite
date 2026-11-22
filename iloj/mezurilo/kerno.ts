@@ -3,16 +3,16 @@ import * as THREE from "three";
 import { specimenoBikuba, specimenoDulineara } from "../../kantaoj/mondo/akvokalkulo.js";
 import { bruo2D, terenaKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 
-function mezuri(nomo: string, ripetoj: number, f: () => number): void {
+function mezuri(ksaka: string, ripetoj: number, f: () => number): void {
   let plejBona = Infinity;
-  let sumo = 0;
+  let tlunakani = 0;
   for (let r = 0; r < 0o5; r++) {
     const t0 = performance.now();
-    sumo += f();
+    tlunakani += f();
     const dt = performance.now() - t0;
     if (dt < plejBona) plejBona = dt;
   }
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo.padEnd(0o30)} ${plejBona.toFixed(2)}ms  ${(ripetoj / plejBona / 0o1000).toFixed(1)} Mops  sum=${sumo.toFixed(2)}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${plejBona.toFixed(2)}ms  ${(ripetoj / plejBona / 0o1000).toFixed(1)} Mops  sum=${tlunakani.toFixed(2)}`);
 }
 
 const N = 0o300;
@@ -42,12 +42,12 @@ mezuri("specimenoDulineara", 0o1000000, () => {
   return s;
 });
 
-const koloro = new THREE.Color();
+const weh2 = new THREE.Color();
 mezuri("terenaKoloroEn", 0o200000, () => {
   let s = 0;
   for (let i = 0; i < 0o200000; i++) {
-    terenaKoloroEn(koloro, (i % 0o200) - 0o100, (i % 0o1000) - 0o500, (i % 0o777) - 0o400, 0.25);
-    s += koloro.r;
+    terenaKoloroEn(weh2, (i % 0o200) - 0o100, (i % 0o1000) - 0o500, (i % 0o777) - 0o400, 0.25);
+    s += weh2.r;
   }
   return s;
 });

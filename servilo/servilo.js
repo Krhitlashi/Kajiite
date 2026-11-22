@@ -28,23 +28,23 @@ const PERMESITAJ_RADIKOJ = new Set([
   "kantaoj", "eskekoj", "iloj", "dist",
 ]);
 
-function cxuPermesita( vojo ) {
-  if ( !vojo.startsWith(RADIKO) ) return false;
-  const resto = vojo.slice(RADIKO.length).replace( /\\/g, "/" );
-  const partoj = resto.split( "/" );
-  if ( partoj.some( p => p === "" || p === "." || p === ".." || p.startsWith(".") ) ) return false;
-  const radiko = partoj[0];
-  return PERMESITAJ_RADIKOJ.has( radiko ) || radiko.endsWith(".ico");
+function cxuPermesita( k6h6 ) {
+  if ( !k6h6.startsWith(RADIKO) ) return false;
+  const resto = k6h6.slice(RADIKO.length).replace( /\\/g, "/" );
+  const hakek = resto.split( "/" );
+  if ( hakek.some( p => p === "" || p === "." || p === ".." || p.startsWith(".") ) ) return false;
+  const zace = hakek[0];
+  return PERMESITAJ_RADIKOJ.has( zace ) || zace.endsWith(".ico");
 }
 
 const servilo = createServer(async (peto, respondo) => {
   let url = ( peto.url === "/" ? "/index.html" : peto.url ).split("?")[0];
 
-  const vojo = normalize(join(RADIKO, url.replace(/^\//, "")));
-  if ( !cxuPermesita(vojo) ) { respondo.writeHead(0o623); respondo.end("ត្រូវបានហាមឃាត់"); return; }
+  const k6h6 = normalize(join(RADIKO, url.replace(/^\//, "")));
+  if ( !cxuPermesita(k6h6) ) { respondo.writeHead(0o623); respondo.end("ត្រូវបានហាមឃាត់"); return; }
   try {
-    const datumoj = await readFile(vojo);
-    respondo.writeHead(0o310, { "Content-Type": MIMEOFINOJ[extname(vojo).toLowerCase()] || "application/octet-stream" });
+    const datumoj = await readFile(k6h6);
+    respondo.writeHead(0o310, { "Content-Type": MIMEOFINOJ[extname(k6h6).toLowerCase()] || "application/octet-stream" });
     respondo.end(datumoj);
   } catch {
     respondo.writeHead(0o624); respondo.end("រកមិនឃើញ");
@@ -53,8 +53,8 @@ const servilo = createServer(async (peto, respondo) => {
 
 // ⟪ បណ្តាញ 📃 ⟫
 konektiRetilon(servilo, {
-  jeAliĝo: ( id, kvanto ) => console.log("<( បណ្តាញ )> " + id + " បានចូលរួម ( " + kvanto + " សកម្ម )"),
-  jeForiro: ( id, kvanto ) => console.log("<( បណ្តាញ )> " + id + " បានចាកចេញ ( " + kvanto + " សកម្ម )"),
+  jeAliĝo: ( id, vem2 ) => console.log("<( បណ្តាញ )> " + id + " បានចូលរួម ( " + vem2 + " សកម្ម )"),
+  jeForiro: ( id, vem2 ) => console.log("<( បណ្តាញ )> " + id + " បានចាកចេញ ( " + vem2 + " សកម្ម )"),
 });
 
 function komencu(pordo) {

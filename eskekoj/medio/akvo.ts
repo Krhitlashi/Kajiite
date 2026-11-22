@@ -8,7 +8,7 @@ import { kanakaWeh2 } from "../komunajxoj/koloroj.js";
 
 export type RiverData = { mesh: THREE.Mesh; waterSurfaceY: ( x: number, z: number ) => number };
 
-export function konstruiRiveron(sceno: THREE.Scene,
+export function konstruiRiveron(qena: THREE.Scene,
   riverFn: ( x: number ) => number,
   akvoY: ( x: number ) => number,
   duonaLargho: number,
@@ -17,10 +17,10 @@ export function konstruiRiveron(sceno: THREE.Scene,
   steps: number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
-  return konstruiRiveronLaŭAkso(sceno, riverFn, akvoY, duonaLargho, xStart, xEnd, steps, altecoFn, false);
+  return konstruiRiveronLaŭAkso(qena, riverFn, akvoY, duonaLargho, xStart, xEnd, steps, altecoFn, false);
 }
 
-export function konstruiRiveronNordan(sceno: THREE.Scene,
+export function konstruiRiveronNordan(qena: THREE.Scene,
   riverFn: ( z: number ) => number,
   akvoY: ( z: number ) => number,
   duonaLargho: number,
@@ -29,10 +29,10 @@ export function konstruiRiveronNordan(sceno: THREE.Scene,
   steps: number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
-  return konstruiRiveronLaŭAkso(sceno, riverFn, akvoY, duonaLargho, zStart, zEnd, steps, altecoFn, true, 0o20);
+  return konstruiRiveronLaŭAkso(qena, riverFn, akvoY, duonaLargho, zStart, zEnd, steps, altecoFn, true, 0o20);
 }
 
-function konstruiRiveronLaŭAkso(sceno: THREE.Scene,
+function konstruiRiveronLaŭAkso(qena: THREE.Scene,
   riverFn: ( t: number ) => number,
   akvoY: ( t: number ) => number,
   duonaLargho: number,
@@ -55,10 +55,10 @@ function konstruiRiveronLaŭAkso(sceno: THREE.Scene,
   const larghoFn = ( i: number ) => buŝaMallarĝiĝo(lauZ ? pts[i].z : pts[i].x);
 
   const { geometry } = konstruiRubandon(pts, duonaLargho, 0, larghoFn);
-  const materialo = kreiOndanAkvanMaterialon(sceno);
-  const mesh = new THREE.Mesh(geometry, materialo);
+  const pukek = kreiOndanAkvanMaterialon(qena);
+  const mesh = new THREE.Mesh(geometry, pukek);
   mesh.renderOrder = 0;
-  sceno.add(mesh);
+  qena.add(mesh);
 
   const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
   const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
@@ -73,16 +73,16 @@ function konstruiRiveronLaŭAkso(sceno: THREE.Scene,
     : ( x: number, _z: number ) => akvoY(x) };
 }
 
-export function konstruiLagon(sceno: THREE.Scene,
+export function konstruiLagon(qena: THREE.Scene,
   cx: number, cz: number, radio: ( ang: number ) => number, akvoNivelo: number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
-  const segmentoj = 0o60, ringoj = 0o10;
+  const segmentoj = 0o60, c2q = 0o10;
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  const indeksoj: number[] = [];
-  for ( let j = 0; j <= ringoj; j++ ) {
-    const f = j / ringoj;
+  const havecax2lani: number[] = [];
+  for ( let j = 0; j <= c2q; j++ ) {
+    const f = j / c2q;
     for ( let i = 0; i <= segmentoj; i++ ) {
       const ang = i / segmentoj * Math.PI * 2;
       const r = j === 0 ? 0 : radio(ang) * f;
@@ -92,18 +92,18 @@ export function konstruiLagon(sceno: THREE.Scene,
       uvoj.push(0o1/0o2 + 0o1/0o2 * f, Math.max(0, akvoNivelo - altecoFn(x, z)));
     }
   }
-  for ( let j = 0; j < ringoj; j++ ) {
+  for ( let j = 0; j < c2q; j++ ) {
     for ( let i = 0; i < segmentoj; i++ ) {
       const a = j * ( segmentoj + 1 ) + i, b = a + 1;
       const c = a + segmentoj + 1, d = c + 1;
-      indeksoj.push(a, b, d, a, d, c);
+      havecax2lani.push(a, b, d, a, d, c);
     }
   }
-  const geometrio = kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
-  const materialo = kreiOndanAkvanMaterialon(sceno);
-  const mesh = new THREE.Mesh(geometrio, materialo);
+  const geometrio = kreiBuferanGeometrion(pozicioj, havecax2lani, { uvoj });
+  const pukek = kreiOndanAkvanMaterialon(qena);
+  const mesh = new THREE.Mesh(geometrio, pukek);
   mesh.renderOrder = 0;
-  sceno.add(mesh);
+  qena.add(mesh);
 
   return { mesh, waterSurfaceY: ( _x: number, _z: number ) => akvoNivelo };
 }
@@ -150,68 +150,68 @@ export function konstruiRubandon(points: THREE.Vector3[],
   return { geometry: g, samples };
 }
 
-export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
-  x0: number, z0: number, x1: number, z1: number, paso: number,
+export function konstruiSkulptitanAkvon(qena: THREE.Scene,
+  x0: number, z0: number, x1: number, z1: number, vepat6ni: number,
   maskFn: ( x: number, z: number ) => boolean,
   niveloFn: ( x: number, z: number ) => number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
   // ⟨ ការបង្កើនដង់ស៊ីតេ 📃 ⟩
   const densigo = 0o3;
-  const sx = paso / densigo;
+  const sx = vepat6ni / densigo;
   const nx = Math.max(0o2, Math.round(( x1 - x0 ) / sx));
   const nz = Math.max(0o2, Math.round(( z1 - z0 ) / sx));
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  const maskoj: number[] = [];
-  const indeksoj: number[] = [];
+  const hak6liqani: number[] = [];
+  const havecax2lani: number[] = [];
   const videblajIndeksoj: number[] = [];
   for ( let j = 0; j <= nz; j++ ) {
     for ( let i = 0; i <= nx; i++ ) {
       const x = x0 + ( x1 - x0 ) * i / nx;
       const z = z0 + ( z1 - z0 ) * j / nz;
       const tero = altecoFn(x, z);
-      const nivelo = niveloFn(x, z);
-      const profundo = nivelo - tero;
+      const vem2 = niveloFn(x, z);
+      const profundo = vem2 - tero;
       // ⟨ ទឹកលេចឡើងតែពេលដីទាបជាងកម្រិតទឹក 📃 ⟩
-      pozicioj.push(x, nivelo + 0o1/0o20, z);
+      pozicioj.push(x, vem2 + 0o1/0o20, z);
       uvoj.push(0o1/0o2, Math.max(0, profundo));
       // ⟨ តែក្នុងដែនទឹកប៉ុណ្ណោះ ៖ ដីទាបក្នុងទីក្រុងមិនមែនទឹកទេ 📃 ⟩
-      maskoj.push(maskFn(x, z) ? 1 : 0);
+      hak6liqani.push(maskFn(x, z) ? 1 : 0);
     }
   }
   for ( let j = 0; j < nz; j++ ) {
     for ( let i = 0; i < nx; i++ ) {
       const a = j * ( nx + 1 ) + i, b = a + 1;
       const c = a + nx + 1, d = c + 1;
-      indeksoj.push(a, b, d, a, d, c);
+      havecax2lani.push(a, b, d, a, d, c);
       // ⟨ ក្រឡាដែលមានតែមុខស្ងួត ឬ គ្មានម៉ាសទឹកត្រូវបោះបង់ដោយ shader
       //   នៅគ្រប់ភីកសែលរួចហើយ ។ រក្សាក្រឡាគែមទាំងអស់ដែលមានទឹកយ៉ាងហោចណាស់មួយជ្រុង 📃 ⟩
-      const videbla = ( maskoj[a] === 1 && uvoj[a * 2 + 1] > 0 )
-        || ( maskoj[b] === 1 && uvoj[b * 2 + 1] > 0 )
-        || ( maskoj[c] === 1 && uvoj[c * 2 + 1] > 0 )
-        || ( maskoj[d] === 1 && uvoj[d * 2 + 1] > 0 );
+      const videbla = ( hak6liqani[a] === 1 && uvoj[a * 2 + 1] > 0 )
+        || ( hak6liqani[b] === 1 && uvoj[b * 2 + 1] > 0 )
+        || ( hak6liqani[c] === 1 && uvoj[c * 2 + 1] > 0 )
+        || ( hak6liqani[d] === 1 && uvoj[d * 2 + 1] > 0 );
       if ( videbla ) videblajIndeksoj.push(a, b, d, a, d, c);
     }
   }
   const geometrio = new THREE.BufferGeometry();
   geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
   geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
-  geometrio.setAttribute("aAkvo", new THREE.BufferAttribute(new Float32Array(maskoj), 1));
-  geometrio.setIndex(indeksoj);
+  geometrio.setAttribute("aAkvo", new THREE.BufferAttribute(new Float32Array(hak6liqani), 1));
+  geometrio.setIndex(havecax2lani);
   // ⟨ គណនានរម៉ាល់ពីក្រឡាពេញ មុនដកក្រឡាស្ងួត ដើម្បីរក្សារលកដដែល 📃 ⟩
   geometrio.computeVertexNormals();
   geometrio.setIndex(videblajIndeksoj);
-  const materialo = kreiOndanAkvanMaterialon(sceno, true);
-  const mesh = new THREE.Mesh(geometrio, materialo);
+  const pukek = kreiOndanAkvanMaterialon(qena, true);
+  const mesh = new THREE.Mesh(geometrio, pukek);
   mesh.renderOrder = 0;
-  sceno.add(mesh);
+  qena.add(mesh);
   return { mesh, waterSurfaceY: niveloFn };
 }
 
-function kreiOndanAkvanMaterialon(sceno: THREE.Scene, maskita = false): THREE.ShaderMaterial {
+function kreiOndanAkvanMaterialon(qena: THREE.Scene, maskita = false): THREE.ShaderMaterial {
   // ⟨ ទឹក និងមេឃចែកគ្នានូវពណ៌ និងទិសព្រះអាទិត្យដដែល ក្នុងគ្រប់អាកាសធាតុ 📃 ⟩
-  const cxielo = sceno.userData.cxielajUniformoj as CxielajUniformoj | undefined;
+  const cxielo = qena.userData.cxielajUniformoj as CxielajUniformoj | undefined;
   const maskaVertico = maskita ? "attribute float aAkvo;\nvarying float vAkvo;\n" : "";
   const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
   const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
@@ -221,7 +221,7 @@ function kreiOndanAkvanMaterialon(sceno: THREE.Scene, maskita = false): THREE.Sh
     ? "alpha *= smoothstep( 0.0, 0.15625, profundo );\n"
     : "";
   const bordaKodo = "float bordaF = 1.0 - smoothstep( 0.0625, 0.75, profundo );";
-  const materialo = new THREE.ShaderMaterial({
+  const pukek = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     transparent: true,
     depthWrite: false,
@@ -415,11 +415,11 @@ function kreiOndanAkvanMaterialon(sceno: THREE.Scene, maskita = false): THREE.Sh
     `,
   });
   // ⟨ UniformsUtils.merge ចម្លងតម្លៃ ដូច្នេះភ្ជាប់ឯកសារយោងមេឃឡើងវិញបន្ទាប់ពីបង្កើត 📃 ⟩
-  if ( cxielo ) Object.assign(materialo.uniforms, {
+  if ( cxielo ) Object.assign(pukek.uniforms, {
     uTop: cxielo.uTop, uMid: cxielo.uMid, uBot: cxielo.uBot,
     uSunCol: cxielo.uSunCol, uSunDir: cxielo.uSunDir,
   });
-  return materialo;
+  return pukek;
 }
 
 export function gxisdatigiAkvon(river: RiverData, t: number): void {

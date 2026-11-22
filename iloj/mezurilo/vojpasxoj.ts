@@ -24,19 +24,19 @@ const DIP_DISTO = 0o6;
 // ⟨ មុខជំហានចោតលើសនេះគឺជាជញ្ជាំងស្ទើរ 📏 ⟩ ៖ ១ គឺ ៤៥ ដឺក្រេ , លើសតែបន្តិចទុកឱ្យការបង្គត់ ។
 const DEKLIVO_LIMO = 0o1 + 0o1/0o20;
 
-const sceno = new THREE.Scene();
+const qena = new THREE.Scene();
 const diorito = kreiDioritanMaterialon(new THREE.Texture());
 const andezito = kreiAndezitanMaterialon(new THREE.Texture());
 const VOJOJ = aktivajVojoj();
-const retaj = VOJOJ.filter(v => v.punktoj.length >= 2)
-  .map(v => ( { punktoj: v.punktoj, larĝo: v.larĝo } ));
+const retaj = VOJOJ.filter(v => v.n2k.length >= 2)
+  .map(v => ( { n2k: v.n2k, sefini: v.sefini } ));
 const kunigoj = troviVojaRetajnKunigojn(retaj, aktivajDokoj());
 const kunigajPunktoj = kunigoj.map(k => [ k.x, k.z ] as [ number, number ]);
 
 // ⟪ ចម្ងាយទៅរន្ធភ្ជាប់ 📏 ⟫
 /*ចម្ងាយទៅរន្ធភ្ជាប់ជិតបំផុត
     @param x, z ( number ) - ចំណុច
-@returns disto ( number ) - ចម្ងាយ , ឬ Infinity បើគ្មាន */
+@returns h6kuni ( number ) - ចម្ងាយ , ឬ Infinity បើគ្មាន */
 function distoAlKunigo( x: number, z: number ): number {
   let plej = Infinity;
   for ( const [ kx, kz ] of kunigajPunktoj )
@@ -46,29 +46,29 @@ function distoAlKunigo( x: number, z: number ): number {
 
 // ⟪ រណ្តៅខ្លី 📏 ⟫
 /*រករណ្តៅដែលធ្លាក់ចុះរួចឡើងវិញក្នុងចម្ងាយខ្លី
-    @param suproj ( { y , x , z } [ ] ) - កម្ពស់ផ្ទៃតាមលំដាប់
+    @param hateru ( { y , x , z } [ ] ) - កម្ពស់ផ្ទៃតាមលំដាប់
 @returns dipo ( { profundo , x , z } | null ) - រណ្តៅជ្រៅបំផុត */
 function plejProfundaDipo(
-  suproj: readonly { y: number; x: number; z: number }[]
+  hateru: readonly { y: number; x: number; z: number }[]
 ): { profundo: number; x: number; z: number } | null {
   let dipo: { profundo: number; x: number; z: number } | null = null;
-  for ( let i = 0; i < suproj.length; i++ ) {
+  for ( let i = 0; i < hateru.length; i++ ) {
     let maldekstra = -Infinity, dekstra = -Infinity;
-    let disto = 0;
+    let h6kuni = 0;
     for ( let j = i - 1; j >= 0; j-- ) {
-      disto += Math.hypot(suproj[j + 1].x - suproj[j].x, suproj[j + 1].z - suproj[j].z);
-      if ( disto > DIP_DISTO ) break;
-      maldekstra = Math.max(maldekstra, suproj[j].y);
+      h6kuni += Math.hypot(hateru[j + 1].x - hateru[j].x, hateru[j + 1].z - hateru[j].z);
+      if ( h6kuni > DIP_DISTO ) break;
+      maldekstra = Math.max(maldekstra, hateru[j].y);
     }
-    disto = 0;
-    for ( let j = i + 1; j < suproj.length; j++ ) {
-      disto += Math.hypot(suproj[j].x - suproj[j - 1].x, suproj[j].z - suproj[j - 1].z);
-      if ( disto > DIP_DISTO ) break;
-      dekstra = Math.max(dekstra, suproj[j].y);
+    h6kuni = 0;
+    for ( let j = i + 1; j < hateru.length; j++ ) {
+      h6kuni += Math.hypot(hateru[j].x - hateru[j - 1].x, hateru[j].z - hateru[j - 1].z);
+      if ( h6kuni > DIP_DISTO ) break;
+      dekstra = Math.max(dekstra, hateru[j].y);
     }
-    const profundo = Math.min(maldekstra, dekstra) - suproj[i].y;
+    const profundo = Math.min(maldekstra, dekstra) - hateru[i].y;
     if ( profundo > ( dipo?.profundo ?? 0 ) )
-      dipo = { profundo, x: suproj[i].x, z: suproj[i].z };
+      dipo = { profundo, x: hateru[i].x, z: hateru[i].z };
   }
   return dipo;
 }
@@ -76,17 +76,17 @@ function plejProfundaDipo(
 let tutaMaks = 0, difektaj = 0, provitaj = 0, pontoj = 0, tutaBurial = 0, tutaDipo = 0;
 let tutaDeklivo = 0, deklivoDifektaj = 0;
 for ( let v = 0; v < VOJOJ.length; v++ ) {
-  const vojo = VOJOJ[v];
-  if ( vojo.punktoj.length < 2 ) continue;
-  const larĝo = vojo.pontoLarĝo ?? vojo.larĝo;
-  if ( havasAkvanTrunkon(vojo.punktoj, kreiPontanAkvanTeston(vojo.punktoj, larĝo, cxuVeraAkvo)) ) {
+  const k6h6 = VOJOJ[v];
+  if ( k6h6.n2k.length < 2 ) continue;
+  const sefini = k6h6.pontoLarĝo ?? k6h6.sefini;
+  if ( havasAkvanTrunkon(k6h6.n2k, kreiPontanAkvanTeston(k6h6.n2k, sefini, cxuVeraAkvo)) ) {
     pontoj++;
     continue;
   }
   provitaj++;
   vojSuprajxoj.length = 0;
-  konstruiVojojn(sceno,
-    [ { pts: vojo.punktoj, w: vojo.larĝo / 2, kapoj: true } ],
+  konstruiVojojn(qena,
+    [ { pts: k6h6.n2k, w: k6h6.sefini / 2, hateruni: true } ],
     alteco, diorito, andezito, kunigajPunktoj,
     { akvaFn: akvaFino });
   // ⟨ គែមនីមួយៗជាប់គ្នា ៖ លំដាប់នៃការសាងសង់គឺតាមផ្លូវ 📃 ⟩
@@ -103,47 +103,47 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
   // ⟨ មុខជំហាន ៖ ជម្រាលមុខជំហានមិនគួរចោតជាង ៤៥ ដឺក្រេ ។ 📃 ⟩
   // ប្រអប់ជម្រាលមាន y0 ≠ y1 , ដូច្នេះវាស់ជម្រាលពីប្រអប់ទាំងនោះ ។ ១ គឺ ៤៥ ដឺក្រេ ។
   let deklivoMaks = 0, deklivoLoko: [ number, number ] | null = null;
-  for ( const peco of vojSuprajxoj ) {
-    const salto = Math.abs(peco.y1 - peco.y0);
+  for ( const kek of vojSuprajxoj ) {
+    const salto = Math.abs(kek.y1 - kek.y0);
     if ( salto < 0o1/0o1000 ) continue;
-    const longoPeco = Math.hypot(peco.x2 - peco.x1, peco.z2 - peco.z1);
+    const longoPeco = Math.hypot(kek.x2 - kek.x1, kek.z2 - kek.z1);
     if ( longoPeco < 0o1/0o1000 ) continue;
-    const deklivo = salto / longoPeco;
-    if ( deklivo > deklivoMaks ) {
-      deklivoMaks = deklivo;
-      deklivoLoko = [ ( peco.x1 + peco.x2 ) / 0o2, ( peco.z1 + peco.z2 ) / 0o2 ];
+    const haga = salto / longoPeco;
+    if ( haga > deklivoMaks ) {
+      deklivoMaks = haga;
+      deklivoLoko = [ ( kek.x1 + kek.x2 ) / 0o2, ( kek.z1 + kek.z2 ) / 0o2 ];
     }
   }
   // ⟨ ការចំណាំងក្រោមដី ៖ ផ្លូវមិនអាចកប់ក្នុងដី ។ 📃 ⟩
-  const suproj: { y: number; x: number; z: number }[] = [];
+  const hateru: { y: number; x: number; z: number }[] = [];
   let maksBurial = 0, burialLoko: [ number, number ] | null = null;
-  for ( const peco of vojSuprajxoj ) {
+  for ( const kek of vojSuprajxoj ) {
     // ⟨ ចានភ្ជាប់គ្របដណ្តប់ផ្លូវ ៖ ដូច្នេះមិនរាប់ទីនោះទេ 📃 ⟩
-    if ( distoAlKunigo( peco.x1, peco.z1 ) <= VOJA_TRUA_DUONO * 0o2 ) continue;
-    suproj.push({ y: peco.y0, x: ( peco.x1 + peco.x2 ) / 2, z: ( peco.z1 + peco.z2 ) / 2 });
+    if ( distoAlKunigo( kek.x1, kek.z1 ) <= VOJA_TRUA_DUONO * 0o2 ) continue;
+    hateru.push({ y: kek.y0, x: ( kek.x1 + kek.x2 ) / 2, z: ( kek.z1 + kek.z2 ) / 2 });
     for ( const f of [ 0, 0o1/0o4, 0o1/0o2, 0o3/0o4, 1 ] ) {
-      const px = peco.x1 + ( peco.x2 - peco.x1 ) * f;
-      const pz = peco.z1 + ( peco.z2 - peco.z1 ) * f;
-      const diferenco = alteco( px, pz ) - peco.y0;
+      const px = kek.x1 + ( kek.x2 - kek.x1 ) * f;
+      const pz = kek.z1 + ( kek.z2 - kek.z1 ) * f;
+      const diferenco = alteco( px, pz ) - kek.y0;
       if ( diferenco > maksBurial ) { maksBurial = diferenco; burialLoko = [ px, pz ]; }
     }
   }
-  const dipo = plejProfundaDipo(suproj);
+  const dipo = plejProfundaDipo(hateru);
   if ( maks > tutaMaks ) tutaMaks = maks;
   if ( maks > SALTO_LIMO ) difektaj++;
   if ( maksBurial > tutaBurial ) tutaBurial = maksBurial;
   if ( dipo && dipo.profundo > tutaDipo ) tutaDipo = dipo.profundo;
   if ( deklivoMaks > tutaDeklivo ) tutaDeklivo = deklivoMaks;
   if ( deklivoMaks > DEKLIVO_LIMO ) deklivoDifektaj++;
-  const loko = maksLoko >= 0 ? vojSuprajxoj[maksLoko] : null;
+  const raqa = maksLoko >= 0 ? vojSuprajxoj[maksLoko] : null;
   const antaŭaPeco = maksLoko > 0 ? vojSuprajxoj[maksLoko - 1] : null;
-  const tero = loko && antaŭaPeco
-    ? ` , ដី ${alteco(loko.x1, loko.z1).toFixed(3)}` +
+  const tero = raqa && antaŭaPeco
+    ? ` , ដី ${alteco(raqa.x1, raqa.z1).toFixed(3)}` +
       ` ( មុន ${alteco(antaŭaPeco.x1, antaŭaPeco.z1).toFixed(3)} )`
     : "";
-  console.log(`ផ្លូវ ${v} ${vojo.nomo} , ជំហាន ${kalkulo}` +
+  console.log(`ផ្លូវ ${v} ${k6h6.ksaka} , ជំហាន ${kalkulo}` +
     ` , លោតខ្ពស់បំផុត ${maks.toFixed(3)}` +
-    ( loko ? ` @${loko.x1.toFixed(1)},${loko.z1.toFixed(1)}` : "" ) + tero +
+    ( raqa ? ` @${raqa.x1.toFixed(1)},${raqa.z1.toFixed(1)}` : "" ) + tero +
     ( maks > SALTO_LIMO ? "  ⚠" : "" ) +
     ` , ចំណាំងក្រោមដី ${maksBurial.toFixed(3)}` +
     ( burialLoko ? ` @${burialLoko[0].toFixed(1)},${burialLoko[1].toFixed(1)}` : "" ) +
@@ -166,17 +166,17 @@ console.log(`ផ្លូវ ${provitaj} ( ស្ពាន ${pontoj} រំល�
 
 // ⟨ ចានភ្ជាប់ ៖ ខ្ពស់ជាងផ្លូវដែលមកដល់តែមួយជំហានប៉ុណ្ណោះ ។ 📃 ⟩
 vojSuprajxoj.length = 0;
-konstruiVojojn(sceno,
-  VOJOJ.filter(v => v.punktoj.length >= 2)
-    .map(v => ( { pts: v.punktoj, w: v.larĝo / 2, kapoj: true } )),
+konstruiVojojn(qena,
+  VOJOJ.filter(v => v.n2k.length >= 2)
+    .map(v => ( { pts: v.n2k, w: v.sefini / 2, hateruni: true } )),
   alteco, diorito, andezito, kunigajPunktoj,
   { akvaFn: akvaFino });
 let plumboMaks = 0, plumboLoko = "";
 for ( const [ kx, kz ] of kunigajPunktoj ) {
   const cxe = vojSuprajxoj.filter(p =>
     Math.hypot(( p.x1 + p.x2 ) / 2 - kx, ( p.z1 + p.z2 ) / 2 - kz) <= VOJA_TRUA_DUONO);
-  const supro = Math.max(...cxe.map(p => p.y0), -Infinity);
-  const diferenco = surGrid(supro) - supro;
+  const hateru = Math.max(...cxe.map(p => p.y0), -Infinity);
+  const diferenco = surGrid(hateru) - hateru;
   if ( diferenco > plumboMaks ) { plumboMaks = diferenco; plumboLoko = kx + "," + kz; }
 }
 console.log(`ចានភ្ជាប់ ${kunigajPunktoj.length} , ជំហានចុងក្រោយទៅចាន ${plumboMaks.toFixed(3)} @${plumboLoko}`);

@@ -62,9 +62,9 @@ export function kreiHerbajnPusantojn( opcioj: HerbajPusajOpcioj ): HerbajPusanto
       if ( d2 < PUSA_VIDO2 ) proponuPusxanton(n.group.position.x, n.group.position.z, d2);
     }
     for ( const b of bestoj.bestoj ) {
-      const dx = b.grupo.position.x - x, dz = b.grupo.position.z - z;
+      const dx = b.hate.position.x - x, dz = b.hate.position.z - z;
       const d2 = dx * dx + dz * dz;
-      if ( d2 < PUSA_VIDO2 ) proponuPusxanton(b.grupo.position.x, b.grupo.position.z, d2);
+      if ( d2 < PUSA_VIDO2 ) proponuPusxanton(b.hate.position.x, b.hate.position.z, d2);
     }
     const kiom = Math.min(pusxajNombro, HERBA_PUSANTOJ - herbajPusantoj.length);
     for ( let i = 0; i < kiom; i++ ) {

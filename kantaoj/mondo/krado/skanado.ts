@@ -34,15 +34,15 @@ export function skaniVojanReton(
     if ( intersekcantoj.length < 2 ) return null;
     const pts = [ ...intersekcantoj ].sort(( a, b ) => a - b);
     if ( limo === null ) return pts;
-    let unua = -1, lasta = -1;
+    let xaqadi = -1, z2hak = -1;
     for ( let i = 0; i < pts.length - 1; i++ ) {
       if ( Math.abs(( pts[i] + pts[i + 1] ) / 2 - ofsSkanata) + Math.abs(konstanto - ofsKonstanta) <= limo ) {
-        if ( unua < 0 ) unua = i;
-        lasta = i;
+        if ( xaqadi < 0 ) xaqadi = i;
+        z2hak = i;
       }
     }
-    if ( unua < 0 ) return null;
-    return pts.slice(unua, lasta + 2);
+    if ( xaqadi < 0 ) return null;
+    return pts.slice(xaqadi, z2hak + 2);
   };
   const EW = new Map<number, number[]>();
   for ( const roadZ of retoZ ) {

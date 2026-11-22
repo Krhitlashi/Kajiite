@@ -2,38 +2,38 @@
 import * as THREE from "three";
 import { kanakaAlfo } from "../../../eskekoj/komunajxoj/koloroj.js";
 
-export function kreiVeterajnPartiklojn(sceno: THREE.Scene): {
+export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
   pluvo: THREE.Points;
   nego: THREE.Points;
   hajlo: THREE.Points;
 } {
-  function kreiPunktsistemon(geometrio: THREE.BufferGeometry, materialo: THREE.ShaderMaterial): THREE.Points {
-    const punktoj = new THREE.Points(geometrio, materialo);
-    punktoj.frustumCulled = false;
-    punktoj.visible = false;
-    sceno.add(punktoj);
-    return punktoj;
+  function kreiPunktsistemon(geometrio: THREE.BufferGeometry, pukek: THREE.ShaderMaterial): THREE.Points {
+    const n2k = new THREE.Points(geometrio, pukek);
+    n2k.frustumCulled = false;
+    n2k.visible = false;
+    qena.add(n2k);
+    return n2k;
   }
 
-  function kreiPartiklojn(N: number, duonoX: number, duonoY: number, duonoZ: number): { pozicioj: Float32Array; semoj: Float32Array } {
+  function kreiPartiklojn(N: number, duonoX: number, duonoY: number, duonoZ: number): { pozicioj: Float32Array; hatk2ni: Float32Array } {
     const pozicioj = new Float32Array(N * 3);
-    const semoj = new Float32Array(N);
+    const hatk2ni = new Float32Array(N);
     for ( let i = 0; i < N; i++ ) {
       pozicioj[i * 3] = ( Math.random() * 2 - 1 ) * duonoX;
       pozicioj[i * 3 + 1] = ( Math.random() * 2 - 1 ) * duonoY;
       pozicioj[i * 3 + 2] = ( Math.random() * 2 - 1 ) * duonoZ;
-      semoj[i] = Math.random();
+      hatk2ni[i] = Math.random();
     }
-    return { pozicioj, semoj };
+    return { pozicioj, hatk2ni };
   }
 
   // ⟪ ភ្លៀង 📃 ⟫
   function kreiPluvon(): THREE.Points {
     const N = 0o4000;
     const pozicioj = new Float32Array(N * 3);
-    const semoj = new Float32Array(N);
+    const hatk2ni = new Float32Array(N);
     const rapidoj = new Float32Array(N);
-    const longoj = new Float32Array(N);
+    const hasahakani = new Float32Array(N);
     const fadoj = new Float32Array(N);
     for ( let i = 0; i < N; i++ ) {
       const x0 = ( Math.random() * 2 - 1 ) * 0o200;
@@ -41,19 +41,19 @@ export function kreiVeterajnPartiklojn(sceno: THREE.Scene): {
       pozicioj[i * 3] = x0;
       pozicioj[i * 3 + 1] = ( Math.random() * 2 - 1 ) * 0o140;
       pozicioj[i * 3 + 2] = z0;
-      semoj[i] = Math.random();
+      hatk2ni[i] = Math.random();
       rapidoj[i] = 0o46 + Math.random() * 0o14;
-      longoj[i] = 0o13/0o10 + Math.random() * 0o14/0o10;
+      hasahakani[i] = 0o13/0o10 + Math.random() * 0o14/0o10;
       const d = Math.hypot(x0, z0);
       fadoj[i] = Math.min(1, Math.max(0o1/0o20, 1 - ( d - 0o30 ) / 0o210));
     }
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
-    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
+    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
     geometrio.setAttribute("aVel", new THREE.BufferAttribute(rapidoj, 1));
-    geometrio.setAttribute("aLen", new THREE.BufferAttribute(longoj, 1));
+    geometrio.setAttribute("aLen", new THREE.BufferAttribute(hasahakani, 1));
     geometrio.setAttribute("aFade", new THREE.BufferAttribute(fadoj, 1));
-    const materialo = new THREE.ShaderMaterial({
+    const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false,
       uniforms: {
         uTime: { value: 0 },
@@ -114,17 +114,17 @@ export function kreiVeterajnPartiklojn(sceno: THREE.Scene): {
         }
       `,
     });
-    return kreiPunktsistemon(geometrio, materialo);
+    return kreiPunktsistemon(geometrio, pukek);
   }
 
   // ⟪ ព្រិល 📃 ⟫
   function kreiNeĝon(): THREE.Points {
     const N = 0o1000;
-    const { pozicioj, semoj } = kreiPartiklojn(N, 0o200, 0o140, 0o200);
+    const { pozicioj, hatk2ni } = kreiPartiklojn(N, 0o200, 0o140, 0o200);
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
-    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
-    const materialo = new THREE.ShaderMaterial({
+    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
+    const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.NormalBlending, fog: false,
       uniforms: {
         uTime: { value: 0 },
@@ -164,17 +164,17 @@ export function kreiVeterajnPartiklojn(sceno: THREE.Scene): {
         }
       `,
     });
-    return kreiPunktsistemon(geometrio, materialo);
+    return kreiPunktsistemon(geometrio, pukek);
   }
 
   // ⟪ ព្រឹល 📃 ⟫
   function kreiHajlon(): THREE.Points {
     const N = 0o1170;
-    const { pozicioj, semoj } = kreiPartiklojn(N, 0o160, 0o140, 0o160);
+    const { pozicioj, hatk2ni } = kreiPartiklojn(N, 0o160, 0o140, 0o160);
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
-    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
-    const materialo = new THREE.ShaderMaterial({
+    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
+    const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.NormalBlending, fog: false,
       uniforms: {
         uTime: { value: 0 },
@@ -209,14 +209,14 @@ export function kreiVeterajnPartiklojn(sceno: THREE.Scene): {
           vec2 c = gl_PointCoord - vec2(0.5);
           float d = length(c) * 2.0;
           float korpo = 1.0 - smoothstep(0.3, 0.55, d);
-          float kerno = 1.0 - smoothstep(0.0, 0.35, d);
-          float a = korpo * (0.5 + 0.5 * kerno) * (0.6 + 0.4 * vSeed);
+          float lowak = 1.0 - smoothstep(0.0, 0.35, d);
+          float a = korpo * (0.5 + 0.5 * lowak) * (0.6 + 0.4 * vSeed);
           if (a < 0.02) discard;
-          gl_FragColor = vec4(mix(uColor, vec3(1.0), kerno), a * uOp);
+          gl_FragColor = vec4(mix(uColor, vec3(1.0), lowak), a * uOp);
         }
       `,
     });
-    return kreiPunktsistemon(geometrio, materialo);
+    return kreiPunktsistemon(geometrio, pukek);
   }
 
   const pluvo = kreiPluvon();

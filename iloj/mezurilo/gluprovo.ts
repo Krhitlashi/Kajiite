@@ -10,27 +10,27 @@ import { kreiDioritanMaterialon, kreiAndezitanMaterialon, kreiOranMaterialon } f
 const CELO: [ number, number ] = [ 0o160, -0o171 ];
 const VOJOJ = aktivajVojoj();
 const DOKOJ = aktivajDokoj();
-const sceno = new THREE.Scene();
+const qena = new THREE.Scene();
 const oro = kreiOranMaterialon(0xd8b45a);
 const kradajPunktoj: [ number, number ][][] = [];
 const kradajKunigoj: [ number, number ][] = [];
 for ( const u of aktivajUrboj() ) {
-  const urbo = konstruiKradanUrbon(sceno,
+  const urbo = konstruiKradanUrbon(qena,
     { arangxaGrando: u.arangxaGrando, blokaGrando: u.blokaGrando, keuxfhxeso: false, lampoj: false },
     [ u.ofsX, u.ofsZ ], oro, u.aldonajBlokoj ?? [] );
   for ( const d of urbo.vojDifinoj ) kradajPunktoj.push(d.pts);
   kradajKunigoj.push( ...urbo.kunigajPunktoj );
 }
-const retaj = VOJOJ.filter( v => v.punktoj.length >= 2 ).map( v => ({ punktoj: v.punktoj, larĝo: v.larĝo }) );
+const retaj = VOJOJ.filter( v => v.n2k.length >= 2 ).map( v => ({ n2k: v.n2k, sefini: v.sefini }) );
 const antaŭaj = troviVojaRetajnKunigojn(retaj, DOKOJ);
 const celoj: [ number, number ][] = [ ...kradajKunigoj, ...antaŭaj.map( k => [ k.x, k.z ] as [ number, number ] ) ];
 const landoj = DOKOJ.map( d => {
   const r = d.rotacio ?? 0;
   return { x: d.x + Math.sin(r) * ( d.profundo / 2 ), z: d.z + Math.cos(r) * ( d.profundo / 2 ) };
 });
-const gluitaj = retaj.map(( v, vi ) => gluiVojaFinon(v.punktoj, celoj, landoj,
-  [ ...kradajPunktoj, ...retaj.map(( w, wi ) => wi === vi ? [] : w.punktoj ) ] as [ number, number ][][] ));
-const kunigoj = troviVojaRetajnKunigojn(gluitaj.map(( p, i ) => ({ punktoj: p, larĝo: retaj[i].larĝo })), DOKOJ);
+const gluitaj = retaj.map(( v, vi ) => gluiVojaFinon(v.n2k, celoj, landoj,
+  [ ...kradajPunktoj, ...retaj.map(( w, wi ) => wi === vi ? [] : w.n2k ) ] as [ number, number ][][] ));
+const kunigoj = troviVojaRetajnKunigojn(gluitaj.map(( p, i ) => ({ n2k: p, sefini: retaj[i].sefini })), DOKOJ);
 console.log( `ចានភ្ជាប់សរុប ${kunigoj.length}` );
 for ( const k of kunigoj ) {
   const d = Math.hypot(k.x - CELO[0], k.z - CELO[1]);
@@ -39,5 +39,5 @@ for ( const k of kunigoj ) {
     ` , ដៃ ${k.direktaj.map( b => `(${b[0].toFixed(2)},${b[1].toFixed(2)})` ).join( " " )}` +
     ` , បិទ ${k.fermitaj.join( "," )}` );
 }
-console.log( "ចុងផ្លូវ ៖ " + gluitaj.map(( p, i ) => `${VOJOJ[i].nomo} (${p[0][0].toFixed(1)},${p[0][1].toFixed(1)})-` +
+console.log( "ចុងផ្លូវ ៖ " + gluitaj.map(( p, i ) => `${VOJOJ[i].ksaka} (${p[0][0].toFixed(1)},${p[0][1].toFixed(1)})-` +
   `(${p[p.length - 1][0].toFixed(1)},${p[p.length - 1][1].toFixed(1)})` ).join( " | " ) );

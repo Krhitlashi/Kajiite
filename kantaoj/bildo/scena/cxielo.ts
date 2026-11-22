@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { kreiCxielanMaterialon, type CxielajUniformoj } from "../../../eskekoj/komunajxoj/lumo.js";
 
-export function kreiCxielon(sceno: THREE.Scene): {
+export function kreiCxielon(qena: THREE.Scene): {
   cxielo: THREE.Mesh;
   cxielajUniformoj: CxielajUniformoj;
 } {
@@ -16,7 +16,7 @@ export function kreiCxielon(sceno: THREE.Scene): {
     uNokto: { value: 0o0 },
   };
   // ⟨ ផ្ទៃទឹកប្រើឯកសារយោងដដែល ដើម្បីការឆ្លុះប្តូរតាមមេឃភ្លាមៗ 📃 ⟩
-  sceno.userData.cxielajUniformoj = cxielajUniformoj;
+  qena.userData.cxielajUniformoj = cxielajUniformoj;
   const cxielaGeometrio = new THREE.SphereGeometry(0o1170, 0o30, 0o20);
   const cxielo = new THREE.Mesh(cxielaGeometrio, kreiCxielanMaterialon(cxielajUniformoj));
   // ⟨ មេឃតាមកាមេរ៉ានៅគ្រប់ទីតាំង កុំឱ្យផ្នែកខាងលើហួសចម្ងាយកាត់រហូតខ្មៅ 📃 ⟩
@@ -25,6 +25,6 @@ export function kreiCxielon(sceno: THREE.Scene): {
     cxielo.position.copy(fotilo.position);
     cxielo.updateMatrixWorld();
   };
-  sceno.add(cxielo);
+  qena.add(cxielo);
   return { cxielo, cxielajUniformoj };
 }

@@ -24,12 +24,12 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   const loka = ( x: number, z: number ) => ( {
     lx: ( x - D.x ) * kos - ( z - D.z ) * sin,
     lz: ( x - D.x ) * sin + ( z - D.z ) * kos } );
-  let ene = 0, plejProksima = Infinity, loko = "", plejLz = 0;
+  let ene = 0, plejProksima = Infinity, raqa = "", plejLz = 0;
   for ( const k of mondo.kunigoj ) {
     const { lx, lz } = loka(k.x, k.z);
     if ( Math.abs(lx) <= hx && lz <= landaZ + 0.05 && lz >= -D.profundo / 2 ) ene++;
     const d = Math.hypot(k.x - D.x, k.z - D.z);
-    if ( d < plejProksima ) { plejProksima = d; loko = `${k.x.toFixed(1)},${k.z.toFixed(1)}`; plejLz = lz; }
+    if ( d < plejProksima ) { plejProksima = d; raqa = `${k.x.toFixed(1)},${k.z.toFixed(1)}`; plejLz = lz; }
   }
   // ⟨ កម្ពស់វេទិកា និងកម្ពស់ចាន ៖ បើខុសគ្នា , ចានលេចចេញពីវេទិកា ។ 📃 ⟩
   const landX = D.x + sin * ( D.profundo / 2 );
@@ -37,13 +37,13 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   // ⟨ សាងចំណតពិត 📏 ⟩ ៖ វាចុះឈ្មោះកម្រិតដែលចានភ្ជាប់ត្រូវយក ហើយ
   // ត្រឡប់កម្ពស់វេទិកាទាប និងចំណុចជណ្តើរ ។ វេទិកាលែងស្មើចានទៀតទេ ,
   // ព្រោះជណ្តើរភ្ជាប់គ្នា ។ 📃 ⟩
-  const dok = konstruiDokon(mondo.sceno, D.x, D.z, r, mondo.vojoAlteco,
+  const dok = konstruiDokon(mondo.qena, D.x, D.z, r, mondo.vojoAlteco,
     akvaNivelo, D.profundo, alteco);
   const plato = dokaAltoCxe(landX, landZ) ?? mondo.platoCxe(landX, landZ);
   trafoj += ene;
   console.log(`ចំណត ${i} @(${D.x.toFixed(1)},${D.z.toFixed(1)}) ប្រវែង ${D.profundo.toFixed(2)}` +
     ` ទទឹង ${DOKO_PLATFORMA_LARĜO.toFixed(2)} មុំ ${( r * 180 / Math.PI ).toFixed(1)}°`);
-  console.log(`  ចានជិត ${plejProksima.toFixed(2)} @${loko} លើអ័ក្ស ${plejLz.toFixed(2)}` +
+  console.log(`  ចានជិត ${plejProksima.toFixed(2)} @${raqa} លើអ័ក្ស ${plejLz.toFixed(2)}` +
     ` , គែមវេទិកា ${landaZ.toFixed(2)} , ចានក្នុងវេទិកា ${ene}` +
     ( ene ? "  ſ̀ȷᴜ̩ ſɭɹ }ʃꞇ" : "" ) );
   console.log(`  វេទិកា ${dok.landejaY.toFixed(2)} ចាន ${plato.toFixed(2)}` +

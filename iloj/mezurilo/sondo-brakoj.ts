@@ -17,19 +17,19 @@ for ( const [ qx, qz ] of celoj ) {
   for ( const k of mondo.kunigoj ) {
     const d = Math.hypot(k.x - qx, k.z - qz);
     if ( d > 0o12 ) continue;
-    const brakoj = kreiBrakojn(mondo.mapoj.direktoj.get(k.x + "," + k.z) ?? [],
+    const knece = kreiBrakojn(mondo.mapoj.hac2w2q.get(k.x + "," + k.z) ?? [],
       mondo.mapoj.fermitaj.get(k.x + "," + k.z),
       mondo.mapoj.rotacioj.get(k.x + "," + k.z) ?? 0,
-      mondo.mapoj.duonoj.get(k.x + "," + k.z));
-    const duonoj = brakoj.map(b => b.duono);
-    const altoj = kunigajBrakAltoj(k.x, k.z, brakoj.map(b => [ b.ux, b.uz ]), duonoj, baza);
-    const nivelo = kunigaPlataNivelo(k.x, k.z, brakoj, mondo.vojoAlteco);
+      mondo.mapoj.hap2somani.get(k.x + "," + k.z));
+    const hap2somani = knece.map(b => b.p2somani);
+    const hal6da = kunigajBrakAltoj(k.x, k.z, knece.map(b => [ b.ux, b.uz ]), hap2somani, baza);
+    const vem2 = kunigaPlataNivelo(k.x, k.z, knece, mondo.vojoAlteco);
     console.log(`  ចាន ${k.x.toFixed(1)},${k.z.toFixed(1)} d=${d.toFixed(1)}` +
       ` ដី ${alteco(k.x, k.z).toFixed(2)} វាល ${mondo.vojoAlteco(k.x, k.z).toFixed(2)}`);
-    console.log(`    ដីមាត់ ${altoj.map(v => v.toFixed(2)).join(" ")}` +
-      ` | វាលមាត់ ${nivelo.altoj.map(v => v.toFixed(2)).join(" ")}` +
-      ` | កណ្តាល ${nivelo.alto.toFixed(2)}`);
-    console.log(`    ទិស ${brakoj.map(b => `${b.ux.toFixed(2)}/${b.uz.toFixed(2)}`).join(" ")}`);
+    console.log(`    ដីមាត់ ${hal6da.map(v => v.toFixed(2)).join(" ")}` +
+      ` | វាលមាត់ ${vem2.hal6da.map(v => v.toFixed(2)).join(" ")}` +
+      ` | កណ្តាល ${vem2.l6da.toFixed(2)}`);
+    console.log(`    ទិស ${knece.map(b => `${b.ux.toFixed(2)}/${b.uz.toFixed(2)}`).join(" ")}`);
   }
   for ( const ox of [ -6, -3, 0, 3, 6 ] ) {
     const vico: string[] = [];

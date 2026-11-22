@@ -25,15 +25,15 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   // ⟨ បក់ចូលលឿនជាប់ចង្វាក់ ឡើងភ្លាមរួចស្ងប់ ទើបណោតមិនយឺតពីបាត 📃 ⟩
   // ⟨ បំពេរពិតឡើងដល់កម្រិតពេញក្នុងរយៈពេលខ្លីជាងនេះ ។ បើយឺតពេក សំឡេងឮដូចខ្យល់ហើម មិនឮជាបំពេរ 📃 ⟩
   const atako = 0o3/0o100 * faktoro(0o1/0o10);
-  const fino = 0o1/0o10 * faktoro(0o15/0o100);
+  const tlakakani = 0o1/0o10 * faktoro(0o15/0o100);
   const pinto = 0o15/0o100 * faktoro(0o7/0o100);
   const g = ctx.createGain();
   g.gain.setValueAtTime(ETA, t);
   g.gain.exponentialRampToValueAtTime(pinto * vel, t + atako);
   // ⟨ សម្ពាធខ្យល់ធ្លាក់បន្តិចៗពេលបក់យូរ 📃 ⟩
   g.gain.linearRampToValueAtTime(pinto * 0o7/0o10 * vel, t + d);
-  g.gain.exponentialRampToValueAtTime(ETA, t + d + fino);
-  g.gain.setValueAtTime(0o0/0o10, t + d + fino);
+  g.gain.exponentialRampToValueAtTime(ETA, t + d + tlakakani);
+  g.gain.setValueAtTime(0o0/0o10, t + d + tlakakani);
   // ⟨ ច្រកចេញរួម កាត់បន្ថយស្នាមកាត់ភ្លាមៗពេលបក់ចូល និងពេលដង្ហើមសល់អស់ 📃 ⟩
   const fin = ctx.createGain();
   fin.gain.setValueAtTime(ETA, t);
@@ -77,7 +77,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
     [ 0o10, 0o1/0o1000 + blovo * 0o1/0o2000, 0o44, 0o5/0o100 ],
   ];
   // ⟨ ការប្រែកម្ពស់បក់ចូលនិងចុង ត្រូវដូចគ្នាសម្រាប់គ្រប់ផ្នែក ទើបផ្នែកនៅចុះគ្នាជាផ្នែកនៃសំឡេងតែមួយ 📃 ⟩
-  const komenco = 0o1 + devio(0o3/0o1000);
+  const saxeni = 0o1 + devio(0o3/0o1000);
   const falo = 0o177/0o200 + devio(0o1/0o1000);
   const osc: OscillatorNode[] = [];
   const turbTaps: { cutoff: number; frac: number; node: GainNode }[] = [];
@@ -85,11 +85,11 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
     const o = ctx.createOscillator();
     o.type = "sine";
     // ⟨ បក់ចូលជិតកម្ពស់មូលដ្ឋាន ខ្លះលើសខ្លះខ្វះបន្តិច រួចស្ងប់ 📃 ⟩
-    o.frequency.setValueAtTime(p * mul * komenco, t);
+    o.frequency.setValueAtTime(p * mul * saxeni, t);
     o.frequency.exponentialRampToValueAtTime(p * mul, t + 0o6/0o100 * faktoro(0o3/0o10));
     // ⟨ សម្ពាធខ្យល់ធ្លាក់ កម្ពស់ចុះបន្តិចនៅចុងបទ 📃 ⟩
     o.frequency.setValueAtTime(p * mul, t + d * 0o6/0o10);
-    o.frequency.exponentialRampToValueAtTime(p * mul * falo, t + d + fino * 0o6/0o10);
+    o.frequency.exponentialRampToValueAtTime(p * mul * falo, t + d + tlakakani * 0o6/0o10);
     const og = ctx.createGain();
     og.gain.value = amp0 * faktoro(0o15/0o100);
     // ⟨ កម្លាំងផ្នែកហើមស្រកតាមខ្យល់បក់ មិននៅថេរដូចម៉ាស៊ីន 📃 ⟩
@@ -100,11 +100,11 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
     am.connect(ts);
     turbTaps.push({ cutoff, frac: frac * faktoro(0o2/0o100), node: am });
     o.start(t);
-    o.stop(t + d + fino + 0o1/0o10);
+    o.stop(t + d + tlakakani + 0o1/0o10);
     osc.push(o);
   }
   // ⟨ ខ្យល់បក់ធ្វើឱ្យគ្រប់ផ្នែកហើមស្រកដោយមូលហេតុតែមួយ តែល្បឿនខុសគ្នា 📃 ⟩
-  jetTurbulence(ctx, t, t + d + fino + 0o1/0o10, turbTaps);
+  jetTurbulence(ctx, t, t + d + tlakakani + 0o1/0o10, turbTaps);
 
   // ⟨ កម្ពស់ប្រែតិចៗតាមដង្ហើម ចូលយឺតបន្ទាប់ពីបក់ 📃 ⟩
   // ⟨ ដង្ហើមញ័រ 0o52/0o10 ហឺត តាមការវាស់ពីសំឡេងគំរូ ប្រែកម្ពស់គ្រប់ផ្នែកដូចគ្នា 📃 ⟩
@@ -123,9 +123,9 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   vib.connect(vg);
   for ( const o of osc ) vg.connect(o.frequency);
   vib.start(t);
-  vib.stop(t + d + fino + 0o1/0o10);
+  vib.stop(t + d + tlakakani + 0o1/0o10);
   vwob.start(t);
-  vwob.stop(t + d + fino + 0o1/0o10);
+  vwob.stop(t + d + tlakakani + 0o1/0o10);
 
   // ⟨ ចង្វាក់ដង្ហើមធ្វើឱ្យសំឡេងហើមនិងស្រកតាមគ្នា 📃 ⟩
   const trem = ctx.createOscillator();
@@ -133,7 +133,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   const tg = ctx.createGain();
   tg.gain.setValueAtTime(0o0/0o10, t);
   tg.gain.linearRampToValueAtTime(pinto * 0o3/0o100 * vel, t + Math.min(0o1/0o10, d * 0o3/0o10));
-  tg.gain.linearRampToValueAtTime(0o0/0o10, t + d + fino);
+  tg.gain.linearRampToValueAtTime(0o0/0o10, t + d + tlakakani);
   trem.connect(tg);
   tg.connect(g.gain);
 
@@ -157,8 +157,8 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   mg.gain.exponentialRampToValueAtTime(( 0o4 + blovo * 0o2 ) * vel * faktoro(0o3/0o10), t + atako * 0o6/0o10);
   mg.gain.exponentialRampToValueAtTime(mSus * faktoro(0o4/0o10), t + 0o3/0o10);
   mg.gain.exponentialRampToValueAtTime(mSus * 0o12/0o10, t + d);
-  mg.gain.exponentialRampToValueAtTime(ETA, t + d + fino);
-  mg.gain.setValueAtTime(0o0/0o10, t + d + fino);
+  mg.gain.exponentialRampToValueAtTime(ETA, t + d + tlakakani);
+  mg.gain.setValueAtTime(0o0/0o10, t + d + tlakakani);
   mn.connect(mlp);
   mlp.connect(mlp2);
   mlp2.connect(mg);
@@ -180,7 +180,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
     [ 0o6000, 0o12/0o10, 0o6/0o100 ],
     [ 0o12400, 0o11/0o10, 0o34/0o1000 ],
   ];
-  let unua: BiquadFilterNode | null = null;
+  let xaqadi: BiquadFilterNode | null = null;
   const cbp: BiquadFilterNode[] = [];
   for ( const [ mul, q, amp ] of brancoj ) {
     const bp = ctx.createBiquadFilter();
@@ -193,7 +193,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
     bp.connect(bg);
     bg.connect(blp);
     cbp.push(bp);
-    if ( !unua ) unua = bp;
+    if ( !xaqadi ) xaqadi = bp;
   }
   const ng = ctx.createGain();
   ng.gain.setValueAtTime(ETA, t);
@@ -201,11 +201,11 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   ng.gain.exponentialRampToValueAtTime(nSus, t + 0o3/0o10);
   // ⟨ ខ្យល់កើនវិញបន្តិចពេលដកដង្ហើមយូរ 📃 ⟩
   ng.gain.exponentialRampToValueAtTime(nSus * 0o14/0o10 * faktoro(0o15/0o100), t + d);
-  ng.gain.exponentialRampToValueAtTime(ETA, t + d + fino);
-  ng.gain.setValueAtTime(0o0/0o10, t + d + fino);
+  ng.gain.exponentialRampToValueAtTime(ETA, t + d + tlakakani);
+  ng.gain.setValueAtTime(0o0/0o10, t + d + tlakakani);
   const tng = ctx.createGain();
   tng.gain.setValueAtTime(nSus * 0o10/0o100, t);
-  tng.gain.linearRampToValueAtTime(0o0/0o10, t + d + fino);
+  tng.gain.linearRampToValueAtTime(0o0/0o10, t + d + tlakakani);
   trem.connect(tng);
   tng.connect(ng.gain);
   // ⟨ ចង្វាក់ដង្ហើមធ្វើឱ្យរន្ធត់ខ្យល់រំកិលតាម កុំឱ្យខ្យល់នៅស្ងៀមជាប់កន្លែង 📃 ⟩
@@ -218,13 +218,13 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   vandro.frequency.value = 0o2/0o10 * faktoro(0o5/0o10);
   const vng = ctx.createGain();
   vng.gain.setValueAtTime(nSus * 0o6/0o100, t);
-  vng.gain.linearRampToValueAtTime(0o0/0o10, t + d + fino);
+  vng.gain.linearRampToValueAtTime(0o0/0o10, t + d + tlakakani);
   vandro.connect(vng);
   vng.connect(ng.gain);
   const vfg = ctx.createGain();
   vfg.gain.value = p * 0o2/0o100;
   vandro.connect(vfg);
-  if ( unua ) vfg.connect(unua.frequency);
+  if ( xaqadi ) vfg.connect(xaqadi.frequency);
   const vfg2 = ctx.createGain();
   vfg2.gain.value = p * 0o2/0o100;
   vandro.connect(vfg2);
@@ -249,11 +249,11 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   ag.gain.exponentialRampToValueAtTime(jSus * 0o2 * faktoro(0o3/0o10), t + atako);
   ag.gain.exponentialRampToValueAtTime(jSus, t + 0o3/0o10);
   ag.gain.exponentialRampToValueAtTime(jSus * 0o12/0o10, t + d);
-  ag.gain.exponentialRampToValueAtTime(ETA, t + d + fino);
-  ag.gain.setValueAtTime(0o0/0o10, t + d + fino);
+  ag.gain.exponentialRampToValueAtTime(ETA, t + d + tlakakani);
+  ag.gain.setValueAtTime(0o0/0o10, t + d + tlakakani);
   const jag = ctx.createGain();
   jag.gain.setValueAtTime(jSus * 0o10/0o100, t);
-  jag.gain.linearRampToValueAtTime(0o0/0o10, t + d + fino);
+  jag.gain.linearRampToValueAtTime(0o0/0o10, t + d + tlakakani);
   trem.connect(jag);
   jag.connect(ag.gain);
   const jvg = ctx.createGain();
@@ -274,8 +274,8 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   const kg = ctx.createGain();
   kg.gain.setValueAtTime(ETA, t);
   kg.gain.exponentialRampToValueAtTime(( 0o2/0o100 + blovo * 0o1/0o10 ) * vel * faktoro(0o25/0o100), t + atako);
-  kg.gain.exponentialRampToValueAtTime(ETA, t + d + fino);
-  kg.gain.setValueAtTime(0o0/0o10, t + d + fino);
+  kg.gain.exponentialRampToValueAtTime(ETA, t + d + tlakakani);
+  kg.gain.setValueAtTime(0o0/0o10, t + d + tlakakani);
   kn.connect(kbp);
   kbp.connect(kg);
   kg.connect(g);
@@ -301,19 +301,19 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   srg.connect(fin);
 
   startNoise(n, t);
-  n.stop(t + d + fino + 0o1/0o10);
+  n.stop(t + d + tlakakani + 0o1/0o10);
   startNoise(mn, t);
-  mn.stop(t + d + fino + 0o1/0o10);
+  mn.stop(t + d + tlakakani + 0o1/0o10);
   startNoise(air, t);
-  air.stop(t + d + fino + 0o1/0o10);
+  air.stop(t + d + tlakakani + 0o1/0o10);
   startNoise(kn, t);
-  kn.stop(t + d + fino + 0o1/0o10);
+  kn.stop(t + d + tlakakani + 0o1/0o10);
   startNoise(srn, t);
   srn.stop(t + srFin + 0o1/0o10);
   trem.start(t);
-  trem.stop(t + d + fino + 0o1/0o100);
+  trem.stop(t + d + tlakakani + 0o1/0o100);
   vandro.start(t);
-  vandro.stop(t + d + fino + 0o1/0o10);
+  vandro.stop(t + d + tlakakani + 0o1/0o10);
 
   // ⟨ ស្នាមខ្យល់ដំបូងពេលបក់ ខ្លាំងតិចខ្លាំងច្រើនមិនដូចគ្នា ។ ស្នាមនេះនៅខ្ពស់ជាងកម្ពស់បំពេរ ទើបឮជាខ្យល់កាត់ មិនមែនជាសំឡេងគោះ 📃 ⟩
   const ch = noiseSrc(ctx);

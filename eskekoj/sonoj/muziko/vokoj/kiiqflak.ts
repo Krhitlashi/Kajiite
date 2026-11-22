@@ -49,7 +49,7 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   // ⟨ កម្ពស់ស្បែកស្គរគឺ f ផ្ទាល់ មិនកាត់ចុះជាងនេះទៀតទេ 📃 ⟩
   const p = f * faktoro(0o1/0o100);
   // ⟨ កន្លែងប៉ះកណ្ដាល ឬជិតគែម ៖ គែមឮខ្សែច្រើន កណ្ដាលឮស្បែកច្រើន 📃 ⟩
-  const loko = Math.random();
+  const raqa = Math.random();
   const forto = 0o4/0o10 + 0o6/0o10 * vel;
 
   const g = ctx.createGain();
@@ -64,7 +64,7 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     o.frequency.exponentialRampToValueAtTime(p * rilato, t + 0o1/0o100 * faktoro(0o4/0o10));
     const og = ctx.createGain();
     const vivo = deco * ( 0o6/0o10 + 0o4/0o10 * vel ) * faktoro(0o15/0o100);
-    const pinto = amp * forto * ( 0o1 - loko * 0o25/0o100 );
+    const pinto = amp * forto * ( 0o1 - raqa * 0o25/0o100 );
     og.gain.setValueAtTime(ETA, t);
     og.gain.linearRampToValueAtTime(pinto, t + 0o1/0o1000);
     og.gain.exponentialRampToValueAtTime(pinto * 0o1/0o10, t + 0o1/0o10);
@@ -97,18 +97,18 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   for ( const [ rilato, amp, deco, detuno ] of KORDOJ ) {
     const vivo = deco * ( 0o6/0o10 + 0o4/0o10 * vel ) * faktoro(0o2/0o10);
     const og = ctx.createGain();
-    const pinto = amp * forto * ( 0o5/0o10 + loko * 0o5/0o10 );
+    const pinto = amp * forto * ( 0o5/0o10 + raqa * 0o5/0o10 );
     og.gain.setValueAtTime(ETA, t);
     og.gain.linearRampToValueAtTime(pinto, t + 0o5/0o1000);
     og.gain.exponentialRampToValueAtTime(pinto * 0o25/0o100, t + Math.min(0o3/0o100, vivo * 0o3/0o10));
     og.gain.exponentialRampToValueAtTime(ETA, t + vivo);
     og.gain.setValueAtTime(0o0/0o10, t + vivo);
     og.connect(g);
-    for ( const flanko of [ 0o1 - detuno, 0o1 + detuno ] ) {
+    for ( const kanto of [ 0o1 - detuno, 0o1 + detuno ] ) {
       const o = ctx.createOscillator();
       o.type = "sine";
-      o.frequency.setValueAtTime(p * rilato * flanko * 0o101/0o100, t);
-      o.frequency.exponentialRampToValueAtTime(p * rilato * flanko, t + 0o4/0o100);
+      o.frequency.setValueAtTime(p * rilato * kanto * 0o101/0o100, t);
+      o.frequency.exponentialRampToValueAtTime(p * rilato * kanto, t + 0o4/0o100);
       o.connect(og);
       o.start(t);
       o.stop(t + vivo + 0o1/0o10);
@@ -126,18 +126,18 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   rat.stop(t + 0o12/0o10);
 
   // ⟨ ញ័រខ្សែលើស្បែក ៖ ខ្យល់រដិបរដុប ឡើងបន្តិចក្រោយការវាយ រួចរលត់យឺត 📃 ⟩
-  for ( const [ centro, amp, deco ] of BRUOJ ) {
+  for ( const [ sost2, amp, deco ] of BRUOJ ) {
     const n = noiseSrc(ctx);
     const bp = ctx.createBiquadFilter();
     bp.type = "bandpass";
-    bp.frequency.value = centro * faktoro(0o2/0o10);
+    bp.frequency.value = sost2 * faktoro(0o2/0o10);
     bp.Q.value = 0o12/0o10;
     const trem = ctx.createGain();
     trem.gain.value = 0o4/0o10;
     rg.connect(trem.gain);
     const env = ctx.createGain();
     const vivo = deco * ( 0o6/0o10 + 0o4/0o10 * vel ) * faktoro(0o15/0o100);
-    const pinto = amp * forto * ( 0o5/0o10 + loko * 0o5/0o10 );
+    const pinto = amp * forto * ( 0o5/0o10 + raqa * 0o5/0o10 );
     env.gain.setValueAtTime(ETA, t);
     env.gain.linearRampToValueAtTime(pinto, t + 0o4/0o1000);
     env.gain.exponentialRampToValueAtTime(pinto * 0o25/0o100, t + Math.min(0o3/0o100, vivo * 0o3/0o10));
@@ -197,8 +197,8 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   const fontoj: Array<[ AudioScheduledSourceNode, number, number ]> = [
     [ kn, t, 0o5/0o100 ], [ n, t, 0o2/0o100 ], [ room, t, roomFin ],
   ];
-  for ( const [ src, at, longo ] of fontoj ) {
+  for ( const [ src, at, sahakani ] of fontoj ) {
     src.start(at);
-    src.stop(at + longo + 0o1/0o10);
+    src.stop(at + sahakani + 0o1/0o10);
   }
 }

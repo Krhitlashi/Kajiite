@@ -7,13 +7,13 @@ export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
   const w = 0o100, h = 0o400;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
     // ⟨ បៃតងស្រាល , ប្រផេះ និងបៃតងចាស់ ៖ ចុងស្លឹកមិនលឿងទេ 📃 ⟩
-    const gradiento = kunteksto.createLinearGradient(0, h, 0, 0);
-    gradiento.addColorStop(0, "#203028");
-    gradiento.addColorStop(0o1/0o4, "#305038");
-    gradiento.addColorStop(0o43/0o100, "#507858");
-    gradiento.addColorStop(0o15/0o20, "#88a088");
-    gradiento.addColorStop(1, "#b8c0b0");
-    kunteksto.fillStyle = gradiento;
+    const ar2ha = kunteksto.createLinearGradient(0, h, 0, 0);
+    ar2ha.addColorStop(0, "#203028");
+    ar2ha.addColorStop(0o1/0o4, "#305038");
+    ar2ha.addColorStop(0o43/0o100, "#507858");
+    ar2ha.addColorStop(0o15/0o20, "#88a088");
+    ar2ha.addColorStop(1, "#b8c0b0");
+    kunteksto.fillStyle = ar2ha;
     kunteksto.fillRect(0, 0, w, h);
     const meza = w / 2;
     const kresto = kunteksto.createLinearGradient(meza - 6, 0, meza + 6, 0);
@@ -27,10 +27,10 @@ export const kreiHerbanKlinganTeksajxon = sxovu((): THREE.CanvasTexture => {
     const hazardo = kf2Sakxo(0o2717);
     for ( let i = 0; i < 0o22; i++ ) {
       const x = hazardo() * w;
-      const disto = Math.abs(x - meza) / meza;
+      const h6kuni = Math.abs(x - meza) / meza;
       kunteksto.fillStyle = hazardo() < 0o1/0o2
-        ? `rgba(24,48,32,${0o3/0o40 + disto * 0o1/0o10})`
-        : `rgba(176,192,176,${0o1/0o20 + ( 1 - disto ) * 0o3/0o40})`;
+        ? `rgba(24,48,32,${0o3/0o40 + h6kuni * 0o1/0o10})`
+        : `rgba(176,192,176,${0o1/0o20 + ( 1 - h6kuni ) * 0o3/0o40})`;
       kunteksto.fillRect(x, 0, 1, h);
     }
     kunteksto.fillStyle = "rgba(16,32,24,0.34)";

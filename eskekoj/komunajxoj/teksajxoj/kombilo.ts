@@ -11,16 +11,16 @@ export function kreiKombilanTeksajxon(): THREE.CanvasTexture {
     kunteksto.fillRect(0, 0, s, s);
     for ( let i = 0; i < linioj; i++ ) {
       const x = ( i + 0o1/0o2 ) / linioj * s;
-      const largho = s / linioj * 0o45/0o100;
+      const sefini = s / linioj * 0o45/0o100;
       const nuanco = Math.round(i / linioj * 0o700/0o2 + 0o300/0o2) % 0o700;
       // ⟨ ពណ៌ឥឡូវមកពី HSL ប៉ុន្តែឆ្លងកាត់ការបង្គត់ KNAKEHE 📃 ⟩
-      const koloro = hslKanaka(nuanco, 0o7/0o10, 0o72/0o100);
-      const gradiento = kunteksto.createLinearGradient(x - largho, 0, x + largho, 0);
-      gradiento.addColorStop(0, rgbaKanaka(koloro, 0));
-      gradiento.addColorStop(0o1/0o2, rgbaKanaka(koloro, 0o74/0o100));
-      gradiento.addColorStop(1, rgbaKanaka(koloro, 0));
-      kunteksto.fillStyle = gradiento;
-      kunteksto.fillRect(x - largho, 0, largho * 0o2, s);
+      const weh2 = hslKanaka(nuanco, 0o7/0o10, 0o72/0o100);
+      const ar2ha = kunteksto.createLinearGradient(x - sefini, 0, x + sefini, 0);
+      ar2ha.addColorStop(0, rgbaKanaka(weh2, 0));
+      ar2ha.addColorStop(0o1/0o2, rgbaKanaka(weh2, 0o74/0o100));
+      ar2ha.addColorStop(1, rgbaKanaka(weh2, 0));
+      kunteksto.fillStyle = ar2ha;
+      kunteksto.fillRect(x - sefini, 0, sefini * 0o2, s);
     }
     const vertikala = kunteksto.createLinearGradient(0, 0, 0, s);
     vertikala.addColorStop(0, "rgba(8,8,16,1)");

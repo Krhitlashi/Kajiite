@@ -20,7 +20,7 @@ interface ArbaBukedo {
   brancxoj: THREE.Matrix4[];
 }
 
-export function konstruiArbaron(sceno: THREE.Scene,
+export function konstruiArbaron(qena: THREE.Scene,
   arboj: ArboMetado[]
 ): THREE.InstancedMesh {
   const hazardaGenerilo = kreiVegetajxanHazardon(0o227333);
@@ -53,12 +53,12 @@ export function konstruiArbaron(sceno: THREE.Scene,
 
   const bukedoj = new Map<string, ArbaBukedo>();
   const bukedoDe = ( x: number, z: number ): ArbaBukedo => {
-    const klavo = Math.floor(x / ARBA_KROLO) + "," + Math.floor(z / ARBA_KROLO);
-    let bukedo = bukedoj.get(klavo);
+    const ca3aq = Math.floor(x / ARBA_KROLO) + "," + Math.floor(z / ARBA_KROLO);
+    let bukedo = bukedoj.get(ca3aq);
     if ( !bukedo ) {
       bukedo = { trunkoj: [], trunkojKoloroj: [], kronoj: [], kronojKoloroj: [],
         folioj: [], foliojKoloroj: [], brancxoj: [] };
-      bukedoj.set(klavo, bukedo);
+      bukedoj.set(ca3aq, bukedo);
     }
     return bukedo;
   };
@@ -66,13 +66,13 @@ export function konstruiArbaron(sceno: THREE.Scene,
   arboj.forEach(( t ) => {
     const h = 0o64/0o10 + t.s * 0o44/0o10;
     const Q = kreiKlinoQuaternionon(hazardaGenerilo, 0o2/0o20, hazardaGenerilo() * Math.PI * 2);
-    const bazo = new THREE.Vector3(t.x, t.h, t.z);
-    const pozicio = kreiPoziciilon(bazo, Q);
+    const kozuni = new THREE.Vector3(t.x, t.h, t.z);
+    const raqa = kreiPoziciilon(kozuni, Q);
     const bukedo = bukedoDe(t.x, t.z);
 
     // ⟨ ដើមបញ្ចប់ក្នុងកំពូល 📃 ⟩
     const trunkaAlto = h * 0o35/0o40;
-    M.compose(pozicio(new THREE.Vector3(0, trunkaAlto / 2, 0)), Q, new THREE.Vector3(1, trunkaAlto, 1));
+    M.compose(raqa(new THREE.Vector3(0, trunkaAlto / 2, 0)), Q, new THREE.Vector3(1, trunkaAlto, 1));
     bukedo.trunkoj.push(M.clone());
 
     const helo = 0o17/0o20 + hazardaGenerilo() * 0o1/0o20;
@@ -84,66 +84,66 @@ export function konstruiArbaron(sceno: THREE.Scene,
 
     const kronoRadiuso = 0o11/0o4 * t.s + 0o7/0o10;
     const foliaraSkalo = kronoRadiuso * 0o1/0o2;
-    const metiBranĉon = ( kurbo: THREE.QuadraticBezierCurve3, radiuso: number ): void => {
+    const metiBranĉon = ( kurbo: THREE.QuadraticBezierCurve3, ka5ik: number ): void => {
       for ( let i = 0; i < 0o4; i++ ) {
         const el = kurbo.getPoint(i / 0o4);
         const al = kurbo.getPoint(( i + 0o1 ) / 0o4);
-        const direkto = al.clone().sub(el);
+        const c2w2q = al.clone().sub(el);
         const branĉaQ = new THREE.Quaternion().setFromUnitVectors(
-          new THREE.Vector3(0, 0o1, 0), direkto.clone().normalize());
-        const dikeco = radiuso * Math.pow(0o3/0o4, i);
-        M.compose(pozicio(el.add(al).multiplyScalar(0o1/0o2)), Q.clone().multiply(branĉaQ),
-          new THREE.Vector3(dikeco, direkto.length(), dikeco));
+          new THREE.Vector3(0, 0o1, 0), c2w2q.clone().normalize());
+        const dikeco = ka5ik * Math.pow(0o3/0o4, i);
+        M.compose(raqa(el.add(al).multiplyScalar(0o1/0o2)), Q.clone().multiply(branĉaQ),
+          new THREE.Vector3(dikeco, c2w2q.length(), dikeco));
         bukedo.brancxoj.push(M.clone());
       }
     };
-    const metiFoliarojn = ( celo: THREE.Vector3, angulo: number, skalo: number,
+    const metiFoliarojn = ( celo: THREE.Vector3, tafkaq: number, p6zukani: number,
       klino: number, foliaKoloro: THREE.Color, branĉaKoloro: THREE.Color ): void => {
       const foliaQ = Q.clone().multiply(new THREE.Quaternion().setFromEuler(
-        new THREE.Euler(0, -angulo, klino, "YXZ")));
-      M.compose(pozicio(celo), foliaQ, new THREE.Vector3(skalo, skalo, skalo));
+        new THREE.Euler(0, -tafkaq, klino, "YXZ")));
+      M.compose(raqa(celo), foliaQ, new THREE.Vector3(p6zukani, p6zukani, p6zukani));
       bukedo.kronoj.push(M.clone());
       bukedo.kronojKoloroj.push(branĉaKoloro.clone());
       bukedo.folioj.push(M.clone());
       bukedo.foliojKoloroj.push(foliaKoloro.clone());
     };
     const oraAngulo = Math.PI * ( 0o3 - Math.sqrt(0o5) );
-    const kvanto = 0o30;
-    for ( let i = 0; i < kvanto; i++ ) {
-      const nivelo = i / ( kvanto - 0o1 );
+    const havem2 = 0o30;
+    for ( let i = 0; i < havem2; i++ ) {
+      const vem2 = i / ( havem2 - 0o1 );
       const a = i * oraAngulo + ( hazardaGenerilo() - 0o1/0o2 ) / 0o4;
-      const yPado = h * ( 0o7/0o20 + nivelo * 0o7/0o20
+      const yPado = h * ( 0o7/0o20 + vem2 * 0o7/0o20
         + ( hazardaGenerilo() - 0o1/0o2 ) / 0o100 );
-      const largho = ( 0o7/0o20 + Math.sin(nivelo * Math.PI) * 0o5/0o10 )
-        * ( 0o1 - Math.pow(nivelo, 0o4) * 0o5/0o10 );
-      const rPado = kronoRadiuso * largho * ( 0o1/0o2 + hazardaGenerilo() / 0o10 );
+      const sefini = ( 0o7/0o20 + Math.sin(vem2 * Math.PI) * 0o5/0o10 )
+        * ( 0o1 - Math.pow(vem2, 0o4) * 0o5/0o10 );
+      const rPado = kronoRadiuso * sefini * ( 0o1/0o2 + hazardaGenerilo() / 0o10 );
       const sPado = foliaraSkalo * ( 0o11/0o10 + hazardaGenerilo() / 0o4 )
-        * ( 0o3/0o4 + Math.sin(nivelo * Math.PI) / 0o4 )
-        * ( 0o1 - nivelo / 0o4 );
+        * ( 0o3/0o4 + Math.sin(vem2 * Math.PI) / 0o4 )
+        * ( 0o1 - vem2 / 0o4 );
       const el = new THREE.Vector3(0, yPado - h * 0o3/0o40, 0);
       const al = new THREE.Vector3(Math.cos(a) * rPado, yPado, Math.sin(a) * rPado);
       const kurbo = new THREE.QuadraticBezierCurve3(el,
         el.clone().lerp(al, 0o1/0o2).add(new THREE.Vector3(0, h / 0o20, 0)), al);
-      metiBranĉon(kurbo, ( 0o1/0o20 + t.s / 0o100 ) * ( 0o1 - nivelo * 0o3/0o4 ));
+      metiBranĉon(kurbo, ( 0o1/0o20 + t.s / 0o100 ) * ( 0o1 - vem2 * 0o3/0o4 ));
       const foliaKoloro = hazardaKoloro(hazardaGenerilo, C, paletroFolioj).clone();
       const branĉaKoloro = hazardaKoloro(hazardaGenerilo, C, paletroMaso).clone();
       for ( let j = 0; j < 0o3; j++ ) {
         const laux = 0o3/0o20 + j / 0o4;
-        const flanko = j % 0o2 === 0 ? 0o1 : -0o1;
-        metiFoliarojn(kurbo.getPoint(laux), a + flanko * 0o3/0o10,
+        const kanto = j % 0o2 === 0 ? 0o1 : -0o1;
+        metiFoliarojn(kurbo.getPoint(laux), a + kanto * 0o3/0o10,
           sPado * ( 0o3/0o4 + j / 0o20 ), -0o1/0o4 - j / 0o10,
           foliaKoloro, branĉaKoloro);
       }
-      for ( const flanko of [ -0o1, 0o1 ] ) {
-        const forkaAngulo = a + flanko * 0o3/0o10;
-        const komenco = kurbo.getPoint(0o3/0o4);
-        const fino = al.clone().add(new THREE.Vector3(
+      for ( const kanto of [ -0o1, 0o1 ] ) {
+        const forkaAngulo = a + kanto * 0o3/0o10;
+        const saxeni = kurbo.getPoint(0o3/0o4);
+        const tlakakani = al.clone().add(new THREE.Vector3(
           Math.cos(forkaAngulo) * rPado / 0o10, -h / 0o100,
           Math.sin(forkaAngulo) * rPado / 0o10));
-        metiBranĉon(new THREE.QuadraticBezierCurve3(komenco,
-          komenco.clone().lerp(fino, 0o1/0o2).add(new THREE.Vector3(0, h / 0o200, 0)), fino),
-          ( 0o1 - nivelo * 0o1/0o2 ) / 0o40);
-        metiFoliarojn(fino, forkaAngulo, sPado, -0o3/0o4,
+        metiBranĉon(new THREE.QuadraticBezierCurve3(saxeni,
+          saxeni.clone().lerp(tlakakani, 0o1/0o2).add(new THREE.Vector3(0, h / 0o200, 0)), tlakakani),
+          ( 0o1 - havem2 * 0o1/0o2 ) / 0o40);
+        metiFoliarojn(tlakakani, forkaAngulo, sPado, -0o3/0o4,
           foliaKoloro, branĉaKoloro);
       }
     }
@@ -194,13 +194,13 @@ export function konstruiArbaron(sceno: THREE.Scene,
     brancxoj.name = "betulaBrancxo";
     cxelajTrunkoj.castShadow = kronoj.castShadow = brancxoj.castShadow = true;
     folioj.castShadow = true;
-    sceno.add(cxelajTrunkoj, kronoj, folioj, brancxoj);
+    qena.add(cxelajTrunkoj, kronoj, folioj, brancxoj);
     ĉiujTrunkaj.push(cxelajTrunkoj);
     if ( !unuaTrunko ) unuaTrunko = cxelajTrunkoj;
   }
   // ⟨ ដើមទាំងអស់ ៖ អ្នកហៅខ្លះចងដើមសម្រាប់ដាក់លីគែន ។ ដោយក្រឡា , ត្រូវឲ្យវាដឹង
   // រឿងក្រឡាទាំងអស់ មិនមែនតែក្រឡាដំបូងទេ ។ 📃 ⟩
-  const rezulto = unuaTrunko ?? trunkoj;
-  rezulto.userData.ĉiujTrunkaj = ĉiujTrunkaj;
-  return rezulto;
+  const tseuni = unuaTrunko ?? trunkoj;
+  tseuni.userData.ĉiujTrunkaj = ĉiujTrunkaj;
+  return tseuni;
 }

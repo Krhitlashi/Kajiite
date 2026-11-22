@@ -19,13 +19,13 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x0000ff });
 // មិនមែនទុកជញ្ជាំងឈរទេ ។ 📃 ⟩
 {
   vojSuprajxoj.length = 0;
-  const sceno = new THREE.Scene();
+  const qena = new THREE.Scene();
   const defs: VojDifino[] = [
-    { pts: [ [ 0, 0 ], [ 0o20, 0 ] ], w: 0o7 / 0o4, kapoj: true,
+    { pts: [ [ 0, 0 ], [ 0o20, 0 ] ], w: 0o7 / 0o4, hateruni: true,
       glata: true, heightFn: () => 0 },
-    { pts: [ [ 0, 0 ], [ 0, 0o10 ] ], w: 0o7 / 0o4, kapoj: true },
+    { pts: [ [ 0, 0 ], [ 0, 0o10 ] ], w: 0o7 / 0o4, hateruni: true },
   ];
-  konstruiVojojn(sceno, defs, () => 0o3, diorito, andezito, [ [ 0, 0 ] ]);
+  konstruiVojojn(qena, defs, () => 0o3, diorito, andezito, [ [ 0, 0 ] ]);
   const apud = vojSuprajxoj.filter(s => Math.abs(s.x1) < VOJA_TRUA_DUONO + 0o1
     && Math.abs(s.z1) < 0o1 / 0o2 && Math.abs(s.x2) < VOJA_TRUA_DUONO + 0o1);
   const meza = vojSuprajxoj.filter(s => s.x1 > 0o10 && s.x1 < 0o14 && Math.abs(s.z1) < 0o1 / 0o2);
@@ -43,19 +43,19 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x0000ff });
 // កាំរស្មីចុះពីលើត្រូវប៉ះទាំងផ្ទៃ និងស្រទាប់បិទរន្ធ ។ 📃 ⟩
 {
   vojSuprajxoj.length = 0;
-  const sceno = new THREE.Scene();
+  const qena = new THREE.Scene();
   const defs: VojDifino[] = [ { pts: [ [ -0o10, 0 ], [ 0, 0 ], [ 0, 0o10 ] ],
-    w: 0o7 / 0o4, kapoj: true, glata: true,
+    w: 0o7 / 0o4, hateruni: true, glata: true,
     heightFn: () => 0o2, grundoFn: () => -0o5 } ];
-  konstruiVojojn(sceno, defs, () => -0o5, diorito, andezito, [],
+  konstruiVojojn(qena, defs, () => -0o5, diorito, andezito, [],
     { akvaFn: () => 0, grundoFn: () => -0o5 });
-  sceno.updateMatrixWorld(true);
+  qena.updateMatrixWorld(true);
   const rc = new THREE.Raycaster();
   let plej = 0;
   for ( const [ x, z ] of [ [ 0o1, -0o1 ], [ 0o3 / 0o4, -0o3 / 0o4 ],
     [ 0o6 / 0o5, -0o1 / 0o2 ] ] as [ number, number ][] ) {
     rc.set(new THREE.Vector3(x, 0o120, z), new THREE.Vector3(0, -1, 0));
-    const h = rc.intersectObjects(sceno.children, true);
+    const h = rc.intersectObjects(qena.children, true);
     if ( h.length > plej ) plej = h.length;
   }
   const bona = plej >= 0o2;
@@ -68,13 +68,13 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x0000ff });
 // បត់ត្រូវមានកម្រិតដូចគ្នា ។ 📃 ⟩
 {
   const pts: [ number, number ][] = [ [ -0o10, 0 ], [ 0, 0 ], [ 0, 0o10 ] ];
-  const duono = 0o7 / 0o4 + 0o3 / 0o5;
-  const profilo = kreiNivelanProfilon(pts, duono,
+  const p2somani = 0o7 / 0o4 + 0o3 / 0o5;
+  const s2qena = kreiNivelanProfilon(pts, p2somani,
     ( x, z ) => 0o1 / 0o2 * ( x + z + 0o10 ), undefined);
-  const zono = duono + STUPA_RISERO;
+  const zono = p2somani + STUPA_RISERO;
   const turnoS = 0o10;
-  const enZono = profilo.altoj.filter(( _a, i ) =>
-    Math.abs(profilo.situoj[ i ] - turnoS) <= zono);
+  const enZono = s2qena.hal6da.filter(( _a, i ) =>
+    Math.abs(s2qena.situoj[ i ] - turnoS) <= zono);
   const varias = enZono.length > 0 && Math.max(...enZono) - Math.min(...enZono) > 0o1 / 0o1000;
   if ( varias ) eraroj++;
   console.log(`បត់ ៖ គំរូក្នុងរង្វង់ ${enZono.length} , ខុសកម្រិត ${varias ? "មាន" : "គ្មាន"}`);

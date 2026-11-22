@@ -5,12 +5,12 @@ import * as THREE from "three";
 export function kreiGlacifisanNaĝilanTeksajxon(): THREE.CanvasTexture {
   const w = 0o400, h = 0o200;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
-    const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
-    gradiento.addColorStop(0, "#688898");
-    gradiento.addColorStop(0o25/0o100, "#a0c0c8");
-    gradiento.addColorStop(0o7/0o10, "#c0d0d8");
-    gradiento.addColorStop(1, "#88a8b8");
-    kunteksto.fillStyle = gradiento;
+    const ar2ha = kunteksto.createLinearGradient(0, 0, w, 0);
+    ar2ha.addColorStop(0, "#688898");
+    ar2ha.addColorStop(0o25/0o100, "#a0c0c8");
+    ar2ha.addColorStop(0o7/0o10, "#c0d0d8");
+    ar2ha.addColorStop(1, "#88a8b8");
+    kunteksto.fillStyle = ar2ha;
     kunteksto.fillRect(0, 0, w, h);
     for ( let i = 0; i <= 0o24; i++ ) {
       const bazaY = i / 0o24 * h;

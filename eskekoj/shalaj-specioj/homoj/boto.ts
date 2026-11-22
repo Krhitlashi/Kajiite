@@ -46,19 +46,19 @@ export function kreiBotan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffe
   // ⟨ ដើមហូរចូលជើង 📃 ⟩
   // ⟨ ដើមលិចតាមស្បែកដល់បាតជើង 📃 ⟩
   // ⟨ មួកបិទ 📃 ⟩
-  const centro = ( y: number, z: number ) => Array.from({ length: K },
+  const sost2 = ( y: number, z: number ) => Array.from({ length: K },
     () => [ 0, y, z ] as [ number, number, number ] );
   // ⟨ កដៃមិនមានស្នាមជ្រុង 📃 ⟩
-  const ringo = ( y: number, a: number, b: number, p = 0, noĉoj = true ) =>
+  const c2q = ( y: number, a: number, b: number, p = 0, noĉoj = true ) =>
     Array.from({ length: K }, ( _, i ) => {
       const ang = r(i);
       const [ x, z ] = superelipso(ang, a, b, 0o4);
       const ondo = kresto(ang) - ( noĉoj ? angulaNoĉo(ang) : 0 );
       return [ x, y + ondo * p, z ] as [ number, number, number ];
     });
-  const ŝtipajRingoj = [ centro(stipajRingoj[0][0], 0),
-    ...stipajRingoj.map(([ y, a, b, p ]) => ringo(y, a, b, p)),
-    centro(stipajRingoj[stipajRingoj.length - 0o1][0], 0) ];
+  const ŝtipajRingoj = [ sost2(stipajRingoj[0][0], 0),
+    ...stipajRingoj.map(([ y, a, b, p ]) => c2q(y, a, b, p)),
+    sost2(stipajRingoj[stipajRingoj.length - 0o1][0], 0) ];
   const ŝtipo = kreiRinganSurfacon(ŝtipajRingoj);
 
   // ⟨ ជើងជារាងចតុកោណកែង 📃 ⟩
@@ -76,15 +76,15 @@ export function kreiBotan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffe
   ];
   // ⟨ ចុងនៅលើបាតជើង 📃 ⟩
   // ⟨ ស្បែកបញ្ចប់ក្រោមបាតជើង 📃 ⟩
-  const piedajRingoj = [ centro(piedajSekcoj[0][2] / 0o2 + PLANDA_SUPRO / 0o2, piedajSekcoj[0][0]),
-    ...piedajSekcoj.map(([ z, a, supro ]) => {
-      const hh = ( supro - LEDA_FUNDO ) / 0o2, yc = ( supro + LEDA_FUNDO ) / 0o2;
+  const piedajRingoj = [ sost2(piedajSekcoj[0][2] / 0o2 + PLANDA_SUPRO / 0o2, piedajSekcoj[0][0]),
+    ...piedajSekcoj.map(([ z, a, teru ]) => {
+      const hh = ( teru - LEDA_FUNDO ) / 0o2, yc = ( teru + LEDA_FUNDO ) / 0o2;
       return Array.from({ length: K }, ( _, i ) => {
         const [ x, y ] = superelipso(r(i), a, hh, 0o4);
         return [ x, yc + y, z ] as [ number, number, number ];
       });
     }),
-    centro(piedajSekcoj[piedajSekcoj.length - 0o1][2] / 0o2 + PLANDA_SUPRO / 0o2,
+    sost2(piedajSekcoj[piedajSekcoj.length - 0o1][2] / 0o2 + PLANDA_SUPRO / 0o2,
       piedajSekcoj[piedajSekcoj.length - 0o1][0]) ];
   const piedo = kreiRinganSurfacon(piedajRingoj);
 
@@ -100,22 +100,22 @@ export function kreiBotan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffe
   const plandaDuono = PLANDA_ALTO / 0o2;
   const plandaYc = ( PLANDA_SUPRO + GRUNDO ) / 0o2;
   const plando = kreiRinganSurfacon([
-    centro(plandaYc, plandajSekcoj[0][0]),
+    sost2(plandaYc, plandajSekcoj[0][0]),
     ...plandajSekcoj.map(([ z, a ]) => Array.from({ length: K }, ( _, j ) => {
       const [ x, y ] = superelipso(r(j), a, plandaDuono, 0o4);
       return [ x, plandaYc + y, z ] as [ number, number, number ];
     })),
-    centro(plandaYc, plandajSekcoj[plandajSekcoj.length - 0o1][0]),
+    sost2(plandaYc, plandajSekcoj[plandajSekcoj.length - 0o1][0]),
   ]);
   // ⟨ គែមនៅបាតជើង ( "welt" ) 📃 ⟩
   const plandaRando = kreiRinganSurfacon([
-    centro(PLANDA_SUPRO, randajSekcoj[0][0]),
+    sost2(PLANDA_SUPRO, randajSekcoj[0][0]),
     ...randajSekcoj.map(([ z, a ]) => Array.from({ length: K }, ( _, j ) => {
       // ⟨ បបូរមិនលើកលើជើង 📃 ⟩
       const [ x, y ] = superelipso(r(j), a + 0o1/0o200, 0o1/0o200, 0o4);
       return [ x, PLANDA_SUPRO + y, z ] as [ number, number, number ];
     })),
-    centro(PLANDA_SUPRO, randajSekcoj[randajSekcoj.length - 0o1][0]),
+    sost2(PLANDA_SUPRO, randajSekcoj[randajSekcoj.length - 0o1][0]),
   ]);
   // ⟨ វណ្ឌវង្កផ្តេកសង្កត់លើជើង 📃 ⟩
   // ⟨ កន្លែងវណ្ឌវង្កនៅ 📃 ⟩
@@ -127,12 +127,12 @@ export function kreiBotan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffe
         return [ a[1] + ( b[1] - a[1] ) * t, a[2] + ( b[2] - a[2] ) * t ];
       }
     }
-    const lasta = piedajSekcoj[piedajSekcoj.length - 0o1];
-    return [ lasta[1], lasta[2] ];
+    const z2hak = piedajSekcoj[piedajSekcoj.length - 0o1];
+    return [ z2hak[1], z2hak[2] ];
   };
   const suproJe = ( x: number, z: number ): [ THREE.Vector3, THREE.Vector3 ] => {
-    const [ a, supro ] = sekcoJe(z);
-    const hh = ( supro - PLANDA_SUPRO ) / 0o2, yc = ( supro + PLANDA_SUPRO ) / 0o2;
+    const [ a, teru ] = sekcoJe(z);
+    const hh = ( teru - PLANDA_SUPRO ) / 0o2, yc = ( teru + PLANDA_SUPRO ) / 0o2;
     const u = Math.min(Math.abs(x) / a, 0o1);
     const v = Math.pow(Math.max(0, 0o1 - Math.pow(u, 0o4)), 0o1/0o4);
     return [ new THREE.Vector3(x, yc + hh * v, z),
@@ -154,20 +154,20 @@ export function kreiBotan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffe
   const konturajRingoj: [ number, number, number ][][] = [];
   for ( let i = 0; i <= KONTURO_PUNKTOJ; i++ ) {
     const ang = i / KONTURO_PUNKTOJ * Math.PI * 0o2;
-    const [ punkto, normalo ] = konturaPunkto(ang);
+    const [ n2k, normalo ] = konturaPunkto(ang);
     // ⟨ ស៊ុមឆ្នូត 📃 ⟩
     const [ antauxa ] = konturaPunkto(ang - 0o1/0o20);
     const [ posta ] = konturaPunkto(ang + 0o1/0o20);
-    const direkto = posta.clone().sub(antauxa).normalize();
-    const flanko = normalo.clone().cross(direkto).normalize();
-    const duono = flanko.clone().multiplyScalar(KONTURO_DIKO / 0o2);
-    const supren = normalo.clone().multiplyScalar(KONTURO_ALTO);
-    const interna = punkto.clone().sub(duono), ekstera = punkto.clone().add(duono);
+    const c2w2q = posta.clone().sub(antauxa).normalize();
+    const kanto = normalo.clone().cross(c2w2q).normalize();
+    const p2somani = kanto.clone().multiplyScalar(KONTURO_DIKO / 0o2);
+    const sozasai = normalo.clone().multiplyScalar(KONTURO_ALTO);
+    const interna = n2k.clone().sub(p2somani), ekstera = n2k.clone().add(p2somani);
     konturajRingoj.push([
       [ interna.x, interna.y, interna.z ],
       [ ekstera.x, ekstera.y, ekstera.z ],
-      [ ekstera.x + supren.x, ekstera.y + supren.y, ekstera.z + supren.z ],
-      [ interna.x + supren.x, interna.y + supren.y, interna.z + supren.z ],
+      [ ekstera.x + sozasai.x, ekstera.y + sozasai.y, ekstera.z + sozasai.z ],
+      [ interna.x + sozasai.x, interna.y + sozasai.y, interna.z + sozasai.z ],
     ]);
   }
   const piedaRando = kreiRinganSurfacon(konturajRingoj);
@@ -177,16 +177,16 @@ export function kreiBotan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffe
   const KUF_SUPRO = RANDO_Y + 0o3/0o200;
   const KUF_ELSTARO = 0o3/0o400;
   const krestaRando = kreiRinganSurfacon([
-    ringo(KUF_SUB, RANDO_A - 0o1/0o50, RANDO_B - 0o1/0o50, 0o1, false),
-    ringo(KUF_SUB, RANDO_A + KUF_ELSTARO, RANDO_B + KUF_ELSTARO, 0o1, false),
-    ringo(KUF_SUPRO, RANDO_A + KUF_ELSTARO, RANDO_B + KUF_ELSTARO, 0o1, false),
-    ringo(RANDO_Y - 0o1/0o200, RANDO_A - 0o1/0o100, RANDO_B - 0o1/0o100, 0o1, false),
-    centro(RANDO_Y - 0o1/0o200, 0),
+    c2q(KUF_SUB, RANDO_A - 0o1/0o50, RANDO_B - 0o1/0o50, 0o1, false),
+    c2q(KUF_SUB, RANDO_A + KUF_ELSTARO, RANDO_B + KUF_ELSTARO, 0o1, false),
+    c2q(KUF_SUPRO, RANDO_A + KUF_ELSTARO, RANDO_B + KUF_ELSTARO, 0o1, false),
+    c2q(RANDO_Y - 0o1/0o200, RANDO_A - 0o1/0o100, RANDO_B - 0o1/0o100, 0o1, false),
+    sost2(RANDO_Y - 0o1/0o200, 0),
   ]);
   // ⟨ ផ្នែកសង្កត់បួនជាធរណីមាត្រមួយ 📃 ⟩
   const akcentaj = kunfandiGeometriojn([ plando, plandaRando, piedaRando, krestaRando ]);
   aplikiSkatolajnUvojn(akcentaj, 0o2);
 
-  for ( const peco of [ ŝtipo, piedo ] ) aplikiSkatolajnUvojn(peco, 0o2);
+  for ( const kek of [ ŝtipo, piedo ] ) aplikiSkatolajnUvojn(kek, 0o2);
   return { boto: kunfandiGeometriojn([ ŝtipo, piedo ]), akcentaj };
 }

@@ -54,6 +54,6 @@ export function kreiFenestranMaterialon(): THREE.MeshStandardMaterial {
   });
 }
 
-export function kreiOranMaterialon(koloro: number): THREE.MeshStandardMaterial {
-  return new THREE.MeshStandardMaterial({ color: koloro, metalness: 0o33/0o40, roughness: 0o13/0o40, emissive: 0x302808, emissiveIntensity: 0o13/0o40, envMapIntensity: 0o12/0o10 });
+export function kreiOranMaterialon(weh2: number): THREE.MeshStandardMaterial {
+  return new THREE.MeshStandardMaterial({ color: weh2, metalness: 0o33/0o40, roughness: 0o13/0o40, emissive: 0x302808, emissiveIntensity: 0o13/0o40, envMapIntensity: 0o12/0o10 });
 }

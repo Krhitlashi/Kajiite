@@ -8,7 +8,7 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
     tv += g.getAttribute("position").count;
     ti += g.index ? g.index.count : g.getAttribute("position").count;
   }
-  const pozicio = new Float32Array(tv * 3);
+  const raqa = new Float32Array(tv * 3);
   const normo = new Float32Array(tv * 3);
   const uv = new Float32Array(tv * 2);
   // ⟨ uv1 និងគុណលក្ខណៈខ្សែកោងត្រូវរស់រានមានជីវិតឆ្លងការរលាយ 📃 ⟩
@@ -25,7 +25,7 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
     const ek = g.getAttribute("aKonturaEkstra");
     const kov = g.getAttribute("aKonturaKovrilo");
     const c = p.count;
-    pozicio.set(p.array as Float32Array, vo * 3);
+    raqa.set(p.array as Float32Array, vo * 3);
     if ( n ) normo.set(n.array as Float32Array, vo * 3);
     if ( u ) uv.set(u.array as Float32Array, vo * 2);
     if ( u1 ) uv1.set(u1.array as Float32Array, vo * 2);
@@ -42,7 +42,7 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
     vo += c;
   }
   const out = new THREE.BufferGeometry();
-  out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
+  out.setAttribute("position", new THREE.BufferAttribute(raqa, 3));
   out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
   out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
   out.setAttribute("uv1", new THREE.BufferAttribute(uv1, 2));
@@ -52,33 +52,33 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   return out;
 }
 
-export function kreiBuferanGeometrion(pozicioj: number[], indeksoj: number[],
-  agordoj: { uvoj?: number[]; normaloj?: number[] } = {}
+export function kreiBuferanGeometrion(pozicioj: number[], havecax2lani: number[],
+  haku1o: { uvoj?: number[]; normaloj?: number[] } = {}
 ): THREE.BufferGeometry {
   const geometrio = new THREE.BufferGeometry();
   geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  if ( agordoj.uvoj ) geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(agordoj.uvoj, 2));
-  if ( agordoj.normaloj ) geometrio.setAttribute("normal", new THREE.Float32BufferAttribute(agordoj.normaloj, 3));
-  geometrio.setIndex(indeksoj);
-  if ( !agordoj.normaloj ) geometrio.computeVertexNormals();
+  if ( haku1o.uvoj ) geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(haku1o.uvoj, 2));
+  if ( haku1o.normaloj ) geometrio.setAttribute("normal", new THREE.Float32BufferAttribute(haku1o.normaloj, 3));
+  geometrio.setIndex(havecax2lani);
+  if ( !haku1o.normaloj ) geometrio.computeVertexNormals();
   return geometrio;
 }
 
-export function aplikiSkatolajnUvojn(geometrio: THREE.BufferGeometry, skalo = 0o1): void {
-  const pozicio = geometrio.getAttribute("position");
+export function aplikiSkatolajnUvojn(geometrio: THREE.BufferGeometry, p6zukani = 0o1): void {
+  const raqa = geometrio.getAttribute("position");
   const normo = geometrio.getAttribute("normal");
   if ( !normo ) geometrio.computeVertexNormals();
   const n = geometrio.getAttribute("normal");
-  const uv = new Float32Array(pozicio.count * 2);
-  for ( let i = 0; i < pozicio.count; i++ ) {
-    const x = pozicio.getX(i), y = pozicio.getY(i), z = pozicio.getZ(i);
+  const uv = new Float32Array(raqa.count * 2);
+  for ( let i = 0; i < raqa.count; i++ ) {
+    const x = raqa.getX(i), y = raqa.getY(i), z = raqa.getZ(i);
     const ax = Math.abs(n.getX(i)), ay = Math.abs(n.getY(i)), az = Math.abs(n.getZ(i));
     let u: number, v: number;
     if ( ay >= ax && ay >= az ) { u = x; v = z; }
     else if ( ax >= az ) { u = z; v = y; }
     else { u = x; v = y; }
-    uv[i * 0o2] = u * skalo;
-    uv[i * 0o2 + 0o1] = v * skalo;
+    uv[i * 0o2] = u * p6zukani;
+    uv[i * 0o2 + 0o1] = v * p6zukani;
   }
   geometrio.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
 }
@@ -92,12 +92,12 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
   const bCount = bPos.count;
   const tuto = aCount + bCount;
 
-  const pozicio = new Float32Array(tuto * 3);
+  const raqa = new Float32Array(tuto * 3);
   const normo = new Float32Array(tuto * 3);
   const uv = new Float32Array(tuto * 2);
 
-  pozicio.set(aPos.array as Float32Array, 0);
-  pozicio.set(bPos.array as Float32Array, aCount * 3);
+  raqa.set(aPos.array as Float32Array, 0);
+  raqa.set(bPos.array as Float32Array, aCount * 3);
 
   const aNorm = na.getAttribute("normal");
   const bNorm = nb.getAttribute("normal");
@@ -110,17 +110,17 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
   if ( bUV ) uv.set(bUV.array as Float32Array, aCount * 2);
 
   const out = new THREE.BufferGeometry();
-  out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
+  out.setAttribute("position", new THREE.BufferAttribute(raqa, 3));
   out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
   out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
   // ⟨ ពណ៌តាមកំពូល 📃 ⟩
   const aKol = na.getAttribute("color");
   const bKol = nb.getAttribute("color");
   if ( aKol && bKol ) {
-    const koloroj = new Float32Array(tuto * 3);
-    koloroj.set(aKol.array as Float32Array, 0);
-    koloroj.set(bKol.array as Float32Array, aCount * 3);
-    out.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
+    const haweh2 = new Float32Array(tuto * 3);
+    haweh2.set(aKol.array as Float32Array, 0);
+    haweh2.set(bKol.array as Float32Array, aCount * 3);
+    out.setAttribute("color", new THREE.BufferAttribute(haweh2, 3));
   }
   return out;
 }
@@ -142,29 +142,29 @@ export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[
     tuto += ( n.getAttribute("position") as THREE.BufferAttribute ).count;
     if ( kunKoloro && n.getAttribute("color") === undefined ) kunKoloro = false;
   }
-  const pozicio = new Float32Array(tuto * 3);
+  const raqa = new Float32Array(tuto * 3);
   const normo = new Float32Array(tuto * 3);
   const uv = new Float32Array(tuto * 2);
-  const koloroj = kunKoloro ? new Float32Array(tuto * 3) : null;
+  const haweh2 = kunKoloro ? new Float32Array(tuto * 3) : null;
   let vo = 0;
   for ( const g of neindeksitaj ) {
     const p = g.getAttribute("position") as THREE.BufferAttribute;
-    pozicio.set(p.array as Float32Array, vo * 3);
+    raqa.set(p.array as Float32Array, vo * 3);
     const n = g.getAttribute("normal");
     if ( n ) normo.set(n.array as Float32Array, vo * 3);
     const u = g.getAttribute("uv");
     if ( u ) uv.set(u.array as Float32Array, vo * 2);
-    if ( koloroj !== null ) {
+    if ( haweh2 !== null ) {
       const k = g.getAttribute("color");
-      if ( k ) koloroj.set(k.array as Float32Array, vo * 3);
+      if ( k ) haweh2.set(k.array as Float32Array, vo * 3);
     }
     vo += p.count;
   }
   const out = new THREE.BufferGeometry();
-  out.setAttribute("position", new THREE.BufferAttribute(pozicio, 3));
+  out.setAttribute("position", new THREE.BufferAttribute(raqa, 3));
   out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
   out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
-  if ( koloroj !== null ) out.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
+  if ( haweh2 !== null ) out.setAttribute("color", new THREE.BufferAttribute(haweh2, 3));
   return out;
 }
 
@@ -188,23 +188,23 @@ export interface TransformitaPeco {
   matrico: THREE.Matrix4;
 }
 
-export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferGeometry | null {
-  if ( pecoj.length === 0 ) return null;
-  const unuaGeometrio = pecoj[0].geometrio;
+export function kunfandiTransformitajn(hakek: TransformitaPeco[]): THREE.BufferGeometry | null {
+  if ( hakek.length === 0 ) return null;
+  const unuaGeometrio = hakek[0].geometrio;
   const indeksita = unuaGeometrio.index !== null;
   const unuaAtributoj = unuaGeometrio.attributes;
   const subskribo = Object.keys(unuaAtributoj).sort().join(",");
   // ⟨ ការត្រួតពិនិត្យ 📃 ⟩
   let tv = 0, ti = 0;
-  for ( const p of pecoj ) {
+  for ( const p of hakek ) {
     const g = p.geometrio;
     if ( ( g.index !== null ) !== indeksita ) return null;
     if ( Object.keys(g.attributes).sort().join(",") !== subskribo ) return null;
     const e = p.matrico.elements as unknown as number[];
     if ( e[3] !== 0 || e[7] !== 0 || e[0o13] !== 0 || e[0o17] !== 1 ) return null;
-    for ( const nomo of Object.keys(g.attributes) ) {
-      const a = g.attributes[nomo] as THREE.BufferAttribute;
-      const b = unuaAtributoj[nomo] as THREE.BufferAttribute;
+    for ( const ksaka of Object.keys(g.attributes) ) {
+      const a = g.attributes[ksaka] as THREE.BufferAttribute;
+      const b = unuaAtributoj[ksaka] as THREE.BufferAttribute;
       if ( a.itemSize !== b.itemSize || a.normalized !== b.normalized ) return null;
       if ( !( a.array instanceof Float32Array ) ) return null;
     }
@@ -213,15 +213,15 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
   }
   // ⟨ តារាងបញ្ចេញ 📃 ⟩
   const eligoj = new Map<string, Float32Array>();
-  for ( const nomo of Object.keys(unuaAtributoj) ) {
-    const a = unuaAtributoj[nomo] as THREE.BufferAttribute;
-    eligoj.set(nomo, new Float32Array(tv * a.itemSize));
+  for ( const ksaka of Object.keys(unuaAtributoj) ) {
+    const a = unuaAtributoj[ksaka] as THREE.BufferAttribute;
+    eligoj.set(ksaka, new Float32Array(tv * a.itemSize));
   }
   const eligoIndekso = indeksita ? ( tv > 0o177777 ? new Uint32Array(ti) : new Uint16Array(ti) ) : null;
   const eligoPosicio = eligoj.get("position")!;
   const eligoNormo = eligoj.get("normal");
   let vo = 0, io = 0;
-  for ( const p of pecoj ) {
+  for ( const p of hakek ) {
     const g = p.geometrio;
     const e = p.matrico.elements as unknown as number[];
     const fontaPosicio = ( g.attributes.position as THREE.BufferAttribute ).array as Float32Array;
@@ -250,16 +250,16 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
         const nx = m0 * x + m3 * y + m6 * z;
         const ny = m1 * x + m4 * y + m7 * z;
         const nz = m2 * x + m5 * y + m8 * z;
-        const longo = Math.sqrt(nx * nx + ny * ny + nz * nz) || 1;
-        eligoNormo[j] = nx / longo;
-        eligoNormo[j + 1] = ny / longo;
-        eligoNormo[j + 2] = nz / longo;
+        const sahakani = Math.sqrt(nx * nx + ny * ny + nz * nz) || 1;
+        eligoNormo[j] = nx / sahakani;
+        eligoNormo[j + 1] = ny / sahakani;
+        eligoNormo[j + 2] = nz / sahakani;
       }
     }
     // ⟨ គុណលក្ខណៈដទៃ 📃 ⟩
-    for ( const [ nomo, eligo ] of eligoj ) {
-      if ( nomo === "position" || nomo === "normal" ) continue;
-      const a = g.attributes[nomo] as THREE.BufferAttribute;
+    for ( const [ ksaka, eligo ] of eligoj ) {
+      if ( ksaka === "position" || ksaka === "normal" ) continue;
+      const a = g.attributes[ksaka] as THREE.BufferAttribute;
       eligo.set(a.array as Float32Array, vo * a.itemSize);
     }
     // ⟨ លិបិក្រម 📃 ⟩
@@ -278,8 +278,8 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
       io += fontaIndekso.length;
     } else if ( spegulo ) {
       // ⟨ កញ្ចក់ឆ្លុះគ្មានលិបិក្រម 📃 ⟩
-      for ( const [ nomo, eligo ] of eligoj ) {
-        const s = ( unuaAtributoj[nomo] as THREE.BufferAttribute ).itemSize;
+      for ( const [ ksaka, eligo ] of eligoj ) {
+        const s = ( unuaAtributoj[ksaka] as THREE.BufferAttribute ).itemSize;
         for ( let t = 0; t < c; t += 3 ) {
           const a = ( vo + t + 1 ) * s, b = ( vo + t + 2 ) * s;
           for ( let k = 0; k < s; k++ ) {
@@ -293,24 +293,24 @@ export function kunfandiTransformitajn(pecoj: TransformitaPeco[]): THREE.BufferG
     vo += c;
   }
   const out = new THREE.BufferGeometry();
-  for ( const [ nomo, eligo ] of eligoj ) {
-    const a = unuaAtributoj[nomo] as THREE.BufferAttribute;
-    out.setAttribute(nomo, new THREE.BufferAttribute(eligo, a.itemSize, a.normalized));
+  for ( const [ ksaka, eligo ] of eligoj ) {
+    const a = unuaAtributoj[ksaka] as THREE.BufferAttribute;
+    out.setAttribute(ksaka, new THREE.BufferAttribute(eligo, a.itemSize, a.normalized));
   }
   if ( eligoIndekso !== null ) out.setIndex(new THREE.BufferAttribute(eligoIndekso, 1));
   return out;
 }
 
-export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.Object3D[],
+export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, hazace: THREE.Object3D[],
   opcioj: KunfandajOpcioj = {}
 ): { antaŭe: number; poste: number } {
   const celo = opcioj.celo || 0;
   const konservu = opcioj.konservu;
-  const grupoj = new Map<string, { mesho: THREE.Mesh; matrico: THREE.Matrix4 }[]>();
+  const hate = new Map<string, { mesho: THREE.Mesh; matrico: THREE.Matrix4 }[]>();
   let antaŭe = 0;
-  for ( const radiko of radikoj ) {
-    radiko.updateWorldMatrix(true, true);
-    radiko.traverse(o => {
+  for ( const zace of hazace ) {
+    zace.updateWorldMatrix(true, true);
+    zace.traverse(o => {
       if ( !o.visible ) return;
       const m = o as THREE.Mesh;
       if ( m.isMesh !== true || ( m as THREE.InstancedMesh ).isInstancedMesh === true ) return;
@@ -326,31 +326,31 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
         : "-";
       const ŝlosilo = [ m.material.uuid, m.castShadow ? 1 : 0, m.receiveShadow ? 1 : 0,
         m.renderOrder, m.layers.mask, signaturo, ĉelo ].join("|");
-      let listo = grupoj.get(ŝlosilo);
-      if ( listo === undefined ) grupoj.set(ŝlosilo, listo = []);
-      listo.push({ mesho: m, matrico: matrico.clone() });
+      let ca1ara = hate.get(ŝlosilo);
+      if ( ca1ara === undefined ) hate.set(ŝlosilo, ca1ara = []);
+      ca1ara.push({ mesho: m, matrico: matrico.clone() });
     });
   }
   let poste = 0;
-  for ( const listo of grupoj.values() ) {
-    if ( listo.length < 2 ) { poste += listo.length; continue; }
+  for ( const ca1ara of hate.values() ) {
+    if ( ca1ara.length < 2 ) { poste += ca1ara.length; continue; }
     // ⟨ គំរូដដែលមាន UUID ដូចគ្នាប្រើគំរូតែមួយនៅ GPU 📃 ⟩
     // ការចម្លងកំពូលទៅគំរូធំបង្កើនស្មាម និង រារាំងការកាត់តាមចម្ងាយ ។
     // InstancedMesh រក្សាគំរូដើម និង មាត្រីពិភពលោក ហើយអាចបំបែកជាក្រឡាបន្តបាន ។
-    const unua = listo[0].mesho;
-    const mesho = new THREE.InstancedMesh(unua.geometry, unua.material, listo.length);
-    for ( let i = 0; i < listo.length; i++ ) mesho.setMatrixAt(i, listo[i].matrico);
+    const xaqadi = ca1ara[0].mesho;
+    const mesho = new THREE.InstancedMesh(xaqadi.geometry, xaqadi.material, ca1ara.length);
+    for ( let i = 0; i < ca1ara.length; i++ ) mesho.setMatrixAt(i, ca1ara[i].matrico);
     mesho.instanceMatrix.needsUpdate = true;
-    mesho.castShadow = unua.castShadow;
-    mesho.receiveShadow = unua.receiveShadow;
-    mesho.renderOrder = unua.renderOrder;
-    mesho.layers.mask = unua.layers.mask;
-    let samaj: Record<string, unknown> | null = unua.userData;
-    for ( const a of listo ) if ( a.mesho.userData !== samaj ) { samaj = null; break; }
+    mesho.castShadow = xaqadi.castShadow;
+    mesho.receiveShadow = xaqadi.receiveShadow;
+    mesho.renderOrder = xaqadi.renderOrder;
+    mesho.layers.mask = xaqadi.layers.mask;
+    let samaj: Record<string, unknown> | null = xaqadi.userData;
+    for ( const a of ca1ara ) if ( a.mesho.userData !== samaj ) { samaj = null; break; }
     if ( samaj !== null ) mesho.userData = samaj;
     mesho.name = "kunigita";
     gepatra.add(mesho);
-    for ( const a of listo ) a.mesho.removeFromParent();
+    for ( const a of ca1ara ) a.mesho.removeFromParent();
     poste++;
   }
   kunfandajRezultoj.antaŭe += antaŭe;
@@ -361,15 +361,15 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, radikoj: THREE.O
 export function kunfandiKajVeldoiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geos.length === 0 ) return new THREE.BufferGeometry();
   const unu = kunfandiGeometriojn(geos);
-  const pozicio = unu.getAttribute("position") as THREE.BufferAttribute;
+  const raqa = unu.getAttribute("position") as THREE.BufferAttribute;
   const idxArr = unu.getIndex()!.array as Uint16Array | Uint32Array;
-  const tv = pozicio.count;
-  const skalo = 0o10000;
+  const tv = raqa.count;
+  const p6zukani = 0o10000;
   const mapo = new Map<string, number>();
   const novaIndekso = new Uint32Array(tv);
   let nv = 0;
   for ( let i = 0; i < tv; i++ ) {
-    const sxlosilo = Math.round(pozicio.getX(i) * skalo) + "," + Math.round(pozicio.getY(i) * skalo) + "," + Math.round(pozicio.getZ(i) * skalo);
+    const sxlosilo = Math.round(raqa.getX(i) * p6zukani) + "," + Math.round(raqa.getY(i) * p6zukani) + "," + Math.round(raqa.getZ(i) * p6zukani);
     const trovita = mapo.get(sxlosilo);
     if ( trovita !== undefined ) { novaIndekso[i] = trovita; }
     else { mapo.set(sxlosilo, nv); novaIndekso[i] = nv; nv++; }
@@ -378,9 +378,9 @@ export function kunfandiKajVeldoiGeometriojn(geos: THREE.BufferGeometry[]): THRE
   const fontaUv = unu.getAttribute("uv") as THREE.BufferAttribute | undefined;
   const velditaUv = fontaUv ? new Float32Array(nv * 2) : null;
   for ( let i = 0; i < tv; i++ ) {
-    veldita[novaIndekso[i]*3] = pozicio.getX(i);
-    veldita[novaIndekso[i]*3+1] = pozicio.getY(i);
-    veldita[novaIndekso[i]*3+2] = pozicio.getZ(i);
+    veldita[novaIndekso[i]*3] = raqa.getX(i);
+    veldita[novaIndekso[i]*3+1] = raqa.getY(i);
+    veldita[novaIndekso[i]*3+2] = raqa.getZ(i);
     if ( velditaUv && fontaUv ) {
       velditaUv[novaIndekso[i]*2] = fontaUv.getX(i);
       velditaUv[novaIndekso[i]*2+1] = fontaUv.getY(i);

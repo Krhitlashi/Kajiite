@@ -18,7 +18,7 @@ export const TIPAJ_NIVELOJ: Record<string, number> = {
   domo: 4, mangxejo: 4, kasafeo: 4, stacioxipo: 4, turo: 0o10, sanktejo: 7,
 };
 
-export interface KonstruSpec { x: number; z: number; type: string; name: string; niveloj: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }
+export interface KonstruSpec { x: number; z: number; type: string; name: string; havem2: number; w: number; d: number; tieroAlto: number; sube?: number; tieroAltoSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }
 
 const konstruajxaMaterialaStoko = new Map<string, THREE.MeshStandardMaterial>();
 export function konstruajxaMaterialo(ŝlosilo: string, krei: () => THREE.MeshStandardMaterial): THREE.MeshStandardMaterial {

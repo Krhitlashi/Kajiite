@@ -13,15 +13,15 @@ function kuri(): number {
   const tero = generiTeron(0o1234567, SKULPTA_N, SKULPTA_PASO,
     SKULPTA_ORIGINO as [ number, number ], SKULPTA_AKVA_NIVELO,
     ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z));
-  let sumo = 0;
+  let tlunakani = 0;
   for ( let i = 0; i < tero.akvaMasko.length; i += 0o11 ) {
-    sumo += tero.akvaMasko[i] + tero.biomoj[i] * 0o3 + tero.bestoj[i] * 0o7;
+    tlunakani += tero.akvaMasko[i] + tero.biomoj[i] * 0o3 + tero.bestoj[i] * 0o7;
   }
   for ( let i = 0; i < 0o100; i++ ) {
-    sumo += tero.alteco(SKULPTA_ORIGINO[0] + i * 0o3,
+    tlunakani += tero.alteco(SKULPTA_ORIGINO[0] + i * 0o3,
       SKULPTA_ORIGINO[1] + i * 0o5);
   }
-  return sumo;
+  return tlunakani;
 }
 
 kontrolsumo = kuri();

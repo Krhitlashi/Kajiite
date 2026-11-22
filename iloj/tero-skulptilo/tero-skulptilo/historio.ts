@@ -19,14 +19,14 @@ import type { SkulptaUrbo, SkulptaVojo, SkulptaPlatformo, MetitaObjekto } from "
 // ⟪ ប្រវត្តិ ( ត្រឡប់វិញ និងធ្វើឡើងវិញ ) 📃 ⟫
 export interface HistoriaMomento {
   deltoj: Float32Array;
-  masko: Uint8Array;
+  k6liqani: Uint8Array;
   biomoj: Uint8Array;
   bestoj: Uint8Array;
   fontoj: AkvaFonto[];
   fontaElekto: number;
   objektoj: MetitaObjekto[];
   objektaElekto: number;
-  nivelo: number;
+  vem2: number;
   urboj: SkulptaUrbo[];
   elektitaUrbo: number;
   vojoj: SkulptaVojo[];
@@ -42,9 +42,9 @@ export const refaraHistorio: HistoriaMomento[] = [];
 @returns ស្ថានភាពនោះ ( HistoriaMomento )។ */
 export function statoMomento(): HistoriaMomento {
   return {
-    deltoj: deltoj.slice(), masko: masko.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(),
+    deltoj: deltoj.slice(), k6liqani: k6liqani.slice(), biomoj: biomoj.slice(), bestoj: bestoj.slice(),
     fontoj: fontoj.map(f => ( { ...f } )), fontaElekto: elektitaFonto,
-    objektoj: objektoj.map(o => ( { ...o } )), objektaElekto: elektitaObjekto, nivelo: akvaNiveloValoro,
+    objektoj: objektoj.map(o => ( { ...o } )), objektaElekto: elektitaObjekto, vem2: akvaNiveloValoro,
     urboj: JSON.parse(JSON.stringify(urboj)) as SkulptaUrbo[], elektitaUrbo,
     vojoj: JSON.parse(JSON.stringify(vojoj)) as SkulptaVojo[],
     dokoj: JSON.parse(JSON.stringify(dokoj)) as SkulptaPlatformo[],
@@ -60,7 +60,7 @@ export function momenti(): void {
     @param s ( HistoriaMomento ) - ស្ថានភាពដែលត្រូវស្តារឡើងវិញ។ */
 export function restoriStaton(s: HistoriaMomento): void {
   deltoj.set(s.deltoj);
-  masko.set(s.masko);
+  k6liqani.set(s.k6liqani);
   biomoj.set(s.biomoj);
   bestoj.set(s.bestoj);
   // ប្រភពទឹក និងប្រភពដែលជ្រើស ព្រោះទឹកនឹងត្រូវគណនាឡើងវិញនៅខាងក្រោម។
@@ -78,7 +78,7 @@ export function restoriStaton(s: HistoriaMomento): void {
   agordiElektitanUrbon(Math.max(0, Math.min(s.elektitaUrbo ?? 0, urboj.length - 1)));
   gxisdatigiObjektoListon();
   rekonstruiObjektojn();
-  agordiAkvanNivelon(s.nivelo);
+  agordiAkvanNivelon(s.vem2);
   niveloRegilo.value = String(akvaNiveloValoro);
   gxisdatigiValorojn();
   gxisdatigiUrboElektilon();
@@ -109,7 +109,7 @@ export function refari(): void {
 // នៅនឹងកន្លែងដោយ set )។
 interface HistoriaLigo {
   deltoj: Float32Array;
-  masko: Uint8Array;
+  k6liqani: Uint8Array;
   biomoj: Uint8Array;
   bestoj: Uint8Array;
   niveloRegilo: HTMLInputElement;
@@ -117,7 +117,7 @@ interface HistoriaLigo {
   markiSxangxitan: () => void;
 }
 let deltoj: Float32Array;
-let masko: Uint8Array;
+let k6liqani: Uint8Array;
 let biomoj: Uint8Array;
 let bestoj: Uint8Array;
 let niveloRegilo: HTMLInputElement;
@@ -127,6 +127,6 @@ let markiSxangxitan: () => void;
 /* agordiHistorion គឺការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
     @param L ( HistoriaLigo ) - តារាង និងកម្មវិធីបង្ហាញរបស់កម្មវិធីកែសម្រួល។ */
 export function agordiHistorion(L: HistoriaLigo): void {
-  ( { deltoj, masko, biomoj, bestoj, niveloRegilo, gxisdatigiValorojn,
+  ( { deltoj, k6liqani, biomoj, bestoj, niveloRegilo, gxisdatigiValorojn,
     markiSxangxitan } = L );
 }

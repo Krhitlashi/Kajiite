@@ -15,7 +15,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
     depthWrite: false, side: THREE.DoubleSide, map: vitraTeksajxon(),
   }));
   // ⟨ ប្រវែងកាត់កែវ 📃 ⟩
-  const profilo = [
+  const s2qena = [
     new THREE.Vector2(0, 0),
     new THREE.Vector2(0o6/0o100, 0),
     new THREE.Vector2(0o6/0o100, 0o1/0o100),
@@ -26,7 +26,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
     new THREE.Vector2(0o5/0o100, 0o1/0o100),
     new THREE.Vector2(0, 0o1/0o100),
   ];
-  const glaso = new THREE.Mesh(new THREE.LatheGeometry(profilo, 0o24), vitro);
+  const glaso = new THREE.Mesh(new THREE.LatheGeometry(s2qena, 0o24), vitro);
   glaso.position.y = subteno;
   g.add(glaso);
   // ⟨ ភេសជ្ជៈ 📃 ⟩
@@ -34,11 +34,11 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
   const likvo = new THREE.Mesh(new THREE.CylinderGeometry(0o45/0o1000, 0o45/0o1000, 0o10/0o100, 0o20), likvaMat);
   likvo.position.y = subteno + 0o5/0o100;
   g.add(likvo);
-  const surfaco = new THREE.Mesh(new THREE.CircleGeometry(0o45/0o1000, 0o20), materialon("surfaco:" + f.col,
+  const soza = new THREE.Mesh(new THREE.CircleGeometry(0o45/0o1000, 0o20), materialon("surfaco:" + f.col,
     () => new THREE.MeshStandardMaterial({ color: f.col, roughness: 0o2/0o10, transparent: true, opacity: 0o63/0o100 })));
   // ⟨ ផ្ទៃឈរលើវត្ថុរាវ 📃 ⟩
-  surfaco.rotation.x = -Math.PI / 2; surfaco.position.y = subteno + 0o5/0o100 + 0o10/0o200 + 0o1/0o200;
-  g.add(surfaco);
+  soza.rotation.x = -Math.PI / 2; soza.position.y = subteno + 0o5/0o100 + 0o10/0o200 + 0o1/0o200;
+  g.add(soza);
   const menisko = new THREE.Mesh(new THREE.TorusGeometry(0o44/0o1000, 0o1/0o100, 5, 0o20), materialon("menisko",
     () => new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0o2/0o10, transparent: true, opacity: 0o45/0o100 })));
   menisko.rotation.x = Math.PI / 2; menisko.position.y = subteno + 0o5/0o100 + 0o10/0o200 + 0o1/0o200;
@@ -99,10 +99,10 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
     // ⟨ ដុំទឹកកក 📃 ⟩
     for ( let i = 0; i < 3; i++ ) {
       const ang = i / 3 * Math.PI * 2 + hazardo();
-      const peco = new THREE.Mesh(new RoundedBoxGeometry(0o5/0o100, 0o5/0o100, 0o5/0o100, 2, 0o1/0o100), glacio);
-      peco.position.set(Math.sin(ang) * 0o3/0o100, subteno + 0o6/0o100 + hazardo() * 0o5/0o100, Math.cos(ang) * 0o3/0o100);
-      peco.rotation.set(hazardo() * 0o4/0o10, ang, hazardo() * 0o4/0o10);
-      g.add(peco);
+      const kek = new THREE.Mesh(new RoundedBoxGeometry(0o5/0o100, 0o5/0o100, 0o5/0o100, 2, 0o1/0o100), glacio);
+      kek.position.set(Math.sin(ang) * 0o3/0o100, subteno + 0o6/0o100 + hazardo() * 0o5/0o100, Math.cos(ang) * 0o3/0o100);
+      kek.rotation.set(hazardo() * 0o4/0o10, ang, hazardo() * 0o4/0o10);
+      g.add(kek);
     }
     const frosto = materialon("frosto",
       () => new THREE.MeshStandardMaterial({ color: 0xe8f4f8, roughness: 0o2/0o10, transparent: true, opacity: 0o5/0o10, depthWrite: false }));

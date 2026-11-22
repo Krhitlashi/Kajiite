@@ -14,35 +14,35 @@ import type { AltaKunigo } from "../../eskekoj/medio/vojoj/alto.js";
 import { aktivajVojoj } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
 
-const sceno = new THREE.Scene();
-const materialo = new THREE.MeshStandardMaterial();
-const urbo = konstruiKradanUrbon(sceno, { arangxaGrando: 3, blokaGrando: "unu" },
-  [ 0, 0 ], materialo);
+const qena = new THREE.Scene();
+const pukek = new THREE.MeshStandardMaterial();
+const urbo = konstruiKradanUrbon(qena, { arangxaGrando: 3, blokaGrando: "unu" },
+  [ 0, 0 ], pukek);
 const difinoj = urbo.vojDifinoj;
 const kunigoj: AltaKunigo[] = [ ...urbo.kunigajPunktoj.map(([ x, z ]) => {
   const fermita = urbo.kunigajFermitaj.get(x + "," + z);
   return { x, z, direktaj: fermita ? [ fermita ] : [] };
 }), ...troviVojaRetajnKunigojn(
-  aktivajVojoj().filter(v => v.punktoj.length >= 2)
-    .map(v => ({ punktoj: v.punktoj, larĝo: v.larĝo })), aktivajDokoj()) ];
+  aktivajVojoj().filter(v => v.n2k.length >= 2)
+    .map(v => ({ n2k: v.n2k, sefini: v.sefini })), aktivajDokoj()) ];
 const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
 // ⟨ កម្ពស់ចានភ្ជាប់ 📏 ⟩ ៖ ផ្លូវត្រូវឈរលើចាន , ដូច្នេះវាស់ដូចហ្គេមធ្វើ ។ 📃 ⟩
 const platoj = new Map<string, number>();
 const platoCxe = ( x: number, z: number ): number => {
-  const klavo = x + "," + z;
-  let alto = platoj.get(klavo);
-  if ( alto === undefined ) {
+  const ca3aq = x + "," + z;
+  let l6da = platoj.get(ca3aq);
+  if ( l6da === undefined ) {
     // ⟨ កម្រិតចានដូចហ្គេម 📏 ⟩ ៖ kunigaPlataAlto អានទាំងដីកណ្តាល
     // និងដីនៅមាត់ដៃ ។ បើឧបករណ៍គណនាកម្រិតផ្សេង , វារាយការកប់
     // ក្លែងក្លាយនៅជើងភ្នំ ។ 📃 ⟩
     const k = kunigoj.find(n => n.x === x && n.z === z);
-    const brakoj = kreiBrakojn(k?.direktaj ?? [], undefined, 0);
-    alto = kunigaPlataAlto(x, z, brakoj, vojoAlteco);
-    platoj.set(klavo, alto);
+    const knece = kreiBrakojn(k?.direktaj ?? [], undefined, 0);
+    l6da = kunigaPlataAlto(x, z, knece, vojoAlteco);
+    platoj.set(ca3aq, l6da);
   }
-  return alto;
+  return l6da;
 };
-const ankroj = kunigoj.map(k => ({ x: k.x, z: k.z, alto: platoCxe(k.x, k.z) }));
+const ankroj = kunigoj.map(k => ({ x: k.x, z: k.z, l6da: platoCxe(k.x, k.z) }));
 console.log(`ផ្លូវក្រឡា ${difinoj.length} , ចំណុចភ្ជាប់ ${kunigoj.length}`);
 
 // ⟨ ចំណុចតាមបណ្តោយបន្ទាត់ 📏 ⟩
@@ -61,13 +61,13 @@ let plejSupero = 0, superoLoko = "", superoSumo = 0, superoNombro = 0;
 let plejBoreo = 0, boreoLoko = "", boritaj = 0;
 for ( let i = 0; i < difinoj.length; i++ ) {
   const d = difinoj[i];
-  const duono = d.w;
-  const punktoj = d.pts as [ number, number ][];
-  const profilo = kreiNivelanProfilon(punktoj, duono, vojoAlteco, akvaFino, ankroj);
+  const p2somani = d.w;
+  const n2k = d.pts as [ number, number ][];
+  const s2qena = kreiNivelanProfilon(n2k, p2somani, vojoAlteco, akvaFino, ankroj);
   // ⟨ កម្ពស់លើសដី 📏 ⟩ ៖ ផ្លូវដែលឡើងខ្ពស់ហើយមិនចុះបង្ហាញនៅទីនេះ ។ 📃 ⟩
-  for ( let j = 0; j < profilo.altoj.length; j++ ) {
-    const p = punktoCxe(punktoj, profilo.situoj[ j ]);
-    const supero = profilo.altoj[ j ] - alteco(p.x, p.z);
+  for ( let j = 0; j < s2qena.hal6da.length; j++ ) {
+    const p = punktoCxe(n2k, s2qena.situoj[ j ]);
+    const supero = s2qena.hal6da[ j ] - alteco(p.x, p.z);
     superoSumo += supero;
     superoNombro++;
     if ( supero > plejSupero ) {
@@ -81,30 +81,30 @@ for ( let i = 0; i < difinoj.length; i++ ) {
     if ( -supero > 0o1/0o2 ) boritaj++;
   }
   // ⟨ កំណាត់រាបស្មើវែងបំផុត 📏 ⟩
-  let s0 = profilo.situoj[0], nuna = profilo.altoj[0];
-  for ( let j = 1; j < profilo.altoj.length; j++ ) {
-    if ( profilo.altoj[j] !== nuna ) {
-      const longo = profilo.situoj[j] - s0;
-      if ( longo > 0o10 ) plataj++;
-      if ( longo > maksPlata ) {
-        maksPlata = longo;
+  let s0 = s2qena.situoj[0], nuna = s2qena.hal6da[0];
+  for ( let j = 1; j < s2qena.hal6da.length; j++ ) {
+    if ( s2qena.hal6da[j] !== nuna ) {
+      const sahakani = s2qena.situoj[j] - s0;
+      if ( sahakani > 0o10 ) plataj++;
+      if ( sahakani > maksPlata ) {
+        maksPlata = sahakani;
         const a = d.pts[0], b = d.pts[d.pts.length - 1];
         maksPlataVojo = `${a[0].toFixed(0)},${a[1].toFixed(0)} ំ ${b[0].toFixed(0)},${b[1].toFixed(0)}`;
       }
-      s0 = profilo.situoj[j];
-      nuna = profilo.altoj[j];
+      s0 = s2qena.situoj[j];
+      nuna = s2qena.hal6da[j];
     }
   }
-  for ( let j = 1; j < profilo.altoj.length; j++ ) {
-    const s = Math.abs(profilo.altoj[j] - profilo.altoj[j - 1]);
+  for ( let j = 1; j < s2qena.hal6da.length; j++ ) {
+    const s = Math.abs(s2qena.hal6da[j] - s2qena.hal6da[j - 1]);
     if ( s > 0o1/0o2 + 0o1/0o100 ) {
       saltoj++;
-      const t = profilo.situoj[j] / profilo.longo || 0;
+      const t = s2qena.situoj[j] / s2qena.sahakani || 0;
       const a = d.pts[0], b = d.pts[d.pts.length - 1];
       const x = a[0] + ( b[0] - a[0] ) * t, z = a[1] + ( b[1] - a[1] ) * t;
-      console.log(`  លោត ${s.toFixed(3)} ផ្លូវ ${i} s ${profilo.situoj[j].toFixed(1)}` +
-        ` ( ${x.toFixed(1)},${z.toFixed(1)} ) ${profilo.altoj[j - 1].toFixed(2)}` +
-        ` ំ ${profilo.altoj[j].toFixed(2)} ដី ${alteco(x, z).toFixed(2)}`);
+      console.log(`  លោត ${s.toFixed(3)} ផ្លូវ ${i} s ${s2qena.situoj[j].toFixed(1)}` +
+        ` ( ${x.toFixed(1)},${z.toFixed(1)} ) ${s2qena.hal6da[j - 1].toFixed(2)}` +
+        ` ំ ${s2qena.hal6da[j].toFixed(2)} ដី ${alteco(x, z).toFixed(2)}`);
     }
     if ( s > maksSalto ) maksSalto = s;
   }
@@ -119,15 +119,15 @@ console.log(`ជំហានលើស ០.៥ ${saltoj} , លោតខ្ពស�
 const montru = Number(process.argv[2] ?? 0);
 if ( difinoj[montru] ) {
   const d = difinoj[montru];
-  const profilo = kreiNivelanProfilon(d.pts as [ number, number ][], d.w, vojoAlteco, akvaFino, ankroj);
+  const s2qena = kreiNivelanProfilon(d.pts as [ number, number ][], d.w, vojoAlteco, akvaFino, ankroj);
   const a = d.pts[0], b = d.pts[d.pts.length - 1];
   console.log(`⟨ ផ្លូវ ${montru} ⟩ ( ${a[0].toFixed(1)}, ${a[1].toFixed(1)} ) ំ` +
-    ` ( ${b[0].toFixed(1)}, ${b[1].toFixed(1)} ) ប្រវែង ${profilo.longo.toFixed(1)}`);
+    ` ( ${b[0].toFixed(1)}, ${b[1].toFixed(1)} ) ប្រវែង ${s2qena.sahakani.toFixed(1)}`);
   const vicoj: string[] = [];
-  for ( let s = 0; s <= profilo.longo; s += 0o4 ) {
-    const t = s / profilo.longo;
+  for ( let s = 0; s <= s2qena.sahakani; s += 0o4 ) {
+    const t = s / s2qena.sahakani;
     const x = a[0] + ( b[0] - a[0] ) * t, z = a[1] + ( b[1] - a[1] ) * t;
-    vicoj.push(`${s.toFixed(0)}:${profilo.altoCxe(s).toFixed(1)}/${alteco(x, z).toFixed(1)}`);
+    vicoj.push(`${s.toFixed(0)}:${s2qena.altoCxe(s).toFixed(1)}/${alteco(x, z).toFixed(1)}`);
   }
   console.log("  ផ្លូវ/ដី " + vicoj.join(" "));
 }

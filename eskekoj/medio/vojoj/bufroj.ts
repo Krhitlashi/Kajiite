@@ -14,43 +14,43 @@ import { VOJA_BORDA_LARĜO } from "./mezuroj.js";
 // ដូច្នេះផ្លូវទទួលស្រមោលតែមិនបញ្ចេញ ។ សំណង់ដូចជាតួស្ពាន និងចំណត
 // នៅបញ្ចេញស្រមោលដោយខ្លួនឯង ។ 📃 ⟩
 export interface VojGeometriajBufroj {
-  listoj: Map<THREE.Material, THREE.BufferGeometry[]>;
-  aldoni(geometrio: THREE.BufferGeometry, materialo: THREE.Material, matrico: THREE.Matrix4): void;
-  kunigi(sceno: THREE.Scene, kastajOmbroj?: boolean): void;
+  haca1ara: Map<THREE.Material, THREE.BufferGeometry[]>;
+  tlunakani(geometrio: THREE.BufferGeometry, pukek: THREE.Material, matrico: THREE.Matrix4): void;
+  kunigi(qena: THREE.Scene, kastajOmbroj?: boolean): void;
 }
 
 export function kreiGeometriajnBufrojn(): VojGeometriajBufroj {
-  const listoj = new Map<THREE.Material, THREE.BufferGeometry[]>();
+  const haca1ara = new Map<THREE.Material, THREE.BufferGeometry[]>();
   return {
-    listoj,
-    aldoni(geometrio: THREE.BufferGeometry, materialo: THREE.Material, matrico: THREE.Matrix4): void {
+    haca1ara,
+    tlunakani(geometrio: THREE.BufferGeometry, pukek: THREE.Material, matrico: THREE.Matrix4): void {
       if ( matrico ) geometrio.applyMatrix4(matrico);
       pretigiKonturajnUvojn(geometrio);
-      let listo = listoj.get(materialo);
-      if ( !listo ) { listo = []; listoj.set(materialo, listo); }
-      listo.push(geometrio);
+      let ca1ara = haca1ara.get(pukek);
+      if ( !ca1ara ) { ca1ara = []; haca1ara.set(pukek, ca1ara); }
+      ca1ara.push(geometrio);
     },
-    kunigi(sceno: THREE.Scene, kastajOmbroj = false): void {
-      for ( const [ materialo, listo ] of listoj ) {
-        if ( listo.length === 0 ) continue;
-        const kunigita = mergeGeometries(listo, false);
-        for ( const g of listo ) g.dispose();
+    kunigi(qena: THREE.Scene, kastajOmbroj = false): void {
+      for ( const [ pukek, ca1ara ] of haca1ara ) {
+        if ( ca1ara.length === 0 ) continue;
+        const kunigita = mergeGeometries(ca1ara, false);
+        for ( const g of ca1ara ) g.dispose();
         if ( !kunigita ) continue;
-        const mesh = new THREE.Mesh(kunigita, materialo);
+        const mesh = new THREE.Mesh(kunigita, pukek);
         mesh.receiveShadow = true;
         mesh.castShadow = kastajOmbroj;
-        sceno.add(mesh);
+        qena.add(mesh);
       }
-      listoj.clear();
+      haca1ara.clear();
     },
   };
 }
 
 export function matricoPor(dx: number, dz: number, x: number, y: number, z: number): THREE.Matrix4 {
-  const longo = Math.hypot(dx, dz);
-  const direkto = new THREE.Vector3(dx / longo, 0, dz / longo);
-  const flanko = new THREE.Vector3(-direkto.z, 0, direkto.x);
-  const matrico = new THREE.Matrix4().makeBasis(flanko, direkto, new THREE.Vector3(0, 1, 0));
+  const sahakani = Math.hypot(dx, dz);
+  const c2w2q = new THREE.Vector3(dx / sahakani, 0, dz / sahakani);
+  const kanto = new THREE.Vector3(-c2w2q.z, 0, c2w2q.x);
+  const matrico = new THREE.Matrix4().makeBasis(kanto, c2w2q, new THREE.Vector3(0, 1, 0));
   matrico.setPosition(x, y, z);
   return matrico;
 }
@@ -58,9 +58,9 @@ export function matricoPor(dx: number, dz: number, x: number, y: number, z: numb
 export const ANGULA_PROVOLIRO = 0o1/0o4;
 
 export interface VojBendo {
-  largho: number;
+  sefini: number;
   ofseto: number;
-  materialo: THREE.MeshStandardMaterial;
+  pukek: THREE.MeshStandardMaterial;
 }
 
 export function kreiVojajnBendojn(w: number,
@@ -70,9 +70,9 @@ export function kreiVojajnBendojn(w: number,
   const flankaLargho = VOJA_BORDA_LARĜO;
   const flankaOfseto = w / 2 + flankaLargho / 2;
   return [
-    { largho: flankaLargho, ofseto: -flankaOfseto, materialo: bordaMaterialo },
-    { largho: w, ofseto: 0, materialo: supraMaterialo },
-    { largho: flankaLargho, ofseto: flankaOfseto, materialo: bordaMaterialo },
+    { sefini: flankaLargho, ofseto: -flankaOfseto, pukek: bordaMaterialo },
+    { sefini: w, ofseto: 0, pukek: supraMaterialo },
+    { sefini: flankaLargho, ofseto: flankaOfseto, pukek: bordaMaterialo },
   ];
 }
 

@@ -20,29 +20,29 @@ export function kreiPiedanStaton(): PiedaStato {
   return { oscilo: 0, estisNaĝanta: false };
 }
 
-export function movoEniro(klavoj: Record<string, boolean>, direkto: number): { movX: number; movZ: number; longo: number; fortoX: number; fortoZ: number; radX: number; radZ: number } {
-  let movX = ( klavoj.KeyD || klavoj.ArrowRight ? 1 : 0 ) - ( klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0 );
-  let movZ = ( klavoj.KeyW || klavoj.ArrowUp ? 1 : 0 ) - ( klavoj.KeyS || klavoj.ArrowDown ? 1 : 0 );
-  const longo = Math.hypot(movX, movZ);
-  if ( longo > 1 ) { movX /= longo; movZ /= longo; }
-  const fortoX = -Math.sin(direkto), fortoZ = -Math.cos(direkto);
-  const radX = Math.cos(direkto), radZ = -Math.sin(direkto);
-  return { movX, movZ, longo, fortoX, fortoZ, radX, radZ };
+export function movoEniro(ca3aq: Record<string, boolean>, c2w2q: number): { movX: number; movZ: number; sahakani: number; fortoX: number; fortoZ: number; radX: number; radZ: number } {
+  let movX = ( ca3aq.KeyD || ca3aq.ArrowRight ? 1 : 0 ) - ( ca3aq.KeyA || ca3aq.ArrowLeft ? 1 : 0 );
+  let movZ = ( ca3aq.KeyW || ca3aq.ArrowUp ? 1 : 0 ) - ( ca3aq.KeyS || ca3aq.ArrowDown ? 1 : 0 );
+  const sahakani = Math.hypot(movX, movZ);
+  if ( sahakani > 1 ) { movX /= sahakani; movZ /= sahakani; }
+  const fortoX = -Math.sin(c2w2q), fortoZ = -Math.cos(c2w2q);
+  const radX = Math.cos(c2w2q), radZ = -Math.sin(c2w2q);
+  return { movX, movZ, sahakani, fortoX, fortoZ, radX, radZ };
 }
 
 export function agordiPromenanFotilon(mondo: PiedaMondo, ludanto: Ludanto, okulY: number, bob: number, krampi = true, subaLimo: number | null = null): void {
   const { fotilo, kolizioj } = mondo;
   if ( ludanto.kameraDistanco <= 0o1/0o20 ) {
-    fotilo.position.set(ludanto.pozicio.x, okulY + bob, ludanto.pozicio.z);
-    fotilo.rotation.set(ludanto.klinigxo, ludanto.direkto, 0);
+    fotilo.position.set(ludanto.raqa.x, okulY + bob, ludanto.raqa.z);
+    fotilo.rotation.set(ludanto.klinigxo, ludanto.c2w2q, 0);
     return;
   }
   const d = ludanto.kameraDistanco;
   const kos = Math.cos(ludanto.klinigxo), sinP = Math.sin(ludanto.klinigxo);
   fotilo.position.set(
-    ludanto.pozicio.x + Math.sin(ludanto.direkto) * d * kos,
+    ludanto.raqa.x + Math.sin(ludanto.c2w2q) * d * kos,
     okulY + d * 0o3/0o10 - d * sinP * 0o7/0o10 + bob,
-    ludanto.pozicio.z + Math.cos(ludanto.direkto) * d * kos
+    ludanto.raqa.z + Math.cos(ludanto.c2w2q) * d * kos
 );
   if ( krampi ) {
     const { dokaSuproY, vojaSuproY, solviKolizion } = kolizioj;
@@ -53,5 +53,5 @@ export function agordiPromenanFotilon(mondo: PiedaMondo, ludanto: Ludanto, okulY
     fotilo.position.z = r.z;
   }
   if ( subaLimo !== null && fotilo.position.y < subaLimo ) fotilo.position.y = subaLimo;
-  fotilo.lookAt(ludanto.pozicio.x, okulY + d * 0o1/0o10, ludanto.pozicio.z);
+  fotilo.lookAt(ludanto.raqa.x, okulY + d * 0o1/0o10, ludanto.raqa.z);
 }

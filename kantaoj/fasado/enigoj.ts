@@ -30,7 +30,7 @@ export interface EnigajOpcioj {
 }
 
 export interface Enigoj {
-  klavoj: Record<string, boolean>;
+  ca3aq: Record<string, boolean>;
   cxuSprintas(): boolean;
   cxuSaltas(): boolean;
 }
@@ -38,7 +38,7 @@ export interface Enigoj {
 export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
   const { kanvaso, promptoElemento, joystickZono, joystickBazo, joystickTenilo, butInterakti, butSalti, ludanto, agoj } = opcioj;
 
-  const klavoj: Record<string, boolean> = {};
+  const ca3aq: Record<string, boolean> = {};
   // ⟨ ស្ថានភាពដងចង្កូត 📃 ⟩
   let joystickAktiva = false;
   let joystickID = -1;
@@ -66,16 +66,16 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
 
   // ⟪ ក្តារចុច 📃 ⟫
   window.addEventListener("keydown", e => {
-    klavoj[e.code] = true;
+    ca3aq[e.code] = true;
     if ( [ "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space" ].includes(e.code) ) e.preventDefault();
     if ( e.code === "KeyE" && !e.repeat ) agoj.interakti();
     if ( e.code === "KeyM" && !e.repeat ) agoj.sxaltiRezimon();
     if ( e.code === "Escape" ) agoj.eskapo();
     if ( e.code === "Space" ) agoj.salti();
   });
-  window.addEventListener("keyup", e => { klavoj[e.code] = false; });
+  window.addEventListener("keyup", e => { ca3aq[e.code] = false; });
 
-  const resetiKlfojn = () => { for ( const k in klavoj ) klavoj[k] = false; };
+  const resetiKlfojn = () => { for ( const k in ca3aq ) ca3aq[k] = false; };
   window.addEventListener("blur", resetiKlfojn);
   window.addEventListener("visibilitychange", () => { if ( document.hidden ) resetiKlfojn(); });
   document.addEventListener("pointerlockchange", () => { if ( !document.pointerLockElement ) resetiKlfojn(); });
@@ -92,17 +92,17 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
     joystickTenilo.style.transform = `translate(${dx}px, ${dy}px)`;
     const normX = dx / JOYSTICK_R;
     const normY = dy / JOYSTICK_R;
-    klavoj.KeyA = normX < -0o2/0o10;
-    klavoj.KeyD = normX > 0o2/0o10;
-    klavoj.KeyW = normY < -0o2/0o10;
-    klavoj.KeyS = normY > 0o2/0o10;
+    ca3aq.KeyA = normX < -0o2/0o10;
+    ca3aq.KeyD = normX > 0o2/0o10;
+    ca3aq.KeyW = normY < -0o2/0o10;
+    ca3aq.KeyS = normY > 0o2/0o10;
     const devio = Math.min(1, dist / JOYSTICK_R);
     mobSprinto = devio > 0o3/0o4;
     joystickBazo.classList.toggle("sprinto", mobSprinto);
   }
   function resetiJoystick() {
-    klavoj.KeyA = false; klavoj.KeyD = false;
-    klavoj.KeyW = false; klavoj.KeyS = false;
+    ca3aq.KeyA = false; ca3aq.KeyD = false;
+    ca3aq.KeyW = false; ca3aq.KeyS = false;
     mobSprinto = false;
     joystickBazo.classList.remove("sprinto");
     joystickTenilo.style.transform = "translate(0px, 0px)";
@@ -160,8 +160,8 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
     jeTiro: ( dx, dy ) => {
       ludanto.aldoniRigardon(-dx * 0o1/0o400, -dy * 0o1/0o400);
     },
-    jePinĉo: ( pinĉoBazo, nova ) => {
-      if ( !ludanto.kuŝas() ) ludanto.aldoniZumon(( pinĉoBazo - nova ) * 0o1/0o10);
+    jePinĉo: ( pinĉoBazo, sef4 ) => {
+      if ( !ludanto.kuŝas() ) ludanto.aldoniZumon(( pinĉoBazo - sef4 ) * 0o1/0o10);
     },
   });
 
@@ -204,7 +204,7 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
   }, { passive: false });
 
   return {
-    klavoj,
+    ca3aq,
     cxuSprintas: () => mobSprinto,
     cxuSaltas: () => mobSaltiTenata,
   };

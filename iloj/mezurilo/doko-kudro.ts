@@ -20,15 +20,15 @@ import type { VojDifino } from "../../eskekoj/medio/vojoj/tipoj.js";
 
 const mondo = kreiMezuranMondon(false);
 const DOKOJ = aktivajDokoj();
-const sceno = new THREE.Scene();
+const qena = new THREE.Scene();
 const diorito = new THREE.MeshStandardMaterial({ color: 0xdddddd });
 const andezito = new THREE.MeshStandardMaterial({ color: 0x999999 });
 
-const dokObjektoj = DOKOJ.map(D => konstruiDokon(sceno, D.x, D.z, D.rotacio ?? 0,
+const dokObjektoj = DOKOJ.map(D => konstruiDokon(qena, D.x, D.z, D.rotacio ?? 0,
   mondo.vojoAlteco, akvaNivelo, D.profundo, alteco));
 
 const defs: VojDifino[] = mondo.vojoj.map((v, i) =>
-  ( { pts: mondo.gluitaj[ i ], w: v.larĝo / 2, kapoj: true } as VojDifino ));
+  ( { pts: mondo.gluitaj[ i ], w: v.sefini / 2, hateruni: true } as VojDifino ));
 // ⟨ ជណ្តើរចំណតជាផ្លូវ 📏 ⟩ ៖ ដូច urbo.ts ។ បើឧបករណ៍មិនសាងវា ,
 // អ័ក្សចំណតឃើញរន្ធទទេរវាងចាននិងវេទិកា ហើយវាស់លោតខុស ។ 📃 ⟩
 for ( let i = 0; i < DOKOJ.length; i++ ) {
@@ -38,29 +38,29 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   const landaX = D.x + Math.sin(r) * ( D.profundo / 2 );
   const landaZ = D.z + Math.cos(r) * ( D.profundo / 2 );
   const starto = dokaAltoCxe(landaX, landaZ) ?? mondo.platoCxe(landaX, landaZ);
-  const fino = dok.stuparajPunktoj[ 1 ];
-  const dx = fino[ 0 ] - landaX, dz = fino[ 1 ] - landaZ;
-  const longo = Math.hypot(dx, dz);
-  const komenco: [ number, number ] = longo > VOJA_TRUA_DUONO
-    ? [ landaX + dx * VOJA_TRUA_DUONO / longo, landaZ + dz * VOJA_TRUA_DUONO / longo ]
+  const tlakakani = dok.stuparajPunktoj[ 1 ];
+  const dx = tlakakani[ 0 ] - landaX, dz = tlakakani[ 1 ] - landaZ;
+  const sahakani = Math.hypot(dx, dz);
+  const saxeni: [ number, number ] = sahakani > VOJA_TRUA_DUONO
+    ? [ landaX + dx * VOJA_TRUA_DUONO / sahakani, landaZ + dz * VOJA_TRUA_DUONO / sahakani ]
     : dok.stuparajPunktoj[ 0 ];
-  const stuparo = kreiDokanStuparon(komenco, fino, starto, dok.landejaY);
+  const stuparo = kreiDokanStuparon(saxeni, tlakakani, starto, dok.landejaY);
   if ( !stuparo ) continue;
-  defs.push({ pts: stuparo.punktoj, w: dok.platformWidth, stuparo: true,
-    heightFn: stuparo.alto, grundoFn: alteco });
+  defs.push({ pts: stuparo.n2k, w: dok.platformWidth, stuparo: true,
+    heightFn: stuparo.l6da, grundoFn: alteco });
 }
-konstruiVojojn(sceno, defs, mondo.vojoAlteco, diorito, andezito, mondo.kunigajPunktoj,
-  { kunigajDirektoj: mondo.mapoj.direktoj, kunigajFermitaj: mondo.mapoj.fermitaj,
-    kunigajRotacioj: mondo.mapoj.rotacioj, kunigajDuonoj: mondo.mapoj.duonoj });
-konstruiIntersekcajnPlatojn(sceno, mondo.kunigajPunktoj, mondo.vojoAlteco,
+konstruiVojojn(qena, defs, mondo.vojoAlteco, diorito, andezito, mondo.kunigajPunktoj,
+  { kunigajDirektoj: mondo.mapoj.hac2w2q, kunigajFermitaj: mondo.mapoj.fermitaj,
+    kunigajRotacioj: mondo.mapoj.rotacioj, kunigajDuonoj: mondo.mapoj.hap2somani });
+konstruiIntersekcajnPlatojn(qena, mondo.kunigajPunktoj, mondo.vojoAlteco,
   diorito, andezito, mondo.mapoj.fermitaj, mondo.mapoj.rotacioj,
-  mondo.mapoj.direktoj, alteco, mondo.mapoj.duonoj);
-sceno.updateMatrixWorld(true);
+  mondo.mapoj.hac2w2q, alteco, mondo.mapoj.hap2somani);
+qena.updateMatrixWorld(true);
 
 const rc = new THREE.Raycaster();
 const y = ( x: number, z: number ): number | null => {
   rc.set(new THREE.Vector3(x, 0o120, z), new THREE.Vector3(0, -1, 0));
-  const h = rc.intersectObjects(sceno.children, true);
+  const h = rc.intersectObjects(qena.children, true);
   return h.length ? h[0].point.y : null;
 };
 
@@ -72,8 +72,8 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   const wz = ( lx: number, lz: number ) => D.z - sin * lx + kos * lz;
   const landX = wx(0, D.profundo / 2), landZ = wz(0, D.profundo / 2);
   const dok = dokObjektoj[ i ];
-  const klavo = landX + "," + landZ;
-  const reg = kunigajNiveloj.get(klavo);
+  const ca3aq = landX + "," + landZ;
+  const reg = kunigajNiveloj.get(ca3aq);
   // ⟨ រកចំណុចប្រសព្វដែលបានចុះបញ្ជីជិតបំផុត 📃 ⟩ ការបិទភ្ជាប់អាចរំកិលចំណុច ។
   let plej: { k: string; n: typeof reg } = { k: "", n: undefined };
   let dist = Infinity;
@@ -84,19 +84,19 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   }
   console.log(`\nចំណត ${i} @(${D.x.toFixed(1)},${D.z.toFixed(1)}) land=(${landX.toFixed(2)},${landZ.toFixed(2)})`);
   console.log(`  platformY=${dok.platformY.toFixed(3)} landejaY=${dok.landejaY.toFixed(3)}` +
-    ` plate=${plej.n?.alto.toFixed(3) ?? "?"} @${plej.k} dist=${dist.toFixed(2)}` +
-    ` gap=${( dok.platformY - ( plej.n?.alto ?? NaN ) ).toFixed(3)} hole=${VOJA_TRUA_DUONO.toFixed(2)}`);
+    ` plate=${plej.n?.l6da.toFixed(3) ?? "?"} @${plej.k} dist=${dist.toFixed(2)}` +
+    ` gap=${( dok.platformY - ( plej.n?.l6da ?? NaN ) ).toFixed(3)} hole=${VOJA_TRUA_DUONO.toFixed(2)}`);
   const vico: string[] = [];
-  let maks = 0, loko = 0, antauxa = NaN;
+  let maks = 0, raqa = 0, antauxa = NaN;
   for ( let lz = D.profundo / 2 + 3; lz >= -D.profundo / 2 - 1; lz -= 0.25 ) {
     const yy = y(wx(0, lz), wz(0, lz));
     if ( yy !== null && Number.isFinite(antauxa) && Math.abs(yy - antauxa) > maks ) {
-      maks = Math.abs(yy - antauxa); loko = lz;
+      maks = Math.abs(yy - antauxa); raqa = lz;
     }
     vico.push(`${lz.toFixed(2)}:${yy === null ? "--" : yy.toFixed(2)}`);
     antauxa = yy ?? NaN;
   }
-  console.log(`  maxJump=${maks.toFixed(3)} @lz=${loko.toFixed(2)}`);
+  console.log(`  maxJump=${maks.toFixed(3)} @lz=${raqa.toFixed(2)}`);
   console.log(`  ${vico.join(" ")}`);
   if ( maks > tutaMaks ) tutaMaks = maks;
 }

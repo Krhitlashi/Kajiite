@@ -9,48 +9,48 @@ import { kreiBazanVojoAlton, kreiVojoAlton } from "../../eskekoj/medio/vojoj/alt
 import { vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
-const VOJOJ = aktivajVojoj().filter(v => v.punktoj.length >= 2);
+const VOJOJ = aktivajVojoj().filter(v => v.n2k.length >= 2);
 const DOKOJ = aktivajDokoj();
 const landoj = DOKOJ.map(d => {
   const r = d.rotacio ?? 0;
   return [ d.x + Math.sin(r) * ( d.profundo / 2 ), d.z + Math.cos(r) * ( d.profundo / 2 ) ] as VojaPunkto;
 });
 const antaŭaj = troviVojaRetajnKunigojn(
-  VOJOJ.map(v => ( { punktoj: v.punktoj, larĝo: v.larĝo } )), DOKOJ);
-const gluitaj = VOJOJ.map((v, i) => gluiVojaFinon(v.punktoj,
+  VOJOJ.map(v => ( { n2k: v.n2k, sefini: v.sefini } )), DOKOJ);
+const gluitaj = VOJOJ.map((v, i) => gluiVojaFinon(v.n2k,
   antaŭaj.map(k => [ k.x, k.z ] as VojaPunkto),
   landoj.map(p => ( { x: p[0], z: p[1] } )),
-  VOJOJ.filter((_, j) => j !== i).map(o => o.punktoj)));
+  VOJOJ.filter((_, j) => j !== i).map(o => o.n2k)));
 const kunigoj = troviVojaRetajnKunigojn(
-  VOJOJ.map((v, i) => ( { punktoj: gluitaj[i], larĝo: v.larĝo } )), DOKOJ);
+  VOJOJ.map((v, i) => ( { n2k: gluitaj[i], sefini: v.sefini } )), DOKOJ);
 const baza = kreiBazanVojoAlton(alteco);
 const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
 
-function pozicio( punktoj: readonly VojaPunkto[], s: number ) {
+function raqa( n2k: readonly VojaPunkto[], s: number ) {
   let kur = 0;
-  for ( let k = 0; k < punktoj.length - 1; k++ ) {
-    const a = punktoj[k], b = punktoj[k + 1];
-    const longo = Math.hypot(b[0] - a[0], b[1] - a[1]);
-    if ( s > kur + longo && k < punktoj.length - 2 ) { kur += longo; continue; }
-    const t = longo < 0o10 ** -0o12 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / longo));
-    const lx = -( b[1] - a[1] ) / ( longo || 1 ), lz = ( b[0] - a[0] ) / ( longo || 1 );
+  for ( let k = 0; k < n2k.length - 1; k++ ) {
+    const a = n2k[k], b = n2k[k + 1];
+    const sahakani = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    if ( s > kur + sahakani && k < n2k.length - 2 ) { kur += sahakani; continue; }
+    const t = sahakani < 0o10 ** -0o12 ? 0 : Math.max(0, Math.min(1, ( s - kur ) / sahakani));
+    const lx = -( b[1] - a[1] ) / ( sahakani || 1 ), lz = ( b[0] - a[0] ) / ( sahakani || 1 );
     return { x: a[0] + ( b[0] - a[0] ) * t, z: a[1] + ( b[1] - a[1] ) * t, lx, lz };
   }
-  const p = punktoj[0];
+  const p = n2k[0];
   return { x: p[0], z: p[1], lx: 1, lz: 0 };
 }
 
 const celo = Number(process.argv[2] ?? 2);
-const punktoj = gluitaj[celo];
-let longo = 0;
-for ( let k = 0; k < punktoj.length - 1; k++ )
-  longo += Math.hypot(punktoj[k + 1][0] - punktoj[k][0], punktoj[k + 1][1] - punktoj[k][1]);
-const flanka = vojaLarghoDuono( VOJOJ[celo].larĝo );
-console.log(`⟨ ${VOJOJ[celo].nomo} ⟩ ប្រវែង ${longo.toFixed(1)} កន្លះ ${flanka.toFixed(2)}`);
-const unua = Number(process.argv[3] ?? 0), lasta = Number(process.argv[4] ?? longo);
-for ( let s = unua; s <= lasta; s += 0o2 ) {
-  const p = pozicio(punktoj, s);
-  const mezo = alteco(p.x, p.z);
+const n2k = gluitaj[celo];
+let sahakani = 0;
+for ( let k = 0; k < n2k.length - 1; k++ )
+  sahakani += Math.hypot(n2k[k + 1][0] - n2k[k][0], n2k[k + 1][1] - n2k[k][1]);
+const flanka = vojaLarghoDuono( VOJOJ[celo].sefini );
+console.log(`⟨ ${VOJOJ[celo].ksaka} ⟩ ប្រវែង ${sahakani.toFixed(1)} កន្លះ ${flanka.toFixed(2)}`);
+const xaqadi = Number(process.argv[3] ?? 0), z2hak = Number(process.argv[4] ?? sahakani);
+for ( let s = xaqadi; s <= z2hak; s += 0o2 ) {
+  const p = raqa(n2k, s);
+  const sost2 = alteco(p.x, p.z);
   const radioj: string[] = [];
   for ( const r of [ 0o1/0o2, 0o1, 0o2 ] ) {
     let maks = -Infinity, malplena = Infinity;
@@ -64,7 +64,7 @@ for ( let s = unua; s <= lasta; s += 0o2 ) {
   }
   const du = alteco(p.x + p.lx * flanka, p.z + p.lz * flanka);
   const mdu = alteco(p.x - p.lx * flanka, p.z - p.lz * flanka);
-  console.log(`  s ${s.toFixed(1)} ៖ កណ្តាល ${mezo.toFixed(2)}` +
+  console.log(`  s ${s.toFixed(1)} ៖ កណ្តាល ${sost2.toFixed(2)}` +
     ` , សងខាង ${du.toFixed(2)}/${mdu.toFixed(2)}` +
     ` , វាល ${vojoAlteco(p.x, p.z).toFixed(2)}` +
     ` , គោល ${baza(p.x, p.z).toFixed(2)} , រង្វង់ ${radioj.join(" ")}`);

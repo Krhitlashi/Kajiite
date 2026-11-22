@@ -16,7 +16,7 @@ export interface VeteraDuopo { tago: VeteraPaletro; krepusko: VeteraPaletro; }
 
 export interface ScenaSistemo {
   bildilo: THREE.WebGLRenderer;
-  sceno: THREE.Scene;
+  qena: THREE.Scene;
   fotilo: THREE.PerspectiveCamera;
   dioritaMaterialo: THREE.MeshStandardMaterial;
   andezitaMaterialo: THREE.MeshStandardMaterial;

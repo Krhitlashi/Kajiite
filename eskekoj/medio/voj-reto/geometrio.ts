@@ -3,22 +3,22 @@ import type { VojaPunkto, VojaRetoVojo } from "./tipoj.js";
 import { TOLERANCO } from "./tipoj.js";
 import { VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO, vojaLarghoDuono } from "../vojoj/mezuroj.js";
 
-export function vojaDuonLargho( vojo: VojaRetoVojo ): number {
-  return vojaLarghoDuono( vojo?.larĝo );
+export function vojaDuonLargho( k6h6: VojaRetoVojo ): number {
+  return vojaLarghoDuono( k6h6?.sefini );
 }
 
 // ⟪ កន្លះទទឹងផ្ទៃផ្លូវ 🛣️ ⟫
 /*កន្លះទទឹងបន្ទះកំពូលផ្លូវ ( មិនរាប់ស្មា ) ។ ចានភ្ជាប់ត្រូវប្រើតម្លៃនេះ ,
    មិនមែនតម្លៃថេរទេ ។ បើចានតូចជាងផ្លូវ , ស្មាងងឹតរបស់ផ្លូវលាតចេញ
    ហួសចាន , ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។
-    @param vojo ( VojaRetoVojo ) - ផ្លូវ
-@returns duono ( number ) - កន្លះទទឹងកំពូល */
-export function vojaSupraDuono( vojo: VojaRetoVojo | null | undefined ): number {
-  return Math.max( VOJA_DIORITA_DUONO, ( vojo?.larĝo || 0o7/0o2 ) / 0o4 );
+    @param k6h6 ( VojaRetoVojo ) - ផ្លូវ
+@returns p2somani ( number ) - កន្លះទទឹងកំពូល */
+export function vojaSupraDuono( k6h6: VojaRetoVojo | null | undefined ): number {
+  return Math.max( VOJA_DIORITA_DUONO, ( k6h6?.sefini || 0o7/0o2 ) / 0o4 );
 }
 
-export function vojaKunigaDuono( vojo: VojaRetoVojo ): number {
-  return Math.max( VOJA_EKSTERA_DUONO, vojaDuonLargho( vojo ) );
+export function vojaKunigaDuono( k6h6: VojaRetoVojo ): number {
+  return Math.max( VOJA_EKSTERA_DUONO, vojaDuonLargho( k6h6 ) );
 }
 
 export function vojaProjekcio(

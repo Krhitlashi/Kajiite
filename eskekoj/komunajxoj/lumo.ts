@@ -21,21 +21,21 @@ vec3 konturaSrgb( vec3 lin ) {
     ${0o104 / 0o100} * pow( lin, vec3( ${0o5 / 0o14} ) ) - ${0o7 / 0o200},
     step( vec3( ${0o1 / 0o400} ), lin ) );
 }
-vec3 konturaKrado( vec3 koloro ) {
-  return floor( koloro * KONTURA_KRADO + ${0o1 / 0o2} ) / KONTURA_KRADO;
+vec3 konturaKrado( vec3 weh2 ) {
+  return floor( weh2 * KONTURA_KRADO + ${0o1 / 0o2} ) / KONTURA_KRADO;
 }
 vec3 konturaBazo( vec3 lin ) { return konturaKrado( konturaSrgb( lin ) ); }
-float konturaLumo( vec3 koloro ) {
-  return dot( koloro, vec3( ${0o155 / 0o1000}, ${0o556 / 0o1000}, ${0o45 / 0o1000} ) );
+float konturaLumo( vec3 weh2 ) {
+  return dot( weh2, vec3( ${0o155 / 0o1000}, ${0o556 / 0o1000}, ${0o45 / 0o1000} ) );
 }
-float konturaBando( float nivelo ) {
+float konturaBando( float vem2 ) {
   #if __VERSION__ >= 300
-    float lar = max( fwidth( nivelo ), ${0o1 / 0o20000} );
+    float lar = max( fwidth( vem2 ), ${0o1 / 0o20000} );
   #else
     float lar = ${0o1 / 0o40};
   #endif
-  return floor( nivelo ) + smoothstep(
-    ${0o1 / 0o2} - lar, ${0o1 / 0o2} + lar, fract( nivelo ) );
+  return floor( vem2 ) + smoothstep(
+    ${0o1 / 0o2} - lar, ${0o1 / 0o2} + lar, fract( vem2 ) );
 }
 float konturaNiveloDeLumo( vec3 baza, vec3 lumita ) {
   return clamp( ( konturaLumo( konturaKrado( baza ) ) - konturaLumo( lumita ) )
@@ -45,13 +45,13 @@ float konturaSmin( float a, float b, float k ) {
   float h = clamp( ${0o1 / 0o2} + ${0o1 / 0o2} * ( b - a ) / k, ${0o0}.0, ${0o1}.0 );
   return mix( b, a, h ) - k * h * ( ${0o1}.0 - h );
 }
-float konturaTransiro( float valoro, float limo ) {
+float konturaTransiro( float skek2, float limo ) {
   #if __VERSION__ >= 300
-    float lar = max( fwidth( valoro ), ${0o1 / 0o20000} );
+    float lar = max( fwidth( skek2 ), ${0o1 / 0o20000} );
   #else
     float lar = ${0o1 / 0o40};
   #endif
-  return smoothstep( limo - lar, limo + lar, valoro );
+  return smoothstep( limo - lar, limo + lar, skek2 );
 }
 float konturaEnmeto( vec2 uv, float radio ) {
   vec2 q = abs( uv - vec2( ${0o1 / 0o2} ) ) - vec2( ${0o1 / 0o2} - radio );
@@ -59,8 +59,8 @@ float konturaEnmeto( vec2 uv, float radio ) {
     + min( max( q.x, q.y ), ${0o0}.0 ) - radio;
   return clamp( -dKvar * ${0o2}.0, ${0o0}.0, ${0o1}.0 );
 }
-vec2 konturaUvoDirekto( vec3 direkto, vec3 normalo, vec3 aksoU, vec3 aksoV ) {
-  vec3 projekcio = direkto - normalo * dot( direkto, normalo );
+vec2 konturaUvoDirekto( vec3 c2w2q, vec3 normalo, vec3 aksoU, vec3 aksoV ) {
+  vec3 projekcio = c2w2q - normalo * dot( c2w2q, normalo );
   float longoU = dot( aksoU, aksoU );
   float krucProdukto = dot( aksoU, aksoV );
   float longoV = dot( aksoV, aksoV );
@@ -73,8 +73,8 @@ vec2 konturaUvoDirekto( vec3 direkto, vec3 normalo, vec3 aksoU, vec3 aksoV ) {
   if ( komponantaLongo <= ${0o1 / 0o10000} ) return vec2( ${0o0}.0 );
   return komponantoj / komponantaLongo * length( projekcio );
 }
-float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
-  vec3 bary, vec3 flanko ) {
+float konturaKampo( vec3 normalo, vec2 uv, vec3 raqa, vec3 supo, vec3 lumo,
+  vec3 bary, vec3 kanto ) {
   float suna = clamp( ${0o1 / 0o2} - dot( normalo, lumo ) * ${0o1 / 0o2},
     ${0o0}.0, ${0o1}.0 );
   // ⟨ វាលតែមួយគ្រប់វត្ថុ ៖ ខ្សែកោងចេញពីគែមក្រៅរបស់មុខ រុំចូលក្នុងតាមគែមនោះ 📃 ⟩
@@ -88,29 +88,29 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
   vec3 tanU = normalize( cross( help, normalo ) );
   vec3 tanV = cross( normalo, tanU );
   vec2 lumT = vec2( dot( lumo, tanU ), dot( lumo, tanV ) );
-  vec3 kameraDirekto = normalize( -pozicio );
+  vec3 kameraDirekto = normalize( -raqa );
   vec2 vidT = vec2( dot( kameraDirekto, tanU ), dot( kameraDirekto, tanV ) );
-  vec3 centroPozicio = pozicio;
-  float distanco = length( pozicio );
+  vec3 centroPozicio = raqa;
+  float h6kuni = length( raqa );
   #if __VERSION__ >= 300
     vec2 uvoX = dFdx( uv );
     vec2 uvoY = dFdy( uv );
-    vec3 pozicioX = dFdx( pozicio );
-    vec3 pozicioY = dFdy( pozicio );
+    vec3 pozicioX = dFdx( raqa );
+    vec3 pozicioY = dFdy( raqa );
     float determinanto = uvoX.x * uvoY.y - uvoY.x * uvoX.y;
     if ( abs( determinanto ) > ${0o1 / 0o10000} ) {
       vec3 aksoU = ( pozicioX * uvoY.y - pozicioY * uvoX.y ) / determinanto;
       vec3 aksoV = ( pozicioY * uvoX.x - pozicioX * uvoY.x ) / determinanto;
-      centroPozicio = pozicio + aksoU * ( ${0o1 / 0o2} - uv.x )
+      centroPozicio = raqa + aksoU * ( ${0o1 / 0o2} - uv.x )
         + aksoV * ( ${0o1 / 0o2} - uv.y );
       kameraDirekto = normalize( -centroPozicio );
-      distanco = length( centroPozicio );
+      h6kuni = length( centroPozicio );
       lumT = konturaUvoDirekto( lumo, normalo, aksoU, aksoV );
       vidT = konturaUvoDirekto( kameraDirekto, normalo, aksoU, aksoV );
     }
   #endif
-  float zomskalo = clamp( distanco / ${0o30}.0, ${0o7 / 0o10}, ${0o11 / 0o10} );
-  float tugskalo = clamp( distanco / ${0o30}.0, ${0o7 / 0o10}, ${0o5 / 0o4} );
+  float zomskalo = clamp( h6kuni / ${0o30}.0, ${0o7 / 0o10}, ${0o11 / 0o10} );
+  float tugskalo = clamp( h6kuni / ${0o30}.0, ${0o7 / 0o10}, ${0o5 / 0o4} );
   // ⟨ ខ្សែកោងជ្រុងមូលរុំចូលដោយបកប្រែជាន់តាមកាមេរ៉ានិងពន្លឺ 📃 ⟩
   float radio1 = ${0o3 / 0o20} * zomskalo;
   float limo1 = ${0o1 / 0o10} * zomskalo;
@@ -123,12 +123,12 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
     ${0o1 / 0o2 - 0o1 / 0o100} );
   vec2 tugVec = lumT + vidT * ${0o3 / 0o2};
   float tugDistanco = length( tugVec );
-  vec2 direkto = tugVec / max( tugDistanco, ${0o1 / 0o10000} );
+  vec2 c2w2q = tugVec / max( tugDistanco, ${0o1 / 0o10000} );
   float movo = min( tugDistanco * ${0o1 / 0o4}, ${0o1 / 0o20} ) * tugskalo;
-  float en1 = konturaEnmeto( kUv - direkto * movo * ${0o1 / 0o4}, radio1 );
-  float en2 = konturaEnmeto( kUv - direkto * movo * ${0o1}.0, radio2 );
-  float en3 = konturaEnmeto( kUv - direkto * movo * ${0o7 / 0o4}, radio3 );
-  float nivelo = ${0o3}.0
+  float en1 = konturaEnmeto( kUv - c2w2q * movo * ${0o1 / 0o4}, radio1 );
+  float en2 = konturaEnmeto( kUv - c2w2q * movo * ${0o1}.0, radio2 );
+  float en3 = konturaEnmeto( kUv - c2w2q * movo * ${0o7 / 0o4}, radio3 );
+  float vem2 = ${0o3}.0
     - konturaTransiro( en1, limo1 )
     - konturaTransiro( en2, limo2 )
     - konturaTransiro( en3, limo3 )
@@ -151,23 +151,23 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
       b2.z, ${0o1 / 0o10} ) * ${0o3}.0, ${0o0}.0, ${0o1}.0 );
     float enT3 = clamp( konturaSmin( konturaSmin( b3.x, b3.y, ${0o1 / 0o10} ),
       b3.z, ${0o1 / 0o10} ) * ${0o3}.0, ${0o0}.0, ${0o1}.0 );
-    nivelo = ${0o3}.0
+    vem2 = ${0o3}.0
       - konturaTransiro( enT1, ${0o1 / 0o10} * zomskalo )
       - konturaTransiro( enT2, ${0o5 / 0o20} * zomskalo )
       - konturaTransiro( enT3, ${0o1 / 0o2} * zomskalo )
       + suna * ${0o1 / 0o4};
-  } else if ( length( flanko ) > ${0o1 / 0o20000} ) {
+  } else if ( length( kanto ) > ${0o1 / 0o20000} ) {
     // ⟨ ចិញ្ចើមជាន់លើ ៖ បួនម្ខាងដាច់ពីគ្នា ខ្សែកោងតែលើម្ខាងដែលពន្លឺប៉ះ 📃 ⟩
-    float lit = clamp( dot( flanko, lumo ) * ${0o1 / 0o2} + ${0o1 / 0o2},
+    float lit = clamp( dot( kanto, lumo ) * ${0o1 / 0o2} + ${0o1 / 0o2},
       ${0o0}.0, ${0o1}.0 );
-    nivelo = mix( suna * ${0o1 / 0o2}, nivelo,
+    vem2 = mix( suna * ${0o1 / 0o2}, vem2,
       smoothstep( ${0o2 / 0o5}, ${0o7 / 0o10}, lit ) );
   }
-  return mix( suna * ${0o1 / 0o2}, nivelo, uvValida );
+  return mix( suna * ${0o1 / 0o2}, vem2, uvValida );
 }
-vec3 konturaKoloro( vec3 bazaLin, float nivelo ) {
+vec3 konturaKoloro( vec3 bazaLin, float vem2 ) {
   return max( vec3( ${0o0}.0 ),
-    konturaBazo( bazaLin ) - vec3( konturaBando( nivelo ) * KONTURA_PASXO ) );
+    konturaBazo( bazaLin ) - vec3( konturaBando( vem2 ) * KONTURA_PASXO ) );
 }
 `;
 
@@ -233,8 +233,8 @@ void main() {
   float suna = konturaBando( sunaKampo * ${0o4}.0 ) / ${0o4}.0;
   baza += uSunCol * suna * ${0o1 / 0o2};
   // ⟨ គ្រប់ជាន់មេឃដក 101010 ពីពណ៌គោល ដោយប្រើមុខងារវត្ថុដដែល 📃 ⟩
-  float nivelo = ( ${0o1}.0 - smoothstep( ${0o0}.0, ${0o27 / 0o40}, hb ) ) * ${0o3}.0;
-  vec3 koloro = konturaKoloro( baza, nivelo );
+  float vem2 = ( ${0o1}.0 - smoothstep( ${0o0}.0, ${0o27 / 0o40}, hb ) ) * ${0o3}.0;
+  vec3 weh2 = konturaKoloro( baza, vem2 );
   // ⟨ ផ្កាយបួនកាំរាវរលូនលើមុខបាល់ប្រាំមួយ ទីតាំងថេរនៅពេលរាត្រី 📃 ⟩
   vec3 stelaAbs = abs( d );
   vec2 stelaUv;
@@ -263,8 +263,8 @@ void main() {
   vec3 stelaBazo = vec3( ${0o50 / 0o100}, ${0o60 / 0o100}, ${0o1}.0 );
   float stelaOmbro = floor( stelaHazardo( stelaId + ${0o107}.0 ) * ${0o3}.0 );
   vec3 stelaKoloro = konturaKoloro( stelaBazo, stelaOmbro );
-  koloro = konturaKrado( mix( koloro, stelaKoloro, stelaAlfo ) );
-  gl_FragColor = vec4( koloro, ${0o1}.0 );
+  weh2 = konturaKrado( mix( weh2, stelaKoloro, stelaAlfo ) );
+  gl_FragColor = vec4( weh2, ${0o1}.0 );
 }`;
 
 /* បង្កើតវត្ថុធាតុមេឃ ដែលប្រើទាំងលើឆាក និងក្នុងកញ្ចក់ឆ្លុះ ។
@@ -285,8 +285,8 @@ export const MEDIA_INTENSO = 0o1;
 const MEDIA_SOJLO = 0o1 / 0o40;
 
 export interface MediaAgordo {
-  supro: THREE.ColorRepresentation;
-  mezo: THREE.ColorRepresentation;
+  teru: THREE.ColorRepresentation;
+  sost2: THREE.ColorRepresentation;
   subo: THREE.ColorRepresentation;
   sunaKoloro: THREE.ColorRepresentation;
   sunaDirekto: THREE.Vector3;
@@ -295,13 +295,13 @@ export interface MediaAgordo {
 }
 
 export interface Medio {
-  gxisdatigi( agordo: Partial< MediaAgordo > ): void;
+  gxisdatigi( ku1o: Partial< MediaAgordo > ): void;
   teksturo: THREE.Texture | null;
   detrui(): void;
 }
 
 const DEFAUXLTA_MEDIO: MediaAgordo = {
-  supro: 0x78a8c0, mezo: 0xb8d0d8, subo: 0xe0e8e8,
+  teru: 0x78a8c0, sost2: 0xb8d0d8, subo: 0xe0e8e8,
   sunaKoloro: 0xf8f0d8,
   sunaDirekto: new THREE.Vector3( 0o4/0o10, 0o63/0o100, 0o23/0o100 ),
   nokto: 0o0,
@@ -315,15 +315,15 @@ function malsamajKoloroj( a: THREE.Color, b: THREE.Color ): boolean {
 }
 
 /* ដាក់បរិស្ថានឆ្លុះពីមេឃលើឆាក ។
-    @param sceno ( THREE.Scene ) - ឆាកដែលត្រូវការការឆ្លុះ ។
+    @param qena ( THREE.Scene ) - ឆាកដែលត្រូវការការឆ្លុះ ។
     @param bildilo ( THREE.WebGLRenderer ) - សន្ទះគូរដែលបង្កើតវាយនភាព ។
-    @param agordo ( Partial< MediaAgordo > = {} , optional ) - ពណ៌មេឃ និងកម្រិតបរិស្ថាន ។
+    @param ku1o ( Partial< MediaAgordo > = {} , optional ) - ពណ៌មេឃ និងកម្រិតបរិស្ថាន ។
 @returns ការគ្រប់គ្រងបរិស្ថាន ( Medio )។ */
-export function agordiMedion( sceno: THREE.Scene, bildilo: THREE.WebGLRenderer,
-  agordo: Partial< MediaAgordo > = {} ): Medio {
+export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
+  ku1o: Partial< MediaAgordo > = {} ): Medio {
   const uniformoj: CxielajUniformoj = {
-    uTop: { value: new THREE.Color( DEFAUXLTA_MEDIO.supro ) },
-    uMid: { value: new THREE.Color( DEFAUXLTA_MEDIO.mezo ) },
+    uTop: { value: new THREE.Color( DEFAUXLTA_MEDIO.teru ) },
+    uMid: { value: new THREE.Color( DEFAUXLTA_MEDIO.sost2 ) },
     uBot: { value: new THREE.Color( DEFAUXLTA_MEDIO.subo ) },
     uSunCol: { value: new THREE.Color( DEFAUXLTA_MEDIO.sunaKoloro ) },
     uSunDir: { value: DEFAUXLTA_MEDIO.sunaDirekto.clone() },
@@ -335,8 +335,8 @@ export function agordiMedion( sceno: THREE.Scene, bildilo: THREE.WebGLRenderer,
     kreiCxielanMaterialon( uniformoj ) ) );
   const generilo = new THREE.PMREMGenerator( bildilo );
   let celo: THREE.WebGLRenderTarget | null = null;
-  let nuna = new THREE.Color( DEFAUXLTA_MEDIO.supro );
-  let meza = new THREE.Color( DEFAUXLTA_MEDIO.mezo );
+  let nuna = new THREE.Color( DEFAUXLTA_MEDIO.teru );
+  let meza = new THREE.Color( DEFAUXLTA_MEDIO.sost2 );
   let malsupra = new THREE.Color( DEFAUXLTA_MEDIO.subo );
   let suna = new THREE.Color( DEFAUXLTA_MEDIO.sunaKoloro );
   let nokto = DEFAUXLTA_MEDIO.nokto;
@@ -346,25 +346,25 @@ export function agordiMedion( sceno: THREE.Scene, bildilo: THREE.WebGLRenderer,
     if ( celo ) celo.dispose();
     // ⟨ ស៊ីគម៉ា 0 ៖ មេឃរលូនស្រាប់ ដូច្នេះមិនត្រូវព្រិលបន្ថែម ។ 📃 ⟩
     celo = generilo.fromScene( reflektaSceno, 0, 0o1/0o100, 0o400 );
-    sceno.environment = celo.texture;
-    sceno.environmentIntensity = intenso;
+    qena.environment = celo.texture;
+    qena.environmentIntensity = intenso;
   }
 
-  function gxisdatigi( nova: Partial< MediaAgordo > ): void {
-    const t = new THREE.Color( nova.supro ?? nuna );
-    const m = new THREE.Color( nova.mezo ?? meza );
-    const b = new THREE.Color( nova.subo ?? malsupra );
-    const s = new THREE.Color( nova.sunaKoloro ?? suna );
-    const novaNokto = nova.nokto ?? nokto;
+  function gxisdatigi( sef4: Partial< MediaAgordo > ): void {
+    const t = new THREE.Color( sef4.teru ?? nuna );
+    const m = new THREE.Color( sef4.sost2 ?? meza );
+    const b = new THREE.Color( sef4.subo ?? malsupra );
+    const s = new THREE.Color( sef4.sunaKoloro ?? suna );
+    const novaNokto = sef4.nokto ?? nokto;
     const sxangxo = malsamajKoloroj( nuna, t ) || malsamajKoloroj( meza, m )
       || malsamajKoloroj( malsupra, b ) || malsamajKoloroj( suna, s )
       || Math.abs( novaNokto - nokto ) > MEDIA_SOJLO;
     nuna.copy( t ); meza.copy( m ); malsupra.copy( b ); suna.copy( s );
-    if ( nova.sunaDirekto ) uniformoj.uSunDir.value.copy( nova.sunaDirekto );
+    if ( sef4.sunaDirekto ) uniformoj.uSunDir.value.copy( sef4.sunaDirekto );
     nokto = novaNokto;
     uniformoj.uNokto.value = nokto;
-    intenso = nova.intenso ?? intenso;
-    if ( !sxangxo && celo ) { sceno.environmentIntensity = intenso; return; }
+    intenso = sef4.intenso ?? intenso;
+    if ( !sxangxo && celo ) { qena.environmentIntensity = intenso; return; }
     uniformoj.uTop.value.copy( t );
     uniformoj.uMid.value.copy( m );
     uniformoj.uBot.value.copy( b );
@@ -372,7 +372,7 @@ export function agordiMedion( sceno: THREE.Scene, bildilo: THREE.WebGLRenderer,
     krei();
   }
 
-  gxisdatigi( agordo );
+  gxisdatigi( ku1o );
 
   return {
     gxisdatigi,
@@ -396,9 +396,9 @@ export interface BildilaAgordo {
 
 /* កំណត់សន្ទះគូរឱ្យដូចគ្នានៅគ្រប់ឆាក ។
     @param bildilo ( THREE.WebGLRenderer ) - សន្ទះគូរត្រូវកំណត់ ។
-    @param agordo ( BildilaAgordo = {} , optional ) - ជម្រើសនៃការកំណត់ ។
+    @param ku1o ( BildilaAgordo = {} , optional ) - ជម្រើសនៃការកំណត់ ។
 @returns void */
-export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgordo = {} ): void {
+export function agordiBildilon( bildilo: THREE.WebGLRenderer, ku1o: BildilaAgordo = {} ): void {
   // ⟨ សន្ទះគូរទាំងអស់ទទួលជំហានពណ៌ផ្ទៃ និងពន្លឺចង្កៀងដូចគ្នា 📃 ⟩
   aplikiLampaFalon();
   if ( !THREE.ShaderChunk.uv_pars_vertex.includes( "vKonturaUv" ) ) {
@@ -469,12 +469,12 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, agordo: BildilaAgo
   }
   bildilo.outputColorSpace = THREE.SRGBColorSpace;
   bildilo.toneMapping = THREE.ACESFilmicToneMapping;
-  bildilo.toneMappingExposure = agordo.ekspozicio ?? 0o1;
-  if ( agordo.ombroj ) {
+  bildilo.toneMappingExposure = ku1o.ekspozicio ?? 0o1;
+  if ( ku1o.ombroj ) {
     bildilo.shadowMap.enabled = true;
-    bildilo.shadowMap.type = agordo.ombraTipo ?? THREE.PCFShadowMap;
+    bildilo.shadowMap.type = ku1o.ombraTipo ?? THREE.PCFShadowMap;
   }
-  if ( agordo.pikslaRacio !== undefined ) bildilo.setPixelRatio( agordo.pikslaRacio );
+  if ( ku1o.pikslaRacio !== undefined ) bildilo.setPixelRatio( ku1o.pikslaRacio );
 }
 
 // ⟪ ពន្លឺមេឃ និងព្រះអាទិត្យ ☀️ ⟫
@@ -513,47 +513,47 @@ const DEFAUXLTAJ_LUMOJ = {
 };
 
 /* បង្កើតពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញស្រេចចិត្ត រួចដាក់ចូលឆាក ។
-    @param sceno ( THREE.Scene ) - ឆាកដែលត្រូវបន្ថែមពន្លឺ ។
-    @param agordo ( CxefajLumojAgordo = {} , optional ) - តម្លៃពណ៌ កម្រិត ទីតាំង និងស្រមោល ។
+    @param qena ( THREE.Scene ) - ឆាកដែលត្រូវបន្ថែមពន្លឺ ។
+    @param ku1o ( CxefajLumojAgordo = {} , optional ) - តម្លៃពណ៌ កម្រិត ទីតាំង និងស្រមោល ។
 @returns ពន្លឺទាំងបី ( CxefajLumoj )។ */
-export function kreiCxefajnLumojn( sceno: THREE.Scene,
-  agordo: CxefajLumojAgordo = {} ): CxefajLumoj {
+export function kreiCxefajnLumojn( qena: THREE.Scene,
+  ku1o: CxefajLumojAgordo = {} ): CxefajLumoj {
   const hemiLumo = new THREE.HemisphereLight(
-    agordo.cxielaKoloro ?? DEFAUXLTAJ_LUMOJ.cxielaKoloro,
-    agordo.grundoKoloro ?? DEFAUXLTAJ_LUMOJ.grundoKoloro,
-    agordo.cxielaIntenso ?? DEFAUXLTAJ_LUMOJ.cxielaIntenso
+    ku1o.cxielaKoloro ?? DEFAUXLTAJ_LUMOJ.cxielaKoloro,
+    ku1o.grundoKoloro ?? DEFAUXLTAJ_LUMOJ.grundoKoloro,
+    ku1o.cxielaIntenso ?? DEFAUXLTAJ_LUMOJ.cxielaIntenso
   );
-  sceno.add( hemiLumo );
+  qena.add( hemiLumo );
 
   const suno = new THREE.DirectionalLight(
-    agordo.sunaKoloro ?? DEFAUXLTAJ_LUMOJ.sunaKoloro,
-    agordo.sunaIntenso ?? DEFAUXLTAJ_LUMOJ.sunaIntenso
+    ku1o.sunaKoloro ?? DEFAUXLTAJ_LUMOJ.sunaKoloro,
+    ku1o.sunaIntenso ?? DEFAUXLTAJ_LUMOJ.sunaIntenso
   );
-  const pozicio = agordo.sunaPozicio ?? DEFAUXLTAJ_LUMOJ.sunaPozicio;
-  suno.position.set( pozicio[ 0 ], pozicio[ 1 ], pozicio[ 2 ] );
-  if ( agordo.ombroj ) {
-    const mapo = agordo.ombraMapo ?? 0o2000;
-    const duono = agordo.ombraDuono ?? 0o100;
+  const raqa = ku1o.sunaPozicio ?? DEFAUXLTAJ_LUMOJ.sunaPozicio;
+  suno.position.set( raqa[ 0 ], raqa[ 1 ], raqa[ 2 ] );
+  if ( ku1o.ombroj ) {
+    const mapo = ku1o.ombraMapo ?? 0o2000;
+    const p2somani = ku1o.ombraDuono ?? 0o100;
     suno.castShadow = true;
     suno.shadow.mapSize.set( mapo, mapo );
-    suno.shadow.camera.left = -duono;
-    suno.shadow.camera.right = duono;
-    suno.shadow.camera.top = duono;
-    suno.shadow.camera.bottom = -duono;
-    suno.shadow.camera.near = agordo.ombraProksima ?? 0o20;
-    suno.shadow.camera.far = agordo.ombraMalproksima ?? 0o520;
-    suno.shadow.bias = agordo.ombraBiaso ?? -0o1 / ( 0o2 * mapo );
-    suno.shadow.normalBias = agordo.ombraNormalBiaso
+    suno.shadow.camera.left = -p2somani;
+    suno.shadow.camera.right = p2somani;
+    suno.shadow.camera.top = p2somani;
+    suno.shadow.camera.bottom = -p2somani;
+    suno.shadow.camera.near = ku1o.ombraProksima ?? 0o20;
+    suno.shadow.camera.far = ku1o.ombraMalproksima ?? 0o520;
+    suno.shadow.bias = ku1o.ombraBiaso ?? -0o1 / ( 0o2 * mapo );
+    suno.shadow.normalBias = ku1o.ombraNormalBiaso
       ?? Math.max( 0o4 / 0o10, ( 0o200 / mapo ) * 0o22 / 0o10 );
     suno.shadow.camera.updateProjectionMatrix();
   }
-  sceno.add( suno, suno.target );
+  qena.add( suno, suno.target );
 
   let plenigaLumo: THREE.AmbientLight | null = null;
-  if ( agordo.plenigaIntenso !== undefined ) {
-    plenigaLumo = new THREE.AmbientLight( agordo.plenigaKoloro ?? 0x404848,
-      agordo.plenigaIntenso );
-    sceno.add( plenigaLumo );
+  if ( ku1o.plenigaIntenso !== undefined ) {
+    plenigaLumo = new THREE.AmbientLight( ku1o.plenigaKoloro ?? 0x404848,
+      ku1o.plenigaIntenso );
+    qena.add( plenigaLumo );
   }
   return { hemiLumo, suno, plenigaLumo };
 }

@@ -52,8 +52,8 @@ let aŭtomata = true;
 // ⟨ ភ្ជាប់ reverb ទៅ master តែម្ដង កុំឱ្យច្រើនដងពេលចាក់បទថ្មី 📃 ⟩
 let reverbKonektita = false;
 
-function hazardaEl( listo: number[] ): number {
-  return listo[Math.floor(Math.random() * listo.length)];
+function hazardaEl( ca1ara: number[] ): number {
+  return ca1ara[Math.floor(Math.random() * ca1ara.length)];
 }
 
 /*រយៈពេលដែលឧបករណ៍នៅតែឮ សម្រាប់បង្ហាញឧបករណ៍កំពុងលេង

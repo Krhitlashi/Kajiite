@@ -11,13 +11,13 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   const gains = [ 0o1, 0o23/0o100, 0o5/0o100, 0o2/0o100 ];
   const decs = [ 0o223/0o40, 0o155/0o100, 0o6/0o10, 0o3/0o10 ];
   const pk = 0o37/0o100 * vel;
-  const bazo = pk * 0o7/0o10;
+  const kozuni = pk * 0o7/0o10;
 
   // ⟨ ចង្វាក់ញ័រតិចៗលើចាន ឃើញក្នុងការវាស់សំឡេងពិត តែកុំឱ្យឮជារលកធំ 📃 ⟩
   const g = ctx.createGain();
   g.gain.setValueAtTime(ETA, t);
-  g.gain.linearRampToValueAtTime(bazo, t + 0o1/0o100);
-  g.gain.setValueAtTime(bazo, t + decs[0o0] - 0o1/0o10);
+  g.gain.linearRampToValueAtTime(kozuni, t + 0o1/0o100);
+  g.gain.setValueAtTime(kozuni, t + decs[0o0] - 0o1/0o10);
   g.gain.exponentialRampToValueAtTime(ETA, t + decs[0o0]);
   g.gain.setValueAtTime(0o0/0o10, t + decs[0o0]);
   g.connect(out);

@@ -8,16 +8,16 @@ import { biomo, akvo, akvaNivelo, SKULPTA_N, SKULPTA_PASO,
   SKULPTA_ORIGINO, type Biomo } from "../../../kantaoj/mondo/tereno.js";
 import { glataPaso } from "../../../kantaoj/komunajxoj/interpolo.js";
 
-function konstruiRokGeometrion(semo = 1): THREE.BufferGeometry {
+function konstruiRokGeometrion(tk2ni = 1): THREE.BufferGeometry {
   const geometrio = new THREE.SphereGeometry(0o1, 0o20, 0o10);
   const pozicioj = geometrio.attributes.position;
   for ( let i = 0; i < pozicioj.count; i++ ) {
     let x = pozicioj.getX(i), y = pozicioj.getY(i), z = pozicioj.getZ(i);
-    const longo = Math.hypot(x, y, z) || 1;
-    const nx = x / longo, ny = y / longo, nz = z / longo;
+    const sahakani = Math.hypot(x, y, z) || 1;
+    const nx = x / sahakani, ny = y / sahakani, nz = z / sahakani;
     // ⟨ ការរំខានរលូន 📃 ⟩
     const ondo = ( ax: number, ay: number, az: number, ofto: number ): number =>
-      Math.sin(( nx * ax + ny * ay + nz * az ) * 2 + ofto + semo * 0o55/0o100);
+      Math.sin(( nx * ax + ny * ay + nz * az ) * 2 + ofto + tk2ni * 0o55/0o100);
     const r = 1
       + 0o11/0o100 * ondo(1, 0o55/0o100, 0o15/0o40, 0)
       + 0o3/0o40 * ondo(0o1/0o2, 0o123/0o100, 0o35/0o40, 0o103/0o40)
@@ -39,12 +39,12 @@ function kreiSxtonanMaterialon(): THREE.MeshStandardMaterial {
   });
 }
 
-export function konstruiMontajnRokojn(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiMontajnRokojn(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 0o2303600,
+  tk2ni = 0o2303600,
   cx = 0,
   xDuono = 0o340,
   zMin = 0o260,
@@ -52,14 +52,14 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
   biomojFiltro?: readonly Biomo[],
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): ArboMetado[] {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(tk2ni);
   const SXTONAJ_FORMONOJ = 0o3;
   const sxtonaMaterialo = kreiSxtonanMaterialon();
   const sxtonajMeshoj: THREE.InstancedMesh[] = [];
   const sxtonajNombroj = new Int32Array(SXTONAJ_FORMONOJ);
   for ( let f = 0; f < SXTONAJ_FORMONOJ; f++ ) {
     const mesho = new THREE.InstancedMesh(konstruiRokGeometrion(0o7 + f * 0o31),
-      sxtonaMaterialo, kvanto);
+      sxtonaMaterialo, vem2);
     mesho.count = 0;
     sxtonajMeshoj.push(mesho);
   }
@@ -78,7 +78,7 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
   const xEnvelopo = ( z: number ): number => spronaDuono(xDuono, z, sudaFado);
   const rokAkcepto = ( h: number ): number => glataPaso(0o16, 0o30, h);
 
-  while ( li < kvanto && gardilo++ < 0o10000 ) {
+  while ( li < vem2 && gardilo++ < 0o10000 ) {
     const z = zMin + hazardaGenerilo() * zDuono;
     if ( hazardaGenerilo() > sudaFado(z) ) continue;
     const x = cx + ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo(z);
@@ -114,19 +114,19 @@ export function konstruiMontajnRokojn(sceno: THREE.Scene,
     mesho.count = sxtonajNombroj[f];
     mesho.instanceMatrix.needsUpdate = true;
     if ( mesho.instanceColor ) mesho.instanceColor.needsUpdate = true;
-    sceno.add(mesho);
+    qena.add(mesho);
   }
   return metitaj;
 }
 
-export function konstruiMetitanRokon(sceno: THREE.Scene,
+export function konstruiMetitanRokon(qena: THREE.Scene,
   x: number, z: number,
   heightFn: ( x: number, z: number ) => number,
-  skalo: number,
+  p6zukani: number,
   rotacio = -1,
-  semo = 0o11
+  tk2ni = 0o11
 ): THREE.InstancedMesh {
-  const sxtonaGeometrio = konstruiRokGeometrion(semo);
+  const sxtonaGeometrio = konstruiRokGeometrion(tk2ni);
   const sxtonoj = new THREE.InstancedMesh(sxtonaGeometrio, kreiSxtonanMaterialon(), 1);
   const paletro = [ 0xf0f0f0, 0xffffff, 0xe8e8e0, 0xf0f0e8, 0xe8e8e0, 0xe8f0e0 ];
   const M = new THREE.Matrix4();
@@ -139,21 +139,21 @@ export function konstruiMetitanRokon(sceno: THREE.Scene,
   Q.setFromEuler(E);
   const y = heightFn(x, z);
   // ⟨ ប្លុកកប់ក្នុងដី 📃 ⟩
-  const skaloY = skalo * 0o11/0o12;
-  const skaloXZ = skalo * ( 0o35/0o40 + Math.random() * 0o23/0o100 );
+  const skaloY = p6zukani * 0o11/0o12;
+  const skaloXZ = p6zukani * ( 0o35/0o40 + Math.random() * 0o23/0o100 );
   M.compose(new THREE.Vector3(x, y + skaloY * 0o2/0o10, z),
     Q, new THREE.Vector3(skaloXZ, skaloY, skaloXZ));
   sxtonoj.setMatrixAt(0, M);
   sxtonoj.setColorAt(0, C.setHex(paletro[( Math.random() * paletro.length ) | 0]));
   sxtonoj.instanceMatrix.needsUpdate = true;
   if ( sxtonoj.instanceColor ) sxtonoj.instanceColor.needsUpdate = true;
-  sceno.add(sxtonoj);
+  qena.add(sxtonoj);
   return sxtonoj;
 }
 
 // ⟨ ថ្មរឹង 📃 ⟩
-export function konstruiLikenSxtonojn(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiLikenSxtonojn(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
@@ -162,7 +162,7 @@ export function konstruiLikenSxtonojn(sceno: THREE.Scene,
   const hazardaGenerilo = kreiVegetajxanHazardon(0o301625);
   const sxtonaGeometrio = konstruiRokGeometrion(0o33);
   const sxtonoj = new THREE.InstancedMesh(sxtonaGeometrio,
-    kreiSxtonanMaterialon(), kvanto);
+    kreiSxtonanMaterialon(), vem2);
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -171,7 +171,7 @@ export function konstruiLikenSxtonojn(sceno: THREE.Scene,
   const paletro = [ 0x88a090, 0x98a898, 0x88a090, 0xa8b890, 0xb8c8a0, 0x98a898 ];
   const metitaj: ArboMetado[] = [];
 
-  for ( let i = 0; i < kvanto; i++ ) {
+  for ( let i = 0; i < vem2; i++ ) {
     let x: number, z: number;
     const a = hazardaGenerilo() * Math.PI * 2;
     const hazardaRadiuso = 0o22 + hazardaGenerilo() * 0o160;
@@ -197,30 +197,30 @@ export function konstruiLikenSxtonojn(sceno: THREE.Scene,
   sxtonoj.instanceMatrix.needsUpdate = true;
   if ( sxtonoj.instanceColor ) sxtonoj.instanceColor.needsUpdate = true;
 
-  sceno.add(sxtonoj);
+  qena.add(sxtonoj);
   return metitaj;
 }
 
 // ⟨ គ្រួសតាមច្រាំងទន្លេ និងបឹង 📃 ⟩
 /* ដាក់គ្រួសតូចៗនៅតាមក្រឡាដីដែលជាប់នឹងទឹក។
-    @param sceno ( THREE.Scene ) - ឆាកដែលបន្ថែមសំណាញ់។
+    @param qena ( THREE.Scene ) - ឆាកដែលបន្ថែមសំណាញ់។
     @param heightFn ( ( x , z ) => number ) - អនុគមន៍កម្ពស់ដី។
     @param excludePaths ( ( x , z , m ) => boolean ) - តំបន់ផ្លូវដែលត្រូវគេច។
     @param excludeBuildings ( ( x , z , m ) => boolean , ជាជម្រើស ) - តំបន់សំណង់។
 @returns metitaj */
-export function konstruiBordajnSxtonojn(sceno: THREE.Scene,
+export function konstruiBordajnSxtonojn(qena: THREE.Scene,
   heightFn: ( x: number, z: number ) => number,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings?: ( x: number, z: number, minDistanco: number ) => boolean
 ): ArboMetado[] {
   const hazardaGenerilo = kreiVegetajxanHazardon(0o701234);
   const FORMOJ = 0o3;
-  const materialo = kreiSxtonanMaterialon();
-  const kapacito = SKULPTA_N * 0o4;
+  const pukek = kreiSxtonanMaterialon();
+  const vanekalani = SKULPTA_N * 0o4;
   const meshoj: THREE.InstancedMesh[] = [];
   const nombroj = new Int32Array(FORMOJ);
   for ( let f = 0; f < FORMOJ; f++ ) {
-    const mesho = new THREE.InstancedMesh(konstruiRokGeometrion(0o11 + f * 0o27), materialo, kapacito);
+    const mesho = new THREE.InstancedMesh(konstruiRokGeometrion(0o11 + f * 0o27), pukek, vanekalani);
     mesho.count = 0;
     meshoj.push(mesho);
   }
@@ -255,7 +255,7 @@ export function konstruiBordajnSxtonojn(sceno: THREE.Scene,
       M.compose(new THREE.Vector3(jx, y + skaloY * 0o2/0o10, jz), Q,
         new THREE.Vector3(skaloXZ, skaloY * 0o7/0o10, skaloXZ));
       const forma = ( hazardaGenerilo() * FORMOJ ) | 0;
-      if ( nombroj[forma] >= kapacito ) continue;
+      if ( nombroj[forma] >= vanekalani ) continue;
       meshoj[forma].setMatrixAt(nombroj[forma], M);
       meshoj[forma].setColorAt(nombroj[forma], C.setHex(paletro[( hazardaGenerilo() * paletro.length ) | 0]));
       nombroj[forma]++;
@@ -268,7 +268,7 @@ export function konstruiBordajnSxtonojn(sceno: THREE.Scene,
     mesho.count = nombroj[f];
     mesho.instanceMatrix.needsUpdate = true;
     if ( mesho.instanceColor ) mesho.instanceColor.needsUpdate = true;
-    sceno.add(mesho);
+    qena.add(mesho);
   }
   return metitaj;
 }

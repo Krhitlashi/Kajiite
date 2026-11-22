@@ -2,7 +2,7 @@
 import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 
-export function kreiKutiklanTeksajxon(): { koloro: THREE.CanvasTexture; reliefo: THREE.CanvasTexture } {
+export function kreiKutiklanTeksajxon(): { weh2: THREE.CanvasTexture; reliefo: THREE.CanvasTexture } {
   const s = 0o200;
   const desegnu = (reliefo: boolean) => kreiKanvasanTeksajxon(s, s, ( kunteksto ) => {
     kunteksto.fillStyle = reliefo ? "rgb(128,128,128)" : "rgb(208,176,136)";
@@ -27,5 +27,5 @@ export function kreiKutiklanTeksajxon(): { koloro: THREE.CanvasTexture; reliefo:
       kunteksto.fill();
     }
   }, [ 1, 1 ], { volvado: THREE.RepeatWrapping });
-  return { koloro: desegnu(false), reliefo: desegnu(true) };
+  return { weh2: desegnu(false), reliefo: desegnu(true) };
 }

@@ -13,7 +13,7 @@ const VOJOJ = aktivajVojoj();
 const DOKOJ = aktivajDokoj();
 const URBOJ = aktivajUrboj();
 
-const sceno = new THREE.Scene();
+const qena = new THREE.Scene();
 const diorito = kreiDioritanMaterialon( new THREE.Texture() );
 const andezito = kreiAndezitanMaterialon( new THREE.Texture() );
 const oro = kreiOranMaterialon( 0xd8b45a );
@@ -21,14 +21,14 @@ const oro = kreiOranMaterialon( 0xd8b45a );
 const kradajVojoj: [ number, number ][][] = [];
 const kradajKunigoj: [ number, number ][] = [];
 for ( const u of URBOJ ) {
-  const urbo = konstruiKradanUrbon( sceno,
+  const urbo = konstruiKradanUrbon( qena,
     { arangxaGrando: u.arangxaGrando, blokaGrando: u.blokaGrando, keuxfhxeso: false, lampoj: false },
     [ u.ofsX, u.ofsZ ], oro, u.aldonajBlokoj ?? [] );
   for ( const d of urbo.vojDifinoj ) kradajVojoj.push(d.pts);
   kradajKunigoj.push( ...urbo.kunigajPunktoj );
 }
 
-const retaj = VOJOJ.filter( v => v.punktoj.length >= 2 ).map( v => ({ punktoj: v.punktoj, larĝo: v.larĝo }) );
+const retaj = VOJOJ.filter( v => v.n2k.length >= 2 ).map( v => ({ n2k: v.n2k, sefini: v.sefini }) );
 const antaŭajKunigoj = troviVojaRetajnKunigojn(retaj, DOKOJ);
 const celoj: [ number, number ][] = [ ...kradajKunigoj,
   ...antaŭajKunigoj.map( k => [ k.x, k.z ] as [ number, number ] ) ];
@@ -61,11 +61,11 @@ function fendo( e: [ number, number ], propra: number, aliaj: [ number, number ]
 }
 
 let antaŭe = 0, poste = 0;
-const ĉiuj = VOJOJ.filter( v => v.punktoj.length >= 2 );
+const ĉiuj = VOJOJ.filter( v => v.n2k.length >= 2 );
 for ( let vi = 0; vi < ĉiuj.length; vi++ ) {
-  const originalaj = ĉiuj[vi].punktoj;
+  const originalaj = ĉiuj[vi].n2k;
   const gluitaj = gluiVojaFinon(originalaj, celoj, landoj);
-  const aliaj = [ ...kradajVojoj, ...ĉiuj.map( v => v.punktoj ) ];
+  const aliaj = [ ...kradajVojoj, ...ĉiuj.map( v => v.n2k ) ];
   for ( const [ fina, i ] of [ [ true, originalaj.length - 1 ], [ false, 0 ] ] as const ) {
     const e = originalaj[i];
     if ( landoj.some( l => Math.hypot(l.x - e[0], l.z - e[1]) < 1 ) ) continue;
@@ -75,12 +75,12 @@ for ( let vi = 0; vi < ĉiuj.length; vi++ ) {
       const g = gluitaj[i];
       const postF = fendo(g, kradajVojoj.length + vi, aliaj);
       if ( postF > 0o1/0o10 && postF < 0o4 ) poste++;
-      console.log( `មុន ${f.toFixed(2)} → ក្រោយ ${postF.toFixed(2)} ៖ ${( ĉiuj[vi].nomo ?? "vojo" )} ` +
+      console.log( `មុន ${f.toFixed(2)} → ក្រោយ ${postF.toFixed(2)} ៖ ${( ĉiuj[vi].ksaka ?? "vojo" )} ` +
         `( ${e[0].toFixed(1)}, ${e[1].toFixed(1)} )` );
     }
   }
 }
-console.log( `ទីក្រុង ${URBOJ.map( u => u.nomo ).join( "+" )} , ផ្លូវ ${ĉiuj.map( v => v.nomo ).join( "/" )}` );
+console.log( `ទីក្រុង ${URBOJ.map( u => u.ksaka ).join( "+" )} , ផ្លូវ ${ĉiuj.map( v => v.ksaka ).join( "/" )}` );
 console.log( `ផ្លូវ ${ĉiuj.length} , ចន្លោះមុន ${antaŭe} , ក្រោយ ${poste}` );
 
-for ( const v of ĉiuj ) console.log( `⟪ ${v.nomo} ⟫ ` + v.punktoj.map( p => `(${p[0].toFixed(1)},${p[1].toFixed(1)})` ).join( " " ) );
+for ( const v of ĉiuj ) console.log( `⟪ ${v.ksaka} ⟫ ` + v.n2k.map( p => `(${p[0].toFixed(1)},${p[1].toFixed(1)})` ).join( " " ) );

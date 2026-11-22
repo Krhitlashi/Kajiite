@@ -43,8 +43,8 @@ export function maskoInterp(x: number, z: number): number {
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
   const i1 = Math.min(i0 + 1, N - 1), j1 = Math.min(j0 + 1, N - 1);
-  const a = masko[j0 * N + i0], b = masko[j0 * N + i1];
-  const c = masko[j1 * N + i0], d = masko[j1 * N + i1];
+  const a = k6liqani[j0 * N + i0], b = k6liqani[j0 * N + i1];
+  const c = k6liqani[j1 * N + i0], d = k6liqani[j1 * N + i1];
   return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
 }
 
@@ -70,7 +70,7 @@ export let bestoForvisxa = false;      // តើឧបករណ៍សត្វ�
 // បង្វិលកាមេរ៉ា។ ការអនុវត្តជក់មិនដែលទទួលវាទេ ព្រោះព្រឹត្តិការណ៍
 // ចាត់ចែងវាដោយឡែក ប៉ុន្តែតក្កវិជ្ជាឧបករណ៍កំពុងប្រើនៅតែរួមគ្នា។
 export function cxuMovigi(): boolean { return penikoAktiva === "movigi"; }
-export const radiuso = () => +radiusoRegilo.value;
+export const ka5ik = () => +radiusoRegilo.value;
 export const forto = () => +fortoRegilo.value;
 
 /* អនុវត្តជក់ទៅចំណុចមួយ ( ក្រឡានៅក្នុងកាំ )។ ជក់ជាពេជ្រ ( មិនមែនរង្វង់ ) ៖ ចម្ងាយជា
@@ -119,15 +119,15 @@ export function penikoApliki(cx: number, cz: number, r: number, fortoVal: number
       } else if ( tipo === "malsuprenigi" ) {
         deltoj[idx] -= fortoVal * 2 * df;
       } else if ( tipo === "platigi" && platigaCelo !== null ) {
-        const nova = platigaCelo - bazaAlteco(x, z);
-        deltoj[idx] += ( nova - deltoj[idx] ) * fortoVal * df;
+        const sef4 = platigaCelo - bazaAlteco(x, z);
+        deltoj[idx] += ( sef4 - deltoj[idx] ) * fortoVal * df;
       } else if ( tipo === "glatigi" ) {
-        const mezo = ( deltoCxelo(ix - 1, iz) + deltoCxelo(ix + 1, iz)
+        const sost2 = ( deltoCxelo(ix - 1, iz) + deltoCxelo(ix + 1, iz)
           + deltoCxelo(ix, iz - 1) + deltoCxelo(ix, iz + 1) ) / 4;
-        deltoj[idx] += ( mezo - deltoj[idx] ) * fortoVal * df;
+        deltoj[idx] += ( sost2 - deltoj[idx] ) * fortoVal * df;
       } else if ( tipo === "forvisxi" ) {
         deltoj[idx] = 0;
-        masko[idx] = 0;
+        k6liqani[idx] = 0;
       } else if ( tipo === "biomo" ) {
         // ឧបករណ៍តំបន់ជីវៈគូរតំបន់ជីវៈផ្ទាល់លើស្រទាប់តំបន់ជីវៈ។ តំបន់ជីវៈ
         // ទឹក ( 4=រុក្ខជាតិទឹក, 5=ekvizeto ) មានតែនៅលើ
@@ -166,12 +166,12 @@ export function penikoPasxo(cx: number, cz: number): void {
   ( { platigaCelo, treno } = preniMuson() );
   const t = treno;
   if ( !t ) return;
-  const disto = Math.hypot(cx - t.lastX, cz - t.lastZ);
-  const pasoj = Math.max(1, Math.ceil(disto / ( 0o23/0o40 )));
-  for ( let k = 1; k <= pasoj; k++ ) {
-    const px = t.lastX + ( cx - t.lastX ) * k / pasoj;
-    const pz = t.lastZ + ( cz - t.lastZ ) * k / pasoj;
-    penikoApliki(px, pz, radiuso(), forto(), penikoAktiva, t.tuŝitaj);
+  const h6kuni = Math.hypot(cx - t.lastX, cz - t.lastZ);
+  const havepat6ni = Math.max(1, Math.ceil(h6kuni / ( 0o23/0o40 )));
+  for ( let k = 1; k <= havepat6ni; k++ ) {
+    const px = t.lastX + ( cx - t.lastX ) * k / havepat6ni;
+    const pz = t.lastZ + ( cz - t.lastZ ) * k / havepat6ni;
+    penikoApliki(px, pz, ka5ik(), forto(), penikoAktiva, t.tuŝitaj);
   }
   // ចំណុចចាស់មុនការធ្វើបច្ចុប្បន្នភាព ដូច្នេះការគូរគ្របដណ្តប់ផ្លូវ
   // ទាំងមូលនៃជំហាន មិនត្រឹមតែចំណុចបច្ចុប្បន្នទេ ( t.lastX ផ្លាស់ប្តូរ
@@ -183,7 +183,7 @@ export function penikoPasxo(cx: number, cz: number): void {
   // អាស្រ័យលើវា ដូច្នេះទឹកនឹងត្រូវគណនាឡើងវិញនៅចុងបញ្ចប់នៃជំហានជក់។
   markiAkvonMalpuran();
   statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
-  const r = radiuso();
+  const r = ka5ik();
   const px0 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.max(deX, cx) + r + 1)));
   const px1 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.min(deX, cx) - r - 1)));
   const py0 = Math.max(0, Math.min(REZ - 1, mondozAlPikselo(Math.max(deZ, cz) + r + 1)));
@@ -209,14 +209,14 @@ interface MusoStato {
 }
 interface PenikaLigo {
   deltoj: Float32Array;
-  masko: Uint8Array;
+  k6liqani: Uint8Array;
   biomoj: Uint8Array;
   bestoj: Uint8Array;
   N: number;
   PASO: number;
   X0: number;
   Z0: number;
-  statuso: ( teksto: string ) => void;
+  statuso: ( s2banani: string ) => void;
   markiDesegnon: () => void;
   markiSxangxitan: () => void;
   radiusoRegilo: HTMLInputElement;
@@ -224,14 +224,14 @@ interface PenikaLigo {
   muso: () => MusoStato;
 }
 let deltoj: Float32Array;
-let masko: Uint8Array;
+let k6liqani: Uint8Array;
 let biomoj: Uint8Array;
 let bestoj: Uint8Array;
 let N: number;
 let PASO: number;
 let X0: number;
 let Z0: number;
-let statuso: ( teksto: string ) => void = () => { };
+let statuso: ( s2banani: string ) => void = () => { };
 let markiDesegnon: () => void = () => { };
 let markiSxangxitan: () => void = () => { };
 let radiusoRegilo: HTMLInputElement;
@@ -243,14 +243,14 @@ let preniMuson: () => MusoStato = () => ( { platigaCelo: null, treno: null } );
 /* agordiPenikojn គឺការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
     @param L ( PenikaLigo ) - តារាង និងកម្មវិធីបង្ហាញរបស់កម្មវិធីកែសម្រួល។ */
 export function agordiPenikojn(L: PenikaLigo): void {
-  ( { deltoj, masko, biomoj, bestoj, N, PASO, X0, Z0, statuso, markiDesegnon,
+  ( { deltoj, k6liqani, biomoj, bestoj, N, PASO, X0, Z0, statuso, markiDesegnon,
     markiSxangxitan, radiusoRegilo, fortoRegilo } = L );
   preniMuson = L.muso;
 }
 
 // ⟪ អនុគមន៍កំណត់របស់ជក់ 📃 ⟫ គឺការផ្លាស់ប្តូរជក់កំពុងប្រើ និង
 // ជក់រងរបស់វាឆ្លងកាត់អនុគមន៍ទាំងនេះ ( ស្ថានភាពជាការភ្ជាប់ផ្ទាល់ )។
-export function agordiPenikon(nomo: string): void { penikoAktiva = nomo; }
+export function agordiPenikon(ksaka: string): void { penikoAktiva = ksaka; }
 export function agordiBiomon(n: number): void { biomoAktiva = n; }
 export function agordiBeston(n: number): void { bestoAktiva = n; }
 export function agordiBestoForvisxon(v: boolean): void { bestoForvisxa = v; }

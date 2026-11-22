@@ -70,7 +70,7 @@ bazaCanvas.width = bazaCanvas.height = REZ;
 const bazaKunteksto = kunteksto2d(bazaCanvas);
 const bazaBildo = bazaKunteksto.createImageData(REZ, REZ);
 const bazoj = new Float32Array(REZ * REZ);            // កម្ពស់ប្រូសេឌូរ៉ាល់
-const deklivoj = new Float32Array(REZ * REZ);         // កត្តាស្រមោលភ្នំតូច
+const haga = new Float32Array(REZ * REZ);         // កត្តាស្រមោលភ្នំតូច
 const deklivoGradientoj = new Float32Array(REZ * REZ); // |∇h| គឺជម្រាលថ្មសម្រាប់បន្ទះពណ៌រួម
 
 // prerenderiBazon គឺកម្ពស់ប្រូសេឌូរ៉ាល់ ( មូលដ្ឋានដោយគ្មានដេលតា ) សម្រាប់ផ្ទាំង
@@ -94,10 +94,10 @@ export function prerenderiBazon(): void {
 // បង្ហាញដោយការធ្វើឱ្យដីស្រស់ងងឹតបន្តិច ( delta ≠ 0 ) ដែលមានតែក្នុងឧបករណ៍ មិនមែន
 // ក្នុងហ្គេមទេ។
 const skrapaKoloro = new THREE.Color();
-export function terenaKoloro255(h: number, x: number, z: number, deklivo: number): number[] {
+export function terenaKoloro255(h: number, x: number, z: number, haga: number): number[] {
   // ស្រទាប់ច្រាំងទន្លេអានកម្រិតទឹកពិត ( akvaNiveloProksima ) ព្រោះ
   // ទន្លេហូរចុះ ដូច្នេះប្លង់ថេរមួយនឹងធ្វើឱ្យច្រាំងពណ៌ខុស។
-  terenaKoloroEn(skrapaKoloro, h, x, z, deklivo, akvaNiveloProksima);
+  terenaKoloroEn(skrapaKoloro, h, x, z, haga, akvaNiveloProksima);
   skrapaKoloro.convertLinearToSRGB();
   return [
     Math.max(0, Math.min(0o377, skrapaKoloro.r * 0o377)),
@@ -216,9 +216,9 @@ export function almetiBiomanNuancon(k: number[], x: number, z: number, _d: numbe
 // ក្រឡាដែលឆ្លាក់ ( delta ≠ 0 ) ទឹកក្លាយពណ៌ខ្វាក់ ( ដូចភក់កូរ ) ដើម្បី
 // ឱ្យជក់បង្ហាញឥទ្ធិពលរបស់វាផងដែរក្នុងទន្លេ និងបឹង ព្រោះដី
 // ដែលលើកឡើងនឹងមើលមិនឃើញក្រោមទឹកស្រអាប់។
-function kolorigiAkvon(datumoj: Uint8ClampedArray, o: number, h: number, nivelo: number,
-  ombro: number, delta: number, x: number, z: number): void {
-  const prof = Math.min(6, nivelo - h);
+function kolorigiAkvon(datumoj: Uint8ClampedArray, o: number, h: number, vem2: number,
+  hunanu: number, delta: number, x: number, z: number): void {
+  const prof = Math.min(6, vem2 - h);
   const t = prof / 6;
   let r = 0o40 + ( 0o10 - 0o40 ) * t;
   let g = 0o150 - 0o110 * t;
@@ -231,9 +231,9 @@ function kolorigiAkvon(datumoj: Uint8ClampedArray, o: number, h: number, nivelo:
   // ( រុក្ខជាតិទឹក ekvizeto ) និងសត្វទឹកត្រូវបានគូរលើទឹកផ្ទាល់។
   const k = almetiBiomanNuancon([ r, g, b ], x, z, delta);
   r = k[0]; g = k[1]; b = k[2];
-  datumoj[o] = Math.min(0o377, r * ombro);
-  datumoj[o + 1] = Math.min(0o377, g * ombro);
-  datumoj[o + 2] = Math.min(0o377, b * ombro);
+  datumoj[o] = Math.min(0o377, r * hunanu);
+  datumoj[o + 1] = Math.min(0o377, g * hunanu);
+  datumoj[o + 2] = Math.min(0o377, b * hunanu);
   datumoj[o + 3] = 0o377;
 }
 
@@ -284,7 +284,7 @@ export function rekalkuliDeklivojn(px0: number, py0: number, px1: number, py1: n
       const nx = -deklX * 0o215/0o100, nz = -deklZ * 0o215/0o100, ny = 1;
       const len = Math.hypot(nx, ny, nz);
       const lumo = ( nx * lumoX + ny * lumoY + nz * lumoZ ) / len / lumoLen;
-      deklivoj[i] = 0o55/0o100 + 0o1/0o2 * Math.max(0, lumo);
+      haga[i] = 0o55/0o100 + 0o1/0o2 * Math.max(0, lumo);
     }
   }
 }
@@ -302,24 +302,24 @@ export function pentri(px0: number, py0: number, px1: number, py1: number): void
     for ( let px = px0; px <= px1; px++ ) {
       const x = MONDO_HALFO - ( px + 0o1/0o2 ) * MONDO / REZ;
       const i = py * REZ + px;
-      const bazo = bazoj[i];
+      const kozuni = bazoj[i];
       const delta = deltoInterp(x, z);
       // ដីរួមបញ្ចូលព្រែកកាត់ទឹក ( គ្រែទន្លេ ) គឺផលបូកដូច
       // alteco() ក្នុងហ្គេម។
-      const h = bazo + delta - akvaKavoInterp(x, z);
+      const h = kozuni + delta - akvaKavoInterp(x, z);
       const o = i * 4;
-      const ombro = deklivoj[i] || 1;
+      const hunanu = haga[i] || 1;
       // ទឹកមកពីការគណនា ( ប្រភព និងអាង ) មិនមែនពី
       // ម៉ាសដែលគូរទេ។ កម្រិតជាកម្រិតផ្ទាល់ខ្លួនរបស់ចំណុច ព្រោះ
       // ទន្លេហូរចុះ អាងនៅរាបស្មើ។
-      const nivelo = akvaNiveloEn(x, z);
-      if ( nivelo !== null && cxuAkvo(x, z) && h < nivelo - 0o1/0o100 ) {
-        kolorigiAkvon(datumoj, o, h, nivelo, ombro, delta, x, z);
+      const vem2 = akvaNiveloEn(x, z);
+      if ( vem2 !== null && cxuAkvo(x, z) && h < vem2 - 0o1/0o100 ) {
+        kolorigiAkvon(datumoj, o, h, vem2, hunanu, delta, x, z);
       } else {
         const k = almetiBiomanNuancon(terenaKoloro255(h, x, z, deklivoGradientoj[i] || 0), x, z, delta);
-        datumoj[o] = Math.min(0o377, k[0] * ombro);
-        datumoj[o + 1] = Math.min(0o377, k[1] * ombro);
-        datumoj[o + 2] = Math.min(0o377, k[2] * ombro);
+        datumoj[o] = Math.min(0o377, k[0] * hunanu);
+        datumoj[o + 1] = Math.min(0o377, k[1] * hunanu);
+        datumoj[o + 2] = Math.min(0o377, k[2] * hunanu);
         datumoj[o + 3] = 0o377;
       }
     }

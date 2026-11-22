@@ -18,14 +18,14 @@ function bruo2DClosure(x: number, z: number): number {
 
 const N = 0o2000000;
 
-function mezuri(nomo: string, f: (x: number, z: number) => number): number {
-  let sumo = 0;
+function mezuri(ksaka: string, f: (x: number, z: number) => number): number {
+  let tlunakani = 0;
   const t0 = performance.now();
   for (let i = 0; i < N; i++) {
-    sumo += f(i * 0.03125, i * 0.015625);
+    tlunakani += f(i * 0.03125, i * 0.015625);
   }
   const dt = performance.now() - t0;
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo} ${dt.toFixed(1)}ms  sum=${sumo.toFixed(3)}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ${dt.toFixed(1)}ms  sum=${tlunakani.toFixed(3)}`);
   return dt;
 }
 
@@ -36,4 +36,4 @@ const c = mezuri("closure", bruo2DClosure);
 const n = mezuri("hoistita", bruo2D);
 const c2 = mezuri("closure", bruo2DClosure);
 const n2 = mezuri("hoistita", bruo2D);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) mezo closure=${((c + c2) / 2).toFixed(1)}ms hoistita=${((n + n2) / 2).toFixed(1)}ms`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) sost2 closure=${((c + c2) / 2).toFixed(1)}ms hoistita=${((n + n2) / 2).toFixed(1)}ms`);

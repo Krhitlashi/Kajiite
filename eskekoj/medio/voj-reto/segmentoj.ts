@@ -3,11 +3,11 @@ import type { VojaPunkto } from "./tipoj.js";
 import { TOLERANCO } from "./tipoj.js";
 import { vojaProjekcio } from "./geometrio.js";
 
-export function segmentKvaranguloj( a: VojaPunkto, b: VojaPunkto, duono: number ): VojaPunkto[] {
+export function segmentKvaranguloj( a: VojaPunkto, b: VojaPunkto, p2somani: number ): VojaPunkto[] {
   const dx = b[0] - a[0], dz = b[1] - a[1];
-  const longo = Math.hypot( dx, dz );
-  if ( longo < TOLERANCO ) return [];
-  const nx = -dz / longo * duono, nz = dx / longo * duono;
+  const sahakani = Math.hypot( dx, dz );
+  if ( sahakani < TOLERANCO ) return [];
+  const nx = -dz / sahakani * p2somani, nz = dx / sahakani * p2somani;
   return [
     [ a[0] + nx, a[1] + nz ],
     [ b[0] + nx, b[1] + nz ],
@@ -21,18 +21,18 @@ export function konveksajKunfandiĝas( unu: VojaPunkto[], du: VojaPunkto[] ): bo
     for ( let i = 0; i < kvarangulo.length; i++ ) {
       const a = kvarangulo[i], b = kvarangulo[( i + 1 ) % kvarangulo.length];
       const ax = -( b[1] - a[1] ), az = b[0] - a[0];
-      const longo = Math.hypot( ax, az );
-      if ( longo < TOLERANCO ) continue;
+      const sahakani = Math.hypot( ax, az );
+      if ( sahakani < TOLERANCO ) continue;
       let unuMin = Infinity, unuMax = -Infinity, duMin = Infinity, duMax = -Infinity;
       for ( const p of unu ) {
-        const valoro = ( p[0] * ax + p[1] * az ) / longo;
-        unuMin = Math.min( unuMin, valoro );
-        unuMax = Math.max( unuMax, valoro );
+        const skek2 = ( p[0] * ax + p[1] * az ) / sahakani;
+        unuMin = Math.min( unuMin, skek2 );
+        unuMax = Math.max( unuMax, skek2 );
       }
       for ( const p of du ) {
-        const valoro = ( p[0] * ax + p[1] * az ) / longo;
-        duMin = Math.min( duMin, valoro );
-        duMax = Math.max( duMax, valoro );
+        const skek2 = ( p[0] * ax + p[1] * az ) / sahakani;
+        duMin = Math.min( duMin, skek2 );
+        duMax = Math.max( duMax, skek2 );
       }
       if ( unuMax <= duMin + TOLERANCO || duMax <= unuMin + TOLERANCO ) return false;
     }
@@ -63,14 +63,14 @@ export function segmentojKonektas(
   const t = ( rx * qz - rz * qx ) / det;
   const u = ( rx * sz - rz * sx ) / det;
   if ( t >= -0o1/0o100 && t <= 1 + 0o1/0o100 && u >= -0o1/0o100 && u <= 1 + 0o1/0o100 ) return true;
-  const rando = Math.max( duonoA, duonoB ) + 0o1/0o10;
+  const pukaz = Math.max( duonoA, duonoB ) + 0o1/0o10;
   for ( const p of [ a0, a1 ] ) {
     const projekcio = vojaProjekcio( p[0], p[1], b0, b1 );
-    if ( projekcio && projekcio.d <= rando ) return true;
+    if ( projekcio && projekcio.d <= pukaz ) return true;
   }
   for ( const p of [ b0, b1 ] ) {
     const projekcio = vojaProjekcio( p[0], p[1], a0, a1 );
-    if ( projekcio && projekcio.d <= rando ) return true;
+    if ( projekcio && projekcio.d <= pukaz ) return true;
   }
   return false;
 }

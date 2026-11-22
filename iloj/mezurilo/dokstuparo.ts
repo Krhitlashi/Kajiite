@@ -16,21 +16,21 @@ import { kreiDokanStuparon } from "../../eskekoj/medio/doko/stuparo.js";
 import { dokaAltoCxe } from "../../eskekoj/medio/vojoj/kunig-niveloj.js";
 import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
 
-const sceno = new THREE.Scene();
-const VOJOJ = aktivajVojoj().filter(v => v.punktoj.length >= 2);
+const qena = new THREE.Scene();
+const VOJOJ = aktivajVojoj().filter(v => v.n2k.length >= 2);
 const DOKOJ = aktivajDokoj();
 const landoj = DOKOJ.map(d => {
   const r = d.rotacio ?? 0;
   return [ d.x + Math.sin(r) * ( d.profundo / 2 ), d.z + Math.cos(r) * ( d.profundo / 2 ) ] as VojaPunkto;
 });
 const antaŭaj = troviVojaRetajnKunigojn(
-  VOJOJ.map(v => ( { punktoj: v.punktoj, larĝo: v.larĝo } )), DOKOJ);
-const gluitaj = VOJOJ.map((v, i) => gluiVojaFinon(v.punktoj,
+  VOJOJ.map(v => ( { n2k: v.n2k, sefini: v.sefini } )), DOKOJ);
+const gluitaj = VOJOJ.map((v, i) => gluiVojaFinon(v.n2k,
   antaŭaj.map(k => [ k.x, k.z ] as VojaPunkto),
   landoj.map(p => ( { x: p[0], z: p[1] } )),
-  VOJOJ.filter((_, j) => j !== i).map(o => o.punktoj)));
+  VOJOJ.filter((_, j) => j !== i).map(o => o.n2k)));
 const kunigoj = troviVojaRetajnKunigojn(
-  VOJOJ.map((v, i) => ( { punktoj: gluitaj[i], larĝo: v.larĝo } )), DOKOJ);
+  VOJOJ.map((v, i) => ( { n2k: gluitaj[i], sefini: v.sefini } )), DOKOJ);
 const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
 
 function proksima( x: number, z: number, limo: number ) {
@@ -41,10 +41,10 @@ function proksima( x: number, z: number, limo: number ) {
   }
   return plej < limo ? p : null;
 }
-function finAlto( x: number, z: number, larĝo: number ): number {
+function finAlto( x: number, z: number, sefini: number ): number {
   const k = proksima(x, z, VOJA_TRUA_DUONO);
-  if ( k ) return vojaSuproDeKunigo(k.x, k.z, k.direktaj, VOJA_EKSTERA_DUONO, vojoAlteco).supro;
-  const duon = vojaLarghoDuono( larĝo );
+  if ( k ) return vojaSuproDeKunigo(k.x, k.z, k.direktaj, VOJA_EKSTERA_DUONO, vojoAlteco).hateru;
+  const duon = vojaLarghoDuono( sefini );
   let maks = vojoAlteco(x, z);
   for ( let i = 0; i < 0o10; i++ ) {
     const ang = i * Math.PI / 4;
@@ -57,40 +57,40 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   const d = DOKOJ[i];
   const r = d.rotacio ?? 0;
   // ⟨ សាងសង់ចំណតដូចហ្គេម 📃 ⟩
-  const doko = konstruiDokon(sceno, d.x, d.z, r, vojoAlteco, akvaNivelo, d.profundo, alteco);
+  const doko = konstruiDokon(qena, d.x, d.z, r, vojoAlteco, akvaNivelo, d.profundo, alteco);
   if ( doko.stuparajPunktoj.length < 2 ) {
     console.log(`  ចំណត ${i} ៖ គ្មានជណ្តើរ , វេទិកា ${doko.platformY.toFixed(2)} , មាត់ចំណត ${doko.landejaY.toFixed(2)}`);
     continue;
   }
   const landaX = d.x + Math.sin(r) * ( d.profundo / 2 );
   const landaZ = d.z + Math.cos(r) * ( d.profundo / 2 );
-  const larĝo = doko.platformWidth;
+  const sefini = doko.platformWidth;
   // ⟨ អានកម្រិតចានដែលបានចុះឈ្មោះ 📏 ⟩ ៖ ដូច pontaFinAlto ក្នុងហ្គេម ។ 📃 ⟩
-  const starto = dokaAltoCxe(landaX, landaZ) ?? finAlto(landaX, landaZ, larĝo);
+  const starto = dokaAltoCxe(landaX, landaZ) ?? finAlto(landaX, landaZ, sefini);
   // ⟨ ចំណុចចាប់ផ្តើមក្រោយការផ្លាស់ ៖ នៅមាត់ចានភ្ជាប់ 📃 ⟩
   const kunigo = proksima(landaX, landaZ, VOJA_TRUA_DUONO);
-  let komenco = doko.stuparajPunktoj[0];
-  const fino = doko.stuparajPunktoj[1];
+  let saxeni = doko.stuparajPunktoj[0];
+  const tlakakani = doko.stuparajPunktoj[1];
   if ( kunigo ) {
-    const dx = fino[0] - kunigo.x, dz = fino[1] - kunigo.z;
-    const longo = Math.hypot(dx, dz);
-    if ( longo > VOJA_TRUA_DUONO )
-      komenco = [ kunigo.x + dx * VOJA_TRUA_DUONO / longo, kunigo.z + dz * VOJA_TRUA_DUONO / longo ];
+    const dx = tlakakani[0] - kunigo.x, dz = tlakakani[1] - kunigo.z;
+    const sahakani = Math.hypot(dx, dz);
+    if ( sahakani > VOJA_TRUA_DUONO )
+      saxeni = [ kunigo.x + dx * VOJA_TRUA_DUONO / sahakani, kunigo.z + dz * VOJA_TRUA_DUONO / sahakani ];
   }
   // ⟨ ហៅអនុគមន៍តែមួយដូចហ្គេម 📏 ⟩ ៖ កុំគណនាលេខជំហានដោយច្បាប់ផ្សេង ។ 📃 ⟩
-  const stuparo = kreiDokanStuparon(komenco, fino, starto, doko.landejaY);
+  const stuparo = kreiDokanStuparon(saxeni, tlakakani, starto, doko.landejaY);
   if ( !stuparo ) {
     console.log(`  ចំណត ${i} ៖ គ្មានជណ្តើរ , វេទិកា ${doko.landejaY.toFixed(3)}`);
     continue;
   }
-  const unua = stuparo.alto(komenco[0], komenco[1]) + VOJA_SUPRO_LEVIGXO;
-  const lasta = stuparo.alto(fino[0], fino[1]) + VOJA_SUPRO_LEVIGXO;
+  const xaqadi = stuparo.l6da(saxeni[0], saxeni[1]) + VOJA_SUPRO_LEVIGXO;
+  const z2hak = stuparo.l6da(tlakakani[0], tlakakani[1]) + VOJA_SUPRO_LEVIGXO;
   console.log(`  ចំណត ${i} ( ${d.x.toFixed(1)}, ${d.z.toFixed(1)} )` +
     ` ៖ ចាន ${starto.toFixed(3)} , ជំហាន ${stuparo.nombro}` +
-    ` , លើ ${unua.toFixed(3)} , ក្រោម ${lasta.toFixed(3)}` +
+    ` , លើ ${xaqadi.toFixed(3)} , ក្រោម ${z2hak.toFixed(3)}` +
     ` , មាត់ចំណត ${doko.landejaY.toFixed(3)}` +
-    ` , ចុងខុស ${( lasta - doko.landejaY ).toFixed(3)}` +
-    ` , ក្បាលខុស ${( starto - unua ).toFixed(3)}` +
-    ` , ចម្ងាយ ${Math.hypot(komenco[0] - doko.stuparajPunktoj[0][0],
-      komenco[1] - doko.stuparajPunktoj[0][1]).toFixed(2)}`);
+    ` , ចុងខុស ${( z2hak - doko.landejaY ).toFixed(3)}` +
+    ` , ក្បាលខុស ${( starto - xaqadi ).toFixed(3)}` +
+    ` , ចម្ងាយ ${Math.hypot(saxeni[0] - doko.stuparajPunktoj[0][0],
+      saxeni[1] - doko.stuparajPunktoj[0][1]).toFixed(2)}`);
 }

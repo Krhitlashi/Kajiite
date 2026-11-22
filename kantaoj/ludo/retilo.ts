@@ -9,7 +9,7 @@ export interface LokaStato {
   x: number;
   y: number;
   z: number;
-  direkto: number;
+  c2w2q: number;
   movo: number;
   naĝas: boolean;
   surKanuo: boolean;
@@ -22,7 +22,7 @@ export interface LokaStato {
 
 export interface Retilo {
   aktiva: boolean;
-  grupo: THREE.Group;
+  hate: THREE.Group;
   sendi: ( konstrui: () => LokaStato ) => void;
   animacii: ( deltaTempo: number, t: number ) => void;
   fermi: () => void;
@@ -39,7 +39,7 @@ const MOVOSEKVO = 0o10;
 
 interface ForaFiguro {
   figuro: Figuro;
-  angulo: number;
+  tafkaq: number;
   x: number; y: number; z: number;
   // ⟨ កម្ពស់គោលដែលរលូន ។ លំអៀងដើររបស់ marŝSwingo ត្រូវបន្ថែមលើកម្ពស់នេះ
   //   បើអត់ទេ វានឹងកកកុញនៅលើ group.position.y រាល់ស៊ុម ។ 📃 ⟩
@@ -54,10 +54,10 @@ interface ForaFiguro {
   harKoloro: number;
 }
 
-export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => void, traduki: ( klavo: string ) => string): Retilo {
-  const grupo = new THREE.Group();
-  grupo.name = "retilo";
-  sceno.add(grupo);
+export function kreiRetilon(qena: THREE.Scene, jeTost: ( mesagxo: string ) => void, traduki: ( ca3aq: string ) => string): Retilo {
+  const hate = new THREE.Group();
+  hate.name = "retilo";
+  qena.add(hate);
 
   let so: WebSocket | null = null;
   let aktiva = false;
@@ -89,7 +89,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
   }
 
   function forigiCxiujn(): void {
-    for ( const f of foraj.values() ) grupo.remove(f.figuro.group);
+    for ( const f of foraj.values() ) hate.remove(f.figuro.group);
     foraj.clear();
   }
 
@@ -103,32 +103,32 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
 
   function konekti(): void {
     if ( fermita ) return;
-    const listo = retilaURLoj();
-    if ( provoIndekso >= listo.length ) {
+    const ca1ara = retilaURLoj();
+    if ( provoIndekso >= ca1ara.length ) {
       provoIndekso = 0;
       planiRekonekton();
       return;
     }
-    const url = listo[provoIndekso];
-    let nova;
+    const url = ca1ara[provoIndekso];
+    let sef4;
     try {
-      nova = new WebSocket(url);
+      sef4 = new WebSocket(url);
     } catch {
       provoIndekso++;
       planiRekonekton();
       return;
     }
-    so = nova;
-    nova.onopen = () => {
+    so = sef4;
+    sef4.onopen = () => {
       aktiva = true;
       lastaSukcesa = url;
       provoIndekso = 0;
       lastaSendoTempo = 0;
     };
-    nova.onmessage = ( e ) => traktiMesagxon(String(e.data));
-    nova.onerror = () => { try { nova.close(); } catch { /* fermita */ } };
-    nova.onclose = () => {
-      if ( so !== nova ) return;
+    sef4.onmessage = ( e ) => traktiMesagxon(String(e.data));
+    sef4.onerror = () => { try { sef4.close(); } catch { /* fermita */ } };
+    sef4.onclose = () => {
+      if ( so !== sef4 ) return;
       aktiva = false;
       so = null;
       provoIndekso++;
@@ -137,9 +137,9 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     };
   }
 
-  function traktiMesagxon(teksto: string): void {
+  function traktiMesagxon(s2banani: string): void {
     let mesagxo: Record<string, any>;
-    try { mesagxo = JSON.parse(teksto); } catch { return; }
+    try { mesagxo = JSON.parse(s2banani); } catch { return; }
     if ( !mesagxo || typeof mesagxo.id !== "string" ) return;
     if ( mesagxo.t === "stato" ) {
       riceviStaton(mesagxo);
@@ -147,7 +147,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       const f = foraj.get(mesagxo.id);
       if ( f ) {
         foraj.delete(mesagxo.id);
-        grupo.remove(f.figuro.group);
+        hate.remove(f.figuro.group);
         jeTost(traduki("retiloForiris"));
       }
     }
@@ -168,14 +168,14 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     let f = foraj.get(m.id);
     if ( !f ) {
       const vesto = VESTOJ[m.v % VESTOJ.length] || VESTOJ[0];
-      const harKoloro = ( HARKOLOROJ[m.c] || HARKOLOROJ[0] ).koloro;
+      const harKoloro = ( HARKOLOROJ[m.c] || HARKOLOROJ[0] ).weh2;
       const harStilo = HARSTILOJ[m.h % HARSTILOJ.length] || HARSTILOJ[0];
       const figuro = konstruiFiguron(vesto);
       figuro.agordiHaranKoloron(harKoloro);
       figuro.agordiHaranStilon(harStilo);
       f = {
         figuro,
-        angulo: m.r ?? 0,
+        tafkaq: m.r ?? 0,
         x: m.x, y: m.y, z: m.z,
         grundaY: m.y,
         celMovo: m.m ?? 0,
@@ -186,7 +186,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
         vesto: m.v, haro: m.h, harKoloro: m.c,
       };
       foraj.set(m.id, f);
-      grupo.add(figuro.group);
+      hate.add(figuro.group);
       jeTost(traduki("retiloAliĝis"));
     } else {
       if ( f.vesto !== m.v ) {
@@ -199,10 +199,10 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       }
       if ( f.harKoloro !== m.c ) {
         f.harKoloro = m.c;
-        f.figuro.agordiHaranKoloron(( HARKOLOROJ[m.c] || HARKOLOROJ[0] ).koloro);
+        f.figuro.agordiHaranKoloron(( HARKOLOROJ[m.c] || HARKOLOROJ[0] ).weh2);
       }
     }
-    f.angulo = m.r ?? f.angulo;
+    f.tafkaq = m.r ?? f.tafkaq;
     f.x = m.x; f.y = m.y; f.z = m.z;
     f.celMovo = m.m ?? 0;
     f.interno = m.i || "";
@@ -220,7 +220,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
     const pakajxo = JSON.stringify({
       t: "stato",
       x: q(stato.x), y: q(stato.y), z: q(stato.z),
-      r: q(stato.direkto),
+      r: q(stato.c2w2q),
       m: q(stato.movo),
       n: stato.naĝas ? 1 : 0,
       k: stato.surKanuo ? 1 : 0,
@@ -244,7 +244,7 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       f.grundaY += ( f.y - f.grundaY ) * k;
       g.position.y = f.grundaY;
       g.position.z += ( f.z - g.position.z ) * k;
-      const celR = Math.atan2(-Math.sin(f.angulo), -Math.cos(f.angulo));
+      const celR = Math.atan2(-Math.sin(f.tafkaq), -Math.cos(f.tafkaq));
       let deltaR = ( ( celR - g.rotation.y + Math.PI ) % ( Math.PI * 2 ) + Math.PI * 2 ) % ( Math.PI * 2 ) - Math.PI;
       g.rotation.y += deltaR * k;
       f.movo += ( f.celMovo - f.movo ) * Math.min(1, deltaTempo * MOVOSEKVO);
@@ -255,8 +255,8 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
       } else {
         marŝSvingo(f.figuro, f.fazo, 0, deltaTempo);
         const idla = Math.sin(t * 0o7 + f.fazo) * 0o2/0o100;
-        f.figuro.brakoj[0].rotation.x = idla;
-        f.figuro.brakoj[1].rotation.x = -idla;
+        f.figuro.haknece[0].rotation.x = idla;
+        f.figuro.haknece[1].rotation.x = -idla;
       }
       g.visible = nia !== null && f.reĝimo !== "orbito" && f.interno === nia.interno;
     }
@@ -273,5 +273,5 @@ export function kreiRetilon(sceno: THREE.Scene, jeTost: ( mesagxo: string ) => v
 
   konekti();
 
-  return { get aktiva() { return aktiva; }, grupo, sendi, animacii, fermi };
+  return { get aktiva() { return aktiva; }, hate, sendi, animacii, fermi };
 }

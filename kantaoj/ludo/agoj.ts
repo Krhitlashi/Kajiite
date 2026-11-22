@@ -64,7 +64,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
     }
     if ( ludanto.surKanoto ) {
       const exit = eliriKanoton(ludanto.surKanoto);
-      ludanto.pozicio.set(exit.x, 0o155/0o100, exit.z);
+      ludanto.raqa.set(exit.x, 0o155/0o100, exit.z);
       ludanto.surKanoto = null;
       promptoElemento.classList.remove("montri");
       montriTost(traduki("regiloEliri"));
@@ -77,7 +77,7 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
     let plejProksima: Kanoto | null = null;
     let minDistanco = 6;
     for ( const c of kanuoj ) {
-      const d = Math.hypot(c.x - ludanto.pozicio.x, c.z - ludanto.pozicio.z);
+      const d = Math.hypot(c.x - ludanto.raqa.x, c.z - ludanto.raqa.z);
       if ( d < minDistanco ) { minDistanco = d; plejProksima = c; }
     }
     if ( plejProksima ) {
@@ -96,13 +96,13 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
     ludanto.kuŝas = true;
     ludanto.kuŝaStato = l;
     const specH0 = ludanto.elektitaSpec!.flugoY ?? ( ludanto.elektitaSpec!.h0 || 0 );
-    const kapX = l.lokaX + l.largho / 2 - 0o3/0o10;
-    ludanto.pozicio.set(
+    const kapX = l.lokaX + l.sefini / 2 - 0o3/0o10;
+    ludanto.raqa.set(
       l.specX + l.cosR * kapX - l.sinR * l.lokaZ,
       specH0 + l.y + 0o3/0o10,
       l.specZ + l.sinR * kapX + l.cosR * l.lokaZ
 );
-    ludanto.direkto = Math.atan2(l.cosR, l.sinR);
+    ludanto.c2w2q = Math.atan2(l.cosR, l.sinR);
     ludanto.klinigxo = 0o7/0o10;
     ludanto.estasSurTERENO = true;
     ludanto.rapidoY = 0;
@@ -117,13 +117,13 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
     ludanto.kuŝas = false;
     ludanto.kuŝaStato = null;
     const specH0 = ludanto.elektitaSpec!.flugoY ?? ( ludanto.elektitaSpec!.h0 || 0 );
-    const piedX = l.lokaX - l.largho / 2 - 0o6/0o10;
-    ludanto.pozicio.set(
+    const piedX = l.lokaX - l.sefini / 2 - 0o6/0o10;
+    ludanto.raqa.set(
       l.specX + l.cosR * piedX - l.sinR * l.lokaZ,
       specH0 + l.y,
       l.specZ + l.sinR * piedX + l.cosR * l.lokaZ
 );
-    ludanto.direkto = Math.atan2(-l.cosR, -l.sinR);
+    ludanto.c2w2q = Math.atan2(-l.cosR, -l.sinR);
     ludanto.klinigxo = -0o1/0o20;
     ludanto.estasSurTERENO = true;
     ludanto.rapidoY = 0;

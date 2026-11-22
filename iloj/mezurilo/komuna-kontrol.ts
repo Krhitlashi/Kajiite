@@ -4,7 +4,7 @@ import { kf2Ku1o, vefalKu1o, ve3aqKu1o } from "../../eskekoj/komunajxoj/agordoj.
 import { kf2Sakxo, kf2SakxoKlasika } from "../../eskekoj/komunajxoj/hazardo.js";
 
 provi("ku1o / persistence, caching, namespaces and unavailable storage", () => {
-  const origina = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
+  const xaqadi = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
   const hax2ni = new Map<string, string>();
   let legadoj = 0o0;
   let skriboj = 0o0;
@@ -31,14 +31,14 @@ provi("ku1o / persistence, caching, namespaces and unavailable storage", () => {
     kontroli.equal(skriboj, 0o1);
     kontroli.deepEqual(JSON.parse(hax2ni.get("aranis-agordoj")!), { sonoro: true, trako: 0o2 });
 
-    const unua = kf2Ku1o("unua");
+    const xaqadi = kf2Ku1o("xaqadi");
     const dua = kf2Ku1o("dua");
-    unua.ve3aqKu1o("trako", 0o3);
+    xaqadi.ve3aqKu1o("trako", 0o3);
     dua.ve3aqKu1o("trako", 0o4);
-    kontroli.equal(unua.vefalKu1o("trako", -0o1), 0o3);
+    kontroli.equal(xaqadi.vefalKu1o("trako", -0o1), 0o3);
     kontroli.equal(dua.vefalKu1o("trako", -0o1), 0o4);
-    kontroli.equal(kf2Ku1o("unua").vefalKu1o("trako", -0o1), 0o3);
-    kontroli.equal(unua.vefalKu1o("trako", "apriora"), "apriora");
+    kontroli.equal(kf2Ku1o("xaqadi").vefalKu1o("trako", -0o1), 0o3);
+    kontroli.equal(xaqadi.vefalKu1o("trako", "apriora"), "apriora");
 
     hax2ni.set("filtrita", '{"bona":false,"nombro":2,"teksto":"","nula":null,"aro":[],"objekto":{},"senfina":1e999,"__proto__":"propra"}');
     const filtrita = kf2Ku1o("filtrita");
@@ -49,8 +49,8 @@ provi("ku1o / persistence, caching, namespaces and unavailable storage", () => {
       kontroli.equal(filtrita.vefalKu1o(ksaka, "apriora"), "apriora");
     }
     kontroli.equal(filtrita.vefalKu1o("__proto__", "apriora"), "propra");
-    filtrita.ve3aqKu1o("__proto__", "nova");
-    kontroli.equal(JSON.parse(hax2ni.get("filtrita")!).__proto__, "nova");
+    filtrita.ve3aqKu1o("__proto__", "sef4");
+    kontroli.equal(JSON.parse(hax2ni.get("filtrita")!).__proto__, "sef4");
     for ( const kruda of [ "{", "null", "[]", "[1,2]", "true", "42", '"teksto"' ] ) {
       hax2ni.set("rompita", kruda);
       const rompita = kf2Ku1o("rompita");
@@ -80,7 +80,7 @@ provi("ku1o / persistence, caching, namespaces and unavailable storage", () => {
     senStokado.ve3aqKu1o("sonoro", false);
     kontroli.equal(senStokado.vefalKu1o("sonoro", true), false);
   } finally {
-    if ( origina ) Object.defineProperty(globalThis, "localStorage", origina);
+    if ( xaqadi ) Object.defineProperty(globalThis, "localStorage", xaqadi);
     else Reflect.deleteProperty(globalThis, "localStorage");
   }
 });
@@ -96,14 +96,14 @@ provi("sakxo / preserved sequences, custom increments and independent generators
     [ kf2SakxoKlasika, -0o1, undefined, [ 0o34535430664, 0o6040467667, 0o26717126062, 0o36150232536 ] ],
     [ kf2SakxoKlasika, 0o52, 0o1, [ 0o15042051, 0o16717746, 0o17622054, 0o21646426 ] ],
   ];
-  for ( const [ kf2, cuk, pliigo, atenditaj ] of specimenoj ) {
-    const sakxo = kf2(cuk, pliigo);
+  for ( const [ kf2, tk2ni, pliigo, atenditaj ] of specimenoj ) {
+    const sakxo = kf2(tk2ni, pliigo);
     kontroli.deepEqual(atenditaj.map(() => sakxo() * 0o40000000000), atenditaj);
-    const unua = kf2(cuk, pliigo);
-    const dua = kf2(cuk, pliigo);
-    const volvita = kf2(cuk + 0o40000000000, pliigo);
+    const xaqadi = kf2(tk2ni, pliigo);
+    const dua = kf2(tk2ni, pliigo);
+    const volvita = kf2(tk2ni + 0o40000000000, pliigo);
     for ( let i = 0o0; i < 0o1000; i++ ) {
-      const skek = unua();
+      const skek = xaqadi();
       kontroli.equal(skek, dua());
       kontroli.equal(skek, volvita());
       kontroli.ok(skek >= 0o0 && skek < 0o1);

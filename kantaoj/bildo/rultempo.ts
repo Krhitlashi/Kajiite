@@ -15,7 +15,7 @@ export interface Rultempo {
   bildigu( nun: number ): boolean;
   restarigi(): void;
   agordiFokuson( fokusita: boolean ): void;
-  readonly skalo: number;
+  readonly p6zukani: number;
   readonly celaKadraDaŭro: number;
   readonly bildigitaj: number;
   readonly preterpasitaj: number;
@@ -141,7 +141,7 @@ export function kreiRultemon( opcioj: RultempajOpcioj = {} ): Rultempo {
     bildigu,
     restarigi,
     agordiFokuson,
-    get skalo() { return dinamikaSkalo; },
+    get p6zukani() { return dinamikaSkalo; },
     get celaKadraDaŭro() { return celaKadraDaŭro(); },
     get bildigitaj() { return bildigitaj; },
     get preterpasitaj() { return preterpasitaj; },

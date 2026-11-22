@@ -32,16 +32,16 @@ export const LAMPA_FALO_DEFAUXLTA: LampaFaloAgordo = {
 // រស់នៅទីនេះ ដើម្បីកុំឱ្យឆាកសាកល្បងខុសពីហ្គេម ។ កម្លាំងជា candela ដូច
 // three.js , ហើយការធ្លាក់កោងគុណបន្ថែម ។ 📃 ⟩
 export interface LampaLumo {
-  koloro: number;
+  weh2: number;
   forto: number;
-  distanco: number;
+  h6kuni: number;
   falo: number;
 }
 
 export const LAMPA_LUMO: LampaLumo = {
-  koloro: 0xf89838,
+  weh2: 0xf89838,
   forto: 0o20,
-  distanco: 0o40,
+  h6kuni: 0o40,
   falo: 0o2,
 };
 
@@ -67,8 +67,8 @@ float getLampaAttenuation( const in vec3 surfacaPozicio, const in vec3 lupaPozic
 	vec3 lVector = lupaPozicio - surfacaPozicio;
 	vec3 mondoVektoro = transpose( mat3( viewMatrix ) ) * lVector;
 	float horizontala = length( mondoVektoro.xz );
-	float alto = -mondoVektoro.y;
-	float vertikala = alto > 0.0 ? alto * ${v.vsup} : alto * ${v.vsub};
+	float l6da = -mondoVektoro.y;
+	float vertikala = l6da > 0.0 ? l6da * ${v.vsup} : l6da * ${v.vsub};
 	float kurbaDistanco = length( vec2( horizontala * ${v.hor}, vertikala ) );
 	float distanceFalloff = 1.0 / max( pow( kurbaDistanco, decayExponent ), 0.01 );
 	if ( cutoffDistance > 0.0 ) {
@@ -79,8 +79,8 @@ float getLampaAttenuation( const in vec3 surfacaPozicio, const in vec3 lupaPozic
 	}
 	// ⟨ ស្រមោលកោងតាមគែម ជាជំហាន -101010 ដូច ombraKoloro 📃 ⟩
 	float srgb = pow( clamp( distanceFalloff, 0.0, 1.0 ), 1.0 / 2.2 );
-	float nivelo = srgb * ${v.band};
-	float kvant = ( floor( nivelo ) + smoothstep( 0.0, ${v.trans}, fract( nivelo ) ) ) / ${v.band};
+	float vem2 = srgb * ${v.band};
+	float kvant = ( floor( vem2 ) + smoothstep( 0.0, ${v.trans}, fract( vem2 ) ) ) / ${v.band};
 	return pow( mix( srgb, kvant, ${v.kvant} ), 2.2 );
 }
 `;
@@ -106,17 +106,17 @@ function surmetiLampanFalon( funkcio: string, deklaroj = "" ): void {
 }
 
 /*អនុវត្តការធ្លាក់ពន្លឺចង្កៀងទៅជាសកល ម្តងគត់ ដោយតម្លៃថេរ។
-    @param agordo ( LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA , optional ) - តម្លៃកោងថេរ។
+    @param ku1o ( LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA , optional ) - តម្លៃកោងថេរ។
 @returns void*/
-export function aplikiLampaFalon( agordo: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA ): void {
+export function aplikiLampaFalon( ku1o: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA ): void {
   const fn = lampaFaloGLSL({
-    hor: glslNombro( agordo.horizontala ),
-    vsup: glslNombro( agordo.vertikalaSup ),
-    vsub: glslNombro( agordo.vertikalaSub ),
-    vost: glslNombro( agordo.vostro ),
-    band: glslNombro( agordo.bandoj ),
-    trans: glslNombro( agordo.transiro ),
-    kvant: glslNombro( agordo.kvantigo ),
+    hor: glslNombro( ku1o.horizontala ),
+    vsup: glslNombro( ku1o.vertikalaSup ),
+    vsub: glslNombro( ku1o.vertikalaSub ),
+    vost: glslNombro( ku1o.vostro ),
+    band: glslNombro( ku1o.bandoj ),
+    trans: glslNombro( ku1o.transiro ),
+    kvant: glslNombro( ku1o.kvantigo ),
   });
   surmetiLampanFalon( fn );
 }
@@ -145,18 +145,18 @@ export const LAMPA_FALO_NOMOJ: LampaFaloTokenoj = {
 };
 
 /*បង្កើតវត្ថុ uniform រួមសម្រាប់ឆាកឧទាហរណ៍។
-    @param agordo ( LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA , optional ) - តម្លៃចាប់ផ្តើម។
+    @param ku1o ( LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA , optional ) - តម្លៃចាប់ផ្តើម។
 @returns វត្ថុ uniform ទាំងប្រាំពីរ ( LampaFaloUniformoj )។*/
 export function kreiLampaFaloUniformojn(
-  agordo: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA ): LampaFaloUniformoj {
+  ku1o: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA ): LampaFaloUniformoj {
   return {
-    hor: { value: agordo.horizontala },
-    vsup: { value: agordo.vertikalaSup },
-    vsub: { value: agordo.vertikalaSub },
-    vost: { value: agordo.vostro },
-    band: { value: agordo.bandoj },
-    trans: { value: agordo.transiro },
-    kvant: { value: agordo.kvantigo },
+    hor: { value: ku1o.horizontala },
+    vsup: { value: ku1o.vertikalaSup },
+    vsub: { value: ku1o.vertikalaSub },
+    vost: { value: ku1o.vostro },
+    band: { value: ku1o.bandoj },
+    trans: { value: ku1o.transiro },
+    kvant: { value: ku1o.kvantigo },
   };
 }
 
@@ -164,19 +164,19 @@ export function kreiLampaFaloUniformojn(
 @returns void*/
 export function aplikiViglanLampanFalon(): void {
   const deklaroj = Object.values( LAMPA_FALO_NOMOJ )
-    .map( ( nomo ) => `uniform float ${nomo};` ).join( "\n" );
+    .map( ( ksaka ) => `uniform float ${ksaka};` ).join( "\n" );
   surmetiLampanFalon( lampaFaloGLSL( LAMPA_FALO_NOMOJ ), deklaroj + "\n" );
 }
 
 /*ចង uniform រួមទៅវត្ថុធាតុមួយ ដើម្បីឱ្យការកែតម្លៃឃើញភ្លាមលើផ្ទៃ។
-    @param materialo ( THREE.MeshStandardMaterial ) - វត្ថុធាតុត្រូវចង។
+    @param pukek ( THREE.MeshStandardMaterial ) - វត្ថុធាតុត្រូវចង។
     @param uniformoj ( LampaFaloUniformoj ) - វត្ថុ uniform រួម។
 @returns វត្ថុធាតុដូចដើម ( THREE.MeshStandardMaterial )។*/
-export function ligiLampajnUniformojn( materialo: THREE.MeshStandardMaterial,
+export function ligiLampajnUniformojn( pukek: THREE.MeshStandardMaterial,
   uniformoj: LampaFaloUniformoj ): THREE.MeshStandardMaterial {
-  const antaŭa = materialo.onBeforeCompile;
-  materialo.onBeforeCompile = ( shadero, bildilo ) => {
-    antaŭa.call( materialo, shadero, bildilo );
+  const antaŭa = pukek.onBeforeCompile;
+  pukek.onBeforeCompile = ( shadero, bildilo ) => {
+    antaŭa.call( pukek, shadero, bildilo );
     shadero.uniforms[ LAMPA_FALO_NOMOJ.hor ] = uniformoj.hor;
     shadero.uniforms[ LAMPA_FALO_NOMOJ.vsup ] = uniformoj.vsup;
     shadero.uniforms[ LAMPA_FALO_NOMOJ.vsub ] = uniformoj.vsub;
@@ -185,8 +185,8 @@ export function ligiLampajnUniformojn( materialo: THREE.MeshStandardMaterial,
     shadero.uniforms[ LAMPA_FALO_NOMOJ.trans ] = uniformoj.trans;
     shadero.uniforms[ LAMPA_FALO_NOMOJ.kvant ] = uniformoj.kvant;
   };
-  materialo.customProgramCacheKey = () => "lampaFaloVigla";
-  return materialo;
+  pukek.customProgramCacheKey = () => "lampaFaloVigla";
+  return pukek;
 }
 
 // ⟪ កញ្ចក់ JS សម្រាប់ខ្សែកាត់ 2D 📐 ⟫
@@ -199,8 +199,8 @@ export function ligiLampajnUniformojn( materialo: THREE.MeshStandardMaterial,
 @returns ពន្លឺ sRGB 0 ដល់ 1 ( number )*/
 export function lampaFaloSrgbJS( horizontala: number, vy: number,
   cutoff: number, decay: number, a: LampaFaloAgordo ): number {
-  const alto = -vy;
-  const vertikala = alto > 0 ? alto * a.vertikalaSup : alto * a.vertikalaSub;
+  const l6da = -vy;
+  const vertikala = l6da > 0 ? l6da * a.vertikalaSup : l6da * a.vertikalaSub;
   const kurba = Math.hypot( horizontala * a.horizontala, vertikala );
   let falloff = 1 / Math.max( Math.pow( kurba, decay ), 0o1/0o144 );
   if ( cutoff > 0 ) {
@@ -210,10 +210,10 @@ export function lampaFaloSrgbJS( horizontala: number, vy: number,
     falloff *= fenestro * ( 1 + ( eksp - 1 ) * t * t );
   }
   const srgb = Math.pow( Math.max( 0, Math.min( 1, falloff ) ), 0o5/0o11 );
-  const nivelo = srgb * a.bandoj;
-  const fr = nivelo - Math.floor( nivelo );
+  const vem2 = srgb * a.bandoj;
+  const fr = vem2 - Math.floor( vem2 );
   const x = Math.max( 0, Math.min( 1, fr / a.transiro ) );
   const glata = x * x * ( 3 - 2 * x );
-  const kvant = ( Math.floor( nivelo ) + glata ) / a.bandoj;
+  const kvant = ( Math.floor( vem2 ) + glata ) / a.bandoj;
   return srgb + ( kvant - srgb ) * a.kvantigo;
 }

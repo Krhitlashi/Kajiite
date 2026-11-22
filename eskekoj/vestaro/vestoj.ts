@@ -5,7 +5,7 @@ import { molaStelaVojo } from "../komunajxoj/teksajxoj/helpiloj.js";
 
 // ⟪ សម្លៀកបំពាក់ 📃 ⟫
 export interface Vesto {
-  nomo: string;
+  ksaka: string;
   ĉefa: number;
   akcenta: number;
   interno: number;
@@ -14,49 +14,49 @@ export interface Vesto {
 }
 
 export const VESTOJ: Vesto[] = [
-  { nomo: "vestoKoloroVerdant", ĉefa: 0x184838, akcenta: 0xd8b068, interno: 0x103828, pantalono: 0x285880, botoj: 0x583818 },
-  { nomo: "vestoKoloroHearth", ĉefa: 0x584830, akcenta: 0xd8c8a0, interno: 0x302818, pantalono: 0x3878a0, botoj: 0x583808 },
-  { nomo: "vestoKoloroMist",   ĉefa: 0xd8e0e0, akcenta: 0x889898, interno: 0xa8b8b8, pantalono: 0x5898b8, botoj: 0x503808 },
-  { nomo: "vestoKoloroEmber", ĉefa: 0x783828, akcenta: 0xe0a858, interno: 0x402018, pantalono: 0x2858a0, botoj: 0x583838 },
-  { nomo: "vestoKoloroAzure", ĉefa: 0x2858a0, akcenta: 0xe0b060, interno: 0x183060, pantalono: 0x184878, botoj: 0x503818 },
-  { nomo: "vestoKoloroViolet", ĉefa: 0x683878, akcenta: 0xe0b8d8, interno: 0x402048, pantalono: 0x384880, botoj: 0x583828 },
-  { nomo: "vestoKoloroGilt", ĉefa: 0xc8a838, akcenta: 0xf0e8c0, interno: 0x786018, pantalono: 0x285880, botoj: 0x583808 },
-  { nomo: "vestoKoloroRose", ĉefa: 0xc86888, akcenta: 0xf0d0d8, interno: 0x703048, pantalono: 0x2858a0, botoj: 0x583818 },
-  { nomo: "vestoKoloroObsidian", ĉefa: 0x181818, akcenta: 0xd8d8d8, interno: 0x080808, pantalono: 0x182838, botoj: 0x282828 },
-  { nomo: "vestoKoloroCyan", ĉefa: 0x38a8a8, akcenta: 0xc8f0f0, interno: 0x185858, pantalono: 0x2858a0, botoj: 0x583818 },
+  { ksaka: "vestoKoloroVerdant", ĉefa: 0x184838, akcenta: 0xd8b068, interno: 0x103828, pantalono: 0x285880, botoj: 0x583818 },
+  { ksaka: "vestoKoloroHearth", ĉefa: 0x584830, akcenta: 0xd8c8a0, interno: 0x302818, pantalono: 0x3878a0, botoj: 0x583808 },
+  { ksaka: "vestoKoloroMist",   ĉefa: 0xd8e0e0, akcenta: 0x889898, interno: 0xa8b8b8, pantalono: 0x5898b8, botoj: 0x503808 },
+  { ksaka: "vestoKoloroEmber", ĉefa: 0x783828, akcenta: 0xe0a858, interno: 0x402018, pantalono: 0x2858a0, botoj: 0x583838 },
+  { ksaka: "vestoKoloroAzure", ĉefa: 0x2858a0, akcenta: 0xe0b060, interno: 0x183060, pantalono: 0x184878, botoj: 0x503818 },
+  { ksaka: "vestoKoloroViolet", ĉefa: 0x683878, akcenta: 0xe0b8d8, interno: 0x402048, pantalono: 0x384880, botoj: 0x583828 },
+  { ksaka: "vestoKoloroGilt", ĉefa: 0xc8a838, akcenta: 0xf0e8c0, interno: 0x786018, pantalono: 0x285880, botoj: 0x583808 },
+  { ksaka: "vestoKoloroRose", ĉefa: 0xc86888, akcenta: 0xf0d0d8, interno: 0x703048, pantalono: 0x2858a0, botoj: 0x583818 },
+  { ksaka: "vestoKoloroObsidian", ĉefa: 0x181818, akcenta: 0xd8d8d8, interno: 0x080808, pantalono: 0x182838, botoj: 0x282828 },
+  { ksaka: "vestoKoloroCyan", ĉefa: 0x38a8a8, akcenta: 0xc8f0f0, interno: 0x185858, pantalono: 0x2858a0, botoj: 0x583818 },
 ];
 
 // ⟪ បែបសក់ 📃 ⟫
 export interface Harstilo {
-  nomo: string;
-  koloro: number;
+  ksaka: string;
+  weh2: number;
 }
 
 export const HARSTILOJ: Harstilo[] = [
-  { nomo: "haroMalalta",  koloro: 0x281810 },
-  { nomo: "haroLonga",    koloro: 0x181008 },
+  { ksaka: "haroMalalta",  weh2: 0x281810 },
+  { ksaka: "haroLonga",    weh2: 0x181008 },
 ];
 
 // ⟪ ពណ៌សក់ 📃 ⟫
 export interface HarKoloro {
-  nomo: string;
-  koloro: number;
+  ksaka: string;
+  weh2: number;
 }
 
 export const HARKOLOROJ: HarKoloro[] = [
-  { nomo: "harKoloroBruna",   koloro: 0x382018 },
-  { nomo: "harKoloroNigra",   koloro: 0x101008 },
-  { nomo: "harKoloroRuĝeta",  koloro: 0x783018 },
-  { nomo: "harKoloroKaŝtana", koloro: 0x583820 },
-  { nomo: "harKoloroBlonda",  koloro: 0xb08850 },
-  { nomo: "harKoloroGriza",   koloro: 0x889098 },
+  { ksaka: "harKoloroBruna",   weh2: 0x382018 },
+  { ksaka: "harKoloroNigra",   weh2: 0x101008 },
+  { ksaka: "harKoloroRuĝeta",  weh2: 0x783018 },
+  { ksaka: "harKoloroKaŝtana", weh2: 0x583820 },
+  { ksaka: "harKoloroBlonda",  weh2: 0xb08850 },
+  { ksaka: "harKoloroGriza",   weh2: 0x889098 },
 ];
 
 // ⟨ លំនាំ 📃 ⟩
 export function kvarStelo(kunteksto: CanvasRenderingContext2D,
-  cX: number, cy: number, r: number, koloro: string
+  cX: number, cy: number, r: number, weh2: string
 ): void {
-  kunteksto.fillStyle = koloro;
+  kunteksto.fillStyle = weh2;
   kunteksto.fill(molaStelaVojo(cX, cy, r, r));
 }
 
@@ -175,11 +175,11 @@ export function kreiVestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   return kanvasa;
 }
 
-export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLCanvasElement {
+export function kreiHaranAntauxrigardon(stilo: Harstilo, weh2?: number): HTMLCanvasElement {
   const kanvasa = document.createElement("canvas");
   kanvasa.width = 0o210; kanvasa.height = 0o300;
   const kunteksto = kanvasa.getContext("2d")!;
-  const H = deksesuma(koloro ?? stilo.koloro);
+  const H = deksesuma(weh2 ?? stilo.weh2);
   const CX = 0o104, KAPY = 0o66, KAPR = 0o20;
 
   kunteksto.fillStyle = "rgba(0,16,8,0.9)";
@@ -201,7 +201,7 @@ export function kreiHaranAntauxrigardon(stilo: Harstilo, koloro?: number): HTMLC
   kunteksto.fill();
 
   kunteksto.fillStyle = H;
-  if ( stilo.nomo === "haroLonga" ) {
+  if ( stilo.ksaka === "haroLonga" ) {
     kunteksto.beginPath();
     kunteksto.moveTo(CX - KAPR, KAPY - 0o2);
     kunteksto.lineTo(CX - KAPR - 0o6, 0o136);

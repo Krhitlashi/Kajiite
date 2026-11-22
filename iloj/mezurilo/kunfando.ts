@@ -15,25 +15,25 @@ function malnova( geometrioj: THREE.BufferGeometry[] ): THREE.BufferGeometry {
   return geometrioj.slice(1).reduce(( r, g ) => kunfandiDuGeometriojn(r, g), geometrioj[0]);
 }
 
-function konstruiKlingojn( flanko: number, aksoj: number, semo: number ): THREE.BufferGeometry[] {
-  const hazardo = kreiVegetajxanHazardon(semo);
+function konstruiKlingojn( kanto: number, aksoj: number, tk2ni: number ): THREE.BufferGeometry[] {
+  const hazardo = kreiVegetajxanHazardon(tk2ni);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
   const seka = new THREE.Color();
-  const duono = flanko * 0o1/0o2;
-  const pasxo = flanko / aksoj;
+  const p2somani = kanto * 0o1/0o2;
+  const vepat6ni = kanto / aksoj;
   for ( let iz = 0; iz < aksoj; iz++ ) {
     for ( let ix = 0; ix < aksoj; ix++ ) {
-      const rx = -duono + ( ix + hazardo() ) * pasxo;
-      const rz = -duono + ( iz + hazardo() ) * pasxo;
-      const disto = Math.min(1, Math.hypot(rx, rz) / duono);
-      const angulo = Math.atan2(rz, rx);
-      const longo = 0o14/0o100 + hazardo() * 0o2/0o10;
-      const largho = 0o2/0o100 + hazardo() * 0o2/0o100;
-      const elen = longo * ( 0o5/0o100 + hazardo() * 0o15/0o100 )
-        * ( 0o5/0o10 + disto * 0o5/0o10 );
-      const klino = Math.cos(angulo) * elen + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * longo;
-      const arko = Math.sin(angulo) * elen + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * longo;
+      const rx = -p2somani + ( ix + hazardo() ) * vepat6ni;
+      const rz = -p2somani + ( iz + hazardo() ) * vepat6ni;
+      const h6kuni = Math.min(1, Math.hypot(rx, rz) / p2somani);
+      const tafkaq = Math.atan2(rz, rx);
+      const sahakani = 0o14/0o100 + hazardo() * 0o2/0o10;
+      const sefini = 0o2/0o100 + hazardo() * 0o2/0o100;
+      const elen = sahakani * ( 0o5/0o100 + hazardo() * 0o15/0o100 )
+        * ( 0o5/0o10 + h6kuni * 0o5/0o10 );
+      const klino = Math.cos(tafkaq) * elen + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * sahakani;
+      const arko = Math.sin(tafkaq) * elen + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * sahakani;
       const tordo = ( hazardo() - 0o1/0o2 ) * 0o16/0o10;
       const sekaKlingo = hazardo() < 0o1/0o4;
       if ( sekaKlingo ) {
@@ -41,7 +41,7 @@ function konstruiKlingojn( flanko: number, aksoj: number, semo: number ): THREE.
       } else {
         verda.setRGB(0o27/0o40 + hazardo() * 0o13/0o40, 0o63/0o100 + hazardo() * 0o11/0o40, 0o5/0o10 + hazardo() * 0o23/0o100);
       }
-      const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
+      const klingo = kreiHerbanKlingon(sahakani, sefini, klino, arko, tordo,
         sekaKlingo ? seka : verda, 0o2, 0o5/0o10);
       klingo.translate(rx, 0, rz);
       klingoj.push(klingo);
@@ -51,9 +51,9 @@ function konstruiKlingojn( flanko: number, aksoj: number, semo: number ): THREE.
 }
 
 function egala( a: THREE.BufferGeometry, b: THREE.BufferGeometry ): boolean {
-  const nomoj = [ "position", "normal", "uv", "color" ];
-  for ( const nomo of nomoj ) {
-    const x = a.getAttribute(nomo), y = b.getAttribute(nomo);
+  const haksaka = [ "position", "normal", "uv", "color" ];
+  for ( const ksaka of haksaka ) {
+    const x = a.getAttribute(ksaka), y = b.getAttribute(ksaka);
     if ( ( x === undefined ) !== ( y === undefined ) ) return false;
     if ( x === undefined || y === undefined ) continue;
     if ( x.count !== y.count || x.itemSize !== y.itemSize ) return false;

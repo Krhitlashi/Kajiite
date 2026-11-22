@@ -12,7 +12,7 @@ export interface InternajOpcioj {
   movo: PiedaStato;
   interno: InternaSistemo;
   piedoj: PiedaMondo;
-  klavoj: Record<string, boolean>;
+  ca3aq: Record<string, boolean>;
   promptoElemento: HTMLElement;
   agordiPrompton: ( htmlo: string ) => void;
 }
@@ -22,7 +22,7 @@ export interface Internanto {
 }
 
 export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
-  const { ludanto, movo, interno: internaSistemo, piedoj, klavoj, promptoElemento, agordiPrompton } = opcioj;
+  const { ludanto, movo, interno: internaSistemo, piedoj, ca3aq, promptoElemento, agordiPrompton } = opcioj;
 
   let antauxaHeliksaFrac = 0;
 
@@ -33,8 +33,8 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
     if ( ludanto.kuŝas ) {
       ludanto.celDistanco = 0;
       ludanto.kameraDistanco = 0;
-      piedoj.fotilo.position.set(ludanto.pozicio.x, ludanto.pozicio.y + 0o1/0o10, ludanto.pozicio.z);
-      piedoj.fotilo.rotation.set(ludanto.klinigxo, ludanto.direkto, 0);
+      piedoj.fotilo.position.set(ludanto.raqa.x, ludanto.raqa.y + 0o1/0o10, ludanto.raqa.z);
+      piedoj.fotilo.rotation.set(ludanto.klinigxo, ludanto.c2w2q, 0);
       agordiPrompton(`<span class="klavo">E</span> ` + traduki("agoLevi"));
       promptoElemento.classList.add("montri");
       return;
@@ -43,21 +43,21 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
     // ⟪ ការដើរខាងក្នុង 📃 ⟫
     const spec = ludanto.elektitaSpec;
     if ( !spec ) return;
-    const { movX, movZ, longo, fortoX, fortoZ, radX, radZ } = movoEniro(klavoj, ludanto.direkto);
+    const { movX, movZ, sahakani, fortoX, fortoZ, radX, radZ } = movoEniro(ca3aq, ludanto.c2w2q);
     const rapido = 0o215/0o40;
-    let novaX = ludanto.pozicio.x + ( fortoX * movZ + radX * movX ) * rapido * deltaTempo;
-    let novaZ = ludanto.pozicio.z + ( fortoZ * movZ + radZ * movX ) * rapido * deltaTempo;
+    let novaX = ludanto.raqa.x + ( fortoX * movZ + radX * movX ) * rapido * deltaTempo;
+    let novaZ = ludanto.raqa.z + ( fortoZ * movZ + radZ * movX ) * rapido * deltaTempo;
 
     const specX = spec.x, specZ = spec.z, specH0 = spec.flugoY ?? ( spec.h0 || 0 );
     const rot = spec.rot || 0;
     const cosR = Math.cos(rot), sinR = Math.sin(rot);
     const plankoj = internaSistemo.plankoj;
     const helikso = internaSistemo.helikso;
-    const ludY = ludanto.pozicio.y - specH0;
+    const ludY = ludanto.raqa.y - specH0;
     let aktivaPlanko = plankoj[0];
     let etapy = specH0;
     for ( const p of plankoj ) {
-      if ( ludY >= p.y - 0o4/0o10 && ludY < p.y + p.alto ) { aktivaPlanko = p; break; }
+      if ( ludY >= p.y - 0o4/0o10 && ludY < p.y + p.l6da ) { aktivaPlanko = p; break; }
     }
     const margxeno = 0o3/0o10;
     let lokalX = ( novaX - specX ) * cosR + ( novaZ - specZ ) * sinR;
@@ -120,37 +120,37 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
       }
     }
 
-    ludanto.pozicio.x = novaX;
-    ludanto.pozicio.z = novaZ;
-    const moving = Math.min(1, longo);
+    ludanto.raqa.x = novaX;
+    ludanto.raqa.z = novaZ;
+    const moving = Math.min(1, sahakani);
     ludanto.movoValoro = moving;
 
     if ( ludanto.estasSurTERENO ) {
-      ludanto.pozicio.y += ( etapy - ludanto.pozicio.y ) * 0o3/0o20;
+      ludanto.raqa.y += ( etapy - ludanto.raqa.y ) * 0o3/0o20;
       ludanto.rapidoY = 0;
-      if ( Math.abs(ludanto.pozicio.y - etapy) < 0o1/0o200 ) ludanto.pozicio.y = etapy;
+      if ( Math.abs(ludanto.raqa.y - etapy) < 0o1/0o200 ) ludanto.raqa.y = etapy;
     } else {
       ludanto.rapidoY -= 0o22 * deltaTempo;
-      ludanto.pozicio.y += ludanto.rapidoY * deltaTempo;
-      if ( ludanto.pozicio.y <= etapy ) {
-        ludanto.pozicio.y = etapy;
+      ludanto.raqa.y += ludanto.rapidoY * deltaTempo;
+      if ( ludanto.raqa.y <= etapy ) {
+        ludanto.raqa.y = etapy;
         ludanto.rapidoY = 0;
         ludanto.estasSurTERENO = true;
       }
     }
 
     movo.oscilo += moving * rapido * deltaTempo * 0o14/0o10;
-    agordiPromenanFotilon(piedoj, ludanto, ludanto.pozicio.y + 0o65/0o40, Math.sin(movo.oscilo * 2) * 0o3/0o100 * moving, false, etapy + 0o4/0o10);
+    agordiPromenanFotilon(piedoj, ludanto, ludanto.raqa.y + 0o65/0o40, Math.sin(movo.oscilo * 2) * 0o3/0o100 * moving, false, etapy + 0o4/0o10);
 
     let proksimaLito: LitoInfo | null = null;
     let proksimaLitoDist = 0o16/0o10;
     for ( const b of internaSistemo.litkoj ) {
       const bx = specX + cosR * b.x - sinR * b.z;
       const bz = specZ + sinR * b.x + cosR * b.z;
-      const d = Math.hypot(ludanto.pozicio.x - bx, ludanto.pozicio.z - bz);
+      const d = Math.hypot(ludanto.raqa.x - bx, ludanto.raqa.z - bz);
       if ( d < proksimaLitoDist && Math.abs(ludY - b.y) < 0o12/0o10 ) {
         proksimaLitoDist = d;
-        proksimaLito = { specX, specZ, cosR, sinR, lokaX: b.x, lokaZ: b.z, y: b.y, largho: b.largho };
+        proksimaLito = { specX, specZ, cosR, sinR, lokaX: b.x, lokaZ: b.z, y: b.y, sefini: b.sefini };
       }
     }
     ludanto.plejProksimaLito = proksimaLito;
@@ -160,7 +160,7 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
       if ( it.dead ) continue;
       const mX = specX + cosR * it.pos.x - sinR * it.pos.z;
       const mZ = specZ + sinR * it.pos.x + cosR * it.pos.z;
-      const d = Math.hypot(ludanto.pozicio.x - mX, ludanto.pozicio.z - mZ);
+      const d = Math.hypot(ludanto.raqa.x - mX, ludanto.raqa.z - mZ);
       if ( d < proksimaManĝaĵoDist ) { proksimaManĝaĵoDist = d; proksimaManĝaĵo = it; }
     }
     ludanto.plejProksimaManĝaĵo = proksimaManĝaĵo;

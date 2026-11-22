@@ -3,11 +3,11 @@ import { desegniFluanTeksajxon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.
 
 export const GRUNDA_S = 0o1000;
 
-export function kreiGrundanKanvason(koloro: boolean): HTMLCanvasElement {
+export function kreiGrundanKanvason(weh2: boolean): HTMLCanvasElement {
   const kanvaso = document.createElement("canvas");
   kanvaso.width = kanvaso.height = GRUNDA_S;
   desegniFluanTeksajxon(kanvaso.getContext("2d")!,
-    [ 0xf8f8f0, 0xe8f0d8, 0xe8e8d0 ], 0o2710, 0o6, !koloro);
+    [ 0xf8f8f0, 0xe8f0d8, 0xe8e8d0 ], 0o2710, 0o6, !weh2);
   return kanvaso;
 }
 

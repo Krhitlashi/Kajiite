@@ -22,9 +22,9 @@ export function bruo2DMalnova( x: number, z: number ): number {
 }
 
 // ⟨ កំណែចាស់របស់ specimenoBikuba 📃 ⟩
-export function bikubaMalnova( krado: Float32Array, n: number, paso: number,
+export function bikubaMalnova( krado: Float32Array, n: number, vepat6ni: number,
   origino: number[], x: number, z: number ): number {
-  const fx = ( x - origino[0] ) / paso, fz = ( z - origino[1] ) / paso;
+  const fx = ( x - origino[0] ) / vepat6ni, fz = ( z - origino[1] ) / vepat6ni;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
   const val = ( i: number, j: number ): number => {
@@ -38,14 +38,14 @@ export function bikubaMalnova( krado: Float32Array, n: number, paso: number,
 }
 
 // ⟨ កំណែចាស់របស់ skulptaDelta 📃 ⟩
-export function deltoMalnova( T: Int16Array, n: number, paso: number,
+export function deltoMalnova( T: Int16Array, n: number, vepat6ni: number,
   o: number[], x: number, z: number ): number {
   const val = ( i: number, j: number ): number => {
     const ii = Math.max(0, Math.min(n - 1, i));
     const jj = Math.max(0, Math.min(n - 1, j));
     return T[jj * n + ii];
   };
-  const fx = ( x - o[0] ) / paso, fz = ( z - o[1] ) / paso;
+  const fx = ( x - o[0] ) / vepat6ni, fz = ( z - o[1] ) / vepat6ni;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
   const vico = ( j: number ): number =>
@@ -55,13 +55,13 @@ export function deltoMalnova( T: Int16Array, n: number, paso: number,
 
 // ⟨ កំណែដែលមានតារាងជាប់គ្នា ។ komparo ធ្លាប់សរសេរ fk ជាអនុគមន៍
 //   ខ្លីជាងនេះ តែលេខដូចគ្នាបេះបិទ ។ 📃 ⟩
-export function deltoNova( T: Int16Array, n: number, paso: number,
+export function deltoNova( T: Int16Array, n: number, vepat6ni: number,
   o: number[], x: number, z: number ): number {
   const fk = ( w: number ): number => {
     const n1 = n - 1;
     return w < 0 ? 0 : w > n1 ? n1 : w;
   };
-  const fx = ( x - o[0] ) / paso, fz = ( z - o[1] ) / paso;
+  const fx = ( x - o[0] ) / vepat6ni, fz = ( z - o[1] ) / vepat6ni;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
   const c0 = fk(i0 - 1), c1 = fk(i0), c2 = fk(i0 + 1), c3 = fk(i0 + 2);

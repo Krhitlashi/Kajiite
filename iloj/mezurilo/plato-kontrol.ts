@@ -17,27 +17,27 @@ const mapoj = mondo.mapoj;
 let rompoj = 0, provitaj = 0;
 let plejGranda = 0, plejLoko = "";
 for ( const k of mondo.kunigoj ) {
-  const klavo = k.x + "," + k.z;
-  const brakoj = kreiBrakojn(mapoj.direktoj.get(klavo) ?? [], mapoj.fermitaj.get(klavo),
-    mapoj.rotacioj.get(klavo) ?? 0, mapoj.duonoj.get(klavo));
-  const plato = kunigaPlataAlto(k.x, k.z, brakoj, mondo.vojoAlteco);
+  const ca3aq = k.x + "," + k.z;
+  const knece = kreiBrakojn(mapoj.hac2w2q.get(ca3aq) ?? [], mapoj.fermitaj.get(ca3aq),
+    mapoj.rotacioj.get(ca3aq) ?? 0, mapoj.hap2somani.get(ca3aq));
+  const plato = kunigaPlataAlto(k.x, k.z, knece, mondo.vojoAlteco);
   const linioj: string[] = [];
   for ( let i = 0; i < mondo.vojoj.length; i++ ) {
     // ⟨ ចំណុចផ្លូវជិតបំផុតនឹងចាន 📃 ⟩ ៖ កម្រិតផ្លូវត្រូវអាននៅទីនោះ ។
-    const profilo = mondo.profiloDe(i);
+    const s2qena = mondo.profiloDe(i);
     let plej = Infinity, plejS = 0;
-    for ( let s = 0; s <= profilo.longo; s += 0o1/0o10 ) {
+    for ( let s = 0; s <= s2qena.sahakani; s += 0o1/0o10 ) {
       const p = punktoCxe(mondo.gluitaj[ i ], s);
       const d = Math.hypot(p.x - k.x, p.z - k.z);
       if ( d < plej ) { plej = d; plejS = s; }
     }
     if ( plej > VOJA_TRUA_DUONO + 0o1/0o4 ) continue;
     provitaj++;
-    const alto = profilo.altoCxe(plejS);
-    const dif = alto - plato;
+    const l6da = s2qena.altoCxe(plejS);
+    const dif = l6da - plato;
     if ( Math.abs(dif) > plejGranda ) { plejGranda = Math.abs(dif); plejLoko = `${k.x},${k.z}`; }
     if ( Math.abs(dif) > 0o1/0o1000 ) rompoj++;
-    linioj.push(`ផ្លូវ${i} ចម្ងាយ${plej.toFixed(2)} កម្រិត${alto.toFixed(2)}` +
+    linioj.push(`ផ្លូវ${i} ចម្ងាយ${plej.toFixed(2)} កម្រិត${l6da.toFixed(2)}` +
       ( Math.abs(dif) > 0o1/0o1000 ? ` ខុស${dif.toFixed(2)}` : "" ));
   }
   console.log(`ចាន ${k.x.toFixed(1)},${k.z.toFixed(1)} កម្រិត ${plato.toFixed(2)}` +

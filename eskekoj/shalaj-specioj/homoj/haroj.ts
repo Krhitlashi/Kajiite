@@ -35,7 +35,7 @@ function kreiHaranKurtenon(): THREE.BufferGeometry {
 
   const pozicioj: number[] = [];
   const normaloj: number[] = [];
-  const indeksoj: number[] = [];
+  const havecax2lani: number[] = [];
   // ⟨ UV សរសៃសក់ 📃 ⟩
   const uvoj: number[] = [];
   for ( let v = 0; v <= vicoj; v++ ) {
@@ -49,12 +49,12 @@ function kreiHaranKurtenon(): THREE.BufferGeometry {
     for ( let k = 0; k <= kolonoj; k++ ) {
       const fi = -fiMax + k / kolonoj * 0o2 * fiMax;
       // ⟨ គែមក្រោម 📃 ⟩
-      const rando = Math.abs(k / kolonoj - 0o1/0o2) * 0o2;
+      const pukaz = Math.abs(k / kolonoj - 0o1/0o2) * 0o2;
       // ⟨ ជ្រុងមូល 📃 ⟩
-      const supren = 0o1 - Math.sqrt(Math.max(0, 0o1 - rando * rando));
-      const tucko = rando * rando;
-      const pinto = 0o1 - Math.pow( 0o1 - rando, 0o3/0o2 );
-      const finoY = ( 0o1/0o10 * supren - 0o1/0o40 * ( 0o1 - pinto ) ) * t;
+      const sozasai = 0o1 - Math.sqrt(Math.max(0, 0o1 - pukaz * pukaz));
+      const tucko = pukaz * pukaz;
+      const pinto = 0o1 - Math.pow( 0o1 - pukaz, 0o3/0o2 );
+      const finoY = ( 0o1/0o10 * sozasai - 0o1/0o40 * ( 0o1 - pinto ) ) * t;
       // ⟨ សក់មានដុំៗ 📃 ⟩
       // ⟨ ដុំទន់ 📃 ⟩
       const fasko = 0o1 + 0o1/0o25 * t * Math.cos(fi * 0o5);
@@ -73,10 +73,10 @@ function kreiHaranKurtenon(): THREE.BufferGeometry {
     for ( let k = 0; k < kolonoj; k++ ) {
       const a = v * ( kolonoj + 0o1 ) + k, b = a + 0o1;
       const c = a + kolonoj + 0o1, d = c + 0o1;
-      indeksoj.push(a, b, d, a, d, c);
+      havecax2lani.push(a, b, d, a, d, c);
     }
   }
-  return kreiBuferanGeometrion(pozicioj, indeksoj, { normaloj, uvoj });
+  return kreiBuferanGeometrion(pozicioj, havecax2lani, { normaloj, uvoj });
 }
 
 // ⟨ ឆ្នូតសក់ចំហៀងត្រូវដកចេញ 📃 ⟩
@@ -93,10 +93,10 @@ const SHEEN_HELA = new THREE.Color(0xb0bccc);
 const SHEEN_MALHELA = new THREE.Color(0x284878);
 // ⟨ ពណ៌លាំខៀវ 📃 ⟩
 const HARO_BLUO = new THREE.Color(0x18304c);
-export function haraMaterialo(koloro: number): THREE.MeshPhysicalMaterial {
-  let m = HARAJ_MATERIALOJ.get(koloro);
+export function haraMaterialo(weh2: number): THREE.MeshPhysicalMaterial {
+  let m = HARAJ_MATERIALOJ.get(weh2);
   if ( !m ) {
-    const koloroO = new THREE.Color(koloro);
+    const koloroO = new THREE.Color(weh2);
     const lumo = koloroO.r * 0o52/0o100 + koloroO.g * 0o143/0o200 + koloroO.b * 0o7/0o100;
     // ⟨ កម្រិតសំខាន់ 📃 ⟩
     const malheleco = Math.min(0o1, Math.max(0, 0o1 - lumo / 0o6/0o100));
@@ -109,7 +109,7 @@ export function haraMaterialo(koloro: number): THREE.MeshPhysicalMaterial {
       sheenRoughness: 0o13/0o20 - 0o1/0o10 * malheleco,
       side: THREE.DoubleSide,
     });
-    HARAJ_MATERIALOJ.set(koloro, m);
+    HARAJ_MATERIALOJ.set(weh2, m);
   }
   return m;
 }
@@ -129,7 +129,7 @@ function kreiHaranĈapon(): THREE.BufferGeometry {
   const TEMPIO = 0o20/0o100;
   const ONDO = 0o7/0o100;
   const KLUĈO = 0o1/0o20;
-  const pozicioj: number[] = [], uvoj: number[] = [], indeksoj: number[] = [];
+  const pozicioj: number[] = [], uvoj: number[] = [], havecax2lani: number[] = [];
   for ( let v = 0; v <= VICOJ; v++ ) {
     const t = v / VICOJ;
     for ( let k = 0; k <= KOLONOJ; k++ ) {
@@ -158,23 +158,23 @@ function kreiHaranĈapon(): THREE.BufferGeometry {
     for ( let k = 0; k < KOLONOJ; k++ ) {
       const a = v * ( KOLONOJ + 0o1 ) + k, b = a + 0o1;
       const c = a + KOLONOJ + 0o1, d = c + 0o1;
-      indeksoj.push(a, d, b, a, c, d);
+      havecax2lani.push(a, d, b, a, c, d);
     }
   }
-  return kreiBuferanGeometrion(pozicioj, indeksoj, { uvoj });
+  return kreiBuferanGeometrion(pozicioj, havecax2lani, { uvoj });
 }
 
 const harajGeometrioj = new Map<string, THREE.BufferGeometry>();
 export function haranGeometrion(stilo: Harstilo): THREE.BufferGeometry {
-  const cacheita = harajGeometrioj.get(stilo.nomo);
+  const cacheita = harajGeometrioj.get(stilo.ksaka);
   if ( cacheita ) return cacheita;
-  const partoj: THREE.BufferGeometry[] = [];
+  const hakek: THREE.BufferGeometry[] = [];
   // ⟨ មួកជាសំបក មិនមែនមួកការពារ 📃 ⟩
-  partoj.push(kreiHaranĈapon());
-  if ( stilo.nomo === "haroLonga" ) {
-    partoj.push(kreiHaranKurtenon());
+  hakek.push(kreiHaranĈapon());
+  if ( stilo.ksaka === "haroLonga" ) {
+    hakek.push(kreiHaranKurtenon());
   }
-  const geometrio = kunfandiGeometriojn(partoj);
-  harajGeometrioj.set(stilo.nomo, geometrio);
+  const geometrio = kunfandiGeometriojn(hakek);
+  harajGeometrioj.set(stilo.ksaka, geometrio);
   return geometrio;
 }

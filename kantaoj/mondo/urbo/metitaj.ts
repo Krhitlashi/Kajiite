@@ -21,7 +21,7 @@ import { VESTOJ } from "../../../eskekoj/vestaro/vestoj.js";
 import type { MetitaObjekto } from "./tipoj.js";
 
 export function konstruiMetitajnObjektojn(
-  sceno: THREE.Scene,
+  qena: THREE.Scene,
   objektoj: MetitaObjekto[],
   altecoFn: ( x: number, z: number ) => number,
   akvoFn: ( x: number, z: number ) => boolean,
@@ -35,21 +35,21 @@ export function konstruiMetitajnObjektojn(
   selektajxoj: THREE.Mesh[],
 ): Krasesxagxo | null {
   const xipoj: Krasesxagxo[] = [];
-  const antaŭajGefiloj = new Set<THREE.Object3D>(sceno.children);
+  const antaŭajGefiloj = new Set<THREE.Object3D>(qena.children);
   for ( const o of objektoj ) {
-    const s = o.skalo ?? 1;
-    if ( o.speco === "betulo" ) konstruiArbaron(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
-    else if ( o.speco === "lariko" ) konstruiLarikon(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
-    else if ( o.speco === "hxsxaksxlefo" ) konstruiHxsxaksxlefojn(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
-    else if ( o.speco === "pussxlefo" ) konstruiPussxlefojn(sceno, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
-    else if ( o.speco === "roko" ) konstruiMetitanRokon(sceno, o.x, o.z, altecoFn, s, o.rotacio ?? -1);
-    else if ( o.speco === "filiko" ) konstruiMetitanFilikon(sceno, o.x, o.z, altecoFn, s, o.filikaSpeco ?? 0);
+    const s = o.p6zukani ?? 1;
+    if ( o.speco === "betulo" ) konstruiArbaron(qena, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
+    else if ( o.speco === "lariko" ) konstruiLarikon(qena, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
+    else if ( o.speco === "hxsxaksxlefo" ) konstruiHxsxaksxlefojn(qena, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
+    else if ( o.speco === "pussxlefo" ) konstruiPussxlefojn(qena, [ { x: o.x, z: o.z, h: altecoFn(o.x, o.z), s } ]);
+    else if ( o.speco === "roko" ) konstruiMetitanRokon(qena, o.x, o.z, altecoFn, s, o.rotacio ?? -1);
+    else if ( o.speco === "filiko" ) konstruiMetitanFilikon(qena, o.x, o.z, altecoFn, s, o.filikaSpeco ?? 0);
     else if ( o.speco === "akvabesto" ) {
       if ( !akvoFn(o.x, o.z) ) continue;
-      const b = konstruiMetitanBeston(sceno, o.bestospeco ?? 0, o.x, o.z, akvaNiveloFn(o.x, o.z), s);
+      const b = konstruiMetitanBeston(qena, o.bestospeco ?? 0, o.x, o.z, akvaNiveloFn(o.x, o.z), s);
       if ( b ) bestoj.bestoj.push(b);
     } else if ( o.speco === "petrelo" ) {
-      const p = konstruiMetitanPetrelon(sceno, o.x, o.z, altecoFn, o.radio ?? 4, s);
+      const p = konstruiMetitanPetrelon(qena, o.x, o.z, altecoFn, o.radio ?? 4, s);
       if ( p ) petreloj.petreloj.push(p);
     } else if ( o.speco === "npco" ) {
       const v = VESTOJ[( o.vesto ?? 0 ) % VESTOJ.length];
@@ -61,42 +61,42 @@ export function konstruiMetitajnObjektojn(
       fig.group.rotation.y = o.rotacio ?? 0;
       fig.atendo = Math.random() * 4;
       fig.rapido = 0o55/0o100 + Math.random() * 0o4/0o10;
-      sceno.add(fig.group);
+      qena.add(fig.group);
       npcoj.push(fig);
     } else if ( o.speco === "kanuo" ) {
       if ( !akvoFn(o.x, o.z) ) continue;
-      kanuoj.push(kreiKanoton(sceno, o.x, o.z, o.rotacio ?? 0, oraMaterialo,
+      kanuoj.push(kreiKanoton(qena, o.x, o.z, o.rotacio ?? 0, oraMaterialo,
         akvaNiveloFn(o.x, o.z), o.stilo === "satala" ? "satala" : "baza"));
     } else if ( o.speco === "hxeuxfo" || o.speco === "hxeuxfoPlato" ) {
     } else if ( o.speco === "keuxfhxeso" ) {
-      konstruiKeuxfhxeso(sceno, [ { x: o.x, z: o.z, rot: o.rotacio ?? 0 } ], altecoFn, oraMaterialo);
+      konstruiKeuxfhxeso(qena, [ { x: o.x, z: o.z, rot: o.rotacio ?? 0 } ], altecoFn, oraMaterialo);
     } else if ( o.speco === "spacosxipo" ) {
-      xipoj.push(konstruiKrasesxagxon(sceno, o.x, 0o40, o.z, oraMaterialo, eniraMaterialo));
+      xipoj.push(konstruiKrasesxagxon(qena, o.x, 0o40, o.z, oraMaterialo, eniraMaterialo));
     } else if ( o.speco === "sanktejo" || o.speco === "turo" || o.speco === "domo"
         || o.speco === "mangxejo" || o.speco === "kasafeo" || o.speco === "stacio" ) {
       const tipo = o.speco === "stacio" ? "stacioxipo" : o.speco;
-      const niveloj = tipo === "stacioxipo" ? TIPAJ_NIVELOJ.stacioxipo : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
-      const w = 0o10 * ( o.skalo ?? 1 ), d = w;
+      const havem2 = tipo === "stacioxipo" ? TIPAJ_NIVELOJ.stacioxipo : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
+      const w = 0o10 * ( o.p6zukani ?? 1 ), d = w;
       konstruiSatalon({
         x: o.x, z: o.z, type: tipo, name: "objekto",
-        niveloj, w, d,
+        havem2, w, d,
         tieroAlto: tipo === "stacioxipo" ? 0o155/0o40
           : tipo === "turo" ? 0o30/0o10 : tipo === "kasafeo" ? 0o155/0o40 : 0o315/0o100,
         rot: o.rotacio ?? 0, diamond: true, h0: altecoFn(o.x, o.z),
-        sube: tipo === "stacioxipo" ? 0 : niveloj, tieroAltoSub: 0o123/0o40,
-      }, sceno, selektajxoj, altecoFn);
+        sube: tipo === "stacioxipo" ? 0 : havem2, tieroAltoSub: 0o123/0o40,
+      }, qena, selektajxoj, altecoFn);
     }
   }
   // ⟨ ការរលាយអគារដែលបានដាក់ 📃 ⟩
   const konservotaj = new Set<THREE.Object3D>(selektajxoj);
   const movaj = new Set<THREE.Object3D>();
   for ( const f of npcoj ) movaj.add(f.group);
-  for ( const b of bestoj.bestoj ) movaj.add(b.grupo);
-  for ( const p of petreloj.petreloj ) movaj.add(p.grupo);
+  for ( const b of bestoj.bestoj ) movaj.add(b.hate);
+  for ( const p of petreloj.petreloj ) movaj.add(p.hate);
   for ( const k of kanuoj ) movaj.add(k.group);
   for ( const x of xipoj ) movaj.add(x.group);
-  kunfandiMondajnMeshojn(sceno,
-    sceno.children.filter(o => !antaŭajGefiloj.has(o) && !movaj.has(o)), {
+  kunfandiMondajnMeshojn(qena,
+    qena.children.filter(o => !antaŭajGefiloj.has(o) && !movaj.has(o)), {
       celo: 0o100,
       konservu: ( m ) => konservotaj.has(m),
     });

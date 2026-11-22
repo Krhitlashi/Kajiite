@@ -48,11 +48,11 @@ export function fazoDeCelo(cx: number, cz: number): number {
   return cx > 0 ? 3 : 1;
 }
 
-export function tipoDeBloko(bazo: CellType, cx: number, cz: number, ox: number, oz: number): CellType {
-  if ( bazo === "sanktejo" ) return bazo;
-  if ( bazo === "stacio" ) return "stacio";
-  if ( bazo === "domo" ) return "domo";
-  const bazoTipoj: CellType[] = bazo === "turo"
+export function tipoDeBloko(kozuni: CellType, cx: number, cz: number, ox: number, oz: number): CellType {
+  if ( kozuni === "sanktejo" ) return kozuni;
+  if ( kozuni === "stacio" ) return "stacio";
+  if ( kozuni === "domo" ) return "domo";
+  const bazoTipoj: CellType[] = kozuni === "turo"
     ? [ "domo", "turo", "kasafeo", "turo" ]
     : [ "kasafeo", "mangxejo", "kasafeo", "mangxejo" ];
   const fazo = fazoDeCelo(cx, cz);

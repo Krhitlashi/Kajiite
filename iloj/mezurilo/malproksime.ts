@@ -21,7 +21,7 @@ const SEG_TUTA = 0o300;
 const SX_TUTA = SEG_TUTA + 1;
 const PASXO_TUTA = TUTA / SEG_TUTA;
 const mapo = aktivaMapo();
-const koloro = new THREE.Color();
+const weh2 = new THREE.Color();
 
 const posX = new Float32Array(N);
 const posZ = new Float32Array(N);
@@ -56,11 +56,11 @@ function fazoKoloroj( kutime: number ): number {
   for ( let i = 0; i < N; i++ ) {
     if ( interna[i] !== kutime ) continue;
     const cxelo = i % SX;
-    const deklivo = ( cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX )
+    const haga = ( cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX )
       ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + SX] - hoj[i - SX]) / ( 2 * PASXO )
       : 0;
-    terenaKoloroEn(koloro, hoj[i], posX[i], posZ[i], deklivo, akvaNiveloProksima);
-    s += koloro.r;
+    terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaNiveloProksima);
+    s += weh2.r;
   }
   return s;
 }
@@ -68,14 +68,14 @@ function fazoKoloroj( kutime: number ): number {
 for ( let i = 0; i < N; i++ ) hoj[i] = alteco(posX[i], posZ[i]);
 for ( let i = 0; i < N; i++ ) {
   const cxelo = i % SX;
-  const deklivo = ( cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX )
+  const haga = ( cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX )
     ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + SX] - hoj[i - SX]) / ( 2 * PASXO )
     : 0;
-  terenaKoloroEn(koloro, hoj[i], posX[i], posZ[i], deklivo, akvaNiveloProksima);
-  kol[i * 3] = koloro.r; kol[i * 3 + 1] = koloro.g; kol[i * 3 + 2] = koloro.b;
+  terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaNiveloProksima);
+  kol[i * 3] = weh2.r; kol[i * 3 + 1] = weh2.g; kol[i * 3 + 2] = weh2.b;
 }
 
-function mezuri( nomo: string, f: () => number ): void {
+function mezuri( ksaka: string, f: () => number ): void {
   for ( let i = 0; i < 0o10; i++ ) f();
   const tempaj: number[] = [];
   for ( let r = 0; r < 0o21; r++ ) {
@@ -84,7 +84,7 @@ function mezuri( nomo: string, f: () => number ): void {
     tempaj.push(performance.now() - t0);
   }
   tempaj.sort(( a, b ) => a - b);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo.padEnd(0o32)} mediano=${tempaj[0o10].toFixed(1)}ms min=${tempaj[0].toFixed(1)}ms`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o32)} mediano=${tempaj[0o10].toFixed(1)}ms min=${tempaj[0].toFixed(1)}ms`);
 }
 
 mezuri("alteco តែក្នុងពិភពលោក", () => fazoAltoj(1));
@@ -114,11 +114,11 @@ mezuri("koloroj តែក្រៅពិភពលោក", () => fazoKoloroj(0));
       const idxMalnova = ( ( z + GRANDECO / 2 ) / PASXO ) * SX + ( x + GRANDECO / 2 ) / PASXO;
       if ( hojT[idx] !== hoj[idxMalnova] ) altojMalsamaj++;
       const cxelo = i % SX_TUTA;
-      const deklivo = ( cxelo > 0 && cxelo < SX_TUTA - 1 && idx >= SX_TUTA && idx < NT - SX_TUTA )
+      const haga = ( cxelo > 0 && cxelo < SX_TUTA - 1 && idx >= SX_TUTA && idx < NT - SX_TUTA )
         ? Math.hypot(hojT[idx + 1] - hojT[idx - 1], hojT[idx + SX_TUTA] - hojT[idx - SX_TUTA]) / ( 2 * PASXO_TUTA )
         : 0;
-      terenaKoloroEn(koloro, hojT[idx], x, z, deklivo, akvaNiveloProksima);
-      if ( koloro.r !== kol[idxMalnova * 3] || koloro.g !== kol[idxMalnova * 3 + 1] || koloro.b !== kol[idxMalnova * 3 + 2] ) {
+      terenaKoloroEn(weh2, hojT[idx], x, z, haga, akvaNiveloProksima);
+      if ( weh2.r !== kol[idxMalnova * 3] || weh2.g !== kol[idxMalnova * 3 + 1] || weh2.b !== kol[idxMalnova * 3 + 2] ) {
         kolorojMalsamaj++;
       }
     }
@@ -132,7 +132,7 @@ mezuri("koloroj តែក្រៅពិភពលោក", () => fazoKoloroj(0));
 function kreuTerenon( grandeco: number, segmentoj: number ): () => number {
   const sx = segmentoj + 1;
   const n = sx * sx;
-  const paso = grandeco / segmentoj;
+  const vepat6ni = grandeco / segmentoj;
   const px = new Float32Array(n);
   const pz = new Float32Array(n);
   const hh = new Float32Array(n);
@@ -143,7 +143,7 @@ function kreuTerenon( grandeco: number, segmentoj: number ): () => number {
     for ( let j = 0; j < sx; j++ ) {
       for ( let i = 0; i < sx; i++ ) {
         const k = j * sx + i;
-        const x = -grandeco / 2 + i * paso, z = -grandeco / 2 + j * paso;
+        const x = -grandeco / 2 + i * vepat6ni, z = -grandeco / 2 + j * vepat6ni;
         px[k] = x; pz[k] = z;
         const h = alteco(x, z);
         hh[k] = h; s += h;
@@ -151,10 +151,10 @@ function kreuTerenon( grandeco: number, segmentoj: number ): () => number {
     }
     for ( let k = 0; k < n; k++ ) {
       const cxelo = k % sx;
-      const deklivo = ( cxelo > 0 && cxelo < sx - 1 && k >= sx && k < n - sx )
-        ? Math.hypot(hh[k + 1] - hh[k - 1], hh[k + sx] - hh[k - sx]) / ( 2 * paso )
+      const haga = ( cxelo > 0 && cxelo < sx - 1 && k >= sx && k < n - sx )
+        ? Math.hypot(hh[k + 1] - hh[k - 1], hh[k + sx] - hh[k - sx]) / ( 2 * vepat6ni )
         : 0;
-      terenaKoloroEn(kk, hh[k], px[k], pz[k], deklivo, akvaNiveloProksima);
+      terenaKoloroEn(kk, hh[k], px[k], pz[k], haga, akvaNiveloProksima);
       s += kk.r;
     }
     for ( let k = 0; k < n; k++ ) {

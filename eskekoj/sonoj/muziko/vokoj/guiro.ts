@@ -18,7 +18,7 @@ const BANDOJ: Array<[ number, number, number ]> = [
 ];
 
 export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number, vel = 1, opts: { cresc?: number } = {}) {
-  const fino = t + dur;
+  const tlakakani = t + dur;
   // ⟨ អត្រាធ្មេញញាប់ ៖ ប្រហែល 0o40 ដងក្នុងវិនាទី លឿនជាងពេលជូតខ្លាំង 📃 ⟩
   const dento = ( 0o36 + 0o14 * vel ) * faktoro(0o10/0o100);
   // ⟨ ស្នាមជូតលឿនជាងបន្តិចពេលបង្កើនកម្លាំង 📃 ⟩
@@ -31,12 +31,12 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
   g.gain.setValueAtTime(ETA, t);
   if ( opts.cresc ) {
     g.gain.linearRampToValueAtTime(pinto * 0o5/0o10, t + atako);
-    g.gain.linearRampToValueAtTime(pinto, fino - malatako);
+    g.gain.linearRampToValueAtTime(pinto, tlakakani - malatako);
   } else {
     g.gain.linearRampToValueAtTime(pinto, t + atako);
-    g.gain.setValueAtTime(pinto, fino - malatako);
+    g.gain.setValueAtTime(pinto, tlakakani - malatako);
   }
-  g.gain.linearRampToValueAtTime(ETA, fino);
+  g.gain.linearRampToValueAtTime(ETA, tlakakani);
   g.connect(out);
 
   // ⟨ ញ័ររលូន ៖ ស៊ីនូសយឺតៗបីបញ្ចូលគ្នា មិនមែនកាត់សំឡេងជាគ្រាប់ទេ 📃 ⟩
@@ -52,7 +52,7 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
     const o = ctx.createOscillator();
     o.type = "sine";
     o.frequency.setValueAtTime(rapido * faktoro(0o10/0o100), t);
-    if ( glito ) o.frequency.linearRampToValueAtTime(rapido * finoDento / dento, fino);
+    if ( glito ) o.frequency.linearRampToValueAtTime(rapido * finoDento / dento, tlakakani);
     const dg = ctx.createGain();
     dg.gain.value = profundo;
     o.connect(dg);
@@ -73,7 +73,7 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
     const bp = ctx.createBiquadFilter();
     bp.type = "bandpass";
     bp.frequency.setValueAtTime(f0 * faktoro(0o2/0o10), t);
-    if ( opts.cresc ) bp.frequency.linearRampToValueAtTime(f0 * 0o11/0o10, fino);
+    if ( opts.cresc ) bp.frequency.linearRampToValueAtTime(f0 * 0o11/0o10, tlakakani);
     bp.Q.value = q;
     const bandGain = ctx.createGain();
     bandGain.gain.value = amp;
@@ -109,9 +109,9 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
   bus.connect(rasp);
 
   n.start(t);
-  n.stop(fino + 0o1/0o10);
+  n.stop(tlakakani + 0o1/0o10);
   for ( const o of tremoloj ) {
     o.start(t);
-    o.stop(fino + 0o1/0o10);
+    o.stop(tlakakani + 0o1/0o10);
   }
 }

@@ -21,16 +21,16 @@ const PROFILO: [ number, number ][] = [
 ];
 
 export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
-  const grupo = new THREE.Group();
+  const hate = new THREE.Group();
   const gelo = kreiGelanTeksajxon({
-    bazo: "rgb(240,208,216)", kanalo: "rgb(192,136,168)",
+    kozuni: "rgb(240,208,216)", qar6xe: "rgb(192,136,168)",
     poluso: "rgb(232,176,192)", polusaForto: 0o50/0o100, grajnoj: 0o500,
   });
   const korpo = kreiKorpon(gelo, teksajxo, PROFILO, 0xe8d8e0, 0x285078);
   korpo.name = "korpo";
-  grupo.add(korpo);
+  hate.add(korpo);
 
-  aldoniKombovicojn(grupo, PROFILO, kreiKombilanMaterialon(0x88c0f0));
+  aldoniKombovicojn(hate, PROFILO, kreiKombilanMaterialon(0x88c0f0));
 
   const buŝaY = -0o74/0o100;
   const buŝaR = profiloR(PROFILO, buŝaY);
@@ -44,7 +44,7 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   buŝaRando.position.y = buŝaY;
   buŝaRando.name = "busxo";
   surfacxaParto(buŝaRando);
-  grupo.add(buŝaRando);
+  hate.add(buŝaRando);
 
   const faringo = new THREE.Mesh(
     new THREE.CylinderGeometry(0o40/0o1000, 0o10/0o100, 0o7/0o10, 0o12)
@@ -57,7 +57,7 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   faringo.name = "faringo";
   faringo.position.y = -0o64/0o100;
   surfacxaParto(faringo);
-  grupo.add(faringo);
+  hate.add(faringo);
   const stomako = new THREE.Mesh(
     new THREE.SphereGeometry(0o11/0o100, 0o10, 0o10).scale(0o1, 0o15/0o10, 0o1),
     new THREE.MeshPhysicalMaterial({
@@ -67,7 +67,7 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   stomako.name = "stomako";
   stomako.position.y = 0o44/0o100;
   surfacxaParto(stomako);
-  grupo.add(stomako);
+  hate.add(stomako);
 
   const statocisto = new THREE.Mesh(
     new THREE.SphereGeometry(0o4/0o100, 0o10, 0o6).scale(0o1, 0o7/0o10, 0o1),
@@ -78,10 +78,10 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   statocisto.name = "statocisto";
   statocisto.position.y = 0o74/0o100;
   surfacxaParto(statocisto);
-  grupo.add(statocisto);
+  hate.add(statocisto);
 
-  return { malneto: grupo, platigxo: new THREE.Vector3(0o1, 0o1, 0o63/0o100),
-    supro: 0o1, speco: "beroe",
+  return { malneto: hate, platigxo: new THREE.Vector3(0o1, 0o1, 0o63/0o100),
+    teru: 0o1, speco: "beroe",
     pulsaRapido: 0o25/0o10, pulsaForto: 0o1/0o10, pulsaOndo: 0o1/0o10,
     plata: 0o5/0o10 };
 }
@@ -90,16 +90,16 @@ export function gxisdatigiBeran(b: Besto, t: number): void {
   const pulso = aplikiKtenoforanPulson(b, t);
   const malfermo = 0o1 + Math.max(0, Math.sin(ktenoforaPulsaFazo(b, t) + 0o1/0o4)) * 0o2/0o10;
   const vertikalaAldono = 1 + ( malfermo - 1 ) * 0o1/0o2;
-  for ( const parto of b.animajxoj ) {
-    if ( parto.name === "busxo" ) {
-      gluuSurfacxon(parto, pulso, { x: malfermo, y: vertikalaAldono, z: malfermo });
-    } else if ( parto.name === "faringo" || parto.name === "stomako" ) {
+  for ( const kek of b.animajxoj ) {
+    if ( kek.name === "busxo" ) {
+      gluuSurfacxon(kek, pulso, { x: malfermo, y: vertikalaAldono, z: malfermo });
+    } else if ( kek.name === "faringo" || kek.name === "stomako" ) {
       const milda = 1 + ( malfermo - 1 ) * 0o1/0o4;
-      gluuSurfacxon(parto, pulso, { x: milda, y: 1 + ( malfermo - 1 ) * 0o1/0o2, z: milda });
-    } else if ( parto.name === "statocisto" ) {
-      gluuSurfacxon(parto, pulso);
+      gluuSurfacxon(kek, pulso, { x: milda, y: 1 + ( malfermo - 1 ) * 0o1/0o2, z: milda });
+    } else if ( kek.name === "statocisto" ) {
+      gluuSurfacxon(kek, pulso);
     }
   }
-  b.grupo.rotation.x = Math.sin(t * 0o1/0o2 + b.phase * 0o3) * 0o2/0o100;
-  b.grupo.rotation.z = Math.sin(t * b.rapido + b.phase) * 0o1/0o100;
+  b.hate.rotation.x = Math.sin(t * 0o1/0o2 + b.phase * 0o3) * 0o2/0o100;
+  b.hate.rotation.z = Math.sin(t * b.rapido + b.phase) * 0o1/0o100;
 }

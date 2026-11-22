@@ -4,7 +4,7 @@ import * as THREE from "three";
 // ⟨ ហេតុអ្វី 📃 ⟩
 export function kreiTrunkanGeometrion(larghoBazo: number, larghoSupro: number,
   larghoRadiko: number, segmentoj = 0o11): THREE.BufferGeometry {
-  const profilo: THREE.Vector2[] = [
+  const s2qena: THREE.Vector2[] = [
     new THREE.Vector2(0, -0o1/0o2),
     new THREE.Vector2(larghoRadiko, -0o1/0o2),
     new THREE.Vector2(larghoRadiko * 0o57/0o100, -0o17/0o40),
@@ -17,7 +17,7 @@ export function kreiTrunkanGeometrion(larghoBazo: number, larghoSupro: number,
     new THREE.Vector2(larghoSupro * 0o1/0o2, 0o1/0o2),
     new THREE.Vector2(0, 0o1/0o2),
   ];
-  const geometrio = new THREE.LatheGeometry(profilo, segmentoj);
+  const geometrio = new THREE.LatheGeometry(s2qena, segmentoj);
   geometrio.computeVertexNormals();
   return geometrio;
 }

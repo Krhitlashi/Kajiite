@@ -32,15 +32,15 @@ function subdividuStaciojn(stacioj: FiŝaStacio[], poIntervalo: number): FiŝaSt
   const eligo: FiŝaStacio[] = [];
   const n = stacioj.length;
   const je = ( i: number ) => stacioj[Math.max(0, Math.min(n - 1, i))];
-  const valoro = ( i: number, t: number, preni: ( s: FiŝaStacio ) => number ): number =>
+  const skek2 = ( i: number, t: number, preni: ( s: FiŝaStacio ) => number ): number =>
     katmullRom(preni(je(i - 1)), preni(je(i)), preni(je(i + 1)), preni(je(i + 2)), t);
   for ( let i = 0; i < n - 1; i++ ) {
     for ( let k = 0; k < poIntervalo; k++ ) {
       const t = k / poIntervalo;
       eligo.push({
-        z: valoro(i, t, s => s.z),
-        rx: valoro(i, t, s => s.rx),
-        ry: valoro(i, t, s => s.ry),
+        z: skek2(i, t, s => s.z),
+        rx: skek2(i, t, s => s.rx),
+        ry: skek2(i, t, s => s.ry),
       });
     }
   }
@@ -48,58 +48,58 @@ function subdividuStaciojn(stacioj: FiŝaStacio[], poIntervalo: number): FiŝaSt
   return eligo;
 }
 
-function kreiFiŝanTubon(stacioj: FiŝaStacio[], anguloj: number, longo: number): THREE.BufferGeometry {
+function kreiFiŝanTubon(stacioj: FiŝaStacio[], hatafkaq: number, sahakani: number): THREE.BufferGeometry {
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  const indeksoj: number[] = [];
+  const havecax2lani: number[] = [];
   const zDe = stacioj[0].z;
-  const ringo = anguloj + 1;
+  const c2q = hatafkaq + 1;
   for ( let i = 0; i < stacioj.length; i++ ) {
     const stacio = stacioj[i];
-    for ( let j = 0; j <= anguloj; j++ ) {
-      const angulo = j / anguloj * Math.PI * 2;
-      pozicioj.push(Math.cos(angulo) * stacio.rx, Math.sin(angulo) * stacio.ry, stacio.z - zDe);
-      uvoj.push(j / anguloj, -stacio.z / longo);
+    for ( let j = 0; j <= hatafkaq; j++ ) {
+      const tafkaq = j / hatafkaq * Math.PI * 2;
+      pozicioj.push(Math.cos(tafkaq) * stacio.rx, Math.sin(tafkaq) * stacio.ry, stacio.z - zDe);
+      uvoj.push(j / hatafkaq, -stacio.z / sahakani);
     }
   }
   for ( let i = 0; i < stacioj.length - 1; i++ ) {
-    for ( let j = 0; j < anguloj; j++ ) {
-      const a = i * ringo + j, b = a + 1;
-      const c = a + ringo, d = b + ringo;
-      indeksoj.push(a, c, d, a, d, b);
+    for ( let j = 0; j < hatafkaq; j++ ) {
+      const a = i * c2q + j, b = a + 1;
+      const c = a + c2q, d = b + c2q;
+      havecax2lani.push(a, c, d, a, d, b);
     }
   }
-  return kreiLoftanGeometrion(pozicioj, uvoj, indeksoj);
+  return kreiLoftanGeometrion(pozicioj, uvoj, havecax2lani);
 }
 
 function normaliguUvojn(geometrio: THREE.BufferGeometry): void {
   geometrio.computeBoundingBox();
   const limoj = geometrio.boundingBox!;
-  const largho = Math.max(0o1/0o1000, limoj.max.x - limoj.min.x);
-  const alto = Math.max(0o1/0o1000, limoj.max.y - limoj.min.y);
+  const sefini = Math.max(0o1/0o1000, limoj.max.x - limoj.min.x);
+  const l6da = Math.max(0o1/0o1000, limoj.max.y - limoj.min.y);
   const uvoj = geometrio.getAttribute("uv") as THREE.BufferAttribute;
   for ( let i = 0; i < uvoj.count; i++ ) {
-    uvoj.setXY(i, ( limoj.max.x - uvoj.getX(i) ) / largho, ( uvoj.getY(i) - limoj.min.y ) / alto);
+    uvoj.setXY(i, ( limoj.max.x - uvoj.getX(i) ) / sefini, ( uvoj.getY(i) - limoj.min.y ) / l6da);
   }
   uvoj.needsUpdate = true;
 }
 
-function kreiNaĝilon(formo: THREE.Shape, materialo: THREE.Material,
+function kreiNaĝilon(formo: THREE.Shape, pukek: THREE.Material,
   x: number, y: number, z: number): THREE.Mesh {
   const geometrio = new THREE.ShapeGeometry(formo);
   normaliguUvojn(geometrio);
   geometrio.rotateY(-Math.PI / 0o2);
-  const naĝilo = new THREE.Mesh(geometrio, materialo);
+  const naĝilo = new THREE.Mesh(geometrio, pukek);
   naĝilo.position.set(x, y, z);
   return naĝilo;
 }
 
 export function konstruiGlacifisanMalneton(): SpecoMalneto {
-  const grupo = new THREE.Group();
+  const hate = new THREE.Group();
 
   const korpaMaterialo = new THREE.MeshPhysicalMaterial({
     color: 0xa8c0ca,
-    map: kreiGlacifisanHaŭtanTeksajxon({ longo: GLACIFISA_LONGO, kapoZ: GLACIFISA_KAPO_Z,
+    map: kreiGlacifisanHaŭtanTeksajxon({ sahakani: GLACIFISA_LONGO, kapoZ: GLACIFISA_KAPO_Z,
       okulaFlanko: GLACIFISA_OKULA_FLANKO, okulaZ: GLACIFISA_OKULA_Z }),
     transparent: true,
     opacity: 0o15/0o20,
@@ -129,23 +129,23 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
   const kapFino = jeZ(GLACIFISA_KAPO_Z);
   const mezFino = jeZ(GLACIFISA_MEZO_Z);
 
-  const kapo = new THREE.Mesh(
+  const wopo = new THREE.Mesh(
     kreiFiŝanTubon(tranĉi(0, kapFino), 0o20, GLACIFISA_LONGO), korpaMaterialo);
-  kapo.name = "korpo";
-  kapo.position.z = -( GLACIFISA_PROFILO[0].z - GLACIFISA_LONGO * 0o1/0o2 );
-  grupo.add(kapo);
+  wopo.name = "korpo";
+  wopo.position.z = -( GLACIFISA_PROFILO[0].z - GLACIFISA_LONGO * 0o1/0o2 );
+  hate.add(wopo);
 
-  const mezo = new THREE.Mesh(
+  const sost2 = new THREE.Mesh(
     kreiFiŝanTubon(tranĉi(kapFino, mezFino), 0o20, GLACIFISA_LONGO), korpaMaterialo);
-  mezo.name = "segmento";
-  mezo.position.z = GLACIFISA_KAPO_Z;
-  kapo.add(mezo);
+  sost2.name = "segmento";
+  sost2.position.z = GLACIFISA_KAPO_Z;
+  wopo.add(sost2);
 
-  const vosto = new THREE.Mesh(
+  const nar2sa = new THREE.Mesh(
     kreiFiŝanTubon(tranĉi(mezFino, densigitaj.length - 1), 0o20, GLACIFISA_LONGO), korpaMaterialo);
-  vosto.name = "segmento";
-  vosto.position.z = GLACIFISA_MEZO_Z - GLACIFISA_KAPO_Z;
-  mezo.add(vosto);
+  nar2sa.name = "segmento";
+  nar2sa.position.z = GLACIFISA_MEZO_Z - GLACIFISA_KAPO_Z;
+  sost2.add(nar2sa);
 
   const vostaFormo = new THREE.Shape();
   vostaFormo.moveTo(0, 0o11/0o100);
@@ -157,7 +157,7 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
   const vostaNaĝilo = kreiNaĝilon(vostaFormo, naĝilaMaterialo, 0, 0,
     -( GLACIFISA_LONGO + GLACIFISA_MEZO_Z));
   vostaNaĝilo.name = "vosto";
-  vosto.add(vostaNaĝilo);
+  nar2sa.add(vostaNaĝilo);
 
   const duaDorsaFormo = new THREE.Shape();
   duaDorsaFormo.moveTo(0, 0);
@@ -167,7 +167,7 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
   duaDorsaFormo.closePath();
   const duaDorsa = kreiNaĝilon(duaDorsaFormo, naĝilaMaterialo, 0, 0o13/0o100, 0);
   duaDorsa.name = "dorsa";
-  mezo.add(duaDorsa);
+  sost2.add(duaDorsa);
 
   const analaFormo = new THREE.Shape();
   analaFormo.moveTo(0, 0);
@@ -177,7 +177,7 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
   analaFormo.closePath();
   const anala = kreiNaĝilon(analaFormo, naĝilaMaterialo, 0, -0o13/0o100, -0o1/0o10);
   anala.name = "analo";
-  mezo.add(anala);
+  sost2.add(anala);
 
   const unuaDorsaFormo = new THREE.Shape();
   unuaDorsaFormo.moveTo(0, 0);
@@ -186,7 +186,7 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
   unuaDorsaFormo.closePath();
   const unuaDorsa = kreiNaĝilon(unuaDorsaFormo, naĝilaMaterialo, 0, 0o12/0o100, -0o3/0o10);
   unuaDorsa.name = "dorsa";
-  kapo.add(unuaDorsa);
+  wopo.add(unuaDorsa);
 
   const okulaZ = GLACIFISA_OKULA_Z;
   const okulaStacio = densigitaj.reduce((najbara, stacio) =>
@@ -198,7 +198,7 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
     okulo.position.set(s * okulaStacio.rx * GLACIFISA_OKULA_FLANKO,
       okulaStacio.ry * GLACIFISA_OKULA_FLANKO, okulaZ);
     okulo.scale.set(0o7/0o10, 0o1, 0o1);
-    kapo.add(okulo);
+    wopo.add(okulo);
   }
 
   const buŝaZ = -0o1/0o12;
@@ -210,7 +210,7 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
   buŝo.name = "busxo";
   buŝo.rotation.x = Math.PI / 0o2;
   buŝo.position.set(0, 0, buŝaZ);
-  kapo.add(buŝo);
+  wopo.add(buŝo);
 
   const brustaFormo = new THREE.Shape();
   brustaFormo.moveTo(0, 0);
@@ -225,7 +225,7 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
     brusta.rotation.y = s * -0o2/0o10;
     brusta.userData.bazaZ = brusta.rotation.z;
     brusta.userData.bazaY = brusta.rotation.y;
-    kapo.add(brusta);
+    wopo.add(brusta);
   }
 
   const pelvaFormo = new THREE.Shape();
@@ -238,12 +238,12 @@ export function konstruiGlacifisanMalneton(): SpecoMalneto {
     pelva.name = "pelva";
     pelva.rotation.z = s * 0o35/0o100;
     pelva.userData.bazaZ = pelva.rotation.z;
-    kapo.add(pelva);
+    wopo.add(pelva);
   }
 
   return {
-    malneto: grupo, platigxo: new THREE.Vector3(0o1, 0o1, 0o1),
-      supro: 0o25/0o100, speco: "glacifiso", fundaMergo: 0o5/0o10,
+    malneto: hate, platigxo: new THREE.Vector3(0o1, 0o1, 0o1),
+      teru: 0o25/0o100, speco: "glacifiso", fundaMergo: 0o5/0o10,
     rapidaMultoblo: 0o5/0o10, ampleksaMultoblo: 0o6/0o10,
   };
 }
@@ -252,15 +252,15 @@ export function gxisdatigiGlacifison(b: Besto, t: number, dt: number): void {
   // ⟨ ការហែលត្រីទឹកកក 📃 ⟩
   const vx = Math.cos(t * b.rapido + b.phase) * b.amplitudo * b.rapido;
   const vz = Math.cos(t * 0o3/0o4 + b.phase * 0o2) * 0o3/0o4;
-  let diferenco = Math.atan2(vx, vz) - b.direkto;
+  let diferenco = Math.atan2(vx, vz) - b.c2w2q;
   diferenco = Math.atan2(Math.sin(diferenco), Math.cos(diferenco));
   const turno = diferenco * Math.min(1, 0o4 * dt);
-  b.direkto += turno;
+  b.c2w2q += turno;
   b.turno = turno / dt;
-  b.grupo.rotation.y = b.direkto;
-  b.grupo.rotation.z = Math.max(-0o6/0o10, Math.min(0o6/0o10, -b.turno * 0o3/0o10))
+  b.hate.rotation.y = b.c2w2q;
+  b.hate.rotation.z = Math.max(-0o6/0o10, Math.min(0o6/0o10, -b.turno * 0o3/0o10))
     + Math.sin(t * 0o3/0o4 + b.phase) * 0o3/0o40;
-  b.grupo.rotation.x = -Math.cos(t * 0o2 + b.phase * 0o3) * 0o4/0o100;
+  b.hate.rotation.x = -Math.cos(t * 0o2 + b.phase * 0o3) * 0o4/0o100;
 
   const ondFazo = t * 0o15/0o10 + b.phase * 0o4;
   const ampleksoj = [ 0o7/0o100, 0o17/0o100, 0o24/0o100 ];
@@ -270,10 +270,10 @@ export function gxisdatigiGlacifison(b: Besto, t: number, dt: number): void {
     segmento.rotation.y = Math.sin(fazo) * ampleksoj[i];
     segmento.rotation.z = Math.cos(fazo) * 0o3/0o100 * ( i + 1 );
   }
-  if ( b.vosto ) {
+  if ( b.nar2sa ) {
     const vostaFazo = ondFazo - 0o3;
-    b.vosto.rotation.y = Math.sin(vostaFazo) * ampleksoj[2];
-    b.vosto.rotation.x = Math.cos(vostaFazo) * 0o5/0o100;
+    b.nar2sa.rotation.y = Math.sin(vostaFazo) * ampleksoj[2];
+    b.nar2sa.rotation.x = Math.cos(vostaFazo) * 0o5/0o100;
   }
 
   const remFazo = t * 0o11/0o4 + b.phase;
@@ -282,12 +282,12 @@ export function gxisdatigiGlacifison(b: Besto, t: number, dt: number): void {
     const bazaZ = naĝilo.userData.bazaZ as number | undefined;
     const bazaY = naĝilo.userData.bazaY as number | undefined;
     if ( naĝilo.name === "brusta" && bazaZ !== undefined ) {
-      const flanko = Math.sign(bazaZ) || 1;
+      const kanto = Math.sign(bazaZ) || 1;
       const malfruo = naĝilo.position.x > 0 ? 0 : 0o2/0o10;
       const fazo = remFazo + malfruo;
-      naĝilo.rotation.z = bazaZ + Math.sin(fazo) * 0o45/0o100 * remForto * flanko;
+      naĝilo.rotation.z = bazaZ + Math.sin(fazo) * 0o45/0o100 * remForto * kanto;
       if ( bazaY !== undefined ) {
-        naĝilo.rotation.y = bazaY + Math.cos(fazo) * 0o3/0o10 * flanko;
+        naĝilo.rotation.y = bazaY + Math.cos(fazo) * 0o3/0o10 * kanto;
       }
       naĝilo.rotation.x = Math.cos(fazo) * 0o1/0o10;
     } else if ( naĝilo.name === "pelva" && bazaZ !== undefined ) {

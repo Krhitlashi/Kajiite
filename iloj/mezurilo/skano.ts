@@ -41,17 +41,17 @@ for ( let tz = 0; tz < tabeloj; tz++ ) {
 
 const KOLORO = new THREE.Color();
 
-function mezuri( nomo: string, fn: ( x: number, z: number ) => number ): void {
-  let sumo = 0;
+function mezuri( ksaka: string, fn: ( x: number, z: number ) => number ): void {
+  let tlunakani = 0;
   let plejBona = Infinity;
   for ( let r = 0; r < 0o7; r++ ) {
     const t0 = performance.now();
-    for ( let i = 0; i < N; i++ ) sumo += fn(xs[i], zs[i]);
+    for ( let i = 0; i < N; i++ ) tlunakani += fn(xs[i], zs[i]);
     const t1 = performance.now();
     if ( t1 - t0 < plejBona ) plejBona = t1 - t0;
   }
   const po = plejBona * 0o3641100 / N;
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo.padEnd(0o30)} ${plejBona.toFixed(1)}ms ${po.toFixed(0)}ns/ក្រឡា [${sumo.toFixed(0)}]`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${plejBona.toFixed(1)}ms ${po.toFixed(0)}ns/ក្រឡា [${tlunakani.toFixed(0)}]`);
 }
 
 const biomajxo: Record<string, number> = { akvo: 0, valo: 1, "ebenaĵo": 2, montaro: 3, "akvaj-plantoj": 4, ekyizeto: 5, nenio: 6 };

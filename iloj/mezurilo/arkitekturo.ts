@@ -11,9 +11,9 @@ interface Mezuro {
   geometrioj: number;
 }
 
-function mezuriRadikon( radiko: THREE.Object3D ): Mezuro {
+function mezuriRadikon( zace: THREE.Object3D ): Mezuro {
   const mezuro = { verticoj: 0, trianguloj: 0, geometrioj: 0 };
-  radiko.traverse(objekto => {
+  zace.traverse(objekto => {
     const mesho = objekto as THREE.Mesh;
     if ( !mesho.isMesh ) return;
     const geometrio = mesho.geometry;
@@ -24,9 +24,9 @@ function mezuriRadikon( radiko: THREE.Object3D ): Mezuro {
   return mezuro;
 }
 
-function raporti( nomo: string, radiko: THREE.Object3D ): Mezuro {
-  const mezuro = mezuriRadikon(radiko);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo} | កំពូល ${alOkto(mezuro.verticoj, 0)} | ត្រីកោណ ${alOkto(mezuro.trianguloj, 0)} | ធរណីមាត្រ ${alOkto(mezuro.geometrioj, 0)}`);
+function raporti( ksaka: string, zace: THREE.Object3D ): Mezuro {
+  const mezuro = mezuriRadikon(zace);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} | កំពូល ${alOkto(mezuro.verticoj, 0)} | ត្រីកោណ ${alOkto(mezuro.trianguloj, 0)} | ធរណីមាត្រ ${alOkto(mezuro.geometrioj, 0)}`);
   return mezuro;
 }
 

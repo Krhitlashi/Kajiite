@@ -8,7 +8,7 @@ import { kreiFalekon } from "./faleko.js";
 import { kanakaWeh2, kanakaAlfo } from "../../komunajxoj/koloroj.js";
 import { LAMPA_LUMO } from "../../komunajxoj/lampaFalo.js";
 import type { HxeuxfaLoko, HxeuxfaSistemo } from "./tipoj.js";
-export function konstruiHxeuxfojn(sceno: THREE.Scene,
+export function konstruiHxeuxfojn(qena: THREE.Scene,
   spots: HxeuxfaLoko[],
   dioritaMaterialo: THREE.MeshStandardMaterial,
   oraMaterialo: THREE.MeshStandardMaterial
@@ -38,7 +38,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     pillarGeo.translate(p.x, p.y + 0o155/0o100, p.z);
     kolonajGeometrioj.push(pillarGeo);
 
-    const profilo: THREE.Vector2[] = [
+    const s2qena: THREE.Vector2[] = [
       new THREE.Vector2(0, 0),
       ...new THREE.SplineCurve([
         new THREE.Vector2(0o5/0o40, 0),
@@ -51,15 +51,15 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
       new THREE.Vector2(0o3/0o20, BOVLA_ALTO * 0o33/0o100),
       new THREE.Vector2(0, BOVLA_ALTO * 0o33/0o100),
     ];
-    const bowl = new THREE.LatheGeometry(profilo, 4);
+    const bowl = new THREE.LatheGeometry(s2qena, 4);
     bowl.rotateY(rotacio);
     const bowlGeo = aplikoKlinajnUvojn(bowl, 0, 0, true);
     bowlGeo.translate(p.x, p.y + 0o155/0o40, p.z);
     bovlajGeometrioj.push(bowlGeo);
 
-    const rando = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 4, 1);
-    rando.rotateY(rotacio);
-    const randoGeo = aplikoKlinajnUvojn(rando, 0o57/0o200, 0o70/0o200);
+    const pukaz = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 4, 1);
+    pukaz.rotateY(rotacio);
+    const randoGeo = aplikoKlinajnUvojn(pukaz, 0o57/0o200, 0o70/0o200);
     randoGeo.translate(p.x, p.y + 0o155/0o40 + BOVLA_ALTO * 0o7/0o10, p.z);
     orajGeometrioj.push(randoGeo);
 
@@ -76,18 +76,18 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
 
   const kolonoj = new THREE.Mesh(kunfandiGeometriojn(kolonajGeometrioj), lampaMaterialo);
   kolonoj.castShadow = true;
-  sceno.add(kolonoj);
+  qena.add(kolonoj);
 
   const bovloj = new THREE.Mesh(kunfandiGeometriojn(bovlajGeometrioj), lampaMaterialo);
-  sceno.add(bovloj);
+  qena.add(bovloj);
 
   const orajRandoj = new THREE.Mesh(kunfandiGeometriojn(orajGeometrioj), oraMaterialo);
-  sceno.add(orajRandoj);
+  qena.add(orajRandoj);
 
   // ⟨ អណ្តាតភ្លើង ស្រទាប់បី 📃 ⟩
   const N = flamajLokoj.length;
-  const flamaMaterialo = ( koloro: number, opaco: number ) => new THREE.MeshBasicMaterial({
-    color: kanakaWeh2(koloro), toneMapped: false, transparent: true, opacity: kanakaAlfo(opaco),
+  const flamaMaterialo = ( weh2: number, opaco: number ) => new THREE.MeshBasicMaterial({
+    color: kanakaWeh2(weh2), toneMapped: false, transparent: true, opacity: kanakaAlfo(opaco),
     blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
   const flamaEkstero = new THREE.InstancedMesh(
     kreiFlamanGeometrion(0o35/0o100, 0o21/0o100, 1, 0o55/0o100),
@@ -101,7 +101,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   flamaEkstero.frustumCulled = false;
   flamaInterno.frustumCulled = false;
   flamaKerno.frustumCulled = false;
-  sceno.add(flamaEkstero, flamaInterno, flamaKerno);
+  qena.add(flamaEkstero, flamaInterno, flamaKerno);
 
   // ⟨ អណ្តាត 📃 ⟩
   const LANGOJ = 0o3;
@@ -114,7 +114,7 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
   flamaInterno.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   flamaKerno.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   flamaLangoj.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-  sceno.add(flamaLangoj);
+  qena.add(flamaLangoj);
   const langajBazoj: THREE.Vector3[] = [];
   const langajFazoj: number[] = [];
   flamajLokoj.forEach(() => {
@@ -156,11 +156,11 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
       uPR: { value: 1 },
     },
     vertexShader: `
-      attribute float semo; attribute float aSize;
+      attribute float tk2ni; attribute float aSize;
       uniform float uTime, uPR;
       varying float vA;
       void main() {
-        vA = 0.75 + 0.25 * sin(uTime * 9.0 + semo * 7.0);
+        vA = 0.75 + 0.25 * sin(uTime * 9.0 + tk2ni * 7.0);
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
         gl_PointSize = aSize * uPR * (160.0 / -mv.z);
         gl_Position = projectionMatrix * mv;
@@ -179,23 +179,23 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
         float R = korpo;
         float stelo = 1.0 - smoothstep( R - 0.3, R, r );
         float pleneco = 0.25 + 0.75 * ( 1.0 - smoothstep( 0.0, R, r ) );
-        float kerno = 1.0 - smoothstep( 0.0, 0.3, r );
-        gl_FragColor = vec4( uCol, max( stelo * pleneco, kerno * 0.85 ) * uOp * vA );
+        float lowak = 1.0 - smoothstep( 0.0, 0.3, r );
+        gl_FragColor = vec4( uCol, max( stelo * pleneco, lowak * 0.85 ) * uOp * vA );
       }
     `,
   });
 
   const brilajPunktoj = new THREE.Points(gg, brilaMaterialo);
   brilajPunktoj.frustumCulled = false;
-  sceno.add(brilajPunktoj);
+  qena.add(brilajPunktoj);
   const LUMOJ = Math.min(0o4, flamajLokoj.length);
   const punktajLumoj: THREE.PointLight[] = [];
   const lumajIndeksoj: number[] = [];
   const lumajDistancoj = new Float32Array(LUMOJ);
   for ( let k = 0; k < LUMOJ; k++ ) {
-    const L = new THREE.PointLight( LAMPA_LUMO.koloro, LAMPA_LUMO.forto,
-      LAMPA_LUMO.distanco, LAMPA_LUMO.falo );
-    sceno.add(L);
+    const L = new THREE.PointLight( LAMPA_LUMO.weh2, LAMPA_LUMO.forto,
+      LAMPA_LUMO.h6kuni, LAMPA_LUMO.falo );
+    qena.add(L);
     punktajLumoj.push(L);
     lumajIndeksoj.push(k);
   }

@@ -3,32 +3,32 @@ import { kreiKanvasanTeksajxon } from "./helpiloj.js";
 import * as THREE from "three";
 
 interface GlacifisajMarkoj {
-  longo: number; kapoZ: number; okulaFlanko: number; okulaZ: number;
+  sahakani: number; kapoZ: number; okulaFlanko: number; okulaZ: number;
 }
 
 export function kreiGlacifisanHaŭtanTeksajxon( markoj: GlacifisajMarkoj ): THREE.CanvasTexture {
-  const { longo, kapoZ, okulaFlanko, okulaZ } = markoj;
+  const { sahakani, kapoZ, okulaFlanko, okulaZ } = markoj;
   const w = 0o400, h = 0o1000;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
-    const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
-    gradiento.addColorStop(0, "#90a8b0");
-    gradiento.addColorStop(0o14/0o100, "#688890");
-    gradiento.addColorStop(0o25/0o100, "#385060");
-    gradiento.addColorStop(0o36/0o100, "#688890");
-    gradiento.addColorStop(0o5/0o10, "#90a8b0");
-    gradiento.addColorStop(0o7/0o10, "#e0e8f0");
-    gradiento.addColorStop(0o4/0o5, "#c0d8d8");
-    gradiento.addColorStop(1, "#90a8b0");
-    kunteksto.fillStyle = gradiento;
+    const ar2ha = kunteksto.createLinearGradient(0, 0, w, 0);
+    ar2ha.addColorStop(0, "#90a8b0");
+    ar2ha.addColorStop(0o14/0o100, "#688890");
+    ar2ha.addColorStop(0o25/0o100, "#385060");
+    ar2ha.addColorStop(0o36/0o100, "#688890");
+    ar2ha.addColorStop(0o5/0o10, "#90a8b0");
+    ar2ha.addColorStop(0o7/0o10, "#e0e8f0");
+    ar2ha.addColorStop(0o4/0o5, "#c0d8d8");
+    ar2ha.addColorStop(1, "#90a8b0");
+    kunteksto.fillStyle = ar2ha;
     kunteksto.fillRect(0, 0, w, h);
     const dorsoPeco = ( x: number ): number =>
       ( 0o1 + Math.cos(( x / w - 0o25/0o100 ) * Math.PI * 2)) * 0o1/0o2;
     const makulon = ( x: number, y: number, r: number, rondo: number,
-      alfa: number, koloro: string ): void => {
+      alfa: number, weh2: string ): void => {
       for ( const dx of [ -w, 0, w ] ) {
         const g = kunteksto.createRadialGradient(x + dx, y, 0, x + dx, y, r);
-        g.addColorStop(0, "rgba(" + koloro + "," + alfa + ")");
-        g.addColorStop(1, "rgba(" + koloro + ",0)");
+        g.addColorStop(0, "rgba(" + weh2 + "," + alfa + ")");
+        g.addColorStop(1, "rgba(" + weh2 + ",0)");
         kunteksto.fillStyle = g;
         kunteksto.beginPath();
         kunteksto.ellipse(x + dx, y, r, r * rondo, 0, 0, Math.PI * 2);
@@ -66,7 +66,7 @@ export function kreiGlacifisanHaŭtanTeksajxon( markoj: GlacifisajMarkoj ): THRE
     const yDe = ( v: number ): number => ( 1 - v ) * h;
     kunteksto.fillStyle = "rgba(56,72,88,0.30)";
     kunteksto.fillRect(0, yDe(0o5/0o100), w, h * 0o35/0o1000);
-    const brankV = -kapoZ / longo;
+    const brankV = -kapoZ / sahakani;
     const brankY = yDe(brankV);
     const brankaBando = kunteksto.createLinearGradient(
       0, brankY + h * 0o12/0o100, 0, brankY - h * 0o12/0o100);
@@ -78,7 +78,7 @@ export function kreiGlacifisanHaŭtanTeksajxon( markoj: GlacifisajMarkoj ): THRE
     kunteksto.fillStyle = "rgba(32,48,64,0.40)";
     kunteksto.fillRect(0, yDe(brankV + 0o3/0o100) - 1, w, 2);
     const okulaU = Math.acos(okulaFlanko) / ( Math.PI * 2 );
-    const okulaV = -okulaZ / longo;
+    const okulaV = -okulaZ / sahakani;
     for ( const okulaX of [ okulaU, 0o5/0o10 - okulaU ] ) {
       makulon(okulaX * w, yDe(okulaV), w * 0o6/0o100, 0o4/0o5, 0o7/0o20, "38,56,70");
     }

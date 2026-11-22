@@ -6,21 +6,21 @@ import { kreiVegetajxanHazardon } from "./hazardoj.js";
 import { PunktaHasho, interspaco, montaKruteco, spronaDuono, type ArboMetado } from "./metado.js";
 
 export function metiPussxlefojn(heightFn: ( x: number, z: number ) => number,
-  kvanto: number,
+  vem2: number,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 0o62450,
+  tk2ni = 0o62450,
   evituArbojn: ArboMetado[] = []
 ): ArboMetado[] {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(tk2ni);
   const placed: ArboMetado[] = [];
   const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
   for ( const arbo of evituArbojn ) metitaHasho.meti(arbo.x, arbo.z, arbo);
   let provoj = 0;
   const arboliniaFado = ( h: number ): number => 1 - glataPaso(0o16, 0o26, h);
 
-  while ( placed.length < kvanto && provoj++ < 0o30000 ) {
+  while ( placed.length < vem2 && provoj++ < 0o30000 ) {
     const x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * 0o600;
     const z = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * 0o600;
     if ( Math.hypot(x, z) < 0o20 ) continue;
@@ -47,18 +47,18 @@ export function metiPussxlefojn(heightFn: ( x: number, z: number ) => number,
 }
 
 export function metiArbojn(heightFn: ( x: number, z: number ) => number,
-  kvanto: number,
+  vem2: number,
   worldRadius: number,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 0o53104,
+  tk2ni = 0o53104,
   evituArbojn: ArboMetado[] = [],
   minimumaDistanco = 0o10,
   kronaRadiuso: ( s: number ) => number = kronaRadiusoBetula,
   biomojFiltro?: readonly Biomo[]
 ): ArboMetado[] {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(tk2ni);
   const placed: ArboMetado[] = [];
   const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
   for ( const arbo of evituArbojn ) metitaHasho.meti(arbo.x, arbo.z, arbo);
@@ -79,7 +79,7 @@ export function metiArbojn(heightFn: ( x: number, z: number ) => number,
     return true;
   };
 
-  while ( placed.length < kvanto && provoj++ < 0o30000 ) {
+  while ( placed.length < vem2 && provoj++ < 0o30000 ) {
     const x = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * worldRadius;
     const z = ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * worldRadius;
     if ( Math.abs(x) > worldRadius + 0o20 || Math.abs(z) > worldRadius + 0o20 ) continue;
@@ -92,12 +92,12 @@ export function metiArbojn(heightFn: ( x: number, z: number ) => number,
 }
 
 export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
-  kvanto: number,
+  vem2: number,
   zMin: number, zMax: number,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 0o53130,
+  tk2ni = 0o53130,
   evituArbojn: ArboMetado[] = [],
   minimumaDistanco = 0o10,
   kronaRadiuso: ( s: number ) => number = kronaRadiusoBetula,
@@ -105,7 +105,7 @@ export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
   xDuono = 0o340,
   biomojFiltro?: readonly Biomo[]
 ): ArboMetado[] {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(tk2ni);
   const placed: ArboMetado[] = [];
   const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
   for ( const arbo of evituArbojn ) metitaHasho.meti(arbo.x, arbo.z, arbo);
@@ -120,7 +120,7 @@ export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
 
   const grovoj: { x: number; z: number }[] = [];
   let grovajProvoj = 0;
-  while ( grovoj.length < Math.max(0o4, Math.floor(kvanto / 0o16)) && grovajProvoj++ < 0o10000 ) {
+  while ( grovoj.length < Math.max(0o4, Math.floor(vem2 / 0o16)) && grovajProvoj++ < 0o10000 ) {
     const gz = zMin + hazardaGenerilo() * ( zMax - zMin );
     if ( hazardaGenerilo() > sudaFado(gz) ) continue;
     const gx = cx + ( hazardaGenerilo() + hazardaGenerilo() - 1 ) * xEnvelopo(gz);
@@ -134,14 +134,14 @@ export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
     grovoj.push({ x: gx, z: gz });
   }
 
-  while ( placed.length < kvanto && provoj++ < 0o10000 ) {
+  while ( placed.length < vem2 && provoj++ < 0o10000 ) {
     let z: number, x: number;
     if ( grovoj.length && hazardaGenerilo() < 0o3/0o4 ) {
       const g = grovoj[( hazardaGenerilo() * grovoj.length ) | 0];
       const ang = hazardaGenerilo() * Math.PI * 2;
-      const disto = 0o14 * ( hazardaGenerilo() + hazardaGenerilo() );
-      x = g.x + Math.sin(ang) * disto;
-      z = g.z + Math.cos(ang) * disto;
+      const h6kuni = 0o14 * ( hazardaGenerilo() + hazardaGenerilo() );
+      x = g.x + Math.sin(ang) * h6kuni;
+      z = g.z + Math.cos(ang) * h6kuni;
       if ( hazardaGenerilo() > sudaFado(z) ) continue;
     } else {
       z = zMin + hazardaGenerilo() * ( zMax - zMin );
@@ -174,20 +174,20 @@ export function metiMontajnArbojn(heightFn: ( x: number, z: number ) => number,
 }
 
 export function metiArbojnCxirkauLagon(heightFn: ( x: number, z: number ) => number,
-  kvanto: number,
+  vem2: number,
   cx: number, cz: number,
   radioFn: ( ang: number ) => number,
   akvoNiveloFn: ( x: number, z: number ) => number,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 0o53120,
+  tk2ni = 0o53120,
   evituArbojn: ArboMetado[] = [],
   minimumaDistanco = 0o10,
   kronaRadiuso: ( s: number ) => number = kronaRadiusoBetula,
   biomojFiltro?: readonly Biomo[]
 ): ArboMetado[] {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(tk2ni);
   const placed: ArboMetado[] = [];
   const metitaHasho = new PunktaHasho<ArboMetado>(0o10);
   for ( const arbo of evituArbojn ) metitaHasho.meti(arbo.x, arbo.z, arbo);
@@ -207,11 +207,11 @@ export function metiArbojnCxirkauLagon(heightFn: ( x: number, z: number ) => num
     return true;
   };
 
-  while ( placed.length < kvanto && provoj++ < 0o3710 ) {
-    const angulo = hazardaGenerilo() * Math.PI * 2;
-    const radiuso = radioFn(angulo) + 0o6 + hazardaGenerilo() * 0o46;
-    const x = cx + Math.cos(angulo) * radiuso;
-    const z = cz + Math.sin(angulo) * radiuso;
+  while ( placed.length < vem2 && provoj++ < 0o3710 ) {
+    const tafkaq = hazardaGenerilo() * Math.PI * 2;
+    const ka5ik = radioFn(tafkaq) + 0o6 + hazardaGenerilo() * 0o46;
+    const x = cx + Math.cos(tafkaq) * ka5ik;
+    const z = cz + Math.sin(tafkaq) * ka5ik;
     if ( Math.abs(x) > 0o450 || Math.abs(z) > 0o450 ) continue;
     const s = 0o63/0o100 + hazardaGenerilo() * 0o55/0o100;
     if ( !bonaLoko(x, z, s) ) continue;

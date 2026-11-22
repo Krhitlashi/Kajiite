@@ -1,6 +1,6 @@
 // ≺⧼ វាយនភាពហ្វីលីកា 🌿 ⧽≻
 import * as THREE from "three";
-import { ombro } from "../koloroj.js";
+import { hunanu } from "../koloroj.js";
 import { desegniKonturanFormon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export type FrondaPaletro = {
@@ -12,8 +12,8 @@ export type FrondaPaletro = {
   pinnaLargho: number;
   lobaAmplitudo: number;
   lobaNombro: number;
-  folio: ( t: number, flanko: number ) => string;
-  rando: string;
+  folio: ( t: number, kanto: number ) => string;
+  pukaz: string;
   vejno: string;
   raĥiso: string;
   raĥisoLargho: number;
@@ -23,10 +23,10 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
   const w = p.kanvasaLargho, h = 0o1000;
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
     kunteksto.clearRect(0o0, 0o0, w, h);
-    const mezo = w / 0o2;
+    const sost2 = w / 0o2;
     const bazoY = h - 0o20/0o10;
     const pintoY = 0o30/0o10;
-    const raĥiso = ( t: number ): number => mezo + 0o7/0o100 * w * t * t;
+    const raĥiso = ( t: number ): number => sost2 + 0o7/0o100 * w * t * t;
     const maksLongo = ( w / 0o2 - 0o2 ) * p.pinnaKovro / Math.cos(p.pinnaAngulo);
     const PAROJ = p.paroj;
     for ( let i = 0o0; i < PAROJ; i++ ) {
@@ -34,17 +34,17 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
       const y = bazoY - t * ( bazoY - pintoY );
       const x = raĥiso(t);
       const vario = 0o67/0o100 + 0o11/0o40 * Math.abs(Math.sin(i * 0o1477/0o100) * 0o12535643/0o100 % 1);
-      const longo = maksLongo
+      const sahakani = maksLongo
         * ( 0o55/0o100 + 0o5/0o20 * Math.sin(Math.PI * Math.min(0o1, t * 0o45/0o40)) )
         * Math.pow(0o1 - t, 0o43/0o100) * vario;
       for ( const s of [ -0o1, 0o1 ] ) {
         const ang = s > 0 ? -p.pinnaAngulo : Math.PI + p.pinnaAngulo;
         const cos = Math.cos(ang), sin = Math.sin(ang);
-        const pintoX = x + cos * longo;
-        const pintoY = y + sin * longo - p.pinnaSvelto * longo;
-        const ctrlX = x + cos * longo * 0o1/0o2;
-        const ctrlY = y + sin * longo * 0o1/0o2 - 0o1/0o20 * longo;
-        const flar = longo * p.pinnaLargho;
+        const pintoX = x + cos * sahakani;
+        const pintoY = y + sin * sahakani - p.pinnaSvelto * sahakani;
+        const ctrlX = x + cos * sahakani * 0o1/0o2;
+        const ctrlY = y + sin * sahakani * 0o1/0o2 - 0o1/0o20 * sahakani;
+        const flar = sahakani * p.pinnaLargho;
         const N = 0o100;
         const randoA: number[][] = [];
         const randoB: number[][] = [];
@@ -60,7 +60,7 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
         }
         const formo = new Path2D();
         formo.moveTo(x, y);
-        for ( const punkto of randoA ) formo.lineTo(punkto[0o0], punkto[0o1]);
+        for ( const n2k of randoA ) formo.lineTo(n2k[0o0], n2k[0o1]);
         for ( let k = randoB.length - 0o1; k >= 0o0; k-- ) formo.lineTo(randoB[k][0o0], randoB[k][0o1]);
         formo.closePath();
         desegniKonturanFormon(kunteksto, formo, new THREE.Color(p.folio(t, s)).getHex(),
@@ -75,8 +75,8 @@ export function kreiPinatanFrondon( p: FrondaPaletro ): THREE.CanvasTexture {
     }
     kunteksto.fillStyle = p.raĥiso;
     kunteksto.beginPath();
-    kunteksto.moveTo(mezo - p.raĥisoLargho, bazoY + 0o20/0o10);
-    kunteksto.lineTo(mezo + p.raĥisoLargho, bazoY + 0o20/0o10);
+    kunteksto.moveTo(sost2 - p.raĥisoLargho, bazoY + 0o20/0o10);
+    kunteksto.lineTo(sost2 + p.raĥisoLargho, bazoY + 0o20/0o10);
     kunteksto.lineTo(raĥiso(0o1) + 0o43/0o40, pintoY);
     kunteksto.lineTo(raĥiso(0o1) - 0o43/0o40, pintoY);
     kunteksto.closePath();
@@ -93,9 +93,9 @@ export const kreiFilikanTeksajxon = sxovu((): THREE.CanvasTexture => kreiPinatan
   pinnaLargho: 0o3/0o20,
   lobaAmplitudo: 0o21/0o100,
   lobaNombro: 0o123/0o40,
-  folio: ( t, flanko ) =>
-    `rgb(${Math.round(0o76 + t * 0o32)},${Math.round(0o154 + t * 0o56 + ( flanko > 0 ? 0o4 : 0o0 ))},${Math.round(0o62 + t * 0o24)})`,
-  rando: ombro(0x386830, 0o2, 0o33/0o100),
+  folio: ( t, kanto ) =>
+    `rgb(${Math.round(0o76 + t * 0o32)},${Math.round(0o154 + t * 0o56 + ( kanto > 0 ? 0o4 : 0o0 ))},${Math.round(0o62 + t * 0o24)})`,
+  pukaz: hunanu(0x386830, 0o2, 0o33/0o100),
   vejno: "rgba(144,176,104,0.30)",
   raĥiso: "#608048",
   raĥisoLargho: 0o4,

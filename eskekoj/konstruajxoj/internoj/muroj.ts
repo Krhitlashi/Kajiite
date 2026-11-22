@@ -6,12 +6,12 @@ export function konstruiMuronKunPilolaTruo(
   g: THREE.Group,
   plataLargho: number,
   bazaY: number,
-  alto: number,
+  l6da: number,
   dikeco: number,
   ww: number,
   hh: number,
   fenY: number,
-  materialo: THREE.MeshStandardMaterial,
+  pukek: THREE.MeshStandardMaterial,
   cx: number,
   cz: number,
   rotacio = 0
@@ -19,31 +19,31 @@ export function konstruiMuronKunPilolaTruo(
   const wc = ww / 2;
   const fenLokY = fenY - bazaY;
   const segLargho = plataLargho - ww / 2;
-  const segAlto = alto - ( fenLokY + hh );
+  const segAlto = l6da - ( fenLokY + hh );
 
   // ⟨ អ្វីៗសង់ក្នុងក្រុមមូលដ្ឋាន 📃 ⟩
-  const grupo = new THREE.Group();
-  grupo.position.set(cx, bazaY, cz);
-  grupo.rotation.y = rotacio;
-  g.add(grupo);
+  const hate = new THREE.Group();
+  hate.position.set(cx, bazaY, cz);
+  hate.rotation.y = rotacio;
+  g.add(hate);
 
-  const aldoniBlokon = ( lokalX: number, lokalY: number, largho: number, alteco: number ) => {
-    if ( largho <= 0 || alteco <= 0 ) return;
-    const b = new THREE.Mesh(new THREE.BoxGeometry(largho, alteco, dikeco), materialo);
-    b.position.set(lokalX + largho / 2, lokalY + alteco / 2, 0);
-    grupo.add(b);
+  const aldoniBlokon = ( lokalX: number, lokalY: number, sefini: number, alteco: number ) => {
+    if ( sefini <= 0 || alteco <= 0 ) return;
+    const b = new THREE.Mesh(new THREE.BoxGeometry(sefini, alteco, dikeco), pukek);
+    b.position.set(lokalX + sefini / 2, lokalY + alteco / 2, 0);
+    hate.add(b);
   };
   const aldoniAngulon = ( formo: THREE.Shape, cxLoka: number, cyLoka: number ) => {
     const geo = new THREE.ExtrudeGeometry(formo, { depth: dikeco, bevelEnabled: false, curveSegments: 0o20 });
     geo.translate(0, 0, -dikeco / 2);
-    const m = new THREE.Mesh(geo, materialo);
+    const m = new THREE.Mesh(geo, pukek);
     m.position.set(cxLoka, cyLoka, 0);
-    grupo.add(m);
+    hate.add(m);
   };
 
   if ( segLargho > 0 ) {
-    aldoniBlokon(-plataLargho, 0, segLargho, alto);
-    aldoniBlokon(wc, 0, segLargho, alto);
+    aldoniBlokon(-plataLargho, 0, segLargho, l6da);
+    aldoniBlokon(wc, 0, segLargho, l6da);
   }
   if ( fenLokY > 0 ) aldoniBlokon(-wc, 0, ww, fenLokY);
   if ( segAlto > 0 ) aldoniBlokon(-wc, fenLokY + hh, ww, segAlto);
@@ -82,7 +82,7 @@ export function konstruiMuronKunPilolaTruo(
 
 export function aldoniLonganFenestron(
   group: THREE.Group,
-  cx: number, cz: number, bazaY: number, alto: number,
+  cx: number, cz: number, bazaY: number, l6da: number,
   plataLargho: number,
   orientacio: "antaŭ" | "malantaŭ" | "maldekstra" | "dekstra",
   muraMaterialo: THREE.MeshStandardMaterial,
@@ -90,9 +90,9 @@ export function aldoniLonganFenestron(
   kadraMaterialo: THREE.MeshStandardMaterial
 ): void {
   const ww = Math.min(plataLargho * 2 - 0o3/0o10, plataLargho * 4/3 + 0o1/0o4);
-  const hh = Math.min(0o5/0o10, alto * 0o23/0o100);
-  const fenY = bazaY + Math.max(alto * 2/5, 0o3/0o4);
-  if ( fenY + hh > bazaY + alto ) return;
+  const hh = Math.min(0o5/0o10, l6da * 0o23/0o100);
+  const fenY = bazaY + Math.max(l6da * 2/5, 0o3/0o4);
+  if ( fenY + hh > bazaY + l6da ) return;
   const malantaŭ = orientacio === "malantaŭ";
   const antaŭ = orientacio === "antaŭ";
   // ⟨ ទិសបួន 📃 ⟩
@@ -102,7 +102,7 @@ export function aldoniLonganFenestron(
   const aCx = malantaŭ || antaŭ ? cx : cx + ( orientacio === "dekstra" ? -ofseto : ofseto );
   const aCz = malantaŭ ? cz + ofseto : antaŭ ? cz - ofseto : cz;
   const dikeco = 0o3/0o20;
-  konstruiMuronKunPilolaTruo(group, plataLargho, bazaY, alto, dikeco, ww, hh, fenY, muraMaterialo, cx, cz, malantaŭ ? 0 : rotacio);
+  konstruiMuronKunPilolaTruo(group, plataLargho, bazaY, l6da, dikeco, ww, hh, fenY, muraMaterialo, cx, cz, malantaŭ ? 0 : rotacio);
   const fenGeo = new THREE.ShapeGeometry(kreiPilolFenestranFormon(ww, hh), 0o100);
   const fen = new THREE.Mesh(fenGeo, fenestraMaterialo);
   fen.position.set(aCx, fenY, aCz);
@@ -112,7 +112,7 @@ export function aldoniLonganFenestron(
   const kadroLargho = 0o1/0o10, kadroDikeco = 0o1/0o20;
   // ⟨ ជញ្ជាំងទទេជុំវិញបង្អួចប៉ុន្មាន 📃 ⟩
   const liberoLonga = plataLargho - ww / 2;
-  const liberoMallonga = Math.min(fenY - hh / 2 - bazaY, bazaY + alto - fenY - hh / 2);
+  const liberoMallonga = Math.min(fenY - hh / 2 - bazaY, bazaY + l6da - fenY - hh / 2);
   const pintoSupre = hh * 0o1/0o2;
   const pintoFlanko = Math.max(0, Math.min(pintoSupre, liberoLonga - kadroLargho - 0o1/0o100));
   const pintoMallonga = Math.max(0, Math.min(pintoSupre, liberoMallonga - kadroLargho - 0o1/0o100));

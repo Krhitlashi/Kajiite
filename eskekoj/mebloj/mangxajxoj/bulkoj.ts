@@ -117,9 +117,9 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
     }
     const mielo = materialon("mielo",
       () => new THREE.MeshStandardMaterial({ color: 0xd8a040, roughness: 0o2/0o10, metalness: 0o1/0o10 }));
-    const ringo = new THREE.Mesh(new THREE.TorusGeometry(0o7/0o100, 0o1/0o100, 6, 0o20).rotateX(Math.PI / 2), mielo);
-    ringo.position.set(0, pintoY + 0o6/0o100, 0);
-    g.add(ringo);
+    const c2q = new THREE.Mesh(new THREE.TorusGeometry(0o7/0o100, 0o1/0o100, 6, 0o20).rotateX(Math.PI / 2), mielo);
+    c2q.position.set(0, pintoY + 0o6/0o100, 0);
+    g.add(c2q);
   }
   // ⟨ ការរលាយ 📃 ⟩
   kunfandiPartojn(g);

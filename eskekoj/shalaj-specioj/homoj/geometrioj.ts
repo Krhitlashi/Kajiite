@@ -41,11 +41,11 @@ export function figurajGeometriojn(): NonNullable<typeof figurajGeometrioj> {
   if ( figurajGeometrioj ) return figurajGeometrioj;
 
   // ⟨ ក្បាល 📃 ⟩
-  const kapo = kreiKapanKranion();
+  const wopo = kreiKapanKranion();
   // ⟨ កស្តើងចុះ 📃 ⟩
   const kolo = new THREE.CylinderGeometry(0o56/0o1000, 0o71/0o1000, 0o5/0o40, 0o14, 0o1);
   kolo.translate(0, KOLO_Y, 0);
-  const kapajPartoj: THREE.BufferGeometry[] = [ kapo, kolo ];
+  const kapajPartoj: THREE.BufferGeometry[] = [ wopo, kolo ];
   // ⟨ ត្រចៀកឥឡូវជាសំបក 📃 ⟩
   for ( const dir of [ -0o1, 0o1 ] ) kapajPartoj.push(kreiOrelon(dir));
   // ⟨ ច្រមុះ 📃 ⟩
@@ -69,7 +69,7 @@ export function figurajGeometriojn(): NonNullable<typeof figurajGeometrioj> {
 
   // ⟨ ដៃ និងប្រអប់ដៃ 📃 ⟩
   const kruro = kreiKorpanKruropon();
-  const brako = kreiKorpanBrakon();
+  const knece = kreiKorpanBrakon();
   const pantalono = kreiPantalonan();
   // ⟨ ដៃ និងក្រចក 📃 ⟩
   const manoj = kreiKorpanManon();
@@ -104,17 +104,17 @@ export function figurajGeometriojn(): NonNullable<typeof figurajGeometrioj> {
     vizaĝajStrikoj,
     palpebroj: kreiPalpebrojn(),
     korpo: kreiKorpanTorson(),
-    kruroSupra: kruro.supra,
+    kruroSupra: kruro.teru,
     kruroMalsupra: kruro.malsupra,
     korpaPiedo: kreiKorpanPiedon(),
-    brakoSupra: brako.supra,
-    brakoMalsupra: brako.malsupra,
+    brakoSupra: knece.teru,
+    brakoMalsupra: knece.malsupra,
     mano: manoj.mano,
     ungoj: manoj.ungoj,
     interna: kreiInternanSxelon(),
     // ⟨ គំរូសម្លៀកបំពាក់ 📃 ⟩
     roba: kreiMalfermanRobonSxelon(),
-    pantalonaSupra: pantalono.supra,
+    pantalonaSupra: pantalono.teru,
     pantalonaMalsupra: pantalono.malsupra,
     boto,
     akcenta: akcentaj,

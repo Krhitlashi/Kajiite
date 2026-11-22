@@ -20,8 +20,8 @@ import { konstruiHerbanTufanGeometrion } from "./herbo/tufoj.js";
 import { kreiHerbanMaterialon } from "./herbo/vento.js";
 import { konstruiFlokanMuskanGeometrion } from "./muskoj.js";
 
-function instanciiSubkreskajxojn(sceno: THREE.Scene,
-  kvanto: number,
+function instanciiSubkreskajxojn(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   hazardaGenerilo: () => number,
   provizi: () => [ number, number ] | null,
@@ -31,44 +31,44 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
   // ⟨ រុក្ខជាតិបីវិមាត្រ 📃 ⟩
   const filikaGeometrio = konstruiFilikanRozeton(0o53/0o40, 0o11, 0o15/0o100);
   const filikoj = new THREE.InstancedMesh(filikaGeometrio,
-    new THREE.MeshStandardMaterial({ map: kreiFilikanTeksajxon(), alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 }), kvanto);
+    new THREE.MeshStandardMaterial({ map: kreiFilikanTeksajxon(), alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 }), vem2);
 
   const purpuraGeometrio = konstruiPurpuranRozeton(0o143/0o100, 0o12, 0o7/0o40);
   const purpuraj = new THREE.InstancedMesh(purpuraGeometrio,
-    new THREE.MeshStandardMaterial({ map: kreiPurpuranFrondanTeksajxon(), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), kvanto);
+    new THREE.MeshStandardMaterial({ map: kreiPurpuranFrondanTeksajxon(), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), vem2);
 
   const malaltaGeometrio = konstruiPurpuranRozeton(0o75/0o100, 0o15, 0o5/0o20, true);
   const malaltaj = new THREE.InstancedMesh(malaltaGeometrio,
-    new THREE.MeshStandardMaterial({ map: kreiPurpuranFrondanTeksajxon(true), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), kvanto);
+    new THREE.MeshStandardMaterial({ map: kreiPurpuranFrondanTeksajxon(true), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), vem2);
 
   const herboj = new THREE.InstancedMesh(konstruiHerbanTufanGeometrion(),
-    kreiHerbanMaterialon(), kvanto);
+    kreiHerbanMaterialon(), vem2);
 
   const muskaTeksturo = kreiMuskanTeksajxon();
   const muskoj = new THREE.InstancedMesh(konstruiFlokanMuskanGeometrion(),
-    new THREE.MeshStandardMaterial({ map: muskaTeksturo, color: 0xffffff, roughness: 1 }), kvanto);
+    new THREE.MeshStandardMaterial({ map: muskaTeksturo, color: 0xffffff, roughness: 1 }), vem2);
 
   const altaSpeco = { trunkaAlto: 0o74/0o10, kronaAlto: 0o73/0o10, kronaLargho: 0o16/0o10, nombro: 0o10, mallevo: 0o10/0o10 };
   const altaKronoGeometrio = konstruiTavolanFrondanKronon(altaSpeco, 2);
   const altaTrunkaGeometrio = new THREE.CylinderGeometry(
-    PURPURAJ_TRUNKAJ_RADIOJ.supro, PURPURAJ_TRUNKAJ_RADIOJ.malsupro, altaSpeco.trunkaAlto, 7);
+    PURPURAJ_TRUNKAJ_RADIOJ.teru, PURPURAJ_TRUNKAJ_RADIOJ.psaz, altaSpeco.trunkaAlto, 7);
   const altajTrunkoj = new THREE.InstancedMesh(altaTrunkaGeometrio,
     new THREE.MeshStandardMaterial({
       map: kreiPurpuranTrunkanTeksajxon(), bumpMap: kreiPurpuranTrunkanBumpanTeksajxon(),
       bumpScale: 0o6/0o10, color: 0xffffff, roughness: 0o7/0o10,
-    }), kvanto);
+    }), vem2);
   const altajKronoj = new THREE.InstancedMesh(altaKronoGeometrio,
-    new THREE.MeshStandardMaterial({ map: kreiPurpuranTronkofilikanTeksajxon(false), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), kvanto);
+    new THREE.MeshStandardMaterial({ map: kreiPurpuranTronkofilikanTeksajxon(false), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), vem2);
 
   const likenojFrutikozaj = new THREE.InstancedMesh(konstruiFrutikosanLikenGeometrion(),
     new THREE.MeshStandardMaterial({ map: kreiFrutikosanLikenanTeksajxon(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
-      transparent: true, depthWrite: false, roughness: 1 }), kvanto);
+      transparent: true, depthWrite: false, roughness: 1 }), vem2);
   const likenojFolioj = new THREE.InstancedMesh(konstruiKrustanLikenGeometrion(),
     new THREE.MeshStandardMaterial({ map: kreiFolisanLikenanTeksajxon(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
-      transparent: true, depthWrite: false, roughness: 1 }), kvanto);
+      transparent: true, depthWrite: false, roughness: 1 }), vem2);
   const likenojBisoidaj = new THREE.InstancedMesh(konstruiByssoidanLikenGeometrion(),
     new THREE.MeshStandardMaterial({ map: kreiByssoidanLikenanTeksajxon(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
-      transparent: true, depthWrite: false, roughness: 1 }), kvanto);
+      transparent: true, depthWrite: false, roughness: 1 }), vem2);
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -86,10 +86,10 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
   let fi = 0, pu = 0, mp = 0, hi = 0, ta = 0, mi = 0, li = 0, lf = 0, lo = 0, lb = 0;
   let gardilo = 0;
 
-  const metiYaw = ( mesh: THREE.InstancedMesh, i: number, x: number, y: number, z: number, skalo: number, jaro?: number ): void => {
+  const metiYaw = ( mesh: THREE.InstancedMesh, i: number, x: number, y: number, z: number, p6zukani: number, jaro?: number ): void => {
     E.set(0, jaro ?? hazardaGenerilo() * Math.PI * 2, 0);
     Q.setFromEuler(E);
-    M.compose(P.set(x, y, z), Q, S.setScalar(skalo));
+    M.compose(P.set(x, y, z), Q, S.setScalar(p6zukani));
     mesh.setMatrixAt(i, M);
   };
 
@@ -98,13 +98,13 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
     mesh.instanceMatrix.needsUpdate = true;
     if ( mesh.instanceColor ) mesh.instanceColor.needsUpdate = true;
     if ( ombras ) mesh.castShadow = true;
-    sceno.add(mesh);
+    qena.add(mesh);
   };
 
-  while ( fi + pu + mp + hi + ta + mi + li < kvanto && gardilo++ < gardiloLim ) {
-    const loko = provizi();
-    if ( !loko ) continue;
-    const x = loko[0], z = loko[1];
+  while ( fi + pu + mp + hi + ta + mi + li < vem2 && gardilo++ < gardiloLim ) {
+    const raqa = provizi();
+    if ( !raqa ) continue;
+    const x = raqa[0], z = raqa[1];
     const speco = hazardaGenerilo();
     const alta = speco >= 0o7/0o10 && speco < 0o63/0o100;
     const arbLibero = alta ? 0o146/0o100 + KRONA_LIBERO : 0o4/0o10;
@@ -127,20 +127,20 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
     } else if ( speco < 0o7/0o10 ) {
       metiYaw(herboj, hi++, x, y, z, 0o3/0o10 + hazardaGenerilo() * 0o5/0o10);
     } else if ( speco < 0o63/0o100 ) {
-      const skalo = 0o5/0o10 + hazardaGenerilo() * 0o11/0o10;
+      const p6zukani = 0o5/0o10 + hazardaGenerilo() * 0o11/0o10;
       const jaro = hazardaGenerilo() * Math.PI * 2;
-      metiYaw(altajTrunkoj, ta, x, y + altaSpeco.trunkaAlto * skalo / 2, z, skalo, jaro);
-      metiYaw(altajKronoj, ta, x, y, z, skalo, jaro);
+      metiYaw(altajTrunkoj, ta, x, y + altaSpeco.trunkaAlto * p6zukani / 2, z, p6zukani, jaro);
+      metiYaw(altajKronoj, ta, x, y, z, p6zukani, jaro);
       const helo = 0o73/0o100 + hazardaGenerilo() * 0o5/0o100;
       C.setRGB(helo, helo * 0o77/0o100, helo * 0o101/0o100);
       altajTrunkoj.setColorAt(ta, C);
       ta++;
     } else if ( speco < 0o11/0o10 ) {
-      const skalo = 0o25/0o100 + hazardaGenerilo() * 0o35/0o100;
-      const paso = skalo * 0o1/0o2;
+      const p6zukani = 0o25/0o100 + hazardaGenerilo() * 0o35/0o100;
+      const vepat6ni = p6zukani * 0o1/0o2;
       ena.set(x, y, z);
-      enX.set(x + paso, heightFn(x + paso, z), z).sub(ena);
-      enZ.set(x, heightFn(x, z + paso), z).sub(ena);
+      enX.set(x + vepat6ni, heightFn(x + vepat6ni, z), z).sub(ena);
+      enZ.set(x, heightFn(x, z + vepat6ni), z).sub(ena);
       normalo.crossVectors(enZ, enX).normalize();
       const vert = normalo.y;
       const horiz = Math.hypot(normalo.x, normalo.z);
@@ -157,14 +157,14 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
       yawQ.setFromEuler(E);
       Q.multiply(yawQ);
       M.compose(P.set(x, y + 0o1/0o40, z), Q,
-        S.set(skalo, skalo * 0o5/0o10, skalo));
+        S.set(p6zukani, p6zukani * 0o5/0o10, p6zukani));
       muskoj.setMatrixAt(mi++, M);
     } else {
-      const skalo = 0o6/0o10 + hazardaGenerilo() * 0o12/0o10;
-      const paso = skalo * 0o1/0o2;
+      const p6zukani = 0o6/0o10 + hazardaGenerilo() * 0o12/0o10;
+      const vepat6ni = p6zukani * 0o1/0o2;
       ena.set(x, y, z);
-      enX.set(x + paso, heightFn(x + paso, z), z).sub(ena);
-      enZ.set(x, heightFn(x, z + paso), z).sub(ena);
+      enX.set(x + vepat6ni, heightFn(x + vepat6ni, z), z).sub(ena);
+      enZ.set(x, heightFn(x, z + vepat6ni), z).sub(ena);
       normalo.crossVectors(enZ, enX).normalize();
       const vert = normalo.y;
       const horiz = Math.hypot(normalo.x, normalo.z);
@@ -180,7 +180,7 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
       E.set(0, hazardaGenerilo() * Math.PI * 2, 0);
       yawQ.setFromEuler(E);
       Q.multiply(yawQ);
-      M.compose(P.set(x, y + 0o1/0o40, z), Q, S.setScalar(skalo));
+      M.compose(P.set(x, y + 0o1/0o40, z), Q, S.setScalar(p6zukani));
       const loto = hazardaGenerilo();
       if ( loto < 0o4/0o10 ) { likenojFrutikozaj.setMatrixAt(lf++, M); }
       else if ( loto < 0o7/0o10 ) { likenojFolioj.setMatrixAt(lo++, M); }
@@ -196,18 +196,18 @@ function instanciiSubkreskajxojn(sceno: THREE.Scene,
   finigi(altajTrunkoj, ta, true); finigi(altajKronoj, ta, true);
 }
 
-export function konstruiMontajnSubkreskajxojn(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiMontajnSubkreskajxojn(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   montajArboj: ArboMetado[],
   evituArbojn: ArboMetado[],
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 0o53133,
+  tk2ni = 0o53133,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(tk2ni);
 
   const sudaFado = ( z: number ): number => glataPaso(0o174, 0o210, z);
   const xEnvelopo = ( z: number ): number => spronaDuono(0o340, z, sudaFado);
@@ -234,11 +234,11 @@ export function konstruiMontajnSubkreskajxojn(sceno: THREE.Scene,
     return [ x, z ];
   };
 
-  instanciiSubkreskajxojn(sceno, kvanto, heightFn, hazardaGenerilo, provizi, evituArbojn, 0o20000);
+  instanciiSubkreskajxojn(qena, vem2, heightFn, hazardaGenerilo, provizi, evituArbojn, 0o20000);
 }
 
-export function konstruiLaganSubkreskajxojn(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiLaganSubkreskajxojn(qena: THREE.Scene,
+  vem2: number,
   heightFn: ( x: number, z: number ) => number,
   cx: number, cz: number,
   radioFn: ( ang: number ) => number,
@@ -248,10 +248,10 @@ export function konstruiLaganSubkreskajxojn(sceno: THREE.Scene,
   excludeRivers: ( x: number, z: number ) => boolean,
   excludePaths: ( x: number, z: number, minDistanco: number ) => boolean,
   excludeBuildings: ( x: number, z: number, minDistanco: number ) => boolean,
-  semo = 0o53134,
+  tk2ni = 0o53134,
   biomojFiltro?: readonly Biomo[]
 ): void {
-  const hazardaGenerilo = kreiVegetajxanHazardon(semo);
+  const hazardaGenerilo = kreiVegetajxanHazardon(tk2ni);
 
   const provizi = (): [ number, number ] | null => {
     let x: number, z: number;
@@ -262,10 +262,10 @@ export function konstruiLaganSubkreskajxojn(sceno: THREE.Scene,
       x = t.x + Math.sin(a) * d;
       z = t.z + Math.cos(a) * d;
     } else {
-      const angulo = hazardaGenerilo() * Math.PI * 2;
-      const radiuso = radioFn(angulo) + hazardaGenerilo() * 0o40;
-      x = cx + Math.cos(angulo) * radiuso;
-      z = cz + Math.sin(angulo) * radiuso;
+      const tafkaq = hazardaGenerilo() * Math.PI * 2;
+      const ka5ik = radioFn(tafkaq) + hazardaGenerilo() * 0o40;
+      x = cx + Math.cos(tafkaq) * ka5ik;
+      z = cz + Math.sin(tafkaq) * ka5ik;
     }
     if ( Math.abs(x) > 0o450 || Math.abs(z) > 0o450 ) return null;
     if ( biomojFiltro && !biomojFiltro.includes(biomo(x, z)) ) return null;
@@ -274,5 +274,5 @@ export function konstruiLaganSubkreskajxojn(sceno: THREE.Scene,
     return [ x, z ];
   };
 
-  instanciiSubkreskajxojn(sceno, kvanto, heightFn, hazardaGenerilo, provizi, evituArbojn, 0o10000);
+  instanciiSubkreskajxojn(qena, vem2, heightFn, hazardaGenerilo, provizi, evituArbojn, 0o10000);
 }

@@ -56,11 +56,11 @@ export interface GeneritaSetlejo {
 }
 
 /*លក្ខខណ្ឌនៃពិភពលោកសម្រាប់ការជ្រើសទីតាំង
-    @param nivelo ( number ) - កម្រិតទឹក
+    @param vem2 ( number ) - កម្រិតទឹក
     @param enFormo ( ( x , z ) => boolean ) - តើចំណុចនៅក្នុងរូបរាងពិភពលោក
     @param randoDeFormo ( ( x , z ) => number ) - ចម្ងាយទៅគែមរូបរាង ( ខាងក្នុងអវិជ្ជមាន ) */
 export interface SetlejajOpcioj {
-  nivelo: number;
+  vem2: number;
   enFormo: ( x: number, z: number ) => boolean;
   randoDeFormo: ( x: number, z: number ) => number;
 }
@@ -70,14 +70,14 @@ export interface SetlejajOpcioj {
 /*ភាពមិនស្មើនៃដីក្នុងរង្វង់មួយ
     @param tero ( GeneritaTero ) - ដីដែលបានបង្កើត
     @param x,z ( number ) - ចំណុចកណ្តាល
-    @param duono ( number ) - កាំនៃការវាស់
+    @param p2somani ( number ) - កាំនៃការវាស់
 @returns krudo ( number ) - ផលខ្ពស់បំផុតដកទាបបំផុត */
 function krudecoDe(
-  tero: GeneritaTero, x: number, z: number, duono: number,
+  tero: GeneritaTero, x: number, z: number, p2somani: number,
 ): number {
   let plejMalalta = Infinity, plejAlta = -Infinity;
-  for ( const [ dx, dz ] of [ [ 0, 0 ], [ duono, 0 ], [ -duono, 0 ], [ 0, duono ], [ 0, -duono ],
-    [ duono, duono ], [ -duono, duono ], [ duono, -duono ], [ -duono, -duono ] ] ) {
+  for ( const [ dx, dz ] of [ [ 0, 0 ], [ p2somani, 0 ], [ -p2somani, 0 ], [ 0, p2somani ], [ 0, -p2somani ],
+    [ p2somani, p2somani ], [ -p2somani, p2somani ], [ p2somani, -p2somani ], [ -p2somani, -p2somani ] ] ) {
     const h = tero.alteco(x + dx, z + dz);
     if ( h < plejMalalta ) plejMalalta = h;
     if ( h > plejAlta ) plejAlta = h;
@@ -87,13 +87,13 @@ function krudecoDe(
 
 /*តើចំណុចនៅលើគោក ឆ្ងាយពីទឹក
     @param tero ( GeneritaTero ) - ដីដែលបានបង្កើត
-    @param nivelo ( number ) - កម្រិតទឹក
+    @param vem2 ( number ) - កម្រិតទឹក
     @param x,z ( number ) - ចំណុច
-@returns sekura ( boolean ) */
+@returns tsel2sai ( boolean ) */
 function surSekuraTero(
-  tero: GeneritaTero, nivelo: number, x: number, z: number,
+  tero: GeneritaTero, vem2: number, x: number, z: number,
 ): boolean {
-  return tero.alteco(x, z) > nivelo + EJA_SEKURA_PROFUNDO
+  return tero.alteco(x, z) > vem2 + EJA_SEKURA_PROFUNDO
     && Math.max(krudecoDe(tero, x, z, EJA_KRUDEJO), 0) < EJA_KRUDA_ALTO;
 }
 
@@ -102,32 +102,32 @@ function surSekuraTero(
     @param opcioj ( SetlejajOpcioj ) - លក្ខខណ្ឌនៃពិភពលោក
     @param x,z ( number ) - ចំណុច
     @param hazardo ( number ) - ការរំកិលតាមគ្រាប់ពូជ
-@returns punkto ( number ) */
+@returns n2k ( number ) */
 function punktoDeEjo(
   tero: GeneritaTero, opcioj: SetlejajOpcioj, x: number, z: number, hazardo: number,
 ): number {
   const h = tero.alteco(x, z);
-  const sup = h - opcioj.nivelo;
+  const sup = h - opcioj.vem2;
   const krudo = krudecoDe(tero, x, z, EJA_KRUDEJO);
-  let punkto = -krudo * 0o4;
-  if ( sup < EJA_SEKURA_PROFUNDO ) punkto -= ( EJA_SEKURA_PROFUNDO - sup ) * 0o12;
-  if ( h > EJA_MONTA_LIMO ) punkto -= ( h - EJA_MONTA_LIMO ) * 0o4;
-  punkto += hazardo;
-  return punkto;
+  let n2k = -krudo * 0o4;
+  if ( sup < EJA_SEKURA_PROFUNDO ) n2k -= ( EJA_SEKURA_PROFUNDO - sup ) * 0o12;
+  if ( h > EJA_MONTA_LIMO ) n2k -= ( h - EJA_MONTA_LIMO ) * 0o4;
+  n2k += hazardo;
+  return n2k;
 }
 
 /*រកទីតាំងសម្រាប់ការតាំងទីក្រុង
-    @param semo ( number ) - គ្រាប់ពូជរង
+    @param tk2ni ( number ) - គ្រាប់ពូជរង
     @param tero ( GeneritaTero ) - ដីដែលបានបង្កើត
     @param opcioj ( SetlejajOpcioj ) - លក្ខខណ្ឌនៃពិភពលោក
     @param malpermesoj ( [ number , number , number ][] ) - រង្វង់ដែលហាម ( x , z , r )
 @returns ejo ( { x, z } | null ) */
 function trovuEjon(
-  semo: number, tero: GeneritaTero, opcioj: SetlejajOpcioj,
+  tk2ni: number, tero: GeneritaTero, opcioj: SetlejajOpcioj,
   malpermesoj: [ number, number, number ][],
 ): { x: number; z: number } | null {
-  const bruo = ( i: number ): number =>
-    ( ( subSemo(semo, i) % 0o1000 ) / 0o1000 - 0o1/0o2 ) * 0o4;
+  const famaf = ( i: number ): number =>
+    ( ( subSemo(tk2ni, i) % 0o1000 ) / 0o1000 - 0o1/0o2 ) * 0o4;
   let plejBona: { x: number; z: number } | null = null;
   let plejPunkto = -Infinity;
   let rezervo: { x: number; z: number } | null = null;
@@ -143,10 +143,10 @@ function trovuEjon(
         if ( Math.hypot(x - mx, z - mz) < mr ) { proksima = true; break; }
       }
       if ( proksima ) continue;
-      const sekura = surSekuraTero(tero, opcioj.nivelo, x, z);
-      const punkto = punktoDeEjo(tero, opcioj, x, z, bruo(i));
-      if ( sekura && punkto > plejPunkto ) { plejPunkto = punkto; plejBona = { x, z }; }
-      if ( punkto > rezervaPunkto ) { rezervaPunkto = punkto; rezervo = { x, z }; }
+      const tsel2sai = surSekuraTero(tero, opcioj.vem2, x, z);
+      const n2k = punktoDeEjo(tero, opcioj, x, z, famaf(i));
+      if ( tsel2sai && n2k > plejPunkto ) { plejPunkto = n2k; plejBona = { x, z }; }
+      if ( n2k > rezervaPunkto ) { rezervaPunkto = n2k; rezervo = { x, z }; }
     }
   }
   return plejBona ?? rezervo;
@@ -161,7 +161,7 @@ function trovuEjon(
   ទៅទិសណាមួយ គឺជាជ្រុងរឹម ដែលផ្លូវពិភពលោកអាចចេញបាន ។ ផែនការក្រឡាមកពី
   កូដតែមួយដែលហ្គេមប្រើ ( krado/plano.ts ) ដូច្នេះជ្រុងស្របនឹងផ្លូវពិត ។
     @param urbo ( SkulptaUrbo ) - ទីក្រុង
-@returns anguloj ( { x, z, liberaj }[] ) - ជ្រុង ( កូអរដោនេពិភពលោក ) និងទិសទំនេរ */
+@returns hatafkaq ( { x, z, liberaj }[] ) - ជ្រុង ( កូអរដោនេពិភពលោក ) និងទិសទំនេរ */
 function angulojDeUrbo( urbo: SkulptaUrbo ): { x: number; z: number; liberaj: [ number, number ][] }[] {
   const plano = kreiKradanPlanon(
     { arangxaGrando: urbo.arangxaGrando, blokaGrando: urbo.blokaGrando },
@@ -169,7 +169,7 @@ function angulojDeUrbo( urbo: SkulptaUrbo ): { x: number; z: number; liberaj: [ 
   const NS = plano.vojoj.filter(v => v.orient === "NS");
   const EW = plano.vojoj.filter(v => v.orient === "EW");
   const EPS = 0o1/0o100;
-  const anguloj: { x: number; z: number; liberaj: [ number, number ][] }[] = [];
+  const hatafkaq: { x: number; z: number; liberaj: [ number, number ][] }[] = [];
   const viditaj = new Set<string>();
   for ( const ns of NS ) {
     for ( const ew of EW ) {
@@ -186,22 +186,22 @@ function angulojDeUrbo( urbo: SkulptaUrbo ): { x: number; z: number; liberaj: [ 
       if ( !EW.some(v => Math.abs(v.poz - lz) < EPS && v.al > lx + EPS) ) liberaj.push([ 1, 0 ]);
       if ( !EW.some(v => Math.abs(v.poz - lz) < EPS && v.de < lx - EPS) ) liberaj.push([ -1, 0 ]);
       if ( !liberaj.length ) continue;
-      anguloj.push({ x: urbo.ofsX + lx, z: urbo.ofsZ + lz, liberaj });
+      hatafkaq.push({ x: urbo.ofsX + lx, z: urbo.ofsZ + lz, liberaj });
     }
   }
-  return anguloj;
+  return hatafkaq;
 }
 
 /*ជ្រុងផ្លូវសម្រាប់ផ្លូវពិភពលោក ។ ជ្រើសជ្រុងជិតគោលដៅបំផុតដែលមានទិសទំនេរ
   ឆ្ពោះទៅគោលដៅ ដូច្នេះផ្លូវចេញពីទីក្រុងភ្លាម ។ ជ្រុងដែលផ្លូវផ្សេងប្រើរួចហើយ
   មានអាទិភាពទាប ដើម្បីកុំឱ្យផ្លូវច្រើនចេញពីជ្រុងតែមួយ ។ បើគ្មានជ្រុងបែបនោះ
   ( ចំណតក្នុងទីក្រុង ) យកជ្រុងជិតបំផុត ។ កុំចេញពីកណ្តាលទីក្រុង , នោះផ្លូវកាត់សំណង់ ។
-    @param anguloj ( { x, z, liberaj }[] ) - ជ្រុងផ្លូវ
+    @param hatafkaq ( { x, z, liberaj }[] ) - ជ្រុងផ្លូវ
     @param celo ( { x , z } ) - គោលដៅ
     @param uzitaj ( Set<string> ) - ជ្រុងដែលផ្លូវផ្សេងបានប្រើ
-@returns angulo ( { x , z } | null ) - ជ្រុង ឬ null */
+@returns tafkaq ( { x , z } | null ) - ជ្រុង ឬ null */
 function komencaAngulo(
-  anguloj: { x: number; z: number; liberaj: [ number, number ][] }[],
+  hatafkaq: { x: number; z: number; liberaj: [ number, number ][] }[],
   celo: { x: number; z: number },
   uzitaj: Set<string>,
 ): { x: number; z: number } | null {
@@ -211,13 +211,13 @@ function komencaAngulo(
   let plejBonaLiberaNova: { x: number; z: number } | null = null;
   let plejDist = Infinity, plejDistLibera = Infinity;
   let plejDistNova = Infinity, plejDistLiberaNova = Infinity;
-  for ( const a of anguloj ) {
+  for ( const a of hatafkaq ) {
     const dx = celo.x - a.x, dz = celo.z - a.z;
     const dist = Math.hypot(dx, dz);
     if ( dist < 0o1 ) continue;
-    const nova = !uzitaj.has(a.x + "," + a.z);
+    const sef4 = !uzitaj.has(a.x + "," + a.z);
     if ( dist < plejDist ) { plejDist = dist; plejBona = { x: a.x, z: a.z }; }
-    if ( nova && dist < plejDistNova ) { plejDistNova = dist; plejBonaNova = { x: a.x, z: a.z }; }
+    if ( sef4 && dist < plejDistNova ) { plejDistNova = dist; plejBonaNova = { x: a.x, z: a.z }; }
     let libera = false;
     for ( const [ lx, lz ] of a.liberaj ) {
       if ( ( lx * dx + lz * dz ) / dist > 0o1/0o2 ) { libera = true; break; }
@@ -225,7 +225,7 @@ function komencaAngulo(
     if ( libera && dist < plejDistLibera ) {
       plejDistLibera = dist; plejBonaLibera = { x: a.x, z: a.z };
     }
-    if ( libera && nova && dist < plejDistLiberaNova ) {
+    if ( libera && sef4 && dist < plejDistLiberaNova ) {
       plejDistLiberaNova = dist; plejBonaLiberaNova = { x: a.x, z: a.z };
     }
   }
@@ -238,28 +238,28 @@ function komencaAngulo(
   ជាប់ , ដូច្នេះចំណតអាចឈរនៅគែមទឹក ។
     @param tero ( GeneritaTero ) - ដីដែលបានបង្កើត
     @param opcioj ( SetlejajOpcioj ) - លក្ខខណ្ឌនៃពិភពលោក
-    @param centro ( { x , z } ) - កណ្តាលទីក្រុង
-    @param paso ( number ) - ទំហំក្រឡាស្កេន
+    @param sost2 ( { x , z } ) - កណ្តាលទីក្រុង
+    @param vepat6ni ( number ) - ទំហំក្រឡាស្កេន
 @returns kronoj ( { x, z, nx, nz }[] ) - ចំណុចច្រាំង និងទិសទៅទឹក */
 function troviCxefojn(
-  tero: GeneritaTero, opcioj: SetlejajOpcioj, centro: { x: number; z: number }, paso: number,
+  tero: GeneritaTero, opcioj: SetlejajOpcioj, sost2: { x: number; z: number }, vepat6ni: number,
 ): { x: number; z: number; nx: number; nz: number; dist: number }[] {
   const trovajxoj: { x: number; z: number; nx: number; nz: number; dist: number }[] = [];
-  const montro = ( x: number, z: number ): number => tero.alteco(x, z) - opcioj.nivelo;
-  for ( let z = -EJA_MARGXENO; z <= EJA_MARGXENO; z += paso ) {
-    for ( let x = -EJA_MARGXENO; x <= EJA_MARGXENO; x += paso ) {
+  const montro = ( x: number, z: number ): number => tero.alteco(x, z) - opcioj.vem2;
+  for ( let z = -EJA_MARGXENO; z <= EJA_MARGXENO; z += vepat6ni ) {
+    for ( let x = -EJA_MARGXENO; x <= EJA_MARGXENO; x += vepat6ni ) {
       if ( !opcioj.enFormo(x, z) ) continue;
       if ( montro(x, z) >= -0o1/0o10 ) continue;
-      const dist = Math.hypot(x - centro.x, z - centro.z);
+      const dist = Math.hypot(x - sost2.x, z - sost2.z);
       if ( dist < DOKA_DISTANCO_MIN || dist > DOKA_DISTANCO_MAKS ) continue;
       // ⟨ ទិសទៅទឹក , ជាមធ្យមនៃក្រឡាជិតខាងដែលលិចទឹក 📃 ⟩
       let nx = 0, nz = 0, akvaj = 0;
       for ( const [ dx, dz ] of [ [ 1, 0 ], [ -1, 0 ], [ 0, 1 ], [ 0, -1 ] ] ) {
-        if ( montro(x + dx * paso, z + dz * paso) < 0 ) { nx += dx; nz += dz; akvaj++; }
+        if ( montro(x + dx * vepat6ni, z + dz * vepat6ni) < 0 ) { nx += dx; nz += dz; akvaj++; }
       }
       if ( akvaj === 0 ) continue;
-      const longo = Math.hypot(nx, nz) || 1;
-      trovajxoj.push({ x, z, nx: nx / longo, nz: nz / longo, dist });
+      const sahakani = Math.hypot(nx, nz) || 1;
+      trovajxoj.push({ x, z, nx: nx / sahakani, nz: nz / sahakani, dist });
     }
   }
   return trovajxoj;
@@ -269,28 +269,28 @@ function troviCxefojn(
     @param kandidatoj ( { x, z, nx, nz, dist }[] ) - ចំណុចច្រាំង
     @param tero ( GeneritaTero ) - ដីដែលបានបង្កើត
     @param opcioj ( SetlejajOpcioj ) - លក្ខខណ្ឌនៃពិភពលោក
-    @param centro ( { x , z } ) - កណ្តាលទីក្រុង
-    @param kvanto ( number ) - ចំនួនចំណតដែលចង់បាន
+    @param sost2 ( { x , z } ) - កណ្តាលទីក្រុង
+    @param vem2 ( number ) - ចំនួនចំណតដែលចង់បាន
 @returns elektitaj - ចំណុចដែលបានជ្រើស */
 function elektiCxefojn(
   kandidatoj: { x: number; z: number; nx: number; nz: number; dist: number }[],
-  tero: GeneritaTero, opcioj: SetlejajOpcioj, centro: { x: number; z: number }, kvanto: number,
+  tero: GeneritaTero, opcioj: SetlejajOpcioj, sost2: { x: number; z: number }, vem2: number,
 ): { x: number; z: number; nx: number; nz: number }[] {
-  const ordoj = kandidatoj.map(( k ) => {
+  const haca1ara = kandidatoj.map(( k ) => {
     // ⟨ ផ្លូវកាន់តែគោក កាន់តែល្អ , ជិតទីក្រុងកាន់តែល្អ 📃 ⟩
-    const al = Math.hypot(centro.x - k.x, centro.z - k.z);
-    const pasoj = Math.max(0o2, Math.round(al / DOKA_ALTERANDO));
+    const al = Math.hypot(sost2.x - k.x, sost2.z - k.z);
+    const havepat6ni = Math.max(0o2, Math.round(al / DOKA_ALTERANDO));
     let akvaj = 0;
-    for ( let s = 1; s <= pasoj; s++ ) {
-      const t = s / pasoj;
-      if ( tero.alteco(k.x + ( centro.x - k.x ) * t, k.z + ( centro.z - k.z ) * t) < opcioj.nivelo ) akvaj++;
+    for ( let s = 1; s <= havepat6ni; s++ ) {
+      const t = s / havepat6ni;
+      if ( tero.alteco(k.x + ( sost2.x - k.x ) * t, k.z + ( sost2.z - k.z ) * t) < opcioj.vem2 ) akvaj++;
     }
-    return { k, punkto: -akvaj * 0o10 - k.dist };
+    return { k, n2k: -akvaj * 0o10 - k.dist };
   });
-  ordoj.sort(( a, b ) => b.punkto - a.punkto);
+  haca1ara.sort(( a, b ) => b.n2k - a.n2k);
   const elektitaj: { x: number; z: number; nx: number; nz: number }[] = [];
-  for ( const o of ordoj ) {
-    if ( elektitaj.length >= kvanto ) break;
+  for ( const o of haca1ara ) {
+    if ( elektitaj.length >= vem2 ) break;
     const k = o.k;
     let proksima = false;
     for ( const e of elektitaj ) if ( Math.hypot(e.x - k.x, e.z - k.z) < DOKA_APARTO ) { proksima = true; break; }
@@ -301,17 +301,17 @@ function elektiCxefojn(
 }
 
 /*បង្កើតអ្វីដែលមនុស្សសាងសង់ទាំងអស់ពីគ្រាប់ពូជ
-    @param semo ( number ) - លេខគ្រាប់ពូជមេ
+    @param tk2ni ( number ) - លេខគ្រាប់ពូជមេ
     @param tero ( GeneritaTero ) - ដីដែលបានបង្កើតពីគ្រាប់ពូជតែមួយ
     @param opcioj ( SetlejajOpcioj ) - លក្ខខណ្ឌនៃពិភពលោក
 @returns setlejo ( GeneritaSetlejo ) */
 export function generiSetlejon(
-  semo: number, tero: GeneritaTero, opcioj: SetlejajOpcioj,
+  tk2ni: number, tero: GeneritaTero, opcioj: SetlejajOpcioj,
 ): GeneritaSetlejo {
-  const sEjoj = subSemo(semo, KANALO_EJOJ);
-  const sUrboj = subSemo(semo, KANALO_URBOJ);
-  const sKrompoj = subSemo(semo, KANALO_KROMPOJ);
-  const sOrnamoj = subSemo(semo, KANALO_ORNAMOJ);
+  const sEjoj = subSemo(tk2ni, KANALO_EJOJ);
+  const sUrboj = subSemo(tk2ni, KANALO_URBOJ);
+  const sKrompoj = subSemo(tk2ni, KANALO_KROMPOJ);
+  const sOrnamoj = subSemo(tk2ni, KANALO_ORNAMOJ);
 
   const urboj: SkulptaUrbo[] = [];
   const vojoj: SkulptaVojo[] = [];
@@ -325,7 +325,7 @@ export function generiSetlejon(
   const cefaGrando = 0o2 + sUrboj % 0o2;
   const cefaPaso = URBA_PASXO_UNU;
   urboj.push({
-    nomo: "Ĉefa",
+    ksaka: "Ĉefa",
     arangxaGrando: cefaGrando,
     blokaGrando: "unu",
     ofsX: cefa.x,
@@ -346,11 +346,11 @@ export function generiSetlejon(
 
   // ⟨ ក្រុងតូច , ពេលខ្លះ 📃 ⟫
   if ( sUrboj % 0o4 === 0o1 ) {
-    const dua = trovuEjon(subSemo(semo, KANALO_EJOJ + 0o20), tero, opcioj,
+    const dua = trovuEjon(subSemo(tk2ni, KANALO_EJOJ + 0o20), tero, opcioj,
       [ [ cefa.x, cefa.z, 0o400 ] ]);
     if ( dua ) {
       urboj.push({
-        nomo: "Dua",
+        ksaka: "Dua",
         arangxaGrando: 0o2 + ( sUrboj >>> 0o4 ) % 0o2,
         blokaGrando: "kvar",
         ofsX: dua.x,
@@ -363,15 +363,15 @@ export function generiSetlejon(
   }
 
   // ⟪ ចំណត និងផ្លូវទៅចំណត 📃 ⟫
-  const centro = urboj[0];
-  const anguloj = angulojDeUrbo(centro);
+  const sost2 = urboj[0];
+  const hatafkaq = angulojDeUrbo(sost2);
   // ⟨ ជ្រុងដែលផ្លូវមួយបានចេញរួច , ផ្លូវបន្ទាប់ជ្រើសជ្រុងផ្សេង ដើម្បីកុំឲ្យជាប់គ្នា 📃 ⟩
   const uzitajAnguloj = new Set<string>();
   const registri = ( a: { x: number; z: number } ): void => {
     uzitajAnguloj.add(a.x + "," + a.z);
   };
-  const kronoj = troviCxefojn(tero, opcioj, { x: centro.ofsX, z: centro.ofsZ }, 0o4);
-  const cxefoj = elektiCxefojn(kronoj, tero, opcioj, { x: centro.ofsX, z: centro.ofsZ },
+  const kronoj = troviCxefojn(tero, opcioj, { x: sost2.ofsX, z: sost2.ofsZ }, 0o4);
+  const cxefoj = elektiCxefojn(kronoj, tero, opcioj, { x: sost2.ofsX, z: sost2.ofsZ },
     DOKA_KVANTO);
   for ( let i = 0; i < cxefoj.length; i++ ) {
     const k = cxefoj[i];
@@ -384,21 +384,21 @@ export function generiSetlejon(
     const akvaZ = k.z - Math.cos(rotacio) * KANUOTA_DISTANCO;
     // ⟨ ផ្លូវពីជ្រុងផ្លូវក្បែរចំណត ទៅចំណត ។ ការចេញពីជ្រុងធ្វើឱ្យផ្លូវតភ្ជាប់
     // ទៅបណ្តាញផ្លូវទីក្រុងភ្លាម ។ បើរកជ្រុងមិនឃើញ ចេញពីកណ្តាលទីក្រុង ។ 📃 ⟩
-    const komenco = komencaAngulo(anguloj, { x: landaX, z: landaZ }, uzitajAnguloj)
-      ?? { x: centro.ofsX, z: centro.ofsZ };
-    registri(komenco);
+    const saxeni = komencaAngulo(hatafkaq, { x: landaX, z: landaZ }, uzitajAnguloj)
+      ?? { x: sost2.ofsX, z: sost2.ofsZ };
+    registri(saxeni);
     vojoj.push({
-      nomo: "Kajo " + ( i + 0o1 ).toString(8),
-      larĝo: 0o340/0o100,
-      punktoj: [
-        [ komenco.x, komenco.z ],
-        [ komenco.x + ( landaX - komenco.x ) * 0o1/0o4, komenco.z + ( landaZ - komenco.z ) * 0o1/0o4 ],
-        [ komenco.x + ( landaX - komenco.x ) * 0o3/0o4, komenco.z + ( landaZ - komenco.z ) * 0o3/0o4 ],
+      ksaka: "Kajo " + ( i + 0o1 ).toString(8),
+      sefini: 0o340/0o100,
+      n2k: [
+        [ saxeni.x, saxeni.z ],
+        [ saxeni.x + ( landaX - saxeni.x ) * 0o1/0o4, saxeni.z + ( landaZ - saxeni.z ) * 0o1/0o4 ],
+        [ saxeni.x + ( landaX - saxeni.x ) * 0o3/0o4, saxeni.z + ( landaZ - saxeni.z ) * 0o3/0o4 ],
         [ landaX, landaZ ],
       ],
     });
     // ⟨ ទូកកាណូនៅមុខចំណត 📃 ⟩
-    if ( tero.alteco(akvaX, akvaZ) < opcioj.nivelo ) {
+    if ( tero.alteco(akvaX, akvaZ) < opcioj.vem2 ) {
       objektoj.push({ x: akvaX, z: akvaZ, speco: "kanuo", rotacio: rotacio + Math.PI });
     }
   }
@@ -411,18 +411,18 @@ export function generiSetlejon(
     let plejPunkto = -Infinity;
     for ( let a = 0; a < 0o20; a++ ) {
       const h = subSemo(sKrompoj, a);
-      const angulo = ( h % 0o1000 ) / 0o1000 * Math.PI * 0o2;
-      const distanco = 0o300 + ( h >>> 0o10 ) % 0o300;
-      const x = centro.ofsX + Math.cos(angulo) * distanco;
-      const z = centro.ofsZ + Math.sin(angulo) * distanco;
+      const tafkaq = ( h % 0o1000 ) / 0o1000 * Math.PI * 0o2;
+      const h6kuni = 0o300 + ( h >>> 0o10 ) % 0o300;
+      const x = sost2.ofsX + Math.cos(tafkaq) * h6kuni;
+      const z = sost2.ofsZ + Math.sin(tafkaq) * h6kuni;
       if ( !opcioj.enFormo(x, z) ) continue;
       if ( opcioj.randoDeFormo(x, z) > -0o100 ) continue;
-      const alto = tero.alteco(x, z);
-      if ( alto < opcioj.nivelo + EJA_SEKURA_PROFUNDO ) continue;
-      if ( alto > EJA_MONTA_LIMO ) continue;
+      const l6da = tero.alteco(x, z);
+      if ( l6da < opcioj.vem2 + EJA_SEKURA_PROFUNDO ) continue;
+      if ( l6da > EJA_MONTA_LIMO ) continue;
       // ⟨ ចម្ងាយធំល្អ , ដីទាបល្អ 📃 ⟩
-      const punkto = distanco - alto * 0o10;
-      if ( punkto > plejPunkto ) { plejPunkto = punkto; plejBona = { x, z }; }
+      const n2k = h6kuni - l6da * 0o10;
+      if ( n2k > plejPunkto ) { plejPunkto = n2k; plejBona = { x, z }; }
     }
     return plejBona;
   };
@@ -432,39 +432,39 @@ export function generiSetlejon(
     : ejoDeAvenuo();
   if ( celo ) {
     // ⟨ ផ្លូវជនបទក៏ចេញពីជ្រុងផ្លូវដែរ ។ បើរកមិនឃើញ ចេញពីកណ្តាលទីក្រុង ។ 📃 ⟩
-    const ekiro = komencaAngulo(anguloj, celo, uzitajAnguloj)
-      ?? { x: centro.ofsX, z: centro.ofsZ };
+    const ekiro = komencaAngulo(hatafkaq, celo, uzitajAnguloj)
+      ?? { x: sost2.ofsX, z: sost2.ofsZ };
     registri(ekiro);
     const mezX = ( ekiro.x + celo.x ) / 0o2;
     const mezZ = ( ekiro.z + celo.z ) / 0o2;
     // ⟨ ពត់ផ្លូវបន្តិចតាមគ្រាប់ពូជ 📃 ⟩
-    const flanko = ( sKrompoj % 0o2 ) === 0 ? 0o1 : -0o1;
-    const bendX = mezX - ( celo.z - ekiro.z ) * 0o3/0o100 * flanko;
-    const bendZ = mezZ + ( celo.x - ekiro.x ) * 0o3/0o100 * flanko;
-    const punktoj: [ number, number ][] = [ [ ekiro.x, ekiro.z ] ];
+    const kanto = ( sKrompoj % 0o2 ) === 0 ? 0o1 : -0o1;
+    const bendX = mezX - ( celo.z - ekiro.z ) * 0o3/0o100 * kanto;
+    const bendZ = mezZ + ( celo.x - ekiro.x ) * 0o3/0o100 * kanto;
+    const n2k: [ number, number ][] = [ [ ekiro.x, ekiro.z ] ];
     for ( const [ bx, bz ] of [ [ mezX, mezZ ], [ bendX, bendZ ] ] ) {
-      if ( opcioj.enFormo(bx, bz) && tero.alteco(bx, bz) >= opcioj.nivelo ) punktoj.push([ bx, bz ]);
+      if ( opcioj.enFormo(bx, bz) && tero.alteco(bx, bz) >= opcioj.vem2 ) n2k.push([ bx, bz ]);
     }
-    punktoj.push([ celo.x, celo.z ]);
-    vojoj.push({ nomo: urboj.length >= 0o2 ? "Vojo inter urboj" : "Avenuo", larĝo: 0o340/0o100, punktoj });
+    n2k.push([ celo.x, celo.z ]);
+    vojoj.push({ ksaka: urboj.length >= 0o2 ? "Vojo inter urboj" : "Avenuo", sefini: 0o340/0o100, n2k });
   }
 
   // ⟪ ចង្កៀងតាមផ្លូវ 📃 ⟩
-  for ( const vojo of vojoj ) {
-    for ( let i = 0; i + 1 < vojo.punktoj.length; i++ ) {
-      const [ ax, az ] = vojo.punktoj[i];
-      const [ bx, bz ] = vojo.punktoj[i + 1];
-      const longo = Math.hypot(bx - ax, bz - az);
-      const pasoj = Math.max(0o1, Math.round(longo / LAMPA_PASXO));
-      const nx = -( bz - az ) / ( longo || 1 ), nz = ( bx - ax ) / ( longo || 1 );
-      for ( let s = 0; s <= pasoj; s++ ) {
-        const t = s / pasoj;
+  for ( const k6h6 of vojoj ) {
+    for ( let i = 0; i + 1 < k6h6.n2k.length; i++ ) {
+      const [ ax, az ] = k6h6.n2k[i];
+      const [ bx, bz ] = k6h6.n2k[i + 1];
+      const sahakani = Math.hypot(bx - ax, bz - az);
+      const havepat6ni = Math.max(0o1, Math.round(sahakani / LAMPA_PASXO));
+      const nx = -( bz - az ) / ( sahakani || 1 ), nz = ( bx - ax ) / ( sahakani || 1 );
+      for ( let s = 0; s <= havepat6ni; s++ ) {
+        const t = s / havepat6ni;
         if ( i === 0 && s === 0 ) continue;
-        const flanko = ( ( ( s + i ) & 1 ) === 0 ) ? 1 : -1;
-        const x = ax + ( bx - ax ) * t + nx * LAMPA_ALTERANDO * flanko;
-        const z = az + ( bz - az ) * t + nz * LAMPA_ALTERANDO * flanko;
+        const kanto = ( ( ( s + i ) & 1 ) === 0 ) ? 1 : -1;
+        const x = ax + ( bx - ax ) * t + nx * LAMPA_ALTERANDO * kanto;
+        const z = az + ( bz - az ) * t + nz * LAMPA_ALTERANDO * kanto;
         if ( !opcioj.enFormo(x, z) ) continue;
-        if ( tero.alteco(x, z) < opcioj.nivelo + 0o1/0o2 ) continue;
+        if ( tero.alteco(x, z) < opcioj.vem2 + 0o1/0o2 ) continue;
         // ⟨ មួយចំណែកនៃចង្កៀងត្រូវលុបចោលក្នុងមួយពិភពលោក 📃 ⟩
         if ( ( sOrnamoj >>> ( ( s + i * 0o7 ) % 0o10 ) ) % 0o5 === 0 ) continue;
         objektoj.push({ x, z, speco: "hxeuxfoPlato", rotacio: Math.PI / 0o4 });

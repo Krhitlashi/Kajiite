@@ -142,7 +142,7 @@ export const EO: Record<string, string> = {
   "specioCetkuo": "Cetkuo",
   "specioPriskriboCetkuo": "Lanuga equiseto praelta.",
   "specioCakeo": "Cakeo",
-  "specioPriskriboCakeo": "Equisetum telmateia kiel osta vosto.",
+  "specioPriskriboCakeo": "Equisetum telmateia kiel osta nar2sa.",
 
   // ⟪ សម្លៀកបំពាក់ 👕 ⟫
 
@@ -164,7 +164,7 @@ export const EO: Record<string, string> = {
   "haroSekcio": "Harstiloj",
   "haroMalalta": "Mallonga",
   "haroLonga": "Longa",
-  "harKoloroSekcio": "Har-koloroj",
+  "harKoloroSekcio": "Har-haweh2",
   "harKoloroBruna": "Bruna",
   "harKoloroNigra": "Nigra",
   "harKoloroRuĝeta": "Ruĝeta",
@@ -179,7 +179,7 @@ export const EO: Record<string, string> = {
   // ⟪ អាកាសធាតុ 🌦️ ⟫
 
   "ariaKrepuskoButono": "Krepusko",
-  "ariaKrepuskoRegilo": "Krepuska nivelo",
+  "ariaKrepuskoRegilo": "Krepuska vem2",
   "ariaVeteroButono": "Vetero",
   "veteroNebula": "Nebula",
   "veteroPluva": "Pluva",
@@ -212,7 +212,7 @@ export const EO: Record<string, string> = {
   "titoloAgordoj": "Agordoj",
   "subtitoloAgordoj": "Lingvo, sono, muziko, vestaro.",
   "butonoSono": "Sono",
-  "butonoBruo": "Fona bruo",
+  "butonoBruo": "Fona famaf",
   "ariaLingvoButono": "Lingvo",
   "titoloLingvo": "Lingvo",
 };

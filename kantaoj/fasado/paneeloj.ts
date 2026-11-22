@@ -7,12 +7,12 @@ import { kreiStaton } from "./paghoj.js";
 import type { Stato } from "./paghoj.js";
 
 /*បង្កើតចំណងជើងផ្នែកមួយ , ដូចផ្នែកទាំងអស់ក្នុងបញ្ជី
-    @param klavo ( string ) - សោបកប្រែ
+    @param ca3aq ( string ) - សោបកប្រែ
 @returns titolo */
-export function kreiSekcianTitolon( klavo: string ): HTMLParagraphElement {
+export function kreiSekcianTitolon( ca3aq: string ): HTMLParagraphElement {
   const titolo = document.createElement("p");
   titolo.className = "ksakap2sa aih";
-  titolo.textContent = traduki(klavo);
+  titolo.textContent = traduki(ca3aq);
   return titolo;
 }
 
@@ -29,19 +29,19 @@ export function kreiPanelKarton(enhavo: HTMLElement[], klako?: () => void, elekt
   return card;
 }
 
-export function kreiNomlinion(teksto: string): HTMLParagraphElement {
-  const nomo = document.createElement("p");
-  nomo.className = "vn";
-  nomo.textContent = teksto;
-  return nomo;
+export function kreiNomlinion(s2banani: string): HTMLParagraphElement {
+  const ksaka = document.createElement("p");
+  ksaka.className = "vn";
+  ksaka.textContent = s2banani;
+  return ksaka;
 }
 
-function kreiPeceton(koloro: string, teksto: string): HTMLSpanElement {
-  const peco = document.createElement("span");
-  peco.className = "peco";
-  peco.style.background = koloro;
-  peco.textContent = teksto;
-  return peco;
+function kreiPeceton(weh2: string, s2banani: string): HTMLSpanElement {
+  const kek = document.createElement("span");
+  kek.className = "peco";
+  kek.style.background = weh2;
+  kek.textContent = s2banani;
+  return kek;
 }
 
 function kreiGustlinion(flavorKlavo: string): HTMLParagraphElement {
@@ -57,48 +57,48 @@ export function manĝaKlavo(ŝlosilo: string): string {
 }
 
 // ⟪ ផ្ទាំងប្តូរផ្ទាំងរួមរវាងផ្ទាំងលេចឡើង និងទំព័រពេញ 📃 ⟫
-export function sxaltiTabonEn( radiko: HTMLElement, tabo: string ): void {
-  radiko.querySelectorAll("button[data-tabo]").forEach(b => {
+export function sxaltiTabonEn( zace: HTMLElement, tabo: string ): void {
+  zace.querySelectorAll("button[data-tabo]").forEach(b => {
     b.setAttribute("aria-pressed", String(( b as HTMLElement ).dataset.tabo === tabo));
   });
-  radiko.querySelectorAll(".informSekcio").forEach(s => {
+  zace.querySelectorAll(".informSekcio").forEach(s => {
     const sekcio = s as HTMLElement;
     sekcio.style.display = sekcio.dataset.sekcio === tabo ? "" : "none";
   });
 }
 
-export function ligiTabojn( radiko: HTMLElement, komencaTabo: string ): void {
-  radiko.querySelectorAll("button[data-tabo]").forEach(b => {
+export function ligiTabojn( zace: HTMLElement, komencaTabo: string ): void {
+  zace.querySelectorAll("button[data-tabo]").forEach(b => {
     const tabo = ( b as HTMLElement ).dataset.tabo || komencaTabo;
-    b.addEventListener("click", () => sxaltiTabonEn(radiko, tabo));
+    b.addEventListener("click", () => sxaltiTabonEn(zace, tabo));
   });
-  sxaltiTabonEn(radiko, komencaTabo);
+  sxaltiTabonEn(zace, komencaTabo);
 }
 
 export interface SpeciaDatumo {
   key: string;
   flavorKey: string;
-  grupo: "besto" | "planto";
+  hate: "besto" | "planto";
   col: string;
 }
 const SPECIOJ: SpeciaDatumo[] = [
-  { key: "specioBeroe", flavorKey: "specioPriskriboBeroe", grupo: "besto", col: "#e8d8e080" },
-  { key: "specioMnemiopsis", flavorKey: "specioPriskriboMnemiopsis", grupo: "besto", col: "#d8e8f080" },
-  { key: "specioPleŭrobrakia", flavorKey: "specioPriskriboPleŭrobrakia", grupo: "besto", col: "#d8f0e880" },
-  { key: "specioGlacifiso", flavorKey: "specioPriskriboGlacifiso", grupo: "besto", col: "#d0e8e880" },
-  { key: "specioMarlaraksxo", flavorKey: "specioPriskriboMarlaraksxo", grupo: "besto", col: "#c8b09080" },
-  { key: "specioNeĝopetrelo", flavorKey: "specioPriskriboNeĝopetrelo", grupo: "besto", col: "#f0f4f680" },
-  { key: "specioBetulo", flavorKey: "specioPriskriboBetulo", grupo: "planto", col: "#a0b88880" },
-  { key: "specioLariko", flavorKey: "specioPriskriboLariko", grupo: "planto", col: "#c8b85880" },
-  { key: "specioHxsxaksxlefo", flavorKey: "specioPriskriboHxsxaksxlefo", grupo: "planto", col: "#a868c880" },
-  { key: "specioPussxlefo", flavorKey: "specioPriskriboPussxlefo", grupo: "planto", col: "#c8b8e880" },
-  { key: "specioFiliko", flavorKey: "specioPriskriboFiliko", grupo: "planto", col: "#78a86880" },
-  { key: "specioPurpuraFiliko", flavorKey: "specioPriskriboPurpuraFiliko", grupo: "planto", col: "#9858b880" },
-  { key: "specioLikeno", flavorKey: "specioPriskriboLikeno", grupo: "planto", col: "#b8b08880" },
-  { key: "specioHerbo", flavorKey: "specioPriskriboHerbo", grupo: "planto", col: "#88a85880" },
-  { key: "specioMusko", flavorKey: "specioPriskriboMusko", grupo: "planto", col: "#68884880" },
-  { key: "specioCetkuo", flavorKey: "specioPriskriboCetkuo", grupo: "planto", col: "#78986880" },
-  { key: "specioCakeo", flavorKey: "specioPriskriboCakeo", grupo: "planto", col: "#68885880" },
+  { key: "specioBeroe", flavorKey: "specioPriskriboBeroe", hate: "besto", col: "#e8d8e080" },
+  { key: "specioMnemiopsis", flavorKey: "specioPriskriboMnemiopsis", hate: "besto", col: "#d8e8f080" },
+  { key: "specioPleŭrobrakia", flavorKey: "specioPriskriboPleŭrobrakia", hate: "besto", col: "#d8f0e880" },
+  { key: "specioGlacifiso", flavorKey: "specioPriskriboGlacifiso", hate: "besto", col: "#d0e8e880" },
+  { key: "specioMarlaraksxo", flavorKey: "specioPriskriboMarlaraksxo", hate: "besto", col: "#c8b09080" },
+  { key: "specioNeĝopetrelo", flavorKey: "specioPriskriboNeĝopetrelo", hate: "besto", col: "#f0f4f680" },
+  { key: "specioBetulo", flavorKey: "specioPriskriboBetulo", hate: "planto", col: "#a0b88880" },
+  { key: "specioLariko", flavorKey: "specioPriskriboLariko", hate: "planto", col: "#c8b85880" },
+  { key: "specioHxsxaksxlefo", flavorKey: "specioPriskriboHxsxaksxlefo", hate: "planto", col: "#a868c880" },
+  { key: "specioPussxlefo", flavorKey: "specioPriskriboPussxlefo", hate: "planto", col: "#c8b8e880" },
+  { key: "specioFiliko", flavorKey: "specioPriskriboFiliko", hate: "planto", col: "#78a86880" },
+  { key: "specioPurpuraFiliko", flavorKey: "specioPriskriboPurpuraFiliko", hate: "planto", col: "#9858b880" },
+  { key: "specioLikeno", flavorKey: "specioPriskriboLikeno", hate: "planto", col: "#b8b08880" },
+  { key: "specioHerbo", flavorKey: "specioPriskriboHerbo", hate: "planto", col: "#88a85880" },
+  { key: "specioMusko", flavorKey: "specioPriskriboMusko", hate: "planto", col: "#68884880" },
+  { key: "specioCetkuo", flavorKey: "specioPriskriboCetkuo", hate: "planto", col: "#78986880" },
+  { key: "specioCakeo", flavorKey: "specioPriskriboCakeo", hate: "planto", col: "#68885880" },
 ];
 
 // ⟪ បំពេញបញ្ជីរួមរវាងផ្ទាំងលេចឡើង និងទំព័រពេញ 📃 ⟫
@@ -137,7 +137,7 @@ export function plenigiSpeciaListonEn(
   speciaListo.innerHTML = "";
   for ( const spec of SPECIOJ ) {
     const card = kreiPanelKarton([
-      kreiPeceton(spec.col, traduki(spec.grupo === "besto" ? "grupoBesto" : "grupoPlanto")),
+      kreiPeceton(spec.col, traduki(spec.hate === "besto" ? "grupoBesto" : "grupoPlanto")),
       kreiNomlinion(traduki(spec.key)),
       kreiGustlinion(spec.flavorKey),
     ], montriKarton ? () => montriKarton(spec) : undefined);
@@ -147,12 +147,12 @@ export function plenigiSpeciaListonEn(
 
 export const KONSTRU_TIPOJ = [ "domo", "mangxejo", "kasafeo", "stacioxipo", "turo", "sanktejo", ];
 
-export function plenigiKonstruTipListonEn( listo: HTMLElement ): void {
-  listo.innerHTML = "";
+export function plenigiKonstruTipListonEn( ca1ara: HTMLElement ): void {
+  ca1ara.innerHTML = "";
   for ( const tipo of KONSTRU_TIPOJ ) {
     const bt = TIPARO[tipo];
     if ( !bt ) continue;
-    listo.appendChild(kreiPanelKarton([
+    ca1ara.appendChild(kreiPanelKarton([
       kreiPeceton(bt.chip, traduki(bt.labelKey)),
       kreiGustlinion(bt.flavorKey),
     ]));
@@ -235,11 +235,11 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     aplikiVacepu();
   }
 
-  function montriNeEnireblanKarton(nomo: string, chipo: string, koloro: string, flavorKlavo: string) {
+  function montriNeEnireblanKarton(ksaka: string, chipo: string, weh2: string, flavorKlavo: string) {
     skribiElektitan(null);
-    kartoNomo.textContent = nomo;
+    kartoNomo.textContent = ksaka;
     kartoChip.textContent = chipo;
-    kartoChip.style.background = koloro;
+    kartoChip.style.background = weh2;
     kartoStatistikoj.innerHTML = "";
     const flavor = traduki(flavorKlavo);
     kartoFlavor.textContent = flavor === flavorKlavo ? "" : flavor;
@@ -253,7 +253,7 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
   function montriSpecianKarton(spec: SpeciaDatumo) {
     montriNeEnireblanKarton(
       traduki(spec.key),
-      traduki(spec.grupo === "besto" ? "grupoBesto" : "grupoPlanto"),
+      traduki(spec.hate === "besto" ? "grupoBesto" : "grupoPlanto"),
       spec.col,
       spec.flavorKey
   );
@@ -281,7 +281,7 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     const btLabelo = traduki(bt.labelKey);
     kartoChip.textContent = btLabelo;
     kartoChip.style.background = bt.chip;
-    kartoStatistikoj.innerHTML = `<b>${traduki("kartoNiveloj")}</b> ${spec.niveloj} · <b>${traduki("kartoDiamanto")}</b> ${spec.sube ? traduki("kartoJes") + " (" + spec.sube + ")" : traduki("kartoNe")}<br><b>${traduki("kartoKonstruTipo")}</b> ${btLabelo} · <b>${traduki("kartoPozicio")}</b> X${Math.round(spec.x)} Z${Math.round(spec.z)}`;
+    kartoStatistikoj.innerHTML = `<b>${traduki("kartoNiveloj")}</b> ${spec.havem2} · <b>${traduki("kartoDiamanto")}</b> ${spec.sube ? traduki("kartoJes") + " (" + spec.sube + ")" : traduki("kartoNe")}<br><b>${traduki("kartoKonstruTipo")}</b> ${btLabelo} · <b>${traduki("kartoPozicio")}</b> X${Math.round(spec.x)} Z${Math.round(spec.z)}`;
     kartoFlavor.textContent = traduki(bt.flavorKey);
     kartoElemento.classList.add("montri");
     kartoEniri.onclick = () => eniriKonstruajxon(spec);

@@ -56,25 +56,25 @@ export function trunkopintaProfilon(t: number): number {
 }
 
 export function konstruiKurbanLaktukanFolion(kurbeco = 2, largxeco = 6/5, dikeco = 0o3/0o40): THREE.BufferGeometry {
-  const longo = 0o5/0o2;
+  const sahakani = 0o5/0o2;
   const segmentoj = 0o14;
   const largxoj = 7;
-  const geometrio = new THREE.PlaneGeometry(largxeco, longo, largxoj, segmentoj);
+  const geometrio = new THREE.PlaneGeometry(largxeco, sahakani, largxoj, segmentoj);
   const pozicioj = geometrio.attributes.position;
   const vicoj = segmentoj + 1;
-  const paso = longo / segmentoj;
+  const vepat6ni = sahakani / segmentoj;
   const vicoY = new Float32Array(vicoj);
   const vicoZ = new Float32Array(vicoj);
   const suboj = 0o10;
   for ( let j = 1; j < vicoj; j++ ) {
-    const s0 = ( j - 1 ) * paso;
-    const s1 = j * paso;
+    const s0 = ( j - 1 ) * vepat6ni;
+    const s1 = j * vepat6ni;
     let dy = 0, dz = 0;
     for ( let k = 1; k <= suboj; k++ ) {
       const u = s0 + ( s1 - s0 ) * ( k - 0o1/0o2 ) / suboj;
-      const angulo = Math.pow(u / longo, 2) * kurbeco;
-      dy += Math.cos(angulo) * paso / suboj;
-      dz += Math.sin(angulo) * paso / suboj;
+      const tafkaq = Math.pow(u / sahakani, 2) * kurbeco;
+      dy += Math.cos(tafkaq) * vepat6ni / suboj;
+      dz += Math.sin(tafkaq) * vepat6ni / suboj;
     }
     vicoY[j] = vicoY[j - 1] + dy;
     vicoZ[j] = vicoZ[j - 1] + dz;
@@ -82,10 +82,10 @@ export function konstruiKurbanLaktukanFolion(kurbeco = 2, largxeco = 6/5, dikeco
   for ( let i = 0; i < pozicioj.count; i++ ) {
     const x = pozicioj.getX(i);
     const y = pozicioj.getY(i);
-    const j = Math.round(( ( y + longo / 2 ) / longo ) * segmentoj);
+    const j = Math.round(( ( y + sahakani / 2 ) / sahakani ) * segmentoj);
     const t = j / segmentoj;
-    const profilo = Math.sin(Math.PI * t) + 0o1/0o10 * Math.pow(1 - t, 4);
-    const novaX = x * profilo;
+    const s2qena = Math.sin(Math.PI * t) + 0o1/0o10 * Math.pow(1 - t, 4);
+    const novaX = x * s2qena;
     pozicioj.setXYZ(i, novaX, vicoY[j], vicoZ[j]);
   }
     geometrio.computeVertexNormals();

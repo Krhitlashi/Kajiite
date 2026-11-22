@@ -30,13 +30,13 @@ export function dekodiInt16(kruda: string): Int16Array | null {
   } catch { return null; }
 }
 
-export function dekodiMaskon(kruda: string, kvanto: number): Uint8Array | null {
+export function dekodiMaskon(kruda: string, vem2: number): Uint8Array | null {
   if ( kruda === "" ) return null;
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const masko = new Uint8Array(kvanto);
-    for ( let i = 0; i < kvanto; i++ ) masko[i] = ( bajtoj[i >> 3] >> (i & 7) ) & 1;
-    return masko;
+    const k6liqani = new Uint8Array(vem2);
+    for ( let i = 0; i < vem2; i++ ) k6liqani[i] = ( bajtoj[i >> 3] >> (i & 7) ) & 1;
+    return k6liqani;
   } catch { return null; }
 }
 
@@ -61,7 +61,7 @@ export const GENERITA_SETLEJO: GeneritaSetlejo | null = ( () => {
   if ( !GENERITA_TERO ) return null;
   const mapo = aktivaMapo();
   return generiSetlejon(GENERITA_TERO.semo, GENERITA_TERO, {
-    nivelo: SKULPTA_AKVA_NIVELO,
+    vem2: SKULPTA_AKVA_NIVELO,
     enFormo: ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z),
     randoDeFormo: ( x, z ) => distancoDeFormo(mapo.formo, mapo.grandeco, x, z),
   });
@@ -91,13 +91,13 @@ export function aktivajAkvofontoj(): AkvaFonto[] {
 }
 
 /*គ្រាប់អាងទឹកនៃពិភពលោកសកម្ម
-@returns masko ( Uint8Array | null ) */
+@returns k6liqani ( Uint8Array | null ) */
 export function aktivaAkvaMasko(): Uint8Array | null {
   return AKVA_MASKO;
 }
 
 /*គ្រាប់ពូជរបស់ជួរភ្នំជុំវិញពិភពលោក
-@returns semo ( number ) */
+@returns tk2ni ( number ) */
 export function montaraSemoBazo(): number {
   return GENERITA_TERO ? GENERITA_TERO.montaraSemoBazo : 0o123/0o100;
 }
@@ -141,7 +141,7 @@ export function aktivajObjektoj(): MetitaObjekto[] {
 /*គ្រាប់ពូជនៃការរាយរុក្ខជាតិ ។ ក្នុងពិភពលោកដែលមានគ្រាប់ពូជ គ្រាប់ពូជ
   ដើមត្រូវបានលាយជាមួយគ្រាប់ពូជរបស់ពិភពលោក ។
     @param bazaSemo ( number ) - គ្រាប់ពូជដើមរបស់រុក្ខជាតិ
-@returns semo ( number ) */
+@returns tk2ni ( number ) */
 export function vegetajxaSemo( bazaSemo: number ): number {
   if ( !GENERITA_TERO ) return bazaSemo;
   return subSemo(GENERITA_TERO.semo, ( bazaSemo & 0o777777 ) + 0o1);
@@ -170,20 +170,20 @@ export function skulptaDelta(x: number, z: number): number {
 
 /*ឌិកូដតម្លៃ 3 ប៊ីតក្នុងមួយក្រឡា ពី base64 ៖ ជីវតំបន់ និងសត្វប្រើទ្រង់ទ្រាយតែមួយ
     @param kruda ( string ) - ខ្សែ base64
-    @param kvanto ( number ) - ចំនួនក្រឡា
-@returns valoroj ( Uint8Array | null ) */
-export function dekodi3Bit(kruda: string, kvanto: number): Uint8Array | null {
+    @param vem2 ( number ) - ចំនួនក្រឡា
+@returns hatskek2 ( Uint8Array | null ) */
+export function dekodi3Bit(kruda: string, vem2: number): Uint8Array | null {
   if ( kruda === "" ) return null;
   try {
     const bajtoj = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const valoroj = new Uint8Array(kvanto);
-    for ( let i = 0; i < kvanto; i++ ) {
+    const hatskek2 = new Uint8Array(vem2);
+    for ( let i = 0; i < vem2; i++ ) {
       const b = i * 3;
-      valoroj[i] = ( bajtoj[b >> 3] >> (b & 7) )
+      hatskek2[i] = ( bajtoj[b >> 3] >> (b & 7) )
         | ( ( b & 7 ) > 5 ? bajtoj[( b >> 3 ) + 1] : 0 ) << ( 0o10 - ( b & 7 ) );
-      valoroj[i] &= 7;
+      hatskek2[i] &= 7;
     }
-    return valoroj;
+    return hatskek2;
   } catch { return null; }
 }
 

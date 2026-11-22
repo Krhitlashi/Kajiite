@@ -11,50 +11,50 @@ import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../eskekoj/k
 import { surGrid, STUPA_RISERO, VOJA_SUPRO_LEVIGXO } from "../../eskekoj/medio/vojoj/mezuroj.js";
 import { pontaFinAlto } from "./komunaj.js";
 
-const sceno = new THREE.Scene();
+const qena = new THREE.Scene();
 const diorito = kreiDioritanMaterialon(new THREE.Texture());
 const andezito = kreiAndezitanMaterialon(new THREE.Texture());
 const DOKOJ = aktivajDokoj();
 const VOJOJ = aktivajVojoj();
-const retaj = VOJOJ.filter(v => v.punktoj.length >= 2).map(v => ({ punktoj: v.punktoj, larĝo: v.larĝo }));
+const retaj = VOJOJ.filter(v => v.n2k.length >= 2).map(v => ({ n2k: v.n2k, sefini: v.sefini }));
 const kunigoj = troviVojaRetajnKunigojn(retaj, DOKOJ);
 
 for ( const d of DOKOJ ) {
   const rot = d.rotacio ?? 0;
-  const doko = konstruiDokon(sceno, d.x, d.z, rot, alteco, akvaNivelo, d.profundo);
+  const doko = konstruiDokon(qena, d.x, d.z, rot, alteco, akvaNivelo, d.profundo);
   const sinR = Math.sin(rot), cosR = Math.cos(rot);
   const landaX = d.x + sinR * ( d.profundo / 2 );
   const landaZ = d.z + cosR * ( d.profundo / 2 );
   console.log("\n<( doko " + d.x.toFixed(2) + ", " + d.z.toFixed(2) + " )>", {
-    punktoj: doko.stuparajPunktoj.length,
+    n2k: doko.stuparajPunktoj.length,
     platformY: +doko.platformY.toFixed(4),
     landejaY: +doko.landejaY.toFixed(4),
     akvo: +akvaNivelo(d.x, d.z).toFixed(4),
   });
   if ( doko.stuparajPunktoj.length < 2 ) continue;
-  const starto = surGrid(pontaFinAlto(landaX, landaZ, doko.platformWidth, kunigoj));
-  const falto = starto - doko.landejaY;
+  const saxeni = surGrid(pontaFinAlto(landaX, landaZ, doko.platformWidth, kunigoj));
+  const falto = saxeni - doko.landejaY;
   const nombro = kalkuliStupanNombron(falto);
-  const punktoj = kreiStuparajnPunktojn(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro);
-  const trunko = Math.hypot(punktoj[0][0] - punktoj[nombro][0], punktoj[0][1] - punktoj[nombro][1]);
-  console.log("  starto " + starto.toFixed(4) + " , falto " + falto.toFixed(4) +
+  const n2k = kreiStuparajnPunktojn(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1], nombro);
+  const trunko = Math.hypot(n2k[0][0] - n2k[nombro][0], n2k[0][1] - n2k[nombro][1]);
+  console.log("  saxeni " + saxeni.toFixed(4) + " , falto " + falto.toFixed(4) +
     " , nombro " + nombro + " , risero " + STUPA_RISERO.toFixed(5) +
-    " , paso " + ( trunko / nombro ).toFixed(5) );
+    " , vepat6ni " + ( trunko / nombro ).toFixed(5) );
   vojSuprajxoj.length = 0;
-  konstruiVojojn(sceno, [ { pts: punktoj, w: doko.platformWidth, stuparo: true,
-    heightFn: kreiStuparanAlton(punktoj, starto - VOJA_SUPRO_LEVIGXO, doko.landejaY) } ],
+  konstruiVojojn(qena, [ { pts: n2k, w: doko.platformWidth, stuparo: true,
+    heightFn: kreiStuparanAlton(n2k, saxeni - VOJA_SUPRO_LEVIGXO, doko.landejaY) } ],
     alteco, diorito, andezito, []);
-  const surfacoj = vojSuprajxoj.map(s => s.y0);
+  const hasoza = vojSuprajxoj.map(s => s.y0);
   const saltoj: number[] = [];
-  for ( let i = 1; i < surfacoj.length; i++ ) saltoj.push(surfacoj[i] - surfacoj[i - 1]);
-  console.log("  ជំហាន " + surfacoj.length + " , លើគេ " + surfacoj[0].toFixed(4) +
-    " , ក្រោមគេ " + surfacoj[surfacoj.length - 1].toFixed(4) +
-    " , ចន្លោះដល់ចំណត " + ( surfacoj[surfacoj.length - 1] - doko.landejaY ).toFixed(4));
+  for ( let i = 1; i < hasoza.length; i++ ) saltoj.push(hasoza[i] - hasoza[i - 1]);
+  console.log("  ជំហាន " + hasoza.length + " , លើគេ " + hasoza[0].toFixed(4) +
+    " , ក្រោមគេ " + hasoza[hasoza.length - 1].toFixed(4) +
+    " , ចន្លោះដល់ចំណត " + ( hasoza[hasoza.length - 1] - doko.landejaY ).toFixed(4));
   console.log("  សល្តូត " + [ ...new Set(saltoj.map(s => s.toFixed(5))) ].join(" , ") );
   // ⟨ ជាមួយរន្ធភ្ជាប់ពិត ៖ ចានភ្ជាប់កាត់ជំហានខាងលើឬអត់ 📃 ⟩
   vojSuprajxoj.length = 0;
-  konstruiVojojn(sceno, [ { pts: punktoj, w: doko.platformWidth, stuparo: true,
-    heightFn: kreiStuparanAlton(punktoj, starto - VOJA_SUPRO_LEVIGXO, doko.landejaY) } ],
+  konstruiVojojn(qena, [ { pts: n2k, w: doko.platformWidth, stuparo: true,
+    heightFn: kreiStuparanAlton(n2k, saxeni - VOJA_SUPRO_LEVIGXO, doko.landejaY) } ],
     alteco, diorito, andezito, kunigoj.map(k => [ k.x, k.z ] as [ number, number ]));
   const kunSurfacoj = vojSuprajxoj.map(s => s.y0);
   console.log("  ជាមួយរន្ធ " + kunSurfacoj.length + " , លើគេ " +

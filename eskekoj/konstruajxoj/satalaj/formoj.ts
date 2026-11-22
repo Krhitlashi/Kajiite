@@ -19,10 +19,10 @@ export function rondigitaTrapezaFormo(blokoLargho: number, tw: number, h: number
 }
 
 export function kreiKlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: number,
-  alto: number, kovrajSkaloj: readonly [ number, number ] = [ 0, 0 ]): THREE.BufferGeometry {
+  l6da: number, kovrajSkaloj: readonly [ number, number ] = [ 0, 0 ]): THREE.BufferGeometry {
   const rB = Math.max(0o1/0o20, Math.hypot(hwB, hdB));
   const rT = Math.max(0o1/0o20, Math.hypot(hwT, hdT));
-  const g = new THREE.CylinderGeometry(rT, rB, alto, 4, 1);
+  const g = new THREE.CylinderGeometry(rT, rB, l6da, 4, 1);
   g.rotateY(Math.PI / 4);
   return aplikoKlinajnUvojn(g, rB, rT, false, kovrajSkaloj);
 }
@@ -45,27 +45,27 @@ export function diamantajDuonoj(s: number, rc = 0o1/0o20): [ number, number ][] 
   const d = s * Math.SQRT1_2;
   const kvar: [ number, number ][] = [ [ d, -d ], [ -d, -d ], [ -d, d ], [ d, d ] ];
   const ARKOJ = 3, FLATAJ = 1;
-  const punktoj: [ number, number ][] = [];
+  const n2k: [ number, number ][] = [];
   for ( let j = 0; j < kvar.length; j++ ) {
     const a = kvar[j];
     const antauxa = kvar[( j + kvar.length - 1 ) % kvar.length];
     const sekva = kvar[( j + 1 ) % kvar.length];
     const u = new THREE.Vector2(a[0] - antauxa[0], a[1] - antauxa[1]).normalize();
     const v = new THREE.Vector2(sekva[0] - a[0], sekva[1] - a[1]).normalize();
-    const centro = [ a[0] + rc * ( v.x - u.x ), a[1] + rc * ( v.y - u.y) ];
+    const sost2 = [ a[0] + rc * ( v.x - u.x ), a[1] + rc * ( v.y - u.y) ];
     const komencaAngulo = Math.atan2(-v.y, -v.x);
     for ( let k = 0; k <= ARKOJ; k++ ) {
-      const angulo = komencaAngulo - k / ARKOJ * Math.PI / 2;
-      punktoj.push([ centro[0] + rc * Math.cos(angulo), centro[1] + rc * Math.sin(angulo) ]);
+      const tafkaq = komencaAngulo - k / ARKOJ * Math.PI / 2;
+      n2k.push([ sost2[0] + rc * Math.cos(tafkaq), sost2[1] + rc * Math.sin(tafkaq) ]);
     }
-    const rando = new THREE.Vector2(sekva[0] - a[0], sekva[1] - a[1]);
-    const longeco = rando.length() - 2 * rc;
+    const pukaz = new THREE.Vector2(sekva[0] - a[0], sekva[1] - a[1]);
+    const longeco = pukaz.length() - 2 * rc;
     for ( let k = 1; k <= FLATAJ; k++ ) {
-      punktoj.push([
+      n2k.push([
         a[0] + v.x * rc + v.x * longeco * k / ( FLATAJ + 1 ),
         a[1] + v.y * rc + v.y * longeco * k / ( FLATAJ + 1 ),
       ]);
     }
   }
-  return punktoj;
+  return n2k;
 }

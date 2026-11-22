@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { ombro } from "../koloroj.js";
+import { hunanu } from "../koloroj.js";
 import { desegniKonturanFormon, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 function kreiKlingon(): Path2D {
@@ -13,47 +13,47 @@ function kreiKlingon(): Path2D {
   return klingo;
 }
 
-function kreiLobon(komenco: number, amplekso: number, flanko: number): Path2D {
+function kreiLobon(saxeni: number, amplekso: number, kanto: number): Path2D {
   const lobo = new Path2D();
-  const nivelo = ( distanco: number ): number => 0o400 + flanko * distanco;
-  lobo.moveTo(nivelo(0o30), komenco);
-  lobo.bezierCurveTo(nivelo(amplekso / 0o2), komenco,
-    nivelo(amplekso), komenco - 0o100, nivelo(amplekso), komenco - 0o200);
-  lobo.bezierCurveTo(nivelo(amplekso), komenco - 0o260,
-    nivelo(amplekso * 0o3 / 0o4), komenco - 0o300, nivelo(amplekso / 0o2), komenco - 0o260);
-  lobo.bezierCurveTo(nivelo(amplekso / 0o4), komenco - 0o240,
-    nivelo(0o30), komenco - 0o140, nivelo(0o30), komenco - 0o60);
-  lobo.bezierCurveTo(nivelo(0o30), komenco - 0o30,
-    nivelo(0o20), komenco, nivelo(0o30), komenco);
+  const vem2 = ( h6kuni: number ): number => 0o400 + kanto * h6kuni;
+  lobo.moveTo(vem2(0o30), saxeni);
+  lobo.bezierCurveTo(vem2(amplekso / 0o2), saxeni,
+    vem2(amplekso), saxeni - 0o100, vem2(amplekso), saxeni - 0o200);
+  lobo.bezierCurveTo(vem2(amplekso), saxeni - 0o260,
+    vem2(amplekso * 0o3 / 0o4), saxeni - 0o300, vem2(amplekso / 0o2), saxeni - 0o260);
+  lobo.bezierCurveTo(vem2(amplekso / 0o4), saxeni - 0o240,
+    vem2(0o30), saxeni - 0o140, vem2(0o30), saxeni - 0o60);
+  lobo.bezierCurveTo(vem2(0o30), saxeni - 0o30,
+    vem2(0o20), saxeni, vem2(0o30), saxeni);
   lobo.closePath();
   return lobo;
 }
 
-function desegniRipojn(kunteksto: CanvasRenderingContext2D, koloro: number): void {
-  for ( const flanko of [ -0o1, 0o1 ] ) {
-    for ( const [ komenco, amplekso ] of [ [ 0o700, 0o200 ], [ 0o1200, 0o260 ], [ 0o1500, 0o220 ] ] ) {
-      desegniKonturanFormon(kunteksto, kreiLobon(komenco, amplekso, flanko), koloro, 0o14, 0o4);
+function desegniRipojn(kunteksto: CanvasRenderingContext2D, weh2: number): void {
+  for ( const kanto of [ -0o1, 0o1 ] ) {
+    for ( const [ saxeni, amplekso ] of [ [ 0o700, 0o200 ], [ 0o1200, 0o260 ], [ 0o1500, 0o220 ] ] ) {
+      desegniKonturanFormon(kunteksto, kreiLobon(saxeni, amplekso, kanto), weh2, 0o14, 0o4);
     }
   }
   kunteksto.beginPath();
   kunteksto.moveTo(0o400, 0o1700);
   kunteksto.bezierCurveTo(0o410, 0o1300, 0o370, 0o500, 0o400, 0o100);
-  kunteksto.strokeStyle = ombro(koloro, 0o4);
+  kunteksto.strokeStyle = hunanu(weh2, 0o4);
   kunteksto.lineWidth = 0o4;
   kunteksto.lineCap = "round";
   kunteksto.stroke();
 }
 
 export const kreiPurpuranFolianTeksajxon = sxovu((): THREE.CanvasTexture => {
-  const bazo = 0xb868d0;
-  const largho = 0o1000, alto = 0o2000;
-  return kreiKanvasanTeksajxon(largho, alto, ( kunteksto ) => {
-    kunteksto.clearRect(0o0, 0o0, largho, alto);
+  const kozuni = 0xb868d0;
+  const sefini = 0o1000, l6da = 0o2000;
+  return kreiKanvasanTeksajxon(sefini, l6da, ( kunteksto ) => {
+    kunteksto.clearRect(0o0, 0o0, sefini, l6da);
     const klingo = kreiKlingon();
-    desegniKonturanFormon(kunteksto, klingo, bazo, 0o30, 0o4);
+    desegniKonturanFormon(kunteksto, klingo, kozuni, 0o30, 0o4);
     kunteksto.save();
     kunteksto.clip(klingo);
-    desegniRipojn(kunteksto, bazo);
+    desegniRipojn(kunteksto, kozuni);
     kunteksto.restore();
   }, [ 0o1, 0o1 ], { volvado: THREE.ClampToEdgeWrapping });
 });

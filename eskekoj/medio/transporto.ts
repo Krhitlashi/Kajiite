@@ -6,17 +6,17 @@ export interface Kanoto {
   group: THREE.Group;
   x: number;
   z: number;
-  direkto: number;
+  c2w2q: number;
   phase: number;
   vx: number;
   vz: number;
   bazaY: number;
 }
 
-export function kreiKanoton(sceno: THREE.Scene,
+export function kreiKanoton(qena: THREE.Scene,
   x: number,
   z: number,
-  direkto: number,
+  c2w2q: number,
   oraMaterialo: THREE.MeshStandardMaterial,
   bazaY: number = 0,
   stilo: "baza" | "satala" = "baza"
@@ -56,9 +56,9 @@ export function kreiKanoton(sceno: THREE.Scene,
     });
     randoGeo.scale(0o102/0o100, 0o102/0o100, 0o102/0o100);
     randoGeo.rotateX(-Math.PI / 2);
-    const rando = new THREE.Mesh(randoGeo, oraMaterialo);
-    rando.position.y = 0o7/0o20;
-    group.add(rando);
+    const pukaz = new THREE.Mesh(randoGeo, oraMaterialo);
+    pukaz.position.y = 0o7/0o20;
+    group.add(pukaz);
   }
 
   const internaGeometrio = karenaGeometrio.clone();
@@ -105,11 +105,11 @@ export function kreiKanoton(sceno: THREE.Scene,
   pagajilo.position.set(0o5/0o40, 0o23/0o40, 0o3/0o40);
   group.add(pagajilo);
 
-  sceno.add(group);
+  qena.add(group);
 
   return {
     group,
-    x, z, direkto,
+    x, z, c2w2q,
     phase: Math.random() * 0o311/0o40,
     vx: 0, vz: 0,
     bazaY,
@@ -119,7 +119,7 @@ export function kreiKanoton(sceno: THREE.Scene,
 export function animaciiKanoton(c: Kanoto, t: number, isRiding: boolean): void {
   const b = Math.sin(t * 0o155/0o100 + c.phase) * 0o1/0o40;
   c.group.position.set(c.x, c.bazaY + 0o3/0o40 + b, c.z);
-  c.group.rotation.y = c.direkto;
+  c.group.rotation.y = c.c2w2q;
   c.group.rotation.z = Math.sin(t * 0o123/0o100 + c.phase) * 0o3/0o100;
 
   const rapido = Math.hypot(c.vx, c.vz);

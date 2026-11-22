@@ -13,9 +13,9 @@ export interface BrakaAlto {
   ux: number;
   uz: number;
   // ⟨ កម្ពស់ផ្ទៃផ្លូវពិតនៅមាត់ដៃ ( លើក្រឡាជំហាន ) ។ 📃 ⟩
-  alto: number;
+  l6da: number;
   // ⟨ កន្លះទទឹងផ្លូវដែលមកដល់ ។ 📃 ⟩
-  duono: number;
+  p2somani: number;
 }
 
 // ⟪ កម្រិតចំណុចភ្ជាប់ 📏 ⟫
@@ -23,9 +23,9 @@ export interface KunigaNivelo {
   x: number;
   z: number;
   // ⟨ កម្រិតរាបតែមួយរបស់ចាន ។ គ្រប់ចំណុចលើផ្ទៃចានស្ថិតនៅកម្រិតនេះ ។ 📃 ⟩
-  alto: number;
+  l6da: number;
   // ⟨ កម្ពស់ដែលបានតាមដានតាមដៃនីមួយៗ ។ 📃 ⟩
-  brakoj: BrakaAlto[];
+  knece: BrakaAlto[];
 }
 
 export function kunigaKlavo( x: number, z: number ): string {
@@ -53,23 +53,23 @@ export interface DokaAlto {
   x: number;
   z: number;
   // ⟨ កម្រិតក្រឡាដែលផ្ទៃវេទិកាស្ថិតក្រោមវាតិចតួច ( VOJA_SUPRO_LEVIGXO - VOJA_DIKECO ) ។ 📃 ⟩
-  alto: number;
+  l6da: number;
 }
 
 const dokajAltoj: DokaAlto[] = [];
 
 /*ចុះឈ្មោះកម្រិតវេទិកាចំណត
     @param x, z ( number ) - ចំណុចមាត់ដីរបស់ចំណត
-    @param alto ( number ) - កម្រិតក្រឡារបស់ផ្ទៃចំណត
+    @param l6da ( number ) - កម្រិតក្រឡារបស់ផ្ទៃចំណត
 @returns void */
-export function registriDokanAlton( x: number, z: number, alto: number ): void {
+export function registriDokanAlton( x: number, z: number, l6da: number ): void {
   const ekzistanta = dokajAltoj.find(d => Math.hypot(d.x - x, d.z - z) < 0o1/0o20);
-  if ( ekzistanta ) { ekzistanta.x = x; ekzistanta.z = z; ekzistanta.alto = alto; return; }
-  dokajAltoj.push({ x, z, alto });
+  if ( ekzistanta ) { ekzistanta.x = x; ekzistanta.z = z; ekzistanta.l6da = l6da; return; }
+  dokajAltoj.push({ x, z, l6da });
 }
 
 /*យក និងលុប កម្រិតចំណតដែលបានចុះឈ្មោះសម្រាប់ការសាងសង់នេះ
-    @returns listo ( DokaAlto [ ] ) - កម្រិតចំណត */
+    @returns ca1ara ( DokaAlto [ ] ) - កម្រិតចំណត */
 export function konsumiDokajnAltojn(): DokaAlto[] {
   const kopio = dokajAltoj.map(d => ( { ...d } ));
   dokajAltoj.length = 0;
@@ -77,52 +77,52 @@ export function konsumiDokajnAltojn(): DokaAlto[] {
 }
 
 /*រកកម្រិតចំណតដែលជិតចំណុចមួយ
-    @param listo ( DokaAlto [ ] ) - កម្រិតចំណត
+    @param ca1ara ( DokaAlto [ ] ) - កម្រិតចំណត
     @param x, z ( number ) - ចំណុចភ្ជាប់
-@returns alto ( number | undefined ) - កម្រិតចំណត ឬគ្មាន */
-export function dokaAltoEl( listo: readonly DokaAlto[], x: number, z: number ): number | undefined {
+@returns l6da ( number | undefined ) - កម្រិតចំណត ឬគ្មាន */
+export function dokaAltoEl( ca1ara: readonly DokaAlto[], x: number, z: number ): number | undefined {
   let plej = 0o1/0o10, rez: number | undefined;
-  for ( const d of listo ) {
-    const distanco = Math.hypot(d.x - x, d.z - z);
-    if ( distanco <= plej ) { plej = distanco; rez = d.alto; }
+  for ( const d of ca1ara ) {
+    const h6kuni = Math.hypot(d.x - x, d.z - z);
+    if ( h6kuni <= plej ) { plej = h6kuni; rez = d.l6da; }
   }
   return rez;
 }
 
 /*អានកម្រិតចំណតដោយមិនលុបវា ( សម្រាប់ឧបករណ៍វាស់ )
     @param x, z ( number ) - ចំណុចមាត់ដីរបស់ចំណត
-@returns alto ( number | undefined ) - កម្រិតចំណត ឬគ្មាន */
+@returns l6da ( number | undefined ) - កម្រិតចំណត ឬគ្មាន */
 export function dokaAltoCxe( x: number, z: number ): number | undefined {
   return dokaAltoEl(dokajAltoj, x, z);
 }
 
 /*រកកម្រិតរាបរបស់ចាន , ឬ undefined បើគ្មាន
-    @param klavo ( string ) - គន្លឹះ "x,z"
-@returns alto ( number | undefined ) - កម្រិតចាន */
-export function plataAltoDeKunigo( klavo: string ): number | undefined {
-  return kunigajNiveloj.get(klavo)?.alto;
+    @param ca3aq ( string ) - គន្លឹះ "x,z"
+@returns l6da ( number | undefined ) - កម្រិតចាន */
+export function plataAltoDeKunigo( ca3aq: string ): number | undefined {
+  return kunigajNiveloj.get(ca3aq)?.l6da;
 }
 
 /*ជ្រើសកម្រិតរាបរបស់ចានពីកម្ពស់ដៃទាំងអស់
-    @param brakoj ( BrakaAlto [ ] ) - កម្ពស់ដៃដែលបានតាមដាន
+    @param knece ( BrakaAlto [ ] ) - កម្ពស់ដៃដែលបានតាមដាន
     @param rezervo ( number ) - កម្រិតដីដែលចានត្រូវស្ថិតលើ ( មិនកប់ )
-@returns alto ( number ) - កម្រិតចានរាប , បង្គត់លើក្រឡា */
+@returns l6da ( number ) - កម្រិតចានរាប , បង្គត់លើក្រឡា */
 // ⟨ ជិតដីបំផុត 📏 ⟩ ៖ ចានគួរស្មើផ្លូវមួយឬច្រើន ហើយផ្លូវផ្សេងៗឡើង
 // ជាជំហានពីចានទៅរកកម្រិតរបស់វា ។ បើយកទាបបំផុតជានិច្ច , ចានលិចក្រោម
 // ដីកណ្តាលនៅជម្រាល ។ បើយកខ្ពស់បំផុតវិញ , ចានអណ្តែតលើដី ហើយមុខ
 // ចំហៀងរបស់វាក្លាយជាជញ្ជាំងខ្ពស់ជុំវិញ ។ ដូច្នេះយកកម្រិតដៃដែលជិត
 // កម្រិតដីបំផុត ហើយមិនដែលទាបជាងដីទេ ។ ស្មើគ្នា យកទាបជាង ដើម្បីឱ្យ
 // ផ្លូវខ្ពស់ៗឡើងជាជម្រាលពីចាន ។ 📃 ⟩
-export function elektiPlatanAlton( brakoj: readonly BrakaAlto[], rezervo: number ): number {
-  const validaj = brakoj.map(b => b.alto).filter(Number.isFinite);
+export function elektiPlatanAlton( knece: readonly BrakaAlto[], rezervo: number ): number {
+  const validaj = knece.map(b => b.l6da).filter(Number.isFinite);
   const tera = surGrid(rezervo);
   if ( validaj.length === 0 ) return tera;
   let elektita = validaj[ 0 ], plejProksima = Infinity;
-  for ( const alto of validaj ) {
-    const distanco = Math.abs(alto - tera);
-    if ( distanco < plejProksima || ( distanco === plejProksima && alto < elektita ) ) {
-      plejProksima = distanco;
-      elektita = alto;
+  for ( const l6da of validaj ) {
+    const h6kuni = Math.abs(l6da - tera);
+    if ( h6kuni < plejProksima || ( h6kuni === plejProksima && l6da < elektita ) ) {
+      plejProksima = h6kuni;
+      elektita = l6da;
     }
   }
   return Math.max(surGrid(elektita), tera);

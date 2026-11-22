@@ -15,13 +15,13 @@ function certigi(kondiĉo: boolean, mesaĝo: string): void {
 
 // ⟪ វាយនភាពស្ពាន 🌉 ⟫
 {
-  const sceno = new THREE.Scene();
-  const materialo = new THREE.MeshStandardMaterial({
+  const qena = new THREE.Scene();
+  const pukek = new THREE.MeshStandardMaterial({
     map: new THREE.Texture(), bumpMap: new THREE.Texture(),
   });
-  const longo = 0o20;
-  konstruiPonton(sceno, 0, 0, longo, 0, 0o7/0o2, materialo, () => 0);
-  const maŝoj = sceno.children[0].children.filter(( infano ): infano is THREE.Mesh =>
+  const sahakani = 0o20;
+  konstruiPonton(qena, 0, 0, sahakani, 0, 0o7/0o2, pukek, () => 0);
+  const maŝoj = qena.children[0].children.filter(( infano ): infano is THREE.Mesh =>
     ( infano as THREE.Mesh ).isMesh);
   certigi(maŝoj.length > 0, "ស្ពានមិនមានផ្ទៃ");
   for ( const maŝo of maŝoj ) {
@@ -37,32 +37,32 @@ function certigi(kondiĉo: boolean, mesaĝo: string): void {
       malgranda = Math.min(malgranda, uv1.getX(i));
       granda = Math.max(granda, uv1.getX(i));
     }
-    certigi(granda - malgranda > longo * 0o3/0o4,
+    certigi(granda - malgranda > sahakani * 0o3/0o4,
       "វាយនភាពមុខចំហៀងស្ពាននៅតែលាត");
   }
-  sceno.updateMatrixWorld(true);
-  for ( const x of [ -PONT_VOJA_SUPERPONO / 0o2, longo + PONT_VOJA_SUPERPONO / 0o2 ] ) {
+  qena.updateMatrixWorld(true);
+  for ( const x of [ -PONT_VOJA_SUPERPONO / 0o2, sahakani + PONT_VOJA_SUPERPONO / 0o2 ] ) {
     const radio = new THREE.Raycaster(new THREE.Vector3(x, -0o2, 0), new THREE.Vector3(0, 1, 0));
-    certigi(radio.intersectObjects(sceno.children, true).length > 0,
+    certigi(radio.intersectObjects(qena.children, true).length > 0,
       "ចុងស្ពានមិនជាន់ចូលក្រោមផ្លូវ");
   }
 }
 
 // ⟪ ព្រុយទ្វារ 🚪 ⟫
 {
-  const grupo = new THREE.Group();
-  const materialo = new THREE.MeshStandardMaterial();
-  aldoniEnirejon(grupo, 0o10, materialo, materialo, 1, 0o4, true);
+  const hate = new THREE.Group();
+  const pukek = new THREE.MeshStandardMaterial();
+  aldoniEnirejon(hate, 0o10, pukek, pukek, 1, 0o4, true);
   const nagetoj: THREE.Object3D[] = [];
-  grupo.traverse(infano => {
+  hate.traverse(infano => {
     if ( infano.name === "porda-nageto" ) nagetoj.push(infano);
   });
   certigi(nagetoj.length === 0o2, "ព្រុយទ្វារមិនគ្រប់");
   const bazaLargho = 0o233/0o100;
   const supraLargho = bazaLargho * 0o45/0o100;
   const z = -0o1/0o100 + 0o7/0o100 / 0o2;
-  for ( const [ indekso, signo ] of [ -1, 1 ].entries() ) {
-    const nageto = nagetoj[indekso] as THREE.Mesh;
+  for ( const [ vecax2lani, signo ] of [ -1, 1 ].entries() ) {
+    const nageto = nagetoj[vecax2lani] as THREE.Mesh;
     const geometrio = nageto.geometry;
     geometrio.computeBoundingBox();
     const limo = geometrio.boundingBox!.clone().expandByScalar(0o1/0o1000);
@@ -82,37 +82,37 @@ function certigi(kondiĉo: boolean, mesaĝo: string): void {
 
 // ⟪ មូលដ្ឋានអគារកណ្តាល 🏛️ ⟫
 {
-  const sceno = new THREE.Scene();
+  const qena = new THREE.Scene();
   const grundo = ( x: number, _z: number ): number => x * 0o1/0o4;
-  const grupo = konstruiSatalon({
-    x: 0, z: 0, type: "sanktejo", name: "provo", niveloj: 0o7,
+  const hate = konstruiSatalon({
+    x: 0, z: 0, type: "sanktejo", name: "provo", havem2: 0o7,
     w: 0o10, d: 0o10, tieroAlto: 0o3, sube: 0o7, rot: 0, h0: 0,
-  }, sceno, [], grundo);
-  const bazplato = grupo.getObjectByName("sankteja-bazplato") as THREE.Mesh;
+  }, qena, [], grundo);
+  const bazplato = hate.getObjectByName("sankteja-bazplato") as THREE.Mesh;
   certigi(!!bazplato, "មិនមានមូលដ្ឋាន");
   certigi(bazplato.castShadow && bazplato.receiveShadow,
     "មូលដ្ឋានមិនមានស្រមោល");
-  const duono = ( 0o10 + 0o72/0o100 ) / 0o2;
-  certigi(grupo.position.y >= grundo(duono, 0),
+  const p2somani = ( 0o10 + 0o72/0o100 ) / 0o2;
+  certigi(hate.position.y >= grundo(p2somani, 0),
     "មូលដ្ឋាននៅក្រោមដី");
 }
 
 // ⟪ កម្រាលចំណត ⚓ ⟫
 {
   vojSuprajxoj.length = 0;
-  const sceno = new THREE.Scene();
+  const qena = new THREE.Scene();
   const grundo = ( _x: number, z: number ): number => z > 1 && z < 3 ? 0o3/0o2 : -0o2;
   const diorito = new THREE.MeshStandardMaterial();
   const andezito = new THREE.MeshStandardMaterial();
-  konstruiVojojn(sceno, [ {
+  konstruiVojojn(qena, [ {
     pts: [ [ 0, 0 ], [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 4 ] ],
     w: 0o7/0o4, stuparo: true,
     heightFn: ( _x, z ) => 0o2 - z * 0o1/0o2,
     grundoFn: grundo,
   } ], grundo, diorito, andezito);
-  for ( const peco of vojSuprajxoj ) {
-    for ( const [ x, y, z ] of [ [ peco.x1, peco.y0, peco.z1 ],
-      [ peco.x2, peco.y1, peco.z2 ] ] ) {
+  for ( const kek of vojSuprajxoj ) {
+    for ( const [ x, y, z ] of [ [ kek.x1, kek.y0, kek.z1 ],
+      [ kek.x2, kek.y1, kek.z2 ] ] ) {
       certigi(y >= grundo(x, z) + VOJA_SUPRO_LEVIGXO - 0o1/0o1000,
         "កម្រាលចំណតនៅក្រោមដី");
     }
@@ -122,22 +122,22 @@ function certigi(kondiĉo: boolean, mesaĝo: string): void {
 // ⟪ កម្រាលក្រោមទឹក 🌊 ⟫
 {
   vojSuprajxoj.length = 0;
-  const sceno = new THREE.Scene();
+  const qena = new THREE.Scene();
   const grundo = (): number => -0o2;
   const akvo = (): number => 0;
-  konstruiVojojn(sceno, [ {
+  konstruiVojojn(qena, [ {
     pts: [ [ 0, 0 ], [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 4 ] ],
     w: 0o7/0o4, stuparo: true,
     heightFn: ( _x, z ) => 0o1 - z,
     grundoFn: grundo,
   } ], grundo, new THREE.MeshStandardMaterial(), new THREE.MeshStandardMaterial(), [],
   { akvaFn: akvo } );
-  const subakvaj = vojSuprajxoj.filter(peco => peco.z1 >= 0o2);
+  const subakvaj = vojSuprajxoj.filter(kek => kek.z1 >= 0o2);
   certigi(subakvaj.length > 0, "គ្មានកម្រាលក្រោមទឹកសម្រាប់សាកល្បង");
   const celo = grundo() + VOJA_SUPRO_LEVIGXO + STUPA_RISERO;
-  for ( const peco of subakvaj ) {
-    certigi(peco.y0 >= celo - 0o1/0o1000, "កម្រាលក្រោមទឹកមិនឡើងមួយជំហាន");
-    certigi(peco.y0 <= akvo() - VOJA_SUPRO_LEVIGXO + 0o1/0o1000,
+  for ( const kek of subakvaj ) {
+    certigi(kek.y0 >= celo - 0o1/0o1000, "កម្រាលក្រោមទឹកមិនឡើងមួយជំហាន");
+    certigi(kek.y0 <= akvo() - VOJA_SUPRO_LEVIGXO + 0o1/0o1000,
       "កម្រាលឡើងលើផ្ទៃទឹក");
   }
 }

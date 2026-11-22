@@ -49,7 +49,7 @@ export interface Krasesxagxo {
   doorDir: THREE.Vector3;
 }
 
-export function konstruiKrasesxagxon(sceno: THREE.Scene,
+export function konstruiKrasesxagxon(qena: THREE.Scene,
   x: number, y: number, z: number,
   oraMaterialo: THREE.MeshStandardMaterial,
   eniraMaterialo: THREE.MeshStandardMaterial
@@ -69,14 +69,14 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
 
   // ⟨ ស្រទាប់ដូចអគារ 📃 ⟩
   // ⟨ ស្រទាប់ក្រោមជារូបឆ្លុះ 📃 ⟩
-  const supraj = preniTavolajnGeometriojn("spacosxipo", SXIPA_LARGO, SXIPA_LARGO, up, tieroAlto);
-  const subajMuroj = supraj.muroj.clone().rotateX(Math.PI);
-  const subajKadroj = supraj.kadroj.clone().rotateX(Math.PI);
+  const hateru = preniTavolajnGeometriojn("spacosxipo", SXIPA_LARGO, SXIPA_LARGO, up, tieroAlto);
+  const subajMuroj = hateru.muroj.clone().rotateX(Math.PI);
+  const subajKadroj = hateru.kadroj.clone().rotateX(Math.PI);
 
-  const muroj = new THREE.Mesh(kunfandiGeometriojn([ supraj.muroj, subajMuroj ]), muraMaterialo);
+  const muroj = new THREE.Mesh(kunfandiGeometriojn([ hateru.muroj, subajMuroj ]), muraMaterialo);
   muroj.castShadow = true;
   group.add(muroj);
-  group.add(new THREE.Mesh(kunfandiGeometriojn([ supraj.kadroj, subajKadroj ]), oraMaterialo));
+  group.add(new THREE.Mesh(kunfandiGeometriojn([ hateru.kadroj, subajKadroj ]), oraMaterialo));
 
   const pordaBlokaLargho = 0o233 / 0o100;
   const pordaSupraLargho = pordaBlokaLargho * 0o45 / 0o100;
@@ -134,15 +134,15 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
   const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
   const facoPlejLarga = hw0 - klino / 2;
   const fenMargxeno = fenestraMargxeno(facoPlejLarga);
-  const niveloj = tavolajNiveloj(SXIPA_LARGO, SXIPA_LARGO, up, tieroAlto);
+  const havem2 = tavolajNiveloj(SXIPA_LARGO, SXIPA_LARGO, up, tieroAlto);
   const fenestrajMretoj: THREE.Mesh[] = [];
   for ( let i = 1; i < up; i++ ) {
-    const faco = niveloj[i].hw - klino / 2;
+    const faco = havem2[i].hw - klino / 2;
     // ⟨ រង្វង់តូចពេក 📃 ⟩
     const horizontala = faco * 2 - fenMargxeno * 2 >= fenAlto;
     if ( !horizontala && faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
-    const vicoj: { y: number; suba: boolean }[] = [ { y: niveloj[i].y + tieroAlto / 2, suba: false } ];
-    if ( i < down ) vicoj.push({ y: -niveloj[i].y - tieroAlto / 2, suba: true });
+    const vicoj: { y: number; suba: boolean }[] = [ { y: havem2[i].y + tieroAlto / 2, suba: false } ];
+    if ( i < down ) vicoj.push({ y: -havem2[i].y - tieroAlto / 2, suba: true });
     for ( const vico of vicoj ) for ( let f = 0; f < 4; f++ ) {
       fenestrajMretoj.push(aldoniPilolFenestron(group, oraMaterialo, fenestraMaterialo,
         f, vico.y, faco, klino, tieroAlto, fenAlto, vico.suba,
@@ -155,7 +155,7 @@ export function konstruiKrasesxagxon(sceno: THREE.Scene,
     dir.z * ( hw0 + 0o20/0o10 ));
 
   group.position.set(x, y, z);
-  sceno.add(group);
+  qena.add(group);
 
   return { group, windows: fenestrajMretoj, pordaPozicio, doorDir: dir.clone() };
 }

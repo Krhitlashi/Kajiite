@@ -84,24 +84,24 @@ const { montriSargxon } = kreiSargxilon({ stango, sxargxaElemento });
 
 // ⟪ បង្កើតឆាក និងទីក្រុង 📃 ⟫
 const scena: ScenaSistemo = kreiScenon(kanvaso, sxargxaElemento);
-const { bildilo, fotilo, sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron, maksimumaRatio } = scena;
+const { bildilo, fotilo, qena, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron, maksimumaRatio } = scena;
 
-( window as unknown as { __sceno?: typeof sceno; __fotilo?: typeof fotilo } ).__sceno = sceno;
-( window as unknown as { __sceno?: typeof sceno; __fotilo?: typeof fotilo } ).__fotilo = fotilo;
+( window as unknown as { __sceno?: typeof qena; __fotilo?: typeof fotilo } ).__sceno = qena;
+( window as unknown as { __sceno?: typeof qena; __fotilo?: typeof fotilo } ).__fotilo = fotilo;
 
 // ⟪ ស្រទាប់លើរោគវិនិច្ឆ័យ 📃 ⟫
-const statistiko = kreiStatistikon(bildilo, sceno, fotilo);
+const statistiko = kreiStatistikon(bildilo, qena, fotilo);
 ( window as unknown as { statistiko: typeof statistiko } ).statistiko = statistiko;
 
 // ⟪ ការណែនាំ 📃 ⟫
 const enkonduko = kreiEnkondukon({
   kanvaso, sxargxaElemento, stango, sxargxaTitolo,
-  bildilo, fotilo, sceno, maksimumaRatio,
+  bildilo, fotilo, qena, maksimumaRatio,
   traduki, aplikiVacepu,
 });
 enkonduko.komenci();
 
-const urbo: UrbaSistemo = await konstruiUrbon(sceno, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, enkonduko.gxisdatigiProgreson);
+const urbo: UrbaSistemo = await konstruiUrbon(qena, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, enkonduko.gxisdatigiProgreson);
 const {
   konstruSpecoj, kolizioj, dokoKolizioj, selektajxoj,
   bestoj, petreloj, kanuoj, npcoj, internaSistemo,
@@ -110,26 +110,26 @@ enkonduko.halti();
 
 // ⟪ ដែនមើល , ចម្ងាយបង្ហាញ 📃 ⟫
 // ⟨ ឆាកមិនបង្ខំក្រាហ្វិក 📃 ⟩
-sceno.matrixAutoUpdate = false;
-spacigiInstancojn(sceno);
+qena.matrixAutoUpdate = false;
+spacigiInstancojn(qena);
 // ⟨ សំណាញ់នៅស្ងៀមដែលភ្ជាប់ 📃 ⟩
-registriKunigitajnMeshojn(sceno);
+registriKunigitajnMeshojn(qena);
 registriVivantojn({ npcoj, kanuoj, bestoj: bestoj.bestoj, petreloj: petreloj.petreloj });
 
 // ⟪ រូបអ្នកលេង 📃 ⟫
 const ludantaFiguro: Figuro = konstruiFiguron(VESTOJ[0]);
 ludantaFiguro.group.visible = false;
-sceno.add(ludantaFiguro.group);
+qena.add(ludantaFiguro.group);
 
 // ⟪ ពណ៌ KNAKEHE គ្រប់ពន្លឺ 🎨 ⟫
 // ⟨ បន្ទាប់ពីគ្រប់វត្ថុចូលឆាក បង្គត់ពណ៌ពន្លឺ អ័ព្ទ និងវត្ថុធាតុទាំងអស់
 //   ទៅ #nmnmnm ។ ការលាយថ្ងៃ-ព្រលប់បន្តបង្គត់ក្នុង aplikiAtmosferon ។ 📃 ⟩
-kanakaQena(sceno);
+kanakaQena(qena);
 // ⟨ បន្ទាប់ពីនេះ វត្ថុដែលចូលឆាកត្រូវបង្គត់ពណ៌ភ្លាម មិនចាំបាច់ឆ្លងកាត់ឆាកវិញ ។ 📃 ⟩
 instaliKanakaSpurilon();
 
 // ⟪ បណ្តាញ ( លេងច្រើននាក់ ) 📃 ⟫
-const retilo = kreiRetilon(sceno, montriTost, traduki);
+const retilo = kreiRetilon(qena, montriTost, traduki);
 
 // ⟪ ឧបករណ៍បញ្ជាគន្លង 📃 ⟫
 const regiloj = new OrbitControls(fotilo, bildilo.domElement);
@@ -149,7 +149,7 @@ const ludanto = kreiLudanton();
 const { eniriKonstruajxon, eliriInternon, sxaltiRezimon } = kreiRezimojn({
   ludanto,
   kanvaso, butRezimo, kartoElemento, promptoElemento,
-  sceno, fotilo, regiloj, internaSistemo, ludantaFiguro, retilo,
+  qena, fotilo, regiloj, internaSistemo, ludantaFiguro, retilo,
   cxielo: scena.cxielo,
   lumoj: { hemiLumo: scena.hemiLumo, suna: scena.suna, sunaSprajto: scena.sunaSprajto },
   alteco, sfx, cxuAŭdio, traduki, konstruaĵaNomo, aplikiVacepu,
@@ -200,7 +200,7 @@ const { salti, agaEskapon, proviInterakti } = kreiAgojn({
 });
 
 // ⟪ ការបញ្ចូល 📃 ⟫
-const { klavoj, cxuSprintas, cxuSaltas } = kreiEnigojn({
+const { ca3aq, cxuSprintas, cxuSaltas } = kreiEnigojn({
   kanvaso, promptoElemento,
   joystickZono: mobJoystickZono, joystickBazo: mobJoystickBazo, joystickTenilo: mobJoystickTenilo,
   butInterakti: mobButInterakti, butSalti: mobButSalti,
@@ -210,7 +210,7 @@ const { klavoj, cxuSprintas, cxuSaltas } = kreiEnigojn({
     surKanoto: () => ludanto.surKanoto !== null,
     movoValoro: () => ludanto.movoValoro,
     aldoniRigardon: ( dDirekto, dKlinigxo ) => {
-      ludanto.direkto += dDirekto;
+      ludanto.c2w2q += dDirekto;
       ludanto.klinigxo = Math.max(-0o135/0o100, Math.min(0o135/0o100, ludanto.klinigxo + dKlinigxo));
     },
     aldoniZumon: ( dZumo ) => { ludanto.celDistanco = Math.max(0, Math.min(0o16, ludanto.celDistanco + dZumo)); },
@@ -272,7 +272,7 @@ document.getElementById("butHelpi")!.addEventListener("click", () => {
   document.getElementById("supermetaTitolo")!.textContent = traduki("titoloVojoj");
   document.getElementById("supermetaSupra")!.textContent = traduki("subtitoloHelpo");
   supermetaEnhavo.innerHTML = `<div class="statistikoj">` +
-    HELPAJ_VICOJ.map(([ teksto, klavo ]) => kunKlavo(teksto, klavo, true)).join("<br>") +
+    HELPAJ_VICOJ.map(([ s2banani, ca3aq ]) => kunKlavo(s2banani, ca3aq, true)).join("<br>") +
     `</div>`;
   supermeta.classList.add("montri");
   aplikiVacepu();
@@ -284,12 +284,12 @@ const piedoj: PiedaMondo = { fotilo, kolizioj: koliziaKrado };
 
 // ⟪ ការជិះទូក 📃 ⟫
 const kanuanto = kreiKanuanton({
-  ludanto, kanuoj, piedoj, klavoj, promptoElemento, agordiPrompton,
+  ludanto, kanuoj, piedoj, ca3aq, promptoElemento, agordiPrompton,
 });
 
 // ⟪ ផែនទីតូច 📃 ⟫
 const minimapo = kreiMinimapon({
-  sceno, bildilo, supermeta, supermetaEnhavo, mapoGrandeco,
+  qena, bildilo, supermeta, supermetaEnhavo, mapoGrandeco,
   miniKanvaso: document.getElementById("minimapaKanvaso") as HTMLCanvasElement,
   kompaso: document.getElementById("kompaso")!,
   nadlo: document.getElementById("nadlo")!,
@@ -313,8 +313,8 @@ gxisdatigiRetikulon();
 // ⟪ ចលនា 📃 ⟫
 const { animacii } = kreiAnimacion({
   kanvaso, sxargxaElemento, promptoElemento,
-  bildilo, fotilo, sceno, regiloj, maksimumaRatio,
-  ludanto, klavoj, cxuSprintas, cxuSaltas,
+  bildilo, fotilo, qena, regiloj, maksimumaRatio,
+  ludanto, ca3aq, cxuSprintas, cxuSaltas,
   ludantaFiguro, minimapo, retilo, statistiko,
   mondo: urbo,
   gxisdatigiVeteron, gxisdatigiOmbron, mapoFormo, mapoGrandeco,

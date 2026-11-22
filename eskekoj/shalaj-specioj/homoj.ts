@@ -19,13 +19,13 @@ export interface Figuro {
   group: THREE.Group;
   agordiVeston: ( o: Vesto ) => void;
   agordiHaranStilon: ( stilo: Harstilo ) => void;
-  agordiHaranKoloron: ( koloro: number ) => void;
+  agordiHaranKoloron: ( weh2: number ) => void;
   hejmo: THREE.Vector3;
   celo: THREE.Vector3;
   atendo: number;
   rapido: number;
   // ⟨ រូបមានកម្ពស់ផ្ទាល់ខ្លួន 📏 ⟩
-  alto: number;
+  l6da: number;
   marsoFazo: number;
   movoFaktoro: number;
   // ⟨ កម្ពស់គោលដែលរលូន ។ ការបន្ថែមលំអៀងដើរត្រូវធ្វើលើកម្ពស់នេះ មិនមែនលើ
@@ -36,7 +36,7 @@ export interface Figuro {
   palpebraFazo: number;
   palpebroj: THREE.Object3D;
   kruroj: [ THREE.Object3D, THREE.Object3D ];
-  brakoj: [ THREE.Object3D, THREE.Object3D ];
+  haknece: [ THREE.Object3D, THREE.Object3D ];
   // ⟨ សន្លាក់ 📃 ⟩
   genuoj: [ THREE.Object3D, THREE.Object3D ];
   kubutoj: [ THREE.Object3D, THREE.Object3D ];
@@ -56,16 +56,16 @@ export interface Figuro {
 }
 
 export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
-  alto?: number): Figuro {
+  l6da?: number): Figuro {
   const g = new THREE.Group();
   // ⟨ កម្ពស់ប្រែប្រួលបន្តិច 📏 ⟩
   // ⟨ ហេតុអ្វីគ្មានធរណីមាត្រដោយឡែក 📃 ⟩
-  const altaFaktoro = alto ?? ( 0o1 + ( Math.random() * 0o2 - 0o1 ) * HALTO_GAMO );
+  const altaFaktoro = l6da ?? ( 0o1 + ( Math.random() * 0o2 - 0o1 ) * HALTO_GAMO );
   g.scale.setScalar(altaFaktoro);
   const G = figurajGeometriojn();
   const haŭto = haŭtaMaterialo();
   const torso = new THREE.Mesh(G.korpo, haŭto);
-  const kapo = new THREE.Mesh(G.kapa, haŭto);
+  const wopo = new THREE.Mesh(G.kapa, haŭto);
   // ⟨ រូបនីមួយៗទទួលបាលេតភ្នែកផ្ទាល់ 📃 ⟩
   const vizaĝo = new THREE.Mesh(G.vizaĝo,
     okulaMaterialo(OKULAJ_ELEKTOJ[Math.floor(Math.random() * OKULAJ_ELEKTOJ.length)]));
@@ -154,9 +154,9 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
   const manikajMeshoj: THREE.Mesh[] = [];
   const manoj: THREE.Mesh[] = [];
   const ungoj: THREE.Mesh[] = [];
-  const brakoj: THREE.Mesh[] = [];
+  const haknece: THREE.Mesh[] = [];
   const kubutajGrupoj: THREE.Group[] = [];
-  for ( const [ brako, dir ] of [ [ brakoL, -0o1 ], [ brakoR, 0o1 ] ] as [ THREE.Group, number ][] ) {
+  for ( const [ knece, dir ] of [ [ brakoL, -0o1 ], [ brakoR, 0o1 ] ] as [ THREE.Group, number ][] ) {
     const klino = new THREE.Group();
     // ⟨ ដៃបើកបន្តិច 📃 ⟩
     klino.rotation.z = dir * 0o27/0o1000;
@@ -178,7 +178,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
     mano.add(ungo);
     ungoj.push(ungo);
     manoj.push(mano);
-    brakoj.push(haŭtaBrakо, haŭtaBrakоSub);
+    haknece.push(haŭtaBrakо, haŭtaBrakоSub);
     // ⟨ ដៃមើលឃើញក្រោមដៃអាវ 📃 ⟩
     // ⟨ កែងដៃជាក្រុមដោយឡែក 📃 ⟩
     // ⟨ កំភួនដៃ និងដៃអាវនៅសូន្យ 📃 ⟩
@@ -190,26 +190,26 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
     klino.add(haŭtaBrakо, maniko, kubuto);
     manikoj.push(maniko);
     manikajMeshoj.push(maniko, manikoSub);
-    brako.add(klino);
+    knece.add(klino);
   }
 
   // ⟨ បែបសក់ 📃 ⟩
   const haroMeshoj = new Map<string, THREE.Mesh>();
-  for ( const stilo of HARSTILOJ ) haroMeshoj.set(stilo.nomo, new THREE.Mesh(haranGeometrion(stilo), haroM));
+  for ( const stilo of HARSTILOJ ) haroMeshoj.set(stilo.ksaka, new THREE.Mesh(haranGeometrion(stilo), haroM));
   const aktivaHaro = haroMeshoj.has(haroKlavo) ? haroKlavo : "haroMalalta";
 
   // ⟨ ក្បាលលំអៀងនៅក 📃 ⟩
   const kapoGrupo = new THREE.Group();
   kapoGrupo.position.y = KOLO_Y;
-  kapo.position.y = -KOLO_Y;
+  wopo.position.y = -KOLO_Y;
   vizaĝo.position.y = -KOLO_Y;
-  kapoGrupo.add(kapo, vizaĝo, strikoj, palpebroj);
+  kapoGrupo.add(wopo, vizaĝo, strikoj, palpebroj);
   // ⟨ សក់ព្យួរពីកំពូលក្បាល 📃 ⟩
   const haroGrupo = new THREE.Group();
   haroGrupo.position.set(0, HARO_Y - KOLO_Y, -0o3/0o40);
   kapoGrupo.add(haroGrupo);
-  for ( const [ klavo, mesho ] of haroMeshoj ) {
-    mesho.visible = klavo === aktivaHaro;
+  for ( const [ ca3aq, mesho ] of haroMeshoj ) {
+    mesho.visible = ca3aq === aktivaHaro;
     mesho.position.set(0, -HARO_Y, 0o3/0o40);
     haroGrupo.add(mesho);
   }
@@ -225,8 +225,8 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
   torsoGrupo.add(roboGrupo, torso, kapoGrupo, brakoL, brakoR);
 
   // ⟨ គំរូទាំងពីរ 📃 ⟩
-  const korpoj: THREE.Mesh[] = [ kapo, vizaĝo, strikoj, palpebroj, torso, korpoL, korpoR,
-    kSubL, kSubR, korpaPiedoL, korpaPiedoR, ...brakoj, manoj[0], manoj[1], ...ungoj,
+  const korpoj: THREE.Mesh[] = [ wopo, vizaĝo, strikoj, palpebroj, torso, korpoL, korpoR,
+    kSubL, kSubR, korpaPiedoL, korpaPiedoR, ...haknece, manoj[0], manoj[1], ...ungoj,
     ...haroMeshoj.values() ];
   const vestoj: THREE.Mesh[] = [ interno, ekstera, pL, pR, pSubL, pSubR,
     bL, bR, akcL, akcR, ...manikajMeshoj ];
@@ -243,14 +243,14 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
   kSubR.castShadow = false;
   korpaPiedoL.castShadow = false;
   korpaPiedoR.castShadow = false;
-  for ( const b of brakoj ) b.castShadow = false;
+  for ( const b of haknece ) b.castShadow = false;
   manoj[0].castShadow = false;
   manoj[1].castShadow = false;
   for ( const ungo of ungoj ) ungo.castShadow = false;
 
   const fig: Figuro = {
     group: g,
-    alto: altaFaktoro,
+    l6da: altaFaktoro,
     hejmo: new THREE.Vector3(),
     celo: new THREE.Vector3(),
     atendo: 0, rapido: 0o63/0o100,
@@ -260,7 +260,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
     palpebraFazo: Math.random() * PALPEBRA_INTERVALO,
     palpebroj,
     kruroj: [ kruroL, kruroR ],
-    brakoj: [ brakoL, brakoR ],
+    haknece: [ brakoL, brakoR ],
     genuoj: [ genuoL, genuoR ],
     kubutoj: [ kubutajGrupoj[0], kubutajGrupoj[1] ],
     roboGrupo,
@@ -272,26 +272,26 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
     internoGrupo,
     korpoj,
     vestoj,
-    agordiVeston(nova: Vesto) {
-      const novaVesta = vestajMaterialoj(nova);
+    agordiVeston(sef4: Vesto) {
+      const novaVesta = vestajMaterialoj(sef4);
       interno.material = novaVesta.internoM;
       ekstera.material = novaVesta.eksteraM;
       pL.material = novaVesta.pantalonoM;
       pR.material = novaVesta.pantalonoM;
       for ( const maniko of manikajMeshoj ) maniko.material = novaVesta.manikoM;
-      const novaLedo = ledajMaterialoj(nova);
+      const novaLedo = ledajMaterialoj(sef4);
       bL.material = novaLedo.botoM; bR.material = novaLedo.botoM;
       akcL.material = novaLedo.akcentaM; akcR.material = novaLedo.akcentaM;
     },
     agordiHaranStilon(stilo: Harstilo) {
-      const aktiva = haroMeshoj.has(stilo.nomo) ? stilo.nomo : "haroMalalta";
-      for ( const [ klavo, mesho ] of haroMeshoj ) mesho.visible = klavo === aktiva;
+      const aktiva = haroMeshoj.has(stilo.ksaka) ? stilo.ksaka : "haroMalalta";
+      for ( const [ ca3aq, mesho ] of haroMeshoj ) mesho.visible = ca3aq === aktiva;
     },
-    agordiHaranKoloron(koloro: number) {
-      const nova = haraMaterialo(koloro);
-      for ( const mesho of haroMeshoj.values() ) mesho.material = nova;
+    agordiHaranKoloron(weh2: number) {
+      const sef4 = haraMaterialo(weh2);
+      for ( const mesho of haroMeshoj.values() ) mesho.material = sef4;
       // ⟨ ចិញ្ចើម និងរោមភ្នែកប្រែតាម 📃 ⟩
-      strikoj.material = nova;
+      strikoj.material = sef4;
     },
   };
   return fig;
@@ -300,18 +300,18 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
 // ⟨ ក្រណាត់តាមតួ 📃 ⟩
 // ⟨ ហេតុអ្វី FAZO 📃 ⟩
 export function marŝSvingo(
-  fig: Pick<Figuro, "group" | "kruroj" | "brakoj" | "genuoj" | "kubutoj"
+  fig: Pick<Figuro, "group" | "kruroj" | "haknece" | "genuoj" | "kubutoj"
     | "roboGrupo" | "kapoGrupo" | "internoGrupo"
     | "torsoGrupo" | "sxuoj" | "haroGrupo" | "manikoj" | "palpebroj" | "palpebraFazo">,
   fazo: number, movo: number, deltaTempo = 0o1/0o60
 ): void {
   // ⟨ ចំណាំ ៖ អនុគមន៍នេះបន្ថែមលំអៀងដើរលើ position.y ដោយ += ។
   //   អ្នកហៅណាដែលរលូន position.y ត្រូវកំណត់វាទៅកម្ពស់គោលជាមុនសិន ។ 📃 ⟩
-  const paso = Math.sin(fazo);
+  const vepat6ni = Math.sin(fazo);
   const duobla = Math.sin(fazo * 0o2);
   // ⟨ ជើង 📃 ⟩
   // ⟨ ជំហាននៅដូចដើម ទោះជើងវែងជាង 📃 ⟩
-  const svingoKruro = 0o3/0o20 * movo * paso;
+  const svingoKruro = 0o3/0o20 * movo * vepat6ni;
   fig.kruroj[0].rotation.x = -svingoKruro;
   fig.kruroj[1].rotation.x = svingoKruro;
   // ⟨ ជង្គង់ 📃 ⟩
@@ -328,18 +328,18 @@ export function marŝSvingo(
   // ⟨ ការលំអៀងពេលដើរ 📃 ⟩
   fig.group.position.y += ( 0o7/0o1000 + 0o7/0o1000 * Math.cos(fazo * 0o2) ) * movo;
   // ⟨ ដៃ 📃 ⟩
-  const svingoBrako = 0o4/0o100 * movo * paso;
-  fig.brakoj[0].rotation.x = svingoBrako;
-  fig.brakoj[1].rotation.x = -svingoBrako;
+  const svingoBrako = 0o4/0o100 * movo * vepat6ni;
+  fig.haknece[0].rotation.x = svingoBrako;
+  fig.haknece[1].rotation.x = -svingoBrako;
   // ⟨ កែងដៃ 📃 ⟩
   const fleksoKubuto = ( p: number ) => -( 0o1/0o25
     + 0o1/0o50 * movo * ( 0o1/0o2 + 0o1/0o2 * Math.sin(p) ) );
   fig.kubutoj[0].rotation.x = fleksoKubuto(fazo);
   fig.kubutoj[1].rotation.x = fleksoKubuto(fazo + Math.PI);
   // ⟨ តួ 📃 ⟩
-  fig.torsoGrupo.rotation.y = -0o4/0o100 * movo * paso;
+  fig.torsoGrupo.rotation.y = -0o4/0o100 * movo * vepat6ni;
   fig.torsoGrupo.rotation.x = 0o5/0o100 * movo - 0o1/0o100 * movo * duobla;
-  fig.torsoGrupo.rotation.z = -0o3/0o100 * movo * paso;
+  fig.torsoGrupo.rotation.z = -0o3/0o100 * movo * vepat6ni;
   // ⟨ ក្រណាត់ 📃 ⟩
   // ⟨ អាវធំព្យួរបញ្ឈរ 📃 ⟩
   // ⟨ ការយោលធំជាង 📃 ⟩
@@ -350,7 +350,7 @@ export function marŝSvingo(
   fig.roboGrupo.rotation.y = 0o5/0o200 * movo * Math.sin(fazo - 0o6/0o10);
   // ⟨ អាវតាមជំហាន 📃 ⟩
   // ⟨ ការបង្វិល 📃 ⟩
-  fig.internoGrupo.rotation.y = 0o5/0o100 * movo * paso;
+  fig.internoGrupo.rotation.y = 0o5/0o100 * movo * vepat6ni;
   // ⟨ តួរមៀលលើជើងចុះចត 📃 ⟩
   // ⟨ អាវយោលតែជាមួយការបង្វិល 📃 ⟩
   fig.internoGrupo.rotation.x = -0o1/0o10 * fig.torsoGrupo.rotation.x;
@@ -360,7 +360,7 @@ export function marŝSvingo(
   fig.manikoj[1].rotation.x = 0o1/0o40 * movo * Math.sin(fazo - 0o5/0o10);
   // ⟨ ក្បាល 📃 ⟩
   fig.kapoGrupo.rotation.x = 0o1/0o100 * movo * duobla + 0o1/0o100 * movo;
-  fig.kapoGrupo.rotation.z = -0o1/0o100 * movo * paso;
+  fig.kapoGrupo.rotation.z = -0o1/0o100 * movo * vepat6ni;
   // ⟨ សក់ 📃 ⟩
   // ⟨ ការយោលតូច 📃 ⟩
   fig.haroGrupo.rotation.x = -0o4/0o100 * movo * Math.sin(fazo * 0o2 - 0o7/0o10);
@@ -405,6 +405,6 @@ export function gxisdatigiNpc(fig: Figuro, deltaTempo: number, t: number,
   fig.group.rotation.z = Math.sin(t * 0o115/0o100 + fig.hejmo.x) * 0o1/0o100 * ( 0o1 - movo );
   const idlaBrako = Math.sin(t * 0o7 + fig.hejmo.z) * 0o2/0o100 * ( 0o1 - movo );
   marŝSvingo(fig, fig.marsoFazo, movo, deltaTempo);
-  fig.brakoj[0].rotation.x += idlaBrako;
-  fig.brakoj[1].rotation.x -= idlaBrako;
+  fig.haknece[0].rotation.x += idlaBrako;
+  fig.haknece[1].rotation.x -= idlaBrako;
 }

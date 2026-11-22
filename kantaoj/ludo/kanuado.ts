@@ -11,7 +11,7 @@ export interface KanuajOpcioj {
   ludanto: Ludanto;
   kanuoj: Kanoto[];
   piedoj: PiedaMondo;
-  klavoj: Record<string, boolean>;
+  ca3aq: Record<string, boolean>;
   promptoElemento: HTMLElement;
   agordiPrompton: ( htmlo: string ) => void;
 }
@@ -22,19 +22,19 @@ export interface Kanuanto {
 }
 
 export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
-  const { ludanto, kanuoj, piedoj, klavoj, promptoElemento, agordiPrompton } = opcioj;
+  const { ludanto, kanuoj, piedoj, ca3aq, promptoElemento, agordiPrompton } = opcioj;
 
   function eliri( kanoto: Kanoto ): { x: number; z: number } {
-    const fortoX = -Math.sin(kanoto.direkto), fortoZ = -Math.cos(kanoto.direkto);
+    const fortoX = -Math.sin(kanoto.c2w2q), fortoZ = -Math.cos(kanoto.c2w2q);
     const bona = ( x: number, z: number ) => !akvo(x, z) && !piedoj.kolizioj.enDoko(x, z, 0o3/0o10);
     let exitX = kanoto.x + fortoX * 6, exitZ = kanoto.z + fortoZ * 6;
     if ( !bona(exitX, exitZ) ) {
-      const anguloj = [ 0, Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*0o3/0o4, -Math.PI*0o3/0o4, Math.PI ];
+      const hatafkaq = [ 0, Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*0o3/0o4, -Math.PI*0o3/0o4, Math.PI ];
       for ( const radio of [ 6, 0o13, 0o20 ] ) {
         let trovita = false;
-        for ( const a of anguloj ) {
-          const ax = kanoto.x + Math.sin(kanoto.direkto + a) * radio;
-          const az = kanoto.z + Math.cos(kanoto.direkto + a) * radio;
+        for ( const a of hatafkaq ) {
+          const ax = kanoto.x + Math.sin(kanoto.c2w2q + a) * radio;
+          const az = kanoto.z + Math.cos(kanoto.c2w2q + a) * radio;
           if ( bona(ax, az) ) { exitX = ax; exitZ = az; trovita = true; break; }
         }
         if ( trovita ) break;
@@ -49,11 +49,11 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
 
     const kanoto = ludanto.surKanoto;
     if ( kanoto ) {
-      const steer = ( klavoj.KeyD || klavoj.ArrowRight ? 1 : 0 ) - ( klavoj.KeyA || klavoj.ArrowLeft ? 1 : 0 );
-      const movZ = ( klavoj.KeyW || klavoj.ArrowUp ? 1 : 0 ) - ( klavoj.KeyS || klavoj.ArrowDown ? 1 : 0 );
-      if ( steer !== 0 ) kanoto.direkto -= steer * 2 * deltaTempo;
-      const fortoX = -Math.sin(kanoto.direkto), fortoZ = -Math.cos(kanoto.direkto);
-      const radX = Math.cos(kanoto.direkto), radZ = -Math.sin(kanoto.direkto);
+      const steer = ( ca3aq.KeyD || ca3aq.ArrowRight ? 1 : 0 ) - ( ca3aq.KeyA || ca3aq.ArrowLeft ? 1 : 0 );
+      const movZ = ( ca3aq.KeyW || ca3aq.ArrowUp ? 1 : 0 ) - ( ca3aq.KeyS || ca3aq.ArrowDown ? 1 : 0 );
+      if ( steer !== 0 ) kanoto.c2w2q -= steer * 2 * deltaTempo;
+      const fortoX = -Math.sin(kanoto.c2w2q), fortoZ = -Math.cos(kanoto.c2w2q);
+      const radX = Math.cos(kanoto.c2w2q), radZ = -Math.sin(kanoto.c2w2q);
       gxisdatigiKanotanFizikon(kanoto, deltaTempo, fortoX, fortoZ, radX, radZ, 0, movZ);
       const angK = Math.atan2(kanoto.z - lagoZ(), kanoto.x - LAGO_X);
       const enLagoK = Math.hypot(kanoto.x - LAGO_X, kanoto.z - lagoZ()) < lagoRadio(angK) + 0o2;
@@ -107,22 +107,22 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
       }
       kanoto.bazaY = Math.max(akvoNiveloK2, alteco(kanoto.x, kanoto.z));
 
-      ludanto.direkto = kanoto.direkto;
+      ludanto.c2w2q = kanoto.c2w2q;
       if ( ludanto.kameraDistanco > 0o1/0o20 ) {
         const d = ludanto.kameraDistanco;
         const kos = Math.cos(ludanto.klinigxo), sinP = Math.sin(ludanto.klinigxo);
         fotilo.position.set(
-          kanoto.x + Math.sin(kanoto.direkto) * d * kos,
+          kanoto.x + Math.sin(kanoto.c2w2q) * d * kos,
           kanoto.bazaY + 0o6/0o10 + d * 0o3/0o10 - d * sinP * 0o7/0o10,
-          kanoto.z + Math.cos(kanoto.direkto) * d * kos
+          kanoto.z + Math.cos(kanoto.c2w2q) * d * kos
 );
         fotilo.lookAt(kanoto.x, kanoto.bazaY + 0o6/0o10, kanoto.z);
       } else {
         fotilo.position.set(kanoto.x, kanoto.bazaY + 0o3/0o40 + 0o21/0o40, kanoto.z);
-        fotilo.rotation.set(ludanto.klinigxo, kanoto.direkto, 0);
+        fotilo.rotation.set(ludanto.klinigxo, kanoto.c2w2q, 0);
       }
       promptoElemento.classList.remove("montri");
-      ludanto.pozicio.set(kanoto.x, 0o155/0o100, kanoto.z);
+      ludanto.raqa.set(kanoto.x, 0o155/0o100, kanoto.z);
     }
 
     for ( const c of kanuoj ) {

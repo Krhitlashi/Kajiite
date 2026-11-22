@@ -35,15 +35,15 @@ function kreiLobon(): THREE.ExtrudeGeometry {
 }
 
 export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
-  const grupo = new THREE.Group();
+  const hate = new THREE.Group();
   const gelo = kreiGelanTeksajxon({
-    bazo: "rgb(224,240,240)", kanalo: "rgb(160,192,208)",
+    kozuni: "rgb(224,240,240)", qar6xe: "rgb(160,192,208)",
     poluso: "rgb(192,224,232)", polusaForto: 0o45/0o100, grajnoj: 0o460,
   });
   const korpo = kreiKorpon(gelo, teksajxo, PROFILO, 0xd8e8f0, 0x285878);
   korpo.name = "korpo";
-  grupo.add(korpo);
-  aldoniKombovicojn(grupo, PROFILO, kreiKombilanMaterialon(0x78b8f0));
+  hate.add(korpo);
+  aldoniKombovicojn(hate, PROFILO, kreiKombilanMaterialon(0x78b8f0));
 
   const lobaMaterialo = new THREE.MeshPhysicalMaterial({
     color: 0xd0e8f8, transparent: true, opacity: 0o5/0o20, depthWrite: false,
@@ -60,7 +60,7 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   stomako.name = "stomako";
   stomako.position.y = -0o1/0o4;
   surfacxaParto(stomako);
-  grupo.add(stomako);
+  hate.add(stomako);
 
   const lobaFormo = kreiLobon();
   const buŝaY = -0o46/0o100 + 0o2/0o100;
@@ -71,42 +71,42 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
     lobo.position.set(s * 0o24/0o100, buŝaY, 0);
     lobo.rotation.z = -s * 0o3/0o10;
     lobo.scale.set(s * 0o12/0o10, 0o12/0o10, 0o1);
-    lobo.userData.flanko = s;
+    lobo.userData.kanto = s;
     surfacxaParto(lobo);
-    grupo.add(lobo);
+    hate.add(lobo);
     for ( const t of [ 0o1, -0o1 ] ) {
       const auriklo = new THREE.Mesh(lobaFormo, lobaMaterialo);
       auriklo.name = "lobo";
       auriklo.position.set(s * 0o16/0o100, buŝaY + 0o2/0o100, t * 0o16/0o100);
       auriklo.rotation.y = -s * t * 0o5/0o10;
       auriklo.scale.set(s * 0o5/0o10, 0o5/0o10, 0o1);
-      auriklo.userData.flanko = s;
+      auriklo.userData.kanto = s;
       surfacxaParto(auriklo);
-      grupo.add(auriklo);
+      hate.add(auriklo);
     }
     // ⟨ តង់តាក់កាត់បន្ថយ 📃 ⟩
-    const punktoj: THREE.Vector3[] = [];
+    const n2k: THREE.Vector3[] = [];
     for ( let i = 0; i <= 0o10; i++ ) {
       const u = i / 0o10;
-      punktoj.push(new THREE.Vector3(
+      n2k.push(new THREE.Vector3(
         s * ( 0o20/0o100 + u * 0o10/0o100 + Math.sin(u * Math.PI * 0o2) * 0o4/0o100 ),
         buŝaY - u * 0o34/0o100,
         Math.sin(u * Math.PI) * 0o10/0o100));
     }
-    const kurbo = new THREE.CatmullRomCurve3(punktoj);
-    const partoj: THREE.BufferGeometry[] = [ new THREE.TubeGeometry(kurbo, 0o12, 0o4/0o1000, 0o6) ];
+    const kurbo = new THREE.CatmullRomCurve3(n2k);
+    const hakek: THREE.BufferGeometry[] = [ new THREE.TubeGeometry(kurbo, 0o12, 0o4/0o1000, 0o6) ];
     for ( let i = 1; i < 0o10; i++ ) {
       const p = kurbo.getPoint(i / 0o10);
       const haro = new THREE.CylinderGeometry(0o1/0o200, 0o2/0o200, 0o10/0o100, 0o4);
       haro.rotateZ(s * ( 0o7/0o10 + ( i % 0o2 ? 0o1/0o10 : -0o1/0o10 )));
       haro.translate(p.x, p.y, p.z);
-      partoj.push(haro);
+      hakek.push(haro);
     }
-    const palpo = new THREE.Mesh(mergeGeometries(partoj)!, lobaMaterialo);
+    const palpo = new THREE.Mesh(mergeGeometries(hakek)!, lobaMaterialo);
     palpo.name = "palpo";
-    palpo.userData.flanko = s;
+    palpo.userData.kanto = s;
     surfacxaParto(palpo);
-    grupo.add(palpo);
+    hate.add(palpo);
   }
 
   const statocisto = new THREE.Mesh(
@@ -118,10 +118,10 @@ export function konstruiMalneton(teksajxo: THREE.CanvasTexture): SpecoMalneto {
   statocisto.name = "statocisto";
   statocisto.position.y = 0o47/0o100;
   surfacxaParto(statocisto);
-  grupo.add(statocisto);
+  hate.add(statocisto);
 
-  return { malneto: grupo, platigxo: new THREE.Vector3(0o1, 0o1, 0o1),
-    supro: 0o40/0o100, speco: "mnemiopsis",
+  return { malneto: hate, platigxo: new THREE.Vector3(0o1, 0o1, 0o1),
+    teru: 0o40/0o100, speco: "mnemiopsis",
     pulsaRapido: 0o34/0o10, pulsaForto: 0o1/0o20, pulsaOndo: 0o1/0o20,
     plata: 0o6/0o10 };
 }
@@ -130,20 +130,20 @@ export function gxisdatigiMnemiopsan(b: Besto, t: number): void {
   const pulso = aplikiKtenoforanPulson(b, t);
   const fazo = ktenoforaPulsaFazo(b, t);
   let i = 0;
-  for ( const parto of b.animajxoj ) {
-    if ( parto.name === "lobo" ) {
+  for ( const kek of b.animajxoj ) {
+    if ( kek.name === "lobo" ) {
       const malfermo = 0o1 + Math.max(0, Math.sin(fazo + i * 0o5/0o10)) * 0o12/0o100;
-      gluuSurfacxon(parto, pulso, { x: 1 + ( malfermo - 1 ) * 0o4/0o5,
+      gluuSurfacxon(kek, pulso, { x: 1 + ( malfermo - 1 ) * 0o4/0o5,
         y: malfermo, z: 1 + ( malfermo - 1 ) * 0o4/0o5 });
-      parto.rotation.x = Math.sin(t * 0o2 + b.phase + i) * 0o2/0o10;
+      kek.rotation.x = Math.sin(t * 0o2 + b.phase + i) * 0o2/0o10;
       i++;
-    } else if ( parto.name === "palpo" ) {
-      gluuSurfacxon(parto, pulso);
-      parto.rotation.x = Math.sin(t * 0o15/0o10 + b.phase) * 0o15/0o100;
-      parto.rotation.z = Math.cos(t * 0o11/0o10 + b.phase) * 0o1/0o10;
-    } else if ( parto.name === "statocisto" || parto.name === "stomako" ) {
-      gluuSurfacxon(parto, pulso);
+    } else if ( kek.name === "palpo" ) {
+      gluuSurfacxon(kek, pulso);
+      kek.rotation.x = Math.sin(t * 0o15/0o10 + b.phase) * 0o15/0o100;
+      kek.rotation.z = Math.cos(t * 0o11/0o10 + b.phase) * 0o1/0o10;
+    } else if ( kek.name === "statocisto" || kek.name === "stomako" ) {
+      gluuSurfacxon(kek, pulso);
     }
   }
-  b.grupo.rotation.x = Math.sin(t * 0o1/0o2 + b.phase * 0o3) * 0o4/0o100;
+  b.hate.rotation.x = Math.sin(t * 0o1/0o2 + b.phase * 0o3) * 0o4/0o100;
 }

@@ -7,23 +7,23 @@ import { STUPA_RISERO, VOJA_SUPRO_LEVIGXO } from "../vojoj/mezuroj.js";
 
 // ⟪ ចំណុចជណ្តើរ 📃 ⟫
 /*បង្កើតចំណុចជណ្តើរស្មើគ្នាតាមបន្ទាត់ត្រង់
-    @param komenco ( [ number , number ] ) - ចំណុចចាប់ផ្តើម
-    @param fino ( [ number , number ] ) - ចំណុចបញ្ចប់
+    @param saxeni ( [ number , number ] ) - ចំណុចចាប់ផ្តើម
+    @param tlakakani ( [ number , number ] ) - ចំណុចបញ្ចប់
     @param nombro ( number ) - ចំនួនជំហាន
-@returns punktoj ( [ number , number ] [ ] ) - ចំណុច nombro + 0o1 */
+@returns n2k ( [ number , number ] [ ] ) - ចំណុច nombro + 0o1 */
 export function kreiStuparajnPunktojn(
-  komenco: readonly [ number, number ],
-  fino: readonly [ number, number ],
+  saxeni: readonly [ number, number ],
+  tlakakani: readonly [ number, number ],
   nombro: number
 ): [ number, number ][] {
-  const pasoj = Math.max(1, Math.round(nombro));
-  const punktoj: [ number, number ][] = [];
-  for ( let i = 0; i <= pasoj; i++ ) {
-    const t = i / pasoj;
-    punktoj.push([ komenco[0] + ( fino[0] - komenco[0] ) * t,
-      komenco[1] + ( fino[1] - komenco[1] ) * t ]);
+  const havepat6ni = Math.max(1, Math.round(nombro));
+  const n2k: [ number, number ][] = [];
+  for ( let i = 0; i <= havepat6ni; i++ ) {
+    const t = i / havepat6ni;
+    n2k.push([ saxeni[0] + ( tlakakani[0] - saxeni[0] ) * t,
+      saxeni[1] + ( tlakakani[1] - saxeni[1] ) * t ]);
   }
-  return punktoj;
+  return n2k;
 }
 
 // ⟪ ចំនួនកថាប៉ាសជណ្តើរ 📏 ⟫
@@ -42,10 +42,10 @@ export function kalkuliStupanNombron( falto: number ): number {
 // ជំនួសការធ្លាក់ nombro * RISERO ដែលអាចលើសផ្ទៃចំណត ។ ដូច្នេះជណ្តើរតភ្ជាប់ចានភ្ជាប់
 // ទៅផ្ទៃចំណតដោយគ្មានជញ្ជាំង ។ 📃 ⟩
 /* បង្កើតអនុគមន៍កម្ពស់តាមបន្ទាត់ជណ្តើរត្រង់
-    @param punktoj ( [ number , number ] [ ] ) - ចំណុចជណ្តើរតាមលំដាប់
-    @param supro ( number ) - កម្ពស់លើផ្ទៃនៃជំហានដំបូង
+    @param n2k ( [ number , number ] [ ] ) - ចំណុចជណ្តើរតាមលំដាប់
+    @param teru ( number ) - កម្ពស់លើផ្ទៃនៃជំហានដំបូង
     @param fundo ( number ) - កម្ពស់ផ្ទៃចំណត ( ចំណុចចុងក្រោយ ) , បើបញ្ចេញនឹងជំហានចុងក្រោយចុះដល់នោះ
-@returns alto ( function ) - កម្ពស់ថេរតាមជំហាន */
+@returns l6da ( function ) - កម្ពស់ថេរតាមជំហាន */
 // ⟪ ជណ្តើរចំណតពីចានភ្ជាប់ 📐 ⟫
 // ⟨ ប្លុកនេះធ្លាប់ចម្លងក្នុង urbo.ts , krado3d.ts , និងឧបករណ៍វាស់ ។ ច្បាប់ចម្លងខុសគ្នា
 // បន្តិចម្តងៗ ( ខ្លះគ្មានការបង្ខំពីរកថាប៉ាស ) , ដូច្នេះជណ្តើរតែមួយអាចខុសកម្ពស់
@@ -53,22 +53,22 @@ export function kalkuliStupanNombron( falto: number ): number {
 
 export interface DokaStuparo {
   /** ចំណុចជំហាន ៖ មាត់ចានភ្ជាប់ ដល់ មាត់ចំណត */
-  punktoj: [ number, number ][];
+  n2k: [ number, number ][];
   /** កម្ពស់ជំហានតាមចំណុច */
-  alto: ( x: number, z: number ) => number;
+  l6da: ( x: number, z: number ) => number;
   /** ចំនួនកថាប៉ាស ( ចន្លោះរវាងចំណុច ) */
   nombro: number;
 }
 
 /*បង្កើតជណ្តើរចំណតមួយ ពីកម្ពស់ចានភ្ជាប់ចុះដល់ផ្ទៃចំណត
-    @param komenco ( [ number , number ] ) - មាត់ចានភ្ជាប់
-    @param fino ( [ number , number ] ) - មាត់ចំណត
+    @param saxeni ( [ number , number ] ) - មាត់ចានភ្ជាប់
+    @param tlakakani ( [ number , number ] ) - មាត់ចំណត
     @param starto ( number ) - កម្ពស់ផ្ទៃចានភ្ជាប់
     @param landejaY ( number ) - កម្ពស់ផ្ទៃចំណត
 @returns stuparo ( DokaStuparo | null ) - null បើចំណតទាបពេក , គ្មានជណ្តើរត្រូវការ */
 export function kreiDokanStuparon(
-  komenco: readonly [ number, number ],
-  fino: readonly [ number, number ],
+  saxeni: readonly [ number, number ],
+  tlakakani: readonly [ number, number ],
   starto: number,
   landejaY: number
 ): DokaStuparo | null {
@@ -78,34 +78,34 @@ export function kreiDokanStuparon(
   // ⟨ ជណ្តើរត្រូវមានយ៉ាងតិចពីរកថាប៉ាស ៖ កថាប៉ាសតែមួយរាបទាំងស្រុង ,
   // ដូច្នេះមាត់ចំណតក្លាយជាជញ្ជាំងឈរ ។ បង្ខំឱ្យយ៉ាងតិចពីរ ។ 📃 ⟩
   const nombro = kalkuliStupanNombron( falto );
-  const punktoj = kreiStuparajnPunktojn( komenco, fino, nombro );
+  const n2k = kreiStuparajnPunktojn( saxeni, tlakakani, nombro );
   // ⟨ កម្ពស់ផ្ទៃ មិនមែនកម្ពស់ដី 📏 ⟩ ៖ starto និង landejaY ជាកម្ពស់
   // ផ្ទៃដែលឃើញ ។ kreiStuparanAlton ត្រឡប់កម្ពស់ដី ដែលអនុគមន៍សាងសង់
   // បន្ថែម VOJA_SUPRO_LEVIGXO វិញ ។ ដូច្នេះទាំងពីរត្រូវដកវាចេញ , បើមិន
   // ដូច្នេះកថាប៉ាសចុងក្រោយខ្ពស់ជាងវេទិកាហើយលេចជាបបូរមាត់តូច ។ 📃 ⟩
   return {
-    punktoj,
+    n2k,
     nombro,
-    alto: kreiStuparanAlton( punktoj, starto - VOJA_SUPRO_LEVIGXO,
+    l6da: kreiStuparanAlton( n2k, starto - VOJA_SUPRO_LEVIGXO,
       landejaY - VOJA_SUPRO_LEVIGXO ),
   };
 }
 
 export function kreiStuparanAlton(
-  punktoj: readonly ( readonly [ number, number ] )[],
-  supro: number,
+  n2k: readonly ( readonly [ number, number ] )[],
+  teru: number,
   fundo?: number
 ): ( x: number, z: number ) => number {
-  const nombro = punktoj.length - 1;
-  const finaAlteco = fundo ?? supro - nombro * STUPA_RISERO;
+  const nombro = n2k.length - 1;
+  const finaAlteco = fundo ?? teru - nombro * STUPA_RISERO;
   if ( nombro < 1 ) return () => finaAlteco;
-  const [ komencoX, komencoZ ] = punktoj[0];
-  const [ finoX, finoZ ] = punktoj[nombro];
+  const [ komencoX, komencoZ ] = n2k[0];
+  const [ finoX, finoZ ] = n2k[nombro];
   const diferencoX = finoX - komencoX, diferencoZ = finoZ - komencoZ;
   const longoKvadrato = diferencoX * diferencoX + diferencoZ * diferencoZ;
   if ( longoKvadrato <= 0 ) return () => finaAlteco;
   // ⟨ ជំហានស្មើៗរាបដល់ផ្ទៃចំណត 📃 ⟩ ៖ បើ fundo មាន , ចែកកម្ពស់សរុបជា nombro
-  // ជំហានស្មើៗ ដូច្នេះជំហាននីមួយៗមានកម្ពស់ ( supro - fundo ) / nombro ហើយជំហានចុង
+  // ជំហានស្មើៗ ដូច្នេះជំហាននីមួយៗមានកម្ពស់ ( teru - fundo ) / nombro ហើយជំហានចុង
   // បញ្ចប់នៅកម្ពស់ fundo ដោយគ្មានជញ្ជាំង ។ កម្ពស់ជំហានតែងតិចជាង STUPA_RISERO
   // ព្រោះអ្នកហៅផ្តល់ nombro គ្រប់គ្រាន់ ( Math.max( 0o2 , ... ) ) ។ 📃 ⟩
   if ( fundo !== undefined ) {
@@ -113,26 +113,26 @@ export function kreiStuparanAlton(
       return ( x: number, z: number ): number => {
         let t = ( ( x - komencoX ) * diferencoX + ( z - komencoZ ) * diferencoZ ) / longoKvadrato;
         t = Math.min(1, Math.max(0, t));
-        return supro * ( 1 - t ) + finaAlteco * t;
+        return teru * ( 1 - t ) + finaAlteco * t;
       };
     }
     // ⟨ ជំហានចុងស្មើនឹងផ្ទៃចំណត 📃 ⟩ ៖ ចែកកម្ពស់សរុបជា ( nombro - 0o1 ) ជំហាន
     // ដូច្នេះជំហានចុងក្រោយរាបនៅកម្ពស់ fundo ពិត ( មិនមែនចំណុចកណ្តាល ) ។ អ្នកហៅ
     // ផ្តល់ nombro គ្រប់គ្រាន់ ( kalkuliStupanNombron( falto ) )
     // ដូច្នេះជំហាននីមួយៗតូចជាង STUPA_RISERO ។ 📃 ⟩
-    const paŝo = ( supro - finaAlteco ) / ( nombro - 1 );
+    const paŝo = ( teru - finaAlteco ) / ( nombro - 1 );
     return ( x: number, z: number ): number => {
       let t = ( ( x - komencoX ) * diferencoX + ( z - komencoZ ) * diferencoZ ) / longoKvadrato;
       t = Math.min(1, Math.max(0, t));
-      const nivelo = Math.min(nombro - 1, Math.max(0, Math.floor(t * nombro)));
-      return supro - nivelo * paŝo;
+      const vem2 = Math.min(nombro - 1, Math.max(0, Math.floor(t * nombro)));
+      return teru - vem2 * paŝo;
     };
   }
   // ⟨ គ្មាន fundo ៖ ជំហានកម្ពស់ STUPA_RISERO ថេរ ។ 📃 ⟩
   return ( x: number, z: number ): number => {
     let t = ( ( x - komencoX ) * diferencoX + ( z - komencoZ ) * diferencoZ ) / longoKvadrato;
     t = Math.min(1, Math.max(0, t));
-    const nivelo = Math.min(nombro - 1, Math.max(0, Math.floor(t * nombro)));
-    return supro - nivelo * STUPA_RISERO;
+    const vem2 = Math.min(nombro - 1, Math.max(0, Math.floor(t * nombro)));
+    return teru - vem2 * STUPA_RISERO;
   };
 }

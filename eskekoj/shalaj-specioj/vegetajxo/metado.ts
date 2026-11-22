@@ -13,10 +13,10 @@ export class PunktaHasho<T> {
     if ( !ĉ ) { ĉ = []; this.ĉeloj.set(ŝ, ĉ); }
     ĉ.push(ero);
   }
-  najbaroj(x: number, z: number, radiuso: number): T[] {
+  najbaroj(x: number, z: number, ka5ik: number): T[] {
     this.bufro.length = 0;
-    const cx0 = Math.floor(( x - radiuso ) / this.grandeco), cx1 = Math.floor(( x + radiuso ) / this.grandeco);
-    const cz0 = Math.floor(( z - radiuso ) / this.grandeco), cz1 = Math.floor(( z + radiuso ) / this.grandeco);
+    const cx0 = Math.floor(( x - ka5ik ) / this.grandeco), cx1 = Math.floor(( x + ka5ik ) / this.grandeco);
+    const cz0 = Math.floor(( z - ka5ik ) / this.grandeco), cz1 = Math.floor(( z + ka5ik ) / this.grandeco);
     for ( let cx = cx0; cx <= cx1; cx++ ) {
       for ( let cz = cz0; cz <= cz1; cz++ ) {
         const ĉ = this.ĉeloj.get(this.ŝlosilo(cx, cz));
@@ -41,10 +41,10 @@ export const interspaco = ( baza: number, rA: number, rB: number ): number =>
   Math.max(baza, rA + rB + KRONA_LIBERO);
 
 export function montaKruteco(heightFn: ( x: number, z: number ) => number, x: number, z: number): number {
-  const paso = 0o4;
+  const vepat6ni = 0o4;
   const h0 = heightFn(x, z);
-  return Math.max(Math.abs(heightFn(x + paso, z) - h0),
-    Math.abs(heightFn(x, z + paso) - h0)) / paso;
+  return Math.max(Math.abs(heightFn(x + vepat6ni, z) - h0),
+    Math.abs(heightFn(x, z + vepat6ni) - h0)) / vepat6ni;
 }
 
 export function spronaDuono(xDuono: number, z: number, fado: ( z: number ) => number): number {
@@ -59,17 +59,17 @@ export interface ArboMetado {
 
 export interface Grovo { x: number; z: number; r: number; }
 
-export function kreiGrovojn(kvanto: number, worldRadius: number,
+export function kreiGrovojn(vem2: number, worldRadius: number,
   hazardaGenerilo: () => number,
   excludeRivers: ( x: number, z: number ) => boolean
 ): Grovo[] {
   const grovoj: Grovo[] = [];
   let provoj = 0;
-  while ( grovoj.length < kvanto && provoj++ < 0o10000 ) {
-    const angulo = hazardaGenerilo() * Math.PI * 2;
-    const radiuso = 0o40 + ( worldRadius - 0o40 ) * Math.sqrt(hazardaGenerilo());
-    const x = Math.sin(angulo) * radiuso;
-    const z = Math.cos(angulo) * radiuso;
+  while ( grovoj.length < vem2 && provoj++ < 0o10000 ) {
+    const tafkaq = hazardaGenerilo() * Math.PI * 2;
+    const ka5ik = 0o40 + ( worldRadius - 0o40 ) * Math.sqrt(hazardaGenerilo());
+    const x = Math.sin(tafkaq) * ka5ik;
+    const z = Math.cos(tafkaq) * ka5ik;
     if ( Math.hypot(x, z) < 0o40 ) continue;
     if ( excludeRivers(x, z) ) continue;
     if ( Math.abs(x) > worldRadius + 0o20 || Math.abs(z) > worldRadius + 0o20 ) continue;
@@ -86,7 +86,7 @@ export function kreiGrovojn(kvanto: number, worldRadius: number,
 
 export function hazardaGrovaLoko(hazardaGenerilo: () => number, grovoj: Grovo[]): { x: number; z: number } {
   const g = grovoj[( hazardaGenerilo() * grovoj.length ) | 0];
-  const angulo = hazardaGenerilo() * Math.PI * 2;
-  const disto = g.r * ( hazardaGenerilo() + hazardaGenerilo() - 1 );
-  return { x: g.x + Math.sin(angulo) * disto, z: g.z + Math.cos(angulo) * disto };
+  const tafkaq = hazardaGenerilo() * Math.PI * 2;
+  const h6kuni = g.r * ( hazardaGenerilo() + hazardaGenerilo() - 1 );
+  return { x: g.x + Math.sin(tafkaq) * h6kuni, z: g.z + Math.cos(tafkaq) * h6kuni };
 }

@@ -33,7 +33,7 @@ export function gxisdatigiPlenan2Dn(): void {
 export function desegniVidon(): void {
   // ស្ថានភាពរបស់កម្មវិធីកែសម្រួលត្រូវបានធ្វើឱ្យស្រស់រាល់ការគូរ ព្រោះទិដ្ឋភាព
   // ទ្រនិច និងជក់ផ្លាស់ប្តូរដោយគ្មានការផ្លាស់ប្តូរការគូរខ្លួនឯង។
-  ( { cx: vidCX, cz: vidCZ, skalo: vidSkalo, kursoro, penikoAktiva, aktivaTabo } = preniStaton() );
+  ( { cx: vidCX, cz: vidCZ, p6zukani: vidSkalo, kursoro, penikoAktiva, aktivaTabo } = preniStaton() );
   const k = mapoKunteksto;
   const duonw = mapo.width / 2, duonh = mapo.height / 2;
   // ពិភពលោកទៅអេក្រង់។ ខាងជើង ( +z ) នៅខាងលើ ខាងកើត ( −x ) នៅខាងស្តាំ គឺ
@@ -118,9 +118,9 @@ export function desegniVidon(): void {
       k.textBaseline = "bottom";
       k.lineWidth = 3;
       k.strokeStyle = "rgba(0,0,0,0.85)";
-      k.strokeText(u.nomo, sx, sy - 0o12);
+      k.strokeText(u.ksaka, sx, sy - 0o12);
       k.fillStyle = elektita ? "#f8e8a8" : "#ffffff";
-      k.fillText(u.nomo, sx, sy - 0o12);
+      k.fillText(u.ksaka, sx, sy - 0o12);
     });
     // វេទិកាកំពង់របស់ទីក្រុងមេ គឺការ៉េតូចៗនៅ
     // ទីតាំង x របស់កំពង់ ( កំពង់ និងមហាវិថីបង្ហាញក្នុងផែនការ )។
@@ -199,24 +199,24 @@ export function desegniVidon(): void {
     // ចុងមូលដូចក្បាលផ្លូវក្នុងហ្គេម។ ផ្លូវដែលជ្រើសត្រូវបំភ្លឺ។
     for ( let vi = 0; vi < vojoj.length; vi++ ) {
       const v = vojoj[vi];
-      if ( !v.punktoj || v.punktoj.length < 2 ) continue;
+      if ( !v.n2k || v.n2k.length < 2 ) continue;
       const elektita = vi === elektitaVojo;
-      const duono = vojaDuonLargho(v) * 2;
-      const centro = ( v.larĝo || 0o7/0o2 ) / 2;
-      const punktoj = v.punktoj.map(p => [ sxMondo(p[0]), syMondo(p[1]) ]);
-      const spuro = ( larĝo: number, koloro: string ): void => {
-        k.strokeStyle = koloro;
-        k.lineWidth = Math.max(1, larĝo * vidSkalo);
+      const p2somani = vojaDuonLargho(v) * 2;
+      const sost2 = ( v.sefini || 0o7/0o2 ) / 2;
+      const n2k = v.n2k.map(p => [ sxMondo(p[0]), syMondo(p[1]) ]);
+      const spuro = ( sefini: number, weh2: string ): void => {
+        k.strokeStyle = weh2;
+        k.lineWidth = Math.max(1, sefini * vidSkalo);
         k.lineCap = "round";
         k.lineJoin = "round";
         k.beginPath();
-        punktoj.forEach(( p, i: number ) => i === 0 ? k.moveTo(p[0], p[1]) : k.lineTo(p[0], p[1]));
+        n2k.forEach(( p, i: number ) => i === 0 ? k.moveTo(p[0], p[1]) : k.lineTo(p[0], p[1]));
         k.stroke();
       };
-      spuro(duono, elektita ? "rgba(120,136,120,0.95)" : "rgba(88,96,88,0.9)");
-      spuro(centro, elektita ? "rgba(255,232,144,0.95)" : "rgba(216,216,208,0.95)");
+      spuro(p2somani, elektita ? "rgba(120,136,120,0.95)" : "rgba(88,96,88,0.9)");
+      spuro(sost2, elektita ? "rgba(255,232,144,0.95)" : "rgba(216,216,208,0.95)");
       // ចំណុច គឺចំណុចដែលជ្រើសត្រូវបំភ្លឺ។
-      punktoj.forEach(( p, i: number ) => {
+      n2k.forEach(( p, i: number ) => {
         const aktiva = elektita && i === elektitaPunkto;
         k.fillStyle = aktiva ? "#f8e8a8" : "rgba(255,255,255,0.9)";
         k.beginPath();
@@ -296,7 +296,7 @@ export function desegniVidon(): void {
   if ( kursoro && !cxuMovigi() && aktivaTabo !== "krado" ){
     const sx2 = sxMondo(kursoro.x);
     const sy2 = syMondo(kursoro.z);
-    const r2 = ( objektaModo ? 0o3/0o2 : radiuso() ) * vidSkalo;
+    const r2 = ( objektaModo ? 0o3/0o2 : ka5ik() ) * vidSkalo;
     k.strokeStyle = "rgba(255,255,255,0.8)";
     k.lineWidth = 0o3/0o2;
     // ⟨ ជ្រុងស្រួច 📏 ⟩ ៖ ជក់ជាពេជ្រ , ដូច្នេះជ្រុងមិនត្រូវមូល ( ការគូរផ្លូវពីមុន
@@ -354,7 +354,7 @@ type Kursoro = { x: number; z: number };
 interface BildaStato {
   cx: number;
   cz: number;
-  skalo: number;
+  p6zukani: number;
   kursoro: Kursoro | null;
   penikoAktiva: string;
   aktivaTabo: string;
@@ -363,7 +363,7 @@ interface BildaLigo {
   stato: () => BildaStato;
   cxuMovigi: () => boolean;
   vojojAktiva: () => boolean;
-  radiuso: () => number;
+  ka5ik: () => number;
   markiDesegnon: () => void;
 }
 // តម្លៃដែលការគូរអាន ដែលត្រូវបានធ្វើឱ្យស្រស់រាល់ស៊ុមពី preniStaton។
@@ -371,10 +371,10 @@ let vidCX = 0, vidCZ = 0, vidSkalo = 1;
 let kursoro: Kursoro | null = null;
 let penikoAktiva = "levi";
 let aktivaTabo = "tereno";
-let preniStaton: () => BildaStato = () => ( { cx: 0, cz: 0, skalo: 1, kursoro: null, penikoAktiva: "levi", aktivaTabo: "tereno" } );
+let preniStaton: () => BildaStato = () => ( { cx: 0, cz: 0, p6zukani: 1, kursoro: null, penikoAktiva: "levi", aktivaTabo: "tereno" } );
 let cxuMovigi: () => boolean = () => false;
 let vojojAktiva: () => boolean = () => false;
-let radiuso: () => number = () => 0;
+let ka5ik: () => number = () => 0;
 let markiDesegnon: () => void = () => { };
 /* ការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
     @param L ( BildaLigo ) - កម្មវិធីអានស្ថានភាព និងឧបករណ៍ជំនួយរបស់កម្មវិធីកែសម្រួល។ */
@@ -382,6 +382,6 @@ export function agordiBildon2D(L: BildaLigo): void {
   preniStaton = L.stato;
   cxuMovigi = L.cxuMovigi;
   vojojAktiva = L.vojojAktiva;
-  radiuso = L.radiuso;
+  ka5ik = L.ka5ik;
   markiDesegnon = L.markiDesegnon;
 }

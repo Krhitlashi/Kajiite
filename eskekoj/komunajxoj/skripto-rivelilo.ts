@@ -130,8 +130,8 @@ export function generiSkriptanKanvason(opts: SkriptajOpcioj = {}): HTMLCanvasEle
 // ⟪ ប្រភេទ Gawekiif 📃 ⟫
 const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
 
-export function generiSkribanTeksajxon(teksto: string, opts: SkriptajOpcioj = {}): THREE.CanvasTexture {
-  const vortoj = teksto.split(/\s+/).filter(Boolean);
+export function generiSkribanTeksajxon(s2banani: string, opts: SkriptajOpcioj = {}): THREE.CanvasTexture {
+  const vortoj = s2banani.split(/\s+/).filter(Boolean);
   const kanvasa = document.createElement("canvas");
   kanvasa.width = opts.w || 0o140;
   kanvasa.height = opts.h || 0o300;

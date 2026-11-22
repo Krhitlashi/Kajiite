@@ -95,29 +95,29 @@ KANTOJ.forEach(( k, i ) => {
 // ⟪ សាកល្បងសំឡេងឧបករណ៍ 📃 ⟫
 
 interface SonoProvo {
-  nomo: string;
+  ksaka: string;
   okazaĵo: SonoEvento;
 }
 
 /* បញ្ជីឧបករណ៍ ទុកកម្ពស់និងរយៈពេលឱ្យសមនឹងសំឡេងរបស់វា
    ទាំងអស់ឆ្លងកាត់ឧបករណ៍ផ្សាយតែមួយជាមួយសំឡេងក្នុងហ្គេម 📃 */
 const SONPROVOJ: SonoProvo[] = [
-  { nomo: "siku", okazaĵo: { t: 0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
-  { nomo: "ocarina", okazaĵo: { t: 0, i: "ocarina", f: F(0o105), d: 0o35/0o100, v: 0o6/0o10 } },
-  { nomo: "didj", okazaĵo: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o150/0o100, v: 0o6/0o10 } },
-  { nomo: "didj · សូរខ្លី", okazaĵo: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o25/0o100, v: 0o6/0o10, toot: true } },
-  { nomo: "guiro", okazaĵo: { t: 0, i: "guiro", f: 0, d: 0o100/0o100, v: 0o6/0o10, cresc: 1 } },
-  { nomo: "tjurunga", okazaĵo: { t: 0, i: "tjurunga", f: 0o334, d: 0o6/0o10, v: 0o6/0o10 } },
-  { nomo: "slenthem", okazaĵo: { t: 0, i: "slenthem", f: F(0o67), d: 0o2/0o10, v: 0o6/0o10 } },
-  { nomo: "inanga", okazaĵo: { t: 0, i: "inanga", f: F(0o64), d: 0o75/0o100, v: 0o6/0o10, dur: 0o75/0o100 } },
-  { nomo: "mbira", okazaĵo: { t: 0, i: "mbira", f: F(0o71), d: 0o2/0o10, v: 0o6/0o10 } },
-  { nomo: "kiiqflak", okazaĵo: { t: 0, i: "kiiqflak", f: F(NYAM[0o1]), d: HE / 0o2, v: 0o6/0o10 } },
-  { nomo: "hiwe", okazaĵo: { t: 0, i: "hiwe", f: F(0o71), d: 0o6/0o10, v: 0o6/0o10 } },
+  { ksaka: "siku", okazaĵo: { t: 0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
+  { ksaka: "ocarina", okazaĵo: { t: 0, i: "ocarina", f: F(0o105), d: 0o35/0o100, v: 0o6/0o10 } },
+  { ksaka: "didj", okazaĵo: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o150/0o100, v: 0o6/0o10 } },
+  { ksaka: "didj · សូរខ្លី", okazaĵo: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o25/0o100, v: 0o6/0o10, toot: true } },
+  { ksaka: "guiro", okazaĵo: { t: 0, i: "guiro", f: 0, d: 0o100/0o100, v: 0o6/0o10, cresc: 1 } },
+  { ksaka: "tjurunga", okazaĵo: { t: 0, i: "tjurunga", f: 0o334, d: 0o6/0o10, v: 0o6/0o10 } },
+  { ksaka: "slenthem", okazaĵo: { t: 0, i: "slenthem", f: F(0o67), d: 0o2/0o10, v: 0o6/0o10 } },
+  { ksaka: "inanga", okazaĵo: { t: 0, i: "inanga", f: F(0o64), d: 0o75/0o100, v: 0o6/0o10, dur: 0o75/0o100 } },
+  { ksaka: "mbira", okazaĵo: { t: 0, i: "mbira", f: F(0o71), d: 0o2/0o10, v: 0o6/0o10 } },
+  { ksaka: "kiiqflak", okazaĵo: { t: 0, i: "kiiqflak", f: F(NYAM[0o1]), d: HE / 0o2, v: 0o6/0o10 } },
+  { ksaka: "hiwe", okazaĵo: { t: 0, i: "hiwe", f: F(0o71), d: 0o6/0o10, v: 0o6/0o10 } },
 ];
 
 SONPROVOJ.forEach(p => {
   const b = document.createElement("button");
-  b.textContent = p.nomo;
+  b.textContent = p.ksaka;
   b.dataset.instrumento = p.okazaĵo.i;
   b.setAttribute("aria-pressed", "false");
   b.addEventListener("click", () => {

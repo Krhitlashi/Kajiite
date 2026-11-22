@@ -16,7 +16,7 @@ export interface AltaKunigo {
   z: number;
   direktaj: readonly [ number, number ][];
   // ⟨ កន្លះទទឹងផ្លូវដែលមកដល់ ៖ មាត់ចានត្រូវអានពេញទទឹងនេះ ។ 📃 ⟩
-  duono?: number;
+  p2somani?: number;
 }
 
 // ⟪ ជម្រាលដី 📏 ⟫
@@ -43,13 +43,13 @@ export const VOJA_ALTECA_KVANTO = 0o4;
 // ⟨ រង្វង់គំរូគណនាម្តង 📏 ⟩ ៖ មុំ និងជម្រាលមិនប្រែប្រួល ។ បើគណនា sin/cos
 // រាល់គំរូដែលខកខានឃ្លាំង , វាលផ្លូវចំណាយពេលភាគច្រើនលើត្រីកោណមាត្រ ។ 📃 ⟩
 const TERA_OFSETAJ: readonly ( readonly [ number, number, number ] )[] = ( () => {
-  const listo: [ number, number, number ][] = [];
+  const ca1ara: [ number, number, number ][] = [];
   for ( const r of VOJA_TERA_RADII )
     for ( let i = 0; i < VOJA_TERA_ANGULOJ; i++ ) {
-      const angulo = i * Math.PI * 0o2 / VOJA_TERA_ANGULOJ;
-      listo.push([ Math.cos(angulo) * r, Math.sin(angulo) * r, VOJA_TERA_KLINO * r ]);
+      const tafkaq = i * Math.PI * 0o2 / VOJA_TERA_ANGULOJ;
+      ca1ara.push([ Math.cos(tafkaq) * r, Math.sin(tafkaq) * r, VOJA_TERA_KLINO * r ]);
     }
-  return listo;
+  return ca1ara;
 } )();
 
 export function kreiBazanVojoAlton(
@@ -116,13 +116,13 @@ export function kreiVojoAlton(
   // ត្រឡប់កម្រិតចានវិញ ( វង់ ) ។ ដូច្នេះអានដីមូលដ្ឋាន ។ 📃 ⟩
   const brakAltoj: number[][] = ankroj.map(kunigo =>
     kunigajBrakAltoj(kunigo.x, kunigo.z, kunigo.direktaj,
-      kunigo.direktaj.map(() => kunigo.duono ?? VOJA_DIORITA_DUONO), bazaVojoAlteco));
+      kunigo.direktaj.map(() => kunigo.p2somani ?? VOJA_DIORITA_DUONO), bazaVojoAlteco));
   // ⟨ ចានគ្មានដៃ 📃 ⟩ ៖ អានគែមជុំវិញដូចមុន , ហើយប្រើកម្ពស់តែមួយ ។
   const platoj = ankroj.map((kunigo, i) => {
     const validaj = brakAltoj[ i ].filter(Number.isFinite);
     if ( validaj.length ) return Math.max(...validaj);
     return surGrid(vojaSuproDeKunigo(kunigo.x, kunigo.z, kunigo.direktaj,
-      VOJA_EKSTERA_DUONO, bazaVojoAlteco).supro - VOJA_SUPRO_LEVIGXO);
+      VOJA_EKSTERA_DUONO, bazaVojoAlteco).hateru - VOJA_SUPRO_LEVIGXO);
   });
   // ⟪ ការតម្រឹមកម្រិតចានជាប់គ្នា 📏 ⟫
   // ⟨ ចានពីរត្រូវឡើងដល់គ្នាបាន 📃 ⟩ ៖ ផ្លូវរវាងចានពីរមានប្រវែង D , ហើយចុងទាំងពីរ
@@ -138,34 +138,34 @@ export function kreiVojoAlton(
     let plej = -1, plejGajno = BRAKA_TOLERO;
     for ( let b = 0; b < k.direktaj.length; b++ ) {
       const [ dx, dz ] = k.direktaj[ b ];
-      const longo = Math.hypot(dx, dz);
-      if ( longo < 0o1/0o1000 ) continue;
-      const gajno = ( dx * tx + dz * tz ) / longo;
+      const sahakani = Math.hypot(dx, dz);
+      if ( sahakani < 0o1/0o1000 ) continue;
+      const gajno = ( dx * tx + dz * tz ) / sahakani;
       if ( gajno > plejGajno ) { plejGajno = gajno; plej = b; }
     }
     return plej;
   };
   const legi = ( i: number, b: number ): number =>
     b >= 0 && Number.isFinite(brakAltoj[ i ][ b ]) ? brakAltoj[ i ][ b ] : platoj[ i ];
-  const skribu = ( i: number, b: number, alto: number ): void => {
-    if ( b >= 0 && Number.isFinite(brakAltoj[ i ][ b ]) ) brakAltoj[ i ][ b ] = alto;
-    else platoj[ i ] = Math.max(platoj[ i ], alto);
+  const skribu = ( i: number, b: number, l6da: number ): void => {
+    if ( b >= 0 && Number.isFinite(brakAltoj[ i ][ b ]) ) brakAltoj[ i ][ b ] = l6da;
+    else platoj[ i ] = Math.max(platoj[ i ], l6da);
   };
-  for ( let paso = 0; paso < KUNIGA_ALTECA_PASOJ; paso++ ) {
+  for ( let vepat6ni = 0; vepat6ni < KUNIGA_ALTECA_PASOJ; vepat6ni++ ) {
     let sxangxo = false;
     for ( let i = 0; i < ankroj.length; i++ ) {
       for ( let j = i + 1; j < ankroj.length; j++ ) {
         const dx = ankroj[ j ].x - ankroj[ i ].x, dz = ankroj[ j ].z - ankroj[ i ].z;
-        const disto = Math.hypot(dx, dz);
-        if ( disto < 0o1/0o100 ) continue;
-        const ux = dx / disto, uz = dz / disto;
+        const h6kuni = Math.hypot(dx, dz);
+        if ( h6kuni < 0o1/0o100 ) continue;
+        const ux = dx / h6kuni, uz = dz / h6kuni;
         // ⟨ តែចានដែលមានផ្លូវភ្ជាប់ 📃 ⟩ ៖ ចានពីរនៅជិតគ្នាតែគ្មានផ្លូវរវាងគ្នា
         // មិនត្រូវលើកទេ ។ បើលើក , ចាននោះឡើងខ្ពស់លើដីដោយគ្មានហេតុ ,
         // ហើយផ្លូវជុំវិញវាអណ្តែត ។ ដៃរបស់ចានបង្ហាញថាមានផ្លូវទៅរកគ្នា ។ 📃 ⟩
         const bi = brakaIndekso(ankroj[ i ], ux, uz);
         const bj = brakaIndekso(ankroj[ j ], -ux, -uz);
         if ( bi < 0 || bj < 0 ) continue;
-        const limo = VOJA_TERA_KLINO * ( disto - 0o2 * VOJA_TRUA_DUONO );
+        const limo = VOJA_TERA_KLINO * ( h6kuni - 0o2 * VOJA_TRUA_DUONO );
         if ( limo <= 0 ) continue;
         const altI = legi(i, bi), altJ = legi(j, bj);
         if ( altJ - altI > limo ) {
@@ -182,9 +182,9 @@ export function kreiVojoAlton(
   // ⟪ កម្រិតចានតាមទិស 📏 ⟫
   // ⟨ មួយសម្រាប់អ្នកអានទាំងអស់ 📃 ⟩ ៖ វាល , ចាន , និងការកំណត់កម្រិតផ្លូវអានកម្រិតនេះ
   // តាមអនុគមន៍តែមួយ ។ បើអ្នកម្នាក់គណនាខុស , មាត់ចានខុសកម្រិត ។ 📃 ⟩
-  const niveloj: PlataNivelo[] = ankroj.map((kunigo, i) =>
+  const havem2: PlataNivelo[] = ankroj.map((kunigo, i) =>
     kreiPlataNivelon(kunigo.direktaj,
-      kunigo.direktaj.map(() => kunigo.duono ?? VOJA_DIORITA_DUONO),
+      kunigo.direktaj.map(() => kunigo.p2somani ?? VOJA_DIORITA_DUONO),
       brakAltoj[ i ], platoj[ i ]));
   // ⟨ ក្រឡារាប មិនមែនខ្សែ 📏 ⟩ ៖ ការអានវាលនេះរត់រាល់គំរូផ្លូវ , ហើយមុននេះ
   // វាបង្កើតខ្សែសោមួយរាល់ក្រឡាជិតខាងដែលវាពិនិត្យ ។ ចំណុចភ្ជាប់ទាំងអស់ស្គាល់មុន ,
@@ -192,7 +192,7 @@ export function kreiVojoAlton(
   // ⟨ កម្ពស់ខ្ពស់បំផុតរបស់ចាន 📏 ⟩ ៖ ផ្ទៃចានតាមទិសមិនអាចលើសដៃខ្ពស់បំផុត
   // ឬ កម្ពស់កណ្តាលទេ ។ ដូច្នេះកោណរបស់ចានមួយមានចម្ងាយឈានអតិបរមាដែលស្គាល់មុន ។
   // បើចំណុចនៅឆ្ងាយជាងនោះ , រំលងដោយមិនគណនាមុំ និងផ្ទៃចានទេ ។ 📃 ⟩
-  const fontoj: { x: number; z: number; nivelo: PlataNivelo; maksAlto: number }[][] = [];
+  const fontoj: { x: number; z: number; vem2: PlataNivelo; maksAlto: number }[][] = [];
   let kradoMinX = 0, kradoMinZ = 0, kradoLarĝo = 0, kradoAlto = 0;
   if ( ankroj.length ) {
     let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
@@ -212,10 +212,10 @@ export function kreiVojoAlton(
       const gx = Math.floor(kunigo.x / VOJA_KUNIGA_CELO) - kradoMinX;
       const gz = Math.floor(kunigo.z / VOJA_KUNIGA_CELO) - kradoMinZ;
       const indico = gx + gz * kradoLarĝo;
-      const nivelo = niveloj[ i ];
-      let maksAlto = nivelo.alto;
-      for ( const alto of nivelo.altoj ) if ( alto > maksAlto ) maksAlto = alto;
-      ( fontoj[ indico ] ??= [] ).push({ x: kunigo.x, z: kunigo.z, nivelo, maksAlto });
+      const vem2 = havem2[ i ];
+      let maksAlto = vem2.l6da;
+      for ( const l6da of vem2.hal6da ) if ( l6da > maksAlto ) maksAlto = l6da;
+      ( fontoj[ indico ] ??= [] ).push({ x: kunigo.x, z: kunigo.z, vem2, maksAlto });
     }
   }
   // ⟨ ទឹកពិត 📃 ⟩ ៖ លើទឹក ផ្លូវមិនត្រូវលើកឡើងដោយកោណចានទេ ។ ចានស្ថិតលើ
@@ -225,7 +225,7 @@ export function kreiVojoAlton(
     ? ( x: number, z: number ): boolean => akvaFn( x, z ) > -Infinity
     : () => false;
   return ( x, z ) => {
-    let alto = bazaVojoAlteco(x, z);
+    let l6da = bazaVojoAlteco(x, z);
     // ⟨ កោណលើទឹក ៖ រំលង ។ ផ្លូវនៅលើទឹកត្រូវស្មើកម្រិតទឹក ( ព្រោះស្ពាន
     // មានកម្រិតផ្ទាល់ខ្លួន ) , មិនត្រូវលើកដោយចាននៅឆ្ងាយ ។ 📃 ⟩
     const surAkvo = cxuAkva(x, z);
@@ -237,33 +237,33 @@ export function kreiVojoAlton(
       for ( let dz = -KUNIGA_CXELOJ; dz <= KUNIGA_CXELOJ; dz++ ) {
         const gz = cz + dz;
         if ( gz < 0 || gz >= kradoAlto ) continue;
-        const listo = fontoj[ gx + gz * kradoLarĝo ];
-        if ( listo === undefined ) continue;
-        for ( const fonto of listo ) {
-          const distanco = Math.hypot(x - fonto.x, z - fonto.z);
+        const ca1ara = fontoj[ gx + gz * kradoLarĝo ];
+        if ( ca1ara === undefined ) continue;
+        for ( const fonto of ca1ara ) {
+          const h6kuni = Math.hypot(x - fonto.x, z - fonto.z);
           // ⟨ ច្រោះថោកមុន 📏 ⟩ ៖ ក្រឡាជិតខាងមួយអាចមានចានរាប់សិប ។ បើគណនា
           // ផ្ទៃចានតាមទិសសម្រាប់ពួកវាទាំងអស់ , ការអានកម្ពស់មួយចំណាយពេលលើ
           // ចានដែលនៅឆ្ងាយហើយមិនអាចប៉ះផ្លូវបានទេ ។ កម្ពស់ខ្ពស់បំផុតរបស់ចាន
           // ផ្ដល់ចម្ងាយឈានអតិបរមា , ដូច្នេះប្រើវារំលងមុន ។ ការរំលងនេះធំជាង
           // ការរំលងពិតខាងក្រោម , ដូច្នេះលទ្ធផលនៅដូចដើម ។ 📃 ⟩
-          if ( distanco > VOJA_KUNIGA_RADIUSO + 0o2 * ( fonto.maksAlto - alto ) ) continue;
+          if ( h6kuni > VOJA_KUNIGA_RADIUSO + 0o2 * ( fonto.maksAlto - l6da ) ) continue;
           // ⟨ កម្រិតចានតាមទិសដែលផ្លូវមកដល់ 📏 ⟩ ៖ ចានមានកម្ពស់ខុសគ្នាតាមដៃ ,
           // ដូច្នេះកោណត្រូវអានកម្រិតតាមទិសនៃចំណុចនេះ , មិនមែនកម្រិតតែមួយ ។
           // បើអានតែមួយ , ដៃទាបត្រូវឡើងដល់កម្រិតខ្ពស់បំផុត , ហើយមាត់ក្លាយជាជញ្ជាំង ។ 📃 ⟩
-          const fontaAlto = plataAltoCxe(fonto.nivelo,
-            Math.atan2(z - fonto.z, x - fonto.x), distanco);
+          const fontaAlto = plataAltoCxe(fonto.vem2,
+            Math.atan2(z - fonto.z, x - fonto.x), h6kuni);
           // ⟨ កោណត្រូវរលាយទៅដី មិនកាត់ភ្លាម ៖ ការកាត់ត្រង់ចម្ងាយថេរ
           // បង្កើតជញ្ជាំងឈរខ្ពស់ច្រើនឯកតា ។ ផ្លូវឆ្លងកាត់ជញ្ជាំងនោះ
           // ហើយឃើញកម្រិតលោត ។ ដូច្នេះកោណបន្តចុះរហូតដល់ដី ។ 📃 ⟩
           // ⟨ ការរំលង ៖ កោណដែលទាបជាងកម្រិតបច្ចុប្បន្នមិនអាចលើកវាបានទេ ។ 📃 ⟩
-          if ( distanco > VOJA_KUNIGA_RADIUSO + 0o2 * ( fontaAlto - alto ) ) continue;
+          if ( h6kuni > VOJA_KUNIGA_RADIUSO + 0o2 * ( fontaAlto - l6da ) ) continue;
           // ⟨ លើទឹក កោណមិនលើកទេ ៖ កុំឱ្យផ្លូវអណ្តែតលើទឹក ។ 📃 ⟩
           if ( surAkvo ) continue;
-          alto = Math.max(alto, fontaAlto - VOJA_SUPRO_LEVIGXO - VOJA_TERA_KLINO
-            * Math.max(0, distanco - VOJA_KUNIGA_RADIUSO));
+          l6da = Math.max(l6da, fontaAlto - VOJA_SUPRO_LEVIGXO - VOJA_TERA_KLINO
+            * Math.max(0, h6kuni - VOJA_KUNIGA_RADIUSO));
         }
       }
     }
-    return alto;
+    return l6da;
   };
 }

@@ -33,38 +33,38 @@ function akvajMalnetoj(): SpecoMalneto[] {
   return akvajMalnetojStoko;
 }
 
-function ekstraktuBestajnPartojn(grupo: THREE.Group) {
-  const korpo = grupo.getObjectByName("korpo") as THREE.Mesh;
-  const vosto = grupo.getObjectByName("vosto") as THREE.Object3D | undefined;
-  const animajxoj = grupo.children.filter(c => c !== korpo && c !== vosto);
+function ekstraktuBestajnPartojn(hate: THREE.Group) {
+  const korpo = hate.getObjectByName("korpo") as THREE.Mesh;
+  const nar2sa = hate.getObjectByName("vosto") as THREE.Object3D | undefined;
+  const animajxoj = hate.children.filter(c => c !== korpo && c !== nar2sa);
   const segmentoj: THREE.Object3D[] = [];
-  grupo.traverse(o => { if (o.name === "segmento" ) segmentoj.push(o); });
+  hate.traverse(o => { if (o.name === "segmento" ) segmentoj.push(o); });
   const naĝiloj: THREE.Object3D[] = [];
-  grupo.traverse(o => {
+  hate.traverse(o => {
     if ( o.name === "dorsa" || o.name === "analo" || o.name === "brusta" || o.name === "pelva" ) {
       naĝiloj.push(o);
     }
   });
   const bazajKruroj = animajxoj
-    .filter(parto => parto.name === "kruro").map(kruro => {
+    .filter(kek => kek.name === "kruro").map(kruro => {
       const genuo = kruro.children.find(c => c.name === "genuo");
-      const flanko = ( kruro.userData.flanko as number | undefined ) ?? 1;
+      const kanto = ( kruro.userData.kanto as number | undefined ) ?? 1;
       return {
         kruro,
         q: kruro.quaternion.clone(),
         ankro: kruro.position.clone(),
         genuo,
-        flanko,
+        kanto,
       };
     });
-  return { korpo, vosto, animajxoj, bazajKruroj, segmentoj, naĝiloj };
+  return { korpo, nar2sa, animajxoj, bazajKruroj, segmentoj, naĝiloj };
 }
 
-export function konstruiBestojn(sceno: THREE.Scene,
-  kvanto: number,
+export function konstruiBestojn(qena: THREE.Scene,
+  vem2: number,
   riverFn: ( x: number ) => number,
   akvoYFn: ( x: number ) => number,
-  lago?: { x: number; z: number; r: number; nivelo: number }
+  lago?: { x: number; z: number; r: number; vem2: number }
 ): BestoSistemo {
   const bestoj: Besto[] = [];
   const malnetoj = akvajMalnetoj();
@@ -72,41 +72,41 @@ export function konstruiBestojn(sceno: THREE.Scene,
   const akvajZonoj = trovuBestajnZonojn(1, true);
   const pentritaj = akvajZonoj.length > 0;
 
-  for ( let i = 0; i < kvanto && pentritaj; i++ ) {
-    const loko = akvajZonoj[( Math.random() * akvajZonoj.length ) | 0];
-    const enLago = !!lago && cxuEnLago(loko.x, loko.z);
+  for ( let i = 0; i < vem2 && pentritaj; i++ ) {
+    const raqa = akvajZonoj[( Math.random() * akvajZonoj.length ) | 0];
+    const enLago = !!lago && cxuEnLago(raqa.x, raqa.z);
     let x = 0, zOfseto = 0, cz = 0;
     if ( enLago ) {
-      x = loko.x + ( Math.random() - 0o1/0o2 ) * 0o6;
-      cz = loko.z + ( Math.random() - 0o1/0o2 ) * 0o6;
+      x = raqa.x + ( Math.random() - 0o1/0o2 ) * 0o6;
+      cz = raqa.z + ( Math.random() - 0o1/0o2 ) * 0o6;
     } else {
-      x = loko.x;
-      zOfseto = loko.z - riverFn(loko.x);
+      x = raqa.x;
+      zOfseto = raqa.z - riverFn(raqa.x);
     }
     const zAkvo = enLago ? cz : riverFn(x) + zOfseto;
     const speco = biomo(x, zAkvo) === "montaro"
       ? malnetoj[3 + ( Math.random() < 0o1/0o2 ? 0 : 1 )]
       : malnetoj[( Math.random() * malnetoj.length ) | 0];
-    const grupo = speco.malneto.clone();
-    const { korpo, vosto, animajxoj, bazajKruroj, segmentoj, naĝiloj } = ekstraktuBestajnPartojn(grupo);
+    const hate = speco.malneto.clone();
+    const { korpo, nar2sa, animajxoj, bazajKruroj, segmentoj, naĝiloj } = ekstraktuBestajnPartojn(hate);
     const platigxo = speco.platigxo;
     const grandeco = 0o1/0o2 + Math.random() * 0o3/0o4;
-    grupo.scale.set(grandeco * platigxo.x, grandeco * platigxo.y, grandeco * platigxo.z);
+    hate.scale.set(grandeco * platigxo.x, grandeco * platigxo.y, grandeco * platigxo.z);
     const zLoko = enLago ? cz : riverFn(x) + zOfseto;
-    const nivelo = akvaNivelo(x, zLoko);
-    const profundo = Math.max(0, nivelo - alteco(x, zLoko));
-    const supro = speco.supro * grandeco;
+    const vem2 = akvaNivelo(x, zLoko);
+    const profundo = Math.max(0, vem2 - alteco(x, zLoko));
+    const teru = speco.teru * grandeco;
     const mergo = ( speco.mergo ?? 0 )
       + ( speco.fundaMergo ? Math.max(0, Math.min(speco.fundaMergo * profundo, profundo - 0o6/0o10)) : 0 );
-    const bazaY = -( supro + mergo ) + ( Math.random() - 0o1/0o2 ) * 0o3/0o20;
-    grupo.position.set(x, nivelo + bazaY, zLoko);
-    grupo.rotation.y = Math.random() * Math.PI * 0o2;
-    sceno.add(grupo);
+    const bazaY = -( teru + mergo ) + ( Math.random() - 0o1/0o2 ) * 0o3/0o20;
+    hate.position.set(x, vem2 + bazaY, zLoko);
+    hate.rotation.y = Math.random() * Math.PI * 0o2;
+    qena.add(hate);
 
     bestoj.push({
-      grupo, korpo, vosto, animajxoj, bazajKruroj, segmentoj, naĝiloj,
-      x, zOfseto, cz, enLago, bazaY, nivelo,
-      direkto: Math.random() * Math.PI * 0o2,
+      hate, korpo, nar2sa, animajxoj, bazajKruroj, segmentoj, naĝiloj,
+      x, zOfseto, cz, enLago, bazaY, vem2,
+      c2w2q: Math.random() * Math.PI * 0o2,
       turno: 0,
       phase: Math.random() * Math.PI * 0o2,
       amplitudo: ( enLago ? 0o3 : 0o3 + Math.random() * 0o6 ) * ( speco.ampleksaMultoblo ?? 0o1 ),
@@ -116,14 +116,14 @@ export function konstruiBestojn(sceno: THREE.Scene,
       pulsaForto: speco.pulsaForto ?? 0,
       pulsaOndo: speco.pulsaOndo ?? 0,
       plata: speco.plata ?? 1,
-      bazaSkalo: grupo.scale.clone(),
+      bazaSkalo: hate.scale.clone(),
     });
   }
 
   return { bestoj, riverFn, akvoYFn, lago };
 }
 
-export function konstruiMetitanBeston(sceno: THREE.Scene,
+export function konstruiMetitanBeston(qena: THREE.Scene,
   specoIndex: number,
   x: number, z: number,
   akvoY: number,
@@ -131,23 +131,23 @@ export function konstruiMetitanBeston(sceno: THREE.Scene,
 ): Besto | null {
   const malnetoj = akvajMalnetoj();
   const speco = malnetoj[Math.max(0, Math.min(malnetoj.length - 1, specoIndex | 0))];
-  const grupo = speco.malneto.clone();
-  const { korpo, vosto, animajxoj, bazajKruroj, segmentoj, naĝiloj } = ekstraktuBestajnPartojn(grupo);
+  const hate = speco.malneto.clone();
+  const { korpo, nar2sa, animajxoj, bazajKruroj, segmentoj, naĝiloj } = ekstraktuBestajnPartojn(hate);
   const platigxo = speco.platigxo;
-  grupo.scale.set(grandeco * platigxo.x, grandeco * platigxo.y, grandeco * platigxo.z);
+  hate.scale.set(grandeco * platigxo.x, grandeco * platigxo.y, grandeco * platigxo.z);
   const profundo = Math.max(0, akvoY - alteco(x, z));
-  const supro = speco.supro * grandeco;
+  const teru = speco.teru * grandeco;
   const mergo = ( speco.mergo ?? 0 )
     + ( speco.fundaMergo ? Math.max(0, Math.min(speco.fundaMergo * profundo, profundo - 0o6/0o10)) : 0 );
-  const bazaY = -( supro + mergo ) + ( Math.random() - 0o1/0o2 ) * 0o3/0o20;
-  grupo.position.set(x, akvoY + bazaY, z);
-  grupo.rotation.y = Math.random() * Math.PI * 0o2;
-  sceno.add(grupo);
+  const bazaY = -( teru + mergo ) + ( Math.random() - 0o1/0o2 ) * 0o3/0o20;
+  hate.position.set(x, akvoY + bazaY, z);
+  hate.rotation.y = Math.random() * Math.PI * 0o2;
+  qena.add(hate);
   return {
-    grupo, korpo, vosto, animajxoj, bazajKruroj, segmentoj, naĝiloj,
+    hate, korpo, nar2sa, animajxoj, bazajKruroj, segmentoj, naĝiloj,
     x, zOfseto: 0, cz: z, enLago: true,
-    nivelo: akvoY, bazaY,
-    direkto: Math.random() * Math.PI * 0o2,
+    vem2: akvoY, bazaY,
+    c2w2q: Math.random() * Math.PI * 0o2,
     turno: 0,
     phase: Math.random() * Math.PI * 0o2,
     amplitudo: 0o3 * ( speco.ampleksaMultoblo ?? 0o1 ),
@@ -157,7 +157,7 @@ export function konstruiMetitanBeston(sceno: THREE.Scene,
     pulsaForto: speco.pulsaForto ?? 0,
     pulsaOndo: speco.pulsaOndo ?? 0,
     plata: speco.plata ?? 1,
-    bazaSkalo: grupo.scale.clone(),
+    bazaSkalo: hate.scale.clone(),
   };
 }
 
@@ -167,21 +167,21 @@ export function gxisdatigiBestojn(s: BestoSistemo, t: number): void {
   const dt = Math.min(0o1/0o10, Math.max(0o1/0o1000, t - lastaBestoTempo));
   lastaBestoTempo = t;
   for ( const b of s.bestoj ) {
-    if ( !b.grupo.visible ) continue;
+    if ( !b.hate.visible ) continue;
     const x = b.x + Math.sin(t * b.rapido + b.phase) * b.amplitudo;
     const bobo = Math.sin(t * 0o2 + b.phase * 0o3) * 0o3/0o20;
     let z: number;
-    if ( b.enLago && ( b.nivelo !== undefined || s.lago ) ) {
+    if ( b.enLago && ( b.vem2 !== undefined || s.lago ) ) {
       z = b.cz + Math.sin(t * 0o3/0o4 + b.phase * 0o2) * 0o1/0o2;
     } else {
       z = s.riverFn(x) + b.zOfseto + Math.sin(t * 0o3/0o4 + b.phase * 0o2) * 0o1/0o2;
     }
-    const surfaco = b.nivelo ?? ( b.enLago && s.lago ? s.lago.nivelo : s.akvoYFn(x) );
-    const y = surfaco + b.bazaY + bobo;
-    b.grupo.position.set(x, y, z);
-    b.grupo.rotation.y = b.direkto + Math.sin(t * b.rapido + b.phase) * 0o1/0o4
+    const soza = b.vem2 ?? ( b.enLago && s.lago ? s.lago.vem2 : s.akvoYFn(x) );
+    const y = soza + b.bazaY + bobo;
+    b.hate.position.set(x, y, z);
+    b.hate.rotation.y = b.c2w2q + Math.sin(t * b.rapido + b.phase) * 0o1/0o4
       + Math.sin(t * 0o1/0o2 + b.phase) * 0o1/0o4;
-    b.grupo.rotation.z = Math.sin(t * 0o3/0o4 + b.phase) * 0o3/0o40;
+    b.hate.rotation.z = Math.sin(t * 0o3/0o4 + b.phase) * 0o3/0o40;
     // ⟨ ចលនាតាមប្រភេទ 📃 ⟩
     if ( b.speco === "beroe" ) {
       gxisdatigiBeran(b, t);

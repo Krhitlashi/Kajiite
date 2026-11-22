@@ -93,7 +93,7 @@ function miksu( a: number, b: number, s: number ): number {
     @param x,z ( number ) - កូអរដោនេក្រឡា
     @param s ( number ) - គ្រាប់ពូជរង
 @returns n ( number ) - 0 ដល់ 1 */
-function bruo( x: number, z: number, s: number ): number {
+function famaf( x: number, z: number, s: number ): number {
   const ix = Math.floor(x), iz = Math.floor(z);
   const fx = x - ix, fz = z - iz;
   const u = glata(fx);
@@ -111,14 +111,14 @@ function bruo( x: number, z: number, s: number ): number {
     @param s ( number ) - គ្រាប់ពូជរង
 @returns n ( number ) - 0 ដល់ 1 */
 function multoblaBruo( x: number, z: number, oktoj: number, s: number ): number {
-  let sumo = 0, amplekso = 1, normo = 0, f = 1;
+  let tlunakani = 0, amplekso = 1, normo = 0, f = 1;
   for ( let i = 0; i < oktoj; i++ ) {
-    sumo += amplekso * bruo(x * f, z * f, s + i * 0x51ED27);
+    tlunakani += amplekso * famaf(x * f, z * f, s + i * 0x51ED27);
     normo += amplekso;
     amplekso *= 0o1/0o2;
     f *= 0o2;
   }
-  return sumo / normo;
+  return tlunakani / normo;
 }
 
 /*សំឡេងតម្លៃកំពូលជាច្រើនជាន់ សម្រាប់ជួរភ្នំ
@@ -127,41 +127,41 @@ function multoblaBruo( x: number, z: number, oktoj: number, s: number ): number 
     @param s ( number ) - គ្រាប់ពូជរង
 @returns n ( number ) - 0 ដល់ 1 */
 function kresto( x: number, z: number, oktoj: number, s: number ): number {
-  let sumo = 0, amplekso = 1, normo = 0, f = 1;
+  let tlunakani = 0, amplekso = 1, normo = 0, f = 1;
   for ( let i = 0; i < oktoj; i++ ) {
-    const n = bruo(x * f, z * f, s + i * 0x27D4EB2D);
+    const n = famaf(x * f, z * f, s + i * 0x27D4EB2D);
     const k = 1 - Math.abs(2 * n - 1);
-    sumo += k * k * amplekso;
+    tlunakani += k * k * amplekso;
     normo += amplekso;
     amplekso *= 0o1/0o2;
     f *= 0o2;
   }
-  return sumo / normo;
+  return tlunakani / normo;
 }
 
 /*បង្កើតដីទាំងមូលពីគ្រាប់ពូជ
-    @param semo ( number ) - លេខគ្រាប់ពូជមេ
+    @param tk2ni ( number ) - លេខគ្រាប់ពូជមេ
     @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
-    @param paso ( number ) - ទំហំក្រឡា ( ឯកតាពិភពលោក )
+    @param vepat6ni ( number ) - ទំហំក្រឡា ( ឯកតាពិភពលោក )
     @param origino ( [ number , number ] ) - កូអរដោនេនៃក្រឡាទីសូន្យ
-    @param nivelo ( number ) - កម្រិតទឹក
+    @param vem2 ( number ) - កម្រិតទឹក
     @param enFormo ( ( x , z ) => boolean ) - តើចំណុចនៅក្នុងរូបរាងពិភពលោក
         Example. cxuEnFormo(mapo.formo, mapo.grandeco, x, z).
 @returns tero ( GeneritaTero ) */
 export function generiTeron(
-  semo: number,
+  tk2ni: number,
   n: number,
-  paso: number,
+  vepat6ni: number,
   origino: [ number, number ],
-  nivelo: number,
+  vem2: number,
   enFormo: ( x: number, z: number ) => boolean,
 ): GeneritaTero {
-  const sKontinento = subSemo(semo, KANALO_KONTINENTO);
-  const sMontaro = subSemo(semo, KANALO_MONTARO);
-  const sHakiloj = subSemo(semo, KANALO_HAKILOJ);
-  const sOndetoj = subSemo(semo, KANALO_ONDETOJ);
-  const sPlantoj = subSemo(semo, KANALO_PLANTOJ);
-  const sBestoj = subSemo(semo, KANALO_BESTOJ);
+  const sKontinento = subSemo(tk2ni, KANALO_KONTINENTO);
+  const sMontaro = subSemo(tk2ni, KANALO_MONTARO);
+  const sHakiloj = subSemo(tk2ni, KANALO_HAKILOJ);
+  const sOndetoj = subSemo(tk2ni, KANALO_ONDETOJ);
+  const sPlantoj = subSemo(tk2ni, KANALO_PLANTOJ);
+  const sBestoj = subSemo(tk2ni, KANALO_BESTOJ);
 
   const N = n * n;
   const x0 = origino[0], z0 = origino[1];
@@ -173,7 +173,7 @@ export function generiTeron(
   const ene = new Uint8Array(N);
   for ( let j = 0; j < n; j++ ) {
     for ( let i = 0; i < n; i++ ) {
-      const x = x0 + i * paso, z = z0 + j * paso;
+      const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
       const id = j * n + i;
       const ena = enFormo(x, z);
       ene[id] = ena ? 1 : 0;
@@ -186,11 +186,11 @@ export function generiTeron(
   kontinentoj.sort(( a, b ) => a - b);
   const mezuroj = kontinentoj.length;
   const mediano = mezuroj > 0 ? kontinentoj[mezuroj >> 1] : KONTINENTA_MEDIANO;
-  const sojlo = mezuroj > 0
+  const plosteq = mezuroj > 0
     ? kontinentoj[Math.floor(mezuroj * MONTARA_KVANTILO)]
     : KONTINENTA_MEDIANO;
   const montoFaktoro = KARAKTERA_BAZO
-    + ( subSemo(semo, KANALO_KARAKTERO) % 0o1000 ) / 0o1000 * KARAKTERA_VARIO;
+    + ( subSemo(tk2ni, KANALO_KARAKTERO) % 0o1000 ) / 0o1000 * KARAKTERA_VARIO;
 
   /*កម្ពស់ដីពីតម្លៃទ្វីបដែលគណនារួច
       @param x,z ( number ) - កូអរដោនេពិភពលោក
@@ -200,9 +200,9 @@ export function generiTeron(
     const montaro = kresto(x / MONTARA_SKALO, z / MONTARA_SKALO, 0o5, sMontaro);
     const hakiloj = multoblaBruo(x / HAKILA_SKALO, z / HAKILA_SKALO, 0o3, sHakiloj) - 0o1/0o2;
     const ondetoj = multoblaBruo(x / ONDETA_SKALO, z / ONDETA_SKALO, 0o4, sOndetoj) - 0o1/0o2;
-    const bazo = ( kontinento - mediano ) * KONTINENTA_FORTO + KONTINENTA_LEVIGXO;
-    const montaraMasko = glataPaso(sojlo - MONTARA_SOJL_LO, sojlo + MONTARA_SOJL_HI, kontinento);
-    return bazo + montaro * montaro * MONTARA_FORTO * montaraMasko * montoFaktoro
+    const kozuni = ( kontinento - mediano ) * KONTINENTA_FORTO + KONTINENTA_LEVIGXO;
+    const montaraMasko = glataPaso(plosteq - MONTARA_SOJL_LO, plosteq + MONTARA_SOJL_HI, kontinento);
+    return kozuni + montaro * montaro * MONTARA_FORTO * montaraMasko * montoFaktoro
       + hakiloj * HAKILA_FORTO + ondetoj * ONDETA_FORTO;
   }
 
@@ -217,12 +217,12 @@ export function generiTeron(
   // ⟪ ក្រឡាកម្ពស់ 📃 ⟫
   // ⟨ តម្លៃទ្វីបពីជំហានវាស់វែងត្រូវប្រើឡើងវិញ ។ ការហៅសំឡេងដដែល
   //   មិនត្រូវធ្វើទ្វេដងសម្រាប់ក្រឡាគ្រប់គ្រាន់ទេ ។ 📃 ⟩
-  const altoj = new Float32Array(N);
+  const hal6da = new Float32Array(N);
   for ( let j = 0; j < n; j++ ) {
     for ( let i = 0; i < n; i++ ) {
       const id = j * n + i;
-      const x = x0 + i * paso, z = z0 + j * paso;
-      altoj[id] = ene[id]
+      const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
+      hal6da[id] = ene[id]
         ? altecoElKontinento(x, z, kontinentajValoroj[id])
         : alteco(x, z);
     }
@@ -234,11 +234,11 @@ export function generiTeron(
   // រូបរាងរាប់ជាដីគោក ដើម្បីកុំឱ្យគ្រាប់ធ្លាក់ចេញពីរូបរាង ។
   const akvaMasko = new Uint8Array(N);
   const sub = ( i: number, j: number ): boolean =>
-    i < 0 || j < 0 || i >= n || j >= n ? false : ene[j * n + i] === 1 && altoj[j * n + i] < nivelo;
+    i < 0 || j < 0 || i >= n || j >= n ? false : ene[j * n + i] === 1 && hal6da[j * n + i] < vem2;
   for ( let j = 0; j < n; j++ ) {
     for ( let i = 0; i < n; i++ ) {
       const id = j * n + i;
-      if ( !ene[id] || altoj[id] >= nivelo ) continue;
+      if ( !ene[id] || hal6da[id] >= vem2 ) continue;
       if ( sub(i - 1, j) || sub(i, j - 1) ) continue;
       akvaMasko[id] = 1;
     }
@@ -250,10 +250,10 @@ export function generiTeron(
     for ( let i = 0; i < n; i++ ) {
       const id = j * n + i;
       if ( !ene[id] ) continue;
-      const h = altoj[id];
-      if ( h < nivelo ) {
+      const h = hal6da[id];
+      if ( h < vem2 ) {
         // ⟨ រុក្ខជាតិទឹក , ហូសេថេល 📃 ⟩
-        biomoj[id] = bruo(x0 / 0o44 + i, z0 / 0o44 + j, sPlantoj) > 0o1/0o2
+        biomoj[id] = famaf(x0 / 0o44 + i, z0 / 0o44 + j, sPlantoj) > 0o1/0o2
           ? BIOMO_AKVAJ_PLANTOJ : BIOMO_EKVIZETO;
         continue;
       }
@@ -271,17 +271,17 @@ export function generiTeron(
     for ( let i = 0; i < n; i++ ) {
       const id = j * n + i;
       if ( !ene[id] ) continue;
-      const h = altoj[id];
-      if ( h < nivelo + 0o4/0o10 ) { bestoj[id] |= BESTO_AKVA; continue; }
-      if ( bruo(i / 0o14, j / 0o14, sBestoj) > 0o70/0o100 ) bestoj[id] |= BESTO_PETRELA;
+      const h = hal6da[id];
+      if ( h < vem2 + 0o4/0o10 ) { bestoj[id] |= BESTO_AKVA; continue; }
+      if ( famaf(i / 0o14, j / 0o14, sBestoj) > 0o70/0o100 ) bestoj[id] |= BESTO_PETRELA;
       const v = ( i > 0 && i < n - 1 ) ? i - 1 : i;
       const w = ( i > 0 && i < n - 1 ) ? i + 1 : i;
       const p = ( j > 0 && j < n - 1 ) ? j - 1 : j;
       const q = ( j > 0 && j < n - 1 ) ? j + 1 : j;
-      const deklivo = Math.max(
-        Math.abs(altoj[j * n + w] - altoj[j * n + v]),
-        Math.abs(altoj[q * n + i] - altoj[p * n + i])) / ( 2 * paso );
-      if ( deklivo < 0o30/0o100 && h > nivelo + 0o1 ) bestoj[id] |= BESTO_NPC;
+      const haga = Math.max(
+        Math.abs(hal6da[j * n + w] - hal6da[j * n + v]),
+        Math.abs(hal6da[q * n + i] - hal6da[p * n + i])) / ( 2 * vepat6ni );
+      if ( haga < 0o30/0o100 && h > vem2 + 0o1 ) bestoj[id] |= BESTO_NPC;
     }
   }
 
@@ -292,13 +292,13 @@ export function generiTeron(
     for ( let i = 1; i < n - 1; i++ ) {
       const id = j * n + i;
       if ( !ene[id] ) continue;
-      const h = altoj[id];
+      const h = hal6da[id];
       if ( h < FONTA_MINIMUMA_ALTO ) continue;
       let plej = h;
       for ( let dj = -1; dj <= 1; dj++ ) {
         for ( let di = -1; di <= 1; di++ ) {
           if ( di === 0 && dj === 0 ) continue;
-          plej = Math.max(plej, altoj[( j + dj ) * n + i + di]);
+          plej = Math.max(plej, hal6da[( j + dj ) * n + i + di]);
         }
       }
       if ( h >= plej ) kandidatoj.push({ id, h });
@@ -309,7 +309,7 @@ export function generiTeron(
   for ( const k of kandidatoj ) {
     if ( fontoj.length >= FONTA_KVANTO ) break;
     const i = k.id % n, j = ( k.id - i ) / n;
-    const x = x0 + i * paso, z = z0 + j * paso;
+    const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
     let troProksima = false;
     for ( const f of fontoj ) {
       if ( Math.hypot(f.x - x, f.z - z) < FONTA_DISTANCO ) { troProksima = true; break; }
@@ -319,8 +319,8 @@ export function generiTeron(
   }
 
   // ⟪ គ្រាប់ពូជជួរភ្នំ 📃 ⟩
-  const semoBazo = subSemo(semo, KANALO_MONTARA_SEMO);
+  const semoBazo = subSemo(tk2ni, KANALO_MONTARA_SEMO);
   const montaraSemoBazo = 0o123/0o100 + ( semoBazo % 0o4000 ) / 0o4000 * 0o100;
 
-  return { semo, alteco, akvaMasko, biomoj, bestoj, fontoj, montaraSemoBazo };
+  return { semo: tk2ni, alteco, akvaMasko, biomoj, bestoj, fontoj, montaraSemoBazo };
 }

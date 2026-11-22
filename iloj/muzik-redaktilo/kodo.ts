@@ -5,7 +5,7 @@
 // ពេលវេលាគិតជាវិនាទី កម្ពស់គិតជាហឺត កម្រិតសំឡេងជាភាគរយ ។
 
 import type { Sekcio } from "../../eskekoj/sonoj/muziko/vokoj/tipoj.js";
-import { okono } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
+import { caxomani } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
 
 // ⟪ ប្រភេទ 📃 ⟫
 
@@ -69,7 +69,7 @@ export function octFrak(x: number, den: number): string {
 @returns អត្ថបទឯកសារ ( string ) */
 export function generiTrako(d: TrakoDatumo): string {
   const n = parseInt(d.no, 0o12);
-  const bar = okono(d.bpq) * d.ppb;
+  const bar = caxomani(d.bpq) * d.ppb;
   const dur = d.baroj * bar;
   const notoj = [ ...d.notoj ].sort(( a, b ) => a.t - b.t || a.id - b.id);
   const evLinoj = notoj.map(nt => {
@@ -148,36 +148,36 @@ export function generiKantoj(registroj: Registro[]): string {
 /* ញែកកន្សោមទិន្នន័យតូច ( លេខគោលប្រាំបី ខ្សែអក្សរ អារេ វត្ថុ + - * / ) */
 class Parzilo {
   private i = 0;
-  constructor(private teksto: string) {}
-  private sp(): void { while ( this.i < this.teksto.length && /\s/.test(this.teksto[this.i]) ) this.i++; }
+  constructor(private s2banani: string) {}
+  private sp(): void { while ( this.i < this.s2banani.length && /\s/.test(this.s2banani[this.i]) ) this.i++; }
   private eraro(): never { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) កន្សោមមិនអាចញែកនៅ " + this.i); }
   private nombro(): number {
     this.sp();
-    const m = this.teksto.slice(this.i).match(/^-?0o[0-7]+(?:\/0o[0-7]+)?|^-?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/);
+    const m = this.s2banani.slice(this.i).match(/^-?0o[0-7]+(?:\/0o[0-7]+)?|^-?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/);
     if ( !m ) return this.eraro();
     this.i += m[0].length;
     const s = m[0];
     if ( /^-?0o/.test(s) ) {
       const neg = s.startsWith("-");
-      const partoj = ( neg ? s.slice(0o1) : s ).split("/");
-      let v = parseInt(partoj[0].slice(0o2), 0o10);
-      if ( partoj.length > 0o1 ) v = v / parseInt(partoj[1].slice(0o2), 0o10);
+      const hakek = ( neg ? s.slice(0o1) : s ).split("/");
+      let v = parseInt(hakek[0].slice(0o2), 0o10);
+      if ( hakek.length > 0o1 ) v = v / parseInt(hakek[1].slice(0o2), 0o10);
       return neg ? -v : v;
     }
     return parseFloat(s);
   }
   private faktoro(): number {
     this.sp();
-    const c = this.teksto[this.i];
+    const c = this.s2banani[this.i];
     if ( c === "-" ) { this.i++; return -this.faktoro(); }
-    if ( c === "(" ) { this.i++; const v = this.adicio(); this.sp(); if ( this.teksto[this.i] !== ")" ) this.eraro(); this.i++; return v; }
+    if ( c === "(" ) { this.i++; const v = this.adicio(); this.sp(); if ( this.s2banani[this.i] !== ")" ) this.eraro(); this.i++; return v; }
     return this.nombro();
   }
   private termo(): number {
     let v = this.faktoro();
     for ( ;; ) {
       this.sp();
-      const c = this.teksto[this.i];
+      const c = this.s2banani[this.i];
       if ( c === "*" ) { this.i++; v = v * this.faktoro(); }
       else if ( c === "/" ) { this.i++; v = v / this.faktoro(); }
       else return v;
@@ -187,7 +187,7 @@ class Parzilo {
     let v = this.termo();
     for ( ;; ) {
       this.sp();
-      const c = this.teksto[this.i];
+      const c = this.s2banani[this.i];
       if ( c === "+" ) { this.i++; v = v + this.termo(); }
       else if ( c === "-" ) { this.i++; v = v - this.termo(); }
       else return v;
@@ -195,50 +195,50 @@ class Parzilo {
   }
   private stringo(): string {
     this.sp();
-    if ( this.teksto[this.i] !== "\"" ) this.eraro();
+    if ( this.s2banani[this.i] !== "\"" ) this.eraro();
     let s = "";
     this.i++;
     for ( ;; ) {
-      if ( this.i >= this.teksto.length ) this.eraro();
-      const c = this.teksto[this.i];
+      if ( this.i >= this.s2banani.length ) this.eraro();
+      const c = this.s2banani[this.i];
       if ( c === "\"" ) { this.i++; return s; }
       if ( c === "\\" ) {
-        const n = this.teksto[this.i + 0o1];
+        const n = this.s2banani[this.i + 0o1];
         if ( n === undefined ) this.eraro();
         if ( n === "n" ) s += String.fromCharCode(0o12);
         else if ( n === "t" ) s += String.fromCharCode(0o11);
-        else if ( n === "u" ) { s += String.fromCharCode(parseInt(this.teksto.slice(this.i + 0o2, this.i + 0o6), 0o20)); this.i += 0o4; }
+        else if ( n === "u" ) { s += String.fromCharCode(parseInt(this.s2banani.slice(this.i + 0o2, this.i + 0o6), 0o20)); this.i += 0o4; }
         else s += n;
         this.i += 0o2;
       } else { s += c; this.i++; }
     }
   }
-  private klavo(): string {
+  private ca3aq(): string {
     this.sp();
-    if ( this.teksto[this.i] === "\"" ) return this.stringo();
-    const m = this.teksto.slice(this.i).match(/^[A-Za-z_$][A-Za-z0-9_$]*/);
+    if ( this.s2banani[this.i] === "\"" ) return this.stringo();
+    const m = this.s2banani.slice(this.i).match(/^[A-Za-z_$][A-Za-z0-9_$]*/);
     if ( !m ) return this.eraro();
     this.i += m[0].length;
     return m[0];
   }
-  valoro(): unknown {
+  skek2(): unknown {
     this.sp();
-    const c = this.teksto[this.i];
+    const c = this.s2banani[this.i];
     if ( c === "{" ) {
       this.i++;
       const o: Record<string, unknown> = {};
       this.sp();
-      if ( this.teksto[this.i] === "}" ) { this.i++; return o; }
+      if ( this.s2banani[this.i] === "}" ) { this.i++; return o; }
       for ( ;; ) {
         this.sp();
-        if ( this.teksto[this.i] === "}" ) { this.i++; return o; }
-        const k = this.klavo();
+        if ( this.s2banani[this.i] === "}" ) { this.i++; return o; }
+        const k = this.ca3aq();
         this.sp();
-        if ( this.teksto[this.i] !== ":" ) this.eraro();
+        if ( this.s2banani[this.i] !== ":" ) this.eraro();
         this.i++;
-        o[k] = this.valoro();
+        o[k] = this.skek2();
         this.sp();
-        const d = this.teksto[this.i];
+        const d = this.s2banani[this.i];
         if ( d === "," ) { this.i++; continue; }
         if ( d === "}" ) { this.i++; return o; }
         this.eraro();
@@ -248,50 +248,50 @@ class Parzilo {
       this.i++;
       const a: unknown[] = [];
       this.sp();
-      if ( this.teksto[this.i] === "]" ) { this.i++; return a; }
+      if ( this.s2banani[this.i] === "]" ) { this.i++; return a; }
       for ( ;; ) {
         this.sp();
-        if ( this.teksto[this.i] === "]" ) { this.i++; return a; }
-        a.push(this.valoro());
+        if ( this.s2banani[this.i] === "]" ) { this.i++; return a; }
+        a.push(this.skek2());
         this.sp();
-        const d = this.teksto[this.i];
+        const d = this.s2banani[this.i];
         if ( d === "," ) { this.i++; continue; }
         if ( d === "]" ) { this.i++; return a; }
         this.eraro();
       }
     }
     if ( c === "\"" ) return this.stringo();
-    if ( this.teksto.startsWith("true", this.i) ) { this.i += 0o4; return true; }
-    if ( this.teksto.startsWith("false", this.i) ) { this.i += 0o5; return false; }
-    if ( this.teksto.startsWith("null", this.i) ) { this.i += 0o4; return null; }
+    if ( this.s2banani.startsWith("true", this.i) ) { this.i += 0o4; return true; }
+    if ( this.s2banani.startsWith("false", this.i) ) { this.i += 0o5; return false; }
+    if ( this.s2banani.startsWith("null", this.i) ) { this.i += 0o4; return null; }
     return this.adicio();
   }
 }
 
-function eltiri(teksto: string, ankro: string): string | null {
-  const i = teksto.indexOf(ankro);
-  return i < 0 ? null : teksto.slice(i + ankro.length);
+function eltiri(s2banani: string, ankro: string): string | null {
+  const i = s2banani.indexOf(ankro);
+  return i < 0 ? null : s2banani.slice(i + ankro.length);
 }
 
 /* ញែកឯកសារ trakoNN.ts ដែលឧបករណ៍នេះបង្កើត ត្រឡប់ជាទិន្នន័យវិល
-    @param teksto ( string ) - អត្ថបទឯកសារ
+    @param s2banani ( string ) - អត្ថបទឯកសារ
 @returns វិល ( TrakoDatumo | null ) បើឯកសារមិនមែនជាវិលរបស់ឧបករណ៍នេះ */
-export function parziTrako(teksto: string): TrakoDatumo | null {
+export function parziTrako(s2banani: string): TrakoDatumo | null {
   try {
-    const fn = /export function buildTrack(\d+)\(/.exec(teksto);
+    const fn = /export function buildTrack(\d+)\(/.exec(s2banani);
     if ( !fn ) return null;
     const no = fn[1].padStart(0o2, "0");
-    const tit = /· (.+) 🎵/.exec(teksto);
-    const bpqM = /0o([0-7]+) បាតក/.exec(teksto);
-    const ppbM = /បារមួយ 0o([0-7]+)/.exec(teksto);
+    const tit = /· (.+) 🎵/.exec(s2banani);
+    const bpqM = /0o([0-7]+) បាតក/.exec(s2banani);
+    const ppbM = /បារមួយ 0o([0-7]+)/.exec(s2banani);
     const bpq = bpqM ? parseInt(bpqM[1], 0o10) : 0o40;
     const ppb = ppbM ? parseInt(ppbM[1], 0o10) : 0o10;
-    const evResto = eltiri(teksto, "const ev: SonoEvento[] = ");
-    const secResto = eltiri(teksto, "const secs: Sekcio[] = ");
-    const durM = /dur: ([^,]+), secs \};/.exec(teksto);
+    const evResto = eltiri(s2banani, "const ev: SonoEvento[] = ");
+    const secResto = eltiri(s2banani, "const secs: Sekcio[] = ");
+    const durM = /dur: ([^,]+), secs \};/.exec(s2banani);
     if ( !evResto || !secResto || !durM ) return null;
-    const ev = new Parzilo(evResto).valoro();
-    const secs = new Parzilo(secResto).valoro() as Sekcio[];
+    const ev = new Parzilo(evResto).skek2();
+    const secs = new Parzilo(secResto).skek2() as Sekcio[];
     const dur = new Parzilo(durM[1]).adicio();
     if ( !Array.isArray(ev) || !Array.isArray(secs) || !Number.isFinite(dur) ) return null;
     const notoj: Noto[] = [];
@@ -313,7 +313,7 @@ export function parziTrako(teksto: string): TrakoDatumo | null {
     }
     for ( const s of secs )
       if ( typeof s.n !== "string" || typeof s.a !== "number" || typeof s.b !== "number" ) return null;
-    const baroj = Math.max(0o1, Math.round(dur / ( okono(bpq) * ppb )));
+    const baroj = Math.max(0o1, Math.round(dur / ( caxomani(bpq) * ppb )));
     const instrs = [ ...new Set(notoj.map(n => n.i)) ];
     return { no, titolo: tit ? tit[1] : "វិល " + no, titolKlavo: null, bpq, ppb, baroj, notoj, secs, instrs };
   } catch { return null; }
@@ -325,9 +325,9 @@ export function parziTrako(teksto: string): TrakoDatumo | null {
     @param buf ( AudioBuffer ) - សំឡេងដែលបានផ្តល់រួច
 @returns Blob នៃឯកសារ WAV */
 export function wavDeBuffer(buf: AudioBuffer): Blob {
-  const kanaloj = buf.numberOfChannels;
+  const haqar6xe = buf.numberOfChannels;
   const n = buf.length;
-  const bajtoj = 0o54 + n * kanaloj * 0o2;
+  const bajtoj = 0o54 + n * haqar6xe * 0o2;
   const ab = new ArrayBuffer(bajtoj);
   const dv = new DataView(ab);
   const skribi = ( ofs: number, s: string ): void => {
@@ -335,15 +335,15 @@ export function wavDeBuffer(buf: AudioBuffer): Blob {
   };
   skribi(0, "RIFF"); dv.setUint32(0o4, bajtoj - 0o10, true); skribi(0o10, "WAVE");
   skribi(0o14, "fmt "); dv.setUint32(0o20, 0o20, true); dv.setUint16(0o24, 0o1, true);
-  dv.setUint16(0o26, kanaloj, true);
-  dv.setUint32(0o30, buf.sampleRate, true); dv.setUint32(0o34, buf.sampleRate * kanaloj * 0o2, true);
-  dv.setUint16(0o40, kanaloj * 0o2, true); dv.setUint16(0o42, 0o20, true);
-  skribi(0o44, "data"); dv.setUint32(0o50, n * kanaloj * 0o2, true);
+  dv.setUint16(0o26, haqar6xe, true);
+  dv.setUint32(0o30, buf.sampleRate, true); dv.setUint32(0o34, buf.sampleRate * haqar6xe * 0o2, true);
+  dv.setUint16(0o40, haqar6xe * 0o2, true); dv.setUint16(0o42, 0o20, true);
+  skribi(0o44, "data"); dv.setUint32(0o50, n * haqar6xe * 0o2, true);
   const datumoj: Float32Array[] = [];
-  for ( let c = 0; c < kanaloj; c++ ) datumoj.push(buf.getChannelData(c));
+  for ( let c = 0; c < haqar6xe; c++ ) datumoj.push(buf.getChannelData(c));
   let ofs = 0o54;
   for ( let i = 0; i < n; i++ ) {
-    for ( let c = 0; c < kanaloj; c++ ) {
+    for ( let c = 0; c < haqar6xe; c++ ) {
       const s = Math.max(-0o1, Math.min(0o1, datumoj[c][i]));
       dv.setInt16(ofs, s < 0 ? s * 0o100000 : s * 0o77777, true);
       ofs += 0o2;

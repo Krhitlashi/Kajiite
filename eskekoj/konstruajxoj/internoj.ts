@@ -52,12 +52,12 @@ export function eniriInternon(
   const w = Math.min(spec.w, 0o10);
   const d = Math.min(spec.d, 0o10);
   const tieroAlto = spec.tieroAlto;
-  const niveloj = spec.niveloj;
+  const havem2 = spec.havem2;
   const sube = spec.sube || 0;
   const tieroAltoSub = spec.tieroAltoSub || tieroAlto;
-  const helikso: HeliksoInfo | null = niveloj > 1 ? {
+  const helikso: HeliksoInfo | null = havem2 > 1 ? {
     rKol: 0o3/0o10, rEkster: 1, perTurno: 0o14, turnoAlto: tieroAlto, turnoAltoSub: tieroAltoSub,
-    turnoj: niveloj - 1, turnojSube: sube,
+    turnoj: havem2 - 1, turnojSube: sube,
   } : null;
   sys.helikso = helikso;
   const sxaktaR = helikso ? helikso.rEkster : 0;
@@ -86,23 +86,23 @@ export function eniriInternon(
   const lignaMaterialo = new THREE.MeshStandardMaterial({ color: LIGNA_KOLORO, roughness: 0o7/0o10 });
   const metalaMaterialo = new THREE.MeshStandardMaterial({ color: muraTipo.frame, metalness: 0o5/0o10, roughness: 0o5/0o10 });
 
-  const etaĝoj: { y: number; hw: number; hd: number; alto: number; et: number }[] = [];
+  const etaĝoj: { y: number; hw: number; hd: number; l6da: number; et: number }[] = [];
   for ( let j = sube; j >= 1; j-- ) {
     const redukto = j * 6/5;
-    etaĝoj.push({ y: -j * tieroAltoSub, hw: Math.max(0o3/0o2, w / 2 - redukto), hd: Math.max(0o3/0o2, d / 2 - redukto), alto: tieroAltoSub, et: -j });
+    etaĝoj.push({ y: -j * tieroAltoSub, hw: Math.max(0o3/0o2, w / 2 - redukto), hd: Math.max(0o3/0o2, d / 2 - redukto), l6da: tieroAltoSub, et: -j });
   }
-  for ( let et = 0; et < niveloj; et++ ) {
+  for ( let et = 0; et < havem2; et++ ) {
     const redukto = et * 6/5;
-    etaĝoj.push({ y: et * tieroAlto, hw: Math.max(0o3/0o2, w / 2 - redukto), hd: Math.max(0o3/0o2, d / 2 - redukto), alto: tieroAlto, et });
+    etaĝoj.push({ y: et * tieroAlto, hw: Math.max(0o3/0o2, w / 2 - redukto), hd: Math.max(0o3/0o2, d / 2 - redukto), l6da: tieroAlto, et });
   }
 
   for ( const etaĝo of etaĝoj ) {
-    const { y, hw, hd, alto, et } = etaĝo;
+    const { y, hw, hd, l6da, et } = etaĝo;
 
     const pordBazo = 0o233/0o100;
     const pordDuon = pordBazo / 2;
 
-    sys.plankoj.push({ y, hw, hd, alto });
+    sys.plankoj.push({ y, hw, hd, l6da });
 
     const planko = new THREE.Mesh(
       helikso && ( et !== 0 || sube > 0 )
@@ -121,20 +121,20 @@ export function eniriInternon(
       }
     }
 
-    if ( et < niveloj - 1 ) {
+    if ( et < havem2 - 1 ) {
       const plafono = new THREE.Mesh(
         helikso
           ? kreiRinganPlankon(hw, hd, sxaktaR, Math.PI / 2)
           : new THREE.PlaneGeometry(hw * 2, hd * 2).rotateX(Math.PI / 2),
         plafonaMaterialo
 );
-      plafono.position.set(0, y + alto - 0o1/0o40, 0);
+      plafono.position.set(0, y + l6da - 0o1/0o40, 0);
       group.add(plafono);
     }
 
     if ( et === 0 ) {
       const pordSupro = 0o233/0o100 * 0o45/0o100;
-      const pordAlto = Math.min(0o11/0o4, alto - 0o1/0o10);
+      const pordAlto = Math.min(0o11/0o4, l6da - 0o1/0o10);
       const pordRadiBazo = 0o1/0o4;
       const pordRadiSupro = 0o1/0o4;
       const muraDikeco = 0o3/0o20;
@@ -142,7 +142,7 @@ export function eniriInternon(
 
       const muroFormo = new THREE.Shape();
       muroFormo.moveTo(-hw, 0); muroFormo.lineTo(hw, 0);
-      muroFormo.lineTo(hw, alto); muroFormo.lineTo(-hw, alto);
+      muroFormo.lineTo(hw, l6da); muroFormo.lineTo(-hw, l6da);
       muroFormo.closePath();
       muroFormo.holes.push(kreiTrapezanPordTruon(pordBazo, pordSupro, pordAlto, pordRadiBazo, pordRadiSupro));
       const muroGeo = new THREE.ExtrudeGeometry(muroFormo, { depth: muraDikeco, bevelEnabled: false, curveSegments: 0o20 });
@@ -159,12 +159,12 @@ export function eniriInternon(
       pordRando.position.set(0, y, hd - muraDikeco / 2 - 0o5/0o100);
       pordMuro.add(pordRando);
 
-      const sojlo = new THREE.Mesh(
+      const plosteq = new THREE.Mesh(
         new THREE.BoxGeometry(pordBazo + 0o1/0o10, 0o2/0o40, muraDikeco),
         new THREE.MeshStandardMaterial({ color: GOLD, roughness: 0o23/0o100, metalness: 0o55/0o100 })
 );
-      sojlo.position.set(0, y, hd - 0o1/0o20);
-      pordMuro.add(sojlo);
+      plosteq.position.set(0, y, hd - 0o1/0o20);
+      pordMuro.add(plosteq);
 
       const pordoj = spec.type === "sanktejo" ? 4 : 1;
       for ( let i = 0; i < pordoj; i++ ) {
@@ -174,18 +174,18 @@ export function eniriInternon(
       }
     } else {
       // ⟨ ជញ្ជាំងមុខទទួលបង្អួច 📃 ⟩
-      aldoniLonganFenestron(group, 0, hd, y, alto, hw, "antaŭ", muraMaterialo, fenestraMaterialo, kadraMaterialo);
+      aldoniLonganFenestron(group, 0, hd, y, l6da, hw, "antaŭ", muraMaterialo, fenestraMaterialo, kadraMaterialo);
     }
 
     const kvarPordoj = et === 0 && spec.type === "sanktejo";
-    if ( !kvarPordoj ) aldoniLonganFenestron(group, 0, -hd, y, alto, hw, "malantaŭ", muraMaterialo, fenestraMaterialo, kadraMaterialo);
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, 0, -hd, y, l6da, hw, "malantaŭ", muraMaterialo, fenestraMaterialo, kadraMaterialo);
 
-    if ( !kvarPordoj ) aldoniLonganFenestron(group, -hw, 0, y, alto, hd, "maldekstra", muraMaterialo, fenestraMaterialo, kadraMaterialo);
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, -hw, 0, y, l6da, hd, "maldekstra", muraMaterialo, fenestraMaterialo, kadraMaterialo);
 
-    if ( !kvarPordoj ) aldoniLonganFenestron(group, hw, 0, y, alto, hd, "dekstra", muraMaterialo, fenestraMaterialo, kadraMaterialo);
+    if ( !kvarPordoj ) aldoniLonganFenestron(group, hw, 0, y, l6da, hd, "dekstra", muraMaterialo, fenestraMaterialo, kadraMaterialo);
 
     const kolDikeco = 0o7/0o40;
-    const kolAlto = alto;
+    const kolAlto = l6da;
     for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
       const kol = new THREE.Mesh(
         new RoundedBoxGeometry(kolDikeco, kolAlto, kolDikeco, 3, 0o3/0o200),
@@ -201,12 +201,12 @@ export function eniriInternon(
       flara.position.set(sX * ( hw - ( kolDikeco * 0o15/0o10 ) / 2 ), y + kolAlto - kolAlto * 0o1/0o40, sZ * ( hd - ( kolDikeco * 0o15/0o10 ) / 2 ));
       group.add(flara);
 
-      const bazo = new THREE.Mesh(
+      const kozuni = new THREE.Mesh(
         new RoundedBoxGeometry(kolDikeco * 0o5/0o4, kolAlto * 0o1/0o40, kolDikeco * 0o5/0o4, 3, 0o3/0o200),
         new THREE.MeshStandardMaterial({ color: GOLD_SOFT, metalness: 0o5/0o10, roughness: 0o13/0o40 })
 );
-      bazo.position.set(sX * ( hw - ( kolDikeco * 0o5/0o4 ) / 2 ), y + kolAlto * 0o1/0o100, sZ * ( hd - ( kolDikeco * 0o5/0o4 ) / 2 ));
-      group.add(bazo);
+      kozuni.position.set(sX * ( hw - ( kolDikeco * 0o5/0o4 ) / 2 ), y + kolAlto * 0o1/0o100, sZ * ( hd - ( kolDikeco * 0o5/0o4 ) / 2 ));
+      group.add(kozuni);
     }
 
     const lampNombro = Math.max(1, Math.floor(hw) - 1);
@@ -217,17 +217,17 @@ export function eniriInternon(
       // ⟨ បើចង្កៀងធ្លាក់ចូលការបើកទ្វារ 📃 ⟩
       const enPordaMalfermo = et === 0 && Math.abs(lx) - lampLargho < pordDuon;
       const flankSigno = Math.sign(lx) || 1;
-      const lampY = y + alto * 0o5/0o10;
+      const lampY = y + l6da * 0o5/0o10;
       // ⟨ គ្មានប្រអប់គៀប 📃 ⟩
       // ⟨ ដៃជញ្ជាំង 📃 ⟩
-      const brako = new THREE.Mesh(
+      const knece = new THREE.Mesh(
         new THREE.CylinderGeometry(0o1/0o100, 0o1/0o100, 0o3/0o10, 6).rotateX(Math.PI / 2),
         kadraMaterialo
 );
-      brako.position.set(enPordaMalfermo ? flankSigno * ( hw - 0o3/0o20 ) : lx,
+      knece.position.set(enPordaMalfermo ? flankSigno * ( hw - 0o3/0o20 ) : lx,
         lampY + 0o3/0o40, enPordaMalfermo ? 0 : hd - 0o3/0o20);
-      brako.rotation.y = enPordaMalfermo ? Math.PI / 2 : 0;
-      group.add(brako);
+      knece.rotation.y = enPordaMalfermo ? Math.PI / 2 : 0;
+      group.add(knece);
       const lampX = enPordaMalfermo ? flankSigno * ( hw - 0o3/0o10 ) : lx;
       const lampZ = enPordaMalfermo ? 0 : hd - 0o3/0o10;
       const lumo = new THREE.PointLight(GOLD_WARM, 0o2/0o10, 5, 2);
@@ -247,22 +247,22 @@ export function eniriInternon(
       const plakedo = generiSkribanTeksajxon(plakedNomo, {
         w: 0o136, h: 0o300, ink: plakedInk,
       });
-      const surfaco = new THREE.Mesh(
+      const soza = new THREE.Mesh(
         new THREE.PlaneGeometry(4/5, 0o15/0o10),
         new THREE.MeshStandardMaterial({ map: plakedo, transparent: true, roughness: 0o23/0o100, metalness: 0o55/0o100 })
 );
       const pkX = pordDuon + ( hw - pordDuon ) / 2;
-      surfaco.position.set(pkX, y + alto * 0o3/0o10, hd - 0o1/0o20);
-      group.add(surfaco);
+      soza.position.set(pkX, y + l6da * 0o3/0o10, hd - 0o1/0o20);
+      group.add(soza);
       const pkadro = new THREE.LineSegments(
         new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 0o16/0o10, 0o1/0o40)),
         new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
 );
-      pkadro.position.set(pkX, y + alto * 0o3/0o10, hd - 0o1/0o40);
+      pkadro.position.set(pkX, y + l6da * 0o3/0o10, hd - 0o1/0o40);
       group.add(pkadro);
     }
 
-    aldoniInternanMeblaron(group, spec.type, hw, hd, y, alto, et, niveloj,
+    aldoniInternanMeblaron(group, spec.type, hw, hd, y, l6da, et, havem2,
       lignaMaterialo, metalaMaterialo, kadraMaterialo,
       tolaKoloro, kusenaKoloro, sys.litkoj);
 
@@ -274,7 +274,7 @@ export function eniriInternon(
           new THREE.BoxGeometry(0o5/0o40, 0o5/0o40, hd * 2 - 0o3/0o10),
           trabaMaterialo
 );
-        trabo.position.set(tx, y + alto - 0o2/0o40, 0);
+        trabo.position.set(tx, y + l6da - 0o2/0o40, 0);
         group.add(trabo);
       }
     }
@@ -303,14 +303,14 @@ export function eniriInternon(
       const ang = p * paŝoAngulo;
       const paŝoAlto = p < 0 ? paŝoAltoSube : paŝoAltoSupre;
       const y = heliksaAltecxo(helikso, p / helikso.perTurno);
-      const paso = new THREE.Mesh(
+      const vepat6ni = new THREE.Mesh(
         new RoundedBoxGeometry(paŝoLargho, paŝoAlto, radiala, 3, 0o3/0o200),
         sxtupMaterialo
 );
-      paso.position.set(rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang));
-      paso.rotation.y = ang;
-      paso.castShadow = true;
-      group.add(paso);
+      vepat6ni.position.set(rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang));
+      vepat6ni.rotation.y = ang;
+      vepat6ni.castShadow = true;
+      group.add(vepat6ni);
       const nazoAlto = Math.min(0o1/0o40, paŝoAlto);
       const rimY = y + paŝoAlto - nazoAlto / 2;
       const ux = Math.sin(ang), uz = Math.cos(ang);
@@ -323,17 +323,17 @@ export function eniriInternon(
       nazo.rotation.y = ang;
       group.add(nazo);
       for ( const s of [ -1, 1 ] ) {
-        const flanko = new THREE.Mesh(
+        const kanto = new THREE.Mesh(
           new RoundedBoxGeometry(0o1/0o20, nazoAlto, radiala, 3, 0o3/0o400),
           akcentaMaterialo
 );
-        flanko.position.set(
+        kanto.position.set(
           rMezo * ux + s * ( paŝoLargho / 2 + 0o1/0o40 ) * tx,
           rimY,
           rMezo * uz + s * ( paŝoLargho / 2 + 0o1/0o40 ) * tz
 );
-        flanko.rotation.y = ang;
-        group.add(flanko);
+        kanto.rotation.y = ang;
+        group.add(kanto);
       }
     }
     const relPunktoj: THREE.Vector3[] = [];
@@ -353,7 +353,7 @@ export function eniriInternon(
   }
 
   const cxefaLumo = new THREE.DirectionalLight(0xf8d898, 0o3/0o10);
-  cxefaLumo.position.set(0, niveloj * tieroAlto * 4/5, 0);
+  cxefaLumo.position.set(0, havem2 * tieroAlto * 4/5, 0);
   group.add(cxefaLumo);
   const subLumo = new THREE.DirectionalLight(0xd8b068, 0o1/0o10);
   subLumo.position.set(0, -1, 0);
@@ -403,7 +403,7 @@ export function eniriInternon(
   const enirY = 0o4/0o10;
   const enirDirekto = pordaAngulo;
 
-  return { x: enirX, z: enirZ, y: enirY, direkto: enirDirekto };
+  return { x: enirX, z: enirZ, y: enirY, c2w2q: enirDirekto };
 }
 
 export function eliriInternon(sys: InternaSistemo, cxefaSceno: THREE.Scene): void {

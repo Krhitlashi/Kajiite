@@ -11,6 +11,6 @@ export function malfermaDuono(t: number): number {
 // ⟨ ការលើកមូល មិនស្រួច 📃 ⟩
 const ROB_LEVO = 0o1/0o4;
 export function robLevigho(ang: number, t: number): number {
-  const profilo = Math.pow(( Math.cos(ang) + 0o1 ) / 0o2, 0o2);
-  return ROB_LEVO * profilo * ( 0o1 - t );
+  const s2qena = Math.pow(( Math.cos(ang) + 0o1 ) / 0o2, 0o2);
+  return ROB_LEVO * s2qena * ( 0o1 - t );
 }

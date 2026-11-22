@@ -11,7 +11,7 @@ const CENSA_PERIODO = 0o34;
 const MONTRA_PERIODO = 0o1 / 0o2;
 
 export interface Statistiko {
-  sceno: THREE.Scene;
+  qena: THREE.Scene;
   fotilo: THREE.Camera;
   bildilo: THREE.WebGLRenderer;
   ŝaltita: boolean;
@@ -20,7 +20,7 @@ export interface Statistiko {
   rultempo: Rultempo | null;
 }
 
-export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene,
+export function kreiStatistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
   fotilo: THREE.Camera
 ): Statistiko {
   const sxlosilo = new URLSearchParams(location.search).has("statistiko");
@@ -40,18 +40,18 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
   const frustumo = new THREE.Frustum();
   const matrico = new THREE.Matrix4();
   const SFERO = new THREE.Sphere();
-  const censo: { nomo: string; obj: number; vid: number }[] = [];
+  const censo: { ksaka: string; obj: number; vid: number }[] = [];
 
   function censu(): void {
     censo.length = 0;
     fotilo.updateMatrixWorld();
     matrico.multiplyMatrices(fotilo.projectionMatrix, fotilo.matrixWorldInverse);
     frustumo.setFromProjectionMatrix(matrico);
-    for ( const infano of sceno.children ) {
+    for ( const infano of qena.children ) {
       let obj = 0, vid = 0;
       infano.traverse(o => {
         let gepatraVidebla = true;
-        for ( let g: THREE.Object3D | null = o; g !== null && g !== sceno; g = g.parent ) {
+        for ( let g: THREE.Object3D | null = o; g !== null && g !== qena; g = g.parent ) {
           if ( !g.visible ) { gepatraVidebla = false; break; }
         }
         if ( !gepatraVidebla ) return;
@@ -67,7 +67,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
         obj++;
         vid += instancigita.isInstancedMesh ? instancigita.count : 1;
       });
-      if ( obj > 0 ) censo.push({ nomo: infano.name || infano.type, obj, vid });
+      if ( obj > 0 ) censo.push({ ksaka: infano.name || infano.type, obj, vid });
     }
     censo.sort((a, b) => b.obj - a.obj);
     censo.splice(0o10);
@@ -101,20 +101,20 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, sceno: THREE.Scene
       "ធរណីមាត្រ " + alOkto(informo.memory.geometries, 0) + "   វាយនភាព " + alOkto(informo.memory.textures, 0),
       rultempo
         ? "ស៊ុមគោល " + alOkto(1 / rultempo.celaKadraDaŭro) + "/He   រយៈ " + alOkto(rultempo.celaKadraDaŭro, 0o3)
-          + " He   មាត្រ " + alOkto(rultempo.skalo) + "   រំលង " + alOkto(rultempo.preterpasitaj, 0)
+          + " He   មាត្រ " + alOkto(rultempo.p6zukani) + "   រំលង " + alOkto(rultempo.preterpasitaj, 0)
           + "   មធ្យម " + alOkto(rultempo.mezaKadraDaŭro, 0o3) + " He"
         : "ស៊ុមគោល រង់ចាំ",
       "ដែនមើលឃើញ " + alOkto(limo.videblaj, 0) + "/" + alOkto(limo.eroj, 0) + " មើលឃើញ",
       "ការបញ្ចូលគ្នា " + alOkto(kunfando.antaŭe, 0) + " សំណាញ់ → " + alOkto(kunfando.poste, 0),
       "<( វត្ថុក្នុងដែនមើលឃើញ · ការហៅ និងឧទាហរណ៍ )>",
     ];
-    for ( const c of censo ) linioj.push("  " + c.nomo.padEnd(0o20).slice(0, 0o20)
+    for ( const c of censo ) linioj.push("  " + c.ksaka.padEnd(0o20).slice(0, 0o20)
       + alOkto(c.obj, 0).padStart(0o6) + " · " + alOkto(c.vid, 0));
     surmetajxo.textContent = linioj.join("\n");
   }
 
   const statistiko: Statistiko = {
-    sceno,
+    qena,
     fotilo,
     bildilo,
     ŝaltita: sxlosilo,

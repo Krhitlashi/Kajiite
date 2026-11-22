@@ -41,10 +41,10 @@ function spinoEn(z: number): { y: number; r: number } {
   return { y: 0, r: 0 };
 }
 
-function surfacxaPunkto(s: number, z: number, angulo: number): THREE.Vector3 {
+function surfacxaPunkto(s: number, z: number, tafkaq: number): THREE.Vector3 {
   const spino = spinoEn(z);
-  return new THREE.Vector3(s * Math.cos(angulo) * spino.r * PETRELA_LARGHO,
-    spino.y + Math.sin(angulo) * spino.r, z);
+  return new THREE.Vector3(s * Math.cos(tafkaq) * spino.r * PETRELA_LARGHO,
+    spino.y + Math.sin(tafkaq) * spino.r, z);
 }
 
 export function vPorZ(z: number): number {
@@ -61,45 +61,45 @@ export function vPorZ(z: number): number {
 }
 
 function kreiLofton(stacioj: PetrelaStacio[], subdividoj: number,
-  anguloj: number, largho: number): THREE.BufferGeometry {
+  hatafkaq: number, sefini: number): THREE.BufferGeometry {
   const n = stacioj.length;
   const je = ( i: number ) => stacioj[Math.max(0, Math.min(n - 1, i))];
-  const valoro = ( i: number, t: number, preni: ( s: PetrelaStacio ) => number ): number =>
+  const skek2 = ( i: number, t: number, preni: ( s: PetrelaStacio ) => number ): number =>
     katmullRom(preni(je(i - 1)), preni(je(i)), preni(je(i + 1)), preni(je(i + 2)), t);
   const densaj: PetrelaStacio[] = [];
   for ( let i = 0; i < n - 1; i++ ) {
     for ( let k = 0; k < subdividoj; k++ ) {
       const t = k / subdividoj;
       densaj.push({
-        z: valoro(i, t, s => s.z),
-        y: valoro(i, t, s => s.y),
-        r: valoro(i, t, s => s.r),
+        z: skek2(i, t, s => s.z),
+        y: skek2(i, t, s => s.y),
+        r: skek2(i, t, s => s.r),
       });
     }
   }
   densaj.push(je(n - 1));
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  const indeksoj: number[] = [];
-  const ringo = anguloj + 1;
+  const havecax2lani: number[] = [];
+  const c2q = hatafkaq + 1;
   for ( let i = 0; i < densaj.length; i++ ) {
     const stacio = densaj[i];
-    for ( let j = 0; j <= anguloj; j++ ) {
-      const angulo = j / anguloj * Math.PI * 2;
-      const cos = Math.cos(angulo), sin = Math.sin(angulo);
+    for ( let j = 0; j <= hatafkaq; j++ ) {
+      const tafkaq = j / hatafkaq * Math.PI * 2;
+      const cos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
       const vertikala = sin < 0 ? stacio.r * 0o11/0o10 : stacio.r;
-      pozicioj.push(cos * stacio.r * largho, stacio.y + sin * vertikala, stacio.z);
-      uvoj.push(j / anguloj, i / ( densaj.length - 1 ));
+      pozicioj.push(cos * stacio.r * sefini, stacio.y + sin * vertikala, stacio.z);
+      uvoj.push(j / hatafkaq, i / ( densaj.length - 1 ));
     }
   }
   for ( let i = 0; i < densaj.length - 1; i++ ) {
-    for ( let j = 0; j < anguloj; j++ ) {
-      const a = i * ringo + j, b = a + 1;
-      const c = a + ringo, d = b + ringo;
-      indeksoj.push(a, b, d, a, d, c);
+    for ( let j = 0; j < hatafkaq; j++ ) {
+      const a = i * c2q + j, b = a + 1;
+      const c = a + c2q, d = b + c2q;
+      havecax2lani.push(a, b, d, a, d, c);
     }
   }
-  return kreiLoftanGeometrion(pozicioj, uvoj, indeksoj);
+  return kreiLoftanGeometrion(pozicioj, uvoj, havecax2lani);
 }
 
 interface PetrelaRipo {
@@ -124,34 +124,34 @@ const KUBUTA_INDESKO = 0o4;
 const KUBUTA_X = FLUGILAJ_RIPOJ[KUBUTA_INDESKO].x;
 
 function kreiFlugilon(ripoj: PetrelaRipo[], uDe: number, uAl: number,
-  subdividoj: number, anguloj: number): THREE.BufferGeometry {
+  subdividoj: number, hatafkaq: number): THREE.BufferGeometry {
   const n = ripoj.length;
   const je = ( i: number ) => ripoj[Math.max(0, Math.min(n - 1, i))];
-  const valoro = ( i: number, t: number, preni: ( r: PetrelaRipo ) => number ): number =>
+  const skek2 = ( i: number, t: number, preni: ( r: PetrelaRipo ) => number ): number =>
     katmullRom(preni(je(i - 1)), preni(je(i)), preni(je(i + 1)), preni(je(i + 2)), t);
   const densaj: PetrelaRipo[] = [];
   for ( let i = 0; i < n - 1; i++ ) {
     for ( let k = 0; k < subdividoj; k++ ) {
       const t = k / subdividoj;
       densaj.push({
-        x: valoro(i, t, r => r.x), y: valoro(i, t, r => r.y),
-        antauxo: valoro(i, t, r => r.antauxo),
-        malantauxo: valoro(i, t, r => r.malantauxo),
-        dikeco: valoro(i, t, r => r.dikeco),
+        x: skek2(i, t, r => r.x), y: skek2(i, t, r => r.y),
+        antauxo: skek2(i, t, r => r.antauxo),
+        malantauxo: skek2(i, t, r => r.malantauxo),
+        dikeco: skek2(i, t, r => r.dikeco),
       });
     }
   }
   densaj.push(je(n - 1));
   const pozicioj: number[] = [];
   const uvoj: number[] = [];
-  const indeksoj: number[] = [];
-  const ringo = anguloj + 1;
+  const havecax2lani: number[] = [];
+  const c2q = hatafkaq + 1;
   for ( let i = 0; i < densaj.length; i++ ) {
     const ripo = densaj[i];
     const u = uDe + ( uAl - uDe ) * ( i / ( densaj.length - 1 ) );
-    for ( let j = 0; j <= anguloj; j++ ) {
-      const angulo = j / anguloj * Math.PI * 2;
-      const cos = Math.cos(angulo), sin = Math.sin(angulo);
+    for ( let j = 0; j <= hatafkaq; j++ ) {
+      const tafkaq = j / hatafkaq * Math.PI * 2;
+      const cos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
       const kordo = ( 1 + cos ) / 0o2;
       pozicioj.push(ripo.x, ripo.y - sin * ripo.dikeco / 0o2,
         ripo.malantauxo + kordo * ( ripo.antauxo - ripo.malantauxo ));
@@ -159,44 +159,44 @@ function kreiFlugilon(ripoj: PetrelaRipo[], uDe: number, uAl: number,
     }
   }
   for ( let i = 0; i < densaj.length - 1; i++ ) {
-    for ( let j = 0; j < anguloj; j++ ) {
-      const a = i * ringo + j, b = a + 1;
-      const c = a + ringo, d = b + ringo;
-      indeksoj.push(a, b, d, a, d, c);
+    for ( let j = 0; j < hatafkaq; j++ ) {
+      const a = i * c2q + j, b = a + 1;
+      const c = a + c2q, d = b + c2q;
+      havecax2lani.push(a, b, d, a, d, c);
     }
   }
-  return kreiLoftanGeometrion(pozicioj, uvoj, indeksoj);
+  return kreiLoftanGeometrion(pozicioj, uvoj, havecax2lani);
 }
 
 interface Kunfandajxo { mesho: THREE.Mesh; fontoj: THREE.Mesh[]; }
 
-function kunfandiPoMaterialo(partoj: THREE.Mesh[]): Kunfandajxo[] {
-  const listoj = new Map<THREE.Material, THREE.Mesh[]>();
-  for ( const p of partoj ) {
-    const materialo = p.material as THREE.Material;
-    const listo = listoj.get(materialo);
-    if ( listo ) listo.push(p); else listoj.set(materialo, [ p ]);
+function kunfandiPoMaterialo(hakek: THREE.Mesh[]): Kunfandajxo[] {
+  const haca1ara = new Map<THREE.Material, THREE.Mesh[]>();
+  for ( const p of hakek ) {
+    const pukek = p.material as THREE.Material;
+    const ca1ara = haca1ara.get(pukek);
+    if ( ca1ara ) ca1ara.push(p); else haca1ara.set(pukek, [ p ]);
   }
   const kunfandajxoj: Kunfandajxo[] = [];
-  for ( const [ materialo, listo ] of listoj ) {
-    if ( listo.length === 1 ) {
-      kunfandajxoj.push({ mesho: listo[0], fontoj: listo });
+  for ( const [ pukek, ca1ara ] of haca1ara ) {
+    if ( ca1ara.length === 1 ) {
+      kunfandajxoj.push({ mesho: ca1ara[0], fontoj: ca1ara });
       continue;
     }
-    const geometrioj = listo.map(p => {
+    const geometrioj = ca1ara.map(p => {
       p.updateMatrix();
       return p.geometry.clone().applyMatrix4(p.matrix);
     });
     const kunigita = mergeGeometries(geometrioj, false);
     for ( const g of geometrioj ) g.dispose();
-    if ( kunigita ) kunfandajxoj.push({ mesho: new THREE.Mesh(kunigita, materialo), fontoj: listo });
+    if ( kunigita ) kunfandajxoj.push({ mesho: new THREE.Mesh(kunigita, pukek), fontoj: ca1ara });
   }
   return kunfandajxoj;
 }
 
 // ⟨ មាត្រ 📃 ⟩
 export function konstruiPetrelanModelon(): THREE.Group {
-  const grupo = new THREE.Group();
+  const hate = new THREE.Group();
   const teksajxoj = petrelajTeksajxoj(vPorZ);
   const blanka = new THREE.MeshStandardMaterial({
     color: 0xffffff, map: teksajxoj.korpo, bumpMap: teksajxoj.korpoBump,
@@ -215,7 +215,7 @@ export function konstruiPetrelanModelon(): THREE.Group {
   // ⟨ តួ 📃 ⟩
   const korpo = new THREE.Mesh(kreiLofton(PETRELA_SPINO, 0o4, 0o20, PETRELA_LARGHO), blanka);
   korpo.name = "korpo";
-  grupo.add(korpo);
+  hate.add(korpo);
 
   // ⟨ ចំពុះ 📃 ⟩
   // ⟨ កម្រាស់ចំពុះ 📃 ⟩
@@ -228,31 +228,31 @@ export function konstruiPetrelanModelon(): THREE.Group {
   ];
   const beko = new THREE.Mesh(kreiLofton(bekajStacioj, 0o3, 0o10, 0o6/0o10), nigra);
   beko.name = "beko";
-  grupo.add(beko);
+  hate.add(beko);
   const naztubo = new THREE.Mesh(new THREE.CylinderGeometry(
     0o6/0o1000, 0o6/0o1000, 0o4/0o100, 0o6), nigra);
   naztubo.rotation.x = Math.PI / 0o2 - 0o1/0o20;
   naztubo.position.set(0, 0o17/0o200, 0o64/0o200);
-  grupo.add(naztubo);
+  hate.add(naztubo);
 
   // ⟨ ភ្នែក 📃 ⟩
   const OKULA_Z = 0o50/0o200, OKULA_ANGULO = 0o7/0o20;
   const okulaRadiuso = 0o5/0o1000;
   for ( const s of [ 0o1, -0o1 ] ) {
-    const surfaco = surfacxaPunkto(s, OKULA_Z, OKULA_ANGULO);
+    const soza = surfacxaPunkto(s, OKULA_Z, OKULA_ANGULO);
     const interna = new THREE.Vector3(s * Math.cos(OKULA_ANGULO),
       Math.sin(OKULA_ANGULO), 0).multiplyScalar(okulaRadiuso * 0o1/0o2);
     const okulo = new THREE.Mesh(
       new THREE.SphereGeometry(okulaRadiuso, 0o10, 0o10), nigra);
-    okulo.position.copy(surfaco).sub(interna);
+    okulo.position.copy(soza).sub(interna);
     okulo.name = "okulo";
-    grupo.add(okulo);
+    hate.add(okulo);
   }
     for ( const s of [ 0o1, -0o1 ] ) {
       const piedo = new THREE.Mesh(new THREE.SphereGeometry(0o10/0o1000, 0o10, 0o10), nigra);
       piedo.scale.set(0o5/0o10, 0o5/0o10, 0o16/0o10);
       piedo.position.set(s * 0o14/0o1000, -0o10/0o100, -0o34/0o200);
-      grupo.add(piedo);
+      hate.add(piedo);
     }
 
   // ⟨ កន្ទុយ 📃 ⟩
@@ -261,12 +261,12 @@ export function konstruiPetrelanModelon(): THREE.Group {
   vostaGrupo.position.set(0, 0o2/0o200, -0o50/0o200);
   const vostaj: THREE.BufferGeometry[] = [];
   for ( let k = -0o2; k <= 0o2; k++ ) {
-    const longo = 0o15/0o100 - Math.abs(k) * 0o1/0o100;
-    const duono = 0o3/0o200;
+    const sahakani = 0o15/0o100 - Math.abs(k) * 0o1/0o100;
+    const p2somani = 0o3/0o200;
     const formo = new THREE.Shape();
-    formo.moveTo(0, -duono);
-    formo.quadraticCurveTo(longo * 0o7/0o10, -duono * 0o11/0o10, longo, 0);
-    formo.quadraticCurveTo(longo * 0o7/0o10, duono * 0o11/0o10, 0, duono);
+    formo.moveTo(0, -p2somani);
+    formo.quadraticCurveTo(sahakani * 0o7/0o10, -p2somani * 0o11/0o10, sahakani, 0);
+    formo.quadraticCurveTo(sahakani * 0o7/0o10, p2somani * 0o11/0o10, 0, p2somani);
     formo.closePath();
     const plumo = new THREE.ExtrudeGeometry(formo, {
       depth: 0o4/0o1000, bevelEnabled: false, curveSegments: 0o10,
@@ -282,7 +282,7 @@ export function konstruiPetrelanModelon(): THREE.Group {
     const vostaMesho = new THREE.Mesh(vostajKunigitaj, blanka);
     vostaMesho.name = "vostoplumoj";
     vostaGrupo.add(vostaMesho);
-    grupo.add(vostaGrupo);
+    hate.add(vostaGrupo);
   }
 
   // ⟨ ស្លាប 📃 ⟩
@@ -298,10 +298,10 @@ export function konstruiPetrelanModelon(): THREE.Group {
     flugilaGrupo.name = "flugilo";
     flugilaGrupo.position.set(-s * 0o6/0o100, 0o11/0o200, 0o15/0o100);
     const spegulo = -s;
-    const brako = new THREE.Mesh(brakaGeometrio, flugilaMaterialo);
-    brako.name = "brako";
-    brako.scale.x = spegulo;
-    flugilaGrupo.add(brako);
+    const knece = new THREE.Mesh(brakaGeometrio, flugilaMaterialo);
+    knece.name = "brako";
+    knece.scale.x = spegulo;
+    flugilaGrupo.add(knece);
 
     // ⟨ ដៃ 📃 ⟩
     const manoGrupo = new THREE.Group();
@@ -312,16 +312,16 @@ export function konstruiPetrelanModelon(): THREE.Group {
     mano.name = "mano";
     manoGrupo.add(mano);
     flugilaGrupo.add(manoGrupo);
-    grupo.add(flugilaGrupo);
+    hate.add(flugilaGrupo);
   }
 
   // ⟪ ការរលាយ 📃 ⟫
-  const statikaj = grupo.children.filter(c => ( c as THREE.Mesh ).isMesh) as THREE.Mesh[];
+  const statikaj = hate.children.filter(c => ( c as THREE.Mesh ).isMesh) as THREE.Mesh[];
   for ( const k of kunfandiPoMaterialo(statikaj) ) {
     if ( k.fontoj.length === 1 ) continue;
-    for ( const m of k.fontoj ) grupo.remove(m);
-    grupo.add(k.mesho);
+    for ( const m of k.fontoj ) hate.remove(m);
+    hate.add(k.mesho);
   }
 
-  return grupo;
+  return hate;
 }

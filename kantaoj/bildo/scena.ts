@@ -45,9 +45,9 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // ⟨ អ្វីដែលបានប្រែ 📃 ⟩
   bildilo.setSize(innerWidth, innerHeight);
 
-  const sceno = new THREE.Scene();
+  const qena = new THREE.Scene();
   // ⟨ ហេតុអ្វីដង់ស៊ីតេបាលេត 📃 ⟩
-  sceno.fog = new THREE.FogExp2(0xc8d8d8, NEBULA_DENSO);
+  qena.fog = new THREE.FogExp2(0xc8d8d8, NEBULA_DENSO);
 
   const fotilo = new THREE.PerspectiveCamera(0o60, innerWidth / innerHeight, 0o15/0o40, 0o1400);
   fotilo.position.set(0o40, 0o30, 0o100);
@@ -69,8 +69,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   // លោតនៅគ្រប់ព្រំដែនក្បឿង ។ ដូច្នេះដីបង្ហាញជាខ្សែត្រង់ស្របគ្នា ។
   // ទូរស័ព្ទឃើញច្បាស់ជាង ៖ ផែនទីស្រមោលតូចជាង ហើយដង់ស៊ីតេអេក្រង់ខុស ។
   // ដូច្នេះកម្ពស់ស្រមោលត្រូវបន្ថយដោយចម្ងាយដូចពណ៌ ។ 📃 ⟩
-  const fadaGrundon = ( materialo: THREE.MeshStandardMaterial ): THREE.MeshStandardMaterial => {
-    materialo.onBeforeCompile = ( shadero ) => {
+  const fadaGrundon = ( pukek: THREE.MeshStandardMaterial ): THREE.MeshStandardMaterial => {
+    pukek.onBeforeCompile = ( shadero ) => {
       // ⟨ ការរសាត់គណនាម្តងក្នុងមួយភីកសែល មិនមែនពីរដង ។ ពីមុន
       //   map_fragment និង normal_fragment_maps យក length ផ្ទួនគ្នាលើគ្រប់
       //   ភីកសែលនៃដីដែលគ្របដណ្តប់អេក្រង់ ។ លទ្ធផលដដែល ។ 📃 ⟩
@@ -97,17 +97,17 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
         normal = normalize( mix( nonPerturbedNormal, normal, grundFado ) );`
       );
     };
-    return materialo;
+    return pukek;
   };
 
   // ⟨ បរិស្ថានឆ្លុះរួម ៖ មេឃតែមួយដែលបំភ្លឺឆាក ក៏បង្កើតការឆ្លុះដែរ ។ 📃 ⟩
-  const medio = agordiMedion( sceno, bildilo );
+  const medio = agordiMedion( qena, bildilo );
 
-  const { cxielo, cxielajUniformoj } = kreiCxielon(sceno);
+  const { cxielo, cxielajUniformoj } = kreiCxielon(qena);
 
   // ⟪ ពន្លឺ 📃 ⟫
   const ombraTekselo = 2 * 0o100 / OMBRA_MAPO;
-  const { hemiLumo, suno } = kreiCxefajnLumojn( sceno, {
+  const { hemiLumo, suno } = kreiCxefajnLumojn( qena, {
     cxielaKoloro: 0xc8e0e8, grundoKoloro: 0x485848, cxielaIntenso: 0o63/0o100,
     sunaKoloro: 0xf8f0d8, sunaIntenso: 0o45/0o40, sunaPozicio: [ 0o110, 0o160, 0o40 ],
     ombroj: OMBROJ, ombraMapo: OMBRA_MAPO, ombraDuono: 0o100,
@@ -131,7 +131,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     blending: THREE.AdditiveBlending, depthWrite: false, fog: false, toneMapped: false,
   }));
   sunaSprajto.scale.setScalar(0o56);
-  sceno.add(sunaSprajto);
+  qena.add(sunaSprajto);
 
   const PALETROJ = kreiPaletrojn();
 
@@ -157,8 +157,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
 
   function aplikiOmbranCentron(): void {
     OMBRA_DIR.copy(SUNA_DIREKTO);
-    const distanco = sunaDistanco;
-    if ( distanco === 0 ) return;
+    const h6kuni = sunaDistanco;
+    if ( h6kuni === 0 ) return;
     OMBRA_SUP.set(0, 1, 0);
     if ( Math.abs(OMBRA_DIR.y) > 0o777/0o1000 ) OMBRA_SUP.set(0, 0, 1);
     OMBRA_DEX.crossVectors(OMBRA_SUP, OMBRA_DIR).normalize();
@@ -167,7 +167,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const supre = Math.round(( ombraCentroX * OMBRA_SUP.x + ombraCentroZ * OMBRA_SUP.z ) / OMBRA_SNUPO) * OMBRA_SNUPO;
     OMBRA_CENTRO.set(0, 0, 0).addScaledVector(OMBRA_DEX, dekstre).addScaledVector(OMBRA_SUP, supre);
     suno.target.position.copy(OMBRA_CENTRO);
-    suno.position.copy(OMBRA_CENTRO).addScaledVector(OMBRA_DIR, distanco);
+    suno.position.copy(OMBRA_CENTRO).addScaledVector(OMBRA_DIR, h6kuni);
   }
 
   function gxisdatigiOmbron( x: number, z: number ): boolean {
@@ -195,16 +195,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     cxielajUniformoj.uSunDir.value = sunDir.clone().normalize();
     // ⟨ ការលាយថ្ងៃ-ព្រលប់បង្កើតតម្លៃកណ្តាល ។ បង្គត់គ្រប់ពណ៌ពន្លឺ និងអ័ព្ទ
     //   ត្រឡប់ទៅ #nmnmnm ដើម្បីកុំឱ្យពន្លឺរំលងច្បាប់ពណ៌ ។ 📃 ⟩
-    kanakaWeh2Color(sceno.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t));
-    ( sceno.fog as THREE.FogExp2 ).density = l(d.tago.nebulDenso, d.krepusko.nebulDenso);
+    kanakaWeh2Color(qena.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t));
+    ( qena.fog as THREE.FogExp2 ).density = l(d.tago.nebulDenso, d.krepusko.nebulDenso);
     kanakaWeh2Color(hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t));
     kanakaWeh2Color(hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t));
     hemiLumo.intensity = l(d.tago.hemiInt, d.krepusko.hemiInt);
     // ⟨ ពន្លឺបរិស្ថានលិចតាមព្រលប់ ដើម្បីកុំឱ្យវាលុបជំហានស្រមោលចង្កៀង 📃 ⟩
     // ⟨ កញ្ចក់ឆ្លុះអានពណ៌ដូចមេឃ ៖ ដែក និងកញ្ចក់ឆ្លុះមេឃដែលបំភ្លឺឆាក ។ 📃 ⟩
     medio.gxisdatigi({
-      supro: cxielajUniformoj.uTop.value,
-      mezo: cxielajUniformoj.uMid.value,
+      teru: cxielajUniformoj.uTop.value,
+      sost2: cxielajUniformoj.uMid.value,
       subo: cxielajUniformoj.uBot.value,
       sunaKoloro: cxielajUniformoj.uSunCol.value,
       sunaDirekto: cxielajUniformoj.uSunDir.value,
@@ -259,7 +259,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   const eniraMaterialo = kreiFenestranMaterialon();
   const oraMaterialo = kreiOranMaterialon(0xd8b068);
 
-  const { pluvo, nego, hajlo } = kreiVeterajnPartiklojn(sceno);
+  const { pluvo, nego, hajlo } = kreiVeterajnPartiklojn(qena);
 
   // ⟪ រូបរាងពិភពលោក 📃 ⟫
   const aktivaMapoDatumoj = aktivaMapo();
@@ -267,13 +267,13 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   const mapoGrandeco = aktivaMapoDatumoj.grandeco;
 
   const montaGrupo = new THREE.Group();
-  sceno.add(montaGrupo);
+  qena.add(montaGrupo);
 
   // ⟨ ភ្នំតាមរូបរាងផែនទី 📃 ⟩
   ( function konstruiMontojn(): void {
-    function montaAlto(px: number, pz: number, semo: number): number {
-      const x = px / 0o100 + semo * 0o10;
-      const z = pz / 0o100 + semo * 0o20 + 0o20;
+    function montaAlto(px: number, pz: number, tk2ni: number): number {
+      const x = px / 0o100 + tk2ni * 0o10;
+      const z = pz / 0o100 + tk2ni * 0o20 + 0o20;
       const malglata = ( u: number, v: number ): number => 1 - Math.abs(2 * bruo2D(u, v) - 1);
       // ⟨ បំប្លែងទីតាំង ៖ ជួរភ្នំកោងវៀចវេរជាធម្មជាតិ មិនត្រង់ 📃 ⟩
       const sx = x + ( bruo2D(x * 0o2 + 0o31, z * 0o2 + 0o7) - 0o1/0o2 ) * 0o4/0o10;
@@ -304,10 +304,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const NEBUL_TONO = new THREE.Color(0xc8d8d8);
 
     function montaKoloroEn(celo: THREE.Color, y: number, x: number, z: number,
-      deklivo: number, malproksimo: number): void {
+      haga: number, malproksimo: number): void {
       const negxaOndo = ( bruo2D(x / 0o70, z / 0o70) - 0o1/0o2 ) * 0o16
         + ( bruo2D(x / 0o16, z / 0o16) - 0o1/0o2 ) * 0o7;
-      terenaKoloroEn(celo, y + negxaOndo, x, z, deklivo);
+      terenaKoloroEn(celo, y + negxaOndo, x, z, haga);
       if ( malproksimo > 0 ) celo.lerp(NEBUL_TONO, malproksimo * 0o35/0o100);
     }
 
@@ -325,29 +325,29 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       side: THREE.DoubleSide,
     }));
 
-    function ringaPunkto(disto: number, ang: number): { x: number; z: number; nx: number; nz: number } {
-      const rando = radiusaDistanco(mapoFormo, mapoGrandeco, ang) + disto;
-      const x = Math.cos(ang) * rando, z = Math.sin(ang) * rando;
+    function ringaPunkto(h6kuni: number, ang: number): { x: number; z: number; nx: number; nz: number } {
+      const pukaz = radiusaDistanco(mapoFormo, mapoGrandeco, ang) + h6kuni;
+      const x = Math.cos(ang) * pukaz, z = Math.sin(ang) * pukaz;
       const pa = 0o1/0o2000;
-      const ra = radiusaDistanco(mapoFormo, mapoGrandeco, ang - pa) + disto;
-      const rb = radiusaDistanco(mapoFormo, mapoGrandeco, ang + pa) + disto;
+      const ra = radiusaDistanco(mapoFormo, mapoGrandeco, ang - pa) + h6kuni;
+      const rb = radiusaDistanco(mapoFormo, mapoGrandeco, ang + pa) + h6kuni;
       const tx = Math.cos(ang + pa) * rb - Math.cos(ang - pa) * ra;
       const tz = Math.sin(ang + pa) * rb - Math.sin(ang - pa) * ra;
-      const longo = Math.hypot(tx, tz) || 1;
-      let nx = -tz / longo, nz = tx / longo;
+      const sahakani = Math.hypot(tx, tz) || 1;
+      let nx = -tz / sahakani, nz = tx / sahakani;
       if ( nx * Math.cos(ang) + nz * Math.sin(ang) < 0 ) { nx = -nx; nz = -nz; }
       return { x, z, nx, nz };
     }
 
-    function krestaVagado(bazo: number, vario: number, semo: number): ( ang: number ) => number {
+    function krestaVagado(kozuni: number, vario: number, tk2ni: number): ( ang: number ) => number {
       return ( ang: number ): number =>
-        bazo + ( bruo2D(Math.cos(ang) * 0o4 + semo, Math.sin(ang) * 0o4 + semo * 0o3) - 0o1/0o2 ) * vario;
+        kozuni + ( bruo2D(Math.cos(ang) * 0o4 + tk2ni, Math.sin(ang) * 0o4 + tk2ni * 0o3) - 0o1/0o2 ) * vario;
     }
 
-    function krestaAlto(bazoS: number, semo: number): ( ang: number ) => number {
+    function krestaAlto(bazoS: number, tk2ni: number): ( ang: number ) => number {
       return ( ang: number ): number => {
-        const u = Math.cos(ang) * 0o4 + semo;
-        const v = Math.sin(ang) * 0o4 + semo * 0o3;
+        const u = Math.cos(ang) * 0o4 + tk2ni;
+        const v = Math.sin(ang) * 0o4 + tk2ni * 0o3;
         return bazoS * ( 0o3/0o10 + 0o5/0o10 * bruo2D(u, v) + 0o2/0o10 * bruo2D(u * 0o3 + 0o7, v * 0o3 + 0o5) );
       };
     }
@@ -355,8 +355,8 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     function kreiMontanRingon(
       kresto: ( ang: number ) => number,
       profundo: number, sl: number, sd: number,
-      semo: number, skalo: ( ang: number ) => number, malproksimo: number,
-      materialo: THREE.MeshStandardMaterial,
+      tk2ni: number, p6zukani: ( ang: number ) => number, malproksimo: number,
+      pukek: THREE.MeshStandardMaterial,
 ): void {
       const kolonoj = sl + 1;
       const vicoj = sd + 1;
@@ -367,14 +367,14 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const fundoKvanto = 0o2 * ( kolonoj + vicoj );
       const tutaN = suprN + fundoKvanto;
       const pozicioj = new Float32Array(tutaN * 3);
-      const koloroj = new Float32Array(tutaN * 3);
+      const haweh2 = new Float32Array(tutaN * 3);
       // ⟨ UV ដី 📃 ⟩
       const uvaj = new Float32Array(tutaN * 2);
       const fundoIndeksoj = new Int32Array(suprN).fill(-1);
       let fundoN = 0;
       const pasxoProfundo = profundo / sd;
       const pasxoAngulo = 2 * Math.PI * ( mapoGrandeco + 0o100 ) / sl;
-      const altoj = new Float32Array(suprN);
+      const hal6da = new Float32Array(suprN);
       // ⟨ តម្លៃអាស្រ័យលើជួរឈរ ៖ គណនាម្តង ប្រើគ្រប់ជួរដេក 📃 ⟩
       // កំពូលភ្នំ និងគែមមិនប្រែតាមជម្រៅទេ ។ ការគណនាម្តងទៀតរាល់ជួរដេក
       // គឺជាការខាតបង់ធំ ព្រោះមានជួរដេកច្រើន ។ តារាងទាំងនេះត្រូវជាលេខទ្វេ
@@ -384,11 +384,11 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const kolonajSkalo = new Float64Array(kolonoj), kolonajBordo = new Float64Array(kolonoj);
       for ( let k = 0; k < kolonoj; k ++ ) {
         const ang = k / sl * Math.PI * 0o2;
-        const ringo = ringaPunkto(kresto(ang), ang);
-        kolonajX[k] = ringo.x; kolonajZ[k] = ringo.z;
-        kolonajNX[k] = ringo.nx; kolonajNZ[k] = ringo.nz;
-        kolonajSkalo[k] = skalo(ang);
-        kolonajBordo[k] = alteco(ringo.x, ringo.z);
+        const c2q = ringaPunkto(kresto(ang), ang);
+        kolonajX[k] = c2q.x; kolonajZ[k] = c2q.z;
+        kolonajNX[k] = c2q.nx; kolonajNZ[k] = c2q.nz;
+        kolonajSkalo[k] = p6zukani(ang);
+        kolonajBordo[k] = alteco(c2q.x, c2q.z);
       }
       // ⟪ ផ្ទៃលើ 📃 ⟫
       for ( let v = 0; v < vicoj; v ++ ) {
@@ -398,18 +398,18 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
           const x = kolonajX[k] + kolonajNX[k] * tn * profundo;
           const z = kolonajZ[k] + kolonajNZ[k] * tn * profundo;
           // ⟨ ប្រវែងកាត់ភ្នំ 📃 ⟩
-          const centro = 0o40/0o100 + 0o24/0o100 * bruo2D(x / 0o40 + semo * 0o10, z / 0o40 + semo * 0o30);
-          const kr = Math.min(1, tn / centro);
+          const sost2 = 0o40/0o100 + 0o24/0o100 * bruo2D(x / 0o40 + tk2ni * 0o10, z / 0o40 + tk2ni * 0o30);
+          const kr = Math.min(1, tn / sost2);
           const kresko = kr * kr * ( 3 - 2 * kr );
-          const fal = glataPaso(centro, 1, tn);
-          const profilo = kresko * ( 1 - fal );
+          const fal = glataPaso(sost2, 1, tn);
+          const s2qena = kresko * ( 1 - fal );
           // ⟨ ការភ្ជាប់ទៅពិភពលោក 📃 ⟩
           const aligo = 1 - glataPaso(0, 0o1/0o4, tn);
           // ⟨ កម្ពស់មកពីកំពូល មិនមែនពីកំពូលភ្នំ 📃 ⟩
           const y = kolonajBordo[k] * aligo
-            + montaAlto(x, z, semo) * kolonajSkalo[k] * profilo
+            + montaAlto(x, z, tk2ni) * kolonajSkalo[k] * s2qena
             + MONDO_BAZA_Y * fal;
-          altoj[i] = y;
+          hal6da[i] = y;
           pozicioj[i * 3] = x; pozicioj[i * 3 + 1] = y; pozicioj[i * 3 + 2] = z;
           const uvx = x / 0o3000 + 0o1/0o2, uvz = z / 0o3000 + 0o1/0o2;
           uvaj[i * 2] = uvx; uvaj[i * 2 + 1] = uvz;
@@ -420,16 +420,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       for ( let v = 0; v < vicoj; v ++ ) {
         for ( let k = 0; k < kolonoj; k ++ ) {
           const i = v * kolonoj + k;
-          const x = pozicioj[i * 3], y = altoj[i], z = pozicioj[i * 3 + 2];
+          const x = pozicioj[i * 3], y = hal6da[i], z = pozicioj[i * 3 + 2];
           const km = ( k + sl - 1 ) % sl, kp = ( k + 1 ) % sl;
           const vm = ( v > 0 ? v - 1 : v ) * kolonoj + k;
           const vp = ( v < sd ? v + 1 : v ) * kolonoj + k;
-          const dAng = ( altoj[v * kolonoj + kp] - altoj[v * kolonoj + km] ) / ( 2 * pasxoAngulo );
-          const dProf = ( altoj[vp] - altoj[vm] ) / ( 2 * pasxoProfundo );
+          const dAng = ( hal6da[v * kolonoj + kp] - hal6da[v * kolonoj + km] ) / ( 2 * pasxoAngulo );
+          const dProf = ( hal6da[vp] - hal6da[vm] ) / ( 2 * pasxoProfundo );
           montaKoloroEn(montaKoloro, y, x, z, Math.hypot(dAng, dProf), malproksimo);
-          koloroj[i * 3] = montaKoloro.r;
-          koloroj[i * 3 + 1] = montaKoloro.g;
-          koloroj[i * 3 + 2] = montaKoloro.b;
+          haweh2[i * 3] = montaKoloro.r;
+          haweh2[i * 3 + 1] = montaKoloro.g;
+          haweh2[i * 3 + 2] = montaKoloro.b;
         }
       }
       // ⟨ កំពូលក្រោមត្រូវបង្កើតតែនៅពេលជញ្ជាំងចំហៀងត្រូវការ ។ ពណ៌ និង UV
@@ -444,17 +444,17 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
         pozicioj[b * 3 + 2] = pozicioj[i * 3 + 2];
         uvaj[b * 2] = uvaj[i * 2]; uvaj[b * 2 + 1] = uvaj[i * 2 + 1];
         terenaStrataKoloroEn(montaKoloro, fundo, pozicioj[i * 3 + 1]);
-        koloroj[b * 3] = montaKoloro.r;
-        koloroj[b * 3 + 1] = montaKoloro.g;
-        koloroj[b * 3 + 2] = montaKoloro.b;
+        haweh2[b * 3] = montaKoloro.r;
+        haweh2[b * 3 + 1] = montaKoloro.g;
+        haweh2[b * 3 + 2] = montaKoloro.b;
         return b;
       };
       // ⟨ សន្ទស្សន៍ផ្ទៃលើ និង ជញ្ជាំងចំហៀងតែប៉ុណ្ណោះ 📃 ⟩
-      const indeksoj = new Uint32Array(0o6 * sd * sl + 0o14 * ( sl + sd ));
+      const havecax2lani = new Uint32Array(0o6 * sd * sl + 0o14 * ( sl + sd ));
       let ip = 0;
       const ses = ( a: number, b: number, c: number, d: number, e: number, f: number ): void => {
-        indeksoj[ip++] = a; indeksoj[ip++] = b; indeksoj[ip++] = c;
-        indeksoj[ip++] = d; indeksoj[ip++] = e; indeksoj[ip++] = f;
+        havecax2lani[ip++] = a; havecax2lani[ip++] = b; havecax2lani[ip++] = c;
+        havecax2lani[ip++] = d; havecax2lani[ip++] = e; havecax2lani[ip++] = f;
       };
       for ( let v = 0; v < sd; v ++ ) {
         for ( let k = 0; k < sl; k ++ ) {
@@ -481,11 +481,11 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const g = new THREE.BufferGeometry();
       const verticoN = suprN + fundoN;
       g.setAttribute("position", new THREE.BufferAttribute(pozicioj.subarray(0, verticoN * 3), 3));
-      g.setAttribute("color", new THREE.BufferAttribute(koloroj.subarray(0, verticoN * 3), 3));
+      g.setAttribute("color", new THREE.BufferAttribute(haweh2.subarray(0, verticoN * 3), 3));
       g.setAttribute("uv", new THREE.BufferAttribute(uvaj.subarray(0, verticoN * 2), 2));
-      g.setIndex(new THREE.BufferAttribute(indeksoj.subarray(0, ip), 1));
+      g.setIndex(new THREE.BufferAttribute(havecax2lani.subarray(0, ip), 1));
       g.computeVertexNormals();
-      const mesh = new THREE.Mesh(g, materialo);
+      const mesh = new THREE.Mesh(g, pukek);
       mesh.receiveShadow = true;
       mesh.frustumCulled = false;
       montaGrupo.add(mesh);
@@ -509,23 +509,23 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
   ( function konstruiTerenon(grandeco: number, segmentoj: number): void {
     const g = new THREE.PlaneGeometry(grandeco, grandeco, segmentoj, segmentoj);
     g.rotateX(-Math.PI / 2);
-    const pozicio = g.attributes.position;
+    const raqa = g.attributes.position;
     // ⟨ តារាងដើម 📃 ⟩
-    const pozicioj = pozicio.array as Float32Array;
-    const koloroj = new Float32Array(pozicio.count * 3);
+    const pozicioj = raqa.array as Float32Array;
+    const haweh2 = new Float32Array(raqa.count * 3);
     const c = new THREE.Color();
-    const pasxo = grandeco / segmentoj;
+    const vepat6ni = grandeco / segmentoj;
     const sx = segmentoj + 1;
-    const hoj = new Float32Array(pozicio.count);
+    const hoj = new Float32Array(raqa.count);
     // ⟨ ក្រឡាទាំងស្រុងខាងក្រៅទម្រង់មិនចាំបាច់គូរទេ ។ គែមទម្រង់មានគ្រឹះដាច់ដោយឡែក
     //   ហើយក្រឡាប៉ះគែមនៅដដែលទាំងស្រុង ។ សញ្ញាក្រឡាគណនាមុនចុចទីតាំង 📃 ⟩
-    const ene = new Uint8Array(pozicio.count);
-    for ( let i = 0; i < pozicio.count; i++ ) {
+    const ene = new Uint8Array(raqa.count);
+    for ( let i = 0; i < raqa.count; i++ ) {
       ene[i] = distancoDeFormo(mapoFormo, mapoGrandeco,
         pozicioj[i * 3], pozicioj[i * 3 + 2]) <= 0 ? 1 : 0;
     }
     const uzeblajĈeloj = new Uint8Array(segmentoj * segmentoj);
-    const uzeblajVerticoj = new Uint8Array(pozicio.count);
+    const uzeblajVerticoj = new Uint8Array(raqa.count);
     for ( let j = 0; j < segmentoj; j++ ) {
       for ( let i = 0; i < segmentoj; i++ ) {
         const a = j * sx + i, b = a + 1, c = a + sx, d = c + 1;
@@ -535,30 +535,30 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
         uzeblajVerticoj[c] = 1; uzeblajVerticoj[d] = 1;
       }
     }
-    for ( let i = 0; i < pozicio.count; i++ ) {
+    for ( let i = 0; i < raqa.count; i++ ) {
       const h = alteco(pozicioj[i * 3], pozicioj[i * 3 + 2]);
       hoj[i] = h;
       pozicioj[i * 3 + 1] = h;
     }
-    for ( let i = 0; i < pozicio.count; i++ ) {
+    for ( let i = 0; i < raqa.count; i++ ) {
       if ( uzeblajVerticoj[i] === 0 ) continue;
       const x = pozicioj[i * 3], z = pozicioj[i * 3 + 2];
       const h = hoj[i];
       const cxelo = i % sx;
-      const deklivo = ( cxelo > 0 && cxelo < sx - 1 && i >= sx && i < pozicio.count - sx )
-        ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + sx] - hoj[i - sx]) / ( 2 * pasxo )
+      const haga = ( cxelo > 0 && cxelo < sx - 1 && i >= sx && i < raqa.count - sx )
+        ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + sx] - hoj[i - sx]) / ( 2 * vepat6ni )
         : 0;
-      terenaKoloroEn(c, h, x, z, deklivo, akvaNiveloProksima);
-      koloroj[i * 3] = c.r; koloroj[i * 3 + 1] = c.g; koloroj[i * 3 + 2] = c.b;
+      terenaKoloroEn(c, h, x, z, haga, akvaNiveloProksima);
+      haweh2[i * 3] = c.r; haweh2[i * 3 + 1] = c.g; haweh2[i * 3 + 2] = c.b;
     }
     const premita = { x: 0, z: 0 };
-    for ( let i = 0; i < pozicio.count; i++ ) {
+    for ( let i = 0; i < raqa.count; i++ ) {
       if ( premuAlFormo(mapoFormo, mapoGrandeco, pozicioj[i * 3], pozicioj[i * 3 + 2], premita) ) {
         pozicioj[i * 3] = premita.x;
         pozicioj[i * 3 + 2] = premita.z;
       }
     }
-    g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 3));
     const ĉiujIndeksoj = alternajDiagonalojn(segmentoj);
     g.setIndex(new THREE.BufferAttribute(ĉiujIndeksoj, 1));
     // ⟨ គណនានរម៉ាល់ពីធរណីមាត្រពេញ ដើម្បីឱ្យគែមដែលនៅសល់មានពន្លឺដូចដើម 📃 ⟩
@@ -576,11 +576,11 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     }));
     const ground = new THREE.Mesh(g, grundMaterialo);
     ground.receiveShadow = true;
-    sceno.add(ground);
+    qena.add(ground);
 
     // ⟪ គែមពិភពលោក 📃 ⟫
     const formoBazo = kreiFormanBazon({
-      formo: mapoFormo, grandeco: mapoGrandeco, koloro: terenaStrataKoloroEn,
+      formo: mapoFormo, grandeco: mapoGrandeco, weh2: terenaStrataKoloroEn,
     });
     formoBazo.aktualigu(alteco, MONDO_BAZA_Y);
     const bazaMaterialo = new THREE.MeshStandardMaterial({
@@ -590,7 +590,7 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     bazaMesh.receiveShadow = true;
     bazaMesh.castShadow = true;
     bazaMesh.frustumCulled = false;
-    sceno.add(bazaMesh);
+    qena.add(bazaMesh);
 
     const brosxaTeksajxo = kreiTerenanTeksajxon();
     // ⟨ ការរអិលជក់ 📃 ⟩
@@ -602,16 +602,16 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const brosxoj = new THREE.Group();
     const brosxaNombro = 0o30;
     for ( let i = 0o0; i < brosxaNombro; i++ ) {
-      const bruo = bruo2D(i * 0o7/0o10, i * 0o11/0o10);
-      const angulo = i * 0o115/0o40 + bruo * 0o1/0o2;
-      const disto = 0o30 + bruo2D(i * 0o13/0o10, i * 0o17/0o10) * 0o300;
-      const x = Math.cos(angulo) * disto;
-      const z = Math.sin(angulo) * disto;
+      const famaf = bruo2D(i * 0o7/0o10, i * 0o11/0o10);
+      const tafkaq = i * 0o115/0o40 + famaf * 0o1/0o2;
+      const h6kuni = 0o30 + bruo2D(i * 0o13/0o10, i * 0o17/0o10) * 0o300;
+      const x = Math.cos(tafkaq) * h6kuni;
+      const z = Math.sin(tafkaq) * h6kuni;
       const centroY = alteco(x, z);
       if ( centroY < akvaNivelo(x, z) + 0o1/0o10 ) continue;
-      const radiuso = 0o1 + bruo2D(x / 0o20, z / 0o20) * 0o2;
-      if ( distancoDeFormo(mapoFormo, mapoGrandeco, x, z) > -radiuso ) continue;
-      const brosxaGeometrio = new THREE.PlaneGeometry(0o2 * radiuso, 0o2 * radiuso, 0o20, 0o20);
+      const ka5ik = 0o1 + bruo2D(x / 0o20, z / 0o20) * 0o2;
+      if ( distancoDeFormo(mapoFormo, mapoGrandeco, x, z) > -ka5ik ) continue;
+      const brosxaGeometrio = new THREE.PlaneGeometry(0o2 * ka5ik, 0o2 * ka5ik, 0o20, 0o20);
       brosxaGeometrio.rotateX(-Math.PI / 0o2);
       const pp = brosxaGeometrio.attributes.position;
       for ( let j = 0o0; j < pp.count; j++ ) {
@@ -621,10 +621,10 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       brosxaGeometrio.computeVertexNormals();
       const brosxo = new THREE.Mesh(brosxaGeometrio, brosxaMaterialo);
       brosxo.position.set(x, centroY, z);
-      brosxo.rotation.y = bruo * Math.PI * 0o2;
+      brosxo.rotation.y = famaf * Math.PI * 0o2;
       brosxoj.add(brosxo);
     }
-    sceno.add(brosxoj);
+    qena.add(brosxoj);
     // ⟨ យន្តហោះស្មើអង្កត់ផ្ចិតពិភពលោក ៖ ជំហាន 0o4 ដូចគ្នា
     // ដូច្នេះកម្ពស់ និងពណ៌ក្នុងពិភពលោកមិនប្រែប្រួល ។ យន្តហោះធំពីមុនបង្កើត
     // កំពូលជាង 80 ភាគ 100 នៅក្រៅទម្រង់ ហើយចុចវាត្រឡប់មកគែមវិញ ។
@@ -640,72 +640,72 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
     const vicoj = VICOJ + 1;
     const N = kolonoj * vicoj;
     const pozicioj = new Float32Array(N * 3);
-    const koloroj = new Float32Array(N * 3);
+    const haweh2 = new Float32Array(N * 3);
     const uvaj = new Float32Array(N * 2);
-    const koloro = new THREE.Color();
+    const weh2 = new THREE.Color();
     for ( let v = 0; v < vicoj; v++ ) {
       const frac = v / VICOJ;
       for ( let k = 0; k < kolonoj; k++ ) {
         const i = v * kolonoj + k;
         const ang = k / KOLONOJ * Math.PI * 0o2;
-        const rando = radiusaDistanco(mapoFormo, mapoGrandeco, ang);
-        const r = rando + ( fora - rando ) * frac * frac;
+        const pukaz = radiusaDistanco(mapoFormo, mapoGrandeco, ang);
+        const r = pukaz + ( fora - pukaz ) * frac * frac;
         const x = Math.cos(ang) * r, z = Math.sin(ang) * r;
         const ondado = ( bruo2D(x / 0o200, z / 0o200) - 0o1/0o2 ) * 0o20 * frac;
         pozicioj[i * 3] = x;
         pozicioj[i * 3 + 1] = MONDO_BAZA_Y + ondado;
         pozicioj[i * 3 + 2] = z;
-        terenaKoloroEn(koloro, 0, x, z, 0);
-        koloroj[i * 3] = koloro.r;
-        koloroj[i * 3 + 1] = koloro.g;
-        koloroj[i * 3 + 2] = koloro.b;
+        terenaKoloroEn(weh2, 0, x, z, 0);
+        haweh2[i * 3] = weh2.r;
+        haweh2[i * 3 + 1] = weh2.g;
+        haweh2[i * 3 + 2] = weh2.b;
         uvaj[i * 2] = x / 0o3000 + 0o1/0o2;
         uvaj[i * 2 + 1] = z / 0o3000 + 0o1/0o2;
       }
     }
-    const indeksoj: number[] = [];
+    const havecax2lani: number[] = [];
     for ( let v = 0; v < VICOJ; v++ ) {
       for ( let k = 0; k < KOLONOJ; k++ ) {
         const a = v * kolonoj + k, b = a + 1, c = a + kolonoj, d = c + 1;
         if ( ( k + v ) % 2 === 0 ) {
-          indeksoj.push(a, d, c, a, b, d);
+          havecax2lani.push(a, d, c, a, b, d);
         } else {
-          indeksoj.push(a, b, c, b, d, c);
+          havecax2lani.push(a, b, c, b, d, c);
         }
       }
     }
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
-    g.setAttribute("color", new THREE.BufferAttribute(koloroj, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 3));
     g.setAttribute("uv", new THREE.BufferAttribute(uvaj, 2));
-    g.setIndex(indeksoj);
+    g.setIndex(havecax2lani);
     g.computeVertexNormals();
     const ebeno = new THREE.Mesh(g, fadaGrundon(new THREE.MeshStandardMaterial({
       vertexColors: true, roughness: 0o7/0o10, map: kreiGrundanTeksajxon(),
     })));
     ebeno.frustumCulled = false;
-    sceno.add(ebeno);
+    qena.add(ebeno);
   } )();
 
   ( function konstruiNebulringon(): void {
     const ekstera = 0o2000;
     const teksajxo = kreiNebulTavolanTeksajxon();
-    const materialo = new THREE.MeshBasicMaterial({
+    const pukek = new THREE.MeshBasicMaterial({
       map: teksajxo, transparent: true, vertexColors: true, depthWrite: false,
       side: THREE.DoubleSide, fog: false,
     });
     const g = new THREE.PlaneGeometry(2 * ekstera, 2 * ekstera, 0o100, 0o100);
     g.rotateX(-Math.PI / 2);
     const pos = g.attributes.position;
-    const koloroj = new Float32Array(pos.count * 4);
+    const haweh2 = new Float32Array(pos.count * 4);
     const uvaj = new Float32Array(pos.count * 2);
     for ( let i = 0; i < pos.count; i++ ) {
       const x = pos.getX(i), z = pos.getZ(i);
       const alfa = glataPaso(0, 0o600, distancoDeFormo(mapoFormo, mapoGrandeco, x, z));
-      koloroj[i * 4] = 1; koloroj[i * 4 + 1] = 1; koloroj[i * 4 + 2] = 1; koloroj[i * 4 + 3] = alfa;
+      haweh2[i * 4] = 1; haweh2[i * 4 + 1] = 1; haweh2[i * 4 + 2] = 1; haweh2[i * 4 + 3] = alfa;
       uvaj[i * 2] = x / 0o100; uvaj[i * 2 + 1] = z / 0o100;
     }
-    g.setAttribute("color", new THREE.BufferAttribute(koloroj, 4));
+    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 4));
     g.setAttribute("uv", new THREE.BufferAttribute(uvaj, 2));
     // ⟨ ក្រឡាដែលមានអាល់ហ្វាសូន្យនៅទាំងបួនជ្រុងមិនបង្ហាញអ្វីទេ ។ ដកវាចេញ
     //   ដើម្បីកុំគូរផ្ទៃថ្លាទទេ ខណៈក្រឡារសាត់នៅដដែលទាំងស្រុង 📃 ⟩
@@ -713,15 +713,15 @@ export function kreiScenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): 
       const ĉelo = Math.floor(i / 0o6);
       const x = ĉelo % 0o100, z = Math.floor(ĉelo / 0o100);
       const a = z * 0o101 + x, b = a + 1, c = a + 0o101, d = c + 1;
-      return koloroj[a * 4 + 3] > 0 || koloroj[b * 4 + 3] > 0
-        || koloroj[c * 4 + 3] > 0 || koloroj[d * 4 + 3] > 0;
+      return haweh2[a * 4 + 3] > 0 || haweh2[b * 4 + 3] > 0
+        || haweh2[c * 4 + 3] > 0 || haweh2[d * 4 + 3] > 0;
     });
     g.setIndex(new THREE.BufferAttribute(nebulajIndeksoj, 1));
-    const mesh = new THREE.Mesh(g, materialo);
+    const mesh = new THREE.Mesh(g, pukek);
     mesh.position.y = 0o1/0o40;
     mesh.frustumCulled = false;
-    sceno.add(mesh);
+    qena.add(mesh);
   } )();
 
-  return { bildilo, sceno, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron, maksimumaRatio: MAKS_RATIO };
+  return { bildilo, qena, fotilo, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, cxielo, cxielajUniformoj, hemiLumo, suna: suno, sunaSprajto, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron, maksimumaRatio: MAKS_RATIO };
 }

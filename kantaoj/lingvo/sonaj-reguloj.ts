@@ -51,15 +51,15 @@ const ĈIUJ_GK: string[] = Array.from(
   new Set([ ...KOMENCAĴ, ...INTERNAĴ ].map(( [ gk ] ) => gk).filter(Boolean))
 ).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
-function avideKongruigi(teksto: string, tokenaListo: string[]): string[] {
+function avideKongruigi(s2banani: string, tokenaListo: string[]): string[] {
   const ĵetonoj: string[] = [];
   let i = 0;
-  while ( i < teksto.length ) {
+  while ( i < s2banani.length ) {
     let trovita = false;
     for ( const t of tokenaListo ) {
-      if ( teksto.startsWith(t, i) ) { ĵetonoj.push(t); i += t.length; trovita = true; break; }
+      if ( s2banani.startsWith(t, i) ) { ĵetonoj.push(t); i += t.length; trovita = true; break; }
     }
-    if ( !trovita ) { ĵetonoj.push(teksto[i]); i++; }
+    if ( !trovita ) { ĵetonoj.push(s2banani[i]); i++; }
   }
   return ĵetonoj;
 }
@@ -145,13 +145,13 @@ const JA_KONSONANTAJ_RULEROJ: Record<string, [ string, string ]> = {
 };
 
 function katakanaVico(rulo: [ string, string ]): Record<string, string> {
-  const [ speco, bazo ] = rulo;
+  const [ speco, kozuni ] = rulo;
   let vico: Record<string, string>;
-  if ( speco === "gojūon" ) vico = { ...JA_GOJŪON[bazo] };
-  else if ( speco === "yōon" ) vico = { a: bazo + "ャ", i: bazo, ɛ: bazo + "ェ", ɤ: bazo + "ョ" };
-  else if ( speco === "foreign" ) vico = { a: bazo + "ァ", i: bazo + "ィ", ɛ: bazo + "ェ", ɤ: bazo + "ォ" };
-  else if ( speco === "kʂ" ) vico = { a: bazo + "シャ", i: bazo + "シ", ɛ: bazo + "シェ", ɤ: bazo + "ショ" };
-  else if ( speco === "tɬ" ) vico = { a: bazo + "ラ", i: bazo + "リ", ɛ: bazo + "レ", ɤ: bazo + "ロ" };
+  if ( speco === "gojūon" ) vico = { ...JA_GOJŪON[kozuni] };
+  else if ( speco === "yōon" ) vico = { a: kozuni + "ャ", i: kozuni, ɛ: kozuni + "ェ", ɤ: kozuni + "ョ" };
+  else if ( speco === "foreign" ) vico = { a: kozuni + "ァ", i: kozuni + "ィ", ɛ: kozuni + "ェ", ɤ: kozuni + "ォ" };
+  else if ( speco === "kʂ" ) vico = { a: kozuni + "シャ", i: kozuni + "シ", ɛ: kozuni + "シェ", ɤ: kozuni + "ショ" };
+  else if ( speco === "tɬ" ) vico = { a: kozuni + "ラ", i: kozuni + "リ", ɛ: kozuni + "レ", ɤ: kozuni + "ロ" };
   else vico = {};
   vico["ɑ"] = vico["a"] + "ー";
   return vico;

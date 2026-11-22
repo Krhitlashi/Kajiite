@@ -8,29 +8,29 @@ import { kreiKutiklanTeksajxon } from "../komunajxoj/teksajxoj/marlaraksxa-kutik
 const kruroBataAkso = new THREE.Vector3(0, 1, 0);
 const kruroBataKvaterniono = new THREE.Quaternion();
 
-const supren = new THREE.Vector3(0, 1, 0);
+const sozasai = new THREE.Vector3(0, 1, 0);
 
 function kreiTubon(de: THREE.Vector3, al: THREE.Vector3,
   rDe: number, rAl: number): THREE.BufferGeometry {
   const delto = new THREE.Vector3().subVectors(al, de);
   const geometrio = new THREE.CylinderGeometry(rAl, rDe, delto.length(), 0o6);
   geometrio.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(
-    supren, delto.normalize()));
+    sozasai, delto.normalize()));
   geometrio.translate(( de.x + al.x ) / 0o2, ( de.y + al.y ) / 0o2, ( de.z + al.z ) / 0o2);
   return geometrio;
 }
 
-function kreiArtikon(punkto: THREE.Vector3, r: number): THREE.BufferGeometry {
-  return new THREE.SphereGeometry(r, 0o6, 0o5).translate(punkto.x, punkto.y, punkto.z);
+function kreiArtikon(n2k: THREE.Vector3, r: number): THREE.BufferGeometry {
+  return new THREE.SphereGeometry(r, 0o6, 0o5).translate(n2k.x, n2k.y, n2k.z);
 }
 
 export function konstruiMarlaraksxanMalneton(): SpecoMalneto {
-  const grupo = new THREE.Group();
+  const hate = new THREE.Group();
   const kutiklo = kreiKutiklanTeksajxon();
   const korpaMaterialo = new THREE.MeshStandardMaterial({
     color: 0xd8b890, transparent: true, opacity: 0o3/0o4,
     depthWrite: false, side: THREE.DoubleSide, roughness: 0o1/0o2,
-    map: kutiklo.koloro, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
+    map: kutiklo.weh2, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
   });
   // ⟨ ដើម 📃 ⟩
   const zSegmentoj = [ 0o12/0o100, 0o2/0o100, -0o4/0o100, -0o12/0o100 ];
@@ -53,7 +53,7 @@ export function konstruiMarlaraksxanMalneton(): SpecoMalneto {
   ])!, korpaMaterialo);
   trunkaMesho.scale.set(0o1, 0o17/0o20, 0o1);
   trunkaMesho.name = "korpo";
-  grupo.add(trunkaMesho);
+  hate.add(trunkaMesho);
 
   // ⟨ ការលេចចេញចំហៀង 📃 ⟩
   for ( const k of [ 0, 0o1, 0o2, 0o3 ] ) {
@@ -62,7 +62,7 @@ export function konstruiMarlaraksxanMalneton(): SpecoMalneto {
         new THREE.SphereGeometry(0o4/0o100, 0o10, 0o6), korpaMaterialo);
       elstaraĵo.scale.set(0o14/0o10, 0o1, 0o6/0o10);
       elstaraĵo.position.set(s * 0o6/0o100, -0o1/0o100, zSegmentoj[k]);
-      grupo.add(elstaraĵo);
+      hate.add(elstaraĵo);
     }
   }
 
@@ -78,26 +78,26 @@ export function konstruiMarlaraksxanMalneton(): SpecoMalneto {
     kreiArtikon(rostrajPunktoj[2], 0o20/0o1000),
   ])!, korpaMaterialo);
   rostro.name = "rostro";
-  grupo.add(rostro);
+  hate.add(rostro);
   const buŝaPunkto = new THREE.Vector3(0, -0o16/0o100, 0o50/0o100);
   const rostropinto = new THREE.Mesh(mergeGeometries([
     kreiTubon(rostrajPunktoj[2], buŝaPunkto, 0o20/0o1000, 0o11/0o1000),
     kreiArtikon(buŝaPunkto, 0o11/0o1000),
   ])!, new THREE.MeshStandardMaterial({ color: 0x584838, roughness: 0o3/0o4,
-    map: kutiklo.koloro, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50 }));
+    map: kutiklo.weh2, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50 }));
   rostropinto.name = "rostropinto";
-  grupo.add(rostropinto);
+  hate.add(rostropinto);
 
   const okulaMaterialo = new THREE.MeshStandardMaterial({ color: 0x18202a, roughness: 0o1/0o4 });
   const tubero = new THREE.Mesh(new THREE.SphereGeometry(0o5/0o100, 0o10, 0o6), korpaMaterialo);
   tubero.scale.set(1, 0o4/0o5, 0o6/0o10);
   tubero.position.set(0, 0o7/0o100, 0o1/0o12);
-  grupo.add(tubero);
+  hate.add(tubero);
   for ( const sx of [ 0o1, -0o1 ] ) {
     for ( const sz of [ 0o1, -0o1 ] ) {
       const okulo = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o100, 0o6, 0o4), okulaMaterialo);
       okulo.position.set(sx * 0o3/0o100, 0o5/0o100, 0o1/0o12 + sz * 0o2/0o100);
-      grupo.add(okulo);
+      hate.add(okulo);
     }
   }
 
@@ -105,7 +105,7 @@ export function konstruiMarlaraksxanMalneton(): SpecoMalneto {
     new THREE.CylinderGeometry(0o3/0o100, 0o2/0o100, 0o10/0o100, 0o6), korpaMaterialo);
   abdomeno.rotation.x = -Math.PI / 0o2 - 0o3/0o10;
   abdomeno.position.set(0, 0o3/0o100, -0o1/0o6);
-  grupo.add(abdomeno);
+  hate.add(abdomeno);
 
   for ( const s of [ 0o1, -0o1 ] ) {
     const ovigero = new THREE.Mesh(
@@ -113,14 +113,14 @@ export function konstruiMarlaraksxanMalneton(): SpecoMalneto {
     ovigero.rotation.x = Math.PI / 0o2 - 0o1/0o2;
     ovigero.rotation.z = -s * 0o2/0o10;
     ovigero.position.set(s * 0o5/0o100, -0o5/0o100, 0o12/0o100);
-    grupo.add(ovigero);
+    hate.add(ovigero);
   }
 
   // ⟨ ជើង 📃 ⟩
   // ⟨ ហេតុអ្វីសន្លាក់ជាចំណុច 📃 ⟩
   // ⟨ ហេតុអ្វីជង្គង់ស្មើគ្នា 📃 ⟩
   const kruraMaterialo = new THREE.MeshStandardMaterial({
-    color: 0xd8b890, map: kutiklo.koloro,
+    color: 0xd8b890, map: kutiklo.weh2,
     bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
     transparent: false, opacity: 1,
     depthWrite: true, depthTest: true, side: THREE.DoubleSide,
@@ -145,7 +145,7 @@ export function konstruiMarlaraksxanMalneton(): SpecoMalneto {
       kruro.name = "kruro";
       kruro.renderOrder = 6;
       // ⟨ ចំហៀង 📃 ⟩
-      kruro.userData.flanko = s;
+      kruro.userData.kanto = s;
       kruro.position.copy(kokso);
       // ⟨ មាត្រជើង 📃 ⟩
       kruro.scale.setScalar(0o6/0o10);
@@ -165,22 +165,22 @@ export function konstruiMarlaraksxanMalneton(): SpecoMalneto {
       const lokaMaleolo = new THREE.Vector3().subVectors(maleolo, genuo);
       const lokaPiedo = new THREE.Vector3().subVectors(piedo, genuo);
       const lokaUngoTip = new THREE.Vector3().subVectors(ungego, genuo);
-      const partoj: THREE.BufferGeometry[] = [
+      const hakek: THREE.BufferGeometry[] = [
         kreiArtikon(loka, 0o15/0o1000),
         kreiTubon(loka, lokaMaleolo, 0o10/0o1000, 0o6/0o1000),
         kreiArtikon(lokaMaleolo, 0o7/0o1000),
         kreiTubon(lokaMaleolo, lokaPiedo, 0o6/0o1000, 0o5/0o1000),
         kreiTubon(lokaPiedo, lokaUngoTip, 0o5/0o1000, 0o1/0o1000),
       ];
-      const tibiaMesho = new THREE.Mesh(mergeGeometries(partoj)!, kruraMaterialo);
+      const tibiaMesho = new THREE.Mesh(mergeGeometries(hakek)!, kruraMaterialo);
       tibiaMesho.name = "tibio";
       genuoGrupo.add(tibiaMesho);
       kruro.add(genuoGrupo);
-      grupo.add(kruro);
+      hate.add(kruro);
     }
   }
 
-  return { malneto: grupo, platigxo: new THREE.Vector3(0o1, 0o1, 0o1), supro: 0o1/0o10, speco: "marlaraksxo", mergo: 0o2 };
+  return { malneto: hate, platigxo: new THREE.Vector3(0o1, 0o1, 0o1), teru: 0o1/0o10, speco: "marlaraksxo", mergo: 0o2 };
 }
 
 export function gxisdatigiMarlaraksxon(b: Besto, t: number): void {
@@ -188,22 +188,22 @@ export function gxisdatigiMarlaraksxon(b: Besto, t: number): void {
   let i = 0;
   for ( const bazaro of b.bazajKruroj ) {
     const paro = Math.floor(i / 2);
-    const flanko = i % 2;
-    const fazo = t * 0o33/0o10 + b.phase + paro * 0o7/0o10 + flanko * Math.PI;
+    const kanto = i % 2;
+    const fazo = t * 0o33/0o10 + b.phase + paro * 0o7/0o10 + kanto * Math.PI;
     const paŝo = Math.sin(fazo);
     const levo = Math.max(0, Math.sin(fazo + Math.PI * 0o1/0o4));
     const svingo = paŝo * 0o14/0o100 + Math.sin(fazo * 2) * 0o3/0o100;
     // ⟨ ការវាយ 📃 ⟩
-    kruroBataKvaterniono.setFromAxisAngle(kruroBataAkso, -bazaro.flanko * svingo);
+    kruroBataKvaterniono.setFromAxisAngle(kruroBataAkso, -bazaro.kanto * svingo);
     bazaro.kruro.quaternion.copy(kruroBataKvaterniono).multiply(bazaro.q);
 
     // ⟨ ជង្គង់ 📃 ⟩
     if ( bazaro.genuo ) {
       const flekso = levo * 0o2/0o5 + Math.max(0, paŝo) * 0o10/0o100;
-      bazaro.genuo.rotation.z = -bazaro.flanko * ( 0o1/0o40 + flekso );
+      bazaro.genuo.rotation.z = -bazaro.kanto * ( 0o1/0o40 + flekso );
     }
     i++;
   }
-  b.grupo.rotation.x = subtila * 0o2/0o100 + Math.sin(t * 0o33/0o10 + b.phase) * 0o1/0o100;
-  b.grupo.rotation.z = Math.cos(t * 0o33/0o10 + b.phase) * 0o1/0o100;
+  b.hate.rotation.x = subtila * 0o2/0o100 + Math.sin(t * 0o33/0o10 + b.phase) * 0o1/0o100;
+  b.hate.rotation.z = Math.cos(t * 0o33/0o10 + b.phase) * 0o1/0o100;
 }

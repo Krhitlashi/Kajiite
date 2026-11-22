@@ -26,7 +26,7 @@ const hoj = new Float32Array(N);
   }
 }
 
-const koloro = new THREE.Color();
+const weh2 = new THREE.Color();
 const mapo = aktivaMapo();
 
 function fazoAltoj(): number {
@@ -38,11 +38,11 @@ function fazoKoloroj(): number {
   let s = 0;
   for (let i = 0; i < N; i++) {
     const cxelo = i % SX;
-    const deklivo = (cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX)
+    const haga = (cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX)
       ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + SX] - hoj[i - SX]) / (2 * PASXO)
       : 0;
-    terenaKoloroEn(koloro, hoj[i], posX[i], posZ[i], deklivo, akvaNiveloProksima);
-    s += koloro.r;
+    terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaNiveloProksima);
+    s += weh2.r;
   }
   return s;
 }
@@ -71,11 +71,11 @@ function fazoKolorojMalnova(): number {
   let s = 0;
   for (let i = 0; i < N; i++) {
     const cxelo = i % SX;
-    const deklivo = (cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX)
+    const haga = (cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX)
       ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + SX] - hoj[i - SX]) / (2 * PASXO)
       : 0;
-    terenaKoloroEnMalnova(koloro, hoj[i], posX[i], posZ[i], deklivo, akvaNiveloProksima);
-    s += koloro.r;
+    terenaKoloroEnMalnova(weh2, hoj[i], posX[i], posZ[i], haga, akvaNiveloProksima);
+    s += weh2.r;
   }
   return s;
 }
@@ -94,10 +94,10 @@ function mezuriPareKoloroj(): void {
   }
   tn.sort((a, b) => a - b); tm.sort((a, b) => a - b);
   const mn = tn[tn.length >> 1], mm = tm[tm.length >> 1];
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) koloroj A/B ចាស់=${mm.toFixed(1)}ms ថ្មី=${mn.toFixed(1)}ms លឿន=${(mm / mn).toFixed(2)}x min ${Math.min(...tm).toFixed(1)} ${Math.min(...tn).toFixed(1)} លេខ=${sn === sm ? "ស្មើ" : "ខុស"}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) haweh2 A/B ចាស់=${mm.toFixed(1)}ms ថ្មី=${mn.toFixed(1)}ms លឿន=${(mm / mn).toFixed(2)}x min ${Math.min(...tm).toFixed(1)} ${Math.min(...tn).toFixed(1)} លេខ=${sn === sm ? "ស្មើ" : "ខុស"}`);
 }
 
-function mezuri(nomo: string, f: () => number): void {
+function mezuri(ksaka: string, f: () => number): void {
   for (let i = 0; i < 0o10; i++) f();
   const tempaj: number[] = [];
   for (let r = 0; r < 0o21; r++) {
@@ -106,7 +106,7 @@ function mezuri(nomo: string, f: () => number): void {
     tempaj.push(performance.now() - t0);
   }
   tempaj.sort((a, b) => a - b);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo.padEnd(0o24)} mediano=${tempaj[0o10].toFixed(1)}ms min=${tempaj[0].toFixed(1)}ms`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o24)} mediano=${tempaj[0o10].toFixed(1)}ms min=${tempaj[0].toFixed(1)}ms`);
 }
 
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡាគណនា ${N}`);

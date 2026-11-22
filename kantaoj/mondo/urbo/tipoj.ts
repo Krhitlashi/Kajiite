@@ -13,7 +13,7 @@ import type { InternaSistemo } from "../../../eskekoj/konstruajxoj/internoj/tipo
 import type { Krasesxagxo } from "../../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 
 export interface NebulaSistemo {
-  punktoj: THREE.Points;
+  n2k: THREE.Points;
   uTime: { value: number };
 }
 
@@ -45,7 +45,7 @@ export interface UrbaSistemo {
 }
 
 export interface SkulptaUrbo {
-  nomo: string;
+  ksaka: string;
   arangxaGrando: number;
   blokaGrando: "unu" | "kvar";
   ofsX: number;
@@ -57,9 +57,9 @@ export interface SkulptaUrbo {
 }
 
 export interface SkulptaVojo {
-  nomo: string;
-  larĝo: number;
-  punktoj: [ number, number ][];
+  ksaka: string;
+  sefini: number;
+  n2k: [ number, number ][];
   pontoLarĝo?: number;
 }
 
@@ -74,7 +74,7 @@ export interface MetitaObjekto {
   x: number;
   z: number;
   speco: string;
-  skalo?: number;
+  p6zukani?: number;
   rotacio?: number;
   bestospeco?: number;
   radio?: number;

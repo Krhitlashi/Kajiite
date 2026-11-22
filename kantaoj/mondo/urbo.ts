@@ -71,7 +71,7 @@ import { kreiPussxlefojnBerojn } from "../../eskekoj/mebloj/mangxajxoj/beroj.js"
 import { kreiInternanSistemon } from "../../eskekoj/konstruajxoj/internoj/sistemo.js";
 
 export async function konstruiUrbon(
-  sceno: THREE.Scene,
+  qena: THREE.Scene,
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial,
   eniraMaterialo: THREE.MeshStandardMaterial,
@@ -98,8 +98,8 @@ export async function konstruiUrbon(
   const OBJEKTOJ = aktivajObjektoj();
   const urboListo: SkulptaUrbo[] = URBOJ.length
     ? URBOJ
-    : [ { nomo: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
-  const urboj = urboListo.map(u => konstruiKradanUrbon(sceno,
+    : [ { ksaka: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ];
+  const urboj = urboListo.map(u => konstruiKradanUrbon(qena,
     { arangxaGrando: u.arangxaGrando, blokaGrando: u.blokaGrando, keuxfhxeso: !!u.keuxfhxeso, lampoj: u.lampoj !== false },
     [ u.ofsX, u.ofsZ ], oraMaterialo,
     u.aldonajBlokoj ?? [], superajElDatumo(u.superoj)));
@@ -119,17 +119,17 @@ export async function konstruiUrbon(
   // ⟪ ទន្លេ 📃 ⟫
   // ⟪ ទឹកនៃដីឆ្លាក់ 📃 ⟫
   const riverData: RiverData | null = SKULPTA_AKTIVA ? null
-    : konstruiRiveron(sceno, riveroZ, riveraAkvaNivelo, RIVERA_DUONLARĜO, 0o600, RIVERA_BUŜO_X, 0o110, alteco);
+    : konstruiRiveron(qena, riveroZ, riveraAkvaNivelo, RIVERA_DUONLARĜO, 0o600, RIVERA_BUŜO_X, 0o110, alteco);
   const riveroNordOrienta: RiverData | null = SKULPTA_AKTIVA ? null
-    : konstruiRiveronNordan(sceno, riveroNordOrientaX, riveraNordOrientaNivelo,
+    : konstruiRiveronNordan(qena, riveroNordOrientaX, riveraNordOrientaNivelo,
         RIVERA_NORDORIENTA_DUONLARĜO, RIVERA_NORDORIENTA_FONTO_Z, RIVERA_NORDORIENTA_BUŜO_Z, 0o60, alteco);
   const lago: RiverData | null = SKULPTA_AKTIVA ? null
-    : konstruiLagon(sceno, LAGO_X, lagoZ(), lagoRadio, lagoNivelo(), alteco);
+    : konstruiLagon(qena, LAGO_X, lagoZ(), lagoRadio, lagoNivelo(), alteco);
 
   // ⟪ ទឹកដេរីវេ ( ការគណនាទឹក ) 📃 ⟫
   const limojSkulptaj = skulptaAkvaLimoj();
   const skulptaAkvo: RiverData | null = limojSkulptaj
-    ? konstruiSkulptitanAkvon(sceno, limojSkulptaj.x0, limojSkulptaj.z0,
+    ? konstruiSkulptitanAkvon(qena, limojSkulptaj.x0, limojSkulptaj.z0,
         limojSkulptaj.x1, limojSkulptaj.z1, SKULPTA_PASO, skulptitaAkvo,
         akvaMeshNivelo, alteco)
     : null;
@@ -149,8 +149,8 @@ export async function konstruiUrbon(
   const dokoLandajAltoj: number[] = [];
   // ⟨ ជណ្តើរចំណតជាផ្លូវ ៖ បង្កើតក្រោយពេលដឹងកម្ពស់ចានភ្ជាប់ 📃 ⟩
   const dokoStuparajDatumoj: {
-    landaX: number; landaZ: number; larĝo: number; landejaY: number;
-    komenco: [ number, number ]; fino: [ number, number ];
+    landaX: number; landaZ: number; sefini: number; landejaY: number;
+    saxeni: [ number, number ]; fino: [ number, number ];
   }[] = [];
 
   // ⟪ កំពង់ និងមហាវិថីចំណត ( ទីក្រុងចម្បង ) 📃 ⟫
@@ -169,26 +169,26 @@ export async function konstruiUrbon(
   // ⟨ អានកម្រិតទឹកម្តង ⟩ ៖ ការធៀប និងលទ្ធផលប្រើកម្រិតតែមួយ ។ មុននេះហៅ
   // `cxuVeraAkvo` រួចហៅម្តងទៀត , ដូច្នេះកម្រិតទឹកត្រូវគណនាពីរដងលើទឹក ។ 📃 ⟩
   const akvaFino = ( x: number, z: number ): number => {
-    const nivelo = akvaNivelo( x, z );
-    return alteco( x, z ) < nivelo - 0o1/0o200 ? nivelo + VOJA_AKVA_KLARANCO : -Infinity;
+    const vem2 = akvaNivelo( x, z );
+    return alteco( x, z ) < vem2 - 0o1/0o200 ? vem2 + VOJA_AKVA_KLARANCO : -Infinity;
   };
   // ⟨ ស្ពានតែពេលទឹកលាតលើសផ្លូវទាំងមូល ៖ ផ្លូវកំពង់នៅមាត់ទឹកនៅតែជាផ្លូវ 📃 ⟩
-  function akvaTrunko( vojo: SkulptaVojo ): boolean {
-    if ( vojo.punktoj.length < 0o2 ) return false;
-    const larĝo = vojo.pontoLarĝo ?? vojo.larĝo;
-    return havasAkvanTrunkon(vojo.punktoj,
-      kreiPontanAkvanTeston(vojo.punktoj, larĝo, cxuVeraAkvo));
+  function akvaTrunko( k6h6: SkulptaVojo ): boolean {
+    if ( k6h6.n2k.length < 0o2 ) return false;
+    const sefini = k6h6.pontoLarĝo ?? k6h6.sefini;
+    return havasAkvanTrunkon(k6h6.n2k,
+      kreiPontanAkvanTeston(k6h6.n2k, sefini, cxuVeraAkvo));
   }
   // ⟨ ចានភ្ជាប់លើចុង 📃 ⟩
   function troviProksimanKunigon( x: number, z: number ): VojaRetoKunigo | null {
     let plejProksima: VojaRetoKunigo | null = null, plejMallonga = Infinity;
     for ( const kunigo of vojajKunigoj ) {
-      const distanco = Math.hypot(kunigo.x - x, kunigo.z - z);
-      if ( distanco < plejMallonga ) { plejMallonga = distanco; plejProksima = kunigo; }
+      const h6kuni = Math.hypot(kunigo.x - x, kunigo.z - z);
+      if ( h6kuni < plejMallonga ) { plejMallonga = h6kuni; plejProksima = kunigo; }
     }
     return plejMallonga < VOJA_TRUA_DUONO ? plejProksima : null;
   }
-  function pontaFinAlto( x: number, z: number, larĝo: number ): number {
+  function pontaFinAlto( x: number, z: number, sefini: number ): number {
     // ⟨ ចំណត ⚓ ⟩ ៖ ចានភ្ជាប់នៅមាត់ចំណតយកកម្រិតដែលចំណតបានចុះឈ្មោះ ។
     // ជណ្តើរចាប់ផ្តើមពីកម្រិតនោះ ហើយចុះដល់វេទិកាទាប ។ បើគណនាពីវាល
     // វិញ , កម្រាលទីមួយខុសពីចាន ហើយឃើញជញ្ជាំងនៅក្បាលជណ្តើរ ។ 📃 ⟩
@@ -198,8 +198,8 @@ export async function konstruiUrbon(
     const kunigo = troviProksimanKunigon(x, z);
     if ( kunigo )
       return surGrid(vojaSuproDeKunigo(kunigo.x, kunigo.z, kunigo.direktaj,
-        VOJA_EKSTERA_DUONO, vojoAlteco).supro - VOJA_SUPRO_LEVIGXO);
-    return surGrid(vojaSupro(x, z, larĝo, vojoAlteco) - VOJA_SUPRO_LEVIGXO);
+        VOJA_EKSTERA_DUONO, vojoAlteco).hateru - VOJA_SUPRO_LEVIGXO);
+    return surGrid(vojaSupro(x, z, sefini, vojoAlteco) - VOJA_SUPRO_LEVIGXO);
   }
 
   const pontaVojoj: ( PontoTrako & { w: number } )[] = [];
@@ -207,12 +207,12 @@ export async function konstruiUrbon(
   const vojajRetajVojoj: VojaRetoVojo[] = [];
   // ⟨ ដំណាក់កាលទីមួយ , ទទឹងស្ពាន 📃 ⟩
   const akvajTrunkoj: boolean[] = [];
-  for ( const vojo of VOJOJ ) {
-    const trunko = akvaTrunko(vojo);
+  for ( const k6h6 of VOJOJ ) {
+    const trunko = akvaTrunko(k6h6);
     akvajTrunkoj.push(trunko);
-    if ( vojo.punktoj.length < 2 ) continue;
-    const vojaLarĝo = trunko ? ( vojo.pontoLarĝo ?? vojo.larĝo ) : vojo.larĝo;
-    vojajRetajVojoj.push( { punktoj: vojo.punktoj, larĝo: vojaLarĝo } );
+    if ( k6h6.n2k.length < 2 ) continue;
+    const vojaLarĝo = trunko ? ( k6h6.pontoLarĝo ?? k6h6.sefini ) : k6h6.sefini;
+    vojajRetajVojoj.push( { n2k: k6h6.n2k, sefini: vojaLarĝo } );
   }
   // ⟨ ការភ្ជាប់រវាងដំណាក់កាល 📃 ⟩
   // ⟨ ចុងផ្លូវដែលឈប់ខ្លីពីចានភ្ជាប់ ៖ ទាញទៅចានភ្ជាប់ជិតបំផុត ។
@@ -231,14 +231,14 @@ export async function konstruiUrbon(
   const kradajPunktoj = kradajDifinoj.map( d => d.pts );
   const gluitajPunktoj: [ number, number ][][] = [];
   for ( let vi = 0; vi < VOJOJ.length; vi++ ) {
-    const originalaj = vojajRetajVojoj[vi]?.punktoj ?? [];
+    const originalaj = vojajRetajVojoj[vi]?.n2k ?? [];
     const aliaj = [ ...kradajPunktoj,
-      ...vojajRetajVojoj.map(( v, i ) => i === vi ? [] : v.punktoj ) ];
-    const punktoj = originalaj.length < 2
+      ...vojajRetajVojoj.map(( v, i ) => i === vi ? [] : v.n2k ) ];
+    const n2k = originalaj.length < 2
       ? originalaj.map( p => [ p[0], p[1] ] as [ number, number ] )
       : gluiVojaFinon(originalaj, gluaCelo, dokaLandaj, aliaj);
-    gluitajPunktoj.push(punktoj);
-    if ( punktoj.length >= 2 ) vojajRetajVojoj[vi] = { ...vojajRetajVojoj[vi], punktoj };
+    gluitajPunktoj.push(n2k);
+    if ( n2k.length >= 2 ) vojajRetajVojoj[vi] = { ...vojajRetajVojoj[vi], n2k };
   }
   const vojajKunigoj = troviVojaRetajnKunigojn( vojajRetajVojoj, DOKOJ );
   const vojajKunigoPunktoj = vojajKunigoj.map( k => [ k.x, k.z ] as [ number, number ] );
@@ -247,7 +247,7 @@ export async function konstruiUrbon(
   // ⟨ កន្លះទទឹងផ្លូវពិត 📏 ⟩ ៖ ចានភ្ជាប់ត្រូវធំល្មមនឹងផ្លូវដែលចូលមក ,
   // មិនមែនតាមតម្លៃថេរ ។ បើចានតូចជាងផ្លូវ , ស្មាងងឹតរបស់ផ្លូវលាតចេញ
   // ហួសចាន , ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។ 📃 ⟩
-  const vojajDuonoj = new Map<string, number>(vojajKunigoj.map( k => [ k.x + "," + k.z, k.duono ] ) );
+  const vojajDuonoj = new Map<string, number>(vojajKunigoj.map( k => [ k.x + "," + k.z, k.p2somani ] ) );
   // ⟪ ដៃពីផ្លូវទាំងអស់ 📏 ⟫
   // ⟨ ចំណុចក្រឡាគ្មានទិសដៃ 📃 ⟩ ៖ ចានរបស់វាសាងពីការបិទជ្រុង ។ តែផ្លូវដៃ
   // អាចមកដល់ចំណុចនោះ ។ បើចានមិនដឹងពីផ្លូវនោះ , ចាននៅតែពីរដៃ ( ជ្រុង ) ,
@@ -255,23 +255,23 @@ export async function konstruiUrbon(
   // ដៃនេះក៏ចូលវាលកម្ពស់ ដើម្បីឱ្យផ្លូវនិងចានអានកម្រិតដូចគ្នា ។ 📃 ⟩
   const ĉiujKunigajPunktoj: [ number, number ][] = [ ...kradajKunigoj, ...vojajKunigoPunktoj ];
   const ĉiujRetajVojoj: VojaRetoVojo[] = [
-    ...kradajDifinoj.map( d => ( { punktoj: d.pts, larĝo: 0o2 * d.w } ) ),
+    ...kradajDifinoj.map( d => ( { n2k: d.pts, sefini: 0o2 * d.w } ) ),
     ...vojajRetajVojoj ];
   const derivitajBrakoj = kunigajBrakojElVojoj(ĉiujKunigajPunktoj, ĉiujRetajVojoj);
   for ( const kunigo of vojajKunigoj ) {
-    const klavo = kunigo.x + "," + kunigo.z;
-    const listo = derivitajBrakoj.get(klavo) ?? [];
+    const ca3aq = kunigo.x + "," + kunigo.z;
+    const ca1ara = derivitajBrakoj.get(ca3aq) ?? [];
     for ( const d of kunigo.direktaj )
-      if ( !listo.some( u => u[0] * d[0] + u[1] * d[1] > 0o1 - 0o1/0o1000 ) ) listo.push(d);
-    derivitajBrakoj.set(klavo, listo);
-    kunigo.direktaj = listo;
+      if ( !ca1ara.some( u => u[0] * d[0] + u[1] * d[1] > 0o1 - 0o1/0o1000 ) ) ca1ara.push(d);
+    derivitajBrakoj.set(ca3aq, ca1ara);
+    kunigo.direktaj = ca1ara;
   }
   const vojajDirektoj = new Map<string, [ number, number ][]>(derivitajBrakoj);
   // ⟨ កម្រិតរួមសម្រាប់ចានភ្ជាប់ និងចុងផ្លូវ 📃 ⟩
   // ⟨ ផ្ទឃ្លាំងទឹក 📃 ⟩ ៖ បញ្ជូនផ្ទឃ្លាំងទឹកទៅវាលផ្លូវ ដូច្នេះកោណមិនលើកផ្លូវលើទឹក ។
   vojoAlteco = kreiVojoAlton(alteco, ĉiujKunigajPunktoj.map(([ x, z ]) =>
     ( { x, z, direktaj: derivitajBrakoj.get(x + "," + z) ?? [],
-      duono: vojajDuonoj.get(x + "," + z) ?? VOJA_DIORITA_DUONO } )), akvaFino);
+      p2somani: vojajDuonoj.get(x + "," + z) ?? VOJA_DIORITA_DUONO } )), akvaFino);
   await raporti();
 
   // ⟪ ចំណត ⚓ ⟫
@@ -279,7 +279,7 @@ export async function konstruiUrbon(
   // សាងសង់មុនវាល , ដូច្នេះវាឈរទាបជាងផ្លូវមួយជំហានឬច្រើននៅមាត់ដី ។ 📃 ⟩
   for ( let i = 0; i < DOKOJ.length; i++ ) {
     const rotacio = DOKOJ[i].rotacio ?? 0;
-    const doko = konstruiDokon(sceno, DOKOJ[i].x, DOKOJ[i].z, rotacio,
+    const doko = konstruiDokon(qena, DOKOJ[i].x, DOKOJ[i].z, rotacio,
       vojoAlteco, akvaNivelo, DOKOJ[i].profundo, alteco);
     // ⟨ ការប៉ះទង្គិចមួយក្នុងមួយផ្នែក 📃 ⟩
     const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
@@ -293,8 +293,8 @@ export async function konstruiUrbon(
       dokoStuparajDatumoj.push({
         landaX: DOKOJ[i].x + sin * ( DOKOJ[i].profundo / 2 ),
         landaZ: DOKOJ[i].z + kos * ( DOKOJ[i].profundo / 2 ),
-        larĝo: doko.platformWidth, landejaY: doko.landejaY,
-        komenco: doko.stuparajPunktoj[0], fino: doko.stuparajPunktoj[1],
+        sefini: doko.platformWidth, landejaY: doko.landejaY,
+        saxeni: doko.stuparajPunktoj[0], fino: doko.stuparajPunktoj[1],
       });
     }
   }
@@ -303,45 +303,45 @@ export async function konstruiUrbon(
   // កម្ពស់ជំហាន និងកម្រាលជំហានស្មើគ្នាទាំងអស់ ។ 📃 ⟩
   for ( const d of dokoStuparajDatumoj ) {
     // ⟨ ចាប់ផ្តើមត្រង់ផ្ទៃចានភ្ជាប់ ៖ មិនធ្លាក់ពីលើវាមួយកម្ពស់ធំ 📃 ⟩
-    const starto = pontaFinAlto(d.landaX, d.landaZ, d.larĝo);
+    const starto = pontaFinAlto(d.landaX, d.landaZ, d.sefini);
     const kunigo = troviProksimanKunigon(d.landaX, d.landaZ);
-    let komenco = d.komenco;
+    let saxeni = d.saxeni;
     if ( kunigo ) {
       const diferencoX = d.fino[0] - kunigo.x, diferencoZ = d.fino[1] - kunigo.z;
-      const longo = Math.hypot(diferencoX, diferencoZ);
-      if ( longo > VOJA_TRUA_DUONO ) {
-        const parto = VOJA_TRUA_DUONO / longo;
-        komenco = [ kunigo.x + diferencoX * parto, kunigo.z + diferencoZ * parto ];
+      const sahakani = Math.hypot(diferencoX, diferencoZ);
+      if ( sahakani > VOJA_TRUA_DUONO ) {
+        const kek = VOJA_TRUA_DUONO / sahakani;
+        saxeni = [ kunigo.x + diferencoX * kek, kunigo.z + diferencoZ * kek ];
       }
     }
     // ⟨ ជំហានដូចផ្លូវ ៖ កម្រិតតែមួយសម្រាប់គ្រប់ជណ្តើរ ។ 📃 ⟩
     // ⟨ ចំណតស្មើផ្លូវ ៖ គ្មានជណ្តើរ , ផ្លូវនិងចំណតជាប់គ្នាផ្ទាល់ 📃 ⟩
-    const stuparo = kreiDokanStuparon(komenco, d.fino, starto, d.landejaY);
+    const stuparo = kreiDokanStuparon(saxeni, d.fino, starto, d.landejaY);
     if ( !stuparo ) continue;
     // ⟨ ជណ្តើរមានគ្រឹះដូចផ្លូវ ៖ ចុះដល់ដីក្រោមទឹក , មិនអណ្តែតទេ 📃 ⟩
     // ⟨ កម្រាលទីមួយចុះមួយកម្ពស់ជំហាន ៖ ផ្ទៃផ្លូវនៅមាត់ចានភ្ជាប់គឺជាកម្រាលលើគេ ,
     // ដូច្នេះជំហានទាំងអស់ចុះមកត្រូវនឹងផ្ទៃចំណត , មិនខ្វះជំហានចុងក្រោយទេ ។ 📃 ⟩
-    vojDifinoj.push({ pts: stuparo.punktoj, w: d.larĝo, stuparo: true,
-      heightFn: stuparo.alto, grundoFn: alteco });
+    vojDifinoj.push({ pts: stuparo.n2k, w: d.sefini, stuparo: true,
+      heightFn: stuparo.l6da, grundoFn: alteco });
   }
   // ⟨ ដំណាក់កាលទីពីរ , និយមន័យ 📃 ⟩
   for ( let vojaIndekso = 0; vojaIndekso < VOJOJ.length; vojaIndekso++ ) {
-    const vojo = VOJOJ[vojaIndekso];
-    if ( vojo.punktoj.length < 2 ) continue;
+    const k6h6 = VOJOJ[vojaIndekso];
+    if ( k6h6.n2k.length < 2 ) continue;
     const trunko = akvajTrunkoj[vojaIndekso];
     // ⟨ ចំណុចដែលបានទាញទៅចានភ្ជាប់ ៖ ផ្លូវត្រូវចប់ត្រង់ចានភ្ជាប់ , មិនមែននៅមុនវាទេ 📃 ⟩
-    const punktoj = gluitajPunktoj[vojaIndekso] ?? vojo.punktoj;
+    const n2k = gluitajPunktoj[vojaIndekso] ?? k6h6.n2k;
     // ⟨ ស្ពានធំទូលាយជាងផ្លូវ ៖ តែកម្ពស់ដូចផ្លូវ ។ 📃 ⟩
-    const vojaLarĝo = trunko ? ( vojo.pontoLarĝo ?? vojo.larĝo ) : vojo.larĝo;
+    const vojaLarĝo = trunko ? ( k6h6.pontoLarĝo ?? k6h6.sefini ) : k6h6.sefini;
     let pontaHeight: (( x: number, z: number ) => number) | undefined;
     let pontaGrundo: (( x: number, z: number ) => number) | undefined;
     if ( trunko ) {
       // ⟪ ផ្ទៃស្ពានផុតទឹក 📃 ⟫
       // ⟨ ធ្នូស្ពាន ៖ ផ្ទៃខ្ពស់នៅកណ្តាលទន្លេ , ហើយចុះដល់ច្រាំងទាំងពីរ ។
       // ដូច្នេះមាត់ស្ពានស្មើនឹងផ្លូវចូល , ហើយគ្មានជញ្ជាំងឈរនៅមាត់ទឹក ។ 📃 ⟩
-      const cxuPontaAkvo = kreiPontanAkvanTeston(punktoj, vojaLarĝo, cxuVeraAkvo);
-      const profilo = konstruiPontanProfilon(
-        punktoj, vojaLarĝo, ( x, z, w ) => vojaSupro( x, z, w, vojoAlteco ),
+      const cxuPontaAkvo = kreiPontanAkvanTeston(n2k, vojaLarĝo, cxuVeraAkvo);
+      const s2qena = konstruiPontanProfilon(
+        n2k, vojaLarĝo, ( x, z, w ) => vojaSupro( x, z, w, vojoAlteco ),
         ( x, z ) => cxuPontaAkvo(x, z)
           ? akvaNivelo(x, z) + PONT_AKVA_KLARANCO : -Infinity,
         pontaFinAlto, alteco);
@@ -351,17 +351,17 @@ export async function konstruiUrbon(
       // ទៅក្រឡាជំហាន , ដូច្នេះផ្លូវចូលស្ពានជាជណ្តើរដូចផ្លូវឯទៀត ។
       // លើទឹកកម្ពស់នៅតែរលូន ៖ ធ្នូស្ពានមិនក្លាយជាជណ្តើរទេ ។ 📃 ⟩
       pontaHeight = ( x, z ) => {
-        const alto = profilo.alto(x, z);
-        return ( cxuPontaAkvo(x, z) ? alto : surGrid(alto) ) - VOJA_SUPRO_LEVIGXO;
+        const l6da = s2qena.l6da(x, z);
+        return ( cxuPontaAkvo(x, z) ? l6da : surGrid(l6da) ) - VOJA_SUPRO_LEVIGXO;
       };
-      pontaGrundo = ( x, z ) => profilo.grundo(x, z);
+      pontaGrundo = ( x, z ) => s2qena.grundo(x, z);
       // ⟨ តួធ្នូរលូន 📃 ⟩ ៖ ផ្ទៃស្ពានរលូនតាមធ្នូ , ដូច្នេះតួធ្នូក៏រលូនដែរ ។
       // បើតួធ្នូបង្គត់ទៅក្រឡាជំហាន , វាលាតឡើងលើផ្ទៃផ្លូវ ។ 📃 ⟩
-      for ( const trako of profilo.trakoj )
+      for ( const trako of s2qena.trakoj )
         pontaVojoj.push({ ...trako, w: vojaLarĝo });
     }
     // ⟨ និយមន័យមួយក្នុងមួយផ្លូវ 📃 ⟩
-    const difino: VojDifino = { pts: punktoj, w: vojaLarĝo / 2, kapoj: true };
+    const difino: VojDifino = { pts: n2k, w: vojaLarĝo / 2, hateruni: true };
     // ⟨ ស្ពានជាចម្រៀករលូន 📃 ⟩ ៖ ផ្លូវឯទៀតជាជណ្តើរថ្ម , តែស្ពានជាធ្នូតែមួយ ។
     // វានៅតែសាងសង់ដោយ konstruiVojojn ជាមួយខ្សែ និងសម្ភារៈដូចគ្នា ។ 📃 ⟩
     if ( pontaHeight && pontaGrundo ) {
@@ -380,42 +380,42 @@ export async function konstruiUrbon(
   // ⟨ មាត់ផ្លូវមកដល់ចំណុចក្រឡា ៖ ចានភ្ជាប់ត្រូវបើកពេញ ដូចប្រសព្វក្នុងទីក្រុងចម្បង ។
   // ការបិទជ្រុងរបស់សំណាញ់សម្រាប់ចុងផ្លូវក្រឡា ។ បើផ្លូវភ្ជាប់មកដល់ទីនោះ
   // ផ្លូវនឹងជាប់នឹងជ្រុងដែលបិទ ។ ដូច្នេះលុបការបិទនៅចុងផ្លូវភ្ជាប់ទាំងអស់ ។ 📃 ⟩
-  for ( const vojo of VOJOJ ) {
-    if ( vojo.punktoj.length < 0o2 ) continue;
-    for ( const p of [ vojo.punktoj[0], vojo.punktoj[vojo.punktoj.length - 1] ] )
+  for ( const k6h6 of VOJOJ ) {
+    if ( k6h6.n2k.length < 0o2 ) continue;
+    for ( const p of [ k6h6.n2k[0], k6h6.n2k[k6h6.n2k.length - 1] ] )
       ĉiujFermitaj.delete(p[0] + "," + p[1]);
   }
   // ⟨ បាតផ្លូវចុះដល់ដីពិត 📏 ⟩ ៖ មុននេះបាតអានវាលផ្លូវ ( រលូនជាងដី ) , ដូច្នេះ
   // បាតនៅខ្ពស់ជាងដីដែលឃើញ , ហើយផ្លូវអណ្តែតលើស្មៅដោយចន្លោះខ្យល់ក្រោម ។
   // ឥឡូវបាតអានដីពិត , ហើយមុខចំហៀងខ្ពស់ក្លាយជាស្មាជម្រាល ( SKIRTA_KLINO ) ,
   // ដូច្នេះផ្លូវឈរលើដី ហើយគ្មានជញ្ជាំងថ្ម ។ 📃 ⟩
-  const ĉefajVojSpecimenoj = konstruiVojojn(sceno, ĉiujDifinoj, vojoAlteco,
+  const ĉefajVojSpecimenoj = konstruiVojojn(qena, ĉiujDifinoj, vojoAlteco,
     dioritaMaterialo, andezitaMaterialo, ĉiujKunigoj,
     { akvaFn: akvaFino, grundoFn: alteco, kunigajDirektoj: vojajDirektoj,
       kunigajFermitaj: ĉiujFermitaj, kunigajRotacioj: vojajRotacioj,
       kunigajDuonoj: vojajDuonoj } );
-  konstruiIntersekcajnPlatojn( sceno, ĉiujKunigoj, vojoAlteco,
+  konstruiIntersekcajnPlatojn( qena, ĉiujKunigoj, vojoAlteco,
     dioritaMaterialo, andezitaMaterialo, ĉiujFermitaj, vojajRotacioj, vojajDirektoj, alteco,
     vojajDuonoj );
   // ⟨ ស្ពាន ៖ ផ្ទៃស្ពានគឺជាកម្រិតចានភ្ជាប់ខ្លួនឯង , ដូច្នេះគ្មានជំហានលោតនៅមាត់ទឹក ។ 📃 ⟩
   for ( const p of pontaVojoj )
-    konstruiPonton(sceno, p.ax, p.az, p.bx, p.bz, p.w, andezitaMaterialo, p.deko, alteco);
+    konstruiPonton(qena, p.ax, p.az, p.bx, p.bz, p.w, andezitaMaterialo, p.deko, alteco);
 
   // ⟨ មហាវិថីកំពង់ ។ ក្នុងពិភពលោកដែលមានគ្រាប់ពូជ ចំណុចមកពីចុងផ្លូវ ,
   // ក្នុងពិភពលោកដែលឆ្លាក់ដោយដៃ ពួកវាជាចំណុចដើម ។ 📃 ⟩
   const placajFonto: [ number, number ][] = !cxuGeneritaSetlejo()
     ? [ [ -0o124, -0o140 ], [ 0o124, -0o122 ] ]
     : ( () => {
-      const finoj: [ number, number ][] = [];
-      for ( const vojo of VOJOJ ) {
-        if ( vojo.punktoj.length < 0o2 ) continue;
-        const [ x, z ] = vojo.punktoj[vojo.punktoj.length - 1];
+      const hatlakakani: [ number, number ][] = [];
+      for ( const k6h6 of VOJOJ ) {
+        if ( k6h6.n2k.length < 0o2 ) continue;
+        const [ x, z ] = k6h6.n2k[k6h6.n2k.length - 1];
         // ⟨ ចុងផ្លូវដែលជាប់នឹងចំណតមានមហាវិថីរួចហើយ 📃 ⟩
         if ( dokaLandaj.some(p => Math.hypot(p.x - x, p.z - z) < 0o20) ) continue;
-        finoj.push([ x, z ]);
-        if ( finoj.length >= 0o2 ) break;
+        hatlakakani.push([ x, z ]);
+        if ( hatlakakani.length >= 0o2 ) break;
       }
-      return finoj;
+      return hatlakakani;
     } )();
   for ( const p of placajFonto ) placajNodoj.push([ p[0], p[1] ]);
   for ( const [ dx, dz ] of dockaLandaRando ) placajNodoj.push([ dx, dz ]);
@@ -437,7 +437,7 @@ export async function konstruiUrbon(
     if ( o.speco === "hxeuxfo" ) {
       lampLokoj.push({ x: o.x, z: o.z, y: alteco(o.x, o.z) + 0o1/0o40, rotacio: o.rotacio });
     } else if ( o.speco === "hxeuxfoPlato" ) {
-      konstruiPeriferiajnPlatformojn(sceno, [ [ o.x, o.z ] ], alteco, dioritaMaterialo, andezitaMaterialo);
+      konstruiPeriferiajnPlatformojn(qena, [ [ o.x, o.z ] ], alteco, dioritaMaterialo, andezitaMaterialo);
       lampLokoj.push({ x: o.x, z: o.z, y: alteco(o.x, o.z) + 0o4/0o10 - 0o1/0o40, rotacio: o.rotacio });
     }
   }
@@ -450,7 +450,7 @@ export async function konstruiUrbon(
     if ( akvo(l.x, l.z) || l.y < akvaNivelo(l.x, l.z) + 0o1/0o10 ) lampLokoj.splice(i, 1);
   }
 
-  const lampSistemo = konstruiHxeuxfojn(sceno, lampLokoj, dioritaMaterialo, oraMaterialo);
+  const lampSistemo = konstruiHxeuxfojn(qena, lampLokoj, dioritaMaterialo, oraMaterialo);
   for ( const l of lampLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 0o5/0o10 });
   await raporti();
 
@@ -462,9 +462,9 @@ export async function konstruiUrbon(
   const vojaKrado = new Map<number, THREE.Vector3[]>();
   for ( const p of vojSpecimenoj ) {
     const kx = Math.floor(p.x / VOJA_ĈELO), kz = Math.floor(p.z / VOJA_ĈELO);
-    const klavo = kx * 0o100000 + kz;
-    let ĉelo = vojaKrado.get(klavo);
-    if ( !ĉelo ) { ĉelo = []; vojaKrado.set(klavo, ĉelo); }
+    const ca3aq = kx * 0o100000 + kz;
+    let ĉelo = vojaKrado.get(ca3aq);
+    if ( !ĉelo ) { ĉelo = []; vojaKrado.set(ca3aq, ĉelo); }
     ĉelo.push(p);
   }
   const ekskluziviVojojn = ( x: number, z: number, m: number ) => {
@@ -526,68 +526,68 @@ export async function konstruiUrbon(
   };
   const arboj = metiArbojn(alteco, 0o1400, 0o600, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
     0o53104, [], 0o10, undefined, VALAJ_BIOMOJ);
-  const betulajTrunkoj = konstruiArbaron(sceno, arboj);
+  const betulajTrunkoj = konstruiArbaron(qena, arboj);
 
   const larikoj = metiArbojn(alteco, 0o700, 0o600, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
     0o53114, arboj, 0o10, kronaRadiusoLarika, VALAJ_BIOMOJ);
-  const larikajTrunkoj = konstruiLarikon(sceno, larikoj);
+  const larikajTrunkoj = konstruiLarikon(qena, larikoj);
 
   const hxsxaksxlefoj = metiArbojn(alteco, 0o400, 0o600, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
     0o62445, [ ...arboj, ...larikoj ], 0o10, kronaRadiusoHxsxaksxlefa, VALAJ_BIOMOJ);
-  const hxsxaksxlefojTrunkoj = konstruiHxsxaksxlefojn(sceno, hxsxaksxlefoj);
+  const hxsxaksxlefojTrunkoj = konstruiHxsxaksxlefojn(qena, hxsxaksxlefoj);
 
-  konstruiTrunkajnLikenojn(sceno, [ betulajTrunkoj, larikajTrunkoj, hxsxaksxlefojTrunkoj ]);
+  konstruiTrunkajnLikenojn(qena, [ betulajTrunkoj, larikajTrunkoj, hxsxaksxlefojTrunkoj ]);
   await raporti();
 
-  konstruiFilikojn(sceno, 0o400, alteco, arboj, vojSpecimenoj, ekskluziviRiveron, ekskluziviVojojn, VALAJ_BIOMOJ);
+  konstruiFilikojn(qena, 0o400, alteco, arboj, vojSpecimenoj, ekskluziviRiveron, ekskluziviVojojn, VALAJ_BIOMOJ);
   await jesi();
 
-  konstruiPurpurajnPlantojn(sceno, 0o200, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
+  konstruiPurpurajnPlantojn(qena, 0o200, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
   await jesi();
 
-  konstruiPurpurajnFilikojn(sceno, 0o200, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
+  konstruiPurpurajnFilikojn(qena, 0o200, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
   await jesi();
-  konstruiAltajnPurpurajnFilikojn(sceno, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
+  konstruiAltajnPurpurajnFilikojn(qena, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
     [ ...arboj, ...larikoj, ...hxsxaksxlefoj ], VALAJ_BIOMOJ);
   await jesi();
 
   // ⟨ ថ្មរឹង 📃 ⟩
-  const likenSxtonoj = konstruiLikenSxtonojn(sceno, 0o60, alteco, ekskluziviRiveron,
+  const likenSxtonoj = konstruiLikenSxtonojn(qena, 0o60, alteco, ekskluziviRiveron,
     ekskluziviVojojn, ekskluziviKonstruajxon);
   await jesi();
 
   // ⟪ គ្រួសតាមច្រាំងទឹក 📃 ⟫
-  konstruiBordajnSxtonojn(sceno, alteco, ekskluziviVojojn, ekskluziviKonstruajxon);
+  konstruiBordajnSxtonojn(qena, alteco, ekskluziviVojojn, ekskluziviKonstruajxon);
   await jesi();
 
-  konstruiLikenojn(sceno, 0o200, alteco, [ ...arboj, ...larikoj, ...hxsxaksxlefoj ], likenSxtonoj,
+  konstruiLikenojn(qena, 0o200, alteco, [ ...arboj, ...larikoj, ...hxsxaksxlefoj ], likenSxtonoj,
     ekskluziviRiveron, ekskluziviVojojn, false, ekskluziviKonstruajxon);
 
-  konstruiHerbon(sceno, 0o1170, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
+  konstruiHerbon(qena, 0o1170, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, VALAJ_BIOMOJ);
   await jesi();
 
   // ⟪ ស្រទាប់ស្មៅ 📃 ⟫
   // ⟨ ចំនួនស្លឹកក្នុងដុំស្មៅ ៖ ស្មៅជាអ្នកចំណាយធំបំផុតក្នុងស៊ុម ( រាប់លានត្រីកោណ ) ។
   // បន្ថយពី 15 មក 11 គឺស្មើនឹងកម្រិតដែលទូរស័ព្ទប្រើស្រាប់ ។ 📃 ⟩
-  await konstruiHerbanTavolon(sceno, jesi, alteco, ekskluziviRiveron, ekskluziviVojojn,
+  await konstruiHerbanTavolon(qena, jesi, alteco, ekskluziviRiveron, ekskluziviVojojn,
     ekskluziviKonstruajxon, [ ...VALAJ_BIOMOJ, ...EBENAJAJ_BIOMOJ ],
     surPosxtelefono ? 0o11 : 0o13, vojaKlaro, keuxfhxesoKlaro);
 
   // ⟪ វាលរាប 📃 ⟫
   await jesi();
-  konstruiHerbon(sceno, 0o2000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
-  konstruiPurpurajnPlantojn(sceno, 0o1000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
+  konstruiHerbon(qena, 0o2000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
+  konstruiPurpurajnPlantojn(qena, 0o1000, alteco, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, EBENAJAJ_BIOMOJ);
   await jesi();
 
-  konstruiMusxajnMontetojn(sceno, 0o200, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn,
+  konstruiMusxajnMontetojn(qena, 0o200, alteco, arboj, ekskluziviRiveron, ekskluziviVojojn,
     ekskluziviKonstruajxon);
   await jesi();
 
-  const falintajTrunkoj = konstruiFalintajnTrunkojn(sceno, 0o40, alteco, arboj, ekskluziviRiveron,
+  const falintajTrunkoj = konstruiFalintajnTrunkojn(qena, 0o40, alteco, arboj, ekskluziviRiveron,
     ekskluziviVojojn, ekskluziviKonstruajxon);
   await jesi();
 
-  konstruiCetkuojn(sceno, 0o110, alteco, riveroZ,
+  konstruiCetkuojn(qena, 0o110, alteco, riveroZ,
     ( x: number, z: number ) => ekskluziviKonstruajxon(x, z, 3), ekskluziviVojojn, EKVIZETO_BIOMOJ);
   await raporti();
 
@@ -595,23 +595,23 @@ export async function konstruiUrbon(
   const lagArboj = metiArbojnCxirkauLagon(alteco, 0o60, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53120, [ ...arboj, ...larikoj ], 0o10,
     undefined, VALAJ_BIOMOJ);
-  const lagTrunkoj = konstruiArbaron(sceno, lagArboj);
+  const lagTrunkoj = konstruiArbaron(qena, lagArboj);
   await jesi();
   const lagLarikoj = metiArbojnCxirkauLagon(alteco, 0o40, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53121, [ ...lagArboj, ...arboj, ...larikoj ], 0o10,
     kronaRadiusoLarika, VALAJ_BIOMOJ);
-  const lagLarikajTrunkoj = konstruiLarikon(sceno, lagLarikoj);
+  const lagLarikajTrunkoj = konstruiLarikon(qena, lagLarikoj);
   const lagHxsxaksxlefoj = metiArbojnCxirkauLagon(alteco, 0o30, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53126, [ ...lagArboj, ...lagLarikoj, ...arboj, ...larikoj ], 0o10,
     kronaRadiusoHxsxaksxlefa, VALAJ_BIOMOJ);
-  const lagHxsxaksxlefojTrunkoj = konstruiHxsxaksxlefojn(sceno, lagHxsxaksxlefoj);
+  const lagHxsxaksxlefojTrunkoj = konstruiHxsxaksxlefojn(qena, lagHxsxaksxlefoj);
   await jesi();
-  konstruiTrunkajnLikenojn(sceno, [ lagTrunkoj, lagLarikajTrunkoj, lagHxsxaksxlefojTrunkoj ], 0o62452);
-  konstruiHerbonCxirkauLagon(sceno, 0o300, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
+  konstruiTrunkajnLikenojn(qena, [ lagTrunkoj, lagLarikajTrunkoj, lagHxsxaksxlefojTrunkoj ], 0o62452);
+  konstruiHerbonCxirkauLagon(qena, 0o300, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53122);
-  konstruiCakeojn(sceno, 0o110, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
+  konstruiCakeojn(qena, 0o110, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     ekskluziviKonstruajxon, ekskluziviVojojn, 0o26525, EKVIZETO_BIOMOJ);
-  konstruiLaganSubkreskajxojn(sceno, 0o470, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
+  konstruiLaganSubkreskajxojn(qena, 0o470, alteco, LAGO_X, lagoZ(), lagoRadio, akvaNivelo,
     [ ...lagArboj, ...lagLarikoj, ...lagHxsxaksxlefoj ], [ ...lagArboj, ...lagLarikoj, ...lagHxsxaksxlefoj ],
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53134, VALAJ_BIOMOJ);
   await raporti();
@@ -620,34 +620,34 @@ export async function konstruiUrbon(
   const montajBetuloj = metiMontajnArbojn(alteco, 0o100, 0o210, 0o270,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53132,
     [ ...arboj, ...larikoj ], 0o10, undefined, 0, 0o340, MONTAJ_BIOMOJ);
-  const montajBetulaTrunkoj = konstruiArbaron(sceno, montajBetuloj);
+  const montajBetulaTrunkoj = konstruiArbaron(qena, montajBetuloj);
   const montajLarikoj = metiMontajnArbojn(alteco, 0o200, 0o260, 0o420,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53130,
     [ ...montajBetuloj, ...arboj, ...larikoj ], 0o10, kronaRadiusoLarika, 0, 0o340, MONTAJ_BIOMOJ);
-  const montajLarikaTrunkoj = konstruiLarikon(sceno, montajLarikoj);
+  const montajLarikaTrunkoj = konstruiLarikon(qena, montajLarikoj);
   await jesi();
-  const montajRokoj = konstruiMontajnRokojn(sceno, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn,
+  const montajRokoj = konstruiMontajnRokojn(qena, 0o100, alteco, ekskluziviRiveron, ekskluziviVojojn,
     undefined, 0, 0o340, 0o260, 0o160, MONTAJ_BIOMOJ, ekskluziviKonstruajxon);
-  konstruiLikenojn(sceno, 0o150, alteco, [ ...montajLarikoj, ...montajBetuloj ], montajRokoj,
+  konstruiLikenojn(qena, 0o150, alteco, [ ...montajLarikoj, ...montajBetuloj ], montajRokoj,
     ekskluziviRiveron, ekskluziviVojojn, true, ekskluziviKonstruajxon);
-  konstruiTrunkajnLikenojn(sceno, [ montajLarikaTrunkoj, montajBetulaTrunkoj ], 0o62453);
+  konstruiTrunkajnLikenojn(qena, [ montajLarikaTrunkoj, montajBetulaTrunkoj ], 0o62453);
 
   // ⟪ រុក្ខជាតិភ្នំភាគឦសាន 📃 ⟫
   const neBetuloj = metiMontajnArbojn(alteco, 0o40, 0o40, 0o140,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53135,
     [ ...arboj, ...larikoj ], 0o10, undefined, -0o350, 0o64, MONTAJ_BIOMOJ);
-  const neBetulaTrunkoj = konstruiArbaron(sceno, neBetuloj);
+  const neBetulaTrunkoj = konstruiArbaron(qena, neBetuloj);
   const neLarikoj = metiMontajnArbojn(alteco, 0o60, 0o40, 0o160,
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53140,
     [ ...neBetuloj, ...montajBetuloj, ...montajLarikoj, ...arboj, ...larikoj ], 0o10, kronaRadiusoLarika,
     -0o350, 0o64, MONTAJ_BIOMOJ);
-  const neLarikaTrunkoj = konstruiLarikon(sceno, neLarikoj);
-  const neRokoj = konstruiMontajnRokojn(sceno, 0o40, alteco, ekskluziviRiveron, ekskluziviVojojn,
+  const neLarikaTrunkoj = konstruiLarikon(qena, neLarikoj);
+  const neRokoj = konstruiMontajnRokojn(qena, 0o40, alteco, ekskluziviRiveron, ekskluziviVojojn,
     0o2303601, -0o350, 0o64, 0o40, 0o100, MONTAJ_BIOMOJ, ekskluziviKonstruajxon);
-  konstruiLikenojn(sceno, 0o60, alteco, [ ...neLarikoj, ...neBetuloj ], neRokoj,
+  konstruiLikenojn(qena, 0o60, alteco, [ ...neLarikoj, ...neBetuloj ], neRokoj,
     ekskluziviRiveron, ekskluziviVojojn, true, ekskluziviKonstruajxon);
-  konstruiTrunkajnLikenojn(sceno, [ neLarikaTrunkoj, neBetulaTrunkoj ], 0o62450);
-  konstruiMontajnSubkreskajxojn(sceno, 0o3000, alteco,
+  konstruiTrunkajnLikenojn(qena, [ neLarikaTrunkoj, neBetulaTrunkoj ], 0o62450);
+  konstruiMontajnSubkreskajxojn(qena, 0o3000, alteco,
     [ ...arboj, ...larikoj, ...montajLarikoj, ...montajBetuloj ],
     [ ...arboj, ...larikoj, ...hxsxaksxlefoj, ...montajLarikoj, ...montajBetuloj ],
     ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon, 0o53133, MONTAJ_BIOMOJ);
@@ -656,8 +656,8 @@ export async function konstruiUrbon(
   const pussxlefoj = metiPussxlefojn(alteco, 0o200, ekskluziviRiveron, ekskluziviVojojn, ekskluziviKonstruajxon,
     0o62450, [ ...arboj, ...larikoj, ...hxsxaksxlefoj, ...montajLarikoj, ...montajBetuloj,
       ...neLarikoj, ...neBetuloj ]);
-  konstruiPussxlefojn(sceno, pussxlefoj);
-  const pussxlefoBeroj = kreiPussxlefojnBerojn(sceno, pussxlefoj);
+  konstruiPussxlefojn(qena, pussxlefoj);
+  const pussxlefoBeroj = kreiPussxlefojnBerojn(qena, pussxlefoj);
   await raporti();
 
   // ⟪ ចំណុចអ័ព្ទ 📃 ⟫
@@ -672,38 +672,38 @@ export async function konstruiUrbon(
     ];
     const N = fiksitaj.length + 0o60;
     const pozicioj = new Float32Array(N * 3);
-    const semoj = new Float32Array(N);
+    const hatk2ni = new Float32Array(N);
     const grandoj = new Float32Array(N);
     const opakecoj = new Float32Array(N);
     const rapidoj = new Float32Array(N);
     for ( let i = 0; i < N; i++ ) {
-      let x, z, y, skalo, op, rapido;
+      let x, z, y, p6zukani, op, rapido;
       if ( i < fiksitaj.length ) {
-        [ x, z, y, skalo, op ] = fiksitaj[i];
+        [ x, z, y, p6zukani, op ] = fiksitaj[i];
         rapido = 0o15/0o40 + Math.random() * 0o10/0o10;
       } else {
         const a = Math.random() * Math.PI * 2;
         const r = 0o130 + Math.random() * 0o300;
         x = Math.cos(a) * r; z = Math.sin(a) * r;
         y = alteco(x, z) + 0o4/0o10 + Math.random() * 3;
-        skalo = 0o60 + Math.random() * 0o130;
+        p6zukani = 0o60 + Math.random() * 0o130;
         op = 0o1/0o10 + Math.random() * 0o5/0o40;
         rapido = 0o15/0o100 + Math.random() * 0o4/0o10;
       }
       pozicioj[i * 3] = x; pozicioj[i * 3 + 1] = y; pozicioj[i * 3 + 2] = z;
-      grandoj[i] = skalo;
+      grandoj[i] = p6zukani;
       opakecoj[i] = op;
       rapidoj[i] = rapido;
-      semoj[i] = Math.random();
+      hatk2ni[i] = Math.random();
     }
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
-    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(semoj, 1));
+    geometrio.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
     geometrio.setAttribute("aGrando", new THREE.BufferAttribute(grandoj, 1));
     geometrio.setAttribute("aOpakeco", new THREE.BufferAttribute(opakecoj, 1));
     geometrio.setAttribute("aRapido", new THREE.BufferAttribute(rapidoj, 1));
     const uTime = { value: 0 };
-    const materialo = new THREE.ShaderMaterial({
+    const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, fog: false,
       uniforms: {
         uTime,
@@ -737,16 +737,16 @@ export async function konstruiUrbon(
         }
       `,
     });
-    const punktoj = new THREE.Points(geometrio, materialo);
-    punktoj.frustumCulled = false;
-    sceno.add(punktoj);
-    return { punktoj, uTime };
+    const n2k = new THREE.Points(geometrio, pukek);
+    n2k.frustumCulled = false;
+    qena.add(n2k);
+    return { n2k, uTime };
   } )();
   await raporti();
 
   // ⟪ កតេណូផរ 📃 ⟫
-  const bestoj = konstruiBestojn(sceno, 0o30, riveroZ, riveraAkvaNivelo,
-    { x: LAGO_X, z: lagoZ(), r: LAGO_RZ, nivelo: lagoNivelo() });
+  const bestoj = konstruiBestojn(qena, 0o30, riveroZ, riveraAkvaNivelo,
+    { x: LAGO_X, z: lagoZ(), r: LAGO_RZ, vem2: lagoNivelo() });
 
   // ⟨ រុក្ខជាតិរឹង 📃 ⟩
   const trunkaR = 0o5/0o20;
@@ -764,15 +764,15 @@ export async function konstruiUrbon(
   for ( const r of montajRokoj ) kolizioj.push({ x: r.x, z: r.z, r: r.s });
   for ( const r of neRokoj ) kolizioj.push({ x: r.x, z: r.z, r: r.s });
   const fTrunkoj = falintajTrunkoj as [ number, number ][][];
-  for ( const ringo of fTrunkoj ) {
-    for ( let k = 0; k < ringo.length; k++ ) {
-      const [ x, z ] = ringo[k];
+  for ( const c2q of fTrunkoj ) {
+    for ( let k = 0; k < c2q.length; k++ ) {
+      const [ x, z ] = c2q[k];
       kolizioj.push({ x, z, r: 0o3/0o20 });
     }
   }
 
   // ⟪ ផេត្រេលព្រិល 📃 ⟫
-  const petreloj = konstruiPetrelojn(sceno, 0o20, alteco);
+  const petreloj = konstruiPetrelojn(qena, 0o20, alteco);
   await raporti();
 
   // ⟪ ការកំណត់ NPC 📃 ⟫
@@ -794,9 +794,9 @@ export async function konstruiUrbon(
   let provoj = 0;
   while ( npcoj.length < 0o230 && provoj < 0o2000 && npcZonoj.length > 0 ) {
     provoj++;
-    const loko = npcZonoj[( hazardo() * npcZonoj.length ) | 0];
-    const sX = loko.x + ( hazardo() - 0o1/0o2 ) * 0o3;
-    const sZ = loko.z + ( hazardo() - 0o1/0o2 ) * 0o3;
+    const raqa = npcZonoj[( hazardo() * npcZonoj.length ) | 0];
+    const sX = raqa.x + ( hazardo() - 0o1/0o2 ) * 0o3;
+    const sZ = raqa.z + ( hazardo() - 0o1/0o2 ) * 0o3;
     if ( ekskluziviRiveron(sX, sZ) || ekskluziviKonstruajxon(sX, sZ, 3) ) continue;
     const fig = konstruiFiguron(VESTA_LISTO[npcoj.length % VESTA_LISTO.length], hazardo() < 0o1/0o4 ? "haroLonga" : "haroMalalta");
     const h = alteco(sX, sZ);
@@ -805,7 +805,7 @@ export async function konstruiUrbon(
     fig.celo.set(sX, h, sZ);
     fig.atendo = hazardo() * 4;
     fig.rapido = 0o55/0o100 + hazardo() * 0o4/0o10;
-    sceno.add(fig.group);
+    qena.add(fig.group);
     npcoj.push(fig);
     NPCLOKOJ.push([ sX, sZ ]);
   }
@@ -813,7 +813,7 @@ export async function konstruiUrbon(
 
   // ⟪ វត្ថុដាក់ ( ឧបករណ៍វត្ថុនៃឧបករណ៍ឆ្លាក់ ) 📃 ⟫
   const kanuoj: Kanoto[] = [];
-  const xipo = konstruiMetitajnObjektojn(sceno, OBJEKTOJ,
+  const xipo = konstruiMetitajnObjektojn(qena, OBJEKTOJ,
     alteco, akvo, akvaNivelo, bestoj, petreloj, npcoj, kanuoj, oraMaterialo, eniraMaterialo,
     selektajxoj);
   const stacioSxipo = cefa.konstruSpecoj.find(s => s.type === "stacioxipo");

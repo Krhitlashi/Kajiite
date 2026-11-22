@@ -34,7 +34,7 @@ export function fiksuKradon(v: number, n: number): number {
     @param krado ( ArrayLike<number> ) - តារាង n × n
     @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
     @param fx, fz ( number ) - កូអរដោនេក្រឡា
-@returns valoro ( number ) - តម្លៃដែលបានអន្តរប៉ូល */
+@returns skek2 ( number ) - តម្លៃដែលបានអន្តរប៉ូល */
 export function bikubaSpecimeno(krado: ArrayLike<number>, n: number, fx: number, fz: number): number {
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;

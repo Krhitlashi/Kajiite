@@ -17,7 +17,7 @@ export interface IkrhiaDato {
 
 /* ចំនួនថ្ងៃក្នុងមួយឆ្នាំ
     @param jaro ( number ) - ឆ្នាំអ៊ីគ្រីយ៉ា រួមទាំង 0 និងឆ្នាំអវិជ្ជមាន។
-@returns longo
+@returns sahakani
     0o556 ក្នុងឆ្នាំបង្គ្រប់ និង 0o555 ក្នុងឆ្នាំធម្មតា។ */
 export function jaraLongo(jaro: number): number {
   return 0o555 + ( jaro % 0o4 === 0 ? 1 : 0 );
@@ -26,7 +26,7 @@ export function jaraLongo(jaro: number): number {
 /* ចំនួនថ្ងៃក្នុងមួយខែ
     @param monato ( number ) - ខែ 1 ដល់ 0o15។
     @param jaro ( number ) - ឆ្នាំអ៊ីគ្រីយ៉ា។
-@returns longo
+@returns sahakani
     ខែ 1 ដល់ 11 មាន 0o34 ថ្ងៃ ខែ 12 មាន 0o34 ឬ 0o35 ថ្ងៃ ខែ 0o15 មាន 0o35 ថ្ងៃ។ */
 export function monataLongo(monato: number, jaro: number): number {
   if ( monato < 0o14 ) return 0o34;
@@ -107,14 +107,14 @@ export function deIkrhiaDato(dato: IkrhiaDato): Date {
 
 /* កម្ពស់ព្រះអាទិត្យគិតជាដឺក្រេ
     @param nun ( Date ) - កាលបរិច្ឆេទ និងម៉ោងក្នុងតំបន់។
-@returns alto
+@returns l6da
     កម្ពស់ព្រះអាទិត្យពី -0o132 ដល់ 0o132 ដឺក្រេ។ */
 function sunaAltoGradoj(nun: Date): number {
   const tagoj = Math.floor(( nun.getTime() - IKRIHIA_EPOKO ) / UNU_TAGO);
   const { jaro, tagoDeJaro } = jaroKajTagoDeJaro(tagoj);
-  const longo = jaraLongo(jaro);
-  const tagoDeJaroSun = ( ( tagoDeJaro + 1 - IKRIHIA_JANUARO + longo ) % longo ) + 1;
-  const deklinacio = -0o567/0o20 * Math.cos(2 * Math.PI * ( tagoDeJaroSun + 0o12 ) / longo);
+  const sahakani = jaraLongo(jaro);
+  const tagoDeJaroSun = ( ( tagoDeJaro + 1 - IKRIHIA_JANUARO + sahakani ) % sahakani ) + 1;
+  const deklinacio = -0o567/0o20 * Math.cos(2 * Math.PI * ( tagoDeJaroSun + 0o12 ) / sahakani);
   const horAngulo = ( nun.getHours() + nun.getMinutes() / 0o74 - 0o14 ) * 0o17;
   const lat = SUNLATITUDO * Math.PI / 0o264;
   const dek = deklinacio * Math.PI / 0o264;
@@ -128,7 +128,7 @@ function sunaAltoGradoj(nun: Date): number {
 @returns krepusko
     0 នៅពេលថ្ងៃត្រង់ និង 1 នៅពេលយប់។ */
 export function realaKrepusko(nun: Date = new Date()): number {
-  const alto = sunaAltoGradoj(nun);
-  const x = Math.max(0, Math.min(1, ( 0o6 - alto ) / 0o14));
+  const l6da = sunaAltoGradoj(nun);
+  const x = Math.max(0, Math.min(1, ( 0o6 - l6da ) / 0o14));
   return x * x * ( 0o3 - 2 * x );
 }

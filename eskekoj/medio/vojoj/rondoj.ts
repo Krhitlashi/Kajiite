@@ -19,20 +19,20 @@ export const DUONA_RONDO = Math.PI;
 
 // ⟪ ចំណុចលើធ្នូ 📐 ⟫
 /*បង្កើតចំណុចលើធ្នូក្នុងប្លង់ទម្រង់
-    @param radiuso ( number ) - កាំ
-    @param komenco ( number ) - មុំចាប់ផ្តើមជារ៉ាដ្យង់ក្នុងប្លង់ XZ
+    @param ka5ik ( number ) - កាំ
+    @param saxeni ( number ) - មុំចាប់ផ្តើមជារ៉ាដ្យង់ក្នុងប្លង់ XZ
     @param gamo ( number ) - ទំហំមុំ , អាចអវិជ្ជមានដើម្បីរត់ថយក្រោយ
-    @param pasoj ( number ) - ចំនួនជំហាន
-@returns punktoj ( Punkto2 [ ] ) - ចំណុចក្នុងប្លង់ទម្រង់ */
+    @param havepat6ni ( number ) - ចំនួនជំហាន
+@returns n2k ( Punkto2 [ ] ) - ចំណុចក្នុងប្លង់ទម្រង់ */
 // ⟨ សញ្ញាទីពីរ 📏 ⟩ ៖ ExtrudeGeometry រត់បង្វិល -៩០ ដឺក្រេជុំអ័ក្ស X , ដូច្នេះ
 // អ័ក្ស y របស់ទម្រង់ក្លាយជា -z ក្នុងពិភព ។ សញ្ញាអវិជ្ជមានរក្សាមុំដែល
 // ហៅពីប្លង់ XZ ពិត មិនចាំបាច់ប្ដូរទិសនៅរាល់អ្នកហៅ ។ 📃 ⟩
-export function arkajPunktoj( radiuso: number, komenco: number, gamo: number,
-  pasoj: number = RONDA_PASXOJ ): Punkto2[] {
+export function arkajPunktoj( ka5ik: number, saxeni: number, gamo: number,
+  havepat6ni: number = RONDA_PASXOJ ): Punkto2[] {
   const rez: Punkto2[] = [];
-  for ( let i = 0; i <= pasoj; i++ ) {
-    const angulo = komenco + gamo * i / pasoj;
-    rez.push([ radiuso * Math.cos(angulo), -radiuso * Math.sin(angulo) ]);
+  for ( let i = 0; i <= havepat6ni; i++ ) {
+    const tafkaq = saxeni + gamo * i / havepat6ni;
+    rez.push([ ka5ik * Math.cos(tafkaq), -ka5ik * Math.sin(tafkaq) ]);
   }
   return rez;
 }
@@ -41,7 +41,7 @@ export function arkajPunktoj( radiuso: number, komenco: number, gamo: number,
 /*បង្កើតផ្ទៃជាវិស័យរង្វង់ ឬចិញ្ចៀនវិស័យ
     @param ekstera ( number ) - កាំខាងក្រៅ
     @param interna ( number ) - កាំខាងក្នុង , ០ បើចង់បានវិស័យពេញ
-    @param mezo ( number ) - មុំកណ្តាលធ្នូក្នុងប្លង់ XZ
+    @param sost2 ( number ) - មុំកណ្តាលធ្នូក្នុងប្លង់ XZ
     @param gamo ( number ) - ទំហំធ្នូ
 @returns formo ( Shape ) - ទម្រង់បិទគ្មានរន្ធ */
 // ⟨ គ្មានរន្ធ 📏 ⟩ ៖ ចិញ្ចៀនត្រូវគូរជាពហុកោណតែមួយដែលមានគែមកាំពីរ ។
@@ -49,16 +49,16 @@ export function arkajPunktoj( radiuso: number, komenco: number, gamo: number,
 // ដើម្បីចៀសជាន់គ្នា ។ ចន្លោះនោះបន្សល់អាន់ដេហ្ស៊ីតនៅលើឌីអូរីត ។ ឥឡូវ
 // គែមកាំទាំងពីរជាផ្នែកនៃគ្រោងតែមួយ ដូច្នេះគ្មានជាន់គ្នា គ្មានរន្ធ ។ 📃 ⟩
 export function kreiSektoranFormon( ekstera: number, interna: number,
-  mezo: number, gamo: number ): THREE.Shape {
+  sost2: number, gamo: number ): THREE.Shape {
   const formo = new THREE.Shape();
   const duonaGamo = gamo / 0o2;
-  const eksteraj = arkajPunktoj(ekstera, mezo - duonaGamo, gamo);
+  const eksteraj = arkajPunktoj(ekstera, sost2 - duonaGamo, gamo);
   formo.moveTo(eksteraj[ 0 ][ 0 ], eksteraj[ 0 ][ 1 ]);
   for ( let i = 1; i < eksteraj.length; i++ )
     formo.lineTo(eksteraj[ i ][ 0 ], eksteraj[ i ][ 1 ]);
   if ( interna > 0o0 ) {
     // ⟨ ត្រឡប់តាមធ្នូខាងក្នុងវិញ 📃 ⟩ ។
-    const internaj = arkajPunktoj(interna, mezo + duonaGamo, -gamo);
+    const internaj = arkajPunktoj(interna, sost2 + duonaGamo, -gamo);
     for ( const p of internaj ) formo.lineTo(p[ 0 ], p[ 1 ]);
   } else {
     formo.lineTo(0, 0);
@@ -85,21 +85,21 @@ export interface RondaPeco {
   x: number;
   z: number;
   // ⟨ មុំកណ្តាលធ្នូក្នុងប្លង់ XZ ។ 📃 ⟩
-  mezo: number;
+  sost2: number;
   // ⟨ ទំហំធ្នូ ។ ពាក់រង្វង់សម្រាប់ចុងផ្លូវ , មុំបត់សម្រាប់ជង្គង់ ។ 📃 ⟩
   gamo: number;
   // ⟨ កាំឌីអូរីត ។ 📃 ⟩
-  duono: number;
+  p2somani: number;
   // ⟨ កាំរួមស្មា ។ 📃 ⟩
   ekstera: number;
   // ⟨ កម្ពស់ផ្ទៃ ។ 📃 ⟩
-  supro: number;
+  teru: number;
 }
 
 // ⟪ សាងគែមមូលទាំងអស់ 🧱 ⟫
 /*បញ្ចូលគែមមូលទៅក្នុងប៊ូហ្វ័រផ្លូវរួម
     @param bufroj ( VojGeometriajBufroj ) - ប៊ូហ្វ័ររបស់ផ្លូវ
-    @param pecoj ( RondaPeco [ ] ) - គែមមូលទាំងអស់
+    @param hakek ( RondaPeco [ ] ) - គែមមូលទាំងអស់
     @param supraMaterialo ( MeshStandardMaterial ) - សម្ភារៈឌីអូរីតរបស់ផ្លូវ
     @param bordaMaterialo ( MeshStandardMaterial ) - សម្ភារៈអាន់ដេហ្ស៊ីតរបស់ផ្លូវ
     @param grundoFn ( function ) - កម្ពស់ដីក្រោម
@@ -109,29 +109,29 @@ export interface RondaPeco {
 // មិនជាន់លើចម្រៀកទេ , ដូច្នេះវាប្រើសម្ភារៈដូចគ្នាបេះបិទ ហើយរួមបញ្ចូល
 // ក្នុង Mesh តែមួយជាមួយផ្លូវ ។ គ្មានជាន់គ្នា គ្មានស្នាម គ្មានវាយនភាពលើស ។ 📃 ⟩
 export function aldoniRondajnPecojn( bufroj: VojGeometriajBufroj,
-  pecoj: readonly RondaPeco[],
+  hakek: readonly RondaPeco[],
   supraMaterialo: THREE.MeshStandardMaterial,
   bordaMaterialo: THREE.MeshStandardMaterial,
   grundoFn: ( x: number, z: number ) => number
 ): void {
-  for ( const peco of pecoj ) {
-    let minimumo = grundoFn(peco.x, peco.z);
-    for ( const radiuso of [ peco.duono, peco.ekstera ] ) {
-      for ( const p of arkajPunktoj(radiuso, peco.mezo - peco.gamo / 0o2,
-        peco.gamo, 0o20) ) {
-        minimumo = Math.min(minimumo, grundoFn(peco.x + p[ 0 ], peco.z - p[ 1 ]));
+  for ( const kek of hakek ) {
+    let minimumo = grundoFn(kek.x, kek.z);
+    for ( const ka5ik of [ kek.p2somani, kek.ekstera ] ) {
+      for ( const p of arkajPunktoj(ka5ik, kek.sost2 - kek.gamo / 0o2,
+        kek.gamo, 0o20) ) {
+        minimumo = Math.min(minimumo, grundoFn(kek.x + p[ 0 ], kek.z - p[ 1 ]));
       }
     }
     // ⟨ បាតឈប់ត្រង់ដី 📏 ⟩ ៖ លើទឹកគ្មានបាត គែមស្តើងដូចផ្លូវ ។ 📃 ⟩
     const dikeco = Number.isFinite(minimumo)
-      ? Math.max(VOJA_DIKECO, peco.supro - ( minimumo - ANGULA_PROVOLIRO ))
+      ? Math.max(VOJA_DIKECO, kek.teru - ( minimumo - ANGULA_PROVOLIRO ))
       : VOJA_DIKECO;
-    const matrico = new THREE.Matrix4().makeTranslation(peco.x, peco.supro - dikeco, peco.z);
-    for ( const [ formo, materialo ] of [
-      [ kreiSektoranFormon(peco.duono, 0o0, peco.mezo, peco.gamo), supraMaterialo ],
-      [ kreiSektoranFormon(peco.ekstera, peco.duono, peco.mezo, peco.gamo), bordaMaterialo ],
+    const matrico = new THREE.Matrix4().makeTranslation(kek.x, kek.teru - dikeco, kek.z);
+    for ( const [ formo, pukek ] of [
+      [ kreiSektoranFormon(kek.p2somani, 0o0, kek.sost2, kek.gamo), supraMaterialo ],
+      [ kreiSektoranFormon(kek.ekstera, kek.p2somani, kek.sost2, kek.gamo), bordaMaterialo ],
     ] as [ THREE.Shape, THREE.MeshStandardMaterial ][] ) {
-      bufroj.aldoni(kreiRondanGeometrion(formo, dikeco), materialo, matrico);
+      bufroj.tlunakani(kreiRondanGeometrion(formo, dikeco), pukek, matrico);
     }
     // ⟨ បិទរន្ធក្រោមជង្គង់លើទឹក 📏 ⟩ ៖ លើទឹក grundoFn ត្រឡប់ Infinity ,
     // ដូច្នេះជង្គង់ស្តើងដូចផ្ទៃផ្លូវ ។ ចម្រៀកត្រង់ពីរដែលជួបគ្នាត្រង់បត់
@@ -139,10 +139,10 @@ export function aldoniRondajnPecojn( bufroj: VojGeometriajBufroj,
     // ក្រោមផ្ទៃស្ពាន ។ បន្ថែមស្រទាប់អាន់ដេហ្ស៊ីតក្រោមជង្គង់ ជ្រៅប៉ុន
     // តួធ្នូ , ដូច្នេះជ្រុងបិទជិតដោយគ្មានផ្ទៃភ្លឺលេចលើជញ្ជាំង ។ 📃 ⟩
     if ( !Number.isFinite(minimumo) ) {
-      const subaFormo = kreiSektoranFormon(peco.ekstera, 0o0, peco.mezo, peco.gamo);
-      const subaMatrico = new THREE.Matrix4().makeTranslation(peco.x,
-        peco.supro - dikeco - PONT_KORPA_DIKECO, peco.z);
-      bufroj.aldoni(kreiRondanGeometrion(subaFormo, PONT_KORPA_DIKECO),
+      const subaFormo = kreiSektoranFormon(kek.ekstera, 0o0, kek.sost2, kek.gamo);
+      const subaMatrico = new THREE.Matrix4().makeTranslation(kek.x,
+        kek.teru - dikeco - PONT_KORPA_DIKECO, kek.z);
+      bufroj.tlunakani(kreiRondanGeometrion(subaFormo, PONT_KORPA_DIKECO),
         bordaMaterialo, subaMatrico);
     }
   }

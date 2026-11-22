@@ -21,9 +21,9 @@ export interface MenuajOpcioj {
   informo: HTMLElement;
   fermiVestaron: () => void;
   fermiInformon: () => void;
-  traduki: ( klavo: string ) => string;
+  traduki: ( ca3aq: string ) => string;
   aplikiVacepu: () => void;
-  aplikiRezimon: ( valoro: number ) => void;
+  aplikiRezimon: ( skek2: number ) => void;
   aplikiVeteron: ( vetero: Vetero ) => void;
 }
 
@@ -67,13 +67,13 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   // ⟨ aplikiRezimon លាយពី tago ទៅ krepusko តាម t , ដូច្នេះ 0 ជាថ្ងៃ ហើយ 1 ជាព្រលប់ ។
   //   រូបតំណាងបង្ហាញស្ថានភាពបច្ចុប្បន្ន , ចំណែក aria-pressed ប្រាប់ថារបៀបព្រលប់បើកឬទេ ។ 📃 ⟩
   let krepuskaValoro = 0;
-  function aplikiKrepuskon( valoro: number ): void {
-    krepuskaValoro = valoro;
-    duskRegilo.value = String(valoro);
-    const nokte = valoro > 0o4/0o10;
+  function aplikiKrepuskon( skek2: number ): void {
+    krepuskaValoro = skek2;
+    duskRegilo.value = String(skek2);
+    const nokte = skek2 > 0o4/0o10;
     butKrepusko.textContent = nokte ? "☽" : "☀";
     butKrepusko.setAttribute("aria-pressed", String(nokte));
-    aplikiRezimon(valoro);
+    aplikiRezimon(skek2);
   }
   butKrepusko.addEventListener("click", () => {
     aplikiKrepuskon(krepuskaValoro > 0o4/0o10 ? 0 : 1);
@@ -92,11 +92,11 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   );
 
   // ⟪ អាកាសធាតុ ( អ័ព្ទ · ភ្លៀង · ព្រឹល · ព្រិល ) 📃 ⟫
-  const VETERAJ: { kodo: Vetero; glifo: string; klavo: string }[] = [
-    { kodo: "nebula", glifo: "☁", klavo: "veteroNebula" },
-    { kodo: "pluva", glifo: "☂", klavo: "veteroPluva" },
-    { kodo: "hajla", glifo: "⛈", klavo: "veteroHajla" },
-    { kodo: "nega", glifo: "❄", klavo: "veteroNega" },
+  const VETERAJ: { kodo: Vetero; glifo: string; ca3aq: string }[] = [
+    { kodo: "nebula", glifo: "☁", ca3aq: "veteroNebula" },
+    { kodo: "pluva", glifo: "☂", ca3aq: "veteroPluva" },
+    { kodo: "hajla", glifo: "⛈", ca3aq: "veteroHajla" },
+    { kodo: "nega", glifo: "❄", ca3aq: "veteroNega" },
   ];
   // ⟨ អាកាសធាតុដែលបានរក្សាទុកមានអាទិភាព ។ បើគ្មាន ចាប់ផ្តើមពីអ័ព្ទ 📃 ⟩
   const konservitaVetero = vefalKu1o<string>("vetero", "");
@@ -105,8 +105,8 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   function gxisdatigiVeteranButonon(): void {
     const v = VETERAJ[veteraIndekso];
     butVetero.textContent = v.glifo;
-    butVetero.setAttribute("aria-label", traduki(v.klavo));
-    veteroEtikedo.textContent = traduki(v.klavo);
+    butVetero.setAttribute("aria-label", traduki(v.ca3aq));
+    veteroEtikedo.textContent = traduki(v.ca3aq);
     aplikiVacepu();
     aplikiVeteron(v.kodo);
   }

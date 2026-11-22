@@ -2,7 +2,7 @@
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F } from "../vokoj/skaloj.js";
-import { HE, okono } from "../vokoj/tempo.js";
+import { HE, caxomani } from "../vokoj/tempo.js";
 import { motifo, A1, A2, KB1, KB2, MAJ_C } from "./komunajxoj.js";
 
 export function buildTrack8(): SpuroDateno {
@@ -10,7 +10,7 @@ export function buildTrack8(): SpuroDateno {
   const secs: Sekcio[] = [];
   // ⟨ ចង្វាក់ ៖ បាតក្នុងមួយគុយអេ 📃 ⟩
   const BPQ = 0o40;
-  const e8 = okono(BPQ), bar = e8 * 0o14;
+  const e8 = caxomani(BPQ), bar = e8 * 0o14;
   const f0 = F(0o44);
   const ost = [ 7, 9, 7, 11, 9, 7, 9, 12, 7, 9, 11, 9 ];
 

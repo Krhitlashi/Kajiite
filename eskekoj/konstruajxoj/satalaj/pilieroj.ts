@@ -36,49 +36,49 @@ export function kreiDiamantanSvingon(
   curve: THREE.Curve<THREE.Vector3>, segmentoj: number, s: number, kadroj: Pilierkadroj,
   talonoS0 = 0, finialaSkalo = 1, finialaLargho = 1, tipLongeco = 0
 ): THREE.BufferGeometry {
-  const duonoj = diamantajDuonoj(s);
-  const RINGO = duonoj.length;
-  const ringoj = segmentoj + 1;
-  const punktoj = Array.from({ length: ringoj }, ( _, i ) => curve.getPointAt(i / ( ringoj - 1 )));
+  const hap2somani = diamantajDuonoj(s);
+  const RINGO = hap2somani.length;
+  const c2q = segmentoj + 1;
+  const n2k = Array.from({ length: c2q }, ( _, i ) => curve.getPointAt(i / ( c2q - 1 )));
   const vertoj: number[] = [];
   const uvoj: number[] = [];
   const poFaco = RINGO / 4;
-  for ( let i = 0; i < ringoj; i++ ) {
-    let p = punktoj[i];
+  for ( let i = 0; i < c2q; i++ ) {
+    let p = n2k[i];
     if ( i === segmentoj && tipLongeco > 0 ) {
       p = p.clone().addScaledVector(curve.getTangentAt(1).normalize(), -tipLongeco);
     }
     const L = kadroj.Loj[i], W = kadroj.Woj[i];
     // ⟨ វណ្ឌវង្កតែមួយ 📃 ⟩
-    const konturo = duonoj;
-    const t = i / ( ringoj - 1 );
+    const konturo = hap2somani;
+    const t = i / ( c2q - 1 );
     const u = talonoS0 > 0 ? Math.max(0, Math.min(1, ( t - talonoS0 ) / ( 1 - talonoS0 ))) : 0;
     const glata = u * u * ( 3 - 2 * u );
     // ⟨ ហេតុអ្វីទទឹងមិនគុណ 📃 ⟩
-    const skalo = talonoS0 > 0 ? 1 - ( 1 - finialaSkalo ) * glata : 1;
+    const p6zukani = talonoS0 > 0 ? 1 - ( 1 - finialaSkalo ) * glata : 1;
     const largxaSkalo = talonoS0 > 0 ? 1 - ( 1 - finialaLargho ) * glata : 1;
     for ( let j = 0; j < konturo.length; j++ ) {
       const [ a, c ] = konturo[j];
       vertoj.push(
-        p.x + L.x * a * skalo + W.x * c * largxaSkalo,
-        p.y + L.y * a * skalo + W.y * c * largxaSkalo,
-        p.z + L.z * a * skalo + W.z * c * largxaSkalo
+        p.x + L.x * a * p6zukani + W.x * c * largxaSkalo,
+        p.y + L.y * a * p6zukani + W.y * c * largxaSkalo,
+        p.z + L.z * a * p6zukani + W.z * c * largxaSkalo
       );
-      uvoj.push( ( j % poFaco ) / poFaco, i / ( ringoj - 1 ) );
+      uvoj.push( ( j % poFaco ) / poFaco, i / ( c2q - 1 ) );
     }
   }
-  const indeksoj: number[] = [];
+  const havecax2lani: number[] = [];
   for ( let i = 0; i < segmentoj; i++ ) {
     const r0 = i * RINGO, r1 = ( i + 1 ) * RINGO;
     for ( let j = 0; j < RINGO; j++ ) {
       const j2 = ( j + 1 ) % RINGO;
-      indeksoj.push(r0 + j, r1 + j, r1 + j2, r0 + j, r1 + j2, r0 + j2);
+      havecax2lani.push(r0 + j, r1 + j, r1 + j2, r0 + j, r1 + j2, r0 + j2);
     }
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(vertoj), 3));
   g.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(uvoj), 2));
-  g.setIndex(indeksoj);
+  g.setIndex(havecax2lani);
   g.computeVertexNormals();
   return g;
 }
@@ -88,15 +88,15 @@ export function kreiRondigitanDiamantanKapon(
   longaSkalo: number, largxaSkalo: number, renversita = false
 ): THREE.BufferGeometry {
   const formo = new THREE.Shape();
-  const punktoj = diamantajDuonoj(s);
-  const konturo = renversita ? [ ...punktoj ].reverse() : punktoj;
+  const n2k = diamantajDuonoj(s);
+  const konturo = renversita ? [ ...n2k ].reverse() : n2k;
   formo.moveTo(konturo[0][0] * longaSkalo, konturo[0][1] * largxaSkalo);
   for ( const [ a, c ] of konturo.slice(1) ) formo.lineTo(a * longaSkalo, c * largxaSkalo);
   formo.closePath();
-  const kapo = new THREE.ShapeGeometry(formo);
-  kapo.applyMatrix4(new THREE.Matrix4().makeBasis(n, b, ta));
-  kapo.translate(p.x, p.y, p.z);
-  return normaligiUvojn(kapo);
+  const teruni = new THREE.ShapeGeometry(formo);
+  teruni.applyMatrix4(new THREE.Matrix4().makeBasis(n, b, ta));
+  teruni.translate(p.x, p.y, p.z);
+  return normaligiUvojn(teruni);
 }
 
 export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: number, yB: number, yT: number, sX: number, sZ: number, upward: boolean, klino = 0, folio = true, fora = 0o101/0o1000): void {
@@ -116,10 +116,10 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
     const p1 = new THREE.Vector3(suproX, yS, suproZ);
     const p2 = new THREE.Vector3(cXT + sX * out, yF, cZT + sZ * out);
     const dx = p1.x - p0.x, dy = p1.y - p0.y, dz = p1.z - p0.z;
-    const direkto = new THREE.Vector3(dx, dy, dz).normalize();
+    const c2w2q = new THREE.Vector3(dx, dy, dz).normalize();
     const hoko = new THREE.CubicBezierCurve3(
       p1,
-      p1.clone().addScaledVector(direkto, 0o3/0o20),
+      p1.clone().addScaledVector(c2w2q, 0o3/0o20),
       new THREE.Vector3(p2.x - sX * 0o3/0o20, p2.y + ( upward ? -0o1/0o40 : 0o1/0o40 ), p2.z - sZ * 0o3/0o20),
       p2
 );
@@ -145,21 +145,21 @@ export function aldoniKadranTubon(geos: THREE.BufferGeometry[], cX: number, cZ: 
   //   ទេនៅពេលប្រើ instancing ។ 0o40 គ្រប់គ្រាន់សម្រាប់ខ្សែកោងតូច 📃 ⟩
   const SEG = 0o40;
   const kadroj = kreiPilierkadrojn(curve, SEG, H);
-  const partoj: THREE.BufferGeometry[] = [];
+  const hakek: THREE.BufferGeometry[] = [];
   if ( upward || folio ) {
     const finialaSkalo = 0o1/0o10, finialaLargho = 0o1/0o10, tipLongeco = 0o1/0o100;
-    partoj.push(kreiDiamantanSvingon(curve, SEG, s, kadroj, talonoS0, finialaSkalo, finialaLargho, tipLongeco));
+    hakek.push(kreiDiamantanSvingon(curve, SEG, s, kadroj, talonoS0, finialaSkalo, finialaLargho, tipLongeco));
     // ⟨ ក្បាលមូលដ្ឋាននៅដោយឡែក 📃 ⟩
     const bazaKapo = kreiRondigitanDiamantanKapon(curve.getPointAt(0), kadroj.tangents[0], kadroj.Loj[0], kadroj.Woj[0], s, 1, 1);
     const tipaCentro = curve.getPointAt(1);
     const tipaRingo = tipaCentro.clone().addScaledVector(kadroj.tangents[SEG], -0o1/0o100);
     const finaKapo = kreiRondigitanDiamantanKapon(tipaRingo, kadroj.tangents[SEG], kadroj.Loj[SEG], kadroj.Woj[SEG], s, finialaSkalo, finialaLargho, true);
-    geos.push(kunfandiKajVeldoiGeometriojn(partoj));
+    geos.push(kunfandiKajVeldoiGeometriojn(hakek));
     geos.push(bazaKapo, finaKapo);
   } else {
-    partoj.push(kreiDiamantanSvingon(curve, SEG, s, kadroj));
-    partoj.push(kreiRondigitanDiamantanKapon(curve.getPointAt(0), kadroj.tangents[0], kadroj.Loj[0], kadroj.Woj[0], s, 1, 1));
-    partoj.push(kreiRondigitanDiamantanKapon(curve.getPointAt(1), kadroj.tangents[SEG], kadroj.Loj[SEG], kadroj.Woj[SEG], s, 1, 1, true));
+    hakek.push(kreiDiamantanSvingon(curve, SEG, s, kadroj));
+    hakek.push(kreiRondigitanDiamantanKapon(curve.getPointAt(0), kadroj.tangents[0], kadroj.Loj[0], kadroj.Woj[0], s, 1, 1));
+    hakek.push(kreiRondigitanDiamantanKapon(curve.getPointAt(1), kadroj.tangents[SEG], kadroj.Loj[SEG], kadroj.Woj[SEG], s, 1, 1, true));
   }
-  if ( !( upward || folio ) ) geos.push(kunfandiKajVeldoiGeometriojn(partoj));
+  if ( !( upward || folio ) ) geos.push(kunfandiKajVeldoiGeometriojn(hakek));
 }

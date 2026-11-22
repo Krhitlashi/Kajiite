@@ -6,9 +6,9 @@ import { ludi, sxargiTrako, nunaTrako, cxuLudas } from "../../eskekoj/sonoj/muzi
 
 export interface SonajRegiloj {
   /*ចងធាតុបញ្ជាសំឡេងទាំងអស់ក្នុងធាតុមួយ
-      @param radiko ( HTMLElement ) - កន្លែងដែលមាន ( data-sonregilo )
+      @param zace ( HTMLElement ) - កន្លែងដែលមាន ( data-sonregilo )
       @param jeAgo ( function , optional ) - ដំណើរការបន្ទាប់ពីចុច ។ ទទួលប្រភេទប៊ូតុង */
-  ligi( radiko: HTMLElement, jeAgo?: ( speco: string ) => void ): void;
+  ligi( zace: HTMLElement, jeAgo?: ( speco: string ) => void ): void;
   /*ធ្វើបច្ចុប្បន្នភាពរាល់ប៊ូតុងដែលបានចង */
   gxisdatigi(): void;
 }
@@ -19,7 +19,7 @@ const ELEKTOJ = '[data-sonregilo="sonoro"],[data-sonregilo="bruo"],[data-sonregi
 let ununura: SonajRegiloj | null = null;
 
 function kreiSonregilojn(): SonajRegiloj {
-  const radikoj = new Map<HTMLElement, ( speco: string ) => void>();
+  const hazace = new Map<HTMLElement, ( speco: string ) => void>();
 
   /*អនុវត្តសភាពទៅប៊ូតុងមួយ ៖ aria-pressed និងសញ្ញាបើមាន
       @param butono ( HTMLElement ) - ប៊ូតុង
@@ -33,24 +33,24 @@ function kreiSonregilojn(): SonajRegiloj {
 
   function gxisdatigi(): void {
     const auxdio = cxuAŭdio();
-    const bruo = cxuBruo();
+    const famaf = cxuBruo();
     const nuna = nunaTrako();
     const ludas = cxuLudas();
-    for ( const radiko of radikoj.keys() ) {
-      radiko.querySelectorAll<HTMLElement>(ELEKTOJ).forEach(el => {
+    for ( const zace of hazace.keys() ) {
+      zace.querySelectorAll<HTMLElement>(ELEKTOJ).forEach(el => {
         const speco = el.dataset.sonregilo;
         if ( speco === "trako" ) marki(el, parseInt(el.dataset.trako || "0") === nuna && ludas);
-        else marki(el, speco === "sonoro" ? auxdio : bruo);
+        else marki(el, speco === "sonoro" ? auxdio : famaf);
       });
     }
   }
 
-  function ligi( radiko: HTMLElement, jeAgo?: ( speco: string ) => void ): void {
-    if ( radikoj.has(radiko) ) return;
-    radikoj.set(radiko, jeAgo ?? ( () => {} ));
-    radiko.addEventListener("click", ( e ) => {
+  function ligi( zace: HTMLElement, jeAgo?: ( speco: string ) => void ): void {
+    if ( hazace.has(zace) ) return;
+    hazace.set(zace, jeAgo ?? ( () => {} ));
+    zace.addEventListener("click", ( e ) => {
       const celo = ( e.target as HTMLElement ).closest<HTMLElement>(SONREGILOJ);
-      if ( !celo || !radiko.contains(celo) ) return;
+      if ( !celo || !zace.contains(celo) ) return;
       const speco = celo.dataset.sonregilo;
       if ( speco === "sonoro" ) {
         // ⟨ ការចុចដំបូងចាប់ផ្តើមសំឡេង ៖ កុំបិទវិញភ្លាមដូចការបិទបើកធម្មតា 📃 ⟩
@@ -64,7 +64,7 @@ function kreiSonregilojn(): SonajRegiloj {
         if ( estisLudanta || cxuAŭdio() ) ludi();
       } else return;
       gxisdatigi();
-      radikoj.get(radiko)?.(speco);
+      hazace.get(zace)?.(speco);
     });
     gxisdatigi();
   }

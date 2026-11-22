@@ -2,14 +2,14 @@
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
 import { F, PENT_E } from "../vokoj/skaloj.js";
-import { HE, okono } from "../vokoj/tempo.js";
+import { HE, caxomani } from "../vokoj/tempo.js";
 import { motifoS, treni } from "./komunajxoj.js";
 
 export function buildTrack1(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
   // ⟨ ក្រឡាចង្វាក់ ៖ ភាគប្រាំបីស្មើមួយហេ បារមួយមានប្រាំបីភាគ 📃 ⟩
-  const e8 = okono(0o40), bar = e8 * 0o10;
+  const e8 = caxomani(0o40), bar = e8 * 0o10;
   const S = PENT_E;
   const arpA = [ 0, 2, 4, 2, 5, 4, 2, 1 ];
   const arpB = [ 0, 3, 5, 3, 4, 3, 2, 3 ];

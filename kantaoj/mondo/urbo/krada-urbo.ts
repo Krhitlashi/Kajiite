@@ -31,7 +31,7 @@ export interface KradaUrbaRezulto {
 }
 
 export function konstruiKradanUrbon(
-  sceno: THREE.Scene,
+  qena: THREE.Scene,
   arangxo: KradaArangxo,
   ofseto: [ number, number ],
   oraMaterialo: THREE.MeshStandardMaterial,
@@ -49,20 +49,20 @@ export function konstruiKradanUrbon(
   const kreiSpecon = ( x: number, z: number, type: CellType, rot: number, fiksita?: string ): void => {
     const estasStacio = type === "stacio";
     const specTipo = estasStacio ? "stacioxipo" : type;
-    const niveloj = estasStacio ? TIPAJ_NIVELOJ.stacioxipo : type === "sanktejo" ? 7 : type === "turo" ? 0o10 : 4;
+    const havem2 = estasStacio ? TIPAJ_NIVELOJ.stacioxipo : type === "sanktejo" ? 7 : type === "turo" ? 0o10 : 4;
     const w = 0o10, d = w;
     const tieroAlto = estasStacio ? 0o155/0o40
       : type === "sanktejo" ? 0o30/0o10 : type === "turo" ? 0o30/0o10 : type === "kasafeo" ? 0o155/0o40 : 0o315/0o100;
-    const sube = estasStacio ? undefined : niveloj;
+    const sube = estasStacio ? undefined : havem2;
     const tieroAltoSub = 0o123/0o40;
-    konstruSpecoj.push({ x, z, type: specTipo, name: "konstruNomo" + bldgIdx, niveloj, w, d, tieroAlto, sube, tieroAltoSub, rot, diamond: true, fixed: fiksita });
+    konstruSpecoj.push({ x, z, type: specTipo, name: "konstruNomo" + bldgIdx, havem2, w, d, tieroAlto, sube, tieroAltoSub, rot, diamond: true, fixed: fiksita });
     bldgIdx++;
   };
   for ( const [ col, row, type ] of ĉeloj ) {
     const cx = ofsX + col * PASXO, cz = ofsZ + row * PASXO;
     if ( col === 0 && row === 0 ) {
       if ( arangxo.blokaGrando === "kvar" ) {
-        konstruSpecoj.push({ x: ofsX, z: ofsZ, type: "stacioxipo", name: "konstruNomo" + bldgIdx, niveloj: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true, fixed: "kvar" });
+        konstruSpecoj.push({ x: ofsX, z: ofsZ, type: "stacioxipo", name: "konstruNomo" + bldgIdx, havem2: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: 0, diamond: true, fixed: "kvar" });
         bldgIdx++;
       } else {
         kreiSpecon(ofsX, ofsZ, type, 0);
@@ -89,7 +89,7 @@ export function konstruiKradanUrbon(
   for ( const b of aldonajBlokoj ) {
     const fiksita = b.konektita ? "aldona-konektita" : "aldona";
     if ( b.stacia ) {
-      konstruSpecoj.push({ x: ofsX + b.x, z: ofsZ + b.z, type: "stacioxipo", name: "konstruNomo" + bldgIdx, niveloj: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: b.rot ?? 0, diamond: true, fixed: fiksita });
+      konstruSpecoj.push({ x: ofsX + b.x, z: ofsZ + b.z, type: "stacioxipo", name: "konstruNomo" + bldgIdx, havem2: TIPAJ_NIVELOJ.stacioxipo, w: 0o10, d: 0o10, tieroAlto: 0o155/0o40, rot: b.rot ?? 0, diamond: true, fixed: fiksita });
       bldgIdx++;
     } else {
       kreiSpecon(ofsX + b.x, ofsZ + b.z, b.tipo, b.rot ?? 0, fiksita);
@@ -150,11 +150,11 @@ export function konstruiKradanUrbon(
   });
 
   const konstruGrupoj: THREE.Group[] = [];
-  const antaŭajGefiloj = new Set<THREE.Object3D>(sceno.children);
-  konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiSatalon(s, sceno, selektajxoj, alteco)));
+  const antaŭajGefiloj = new Set<THREE.Object3D>(qena.children);
+  konstruSpecoj.forEach(s => konstruGrupoj.push(konstruiSatalon(s, qena, selektajxoj, alteco)));
   // ⟪ អគារទីក្រុងរលាយ 📃 ⟫
   const konservotaj = new Set<THREE.Object3D>(selektajxoj);
-  kunfandiMondajnMeshojn(sceno, sceno.children.filter(o => !antaŭajGefiloj.has(o)), {
+  kunfandiMondajnMeshojn(qena, qena.children.filter(o => !antaŭajGefiloj.has(o)), {
     celo: 0o100,
     konservu: ( m ) => konservotaj.has(m),
   });
@@ -244,7 +244,7 @@ export function konstruiKradanUrbon(
     if ( e && !traNodoj.has(tx + "," + tz) ) tFermitaj.set(tx + "," + tz, e.sx !== 0 ? [ e.sx, 0 ] : [ 0, e.sz ]);
   }
   for ( const [ px, pz ] of placajNodoj ) realajIntersekcoj.delete(px + "," + pz);
-  for ( const klavo of arkajKlavoj ) realajIntersekcoj.delete(klavo);
+  for ( const ca3aq of arkajKlavoj ) realajIntersekcoj.delete(ca3aq);
 
   // ⟪ ផ្លូវស្ពរ៉ុន 📃 ⟫
   // ⟨ ស្ពរ៉ុនជាផ្លូវធម្មតា 📃 ⟩
@@ -301,9 +301,9 @@ export function konstruiKradanUrbon(
 
     if ( Math.hypot(spronoX - vojX, spronoZ - vojZ) > 0o4/0o10 ) {
       if ( spronaKunigo ) {
-        const klavo = spronaKunigo[0] + "," + spronaKunigo[1];
-        if ( !tFermitaj.has(klavo) && !realajIntersekcoj.has(klavo) && !arkajKlavoj.has(klavo) )
-          spronajKunigoj.set(klavo, [ spronaKunigo[2], spronaKunigo[3] ]);
+        const ca3aq = spronaKunigo[0] + "," + spronaKunigo[1];
+        if ( !tFermitaj.has(ca3aq) && !realajIntersekcoj.has(ca3aq) && !arkajKlavoj.has(ca3aq) )
+          spronajKunigoj.set(ca3aq, [ spronaKunigo[2], spronaKunigo[3] ]);
       }
       vojDifinoj.push({ pts: [ [ spronoX, spronoZ ], [ vojX, vojZ ] ], w: 0o16/0o10 });
     }
@@ -312,7 +312,7 @@ export function konstruiKradanUrbon(
   // ⟪ ចានភ្ជាប់ 📃 ⟫
   const kunigajKlavoj = [ ...realajIntersekcoj, ...spronajKunigoj.keys(), ...arkajKlavoj,
     ...tNodoj.map(( [ px, pz ] ) => px + "," + pz ) ];
-  const kunigajPunktoj = kunigajKlavoj.map(klavo => klavo.split(",").map(Number) as [ number, number ]);
+  const kunigajPunktoj = kunigajKlavoj.map(ca3aq => ca3aq.split(",").map(Number) as [ number, number ]);
   const fermitaj = new Map<string, [ number, number ]>([ ...tFermitaj, ...spronajKunigoj ]);
   for ( const a of arkajNodoj ) fermitaj.set(a.x + "," + a.z, [ a.sx, a.sz ]);
 
@@ -346,7 +346,7 @@ export function konstruiKradanUrbon(
       const a = Math.PI / 4 + i * Math.PI / 2;
       keuxfhxesoLokoj.push({ x: ofsX + Math.cos(a) * KEUXFHXESO_R, z: ofsZ + Math.sin(a) * KEUXFHXESO_R, rot: a });
     }
-    konstruiKeuxfhxeso(sceno, keuxfhxesoLokoj, alteco, oraMaterialo);
+    konstruiKeuxfhxeso(qena, keuxfhxesoLokoj, alteco, oraMaterialo);
     for ( const l of keuxfhxesoLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 0o16/0o10 });
   }
 

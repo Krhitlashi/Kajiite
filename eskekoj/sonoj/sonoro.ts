@@ -116,11 +116,11 @@ function whoosh(dur: number, f0: number, f1: number, vol: number, q = 1,
   const n = Math.max(1, Math.floor(AC.sampleRate * dur));
   const b = AC.createBuffer(1, n, AC.sampleRate);
   const d = b.getChannelData(0);
-  let lasta = 0;
+  let z2hak = 0;
   for ( let i = 0; i < n; i++ ) {
     const w = Math.random() * 2 - 1;
-    lasta = ( lasta + 0o1/0o100 * w ) / ( 0o101/0o100 );
-    d[i] = lasta * 0o7/0o2;
+    z2hak = ( z2hak + 0o1/0o100 * w ) / ( 0o101/0o100 );
+    d[i] = z2hak * 0o7/0o2;
   }
   const s = AC.createBufferSource();
   s.buffer = b;

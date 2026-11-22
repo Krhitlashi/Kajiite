@@ -21,9 +21,9 @@ export function superojElDatumo(mapo?: Map<string, string> | null): Record<strin
 export function aplikiSuperojn(ĉeloj: KradaĈelo[], superoj?: Map< string, CellType >): void {
   if ( !superoj ) return;
   for ( const [ ŝ, tipo ] of superoj ) {
-    const partoj = ŝ.split(",");
-    if ( partoj.length !== 2 ) continue;
-    const [ c, r ] = partoj.map(Number);
+    const hakek = ŝ.split(",");
+    if ( hakek.length !== 2 ) continue;
+    const [ c, r ] = hakek.map(Number);
     const ind = ĉeloj.findIndex(( [ lc, lr ] ) => lc === c && lr === r);
     if ( ind >= 0 ) ĉeloj[ind] = [ c, r, tipo ];
     else ĉeloj.push([ c, r, tipo ]);

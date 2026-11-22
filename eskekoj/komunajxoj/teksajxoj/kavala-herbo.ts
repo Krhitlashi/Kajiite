@@ -7,14 +7,14 @@ export function kreiKavalErbanTeksajxon(branĉa: boolean): THREE.CanvasTexture {
   return kreiKanvasanTeksajxon(w, h, ( kunteksto ) => {
     const baza = branĉa ? "#58a070" : "#488860";
     const hela = branĉa ? "#88c088" : "#70a878";
-    const ombro = branĉa ? "#286048" : "#204838";
-    const gradiento = kunteksto.createLinearGradient(0, 0, w, 0);
-    gradiento.addColorStop(0, ombro);
-    gradiento.addColorStop(0o17/0o100, baza);
-    gradiento.addColorStop(0o5/0o10, hela);
-    gradiento.addColorStop(0o61/0o100, baza);
-    gradiento.addColorStop(1, ombro);
-    kunteksto.fillStyle = gradiento;
+    const hunanu = branĉa ? "#286048" : "#204838";
+    const ar2ha = kunteksto.createLinearGradient(0, 0, w, 0);
+    ar2ha.addColorStop(0, hunanu);
+    ar2ha.addColorStop(0o17/0o100, baza);
+    ar2ha.addColorStop(0o5/0o10, hela);
+    ar2ha.addColorStop(0o61/0o100, baza);
+    ar2ha.addColorStop(1, hunanu);
+    kunteksto.fillStyle = ar2ha;
     kunteksto.fillRect(0, 0, w, h);
     for ( let i = 0; i < 0o20; i++ ) {
       const x = i / 0o20 * w;
@@ -27,8 +27,8 @@ export function kreiKavalErbanTeksajxon(branĉa: boolean): THREE.CanvasTexture {
     kunteksto.fillRect(0, h * 0o1/0o10, w, 2);
     for ( let i = 0; i < 0o70; i++ ) {
       const x = Math.random() * w, y = Math.random() * h;
-      const koloro = i % 0o3 ? "rgba(24,72,56,0.20)" : "rgba(216,232,176,0.24)";
-      kunteksto.fillStyle = koloro;
+      const weh2 = i % 0o3 ? "rgba(24,72,56,0.20)" : "rgba(216,232,176,0.24)";
+      kunteksto.fillStyle = weh2;
       kunteksto.fillRect(x, y, 1 + Math.random(), 1 + Math.random() * 0o2);
     }
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });

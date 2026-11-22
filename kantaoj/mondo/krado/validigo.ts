@@ -76,8 +76,8 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
   if ( arangxo.blokaGrando === "kvar" ) {
     const duonL = 0o7/0o10;
     for ( const sp of spronoj ) {
-      const longo = Math.hypot(sp.al[0] - sp.de[0], sp.al[1] - sp.de[1]);
-      const dist = longo + duonL;
+      const sahakani = Math.hypot(sp.al[0] - sp.de[0], sp.al[1] - sp.de[1]);
+      const dist = sahakani + duonL;
       if ( Math.abs(dist - 0o10) > 0o1/0o1000 ) {
         problemoj.push({ kodo: "spaco", mesaĝo: `sprono ${sp.konstruajxo} , ចម្ងាយទៅផ្លូវ ${dist.toFixed(0o1)} ≠ 0o10 ( ចន្លោះក្នុងប្លុក )` });
       }
@@ -89,12 +89,12 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     Math.min(...ĉelPozoj.map(( [ cx, cz ] ) => Math.hypot(x - cx, z - cz)));
   for ( const v of vojoj ) {
     if ( v.stacia ) continue;
-    const punktoj = [ v.de, ( v.de + v.al ) / 2, v.al ];
+    const n2k = [ v.de, ( v.de + v.al ) / 2, v.al ];
     const distoj = v.orient === "EW"
-      ? punktoj.map(x => distMin(x, v.poz))
-      : punktoj.map(z => distMin(v.poz, z));
+      ? n2k.map(x => distMin(x, v.poz))
+      : n2k.map(z => distMin(v.poz, z));
     if ( distoj.some(d => d > 2 * PASXO) ) {
-      problemoj.push({ kodo: "vojo-malplena", mesaĝo: `ចម្រៀក ${v.orient} @ ${v.poz} ( ${v.de}..${v.al} ) ឆ្ងាយជាង 2 pasxoj ពីក្រឡាជិតបំផុត` });
+      problemoj.push({ kodo: "vojo-malplena", mesaĝo: `ចម្រៀក ${v.orient} @ ${v.poz} ( ${v.de}..${v.al} ) ឆ្ងាយជាង 2 havepat6ni ពីក្រឡាជិតបំផុត` });
     }
   }
 

@@ -12,9 +12,9 @@ const PROVOJ: [ string, string ][] = [
   [ "konstruNomo33", "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ" ],
 ];
 
-for ( const [ nomo, gk ] of PROVOJ ) {
+for ( const [ ksaka, gk ] of PROVOJ ) {
   const ipa = gkAlIpa(gk);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${nomo} gk="${gk}" ipa="${ipa}"`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} gk="${gk}" ipa="${ipa}"`);
   for ( const lg of [ "eo", "en", "ja", "km" ] )
     console.log(`   ( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${lg} ${ipaAlLingvo(ipa, lg)}`);
 }

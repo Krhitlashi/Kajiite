@@ -7,14 +7,14 @@ import { SXIPA_NIVELOJ, SXIPA_TIERO } from "../krasesxagxa-kosmosxipo.js";
 import { GOLD, GOLD_WARM } from "./formoj.js";
 import { heliksaAltecxo, type HeliksoInfo, type InternaEnirPunkto, type InternaSistemo } from "./tipoj.js";
 
-export function forigiInternanGrupon(grupo: THREE.Group): void {
+export function forigiInternanGrupon(hate: THREE.Group): void {
   const viditajTeksajxoj = new Set<THREE.Texture>();
   const viditajMaterialoj = new Set<THREE.Material>();
-  grupo.traverse(( obj ) => {
+  hate.traverse(( obj ) => {
     const mesxo = obj as THREE.Mesh;
     if ( mesxo.geometry ) mesxo.geometry.dispose();
-    const materialoj = Array.isArray(mesxo.material) ? mesxo.material : [ mesxo.material ];
-    for ( const mat of materialoj ) {
+    const pukek = Array.isArray(mesxo.material) ? mesxo.material : [ mesxo.material ];
+    for ( const mat of pukek ) {
       if ( !mat || viditajMaterialoj.has(mat) ) continue;
       viditajMaterialoj.add(mat);
       const teksturoj = [ ( mat as THREE.MeshStandardMaterial ).map, ( mat as THREE.MeshStandardMaterial ).emissiveMap ];
@@ -29,10 +29,10 @@ export function forigiInternanGrupon(grupo: THREE.Group): void {
   });
 }
 
-export function aplikiLitajnKolorojn(grupo: THREE.Group, tolaKoloro: number, kusenaKoloro: number): void {
+export function aplikiLitajnKolorojn(hate: THREE.Group, tolaKoloro: number, kusenaKoloro: number): void {
   let tola: THREE.MeshStandardMaterial | null = null;
   let kusena: THREE.MeshStandardMaterial | null = null;
-  grupo.traverse(( obj ) => {
+  hate.traverse(( obj ) => {
     const mesxo = obj as THREE.Mesh;
     const tipo = mesxo.userData.litoTipo;
     if ( tipo !== "tecto" && tipo !== "kuseno" ) return;
@@ -49,7 +49,7 @@ export function aplikiLitajnKolorojn(grupo: THREE.Group, tolaKoloro: number, kus
 }
 
 export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxefaSceno: THREE.Scene): InternaEnirPunkto {
-  const grupo = new THREE.Group();
+  const hate = new THREE.Group();
   const sxipaTiero = SXIPA_TIERO;
   const up = SXIPA_NIVELOJ, down = up;
   const rMezCx = 0o17/0o4, rSupro = 0o3/0o4, rBoto = 0o155/0o100;
@@ -76,25 +76,25 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   sys.plankoj = [];
   for ( let j = down; j >= 1; j-- ) {
     const r = konusaR(-j * sxipaTiero);
-    sys.plankoj.push({ y: -j * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, alto: sxipaTiero });
+    sys.plankoj.push({ y: -j * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, l6da: sxipaTiero });
   }
   for ( let i = 0; i < up; i++ ) {
     const r = konusaR(i * sxipaTiero);
-    sys.plankoj.push({ y: i * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, alto: sxipaTiero });
+    sys.plankoj.push({ y: i * sxipaTiero, hw: r / Math.SQRT2, hd: r / Math.SQRT2, l6da: sxipaTiero });
   }
 
-  const supra = new THREE.Mesh(new THREE.CylinderGeometry(rSupro, rMezCx, up * sxipaTiero, 0o40, 1, true), kareno);
-  supra.position.y = up * sxipaTiero / 2;
-  grupo.add(supra);
+  const teru = new THREE.Mesh(new THREE.CylinderGeometry(rSupro, rMezCx, up * sxipaTiero, 0o40, 1, true), kareno);
+  teru.position.y = up * sxipaTiero / 2;
+  hate.add(teru);
   const suba = new THREE.Mesh(new THREE.CylinderGeometry(rMezCx, rBoto, down * sxipaTiero, 0o40, 1, true), kareno);
   suba.position.y = -down * sxipaTiero / 2;
-  grupo.add(suba);
+  hate.add(suba);
   const plafono = new THREE.Mesh(new THREE.CircleGeometry(rSupro, 0o40).rotateX(Math.PI / 2), malhela);
   plafono.position.y = yT;
-  grupo.add(plafono);
+  hate.add(plafono);
   const lumRingo = new THREE.Mesh(new THREE.RingGeometry(0o13/0o10, 0o21/0o10, 0o40).rotateX(Math.PI / 2), brila);
   lumRingo.position.y = yT - 0o1/0o20;
-  grupo.add(lumRingo);
+  hate.add(lumRingo);
 
   for ( const p of sys.plankoj ) {
     const r = p.hw * Math.SQRT2;
@@ -106,11 +106,11 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
       malhela
 );
     planko.position.y = p.y + 0o1/0o40;
-    grupo.add(planko);
+    hate.add(planko);
     if ( p.y === 0 ) {
-      const ringo = new THREE.Mesh(new THREE.RingGeometry(r - 0o3/0o10, r - 0o1/0o20, 0o40).rotateX(-Math.PI / 2), oro);
-      ringo.position.y = 0o5/0o100;
-      grupo.add(ringo);
+      const c2q = new THREE.Mesh(new THREE.RingGeometry(r - 0o3/0o10, r - 0o1/0o20, 0o40).rotateX(-Math.PI / 2), oro);
+      c2q.position.y = 0o5/0o100;
+      hate.add(c2q);
     }
   }
 
@@ -129,17 +129,17 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
       malhela
 );
     kolono.position.set(0, ( fundoY + suproY ) / 2, 0);
-    grupo.add(kolono);
+    hate.add(kolono);
     for ( let p = -nSube; p < nSupre; p++ ) {
       const ang = p * paŝoAngulo;
       const y = heliksaAltecxo(helikso, p / helikso.perTurno);
-      const paso = new THREE.Mesh(
+      const vepat6ni = new THREE.Mesh(
         new THREE.BoxGeometry(paŝoLargho, paŝoAlto, radiala),
         sxtupMaterialo
 );
-      paso.position.set(rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang));
-      paso.rotation.y = ang;
-      grupo.add(paso);
+      vepat6ni.position.set(rMezo * Math.sin(ang), y + paŝoAlto / 2, rMezo * Math.cos(ang));
+      vepat6ni.rotation.y = ang;
+      hate.add(vepat6ni);
     }
     const relPunktoj: THREE.Vector3[] = [];
     const relSegmentoj = Math.max(0o100, ( helikso.turnoj + helikso.turnojSube ) * 0o40);
@@ -154,19 +154,19 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
       new THREE.TubeGeometry(new THREE.CatmullRomCurve3(relPunktoj), relSegmentoj, 0o3/0o100, 0o6, false),
       oro
 );
-    grupo.add(relo);
+    hate.add(relo);
   }
 
   const vitraloZ = -( konusaR(0o23/0o4) - 0o1/0o4 );
   const vitralo = new THREE.Mesh(new THREE.PlaneGeometry(0o4, 0o25/0o10), vitra);
   vitralo.position.set(0, 0o23/0o4, vitraloZ);
-  grupo.add(vitralo);
+  hate.add(vitralo);
   const vitKadro = new THREE.LineSegments(
     new THREE.EdgesGeometry(new THREE.BoxGeometry(0o4 + 0o1/0o10, 0o25/0o10 + 0o1/0o10, 0o1/0o40)),
     new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
 );
   vitKadro.position.set(0, 0o23/0o4, vitraloZ);
-  grupo.add(vitKadro);
+  hate.add(vitKadro);
 
   const kapsuloj: THREE.Mesh[] = [];
   const rKaps = konusaR(3 - 0o13/0o40);
@@ -177,7 +177,7 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
     const fen = new THREE.Mesh(new THREE.ShapeGeometry(kreiPilolFenestranFormon(0o13/0o10, 0o13/0o20), 0o40), fenMat);
     fen.rotation.y = Math.PI / 2;
     fen.position.set(sX * kapsX, 3 - 0o13/0o40, sZ * 0o17/0o10);
-    grupo.add(fen);
+    hate.add(fen);
     kapsuloj.push(fen);
   }
 
@@ -185,33 +185,33 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
   konzolo.position.set(0, 0o3/0o4, -0o5/0o2);
   konzolo.rotation.x = -0o1/0o10;
   konzolo.castShadow = true;
-  grupo.add(konzolo);
+  hate.add(konzolo);
   const ekrano = new THREE.Mesh(new THREE.PlaneGeometry(3, 1), brila.clone());
   ekrano.position.set(0, 0o25/0o20, -0o61/0o20);
-  grupo.add(ekrano);
+  hate.add(ekrano);
 
   const sidilo = new THREE.Mesh(new THREE.BoxGeometry(0o13/0o10, 0o3/0o10, 0o13/0o10), malhela);
   sidilo.position.set(0, 0o3/0o10, -0o3/0o2);
-  sidilo.castShadow = true; grupo.add(sidilo);
+  sidilo.castShadow = true; hate.add(sidilo);
   const dorso = new THREE.Mesh(new THREE.BoxGeometry(0o13/0o10, 0o7/0o10, 0o1/0o4), kareno);
   dorso.position.set(0, 0o13/0o20, -0o17/0o10);
-  grupo.add(dorso);
+  hate.add(dorso);
   const tigo = new THREE.Mesh(new THREE.CylinderGeometry(0o1/0o10, 0o1/0o10, 0o3/0o10, 6), oro);
   tigo.position.set(0, 0o3/0o20, -0o3/0o2);
-  grupo.add(tigo);
+  hate.add(tigo);
 
   const holoringo = new THREE.Mesh(new THREE.TorusGeometry(0o72/0o100, 0o3/0o100, 0o10, 0o40), brila);
   holoringo.position.set(0, 0o7/0o2, -0o5/0o2);
-  grupo.add(holoringo);
+  hate.add(holoringo);
   const holoringo2 = new THREE.Mesh(new THREE.TorusGeometry(0o52/0o100, 0o3/0o100, 0o10, 0o40), brila);
   holoringo2.position.set(0, 0o7/0o2, -0o5/0o2);
-  grupo.add(holoringo2);
+  hate.add(holoringo2);
   const holosfero = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o4, 0o10, 0o10), brila);
   holosfero.position.set(0, 0o7/0o2, -0o5/0o2);
-  grupo.add(holosfero);
+  hate.add(holosfero);
   const hololumo = new THREE.PointLight(0xa0e8e0, 0o6/0o10, 0o20, 2);
   hololumo.position.set(0, 0o7/0o2, -0o5/0o2);
-  grupo.add(hololumo);
+  hate.add(hololumo);
 
   const aerZ = konusaR(0o7/0o2) - 0o1/0o4;
   const aerKadro = new THREE.LineSegments(
@@ -219,16 +219,16 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
     new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
 );
   aerKadro.position.set(0, 0o7/0o2, aerZ);
-  grupo.add(aerKadro);
+  hate.add(aerKadro);
   const aerPordo = new THREE.Mesh(new THREE.PlaneGeometry(0o3, 5), brila.clone());
   aerPordo.position.set(0, 0o7/0o2, aerZ);
-  grupo.add(aerPordo);
+  hate.add(aerPordo);
 
   const ambiento = new THREE.HemisphereLight(0xc0e8e0, 0x081010, 0o5/0o10);
-  grupo.add(ambiento);
+  hate.add(ambiento);
   const lumo = new THREE.PointLight(GOLD_WARM, 0o4/0o10, 0o14, 2);
   lumo.position.set(0, 7, 0);
-  grupo.add(lumo);
+  hate.add(lumo);
 
   const ekranoMat = ekrano.material as THREE.MeshStandardMaterial;
   sys.animated.push({
@@ -243,10 +243,10 @@ export function eniriSxipanInternon(sys: InternaSistemo, spec: KonstruSpec, cxef
     },
   });
 
-  grupo.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
-  grupo.rotation.y = spec.rot || 0;
-  cxefaSceno.add(grupo);
-  sys.currentGroup = grupo;
+  hate.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
+  hate.rotation.y = spec.rot || 0;
+  cxefaSceno.add(hate);
+  sys.currentGroup = hate;
 
-  return { x: 0, z: 0o5/0o2, y: 0o4/0o10, direkto: 0 };
+  return { x: 0, z: 0o5/0o2, y: 0o4/0o10, c2w2q: 0 };
 }

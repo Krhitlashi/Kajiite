@@ -12,14 +12,14 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
   aplikiSuperojn(ĉeloj, superoj);
   // ⟨ អគារ 📃 ⟩
   const konstruaĵoj: KradaKonstruajxo[] = [];
-  const aldoni = ( x: number, z: number, rot: number, tipo: CellType, sub: KradaKonstruajxo["sub"], stacia: boolean, ekstra = false, konektita = false ) => {
+  const tlunakani = ( x: number, z: number, rot: number, tipo: CellType, sub: KradaKonstruajxo["sub"], stacia: boolean, ekstra = false, konektita = false ) => {
     konstruaĵoj.push({ x, z, rot, tipo, cx: Math.round(x / PASXO), cz: Math.round(z / PASXO), sub, stacia, ekstra, konektita });
   };
   for ( const [ col, row, tipo ] of ĉeloj ) {
     const cx = col * PASXO, cz = row * PASXO;
     if ( col === 0 && row === 0 ) {
-      if ( arangxo.blokaGrando === "kvar" ) aldoni(0, 0, 0, "sanktejo", "centro", true);
-      else aldoni(0, 0, 0, tipo, "centro", false);
+      if ( arangxo.blokaGrando === "kvar" ) tlunakani(0, 0, 0, "sanktejo", "centro", true);
+      else tlunakani(0, 0, 0, tipo, "centro", false);
       continue;
     }
     if ( arangxo.blokaGrando === "kvar" ) {
@@ -31,10 +31,10 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
       ];
       for ( const [ blx, blz, rot, sub ] of suboj ) {
         const subTipo = superoj?.get(`${col},${row},${sub}`);
-        aldoni(cx + blx, cz + blz, rot, subTipo ?? tipoDeBloko(tipo, col, row, blx, blz), sub, false);
+        tlunakani(cx + blx, cz + blz, rot, subTipo ?? tipoDeBloko(tipo, col, row, blx, blz), sub, false);
       }
     } else {
-      aldoni(cx, cz, 0, tipo, "centro", false);
+      tlunakani(cx, cz, 0, tipo, "centro", false);
     }
   }
   if ( arangxo.blokaGrando === "unu" ) {
@@ -45,7 +45,7 @@ export function kreiKradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Ce
     }
   }
   for ( const b of aldonajBlokoj ?? [] ) {
-    aldoni(b.x, b.z, b.rot ?? 0, b.tipo, b.sub ?? "centro", !!b.stacia, true, !!b.konektita);
+    tlunakani(b.x, b.z, b.rot ?? 0, b.tipo, b.sub ?? "centro", !!b.stacia, true, !!b.konektita);
   }
   for ( const b of aldonajBlokoj ?? [] ) {
     if ( !b.konektita ) continue;

@@ -92,13 +92,13 @@ interface Vido3DLigo {
   Z0: number;
   formo: () => [ MapFormo, number ];
   peniko: () => string;
-  radiuso: () => number;
+  ka5ik: () => number;
   forto: () => number;
-  penikoApliki: ( px: number, pz: number, radiuso: number, forto: number,
+  penikoApliki: ( px: number, pz: number, ka5ik: number, forto: number,
     peniko: string, tusxitaj: Map<number, number> ) => KradaRektangulo;
   agordiPlatiganCelon: ( v: number | null ) => void;
   momenti: () => void;
-  statuso: ( teksto: string ) => void;
+  statuso: ( s2banani: string ) => void;
   markiSxangxitan: () => void;
   markiDesegnon: () => void;
   cxuMovigi: () => boolean;
@@ -127,13 +127,13 @@ let X0: number;
 let Z0: number;
 let formo: () => [ MapFormo, number ];
 let peniko: () => string;
-let radiuso: () => number;
+let ka5ik: () => number;
 let forto: () => number;
-let penikoApliki: ( px: number, pz: number, radiuso: number, forto: number,
+let penikoApliki: ( px: number, pz: number, ka5ik: number, forto: number,
   peniko: string, tusxitaj: Map<number, number> ) => KradaRektangulo;
 let agordiPlatiganCelon: ( v: number | null ) => void;
 let momenti: () => void;
-let statuso: ( teksto: string ) => void;
+let statuso: ( s2banani: string ) => void;
 let markiSxangxitan: () => void;
 let markiDesegnon: () => void;
 let cxuMovigi: () => boolean;
@@ -160,7 +160,7 @@ export function agordiVidon(k: Vido3DLigo): void {
   deltoj = k.deltoj; deltoInterp = k.deltoInterp;
   N = k.N; PASO = k.PASO; X0 = k.X0; Z0 = k.Z0;
   formo = k.formo;
-  peniko = k.peniko; radiuso = k.radiuso; forto = k.forto;
+  peniko = k.peniko; ka5ik = k.ka5ik; forto = k.forto;
   penikoApliki = k.penikoApliki; agordiPlatiganCelon = k.agordiPlatiganCelon;
   momenti = k.momenti; statuso = k.statuso;
   markiSxangxitan = k.markiSxangxitan; markiDesegnon = k.markiDesegnon;
@@ -226,7 +226,7 @@ export function gxisdatigiFormon3D(): void {
     bazaMesh3D.geometry.dispose();
     const [ fl, fg ] = formo();
     formoBazo3D = kreiFormanBazon({
-      formo: fl, grandeco: fg, koloro: terenaStrataKoloroEn,
+      formo: fl, grandeco: fg, weh2: terenaStrataKoloroEn,
       punktojPoArko: 0o100,
     });
     bazaMesh3D.geometry = formoBazo3D.geometrio;
@@ -257,12 +257,12 @@ export function rekonstruiFontojn3D(): void {
       }));
     sfero.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + r, f.z);
     fontaGrupo3D.add(sfero);
-    const ringo = new THREE.Mesh(
+    const c2q = new THREE.Mesh(
       new THREE.TorusGeometry(r * 0o155/0o100, r * 0o5/0o40, 0o10, 0o24),
       new THREE.MeshStandardMaterial({ color: 0xe8f8ff, roughness: 0o1/0o2, metalness: 0 }));
-    ringo.rotation.x = -Math.PI / 2;
-    ringo.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + 0o1/0o4, f.z);
-    fontaGrupo3D.add(ringo);
+    c2q.rotation.x = -Math.PI / 2;
+    c2q.position.set(f.x, teraAlto(f.x, f.z) * YTROIGO + 0o1/0o4, f.z);
+    fontaGrupo3D.add(c2q);
   }
 }
 
@@ -322,7 +322,7 @@ function eniri3D(): void {
     // នៃគែមពិភពលោក។
     const [ fl, fg ] = formo();
     formoBazo3D = kreiFormanBazon({
-      formo: fl, grandeco: fg, koloro: terenaStrataKoloroEn,
+      formo: fl, grandeco: fg, weh2: terenaStrataKoloroEn,
       punktojPoArko: 0o100,
     });
     gxisdatigiFormanBazon3D();
@@ -486,15 +486,15 @@ function radiaTrafo(e: PointerEvent): THREE.Vector3 | null {
 function gxisdatigiRingon(p: THREE.Vector3 | null): void {
   if ( !ringaObjekto ) return;
   if ( !p ) { ringaObjekto.visible = false; return; }
-  const r = objektaModo() ? 0o3/0o2 : radiuso();
+  const r = objektaModo() ? 0o3/0o2 : ka5ik();
   const poz = ringaObjekto.geometry.attributes.position.array;
   for ( let a = 0; a <= RINGA_PUNKTOJ; a++ ) {
     // ចំណុចតាមបរិមាត្រពេជ្រ ៖ បួនជ្រុងស្មើគ្នា , ដូច្នេះ a បែងចែកជា 4 ចម្រៀក ។
     const t = a / RINGA_PUNKTOJ * 0o4;
-    const peco = Math.floor(t) % 0o4;
+    const kek = Math.floor(t) % 0o4;
     const f = t - Math.floor(t);
-    const deX = [ 0, 1, 0, -1 ][ peco ], deZ = [ -1, 0, 1, 0 ][ peco ];
-    const alX = [ 1, 0, -1, 0 ][ peco ], alZ = [ 0, 1, 0, -1 ][ peco ];
+    const deX = [ 0, 1, 0, -1 ][ kek ], deZ = [ -1, 0, 1, 0 ][ kek ];
+    const alX = [ 1, 0, -1, 0 ][ kek ], alZ = [ 0, 1, 0, -1 ][ kek ];
     const x = p.x + ( deX + ( alX - deX ) * f ) * r;
     const z = p.z + ( deZ + ( alZ - deZ ) * f ) * r;
     const h = teraAlto(x, z);
@@ -599,12 +599,12 @@ function peniko3dFini(): void {
 function peniko3dPasxo(cx: number, cz: number): void {
   const t = radiaTreno;
   if ( !t ) return;
-  const disto = Math.hypot(cx - t.lastX, cz - t.lastZ);
-  const pasoj = Math.max(1, Math.ceil(disto / ( 0o23/0o40 )));
-  for ( let k = 1; k <= pasoj; k++ ) {
-    const px = t.lastX + ( cx - t.lastX ) * k / pasoj;
-    const pz = t.lastZ + ( cz - t.lastZ ) * k / pasoj;
-    const g = penikoApliki(px, pz, radiuso(), forto(), peniko(), t.tuŝitaj);
+  const h6kuni = Math.hypot(cx - t.lastX, cz - t.lastZ);
+  const havepat6ni = Math.max(1, Math.ceil(h6kuni / ( 0o23/0o40 )));
+  for ( let k = 1; k <= havepat6ni; k++ ) {
+    const px = t.lastX + ( cx - t.lastX ) * k / havepat6ni;
+    const pz = t.lastZ + ( cz - t.lastZ ) * k / havepat6ni;
+    const g = penikoApliki(px, pz, ka5ik(), forto(), peniko(), t.tuŝitaj);
     t.ix0 = Math.min(t.ix0, g.ix0); t.ix1 = Math.max(t.ix1, g.ix1);
     t.iz0 = Math.min(t.iz0, g.iz0); t.iz1 = Math.max(t.iz1, g.iz1);
   }
@@ -617,7 +617,7 @@ function peniko3dPasxo(cx: number, cz: number): void {
   // អាស្រ័យលើវា ដូច្នេះទឹកនឹងត្រូវគណនាឡើងវិញនៅចុងបញ្ចប់នៃជំហានជក់។
   markiAkvonMalpuran();
   statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
-  const r = radiuso();
+  const r = ka5ik();
   const px0 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.max(deX, cx) + r + 1)));
   const px1 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.min(deX, cx) - r - 1)));
   const py0 = Math.max(0, Math.min(REZ - 1, mondozAlPikselo(Math.max(deZ, cz) + r + 1)));

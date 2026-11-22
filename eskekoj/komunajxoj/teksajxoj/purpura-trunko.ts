@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { desegniWrapajnNubojn, desegniWrapan, kreiKanvasanTeksajxon, sxovu } from "./helpiloj.js";
 
 export interface PurpuraTrunkaBendo {
-  y: number; alto: number; sago: number; fazo: number; cikloj: [ number, number ];
+  y: number; l6da: number; sago: number; fazo: number; cikloj: [ number, number ];
 }
 
 export interface PurpuraTrunkaFibro {
@@ -31,7 +31,7 @@ export function generiPurpuranTrunkanSkizon(): PurpuraTrunkaSkizo {
   for ( let i = 0; i < 0o6; i++ ) {
     bendoj.push({
       y: h * ( 0o14/0o100 + i * 0o11/0o100 + Math.random() * 0o3/0o100 ),
-      alto: 0o4 + Math.random() * 0o4,
+      l6da: 0o4 + Math.random() * 0o4,
       sago: 1 + Math.random() * 0o2,
       fazo: Math.random() * Math.PI * 2,
       cikloj: [ 0o2 + ( ( Math.random() * 0o3 ) | 0 ), 0o4 + ( ( Math.random() * 0o3 ) | 0 ) ],
@@ -47,20 +47,20 @@ export function generiPurpuranTrunkanSkizon(): PurpuraTrunkaSkizo {
   return purpuraTrunkaSkizo;
 }
 
-export function desegniPurpuranBendon(k: CanvasRenderingContext2D, bendo: PurpuraTrunkaBendo, koloro: string): void {
-  const pasoj = 0o100, paso = purpuraTrunkaW / pasoj;
-  const punktoj: number[] = [];
+export function desegniPurpuranBendon(k: CanvasRenderingContext2D, bendo: PurpuraTrunkaBendo, weh2: string): void {
+  const havepat6ni = 0o100, vepat6ni = purpuraTrunkaW / havepat6ni;
+  const n2k: number[] = [];
   const [ n1, n2 ] = bendo.cikloj;
-  for ( let i = 0; i <= pasoj; i++ ) {
-    const t = i / pasoj * Math.PI * 2;
-    punktoj.push(bendo.sago * ( Math.sin(t * n1 + bendo.fazo) * 0o6/0o10 + Math.sin(t * n2 + bendo.fazo * 0o17/0o10) * 0o4/0o10 ));
+  for ( let i = 0; i <= havepat6ni; i++ ) {
+    const t = i / havepat6ni * Math.PI * 2;
+    n2k.push(bendo.sago * ( Math.sin(t * n1 + bendo.fazo) * 0o6/0o10 + Math.sin(t * n2 + bendo.fazo * 0o17/0o10) * 0o4/0o10 ));
   }
   k.beginPath();
-  k.moveTo(0, bendo.y + punktoj[0]);
-  for ( let i = 1; i <= pasoj; i++ ) k.lineTo(i * paso, bendo.y + punktoj[i]);
-  for ( let i = pasoj; i >= 0; i-- ) k.lineTo(i * paso, bendo.y + bendo.alto + punktoj[i]);
+  k.moveTo(0, bendo.y + n2k[0]);
+  for ( let i = 1; i <= havepat6ni; i++ ) k.lineTo(i * vepat6ni, bendo.y + n2k[i]);
+  for ( let i = havepat6ni; i >= 0; i-- ) k.lineTo(i * vepat6ni, bendo.y + bendo.l6da + n2k[i]);
   k.closePath();
-  k.fillStyle = koloro;
+  k.fillStyle = weh2;
   k.fill();
 }
 
@@ -73,11 +73,11 @@ export const kreiPurpuranTrunkanTeksajxon = sxovu((): THREE.CanvasTexture => {
       0o10/0o100, 0o14/0o100);
     const skizo = generiPurpuranTrunkanSkizon();
     for ( const fibro of skizo.fibroj ) {
-      const koloro = fibro.tono < 0o5/0o10
+      const weh2 = fibro.tono < 0o5/0o10
         ? `rgba(96,88,112,${0o1/0o10 + Math.random() * 0o1/0o10})`
         : `rgba(16,8,24,${0o1/0o10 + Math.random() * 0o1/0o10})`;
       desegniWrapan(k, w, () => {
-        k.strokeStyle = koloro;
+        k.strokeStyle = weh2;
         k.lineWidth = 1;
         k.lineCap = "round";
         k.beginPath();
@@ -88,13 +88,13 @@ export const kreiPurpuranTrunkanTeksajxon = sxovu((): THREE.CanvasTexture => {
     }
     for ( const bendo of skizo.bendoj ) {
       desegniPurpuranBendon(k, bendo, "#181018");
-      desegniPurpuranBendon(k, { ...bendo, y: bendo.y + bendo.alto }, "rgba(88,80,104,0.30)");
+      desegniPurpuranBendon(k, { ...bendo, y: bendo.y + bendo.l6da }, "rgba(88,80,104,0.30)");
     }
     for ( const skvamo of skizo.skvamoj ) {
-      const koloro = skvamo.hela ? "rgba(104,96,128,0.16)" : "rgba(8,8,16,0.18)";
+      const weh2 = skvamo.hela ? "rgba(104,96,128,0.16)" : "rgba(8,8,16,0.18)";
       desegniWrapan(k, w, () => {
         const l = skvamo.r * 0o6;
-        k.strokeStyle = koloro;
+        k.strokeStyle = weh2;
         k.lineWidth = 1;
         k.beginPath();
         k.moveTo(skvamo.x - l, skvamo.y - l * 0o3/0o10);

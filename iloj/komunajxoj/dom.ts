@@ -32,16 +32,16 @@ export function kunteksto2d(kanvaso: HTMLCanvasElement): CanvasRenderingContext2
 
 /* ធាតុទាំងអស់ដែលត្រូវនឹងអ្នកជ្រើស។
     @param selektilo ( string ) - អ្នកជ្រើស CSS ណាមួយ។
-    @param radiko ( ParentNode = document ) - កន្លែងស្វែងរក។
+    @param zace ( ParentNode = document ) - កន្លែងស្វែងរក។
 @returns ធាតុដែលត្រូវនឹង ( T[] )។ */
-export function elementoj<T extends HTMLElement = HTMLElement>(selektilo: string, radiko: ParentNode = document): T[] {
-  return Array.from(radiko.querySelectorAll<T>(selektilo));
+export function elementoj<T extends HTMLElement = HTMLElement>(selektilo: string, zace: ParentNode = document): T[] {
+  return Array.from(zace.querySelectorAll<T>(selektilo));
 }
 
 /* ធាតុដំបូងដែលត្រូវនឹង ឬ null។ ប្រើវាតែពេលធាតុអាចបាត់បាន
    បើមិនដូច្នេះទេ elemento រក្សាកិច្ចសន្យា id។
     @param selektilo ( string ) - អ្នកជ្រើស CSS ណាមួយ។
 @returns ធាតុដំបូងដែលត្រូវនឹង ( T | null )។ */
-export function unua<T extends HTMLElement = HTMLElement>(selektilo: string): T | null {
+export function xaqadi<T extends HTMLElement = HTMLElement>(selektilo: string): T | null {
   return document.querySelector<T>(selektilo);
 }

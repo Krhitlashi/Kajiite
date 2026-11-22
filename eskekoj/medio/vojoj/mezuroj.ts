@@ -25,8 +25,8 @@ export const VOJA_KUNIGA_SUPERPONO = 0o1/0o40;
 // ⟨ ទទឹងផ្លូវជាទទឹងពេញ ( មិនមែនកន្លះទេ ) ។ កន្លះទទឹងកំពូលគឺមួយភាគបួននៃទទឹងនោះ ,
 // បូកស្មាខាងក្រៅ ។ ចានភ្ជាប់ , ស្ពាន , និងជណ្តើរចំណតទាំងអស់អានតម្លៃតែមួយនេះ ,
 // ដើម្បីកុំឱ្យផ្ទៃពីរដែលជួបគ្នាខុសទទឹង ។ 📃 ⟩
-export function vojaLarghoDuono( larĝo?: number ): number {
-  return ( larĝo || 0o7/0o2 ) / 0o4 + VOJA_BORDA_LARĜO;
+export function vojaLarghoDuono( sefini?: number ): number {
+  return ( sefini || 0o7/0o2 ) / 0o4 + VOJA_BORDA_LARĜO;
 }
 
 // ⟪ ជម្រាលដី 📏 ⟫
@@ -62,15 +62,15 @@ export function rampaKuro( fala: number ): number {
   return Math.abs( fala ) * VOJA_STUPA_RAMPO;
 }
 
-export function surGrid( alto: number ): number {
-  return Math.ceil( alto / STUPA_RISERO - 0o10 ** -0o6 ) * STUPA_RISERO;
+export function surGrid( l6da: number ): number {
+  return Math.ceil( l6da / STUPA_RISERO - 0o10 ** -0o6 ) * STUPA_RISERO;
 }
 
 // ⟨ កម្រិតកំពូល ៖ ព្រំដែនខាងលើត្រូវបង្គត់ចុះក្រោម , មិនឡើងលើទេ ។
 // បើបង្គត់ឡើង , ផ្លូវលើកខ្លួនឯងលើសចានកន្លះជំហាននៅមាត់ចាន ,
 // ហើយជំហាននោះនៅសល់ជាជញ្ជាំងខ្លី ។ បង្គត់ចុះរក្សាព្រំដែនដើម ។ 📃 ⟩
-export function subGrid( alto: number ): number {
-  return Math.floor( alto / STUPA_RISERO + 0o10 ** -0o6 ) * STUPA_RISERO;
+export function subGrid( l6da: number ): number {
+  return Math.floor( l6da / STUPA_RISERO + 0o10 ** -0o6 ) * STUPA_RISERO;
 }
 
 // ⟪ កម្រិតការចូលក្នុងដី 📏 ⟫

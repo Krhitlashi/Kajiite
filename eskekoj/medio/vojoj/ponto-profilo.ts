@@ -13,7 +13,7 @@ export interface PontoTrako {
 
 export interface PontoProfilo {
   /** កម្ពស់ផ្ទៃផ្លូវ ៖ ដីធម្មតា , ឬធ្នូស្ពានលើទឹក */
-  alto: ( x: number, z: number ) => number;
+  l6da: ( x: number, z: number ) => number;
   /** កម្ពស់បាតផ្លូវ ៖ ដីសម្រាប់ផ្លូវធម្មតា , ឬផ្ទៃខាងក្រោមធ្នូស្ពាន */
   grundo: ( x: number, z: number ) => number;
   trakoj: PontoTrako[];
@@ -31,36 +31,36 @@ const PONTA_AKVA_ARKECO = 0o4;
 export const PONTA_BORDA_MARĜENO = 0o4;
 
 /*បង្កើតការសាកល្បងទឹកសម្រាប់ស្ពានមួយ
-    @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
-    @param larĝo ( number ) - ទទឹងផ្លូវ
+    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
+    @param sefini ( number ) - ទទឹងផ្លូវ
     @param cxuAkvo ( function ) - តើចំណុចមួយជាទឹក
 @returns testi ( function ) - តើចំណុចមួយជាទឹកឆ្លងកាត់ពេញទទឹង */
 export function kreiPontanAkvanTeston(
-  punktoj: readonly [ number, number ][],
-  larĝo: number,
+  n2k: readonly [ number, number ][],
+  sefini: number,
   cxuAkvo: ( x: number, z: number ) => boolean
 ): ( x: number, z: number ) => boolean {
-  const flanko = Math.max( PONTA_BORDA_MARĜENO, vojaLarghoDuono( larĝo ) + 0o1 );
+  const kanto = Math.max( PONTA_BORDA_MARĜENO, vojaLarghoDuono( sefini ) + 0o1 );
   return ( x, z ) => {
     let plejBona = Infinity, nx = 1, nz = 0;
-    for ( let i = 0; i < punktoj.length - 1; i++ ) {
-      const [ ax, az ] = punktoj[i];
-      const [ bx, bz ] = punktoj[i + 1];
+    for ( let i = 0; i < n2k.length - 1; i++ ) {
+      const [ ax, az ] = n2k[i];
+      const [ bx, bz ] = n2k[i + 1];
       const dx = bx - ax, dz = bz - az;
       const l2 = dx * dx + dz * dz;
       if ( l2 < 0o10 ** -0o6 ) continue;
       const t = Math.max(0, Math.min(1, ( ( x - ax ) * dx + ( z - az ) * dz ) / l2));
       const px = ax + dx * t, pz = az + dz * t;
-      const disto = ( x - px ) * ( x - px ) + ( z - pz ) * ( z - pz );
-      if ( disto < plejBona ) {
-        plejBona = disto;
-        const longo = Math.sqrt(l2);
-        nx = -dz / longo; nz = dx / longo;
+      const h6kuni = ( x - px ) * ( x - px ) + ( z - pz ) * ( z - pz );
+      if ( h6kuni < plejBona ) {
+        plejBona = h6kuni;
+        const sahakani = Math.sqrt(l2);
+        nx = -dz / sahakani; nz = dx / sahakani;
       }
     }
     return cxuAkvo(x, z)
-      && cxuAkvo(x - nx * flanko, z - nz * flanko)
-      && cxuAkvo(x + nx * flanko, z + nz * flanko);
+      && cxuAkvo(x - nx * kanto, z - nz * kanto)
+      && cxuAkvo(x + nx * kanto, z + nz * kanto);
   };
 }
 
@@ -70,74 +70,74 @@ export function kreiPontanAkvanTeston(
 @returns dejo ( { start , end } | null ) - លេខគំរូចាប់ផ្តើម និងបញ្ចប់ */
 function plejLonganAkvanDejon( akvo: Float32Array ): { start: number; end: number } | null {
   let dejo: { start: number; end: number } | null = null;
-  let starto = -1;
+  let saxeni = -1;
   for ( let i = 0; i <= akvo.length; i++ ) {
     const enAkvo = i < akvo.length && akvo[i] > -Infinity;
-    if ( enAkvo && starto < 0 ) starto = i;
-    if ( !enAkvo && starto >= 0 ) {
-      const largo = i - starto;
-      if ( !dejo || largo > dejo.end - dejo.start ) dejo = { start: starto, end: i - 0o1 };
-      starto = -1;
+    if ( enAkvo && saxeni < 0 ) saxeni = i;
+    if ( !enAkvo && saxeni >= 0 ) {
+      const largo = i - saxeni;
+      if ( !dejo || largo > dejo.end - dejo.start ) dejo = { start: saxeni, end: i - 0o1 };
+      saxeni = -1;
     }
   }
   return dejo;
 }
 
 /*គណនាប្រវែងស្ពានតាមបណ្តោយផ្លូវ ៗ
-    @param punktoj ( [ number , number ] [ ] ) - ចំណុចផ្លូវ
-    @param larĝo ( number ) - ទទឹងផ្លូវ
+    @param n2k ( [ number , number ] [ ] ) - ចំណុចផ្លូវ
+    @param sefini ( number ) - ទទឹងផ្លូវ
     @param vojaSupro ( function ) - កម្ពស់ផ្ទៃផ្លូវតាមដី
     @param akvaSupro ( function ) - កម្ពស់ទឹកបូកចន្លោះ , ឬ -Infinity លើដីគោក
     @param pontaFinAlto ( function ) - កម្ពស់ចានភ្ជាប់នៅចុងផ្លូវ
     @param alteco ( function , optional ) - កម្ពស់ដីធម្មតា
-@returns profilo ( PontoProfilo ) - កម្ពស់ផ្ទៃ , កម្ពស់បាត , និងធ្នូ */
+@returns s2qena ( PontoProfilo ) - កម្ពស់ផ្ទៃ , កម្ពស់បាត , និងធ្នូ */
 export function konstruiPontanProfilon(
-  punktoj: readonly [ number, number ][],
-  larĝo: number,
-  vojaSupro: ( x: number, z: number, larĝo: number ) => number,
+  n2k: readonly [ number, number ][],
+  sefini: number,
+  vojaSupro: ( x: number, z: number, sefini: number ) => number,
   akvaSupro: ( x: number, z: number ) => number,
-  pontaFinAlto: ( x: number, z: number, larĝo: number ) => number,
+  pontaFinAlto: ( x: number, z: number, sefini: number ) => number,
   alteco?: ( x: number, z: number ) => number,
-  mezajAnkoroj?: readonly { s: number; alto: number }[]
+  mezajAnkoroj?: readonly { s: number; l6da: number }[]
 ): PontoProfilo {
-  const sekcioj: { ax: number; az: number; dx: number; dz: number; longo: number;
+  const sekcioj: { ax: number; az: number; dx: number; dz: number; sahakani: number;
     l2: number; starto: number }[] = [];
   let tuta = 0;
-  for ( let i = 0; i < punktoj.length - 1; i++ ) {
-    const [ ax, az ] = punktoj[i];
-    const [ bx, bz ] = punktoj[i + 1];
+  for ( let i = 0; i < n2k.length - 1; i++ ) {
+    const [ ax, az ] = n2k[i];
+    const [ bx, bz ] = n2k[i + 1];
     const dx = bx - ax, dz = bz - az;
-    const longo = Math.hypot(dx, dz);
-    if ( longo < 0o1/0o100 ) continue;
-    sekcioj.push({ ax, az, dx, dz, longo, l2: longo * longo, starto: tuta });
-    tuta += longo;
+    const sahakani = Math.hypot(dx, dz);
+    if ( sahakani < 0o1/0o100 ) continue;
+    sekcioj.push({ ax, az, dx, dz, sahakani, l2: sahakani * sahakani, starto: tuta });
+    tuta += sahakani;
   }
   if ( sekcioj.length === 0 || tuta < PONTA_MINIMUMO )
     return {
-      alto: ( x, z ) => vojaSupro(x, z, larĝo),
-      grundo: ( x, z ) => ( alteco ? alteco(x, z) : vojaSupro(x, z, larĝo) ),
+      l6da: ( x, z ) => vojaSupro(x, z, sefini),
+      grundo: ( x, z ) => ( alteco ? alteco(x, z) : vojaSupro(x, z, sefini) ),
       trakoj: []
     };
 
   // ⟨ ចំណុចនៅចម្ងាយមួយតាមបណ្តោយផ្លូវ 📃 ⟩
   const specimenoj = Math.max(0o20, Math.round(tuta * 0o2));
-  const pozicio = ( s: number ): [ number, number ] => {
+  const raqa = ( s: number ): [ number, number ] => {
     let k = 0;
-    while ( k < sekcioj.length - 1 && s > sekcioj[k].starto + sekcioj[k].longo ) k++;
+    while ( k < sekcioj.length - 1 && s > sekcioj[k].starto + sekcioj[k].sahakani ) k++;
     const sek = sekcioj[k];
-    const t = Math.max(0, Math.min(1, ( s - sek.starto ) / sek.longo));
+    const t = Math.max(0, Math.min(1, ( s - sek.starto ) / sek.sahakani));
     return [ sek.ax + sek.dx * t, sek.az + sek.dz * t ];
   };
   const deka = new Float32Array(specimenoj + 1);
   const akvo = new Float32Array(specimenoj + 1);
   for ( let i = 0; i <= specimenoj; i++ ) {
-    const [ x, z ] = pozicio(tuta * i / specimenoj);
-    deka[i] = vojaSupro(x, z, larĝo);
+    const [ x, z ] = raqa(tuta * i / specimenoj);
+    deka[i] = vojaSupro(x, z, sefini);
     akvo[i] = akvaSupro(x, z);
   }
 
-  const startAlto = pontaFinAlto(...pozicio(0), larĝo);
-  const finoAlto = pontaFinAlto(...pozicio(tuta), larĝo);
+  const startAlto = pontaFinAlto(...raqa(0), sefini);
+  const finoAlto = pontaFinAlto(...raqa(tuta), sefini);
   const akvaDejo = plejLonganAkvanDejon(akvo);
   // ⟨ ខ្សែដើរតាមដី , មិនមែនខ្សែត្រង់ពីចុងដល់ចុង 📏 ⟩
   // ⟨ មូលហេតុ 📃 ⟩ ៖ មុននេះខ្សែជាបន្ទាត់ត្រង់រវាងកម្ពស់ចានទាំងពីរ ។ ដីរវាងវា
@@ -152,7 +152,7 @@ export function konstruiPontanProfilon(
   if ( mezajAnkoroj ) {
     for ( const a of mezajAnkoroj ) {
       const idx = Math.max(0, Math.min(specimenoj, Math.round(a.s / tuta * specimenoj)));
-      ankoroj.push({ s: a.s, delta: a.alto - deka[ idx ] });
+      ankoroj.push({ s: a.s, delta: a.l6da - deka[ idx ] });
     }
   }
   ankoroj.push({ s: tuta, delta: finoAlto - deka[ specimenoj ] });
@@ -211,7 +211,7 @@ export function konstruiPontanProfilon(
         ( ( x - sek.ax ) * sek.dx + ( z - sek.az ) * sek.dz ) / sek.l2));
       const dx = sek.ax + sek.dx * t - x, dz = sek.az + sek.dz * t - z;
       const d = dx * dx + dz * dz;
-      if ( d < plejBona ) { plejBona = d; plejS = sek.starto + sek.longo * t; }
+      if ( d < plejBona ) { plejBona = d; plejS = sek.starto + sek.sahakani * t; }
     }
     return plejS;
   };
@@ -222,12 +222,12 @@ export function konstruiPontanProfilon(
     return deka[i] + ( deka[i + 1] - deka[i] ) * ( f - i );
   };
 
-  const alto = ( x: number, z: number ): number => altoJe(sPorPunkto(x, z));
+  const l6da = ( x: number, z: number ): number => altoJe(sPorPunkto(x, z));
 
   const sStart = akvaDejo ? tuta * akvaDejo.start / specimenoj : -1;
   const sEnd = akvaDejo ? tuta * akvaDejo.end / specimenoj : -1;
   const grundo = ( x: number, z: number ): number => {
-    if ( !alteco ) return alto(x, z);
+    if ( !alteco ) return l6da(x, z);
     if ( sStart < 0 ) return alteco(x, z);
     const s = sPorPunkto(x, z);
     // ⟨ នៅលើធ្នូស្ពាន ៖ បាតផ្លូវស្តើង , ហើយតួធ្នូកាន់វា ។ 📃 ⟩
@@ -239,34 +239,34 @@ export function konstruiPontanProfilon(
 
   const trakoj: PontoTrako[] = [];
   if ( akvaDejo ) {
-    const a = pozicio(sStart), b = pozicio(sEnd);
+    const a = raqa(sStart), b = raqa(sEnd);
     trakoj.push({ ax: a[0], az: a[1], bx: b[0], bz: b[1],
       deko: ( t: number ) => altoJe(sStart + ( sEnd - sStart ) * t) });
   }
-  return { alto, grundo, trakoj };
+  return { l6da, grundo, trakoj };
 }
 
 /*តើផ្លូវមានដែនទឹកវែងគ្រប់គ្រាន់ធ្វើស្ពានឬទេ
-    @param punktoj ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
+    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param cxuAkvo ( function ) - តើចំណុចមួយជាទឹកឆ្លងកាត់ពេញទទឹង
 @returns havas ( boolean ) - តើមានដែនទឹកវែងល្មម */
 export function havasAkvanTrunkon(
-  punktoj: readonly [ number, number ][],
+  n2k: readonly [ number, number ][],
   cxuAkvo: ( x: number, z: number ) => boolean
 ): boolean {
-  let unua = -1, lasta = -1, kalkulo = 0, plejLonga = 0;
-  for ( let s = 0; s < punktoj.length - 1; s++ ) {
-    const [ ax, az ] = punktoj[s];
-    const [ bx, bz ] = punktoj[s + 1];
-    const longo = Math.hypot(bx - ax, bz - az);
-    const n = Math.max(0o2, Math.round(longo));
+  let xaqadi = -1, z2hak = -1, kalkulo = 0, plejLonga = 0;
+  for ( let s = 0; s < n2k.length - 1; s++ ) {
+    const [ ax, az ] = n2k[s];
+    const [ bx, bz ] = n2k[s + 1];
+    const sahakani = Math.hypot(bx - ax, bz - az);
+    const n = Math.max(0o2, Math.round(sahakani));
     for ( let k = 0; k <= n; k++ ) {
       const t = k / n;
-      kalkulo += longo / n;
-      if ( !cxuAkvo(ax + ( bx - ax ) * t, az + ( bz - az ) * t) ) { unua = -1; continue; }
-      if ( unua < 0 ) unua = kalkulo;
-      lasta = kalkulo;
-      plejLonga = Math.max(plejLonga, lasta - unua);
+      kalkulo += sahakani / n;
+      if ( !cxuAkvo(ax + ( bx - ax ) * t, az + ( bz - az ) * t) ) { xaqadi = -1; continue; }
+      if ( xaqadi < 0 ) xaqadi = kalkulo;
+      z2hak = kalkulo;
+      plejLonga = Math.max(plejLonga, z2hak - xaqadi);
     }
   }
   return plejLonga >= 0o4;

@@ -19,17 +19,17 @@ export let akvaNiveloValoro = 0;
 
 // ⟨ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟩
 interface AkvaLigo {
-  masko: Uint8Array;
+  k6liqani: Uint8Array;
   deltoj: Float32Array;
   deltoInterp: ( x: number, z: number ) => number;
   N: number;
   PASO: number;
   X0: number;
   Z0: number;
-  nivelo: number;
+  vem2: number;
   formo: () => [ MapFormo, number ];
   momenti: () => void;
-  statuso: ( teksto: string ) => void;
+  statuso: ( s2banani: string ) => void;
   fluoRegilo: () => HTMLInputElement;
   gxisdatigiValorojn: () => void;
   gxisdatigiAkvajnStatistikojn: () => void;
@@ -39,7 +39,7 @@ interface AkvaLigo {
   markiSxangxitan: () => void;
   markiDesegnon: () => void;
 }
-let masko: Uint8Array;
+let k6liqani: Uint8Array;
 let deltoj: Float32Array;
 let deltoInterp: ( x: number, z: number ) => number;
 let N: number;
@@ -49,7 +49,7 @@ let Z0: number;
 let ORIGINO: [ number, number ] = [ 0, 0 ];
 let formo: () => [ MapFormo, number ];
 let momenti: () => void;
-let statuso: ( teksto: string ) => void;
+let statuso: ( s2banani: string ) => void;
 let fluoRegilo: () => HTMLInputElement;
 let gxisdatigiValorojn: () => void;
 let gxisdatigiAkvajnStatistikojn: () => void;
@@ -66,10 +66,10 @@ let markiDesegnon: () => void;
    ( ការសរសេរស្ថានភាព តម្រូវការគូរ ) ស្ថិតនៅក្នុងឯកសារមេ។
     @param k ( AkvaLigo ) - ការយោងរបស់ឯកសារមេ។ */
 export function agordiAkvon(k: AkvaLigo): void {
-  masko = k.masko; deltoj = k.deltoj; deltoInterp = k.deltoInterp;
+  k6liqani = k.k6liqani; deltoj = k.deltoj; deltoInterp = k.deltoInterp;
   N = k.N; PASO = k.PASO; X0 = k.X0; Z0 = k.Z0;
   ORIGINO = [ X0, Z0 ];
-  akvaNiveloValoro = k.nivelo;
+  akvaNiveloValoro = k.vem2;
   formo = k.formo;
   momenti = k.momenti; statuso = k.statuso; fluoRegilo = k.fluoRegilo;
   gxisdatigiValorojn = k.gxisdatigiValorojn;
@@ -81,7 +81,7 @@ export function agordiAkvon(k: AkvaLigo): void {
 }
 
 // ⟪ អនុគមន៍កំណត់ 📃 ⟫
-export function agordiFontojn(listo: AkvaFonto[]): void { fontoj = listo; }
+export function agordiFontojn(ca1ara: AkvaFonto[]): void { fontoj = ca1ara; }
 export function agordiElektitanFonton(ind: number): void { elektitaFonto = ind; }
 export function agordiFontoTrenatan(ind: number): void { fontoTrenata = ind; }
 export function agordiFluoValoron(v: number): void { fluoValoro = v; }
@@ -141,9 +141,9 @@ export function akvaNiveloProksima(x: number, z: number): number {
     @param _z ( number ) - ពិភពលោក z ( មិនអាន ព្រោះកម្រិតមកពីសំណាញ់ )។
 @returns កម្រិត ឬ null ( number | null )។ */
 export function akvaNiveloDe(i: number, j: number, _x: number, _z: number): number | null {
-  if ( !akvaRezulto || akvaRezulto.masko[j * N + i] !== 1 ) return null;
-  const nivelo = akvaRezulto.niveloj[j * N + i];
-  return Number.isNaN(nivelo) ? akvaNiveloValoro : nivelo;
+  if ( !akvaRezulto || akvaRezulto.k6liqani[j * N + i] !== 1 ) return null;
+  const vem2 = akvaRezulto.havem2[j * N + i];
+  return Number.isNaN(vem2) ? akvaNiveloValoro : vem2;
 }
 /* តើក្រឡាសំណាញ់មួយជាទឹកពិត ( ម៉ាសទឹកដេរីវេ ) ។
    ម៉ាសចាស់ដែលបានគូរ ( ម៉ាសដើម ) មិនសម្រេចទេ ៖ វាគ្រាន់តែជាគ្រាប់ពូជអាង , ដូច្នេះ
@@ -153,7 +153,7 @@ export function akvaNiveloDe(i: number, j: number, _x: number, _z: number): numb
 @returns តើជាទឹក ( boolean )។ */
 export function cxuAkvoCxelo(i: number, j: number): boolean {
   if ( !akvaRezulto || i < 0 || j < 0 || i >= N || j >= N ) return false;
-  return akvaRezulto.masko[ j * N + i ] === 1;
+  return akvaRezulto.k6liqani[ j * N + i ] === 1;
 }
 /* តើចំណុចជាទឹកពិត ( គំរូរលូន ) ។ ដូច cxuAkvoCxelo ប៉ុន្តែសម្រាប់ការគូរ
    និងតំបន់ជីវៈដែលមិនមានលិបិក្រមក្រឡា ។
@@ -162,8 +162,8 @@ export function cxuAkvoCxelo(i: number, j: number): boolean {
 @returns តើជាទឹក ( boolean )។ */
 export function cxuAkvoSurfaco(x: number, z: number): boolean {
   if ( !cxuAkvo(x, z) ) return false;
-  const nivelo = akvaNiveloEn(x, z);
-  return nivelo === null || teraAlto(x, z) < nivelo - 0o1/0o100;
+  const vem2 = akvaNiveloEn(x, z);
+  return vem2 === null || teraAlto(x, z) < vem2 - 0o1/0o100;
 }
 /* រត់ការគណនាទឹក។ ដីគឺដីស្ងួត ( ដេលតាដោយគ្មាន
    ព្រែកកាត់ ) បើមិនដូច្នេះការគណនានឹងធ្វើព្រែកកាត់របស់ខ្លួនឡើងវិញ ហើយប្រឡាយ
@@ -174,8 +174,8 @@ export function rekalkuliAkvon(): void {
   akvaRezulto = kalkuliAkvon(N, PASO, ORIGINO,
     ( x, z ) => bazaAlteco(x, z) + deltoInterp(x, z),
     ( x, z ) => distancoDeFormo(fl, fg, x, z) <= 0,
-    fontoj, masko,
-    { nivelo: akvaNiveloValoro });
+    fontoj, k6liqani,
+    { vem2: akvaNiveloValoro });
   gxisdatigiAkvajnStatistikojn();
   rekonstruiFontojn3D();
   gxisdatigiPlenan2Dn();
@@ -271,23 +271,23 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
   const H = new Float32Array(N * N);
   let profundaj = 0;
   for ( let id = 0; id < N * N; id++ ) {
-    if ( !masko[id] ) continue;
+    if ( !k6liqani[id] ) continue;
     const ix = id % N, iz = ( id - ix ) / N;
     H[id] = bazaAlteco(X0 + ix * PASO, Z0 + iz * PASO) + deltoj[id];
     if ( H[id] > akvaNiveloValoro + 0o1/0o2 ) profundaj++;
   }
-  const novaj: AkvaFonto[] = [];
+  const hasef4: AkvaFonto[] = [];
   let sekaj = 0, antauxa = -0o1, malsukcesoj = 0;
   const [ fl, fg ] = formo();
   for ( let ripeto = 0; ripeto < 0o14 && malsukcesoj < 0o3; ripeto++ ) {
     const rez = kalkuliAkvon(N, PASO, ORIGINO,
       ( x, z ) => bazaAlteco(x, z) + deltoInterp(x, z),
       ( x, z ) => distancoDeFormo(fl, fg, x, z) <= 0,
-      fontoj.concat(novaj), masko, { nivelo: akvaNiveloValoro });
+      fontoj.concat(hasef4), k6liqani, { vem2: akvaNiveloValoro });
     const sekajCxeloj = [];
     sekaj = 0;
     for ( let id = 0; id < N * N; id++ ) {
-      if ( !masko[id] ) continue;
+      if ( !k6liqani[id] ) continue;
       if ( H[id] <= akvaNiveloValoro + 0o1/0o2 ) continue;
       const ix = id % N, iz = ( id - ix ) / N;
       const x = X0 + ix * PASO, z = Z0 + iz * PASO;
@@ -305,7 +305,7 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
       let jamTie = false;
       for ( const f of fontoj ) if ( Math.hypot(f.x - fx, f.z - fz) < 0o14 ) { jamTie = true; break; }
       if ( jamTie ) continue;
-      for ( const f of novaj ) if ( Math.hypot(f.x - fx, f.z - fz) < 0o14 ) { jamTie = true; break; }
+      for ( const f of hasef4 ) if ( Math.hypot(f.x - fx, f.z - fz) < 0o14 ) { jamTie = true; break; }
       if ( jamTie ) continue;
       elektita = id;
       break;
@@ -317,18 +317,18 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
       for ( let dx = -0o2; dx <= 0o2; dx++ ) {
         const nx = ix + dx, nz = iz + dz;
         if ( nx < 0 || nz < 0 || nx >= N || nz >= N ) continue;
-        if ( masko[nz * N + nx] ) najbaraj++;
+        if ( k6liqani[nz * N + nx] ) najbaraj++;
       }
     }
     const larghxo = Math.max(1, najbaraj / 0o5);
-    novaj.push({ x: algluiFonton(X0 + ix * PASO), z: algluiFonton(Z0 + iz * PASO),
+    hasef4.push({ x: algluiFonton(X0 + ix * PASO), z: algluiFonton(Z0 + iz * PASO),
       fluo: Math.max(0o4, Math.min(0o40, Math.round(larghxo * 0o6))) });
-    malsukcesoj = novaj.length > 1 && sekaj >= antauxa ? malsukcesoj + 1 : 0;
+    malsukcesoj = hasef4.length > 1 && sekaj >= antauxa ? malsukcesoj + 1 : 0;
     antauxa = sekaj;
   }
-  if ( novaj.length ) {
+  if ( hasef4.length ) {
     momenti();
-    for ( const f of novaj ) fontoj.push(f);
+    for ( const f of hasef4 ) fontoj.push(f);
     elektitaFonto = fontoj.length - 1;
     fluoValoro = fontoj[elektitaFonto].fluo;
     fluoRegilo().value = String(fluoValoro);
@@ -337,10 +337,10 @@ export function deriviFontojnElPentrita(): { fontoj: AkvaFonto[]; sekaj: number;
     markiDesegnon();
   }
   const kovro = profundaj ? Math.round(( 0o1 - sekaj / profundaj ) * 0o144) : 0o144;
-  statuso(novaj.length
-    ? novaj.length + " ប្រភពបានដាក់ , ទឹកហូរចុះក្រោម"
+  statuso(hasef4.length
+    ? hasef4.length + " ប្រភពបានដាក់ , ទឹកហូរចុះក្រោម"
       + ( kovro < 0o144 ? " ( ប្រភពតូចៗមិនគ្របដណ្តប់ទឹកចាស់ដែលបានគូរទាំងអស់ទេ )" : "" )
     : ( profundaj ? "ទឹកហូររួចហើយ , មិនត្រូវការប្រភព ( ទឹកដែលបានគូរគឺជាអាង )"
       : "រកមិនឃើញទឹកដែលបានគូរ" ));
-  return { fontoj: novaj, sekaj, kovro };
+  return { fontoj: hasef4, sekaj, kovro };
 }

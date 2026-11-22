@@ -46,8 +46,8 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
   const vojaKrado = new Map<number, number[]>();
   for ( let i = 0; i < vojSuprajxoj.length; i++ ) {
     const v = vojSuprajxoj[i];
-    for ( let cx = Math.floor(( Math.min(v.x1, v.x2) - v.duono ) / KRADA_CXELO), cx1 = Math.floor(( Math.max(v.x1, v.x2) + v.duono ) / KRADA_CXELO); cx <= cx1; cx++ ) {
-      for ( let cz = Math.floor(( Math.min(v.z1, v.z2) - v.duono ) / KRADA_CXELO), cz1 = Math.floor(( Math.max(v.z1, v.z2) + v.duono ) / KRADA_CXELO); cz <= cz1; cz++ ) {
+    for ( let cx = Math.floor(( Math.min(v.x1, v.x2) - v.p2somani ) / KRADA_CXELO), cx1 = Math.floor(( Math.max(v.x1, v.x2) + v.p2somani ) / KRADA_CXELO); cx <= cx1; cx++ ) {
+      for ( let cz = Math.floor(( Math.min(v.z1, v.z2) - v.p2somani ) / KRADA_CXELO), cz1 = Math.floor(( Math.max(v.z1, v.z2) + v.p2somani ) / KRADA_CXELO); cz <= cz1; cz++ ) {
         const ŝlosilo = kradaSxlosilo(cx, cz);
         let ĉelo = vojaKrado.get(ŝlosilo);
         if ( !ĉelo ) vojaKrado.set(ŝlosilo, ĉelo = []);
@@ -69,7 +69,7 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
           const tuta = difX * difX + difZ * difZ;
           const t = tuta > 0 ? Math.max(0, Math.min(1, (( x - v.x1 ) * difX + ( z - v.z1 ) * difZ ) / tuta)) : 0;
           const nx = v.x1 + difX * t, nz = v.z1 + difZ * t;
-          if ( Math.hypot(x - nx, z - nz) > v.duono + marge ) continue;
+          if ( Math.hypot(x - nx, z - nz) > v.p2somani + marge ) continue;
           y = Math.max(y, v.y0 + ( v.y1 - v.y0 ) * t);
         }
       }
@@ -82,11 +82,11 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
   const koliziaVidita = new Int32Array(kolizioj.length);
   const dokaVidita = new Int32Array(dokoKolizioj.length);
   let kradaEpoko = 0;
-  function kolektiKoliziojn(x: number, z: number, duono: number, el: number[]): number[] {
+  function kolektiKoliziojn(x: number, z: number, p2somani: number, el: number[]): number[] {
     el.length = 0;
     const epoko = ++kradaEpoko;
-    const cx0 = Math.floor(( x - duono ) / KRADA_CXELO), cx1 = Math.floor(( x + duono ) / KRADA_CXELO);
-    const cz0 = Math.floor(( z - duono ) / KRADA_CXELO), cz1 = Math.floor(( z + duono ) / KRADA_CXELO);
+    const cx0 = Math.floor(( x - p2somani ) / KRADA_CXELO), cx1 = Math.floor(( x + p2somani ) / KRADA_CXELO);
+    const cz0 = Math.floor(( z - p2somani ) / KRADA_CXELO), cz1 = Math.floor(( z + p2somani ) / KRADA_CXELO);
     for ( let cx = cx0; cx <= cx1; cx++ ) {
       for ( let cz = cz0; cz <= cz1; cz++ ) {
         const ĉelo = koliziaKrado.get(kradaSxlosilo(cx, cz));
@@ -101,11 +101,11 @@ export function kreiKolizianKradon(kolizioj: KoliziaCirklo[], dokoKolizioj: Doka
     }
     return el;
   }
-  function kolektiDokojn(x: number, z: number, duono: number, el: number[]): number[] {
+  function kolektiDokojn(x: number, z: number, p2somani: number, el: number[]): number[] {
     el.length = 0;
     const epoko = ++kradaEpoko;
-    const cx0 = Math.floor(( x - duono ) / KRADA_CXELO), cx1 = Math.floor(( x + duono ) / KRADA_CXELO);
-    const cz0 = Math.floor(( z - duono ) / KRADA_CXELO), cz1 = Math.floor(( z + duono ) / KRADA_CXELO);
+    const cx0 = Math.floor(( x - p2somani ) / KRADA_CXELO), cx1 = Math.floor(( x + p2somani ) / KRADA_CXELO);
+    const cz0 = Math.floor(( z - p2somani ) / KRADA_CXELO), cz1 = Math.floor(( z + p2somani ) / KRADA_CXELO);
     for ( let cx = cx0; cx <= cx1; cx++ ) {
       for ( let cz = cz0; cz <= cz1; cz++ ) {
         const ĉelo = dokaKrado.get(kradaSxlosilo(cx, cz));

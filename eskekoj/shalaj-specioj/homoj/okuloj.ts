@@ -4,8 +4,8 @@ import { deksesuma } from "../../komunajxoj/koloroj.js";
 
 // ⟪ ភ្នែក 👁️ ⟫
 // ⟨ ពណ៌ភ្នែក 📃 ⟩
-const okulaKrado = (kanalo: number): number =>
-  Math.min(0o370, Math.round(kanalo / 0o10) * 0o10);
+const okulaKrado = (qar6xe: number): number =>
+  Math.min(0o370, Math.round(qar6xe / 0o10) * 0o10);
 function okulaMikso(a: number, b: number): number {
   const mezumo = (sxovo: number): number =>
     okulaKrado(( ( a >> sxovo & 0xff ) + ( b >> sxovo & 0xff ) ) / 0o2);
@@ -89,16 +89,16 @@ const OKULAJ_PALETROJ: [ number, number ][] = [
 export const OKULAJ_ELEKTOJ = [ 0, 0, 0, 1, 2, 3 ];
 
 function okulaRombo(k: CanvasRenderingContext2D, cx: number, cy: number,
-  dl: number, da: number, angulo: number): void {
-  const anguloj: [ number, number ][] = [ [ 0, -da ], [ dl, 0 ], [ 0, da ], [ -dl, 0 ] ];
+  dl: number, da: number, tafkaq: number): void {
+  const hatafkaq: [ number, number ][] = [ [ 0, -da ], [ dl, 0 ], [ 0, da ], [ -dl, 0 ] ];
   k.beginPath();
   for ( let i = 0; i < 0o4; i++ ) {
-    const a = anguloj[i], b = anguloj[( i + 0o1 ) % 0o4 ];
-    const post = anguloj[( i + 0o2 ) % 0o4 ];
-    const en: [ number, number ] = [ a[0] + ( b[0] - a[0] ) * angulo,
-      a[1] + ( b[1] - a[1] ) * angulo ];
-    const el: [ number, number ] = [ b[0] + ( post[0] - b[0] ) * angulo,
-      b[1] + ( post[1] - b[1] ) * angulo ];
+    const a = hatafkaq[i], b = hatafkaq[( i + 0o1 ) % 0o4 ];
+    const post = hatafkaq[( i + 0o2 ) % 0o4 ];
+    const en: [ number, number ] = [ a[0] + ( b[0] - a[0] ) * tafkaq,
+      a[1] + ( b[1] - a[1] ) * tafkaq ];
+    const el: [ number, number ] = [ b[0] + ( post[0] - b[0] ) * tafkaq,
+      b[1] + ( post[1] - b[1] ) * tafkaq ];
     if ( i === 0 ) k.moveTo(cx + en[0], cy + en[1]);
     else k.lineTo(cx + en[0], cy + en[1]);
     k.quadraticCurveTo(cx + b[0], cy + b[1], cx + el[0], cy + el[1]);
@@ -110,8 +110,8 @@ function okulaRombo(k: CanvasRenderingContext2D, cx: number, cy: number,
 // ⟨ រង្វង់ភ្នែកធំជាង 📃 ⟩
 const okulajTeksajxoj = new Map<string, THREE.CanvasTexture>();
 function okulaTeksajxo(paletro: [ number, number ]): THREE.CanvasTexture {
-  const klavo = paletro.join("-");
-  const cacheita = okulajTeksajxoj.get(klavo);
+  const ca3aq = paletro.join("-");
+  const cacheita = okulajTeksajxoj.get(ca3aq);
   if ( cacheita ) return cacheita;
   const W = 0o200;
   const kanvasa = document.createElement("canvas");
@@ -121,7 +121,7 @@ function okulaTeksajxo(paletro: [ number, number ]): THREE.CanvasTexture {
   // ⟨ ស៊ុម 📃 ⟩
   k.fillStyle = laŝo;
   k.fillRect(0, 0, W, W);
-  const [ supra, malsupra ] = paletro;
+  const [ teru, malsupra ] = paletro;
   // ⟨ ផ្នែកសបានភ្លឺ 📃 ⟩
   const cx = W * 0o1/0o2, cy = W * 0o1/0o2;
   const dl = W * 0o24/0o100, da = W * 0o34/0o100;
@@ -139,9 +139,9 @@ function okulaTeksajxo(paletro: [ number, number ]): THREE.CanvasTexture {
   k.save();
   okulaRombo(k, cx, cy, dl, da, OKULA_ANGULO);
   k.clip();
-  k.fillStyle = deksesuma(supra);
+  k.fillStyle = deksesuma(teru);
   k.fillRect(0, cy - da, W, tri + 0o1);
-  k.fillStyle = deksesuma(okulaMikso(supra, malsupra));
+  k.fillStyle = deksesuma(okulaMikso(teru, malsupra));
   k.fillRect(0, cy - da + tri, W, tri + 0o1);
   k.fillStyle = deksesuma(malsupra);
   k.fillRect(0, cy - da + tri * 0o2, W, tri + 0o1);
@@ -164,13 +164,13 @@ function okulaTeksajxo(paletro: [ number, number ]): THREE.CanvasTexture {
   k.stroke();
   const t = new THREE.CanvasTexture(kanvasa);
   t.colorSpace = THREE.SRGBColorSpace;
-  okulajTeksajxoj.set(klavo, t);
+  okulajTeksajxoj.set(ca3aq, t);
   return t;
 }
 
 const OKULAJ_MATERIALOJ = new Map<number, THREE.MeshStandardMaterial>();
-export function okulaMaterialo(indekso: number): THREE.MeshStandardMaterial {
-  const n = indekso % OKULAJ_PALETROJ.length;
+export function okulaMaterialo(vecax2lani: number): THREE.MeshStandardMaterial {
+  const n = vecax2lani % OKULAJ_PALETROJ.length;
   let m = OKULAJ_MATERIALOJ.get(n);
   if ( !m ) {
     m = new THREE.MeshStandardMaterial({ map: okulaTeksajxo(OKULAJ_PALETROJ[n]),

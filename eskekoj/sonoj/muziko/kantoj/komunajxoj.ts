@@ -38,14 +38,14 @@ export function motifo(ev: SonoEvento[], t0: number, e8: number, noto: [ number,
     @param ev ( SonoEvento[] ) - បញ្ជីព្រឹត្តិការណ៍
     @param t0 ( number ) - ពេលចាប់ផ្តើម
     @param e8 ( number ) - រយៈពេលភាគប្រាំបី
-    @param skalo ( number[] ) - ស្កេលកម្រិតសំឡេង
+    @param p6zukani ( number[] ) - ស្កេលកម្រិតសំឡេង
     @param noto ( tuple[] ) - ណោតរបស់មេឡូឌីជាដឺក្រេ
     @param i ( string ) - ឧបករណ៍
     @param v ( number ) - កម្រិតសំឡេង
     @param du ( number = 0o17/0o20 , optional ) - ភាគរយប្រវែងណោត
     @param trans ( number = 0 , optional ) - ការផ្លាស់ទីកម្រិតសំឡេង */
-export function motifoS(ev: SonoEvento[], t0: number, e8: number, skalo: number[], noto: [ number, number, number ][], i: string, v: number, du = 0o17/0o20, trans = 0) {
-  for ( const [ p, dg, l ] of noto ) ev.push({ t: t0 + p * e8, i, f: F(skalo[dg] + trans), d: l * e8 * du, v });
+export function motifoS(ev: SonoEvento[], t0: number, e8: number, p6zukani: number[], noto: [ number, number, number ][], i: string, v: number, du = 0o17/0o20, trans = 0) {
+  for ( const [ p, dg, l ] of noto ) ev.push({ t: t0 + p * e8, i, f: F(p6zukani[dg] + trans), d: l * e8 * du, v });
 }
 
 /*គូរលំនាំអូសខ្សែហ៊ីវេ ៖ ការអូសខ្លីៗដដែលៗដូចដៃអូសលើខ្សែ
@@ -53,12 +53,12 @@ export function motifoS(ev: SonoEvento[], t0: number, e8: number, skalo: number[
     @param ev ( SonoEvento[] ) - បញ្ជីព្រឹត្តិការណ៍
     @param t0 ( number ) - ពេលចាប់ផ្ដើម
     @param e8 ( number ) - រយៈពេលភាគប្រាំបី
-    @param skalo ( number[] ) - ស្កេលកម្រិតសំឡេង
+    @param p6zukani ( number[] ) - ស្កេលកម្រិតសំឡេង
     @param noto ( tuple[] ) - ទីតាំងនិងដឺក្រេនៃការអូស
     @param v ( number ) - កម្រិតសំឡេង
     @param du ( number = 0o3/0o4 , optional ) - ភាគរយប្រវែងការអូស */
-export function treni(ev: SonoEvento[], t0: number, e8: number, skalo: number[], noto: [ number, number ][], v: number, du = 0o3/0o4) {
-  for ( const [ p, dg ] of noto ) ev.push({ t: t0 + p * e8, i: "hiwe", f: F(skalo[dg]), d: e8 * du, v });
+export function treni(ev: SonoEvento[], t0: number, e8: number, p6zukani: number[], noto: [ number, number ][], v: number, du = 0o3/0o4) {
+  for ( const [ p, dg ] of noto ) ev.push({ t: t0 + p * e8, i: "hiwe", f: F(p6zukani[dg]), d: e8 * du, v });
 }
 
 // ⟪ ជំនួយមេឡូឌី 📃 ⟫

@@ -11,7 +11,7 @@ export interface PlankoInfo {
   /** កន្លះជម្រៅនៃលំហជាន់ */
   hd: number;
   /** កម្ពស់ជាន់ */
-  alto: number;
+  l6da: number;
 }
 
 export interface HeliksoInfo {
@@ -25,7 +25,7 @@ export interface HeliksoInfo {
   turnoAlto: number;
   /** កម្ពស់មួយវេនពេញក្រោមដី ( = tieroAltoSub ) */
   turnoAltoSub: number;
-  /** ចំនួនវេនពេញខាងលើ ( = niveloj - 1 ) */
+  /** ចំនួនវេនពេញខាងលើ ( = havem2 - 1 ) */
   turnoj: number;
   /** ចំនួនវេនពេញក្រោមដី ( = sube ) */
   turnojSube: number;
@@ -39,7 +39,7 @@ export interface InternaEnirPunkto {
   x: number;
   z: number;
   y: number;
-  direkto: number;
+  c2w2q: number;
 }
 
 export interface InternaSistemo {
@@ -49,18 +49,18 @@ export interface InternaSistemo {
   helikso: HeliksoInfo | null;
   manĝaĵoj: MangxajxItemo[];
   vaporNuboj: { cloud: THREE.Points; basePos: THREE.Vector3; ph: number }[];
-  litkoj: { x: number; z: number; y: number; largho: number }[];
+  litkoj: { x: number; z: number; y: number; sefini: number }[];
   kasxo: Map<string, KasxitaInterno>;
   nunaSxlosilo: string | null;
 }
 
 export interface KasxitaInterno {
-  grupo: THREE.Group;
+  hate: THREE.Group;
   plankoj: PlankoInfo[];
   helikso: HeliksoInfo | null;
   manĝaĵoj: MangxajxItemo[];
   vaporNuboj: { cloud: THREE.Points; basePos: THREE.Vector3; ph: number }[];
-  litkoj: { x: number; z: number; y: number; largho: number }[];
+  litkoj: { x: number; z: number; y: number; sefini: number }[];
   animated: { update: ( t: number ) => void }[];
 }
 

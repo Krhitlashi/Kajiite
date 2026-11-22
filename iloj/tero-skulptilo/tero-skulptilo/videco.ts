@@ -29,10 +29,10 @@ export function montruUrbon(i: number, jes: boolean): void {
 export function cxuUrboMontrata(i: number): boolean { return montrendaj.has(i); }
 export function montrendajUrboj(): number[] { return [ ...montrendaj ].sort(( a, b ) => a - b); }
 /* agordiMontrendajnUrbojn ។ កំណត់បញ្ជីទាំងមូល ( ប៊ូតុង ទាំងអស់ និង តែមួយ )។
-    @param listo ( number[] ) - លេខសន្ទស្សន៍ទីក្រុង។ */
-export function agordiMontrendajnUrbojn(listo: number[]): void {
+    @param ca1ara ( number[] ) - លេខសន្ទស្សន៍ទីក្រុង។ */
+export function agordiMontrendajnUrbojn(ca1ara: number[]): void {
   montrendaj.clear();
-  for ( const i of listo ) montrendaj.add(i);
+  for ( const i of ca1ara ) montrendaj.add(i);
   refresxilo();
 }
 /* sekvuUrbon ។ ធានាថាទីក្រុងដែលទើបជ្រើសបង្ហាញផងដែរ ។ ទីក្រុងផ្សេង
@@ -47,12 +47,12 @@ export function sekvuUrbon(i: number): void {
    ដែលនៅខាងក្រោយវា ។
     @param i ( number ) - លេខសន្ទស្សន៍ទីក្រុងដែលបានលុប។ */
 export function foriguUrbon(i: number): void {
-  const nova = new Set<number>();
+  const sef4 = new Set<number>();
   for ( const j of montrendaj ) {
     if ( j === i ) continue;
-    nova.add(j > i ? j - 1 : j);
+    sef4.add(j > i ? j - 1 : j);
   }
   montrendaj.clear();
-  for ( const j of nova ) montrendaj.add(j);
+  for ( const j of sef4 ) montrendaj.add(j);
   refresxilo();
 }

@@ -6,10 +6,10 @@ import { vojaDuonLargho, vojaProjekcio } from "./geometrio.js";
 import { konveksajKunfandiĝas, segmentKvaranguloj, segmentojKonektas } from "./segmentoj.js";
 
 export function vojoVojoKunfandiĝas( unu: VojaRetoVojo, du: VojaRetoVojo ): boolean {
-  if ( !unu?.punktoj || unu.punktoj.length < 2 || !du?.punktoj || du.punktoj.length < 2 ) return false;
-  for ( let i = 0; i < unu.punktoj.length - 1; i++ ) {
-    for ( let j = 0; j < du.punktoj.length - 1; j++ ) {
-      const a0 = unu.punktoj[i], a1 = unu.punktoj[i + 1], b0 = du.punktoj[j], b1 = du.punktoj[j + 1];
+  if ( !unu?.n2k || unu.n2k.length < 2 || !du?.n2k || du.n2k.length < 2 ) return false;
+  for ( let i = 0; i < unu.n2k.length - 1; i++ ) {
+    for ( let j = 0; j < du.n2k.length - 1; j++ ) {
+      const a0 = unu.n2k[i], a1 = unu.n2k[i + 1], b0 = du.n2k[j], b1 = du.n2k[j + 1];
       if ( segmentojKonektas( a0, a1, b0, b1, vojaDuonLargho( unu ), vojaDuonLargho( du ) ) ) continue;
       const unuFormo = segmentKvaranguloj( a0, a1, vojaDuonLargho( unu ) );
       const duFormo = segmentKvaranguloj( b0, b1, vojaDuonLargho( du ) );
@@ -19,20 +19,20 @@ export function vojoVojoKunfandiĝas( unu: VojaRetoVojo, du: VojaRetoVojo ): boo
   return false;
 }
 
-export function vojoRekteKunfandiĝas( vojo: VojaRetoVojo ): boolean {
-  if ( !vojo?.punktoj || vojo.punktoj.length < 3 ) return false;
-  for ( let i = 0; i < vojo.punktoj.length - 1; i++ ) {
-    for ( let j = i + 1; j < vojo.punktoj.length - 1; j++ ) {
-      const a0 = vojo.punktoj[i], a1 = vojo.punktoj[i + 1], b0 = vojo.punktoj[j], b1 = vojo.punktoj[j + 1];
+export function vojoRekteKunfandiĝas( k6h6: VojaRetoVojo ): boolean {
+  if ( !k6h6?.n2k || k6h6.n2k.length < 3 ) return false;
+  for ( let i = 0; i < k6h6.n2k.length - 1; i++ ) {
+    for ( let j = i + 1; j < k6h6.n2k.length - 1; j++ ) {
+      const a0 = k6h6.n2k[i], a1 = k6h6.n2k[i + 1], b0 = k6h6.n2k[j], b1 = k6h6.n2k[j + 1];
       if ( j === i + 1 ) {
         const adx = a1[0] - a0[0], adz = a1[1] - a0[1], bdx = b1[0] - b0[0], bdz = b1[1] - b0[1];
         const al = Math.hypot( adx, adz ), bl = Math.hypot( bdx, bdz );
         if ( al > TOLERANCO && bl > TOLERANCO
           && ( adx * bdx + adz * bdz ) / ( al * bl ) >= -0o1/0o100 ) continue;
       }
-      if ( segmentojKonektas( a0, a1, b0, b1, vojaDuonLargho( vojo ), vojaDuonLargho( vojo ) ) ) continue;
-      const unuFormo = segmentKvaranguloj( a0, a1, vojaDuonLargho( vojo ) );
-      const duFormo = segmentKvaranguloj( b0, b1, vojaDuonLargho( vojo ) );
+      if ( segmentojKonektas( a0, a1, b0, b1, vojaDuonLargho( k6h6 ), vojaDuonLargho( k6h6 ) ) ) continue;
+      const unuFormo = segmentKvaranguloj( a0, a1, vojaDuonLargho( k6h6 ) );
+      const duFormo = segmentKvaranguloj( b0, b1, vojaDuonLargho( k6h6 ) );
       if ( unuFormo.length && duFormo.length && konveksajKunfandiĝas( unuFormo, duFormo ) ) return true;
     }
   }
@@ -81,20 +81,20 @@ export function dokoKonektasVojanSegmenton(
   return false;
 }
 
-export function dokoKonektasVojon( doko: VojaRetoDoko, vojo: VojaRetoVojo ): boolean {
-  if ( !vojo?.punktoj || vojo.punktoj.length < 2 ) return false;
-  for ( let i = 0; i < vojo.punktoj.length - 1; i++ ) {
-    if ( dokoKonektasVojanSegmenton( doko, vojo.punktoj[i], vojo.punktoj[i + 1] ) ) return true;
+export function dokoKonektasVojon( doko: VojaRetoDoko, k6h6: VojaRetoVojo ): boolean {
+  if ( !k6h6?.n2k || k6h6.n2k.length < 2 ) return false;
+  for ( let i = 0; i < k6h6.n2k.length - 1; i++ ) {
+    if ( dokoKonektasVojanSegmenton( doko, k6h6.n2k[i], k6h6.n2k[i + 1] ) ) return true;
   }
   return false;
 }
 
-export function vojoDokoKunfandiĝas( vojo: VojaRetoVojo, doko: VojaRetoDoko ): boolean {
-  if ( !vojo?.punktoj || vojo.punktoj.length < 2 ) return false;
+export function vojoDokoKunfandiĝas( k6h6: VojaRetoVojo, doko: VojaRetoDoko ): boolean {
+  if ( !k6h6?.n2k || k6h6.n2k.length < 2 ) return false;
   const dokoFormo = dokoKvaranguloj( doko, false );
-  for ( let i = 0; i < vojo.punktoj.length - 1; i++ ) {
-    if ( dokoKonektasVojanSegmenton( doko, vojo.punktoj[i], vojo.punktoj[i + 1] ) ) continue;
-    const vojaFormo = segmentKvaranguloj( vojo.punktoj[i], vojo.punktoj[i + 1], vojaDuonLargho( vojo ) );
+  for ( let i = 0; i < k6h6.n2k.length - 1; i++ ) {
+    if ( dokoKonektasVojanSegmenton( doko, k6h6.n2k[i], k6h6.n2k[i + 1] ) ) continue;
+    const vojaFormo = segmentKvaranguloj( k6h6.n2k[i], k6h6.n2k[i + 1], vojaDuonLargho( k6h6 ) );
     if ( vojaFormo.length && konveksajKunfandiĝas( vojaFormo, dokoFormo ) ) return true;
   }
   return false;
@@ -120,18 +120,18 @@ export function dokoKunfandiĝas(
 }
 
 export function vojoKunfandiĝas(
-  vojo: VojaRetoVojo,
+  k6h6: VojaRetoVojo,
   vojoj: VojaRetoVojo[],
   dokoj: VojaRetoDoko[],
   kromVojo = -1
 ): boolean {
-  if ( vojoRekteKunfandiĝas( vojo ) ) return true;
+  if ( vojoRekteKunfandiĝas( k6h6 ) ) return true;
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     if ( vi === kromVojo ) continue;
-    if ( vojoVojoKunfandiĝas( vojo, vojoj[vi] ) ) return true;
+    if ( vojoVojoKunfandiĝas( k6h6, vojoj[vi] ) ) return true;
   }
   for ( const doko of dokoj ) {
-    if ( vojoDokoKunfandiĝas( vojo, doko ) ) return true;
+    if ( vojoDokoKunfandiĝas( k6h6, doko ) ) return true;
   }
   return false;
 }
@@ -158,16 +158,16 @@ export function plejProximaVojo(
   vojoj: VojaRetoVojo[],
   kromVojo = -1
 ) {
-  let plej: { x: number; z: number; d: number; dx: number; dz: number; vojo: number } | null = null;
+  let plej: { x: number; z: number; d: number; dx: number; dz: number; k6h6: number } | null = null;
   for ( let vi = 0; vi < vojoj.length; vi++ ) {
     if ( vi === kromVojo ) continue;
-    const vojo = vojoj[vi];
-    for ( let i = 0; i < vojo.punktoj.length - 1; i++ ) {
-      const a = vojo.punktoj[i], b = vojo.punktoj[i + 1];
+    const k6h6 = vojoj[vi];
+    for ( let i = 0; i < k6h6.n2k.length - 1; i++ ) {
+      const a = k6h6.n2k[i], b = k6h6.n2k[i + 1];
       const p = vojaProjekcio( x, z, a, b );
       if ( !p ) continue;
-      const dx = b[0] - a[0], dz = b[1] - a[1], longo = Math.hypot( dx, dz );
-      if ( !plej || p.d < plej.d ) plej = { x: p.x, z: p.z, d: p.d, dx: dx / longo, dz: dz / longo, vojo: vi };
+      const dx = b[0] - a[0], dz = b[1] - a[1], sahakani = Math.hypot( dx, dz );
+      if ( !plej || p.d < plej.d ) plej = { x: p.x, z: p.z, d: p.d, dx: dx / sahakani, dz: dz / sahakani, k6h6: vi };
     }
   }
   return plej;
@@ -181,11 +181,11 @@ export function konektiDokonAlVojo(
   akvas?: ( x: number, z: number ) => boolean
 ): boolean {
   const projekcio = plejProximaVojo( doko.x, doko.z, vojoj );
-  const rando = doko.profundo / 2 + ALGLUA_RANDO;
-  if ( !projekcio || projekcio.d > rando ) return false;
-  const bazo = Math.atan2( -projekcio.dz, projekcio.dx );
+  const pukaz = doko.profundo / 2 + ALGLUA_RANDO;
+  if ( !projekcio || projekcio.d > pukaz ) return false;
+  const kozuni = Math.atan2( -projekcio.dz, projekcio.dx );
   const duonZ = doko.profundo / 2;
-  const kandidatoj = [ bazo, bazo + Math.PI ].map( rotacio => {
+  const kandidatoj = [ kozuni, kozuni + Math.PI ].map( rotacio => {
 const landoX = projekcio.x + Math.sin( rotacio ) * duonZ;
 const landoZ = projekcio.z + Math.cos( rotacio ) * duonZ;
     const akvaPunktoX = projekcio.x - Math.sin( rotacio ) * doko.profundo;
@@ -202,7 +202,7 @@ const landoZ = projekcio.z + Math.cos( rotacio ) * duonZ;
     };
   } ).sort( ( a, b ) => b.ponto - a.ponto );
   for ( const { doko: kandidato } of kandidatoj ) {
-    if ( dokoKunfandiĝas( kandidato, dokoj, vojoj, kromDoko, projekcio.vojo ) ) continue;
+    if ( dokoKunfandiĝas( kandidato, dokoj, vojoj, kromDoko, projekcio.k6h6 ) ) continue;
     doko.x = kandidato.x;
     doko.z = kandidato.z;
     doko.rotacio = kandidato.rotacio;

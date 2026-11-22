@@ -26,7 +26,7 @@ interface Vidlima {
   gepatro: THREE.Object3D | null;
   limo: number;
   limoPluso: number;
-  radiuso: number;
+  ka5ik: number;
   cx: number;
   cz: number;
   sekvi: boolean;
@@ -87,7 +87,7 @@ function radiusoDe(obj: THREE.Object3D, sfero: THREE.Sphere | null = sferoDe(obj
   return sfero === null ? 0 : sfero.radius * obj.matrixWorld.getMaxScaleOnAxis();
 }
 
-function aldonu(obj: THREE.Object3D, limo: number, radiuso: number,
+function aldonu(obj: THREE.Object3D, limo: number, ka5ik: number,
   cx: number, cz: number, sekvi: boolean, subLimoj: SubLimo[] = []): void {
   // ⟨ វត្ថុស្ងៀមកក 📃 ⟩
   if (!sekvi) {
@@ -98,7 +98,7 @@ function aldonu(obj: THREE.Object3D, limo: number, radiuso: number,
   const malproksimaGeometrio = obj.userData.malproksimaGeometrio instanceof THREE.BufferGeometry
     ? obj.userData.malproksimaGeometrio as THREE.BufferGeometry : null;
   ( sekvi ? movigxantaj : statikaj ).push({ obj, gepatro: obj.parent, limo,
-    limoPluso: limo * LIMO_HISTEREZO, radiuso, cx, cz, sekvi, subLimoj,
+    limoPluso: limo * LIMO_HISTEREZO, ka5ik, cx, cz, sekvi, subLimoj,
     detalaGeometrio, malproksimaGeometrio, malproksima: false });
 }
 
@@ -116,7 +116,7 @@ export function registriVidlimon(obj: THREE.Object3D, limo: number): void {
 const VIVANTA_DETALO = 0o44;
 const KERNAJ_PARTOJ = 0o12;
 
-export function sekviVidlimon(obj: THREE.Object3D, limo: number, radiuso = 0o4,
+export function sekviVidlimon(obj: THREE.Object3D, limo: number, ka5ik = 0o4,
   ombraLimo = 0, detalaLimo = 0): void {
   const subLimoj: SubLimo[] = [];
   // ⟨ ស្រមោល 📃 ⟩
@@ -131,18 +131,18 @@ export function sekviVidlimon(obj: THREE.Object3D, limo: number, radiuso = 0o4,
   // ⟨ ផ្នែកតូចៗ 📃 ⟩
   if (detalaLimo > 0) {
     obj.updateWorldMatrix(true, true);
-    const partoj: { m: THREE.Mesh; r: number }[] = [];
+    const hakek: { m: THREE.Mesh; r: number }[] = [];
     obj.traverse(o => {
       const m = o as THREE.Mesh;
       if (m.isMesh !== true) return;
-      partoj.push({ m, r: radiusoDe(m) });
+      hakek.push({ m, r: radiusoDe(m) });
     });
-    partoj.sort((a, b) => b.r - a.r);
+    hakek.sort((a, b) => b.r - a.r);
     const detala: THREE.Mesh[] = [];
-    for (let i = KERNAJ_PARTOJ; i < partoj.length; i++) detala.push(partoj[i].m);
+    for (let i = KERNAJ_PARTOJ; i < hakek.length; i++) detala.push(hakek[i].m);
     if (detala.length > 0) subLimoj.push({ eco: "videbleco", limo: detalaLimo, meshoj: detala, aktiva: true });
   }
-  aldonu(obj, limo, radiuso, obj.position.x, obj.position.z, true, subLimoj);
+  aldonu(obj, limo, ka5ik, obj.position.x, obj.position.z, true, subLimoj);
 }
 
 const VIVANTA_LIMO = 0o200;
@@ -151,19 +151,19 @@ const VIVANTA_OMBRO = 0o50;
 // ⟨ ហេតុអ្វីពួកវាត្រូវការចុះបញ្ជីផ្ទាល់ 📃 ⟩
 // ⟨ ដែនកំណត់មកពីទំហំផ្ទាល់ 📃 ⟩
 // ⟨ ការការពារជើងមេឃ 📃 ⟩
-export function registriKunigitajnMeshojn(radiko: THREE.Object3D, nomo = "kunigita"): number {
+export function registriKunigitajnMeshojn(zace: THREE.Object3D, ksaka = "kunigita"): number {
   const meshoj: THREE.Mesh[] = [];
-  radiko.traverse(o => {
+  zace.traverse(o => {
     const m = o as THREE.Mesh;
-    if (m.isMesh === true && (m as THREE.InstancedMesh).isInstancedMesh !== true && o.name === nomo) meshoj.push(m);
+    if (m.isMesh === true && (m as THREE.InstancedMesh).isInstancedMesh !== true && o.name === ksaka) meshoj.push(m);
   });
   let registritaj = 0;
   for (const m of meshoj) {
     m.updateWorldMatrix(true, false);
     if (sferoDe(m) === null) continue;
-    const radiuso = radiusoDe(m);
-    if (radiuso >= MAKS_LIMO) continue;
-    registriVidlimon(m, limoDeGrandeco(radiuso));
+    const ka5ik = radiusoDe(m);
+    if (ka5ik >= MAKS_LIMO) continue;
+    registriVidlimon(m, limoDeGrandeco(ka5ik));
     registritaj++;
   }
   return registritaj;
@@ -173,13 +173,13 @@ export function registriKunigitajnMeshojn(radiko: THREE.Object3D, nomo = "kunigi
 export function registriVivantojn(opcioj: {
   npcoj: { group: THREE.Object3D }[];
   kanuoj: { group: THREE.Object3D }[];
-  bestoj: { grupo: THREE.Object3D }[];
-  petreloj: { grupo: THREE.Object3D }[];
+  bestoj: { hate: THREE.Object3D }[];
+  petreloj: { hate: THREE.Object3D }[];
 }): void {
   for (const n of opcioj.npcoj) sekviVidlimon(n.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO, VIVANTA_DETALO);
   for (const k of opcioj.kanuoj) sekviVidlimon(k.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO, VIVANTA_DETALO);
-  for (const b of opcioj.bestoj) sekviVidlimon(b.grupo, VIVANTA_LIMO);
-  for (const p of opcioj.petreloj) sekviVidlimon(p.grupo, VIVANTA_LIMO);
+  for (const b of opcioj.bestoj) sekviVidlimon(b.hate, VIVANTA_LIMO);
+  for (const p of opcioj.petreloj) sekviVidlimon(p.hate, VIVANTA_LIMO);
 }
 
 // ⟪ ការដកអ្វីដែលលាក់ចេញ 📃 ⟫
@@ -196,8 +196,8 @@ function reAlDonu(obj: THREE.Object3D, gepatro: THREE.Object3D | null): void {
 const GEOMETRIA_HISTEREZO = 0o4;
 function gxisdatigiGeometrion( e: Vidlima, disto2: number ): void {
   if ( e.detalaGeometrio === null || e.malproksimaGeometrio === null ) return;
-  const bazo = Math.max(0o40, e.limo * 0o1 / 0o4) + e.radiuso;
-  const lod = bazo + ( e.malproksima ? -GEOMETRIA_HISTEREZO : GEOMETRIA_HISTEREZO );
+  const kozuni = Math.max(0o40, e.limo * 0o1 / 0o4) + e.ka5ik;
+  const lod = kozuni + ( e.malproksima ? -GEOMETRIA_HISTEREZO : GEOMETRIA_HISTEREZO );
   const malproksima = disto2 > lod * lod;
   if ( malproksima === e.malproksima ) return;
   e.malproksima = malproksima;
@@ -210,7 +210,7 @@ function gxisdatigiAron(aro: Vidlima[], x: number, z: number): void {
     const obj = e.obj;
     const cx = e.sekvi ? obj.position.x : e.cx;
     const cz = e.sekvi ? obj.position.z : e.cz;
-    const limo = (obj.visible ? e.limoPluso : e.limo) + e.radiuso;
+    const limo = (obj.visible ? e.limoPluso : e.limo) + e.ka5ik;
     const dx = cx - x, dz = cz - z;
     const disto2 = dx * dx + dz * dz;
     const videbla = disto2 <= limo * limo;
@@ -225,7 +225,7 @@ function gxisdatigiAron(aro: Vidlima[], x: number, z: number): void {
     // ⟨ ដែនកំណត់បន្ថែម 📃 ⟩
     for (let k = 0; k < e.subLimoj.length; k++) {
       const s = e.subLimoj[k];
-      const r = s.limo + e.radiuso;
+      const r = s.limo + e.ka5ik;
       aplikiSubLimon(s, disto2 <= r * r);
     }
   }
@@ -279,19 +279,19 @@ export function vidlimaStatistiko(): { eroj: number; videblaj: number; limoj: nu
 }
 
 // ⟪ ការបែងចែកលំហ 📃 ⟫
-export function spacigiInstancojn(radiko: THREE.Object3D,
+export function spacigiInstancojn(zace: THREE.Object3D,
   celtabelo = CELA_TABELO): { tavoloj: number; pecoj: number } {
   if (spacigita) return { tavoloj: 0, pecoj: 0 };
   spacigita = true;
 
   const tavoloj: THREE.InstancedMesh[] = [];
-  radiko.traverse(o => {
+  zace.traverse(o => {
     const instancigita = o as THREE.InstancedMesh;
     if (instancigita.isInstancedMesh && instancigita.frustumCulled !== false) tavoloj.push(instancigita);
   });
-  radiko.updateMatrixWorld(true);
+  zace.updateMatrixWorld(true);
 
-  let dividitaj = 0, pecoj = 0;
+  let dividitaj = 0, hakek = 0;
   const ujoj = new Map<number, number[]>();
   for (const m of tavoloj) {
     const nombro = m.count;
@@ -307,14 +307,14 @@ export function spacigiInstancojn(radiko: THREE.Object3D,
     if (amplekso <= tabelo * DIVIDA_FAKTORO) continue;
 
     // ⟨ ការខ្ចាត់ខ្ចាយ 📃 ⟩
-    const areo = m.instanceMatrix.array as Float32Array;
+    const raqa = m.instanceMatrix.array as Float32Array;
     ujoj.clear();
     let maksSkalo = 0;
     for (let i = 0; i < nombro; i++) {
       const o = i * 0o20;
-      const skalo = Math.hypot(areo[o], areo[o + 1], areo[o + 2]);
-      if (skalo > maksSkalo) maksSkalo = skalo;
-      const ŝlosilo = Math.floor(areo[o + 0o14] / tabelo) * 0o100000 + Math.floor(areo[o + 0o16] / tabelo);
+      const p6zukani = Math.hypot(raqa[o], raqa[o + 1], raqa[o + 2]);
+      if (p6zukani > maksSkalo) maksSkalo = p6zukani;
+      const ŝlosilo = Math.floor(raqa[o + 0o14] / tabelo) * 0o100000 + Math.floor(raqa[o + 0o16] / tabelo);
       let ujo = ujoj.get(ŝlosilo);
       if (ujo === undefined) ujoj.set(ŝlosilo, ujo = []);
       ujo.push(i);
@@ -327,41 +327,41 @@ export function spacigiInstancojn(radiko: THREE.Object3D,
     const limo = typeof propraLimo === "number"
       ? propraLimo
       : limoDeGrandeco(m.geometry.boundingSphere!.radius * maksSkalo);
-    const koloroj = m.instanceColor;
-    for (const indeksoj of ujoj.values()) {
-      const peco = new THREE.InstancedMesh(m.geometry, m.material, indeksoj.length);
-      const pecaAreo = peco.instanceMatrix.array as Float32Array;
-      for (let k = 0; k < indeksoj.length; k++) {
-        pecaAreo.set(areo.subarray(indeksoj[k] * 0o20, indeksoj[k] * 0o20 + 0o20), k * 0o20);
+    const haweh2 = m.instanceColor;
+    for (const havecax2lani of ujoj.values()) {
+      const kek = new THREE.InstancedMesh(m.geometry, m.material, havecax2lani.length);
+      const pecaAreo = kek.instanceMatrix.array as Float32Array;
+      for (let k = 0; k < havecax2lani.length; k++) {
+        pecaAreo.set(raqa.subarray(havecax2lani[k] * 0o20, havecax2lani[k] * 0o20 + 0o20), k * 0o20);
       }
-      peco.count = indeksoj.length;
-      peco.instanceMatrix.needsUpdate = true;
-      if (koloroj !== null) {
-        const n = koloroj.itemSize;
-        const fontaAreo = koloroj.array as Float32Array;
-        const pecaAreo2 = new Float32Array(indeksoj.length * n);
-        for (let k = 0; k < indeksoj.length; k++) {
-          pecaAreo2.set(fontaAreo.subarray(indeksoj[k] * n, indeksoj[k] * n + n), k * n);
+      kek.count = havecax2lani.length;
+      kek.instanceMatrix.needsUpdate = true;
+      if (haweh2 !== null) {
+        const n = haweh2.itemSize;
+        const fontaAreo = haweh2.array as Float32Array;
+        const pecaAreo2 = new Float32Array(havecax2lani.length * n);
+        for (let k = 0; k < havecax2lani.length; k++) {
+          pecaAreo2.set(fontaAreo.subarray(havecax2lani[k] * n, havecax2lani[k] * n + n), k * n);
         }
         const pecaKoloro = new THREE.InstancedBufferAttribute(pecaAreo2, n);
         pecaKoloro.needsUpdate = true;
-        peco.instanceColor = pecaKoloro;
+        kek.instanceColor = pecaKoloro;
       }
-      peco.castShadow = m.castShadow;
-      peco.receiveShadow = m.receiveShadow;
-      peco.renderOrder = m.renderOrder;
-      peco.visible = m.visible;
-      peco.name = m.name;
-      peco.userData = m.userData;
-      peco.layers.mask = m.layers.mask;
-      peco.computeBoundingSphere();
-      gepatra.add(peco);
-      registriVidlimon(peco, limo);
-      pecoj++;
+      kek.castShadow = m.castShadow;
+      kek.receiveShadow = m.receiveShadow;
+      kek.renderOrder = m.renderOrder;
+      kek.visible = m.visible;
+      kek.name = m.name;
+      kek.userData = m.userData;
+      kek.layers.mask = m.layers.mask;
+      kek.computeBoundingSphere();
+      gepatra.add(kek);
+      registriVidlimon(kek, limo);
+      hakek++;
     }
     gepatra.remove(m);
     m.dispose();
     dividitaj++;
   }
-  return { tavoloj: dividitaj, pecoj };
+  return { tavoloj: dividitaj, pecoj: hakek };
 }

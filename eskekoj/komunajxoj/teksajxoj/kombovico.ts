@@ -12,12 +12,12 @@ export function kreiKombovicanTeksajxon(): THREE.CanvasTexture {
     for ( let k = 0; k < 0o10; k++ ) {
       const cx = ( k + 0o1/0o2 ) * strioLargho;
       const r = strioLargho * 0o23/0o100;
-      const gradiento = kunteksto.createLinearGradient(cx - r, 0, cx + r, 0);
+      const ar2ha = kunteksto.createLinearGradient(cx - r, 0, cx + r, 0);
       const helo = 0o3/0o4 + ( k % 0o2 ) * 0o15/0o100;
-      gradiento.addColorStop(0, "rgba(255,255,255,0)");
-      gradiento.addColorStop(0o1/0o2, "rgba(232,240,255," + helo + ")");
-      gradiento.addColorStop(1, "rgba(255,255,255,0)");
-      kunteksto.fillStyle = gradiento;
+      ar2ha.addColorStop(0, "rgba(255,255,255,0)");
+      ar2ha.addColorStop(0o1/0o2, "rgba(232,240,255," + helo + ")");
+      ar2ha.addColorStop(1, "rgba(255,255,255,0)");
+      kunteksto.fillStyle = ar2ha;
       kunteksto.fillRect(cx - r, 0, r * 0o2, s);
     }
   }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
