@@ -6,7 +6,7 @@ import type { Vesto, Harstilo } from "../vestaro/vestoj.js";
 export type { Vesto };
 import { figurajGeometriojn } from "./homoj/geometrioj.js";
 import { HARO_Y, haraMaterialo, harKoloro, harKoloroA, harKoloroB, haranGeometrion } from "./homoj/haroj.js";
-import { ledajMaterialoj, ungaMaterialo, vestajMaterialoj } from "./homoj/materialoj.js";
+import { haŭtaMaterialo, ledajMaterialoj, ungaMaterialo, vestajMaterialoj } from "./homoj/materialoj.js";
 import { HALTO_GAMO, INTERNO_PIVOTO_Y, KOLO_Y, KUBUTO_Y, MALEOLO_Y, SASA_Y } from "./homoj/mezuroj.js";
 import { OKULAJ_ELEKTOJ, PALPEBRA_DAURO, PALPEBRA_FERMO, PALPEBRA_INTERVALO, okulaMaterialo } from "./homoj/okuloj.js";
 import { palpebraPivoto } from "./homoj/vizagxo.js";
@@ -63,7 +63,7 @@ export function konstruiFiguron(o: Vesto, haroKlavo = "haroMalalta",
   const altaFaktoro = alto ?? ( 0o1 + ( Math.random() * 0o2 - 0o1 ) * HALTO_GAMO );
   g.scale.setScalar(altaFaktoro);
   const G = figurajGeometriojn();
-  const haŭto = new THREE.MeshStandardMaterial({ color: 0x605050, roughness: 0o55/0o100 });
+  const haŭto = haŭtaMaterialo();
   const torso = new THREE.Mesh(G.korpo, haŭto);
   const kapo = new THREE.Mesh(G.kapa, haŭto);
   // ⟨ រូបនីមួយៗទទួលបាលេតភ្នែកផ្ទាល់ 📃 ⟩

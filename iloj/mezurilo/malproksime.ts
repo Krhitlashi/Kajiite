@@ -192,3 +192,16 @@ for ( let i = 0; i < N; i++ ) {
   if ( premuAlFormo(mapo.formo, mapo.grandeco, posX[i], posZ[i], premita) ) premitaj++;
 }
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចំណុចចុចមកគែម=${premitaj} ត្រីកោណធំ=${2 * SEGMENTOJ * SEGMENTOJ} ត្រីកោណតូច=${2 * SEG_TUTA * SEG_TUTA}`);
+let ĉelojUzataj = 0;
+for ( let j = 0; j < SEG_TUTA; j++ ) {
+  for ( let i = 0; i < SEG_TUTA; i++ ) {
+    let internaĈelo = false;
+    for ( const [ di, dj ] of [ [ 0, 0 ], [ 1, 0 ], [ 0, 1 ], [ 1, 1 ] ] as const ) {
+      const x = -TUTA / 2 + ( i + di ) * PASXO_TUTA;
+      const z = -TUTA / 2 + ( j + dj ) * PASXO_TUTA;
+      if ( distancoDeFormo(mapo.formo, mapo.grandeco, x, z) <= 0 ) internaĈelo = true;
+    }
+    if ( internaĈelo ) ĉelojUzataj++;
+  }
+}
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡាដីមានគែម=${ĉelojUzataj}/${SEG_TUTA * SEG_TUTA} ត្រីកោណនៅសល់=${ĉelojUzataj * 2}`);

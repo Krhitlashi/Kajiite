@@ -31,6 +31,9 @@ interface Vidlima {
   cz: number;
   sekvi: boolean;
   subLimoj: SubLimo[];
+  detalaGeometrio: THREE.BufferGeometry | null;
+  malproksimaGeometrio: THREE.BufferGeometry | null;
+  malproksima: boolean;
 }
 
 // ⟨ វត្ថុស្ងៀម ភាគច្រើនលើសគេ ។ ភាពមើលឃើញរបស់វាប្រែតែពេលកាមេរ៉ាផ្លាស់ទី ។
@@ -91,8 +94,12 @@ function aldonu(obj: THREE.Object3D, limo: number, radiuso: number,
     obj.matrixWorldAutoUpdate = false;
     devigiStatikan = true;
   }
+  const detalaGeometrio = ( obj as THREE.Mesh ).geometry ?? null;
+  const malproksimaGeometrio = obj.userData.malproksimaGeometrio instanceof THREE.BufferGeometry
+    ? obj.userData.malproksimaGeometrio as THREE.BufferGeometry : null;
   ( sekvi ? movigxantaj : statikaj ).push({ obj, gepatro: obj.parent, limo,
-    limoPluso: limo * LIMO_HISTEREZO, radiuso, cx, cz, sekvi, subLimoj });
+    limoPluso: limo * LIMO_HISTEREZO, radiuso, cx, cz, sekvi, subLimoj,
+    detalaGeometrio, malproksimaGeometrio, malproksima: false });
 }
 
 export function registriVidlimon(obj: THREE.Object3D, limo: number): void {
@@ -184,6 +191,19 @@ function reAlDonu(obj: THREE.Object3D, gepatro: THREE.Object3D | null): void {
   if (obj.parent === null && gepatro !== null) gepatro.add(obj);
 }
 
+// ⟨ ស្លឹកឈើឆ្ងាយប្រើធរណីមាត្រស្តើង ប៉ុន្តែទីតាំងដដែល ។ អ៊ីស្តេរេស៊ីស
+//   ការពារការឆ្លាស់កម្រិតញឹកញាប់ពេលកាមេរ៉ានៅជិតព្រំដែន 📃 ⟩
+const GEOMETRIA_HISTEREZO = 0o4;
+function gxisdatigiGeometrion( e: Vidlima, disto2: number ): void {
+  if ( e.detalaGeometrio === null || e.malproksimaGeometrio === null ) return;
+  const bazo = Math.max(0o40, e.limo * 0o1 / 0o4) + e.radiuso;
+  const lod = bazo + ( e.malproksima ? -GEOMETRIA_HISTEREZO : GEOMETRIA_HISTEREZO );
+  const malproksima = disto2 > lod * lod;
+  if ( malproksima === e.malproksima ) return;
+  e.malproksima = malproksima;
+  ( e.obj as THREE.Mesh ).geometry = malproksima ? e.malproksimaGeometrio : e.detalaGeometrio;
+}
+
 function gxisdatigiAron(aro: Vidlima[], x: number, z: number): void {
   for (let i = 0; i < aro.length; i++) {
     const e = aro[i];
@@ -201,6 +221,7 @@ function gxisdatigiAron(aro: Vidlima[], x: number, z: number): void {
         else forprenu(obj);
       }
     }
+    gxisdatigiGeometrion(e, disto2);
     // ⟨ ដែនកំណត់បន្ថែម 📃 ⟩
     for (let k = 0; k < e.subLimoj.length; k++) {
       const s = e.subLimoj[k];
@@ -232,6 +253,10 @@ export function vidlimojnMalŝalti(): void {
   aktiva = false;
   porCxiunEron((e) => {
     e.obj.visible = true;
+    if ( e.detalaGeometrio !== null && e.malproksima ) {
+      ( e.obj as THREE.Mesh ).geometry = e.detalaGeometrio;
+      e.malproksima = false;
+    }
     if (e.sekvi) reAlDonu(e.obj, e.gepatro);
     for (let k = 0; k < e.subLimoj.length; k++) aplikiSubLimon(e.subLimoj[k], true);
   });

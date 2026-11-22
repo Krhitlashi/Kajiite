@@ -360,7 +360,7 @@ export function konstruiHerbanTavolanGeometrion(flanko = HERBA_LARGO, aksoj = HE
       else if ( sekaKlingo ) sekaHerbaKlingaKoloro(seka, hazardo);
       else herbaKlingaKoloro(verda, hazardo);
       const klingo = kreiHerbanKlingon(longo, largho, klino, arko, tordo,
-        sekaKlingo ? seka : verda, segmentoj, 0o4/0o10, kolonoj);
+        sekaKlingo ? seka : verda, segmentoj, 0o4/0o10, kolonoj, false);
       klingo.translate(rx, 0, rz);
       klingoj.push(klingo);
     }

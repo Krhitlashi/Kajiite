@@ -165,6 +165,7 @@ export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
   const uvoj: number[] = [];
   const maskoj: number[] = [];
   const indeksoj: number[] = [];
+  const videblajIndeksoj: number[] = [];
   for ( let j = 0; j <= nz; j++ ) {
     for ( let i = 0; i <= nx; i++ ) {
       const x = x0 + ( x1 - x0 ) * i / nx;
@@ -184,6 +185,13 @@ export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
       const a = j * ( nx + 1 ) + i, b = a + 1;
       const c = a + nx + 1, d = c + 1;
       indeksoj.push(a, b, d, a, d, c);
+      // ⟨ ក្រឡាដែលមានតែមុខស្ងួត ឬ គ្មានម៉ាសទឹកត្រូវបោះបង់ដោយ shader
+      //   នៅគ្រប់ភីកសែលរួចហើយ ។ រក្សាក្រឡាគែមទាំងអស់ដែលមានទឹកយ៉ាងហោចណាស់មួយជ្រុង 📃 ⟩
+      const videbla = ( maskoj[a] === 1 && uvoj[a * 2 + 1] > 0 )
+        || ( maskoj[b] === 1 && uvoj[b * 2 + 1] > 0 )
+        || ( maskoj[c] === 1 && uvoj[c * 2 + 1] > 0 )
+        || ( maskoj[d] === 1 && uvoj[d * 2 + 1] > 0 );
+      if ( videbla ) videblajIndeksoj.push(a, b, d, a, d, c);
     }
   }
   const geometrio = new THREE.BufferGeometry();
@@ -191,7 +199,9 @@ export function konstruiSkulptitanAkvon(sceno: THREE.Scene,
   geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
   geometrio.setAttribute("aAkvo", new THREE.BufferAttribute(new Float32Array(maskoj), 1));
   geometrio.setIndex(indeksoj);
+  // ⟨ គណនានរម៉ាល់ពីក្រឡាពេញ មុនដកក្រឡាស្ងួត ដើម្បីរក្សារលកដដែល 📃 ⟩
   geometrio.computeVertexNormals();
+  geometrio.setIndex(videblajIndeksoj);
   const materialo = kreiOndanAkvanMaterialon(sceno, true);
   const mesh = new THREE.Mesh(geometrio, materialo);
   mesh.renderOrder = 0;

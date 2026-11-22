@@ -169,6 +169,7 @@ export function generiTeron(
   // ⟪ ការវាស់វែងទ្វីប 📃 ⟫
   // ប្រមូលតម្លៃទ្វីបនៅក្នុងរូបរាង រួចរកពាក់កណ្តាល និងជាយខាងលើ ។
   const kontinentoj: number[] = [];
+  const kontinentajValoroj = new Float64Array(N);
   const ene = new Uint8Array(N);
   for ( let j = 0; j < n; j++ ) {
     for ( let i = 0; i < n; i++ ) {
@@ -177,7 +178,9 @@ export function generiTeron(
       const ena = enFormo(x, z);
       ene[id] = ena ? 1 : 0;
       if ( !ena ) continue;
-      kontinentoj.push(multoblaBruo(x / KONTINENTA_SKALO, z / KONTINENTA_SKALO, 0o5, sKontinento));
+      const kontinento = multoblaBruo(x / KONTINENTA_SKALO, z / KONTINENTA_SKALO, 0o5, sKontinento);
+      kontinentajValoroj[id] = kontinento;
+      kontinentoj.push(kontinento);
     }
   }
   kontinentoj.sort(( a, b ) => a - b);
@@ -189,11 +192,11 @@ export function generiTeron(
   const montoFaktoro = KARAKTERA_BAZO
     + ( subSemo(semo, KANALO_KARAKTERO) % 0o1000 ) / 0o1000 * KARAKTERA_VARIO;
 
-  /*កម្ពស់ដីធម្មជាតិនៅចំណុចណាមួយ
+  /*កម្ពស់ដីពីតម្លៃទ្វីបដែលគណនារួច
       @param x,z ( number ) - កូអរដោនេពិភពលោក
+      @param kontinento ( number ) - តម្លៃទ្វីបរបស់ចំណុច
   @returns y ( number ) - កម្ពស់ជាឯកតាពិភពលោក */
-  function alteco( x: number, z: number ): number {
-    const kontinento = multoblaBruo(x / KONTINENTA_SKALO, z / KONTINENTA_SKALO, 0o5, sKontinento);
+  function altecoElKontinento( x: number, z: number, kontinento: number ): number {
     const montaro = kresto(x / MONTARA_SKALO, z / MONTARA_SKALO, 0o5, sMontaro);
     const hakiloj = multoblaBruo(x / HAKILA_SKALO, z / HAKILA_SKALO, 0o3, sHakiloj) - 0o1/0o2;
     const ondetoj = multoblaBruo(x / ONDETA_SKALO, z / ONDETA_SKALO, 0o4, sOndetoj) - 0o1/0o2;
@@ -203,11 +206,25 @@ export function generiTeron(
       + hakiloj * HAKILA_FORTO + ondetoj * ONDETA_FORTO;
   }
 
+  /*កម្ពស់ដីធម្មជាតិនៅចំណុចណាមួយ
+      @param x,z ( number ) - កូអរដោនេពិភពលោក
+  @returns y ( number ) - កម្ពស់ជាឯកតាពិភពលោក */
+  function alteco( x: number, z: number ): number {
+    const kontinento = multoblaBruo(x / KONTINENTA_SKALO, z / KONTINENTA_SKALO, 0o5, sKontinento);
+    return altecoElKontinento(x, z, kontinento);
+  }
+
   // ⟪ ក្រឡាកម្ពស់ 📃 ⟫
+  // ⟨ តម្លៃទ្វីបពីជំហានវាស់វែងត្រូវប្រើឡើងវិញ ។ ការហៅសំឡេងដដែល
+  //   មិនត្រូវធ្វើទ្វេដងសម្រាប់ក្រឡាគ្រប់គ្រាន់ទេ ។ 📃 ⟩
   const altoj = new Float32Array(N);
   for ( let j = 0; j < n; j++ ) {
     for ( let i = 0; i < n; i++ ) {
-      altoj[j * n + i] = alteco(x0 + i * paso, z0 + j * paso);
+      const id = j * n + i;
+      const x = x0 + i * paso, z = z0 + j * paso;
+      altoj[id] = ene[id]
+        ? altecoElKontinento(x, z, kontinentajValoroj[id])
+        : alteco(x, z);
     }
   }
 

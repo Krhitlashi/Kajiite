@@ -14,6 +14,14 @@ export function ungaMaterialo(): THREE.MeshStandardMaterial {
   return ungaMaterialoStoko;
 }
 
+// ⟨ ស្បែករបស់មនុស្សទាំងអស់ដូចគ្នា ។ ចែករំលែកវត្ថុធាតុតែមួយ 📃 ⟩
+let haŭtaMaterialoStoko: THREE.MeshStandardMaterial | null = null;
+export function haŭtaMaterialo(): THREE.MeshStandardMaterial {
+  if ( !haŭtaMaterialoStoko ) haŭtaMaterialoStoko = new THREE.MeshStandardMaterial({
+    color: 0x605050, roughness: 0o55/0o100 });
+  return haŭtaMaterialoStoko;
+}
+
 // ⟨ វត្ថុធាតុស្បែក 📃 ⟩
 // ⟨ ពណ៌សង្កត់ត្រឡប់មកស្បែកជើងវិញ 📃 ⟩
 interface LedajMaterialoj {

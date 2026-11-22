@@ -79,6 +79,8 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 pozicio, vec3 supo, vec3 lumo,
     ${0o0}.0, ${0o1}.0 );
   // ⟨ វាលតែមួយគ្រប់វត្ថុ ៖ ខ្សែកោងចេញពីគែមក្រៅរបស់មុខ រុំចូលក្នុងតាមគែមនោះ 📃 ⟩
   float uvValida = step( ${0o1 / 0o20000}, length( uv ) );
+  // ⟨ ផ្ទៃគ្មាន UV ប្រើតែពន្លឺថ្ងៃកន្លះ ដូចលទ្ធផល mix ចុងក្រោយ 📃 ⟩
+  if ( uvValida < ${0o1 / 0o2} ) return suna * ${0o1 / 0o2};
   vec2 kUv = clamp( uv, vec2( ${0o0}.0 ), vec2( ${0o1}.0 ) );
   // ⟨ គោលក្នុងមុខ ៖ ទិសពន្លឺ និងកាមេរ៉ាបញ្ចាំងលើផ្ទៃកំណត់ចំណុចកណ្ដាល 📃 ⟩
   vec3 help = abs( dot( normalo, supo ) ) < ${0o7 / 0o10}

@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { kunfandiGeometriojnSenIndekson } from "../../../komunajxoj/kunfandajxoj.js";
 import { kreiVegetajxanHazardon } from "../hazardoj.js";
 
-export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometry; folioj: THREE.BufferGeometry } {
+export function konstruiBetulanFoliaranGeometrion(foliajSegmentoj = 0o2): { maso: THREE.BufferGeometry; folioj: THREE.BufferGeometry } {
   const hazardo = kreiVegetajxanHazardon(0o227334);
   const partoj: THREE.BufferGeometry[] = [];
   const foliajPartoj: THREE.BufferGeometry[] = [];
@@ -16,7 +16,7 @@ export function konstruiBetulanFoliaranGeometrion(): { maso: THREE.BufferGeometr
   const metiFolion = ( celo: THREE.Vector3, angulo: number, klino: number ): void => {
     const longo = 0o1/0o10 + hazardo() * 0o1/0o40;
     const largho = longo * 0o3/0o4;
-    const folio = new THREE.PlaneGeometry(longo, largho, 0o2, 0o1)
+    const folio = new THREE.PlaneGeometry(longo, largho, foliajSegmentoj, 0o1)
       .translate(longo / 0o2, 0, 0);
     const pozicioj = folio.getAttribute("position");
     for ( let i = 0; i < pozicioj.count; i++ ) {

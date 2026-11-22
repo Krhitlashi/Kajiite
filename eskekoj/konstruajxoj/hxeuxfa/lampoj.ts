@@ -109,6 +109,11 @@ export function konstruiHxeuxfojn(sceno: THREE.Scene,
     kreiFlamanGeometrion(LANGA_ALTO, 0o11/0o100, 0o6/0o10, 0o355/0o100),
     flamaMaterialo(0xff8a2c, 0o17/0o40), N * LANGOJ);
   flamaLangoj.frustumCulled = false;
+  // ⟨ មាត្រីទាំងបួនផ្លាស់ទីរាល់ស៊ុម ដូច្នេះ GPU ជ្រើស buffo សម្រាប់ការសរសេរញឹកញាប់ 📃 ⟩
+  flamaEkstero.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  flamaInterno.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  flamaKerno.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  flamaLangoj.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   sceno.add(flamaLangoj);
   const langajBazoj: THREE.Vector3[] = [];
   const langajFazoj: number[] = [];

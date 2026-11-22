@@ -1,7 +1,8 @@
 // ≺⧼ ការសាកល្បងបង្កើតឧទាហរណ៍ចែករំលែក 🧩 ⧽≻
 import * as THREE from "three";
 import { kunfandiMondajnMeshojn } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
-import { spacigiInstancojn } from "../../kantaoj/bildo/vidlimo.js";
+import { gxisdatigiVidlimojn, registriVidlimon, spacigiInstancojn, vidlimojnMalŝalti }
+  from "../../kantaoj/bildo/vidlimo.js";
 import { alOkto } from "../../kantaoj/komunajxoj/unuoj.js";
 
 function certigi( kondiĉo: boolean, mesaĝo: string ): void {
@@ -44,3 +45,18 @@ certigi( malsamaRezulto.poste === 0o2 && malsama.children.length === 0o2,
   "គំរូខុស UUID ត្រូវបានបញ្ចូលខុស" );
 
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចែករំលែក ${alOkto(rezulto.antaŭe, 0)} ទៅ ${alOkto(rezulto.poste, 0)} ហើយបំបែកជា ${alOkto(disigo.pecoj, 0)} ដោយគំរូតែមួយ`);
+
+// ⟨ កម្រិតធរណីមាត្រឆ្លាស់តាមចម្ងាយ ហើយត្រឡប់ដើមនៅជិត 📃 ⟩
+const malproksimaGeometrio = new THREE.BoxGeometry(0o2, 0o2, 0o2);
+const lodMesho = new THREE.Mesh(geometrio, materialo);
+lodMesho.userData.malproksimaGeometrio = malproksimaGeometrio;
+radiko.add(lodMesho);
+registriVidlimon(lodMesho, 0o200);
+gxisdatigiVidlimojn(0, 0);
+certigi(lodMesho.geometry === geometrio, "កម្រិតជិតមិនប្រើគំរូពេញ");
+gxisdatigiVidlimojn(0o1000, 0);
+certigi(lodMesho.geometry === malproksimaGeometrio, "កម្រិតឆ្ងាយមិនប្រើគំរូស្តើង");
+gxisdatigiVidlimojn(0, 0);
+certigi(lodMesho.geometry === geometrio, "កម្រិតជិតមិនត្រឡប់ដើម");
+vidlimojnMalŝalti();
+console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) កម្រិតធរណីមាត្រជិត និង ឆ្ងាយឆ្លាស់ត្រឹមត្រូវ ✅");

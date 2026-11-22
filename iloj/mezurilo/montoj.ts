@@ -249,3 +249,16 @@ for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
   if ( dNova < minN ) minN = dNova;
 }
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ringoj ចាស់=${minM.toFixed(1)}ms ថ្មី=${minN.toFixed(1)}ms លឿន=${(minM / minN).toFixed(2)}x`);
+
+// ⟨ ទំហំធរណីមាត្ររបស់ឆាក ៖ ផ្ទៃលើ និង ជញ្ជាំងនៅដដែល ផ្ទៃក្រោមត្រូវដកចេញ 📃 ⟩
+let malnovajVerticoj = 0, novajVerticoj = 0, malnovajTrianguloj = 0, novajTrianguloj = 0;
+for ( const [ sl, sd ] of [ [ 0o2000, 0o100 ], [ 0o2000, 0o60 ] ] as const ) {
+  const suprN = ( sl + 1 ) * ( sd + 1 );
+  malnovajVerticoj += suprN * 2;
+  novajVerticoj += suprN + 2 * ( sl + 1 + sd );
+  malnovajTrianguloj += 4 * sl * sd + 4 * ( sl + sd );
+  novajTrianguloj += 2 * sl * sd + 4 * ( sl + sd );
+}
+const malnovajBajtoj = malnovajVerticoj * 0o40 + malnovajTrianguloj * 0o14;
+const novajBajtoj = novajVerticoj * 0o40 + novajTrianguloj * 0o14;
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ធរណីមាត្រឆាក កំពូល=${malnovajVerticoj} → ${novajVerticoj} ត្រីកោណ=${malnovajTrianguloj} → ${novajTrianguloj} យ៉ាង=${( malnovajBajtoj / 0o4000000 ).toFixed(2)} → ${( novajBajtoj / 0o4000000 ).toFixed(2)} MiB សន្សំ=${( ( malnovajBajtoj - novajBajtoj ) / 0o4000000 ).toFixed(2)} MiB`);

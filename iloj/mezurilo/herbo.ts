@@ -3,6 +3,8 @@
 // នៅពេលចូលពិភពលោក ។ យើងបែងចែករវាង ការស្កេនក្រឡា និង ការសង់ដុំស្មៅ ។
 import * as THREE from "three";
 import { konstruiHerbanTavolon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/gazono.js";
+import { kreiHerbanMaterialon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/vento.js";
+import { kreiHerbanKlingon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/klingoj.js";
 import { VALAJ_BIOMOJ, EBENAJAJ_BIOMOJ }
   from "../../eskekoj/shalaj-specioj/vegetajxo/biomoj.js";
 import { alteco, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
@@ -43,3 +45,20 @@ async function mezuri( etikedo: string, filtro: readonly never[] | readonly stri
 await mezuri("ស្កេនទទេ ( គ្មានស្មៅ )", malplenaFiltro);
 await mezuri("ពេញលេញ", realaFiltro);
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) akvaNivelo=${akvaNivelo(0, 0).toFixed(3)}`);
+const materialoA = kreiHerbanMaterialon();
+const materialoB = kreiHerbanMaterialon();
+if ( materialoA.map !== materialoB.map ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) វាយនភាពស្មៅមិនបានចែករំលែក");
+console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) វាយនភាពស្មៅរួមតែមួយ ✅");
+const plenaKlingo = kreiHerbanKlingon(0o1, 0o1/0o10, 0o1/0o10, 0o1/0o10, 0,
+  new THREE.Color(0x408058), 1, 0o4/0o10, 0o5, true);
+const senFundaKlingo = kreiHerbanKlingon(0o1, 0o1/0o10, 0o1/0o10, 0o1/0o10, 0,
+  new THREE.Color(0x408058), 1, 0o4/0o10, 0o5, false);
+if ( plenaKlingo.getIndex()!.count - senFundaKlingo.getIndex()!.count !== 0o11 ) {
+  throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) គូបមូលស្មៅមិនត្រូវបានដកត្រឹមត្រូវ");
+}
+const normalojA = plenaKlingo.getAttribute("normal").array;
+const normalojB = senFundaKlingo.getAttribute("normal").array;
+if ( normalojA.length !== normalojB.length || normalojA.some(( v, i ) => v !== normalojB[i]) ) {
+  throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) នរម៉ាល់ស្មៅបានប្រែ");
+}
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ស្លឹក ${plenaKlingo.getIndex()!.count / 3} → ${senFundaKlingo.getIndex()!.count / 3} ត្រីកោណ នរម៉ាល់ដដែល ✅`);

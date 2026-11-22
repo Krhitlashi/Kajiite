@@ -1,5 +1,7 @@
 // ≺⧼ ការវាស់ការគណនាទឹក 💧 ⧽≻
 // ប្រៀបធៀបកំណែចាស់ ( ច្បាប់ចម្លងពី git ) និងកំណែថ្មីលើដីពិត ។
+import * as THREE from "three";
+import { konstruiSkulptitanAkvon } from "../../eskekoj/medio/akvo.js";
 import { kalkuliAkvon as kalkuliAkvonNova } from "../../kantaoj/mondo/akvokalkulo.js";
 import { kalkuliAkvon as kalkuliAkvonMalnova } from "./malnova-akvokalkulo.js";
 import type { AkvaKalkulo } from "../../kantaoj/mondo/akvokalkulo.js";
@@ -51,3 +53,14 @@ for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
   if ( dNova < minN ) minN = dNova;
 }
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) kalkuliAkvon ចាស់=${minM.toFixed(1)}ms ថ្មី=${minN.toFixed(1)}ms លឿន=${(minM / minN).toFixed(2)}x`);
+
+// ⟨ ក្រឡាសាកល្បង 0o11 × 0o11 ៖ មានទឹកតែ 0o4 ក្រឡាក្នុង 0o11 ក្រឡា 📃 ⟩
+const sceno = new THREE.Scene();
+const akvaMesho = konstruiSkulptitanAkvon(sceno, 0, 0, 2, 2, 2,
+  ( x, z ) => x >= 1 && z >= 1, () => 1,
+  ( x, z ) => x >= 1 && z >= 1 ? 0 : 2);
+const akvaIndeksoj = akvaMesho.mesh.geometry.getIndex()!;
+if ( akvaIndeksoj.count !== 0o30 ) {
+  throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) សន្ទស្សន៍ទឹក ${akvaIndeksoj.count} មិនមែន 0o30`);
+}
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡាទឹកមើលឃើញ=0o4/0o11 ត្រីកោណ=${akvaIndeksoj.count / 3} ✅`);

@@ -56,9 +56,15 @@ export interface HerbaMaterialajOpcioj {
   pusxo?: number;
 }
 
+// ⟨ ស្មៅគ្រប់ស្រទាប់ប្រើវាយនភាពដូចគ្នា ។ រក្សាវាតែមួយដើម្បីកុំបង្កើត
+//   ក្រណាត់ និង វាយនភាព GPU ដដែលឡើងវិញ ខណៈវត្ថុធាតុនីមួយៗមានខ្យល់ផ្ទាល់ខ្លួន ។ 📃 ⟩
+let defauxlaHerbaTeksturo: THREE.CanvasTexture | null = null;
+
 export function kreiHerbanMaterialon(limo = 0o100,
-  teksajxo: THREE.CanvasTexture = kreiHerbanKlinganTeksajxon(),
+  teksajxo?: THREE.CanvasTexture,
   opcioj?: HerbaMaterialajOpcioj ): THREE.MeshStandardMaterial {
+  const aktivaTeksturo = teksajxo
+    ?? ( defauxlaHerbaTeksturo ??= kreiHerbanKlinganTeksajxon() );
   const uTempo = { value: 0 };
   const uFotilo = { value: new THREE.Vector2(0, 0) };
   const uLimo = { value: limo };
@@ -68,7 +74,7 @@ export function kreiHerbanMaterialon(limo = 0o100,
   const uPusantoj = { value: Array.from({ length: HERBA_PUSANTOJ },
     () => new THREE.Vector4(0, 0, 0, 0)) };
   const materialo = new THREE.MeshStandardMaterial({
-    map: teksajxo, side: THREE.DoubleSide,
+    map: aktivaTeksturo, side: THREE.DoubleSide,
     vertexColors: true, roughness: 1,
   });
   if ( opcioj?.doklivo ) materialo.defines = { ...materialo.defines, HERBA_DOKLIVO: "" };

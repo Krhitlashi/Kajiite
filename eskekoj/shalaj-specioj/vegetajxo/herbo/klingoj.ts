@@ -3,7 +3,7 @@ import * as THREE from "three";
 
 export function kreiHerbanKlingon(longo: number, largho: number, klino: number,
   arko: number, tordo: number, koloro: THREE.Color, segmentoj = 0o4,
-  pintPotenco = 0o7/0o10, petitajKolonoj = 0o5): THREE.BufferGeometry {
+  pintPotenco = 0o7/0o10, petitajKolonoj = 0o5, fundo = true): THREE.BufferGeometry {
   // ⟨ កំណាត់ឆ្លងកាត់មាន 0o5 ចំណុច ។ ជួរឈរតិចជាង 0o3 បង្កើតត្រីកោណគ្មានផ្ទៃ ,
   //   ហើយច្រើនជាង 0o5 អានចំណុចដែលគ្មាន ។ ទាំងពីរធ្វើឱ្យស្មៅបាត់ភ្លឹក ។ 📃 ⟩
   const KOLONOJ = Math.max(0o3, Math.min(0o5, Math.round(petitajKolonoj)));
@@ -50,6 +50,13 @@ export function kreiHerbanKlingon(longo: number, largho: number, klino: number,
   geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
   geometrio.setAttribute("color", new THREE.Float32BufferAttribute(koloroj, 3));
   geometrio.setIndex(indeksoj);
+  // ⟨ គណនានរម៉ាល់ពីស្លឹកពេញ ដើម្បីឱ្យចំហៀងមិនប្រែពន្លឺ 📃 ⟩
   geometrio.computeVertexNormals();
+  if ( !fundo ) {
+    // ⟨ ដកតែមូលដែលកប់ក្រោមដី ។ គ្រប់គូបមូលមានសន្ទស្សន៍បី ហើយគ្រប់គូបកំពូលនៅដដែល 📃 ⟩
+    const flankajIndeksoj = SEGMENTOJ * KOLONOJ * 0o6;
+    geometrio.setIndex(indeksoj.filter(( _, i ) =>
+      i < flankajIndeksoj || ( i - flankajIndeksoj ) % 0o6 >= 0o3));
+  }
   return geometrio;
 }

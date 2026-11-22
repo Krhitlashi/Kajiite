@@ -9,7 +9,7 @@ import type { ArboMetado } from "./metado.js";
 import { kreiTrunkanGeometrion } from "./trunkoj.js";
 import { ombraKoloro } from "../../komunajxoj/koloroj.js";
 
-function konstruiLarikanFoliaranGeometrion(): { folioj: THREE.BufferGeometry; brancxoj: THREE.BufferGeometry } {
+function konstruiLarikanFoliaranGeometrion(pinglajSegmentoj = 0o3): { folioj: THREE.BufferGeometry; brancxoj: THREE.BufferGeometry } {
   const partoj: THREE.BufferGeometry[] = [];
   const branĉajPartoj: THREE.BufferGeometry[] = [];
   // ⟨ កំពូល 📃 ⟩
@@ -27,7 +27,7 @@ function konstruiLarikanFoliaranGeometrion(): { folioj: THREE.BufferGeometry; br
     const pozicioj: number[] = [];
     const uvoj: number[] = [];
     const indeksoj: number[] = [];
-    const segmentoj = 0o3;
+    const segmentoj = pinglajSegmentoj;
     for ( let i = 0; i <= segmentoj; i++ ) {
       const t = i / segmentoj;
       const duonLargho = dikeco * ( 0o1/0o10 + 0o2/0o5 * Math.sin(t * Math.PI) );
@@ -128,6 +128,7 @@ export function konstruiLarikon(sceno: THREE.Scene,
   if ( arboj.length === 0 ) return trunkoj;
 
   const kronaGeometrioj = konstruiLarikanFoliaranGeometrion();
+  const malproksimaKronaGeometrio = konstruiLarikanFoliaranGeometrion(0o1).folioj;
   const kronaGeometrio = kronaGeometrioj.folioj;
   kronaGeometrio.computeBoundingBox();
   // ⟨ ម្ជុលពីរជាន់ 📃 ⟩
@@ -274,6 +275,7 @@ export function konstruiLarikon(sceno: THREE.Scene,
     }
     cxelajTrunkoj.name = "larikaTrunko";
     kronoj.name = "larikaKrono";
+    kronoj.userData.malproksimaGeometrio = malproksimaKronaGeometrio;
     folibranĉoj.name = "larikaFolibrancxo";
     folibranĉoj.instanceMatrix.needsUpdate = true;
     folibranĉoj.castShadow = true;

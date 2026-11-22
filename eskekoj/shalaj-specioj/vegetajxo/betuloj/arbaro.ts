@@ -32,6 +32,8 @@ export function konstruiArbaron(sceno: THREE.Scene,
   if ( arboj.length === 0 ) return trunkoj;
 
   const kronaGeometrioj = konstruiBetulanFoliaranGeometrion();
+  // ⟨ ស្លឹកឆ្ងាយមានខ្សែកោងតែមួយ ប៉ុន្តែទីតាំង និង ពណ៌ដូចស្លឹកជិត 📃 ⟩
+  const malproksimaFoliaGeometrio = konstruiBetulanFoliaranGeometrion(0o1).folioj;
   const kronaMaterialo = new THREE.MeshStandardMaterial({
     color: 0x887858, roughness: 0o1, vertexColors: true,
   });
@@ -188,6 +190,7 @@ export function konstruiArbaron(sceno: THREE.Scene,
     cxelajTrunkoj.name = "betulaTrunko";
     kronoj.name = "betulaKrono";
     folioj.name = "betulaFolio";
+    folioj.userData.malproksimaGeometrio = malproksimaFoliaGeometrio;
     brancxoj.name = "betulaBrancxo";
     cxelajTrunkoj.castShadow = kronoj.castShadow = brancxoj.castShadow = true;
     folioj.castShadow = true;
