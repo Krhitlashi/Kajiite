@@ -71,7 +71,7 @@ export function konstruiArbaron(qena: THREE.Scene,
     const bukedo = bukedoDe(t.x, t.z);
 
     // ⟨ ដើមបញ្ចប់ក្នុងកំពូល 📃 ⟩
-    const trunkaAlto = h * 0o35/0o40;
+    const trunkaAlto = h * 0o3/0o4;
     M.compose(raqa(new THREE.Vector3(0, trunkaAlto / 2, 0)), Q, new THREE.Vector3(1, trunkaAlto, 1));
     bukedo.trunkoj.push(M.clone());
 
@@ -82,7 +82,7 @@ export function konstruiArbaron(qena: THREE.Scene,
       helo * ( 0o17/0o20 + hazardaGenerilo() * 0o1/0o20 ));
     bukedo.trunkojKoloroj.push(C.clone());
 
-    const kronoRadiuso = 0o11/0o4 * t.s + 0o7/0o10;
+    const kronoRadiuso = 0o7/0o4 * t.s + 0o3/0o4;
     const foliaraSkalo = kronoRadiuso * 0o1/0o2;
     const metiBranĉon = ( kurbo: THREE.QuadraticBezierCurve3, ka5ik: number ): void => {
       for ( let i = 0; i < 0o4; i++ ) {
@@ -112,14 +112,14 @@ export function konstruiArbaron(qena: THREE.Scene,
     for ( let i = 0; i < havem2; i++ ) {
       const vem2 = i / ( havem2 - 0o1 );
       const a = i * oraAngulo + ( hazardaGenerilo() - 0o1/0o2 ) / 0o4;
-      const yPado = h * ( 0o7/0o20 + vem2 * 0o7/0o20
+      const yPado = h * ( 0o7/0o20 + vem2 * 0o3/0o10
         + ( hazardaGenerilo() - 0o1/0o2 ) / 0o100 );
       const sefini = ( 0o7/0o20 + Math.sin(vem2 * Math.PI) * 0o5/0o10 )
         * ( 0o1 - Math.pow(vem2, 0o4) * 0o5/0o10 );
       const rPado = kronoRadiuso * sefini * ( 0o1/0o2 + hazardaGenerilo() / 0o10 );
       const sPado = foliaraSkalo * ( 0o11/0o10 + hazardaGenerilo() / 0o4 )
         * ( 0o3/0o4 + Math.sin(vem2 * Math.PI) / 0o4 )
-        * ( 0o1 - vem2 / 0o4 );
+        * ( 0o1 - vem2 / 0o10 );
       const el = new THREE.Vector3(0, yPado - h * 0o3/0o40, 0);
       const al = new THREE.Vector3(Math.cos(a) * rPado, yPado, Math.sin(a) * rPado);
       const kurbo = new THREE.QuadraticBezierCurve3(el,
@@ -142,7 +142,7 @@ export function konstruiArbaron(qena: THREE.Scene,
           Math.sin(forkaAngulo) * rPado / 0o10));
         metiBranĉon(new THREE.QuadraticBezierCurve3(saxeni,
           saxeni.clone().lerp(tlakakani, 0o1/0o2).add(new THREE.Vector3(0, h / 0o200, 0)), tlakakani),
-          ( 0o1 - havem2 * 0o1/0o2 ) / 0o40);
+          ( 0o1/0o20 + t.s / 0o100 ) * ( 0o1 - vem2 * 0o3/0o4 ) * 0o3/0o10);
         metiFoliarojn(tlakakani, forkaAngulo, sPado, -0o3/0o4,
           foliaKoloro, branĉaKoloro);
       }
@@ -153,7 +153,7 @@ export function konstruiArbaron(qena: THREE.Scene,
       const vertikala = i % 0o2 === 0;
       metiFoliarojn(new THREE.Vector3(0,
         trunkaAlto - h * ( vertikala ? 0o1/0o40 : 0o1/0o20 ), 0),
-        i * oraAngulo, foliaraSkalo * 0o3/0o4,
+        i * oraAngulo, foliaraSkalo * 0o1/0o2,
         vertikala ? Math.PI / 0o3 : 0o1/0o4,
         pintaKoloro, pintaBranĉaKoloro);
     }
