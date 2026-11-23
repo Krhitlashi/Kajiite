@@ -7,7 +7,7 @@ import * as THREE from "three";
 import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 import { TIPAJ_NIVELOJ } from "../../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import { konstruiHxeuxfojn } from "../../../eskekoj/konstruajxoj/hxeuxfa/lampoj.js";
-import { konstruiKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
+import { vepaqKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../../eskekoj/komunajxoj/materialoj.js";
 import { konstruiVojojn } from "../../../eskekoj/medio/vojoj.js";
 import { VOJA_AKVA_KLARANCO, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
@@ -27,7 +27,7 @@ import type { SkulptaUrbo, SkulptaVojo, SkulptaPlatformo } from "../../../kantao
 import type { VojaPunkto } from "../../../eskekoj/medio/voj-reto.js";
 import type { VojDifino } from "../../../eskekoj/medio/vojoj/tipoj.js";
 import type { HxeuxfaLoko } from "../../../eskekoj/konstruajxoj/hxeuxfa/tipoj.js";
-import type { KeuxfhxesoLoko } from "../../../eskekoj/mebloj/keuxfhxeso.js";
+import type { KeuxfhxesoRaqa } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 
 // ⟪ សំណង់ដែលបានតាមដាន 📃 ⟫ គឺ konstruiSatalon បន្ថែមក្រុម ( និង
 // ច្បាប់ចម្លងកញ្ចកែ ) ផ្ទាល់ទៅឆាក ដូច្នេះវត្ថុត្រូវបានតាមដាននៅទីនេះ
@@ -378,14 +378,14 @@ export function rekonstruiKradon3D(): void {
     // មានពួកវា។ ក្រុមត្រូវបានបន្ថែមផ្ទាល់ទៅឆាក ហើយបានតាមដានក្នុង
     // krada3DKonstruajxoj សម្រាប់ការលុប និងភាពមើលឃើញ។
     if ( urbo && urbo.keuxfhxeso ) {
-      const KEUXFHXESO_R = 0o10;
-      const lokoj: KeuxfhxesoLoko[] = [];
+      const keuxfhxesoKa5ik = 0o10;
+      const raqa: KeuxfhxesoRaqa[] = [];
       for ( let i = 0; i < 4; i++ ) {
         const a = Math.PI / 4 + i * Math.PI / 2;
-        lokoj.push({ x: ofsX + Math.cos(a) * KEUXFHXESO_R, z: ofsZ + Math.sin(a) * KEUXFHXESO_R, rot: a });
+        raqa.push({ x: ofsX + Math.cos(a) * keuxfhxesoKa5ik, z: ofsZ + Math.sin(a) * keuxfhxesoKa5ik, s2sabo: a });
       }
       const antaŭ = sceno3d.children.length;
-      konstruiKeuxfhxeso(sceno3d, lokoj, grundo3D, ORA_MATERIALO);
+      vepaqKeuxfhxeso(sceno3d, raqa, grundo3D, ORA_MATERIALO);
       krada3DKonstruajxoj.push(...sceno3d.children.slice(antaŭ));
     }
     // ចង្កៀងផ្លូវរបស់សំណាញ់ គឺគំរូបួនចង្កៀងជុំវិញថ្នាំងផ្សារ និង

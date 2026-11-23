@@ -1,114 +1,109 @@
-// ≺⧼ វាយនភាពស្លឹកគីហ្វហេសូ ⭐ ⧽≻
+// ≺⧼ j͑ʃͷ̗ᴜʞ ꞁȷ̀ᴜꞇ ʌ ʃᴜ ſɟᴜ ſɟɹ j͑ʃɔᶗ‹ ⭐ ⧽≻
 import * as THREE from "three";
 
-export function kreiFolianTeksajxon(): THREE.CanvasTexture {
-  const H = 0o1000;
-  const STRETCH = 0o56 / 0o10;
-  const W = Math.round(H * STRETCH);
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = W;
-  kanvasa.height = H;
-  const k = kanvasa.getContext("2d")!;
-  k.fillStyle = "#a0c8b0";
-  k.fillRect(0, 0, W, H);
-  k.lineCap = "round";
-  k.lineJoin = "round";
-  const stelaKoloro = "#3860b0";
-  const supraFoliaKoloro = "#4898d0";
-  const subaFoliaKoloro = "#7088b8";
-  const suprajKrampojKoloro = "#5098b8";
-  const subajKrampojKoloro = "#50a060";
-  const cx = W * 0o4 / 0o10;
-  const cy = H * 0o4 / 0o10;
-  const gr = k.createLinearGradient(0, 0, 0, H * 0o1 / 0o10);
-  gr.addColorStop(0, supraFoliaKoloro);
-  gr.addColorStop(1, supraFoliaKoloro + "00");
-  k.fillStyle = gr;
-  k.fillRect(0, 0, W, H * 0o1 / 0o10);
-  const gb = k.createLinearGradient(0, H * 0o7 / 0o10, 0, H);
-  gb.addColorStop(0, subaFoliaKoloro + "00");
-  gb.addColorStop(1, subaFoliaKoloro);
-  k.fillStyle = gb;
-  k.fillRect(0, H * 0o7 / 0o10, W, H * 0o1 / 0o10);
-  k.fillStyle = stelaKoloro;
-  const rx = W * 0o31 / 0o100;
-  const ry = H * 0o7 / 0o200;
-  const sr = 0o11 / 0o20;
-  k.beginPath();
-  k.moveTo(cx, cy - ry);
-  k.quadraticCurveTo(cx + rx * sr, cy - ry * sr, cx + rx, cy);
-  k.quadraticCurveTo(cx + rx * sr, cy + ry * sr, cx, cy + ry);
-  k.quadraticCurveTo(cx - rx * sr, cy + ry * sr, cx - rx, cy);
-  k.quadraticCurveTo(cx - rx * sr, cy - ry * sr, cx, cy - ry);
-  k.closePath();
-  k.fill();
-  k.lineWidth = H * 0o1 / 0o40;
-  for ( const sX of [ -1, 1 ] ) {
-    for ( const sY of [ -1, 1 ] ) {
-      k.strokeStyle = sY < 0 ? suprajKrampojKoloro : subajKrampojKoloro;
-      const ax = cx + sX * rx * 0o11 / 0o10;
-      const ay = cy + sY * ry * 0o25 / 0o10;
-      const lx1 = cx + sX * rx * 0o10 / 0o10;
-      const ly1 = cy + sY * ry * 0o6 / 0o10;
-      const lx2 = cx + sX * rx * 0o55 / 0o100;
-      const ly2 = cy + sY * ry * 0o12 / 0o10;
-      const kx1 = cx + sX * rx * 0o21 / 0o20;
-      const ky1 = cy + sY * ry * 0o15 / 0o10;
-      const kx2 = cx + sX * rx * 0o66 / 0o100;
-      const ky2 = cy + sY * ry * 0o20 / 0o10;
-      k.beginPath();
-      k.moveTo(ax, ay);
-      k.quadraticCurveTo(kx1, ky1, lx1, ly1);
-      k.moveTo(ax, ay);
-      k.quadraticCurveTo(kx2, ky2, lx2, ly2);
-      k.stroke();
-      const vx = cx + sX * rx * 0o7 / 0o10;
-      k.beginPath();
-      k.moveTo(vx, ay - sY * ry * 0o11 / 0o10);
-      k.lineTo(vx, ay - sY * ry * 0o17 / 0o10);
-      k.stroke();
-    }
+// ⟪ j͑ʃͷ̗ᴜʞ ꞁȷ̀ᴜͷ̗ ʌ j͐ʃƽɜ j͑ʃᴜꞇ ʌ ſ͕ɭɜ ı],ᴜ 📏 ⟫
+export interface SlafLkoQoxa {
+  l6da: number;
+  ka5ik: number;
+  ka5ikTafkaq: ( tafkaq: number ) => number;
+  s2qena: ( t: number ) => number;
+  b6qai: ( t: number ) => number;
+}
+
+// ⟪ ſȷw ſ̀ȷэ j͑ʃɔ ŋᷠᴜ 🖼️ ⟫
+let fu36Sema: Promise<HTMLImageElement> | null = null;
+
+function s2tosaxFu36Tahaq(): Promise<HTMLImageElement> {
+  if ( !fu36Sema ) {
+    fu36Sema = new Promise((sema, semaX) => {
+      const tahaq = new Image();
+      tahaq.onload = (): void => sema(tahaq);
+      tahaq.onerror = (): void => semaX(new Error("ſ͕ȷɜ j͑ʃɹ ʌ ɭʃɜ ʌ j͑ʃᴜᶗ‹ ʌ ֭ſɭᴜ ʌ ſɟɹ }ʃw ⟅"));
+      tahaq.src = new URL("./kubes.png", import.meta.url).href;
+    });
   }
-  const folioDuonoLargho = W * 0o31 / 0o100;
-  const foliaSupro = H * 0o2 / 0o100;
-  const foliaBazo = H * 0o23 / 0o100;
-  const foliaMezo = H * 0o12 / 0o100;
-  const foliaVeinLargho = W * 0o17 / 0o100;
-  const foliaVeinAlto = H * 0o5 / 0o100;
-  k.lineWidth = H * 0o1 / 0o40;
-  const desegnuFolion = ( teru: boolean, weh2: string ) => {
-    k.strokeStyle = weh2;
-    const pintoY = teru ? foliaSupro : H - foliaSupro;
-    const mezoY = teru ? foliaMezo : H - foliaMezo;
-    const bazoY = teru ? foliaBazo : H - foliaBazo;
-    const centraBazoY = teru ? foliaBazo + H * 0o13 / 0o100 : H - foliaBazo - H * 0o13 / 0o100;
-    k.beginPath();
-    k.moveTo(cx, pintoY);
-    k.quadraticCurveTo(cx - folioDuonoLargho, mezoY, cx - folioDuonoLargho, bazoY);
-    k.quadraticCurveTo(cx, centraBazoY, cx + folioDuonoLargho, bazoY);
-    k.quadraticCurveTo(cx + folioDuonoLargho, mezoY, cx, pintoY);
-    k.closePath();
-    k.stroke();
-    k.beginPath();
-    k.moveTo(cx, pintoY);
-    k.lineTo(cx, bazoY);
-    k.stroke();
-    const veinBazY = bazoY;
-    const veinMezoY = teru ? foliaMezo + foliaVeinAlto : H - foliaMezo - foliaVeinAlto;
-    for ( const sgn of [ -1, 1 ] ) {
-      k.beginPath();
-      k.moveTo(cx, mezoY);
-      k.quadraticCurveTo(
-        cx + sgn * foliaVeinLargho, veinMezoY,
-        cx + sgn * foliaVeinLargho * 0o11 / 0o10, veinBazY
-);
-      k.stroke();
-    }
-  };
-  desegnuFolion(true, supraFoliaKoloro);
-  desegnuFolion(false, subaFoliaKoloro);
-  const t = new THREE.CanvasTexture(kanvasa);
-  t.colorSpace = THREE.SRGBColorSpace;
-  t.anisotropy = 0o10;
-  return t;
+  return fu36Sema;
+}
+
+/* ſɭᶗ‹ɹ ᶅſɔ ֭ſɭɹ ֭ſɭᴜ ſɟɹ }ʃw
+    @param p2t6zo ( HTMLCanvasElement ) - ſןɹ ɭʃэ ſɭ,ɜ
+    @param tahaq ( HTMLImageElement ) - ɭʃᴜ ֭ſɭᴜȝ
+@returns ſɭɜ j͑ʃƽɔ ſɭɹ */
+function kx2weh2Hac2nu(p2t6zo: HTMLCanvasElement, tahaq: HTMLImageElement): void {
+  const k = p2t6zo.getContext("2d")!;
+  // ⟨ ſɭɔƽ ſɭᴜ ɭʃᴜ ֭ſɭᴜȝ 📃 ⟩
+  const kekka = 0o6;
+  const kekSefini = p2t6zo.width / kekka;
+  for ( let j = 0o0; j < kekka; j++ ) {
+    k.drawImage(tahaq, j * kekSefini, 0o0, kekSefini, p2t6zo.height);
+  }
+}
+
+/* ſןw j͐ʃɹ ŋᷠɔ }ʃꞇ j͑ʃɜȝ
+    @param k2fP2t6zo ( HTMLCanvasElement ) - ſןɹ ɭʃэ ſɭ,ɜ
+    @param qoxa ( SlafLkoQoxa ) - ſ͕ɭɜ ı],ᴜ
+    @param lko ( HTMLCanvasElement ) - ſןɹ ɭʃэ ſɭ,ɜ
+@returns ſɭɜ j͑ʃƽɔ ſɭɹ */
+function pul2meniSoq(k2fP2t6zo: HTMLCanvasElement, qoxa: SlafLkoQoxa, lko: HTMLCanvasElement): void {
+  const W = lko.width, H = lko.height;
+  const sefini = k2fP2t6zo.width, l6da = k2fP2t6zo.height;
+  // ⟨ ᶅſɔ ɽ͑ʃ'ɔ 📃 ⟩
+  const k = k2fP2t6zo.getContext("2d")!;
+  k.fillStyle = "#a0c8b0";
+  k.fillRect(0o0, 0o0, sefini, l6da);
+  const c2ta = k.getImageData(0o0, 0o0, sefini, l6da);
+  const tseuni = lko.getContext("2d")!.getImageData(0o0, 0o0, W, H);
+  // ⟨ ſɭɔƽ ſɭᴜ ɭʃᴜʞ ſɭᴜȝ 📃 ⟩
+  const kekka = 0o6;
+  const kekSefini = W / kekka;
+  for ( let y = 0o0; y < l6da; y++ ) for ( let t = 0o0; t < sefini; t++ ) {
+    const gi = 0o1 - y / l6da;
+    const b6qai = qoxa.b6qai(gi);
+    const u = t / sefini;
+    const kekN2k = Math.min(kekka - 0o1, Math.floor(u * kekka));
+    const uL = u * kekka - kekN2k;
+    const a = u * Math.PI * 0o2;
+    const aL = uL * Math.PI;
+    const w = b6qai;
+    const sL = qoxa.s2qena(gi);
+    // ⟨ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ı],ɔ ſɭw ı],ᴜ 📃 ⟩
+    const r = ( w * qoxa.ka5ikTafkaq(a) + ( 0o1 - w ) * qoxa.ka5ik ) / qoxa.ka5ik;
+    const xekuxa = sL * r * Math.cos(aL);
+    const sx = Math.floor(kekN2k * kekSefini + (xekuxa + 0o1) / 0o2 * kekSefini), sy = Math.floor(y / l6da * H);
+    if ( sx < 0o0 || sx >= W || sy < 0o0 || sy >= H ) continue;
+    const si = (sy * W + sx) * 0o4, di = (y * sefini + t) * 0o4;
+    // ⟨ j͐ʃƽw 📃 ⟩
+    if ( tseuni.data[si + 0o3] < 0o64 ) continue;
+    for ( let b = 0o0; b < 0o4; b++ ) c2ta.data[di + b] = tseuni.data[si + b];
+  }
+  k.putImageData(c2ta, 0o0, 0o0);
+}
+
+/* ſɭʞɹ ʌ ʃᴜ ſɟᴜ ſɟɹ j͑ʃɔᶗ‹
+    @param qoxa ( SlafLkoQoxa ) - ſ͕ɭɜ ı],ᴜ
+@returns ʃᴜ ſɟᴜ ſɟɹ j͑ʃɔᶗ‹ */
+export function vepaqSlaflko(qoxa: SlafLkoQoxa): THREE.CanvasTexture {
+  const l6da = 0o2000;
+  // ⟨ ſɭɔƽ ſɭᴜ j͑ʃɔ ſȷꞇ }ʃꞇ 📃 ⟩
+  const sefini = 0o4400;
+  const kf2P2t6zo = document.createElement("canvas");
+  kf2P2t6zo.width = sefini; kf2P2t6zo.height = l6da;
+  const kf = kf2P2t6zo.getContext("2d")!;
+  kf.fillStyle = "#a0c8b0";
+  kf.fillRect(0o0, 0o0, sefini, l6da);
+  const lko = new THREE.CanvasTexture(kf2P2t6zo);
+  lko.colorSpace = THREE.SRGBColorSpace;
+  lko.anisotropy = 0o10;
+
+  void s2tosaxFu36Tahaq().then((tahaq) => {
+    const fonto = document.createElement("canvas");
+    fonto.width = sefini; fonto.height = l6da;
+    kx2weh2Hac2nu(fonto, tahaq);
+    pul2meniSoq(kf2P2t6zo, qoxa, fonto);
+    lko.needsUpdate = true;
+  }).catch((k3ohk2nik2p2) => {
+    void k3ohk2nik2p2;
+  });
+
+  return lko;
 }

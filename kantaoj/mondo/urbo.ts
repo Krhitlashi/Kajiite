@@ -40,7 +40,7 @@ import { konstruiHerbon,
   konstruiHerbonCxirkauLagon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/tufoj.js";
 import { konstruiHerbanTavolon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/gazono.js";
 import { vojaSupro, vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
-import { KEUXFHXESO_RADIO } from "../../eskekoj/mebloj/keuxfhxeso.js";
+import { KEUXFHXESO_KA5IK } from "../../eskekoj/mebloj/keuxfhxeso.js";
 import {
   VOJA_AKVA_KLARANCO, VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO,
   VOJA_SUPRO_LEVIGXO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
@@ -491,7 +491,7 @@ export async function konstruiUrbon(
 
   // ⟪ ចម្ងាយដល់បាតគីហ្វហេសូ , ដើម្បីឱ្យស្មៅមកដល់ជិតគីហ្វហេសូ និងកុំឱ្យមានកន្លែងទទេធំពេក ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟫
   const keuxfhxesoKlaro = ( x: number, z: number, maks: number ): number => {
-    const limo = KEUXFHXESO_RADIO + maks;
+    const limo = KEUXFHXESO_KA5IK + maks;
     const limo2 = limo * limo;
     let plejProkximo = Infinity;
     for ( const l of keuxfhxesoLokoj ) {
@@ -499,7 +499,7 @@ export async function konstruiUrbon(
       const d2 = ddx * ddx + ddz * ddz;
       if ( d2 < limo2 && d2 < plejProkximo ) plejProkximo = d2;
     }
-    return Math.sqrt( plejProkximo ) - KEUXFHXESO_RADIO;
+    return Math.sqrt( plejProkximo ) - KEUXFHXESO_KA5IK;
   };
 
   // ⟪ ចម្ងាយដល់មជ្ឈប់ផ្លូវ , ដើម្បីកុំឱ្យស្មៅដុះចូលផ្លូវ និងដើម្បីកុំឱ្យមានកន្លែងទទេដែលធំ ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟫

@@ -12,7 +12,7 @@ import { nomoAih } from "../../kantaoj/lingvo/tradukoj.js";
 import { kreiMangxajxojn } from "../mebloj/mangxajxoj/metado.js";
 import { aldoniVaporon } from "../mebloj/mangxajxoj/vaporo.js";
 import { aldoniManĝtablon, LIGNA_KOLORO } from "../mebloj/tabloj.js";
-import { generiPlankanTeksajxon } from "../komunajxoj/teksajxoj/planko.js";
+import { k2fKekkozusai } from "../komunajxoj/teksajxoj/planko.js";
 import { kreiRinganPlankon, kreiTrapezanPordTruon, GOLD, GOLD_SOFT, GOLD_WARM } from "./internoj/formoj.js";
 import { aldoniInternanMeblaron, aldoniVendotablon } from "./internoj/mebloj.js";
 import { aldoniLonganFenestron } from "./internoj/muroj.js";
@@ -70,7 +70,7 @@ export function eniriInternon(
   const plankSemo = ( ( spec.x * 0x9E3779B1 ) ^ ( spec.z * 0x85EBCA77 ) ^
     spec.name.split("").reduce(( h, ch ) => ( h * 0o37 + ch.charCodeAt(0) ) | 0, 0) ) >>> 0;
   const plankoMaterialo = new THREE.MeshStandardMaterial({
-    color: 0xffffff, map: generiPlankanTeksajxon(muraTipo.wall, muraTipo.frame, plankSemo), roughness: 0o55/0o100,
+    color: 0xffffff, map: k2fKekkozusai(muraTipo.wall, muraTipo.frame, plankSemo), roughness: 0o55/0o100,
   });
   const plafonaMaterialo = new THREE.MeshStandardMaterial({
     color: 0x081008, roughness: 0o67/0o100,

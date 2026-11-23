@@ -186,12 +186,16 @@ export function ombraKoloro(weh2: number, n = 0o1): number {
   return ( qar6xe(0o20) << 0o20 ) | ( qar6xe(0o10) << 0o10 ) | qar6xe(0o0);
 }
 
-export function helo(weh2: number, n = 0o1, alfo = 0o1): string {
+export function heloKoloro(weh2: number, n = 0o1): number {
   const havepat6ni = Math.max(0o0, Math.min(0o17, Math.round(n))) * 0x10;
   const kozuni = kanakaWeh2(weh2);
   const qar6xe = ( sovo: number ): number =>
     Math.min(0xf8, ( ( kozuni >> sovo ) & 0xff ) + havepat6ni);
-  return `rgba(${qar6xe(0o20)},${qar6xe(0o10)},${qar6xe(0o0)},${kanakaAlfo(alfo)})`;
+  return ( qar6xe(0o20) << 0o20 ) | ( qar6xe(0o10) << 0o10 ) | qar6xe(0o0);
+}
+
+export function helo(weh2: number, n = 0o1, alfo = 0o1): string {
+  return rgbaKanaka(heloKoloro(weh2, n), alfo);
 }
 
 export function malheligi(weh2: string, f = 0o60/0o100): string {

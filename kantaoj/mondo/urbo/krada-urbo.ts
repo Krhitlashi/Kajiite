@@ -9,7 +9,7 @@ import { kradajDerivajoj } from "../krado/derivajoj.js";
 import { skaniVojanReton } from "../krado/skanado.js";
 import { aplikiSuperojn } from "../krado/superoj.js";
 import type { KradaArangxo, CellType, AldonaBloko } from "../krado/tipoj.js";
-import { konstruiKeuxfhxeso, KeuxfhxesoLoko } from "../../../eskekoj/mebloj/keuxfhxeso.js";
+import { vepaqKeuxfhxeso, KeuxfhxesoRaqa } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 import { riveroZ, alteco, akvo } from "../tereno.js";
 import { kreiKvarLampAldonilon, kreiLampAldonilon, type LampLoko } from "./lampoj.js";
 
@@ -24,7 +24,7 @@ export interface KradaUrbaRezulto {
   kunigajPunktoj: [ number, number ][];
   kunigajFermitaj: Map<string, [ number, number ]>;
   lampLokoj: LampLoko[];
-  keuxfhxesoLokoj: KeuxfhxesoLoko[];
+  keuxfhxesoLokoj: KeuxfhxesoRaqa[];
   staciaPozicio: [ number, number ];
   ringoX: number;
   sudaVojo: number;
@@ -339,22 +339,22 @@ export function konstruiKradanUrbon(
   }
 
   // ⟪ គីហ្វហេសូ 📃 ⟫
-  const KEUXFHXESO_R = 0o10;
-  const keuxfhxesoLokoj: KeuxfhxesoLoko[] = [];
+  const keuxfhxesoKa5ik = 0o10;
+  const raqa: KeuxfhxesoRaqa[] = [];
   if ( arangxo.keuxfhxeso ) {
     for ( let i = 0; i < 4; i++ ) {
       const a = Math.PI / 4 + i * Math.PI / 2;
-      keuxfhxesoLokoj.push({ x: ofsX + Math.cos(a) * KEUXFHXESO_R, z: ofsZ + Math.sin(a) * KEUXFHXESO_R, rot: a });
+      raqa.push({ x: ofsX + Math.cos(a) * keuxfhxesoKa5ik, z: ofsZ + Math.sin(a) * keuxfhxesoKa5ik, s2sabo: a });
     }
-    konstruiKeuxfhxeso(qena, keuxfhxesoLokoj, alteco, oraMaterialo);
-    for ( const l of keuxfhxesoLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 0o16/0o10 });
+    vepaqKeuxfhxeso(qena, raqa, alteco, oraMaterialo);
+    for ( const l of raqa ) kolizioj.push({ x: l.x, z: l.z, r: 0o16/0o10 });
   }
 
   const staciaBloko = aldonajBlokoj.find(b => b.stacia) ?? aldonajBlokoj[0];
   return {
     konstruSpecoj, kolizioj, selektajxoj, konstruGrupoj, placajNodoj,
     vojDifinoj, kunigajPunktoj, kunigajFermitaj: fermitaj,
-    lampLokoj, keuxfhxesoLokoj,
+    lampLokoj, keuxfhxesoLokoj: raqa,
     staciaPozicio: staciaBloko
       ? [ ofsX + staciaBloko.x, ofsZ + staciaBloko.z ]
       : [ ofsX, ofsZ + ( arangxo.blokaGrando === "kvar" ? 0 : stacioZ ) ],

@@ -1,123 +1,239 @@
+// ≺⧼ ſɭɹʞ ʌ ſɭɔƽ ſɭɜ ſɭ,w j͑ʃᴜꞇ 🪵 ⧽≻
 import * as THREE from "three";
-import { hunanu, ombraKoloro, helo } from "../koloroj.js";
+import { heloKoloro, ombraKoloro, rgbaKanaka } from "../koloroj.js";
 import { kf2SakxoKlasika } from "../hazardo.js";
-import { desegniFluanStrekon, molaStelaVojo } from "./helpiloj.js";
+import { molaStelaVojo } from "./helpiloj.js";
 
-export function generiPlankanTeksajxon(bazaKoloro: number, akcentaKoloro: number, tk2ni: number): THREE.CanvasTexture {
-  const kanvasa = document.createElement("canvas");
-  kanvasa.width = kanvasa.height = 0o2000;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const radio = kanvasa.width / 0o2;
-  const hazardo = kf2SakxoKlasika(tk2ni);
-  const folia = hazardo() < 0o1/0o2;
-  const fazo = hazardo() < 0o1/0o2 ? 0o0 : Math.PI / 0o4;
-  const spegulo = hazardo() < 0o1/0o2 ? -0o1 : 0o1;
-  const centraSkalo = 0o30/0o100 + hazardo() / 0o40;
-  const dikeco = radio / 0o40;
-  kunteksto.fillStyle = hunanu(bazaKoloro, 0o0);
-  kunteksto.fillRect(0o0, 0o0, kanvasa.width, kanvasa.height);
-  kunteksto.translate(radio, radio);
-  kunteksto.lineCap = "round";
-  kunteksto.lineJoin = "round";
-
-  kunteksto.save();
-  kunteksto.rotate(fazo);
-  for ( const [ p6zukani, weh2 ] of [
-    [ centraSkalo, hunanu(akcentaKoloro, 0o0) ],
-    [ centraSkalo * 0o5/0o10, hunanu(akcentaKoloro, 0o1) ],
-  ] as const ) {
-    kunteksto.fillStyle = weh2;
-    kunteksto.fill(molaStelaVojo(0o0, 0o0, radio * p6zukani, radio * p6zukani));
+// ⟪ ſ͕ɭɜ ı],ᴜ 📃 ⟫
+// ⋄ ſɭɹʞ ꞁȷ̀ᴜͷ̗ ʌ ꞁȷ̀ɹ j͑ʃͷ̗ᴜʞ ʌ ſ͕ɭɜ ı],ᴜ ⟅
+// ⋄ ſɭɹʞ ꞁȷ̀ᴜͷ̗ ʌ ꞁȷ̀ɹ ſȷƽᴜ ʃɔ ʌ ſᶘɹ ɭʃᴜ }ʃꞇ ⟅
+function k2fTom6( ka5ik: number, tom6Puf: number, slaf: number, tafkaq0: number ): Path2D {
+  const qoxa = new Path2D();
+  const n = slaf * 0o10;
+  const n2kQoxa: [ number, number ][] = [];
+  for ( let i = 0; i < n; i++ ) {
+    const tafkaq = tafkaq0 + Math.PI * 0o2 * i / n;
+    const r = ka5ik * ( 0o1 + tom6Puf * Math.cos( slaf * ( tafkaq - tafkaq0 ) ) );
+    n2kQoxa.push([ r * Math.cos(tafkaq), r * Math.sin(tafkaq) ]);
   }
-  kunteksto.restore();
+  const sost2 = ( p: [ number, number ], q: [ number, number ] ): [ number, number ] =>
+    [ ( p[0] + q[0] ) / 0o2, ( p[1] + q[1] ) / 0o2 ];
+  for ( let i = -0o1; i < n; i++ ) {
+    const n2kA = n2kQoxa[( i + n ) % n], n2kB = n2kQoxa[( i + 0o1 ) % n];
+    const n2kSost2 = sost2(n2kA, n2kB);
+    if ( i < 0o0 ) qoxa.moveTo(n2kSost2[0], n2kSost2[1]);
+    else qoxa.quadraticCurveTo(n2kA[0], n2kA[1], n2kSost2[0], n2kSost2[1]);
+  }
+  qoxa.closePath();
+  return qoxa;
+}
 
-  const streko = ( n2k: [ number, number ][], weh2: number, sefini = dikeco ): void => {
-    desegniFluanStrekon(kunteksto, n2k.map(( [ x, y ] ) => [ x * radio, y * radio ]), weh2, sefini);
-  };
-  for ( let kanto = 0o0; kanto < 0o4; kanto++ ) {
-    kunteksto.save();
-    kunteksto.rotate(kanto * Math.PI / 0o2);
-    kunteksto.scale(spegulo, 0o1);
+// ⟪ j͑ʃͷ̗ᴜʞ 📃 ⟫
+// ⋄ ſɭɹʞ ʌ j͑ʃͷ̗ᴜʞ ⟅
+function k2fSlaf( puf2: number, sakPal6: number ): Path2D {
+  const qoxa = new Path2D();
+  qoxa.moveTo(0o0, -puf2);
+  qoxa.bezierCurveTo(sakPal6, -puf2 * 0o2, sakPal6, puf2 * 0o45 / 0o100, 0o0, puf2);
+  qoxa.bezierCurveTo(-sakPal6, puf2 * 0o45 / 0o100, -sakPal6, -puf2 * 0o2, 0o0, -puf2);
+  qoxa.closePath();
+  return qoxa;
+}
 
-    streko([
-      [ -0o36/0o100, -0o6/0o100 ], [ -0o6/0o100, -0o6/0o100 ],
-      [ -0o6/0o100, -0o36/0o100 ], [ 0o0, -0o36/0o100 ],
-    ], ombraKoloro(akcentaKoloro, 0o1));
-    streko([
-      [ 0o0, -0o36/0o100 ], [ 0o6/0o100, -0o36/0o100 ],
-      [ 0o6/0o100, -0o6/0o100 ], [ 0o36/0o100, -0o6/0o100 ],
-    ], ombraKoloro(akcentaKoloro, 0o1));
+// ⟪ ꞁȷ̀ɹ ſȷƽᴜ ʃɔ ʌ j͑ʃͷ̗ᴜʞ 📃 ⟫
+// ⋄ ſɭɹʞ ꞁȷ̀ᴜͷ̗ ʌ ꞁȷ̀ɹ ſȷƽᴜ ʃɔ ʌ j͑ʃͷ̗ᴜʞ ⟅
+function k2fSlafFkabe( puf2: number, sakPal6: number ): Path2D {
+  const qoxa = new Path2D();
+  qoxa.moveTo(0o0, puf2);
+  qoxa.bezierCurveTo(sakPal6, puf2 * 0o30 / 0o100, sakPal6, -puf2 * 0o50 / 0o100, sakPal6 * 0o50 / 0o100, -puf2 * 0o70 / 0o100);
+  qoxa.bezierCurveTo(sakPal6 * 0o30 / 0o100, -puf2 * 0o100 / 0o100, 0o0, -puf2 * 0o50 / 0o100, 0o0, -puf2 * 0o30 / 0o100);
+  qoxa.bezierCurveTo(0o0, -puf2 * 0o50 / 0o100, -sakPal6 * 0o30 / 0o100, -puf2 * 0o100 / 0o100, -sakPal6 * 0o50 / 0o100, -puf2 * 0o70 / 0o100);
+  qoxa.bezierCurveTo(-sakPal6, -puf2 * 0o50 / 0o100, -sakPal6, puf2 * 0o30 / 0o100, 0o0, puf2);
+  qoxa.closePath();
+  return qoxa;
+}
 
-    for ( const c2w2q of [ -0o1, 0o1 ] ) {
-      streko([
-        [ c2w2q * 0o36/0o100, -0o30/0o100 ], [ c2w2q * 0o26/0o100, -0o32/0o100 ],
-        [ c2w2q * 0o22/0o100, -0o42/0o100 ], [ c2w2q * 0o22/0o100, -0o46/0o100 ],
-      ], ombraKoloro(bazaKoloro, 0o1), dikeco * 0o3/0o4);
-      streko([
-        [ c2w2q * 0o30/0o100, -0o50/0o100 ], [ c2w2q * 0o32/0o100, -0o56/0o100 ],
-        [ c2w2q * 0o26/0o100, -0o66/0o100 ], [ c2w2q * 0o26/0o100, -0o70/0o100 ],
-      ], ombraKoloro(akcentaKoloro, 0o2), dikeco * 0o3/0o4);
+// ⟪ ſɭɔƽ ꞁȷ̀ᴜ ſȷɹ 📃 ⟫
+// ⋄ ſɭɹʞ ʌ ſɭɔƽ ꞁȷ̀ᴜ ſȷɹ ⟅
+function k2fKekaf2( k: CanvasRenderingContext2D, ka5ik: number, tafkaq: number, weh2: string, sakPal6: number ): void {
+  k.save();
+  k.strokeStyle = weh2;
+  k.lineWidth = sakPal6;
+  k.beginPath();
+  k.arc(0o0, 0o0, ka5ik, Math.PI * 0o6 / 0o4 - tafkaq, Math.PI * 0o6 / 0o4 + tafkaq);
+  k.stroke();
+  k.restore();
+}
+
+/* ſɭɹʞ ʌ ſɭɔƽ ſɭɜ ſɭ,w j͑ʃᴜꞇ ⟅
+    @param weh2Tu5ekani ( number ) - j͑ʃɔ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ᶅſɔ ֭ſɭɹ
+    @param weh2Catu5ek ( number ) - j͑ʃɔ ſɟᴜ ɭʃw ſɭˬɔƽ ʌ ᶅſɔ ֭ſɭɹ
+    @param tk2ni ( number ) - ɭʃƽɹ }ʃꞇ
+@returns ſɭɔƽ ſɭɜ ſɭ,w j͑ʃᴜꞇ */
+export function k2fKekkozusai( weh2Tu5ekani: number, weh2Catu5ek: number, tk2ni: number ): THREE.CanvasTexture {
+  const kekkozusai = document.createElement("canvas");
+  kekkozusai.width = kekkozusai.height = 0o1001;
+  const k = kekkozusai.getContext("2d")!;
+  k.translate(0o1001 / 0o2, 0o1001 / 0o2);
+  k.lineCap = "round";
+  k.lineJoin = "round";
+
+  const ka5ik = 0o1001 / 0o2 - 0o10;
+  const sakPal6 = ka5ik * 0o20 / 0o1000;
+  const sakPal6M2m2 = ka5ik * 0o10 / 0o1000;
+  const sakxo = kf2SakxoKlasika(tk2ni);
+
+  // ⟪ ᶅſɔ ֭ſɭɹ 🎨 ⟫
+  // ⋄ j͑ʃɔ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ᶅſɔ ֭ſɭɹ
+  // ⋄ j͑ʃɔ ſɟᴜ ɭʃw ſɭˬɔƽ ʌ ᶅſɔ ֭ſɭɹ
+  // ⋄ j͑ʃɔ ſɭɔƽ ſɭɜ ſɭ,w j͑ʃᴜꞇ ʌ ᶅſɔ ֭ſɭɹ
+  // ⋄ ſɭw ֭ſɭᴜͷ̗
+  const t6f = ( ( ( weh2Tu5ekani >> 0o10 ) & 0xff ) * 0o5
+    + ( ( weh2Tu5ekani >> 0o20 ) & 0xff ) * 0o3
+    + ( weh2Tu5ekani & 0xff ) * 0o2 ) / 0o10;
+  const qun2Weh2 = t6f > 0o200 ? ombraKoloro(weh2Tu5ekani, 0o4) : heloKoloro(weh2Tu5ekani, 0o5);
+  const s2Weh2 = ombraKoloro(qun2Weh2, 0o3);
+  const s2Woha = heloKoloro(qun2Weh2, 0o3);
+  const sexiWeh2 = ombraKoloro(qun2Weh2, 0o6);
+  const sexiWoha = heloKoloro(sexiWeh2, 0o2);
+  const slafWeh2 = heloKoloro(sexiWeh2, 0o4);
+  const tosaWeh2 = ombraKoloro(weh2Catu5ek, 0o1);
+  const kuhal = rgbaKanaka(weh2Catu5ek);
+  const kuhalWoha = rgbaKanaka(heloKoloro(weh2Catu5ek, 0o2));
+
+  // ⟨ ſɭɔƽ ſɭɜ ſɭ,w j͑ʃᴜꞇ 📃 ⟩
+  k.fillStyle = rgbaKanaka(qun2Weh2);
+  k.fillRect(-0o1001 / 0o2, -0o1001 / 0o2, 0o1001, 0o1001);
+
+  // ⟨ j͑ʃɹ 📃 ⟩
+  // ⋄ j͑ʃɔ j͑ʃɹ ʌ ᶅſɔ ֭ſɭɹ
+  // ⋄ j͑ʃɔ j͑ʃɹ ʌ ᶅſɜ ֭ſɭᴜ
+  // ⋄ j͑ʃᴜ ſɭᶗ‹ɜ ʌ j͑ʃɹ
+  const s2Ka5ik = ka5ik * 0o63 / 0o100;
+  const s2Kof = ka5ik * 0o2 / 0o100;
+  const tom6Puf = 0o2 / 0o100;
+  const s2WohaPal6 = ka5ik * 0o2 / 0o100;
+  const s2Sakxo = sakxo();
+  const s2Qoxa = s2Sakxo < 0o1 / 0o3
+    ? k2fTom6(s2Ka5ik, tom6Puf, 0o4, 0o0)
+    : s2Sakxo < 0o2 / 0o3
+      ? k2fTom6(s2Ka5ik, tom6Puf, 0o4, Math.PI / 0o4)
+      : k2fTom6(s2Ka5ik, tom6Puf * 0o70 / 0o100, 0o10, 0o0);
+  k.fillStyle = rgbaKanaka(s2Weh2);
+  k.fill(s2Qoxa);
+  const s2C2h2Pal6 = ( s2Ka5ik - s2Kof ) / s2Ka5ik;
+  k.save();
+  k.scale(s2C2h2Pal6, s2C2h2Pal6);
+  k.fillStyle = rgbaKanaka(qun2Weh2);
+  k.fill(s2Qoxa);
+  k.restore();
+  const s2P6scaPal6 = ( s2Ka5ik + s2WohaPal6 ) / s2Ka5ik;
+  k.save();
+  k.scale(s2P6scaPal6, s2P6scaPal6);
+  k.strokeStyle = rgbaKanaka(s2Woha);
+  k.lineWidth = sakPal6M2m2;
+  k.stroke(s2Qoxa);
+  k.restore();
+
+  // ⟨ ſᶘɹ ɭʃᴜ }ʃꞇ 📃 ⟩
+  // ⋄ j͑ʃɔ ſɭɔƽ ꞁȷ̀ᴜ ſȷɹ ʌ ſɭw ֭ſɭᴜͷ̗
+  // ⋄ j͑ʃɔ ſᶘɹ ɭʃᴜ }ʃꞇ ʌ ſɭw ֭ſɭᴜͷ̗
+  const tafkaqKekaf2: [ number, number, number, string ][] = [
+    [ ka5ik * 0o100 / 0o100, 0o75 / 0o1000, sakPal6M2m2, kuhalWoha ],
+    [ ka5ik * 0o104 / 0o100, 0o54 / 0o1000, sakPal6, kuhal ],
+    [ ka5ik * 0o110 / 0o100, 0o35 / 0o1000, sakPal6M2m2, kuhalWoha ],
+  ];
+  for ( let i = 0o0; i < 0o4; i++ ) {
+    const tafkaq12tani = Math.PI / 0o4 + Math.PI / 0o2 * i;
+    k.save();
+    k.rotate(tafkaq12tani + Math.PI / 0o2);
+    for ( const [ r, tafkaq, sak, weh2 ] of tafkaqKekaf2 ) {
+      k2fKekaf2(k, r, Math.PI * tafkaq, weh2, sak);
     }
-
-    const petalo = new Path2D();
-    petalo.moveTo(0o0, -radio * 0o52/0o100);
-    petalo.bezierCurveTo(-radio * 0o20/0o100, -radio * 0o62/0o100,
-      -radio * 0o20/0o100, -radio * 0o72/0o100, 0o0, -radio * 0o72/0o100);
-    petalo.bezierCurveTo(radio * 0o20/0o100, -radio * 0o72/0o100,
-      radio * 0o20/0o100, -radio * 0o62/0o100, 0o0, -radio * 0o52/0o100);
-    petalo.closePath();
-    kunteksto.strokeStyle = hunanu(akcentaKoloro, 0o2);
-    kunteksto.lineWidth = dikeco;
-    kunteksto.stroke(petalo);
-    streko([
-      [ -0o4/0o100, -0o64/0o100 ], [ -0o4/0o100, -0o62/0o100 ],
-      [ -0o2/0o100, -0o60/0o100 ], [ 0o0, -0o60/0o100 ],
-    ], ombraKoloro(akcentaKoloro, 0o1), dikeco * 0o3/0o4);
-    streko([
-      [ 0o0, -0o60/0o100 ], [ 0o2/0o100, -0o60/0o100 ],
-      [ 0o4/0o100, -0o62/0o100 ], [ 0o4/0o100, -0o64/0o100 ],
-    ], ombraKoloro(akcentaKoloro, 0o1), dikeco * 0o3/0o4);
-
-    kunteksto.save();
-    kunteksto.translate(radio * 0o42/0o100, -radio * 0o42/0o100);
-    kunteksto.rotate(-Math.PI / 0o4);
-    const folio = new Path2D();
-    const p2somani = radio * 0o6/0o100, sahakani = radio * 0o14/0o100;
-    folio.moveTo(0o0, -sahakani);
-    folio.bezierCurveTo(p2somani, -sahakani, p2somani * 0o2, sahakani / 0o2, 0o0, sahakani);
-    folio.bezierCurveTo(-p2somani * 0o2, sahakani / 0o2, -p2somani, -sahakani, 0o0, -sahakani);
-    folio.closePath();
-    kunteksto.strokeStyle = hunanu(akcentaKoloro, 0o2);
-    kunteksto.lineWidth = dikeco;
-    if ( folia ) {
-      kunteksto.fillStyle = hunanu(bazaKoloro, 0o1);
-      kunteksto.fill(folio);
-    }
-    kunteksto.stroke(folio);
-    desegniFluanStrekon(kunteksto, [
-      [ 0o0, -sahakani / 0o2 ], [ p2somani / 0o2, -sahakani / 0o4 ],
-      [ p2somani / 0o2, sahakani / 0o4 ], [ 0o0, sahakani / 0o2 ],
-    ], ombraKoloro(akcentaKoloro, 0o1), dikeco * 0o3/0o4);
-    kunteksto.restore();
-
-    for ( let vem2 = 0o0; vem2 < 0o2; vem2++ ) {
-      const sxovo = vem2 * 0o6/0o100;
-      streko([
-        [ 0o42/0o100, -0o76/0o100 - sxovo ], [ 0o60/0o100, -0o76/0o100 - sxovo ],
-        [ 0o76/0o100 + sxovo, -0o60/0o100 ], [ 0o76/0o100 + sxovo, -0o42/0o100 ],
-      ], ombraKoloro(bazaKoloro, vem2 === 0o0 ? 0o1 : 0o0), dikeco * 0o3/0o4);
-    }
-    kunteksto.strokeStyle = helo(bazaKoloro, 0o1);
-    kunteksto.lineWidth = dikeco * 0o3/0o4;
-    kunteksto.beginPath();
-    kunteksto.moveTo(radio * 0o60/0o100, -radio * 0o76/0o100);
-    kunteksto.quadraticCurveTo(radio * 0o74/0o100, -radio * 0o74/0o100, radio * 0o76/0o100, -radio * 0o60/0o100);
-    kunteksto.stroke();
-    kunteksto.restore();
+    k.restore();
   }
 
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.anisotropy = 0o10;
-  return teksajxo;
+  // ⟨ j͑ʃͷ̗ᴜʞ 📃 ⟩
+  // ⋄ j͑ʃɔ j͑ʃͷ̗ᴜʞ ʌ ᶅſɔ ֭ſɭɹ
+  const slafKa5ik = ka5ik * 0o42 / 0o100;
+  const slafPuf2 = ka5ik * 0o11 / 0o100;
+  const slafSak = ka5ik * 0o10 / 0o100;
+  const slafSakxo = sakxo();
+  for ( let i = 0o0; i < 0o4; i++ ) {
+    const tafkaq = Math.PI / 0o4 + Math.PI / 0o2 * i;
+    k.save();
+    k.translate(Math.cos(tafkaq) * slafKa5ik, Math.sin(tafkaq) * slafKa5ik);
+    k.rotate(tafkaq + Math.PI / 0o2);
+    const qoxa = slafSakxo < 0o1 / 0o3 ? k2fSlaf(slafPuf2, slafSak)
+      : slafSakxo < 0o2 / 0o3 ? k2fSlafFkabe(slafPuf2, slafSak)
+      : molaStelaVojo(0o0, 0o0, slafSak * 0o3 / 0o4, slafPuf2);
+    k.strokeStyle = rgbaKanaka(slafWeh2);
+    k.lineWidth = sakPal6;
+    k.stroke(qoxa);
+    k.save();
+    k.scale(0o44 / 0o100, 0o44 / 0o100);
+    k.strokeStyle = rgbaKanaka(s2Woha);
+    k.lineWidth = sakPal6M2m2;
+    k.stroke(qoxa);
+    k.restore();
+    k.restore();
+  }
+
+  // ⟨ ſɭɔƽ ꞁȷ̀ᴜ ſȷɹ 📃 ⟩
+  // ⋄ j͑ʃɔ ſɭɔƽ ꞁȷ̀ᴜ ſȷɹ ʌ ᶅſɜ ֭ſɭᴜ
+  // ⋄ j͑ʃɔ ſɭɔƽ ꞁȷ̀ᴜ ſȷɹ ʌ ɭʃɜ j͑ʃᴜ
+  const kekaf2Woha: [ number, number, number, number ][] = [
+    [ ka5ik * 0o44 / 0o100, 0o5 / 0o100, sakPal6M2m2, s2Woha ],
+    [ ka5ik * 0o37 / 0o100, 0o10 / 0o100, sakPal6, tosaWeh2 ],
+    [ ka5ik * 0o30 / 0o100, 0o7 / 0o100, sakPal6M2m2, s2Woha ],
+    [ ka5ik * 0o26 / 0o100, 0o5 / 0o100, sakPal6M2m2, s2Woha ],
+  ];
+  for ( let i = 0o0; i < 0o4; i++ ) {
+    k.save();
+    k.rotate(Math.PI / 0o2 * i + Math.PI / 0o2);
+    for ( const [ r, tafkaq, sak, weh2 ] of kekaf2Woha ) {
+      k2fKekaf2(k, r, Math.PI * tafkaq, rgbaKanaka(weh2), sak);
+    }
+    k.restore();
+  }
+
+  // ⟨ }ʃɹƽ 📃 ⟩
+  // ⋄ j͑ʃɔ }ʃɹƽ ʌ ɭʃɜ j͑ʃᴜ
+  const n2kKa5ik = ka5ik * 0o51 / 0o100;
+  const n2kPal6 = ka5ik * 0o2 / 0o100;
+  for ( let i = 0o0; i < 0o4; i++ ) {
+    const tafkaq = Math.PI / 0o10 + Math.PI / 0o2 * i;
+    k.fillStyle = rgbaKanaka(tosaWeh2);
+    k.beginPath();
+    k.arc(Math.cos(tafkaq) * n2kKa5ik, Math.sin(tafkaq) * n2kKa5ik, n2kPal6, 0o0, Math.PI * 0o2);
+    k.fill();
+  }
+
+  // ⟨ j͑ʃɔ ı],ꞇ 📃 ⟩
+  // ⋄ j͑ʃɔ j͑ʃɔ ı],ꞇ ʌ ᶅſɔ ֭ſɭɹ
+  // ⋄ j͑ʃɔ j͑ʃɔ ı],ꞇ ʌ ᶅſɜ ֭ſɭᴜ
+  // ⋄ j͑ʃɔ j͑ʃɔ ı],ꞇ ʌ ſ͕ɭɜ ı],ᴜ
+  const sexiSakxo = sakxo();
+  const sexiQoxa = sexiSakxo < 0o1 / 0o3
+    ? k2fTom6(ka5ik * 0o14 / 0o100, 0o55 / 0o100, 0o4, 0o0)
+    : sexiSakxo < 0o2 / 0o3
+      ? k2fTom6(ka5ik * 0o14 / 0o100, 0o55 / 0o100, 0o4, Math.PI / 0o4)
+      : k2fTom6(ka5ik * 0o12 / 0o100, 0o1 / 0o4, 0o10, 0o0);
+  k.fillStyle = rgbaKanaka(sexiWeh2);
+  k.fill(sexiQoxa);
+  k.save();
+  k.scale(0o56 / 0o100, 0o56 / 0o100);
+  k.fillStyle = rgbaKanaka(sexiWoha);
+  k.fill(sexiQoxa);
+  k.restore();
+  k.save();
+  k.scale(0o34 / 0o100, 0o34 / 0o100);
+  k.fillStyle = rgbaKanaka(s2Woha);
+  k.fill(sexiQoxa);
+  k.restore();
+
+  const qoxaKekkozusai = new THREE.CanvasTexture(kekkozusai);
+  qoxaKekkozusai.colorSpace = THREE.SRGBColorSpace;
+  qoxaKekkozusai.anisotropy = 0o4;
+  qoxaKekkozusai.wrapS = qoxaKekkozusai.wrapT = THREE.RepeatWrapping;
+  return qoxaKekkozusai;
 }

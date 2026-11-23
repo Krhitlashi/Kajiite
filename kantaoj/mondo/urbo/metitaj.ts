@@ -11,7 +11,7 @@ import { konstruiHxsxaksxlefojn } from "../../../eskekoj/shalaj-specioj/vegetajx
 import { konstruiPussxlefojn } from "../../../eskekoj/shalaj-specioj/vegetajxo/pussxlefo.js";
 import { konstruiArbaron } from "../../../eskekoj/shalaj-specioj/vegetajxo/betuloj/arbaro.js";
 import { konstruiLarikon } from "../../../eskekoj/shalaj-specioj/vegetajxo/larikoj.js";
-import { konstruiKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
+import { vepaqKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 import { kreiKanoton, Kanoto } from "../../../eskekoj/medio/transporto.js";
 import { konstruiFiguron } from "../../../eskekoj/shalaj-specioj/homoj.js";
 import type { Figuro } from "../../../eskekoj/shalaj-specioj/homoj.js";
@@ -69,7 +69,7 @@ export function konstruiMetitajnObjektojn(
         akvaNiveloFn(o.x, o.z), o.stilo === "satala" ? "satala" : "baza"));
     } else if ( o.speco === "hxeuxfo" || o.speco === "hxeuxfoPlato" ) {
     } else if ( o.speco === "keuxfhxeso" ) {
-      konstruiKeuxfhxeso(qena, [ { x: o.x, z: o.z, rot: o.rotacio ?? 0 } ], altecoFn, oraMaterialo);
+      vepaqKeuxfhxeso(qena, [ { x: o.x, z: o.z, s2sabo: o.rotacio ?? 0 } ], altecoFn, oraMaterialo);
     } else if ( o.speco === "spacosxipo" ) {
       xipoj.push(konstruiKrasesxagxon(qena, o.x, 0o40, o.z, oraMaterialo, eniraMaterialo));
     } else if ( o.speco === "sanktejo" || o.speco === "turo" || o.speco === "domo"

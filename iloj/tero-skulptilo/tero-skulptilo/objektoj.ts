@@ -9,7 +9,7 @@ import { triaDimensia, teraMesh, objektaGrupo3D, YTROIGO,
 import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
 import { TIPAJ_NIVELOJ } from "../../../eskekoj/konstruajxoj/satalaj/tipoj.js";
 import { konstruiHxeuxfojn } from "../../../eskekoj/konstruajxoj/hxeuxfa/lampoj.js";
-import { konstruiKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
+import { vepaqKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 import { konstruiKrasesxagxon } from "../../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
 import { konstruiArbaron } from "../../../eskekoj/shalaj-specioj/vegetajxo/betuloj/arbaro.js";
 import { konstruiLarikon } from "../../../eskekoj/shalaj-specioj/vegetajxo/larikoj.js";
@@ -360,7 +360,7 @@ function konstruiObjektonEn(hate: THREE.Object3D, o: MetitaObjekto, opcioj: Kons
       konstruiHxeuxfojn(temp, [ { x: o.x, z: o.z, y: h(o.x, o.z), rotacio: o.rotacio ?? Math.PI / 4 } ], dioritaMaterialo(), ORA_MATERIALO);
     }
   } else if ( o.speco === "keuxfhxeso" ) {
-    konstruiKeuxfhxeso(temp, [ { x: o.x, z: o.z, rot: o.rotacio ?? 0 } ], h, ORA_MATERIALO);
+    vepaqKeuxfhxeso(temp, [ { x: o.x, z: o.z, s2sabo: o.rotacio ?? 0 } ], h, ORA_MATERIALO);
   }
   while ( temp.children.length ) hate.add(temp.children[0]);
 }
