@@ -1,8 +1,8 @@
-// ≺⧼ ការវាស់ការសង់ដុំស្មៅ 🌿 ⧽≻
+// ≺⧼ ֭ſɭᴜ ſȷɔ ſᶘᴜʞ ʌ j͑ʃ'ɔ ſןᴜȝ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🌿 ⧽≻
 // ការសង់ដុំស្មៅក្នុងវាលស្មៅជាការងារធ្ងន់បំផុតទីពីរ ។ យើងវាស់វាតាមបំណែក ។
 import * as THREE from "three";
 import { terenaKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
-import { alteco, akvaNiveloProksima } from "../../kantaoj/mondo/tereno.js";
+import { alteco, akvaVem2Proksima } from "../../kantaoj/mondo/tereno.js";
 
 const N = 0o333333; // ប្រហែល ១១១ ៦៥៤
 const HERBA_MALHELIGO = 0o62 / 0o100;
@@ -24,14 +24,14 @@ interface ProvizoraTufo {
   x: number; z: number; y: number;
   sx: number; sy: number; sz: number;
   gx: number; gz: number;
-  nuanco: number; haga: number; biomo: string; varianto: number;
+  nuanco: number; haga: number; bs2: string; varianto: number;
 }
 
 const tufoj: ProvizoraTufo[] = [];
 for ( let i = 0; i < N; i++ ) {
   tufoj.push({ x: ( i % 0o400 ) - 0o200, z: Math.floor(i / 0o400) - 0o200, y: 0,
     sx: 1.1, sy: 1.3, sz: 1.2, gx: 0.1, gz: -0.1,
-    nuanco: 1.02, haga: 0.2, biomo: "valo", varianto: 0 });
+    nuanco: 1.02, haga: 0.2, bs2: "valo", varianto: 0 });
 }
 
 function mezuri( ksaka: string, ripetoj: number, fn: () => void ): void {
@@ -94,10 +94,10 @@ mezuri("setXY", 1, () => {
   for ( let i = 0; i < N; i++ ) haga.setXY(i, 0.1, -0.1);
 });
 
-mezuri("terenaKoloroEn + akvaNiveloProksima", 1, () => {
+mezuri("terenaKoloroEn + akvaVem2Proksima", 1, () => {
   for ( let i = 0; i < N; i++ ) {
     const t = tufoj[i];
-    const tera = terenaKoloroEn(teraKoloro, t.y, t.x, t.z, t.haga, akvaNiveloProksima);
+    const tera = terenaKoloroEn(teraKoloro, t.y, t.x, t.z, t.haga, akvaVem2Proksima);
     const teraLumo = Math.max(( tera.r + tera.g * 0o2 + tera.b ) * 0o1 / 0o4, 0o1 / 0o100);
     C.copy(tera).multiplyScalar(t.nuanco * HERBA_MALHELIGO / teraLumo).multiply(BLANKA);
   }

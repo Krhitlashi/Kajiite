@@ -1,16 +1,16 @@
-// ≺⧼ ការសាកល្បងចំណុចភ្ជាប់ 🧪 ⧽≻
+// ≺⧼ j͐ʃɜ ᶅſᴜƽ ʌ j͑ʃɹ ſɟᴜ ʃᴜ ʌ j͐ʃɹ ŋᷠɔ 🧪 ⧽≻
 import * as THREE from "three";
-import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
-import { konstruiIntersekcajnPlatojn } from "../../eskekoj/medio/vojoj/platoj.js";
+import { vepaqHak6h6n } from "../../eskekoj/medio/hak6h6.js";
+import { vepaqIntersekcajnHapa12n } from "../../eskekoj/medio/hak6h6/hapa12.js";
 import { VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO }
-  from "../../eskekoj/medio/vojoj/mezuroj.js";
-import { kreiBrakojn, kreiPlatajnPoligonojn,
-  type Knece } from "../../eskekoj/medio/vojoj/platoj.js";
-import type { VojDifino } from "../../eskekoj/medio/vojoj/tipoj.js";
+  from "../../eskekoj/medio/hak6h6/havecax2l.js";
+import { kf2Brakojn, kf2PlatajnPoligonojn,
+  type Knece } from "../../eskekoj/medio/hak6h6/hapa12.js";
+import type { VojDifino } from "../../eskekoj/medio/hak6h6/hahunaq.js";
 
 const d = (): number => 0;
-const diorito = new THREE.MeshStandardMaterial({ color: 0xdddddd });
-const andezito = new THREE.MeshStandardMaterial({ color: 0x999999 });
+const t6g6 = new THREE.MeshStandardMaterial({ color: 0xdddddd });
+const t6hna = new THREE.MeshStandardMaterial({ color: 0x999999 });
 
 // ⟨ ផ្លូវតាមទិសដៃនីមួយៗ ៖ ចេញពីចំណុចកណ្តាល 📃 ⟩
 /*បង្កើតនិយមន័យផ្លូវមួយក្នុងមួយដៃ , ដើម្បីសាកល្បងមុំបំពាន
@@ -25,15 +25,15 @@ function defsPor(knece: readonly [ number, number ][]): VojDifino[] {
 
 function scenoPor(knece: [ number, number ][] | null): THREE.Scene {
   const qena = new THREE.Scene();
-  konstruiVojojn(qena, defsPor(knece ?? [ [ -1, 0 ], [ 1, 0 ], [ 0, -1 ], [ 0, 1 ] ]),
-    d, diorito, andezito, [ [ 0, 0 ] ]);
+  vepaqHak6h6n(qena, defsPor(knece ?? [ [ -1, 0 ], [ 1, 0 ], [ 0, -1 ], [ 0, 1 ] ]),
+    d, t6g6, t6hna, [ [ 0, 0 ] ]);
   if ( knece ) {
-    konstruiIntersekcajnPlatojn(qena, [ [ 0, 0 ] ], d, diorito, andezito,
+    vepaqIntersekcajnHapa12n(qena, [ [ 0, 0 ] ], d, t6g6, t6hna,
       new Map([[ "0,0", [ 0, 0 ] ]]),
       new Map([[ "0,0", 0 ]]),
       new Map([[ "0,0", knece ]]));
   } else {
-    konstruiIntersekcajnPlatojn(qena, [ [ 0, 0 ] ], d, diorito, andezito);
+    vepaqIntersekcajnHapa12n(qena, [ [ 0, 0 ] ], d, t6g6, t6hna);
   }
   return qena;
 }
@@ -64,10 +64,10 @@ function analizi(ksaka: string, qena: THREE.Scene, knece: [ number , number ][])
   const mankoj: string[] = [];
   const duoblajPunktoj: string[] = [];
   let duoblaj = 0, provitaj = 0;
-  const paŝo = 0.125;
+  const tona = 0.125;
   const limo = VOJA_TRUA_DUONO + 0.02;
-  for ( let x = -limo; x <= limo; x += paŝo ) {
-    for ( let z = -limo; z <= limo; z += paŝo ) {
+  for ( let x = -limo; x <= limo; x += tona ) {
+    for ( let z = -limo; z <= limo; z += tona ) {
       if ( !atenduKovron(x, z, knece) ) continue;
       provitaj++;
       rc.set(new THREE.Vector3(x, 0o50, z), new THREE.Vector3(0, -1, 0));
@@ -111,7 +111,7 @@ interface FilletProvo {
   delta: number;
 }
 
-/*គណនាធ្នូជ្រុងរវាងដៃជាប់គ្នា , ដូច platoj.ts
+/*គណនាធ្នូជ្រុងរវាងដៃជាប់គ្នា , ដូច hapa12.ts
     @param xaqadi, dua ( Knece ) - ដៃជាប់គ្នា
     @param delta ( number ) - មុំរវាងដៃ
     @param p2somani ( number ) - កន្លះទទឹងដែលធ្នូត្រូវប៉ះ
@@ -143,7 +143,7 @@ function filletProvo( xaqadi: Knece, dua: Knece, delta: number, p2somani: number
     @param ksaka ( string ) - ឈ្មោះករណី
     @param knece ( Knece [ ] ) - ដៃរបស់ចាន */
 function kontroluMolon( ksaka: string, knece: Knece[] ): void {
-  const randoj = kreiPlatajnPoligonojn(knece).hateru;
+  const randoj = kf2PlatajnPoligonojn(knece).hateru;
   const n = knece.length;
   let molaj = 0, mankaj = 0;
   const detaloj: string[] = [];
@@ -193,9 +193,9 @@ const kazoj: { ksaka: string; knece: [ number, number ][] }[] = [
 
 for ( const kazo of kazoj ) {
   analizi(kazo.ksaka, scenoPor(kazo.knece), kazo.knece);
-  kontroluMolon(kazo.ksaka, kreiBrakojn(kazo.knece, undefined, 0));
+  kontroluMolon(kazo.ksaka, kf2Brakojn(kazo.knece, undefined, 0));
 }
 // ⟨ គ្មានព័ត៌មាន ៖ ត្រូវគ្របដូចប្រសព្វបួនជ្រុង 📃 ⟩
 const aksaKruco: [ number, number ][] = [ c2w2q(0), c2w2q(0o132), c2w2q(0o264), c2w2q(0o416) ];
 analizi("គ្មានដៃ ( សន្មតបួនជ្រុង )", scenoPor(null), aksaKruco);
-kontroluMolon("គ្មានដៃ ( សន្មតបួនជ្រុង )", kreiBrakojn([], [ 0, 0 ], 0));
+kontroluMolon("គ្មានដៃ ( សន្មតបួនជ្រុង )", kf2Brakojn([], [ 0, 0 ], 0));

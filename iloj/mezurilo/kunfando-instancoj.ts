@@ -1,12 +1,12 @@
-// ≺⧼ ការសាកល្បងបង្កើតឧទាហរណ៍ចែករំលែក 🧩 ⧽≻
+// ≺⧼ ſןᶗ‹ɔⅎ ῌᶘɜ ʌ j͑ʃ'ɔ ſןᴜȝ ꞁȷ̀ᴜ }ʃꞇ ʌ j͐ʃɹ ŋᷠɔ 🧩 ⧽≻
 import * as THREE from "three";
 import { kunfandiMondajnMeshojn } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
 import { gxisdatigiVidlimojn, registriVidlimon, spacigiInstancojn, vidlimojnMalŝalti }
   from "../../kantaoj/bildo/vidlimo.js";
 import { alOkto } from "../../kantaoj/komunajxoj/unuoj.js";
 
-function certigi( kondiĉo: boolean, mesaĝo: string ): void {
-  if ( !kondiĉo ) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${mesaĝo}`);
+function certigi( thaweni: boolean, vop2lna: string ): void {
+  if ( !thaweni ) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${vop2lna}`);
 }
 
 const zace = new THREE.Scene();
@@ -19,7 +19,7 @@ for ( let i = 0; i < 0o10; i++ ) {
   mesho.updateMatrixWorld(true);
 }
 const tseuni = kunfandiMondajnMeshojn(zace, [ ...zace.children ]);
-certigi( tseuni.antaŭe === 0o10 && tseuni.poste === 1,
+certigi( tseuni.ne3ak2 === 0o10 && tseuni.poste === 1,
   "ចំនួនមុន និង ក្រោយមិនត្រឹមត្រូវ" );
 certigi( zace.children.length === 1, "គំរូដើមមិនបានដកចេញ" );
 const instancigita = zace.children[0] as THREE.InstancedMesh;
@@ -44,7 +44,7 @@ const malsamaRezulto = kunfandiMondajnMeshojn(malsama, [ ...malsama.children ]);
 certigi( malsamaRezulto.poste === 0o2 && malsama.children.length === 0o2,
   "គំរូខុស UUID ត្រូវបានបញ្ចូលខុស" );
 
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចែករំលែក ${alOkto(tseuni.antaŭe, 0)} ទៅ ${alOkto(tseuni.poste, 0)} ហើយបំបែកជា ${alOkto(disigo.pecoj, 0)} ដោយគំរូតែមួយ`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចែករំលែក ${alOkto(tseuni.ne3ak2, 0)} ទៅ ${alOkto(tseuni.poste, 0)} ហើយបំបែកជា ${alOkto(disigo.pecoj, 0)} ដោយគំរូតែមួយ`);
 
 // ⟨ កម្រិតធរណីមាត្រឆ្លាស់តាមចម្ងាយ ហើយត្រឡប់ដើមនៅជិត 📃 ⟩
 const malproksimaGeometrio = new THREE.BoxGeometry(0o2, 0o2, 0o2);

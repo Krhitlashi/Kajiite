@@ -2,7 +2,7 @@
 // វិលនីមួយៗស្ថិតក្នុងឯកសារដាច់ដោយឡែកក្រោមថត kantoj/ ។
 // ឯកសារនេះប្រមូលពួកវាជាបញ្ជីតែមួយសម្រាប់ឧបករណ៍លេង។
 
-import type { SpuroDateno } from "./vokoj/tipoj.js";
+import type { SpuroDateno } from "./vokoj/hahunaq.js";
 import { AIH } from "../../../kantaoj/lingvo/tradukoj/aih.js";
 import { buildTrack1 } from "./kantoj/trako01.js";
 import { buildTrack2 } from "./kantoj/trako02.js";

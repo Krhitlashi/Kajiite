@@ -1,4 +1,4 @@
-// ≺⧼ កំហុស 💥 ⧽≻
+// ≺⧼ ɽ͑ʃ'ɹ ᶅſw }ʃꞇ 💥 ⧽≻
 import { traduki } from "../../lingvo/tradukoj.js";
 
 function montriPanelon( sxargxaEl: HTMLElement, detaloj: string[] ): void {

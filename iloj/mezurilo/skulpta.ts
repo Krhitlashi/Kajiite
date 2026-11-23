@@ -1,22 +1,22 @@
-// ≺⧼ ការប្រៀបធៀបឆាកឆ្លាក់ដី 📏 ⧽≻
+// ≺⧼ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɭɜ ſɭ,w ʌ ſ͕ɭɔ }ʃᴜ ʌ j͑ʃɔ }ʃᴜȝ }ʃꞇ 📏 ⧽≻
 // ⟨ ឆាក 3D របស់ឧបករណ៍ឆ្លាក់ដីបំផ្លើសកម្ពស់ ២.៥ ដង , តែថេរផ្លូវ ( ជំហាន ០.៥ )
 // មិនបំផ្លើសទេ ។ ដូច្នេះផ្លូវនៅទីនោះលិចក្នុងដី , ហើយគ្មានជញ្ជាំងចំហៀង ។ 📃 ⟩
-import { aktivajVojoj } from "../../kantaoj/tero-datumaro/rultempo.js";
+import { aktivajHak6h6 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
-import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
-import { VOJA_BORDA_LARĜO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { kf2NivelanProfilon } from "../../eskekoj/medio/hak6h6/havem2.js";
+import { VOJA_BORDA_SEFINI } from "../../eskekoj/medio/hak6h6/havecax2l.js";
 
 const YTROIGO = 0o24 / 0o10; // 2.5 , ដូច iloj/tero-skulptilo/tero-skulptilo/vido3d.ts
-const VOJOJ = aktivajVojoj().filter(v => v.n2k.length >= 2);
+const VOJOJ = aktivajHak6h6().filter(v => v.n2k.length >= 2);
 
 for (let i = 0; i < VOJOJ.length; i++) {
   const v = VOJOJ[i] as any;
-  const p2somani = (v.pontoLarĝo ?? v.sefini) / 4 + VOJA_BORDA_LARĜO;
+  const p2somani = (v.pontoSefini ?? v.sefini) / 4 + VOJA_BORDA_SEFINI;
   const n2k = v.n2k as [ number, number ][];
-  const p = kreiNivelanProfilon(n2k, p2somani, (x, z) => alteco(x, z) * YTROIGO);
+  const p = kf2NivelanProfilon(n2k, p2somani, (x, z) => alteco(x, z) * YTROIGO);
   let supero = 0, subo = 0, kasxita = 0, tlunakani = 0;
   for (let j = 0; j < p.hal6da.length; j++) {
-    const s = p.situoj[j];
+    const s = p.haxekuxa[j];
     let kur = 0, q: [ number, number ] = n2k[ 0 ];
     for (let k = 0; k < n2k.length - 1; k++) {
       const [ x1, z1 ] = n2k[ k ], [ x2, z2 ] = n2k[ k + 1 ];

@@ -1,8 +1,8 @@
-// ≺⧼ ការវាស់ជំហានស្កេន 🔬 ⧽≻
+// ≺⧼ j͑ʃɹ ɭʃɹ ʃᴜ ſɭᴜ }ʃɜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🔬 ⧽≻
 // វាស់តម្លៃមុខងារនីមួយៗលើក្រឡាទាំងអស់នៃពិភពលោក ។ លេខទាំងនេះបង្ហាញ
 // ថាតើផ្នែកណានៃការស្កេនថ្លៃបំផុត ។
 import * as THREE from "three";
-import { biomo, alteco, akvaNivelo, akvaNiveloProksima }
+import { bs2, alteco, akvaVem2, akvaVem2Proksima }
   from "../../kantaoj/mondo/tereno.js";
 import { terenaKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 import { SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO }
@@ -70,7 +70,7 @@ function skani(): number {
           const cx = ux + ix, cz = uz + iz;
           const x = ( cx + 0o1/0o2 + ( herbaHasho(cx, cz) - 0o1/0o2 ) * 0o1/0o4 ) * CXELO;
           const z = ( cz + 0o1/0o2 + ( herbaHasho(cx + 0o27, cz + 0o11) - 0o1/0o2 ) * 0o1/0o4 ) * CXELO;
-          const bi = biomo(x, z);
+          const bi = bs2(x, z);
           if ( !filtro.includes(bi) ) continue;
           if ( alteco(x, z) < 0o1 ) continue;
           n++;
@@ -90,8 +90,8 @@ for ( let r = 0; r < 0o7; r++ ) {
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ស្កេនដៃ ${skanoPlejBona.toFixed(1)}ms ទទួល=${akceptitaj}`);
 
 mezuri("ទទេ ( គ្មានអ្វី )", () => 1);
-mezuri("biomo", (x, z) => biomajxo[biomo(x, z)] ?? 0);
+mezuri("bs2", (x, z) => biomajxo[bs2(x, z)] ?? 0);
 mezuri("alteco", alteco);
-mezuri("akvaNivelo", akvaNivelo);
-mezuri("akvaNiveloProksima", akvaNiveloProksima);
+mezuri("akvaVem2", akvaVem2);
+mezuri("akvaVem2Proksima", akvaVem2Proksima);
 mezuri("terenaKoloroEn", (x, z) => terenaKoloroEn(KOLORO, alteco(x, z), x, z, 0o1/0o4).r);

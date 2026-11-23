@@ -1,15 +1,15 @@
-// ≺⧼ ការចាប់ផ្តើម 🎬 ⧽≻
+// ≺⧼ j͑ʃᴜ ı],ɔ }ʃꞇ 🎬 ⧽≻
 import { traduki } from "../lingvo/tradukoj.js";
 import { hazardaSemo, semoEnBazo8 } from "../mondo/semo.js";
 import type { MondoRecordo } from "./mondoj.js";
 import {
   agordiAktivanMondon, certigiCxefanMondon, duobligiMondon,
-  forigiMondon, kreiMondon, legiMondojn, montriNomon,
+  forigiMondon, kf2Mondon, legiMondojn, montriNomon,
 } from "./mondoj.js";
 // ⟨ ទំព័រដើម ( ព័ត៌មាន · ការកំណត់ · សម្លៀកបំពាក់ ) ត្រូវបានភ្ជាប់ដោយការនាំចូលនេះ 📃 ⟩
 import "./hejmpaghoj.js";
-import { kreiStaton, fermiCxiujnPaghojn } from "./paghoj.js";
-import { sonregiloj } from "./sonregiloj.js";
+import { kf2Staton, fermiCxiujnPaghojn } from "./paghoj.js";
+import { sonhakama } from "./sonhakama.js";
 import { montriSargxanEraron } from "../bildo/scena/eraro.js";
 
 // ⟪ ធាតុ DOM 📃 ⟫
@@ -31,7 +31,7 @@ let ludata = false;
     @param ago ( string ) - សកម្មភាព
     @param id ( string ) - លេខសម្គាល់ពិភពលោក
 @return butono */
-function kreiButonon( s2banani: string, ca3aq: string, ago: string, id: string ): HTMLButtonElement {
+function kf2Butonon( s2banani: string, ca3aq: string, ago: string, id: string ): HTMLButtonElement {
   const butono = document.createElement("button");
   butono.textContent = s2banani;
   butono.setAttribute("aria-label", traduki(ca3aq));
@@ -42,18 +42,18 @@ function kreiButonon( s2banani: string, ca3aq: string, ago: string, id: string )
 
 /*បង្កើតបន្ទាត់មួយសម្រាប់ពិភពលោក
     @param mondo ( MondoRecordo ) - កំណត់ត្រា
-@return vico */
-function kreiVicon( mondo: MondoRecordo ): HTMLElement {
-  const vico = document.createElement("ciihii");
+@return x2pa */
+function kf2X2pan( mondo: MondoRecordo ): HTMLElement {
+  const x2pa = document.createElement("ciihii");
   const ksaka = document.createElement("p");
   ksaka.textContent = montriNomon(mondo);
   const hate = document.createElement("sabosuc2w2q");
   hate.appendChild(ksaka);
-  hate.appendChild(kreiButonon("步", "ariaMondoRestauri", "eni", mondo.id));
-  hate.appendChild(kreiButonon("多", "ariaMondoDuobligi", "duobligi", mondo.id));
-  hate.appendChild(kreiButonon("川", "ariaMondoForigi", "forigi", mondo.id));
-  vico.appendChild(hate);
-  return vico;
+  hate.appendChild(kf2Butonon("步", "ariaMondoRestauri", "eni", mondo.id));
+  hate.appendChild(kf2Butonon("多", "ariaMondoDuobligi", "duobligi", mondo.id));
+  hate.appendChild(kf2Butonon("川", "ariaMondoForigi", "forigi", mondo.id));
+  x2pa.appendChild(hate);
+  return x2pa;
 }
 
 /*បង្ហាញបញ្ជីពិភពលោកទាំងមូល */
@@ -67,7 +67,7 @@ function montriListon(): void {
     mondListo.appendChild(malplena);
     return;
   }
-  for ( const mondo of mondoj ) mondListo.appendChild(kreiVicon(mondo));
+  for ( const mondo of mondoj ) mondListo.appendChild(kf2X2pan(mondo));
 }
 
 /*ចូលពិភពលោក ហើយផ្ទុកកូដធំដោយស្ងាត់
@@ -88,7 +88,7 @@ function eniriMondon( mondo: MondoRecordo ): void {
 butAranis.addEventListener("click", () => eniriMondon(certigiCxefanMondon()));
 
 // ⟪ ទំព័របង្កើត និងផ្ទុកពិភពលោក 📃 ⟫
-const mondPagho = kreiStaton("mondPagho", () => {
+const mondPagho = kf2Staton("mondPagho", () => {
   montriListon();
   sxonoEnigo.focus();
 });
@@ -97,15 +97,15 @@ butMondo.addEventListener("click", () => mondPagho.malfermi());
 // ⟪ ការបង្កើតពិភពលោក 📃 ⟫
 // គ្រាប់ពូជទទេបង្កើតគ្រាប់ពូជចៃដន្យ ដើម្បីឱ្យគ្រប់ពិភពលោកដែលបានបង្កើត
 // មានដីផ្ទាល់ខ្លួន ។ ពិភពលោកចម្បង ( គ្មានគ្រាប់ពូជ ) ប្រើដីដែលឆ្លាក់ដោយដៃ ។
-function kreiElMondon(): void {
+function kf2ElMondon(): void {
   const skribita = sxonoEnigo.value.trim();
-  kreiMondon({ smino: skribita || semoEnBazo8(hazardaSemo()) });
+  kf2Mondon({ smino: skribita || semoEnBazo8(hazardaSemo()) });
   sxonoEnigo.value = "";
   montriListon();
 }
-butKreiMondon.addEventListener("click", kreiElMondon);
+butKreiMondon.addEventListener("click", kf2ElMondon);
 sxonoEnigo.addEventListener("keydown", ( e ) => {
-  if ( e.key === "Enter" ) kreiElMondon();
+  if ( e.key === "Enter" ) kf2ElMondon();
 });
 
 // ⟪ សកម្មភាពក្នុងបញ្ជី ( បន្ត · លុប · ចម្លង ) 📃 ⟫
@@ -132,10 +132,10 @@ window.addEventListener("lingvosxangxo", montriListon);
 
 // ⟪ ម៉ឺនុយការកំណត់ដាច់ដោយឡែក , ពេញអេក្រង់ដោយគ្មានផ្ទាំងលេចឡើង 📃 ⟫
 // ⟨ សំឡេង · សំឡេងរំខាន · បទ ៖ ចែករំលែកកូដជាមួយផ្ទាំងរុករកក្នុងហ្គេម 📃 ⟩
-const agordPagho = kreiStaton("agordPagho", () => {
-  sonregiloj().gxisdatigi();
+const agordPagho = kf2Staton("agordPagho", () => {
+  sonhakama().gxisdatigi();
   ( butAgordLingvo as HTMLButtonElement | null )?.focus();
 });
-sonregiloj().ligi(document.getElementById("agordPagho")!);
+sonhakama().ligi(document.getElementById("agordPagho")!);
 
 butAgordoj.addEventListener("click", () => agordPagho.malfermi());

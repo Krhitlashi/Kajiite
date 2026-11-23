@@ -1,13 +1,13 @@
-// ≺⧼ បែបផែនមុខ ✨ ⧽≻
-import { cxuAih } from "../lingvo/tradukoj.js";
+// ≺⧼ ɭʃɔ ɽ͑ʃ'w }ʃɔ j͑ʃᴜ ſɭʞэ }ʃꞇ ✨ ⧽≻
+import { tsekeAih } from "../lingvo/tradukoj.js";
 
 export function aplikiVacepu(): void {
-  if ( cxuAih() && typeof vacepu === "function" ) {
+  if ( tsekeAih() && typeof vacepu === "function" ) {
     try { vacepu("aih"); } catch { /* ignorata */ }
   }
 }
 
-export interface EfikajOpcioj {
+export interface EfikajHasukf2qani {
   tosto: HTMLElement;
   promptoElemento: HTMLElement;
   balailo: HTMLElement;
@@ -17,24 +17,24 @@ export interface EfikajOpcioj {
 }
 
 export interface Efikoj {
-  montriTost( mesagxo: string, daŭro?: number ): void;
+  montriTost( mesagxo: string, sahakani?: number ): void;
   agordiPrompton( html: string ): void;
-  fariBalailon( callback: () => void, daŭro?: number ): void;
+  fariBalailon( callback: () => void, sahakani?: number ): void;
   pulsiEfikon(): void;
 }
 
-export function kreiEfikojn( opcioj: EfikajOpcioj ): Efikoj {
-  const { tosto, promptoElemento, balailo, svingo, fxVarma, fxMenta } = opcioj;
+export function kf2Efikojn( hasukf2qani: EfikajHasukf2qani ): Efikoj {
+  const { tosto, promptoElemento, balailo, svingo, fxVarma, fxMenta } = hasukf2qani;
   let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
   let lastPromptaHTML = "";
 
   // ⟪ ប្រព័ន្ធជូនដំណឹង 📃 ⟫
-  function montriTost(mesagxo: string, daŭro = 0o4220) {
+  function montriTost(mesagxo: string, sahakani = 0o4220) {
     if ( tostaTempilo ) clearTimeout(tostaTempilo);
     tosto.innerHTML = mesagxo;
     aplikiVacepu();
     tosto.classList.add("montri");
-    tostaTempilo = setTimeout(() => tosto.classList.remove("montri"), daŭro);
+    tostaTempilo = setTimeout(() => tosto.classList.remove("montri"), sahakani);
   }
 
   function agordiPrompton(html: string): void {
@@ -45,12 +45,12 @@ export function kreiEfikojn( opcioj: EfikajOpcioj ): Efikoj {
   }
 
   // ⟪ ការផ្លាស់ប្តូរបាឡាឡា 📃 ⟫
-  function fariBalailon(callback: () => void, daŭro = 0o1120) {
+  function fariBalailon(callback: () => void, sahakani = 0o1120) {
     balailo.classList.add("montri");
     setTimeout(() => {
       callback();
       setTimeout(() => { balailo.classList.remove("montri"); }, 0o300);
-    }, daŭro / 2);
+    }, sahakani / 2);
   }
 
   // ⟪ ការយោល និងបែបផែនពណ៌ 📃 ⟫

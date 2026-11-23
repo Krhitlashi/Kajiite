@@ -1,13 +1,13 @@
-// ≺⧼ ការជិះទូក 🛶 ⧽≻
+// ≺⧼ j͑ʃɹ ſɭᴜ ɭl̀ɹ 🛶 ⧽≻
 import { animaciiKanoton, gxisdatigiKanotanFizikon } from "../../eskekoj/medio/transporto.js";
 import type { Kanoto } from "../../eskekoj/medio/transporto.js";
-import { alteco, akvo, akvaNivelo, lagoNivelo, riveroZ, LAGO_X, lagoZ, lagoRadio, cxuEnNordorientaRivero,
-  riveroNordOrientaX, riveraNordOrientaNivelo, riveraAkvaNivelo } from "../mondo/tereno.js";
+import { alteco, akvo, akvaVem2, lagoVem2, riveroZ, LAGO_X, lagoZ, lagoRadio, tsekeEnNordorientaRivero,
+  riveroNordOrientaX, riveraNordOrientaVem2, riveraAkvaVem2 } from "../mondo/tereno.js";
 import { traduki } from "../lingvo/tradukoj.js";
 import type { PiedaMondo } from "./piedirado.js";
 import type { Ludanto } from "./ludanto.js";
 
-export interface KanuajOpcioj {
+export interface KanuajHasukf2qani {
   ludanto: Ludanto;
   kanuoj: Kanoto[];
   piedoj: PiedaMondo;
@@ -17,16 +17,16 @@ export interface KanuajOpcioj {
 }
 
 export interface Kanuanto {
-  paŝi( deltaTempo: number, t: number ): void;
+  tona( deltaTempo: number, t: number ): void;
   eliri( kanoto: Kanoto ): { x: number; z: number };
 }
 
-export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
-  const { ludanto, kanuoj, piedoj, ca3aq, promptoElemento, agordiPrompton } = opcioj;
+export function kf2Kanuanton( hasukf2qani: KanuajHasukf2qani ): Kanuanto {
+  const { ludanto, kanuoj, piedoj, ca3aq, promptoElemento, agordiPrompton } = hasukf2qani;
 
   function eliri( kanoto: Kanoto ): { x: number; z: number } {
     const fortoX = -Math.sin(kanoto.c2w2q), fortoZ = -Math.cos(kanoto.c2w2q);
-    const bona = ( x: number, z: number ) => !akvo(x, z) && !piedoj.kolizioj.enDoko(x, z, 0o3/0o10);
+    const bona = ( x: number, z: number ) => !akvo(x, z) && !piedoj.kolizioj.enQakaj2(x, z, 0o3/0o10);
     let exitX = kanoto.x + fortoX * 6, exitZ = kanoto.z + fortoZ * 6;
     if ( !bona(exitX, exitZ) ) {
       const hatafkaq = [ 0, Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*0o3/0o4, -Math.PI*0o3/0o4, Math.PI ];
@@ -43,7 +43,7 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
     return { x: exitX, z: exitZ };
   }
 
-  function paŝi( deltaTempo: number, t: number ): void {
+  function tona( deltaTempo: number, t: number ): void {
     const fotilo = piedoj.fotilo;
     const { solviDokanKolizion } = piedoj.kolizioj;
 
@@ -57,7 +57,7 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
       gxisdatigiKanotanFizikon(kanoto, deltaTempo, fortoX, fortoZ, radX, radZ, 0, movZ);
       const angK = Math.atan2(kanoto.z - lagoZ(), kanoto.x - LAGO_X);
       const enLagoK = Math.hypot(kanoto.x - LAGO_X, kanoto.z - lagoZ()) < lagoRadio(angK) + 0o2;
-      const enNordorientaK = cxuEnNordorientaRivero(kanoto.x, kanoto.z);
+      const enNordorientaK = tsekeEnNordorientaRivero(kanoto.x, kanoto.z);
       if ( !enLagoK && enNordorientaK ) {
         const riveroX2 = riveroNordOrientaX(kanoto.z);
         const driftX = kanoto.x - riveroX2;
@@ -91,9 +91,9 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
       const kx = kanoto.x, kz = kanoto.z;
       const angK2 = Math.atan2(kz - lagoZ(), kx - LAGO_X);
       const enLagoK2 = Math.hypot(kx - LAGO_X, kz - lagoZ()) < lagoRadio(angK2) + 0o2;
-      const enNordorientaK2 = cxuEnNordorientaRivero(kx, kz);
-      const akvoNiveloK2 = enLagoK2 ? lagoNivelo() : enNordorientaK2 ? riveraNordOrientaNivelo(kz) : riveraAkvaNivelo(kx);
-      if ( alteco(kx, kz) > akvoNiveloK2 + 0o1/0o4 ) {
+      const enNordorientaK2 = tsekeEnNordorientaRivero(kx, kz);
+      const akvoVem2K2 = enLagoK2 ? lagoVem2() : enNordorientaK2 ? riveraNordOrientaVem2(kz) : riveraAkvaVem2(kx);
+      if ( alteco(kx, kz) > akvoVem2K2 + 0o1/0o4 ) {
         if ( enLagoK2 ) {
           kanoto.x += ( LAGO_X - kx ) * Math.min(1, 0o30 * deltaTempo);
           kanoto.z += ( lagoZ() - kz ) * Math.min(1, 0o30 * deltaTempo);
@@ -105,7 +105,7 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
           kanoto.vz = 0;
         }
       }
-      kanoto.bazaY = Math.max(akvoNiveloK2, alteco(kanoto.x, kanoto.z));
+      kanoto.bazaY = Math.max(akvoVem2K2, alteco(kanoto.x, kanoto.z));
 
       ludanto.c2w2q = kanoto.c2w2q;
       if ( ludanto.kameraDistanco > 0o1/0o20 ) {
@@ -127,10 +127,10 @@ export function kreiKanuanton( opcioj: KanuajOpcioj ): Kanuanto {
 
     for ( const c of kanuoj ) {
       if ( c !== kanoto && !c.group.visible ) continue;
-      if ( c !== kanoto ) c.bazaY = Math.max(akvaNivelo(c.x, c.z), alteco(c.x, c.z));
+      if ( c !== kanoto ) c.bazaY = Math.max(akvaVem2(c.x, c.z), alteco(c.x, c.z));
       animaciiKanoton(c, t, c === kanoto);
     }
   }
 
-  return { paŝi, eliri };
+  return { tona, eliri };
 }

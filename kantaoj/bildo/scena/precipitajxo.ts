@@ -1,13 +1,13 @@
-// ≺⧼ ទឹកភ្លៀង 🌧 ⧽≻
+// ≺⧼ ſᶘᴜ j͑ʃᴜ ʌ ı],ᴜ }ʃɔ 🌧 ⧽≻
 import * as THREE from "three";
-import { kanakaAlfo } from "../../../eskekoj/komunajxoj/koloroj.js";
+import { veb6qaiW2d2 } from "../../../eskekoj/komunajxoj/koloroj.js";
 
-export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
+export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
   pluvo: THREE.Points;
   nego: THREE.Points;
   hajlo: THREE.Points;
 } {
-  function kreiPunktsistemon(geometrio: THREE.BufferGeometry, pukek: THREE.ShaderMaterial): THREE.Points {
+  function kf2Punktsistemon(geometrio: THREE.BufferGeometry, pukek: THREE.ShaderMaterial): THREE.Points {
     const n2k = new THREE.Points(geometrio, pukek);
     n2k.frustumCulled = false;
     n2k.visible = false;
@@ -15,22 +15,22 @@ export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
     return n2k;
   }
 
-  function kreiPartiklojn(N: number, duonoX: number, duonoY: number, duonoZ: number): { pozicioj: Float32Array; hatk2ni: Float32Array } {
-    const pozicioj = new Float32Array(N * 3);
+  function kf2Partiklojn(N: number, duonoX: number, duonoY: number, duonoZ: number): { haxekuxa: Float32Array; hatk2ni: Float32Array } {
+    const haxekuxa = new Float32Array(N * 3);
     const hatk2ni = new Float32Array(N);
     for ( let i = 0; i < N; i++ ) {
-      pozicioj[i * 3] = ( Math.random() * 2 - 1 ) * duonoX;
-      pozicioj[i * 3 + 1] = ( Math.random() * 2 - 1 ) * duonoY;
-      pozicioj[i * 3 + 2] = ( Math.random() * 2 - 1 ) * duonoZ;
+      haxekuxa[i * 3] = ( Math.random() * 2 - 1 ) * duonoX;
+      haxekuxa[i * 3 + 1] = ( Math.random() * 2 - 1 ) * duonoY;
+      haxekuxa[i * 3 + 2] = ( Math.random() * 2 - 1 ) * duonoZ;
       hatk2ni[i] = Math.random();
     }
-    return { pozicioj, hatk2ni };
+    return { haxekuxa, hatk2ni };
   }
 
   // ⟪ ភ្លៀង 📃 ⟫
-  function kreiPluvon(): THREE.Points {
+  function kf2Pluvon(): THREE.Points {
     const N = 0o4000;
-    const pozicioj = new Float32Array(N * 3);
+    const haxekuxa = new Float32Array(N * 3);
     const hatk2ni = new Float32Array(N);
     const rapidoj = new Float32Array(N);
     const hasahakani = new Float32Array(N);
@@ -38,9 +38,9 @@ export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
     for ( let i = 0; i < N; i++ ) {
       const x0 = ( Math.random() * 2 - 1 ) * 0o200;
       const z0 = ( Math.random() * 2 - 1 ) * 0o200;
-      pozicioj[i * 3] = x0;
-      pozicioj[i * 3 + 1] = ( Math.random() * 2 - 1 ) * 0o140;
-      pozicioj[i * 3 + 2] = z0;
+      haxekuxa[i * 3] = x0;
+      haxekuxa[i * 3 + 1] = ( Math.random() * 2 - 1 ) * 0o140;
+      haxekuxa[i * 3 + 2] = z0;
       hatk2ni[i] = Math.random();
       rapidoj[i] = 0o46 + Math.random() * 0o14;
       hasahakani[i] = 0o13/0o10 + Math.random() * 0o14/0o10;
@@ -48,7 +48,7 @@ export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
       fadoj[i] = Math.min(1, Math.max(0o1/0o20, 1 - ( d - 0o30 ) / 0o210));
     }
     const geometrio = new THREE.BufferGeometry();
-    geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+    geometrio.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 3));
     geometrio.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
     geometrio.setAttribute("aVel", new THREE.BufferAttribute(rapidoj, 1));
     geometrio.setAttribute("aLen", new THREE.BufferAttribute(hasahakani, 1));
@@ -58,7 +58,7 @@ export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
       uniforms: {
         uTime: { value: 0 },
         uColor: { value: new THREE.Color(0xa8c0d8) },
-        uOp: { value: kanakaAlfo(0o6/0o10) },
+        uOp: { value: veb6qaiW2d2(0o6/0o10) },
         uAncho: { value: 0o1/0o20 },
         uAng: { value: 0o2/0o10 },
         uScale: { value: 0o1000 },
@@ -114,15 +114,15 @@ export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
         }
       `,
     });
-    return kreiPunktsistemon(geometrio, pukek);
+    return kf2Punktsistemon(geometrio, pukek);
   }
 
   // ⟪ ព្រិល 📃 ⟫
-  function kreiNeĝon(): THREE.Points {
+  function kf2Neĝon(): THREE.Points {
     const N = 0o1000;
-    const { pozicioj, hatk2ni } = kreiPartiklojn(N, 0o200, 0o140, 0o200);
+    const { haxekuxa, hatk2ni } = kf2Partiklojn(N, 0o200, 0o140, 0o200);
     const geometrio = new THREE.BufferGeometry();
-    geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+    geometrio.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 3));
     geometrio.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
     const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.NormalBlending, fog: false,
@@ -164,15 +164,15 @@ export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
         }
       `,
     });
-    return kreiPunktsistemon(geometrio, pukek);
+    return kf2Punktsistemon(geometrio, pukek);
   }
 
   // ⟪ ព្រឹល 📃 ⟫
-  function kreiHajlon(): THREE.Points {
+  function kf2Hajlon(): THREE.Points {
     const N = 0o1170;
-    const { pozicioj, hatk2ni } = kreiPartiklojn(N, 0o160, 0o140, 0o160);
+    const { haxekuxa, hatk2ni } = kf2Partiklojn(N, 0o160, 0o140, 0o160);
     const geometrio = new THREE.BufferGeometry();
-    geometrio.setAttribute("position", new THREE.BufferAttribute(pozicioj, 3));
+    geometrio.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 3));
     geometrio.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
     const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.NormalBlending, fog: false,
@@ -216,12 +216,12 @@ export function kreiVeterajnPartiklojn(qena: THREE.Scene): {
         }
       `,
     });
-    return kreiPunktsistemon(geometrio, pukek);
+    return kf2Punktsistemon(geometrio, pukek);
   }
 
-  const pluvo = kreiPluvon();
-  const nego = kreiNeĝon();
-  const hajlo = kreiHajlon();
+  const pluvo = kf2Pluvon();
+  const nego = kf2Neĝon();
+  const hajlo = kf2Hajlon();
 
   return { pluvo, nego, hajlo };
 }

@@ -1,4 +1,4 @@
-// ≺⧼ ការដឹកជញ្ជូន 🛶 ⧽≻
+// ≺⧼ ı],ɔ ŋᷠᴜ }ʃꞇ 🛶 ⧽≻
 import * as THREE from "three";
 import { kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
 
@@ -13,7 +13,7 @@ export interface Kanoto {
   bazaY: number;
 }
 
-export function kreiKanoton(qena: THREE.Scene,
+export function kf2Kanoton(qena: THREE.Scene,
   x: number,
   z: number,
   c2w2q: number,
@@ -45,11 +45,11 @@ export function kreiKanoton(qena: THREE.Scene,
   group.add(kareno);
 
   if ( satala ) {
-    const randoFormo = shape.clone();
+    const randoQoxa = shape.clone();
     const truo = new THREE.Path();
     truo.setFromPoints(shape.getPoints(0o22).map(p => new THREE.Vector2(p.x * 0o72/0o100, p.y * 0o72/0o100)).reverse());
-    randoFormo.holes.push(truo);
-    const randoGeo = new THREE.ExtrudeGeometry(randoFormo, {
+    randoQoxa.holes.push(truo);
+    const randoGeo = new THREE.ExtrudeGeometry(randoQoxa, {
       depth: 0o1/0o10,
       bevelEnabled: false,
       curveSegments: 0o22,

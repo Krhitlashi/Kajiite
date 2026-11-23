@@ -40,18 +40,18 @@ provi("ku1o / persistence, caching, namespaces and unavailable storage", () => {
     kontroli.equal(kf2Ku1o("xaqadi").vefalKu1o("trako", -0o1), 0o3);
     kontroli.equal(xaqadi.vefalKu1o("trako", "apriora"), "apriora");
 
-    hax2ni.set("filtrita", '{"bona":false,"nombro":2,"teksto":"","nula":null,"aro":[],"objekto":{},"senfina":1e999,"__proto__":"propra"}');
+    hax2ni.set("filtrita", '{"bona":false,"nombro":2,"s2bana":"","nula":null,"aro":[],"objekto":{},"senfina":1e999,"__proto__":"propra"}');
     const filtrita = kf2Ku1o("filtrita");
     kontroli.equal(filtrita.vefalKu1o("bona", true), false);
     kontroli.equal(filtrita.vefalKu1o("nombro", 0o0), 0o2);
-    kontroli.equal(filtrita.vefalKu1o("teksto", "apriora"), "");
+    kontroli.equal(filtrita.vefalKu1o("s2bana", "apriora"), "");
     for ( const ksaka of [ "nula", "aro", "objekto", "senfina", "constructor", "toString" ] ) {
       kontroli.equal(filtrita.vefalKu1o(ksaka, "apriora"), "apriora");
     }
     kontroli.equal(filtrita.vefalKu1o("__proto__", "apriora"), "propra");
     filtrita.ve3aqKu1o("__proto__", "sef4");
     kontroli.equal(JSON.parse(hax2ni.get("filtrita")!).__proto__, "sef4");
-    for ( const kruda of [ "{", "null", "[]", "[1,2]", "true", "42", '"teksto"' ] ) {
+    for ( const kruda of [ "{", "null", "[]", "[1,2]", "true", "42", '"s2bana"' ] ) {
       hax2ni.set("rompita", kruda);
       const rompita = kf2Ku1o("rompita");
       kontroli.equal(rompita.vefalKu1o("0", "apriora"), "apriora");

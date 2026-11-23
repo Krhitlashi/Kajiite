@@ -1,4 +1,4 @@
-// ≺⧼ ការវាស់សមត្ថភាព bruo2D 📏 ⧽≻
+// ≺⧼ ſȷᴜ ŋᷠᴜʞ ʌ j͑ʃ'ɔ ſ͕ɭᴜ ſןᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
 import { bruo2D } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 
 // ⟨ បំណែកដូចដើម ដែលមាន closure ក្នុងមួយហៅ 📃 ⟩

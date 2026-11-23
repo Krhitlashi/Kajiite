@@ -1,39 +1,39 @@
-// ≺⧼ រូបរាង 3D 🏙️ ⧽≻
+// ≺⧼ ſ͕ɭɜ ı],ᴜ 🏙️ ⧽≻
 // រូបរាង 3D របស់សំណាញ់ទីក្រុង និងផ្លូវកម្រិតពិភពលោកក្នុងទិដ្ឋភាព 3D គឺ
 // អគារ និងផ្លូវពិតរបស់ហ្គេម ( ឧបករណ៍សាងសង់ដូច
-// urbo.ts និង vojoj.ts )។ អនុគមន៍ទាំងនេះសាងសង់រូបរាងឡើងវិញក្រោយរាល់ការផ្លាស់ប្តូរ
+// kaxte.ts និង hak6h6.ts )។ អនុគមន៍ទាំងនេះសាងសង់រូបរាងឡើងវិញក្រោយរាល់ការផ្លាស់ប្តូរ
 // សំណាញ់ ឬផ្លូវ រីឯក្រុមខ្លួនឯង ( និងឆាក ) ស្ថិតនៅក្នុង vido3d.js។
 import * as THREE from "three";
-import { konstruiSatalon } from "../../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
-import { TIPAJ_NIVELOJ } from "../../../eskekoj/konstruajxoj/satalaj/tipoj.js";
-import { konstruiHxeuxfojn } from "../../../eskekoj/konstruajxoj/hxeuxfa/lampoj.js";
+import { vepaqSatalon } from "../../../eskekoj/hapaq/satalaj-hapaq.js";
+import { TIPAJ_NIVELOJ } from "../../../eskekoj/hapaq/satalaj/hahunaq.js";
+import { vepaqHxeuxfojn } from "../../../eskekoj/hapaq/hxeuxfa/lampoj.js";
 import { vepaqKeuxfhxeso } from "../../../eskekoj/mebloj/keuxfhxeso.js";
-import { kreiDioritanMaterialon, kreiAndezitanMaterialon } from "../../../eskekoj/komunajxoj/materialoj.js";
-import { konstruiVojojn } from "../../../eskekoj/medio/vojoj.js";
+import { kf2T6g6Pukek, kf2T6hnaPukek } from "../../../eskekoj/komunajxoj/materialoj.js";
+import { vepaqHak6h6n } from "../../../eskekoj/medio/hak6h6.js";
 import { VOJA_AKVA_KLARANCO, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
-  VOJA_TRUA_DUONO, surGrid } from "../../../eskekoj/medio/vojoj/mezuroj.js";
-import { vojaSupro as vojaSuproBaza } from "../../../eskekoj/medio/vojoj/formoj.js";
-import { konstruiIntersekcajnPlatojn } from "../../../eskekoj/medio/vojoj/platoj.js";
-import { troviVojaRetajnKunigojn } from "../../../eskekoj/medio/voj-reto.js";
-import { konstruiDokon } from "../../../eskekoj/medio/doko.js";
-import { gluiVojaFinon } from "../../../eskekoj/medio/vojoj/gluado.js";
-import { kreiDokanStuparon } from "../../../eskekoj/medio/doko/stuparo.js";
-// ទឹក គឺស្ពាន ( pontoVojo ) អានទឹកពីការគណនាដេរីវេ។
-import { akvaRezulto, akvaNiveloEn, cxuAkvo, teraAlto } from "./akvo.js";
-import { sceno3d, kradaGrupo3D, vojaGrupo3D, YTROIGO } from "./vido3d.js";
-import { cxuVidebla } from "./videco.js";
-import type { KradaPlano } from "../../../kantaoj/mondo/krado/tipoj.js";
-import type { SkulptaUrbo, SkulptaVojo, SkulptaPlatformo } from "../../../kantaoj/mondo/urbo/tipoj.js";
-import type { VojaPunkto } from "../../../eskekoj/medio/voj-reto.js";
-import type { VojDifino } from "../../../eskekoj/medio/vojoj/tipoj.js";
-import type { HxeuxfaLoko } from "../../../eskekoj/konstruajxoj/hxeuxfa/tipoj.js";
+  VOJA_TRUA_DUONO, surGrid } from "../../../eskekoj/medio/hak6h6/havecax2l.js";
+import { k6h6Supro as k6h6SuproBaza } from "../../../eskekoj/medio/hak6h6/haqoxa.js";
+import { vepaqIntersekcajnHapa12n } from "../../../eskekoj/medio/hak6h6/hapa12.js";
+import { troviK6h6RetajnHaveb6kekn } from "../../../eskekoj/medio/voj-reto.js";
+import { vepaqQakaj2n } from "../../../eskekoj/medio/qakaj2.js";
+import { gluiK6h6Finon } from "../../../eskekoj/medio/hak6h6/gluado.js";
+import { kf2DokanStuparon } from "../../../eskekoj/medio/qakaj2/stuparo.js";
+// ទឹក គឺស្ពាន ( pontoK6h6 ) អានទឹកពីការគណនាដេរីវេ។
+import { akvaRezulto, akvaVem2En, tsekeAkvo, teraAlto } from "./akvo.js";
+import { sceno3d, kradaGrupo3D, k6h6Grupo3D, YTROIGO } from "./vido3d.js";
+import { tsekeVidebla } from "./videco.js";
+import type { KradaPlano } from "../../../kantaoj/mondo/krado/hahunaq.js";
+import type { SkulptaKaxte, SkulptaK6h6, SkulptaPlatqoxa } from "../../../kantaoj/mondo/kaxte/hahunaq.js";
+import type { K6h6Punkto } from "../../../eskekoj/medio/voj-reto.js";
+import type { VojDifino } from "../../../eskekoj/medio/hak6h6/hahunaq.js";
+import type { HxeuxfaLoko } from "../../../eskekoj/hapaq/hxeuxfa/hahunaq.js";
 import type { KeuxfhxesoRaqa } from "../../../eskekoj/mebloj/keuxfhxeso.js";
 
-// ⟪ សំណង់ដែលបានតាមដាន 📃 ⟫ គឺ konstruiSatalon បន្ថែមក្រុម ( និង
+// ⟪ សំណង់ដែលបានតាមដាន 📃 ⟫ គឺ vepaqSatalon បន្ថែមក្រុម ( និង
 // ច្បាប់ចម្លងកញ្ចកែ ) ផ្ទាល់ទៅឆាក ដូច្នេះវត្ថុត្រូវបានតាមដាននៅទីនេះ
 // សម្រាប់ការលុបពេលសាងសង់ឡើងវិញ និងសម្រាប់ភាពមើលឃើញពេលប្តូរផ្ទាំង ( ឯកសារមេ
 // អានតារាងដើម្បីបើកបិទភាពមើលឃើញ )។
-export let krada3DKonstruajxoj: THREE.Object3D[] = [];
+export let krada3DPaqj: THREE.Object3D[] = [];
 
 /* ឧបករណ៍សាងសង់របស់ហ្គេមប្រកាសឆាក រីឯឧបករណ៍ផ្តល់ក្រុម ដូច្នេះទាំងពីរជា
    Object3D។ ឧបករណ៍ជំនួយបង្ហាញការបំប្លែងនៅកន្លែងតែមួយ។
@@ -74,17 +74,17 @@ interface Krada3DLigo {
   vidotajKradoj: () => { vecax2lani: number; plano: KradaPlano; ofsX: number; ofsZ: number }[];
   dioritaMaterialo: () => THREE.MeshStandardMaterial;
   ORA_MATERIALO: THREE.MeshStandardMaterial;
-  urboj: () => SkulptaUrbo[];
-  vojoj: () => SkulptaVojo[];
-  dokoj: () => SkulptaPlatformo[];
+  hakaxte: () => SkulptaKaxte[];
+  hak6h6: () => SkulptaK6h6[];
+  haqakaj2: () => SkulptaPlatqoxa[];
 }
 let vidotajKradoj: () => { vecax2lani: number; plano: KradaPlano; ofsX: number; ofsZ: number }[]
   = () => [];
 let dioritaMaterialo: () => THREE.MeshStandardMaterial;
 let ORA_MATERIALO: THREE.MeshStandardMaterial;
-let urboj: () => SkulptaUrbo[];
-let vojoj: () => SkulptaVojo[];
-let dokoj: () => SkulptaPlatformo[];
+let hakaxte: () => SkulptaKaxte[];
+let hak6h6: () => SkulptaK6h6[];
+let haqakaj2: () => SkulptaPlatqoxa[];
 
 /* ការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
     @param k ( Krada3DLigo ) - ការយោងរបស់ឯកសារមេ។ */
@@ -92,8 +92,8 @@ export function agordiKradon3D(k: Krada3DLigo): void {
   dioritaMaterialo = k.dioritaMaterialo;
   vidotajKradoj = k.vidotajKradoj;
   ORA_MATERIALO = k.ORA_MATERIALO;
-  urboj = k.urboj;
-  vojoj = k.vojoj; dokoj = k.dokoj;
+  hakaxte = k.hakaxte;
+  hak6h6 = k.hak6h6; haqakaj2 = k.haqakaj2;
 }
 
 // ⟪ កម្ពស់ដែលមើលឃើញ 📏 ⟫ គឺដីសំណាញ់ 3D ត្រូវបានបំផ្លើសបញ្ឈរ
@@ -111,8 +111,8 @@ function grundo3D(x: number, z: number): number {
     @param x ( number ) - ពិភពលោក x ។
     @param z ( number ) - ពិភពលោក z ។
 @returns កម្រិត ឬ -Infinity ( number )។ */
-function akvaNivelo3D(x: number, z: number): number {
-  const vem2 = akvaNiveloEn(x, z);
+function akvaVem23D(x: number, z: number): number {
+  const vem2 = akvaVem2En(x, z);
   return vem2 === null ? -Infinity : vem2 * YTROIGO;
 }
 /* កម្រិតទឹកបូកចន្លោះសម្រាប់ផ្ទៃផ្លូវ ។
@@ -120,24 +120,24 @@ function akvaNivelo3D(x: number, z: number): number {
     @param z ( number ) - ពិភពលោក z ។
 @returns កម្រិត ឬ -Infinity ( number )។ */
 function akvaFino3D(x: number, z: number): number {
-  const vem2 = akvaNivelo3D(x, z);
+  const vem2 = akvaVem23D(x, z);
   return vem2 === -Infinity ? -Infinity : vem2 + VOJA_AKVA_KLARANCO * YTROIGO;
 }
 
 // ⟪ កម្រិតរួមនៅចំណុចភ្ជាប់ 📏 ⟫ គឺផ្លូវពីរដែលជួបគ្នា ឬផ្លូវដែលចូល
 // ទីក្រុង/កំពង់ ត្រូវឈរនៅកម្រិតតែមួយ ។ បើមិនដូច្នេះ ចុងផ្លូវមួយ
 // លិចក្រោមដី ឯមួយទៀតអណ្តែត ។ ចំណុចភ្ជាប់នីមួយៗទទួលកម្រិតមួយ ( ដូច
-// kantaoj/mondo/urbo.ts ) ហើយផ្លូវឡើងទៅរកវាដោយជម្រាលស្មើ ។
+// kantaoj/mondo/kaxte.ts ) ហើយផ្លូវឡើងទៅរកវាដោយជម្រាលស្មើ ។
 const KUNIGA_KLINO = 0o1/0o4;
 const KUNIGA_RADIUSO = Math.hypot(VOJA_TRUA_DUONO, VOJA_EKSTERA_DUONO);
 const KUNIGA_CELO = 0o20;
 
-// pontoVojo គឺចំណុចចុងទាំងពីរនៃផ្លូវ បើវាឆ្លងកាត់ទឹក ( គឺស្ពាន )។
+// pontoK6h6 គឺចំណុចចុងទាំងពីរនៃផ្លូវ បើវាឆ្លងកាត់ទឹក ( គឺស្ពាន )។
 // បើមិនដូច្នេះ null។ ទឹកមកពីការគណនាដេរីវេ ( akvo.js )។
-function pontoVojo(v: SkulptaVojo): { a: VojaPunkto; b: VojaPunkto } | null {
+function pontoK6h6(v: SkulptaK6h6): { a: K6h6Punkto; b: K6h6Punkto } | null {
   if ( !akvaRezulto || v.n2k.length < 2 ) return null;
   const a = v.n2k[0], b = v.n2k[v.n2k.length - 1];
-  const akvas = cxuAkvo;
+  const akvas = tsekeAkvo;
   if ( akvas(a[0], a[1]) || akvas(b[0], b[1]) ) return null;
   const sahakani = Math.hypot(b[0] - a[0], b[1] - a[1]);
   if ( sahakani < 0o10 ) return null;
@@ -151,34 +151,34 @@ function pontoVojo(v: SkulptaVojo): { a: VojaPunkto; b: VojaPunkto } | null {
   return { a, b };
 }
 
-// rekonstruiVojojn3D គឺផ្លូវទាំងអស់ក្នុងទិដ្ឋភាព 3D ៖ ផ្លូវកម្រិតពិភពលោក ំ
+// vepaqTom6Hak6h6n3D គឺផ្លូវទាំងអស់ក្នុងទិដ្ឋភាព 3D ៖ ផ្លូវកម្រិតពិភពលោក ំ
 // ផ្លូវសំណាញ់របស់ទីក្រុងនីមួយៗ ( ដែលកំពុងបង្ហាញ ) ំ ជណ្តើរកំពង់ ំ និង
-// កំពង់ខ្លួនឯង ។ ទាំងអស់សាងសង់ដោយឧបករណ៍របស់ហ្គេម ( konstruiVojojn ,
-// konstruiDokon , konstruiIntersekcajnPlatojn ) ដូច្នេះការមើលជាមុន
+// កំពង់ខ្លួនឯង ។ ទាំងអស់សាងសង់ដោយឧបករណ៍របស់ហ្គេម ( vepaqHak6h6n ,
+// vepaqQakaj2n , vepaqIntersekcajnHapa12n ) ដូច្នេះការមើលជាមុន
 // ត្រូវនឹងអ្វីដែលហ្គេមសាងសង់ ។ ផ្លូវរបស់សំណាញ់ជាផ្លូវពិត ( មិនមែនប្រអប់ )
 // ដូច្នេះផ្ទៃរបស់វាត្រូវនឹងផ្លូវពិភពលោកនៅចំណុចភ្ជាប់ ។
-export function rekonstruiVojojn3D(): void {
-  if ( !vojaGrupo3D ) return;
-  malplenigiGrupon(vojaGrupo3D);
+export function vepaqTom6Hak6h6n3D(): void {
+  if ( !k6h6Grupo3D ) return;
+  malplenigiGrupon(k6h6Grupo3D);
   const alteco = ( x: number, z: number ): number => grundo3D(x, z);
   // ⟨ កម្ពស់ផ្ទៃផ្លូវនៅចំណុចមួយ ៖ ខ្ពស់ជាងដីជុំវិញមួយកម្រិត 📃 ⟩
-  // ⟨ រូបមន្តតែមួយនៅ formoj.js 📃 ⟩ ៖ ការមើលជាមុនអានអនុគមន៍រួម ។
-  const vojaSupro = ( x: number, z: number, sefini: number ): number =>
-    vojaSuproBaza(x, z, sefini, alteco);
+  // ⟨ រូបមន្តតែមួយនៅ haqoxa.js 📃 ⟩ ៖ ការមើលជាមុនអានអនុគមន៍រួម ។
+  const k6h6Supro = ( x: number, z: number, sefini: number ): number =>
+    k6h6SuproBaza(x, z, sefini, alteco);
   // ⟪ និយមន័យផ្លូវ 📃 ⟫ ។ ផ្លូវកម្រិតពិភពលោកមួយនិយមន័យ , ដូច្នេះវេន
   // មិនបង្គត់ ( ធ្នូត្រូវការបន្ទាត់ពហុកោណទាំងមូល ) ហើយការត្បាញថ្មចាប់ផ្តើម
   // ឡើងវិញនៅចម្រៀកនីមួយៗ ។ ហ្គេមប្រើបន្ទាត់ពហុកោណទាំងមូល ដូច្នេះ
   // ការមើលជាមុននេះក៏ដូចគ្នាដែរ ។
   const difinoj: VojDifino[] = [];
-  for ( const v of vojoj() ) {
+  for ( const v of hak6h6() ) {
     if ( !v.n2k || v.n2k.length < 2 ) continue;
     const sefini = v.sefini || 0o7/0o2;
-    const difino: VojDifino = { pts: v.n2k.map(p => [ p[0], p[1] ] as VojaPunkto),
+    const difino: VojDifino = { pts: v.n2k.map(p => [ p[0], p[1] ] as K6h6Punkto),
       w: sefini / 2, hateruni: true };
-    const ponto = pontoVojo(v);
+    const ponto = pontoK6h6(v);
     if ( ponto ) {
-      const ay = vojaSupro(ponto.a[0], ponto.a[1], sefini);
-      const by = vojaSupro(ponto.b[0], ponto.b[1], sefini);
+      const ay = k6h6Supro(ponto.a[0], ponto.a[1], sefini);
+      const by = k6h6Supro(ponto.b[0], ponto.b[1], sefini);
       const dx = ponto.b[0] - ponto.a[0], dz = ponto.b[1] - ponto.a[1];
       const kvadrato = dx * dx + dz * dz || 1;
       difino.heightFn = ( x: number, z: number ) => {
@@ -194,128 +194,128 @@ export function rekonstruiVojojn3D(): void {
   // អុហ្វសិតរបស់ទីក្រុងនីមួយៗ ។ ផ្នែកដែលបានបញ្ចូលពីផ្លូវពិភពលោក
   // ( stacia ) មិនត្រូវសាងសង់ម្តងទៀតទេ ព្រោះផ្លូវពិភពលោកខាងលើ
   // មានវារួចហើយ ។
-  const KRADA_VOJA_LARĜO = 0o16/0o10;
+  const KRADA_VOJA_SEFINI = 0o16/0o10;
   for ( const krado of vidotajKradoj() ) {
     const ofsX = krado.ofsX, ofsZ = krado.ofsZ;
-    for ( const r of krado.plano.vojoj ) {
+    for ( const r of krado.plano.hak6h6 ) {
       if ( r.stacia ) continue;
-      const pts: VojaPunkto[] = r.orient === "EW"
-        ? [ [ ofsX + r.de, ofsZ + r.poz ], [ ofsX + r.al, ofsZ + r.poz ] ]
-        : [ [ ofsX + r.poz, ofsZ + r.de ], [ ofsX + r.poz, ofsZ + r.al ] ];
-      difinoj.push({ pts, w: KRADA_VOJA_LARĜO, hateruni: false });
+      const pts: K6h6Punkto[] = r.orient === "EW"
+        ? [ [ ofsX + r.de, ofsZ + r.haxekuxa ], [ ofsX + r.al, ofsZ + r.haxekuxa ] ]
+        : [ [ ofsX + r.haxekuxa, ofsZ + r.de ], [ ofsX + r.haxekuxa, ofsZ + r.al ] ];
+      difinoj.push({ pts, w: KRADA_VOJA_SEFINI, hateruni: false });
     }
     for ( const s of krado.plano.spronoj ) {
       difinoj.push({ pts: [ [ ofsX + s.de[0], ofsZ + s.de[1] ],
-        [ ofsX + s.al[0], ofsZ + s.al[1] ] ], w: KRADA_VOJA_LARĜO, hateruni: false });
+        [ ofsX + s.al[0], ofsZ + s.al[1] ] ], w: KRADA_VOJA_SEFINI, hateruni: false });
     }
   }
   // ⟪ ការទាញចុងផ្លូវ 🧲 ⟫ ។ ចុងផ្លូវដែលឈប់ខ្លីពីចំណុចភ្ជាប់ ( ឬពីផ្លូវផ្សេង )
   // ទាញទៅចំណុចនោះ ។ បើមិនទាញ , ចុងផ្លូវបង្កើតចំណុចភ្ជាប់ផ្ទាល់ខ្លួន
   // ហើយចានភ្ជាប់ពីរជាប់គ្នា -> ស្នាមប្រេះនិងជំហាន ។ ( ដូច
-  // gluiVojaFinon នៅ kantaoj/mondo/urbo.ts )
-  const dokoLandaj: { x: number; z: number }[] = dokoj().map(d => {
+  // gluiK6h6Finon នៅ kantaoj/mondo/kaxte.ts )
+  const qakaj2Landaj: { x: number; z: number }[] = haqakaj2().map(d => {
     const rotacio = d.rotacio ?? 0;
     return { x: d.x + Math.sin(rotacio) * ( d.profundo / 2 ),
       z: d.z + Math.cos(rotacio) * ( d.profundo / 2 ) };
   });
   if ( mondoNombro > 0 ) {
-    const antaŭaj = troviVojaRetajnKunigojn(
-      difinoj.map(d => ( { n2k: d.pts, sefini: 2 * d.w } )), dokoj());
-    const gluaCeloj: VojaPunkto[] = antaŭaj.map(k => [ k.x, k.z ] as VojaPunkto);
+    const ne3ak2 = troviK6h6RetajnHaveb6kekn(
+      difinoj.map(d => ( { n2k: d.pts, sefini: 2 * d.w } )), haqakaj2());
+    const gluaCeloj: K6h6Punkto[] = ne3ak2.map(k => [ k.x, k.z ] as K6h6Punkto);
     for ( let i = 0; i < mondoNombro; i++ ) {
       const aliaj = difinoj.filter(( _, j ) => j !== i).map(d => d.pts);
       difinoj[i] = { ...difinoj[i],
-        pts: gluiVojaFinon(difinoj[i].pts, gluaCeloj, dokoLandaj, aliaj) };
+        pts: gluiK6h6Finon(difinoj[i].pts, gluaCeloj, qakaj2Landaj, aliaj) };
     }
   }
   // ⟪ កម្រិតរួមនៅចំណុចភ្ជាប់ 📏 ⟫ គឺគណនាម្តងសម្រាប់ចំណុចភ្ជាប់ទាំងអស់
   // ( ផ្លូវជួបផ្លូវ , ផ្លូវចូលទីក្រុង , ចុងផ្លូវនៅមាត់កំពង់ ) ហើយ
   // បន្ទាប់មកផ្លូវឡើងទៅរកកម្រិតនោះ ។
-  const vojaListo = difinoj.map(d => ( { n2k: d.pts, sefini: 2 * d.w } ));
-  const kunigoj = troviVojaRetajnKunigojn(vojaListo, dokoj());
-  const fontoj = new Map<string, { x: number; z: number; l6da: number }[]>();
-  for ( const k of kunigoj ) {
-    const l6da = surGrid(vojaSupro(k.x, k.z, 2 * VOJA_EKSTERA_DUONO)) - VOJA_SUPRO_LEVIGXO;
+  const k6h6Listo = difinoj.map(d => ( { n2k: d.pts, sefini: 2 * d.w } ));
+  const haveb6kek = troviK6h6RetajnHaveb6kekn(k6h6Listo, haqakaj2());
+  const hatsiq = new Map<string, { x: number; z: number; l6da: number }[]>();
+  for ( const k of haveb6kek ) {
+    const l6da = surGrid(k6h6Supro(k.x, k.z, 2 * VOJA_EKSTERA_DUONO)) - VOJA_SUPRO_LEVIGXO;
     const ca3aq = Math.floor(k.x / KUNIGA_CELO) + "," + Math.floor(k.z / KUNIGA_CELO);
-    const ca1ara = fontoj.get(ca3aq) ?? [];
+    const ca1ara = hatsiq.get(ca3aq) ?? [];
     ca1ara.push({ x: k.x, z: k.z, l6da });
-    fontoj.set(ca3aq, ca1ara);
+    hatsiq.set(ca3aq, ca1ara);
   }
   const harmoniigita = ( x: number, z: number ): number => {
     let l6da = alteco(x, z);
     const cx = Math.floor(x / KUNIGA_CELO), cz = Math.floor(z / KUNIGA_CELO);
     for ( let dx = -0o1; dx <= 0o1; dx++ ) {
       for ( let dz = -0o1; dz <= 0o1; dz++ ) {
-        const ca1ara = fontoj.get(( cx + dx ) + "," + ( cz + dz ));
+        const ca1ara = hatsiq.get(( cx + dx ) + "," + ( cz + dz ));
         if ( !ca1ara ) continue;
-        for ( const fonto of ca1ara ) {
-          const h6kuni = Math.hypot(x - fonto.x, z - fonto.z);
+        for ( const tsiq of ca1ara ) {
+          const h6kuni = Math.hypot(x - tsiq.x, z - tsiq.z);
           if ( h6kuni > KUNIGA_RADIUSO + 0o10 ) continue;
-          l6da = Math.max(l6da, fonto.l6da
+          l6da = Math.max(l6da, tsiq.l6da
             - KUNIGA_KLINO * Math.max(0, h6kuni - KUNIGA_RADIUSO));
         }
       }
     }
     return l6da;
   };
-  // ⟪ កំពង់ និងជណ្តើរកំពង់ ⚓ ⟫ ។ កំពង់សាងសង់ដោយ konstruiDokon ( វេទិកា ,
+  // ⟪ កំពង់ និងជណ្តើរកំពង់ ⚓ ⟫ ។ កំពង់សាងសង់ដោយ vepaqQakaj2n ( វេទិកា ,
   // ស៊ុម , គ្រឹះ ) ហើយជណ្តើររបស់វាជាផ្លូវជំហាន ( stuparo ) ដូច
-  // kantaoj/mondo/urbo.ts ។ ដោយសារផ្លូវដែលចូលមកកំពង់ឈរនៅកម្រិតរួម
+  // kantaoj/mondo/kaxte.ts ។ ដោយសារផ្លូវដែលចូលមកកំពង់ឈរនៅកម្រិតរួម
   // ( harmoniigita ) ចុងផ្លូវត្រូវនឹងកម្ពស់កំពុងលើកម្ពស់វេទិកា ំ ដូច្នេះជណ្តើរ
   // ចុះពីផ្លូវទៅវេទិកាដោយគ្មានជំហានបាត់ ឬចុងផ្លូវទាប ។
-  for ( let i = 0; i < dokoj().length; i++ ) {
-    const d = dokoj()[i];
+  for ( let i = 0; i < haqakaj2().length; i++ ) {
+    const d = haqakaj2()[i];
     const rotacio = d.rotacio ?? 0;
-    const doko = konstruiDokon(kielSceno(vojaGrupo3D), d.x, d.z, rotacio,
-      harmoniigita, akvaNivelo3D, d.profundo, alteco);
-    if ( doko.stuparajPunktoj.length < 2 ) continue;
+    const qakaj2 = vepaqQakaj2n(kielSceno(k6h6Grupo3D), d.x, d.z, rotacio,
+      harmoniigita, akvaVem23D, d.profundo, alteco);
+    if ( qakaj2.stuparajPunktoj.length < 2 ) continue;
     const sin = Math.sin(rotacio), kos = Math.cos(rotacio);
     const landaX = d.x + sin * ( d.profundo / 2 ), landaZ = d.z + kos * ( d.profundo / 2 );
     // ⟨ កម្រាលលើគេ ៖ ផ្លូវចូលមក ឬវេទិកាខ្លួនឯង 📃 ⟩
-    const saxeni = Math.max(surGrid(vojaSupro(landaX, landaZ, doko.platformWidth)),
-      doko.platformY);
-    const stuparo = kreiDokanStuparon(doko.stuparajPunktoj[0], doko.stuparajPunktoj[1],
-      saxeni, doko.landejaY);
+    const saxeni = Math.max(surGrid(k6h6Supro(landaX, landaZ, qakaj2.platformWidth)),
+      qakaj2.platformY);
+    const stuparo = kf2DokanStuparon(qakaj2.stuparajPunktoj[0], qakaj2.stuparajPunktoj[1],
+      saxeni, qakaj2.landejaY);
     if ( !stuparo ) continue;
-    difinoj.push({ pts: stuparo.n2k, w: doko.platformWidth, stuparo: true, hateruni: false,
+    difinoj.push({ pts: stuparo.n2k, w: qakaj2.platformWidth, stuparo: true, hateruni: false,
       heightFn: stuparo.l6da, grundoFn: alteco });
   }
   if ( !difinoj.length ) return;
-  const protektoj: VojaPunkto[] = kunigoj.map(k => [ k.x, k.z ]);
-  const diorito = kreiDioritanMaterialon();
-  const andezito = kreiAndezitanMaterialon();
-  konstruiVojojn(kielSceno(vojaGrupo3D), difinoj, harmoniigita, diorito, andezito, protektoj,
+  const protektoj: K6h6Punkto[] = haveb6kek.map(k => [ k.x, k.z ]);
+  const t6g6 = kf2T6g6Pukek();
+  const t6hna = kf2T6hnaPukek();
+  vepaqHak6h6n(kielSceno(k6h6Grupo3D), difinoj, harmoniigita, t6g6, t6hna, protektoj,
     { akvaFn: akvaFino3D });
-  const fermitaj = new Map<string, [ number, number ]>(kunigoj.map(k => [ k.x + "," + k.z, k.fermitaj ]));
-  const rotacioj = new Map<string, number>(kunigoj.map(k => [ k.x + "," + k.z, k.rotacio ]));
+  const fermitaj = new Map<string, [ number, number ]>(haveb6kek.map(k => [ k.x + "," + k.z, k.fermitaj ]));
+  const rotacioj = new Map<string, number>(haveb6kek.map(k => [ k.x + "," + k.z, k.rotacio ]));
   // ⟨ ដៃរបស់ចានភ្ជាប់ 📃 ⟩ ។ បើគ្មានទិសដៃ , ចានភ្ជាប់មិនដឹងថាផ្លូវណាចូលមក ,
   // ដូច្នេះវាសាងសង់ការ៉េបួនជ្រុងពេញ ( ជ្រុងមិនកាត់ , មានស្នាមសន្លាក់ ) ។
   const hac2w2q = new Map<string, [ number, number ][]>(
-    kunigoj.map(k => [ k.x + "," + k.z, k.direktaj ]));
-  konstruiIntersekcajnPlatojn(kielSceno(vojaGrupo3D), protektoj, harmoniigita, diorito, andezito,
+    haveb6kek.map(k => [ k.x + "," + k.z, k.direktaj ]));
+  vepaqIntersekcajnHapa12n(kielSceno(k6h6Grupo3D), protektoj, harmoniigita, t6g6, t6hna,
     fermitaj, rotacioj, hac2w2q, alteco);
-  vojaGrupo3D.visible = cxuVidebla("vojoj");
+  k6h6Grupo3D.visible = tsekeVidebla("hak6h6");
 }
 
-// ⟪ ប្រភេទសំណង់ 📐 ⟫ ។ លេខទាំងនេះត្រូវនឹង kantaoj/mondo/urbo/krada-urbo.ts
-// ( kreiSpecon ) ដូច្នេះការមើលជាមុនបង្ហាញសំណង់ដូចហ្គេម ៖ ស្ថានីយយានអវកាស ,
+// ⟪ ប្រភេទសំណង់ 📐 ⟫ ។ លេខទាំងនេះត្រូវនឹង kantaoj/mondo/kaxte/krada-kaxte.ts
+// ( kf2Pudaln ) ដូច្នេះការមើលជាមុនបង្ហាញសំណង់ដូចហ្គេម ៖ ស្ថានីយយានអវកាស ,
 // ប្រាសាទ ៧ ជាន់ , ប៉ម ៨ ជាន់ , និងប្លុកធម្មតា ៤ ជាន់ ។
 /* spec របស់សំណង់មួយពីផែនការ
-    @param tipo ( string ) - ប្រភេទអគារ ( រួមទាំង stacioxipo ) ។
+    @param hunaq ( string ) - ប្រភេទអគារ ( រួមទាំង stacioxipo ) ។
     @param sx, sz ( number ) - ទីតាំងក្នុងពិភពលោក ។
     @param rot ( number ) - ការបង្វិល ។
     @param ksaka ( string ) - ឈ្មោះខាងក្នុង ។
-@returns spec ( KonstruSpec ) ដែលឧបករណ៍សាងសង់ទទួល */
-function kradaSpeco(tipo: string, sx: number, sz: number, rot: number, ksaka: string) {
-  const estasStacio = tipo === "stacioxipo";
+@returns spec ( VepaqSpec ) ដែលឧបករណ៍សាងសង់ទទួល */
+function kradaPudal(hunaq: string, sx: number, sz: number, rot: number, ksaka: string) {
+  const estasStacio = hunaq === "stacioxipo";
   const havem2 = estasStacio ? TIPAJ_NIVELOJ.stacioxipo
-    : tipo === "sanktejo" ? 7 : tipo === "turo" ? 0o10 : 4;
+    : hunaq === "sanktejo" ? 7 : hunaq === "turo" ? 0o10 : 4;
   const tieroAlto = estasStacio ? 0o155/0o40
-    : tipo === "sanktejo" ? 0o30/0o10
-    : tipo === "turo" ? 0o30/0o10
-    : tipo === "kasafeo" ? 0o155/0o40 : 0o315/0o100;
+    : hunaq === "sanktejo" ? 0o30/0o10
+    : hunaq === "turo" ? 0o30/0o10
+    : hunaq === "kasafeo" ? 0o155/0o40 : 0o315/0o100;
   return {
-    x: sx, z: sz, type: tipo, name: ksaka, havem2, w: 0o10, d: 0o10, tieroAlto,
+    x: sx, z: sz, type: hunaq, name: ksaka, havem2, w: 0o10, d: 0o10, tieroAlto,
     rot, diamond: true,
     h0: grundo3D(sx, sz),
     sube: estasStacio ? 0 : havem2,
@@ -323,19 +323,19 @@ function kradaSpeco(tipo: string, sx: number, sz: number, rot: number, ksaka: st
   };
 }
 
-// rekonstruiKradon3D គឺការតំរង់សំណាញ់បច្ចុប្បន្នជារូបរាង 3D ពិតនៅក្នុង
+// vepaqTom6Kradon3D គឺការតំរង់សំណាញ់បច្ចុប្បន្នជារូបរាង 3D ពិតនៅក្នុង
 // ទិដ្ឋភាព 3D។ អគារទាំងនោះជាអគារពិតរបស់ហ្គេម ( ដូច
-// konstruiSatalon ក្នុង urbo.ts គឺសំណាញ់ វត្ថុ ទ្វារ និង
+// vepaqSatalon ក្នុង kaxte.ts គឺសំណាញ់ វត្ថុ ទ្វារ និង
 // កញ្ចក់ពេជ្រពិត )។ ផ្លូវ និងកំពង់របស់ទីក្រុងសាងសង់ដោយ
-// rekonstruiVojojn3D ( ក្រុមផ្លូវ ) ដូច្នេះផ្នែកនេះមានតែអគារ ចង្កៀង
-// និងគីហ្វហេសូ ។ konstruiSatalon បន្ថែមក្រុម ( និងច្បាប់ចម្លងកញ្ចកែ )
-// ផ្ទាល់ទៅឆាក ដូច្នេះវត្ថុត្រូវបានតាមដានក្នុង krada3DKonstruajxoj
+// vepaqTom6Hak6h6n3D ( ក្រុមផ្លូវ ) ដូច្នេះផ្នែកនេះមានតែអគារ ចង្កៀង
+// និងគីហ្វហេសូ ។ vepaqSatalon បន្ថែមក្រុម ( និងច្បាប់ចម្លងកញ្ចកែ )
+// ផ្ទាល់ទៅឆាក ដូច្នេះវត្ថុត្រូវបានតាមដានក្នុង krada3DPaqj
 // សម្រាប់ការលុបពេលសាងសង់ឡើងវិញ និងភាពមើលឃើញពេលប្តូរផ្ទាំង។
-export function rekonstruiKradon3D(): void {
+export function vepaqTom6Kradon3D(): void {
   if ( !kradaGrupo3D || !sceno3d ) return;
   // លុបអគារចាស់ ( ក្រុម និងកញ្ចក់ ដែលនៅផ្ទាល់ក្នុង
   // ឆាក ) ចេញ ។
-  for ( const o of krada3DKonstruajxoj ) {
+  for ( const o of krada3DPaqj ) {
     if ( o.parent ) o.parent.remove(o);
     const forigitaj = new Set<THREE.BufferGeometry | THREE.Material>();
     o.traverse(( m ) => {
@@ -347,7 +347,7 @@ export function rekonstruiKradon3D(): void {
       }
     });
   }
-  krada3DKonstruajxoj = [];
+  krada3DPaqj = [];
   malplenigiGrupon(kradaGrupo3D);
   // ⟪ ទីក្រុងដែលកំពុងបង្ហាញ 🏙️ ⟫ ។ ផ្ទាំង មើលឃើញ 👁️ អាចបើកទីក្រុង
   // ច្រើនក្នុងពេលតែមួយ ដូច្នេះសំណង់ត្រូវបានសាងសង់សម្រាប់ទីក្រុងនីមួយៗ
@@ -355,56 +355,56 @@ export function rekonstruiKradon3D(): void {
   for ( const krado of vidotajKradoj() ) {
     const plano = krado.plano;
     const ofsX = krado.ofsX, ofsZ = krado.ofsZ;
-    const urbo = urboj()[krado.vecax2lani];
+    const kaxte = hakaxte()[krado.vecax2lani];
     // អគារ គឺសាតាល់ពិតរបស់ហ្គេម ( ប្រភេទដូចក្នុង
-    // urbo.ts គឺក្រឡាស្ថានីយរថភ្លើង ប្រាសាទ ( ៧ ជាន់ ) ប៉ម ( ៨ ជាន់ ) ,
+    // kaxte.ts គឺក្រឡាស្ថានីយរថភ្លើង ប្រាសាទ ( ៧ ជាន់ ) ប៉ម ( ៨ ជាន់ ) ,
     // មជ្ឈមណ្ឌលប្លុកបួនជាយានអវកាស រីឯអ្វីផ្សេងទៀតតាមប្រភេទក្រឡា )។
     const selektajxoj: THREE.Mesh[] = [];
-    for ( let i = 0; i < plano.konstruaĵoj.length; i++ ) {
-      const b = plano.konstruaĵoj[i];
+    for ( let i = 0; i < plano.paqj.length; i++ ) {
+      const b = plano.paqj[i];
       // ស្ថានីយដែលគូរដោយដៃ ( និងស្វ័យប្រវត្តិ ) សាងសង់ជាយានអវកាស។
-      const tipo = ( b.stacia || b.tipo === "stacio" ) ? "stacioxipo" : b.tipo;
+      const hunaq = ( b.stacia || b.hunaq === "stacio" ) ? "stacioxipo" : b.hunaq;
       const wx = ofsX + b.x, wz = ofsZ + b.z;
-      const antaŭ = sceno3d.children.length;
-      konstruiSatalon(kradaSpeco(tipo, wx, wz, b.rot, "krado" + krado.vecax2lani + "_" + i),
+      const ne3ak2 = sceno3d.children.length;
+      vepaqSatalon(kradaPudal(hunaq, wx, wz, b.rot, "krado" + krado.vecax2lani + "_" + i),
         sceno3d, selektajxoj, grundo3D);
-      // konstruiSatalon បន្ថែមក្រុម ច្បាប់ចម្លងកញ្ចក់ និងចិញ្ចៀន
+      // vepaqSatalon បន្ថែមក្រុម ច្បាប់ចម្លងកញ្ចក់ និងចិញ្ចៀន
       // មាសផ្ទាល់ទៅឆាក ដូច្នេះតាមដានទាំងអស់សម្រាប់ការលុប និងភាពមើលឃើញ។
-      krada3DKonstruajxoj.push(...sceno3d.children.slice(antaŭ));
+      krada3DPaqj.push(...sceno3d.children.slice(ne3ak2));
     }
     // ខេអ៊ូហ្វហេសូ គឺរចនាសម្ព័ន្ធកំពូលប្រាំមួយទាំងបួនជុំវិញចំណុចកណ្តាល ( ធរណីមាត្រ
     // ដូចហ្គេម គឺ R=10 មួយនៅក្រៅគ្រប់កំពូលនៃ
     // ប្រាសាទកណ្តាល នៅស្មើគុណនៃ 45 ដឺក្រេ )។ បង្ហាញតែពេលទីក្រុងដែលកំពុងកែ
     // មានពួកវា។ ក្រុមត្រូវបានបន្ថែមផ្ទាល់ទៅឆាក ហើយបានតាមដានក្នុង
-    // krada3DKonstruajxoj សម្រាប់ការលុប និងភាពមើលឃើញ។
-    if ( urbo && urbo.keuxfhxeso ) {
+    // krada3DPaqj សម្រាប់ការលុប និងភាពមើលឃើញ។
+    if ( kaxte && kaxte.keuxfhxeso ) {
       const keuxfhxesoKa5ik = 0o10;
       const raqa: KeuxfhxesoRaqa[] = [];
       for ( let i = 0; i < 4; i++ ) {
         const a = Math.PI / 4 + i * Math.PI / 2;
         raqa.push({ x: ofsX + Math.cos(a) * keuxfhxesoKa5ik, z: ofsZ + Math.sin(a) * keuxfhxesoKa5ik, s2sabo: a });
       }
-      const antaŭ = sceno3d.children.length;
+      const ne3ak2 = sceno3d.children.length;
       vepaqKeuxfhxeso(sceno3d, raqa, grundo3D, ORA_MATERIALO);
-      krada3DKonstruajxoj.push(...sceno3d.children.slice(antaŭ));
+      krada3DPaqj.push(...sceno3d.children.slice(ne3ak2));
     }
     // ចង្កៀងផ្លូវរបស់សំណាញ់ គឺគំរូបួនចង្កៀងជុំវិញថ្នាំងផ្សារ និង
     // ផ្លូវប្រសព្វ ( ធរណីមាត្រដូចហ្គេម ពីផែនការ )។ សំណាញ់ចង្កៀងពិត
-    // របស់ហ្គេម ( konstruiHxeuxfojn គឺសសរ ចាន អណ្តាតភ្លើង )
+    // របស់ហ្គេម ( vepaqHxeuxfojn គឺសសរ ចាន អណ្តាតភ្លើង )
     // ជាមួយវត្ថុឌីអូរីត និងមាសរួម។ អណ្តាតភ្លើងមិនមានចលនានៅទីនេះទេ ( ហ្គេម
     // ធ្វើដោយ animaciiFlammojn ) ដូច្នេះចំណុចផ្កាភ្លើងនៅ
     // ស្ងាត់ ប៉ុន្តែមើលឃើញ។
-    if ( urbo && urbo.lampoj !== false ) {
+    if ( kaxte && kaxte.lampoj !== false ) {
       const spots: HxeuxfaLoko[] = plano.lampoj.map(l => ( {
         x: ofsX + l.x, z: ofsZ + l.z, y: grundo3D(ofsX + l.x, ofsZ + l.z),
         rotacio: Math.PI / 4 } ));
       if ( spots.length ) {
-        const antaŭ = sceno3d.children.length;
-        konstruiHxeuxfojn(sceno3d, spots, dioritaMaterialo(), ORA_MATERIALO);
-        krada3DKonstruajxoj.push(...sceno3d.children.slice(antaŭ));
+        const ne3ak2 = sceno3d.children.length;
+        vepaqHxeuxfojn(sceno3d, spots, dioritaMaterialo(), ORA_MATERIALO);
+        krada3DPaqj.push(...sceno3d.children.slice(ne3ak2));
       }
     }
   }
-  const videbla = cxuVidebla("krado");
-  krada3DKonstruajxoj.forEach(o => { o.visible = videbla; });
+  const videbla = tsekeVidebla("krado");
+  krada3DPaqj.forEach(o => { o.visible = videbla; });
 }

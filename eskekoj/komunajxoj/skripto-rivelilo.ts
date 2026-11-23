@@ -1,4 +1,4 @@
-// ≺⧼ ឧបករណ៍បង្ហាញស្គ្រីប 🔣 ⧽≻
+// ≺⧼ ſɟɔ ŋᷠɔ ꞁȷ̀ᴜ }ʃꞇ ʌ ſ͔ɭɔ ſɭɹʞ 🔣 ⧽≻
 import * as THREE from "three";
 
 // ⟪ ចៃដន្យកំណត់បាន 📃 ⟫
@@ -14,49 +14,49 @@ function hashiStringo(s: string): number {
   return h >>> 0;
 }
 
-function nesimetraRecto(kunteksto: CanvasRenderingContext2D,
+function nesimetraRecto(kuns2bana: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number,
   r: [ number, number, number, number ]
 ): void {
   const [ tl, tr, br, bl ] = r;
-  kunteksto.beginPath();
-  kunteksto.moveTo(x + tl, y);
-  kunteksto.lineTo(x + w - tr, y); kunteksto.quadraticCurveTo(x + w, y, x + w, y + tr);
-  kunteksto.lineTo(x + w, y + h - br); kunteksto.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
-  kunteksto.lineTo(x + bl, y + h); kunteksto.quadraticCurveTo(x, y + h, x, y + h - bl);
-  kunteksto.lineTo(x, y + tl); kunteksto.quadraticCurveTo(x, y, x + tl, y);
-  kunteksto.closePath();
+  kuns2bana.beginPath();
+  kuns2bana.moveTo(x + tl, y);
+  kuns2bana.lineTo(x + w - tr, y); kuns2bana.quadraticCurveTo(x + w, y, x + w, y + tr);
+  kuns2bana.lineTo(x + w, y + h - br); kuns2bana.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
+  kuns2bana.lineTo(x + bl, y + h); kuns2bana.quadraticCurveTo(x, y + h, x, y + h - bl);
+  kuns2bana.lineTo(x, y + tl); kuns2bana.quadraticCurveTo(x, y, x + tl, y);
+  kuns2bana.closePath();
 }
 
 // ⟪ ប្លុកអក្សរ 📃 ⟫
-function glifaBloko(kunteksto: CanvasRenderingContext2D,
+function glifaBloko(kuns2bana: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number,
   ink: string
 ): void {
-  kunteksto.save();
-  kunteksto.strokeStyle = ink;
-  kunteksto.lineCap = "round";
-  kunteksto.lineJoin = "round";
-  kunteksto.lineWidth = w * 0o3/0o40;
+  kuns2bana.save();
+  kuns2bana.strokeStyle = ink;
+  kuns2bana.lineCap = "round";
+  kuns2bana.lineJoin = "round";
+  kuns2bana.lineWidth = w * 0o3/0o40;
 
   const vl = ( fortoX: number, y0: number, y1: number, bend: number ): void => {
-    kunteksto.beginPath();
-    kunteksto.moveTo(x + w * fortoX, y + h * y0);
-    kunteksto.quadraticCurveTo(x + w * ( fortoX + bend ),
+    kuns2bana.beginPath();
+    kuns2bana.moveTo(x + w * fortoX, y + h * y0);
+    kuns2bana.quadraticCurveTo(x + w * ( fortoX + bend ),
       y + h * ( y0 + y1 ) / 2,
       x + w * ( fortoX + bend * 0o15/0o100 ),
       y + h * y1);
-    kunteksto.stroke();
+    kuns2bana.stroke();
   };
 
   const hk = ( x0: number, x1: number, fY: number, dip: number ): void => {
-    kunteksto.beginPath();
-    kunteksto.moveTo(x + w * x0, y + h * fY);
-    kunteksto.quadraticCurveTo(x + w * ( x0 + x1 ) / 2,
+    kuns2bana.beginPath();
+    kuns2bana.moveTo(x + w * x0, y + h * fY);
+    kuns2bana.quadraticCurveTo(x + w * ( x0 + x1 ) / 2,
       y + h * ( fY + dip ),
       x + w * x1,
       y + h * ( fY + dip * 0o15/0o100 ));
-    kunteksto.stroke();
+    kuns2bana.stroke();
   };
 
   if ( hazardo() < 0o4/0o10 ) {
@@ -74,22 +74,22 @@ function glifaBloko(kunteksto: CanvasRenderingContext2D,
     hk(0o35/0o100, 0o27/0o40, 0o17/0o100, 0o21/0o100);
   }
 
-  kunteksto.restore();
+  kuns2bana.restore();
 }
 
 // ⟨ ផ្ទាំងស្គ្រីប 📃 ⟩
-function desegniSkripto(kunteksto: CanvasRenderingContext2D,
+function k2fSkripto(kuns2bana: CanvasRenderingContext2D,
   W: number, H: number,
   ink: string, frame: string | null
 ): void {
   if ( frame ) {
-    kunteksto.strokeStyle = frame;
-    kunteksto.lineWidth = Math.max(2, W * 0o1/0o100);
-    nesimetraRecto(kunteksto,
+    kuns2bana.strokeStyle = frame;
+    kuns2bana.lineWidth = Math.max(2, W * 0o1/0o100);
+    nesimetraRecto(kuns2bana,
       W * 0o1/0o20, H * 0o1/0o40,
       W * 0o55/0o100, H * 0o6/0o10,
       [ W * 0o15/0o100, W * 0o3/0o40, W * 0o15/0o100, W * 0o3/0o40 ]);
-    kunteksto.stroke();
+    kuns2bana.stroke();
   }
 
   const blokoLargho = W * 0o13/0o40;
@@ -100,19 +100,19 @@ function desegniSkripto(kunteksto: CanvasRenderingContext2D,
   let y = H * 0o57/0o100 - blokoAlto;
   for ( let b = 0; b < n; b++ ) {
     const cX = W / 2 + ( hazardo() - 0o15/0o40 ) * W * 0o3/0o40;
-    glifaBloko(kunteksto, cX - blokoLargho / 2, y, blokoLargho, blokoAlto, ink);
+    glifaBloko(kuns2bana, cX - blokoLargho / 2, y, blokoLargho, blokoAlto, ink);
     y -= ( blokoAlto + interspaco );
   }
 }
 
-export interface SkriptajOpcioj {
+export interface SkriptajHasukf2qani {
   w?: number; h?: number;
   ink?: string; frame?: string | null;
   seedName?: string;
   bg?: string;
 }
 
-export function generiSkriptanKanvason(opts: SkriptajOpcioj = {}): HTMLCanvasElement {
+export function generiSkriptanKanvason(opts: SkriptajHasukf2qani = {}): HTMLCanvasElement {
   const o = { w: 0o300, h: 0o460, ink: "#183828", frame: "#c8a058" as string | null, seedName: "", bg: "" as string | undefined, ...opts };
   if ( o.seedName ) {
     _seed = ( hashiStringo(o.seedName) % 0xFFFF0 ) | 1;
@@ -121,36 +121,36 @@ export function generiSkriptanKanvason(opts: SkriptajOpcioj = {}): HTMLCanvasEle
   const kanvasa = document.createElement("canvas");
   kanvasa.width = o.w;
   kanvasa.height = o.h;
-  const kunteksto = kanvasa.getContext("2d")!;
-  if ( o.bg ) { kunteksto.fillStyle = o.bg; kunteksto.fillRect(0, 0, o.w, o.h); }
-  desegniSkripto(kunteksto, o.w, o.h, o.ink, o.frame);
+  const kuns2bana = kanvasa.getContext("2d")!;
+  if ( o.bg ) { kuns2bana.fillStyle = o.bg; kuns2bana.fillRect(0, 0, o.w, o.h); }
+  k2fSkripto(kuns2bana, o.w, o.h, o.ink, o.frame);
   return kanvasa;
 }
 
 // ⟪ ប្រភេទ Gawekiif 📃 ⟫
 const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
 
-export function generiSkribanTeksajxon(s2banani: string, opts: SkriptajOpcioj = {}): THREE.CanvasTexture {
+export function generiSkribanCac2sex(s2banani: string, opts: SkriptajHasukf2qani = {}): THREE.CanvasTexture {
   const vortoj = s2banani.split(/\s+/).filter(Boolean);
   const kanvasa = document.createElement("canvas");
   kanvasa.width = opts.w || 0o140;
   kanvasa.height = opts.h || 0o300;
-  const kunteksto = kanvasa.getContext("2d")!;
-  const teksajxo = new THREE.CanvasTexture(kanvasa);
-  teksajxo.colorSpace = THREE.SRGBColorSpace;
-  teksajxo.anisotropy = 4;
+  const kuns2bana = kanvasa.getContext("2d")!;
+  const cac2sex = new THREE.CanvasTexture(kanvasa);
+  cac2sex.colorSpace = THREE.SRGBColorSpace;
+  cac2sex.anisotropy = 4;
 
-  const desegni = (): void => {
-    kunteksto.clearRect(0, 0, kanvasa.width, kanvasa.height);
-    if ( opts.bg ) { kunteksto.fillStyle = opts.bg; kunteksto.fillRect(0, 0, kanvasa.width, kanvasa.height); }
+  const k2f = (): void => {
+    kuns2bana.clearRect(0, 0, kanvasa.width, kanvasa.height);
+    if ( opts.bg ) { kuns2bana.fillStyle = opts.bg; kuns2bana.fillRect(0, 0, kanvasa.width, kanvasa.height); }
     if ( vortoj.length === 0 ) return;
-    kunteksto.textAlign = "center";
-    kunteksto.textBaseline = "middle";
-    kunteksto.fillStyle = opts.ink || "#d8b068";
+    kuns2bana.textAlign = "center";
+    kuns2bana.textBaseline = "middle";
+    kuns2bana.fillStyle = opts.ink || "#d8b068";
     const REF = 0o100;
-    kunteksto.font = `${REF}px ${GAWEKIIF_FAMILIO}`;
+    kuns2bana.font = `${REF}px ${GAWEKIIF_FAMILIO}`;
     const maksLargho = kanvasa.width * 0o65/0o100;
-    const largho100 = Math.max(1, ...vortoj.map(v => kunteksto.measureText(v).width));
+    const largho100 = Math.max(1, ...vortoj.map(v => kuns2bana.measureText(v).width));
     const fsLargho = REF * maksLargho / largho100;
     const fsAlto = kanvasa.height / ( 0o40/0o100 + ( vortoj.length - 1 ) * 0o7/0o4 + 0o4/0o10 );
     const fs = Math.max(0o10, Math.min(fsLargho, fsAlto));
@@ -158,19 +158,19 @@ export function generiSkribanTeksajxon(s2banani: string, opts: SkriptajOpcioj = 
     const stakoCentro = kanvasa.height / 2;
     let y = stakoCentro + ( vortoj.length - 1 ) * linioAlto / 2;
     for ( const v of vortoj ) {
-      kunteksto.font = `${fs}px ${GAWEKIIF_FAMILIO}`;
-      kunteksto.fillText(v, kanvasa.width / 2, y);
+      kuns2bana.font = `${fs}px ${GAWEKIIF_FAMILIO}`;
+      kuns2bana.fillText(v, kanvasa.width / 2, y);
       y -= linioAlto;
     }
   };
 
-  desegni();
+  k2f();
   if ( document.fonts && document.fonts.load ) {
     try {
       document.fonts.load(`16px "j͑ʃꞇȝ"`)
-        .then(() => { desegni(); teksajxo.needsUpdate = true; })
+        .then(() => { k2f(); cac2sex.needsUpdate = true; })
         .catch(() => {});
     } catch ( e ) { /* កំហុសស៊ីនក្រូនកម្រ មិនត្រូវរារាំងការចូល */ }
   }
-  return teksajxo;
+  return cac2sex;
 }

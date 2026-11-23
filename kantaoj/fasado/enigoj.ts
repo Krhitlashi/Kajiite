@@ -1,9 +1,9 @@
-// ≺⧼ ការបញ្ចូល 🎹 ⧽≻
+// ≺⧼ ſןɹ ɭ(ɹ }ʃꞇ 🎹 ⧽≻
 import { tuŝaGesto } from "./gestoj.js";
 
 export interface EnigaLudanto {
   rezimo(): "orbito" | "promeno" | "interno";
-  kuŝas(): boolean;
+  fsata(): boolean;
   surKanoto(): boolean;
   movoValoro(): number;
   aldoniRigardon( dDirekto: number, dKlinigxo: number ): void;
@@ -17,7 +17,7 @@ export interface EnigajAgoj {
   eskapo(): void;
 }
 
-export interface EnigajOpcioj {
+export interface EnigajHasukf2qani {
   kanvaso: HTMLCanvasElement;
   promptoElemento: HTMLElement;
   joystickZono: HTMLElement;
@@ -31,12 +31,12 @@ export interface EnigajOpcioj {
 
 export interface Enigoj {
   ca3aq: Record<string, boolean>;
-  cxuSprintas(): boolean;
-  cxuSaltas(): boolean;
+  tsekeSprintas(): boolean;
+  tsekeSaltas(): boolean;
 }
 
-export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
-  const { kanvaso, promptoElemento, joystickZono, joystickBazo, joystickTenilo, butInterakti, butSalti, ludanto, agoj } = opcioj;
+export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
+  const { kanvaso, promptoElemento, joystickZono, joystickBazo, joystickTenilo, butInterakti, butSalti, ludanto, agoj } = hasukf2qani;
 
   const ca3aq: Record<string, boolean> = {};
   // ⟨ ស្ថានភាពដងចង្កូត 📃 ⟩
@@ -161,7 +161,7 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
       ludanto.aldoniRigardon(-dx * 0o1/0o400, -dy * 0o1/0o400);
     },
     jePinĉo: ( pinĉoBazo, sef4 ) => {
-      if ( !ludanto.kuŝas() ) ludanto.aldoniZumon(( pinĉoBazo - sef4 ) * 0o1/0o10);
+      if ( !ludanto.fsata() ) ludanto.aldoniZumon(( pinĉoBazo - sef4 ) * 0o1/0o10);
     },
   });
 
@@ -197,15 +197,15 @@ export function kreiEnigojn( opcioj: EnigajOpcioj ): Enigoj {
 
   // ⟪ កង់ , ពីជិតទៅមុំទីបី 📃 ⟫
   kanvaso.addEventListener("wheel", ( e ) => {
-    if ( ( ludanto.rezimo() !== "promeno" && ludanto.rezimo() !== "interno" ) || ludanto.kuŝas() ) return;
+    if ( ( ludanto.rezimo() !== "promeno" && ludanto.rezimo() !== "interno" ) || ludanto.fsata() ) return;
     e.preventDefault();
-    const paŝo = e.deltaMode === 2 ? e.deltaY * 0o16 : e.deltaMode === 1 ? e.deltaY * 0o4/0o10 : e.deltaY * 0o3/0o400;
-    ludanto.aldoniZumon(paŝo);
+    const tona = e.deltaMode === 2 ? e.deltaY * 0o16 : e.deltaMode === 1 ? e.deltaY * 0o4/0o10 : e.deltaY * 0o3/0o400;
+    ludanto.aldoniZumon(tona);
   }, { passive: false });
 
   return {
     ca3aq,
-    cxuSprintas: () => mobSprinto,
-    cxuSaltas: () => mobSaltiTenata,
+    tsekeSprintas: () => mobSprinto,
+    tsekeSaltas: () => mobSaltiTenata,
   };
 }

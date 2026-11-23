@@ -1,42 +1,42 @@
-// ≺⧼ ចលនា 🎞️ ⧽≻
+// ≺⧼ ɭʃᴜ ֭ſɭᴜ j͐ʃᴜ ſ͕ɭᴜƴ 🎞️ ⧽≻
 import * as THREE from "three";
 import type { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { gxisdatigiAkvon } from "../../eskekoj/medio/akvo.js";
-import { animaciiFlammojn } from "../../eskekoj/konstruajxoj/hxeuxfa/animacio.js";
-import { gxisdatigiInternon } from "../../eskekoj/konstruajxoj/internoj.js";
-import { animaciiKrasesxagxon } from "../../eskekoj/konstruajxoj/krasesxagxa-kosmosxipo.js";
-import { gxisdatigiBestojn, gxisdatigiPetrelojn } from "../../eskekoj/shalaj-specioj/bestoj.js";
-import { gxisdatigiNpc, marŝSvingo } from "../../eskekoj/shalaj-specioj/homoj.js";
-import { gxisdatigiHerbon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/vento.js";
-import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
-import type { MapFormo } from "../../eskekoj/komunajxoj/mapformo.js";
-import { alteco, akvaNivelo } from "../mondo/tereno.js";
-import type { UrbaSistemo } from "../mondo/urbo/tipoj.js";
+import { animaciiFlammojn } from "../../eskekoj/hapaq/hxeuxfa/animacio.js";
+import { gxisdatigiInternon } from "../../eskekoj/hapaq/internoj.js";
+import { animaciiKrasesxagxon } from "../../eskekoj/hapaq/krasesxagxa-kosmosxipo.js";
+import { gxisdatigiHapagan, gxisdatigiHatemekn } from "../../eskekoj/shalaj-hapudal/hapaga.js";
+import { gxisdatigiNpc, marŝSvingo } from "../../eskekoj/shalaj-hapudal/hamaz.js";
+import { gxisdatigiFe1afn } from "../../eskekoj/shalaj-hapudal/vegetajxo/fe1af/vento.js";
+import type { Figuro } from "../../eskekoj/shalaj-hapudal/hamaz.js";
+import type { Bal2Qoxa } from "../../eskekoj/komunajxoj/mapqoxa.js";
+import { alteco, akvaVem2 } from "../mondo/tereno.js";
+import type { UrbaSistemo } from "../mondo/kaxte/hahunaq.js";
 import { gxisdatigiVidlimojn } from "../bildo/vidlimo.js";
 import type { Minimapo } from "../bildo/minimapo.js";
 import type { Statistiko } from "../fasado/statistiko.js";
 import type { LudantaAspekto } from "../fasado/vestejo.js";
-import { kreiHerbajnPusantojn } from "./herbo-pusantoj.js";
+import { kf2HerbajnPusantojn } from "./fe1af-pusantoj.js";
 import type { Retilo, LokaStato } from "./retilo.js";
 import type { Ludanto } from "./ludanto.js";
-import { kreiPiedanStaton } from "./piedirado.js";
+import { kf2PiedanStaton } from "./piedirado.js";
 import type { PiedaMondo } from "./piedirado.js";
-import { kreiPromenanton } from "./promenado.js";
-import { kreiInternanton } from "./internado.js";
+import { kf2Promenanton } from "./promenado.js";
+import { kf2Internanton } from "./internado.js";
 import type { Kanuanto } from "./kanuado.js";
-import { kanakaQena, kanakaQenaNovajn } from "../../eskekoj/komunajxoj/koloroj.js";
+import { veb6qaiQena, veb6qaiSef4Qena } from "../../eskekoj/komunajxoj/koloroj.js";
 import { agordiMuzikanLokon } from "../../eskekoj/sonoj/muziko/ludilo.js";
-import { aktivajUrboj } from "../tero-datumaro/rultempo.js";
+import { aktivajHakaxte } from "../tero-datumaro/rultempo.js";
 import { alHe } from "../komunajxoj/unuoj.js";
-import { kreiRultemon } from "../bildo/rultempo.js";
+import { kf2Rultemon } from "../bildo/rultempo.js";
 import { MALPOTENCA_APARATO } from "../bildo/scena/aparato.js";
 
 /*តើចំណុចមួយនៅក្នុងព្រំដែនក្រុងណាមួយឬទេ ៖ ចម្ងាយ Manhattan ធៀបនឹងក្រឡាចតុកោណ
     @param x ( number ) - ទីតាំង X
     @param z ( number ) - ទីតាំង Z
-@returns enUrbo ( boolean ) */
-function cxuEnUrbo( x: number, z: number ): boolean {
-  for ( const u of aktivajUrboj() ) {
+@returns enKaxte ( boolean ) */
+function tsekeEnKaxte( x: number, z: number ): boolean {
+  for ( const u of aktivajHakaxte() ) {
     const vepat6ni = u.blokaGrando === "kvar" ? 0o40 : 0o30;
     const limo = ( u.arangxaGrando + 1 ) * vepat6ni + 0o20;
     if ( Math.abs(x - u.ofsX) + Math.abs(z - u.ofsZ) <= limo ) return true;
@@ -44,19 +44,19 @@ function cxuEnUrbo( x: number, z: number ): boolean {
   return false;
 }
 
-export interface AnimaciajOpcioj {
+export interface AnimaciajHasukf2qani {
   kanvaso: HTMLCanvasElement;
   sxargxaElemento: HTMLElement;
   promptoElemento: HTMLElement;
   bildilo: THREE.WebGLRenderer;
   fotilo: THREE.PerspectiveCamera;
   qena: THREE.Scene;
-  regiloj: OrbitControls;
+  hakama: OrbitControls;
   maksimumaRatio: number;
   ludanto: Ludanto;
   ca3aq: Record<string, boolean>;
-  cxuSprintas: () => boolean;
-  cxuSaltas: () => boolean;
+  tsekeSprintas: () => boolean;
+  tsekeSaltas: () => boolean;
   ludantaFiguro: Figuro;
   minimapo: Minimapo;
   retilo: Retilo;
@@ -65,7 +65,7 @@ export interface AnimaciajOpcioj {
   kanuanto: Kanuanto;
   gxisdatigiVeteron: ( t: number ) => void;
   gxisdatigiOmbron: ( x: number, z: number ) => boolean;
-  mapoFormo: MapFormo;
+  mapoQoxa: Bal2Qoxa;
   mapoGrandeco: number;
   piedoj: PiedaMondo;
   legiVeston: () => LudantaAspekto;
@@ -76,18 +76,18 @@ export interface Animacio {
   animacii(): void;
 }
 
-export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
+export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
   const {
     kanvaso, sxargxaElemento, promptoElemento,
-    bildilo, fotilo, qena, regiloj, maksimumaRatio,
-    ludanto, ca3aq, cxuSprintas, cxuSaltas,
+    bildilo, fotilo, qena, hakama, maksimumaRatio,
+    ludanto, ca3aq, tsekeSprintas, tsekeSaltas,
     ludantaFiguro, minimapo, retilo, statistiko,
     mondo, kanuanto, gxisdatigiVeteron, gxisdatigiOmbron,
-    mapoFormo, mapoGrandeco, piedoj,
+    mapoQoxa, mapoGrandeco, piedoj,
     legiVeston, agordiPrompton,
-  } = opcioj;
+  } = hasukf2qani;
   const {
-    riverData, riveroNordOrienta, lago, skulptaAkvo, bestoj, petreloj,
+    riverData, riveroNordOrienta, lago, skulptaAkvo, hapaga, hatemek,
     lampSistemo, nebulSistemo, npcoj, internaSistemo, xipo,
   } = mondo;
 
@@ -96,23 +96,23 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   // ( ឧ . ជណ្តើរចំណត ) ដោយមិនបាច់ដើរទៅទីនោះ ។ 📃 ⟩
   if ( ( import.meta as unknown as { env?: { DEV?: boolean } } ).env?.DEV === true ) {
     ( window as unknown as { __rigardi?: unknown } ).__rigardi = {
-      fotilo, regiloj, ludanto,
+      fotilo, hakama, ludanto,
       al( x: number, y: number, z: number, h6kuni = 0o30, l6da = 0o20 ): void {
         ludanto.rezimo = "orbito";
         ludanto.raqa.set(x, y, z);
-        regiloj.target.set(x, y, z);
+        hakama.target.set(x, y, z);
         fotilo.position.set(x + h6kuni, y + l6da, z + h6kuni);
-        regiloj.update();
+        hakama.update();
       },
     };
   }
 
-  const movo = kreiPiedanStaton();
-  const promenanto = kreiPromenanton({
-    ludanto, movo, mondo, piedoj, ca3aq, cxuSprintas, cxuSaltas,
-    promptoElemento, agordiPrompton, mapoFormo, mapoGrandeco,
+  const movo = kf2PiedanStaton();
+  const promenanto = kf2Promenanton({
+    ludanto, movo, mondo, piedoj, ca3aq, tsekeSprintas, tsekeSaltas,
+    promptoElemento, agordiPrompton, mapoQoxa, mapoGrandeco,
   });
-  const internanto = kreiInternanton({
+  const internanto = kf2Internanton({
     ludanto, movo, interno: internaSistemo, piedoj, ca3aq, promptoElemento, agordiPrompton,
   });
 
@@ -121,10 +121,10 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   // ⟨ ការភ្ជាប់ទៅឯកសារ ៖ ធាតុរង្វាស់ពេលលែងរាប់ពេលថេបលាក់ 📃 ⟩
   horlogxo.connect(document);
   let haltigita = false;
-  let kadraGeneracio = 0;
-  let radaraKadro = 0;
-  let ombraKadro = 0;
-  const rultempo = kreiRultemon({ malmultekosta: MALPOTENCA_APARATO });
+  let joqaGeneracio = 0;
+  let radaraJoqa = 0;
+  let ombraJoqa = 0;
+  const rultempo = kf2Rultemon({ malmultekosta: MALPOTENCA_APARATO });
   const ORBITA_DIR = new THREE.Vector3();
   const ORBITA_FLANKO = new THREE.Vector3();
   const ORBITA_SUPRE = new THREE.Vector3(0, 1, 0);
@@ -144,14 +144,14 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   }).observe(sxargxaElemento, { attributes: true, attributeFilter: [ "class" ] });
 
   // ⟪ ស្ថានភាពបណ្តាញ 📃 ⟫
-  function konstruiRetilanStaton(): LokaStato {
+  function vepaqRetilanStaton(): LokaStato {
     const aspekto = legiVeston();
     const kanoto = ludanto.surKanoto;
     let y = ludanto.raqa.y;
     if ( kanoto ) {
       y = kanoto.bazaY + 0o3/0o20;
     } else if ( movo.estisNaĝanta && ludanto.rezimo === "promeno" ) {
-      y = akvaNivelo(ludanto.raqa.x, ludanto.raqa.z) - 0o16/0o10;
+      y = akvaVem2(ludanto.raqa.x, ludanto.raqa.z) - 0o16/0o10;
     }
     return {
       x: ludanto.raqa.x, y, z: ludanto.raqa.z,
@@ -168,8 +168,8 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   }
 
   // ⟪ អ្នករុញស្មៅ 📃 ⟫
-  const { kolekti: kolektiHerbajnPusantojn } = kreiHerbajnPusantojn({
-    npcoj, bestoj,
+  const { kolekti: kolektiHerbajnPusantojn } = kf2HerbajnPusantojn({
+    npcoj, hapaga,
     ludanto: () => ludanto.raqa,
     promenas: () => ludanto.rezimo === "promeno" && !ludanto.surKanoto,
   });
@@ -180,7 +180,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
   /*បញ្ឈប់រង្វិលជុំ ៖ ហៅពេលថេបលាក់ ឬកុងតឺន័រ WebGL បាត់បង់ */
   function halti(): void {
     haltigita = true;
-    kadraGeneracio++;
+    joqaGeneracio++;
   }
 
   /*ចាប់ផ្តើមរង្វិលជុំឡើងវិញ ៖ ហៅពេលថេបមកវិញ ឬកុងតឺន័រ WebGL ត្រឡប់មកវិញ */
@@ -196,14 +196,14 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     if ( document.hidden ) { halti(); return; }
     rultempo.agordiFokuson(document.hasFocus());
     // ⟨ លេខជំនាន់ ៖ រង្វិលជុំចាស់ឈប់ខ្លួនឯង ពេលមានរង្វិលជុំថ្មី 📃 ⟩
-    const mia = ++kadraGeneracio;
-    const kadro = ( nun: number ): void => {
-      if ( haltigita || mia !== kadraGeneracio ) return;
-      requestAnimationFrame(kadro);
+    const mia = ++joqaGeneracio;
+    const joqa = ( nun: number ): void => {
+      if ( haltigita || mia !== joqaGeneracio ) return;
+      requestAnimationFrame(joqa);
       // ⟨ ស៊ុមដែលមិនដល់ពេលមិនធ្វើបច្ចុប្បន្នភាព ឬ គូរទេ ។ 📃 ⟩
       if ( rultempo.bildigu(alHe(nun)) ) bildigi();
     };
-    requestAnimationFrame(kadro);
+    requestAnimationFrame(joqa);
   }
 
   document.addEventListener("visibilitychange", () => {
@@ -231,7 +231,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     restarti();
   });
 
-  let kanakaKadroNombro = 0;
+  let veb6qaiJoqaNombro = 0;
   let muzikaLokoT = 0;
   // ⟨ រយៈពេលបោសពេញនៅដដែល តែហ្វ្រេមផ្សេងៗលែងឆ្លងកាត់ឆាក ។ 📃 ⟩
   const KANAKA_PLENA_PERIODO = 0o14 * 0o20;
@@ -255,21 +255,21 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     if ( riveroNordOrienta ) gxisdatigiAkvon(riveroNordOrienta, t);
     if ( lago ) gxisdatigiAkvon(lago, t);
     if ( skulptaAkvo ) gxisdatigiAkvon(skulptaAkvo, t);
-    gxisdatigiBestojn(bestoj, t);
-    gxisdatigiPetrelojn(petreloj, t);
+    gxisdatigiHapagan(hapaga, t);
+    gxisdatigiHatemekn(hatemek, t);
     if ( xipo ) animaciiKrasesxagxon(xipo, t, false);
 
     // ⟪ ប្លុករបៀប 📃 ⟫
-    promenanto.paŝi(deltaTempo, t);
-    internanto.paŝi(deltaTempo, t);
-    kanuanto.paŝi(deltaTempo, t);
+    promenanto.tona(deltaTempo, t);
+    internanto.tona(deltaTempo, t);
+    kanuanto.tona(deltaTempo, t);
     // ⟨ តន្ត្រីតាមតំបន់ ៖ ពិនិត្យក្រុងរាល់ពាក់កណ្តាលវិនាទី 📃 ⟩
     if ( t - muzikaLokoT > 0o1/0o2 ) {
       muzikaLokoT = t;
-      agordiMuzikanLokon(cxuEnUrbo(ludanto.raqa.x, ludanto.raqa.z));
+      agordiMuzikanLokon(tsekeEnKaxte(ludanto.raqa.x, ludanto.raqa.z));
     }
 
-    for ( const n of npcoj ) { if ( n.group.visible ) gxisdatigiNpc(n, deltaTempo, t, alteco, piedoj.kolizioj.vojaSuproY); }
+    for ( const n of npcoj ) { if ( n.group.visible ) gxisdatigiNpc(n, deltaTempo, t, alteco, piedoj.kolizioj.k6h6SuproY); }
 
     // ⟨ ការប៉ះទង្គិចជាមួយរូបមានជីវិត 📃 ⟩
     if ( ludanto.rezimo === "promeno" && !ludanto.surKanoto ) {
@@ -291,7 +291,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
         n.group.position.x -= difX * pen;
         n.group.position.z -= difZ * pen;
       }
-      for ( const b of bestoj.bestoj ) {
+      for ( const b of hapaga.hapaga ) {
         if ( !b.hate.visible ) continue;
         const difX = ludanto.raqa.x - b.hate.position.x;
         const difZ = ludanto.raqa.z - b.hate.position.z;
@@ -306,7 +306,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
 
     // ⟪ បណ្តាញ 📃 ⟫
     if ( retilo.aktiva ) {
-      retilo.sendi(konstruiRetilanStaton);
+      retilo.sendi(vepaqRetilanStaton);
       retilo.animacii(deltaTempo, t);
     }
 
@@ -322,7 +322,7 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
       } else {
         ludantaFiguro.group.position.set(ludanto.raqa.x, ludanto.raqa.y, ludanto.raqa.z);
         if ( ludanto.rezimo === "promeno" && movo.estisNaĝanta ) {
-          ludantaFiguro.group.position.y = akvaNivelo(ludanto.raqa.x, ludanto.raqa.z) - 0o16/0o10
+          ludantaFiguro.group.position.y = akvaVem2(ludanto.raqa.x, ludanto.raqa.z) - 0o16/0o10
             + Math.sin(t * 2 + ludanto.raqa.x * 0o1/0o10) * 0o1/0o20;
         }
       }
@@ -334,10 +334,10 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
 
     nebulSistemo.uTime.value = t;
 
-    const fx = ludanto.rezimo === "promeno" ? -Math.sin(ludanto.c2w2q) : regiloj.target.x - fotilo.position.x;
-    const fz = ludanto.rezimo === "promeno" ? -Math.cos(ludanto.c2w2q) : regiloj.target.z - fotilo.position.z;
-    const mapX = ludanto.rezimo === "orbito" ? regiloj.target.x : ludanto.raqa.x;
-    const mapZ = ludanto.rezimo === "orbito" ? regiloj.target.z : ludanto.raqa.z;
+    const fx = ludanto.rezimo === "promeno" ? -Math.sin(ludanto.c2w2q) : hakama.target.x - fotilo.position.x;
+    const fz = ludanto.rezimo === "promeno" ? -Math.cos(ludanto.c2w2q) : hakama.target.z - fotilo.position.z;
+    const mapX = ludanto.rezimo === "orbito" ? hakama.target.x : ludanto.raqa.x;
+    const mapZ = ludanto.rezimo === "orbito" ? hakama.target.z : ludanto.raqa.z;
     minimapo.gxisdatigi(fx, fz, mapX, mapZ);
     // ⟨ ចង្វាក់ស្រមោលក្រោមបន្ទុក 📃 ⟩
     // ⟨ ពេលឈរស្ងៀម ៖ គ្មានអ្នកណាបំលាស់ទីក្រៅពីពួកអ្នកដើរតាមផ្លូវ ។ ដូច្នេះ
@@ -345,22 +345,22 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     // ស្រមោលរបស់អ្នកដើរតាមផ្លូវគ្រាន់តែយឺតបន្តិច ។ 📃 ⟩
     const movigxanta = ludanto.movoValoro > 0o1/0o100;
     const ombraPeriodo = movigxanta ? ( deltaTempo > 0o1/0o40 ? 0o4 : 0o2 ) : 0o6;
-    ombraKadro = ( ombraKadro + 1 ) % ombraPeriodo;
+    ombraJoqa = ( ombraJoqa + 1 ) % ombraPeriodo;
     const ombroMovigxis = gxisdatigiOmbron(mapX, mapZ);
-    if ( ombroMovigxis || ombraKadro === 0 ) bildilo.shadowMap.needsUpdate = true;
+    if ( ombroMovigxis || ombraJoqa === 0 ) bildilo.shadowMap.needsUpdate = true;
     lampSistemo.sekviLumojn(mapX, mapZ);
     // ⟪ ស្មៅ 📃 ⟫
     // ⟨ កណ្តាលស្មៅគឺកាមេរ៉ា 📃 ⟩
     if ( ludanto.rezimo !== "interno" ) {
       const fotilaX = fotilo.position.x, fotilaZ = fotilo.position.z;
-      gxisdatigiHerbon(t, fotilaX, fotilaZ, kolektiHerbajnPusantojn(fotilaX, fotilaZ));
+      gxisdatigiFe1afn(t, fotilaX, fotilaZ, kolektiHerbajnPusantojn(fotilaX, fotilaZ));
     }
-    if ( minimapo.cxuBakita() ) {
-      if ( minimapo.cxuMalfermita() ) {
-        minimapo.desegniPlenanMapon();
+    if ( minimapo.tsekeBakita() ) {
+      if ( minimapo.tsekeMalfermita() ) {
+        minimapo.k2fPlenanMapon();
       } else if ( sxargxoFinita ) {
-        radaraKadro = ( radaraKadro + 1 ) & 3;
-        if ( radaraKadro === 0 ) minimapo.desegniRadaron();
+        radaraJoqa = ( radaraJoqa + 1 ) & 3;
+        if ( radaraJoqa === 0 ) minimapo.k2fRadaron();
       }
     }
 
@@ -378,10 +378,10 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
           .addScaledVector(side, panX * rapido)
           .addScaledVector(fotilaDir, -panZ * rapido);
         offset.y = panY * rapido;
-        regiloj.target.add(offset);
+        hakama.target.add(offset);
         fotilo.position.add(offset);
       }
-      regiloj.update();
+      hakama.update();
     }
 
     // ⟪ ដែនមើល 📃 ⟫
@@ -391,8 +391,8 @@ export function kreiAnimacion( opcioj: AnimaciajOpcioj ): Animacio {
     // ⟪ ពណ៌ KNAKEHE ជានិច្ច 🎨 ⟫
     // ⟨ វត្ថុថ្មីបង្គត់ភ្លាម ពេលវាចូលឆាក ដោយមិនឆ្លងកាត់ឆាកទាំងមូល ។
     //   បោសពេញនៅរយៈពេលដើមដដែល ដើម្បីចាប់ពណ៌ដែលប្រែក្រោយមក ។ 📃 ⟩
-    kanakaQenaNovajn(qena);
-    if ( ++kanakaKadroNombro % KANAKA_PLENA_PERIODO === 0 ) kanakaQena(qena, true);
+    veb6qaiSef4Qena(qena);
+    if ( ++veb6qaiJoqaNombro % KANAKA_PLENA_PERIODO === 0 ) veb6qaiQena(qena, true);
 
     bildilo.render(qena, fotilo);
     statistiko.gxisdatigu(rultempo);

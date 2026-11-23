@@ -1,18 +1,18 @@
-// ≺⧼ ស្នាមដេកស្ពាន និងកន្លែងបត់ 🌉 ⧽≻
+// ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſȷͷ̗ᴜƽ ꞁȷ̀ᴜꞇ 🌉 ⧽≻
 // ⟨ សាកល្បងបីយ៉ាងលើឆាកតូច ៖ ជម្រាលឡើងដល់ចានខ្ពស់នៅចុងស្ពាន ,
 // គ្មានរន្ធត្រីកោណក្រោមផ្ទៃនៅកន្លែងបត់លើទឹក , និងគ្មានជំហានក្នុងបត់ ។
 // ឆាកតូចរត់លឿន មិនចាំបាច់សាងពិភពលោកពិតទេ ។ 📃 ⟩
 import "./falsdomo.mjs";
 import * as THREE from "three";
-import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
-import type { VojDifino } from "../../eskekoj/medio/vojoj/tipoj.js";
-import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
-import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
-import { STUPA_RISERO, VOJA_TRUA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { vepaqHak6h6n } from "../../eskekoj/medio/hak6h6.js";
+import type { VojDifino } from "../../eskekoj/medio/hak6h6/hahunaq.js";
+import { vojSuprajxoj } from "../../eskekoj/medio/hak6h6/hahunaq.js";
+import { kf2NivelanProfilon } from "../../eskekoj/medio/hak6h6/havem2.js";
+import { STUPA_RISERO, VOJA_TRUA_DUONO } from "../../eskekoj/medio/hak6h6/havecax2l.js";
 
 let eraroj = 0;
-const diorito = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-const andezito = new THREE.MeshStandardMaterial({ color: 0x0000ff });
+const t6g6 = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+const t6hna = new THREE.MeshStandardMaterial({ color: 0x0000ff });
 
 // ⟪ ទី ១ ៖ ចុងស្ពានឡើងដល់ចានខ្ពស់ 📏 ⟫
 // ⟨ ចានខ្ពស់ ៣ , ផ្ទៃស្ពានធម្មជាតិ ០ ។ ជម្រាលត្រូវលើកផ្លូវឡើង ,
@@ -25,7 +25,7 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x0000ff });
       glata: true, heightFn: () => 0 },
     { pts: [ [ 0, 0 ], [ 0, 0o10 ] ], w: 0o7 / 0o4, hateruni: true },
   ];
-  konstruiVojojn(qena, defs, () => 0o3, diorito, andezito, [ [ 0, 0 ] ]);
+  vepaqHak6h6n(qena, defs, () => 0o3, t6g6, t6hna, [ [ 0, 0 ] ]);
   const apud = vojSuprajxoj.filter(s => Math.abs(s.x1) < VOJA_TRUA_DUONO + 0o1
     && Math.abs(s.z1) < 0o1 / 0o2 && Math.abs(s.x2) < VOJA_TRUA_DUONO + 0o1);
   const meza = vojSuprajxoj.filter(s => s.x1 > 0o10 && s.x1 < 0o14 && Math.abs(s.z1) < 0o1 / 0o2);
@@ -47,7 +47,7 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x0000ff });
   const defs: VojDifino[] = [ { pts: [ [ -0o10, 0 ], [ 0, 0 ], [ 0, 0o10 ] ],
     w: 0o7 / 0o4, hateruni: true, glata: true,
     heightFn: () => 0o2, grundoFn: () => -0o5 } ];
-  konstruiVojojn(qena, defs, () => -0o5, diorito, andezito, [],
+  vepaqHak6h6n(qena, defs, () => -0o5, t6g6, t6hna, [],
     { akvaFn: () => 0, grundoFn: () => -0o5 });
   qena.updateMatrixWorld(true);
   const rc = new THREE.Raycaster();
@@ -69,12 +69,12 @@ const andezito = new THREE.MeshStandardMaterial({ color: 0x0000ff });
 {
   const pts: [ number, number ][] = [ [ -0o10, 0 ], [ 0, 0 ], [ 0, 0o10 ] ];
   const p2somani = 0o7 / 0o4 + 0o3 / 0o5;
-  const s2qena = kreiNivelanProfilon(pts, p2somani,
+  const s2qena = kf2NivelanProfilon(pts, p2somani,
     ( x, z ) => 0o1 / 0o2 * ( x + z + 0o10 ), undefined);
   const zono = p2somani + STUPA_RISERO;
   const turnoS = 0o10;
   const enZono = s2qena.hal6da.filter(( _a, i ) =>
-    Math.abs(s2qena.situoj[ i ] - turnoS) <= zono);
+    Math.abs(s2qena.haxekuxa[ i ] - turnoS) <= zono);
   const varias = enZono.length > 0 && Math.max(...enZono) - Math.min(...enZono) > 0o1 / 0o1000;
   if ( varias ) eraroj++;
   console.log(`បត់ ៖ គំរូក្នុងរង្វង់ ${enZono.length} , ខុសកម្រិត ${varias ? "មាន" : "គ្មាន"}`);

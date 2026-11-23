@@ -1,4 +1,4 @@
-// ≺⧼ ជក់ទាំងឡាយ 🖌️ ⧽≻
+// ≺⧼ j͑ʃɹ ſɟᴜ ſᶘɹ ſɟᴜ }ʃᴜ 🖌️ ⧽≻
 // ការគំរូតាមសំណាញ់ ( ការបញ្ចូល Katmull-Rom លើសំណាញ់ឆ្លាក់ ) និង
 // ជក់ទាំងឡាយ គឺជក់កំពុងប្រើ ជក់រងរបស់វា កម្មវិធីអនុវត្តទាំងពីរ
 // ( penikoApliki សម្រាប់ក្រឡាមួយ penikoPasxo សម្រាប់ជំហានរបស់កណ្ដុរ ) និង
@@ -6,17 +6,17 @@
 // អនុគមន៍កំណត់ប៉ុណ្ណោះដែលផ្លាស់ប្តូរវា។
 import { katmullRom } from "../../../kantaoj/komunajxoj/interpolo.js";
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
-import { REZ, mondoxAlPikselo, mondozAlPikselo } from "./mezuroj.js";
-import type { KradaRektangulo } from "./mezuroj.js";
+import { REZ, mondoxAlPikselo, mondozAlPikselo } from "./havecax2l.js";
+import type { KradaRektangulo } from "./havecax2l.js";
 import { pentri, rekalkuliDeklivojn } from "./bako.js";
-import { markiAkvonMalpuran, cxuAkvoCxelo } from "./akvo.js";
+import { markiAkvonMalpuran, tsekeAkvoCxelo } from "./akvo.js";
 
 // ⟪ គំរូតាមសំណាញ់ 📃 ⟫
 // ការបញ្ចូលតាមសំណាញ់ ( katmullRom )។ ខ្សែកោង C1 រលូន គ្មានផ្នត់តាមអង្កត់ទ្រូង
 // ដូចការបញ្ចូលទ្វេលីនេអ៊ែរ ដូច្នេះជម្រាលភ្នំមិនបង្ហាញកំពូលតាម
 // អង្កត់ទ្រូងសំណាញ់ទេ។ ខ្សែកោងមកពីម៉ូឌុលរួម kantaoj/komunajxoj/interpolo.ts គឺដូច
 // ហ្គេម និងប្រភេទ ដូច្នេះច្បាប់ចម្លងមិនអាចបង្វែរបានទេ។
-// deltoInterp គឺការបញ្ចូលទ្វេកោង ( Katmull-Rom ) លើសំណាញ់ឆ្លាក់។
+// l6daInterp គឺការបញ្ចូលទ្វេកោង ( Katmull-Rom ) លើសំណាញ់ឆ្លាក់។
 // តម្លៃនៅថ្នាំងសំណាញ់នៅតែស្មើតម្លៃក្រឡាពិត ហើយរវាងថ្នាំង
 // ផ្ទៃរលូន C1 គ្មានកំពូលអង្កត់ទ្រូងនៃការបញ្ចូលទ្វេលីនេអ៊ែរ។
 /* ការបញ្ចូលទ្វេកោង ( Katmull-Rom ) លើសំណាញ់ឆ្លាក់ គឺតម្លៃនៅ
@@ -24,14 +24,14 @@ import { markiAkvonMalpuran, cxuAkvoCxelo } from "./akvo.js";
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
 @returns ដេលតាដែលបញ្ចូល ( number )។ */
-export function deltoInterp(x: number, z: number): number {
+export function l6daInterp(x: number, z: number): number {
   const fx = ( x - X0 ) / PASO;
   const fz = ( z - Z0 ) / PASO;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
-  const cxelo = ( i: number, j: number ): number => deltoj[Math.max(0, Math.min(N - 1, j)) * N + Math.max(0, Math.min(N - 1, i))];
-  const vico = ( j: number ): number => katmullRom(cxelo(i0 - 1, j), cxelo(i0, j), cxelo(i0 + 1, j), cxelo(i0 + 2, j), u);
-  return katmullRom(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v);
+  const cxelo = ( i: number, j: number ): number => hal6da[Math.max(0, Math.min(N - 1, j)) * N + Math.max(0, Math.min(N - 1, i))];
+  const x2pa = ( j: number ): number => katmullRom(cxelo(i0 - 1, j), cxelo(i0, j), cxelo(i0 + 1, j), cxelo(i0 + 2, j), u);
+  return katmullRom(x2pa(j0 - 1), x2pa(j0), x2pa(j0 + 1), x2pa(j0 + 2), v);
 }
 /* តម្លៃម៉ាសទ្វេលីនេអ៊ែរ ( ទឹកចាស់ដែលគូរដោយជក់ ) នៅចំណុចនោះ។
     @param x ( number ) - ពិភពលោក x។
@@ -52,10 +52,10 @@ export function maskoInterp(x: number, z: number): number {
     @param ix ( number ) - ជួរឈរសំណាញ់។
     @param iz ( number ) - ជួរសំណាញ់។
 @returns ដេលតា ( number )។ */
-export function deltoCxelo(ix: number, iz: number): number {
+export function l6daCxelo(ix: number, iz: number): number {
   const ii = Math.max(0, Math.min(N - 1, ix));
   const jj = Math.max(0, Math.min(N - 1, iz));
-  return deltoj[jj * N + ii];
+  return hal6da[jj * N + ii];
 }
 
 // ⟪ ជក់ទាំងឡាយ 📃 ⟫
@@ -63,15 +63,15 @@ export function deltoCxelo(ix: number, iz: number): number {
 // ទិដ្ឋភាព ( អូសផែនទី ) , ដូច្នេះការអូសមិនឆ្លាក់ដីដោយអចេតនា ។ ជក់ដីចាប់ផ្តើម
 // ពេលអ្នកប៉ះប៊ូតុងជក់ណាមួយ ។
 export let penikoAktiva = "movigi";
-export let biomoAktiva = 1;           // ជក់រងរបស់ឧបករណ៍តំបន់ជីវៈ ( 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប, 4=រុក្ខជាតិទឹក, 5=ekvizeto, 0=ស្វ័យប្រវត្តិ )
-export let bestoAktiva = 1;           // ជក់រងរបស់ឧបករណ៍សត្វ ( 1=សត្វទឹក, 2=បក្សីព្រិល, 4=NPC )
-export let bestoForvisxa = false;      // តើឧបករណ៍សត្វកំពុងលុប ( ឧបករណ៍ដូចគ្នា ) ជំនួសការគូរ
+export let bs2Aktiva = 1;           // ជក់រងរបស់ឧបករណ៍តំបន់ជីវៈ ( 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប, 4=រុក្ខជាតិទឹក, 5=tsake, 0=ស្វ័យប្រវត្តិ )
+export let pagaAktiva = 1;           // ជក់រងរបស់ឧបករណ៍សត្វ ( 1=សត្វទឹក, 2=បក្សីព្រិល, 4=NPC )
+export let pagaForvisxa = false;      // តើឧបករណ៍សត្វកំពុងលុប ( ឧបករណ៍ដូចគ្នា ) ជំនួសការគូរ
 // movigi គឺជាឧបករណ៍មើល។ ក្នុងផែនទី 2D វាអូសផែនទី ហើយក្នុងទិដ្ឋភាព 3D វា
 // បង្វិលកាមេរ៉ា។ ការអនុវត្តជក់មិនដែលទទួលវាទេ ព្រោះព្រឹត្តិការណ៍
 // ចាត់ចែងវាដោយឡែក ប៉ុន្តែតក្កវិជ្ជាឧបករណ៍កំពុងប្រើនៅតែរួមគ្នា។
-export function cxuMovigi(): boolean { return penikoAktiva === "movigi"; }
-export const ka5ik = () => +radiusoRegilo.value;
-export const forto = () => +fortoRegilo.value;
+export function tsekeMovigi(): boolean { return penikoAktiva === "movigi"; }
+export const ka5ik = () => +radiusoKama.value;
+export const forto = () => +fortoKama.value;
 
 /* អនុវត្តជក់ទៅចំណុចមួយ ( ក្រឡានៅក្នុងកាំ )។ ជក់ជាពេជ្រ ( មិនមែនរង្វង់ ) ៖ ចម្ងាយជា
    |dx| + |dz| , ដូច្នេះគែមជក់តាមអ័ក្សក្រឡា ហើយជ្រុងស្រួចបួនស្ថិតលើអ័ក្ស x និង z ។
@@ -79,12 +79,12 @@ export const forto = () => +fortoRegilo.value;
     @param cz ( number ) - ពិភពលោក z របស់ជក់។
     @param r ( number ) - កាំរបស់ជក់ ( ចម្ងាយពីកណ្តាលទៅជ្រុងស្រួច )។
     @param fortoVal ( number ) - កម្លាំង ( គ្រាប់រំកិល )។
-    @param tipo ( string ) - ជក់កំពុងប្រើ។
-    @param tuŝitaj ( Map<number, number> ) - ក្រឡាដែលបានប៉ះក្នុងជំហាន
+    @param hunaq ( string ) - ជក់កំពុងប្រើ។
+    @param t12na ( Map<number, number> ) - ក្រឡាដែលបានប៉ះក្នុងជំហាន
         ជក់បច្ចុប្បន្ន ( ក្រឡាទទួលជក់តែម្តងក្នុងមួយជំហាន )។
 @returns ចតុកោណកែងសំណាញ់ដែលបានប៉ះ ( KradaRektangulo )។ */
 export function penikoApliki(cx: number, cz: number, r: number, fortoVal: number,
-  tipo: string, tuŝitaj: Map<number, number>): KradaRektangulo {
+  hunaq: string, t12na: Map<number, number>): KradaRektangulo {
   // ស្ថានភាពកណ្ដុរ ( គោលដៅរាបស្មើ និងរទេះបច្ចុប្បន្ន ) ដែលកម្មវិធីកែសម្រួល
   // កាន់កាប់ ហើយធ្វើឱ្យស្រស់រាល់ការហៅ។
   ( { platigaCelo, treno } = preniMuson() );
@@ -106,39 +106,39 @@ export function penikoApliki(cx: number, cz: number, r: number, fortoVal: number
       // ហើយការគូរមួយលើកលើកដីឡើងដប់ឯកតា។ ការប៉ះដំបូងរបស់
       // ជក់ដែលផ្លាស់ទីតែងតែជាគែមជក់ ( f ≈ 0 ) ដូច្នេះក្រឡា
       // កត់ត្រាការប៉ះខ្លាំងបំផុត ( f អតិបរមា ) មិនមែនការប៉ះដំបូងទេ។
-      const malnovaF = tuŝitaj.get(idx);
-      if ( malnovaF !== undefined && f <= malnovaF ) continue;
+      const s23ohk2saiF = t12na.get(idx);
+      if ( s23ohk2saiF !== undefined && f <= s23ohk2saiF ) continue;
       // អនុវត្តតែការកើនឡើងរវាងកម្លាំងចាស់ និងថ្មី ដូច្នេះក្រឡា
       // ទទួលសរុប fortoVal × f_maks ក្នុងមួយជំហាន ( មិនមែនជាផលបូក
       // នៃការអនុវត្តទាំងអស់ដែលកាត់កាត់ )។ ជក់រាបស្មើដូច្នេះរលូន
       // ដោយជំហានតូចម្តង ជំនួសការពេញភ្លាមទៅគោលដៅ។
-      const df = malnovaF === undefined ? f : f - malnovaF;
-      tuŝitaj.set(idx, f);
-      if ( tipo === "levi" ) {
-        deltoj[idx] += fortoVal * 2 * df;
-      } else if ( tipo === "malsuprenigi" ) {
-        deltoj[idx] -= fortoVal * 2 * df;
-      } else if ( tipo === "platigi" && platigaCelo !== null ) {
+      const df = s23ohk2saiF === undefined ? f : f - s23ohk2saiF;
+      t12na.set(idx, f);
+      if ( hunaq === "levi" ) {
+        hal6da[idx] += fortoVal * 2 * df;
+      } else if ( hunaq === "malsuprenigi" ) {
+        hal6da[idx] -= fortoVal * 2 * df;
+      } else if ( hunaq === "platigi" && platigaCelo !== null ) {
         const sef4 = platigaCelo - bazaAlteco(x, z);
-        deltoj[idx] += ( sef4 - deltoj[idx] ) * fortoVal * df;
-      } else if ( tipo === "glatigi" ) {
-        const sost2 = ( deltoCxelo(ix - 1, iz) + deltoCxelo(ix + 1, iz)
-          + deltoCxelo(ix, iz - 1) + deltoCxelo(ix, iz + 1) ) / 4;
-        deltoj[idx] += ( sost2 - deltoj[idx] ) * fortoVal * df;
-      } else if ( tipo === "forvisxi" ) {
-        deltoj[idx] = 0;
+        hal6da[idx] += ( sef4 - hal6da[idx] ) * fortoVal * df;
+      } else if ( hunaq === "glatigi" ) {
+        const sost2 = ( l6daCxelo(ix - 1, iz) + l6daCxelo(ix + 1, iz)
+          + l6daCxelo(ix, iz - 1) + l6daCxelo(ix, iz + 1) ) / 4;
+        hal6da[idx] += ( sost2 - hal6da[idx] ) * fortoVal * df;
+      } else if ( hunaq === "forvisxi" ) {
+        hal6da[idx] = 0;
         k6liqani[idx] = 0;
-      } else if ( tipo === "biomo" ) {
+      } else if ( hunaq === "bs2" ) {
         // ឧបករណ៍តំបន់ជីវៈគូរតំបន់ជីវៈផ្ទាល់លើស្រទាប់តំបន់ជីវៈ។ តំបន់ជីវៈ
-        // ទឹក ( 4=រុក្ខជាតិទឹក, 5=ekvizeto ) មានតែនៅលើ
+        // ទឹក ( 4=រុក្ខជាតិទឹក, 5=tsake ) មានតែនៅលើ
         // ទឹក ដូច្នេះជក់គូរវាតែក្នុងក្រឡាទឹក រីឯតំបន់ជីវៈលើដី
         // ( 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប ) មិនដែលគូរលើទឹកទេ។        // ស្វ័យប្រវត្តិលុបការគូរនៅគ្រប់កន្លែង ។ ដីផ្ទាល់មិនផ្លាស់ប្តូរទេ ។
         // ⟨ ទឹកពិត 📃 ⟩ ៖ ការគូរជីវភូមិអានទឹកដេរីវេ ( ប្រភព , អាង , ទន្លេ ) ,
         // មិនមែនម៉ាសចាស់ដែលបានគូរទេ ។ បើមិនដូច្នេះ ជីវភូមិទឹកគូរលើទន្លេមិនបាន ។
-        const akva = cxuAkvoCxelo(ix, iz);
-        if ( biomoAktiva === 0 ) biomoj[idx] = 0;
-        else if ( biomoAktiva >= 4 ? akva : !akva ) biomoj[idx] = biomoAktiva;
-      } else if ( tipo === "bestoj" ) {
+        const akva = tsekeAkvoCxelo(ix, iz);
+        if ( bs2Aktiva === 0 ) habs2[idx] = 0;
+        else if ( bs2Aktiva >= 4 ? akva : !akva ) habs2[idx] = bs2Aktiva;
+      } else if ( hunaq === "hapaga" ) {
         // ឧបករណ៍សត្វគូរតំបន់សត្វលើស្រទាប់សត្វជា
         // ប៊ីត។ 1=សត្វទឹក, 2=បក្សីព្រិល, 4=NPC ដូច្នេះក្រឡាអាចផ្ទុក
         // ច្រើនប្រភេទក្នុងពេលតែមួយ ដូច្នេះការគូរប្រភេទទីពីរលើទីមួយផ្សំ
@@ -148,9 +148,9 @@ export function penikoApliki(cx: number, cz: number, r: number, fortoVal: number
         // ដែលបើកដោយប៊ូតុង លុប 🧽 ក្នុងបន្ទះពណ៌ ) លុបតែ
         // ប្រភេទដែលបានជ្រើស រីឯអ្វីផ្សេងទៀតនៅដដែល។ ដីផ្ទាល់មិនផ្លាស់ប្តូរទេ។
         // ⟨ ទឹកពិត 📃 ⟩ ៖ សត្វទឹកហែលតែក្នុងទឹកដេរីវេ , មិនមែនក្នុងម៉ាសចាស់ទេ ។
-        const akva = cxuAkvoCxelo(ix, iz);
-        if ( bestoForvisxa ) bestoj[idx] &= ~bestoAktiva;
-        else if ( bestoAktiva === 1 ? akva : bestoAktiva === 4 ? !akva : true ) bestoj[idx] |= bestoAktiva;
+        const akva = tsekeAkvoCxelo(ix, iz);
+        if ( pagaForvisxa ) hapaga[idx] &= ~pagaAktiva;
+        else if ( pagaAktiva === 1 ? akva : pagaAktiva === 4 ? !akva : true ) hapaga[idx] |= pagaAktiva;
       }
       // movigi មិនមែនជាជក់ទេ ព្រោះព្រឹត្តិការណ៍ចាត់ចែងវាដោយឡែក។
     }
@@ -171,7 +171,7 @@ export function penikoPasxo(cx: number, cz: number): void {
   for ( let k = 1; k <= havepat6ni; k++ ) {
     const px = t.lastX + ( cx - t.lastX ) * k / havepat6ni;
     const pz = t.lastZ + ( cz - t.lastZ ) * k / havepat6ni;
-    penikoApliki(px, pz, ka5ik(), forto(), penikoAktiva, t.tuŝitaj);
+    penikoApliki(px, pz, ka5ik(), forto(), penikoAktiva, t.t12na);
   }
   // ចំណុចចាស់មុនការធ្វើបច្ចុប្បន្នភាព ដូច្នេះការគូរគ្របដណ្តប់ផ្លូវ
   // ទាំងមូលនៃជំហាន មិនត្រឹមតែចំណុចបច្ចុប្បន្នទេ ( t.lastX ផ្លាស់ប្តូរ
@@ -198,20 +198,20 @@ export function penikoPasxo(cx: number, cz: number): void {
 // ស្ថានភាពកណ្ដុរ បន្ទាត់ស្ថានភាព កម្មវិធីបង្ហាញតម្លៃរបស់ជក់ និង
 // ទង់គូរទាំងពីរ។
 interface PenikaTreno {
-  tipo: string;
+  hunaq: string;
   lastX: number;
   lastZ: number;
-  tuŝitaj: Map<number, number>;
+  t12na: Map<number, number>;
 }
 interface MusoStato {
   platigaCelo: number | null;
   treno: PenikaTreno | null;
 }
 interface PenikaLigo {
-  deltoj: Float32Array;
+  hal6da: Float32Array;
   k6liqani: Uint8Array;
-  biomoj: Uint8Array;
-  bestoj: Uint8Array;
+  habs2: Uint8Array;
+  hapaga: Uint8Array;
   N: number;
   PASO: number;
   X0: number;
@@ -219,14 +219,14 @@ interface PenikaLigo {
   statuso: ( s2banani: string ) => void;
   markiDesegnon: () => void;
   markiSxangxitan: () => void;
-  radiusoRegilo: HTMLInputElement;
-  fortoRegilo: HTMLInputElement;
+  radiusoKama: HTMLInputElement;
+  fortoKama: HTMLInputElement;
   muso: () => MusoStato;
 }
-let deltoj: Float32Array;
+let hal6da: Float32Array;
 let k6liqani: Uint8Array;
-let biomoj: Uint8Array;
-let bestoj: Uint8Array;
+let habs2: Uint8Array;
+let hapaga: Uint8Array;
 let N: number;
 let PASO: number;
 let X0: number;
@@ -234,8 +234,8 @@ let Z0: number;
 let statuso: ( s2banani: string ) => void = () => { };
 let markiDesegnon: () => void = () => { };
 let markiSxangxitan: () => void = () => { };
-let radiusoRegilo: HTMLInputElement;
-let fortoRegilo: HTMLInputElement;
+let radiusoKama: HTMLInputElement;
+let fortoKama: HTMLInputElement;
 let platigaCelo: number | null = null;
 let treno: PenikaTreno | null = null;
 let preniMuson: () => MusoStato = () => ( { platigaCelo: null, treno: null } );
@@ -243,14 +243,14 @@ let preniMuson: () => MusoStato = () => ( { platigaCelo: null, treno: null } );
 /* agordiPenikojn គឺការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
     @param L ( PenikaLigo ) - តារាង និងកម្មវិធីបង្ហាញរបស់កម្មវិធីកែសម្រួល។ */
 export function agordiPenikojn(L: PenikaLigo): void {
-  ( { deltoj, k6liqani, biomoj, bestoj, N, PASO, X0, Z0, statuso, markiDesegnon,
-    markiSxangxitan, radiusoRegilo, fortoRegilo } = L );
+  ( { hal6da, k6liqani, habs2, hapaga, N, PASO, X0, Z0, statuso, markiDesegnon,
+    markiSxangxitan, radiusoKama, fortoKama } = L );
   preniMuson = L.muso;
 }
 
 // ⟪ អនុគមន៍កំណត់របស់ជក់ 📃 ⟫ គឺការផ្លាស់ប្តូរជក់កំពុងប្រើ និង
 // ជក់រងរបស់វាឆ្លងកាត់អនុគមន៍ទាំងនេះ ( ស្ថានភាពជាការភ្ជាប់ផ្ទាល់ )។
 export function agordiPenikon(ksaka: string): void { penikoAktiva = ksaka; }
-export function agordiBiomon(n: number): void { biomoAktiva = n; }
-export function agordiBeston(n: number): void { bestoAktiva = n; }
-export function agordiBestoForvisxon(v: boolean): void { bestoForvisxa = v; }
+export function agordiBs2n(n: number): void { bs2Aktiva = n; }
+export function agordiPagan(n: number): void { pagaAktiva = n; }
+export function agordiPagaForvisxon(v: boolean): void { pagaForvisxa = v; }

@@ -1,0 +1,83 @@
+// ≺⧼ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ j͑ʃᴜꞇ ʌ ſ͕ɭɜ ı],ᴜ 📐 ⧽≻
+// ⟨ ចុងចំណតឥឡូវជាពាក់រង្វង់ពេញ ដូចមួកចុងផ្លូវ ។ មុននេះវាជាចតុកោណ
+// ដែលមានជ្រុងពីរបត់តិចៗ , ដូច្នេះចុងចំណតមិនដូចចុងផ្លូវទេ ។ ធ្នូមកពី
+// ម៉ូឌុលគែមមូលរួម , ដូច្នេះផ្លូវ និងចំណតប្រើទម្រង់តែមួយ ។ 📃 ⟩
+import * as THREE from "three";
+import { arkajPunktoj } from "../hak6h6/hac2q.js";
+
+// ⟪ ចុងពាក់រង្វង់ 📐 ⟫
+/*បន្ថែមធ្នូពាក់រង្វង់ខាងលើទៅទម្រង់
+    @param qoxa ( Shape ) - ទម្រង់ដែលកំពុងសាង
+    @param ka5ik ( number ) - កាំធ្នូ
+    @param centroY ( number ) - អ័ក្ស y នៃអង្កត់ផ្ចិត
+    @param flankaX ( number ) - កន្លះទទឹងជ្រុងត្រង់
+@returns void */
+// ⟨ គ្មានជ្រុងតូច 📏 ⟩ ៖ កាំស្មើនឹងកន្លះទទឹងវេទិកា , ដូច្នេះគែមទាំងពីរ
+// ប្រែជាធ្នូដោយគ្មានបន្ទាត់ត្រង់នៅចុង ។ 📃 ⟩
+function aldoniAntauxanDuonc2qn( qoxa: THREE.Shape, ka5ik: number,
+  centroY: number, flankaX: number ): void {
+  qoxa.lineTo(flankaX, centroY);
+  for ( const p of arkajPunktoj(ka5ik, 0, -Math.PI) )
+    qoxa.lineTo(p[ 0 ], p[ 1 ] + centroY);
+  // ⟨ ចៀសចំណុចជាន់គ្នា 📏 ⟩ ៖ ពេលកាំស្មើនឹងកន្លះទទឹង ចំណុចចុងធ្នូ
+  // ស្ថិតលើគែមត្រង់រួចហើយ ។ បន្ថែមវាម្តងទៀតបង្កើតត្រីកោណរួញ ។ 📃 ⟩
+  if ( flankaX - ka5ik > 0o1 / 0o1000 ) qoxa.lineTo(-flankaX, centroY);
+}
+
+// ⟪ ទម្រង់ផ្ទៃឌីអូរីត 📐 ⟫
+/*បង្កើតវេទិកាដែលមានចុងពាក់រង្វង់ពេញ
+    @param w ( number ) - ទទឹងឌីអូរីត
+    @param l ( number ) - ប្រវែងសរុប
+@returns qoxa ( Shape ) - ទម្រង់បិទ */
+export function kf2DokanQoxan(w: number, l: number): THREE.Shape {
+  const qoxa = new THREE.Shape();
+  const duonW = w / 2, duonL = l / 2;
+  const ka5ik = Math.min(duonW, duonL);
+  const centroY = duonL - ka5ik;
+  qoxa.moveTo(-duonW, -duonL);
+  qoxa.lineTo(duonW, -duonL);
+  aldoniAntauxanDuonc2qn(qoxa, ka5ik, centroY, duonW);
+  qoxa.lineTo(-duonW, -duonL);
+  qoxa.closePath();
+  return qoxa;
+}
+
+// ⟪ ទម្រង់ខាងក្រៅ 📐 ⟫
+/*បង្កើតវណ្ឌវង្កដែលលាតស្មាស្មើគ្នាជុំវិញវេទិកា
+    @param w ( number ) - ទទឹងឌីអូរីត
+    @param l ( number ) - ប្រវែងសរុប
+    @param strio ( number ) - ទទឹងស្មាអាន់ដេហ្ស៊ីត
+@returns qoxa ( Shape ) - ទម្រង់បិទ */
+// ⟨ វណ្ឌវង្កមួយ ការប្រើពីរ 📃 ⟩ ៖ ស៊ុម និងម៉ាសក្រោមអានទម្រង់ដូចគ្នា ។
+export function kf2DokanEksteranQoxan(w: number, l: number, strio: number): THREE.Shape {
+  const duonW = w / 2, duonL = l / 2;
+  const ka5ik = Math.min(duonW, duonL);
+  const centroY = duonL - ka5ik;
+  const qoxa = new THREE.Shape();
+  const flankaX = duonW + strio;
+  qoxa.moveTo(-flankaX, -duonL);
+  qoxa.lineTo(flankaX, -duonL);
+  aldoniAntauxanDuonc2qn(qoxa, ka5ik + strio, centroY, flankaX);
+  qoxa.lineTo(-flankaX, -duonL);
+  qoxa.closePath();
+  return qoxa;
+}
+
+// ⟪ ស៊ុមអាន់ដេហ្ស៊ីត 📐 ⟫
+/*បង្កើតស៊ុមជាចិញ្ចៀនជុំវិញផ្ទៃឌីអូរីត
+    @param w ( number ) - ទទឹងឌីអូរីត
+    @param l ( number ) - ប្រវែងសរុប
+    @param strio ( number ) - ទទឹងស្មា
+    @param dikeco ( number ) - កម្រាស់
+@returns geometrio ( BufferGeometry ) - ស៊ុមដែលបានបង្វិល */
+export function kf2DokanJoqan(w: number, l: number, strio: number,
+  dikeco: number): THREE.BufferGeometry {
+  const ekstera = kf2DokanEksteranQoxan(w, l, strio);
+  const truo = new THREE.Path();
+  truo.setFromPoints(kf2DokanQoxan(w, l).getPoints().reverse());
+  ekstera.holes.push(truo);
+  const geometrio = new THREE.ExtrudeGeometry(ekstera,
+    { depth: dikeco, bevelEnabled: false });
+  geometrio.rotateX(-Math.PI / 2);
+  return geometrio;
+}

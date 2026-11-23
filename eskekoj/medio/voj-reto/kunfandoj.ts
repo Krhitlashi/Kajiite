@@ -1,25 +1,25 @@
-// ≺⧼ បណ្តាញផ្លូវ ការរលាយ 🛣️ ⧽≻
-import type { VojaPunkto, VojaRetoDoko, VojaRetoVojo } from "./tipoj.js";
-import { ALGLUA_RANDO, TOLERANCO } from "./tipoj.js";
-import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO } from "../doko/tipoj.js";
-import { vojaDuonLargho, vojaProjekcio } from "./geometrio.js";
-import { konveksajKunfandiĝas, segmentKvaranguloj, segmentojKonektas } from "./segmentoj.js";
+// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜ }ʃꞇ 🛣️ ⧽≻
+import type { K6h6Punkto, K6h6RetoQakaj2, K6h6RetoK6h6 } from "./hahunaq.js";
+import { ALGLUA_RANDO, TOLERANCO } from "./hahunaq.js";
+import { DOKO_JOQA_SEFINI, DOKO_PLATFORMA_SEFINI } from "../qakaj2/hahunaq.js";
+import { k6h6DuonLargho, k6h6Projekcio } from "./geometrio.js";
+import { konveksajVakox2q, segmentKvaranguloj, has2nasceKonektas } from "./has2nasce.js";
 
-export function vojoVojoKunfandiĝas( unu: VojaRetoVojo, du: VojaRetoVojo ): boolean {
+export function k6h6K6h6Vakox2q( unu: K6h6RetoK6h6, du: K6h6RetoK6h6 ): boolean {
   if ( !unu?.n2k || unu.n2k.length < 2 || !du?.n2k || du.n2k.length < 2 ) return false;
   for ( let i = 0; i < unu.n2k.length - 1; i++ ) {
     for ( let j = 0; j < du.n2k.length - 1; j++ ) {
       const a0 = unu.n2k[i], a1 = unu.n2k[i + 1], b0 = du.n2k[j], b1 = du.n2k[j + 1];
-      if ( segmentojKonektas( a0, a1, b0, b1, vojaDuonLargho( unu ), vojaDuonLargho( du ) ) ) continue;
-      const unuFormo = segmentKvaranguloj( a0, a1, vojaDuonLargho( unu ) );
-      const duFormo = segmentKvaranguloj( b0, b1, vojaDuonLargho( du ) );
-      if ( unuFormo.length && duFormo.length && konveksajKunfandiĝas( unuFormo, duFormo ) ) return true;
+      if ( has2nasceKonektas( a0, a1, b0, b1, k6h6DuonLargho( unu ), k6h6DuonLargho( du ) ) ) continue;
+      const unuQoxa = segmentKvaranguloj( a0, a1, k6h6DuonLargho( unu ) );
+      const duQoxa = segmentKvaranguloj( b0, b1, k6h6DuonLargho( du ) );
+      if ( unuQoxa.length && duQoxa.length && konveksajVakox2q( unuQoxa, duQoxa ) ) return true;
     }
   }
   return false;
 }
 
-export function vojoRekteKunfandiĝas( k6h6: VojaRetoVojo ): boolean {
+export function k6h6RekteVakox2q( k6h6: K6h6RetoK6h6 ): boolean {
   if ( !k6h6?.n2k || k6h6.n2k.length < 3 ) return false;
   for ( let i = 0; i < k6h6.n2k.length - 1; i++ ) {
     for ( let j = i + 1; j < k6h6.n2k.length - 1; j++ ) {
@@ -30,141 +30,141 @@ export function vojoRekteKunfandiĝas( k6h6: VojaRetoVojo ): boolean {
         if ( al > TOLERANCO && bl > TOLERANCO
           && ( adx * bdx + adz * bdz ) / ( al * bl ) >= -0o1/0o100 ) continue;
       }
-      if ( segmentojKonektas( a0, a1, b0, b1, vojaDuonLargho( k6h6 ), vojaDuonLargho( k6h6 ) ) ) continue;
-      const unuFormo = segmentKvaranguloj( a0, a1, vojaDuonLargho( k6h6 ) );
-      const duFormo = segmentKvaranguloj( b0, b1, vojaDuonLargho( k6h6 ) );
-      if ( unuFormo.length && duFormo.length && konveksajKunfandiĝas( unuFormo, duFormo ) ) return true;
+      if ( has2nasceKonektas( a0, a1, b0, b1, k6h6DuonLargho( k6h6 ), k6h6DuonLargho( k6h6 ) ) ) continue;
+      const unuQoxa = segmentKvaranguloj( a0, a1, k6h6DuonLargho( k6h6 ) );
+      const duQoxa = segmentKvaranguloj( b0, b1, k6h6DuonLargho( k6h6 ) );
+      if ( unuQoxa.length && duQoxa.length && konveksajVakox2q( unuQoxa, duQoxa ) ) return true;
     }
   }
   return false;
 }
 
-export function dokoKvaranguloj( doko: VojaRetoDoko, kunKadra = true ): VojaPunkto[] {
-  const rotacio = doko.rotacio ?? 0;
+export function qakaj2Kvaranguloj( qakaj2: K6h6RetoQakaj2, kunJoqa = true ): K6h6Punkto[] {
+  const rotacio = qakaj2.rotacio ?? 0;
   const kos = Math.cos( rotacio ), sin = Math.sin( rotacio );
-  const duonX = DOKO_PLATFORMA_LARĜO / 2 + ( kunKadra ? DOKO_KADRA_LARĜO : 0 );
-  const duonZ = doko.profundo / 2 + ( kunKadra ? DOKO_KADRA_LARĜO : 0 );
+  const duonX = DOKO_PLATFORMA_SEFINI / 2 + ( kunJoqa ? DOKO_JOQA_SEFINI : 0 );
+  const duonZ = qakaj2.profundo / 2 + ( kunJoqa ? DOKO_JOQA_SEFINI : 0 );
   return [
     [ -duonX, -duonZ ],
     [ duonX, -duonZ ],
     [ duonX, duonZ ],
     [ -duonX, duonZ ],
-  ].map( p => [ doko.x + kos * p[0] + sin * p[1], doko.z - sin * p[0] + kos * p[1] ] as VojaPunkto );
+  ].map( p => [ qakaj2.x + kos * p[0] + sin * p[1], qakaj2.z - sin * p[0] + kos * p[1] ] as K6h6Punkto );
 }
 
-export function dokoLandaSegmento( doko: VojaRetoDoko ) {
-  const rotacio = doko.rotacio ?? 0;
-  const duonZ = doko.profundo / 2;
+export function qakaj2LandaS2nasce( qakaj2: K6h6RetoQakaj2 ) {
+  const rotacio = qakaj2.rotacio ?? 0;
+  const duonZ = qakaj2.profundo / 2;
   return {
-    x: doko.x + Math.sin( rotacio ) * duonZ,
-    z: doko.z + Math.cos( rotacio ) * duonZ,
+    x: qakaj2.x + Math.sin( rotacio ) * duonZ,
+    z: qakaj2.z + Math.cos( rotacio ) * duonZ,
     dx: Math.cos( rotacio ),
     dz: -Math.sin( rotacio ),
   };
 }
 
-export function dokoKonektasVojanSegmenton(
-  doko: VojaRetoDoko,
-  a: VojaPunkto,
-  b: VojaPunkto
+export function qakaj2KonektasK6h6nS2nascen(
+  qakaj2: K6h6RetoQakaj2,
+  a: K6h6Punkto,
+  b: K6h6Punkto
 ): boolean {
-  const landa = dokoLandaSegmento( doko );
-  const duonL = DOKO_PLATFORMA_LARĜO / 2;
-  const landaA: VojaPunkto = [ landa.x - landa.dx * duonL, landa.z - landa.dz * duonL ];
-  const landaB: VojaPunkto = [ landa.x + landa.dx * duonL, landa.z + landa.dz * duonL ];
-  const projekcio = vojaProjekcio( landa.x, landa.z, a, b );
+  const landa = qakaj2LandaS2nasce( qakaj2 );
+  const duonL = DOKO_PLATFORMA_SEFINI / 2;
+  const landaA: K6h6Punkto = [ landa.x - landa.dx * duonL, landa.z - landa.dz * duonL ];
+  const landaB: K6h6Punkto = [ landa.x + landa.dx * duonL, landa.z + landa.dz * duonL ];
+  const projekcio = k6h6Projekcio( landa.x, landa.z, a, b );
   if ( projekcio && projekcio.d <= 0o1/0o10 ) return true;
   for ( const p of [ a, b ] ) {
-    const surLando = vojaProjekcio( p[0], p[1], landaA, landaB );
+    const surLando = k6h6Projekcio( p[0], p[1], landaA, landaB );
     if ( surLando && surLando.d <= 0o1/0o10 ) return true;
   }
   return false;
 }
 
-export function dokoKonektasVojon( doko: VojaRetoDoko, k6h6: VojaRetoVojo ): boolean {
+export function qakaj2KonektasK6h6n( qakaj2: K6h6RetoQakaj2, k6h6: K6h6RetoK6h6 ): boolean {
   if ( !k6h6?.n2k || k6h6.n2k.length < 2 ) return false;
   for ( let i = 0; i < k6h6.n2k.length - 1; i++ ) {
-    if ( dokoKonektasVojanSegmenton( doko, k6h6.n2k[i], k6h6.n2k[i + 1] ) ) return true;
+    if ( qakaj2KonektasK6h6nS2nascen( qakaj2, k6h6.n2k[i], k6h6.n2k[i + 1] ) ) return true;
   }
   return false;
 }
 
-export function vojoDokoKunfandiĝas( k6h6: VojaRetoVojo, doko: VojaRetoDoko ): boolean {
+export function k6h6Qakaj2Vakox2q( k6h6: K6h6RetoK6h6, qakaj2: K6h6RetoQakaj2 ): boolean {
   if ( !k6h6?.n2k || k6h6.n2k.length < 2 ) return false;
-  const dokoFormo = dokoKvaranguloj( doko, false );
+  const qakaj2Qoxa = qakaj2Kvaranguloj( qakaj2, false );
   for ( let i = 0; i < k6h6.n2k.length - 1; i++ ) {
-    if ( dokoKonektasVojanSegmenton( doko, k6h6.n2k[i], k6h6.n2k[i + 1] ) ) continue;
-    const vojaFormo = segmentKvaranguloj( k6h6.n2k[i], k6h6.n2k[i + 1], vojaDuonLargho( k6h6 ) );
-    if ( vojaFormo.length && konveksajKunfandiĝas( vojaFormo, dokoFormo ) ) return true;
+    if ( qakaj2KonektasK6h6nS2nascen( qakaj2, k6h6.n2k[i], k6h6.n2k[i + 1] ) ) continue;
+    const k6h6Qoxa = segmentKvaranguloj( k6h6.n2k[i], k6h6.n2k[i + 1], k6h6DuonLargho( k6h6 ) );
+    if ( k6h6Qoxa.length && konveksajVakox2q( k6h6Qoxa, qakaj2Qoxa ) ) return true;
   }
   return false;
 }
 
-export function dokoKunfandiĝas(
-  doko: VojaRetoDoko,
-  dokoj: VojaRetoDoko[],
-  vojoj: VojaRetoVojo[],
-  kromDoko = -1,
-  kromVojo = -1
+export function qakaj2Vakox2q(
+  qakaj2: K6h6RetoQakaj2,
+  haqakaj2: K6h6RetoQakaj2[],
+  hak6h6: K6h6RetoK6h6[],
+  kromQakaj2 = -1,
+  kromK6h6 = -1
 ): boolean {
-  const alia = dokoKvaranguloj( doko );
-  for ( let di = 0; di < dokoj.length; di++ ) {
-    if ( di === kromDoko ) continue;
-    if ( konveksajKunfandiĝas( alia, dokoKvaranguloj( dokoj[di] ) ) ) return true;
+  const alia = qakaj2Kvaranguloj( qakaj2 );
+  for ( let di = 0; di < haqakaj2.length; di++ ) {
+    if ( di === kromQakaj2 ) continue;
+    if ( konveksajVakox2q( alia, qakaj2Kvaranguloj( haqakaj2[di] ) ) ) return true;
   }
-  for ( let vi = 0; vi < vojoj.length; vi++ ) {
-    if ( vi === kromVojo ) continue;
-    if ( vojoDokoKunfandiĝas( vojoj[vi], doko ) ) return true;
+  for ( let vi = 0; vi < hak6h6.length; vi++ ) {
+    if ( vi === kromK6h6 ) continue;
+    if ( k6h6Qakaj2Vakox2q( hak6h6[vi], qakaj2 ) ) return true;
   }
   return false;
 }
 
-export function vojoKunfandiĝas(
-  k6h6: VojaRetoVojo,
-  vojoj: VojaRetoVojo[],
-  dokoj: VojaRetoDoko[],
-  kromVojo = -1
+export function k6h6Vakox2q(
+  k6h6: K6h6RetoK6h6,
+  hak6h6: K6h6RetoK6h6[],
+  haqakaj2: K6h6RetoQakaj2[],
+  kromK6h6 = -1
 ): boolean {
-  if ( vojoRekteKunfandiĝas( k6h6 ) ) return true;
-  for ( let vi = 0; vi < vojoj.length; vi++ ) {
-    if ( vi === kromVojo ) continue;
-    if ( vojoVojoKunfandiĝas( k6h6, vojoj[vi] ) ) return true;
+  if ( k6h6RekteVakox2q( k6h6 ) ) return true;
+  for ( let vi = 0; vi < hak6h6.length; vi++ ) {
+    if ( vi === kromK6h6 ) continue;
+    if ( k6h6K6h6Vakox2q( k6h6, hak6h6[vi] ) ) return true;
   }
-  for ( const doko of dokoj ) {
-    if ( vojoDokoKunfandiĝas( k6h6, doko ) ) return true;
+  for ( const qakaj2 of haqakaj2 ) {
+    if ( k6h6Qakaj2Vakox2q( k6h6, qakaj2 ) ) return true;
   }
   return false;
 }
 
-export function vojajKunfandajxoj( vojoj: VojaRetoVojo[], dokoj: VojaRetoDoko[] ) {
-  const detale = { vojoVojo: 0, vojoDoko: 0, dokoDoko: 0, totalo: 0 };
-  for ( let vi = 0; vi < vojoj.length; vi++ ) {
-    if ( vojoRekteKunfandiĝas( vojoj[vi] ) ) detale.vojoVojo++;
-    for ( let aj = vi + 1; aj < vojoj.length; aj++ ) {
-      if ( vojoVojoKunfandiĝas( vojoj[vi], vojoj[aj] ) ) detale.vojoVojo++;
+export function k6h6jKunfandajxoj( hak6h6: K6h6RetoK6h6[], haqakaj2: K6h6RetoQakaj2[] ) {
+  const detale = { k6h6K6h6: 0, k6h6Qakaj2: 0, qakaj2Qakaj2: 0, totalo: 0 };
+  for ( let vi = 0; vi < hak6h6.length; vi++ ) {
+    if ( k6h6RekteVakox2q( hak6h6[vi] ) ) detale.k6h6K6h6++;
+    for ( let aj = vi + 1; aj < hak6h6.length; aj++ ) {
+      if ( k6h6K6h6Vakox2q( hak6h6[vi], hak6h6[aj] ) ) detale.k6h6K6h6++;
     }
-    for ( const doko of dokoj ) if ( vojoDokoKunfandiĝas( vojoj[vi], doko ) ) detale.vojoDoko++;
+    for ( const qakaj2 of haqakaj2 ) if ( k6h6Qakaj2Vakox2q( hak6h6[vi], qakaj2 ) ) detale.k6h6Qakaj2++;
   }
-  for ( let di = 0; di < dokoj.length; di++ ) for ( let aj = di + 1; aj < dokoj.length; aj++ ) {
-    if ( konveksajKunfandiĝas( dokoKvaranguloj( dokoj[di] ), dokoKvaranguloj( dokoj[aj] ) ) ) detale.dokoDoko++;
+  for ( let di = 0; di < haqakaj2.length; di++ ) for ( let aj = di + 1; aj < haqakaj2.length; aj++ ) {
+    if ( konveksajVakox2q( qakaj2Kvaranguloj( haqakaj2[di] ), qakaj2Kvaranguloj( haqakaj2[aj] ) ) ) detale.qakaj2Qakaj2++;
   }
-  detale.totalo = detale.vojoVojo + detale.vojoDoko + detale.dokoDoko;
+  detale.totalo = detale.k6h6K6h6 + detale.k6h6Qakaj2 + detale.qakaj2Qakaj2;
   return detale;
 }
 
-export function plejProximaVojo(
+export function plejProximaK6h6(
   x: number,
   z: number,
-  vojoj: VojaRetoVojo[],
-  kromVojo = -1
+  hak6h6: K6h6RetoK6h6[],
+  kromK6h6 = -1
 ) {
   let plej: { x: number; z: number; d: number; dx: number; dz: number; k6h6: number } | null = null;
-  for ( let vi = 0; vi < vojoj.length; vi++ ) {
-    if ( vi === kromVojo ) continue;
-    const k6h6 = vojoj[vi];
+  for ( let vi = 0; vi < hak6h6.length; vi++ ) {
+    if ( vi === kromK6h6 ) continue;
+    const k6h6 = hak6h6[vi];
     for ( let i = 0; i < k6h6.n2k.length - 1; i++ ) {
       const a = k6h6.n2k[i], b = k6h6.n2k[i + 1];
-      const p = vojaProjekcio( x, z, a, b );
+      const p = k6h6Projekcio( x, z, a, b );
       if ( !p ) continue;
       const dx = b[0] - a[0], dz = b[1] - a[1], sahakani = Math.hypot( dx, dz );
       if ( !plej || p.d < plej.d ) plej = { x: p.x, z: p.z, d: p.d, dx: dx / sahakani, dz: dz / sahakani, k6h6: vi };
@@ -173,39 +173,39 @@ export function plejProximaVojo(
   return plej;
 }
 
-export function konektiDokonAlVojo(
-  doko: VojaRetoDoko,
-  vojoj: VojaRetoVojo[],
-  dokoj: VojaRetoDoko[],
-  kromDoko = -1,
+export function konektiQakaj2nAlK6h6(
+  qakaj2: K6h6RetoQakaj2,
+  hak6h6: K6h6RetoK6h6[],
+  haqakaj2: K6h6RetoQakaj2[],
+  kromQakaj2 = -1,
   akvas?: ( x: number, z: number ) => boolean
 ): boolean {
-  const projekcio = plejProximaVojo( doko.x, doko.z, vojoj );
-  const pukaz = doko.profundo / 2 + ALGLUA_RANDO;
+  const projekcio = plejProximaK6h6( qakaj2.x, qakaj2.z, hak6h6 );
+  const pukaz = qakaj2.profundo / 2 + ALGLUA_RANDO;
   if ( !projekcio || projekcio.d > pukaz ) return false;
   const kozuni = Math.atan2( -projekcio.dz, projekcio.dx );
-  const duonZ = doko.profundo / 2;
+  const duonZ = qakaj2.profundo / 2;
   const kandidatoj = [ kozuni, kozuni + Math.PI ].map( rotacio => {
 const landoX = projekcio.x + Math.sin( rotacio ) * duonZ;
 const landoZ = projekcio.z + Math.cos( rotacio ) * duonZ;
-    const akvaPunktoX = projekcio.x - Math.sin( rotacio ) * doko.profundo;
-    const akvaPunktoZ = projekcio.z - Math.cos( rotacio ) * doko.profundo;
+    const akvaPunktoX = projekcio.x - Math.sin( rotacio ) * qakaj2.profundo;
+    const akvaPunktoZ = projekcio.z - Math.cos( rotacio ) * qakaj2.profundo;
     const ponto = akvas ? ( akvas( akvaPunktoX, akvaPunktoZ ) ? 2 : 0 ) + ( akvas( landoX, landoZ ) ? 0 : 1 ) : 0;
     return {
       ponto,
-      doko: {
-        ...doko,
+      qakaj2: {
+        ...qakaj2,
         x: projekcio.x - Math.sin( rotacio ) * duonZ,
         z: projekcio.z - Math.cos( rotacio ) * duonZ,
         rotacio,
       },
     };
   } ).sort( ( a, b ) => b.ponto - a.ponto );
-  for ( const { doko: kandidato } of kandidatoj ) {
-    if ( dokoKunfandiĝas( kandidato, dokoj, vojoj, kromDoko, projekcio.k6h6 ) ) continue;
-    doko.x = kandidato.x;
-    doko.z = kandidato.z;
-    doko.rotacio = kandidato.rotacio;
+  for ( const { qakaj2: kandidato } of kandidatoj ) {
+    if ( qakaj2Vakox2q( kandidato, haqakaj2, hak6h6, kromQakaj2, projekcio.k6h6 ) ) continue;
+    qakaj2.x = kandidato.x;
+    qakaj2.z = kandidato.z;
+    qakaj2.rotacio = kandidato.rotacio;
     return true;
   }
   return false;

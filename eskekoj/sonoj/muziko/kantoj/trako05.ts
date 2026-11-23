@@ -1,7 +1,7 @@
-// ≺⧼ វិល 05 · ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ · 0o520 ហេ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ 05 · ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ · 0o520 ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
 // ⟨ មេឡូឌីពី MP3 អៃស៊ីអាគ្រី ៖ អូការីណាដឹកនាំលើស្នូល C# 📃 ⟩
 
-import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
+import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/hahunaq.js";
 import { F } from "../vokoj/skaloj.js";
 import { HE, caxomani } from "../vokoj/tempo.js";
 import { motifo, treni, U1, U2, U0, MIN_BB } from "./komunajxoj.js";

@@ -1,22 +1,22 @@
-// ≺⧼ ការវាស់ការរលាយធរណីមាត្រ 🧩 ⧽≻
+// ≺⧼ ſɭɔ ſ͕ɭɜ ı],ᴜ ʌ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🧩 ⧽≻
 // ប្រៀបធៀបការរលាយចាស់ ( ម្តងមួយគូ ) និងការរលាយថ្មី ( ម្តងតែម្តង ) លើ
 // ស្លឹកស្មៅពិត ។
 import * as THREE from "three";
 import { kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson }
   from "../../eskekoj/komunajxoj/kunfandajxoj.js";
-import { kreiHerbanKlingon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/klingoj.js";
-import { kreiVegetajxanHazardon }
-  from "../../eskekoj/shalaj-specioj/vegetajxo/hazardoj.js";
+import { kf2HerbanKlingon } from "../../eskekoj/shalaj-hapudal/vegetajxo/fe1af/klingoj.js";
+import { kf2VegetajxanHazardon }
+  from "../../eskekoj/shalaj-hapudal/vegetajxo/sakxoXa3e.js";
 
 const NOMBRO_DA_JXUROJ = 0o11;
 
 // ⟨ ដូចក្នុង gazono.ts 📃 ⟩
-function malnova( geometrioj: THREE.BufferGeometry[] ): THREE.BufferGeometry {
+function s23ohk2sai( geometrioj: THREE.BufferGeometry[] ): THREE.BufferGeometry {
   return geometrioj.slice(1).reduce(( r, g ) => kunfandiDuGeometriojn(r, g), geometrioj[0]);
 }
 
-function konstruiKlingojn( kanto: number, aksoj: number, tk2ni: number ): THREE.BufferGeometry[] {
-  const hazardo = kreiVegetajxanHazardon(tk2ni);
+function vepaqKlingojn( kanto: number, aksoj: number, tk2ni: number ): THREE.BufferGeometry[] {
+  const hazardo = kf2VegetajxanHazardon(tk2ni);
   const klingoj: THREE.BufferGeometry[] = [];
   const verda = new THREE.Color();
   const seka = new THREE.Color();
@@ -41,7 +41,7 @@ function konstruiKlingojn( kanto: number, aksoj: number, tk2ni: number ): THREE.
       } else {
         verda.setRGB(0o27/0o40 + hazardo() * 0o13/0o40, 0o63/0o100 + hazardo() * 0o11/0o40, 0o5/0o10 + hazardo() * 0o23/0o100);
       }
-      const klingo = kreiHerbanKlingon(sahakani, sefini, klino, arko, tordo,
+      const klingo = kf2HerbanKlingon(sahakani, sefini, klino, arko, tordo,
         sekaKlingo ? seka : verda, 0o2, 0o5/0o10);
       klingo.translate(rx, 0, rz);
       klingoj.push(klingo);
@@ -63,8 +63,8 @@ function egala( a: THREE.BufferGeometry, b: THREE.BufferGeometry ): boolean {
   return a.index === null && b.index === null;
 }
 
-const klingoj = konstruiKlingojn(0o33/0o10, 0o17, 0o2715);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) បំណែក=${klingoj.length} ស្មើគ្នា=${egala(malnova(klingoj), kunfandiGeometriojnSenIndekson(klingoj))}`);
+const klingoj = vepaqKlingojn(0o33/0o10, 0o17, 0o2715);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) បំណែក=${klingoj.length} ស្មើគ្នា=${egala(s23ohk2sai(klingoj), kunfandiGeometriojnSenIndekson(klingoj))}`);
 
 // ⟨ ករណីលាយ ៖ ខ្លះមានពណ៌ ខ្លះគ្មាន 📃 ⟩
 const miksitaj = klingoj.map(( g, i ) => {
@@ -73,19 +73,19 @@ const miksitaj = klingoj.map(( g, i ) => {
   sen.deleteAttribute("color");
   return sen;
 });
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) លាយស្មើគ្នា=${egala(malnova(miksitaj), kunfandiGeometriojnSenIndekson(miksitaj))}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) លាយស្មើគ្នា=${egala(s23ohk2sai(miksitaj), kunfandiGeometriojnSenIndekson(miksitaj))}`);
 
 let minM = Infinity, minN = Infinity;
 for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
-  const unueNova = ( r & 1 ) === 1;
+  const unueSef4 = ( r & 1 ) === 1;
   const t0 = performance.now();
-  if ( unueNova ) kunfandiGeometriojnSenIndekson(klingoj); else malnova(klingoj);
+  if ( unueSef4 ) kunfandiGeometriojnSenIndekson(klingoj); else s23ohk2sai(klingoj);
   const t1 = performance.now();
-  if ( unueNova ) malnova(klingoj); else kunfandiGeometriojnSenIndekson(klingoj);
+  if ( unueSef4 ) s23ohk2sai(klingoj); else kunfandiGeometriojnSenIndekson(klingoj);
   const t2 = performance.now();
-  const dNova = unueNova ? t1 - t0 : t2 - t1;
-  const dMalnova = unueNova ? t2 - t1 : t1 - t0;
-  if ( dMalnova < minM ) minM = dMalnova;
-  if ( dNova < minN ) minN = dNova;
+  const dSef4 = unueSef4 ? t1 - t0 : t2 - t1;
+  const dS23ohk2sai = unueSef4 ? t2 - t1 : t1 - t0;
+  if ( dS23ohk2sai < minM ) minM = dS23ohk2sai;
+  if ( dSef4 < minN ) minN = dSef4;
 }
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចាស់=${minM.toFixed(2)}ms ថ្មី=${minN.toFixed(2)}ms លឿន=${(minM / minN).toFixed(1)}x`);

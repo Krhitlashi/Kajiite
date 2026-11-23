@@ -1,20 +1,20 @@
-// ≺⧼ រណ្តៅកម្ពស់ជិតចំណត និងស្ពាន 🧪 ⧽≻
+// ≺⧼ ֭ſɭэ ſɭэ ʌ j͐ʃэ ɭ(ᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw 🧪 ⧽≻
 // ⟨ ផ្លូវទៅចំណត និងទៅស្ពានធ្លាក់ចុះរួចឡើងវិញ ។ ការវាស់ចាស់លោតតំបន់រន្ធភ្ជាប់
 // ចេញ , ដូច្នេះរណ្តៅនៅមាត់ចានមិនត្រូវរាប់ ។ វាស់នៅទីនេះតាមកម្រិតផ្លូវពិត ,
 // ទាំងផ្លូវជំហានធម្មតា និងផ្លូវរលូនរបស់ស្ពាន ។ 📃 ⟩
-import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
-import { alteco, akvaNivelo } from "../../kantaoj/mondo/tereno.js";
-import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
-import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
-import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
+import { aktivajHak6h6, aktivajHaqakaj2 } from "../../kantaoj/tero-datumaro/rultempo.js";
+import { alteco, akvaVem2 } from "../../kantaoj/mondo/tereno.js";
+import { troviK6h6RetajnHaveb6kekn } from "../../eskekoj/medio/voj-reto.js";
+import { gluiK6h6Finon } from "../../eskekoj/medio/hak6h6/gluado.js";
+import { kf2K6h6Alton } from "../../eskekoj/medio/hak6h6/alto.js";
+import { kf2NivelanProfilon } from "../../eskekoj/medio/hak6h6/havem2.js";
 import { VOJA_EKSTERA_DUONO,
-  VOJA_TRUA_DUONO, surGrid, vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
-import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
-import { havasAkvanTrunkon, kreiPontanAkvanTeston,
-  konstruiPontanProfilon } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
-import { akvaFino, cxuVeraAkvo, vojaSupro, punktoCxe as punktoCxeBaza } from "./komunaj.js";
-import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
+  VOJA_TRUA_DUONO, surGrid, k6h6LarghoDuono } from "../../eskekoj/medio/hak6h6/havecax2l.js";
+import { k6h6SuproDeVeb6kek } from "../../eskekoj/medio/hak6h6/haqoxa.js";
+import { havasAkvanTrunkon, kf2PontanAkvanTeston,
+  vepaqPontanProfilon } from "../../eskekoj/medio/hak6h6/ponto-profilo.js";
+import { akvaFino, tsekeVeraAkvo, k6h6Supro, punktoCxe as punktoCxeBaza } from "./komunaj.js";
+import type { K6h6Punkto } from "../../eskekoj/medio/voj-reto/hahunaq.js";
 
 // ⟨ រណ្តៅខ្លី ៖ ចុះហើយឡើងវិញក្នុងចម្ងាយនេះ 📏 ⟩
 const DIP_DISTO = 0o10;
@@ -24,72 +24,72 @@ const DIP_LIMO = 0o1/0o4;
 const PROKSIMA = 0o20;
 const PAŜO = 0o1/0o4;
 
-const VOJOJ = aktivajVojoj().filter(v => v.n2k.length >= 2);
-const DOKOJ = aktivajDokoj();
+const VOJOJ = aktivajHak6h6().filter(v => v.n2k.length >= 2);
+const DOKOJ = aktivajHaqakaj2();
 const retaj = VOJOJ.map(v => ( { n2k: v.n2k, sefini: v.sefini } ));
 const landoj = DOKOJ.map(d => {
   const r = d.rotacio ?? 0;
   return [ d.x + Math.sin(r) * ( d.profundo / 2 ),
-    d.z + Math.cos(r) * ( d.profundo / 2 ) ] as VojaPunkto;
+    d.z + Math.cos(r) * ( d.profundo / 2 ) ] as K6h6Punkto;
 });
-const antaŭaj = troviVojaRetajnKunigojn(retaj, DOKOJ);
-const celoj: VojaPunkto[] = antaŭaj.map(k => [ k.x, k.z ] as VojaPunkto);
-const gluitaj = VOJOJ.map((v, i) => gluiVojaFinon(v.n2k, celoj,
+const ne3ak2 = troviK6h6RetajnHaveb6kekn(retaj, DOKOJ);
+const celoj: K6h6Punkto[] = ne3ak2.map(k => [ k.x, k.z ] as K6h6Punkto);
+const gluitaj = VOJOJ.map((v, i) => gluiK6h6Finon(v.n2k, celoj,
   landoj.map(p => ( { x: p[0], z: p[1] } )),
   VOJOJ.filter((_, j) => j !== i).map(o => o.n2k)));
-const kunigoj = troviVojaRetajnKunigojn(
+const haveb6kek = troviK6h6RetajnHaveb6kekn(
   VOJOJ.map((v, i) => ( { n2k: gluitaj[i], sefini: v.sefini } )), DOKOJ);
-const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
+const k6h6Alteco = kf2K6h6Alton(alteco, haveb6kek);
 
 // ⟨ កម្ពស់ចានភ្ជាប់ 📏 ⟩ ៖ វាស់ដូចហ្គេម ៖ កម្រិតផ្លូវត្រូវដល់កម្រិតចាន ។ 📃 ⟩
-const platoj = new Map<string, number>();
-const platoCxe = ( x: number, z: number ): number => {
+const hapa12 = new Map<string, number>();
+const pa12Cxe = ( x: number, z: number ): number => {
   const ca3aq = x + "," + z;
-  let l6da = platoj.get(ca3aq);
+  let l6da = hapa12.get(ca3aq);
   if ( l6da === undefined ) {
-    l6da = surGrid(vojaSuproDeKunigo(x, z, [], VOJA_EKSTERA_DUONO, vojoAlteco).hateru);
-    platoj.set(ca3aq, l6da);
+    l6da = surGrid(k6h6SuproDeVeb6kek(x, z, [], VOJA_EKSTERA_DUONO, k6h6Alteco).hateru);
+    hapa12.set(ca3aq, l6da);
   }
   return l6da;
 };
-const ankroj = kunigoj.map(k => ( { x: k.x, z: k.z, l6da: platoCxe(k.x, k.z) } ));
+const ankroj = haveb6kek.map(k => ( { x: k.x, z: k.z, l6da: pa12Cxe(k.x, k.z) } ));
 
 // ⟪ កម្ពស់ចានភ្ជាប់ 📏 ⟫
-/*កម្ពស់ផ្ទៃចាននៅចុងផ្លូវ , ដូច urbo.ts
+/*កម្ពស់ផ្ទៃចាននៅចុងផ្លូវ , ដូច kaxte.ts
     @param x, z ( number ) - ចុងផ្លូវ
     @param sefini ( number ) - ទទឹងផ្លូវ
 @returns l6da ( number ) - កម្ពស់ចាន */
 function pontaFinAlto( x: number, z: number, sefini: number ): number {
-  let plejProksima: typeof kunigoj[number] | null = null, plejMallonga = Infinity;
-  for ( const k of kunigoj ) {
+  let plejProksima: typeof haveb6kek[number] | null = null, plejMallonga = Infinity;
+  for ( const k of haveb6kek ) {
     const d = Math.hypot(k.x - x, k.z - z);
     if ( d < plejMallonga ) { plejMallonga = d; plejProksima = k; }
   }
   if ( plejProksima && plejMallonga < VOJA_EKSTERA_DUONO + VOJA_TRUA_DUONO )
-    return vojaSuproDeKunigo(plejProksima.x, plejProksima.z, plejProksima.direktaj,
-      VOJA_EKSTERA_DUONO, vojoAlteco).hateru;
-  return vojaSupro(x, z, sefini);
+    return k6h6SuproDeVeb6kek(plejProksima.x, plejProksima.z, plejProksima.direktaj,
+      VOJA_EKSTERA_DUONO, k6h6Alteco).hateru;
+  return k6h6Supro(x, z, sefini);
 }
 
 // ⟪ កម្ពស់ផ្ទៃតាមចំណុច 📃 ⟫
-interface VojaSupra {
+interface K6h6Supra {
   l6da: ( x: number, z: number ) => number;
-  trunko: boolean;
+  sost2cel2sai: boolean;
   akvaStarto: number;
   akvaFino: number;
 }
 
 /*កម្ពស់ផ្ទៃផ្លូវពិត តាមផ្លូវមួយ
     @param i ( number ) - លេខផ្លូវ
-@returns teru ( VojaSupra ) - អនុគមន៍កម្ពស់ និងដែនទឹក */
-function supraDeVojo( i: number ): VojaSupra {
+@returns teru ( K6h6Supra ) - អនុគមន៍កម្ពស់ និងដែនទឹក */
+function supraDeK6h6( i: number ): K6h6Supra {
   const n2k = gluitaj[i];
-  const sefini = VOJOJ[i].pontoLarĝo ?? VOJOJ[i].sefini;
-  const cxuPontaAkvo = kreiPontanAkvanTeston(n2k, sefini, cxuVeraAkvo);
-  const trunko = havasAkvanTrunkon(n2k, cxuPontaAkvo);
-  if ( trunko ) {
-    const s2qena = konstruiPontanProfilon(n2k, sefini, vojaSupro,
-      ( x, z ) => cxuPontaAkvo(x, z) ? akvaNivelo(x, z) : -Infinity,
+  const sefini = VOJOJ[i].pontoSefini ?? VOJOJ[i].sefini;
+  const tsekePontaAkvo = kf2PontanAkvanTeston(n2k, sefini, tsekeVeraAkvo);
+  const sost2cel2sai = havasAkvanTrunkon(n2k, tsekePontaAkvo);
+  if ( sost2cel2sai ) {
+    const s2qena = vepaqPontanProfilon(n2k, sefini, k6h6Supro,
+      ( x, z ) => tsekePontaAkvo(x, z) ? akvaVem2(x, z) : -Infinity,
       pontaFinAlto, alteco);
     const trako = s2qena.trakoj[0];
     const akvaStarto = trako
@@ -98,12 +98,12 @@ function supraDeVojo( i: number ): VojaSupra {
       ? distancoDe(n2k, trako.bx, trako.bz) : 0;
     return {
       l6da: ( x, z ) => s2qena.l6da(x, z),
-      trunko, akvaStarto, akvaFino };
+      sost2cel2sai, akvaStarto, akvaFino };
   }
-  const s2qena = kreiNivelanProfilon(n2k, vojaLarghoDuono( sefini ),
-    vojoAlteco, akvaFino, ankroj);
+  const s2qena = kf2NivelanProfilon(n2k, k6h6LarghoDuono( sefini ),
+    k6h6Alteco, akvaFino, ankroj);
   return { l6da: ( x, z ) => s2qena.altoCxe(distancoDe(n2k, x, z)),
-    trunko, akvaStarto: 0, akvaFino: s2qena.sahakani };
+    sost2cel2sai, akvaStarto: 0, akvaFino: s2qena.sahakani };
 }
 
 // ⟪ ចម្ងាយតាមបណ្តោយ 📏 ⟫
@@ -111,7 +111,7 @@ function supraDeVojo( i: number ): VojaSupra {
     @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
     @param x, z ( number ) - ចំណុច
 @returns s ( number ) - ចម្ងាយតាមបណ្តោយ */
-function distancoDe( n2k: readonly VojaPunkto[], x: number, z: number ): number {
+function distancoDe( n2k: readonly K6h6Punkto[], x: number, z: number ): number {
   let kur = 0, plejBona = Infinity, plejS = 0;
   for ( let k = 0; k < n2k.length - 1; k++ ) {
     const a = n2k[k], b = n2k[k + 1];
@@ -133,7 +133,7 @@ function distancoDe( n2k: readonly VojaPunkto[], x: number, z: number ): number 
     @param s ( number ) - ចម្ងាយតាមបណ្តោយ
 @returns p ( { x , z } ) - ចំណុច */
 // ⟨ អនុគមន៍រួមនៅ komunaj ជាមួយកម្រិតធំជាងរបស់ឧបករណ៍នេះ 📃 ⟩
-const punktoCxe = ( n2k: readonly VojaPunkto[], s: number ): { x: number; z: number } =>
+const punktoCxe = ( n2k: readonly K6h6Punkto[], s: number ): { x: number; z: number } =>
   punktoCxeBaza( n2k, s, 0o10 ** -0o6 );
 
 // ⟪ រណ្តៅខ្លី 📏 ⟫
@@ -173,7 +173,7 @@ function distoAlLandon( x: number, z: number ): number {
 
 let difektaj = 0, profunda = 0;
 for ( let i = 0; i < VOJOJ.length; i++ ) {
-  const teru = supraDeVojo(i);
+  const teru = supraDeK6h6(i);
   const n2k = gluitaj[i];
   let sahakani = 0;
   for ( let k = 0; k < n2k.length - 1; k++ )
@@ -186,14 +186,14 @@ for ( let i = 0; i < VOJOJ.length; i++ ) {
     hateru.push({ x: p.x, z: p.z, y: teru.l6da(p.x, p.z), s });
   }
   const dipo = plejProfundaDipo(hateru);
-  const signo = teru.trunko ? "ស្ពាន" : "ផ្លូវ";
+  const signo = teru.sost2cel2sai ? "ស្ពាន" : "ផ្លូវ";
   if ( !dipo ) {
     console.log(`  ${signo} ${i} ${VOJOJ[i].ksaka} , គ្មានរណ្តៅ , ប្រវែង ${sahakani.toFixed(1)}`);
     continue;
   }
   const landa = distoAlLandon(dipo.x, dipo.z);
   // ⟨ ចម្ងាយទៅមាត់ទឹក ៖ សម្រាប់ស្ពានតែប៉ុណ្ណោះ 📃 ⟩
-  const akva = teru.trunko
+  const akva = teru.sost2cel2sai
     ? Math.min(Math.abs(dipo.s - teru.akvaStarto), Math.abs(dipo.s - teru.akvaFino))
     : Infinity;
   const proksima = Math.min(landa, akva) < PROKSIMA;
@@ -212,11 +212,11 @@ console.log(`ផ្លូវ ${VOJOJ.length} , រណ្តៅជិតចំណ
 // ⟨ កម្ពស់ផ្ទៃស្ពាននៅចុងត្រូវស្មើចាន ។ បើខុស , ផ្លូវលិចនៅមាត់ស្ពាន 📃 ⟩
 console.log("<( ចុងស្ពាន )>");
 for ( let i = 0; i < VOJOJ.length; i++ ) {
-  const teru = supraDeVojo(i);
-  if ( !teru.trunko ) continue;
+  const teru = supraDeK6h6(i);
+  if ( !teru.sost2cel2sai ) continue;
   const n2k = gluitaj[i];
   const xaqadi = n2k[0], z2hak = n2k[ n2k.length - 1 ];
-  const sefini = VOJOJ[i].pontoLarĝo ?? VOJOJ[i].sefini;
+  const sefini = VOJOJ[i].pontoSefini ?? VOJOJ[i].sefini;
   const dezirata0 = pontaFinAlto(xaqadi[0], xaqadi[1], sefini);
   const dezirata1 = pontaFinAlto(z2hak[0], z2hak[1], sefini);
   console.log(`  ${i} ${VOJOJ[i].ksaka}` +

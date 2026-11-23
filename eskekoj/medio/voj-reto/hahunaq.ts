@@ -1,0 +1,29 @@
+// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ֭ſɭw }ʃᴜȝ 🛣️ ⧽≻
+export type K6h6Punkto = [ number, number ];
+
+export interface K6h6RetoK6h6 {
+  n2k: K6h6Punkto[];
+  sefini?: number;
+}
+
+export interface K6h6RetoQakaj2 {
+  x: number;
+  z: number;
+  profundo: number;
+  rotacio?: number;
+}
+
+export interface K6h6RetoVeb6kek {
+  x: number;
+  z: number;
+  direktaj: K6h6Punkto[];
+  rotacio: number;
+  fermitaj: [ number, number ];
+  // ⟨ កន្លះទទឹងផ្លូវពិត 🛣️ ⟩ ៖ ចានភ្ជាប់សាងសង់តាមទទឹងនេះ , មិនមែនតាម
+  // តម្លៃថេរទេ ។ បើចានឆ្អឹងជំនីរតូចជាងផ្លូវ , ស្មាផ្លូវលាតចេញពីចាន ,
+  // ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។ 📃 ⟩
+  p2somani: number;
+}
+
+export const TOLERANCO = 0o1/0o1000;
+export const ALGLUA_RANDO = 0o5/0o2;

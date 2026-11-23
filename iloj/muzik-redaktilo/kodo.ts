@@ -1,10 +1,10 @@
-// ≺⧼ កូដវិល 🎼 ⧽≻
+// ≺⧼ j͑ʃᴜ ſɭᴜ ʌ j͑ʃɹ ɭʃɜ ꞁȷ̀ᴜ }ʃꞇ 🎼 ⧽≻
 // បង្កើតឯកសារវិល TypeScript ពីទិន្នន័យកែ និងញែកវាត្រឡប់វិញ ។
 // លេខទាំងអស់សរសេរជាគោលប្រាំបី ( ភាគប្រាំបី ) ដូចឯកសារដើមរបស់ហ្គេម ។
 // ការញែកគាំទ្រទិន្នន័យអក្សរដែលឧបករណ៍នេះបង្កើត ( លេខ ខ្សែអក្សរ អារេ វត្ថុ និងប្រមាណវិធី + - * / )។
 // ពេលវេលាគិតជាវិនាទី កម្ពស់គិតជាហឺត កម្រិតសំឡេងជាភាគរយ ។
 
-import type { Sekcio } from "../../eskekoj/sonoj/muziko/vokoj/tipoj.js";
+import type { Sekcio } from "../../eskekoj/sonoj/muziko/vokoj/hahunaq.js";
 import { caxomani } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
 
 // ⟪ ប្រភេទ 📃 ⟫
@@ -85,12 +85,12 @@ export function generiTrako(d: TrakoDatumo): string {
   const secLinoj = [ ...d.secs ].sort(( a, b ) => a.a - b.a).map(s =>
     "    { n: " + JSON.stringify(s.n) + ", a: " + octFrak(s.a, 0o10000) + ", b: " + octFrak(s.b, 0o10000) + " },");
   return [
-    "// ≺⧼ វិល " + d.no + " · " + d.titolo + " 🎵 ⧽≻",
+    "// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ " + d.no + " · " + d.titolo + " 🎵 ⧽≻",
     "// បង្កើតដោយឧបករណ៍កែតន្ត្រី ( iloj/muzik-redaktilo/muzik-redaktilo.html )។",
     "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - កុំកែដោយដៃ។ ឧបករណ៍កែសរសេរឯកសារនេះឡើងវិញ។",
     "// ក្រឡាចង្វាក់ ៖ 0o" + d.bpq.toString(0o10) + " បាតកក្នុងមួយគុយអេ , បារមួយ 0o" + d.ppb.toString(0o10) + " ភាគប្រាំបី។",
     "",
-    "import type { SonoEvento, Sekcio, SpuroDateno } from \"../vokoj/tipoj.js\";",
+    "import type { SonoEvento, Sekcio, SpuroDateno } from \"../vokoj/hahunaq.js\";",
     "",
     "export function buildTrack" + n + "(): SpuroDateno {",
     "  const ev: SonoEvento[] = [",
@@ -117,7 +117,7 @@ export function generiKantoj(registroj: Registro[]): string {
     "// ឯកសារនេះប្រមូលពួកវាជាបញ្ជីតែមួយសម្រាប់ឧបករណ៍លេង។",
     "// បង្កើតដោយឧបករណ៍កែតន្ត្រី ( iloj/muzik-redaktilo/muzik-redaktilo.html )។",
     "",
-    "import type { SpuroDateno } from \"./vokoj/tipoj.js\";",
+    "import type { SpuroDateno } from \"./vokoj/hahunaq.js\";",
   ];
   if ( uzasAiH ) linioj.push("import { AIH } from \"../../../kantaoj/lingvo/tradukoj/aih.js\";");
   for ( const r of ordigitaj )

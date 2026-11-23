@@ -1,12 +1,12 @@
-// ≺⧼ ការបកប្រែ , ភាសាអេស្ពេរ៉ង់តូ 🗣️ ⧽≻
+// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ɔ j͑ʃɘɔ ɽ͑ʃ'ᴜ }ʃƨɜ ſɭᴜͷ̗ 🗣️ ⧽≻
 
 export const EO: Record<string, string> = {
 
   // ⟪ ទំព័រចាប់ផ្តើម 🌅 ⟫
 
   "titoloAranis": "Araniso",
-  "titoloUrbo": "Kajteo",
-  "subtitoloUrbo": "Ĥusa Lotao, Lamuza Kajteo",
+  "titoloKaxte": "Kajteo",
+  "subtitoloKaxte": "Ĥusa Lotao, Lamuza Kajteo",
   "eniri": "Eniri",
   "butonoPromeni": "PROMENI",
   "butonoOrbiti": "ORBITI",
@@ -16,35 +16,35 @@ export const EO: Record<string, string> = {
   // ⟪ តម្បាញ 🧵 ⟫
 
   "titoloTeksilo": "Teksilo",
-  "subtitoloTeksilo": "Longaj ĉemizoj, mallongaj manikoj, ĉefa kaj akcenta.",
+  "subtitoloTeksilo": "Longaj ĉemizoj, mallongaj manikoj, geles kaj akcenta.",
 
   // ⟪ ការផ្ទុក ⏳ ⟫
 
   "titoloSxargxo": "Mondo",
   "sxargxoSubskribo": "Ŝargado.",
-  "sxargxoSatalo": "Konstruado de satalaĵoj.",
+  "sxargxoSatalo": "Vepaqdo de satalaĵoj.",
   "sxargxoNebulo": "Nebulo fluas tra la valo.",
 
   // ⟪ ការគ្រប់គ្រង 🎮 ⟫
 
   "kompasoNordo": "N",
-  "regiloOrbito": "Orbito",
+  "kamaOrbito": "Orbito",
   "klavoTreni": "Treni",
-  "regiloPromeno": "Promeni",
+  "kamaPromeno": "Promeni",
   "klavoPromeno": "WASD",
-  "regiloMovado": "Kuri",
+  "kamaMovado": "Kuri",
   "klavoKuro": "Shift",
-  "regiloSalto": "Salti",
+  "kamaSalto": "Salti",
   "klavoSalto": "Spaco",
-  "regiloEniri": "Eniri konstruaĵon",
+  "kamaEniri": "Eniri paqn",
   "klavoEniri": "E",
-  "regiloMapo": "Mapo",
+  "kamaMapo": "Mapo",
   "klavoMapo": "M",
-  "regiloEliri": "Eliri",
+  "kamaEliri": "Eliri",
   "klavoEliri": "Esc",
-  "regiloSpajroj": "Legi notojn",
+  "kamaSpajroj": "Legi notojn",
   "klavoKlako": "Alklaki",
-  "regiloKanuo": "Direkti",
+  "kamaKanuo": "Direkti",
   "agoGusti": "Gusti",
   "agoKuxi": "Kuŝi",
   "agoLevi": "Leviĝi",
@@ -55,7 +55,7 @@ export const EO: Record<string, string> = {
 
   // ⟪ ជំនួយ ❓ ⟫
 
-  "titoloVojoj": "Vojoj",
+  "titoloHak6h6": "Hak6h6",
   "subtitoloHelpo": "Urbaj notoj",
 
   // ⟪ បណ្តាញ 🌐 ⟫
@@ -66,83 +66,83 @@ export const EO: Record<string, string> = {
   // ⟪ អាហារ 🍲 ⟫
 
   "manĝPuss0": "Pusŝlefo-bero",
-  "manĝFok0Gusto": "Pano el likeno kun anasa baozi.",
+  "manĝFok0Gusto": "Pano el f2ma kun anasa baozi.",
   "manĝFok1Gusto": "Tsahal-vinagro kaj glacifiŝo.",
   "manĝFok2Gusto": "Tsahal-vinagro, mara araneo, glacifiŝo kaj ŝlefo.",
   "manĝTla0Gusto": "Vinagro, lakto, mento kaj ŝaŭmakvo.",
   "manĝTla1Gusto": "Vinagro, kapsiko, juzuo, mento kaj ŝaŭmakvo.",
-  "manĝTla2Gusto": "Vinagro, betula suko, mento kaj bergamota teo.",
+  "manĝTla2Gusto": "Vinagro, lam2v suko, mento kaj bergamota teo.",
   "manĝPuss0Gusto": "Malvarmeta, akva krispo kun sukereta postgusto.",
 
   // ⟪ ប្រភេទសំណង់ 🏗️ ⟫
 
-  "konstruPriskriboDomo": "Domo.",
-  "konstruPriskriboMangxejo": "Restoracio.",
-  "konstruPriskriboKasafeo": "Kunvenejo.",
-  "konstruPriskriboStacioxipo": "Stacio.",
-  "konstruPriskriboTuro": "Nubskrapulo.",
-  "konstruPriskriboSanktejo": "Centro.",
+  "vepaqPriskriboDomo": "Domo.",
+  "vepaqPriskriboMangxejo": "Restoracio.",
+  "vepaqPriskriboKasafeo": "Kunvenejo.",
+  "vepaqPriskriboStacioxipo": "Stacio.",
+  "vepaqPriskriboTuro": "Nubskrapulo.",
+  "vepaqPriskriboSanktejo": "Centro.",
 
   // ⟪ កាតសំណង់ 🪪 ⟫
 
-  "kartoNiveloj": "Tavoloj",
+  "kartoHavem2": "Tavoloj",
   "kartoDiamanto": "Diamanto",
   "kartoJes": "Jes",
   "kartoNe": "Ne",
-  "kartoKonstruTipo": "Tipo",
-  "kartoPozicio": "Pozicio",
+  "kartoVepaqHunaq": "Hunaq",
+  "kartoXekuxa": "Xekuxa",
 
   // ⟪ ផ្ទាំងព័ត៌មាន 📖 ⟫
 
-  "titoloInformo": "Arazopuo",
-  "subtitoloInformo": "Konstruaĵoj, manĝaĵoj, specioj",
-  "ariaInformoButono": "Informoj",
+  "titoloInqoxa": "Arazopuo",
+  "subtitoloInqoxa": "Vepaqĵoj, m7x, hapudal",
+  "ariaInqoxaButono": "Inhaqoxa",
   "ariaFermiButono": "Fermi",
-  "taboKonstruajxoj": "Konstruaĵoj",
+  "taboPaqj": "Vepaqĵoj",
   "taboMangxajxoj": "Manĝaĵoj",
-  "taboSpecioj": "Specioj",
+  "taboHapudal": "Hapudal",
 
   // ⟪ ពួកសត្វ 🐟 ⟫
 
-  "grupoBesto": "Besto",
-  "specioBeroe": "Beroo",
-  "specioPriskriboBeroe": "Longforma kombomeduzo kun ok kombovicoj.",
-  "specioMnemiopsis": "Mnemiopsiso",
-  "specioPriskriboMnemiopsis": "Ronda kombomeduzo kun kvar buŝaj loboj.",
-  "specioPleŭrobrakia": "Pleŭrobrakio",
-  "specioPriskriboPleŭrobrakia": "Malgranda ronda kombomeduzo kun du longaj palpoj.",
-  "specioGlacifiso": "Glacifiso",
-  "specioPriskriboGlacifiso": "Preskaŭ travidebla fiŝo sen hemoglobino.",
-  "specioMarlaraksxo": "Marlaraksxo",
-  "specioPriskriboMarlaraksxo": "Eta mararaneo kun ok longegaj kruroj.",
-  "specioNeĝopetrelo": "Neĝopetrelo",
-  "specioPriskriboNeĝopetrelo": "Pura blanka marbirdo glitanta super la lago kaj la rivero.",
+  "grupoPaga": "Paga",
+  "pudalL2xkupukai": "Beroo",
+  "pudalPriskriboL2xkupukai": "Longforma kombomeduzo kun ok kombohax2pa.",
+  "pudalL2xcaxlefai": "L2xcaxlefaio",
+  "pudalPriskriboL2xcaxlefai": "C2q kombomeduzo kun kvar w6qaj loboj.",
+  "pudalPleŭrobrakia": "Pleŭrobrakio",
+  "pudalPriskriboPleŭrobrakia": "Malgranda c2q kombomeduzo kun du longaj palpoj.",
+  "pudalTq2wa": "Tq2wa",
+  "pudalPriskriboTq2wa": "Preskaŭ travidebla fiŝo sen hemoglobino.",
+  "pudalTolxu": "Tolxu",
+  "pudalPriskriboTolxu": "Eta mararaneo kun ok longegaj kruroj.",
+  "pudalNeĝotemek": "Neĝotemek",
+  "pudalPriskriboNeĝotemek": "Pura blanka marbirdo glitanta super la lago kaj la rivero.",
 
   // ⟪ រុក្ខជាតិ 🌿 ⟫
 
   "grupoPlanto": "Planto",
-  "specioBetulo": "Betulo",
-  "specioPriskriboBetulo": "Arbo kun blanka ligno.",
-  "specioLariko": "Alpa lariko",
-  "specioPriskriboLariko": "La alpa lariko ( Larix lyallii ), malgranda alpina konifero, kiu perdas siajn pinglojn aŭtune kaj orflaviĝas.",
-  "specioHxsxaksxlefo": "Ĥŝakŝlefo",
-  "specioPriskriboHxsxaksxlefo": "Purpura laktukarbo kun kurbaj folioj. Uzata por fari vinagron.",
-  "specioPussxlefo": "Pusŝlefo",
-  "specioPriskriboPussxlefo": "Fern-granda purpura laktukplanto kun travideblaj manĝeblaj beroj.",
-  "specioFiliko": "Filiko",
-  "specioPriskriboFiliko": "Verda planto sur la arbara grundo.",
-  "specioPurpuraFiliko": "Ŝafiŝlefo",
-  "specioPriskriboPurpuraFiliko": "Alta purpura filiko de la ekstera arbaro.",
-  "specioLikeno": "Likeno",
-  "specioPriskriboLikeno": "Algoj kaj fungo. Umaseo.",
-  "specioHerbo": "Herbo",
-  "specioPriskriboHerbo": "Herbo simila al ciankolora planto.",
-  "specioMusko": "Musko",
-  "specioPriskriboMusko": "Monteto, kiu fakte estas planto.",
-  "specioCetkuo": "Cetkuo",
-  "specioPriskriboCetkuo": "Lanuga equiseto praelta.",
-  "specioCakeo": "Cakeo",
-  "specioPriskriboCakeo": "Equisetum telmateia kiel osta nar2sa.",
+  "pudalBetulo": "Betulo",
+  "pudalPriskriboBetulo": "Arbo kun blanka ligno.",
+  "pudalLariko": "Alpa taksal",
+  "pudalPriskriboLariko": "La alpa taksal ( Larix lyallii ), malgranda alpina konifero, kiu perdas siajn pinglojn aŭtune kaj orflaviĝas.",
+  "pudalTlexlefhxakai": "Ĥŝakŝlefo",
+  "pudalPriskriboTlexlefhxakai": "Asfa laktukarbo kun kkaxtej slafj. Uzata por fari vinagron.",
+  "pudalTlexlefp2sai": "Pusŝlefo",
+  "pudalPriskriboTlexlefp2sai": "Fern-granda asfa laktukplanto kun travideblaj manĝeblaj beroj.",
+  "pudalXabe": "Xabe",
+  "pudalPriskriboXabe": "Verda planto sur la arbara grundo.",
+  "pudalAsfaXabe": "Ŝafiŝlefo",
+  "pudalPriskriboAsfaXabe": "Alta asfa xabe de la ekstera arbaro.",
+  "pudalF2ma": "F2ma",
+  "pudalPriskriboF2ma": "Algoj kaj fungo. Umaseo.",
+  "pudalFe1af": "Fe1af",
+  "pudalPriskriboFe1af": "Fe1af simila al ciankolora planto.",
+  "pudalC6x": "C6x",
+  "pudalPriskriboC6x": "Monteto, kiu fakte estas planto.",
+  "pudalCetkuo": "Cetkuo",
+  "pudalPriskriboCetkuo": "Lanuga equiseto praelta.",
+  "pudalCakeo": "Cakeo",
+  "pudalPriskriboCakeo": "Equisetum telmateia kiel osta nar2sa.",
 
   // ⟪ សម្លៀកបំពាក់ 👕 ⟫
 
@@ -152,7 +152,7 @@ export const EO: Record<string, string> = {
   "vestoKoloroMist": "Blanka",
   "vestoKoloroEmber": "Ruĝa",
   "vestoKoloroAzure": "Blua",
-  "vestoKoloroViolet": "Purpura",
+  "vestoKoloroViolet": "Asfa",
   "vestoKoloroGilt": "Flava",
   "vestoKoloroRose": "Roza",
   "vestoKoloroObsidian": "Nigra",
@@ -179,7 +179,7 @@ export const EO: Record<string, string> = {
   // ⟪ អាកាសធាតុ 🌦️ ⟫
 
   "ariaKrepuskoButono": "Krepusko",
-  "ariaKrepuskoRegilo": "Krepuska vem2",
+  "ariaKrepuskoKama": "Krepuska vem2",
   "ariaVeteroButono": "Vetero",
   "veteroNebula": "Nebula",
   "veteroPluva": "Pluva",

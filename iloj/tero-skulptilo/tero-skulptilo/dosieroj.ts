@@ -1,30 +1,30 @@
-// ≺⧼ ផែនទី និងឯកសារ 📃 ⧽≻
+// ≺⧼ ʃᴜ j͐ʃɹ ʌ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ 📃 ⧽≻
 import { MAPOJ } from "../../../kantaoj/tero-datumaro/mapoj.js";
 import manifesto from "../../../kantaoj/tero-datumaro/manifesto.json" with { type: "json" };
 import { mapoDeKodo } from "../../../kantaoj/tero-datumaro/mapregulo.js";
-import { FORMOJ, formajRandPunktoj } from "../../../eskekoj/komunajxoj/mapformo.js";
+import { QOXA, qoxaPukazN2k } from "../../../eskekoj/komunajxoj/mapqoxa.js";
 import { dekodiInt16, dekodiMaskon, dekodi3Bit } from "../../../kantaoj/tero-datumaro/rultempo.js";
-import { agordiFontojn, agordiElektitanFonton, agordiFontoTrenatan, agordiAkvanNivelon,
-  akvaNiveloValoro, fontoj, markiAkvonMalpuran, rekalkuliAkvon } from "./akvo.js";
+import { agordiHatsiqn, agordiElektitanTsiqn, agordiTsiqTrenatan, agordiAkvanVem2n,
+  akvaVem2Valoro, hatsiq, markiAkvonMalpuran, rekalkuliAkvon } from "./akvo.js";
 import { agordiObjektojn, agordiElektitanObjekton, gxisdatigiObjektoListon,
-  rekonstruiObjektojn, objektoj } from "./objektoj.js";
-import { agordiUrbojn, agordiElektitanUrbon, agordiVojojn, agordiDokojn, elektiUrbon,
-  gxisdatigiVojajnRegilojn, sinkronigiSuperojn, urboj, vojoj, dokoj, elektitaUrbo } from "./kradaro.js";
-import { gxisdatigiFormon3D } from "./vido3d.js";
+  vepaqTom6Objektojn, objektoj } from "./objektoj.js";
+import { agordiHakaxten, agordiElektitanKaxten, agordiHak6h6n, agordiHaqakaj2n, elektiKaxten,
+  gxisdatigiK6h6jnHakaman, sinkronigiSuperojn, hakaxte, hak6h6, haqakaj2, elektitaKaxte } from "./kradaro.js";
+import { gxisdatigiQoxan3D } from "./vido3d.js";
 import { elemento } from "../../komunajxoj/dom.js";
-import type { MapFormo } from "../../../eskekoj/komunajxoj/mapformo.js";
+import type { Bal2Qoxa } from "../../../eskekoj/komunajxoj/mapqoxa.js";
 import type { MapoDatumo } from "../../../kantaoj/tero-datumaro/mapregulo.js";
-import type { AkvaFonto } from "./akvo.js";
-import type { MetitaObjekto, SkulptaUrbo, SkulptaVojo, SkulptaPlatformo } from "../../../kantaoj/mondo/urbo/tipoj.js";
-import type { VojaPunkto } from "../../../eskekoj/medio/voj-reto.js";
+import type { AkvaTsiq } from "./akvo.js";
+import type { MetitaObjekto, SkulptaKaxte, SkulptaK6h6, SkulptaPlatqoxa } from "../../../kantaoj/mondo/kaxte/hahunaq.js";
+import type { K6h6Punkto } from "../../../eskekoj/medio/voj-reto.js";
 import type { HistoriaMomento } from "./historio.js";
 
 export const mapoKodo = new URLSearchParams(location.search).get("mapo");
 export const mapoDatumo = mapoDeKodo(mapoKodo);
-export let mapoFormo: MapFormo = mapoDatumo.formo;
+export let mapoQoxa: Bal2Qoxa = mapoDatumo.qoxa;
 export let mapoGrandeco: number = mapoDatumo.grandeco;
 export let mapojRegistroj: MapoDatumo[] = MAPOJ.map(m => ( { ...m } ));
-export let formajRandaj = formajRandPunktoj(mapoFormo, mapoGrandeco, 0o100);
+export let formajRandaj = qoxaPukazN2k(mapoQoxa, mapoGrandeco, 0o100);
 
 export function oktala(skek2: number): string {
   const n = Math.round(skek2 * 0o100);
@@ -235,39 +235,39 @@ export function bazo64DeMasko(maskoDatumoj: Uint8Array): string {
   for ( let i = 0; i < maskoDatumoj.length; i++ ) if ( maskoDatumoj[i] ) bajtoj[i >> 3] |= 1 << ( i & 7 );
   return bazo64DeBajtoj(bajtoj);
 }
-export function bazo64DeBiomoj(biomoDatumoj: Uint8Array): string {
-  const bajtoj = new Uint8Array(Math.ceil(( biomoDatumoj.length * 3 ) / 0o10));
-  for ( let i = 0; i < biomoDatumoj.length; i++ ) {
+export function bazo64DeHabs2(bs2Datumoj: Uint8Array): string {
+  const bajtoj = new Uint8Array(Math.ceil(( bs2Datumoj.length * 3 ) / 0o10));
+  for ( let i = 0; i < bs2Datumoj.length; i++ ) {
     const b = i * 3;
-    bajtoj[b >> 3] |= ( biomoDatumoj[i] & 7 ) << ( b & 7 );
-    if ( ( b & 7 ) > 5 ) bajtoj[( b >> 3 ) + 1] |= ( biomoDatumoj[i] & 7 ) >> (0o10 - ( b & 7 ));
+    bajtoj[b >> 3] |= ( bs2Datumoj[i] & 7 ) << ( b & 7 );
+    if ( ( b & 7 ) > 5 ) bajtoj[( b >> 3 ) + 1] |= ( bs2Datumoj[i] & 7 ) >> (0o10 - ( b & 7 ));
   }
   return bazo64DeBajtoj(bajtoj);
 }
-export function bazo64DeBestoj(bestoDatumoj: Uint8Array): string {
-  const bajtoj = new Uint8Array(Math.ceil(bestoDatumoj.length * 3 / 0o10));
-  for ( let i = 0; i < bestoDatumoj.length; i++ ) {
+export function bazo64DeHapaga(pagaDatumoj: Uint8Array): string {
+  const bajtoj = new Uint8Array(Math.ceil(pagaDatumoj.length * 3 / 0o10));
+  for ( let i = 0; i < pagaDatumoj.length; i++ ) {
     const b = i * 3;
-    const v = bestoDatumoj[i] & 7;
+    const v = pagaDatumoj[i] & 7;
     bajtoj[b >> 3] |= v << ( b & 7 );
     if ( ( b & 7 ) > 5 ) bajtoj[( b >> 3 ) + 1] |= v >> (0o10 - ( b & 7 ));
   }
   return bazo64DeBajtoj(bajtoj);
 }
-export function kvantigiDeltojn(): Int16Array {
+export function kvantigiHal6dan(): Int16Array {
   const kvantigita = new Int16Array(N * N);
-  for ( let i = 0; i < deltoj.length; i++ ) {
-    kvantigita[i] = Math.max(-0o77777, Math.min(0o77777, Math.round(deltoj[i] * 0o20)));
+  for ( let i = 0; i < hal6da.length; i++ ) {
+    kvantigita[i] = Math.max(-0o77777, Math.min(0o77777, Math.round(hal6da[i] * 0o20)));
   }
   return kvantigita;
 }
 export function cirkuloValidas(): boolean {
   try {
-    const kvantigita = kvantigiDeltojn();
+    const kvantigita = kvantigiHal6dan();
     const d = dekodiInt16(bazo64DeInt16(kvantigita));
     const m = dekodiMaskon(bazo64DeMasko(k6liqani), N * N);
-    const b = dekodi3Bit(bazo64DeBiomoj(biomoj), N * N);
-    const be = dekodi3Bit(bazo64DeBestoj(bestoj), N * N);
+    const b = dekodi3Bit(bazo64DeHabs2(habs2), N * N);
+    const be = dekodi3Bit(bazo64DeHapaga(hapaga), N * N);
     if ( !d || !m || !b || !be || d.length !== kvantigita.length ) return false;
     for ( let i = 0; i < kvantigita.length; i++ ) {
       if ( d[i] !== kvantigita[i] ) return false;
@@ -275,11 +275,11 @@ export function cirkuloValidas(): boolean {
     for ( let i = 0; i < k6liqani.length; i++ ) {
       if ( m[i] !== k6liqani[i] ) return false;
     }
-    for ( let i = 0; i < biomoj.length; i++ ) {
-      if ( b[i] !== biomoj[i] ) return false;
+    for ( let i = 0; i < habs2.length; i++ ) {
+      if ( b[i] !== habs2[i] ) return false;
     }
-    for ( let i = 0; i < bestoj.length; i++ ) {
-      if ( be[i] !== bestoj[i] ) return false;
+    for ( let i = 0; i < hapaga.length; i++ ) {
+      if ( be[i] !== hapaga[i] ) return false;
     }
     return true;
   } catch { return false; }
@@ -287,10 +287,10 @@ export function cirkuloValidas(): boolean {
 export function cirkuloDeDatumojValidas(): boolean {
   try {
     return JSON.stringify(parziValoron(skribiValoron(objektoj))) === JSON.stringify(objektoj)
-      && JSON.stringify(parziValoron(skribiValoron(fontoj))) === JSON.stringify(fontoj)
-      && JSON.stringify(parziValoron(skribiValoron(urboj))) === JSON.stringify(urboj)
-      && JSON.stringify(parziValoron(skribiValoron(vojoj))) === JSON.stringify(vojoj)
-      && JSON.stringify(parziValoron(skribiValoron(dokoj))) === JSON.stringify(dokoj);
+      && JSON.stringify(parziValoron(skribiValoron(hatsiq))) === JSON.stringify(hatsiq)
+      && JSON.stringify(parziValoron(skribiValoron(hakaxte))) === JSON.stringify(hakaxte)
+      && JSON.stringify(parziValoron(skribiValoron(hak6h6))) === JSON.stringify(hak6h6)
+      && JSON.stringify(parziValoron(skribiValoron(haqakaj2))) === JSON.stringify(haqakaj2);
   } catch { return false; }
 }
 // ⟪ ផែនទីទាំងឡាយ 📃 ⟫
@@ -298,37 +298,37 @@ export const DATUMDOSIEROJ = Object.keys(manifesto.datumaj).map(n => n.replace(/
 export function dosierujo(kodo: string): string { return "tero-datumaro/" + kodo + "/"; }
 export const mapoDosierujo = dosierujo(mapoDatumo.kodo);
 export const DOSIERA_TITOLO = {
-  [mapoDosierujo + "krado.ts"]: "// ≺⧼ ក្រឡាឆ្លាក់ 📃 ⧽≻",
-  [mapoDosierujo + "akvo.ts"]: "// ≺⧼ ទឹកឆ្លាក់ 📃 ⧽≻",
-  [mapoDosierujo + "akvofontoj.ts"]: "// ≺⧼ ប្រភពទឹកឆ្លាក់ 🌊 ⧽≻",
-  [mapoDosierujo + "biomoj.ts"]: "// ≺⧼ ជីវតំបន់ឆ្លាក់ 📃 ⧽≻",
-  [mapoDosierujo + "bestoj.ts"]: "// ≺⧼ សត្វឆ្លាក់ 📃 ⧽≻",
-  [mapoDosierujo + "objektoj.ts"]: "// ≺⧼ វត្ថុឆ្លាក់ 📃 ⧽≻",
-  [mapoDosierujo + "urboj.ts"]: "// ≺⧼ ទីក្រុងឆ្លាក់ 📃 ⧽≻",
-  [mapoDosierujo + "vojoj.ts"]: "// ≺⧼ ផ្លូវឆ្លាក់ 📃 ⧽≻",
-  "tero-datumaro/mapoj.ts": "// ≺⧼ ផែនទី 🗺️ ⧽≻",
-  "tero-datumaro/aktiva.ts": "// ≺⧼ ផែនទីសកម្ម 📃 ⧽≻",
+  [mapoDosierujo + "krado.ts"]: "// ≺⧼ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 📃 ⧽≻",
+  [mapoDosierujo + "akvo.ts"]: "// ≺⧼ ſᶘᴜ j͑ʃᴜ 📃 ⧽≻",
+  [mapoDosierujo + "akvohatsiq.ts"]: "// ≺⧼ ſᶘꞇȝ 🌊 ⧽≻",
+  [mapoDosierujo + "habs2.ts"]: "// ≺⧼ ʃɔ˞ɹ 📃 ⧽≻",
+  [mapoDosierujo + "hapaga.ts"]: "// ≺⧼ ſןᴜ ſ͔ɭᴜ 📃 ⧽≻",
+  [mapoDosierujo + "objektoj.ts"]: "// ≺⧼ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ 📃 ⧽≻",
+  [mapoDosierujo + "hakaxte.ts"]: "// ≺⧼ ſɭᴜ ı],ƨɔ 📃 ⧽≻",
+  [mapoDosierujo + "hak6h6.ts"]: "// ≺⧼ ſɭэ ֭ſɭэ 📃 ⧽≻",
+  "tero-datumaro/mapoj.ts": "// ≺⧼ ʃᴜ j͐ʃɹ 🗺️ ⧽≻",
+  "tero-datumaro/aktiva.ts": "// ≺⧼ ʃᴜ j͐ʃɹ 📃 ⧽≻",
 };
 export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, string> {
   const dosierujoDeMapo = dosierujo(kodo);
   sinkronigiSuperojn();
-  const kvantigita = kvantigiDeltojn();
-  let deltojAktivaj = false, maskoAktiva = false, biomojAktivaj = false, bestojAktivaj = false;
-  for ( let i = 0; i < kvantigita.length; i++ ) if ( kvantigita[i] !== 0 ) { deltojAktivaj = true; break; }
+  const kvantigita = kvantigiHal6dan();
+  let hal6daAktivaj = false, maskoAktiva = false, habs2Aktivaj = false, hapagaAktivaj = false;
+  for ( let i = 0; i < kvantigita.length; i++ ) if ( kvantigita[i] !== 0 ) { hal6daAktivaj = true; break; }
   for ( let i = 0; i < k6liqani.length; i++ ) if ( k6liqani[i] ) { maskoAktiva = true; break; }
-  for ( let i = 0; i < biomoj.length; i++ ) if ( biomoj[i] ) { biomojAktivaj = true; break; }
-  for ( let i = 0; i < bestoj.length; i++ ) if ( bestoj[i] ) { bestojAktivaj = true; break; }
-  const delta64 = deltojAktivaj ? bazo64DeInt16(kvantigita) : "";
+  for ( let i = 0; i < habs2.length; i++ ) if ( habs2[i] ) { habs2Aktivaj = true; break; }
+  for ( let i = 0; i < hapaga.length; i++ ) if ( hapaga[i] ) { hapagaAktivaj = true; break; }
+  const delta64 = hal6daAktivaj ? bazo64DeInt16(kvantigita) : "";
   const masko64 = maskoAktiva ? bazo64DeMasko(k6liqani) : "";
-  const biomo64 = biomojAktivaj ? bazo64DeBiomoj(biomoj) : "";
-  const besto64 = bestojAktivaj ? bazo64DeBestoj(bestoj) : "";
-  const aktiva = deltojAktivaj || maskoAktiva || biomojAktivaj || bestojAktivaj;
+  const bs264 = habs2Aktivaj ? bazo64DeHabs2(habs2) : "";
+  const paga64 = hapagaAktivaj ? bazo64DeHapaga(hapaga) : "";
+  const aktiva = hal6daAktivaj || maskoAktiva || habs2Aktivaj || hapagaAktivaj;
   const komunajKom = [
     "// បង្កើតដោយឧបករណ៍ឆ្លាក់ដី ( iloj/tero-skulptilo/tero-skulptilo.html )។",
     "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - កុំកែដោយដៃ។ ឧបករណ៍ឆ្លាក់សរសេរឯកសារឡើងវិញ។",
   ];
-  const kradoTeksto = [
-    "// ≺⧼ ក្រឡាឆ្លាក់ 📃 ⧽≻",
+  const kradoS2bana = [
+    "// ≺⧼ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 📃 ⧽≻",
     ...komunajKom,
     "",
     "// ⟨ ក្រឡាឆ្លាក់ 📃 ⟩ , ជំហាន , ទំហំ , ប្រភពដើម , ទង់សកម្ម និងដេលតា។",
@@ -338,78 +338,78 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "export const SKULPTA_AKTIVA = " + ( aktiva ? "true" : "false" ) + ";",
     "export const SKULPTA_DELTAJ = " + JSON.stringify(delta64) + ";",
   ].join("\n");
-  const akvoTeksto = [
-    "// ≺⧼ ទឹកឆ្លាក់ 📃 ⧽≻",
+  const akvoS2bana = [
+    "// ≺⧼ ſᶘᴜ j͑ʃᴜ 📃 ⧽≻",
     ...komunajKom,
     "",
     "// ⟨ ស្រទាប់ទឹក 📃 ⟩ , កម្រិតនៃអាង និងម៉ាសពណ៌ទឹកចាស់",
     "// ( ឥឡូវគ្រាន់តែជាគ្រាប់អាង , ទឹកខ្លួនឯងកាត់បន្ថយពី",
     "// ប្រភពតាម kantaoj/mondo/akvokalkulo.ts )។",
-    "export const SKULPTA_AKVA_NIVELO = " + oktala(akvaNiveloValoro) + ";",
+    "export const SKULPTA_AKVA_NIVELO = " + oktala(akvaVem2Valoro) + ";",
     "export const SKULPTA_AKVA_MASKO = " + JSON.stringify(masko64) + ";",
   ].join("\n");
-  const fontoTeksto = [
-    "// ≺⧼ ប្រភពទឹកឆ្លាក់ 🌊 ⧽≻",
+  const tsiqS2bana = [
+    "// ≺⧼ ſᶘꞇȝ 🌊 ⧽≻",
     ...komunajKom,
     "",
     "// ⟨ ប្រភពទឹក 📃 ⟩ , ប្រភពទឹក។ ទឹកលែងគូរទៀតទេ ,",
     "// វាហូរពីចំណុចទាំងនេះចុះតាមដី ( kantaoj/mondo/akvokalkulo.ts ) ,",
     "// បំពេញប្រហោង និងកាត់ស្នងទន្លេ។ ប្រភពនីមួយៗ - x, z ( ឯកតាពិភពលោក",
     "// ) និងលំហូរ ( លំហូរធំជាង = ទន្លេជ្រៅនិងធំជាង )។",
-    "export const SKULPTA_AKVOFONTOJ = " + skribiValoron(fontoj) + ";",
+    "export const SKULPTA_HAXAIQ = " + skribiValoron(hatsiq) + ";",
   ].join("\n");
-  const biomoDosiero = [
-    "// ≺⧼ ជីវតំបន់ឆ្លាក់ 📃 ⧽≻",
+  const bs2Dosiero = [
+    "// ≺⧼ ʃɔ˞ɹ 📃 ⧽≻",
     ...komunajKom,
     "",
     "// ⟨ ស្រទាប់ជីវតំបន់ 📃 ⟩ ( 0=ស្វ័យប្រវត្តិ , 1=ភ្នំ , 2=ជ្រលង , 3=វាលរាប",
     "// 4=រុក្ខជាតិទឹក , 5=ហូសេថេល )។",
-    "export const SKULPTA_BIOMOJ = " + JSON.stringify(biomo64) + ";",
+    "export const SKULPTA_BIOMOJ = " + JSON.stringify(bs264) + ";",
   ].join("\n");
-  const bestoDosiero = [
-    "// ≺⧼ សត្វឆ្លាក់ 📃 ⧽≻",
+  const pagaDosiero = [
+    "// ≺⧼ ſןᴜ ſ͔ɭᴜ 📃 ⧽≻",
     ...komunajKom,
     "",
     "// ⟨ ស្រទាប់សត្វ 📃 ⟩ ( ប៊ីត 1=សត្វទឹក , 2=ផេត្រេល , 4=NPC )។",
-    "export const SKULPTA_BESTOJ = " + JSON.stringify(besto64) + ";",
+    "export const SKULPTA_BESTOJ = " + JSON.stringify(paga64) + ";",
   ].join("\n");
-  const objektoTeksto = [
-    "// ≺⧼ វត្ថុឆ្លាក់ 📃 ⧽≻",
+  const objektoS2bana = [
+    "// ≺⧼ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ 📃 ⧽≻",
     ...komunajKom,
     "// វត្ថុដាក់របស់ឧបករណ៍វត្ថុនៃឧបករណ៍ឆ្លាក់ដី , ទូកកាណូ",
     "// 🛶 , យានអវកាស 🚀 , ចង្កៀង 🏮 , keuxfhxesoj ⭐ និងអគារ",
     "// បុគ្គល 🏛️ ក៏ជាវត្ថុដែរ។ ទទេ = គ្មានវត្ថុ។",
-    "// វត្ថុនីមួយៗ - x, z ( ភ្ជាប់ 0.25 ) , ប្រភេទ ( betulo | lariko | hxsxaksxlefo",
-    "// | pussxlefo | roko | filiko | akvabesto | petrelo | npco | sanktejo | turo",
-    "// | domo | mangxejo | kasafeo | stacio | hxeuxfo | hxeuxfoPlato | keuxfhxeso | kanuo | spacosxipo ) ,",
+    "// វត្ថុនីមួយៗ - x, z ( ភ្ជាប់ 0.25 ) , ប្រភេទ ( lam2v | taksal | tlexlefhxakai",
+    "// | tlexlefp2sai | t6keq | xabe | akvapaga | temek | npco | sanktejo | turo",
+    "// | domo | mangxejo | kasafeo | stacio | hxeuxfo | hxeuxfoPa12 | keuxfhxeso | kanuo | spacosxipo ) ,",
     "// មាត្រដ្ឋាន , ការបង្វិល , ប្រភេទសត្វ , កាំ , សម្លៀកបំពាក់ , រចនាសក់ , ប្រភេទហ្វេន , រចនាប័ទ្ម។",
     "export const SKULPTA_OBJEKTOJ = " + skribiValoron(objektoj) + ";",
   ].join("\n");
-  const urboTeksto = [
-    "// ≺⧼ ទីក្រុងឆ្លាក់ 📃 ⧽≻",
+  const kaxteS2bana = [
+    "// ≺⧼ ſɭᴜ ı],ƨɔ 📃 ⧽≻",
     ...komunajKom,
     "// ទីក្រុងនៃពិភពលោក , ការរៀបចំក្រឡា និងអុហ្វសិតកែដោយ",
     "// ផ្ទាំងក្រឡា។ ទីក្រុងទីមួយជាទីក្រុងមេ។ ទីក្រុងនីមួយៗ - ឈ្មោះ , arangxaGrando ,",
     "// blokaGrando ( unu | kvar ) , ofsX, ofsZ, keuxfhxeso ( ជ្រុងទាំងបួនជុំវិញ",
     "// កណ្តាល ) , lampoj ( គំរូផ្លូវចង្កៀងបួន ) , superoj ( ការដាក់លើក្រឡាដោយដៃ",
     "// , \"c,r\" និង \"c,r,SUB\" → ប្រភេទ ) និង aldonajBlokoj",
-    "// ( x, z, tipo, rot, sub, stacia, konektita )។",
-    "export const SKULPTA_URBOJ = " + skribiValoron(urboj) + ";",
+    "// ( x, z, hunaq, rot, sub, stacia, konektita )។",
+    "export const SKULPTA_URBOJ = " + skribiValoron(hakaxte) + ";",
   ].join("\n");
-  const vojoTeksto = [
-    "// ≺⧼ ផ្លូវឆ្លាក់ 📃 ⧽≻",
+  const k6h6S2bana = [
+    "// ≺⧼ ſɭэ ֭ſɭэ 📃 ⧽≻",
     ...komunajKom,
     "// ផ្លូវកម្រិតពិភពលោក ( កំពង់ , មហាវិថី ) ជាប៉ូលីលីនដែលមានឈ្មោះ និង",
     "// ទទឹង , និងវេទិកាចតុកោណដែលមានទីតាំង និងជម្រៅ , កែដោយ",
     "// ផ្ទាំងផ្លូវរបស់ឧបករណ៍ឆ្លាក់ដី។",
-    "export const SKULPTA_VOJOJ = " + skribiValoron(vojoj) + ";",
-    "export const SKULPTA_DOKOJ = " + skribiValoron(dokoj) + ";",
+    "export const SKULPTA_VOJOJ = " + skribiValoron(hak6h6) + ";",
+    "export const SKULPTA_DOKOJ = " + skribiValoron(haqakaj2) + ";",
   ].join("\n");
   // ⟪ បញ្ជីផែនទី និងទ្វារ 📃 ⟫
   const mapoNuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
-  if ( mapoNuna ) { mapoNuna.formo = mapoFormo; mapoNuna.grandeco = mapoGrandeco; }
-  const mapojTeksto = [
-    "// ≺⧼ ផែនទី 🗺️ ⧽≻",
+  if ( mapoNuna ) { mapoNuna.qoxa = mapoQoxa; mapoNuna.grandeco = mapoGrandeco; }
+  const mapojS2bana = [
+    "// ≺⧼ ʃᴜ j͐ʃɹ 🗺️ ⧽≻",
     ...komunajKom,
     "",
     "// ⟨ ផែនទីនៃពិភពលោក 📃 ⟩ , ផែនទីនីមួយៗជាពិភពលោកឯករាជ្យដែលមានទិន្នន័យផ្ទាល់ខ្លួន",
@@ -418,7 +418,7 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "// ជ្រើសផែនទី , កែវា និងសរសេរទិន្នន័យផែនទីនោះ , ហ្គេម",
     "// អានផែនទីដែលសម្គាល់ថាសកម្ម ( តាមច្រកទ្វារ aktiva.ts )។",
     "//",
-    "// formo , ទម្រង់ដី ( eskekoj/komunajxoj/mapformo.ts ) , រង្វង់ (",
+    "// qoxa , ទម្រង់ដី ( eskekoj/komunajxoj/mapqoxa.ts ) , រង្វង់ (",
     "// លំនាំដើម ) , ការ៉េមូល ឬត្រីកោណមូល។",
     "// grandeco , កន្លះទំហំទម្រង់គិតជាឯកតាពិភពលោក , កាំរង្វង់ ,",
     "// កន្លះទទឹងការ៉េ ឬកាំរង្វង់ជុំត្រីកោណ។",
@@ -428,33 +428,33 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "",
     "export const MAPOJ: MapoDatumo[] = [",
     ...mapojRegistroj.map(m => "  { kodo: " + JSON.stringify(m.kodo) + ", ksaka: " + JSON.stringify(m.ksaka)
-      + ", aktiva: " + ( m.aktiva ? "true" : "false" ) + ", formo: " + JSON.stringify(m.formo)
+      + ", aktiva: " + ( m.aktiva ? "true" : "false" ) + ", qoxa: " + JSON.stringify(m.qoxa)
       + ", grandeco: " + oktala(m.grandeco) + " },"),
     "];",
   ].join("\n");
   const aktivaKodo = ( mapojRegistroj.find(m => m.aktiva) ?? mapojRegistroj[0] ).kodo;
-  const aktivaTeksto = [
-    "// ≺⧼ ផែនទីសកម្ម 📃 ⧽≻",
+  const aktivaS2bana = [
+    "// ≺⧼ ʃᴜ j͐ʃɹ 📃 ⧽≻",
     ...komunajKom,
     "",
     "// ⟨ ទិន្នន័យផែនទីសកម្ម 📃 ⟩ , ច្រកទ្វារទៅទិន្នន័យផែនទីដែល",
     "// ហ្គេមអាន។ ផែនទីទាំងនេះជាពិភពលោកឯករាជ្យ ( mapoj.ts ) , ឯកសារនេះ",
     "// នាំចេញឡើងវិញនូវឯកសារទិន្នន័យទាំង 0o" + DATUMDOSIEROJ.length.toString(0o10) + " នៃមួយក្នុងចំណោមពួកវា , ដូច្នេះហ្គេមទាំងមូលនាំចូលច្រក",
-    "// ស្គាល់មួយ ( tereno.ts, urbo.ts, ... ) ហើយមិនដែលនាំចូលថត។ ឧបករណ៍ឆ្លាក់",
+    "// ស្គាល់មួយ ( tereno.ts, kaxte.ts, ... ) ហើយមិនដែលនាំចូលថត។ ឧបករណ៍ឆ្លាក់",
     "// សរសេរវាឡើងវិញពេលវាប្តូរផែនទីសកម្ម។",
     ...DATUMDOSIEROJ.map(d => "export * from \"./" + aktivaKodo + "/" + d + ".js\";"),
   ].join("\n");
   return {
-    [dosierujoDeMapo + "krado.ts"]: kradoTeksto,
-    [dosierujoDeMapo + "akvo.ts"]: akvoTeksto,
-    [dosierujoDeMapo + "akvofontoj.ts"]: fontoTeksto,
-    [dosierujoDeMapo + "biomoj.ts"]: biomoDosiero,
-    [dosierujoDeMapo + "bestoj.ts"]: bestoDosiero,
-    [dosierujoDeMapo + "objektoj.ts"]: objektoTeksto,
-    [dosierujoDeMapo + "urboj.ts"]: urboTeksto,
-    [dosierujoDeMapo + "vojoj.ts"]: vojoTeksto,
-    "tero-datumaro/mapoj.ts": mapojTeksto,
-    "tero-datumaro/aktiva.ts": aktivaTeksto,
+    [dosierujoDeMapo + "krado.ts"]: kradoS2bana,
+    [dosierujoDeMapo + "akvo.ts"]: akvoS2bana,
+    [dosierujoDeMapo + "akvohatsiq.ts"]: tsiqS2bana,
+    [dosierujoDeMapo + "habs2.ts"]: bs2Dosiero,
+    [dosierujoDeMapo + "hapaga.ts"]: pagaDosiero,
+    [dosierujoDeMapo + "objektoj.ts"]: objektoS2bana,
+    [dosierujoDeMapo + "hakaxte.ts"]: kaxteS2bana,
+    [dosierujoDeMapo + "hak6h6.ts"]: k6h6S2bana,
+    "tero-datumaro/mapoj.ts": mapojS2bana,
+    "tero-datumaro/aktiva.ts": aktivaS2bana,
   };
 }
 export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean {
@@ -488,13 +488,13 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
       || oktalaNombro(eroj[0].trim())!== X0
       || oktalaNombro(eroj[1].trim())!== Z0 ) return false;
   }
-  const nivelo2 = oktalaNombro(preni("SKULPTA_AKVA_NIVELO"));
+  const vem22 = oktalaNombro(preni("SKULPTA_AKVA_NIVELO"));
   const malpaku = ( s: string | null ): string | null => ( s === null ? null : s.replace(/^"|"$/g, "") );
   const deltaKruda = malpaku(preni("SKULPTA_DELTAJ"));
   if ( deltaKruda !== null ) {
-    deltoj.fill(0);
+    hal6da.fill(0);
     const d = dekodiInt16(deltaKruda);
-    if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 0o20;
+    if ( d ) for ( let i = 0; i < hal6da.length && i < d.length; i++ ) hal6da[i] = d[i] / 0o20;
   }
   const maskoKruda = malpaku(preni("SKULPTA_AKVA_MASKO"));
   if ( maskoKruda !== null ) {
@@ -502,30 +502,30 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
     const m = dekodiMaskon(maskoKruda, N * N);
     if ( m ) k6liqani.set(m);
   }
-  const biomoKruda = malpaku(preni("SKULPTA_BIOMOJ"));
-  if ( biomoKruda !== null ) {
-    biomoj.fill(0);
-    const b = dekodi3Bit(biomoKruda, N * N);
-    if ( b ) biomoj.set(b);
+  const bs2Kruda = malpaku(preni("SKULPTA_BIOMOJ"));
+  if ( bs2Kruda !== null ) {
+    habs2.fill(0);
+    const b = dekodi3Bit(bs2Kruda, N * N);
+    if ( b ) habs2.set(b);
   }
-  const bestoKruda = malpaku(preni("SKULPTA_BESTOJ"));
-  if ( bestoKruda !== null ) {
-    bestoj.fill(0);
-    const be = dekodi3Bit(bestoKruda, N * N);
-    if ( be ) bestoj.set(be);
+  const pagaKruda = malpaku(preni("SKULPTA_BESTOJ"));
+  if ( pagaKruda !== null ) {
+    hapaga.fill(0);
+    const be = dekodi3Bit(pagaKruda, N * N);
+    if ( be ) hapaga.set(be);
   }
-  const fon = preni("SKULPTA_AKVOFONTOJ");
+  const fon = preni("SKULPTA_HAXAIQ");
   if ( fon !== null ) {
     try {
       const parzitaj = parziValoron(fon);
-      if ( Array.isArray(parzitaj) ) agordiFontojn(parzitaj.map(f => ( {
+      if ( Array.isArray(parzitaj) ) agordiHatsiqn(parzitaj.map(f => ( {
         x: Number(f && f.x) || 0,
         z: Number(f && f.z) || 0,
         fluo: Math.max(0, Number(f && f.fluo) || 0),
       } )));
     } catch { }
-    agordiElektitanFonton(-1);
-    agordiFontoTrenatan(-1);
+    agordiElektitanTsiqn(-1);
+    agordiTsiqTrenatan(-1);
     gxisdatigiAkvajnStatistikojn();
   }
   const oj = preni("SKULPTA_OBJEKTOJ");
@@ -533,14 +533,14 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
     try { agordiObjektojn(parziValoron(oj) ?? []); } catch { }
     agordiElektitanObjekton(-1);
     gxisdatigiObjektoListon();
-    rekonstruiObjektojn();
+    vepaqTom6Objektojn();
   }
   const voj = preni("SKULPTA_VOJOJ");
   const dok = preni("SKULPTA_DOKOJ");
   const uj = preni("SKULPTA_URBOJ");
   try {
     const parzitaj = uj !== null ? parziValoron(uj) : null;
-    if ( parzitaj && Array.isArray(parzitaj) && parzitaj.length ) agordiUrbojn(parzitaj.map(u => ( {
+    if ( parzitaj && Array.isArray(parzitaj) && parzitaj.length ) agordiHakaxten(parzitaj.map(u => ( {
       ksaka: String(u && u.ksaka !== undefined ? u.ksaka : "ទីក្រុង"),
       arangxaGrando: Number(u && u.arangxaGrando) || 1,
       blokaGrando: u && u.blokaGrando === "kvar" ? "kvar" : "unu",
@@ -552,7 +552,7 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
       aldonajBlokoj: Array.isArray(u && u.aldonajBlokoj) ? u.aldonajBlokoj.map(( b: any ) => ( {
         x: Number(b && b.x) || 0,
         z: Number(b && b.z) || 0,
-        tipo: b && typeof b.tipo === "string" ? b.tipo : "sanktejo",
+        hunaq: b && typeof b.hunaq === "string" ? b.hunaq : "sanktejo",
         rot: Number(b && b.rot) || 0,
         sub: b && typeof b.sub === "string" ? b.sub : "centro",
         stacia: !!( b && b.stacia ),
@@ -560,21 +560,21 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
       } )) : [],
     } )));
   } catch { }
-  if ( !urboj.length ) agordiUrbojn([ { ksaka: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ]);
-  agordiElektitanUrbon(Math.max(0, Math.min(elektitaUrbo, urboj.length - 1)));
-  elektiUrbon(elektitaUrbo);
+  if ( !hakaxte.length ) agordiHakaxten([ { ksaka: "Geles", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ]);
+  agordiElektitanKaxten(Math.max(0, Math.min(elektitaKaxte, hakaxte.length - 1)));
+  elektiKaxten(elektitaKaxte);
   try {
     const parzV = voj ? parziValoron(voj) : null;
-    if ( parzV && Array.isArray(parzV) ) agordiVojojn(parzV.map(( v: any ) => ( { ...v, n2k: v.n2k.map(( p: any ) => [ p[0], p[1] ] as VojaPunkto) } )));
+    if ( parzV && Array.isArray(parzV) ) agordiHak6h6n(parzV.map(( v: any ) => ( { ...v, n2k: v.n2k.map(( p: any ) => [ p[0], p[1] ] as K6h6Punkto) } )));
   } catch { }
   try {
     const parz = dok ? parziValoron(dok) : null;
-    if ( parz && Array.isArray(parz) ) agordiDokojn(parz.map(d => ( { ...d } )));
+    if ( parz && Array.isArray(parz) ) agordiHaqakaj2n(parz.map(d => ( { ...d } )));
   } catch { }
-  gxisdatigiVojajnRegilojn();
-  if ( nivelo2 !== null ) {
-    agordiAkvanNivelon(nivelo2);
-    niveloRegilo.value = String(akvaNiveloValoro);
+  gxisdatigiK6h6jnHakaman();
+  if ( vem22 !== null ) {
+    agordiAkvanVem2n(vem22);
+    vem2Kama.value = String(akvaVem2Valoro);
   }
   gxisdatigiValorojn();
   historio.length = 0;
@@ -585,34 +585,34 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
 }
 export function sxargiDatumaronElKodo(): void {
   const d = dekodiInt16(SKULPTA_DELTAJ);
-  if ( d ) for ( let i = 0; i < deltoj.length && i < d.length; i++ ) deltoj[i] = d[i] / 0o20;
+  if ( d ) for ( let i = 0; i < hal6da.length && i < d.length; i++ ) hal6da[i] = d[i] / 0o20;
   const m = dekodiMaskon(SKULPTA_AKVA_MASKO, N * N);
   if ( m ) k6liqani.set(m);
   const b = dekodi3Bit(SKULPTA_BIOMOJ, N * N);
-  if ( b ) biomoj.set(b);
+  if ( b ) habs2.set(b);
   const be = dekodi3Bit(SKULPTA_BESTOJ, N * N);
-  if ( be ) bestoj.set(be);
+  if ( be ) hapaga.set(be);
   try {
-    agordiFontojn(Array.isArray(SKULPTA_AKVOFONTOJ) ? SKULPTA_AKVOFONTOJ.map(f => ( { ...f } )) : []);
-  } catch { agordiFontojn([]); }
+    agordiHatsiqn(Array.isArray(SKULPTA_HAXAIQ) ? SKULPTA_HAXAIQ.map(f => ( { ...f } )) : []);
+  } catch { agordiHatsiqn([]); }
   agordiObjektojn(SKULPTA_OBJEKTOJ.map(o => ( { ...o } )));
   agordiElektitanObjekton(-1);
   gxisdatigiObjektoListon();
-  rekonstruiObjektojn();
+  vepaqTom6Objektojn();
   try {
-    agordiUrbojn(Array.isArray(SKULPTA_URBOJ) ? SKULPTA_URBOJ.map(u => ( { ...u } )) : []);
-  } catch { agordiUrbojn([]); }
-  if ( !urboj.length ) agordiUrbojn([ { ksaka: "Ĉefa", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ]);
-  agordiElektitanUrbon(0);
-  elektiUrbon(0);
+    agordiHakaxten(Array.isArray(SKULPTA_URBOJ) ? SKULPTA_URBOJ.map(u => ( { ...u } )) : []);
+  } catch { agordiHakaxten([]); }
+  if ( !hakaxte.length ) agordiHakaxten([ { ksaka: "Geles", arangxaGrando: 3, blokaGrando: "unu", ofsX: 0, ofsZ: 0 } ]);
+  agordiElektitanKaxten(0);
+  elektiKaxten(0);
   try {
-    if ( SKULPTA_VOJOJ && Array.isArray(SKULPTA_VOJOJ) ) agordiVojojn(SKULPTA_VOJOJ.map(v => ( { ...v, n2k: v.n2k.map(p => [ p[0], p[1] ] as VojaPunkto) } )));
+    if ( SKULPTA_VOJOJ && Array.isArray(SKULPTA_VOJOJ) ) agordiHak6h6n(SKULPTA_VOJOJ.map(v => ( { ...v, n2k: v.n2k.map(p => [ p[0], p[1] ] as K6h6Punkto) } )));
   } catch { }
   try {
     const parz = SKULPTA_DOKOJ;
-    if ( parz && Array.isArray(parz) ) agordiDokojn(parz.map(d => ( { ...d } )));
+    if ( parz && Array.isArray(parz) ) agordiHaqakaj2n(parz.map(d => ( { ...d } )));
   } catch { }
-  gxisdatigiVojajnRegilojn();
+  gxisdatigiK6h6jnHakaman();
 }
 
 // ⟪ ចំណុចកាន់ឯកសារ ( File System Access API ) 📃 ⟫
@@ -755,7 +755,7 @@ export async function sargiDosieron(): Promise<void> {
 // ⟪ ការរក្សាទុកផ្ទាល់ទៅ kantaoj/tero-datumaro 📃 ⟫
 export const KONSERVILO = "http://127.0.0.1:4173/";
 export async function saviRekteAlDosiero(): Promise<void> {
-  if ( !cxuSxangxita() ) {
+  if ( !tsekeSxangxita() ) {
     statuso("គ្មានការផ្លាស់ប្តូរ , ដីមាននៅក្នុងឯកសាររួចហើយ ✔️");
     return;
   }
@@ -784,7 +784,7 @@ export async function saviRekteAlDosiero(): Promise<void> {
 
 // ⟪ ផែនទីទាំងឡាយ 📃 ⟫
 export const mapoElektilo = elemento<HTMLSelectElement>("mapoElektilo");
-export const mapoFormoElektilo = elemento<HTMLSelectElement>("mapoFormoElektilo");
+export const mapoQoxaElektilo = elemento<HTMLSelectElement>("mapoQoxaElektilo");
 export const mapoGrandecoEnigo = elemento<HTMLInputElement>("mapoGrandeco");
 export const mapoGrandecoValoro = elemento<HTMLElement>("mapoGrandecoValoro");
 
@@ -799,20 +799,20 @@ export function kodoDeNomo(ksaka: string): string {
 export function gxisdatigiMapajnElektilojn(): void {
   mapoElektilo.innerHTML = "";
   for ( const m of mapojRegistroj ) {
-    const opcio = document.createElement("option");
-    opcio.value = m.kodo;
-    opcio.textContent = m.ksaka + ( m.aktiva ? " ⭐" : "" ) + ( m.kodo === mapoDatumo.kodo ? " ( កំពុងកែ )" : "" );
-    mapoElektilo.appendChild(opcio);
+    const sukf2qani = document.createElement("option");
+    sukf2qani.value = m.kodo;
+    sukf2qani.textContent = m.ksaka + ( m.aktiva ? " ⭐" : "" ) + ( m.kodo === mapoDatumo.kodo ? " ( កំពុងកែ )" : "" );
+    mapoElektilo.appendChild(sukf2qani);
   }
   mapoElektilo.value = mapoDatumo.kodo;
-  mapoFormoElektilo.innerHTML = "";
-  for ( const f of FORMOJ ) {
-    const opcio = document.createElement("option");
-    opcio.value = f.kodo;
-    opcio.textContent = f.ksaka;
-    mapoFormoElektilo.appendChild(opcio);
+  mapoQoxaElektilo.innerHTML = "";
+  for ( const f of QOXA ) {
+    const sukf2qani = document.createElement("option");
+    sukf2qani.value = f.ruva;
+    sukf2qani.textContent = f.ksaka;
+    mapoQoxaElektilo.appendChild(sukf2qani);
   }
-  mapoFormoElektilo.value = mapoFormo;
+  mapoQoxaElektilo.value = mapoQoxa;
   mapoGrandecoEnigo.value = String(Math.round(mapoGrandeco));
   mapoGrandecoValoro.textContent = oktala(mapoGrandeco) + " · " + Math.round(mapoGrandeco) + " u";
 }
@@ -821,7 +821,7 @@ gxisdatigiMapajnElektilojn();
 
 export function sxaltiMapon(kodo: string): void {
   if ( kodo === mapoDatumo.kodo ) return;
-  if ( cxuSxangxita() && !confirm("ការផ្លាស់ប្តូរមិនបានរក្សាទុកក្នុងផែនទីនេះ , បោះបង់វាទេ ?") ) {
+  if ( tsekeSxangxita() && !confirm("ការផ្លាស់ប្តូរមិនបានរក្សាទុកក្នុងផែនទីនេះ , បោះបង់វាទេ ?") ) {
     gxisdatigiMapajnElektilojn();
     return;
   }
@@ -846,13 +846,13 @@ export async function skribiPerKonservilo(dosieroj: Record<string, string>): Pro
   }
 }
 
-export async function mapoNova(): Promise<void> {
+export async function mapoSef4(): Promise<void> {
   const ksaka = prompt("ឈ្មោះផែនទីថ្មី", "ផែនទីថ្មី");
   if ( !ksaka ) return;
   const kodo = kodoDeNomo(ksaka);
   if ( !kodo ) { statuso("ឈ្មោះមិនផ្តល់ឈ្មោះថតឯកសារ , ប្រើអក្សរ ឬលេខ"); return; }
   if ( mapojRegistroj.some(m => m.kodo === kodo) ) { statuso("ផែនទីដែលមានឈ្មោះថតឯកសារនោះមានរួចហើយ"); return; }
-  mapojRegistroj.push({ kodo, ksaka, aktiva: false, formo: mapoFormo, grandeco: mapoGrandeco });
+  mapojRegistroj.push({ kodo, ksaka, aktiva: false, qoxa: mapoQoxa, grandeco: mapoGrandeco });
   statuso("កំពុងបង្កើតផែនទី " + kodo + " …");
   const tseuni = await skribiPerKonservilo(generiDosierojn(kodo));
   if ( !tseuni ) {
@@ -892,25 +892,25 @@ export function mapoElektiAktivan(): void {
   statuso("ផែនទីនេះនឹងជាផែនទីរបស់ហ្គេមបន្ទាប់ពីរក្សាទុក ⭐");
 }
 
-export function gxisdatigiFormon(): void {
-  formajRandaj = formajRandPunktoj(mapoFormo, mapoGrandeco, 0o100);
+export function gxisdatigiQoxan(): void {
+  formajRandaj = qoxaPukazN2k(mapoQoxa, mapoGrandeco, 0o100);
   mapoGrandecoValoro.textContent = oktala(mapoGrandeco) + " · " + Math.round(mapoGrandeco) + " u";
   markiSxangxitan();
-  gxisdatigiFormon3D();
+  gxisdatigiQoxan3D();
   gxisdatigiPlenan2Dn();
-  statuso("ទម្រង់ " + mapoFormo + " , ទំហំ " + Math.round(mapoGrandeco)
+  statuso("ទម្រង់ " + mapoQoxa + " , ទំហំ " + Math.round(mapoGrandeco)
     + " , រក្សាទុកដើម្បីសរសេរទៅ mapoj.ts");
 }
 
-mapoFormoElektilo.addEventListener("change", () => {
-  mapoFormo = mapoFormoElektilo.value as MapFormo;
-  gxisdatigiFormon();
+mapoQoxaElektilo.addEventListener("change", () => {
+  mapoQoxa = mapoQoxaElektilo.value as Bal2Qoxa;
+  gxisdatigiQoxan();
 });
 mapoGrandecoEnigo.addEventListener("input", () => {
   mapoGrandeco = Number(mapoGrandecoEnigo.value);
-  gxisdatigiFormon();
+  gxisdatigiQoxan();
 });
-elemento<HTMLButtonElement>("mapoNova").addEventListener("click", mapoNova);
+elemento<HTMLButtonElement>("mapoSef4").addEventListener("click", mapoSef4);
 elemento<HTMLButtonElement>("mapoAlinomi").addEventListener("click", mapoAlinomi);
 elemento<HTMLButtonElement>("mapoForigi").addEventListener("click", mapoForigi);
 elemento<HTMLButtonElement>("mapoAktiva").addEventListener("click", mapoElektiAktivan);
@@ -926,65 +926,65 @@ interface DosieraLigo {
   N: number;
   X0: number;
   Z0: number;
-  deltoj: Float32Array;
+  hal6da: Float32Array;
   k6liqani: Uint8Array;
-  biomoj: Uint8Array;
-  bestoj: Uint8Array;
+  habs2: Uint8Array;
+  hapaga: Uint8Array;
   historio: HistoriaMomento[];
   refaraHistorio: HistoriaMomento[];
-  niveloRegilo: HTMLInputElement;
+  vem2Kama: HTMLInputElement;
   statuso: ( s2banani: string ) => void;
   gxisdatigiValorojn: () => void;
   gxisdatigiPlenan2Dn: () => void;
   gxisdatigiAkvajnStatistikojn: () => void;
   markiSxangxitan: () => void;
   markiSavitan: () => void;
-  cxuSxangxita: () => boolean;
+  tsekeSxangxita: () => boolean;
   SKULPTA_DELTAJ: string;
   SKULPTA_AKVA_MASKO: string;
   SKULPTA_BIOMOJ: string;
   SKULPTA_BESTOJ: string;
-  SKULPTA_AKVOFONTOJ: AkvaFonto[];
+  SKULPTA_HAXAIQ: AkvaTsiq[];
   SKULPTA_OBJEKTOJ: MetitaObjekto[];
-  SKULPTA_URBOJ: SkulptaUrbo[];
-  SKULPTA_VOJOJ: SkulptaVojo[];
-  SKULPTA_DOKOJ: SkulptaPlatformo[];
+  SKULPTA_URBOJ: SkulptaKaxte[];
+  SKULPTA_VOJOJ: SkulptaK6h6[];
+  SKULPTA_DOKOJ: SkulptaPlatqoxa[];
 }
 export let PASO: number;
 export let N: number;
 export let X0: number;
 export let Z0: number;
-export let deltoj: Float32Array;
+export let hal6da: Float32Array;
 export let k6liqani: Uint8Array;
-export let biomoj: Uint8Array;
-export let bestoj: Uint8Array;
+export let habs2: Uint8Array;
+export let hapaga: Uint8Array;
 export let historio: HistoriaMomento[];
 export let refaraHistorio: HistoriaMomento[];
-export let niveloRegilo: HTMLInputElement;
+export let vem2Kama: HTMLInputElement;
 export let statuso: ( s2banani: string ) => void;
 export let gxisdatigiValorojn: () => void;
 export let gxisdatigiPlenan2Dn: () => void;
 export let gxisdatigiAkvajnStatistikojn: () => void;
 export let markiSxangxitan: () => void;
 export let markiSavitan: () => void;
-export let cxuSxangxita: () => boolean;
+export let tsekeSxangxita: () => boolean;
 export let SKULPTA_DELTAJ: string;
 export let SKULPTA_AKVA_MASKO: string;
 export let SKULPTA_BIOMOJ: string;
 export let SKULPTA_BESTOJ: string;
-export let SKULPTA_AKVOFONTOJ: AkvaFonto[];
+export let SKULPTA_HAXAIQ: AkvaTsiq[];
 export let SKULPTA_OBJEKTOJ: MetitaObjekto[];
-export let SKULPTA_URBOJ: SkulptaUrbo[];
-export let SKULPTA_VOJOJ: SkulptaVojo[];
-export let SKULPTA_DOKOJ: SkulptaPlatformo[];
+export let SKULPTA_URBOJ: SkulptaKaxte[];
+export let SKULPTA_VOJOJ: SkulptaK6h6[];
+export let SKULPTA_DOKOJ: SkulptaPlatqoxa[];
 /* ការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
     @param k ( DosieraLigo ) - ការភ្ជាប់របស់ម៉ូឌុលមេ។ */
 export function agordiDosierojn(k: DosieraLigo): void {
-  ( { PASO, N, X0, Z0, deltoj, k6liqani, biomoj, bestoj, historio, refaraHistorio,
-    niveloRegilo, statuso, gxisdatigiValorojn, gxisdatigiPlenan2Dn,
-    gxisdatigiAkvajnStatistikojn, markiSxangxitan, markiSavitan, cxuSxangxita,
+  ( { PASO, N, X0, Z0, hal6da, k6liqani, habs2, hapaga, historio, refaraHistorio,
+    vem2Kama, statuso, gxisdatigiValorojn, gxisdatigiPlenan2Dn,
+    gxisdatigiAkvajnStatistikojn, markiSxangxitan, markiSavitan, tsekeSxangxita,
     SKULPTA_DELTAJ, SKULPTA_AKVA_MASKO, SKULPTA_BIOMOJ, SKULPTA_BESTOJ,
-    SKULPTA_AKVOFONTOJ, SKULPTA_OBJEKTOJ, SKULPTA_URBOJ, SKULPTA_VOJOJ,
+    SKULPTA_HAXAIQ, SKULPTA_OBJEKTOJ, SKULPTA_URBOJ, SKULPTA_VOJOJ,
     SKULPTA_DOKOJ } = k );
   gxisdatigiMapajnElektilojn();
 }

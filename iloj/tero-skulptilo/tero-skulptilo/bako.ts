@@ -1,4 +1,4 @@
-// ≺⧼ ការដុត 🎨 ⧽≻
+// ≺⧼ j͑ʃɹ ſɟᴜ ſᶘɹ ſɟᴜ }ʃᴜ 🎨 ⧽≻
 // ការដុត 2D របស់ដី គឺពណ៌ដី និងពណ៌ទឹក សម្លេងតំបន់ជីវៈ និងសត្វ
 // ស្រមោលភ្នំតូច និងការគូរលើផ្ទាំងគំនូរពិភពលោក។ ម៉ូឌុលនេះមិន
 // កាន់កាប់ស្ថានភាពឆ្លាក់ទេ ព្រោះ agordiBakon ទទួលការយោងពីឯកសារ
@@ -8,9 +8,9 @@ import * as THREE from "three";
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { katmullRom } from "../../../kantaoj/komunajxoj/interpolo.js";
 import { terenaKoloroEn } from "../../../eskekoj/komunajxoj/terenkoloroj.js";
-import { MONDO, MONDO_HALFO, REZ } from "./mezuroj.js";
-import { cxuAkvoSurfaco } from "./akvo.js";
-import { kunteksto2d } from "../../komunajxoj/dom.js";
+import { MONDO, MONDO_HALFO, REZ } from "./havecax2l.js";
+import { tsekeAkvoSurfaco } from "./akvo.js";
+import { kuns2bana2d } from "../../komunajxoj/dom.js";
 
 // ⟪ ស្ថានភាពឆ្លាក់ 📃 ⟫ គឺការយោងមកពី agordiBakon តែម្តង ពេល
 // ផ្ទុក។ តារាង ( ដេលតា ម៉ាស តំបន់ជីវៈ សត្វ ) មិនដែលចាត់ចែងឡើងវិញទេ
@@ -20,46 +20,46 @@ import { kunteksto2d } from "../../komunajxoj/dom.js";
 // មេ។ ជក់កំពុងប្រើ និងសត្វកំពុងប្រើជាអនុគមន៍ ព្រោះពួកវា
 // ផ្លាស់ប្តូរពេលប្រើ។
 interface BakaLigo {
-  deltoj: Float32Array;
-  biomoj: Uint8Array;
-  bestoj: Uint8Array;
+  hal6da: Float32Array;
+  habs2: Uint8Array;
+  hapaga: Uint8Array;
   N: number;
   PASO: number;
   X0: number;
   Z0: number;
-  deltoInterp: ( x: number, z: number ) => number;
+  l6daInterp: ( x: number, z: number ) => number;
   akvaKavoInterp: ( x: number, z: number ) => number;
-  akvaNiveloEn: ( x: number, z: number ) => number | null;
-  cxuAkvo: ( x: number, z: number ) => boolean;
-  akvaNiveloProksima: ( x: number, z: number ) => number;
+  akvaVem2En: ( x: number, z: number ) => number | null;
+  tsekeAkvo: ( x: number, z: number ) => boolean;
+  akvaVem2Proksima: ( x: number, z: number ) => number;
   peniko: () => string;
-  besto: () => number;
+  paga: () => number;
 }
-let deltoj: Float32Array;
-let biomoj: Uint8Array;
-let bestoj: Uint8Array;
+let hal6da: Float32Array;
+let habs2: Uint8Array;
+let hapaga: Uint8Array;
 let N: number;
 let PASO: number;
 let X0: number;
 let Z0: number;
-let deltoInterp: ( x: number, z: number ) => number;
+let l6daInterp: ( x: number, z: number ) => number;
 let akvaKavoInterp: ( x: number, z: number ) => number;
-let akvaNiveloEn: ( x: number, z: number ) => number | null;
-let cxuAkvo: ( x: number, z: number ) => boolean;
-let akvaNiveloProksima: ( x: number, z: number ) => number;
+let akvaVem2En: ( x: number, z: number ) => number | null;
+let tsekeAkvo: ( x: number, z: number ) => boolean;
+let akvaVem2Proksima: ( x: number, z: number ) => number;
 let penikoAktiva: () => string;
-let bestoAktiva: () => number;
+let pagaAktiva: () => number;
 
 /* ការភ្ជាប់តែម្តងជាមួយឯកសារមេ។ ពីរចុងក្រោយ ( ជក់ សត្វ ) ជា
    អនុគមន៍ មិនមែនតម្លៃទេ ព្រោះជក់កំពុងប្រើផ្លាស់ប្តូរពេលប្រើ ដូច្នេះការដុត
    អានវាទាន់ពេល ( សម្លេងលេចឡើង និងបាត់តាមឧបករណ៍ )។
     @param k ( BakaLigo ) - ការយោងរបស់ឯកសារមេ។ */
 export function agordiBakon(k: BakaLigo): void {
-  deltoj = k.deltoj; biomoj = k.biomoj; bestoj = k.bestoj;
+  hal6da = k.hal6da; habs2 = k.habs2; hapaga = k.hapaga;
   N = k.N; PASO = k.PASO; X0 = k.X0; Z0 = k.Z0;
-  deltoInterp = k.deltoInterp; akvaKavoInterp = k.akvaKavoInterp;
-  akvaNiveloEn = k.akvaNiveloEn; cxuAkvo = k.cxuAkvo; akvaNiveloProksima = k.akvaNiveloProksima;
-  penikoAktiva = k.peniko; bestoAktiva = k.besto;
+  l6daInterp = k.l6daInterp; akvaKavoInterp = k.akvaKavoInterp;
+  akvaVem2En = k.akvaVem2En; tsekeAkvo = k.tsekeAkvo; akvaVem2Proksima = k.akvaVem2Proksima;
+  penikoAktiva = k.peniko; pagaAktiva = k.paga;
 }
 
 // ⟪ ផ្ទាំងគំនូរពិភពលោក 📃 ⟫ គឺរូបភាព 768² ថេររបស់ដី និងតារាង
@@ -67,8 +67,8 @@ export function agordiBakon(k: BakaLigo): void {
 // ជម្រាលជម្រាល ( ជម្រាលថ្មសម្រាប់បន្ទះពណ៌រួម )។
 export const bazaCanvas = document.createElement("canvas");
 bazaCanvas.width = bazaCanvas.height = REZ;
-const bazaKunteksto = kunteksto2d(bazaCanvas);
-const bazaBildo = bazaKunteksto.createImageData(REZ, REZ);
+const bazaKuns2bana = kuns2bana2d(bazaCanvas);
+const bazaBildo = bazaKuns2bana.createImageData(REZ, REZ);
 const bazoj = new Float32Array(REZ * REZ);            // កម្ពស់ប្រូសេឌូរ៉ាល់
 const haga = new Float32Array(REZ * REZ);         // កត្តាស្រមោលភ្នំតូច
 const deklivoGradientoj = new Float32Array(REZ * REZ); // |∇h| គឺជម្រាលថ្មសម្រាប់បន្ទះពណ៌រួម
@@ -95,9 +95,9 @@ export function prerenderiBazon(): void {
 // ក្នុងហ្គេមទេ។
 const skrapaKoloro = new THREE.Color();
 export function terenaKoloro255(h: number, x: number, z: number, haga: number): number[] {
-  // ស្រទាប់ច្រាំងទន្លេអានកម្រិតទឹកពិត ( akvaNiveloProksima ) ព្រោះ
+  // ស្រទាប់ច្រាំងទន្លេអានកម្រិតទឹកពិត ( akvaVem2Proksima ) ព្រោះ
   // ទន្លេហូរចុះ ដូច្នេះប្លង់ថេរមួយនឹងធ្វើឱ្យច្រាំងពណ៌ខុស។
-  terenaKoloroEn(skrapaKoloro, h, x, z, haga, akvaNiveloProksima);
+  terenaKoloroEn(skrapaKoloro, h, x, z, haga, akvaVem2Proksima);
   skrapaKoloro.convertLinearToSRGB();
   return [
     Math.max(0, Math.min(0o377, skrapaKoloro.r * 0o377)),
@@ -108,12 +108,12 @@ export function terenaKoloro255(h: number, x: number, z: number, haga: number): 
 
 // ⟨ ការបង្ហាញតំបន់ជីវៈ ( តំបន់ជីវៈរបស់ដីឆ្លាក់ ) 📃 ⟩
 // តំបន់ជីវៈ ( tereno.ts ) មកទាំងស្រុងពីស្រទាប់ដែលគូរដោយជក់ គឺ akvo ( ម៉ាស )
-// និងភ្នំ ជ្រលង វាលរាប រុក្ខជាតិទឹក និង ekvizeto ដែលគូរ
+// និងភ្នំ ជ្រលង វាលរាប រុក្ខជាតិទឹក និង tsake ដែលគូរ
 // ( SKULPTA_BIOMOJ )។ គ្មានតំបន់ជីវៈដេរីវេទេ ដូច្នេះទទេ ( 0 = ស្វ័យប្រវត្តិ
 // ឬគ្មានទិន្នន័យ ) គឺគ្មានអ្វីទេ។ ឧបករណ៍ឆ្លាក់បង្ហាញតំបន់ជីវៈតែពេល
-// ឧបករណ៍តំបន់ជីវៈ ( Biomo 🎨 ) បើក គឺពណ៌ស្វាយលើតំបន់ជីវៈភ្នំ
+// ឧបករណ៍តំបន់ជីវៈ ( Bs2 🎨 ) បើក គឺពណ៌ស្វាយលើតំបន់ជីវៈភ្នំ
 // ពណ៌បៃតងខៀវលើជ្រលង ពណ៌បៃតងស្រាលលើវាលរាប ហើយតំបន់ជីវៈទឹក
-// ( រុក្ខជាតិទឹក ekvizeto ) ផ្តល់ពណ៌ឱ្យក្រឡាទឹកតាមសម្លេងរៀងៗ
+// ( រុក្ខជាតិទឹក tsake ) ផ្តល់ពណ៌ឱ្យក្រឡាទឹកតាមសម្លេងរៀងៗ
 // ខ្លួន។ ពេលបិទឧបករណ៍ ដីបង្ហាញពណ៌ធម្មជាតិរបស់វា។ សម្លេង
 // តាមក្រឡាដែលគូរផ្ទាល់ ដូច្នេះវាផ្លាស់ប្តូរពេល
 // គូរផ្ទាល់។
@@ -121,13 +121,13 @@ const MONTA_NUANCO = [ 0o230, 0o60, 0o300 ];    // ពណ៌ស្វាយ គ�
 const VALA_NUANCO = [ 0o40, 0o230, 0o260 ];     // បៃតងខៀវ គឺតំបន់ជីវៈជ្រលង
 const EBENAJA_NUANCO = [ 0o220, 0o300, 0o110 ]; // បៃតងស្រាល គឺតំបន់ជីវៈវាលរាប
 const AKVAJ_PLANTOJ_NUANCO = [ 0o40, 0o200, 0o260 ]; // ខៀវបៃតងជ្រៅ គឺរុក្ខជាតិទឹក
-const EKVIZETO_NUANCO = [ 0o100, 0o260, 0o140 ];     // បៃតងស្រាល គឺ ekvizeto
+const EKVIZETO_NUANCO = [ 0o100, 0o260, 0o140 ];     // បៃតងស្រាល គឺ tsake
 const BIOMA_NUANCO: Record<string, [ number[], number ]> = {
   montaro: [ MONTA_NUANCO, 0o23/0o100 ],
   valo: [ VALA_NUANCO, 0o23/0o100 ],
   ebenaĵo: [ EBENAJA_NUANCO, 0o23/0o100 ],
   "akvaj-plantoj": [ AKVAJ_PLANTOJ_NUANCO, 0o35/0o100 ],
-  ekvizeto: [ EKVIZETO_NUANCO, 0o35/0o100 ],
+  tsake: [ EKVIZETO_NUANCO, 0o35/0o100 ],
 };
 // ស្រទាប់សត្វបង្ហាញតែពេលឧបករណ៍សត្វ ( Animaloj 🐾 )
 // បើក។ ចំណុចខៀវស្រាលលើក្រឡាសត្វទឹក ចំណុចភ្លឺលើ
@@ -143,36 +143,36 @@ const BESTO_NUANCO: Record<number, [ number[], number ]> = {
   4: [ NPCA_NUANCO, 0o13/0o40 ],
 };
 
-// biomoInterp គឺតំបន់ជីវៈដែលគូរនៅចំណុច ( ក្រឡាជិតបំផុតនៃ
+// bs2Interp គឺតំបន់ជីវៈដែលគូរនៅចំណុច ( ក្រឡាជិតបំផុតនៃ
 // ស្រទាប់តំបន់ជីវៈ )។ 0=ស្វ័យប្រវត្តិ, 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប, 4=រុក្ខជាតិទឹក,
-// 5=ekvizeto។ គំរូដូច skulptitaBiomo ក្នុង tero-datumo.ts។
-function biomoInterp(x: number, z: number): number {
+// 5=tsake។ គំរូដូច skulptitaBs2 ក្នុង tero-datumo.ts។
+function bs2Interp(x: number, z: number): number {
   const i = Math.max(0, Math.min(N - 1, Math.floor(( x - X0 ) / PASO)));
   const j = Math.max(0, Math.min(N - 1, Math.floor(( z - Z0 ) / PASO)));
-  return biomoj[j * N + i];
+  return habs2[j * N + i];
 }
-const BIOMA_NOMOJ: ( string | null )[] = [ null, "montaro", "valo", "ebenaĵo", "akvaj-plantoj", "ekvizeto" ];
+const BIOMA_NOMOJ: ( string | null )[] = [ null, "montaro", "valo", "ebenaĵo", "akvaj-plantoj", "tsake" ];
 
-// bestoInterp គឺតំបន់សត្វដែលគូរនៅចំណុច ( ក្រឡាជិតបំផុត
+// pagaInterp គឺតំបន់សត្វដែលគូរនៅចំណុច ( ក្រឡាជិតបំផុត
 // នៃស្រទាប់សត្វ )។ ប៊ីត 1=សត្វទឹក, 2=បក្សីព្រិល, 4=NPC។ គំរូដូច
-// skulptitaBesto ក្នុង tero-datumo.ts។
-function bestoInterp(x: number, z: number): number {
+// skulptitaPaga ក្នុង tero-datumo.ts។
+function pagaInterp(x: number, z: number): number {
   const i = Math.max(0, Math.min(N - 1, Math.floor(( x - X0 ) / PASO)));
   const j = Math.max(0, Math.min(N - 1, Math.floor(( z - Z0 ) / PASO)));
-  return bestoj[j * N + i];
+  return hapaga[j * N + i];
 }
 
-// biomoDe គឺតំបន់ជីវៈរបស់ចំណុចក្នុងឧបករណ៍ឆ្លាក់ ( ការសម្រេចដូច
+// bs2De គឺតំបន់ជីវៈរបស់ចំណុចក្នុងឧបករណ៍ឆ្លាក់ ( ការសម្រេចដូច
 // ហ្គេម )។ តំបន់ជីវៈទឹកមានសុពលភាពតែលើទឹក ហើយម៉ាសតែងតែគ្របដណ្តប់
 // តំបន់ជីវៈលើដី រីឯទទេ ( 0 = ស្វ័យប្រវត្តិ ឬគ្មានទិន្នន័យ ) គឺ
 // គ្មានអ្វី គ្មានសម្លេង។ មានតែម៉ាស ( មិនមែនកម្ពស់ដី ) សម្រេចទឹក។
-function biomoDe(x: number, z: number): string {
-  const pentrita = biomoInterp(x, z);
+function bs2De(x: number, z: number): string {
+  const pentrita = bs2Interp(x, z);
   // ⟨ ទឹកពិត 📃 ⟩ ៖ ទឹកមកពីការគណនា ( ប្រភព អាង ទន្លេ ) , មិនមែនម៉ាសចាស់ដែល
   // បានគូរ ។ ដូច្នេះជីវភូមិទឹកបង្ហាញលើទន្លេដែលកើតពីប្រភពផងដែរ ។
-  const akva = cxuAkvoSurfaco(x, z);
+  const akva = tsekeAkvoSurfaco(x, z);
   if ( pentrita === 4 && akva ) return "akvaj-plantoj";
-  if ( pentrita === 5 && akva ) return "ekvizeto";
+  if ( pentrita === 5 && akva ) return "tsake";
   if ( akva ) return "akvo";
   if ( pentrita !== 0 ) return BIOMA_NOMOJ[pentrita] ?? "nenio";
   return "nenio";
@@ -182,10 +182,10 @@ function biomoDe(x: number, z: number): string {
 // ដដែល។
 export function almetiBiomanNuancon(k: number[], x: number, z: number, _d: number): number[] {
   // មានតែពេលឧបករណ៍តំបន់ជីវៈបើក។ ទឹកទទេមិនទទួល
-  // សម្លេងទេ ព្រោះតំបន់ជីវៈទឹក ( រុក្ខជាតិទឹក ekvizeto ) ផ្តល់ពណ៌ឱ្យក្រឡា
+  // សម្លេងទេ ព្រោះតំបន់ជីវៈទឹក ( រុក្ខជាតិទឹក tsake ) ផ្តល់ពណ៌ឱ្យក្រឡា
   // ដែលគូររបស់ពួកវា ហើយទឹកបង្ហាញពណ៌ផ្ទាល់ខ្លួននៅកន្លែងផ្សេង។
-  if ( penikoAktiva() === "biomo" ) {
-    const n = BIOMA_NUANCO[biomoDe(x, z)];
+  if ( penikoAktiva() === "bs2" ) {
+    const n = BIOMA_NUANCO[bs2De(x, z)];
     if ( n ) {
       const m = n[1];
       return [
@@ -198,10 +198,10 @@ export function almetiBiomanNuancon(k: number[], x: number, z: number, _d: numbe
   }  // មានតែពេលឧបករណ៍សត្វបើក ហើយទិដ្ឋភាពបង្ហាញតែ
   // ប្រភេទដែលបានជ្រើស ( សត្វទឹកខៀវស្រាល បក្សីព្រិលភ្លឺ រីឯ NPC
   // លឿងស្រាល )។
-  if ( penikoAktiva() === "bestoj" ) {
-    const b = bestoInterp(x, z);
-    const n = BESTO_NUANCO[bestoAktiva() & 7];
-    if ( !n || ( b & ( bestoAktiva() & 7 ) ) === 0 ) return k;
+  if ( penikoAktiva() === "hapaga" ) {
+    const b = pagaInterp(x, z);
+    const n = BESTO_NUANCO[pagaAktiva() & 7];
+    if ( !n || ( b & ( pagaAktiva() & 7 ) ) === 0 ) return k;
     const m = n[1];
     return [
       k[0] + ( n[0][0] - k[0] ) * m,
@@ -228,7 +228,7 @@ function kolorigiAkvon(datumoj: Uint8ClampedArray, o: number, h: number, vem2: n
     r += 0o30 * s; g -= 0o14 * s; b -= 0o20 * s;
   }
   // សម្លេងតំបន់ជីវៈ និងសត្វគ្របដណ្តប់ទឹកផងដែរ គឺតំបន់ជីវៈទឹក
-  // ( រុក្ខជាតិទឹក ekvizeto ) និងសត្វទឹកត្រូវបានគូរលើទឹកផ្ទាល់។
+  // ( រុក្ខជាតិទឹក tsake ) និងសត្វទឹកត្រូវបានគូរលើទឹកផ្ទាល់។
   const k = almetiBiomanNuancon([ r, g, b ], x, z, delta);
   r = k[0]; g = k[1]; b = k[2];
   datumoj[o] = Math.min(0o377, r * hunanu);
@@ -243,15 +243,15 @@ function bicubaDerivata(p0: number, p1: number, p2: number, p3: number, t: numbe
   return 0o1/0o2 * ( ( -p0 + p2 ) + 2 * ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t
     + 3 * ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t2 );
 }
-// deltoKunDerivajoj គឺកម្ពស់ទ្វេកោង និងដេរីវេភាគទាំងពីរនៅ ( x, z )។
+// l6daKunDerivajoj គឺកម្ពស់ទ្វេកោង និងដេរីវេភាគទាំងពីរនៅ ( x, z )។
 // ការអាន 4×4 មួយផ្តល់តម្លៃទាំងបី គឺលឿនជាង 5 ដងបើធៀបនឹងភាពខុសគ្នា
 // កណ្តាលនៃការគំរូទ្វេលីនេអ៊ែរប្រាំ ហើយណរម៉ាល់រលូន ( ដេរីវេ
 // នៃផ្ទៃរលូន គ្មានសំណល់សំណាញ់ )។
-export function deltoKunDerivajoj(x: number, z: number): [ number, number, number ] {
+export function l6daKunDerivajoj(x: number, z: number): [ number, number, number ] {
   const fx = ( x - X0 ) / PASO, fz = ( z - Z0 ) / PASO;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
-  const cxelo = ( i: number, j: number ) => deltoj[Math.max(0, Math.min(N - 1, j)) * N + Math.max(0, Math.min(N - 1, i))];
+  const cxelo = ( i: number, j: number ) => hal6da[Math.max(0, Math.min(N - 1, j)) * N + Math.max(0, Math.min(N - 1, i))];
   // ជួរទាំងបួន គឺកម្ពស់ និងដេរីវេ u ក្នុងមួយជួរ។
   const r: number[] = [], rd: number[] = [];
   for ( let k = -1; k <= 2; k++ ) {
@@ -279,7 +279,7 @@ export function rekalkuliDeklivojn(px0: number, py0: number, px1: number, py1: n
     for ( let px = minPx; px <= maxPx; px++ ) {
       const x = MONDO_HALFO - ( px + 0o1/0o2 ) * MONDO / REZ;
       const i = py * REZ + px;
-      const [ , deklX, deklZ ] = deltoKunDerivajoj(x, z);
+      const [ , deklX, deklZ ] = l6daKunDerivajoj(x, z);
       deklivoGradientoj[i] = Math.hypot(deklX, deklZ);
       const nx = -deklX * 0o215/0o100, nz = -deklZ * 0o215/0o100, ny = 1;
       const len = Math.hypot(nx, ny, nz);
@@ -303,7 +303,7 @@ export function pentri(px0: number, py0: number, px1: number, py1: number): void
       const x = MONDO_HALFO - ( px + 0o1/0o2 ) * MONDO / REZ;
       const i = py * REZ + px;
       const kozuni = bazoj[i];
-      const delta = deltoInterp(x, z);
+      const delta = l6daInterp(x, z);
       // ដីរួមបញ្ចូលព្រែកកាត់ទឹក ( គ្រែទន្លេ ) គឺផលបូកដូច
       // alteco() ក្នុងហ្គេម។
       const h = kozuni + delta - akvaKavoInterp(x, z);
@@ -312,8 +312,8 @@ export function pentri(px0: number, py0: number, px1: number, py1: number): void
       // ទឹកមកពីការគណនា ( ប្រភព និងអាង ) មិនមែនពី
       // ម៉ាសដែលគូរទេ។ កម្រិតជាកម្រិតផ្ទាល់ខ្លួនរបស់ចំណុច ព្រោះ
       // ទន្លេហូរចុះ អាងនៅរាបស្មើ។
-      const vem2 = akvaNiveloEn(x, z);
-      if ( vem2 !== null && cxuAkvo(x, z) && h < vem2 - 0o1/0o100 ) {
+      const vem2 = akvaVem2En(x, z);
+      if ( vem2 !== null && tsekeAkvo(x, z) && h < vem2 - 0o1/0o100 ) {
         kolorigiAkvon(datumoj, o, h, vem2, hunanu, delta, x, z);
       } else {
         const k = almetiBiomanNuancon(terenaKoloro255(h, x, z, deklivoGradientoj[i] || 0), x, z, delta);
@@ -324,5 +324,5 @@ export function pentri(px0: number, py0: number, px1: number, py1: number): void
       }
     }
   }
-  bazaKunteksto.putImageData(bazaBildo, 0, 0);
+  bazaKuns2bana.putImageData(bazaBildo, 0, 0);
 }

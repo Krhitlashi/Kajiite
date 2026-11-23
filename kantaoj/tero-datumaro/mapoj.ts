@@ -1,4 +1,4 @@
-// ≺⧼ ផែនទី 🗺️ ⧽≻
+// ≺⧼ ʃᴜ j͐ʃɹ 🗺️ ⧽≻
 // បង្កើតដោយឧបករណ៍ឆ្លាក់ដី ( iloj/tero-skulptilo/tero-skulptilo.html )។
 // ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - កុំកែដោយដៃ។ ឧបករណ៍ឆ្លាក់សរសេរឯកសារឡើងវិញ។
 
@@ -8,7 +8,7 @@
 // ជ្រើសផែនទី , កែវា និងសរសេរទិន្នន័យផែនទីនោះ , ហ្គេម
 // អានផែនទីដែលសម្គាល់ថាសកម្ម ( តាមច្រកទ្វារ aktiva.ts )។
 //
-// formo , ទម្រង់ដី ( eskekoj/komunajxoj/mapformo.ts ) , រង្វង់ (
+// qoxa , ទម្រង់ដី ( eskekoj/komunajxoj/mapqoxa.ts ) , រង្វង់ (
 // លំនាំដើម ) , ការ៉េមូល ឬត្រីកោណមូល។
 // grandeco , កន្លះទំហំទម្រង់គិតជាឯកតាពិភពលោក , កាំរង្វង់ ,
 // កន្លះទទឹងការ៉េ ឬកាំរង្វង់ជុំត្រីកោណ។
@@ -17,5 +17,5 @@
 import type { MapoDatumo } from "./mapregulo.js";
 
 export const MAPOJ: MapoDatumo[] = [
-  { kodo: "cxefa", ksaka: "Ĉefa mapo", aktiva: true, formo: "rondo", grandeco: 0o600 },
+  { kodo: "cxefa", ksaka: "Geles mapo", aktiva: true, qoxa: "c2q", grandeco: 0o600 },
 ];

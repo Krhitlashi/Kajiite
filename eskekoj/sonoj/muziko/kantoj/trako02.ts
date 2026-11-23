@@ -1,6 +1,6 @@
-// ≺⧼ វិល 02 · ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ · 0o520 ហេ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ 02 · ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ · 0o520 ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
 
-import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
+import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/hahunaq.js";
 import { F, NYAM } from "../vokoj/skaloj.js";
 import { HE, caxomani } from "../vokoj/tempo.js";
 

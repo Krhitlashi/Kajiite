@@ -1,13 +1,13 @@
-// ≺⧼ មេឃ 🌤 ⧽≻
+// ≺⧼ ſɟᴜ }ʃᴜ 🌤 ⧽≻
 import * as THREE from "three";
-import { kreiCxielanMaterialon, type CxielajUniformoj } from "../../../eskekoj/komunajxoj/lumo.js";
+import { kf2CxielanMaterialon, type CxielajUnihaqoxa } from "../../../eskekoj/komunajxoj/lumo.js";
 
-export function kreiCxielon(qena: THREE.Scene): {
+export function kf2Cxielon(qena: THREE.Scene): {
   cxielo: THREE.Mesh;
-  cxielajUniformoj: CxielajUniformoj;
+  cxielajUnihaqoxa: CxielajUnihaqoxa;
 } {
   // ⟨ ពណ៌តែមួយសម្រាប់មេឃលើឆាក និងកញ្ចក់ឆ្លុះ ។ 📃 ⟩
-  const cxielajUniformoj: CxielajUniformoj = {
+  const cxielajUnihaqoxa: CxielajUnihaqoxa = {
     uTop: { value: new THREE.Color(0x78a8c0) },
     uMid: { value: new THREE.Color(0xb8d0d8) },
     uBot: { value: new THREE.Color(0xe0e8e8) },
@@ -16,9 +16,9 @@ export function kreiCxielon(qena: THREE.Scene): {
     uNokto: { value: 0o0 },
   };
   // ⟨ ផ្ទៃទឹកប្រើឯកសារយោងដដែល ដើម្បីការឆ្លុះប្តូរតាមមេឃភ្លាមៗ 📃 ⟩
-  qena.userData.cxielajUniformoj = cxielajUniformoj;
+  qena.userData.cxielajUnihaqoxa = cxielajUnihaqoxa;
   const cxielaGeometrio = new THREE.SphereGeometry(0o1170, 0o30, 0o20);
-  const cxielo = new THREE.Mesh(cxielaGeometrio, kreiCxielanMaterialon(cxielajUniformoj));
+  const cxielo = new THREE.Mesh(cxielaGeometrio, kf2CxielanMaterialon(cxielajUnihaqoxa));
   // ⟨ មេឃតាមកាមេរ៉ានៅគ្រប់ទីតាំង កុំឱ្យផ្នែកខាងលើហួសចម្ងាយកាត់រហូតខ្មៅ 📃 ⟩
   cxielo.frustumCulled = false;
   cxielo.onBeforeRender = ( _bildilo, _sceno, fotilo ) => {
@@ -26,5 +26,5 @@ export function kreiCxielon(qena: THREE.Scene): {
     cxielo.updateMatrixWorld();
   };
   qena.add(cxielo);
-  return { cxielo, cxielajUniformoj };
+  return { cxielo, cxielajUnihaqoxa };
 }

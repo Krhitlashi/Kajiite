@@ -1,8 +1,8 @@
-// ≺⧼ ការណែនាំ 🎬 ⧽≻
+// ≺⧼ ֭ſɭɔ }ʃɔ ı],ɜ 🎬 ⧽≻
 import * as THREE from "three";
 import { montriSargxanEraron } from "../bildo/scena/eraro.js";
 
-export interface EnkondukajOpcioj {
+export interface EnkondukajHasukf2qani {
   kanvaso: HTMLCanvasElement;
   sxargxaElemento: HTMLElement;
   stango: HTMLElement;
@@ -23,21 +23,21 @@ export interface Enkonduko {
   fini(): void;
 }
 
-export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
+export function kf2Enkondukon( hasukf2qani: EnkondukajHasukf2qani ): Enkonduko {
   const {
     kanvaso, sxargxaElemento, stango, sxargxaTitolo,
     bildilo, fotilo, qena, maksimumaRatio, traduki, aplikiVacepu,
-  } = opcioj;
+  } = hasukf2qani;
 
   let haltita = false;
-  let kuntekstoPerdita = false;
+  let kuns2banaPerdita = false;
   kanvaso.addEventListener("webglcontextlost", ( e ) => {
     e.preventDefault();
-    kuntekstoPerdita = true;
+    kuns2banaPerdita = true;
     bildilo.shadowMap.enabled = false;
   });
   kanvaso.addEventListener("webglcontextrestored", () => {
-    kuntekstoPerdita = false;
+    kuns2banaPerdita = false;
   });
 
   // ⟪ ការបង្ហាញដំបូង 📃 ⟫
@@ -47,13 +47,13 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
   // លើការគូរឆាកដែលមិនទាន់ចប់ ។ ដូច្នេះរង់ចាំតាមថ្លៃស៊ុមចុងក្រោយ ៖ ស៊ុមថោកគូរញឹក ,
   // ស៊ុមថ្លៃគូររង ។ ថ្លៃនោះភាគច្រើនកើតតែម្តងពេលធាតុថ្មីចូលមក , ដូច្នេះស៊ុមបន្ទាប់
   // ថោកវិញ ហើយកម្រិតស៊ុមឡើងវិញដោយខ្លួនឯង ។ ការរសាត់យឺត , ដូច្នេះមិនឃើញខុសទេ ។ 📃 ⟩
-  const PLEJ_MALRAPIDA = 0o40;
+  const PLEJ_MUQ = 0o40;
   const KOSTA_FAKTORO = 0o4;
   let lastaKomenco = -Infinity;
   let lastaKosto = 0;
   function fruaBildigo(): void {
     if ( haltita ) return;
-    if ( document.hidden || kuntekstoPerdita ) {
+    if ( document.hidden || kuns2banaPerdita ) {
       requestAnimationFrame(fruaBildigo);
       return;
     }
@@ -64,7 +64,7 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
       bildilo.setSize(innerWidth, innerHeight);
     }
     const nun = performance.now();
-    if ( nun - lastaKomenco >= Math.max(PLEJ_MALRAPIDA, lastaKosto * KOSTA_FAKTORO) ) {
+    if ( nun - lastaKomenco >= Math.max(PLEJ_MUQ, lastaKosto * KOSTA_FAKTORO) ) {
       lastaKomenco = nun;
       const tafkaq = ( nun / 0o1000 ) * 0o1/0o10;
       fotilo.position.set(Math.cos(tafkaq) * 0o110, 0o30 + Math.sin(tafkaq * 0o1/0o2) * 0o4, Math.sin(tafkaq) * 0o110);
@@ -89,9 +89,9 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
   // ⟪ វឌ្ឍនភាពនៃការសាងសង់ 📃 ⟫
   function gxisdatigiProgreson( procento: number ): void {
     stango.style.setProperty("--តេមិនី", `${Math.round(procento * 0o144) / 0o144}`);
-    const novaTitolo = procento > 0o33/0o40 ? traduki("sxargxoNebulo") : procento > 0o23/0o100 ? traduki("sxargxoSatalo") : null;
-    if ( novaTitolo !== null && sxargxaTitolo.textContent !== novaTitolo ) {
-      sxargxaTitolo.textContent = novaTitolo;
+    const sef4Titolo = procento > 0o33/0o40 ? traduki("sxargxoNebulo") : procento > 0o23/0o100 ? traduki("sxargxoSatalo") : null;
+    if ( sef4Titolo !== null && sxargxaTitolo.textContent !== sef4Titolo ) {
+      sxargxaTitolo.textContent = sef4Titolo;
       aplikiVacepu();
     }
   }
@@ -100,7 +100,7 @@ export function kreiEnkondukon( opcioj: EnkondukajOpcioj ): Enkonduko {
   // ⟨ ហេតុអ្វីថោក 📃 ⟩
   // ⟨ មូលហេតុស៊ុមប្រផេះ 📃 ⟩
   function varmigi(): void {
-    if ( kuntekstoPerdita || document.hidden ) return;
+    if ( kuns2banaPerdita || document.hidden ) return;
     bildilo.compile(qena, fotilo);
     bildilo.shadowMap.needsUpdate = true;
     bildilo.render(qena, fotilo);

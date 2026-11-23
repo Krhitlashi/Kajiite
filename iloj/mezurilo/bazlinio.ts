@@ -1,4 +1,4 @@
-// ≺⧼ ច្បាប់ចាស់សម្រាប់ A/B 📏 ⧽≻
+// ≺⧼ ſןɹ ʌ j͑ʃᴜ ʌ j͑ʃɹ ſɭᴜc̗ ɭʃᴜ 📏 ⧽≻
 // ⟨ ច្បាប់ទាំងបួនជាច្បាប់ត្រជាក់ ។ verifiki ពិនិត្យថាកូដហ្គេមបច្ចុប្បន្ន
 //   ផ្តល់លេខដូចគ្នា ហើយ komparo វាស់ល្បឿនធៀបនឹងច្បាប់ដដែល ។ ពីមុន
 //   ឯកសារទាំងពីរចម្លងច្បាប់ទាំងនេះដោយឡែក ។ ឥឡូវមានតែមួយកន្លែង ។
@@ -7,7 +7,7 @@
 import { katmullRom } from "../../kantaoj/komunajxoj/interpolo.js";
 
 // ⟨ កំណែចាស់របស់ bruo2D 📃 ⟩
-export function bruo2DMalnova( x: number, z: number ): number {
+export function bruo2DS23ohk2sai( x: number, z: number ): number {
   const ix = Math.floor(x), iz = Math.floor(z);
   const fx = x - ix, fz = z - iz;
   const h = ( xi: number, zi: number ): number => {
@@ -22,7 +22,7 @@ export function bruo2DMalnova( x: number, z: number ): number {
 }
 
 // ⟨ កំណែចាស់របស់ specimenoBikuba 📃 ⟩
-export function bikubaMalnova( krado: Float32Array, n: number, vepat6ni: number,
+export function bikubaS23ohk2sai( krado: Float32Array, n: number, vepat6ni: number,
   origino: number[], x: number, z: number ): number {
   const fx = ( x - origino[0] ) / vepat6ni, fz = ( z - origino[1] ) / vepat6ni;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
@@ -32,13 +32,13 @@ export function bikubaMalnova( krado: Float32Array, n: number, vepat6ni: number,
     const jj = Math.max(0, Math.min(n - 1, j));
     return krado[jj * n + ii];
   };
-  const vico = ( j: number ): number =>
+  const x2pa = ( j: number ): number =>
     katmullRom(val(i0 - 1, j), val(i0, j), val(i0 + 1, j), val(i0 + 2, j), u);
-  return Math.max(0, katmullRom(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v));
+  return Math.max(0, katmullRom(x2pa(j0 - 1), x2pa(j0), x2pa(j0 + 1), x2pa(j0 + 2), v));
 }
 
 // ⟨ កំណែចាស់របស់ skulptaDelta 📃 ⟩
-export function deltoMalnova( T: Int16Array, n: number, vepat6ni: number,
+export function l6daS23ohk2sai( T: Int16Array, n: number, vepat6ni: number,
   o: number[], x: number, z: number ): number {
   const val = ( i: number, j: number ): number => {
     const ii = Math.max(0, Math.min(n - 1, i));
@@ -48,14 +48,14 @@ export function deltoMalnova( T: Int16Array, n: number, vepat6ni: number,
   const fx = ( x - o[0] ) / vepat6ni, fz = ( z - o[1] ) / vepat6ni;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
-  const vico = ( j: number ): number =>
+  const x2pa = ( j: number ): number =>
     katmullRom(val(i0 - 1, j), val(i0, j), val(i0 + 1, j), val(i0 + 2, j), u);
-  return katmullRom(vico(j0 - 1), vico(j0), vico(j0 + 1), vico(j0 + 2), v) / 0o20;
+  return katmullRom(x2pa(j0 - 1), x2pa(j0), x2pa(j0 + 1), x2pa(j0 + 2), v) / 0o20;
 }
 
 // ⟨ កំណែដែលមានតារាងជាប់គ្នា ។ komparo ធ្លាប់សរសេរ fk ជាអនុគមន៍
 //   ខ្លីជាងនេះ តែលេខដូចគ្នាបេះបិទ ។ 📃 ⟩
-export function deltoNova( T: Int16Array, n: number, vepat6ni: number,
+export function l6daSef4( T: Int16Array, n: number, vepat6ni: number,
   o: number[], x: number, z: number ): number {
   const fk = ( w: number ): number => {
     const n1 = n - 1;

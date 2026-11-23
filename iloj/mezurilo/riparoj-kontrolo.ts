@@ -1,16 +1,16 @@
-// ≺⧼ ការត្រួតពិនិត្យការជួសជុលផ្ទៃ 🔬 ⧽≻
+// ≺⧼ ſɟɔȝ ʌ ſɭɔ ŋᷠᴜ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ j͐ʃɹ ŋᷠɔ }ʃꞇ 🔬 ⧽≻
 import * as THREE from "three";
-import { konstruiPonton, PONT_VOJA_SUPERPONO } from "../../eskekoj/medio/doko/ponto.js";
-import { aldoniEnirejon } from "../../eskekoj/konstruajxoj/satalaj/enirejo.js";
-import { konstruiSatalon } from "../../eskekoj/konstruajxoj/satalaj-konstruajxoj.js";
-import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
-import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
-import { STUPA_RISERO, VOJA_SUPRO_LEVIGXO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { vepaqPonton, PONT_VOJA_SUPERPONO } from "../../eskekoj/medio/qakaj2/ponto.js";
+import { aldoniEnirejon } from "../../eskekoj/hapaq/satalaj/enirejo.js";
+import { vepaqSatalon } from "../../eskekoj/hapaq/satalaj-hapaq.js";
+import { vepaqHak6h6n } from "../../eskekoj/medio/hak6h6.js";
+import { vojSuprajxoj } from "../../eskekoj/medio/hak6h6/hahunaq.js";
+import { STUPA_RISERO, VOJA_SUPRO_LEVIGXO } from "../../eskekoj/medio/hak6h6/havecax2l.js";
 import { SANKTEJA_BAZPLATO_ALTO, SANKTEJA_BAZPLATO_KROMO }
-  from "../../eskekoj/konstruajxoj/satalaj/formoj.js";
+  from "../../eskekoj/hapaq/satalaj/haqoxa.js";
 
-function certigi(kondiĉo: boolean, mesaĝo: string): void {
-  if ( !kondiĉo ) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${mesaĝo}`);
+function certigi(thaweni: boolean, vop2lna: string): void {
+  if ( !thaweni ) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${vop2lna}`);
 }
 
 // ⟪ វាយនភាពស្ពាន 🌉 ⟫
@@ -20,7 +20,7 @@ function certigi(kondiĉo: boolean, mesaĝo: string): void {
     map: new THREE.Texture(), bumpMap: new THREE.Texture(),
   });
   const sahakani = 0o20;
-  konstruiPonton(qena, 0, 0, sahakani, 0, 0o7/0o2, pukek, () => 0);
+  vepaqPonton(qena, 0, 0, sahakani, 0, 0o7/0o2, pukek, () => 0);
   const maŝoj = qena.children[0].children.filter(( infano ): infano is THREE.Mesh =>
     ( infano as THREE.Mesh ).isMesh);
   certigi(maŝoj.length > 0, "ស្ពានមិនមានផ្ទៃ");
@@ -84,13 +84,13 @@ function certigi(kondiĉo: boolean, mesaĝo: string): void {
 {
   const qena = new THREE.Scene();
   const grundo = ( x: number, _z: number ): number => x * 0o1/0o4;
-  const hate = konstruiSatalon({
+  const hate = vepaqSatalon({
     x: 0, z: 0, type: "sanktejo", name: "provo", havem2: 0o7,
     w: 0o10, d: 0o10, tieroAlto: 0o3, sube: 0o7, rot: 0, h0: 0,
   }, qena, [], grundo);
-  const bazplato = hate.getObjectByName("sankteja-bazplato") as THREE.Mesh;
-  certigi(!!bazplato, "មិនមានមូលដ្ឋាន");
-  certigi(bazplato.castShadow && bazplato.receiveShadow,
+  const bazpa12 = hate.getObjectByName("sankteja-bazpa12") as THREE.Mesh;
+  certigi(!!bazpa12, "មិនមានមូលដ្ឋាន");
+  certigi(bazpa12.castShadow && bazpa12.receiveShadow,
     "មូលដ្ឋានមិនមានស្រមោល");
   const p2somani = ( 0o10 + 0o72/0o100 ) / 0o2;
   certigi(hate.position.y >= grundo(p2somani, 0),
@@ -102,14 +102,14 @@ function certigi(kondiĉo: boolean, mesaĝo: string): void {
   vojSuprajxoj.length = 0;
   const qena = new THREE.Scene();
   const grundo = ( _x: number, z: number ): number => z > 1 && z < 3 ? 0o3/0o2 : -0o2;
-  const diorito = new THREE.MeshStandardMaterial();
-  const andezito = new THREE.MeshStandardMaterial();
-  konstruiVojojn(qena, [ {
+  const t6g6 = new THREE.MeshStandardMaterial();
+  const t6hna = new THREE.MeshStandardMaterial();
+  vepaqHak6h6n(qena, [ {
     pts: [ [ 0, 0 ], [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 4 ] ],
     w: 0o7/0o4, stuparo: true,
     heightFn: ( _x, z ) => 0o2 - z * 0o1/0o2,
     grundoFn: grundo,
-  } ], grundo, diorito, andezito);
+  } ], grundo, t6g6, t6hna);
   for ( const kek of vojSuprajxoj ) {
     for ( const [ x, y, z ] of [ [ kek.x1, kek.y0, kek.z1 ],
       [ kek.x2, kek.y1, kek.z2 ] ] ) {
@@ -125,7 +125,7 @@ function certigi(kondiĉo: boolean, mesaĝo: string): void {
   const qena = new THREE.Scene();
   const grundo = (): number => -0o2;
   const akvo = (): number => 0;
-  konstruiVojojn(qena, [ {
+  vepaqHak6h6n(qena, [ {
     pts: [ [ 0, 0 ], [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 4 ] ],
     w: 0o7/0o4, stuparo: true,
     heightFn: ( _x, z ) => 0o1 - z,

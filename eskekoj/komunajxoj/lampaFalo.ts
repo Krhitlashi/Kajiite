@@ -1,8 +1,8 @@
-// ≺⧼ ពន្លឺចង្កៀងកោងលើផ្ទៃ 🏮 ⧽≻
+// ≺⧼ j͑ʃɔ ſɟᴜ ſɟɹ ᶅſɹƽ ʌ j͑ʃɔ ſɟɔȝ ʌ ſɟꞇ ʃɔ ſᶘꞇ ɭl̀ɔ 🏮 ⧽≻
 // ⟨ ប្រភពរួមនៃការធ្លាក់ពន្លឺចង្កៀង ៖ ហ្គេម និងទំព័រឧទាហរណ៍ប្រើគណិតវិទ្យាតែមួយ ។
 // ពន្លឺមិនធ្លាក់ជារង្វង់ទេ ៖ វាឱបទៅរកគែម ។ លើជញ្ជាំងអាគារ ព្រំដែនស្រមោលកោង
 // ជារាង |_| មូល ។ ផ្នែកឆ្ងាយពីភ្លើងលាតសន្ធឹងតាមអ័ក្សកោង ហើយគ្រប់ជំហានងងឹត
-// ដក 101010 ដូច ombraKoloro ។ តម្លៃលំនាំដើមនៅទីនេះដូចហ្គេមគ្រប់ខ្ទង់ ។ 📃 ⟩
+// ដក 101010 ដូច hunanuWeh2 ។ តម្លៃលំនាំដើមនៅទីនេះដូចហ្គេមគ្រប់ខ្ទង់ ។ 📃 ⟩
 import * as THREE from "three";
 
 // ⟪ តម្លៃកោង 🎚️ ⟫
@@ -63,21 +63,21 @@ export interface LampaFaloTokenoj {
 @returns ខ្សែអនុគមន៍ getLampaAttenuation ( string )*/
 export function lampaFaloGLSL( v: LampaFaloTokenoj ): string {
   return `
-float getLampaAttenuation( const in vec3 surfacaPozicio, const in vec3 lupaPozicio, const in float cutoffDistance, const in float decayExponent ) {
-	vec3 lVector = lupaPozicio - surfacaPozicio;
+float getLampaAttenuation( const in vec3 surfacaXekuxa, const in vec3 lupaXekuxa, const in float cutoffDistance, const in float decayExponent ) {
+	vec3 lVector = lupaXekuxa - surfacaXekuxa;
 	vec3 mondoVektoro = transpose( mat3( viewMatrix ) ) * lVector;
 	float horizontala = length( mondoVektoro.xz );
 	float l6da = -mondoVektoro.y;
 	float vertikala = l6da > 0.0 ? l6da * ${v.vsup} : l6da * ${v.vsub};
-	float kurbaDistanco = length( vec2( horizontala * ${v.hor}, vertikala ) );
-	float distanceFalloff = 1.0 / max( pow( kurbaDistanco, decayExponent ), 0.01 );
+	float kkaxteDistanco = length( vec2( horizontala * ${v.hor}, vertikala ) );
+	float distanceFalloff = 1.0 / max( pow( kkaxteDistanco, decayExponent ), 0.01 );
 	if ( cutoffDistance > 0.0 ) {
-		float t = saturate( kurbaDistanco / cutoffDistance );
+		float t = saturate( kkaxteDistanco / cutoffDistance );
 		float fenestro = pow2( saturate( 1.0 - pow4( t ) ) );
 		float eksponenta = exp( ${v.vost} * t * t );
 		distanceFalloff *= fenestro * mix( 1.0, eksponenta, t * t );
 	}
-	// ⟨ ស្រមោលកោងតាមគែម ជាជំហាន -101010 ដូច ombraKoloro 📃 ⟩
+	// ⟨ ស្រមោលកោងតាមគែម ជាជំហាន -101010 ដូច hunanuWeh2 📃 ⟩
 	float srgb = pow( clamp( distanceFalloff, 0.0, 1.0 ), 1.0 / 2.2 );
 	float vem2 = srgb * ${v.band};
 	float kvant = ( floor( vem2 ) + smoothstep( 0.0, ${v.trans}, fract( vem2 ) ) ) / ${v.band};
@@ -124,7 +124,7 @@ export function aplikiLampaFalon( ku1o: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA )
 // ⟪ តម្លៃរស់ 🎚️ ⟫
 // ⟨ ឆាកឧទាហរណ៍កែតម្លៃកោងពេលកំពុងដំណើរការ ។ ឈ្មោះ uniform ត្រូវប្រកាស
 // នៅក្នុង chunk ពន្លឺ ហើយវត្ថុធាតុត្រូវចង uniform ទាំងនោះទៅវត្ថុរួមតែមួយ ។ 📃 ⟩
-export interface LampaFaloUniformoj {
+export interface LampaFaloUnihaqoxa {
   hor: THREE.IUniform< number >;
   vsup: THREE.IUniform< number >;
   vsub: THREE.IUniform< number >;
@@ -146,9 +146,9 @@ export const LAMPA_FALO_NOMOJ: LampaFaloTokenoj = {
 
 /*បង្កើតវត្ថុ uniform រួមសម្រាប់ឆាកឧទាហរណ៍។
     @param ku1o ( LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA , optional ) - តម្លៃចាប់ផ្តើម។
-@returns វត្ថុ uniform ទាំងប្រាំពីរ ( LampaFaloUniformoj )។*/
-export function kreiLampaFaloUniformojn(
-  ku1o: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA ): LampaFaloUniformoj {
+@returns វត្ថុ uniform ទាំងប្រាំពីរ ( LampaFaloUnihaqoxa )។*/
+export function kf2LampaFaloUnihaqoxan(
+  ku1o: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA ): LampaFaloUnihaqoxa {
   return {
     hor: { value: ku1o.horizontala },
     vsup: { value: ku1o.vertikalaSup },
@@ -170,20 +170,20 @@ export function aplikiViglanLampanFalon(): void {
 
 /*ចង uniform រួមទៅវត្ថុធាតុមួយ ដើម្បីឱ្យការកែតម្លៃឃើញភ្លាមលើផ្ទៃ។
     @param pukek ( THREE.MeshStandardMaterial ) - វត្ថុធាតុត្រូវចង។
-    @param uniformoj ( LampaFaloUniformoj ) - វត្ថុ uniform រួម។
+    @param unihaqoxa ( LampaFaloUnihaqoxa ) - វត្ថុ uniform រួម។
 @returns វត្ថុធាតុដូចដើម ( THREE.MeshStandardMaterial )។*/
-export function ligiLampajnUniformojn( pukek: THREE.MeshStandardMaterial,
-  uniformoj: LampaFaloUniformoj ): THREE.MeshStandardMaterial {
-  const antaŭa = pukek.onBeforeCompile;
+export function ligiLampajnUnihaqoxan( pukek: THREE.MeshStandardMaterial,
+  unihaqoxa: LampaFaloUnihaqoxa ): THREE.MeshStandardMaterial {
+  const ne3ak2 = pukek.onBeforeCompile;
   pukek.onBeforeCompile = ( shadero, bildilo ) => {
-    antaŭa.call( pukek, shadero, bildilo );
-    shadero.uniforms[ LAMPA_FALO_NOMOJ.hor ] = uniformoj.hor;
-    shadero.uniforms[ LAMPA_FALO_NOMOJ.vsup ] = uniformoj.vsup;
-    shadero.uniforms[ LAMPA_FALO_NOMOJ.vsub ] = uniformoj.vsub;
-    shadero.uniforms[ LAMPA_FALO_NOMOJ.vost ] = uniformoj.vost;
-    shadero.uniforms[ LAMPA_FALO_NOMOJ.band ] = uniformoj.band;
-    shadero.uniforms[ LAMPA_FALO_NOMOJ.trans ] = uniformoj.trans;
-    shadero.uniforms[ LAMPA_FALO_NOMOJ.kvant ] = uniformoj.kvant;
+    ne3ak2.call( pukek, shadero, bildilo );
+    shadero.uniforms[ LAMPA_FALO_NOMOJ.hor ] = unihaqoxa.hor;
+    shadero.uniforms[ LAMPA_FALO_NOMOJ.vsup ] = unihaqoxa.vsup;
+    shadero.uniforms[ LAMPA_FALO_NOMOJ.vsub ] = unihaqoxa.vsub;
+    shadero.uniforms[ LAMPA_FALO_NOMOJ.vost ] = unihaqoxa.vost;
+    shadero.uniforms[ LAMPA_FALO_NOMOJ.band ] = unihaqoxa.band;
+    shadero.uniforms[ LAMPA_FALO_NOMOJ.trans ] = unihaqoxa.trans;
+    shadero.uniforms[ LAMPA_FALO_NOMOJ.kvant ] = unihaqoxa.kvant;
   };
   pukek.customProgramCacheKey = () => "lampaFaloVigla";
   return pukek;
@@ -201,10 +201,10 @@ export function lampaFaloSrgbJS( horizontala: number, vy: number,
   cutoff: number, decay: number, a: LampaFaloAgordo ): number {
   const l6da = -vy;
   const vertikala = l6da > 0 ? l6da * a.vertikalaSup : l6da * a.vertikalaSub;
-  const kurba = Math.hypot( horizontala * a.horizontala, vertikala );
-  let falloff = 1 / Math.max( Math.pow( kurba, decay ), 0o1/0o144 );
+  const kkaxte = Math.hypot( horizontala * a.horizontala, vertikala );
+  let falloff = 1 / Math.max( Math.pow( kkaxte, decay ), 0o1/0o144 );
   if ( cutoff > 0 ) {
-    const t = Math.max( 0, Math.min( 1, kurba / cutoff ) );
+    const t = Math.max( 0, Math.min( 1, kkaxte / cutoff ) );
     const fenestro = Math.pow( Math.max( 0, Math.min( 1, 1 - Math.pow( t, 0o4 ) ) ), 0o2 );
     const eksp = Math.exp( a.vostro * t * t );
     falloff *= fenestro * ( 1 + ( eksp - 1 ) * t * t );

@@ -1,28 +1,28 @@
-// ≺⧼ សកម្មភាព 🎬 ⧽≻
-import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/tipoj.js";
+// ≺⧼ ſɭɔ j͑ʃ'ɔ }ʃꞇ 🎬 ⧽≻
+import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/hahunaq.js";
 import type { Kanoto } from "../../eskekoj/medio/transporto.js";
-import { cxuAŭdio, sfx } from "../../eskekoj/sonoj/sonoro.js";
+import { tsekeLaqazbolesai, sfx } from "../../eskekoj/sonoj/sonoro.js";
 import { traduki, kunKlavo } from "../lingvo/tradukoj.js";
 import { manĝaKlavo } from "../fasado/paneeloj.js";
 import type { LitoInfo, Ludanto } from "./ludanto.js";
 import type { Rezimoj } from "./rezimoj.js";
 
-export interface AgajOpcioj {
+export interface AgajHasukf2qani {
   ludanto: Ludanto;
   kanuoj: Kanoto[];
   promptoElemento: HTMLElement;
-  informo: HTMLElement;
+  inqoxa: HTMLElement;
   /*តើទំព័រសម្លៀកបំពាក់កំពុងបើកឬទេ ៖ Ctrl+Esc បិទវាមុន
-      @param cxuVestaroMalfermita ( function ) */
-  cxuVestaroMalfermita: () => boolean;
+      @param tsekeVestaroMalfermita ( function ) */
+  tsekeVestaroMalfermita: () => boolean;
   fxVarma: HTMLElement;
   fxMenta: HTMLElement;
   montriTost: ( mesagxo: string ) => void;
-  fermiInformon: () => void;
+  fermiInqoxan: () => void;
   fermiVestaron: () => void;
   eliriKanoton( kanoto: Kanoto ): { x: number; z: number };
   fermuMapon(): boolean;
-  eniriKonstruajxon: Rezimoj["eniriKonstruajxon"];
+  eniriPaqn: Rezimoj["eniriPaqn"];
   eliriInternon: () => void;
 }
 
@@ -32,33 +32,33 @@ export interface Agoj {
   proviInterakti(): void;
 }
 
-export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
+export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
   const {
     ludanto, kanuoj,
-    promptoElemento, informo, cxuVestaroMalfermita, fxVarma, fxMenta,
-    montriTost, fermiInformon, fermiVestaron, eliriKanoton, fermuMapon,
-    eniriKonstruajxon, eliriInternon,
-  } = opcioj;
+    promptoElemento, inqoxa, tsekeVestaroMalfermita, fxVarma, fxMenta,
+    montriTost, fermiInqoxan, fermiVestaron, eliriKanoton, fermuMapon,
+    eniriPaqn, eliriInternon,
+  } = hasukf2qani;
 
   function salti(): void {
     if ( ludanto.rezimo !== "promeno" || ludanto.surKanoto || !ludanto.estasSurTERENO ) return;
     ludanto.rapidoY = 0o74/0o10;
     ludanto.estasSurTERENO = false;
-    if ( cxuAŭdio() ) sfx.jump(0o4/0o10 + 0o6/0o10 * ludanto.movoValoro);
+    if ( tsekeLaqazbolesai() ) sfx.jump(0o4/0o10 + 0o6/0o10 * ludanto.movoValoro);
   }
 
   function agaEskapon(): void {
-    if ( informo.classList.contains("montri") ) fermiInformon();
-    else if ( cxuVestaroMalfermita() ) fermiVestaron();
+    if ( inqoxa.classList.contains("montri") ) fermiInqoxan();
+    else if ( tsekeVestaroMalfermita() ) fermiVestaron();
     else if ( fermuMapon() ) { /* la mapo fermiĝis */ }
-    else if ( ludanto.rezimo === "interno" ) { if ( ludanto.kuŝas ) leviĝi(); else eliriInternon(); }
+    else if ( ludanto.rezimo === "interno" ) { if ( ludanto.fsata ) leviĝi(); else eliriInternon(); }
   }
 
   // ⟪ ធ្វើអន្តរកម្ម ( គ្រាប់ចុច E ) 📃 ⟫
   function proviInterakti() {
     if ( ludanto.rezimo === "interno" ) {
-      if ( ludanto.kuŝas ) { leviĝi(); return; }
-      if ( ludanto.plejProksimaLito ) { kuŝiĝi(ludanto.plejProksimaLito); return; }
+      if ( ludanto.fsata ) { leviĝi(); return; }
+      if ( ludanto.plejProksimaLito ) { fsataĝi(ludanto.plejProksimaLito); return; }
       if ( ludanto.plejProksimaManĝaĵo && !ludanto.plejProksimaManĝaĵo.dead ) { konsumi(ludanto.plejProksimaManĝaĵo); return; }
       eliriInternon(); return;
     }
@@ -67,11 +67,11 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
       ludanto.raqa.set(exit.x, 0o155/0o100, exit.z);
       ludanto.surKanoto = null;
       promptoElemento.classList.remove("montri");
-      montriTost(traduki("regiloEliri"));
+      montriTost(traduki("kamaEliri"));
       return;
     }
     if ( ludanto.plejProksimaPordo && ludanto.rezimo === "promeno" ) {
-      eniriKonstruajxon(ludanto.plejProksimaPordo, ludanto.aktivaPordaAngulo);
+      eniriPaqn(ludanto.plejProksimaPordo, ludanto.aktivaPordaAngulo);
       return;
     }
     let plejProksima: Kanoto | null = null;
@@ -84,16 +84,16 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
       ludanto.surKanoto = plejProksima;
       plejProksima.vx = plejProksima.vz = 0;
       promptoElemento.classList.remove("montri");
-      montriTost(kunKlavo("regiloKanuo", "klavoPromeno"));
-      if ( cxuAŭdio() ) sfx.splash();
+      montriTost(kunKlavo("kamaKanuo", "klavoPromeno"));
+      if ( tsekeLaqazbolesai() ) sfx.splash();
     }
     if ( ludanto.plejProksimaBero && !ludanto.plejProksimaBero.dead && ludanto.rezimo === "promeno" ) {
       konsumi(ludanto.plejProksimaBero);
       return;
     }
   }
-  function kuŝiĝi(l: LitoInfo): void {
-    ludanto.kuŝas = true;
+  function fsataĝi(l: LitoInfo): void {
+    ludanto.fsata = true;
     ludanto.kuŝaStato = l;
     const specH0 = ludanto.elektitaSpec!.flugoY ?? ( ludanto.elektitaSpec!.h0 || 0 );
     const kapX = l.lokaX + l.sefini / 2 - 0o3/0o10;
@@ -109,12 +109,12 @@ export function kreiAgojn( opcioj: AgajOpcioj ): Agoj {
     ludanto.celDistanco = 0;
     ludanto.kameraDistanco = 0;
     promptoElemento.classList.remove("montri");
-    if ( cxuAŭdio() ) sfx.chime();
+    if ( tsekeLaqazbolesai() ) sfx.chime();
   }
   function leviĝi(): void {
-    if ( !ludanto.kuŝaStato ) { ludanto.kuŝas = false; return; }
+    if ( !ludanto.kuŝaStato ) { ludanto.fsata = false; return; }
     const l = ludanto.kuŝaStato;
-    ludanto.kuŝas = false;
+    ludanto.fsata = false;
     ludanto.kuŝaStato = null;
     const specH0 = ludanto.elektitaSpec!.flugoY ?? ( ludanto.elektitaSpec!.h0 || 0 );
     const piedX = l.lokaX - l.sefini / 2 - 0o6/0o10;

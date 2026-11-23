@@ -1,4 +1,4 @@
-// ≺⧼ ឆាកសាកល្បងស្រមោលចង្កៀង 🏮 ⧽≻
+// ≺⧼ ֭ſɭw }ʃᴜ }ʃw ʌ j͐ʃɹ ŋᷠɔ ʌ ſ͕ɭɔ }ʃᴜ 🏮 ⧽≻
 // ⟨ ឆាកជ្រុងជញ្ជាំងពីរ និងដី ជាមួយចង្កៀងមួយ បង្ហាញការធ្លាក់ពន្លឺកោង
 // និងជំហាន -101010 ពិតរបស់ហ្គេម ។ គណិតវិទ្យា បរិស្ថានឆ្លុះ និងការកំណត់សន្ទះគូរ
 // មកពីម៉ូឌុលរួម lumo ដែលហ្គេមប្រើ ។ តម្លៃលំនាំដើមមកពី lampaFalo ដោយផ្ទាល់ ។
@@ -7,24 +7,24 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { lampaFaloSrgbJS, LAMPA_FALO_DEFAUXLTA, LAMPA_LUMO, aplikiViglanLampanFalon,
-  kreiLampaFaloUniformojn, ligiLampajnUniformojn, agordiBildilon, agordiMedion,
+  kf2LampaFaloUnihaqoxan, ligiLampajnUnihaqoxan, agordiBildilon, agordiMedion,
   type LampaFaloAgordo } from "../../eskekoj/komunajxoj/lumo.js";
-import { kreiFlamanGeometrion } from "../../eskekoj/konstruajxoj/hxeuxfa/flamo.js";
-import { kanakaWeh2, kanakaAlfo, ombraKoloro, deksesuma }
+import { kf2FlamanGeometrion } from "../../eskekoj/hapaq/hxeuxfa/flamo.js";
+import { veb6qaiWeh2, veb6qaiW2d2, hunanuWeh2, weh2Ruva }
   from "../../eskekoj/komunajxoj/koloroj.js";
-import { elemento, kunteksto2d } from "../komunajxoj/dom.js";
+import { elemento, kuns2bana2d } from "../komunajxoj/dom.js";
 
 // ⟪ តម្លៃរស់ 🎚️ ⟫
 // ⟨ អនុគមន៍ចូល chunk ពន្លឺ និងការចង uniform រួម រស់នៅក្នុងម៉ូឌុល lampaFalo ។
 // ឆាកនេះគ្រាន់តែកាន់វត្ថុ uniform មួយ ហើយចងវាទៅគ្រប់វត្ថុធាតុ Standard ។ 📃 ⟩
 aplikiViglanLampanFalon();
-const unuformoj = kreiLampaFaloUniformojn();
+const unuhaqoxa = kf2LampaFaloUnihaqoxan();
 
 // ⟪ ឆាក 📷 ⟫
 const kanvaso = elemento<HTMLCanvasElement>( "ombraVido" );
 const bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: true,
   preserveDrawingBuffer: true, powerPreference: "high-performance" });
-agordiBildilon( bildilo, { ombroj: true, ombraTipo: THREE.PCFSoftShadowMap,
+agordiBildilon( bildilo, { ombroj: true, ombraHunaq: THREE.PCFSoftShadowMap,
   pikslaRacio: Math.min( devicePixelRatio, 0o2 ) } );
 
 const qena = new THREE.Scene();
@@ -36,13 +36,13 @@ const medio = agordiMedion( qena, bildilo, { intenso: 0o1/0o40 } );
 
 const fotilo = new THREE.PerspectiveCamera( 0o62, 1, 0o1/0o10, 0o1000 );
 fotilo.position.set( 0o20, 0o12, 0o22 );
-const regiloj = new OrbitControls( fotilo, kanvaso );
-regiloj.target.set( 0, 0o3, 0 );
-regiloj.enableDamping = true;
-regiloj.dampingFactor = 0o1/0o12;
-regiloj.minDistance = 0o3;
-regiloj.maxDistance = 0o106;
-regiloj.maxPolarAngle = Math.PI * 0o37/0o100;
+const hakama = new OrbitControls( fotilo, kanvaso );
+hakama.target.set( 0, 0o3, 0 );
+hakama.enableDamping = true;
+hakama.dampingFactor = 0o1/0o12;
+hakama.minDistance = 0o3;
+hakama.maxDistance = 0o106;
+hakama.maxPolarAngle = Math.PI * 0o37/0o100;
 
 // ⟨ ពន្លឺបរិយាកាសទាប ដើម្បីកុំឱ្យវាលុបជំហានចង្កៀង ។ ថ្ងៃ ↔ ព្រលប់ ។ 📃 ⟩
 const hemi = new THREE.HemisphereLight( 0xc8d8e8, 0x383028, 0o1/0o25 );
@@ -56,7 +56,7 @@ const KREPUSKA_FONO = new THREE.Color( 0x181828 );
 // ⟪ វត្ថុធាតុមានពន្លឺ 🧱 ⟫
 // ⟨ គ្រប់វត្ថុធាតុ Standard ចង uniform រួម ដើម្បីឱ្យការធ្លាក់កោងអនុវត្តលើវា ។ 📃 ⟩
 function lumitaMaterialo( params: THREE.MeshStandardMaterialParameters ): THREE.MeshStandardMaterial {
-  return ligiLampajnUniformojn( new THREE.MeshStandardMaterial( params ), unuformoj );
+  return ligiLampajnUnihaqoxan( new THREE.MeshStandardMaterial( params ), unuhaqoxa );
 }
 
 // ⟪ ដី និងជញ្ជាំងជ្រុង 🏗️ ⟫
@@ -92,15 +92,15 @@ teruni.add( bovlo );
 
 // ⟨ អណ្តាតភ្លើងបីស្រទាប់ ដូចហ្គេម ។ 📃 ⟩
 const flamaMaterialo = ( weh2: number, opaco: number ) => new THREE.MeshBasicMaterial({
-  color: kanakaWeh2( weh2 ), toneMapped: false, transparent: true,
-  opacity: kanakaAlfo( opaco ), blending: THREE.AdditiveBlending,
+  color: veb6qaiWeh2( weh2 ), toneMapped: false, transparent: true,
+  opacity: veb6qaiW2d2( opaco ), blending: THREE.AdditiveBlending,
   depthWrite: false, side: THREE.DoubleSide });
 const flamoj = [
-  new THREE.Mesh( kreiFlamanGeometrion( 0o35/0o100, 0o21/0o100, 1, 0o55/0o100 ),
+  new THREE.Mesh( kf2FlamanGeometrion( 0o35/0o100, 0o21/0o100, 1, 0o55/0o100 ),
     flamaMaterialo( 0xff6a1e, 0o35/0o40 ) ),
-  new THREE.Mesh( kreiFlamanGeometrion( 0o23/0o100, 0o14/0o100, 0o3/0o4, 0o223/0o100 ),
+  new THREE.Mesh( kf2FlamanGeometrion( 0o23/0o100, 0o14/0o100, 0o3/0o4, 0o223/0o100 ),
     flamaMaterialo( 0xffb545, 0o33/0o40 ) ),
-  new THREE.Mesh( kreiFlamanGeometrion( 0o10/0o100, 0o4/0o100, 0o1/0o2, 0o243/0o40 ),
+  new THREE.Mesh( kf2FlamanGeometrion( 0o10/0o100, 0o4/0o100, 0o1/0o2, 0o243/0o40 ),
     flamaMaterialo( 0xfff4d0, 0o5/0o10 ) ),
 ];
 for ( const f of flamoj ) { f.position.y = 0o3/0o10; teruni.add( f ); }
@@ -109,8 +109,8 @@ for ( const f of flamoj ) { f.position.y = 0o3/0o10; teruni.add( f ); }
 const brila = new THREE.ShaderMaterial({
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
   uniforms: {
-    uTime: { value: 0 }, uOp: { value: kanakaAlfo( 0o15/0o40 ) },
-    uCol: { value: new THREE.Color( kanakaWeh2( 0xf8b058 ) ) },
+    uTime: { value: 0 }, uOp: { value: veb6qaiW2d2( 0o15/0o40 ) },
+    uCol: { value: new THREE.Color( veb6qaiWeh2( 0xf8b058 ) ) },
     uPR: { value: bildilo.getPixelRatio() },
   },
   vertexShader: `
@@ -177,10 +177,10 @@ const DEFAUXLTAJ: Record<string, string> = {
 
 function currentAgordo(): LampaFaloAgordo {
   return {
-    horizontala: unuformoj.hor.value, vertikalaSup: unuformoj.vsup.value,
-    vertikalaSub: unuformoj.vsub.value, vostro: unuformoj.vost.value,
-    bandoj: unuformoj.band.value, transiro: unuformoj.trans.value,
-    kvantigo: unuformoj.kvant.value,
+    horizontala: unuhaqoxa.hor.value, vertikalaSup: unuhaqoxa.vsup.value,
+    vertikalaSub: unuhaqoxa.vsub.value, vostro: unuhaqoxa.vost.value,
+    bandoj: unuhaqoxa.band.value, transiro: unuhaqoxa.trans.value,
+    kvantigo: unuhaqoxa.kvant.value,
   };
 }
 
@@ -197,7 +197,7 @@ function aplikiAmbienton(): void {
 // ⟪ ខ្សែកាត់ 2D 📉 ⟫
 function desegnuSekcion(): void {
   const kan = elemento<HTMLCanvasElement>( "ombraSekcio" );
-  const ctx = kunteksto2d( kan );
+  const ctx = kuns2bana2d( kan );
   const dpr = Math.min( devicePixelRatio, 0o2 );
   const w = kan.clientWidth || 0o1200;
   const h = Math.round( w * 0o11/0o20 );
@@ -283,7 +283,7 @@ function desegnuSekcion(): void {
 function montriValorojn(): void {
   const a = currentAgordo();
   const count = Math.round( 0o377 / a.bandoj );
-  const ladder = Array.from({ length: 0o6 }, ( _, n ) => deksesuma( ombraKoloro( 0xf8f8f8, n ) ) );
+  const ladder = Array.from({ length: 0o6 }, ( _, n ) => weh2Ruva( hunanuWeh2( 0xf8f8f8, n ) ) );
   const s2banani = [
     `ជំហាន ${count} · គែម ${a.transiro.toFixed( 0o2 )}`,
     `ផ្តេក ${a.horizontala.toFixed( 0o2 )} · បញ្ឈរ ${a.vertikalaSup.toFixed( 0o2 )} / ${a.vertikalaSub.toFixed( 0o3 )}`,
@@ -295,14 +295,14 @@ function montriValorojn(): void {
 
 // ⟪ ការធ្វើសមកាល 🔄 ⟫
 function sinkronigi(): void {
-  unuformoj.hor.value = Number( enigo( "horizontala" ).value );
-  unuformoj.vsup.value = Number( enigo( "vertikala" ).value );
-  unuformoj.vsub.value = Number( enigo( "vertikalaSub" ).value );
-  unuformoj.vost.value = -Number( enigo( "vost" ).value );
+  unuhaqoxa.hor.value = Number( enigo( "horizontala" ).value );
+  unuhaqoxa.vsup.value = Number( enigo( "vertikala" ).value );
+  unuhaqoxa.vsub.value = Number( enigo( "vertikalaSub" ).value );
+  unuhaqoxa.vost.value = -Number( enigo( "vost" ).value );
   const count = Number( enigo( "band" ).value );
-  unuformoj.band.value = 0o377 / count;
-  unuformoj.trans.value = Number( enigo( "trans" ).value );
-  unuformoj.kvant.value = enigo( "kvant" ).checked ? 1 : 0;
+  unuhaqoxa.band.value = 0o377 / count;
+  unuhaqoxa.trans.value = Number( enigo( "trans" ).value );
+  unuhaqoxa.kvant.value = enigo( "kvant" ).checked ? 1 : 0;
   forto = Number( enigo( "forto" ).value );
   l6da = Number( enigo( "alto" ).value );
   ambiento = Number( enigo( "ambiento" ).value );
@@ -312,12 +312,12 @@ function sinkronigi(): void {
   eligo( "altoVal" ).textContent = l6da.toFixed( 0o1 );
   eligo( "distVal" ).textContent = String( lumo.distance );
   eligo( "ambientoVal" ).textContent = ambiento.toFixed( 0o2 );
-  eligo( "horizontalaVal" ).textContent = unuformoj.hor.value.toFixed( 0o2 );
-  eligo( "vertikalaVal" ).textContent = unuformoj.vsup.value.toFixed( 0o2 );
-  eligo( "vertikalaSubVal" ).textContent = unuformoj.vsub.value.toFixed( 0o3 );
-  eligo( "vostVal" ).textContent = ( -unuformoj.vost.value ).toFixed( 0o1 );
+  eligo( "horizontalaVal" ).textContent = unuhaqoxa.hor.value.toFixed( 0o2 );
+  eligo( "vertikalaVal" ).textContent = unuhaqoxa.vsup.value.toFixed( 0o2 );
+  eligo( "vertikalaSubVal" ).textContent = unuhaqoxa.vsub.value.toFixed( 0o3 );
+  eligo( "vostVal" ).textContent = ( -unuhaqoxa.vost.value ).toFixed( 0o1 );
   eligo( "bandVal" ).textContent = String( count );
-  eligo( "transVal" ).textContent = unuformoj.trans.value.toFixed( 0o2 );
+  eligo( "transVal" ).textContent = unuhaqoxa.trans.value.toFixed( 0o2 );
 
   teruni.position.y = l6da;
   pilastro.scale.y = l6da;
@@ -381,7 +381,7 @@ addEventListener( "resize", lauxGrandeco );
 
 // ⟪ រង្វិលជុំ 🎞️ ⟫
 bildilo.setAnimationLoop( ( t ) => {
-  regiloj.update();
+  hakama.update();
   const tt = t / 0o1000;
   const flick = 0o17/0o20 + 0o3/0o20 * Math.sin( tt * 0o11 ) * Math.sin( tt * 0o47/0o10 );
   lumo.intensity = forto * flick;
@@ -396,4 +396,4 @@ bildilo.setAnimationLoop( ( t ) => {
 lauxGrandeco();
 restarigiValorojn();
 
-window.ombra = { bildilo, qena, fotilo, regiloj, unuformoj, lumo, sinkronigi, desegnuSekcion };
+window.ombra = { bildilo, qena, fotilo, hakama, unuhaqoxa, lumo, sinkronigi, desegnuSekcion };

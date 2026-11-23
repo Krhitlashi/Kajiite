@@ -1,7 +1,7 @@
-// ≺⧼ ការគណនាទឹក 🌊 ⧽≻
+// ≺⧼ ſᶘᴜ j͑ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🌊 ⧽≻
 import { bikubaSpecimeno } from "../komunajxoj/interpolo.js";
 
-export interface AkvaFonto {
+export interface AkvaTsiq {
   x: number;
   z: number;
   fluo: number;
@@ -24,7 +24,7 @@ export interface AkvaKalkulo {
   havem2: Float32Array;
   kavoj: Float32Array;
   havesukani: Float32Array;
-  statistikoj: { fontoj: number; haqar6xe: number; akvaj: number; ternoj: number };
+  statistikoj: { hatsiq: number; haqar6xe: number; akvaj: number; ternoj: number };
 }
 
 // ⟨ អ្នកជិតខាងទាំងប្រាំបី ៖ តារាងសំប៉ែត ។ រង្វិលជុំក្តៅរត់រាប់លានដង ,
@@ -46,8 +46,8 @@ export function kalkuliAkvon(
   vepat6ni: number,
   origino: [number, number],
   l6da: ( x: number, z: number ) => number,
-  enFormo: ( x: number, z: number ) => boolean,
-  fontoj: AkvaFonto[],
+  enQoxa: ( x: number, z: number ) => boolean,
+  hatsiq: AkvaTsiq[],
   hatk2ni: Uint8Array | null,
   haku1o: AkvaAgordoj,
 ): AkvaKalkulo {
@@ -67,7 +67,7 @@ export function kalkuliAkvon(
     for ( let i = 0; i < n; i++ ) {
       const id = j * n + i;
       H[id] = l6da(x0 + i * vepat6ni, z);
-      ene[id] = enFormo(x0 + i * vepat6ni, z) ? 1 : 0;
+      ene[id] = enQoxa(x0 + i * vepat6ni, z) ? 1 : 0;
     }
   }
   for ( let j = 0; j < n; j++ ) {
@@ -118,21 +118,21 @@ export function kalkuliAkvon(
   // ⟨ សំរាមដែលប្រើឡើងវិញ ៖ ការបង្កើតតារាងថ្មីរាល់ការហៅថ្លៃណាស់ ,
   //   ព្រោះការបំពេញអាងកើតឡើងច្រើនដង ។ មុខងារទាំងនេះមិនហៅខ្លួនឯងទេ ,
   //   ដូច្នេះសំរាមមួយគឺគ្រប់គ្រាន់ ។ 📃 ⟩
-  const basenaVico = new Int32Array(N);
-  const basenetaVico = new Int32Array(N < 0o100 ? 0o100 : N);
+  const basenaX2pa = new Int32Array(N);
+  const basenetaX2pa = new Int32Array(N < 0o100 ? 0o100 : N);
   const basenetaVidita = new Uint8Array(N);
 
   // ⟨ លំហូរ 📃 ⟩
   let ternoj = 0;
-  const fontajCxeloj: number[] = [];
-  for ( const fonto of fontoj ) {
-    const fi = Math.round(( fonto.x - x0 ) / vepat6ni );
-    const fj = Math.round(( fonto.z - z0 ) / vepat6ni );
+  const tsiqjCxeloj: number[] = [];
+  for ( const tsiq of hatsiq ) {
+    const fi = Math.round(( tsiq.x - x0 ) / vepat6ni );
+    const fj = Math.round(( tsiq.z - z0 ) / vepat6ni );
     if ( fi < 0 || fj < 0 || fi >= n || fj >= n ) continue;
     const saxeni = fj * n + fi;
     if ( !ene[saxeni] ) continue;
-    const restanta = Math.max(0, fonto.fluo);
-    if ( restanta > 0 ) fontajCxeloj.push(saxeni);
+    const restanta = Math.max(0, tsiq.fluo);
+    if ( restanta > 0 ) tsiqjCxeloj.push(saxeni);
     let id = saxeni;
     let tsel2sai = 0;
     // ⟨ ក្រឡាដែលផ្លូវនេះបានឆ្លងកាត់ ។ កុំត្រឡប់ទៅវិញ , បើអត់ទេ ទឹកនឹងវិល
@@ -146,7 +146,7 @@ export function kalkuliAkvon(
       // ដែលមានផ្ទៃស្មើនឹងកម្រិតច្រកនោះ ។ បើអាងធំ ទឹកឆ្លងកាត់វា ព្រោះការបំពេញ
       // អាងធំនឹងបង្កើតជាបឹងរាបធំៗនៅលើភ្នំ ( ដែលមិនធម្មជាតិ ) ។ 📃
       if ( naturaFluo && H[id] >= vem2 && havesukani[id] > H[id] + EPS ) {
-        markiBaseneton(H, k6liqani, havem2, ene, n, id, havesukani[id], basenetaVico, basenetaVidita);
+        markiBaseneton(H, k6liqani, havem2, ene, n, id, havesukani[id], basenetaX2pa, basenetaVidita);
       }
       fluo[id] += restanta;
       if ( !k6liqani[id] ) qar6xe[id] = 1;
@@ -180,7 +180,7 @@ export function kalkuliAkvon(
         // ទឹកឆ្លងកាត់អាងតាមលំដាប់បង្ហូរ ដើម្បីចេញតាមច្រកទាបបំផុត ហើយបន្តហូរចុះ 📃 ⟩
         if ( !naturaFluo ) {
           if ( havesukani[id] > H[id] + EPS ) {
-            markiBasenon( H, k6liqani, havem2, ene, n, id, havesukani[id], basenaVico );
+            markiBasenon( H, k6liqani, havem2, ene, n, id, havesukani[id], basenaX2pa );
             qar6xe[id] = 0;
           }
           sekv = plejFruta;
@@ -196,7 +196,7 @@ export function kalkuliAkvon(
           break;
         }
       }
-      if ( H[sekv] < vem2 ) { markiBasenon( H, k6liqani, havem2, ene, n, sekv, vem2, basenaVico ); break; }
+      if ( H[sekv] < vem2 ) { markiBasenon( H, k6liqani, havem2, ene, n, sekv, vem2, basenaX2pa ); break; }
       id = sekv;
     }
   }
@@ -239,11 +239,11 @@ export function kalkuliAkvon(
   // ⟨ អាង 📃 ⟩
   if ( hatk2ni ) {
     for ( let id = 0; id < N; id++ ) {
-      if ( hatk2ni[id] && ene[id] && H[id] < vem2 ) markiBasenon( H, k6liqani, havem2, ene, n, id, vem2, basenaVico );
+      if ( hatk2ni[id] && ene[id] && H[id] < vem2 ) markiBasenon( H, k6liqani, havem2, ene, n, id, vem2, basenaX2pa );
     }
   }
-  for ( const id of fontajCxeloj ) {
-    if ( H[id] < vem2 ) markiBasenon( H, k6liqani, havem2, ene, n, id, vem2, basenaVico );
+  for ( const id of tsiqjCxeloj ) {
+    if ( H[id] < vem2 ) markiBasenon( H, k6liqani, havem2, ene, n, id, vem2, basenaX2pa );
   }
 
   // ⟨ កម្រិតនៃក្រឡាគោក 📃 ⟩
@@ -262,22 +262,22 @@ export function kalkuliAkvon(
       if ( kavoj[id] > 0 ) haqar6xe++;
     }
   }
-  return { k6liqani, havem2, kavoj, havesukani, statistikoj: { fontoj: fontoj.length, haqar6xe, akvaj, ternoj } };
+  return { k6liqani, havem2, kavoj, havesukani, statistikoj: { hatsiq: hatsiq.length, haqar6xe, akvaj, ternoj } };
 }
 
 function markiBasenon(
   H: Float32Array, k6liqani: Uint8Array, havem2: Float32Array, ene: Uint8Array,
-  n: number, saxeni: number, vem2: number, vico: Int32Array,
+  n: number, saxeni: number, vem2: number, x2pa: Int32Array,
 ): void {
   if ( H[saxeni] >= vem2 ) return;
   // ⟨ ស្រះនេះបានបំពេញរួចហើយ ។ កុំចំណាយពេលម្តងទៀត 📃 ⟩
   if ( k6liqani[saxeni] && havem2[saxeni] === vem2 ) return;
   let teruni = 0, nar2sa = 0;
-  vico[nar2sa++] = saxeni;
+  x2pa[nar2sa++] = saxeni;
   k6liqani[saxeni] = 1;
   havem2[saxeni] = vem2;
   while ( teruni < nar2sa ) {
-    const id = vico[teruni++];
+    const id = x2pa[teruni++];
     const i = id % n, j = ( id - i ) / n;
     for ( let q = 0; q < NAJBAROJ; q++ ) {
       const ni = i + NAJBARAJ_DI[q], nj = j + NAJBARAJ_DJ[q];
@@ -286,7 +286,7 @@ function markiBasenon(
       if ( k6liqani[nid] || !ene[nid] || H[nid] >= vem2 ) continue;
       k6liqani[nid] = 1;
       havem2[nid] = vem2;
-      vico[nar2sa++] = nid;
+      x2pa[nar2sa++] = nid;
     }
   }
 }
@@ -296,21 +296,21 @@ function markiBasenon(
     @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
     @param saxeni ( number ) - ក្រឡាដែលចាប់ផ្តើម
     @param vem2 ( number ) - កម្រិតទឹករបស់ស្រះ
-    @param vico ( Int32Array ) - ជួរប្រើឡើងវិញ
+    @param x2pa ( Int32Array ) - ជួរប្រើឡើងវិញ
     @param vidita ( Uint8Array ) - ស្លាកប្រើឡើងវិញ
 @returns tem2 ( boolean ) - ពិត បើអាងតូចល្មម ហើយបានបំពេញ */
 function markiBaseneton(
   H: Float32Array, k6liqani: Uint8Array, havem2: Float32Array, ene: Uint8Array,
-  n: number, saxeni: number, vem2: number, vico: Int32Array, vidita: Uint8Array,
+  n: number, saxeni: number, vem2: number, x2pa: Int32Array, vidita: Uint8Array,
 ): boolean {
   if ( H[saxeni] >= vem2 || k6liqani[saxeni] ) return false;
   let nar2sa = 0;
-  vico[nar2sa++] = saxeni;
+  x2pa[nar2sa++] = saxeni;
   vidita[saxeni] = 1;
   let troGranda = false;
   for ( let teruni = 0; teruni < nar2sa; teruni++ ) {
     if ( nar2sa >= BASENETO_MAKS ) { troGranda = true; break; }
-    const id = vico[teruni];
+    const id = x2pa[teruni];
     const i = id % n, j = ( id - i ) / n;
     for ( let q = 0; q < NAJBAROJ; q++ ) {
       const ni = i + NAJBARAJ_DI[q], nj = j + NAJBARAJ_DJ[q];
@@ -318,12 +318,12 @@ function markiBaseneton(
       const nid = nj * n + ni;
       if ( vidita[nid] || k6liqani[nid] || !ene[nid] || H[nid] >= vem2 ) continue;
       vidita[nid] = 1;
-      vico[nar2sa++] = nid;
+      x2pa[nar2sa++] = nid;
     }
   }
-  for ( let q = 0; q < nar2sa; q++ ) vidita[vico[q]] = 0;
+  for ( let q = 0; q < nar2sa; q++ ) vidita[x2pa[q]] = 0;
   if ( troGranda ) return false;
-  for ( let q = 0; q < nar2sa; q++ ) { const id = vico[q]; k6liqani[id] = 1; havem2[id] = vem2; }
+  for ( let q = 0; q < nar2sa; q++ ) { const id = x2pa[q]; k6liqani[id] = 1; havem2[id] = vem2; }
   return true;
 }
 
@@ -369,7 +369,7 @@ export function akvoCxe( tseuni: AkvaKalkulo, n: number, vepat6ni: number,
   return specimenoDulineara(tseuni.k6liqani, n, vepat6ni, origino, x, z) >= 0o1/0o2;
 }
 
-export function niveloCxe( tseuni: AkvaKalkulo, n: number, vepat6ni: number,
+export function vem2Cxe( tseuni: AkvaKalkulo, n: number, vepat6ni: number,
   origino: number[], x: number, z: number, r = 0o1 ): number {
   const fx = ( x - origino[0] ) / vepat6ni, fz = ( z - origino[1] ) / vepat6ni;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
@@ -385,10 +385,10 @@ export function niveloCxe( tseuni: AkvaKalkulo, n: number, vepat6ni: number,
     s2karanu += w;
   }
   if ( s2karanu > 0 ) return tlunakani / s2karanu;
-  return niveloProksima(tseuni, n, vepat6ni, origino, x, z, r);
+  return vem2Proksima(tseuni, n, vepat6ni, origino, x, z, r);
 }
 
-export function niveloProksima( tseuni: AkvaKalkulo, n: number, vepat6ni: number,
+export function vem2Proksima( tseuni: AkvaKalkulo, n: number, vepat6ni: number,
   origino: number[], x: number, z: number, r = 0o1 ): number {
   const ic = Math.round(( x - origino[0] ) / vepat6ni );
   const jc = Math.round(( z - origino[1] ) / vepat6ni );

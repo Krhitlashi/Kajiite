@@ -1,12 +1,12 @@
-// ≺⧼ ការបកប្រែ , ភាសាអង់គ្លេស 🗣️ ⧽≻
+// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ɔ ſɭэ ſᶘɹƴ ŋᷠᴜ ſɭᴜͷ̗ 🗣️ ⧽≻
 
 export const EN: Record<string, string> = {
 
   // ⟪ ទំព័រចាប់ផ្តើម 🌅 ⟫
 
   "titoloAranis": "Aranis",
-  "titoloUrbo": "Kajiite",
-  "subtitoloUrbo": "Khiss Lhota, Lhammithai Kayitteh",
+  "titoloKaxte": "Kajiite",
+  "subtitoloKaxte": "Khiss Lhota, Lhammithai Kayitteh",
   "eniri": "Enter",
   "butonoPromeni": "Walk",
   "butonoOrbiti": "Orbit",
@@ -28,23 +28,23 @@ export const EN: Record<string, string> = {
   // ⟪ ការគ្រប់គ្រង 🎮 ⟫
 
   "kompasoNordo": "N",
-  "regiloOrbito": "Orbit",
+  "kamaOrbito": "Orbit",
   "klavoTreni": "Drag",
-  "regiloPromeno": "Walk",
+  "kamaPromeno": "Walk",
   "klavoPromeno": "WASD",
-  "regiloMovado": "Run",
+  "kamaMovado": "Run",
   "klavoKuro": "Shift",
-  "regiloSalto": "Jump",
+  "kamaSalto": "Jump",
   "klavoSalto": "Space",
-  "regiloEniri": "Enter building",
+  "kamaEniri": "Enter building",
   "klavoEniri": "E",
-  "regiloMapo": "Map",
+  "kamaMapo": "Map",
   "klavoMapo": "M",
-  "regiloEliri": "Exit",
+  "kamaEliri": "Exit",
   "klavoEliri": "Esc",
-  "regiloSpajroj": "Read notes",
+  "kamaSpajroj": "Read notes",
   "klavoKlako": "Click",
-  "regiloKanuo": "Steer",
+  "kamaKanuo": "Steer",
   "agoGusti": "Eat",
   "agoKuxi": "Lie down",
   "agoLevi": "Get up",
@@ -55,7 +55,7 @@ export const EN: Record<string, string> = {
 
   // ⟪ ជំនួយ ❓ ⟫
 
-  "titoloVojoj": "Paths",
+  "titoloHak6h6": "Paths",
   "subtitoloHelpo": "City notes",
 
   // ⟪ បណ្តាញ 🌐 ⟫
@@ -76,73 +76,73 @@ export const EN: Record<string, string> = {
 
   // ⟪ ប្រភេទសំណង់ 🏗️ ⟫
 
-  "konstruPriskriboDomo": "House.",
-  "konstruPriskriboMangxejo": "Restaurant.",
-  "konstruPriskriboKasafeo": "Meeting room.",
-  "konstruPriskriboStacioxipo": "Station.",
-  "konstruPriskriboTuro": "Skyscraper.",
-  "konstruPriskriboSanktejo": "Center building.",
+  "vepaqPriskriboDomo": "House.",
+  "vepaqPriskriboMangxejo": "Restaurant.",
+  "vepaqPriskriboKasafeo": "Meeting room.",
+  "vepaqPriskriboStacioxipo": "Station.",
+  "vepaqPriskriboTuro": "Skyscraper.",
+  "vepaqPriskriboSanktejo": "Center building.",
 
   // ⟪ កាតសំណង់ 🪪 ⟫
 
-  "kartoNiveloj": "Layers",
+  "kartoHavem2": "Layers",
   "kartoDiamanto": "Diamond",
   "kartoJes": "Yes",
   "kartoNe": "No",
-  "kartoKonstruTipo": "Type",
-  "kartoPozicio": "Position",
+  "kartoVepaqHunaq": "Type",
+  "kartoXekuxa": "Position",
 
   // ⟪ ផ្ទាំងព័ត៌មាន 📖 ⟫
 
-  "titoloInformo": "Aravopii",
-  "subtitoloInformo": "Buildings, Food, Species",
-  "ariaInformoButono": "Information",
+  "titoloInqoxa": "Aravopii",
+  "subtitoloInqoxa": "Buildings, Food, Species",
+  "ariaInqoxaButono": "Information",
   "ariaFermiButono": "Close",
-  "taboKonstruajxoj": "Buildings",
+  "taboPaqj": "Buildings",
   "taboMangxajxoj": "Food",
-  "taboSpecioj": "Species",
+  "taboHapudal": "Species",
 
   // ⟪ ពួកសត្វ 🐟 ⟫
 
-  "grupoBesto": "Animal",
-  "specioBeroe": "Beroe",
-  "specioPriskriboBeroe": "An elongate comb jelly with eight comb rows.",
-  "specioMnemiopsis": "Mnemiopsis",
-  "specioPriskriboMnemiopsis": "A round comb jelly with four oral lobes.",
-  "specioPleŭrobrakia": "Pleurobrachia",
-  "specioPriskriboPleŭrobrakia": "A small round comb jelly with two long palps.",
-  "specioGlacifiso": "Icefish",
-  "specioPriskriboGlacifiso": "A nearly transparent fish without hemoglobin.",
-  "specioMarlaraksxo": "Sea spider",
-  "specioPriskriboMarlaraksxo": "A tiny sea spider with eight long legs.",
-  "specioNeĝopetrelo": "Snow petrel",
-  "specioPriskriboNeĝopetrelo": "A pure white seabird gliding over the lake and the river.",
+  "grupoPaga": "Animal",
+  "pudalL2xkupukai": "L2xkupukai",
+  "pudalPriskriboL2xkupukai": "An elongate comb jelly with eight comb rows.",
+  "pudalL2xcaxlefai": "L2xcaxlefai",
+  "pudalPriskriboL2xcaxlefai": "A round comb jelly with four oral lobes.",
+  "pudalPleŭrobrakia": "Pleurobrachia",
+  "pudalPriskriboPleŭrobrakia": "A small round comb jelly with two long palps.",
+  "pudalTq2wa": "Icefish",
+  "pudalPriskriboTq2wa": "A nearly transparent fish without hemoglobin.",
+  "pudalTolxu": "Sea spider",
+  "pudalPriskriboTolxu": "A tiny sea spider with eight long legs.",
+  "pudalNeĝotemek": "Snow petrel",
+  "pudalPriskriboNeĝotemek": "A pure white seabird gliding over the lake and the river.",
 
   // ⟪ រុក្ខជាតិ 🌿 ⟫
 
   "grupoPlanto": "Plant",
-  "specioBetulo": "Birch",
-  "specioPriskriboBetulo": "A tree with white wood.",
-  "specioLariko": "Alpine larch",
-  "specioPriskriboLariko": "The alpine larch ( Larix lyallii ), a small montane conifer that drops its needles and turns gold in autumn.",
-  "specioHxsxaksxlefo": "Shlef Hshaku",
-  "specioPriskriboHxsxaksxlefo": "A purple lettuce tree with curled leaves. Used to make vinegar.",
-  "specioPussxlefo": "Shlef Piisu",
-  "specioPriskriboPussxlefo": "A fern-sized purple lettuce plant with transparent edible berries.",
-  "specioFiliko": "Fern",
-  "specioPriskriboFiliko": "A green plant on the forest floor.",
-  "specioPurpuraFiliko": "Shlef Shawhisu",
-  "specioPriskriboPurpuraFiliko": "A tall purple fern that grows into a large tree.",
-  "specioLikeno": "Lichen",
-  "specioPriskriboLikeno": "Algae and fungus. Iimase.",
-  "specioHerbo": "Grass",
-  "specioPriskriboHerbo": "Grass like a cyan plant.",
-  "specioMusko": "Moss",
-  "specioPriskriboMusko": "A mound that is actually a plant.",
-  "specioCetkuo": "Tsetkih",
-  "specioPriskriboCetkuo": "Fluffy equisetum praeltum.",
-  "specioCakeo": "Tsakeh",
-  "specioPriskriboCakeo": "Equisetum telmateia like a boney tail.",
+  "pudalBetulo": "Birch",
+  "pudalPriskriboBetulo": "A tree with white wood.",
+  "pudalLariko": "Alpine larch",
+  "pudalPriskriboLariko": "The alpine larch ( Larix lyallii ), a small montane conifer that drops its needles and turns gold in autumn.",
+  "pudalTlexlefhxakai": "Shlef Hshaku",
+  "pudalPriskriboTlexlefhxakai": "A purple lettuce tree with curled leaves. Used to make vinegar.",
+  "pudalTlexlefp2sai": "Shlef Piisu",
+  "pudalPriskriboTlexlefp2sai": "A fern-sized purple lettuce plant with transparent edible berries.",
+  "pudalXabe": "Fern",
+  "pudalPriskriboXabe": "A green plant on the forest floor.",
+  "pudalAsfaXabe": "Shlef Shawhisu",
+  "pudalPriskriboAsfaXabe": "A tall purple fern that grows into a large tree.",
+  "pudalF2ma": "Lichen",
+  "pudalPriskriboF2ma": "Algae and fungus. Iimase.",
+  "pudalFe1af": "Grass",
+  "pudalPriskriboFe1af": "Grass like a cyan plant.",
+  "pudalC6x": "Moss",
+  "pudalPriskriboC6x": "A mound that is actually a plant.",
+  "pudalCetkuo": "Tsetkih",
+  "pudalPriskriboCetkuo": "Fluffy equisetum praeltum.",
+  "pudalCakeo": "Tsakeh",
+  "pudalPriskriboCakeo": "Equisetum telmateia like a boney tail.",
 
   // ⟪ សម្លៀកបំពាក់ 👕 ⟫
 
@@ -179,7 +179,7 @@ export const EN: Record<string, string> = {
   // ⟪ អាកាសធាតុ 🌦️ ⟫
 
   "ariaKrepuskoButono": "Dusk",
-  "ariaKrepuskoRegilo": "Dusk level",
+  "ariaKrepuskoKama": "Dusk level",
   "ariaVeteroButono": "Weather",
   "veteroNebula": "Foggy",
   "veteroPluva": "Rainy",

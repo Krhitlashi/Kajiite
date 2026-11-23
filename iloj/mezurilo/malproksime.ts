@@ -1,12 +1,12 @@
-// ≺⧼ ការវាស់វត្ថុឆ្ងាយ 🔭 ⧽≻
+// ≺⧼ ſᶘɔ ֭ſɭэ ſɭw j͑ʃᴜꞇ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🔭 ⧽≻
 // ដីត្រូវបានសង់លើយន្តហោះធំ ( 0o3000 ) ប៉ុន្តែពិភពលោកមានកាំតែ 0o600 ។
 // ចំណុចក្រៅទម្រង់ត្រូវបានចុចត្រឡប់មកគែម ។ យើងវាស់ថាតើការងារប៉ុន្មាន
 // ធ្លាក់លើចំណុចឆ្ងាយទាំងនោះ ។ បន្ទាប់មកយើងពិនិត្យថាតើយន្តហោះតូច
 // រក្សាលេខខាងក្នុងពិភពលោកដូចគ្នាបេះបិទឬអត់ ។
 import * as THREE from "three";
-import { alteco, akvaNiveloProksima } from "../../kantaoj/mondo/tereno.js";
+import { alteco, akvaVem2Proksima } from "../../kantaoj/mondo/tereno.js";
 import { terenaKoloroEn, alternajDiagonalojn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
-import { distancoDeFormo, premuAlFormo } from "../../eskekoj/komunajxoj/mapformo.js";
+import { h6kuniQoxa, surokQoxa } from "../../eskekoj/komunajxoj/mapqoxa.js";
 import { aktivaMapo } from "../../kantaoj/tero-datumaro/mapregulo.js";
 
 // ⟨ យន្តហោះបច្ចុប្បន្ន 📃 ⟩
@@ -36,7 +36,7 @@ const interna = new Uint8Array(N);
       const x = -GRANDECO / 2 + i * PASXO;
       const z = -GRANDECO / 2 + j * PASXO;
       posX[p] = x; posZ[p] = z;
-      if ( distancoDeFormo(mapo.formo, mapo.grandeco, x, z) <= 0 ) { interna[p] = 1; ene++; }
+      if ( h6kuniQoxa(mapo.qoxa, mapo.grandeco, x, z) <= 0 ) { interna[p] = 1; ene++; }
       p++;
     }
   }
@@ -59,7 +59,7 @@ function fazoKoloroj( kutime: number ): number {
     const haga = ( cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX )
       ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + SX] - hoj[i - SX]) / ( 2 * PASXO )
       : 0;
-    terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaNiveloProksima);
+    terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaVem2Proksima);
     s += weh2.r;
   }
   return s;
@@ -71,7 +71,7 @@ for ( let i = 0; i < N; i++ ) {
   const haga = ( cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX )
     ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + SX] - hoj[i - SX]) / ( 2 * PASXO )
     : 0;
-  terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaNiveloProksima);
+  terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaVem2Proksima);
   kol[i * 3] = weh2.r; kol[i * 3 + 1] = weh2.g; kol[i * 3 + 2] = weh2.b;
 }
 
@@ -108,17 +108,17 @@ mezuri("koloroj តែក្រៅពិភពលោក", () => fazoKoloroj(0));
     for ( let i = 0; i < SX_TUTA; i++ ) {
       const x = -TUTA / 2 + i * PASXO_TUTA;
       const z = -TUTA / 2 + j * PASXO_TUTA;
-      if ( distancoDeFormo(mapo.formo, mapo.grandeco, x, z) > 0 ) continue;
+      if ( h6kuniQoxa(mapo.qoxa, mapo.grandeco, x, z) > 0 ) continue;
       enTuto++;
       const idx = j * SX_TUTA + i;
-      const idxMalnova = ( ( z + GRANDECO / 2 ) / PASXO ) * SX + ( x + GRANDECO / 2 ) / PASXO;
-      if ( hojT[idx] !== hoj[idxMalnova] ) altojMalsamaj++;
+      const idxS23ohk2sai = ( ( z + GRANDECO / 2 ) / PASXO ) * SX + ( x + GRANDECO / 2 ) / PASXO;
+      if ( hojT[idx] !== hoj[idxS23ohk2sai] ) altojMalsamaj++;
       const cxelo = i % SX_TUTA;
       const haga = ( cxelo > 0 && cxelo < SX_TUTA - 1 && idx >= SX_TUTA && idx < NT - SX_TUTA )
         ? Math.hypot(hojT[idx + 1] - hojT[idx - 1], hojT[idx + SX_TUTA] - hojT[idx - SX_TUTA]) / ( 2 * PASXO_TUTA )
         : 0;
-      terenaKoloroEn(weh2, hojT[idx], x, z, haga, akvaNiveloProksima);
-      if ( weh2.r !== kol[idxMalnova * 3] || weh2.g !== kol[idxMalnova * 3 + 1] || weh2.b !== kol[idxMalnova * 3 + 2] ) {
+      terenaKoloroEn(weh2, hojT[idx], x, z, haga, akvaVem2Proksima);
+      if ( weh2.r !== kol[idxS23ohk2sai * 3] || weh2.g !== kol[idxS23ohk2sai * 3 + 1] || weh2.b !== kol[idxS23ohk2sai * 3 + 2] ) {
         kolorojMalsamaj++;
       }
     }
@@ -127,12 +127,12 @@ mezuri("koloroj តែក្រៅពិភពលោក", () => fazoKoloroj(0));
 }
 
 // ⟨ ការសង់ដីទាំងស្រុង ៖ ធំ ធៀបនឹង តូច , ឆ្លាស់គ្នា 📃 ⟩
-// យើងធ្វើតាមលំដាប់នៃ konstruiTerenon ៖ កម្ពស់ , ពណ៌ , ការចុច , សន្ទស្សន៍ ។
+// យើងធ្វើតាមលំដាប់នៃ vepaqTerenon ៖ កម្ពស់ , ពណ៌ , ការចុច , សន្ទស្សន៍ ។
 // អង្គចងចាំត្រូវបានបម្រុងទុកម្តង ។ តម្លៃ min ទុកចិត្តបានជាង mediano ។
-function kreuTerenon( grandeco: number, segmentoj: number ): () => number {
-  const sx = segmentoj + 1;
+function kreuTerenon( grandeco: number, has2nasce: number ): () => number {
+  const sx = has2nasce + 1;
   const n = sx * sx;
-  const vepat6ni = grandeco / segmentoj;
+  const vepat6ni = grandeco / has2nasce;
   const px = new Float32Array(n);
   const pz = new Float32Array(n);
   const hh = new Float32Array(n);
@@ -154,13 +154,13 @@ function kreuTerenon( grandeco: number, segmentoj: number ): () => number {
       const haga = ( cxelo > 0 && cxelo < sx - 1 && k >= sx && k < n - sx )
         ? Math.hypot(hh[k + 1] - hh[k - 1], hh[k + sx] - hh[k - sx]) / ( 2 * vepat6ni )
         : 0;
-      terenaKoloroEn(kk, hh[k], px[k], pz[k], haga, akvaNiveloProksima);
+      terenaKoloroEn(kk, hh[k], px[k], pz[k], haga, akvaVem2Proksima);
       s += kk.r;
     }
     for ( let k = 0; k < n; k++ ) {
-      if ( premuAlFormo(mapo.formo, mapo.grandeco, px[k], pz[k], prem) ) { px[k] = prem.x; pz[k] = prem.z; s++; }
+      if ( surokQoxa(mapo.qoxa, mapo.grandeco, px[k], pz[k], prem) ) { px[k] = prem.x; pz[k] = prem.z; s++; }
     }
-    s += alternajDiagonalojn(segmentoj).length;
+    s += alternajDiagonalojn(has2nasce).length;
     return s;
   };
 }
@@ -189,19 +189,19 @@ function kreuTerenon( grandeco: number, segmentoj: number ): () => number {
 let premitaj = 0;
 const premita = { x: 0, z: 0 };
 for ( let i = 0; i < N; i++ ) {
-  if ( premuAlFormo(mapo.formo, mapo.grandeco, posX[i], posZ[i], premita) ) premitaj++;
+  if ( surokQoxa(mapo.qoxa, mapo.grandeco, posX[i], posZ[i], premita) ) premitaj++;
 }
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចំណុចចុចមកគែម=${premitaj} ត្រីកោណធំ=${2 * SEGMENTOJ * SEGMENTOJ} ត្រីកោណតូច=${2 * SEG_TUTA * SEG_TUTA}`);
-let ĉelojUzataj = 0;
+let haKekkozusaiUzataj = 0;
 for ( let j = 0; j < SEG_TUTA; j++ ) {
   for ( let i = 0; i < SEG_TUTA; i++ ) {
-    let internaĈelo = false;
+    let internaK2pa = false;
     for ( const [ di, dj ] of [ [ 0, 0 ], [ 1, 0 ], [ 0, 1 ], [ 1, 1 ] ] as const ) {
       const x = -TUTA / 2 + ( i + di ) * PASXO_TUTA;
       const z = -TUTA / 2 + ( j + dj ) * PASXO_TUTA;
-      if ( distancoDeFormo(mapo.formo, mapo.grandeco, x, z) <= 0 ) internaĈelo = true;
+      if ( h6kuniQoxa(mapo.qoxa, mapo.grandeco, x, z) <= 0 ) internaK2pa = true;
     }
-    if ( internaĈelo ) ĉelojUzataj++;
+    if ( internaK2pa ) haKekkozusaiUzataj++;
   }
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡាដីមានគែម=${ĉelojUzataj}/${SEG_TUTA * SEG_TUTA} ត្រីកោណនៅសល់=${ĉelojUzataj * 2}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡាដីមានគែម=${haKekkozusaiUzataj}/${SEG_TUTA * SEG_TUTA} ត្រីកោណនៅសល់=${haKekkozusaiUzataj * 2}`);

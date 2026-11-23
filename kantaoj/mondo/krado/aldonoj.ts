@@ -1,5 +1,5 @@
-// ≺⧼ អ្នកសង់បន្ថែម 🏗️ ⧽≻
-import type { KradaPlano } from "./tipoj.js";
-export function aldoniVojon(plano: KradaPlano, orient: "NS" | "EW", poz: number, de: number, al: number, stacia = false): void {
-  plano.vojoj.push({ orient, poz, de, al, stacia });
+// ≺⧼ ŋᷠᴜ j͑ʃ'ɔ ſןᴜȝ 🏗️ ⧽≻
+import type { KradaPlano } from "./hahunaq.js";
+export function aldoniK6h6n(plano: KradaPlano, orient: "NS" | "EW", haxekuxa: number, de: number, al: number, stacia = false): void {
+  plano.hak6h6.push({ orient, haxekuxa, de, al, stacia });
 }

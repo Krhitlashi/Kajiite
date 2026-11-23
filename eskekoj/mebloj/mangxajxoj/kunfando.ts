@@ -1,4 +1,4 @@
-// ≺⧼ ការរលាយផ្នែកអាហារ 🧩 ⧽≻
+// ≺⧼ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜ }ʃꞇ 🧩 ⧽≻
 import * as THREE from "three";
 import { kunfandiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 

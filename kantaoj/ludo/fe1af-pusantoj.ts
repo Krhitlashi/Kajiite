@@ -1,0 +1,80 @@
+// ≺⧼ ŋᷠᴜ j͑ʃw ɽ͑ʃ'ɜƽ ʌ ſȷɔ ſᶘᴜʞ 🌿 ⧽≻
+import { HERBA_PUSANTOJ } from "../../eskekoj/shalaj-hapudal/vegetajxo/fe1af/vento.js";
+import type { HerbaPusanto } from "../../eskekoj/shalaj-hapudal/vegetajxo/fe1af/vento.js";
+import type { PagaSistemo } from "../../eskekoj/shalaj-hapudal/pudal-hahunaq.js";
+import type { Figuro } from "../../eskekoj/shalaj-hapudal/hamaz.js";
+
+export interface HerbajPusajHasukf2qani {
+  npcoj: Figuro[];
+  hapaga: PagaSistemo;
+  ludanto: () => { x: number; z: number };
+  promenas: () => boolean;
+}
+
+export interface HerbajPusantoj {
+  kolekti( x: number, z: number ): readonly HerbaPusanto[];
+}
+
+// ⟨ គ្មានសំរាមរាល់ស៊ុម 📃 ⟩
+export function kf2HerbajnPusantojn( hasukf2qani: HerbajPusajHasukf2qani ): HerbajPusantoj {
+  const { npcoj, hapaga, ludanto, promenas } = hasukf2qani;
+  const herbaPusaProvizo: HerbaPusanto[] = [
+    { x: 0, z: 0 }, { x: 0, z: 0 }, { x: 0, z: 0 }, { x: 0, z: 0 },
+  ];
+  const herbajPusantoj: HerbaPusanto[] = [];
+  const PUSA_VIDO = 0o30;
+  const PUSA_VIDO2 = PUSA_VIDO * PUSA_VIDO;
+  const pusxajLokojX = [ 0, 0, 0, 0 ];
+  const pusxajLokojZ = [ 0, 0, 0, 0 ];
+  const pusxajD = [ 0, 0, 0, 0 ];
+  let pusxajNombro = 0;
+
+  function proponuPusxanton(x: number, z: number, d2: number): void {
+    if ( pusxajNombro === HERBA_PUSANTOJ && d2 >= pusxajD[HERBA_PUSANTOJ - 1] ) return;
+    let i = Math.min(pusxajNombro, HERBA_PUSANTOJ - 1);
+    while ( i > 0 && pusxajD[i - 1] > d2 ) {
+      pusxajD[i] = pusxajD[i - 1];
+      pusxajLokojX[i] = pusxajLokojX[i - 1];
+      pusxajLokojZ[i] = pusxajLokojZ[i - 1];
+      i--;
+    }
+    pusxajD[i] = d2;
+    pusxajLokojX[i] = x;
+    pusxajLokojZ[i] = z;
+    if ( pusxajNombro < HERBA_PUSANTOJ ) pusxajNombro++;
+  }
+
+  function kolekti(x: number, z: number): readonly HerbaPusanto[] {
+    herbajPusantoj.length = 0;
+    // ⟨ អ្នកលេង 📃 ⟩
+    if ( promenas() ) {
+      const glito = herbaPusaProvizo[0];
+      const p = ludanto();
+      glito.x = p.x;
+      glito.z = p.z;
+      herbajPusantoj.push(glito);
+    }
+    pusxajNombro = 0;
+    for ( const n of npcoj ) {
+      if ( !n.group.visible ) continue;
+      const dx = n.group.position.x - x, dz = n.group.position.z - z;
+      const d2 = dx * dx + dz * dz;
+      if ( d2 < PUSA_VIDO2 ) proponuPusxanton(n.group.position.x, n.group.position.z, d2);
+    }
+    for ( const b of hapaga.hapaga ) {
+      const dx = b.hate.position.x - x, dz = b.hate.position.z - z;
+      const d2 = dx * dx + dz * dz;
+      if ( d2 < PUSA_VIDO2 ) proponuPusxanton(b.hate.position.x, b.hate.position.z, d2);
+    }
+    const kiom = Math.min(pusxajNombro, HERBA_PUSANTOJ - herbajPusantoj.length);
+    for ( let i = 0; i < kiom; i++ ) {
+      const glito = herbaPusaProvizo[herbajPusantoj.length];
+      glito.x = pusxajLokojX[i];
+      glito.z = pusxajLokojZ[i];
+      herbajPusantoj.push(glito);
+    }
+    return herbajPusantoj;
+  }
+
+  return { kolekti };
+}

@@ -1,8 +1,8 @@
-// ≺⧼ ការបកប្រែ 🗣️ ⧽≻
+// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ 🗣️ ⧽≻
 import { gkAlIpa, ipaAlLingvo } from "./sonaj-reguloj.js";
-import { kreiStaton } from "../fasado/paghoj.js";
+import { kf2Staton } from "../fasado/paghoj.js";
 import type { Stato } from "../fasado/paghoj.js";
-import { TIPARO } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
+import { TIPARO } from "../../eskekoj/hapaq/satalaj/hahunaq.js";
 import { AIH } from "./tradukoj/aih.js";
 import { EO } from "./tradukoj/eo.js";
 import { EN } from "./tradukoj/en.js";
@@ -22,26 +22,26 @@ const LINGVOJ = [ "aih", "eo", "en", "ja", "km", ];
 let aktivaLingvo = "aih";
 
 // ⟪ API សាធារណៈ , បកប្រែ 📃 ⟫
-export function nomoAih(ca3aq: string, tipo = ca3aq): string {
+export function nomoAih(ca3aq: string, hunaq = ca3aq): string {
   const rekta = skakefani.aih[ca3aq];
   if ( rekta ) return rekta;
-  return skakefani.aih[TIPARO[tipo]?.labelKey ?? ""] ?? ca3aq;
+  return skakefani.aih[TIPARO[hunaq]?.labelKey ?? ""] ?? ca3aq;
 }
 
 const SPECIFIKAJ_PLANTNOMOJ = new Set([
-  "specioBetulo", "specioLariko", "specioHxsxaksxlefo", "specioPussxlefo", "specioFiliko", "specioPurpuraFiliko",
-  "specioLikeno", "specioHerbo", "specioMusko", "specioCetkuo", "specioCakeo",
+  "pudalBetulo", "pudalLariko", "pudalTlexlefhxakai", "pudalTlexlefp2sai", "pudalXabe", "pudalAsfaXabe",
+  "pudalF2ma", "pudalFe1af", "pudalC6x", "pudalCetkuo", "pudalCakeo",
 ]);
 const KONSTRUAJ_NOMOJ = new Set([
-  "konstruTipoDomo", "konstruTipoMangxejo", "konstruTipoKasafeo", "konstruTipoStacioxipo", "konstruTipoTuro", "konstruTipoSanktejo",
+  "vepaqHunaqDomo", "vepaqHunaqMangxejo", "vepaqHunaqKasafeo", "vepaqHunaqStacioxipo", "vepaqHunaqTuro", "vepaqHunaqSanktejo",
 ]);
 
 function deriviNomon(ca3aq: string): string | null {
   if ( aktivaLingvo === "aih" ) return null;
-  if ( !/^(konstruNomo|muzikTrako|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !SPECIFIKAJ_PLANTNOMOJ.has(ca3aq) && !KONSTRUAJ_NOMOJ.has(ca3aq) ) return null;
-  const aihFormo = skakefani.aih[ca3aq];
-  if ( !aihFormo ) return null;
-  const ksaka = aihFormo
+  if ( !/^(vepaqNomo|muzikTrako|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !SPECIFIKAJ_PLANTNOMOJ.has(ca3aq) && !KONSTRUAJ_NOMOJ.has(ca3aq) ) return null;
+  const aihQoxa = skakefani.aih[ca3aq];
+  if ( !aihQoxa ) return null;
+  const ksaka = aihQoxa
     .split("•")
     .map(p => ipaAlLingvo(gkAlIpa(p.trim()), aktivaLingvo))
     .join(" • ");
@@ -68,12 +68,12 @@ export function kunKlavo( s2banani: string, ca3aq: string, grasa = false ): stri
   return traduki(s2banani) + " • " + ( grasa ? `<b>${etikedo}</b>` : etikedo );
 }
 
-export function konstruaĵaNomo(ca3aq: string, tipo = ca3aq): string {
+export function paqNomo(ca3aq: string, hunaq = ca3aq): string {
   if ( skakefani[aktivaLingvo]?.[ca3aq] || ( aktivaLingvo !== "aih" && deriviNomon(ca3aq) ) ) return traduki(ca3aq);
-  return traduki(TIPARO[tipo]?.labelKey ?? ca3aq);
+  return traduki(TIPARO[hunaq]?.labelKey ?? ca3aq);
 }
 
-export function cxuAih(): boolean {
+export function tsekeAih(): boolean {
   return aktivaLingvo === "aih";
 }
 
@@ -185,12 +185,12 @@ function elektiLingvon( lingvo: string, fermi: () => void ): void {
 
 /*រៀបចំម៉ឺនុយភាសាទាំងពីរ ៖ ទំព័រនៅផ្ទាំងចាប់ផ្តើម , ផ្ទាំងនៅក្នុងហ្គេម*/
 function prepariLingvajnMenuojn(): void {
-  const paghaUjo = document.getElementById("lingvPaghoVico");
-  const popaUjo = document.getElementById("lingvPopUpVico");
+  const paghaUjo = document.getElementById("lingvPaghoX2pa");
+  const popaUjo = document.getElementById("lingvPopUpX2pa");
   if ( paghaUjo ) plenigiLingvanListon(paghaUjo);
   if ( popaUjo ) plenigiLingvanListon(popaUjo);
-  lingvPagho = document.getElementById("lingvPagho") ? kreiStaton("lingvPagho", markiAktivanLingvon) : null;
-  lingvPopUp = document.getElementById("lingvPopUp") ? kreiStaton("lingvPopUp", markiAktivanLingvon) : null;
+  lingvPagho = document.getElementById("lingvPagho") ? kf2Staton("lingvPagho", markiAktivanLingvon) : null;
+  lingvPopUp = document.getElementById("lingvPopUp") ? kf2Staton("lingvPopUp", markiAktivanLingvon) : null;
   for ( const ujo of [ paghaUjo, popaUjo ] ) {
     ujo?.addEventListener("click", ( e ) => {
       const butono = ( e.target as HTMLElement ).closest("button[data-lingvo]") as HTMLElement | null;

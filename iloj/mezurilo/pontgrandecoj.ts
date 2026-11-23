@@ -1,11 +1,11 @@
-// ≺⧼ ស្ពានគ្រប់ប្រវែង 🌉 ⧽≻
+// ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🌉 ⧽≻
 // ⟨ ស្ពានត្រូវប្រើបានគ្រប់ប្រវែង ៖ ចុងទាំងពីរចុះដល់ដី , កណ្តាលស្តើង ,
 // ធ្នូនៅកណ្តាល , និងគ្មានកន្លែងប៉ោងឡើងវិញ ។ ស្គ្រីបនេះសាងសង់ស្ពាន
 // សាមញ្ញគ្រប់ប្រវែង ហើយវាស់រូបរាងរបស់វា ។ 📃 ⟩
 import * as THREE from "three";
-import { konstruiPonton, kreiPontanSubon, pontaFinaOrdo,
+import { vepaqPonton, kf2PontanSubon, pontaFinaOrdo,
   PONT_KORPA_DIKECO, PONT_TERA_PROFUNDECO, PONT_VOJA_SUPERPONO }
-  from "../../eskekoj/medio/doko/ponto.js";
+  from "../../eskekoj/medio/qakaj2/ponto.js";
 
 // ⟨ ស្ពានពិសោធន៍ ៖ ដីទាបជាងផ្ទៃស្ពានគ្រប់កន្លែង 📃 ⟩
 const FUNDO = 0o2;          // កម្ពស់ដីក្រោមស្ពាន
@@ -42,7 +42,7 @@ function dikecoCxe( teru: ( t: number ) => number, subo: ( t: number ) => number
 let difektoj = 0;
 for ( const sahakani of NASA ) {
   const teru = SUPRA(sahakani);
-  const subo = kreiPontanSubon(sahakani, teru, () => FUNDO);
+  const subo = kf2PontanSubon(sahakani, teru, () => FUNDO);
   const bando = Math.min(PONT_KORPA_DIKECO, sahakani / 0o4);
   const problemoj: string[] = [];
 
@@ -79,16 +79,16 @@ for ( const sahakani of NASA ) {
   if ( dikecoCxe(teru, subo, 0o1/0o2 ) < bando - 0o10 ** -0o7 ) problemoj.push("កណ្តាលខ្លីពេក");
 
   // ⟨ បាតឡើងជាប់គ្នាពីចុងទៅកណ្តាល ៖ គ្មានកន្លែងចុះវិញ 📃 ⟩
-  let antaŭa = subo(0);
+  let ne3ak2 = subo(0);
   for ( let i = 1; i <= 0o100; i++ ) {
     const d = subo(i / 0o200);
-    if ( d < antaŭa - 0o10 ** -0o7 ) { problemoj.push("បាតចុះវិញ"); break; }
-    antaŭa = d;
+    if ( d < ne3ak2 - 0o10 ** -0o7 ) { problemoj.push("បាតចុះវិញ"); break; }
+    ne3ak2 = d;
   }
 
   // ⟨ ធរណីមាត្រពិត ៖ ក្រប , ចំនួនបំណែក , និងដែនកំណត់ 📃 ⟩
   const qena = new THREE.Scene();
-  konstruiPonton(qena, 0, 0, sahakani, 0, SEFINI,
+  vepaqPonton(qena, 0, 0, sahakani, 0, SEFINI,
     new THREE.MeshStandardMaterial(), teru, () => FUNDO);
   const hate = qena.children[0] as THREE.Group | undefined;
   let bbox: THREE.Box3 | null = null;

@@ -1,18 +1,18 @@
-// ≺⧼ នំ 🥟 ⧽≻
+// ≺⧼ ſᶘэ ſȷэ 🥟 ⧽≻
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { kf2SakxoKlasika } from "../../komunajxoj/hazardo.js";
-import { bulkaTeksajxon } from "../../komunajxoj/teksajxoj/bulka-teksajxo.js";
-import { korbaTeksajxon } from "../../komunajxoj/teksajxoj/korba-teksajxo.js";
+import { ts6f6Cac2sex } from "../../komunajxoj/cac2sex/ts6f6-cac2sex.js";
+import { caq2qCac2sex } from "../../komunajxoj/cac2sex/caq2q-cac2sex.js";
 import { kunfandiPartojn } from "./kunfando.js";
 import { materialon } from "./materialoj.js";
 import type { MangxajxDatumo } from "./datumoj.js";
 export function bunMesh(f: MangxajxDatumo): THREE.Group {
   const g = new THREE.Group();
   const karno = materialon("karno:" + f.col,
-    () => new THREE.MeshStandardMaterial({ color: f.col, roughness: 0o52/0o100, map: bulkaTeksajxon() }));
+    () => new THREE.MeshStandardMaterial({ color: f.col, roughness: 0o52/0o100, map: ts6f6Cac2sex() }));
   const korbo = materialon("korbo",
-    () => new THREE.MeshStandardMaterial({ color: 0xb89860, roughness: 0o63/0o100, map: korbaTeksajxon() }));
+    () => new THREE.MeshStandardMaterial({ color: 0xb89860, roughness: 0o63/0o100, map: caq2qCac2sex() }));
   // ⟨ សាច់ 📃 ⟩
   const bulko = new THREE.Mesh(new THREE.SphereGeometry(0o13/0o100, 0o20, 0o12), karno);
   bulko.scale.set(1, 0o55/0o100, 1); bulko.position.y = 0o11/0o100;
@@ -34,42 +34,42 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
   g.add(pinto);
   // ⟨ កន្ត្រក 📃 ⟩
   // ⟨ កន្ត្រកដេកលើតុ 📃 ⟩
-  const korbaMalsuprenigxo = 0o1/0o100;
+  const caq2qMalsuprenigxo = 0o1/0o100;
   const bovlo = new THREE.Mesh(new THREE.CylinderGeometry(0o17/0o100, 0o14/0o100, 0o6/0o100, 0o20, 1, true), korbo);
-  bovlo.position.y = 0o4/0o100 - korbaMalsuprenigxo;
+  bovlo.position.y = 0o4/0o100 - caq2qMalsuprenigxo;
   bovlo.castShadow = true;
   g.add(bovlo);
   const fundo = new THREE.Mesh(new THREE.CircleGeometry(0o14/0o100, 0o20), korbo);
-  fundo.rotation.x = -Math.PI / 2; fundo.position.y = 0o2/0o100 - korbaMalsuprenigxo;
+  fundo.rotation.x = -Math.PI / 2; fundo.position.y = 0o2/0o100 - caq2qMalsuprenigxo;
   g.add(fundo);
   const rimo = new THREE.Mesh(new THREE.TorusGeometry(0o17/0o100, 0o1/0o100, 6, 0o20), korbo);
-  rimo.rotation.x = Math.PI / 2; rimo.position.y = 0o7/0o100 - korbaMalsuprenigxo;
+  rimo.rotation.x = Math.PI / 2; rimo.position.y = 0o7/0o100 - caq2qMalsuprenigxo;
   rimo.castShadow = true;
   g.add(rimo);
   const oro = materialon("oro",
     () => new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o3/0o4, roughness: 0o3/0o10 }));
   for ( const ang of [ 0, Math.PI * 2 / 3, Math.PI * 4 / 3 ] ) {
     const stango = new THREE.Mesh(new THREE.CylinderGeometry(0o1/0o100, 0o1/0o100, 0o6/0o100, 6), oro);
-    stango.position.set(Math.sin(ang) * 0o16/0o100, 0o4/0o100 - korbaMalsuprenigxo, Math.cos(ang) * 0o16/0o100);
+    stango.position.set(Math.sin(ang) * 0o16/0o100, 0o4/0o100 - caq2qMalsuprenigxo, Math.cos(ang) * 0o16/0o100);
     g.add(stango);
   }
   // ⟪ វ៉ារ្យ៉ង់តាមការពិពណ៌នា 📃 ⟫
   const hazardo = kf2SakxoKlasika(f.key.charCodeAt(0) * 0o1000 + f.key.charCodeAt(3) * 0o10);
   const pintoY = 0o11/0o100;
   // ⟨ ផ្ទៃ មិនមែនស៊ីឡាំង 📃 ⟩
-  const bulkaRadiuso = 0o13/0o100, bulkaAlto = 0o55/0o100;
+  const ts6f6Radiuso = 0o13/0o100, ts6f6Alto = 0o55/0o100;
   const surPinto = ( ang: number, levo: number ): [ number, number, number ] => {
-    const rilatumo = Math.min(1, Math.abs(levo) / (bulkaRadiuso * bulkaAlto));
-    const r = bulkaRadiuso * Math.sqrt(1 - rilatumo * rilatumo);
+    const rilatumo = Math.min(1, Math.abs(levo) / (ts6f6Radiuso * ts6f6Alto));
+    const r = ts6f6Radiuso * Math.sqrt(1 - rilatumo * rilatumo);
     return [ Math.sin(ang) * r, pintoY + levo, Math.cos(ang) * r ];
   };
   if ( f.key === "fok0" ) {
-    const likeno = materialon("likeno",
+    const f2ma = materialon("f2ma",
       () => new THREE.MeshStandardMaterial({ color: 0xb4c0a0, roughness: 0o7/0o10 }));
     // ⟨ ចំណុចស្លែ 📃 ⟩
     for ( let i = 0; i < 6; i++ ) {
       const ang = hazardo() * Math.PI * 2, levo = 0o1/0o100 + hazardo() * 0o6/0o100;
-      const makulo = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o100 + hazardo() * 0o4/0o100, 0o10, 6), likeno);
+      const makulo = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o100 + hazardo() * 0o4/0o100, 0o10, 6), f2ma);
       const [ sx, sy, sz ] = surPinto(ang, levo);
       makulo.position.set(sx, sy, sz);
       makulo.scale.set(1, 0o3/0o10, 0o7/0o10 + hazardo() * 0o5/0o10);
@@ -98,11 +98,11 @@ export function bunMesh(f: MangxajxDatumo): THREE.Group {
     tigo.rotation.z = 0o5/0o10;
     g.add(tigo);
     for ( let i = 0; i < 3; i++ ) {
-      const folio = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o50, 0o10, 6), mento);
-      folio.scale.set(0o6/0o10, 0o3/0o10, 1);
-      folio.position.set(i * 0o1/0o100 - 0o1/0o50, pintoY + 0o12/0o100 + i * 0o1/0o100, 0);
-      folio.rotation.z = 0o15/0o10 - i * 0o1/0o10;
-      g.add(folio);
+      const slaf = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o50, 0o10, 6), mento);
+      slaf.scale.set(0o6/0o10, 0o3/0o10, 1);
+      slaf.position.set(i * 0o1/0o100 - 0o1/0o50, pintoY + 0o12/0o100 + i * 0o1/0o100, 0);
+      slaf.rotation.z = 0o15/0o10 - i * 0o1/0o10;
+      g.add(slaf);
     }
   } else if ( f.key === "fok2" ) {
     const pipro = materialon("pipro",

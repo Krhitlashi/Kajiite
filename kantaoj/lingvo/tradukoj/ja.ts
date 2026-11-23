@@ -1,12 +1,12 @@
-// ≺⧼ ការបកប្រែ , ភាសាជប៉ុន 🗣️ ⧽≻
+// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ɔ j͑ʃɜ ſᶘꞇ }ʃᴜ ſɭᴜͷ̗ j͑ʃᴜꞇ ʌ ſ͔ɭᴜ ᶅſɔ 🗣️ ⧽≻
 
 export const JA: Record<string, string> = {
 
   // ⟪ ទំព័រចាប់ផ្តើម 🌅 ⟫
 
   "titoloAranis": "アラニス",
-  "titoloUrbo": "カユウテ",
-  "subtitoloUrbo": "ロタ・ウホウス、ラムウスア・カシテ",
+  "titoloKaxte": "カユウテ",
+  "subtitoloKaxte": "ロタ・ウホウス、ラムウスア・カシテ",
   "eniri": "入る",
   "butonoPromeni": "歩く",
   "butonoOrbiti": "周回",
@@ -28,23 +28,23 @@ export const JA: Record<string, string> = {
   // ⟪ ការគ្រប់គ្រង 🎮 ⟫
 
   "kompasoNordo": "北",
-  "regiloOrbito": "周回",
+  "kamaOrbito": "周回",
   "klavoTreni": "ドラッグ",
-  "regiloPromeno": "歩く",
+  "kamaPromeno": "歩く",
   "klavoPromeno": "WASD",
-  "regiloMovado": "走る",
+  "kamaMovado": "走る",
   "klavoKuro": "Shift",
-  "regiloSalto": "ジャンプ",
+  "kamaSalto": "ジャンプ",
   "klavoSalto": "Space",
-  "regiloEniri": "建物に入る",
+  "kamaEniri": "建物に入る",
   "klavoEniri": "E",
-  "regiloMapo": "地図",
+  "kamaMapo": "地図",
   "klavoMapo": "M",
-  "regiloEliri": "出る",
+  "kamaEliri": "出る",
   "klavoEliri": "Esc",
-  "regiloSpajroj": "尖塔のノートを読む",
+  "kamaSpajroj": "尖塔のノートを読む",
   "klavoKlako": "クリック",
-  "regiloKanuo": "操縦",
+  "kamaKanuo": "操縦",
   "agoGusti": "味見",
   "agoKuxi": "横になる",
   "agoLevi": "起きる",
@@ -55,7 +55,7 @@ export const JA: Record<string, string> = {
 
   // ⟪ ជំនួយ ❓ ⟫
 
-  "titoloVojoj": "道",
+  "titoloHak6h6": "道",
   "subtitoloHelpo": "街のノート",
 
   // ⟪ បណ្តាញ 🌐 ⟫
@@ -82,73 +82,73 @@ export const JA: Record<string, string> = {
 
   // ⟪ ប្រភេទសំណង់ 🏗️ ⟫
 
-  "konstruPriskriboDomo": "家。",
-  "konstruPriskriboMangxejo": "共同の食事処。",
-  "konstruPriskriboKasafeo": "会議室。",
-  "konstruPriskriboStacioxipo": "駅。",
-  "konstruPriskriboTuro": "超高層建築。",
-  "konstruPriskriboSanktejo": "中心。",
+  "vepaqPriskriboDomo": "家。",
+  "vepaqPriskriboMangxejo": "共同の食事処。",
+  "vepaqPriskriboKasafeo": "会議室。",
+  "vepaqPriskriboStacioxipo": "駅。",
+  "vepaqPriskriboTuro": "超高層建築。",
+  "vepaqPriskriboSanktejo": "中心。",
 
   // ⟪ កាតសំណង់ 🪪 ⟫
 
-  "kartoNiveloj": "階層",
+  "kartoHavem2": "階層",
   "kartoDiamanto": "ダイヤ",
   "kartoJes": "有",
   "kartoNe": "無",
-  "kartoKonstruTipo": "種類",
-  "kartoPozicio": "位置",
+  "kartoVepaqHunaq": "種類",
+  "kartoXekuxa": "位置",
 
   // ⟪ ផ្ទាំងព័ត៌មាន 📖 ⟫
 
-  "titoloInformo": "情報",
-  "subtitoloInformo": "建物、食べ物、種族",
-  "ariaInformoButono": "情報を開く",
+  "titoloInqoxa": "情報",
+  "subtitoloInqoxa": "建物、食べ物、種族",
+  "ariaInqoxaButono": "情報を開く",
   "ariaFermiButono": "閉じる",
-  "taboKonstruajxoj": "建物",
+  "taboPaqj": "建物",
   "taboMangxajxoj": "食べ物",
-  "taboSpecioj": "種族",
+  "taboHapudal": "種族",
 
   // ⟪ ពួកសត្វ 🐟 ⟫
 
-  "grupoBesto": "動物",
-  "specioBeroe": "ベロー",
-  "specioPriskriboBeroe": "細長い有櫛動物。八列の櫛を持つ。",
-  "specioMnemiopsis": "ネミオプシス",
-  "specioPriskriboMnemiopsis": "四つの口葉を持つ丸い有櫛動物。",
-  "specioPleŭrobrakia": "プレウロブラキア",
-  "specioPriskriboPleŭrobrakia": "二本の長い触手を持つ小さな丸い有櫛動物。",
-  "specioGlacifiso": "氷魚",
-  "specioPriskriboGlacifiso": "ヘモグロビンを持たない、ほぼ透明な魚。",
-  "specioMarlaraksxo": "ウミグモ",
-  "specioPriskriboMarlaraksxo": "八本の長い脚を持つ小さなウミグモ。",
-  "specioNeĝopetrelo": "ユキドリ",
-  "specioPriskriboNeĝopetrelo": "湖と川の上を滑空する真っ白な海鳥。",
+  "grupoPaga": "動物",
+  "pudalL2xkupukai": "ベロー",
+  "pudalPriskriboL2xkupukai": "細長い有櫛動物。八列の櫛を持つ。",
+  "pudalL2xcaxlefai": "ネミオプシス",
+  "pudalPriskriboL2xcaxlefai": "四つの口葉を持つ丸い有櫛動物。",
+  "pudalPleŭrobrakia": "プレウロブラキア",
+  "pudalPriskriboPleŭrobrakia": "二本の長い触手を持つ小さな丸い有櫛動物。",
+  "pudalTq2wa": "氷魚",
+  "pudalPriskriboTq2wa": "ヘモグロビンを持たない、ほぼ透明な魚。",
+  "pudalTolxu": "ウミグモ",
+  "pudalPriskriboTolxu": "八本の長い脚を持つ小さなウミグモ。",
+  "pudalNeĝotemek": "ユキドリ",
+  "pudalPriskriboNeĝotemek": "湖と川の上を滑空する真っ白な海鳥。",
 
   // ⟪ រុក្ខជាតិ 🌿 ⟫
 
   "grupoPlanto": "植物",
-  "specioBetulo": "カバノキ",
-  "specioPriskriboBetulo": "白い木材を持つ木。",
-  "specioLariko": "アルプスカラマツ",
-  "specioPriskriboLariko": "秋に黄金色の針葉を持つ高山性の針葉樹。",
-  "specioHxsxaksxlefo": "トレシレフホシャクア",
-  "specioPriskriboHxsxaksxlefo": "紫色のレタスの木。巻いた葉を持ち、酢作りに使う。",
-  "specioPussxlefo": "トレシレフプウスア",
-  "specioPriskriboPussxlefo": "シダほどの大きさの紫色のレタス植物。透き通った食べられる実をつける。",
-  "specioFiliko": "シダ",
-  "specioPriskriboFiliko": "森の地面に生える緑の植物。",
-  "specioPurpuraFiliko": "トレシレフシャフエスア",
-  "specioPriskriboPurpuraFiliko": "外側の森に生える高い紫色のシダ。",
-  "specioLikeno": "地衣類",
-  "specioPriskriboLikeno": "藻類と菌類。イマセ。",
-  "specioHerbo": "草",
-  "specioPriskriboHerbo": "シアン色の植物のような草。",
-  "specioMusko": "コケ",
-  "specioPriskriboMusko": "実は植物である小山。",
-  "specioCetkuo": "ツェトクウ",
-  "specioPriskriboCetkuo": "ふわふわしたトクサ（Equisetum praeltum）。",
-  "specioCakeo": "ツァケ",
-  "specioPriskriboCakeo": "骨のような尾を持つトクサ（Equisetum telmateia）。",
+  "pudalBetulo": "カバノキ",
+  "pudalPriskriboBetulo": "白い木材を持つ木。",
+  "pudalLariko": "アルプスカラマツ",
+  "pudalPriskriboLariko": "秋に黄金色の針葉を持つ高山性の針葉樹。",
+  "pudalTlexlefhxakai": "トレシレフホシャクア",
+  "pudalPriskriboTlexlefhxakai": "紫色のレタスの木。巻いた葉を持ち、酢作りに使う。",
+  "pudalTlexlefp2sai": "トレシレフプウスア",
+  "pudalPriskriboTlexlefp2sai": "シダほどの大きさの紫色のレタス植物。透き通った食べられる実をつける。",
+  "pudalXabe": "シダ",
+  "pudalPriskriboXabe": "森の地面に生える緑の植物。",
+  "pudalAsfaXabe": "トレシレフシャフエスア",
+  "pudalPriskriboAsfaXabe": "外側の森に生える高い紫色のシダ。",
+  "pudalF2ma": "地衣類",
+  "pudalPriskriboF2ma": "藻類と菌類。イマセ。",
+  "pudalFe1af": "草",
+  "pudalPriskriboFe1af": "シアン色の植物のような草。",
+  "pudalC6x": "コケ",
+  "pudalPriskriboC6x": "実は植物である小山。",
+  "pudalCetkuo": "ツェトクウ",
+  "pudalPriskriboCetkuo": "ふわふわしたトクサ（Equisetum praeltum）。",
+  "pudalCakeo": "ツァケ",
+  "pudalPriskriboCakeo": "骨のような尾を持つトクサ（Equisetum telmateia）。",
 
   // ⟪ សម្លៀកបំពាក់ 👕 ⟫
 
@@ -185,7 +185,7 @@ export const JA: Record<string, string> = {
   // ⟪ អាកាសធាតុ 🌦️ ⟫
 
   "ariaKrepuskoButono": "夕暮れモードを切り替え",
-  "ariaKrepuskoRegilo": "夕暮れのレベル",
+  "ariaKrepuskoKama": "夕暮れのレベル",
   "ariaVeteroButono": "天気",
   "veteroNebula": "霧",
   "veteroPluva": "雨",

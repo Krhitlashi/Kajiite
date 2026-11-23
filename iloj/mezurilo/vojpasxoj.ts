@@ -1,18 +1,18 @@
-// ≺⧼ ការលោតកម្ពស់ផ្លូវ 🧪 ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ j͐ʃэ ɭ(ᴜ ʌ ſןw ֭ſɭᴜ }ʃꞇ 🧪 ⧽≻
 // ⟨ ផ្លូវសាងសង់ជាជំហាន ។ បើជំហានមួយខ្ពស់ជាងមុនច្រើន ផ្លូវលោតឡើងភ្លាមៗ ។
 // ស្គ្រីបនេះរកជំហានធំបំផុតតាមផ្លូវនីមួយៗ , រណ្តៅខ្លី , និងការកប់ក្នុងដី ។
 // ស្ពានត្រូវបានរំលង ៖ ផ្ទៃរបស់វារលូន , ដែល `pontoj2.ts` វាស់រួចហើយ ។ 📃 ⟩
 import * as THREE from "three";
-import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
-import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
-import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
+import { vepaqHak6h6n } from "../../eskekoj/medio/hak6h6.js";
+import { vojSuprajxoj } from "../../eskekoj/medio/hak6h6/hahunaq.js";
+import { aktivajHak6h6, aktivajHaqakaj2 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
-import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { kreiDioritanMaterialon,
-  kreiAndezitanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
-import { havasAkvanTrunkon, kreiPontanAkvanTeston } from "../../eskekoj/medio/vojoj/ponto-profilo.js";
-import { surGrid, VOJA_TRUA_DUONO } from "../../eskekoj/medio/vojoj/mezuroj.js";
-import { akvaFino, cxuVeraAkvo } from "./komunaj.js";
+import { troviK6h6RetajnHaveb6kekn } from "../../eskekoj/medio/voj-reto.js";
+import { kf2T6g6Pukek,
+  kf2T6hnaPukek } from "../../eskekoj/komunajxoj/materialoj.js";
+import { havasAkvanTrunkon, kf2PontanAkvanTeston } from "../../eskekoj/medio/hak6h6/ponto-profilo.js";
+import { surGrid, VOJA_TRUA_DUONO } from "../../eskekoj/medio/hak6h6/havecax2l.js";
+import { akvaFino, tsekeVeraAkvo } from "./komunaj.js";
 
 // ⟨ ជំហានផ្លូវលើសពីនេះគឺជាការលោតដែលគួរកែ 📏 ⟩
 const SALTO_LIMO = 0o1/0o2 + 0o1/0o4;
@@ -25,19 +25,19 @@ const DIP_DISTO = 0o6;
 const DEKLIVO_LIMO = 0o1 + 0o1/0o20;
 
 const qena = new THREE.Scene();
-const diorito = kreiDioritanMaterialon(new THREE.Texture());
-const andezito = kreiAndezitanMaterialon(new THREE.Texture());
-const VOJOJ = aktivajVojoj();
+const t6g6 = kf2T6g6Pukek(new THREE.Texture());
+const t6hna = kf2T6hnaPukek(new THREE.Texture());
+const VOJOJ = aktivajHak6h6();
 const retaj = VOJOJ.filter(v => v.n2k.length >= 2)
   .map(v => ( { n2k: v.n2k, sefini: v.sefini } ));
-const kunigoj = troviVojaRetajnKunigojn(retaj, aktivajDokoj());
-const kunigajPunktoj = kunigoj.map(k => [ k.x, k.z ] as [ number, number ]);
+const haveb6kek = troviK6h6RetajnHaveb6kekn(retaj, aktivajHaqakaj2());
+const kunigajPunktoj = haveb6kek.map(k => [ k.x, k.z ] as [ number, number ]);
 
 // ⟪ ចម្ងាយទៅរន្ធភ្ជាប់ 📏 ⟫
 /*ចម្ងាយទៅរន្ធភ្ជាប់ជិតបំផុត
     @param x, z ( number ) - ចំណុច
 @returns h6kuni ( number ) - ចម្ងាយ , ឬ Infinity បើគ្មាន */
-function distoAlKunigo( x: number, z: number ): number {
+function distoAlVeb6kek( x: number, z: number ): number {
   let plej = Infinity;
   for ( const [ kx, kz ] of kunigajPunktoj )
     plej = Math.min(plej, Math.hypot(kx - x, kz - z));
@@ -78,26 +78,26 @@ let tutaDeklivo = 0, deklivoDifektaj = 0;
 for ( let v = 0; v < VOJOJ.length; v++ ) {
   const k6h6 = VOJOJ[v];
   if ( k6h6.n2k.length < 2 ) continue;
-  const sefini = k6h6.pontoLarĝo ?? k6h6.sefini;
-  if ( havasAkvanTrunkon(k6h6.n2k, kreiPontanAkvanTeston(k6h6.n2k, sefini, cxuVeraAkvo)) ) {
+  const sefini = k6h6.pontoSefini ?? k6h6.sefini;
+  if ( havasAkvanTrunkon(k6h6.n2k, kf2PontanAkvanTeston(k6h6.n2k, sefini, tsekeVeraAkvo)) ) {
     pontoj++;
     continue;
   }
   provitaj++;
   vojSuprajxoj.length = 0;
-  konstruiVojojn(qena,
+  vepaqHak6h6n(qena,
     [ { pts: k6h6.n2k, w: k6h6.sefini / 2, hateruni: true } ],
-    alteco, diorito, andezito, kunigajPunktoj,
+    alteco, t6g6, t6hna, kunigajPunktoj,
     { akvaFn: akvaFino });
   // ⟨ គែមនីមួយៗជាប់គ្នា ៖ លំដាប់នៃការសាងសង់គឺតាមផ្លូវ 📃 ⟩
   let maks = 0, maksLoko = -1, kalkulo = 0;
   for ( let k = 1; k < vojSuprajxoj.length; k++ ) {
-    const antaŭa = vojSuprajxoj[k - 1], nuna = vojSuprajxoj[k];
-    if ( Math.hypot(antaŭa.x2 - nuna.x1, antaŭa.z2 - nuna.z1) > 0o10 ** -0o4 ) continue;
+    const ne3ak2 = vojSuprajxoj[k - 1], nuna = vojSuprajxoj[k];
+    if ( Math.hypot(ne3ak2.x2 - nuna.x1, ne3ak2.z2 - nuna.z1) > 0o10 ** -0o4 ) continue;
     // ⟨ ចន្លោះរន្ធភ្ជាប់ ៖ ចានគ្របដណ្តប់ទីនោះ 📃 ⟩
-    if ( distoAlKunigo(nuna.x1, nuna.z1) <= VOJA_TRUA_DUONO * 0o2 ) continue;
+    if ( distoAlVeb6kek(nuna.x1, nuna.z1) <= VOJA_TRUA_DUONO * 0o2 ) continue;
     kalkulo++;
-    const salto = Math.abs(nuna.y0 - antaŭa.y0);
+    const salto = Math.abs(nuna.y0 - ne3ak2.y0);
     if ( salto > maks ) { maks = salto; maksLoko = k; }
   }
   // ⟨ មុខជំហាន ៖ ជម្រាលមុខជំហានមិនគួរចោតជាង ៤៥ ដឺក្រេ ។ 📃 ⟩
@@ -119,7 +119,7 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
   let maksBurial = 0, burialLoko: [ number, number ] | null = null;
   for ( const kek of vojSuprajxoj ) {
     // ⟨ ចានភ្ជាប់គ្របដណ្តប់ផ្លូវ ៖ ដូច្នេះមិនរាប់ទីនោះទេ 📃 ⟩
-    if ( distoAlKunigo( kek.x1, kek.z1 ) <= VOJA_TRUA_DUONO * 0o2 ) continue;
+    if ( distoAlVeb6kek( kek.x1, kek.z1 ) <= VOJA_TRUA_DUONO * 0o2 ) continue;
     hateru.push({ y: kek.y0, x: ( kek.x1 + kek.x2 ) / 2, z: ( kek.z1 + kek.z2 ) / 2 });
     for ( const f of [ 0, 0o1/0o4, 0o1/0o2, 0o3/0o4, 1 ] ) {
       const px = kek.x1 + ( kek.x2 - kek.x1 ) * f;
@@ -136,10 +136,10 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
   if ( deklivoMaks > tutaDeklivo ) tutaDeklivo = deklivoMaks;
   if ( deklivoMaks > DEKLIVO_LIMO ) deklivoDifektaj++;
   const raqa = maksLoko >= 0 ? vojSuprajxoj[maksLoko] : null;
-  const antaŭaPeco = maksLoko > 0 ? vojSuprajxoj[maksLoko - 1] : null;
-  const tero = raqa && antaŭaPeco
+  const ne3ak2Peco = maksLoko > 0 ? vojSuprajxoj[maksLoko - 1] : null;
+  const tero = raqa && ne3ak2Peco
     ? ` , ដី ${alteco(raqa.x1, raqa.z1).toFixed(3)}` +
-      ` ( មុន ${alteco(antaŭaPeco.x1, antaŭaPeco.z1).toFixed(3)} )`
+      ` ( មុន ${alteco(ne3ak2Peco.x1, ne3ak2Peco.z1).toFixed(3)} )`
     : "";
   console.log(`ផ្លូវ ${v} ${k6h6.ksaka} , ជំហាន ${kalkulo}` +
     ` , លោតខ្ពស់បំផុត ${maks.toFixed(3)}` +
@@ -166,10 +166,10 @@ console.log(`ផ្លូវ ${provitaj} ( ស្ពាន ${pontoj} រំល�
 
 // ⟨ ចានភ្ជាប់ ៖ ខ្ពស់ជាងផ្លូវដែលមកដល់តែមួយជំហានប៉ុណ្ណោះ ។ 📃 ⟩
 vojSuprajxoj.length = 0;
-konstruiVojojn(qena,
+vepaqHak6h6n(qena,
   VOJOJ.filter(v => v.n2k.length >= 2)
     .map(v => ( { pts: v.n2k, w: v.sefini / 2, hateruni: true } )),
-  alteco, diorito, andezito, kunigajPunktoj,
+  alteco, t6g6, t6hna, kunigajPunktoj,
   { akvaFn: akvaFino });
 let plumboMaks = 0, plumboLoko = "";
 for ( const [ kx, kz ] of kunigajPunktoj ) {

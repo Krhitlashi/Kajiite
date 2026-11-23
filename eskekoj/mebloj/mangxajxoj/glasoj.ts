@@ -1,9 +1,9 @@
-// ≺⧼ កែវ 🥛 ⧽≻
+// ≺⧼ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ 🥛 ⧽≻
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { kf2SakxoKlasika } from "../../komunajxoj/hazardo.js";
-import { vitraTeksajxon } from "../../komunajxoj/teksajxoj/vitra-teksajxo.js";
-import { citrusaTeksajxon } from "../../komunajxoj/teksajxoj/citrusa-teksajxo.js";
+import { fasw2d2Cac2sex } from "../../komunajxoj/cac2sex/fasw2d2-cac2sex.js";
+import { kzusaqCac2sex } from "../../komunajxoj/cac2sex/kzusaq-cac2sex.js";
 import { kunfandiPartojn } from "./kunfando.js";
 import { materialon } from "./materialoj.js";
 import type { MangxajxDatumo } from "./datumoj.js";
@@ -12,7 +12,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
   const subteno = 0o1/0o100;
   const vitro = materialon("vitro", () => new THREE.MeshStandardMaterial({
     color: 0xe0f0e8, transparent: true, opacity: 0o26 / 0o100, roughness: 0o6/0o100,
-    depthWrite: false, side: THREE.DoubleSide, map: vitraTeksajxon(),
+    depthWrite: false, side: THREE.DoubleSide, map: fasw2d2Cac2sex(),
   }));
   // ⟨ ប្រវែងកាត់កែវ 📃 ⟩
   const s2qena = [
@@ -45,7 +45,7 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
   g.add(menisko);
   if ( f.key !== "tla2" ) {
     const citrono = new THREE.Mesh(new THREE.CylinderGeometry(0o5/0o100, 0o5/0o100, 0o1/0o40, 0o12, 1, false, 0, Math.PI), materialon("citrono",
-      () => new THREE.MeshStandardMaterial({ color: 0xe0c060, roughness: 0o45/0o100, map: citrusaTeksajxon(), side: THREE.DoubleSide })));
+      () => new THREE.MeshStandardMaterial({ color: 0xe0c060, roughness: 0o45/0o100, map: kzusaqCac2sex(), side: THREE.DoubleSide })));
     citrono.position.set(0o2/0o100, subteno + 0o15/0o100, -0o4/0o100);
     citrono.rotation.set(0o14/0o10, 0, 0o1/0o10);
     g.add(citrono);
@@ -60,11 +60,11 @@ export function glassMesh(f: MangxajxDatumo): THREE.Group {
     tigo.rotation.z = 0o4/0o10;
     g.add(tigo);
     for ( let i = 0; i < 3; i++ ) {
-      const folio = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o50, 0o10, 6), mento);
-      folio.scale.set(0o6/0o10, 0o3/0o10, 1);
-      folio.position.set(0o4/0o100 + i * 0o1/0o100 - 0o1/0o50, mentaBazo + 0o2/0o100 + i * 0o1/0o100, 0o2/0o100);
-      folio.rotation.z = 0o15/0o10 - i * 0o1/0o10;
-      g.add(folio);
+      const slaf = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o50, 0o10, 6), mento);
+      slaf.scale.set(0o6/0o10, 0o3/0o10, 1);
+      slaf.position.set(0o4/0o100 + i * 0o1/0o100 - 0o1/0o50, mentaBazo + 0o2/0o100 + i * 0o1/0o100, 0o2/0o100);
+      slaf.rotation.z = 0o15/0o10 - i * 0o1/0o10;
+      g.add(slaf);
     }
   }
   // ⟪ វ៉ារ្យ៉ង់តាមការពិពណ៌នា 📃 ⟫

@@ -1,22 +1,22 @@
-// ≺⧼ ផ្ទាំង 📖 ⧽≻
-import { TIPARO, KonstruSpec, KonstruTipo } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
+// ≺⧼ ſɟᴜ j͐ʃэ ſᶘꞇ ɭl̀ɔ 📖 ⧽≻
+import { TIPARO, VepaqSpec, VepaqHunaq } from "../../eskekoj/hapaq/satalaj/hahunaq.js";
 import { FOKS, TLAS } from "../../eskekoj/mebloj/mangxajxoj/datumoj.js";
-import { traduki, konstruaĵaNomo } from "../lingvo/tradukoj.js";
+import { traduki, paqNomo } from "../lingvo/tradukoj.js";
 import { aplikiVacepu } from "./efikoj.js";
-import { kreiStaton } from "./paghoj.js";
+import { kf2Staton } from "./paghoj.js";
 import type { Stato } from "./paghoj.js";
 
 /*បង្កើតចំណងជើងផ្នែកមួយ , ដូចផ្នែកទាំងអស់ក្នុងបញ្ជី
     @param ca3aq ( string ) - សោបកប្រែ
 @returns titolo */
-export function kreiSekcianTitolon( ca3aq: string ): HTMLParagraphElement {
+export function kf2SekcianTitolon( ca3aq: string ): HTMLParagraphElement {
   const titolo = document.createElement("p");
   titolo.className = "ksakap2sa aih";
   titolo.textContent = traduki(ca3aq);
   return titolo;
 }
 
-export function kreiPanelKarton(enhavo: HTMLElement[], klako?: () => void, elektita?: boolean): HTMLElement {
+export function kf2PanelKarton(enhavo: HTMLElement[], klako?: () => void, elektita?: boolean): HTMLElement {
   const card = document.createElement("ciihii");
   card.className = "vestaKardo aih";
   card.append(...enhavo);
@@ -29,14 +29,14 @@ export function kreiPanelKarton(enhavo: HTMLElement[], klako?: () => void, elekt
   return card;
 }
 
-export function kreiNomlinion(s2banani: string): HTMLParagraphElement {
+export function kf2Nomlinion(s2banani: string): HTMLParagraphElement {
   const ksaka = document.createElement("p");
   ksaka.className = "vn";
   ksaka.textContent = s2banani;
   return ksaka;
 }
 
-function kreiPeceton(weh2: string, s2banani: string): HTMLSpanElement {
+function kf2Peceton(weh2: string, s2banani: string): HTMLSpanElement {
   const kek = document.createElement("span");
   kek.className = "peco";
   kek.style.background = weh2;
@@ -44,7 +44,7 @@ function kreiPeceton(weh2: string, s2banani: string): HTMLSpanElement {
   return kek;
 }
 
-function kreiGustlinion(flavorKlavo: string): HTMLParagraphElement {
+function kf2Gustlinion(flavorKlavo: string): HTMLParagraphElement {
   const gusto = document.createElement("p");
   gusto.className = "gusto";
   const flavor = traduki(flavorKlavo);
@@ -52,8 +52,8 @@ function kreiGustlinion(flavorKlavo: string): HTMLParagraphElement {
   return gusto;
 }
 
-export function manĝaKlavo(ŝlosilo: string): string {
-  return "manĝ" + ŝlosilo.charAt(0).toUpperCase() + ŝlosilo.slice(1);
+export function manĝaKlavo(ca3aq: string): string {
+  return "manĝ" + ca3aq.charAt(0).toUpperCase() + ca3aq.slice(1);
 }
 
 // ⟪ ផ្ទាំងប្តូរផ្ទាំងរួមរវាងផ្ទាំងលេចឡើង និងទំព័រពេញ 📃 ⟫
@@ -78,42 +78,42 @@ export function ligiTabojn( zace: HTMLElement, komencaTabo: string ): void {
 export interface SpeciaDatumo {
   key: string;
   flavorKey: string;
-  hate: "besto" | "planto";
+  hate: "paga" | "planto";
   col: string;
 }
 const SPECIOJ: SpeciaDatumo[] = [
-  { key: "specioBeroe", flavorKey: "specioPriskriboBeroe", hate: "besto", col: "#e8d8e080" },
-  { key: "specioMnemiopsis", flavorKey: "specioPriskriboMnemiopsis", hate: "besto", col: "#d8e8f080" },
-  { key: "specioPleŭrobrakia", flavorKey: "specioPriskriboPleŭrobrakia", hate: "besto", col: "#d8f0e880" },
-  { key: "specioGlacifiso", flavorKey: "specioPriskriboGlacifiso", hate: "besto", col: "#d0e8e880" },
-  { key: "specioMarlaraksxo", flavorKey: "specioPriskriboMarlaraksxo", hate: "besto", col: "#c8b09080" },
-  { key: "specioNeĝopetrelo", flavorKey: "specioPriskriboNeĝopetrelo", hate: "besto", col: "#f0f4f680" },
-  { key: "specioBetulo", flavorKey: "specioPriskriboBetulo", hate: "planto", col: "#a0b88880" },
-  { key: "specioLariko", flavorKey: "specioPriskriboLariko", hate: "planto", col: "#c8b85880" },
-  { key: "specioHxsxaksxlefo", flavorKey: "specioPriskriboHxsxaksxlefo", hate: "planto", col: "#a868c880" },
-  { key: "specioPussxlefo", flavorKey: "specioPriskriboPussxlefo", hate: "planto", col: "#c8b8e880" },
-  { key: "specioFiliko", flavorKey: "specioPriskriboFiliko", hate: "planto", col: "#78a86880" },
-  { key: "specioPurpuraFiliko", flavorKey: "specioPriskriboPurpuraFiliko", hate: "planto", col: "#9858b880" },
-  { key: "specioLikeno", flavorKey: "specioPriskriboLikeno", hate: "planto", col: "#b8b08880" },
-  { key: "specioHerbo", flavorKey: "specioPriskriboHerbo", hate: "planto", col: "#88a85880" },
-  { key: "specioMusko", flavorKey: "specioPriskriboMusko", hate: "planto", col: "#68884880" },
-  { key: "specioCetkuo", flavorKey: "specioPriskriboCetkuo", hate: "planto", col: "#78986880" },
-  { key: "specioCakeo", flavorKey: "specioPriskriboCakeo", hate: "planto", col: "#68885880" },
+  { key: "pudalL2xkupukai", flavorKey: "pudalPriskriboL2xkupukai", hate: "paga", col: "#e8d8e080" },
+  { key: "pudalL2xcaxlefai", flavorKey: "pudalPriskriboL2xcaxlefai", hate: "paga", col: "#d8e8f080" },
+  { key: "pudalPleŭrobrakia", flavorKey: "pudalPriskriboPleŭrobrakia", hate: "paga", col: "#d8f0e880" },
+  { key: "pudalTq2wa", flavorKey: "pudalPriskriboTq2wa", hate: "paga", col: "#d0e8e880" },
+  { key: "pudalTolxu", flavorKey: "pudalPriskriboTolxu", hate: "paga", col: "#c8b09080" },
+  { key: "pudalNeĝotemek", flavorKey: "pudalPriskriboNeĝotemek", hate: "paga", col: "#f0f4f680" },
+  { key: "pudalBetulo", flavorKey: "pudalPriskriboBetulo", hate: "planto", col: "#a0b88880" },
+  { key: "pudalLariko", flavorKey: "pudalPriskriboLariko", hate: "planto", col: "#c8b85880" },
+  { key: "pudalTlexlefhxakai", flavorKey: "pudalPriskriboTlexlefhxakai", hate: "planto", col: "#a868c880" },
+  { key: "pudalTlexlefp2sai", flavorKey: "pudalPriskriboTlexlefp2sai", hate: "planto", col: "#c8b8e880" },
+  { key: "pudalXabe", flavorKey: "pudalPriskriboXabe", hate: "planto", col: "#78a86880" },
+  { key: "pudalAsfaXabe", flavorKey: "pudalPriskriboAsfaXabe", hate: "planto", col: "#9858b880" },
+  { key: "pudalF2ma", flavorKey: "pudalPriskriboF2ma", hate: "planto", col: "#b8b08880" },
+  { key: "pudalFe1af", flavorKey: "pudalPriskriboFe1af", hate: "planto", col: "#88a85880" },
+  { key: "pudalC6x", flavorKey: "pudalPriskriboC6x", hate: "planto", col: "#68884880" },
+  { key: "pudalCetkuo", flavorKey: "pudalPriskriboCetkuo", hate: "planto", col: "#78986880" },
+  { key: "pudalCakeo", flavorKey: "pudalPriskriboCakeo", hate: "planto", col: "#68885880" },
 ];
 
 // ⟪ បំពេញបញ្ជីរួមរវាងផ្ទាំងលេចឡើង និងទំព័រពេញ 📃 ⟫
-export function plenigiKonstruaListonEn(
-  konstruaListo: HTMLElement, konstruSpecoj: KonstruSpec[],
-  enfokusigi: ( spec: KonstruSpec, bt: KonstruTipo ) => void,
+export function plenigiVepaqListonEn(
+  vepaqListo: HTMLElement, vepaqPudalj: VepaqSpec[],
+  enfokusigi: ( spec: VepaqSpec, bt: VepaqHunaq ) => void,
 ): void {
-  konstruaListo.innerHTML = "";
-  for ( const spec of konstruSpecoj ) {
+  vepaqListo.innerHTML = "";
+  for ( const spec of vepaqPudalj ) {
     const bt = TIPARO[spec.type] || TIPARO.domo;
-    const card = kreiPanelKarton([
-      kreiPeceton(bt.chip, traduki(bt.labelKey)),
-      kreiNomlinion(konstruaĵaNomo(spec.name, spec.type)),
+    const card = kf2PanelKarton([
+      kf2Peceton(bt.chip, traduki(bt.labelKey)),
+      kf2Nomlinion(paqNomo(spec.name, spec.type)),
     ], () => enfokusigi(spec, bt));
-    konstruaListo.appendChild(card);
+    vepaqListo.appendChild(card);
   }
 }
 
@@ -123,101 +123,101 @@ export function plenigiMangxaListonEn(
   mangxaListo.innerHTML = "";
   for ( const f of [ ...FOKS, ...TLAS ] ) {
     const nomKlavo = manĝaKlavo(f.key);
-    const card = kreiPanelKarton([
-      kreiNomlinion(traduki(nomKlavo)),
-      kreiGustlinion(nomKlavo + "Gusto"),
+    const card = kf2PanelKarton([
+      kf2Nomlinion(traduki(nomKlavo)),
+      kf2Gustlinion(nomKlavo + "Gusto"),
     ], montriKarton ? () => montriKarton(nomKlavo) : undefined);
     mangxaListo.appendChild(card);
   }
 }
 
 export function plenigiSpeciaListonEn(
-  speciaListo: HTMLElement, montriKarton?: ( spec: SpeciaDatumo ) => void,
+  pudalListo: HTMLElement, montriKarton?: ( spec: SpeciaDatumo ) => void,
 ): void {
-  speciaListo.innerHTML = "";
+  pudalListo.innerHTML = "";
   for ( const spec of SPECIOJ ) {
-    const card = kreiPanelKarton([
-      kreiPeceton(spec.col, traduki(spec.hate === "besto" ? "grupoBesto" : "grupoPlanto")),
-      kreiNomlinion(traduki(spec.key)),
-      kreiGustlinion(spec.flavorKey),
+    const card = kf2PanelKarton([
+      kf2Peceton(spec.col, traduki(spec.hate === "paga" ? "grupoPaga" : "grupoPlanto")),
+      kf2Nomlinion(traduki(spec.key)),
+      kf2Gustlinion(spec.flavorKey),
     ], montriKarton ? () => montriKarton(spec) : undefined);
-    speciaListo.appendChild(card);
+    pudalListo.appendChild(card);
   }
 }
 
 export const KONSTRU_TIPOJ = [ "domo", "mangxejo", "kasafeo", "stacioxipo", "turo", "sanktejo", ];
 
-export function plenigiKonstruTipListonEn( ca1ara: HTMLElement ): void {
+export function plenigiVepaqTipListonEn( ca1ara: HTMLElement ): void {
   ca1ara.innerHTML = "";
-  for ( const tipo of KONSTRU_TIPOJ ) {
-    const bt = TIPARO[tipo];
+  for ( const hunaq of KONSTRU_TIPOJ ) {
+    const bt = TIPARO[hunaq];
     if ( !bt ) continue;
-    ca1ara.appendChild(kreiPanelKarton([
-      kreiPeceton(bt.chip, traduki(bt.labelKey)),
-      kreiGustlinion(bt.flavorKey),
+    ca1ara.appendChild(kf2PanelKarton([
+      kf2Peceton(bt.chip, traduki(bt.labelKey)),
+      kf2Gustlinion(bt.flavorKey),
     ]));
   }
 }
 
-export interface PanelajOpcioj {
+export interface PanelajHasukf2qani {
   informButono: HTMLElement;
-  informo: HTMLElement;
-  konstruaListo: HTMLElement;
+  inqoxa: HTMLElement;
+  vepaqListo: HTMLElement;
   mangxaListo: HTMLElement;
-  speciaListo: HTMLElement;
+  pudalListo: HTMLElement;
   kartoElemento: HTMLElement;
   kartoNomo: HTMLElement;
   kartoChip: HTMLElement;
   kartoStatistikoj: HTMLElement;
   kartoFlavor: HTMLElement;
   kartoEniri: HTMLElement;
-  konstruSpecoj: KonstruSpec[];
+  vepaqPudalj: VepaqSpec[];
   legiRezimon: () => "orbito" | "promeno" | "interno";
   sxaltiRezimon: () => void;
-  regiloj: { enabled: boolean; target: { set( x: number, y: number, z: number ): void }; update(): void };
+  hakama: { enabled: boolean; target: { set( x: number, y: number, z: number ): void }; update(): void };
   fotilo: { position: { set( x: number, y: number, z: number ): void } };
   gxisdatigiRetikulon: () => void;
-  skribiElektitan: ( spec: KonstruSpec | null ) => void;
-  eniriKonstruajxon: ( spec: KonstruSpec ) => void;
+  skribiElektitan: ( spec: VepaqSpec | null ) => void;
+  eniriPaqn: ( spec: VepaqSpec ) => void;
 }
 
 export interface Paneeloj {
-  fermiInformon(): void;
-  montriKarton( spec: KonstruSpec, bt: KonstruTipo ): void;
+  fermiInqoxan(): void;
+  montriKarton( spec: VepaqSpec, bt: VepaqHunaq ): void;
   kasxiKarton(): void;
 }
 
-export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
+export function kf2Paneelojn( hasukf2qani: PanelajHasukf2qani ): Paneeloj {
   const {
-    informButono, informo, konstruaListo, mangxaListo, speciaListo,
+    informButono, inqoxa, vepaqListo, mangxaListo, pudalListo,
     kartoElemento, kartoNomo, kartoChip, kartoStatistikoj, kartoFlavor, kartoEniri,
-    konstruSpecoj, legiRezimon, sxaltiRezimon, regiloj, fotilo,
-    gxisdatigiRetikulon, skribiElektitan, eniriKonstruajxon,
-  } = opcioj;
+    vepaqPudalj, legiRezimon, sxaltiRezimon, hakama, fotilo,
+    gxisdatigiRetikulon, skribiElektitan, eniriPaqn,
+  } = hasukf2qani;
 
   // ⟪ បន្ទះព័ត៌មាន ៖ ម៉ឺនុយដូចគ្នានឹងផ្ទាំងលេចឡើងដទៃ , បើកវាបិទម៉ឺនុយផ្សេង 📃 ⟫
-  const informoStato: Stato = kreiStaton("informo", plenigiInformon, gxisdatigiInformButonon);
+  const inqoxaStato: Stato = kf2Staton("inqoxa", plenigiInqoxan, gxisdatigiInformButonon);
 
   function gxisdatigiInformButonon() {
-    informButono.setAttribute("aria-pressed", String(informoStato.cxuMalfermita()));
+    informButono.setAttribute("aria-pressed", String(inqoxaStato.tsekeMalfermita()));
   }
-  function sxaltiInformon() {
-    if ( informoStato.cxuMalfermita() ) { informoStato.kasxi(); return; }
-    informoStato.malfermi();
+  function sxaltiInqoxan() {
+    if ( inqoxaStato.tsekeMalfermita() ) { inqoxaStato.kasxi(); return; }
+    inqoxaStato.malfermi();
   }
-  function fermiInformon() {
-    informoStato.fermi();
+  function fermiInqoxan() {
+    inqoxaStato.fermi();
   }
-  informButono.addEventListener("click", sxaltiInformon);
+  informButono.addEventListener("click", sxaltiInqoxan);
 
-  ligiTabojn(informo, "konstruajxoj");
-  ligiTabojn(document.getElementById("informPagho")!, "konstruajxoj");
+  ligiTabojn(inqoxa, "hapaq");
+  ligiTabojn(document.getElementById("informPagho")!, "hapaq");
   window.addEventListener("lingvosxangxo", () => {
-    if ( informo.classList.contains("montri") ) plenigiInformon();
+    if ( inqoxa.classList.contains("montri") ) plenigiInqoxan();
   });
 
-  function plenigiKonstruaListon() {
-    plenigiKonstruaListonEn(konstruaListo, konstruSpecoj, enfokusigiKonstruajxon);
+  function plenigiVepaqListon() {
+    plenigiVepaqListonEn(vepaqListo, vepaqPudalj, enfokusigiPaqn);
   }
 
   function plenigiMangxaListon() {
@@ -225,11 +225,11 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
   }
 
   function plenigiSpeciaListon() {
-    plenigiSpeciaListonEn(speciaListo, montriSpecianKarton);
+    plenigiSpeciaListonEn(pudalListo, montriSpecianKarton);
   }
 
-  function plenigiInformon() {
-    plenigiKonstruaListon();
+  function plenigiInqoxan() {
+    plenigiVepaqListon();
     plenigiMangxaListon();
     plenigiSpeciaListon();
     aplikiVacepu();
@@ -253,38 +253,38 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
   function montriSpecianKarton(spec: SpeciaDatumo) {
     montriNeEnireblanKarton(
       traduki(spec.key),
-      traduki(spec.hate === "besto" ? "grupoBesto" : "grupoPlanto"),
+      traduki(spec.hate === "paga" ? "grupoPaga" : "grupoPlanto"),
       spec.col,
       spec.flavorKey
   );
   }
 
-  function enfokusigiKonstruajxon(spec: KonstruSpec, bt: KonstruTipo) {
-    informoStato.kasxi();
+  function enfokusigiPaqn(spec: VepaqSpec, bt: VepaqHunaq) {
+    inqoxaStato.kasxi();
     const rezimo = legiRezimon();
     if ( rezimo === "interno" ) return;
     if ( rezimo === "promeno" ) sxaltiRezimon();
-    regiloj.enabled = true;
+    hakama.enabled = true;
     const h0 = spec.h0 || 0;
-    regiloj.target.set(spec.x, h0 + 0o14, spec.z);
+    hakama.target.set(spec.x, h0 + 0o14, spec.z);
     fotilo.position.set(spec.x, h0 + 0o20, spec.z + 0o14);
-    regiloj.update();
+    hakama.update();
     montriKarton(spec, bt);
     gxisdatigiRetikulon();
   }
 
   // ⟪ កាតសំណង់ 📃 ⟫
-  function montriKarton(spec: KonstruSpec, bt: KonstruTipo) {
+  function montriKarton(spec: VepaqSpec, bt: VepaqHunaq) {
     skribiElektitan(spec);
     kartoEniri.style.display = "";
-    kartoNomo.textContent = konstruaĵaNomo(spec.name, spec.type);
+    kartoNomo.textContent = paqNomo(spec.name, spec.type);
     const btLabelo = traduki(bt.labelKey);
     kartoChip.textContent = btLabelo;
     kartoChip.style.background = bt.chip;
-    kartoStatistikoj.innerHTML = `<b>${traduki("kartoNiveloj")}</b> ${spec.havem2} · <b>${traduki("kartoDiamanto")}</b> ${spec.sube ? traduki("kartoJes") + " (" + spec.sube + ")" : traduki("kartoNe")}<br><b>${traduki("kartoKonstruTipo")}</b> ${btLabelo} · <b>${traduki("kartoPozicio")}</b> X${Math.round(spec.x)} Z${Math.round(spec.z)}`;
+    kartoStatistikoj.innerHTML = `<b>${traduki("kartoHavem2")}</b> ${spec.havem2} · <b>${traduki("kartoDiamanto")}</b> ${spec.sube ? traduki("kartoJes") + " (" + spec.sube + ")" : traduki("kartoNe")}<br><b>${traduki("kartoVepaqHunaq")}</b> ${btLabelo} · <b>${traduki("kartoXekuxa")}</b> X${Math.round(spec.x)} Z${Math.round(spec.z)}`;
     kartoFlavor.textContent = traduki(bt.flavorKey);
     kartoElemento.classList.add("montri");
-    kartoEniri.onclick = () => eniriKonstruajxon(spec);
+    kartoEniri.onclick = () => eniriPaqn(spec);
     aplikiVacepu();
   }
   function kasxiKarton() {
@@ -292,5 +292,5 @@ export function kreiPaneelojn( opcioj: PanelajOpcioj ): Paneeloj {
     kartoElemento.classList.remove("montri");
   }
 
-  return { fermiInformon, montriKarton, kasxiKarton };
+  return { fermiInqoxan, montriKarton, kasxiKarton };
 }

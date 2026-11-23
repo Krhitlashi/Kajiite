@@ -1,58 +1,58 @@
-// ≺⧼ កម្រិតនៅចំណុចប្រសព្វក្រឡា 🔬 ⧽≻
+// ≺⧼ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɭɜ ı],ɹȝ ʌ j͑ʃɹ ſɟᴜ ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ 🔬 ⧽≻
 // ⟨ បង្ហាញកម្ពស់វាល , ចានភ្ជាប់ , ដី , កម្រិតផ្លូវជិតចំណុចមួយ ,
 // និងកម្ពស់ផ្ទៃពិតតាមកាំរស្មី ។ ដើម្បីដឹងថាជញ្ជាំងមកពីចានទាប ឬផ្លូវខ្ពស់ ។ 📃 ⟩
 import * as THREE from "three";
-import { konstruiKradanUrbon } from "../../kantaoj/mondo/urbo/krada-urbo.js";
+import { vepaqKradanKaxten } from "../../kantaoj/mondo/kaxte/krada-kaxte.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
-import { kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
-import { kreiNivelanProfilon } from "../../eskekoj/medio/vojoj/niveloj.js";
-import { konstruiVojojn } from "../../eskekoj/medio/vojoj.js";
-import { konstruiIntersekcajnPlatojn } from "../../eskekoj/medio/vojoj/platoj.js";
-import { vojaSuproDeKunigo } from "../../eskekoj/medio/vojoj/formoj.js";
-import { kreiEksteranDuonon } from "../../eskekoj/medio/vojoj/segmentoj.js";
-import { kreiVojajnBendojn } from "../../eskekoj/medio/vojoj/bufroj.js";
-import { kreiDioritanMaterialon,
-  kreiAndezitanMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
-import { VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO, surGrid } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { kf2K6h6Alton } from "../../eskekoj/medio/hak6h6/alto.js";
+import { kf2NivelanProfilon } from "../../eskekoj/medio/hak6h6/havem2.js";
+import { vepaqHak6h6n } from "../../eskekoj/medio/hak6h6.js";
+import { vepaqIntersekcajnHapa12n } from "../../eskekoj/medio/hak6h6/hapa12.js";
+import { k6h6SuproDeVeb6kek } from "../../eskekoj/medio/hak6h6/haqoxa.js";
+import { kf2EksteranDuonon } from "../../eskekoj/medio/hak6h6/has2nasce.js";
+import { kf2K6h6jnBendojn } from "../../eskekoj/medio/hak6h6/habakaweKatoma.js";
+import { kf2T6g6Pukek,
+  kf2T6hnaPukek } from "../../eskekoj/komunajxoj/materialoj.js";
+import { VOJA_EKSTERA_DUONO, VOJA_TRUA_DUONO, surGrid } from "../../eskekoj/medio/hak6h6/havecax2l.js";
 
 const qena = new THREE.Scene();
 const pukek = new THREE.MeshStandardMaterial();
-const urbo = konstruiKradanUrbon(qena, { arangxaGrando: 3, blokaGrando: "unu" },
+const kaxte = vepaqKradanKaxten(qena, { arangxaGrando: 3, blokaGrando: "unu" },
   [ 0, 0 ], pukek);
-const kunigoj = urbo.kunigajPunktoj.map(([ x, z ]) => {
-  const fermita = urbo.kunigajFermitaj.get(x + "," + z);
+const haveb6kek = kaxte.kunigajPunktoj.map(([ x, z ]) => {
+  const fermita = kaxte.kunigajFermitaj.get(x + "," + z);
   return { x, z, direktaj: fermita ? [ fermita ] : [] };
 });
-const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
-const diorito = kreiDioritanMaterialon(new THREE.Texture());
-const andezito = kreiAndezitanMaterialon(new THREE.Texture());
-konstruiVojojn(qena, urbo.vojDifinoj, vojoAlteco, diorito, andezito,
-  urbo.kunigajPunktoj, {});
-konstruiIntersekcajnPlatojn(qena, urbo.kunigajPunktoj, vojoAlteco, diorito, andezito,
-  urbo.kunigajFermitaj);
+const k6h6Alteco = kf2K6h6Alton(alteco, haveb6kek);
+const t6g6 = kf2T6g6Pukek(new THREE.Texture());
+const t6hna = kf2T6hnaPukek(new THREE.Texture());
+vepaqHak6h6n(qena, kaxte.vojDifinoj, k6h6Alteco, t6g6, t6hna,
+  kaxte.kunigajPunktoj, {});
+vepaqIntersekcajnHapa12n(qena, kaxte.kunigajPunktoj, k6h6Alteco, t6g6, t6hna,
+  kaxte.kunigajFermitaj);
 const rc = new THREE.Raycaster();
 
 for ( const celo of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
   const [ cx, cz ] = celo;
   const ca3aq = cx + "," + cz;
-  const fermita = urbo.kunigajFermitaj.get(ca3aq);
-  const plato = surGrid(vojaSuproDeKunigo(cx, cz, fermita ? [ fermita ] : [],
-    VOJA_EKSTERA_DUONO, vojoAlteco).hateru);
+  const fermita = kaxte.kunigajFermitaj.get(ca3aq);
+  const pa12 = surGrid(k6h6SuproDeVeb6kek(cx, cz, fermita ? [ fermita ] : [],
+    VOJA_EKSTERA_DUONO, k6h6Alteco).hateru);
   console.log(`⟨ ( ${cx}, ${cz} ) ⟩ បិទ ${JSON.stringify(fermita)}` +
-    ` , វាល ${vojoAlteco(cx, cz).toFixed(3)} , ចាន ${plato.toFixed(3)}` +
+    ` , វាល ${k6h6Alteco(cx, cz).toFixed(3)} , ចាន ${pa12.toFixed(3)}` +
     ` , ដី ${alteco(cx, cz).toFixed(3)}`);
   for ( const [ ksaka, ux, uz ] of [ [ "កើត", 1, 0 ], [ "លិច", -1, 0 ],
     [ "ជើង", 0, -1 ], [ "ត្បូង", 0, 1 ] ] as const ) {
-    const vicoj: string[] = [];
+    const hax2pa: string[] = [];
     for ( let r = 0; r <= 6; r += 0.5 ) {
       rc.set(new THREE.Vector3(cx + ux * r, 0o120, cz + uz * r), new THREE.Vector3(0, -1, 0));
       const h = rc.intersectObjects(qena.children, true).find(x => x.object.visible);
-      vicoj.push(`${r}:${h ? h.point.y.toFixed(2) : "-"}`);
+      hax2pa.push(`${r}:${h ? h.point.y.toFixed(2) : "-"}`);
     }
-    console.log(`  ${ksaka} ៖ ${vicoj.join(" ")}`);
+    console.log(`  ${ksaka} ៖ ${hax2pa.join(" ")}`);
   }
   // ⟨ ផ្លូវដែលឆ្លងកាត់ជិតចំណុចនេះ 📃 ⟩
-  for ( const d of urbo.vojDifinoj ) {
+  for ( const d of kaxte.vojDifinoj ) {
     for ( let k = 0; k < d.pts.length - 1; k++ ) {
       const [ ax, az ] = d.pts[k], [ bx, bz ] = d.pts[k + 1];
       const dx = bx - ax, dz = bz - az;
@@ -61,9 +61,9 @@ for ( const celo of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
       const px = ax + dx * t, pz = az + dz * t;
       const dist = Math.hypot(cx - px, cz - pz);
       if ( dist > VOJA_TRUA_DUONO ) continue;
-      const bendoj = kreiVojajnBendojn(d.w, diorito, andezito);
-      const ekstera = kreiEksteranDuonon(bendoj);
-      const s2qena = kreiNivelanProfilon(d.pts as [ number, number ][], ekstera, vojoAlteco);
+      const bendoj = kf2K6h6jnBendojn(d.w, t6g6, t6hna);
+      const ekstera = kf2EksteranDuonon(bendoj);
+      const s2qena = kf2NivelanProfilon(d.pts as [ number, number ][], ekstera, k6h6Alteco);
       const s = t * sahakani;
       console.log(`  ផ្លូវ ( ${ax},${az} ) ំ ( ${bx},${bz} ) ឆ្លងកាត់ ${dist.toFixed(2)}` +
         ` ស ${s.toFixed(2)} កម្រិត ${s2qena.altoCxe(s).toFixed(2)}` +

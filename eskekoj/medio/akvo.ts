@@ -1,14 +1,14 @@
-// ≺⧼ ទឹក 🌊 ⧽≻
+// ≺⧼ ſᶘᴜ j͑ʃᴜ 🌊 ⧽≻
 import * as THREE from "three";
 import { KONTURA_GLSL } from "../komunajxoj/lumo.js";
-import type { CxielajUniformoj } from "../komunajxoj/lumo.js";
+import type { CxielajUnihaqoxa } from "../komunajxoj/lumo.js";
 import { glataPaso } from "../../kantaoj/komunajxoj/interpolo.js";
-import { kreiBuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
-import { kanakaWeh2 } from "../komunajxoj/koloroj.js";
+import { kf2BuferanGeometrion } from "../komunajxoj/kunfandajxoj.js";
+import { veb6qaiWeh2 } from "../komunajxoj/koloroj.js";
 
 export type RiverData = { mesh: THREE.Mesh; waterSurfaceY: ( x: number, z: number ) => number };
 
-export function konstruiRiveron(qena: THREE.Scene,
+export function vepaqRiveron(qena: THREE.Scene,
   riverFn: ( x: number ) => number,
   akvoY: ( x: number ) => number,
   duonaLargho: number,
@@ -17,10 +17,10 @@ export function konstruiRiveron(qena: THREE.Scene,
   steps: number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
-  return konstruiRiveronLaŭAkso(qena, riverFn, akvoY, duonaLargho, xStart, xEnd, steps, altecoFn, false);
+  return vepaqRiveronLaŭAkso(qena, riverFn, akvoY, duonaLargho, xStart, xEnd, steps, altecoFn, false);
 }
 
-export function konstruiRiveronNordan(qena: THREE.Scene,
+export function vepaqRiveronNordan(qena: THREE.Scene,
   riverFn: ( z: number ) => number,
   akvoY: ( z: number ) => number,
   duonaLargho: number,
@@ -29,10 +29,10 @@ export function konstruiRiveronNordan(qena: THREE.Scene,
   steps: number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
-  return konstruiRiveronLaŭAkso(qena, riverFn, akvoY, duonaLargho, zStart, zEnd, steps, altecoFn, true, 0o20);
+  return vepaqRiveronLaŭAkso(qena, riverFn, akvoY, duonaLargho, zStart, zEnd, steps, altecoFn, true, 0o20);
 }
 
-function konstruiRiveronLaŭAkso(qena: THREE.Scene,
+function vepaqRiveronLaŭAkso(qena: THREE.Scene,
   riverFn: ( t: number ) => number,
   akvoY: ( t: number ) => number,
   duonaLargho: number,
@@ -41,7 +41,7 @@ function konstruiRiveronLaŭAkso(qena: THREE.Scene,
   steps: number,
   altecoFn: ( x: number, z: number ) => number,
   lauZ: boolean,
-  fontaMallarĝiĝo = 0
+  tsiqMallarĝiĝo = 0
 ): RiverData {
   const pts: THREE.Vector3[] = [];
   for ( let i = 0; i <= steps; i++ ) {
@@ -50,21 +50,21 @@ function konstruiRiveronLaŭAkso(qena: THREE.Scene,
       ? new THREE.Vector3(riverFn(t), akvoY(t) + 0o1/0o20, t)
       : new THREE.Vector3(t, akvoY(t) + 0o1/0o20, riverFn(t)));
   }
-  const buŝaMallarĝiĝo = ( t: number ) =>
-    glataPaso(tEnd, tEnd + 0o40, t) * ( fontaMallarĝiĝo > 0 ? 1 - glataPaso(tStart - fontaMallarĝiĝo, tStart, t) : 1 );
-  const larghoFn = ( i: number ) => buŝaMallarĝiĝo(lauZ ? pts[i].z : pts[i].x);
+  const w6qaMallarĝiĝo = ( t: number ) =>
+    glataPaso(tEnd, tEnd + 0o40, t) * ( tsiqMallarĝiĝo > 0 ? 1 - glataPaso(tStart - tsiqMallarĝiĝo, tStart, t) : 1 );
+  const larghoFn = ( i: number ) => w6qaMallarĝiĝo(lauZ ? pts[i].z : pts[i].x);
 
-  const { geometry } = konstruiRubandon(pts, duonaLargho, 0, larghoFn);
-  const pukek = kreiOndanAkvanMaterialon(qena);
+  const { geometry } = vepaqRubandon(pts, duonaLargho, 0, larghoFn);
+  const pukek = kf2OndanAkvanMaterialon(qena);
   const mesh = new THREE.Mesh(geometry, pukek);
   mesh.renderOrder = 0;
   qena.add(mesh);
 
-  const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
+  const haxekuxaJ = geometry.getAttribute("position") as THREE.BufferAttribute;
   const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
-  for ( let v = 0; v < pos.count; v++ ) {
-    const t = lauZ ? pos.getZ(v) : pos.getX(v);
-    uv.setY(v, Math.max(0, akvoY(t) - altecoFn(pos.getX(v), pos.getZ(v))));
+  for ( let v = 0; v < haxekuxaJ.count; v++ ) {
+    const t = lauZ ? haxekuxaJ.getZ(v) : haxekuxaJ.getX(v);
+    uv.setY(v, Math.max(0, akvoY(t) - altecoFn(haxekuxaJ.getX(v), haxekuxaJ.getZ(v))));
   }
   uv.needsUpdate = true;
 
@@ -73,42 +73,42 @@ function konstruiRiveronLaŭAkso(qena: THREE.Scene,
     : ( x: number, _z: number ) => akvoY(x) };
 }
 
-export function konstruiLagon(qena: THREE.Scene,
-  cx: number, cz: number, radio: ( ang: number ) => number, akvoNivelo: number,
+export function vepaqLagon(qena: THREE.Scene,
+  cx: number, cz: number, radio: ( ang: number ) => number, akvoVem2: number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
-  const segmentoj = 0o60, c2q = 0o10;
-  const pozicioj: number[] = [];
-  const uvoj: number[] = [];
+  const has2nasce = 0o60, c2q = 0o10;
+  const haxekuxa: number[] = [];
+  const qan2k: number[] = [];
   const havecax2lani: number[] = [];
   for ( let j = 0; j <= c2q; j++ ) {
     const f = j / c2q;
-    for ( let i = 0; i <= segmentoj; i++ ) {
-      const ang = i / segmentoj * Math.PI * 2;
+    for ( let i = 0; i <= has2nasce; i++ ) {
+      const ang = i / has2nasce * Math.PI * 2;
       const r = j === 0 ? 0 : radio(ang) * f;
       const x = cx + Math.cos(ang) * r;
       const z = cz + Math.sin(ang) * r;
-      pozicioj.push(x, akvoNivelo + 0o1/0o20, z);
-      uvoj.push(0o1/0o2 + 0o1/0o2 * f, Math.max(0, akvoNivelo - altecoFn(x, z)));
+      haxekuxa.push(x, akvoVem2 + 0o1/0o20, z);
+      qan2k.push(0o1/0o2 + 0o1/0o2 * f, Math.max(0, akvoVem2 - altecoFn(x, z)));
     }
   }
   for ( let j = 0; j < c2q; j++ ) {
-    for ( let i = 0; i < segmentoj; i++ ) {
-      const a = j * ( segmentoj + 1 ) + i, b = a + 1;
-      const c = a + segmentoj + 1, d = c + 1;
+    for ( let i = 0; i < has2nasce; i++ ) {
+      const a = j * ( has2nasce + 1 ) + i, b = a + 1;
+      const c = a + has2nasce + 1, d = c + 1;
       havecax2lani.push(a, b, d, a, d, c);
     }
   }
-  const geometrio = kreiBuferanGeometrion(pozicioj, havecax2lani, { uvoj });
-  const pukek = kreiOndanAkvanMaterialon(qena);
+  const geometrio = kf2BuferanGeometrion(haxekuxa, havecax2lani, { qan2k });
+  const pukek = kf2OndanAkvanMaterialon(qena);
   const mesh = new THREE.Mesh(geometrio, pukek);
   mesh.renderOrder = 0;
   qena.add(mesh);
 
-  return { mesh, waterSurfaceY: ( _x: number, _z: number ) => akvoNivelo };
+  return { mesh, waterSurfaceY: ( _x: number, _z: number ) => akvoVem2 };
 }
 
-export function konstruiRubandon(points: THREE.Vector3[],
+export function vepaqRubandon(points: THREE.Vector3[],
   duonaLargho: number,
   yLift: number,
   larghoFn?: ( i: number, N: number ) => number
@@ -150,10 +150,10 @@ export function konstruiRubandon(points: THREE.Vector3[],
   return { geometry: g, samples };
 }
 
-export function konstruiSkulptitanAkvon(qena: THREE.Scene,
+export function vepaqSkulptitanAkvon(qena: THREE.Scene,
   x0: number, z0: number, x1: number, z1: number, vepat6ni: number,
   maskFn: ( x: number, z: number ) => boolean,
-  niveloFn: ( x: number, z: number ) => number,
+  vem2Fn: ( x: number, z: number ) => number,
   altecoFn: ( x: number, z: number ) => number
 ): RiverData {
   // ⟨ ការបង្កើនដង់ស៊ីតេ 📃 ⟩
@@ -161,8 +161,8 @@ export function konstruiSkulptitanAkvon(qena: THREE.Scene,
   const sx = vepat6ni / densigo;
   const nx = Math.max(0o2, Math.round(( x1 - x0 ) / sx));
   const nz = Math.max(0o2, Math.round(( z1 - z0 ) / sx));
-  const pozicioj: number[] = [];
-  const uvoj: number[] = [];
+  const haxekuxa: number[] = [];
+  const qan2k: number[] = [];
   const hak6liqani: number[] = [];
   const havecax2lani: number[] = [];
   const videblajIndeksoj: number[] = [];
@@ -171,11 +171,11 @@ export function konstruiSkulptitanAkvon(qena: THREE.Scene,
       const x = x0 + ( x1 - x0 ) * i / nx;
       const z = z0 + ( z1 - z0 ) * j / nz;
       const tero = altecoFn(x, z);
-      const vem2 = niveloFn(x, z);
+      const vem2 = vem2Fn(x, z);
       const profundo = vem2 - tero;
       // ⟨ ទឹកលេចឡើងតែពេលដីទាបជាងកម្រិតទឹក 📃 ⟩
-      pozicioj.push(x, vem2 + 0o1/0o20, z);
-      uvoj.push(0o1/0o2, Math.max(0, profundo));
+      haxekuxa.push(x, vem2 + 0o1/0o20, z);
+      qan2k.push(0o1/0o2, Math.max(0, profundo));
       // ⟨ តែក្នុងដែនទឹកប៉ុណ្ណោះ ៖ ដីទាបក្នុងទីក្រុងមិនមែនទឹកទេ 📃 ⟩
       hak6liqani.push(maskFn(x, z) ? 1 : 0);
     }
@@ -187,31 +187,31 @@ export function konstruiSkulptitanAkvon(qena: THREE.Scene,
       havecax2lani.push(a, b, d, a, d, c);
       // ⟨ ក្រឡាដែលមានតែមុខស្ងួត ឬ គ្មានម៉ាសទឹកត្រូវបោះបង់ដោយ shader
       //   នៅគ្រប់ភីកសែលរួចហើយ ។ រក្សាក្រឡាគែមទាំងអស់ដែលមានទឹកយ៉ាងហោចណាស់មួយជ្រុង 📃 ⟩
-      const videbla = ( hak6liqani[a] === 1 && uvoj[a * 2 + 1] > 0 )
-        || ( hak6liqani[b] === 1 && uvoj[b * 2 + 1] > 0 )
-        || ( hak6liqani[c] === 1 && uvoj[c * 2 + 1] > 0 )
-        || ( hak6liqani[d] === 1 && uvoj[d * 2 + 1] > 0 );
+      const videbla = ( hak6liqani[a] === 1 && qan2k[a * 2 + 1] > 0 )
+        || ( hak6liqani[b] === 1 && qan2k[b * 2 + 1] > 0 )
+        || ( hak6liqani[c] === 1 && qan2k[c * 2 + 1] > 0 )
+        || ( hak6liqani[d] === 1 && qan2k[d * 2 + 1] > 0 );
       if ( videbla ) videblajIndeksoj.push(a, b, d, a, d, c);
     }
   }
   const geometrio = new THREE.BufferGeometry();
-  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(pozicioj, 3));
-  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(uvoj, 2));
+  geometrio.setAttribute("position", new THREE.Float32BufferAttribute(haxekuxa, 3));
+  geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(qan2k, 2));
   geometrio.setAttribute("aAkvo", new THREE.BufferAttribute(new Float32Array(hak6liqani), 1));
   geometrio.setIndex(havecax2lani);
   // ⟨ គណនានរម៉ាល់ពីក្រឡាពេញ មុនដកក្រឡាស្ងួត ដើម្បីរក្សារលកដដែល 📃 ⟩
   geometrio.computeVertexNormals();
   geometrio.setIndex(videblajIndeksoj);
-  const pukek = kreiOndanAkvanMaterialon(qena, true);
+  const pukek = kf2OndanAkvanMaterialon(qena, true);
   const mesh = new THREE.Mesh(geometrio, pukek);
   mesh.renderOrder = 0;
   qena.add(mesh);
-  return { mesh, waterSurfaceY: niveloFn };
+  return { mesh, waterSurfaceY: vem2Fn };
 }
 
-function kreiOndanAkvanMaterialon(qena: THREE.Scene, maskita = false): THREE.ShaderMaterial {
+function kf2OndanAkvanMaterialon(qena: THREE.Scene, maskita = false): THREE.ShaderMaterial {
   // ⟨ ទឹក និងមេឃចែកគ្នានូវពណ៌ និងទិសព្រះអាទិត្យដដែល ក្នុងគ្រប់អាកាសធាតុ 📃 ⟩
-  const cxielo = qena.userData.cxielajUniformoj as CxielajUniformoj | undefined;
+  const cxielo = qena.userData.cxielajUnihaqoxa as CxielajUnihaqoxa | undefined;
   const maskaVertico = maskita ? "attribute float aAkvo;\nvarying float vAkvo;\n" : "";
   const maskaVerticoKodo = maskita ? "vAkvo = aAkvo;\n" : "";
   const maskaFragmento = maskita ? "varying float vAkvo;\n" : "";
@@ -231,16 +231,16 @@ function kreiOndanAkvanMaterialon(qena: THREE.Scene, maskita = false): THREE.Sha
       THREE.UniformsLib.fog,
       {
         uTime: { value: 0 },
-        uColorDeep: { value: new THREE.Color(kanakaWeh2(0x185868)) },
-        uColorShallow: { value: new THREE.Color(kanakaWeh2(0x389898)) },
-        uColorRipple: { value: new THREE.Color(kanakaWeh2(0x68b8b0)) },
+        uColorDeep: { value: new THREE.Color(veb6qaiWeh2(0x185868)) },
+        uColorShallow: { value: new THREE.Color(veb6qaiWeh2(0x389898)) },
+        uColorRipple: { value: new THREE.Color(veb6qaiWeh2(0x68b8b0)) },
         // ⟨ ការឆ្លុះអានពណ៌មេឃផ្ទាល់ ដើម្បីទឹកមានពណ៌ត្រឹមត្រូវគ្រប់ពេល 📃 ⟩
-        uTop: cxielo?.uTop ?? { value: new THREE.Color(kanakaWeh2(0x78a8c0)) },
-        uMid: cxielo?.uMid ?? { value: new THREE.Color(kanakaWeh2(0xb8d0d8)) },
-        uBot: cxielo?.uBot ?? { value: new THREE.Color(kanakaWeh2(0xe0e8e8)) },
-        uSunCol: cxielo?.uSunCol ?? { value: new THREE.Color(kanakaWeh2(0xf8f0d8)) },
-        uSpecColor: { value: new THREE.Color(kanakaWeh2(0xf0f8f8)) },
-        uFoamColor: { value: new THREE.Color(kanakaWeh2(0xf8f8f8)) },
+        uTop: cxielo?.uTop ?? { value: new THREE.Color(veb6qaiWeh2(0x78a8c0)) },
+        uMid: cxielo?.uMid ?? { value: new THREE.Color(veb6qaiWeh2(0xb8d0d8)) },
+        uBot: cxielo?.uBot ?? { value: new THREE.Color(veb6qaiWeh2(0xe0e8e8)) },
+        uSunCol: cxielo?.uSunCol ?? { value: new THREE.Color(veb6qaiWeh2(0xf8f0d8)) },
+        uSpecColor: { value: new THREE.Color(veb6qaiWeh2(0xf0f8f8)) },
+        uFoamColor: { value: new THREE.Color(veb6qaiWeh2(0xf8f8f8)) },
         uSunDir: cxielo?.uSunDir ?? { value: new THREE.Vector3(0o4/0o10, 0o63/0o100, 0o23/0o100).normalize() },
       },
     ]),
@@ -408,7 +408,7 @@ function kreiOndanAkvanMaterialon(qena: THREE.Scene, maskita = false): THREE.Sha
 
         // ⟨ ថ្នាក់រួម ៖ រលក និងច្រាំងងងឹតជាជំហាន ពណ៌នៅក្នុងប៉ាឡែតខ្លួនឯង 📃 ⟩
         vec3 kvantAkvo = konturaKrado( bazaAkvo )
-          - vec3( konturaBando( konturaNiveloDeLumo( bazaAkvo, finalColor ) ) * KONTURA_PASXO );
+          - vec3( konturaBando( konturaVem2DeLumo( bazaAkvo, finalColor ) ) * KONTURA_PASXO );
         gl_FragColor = vec4( max( vec3( 0.0 ), kvantAkvo ), alpha );
         #include <fog_fragment>
       }

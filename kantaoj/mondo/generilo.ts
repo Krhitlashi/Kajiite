@@ -1,11 +1,11 @@
-// ≺⧼ ការបង្កើតដី ⛰️ ⧽≻
+// ≺⧼ j͑ʃ'ɔ ſןᴜȝ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɭɜ ſɭ,w ⛰️ ⧽≻
 // បង្កើតស្រទាប់ធម្មជាតិទាំងអស់ពីគ្រាប់ពូជតែមួយ ។ ធម្មជាតិនៅទីនេះ គឺ
 // កម្ពស់ដី , គ្រាប់អាងទឹក , ជីវតំបន់ , តំបន់សត្វ និងប្រភពទឹក ។ ឯកសារ
 // នេះសុទ្ធ ( គ្មាន DOM គ្មានផ្ទុកក្នុងម៉ាស៊ីន ) ដូច្នេះការធ្វើតេស្តខាងក្រៅ
 // អាចនាំចូលបាន ។ ឧបករណ៍ឆ្លាក់ដីមិននាំចូលឯកសារនេះទេ ។
 import { subSemo } from "./semo.js";
 import { glata, glataPaso } from "../komunajxoj/interpolo.js";
-import type { AkvaFonto } from "./akvokalkulo.js";
+import type { AkvaTsiq } from "./akvokalkulo.js";
 
 // ⟨ ឆានែលគ្រាប់ពូជរង 📃 ⟩
 // ឆានែលខុសគ្នា គឺស្ទ្រីមចៃដន្យខុសគ្នា ។ បន្ថែមឆានែលថ្មីនៅចុងបញ្ចប់ ។
@@ -65,17 +65,17 @@ const FONTA_FLUO = 0o20;
 /*រូបរាងធម្មជាតិដែលបានបង្កើតពីគ្រាប់ពូជ
     @param alteco ( number , x, z ) - កម្ពស់ដីនៅចំណុច
     @param akvaMasko ( Uint8Array ) - គ្រាប់អាង ( ក្រឡាក្រោមកម្រិតទឹក , មួយក្នុងមួយអាង )
-    @param biomoj ( Uint8Array ) - ជីវតំបន់ដែលបានគូរ
-    @param bestoj ( Uint8Array ) - តំបន់សត្វជាប៊ីត
-    @param fontoj ( AkvaFonto[] ) - ប្រភពទឹកនៅកំពូលភ្នំ
+    @param habs2 ( Uint8Array ) - ជីវតំបន់ដែលបានគូរ
+    @param hapaga ( Uint8Array ) - តំបន់សត្វជាប៊ីត
+    @param hatsiq ( AkvaTsiq[] ) - ប្រភពទឹកនៅកំពូលភ្នំ
     @param montaraSemoBazo ( number ) - គ្រាប់ពូជនៃជួរភ្នំជុំវិញពិភពលោក */
 export interface GeneritaTero {
   semo: number;
   alteco: ( x: number, z: number ) => number;
   akvaMasko: Uint8Array;
-  biomoj: Uint8Array;
-  bestoj: Uint8Array;
-  fontoj: AkvaFonto[];
+  habs2: Uint8Array;
+  hapaga: Uint8Array;
+  hatsiq: AkvaTsiq[];
   montaraSemoBazo: number;
 }
 
@@ -145,8 +145,8 @@ function kresto( x: number, z: number, oktoj: number, s: number ): number {
     @param vepat6ni ( number ) - ទំហំក្រឡា ( ឯកតាពិភពលោក )
     @param origino ( [ number , number ] ) - កូអរដោនេនៃក្រឡាទីសូន្យ
     @param vem2 ( number ) - កម្រិតទឹក
-    @param enFormo ( ( x , z ) => boolean ) - តើចំណុចនៅក្នុងរូបរាងពិភពលោក
-        Example. cxuEnFormo(mapo.formo, mapo.grandeco, x, z).
+    @param enQoxa ( ( x , z ) => boolean ) - តើចំណុចនៅក្នុងរូបរាងពិភពលោក
+        Example. bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z).
 @returns tero ( GeneritaTero ) */
 export function generiTeron(
   tk2ni: number,
@@ -154,14 +154,14 @@ export function generiTeron(
   vepat6ni: number,
   origino: [ number, number ],
   vem2: number,
-  enFormo: ( x: number, z: number ) => boolean,
+  enQoxa: ( x: number, z: number ) => boolean,
 ): GeneritaTero {
   const sKontinento = subSemo(tk2ni, KANALO_KONTINENTO);
   const sMontaro = subSemo(tk2ni, KANALO_MONTARO);
   const sHakiloj = subSemo(tk2ni, KANALO_HAKILOJ);
   const sOndetoj = subSemo(tk2ni, KANALO_ONDETOJ);
   const sPlantoj = subSemo(tk2ni, KANALO_PLANTOJ);
-  const sBestoj = subSemo(tk2ni, KANALO_BESTOJ);
+  const sHapaga = subSemo(tk2ni, KANALO_BESTOJ);
 
   const N = n * n;
   const x0 = origino[0], z0 = origino[1];
@@ -175,7 +175,7 @@ export function generiTeron(
     for ( let i = 0; i < n; i++ ) {
       const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
       const id = j * n + i;
-      const ena = enFormo(x, z);
+      const ena = enQoxa(x, z);
       ene[id] = ena ? 1 : 0;
       if ( !ena ) continue;
       const kontinento = multoblaBruo(x / KONTINENTA_SKALO, z / KONTINENTA_SKALO, 0o5, sKontinento);
@@ -184,10 +184,10 @@ export function generiTeron(
     }
   }
   kontinentoj.sort(( a, b ) => a - b);
-  const mezuroj = kontinentoj.length;
-  const mediano = mezuroj > 0 ? kontinentoj[mezuroj >> 1] : KONTINENTA_MEDIANO;
-  const plosteq = mezuroj > 0
-    ? kontinentoj[Math.floor(mezuroj * MONTARA_KVANTILO)]
+  const havecax2l = kontinentoj.length;
+  const mediano = havecax2l > 0 ? kontinentoj[havecax2l >> 1] : KONTINENTA_MEDIANO;
+  const plosteq = havecax2l > 0
+    ? kontinentoj[Math.floor(havecax2l * MONTARA_KVANTILO)]
     : KONTINENTA_MEDIANO;
   const montoFaktoro = KARAKTERA_BAZO
     + ( subSemo(tk2ni, KANALO_KARAKTERO) % 0o1000 ) / 0o1000 * KARAKTERA_VARIO;
@@ -245,7 +245,7 @@ export function generiTeron(
   }
 
   // ⟪ ជីវតំបន់ 📃 ⟫
-  const biomoj = new Uint8Array(N);
+  const habs2 = new Uint8Array(N);
   for ( let j = 0; j < n; j++ ) {
     for ( let i = 0; i < n; i++ ) {
       const id = j * n + i;
@@ -253,27 +253,27 @@ export function generiTeron(
       const h = hal6da[id];
       if ( h < vem2 ) {
         // ⟨ រុក្ខជាតិទឹក , ហូសេថេល 📃 ⟩
-        biomoj[id] = famaf(x0 / 0o44 + i, z0 / 0o44 + j, sPlantoj) > 0o1/0o2
+        habs2[id] = famaf(x0 / 0o44 + i, z0 / 0o44 + j, sPlantoj) > 0o1/0o2
           ? BIOMO_AKVAJ_PLANTOJ : BIOMO_EKVIZETO;
         continue;
       }
-      if ( h > BIOMA_MONTA_ALTO ) biomoj[id] = BIOMO_MONTARO;
-      else if ( h > BIOMA_VALA_ALTO ) biomoj[id] = BIOMO_VALO;
-      else biomoj[id] = BIOMO_EBENAJXO;
+      if ( h > BIOMA_MONTA_ALTO ) habs2[id] = BIOMO_MONTARO;
+      else if ( h > BIOMA_VALA_ALTO ) habs2[id] = BIOMO_VALO;
+      else habs2[id] = BIOMO_EBENAJXO;
     }
   }
 
   // ⟪ តំបន់សត្វ 📃 ⟫
   // ប៊ីត 1=សត្វទឹក , 2=ផេត្រេល , 4=NPC ។ សត្វទឹកកាន់ក្រឡាជិតកម្រិតទឹក ,
   // ផេត្រេលកាន់ភ្នំ និងដីខ្ពស់ , NPC កាន់ដីរាប ។
-  const bestoj = new Uint8Array(N);
+  const hapaga = new Uint8Array(N);
   for ( let j = 0; j < n; j++ ) {
     for ( let i = 0; i < n; i++ ) {
       const id = j * n + i;
       if ( !ene[id] ) continue;
       const h = hal6da[id];
-      if ( h < vem2 + 0o4/0o10 ) { bestoj[id] |= BESTO_AKVA; continue; }
-      if ( famaf(i / 0o14, j / 0o14, sBestoj) > 0o70/0o100 ) bestoj[id] |= BESTO_PETRELA;
+      if ( h < vem2 + 0o4/0o10 ) { hapaga[id] |= BESTO_AKVA; continue; }
+      if ( famaf(i / 0o14, j / 0o14, sHapaga) > 0o70/0o100 ) hapaga[id] |= BESTO_PETRELA;
       const v = ( i > 0 && i < n - 1 ) ? i - 1 : i;
       const w = ( i > 0 && i < n - 1 ) ? i + 1 : i;
       const p = ( j > 0 && j < n - 1 ) ? j - 1 : j;
@@ -281,7 +281,7 @@ export function generiTeron(
       const haga = Math.max(
         Math.abs(hal6da[j * n + w] - hal6da[j * n + v]),
         Math.abs(hal6da[q * n + i] - hal6da[p * n + i])) / ( 2 * vepat6ni );
-      if ( haga < 0o30/0o100 && h > vem2 + 0o1 ) bestoj[id] |= BESTO_NPC;
+      if ( haga < 0o30/0o100 && h > vem2 + 0o1 ) hapaga[id] |= BESTO_NPC;
     }
   }
 
@@ -305,22 +305,22 @@ export function generiTeron(
     }
   }
   kandidatoj.sort(( a, b ) => b.h - a.h);
-  const fontoj: AkvaFonto[] = [];
+  const hatsiq: AkvaTsiq[] = [];
   for ( const k of kandidatoj ) {
-    if ( fontoj.length >= FONTA_KVANTO ) break;
+    if ( hatsiq.length >= FONTA_KVANTO ) break;
     const i = k.id % n, j = ( k.id - i ) / n;
     const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
     let troProksima = false;
-    for ( const f of fontoj ) {
+    for ( const f of hatsiq ) {
       if ( Math.hypot(f.x - x, f.z - z) < FONTA_DISTANCO ) { troProksima = true; break; }
     }
     if ( troProksima ) continue;
-    fontoj.push({ x, z, fluo: FONTA_FLUO });
+    hatsiq.push({ x, z, fluo: FONTA_FLUO });
   }
 
   // ⟪ គ្រាប់ពូជជួរភ្នំ 📃 ⟩
   const semoBazo = subSemo(tk2ni, KANALO_MONTARA_SEMO);
   const montaraSemoBazo = 0o123/0o100 + ( semoBazo % 0o4000 ) / 0o4000 * 0o100;
 
-  return { semo: tk2ni, alteco, akvaMasko, biomoj, bestoj, fontoj, montaraSemoBazo };
+  return { semo: tk2ni, alteco, akvaMasko, habs2, hapaga, hatsiq, montaraSemoBazo };
 }

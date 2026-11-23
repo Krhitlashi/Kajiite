@@ -1,12 +1,12 @@
-// ≺⧼ ផែនទីតូច 🧭 ⧽≻
+// ≺⧼ ŋᷠɹ ʃᴜ j͐ʃɹ 🧭 ⧽≻
 import * as THREE from "three";
-import { HERBA_TAVOLA_NOMO } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/gazono.js";
-import { devigiHerbanGxisdatigon } from "../../eskekoj/shalaj-specioj/vegetajxo/herbo/vento.js";
+import { HERBA_TAVOLA_NOMO } from "../../eskekoj/shalaj-hapudal/vegetajxo/fe1af/gazono.js";
+import { devigiHerbanGxisdatigon } from "../../eskekoj/shalaj-hapudal/vegetajxo/fe1af/vento.js";
 import { tuŝaGesto } from "../fasado/gestoj.js";
 import { vidlimojnMalŝalti, vidlimojnŜalti } from "./vidlimo.js";
 import { MALPOTENCA_APARATO } from "./scena/aparato.js";
 
-export interface MinimapajOpcioj {
+export interface MinimapajHasukf2qani {
   qena: THREE.Scene;
   bildilo: THREE.WebGLRenderer;
   miniKanvaso: HTMLCanvasElement;
@@ -18,8 +18,8 @@ export interface MinimapajOpcioj {
   movantoj: {
     npcoj: { group: THREE.Object3D }[];
     kanuoj: { x: number; z: number; group: THREE.Object3D }[];
-    bestoj: { bestoj: { hate: THREE.Object3D }[] };
-    petreloj: { petreloj: { hate: THREE.Object3D }[] };
+    hapaga: { hapaga: { hate: THREE.Object3D }[] };
+    hatemek: { hatemek: { hate: THREE.Object3D }[] };
   };
   traduki: ( ca3aq: string ) => string;
   aplikiVacepu: () => void;
@@ -27,25 +27,25 @@ export interface MinimapajOpcioj {
 
 export interface Minimapo {
   gxisdatigi(vidX: number, vidZ: number, centroX: number, centroZ: number): void;
-  cxuBakita(): boolean;
+  tsekeBakita(): boolean;
   // ⟨ សន្យាបញ្ចប់ពេលការដុតចប់ ឬ ពេលវាមិនអាចធ្វើបានឥឡូវ 📃 ⟩
   pretigi(): Promise<void>;
-  cxuMalfermita(): boolean;
+  tsekeMalfermita(): boolean;
   malfermi(): void;
   fermi(): void;
-  desegniRadaron(): void;
-  desegniPlenanMapon(): void;
+  k2fRadaron(): void;
+  k2fPlenanMapon(): void;
 }
 
-export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
+export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
   const { qena, bildilo, miniKanvaso, kompaso, nadlo, supermeta, supermetaEnhavo,
-    mapoGrandeco, traduki, aplikiVacepu } = opcioj;
-  const { npcoj, kanuoj, bestoj, petreloj } = opcioj.movantoj;
+    mapoGrandeco, traduki, aplikiVacepu } = hasukf2qani;
+  const { npcoj, kanuoj, hapaga, hatemek } = hasukf2qani.movantoj;
 
   // ⟪ ផែនទីតូច , ត្រីវិស័យក្លាយជាផែនទីរ៉ាដា; ចុចបើកទិដ្ឋភាពពេញ 📃 ⟫
   let mapoMalfermita = false;
   let plenaKanvaso: HTMLCanvasElement | null = null;
-  let plenaKunteksto: CanvasRenderingContext2D | null = null;
+  let plenaKuns2bana: CanvasRenderingContext2D | null = null;
   let bakitaMapo: HTMLCanvasElement | null = null;
   let mapaBakado = false;
   let mapaMalsukcesis = false;
@@ -123,8 +123,8 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
         }
         for ( const n of npcoj ) kaŝu(n.group);
         for ( const c of kanuoj ) kaŝu(c.group);
-        for ( const b of bestoj.bestoj ) kaŝu(b.hate);
-        for ( const p of petreloj.petreloj ) kaŝu(p.hate);
+        for ( const b of hapaga.hapaga ) kaŝu(b.hate);
+        for ( const p of hatemek.hatemek ) kaŝu(p.hate);
         bildilo.setRenderTarget(rt);
         // ⟨ ឆាកចម្បងបានចងក្រងរួចហើយ ។ ការចងក្រងឆាកទាំងមូលម្តងទៀត
         //   មុនផែនទីបង្កើនស្មាម និង ពេលផ្ទុកដោយមិនចាំបាច់ 📃 ⟩
@@ -143,12 +143,12 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       // ⟨ ប៊ូហ្វ័រមួយ 📃 ⟩
       const buf = new Uint8Array(rez * rez * 4);
       bildilo.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
-      const tempVico = new Uint8Array(rez * 4);
+      const tempX2pa = new Uint8Array(rez * 4);
       for ( let y = 0; y < ( rez >> 1 ); y++ ) {
         const teru = y * rez * 4, malsupra = ( rez - 1 - y ) * rez * 4;
-        tempVico.set(buf.subarray(teru, teru + rez * 4));
+        tempX2pa.set(buf.subarray(teru, teru + rez * 4));
         buf.copyWithin(teru, malsupra, malsupra + rez * 4);
-        buf.set(tempVico, malsupra);
+        buf.set(tempX2pa, malsupra);
       }
       const bildo = new ImageData(new Uint8ClampedArray(buf.buffer), rez, rez);
       const kanvasa = document.createElement("canvas");
@@ -172,14 +172,14 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   function mezuriRandanKoloron(buf: Uint8Array, rez: number): string {
     const bendo = 0o10;
     // ⟨ តែគែម 📃 ⟩
-    const vicoj = [ 0, bendo - 1, rez - 1, rez - bendo ];
+    const hax2pa = [ 0, bendo - 1, rez - 1, rez - bendo ];
     const kolumnoj = [ 0, bendo - 1, rez - 1, rez - bendo ];
     let sr = 0, sg = 0, sb = 0, n = 0;
     const aldoniEl = ( vecax2lani: number ): void => {
       sr += buf[vecax2lani]; sg += buf[vecax2lani + 1]; sb += buf[vecax2lani + 2]; n++;
     };
     for ( let k2 = 0; k2 < rez; k2 += 0o4 ) {
-      for ( let i = 0; i < vicoj.length; i++ ) aldoniEl(( vicoj[i] * rez + k2 ) * 4);
+      for ( let i = 0; i < hax2pa.length; i++ ) aldoniEl(( hax2pa[i] * rez + k2 ) * 4);
       for ( let i = 0; i < kolumnoj.length; i++ ) aldoniEl(( k2 * rez + kolumnoj[i] ) * 4);
     }
     if ( !n ) return "#585848";
@@ -206,7 +206,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     k.globalCompositeOperation = "source-over";
   }
 
-  function desegniMapanFonon(ctx: CanvasRenderingContext2D, w: number, h: number,
+  function k2fMapanFonon(ctx: CanvasRenderingContext2D, w: number, h: number,
     cx: number, cz: number, hw: number, hh: number): void {
     const unuo = w / ( 2 * hw );
     const [ mx, my ] = mondoAlEkrano(0, 0, cx, cz, hw, hh, w, h);
@@ -220,13 +220,13 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     ctx.fillRect(0, 0, w, h);
   }
 
-  function desegniMapanTavolon(ctx: CanvasRenderingContext2D, fonto: HTMLCanvasElement, cx: number, cz: number, hw: number, hh: number, w: number, h: number): void {
+  function k2fMapanTavolon(ctx: CanvasRenderingContext2D, tsiq: HTMLCanvasElement, cx: number, cz: number, hw: number, hh: number, w: number, h: number): void {
     const rez = MAPA_BAKA_REZ, p2somani = MAPA_BAKA_DUONO;
     const sx = ( p2somani - ( cx + hw ) ) / ( 2 * p2somani ) * rez;
     const sy = ( p2somani - ( cz + hh ) ) / ( 2 * p2somani ) * rez;
     const sw = ( 2 * hw ) / ( 2 * p2somani ) * rez;
     const sh = ( 2 * hh ) / ( 2 * p2somani ) * rez;
-    ctx.drawImage(fonto, sx, sy, sw, sh, 0, 0, w, h);
+    ctx.drawImage(tsiq, sx, sy, sw, sh, 0, 0, w, h);
   }
 
   function mondoAlEkrano(x: number, z: number, cx: number, cz: number, hw: number, hh: number, w: number, h: number): [ number, number ] {
@@ -244,7 +244,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   ];
   const SAGO_GRANDO = SAGO_R * 0o2 + SAGO_BORDO + 0o2;
 
-  function desegniSaganFormon(ctx: CanvasRenderingContext2D): void {
+  function k2fSaganQoxan(ctx: CanvasRenderingContext2D): void {
     const [ A, B, C ] = SAGO_VERTICOJ;
     ctx.beginPath();
     ctx.moveTo(( C.x + A.x ) / 0o2, ( C.y + A.y ) / 0o2);
@@ -260,7 +260,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     ctx.stroke();
   }
 
-  function kreiSaganBildon(grandeco = SAGO_GRANDO): string {
+  function kf2SaganBildon(grandeco = SAGO_GRANDO): string {
     const denso = Math.min(0o2, Math.max(1, devicePixelRatio || 1));
     const kanvasa = document.createElement("canvas");
     kanvasa.width = kanvasa.height = Math.ceil(grandeco * denso);
@@ -269,21 +269,21 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     const p6zukani = ( grandeco / SAGO_GRANDO ) * denso;
     k.scale(p6zukani, p6zukani);
     k.translate(SAGO_GRANDO / 0o2, SAGO_GRANDO / 0o2);
-    desegniSaganFormon(k);
+    k2fSaganQoxan(k);
     return kanvasa.toDataURL();
   }
 
-  function desegniMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
+  function k2fMarkilon(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
     const [ px, py ] = mondoAlEkrano(mapX, mapZ, cx, cz, hw, hh, w, h);
     const fx = vidX, fz = vidZ;
     ctx.save();
     ctx.translate(px, py);
     ctx.rotate(Math.atan2(-fx, fz));
-    desegniSaganFormon(ctx);
+    k2fSaganQoxan(ctx);
     ctx.restore();
   }
 
-  function desegniMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
+  function k2fMovantajnPunktojn(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
     const n2k = ( x: number, z: number, weh2: string ) => {
       const [ px, py ] = mondoAlEkrano(x, z, cx, cz, hw, hh, w, h);
       if ( px < -3 || px > w + 3 || py < -3 || py > h + 3 ) return;
@@ -295,30 +295,30 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
   }
 
   // ⟨ ម្ជុលពាក់សញ្ញាសម្គាល់លើរ៉ាដា 📃 ⟩
-  const radaraKunteksto = miniKanvaso.getContext("2d");
-  function desegniRadaron(): void {
-    const ctx = radaraKunteksto;
+  const radaraKuns2bana = miniKanvaso.getContext("2d");
+  function k2fRadaron(): void {
+    const ctx = radaraKuns2bana;
     if ( !ctx || !bakitaMapo ) return;
-    desegniMapanTavolon(ctx, bakitaMapo, mapX, mapZ, RADARA_DUONO, RADARA_DUONO, 0o200, 0o200);
-    desegniMovantajnPunktojn(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
+    k2fMapanTavolon(ctx, bakitaMapo, mapX, mapZ, RADARA_DUONO, RADARA_DUONO, 0o200, 0o200);
+    k2fMovantajnPunktojn(ctx, 0o200, 0o200, mapX, mapZ, RADARA_DUONO, RADARA_DUONO);
   }
 
-  function desegniPlenanMapon(): void {
-    if ( !plenaKanvaso || !plenaKunteksto || !bakitaMapo ) return;
+  function k2fPlenanMapon(): void {
+    if ( !plenaKanvaso || !plenaKuns2bana || !bakitaMapo ) return;
     const nun = performance.now();
     if ( nun - lastaPlenaMapoTempo < PLENA_MAPA_PERIODO ) return;
     lastaPlenaMapoTempo = nun;
     const kanvasa = plenaKanvaso;
-    const ctx = plenaKunteksto;
+    const ctx = plenaKuns2bana;
     const w = kanvasa.clientWidth || innerWidth;
     const h = kanvasa.clientHeight || innerHeight;
     if ( kanvasa.width !== w || kanvasa.height !== h ) { kanvasa.width = w; kanvasa.height = h; }
     const aspekto = w / h;
     const hw = plenaDuono * aspekto, hh = plenaDuono;
-    desegniMapanFonon(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
-    desegniMapanTavolon(ctx, bakitaMapo, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh, w, h);
-    desegniMarkilon(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
-    desegniMovantajnPunktojn(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
+    k2fMapanFonon(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
+    k2fMapanTavolon(ctx, bakitaMapo, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh, w, h);
+    k2fMarkilon(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
+    k2fMovantajnPunktojn(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
   }
 
   // ⟨ ផែនទីជាជម្រើសបន្ថែម មិនមែនលក្ខខណ្ឌចូលពិភពលោក 📃 ⟩
@@ -391,8 +391,8 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
       kanvasa.width = innerWidth;
       kanvasa.height = innerHeight;
       plenaKanvaso = kanvasa;
-      plenaKunteksto = kanvasa.getContext("2d");
-      if ( !plenaKunteksto ) { console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ផែនទីពេញមិនអាចប្រើបាន ( បរិបទ 2D )"); plenaKanvaso = null; return; }
+      plenaKuns2bana = kanvasa.getContext("2d");
+      if ( !plenaKuns2bana ) { console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ផែនទីពេញមិនអាចប្រើបាន ( បរិបទ 2D )"); plenaKanvaso = null; return; }
       kanvasa.addEventListener("wheel", ( e ) => {
         e.preventDefault();
         const delt = e.deltaMode === 1 ? e.deltaY * 0o20 : e.deltaY;
@@ -440,7 +440,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
     supermeta.classList.remove("montri");
     plenaKanvaso?.remove();
     plenaKanvaso = null;
-    plenaKunteksto = null;
+    plenaKuns2bana = null;
   }
   kompaso.addEventListener("click", malfermiMapon);
   kompaso.addEventListener("keydown", ( e ) => {
@@ -449,7 +449,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
 
   miniKanvaso.width = miniKanvaso.height = 0o200;
   const SAGO_NADLA_GRANDO = 0o24;
-  const sagoBildo = kreiSaganBildon(SAGO_NADLA_GRANDO);
+  const sagoBildo = kf2SaganBildon(SAGO_NADLA_GRANDO);
   if ( sagoBildo ) {
     nadlo.style.setProperty("--sagoGrando", SAGO_NADLA_GRANDO + "px");
     nadlo.style.setProperty("--sago", `url("${sagoBildo}")`);
@@ -469,7 +469,7 @@ export function kreiMinimapon(opcioj: MinimapajOpcioj): Minimapo {
 
   return {
     gxisdatigi, pretigi, malfermi: malfermiMapon, fermi: fermiMapon,
-    cxuMalfermita: () => mapoMalfermita, cxuBakita: () => bakitaMapo !== null,
-    desegniRadaron, desegniPlenanMapon,
+    tsekeMalfermita: () => mapoMalfermita, tsekeBakita: () => bakitaMapo !== null,
+    k2fRadaron, k2fPlenanMapon,
   };
 }

@@ -1,52 +1,52 @@
-// ≺⧼ វត្ថុធាតុ 🎨 ⧽≻
+// ≺⧼ ſןw ſɭɔƽ 🎨 ⧽≻
 import * as THREE from "three";
-import { ombraKoloro } from "./koloroj.js";
-import { kreiAndezitanTeksajxon } from "./teksajxoj/andezito.js";
-import { kreiAndezitanBumpanTeksajxon } from "./teksajxoj/andezito-bumpo.js";
-import { kreiDioritanTeksajxon } from "./teksajxoj/diorito.js";
-import { kreiDioritanBumpanTeksajxon } from "./teksajxoj/diorito-bumpo.js";
+import { hunanuWeh2 } from "./koloroj.js";
+import { kf2T6hnaCac2sex } from "./cac2sex/t6hna.js";
+import { kf2T6hnaL6daCac2sex } from "./cac2sex/t6hna-bumpo.js";
+import { kf2T6g6Cac2sex } from "./cac2sex/t6g6.js";
+import { kf2T6g6L6daCac2sex } from "./cac2sex/t6g6-bumpo.js";
 
-export function kreiDioritanMaterialon(map?: THREE.Texture, envMapIntensity?: number): THREE.MeshStandardMaterial {
-  const m = new THREE.MeshStandardMaterial({
+export function kf2T6g6Pukek(cac2sex?: THREE.Texture, envMapIntensity?: number): THREE.MeshStandardMaterial {
+  const pukek = new THREE.MeshStandardMaterial({
     color: 0xffffff,
-    map: map ?? kreiDioritanTeksajxon(),
-    bumpMap: kreiDioritanBumpanTeksajxon(),
+    map: cac2sex ?? kf2T6g6Cac2sex(),
+    bumpMap: kf2T6g6L6daCac2sex(),
     bumpScale: 0o1/0o100,
     roughness: 0o7/0o10,
     metalness: 0o1/0o20,
   });
-  if ( envMapIntensity !== undefined ) m.envMapIntensity = envMapIntensity;
-  return m;
+  if ( envMapIntensity !== undefined ) pukek.envMapIntensity = envMapIntensity;
+  return pukek;
 }
 
-export function kreiAndezitanMaterialon(map?: THREE.Texture): THREE.MeshStandardMaterial {
-  const m = new THREE.MeshStandardMaterial({
+export function kf2T6hnaPukek(cac2sex?: THREE.Texture): THREE.MeshStandardMaterial {
+  const pukek = new THREE.MeshStandardMaterial({
     color: 0xffffff,
-    map: map ?? kreiAndezitanTeksajxon(),
-    bumpMap: kreiAndezitanBumpanTeksajxon(),
+    map: cac2sex ?? kf2T6hnaCac2sex(),
+    bumpMap: kf2T6hnaL6daCac2sex(),
     bumpScale: 0o3/0o100,
     roughness: 0o63/0o100,
   });
-  return m;
+  return pukek;
 }
 
-// ⟨ ពណ៌មកពីអគារ 📃 ⟩
-// ⟨ ការធ្វើឲ្យងងឹតជាការដក 📃 ⟩
-// ⟨ ការដកប៉ុន្មាន 📃 ⟩
-// ⟨ ហេតុអ្វីមិនតូចជាង 📃 ⟩
-// ⟨ ការបញ្ចេញពន្លឺបាត់ 📃 ⟩
-export function kreiPordanMaterialon(muraMaterialo: THREE.MeshStandardMaterial): THREE.MeshStandardMaterial {
-  const pordo = muraMaterialo.clone();
-  pordo.color = new THREE.Color(ombraKoloro(muraMaterialo.color.getHex(), 0o1/0o2));
-  // ⟨ វាយនភាពអាន uv1 , ខ្សែកោងអាន uv រាបក្នុងមុខទ្វារ 📃 ⟩
-  if ( pordo.map ) { pordo.map = pordo.map.clone(); pordo.map.channel = 1; pordo.map.needsUpdate = true; }
-  if ( pordo.bumpMap ) { pordo.bumpMap = pordo.bumpMap.clone(); pordo.bumpMap.channel = 1; pordo.bumpMap.needsUpdate = true; }
-  return pordo;
+// ⟪ ſɭʞɹ ʌ ſןw ſɭɔƽ ʌ ᶅſɔ ֭ſɭɹ 📃 ⟫
+// ⟪ ſɭʞɹ ʌ ֭ſɭw }ʃᴜ }ʃw 📃 ⟫
+// ⟪ ſɭʞɹ ʌ ֭ſɭw }ʃᴜ }ʃw ʌ ſןᴜ j͐ʃэ 📃 ⟫
+// ⟪ ſɭʞɹ ʌ ᶅſɹ ɭ(ɹ ʌ ſןᴜ j͐ʃэ 📃 ⟫
+// ⟪ ſɭɜ j͐ʃɹ ʌ ſᶘꞇ ɭl̀ɔ 📃 ⟫
+export function kf2KevPukek(tu5ekani1el2saiPukek: THREE.MeshStandardMaterial): THREE.MeshStandardMaterial {
+  const kev = tu5ekani1el2saiPukek.clone();
+  kev.color = new THREE.Color(hunanuWeh2(tu5ekani1el2saiPukek.color.getHex(), 0o1/0o2));
+  // ⟪ ſɭʞɹ ʌ ſɟᴜ ֭ſɭэ ſɭэ ʌ ᶅſɹ ɭ(ɹ 📃 ⟫
+  if ( kev.map ) { kev.map = kev.map.clone(); kev.map.channel = 1; kev.map.needsUpdate = true; }
+  if ( kev.bumpMap ) { kev.bumpMap = kev.bumpMap.clone(); kev.bumpMap.channel = 1; kev.bumpMap.needsUpdate = true; }
+  return kev;
 }
 
-// ⟨ ឧទាហរណ៍ថ្មីជានិច្ច 📃 ⟩
-// ⟨ អ្វីធ្វើឲ្យវាជាកញ្ចក់ 📃 ⟩
-export function kreiFenestranMaterialon(): THREE.MeshStandardMaterial {
+// ⟪ ſɭʞɹ ʌ j͑ʃɔ ſȷэⅎ ʌ ſןw ſɭɔƽ 📃 ⟫
+// ⟪ ſɭʞɹ ʌ ſɟᴜ ֭ſɭэ ſɭэ ʌ ſןw ſɭɔƽ 📃 ⟫
+export function kf2Cah6k6Pukek(): THREE.MeshStandardMaterial {
   return new THREE.MeshStandardMaterial({
     color: 0x081818, emissive: 0x688888, emissiveIntensity: 0o3/0o20,
     roughness: 0o7/0o100, metalness: 0o3/0o20,
@@ -54,6 +54,6 @@ export function kreiFenestranMaterialon(): THREE.MeshStandardMaterial {
   });
 }
 
-export function kreiOranMaterialon(weh2: number): THREE.MeshStandardMaterial {
+export function kf2KuhalPukek(weh2: number): THREE.MeshStandardMaterial {
   return new THREE.MeshStandardMaterial({ color: weh2, metalness: 0o33/0o40, roughness: 0o13/0o40, emissive: 0x302808, emissiveIntensity: 0o13/0o40, envMapIntensity: 0o12/0o10 });
 }

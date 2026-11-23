@@ -1,4 +1,4 @@
-// ≺⧼ ការវាស់សមត្ថភាពខឺណែល 📏 ⧽≻
+// ≺⧼ j͐ʃɜ ᶅſᴜƽ ʌ j͑ʃ'ɔ ſ͕ɭᴜ ſןᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
 import * as THREE from "three";
 import { specimenoBikuba, specimenoDulineara } from "../../kantaoj/mondo/akvokalkulo.js";
 import { bruo2D, terenaKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";

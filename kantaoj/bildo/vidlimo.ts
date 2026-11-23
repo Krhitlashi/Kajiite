@@ -1,4 +1,4 @@
-// ≺⧼ ដែនមើល 🔭 ⧽≻
+// ≺⧼ ſȷɔ ſᶘᴜʞ ʌ j͑ʃ'ɔ ɭʃᴜ ֭ſɭᴜȝ ꞁȷ̀ᴜ }ʃꞇ 🔭 ⧽≻
 // ⟨ ការបែងចែកលំហ 📃 ⟩
 // ⟨ ដែនកំណត់ចម្ងាយ 📃 ⟩
 import * as THREE from "three";
@@ -170,16 +170,16 @@ export function registriKunigitajnMeshojn(zace: THREE.Object3D, ksaka = "kunigit
 }
 
 // ⟨ ដែនកំណត់ស្រមោលរបស់មានជីវិត 📃 ⟩
-export function registriVivantojn(opcioj: {
+export function registriVivantojn(hasukf2qani: {
   npcoj: { group: THREE.Object3D }[];
   kanuoj: { group: THREE.Object3D }[];
-  bestoj: { hate: THREE.Object3D }[];
-  petreloj: { hate: THREE.Object3D }[];
+  hapaga: { hate: THREE.Object3D }[];
+  hatemek: { hate: THREE.Object3D }[];
 }): void {
-  for (const n of opcioj.npcoj) sekviVidlimon(n.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO, VIVANTA_DETALO);
-  for (const k of opcioj.kanuoj) sekviVidlimon(k.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO, VIVANTA_DETALO);
-  for (const b of opcioj.bestoj) sekviVidlimon(b.hate, VIVANTA_LIMO);
-  for (const p of opcioj.petreloj) sekviVidlimon(p.hate, VIVANTA_LIMO);
+  for (const n of hasukf2qani.npcoj) sekviVidlimon(n.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO, VIVANTA_DETALO);
+  for (const k of hasukf2qani.kanuoj) sekviVidlimon(k.group, VIVANTA_LIMO, 0o4, VIVANTA_OMBRO, VIVANTA_DETALO);
+  for (const b of hasukf2qani.hapaga) sekviVidlimon(b.hate, VIVANTA_LIMO);
+  for (const p of hasukf2qani.hatemek) sekviVidlimon(p.hate, VIVANTA_LIMO);
 }
 
 // ⟪ ការដកអ្វីដែលលាក់ចេញ 📃 ⟫
@@ -314,9 +314,9 @@ export function spacigiInstancojn(zace: THREE.Object3D,
       const o = i * 0o20;
       const p6zukani = Math.hypot(raqa[o], raqa[o + 1], raqa[o + 2]);
       if (p6zukani > maksSkalo) maksSkalo = p6zukani;
-      const ŝlosilo = Math.floor(raqa[o + 0o14] / tabelo) * 0o100000 + Math.floor(raqa[o + 0o16] / tabelo);
-      let ujo = ujoj.get(ŝlosilo);
-      if (ujo === undefined) ujoj.set(ŝlosilo, ujo = []);
+      const ca3aq = Math.floor(raqa[o + 0o14] / tabelo) * 0o100000 + Math.floor(raqa[o + 0o16] / tabelo);
+      let ujo = ujoj.get(ca3aq);
+      if (ujo === undefined) ujoj.set(ca3aq, ujo = []);
       ujo.push(i);
     }
     const gepatra = m.parent;
@@ -338,10 +338,10 @@ export function spacigiInstancojn(zace: THREE.Object3D,
       kek.instanceMatrix.needsUpdate = true;
       if (haweh2 !== null) {
         const n = haweh2.itemSize;
-        const fontaAreo = haweh2.array as Float32Array;
+        const tsiqAreo = haweh2.array as Float32Array;
         const pecaAreo2 = new Float32Array(havecax2lani.length * n);
         for (let k = 0; k < havecax2lani.length; k++) {
-          pecaAreo2.set(fontaAreo.subarray(havecax2lani[k] * n, havecax2lani[k] * n + n), k * n);
+          pecaAreo2.set(tsiqAreo.subarray(havecax2lani[k] * n, havecax2lani[k] * n + n), k * n);
         }
         const pecaKoloro = new THREE.InstancedBufferAttribute(pecaAreo2, n);
         pecaKoloro.needsUpdate = true;

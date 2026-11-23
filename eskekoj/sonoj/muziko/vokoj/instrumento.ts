@@ -1,4 +1,4 @@
-// ≺⧼ ឧបករណ៍ផ្សាយ 🎛️ ⧽≻
+// ≺⧼ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎛️ ⧽≻
 import { siku } from "./siku.js";
 import { ocarina } from "./ocarina.js";
 import { didj } from "./didj.js";
@@ -9,7 +9,7 @@ import { inanga } from "./inanga.js";
 import { mbira } from "./mbira.js";
 import { kiiqflak } from "./kiiqflak.js";
 import { hiwe } from "./hiwe.js";
-import type { SonoEvento } from "./tipoj.js";
+import type { SonoEvento } from "./hahunaq.js";
 import { faktoro } from "./vario.js";
 export function instrumento(ctx: AudioContext, out: AudioNode, e: SonoEvento, t: number) {
   const f = e.f ?? 0;

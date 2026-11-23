@@ -1,7 +1,7 @@
-// ≺⧼ ជំនួយរួមរបស់ចម្រៀង 🎼 ⧽≻
+// ≺⧼ j͑ʃɔ j͑ʃп́ꞇ ſɭɔƴ ʌ ſȷɔ ſɭ,ꞇ ꞁȷ̀ᴜ }ʃꞇ 🎼 ⧽≻
 // មេឡូឌីដឹកនាំ និងជំនួយគូរណោតដែលវិលនីមួយៗប្រើរួមគ្នា។
 
-import type { SonoEvento } from "../vokoj/tipoj.js";
+import type { SonoEvento } from "../vokoj/hahunaq.js";
 import { F } from "../vokoj/skaloj.js";
 
 // ⟪ មេឡូឌីដឹកនាំ អៃស៊ីអាគ្រី 📃 ⟫

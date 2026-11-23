@@ -1,32 +1,32 @@
-// ≺⧼ ដីជុំវិញផ្លូវ 🔬 ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ j͑ʃᴜƽ ſןэ j͑ʃᴜ̭ᴜ j͑ʃᴜꞇ ʌ ſɭɜ ſɭ,w 🔬 ⧽≻
 // ⟨ បង្ហាញកម្ពស់ដីនៅកណ្តាលផ្លូវ និងនៅសងខាង ។ ដើម្បីដឹងថាការលើកកម្ពស់
 // មកពីជម្រាលចំហៀង ឬមកពីពំនូកក្នុងរង្វង់ ។ 📃 ⟩
-import { aktivajVojoj, aktivajDokoj } from "../../kantaoj/tero-datumaro/rultempo.js";
+import { aktivajHak6h6, aktivajHaqakaj2 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
-import { troviVojaRetajnKunigojn } from "../../eskekoj/medio/voj-reto.js";
-import { gluiVojaFinon } from "../../eskekoj/medio/vojoj/gluado.js";
-import { kreiBazanVojoAlton, kreiVojoAlton } from "../../eskekoj/medio/vojoj/alto.js";
-import { vojaLarghoDuono } from "../../eskekoj/medio/vojoj/mezuroj.js";
-import type { VojaPunkto } from "../../eskekoj/medio/voj-reto/tipoj.js";
+import { troviK6h6RetajnHaveb6kekn } from "../../eskekoj/medio/voj-reto.js";
+import { gluiK6h6Finon } from "../../eskekoj/medio/hak6h6/gluado.js";
+import { kf2BazanK6h6Alton, kf2K6h6Alton } from "../../eskekoj/medio/hak6h6/alto.js";
+import { k6h6LarghoDuono } from "../../eskekoj/medio/hak6h6/havecax2l.js";
+import type { K6h6Punkto } from "../../eskekoj/medio/voj-reto/hahunaq.js";
 
-const VOJOJ = aktivajVojoj().filter(v => v.n2k.length >= 2);
-const DOKOJ = aktivajDokoj();
+const VOJOJ = aktivajHak6h6().filter(v => v.n2k.length >= 2);
+const DOKOJ = aktivajHaqakaj2();
 const landoj = DOKOJ.map(d => {
   const r = d.rotacio ?? 0;
-  return [ d.x + Math.sin(r) * ( d.profundo / 2 ), d.z + Math.cos(r) * ( d.profundo / 2 ) ] as VojaPunkto;
+  return [ d.x + Math.sin(r) * ( d.profundo / 2 ), d.z + Math.cos(r) * ( d.profundo / 2 ) ] as K6h6Punkto;
 });
-const antaŭaj = troviVojaRetajnKunigojn(
+const ne3ak2 = troviK6h6RetajnHaveb6kekn(
   VOJOJ.map(v => ( { n2k: v.n2k, sefini: v.sefini } )), DOKOJ);
-const gluitaj = VOJOJ.map((v, i) => gluiVojaFinon(v.n2k,
-  antaŭaj.map(k => [ k.x, k.z ] as VojaPunkto),
+const gluitaj = VOJOJ.map((v, i) => gluiK6h6Finon(v.n2k,
+  ne3ak2.map(k => [ k.x, k.z ] as K6h6Punkto),
   landoj.map(p => ( { x: p[0], z: p[1] } )),
   VOJOJ.filter((_, j) => j !== i).map(o => o.n2k)));
-const kunigoj = troviVojaRetajnKunigojn(
+const haveb6kek = troviK6h6RetajnHaveb6kekn(
   VOJOJ.map((v, i) => ( { n2k: gluitaj[i], sefini: v.sefini } )), DOKOJ);
-const baza = kreiBazanVojoAlton(alteco);
-const vojoAlteco = kreiVojoAlton(alteco, kunigoj);
+const baza = kf2BazanK6h6Alton(alteco);
+const k6h6Alteco = kf2K6h6Alton(alteco, haveb6kek);
 
-function raqa( n2k: readonly VojaPunkto[], s: number ) {
+function raqa( n2k: readonly K6h6Punkto[], s: number ) {
   let kur = 0;
   for ( let k = 0; k < n2k.length - 1; k++ ) {
     const a = n2k[k], b = n2k[k + 1];
@@ -45,7 +45,7 @@ const n2k = gluitaj[celo];
 let sahakani = 0;
 for ( let k = 0; k < n2k.length - 1; k++ )
   sahakani += Math.hypot(n2k[k + 1][0] - n2k[k][0], n2k[k + 1][1] - n2k[k][1]);
-const flanka = vojaLarghoDuono( VOJOJ[celo].sefini );
+const flanka = k6h6LarghoDuono( VOJOJ[celo].sefini );
 console.log(`⟨ ${VOJOJ[celo].ksaka} ⟩ ប្រវែង ${sahakani.toFixed(1)} កន្លះ ${flanka.toFixed(2)}`);
 const xaqadi = Number(process.argv[3] ?? 0), z2hak = Number(process.argv[4] ?? sahakani);
 for ( let s = xaqadi; s <= z2hak; s += 0o2 ) {
@@ -66,6 +66,6 @@ for ( let s = xaqadi; s <= z2hak; s += 0o2 ) {
   const mdu = alteco(p.x - p.lx * flanka, p.z - p.lz * flanka);
   console.log(`  s ${s.toFixed(1)} ៖ កណ្តាល ${sost2.toFixed(2)}` +
     ` , សងខាង ${du.toFixed(2)}/${mdu.toFixed(2)}` +
-    ` , វាល ${vojoAlteco(p.x, p.z).toFixed(2)}` +
+    ` , វាល ${k6h6Alteco(p.x, p.z).toFixed(2)}` +
     ` , គោល ${baza(p.x, p.z).toFixed(2)} , រង្វង់ ${radioj.join(" ")}`);
 }

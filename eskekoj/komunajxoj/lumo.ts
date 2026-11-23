@@ -1,4 +1,4 @@
-// ≺⧼ ប្រព័ន្ធពន្លឺរួម 🏮 ⧽≻
+// ≺⧼ ſᶘꞇ ɭl̀ɔ j͑ʃᴜꞇ ʌ ſɭᴜc̗ ɭʃᴜ 🏮 ⧽≻
 // ⟨ ឆាកហ្គេម និងឆាកឧទាហរណ៍ទាំងអស់អានពន្លឺពីឯកសារនេះ ។ ពន្លឺចង្កៀងកោង
 // មកពីម៉ូឌុល lampaFalo ដែលបាននាំចេញឡើងវិញនៅទីនេះ ។ មេឃតែមួយបង្កើត
 // ទាំងពន្លឺមេឃ-ព្រះអាទិត្យ និងបរិស្ថានឆ្លុះ PMREM , ដូច្នេះការឆ្លុះមកពី
@@ -6,10 +6,10 @@
 import * as THREE from "three";
 import { aplikiLampaFalon } from "./lampaFalo.js";
 
-export { aplikiLampaFalon, aplikiViglanLampanFalon, kreiLampaFaloUniformojn,
-  ligiLampajnUniformojn, LAMPA_FALO_DEFAUXLTA, LAMPA_FALO_NOMOJ, LAMPA_LUMO, lampaFaloGLSL,
+export { aplikiLampaFalon, aplikiViglanLampanFalon, kf2LampaFaloUnihaqoxan,
+  ligiLampajnUnihaqoxan, LAMPA_FALO_DEFAUXLTA, LAMPA_FALO_NOMOJ, LAMPA_LUMO, lampaFaloGLSL,
   lampaFaloSrgbJS } from "./lampaFalo.js";
-export type { LampaLumo, LampaFaloAgordo, LampaFaloTokenoj, LampaFaloUniformoj }
+export type { LampaLumo, LampaFaloAgordo, LampaFaloTokenoj, LampaFaloUnihaqoxa }
   from "./lampaFalo.js";
 
 // ⟨ វាលកោងរួមតែមួយ ៖ សម្ភារៈជាប់ខ្លួន ទឹក និងមេឃហៅមុខងារដូចគ្នា គ្មានផ្លូវដាច់ដោយឡែក 📃 ⟩
@@ -37,7 +37,7 @@ float konturaBando( float vem2 ) {
   return floor( vem2 ) + smoothstep(
     ${0o1 / 0o2} - lar, ${0o1 / 0o2} + lar, fract( vem2 ) );
 }
-float konturaNiveloDeLumo( vec3 baza, vec3 lumita ) {
+float konturaVem2DeLumo( vec3 baza, vec3 lumita ) {
   return clamp( ( konturaLumo( konturaKrado( baza ) ) - konturaLumo( lumita ) )
     / KONTURA_PASXO, ${0o0}.0, ${0o4}.0 );
 }
@@ -90,21 +90,21 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 raqa, vec3 supo, vec3 lumo,
   vec2 lumT = vec2( dot( lumo, tanU ), dot( lumo, tanV ) );
   vec3 kameraDirekto = normalize( -raqa );
   vec2 vidT = vec2( dot( kameraDirekto, tanU ), dot( kameraDirekto, tanV ) );
-  vec3 centroPozicio = raqa;
+  vec3 centroXekuxa = raqa;
   float h6kuni = length( raqa );
   #if __VERSION__ >= 300
     vec2 uvoX = dFdx( uv );
     vec2 uvoY = dFdy( uv );
-    vec3 pozicioX = dFdx( raqa );
-    vec3 pozicioY = dFdy( raqa );
+    vec3 xekuxaX = dFdx( raqa );
+    vec3 xekuxaY = dFdy( raqa );
     float determinanto = uvoX.x * uvoY.y - uvoY.x * uvoX.y;
     if ( abs( determinanto ) > ${0o1 / 0o10000} ) {
-      vec3 aksoU = ( pozicioX * uvoY.y - pozicioY * uvoX.y ) / determinanto;
-      vec3 aksoV = ( pozicioY * uvoX.x - pozicioX * uvoY.x ) / determinanto;
-      centroPozicio = raqa + aksoU * ( ${0o1 / 0o2} - uv.x )
+      vec3 aksoU = ( xekuxaX * uvoY.y - xekuxaY * uvoX.y ) / determinanto;
+      vec3 aksoV = ( xekuxaY * uvoX.x - xekuxaX * uvoY.x ) / determinanto;
+      centroXekuxa = raqa + aksoU * ( ${0o1 / 0o2} - uv.x )
         + aksoV * ( ${0o1 / 0o2} - uv.y );
-      kameraDirekto = normalize( -centroPozicio );
-      h6kuni = length( centroPozicio );
+      kameraDirekto = normalize( -centroXekuxa );
+      h6kuni = length( centroXekuxa );
       lumT = konturaUvoDirekto( lumo, normalo, aksoU, aksoV );
       vidT = konturaUvoDirekto( kameraDirekto, normalo, aksoU, aksoV );
     }
@@ -174,7 +174,7 @@ vec3 konturaKoloro( vec3 bazaLin, float vem2 ) {
 // ⟪ មេឃរួម 🌤 ⟫
 // ⟨ មេឃតែមួយសម្រាប់ឆាក និងកញ្ចក់ឆ្លុះ ។ លេខក្នុងខ្សែជាទសភាគ ព្រោះ GLSL
 // គ្មានលេខអដ្ឋមាន ។ គ្រប់ឆាកប្រើវត្ថុធាតុនេះ ដើម្បីកុំឱ្យមេឃខុសគ្នា ។ 📃 ⟩
-export type CxielajUniformoj = {
+export type CxielajUnihaqoxa = {
   uTop: THREE.IUniform< THREE.Color >;
   uMid: THREE.IUniform< THREE.Color >;
   uBot: THREE.IUniform< THREE.Color >;
@@ -200,7 +200,7 @@ float stelaHazardo( vec2 p ) {
   haz += dot( haz, haz.yzx + ${0o40 + 0o1 / 0o3} );
   return fract( ( haz.x + haz.y ) * haz.z );
 }
-float stelaFormo( vec2 p ) {
+float stelaQoxa( vec2 p ) {
   float r = length( p );
   float ang = atan( p.y, p.x );
   float f = abs( mod( ang + ${Math.PI / 0o4}, ${Math.PI / 0o2} ) - ${Math.PI / 0o4} );
@@ -256,7 +256,7 @@ void main() {
     stelaHazardo( stelaId + ${0o43}.0 ) ) - ${0o1 / 0o2} ) * ${0o1 / 0o2};
   float stelaGrando = ${0o1 / 0o20} + stelaHazardo( stelaId + ${0o65}.0 ) * ${0o1 / 0o20};
   float stelaElekto = step( ${0o17 / 0o20}, stelaHazardo( stelaId ) );
-  float stelaMasko = stelaFormo( ( stelaLoka - stelaOfseto ) / stelaGrando ) * stelaElekto;
+  float stelaMasko = stelaQoxa( ( stelaLoka - stelaOfseto ) / stelaGrando ) * stelaElekto;
   float stelaNokto = smoothstep( ${0o3 / 0o10}, ${0o7 / 0o10}, uNokto );
   float stelaHorizonto = smoothstep( ${-0o1 / 0o40}, ${0o3 / 0o40}, d.y );
   float stelaAlfo = stelaMasko * stelaNokto * stelaHorizonto;
@@ -268,12 +268,12 @@ void main() {
 }`;
 
 /* បង្កើតវត្ថុធាតុមេឃ ដែលប្រើទាំងលើឆាក និងក្នុងកញ្ចក់ឆ្លុះ ។
-    @param uniformoj ( CxielajUniformoj ) - ពណ៌បីជាន់ ពណ៌ព្រះអាទិត្យ និងទិសព្រះអាទិត្យ ។
+    @param unihaqoxa ( CxielajUnihaqoxa ) - ពណ៌បីជាន់ ពណ៌ព្រះអាទិត្យ និងទិសព្រះអាទិត្យ ។
 @returns វត្ថុធាតុមេឃ ( THREE.RawShaderMaterial )។ */
-export function kreiCxielanMaterialon(
-  uniformoj: CxielajUniformoj ): THREE.RawShaderMaterial {
+export function kf2CxielanMaterialon(
+  unihaqoxa: CxielajUnihaqoxa ): THREE.RawShaderMaterial {
   return new THREE.RawShaderMaterial({ side: THREE.BackSide, depthWrite: false, fog: false,
-    uniforms: uniformoj, vertexShader: CXIELA_VERTEKS0, fragmentShader: CXIELA_FRAGMENTO });
+    uniforms: unihaqoxa, vertexShader: CXIELA_VERTEKS0, fragmentShader: CXIELA_FRAGMENTO });
 }
 
 // ⟪ បរិស្ថានឆ្លុះ 🪞 ⟫
@@ -321,7 +321,7 @@ function malsamajKoloroj( a: THREE.Color, b: THREE.Color ): boolean {
 @returns ការគ្រប់គ្រងបរិស្ថាន ( Medio )។ */
 export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
   ku1o: Partial< MediaAgordo > = {} ): Medio {
-  const uniformoj: CxielajUniformoj = {
+  const unihaqoxa: CxielajUnihaqoxa = {
     uTop: { value: new THREE.Color( DEFAUXLTA_MEDIO.teru ) },
     uMid: { value: new THREE.Color( DEFAUXLTA_MEDIO.sost2 ) },
     uBot: { value: new THREE.Color( DEFAUXLTA_MEDIO.subo ) },
@@ -332,7 +332,7 @@ export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
   // ⟨ ឆាកតូចមួយសម្រាប់កញ្ចក់ ៖ គ្រាន់តែមេឃ គ្មានដី គ្មានវត្ថុ ។ 📃 ⟩
   const reflektaSceno = new THREE.Scene();
   reflektaSceno.add( new THREE.Mesh( new THREE.SphereGeometry( 0o100, 0o20, 0o10 ),
-    kreiCxielanMaterialon( uniformoj ) ) );
+    kf2CxielanMaterialon( unihaqoxa ) ) );
   const generilo = new THREE.PMREMGenerator( bildilo );
   let celo: THREE.WebGLRenderTarget | null = null;
   let nuna = new THREE.Color( DEFAUXLTA_MEDIO.teru );
@@ -342,7 +342,7 @@ export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
   let nokto = DEFAUXLTA_MEDIO.nokto;
   let intenso = DEFAUXLTA_MEDIO.intenso;
 
-  function krei(): void {
+  function kf2(): void {
     if ( celo ) celo.dispose();
     // ⟨ ស៊ីគម៉ា 0 ៖ មេឃរលូនស្រាប់ ដូច្នេះមិនត្រូវព្រិលបន្ថែម ។ 📃 ⟩
     celo = generilo.fromScene( reflektaSceno, 0, 0o1/0o100, 0o400 );
@@ -355,21 +355,21 @@ export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
     const m = new THREE.Color( sef4.sost2 ?? meza );
     const b = new THREE.Color( sef4.subo ?? malsupra );
     const s = new THREE.Color( sef4.sunaKoloro ?? suna );
-    const novaNokto = sef4.nokto ?? nokto;
+    const sef4Nokto = sef4.nokto ?? nokto;
     const sxangxo = malsamajKoloroj( nuna, t ) || malsamajKoloroj( meza, m )
       || malsamajKoloroj( malsupra, b ) || malsamajKoloroj( suna, s )
-      || Math.abs( novaNokto - nokto ) > MEDIA_SOJLO;
+      || Math.abs( sef4Nokto - nokto ) > MEDIA_SOJLO;
     nuna.copy( t ); meza.copy( m ); malsupra.copy( b ); suna.copy( s );
-    if ( sef4.sunaDirekto ) uniformoj.uSunDir.value.copy( sef4.sunaDirekto );
-    nokto = novaNokto;
-    uniformoj.uNokto.value = nokto;
+    if ( sef4.sunaDirekto ) unihaqoxa.uSunDir.value.copy( sef4.sunaDirekto );
+    nokto = sef4Nokto;
+    unihaqoxa.uNokto.value = nokto;
     intenso = sef4.intenso ?? intenso;
     if ( !sxangxo && celo ) { qena.environmentIntensity = intenso; return; }
-    uniformoj.uTop.value.copy( t );
-    uniformoj.uMid.value.copy( m );
-    uniformoj.uBot.value.copy( b );
-    uniformoj.uSunCol.value.copy( s );
-    krei();
+    unihaqoxa.uTop.value.copy( t );
+    unihaqoxa.uMid.value.copy( m );
+    unihaqoxa.uBot.value.copy( b );
+    unihaqoxa.uSunCol.value.copy( s );
+    kf2();
   }
 
   gxisdatigi( ku1o );
@@ -389,8 +389,8 @@ export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
 export interface BildilaAgordo {
   antialias?: boolean;
   ombroj?: boolean;
-  ombraTipo?: THREE.ShadowMapType;
-  ekspozicio?: number;
+  ombraHunaq?: THREE.ShadowMapType;
+  eksxekuxa?: number;
   pikslaRacio?: number;
 }
 
@@ -469,10 +469,10 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, ku1o: BildilaAgord
   }
   bildilo.outputColorSpace = THREE.SRGBColorSpace;
   bildilo.toneMapping = THREE.ACESFilmicToneMapping;
-  bildilo.toneMappingExposure = ku1o.ekspozicio ?? 0o1;
+  bildilo.toneMappingExposure = ku1o.eksxekuxa ?? 0o1;
   if ( ku1o.ombroj ) {
     bildilo.shadowMap.enabled = true;
-    bildilo.shadowMap.type = ku1o.ombraTipo ?? THREE.PCFShadowMap;
+    bildilo.shadowMap.type = ku1o.ombraHunaq ?? THREE.PCFShadowMap;
   }
   if ( ku1o.pikslaRacio !== undefined ) bildilo.setPixelRatio( ku1o.pikslaRacio );
 }
@@ -484,7 +484,7 @@ export interface CxefajLumojAgordo {
   cxielaIntenso?: number;
   sunaKoloro?: THREE.ColorRepresentation;
   sunaIntenso?: number;
-  sunaPozicio?: [ number, number, number ];
+  sunaXekuxa?: [ number, number, number ];
   ombroj?: boolean;
   ombraMapo?: number;
   ombraDuono?: number;
@@ -509,14 +509,14 @@ const DEFAUXLTAJ_LUMOJ = {
   cxielaIntenso: 0o63 / 0o100,
   sunaKoloro: 0xf8f0d8,
   sunaIntenso: 0o45 / 0o40,
-  sunaPozicio: [ 0o110, 0o160, 0o40 ] as [ number, number, number ],
+  sunaXekuxa: [ 0o110, 0o160, 0o40 ] as [ number, number, number ],
 };
 
 /* បង្កើតពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញស្រេចចិត្ត រួចដាក់ចូលឆាក ។
     @param qena ( THREE.Scene ) - ឆាកដែលត្រូវបន្ថែមពន្លឺ ។
     @param ku1o ( CxefajLumojAgordo = {} , optional ) - តម្លៃពណ៌ កម្រិត ទីតាំង និងស្រមោល ។
 @returns ពន្លឺទាំងបី ( CxefajLumoj )។ */
-export function kreiCxefajnLumojn( qena: THREE.Scene,
+export function kf2CxefajnLumojn( qena: THREE.Scene,
   ku1o: CxefajLumojAgordo = {} ): CxefajLumoj {
   const hemiLumo = new THREE.HemisphereLight(
     ku1o.cxielaKoloro ?? DEFAUXLTAJ_LUMOJ.cxielaKoloro,
@@ -529,7 +529,7 @@ export function kreiCxefajnLumojn( qena: THREE.Scene,
     ku1o.sunaKoloro ?? DEFAUXLTAJ_LUMOJ.sunaKoloro,
     ku1o.sunaIntenso ?? DEFAUXLTAJ_LUMOJ.sunaIntenso
   );
-  const raqa = ku1o.sunaPozicio ?? DEFAUXLTAJ_LUMOJ.sunaPozicio;
+  const raqa = ku1o.sunaXekuxa ?? DEFAUXLTAJ_LUMOJ.sunaXekuxa;
   suno.position.set( raqa[ 0 ], raqa[ 1 ], raqa[ 2 ] );
   if ( ku1o.ombroj ) {
     const mapo = ku1o.ombraMapo ?? 0o2000;

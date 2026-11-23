@@ -1,4 +1,4 @@
-// ≺⧼ ឧបករណ៍ជំនួយ DOM រួម 🪟 ⧽≻
+// ≺⧼ ſȷɔ ſɭ,ꞇ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜ j͑ʃɹ ɭʃᴜɔ˞ ʌ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ 🪟 ⧽≻
 // ឧបករណ៍ក្នុង iloj/ អាន id ថេរពីទំព័រ HTML រៀងៗខ្លួន។ ការហៅ
 // document.getElementById ធម្មតាត្រឡប់ HTMLElement | null ដូច្នេះគ្រប់ការប្រើ
 // ត្រូវការការត្រួតពិនិត្យដោយឡែក ប៉ុន្តែ id ដែលបាត់គឺជាកំហុសក្នុងកម្មវិធី
@@ -22,7 +22,7 @@ export function elemento<T extends HTMLElement = HTMLElement>(id: string): T {
    ត្រូវតែមាន។
     @param kanvaso ( HTMLCanvasElement ) - ផ្ទាំងគំនូរ។
 @returns កុងតេក្ស 2D ( CanvasRenderingContext2D )។ */
-export function kunteksto2d(kanvaso: HTMLCanvasElement): CanvasRenderingContext2D {
+export function kuns2bana2d(kanvaso: HTMLCanvasElement): CanvasRenderingContext2D {
   const k = kanvaso.getContext("2d");
   if ( !k ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) បរិបទ 2D នៃផ្ទាំងគំនូរមិនអាចប្រើបាន");
   return k;

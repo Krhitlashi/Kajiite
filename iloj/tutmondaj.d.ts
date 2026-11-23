@@ -1,4 +1,4 @@
-// ≺⧼ ហុកសកលរបស់ឧបករណ៍ 🔬 ⧽≻
+// ≺⧼ }ʃᴜ j͐ʃᴜ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🔬 ⧽≻
 // ហុកកុងសូលរបស់ឧបករណ៍ទាំងពីរ គឺឧបករណ៍ឆ្លាក់ដី និងឧបករណ៍សាកល្បងស្រមោល
 // ដាក់ការយោងរបស់ពួកវាលើ `window` ដើម្បីឱ្យអាចសួរស្ថានភាពបច្ចុប្បន្ន
 // ដោយផ្ទាល់ពីកុងសូល ( គំរូដូចហ្គេម សូមមើល kantaoj/ludo/sperto.ts )។
@@ -17,6 +17,6 @@ interface Window {
   // ⟨ ឧបករណ៍ជ្រើសឯកសារ 📃 ⟩ គឺ File System Access API។ ប្រភេទធម្មតារបស់
   // TypeScript មិនមានពួកវាទេ ( API មានតែក្នុង Chromium ) ដូច្នេះឧបករណ៍
   // ប្រកាសអនុគមន៍ទាំងពីរនៅទីនេះ។ អាគុយម៉ង់ស្រេចចិត្តនៅតែបើកចំហ។
-  showSaveFilePicker?: ( opcioj?: Record<string, unknown> ) => Promise<FileSystemFileHandle>;
-  showOpenFilePicker?: ( opcioj?: Record<string, unknown> ) => Promise<FileSystemFileHandle[]>;
+  showSaveFilePicker?: ( hasukf2qani?: Record<string, unknown> ) => Promise<FileSystemFileHandle>;
+  showOpenFilePicker?: ( hasukf2qani?: Record<string, unknown> ) => Promise<FileSystemFileHandle[]>;
 }

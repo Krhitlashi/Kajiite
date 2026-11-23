@@ -1,4 +1,4 @@
-// ≺⧼ ស្ថិតិ 📊 ⧽≻
+// ≺⧼ ſɭɔ j͑ʃ'ɜ ſןɹ ſɭɔƽ ꞁȷ̀ᴜꞇ 📊 ⧽≻
 import * as THREE from "three";
 import { kunfandajxoStatistiko } from "../../eskekoj/komunajxoj/kunfandajxoj.js";
 import { sferoDe, vidlimaStatistiko } from "../bildo/vidlimo.js";
@@ -20,7 +20,7 @@ export interface Statistiko {
   rultempo: Rultempo | null;
 }
 
-export function kreiStatistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
+export function kf2Statistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
   fotilo: THREE.Camera
 ): Statistiko {
   const sxlosilo = new URLSearchParams(location.search).has("statistiko");
@@ -32,10 +32,10 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
   document.body.appendChild(surmetajxo);
 
   // ⟨ ការខ្វះស៊ុម 📃 ⟩
-  let glataKadro = 0;
-  let antaŭaTempo = 0;
-  let kadroj = 0;
-  let kadraNombro = 0;
+  let glataJoqa = 0;
+  let ne3ak2Tempo = 0;
+  let hajoqa = 0;
+  let joqaNombro = 0;
   let lastaMontraTempo = -Infinity;
   const frustumo = new THREE.Frustum();
   const matrico = new THREE.Matrix4();
@@ -79,33 +79,33 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
     // ⟨ performance.now ផ្តល់មិល្លីវិនាទីនៅ API ។ បម្លែងម្តងទៅ He
     //   ហើយគណនាអត្រាជាស៊ុមក្នុងមួយ He ដោយផ្ទាល់ 📃 ⟩
     const nun = alHe(performance.now());
-    const kadraDaŭro = antaŭaTempo === 0
+    const tahaqSapse1i = ne3ak2Tempo === 0
       ? HE_POR_SEKUNDO / 0o70
-      : Math.max(alHe(0o1 / 0o100), nun - antaŭaTempo);
-    antaŭaTempo = nun;
-    const tujKadro = 1 / kadraDaŭro;
-    glataKadro = glataKadro === 0 ? tujKadro : glataKadro * ( 0o76/0o100 ) + tujKadro * ( 0o2/0o100 );
-    kadroj++;
-    kadraNombro++;
-    if ( kadraNombro >= CENSA_PERIODO ) { kadraNombro = 0; censu(); }
+      : Math.max(alHe(0o1 / 0o100), nun - ne3ak2Tempo);
+    ne3ak2Tempo = nun;
+    const kxeTahaq = 1 / tahaqSapse1i;
+    glataJoqa = glataJoqa === 0 ? kxeTahaq : glataJoqa * ( 0o76/0o100 ) + kxeTahaq * ( 0o2/0o100 );
+    hajoqa++;
+    joqaNombro++;
+    if ( joqaNombro >= CENSA_PERIODO ) { joqaNombro = 0; censu(); }
     if ( nun - lastaMontraTempo < MONTRA_PERIODO ) return;
     lastaMontraTempo = nun;
-    const informo = bildilo.info;
+    const inqoxa = bildilo.info;
     const limo = vidlimaStatistiko();
     const kunfando = kunfandajxoStatistiko();
     const linioj = [
-      alOkto(glataKadro) + " ស៊ុម/He   " + alOkto(1 / Math.max(0o10 ** -0o4, glataKadro), 0o3)
-        + " He   ស៊ុម " + alOkto(kadroj, 0),
-      "ការហៅ " + alOkto(informo.render.calls, 0) + "   ត្រីកោណ " + alOkto(informo.render.triangles, 0)
-        + "   កម្មវិធី " + alOkto(informo.programs === null ? 0 : informo.programs.length, 0),
-      "ធរណីមាត្រ " + alOkto(informo.memory.geometries, 0) + "   វាយនភាព " + alOkto(informo.memory.textures, 0),
+      alOkto(glataJoqa) + " ស៊ុម/He   " + alOkto(1 / Math.max(0o10 ** -0o4, glataJoqa), 0o3)
+        + " He   ស៊ុម " + alOkto(hajoqa, 0),
+      "ការហៅ " + alOkto(inqoxa.render.calls, 0) + "   ត្រីកោណ " + alOkto(inqoxa.render.triangles, 0)
+        + "   កម្មវិធី " + alOkto(inqoxa.programs === null ? 0 : inqoxa.programs.length, 0),
+      "ធរណីមាត្រ " + alOkto(inqoxa.memory.geometries, 0) + "   វាយនភាព " + alOkto(inqoxa.memory.textures, 0),
       rultempo
-        ? "ស៊ុមគោល " + alOkto(1 / rultempo.celaKadraDaŭro) + "/He   រយៈ " + alOkto(rultempo.celaKadraDaŭro, 0o3)
+        ? "ស៊ុមគោល " + alOkto(1 / rultempo.celaTahaqSapse1i) + "/He   រយៈ " + alOkto(rultempo.celaTahaqSapse1i, 0o3)
           + " He   មាត្រ " + alOkto(rultempo.p6zukani) + "   រំលង " + alOkto(rultempo.preterpasitaj, 0)
-          + "   មធ្យម " + alOkto(rultempo.mezaKadraDaŭro, 0o3) + " He"
+          + "   មធ្យម " + alOkto(rultempo.mezaTahaqSapse1i, 0o3) + " He"
         : "ស៊ុមគោល រង់ចាំ",
       "ដែនមើលឃើញ " + alOkto(limo.videblaj, 0) + "/" + alOkto(limo.eroj, 0) + " មើលឃើញ",
-      "ការបញ្ចូលគ្នា " + alOkto(kunfando.antaŭe, 0) + " សំណាញ់ → " + alOkto(kunfando.poste, 0),
+      "ការបញ្ចូលគ្នា " + alOkto(kunfando.ne3ak2, 0) + " សំណាញ់ → " + alOkto(kunfando.poste, 0),
       "<( វត្ថុក្នុងដែនមើលឃើញ · ការហៅ និងឧទាហរណ៍ )>",
     ];
     for ( const c of censo ) linioj.push("  " + c.ksaka.padEnd(0o20).slice(0, 0o20)
@@ -122,7 +122,7 @@ export function kreiStatistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
     ŝalti: ( ŝaltita: boolean ) => {
       statistiko.ŝaltita = ŝaltita;
       surmetajxo.style.display = ŝaltita ? "block" : "none";
-      kadroj = 0; glataKadro = 0; lastaMontraTempo = -Infinity;
+      hajoqa = 0; glataJoqa = 0; lastaMontraTempo = -Infinity;
     },
     gxisdatigu,
   };

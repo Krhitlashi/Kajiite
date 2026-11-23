@@ -1,4 +1,4 @@
-// ≺⧼ ការកំណត់ Vite ⚙️ ⧽≻
+// ≺⧼ ſɭw ſᶘɜ ʌ j͑ʃɜ ſɭ,ᴜ ⚙️ ⧽≻
 import { defineConfig, type Plugin } from "vite";
 
 const PORD_RETILO = 0o5660;
@@ -8,8 +8,8 @@ const PORD_RETILO = 0o5660;
 const ignoriIlojn = (): Plugin => ( {
   name: "ignori-ilojn",
   apply: "serve",
-  handleHotUpdate( kunteksto ) {
-    const dosiero = kunteksto.file.split( "\\" ).join( "/" );
+  handleHotUpdate( kuns2bana ) {
+    const dosiero = kuns2bana.file.split( "\\" ).join( "/" );
     if ( !dosiero.includes( "/iloj/" ) ) return;
     if ( dosiero.includes( "/iloj/mezurilo/" ) || dosiero.endsWith( ".mjs" ) ) return [];
   },

@@ -1,14 +1,14 @@
-// ≺⧼ ទំហំជម្រាលផ្លូវ 📏 ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ֭ſɭᴜ ſ͔ɭᴜ ʌ ſןᴜ j͐ʃэ 📏 ⧽≻
 // ⟨ សាងសង់ពិភពលោកពិត ហើយវាស់មុខជំហានគ្រប់ប្រអប់ផ្លូវ ។ មុខជំហានទាំងអស់
 // ត្រូវមានច្រាំងដូចគ្នា និងប្រវែងសមាមាត្រនឹងកម្ពស់ធ្លាក់ ។ បើមុខណាមួយ
 // ត្រូវបង្ហាប់ឱ្យខ្លីជាង rampaKuro , វាឈរដូចជញ្ជាំង ។ 📃 ⟩
 import "./falsdomo.mjs";
 import * as THREE from "three";
-import { konstruiUrbon } from "../../kantaoj/mondo/urbo.js";
-import { kreiDioritanMaterialon, kreiAndezitanMaterialon,
-  kreiFenestranMaterialon, kreiOranMaterialon } from "../../eskekoj/komunajxoj/materialoj.js";
-import { vojSuprajxoj } from "../../eskekoj/medio/vojoj/tipoj.js";
-import { rampaKuro, STUPA_RAMPO_KURO, VOJA_STUPA_RAMPO } from "../../eskekoj/medio/vojoj/mezuroj.js";
+import { vepaqKaxten } from "../../kantaoj/mondo/kaxte.js";
+import { kf2T6g6Pukek, kf2T6hnaPukek,
+  kf2Cah6k6Pukek, kf2KuhalPukek } from "../../eskekoj/komunajxoj/materialoj.js";
+import { vojSuprajxoj } from "../../eskekoj/medio/hak6h6/hahunaq.js";
+import { rampaKuro, STUPA_RAMPO_KURO, VOJA_STUPA_RAMPO } from "../../eskekoj/medio/hak6h6/havecax2l.js";
 
 // ⟪ ច្រាំងអនុញ្ញាត 📏 ⟫
 // ⟨ ជម្រាល ១ គឺ ៤៥ ដឺក្រេ ។ លើសតែបន្តិចទុកឱ្យគំរូផ្លូវដែលជាប់គ្នា ។ 📃 ⟩
@@ -18,9 +18,9 @@ const KURO_TOLERO = 0o1 / 0o40;
 const qena = new THREE.Scene();
 const teksturo = new THREE.Texture();
 vojSuprajxoj.length = 0;
-await konstruiUrbon(qena,
-  kreiDioritanMaterialon(teksturo), kreiAndezitanMaterialon(teksturo),
-  kreiFenestranMaterialon(), kreiOranMaterialon(0xd8b068), () => {});
+await vepaqKaxten(qena,
+  kf2T6g6Pukek(teksturo), kf2T6hnaPukek(teksturo),
+  kf2Cah6k6Pukek(), kf2KuhalPukek(0xd8b068), () => {});
 
 interface Rampo { fala: number; kuro: number; haga: number; x: number; z: number }
 const rampoj: Rampo[] = [];

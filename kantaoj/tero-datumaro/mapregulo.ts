@@ -1,12 +1,12 @@
-// ≺⧼ ច្បាប់ផែនទី 🗺️ ⧽≻
-import type { MapFormo } from "../../eskekoj/komunajxoj/mapformo.js";
+// ≺⧼ j͑ʃɹ ſɭᴜc̗ ɭʃᴜ ʌ ʃᴜ j͐ʃɹ 🗺️ ⧽≻
+import type { Bal2Qoxa } from "../../eskekoj/komunajxoj/mapqoxa.js";
 import { MAPOJ } from "./mapoj.js";
 
 export interface MapoDatumo {
   kodo: string;
   ksaka: string;
   aktiva?: boolean;
-  formo: MapFormo;
+  qoxa: Bal2Qoxa;
   grandeco: number;
 }
 

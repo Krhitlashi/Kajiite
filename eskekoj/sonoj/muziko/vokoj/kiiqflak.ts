@@ -1,4 +1,4 @@
-// ≺⧼ សំឡេង ſɭɹȝ ſȷͷ̗ᴜƽ ꞁȷ̀ᴜꞇ 🥁 ⧽≻
+// ≺⧼ ſɭɹ ſ͕ɭʞͷ̗ᴜƽ ꞁȷ̀ᴜꞇ ʌ ʃɜ j͐ʃɔ 🥁 ⧽≻
 // ការវាយមួយមានពីរផ្នែក ។ ស្បែកស្គរបន្លឺទាបជាងគេ ហើយខ្សែដែលរឹតលើស្បែកញ័រ
 // បន្ថែមសំឡេងរដិបរដុបស្រាលជាងស្បែក ។ ឯកសារពិតបង្ហាញថាខ្សែញ័រភ្លាមពេលប៉ះ
 // ក្នុងក្រុមកំពូល 0o1300–0o3100 ហឺត ហើយអត្រាញ័ររដិបរដុបប្រហែល 0o64 ហឺត ។
@@ -194,10 +194,10 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   rlp.connect(rg2);
   rg2.connect(out);
 
-  const fontoj: Array<[ AudioScheduledSourceNode, number, number ]> = [
+  const hatsiq: Array<[ AudioScheduledSourceNode, number, number ]> = [
     [ kn, t, 0o5/0o100 ], [ n, t, 0o2/0o100 ], [ room, t, roomFin ],
   ];
-  for ( const [ src, at, sahakani ] of fontoj ) {
+  for ( const [ src, at, sahakani ] of hatsiq ) {
     src.start(at);
     src.stop(at + sahakani + 0o1/0o10);
   }

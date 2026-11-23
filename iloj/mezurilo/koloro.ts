@@ -1,7 +1,7 @@
-// ≺⧼ ការវាស់ប្រៀបធៀបផ្លូវពណ៌ ៖ កំណែចាស់ពី git ធៀបនឹងកំណែក្នុងតំបន់ 📏 ⧽≻
+// ≺⧼ ᶅſɔ ֭ſɭɹ ʌ j͑ʃɔ }ʃᴜȝ }ʃꞇ ʌ ꞁȷ̀ɔ ſ͔ɭꞇƨ ſɭᴜͷ̗ 📏 ⧽≻
 import * as THREE from "three";
-import { terenaKoloroEn as koloroNova } from "../../eskekoj/komunajxoj/terenkoloroj.js";
-import { terenaKoloroEn as koloroMalnova } from "./malnova-terenkoloroj.js";
+import { terenaKoloroEn as koloroSef4 } from "../../eskekoj/komunajxoj/terenkoloroj.js";
+import { terenaKoloroEn as koloroS23ohk2sai } from "./s23ohk2sai-terenkoloroj.js";
 
 const RONDOR = 0o11;
 const KOLOJ = 0o200000;
@@ -15,16 +15,16 @@ for ( let i = 0; i < KOLOJ; i++ ) {
 let malsamaj = 0;
 for ( let i = 0; i < KOLOJ; i++ ) {
   const o = i * 0o4;
-  koloroMalnova(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
-  koloroNova(kolB, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
+  koloroS23ohk2sai(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
+  koloroSef4(kolB, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
   if ( kolA.r !== kolB.r || kolA.g !== kolB.g || kolA.b !== kolB.b ) malsamaj++;
 }
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ផ្ទៀងផ្ទាត់ ខុស=${malsamaj}`);
 
 function mezuriPare( ksaka: string, sef4: ( c: THREE.Color, h: number, x: number, z: number, d: number ) => number,
-  malnova: ( c: THREE.Color, h: number, x: number, z: number, d: number ) => number ): void {
+  s23ohk2sai: ( c: THREE.Color, h: number, x: number, z: number, d: number ) => number ): void {
   for ( let i = 0; i < 0o4; i++ ) {
-    sef4(kolB, 0o3, 0o12, 0o33, 0o25/0o100); malnova(kolA, 0o3, 0o12, 0o33, 0o25/0o100);
+    sef4(kolB, 0o3, 0o12, 0o33, 0o25/0o100); s23ohk2sai(kolA, 0o3, 0o12, 0o33, 0o25/0o100);
   }
   const tn: number[] = [], tm: number[] = [];
   let sn = 0, sm = 0;
@@ -35,11 +35,11 @@ function mezuriPare( ksaka: string, sef4: ( c: THREE.Color, h: number, x: number
       for ( let i = 0; i < KOLOJ; i++ ) { const o = i * 0o4; sn += sef4(kolB, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]); }
       tn.push(performance.now() - t0);
       t0 = performance.now();
-      for ( let i = 0; i < KOLOJ; i++ ) { const o = i * 0o4; sm += malnova(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]); }
+      for ( let i = 0; i < KOLOJ; i++ ) { const o = i * 0o4; sm += s23ohk2sai(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]); }
       tm.push(performance.now() - t0);
     } else {
       t0 = performance.now();
-      for ( let i = 0; i < KOLOJ; i++ ) { const o = i * 0o4; sm += malnova(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]); }
+      for ( let i = 0; i < KOLOJ; i++ ) { const o = i * 0o4; sm += s23ohk2sai(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]); }
       tm.push(performance.now() - t0);
       t0 = performance.now();
       for ( let i = 0; i < KOLOJ; i++ ) { const o = i * 0o4; sn += sef4(kolB, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]); }
@@ -52,5 +52,5 @@ function mezuriPare( ksaka: string, sef4: ( c: THREE.Color, h: number, x: number
 }
 
 mezuriPare(`terenaKoloroEn x${KOLOJ}`,
-  ( c, h, x, z, d ) => { koloroNova(c, h, x, z, d); return c.r; },
-  ( c, h, x, z, d ) => { koloroMalnova(c, h, x, z, d); return c.r; });
+  ( c, h, x, z, d ) => { koloroSef4(c, h, x, z, d); return c.r; },
+  ( c, h, x, z, d ) => { koloroS23ohk2sai(c, h, x, z, d); return c.r; });

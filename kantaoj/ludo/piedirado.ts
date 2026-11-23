@@ -1,10 +1,10 @@
-// ≺⧼ ការដើរ 🚶 ⧽≻
+// ≺⧼ j͑ʃɹ ı],ᴜ ɽ͑ʃ'ᴜȝ }ʃꞇ 🚶 ⧽≻
 import * as THREE from "three";
-import { kreiKolizianKradon } from "../mondo/kolizioj.js";
+import { kf2KolizianKradon } from "../mondo/kolizioj.js";
 import { alteco } from "../mondo/tereno.js";
 import type { Ludanto } from "./ludanto.js";
 
-export type KoliziaKrado = ReturnType<typeof kreiKolizianKradon>;
+export type KoliziaKrado = ReturnType<typeof kf2KolizianKradon>;
 
 export interface PiedaMondo {
   fotilo: THREE.PerspectiveCamera;
@@ -16,7 +16,7 @@ export interface PiedaStato {
   estisNaĝanta: boolean;
 }
 
-export function kreiPiedanStaton(): PiedaStato {
+export function kf2PiedanStaton(): PiedaStato {
   return { oscilo: 0, estisNaĝanta: false };
 }
 
@@ -45,8 +45,8 @@ export function agordiPromenanFotilon(mondo: PiedaMondo, ludanto: Ludanto, okulY
     ludanto.raqa.z + Math.cos(ludanto.c2w2q) * d * kos
 );
   if ( krampi ) {
-    const { dokaSuproY, vojaSuproY, solviKolizion } = kolizioj;
-    const teraY = Math.max(alteco(fotilo.position.x, fotilo.position.z), dokaSuproY(fotilo.position.x, fotilo.position.z), vojaSuproY(fotilo.position.x, fotilo.position.z));
+    const { qakaj2SuproY, k6h6SuproY, solviKolizion } = kolizioj;
+    const teraY = Math.max(alteco(fotilo.position.x, fotilo.position.z), qakaj2SuproY(fotilo.position.x, fotilo.position.z), k6h6SuproY(fotilo.position.x, fotilo.position.z));
     if ( fotilo.position.y < teraY + 0o4/0o10 ) fotilo.position.y = teraY + 0o4/0o10;
     const r = solviKolizion(fotilo.position.x, fotilo.position.z);
     fotilo.position.x = r.x;

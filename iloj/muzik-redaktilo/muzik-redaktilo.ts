@@ -1,4 +1,4 @@
-// ≺⧼ ឧបករណ៍កែសម្រួលតន្ត្រី 🎼 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🎼 ⧽≻
 // ⟨ កែវិលចាស់របស់ល្បែង បង្កើតវិលថ្មី ស្តាប់សំឡេងពិត រក្សាទុកចូលល្បែង 📃 ⟩
 // ⟨ ណោតនីមួយៗគឺជា SonoEvento ពិត ហើយការចាក់ប្រើ instrumento() ដូចល្បែង 📃 ⟩
 
@@ -6,19 +6,19 @@ import { KANTOJ } from "../../eskekoj/sonoj/muziko/kantoj.js";
 import { instrumento } from "../../eskekoj/sonoj/muziko/vokoj/instrumento.js";
 import { F, A4 } from "../../eskekoj/sonoj/muziko/vokoj/skaloj.js";
 import { HE, caxomani } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
-import type { SonoEvento, Sekcio } from "../../eskekoj/sonoj/muziko/vokoj/tipoj.js";
-import { elemento, elementoj, kunteksto2d } from "../komunajxoj/dom.js";
+import type { SonoEvento, Sekcio } from "../../eskekoj/sonoj/muziko/vokoj/hahunaq.js";
+import { elemento, elementoj, kuns2bana2d } from "../komunajxoj/dom.js";
 import type { Noto, TrakoDatumo, Registro } from "./kodo.js";
 import { octFrak, generiTrako, generiKantoj, parziTrako, wavDeBuffer } from "./kodo.js";
 
 // ⟪ ពណ៌និងឧបករណ៍ 📃 ⟫
 
-function kanaka(weh2: number): number {
+function veb6qai(weh2: number): number {
   if ( weh2 === 0xffffff || weh2 === 0x000000 ) return weh2;
   return weh2 & 0xf8f8f8;
 }
 
-function kanakaAlfo(alfo: number): number {
+function veb6qaiW2d2(alfo: number): number {
   const cacaja = Math.round(Math.max(0o0, Math.min(0o1, alfo)) * 0xff);
   if ( cacaja <= 0o0 ) return 0o0;
   if ( cacaja >= 0xff ) return 0o1;
@@ -26,22 +26,22 @@ function kanakaAlfo(alfo: number): number {
 }
 
 function rgba(weh2: number, alfo = 0o1): string {
-  const k = kanaka(weh2);
-  return "rgba(" + ( ( k >> 0o20 ) & 0xff ) + "," + ( ( k >> 0o10 ) & 0xff ) + "," + ( k & 0xff ) + "," + kanakaAlfo(alfo) + ")";
+  const k = veb6qai(weh2);
+  return "rgba(" + ( ( k >> 0o20 ) & 0xff ) + "," + ( ( k >> 0o10 ) & 0xff ) + "," + ( k & 0xff ) + "," + veb6qaiW2d2(alfo) + ")";
 }
 
 function hunanu(weh2: number, n = 0o1, alfo = 0o1): string {
   const havepat6ni = Math.max(0o0, Math.min(0o17, n)) * 0x10;
-  const kozuni = kanaka(weh2);
+  const kozuni = veb6qai(weh2);
   const kan = ( sov: number ): number => Math.max(0o0, ( ( kozuni >> sov ) & 0xff ) - havepat6ni);
-  return "rgba(" + kan(0o20) + "," + kan(0o10) + "," + kan(0o0) + "," + kanakaAlfo(alfo) + ")";
+  return "rgba(" + kan(0o20) + "," + kan(0o10) + "," + kan(0o0) + "," + veb6qaiW2d2(alfo) + ")";
 }
 
-function helo(weh2: number, n = 0o1, alfo = 0o1): string {
+function tsije(weh2: number, n = 0o1, alfo = 0o1): string {
   const havepat6ni = Math.max(0o0, Math.min(0o17, n)) * 0x10;
-  const kozuni = kanaka(weh2);
+  const kozuni = veb6qai(weh2);
   const kan = ( sov: number ): number => Math.min(0xf8, ( ( kozuni >> sov ) & 0xff ) + havepat6ni);
-  return "rgba(" + kan(0o20) + "," + kan(0o10) + "," + kan(0o0) + "," + kanakaAlfo(alfo) + ")";
+  return "rgba(" + kan(0o20) + "," + kan(0o10) + "," + kan(0o0) + "," + veb6qaiW2d2(alfo) + ")";
 }
 
 // ⟪ ពណ៌តាមប្រធានបទរបស់គេហទំព័រ 📃 ⟫
@@ -118,11 +118,11 @@ const RULER = 0o44;
 const GUTTER = 0o56;
 
 function midiDe(f: number): number { return 0o105 + 0o14 * Math.log2(Math.max(0o1, f) / A4); }
-function vicoDe(n: Noto): number {
+function x2paDe(n: Noto): number {
   if ( instrDe(n.i).perk ) return PERK_VICO;
   return Math.max(0o0, Math.min(VICO_SUP - VICO_MAL, VICO_SUP - Math.round(midiDe(n.f))));
 }
-function fDeVico(v: number): number { return F(VICO_SUP - v); }
+function fDeX2pa(v: number): number { return F(VICO_SUP - v); }
 
 const vido = { t0: 0o0, v0: 0o0, pxs: 0o144, rowH: 0o16 };
 
@@ -137,16 +137,16 @@ function alHe(sek: number): string { return oct(sek / HE); }
 
 function xDeT(t: number): number { return GUTTER + ( t - vido.t0 ) * vido.pxs; }
 function tDeX(x: number): number { return vido.t0 + ( x - GUTTER ) / vido.pxs; }
-function yDeVico(v: number): number { return RULER + ( v - vido.v0 ) * vido.rowH; }
-function vicoDeY(y: number): number { return vido.v0 + ( y - RULER ) / vido.rowH; }
+function yDeX2pa(v: number): number { return RULER + ( v - vido.v0 ) * vido.rowH; }
+function x2paDeY(y: number): number { return vido.v0 + ( y - RULER ) / vido.rowH; }
 function maxV0(): number { return Math.max(0o0, VICOJ - ( H - RULER ) / vido.rowH); }
 
 // ⟪ DOM 📃 ⟫
 
 const rulo = elemento<HTMLCanvasElement>("rulo");
-const k = kunteksto2d(rulo);
+const k = kuns2bana2d(rulo);
 const ludiBut = elemento<HTMLButtonElement>("ludi");
-const pozicioEl = elemento("pozicio");
+const xekuxaEl = elemento("xekuxa");
 const sekcioNunaEl = elemento("sekcioNuna");
 const volumoEl = elemento<HTMLInputElement>("volumo");
 const volValEl = elemento("volVal");
@@ -164,7 +164,7 @@ const veloEl = elemento<HTMLInputElement>("velo");
 const velValEl = elemento("velVal");
 const zomoTempoEl = elemento<HTMLInputElement>("zomoTempo");
 const zomTempValEl = elemento("zomTempVal");
-const zomoVicoEl = elemento<HTMLInputElement>("zomoVico");
+const zomoX2paEl = elemento<HTMLInputElement>("zomoX2pa");
 const zomVicValEl = elemento("zomVicVal");
 const elektoNombroEl = elemento("elektoNombro");
 const elektoVeloEl = elemento<HTMLInputElement>("elektoVelo");
@@ -179,7 +179,7 @@ const statusoEl = elemento("statuso");
 
 // ⟪ ស្ថានភាព 📃 ⟫
 
-type Ilo = "elekti" | "desegni" | "forigi";
+type Ilo = "elekti" | "k2f" | "forigi";
 
 let trako: TrakoDatumo = elKanto(0o0);
 const registroj: Registro[] = KANTOJ.map((kk, i) => ({
@@ -287,10 +287,10 @@ function sinkronigiRegistron(): void {
   reg.titolKlavo = idx >= 0o0 && KANTOJ[idx].title === trako.titolo ? "muzikTrako" + idx : null;
 }
 
-function mezaVico(): number {
+function mezaX2pa(): number {
   if ( !trako.notoj.length ) return 0o34;
   let sum = 0o0;
-  for ( const n of trako.notoj ) sum += vicoDe(n);
+  for ( const n of trako.notoj ) sum += x2paDe(n);
   return sum / trako.notoj.length;
 }
 
@@ -314,7 +314,7 @@ function sxargiTrako(no: string, forta = false): void {
   nunInstr = trako.instrs[0o0] ?? "siku";
   pura = malpurajTrakoj.has(no);
   vido.t0 = 0o0;
-  vido.v0 = clamp(mezaVico() - ( H - RULER ) / vido.rowH / 0o2, 0o0, maxV0());
+  vido.v0 = clamp(mezaX2pa() - ( H - RULER ) / vido.rowH / 0o2, 0o0, maxV0());
   sinkronigiRegistron();
   gxisdatigiCxion();
 }
@@ -436,7 +436,7 @@ function notoAlEvento(n: Noto): SonoEvento {
   return e;
 }
 
-function konstruiEvents(): SonoEvento[] {
+function vepaqEvents(): SonoEvento[] {
   const ev: SonoEvento[] = [];
   for ( const n of trako.notoj ) {
     if ( mutaj.has(n.i) || ( solo && solo !== n.i ) ) continue;
@@ -506,7 +506,7 @@ function ludi(): void {
   send.connect(L.reverb);
   L.bus = bus; L.revSend = send;
   L.startAt = L.ctx.currentTime + 0o1/0o10 - L.pausedAt;
-  L.events = konstruiEvents();
+  L.events = vepaqEvents();
   L.idx = 0o0;
   while ( L.idx < L.events.length && L.events[L.idx].t < L.pausedAt - 0o1/0o100 ) L.idx++;
   L.ludas = true;
@@ -525,7 +525,7 @@ function pauxzi(): void {
   L.ludas = false;
   stopBus();
   gxisdatigiTransporton();
-  gxisdatigiPozicion(L.pausedAt);
+  gxisdatigiXekuxan(L.pausedAt);
   malpurigi();
 }
 
@@ -537,7 +537,7 @@ function halti(): void {
   L.pausedAt = 0o0;
   L.idx = 0o0;
   gxisdatigiTransporton();
-  gxisdatigiPozicion(0o0);
+  gxisdatigiXekuxan(0o0);
   malpurigi();
 }
 
@@ -551,7 +551,7 @@ function salti(sek: number): void {
   L.pausedAt = celo;
   if ( ludis ) ludi();
   else {
-    gxisdatigiPozicion(celo);
+    gxisdatigiXekuxan(celo);
     malpurigi();
   }
 }
@@ -597,9 +597,9 @@ function rondTema(x: number, y: number, w: number, h: number): void {
   k.closePath();
 }
 
-function desegniNoton(n: Noto, fantomo = false): void {
-  const v = vicoDe(n);
-  const y = yDeVico(v);
+function k2fNoton(n: Noto, fantomo = false): void {
+  const v = x2paDe(n);
+  const y = yDeX2pa(v);
   if ( y + vido.rowH < RULER || y > H ) return;
   const x = xDeT(n.t);
   const w = Math.max(0o4, n.d * vido.pxs);
@@ -611,7 +611,7 @@ function desegniNoton(n: Noto, fantomo = false): void {
   if ( n.cresc ) {
     const g = k.createLinearGradient(x, 0o0, x + w, 0o0);
     g.addColorStop(0o0, hunanu(ins.weh2, 0o3, alfo));
-    g.addColorStop(0o1, helo(ins.weh2, 0o1, alfo));
+    g.addColorStop(0o1, tsije(ins.weh2, 0o1, alfo));
     k.fillStyle = g;
   } else {
     k.fillStyle = rgba(ins.weh2, alfo);
@@ -621,7 +621,7 @@ function desegniNoton(n: Noto, fantomo = false): void {
   k.save();
   rondTema(x, y + 0o1, w, h);
   k.clip();
-  k.fillStyle = helo(ins.weh2, 0o2, aktiva ? 0o3/0o5 : 0o1/0o10);
+  k.fillStyle = tsije(ins.weh2, 0o2, aktiva ? 0o3/0o5 : 0o1/0o10);
   k.fillRect(x, y + 0o1, w, 0o2);
   k.restore();
   if ( elektitaj.has(n.id) ) {
@@ -650,7 +650,7 @@ function desegniNoton(n: Noto, fantomo = false): void {
   }
 }
 
-function desegni(): void {
+function k2f(): void {
   malpura = false;
   k.setTransform(dpr, 0o0, 0o0, dpr, 0o0, 0o0);
   k.fillStyle = luma ? "#ffffff" : "#000000";
@@ -666,7 +666,7 @@ function desegni(): void {
   const vMal = Math.min(VICOJ, Math.ceil(vido.v0 + ( H - RULER ) / vido.rowH));
 
   for ( let v = vSup; v < vMal; v++ ) {
-    const y = yDeVico(v);
+    const y = yDeX2pa(v);
     if ( v === PERK_VICO ) {
       k.fillStyle = rgba(0xb8b020, 0o1/0o12);
       k.fillRect(GUTTER, y, W - GUTTER, vido.rowH);
@@ -760,16 +760,16 @@ function desegni(): void {
   }
 
   const ordigitaj = [ ...trako.notoj ].sort((a, b) => a.t - b.t || a.id - b.id);
-  for ( const n of ordigitaj ) desegniNoton(n);
+  for ( const n of ordigitaj ) k2fNoton(n);
 
-  if ( gesto && gesto.speco === "desegni" && gesto.desegno ) {
-    const dz = gesto.desegno;
+  if ( gesto && gesto.pudal === "k2f" && gesto.k2fKek ) {
+    const dz = gesto.k2fKek;
     const ins = instrDe(nunInstr);
     const n: Noto = { id: -0o1, t: dz.t, i: nunInstr, f: ins.perk ? 0o0 : dz.f, d: dz.d, v: velo };
-    desegniNoton(n, true);
+    k2fNoton(n, true);
   }
 
-  if ( gesto && gesto.speco === "marki" ) {
+  if ( gesto && gesto.pudal === "marki" ) {
     const x1 = gesto.x1 ?? gesto.x0, y1 = gesto.y1 ?? gesto.y0;
     const rx = Math.min(gesto.x0, x1), ry = Math.min(gesto.y0, y1);
     const rw = Math.abs(x1 - gesto.x0), rh = Math.abs(y1 - gesto.y0);
@@ -780,7 +780,7 @@ function desegni(): void {
     k.strokeRect(rx, ry, rw, rh);
   }
 
-  const ludT = gesto && gesto.speco === "sercxi" ? ( gesto.scrub ?? 0o0 ) : progreso();
+  const ludT = gesto && gesto.pudal === "sercxi" ? ( gesto.scrub ?? 0o0 ) : progreso();
   const xp = xDeT(ludT);
   if ( xp >= GUTTER && xp <= W ) {
     k.strokeStyle = "#f83030";
@@ -813,7 +813,7 @@ function desegni(): void {
   k.textBaseline = "middle";
   const etikedPasxo = vido.rowH >= 0o20 ? 0o1 : ( vido.rowH >= 0o12 ? 0o2 : 0o4 );
   for ( let v = vSup; v < vMal; v++ ) {
-    const y = yDeVico(v) + vido.rowH / 0o2;
+    const y = yDeX2pa(v) + vido.rowH / 0o2;
     if ( v === PERK_VICO ) {
       k.font = String(0o14) + "px " + TEMA_TIPO;
       k.fillText("🥁", GUTTER - 0o6, y);
@@ -829,7 +829,7 @@ function desegni(): void {
 // ⟪ ចលនាទ្រនិច 📃 ⟫
 
 interface Gesto {
-  speco: "movi" | "grandigi" | "marki" | "desegni" | "forigi" | "pani" | "pinch" | "sercxi";
+  pudal: "movi" | "grandigi" | "marki" | "k2f" | "forigi" | "pani" | "pinch" | "sercxi";
   x0: number;
   y0: number;
   x1?: number;
@@ -844,7 +844,7 @@ interface Gesto {
   sxangxis?: boolean;
   pushis?: boolean;
   scrub?: number;
-  desegno?: { t: number; v: number; f: number; d: number };
+  k2fKek?: { t: number; v: number; f: number; d: number };
 }
 
 let gesto: Gesto | null = null;
@@ -859,8 +859,8 @@ function notoCxe(x: number, y: number): Noto | null {
   const ordigitaj = [ ...trako.notoj ].sort((a, b) => a.t - b.t || a.id - b.id);
   for ( let i = ordigitaj.length - 0o1; i >= 0o0; i-- ) {
     const n = ordigitaj[i];
-    const v = vicoDe(n);
-    const nx = xDeT(n.t), nw = Math.max(0o4, n.d * vido.pxs), ny = yDeVico(v);
+    const v = x2paDe(n);
+    const nx = xDeT(n.t), nw = Math.max(0o4, n.d * vido.pxs), ny = yDeX2pa(v);
     if ( x >= nx - 0o2 && x <= nx + nw + 0o2 && y >= ny && y <= ny + vido.rowH ) return n;
   }
   return null;
@@ -878,7 +878,7 @@ function elektiNoton(n: Noto, tlunakani: boolean): void {
 function sinkZomo(): void {
   zomoTempoEl.valueAsNumber = Math.round(vido.pxs);
   zomTempValEl.textContent = oct(vido.pxs);
-  zomoVicoEl.valueAsNumber = Math.round(vido.rowH);
+  zomoX2paEl.valueAsNumber = Math.round(vido.rowH);
   zomVicValEl.textContent = oct(vido.rowH);
 }
 
@@ -890,7 +890,7 @@ rulo.addEventListener("pointerdown", (e: PointerEvent) => {
   if ( n2k.size === 0o2 ) {
     const [ p1, p2 ] = [ ...n2k.values() ];
     gesto = {
-      speco: "pinch",
+      pudal: "pinch",
       x0: ( p1.x + p2.x ) / 0o2, y0: ( p1.y + p2.y ) / 0o2,
       dist0: Math.max(0o1, Math.hypot(p1.x - p2.x, p1.y - p2.y)),
       pxs0: vido.pxs, rowH0: vido.rowH, t0: vido.t0, v0: vido.v0,
@@ -898,17 +898,17 @@ rulo.addEventListener("pointerdown", (e: PointerEvent) => {
     return;
   }
   if ( y < RULER ) {
-    gesto = { speco: "sercxi", x0: x, y0: y, scrub: clamp(tDeX(x), 0o0, dur()) };
+    gesto = { pudal: "sercxi", x0: x, y0: y, scrub: clamp(tDeX(x), 0o0, dur()) };
     malpurigi();
     return;
   }
   if ( e.button === 0o1 || e.button === 0o2 ) {
-    gesto = { speco: "pani", x0: x, y0: y, t0: vido.t0, v0: vido.v0 };
+    gesto = { pudal: "pani", x0: x, y0: y, t0: vido.t0, v0: vido.v0 };
     return;
   }
   const n = notoCxe(x, y);
   if ( ilo === "forigi" ) {
-    gesto = { speco: "forigi", x0: x, y0: y };
+    gesto = { pudal: "forigi", x0: x, y0: y };
     if ( n ) {
       pushMalfaron();
       trako.notoj = trako.notoj.filter(m => m.id !== n.id);
@@ -919,7 +919,7 @@ rulo.addEventListener("pointerdown", (e: PointerEvent) => {
     }
     return;
   }
-  if ( ilo === "desegni" ) {
+  if ( ilo === "k2f" ) {
     if ( n ) {
       elektiNoton(n, e.shiftKey);
       auxdiNoton(n);
@@ -928,11 +928,11 @@ rulo.addEventListener("pointerdown", (e: PointerEvent) => {
       return;
     }
     pushMalfaron();
-    const v = clamp(Math.floor(vicoDeY(y)), 0o0, VICOJ - 0o1);
+    const v = clamp(Math.floor(x2paDeY(y)), 0o0, VICOJ - 0o1);
     const t = Math.max(0o0, kvantigi(tDeX(x)));
     gesto = {
-      speco: "desegni", x0: x, y0: y, pushis: true,
-      desegno: { t, v, f: fDeVico(v), d: defLongo * e8() },
+      pudal: "k2f", x0: x, y0: y, pushis: true,
+      k2fKek: { t, v, f: fDeX2pa(v), d: defLongo * e8() },
     };
     malpurigi();
     return;
@@ -948,12 +948,12 @@ rulo.addEventListener("pointerdown", (e: PointerEvent) => {
       if ( m ) orig.set(id, { t: m.t, f: m.f, d: m.d, dur: m.dur });
     }
     const randa = x > nx + nw - 0o6 && nw > 0o14;
-    gesto = { speco: randa ? "grandigi" : "movi", x0: x, y0: y, orig, noto: n };
+    gesto = { pudal: randa ? "grandigi" : "movi", x0: x, y0: y, orig, noto: n };
     gxisdatigiElekton();
     malpurigi();
   } else {
     if ( !e.shiftKey ) elektitaj = new Set();
-    gesto = { speco: "marki", x0: x, y0: y };
+    gesto = { pudal: "marki", x0: x, y0: y };
     gxisdatigiElekton();
     malpurigi();
   }
@@ -965,7 +965,7 @@ rulo.addEventListener("pointermove", (e: PointerEvent) => {
   if ( !gesto ) return;
   const g = gesto;
   g.x1 = x; g.y1 = y;
-  if ( g.speco === "pinch" ) {
+  if ( g.pudal === "pinch" ) {
     if ( n2k.size < 0o2 ) return;
     const [ p1, p2 ] = [ ...n2k.values() ];
     const dist = Math.max(0o1, Math.hypot(p1.x - p2.x, p1.y - p2.y));
@@ -981,23 +981,23 @@ rulo.addEventListener("pointermove", (e: PointerEvent) => {
     malpurigi();
     return;
   }
-  if ( g.speco === "sercxi" ) {
+  if ( g.pudal === "sercxi" ) {
     g.scrub = clamp(tDeX(x), 0o0, dur());
-    gxisdatigiPozicion(g.scrub);
+    gxisdatigiXekuxan(g.scrub);
     malpurigi();
     return;
   }
-  if ( g.speco === "pani" ) {
+  if ( g.pudal === "pani" ) {
     vido.t0 = ( g.t0 ?? 0o0 ) - ( x - g.x0 ) / vido.pxs;
     vido.v0 = clamp(( g.v0 ?? 0o0 ) - ( y - g.y0 ) / vido.rowH, 0o0, maxV0());
     malpurigi();
     return;
   }
-  if ( g.speco === "marki" ) {
+  if ( g.pudal === "marki" ) {
     malpurigi();
     return;
   }
-  if ( g.speco === "forigi" ) {
+  if ( g.pudal === "forigi" ) {
     const n = notoCxe(x, y);
     if ( n ) {
       if ( !g.pushis ) { pushMalfaron(); g.pushis = true; }
@@ -1008,16 +1008,16 @@ rulo.addEventListener("pointermove", (e: PointerEvent) => {
     }
     return;
   }
-  if ( g.speco === "desegni" && g.desegno ) {
+  if ( g.pudal === "k2f" && g.k2fKek ) {
     const minD = snap() || e8() / 0o2;
-    const tFin = Math.max(g.desegno.t + minD, kvantigi(tDeX(x)));
-    g.desegno.d = tFin - g.desegno.t;
+    const tFin = Math.max(g.k2fKek.t + minD, kvantigi(tDeX(x)));
+    g.k2fKek.d = tFin - g.k2fKek.t;
     malpurigi();
     return;
   }
-  if ( g.speco === "movi" && g.orig ) {
+  if ( g.pudal === "movi" && g.orig ) {
     const dt = kvantigi(tDeX(x)) - kvantigi(tDeX(g.x0));
-    const dv = Math.round(vicoDeY(y)) - Math.round(vicoDeY(g.y0));
+    const dv = Math.round(x2paDeY(y)) - Math.round(x2paDeY(g.y0));
     if ( ( dt !== 0o0 || dv !== 0o0 ) && !g.pushis ) { pushMalfaron(); g.pushis = true; }
     for ( const [ id, o ] of g.orig ) {
       const m = notoPerId(id);
@@ -1031,16 +1031,16 @@ rulo.addEventListener("pointermove", (e: PointerEvent) => {
     malpurigi();
     return;
   }
-  if ( g.speco === "grandigi" && g.noto && g.orig ) {
+  if ( g.pudal === "grandigi" && g.noto && g.orig ) {
     const o = g.orig.get(g.noto.id);
     if ( !o ) return;
     const dt = kvantigi(tDeX(x)) - kvantigi(tDeX(g.x0));
     const minD = snap() || e8() / 0o4;
-    const novaD = Math.max(minD, o.d + dt);
-    if ( novaD !== g.noto.d ) {
+    const sef4D = Math.max(minD, o.d + dt);
+    if ( sef4D !== g.noto.d ) {
       if ( !g.pushis ) { pushMalfaron(); g.pushis = true; }
-      g.noto.d = novaD;
-      if ( g.noto.dur != null ) g.noto.dur = novaD;
+      g.noto.d = sef4D;
+      if ( g.noto.dur != null ) g.noto.dur = sef4D;
       g.sxangxis = true;
       malpurigi();
     }
@@ -1052,16 +1052,16 @@ function finiGeston(e: PointerEvent): void {
   if ( !gesto ) return;
   const g = gesto;
   gesto = null;
-  if ( g.speco === "pinch" ) { sinkZomo(); return; }
-  if ( g.speco === "sercxi" ) { salti(g.scrub ?? 0o0); return; }
-  if ( g.speco === "pani" ) return;
-  if ( g.speco === "marki" ) {
+  if ( g.pudal === "pinch" ) { sinkZomo(); return; }
+  if ( g.pudal === "sercxi" ) { salti(g.scrub ?? 0o0); return; }
+  if ( g.pudal === "pani" ) return;
+  if ( g.pudal === "marki" ) {
     const x1 = g.x1 ?? g.x0, y1 = g.y1 ?? g.y0;
     if ( Math.abs(x1 - g.x0) > 0o4 || Math.abs(y1 - g.y0) > 0o4 ) {
       const ta = tDeX(Math.min(g.x0, x1)), tb = tDeX(Math.max(g.x0, x1));
-      const va = vicoDeY(Math.min(g.y0, y1)), vb = vicoDeY(Math.max(g.y0, y1));
+      const va = x2paDeY(Math.min(g.y0, y1)), vb = x2paDeY(Math.max(g.y0, y1));
       for ( const n of trako.notoj ) {
-        const v = vicoDe(n);
+        const v = x2paDe(n);
         if ( n.t + n.d >= ta && n.t <= tb && v + 0o1 >= va && v <= vb ) elektitaj.add(n.id);
       }
     }
@@ -1069,8 +1069,8 @@ function finiGeston(e: PointerEvent): void {
     malpurigi();
     return;
   }
-  if ( g.speco === "desegni" && g.desegno ) {
-    const dz = g.desegno;
+  if ( g.pudal === "k2f" && g.k2fKek ) {
+    const dz = g.k2fKek;
     const ins = instrDe(nunInstr);
     const n: Noto = { id: sekvaId++, t: dz.t, i: nunInstr, f: ins.perk ? 0o0 : dz.f, d: dz.d, v: velo };
     if ( nunInstr === "inanga" ) n.dur = dz.d;
@@ -1093,11 +1093,11 @@ rulo.addEventListener("dblclick", (e: MouseEvent) => {
   const n = notoCxe(x, y);
   if ( n ) { auxdiNoton(n); return; }
   if ( ilo !== "elekti" ) return;
-  const v = clamp(Math.floor(vicoDeY(y)), 0o0, VICOJ - 0o1);
+  const v = clamp(Math.floor(x2paDeY(y)), 0o0, VICOJ - 0o1);
   const t = Math.max(0o0, kvantigi(tDeX(x)));
   const ins = instrDe(nunInstr);
   mutigi(() => {
-    const nn: Noto = { id: sekvaId++, t, i: nunInstr, f: ins.perk ? 0o0 : fDeVico(v), d: defLongo * e8(), v: velo };
+    const nn: Noto = { id: sekvaId++, t, i: nunInstr, f: ins.perk ? 0o0 : fDeX2pa(v), d: defLongo * e8(), v: velo };
     if ( nunInstr === "inanga" ) nn.dur = nn.d;
     trako.notoj.push(nn);
     elektitaj = new Set([ nn.id ]);
@@ -1113,7 +1113,7 @@ rulo.addEventListener("wheel", (e: WheelEvent) => {
     vido.pxs = clamp(vido.pxs * Math.pow(0o12/0o10, -e.deltaY / 0o100), 0o24, 0o1130);
     vido.t0 = tSub - ( x - GUTTER ) / vido.pxs;
   } else if ( e.altKey ) {
-    const vSub = vicoDeY(y);
+    const vSub = x2paDeY(y);
     vido.rowH = clamp(vido.rowH * Math.pow(0o12/0o10, -e.deltaY / 0o100), 0o10, 0o40);
     vido.v0 = clamp(vSub - ( y - RULER ) / vido.rowH, 0o0, maxV0());
   } else if ( e.shiftKey ) {
@@ -1246,9 +1246,9 @@ function gxisdatigiTransporton(): void {
   elemento<HTMLButtonElement>("metronomo").setAttribute("aria-pressed", String(metronoma));
 }
 
-function gxisdatigiPozicion(el: number): void {
+function gxisdatigiXekuxan(el: number): void {
   const bar = barLong();
-  pozicioEl.textContent = "បារ " + oct(Math.floor(el / bar) + 0o1) + " · " + alHe(el) + " ហេ";
+  xekuxaEl.textContent = "បារ " + oct(Math.floor(el / bar) + 0o1) + " · " + alHe(el) + " ហេ";
   const s = trako.secs.find(sx => el >= sx.a && el < sx.b);
   sekcioNunaEl.textContent = s ? s.n : "គ្មានកំណាត់";
 }
@@ -1337,7 +1337,7 @@ function gxisdatigiSekcioListon(): void {
     haksaka.addEventListener("change", () => {
       mutigi(() => { s.n = haksaka.value.trim() || s.n; });
     });
-    const vico = document.createElement("sabosuc2w2q");
+    const x2pa = document.createElement("sabosuc2w2q");
     const a = document.createElement("input");
     a.type = "number";
     a.min = "1";
@@ -1363,8 +1363,8 @@ function gxisdatigiSekcioListon(): void {
     forig.addEventListener("click", () => {
       mutigi(() => { trako.secs = trako.secs.filter((_, idx) => idx !== j); });
     });
-    vico.append(a, b, aux, forig);
-    u.append(haksaka, vico);
+    x2pa.append(a, b, aux, forig);
+    u.append(haksaka, x2pa);
     sekcioListoEl.appendChild(u);
   });
 }
@@ -1411,7 +1411,7 @@ function gxisdatigiCxion(): void {
   gxisdatigiElekton();
   gxisdatigiStatistikojn();
   gxisdatigiTransporton();
-  gxisdatigiPozicion(progreso());
+  gxisdatigiXekuxan(progreso());
   sinkZomo();
   malpurigi();
 }
@@ -1467,8 +1467,8 @@ zomoTempoEl.addEventListener("input", () => {
   zomTempValEl.textContent = oct(vido.pxs);
   malpurigi();
 });
-zomoVicoEl.addEventListener("input", () => {
-  vido.rowH = zomoVicoEl.valueAsNumber;
+zomoX2paEl.addEventListener("input", () => {
+  vido.rowH = zomoX2paEl.valueAsNumber;
   vido.v0 = clamp(vido.v0, 0o0, maxV0());
   zomVicValEl.textContent = oct(vido.rowH);
   malpurigi();
@@ -1718,14 +1718,14 @@ elemento("saviRekte").addEventListener("click", () => void saviRekte());
 elemento("sargi").addEventListener("click", () => void sargiTrakon());
 elemento("wav").addEventListener("click", () => void elsendiWav());
 
-function novaNombro(): string {
+function sef4Nombro(): string {
   let n = 0o0;
   for ( const r of registroj ) n = Math.max(n, parseInt(r.no, 0o12));
   return String(n + 0o1).padStart(0o2, "0");
 }
 
-elemento("trakoNova").addEventListener("click", () => {
-  const no = novaNombro();
+elemento("trakoSef4").addEventListener("click", () => {
+  const no = sef4Nombro();
   const d: TrakoDatumo = {
     no, titolo: "វិលថ្មី", titolKlavo: null,
     bpq: 0o40, ppb: 0o10, baroj: 0o20,
@@ -1740,7 +1740,7 @@ elemento("trakoNova").addEventListener("click", () => {
 });
 
 elemento("trakoDuplikati").addEventListener("click", () => {
-  const no = novaNombro();
+  const no = sef4Nombro();
   const d: TrakoDatumo = {
     no, titolo: trako.titolo + " ( ចម្លង )", titolKlavo: null,
     bpq: trako.bpq, ppb: trako.ppb, baroj: trako.baroj,
@@ -1757,19 +1757,19 @@ elemento("trakoDuplikati").addEventListener("click", () => {
 
 // ⟪ ចលនារូបភាព 📃 ⟫
 
-function kadro(): void {
+function joqa(): void {
   if ( L.ludas && L.ctx ) {
     const el = progreso();
-    if ( !gesto || ( gesto.speco !== "pani" && gesto.speco !== "pinch" ) ) {
+    if ( !gesto || ( gesto.pudal !== "pani" && gesto.pudal !== "pinch" ) ) {
       const xp = xDeT(el);
       if ( xp > W - 0o60 ) vido.t0 = el - ( W - GUTTER ) / 0o4 / vido.pxs;
       else if ( xp < GUTTER ) vido.t0 = Math.max(-barLong(), el - 0o1/0o10);
     }
-    gxisdatigiPozicion(el);
+    gxisdatigiXekuxan(el);
     malpura = true;
   }
-  if ( malpura && W > 0o0 ) desegni();
-  requestAnimationFrame(kadro);
+  if ( malpura && W > 0o0 ) k2f();
+  requestAnimationFrame(joqa);
 }
 
 new ResizeObserver(grandigi).observe(rulo);
@@ -1785,7 +1785,7 @@ const parametro = new URLSearchParams(location.search).get("trako");
 const komenca = parametro && /^\d{2}$/.test(parametro) ? parametro : "01";
 grandigi();
 sxargiTrako(komenca, true);
-requestAnimationFrame(kadro);
+requestAnimationFrame(joqa);
 
 window.redaktilo = {
   trako: () => trako,
@@ -1795,7 +1795,7 @@ window.redaktilo = {
   ludas: () => L.ludas,
   progreso,
   grandigi,
-  desegni,
+  k2f,
   salti,
   ludi,
   halti,

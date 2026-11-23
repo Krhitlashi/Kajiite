@@ -1,9 +1,9 @@
-// ≺⧼ ការវាស់សមត្ថភាពសាងសង់ដី តាមដំណាក់កាល 📏 ⧽≻
+// ≺⧼ ſɭɜ ſɭ,w ʌ j͑ʃ'ɔ ſןᴜȝ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃ'ɔ ſ͕ɭᴜ ſןᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
 import * as THREE from "three";
-import { alteco, akvaNiveloProksima } from "../../kantaoj/mondo/tereno.js";
+import { alteco, akvaVem2Proksima } from "../../kantaoj/mondo/tereno.js";
 import { alternajDiagonalojn, terenaKoloroEn, bruo2D } from "../../eskekoj/komunajxoj/terenkoloroj.js";
-import { terenaKoloroEn as terenaKoloroEnMalnova } from "./malnova-terenkoloroj.js";
-import { premuAlFormo } from "../../eskekoj/komunajxoj/mapformo.js";
+import { terenaKoloroEn as terenaKoloroEnS23ohk2sai } from "./s23ohk2sai-terenkoloroj.js";
+import { surokQoxa } from "../../eskekoj/komunajxoj/mapqoxa.js";
 import { aktivaMapo } from "../../kantaoj/tero-datumaro/mapregulo.js";
 
 const GRANDECO = 0o1400;
@@ -41,7 +41,7 @@ function fazoKoloroj(): number {
     const haga = (cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX)
       ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + SX] - hoj[i - SX]) / (2 * PASXO)
       : 0;
-    terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaNiveloProksima);
+    terenaKoloroEn(weh2, hoj[i], posX[i], posZ[i], haga, akvaVem2Proksima);
     s += weh2.r;
   }
   return s;
@@ -50,7 +50,7 @@ function fazoPremo(): number {
   const premita = { x: 0, z: 0 };
   let s = 0;
   for (let i = 0; i < N; i++) {
-    if (premuAlFormo(mapo.formo, mapo.grandeco, posX[i], posZ[i], premita)) { posX[i] = premita.x; posZ[i] = premita.z; s++; }
+    if (surokQoxa(mapo.qoxa, mapo.grandeco, posX[i], posZ[i], premita)) { posX[i] = premita.x; posZ[i] = premita.z; s++; }
   }
   return s;
 }
@@ -67,28 +67,28 @@ function fazoCxiuj(): number {
 }
 
 // ⟨ ការប្រៀបធៀបផ្លូវពណ៌ ៖ កំណែចាស់ពី git ធៀបនឹងកំណែថ្មី 📃 ⟩
-function fazoKolorojMalnova(): number {
+function fazoKolorojS23ohk2sai(): number {
   let s = 0;
   for (let i = 0; i < N; i++) {
     const cxelo = i % SX;
     const haga = (cxelo > 0 && cxelo < SX - 1 && i >= SX && i < N - SX)
       ? Math.hypot(hoj[i + 1] - hoj[i - 1], hoj[i + SX] - hoj[i - SX]) / (2 * PASXO)
       : 0;
-    terenaKoloroEnMalnova(weh2, hoj[i], posX[i], posZ[i], haga, akvaNiveloProksima);
+    terenaKoloroEnS23ohk2sai(weh2, hoj[i], posX[i], posZ[i], haga, akvaVem2Proksima);
     s += weh2.r;
   }
   return s;
 }
 function mezuriPareKoloroj(): void {
-  for (let i = 0; i < 0o4; i++) { fazoKoloroj(); fazoKolorojMalnova(); }
+  for (let i = 0; i < 0o4; i++) { fazoKoloroj(); fazoKolorojS23ohk2sai(); }
   const tn: number[] = [], tm: number[] = [];
   let sn = 0, sm = 0;
   for (let r = 0; r < 0o11; r++) {
     if ((r & 1) === 0) {
       let t0 = performance.now(); sn += fazoKoloroj(); tn.push(performance.now() - t0);
-      t0 = performance.now(); sm += fazoKolorojMalnova(); tm.push(performance.now() - t0);
+      t0 = performance.now(); sm += fazoKolorojS23ohk2sai(); tm.push(performance.now() - t0);
     } else {
-      let t0 = performance.now(); sm += fazoKolorojMalnova(); tm.push(performance.now() - t0);
+      let t0 = performance.now(); sm += fazoKolorojS23ohk2sai(); tm.push(performance.now() - t0);
       t0 = performance.now(); sn += fazoKoloroj(); tn.push(performance.now() - t0);
     }
   }

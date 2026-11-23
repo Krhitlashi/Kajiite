@@ -1,4 +1,4 @@
-// ≺⧼ កាយវិការប៉ះ 👆 ⧽≻
+// ≺⧼ ſᶘɹ }ʃᴜ }ʃꞇ 👆 ⧽≻
 
 export function tuŝaGesto(elemento: HTMLElement, agoj: {
   akceptu?: ( e: PointerEvent ) => boolean;

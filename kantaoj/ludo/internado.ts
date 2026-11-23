@@ -1,13 +1,13 @@
-// ≺⧼ ការចូលក្នុង 🏠 ⧽≻
-import { heliksaAltecxo, type InternaSistemo } from "../../eskekoj/konstruajxoj/internoj/tipoj.js";
-import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/tipoj.js";
+// ≺⧼ ſɭw ſ̀ȷᴜ }ʃꞇ 🏠 ⧽≻
+import { heliksaAltecxo, type InternaSistemo } from "../../eskekoj/hapaq/internoj/hahunaq.js";
+import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/hahunaq.js";
 import { manĝaKlavo } from "../fasado/paneeloj.js";
 import { traduki } from "../lingvo/tradukoj.js";
 import { agordiPromenanFotilon, movoEniro } from "./piedirado.js";
 import type { PiedaMondo, PiedaStato } from "./piedirado.js";
 import type { LitoInfo, Ludanto } from "./ludanto.js";
 
-export interface InternajOpcioj {
+export interface InternajHasukf2qani {
   ludanto: Ludanto;
   movo: PiedaStato;
   interno: InternaSistemo;
@@ -18,19 +18,19 @@ export interface InternajOpcioj {
 }
 
 export interface Internanto {
-  paŝi( deltaTempo: number, t: number ): void;
+  tona( deltaTempo: number, t: number ): void;
 }
 
-export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
-  const { ludanto, movo, interno: internaSistemo, piedoj, ca3aq, promptoElemento, agordiPrompton } = opcioj;
+export function kf2Internanton( hasukf2qani: InternajHasukf2qani ): Internanto {
+  const { ludanto, movo, interno: internaSistemo, piedoj, ca3aq, promptoElemento, agordiPrompton } = hasukf2qani;
 
   let antauxaHeliksaFrac = 0;
 
-  function paŝi( deltaTempo: number, _t: number ): void {
+  function tona( deltaTempo: number, _t: number ): void {
     if ( ludanto.rezimo !== "interno" ) return;
 
     // ⟪ ការដេក 📃 ⟫
-    if ( ludanto.kuŝas ) {
+    if ( ludanto.fsata ) {
       ludanto.celDistanco = 0;
       ludanto.kameraDistanco = 0;
       piedoj.fotilo.position.set(ludanto.raqa.x, ludanto.raqa.y + 0o1/0o10, ludanto.raqa.z);
@@ -45,8 +45,8 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
     if ( !spec ) return;
     const { movX, movZ, sahakani, fortoX, fortoZ, radX, radZ } = movoEniro(ca3aq, ludanto.c2w2q);
     const rapido = 0o215/0o40;
-    let novaX = ludanto.raqa.x + ( fortoX * movZ + radX * movX ) * rapido * deltaTempo;
-    let novaZ = ludanto.raqa.z + ( fortoZ * movZ + radZ * movX ) * rapido * deltaTempo;
+    let sef4X = ludanto.raqa.x + ( fortoX * movZ + radX * movX ) * rapido * deltaTempo;
+    let sef4Z = ludanto.raqa.z + ( fortoZ * movZ + radZ * movX ) * rapido * deltaTempo;
 
     const specX = spec.x, specZ = spec.z, specH0 = spec.flugoY ?? ( spec.h0 || 0 );
     const rot = spec.rot || 0;
@@ -60,8 +60,8 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
       if ( ludY >= p.y - 0o4/0o10 && ludY < p.y + p.l6da ) { aktivaPlanko = p; break; }
     }
     const margxeno = 0o3/0o10;
-    let lokalX = ( novaX - specX ) * cosR + ( novaZ - specZ ) * sinR;
-    let lokalZ = -( novaX - specX ) * sinR + ( novaZ - specZ ) * cosR;
+    let lokalX = ( sef4X - specX ) * cosR + ( sef4Z - specZ ) * sinR;
+    let lokalZ = -( sef4X - specX ) * sinR + ( sef4Z - specZ ) * cosR;
 
     let surHelikso = false;
     if ( helikso && ludY >= heliksaAltecxo(helikso, -helikso.turnojSube) - 0o1/0o10 && ludY <= heliksaAltecxo(helikso, helikso.turnoj) + 0o1/0o10 ) {
@@ -103,8 +103,8 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
           ludanto.sxtupaTurno = Math.max(-helikso.turnojSube, Math.min(helikso.turnoj, ludanto.sxtupaTurno + delta));
         }
         etapy = specH0 + heliksaAltecxo(helikso, ludanto.sxtupaTurno);
-        novaX = specX + cosR * lokalX - sinR * lokalZ;
-        novaZ = specZ + sinR * lokalX + cosR * lokalZ;
+        sef4X = specX + cosR * lokalX - sinR * lokalZ;
+        sef4Z = specZ + sinR * lokalX + cosR * lokalZ;
       }
     }
     if ( !surHelikso ) {
@@ -112,16 +112,16 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
       if ( aktivaPlanko ) {
         lokalX = Math.max(-aktivaPlanko.hw + margxeno, Math.min(aktivaPlanko.hw - margxeno, lokalX));
         lokalZ = Math.max(-aktivaPlanko.hd + margxeno, Math.min(aktivaPlanko.hd - margxeno, lokalZ));
-        novaX = specX + cosR * lokalX - sinR * lokalZ;
-        novaZ = specZ + sinR * lokalX + cosR * lokalZ;
+        sef4X = specX + cosR * lokalX - sinR * lokalZ;
+        sef4Z = specZ + sinR * lokalX + cosR * lokalZ;
         etapy = specH0 + aktivaPlanko.y;
       } else {
         etapy = specH0;
       }
     }
 
-    ludanto.raqa.x = novaX;
-    ludanto.raqa.z = novaZ;
+    ludanto.raqa.x = sef4X;
+    ludanto.raqa.z = sef4Z;
     const moving = Math.min(1, sahakani);
     ludanto.movoValoro = moving;
 
@@ -156,10 +156,10 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
     ludanto.plejProksimaLito = proksimaLito;
     let proksimaManĝaĵo: MangxajxItemo | null = null;
     let proksimaManĝaĵoDist = 2;
-    for ( const it of internaSistemo.manĝaĵoj ) {
+    for ( const it of internaSistemo.m7x ) {
       if ( it.dead ) continue;
-      const mX = specX + cosR * it.pos.x - sinR * it.pos.z;
-      const mZ = specZ + sinR * it.pos.x + cosR * it.pos.z;
+      const mX = specX + cosR * it.haxekuxa.x - sinR * it.haxekuxa.z;
+      const mZ = specZ + sinR * it.haxekuxa.x + cosR * it.haxekuxa.z;
       const d = Math.hypot(ludanto.raqa.x - mX, ludanto.raqa.z - mZ);
       if ( d < proksimaManĝaĵoDist ) { proksimaManĝaĵoDist = d; proksimaManĝaĵo = it; }
     }
@@ -172,10 +172,10 @@ export function kreiInternanton( opcioj: InternajOpcioj ): Internanto {
       agordiPrompton(`<span class="klavo">E</span> ${prefikso} ${traduki(manĝaKlavo(proksimaManĝaĵo.f.key))}`);
       promptoElemento.classList.add("montri");
     } else {
-      agordiPrompton(`<span class="klavo">E</span> ` + traduki("regiloEliri"));
+      agordiPrompton(`<span class="klavo">E</span> ` + traduki("kamaEliri"));
       promptoElemento.classList.add("montri");
     }
   }
 
-  return { paŝi };
+  return { tona };
 }

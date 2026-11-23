@@ -1,4 +1,4 @@
-// ≺⧼ រក្ទក់ពិភពលោក 💾 ⧽≻
+// ≺⧼ }ʃᴜ j͐ʃᴜ ʌ ı],ɔ ŋᷠᴜ }ʃꞇ 💾 ⧽≻
 import { traduki } from "../lingvo/tradukoj.js";
 
 /*កំណត់ត្រាពិភពលោកដែលបានរក្ទក់
@@ -21,7 +21,7 @@ export interface MondoRecordo {
     @param ca3aq ( string , optional ) - សោបកប្រែឈ្មោះ
     @param ksaka ( string , optional ) - ឈ្មោះផ្ទាល់
     @param smino ( string , optional ) - គ្រាប់ពូជ */
-export interface KreaMondoOpcioj {
+export interface KreaMondoHasukf2qani {
   id?: string;
   ca3aq?: string;
   ksaka?: string;
@@ -80,7 +80,7 @@ function normaligi( kruda: unknown ): MondoRecordo | null {
 
 /*បង្កើតលេខសម្គាល់ថ្មី
 @return id */
-function novaId(): string {
+function sef4Id(): string {
   return Date.now().toString(0o10) + Math.random().toString(0o10).slice(2, 0o10);
 }
 
@@ -93,15 +93,15 @@ export function montriNomon( mondo: MondoRecordo ): string {
 }
 
 /*បង្កើតពិភពលោកថ្មី ហើយដាក់ក្នុងបញ្ជី
-    @param opcioj ( KreaMondoOpcioj = {} ) - ជម្រើស
+    @param hasukf2qani ( KreaMondoHasukf2qani = {} ) - ជម្រើស
 @return registro កំណត់ត្រាថ្មី */
-export function kreiMondon( opcioj: KreaMondoOpcioj = {} ): MondoRecordo {
+export function kf2Mondon( hasukf2qani: KreaMondoHasukf2qani = {} ): MondoRecordo {
   const mondoj = legiMondojn();
-  const smino = ( opcioj.smino ?? "" ).trim();
-  const ksaka = ( opcioj.ksaka ?? "" ).trim() || smino || ( traduki("mondNomo") + " " + ( mondoj.length + 0o1 ).toString(8) );
+  const smino = ( hasukf2qani.smino ?? "" ).trim();
+  const ksaka = ( hasukf2qani.ksaka ?? "" ).trim() || smino || ( traduki("mondNomo") + " " + ( mondoj.length + 0o1 ).toString(8) );
   const registro: MondoRecordo = {
-    id: opcioj.id ?? novaId(),
-    ca3aq: opcioj.ca3aq ?? "",
+    id: hasukf2qani.id ?? sef4Id(),
+    ca3aq: hasukf2qani.ca3aq ?? "",
     ksaka,
     smino,
     tempo: Date.now(),
@@ -117,13 +117,13 @@ export function certigiCxefanMondon(): MondoRecordo {
   const mondoj = legiMondojn();
   const ekzista = mondoj.find(m => m.id === CXEF_ANO);
   if ( ekzista ) {
-    if ( ekzista.ca3aq !== "titoloUrbo" ) {
-      ekzista.ca3aq = "titoloUrbo";
+    if ( ekzista.ca3aq !== "titoloKaxte" ) {
+      ekzista.ca3aq = "titoloKaxte";
       skribiMondojn(mondoj);
     }
     return ekzista;
   }
-  return kreiMondon({ id: CXEF_ANO, ca3aq: "titoloUrbo" });
+  return kf2Mondon({ id: CXEF_ANO, ca3aq: "titoloKaxte" });
 }
 
 /*លុបពិភពលោកចេញពីបញ្ជី
@@ -145,7 +145,7 @@ export function duobligiMondon( id: string ): MondoRecordo | null {
   let ksaka = montriNomon(origino) + " *";
   while ( uzitaj.has(ksaka) ) ksaka += "*";
   const kopio: MondoRecordo = {
-    id: novaId(),
+    id: sef4Id(),
     ca3aq: "",
     ksaka,
     smino: origino.smino,

@@ -1,26 +1,26 @@
-// ≺⧼ ម៉ឺនុយ 🎛 ⧽≻
+// ≺⧼ }ʃɹ ɭʃᴜ }ʃw 🎛 ⧽≻
 import { realaKrepusko } from "../ludo/kalendaro.js";
-import type { Vetero } from "../bildo/scena/tipoj.js";
-import { kreiStaton } from "./paghoj.js";
+import type { Vetero } from "../bildo/scena/hahunaq.js";
+import { kf2Staton } from "./paghoj.js";
 import type { Stato } from "./paghoj.js";
-import { sonregiloj } from "./sonregiloj.js";
+import { sonhakama } from "./sonhakama.js";
 import { vefalKu1o, ve3aqKu1o } from "../../eskekoj/komunajxoj/agordoj.js";
 
-export interface MenuajOpcioj {
+export interface MenuajHasukf2qani {
   navPopUp: HTMLElement;
   navButono: HTMLElement;
   butKrepusko: HTMLElement;
-  duskRegilo: HTMLInputElement;
+  duskKama: HTMLInputElement;
   butVetero: HTMLElement;
   veteroEtikedo: HTMLElement;
   butKonserviEliri: HTMLElement;
   konserviEliri: () => void;
   /*តើទំព័រសម្លៀកបំពាក់កំពុងបើកឬទេ ៖ បើបើក ប៊ូតុងម៉ឺនុយបិទវាមុន
-      @param cxuVestaroMalfermita ( function ) */
-  cxuVestaroMalfermita: () => boolean;
-  informo: HTMLElement;
+      @param tsekeVestaroMalfermita ( function ) */
+  tsekeVestaroMalfermita: () => boolean;
+  inqoxa: HTMLElement;
   fermiVestaron: () => void;
-  fermiInformon: () => void;
+  fermiInqoxan: () => void;
   traduki: ( ca3aq: string ) => string;
   aplikiVacepu: () => void;
   aplikiRezimon: ( skek2: number ) => void;
@@ -31,25 +31,25 @@ export interface Menuo {
   fermiNaviganPopUp: () => void;
 }
 
-export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
+export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
   const {
-    navPopUp, navButono, butKrepusko, duskRegilo,
-    butVetero, veteroEtikedo, butKonserviEliri, cxuVestaroMalfermita, informo,
-    fermiVestaron, fermiInformon, traduki, aplikiVacepu, aplikiRezimon, aplikiVeteron,
+    navPopUp, navButono, butKrepusko, duskKama,
+    butVetero, veteroEtikedo, butKonserviEliri, tsekeVestaroMalfermita, inqoxa,
+    fermiVestaron, fermiInqoxan, traduki, aplikiVacepu, aplikiRezimon, aplikiVeteron,
     konserviEliri,
-  } = opcioj;
+  } = hasukf2qani;
 
   // ⟪ ផ្ទាំងរុករក ៖ ម៉ឺនុយដូចគ្នានឹងផ្ទាំងលេចឡើងដទៃ , បើកវាបិទម៉ឺនុយផ្សេង 📃 ⟫
   function gxisdatigiNavButonon() {
-    const malfermita = navStato.cxuMalfermita();
+    const malfermita = navStato.tsekeMalfermita();
     navButono.textContent = malfermita ? "川" : "二";
     navButono.setAttribute("aria-pressed", String(malfermita));
   }
-  const navStato: Stato = kreiStaton("navPopUp", undefined, gxisdatigiNavButonon);
+  const navStato: Stato = kf2Staton("navPopUp", undefined, gxisdatigiNavButonon);
   function sxaltiNaviganPopUp() {
-    if ( cxuVestaroMalfermita() ) { fermiVestaron(); return; }
-    if ( informo.classList.contains("montri") ) { fermiInformon(); return; }
-    if ( navStato.cxuMalfermita() ) navStato.kasxi(); else navStato.malfermi();
+    if ( tsekeVestaroMalfermita() ) { fermiVestaron(); return; }
+    if ( inqoxa.classList.contains("montri") ) { fermiInqoxan(); return; }
+    if ( navStato.tsekeMalfermita() ) navStato.kasxi(); else navStato.malfermi();
   }
   function fermiNaviganPopUp() {
     navStato.fermi();
@@ -58,8 +58,8 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
 
   // ⟪ សំឡេង , សំឡេងរំខាន , បទ ៖ ចែករំលែកកូដជាមួយទំព័រការកំណត់ 📃 ⟫
   // ⟨ បិទផ្ទាំងរុករកពេលបិទបើកសំឡេង ឬសំឡេងរំខាន ៖ ចុចបទមិនបិទទេ ដូចមុន 📃 ⟩
-  sonregiloj().ligi(navPopUp, ( speco ) => {
-    if ( speco !== "trako" ) fermiNaviganPopUp();
+  sonhakama().ligi(navPopUp, ( pudal ) => {
+    if ( pudal !== "trako" ) fermiNaviganPopUp();
   });
 
   // ⟪ របៀបព្រលប់ 📃 ⟫
@@ -69,7 +69,7 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
   let krepuskaValoro = 0;
   function aplikiKrepuskon( skek2: number ): void {
     krepuskaValoro = skek2;
-    duskRegilo.value = String(skek2);
+    duskKama.value = String(skek2);
     const nokte = skek2 > 0o4/0o10;
     butKrepusko.textContent = nokte ? "☽" : "☀";
     butKrepusko.setAttribute("aria-pressed", String(nokte));
@@ -80,8 +80,8 @@ export function kreiMenuon( opcioj: MenuajOpcioj ): Menuo {
     ve3aqKu1o("krepusko", krepuskaValoro);
     fermiNaviganPopUp();
   });
-  duskRegilo.addEventListener("input", () => {
-    aplikiKrepuskon(parseFloat(duskRegilo.value) || 0);
+  duskKama.addEventListener("input", () => {
+    aplikiKrepuskon(parseFloat(duskKama.value) || 0);
     ve3aqKu1o("krepusko", krepuskaValoro);
   });
   const konservitaKrepusko = vefalKu1o("krepusko", -0o1);

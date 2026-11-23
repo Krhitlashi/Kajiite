@@ -1,8 +1,8 @@
-// ≺⧼ អ្នកលេង 🎮 ⧽≻
+// ≺⧼ ŋᷠᴜ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ 🎮 ⧽≻
 import * as THREE from "three";
 import type { Kanoto } from "../../eskekoj/medio/transporto.js";
-import type { KonstruSpec } from "../../eskekoj/konstruajxoj/satalaj/tipoj.js";
-import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/tipoj.js";
+import type { VepaqSpec } from "../../eskekoj/hapaq/satalaj/hahunaq.js";
+import type { MangxajxItemo } from "../../eskekoj/mebloj/mangxajxoj/hahunaq.js";
 
 export type Rezimo = "orbito" | "promeno" | "interno";
 
@@ -15,8 +15,8 @@ export interface Ludanto {
   rezimo: Rezimo;
   antauxaRezimo: "orbito" | "promeno" | null;
   surKanoto: Kanoto | null;
-  elektitaSpec: KonstruSpec | null;
-  plejProksimaPordo: KonstruSpec | null;
+  elektitaSpec: VepaqSpec | null;
+  plejProksimaPordo: VepaqSpec | null;
   aktivaPordaAngulo: number;
   plejProksimaManĝaĵo: MangxajxItemo | null;
   plejProksimaBero: MangxajxItemo | null;
@@ -29,13 +29,13 @@ export interface Ludanto {
   estasSurTERENO: boolean;
   kameraDistanco: number;
   celDistanco: number;
-  kuŝas: boolean;
+  fsata: boolean;
   kuŝaStato: LitoInfo | null;
   plejProksimaLito: LitoInfo | null;
   movoValoro: number;
 }
 
-export function kreiLudanton(): Ludanto {
+export function kf2Ludanton(): Ludanto {
   return {
     rezimo: "orbito",
     antauxaRezimo: null,
@@ -54,7 +54,7 @@ export function kreiLudanton(): Ludanto {
     estasSurTERENO: false,
     kameraDistanco: 0,
     celDistanco: 0,
-    kuŝas: false,
+    fsata: false,
     kuŝaStato: null,
     plejProksimaLito: null,
     movoValoro: 0,

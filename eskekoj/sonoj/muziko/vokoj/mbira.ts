@@ -1,4 +1,4 @@
-// ≺⧼ សំឡេងមប៊ីរ៉ា 🎹 ⧽≻
+// ≺⧼ ŋᷠɀꞇ ɽ͑ʃ'ᴜ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🎹 ⧽≻
 import { noiseSrc } from "./bruo.js";
 import { faktoro } from "./vario.js";
 

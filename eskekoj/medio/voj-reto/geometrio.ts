@@ -1,31 +1,31 @@
-// ≺⧼ បណ្តាញផ្លូវ ធរណីមាត្រ 🛣️ ⧽≻
-import type { VojaPunkto, VojaRetoVojo } from "./tipoj.js";
-import { TOLERANCO } from "./tipoj.js";
-import { VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO, vojaLarghoDuono } from "../vojoj/mezuroj.js";
+// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɭɔ ſ͕ɭɜ ı],ᴜ 🛣️ ⧽≻
+import type { K6h6Punkto, K6h6RetoK6h6 } from "./hahunaq.js";
+import { TOLERANCO } from "./hahunaq.js";
+import { VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO, k6h6LarghoDuono } from "../hak6h6/havecax2l.js";
 
-export function vojaDuonLargho( k6h6: VojaRetoVojo ): number {
-  return vojaLarghoDuono( k6h6?.sefini );
+export function k6h6DuonLargho( k6h6: K6h6RetoK6h6 ): number {
+  return k6h6LarghoDuono( k6h6?.sefini );
 }
 
 // ⟪ កន្លះទទឹងផ្ទៃផ្លូវ 🛣️ ⟫
 /*កន្លះទទឹងបន្ទះកំពូលផ្លូវ ( មិនរាប់ស្មា ) ។ ចានភ្ជាប់ត្រូវប្រើតម្លៃនេះ ,
    មិនមែនតម្លៃថេរទេ ។ បើចានតូចជាងផ្លូវ , ស្មាងងឹតរបស់ផ្លូវលាតចេញ
    ហួសចាន , ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។
-    @param k6h6 ( VojaRetoVojo ) - ផ្លូវ
+    @param k6h6 ( K6h6RetoK6h6 ) - ផ្លូវ
 @returns p2somani ( number ) - កន្លះទទឹងកំពូល */
-export function vojaSupraDuono( k6h6: VojaRetoVojo | null | undefined ): number {
+export function k6h6SupraDuono( k6h6: K6h6RetoK6h6 | null | undefined ): number {
   return Math.max( VOJA_DIORITA_DUONO, ( k6h6?.sefini || 0o7/0o2 ) / 0o4 );
 }
 
-export function vojaKunigaDuono( k6h6: VojaRetoVojo ): number {
-  return Math.max( VOJA_EKSTERA_DUONO, vojaDuonLargho( k6h6 ) );
+export function k6h6KunigaDuono( k6h6: K6h6RetoK6h6 ): number {
+  return Math.max( VOJA_EKSTERA_DUONO, k6h6DuonLargho( k6h6 ) );
 }
 
-export function vojaProjekcio(
+export function k6h6Projekcio(
   x: number,
   z: number,
-  a: VojaPunkto,
-  b: VojaPunkto
+  a: K6h6Punkto,
+  b: K6h6Punkto
 ): { x: number; z: number; t: number; d: number } | null {
   const dx = b[0] - a[0], dz = b[1] - a[1];
   const kvadrato = dx * dx + dz * dz;

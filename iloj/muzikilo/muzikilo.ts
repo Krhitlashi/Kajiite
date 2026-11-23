@@ -1,16 +1,16 @@
-// ≺⧼ ឧបករណ៍ចាក់ចម្រៀង 🎧 ⧽≻
+// ≺⧼ ŋᷠᴜ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ ʌ j͑ʃп́ꞇ ſɭɔƴ 🎧 ⧽≻
 // ឧបករណ៍នេះចាក់វិលទាំង 0o7 តាមម៉ាស៊ីនលេងតន្ត្រីពិតរបស់ហ្គេម។
 // វាបង្កើត AudioContext ដោយខ្លួនឯងនៅពេលអន្តរកម្មដំបូង ហើយបិទការបន្ត
 // ស្វ័យប្រវត្តិ ដូច្នេះបទនីមួយៗឈប់ពេលចប់ មិនលោតទៅបទផ្សេងទេ។
 
 import { KANTOJ } from "../../eskekoj/sonoj/muziko/kantoj.js";
-import { iniciati, ludi, halti, sxargiTrako, nunaTrako, cxuLudas, progreso, salti, agordiAŭtomatan, nunajInstrumentoj } from "../../eskekoj/sonoj/muziko/ludilo.js";
+import { iniciati, ludi, halti, sxargiTrako, nunaTrako, tsekeLudas, progreso, salti, agordiAŭtomatan, nunajInstrumentoj } from "../../eskekoj/sonoj/muziko/ludilo.js";
 import { AIH } from "../../kantaoj/lingvo/tradukoj/aih.js";
 import { elemento } from "../komunajxoj/dom.js";
 import { HE } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
 import { instrumento } from "../../eskekoj/sonoj/muziko/vokoj/instrumento.js";
 import { F, NYAM } from "../../eskekoj/sonoj/muziko/vokoj/skaloj.js";
-import type { SonoEvento } from "../../eskekoj/sonoj/muziko/vokoj/tipoj.js";
+import type { SonoEvento } from "../../eskekoj/sonoj/muziko/vokoj/hahunaq.js";
 
 // ⟨ ហេ ៖ 2^32 ជុំវិញសេស្យូម ១៣៣ គិតជាវិនាទី 📃 ⟩
 
@@ -41,8 +41,8 @@ function ensureAudio(): void {
     if ( AC.state === "suspended" ) AC.resume();
     return;
   }
-  const Konstruilo = window.AudioContext ?? ( window as unknown as { webkitAudioContext: typeof AudioContext } ).webkitAudioContext;
-  AC = new Konstruilo();
+  const Vepaqlo = window.AudioContext ?? ( window as unknown as { webkitAudioContext: typeof AudioContext } ).webkitAudioContext;
+  AC = new Vepaqlo();
   if ( AC.state === "suspended" ) AC.resume();
   master = AC.createGain();
   master.gain.value = parseFloat(volumo.value);
@@ -96,37 +96,37 @@ KANTOJ.forEach(( k, i ) => {
 
 interface SonoProvo {
   ksaka: string;
-  okazaĵo: SonoEvento;
+  cal: SonoEvento;
 }
 
 /* បញ្ជីឧបករណ៍ ទុកកម្ពស់និងរយៈពេលឱ្យសមនឹងសំឡេងរបស់វា
    ទាំងអស់ឆ្លងកាត់ឧបករណ៍ផ្សាយតែមួយជាមួយសំឡេងក្នុងហ្គេម 📃 */
 const SONPROVOJ: SonoProvo[] = [
-  { ksaka: "siku", okazaĵo: { t: 0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
-  { ksaka: "ocarina", okazaĵo: { t: 0, i: "ocarina", f: F(0o105), d: 0o35/0o100, v: 0o6/0o10 } },
-  { ksaka: "didj", okazaĵo: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o150/0o100, v: 0o6/0o10 } },
-  { ksaka: "didj · សូរខ្លី", okazaĵo: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o25/0o100, v: 0o6/0o10, toot: true } },
-  { ksaka: "guiro", okazaĵo: { t: 0, i: "guiro", f: 0, d: 0o100/0o100, v: 0o6/0o10, cresc: 1 } },
-  { ksaka: "tjurunga", okazaĵo: { t: 0, i: "tjurunga", f: 0o334, d: 0o6/0o10, v: 0o6/0o10 } },
-  { ksaka: "slenthem", okazaĵo: { t: 0, i: "slenthem", f: F(0o67), d: 0o2/0o10, v: 0o6/0o10 } },
-  { ksaka: "inanga", okazaĵo: { t: 0, i: "inanga", f: F(0o64), d: 0o75/0o100, v: 0o6/0o10, dur: 0o75/0o100 } },
-  { ksaka: "mbira", okazaĵo: { t: 0, i: "mbira", f: F(0o71), d: 0o2/0o10, v: 0o6/0o10 } },
-  { ksaka: "kiiqflak", okazaĵo: { t: 0, i: "kiiqflak", f: F(NYAM[0o1]), d: HE / 0o2, v: 0o6/0o10 } },
-  { ksaka: "hiwe", okazaĵo: { t: 0, i: "hiwe", f: F(0o71), d: 0o6/0o10, v: 0o6/0o10 } },
+  { ksaka: "siku", cal: { t: 0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
+  { ksaka: "ocarina", cal: { t: 0, i: "ocarina", f: F(0o105), d: 0o35/0o100, v: 0o6/0o10 } },
+  { ksaka: "didj", cal: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o150/0o100, v: 0o6/0o10 } },
+  { ksaka: "didj · សូរខ្លី", cal: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o25/0o100, v: 0o6/0o10, toot: true } },
+  { ksaka: "guiro", cal: { t: 0, i: "guiro", f: 0, d: 0o100/0o100, v: 0o6/0o10, cresc: 1 } },
+  { ksaka: "tjurunga", cal: { t: 0, i: "tjurunga", f: 0o334, d: 0o6/0o10, v: 0o6/0o10 } },
+  { ksaka: "slenthem", cal: { t: 0, i: "slenthem", f: F(0o67), d: 0o2/0o10, v: 0o6/0o10 } },
+  { ksaka: "inanga", cal: { t: 0, i: "inanga", f: F(0o64), d: 0o75/0o100, v: 0o6/0o10, dur: 0o75/0o100 } },
+  { ksaka: "mbira", cal: { t: 0, i: "mbira", f: F(0o71), d: 0o2/0o10, v: 0o6/0o10 } },
+  { ksaka: "kiiqflak", cal: { t: 0, i: "kiiqflak", f: F(NYAM[0o1]), d: HE / 0o2, v: 0o6/0o10 } },
+  { ksaka: "hiwe", cal: { t: 0, i: "hiwe", f: F(0o71), d: 0o6/0o10, v: 0o6/0o10 } },
 ];
 
 SONPROVOJ.forEach(p => {
   const b = document.createElement("button");
   b.textContent = p.ksaka;
-  b.dataset.instrumento = p.okazaĵo.i;
+  b.dataset.instrumento = p.cal.i;
   b.setAttribute("aria-pressed", "false");
   b.addEventListener("click", () => {
     ensureAudio();
     if ( !AC || !master ) return;
-    instrumento(AC, master, p.okazaĵo, AC.currentTime + 0o1/0o40);
+    instrumento(AC, master, p.cal, AC.currentTime + 0o1/0o40);
   });
   sonListo.appendChild(b);
-  sonButonoj.push({ i: p.okazaĵo.i, but: b });
+  sonButonoj.push({ i: p.cal.i, but: b });
 });
 
 // ⟪ ការបញ្ជា 📃 ⟫
@@ -177,7 +177,7 @@ progresoEl.addEventListener("change", () => {
 
 function ĝisdatigi(): void {
   const cur = nunaTrako();
-  const ludas = cxuLudas();
+  const ludas = tsekeLudas();
   const aktivaj = new Set(nunajInstrumentoj());
   baskuliBut.textContent = ludas ? "⏸" : "▶";
   butonoj.forEach(( b, i ) => b.setAttribute("aria-pressed", String( i === cur && ludas )));

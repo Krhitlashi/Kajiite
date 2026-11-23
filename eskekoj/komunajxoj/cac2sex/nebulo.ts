@@ -1,0 +1,14 @@
+// ≺⧼ }ʃɔ ʃw j͐ʃɜ j͑ʃᴜꞇ ʌ j͐ʃƽɜ }ʃꞇ 🌫️ ⧽≻
+import * as THREE from "three";
+import { kf2P2t6zoCac2sex } from "./helpiloj.js";
+
+export function kf2NebulanCac2sex(): THREE.CanvasTexture {
+  const s = 0o200;
+  return kf2P2t6zoCac2sex(s, s, ( kuns2bana ) => {
+    const r = kuns2bana.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+    r.addColorStop(0, "rgba(240,240,232,0.6)");
+    r.addColorStop(0o4/0o10, "rgba(240,240,232,0.22)");
+    r.addColorStop(1, "rgba(240,240,232,0)");
+    kuns2bana.fillStyle = r; kuns2bana.fillRect(0, 0, s, s);
+  }, [ 1, 1 ], { volvado: THREE.ClampToEdgeWrapping });
+}

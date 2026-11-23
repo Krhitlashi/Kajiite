@@ -1,7 +1,7 @@
-// ≺⧼ វិល 06 · ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ · 0o440 ហេ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ 06 · ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ · 0o440 ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
 // ⟨ មេឡូឌីពី MP3 អៃស៊ីអាគ្រី ៖ អូស្ទីណាតូមប៊ីរ៉ាក្នុងផ្សារ 📃 ⟩
 
-import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/tipoj.js";
+import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/hahunaq.js";
 import { F } from "../vokoj/skaloj.js";
 import { HE, caxomani } from "../vokoj/tempo.js";
 import { motifo, U1, U2, U0, MIN_BB } from "./komunajxoj.js";

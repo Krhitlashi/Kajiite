@@ -1,4 +1,4 @@
-// ≺⧼ ទំព័រពេញ 📄 ⧽≻
+// ≺⧼ j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃ'w j͐ʃᴜ 📄 ⧽≻
 // ការបង្កើត UI រួមសម្រាប់ម៉ឺនុយទាំងអស់ ៖ ទំព័រពេញ និងផ្ទាំងលេចឡើង ។
 // ម៉ឺនុយមួយមានលេខសម្គាល់តែមួយ ៖ ការហៅដូចគ្នាពីរដងត្រឡប់វត្ថុដូចគ្នា ។
 // ពេលម៉ឺនុយមួយបើក ម៉ឺនុយផ្សេងទាំងអស់បិទ ។ ប៊ូតុងត្រឡប់ ( id + Reeniri )
@@ -9,7 +9,7 @@ export interface Stato {
   fermi(): void;
   /*លាក់តែប៉ុណ្ណោះ ៖ មិនបើកម៉ឺនុយមុនវិញទេ */
   kasxi(): void;
-  cxuMalfermita(): boolean;
+  tsekeMalfermita(): boolean;
 }
 
 const statoj = new Map<string, Stato>();
@@ -22,7 +22,7 @@ let antauaId: string | null = null;
     @param onMalfermi ( function , optional ) - ដំណើរការមុនបើក
     @param jeSxangxo ( function , optional ) - ដំណើរការពេលបើក ឬបិទ
 @returns stato */
-export function kreiStaton( id: string, onMalfermi?: () => void, jeSxangxo?: () => void ): Stato {
+export function kf2Staton( id: string, onMalfermi?: () => void, jeSxangxo?: () => void ): Stato {
   const jam = statoj.get(id);
   if ( jam ) {
     if ( onMalfermi ) malfermoj.get(id)!.push(onMalfermi);
@@ -64,7 +64,7 @@ export function kreiStaton( id: string, onMalfermi?: () => void, jeSxangxo?: () 
       if ( celo ) statoj.get(celo)?.malfermi();
     },
     kasxi,
-    cxuMalfermita: () => elemento!.classList.contains("montri"),
+    tsekeMalfermita: () => elemento!.classList.contains("montri"),
   };
   statoj.set(id, stato);
 

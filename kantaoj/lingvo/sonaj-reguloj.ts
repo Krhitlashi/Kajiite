@@ -1,4 +1,4 @@
-// ≺⧼ ច្បាប់សំឡេង 🗣️ ⧽≻
+// ≺⧼ j͑ʃɹ ſɭᴜc̗ ɭʃᴜ ʌ ʃɜ j͐ʃɔ 🗣️ ⧽≻
 // ⟪ ច្បាប់អក្ខរាវិរុទ្ធអង់គ្លេស ( en ) 🏴󠁧󠁢󠁥󠁮󠁧󠁿 ⟫
 
 // ⟪ ដើម ( 36 ) , ទម្រង់ព្យញ្ជនៈចាប់ផ្តើមព្យាង្គ 🗣️ ⟫
@@ -52,16 +52,16 @@ const ĈIUJ_GK: string[] = Array.from(
 ).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
 function avideKongruigi(s2banani: string, tokenaListo: string[]): string[] {
-  const ĵetonoj: string[] = [];
+  const esxaq: string[] = [];
   let i = 0;
   while ( i < s2banani.length ) {
     let trovita = false;
     for ( const t of tokenaListo ) {
-      if ( s2banani.startsWith(t, i) ) { ĵetonoj.push(t); i += t.length; trovita = true; break; }
+      if ( s2banani.startsWith(t, i) ) { esxaq.push(t); i += t.length; trovita = true; break; }
     }
-    if ( !trovita ) { ĵetonoj.push(s2banani[i]); i++; }
+    if ( !trovita ) { esxaq.push(s2banani[i]); i++; }
   }
-  return ĵetonoj;
+  return esxaq;
 }
 
 // ⟪ តារាងផែនទីសំឡេងភាសា 🌍 ⟫
@@ -144,22 +144,22 @@ const JA_KONSONANTAJ_RULEROJ: Record<string, [ string, string ]> = {
   tɬ: [ "tɬ", "ト" ],
 };
 
-function katakanaVico(rulo: [ string, string ]): Record<string, string> {
-  const [ speco, kozuni ] = rulo;
-  let vico: Record<string, string>;
-  if ( speco === "gojūon" ) vico = { ...JA_GOJŪON[kozuni] };
-  else if ( speco === "yōon" ) vico = { a: kozuni + "ャ", i: kozuni, ɛ: kozuni + "ェ", ɤ: kozuni + "ョ" };
-  else if ( speco === "foreign" ) vico = { a: kozuni + "ァ", i: kozuni + "ィ", ɛ: kozuni + "ェ", ɤ: kozuni + "ォ" };
-  else if ( speco === "kʂ" ) vico = { a: kozuni + "シャ", i: kozuni + "シ", ɛ: kozuni + "シェ", ɤ: kozuni + "ショ" };
-  else if ( speco === "tɬ" ) vico = { a: kozuni + "ラ", i: kozuni + "リ", ɛ: kozuni + "レ", ɤ: kozuni + "ロ" };
-  else vico = {};
-  vico["ɑ"] = vico["a"] + "ー";
-  return vico;
+function katakanaX2pa(rulo: [ string, string ]): Record<string, string> {
+  const [ pudal, kozuni ] = rulo;
+  let x2pa: Record<string, string>;
+  if ( pudal === "gojūon" ) x2pa = { ...JA_GOJŪON[kozuni] };
+  else if ( pudal === "yōon" ) x2pa = { a: kozuni + "ャ", i: kozuni, ɛ: kozuni + "ェ", ɤ: kozuni + "ョ" };
+  else if ( pudal === "foreign" ) x2pa = { a: kozuni + "ァ", i: kozuni + "ィ", ɛ: kozuni + "ェ", ɤ: kozuni + "ォ" };
+  else if ( pudal === "kʂ" ) x2pa = { a: kozuni + "シャ", i: kozuni + "シ", ɛ: kozuni + "シェ", ɤ: kozuni + "ショ" };
+  else if ( pudal === "tɬ" ) x2pa = { a: kozuni + "ラ", i: kozuni + "リ", ɛ: kozuni + "レ", ɤ: kozuni + "ロ" };
+  else x2pa = {};
+  x2pa["ɑ"] = x2pa["a"] + "ー";
+  return x2pa;
 }
 
 const JA_KV_KOMBOJ: Record<string, string> = {};
 for ( const [ kon, rulo ] of Object.entries(JA_KONSONANTAJ_RULEROJ) ) {
-  for ( const [ vokalo, kana ] of Object.entries(katakanaVico(rulo)) ) {
+  for ( const [ vokalo, kana ] of Object.entries(katakanaX2pa(rulo)) ) {
     JA_KV_KOMBOJ[kon + vokalo] = kana;
   }
 }
@@ -177,26 +177,26 @@ function duobligi(konsono: string): string {
 }
 
 /** ចម្លងសូរស័ព្ទ IPA ទៅជាភាសាអង់គ្លេសដោយច្បាប់អក្ខរាវិរុទ្ធអង់គ្លេស។ */
-export function anglaKonverti(ipaaTeksto: string): string {
-  const ĵetonoj = avideKongruigi(ipaaTeksto, ĈIUJ_IPA);
-  const n = ĵetonoj.length;
-  const eligo = ĵetonoj.map(t => MAPO_EN[t] ?? t);
+export function anglaKonverti(ipaaS2bana: string): string {
+  const esxaq = avideKongruigi(ipaaS2bana, ĈIUJ_IPA);
+  const n = esxaq.length;
+  const eligo = esxaq.map(t => MAPO_EN[t] ?? t);
 
   for ( let i = 0; i < n - 2; i++ ) {
-    if ( ANGLAJ_MALFAVORAJ.has(ĵetonoj[i]) && !ANGLAJ_VOKALOJ.has(ĵetonoj[i + 1]) && ANGLAJ_VOKALOJ.has(ĵetonoj[i + 2]) ) {
-      if ( !ANGLAJ_GLITOJ.has(ĵetonoj[i + 1]) ) eligo[i + 1] = duobligi(eligo[i + 1]);
+    if ( ANGLAJ_MALFAVORAJ.has(esxaq[i]) && !ANGLAJ_VOKALOJ.has(esxaq[i + 1]) && ANGLAJ_VOKALOJ.has(esxaq[i + 2]) ) {
+      if ( !ANGLAJ_GLITOJ.has(esxaq[i + 1]) ) eligo[i + 1] = duobligi(eligo[i + 1]);
     }
   }
 
   for ( let i = 0; i < n; i++ ) {
-    const t = ĵetonoj[i];
+    const t = esxaq[i];
     const lakso = t === "ɪ̈" || t === "ə" || t === "ɛ";
     if ( !lakso && t !== "i" ) continue;
     let j = i + 1;
-    while ( j < n && !ANGLAJ_VOKALOJ.has(ĵetonoj[j]) ) j++;
+    while ( j < n && !ANGLAJ_VOKALOJ.has(esxaq[j]) ) j++;
     const runLargho = j - i - 1;
     const finaKon = j >= n && runLargho > 0;
-    const unuaKon = runLargho > 0 ? ĵetonoj[i + 1] : null;
+    const unuaKon = runLargho > 0 ? esxaq[i + 1] : null;
     const unuaSpel = runLargho > 0 ? eligo[i + 1] : "";
     if ( lakso ) {
       const mark = t === "ɪ̈" ? "ih" : t === "ə" ? "uh" : "eh";
@@ -218,17 +218,17 @@ export function anglaKonverti(ipaaTeksto: string): string {
 }
 
 /** ចម្លងសូរស័ព្ទ IPA ទៅភាសាគោលដៅ ( eo, en, ja, km )។ */
-export function ipaAlLingvo(ipaaTeksto: string, lingvaKodo: string): string {
-  if ( lingvaKodo === "en" ) return anglaKonverti(ipaaTeksto);
+export function ipaAlLingvo(ipaaS2bana: string, lingvaKodo: string): string {
+  if ( lingvaKodo === "en" ) return anglaKonverti(ipaaS2bana);
   const lingvaMapo: Record<string, string> = { ...( LINGVAJ_MAPOJ[lingvaKodo] ?? {} ) };
   let tokenaListo = ĈIUJ_IPA;
   if ( lingvaKodo === "ja" ) {
     Object.assign(lingvaMapo, JA_KV_KOMBOJ);
     tokenaListo = _JA_IPA;
   }
-  const ĵetonoj = avideKongruigi(ipaaTeksto, tokenaListo);
-  const eligo = ĵetonoj.map(t => lingvaMapo[t] ?? t);
-  if ( lingvaKodo === "km" && ĵetonoj.length && ANGLAJ_VOKALOJ.has(ĵetonoj[0]) ) {
+  const esxaq = avideKongruigi(ipaaS2bana, tokenaListo);
+  const eligo = esxaq.map(t => lingvaMapo[t] ?? t);
+  if ( lingvaKodo === "km" && esxaq.length && ANGLAJ_VOKALOJ.has(esxaq[0]) ) {
     eligo.unshift("អ");
   }
   return eligo.join("");
@@ -238,8 +238,8 @@ export function ipaAlLingvo(ipaaTeksto: string, lingvaKodo: string): string {
  * បម្លែង Gawekiif ( អក្សរដើម ) ដោយផ្ទាល់ទៅជាខ្សែអក្សរសូរស័ព្ទ IPA។
  * ចន្លោះគឺជាអ្នកបំបែកព្យាង្គក្នុងពាក្យ aih ហើយមិនផ្ទុកសំឡេងណាមួយឡើយ។
  */
-export function gkAlIpa(gkaTeksto: string): string {
-  const densigita = gkaTeksto.replace(/\s+/g, "");
+export function gkAlIpa(gkaS2bana: string): string {
+  const densigita = gkaS2bana.replace(/\s+/g, "");
   const ludo: Record<string, string> = {};
   for ( const [ gk, , ipa ] of [ ...KOMENCAĴ, ...INTERNAĴ ] ) ludo[gk] = ipa;
   return avideKongruigi(densigita, ĈIUJ_GK).map(gk => ludo[gk] ?? gk).join("");

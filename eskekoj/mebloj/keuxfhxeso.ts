@@ -1,7 +1,7 @@
 // ≺⧼ ſɭɔ ʃɔɔ˞ ⭐ ⧽≻
 import * as THREE from "three";
-import { kreiBuferanGeometrion, kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
-import { vepaqSlaflko, type SlafLkoQoxa } from "../komunajxoj/teksajxoj/keuxfhxesa-folio.js";
+import { kf2BuferanGeometrion, kunfandiGeometriojn } from "../komunajxoj/kunfandajxoj.js";
+import { vepaqSlaflko, type SlafLkoQoxa } from "../komunajxoj/cac2sex/keuxfhxesa-slaf.js";
 
 export interface KeuxfhxesoRaqa {
   x: number; z: number;
@@ -137,7 +137,7 @@ function ksikTsiiq(ka5ik: number, l6da: number, tafkaq: number, sefini: number):
       havecax2lani.push(a, b, ( i + 0o1 ) * n + j2, a, ( i + 0o1 ) * n + j2, i * n + j2);
     }
   }
-  return kreiBuferanGeometrion(xekuxa, havecax2lani);
+  return kf2BuferanGeometrion(xekuxa, havecax2lani);
 }
 
 let lkoVepabok: THREE.CanvasTexture | null = null;

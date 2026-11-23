@@ -1,11 +1,11 @@
-// ≺⧼ បណ្តាញផ្លូវ 🛣️ ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ 🛣️ ⧽≻
 
-import { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO } from "./doko/tipoj.js";
+import { DOKO_JOQA_SEFINI, DOKO_PLATFORMA_SEFINI } from "./qakaj2/hahunaq.js";
 
-export { DOKO_KADRA_LARĜO, DOKO_PLATFORMA_LARĜO };
+export { DOKO_JOQA_SEFINI, DOKO_PLATFORMA_SEFINI };
 
-export * from "./voj-reto/tipoj.js";
+export * from "./voj-reto/hahunaq.js";
 export * from "./voj-reto/geometrio.js";
-export * from "./voj-reto/segmentoj.js";
+export * from "./voj-reto/has2nasce.js";
 export * from "./voj-reto/kunfandoj.js";
-export * from "./voj-reto/kunigoj.js";
+export * from "./voj-reto/haveb6kek.js";

@@ -1,4 +1,4 @@
-// ≺⧼ សំឡេងស្លេនថេម 🔔 ⧽≻
+// ≺⧼ j͑ʃͷ̗ɔ }ʃƨᴜ̩ɔc̭ ꞁȷ̀ᴜꞇ ʌ ʃɜ j͐ʃɔ 🔔 ⧽≻
 import { noiseSrc } from "./bruo.js";
 import { faktoro } from "./vario.js";
 

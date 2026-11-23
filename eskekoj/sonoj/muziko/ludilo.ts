@@ -1,8 +1,8 @@
-// ≺⧼ ឧបករណ៍លេង 🎧 ⧽≻
+// ≺⧼ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🎧 ⧽≻
 
 import { KANTOJ } from "./kantoj.js";
 import { instrumento } from "./vokoj/instrumento.js";
-import type { SonoEvento, Sekcio } from "./vokoj/tipoj.js";
+import type { SonoEvento, Sekcio } from "./vokoj/hahunaq.js";
 import { vefalKu1o, ve3aqKu1o } from "../../komunajxoj/agordoj.js";
 
 // ⟪ ស្ថានភាពឧបករណ៍លេង 📃 ⟫
@@ -46,7 +46,7 @@ const L: LudiloStato = {
 
 const URBAJ_TRAKOJ = [ 4, 5, 6, 7 ];
 const MONDAJ_TRAKOJ = [ 0, 1, 2, 3 ];
-let enUrbo = false;
+let enKaxte = false;
 // ⟨ ការបន្តស្វ័យប្រវត្តិ ៖ ហ្គេមបន្តទៅបទបន្ទាប់ , ឧបករណ៍ចាក់អាចបិទបាន 📃 ⟩
 let aŭtomata = true;
 // ⟨ ភ្ជាប់ reverb ទៅ master តែម្ដង កុំឱ្យច្រើនដងពេលចាក់បទថ្មី 📃 ⟩
@@ -77,7 +77,7 @@ function notLongo( e: SonoEvento ): number {
 /*ជ្រើសបទបន្ទាប់តាមតំបន់ ៖ ក្នុងក្រុងបទក្រុង , ក្រៅក្រុងបទពិភពលោក
 @returns sekva ( number ) */
 function sekvaTrako(): number {
-  if ( enUrbo ) return hazardaEl(URBAJ_TRAKOJ);
+  if ( enKaxte ) return hazardaEl(URBAJ_TRAKOJ);
   return hazardaEl(MONDAJ_TRAKOJ);
 }
 
@@ -237,7 +237,7 @@ export function halti() {
 }
 
 /** តើតន្ត្រីកំពុងចាក់ឬទេ។ */
-export function cxuLudas(): boolean {
+export function tsekeLudas(): boolean {
   return L.playing;
 }
 
@@ -294,12 +294,12 @@ export function agordiAŭtomatan( on: boolean ): void {
 }
 
 /*កំណត់តំបន់តន្ត្រី ៖ ក្នុងក្រុង ឬពិភពលោក ។ ប្តូរបទភ្លាមបើកំពុងចាក់ ហើយបទបច្ចុប្បន្នមិនសមនឹងតំបន់ថ្មី
-    @param urbo ( boolean ) - តើអ្នកលេងកំពុងនៅក្នុងក្រុងឬទេ */
-export function agordiMuzikanLokon( urbo: boolean ) {
-  if ( urbo === enUrbo ) return;
-  enUrbo = urbo;
+    @param kaxte ( boolean ) - តើអ្នកលេងកំពុងនៅក្នុងក្រុងឬទេ */
+export function agordiMuzikanLokon( kaxte: boolean ) {
+  if ( kaxte === enKaxte ) return;
+  enKaxte = kaxte;
   if ( !L.playing ) return;
-  const permesitaj = urbo ? URBAJ_TRAKOJ : MONDAJ_TRAKOJ;
+  const permesitaj = kaxte ? URBAJ_TRAKOJ : MONDAJ_TRAKOJ;
   if ( permesitaj.includes(L.cur) ) return;
   sxargi(sekvaTrako());
   ludi();

@@ -1,5 +1,5 @@
-// ≺⧼ ការស្កេនផ្លូវ 🛣️ ⧽≻
-export function skaniVojanReton(
+// ≺⧼ j͑ʃɹ ɭʃɹ ʃᴜ ſɭᴜ }ʃɜ }ʃꞇ 🛣️ ⧽≻
+export function skaniK6h6nReton(
   retoX: number[], retoZ: number[],
   PASXO: number,
   ofsX: number, ofsZ: number,
@@ -26,10 +26,10 @@ export function skaniVojanReton(
     const intersekcantoj: number[] = [];
     for ( const s of skanatoj ) {
       const [ q1, q2 ] = ĉelaSkanata(s);
-      const tuŝas = konstantaZ
+      const t12na = konstantaZ
         ? hasCellAt(q1, p1) || hasCellAt(q1, p2) || hasCellAt(q2, p1) || hasCellAt(q2, p2)
         : hasCellAt(p1, q1) || hasCellAt(p1, q2) || hasCellAt(p2, q1) || hasCellAt(p2, q2);
-      if ( tuŝas ) intersekcantoj.push(s);
+      if ( t12na ) intersekcantoj.push(s);
     }
     if ( intersekcantoj.length < 2 ) return null;
     const pts = [ ...intersekcantoj ].sort(( a, b ) => a - b);

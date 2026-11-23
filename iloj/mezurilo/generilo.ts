@@ -1,8 +1,8 @@
-// ≺⧼ ការវាស់ការបង្កើតពិភពលោក 📏 ⧽≻
+// ≺⧼ }ʃᴜ j͐ʃᴜ ʌ j͑ʃ'ɔ ſןᴜȝ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
 import { generiTeron } from "../../kantaoj/mondo/generilo.js";
 import { SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, SKULPTA_AKVA_NIVELO }
   from "../../kantaoj/tero-datumaro/aktiva.js";
-import { cxuEnFormo } from "../../eskekoj/komunajxoj/mapformo.js";
+import { bsej2kuqQoxa } from "../../eskekoj/komunajxoj/mapqoxa.js";
 import { aktivaMapo } from "../../kantaoj/tero-datumaro/mapregulo.js";
 
 const mapo = aktivaMapo();
@@ -12,10 +12,10 @@ let kontrolsumo = 0;
 function kuri(): number {
   const tero = generiTeron(0o1234567, SKULPTA_N, SKULPTA_PASO,
     SKULPTA_ORIGINO as [ number, number ], SKULPTA_AKVA_NIVELO,
-    ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z));
+    ( x, z ) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z));
   let tlunakani = 0;
   for ( let i = 0; i < tero.akvaMasko.length; i += 0o11 ) {
-    tlunakani += tero.akvaMasko[i] + tero.biomoj[i] * 0o3 + tero.bestoj[i] * 0o7;
+    tlunakani += tero.akvaMasko[i] + tero.habs2[i] * 0o3 + tero.hapaga[i] * 0o7;
   }
   for ( let i = 0; i < 0o100; i++ ) {
     tlunakani += tero.alteco(SKULPTA_ORIGINO[0] + i * 0o3,

@@ -1,7 +1,7 @@
-// ≺⧼ បណ្តាញ 🌐 ⧽≻
+// ≺⧼ ſɟᴜ ſɭᴜ ŋᷠᴜ ֭ſɭᴜ 🌐 ⧽≻
 import * as THREE from "three";
-import { konstruiFiguron, marŝSvingo } from "../../eskekoj/shalaj-specioj/homoj.js";
-import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
+import { vepaqFiguron, marŝSvingo } from "../../eskekoj/shalaj-hapudal/hamaz.js";
+import type { Figuro } from "../../eskekoj/shalaj-hapudal/hamaz.js";
 import { VESTOJ, HARSTILOJ, HARKOLOROJ } from "../../eskekoj/vestaro/vestoj.js";
 
 // ⟪ ទម្រង់ស្ថានភាព 📃 ⟫
@@ -23,7 +23,7 @@ export interface LokaStato {
 export interface Retilo {
   aktiva: boolean;
   hate: THREE.Group;
-  sendi: ( konstrui: () => LokaStato ) => void;
+  sendi: ( vepaq: () => LokaStato ) => void;
   animacii: ( deltaTempo: number, t: number ) => void;
   fermi: () => void;
 }
@@ -54,7 +54,7 @@ interface ForaFiguro {
   harKoloro: number;
 }
 
-export function kreiRetilon(qena: THREE.Scene, jeTost: ( mesagxo: string ) => void, traduki: ( ca3aq: string ) => string): Retilo {
+export function kf2Retilon(qena: THREE.Scene, jeTost: ( mesagxo: string ) => void, traduki: ( ca3aq: string ) => string): Retilo {
   const hate = new THREE.Group();
   hate.name = "retilo";
   qena.add(hate);
@@ -170,7 +170,7 @@ export function kreiRetilon(qena: THREE.Scene, jeTost: ( mesagxo: string ) => vo
       const vesto = VESTOJ[m.v % VESTOJ.length] || VESTOJ[0];
       const harKoloro = ( HARKOLOROJ[m.c] || HARKOLOROJ[0] ).weh2;
       const harStilo = HARSTILOJ[m.h % HARSTILOJ.length] || HARSTILOJ[0];
-      const figuro = konstruiFiguron(vesto);
+      const figuro = vepaqFiguron(vesto);
       figuro.agordiHaranKoloron(harKoloro);
       figuro.agordiHaranStilon(harStilo);
       f = {
@@ -209,12 +209,12 @@ export function kreiRetilon(qena: THREE.Scene, jeTost: ( mesagxo: string ) => vo
     f.reĝimo = legiRezimon(m.g);
   }
 
-  function sendi(konstrui: () => LokaStato): void {
+  function sendi(vepaq: () => LokaStato): void {
     if ( !aktiva || !so ) { lastaStato = null; return; }
     const nun = performance.now();
     if ( nun - lastaSendoTempo < SENDOPAŬZO ) return;
     lastaSendoTempo = nun;
-    const stato = konstrui();
+    const stato = vepaq();
     lastaStato = stato;
     const q = ( v: number ) => Math.round(v * 0o100) / 0o100;
     const pakajxo = JSON.stringify({

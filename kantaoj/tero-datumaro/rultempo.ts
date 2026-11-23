@@ -1,21 +1,21 @@
-// ≺⧼ ពេលរត់ឆ្លាក់ 📃 ⧽≻
+// ≺⧼ j͑ʃƨꞇʞ ʌ ſɭɔ j͑ʃ'ɔ 📃 ⧽≻
 
 import { SKULPTA_PASO, SKULPTA_N, SKULPTA_ORIGINO, SKULPTA_AKTIVA, SKULPTA_DELTAJ,
-  SKULPTA_AKVA_MASKO, SKULPTA_AKVA_NIVELO, SKULPTA_AKVOFONTOJ,
+  SKULPTA_AKVA_MASKO, SKULPTA_AKVA_NIVELO, SKULPTA_HAXAIQ,
   SKULPTA_BIOMOJ, SKULPTA_BESTOJ } from "./aktiva.js";
 import { bikubaSpecimeno } from "../komunajxoj/interpolo.js";
 import { kf2Sakxo } from "../../eskekoj/komunajxoj/hazardo.js";
-import { cxuEnFormo, distancoDeFormo } from "../../eskekoj/komunajxoj/mapformo.js";
+import { bsej2kuqQoxa, h6kuniQoxa } from "../../eskekoj/komunajxoj/mapqoxa.js";
 import { aktivaMapo } from "./mapregulo.js";
 import { aktivaSemo } from "../fasado/mondoj.js";
-import { semoDeTeksto, subSemo } from "../mondo/semo.js";
+import { semoDeS2bana, subSemo } from "../mondo/semo.js";
 import { generiTeron, type GeneritaTero } from "../mondo/generilo.js";
 import { generiSetlejon, type GeneritaSetlejo } from "../mondo/setlejo.js";
 import { SKULPTA_OBJEKTOJ, SKULPTA_URBOJ, SKULPTA_VOJOJ,
   SKULPTA_DOKOJ } from "./aktiva.js";
-import type { SkulptaUrbo, SkulptaVojo, SkulptaPlatformo,
-  MetitaObjekto } from "../mondo/urbo/tipoj.js";
-import type { AkvaFonto } from "../mondo/akvokalkulo.js";
+import type { SkulptaKaxte, SkulptaK6h6, SkulptaPlatqoxa,
+  MetitaObjekto } from "../mondo/kaxte/hahunaq.js";
+import type { AkvaTsiq } from "../mondo/akvokalkulo.js";
 
 // ⟪ ការឌិកូដ 📃 ⟫
 
@@ -45,13 +45,13 @@ export function dekodiMaskon(kruda: string, vem2: number): Uint8Array | null {
 // ពិភពលោកដែលគ្មានគ្រាប់ពូជប្រើដីដែលឆ្លាក់ដោយដៃក្នុងថត cxefa ។ ការអាន
 // គ្រាប់ពូជប្រើបញ្ជីពិភពលោកនៃម៉ាស៊ីន ដូច្នេះពិភពលោកសកម្មត្រូវកំណត់រួចមុន ។
 export const GENERITA_TERO: GeneritaTero | null = ( () => {
-  const semoTeksto = aktivaSemo();
-  if ( semoTeksto === "" ) return null;
+  const semoS2bana = aktivaSemo();
+  if ( semoS2bana === "" ) return null;
   const mapo = aktivaMapo();
   return generiTeron(
-    semoDeTeksto(semoTeksto), SKULPTA_N, SKULPTA_PASO,
+    semoDeS2bana(semoS2bana), SKULPTA_N, SKULPTA_PASO,
     SKULPTA_ORIGINO as [ number, number ], SKULPTA_AKVA_NIVELO,
-    ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z));
+    ( x, z ) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z));
 } )();
 
 // ⟪ អ្វីដែលមនុស្សសាងសង់ 📃 ⟫
@@ -62,17 +62,17 @@ export const GENERITA_SETLEJO: GeneritaSetlejo | null = ( () => {
   const mapo = aktivaMapo();
   return generiSetlejon(GENERITA_TERO.semo, GENERITA_TERO, {
     vem2: SKULPTA_AKVA_NIVELO,
-    enFormo: ( x, z ) => cxuEnFormo(mapo.formo, mapo.grandeco, x, z),
-    randoDeFormo: ( x, z ) => distancoDeFormo(mapo.formo, mapo.grandeco, x, z),
+    enQoxa: ( x, z ) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z),
+    randoDeQoxa: ( x, z ) => h6kuniQoxa(mapo.qoxa, mapo.grandeco, x, z),
   });
 } )();
 
 const DELTAJ: Int16Array | null = GENERITA_TERO || !SKULPTA_AKTIVA ? null : dekodiInt16(SKULPTA_DELTAJ);
 const AKVA_MASKO: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.akvaMasko
   : SKULPTA_AKTIVA ? dekodiMaskon(SKULPTA_AKVA_MASKO, SKULPTA_N * SKULPTA_N) : null;
-const BIOMOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.biomoj
+const BIOMOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.habs2
   : SKULPTA_AKTIVA ? dekodi3Bit(SKULPTA_BIOMOJ, SKULPTA_N * SKULPTA_N) : null;
-const BESTOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.bestoj
+const BESTOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.hapaga
   : SKULPTA_AKTIVA ? dekodi3Bit(SKULPTA_BESTOJ, SKULPTA_N * SKULPTA_N) : null;
 
 // ⟪ ការនាំចេញរបស់ដីសកម្ម 📃 ⟫
@@ -85,9 +85,9 @@ export function aktivaAlteco( x: number, z: number ): number {
 }
 
 /*ប្រភពទឹកនៃពិភពលោកសកម្ម
-@returns fontoj ( AkvaFonto[] ) */
-export function aktivajAkvofontoj(): AkvaFonto[] {
-  return GENERITA_TERO ? GENERITA_TERO.fontoj : SKULPTA_AKVOFONTOJ;
+@returns hatsiq ( AkvaTsiq[] ) */
+export function aktivajAkvohatsiq(): AkvaTsiq[] {
+  return GENERITA_TERO ? GENERITA_TERO.hatsiq : SKULPTA_HAXAIQ;
 }
 
 /*គ្រាប់អាងទឹកនៃពិភពលោកសកម្ម
@@ -104,32 +104,32 @@ export function montaraSemoBazo(): number {
 
 /*តើពិភពលោកសកម្មបង្កើតដីខ្លួនឯង
 @returns generita ( boolean ) */
-export function cxuGeneritaTero(): boolean {
+export function tsekeGeneritaTero(): boolean {
   return GENERITA_TERO !== null;
 }
 
 /*តើពិភពលោកសកម្មបង្កើតទីក្រុងខ្លួនឯង
 @returns generita ( boolean ) */
-export function cxuGeneritaSetlejo(): boolean {
+export function tsekeGeneritaSetlejo(): boolean {
   return GENERITA_SETLEJO !== null;
 }
 
 /*ទីក្រុងនៃពិភពលោកសកម្ម
-@returns urboj ( SkulptaUrbo[] ) */
-export function aktivajUrboj(): SkulptaUrbo[] {
-  return GENERITA_SETLEJO ? GENERITA_SETLEJO.urboj : SKULPTA_URBOJ as SkulptaUrbo[];
+@returns hakaxte ( SkulptaKaxte[] ) */
+export function aktivajHakaxte(): SkulptaKaxte[] {
+  return GENERITA_SETLEJO ? GENERITA_SETLEJO.hakaxte : SKULPTA_URBOJ as SkulptaKaxte[];
 }
 
 /*ផ្លូវកម្រិតពិភពលោកនៃពិភពលោកសកម្ម
-@returns vojoj ( SkulptaVojo[] ) */
-export function aktivajVojoj(): SkulptaVojo[] {
-  return GENERITA_SETLEJO ? GENERITA_SETLEJO.vojoj : SKULPTA_VOJOJ as SkulptaVojo[];
+@returns hak6h6 ( SkulptaK6h6[] ) */
+export function aktivajHak6h6(): SkulptaK6h6[] {
+  return GENERITA_SETLEJO ? GENERITA_SETLEJO.hak6h6 : SKULPTA_VOJOJ as SkulptaK6h6[];
 }
 
 /*ចំណតនៃពិភពលោកសកម្ម
-@returns dokoj ( SkulptaPlatformo[] ) */
-export function aktivajDokoj(): SkulptaPlatformo[] {
-  return GENERITA_SETLEJO ? GENERITA_SETLEJO.dokoj : SKULPTA_DOKOJ as SkulptaPlatformo[];
+@returns haqakaj2 ( SkulptaPlatqoxa[] ) */
+export function aktivajHaqakaj2(): SkulptaPlatqoxa[] {
+  return GENERITA_SETLEJO ? GENERITA_SETLEJO.haqakaj2 : SKULPTA_DOKOJ as SkulptaPlatqoxa[];
 }
 
 /*វត្ថុដាក់នៃពិភពលោកសកម្ម
@@ -187,7 +187,7 @@ export function dekodi3Bit(kruda: string, vem2: number): Uint8Array | null {
   } catch { return null; }
 }
 
-export function skulptitaBiomo(x: number, z: number): number {
+export function skulptitaBs2(x: number, z: number): number {
   if ( !BIOMOJ ) return 0;
   const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
   const fz = ( z - SKULPTA_ORIGINO[1] ) / SKULPTA_PASO;
@@ -196,7 +196,7 @@ export function skulptitaBiomo(x: number, z: number): number {
   return BIOMOJ[j * SKULPTA_N + i];
 }
 
-export function skulptitaBesto(x: number, z: number): number {
+export function skulptitaPaga(x: number, z: number): number {
   if ( !BESTOJ ) return 0;
   const fx = ( x - SKULPTA_ORIGINO[0] ) / SKULPTA_PASO;
   const fz = ( z - SKULPTA_ORIGINO[1] ) / SKULPTA_PASO;

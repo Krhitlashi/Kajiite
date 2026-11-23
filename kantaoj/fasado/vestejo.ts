@@ -1,12 +1,12 @@
-// ≺⧼ បន្ទប់សម្លៀកបំពាក់ 👕 ⧽≻
-import { VESTOJ, HARSTILOJ, HARKOLOROJ, kreiVestanAntauxrigardon, kreiHaranAntauxrigardon } from "../../eskekoj/vestaro/vestoj.js";
+// ≺⧼ j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ ʌ ſɭᴜ ſןɹ 👕 ⧽≻
+import { VESTOJ, HARSTILOJ, HARKOLOROJ, kf2VestanAntauxrigardon, kf2HaranAntauxrigardon } from "../../eskekoj/vestaro/vestoj.js";
 import type { Vesto, Harstilo } from "../../eskekoj/vestaro/vestoj.js";
-import { deksesuma } from "../../eskekoj/komunajxoj/koloroj.js";
-import type { Figuro } from "../../eskekoj/shalaj-specioj/homoj.js";
+import { weh2Ruva } from "../../eskekoj/komunajxoj/koloroj.js";
+import type { Figuro } from "../../eskekoj/shalaj-hapudal/hamaz.js";
 import { traduki } from "../lingvo/tradukoj.js";
 import { aplikiVacepu } from "./efikoj.js";
-import { kreiPanelKarton, kreiNomlinion, kreiSekcianTitolon, ligiTabojn, sxaltiTabonEn } from "./paneeloj.js";
-import { kreiStaton } from "./paghoj.js";
+import { kf2PanelKarton, kf2Nomlinion, kf2SekcianTitolon, ligiTabojn, sxaltiTabonEn } from "./paneeloj.js";
+import { kf2Staton } from "./paghoj.js";
 import type { Stato } from "./paghoj.js";
 
 export interface LudantaAspekto {
@@ -18,7 +18,7 @@ export interface LudantaAspekto {
   harKoloroIdx: number;
 }
 
-export interface VestarajOpcioj {
+export interface VestarajHasukf2qani {
   /*រូបលេងនៅក្នុងពិភពលោក ។ នៅផ្ទាំងចាប់ផ្តើមគ្មានរូបទេ
       @param ludantaFiguro ( Figuro , optional ) */
   ludantaFiguro?: Figuro;
@@ -35,7 +35,7 @@ export interface Vestejo {
   /*ផ្ទាំងលេចឡើង ៖ ប្រើក្នុងហ្គេម ដូចមុន */
   malfermiEnMondo(): void;
   fermi(): void;
-  cxuMalfermita(): boolean;
+  tsekeMalfermita(): boolean;
 }
 
 // ⟪ សម្លៀកបំពាក់រក្សាទុក ( localStorage ) 📃 ⟫
@@ -70,7 +70,7 @@ interface VestaraKorpo {
 
 const TABOJ: [ string, string ][] = [ [ "vestoj", "taboVestoj" ], [ "hararo", "taboHararo" ] ];
 
-function konstruiKorpon(): VestaraKorpo {
+function vepaqKorpon(): VestaraKorpo {
   const elemento = document.createElement("div");
   elemento.className = "vestaraKorpo";
 
@@ -87,7 +87,7 @@ function konstruiKorpon(): VestaraKorpo {
   vestaSekcio.className = "informSekcio";
   vestaSekcio.dataset.sekcio = "vestoj";
   const vestaListo = document.createElement("div");
-  vestaListo.className = "vestaVico";
+  vestaListo.className = "vestaX2pa";
   vestaSekcio.appendChild(vestaListo);
 
   const haraSekcio = document.createElement("div");
@@ -106,34 +106,34 @@ function konstruiKorpon(): VestaraKorpo {
 function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void {
   korpo.vestaListo.innerHTML = "";
   VESTOJ.forEach(( o, vestoIdx ) => {
-    korpo.vestaListo.appendChild(kreiPanelKarton([
-      kreiVestanAntauxrigardon(o),
-      kreiNomlinion(traduki(o.ksaka)),
+    korpo.vestaListo.appendChild(kf2PanelKarton([
+      kf2VestanAntauxrigardon(o),
+      kf2Nomlinion(traduki(o.ksaka)),
     ], () => elekti("vesto", vestoIdx), vestoIdx === elekto.v));
   });
 
   korpo.haraListo.innerHTML = "";
-  korpo.haraListo.appendChild(kreiSekcianTitolon("haroSekcio"));
+  korpo.haraListo.appendChild(kf2SekcianTitolon("haroSekcio"));
   const stilaKartaro = document.createElement("div");
-  stilaKartaro.className = "vestaVico";
+  stilaKartaro.className = "vestaX2pa";
   HARSTILOJ.forEach(( stilo, harIdx ) => {
-    stilaKartaro.appendChild(kreiPanelKarton([
-      kreiHaranAntauxrigardon(stilo, HARKOLOROJ[elekto.c].weh2),
-      kreiNomlinion(traduki(stilo.ksaka)),
+    stilaKartaro.appendChild(kf2PanelKarton([
+      kf2HaranAntauxrigardon(stilo, HARKOLOROJ[elekto.c].weh2),
+      kf2Nomlinion(traduki(stilo.ksaka)),
     ], () => elekti("haro", harIdx), harIdx === elekto.h));
   });
   korpo.haraListo.appendChild(stilaKartaro);
 
-  korpo.haraListo.appendChild(kreiSekcianTitolon("harKoloroSekcio"));
+  korpo.haraListo.appendChild(kf2SekcianTitolon("harKoloroSekcio"));
   const koloraKartaro = document.createElement("div");
-  koloraKartaro.className = "vestaVico";
+  koloraKartaro.className = "vestaX2pa";
   HARKOLOROJ.forEach(( harKoloro, kolorIdx ) => {
     const chip = document.createElement("span");
     chip.className = "harKoloroChip";
-    chip.style.background = deksesuma(harKoloro.weh2);
-    koloraKartaro.appendChild(kreiPanelKarton([
+    chip.style.background = weh2Ruva(harKoloro.weh2);
+    koloraKartaro.appendChild(kf2PanelKarton([
       chip,
-      kreiNomlinion(traduki(harKoloro.ksaka)),
+      kf2Nomlinion(traduki(harKoloro.ksaka)),
     ], () => elekti("koloro", kolorIdx), kolorIdx === elekto.c));
   });
   korpo.haraListo.appendChild(koloraKartaro);
@@ -175,19 +175,19 @@ function konserviNunan(): void {
 }
 
 // ⟨ ការជ្រើស ៖ ប្រភេទទាំងបីចែកកូដជ្រើសតែមួយ , រួចធ្វើបច្ចុប្បន្នភាពទាំងអស់ 📃 ⟩
-type ElektaTipo = "vesto" | "haro" | "koloro";
+type ElektaHunaq = "vesto" | "haro" | "koloro";
 
-function nomoDe( tipo: ElektaTipo, idx: number ): string {
-  if ( tipo === "vesto" ) return VESTOJ[idx].ksaka;
-  if ( tipo === "haro" ) return HARSTILOJ[idx].ksaka;
+function nomoDe( hunaq: ElektaHunaq, idx: number ): string {
+  if ( hunaq === "vesto" ) return VESTOJ[idx].ksaka;
+  if ( hunaq === "haro" ) return HARSTILOJ[idx].ksaka;
   return HARKOLOROJ[idx].ksaka;
 }
 
-function elekti( tipo: ElektaTipo, idx: number ): void {
-  if ( tipo === "vesto" ) {
+function elekti( hunaq: ElektaHunaq, idx: number ): void {
+  if ( hunaq === "vesto" ) {
     aktivaVesto = VESTOJ[idx];
     aktivaVestoIdx = idx;
-  } else if ( tipo === "haro" ) {
+  } else if ( hunaq === "haro" ) {
     aktivaHarStilo = HARSTILOJ[idx];
     aktivaHarStiloIdx = idx;
   } else {
@@ -195,7 +195,7 @@ function elekti( tipo: ElektaTipo, idx: number ): void {
     aktivaHarKoloroIdx = idx;
   }
   aplikiVeston();
-  montriTost?.(traduki(nomoDe(tipo, idx)));
+  montriTost?.(traduki(nomoDe(hunaq, idx)));
   konserviNunan();
   plenigiVestaron();
 }
@@ -224,25 +224,25 @@ function surmeti( ujo: HTMLElement | null ): void {
 }
 
 /*បង្កើតឬទាញយកទំព័រសម្លៀកបំពាក់ ៖ តួតែមួយសម្រាប់ទាំងអស់
-    @param opcioj ( VestarajOpcioj ) - រូបលេង និងការជូនដំណឹង , បើមាន
+    @param hasukf2qani ( VestarajHasukf2qani ) - រូបលេង និងការជូនដំណឹង , បើមាន
 @returns vestejo */
-export function kreiVestejon( opcioj: VestarajOpcioj = {} ): Vestejo {
-  if ( opcioj.ludantaFiguro ) {
-    ludantaFiguro = opcioj.ludantaFiguro;
+export function kf2Vestejon( hasukf2qani: VestarajHasukf2qani = {} ): Vestejo {
+  if ( hasukf2qani.ludantaFiguro ) {
+    ludantaFiguro = hasukf2qani.ludantaFiguro;
     sxargiKonservitan();
     aplikiVeston();
   }
-  if ( opcioj.montriTost ) montriTost = opcioj.montriTost;
+  if ( hasukf2qani.montriTost ) montriTost = hasukf2qani.montriTost;
   if ( !preparita ) {
     sxargiKonservitan();
     preparita = true;
-    korpo = konstruiKorpon();
+    korpo = vepaqKorpon();
     ujoPagho = document.getElementById("vestPagho")?.querySelector("[data-vestaraUjo]") ?? null;
     ujoPanelo = document.getElementById("vestaro")?.querySelector("[data-vestaraUjo]") ?? null;
-    if ( document.getElementById("vestPagho") ) pagho = kreiStaton("vestPagho", plenigiVestaron);
-    if ( document.getElementById("vestaro") ) panelo = kreiStaton("vestaro", plenigiVestaron);
+    if ( document.getElementById("vestPagho") ) pagho = kf2Staton("vestPagho", plenigiVestaron);
+    if ( document.getElementById("vestaro") ) panelo = kf2Staton("vestaro", plenigiVestaron);
     window.addEventListener("lingvosxangxo", () => {
-      if ( vestejo.cxuMalfermita() ) plenigiVestaron();
+      if ( vestejo.tsekeMalfermita() ) plenigiVestaron();
     });
   }
   return vestejo;
@@ -268,8 +268,8 @@ const vestejo: Vestejo = {
       aplikiVacepu();
     },
     fermi: () => {
-      if ( panelo?.cxuMalfermita() ) panelo.fermi();
+      if ( panelo?.tsekeMalfermita() ) panelo.fermi();
       else pagho?.fermi();
     },
-    cxuMalfermita: () => Boolean(pagho?.cxuMalfermita() || panelo?.cxuMalfermita()),
+    tsekeMalfermita: () => Boolean(pagho?.tsekeMalfermita() || panelo?.tsekeMalfermita()),
 };

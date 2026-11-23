@@ -1,4 +1,4 @@
-// ≺⧼ ស្កេល 🎼 ⧽≻
+// ≺⧼ ſɟᴜ ı],ɹͷ̗ ɭl̀ɹ ᶅſᴜ }ʃꞇ j͑ʃᴜꞇ 🎼 ⧽≻
 export const A4 = 0o660;
 export const F = ( m: number ) => A4 * Math.pow(2, ( m - 0o105 ) / 0o14);
 

@@ -1,4 +1,4 @@
-// ≺⧼ គ្រាប់ពូជ 🎲 ⧽≻
+// ≺⧼ ɽ͑ʃ'w j͑ʃ'ᴜ 🎲 ⧽≻
 // បំប្លែងអក្សរគ្រាប់ពូជទៅលេខ 32 ប៊ីត ហើយបំបែកវាទៅជាស្ទ្រីម
 // ដោយឡែក។ ឯកសារនេះសុទ្ធ ( គ្មាន DOM , គ្មានផ្ទុកក្នុងម៉ាស៊ីន ) ដូច្នេះ
 // ឧបករណ៍ខាងក្រៅ និងការធ្វើតេស្តអាចនាំចូលបាន ។
@@ -9,9 +9,9 @@ const FNV_PLIIGO = 0x01000193;
 
 /*ញែកលេខគ្រាប់ពូជចេញពីអក្សរណាមួយ
     @param s2banani ( string ) - អក្សរគ្រាប់ពូជ
-        Example. semoDeTeksto("kajiite").
+        Example. semoDeS2bana("kajiite").
 @returns tk2ni ( number ) - លេខ 32 ប៊ីត មិនអវិជ្ជមាន */
-export function semoDeTeksto( s2banani: string ): number {
+export function semoDeS2bana( s2banani: string ): number {
   let h = FNV_KOMENCO;
   for ( let i = 0; i < s2banani.length; i++ ) {
     h ^= s2banani.charCodeAt(i);

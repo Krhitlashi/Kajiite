@@ -1,4 +1,4 @@
-// ≺⧼ សំឡេង 🔊 ⧽≻
+// ≺⧼ ʃɜ j͐ʃɔ 🔊 ⧽≻
 
 import { iniciati, ludi, halti } from "./muziko/ludilo.js";
 import { vefalKu1o, ve3aqKu1o } from "../komunajxoj/agordoj.js";
@@ -111,7 +111,7 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
 
 // ⟨ សំឡេងរំខានយោល 📃 ⟩
 function whoosh(dur: number, f0: number, f1: number, vol: number, q = 1,
-  tipo: BiquadFilterType = "bandpass", dest?: GainNode): void {
+  hunaq: BiquadFilterType = "bandpass", dest?: GainNode): void {
   if ( !AC || !audioOn ) return;
   const n = Math.max(1, Math.floor(AC.sampleRate * dur));
   const b = AC.createBuffer(1, n, AC.sampleRate);
@@ -125,7 +125,7 @@ function whoosh(dur: number, f0: number, f1: number, vol: number, q = 1,
   const s = AC.createBufferSource();
   s.buffer = b;
   const f = AC.createBiquadFilter();
-  f.type = tipo;
+  f.type = hunaq;
   f.Q.value = q;
   const t = AC.currentTime;
   f.frequency.setValueAtTime(Math.max(0o40, f0), t);
@@ -266,7 +266,7 @@ function haltiAuxdon(): void {
 }
 
 /** បើកសំឡេងជុំវិញ។ ត្រឡប់ស្ថានភាពថ្មី។ */
-export function sxaltiAŭdion(): boolean {
+export function sxaltiLaqazbolesain(): boolean {
   audioOn = !audioOn;
   if ( audioOn ) komenciAuxdon();
   else haltiAuxdon();
@@ -275,7 +275,7 @@ export function sxaltiAŭdion(): boolean {
 }
 
 /** តើសំឡេងកំពុងសកម្មឬទេ */
-export function cxuAŭdio(): boolean {
+export function tsekeLaqazbolesai(): boolean {
   return audioOn;
 }
 
@@ -290,14 +290,14 @@ export function sxaltiBruon(): boolean {
 }
 
 /** តើសំឡេងផ្ទៃខាងក្រោយកំពុងឮឬទេ។ */
-export function cxuBruo(): boolean {
+export function tsekeBruo(): boolean {
   return bruoOn;
 }
 
 /** ចាប់ផ្តើមសំឡេងដោយស្វ័យប្រវត្តិនៅអន្តរកម្មអ្នកប្រើដំបូង។ ធ្វើបច្ចុប្បន្នភាព UI ប្រសិនបើមានការហៅផ្តល់។ */
-let postAŭdio: ( ( aktiva: boolean ) => void ) | null = null;
-export function registriPostAŭdio(fn: ( aktiva: boolean ) => void) {
-  postAŭdio = fn;
+let postLaqazbolesai: ( ( aktiva: boolean ) => void ) | null = null;
+export function registriPostLaqazbolesai(fn: ( aktiva: boolean ) => void) {
+  postLaqazbolesai = fn;
 }
 /*តើការហៅនេះបានចាប់ផ្តើមសំឡេងឬទេ ៖ ប្រើដើម្បីកុំឱ្យប៊ូតុងបិទវិញភ្លាម
 @returns true បើទើបចាប់ផ្តើម ( boolean ) */
@@ -307,7 +307,7 @@ export function autoKomenci(): boolean {
   // ⟨ សំឡេងបើកស្រាប់ ៖ ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ ។ បើបិទទុក មិនចាប់ផ្តើមទេ 📃 ⟩
   if ( audioOn ) {
     komenciAuxdon();
-    if ( postAŭdio ) postAŭdio(true);
+    if ( postLaqazbolesai ) postLaqazbolesai(true);
     return true;
   }
   return false;

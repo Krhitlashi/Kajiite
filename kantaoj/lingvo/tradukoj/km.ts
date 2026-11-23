@@ -1,12 +1,12 @@
-// ≺⧼ ការបកប្រែ , ភាសាខ្មែរ 🗣️ ⧽≻
+// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ɔ j͑ʃэ ſɭc̭ᴜ ſɭᴜͷ̗ 🗣️ ⧽≻
 
 export const KM: Record<string, string> = {
 
   // ⟪ ទំព័រចាប់ផ្តើម 🌅 ⟫
 
   "titoloAranis": "អារានីស",
-  "titoloUrbo": "កាយិតេ",
-  "subtitoloUrbo": "លុតា-អិហិស, លាមិថឺ-កាឆតេ",
+  "titoloKaxte": "កាយិតេ",
+  "subtitoloKaxte": "លុតា-អិហិស, លាមិថឺ-កាឆតេ",
   "eniri": "ចូល",
   "butonoPromeni": "ដើរ",
   "butonoOrbiti": "ទស្សនា",
@@ -28,23 +28,23 @@ export const KM: Record<string, string> = {
   // ⟪ ការគ្រប់គ្រង 🎮 ⟫
 
   "kompasoNordo": "ជ",
-  "regiloOrbito": "ទស្សនា",
+  "kamaOrbito": "ទស្សនា",
   "klavoTreni": "អូស",
-  "regiloPromeno": "ដើរ",
+  "kamaPromeno": "ដើរ",
   "klavoPromeno": "WASD",
-  "regiloMovado": "រត់",
+  "kamaMovado": "រត់",
   "klavoKuro": "Shift",
-  "regiloSalto": "លោត",
+  "kamaSalto": "លោត",
   "klavoSalto": "Space",
-  "regiloEniri": "ចូលអាគារ",
+  "kamaEniri": "ចូលអាគារ",
   "klavoEniri": "E",
-  "regiloMapo": "ផែនទី",
+  "kamaMapo": "ផែនទី",
   "klavoMapo": "M",
-  "regiloEliri": "ចេញ",
+  "kamaEliri": "ចេញ",
   "klavoEliri": "Esc",
-  "regiloSpajroj": "អានកំណត់ត្រានៅប៉ម",
+  "kamaSpajroj": "អានកំណត់ត្រានៅប៉ម",
   "klavoKlako": "ចុច",
-  "regiloKanuo": "បញ្ជា",
+  "kamaKanuo": "បញ្ជា",
   "agoGusti": "ភ្លក់",
   "agoKuxi": "ដេក",
   "agoLevi": "ក្រោក",
@@ -55,7 +55,7 @@ export const KM: Record<string, string> = {
 
   // ⟪ ជំនួយ ❓ ⟫
 
-  "titoloVojoj": "ផ្លូវ",
+  "titoloHak6h6": "ផ្លូវ",
   "subtitoloHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
 
   // ⟪ បណ្តាញ 🌐 ⟫
@@ -82,73 +82,73 @@ export const KM: Record<string, string> = {
 
   // ⟪ ប្រភេទសំណង់ 🏗️ ⟫
 
-  "konstruPriskriboDomo": "ផ្ទះ។",
-  "konstruPriskriboMangxejo": "កន្លែងបរិភោគអាហាររួម។",
-  "konstruPriskriboKasafeo": "បន្ទប់ប្រជុំ។",
-  "konstruPriskriboStacioxipo": "ស្ថានីយ។",
-  "konstruPriskriboTuro": "អគារខ្ពស់។",
-  "konstruPriskriboSanktejo": "មជ្ឈមណ្ឌល។",
+  "vepaqPriskriboDomo": "ផ្ទះ។",
+  "vepaqPriskriboMangxejo": "កន្លែងបរិភោគអាហាររួម។",
+  "vepaqPriskriboKasafeo": "បន្ទប់ប្រជុំ។",
+  "vepaqPriskriboStacioxipo": "ស្ថានីយ។",
+  "vepaqPriskriboTuro": "អគារខ្ពស់។",
+  "vepaqPriskriboSanktejo": "មជ្ឈមណ្ឌល។",
 
   // ⟪ កាតសំណង់ 🪪 ⟫
 
-  "kartoNiveloj": "ជាន់",
+  "kartoHavem2": "ជាន់",
   "kartoDiamanto": "ពេជ្រ",
   "kartoJes": "បាទ",
   "kartoNe": "ទេ",
-  "kartoKonstruTipo": "ប្រភេទ",
-  "kartoPozicio": "ទីតាំង",
+  "kartoVepaqHunaq": "ប្រភេទ",
+  "kartoXekuxa": "ទីតាំង",
 
   // ⟪ ផ្ទាំងព័ត៌មាន 📖 ⟫
 
-  "titoloInformo": "ព័ត៌មាន",
-  "subtitoloInformo": "អាគារ, អាហារ, ប្រភេទ",
-  "ariaInformoButono": "បើកព័ត៌មាន",
+  "titoloInqoxa": "ព័ត៌មាន",
+  "subtitoloInqoxa": "អាគារ, អាហារ, ប្រភេទ",
+  "ariaInqoxaButono": "បើកព័ត៌មាន",
   "ariaFermiButono": "បិទ",
-  "taboKonstruajxoj": "អាគារ",
+  "taboPaqj": "អាគារ",
   "taboMangxajxoj": "អាហារ",
-  "taboSpecioj": "ប្រភេទ",
+  "taboHapudal": "ប្រភេទ",
 
   // ⟪ ពួកសត្វ 🐟 ⟫
 
-  "grupoBesto": "សត្វ",
-  "specioBeroe": "បេរ៉ូ",
-  "specioPriskriboBeroe": "ចាហួយសិតរាងវែង មានជួរសិតប្រាំបី។",
-  "specioMnemiopsis": "នេមីអូបស៊ីស",
-  "specioPriskriboMnemiopsis": "ចាហួយសិតរាងមូល មានកំពូលមាត់បួន។",
-  "specioPleŭrobrakia": "ប្លឿរ៉ូប្រាគីអា",
-  "specioPriskriboPleŭrobrakia": "ចាហួយសិតមូលតូច មានអង់តែនវែងពីរ។",
-  "specioGlacifiso": "ត្រីទឹកកក",
-  "specioPriskriboGlacifiso": "ត្រីស្ទើរតែថ្លា ដែលគ្មានហេម៉ូក្លូប៊ីន។",
-  "specioMarlaraksxo": "ពីងពាងសមុទ្រ",
-  "specioPriskriboMarlaraksxo": "ពីងពាងសមុទ្រតូច មានជើងវែងប្រាំបី។",
-  "specioNeĝopetrelo": "បក្សីព្រិល",
-  "specioPriskriboNeĝopetrelo": "សត្វសមុទ្រពណ៌សសុទ្ធ ហើរពីលើបឹង និងទន្លេ។",
+  "grupoPaga": "សត្វ",
+  "pudalL2xkupukai": "បេរ៉ូ",
+  "pudalPriskriboL2xkupukai": "ចាហួយសិតរាងវែង មានជួរសិតប្រាំបី។",
+  "pudalL2xcaxlefai": "នេមីអូបស៊ីស",
+  "pudalPriskriboL2xcaxlefai": "ចាហួយសិតរាងមូល មានកំពូលមាត់បួន។",
+  "pudalPleŭrobrakia": "ប្លឿរ៉ូប្រាគីអា",
+  "pudalPriskriboPleŭrobrakia": "ចាហួយសិតមូលតូច មានអង់តែនវែងពីរ។",
+  "pudalTq2wa": "ត្រីទឹកកក",
+  "pudalPriskriboTq2wa": "ត្រីស្ទើរតែថ្លា ដែលគ្មានហេម៉ូក្លូប៊ីន។",
+  "pudalTolxu": "ពីងពាងសមុទ្រ",
+  "pudalPriskriboTolxu": "ពីងពាងសមុទ្រតូច មានជើងវែងប្រាំបី។",
+  "pudalNeĝotemek": "បក្សីព្រិល",
+  "pudalPriskriboNeĝotemek": "សត្វសមុទ្រពណ៌សសុទ្ធ ហើរពីលើបឹង និងទន្លេ។",
 
   // ⟪ រុក្ខជាតិ 🌿 ⟫
 
   "grupoPlanto": "រុក្ខជាតិ",
-  "specioBetulo": "លាមិថ",
-  "specioPriskriboBetulo": "ដើមឈើដែលមានឈើពណ៌ស។",
-  "specioLariko": "តាកសាល",
-  "specioPriskriboLariko": "ដើមឈើម្ជុលភ្នំ មានម្ជុលពណ៌មាសនៅរដូវស្លឹកឈើជ្រុះ។",
-  "specioHxsxaksxlefo": "ត្លេឆលេផហឆាកឺ",
-  "specioPriskriboHxsxaksxlefo": "ដើមសាឡាត់ពណ៌ស្វាយ មានស្លឹករមួល ហើយប្រើធ្វើទឹកខ្មេះ។",
-  "specioPussxlefo": "ត្លេឆលេផពិសឺ",
-  "specioPriskriboPussxlefo": "រុក្ខជាតិសាឡាត់ពណ៌ស្វាយទំហំប៉ុនហ្វឺន មានផ្លែថ្លាដែលអាចបរិភោគបាន។",
-  "specioFiliko": "បណ្ណង្គជាតិ",
-  "specioPriskriboFiliko": "រុក្ខជាតិពណ៌បៃតងដែលដុះលើដីព្រៃ។",
-  "specioPurpuraFiliko": "ត្លេឆលេផឆាភេសឺ",
-  "specioPriskriboPurpuraFiliko": "ហ្វឺនពណ៌ស្វាយខ្ពស់នៅព្រៃខាងក្រៅ។",
-  "specioLikeno": "កវកាប្យ",
-  "specioPriskriboLikeno": "សារាយ និងផ្សិត។ អ៊ីម៉ាសេ។",
-  "specioHerbo": "ស្មៅ",
-  "specioPriskriboHerbo": "ស្មៅដូចជារុក្ខជាតិពណ៌ស៊ីយ៉ង់។",
-  "specioMusko": "ស្លែ",
-  "specioPriskriboMusko": "គំនរដែលតាមពិតជារុក្ខជាតិ។",
-  "specioCetkuo": "ត្សេតកិ",
-  "specioPriskriboCetkuo": "រុក្ខជាតិឡើងសំបកទន់ ( Equisetum praeltum )។",
-  "specioCakeo": "ត្សាកេ",
-  "specioPriskriboCakeo": "រុក្ខជាតិដូចជាកន្ទុយឆ្អឹង ( Equisetum telmateia )។",
+  "pudalBetulo": "លាមិថ",
+  "pudalPriskriboBetulo": "ដើមឈើដែលមានឈើពណ៌ស។",
+  "pudalLariko": "តាកសាល",
+  "pudalPriskriboLariko": "ដើមឈើម្ជុលភ្នំ មានម្ជុលពណ៌មាសនៅរដូវស្លឹកឈើជ្រុះ។",
+  "pudalTlexlefhxakai": "ត្លេឆលេផហឆាកឺ",
+  "pudalPriskriboTlexlefhxakai": "ដើមសាឡាត់ពណ៌ស្វាយ មានស្លឹករមួល ហើយប្រើធ្វើទឹកខ្មេះ។",
+  "pudalTlexlefp2sai": "ត្លេឆលេផពិសឺ",
+  "pudalPriskriboTlexlefp2sai": "រុក្ខជាតិសាឡាត់ពណ៌ស្វាយទំហំប៉ុនហ្វឺន មានផ្លែថ្លាដែលអាចបរិភោគបាន។",
+  "pudalXabe": "បណ្ណង្គជាតិ",
+  "pudalPriskriboXabe": "រុក្ខជាតិពណ៌បៃតងដែលដុះលើដីព្រៃ។",
+  "pudalAsfaXabe": "ត្លេឆលេផឆាភេសឺ",
+  "pudalPriskriboAsfaXabe": "ហ្វឺនពណ៌ស្វាយខ្ពស់នៅព្រៃខាងក្រៅ។",
+  "pudalF2ma": "កវកាប្យ",
+  "pudalPriskriboF2ma": "សារាយ និងផ្សិត។ អ៊ីម៉ាសេ។",
+  "pudalFe1af": "ស្មៅ",
+  "pudalPriskriboFe1af": "ស្មៅដូចជារុក្ខជាតិពណ៌ស៊ីយ៉ង់។",
+  "pudalC6x": "ស្លែ",
+  "pudalPriskriboC6x": "គំនរដែលតាមពិតជារុក្ខជាតិ។",
+  "pudalCetkuo": "ត្សេតកិ",
+  "pudalPriskriboCetkuo": "រុក្ខជាតិឡើងសំបកទន់ ( Equisetum praeltum )។",
+  "pudalCakeo": "ត្សាកេ",
+  "pudalPriskriboCakeo": "រុក្ខជាតិដូចជាកន្ទុយឆ្អឹង ( Equisetum telmateia )។",
 
   // ⟪ សម្លៀកបំពាក់ 👕 ⟫
 
@@ -185,7 +185,7 @@ export const KM: Record<string, string> = {
   // ⟪ អាកាសធាតុ 🌦️ ⟫
 
   "ariaKrepuskoButono": "ប្តូររបៀបព្រលប់",
-  "ariaKrepuskoRegilo": "កម្រិតព្រលប់",
+  "ariaKrepuskoKama": "កម្រិតព្រលប់",
   "ariaVeteroButono": "អាកាសធាតុ",
   "veteroNebula": "អ័ព្ទ",
   "veteroPluva": "ភ្លៀង",

@@ -1,0 +1,10 @@
+// ≺⧼ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜꞇ ʌ j͐ʃƽɜ }ʃꞇ 🪨 ⧽≻
+import * as THREE from "three";
+import { k2fKonturanCac2sex, kf2P2t6zoCac2sex, sxovu } from "./helpiloj.js";
+
+export const kf2RokenCac2sex = sxovu((): THREE.CanvasTexture => {
+  const pal6 = 0o1000;
+  return kf2P2t6zoCac2sex(pal6, pal6, ( kuns2bana ) => {
+    k2fKonturanCac2sex(kuns2bana, [ 0x989890, 0x888880, 0xa0a098 ], 0o2731, 0o4, 0o4);
+  }, [ 0o3, 0o3 ], { volvado: THREE.RepeatWrapping, anisotropio: 0o4 });
+});
