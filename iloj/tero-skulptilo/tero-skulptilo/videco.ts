@@ -1,7 +1,7 @@
 // ≺⧼ ɭʃɹ ʃᴜ ꞁȷ̀ᴜ }ʃꞇ 👁️ ⧽≻
-// ស្រទាប់ដែលបើក/បិទបាន ។ ផ្ទាំង មើលឃើញ 👁️ កំណត់តម្លៃទាំងនេះ
-// ហើយការគូរ 2D ( bildo2d.js ) និង 3D ( vido3d.js , krado3d.js ) អានពួកវា ។
-// ម៉ូឌុលនេះមិននាំចូលអ្វីទេ ដូច្នេះគ្រប់ផ្នែកអាចអានវាដោយគ្មានវដ្ត ។
+// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , 👁️ ⟩ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭɿ , ꞙɭı ,
+// ı],ᴜ ֭ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 export const VIDAJ_SPECOJ = [ "krado", "hak6h6", "objektoj", "hatsiq", "signoj" ] as const;
 export type VidaPudal = typeof VIDAJ_SPECOJ[ number ];
 export const videco: Record<VidaPudal, boolean> = {
@@ -14,11 +14,11 @@ export const videco: Record<VidaPudal, boolean> = {
 export function tsekeVidebla(pudal: VidaPudal): boolean { return videco[ pudal ] !== false; }
 export function agordiVidecon(pudal: VidaPudal, jes: boolean): void { videco[ pudal ] = jes; }
 
-// ⟪ ទីក្រុងដែលបង្ហាញ 🏙️ ⟫ ជាសំណុំលេខសន្ទស្សន៍ ដូច្នេះ
-// ទីក្រុងច្រើនអាចបង្ហាញក្នុងពេលតែមួយ ( ក្នុងផ្ទាំងក្រឡា ) ។
+// ⟪ j͑ʃɜ j͑ʃƨɹ , 🏙️ ⟫ , ꞙɭɿ ,
+// j͑ʃɜ j͑ʃƨɹ , ꞙɭɿ , ꞙɭı ,
 const montrendaj = new Set<number>([ 0 ]);
 let refresxilo: () => void = () => { };
-/* agordiVidanRefresxon ។ តាប់ មើលឃើញ ចុះបញ្ជីប៊ូតុងទីក្រុងនៅទីនេះ ។
+/* ſȷwɔ˞ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ j͑ʃɜ j͑ʃƨɹ ,
     @param fn ( funkcio ) - ការគូរបញ្ជីឡើងវិញ។ */
 export function agordiVidanRefresxon(fn: () => void): void { refresxilo = fn; }
 export function refresxigiVidon(): void { refresxilo(); }
@@ -28,14 +28,14 @@ export function montruKaxten(i: number, jes: boolean): void {
 }
 export function tsekeKaxteMontrata(i: number): boolean { return montrendaj.has(i); }
 export function montrendajHakaxte(): number[] { return [ ...montrendaj ].sort(( a, b ) => a - b); }
-/* agordiMontrendajnHakaxten ។ កំណត់បញ្ជីទាំងមូល ( ប៊ូតុង ទាំងអស់ និង តែមួយ )។
+/* ſȷwɔ˞ , j͑ʃɜ j͑ʃƨɹ , ꞙɭɿ , ⟅ ꞙɭɿ ,
     @param ca1ara ( number[] ) - លេខសន្ទស្សន៍ទីក្រុង។ */
 export function agordiMontrendajnHakaxten(ca1ara: number[]): void {
   montrendaj.clear();
   for ( const i of ca1ara ) montrendaj.add(i);
   refresxilo();
 }
-/* sekvuKaxten ។ ធានាថាទីក្រុងដែលទើបជ្រើសបង្ហាញផងដែរ ។ ទីក្រុងផ្សេង
+/* ſȷwɔ˞ , j͑ʃɜ j͑ʃƨɹ , ⟅ j͑ʃɜ j͑ʃƨɹ , ꞙɭı ,
    ដែលបានធីករួចនៅតែបង្ហាញ ។
     @param i ( number ) - លេខសន្ទស្សន៍ទីក្រុងដែលបានជ្រើស។ */
 export function sekvuKaxten(i: number): void {
@@ -43,7 +43,7 @@ export function sekvuKaxten(i: number): void {
   montrendaj.add(i);
   refresxilo();
 }
-/* foriguKaxten ។ លុបទីក្រុងចេញពីបញ្ជីបង្ហាញ ហើយរំកិលលេខសន្ទស្សន៍
+/* ſȷwɔ˞ , j͑ʃɜ j͑ʃƨɹ , ꞙɭı , ⟅ j͑ʃɜ j͑ʃƨɹ ,
    ដែលនៅខាងក្រោយវា ។
     @param i ( number ) - លេខសន្ទស្សន៍ទីក្រុងដែលបានលុប។ */
 export function foriguKaxten(i: number): void {

@@ -18,16 +18,16 @@ export function aldoniDiamantanSpegulon(qena: THREE.Scene, spec: VepaqSpec, grou
   qena.add(ring);
 }
 
-// ⟨ គែមស្តើងខ្លាំង និងមានបបូរ 📃 ⟩
+// ⟨ ſןw ſɭᴜƴ , ſɭᴜ ſɭ,w , ꞙɭı , 📃 ⟩
 const RANDO_LARGHO = 0o1/0o10;
 export const RANDO_ALTO = 0o1/0o40;
 
-/* ខ្សែគែមមួយជុំវិញរាងចតុកោណ ។ អគារ និងយានអវកាសប្រើខ្សែតែមួយនេះ
+/* ſןw ſɭᴜƴ , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ſɭᴜ ſןɹ , ꞙɭı ,
    ដូច្នេះគែមកណ្តាលរបស់យានមានទំហំដូចគែមស្រទាប់អគារ ។
     @param hw ( number ) - កន្លះទទឹង ។
     @param hd ( number ) - កន្លះជម្រៅ ។
     @param y ( number ) - បាតខ្សែ ។
-    @param klino ( number ) - ជម្រាលជញ្ជាំង ( 0 សម្រាប់ខ្សែឯករាជ្យ ) ។
+    @param klino ( number ) - ជម្រាលជញ្ជាំង ( ɔ សម្រាប់ខ្សែឯករាជ្យ ) ។
     @param l6da ( number = RANDO_ALTO ) - កម្ពស់ខ្សែ ។
 @returns ធរណីមាត្រខ្សែ ដែលអាចដាក់ក្នុងក្រុមដោយផ្ទាល់ ។ */
 export function kf2TavolanRandanGeometrion(hw: number, hd: number, y: number,
@@ -41,8 +41,8 @@ export function kf2TavolanRandanGeometrion(hw: number, hd: number, y: number,
   qoxa.holes.push(new THREE.Path(truo.reverse()));
   const geo = new THREE.ExtrudeGeometry(qoxa, { depth: l6da, bevelEnabled: false, curveSegments: 0o40 });
   geo.rotateX(-Math.PI / 2);
-  // ⟨ ចិញ្ចើមបួនម្ខាង ៖ ម្ខាងនីមួយៗមាន uv 0..1 ផ្ទាល់ខ្លួន ខ្សែកោងរុំតាមគែមចិញ្ចើមនោះ
-  //   ហើយ aKonturaEkstra ប្រាប់ទិសម្ខាង ដើម្បីឱ្យខ្សែកោងលេចតែលើម្ខាងដែលពន្លឺប៉ះ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭэ , ⟅ j͐ʃƽɜ , ꞙɭı , ꞙɭɿ ,
+//   }ʃɹƽ , j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı , 📃 ⟩
   const haxekuxa = geo.getAttribute("position") as THREE.BufferAttribute;
   const nor = geo.getAttribute("normal") as THREE.BufferAttribute;
   const uv = geo.getAttribute("uv") as THREE.BufferAttribute;
@@ -72,7 +72,7 @@ export function kf2TavolanRandanGeometrion(hw: number, hd: number, y: number,
   return geo;
 }
 
-// ⟨ គែមលើមូល 📃 ⟩
+// ⟨ j͑ʃɜ ſɭ,ᴜ , ſȷƽᴜ ʃɔ , 📃 ⟩
 export function aldoniTavolanRandon(geos: THREE.BufferGeometry[], hw: number, hd: number, y: number, klino: number, tieroAlto: number): void {
   const lipoAlto = 0o1/0o50;
   geos.push(kf2TavolanRandanGeometrion(hw, hd, y + tieroAlto - RANDO_ALTO, klino));

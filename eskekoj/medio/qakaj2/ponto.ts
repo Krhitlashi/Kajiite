@@ -3,53 +3,53 @@ import * as THREE from "three";
 import { sax0baPukazQan2k } from "../../komunajxoj/haqoxa.js";
 import { VOJA_BORDA_SEFINI, VOJA_DIKECO, k6h6LarghoDuono } from "../hak6h6/havecax2l.js";
 
-// ⟪ មាត្រស្ពាន 📏 ⟫
-// ⟨ កម្រាស់ផ្ទៃស្ពាន ៖ ដូចកម្រាស់ផ្លូវ ។ 📃 ⟩
+// ⟪ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ֭ſɭэ 📏 ⟫
+// ⟨ ſɭᴜ ſɭ,w , ſɭэ ֭ſɭэ , ſɭᴜ ſɭ,w , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
 export const PONT_DEKA_DIKECO = VOJA_DIKECO;
 
 export const PONT_FINA_LEVIGXO = PONT_DEKA_DIKECO;
 
-// ⟨ កម្រាស់ជញ្ជាំងស្ពានក្រោមផ្ទៃនៅលើទឹក ។ 📃 ⟩
-// ⟨ ស្តើងជាងមុន 📏 ⟩ ៖ មុននេះ ២ ឯកតា ។ ស្ពានក្រាស់ពីរឯកតាមើលទៅដូចជញ្ជាំងថ្ម
-// ខ្ពស់នៅលើទឹក ។ ឥឡូវស្ពានស្តើងដូចផ្លូវ , ដូច្នេះឃើញជាស្ពាន ។ 📃 ⟩
+// ⟨ ſɭᴜ ſɭ,w , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ , ſᶘᴜ j͑ʃᴜ , ꞙɭı ⟅ 📃 ⟩
+// ⟨ ꞙɭɔ , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭɿ , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭɿ , ꞙɭı ,
+//   ꞙɭı , ſɭᴜ ſɭ,w , ſɭэ ֭ſɭэ , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ⟅ 📃 ⟩
 export const PONT_KORPA_DIKECO = 0o6/0o10;
 
-// ⟨ ជម្រៅបន្ថែមក្រោមដី ៖ ជញ្ជាំងស្ពានចុះកប់ក្នុងដីបន្តិច ។ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭı ⟅ ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ⟅ 📃 ⟩
 export const PONT_TERA_PROFUNDECO = 0o1/0o10;
 
-// ⟨ ជាន់ចូលផ្លូវនៅចុងទាំងពីរ 📏 ⟩ ៖ ផ្ទៃប៉ះគ្នាត្រង់បន្ទាត់តែមួយ
-// ទុករន្ធតូចក្រោមស្ពាន ។ តួស្ពានលាតចូលក្រោមផ្លូវដើម្បីបិទរន្ធនោះ ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭɿ 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ꞙɭɔ
+//   ꞙɭɔ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ֭ſɭэ , ꞙɭı , ⟅ 📃 ⟩
 export const PONT_VOJA_SUPERPONO = 0o1/0o2;
 
-// ⟨ ចំណែកតូចបំផុតដែលចុងគ្របដណ្តប់ ៖ ស្ពានវែងមានធ្នូស្តើងនៅកណ្តាល ។ 📃 ⟩
+// ⟨ ꞙɭı , j͑ʃᴜ ſɭ,w ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ſȷƽᴜ ʃɔ , ſ͕ɭɜ ı],ᴜ , ⟅ 📃 ⟩
 export const PONT_FINA_ORDO = 0o1/0o5;
 
-// ⟨ ចំណែកធំបំផុត ៖ ស្ពានខ្លីជ្រៅមិនអាចបត់ក្នុងប្រវែងតូច ។ 📃 ⟩
+// ⟨ ꞙɭı , j͑ʃᴜ ſɭ,w ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ 📃 ⟩
 export const PONT_FINA_ORDO_MAKSO = 0o1/0o2;
 
-// ⟨ ចំនួនគំរូតាមប្រវែងស្ពាន ៖ ស្ពានវែងត្រូវការគំរូច្រើនជាង ។ 📃 ⟩
+// ⟨ ꞙɭı , ꞙɭı , ſןɔ˞ᴜƴ ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 const PONT_SPECIMENOJ_POR_METRO = 0o4;
 const PONT_SPECIMENOJ_MINIMUME = 0o20;
 const PONT_SPECIMENOJ_MAKSIMUME = 0o200;
 
-/*ចំណែកប្រវែងស្ពានដែលកោងចុះដល់ដី
-    @param sahakani ( number ) - ប្រវែងស្ពាន
-    @param profundo ( number ) - ជម្រៅជញ្ជាំងនៅចុង
-@returns ca1ara ( number ) - ចំណែកនៅចុងនីមួយៗ
-    ស្ពានវែង ឬទាប ប្រើចំណែកតូច , ហើយស្ពានខ្លីជ្រៅប្រើចំណែកធំ
-    ដើម្បីឱ្យបាតកោងរលូនដោយគ្មានជញ្ជាំងឈរ ។ */
+/* ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſןɔ˞ᴜƴ , ſɭɜ ſɭ,w , ꞙɭı ,
+    @param sahakani ( number ) - ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
+    @param profundo ( number ) - ſɭɜ ſɭ,w , ꞙɭı , ꞙɭı ,
+@returns ca1ara ( number ) - ꞙɭı , ꞙɭɿ ,
+    ꞙɭı , ꞙɭı , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭᴜ ſɭ,w ,
+    ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩ */
 export function pontaFinaOrdo( sahakani: number, profundo: number ): number {
   if ( sahakani <= 0 ) return PONT_FINA_ORDO_MAKSO;
   return Math.min(PONT_FINA_ORDO_MAKSO,
     Math.max(PONT_FINA_ORDO, profundo / sahakani * 0o1/0o2));
 }
 
-/*កម្ពស់បាតស្ពានតាមបណ្តោយធ្នូ
-    @param sahakani ( number ) - ប្រវែងស្ពាន
-    @param teru ( function ) - កម្ពស់កំពូលស្ពាននៅ t ( 0..1 )
-    @param fundo ( function , optional ) - កម្ពស់ដីក្រោមស្ពាននៅ t
-@returns malsupra ( function ) - កម្ពស់បាតស្ពាននៅ t
-    ចុងទាំងពីរចុះដល់ដីដោយរលូន , កណ្តាលរក្សាកម្រាស់ថេរតាមផ្ទៃផ្លូវ ។ */
+/* ꞙɭı , ſɭэ ſɭ,w , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
+    @param sahakani ( number ) - ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
+    @param teru ( function ) - ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , t ( ɔ..ı )
+    @param fundo ( function , optional ) - ꞙɭı , ſɭэ ſɭ,w , ꞙɭı , t
+@returns malsupra ( function ) - ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , t
+    ꞙɭɿ , ꞙɭı , ꞙɭı , ꞙɭı , ſɭᴜ ſɭ,w , ⟅ 📃 ⟩ */
 export function kf2PontanSubon(
   sahakani: number,
   teru: ( t: number ) => number,
@@ -66,26 +66,26 @@ export function kf2PontanSubon(
     const l2ha = teruo - fundo(t);
     const bando = Math.max(0, Math.min(arkaDikeco, l2ha));
     const u = Math.max(0, Math.min(1, t / ordoKomenco, ( 1 - t ) / ordoFino));
-    // ⟨ កោងចុះដល់ដីតែនៅចុងទាំងពីរ ៖ កណ្តាលតាមកោងផ្ទៃផ្លូវ ។ 📃 ⟩
+    // ⟨ ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭɿ ⟅ ꞙɭı , ſȷƽᴜ ʃɔ , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
     const glata = u * u * ( 0o3 - 0o2 * u );
     return teruo - ( l2ha + ( bando - l2ha ) * glata );
   };
 }
 
 
-// ⟪ ចន្លោះពីទឹក 📏 ⟫
-// ⟨ ធ្នូត្រូវខ្ពស់ជាងរលក ៖ រលកលើកផ្ទៃទឹកបួនជាន់រួមគ្នាដល់ជាងពីរភាគបួន ,
-// បូកនឹងការលើកផ្ទៃទឹក ៗ ដូច្នេះស្ពានទាបជាងនោះមើលទៅលិចទឹក ៗ 📃 ⟩
+// ⟪ ſᶘᴜ j͑ʃᴜ , ꞙɭı 📏 ⟫
+// ⟨ ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı ⟅ ꞙɭı , ꞙɭэ , ꞙɭı , ꞙɭɿ ,
+//   ɭʃᴜ , ſᶘᴜ j͑ʃᴜ , ⟅ ꞙɭɔ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭɔ , ſᶘᴜ j͑ʃᴜ , ⟅ 📃 ⟩
 export const PONT_AKVA_KLARANCO = 0o2;
 
-/*សាងសង់តួស្ពានក្រោមផ្ទៃផ្លូវ
-    @param qena ( Scene ) - ឆាក
-    @param ax, az ( number ) - ចំណុចដើមធ្នូ
-    @param bx, bz ( number ) - ចំណុចចុងធ្នូ
-    @param sefini ( number ) - ទទឹងផ្លូវ
-    @param andezitaMaterialo ( MeshStandardMaterial ) - វត្ថុអង់ដេស៊ីត
-    @param deko ( function ) - កម្ពស់ផ្ទៃស្ពាន
-    @param teraAlto ( function , optional ) - កម្ពស់ដីក្រោមស្ពាន */
+/* ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ֭ſɭэ ,
+    @param qena ( Scene ) - ɭʃɹ ʃᴜ }ʃw , ꞙɭı ,
+    @param ax, az ( number ) - ꞙɭı , ſȷƽᴜ ʃɔ ,
+    @param bx, bz ( number ) - ꞙɭı , ſȷƽᴜ ʃɔ ,
+    @param sefini ( number ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param andezitaMaterialo ( MeshStandardMaterial ) - ſןw ſɭɔƽ ,
+    @param deko ( function ) - ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ ,
+    @param teraAlto ( function , optional ) - ꞙɭı , ſɭэ ſɭ,w , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , */
 export function vepaqPonton(
   qena: THREE.Scene,
   ax: number, az: number,
@@ -98,9 +98,9 @@ export function vepaqPonton(
   const dx = bx - ax, dz = bz - az;
   const sahakani = Math.hypot(dx, dz);
   if ( sahakani < 0o1/0o100 ) return;
-  // ⟨ វាយនភាពតាមឯកតា មិនមែនតាមស្ពានទាំងមូល 📏 ⟩ ៖ uv1 រក្សាកូអរដោនេ
-  // មុខដើម ខណៈ uv រាបសម្រាប់ខ្សែកោង ។ ប្រើ uv1 សម្រាប់ផ្ទៃ និង bump
-  // ដើម្បីកុំឱ្យគ្រាប់ថ្មលាតជាខ្សែវែងតាមមុខចំហៀងស្ពាន ។ 📃 ⟩
+  // ⟨ ſןw ſɭɔƽ , ꞙɭı , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , 📏 ⟩ , j͐ʃƽɜ , ꞙɭı , ꞙɭı ,
+  //   j͐ʃƽɜ , ꞙɭı , ⟅ j͐ʃƽɜ , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ⟅ 📃 ⟩
   const pontaMaterialo = andezitaMaterialo.clone();
   if ( pontaMaterialo.map ) {
     pontaMaterialo.map = pontaMaterialo.map.clone();
@@ -121,7 +121,7 @@ export function vepaqPonton(
     Math.min(PONT_SPECIMENOJ_MAKSIMUME,
       Math.round(sahakani * PONT_SPECIMENOJ_POR_METRO)));
   const supraAlto = ( t: number ): number => deko(t) - PONT_DEKA_DIKECO + 0o1/0o200;
-  // ⟨ បាតអង់ដេស៊ីតកោងចុះដល់ដីនៅចុងទាំងពីរ ហើយតាមកោងផ្លូវនៅកណ្តាល ។ 📃 ⟩
+  // ⟨ ſןw ſɭɔƽ , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const malsupraAlto = kf2PontanSubon(sahakani, supraAlto,
     teraAlto
       ? ( t: number ) => Math.min(supraAlto(t),
@@ -175,7 +175,7 @@ export function vepaqPonton(
     hate.add(maŝo);
   }
 
-  // ⟨ អង់ដេស៊ីតគ្របជញ្ជាំងឈរនៅគែមផ្លូវ ៖ បាតរបស់វាក៏កោងឡើងតាមធ្នូដែរ ។ 📃 ⟩
+  // ⟨ ſןw ſɭɔƽ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ 📃 ⟩
   const fasado = kf2Profilon(( t: number ) => deko(t) + 0o1/0o200);
   for ( const ofseto of [ p2somani, -kernoDuono ] ) {
     const fasadaGeometrio = kf2LonganGeometrion(fasado, fasadaSefini, ofseto);

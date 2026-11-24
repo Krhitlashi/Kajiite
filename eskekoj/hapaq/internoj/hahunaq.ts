@@ -4,30 +4,30 @@ import type { VepaqSpec } from "../satalaj/hahunaq.js";
 import type { MangxajxItemo } from "../../mebloj/mangxajxoj/hahunaq.js";
 
 export interface PlankoInfo {
-  /** កម្រិត Y នៃកម្រាល */
+/** ſןw ſɭᴜƴ , j͑ʃᴜ ſɭ,w , ꞙɭı */
   y: number;
-  /** កន្លះទទឹងនៃលំហជាន់ */
+/** ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭı , */
   hw: number;
-  /** កន្លះជម្រៅនៃលំហជាន់ */
+/** ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w , ꞙɭı , */
   hd: number;
-  /** កម្ពស់ជាន់ */
+/** ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , */
   l6da: number;
 }
 
 export interface HeliksoInfo {
-  /** កាំនៃសសរកណ្តាល */
+/** ſɭᴜ ſןᴜ , ſןᴜ ᶘɹ , ꞙɭı , */
   rKol: number;
-  /** កាំខាងក្រៅនៃជណ្តើរ */
+/** ſɟᴜ ſןᴜ ɭʃэ , ſɭᴜ ſɭˬꞇƽ , */
   rEkster: number;
-  /** ជំហានក្នុងមួយវេនពេញ */
+/** ſɟᴜ ſןᴜ ɭʃэ , ſןɔ˞ᴜƴ , ꞙɭı , */
   perTurno: number;
-  /** កម្ពស់មួយវេនពេញ ( = tieroAlto ) */
+/** ſɟᴜ ſןᴜ ɭʃэ , j͑ʃᴜ ſɭ,w , ꞙɭı , */
   turnoAlto: number;
-  /** កម្ពស់មួយវេនពេញក្រោមដី ( = tieroAltoSub ) */
+/** ſɟᴜ ſןᴜ ɭʃэ , ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭı , */
   turnoAltoSub: number;
-  /** ចំនួនវេនពេញខាងលើ ( = havem2 - 1 ) */
+/** ſɟᴜ ſןᴜ ɭʃэ , ꞙɭı , */
   turnoj: number;
-  /** ចំនួនវេនពេញក្រោមដី ( = sube ) */
+/** ſɟᴜ ſןᴜ ɭʃэ , ꞙɭɿ , */
   turnojSube: number;
 }
 

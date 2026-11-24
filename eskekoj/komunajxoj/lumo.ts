@@ -1,8 +1,8 @@
 // ≺⧼ ſᶘꞇ ɭl̀ɔ j͑ʃᴜꞇ ʌ ſɭᴜc̗ ɭʃᴜ 🏮 ⧽≻
-// ⟨ ឆាកហ្គេម និងឆាកឧទាហរណ៍ទាំងអស់អានពន្លឺពីឯកសារនេះ ។ ពន្លឺចង្កៀងកោង
-// មកពីម៉ូឌុល lampaFalo ដែលបាននាំចេញឡើងវិញនៅទីនេះ ។ មេឃតែមួយបង្កើត
-// ទាំងពន្លឺមេឃ-ព្រះអាទិត្យ និងបរិស្ថានឆ្លុះ PMREM , ដូច្នេះការឆ្លុះមកពី
-// ប្រភពពន្លឺតែមួយ ។ ការកំណត់សន្ទះគូរក៏រស់នៅទីនេះដែរ ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı ,
+// ſᶘɹ ſɭᴜ , ꞙɭɿ ,
+// ſᶘɹ ſɭᴜ , ꞙɭц ,
+// ſᶘɹ ſɭᴜ , ꞙɭэ , 📃 ⟩
 import * as THREE from "three";
 import { aplikiLampaFalon } from "./lampaFalo.js";
 
@@ -12,7 +12,7 @@ export { aplikiLampaFalon, aplikiViglanLampanFalon, kf2LampaFaloUnihaqoxan,
 export type { LampaLumo, LampaFaloAgordo, LampaFaloTokenoj, LampaFaloUnihaqoxa }
   from "./lampaFalo.js";
 
-// ⟨ វាលកោងរួមតែមួយ ៖ សម្ភារៈជាប់ខ្លួន ទឹក និងមេឃហៅមុខងារដូចគ្នា គ្មានផ្លូវដាច់ដោយឡែក 📃 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭı , 📃 ⟩
 export const KONTURA_GLSL = `
 const float KONTURA_PASXO = ${0o20 / 0o377};
 const float KONTURA_KRADO = ${0o377 / 0o10};
@@ -77,12 +77,12 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 raqa, vec3 supo, vec3 lumo,
   vec3 bary, vec3 kanto ) {
   float suna = clamp( ${0o1 / 0o2} - dot( normalo, lumo ) * ${0o1 / 0o2},
     ${0o0}.0, ${0o1}.0 );
-  // ⟨ វាលតែមួយគ្រប់វត្ថុ ៖ ខ្សែកោងចេញពីគែមក្រៅរបស់មុខ រុំចូលក្នុងតាមគែមនោះ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭɜ ſɭᴜ , 📃 ⟩
   float uvValida = step( ${0o1 / 0o20000}, length( uv ) );
-  // ⟨ ផ្ទៃគ្មាន UV ប្រើតែពន្លឺថ្ងៃកន្លះ ដូចលទ្ធផល mix ចុងក្រោយ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
   if ( uvValida < ${0o1 / 0o2} ) return suna * ${0o1 / 0o2};
   vec2 kUv = clamp( uv, vec2( ${0o0}.0 ), vec2( ${0o1}.0 ) );
-  // ⟨ គោលក្នុងមុខ ៖ ទិសពន្លឺ និងកាមេរ៉ាបញ្ចាំងលើផ្ទៃកំណត់ចំណុចកណ្ដាល 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
   vec3 help = abs( dot( normalo, supo ) ) < ${0o7 / 0o10}
     ? supo : vec3( ${0o1}.0, ${0o0}.0, ${0o0}.0 );
   vec3 tanU = normalize( cross( help, normalo ) );
@@ -111,12 +111,12 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 raqa, vec3 supo, vec3 lumo,
   #endif
   float zomskalo = clamp( h6kuni / ${0o30}.0, ${0o7 / 0o10}, ${0o11 / 0o10} );
   float tugskalo = clamp( h6kuni / ${0o30}.0, ${0o7 / 0o10}, ${0o5 / 0o4} );
-  // ⟨ ខ្សែកោងជ្រុងមូលរុំចូលដោយបកប្រែជាន់តាមកាមេរ៉ានិងពន្លឺ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
   float radio1 = ${0o3 / 0o20} * zomskalo;
   float limo1 = ${0o1 / 0o10} * zomskalo;
   float limo2 = ${0o5 / 0o20} * zomskalo;
   float limo3 = ${0o1 / 0o2} * zomskalo;
-  // ⟨ បន្ថែមកាំតាមការរុញចូល ដើម្បីរក្សាជ្រុងមូលនៅគ្រប់ជាន់ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
   float radio2 = min( radio1 + ( limo2 - limo1 ) * ${0o1 / 0o2},
     ${0o1 / 0o2 - 0o1 / 0o100} );
   float radio3 = min( radio1 + ( limo3 - limo1 ) * ${0o1 / 0o2},
@@ -133,7 +133,7 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 raqa, vec3 supo, vec3 lumo,
     - konturaTransiro( en2, limo2 )
     - konturaTransiro( en3, limo3 )
     + suna * ${0o1 / 0o4};
-  // ⟨ មុខត្រីកោណ ៖ ខ្សែកោងស្របនឹងគែមទាំងបី ជ្រុងមូលតាម smin 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
   if ( length( bary ) > ${0o1 / 0o20000} ) {
     vec2 of = ( lumT + vidT * ${0o3 / 0o2} ) * ${0o1 / 0o4};
     vec3 cb = vec3( ${0o1 / 0o3} )
@@ -157,7 +157,7 @@ float konturaKampo( vec3 normalo, vec2 uv, vec3 raqa, vec3 supo, vec3 lumo,
       - konturaTransiro( enT3, ${0o1 / 0o2} * zomskalo )
       + suna * ${0o1 / 0o4};
   } else if ( length( kanto ) > ${0o1 / 0o20000} ) {
-    // ⟨ ចិញ្ចើមជាន់លើ ៖ បួនម្ខាងដាច់ពីគ្នា ខ្សែកោងតែលើម្ខាងដែលពន្លឺប៉ះ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
     float lit = clamp( dot( kanto, lumo ) * ${0o1 / 0o2} + ${0o1 / 0o2},
       ${0o0}.0, ${0o1}.0 );
     vem2 = mix( suna * ${0o1 / 0o2}, vem2,
@@ -171,9 +171,9 @@ vec3 konturaKoloro( vec3 bazaLin, float vem2 ) {
 }
 `;
 
-// ⟪ មេឃរួម 🌤 ⟫
-// ⟨ មេឃតែមួយសម្រាប់ឆាក និងកញ្ចក់ឆ្លុះ ។ លេខក្នុងខ្សែជាទសភាគ ព្រោះ GLSL
-// គ្មានលេខអដ្ឋមាន ។ គ្រប់ឆាកប្រើវត្ថុធាតុនេះ ដើម្បីកុំឱ្យមេឃខុសគ្នា ។ 📃 ⟩
+// ⟪ ſᶘɹ ſɭᴜ , 🌤 ⟫
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı ,
+// ſᶘɹ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 export type CxielajUnihaqoxa = {
   uTop: THREE.IUniform< THREE.Color >;
   uMid: THREE.IUniform< THREE.Color >;
@@ -210,11 +210,11 @@ float stelaQoxa( vec2 p ) {
 void main() {
   vec3 d = normalize( vDir );
   float h = clamp( d.y, ${-0o15 / 0o100}, ${0o1}.0 );
-  // ⟨ កម្ពស់ជាថ្នាក់ ៖ មេឃឆ្នូតរលូនតាម fwidth 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭц , 📃 ⟩
   float hb = konturaBando( h * ${0o20}.0 ) / ${0o20}.0;
   vec3 baza = mix( uBot, uMid, smoothstep( ${-0o1 / 0o100}, ${0o17 / 0o100}, hb ) );
   baza = mix( baza, uTop, smoothstep( ${0o3 / 0o20}, ${0o27 / 0o40}, hb ) );
-  // ⟨ កាំឆ្នូតបួនជ្រុង ធ្វើតាមរាងផ្កាយរបស់ព្រះអាទិត្យ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭэ , 📃 ⟩
   vec3 sunaDirekto = normalize( uSunDir );
   vec3 sunaHelpo = abs( sunaDirekto.y ) < ${0o7 / 0o10}
     ? vec3( ${0o0}.0, ${0o1}.0, ${0o0}.0 ) : vec3( ${0o1}.0, ${0o0}.0, ${0o0}.0 );
@@ -232,10 +232,10 @@ void main() {
   float sunaKampo = max( sunaHalo, max( sunaH, sunaV ) * sunaFalo ) * step( ${0o0}.0, sunaAntau );
   float suna = konturaBando( sunaKampo * ${0o4}.0 ) / ${0o4}.0;
   baza += uSunCol * suna * ${0o1 / 0o2};
-  // ⟨ គ្រប់ជាន់មេឃដក 101010 ពីពណ៌គោល ដោយប្រើមុខងារវត្ថុដដែល 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭɩ , 📃 ⟩
   float vem2 = ( ${0o1}.0 - smoothstep( ${0o0}.0, ${0o27 / 0o40}, hb ) ) * ${0o3}.0;
   vec3 weh2 = konturaKoloro( baza, vem2 );
-  // ⟨ ផ្កាយបួនកាំរាវរលូនលើមុខបាល់ប្រាំមួយ ទីតាំងថេរនៅពេលរាត្រី 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭꞟ , 📃 ⟩
   vec3 stelaAbs = abs( d );
   vec2 stelaUv;
   float stelaVizagxo;
@@ -267,7 +267,7 @@ void main() {
   gl_FragColor = vec4( weh2, ${0o1}.0 );
 }`;
 
-/* បង្កើតវត្ថុធាតុមេឃ ដែលប្រើទាំងលើឆាក និងក្នុងកញ្ចក់ឆ្លុះ ។
+/* ſᶘɹ ſɭᴜ , ꞙɭı ,
     @param unihaqoxa ( CxielajUnihaqoxa ) - ពណ៌បីជាន់ ពណ៌ព្រះអាទិត្យ និងទិសព្រះអាទិត្យ ។
 @returns វត្ថុធាតុមេឃ ( THREE.RawShaderMaterial )។ */
 export function kf2CxielanMaterialon(
@@ -276,12 +276,12 @@ export function kf2CxielanMaterialon(
     uniforms: unihaqoxa, vertexShader: CXIELA_VERTEKS0, fragmentShader: CXIELA_FRAGMENTO });
 }
 
-// ⟪ បរិស្ថានឆ្លុះ 🪞 ⟫
-// ⟨ កញ្ចក់ឆ្លុះមកពីមេឃតែមួយ ដែលបំភ្លឺឆាកដែរ ។ មិនមានបន្ទប់សាកល្បងដាច់ដោយឡែក
-// ទេ ៖ ដែក និងកញ្ចក់ឆ្លុះមេឃ និងព្រះអាទិត្យពិតរបស់ឆាក ។ ការបង្កើតឡើងវិញ
-// កើតឡើងតែពេលពណ៌ប្រែគ្រប់គ្រាន់ ដើម្បីកុំឱ្យយឺត ។ 📃 ⟩
+// ⟪ ſ͕ɭɜ ı],ᴜ , 🪞 ⟫
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+// ſᶘɹ ſɭᴜ , ꞙɭɿ ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭц , 📃 ⟩
 export const MEDIA_INTENSO = 0o1;
-// ⟨ កម្រិតប្រែពណ៌ដែលធ្វើឱ្យបង្កើតឡើងវិញ ។ តម្លៃតូចជាងនេះគឺខ្ជះខ្ជាយ ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭэ , 📃 ⟩
 const MEDIA_SOJLO = 0o1 / 0o40;
 
 export interface MediaAgordo {
@@ -314,7 +314,7 @@ function malsamajKoloroj( a: THREE.Color, b: THREE.Color ): boolean {
     || Math.abs( a.b - b.b ) > MEDIA_SOJLO;
 }
 
-/* ដាក់បរិស្ថានឆ្លុះពីមេឃលើឆាក ។
+/* ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
     @param qena ( THREE.Scene ) - ឆាកដែលត្រូវការការឆ្លុះ ។
     @param bildilo ( THREE.WebGLRenderer ) - សន្ទះគូរដែលបង្កើតវាយនភាព ។
     @param ku1o ( Partial< MediaAgordo > = {} , optional ) - ពណ៌មេឃ និងកម្រិតបរិស្ថាន ។
@@ -329,7 +329,7 @@ export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
     uSunDir: { value: DEFAUXLTA_MEDIO.sunaDirekto.clone() },
     uNokto: { value: DEFAUXLTA_MEDIO.nokto },
   };
-  // ⟨ ឆាកតូចមួយសម្រាប់កញ្ចក់ ៖ គ្រាន់តែមេឃ គ្មានដី គ្មានវត្ថុ ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭɿ , 📃 ⟩
   const reflektaSceno = new THREE.Scene();
   reflektaSceno.add( new THREE.Mesh( new THREE.SphereGeometry( 0o100, 0o20, 0o10 ),
     kf2CxielanMaterialon( unihaqoxa ) ) );
@@ -344,7 +344,7 @@ export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
 
   function kf2(): void {
     if ( celo ) celo.dispose();
-    // ⟨ ស៊ីគម៉ា 0 ៖ មេឃរលូនស្រាប់ ដូច្នេះមិនត្រូវព្រិលបន្ថែម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭц , 📃 ⟩
     celo = generilo.fromScene( reflektaSceno, 0, 0o1/0o100, 0o400 );
     qena.environment = celo.texture;
     qena.environmentIntensity = intenso;
@@ -385,7 +385,7 @@ export function agordiMedion( qena: THREE.Scene, bildilo: THREE.WebGLRenderer,
   };
 }
 
-// ⟪ សន្ទះគូរ 🖥️ ⟫
+// ⟪ ſɭэ ſɭw , 🖥️ ⟫
 export interface BildilaAgordo {
   antialias?: boolean;
   ombroj?: boolean;
@@ -394,15 +394,15 @@ export interface BildilaAgordo {
   pikslaRacio?: number;
 }
 
-/* កំណត់សន្ទះគូរឱ្យដូចគ្នានៅគ្រប់ឆាក ។
+/* ſɭэ ſɭw , ꞙɭı ,
     @param bildilo ( THREE.WebGLRenderer ) - សន្ទះគូរត្រូវកំណត់ ។
     @param ku1o ( BildilaAgordo = {} , optional ) - ជម្រើសនៃការកំណត់ ។
 @returns void */
 export function agordiBildilon( bildilo: THREE.WebGLRenderer, ku1o: BildilaAgordo = {} ): void {
-  // ⟨ សន្ទះគូរទាំងអស់ទទួលជំហានពណ៌ផ្ទៃ និងពន្លឺចង្កៀងដូចគ្នា 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
   aplikiLampaFalon();
   if ( !THREE.ShaderChunk.uv_pars_vertex.includes( "vKonturaUv" ) ) {
-    // ⟨ ផ្ញើ uv ទៅគ្រប់សម្ភារៈស្តង់ដារ ៖ ជម្រាលកោងតាមគែមលើ-ក្រោមគ្រប់វត្ថុ គ្មានផ្លូវដាច់ដោយឡែក 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭц , 📃 ⟩
     THREE.ShaderChunk.uv_pars_vertex += `
       varying vec2 vKonturaUv;
       varying vec3 vKonturaPoz;
@@ -416,7 +416,7 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, ku1o: BildilaAgord
     `;
     THREE.ShaderChunk.uv_vertex += `
       vKonturaUv = uv;
-      // ⟨ uv1 គឺផ្ទៃពេញ ។ តម្លៃវិជ្ជមានជ្រើសតែផ្នែកដែលមិនត្រូវបានគ្រប 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭэ , 📃 ⟩
       if ( aKonturaKovrilo < -0.5 ) {
         vKonturaUv = uv1;
       } else if ( aKonturaKovrilo > 0.0 ) {
@@ -437,11 +437,11 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, ku1o: BildilaAgord
     THREE.ShaderChunk.uv_pars_fragment += "\nvarying vec2 vKonturaUv;\nvarying vec3 vKonturaPoz;\nvarying vec3 vKonturaBary;\nvarying vec3 vKonturaFlanko;\n";
   }
   if ( !THREE.ShaderChunk.color_pars_fragment.includes( "konturaKampo" ) ) {
-    // ⟨ មុខងាររួមនៅកំពូល fragment ៖ សម្ភារៈជាប់ខ្លួនទាំងអស់ប្រើវាលតែមួយ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
     THREE.ShaderChunk.color_pars_fragment = KONTURA_GLSL + THREE.ShaderChunk.color_pars_fragment;
   }
   if ( !THREE.ShaderChunk.colorspace_fragment.includes( "konturaKampo" ) ) {
-    // ⟨ ផ្ទៃជាប់ខ្លួនទាំងអស់ ៖ standard physical phong lambert toon basic និង matcap 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
     THREE.ShaderChunk.colorspace_fragment += `
       #if defined( STANDARD ) || defined( PHONG ) || defined( LAMBERT ) || defined( TOON ) || defined( BASIC ) || defined( MATCAP )
         #if defined( BASIC ) || defined( MATCAP )
@@ -477,7 +477,7 @@ export function agordiBildilon( bildilo: THREE.WebGLRenderer, ku1o: BildilaAgord
   if ( ku1o.pikslaRacio !== undefined ) bildilo.setPixelRatio( ku1o.pikslaRacio );
 }
 
-// ⟪ ពន្លឺមេឃ និងព្រះអាទិត្យ ☀️ ⟫
+// ⟪ ſᶘɹ ſɭᴜ , ☀️ ⟫
 export interface CxefajLumojAgordo {
   cxielaKoloro?: THREE.ColorRepresentation;
   grundoKoloro?: THREE.ColorRepresentation;
@@ -502,7 +502,7 @@ export interface CxefajLumoj {
   plenigaLumo: THREE.AmbientLight | null;
 }
 
-// ⟨ តម្លៃលំនាំដើមដូចបាលេត nebula.tago របស់ហ្គេម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı , 📃 ⟩
 const DEFAUXLTAJ_LUMOJ = {
   cxielaKoloro: 0xc8e0e8,
   grundoKoloro: 0x485848,
@@ -512,7 +512,7 @@ const DEFAUXLTAJ_LUMOJ = {
   sunaXekuxa: [ 0o110, 0o160, 0o40 ] as [ number, number, number ],
 };
 
-/* បង្កើតពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញស្រេចចិត្ត រួចដាក់ចូលឆាក ។
+/* ſᶘɹ ſɭᴜ , ꞙɭɿ ,
     @param qena ( THREE.Scene ) - ឆាកដែលត្រូវបន្ថែមពន្លឺ ។
     @param ku1o ( CxefajLumojAgordo = {} , optional ) - តម្លៃពណ៌ កម្រិត ទីតាំង និងស្រមោល ។
 @returns ពន្លឺទាំងបី ( CxefajLumoj )។ */

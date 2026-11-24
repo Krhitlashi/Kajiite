@@ -1,5 +1,5 @@
 // ≺⧼ ɭʃɜ j͐ʃᶗ‹w 🕷️ ⧽≻
-// ⟨ ហេតុអ្វីជើងមើលទៅបែក 📃 ⟩
+// ⟨ ſᶘɔ ʌ ſןᴜ ɭʃэ , j͑ʃᴜ ſɭэ ɭʃᴜ , ⟅ ⟩
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
@@ -32,7 +32,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
     depthWrite: false, side: THREE.DoubleSide, roughness: 0o1/0o2,
     map: kutiklo.weh2, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
   });
-  // ⟨ ដើម 📃 ⟩
+  // ⟨ ɭʃɜ ſɭɹȝ , ⟅ ⟩
   const zHas2nasce = [ 0o12/0o100, 0o2/0o100, -0o4/0o100, -0o12/0o100 ];
   const trunkajPunktoj = [
     new THREE.Vector3(0, 0, -0o14/0o100),
@@ -55,7 +55,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
   trunkaMesho.name = "korpo";
   hate.add(trunkaMesho);
 
-  // ⟨ ការលេចចេញចំហៀង 📃 ⟩
+  // ⟨ ſɭᴜ ʃןᴜ , ꞙɭı , ⟅ ⟩
   for ( const k of [ 0, 0o1, 0o2, 0o3 ] ) {
     for ( const s of [ 0o1, -0o1 ] ) {
       const elstaraĵo = new THREE.Mesh(
@@ -66,7 +66,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
     }
   }
 
-  // ⟨ កម្រាស់ 📃 ⟩
+  // ⟨ j͑ʃᴜ ſɭ,w , ⟅ ⟩
   const rostrajPunktoj = [
     new THREE.Vector3(0, -0o1/0o100, 0o16/0o100),
     new THREE.Vector3(0, -0o6/0o100, 0o30/0o100),
@@ -116,9 +116,9 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
     hate.add(ovigero);
   }
 
-  // ⟨ ជើង 📃 ⟩
-  // ⟨ ហេតុអ្វីសន្លាក់ជាចំណុច 📃 ⟩
-  // ⟨ ហេតុអ្វីជង្គង់ស្មើគ្នា 📃 ⟩
+  // ⟨ ſןᴜ ɭʃэ , ⟅ ⟩
+  // ⟨ ſᶘɔ ʌ ɭʃᴜc̭ ſɟɹƽ , }ʃɹƽ , ⟅ ⟩
+  // ⟨ ſᶘɔ ʌ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ꞙɭı , ⟅ ⟩
   const kruraMaterialo = new THREE.MeshStandardMaterial({
     color: 0xd8b890, map: kutiklo.weh2,
     bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
@@ -126,7 +126,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
     depthWrite: true, depthTest: true, side: THREE.DoubleSide,
     roughness: 0o1/0o2, emissive: 0x382818, emissiveIntensity: 0o1/0o10,
   });
-  // ⟨ ចំណុចសន្លាក់ 📃 ⟩
+  // ⟨ }ʃɹƽ , ɭʃᴜc̭ ſɟɹƽ , ⟅ ⟩
   const koksojZ = [ 0o12/0o100, 0o2/0o100, -0o4/0o100, -0o12/0o100 ];
   const genuojZ = [ 0o24/0o100, 0o5/0o100, -0o5/0o100, -0o24/0o100 ];
   const piedojZ = [ 0o46/0o100, 0o20/0o100, -0o20/0o100, -0o46/0o100 ];
@@ -144,10 +144,10 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
       const kruro = new THREE.Group();
       kruro.name = "kruro";
       kruro.renderOrder = 6;
-      // ⟨ ចំហៀង 📃 ⟩
+      // ⟨ ſɭᴜ ʃןᴜ , ⟅ ⟩
       kruro.userData.kanto = s;
       kruro.position.copy(kokso);
-      // ⟨ មាត្រជើង 📃 ⟩
+      // ⟨ ſןᴜ j͐ʃэ , ſןᴜ ɭʃэ , ⟅ ⟩
       kruro.scale.setScalar(0o6/0o10);
 
       const femuro = new THREE.Mesh(mergeGeometries([
@@ -193,11 +193,11 @@ export function gxisdatigiTolxun(b: Paga, t: number): void {
     const tona = Math.sin(fazo);
     const levo = Math.max(0, Math.sin(fazo + Math.PI * 0o1/0o4));
     const svingo = tona * 0o14/0o100 + Math.sin(fazo * 2) * 0o3/0o100;
-    // ⟨ ការវាយ 📃 ⟩
+    // ⟨ j͑ʃᴜ ſןɹ , ⟅ ⟩
     kruroBataKvaterniono.setFromAxisAngle(kruroBataAkso, -bazaro.kanto * svingo);
     bazaro.kruro.quaternion.copy(kruroBataKvaterniono).multiply(bazaro.q);
 
-    // ⟨ ជង្គង់ 📃 ⟩
+    // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
     if ( bazaro.genuo ) {
       const flekso = levo * 0o2/0o5 + Math.max(0, tona) * 0o10/0o100;
       bazaro.genuo.rotation.z = -bazaro.kanto * ( 0o1/0o40 + flekso );

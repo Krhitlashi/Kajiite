@@ -252,7 +252,7 @@ export function vepaqTrunkajnF2majn(qena: THREE.Scene,
     map: likenaCac2sex, bumpMap: likenaBumpo, bumpScale: 0o3/0o10,
     alphaTest: 0o10/0o40, side: THREE.DoubleSide, roughness: 1, color: 0xffffff,
   });
-  // ⟨ ព្រៃបានបែងចែកជាក្រឡា , ដូច្នេះដើមមួយដែលបានមកអាចតំណាងឲ្យក្រឡាទាំងអស់ ។ 📃 ⟩
+  // ⟨ ſ͕ɭᴜ ſɟɔ j͐ʃɹ ʌ ſɭɹ ſןᴜ ⟅ ſɟᴜ ſȷᴜ ʌ ꞙɭı ʌ ꞙɭı ʌ ſɭɹ ſןᴜ ʌ j͑ʃᴜꞇ 📃 ⟩
   const k21eHasost2cel2sai = hasost2cel2sai.flatMap(tr =>
     ( tr.userData.k21eTrunkaj as THREE.InstancedMesh[] | undefined ) ?? [ tr ]);
   const vanekalani = k21eHasost2cel2sai.reduce(( tlunakani, tr ) => tlunakani + tr.count, 0) * 0o4;

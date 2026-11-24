@@ -28,7 +28,7 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
   evituArbojn: ArboRaqa[],
   gardiloLim = 0o10000
 ): void {
-  // ⟨ រុក្ខជាតិបីវិមាត្រ 📃 ⟩
+  // ⟨ j͑ʃᴜ ſɭɹȝ ʌ ſɭᴜc̗ ɭʃɜ ʌ ꞙɭц 📃 ⟩
   const xabeGeometrio = vepaqXabenRozeton(0o53/0o40, 0o11, 0o15/0o100);
   const haxabe = new THREE.InstancedMesh(xabeGeometrio,
     new THREE.MeshStandardMaterial({ map: kf2XabenCac2sex(), alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 }), vem2);

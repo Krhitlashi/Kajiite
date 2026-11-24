@@ -10,7 +10,7 @@ export interface Pilierhajoqa {
   Loj: THREE.Vector3[];
   Woj: THREE.Vector3[];
 }
-// ⟨ ហេតុអ្វីមិនការដឹកស្រប 📃 ⟩
+// ⟨ ſȷƽᴜ ʃɔ , ꞙɭı , 📃 ⟩
 export function kf2Pilierhajoqan(curve: THREE.Curve<THREE.Vector3>, has2nasce: number, H: THREE.Vector3): Pilierhajoqa {
   const tangents: THREE.Vector3[] = [], moj: THREE.Vector3[] = [], Loj: THREE.Vector3[] = [], Woj: THREE.Vector3[] = [];
   const V = new THREE.Vector3(), antauxaV = new THREE.Vector3().copy(H);
@@ -49,12 +49,12 @@ export function kf2DiamantanSvingon(
       p = p.clone().addScaledVector(curve.getTangentAt(1).normalize(), -tipLongeco);
     }
     const L = hajoqa.Loj[i], W = hajoqa.Woj[i];
-    // ⟨ វណ្ឌវង្កតែមួយ 📃 ⟩
+// ⟨ ſןw ſɭᴜƴ , ꞙɭı , 📃 ⟩
     const konturo = hap2somani;
     const t = i / ( c2q - 1 );
     const u = talonoS0 > 0 ? Math.max(0, Math.min(1, ( t - talonoS0 ) / ( 1 - talonoS0 ))) : 0;
     const glata = u * u * ( 3 - 2 * u );
-    // ⟨ ហេតុអ្វីទទឹងមិនគុណ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭᴜ , ꞙɭı , 📃 ⟩
     const p6zukani = talonoS0 > 0 ? 1 - ( 1 - finialaSkalo ) * glata : 1;
     const largxaSkalo = talonoS0 > 0 ? 1 - ( 1 - finialaLargho ) * glata : 1;
     for ( let j = 0; j < konturo.length; j++ ) {
@@ -104,7 +104,7 @@ export function aldoniJoqanTubon(geos: THREE.BufferGeometry[], cX: number, cZ: n
   const foraSub = 0o25/0o200;
   const cXT = cX - sX * klino, cZT = cZ - sZ * klino;
   const tieroAlto = yT - yB;
-  // ⟨ ចុង 📃 ⟩
+// ⟨ ſɭɹ ſןᴜ , 📃 ⟩
   const kf2TalonanKkaxte = (): { curve: THREE.Curve<THREE.Vector3>; talonoS0: number } => {
     const yA = upward ? yB : yT;
     const yS = upward ? yT - 0o1/0o4 : yB + 0o1/0o4;
@@ -124,7 +124,7 @@ export function aldoniJoqanTubon(geos: THREE.BufferGeometry[], cX: number, cZ: n
       p2
 );
     const putho = new THREE.CurvePath<THREE.Vector3>();
-    // ⟨ មូលដ្ឋានទៅត្រង់ចុះក្រោម 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ſɭɹ ſןᴜ , 📃 ⟩
     putho.add(new THREE.LineCurve3(p0, p1));
     putho.add(hoko);
     const shaftLen = p0.distanceTo(p1);
@@ -141,15 +141,15 @@ export function aldoniJoqanTubon(geos: THREE.BufferGeometry[], cX: number, cZ: n
   const talonoS0 = slafKek ? slafKek.talonoS0 : 0;
   const s = 0o7/0o40;
   const H = new THREE.Vector3(sX, 0, sZ).normalize();
-  // ⟨ គំរូត្រីកោណត្រូវរក្សារាង ប៉ុន្តែស្លាបមិនត្រូវការ 0o140 ផ្នែក
-  //   ទេនៅពេលប្រើ instancing ។ 0o40 គ្រប់គ្រាន់សម្រាប់ខ្សែកោងតូច 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭıэɔ , ꞙɭı ,
+//   ꞙɭэɔ , ꞙɭı , 📃 ⟩
   const SEG = 0o40;
   const hajoqa = kf2Pilierhajoqan(curve, SEG, H);
   const hakek: THREE.BufferGeometry[] = [];
   if ( upward || slaf ) {
     const finialaSkalo = 0o1/0o10, finialaLargho = 0o1/0o10, tipLongeco = 0o1/0o100;
     hakek.push(kf2DiamantanSvingon(curve, SEG, s, hajoqa, talonoS0, finialaSkalo, finialaLargho, tipLongeco));
-    // ⟨ ក្បាលមូលដ្ឋាននៅដោយឡែក 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
     const bazaKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(0), hajoqa.tangents[0], hajoqa.Loj[0], hajoqa.Woj[0], s, 1, 1);
     const tipaCentro = curve.getPointAt(1);
     const tipaRingo = tipaCentro.clone().addScaledVector(hajoqa.tangents[SEG], -0o1/0o100);

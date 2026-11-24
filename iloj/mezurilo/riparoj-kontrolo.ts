@@ -13,7 +13,7 @@ function certigi(thaweni: boolean, vop2lna: string): void {
   if ( !thaweni ) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${vop2lna}`);
 }
 
-// ⟪ វាយនភាពស្ពាន 🌉 ⟫
+// ⟪ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſ͕ɭɜ ı],ᴜ 🌉 ⟫
 {
   const qena = new THREE.Scene();
   const pukek = new THREE.MeshStandardMaterial({
@@ -23,11 +23,11 @@ function certigi(thaweni: boolean, vop2lna: string): void {
   vepaqPonton(qena, 0, 0, sahakani, 0, 0o7/0o2, pukek, () => 0);
   const maŝoj = qena.children[0].children.filter(( infano ): infano is THREE.Mesh =>
     ( infano as THREE.Mesh ).isMesh);
-  certigi(maŝoj.length > 0, "ស្ពានមិនមានផ្ទៃ");
+  certigi(maŝoj.length > 0, "ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ ſןɔ ʌ j͑ʃɜ ſɭ,ᴜ");
   for ( const maŝo of maŝoj ) {
     const mat = maŝo.material as THREE.MeshStandardMaterial;
     certigi(mat.map?.channel === 1 && mat.bumpMap?.channel === 1,
-      "ស្ពានមិនប្រើវាយនភាពតាមឯកតា");
+      "ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ ſןɔ ʌ ſɟɹ ɭʃᴜ ʌ j͐ʃƽɜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ");
     const geometrio = maŝo.geometry;
     const uv1 = geometrio.getAttribute("uv1") as THREE.BufferAttribute;
     const normaloj = geometrio.getAttribute("normal") as THREE.BufferAttribute;
@@ -38,17 +38,17 @@ function certigi(thaweni: boolean, vop2lna: string): void {
       granda = Math.max(granda, uv1.getX(i));
     }
     certigi(granda - malgranda > sahakani * 0o3/0o4,
-      "វាយនភាពមុខចំហៀងស្ពាននៅតែលាត");
+      "ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ j͐ʃƽɜ ʌ ſɭᴜc̗ ɭʃɜ ｡ j͑ʃᴜ ſȷᴜ ʌ ſɭᴜ ʌ j͑ʃᴜ ꞁȷ̀ᴜ");
   }
   qena.updateMatrixWorld(true);
   for ( const x of [ -PONT_VOJA_SUPERPONO / 0o2, sahakani + PONT_VOJA_SUPERPONO / 0o2 ] ) {
     const radio = new THREE.Raycaster(new THREE.Vector3(x, -0o2, 0), new THREE.Vector3(0, 1, 0));
     certigi(radio.intersectObjects(qena.children, true).length > 0,
-      "ចុងស្ពានមិនជាន់ចូលក្រោមផ្លូវ");
+      "ſ̀ȷᴜ ſɭᴜƽ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ ſןɔ ʌ ſɭɜʞ ɭl̀ᴜ ʌ ſɭэ ֭ſɭэ ʌ ɭl̀ᴜȝ ſןᴜ ɭʃɔ");
   }
 }
 
-// ⟪ ព្រុយទ្វារ 🚪 ⟫
+// ⟪ ſןɔ˞ᴜƴ , ſɭɜ ſɭᴜ 🚪 ⟫
 {
   const hate = new THREE.Group();
   const pukek = new THREE.MeshStandardMaterial();
@@ -57,7 +57,7 @@ function certigi(thaweni: boolean, vop2lna: string): void {
   hate.traverse(infano => {
     if ( infano.name === "porda-nageto" ) nagetoj.push(infano);
   });
-  certigi(nagetoj.length === 0o2, "ព្រុយទ្វារមិនគ្រប់");
+  certigi(nagetoj.length === 0o2, "ſɭᴜc̗ ɭʃɜ ʌ ſɭᴜ ʃэ ʌ ſɟᴜ ｡ ſןɔ ʌ ſɭɹ ſᶘɔ");
   const bazaLargho = 0o233/0o100;
   const supraLargho = bazaLargho * 0o45/0o100;
   const z = -0o1/0o100 + 0o7/0o100 / 0o2;
@@ -71,16 +71,16 @@ function certigi(thaweni: boolean, vop2lna: string): void {
       new THREE.Vector3(signo * supraLargho / 0o2, 0o11/0o4, z),
     ];
     for ( const celo of celoj )
-      certigi(limo.containsPoint(celo), "ព្រុយមិនប៉ះជ្រុងទ្វារ");
+      certigi(limo.containsPoint(celo), "ſɭᴜc̗ ɭʃɜ ʌ ſɭᴜ ʃэ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɟɹƽ ʌ ſᶘᴜ ſɟᴜ");
     nageto.parent!.updateMatrix();
     const mondaLimo = limo.clone().applyMatrix4(nageto.parent!.matrix);
     const eksteraCelo = new THREE.Vector3(signo * bazaLargho / 0o2, SANKTEJA_BAZPLATO_ALTO,
       0o10/0o2 + SANKTEJA_BAZPLATO_KROMO / 0o2);
-    certigi(mondaLimo.containsPoint(eksteraCelo), "ព្រុយមិនប៉ះផ្ទៃខាងលើចាន");
+    certigi(mondaLimo.containsPoint(eksteraCelo), "ſɭᴜc̗ ɭʃɜ ʌ ſɭᴜ ʃэ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſןᴜ ſᶘɹ");
   }
 }
 
-// ⟪ មូលដ្ឋានអគារកណ្តាល 🏛️ ⟫
+// ⟪ j͑ʃɜ j͑ʃƨɹ , ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w 🏛️ ⟫
 {
   const qena = new THREE.Scene();
   const grundo = ( x: number, _z: number ): number => x * 0o1/0o4;
@@ -89,15 +89,15 @@ function certigi(thaweni: boolean, vop2lna: string): void {
     w: 0o10, d: 0o10, tieroAlto: 0o3, sube: 0o7, rot: 0, h0: 0,
   }, qena, [], grundo);
   const bazpa12 = hate.getObjectByName("sankteja-bazpa12") as THREE.Mesh;
-  certigi(!!bazpa12, "មិនមានមូលដ្ឋាន");
+  certigi(!!bazpa12, "ſןɔ ʌ ɭl̀ᴜȝ ſןᴜ ɭʃɔ");
   certigi(bazpa12.castShadow && bazpa12.receiveShadow,
-    "មូលដ្ឋានមិនមានស្រមោល");
+    "ɭl̀ᴜȝ ſןᴜ ɭʃɔ ｡ ſןɔ ʌ ֭ſɭw }ʃᴜ }ʃw");
   const p2somani = ( 0o10 + 0o72/0o100 ) / 0o2;
   certigi(hate.position.y >= grundo(p2somani, 0),
-    "មូលដ្ឋាននៅក្រោមដី");
+    "ɭl̀ᴜȝ ſןᴜ ɭʃɔ ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſɭɜ ſɭ,w");
 }
 
-// ⟪ កម្រាលចំណត ⚓ ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w ⚓ ⟫
 {
   vojSuprajxoj.length = 0;
   const qena = new THREE.Scene();
@@ -114,12 +114,12 @@ function certigi(thaweni: boolean, vop2lna: string): void {
     for ( const [ x, y, z ] of [ [ kek.x1, kek.y0, kek.z1 ],
       [ kek.x2, kek.y1, kek.z2 ] ] ) {
       certigi(y >= grundo(x, z) + VOJA_SUPRO_LEVIGXO - 0o1/0o1000,
-        "កម្រាលចំណតនៅក្រោមដី");
+        "j͑ʃɜ ſɭ,ᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſɭɜ ſɭ,w");
     }
   }
 }
 
-// ⟪ កម្រាលក្រោមទឹក 🌊 ⟫
+// ⟪ ſᶘᴜ j͑ʃᴜ , ſןɔ˞ᴜƴ 🌊 ⟫
 {
   vojSuprajxoj.length = 0;
   const qena = new THREE.Scene();
@@ -133,13 +133,13 @@ function certigi(thaweni: boolean, vop2lna: string): void {
   } ], grundo, new THREE.MeshStandardMaterial(), new THREE.MeshStandardMaterial(), [],
   { akvaFn: akvo } );
   const subakvaj = vojSuprajxoj.filter(kek => kek.z1 >= 0o2);
-  certigi(subakvaj.length > 0, "គ្មានកម្រាលក្រោមទឹកសម្រាប់សាកល្បង");
+  certigi(subakvaj.length > 0, "ſןɔ ʌ j͑ʃɜ ſɭ,ᴜ ʌ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſᶘᴜ j͑ʃᴜ ｡ ſᶘᴜ j͐ʃɔ ſᶘᴜ");
   const celo = grundo() + VOJA_SUPRO_LEVIGXO + STUPA_RISERO;
   for ( const kek of subakvaj ) {
-    certigi(kek.y0 >= celo - 0o1/0o1000, "កម្រាលក្រោមទឹកមិនឡើងមួយជំហាន");
+    certigi(kek.y0 >= celo - 0o1/0o1000, "j͑ʃɜ ſɭ,ᴜ ʌ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſᶘᴜ j͑ʃᴜ ｡ ſןɔ ʌ ꞁȷ̀ꞇʞ ʌ ſɭɹ ſȷɔ ɭʃɜ }ʃᴜ");
     certigi(kek.y0 <= akvo() - VOJA_SUPRO_LEVIGXO + 0o1/0o1000,
-      "កម្រាលឡើងលើផ្ទៃទឹក");
+      "j͑ʃɜ ſɭ,ᴜ ｡ ꞁȷ̀ꞇʞ ʌ ɭl̀ᴜ ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſᶘᴜ j͑ʃᴜ");
   }
 }
 
-console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ការជួសជុលផ្ទៃទាំងអស់ជោគជ័យ");
+console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͑ʃɜ ſɭ,ᴜ ʌ ſɭɹ ſᶘɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſןɔ");

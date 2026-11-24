@@ -16,7 +16,7 @@ export function bruo2D(x: number, z: number): number {
   return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
 }
 
-// ⟨ ត្រង់ចូលតារាង 📃 ⟩
+// ⟨ ſ͕ɭɜ ᶗ‹ , 📃 ⟩
 export function alternajDiagonalojn(has2nasce: number): Uint32Array {
   const havecax2lani = new Uint32Array(has2nasce * has2nasce * 0o6);
   let p = 0;
@@ -36,7 +36,7 @@ export function alternajDiagonalojn(has2nasce: number): Uint32Array {
   return havecax2lani;
 }
 
-// ⟨ ក្ដៅជាងមុនបន្តិច , ដើម្បីកុំឱ្យស្លេកពេកក្នុងអ័ព្ទ 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭı , 📃 ⟩
 const HERBO_A = new THREE.Color(0x4e6949);
 const HERBO_B = new THREE.Color(0x6f8558);
 const SEKHERBO = new THREE.Color(0x8b8756);
@@ -47,7 +47,7 @@ const MALHERBO = new THREE.Color(0x435b3f);
 const MARĈO = new THREE.Color(0x3e4a35);
 const SILTO = new THREE.Color(0x6c7e67);
 const GRUZO = new THREE.Color(0x8b8578);
-// ⟨ ច្រាំងខ្សាច់ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , 📃 ⟩
 const SABLO = new THREE.Color(0xa79a7c);
 const LITO = new THREE.Color(0x37474a);
 const NEGO = new THREE.Color(0xe4ebf2);
@@ -59,7 +59,7 @@ const STRATO_BAZO = new THREE.Color(0x33383a);
 
 const AKVO_NIVELO = SKULPTA_AKVA_NIVELO;
 
-// ⟨ ជម្រាលចោទជាងនេះ ចាប់ផ្ដើមមានស្រមោល 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
 function ombraKkaxte(haga: number): number {
   return Math.max(0, Math.min(1, ( haga - 0o1/0o10 ) / ( 0o6/0o10 )));
 }
@@ -69,27 +69,27 @@ function bordiKoloron(celo: THREE.Color, h: number, x: number, z: number,
   const bordaBruo = ( bruo2D(x / 0o10, z / 0o10) - 0o4/0o10 ) * 0o4/0o10
     + ( bruo2D(x / 0o40, z / 0o40) - 0o4/0o10 ) * 0o2/0o10;
   const sup = h - ( vem2Fn ? vem2Fn(x, z) : AKVO_NIVELO );
-  // ⟨ ច្រាំងរាបស្មើទេ ៖ ខ្សាច់កើតតែលើដីរាប , ច្រាំងចោទទុកជាថ្ម 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , ⟅ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
   const plateau = 1 - Math.max(0, Math.min(1, ( haga - 0o25/0o100 ) / ( 0o45/0o100 )));
   if ( sup > 0 ) {
-    // ⟨ ច្រាំងខ្សាច់ក្រៅទឹក 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭц , 📃 ⟩
     const sabloF = Math.max(0, Math.min(1, ( 0o11/0o10 - sup + bordaBruo ) / ( 0o11/0o10 ))) * plateau;
     celo.lerp(SABLO, sabloF * 0o7/0o10);
-    // ⟨ គ្រួសតូចៗតាមច្រាំង 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭэ , 📃 ⟩
     const gruzoF = Math.max(0, Math.min(1, ( 0o6/0o10 - sup + bordaBruo ) / ( 0o6/0o10 )));
     const granulo = Math.max(0, Math.min(1, ( bruo2D(x / 0o2, z / 0o2) - 0o45/0o100 ) * 0o14/0o10 ));
     celo.lerp(GRUZO, Math.min(1, gruzoF * granulo * 0o16/0o10));
-    // ⟨ ភក់ និងស្មៅសើមជិតទឹក 📃 ⟩
+// ⟨ ſɭэ ſɭw , ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , 📃 ⟩
     const marcoF = Math.max(0, Math.min(1, ( 0o5/0o10 - sup + bordaBruo ) / ( 0o5/0o10 )));
     celo.lerp(MARĈO, marcoF * 0o3/0o10 * plateau);
     const malherbaF = Math.max(0, Math.min(1, ( 0o16/0o10 - sup + bordaBruo ) / ( 0o16/0o10 )));
     celo.lerp(MALHERBO, malherbaF * 0o25/0o100);
     return;
   }
-  // ⟨ ក្រោមទឹក 📃 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ſןɔ˞ᴜƴ , 📃 ⟩
   const prof = Math.max(0, -sup + bordaBruo);
   const sedimento = Math.max(0, Math.min(1, ( 0o1 - haga ) / ( 0o12/0o10 )));
-  // ⟨ បាតរាក់ ៖ ខ្សាច់ស្រាល 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
   celo.lerp(SABLO, Math.max(0, Math.min(1, ( 0o5/0o10 - prof ) / ( 0o5/0o10 ))) * 0o5/0o10);
   celo.lerp(LITO, Math.min(1, prof) * ( 1 - sedimento ) * 0o5/0o10);
   const siltaF = Math.max(0, Math.min(1, prof / ( 0o12/0o10 ))) * sedimento;
@@ -116,28 +116,28 @@ export function terenaStrataKoloroEn(celo: THREE.Color, y: number, surfY: number
 
 export function terenaKoloroEn(celo: THREE.Color, h: number, x: number, z: number,
   haga: number, vem2Fn?: ( x: number, z: number ) => number ): THREE.Color {
-  // ⟨ ស្មៅ ៖ សំណើមប្រែប្រួលតាមអង្គបីជាន់ , មិនស្មើគ្នាទាំងអស់ 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭц , ⟅ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
   const makulo = 2 * bruo2D(x / 0o55, z / 0o55) - 1;
   const makulo2 = 2 * bruo2D(x / 0o13, z / 0o13) - 1;
   const makulo3 = 2 * bruo2D(x / 0o3, z / 0o3) - 1;
   const malsekeco = 0o5/0o10 + 0o22/0o100 * makulo + 0o12/0o100 * makulo2 + 0o5/0o100 * makulo3;
   celo.copy(HERBO_A).lerp(HERBO_B, Math.max(0, Math.min(1, malsekeco)));
-  // ⟨ ស្មៅខ្ពស់កាន់តែស្ងួត 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
   celo.lerp(SEKHERBO, Math.max(0, Math.min(1, ( h - 0o10 ) / 0o26 )) * 0o7/0o10);
-  // ⟨ ស្រមោលតាមជម្រាល ៖ ចំណោតចោទងងឹតជាង 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭı , 📃 ⟩
   const hunanu = ombraKkaxte(haga);
   celo.lerp(ROKO_OMBRO, hunanu * 0o22/0o100);
-  // ⟨ ថ្ម ៖ តាមជម្រាលជាចម្បង , តាមកម្ពស់បន្ថែមតិចៗ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , ⟅ ſɭэ ſɭw , ꞙɭɔ , 📃 ⟩
   const rokF = Math.max(
     Math.max(0, Math.min(1, ( haga - 0o51/0o100 ) / ( 0o31/0o100 ))),
     Math.max(0, Math.min(1, ( h - 0o26 ) / 0o24 )) * 0o7/0o10 );
   celo.lerp(ROKO, rokF);
-  // ⟨ ព្រិល ៖ កំពូលខ្ពស់ , តែចំណោតចោទមិនកាន់ព្រិល 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭɿ , ⟅ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
   const negoF = Math.max(0, Math.min(1, ( h - 0o44 ) / 0o14 ));
   if ( negoF > 0 ) {
     const tenilo = 1 - Math.max(0, Math.min(1, ( haga - 0o70/0o100 ) / ( 0o50/0o100 )));
     celo.lerp(NEGO, negoF * tenilo);
-    // ⟨ ទឹកកកចាស់នៅចំណោតស្រួច ៖ ខៀវស្រាល 📃 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ſɭɜ ſɭ,w , 📃 ⟩
     celo.lerp(GLACIO, negoF * hunanu * 0o16/0o100);
   }
   bordiKoloron(celo, h, x, z, haga, vem2Fn);

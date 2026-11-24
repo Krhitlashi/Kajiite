@@ -1,6 +1,6 @@
 // ≺⧼ ɭʃɔ ŋᷠɔƽ ꞁȷ̀ᴜꞇ ʌ ſɟᴜ ſɟɔ ŋᷠɔ 🕊️ ⧽≻
-// ⟨ ហេតុអ្វីតួជា LOFT 📃 ⟩
-// ⟨ ហេតុអ្វីស្លាបក៏ LOFT 📃 ⟩
+// ⟨ ſᶘɔ ʌ ſɭᴜ ſ͕ȷɔ , LOFT , ⟅ ⟩
+// ⟨ ſᶘɔ ʌ ſᶘɜ ſ͔ɭɹ , LOFT , ⟅ ⟩
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { kf2LoftoQoxa } from "../komunajxoj/haqoxa.js";
@@ -194,7 +194,7 @@ function kunfandiPoMaterialo(hakek: THREE.Mesh[]): Kunfandajxo[] {
   return kunfandajxoj;
 }
 
-// ⟨ មាត្រ 📃 ⟩
+// ⟨ ſןᴜ j͐ʃэ , ⟅ ⟩
 export function vepaqPetrelanModelon(): THREE.Group {
   const hate = new THREE.Group();
   const cac2sex = petrelajCac2sex(vPorZ);
@@ -202,7 +202,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
     color: 0xffffff, map: cac2sex.korpo, bumpMap: cac2sex.korpoBump,
     bumpScale: 0o1/0o200, roughness: 0o3/0o4, metalness: 0,
   });
-  // ⟨ វត្ថុស្លាប 📃 ⟩
+  // ⟨ ſᶘɜ ſ͔ɭɹ , ſןw ſɭɔƽ , ⟅ ⟩
   const flugilaMaterialo = new THREE.MeshStandardMaterial({
     color: 0xffffff, map: cac2sex.flugilo, bumpMap: cac2sex.flugiloBump,
     bumpScale: 0o1/0o200, roughness: 0o3/0o4, metalness: 0,
@@ -212,14 +212,14 @@ export function vepaqPetrelanModelon(): THREE.Group {
     color: 0x101018, roughness: 0o1/0o4, metalness: 0,
   });
 
-  // ⟨ តួ 📃 ⟩
+  // ⟨ ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
   const korpo = new THREE.Mesh(kf2Lofton(PETRELA_SPINO, 0o4, 0o20, PETRELA_LARGHO), blanka);
   korpo.name = "korpo";
   hate.add(korpo);
 
-  // ⟨ ចំពុះ 📃 ⟩
-  // ⟨ កម្រាស់ចំពុះ 📃 ⟩
-  // ⟨ ប្រវែងកាត់ចំពុះ 📃 ⟩
+  // ⟨ ſɟƨɹƽ , ⟅ ⟩
+  // ⟨ ſɟƨɹƽ , j͑ʃᴜ ſɭ,w , ⟅ ⟩
+  // ⟨ ſɟƨɹƽ , j͑ʃᴜ ʃɜ , ⟅ ⟩
   const bekajStacioj: PetrelaStacio[] = [
     { z: 0o60/0o200, y: 0o16/0o200, r: 0o2/0o200 },
     { z: 0o66/0o200, y: 0o16/0o200, r: 0o6/0o1000 },
@@ -235,7 +235,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
   naztubo.position.set(0, 0o17/0o200, 0o64/0o200);
   hate.add(naztubo);
 
-  // ⟨ ភ្នែក 📃 ⟩
+  // ⟨ ɭʃɹ ʃᴜ }ʃw , ⟅ ⟩
   const T2BANU_Z = 0o50/0o200, T2BANU_ANGULO = 0o7/0o20;
   const t2banuRadiuso = 0o5/0o1000;
   for ( const s of [ 0o1, -0o1 ] ) {
@@ -255,7 +255,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
       hate.add(piedo);
     }
 
-  // ⟨ កន្ទុយ 📃 ⟩
+  // ⟨ }ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ , ⟅ ⟩
   const vostaGrupo = new THREE.Group();
   vostaGrupo.name = "vosto";
   vostaGrupo.position.set(0, 0o2/0o200, -0o50/0o200);
@@ -285,14 +285,14 @@ export function vepaqPetrelanModelon(): THREE.Group {
     hate.add(vostaGrupo);
   }
 
-  // ⟨ ស្លាប 📃 ⟩
+  // ⟨ ſᶘɜ ſ͔ɭɹ , ⟅ ⟩
   const brakaGeometrio = kf2Flugilon(
     FLUGILAJ_RIPOJ.slice(0, KUBUTA_INDESKO + 1), 0, 0o52/0o100, 0o3, 0o12);
   const manajRipoj = FLUGILAJ_RIPOJ.slice(KUBUTA_INDESKO)
     .map(r => ({ ...r, x: r.x - KUBUTA_X }));
   const manaGeometrio = kf2Flugilon(manajRipoj, 0o52/0o100, 1, 0o3, 0o12);
 
-  // ⟨ ការឆ្លុះ 📃 ⟩
+  // ⟨ ᶅſɜ ֭ſɭᴜ , ⟅ ⟩
   for ( const s of [ 0o1, -0o1 ] ) {
     const flugilaGrupo = new THREE.Group();
     flugilaGrupo.name = "flugilo";
@@ -303,7 +303,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
     knece.scale.x = spegulo;
     flugilaGrupo.add(knece);
 
-    // ⟨ ដៃ 📃 ⟩
+    // ⟨ ɭʃꞇƽ , ⟅ ⟩
     const manoGrupo = new THREE.Group();
     manoGrupo.name = "mano";
     manoGrupo.position.set(-s * KUBUTA_X, 0, 0);
@@ -315,7 +315,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
     hate.add(flugilaGrupo);
   }
 
-  // ⟪ ការរលាយ 📃 ⟫
+  // ⟪ ſɭɜ j͐ʃɹ , ſɭᴜ ſןᴜ 📃 ⟫
   const statikaj = hate.children.filter(c => ( c as THREE.Mesh ).isMesh) as THREE.Mesh[];
   for ( const k of kunfandiPoMaterialo(statikaj) ) {
     if ( k.hatsiq.length === 1 ) continue;

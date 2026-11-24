@@ -1,6 +1,6 @@
 // ≺⧼ ı],ᴜ ֭ſɭᴜ ſɭɜ ſɭ,w ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɭɜ ſɭ,w ʌ j͑ʃɔ }ʃᴜȝ }ʃꞇ 📏 ⧽≻
-// ⟨ ផ្លូវសាងសង់តាមអនុគមន៍ alteco ( រលូន ) , តែដីដែលឃើញជាសំណាញ់
-// បន្ទាត់ត្រង់ចន្លោះចំណុចរាល់ ៤ ឯកតា ។ ឧបករណ៍នេះវាស់ទាំងពីរ ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ⟅ ſɭɜ ſɭ,w ,
+// ſɭэ ſɭᴜ , ꞙɭэ , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { aktivajHak6h6, aktivajHaqakaj2, aktivajHakaxte } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
@@ -14,8 +14,8 @@ import { vepaqKradanKaxten } from "../../kantaoj/mondo/kaxte/krada-kaxte.js";
 import { kf2KuhalPukek } from "../../eskekoj/komunajxoj/materialoj.js";
 import { akvaFino, punktoCxe as punktoCxeBaza } from "./komunaj.js";
 
-const GRIDO = 0o4; // ជំហានសំណាញ់ដី ( SKULPTA_PASO )
-// ⟨ ដីសំណាញ់ 📏 ⟩ ៖ បន្ទាត់ត្រង់រវាងចំណុចរាល់ 4 ឯកតា ។
+const GRIDO = 0o4; // ɭʃɜ }ʃᴜ ʌ j͑ʃɜ ſɭ,w ʌ j͑ʃw ſɭɹ ſɭɹ ſןᴜ ( SKULPTA_PASO )
+// ⟨ ſɭɜ ſɭ,w , ſɭэ ſɭᴜ , 📏 ⟩ , ſɭэ ſɭᴜ , ꞙɭэ , ꞙɭı ,
 function meshaAlteco(x: number, z: number): number {
   const x0 = Math.floor(x / GRIDO) * GRIDO, z0 = Math.floor(z / GRIDO) * GRIDO;
   const fx = (x - x0) / GRIDO, fz = (z - z0) / GRIDO;
@@ -66,7 +66,7 @@ const pa12Cxe = (x: number, z: number): number => {
 };
 const ankroj = ciujHaveb6kek.map(([x, z]) => ({ x, z, l6da: pa12Cxe(x, z) }));
 
-// ⟨ អនុគមន៍រួមនៅ komunaj ជាមួយកម្រិតរបស់ឧបករណ៍នេះ 📃 ⟩
+// ⟨ ı],ᴜ ֭ſɭᴜ , ſɭɜ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const punktoCxe = ( pts: readonly [ number, number ][], s: number ): { x: number; z: number } =>
   punktoCxeBaza( pts, s, 0o10 ** -0o12 );
 
@@ -77,7 +77,7 @@ for (let i = 0; i < VOJOJ.length; i++) {
   let tlunakani = 0, maks = 0, maksLoko = "";
   let sumoM = 0, maksM = 0, maksMLoko = "";
   let kasxita = 0;
-  // ⟨ កម្រាស់ជញ្ជាំងក្រោមផ្លូវ 📏 ⟩ ៖ ដូចអ្វីដែលហ្គេមសាងសង់ ។
+// ⟨ j͑ʃᴜ ſɭ,w , ſɭᴜ ſɭ,w , 📏 ⟩ , ſɭэ ſɭᴜ , ꞙɭı ,
   let muroSumo = 0, muroMaks = 0, muroLoko = "";
   for (let j = 0; j < p.hal6da.length; j++) {
     const q = punktoCxe(gluitaj[i], p.haxekuxa[j]);
@@ -91,7 +91,7 @@ for (let i = 0; i < VOJOJ.length; i++) {
     const qb = punktoCxe(gluitaj[i], p.haxekuxa[j] + 0.1);
     const dx = qb.x - qa.x, dz = qb.z - qa.z, dl = Math.hypot(dx, dz) || 1;
     const lx = -dz / dl * p2somani, lz = dx / dl * p2somani;
-    // ⟨ មុខចំហៀង 📏 ⟩ ៖ កំពូលផ្អៀងតាមជម្រាលចំហៀង ។
+// ⟨ ſɭᴜ ſןᴜ , ſןᴜ ᶘɹ , 📏 ⟩ , ſɭᴜ ſןᴜ , ֭ſɭᴜ ſ͔ɭᴜ ,
     const gMal = k6h6Alteco(q.x - lx, q.z - lz);
     const gDek = k6h6Alteco(q.x + lx, q.z + lz);
     const klin = Math.min(1.0, Math.abs(gDek - gMal));
@@ -103,13 +103,13 @@ for (let i = 0; i < VOJOJ.length; i++) {
     if (muro > muroMaks) { muroMaks = muro; muroLoko = `${q.x.toFixed(1)},${q.z.toFixed(1)}`; }
   }
   const n = p.hal6da.length;
-  console.log(`${i} ${v.ksaka} : លើសដីរលូន មធ្យម ${(tlunakani / n).toFixed(2)} ខ្ពស់ ${maks.toFixed(2)} @${maksLoko}` +
-    ` | លើសសំណាញ់ មធ្យម ${(sumoM / n).toFixed(2)} ខ្ពស់ ${maksM.toFixed(2)} @${maksMLoko}` +
-    ` | គំរូលើស 0.5 ${kasxita}/${n}` +
-    ` | ជញ្ជាំង មធ្យម ${(muroSumo / n).toFixed(2)} ខ្ពស់ ${muroMaks.toFixed(2)} @${muroLoko}`);
+  console.log(`${i} ${v.ksaka} ｡ ɭl̀ᴜ ʌ ſɭɜ ſɭ,w ı],ᴜ ֭ſɭᴜ ｡ ſȷƽᴜ ɭʃᴜ ${(tlunakani / n).toFixed(2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${maks.toFixed(2)} @${maksLoko}` +
+    ` | ɭl̀ᴜ ʌ ſןᴜ ſᶘɹ ſɭɹ ſɭɹ ſןᴜ ｡ ſȷƽᴜ ɭʃᴜ ${(sumoM / n).toFixed(2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${maksM.toFixed(2)} @${maksMLoko}` +
+    ` | ſᶘᴜ j͐ʃɹ ɭl̀ᴜ ꞙɭııɔ.ɩ ${kasxita}/${n}` +
+    ` | ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ ｡ ſȷƽᴜ ɭʃᴜ ${(muroSumo / n).toFixed(2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${muroMaks.toFixed(2)} @${muroLoko}`);
 }
 
-// ⟨ ផ្លូវក្រឡាទីក្រុង 📏 ⟩ ៖ រកផ្លូវដែលរាបយូរជាងគេ ហើយខ្ពស់លើដី ។
+// ⟨ ſɭэ ֭ſɭэ , ſɭэ ſɭ,w , 📏 ⟩ , ſɭэ ſɭᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
 const plataj: { ksaka: string; sahakani: number; l6da: number; teroMin: number; teroMaks: number; x: number; z: number }[] = [];
 for (let i = 0; i < kradajDifinoj.length; i++) {
   const d = kradajDifinoj[i];
@@ -128,19 +128,19 @@ for (let i = 0; i < kradajDifinoj.length; i++) {
           mn = Math.min(mn, alteco(q.x, q.z)); mx = Math.max(mx, alteco(q.x, q.z));
         }
         const q = punktoCxe(d.pts as [number, number][], s0);
-        plataj.push({ ksaka: `ក្រឡា ${i}`, sahakani, l6da: nuna, teroMin: mn, teroMaks: mx, x: q.x, z: q.z });
+        plataj.push({ ksaka: `ſɭɹ ſןᴜ ${i}`, sahakani, l6da: nuna, teroMin: mn, teroMaks: mx, x: q.x, z: q.z });
       }
       if (j < p.hal6da.length) { s0 = p.haxekuxa[j]; nuna = p.hal6da[j]; }
     }
   }
 }
 plataj.sort((a, b) => b.sahakani - a.sahakani);
-console.log("=== ផ្លូវក្រឡារាបវែង ===");
+console.log("=== ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ ｡ j͑ʃ'ɔ ŋᷠɹ ｡ ſɭэ }ʃᴜ ɭl̀ᴜ ===");
 for (const r of plataj.slice(0, 6))
-  console.log(`  ${r.ksaka} ${r.sahakani.toFixed(1)}@${r.l6da.toFixed(1)} ដី ${r.teroMin.toFixed(1)}..${r.teroMaks.toFixed(1)}` +
-    ` ( ខ្ពស់ ${(r.l6da - r.teroMin).toFixed(2)} ) @${r.x.toFixed(0)},${r.z.toFixed(0)}`);
+  console.log(`  ${r.ksaka} ${r.sahakani.toFixed(1)}@${r.l6da.toFixed(1)} ｡ ſɭɜ ſɭ,w ${r.teroMin.toFixed(1)}..${r.teroMaks.toFixed(1)}` +
+    ` ( ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${(r.l6da - r.teroMin).toFixed(2)} ) @${r.x.toFixed(0)},${r.z.toFixed(0)}`);
 
-// ⟨ ការលោតកម្ពស់ 📏 ⟩ ៖ កន្លែងដែលផ្លូវចុះ ឬឡើងលើសមួយជំហាន ។
+// ⟨ j͑ʃᴜ ſɭ,w , ſןɔ˞ᴜƴ , 📏 ⟩ , ſɭэ ֭ſɭэ , ſןɔ˞ᴜƴ ,
 type Salto = { ksaka: string; salto: number; de: number; al: number; x: number; z: number };
 const saltoj: Salto[] = [];
 function skanuSaltojn(ksaka: string, pts: [number, number][], p2somani: number): void {
@@ -160,9 +160,9 @@ for (let i = 0; i < VOJOJ.length; i++) {
 for (let i = 0; i < kradajDifinoj.length; i++) {
   const d = kradajDifinoj[i];
   if (!d.pts || d.pts.length < 2) continue;
-  skanuSaltojn(`ក្រឡា ${i}`, d.pts as [number, number][], d.w / 2 + VOJA_BORDA_SEFINI);
+  skanuSaltojn(`ſɭɹ ſןᴜ ${i}`, d.pts as [number, number][], d.w / 2 + VOJA_BORDA_SEFINI);
 }
 saltoj.sort((a, b) => Math.abs(b.salto) - Math.abs(a.salto));
-console.log(`=== លោតលើសមួយជំហាន ${saltoj.length} ===`);
+console.log(`=== j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ʌ ſɭɹ ſȷɔ ɭʃɜ }ʃᴜ ${saltoj.length} ===`);
 for (const s of saltoj.slice(0, 6))
-  console.log(`  ${s.ksaka} ${s.de.toFixed(2)} ំ ${s.al.toFixed(2)} ( ${s.salto.toFixed(2)} ) @${s.x.toFixed(0)},${s.z.toFixed(0)}`);
+  console.log(`  ${s.ksaka} ${s.de.toFixed(2)} ｡ ${s.al.toFixed(2)} ( ${s.salto.toFixed(2)} ) @${s.x.toFixed(0)},${s.z.toFixed(0)}`);

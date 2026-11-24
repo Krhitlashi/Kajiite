@@ -2,7 +2,7 @@
 
 export const EN: Record<string, string> = {
 
-  // ⟪ ទំព័រចាប់ផ្តើម 🌅 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
 
   "titoloAranis": "Aranis",
   "titoloKaxte": "Kajiite",
@@ -13,19 +13,19 @@ export const EN: Record<string, string> = {
   "butonoVestaro": "Wardrobe",
   "butonoHelpo": "Help",
 
-  // ⟪ តម្បាញ 🧵 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
 
   "titoloTeksilo": "Loom",
   "subtitoloTeksilo": "Long shirts, Short sleeves, Main and accent.",
 
-  // ⟪ ការផ្ទុក ⏳ ⟫
+// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
 
   "titoloSxargxo": "World",
   "sxargxoSubskribo": "Loading.",
   "sxargxoSatalo": "Constructing satals.",
   "sxargxoNebulo": "Mist flows through the valley.",
 
-  // ⟪ ការគ្រប់គ្រង 🎮 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
 
   "kompasoNordo": "N",
   "kamaOrbito": "Orbit",
@@ -49,21 +49,21 @@ export const EN: Record<string, string> = {
   "agoKuxi": "Lie down",
   "agoLevi": "Get up",
 
-  // ⟪ ផែនទី 🗺️ ⟫
+// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
 
   "titoloMapo": "Map",
 
-  // ⟪ ជំនួយ ❓ ⟫
+// ⟪ ſɭэ ſɭw , ❓ ⟫
 
   "titoloHak6h6": "Paths",
   "subtitoloHelpo": "City notes",
 
-  // ⟪ បណ្តាញ 🌐 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
 
   "retiloAliĝis": "Someone joined.",
   "retiloForiris": "Someone left.",
 
-  // ⟪ អាហារ 🍲 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
 
   "manĝPuss0": "Shlef Piisu berry",
   "manĝFok0Gusto": "Lichen bread with duck baozi.",
@@ -74,7 +74,7 @@ export const EN: Record<string, string> = {
   "manĝTla2Gusto": "Vinegar, birch sap, mint, and bergamot tea.",
   "manĝPuss0Gusto": "A cool, watery pop with a faint sweet aftertaste.",
 
-  // ⟪ ប្រភេទសំណង់ 🏗️ ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
 
   "vepaqPriskriboDomo": "House.",
   "vepaqPriskriboMangxejo": "Restaurant.",
@@ -83,7 +83,7 @@ export const EN: Record<string, string> = {
   "vepaqPriskriboTuro": "Skyscraper.",
   "vepaqPriskriboSanktejo": "Center building.",
 
-  // ⟪ កាតសំណង់ 🪪 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
 
   "kartoHavem2": "Layers",
   "kartoDiamanto": "Diamond",
@@ -92,7 +92,7 @@ export const EN: Record<string, string> = {
   "kartoVepaqHunaq": "Type",
   "kartoXekuxa": "Position",
 
-  // ⟪ ផ្ទាំងព័ត៌មាន 📖 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
 
   "titoloInqoxa": "Aravopii",
   "subtitoloInqoxa": "Buildings, Food, Species",
@@ -102,7 +102,7 @@ export const EN: Record<string, string> = {
   "taboMangxajxoj": "Food",
   "taboHapudal": "Species",
 
-  // ⟪ ពួកសត្វ 🐟 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
 
   "grupoPaga": "Animal",
   "pudalL2xkupukai": "L2xkupukai",
@@ -118,7 +118,7 @@ export const EN: Record<string, string> = {
   "pudalNeĝotemek": "Snow petrel",
   "pudalPriskriboNeĝotemek": "A pure white seabird gliding over the lake and the river.",
 
-  // ⟪ រុក្ខជាតិ 🌿 ⟫
+// ⟪ ſɭэ ſɭw , 🌿 ⟫
 
   "grupoPlanto": "Plant",
   "pudalBetulo": "Birch",
@@ -144,7 +144,7 @@ export const EN: Record<string, string> = {
   "pudalCakeo": "Tsakeh",
   "pudalPriskriboCakeo": "Equisetum telmateia like a boney tail.",
 
-  // ⟪ សម្លៀកបំពាក់ 👕 ⟫
+// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
 
   "taboVestoj": "Clothing",
   "vestoKoloroVerdant": "Green",
@@ -158,7 +158,7 @@ export const EN: Record<string, string> = {
   "vestoKoloroObsidian": "Black",
   "vestoKoloroCyan": "Cyan",
 
-  // ⟪ សក់ 💇 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
 
   "taboHararo": "Hair",
   "haroSekcio": "Hair styles",
@@ -172,11 +172,11 @@ export const EN: Record<string, string> = {
   "harKoloroBlonda": "Blonde",
   "harKoloroGriza": "Gray",
 
-  // ⟪ តន្ត្រី 🎵 ⟫
+// ⟪ ſȷwɔ˞ , 🎵 ⟫
 
   "muziko": "Music",
 
-  // ⟪ អាកាសធាតុ 🌦️ ⟫
+// ⟪ ſɭэ ſɭw , 🌦️ ⟫
 
   "ariaKrepuskoButono": "Dusk",
   "ariaKrepuskoKama": "Dusk level",
@@ -192,7 +192,7 @@ export const EN: Record<string, string> = {
   "webglDetalo": "Kajiite requires WebGL to run. Please update your browser or check your GPU settings.",
   "webglReprovi": "Retry",
 
-  // ⟪ ពិភពលោក 🌍 ⟫
+// ⟪ ſɭэ ſɭw , 🌍 ⟫
 
   "ariaEniriMondon": "Enter the main world.",
   "komenciMondo": "Generate or load a world",
@@ -207,7 +207,7 @@ export const EN: Record<string, string> = {
   "ariaMondoDuobligi": "Duplicate",
   "butonoKonserviEliri": "Save and exit world.",
 
-  // ⟪ ការកំណត់ ⚙️ ⟫
+// ⟪ ſɭэ ſɭw , ⚙️ ⟫
 
   "titoloAgordoj": "Settings",
   "subtitoloAgordoj": "Language, sound, music, wardrobe.",

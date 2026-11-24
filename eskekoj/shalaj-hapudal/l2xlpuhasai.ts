@@ -1,5 +1,5 @@
 // ≺⧼ j͐ʃɹ ı],ͷ̗ɘw ֭ſɭᴜ j͑ʃᴜꞇ 🪼 ⧽≻
-// ⟨ ស្រោម និងសរីរាង្គតុល្យភាព 📃 ⟩
+// ⟨ ſɭɔ˞ɹ ɭʃᴜ , ſɟꞇ ᶅſɔƽ ʌ ſןw ſןᴜ ֭ſɭᴜƽ 📃 ⟩
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
@@ -76,7 +76,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
     ingo.userData.kanto = s;
     surfacxaParto(ingo);
     hate.add(ingo);
-    // ⟨ តង់តាក់ 📃 ⟩
+    // ⟨ j͐ʃᴜ ſןɔȝ 📃 ⟩
     const bazX = s * ingaR;
     const n2k: THREE.Vector3[] = [];
     for ( let i = 0; i <= 0o10; i++ ) {

@@ -39,7 +39,7 @@ export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
   const { kanvaso, promptoElemento, joystickZono, joystickBazo, joystickTenilo, butInterakti, butSalti, ludanto, agoj } = hasukf2qani;
 
   const ca3aq: Record<string, boolean> = {};
-  // ⟨ ស្ថានភាពដងចង្កូត 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ſɭɜ ſɭᴜ , 📃 ⟩
   let joystickAktiva = false;
   let joystickID = -1;
   const JOYSTICK_R = 0o40;
@@ -47,7 +47,7 @@ export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
   let mobSaltiTenata = false;
   let tuŝaTempilo = 0;
 
-  // ⟪ អេក្រង់ប៉ះ។ ការបញ្ជាលេចពេលប៉ះ និងលាក់ពេលអសកម្ម 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
   function montriTuŝajnKontrolojn(): void {
     document.body.classList.add("tuŝa");
     if ( tuŝaTempilo ) window.clearTimeout(tuŝaTempilo);
@@ -64,7 +64,7 @@ export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
   document.addEventListener("touchend", montriTuŝajnKontrolojn);
   document.addEventListener("pointerdown", montriTuŝajnSeTuŝa);
 
-  // ⟪ ក្តារចុច 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ſɭэ ɭʃᴜ , 📃 ⟫
   window.addEventListener("keydown", e => {
     ca3aq[e.code] = true;
     if ( [ "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space" ].includes(e.code) ) e.preventDefault();
@@ -80,7 +80,7 @@ export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
   window.addEventListener("visibilitychange", () => { if ( document.hidden ) resetiKlfojn(); });
   document.addEventListener("pointerlockchange", () => { if ( !document.pointerLockElement ) resetiKlfojn(); });
 
-  // ⟪ ដងចង្កូតទូរស័ព្ទ ( joystick និម្មិត ) 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
   function gxisdatigiJoystick(klientoX: number, klientoY: number) {
     const recto = joystickBazo.getBoundingClientRect();
     const cx = recto.left + recto.width / 2;
@@ -151,7 +151,7 @@ export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
     e.preventDefault();
   }, { passive: false });
 
-  // ⟪ ការបញ្ជាមើលលើទូរស័ព្ទដោយប៉ះ ( Pointer Events ) 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſɭэ ɭʃᴜ , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
   tuŝaGesto(kanvaso, {
     akceptu: ( e ) => ( ludanto.rezimo() === "promeno" || ludanto.rezimo() === "interno" ) && ( e.pointerType === "touch" || e.pointerType === "pen" ),
     postEniro: ( e ) => {
@@ -165,7 +165,7 @@ export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
     },
   });
 
-  // ⟪ ប៊ូតុងសកម្មភាពទូរស័ព្ទ 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſɭэ ɭʃᴜ , 📃 ⟫
   const gxisdatigiInteragbutonon = () => {
     butInterakti.classList.toggle("montri", promptoElemento.classList.contains("montri"));
   };
@@ -186,7 +186,7 @@ export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
   butSalti.addEventListener("touchend", () => { butSalti.setAttribute("aria-pressed", "false"); mobSaltiTenata = false; });
   butSalti.addEventListener("touchcancel", () => { butSalti.setAttribute("aria-pressed", "false"); mobSaltiTenata = false; });
 
-  // ⟪ សោបង្ហាញសម្រាប់ការដើរ ( ខាងក្រៅ និងខាងក្នុង ) 📃 ⟫
+// ⟪ ſɭэ ɭʃᴜ , ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟫
   kanvaso.addEventListener("click", () => {
     if ( ludanto.rezimo() === "promeno" || ludanto.rezimo() === "interno" ) kanvaso.requestPointerLock();
   });
@@ -195,7 +195,7 @@ export function kf2Enigojn( hasukf2qani: EnigajHasukf2qani ): Enigoj {
     ludanto.aldoniRigardon(-e.movementX * 0o1/0o1000, -e.movementY * 0o1/0o1000);
   });
 
-  // ⟪ កង់ , ពីជិតទៅមុំទីបី 📃 ⟫
+// ⟪ ſȷƽᴜ ʃɔ , ꞙɭɿ , 📃 ⟫
   kanvaso.addEventListener("wheel", ( e ) => {
     if ( ( ludanto.rezimo() !== "promeno" && ludanto.rezimo() !== "interno" ) || ludanto.fsata() ) return;
     e.preventDefault();

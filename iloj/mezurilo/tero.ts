@@ -66,7 +66,7 @@ function fazoCxiuj(): number {
   return fazoAltoj() + fazoKoloroj() + fazoPremo() + fazoIndeksoj();
 }
 
-// ⟨ ការប្រៀបធៀបផ្លូវពណ៌ ៖ កំណែចាស់ពី git ធៀបនឹងកំណែថ្មី 📃 ⟩
+// ⟨ ſᶘɔⅎ ſɟc̗ᴜƽ ʌ ᶅſɔ ֭ſɭɹ ⟅ j͑ʃƨᴜʞ git ʌ ſɭˬɹ , ſɭɔ˞ɜƴ 📃 ⟩
 function fazoKolorojS23ohk2sai(): number {
   let s = 0;
   for (let i = 0; i < N; i++) {
@@ -94,7 +94,7 @@ function mezuriPareKoloroj(): void {
   }
   tn.sort((a, b) => a - b); tm.sort((a, b) => a - b);
   const mn = tn[tn.length >> 1], mm = tm[tm.length >> 1];
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) haweh2 A/B ចាស់=${mm.toFixed(1)}ms ថ្មី=${mn.toFixed(1)}ms លឿន=${(mm / mn).toFixed(2)}x min ${Math.min(...tm).toFixed(1)} ${Math.min(...tn).toFixed(1)} លេខ=${sn === sm ? "ស្មើ" : "ខុស"}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) haweh2 A/B ſɭˬɹ=${mm.toFixed(1)}ms ſɭɔ˞ɜƴ=${mn.toFixed(1)}ms j͑ʃɔ ֭ſɭɔ=${(mm / mn).toFixed(2)}x min ${Math.min(...tm).toFixed(1)} ${Math.min(...tn).toFixed(1)} j͑ʃɜ j͑ʃƨɹ=${sn === sm ? "ſɭᴜ }ʃᴜȝ" : "j͑ʃ'ɔ ſ͕ɭэ ſɭɹ"}`);
 }
 
 function mezuri(ksaka: string, f: () => number): void {
@@ -109,11 +109,11 @@ function mezuri(ksaka: string, f: () => number): void {
   console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o24)} mediano=${tempaj[0o10].toFixed(1)}ms min=${tempaj[0].toFixed(1)}ms`);
 }
 
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡាគណនា ${N}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſןᴜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ${N}`);
 mezuri("altoj", fazoAltoj);
 mezuri("koloroj", fazoKoloroj);
 mezuri("premo", fazoPremo);
 mezuri("indeksoj", fazoIndeksoj);
 mezuri("bruo2D x1", fazoBruo);
-mezuri("ទាំងអស់", fazoCxiuj);
+mezuri("j͑ʃᴜꞇ", fazoCxiuj);
 mezuriPareKoloroj();

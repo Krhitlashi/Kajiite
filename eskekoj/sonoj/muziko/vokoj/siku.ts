@@ -1,40 +1,40 @@
 // ≺⧼ j͑ʃꞇ ſɭw j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🎶 ⧽≻
-// បំពេរបិទចុងមានសំឡេងសុទ្ធជាងគេ ប៉ុន្តែខ្យល់ដកដង្ហើមខ្លាំងជាងសំឡេងផ្នែកច្រើនណាស់។
-// រាល់ការបក់មានកម្ពស់ កម្លាំងខ្យល់ និងសមាសភាពផ្នែកខុសគ្នាបន្តិចៗ។
+// ⟨ ſɭᴜ ſ͕ȷɔ ɭʃэ ɭʃᴜ , ʃɜ j͐ʃɔ ɭʃɜ ֭ſɭɹ ꞙɭɔ , ı],ɔ ɭʃɜ ֭ſɭɹ ſ̀ȷɜ ɭl̀ɹ ſɭᴜ ⟅
+// ⟨ ſɭэ ɭʃᴜ ɭʃɀɹ , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭɿ j͑ʃɹ ŋᷠɹ , ꞙɭɿ j͑ʃɹ ſןw ⟅ ꞙɭɔ ʃɜ j͐ʃɔ ꞙɭɿ ⟅
 import { noiseSrc, startNoise, jetTurbulence } from "./bruo.js";
 import { devio, faktoro } from "./vario.js";
 
-// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ ꞙɭɔ ſɭэ ֭ſɭэ ꞙɭɔ , ꞙɭɔ , ſɭᴜ ſןᴜ ʌ ſɭᴜ 🎶 ⧽
 const ETA = 0o1/0o20000;
 
-/* សំឡេងបំពេរស៊ីគូ។ កម្ពស់ជិតនឹងកម្ពស់មូលដ្ឋានពេលបក់ រួចស្ងប់ ហើយខ្យល់ហើមតាមចង្វាក់ដង្ហើម។
-    @param ctx ( AudioContext ) - បរិយាកាសសំឡេង
-    @param out ( AudioNode ) - ច្រើនចេញ
-    @param t0 ( number ) - ពេលចាប់ផ្ដើម
-    @param dur ( number ) - រយៈពេលសំឡេងជាវិនាទី
-    @param f ( number ) - កម្ពស់បំពេរជាហឺត
-    @param vel ( number = 1 , optional ) - កម្រិតសំឡេង
+/* ⟨ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſ͕ȷɔ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭэ ſɭ,w ſɭэ ɭʃᴜ ɭʃɀɹ , ſɭɜ j͐ʃɹ ⟅ ⟩
+    @param ctx ( AudioContext ) - ʃɜ j͐ʃɔ ʌ ſɭᴜ ſɭᴜ
+    @param out ( AudioNode ) - ſɭᴜ ʃɔ ſןᴜ , ſɭᴜ ʃןᴜ
+    @param t0 ( number ) - j͑ʃᴜ ı],ɔ ʌ ſɭэ ɭʃᴜ
+    @param dur ( number ) - ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ
+    @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭᴜ ſ͕ȷɔ
+    @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ
 @returns void */
 export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number, f: number, vel = 1) {
-  // ⟨ កាត់ចន្លោះតូចបំផុត កុំឱ្យពេលចាប់ផ្ដើមធ្លាក់លើគែមកាត់នៃសំឡេង 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ ɭʃᴜ ꞙɭɔ , j͑ʃᴜ ı],ɔ ʌ ſɭэ ɭʃᴜ ꞙɭɔ ſɭэ ſɭɹ ⟅
   const t = t0 + 0o1/0o100000;
   const d = Math.max(0o1/0o10, dur * faktoro(0o5/0o100));
   const srFin = d * 0o3;
-  // ⟨ កម្ពស់ប្រែតាមដង្ហើម និងបំពេរនីមួយៗ 📃 ⟩
+  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ , j͑ʃ'ƽᴜ ɭl̀ɹ , ſɭэ ɭʃᴜ ɭʃɀɹ ⟅
   const p = f * faktoro(0o1/0o1000);
-  // ⟨ បក់ចូលលឿនជាប់ចង្វាក់ ឡើងភ្លាមរួចស្ងប់ ទើបណោតមិនយឺតពីបាត 📃 ⟩
-  // ⟨ បំពេរពិតឡើងដល់កម្រិតពេញក្នុងរយៈពេលខ្លីជាងនេះ ។ បើយឺតពេក សំឡេងឮដូចខ្យល់ហើម មិនឮជាបំពេរ 📃 ⟩
+  // ⟨ ɭʃɀɹ ſɭᴜ , j͑ʃᴜ ſןɹ , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ſɭɜ j͐ʃɹ ⟅ ꞙɭɔ ſɭɜ ſɭᴜƽ ſɭэ ſɭ,w ⟅
+  // ⟨ ʃɜ j͐ʃɔ ɭʃэʞ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ ꞙɭɔ ⟅ ſɭᴜ ſןᴜ ſ̀ȷɜ , ʃɜ j͐ʃɔ ı],ɔ ɭʃɜ ֭ſɭɹ ⟅
   const atako = 0o3/0o100 * faktoro(0o1/0o10);
   const tlakakani = 0o1/0o10 * faktoro(0o15/0o100);
   const pinto = 0o15/0o100 * faktoro(0o7/0o100);
   const g = ctx.createGain();
   g.gain.setValueAtTime(ETA, t);
   g.gain.exponentialRampToValueAtTime(pinto * vel, t + atako);
-  // ⟨ សម្ពាធខ្យល់ធ្លាក់បន្តិចៗពេលបក់យូរ 📃 ⟩
+  // ⟨ j͑ʃɹ ŋᷠɹ , j͐ʃэ ɭ(ᴜ , ſɭɜ ſɭᴜƽ , ſɭᴜ ſןᴜ ɭʃɀɹ ⟅
   g.gain.linearRampToValueAtTime(pinto * 0o7/0o10 * vel, t + d);
   g.gain.exponentialRampToValueAtTime(ETA, t + d + tlakakani);
   g.gain.setValueAtTime(0o0/0o10, t + d + tlakakani);
-  // ⟨ ច្រកចេញរួម កាត់បន្ថយស្នាមកាត់ភ្លាមៗពេលបក់ចូល និងពេលដង្ហើមសល់អស់ 📃 ⟩
+  // ⟨ ſɭᴜ ʃɔ ſןᴜ , j͑ʃᴜ ſןɹ , ſɭɹ , ſɭэ ɭʃᴜ ɭʃɀɹ , j͑ʃ'ƽᴜ ɭl̀ɹ ⟅
   const fin = ctx.createGain();
   fin.gain.setValueAtTime(ETA, t);
   fin.gain.exponentialRampToValueAtTime(0o1, t + 0o3/0o100);
@@ -44,7 +44,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   g.connect(fin);
   fin.connect(out);
 
-  // ⟨ អាហ្គុងនៃបំពេរ ជួយសំឡេងជុំវិញកម្ពស់មូលដ្ឋាន 📃 ⟩
+  // ⟨ ᶅſɜ ֭ſɭᴜ ʌ ſɭᴜ ſ͕ȷɔ , ʃɜ j͐ʃɔ ᶅſᴜ , ſᶘᴜ j͐ʃɹ ʌ ſɭэ ſɭ,w ⟅
   const tube = ctx.createBiquadFilter();
   tube.type = "peaking";
   tube.frequency.value = p * faktoro(0o1/0o100);
@@ -52,20 +52,20 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   tube.gain.value = 0o4 * faktoro(0o15/0o100);
   const lp = ctx.createBiquadFilter();
   lp.type = "lowpass";
-  // ⟨ កម្ពស់ទាបមិនត្រូវខ្មៅជាងកម្ពស់ខ្ពស់ទេ ។ ផ្នែកខ្ពស់នៅសល់ខ្លះគ្រប់កម្ពស់ 📃 ⟩
+  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭɜ ſɭᴜƽ ꞙɭɔ ſɭɜ ɭʃɜ ֭ſɭɹ ⟅ j͑ʃɹ ſןw ſᴜ ſןᴜ ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
   lp.frequency.value = Math.min( 0o17500, 0o3000 + p * 0o10 );
   lp.Q.value = 0o7/0o10;
   tube.connect(lp);
   lp.connect(g);
 
-  // ⟨ ការបក់ខ្លះសុទ្ធខ្លះពោរពេញដោយខ្យល់ មិនដូចគ្នារាល់បក់ 📃 ⟩
+  // ⟨ ꞙɭı ɭʃɀɹ ɭʃɜ ֭ſɭɹ , ꞙɭı j͑ʃɹ ŋᷠɹ , ꞙɭɔ ʃɜ j͐ʃɔ ſɭэ ɭʃᴜ ɭʃɀɹ ⟅
   const blovo = Math.random() * Math.random();
   const spirto = 0o6/0o10 + blovo * 0o4/0o10;
-  // ⟨ ខ្យល់ធ្វើឱ្យសំឡេងរំញ័រ បង្កើតសំឡេងខ្យល់នៅជាប់ផ្នែកនីមួយៗ ដូចបំពេរពិត 📃 ⟩
+  // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɹ ŋᷠɹ , j͑ʃɹ ſןw , ſɭᴜ ſ͕ȷɔ ⟅
   const ts = ctx.createGain();
   ts.gain.value = 0o1;
   ts.connect(tube);
-  // ⟨ កម្លាំងផ្នែកប្រែតិចៗប៉ុណ្ណោះ ។ បំពង់បិទខាងក្រោមធ្វើឱ្យផ្នែកលេខសេសខ្លាំងជាងផ្នែកលេខគូ ហើយផ្នែកខ្ពស់ថយបន្តិចៗ 📃 ⟩
+  // ⟨ j͑ʃэ ɭ(ᴜ ı],э ŋᷠꞇ j͑ʃᴜꞇ ʌ j͑ʃɹ ſןw , ſɭᴜ ſןᴜ , ſᶘɔ ʌ ſɭɜ ⟅
   const tonoj: [ number, number, number, number ][] = [
     [ 0o1, 0o1, 0o6, 0o2/0o100 ],
     [ 0o2, 0o1/0o100 + spirto * 0o1/0o1000 + blovo * 0o1/0o1000, 0o10, 0o3/0o100 ],
@@ -76,7 +76,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
     [ 0o7, 0o1/0o1000 + blovo * 0o1/0o1000, 0o36, 0o5/0o100 ],
     [ 0o10, 0o1/0o1000 + blovo * 0o1/0o2000, 0o44, 0o5/0o100 ],
   ];
-  // ⟨ ការប្រែកម្ពស់បក់ចូលនិងចុង ត្រូវដូចគ្នាសម្រាប់គ្រប់ផ្នែក ទើបផ្នែកនៅចុះគ្នាជាផ្នែកនៃសំឡេងតែមួយ 📃 ⟩
+  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭэ ɭʃᴜ ɭʃɀɹ , j͑ʃᴜ ſןɹ , ſɭɹ , ſɭɜ ſɭɹ , j͑ʃɹ ſןw ſᴜ ꞙɭı ⟅
   const saxeni = 0o1 + devio(0o3/0o1000);
   const falo = 0o177/0o200 + devio(0o1/0o1000);
   const osc: OscillatorNode[] = [];
@@ -84,15 +84,15 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   for ( const [ mul, amp0, cutoff, frac ] of tonoj ) {
     const o = ctx.createOscillator();
     o.type = "sine";
-    // ⟨ បក់ចូលជិតកម្ពស់មូលដ្ឋាន ខ្លះលើសខ្លះខ្វះបន្តិច រួចស្ងប់ 📃 ⟩
+  // ⟨ ɭʃɀɹ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭэ ſɭ,w , ꞙɭɔ , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭᴜ ⟅
     o.frequency.setValueAtTime(p * mul * saxeni, t);
     o.frequency.exponentialRampToValueAtTime(p * mul, t + 0o6/0o100 * faktoro(0o3/0o10));
-    // ⟨ សម្ពាធខ្យល់ធ្លាក់ កម្ពស់ចុះបន្តិចនៅចុងបទ 📃 ⟩
+  // ⟨ j͑ʃɹ ŋᷠɹ , j͐ʃэ ɭ(ᴜ , ſɭɜ ſɭᴜƽ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭэ ɭʃᴜ ɭʃɀɹ ⟅
     o.frequency.setValueAtTime(p * mul, t + d * 0o6/0o10);
     o.frequency.exponentialRampToValueAtTime(p * mul * falo, t + d + tlakakani * 0o6/0o10);
     const og = ctx.createGain();
     og.gain.value = amp0 * faktoro(0o15/0o100);
-    // ⟨ កម្លាំងផ្នែកហើមស្រកតាមខ្យល់បក់ មិននៅថេរដូចម៉ាស៊ីន 📃 ⟩
+  // ⟨ j͐ʃэ ɭ(ᴜ ʌ j͑ʃɹ ſןw , ſɭɜ ſɭᴜƽ , j͑ʃɹ ŋᷠɹ ɭʃɀɹ , ꞙɭɔ ʃɜ ſɟᴜ ŋᷠɹ ⟅
     const am = ctx.createGain();
     am.gain.value = 0o1;
     o.connect(og);
@@ -103,14 +103,14 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
     o.stop(t + d + tlakakani + 0o1/0o10);
     osc.push(o);
   }
-  // ⟨ ខ្យល់បក់ធ្វើឱ្យគ្រប់ផ្នែកហើមស្រកដោយមូលហេតុតែមួយ តែល្បឿនខុសគ្នា 📃 ⟩
+  // ⟨ j͑ʃɹ ŋᷠɹ ɭʃɀɹ , j͑ʃɹ ſןw , j͐ʃэ ɭ(ᴜ , ſɭэ ſɭᴜƽ , ꞙɭɿ j͑ʃɜ ⟅
   jetTurbulence(ctx, t, t + d + tlakakani + 0o1/0o10, turbTaps);
 
-  // ⟨ កម្ពស់ប្រែតិចៗតាមដង្ហើម ចូលយឺតបន្ទាប់ពីបក់ 📃 ⟩
-  // ⟨ ដង្ហើមញ័រ 0o52/0o10 ហឺត តាមការវាស់ពីសំឡេងគំរូ ប្រែកម្ពស់គ្រប់ផ្នែកដូចគ្នា 📃 ⟩
+  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ , j͑ʃ'ƽᴜ ɭl̀ɹ , ſɭɜ ſɭᴜƽ , ɭʃɀɹ ⟅ ſɭэ ɭʃᴜ ɭʃɀɹ , ſɭɜ j͐ʃɹ ⟅
+  // ⟨ j͑ʃ'ƽᴜ ɭl̀ɹ ꞙɭꞟɿ/ꞙɭıɔ ꞇ , ʃɜ j͐ʃɔ ɭʃᴜʞ , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
   const vib = ctx.createOscillator();
   vib.frequency.value = 0o52/0o10 * faktoro(0o15/0o100);
-  // ⟨ ល្បឿនញ័រប្រែតិចៗ កុំឱ្យឮថាញ័រធំរំជួលជារលក 📃 ⟩
+  // ⟨ j͑ʃᴜ ſɭᶗ‹ɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭɔ , ı],э ŋᷠꞇ , ʃɜ j͐ʃɔ , ſɭэ ſɭɹ ⟅
   const vwob = ctx.createOscillator();
   vwob.frequency.value = 0o6/0o10 * faktoro(0o4/0o10);
   const vwg = ctx.createGain();
@@ -127,7 +127,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   vwob.start(t);
   vwob.stop(t + d + tlakakani + 0o1/0o10);
 
-  // ⟨ ចង្វាក់ដង្ហើមធ្វើឱ្យសំឡេងហើមនិងស្រកតាមគ្នា 📃 ⟩
+  // ⟨ j͑ʃ'ƽᴜ ɭl̀ɹ , j͐ʃэ ɭ(ᴜ , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭı ⟅
   const trem = ctx.createOscillator();
   trem.frequency.value = 0o36/0o10 * faktoro(0o2/0o10);
   const tg = ctx.createGain();
@@ -137,11 +137,11 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   trem.connect(tg);
   tg.connect(g.gain);
 
-  // ⟨ ខ្យល់ដកដង្ហើមខ្លាំងពេលបក់ចូល រួចស្រកនៅសល់ជាខ្យល់ជុំវិញសំឡេង 📃 ⟩
-  // ⟨ បន្ថយសំឡេងរំខានទូលំទូលាយ ដើម្បីឱ្យសំឡេងបក់នៅមុខខ្យល់ 📃 ⟩
+  // ⟨ ɭʃɀɹ , j͑ʃ'ƽᴜ ɭl̀ɹ , j͑ʃɜ ɭʃɹȝ , ı],ɔ ɭʃɜ ֭ſɭɹ ſɭɜ j͐ʃɹ ⟅
+  // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , j͐ʃэ ɭ(ᴜ , ſɭэ ſɭᴜƽ , ɭʃɀɹ ſɭᴜ , j͑ʃɹ ŋᷠɹ ⟅
   const nAtk = ( 0o1/0o2 + blovo * 0o1 ) * vel * faktoro(0o3/0o10);
   const nSus = ( 0o1/0o10 + spirto * 0o1/0o20 + blovo * 0o1/0o20 ) * vel;
-  // ⟨ ខ្យល់រំញ័រយឺតៗធ្វើឱ្យសំឡេងមានស្នាមខ្យល់នៅជាប់ផ្នែកនីមួយៗ មិនមែនខ្យល់រាយឆ្ងាយ 📃 ⟩
+  // ⟨ ı],э ŋᷠꞇ , ı],ɔ ɭʃɜ ֭ſɭɹ, j͑ʃɹ ſןw , ſɭᴜ , ſɭɹ ⟅
   const mn = noiseSrc(ctx);
   const mlp = ctx.createBiquadFilter();
   mlp.type = "lowpass";
@@ -170,10 +170,10 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   nhp.Q.value = 0o7/0o10;
   const blp = ctx.createBiquadFilter();
   blp.type = "lowpass";
-  // ⟨ ខ្យល់បំពេរលាតសាយដល់ខ្ពស់ច្រើនដងនៃកម្ពស់មូលដ្ឋាន ។ បើកាត់ត្រឹម ១០ ដងនៃកម្ពស់ សំឡេងកម្ពស់ទាបឮឈើគោះ មិនឮខ្យល់ ។ ឆ្នុកខ្យល់ខ្ពស់មិនអាស្រ័យកម្ពស់បំពេរទេ 📃 ⟩
+  // ⟨ j͑ʃɹ ŋᷠɹ ʌ ſɭᴜ ſ͕ȷɔ , j͑ʃɹ ſןw ꞙɭıɔ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅ ɭl̀ɹ ɭʃꞇƽ ⟅
   blp.frequency.value = 0o16000;
   blp.Q.value = 0o7/0o10;
-  // ⟨ ខ្យល់ជាប់នឹងផ្នែក ធ្វើឱ្យសំឡេងមានដង្ហើម មិនមែនសំឡេងសុទ្ធសុទ្ធ ។ តែឆ្នុកខ្យល់របស់បំពេរមិនរំកិលតាមកម្ពស់បំពេរទេ ។ វានៅកន្លែងដដែលគ្រប់កម្ពស់ ទើបកម្ពស់ទាបមិនឮខ្មៅជាងកម្ពស់ខ្ពស់ 📃 ⟩
+  // ⟨ j͑ʃɹ ŋᷠɹ , j͑ʃɹ ſןw , ʃɜ j͐ʃɔ ɭʃɜ ֭ſɭɹ ꞙɭɔ , j͑ʃ'ƽᴜ ɭl̀ɹ ⟅
   const brancoj: [ number, number, number ][] = [
     [ 0o1400, 0o13/0o10, 0o14/0o100 ],
     [ 0o3000, 0o12/0o10, 0o10/0o100 ],
@@ -199,7 +199,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   ng.gain.setValueAtTime(ETA, t);
   ng.gain.exponentialRampToValueAtTime(nAtk, t + atako * 0o6/0o10);
   ng.gain.exponentialRampToValueAtTime(nSus, t + 0o3/0o10);
-  // ⟨ ខ្យល់កើនវិញបន្តិចពេលដកដង្ហើមយូរ 📃 ⟩
+  // ⟨ j͑ʃɹ ŋᷠɹ , j͐ʃэ ɭ(ᴜ , j͑ʃᴜ ʃɜ , ſɭᴜ ꞙɭı , j͑ʃ'ƽᴜ ɭl̀ɹ ſɭэ ɭʃᴜ ⟅
   ng.gain.exponentialRampToValueAtTime(nSus * 0o14/0o10 * faktoro(0o15/0o100), t + d);
   ng.gain.exponentialRampToValueAtTime(ETA, t + d + tlakakani);
   ng.gain.setValueAtTime(0o0/0o10, t + d + tlakakani);
@@ -208,12 +208,12 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   tng.gain.linearRampToValueAtTime(0o0/0o10, t + d + tlakakani);
   trem.connect(tng);
   tng.connect(ng.gain);
-  // ⟨ ចង្វាក់ដង្ហើមធ្វើឱ្យរន្ធត់ខ្យល់រំកិលតាម កុំឱ្យខ្យល់នៅស្ងៀមជាប់កន្លែង 📃 ⟩
+  // ⟨ j͑ʃ'ƽᴜ ɭl̀ɹ , ı],ɔ ɭʃɜ ֭ſɭɹ , ɭʃᴜʞ , j͑ʃɹ ſןw , ſɭɜ ſɭᴜƽ ⟅
   const swg = ctx.createGain();
   swg.gain.value = p * 0o1/0o100;
   trem.connect(swg);
   for ( const bp of cbp ) swg.connect(bp.frequency);
-  // ⟨ ខ្យល់ប្រែប្រួលយឺតៗទាំងកម្លាំងទាំងទីតាំង កុំឱ្យឮថាខ្យល់រំខាននៅស្ងៀម 📃 ⟩
+  // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , ı],э ŋᷠꞇ , ſɭэ ſɭᴜƽ , j͑ʃɜ ɭʃɹȝ , ꞙɭɔ ⟅
   const vandro = ctx.createOscillator();
   vandro.frequency.value = 0o2/0o10 * faktoro(0o5/0o10);
   const vng = ctx.createGain();
@@ -233,7 +233,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   blp.connect(ng);
   ng.connect(g);
 
-  // ⟨ ខ្យល់បក់រាយពីផ្នែកទីពីរដល់ខ្ពស់ ហើមស្រកតាមចង្វាក់ដង្ហើម ខ្លាំងពេលបក់ពេញខ្យល់ 📃 ⟩
+  // ⟨ j͑ʃɹ ŋᷠɹ , j͑ʃɹ ſןw ꞙɭɿ , ꞙɭı , j͑ʃ'ƽᴜ ɭl̀ɹ , ſɭɜ ſɭᴜƽ ⟅
   const air = noiseSrc(ctx);
   const jhp = ctx.createBiquadFilter();
   jhp.type = "highpass";
@@ -265,7 +265,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   jlp.connect(ag);
   ag.connect(g);
 
-  // ⟨ ខ្យល់គ្រលរត់ក្រោមកម្ពស់មូលដ្ឋាន ធ្វើឱ្យមានខ្លួនបំពេរ ខ្លាំងពេលបក់ពេញខ្យល់ 📃 ⟩
+  // ⟨ j͑ʃɹ ŋᷠɹ , ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ſ͕ȷɔ , j͑ʃ'ƽᴜ ɭl̀ɹ , ꞙɭı ⟅
   const kn = noiseSrc(ctx);
   const kbp = ctx.createBiquadFilter();
   kbp.type = "lowpass";
@@ -280,7 +280,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   kbp.connect(kg);
   kg.connect(g);
 
-  // ⟨ ដង្ហើមសល់ក្នុងបន្ទប់ យូរជាងមួយបក់ ធ្វើឱ្យចន្លោះរវាងសំឡេងមិនកាត់ភ្លាម 📃 ⟩
+  // ⟨ j͑ʃ'ƽᴜ ɭl̀ɹ , ſɭᴜ ɭʃᴜ , ı],ɔ ɭʃɜ ֭ſɭɹ , ꞙɭı , ſɭэ j͐ʃɹ ꞙɭɔ ⟅
   const srn = noiseSrc(ctx);
   const srbp = ctx.createBiquadFilter();
   srbp.type = "bandpass";
@@ -315,7 +315,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   vandro.start(t);
   vandro.stop(t + d + tlakakani + 0o1/0o10);
 
-  // ⟨ ស្នាមខ្យល់ដំបូងពេលបក់ ខ្លាំងតិចខ្លាំងច្រើនមិនដូចគ្នា ។ ស្នាមនេះនៅខ្ពស់ជាងកម្ពស់បំពេរ ទើបឮជាខ្យល់កាត់ មិនមែនជាសំឡេងគោះ 📃 ⟩
+  // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃᴜ ſןɹ , ſ̀ȷɜ , ſɟɹ ſɟɹ , ꞙɭɔ ʃɜ j͐ʃɔ ꞙɭɿ ⟅
   const ch = noiseSrc(ctx);
   const hp = ctx.createBiquadFilter();
   hp.type = "bandpass";
@@ -324,7 +324,7 @@ export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number,
   const cg = ctx.createGain();
   const kia = 0o4/0o100 * faktoro(0o3/0o10);
   cg.gain.setValueAtTime(ETA, t);
-  // ⟨ ស្នាមខ្យល់នៅខ្ពស់ជាងមុន ដូច្នេះត្រូវថយកម្លាំងវិញ ។ ត្រចៀកឮសំឡេង ២ ទៅ ៤ គីឡូហឺតខ្លាំងជាងសំឡេងទាប 📃 ⟩
+  // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , ɭl̀ɹ ɭʃꞇƽ ɭʃэʞ , ſ̀ȷɜ , ſɭɜ ſɭᴜƽ , ꞙɭɿ–ꞙɭэ , ſɭэ ſɭ,w ⟅
   cg.gain.exponentialRampToValueAtTime(0o1/0o10 * vel * faktoro(0o3/0o10), t + 0o2/0o100);
   cg.gain.exponentialRampToValueAtTime(0o4/0o100 * vel, t + kia * 0o6/0o10);
   cg.gain.exponentialRampToValueAtTime(ETA, t + kia);

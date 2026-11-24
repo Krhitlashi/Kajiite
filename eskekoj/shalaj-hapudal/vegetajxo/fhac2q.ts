@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { kf2BuferanGeometrion, kunfandiGeometriojnSenIndekson } from "../../komunajxoj/kunfandajxoj.js";
 import { PURPURAJ_TRUNKAJ_RADIOJ } from "./hasoza.js";
 
-// ⟨ ហេតុអ្វី 📃 ⟩
+// ⟨ ſɭʞэ 📃 ⟩
 export function vepaqFc2qnKronon(nombro: number, sefini: number, l6da: number, mallevo: number,
   ka5ik = 0, kurbiFaktoro = 1): THREE.BufferGeometry {
   const hakek: THREE.BufferGeometry[] = [];
@@ -49,7 +49,7 @@ export function vepaqFc2qnKronon(nombro: number, sefini: number, l6da: number, m
   return geometrio;
 }
 
-// ⟨ សមាមាត្រ 📃 ⟩
+// ⟨ ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ ɭ(ɜ ŋᷠᴜ 📃 ⟩
 export function vepaqXabenRozeton(l6da: number, nombro: number, malfermo: number): THREE.BufferGeometry {
   return vepaqFc2qnKronon(nombro, l6da * 0o5/0o20, l6da / ( 0o17/0o20 ), malfermo, l6da * 0o1/0o100, 0o5/0o10);
 }
@@ -74,7 +74,7 @@ export function vepaqTavolanFc2qnKronon(pudal: {
     fc2q.translate(0, pudal.trunkaAlto * frakcio, 0);
     hakek.push(fc2q);
   }
-  // ⟨ ក្តោង 📃 ⟩
+  // ⟨ ſɭɔ˞ɹ ɭʃᴜ 📃 ⟩
   const krozoj = vepaqFc2qnKronon(0o3, pudal.kronaLargho * 0o5/0o20,
     pudal.kronaAlto * 0o3/0o10, pudal.mallevo * 0o15/0o100 + 0o43/0o100,
     PURPURAJ_TRUNKAJ_RADIOJ.teru, 0o53/0o40);

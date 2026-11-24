@@ -1,8 +1,8 @@
 // ≺⧼ ſɭw ŋᷠw ⏪ ⧽≻
-// ជង់ត្រឡប់វិញ គឺជំហាននីមួយៗផ្ទុកស្ថានភាពដែលអាចកែបានទាំងមូល ( ដី
-// ទឹក តំបន់ជីវៈ សត្វ វត្ថុ ទីក្រុង ផ្លូវ និង
-// កំពង់ )។ ការស្តារឡើងវិញដាក់ស្ថានភាពត្រឡប់ដោយអនុគមន៍កំណត់របស់ម៉ូឌុល
-// ដូច្នេះប្រវត្តិ និងម៉ូឌុលនៅតែស៊ីគ្នា។
+// ſɭɜ ſ͕ɭᴜ , ſɭᴜ ſןᴜ ,
+// ſᶘᴜ j͑ʃᴜ , ſɭɜ ſɭᴜ , ꞙɭɿ ,
+// ſɭэ ſɭᴜ , ꞙɭɿ ,
+// ſɭэ ᶗ‹ , ꞙɭɔ ,
 import { agordiHatsiqn, agordiElektitanTsiqn, agordiTsiqTrenatan,
   agordiAkvanVem2n, markiAkvonMalpuran, rekalkuliAkvon, hatsiq, elektitaTsiq,
   akvaVem2Valoro } from "./akvo.js";
@@ -12,11 +12,11 @@ import { agordiObjektojn, agordiElektitanObjekton, gxisdatigiObjektoListon,
 import { agordiHakaxten, agordiHak6h6n, agordiHaqakaj2n, agordiElektitanKaxten,
   elektiKaxten, gxisdatigiKaxteElektilon, gxisdatigiK6h6jnHakaman, hakaxte,
   elektitaKaxte, hak6h6, haqakaj2 } from "./kradaro.js";
-// ប្រភេទទិន្នន័យរបស់ពិភពលោកឆ្លាក់ គឺការកំណត់ដូចហ្គេមអាន
-// ( kantaoj/mondo/kaxte/hahunaq.ts ) ដូច្នេះស្ថានភាពដែលរក្សាទុកមិនដែលបង្វែរទេ។
+// ſɭэ ᶗ‹ , j͑ʃᴜ ſɭ,w ,
+// ( kantaoj/mondo/kaxte/hahunaq.ts ) , ꞙɭɿ ,
 import type { SkulptaKaxte, SkulptaK6h6, SkulptaPlatqoxa, MetitaObjekto } from "../../../kantaoj/mondo/kaxte/hahunaq.js";
 
-// ⟪ ប្រវត្តិ ( ត្រឡប់វិញ និងធ្វើឡើងវិញ ) 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟫
 export interface HistoriaMomento {
   hal6da: Float32Array;
   k6liqani: Uint8Array;
@@ -35,7 +35,7 @@ export interface HistoriaMomento {
 
 export const historio: HistoriaMomento[] = [];
 export const refaraHistorio: HistoriaMomento[] = [];
-/* statoMomento គឺស្ថានភាពដែលអាចកែបានទាំងមូលសម្រាប់ជំហានប្រវត្តិមួយ រួមទាំង
+/* ſɭэ ᶗ‹ , ꞙɭц ,
    សំណាញ់ ( ទីក្រុងជាមួយស្រទាប់ខាងលើរបស់ពួកវា ) ផ្លូវ និងកំពង់ មិនត្រឹមតែ
    ដី និងវត្ថុទេ។ ការរក្សាទុក និងការញែកឡើងវិញនៃទីក្រុង ផ្លូវ និងកំពង់
    មានលក្ខណៈវង់ ( cirkuloDeDatumojValidas ) ដូច្នេះការចម្លង JSON ជ្រៅគ្រប់គ្រាន់។
@@ -50,20 +50,20 @@ export function statoMomento(): HistoriaMomento {
     haqakaj2: JSON.parse(JSON.stringify(haqakaj2)) as SkulptaPlatqoxa[],
   };
 }
-// momenti គឺដាក់ស្ថានភាពបច្ចុប្បន្នលើជង់ត្រឡប់វិញ ( ជង់ធ្វើឡើងវិញទទេចេញ )។
+// ſɭэ ᶗ‹ , ꞙɭı ,
 export function momenti(): void {
   refaraHistorio.length = 0;
   historio.push(statoMomento());
   if ( historio.length > 0o40 ) historio.shift();
 }
-/* restoriStaton គឺដាក់ស្ថានភាពទាំងមូលត្រឡប់វិញដោយអនុគមន៍កំណត់របស់ម៉ូឌុល។
+/* ſɭэ ᶗ‹ , ꞙɭɿ ,
     @param s ( HistoriaMomento ) - ស្ថានភាពដែលត្រូវស្តារឡើងវិញ។ */
 export function restoriStaton(s: HistoriaMomento): void {
   hal6da.set(s.hal6da);
   k6liqani.set(s.k6liqani);
   habs2.set(s.habs2);
   hapaga.set(s.hapaga);
-  // ប្រភពទឹក និងប្រភពដែលជ្រើស ព្រោះទឹកនឹងត្រូវគណនាឡើងវិញនៅខាងក្រោម។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
   agordiHatsiqn(s.hatsiq ? s.hatsiq.map(f => ( { ...f } )) : []);
   agordiElektitanTsiqn(s.tsiqElekto ?? -1);
   agordiTsiqTrenatan(-1);
@@ -73,8 +73,8 @@ export function restoriStaton(s: HistoriaMomento): void {
   if ( s.hakaxte && s.hakaxte.length ) agordiHakaxten(s.hakaxte);
   if ( s.hak6h6 && s.hak6h6.length ) agordiHak6h6n(s.hak6h6);
   if ( s.haqakaj2 && s.haqakaj2.length ) agordiHaqakaj2n(s.haqakaj2);
-  // ស្ថានភាពសំណាញ់ គឺ elektiKaxten ផ្ទុកទីក្រុង ( ទំហំ អុហ្វសិត
-  // ស្រទាប់ខាងលើ ) ចូលក្នុងឧបករណ៍បញ្ជា ហើយសាងសង់ផែនការឡើងវិញ។
+// j͑ʃɜ j͑ʃƨɹ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
   agordiElektitanKaxten(Math.max(0, Math.min(s.elektitaKaxte ?? 0, hakaxte.length - 1)));
   gxisdatigiObjektoListon();
   vepaqTom6Objektojn();
@@ -84,18 +84,18 @@ export function restoriStaton(s: HistoriaMomento): void {
   gxisdatigiKaxteElektilon();
   elektiKaxten(elektitaKaxte);
   gxisdatigiK6h6jnHakaman();
-  // ទឹក ( ប្រភព និងកម្រិតបានផ្លាស់ប្តូរ ) ដូច្នេះគណនាឡើងវិញ និងគូរឡើងវិញ។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
   rekalkuliAkvon();
   markiSxangxitan();
 }
-// malfari គឺដកជំហានមួយចេញពីជង់ធ្វើឡើងវិញ ហើយស្តារវាឡើងវិញ។
+// ſɭэ ᶗ‹ , ꞙɭэ ,
 export function malfari(): void {
   const s = historio.pop();
   if ( !s ) return;
   refaraHistorio.push(statoMomento());
   restoriStaton(s);
 }
-// refari គឺដាក់ជំហានចុងក្រោយដែលបានត្រឡប់វិញ ត្រឡប់មកវិញម្តងទៀត។
+// ſɭэ ᶗ‹ , ꞙɭɩ ,
 export function refari(): void {
   const s = refaraHistorio.pop();
   if ( !s ) return;
@@ -103,10 +103,10 @@ export function refari(): void {
   restoriStaton(s);
 }
 
-// ⟪ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟫ គឺតារាងរបស់ដី ( ដេលតា
-// ម៉ាស តំបន់ជីវៈ សត្វ ) ឧបករណ៍បញ្ជាកម្រិតទឹក កម្មវិធីបង្ហាញតម្លៃ និង
-// ទង់បានផ្លាស់ប្តូរ។ តារាងមកតាមការយោង ( ប្រវត្តិសរសេរពួកវា
-// នៅនឹងកន្លែងដោយ set )។
+// ⟪ ſɭэ ᶗ‹ , ꞙɭꞟ , 📃 ⟫ , ſɭɜ ſɭᴜ ,
+// ꞙɭꞟ , ꞙɭꞟı ,
+// ſɭэ ᶗ‹ , ꞙɭꞟɿ ,
+// ſɭэ ᶗ‹ , ꞙɭꞟц ,
 interface HistoriaLigo {
   hal6da: Float32Array;
   k6liqani: Uint8Array;
@@ -124,7 +124,7 @@ let vem2Kama: HTMLInputElement;
 let gxisdatigiValorojn: () => void;
 let markiSxangxitan: () => void;
 
-/* agordiHistorion គឺការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
+/* ſɭэ ᶗ‹ , ꞙɭı ,
     @param L ( HistoriaLigo ) - តារាង និងកម្មវិធីបង្ហាញរបស់កម្មវិធីកែសម្រួល។ */
 export function agordiHistorion(L: HistoriaLigo): void {
   ( { hal6da, k6liqani, habs2, hapaga, vem2Kama, gxisdatigiValorojn,

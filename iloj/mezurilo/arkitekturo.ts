@@ -26,7 +26,7 @@ function mezuriRadikon( zace: THREE.Object3D ): Vecax2l {
 
 function raporti( ksaka: string, zace: THREE.Object3D ): Vecax2l {
   const vecax2l = mezuriRadikon(zace);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} | កំពូល ${alOkto(vecax2l.verticoj, 0)} | ត្រីកោណ ${alOkto(vecax2l.trianguloj, 0)} | ធរណីមាត្រ ${alOkto(vecax2l.geometrioj, 0)}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} | ſɟɔ ɭʃɹ ${alOkto(vecax2l.verticoj, 0)} | ſ͕ɭɜ ɭʃɹ ı],ɔ ${alOkto(vecax2l.trianguloj, 0)} | ſןᴜ j͐ʃэ ${alOkto(vecax2l.geometrioj, 0)}`);
   return vecax2l;
 }
 
@@ -34,13 +34,13 @@ const tavolaj = preniTavolajnGeometriojn("domo", 0o10, 0o10, 0o4, 0o4);
 const tavolaGrupo = new THREE.Group();
 tavolaGrupo.add(new THREE.Mesh(tavolaj.muroj, new THREE.MeshStandardMaterial()));
 tavolaGrupo.add(new THREE.Mesh(tavolaj.hajoqa, new THREE.MeshStandardMaterial()));
-raporti("ស្រទាប់ 0o4", tavolaGrupo);
+raporti("ɭʃᴜ }ʃɔƽ ꞙɭэ", tavolaGrupo);
 
 const eniraGrupo = new THREE.Group();
 aldoniEnirejon(eniraGrupo, 0o10, new THREE.MeshStandardMaterial(), new THREE.MeshStandardMaterial());
-raporti("ច្រកចូល", eniraGrupo);
+raporti("ſȷwɔ˞", eniraGrupo);
 
 const fenestraGrupo = new THREE.Group();
 aldoniPilolFenestron(fenestraGrupo, new THREE.MeshStandardMaterial(), new THREE.MeshStandardMaterial(),
   0, 0, 0o4, 0o1, 0o4, 0o1);
-raporti("បង្អួច", fenestraGrupo);
+raporti("ſɟᴜ ֭ſɭэ ſɭэ", fenestraGrupo);

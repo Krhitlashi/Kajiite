@@ -1,11 +1,11 @@
-// ≺⧼ វត្ថុធាតុ 🎨 ⧽≻
+// ≺⧼ ſןw ſɭɔƽ 🎨 ⧽≻
 import * as THREE from "three";
 import { kf2LederanCac2sex } from "../../komunajxoj/cac2sex/ledo.js";
 import { kf2SxtofanBumpanCac2sex } from "../../komunajxoj/cac2sex/sxtofo.js";
 import { type Vesto } from "../../vestaro/vestoj.js";
 import { vestaCac2sex } from "./pentristoj.js";
 
-// ⟨ ហេតុអ្វីវត្ថុធាតុដោយឡែក 📃 ⟩
+// ⟨ ſᶘɔ ʌ ſןw ſɭɔƽ , ꞙɭı , ⟅ ⟩
 const UNGA_KOLORO = 0x987880;
 let ungaMaterialoStoko: THREE.MeshStandardMaterial | null = null;
 export function ungaMaterialo(): THREE.MeshStandardMaterial {
@@ -14,7 +14,7 @@ export function ungaMaterialo(): THREE.MeshStandardMaterial {
   return ungaMaterialoStoko;
 }
 
-// ⟨ ស្បែករបស់មនុស្សទាំងអស់ដូចគ្នា ។ ចែករំលែកវត្ថុធាតុតែមួយ 📃 ⟩
+// ⟨ ſɟɔȝ , ꞙɭı , ſןw ſɭɔƽ , ꞙɭı ⟅ ⟩
 let ceqaMaterialoStoko: THREE.MeshStandardMaterial | null = null;
 export function ceqaMaterialo(): THREE.MeshStandardMaterial {
   if ( !ceqaMaterialoStoko ) ceqaMaterialoStoko = new THREE.MeshStandardMaterial({
@@ -22,8 +22,8 @@ export function ceqaMaterialo(): THREE.MeshStandardMaterial {
   return ceqaMaterialoStoko;
 }
 
-// ⟨ វត្ថុធាតុស្បែក 📃 ⟩
-// ⟨ ពណ៌សង្កត់ត្រឡប់មកស្បែកជើងវិញ 📃 ⟩
+// ⟨ ſןw ſɭɔƽ , ſɟɔȝ , ⟅ ⟩
+// ⟨ j͑ʃ'ɔ ŋᷠɹ , ſɟɔȝ , j͑ʃᴜ ſןᴜ , ⟅ ⟩
 interface LedajMaterialoj {
   botoM: THREE.MeshStandardMaterial;
   akcentaM: THREE.MeshStandardMaterial;
@@ -48,8 +48,8 @@ export function ledajMaterialoj(o: Vesto): LedajMaterialoj {
   return m;
 }
 
-// ⟨ វត្ថុធាតុសម្លៀកបំពាក់រួម 📃 ⟩
-// ⟨ ចម្លាក់ក្រណាត់ 📃 ⟩
+// ⟨ ſןw ſɭɔƽ , j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
+// ⟨ j͑ʃɜȝ ɭʃɔ , ſ͕ɭɜ ı],ᴜ , ⟅ ⟩
 interface VestajMaterialoj {
   internoM: THREE.MeshStandardMaterial;
   eksteraM: THREE.MeshStandardMaterial;

@@ -31,7 +31,7 @@ import { alHe } from "../komunajxoj/unuoj.js";
 import { kf2Rultemon } from "../bildo/rultempo.js";
 import { MALPOTENCA_APARATO } from "../bildo/scena/aparato.js";
 
-/*តើចំណុចមួយនៅក្នុងព្រំដែនក្រុងណាមួយឬទេ ៖ ចម្ងាយ Manhattan ធៀបនឹងក្រឡាចតុកោណ
+/* ſɭэ ſɭᴜ , j͑ʃɜ j͑ʃƨɹ , ꞙɭı ,
     @param x ( number ) - ទីតាំង X
     @param z ( number ) - ទីតាំង Z
 @returns enKaxte ( boolean ) */
@@ -91,9 +91,9 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     lampSistemo, nebulSistemo, npcoj, internaSistemo, xipo,
   } = mondo;
 
-  // ⟪ កាមេរ៉ាសម្រាប់ការអភិវឌ្ឍន៍ 📃 ⟫
-  // ⟨ មានតែក្នុង dev ៖ កំណត់កាមេរ៉ាត្រង់ចំណុចមួយ ដើម្បីមើលចំណែកជាក់លាក់
-  // ( ឧ . ជណ្តើរចំណត ) ដោយមិនបាច់ដើរទៅទីនោះ ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı ,
+// ( ꞙɭɿ , ſןɔ˞ᴜƴ ) , 📃 ⟩
   if ( ( import.meta as unknown as { env?: { DEV?: boolean } } ).env?.DEV === true ) {
     ( window as unknown as { __rigardi?: unknown } ).__rigardi = {
       fotilo, hakama, ludanto,
@@ -116,9 +116,9 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     ludanto, movo, interno: internaSistemo, piedoj, ca3aq, promptoElemento, agordiPrompton,
   });
 
-  // ⟪ ស្ថានភាពរង្វិលជុំ 📃 ⟫
+// ⟪ ſɭэ ſɭw , 📃 ⟫
   const horlogxo = new THREE.Timer();
-  // ⟨ ការភ្ជាប់ទៅឯកសារ ៖ ធាតុរង្វាស់ពេលលែងរាប់ពេលថេបលាក់ 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , ꞙɭı , 📃 ⟩
   horlogxo.connect(document);
   let haltigita = false;
   let joqaGeneracio = 0;
@@ -130,20 +130,20 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
   const ORBITA_SUPRE = new THREE.Vector3(0, 1, 0);
   const ORBITA_OFSETA = new THREE.Vector3();
 
-  // ⟨ ទំហំអេក្រង់ និង ដង់ស៊ីតេភីកសែល អានតែពេលប្តូរ មិនអានរាល់ហ្វ្រេម 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
   let ekranaLargxo = innerWidth, ekranaAlto = innerHeight, aparataRatio = devicePixelRatio;
   const gxisdatigiEkranon = (): void => {
     ekranaLargxo = innerWidth; ekranaAlto = innerHeight; aparataRatio = devicePixelRatio;
   };
   window.addEventListener("resize", gxisdatigiEkranon);
-  // ⟨ ស្លាក បញ្ចប់ ត្រូវបានបន្ថែមម្តង ហើយមិនដកចេញ ។ អ្នកសង្កេតជំនួស
-  //   classList.contains រាល់ហ្វ្រេម ។ 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , ꞙɭц ,
+//   ſɭэ ᶗ‹ , ꞙɭэ , 📃 ⟩
   let sxargxoFinita = sxargxaElemento.classList.contains("finita");
   new MutationObserver(() => {
     sxargxoFinita = sxargxaElemento.classList.contains("finita");
   }).observe(sxargxaElemento, { attributes: true, attributeFilter: [ "class" ] });
 
-  // ⟪ ស្ថានភាពបណ្តាញ 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
   function vepaqRetilanStaton(): LokaStato {
     const aspekto = legiVeston();
     const kanoto = ludanto.surKanoto;
@@ -167,23 +167,23 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     };
   }
 
-  // ⟪ អ្នករុញស្មៅ 📃 ⟫
+// ⟪ ſɭэ ſɭw , 📃 ⟫
   const { kolekti: kolektiHerbajnPusantojn } = kf2HerbajnPusantojn({
     npcoj, hapaga,
     ludanto: () => ludanto.raqa,
     promenas: () => ludanto.rezimo === "promeno" && !ludanto.surKanoto,
   });
 
-  // ⟪ រង្វិលជុំ និងការត្រឡប់មកវិញ 📃 ⟫
-  // ⟨ ថេបដែលលាក់មិនគូររូប ។ ទូរស័ព្ទអាចបោះបង់កុងតឺន័រ WebGL ពេលចាកចេញ ,
-  // ហើយការត្រឡប់មកវិញត្រូវចាប់ផ្តើមរង្វិលជុំឡើងវិញ ដើម្បីកុំឱ្យអេក្រង់នៅទទេ ។ 📃 ⟩
-  /*បញ្ឈប់រង្វិលជុំ ៖ ហៅពេលថេបលាក់ ឬកុងតឺន័រ WebGL បាត់បង់ */
+// ⟪ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟫
+// ⟨ ſɭэ ᶗ‹ , ꞙɭц ,
+// ſɭэ ᶗ‹ , ꞙɭэ , 📃 ⟩
+/* ſɭэ ſɭw , ꞙɭı , */
   function halti(): void {
     haltigita = true;
     joqaGeneracio++;
   }
 
-  /*ចាប់ផ្តើមរង្វិលជុំឡើងវិញ ៖ ហៅពេលថេបមកវិញ ឬកុងតឺន័រ WebGL ត្រឡប់មកវិញ */
+/* ſɭэ ſɭw , ꞙɭɿ , */
   function restarti(): void {
     if ( document.hidden ) return;
     haltigita = false;
@@ -195,12 +195,12 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
   function animacii(): void {
     if ( document.hidden ) { halti(); return; }
     rultempo.agordiFokuson(document.hasFocus());
-    // ⟨ លេខជំនាន់ ៖ រង្វិលជុំចាស់ឈប់ខ្លួនឯង ពេលមានរង្វិលជុំថ្មី 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , ꞙɭɩ , 📃 ⟩
     const mia = ++joqaGeneracio;
     const joqa = ( nun: number ): void => {
       if ( haltigita || mia !== joqaGeneracio ) return;
       requestAnimationFrame(joqa);
-      // ⟨ ស៊ុមដែលមិនដល់ពេលមិនធ្វើបច្ចុប្បន្នភាព ឬ គូរទេ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
       if ( rultempo.bildigu(alHe(nun)) ) bildigi();
     };
     requestAnimationFrame(joqa);
@@ -208,7 +208,7 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
 
   document.addEventListener("visibilitychange", () => {
     if ( document.hidden ) { halti(); return; }
-    // ⟨ រក្សាកម្រិតដែលរៀនរួច ដើម្បីកុំគូរធំភ្លាមពេលត្រឡប់មកវិញ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
     gxisdatigiEkranon();
     restarti();
   });
@@ -216,24 +216,24 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
   window.addEventListener("focus", () => rultempo.agordiFokuson(true));
   window.addEventListener("pagehide", halti);
   window.addEventListener("pageshow", restarti);
-  // ⟨ កុងតឺន័រ WebGL បាត់បង់ និងត្រឡប់មកវិញ 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , ꞙɭɿ , 📃 ⟩
   kanvaso.addEventListener("webglcontextlost", ( e ) => {
     e.preventDefault();
-    // ⟨ កុំចូលផ្លូវដែលធ្វើឱ្យ context បាត់ម្តងទៀត 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , ꞙɭц , 📃 ⟩
     bildilo.shadowMap.enabled = false;
     aparataRatio = Math.min(aparataRatio, 0o1);
     halti();
   });
   kanvaso.addEventListener("webglcontextrestored", () => {
-    // ⟨ ខ្លួនរបស់ three ផ្ទុកវាយនភាពឡើងវិញពីក្រណាត់ដើមដែលនៅរក្សាពិកសែល ។
-    //   មិនគូរឡើងវិញទេ ព្រោះអ្នកគូរខ្លះប្រើចៃដន្យ ហើយរូបភាពត្រូវនៅដដែល ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭэ ,
+//   ſ͕ɭɜ ı],ᴜ , ꞙɭɩ , 📃 ⟩
     horlogxo.reset();
     restarti();
   });
 
   let veb6qaiJoqaNombro = 0;
   let muzikaLokoT = 0;
-  // ⟨ រយៈពេលបោសពេញនៅដដែល តែហ្វ្រេមផ្សេងៗលែងឆ្លងកាត់ឆាក ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
   const KANAKA_PLENA_PERIODO = 0o14 * 0o20;
   function bildigi(): void {
     horlogxo.update();
@@ -259,11 +259,11 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     gxisdatigiHatemekn(hatemek, t);
     if ( xipo ) animaciiKrasesxagxon(xipo, t, false);
 
-    // ⟪ ប្លុករបៀប 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
     promenanto.tona(deltaTempo, t);
     internanto.tona(deltaTempo, t);
     kanuanto.tona(deltaTempo, t);
-    // ⟨ តន្ត្រីតាមតំបន់ ៖ ពិនិត្យក្រុងរាល់ពាក់កណ្តាលវិនាទី 📃 ⟩
+// ⟨ ſȷwɔ˞ , ꞙɭı , 📃 ⟩
     if ( t - muzikaLokoT > 0o1/0o2 ) {
       muzikaLokoT = t;
       agordiMuzikanLokon(tsekeEnKaxte(ludanto.raqa.x, ludanto.raqa.z));
@@ -271,10 +271,10 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
 
     for ( const n of npcoj ) { if ( n.group.visible ) gxisdatigiNpc(n, deltaTempo, t, alteco, piedoj.kolizioj.k6h6SuproY); }
 
-    // ⟨ ការប៉ះទង្គិចជាមួយរូបមានជីវិត 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
     if ( ludanto.rezimo === "promeno" && !ludanto.surKanoto ) {
-      // ⟨ ពិនិត្យចម្ងាយការេមុន ទើបយកឫស ។ រូបភាគច្រើននៅឆ្ងាយ ហើយ
-      //   Math.hypot លើគ្រប់រូបរាល់ហ្វ្រេមជាការខ្ជះខ្ជាយ ។ លទ្ធផលដដែល ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц ,
+//   ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
       const NPC_MIN2 = ( 0o7/0o10 ) * ( 0o7/0o10 );
       const BESTA_MIN2 = ( 0o5/0o10 ) * ( 0o5/0o10 );
       const MINIMA2 = ( 0o1/0o20000 ) * ( 0o1/0o20000 );
@@ -304,13 +304,13 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
       }
     }
 
-    // ⟪ បណ្តាញ 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
     if ( retilo.aktiva ) {
       retilo.sendi(vepaqRetilanStaton);
       retilo.animacii(deltaTempo, t);
     }
 
-    // ⟪ រូបអ្នកលេង , មុំទីបី 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
     ludanto.kameraDistanco += ( ludanto.celDistanco - ludanto.kameraDistanco ) * Math.min(1, deltaTempo * 0o10);
     if ( ludanto.celDistanco < 0o1/0o20 ) ludanto.kameraDistanco = 0;
     const vidasFiguron = ludanto.kameraDistanco > 0o1/0o20 && ( ludanto.rezimo === "promeno" || ludanto.rezimo === "interno" );
@@ -339,18 +339,18 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     const mapX = ludanto.rezimo === "orbito" ? hakama.target.x : ludanto.raqa.x;
     const mapZ = ludanto.rezimo === "orbito" ? hakama.target.z : ludanto.raqa.z;
     minimapo.gxisdatigi(fx, fz, mapX, mapZ);
-    // ⟨ ចង្វាក់ស្រមោលក្រោមបន្ទុក 📃 ⟩
-    // ⟨ ពេលឈរស្ងៀម ៖ គ្មានអ្នកណាបំលាស់ទីក្រៅពីពួកអ្នកដើរតាមផ្លូវ ។ ដូច្នេះ
-    // ផែនទីស្រមោល ( ដែលជាការគូរធរណីមាត្រម្តងទៀត ) មិនចាំបាច់គូររៀងរាល់ពីរស៊ុមទេ ។
-    // ស្រមោលរបស់អ្នកដើរតាមផ្លូវគ្រាន់តែយឺតបន្តិច ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
     const movigxanta = ludanto.movoValoro > 0o1/0o100;
     const ombraPeriodo = movigxanta ? ( deltaTempo > 0o1/0o40 ? 0o4 : 0o2 ) : 0o6;
     ombraJoqa = ( ombraJoqa + 1 ) % ombraPeriodo;
     const ombroMovigxis = gxisdatigiOmbron(mapX, mapZ);
     if ( ombroMovigxis || ombraJoqa === 0 ) bildilo.shadowMap.needsUpdate = true;
     lampSistemo.sekviLumojn(mapX, mapZ);
-    // ⟪ ស្មៅ 📃 ⟫
-    // ⟨ កណ្តាលស្មៅគឺកាមេរ៉ា 📃 ⟩
+// ⟪ ſɭэ ſɭw , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
     if ( ludanto.rezimo !== "interno" ) {
       const fotilaX = fotilo.position.x, fotilaZ = fotilo.position.z;
       gxisdatigiFe1afn(t, fotilaX, fotilaZ, kolektiHerbajnPusantojn(fotilaX, fotilaZ));
@@ -384,13 +384,13 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
       hakama.update();
     }
 
-    // ⟪ ដែនមើល 📃 ⟫
-    // ⟨ កណ្តាលគឺកាមេរ៉ា មិនមែនគោលដៅ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
     if ( ludanto.rezimo !== "interno" ) gxisdatigiVidlimojn(fotilo.position.x, fotilo.position.z);
 
-    // ⟪ ពណ៌ KNAKEHE ជានិច្ច 🎨 ⟫
-    // ⟨ វត្ថុថ្មីបង្គត់ភ្លាម ពេលវាចូលឆាក ដោយមិនឆ្លងកាត់ឆាកទាំងមូល ។
-    //   បោសពេញនៅរយៈពេលដើមដដែល ដើម្បីចាប់ពណ៌ដែលប្រែក្រោយមក ។ 📃 ⟩
+// ⟪ ſ͕ɭɜ ı],ᴜ , 🎨 ⟫
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+//   ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
     veb6qaiSef4Qena(qena);
     if ( ++veb6qaiJoqaNombro % KANAKA_PLENA_PERIODO === 0 ) veb6qaiQena(qena, true);
 

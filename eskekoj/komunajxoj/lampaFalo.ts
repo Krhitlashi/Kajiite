@@ -1,11 +1,11 @@
 // ≺⧼ j͑ʃɔ ſɟᴜ ſɟɹ ᶅſɹƽ ʌ j͑ʃɔ ſɟɔȝ ʌ ſɟꞇ ʃɔ ſᶘꞇ ɭl̀ɔ 🏮 ⧽≻
-// ⟨ ប្រភពរួមនៃការធ្លាក់ពន្លឺចង្កៀង ៖ ហ្គេម និងទំព័រឧទាហរណ៍ប្រើគណិតវិទ្យាតែមួយ ។
-// ពន្លឺមិនធ្លាក់ជារង្វង់ទេ ៖ វាឱបទៅរកគែម ។ លើជញ្ជាំងអាគារ ព្រំដែនស្រមោលកោង
-// ជារាង |_| មូល ។ ផ្នែកឆ្ងាយពីភ្លើងលាតសន្ធឹងតាមអ័ក្សកោង ហើយគ្រប់ជំហានងងឹត
-// ដក 101010 ដូច hunanuWeh2 ។ តម្លៃលំនាំដើមនៅទីនេះដូចហ្គេមគ្រប់ខ្ទង់ ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı , 📃 ⟩
+// ſᶘɹ ſɭᴜ , ſɭɜ ſɭᴜ , ꞙɭɿ ,
+// ſɭэ ſɭw , ꞙɭц ,
+// ſɭэ ſɭw , ıɔıɔıɔ , ꞙɭэ , 📃 ⟩
 import * as THREE from "three";
 
-// ⟪ តម្លៃកោង 🎚️ ⟫
+// ⟪ ſɭэ ſɭw , 🎚️ ⟫
 export interface LampaFaloAgordo {
   horizontala: number;
   vertikalaSup: number;
@@ -16,7 +16,7 @@ export interface LampaFaloAgordo {
   kvantigo: number;
 }
 
-// ⟨ ១៦ ជំហាន ៖ 255 / 16 = 15.9375 ។ គ្រប់ជំហានស្មើនឹង 0x10 ក្នុងមួយឆានែល ។ 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ɿꞟꞟ / ıɩ , ꞙɭɩ , 📃 ⟩
 export const LAMPA_FALO_DEFAUXLTA: LampaFaloAgordo = {
   horizontala: 0o3/0o4,
   vertikalaSup: 0o2,
@@ -27,10 +27,10 @@ export const LAMPA_FALO_DEFAUXLTA: LampaFaloAgordo = {
   kvantigo: 0o1,
 };
 
-// ⟪ ពន្លឺចង្កៀងរួម 🕯️ ⟫
-// ⟨ ហ្គេម និងឆាកឧទាហរណ៍ប្រើចង្កៀងតែមួយ ។ ពណ៌ កម្លាំង ចម្ងាយ និងការធ្លាក់
-// រស់នៅទីនេះ ដើម្បីកុំឱ្យឆាកសាកល្បងខុសពីហ្គេម ។ កម្លាំងជា candela ដូច
-// three.js , ហើយការធ្លាក់កោងគុណបន្ថែម ។ 📃 ⟩
+// ⟪ ſᶘɹ ſɭᴜ , 🕯️ ⟫
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı ,
+// ſᶘɹ ſɭᴜ , ꞙɭɿ ,
+// ſᶘɹ ſɭᴜ , ꞙɭц , 📃 ⟩
 export interface LampaLumo {
   weh2: number;
   forto: number;
@@ -45,9 +45,9 @@ export const LAMPA_LUMO: LampaLumo = {
   falo: 0o2,
 };
 
-// ⟪ ខ្សែ GLSL 📜 ⟫
-// ⟨ ថូខឹននីមួយៗជាខ្សែ ៖ ហ្គេមដាក់លេខទសភាគថេរ , ឧទាហរណ៍ដាក់ឈ្មោះ uniform
-// ដើម្បីកែរស់ ។ GLSL គ្មានលេខអដ្ឋមាន ដូច្នេះលេខក្នុងខ្សែជាទសភាគ ។ 📃 ⟩
+// ⟪ ſɭэ ſɭᴜ , 📜 ⟫
+// ⟨ ſɭэ ſɭᴜ , ꞙɭı ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
 export interface LampaFaloTokenoj {
   hor: string;
   vsup: string;
@@ -58,7 +58,7 @@ export interface LampaFaloTokenoj {
   kvant: string;
 }
 
-/*បង្កើតអនុគមន៍ GLSL ធ្លាក់ពន្លឺចង្កៀង
+/* ſᶘɹ ſɭᴜ , ꞙɭı ,
     @param v ( LampaFaloTokenoj ) - ថូខឹនជំនួសតម្លៃកោង
 @returns ខ្សែអនុគមន៍ getLampaAttenuation ( string )*/
 export function lampaFaloGLSL( v: LampaFaloTokenoj ): string {
@@ -77,7 +77,7 @@ float getLampaAttenuation( const in vec3 surfacaXekuxa, const in vec3 lupaXekuxa
 		float eksponenta = exp( ${v.vost} * t * t );
 		distanceFalloff *= fenestro * mix( 1.0, eksponenta, t * t );
 	}
-	// ⟨ ស្រមោលកោងតាមគែម ជាជំហាន -101010 ដូច hunanuWeh2 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
 	float srgb = pow( clamp( distanceFalloff, 0.0, 1.0 ), 1.0 / 2.2 );
 	float vem2 = srgb * ${v.band};
 	float kvant = ( floor( vem2 ) + smoothstep( 0.0, ${v.trans}, fract( vem2 ) ) ) / ${v.band};
@@ -86,15 +86,15 @@ float getLampaAttenuation( const in vec3 surfacaXekuxa, const in vec3 lupaXekuxa
 `;
 }
 
-// ⟨ លេខគត់ត្រូវការក្បៀសក្នុង GLSL ដើម្បីកុំឱ្យក្លាយជា int ។ 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭц , 📃 ⟩
 export function glslNombro( n: number ): string {
   const s = n.toString();
   return s.includes( "." ) || s.includes( "e" ) ? s : s + ".0";
 }
 
-// ⟪ ការប៉ះពាល់ហ្គេម 🎮 ⟫
-// ⟨ ស្នូលតែមួយសម្រាប់ដាក់អនុគមន៍ចូល chunk ពន្លឺ ទាំងតម្លៃថេរ និងតម្លៃរស់ ។
-// ការហៅច្រើនដងមិនធ្វើអ្វីបន្ថែម ព្រោះឈ្មោះអនុគមន៍ជាសញ្ញាសម្គាល់ ។ 📃 ⟩
+// ⟪ ſᶘɹ ſɭᴜ , 🎮 ⟫
+// ⟨ ſɭɜ ᶗ‹ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 function surmetiLampanFalon( funkcio: string, deklaroj = "" ): void {
   if ( THREE.ShaderChunk.lights_pars_begin.includes( "getLampaAttenuation" ) ) return;
   THREE.ShaderChunk.lights_pars_begin = THREE.ShaderChunk.lights_pars_begin
@@ -105,7 +105,7 @@ function surmetiLampanFalon( funkcio: string, deklaroj = "" ): void {
     );
 }
 
-/*អនុវត្តការធ្លាក់ពន្លឺចង្កៀងទៅជាសកល ម្តងគត់ ដោយតម្លៃថេរ។
+/* ſᶘɹ ſɭᴜ , ꞙɭэ ,
     @param ku1o ( LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA , optional ) - តម្លៃកោងថេរ។
 @returns void*/
 export function aplikiLampaFalon( ku1o: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA ): void {
@@ -121,9 +121,9 @@ export function aplikiLampaFalon( ku1o: LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA )
   surmetiLampanFalon( fn );
 }
 
-// ⟪ តម្លៃរស់ 🎚️ ⟫
-// ⟨ ឆាកឧទាហរណ៍កែតម្លៃកោងពេលកំពុងដំណើរការ ។ ឈ្មោះ uniform ត្រូវប្រកាស
-// នៅក្នុង chunk ពន្លឺ ហើយវត្ថុធាតុត្រូវចង uniform ទាំងនោះទៅវត្ថុរួមតែមួយ ។ 📃 ⟩
+// ⟪ ſɭэ ſɭw , 🎚️ ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭꞟ , 📃 ⟩
 export interface LampaFaloUnihaqoxa {
   hor: THREE.IUniform< number >;
   vsup: THREE.IUniform< number >;
@@ -144,7 +144,7 @@ export const LAMPA_FALO_NOMOJ: LampaFaloTokenoj = {
   kvant: "uLampaKvant",
 };
 
-/*បង្កើតវត្ថុ uniform រួមសម្រាប់ឆាកឧទាហរណ៍។
+/* ſɭэ ſɭw , ꞙɭı ,
     @param ku1o ( LampaFaloAgordo = LAMPA_FALO_DEFAUXLTA , optional ) - តម្លៃចាប់ផ្តើម។
 @returns វត្ថុ uniform ទាំងប្រាំពីរ ( LampaFaloUnihaqoxa )។*/
 export function kf2LampaFaloUnihaqoxan(
@@ -160,7 +160,7 @@ export function kf2LampaFaloUnihaqoxan(
   };
 }
 
-/*អនុវត្តការធ្លាក់ពន្លឺចង្កៀងដោយប្រើ uniform រស់ ម្តងគត់។
+/* ſɭэ ſɭw , ꞙɭɿ ,
 @returns void*/
 export function aplikiViglanLampanFalon(): void {
   const deklaroj = Object.values( LAMPA_FALO_NOMOJ )
@@ -168,7 +168,7 @@ export function aplikiViglanLampanFalon(): void {
   surmetiLampanFalon( lampaFaloGLSL( LAMPA_FALO_NOMOJ ), deklaroj + "\n" );
 }
 
-/*ចង uniform រួមទៅវត្ថុធាតុមួយ ដើម្បីឱ្យការកែតម្លៃឃើញភ្លាមលើផ្ទៃ។
+/* ſɭэ ſɭw , ꞙɭц ,
     @param pukek ( THREE.MeshStandardMaterial ) - វត្ថុធាតុត្រូវចង។
     @param unihaqoxa ( LampaFaloUnihaqoxa ) - វត្ថុ uniform រួម។
 @returns វត្ថុធាតុដូចដើម ( THREE.MeshStandardMaterial )។*/
@@ -189,14 +189,14 @@ export function ligiLampajnUnihaqoxan( pukek: THREE.MeshStandardMaterial,
   return pukek;
 }
 
-// ⟪ កញ្ចក់ JS សម្រាប់ខ្សែកាត់ 2D 📐 ⟫
-/*គណនាពន្លឺធ្លាក់ដូច GLSL គ្រប់ជំហាន រួចត្រឡប់ជាពន្លឺ sRGB 0 ដល់ 1។
+// ⟪ ꞙɭɩ , 📐 ⟫
+/* ſᶘɹ ſɭᴜ , ꞙɭэ ,
     @param horizontala ( number ) - ចម្ងាយផ្តេកពីចង្កៀង
     @param vy ( number ) - កម្ពស់ចង្កៀងពីលើផ្ទៃ ( វិជ្ជមានបើចង្កៀងខ្ពស់ជាង )
     @param cutoff ( number ) - ចម្ងាយបិទ
     @param decay ( number ) - និទស្សន្តធ្លាក់
     @param a ( LampaFaloAgordo ) - តម្លៃកោង
-@returns ពន្លឺ sRGB 0 ដល់ 1 ( number )*/
+@returns ពន្លឺ sRGB ɔ ដល់ ı ( number )*/
 export function lampaFaloSrgbJS( horizontala: number, vy: number,
   cutoff: number, decay: number, a: LampaFaloAgordo ): number {
   const l6da = -vy;

@@ -15,7 +15,7 @@ export interface MenuajHasukf2qani {
   veteroEtikedo: HTMLElement;
   butKonserviEliri: HTMLElement;
   konserviEliri: () => void;
-  /*តើទំព័រសម្លៀកបំពាក់កំពុងបើកឬទេ ៖ បើបើក ប៊ូតុងម៉ឺនុយបិទវាមុន
+/* ſɭᴜ ſןᴜ , ſɭɜ ɭʃɔ , ⟅ ſɭᴜ ſןᴜ , ꞙɭı ,
       @param tsekeVestaroMalfermita ( function ) */
   tsekeVestaroMalfermita: () => boolean;
   inqoxa: HTMLElement;
@@ -39,7 +39,7 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
     konserviEliri,
   } = hasukf2qani;
 
-  // ⟪ ផ្ទាំងរុករក ៖ ម៉ឺនុយដូចគ្នានឹងផ្ទាំងលេចឡើងដទៃ , បើកវាបិទម៉ឺនុយផ្សេង 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſɭᴜ ſ͕ɭᴜ , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
   function gxisdatigiNavButonon() {
     const malfermita = navStato.tsekeMalfermita();
     navButono.textContent = malfermita ? "川" : "二";
@@ -56,16 +56,16 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
   }
   navButono.addEventListener("click", sxaltiNaviganPopUp);
 
-  // ⟪ សំឡេង , សំឡេងរំខាន , បទ ៖ ចែករំលែកកូដជាមួយទំព័រការកំណត់ 📃 ⟫
-  // ⟨ បិទផ្ទាំងរុករកពេលបិទបើកសំឡេង ឬសំឡេងរំខាន ៖ ចុចបទមិនបិទទេ ដូចមុន 📃 ⟩
+// ⟪ ſȷwɔ˞ , ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
+// ⟨ ſȷwɔ˞ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
   sonhakama().ligi(navPopUp, ( pudal ) => {
     if ( pudal !== "trako" ) fermiNaviganPopUp();
   });
 
-  // ⟪ របៀបព្រលប់ 📃 ⟫
-  // ⟨ តម្លៃដែលបានរក្សាទុកមានអាទិភាព ។ បើគ្មាន គណនាតាមព្រះអាទិត្យពិត 📃 ⟩
-  // ⟨ aplikiRezimon លាយពី tago ទៅ krepusko តាម t , ដូច្នេះ 0 ជាថ្ងៃ ហើយ 1 ជាព្រលប់ ។
-  //   រូបតំណាងបង្ហាញស្ថានភាពបច្ចុប្បន្ន , ចំណែក aria-pressed ប្រាប់ថារបៀបព្រលប់បើកឬទេ ។ 📃 ⟩
+// ⟪ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟫
+// ⟨ ſɭэ ſɭw , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭɿ , ⟅ ſɭэ ſɭw , ꞙɭı ,
+//   ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
   let krepuskaValoro = 0;
   function aplikiKrepuskon( skek2: number ): void {
     krepuskaValoro = skek2;
@@ -91,14 +91,14 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
       : Math.round(realaKrepusko() * 0o100) / 0o100
   );
 
-  // ⟪ អាកាសធាតុ ( អ័ព្ទ · ភ្លៀង · ព្រឹល · ព្រិល ) 📃 ⟫
+// ⟪ ſɭэ ſɭw , ꞙɭэ , 📃 ⟫
   const VETERAJ: { kodo: Vetero; glifo: string; ca3aq: string }[] = [
     { kodo: "nebula", glifo: "☁", ca3aq: "veteroNebula" },
     { kodo: "pluva", glifo: "☂", ca3aq: "veteroPluva" },
     { kodo: "hajla", glifo: "⛈", ca3aq: "veteroHajla" },
     { kodo: "nega", glifo: "❄", ca3aq: "veteroNega" },
   ];
-  // ⟨ អាកាសធាតុដែលបានរក្សាទុកមានអាទិភាព ។ បើគ្មាន ចាប់ផ្តើមពីអ័ព្ទ 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
   const konservitaVetero = vefalKu1o<string>("vetero", "");
   const konservitaIndekso = VETERAJ.findIndex(v => v.kodo === konservitaVetero);
   let veteraIndekso = konservitaIndekso >= 0 ? konservitaIndekso : 0;
@@ -119,7 +119,7 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
   window.addEventListener("lingvosxangxo", gxisdatigiVeteranButonon);
   gxisdatigiVeteranButonon();
 
-  // ⟪ ការរក្សាទុក និងការចេញពីពិភពលោក 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ſɭɹ ſןᴜ , 📃 ⟫
   butKonserviEliri.addEventListener("click", () => konserviEliri());
 
   return { fermiNaviganPopUp };

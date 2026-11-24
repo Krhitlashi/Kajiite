@@ -1,7 +1,7 @@
-// ≺⧼ ជំនួយផ្ទាំងគំនូរ 🖌️ ⧽≻
+// ≺⧼ ſןɹ ɭʃэ ſɭ,ɜ ʌ j͑ʃᴜꞇ 🖌️ ⧽≻
 import { hunanu, tsije, veb6qaiW2d2 } from "../../komunajxoj/koloroj.js";
 
-// ⟪ ជំនួយផ្ទាំងគំនូរ 🖌️ ⟫
+// ⟪ ſןɹ ɭʃэ ſɭ,ɜ ʌ j͑ʃᴜꞇ 🖌️ ⟫
 
 export function volviX(k: CanvasRenderingContext2D, qoxa: () => void): void {
   const s = k.canvas.width;
@@ -15,7 +15,7 @@ export function volviX(k: CanvasRenderingContext2D, qoxa: () => void): void {
 
 export function sxtofon(k: CanvasRenderingContext2D, kozuni: number): void {
   const w = k.canvas.width, h = k.canvas.height;
-  // ⟨ ការត្បាញទន់ 📃 ⟩
+  // ⟨ ı],ͷ̗ɔʞ ʌ ʃᴜ ſɭ,ɹ 📃 ⟩
   const vepat6ni = 0o10, fadeno = 0o2;
   k.globalAlpha = veb6qaiW2d2(0o1/0o20);
   for ( let i = 0; i < w; i += vepat6ni ) {

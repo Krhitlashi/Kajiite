@@ -2,7 +2,7 @@
 import { noiseSrc } from "./bruo.js";
 import { faktoro } from "./vario.js";
 
-// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+// ⟨ ſȷƽᴜ ʃɔ ʌ ꞙɭɔ ʌ ꞙɭɔ ⟅ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ETA = 0o1/0o20000;
 
 export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {
@@ -13,7 +13,7 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   const pk = 0o37/0o100 * vel;
   const kozuni = pk * 0o7/0o10;
 
-  // ⟨ ចង្វាក់ញ័រតិចៗលើចាន ឃើញក្នុងការវាស់សំឡេងពិត តែកុំឱ្យឮជារលកធំ 📃 ⟩
+  // ⟨ j͑ʃɔ ֭ſɭɔ }ʃꞇ ʌ ſᶘᴜƽ ʌ ſןᴜ ſᶘɹ ⟅ ꞙɭɔ ʌ ſᶘᴜƽ 📃 ⟩
   const g = ctx.createGain();
   g.gain.setValueAtTime(ETA, t);
   g.gain.linearRampToValueAtTime(kozuni, t + 0o1/0o100);
@@ -29,7 +29,7 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   trem.connect(tg);
   tg.connect(g.gain);
 
-  // ⟨ ផ្នែកមិនស្មើភាគ មានកម្លាំង និងរយៈពេលរំកិលខុសគ្នារាល់ដង 📃 ⟩
+  // ⟨ ſɭɔƽ ʌ ꞙɭɔ ʌ ſɭᴜ }ʃᴜȝ , ꞙɭı ʌ ꞙɭı ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ 📃 ⟩
   for ( let i = 0; i < ratios.length; i++ ) {
     const o = ctx.createOscillator();
     o.type = "sine";
@@ -46,7 +46,7 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
     o.stop(t + dec + 0o1/0o10);
   }
 
-  // ⟨ ស្នាមដំបូងពេលគេវាយលើចាន 📃 ⟩
+  // ⟨ ſɟᴜ ſ̀ȷɔƽ ʌ j͑ʃᴜ ʌ ſןᴜ ſᶘɹ 📃 ⟩
   const n = noiseSrc(ctx);
   const lp = ctx.createBiquadFilter();
   lp.type = "lowpass";
@@ -61,7 +61,7 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   n.start(t);
   n.stop(t + 0o1/0o20);
 
-  // ⟨ សំឡេងបន្ទប់សល់យូរជាងការវាយ ធ្វើឱ្យចន្លោះមិនស្ងាត់ 📃 ⟩
+  // ⟨ ʃɜ j͐ʃɔ ʌ ſ͔ɭɔƽ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   const room = noiseSrc(ctx);
   const rbp = ctx.createBiquadFilter();
   rbp.type = "bandpass";

@@ -12,10 +12,10 @@ export interface AkvaAgordoj {
   profundoMaks?: number;
   fluoSkalo?: number;
   minimumaProfundo?: number;
-  // ⟨ លំហូរធម្មជាតិ 📃 ⟩
-  // ពិភពលោកដែលមានគ្រាប់ពូជ , ទឹកហូរចុះរហូតដល់ទឹក ( សមុទ្រ ឬបឹង ) ។
-  // អាងបិទជិតក្លាយជាបឹងនៅកម្រិតច្រកចេញរបស់វា , ហើយខ្សែទឹកបន្តចុះពីច្រកនោះ ,
-  // ដូច្នេះទឹកអត់ឈប់នៅកម្ពស់ខ្ពស់ ហើយអត់កកកុញជាបឹងរាបធំៗនៅលើភ្នំ ។
+  // ⟨ j͐ʃᴜɔ˞ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
+  // }ʃᴜ j͐ʃᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ , ſᶘᴜ j͑ʃᴜ ʌ j͐ʃᴜɔ˞ ʌ ı],w ɽ͑ʃ'w ⟅ j͑ʃɹ ı],w ɽ͑ʃ'w ⟅
+  // ſ͕ɭɜ ı],w ʌ ꞙɭı , j͑ʃɹ ı],w ɽ͑ʃ'w ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ʃɔ ⟅
+  // ꞙɭı ſᶘᴜ j͑ʃᴜ ʌ j͐ʃэ ɭ(ᴜ ʌ ɭl̀ᴜ ſ͕ɭɜ , ꞙɭɔ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɹ ı],w ɽ͑ʃ'w ʌ ɭl̀ᴜ ſ͕ɭɜ ⟅
   naturaFluo?: boolean;
 }
 
@@ -27,18 +27,18 @@ export interface AkvaKalkulo {
   statistikoj: { hatsiq: number; haqar6xe: number; akvaj: number; ternoj: number };
 }
 
-// ⟨ អ្នកជិតខាងទាំងប្រាំបី ៖ តារាងសំប៉ែត ។ រង្វិលជុំក្តៅរត់រាប់លានដង ,
-//   ដូច្នេះការបំបែកតារាង ( destructuring ) ក្នុងរង្វិលជុំមានតម្លៃថ្លៃ ។ លំដាប់ត្រូវរក្សា
-//   ដើម្បីកុំប្តូរលទ្ធផល ព្រោះការបំបែកស្មើអាស្រ័យលើលំដាប់ ។ 📃 ⟩
+// ⟨ ꞙɭ8 ʌ ſɭɹ ſןᴜ : ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ɭl̀ᴜ ,
+//   ꞙɭı ʌ ſɭɹ ſןᴜ ʌ ſɭᴜ ʌ ſɭᴜ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ
+//   ſɭɜ ʃɔ ʌ }ʃɹƽ 📃 ⟩
 const NAJBARAJ_DI = new Int8Array([ -1, 0, 1, -1, 1, -1, 0, 1 ]);
 const NAJBARAJ_DJ = new Int8Array([ -1, -1, -1, 0, 0, 1, 1, 1 ]);
 const NAJBAROJ = 0o10;
 
 const EPS = 0o1/0o20;
 
-// ⟨ ទំហំអាងតូចបំផុត 📃 ⟩
-// អាងដែលធំជាងនេះ អត់ក្លាយជាបឹងទេ , ការបំពេញអាងធំនៅកម្រិតច្រកចេញរបស់វា
-// បង្កើតជាបឹងរាបធំៗនៅលើភ្នំ ។
+// ⟨ ſןᴜ j͐ʃэ ʌ ſ͕ɭɜ ı],w 📃 ⟩
+// ſ͕ɭɜ ı],w ʌ ꞙɭı ʌ ſןᴜ j͐ʃэ , j͑ʃɹ ı],w ɽ͑ʃ'w ꞙɭɔ , ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſ͕ɭɜ ı],w
+// j͑ʃɹ ı],w ɽ͑ʃ'w ʌ ɭl̀ᴜ ſ͕ɭɜ ⟅
 const BASENETO_MAKS = 0o30;
 
 export function kalkuliAkvon(
@@ -58,7 +58,7 @@ export function kalkuliAkvon(
   const fluoSkalo = haku1o.fluoSkalo ?? 0o10;
   const minimumaProfundo = haku1o.minimumaProfundo ?? 0o1/0o40;
 
-  // ⟨ ក្រឡា 📃 ⟩
+  // ⟨ ſɭɹ ſןᴜ 📃 ⟩
   const H = new Float32Array(N);
   const ene = new Uint8Array(N);
   const pukaz = new Uint8Array(N);
@@ -82,7 +82,7 @@ export function kalkuliAkvon(
     }
   }
 
-  // ⟨ ការគណនាទឹកជំនន់ 📃 ⟩
+  // ⟨ j͐ʃᴜɔ˞ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
   const havesukani = new Float32Array(N).fill(Infinity);
   const ca1ara = new Int32Array(N).fill(-1);
   {
@@ -115,14 +115,14 @@ export function kalkuliAkvon(
   const qar6xe = new Uint8Array(N);
   const naturaFluo = haku1o.naturaFluo === true;
   const pasaVido = new Uint8Array(N);
-  // ⟨ សំរាមដែលប្រើឡើងវិញ ៖ ការបង្កើតតារាងថ្មីរាល់ការហៅថ្លៃណាស់ ,
-  //   ព្រោះការបំពេញអាងកើតឡើងច្រើនដង ។ មុខងារទាំងនេះមិនហៅខ្លួនឯងទេ ,
-  //   ដូច្នេះសំរាមមួយគឺគ្រប់គ្រាន់ ។ 📃 ⟩
+  // ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɭɜ ʃɔ j͑ʃɹ ı],w ɽ͑ʃ'w , ſᶘᴜ j͑ʃᴜ ʌ j͐ʃᴜɔ˞ 📃 ⟩
+  //   ꞙɭı ʌ ſɭɹ ſןᴜ ʌ }ʃɹƽ , j͑ʃ'ɔ ŋᷠɹ ʌ ſɭᴜ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ
+  //   }ʃɹƽ ʌ ſ͕ɭɜ ı],w 📃 ⟩
   const basenaX2pa = new Int32Array(N);
   const basenetaX2pa = new Int32Array(N < 0o100 ? 0o100 : N);
   const basenetaVidita = new Uint8Array(N);
 
-  // ⟨ លំហូរ 📃 ⟩
+  // ⟨ j͐ʃᴜɔ˞ 📃 ⟩
   let ternoj = 0;
   const tsiqjCxeloj: number[] = [];
   for ( const tsiq of hatsiq ) {
@@ -135,16 +135,16 @@ export function kalkuliAkvon(
     if ( restanta > 0 ) tsiqjCxeloj.push(saxeni);
     let id = saxeni;
     let tsel2sai = 0;
-    // ⟨ ក្រឡាដែលផ្លូវនេះបានឆ្លងកាត់ ។ កុំត្រឡប់ទៅវិញ , បើអត់ទេ ទឹកនឹងវិល
-    // ក្នុងអាងបិទទៅវិញទៅមក ។ 📃 ⟩
+    // ⟨ ſɭɹ ſןᴜ ʌ ſɭэ ֭ſɭэ ⟅ ꞙɭɔ }ʃɹƽ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſ͕ɭɜ ı],w 📃 ⟩
+    // ſ͕ɭɜ ı],w ʌ ꞙɭı j͐ʃᴜɔ˞ ʌ ꞙɭı 📃 ⟩
     if ( naturaFluo ) pasaVido.fill(0);
     while ( restanta > 0 && tsel2sai++ < N && id >= 0 ) {
       if ( pukaz[id] ) break;
       if ( naturaFluo ) pasaVido[id] = 1;
-      // ⟨ អាងបិទជិតតូចនៅលើគោក 📃 ⟩
-      // ក្រឡានេះនៅក្រោមកម្រិតច្រកចេញរបស់អាង ។ បើអាងតូច ទឹកកកកុញជាស្រះតូច
-      // ដែលមានផ្ទៃស្មើនឹងកម្រិតច្រកនោះ ។ បើអាងធំ ទឹកឆ្លងកាត់វា ព្រោះការបំពេញ
-      // អាងធំនឹងបង្កើតជាបឹងរាបធំៗនៅលើភ្នំ ( ដែលមិនធម្មជាតិ ) ។ 📃
+      // ⟨ ſ͕ɭɜ ı],w ʌ ꞙɭı ʌ ſןᴜ j͐ʃэ ʌ ſɭɜ ſɭ,w 📃 ⟩
+      // ſɭɹ ſןᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ʃɔ ⟅ ſ͕ɭɜ ı],w ʌ ſןᴜ j͐ʃэ
+      // ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ⟅ ſ͕ɭɜ ı],w ʌ ꞙɭı , ſᶘᴜ j͑ʃᴜ ʌ ſɭэ ֭ſɭэ ⟅
+      // ſ͕ɭɜ ı],w ʌ j͑ʃ'ɔ ŋᷠɹ , j͑ʃɹ ı],w ɽ͑ʃ'w ʌ ɭl̀ᴜ ſ͕ɭɜ ⟅ 📃 ⟩
       if ( naturaFluo && H[id] >= vem2 && havesukani[id] > H[id] + EPS ) {
         markiBaseneton(H, k6liqani, havem2, ene, n, id, havesukani[id], basenetaX2pa, basenetaVidita);
       }
@@ -153,9 +153,9 @@ export function kalkuliAkvon(
       const i = id % n, j = ( id - i ) / n;
       let sekv = -1, sekvAlto = H[id];
       let plejFruta = -1, plejFrutaOrdo = ca1ara[id];
-      // ⟨ លំហូរធម្មជាតិ , ធ្លាក់តាមកម្រិតដែលបានបំពេញ ។ លំដាប់បង្ហូរជាការបំបែក
-      // ស្មើ , ក្នុងអាងដែលលិចទឹក ក្រឡាទាំងអស់មានកម្រិតដូចគ្នា ដូច្នេះទឹកទៅ
-      // រកច្រកចេញតាមលំដាប់ ។ ផ្ទៃដីក្រៅអាងមានកម្រិតស្មើកម្ពស់ដី ។ 📃 ⟩
+      // ⟨ j͐ʃᴜɔ˞ ʌ ſᶘᴜ j͑ʃᴜ , j͑ʃ'ɔ ŋᷠɹ ʌ ſ͕ɭɜ ı],w 📃 ⟩
+      // ſɭɹ ſןᴜ ʌ ſᶘᴜ j͑ʃᴜ , j͑ʃ'ɔ ŋᷠɹ ⟅ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ }ʃɹƽ 📃 ⟩
+      // ſɭɜ ſɭ,w ʌ ꞙɭɔ ſ͕ɭɜ ı],w , j͑ʃ'ɔ ŋᷠɹ ʌ j͐ʃэ ɭ(ᴜ ⟅ 📃 ⟩
       let plejMalalta = -1, plejMalaltaInundo = Infinity, plejMalaltaOrdo = Infinity;
       for ( let q = 0; q < NAJBAROJ; q++ ) {
         const ni = i + NAJBARAJ_DI[q], nj = j + NAJBARAJ_DJ[q];
@@ -175,9 +175,9 @@ export function kalkuliAkvon(
       }
       if ( naturaFluo ) sekv = plejMalalta;
       if ( sekv < 0 ) {
-        // ⟨ គ្មានជម្រាលចុះ , ដីរាប ឬអាងបិទ 📃 ⟩
-        // ⟨ ពិភពលោកដែលបានឆ្លាក់ , អាងបិទក្លាយជាបឹង ។ ពិភពលោកដែលមានគ្រាប់ពូជ ,
-        // ទឹកឆ្លងកាត់អាងតាមលំដាប់បង្ហូរ ដើម្បីចេញតាមច្រកទាបបំផុត ហើយបន្តហូរចុះ 📃 ⟩
+        // ⟨ ꞙɭɔ j͐ʃᴜɔ˞ , ſɭɜ ſɭ,w ʌ ɭʃᴜ ſןɹ ⟅ ſ͕ɭɜ ı],w ʌ ꞙɭı 📃 ⟩
+        // ⟨ }ʃᴜ j͐ʃᴜ ʌ ſɭc̗ᴜ , ſ͕ɭɜ ı],w ʌ ꞙɭı j͑ʃɹ ı],w ɽ͑ʃ'w ⟅ }ʃᴜ j͐ʃᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ ,
+        // ſᶘᴜ j͑ʃᴜ ʌ ſ͕ɭɜ ı],w ʌ j͑ʃ'ɔ ŋᷠɹ , j͐ʃᴜɔ˞ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
         if ( !naturaFluo ) {
           if ( havesukani[id] > H[id] + EPS ) {
             markiBasenon( H, k6liqani, havem2, ene, n, id, havesukani[id], basenaX2pa );
@@ -186,8 +186,8 @@ export function kalkuliAkvon(
           sekv = plejFruta;
         }
         if ( sekv < 0 ) {
-          // ⟨ គ្មានក្រឡាបន្ត , កុំបង្កើតស្រះក្លែងក្លាយ ។ ពិភពលោកដែលបានឆ្លាក់រក្សា
-          // ស្រះបន្ថែមដើម្បីកុំឱ្យទឹកបាត់ ។ 📃 ⟩
+          // ⟨ ꞙɭɔ ſɭɹ ſןᴜ , ꞙɭɔ ſ͕ɭɜ ı],w ʌ ɽ͑ʃ'w j͑ʃ'ᴜ ⟅ }ʃᴜ j͐ʃᴜ ʌ ſɭc̗ᴜ ⟅
+          // ſ͕ɭɜ ı],w ʌ ꞙɭɔ ſᶘᴜ j͑ʃᴜ 📃 ⟩
           if ( !naturaFluo && !k6liqani[id] ) {
             ternoj++;
             markiTernon( H, k6liqani, havem2, ene, n, id, vem2 );
@@ -201,7 +201,7 @@ export function kalkuliAkvon(
     }
   }
 
-  // ⟨ ប្រឡាយ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
   for ( let id = 0; id < N; id++ ) {
     if ( !qar6xe[id] || k6liqani[id] || H[id] < vem2 ) continue;
     const profundo0 = profundoMaks * ( 1 - Math.exp(-fluo[id] / fluoSkalo) );
@@ -228,7 +228,7 @@ export function kalkuliAkvon(
     }
   }
 
-  // ⟨ ផ្ទៃប្រឡាយ 📃 ⟩
+  // ⟨ }ʃɹƽ ʌ ſɭэ ֭ſɭэ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
   for ( let id = 0; id < N; id++ ) {
     if ( !k6liqani[id] || kavoj[id] <= 0 || !qar6xe[id] ) continue;
     const fundo = H[id] - kavoj[id];
@@ -236,7 +236,7 @@ export function kalkuliAkvon(
     if ( havem2[id] < minimumo ) havem2[id] = minimumo;
   }
 
-  // ⟨ អាង 📃 ⟩
+  // ⟨ ſ͕ɭɜ ı],w 📃 ⟩
   if ( hatk2ni ) {
     for ( let id = 0; id < N; id++ ) {
       if ( hatk2ni[id] && ene[id] && H[id] < vem2 ) markiBasenon( H, k6liqani, havem2, ene, n, id, vem2, basenaX2pa );
@@ -246,9 +246,9 @@ export function kalkuliAkvon(
     if ( H[id] < vem2 ) markiBasenon( H, k6liqani, havem2, ene, n, id, vem2, basenaX2pa );
   }
 
-  // ⟨ កម្រិតនៃក្រឡាគោក 📃 ⟩
-  // ⟨ ក្រឡាដែលគ្មានទឹកទទួលកម្រិតក្រោមដីបន្តិច ។ បើអត់ទេ កម្រិតទឹករបស់ក្រឡា
-  // ជិតខាងលាតសន្ធឹងលើដីគោក ហើយទឹកលេចឡើងជាសន្លឹកអណ្តែត ។ 📃 ⟩
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ ʌ ꞙɭı ſᶘᴜ j͑ʃᴜ 📃 ⟩
+  // ⟨ ſɭɹ ſןᴜ ʌ ꞙɭɔ ſᶘᴜ j͑ʃᴜ , j͑ʃ'ɔ ŋᷠɹ ʌ ꞙɭɔ ſɭɹ ſןᴜ , ſᶘᴜ j͑ʃᴜ
+  // ſɭɹ ſןᴜ ʌ ſᶘɹ ſɭɔ , ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ſɭ,w 📃 ⟩
   if ( naturaFluo ) {
     for ( let id = 0; id < N; id++ ) {
       if ( !k6liqani[id] ) havem2[id] = H[id] - 0o1/0o4;
@@ -270,7 +270,7 @@ function markiBasenon(
   n: number, saxeni: number, vem2: number, x2pa: Int32Array,
 ): void {
   if ( H[saxeni] >= vem2 ) return;
-  // ⟨ ស្រះនេះបានបំពេញរួចហើយ ។ កុំចំណាយពេលម្តងទៀត 📃 ⟩
+  // ⟨ ſ͕ɭɜ ı],w ʌ ſɭᴜ , ꞙɭı }ʃɹƽ 📃 ⟩
   if ( k6liqani[saxeni] && havem2[saxeni] === vem2 ) return;
   let teruni = 0, nar2sa = 0;
   x2pa[nar2sa++] = saxeni;
@@ -291,14 +291,14 @@ function markiBasenon(
   }
 }
 
-/*បំពេញអាងបិទជិតតូចមួយជាស្រះ
-    @param H,k6liqani,havem2,ene ( typed arrays ) - ក្រឡាដី និងលទ្ធផល
-    @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
-    @param saxeni ( number ) - ក្រឡាដែលចាប់ផ្តើម
-    @param vem2 ( number ) - កម្រិតទឹករបស់ស្រះ
-    @param x2pa ( Int32Array ) - ជួរប្រើឡើងវិញ
-    @param vidita ( Uint8Array ) - ស្លាកប្រើឡើងវិញ
-@returns tem2 ( boolean ) - ពិត បើអាងតូចល្មម ហើយបានបំពេញ */
+/*ſ͕ɭɜ ı],w ʌ ꞙɭı ʌ ſɭɹ ſןᴜ ſᶘᴜ j͑ʃᴜ
+    @param H,k6liqani,havem2,ene ( typed arrays ) - ſɭɹ ſןᴜ ʌ ſɭɜ ſɭ,w , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ
+    @param n ( number ) - ſɭɹ ſןᴜ ʌ ſɭᴜ
+    @param saxeni ( number ) - ſɭɹ ſןᴜ ʌ ſɭɜ ʃɔ
+    @param vem2 ( number ) - j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſ͕ɭɜ ı],w
+    @param x2pa ( Int32Array ) - ſᶘᴜ j͑ʃᴜ ʌ }ʃɹƽ ʌ ſɭɜ ʃɔ ſɭɜ ʃɔ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ
+    @param vidita ( Uint8Array ) - ſɭɹ ſןᴜ ʌ ſɭɜ ʃɔ ſɭɜ ʃɔ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ
+@returns tem2 ( boolean ) - ſ͕ɭɜ ı],w ʌ ſןᴜ j͐ʃэ , ſᶘᴜ j͑ʃᴜ ʌ ſ͕ɭɜ ı],w */
 function markiBaseneton(
   H: Float32Array, k6liqani: Uint8Array, havem2: Float32Array, ene: Uint8Array,
   n: number, saxeni: number, vem2: number, x2pa: Int32Array, vidita: Uint8Array,
@@ -345,7 +345,7 @@ function markiTernon(
   }
 }
 
-// ⟨ ជំនួយគំរូ 📃 ⟩
+// ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
 
 export function specimenoDulineara( krado: Float32Array | Uint8Array,
   n: number, vepat6ni: number, origino: number[], x: number, z: number ): number {
@@ -432,8 +432,8 @@ class Amaso {
   private hatskek2: Float32Array;
   private havecax2lani: Int32Array;
   length = 0;
-  // ⟨ លទ្ធផលនៃការដកចេញ ៖ វាលជំនួសវិញនូវការត្រឡប់តារាង 📃 ⟩
-  // ការត្រឡប់តារាង [ តម្លៃ , លេខក្រឡា ] បង្កើតសំរាមមួយរាល់ក្រឡា ។
+  // ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɭɜ ʃɔ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
+  // ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɭɹ ſןᴜ 📃 ⟩
   skek2 = 0;
   vecax2lani = 0;
 

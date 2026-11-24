@@ -173,7 +173,7 @@ export function eniriInternon(
         group.add(kopio);
       }
     } else {
-      // ⟨ ជញ្ជាំងមុខទទួលបង្អួច 📃 ⟩
+      // ⟨ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩
       aldoniLonganFenestron(group, 0, hd, y, l6da, hw, "ne3ak2", muraMaterialo, fenestraMaterialo, joqaMaterialo);
     }
 
@@ -210,16 +210,16 @@ export function eniriInternon(
     }
 
     const lampNombro = Math.max(1, Math.floor(hw) - 1);
-    // ⟨ គ្មានចង្កៀងក្នុងការបើកទ្វារ 📃 ⟩
+    // ⟨ = ꞙɭɔ ʌ ֭ſɭwʞ ᶅſw ſɭɹ ʌ ſȷwɔ˞ ʌ ſɭɔⰱ 📃 ⟩
     const lampLargho = 0o3/0o40;
     for ( let i = 0; i < lampNombro; i++ ) {
       const lx = -hw + ( i + 1 ) * hw * 2 / ( lampNombro + 1 );
-      // ⟨ បើចង្កៀងធ្លាក់ចូលការបើកទ្វារ 📃 ⟩
+      // ⟨ = ʌ ֭ſɭwʞ ᶅſw ſɭɹ ʌ ſȷwɔ˞ ʌ ſɭɔⰱ 📃 ⟩
       const enPordaMalfermo = et === 0 && Math.abs(lx) - lampLargho < pordDuon;
       const flankSigno = Math.sign(lx) || 1;
       const lampY = y + l6da * 0o5/0o10;
-      // ⟨ គ្មានប្រអប់គៀប 📃 ⟩
-      // ⟨ ដៃជញ្ជាំង 📃 ⟩
+      // ⟨ = ꞙɭɔ ʌ ſɭw ʃᴜ ʌ ſɟᴜ ſɟɹ ᶅſɹƽ 📃 ⟩
+      // ⟨ ſɭᴜ ŋᷠᴜ ʌ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ 📃 ⟩
       const knece = new THREE.Mesh(
         new THREE.CylinderGeometry(0o1/0o100, 0o1/0o100, 0o3/0o10, 6).rotateX(Math.PI / 2),
         joqaMaterialo

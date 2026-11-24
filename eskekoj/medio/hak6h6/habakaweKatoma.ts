@@ -6,13 +6,13 @@ import { kf2T6hnaCac2sex } from "../../komunajxoj/cac2sex/t6hna.js";
 import { kf2T6g6Cac2sex } from "../../komunajxoj/cac2sex/t6g6.js";
 import { VOJA_BORDA_SEFINI } from "./havecax2l.js";
 
-// ⟪ ការភ្ជាប់ធរណីមាត្រ 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſ͕ɭɜ ı],ᴜ 📃 ⟫
 
-// ⟨ ផ្លូវមិនបញ្ចេញស្រមោល 📃 ⟩ ៖ ផ្ទៃផ្លូវ ចានភ្ជាប់ និងគែមមូលជាប់គ្នា
-// ហើយជាន់លើគ្នាបន្តិចនៅមាត់ ។ ពេលផ្លូវបញ្ចេញស្រមោល , ផែនទីស្រមោលឃើញ
-// ជាន់គ្នានោះជាខ្សែខ្មៅរវាងចំណុចភ្ជាប់ , ហើយផ្លូវមើលទៅដាច់ពីគ្នា ។
-// ដូច្នេះផ្លូវទទួលស្រមោលតែមិនបញ្ចេញ ។ សំណង់ដូចជាតួស្ពាន និងចំណត
-// នៅបញ្ចេញស្រមោលដោយខ្លួនឯង ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭɔ , ֭ſɭw }ʃᴜ }ʃw ⟅ ſɭэ ֭ſɭэ , ɭʃэ ſɭɔȝ , ɭʃɜ ſɭɹȝ ,
+//   ɭʃᴜ ſ͕ɭɹ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ֭ſɭw }ʃᴜ }ʃw , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ⟅
+//   ꞙɭı , ſɭэ ֭ſɭэ , ֭ſɭw }ʃᴜ }ʃw , ꞙɭɔ , ⟅ ſןᴜȝ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ,
+//   ֭ſɭw }ʃᴜ }ʃw , ꞙɭı , ⟅ 📃 ⟩
 export interface VojGeometriajHabakaweKatoma {
   haca1ara: Map<THREE.Material, THREE.BufferGeometry[]>;
   tlunakani(geometrio: THREE.BufferGeometry, pukek: THREE.Material, matrico: THREE.Matrix4): void;
@@ -81,7 +81,7 @@ export function kf2Hak6h6nMaterialojn(dioritaMaterialo: THREE.MeshStandardMateri
   centraF: number, centraU: number,
   bordoF: number, bordoU: number
 ): { supraMaterialo: THREE.MeshStandardMaterial; bordaMaterialo: THREE.MeshStandardMaterial } {
-  // ⟨ វាយនភាពជាកាស ៖ ត្រូវចម្លងមុនប្តូរឆានែល កុំឱ្យប៉ះសម្ភារៈថ្មគ្រប់កន្លែង 📃 ⟩
+  // ⟨ j͑ʃɜ ſɭ,ᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ſןw ſɭɔƽ , ꞙɭɔ , ⟅ 📃 ⟩
   const dioritaTx = kf2T6g6Cac2sex().clone();
   const andezitaTx = kf2T6hnaCac2sex().clone();
   dioritaTx.channel = 1; andezitaTx.channel = 1;

@@ -1,6 +1,6 @@
 // ≺⧼ j͐ʃɹ ı],ᴜ̭ᴜ ı],ͷ̗ɔ ſȷᴜꞇ 🪼 ⧽≻
-// ⟨ អ្វីដែលបានបែក 📃 ⟩
-// ⟨ តង់តាក់តូច 📃 ⟩
+// ⟨ j͑ʃᴜꞇ ʌ ſɭᴜͷ̗ ɭʃɜƽ 📃 ⟩
+// ⟨ j͐ʃᴜ ſןɔȝ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ ſɭɔƽ 📃 ⟩
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
@@ -65,7 +65,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
   const lobaQoxa = kf2Lobon();
   const w6qaY = -0o46/0o100 + 0o2/0o100;
   for ( const s of [ 0o1, -0o1 ] ) {
-    // ⟨ បបូរមាត់ 📃 ⟩
+    // ⟨ ſןᴜ ɭʃᴜ 📃 ⟩
     const lobo = new THREE.Mesh(lobaQoxa, lobaMaterialo);
     lobo.name = "lobo";
     lobo.position.set(s * 0o24/0o100, w6qaY, 0);
@@ -84,7 +84,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
       surfacxaParto(auriklo);
       hate.add(auriklo);
     }
-    // ⟨ តង់តាក់កាត់បន្ថយ 📃 ⟩
+    // ⟨ j͐ʃᴜ ſןɔȝ ʌ ſɟᴜ ɭʃᴜ 📃 ⟩
     const n2k: THREE.Vector3[] = [];
     for ( let i = 0; i <= 0o10; i++ ) {
       const u = i / 0o10;

@@ -7,12 +7,12 @@ export function k6h6DuonLargho( k6h6: K6h6RetoK6h6 ): number {
   return k6h6LarghoDuono( k6h6?.sefini );
 }
 
-// ⟪ កន្លះទទឹងផ្ទៃផ្លូវ 🛣️ ⟫
-/*កន្លះទទឹងបន្ទះកំពូលផ្លូវ ( មិនរាប់ស្មា ) ។ ចានភ្ជាប់ត្រូវប្រើតម្លៃនេះ ,
-   មិនមែនតម្លៃថេរទេ ។ បើចានតូចជាងផ្លូវ , ស្មាងងឹតរបស់ផ្លូវលាតចេញ
-   ហួសចាន , ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។
-    @param k6h6 ( K6h6RetoK6h6 ) - ផ្លូវ
-@returns p2somani ( number ) - កន្លះទទឹងកំពូល */
+// ⟪ j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ſɭэ ֭ſɭэ 🛣️ ⟫
+/*j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ſɭэ ֭ſɭэ ( ꞙɭɔ ʌ ſɭэ ) ⟅ ſןᴜ ſᶘɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ꞙɭı
+   ꞙɭɔ ⟅ ſןᴜ ſᶘɹ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ ſɭэ ֭ſɭэ
+   ſɭэ ֭ſɭэ ʌ j͑ʃᴜ ʃᴜ }ʃꞇ ⟅
+    @param k6h6 ( K6h6RetoK6h6 ) - ſɭэ ֭ſɭэ
+@returns p2somani ( number ) - j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ſɭэ ֭ſɭэ */
 export function k6h6SupraDuono( k6h6: K6h6RetoK6h6 | null | undefined ): number {
   return Math.max( VOJA_DIORITA_DUONO, ( k6h6?.sefini || 0o7/0o2 ) / 0o4 );
 }

@@ -1,9 +1,9 @@
 // ≺⧼ ſɭэ ֭ſɭэ ʌ ſןᴜ ſᶘɹ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſȷͷ̗ᴜƽ ꞁȷ̀ᴜꞇ ⚓ 🔬 ⧽≻
-// ⟨ វាស់កម្ពស់ផ្ទៃតាមអ័ក្សចំណត ។ ចានភ្ជាប់ឈប់ត្រង់ VOJA_TRUA_DUONO
-// ពីមាត់ដី ហើយវេទិកាចាប់ពីទីនោះ ។ បើកម្រិតទាំងពីរខុសគ្នាមួយជំហាន ,
-// ស្នាមដេកនោះក្លាយជាជញ្ជាំងឈរ ។ ឧបករណ៍នេះវាស់លោតខ្ពស់បំផុត ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ſɭэ ſɭᴜ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ ,
+// ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭɿ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
+// ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
 //
-// ការប្រើ ៖
+// ſɭэ ɭʃᴜ , ⟅
 //   node iloj/mezurilo/vepaqu.mjs qakaj2-kudro
 //   node --import ./iloj/mezurilo/falsdomo.mjs iloj/mezurilo/qakaj2-kudro.mjs
 import * as THREE from "three";
@@ -29,8 +29,8 @@ const dokObjektoj = DOKOJ.map(D => vepaqQakaj2n(qena, D.x, D.z, D.rotacio ?? 0,
 
 const defs: VojDifino[] = mondo.hak6h6.map((v, i) =>
   ( { pts: mondo.gluitaj[ i ], w: v.sefini / 2, hateruni: true } as VojDifino ));
-// ⟨ ជណ្តើរចំណតជាផ្លូវ 📏 ⟩ ៖ ដូច kaxte.ts ។ បើឧបករណ៍មិនសាងវា ,
-// អ័ក្សចំណតឃើញរន្ធទទេរវាងចាននិងវេទិកា ហើយវាស់លោតខុស ។ 📃 ⟩
+// ⟨ ſɟᴜ ſןᴜ ɭʃэ , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , 📏 ⟩ , ɭʃэ ſɭɔ , ꞙɭɔ ,
+// ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ֭ſɭэ ſɭэ , ꞙɭɿ , ꞙɭɿ , 📃 ⟩
 for ( let i = 0; i < DOKOJ.length; i++ ) {
   const D = DOKOJ[ i ], dok = dokObjektoj[ i ];
   if ( dok.stuparajPunktoj.length < 0o2 ) continue;
@@ -74,7 +74,7 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   const dok = dokObjektoj[ i ];
   const ca3aq = landX + "," + landZ;
   const reg = kunigajHavem2.get(ca3aq);
-  // ⟨ រកចំណុចប្រសព្វដែលបានចុះបញ្ជីជិតបំផុត 📃 ⟩ ការបិទភ្ជាប់អាចរំកិលចំណុច ។
+// ⟨ }ʃɹƽ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
   let plej: { k: string; n: typeof reg } = { k: "", n: undefined };
   let dist = Infinity;
   for ( const [ k, n ] of kunigajHavem2 ) {
@@ -82,7 +82,7 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
     const d = Math.hypot(qx - landX, qz - landZ);
     if ( d < dist ) { dist = d; plej = { k, n }; }
   }
-  console.log(`\nចំណត ${i} @(${D.x.toFixed(1)},${D.z.toFixed(1)}) land=(${landX.toFixed(2)},${landZ.toFixed(2)})`);
+  console.log(`\n｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${i} @(${D.x.toFixed(1)},${D.z.toFixed(1)}) land=(${landX.toFixed(2)},${landZ.toFixed(2)})`);
   console.log(`  platformY=${dok.platformY.toFixed(3)} landejaY=${dok.landejaY.toFixed(3)}` +
     ` plate=${plej.n?.l6da.toFixed(3) ?? "?"} @${plej.k} dist=${dist.toFixed(2)}` +
     ` gap=${( dok.platformY - ( plej.n?.l6da ?? NaN ) ).toFixed(3)} hole=${VOJA_TRUA_DUONO.toFixed(2)}`);
@@ -100,6 +100,6 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
   console.log(`  ${x2pa.join(" ")}`);
   if ( maks > tutaMaks ) tutaMaks = maks;
 }
-console.log(`ចំណត ${DOKOJ.length} , លោតខ្ពស់បំផុត ${tutaMaks.toFixed(3)}` +
-  ` , លីមីត ${STUPA_RISERO.toFixed(3)}` +
+console.log(`｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${DOKOJ.length} ｡ j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${tutaMaks.toFixed(3)}` +
+  ` ｡ ſןͷ̗ɜ j͑ʃƨɔȝ ${STUPA_RISERO.toFixed(3)}` +
   ( tutaMaks > STUPA_RISERO + 0o1/0o200 ? "  ſ̀ȷᴜ̩ ſɭɹ }ʃꞇ" : "" ));

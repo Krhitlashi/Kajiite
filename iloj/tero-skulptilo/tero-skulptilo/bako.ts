@@ -1,9 +1,9 @@
 // ≺⧼ j͑ʃɹ ſɟᴜ ſᶘɹ ſɟᴜ }ʃᴜ 🎨 ⧽≻
-// ការដុត 2D របស់ដី គឺពណ៌ដី និងពណ៌ទឹក សម្លេងតំបន់ជីវៈ និងសត្វ
-// ស្រមោលភ្នំតូច និងការគូរលើផ្ទាំងគំនូរពិភពលោក។ ម៉ូឌុលនេះមិន
-// កាន់កាប់ស្ថានភាពឆ្លាក់ទេ ព្រោះ agordiBakon ទទួលការយោងពីឯកសារ
-// មេ ( ដេលតា ស្រទាប់ និងឧបករណ៍ជំនួយគំរូ ) ដូច្នេះរង្វិលជុំ
-// ស្ថិតនៅទីនេះ ហើយស្ថានភាពនៅទីនោះ។
+// ſɭɜ ſɭ,w , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ( ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭэ ᶗ‹ , ꞙɭэ ,
 import * as THREE from "three";
 import { bazaAlteco } from "../../../kantaoj/mondo/tereno.js";
 import { katmullRom } from "../../../kantaoj/komunajxoj/interpolo.js";
@@ -12,13 +12,13 @@ import { MONDO, MONDO_HALFO, REZ } from "./havecax2l.js";
 import { tsekeAkvoSurfaco } from "./akvo.js";
 import { kuns2bana2d } from "../../komunajxoj/dom.js";
 
-// ⟪ ស្ថានភាពឆ្លាក់ 📃 ⟫ គឺការយោងមកពី agordiBakon តែម្តង ពេល
-// ផ្ទុក។ តារាង ( ដេលតា ម៉ាស តំបន់ជីវៈ សត្វ ) មិនដែលចាត់ចែងឡើងវិញទេ
-// ព្រោះម៉ូឌុលអានតំបន់ដូចគ្នា ដូច្នេះការយោងនៅតែត្រឹមត្រូវពេញ
-// វគ្គ។
-// ⟨ ការភ្ជាប់ការដុត 📃 ⟩ គឺតារាង និងឧបករណ៍ជំនួយគំរូរបស់ឯកសារ
-// មេ។ ជក់កំពុងប្រើ និងសត្វកំពុងប្រើជាអនុគមន៍ ព្រោះពួកវា
-// ផ្លាស់ប្តូរពេលប្រើ។
+// ⟪ ſɭэ ᶗ‹ , 📃 ⟫ , ſɭэ ᶗ‹ ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭэ ᶗ‹ , ꞙɭц ,
+// ſɭэ ᶗ‹ , ꞙɭэ ,
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 interface BakaLigo {
   hal6da: Float32Array;
   habs2: Uint8Array;
@@ -50,7 +50,7 @@ let akvaVem2Proksima: ( x: number, z: number ) => number;
 let penikoAktiva: () => string;
 let pagaAktiva: () => number;
 
-/* ការភ្ជាប់តែម្តងជាមួយឯកសារមេ។ ពីរចុងក្រោយ ( ជក់ សត្វ ) ជា
+/* ſɭэ ᶗ‹ , ꞙɭı ,
    អនុគមន៍ មិនមែនតម្លៃទេ ព្រោះជក់កំពុងប្រើផ្លាស់ប្តូរពេលប្រើ ដូច្នេះការដុត
    អានវាទាន់ពេល ( សម្លេងលេចឡើង និងបាត់តាមឧបករណ៍ )។
     @param k ( BakaLigo ) - ការយោងរបស់ឯកសារមេ។ */
@@ -62,9 +62,9 @@ export function agordiBakon(k: BakaLigo): void {
   penikoAktiva = k.peniko; pagaAktiva = k.paga;
 }
 
-// ⟪ ផ្ទាំងគំនូរពិភពលោក 📃 ⟫ គឺរូបភាព 768² ថេររបស់ដី និងតារាង
-// បីដែលអមជាមួយ គឺកម្ពស់ប្រូសេឌូរ៉ាល់ កត្តាស្រមោលភ្នំតូច និង
-// ជម្រាលជម្រាល ( ជម្រាលថ្មសម្រាប់បន្ទះពណ៌រួម )។
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭɜ ſɭ,w , ꞙɭɿ ,
 export const bazaCanvas = document.createElement("canvas");
 bazaCanvas.width = bazaCanvas.height = REZ;
 const bazaKuns2bana = kuns2bana2d(bazaCanvas);
@@ -73,9 +73,9 @@ const bazoj = new Float32Array(REZ * REZ);            // កម្ពស់ប�
 const haga = new Float32Array(REZ * REZ);         // កត្តាស្រមោលភ្នំតូច
 const deklivoGradientoj = new Float32Array(REZ * REZ); // |∇h| គឺជម្រាលថ្មសម្រាប់បន្ទះពណ៌រួម
 
-// prerenderiBazon គឺកម្ពស់ប្រូសេឌូរ៉ាល់ ( មូលដ្ឋានដោយគ្មានដេលតា ) សម្រាប់ផ្ទាំង
-// គំនូរទាំងមូល។ កម្ពស់មូលដ្ឋានមកពីដីរួម ( bazaAlteco ) ដូច្នេះ
-// ឧបករណ៍ឆ្លាក់ និងហ្គេមត្រូវគ្នា។
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᶗɜ ᶘᴜ , ꞙɭɩ ,
 export function prerenderiBazon(): void {
   for ( let py = 0; py < REZ; py++ ) {
     const z = MONDO_HALFO - ( py + 0o1/0o2 ) * MONDO / REZ;
@@ -87,16 +87,16 @@ export function prerenderiBazon(): void {
   }
 }
 
-// បន្ទះពណ៌ដីមកពីម៉ូឌុលរួម ( ដូចក្នុងហ្គេម ) ព្រោះពីមុនវា
-// ត្រូវបានចម្លងនៅទីនេះ ហើយបានបង្វែរពីបន្ទះពណ៌របស់ហ្គេម។ terenaKoloro255
-// គឺពណ៌ដីជាបៃ sRGB ( 0 ដល់ 255 ) សម្រាប់ផែនទី 2D និងស្រទាប់សម្លេង
-// គឺពណ៌លីនេអ៊ែររួមរបស់ហ្គេម ដែលបានបំប្លែងទៅ sRGB។ តំបន់ដែលឆ្លាក់
-// បង្ហាញដោយការធ្វើឱ្យដីស្រស់ងងឹតបន្តិច ( delta ≠ 0 ) ដែលមានតែក្នុងឧបករណ៍ មិនមែន
-// ក្នុងហ្គេមទេ។
+// ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭɿ ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭц ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭэ ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭɩ ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭꞟ ,
 const skrapaKoloro = new THREE.Color();
 export function terenaKoloro255(h: number, x: number, z: number, haga: number): number[] {
-  // ស្រទាប់ច្រាំងទន្លេអានកម្រិតទឹកពិត ( akvaVem2Proksima ) ព្រោះ
-  // ទន្លេហូរចុះ ដូច្នេះប្លង់ថេរមួយនឹងធ្វើឱ្យច្រាំងពណ៌ខុស។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
   terenaKoloroEn(skrapaKoloro, h, x, z, haga, akvaVem2Proksima);
   skrapaKoloro.convertLinearToSRGB();
   return [
@@ -106,17 +106,17 @@ export function terenaKoloro255(h: number, x: number, z: number, haga: number): 
   ];
 }
 
-// ⟨ ការបង្ហាញតំបន់ជីវៈ ( តំបន់ជីវៈរបស់ដីឆ្លាក់ ) 📃 ⟩
-// តំបន់ជីវៈ ( tereno.ts ) មកទាំងស្រុងពីស្រទាប់ដែលគូរដោយជក់ គឺ akvo ( ម៉ាស )
-// និងភ្នំ ជ្រលង វាលរាប រុក្ខជាតិទឹក និង tsake ដែលគូរ
-// ( SKULPTA_BIOMOJ )។ គ្មានតំបន់ជីវៈដេរីវេទេ ដូច្នេះទទេ ( 0 = ស្វ័យប្រវត្តិ
-// ឬគ្មានទិន្នន័យ ) គឺគ្មានអ្វីទេ។ ឧបករណ៍ឆ្លាក់បង្ហាញតំបន់ជីវៈតែពេល
-// ឧបករណ៍តំបន់ជីវៈ ( Bs2 🎨 ) បើក គឺពណ៌ស្វាយលើតំបន់ជីវៈភ្នំ
-// ពណ៌បៃតងខៀវលើជ្រលង ពណ៌បៃតងស្រាលលើវាលរាប ហើយតំបន់ជីវៈទឹក
-// ( រុក្ខជាតិទឹក tsake ) ផ្តល់ពណ៌ឱ្យក្រឡាទឹកតាមសម្លេងរៀងៗ
-// ខ្លួន។ ពេលបិទឧបករណ៍ ដីបង្ហាញពណ៌ធម្មជាតិរបស់វា។ សម្លេង
-// តាមក្រឡាដែលគូរផ្ទាល់ ដូច្នេះវាផ្លាស់ប្តូរពេល
-// គូរផ្ទាល់។
+// ⟨ ſɭɜ ſɭ,w , ꞙɭц , 📃 ⟩
+// ſɭɜ ſɭ,w , ꞙɭэ ,
+// ſɭɜ ſɭ,w , ꞙɭɩ ,
+// ( ſɭэ ᶗ‹ , ꞙɭı ,
+// ſɭэ ᶗ‹ , ꞙɭɿ ,
+// ſɭɜ ſɭ,w , ꞙɭц ,
+// ſɭɜ ſɭ,w , ꞙɭэ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
+// ſɭɜ ſɭ,w , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 const MONTA_NUANCO = [ 0o230, 0o60, 0o300 ];    // ពណ៌ស្វាយ គឺតំបន់ជីវៈភ្នំ
 const VALA_NUANCO = [ 0o40, 0o230, 0o260 ];     // បៃតងខៀវ គឺតំបន់ជីវៈជ្រលង
 const EBENAJA_NUANCO = [ 0o220, 0o300, 0o110 ]; // បៃតងស្រាល គឺតំបន់ជីវៈវាលរាប
@@ -129,11 +129,11 @@ const BIOMA_NUANCO: Record<string, [ number[], number ]> = {
   "akvaj-plantoj": [ AKVAJ_PLANTOJ_NUANCO, 0o35/0o100 ],
   tsake: [ EKVIZETO_NUANCO, 0o35/0o100 ],
 };
-// ស្រទាប់សត្វបង្ហាញតែពេលឧបករណ៍សត្វ ( Animaloj 🐾 )
-// បើក។ ចំណុចខៀវស្រាលលើក្រឡាសត្វទឹក ចំណុចភ្លឺលើ
-// ក្រឡាបក្សីព្រិល ចំណុចលឿងស្រាលលើក្រឡា NPC។ ទិដ្ឋភាពបង្ហាញ
-// តែប្រភេទដែលបានជ្រើស ហើយការលុបបង្ហាញក្រឡាដូចគ្នា ដើម្បី
-// ឱ្យគេឃើញអ្វីដែលកំពុងលុប។
+// ſɭɜ ſɭ,w , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭɜ ſɭ,w , ꞙɭɩ ,
+// ſɭɜ ſɭ,w , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
 const AKVAJ_BESTOJ_NUANCO = [ 0o110, 0o220, 0o300 ];
 const PETRELA_NUANCO = [ 0o320, 0o320, 0o320 ];
 const NPCA_NUANCO = [ 0o320, 0o260, 0o110 ];
@@ -143,9 +143,9 @@ const BESTO_NUANCO: Record<number, [ number[], number ]> = {
   4: [ NPCA_NUANCO, 0o13/0o40 ],
 };
 
-// bs2Interp គឺតំបន់ជីវៈដែលគូរនៅចំណុច ( ក្រឡាជិតបំផុតនៃ
-// ស្រទាប់តំបន់ជីវៈ )។ 0=ស្វ័យប្រវត្តិ, 1=ភ្នំ, 2=ជ្រលង, 3=វាលរាប, 4=រុក្ខជាតិទឹក,
-// 5=tsake។ គំរូដូច skulptitaBs2 ក្នុង tero-datumo.ts។
+// ſɭɜ ſɭ,w , ꞙɭɿ ,
+// ꞙɭı , ſɭɜ ſɭ,w , ꞙɭɿ ,
+// ſɭɜ ſɭ,w , ꞙɭц ,
 function bs2Interp(x: number, z: number): number {
   const i = Math.max(0, Math.min(N - 1, Math.floor(( x - X0 ) / PASO)));
   const j = Math.max(0, Math.min(N - 1, Math.floor(( z - Z0 ) / PASO)));
@@ -153,23 +153,23 @@ function bs2Interp(x: number, z: number): number {
 }
 const BIOMA_NOMOJ: ( string | null )[] = [ null, "montaro", "valo", "ebenaĵo", "akvaj-plantoj", "tsake" ];
 
-// pagaInterp គឺតំបន់សត្វដែលគូរនៅចំណុច ( ក្រឡាជិតបំផុត
-// នៃស្រទាប់សត្វ )។ ប៊ីត 1=សត្វទឹក, 2=បក្សីព្រិល, 4=NPC។ គំរូដូច
-// skulptitaPaga ក្នុង tero-datumo.ts។
+// ſɭɜ ſɭ,w , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭɜ ſɭ,w , ꞙɭꞟ ,
 function pagaInterp(x: number, z: number): number {
   const i = Math.max(0, Math.min(N - 1, Math.floor(( x - X0 ) / PASO)));
   const j = Math.max(0, Math.min(N - 1, Math.floor(( z - Z0 ) / PASO)));
   return hapaga[j * N + i];
 }
 
-// bs2De គឺតំបន់ជីវៈរបស់ចំណុចក្នុងឧបករណ៍ឆ្លាក់ ( ការសម្រេចដូច
-// ហ្គេម )។ តំបន់ជីវៈទឹកមានសុពលភាពតែលើទឹក ហើយម៉ាសតែងតែគ្របដណ្តប់
-// តំបន់ជីវៈលើដី រីឯទទេ ( 0 = ស្វ័យប្រវត្តិ ឬគ្មានទិន្នន័យ ) គឺ
-// គ្មានអ្វី គ្មានសម្លេង។ មានតែម៉ាស ( មិនមែនកម្ពស់ដី ) សម្រេចទឹក។
+// ſɭɜ ſɭ,w , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
+// ſɭɜ ſɭ,w , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
 function bs2De(x: number, z: number): string {
   const pentrita = bs2Interp(x, z);
-  // ⟨ ទឹកពិត 📃 ⟩ ៖ ទឹកមកពីការគណនា ( ប្រភព អាង ទន្លេ ) , មិនមែនម៉ាសចាស់ដែល
-  // បានគូរ ។ ដូច្នេះជីវភូមិទឹកបង្ហាញលើទន្លេដែលកើតពីប្រភពផងដែរ ។
+// ⟨ ſᶘᴜ j͑ʃᴜ , 📃 ⟩ , ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
   const akva = tsekeAkvoSurfaco(x, z);
   if ( pentrita === 4 && akva ) return "akvaj-plantoj";
   if ( pentrita === 5 && akva ) return "tsake";
@@ -177,13 +177,13 @@ function bs2De(x: number, z: number): string {
   if ( pentrita !== 0 ) return BIOMA_NOMOJ[pentrita] ?? "nenio";
   return "nenio";
 }
-// almetiBiomanNuancon គឺសម្លេងតំបន់ជីវៈ ឬសត្វលើពណ៌ k។ មានតែពេល
-// ឧបករណ៍ពាក់ព័ន្ធបើក ( ជក់កំពុងប្រើ ) ប៉ុណ្ណោះ បើមិនដូច្នេះពណ៌នៅតែ
-// ដដែល។
+// ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+// ſɭэ ᶗ‹ , ꞙɭɿ ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭц ,
 export function almetiBiomanNuancon(k: number[], x: number, z: number, _d: number): number[] {
-  // មានតែពេលឧបករណ៍តំបន់ជីវៈបើក។ ទឹកទទេមិនទទួល
-  // សម្លេងទេ ព្រោះតំបន់ជីវៈទឹក ( រុក្ខជាតិទឹក tsake ) ផ្តល់ពណ៌ឱ្យក្រឡា
-  // ដែលគូររបស់ពួកវា ហើយទឹកបង្ហាញពណ៌ផ្ទាល់ខ្លួននៅកន្លែងផ្សេង។
+// ſɭɜ ſɭ,w , ꞙɭэ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
   if ( penikoAktiva() === "bs2" ) {
     const n = BIOMA_NUANCO[bs2De(x, z)];
     if ( n ) {
@@ -196,8 +196,8 @@ export function almetiBiomanNuancon(k: number[], x: number, z: number, _d: numbe
     }
     return k;
   }  // មានតែពេលឧបករណ៍សត្វបើក ហើយទិដ្ឋភាពបង្ហាញតែ
-  // ប្រភេទដែលបានជ្រើស ( សត្វទឹកខៀវស្រាល បក្សីព្រិលភ្លឺ រីឯ NPC
-  // លឿងស្រាល )។
+// ſɭɜ ſɭ,w , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
   if ( penikoAktiva() === "hapaga" ) {
     const b = pagaInterp(x, z);
     const n = BESTO_NUANCO[pagaAktiva() & 7];
@@ -212,10 +212,10 @@ export function almetiBiomanNuancon(k: number[], x: number, z: number, _d: numbe
   return k;
 }
 
-// kolorigiAkvon គឺពណ៌ទឹកតាមជម្រៅ ដែលមានស្រមោលដូចដី។ នៅក្នុង
-// ក្រឡាដែលឆ្លាក់ ( delta ≠ 0 ) ទឹកក្លាយពណ៌ខ្វាក់ ( ដូចភក់កូរ ) ដើម្បី
-// ឱ្យជក់បង្ហាញឥទ្ធិពលរបស់វាផងដែរក្នុងទន្លេ និងបឹង ព្រោះដី
-// ដែលលើកឡើងនឹងមើលមិនឃើញក្រោមទឹកស្រអាប់។
+// ſᶘᴜ j͑ʃᴜ , ſɭɜ ſɭ,w ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
 function kolorigiAkvon(datumoj: Uint8ClampedArray, o: number, h: number, vem2: number,
   hunanu: number, delta: number, x: number, z: number): void {
   const prof = Math.min(6, vem2 - h);
@@ -227,8 +227,8 @@ function kolorigiAkvon(datumoj: Uint8ClampedArray, o: number, h: number, vem2: n
     const s = 0o5/0o40 + Math.min(0o1/0o2, Math.abs(delta) / 4);
     r += 0o30 * s; g -= 0o14 * s; b -= 0o20 * s;
   }
-  // សម្លេងតំបន់ជីវៈ និងសត្វគ្របដណ្តប់ទឹកផងដែរ គឺតំបន់ជីវៈទឹក
-  // ( រុក្ខជាតិទឹក tsake ) និងសត្វទឹកត្រូវបានគូរលើទឹកផ្ទាល់។
+// ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
+// ( ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
   const k = almetiBiomanNuancon([ r, g, b ], x, z, delta);
   r = k[0]; g = k[1]; b = k[2];
   datumoj[o] = Math.min(0o377, r * hunanu);
@@ -237,22 +237,22 @@ function kolorigiAkvon(datumoj: Uint8ClampedArray, o: number, h: number, vem2: n
   datumoj[o + 3] = 0o377;
 }
 
-// bicubaDerivata គឺដេរីវេនៃខ្សែកោង Katmull-Rom តាម t។
+// ſ͕ɭɜ ı],ᴜ , ꞙɭꞟ ,
 function bicubaDerivata(p0: number, p1: number, p2: number, p3: number, t: number): number {
   const t2 = t * t;
   return 0o1/0o2 * ( ( -p0 + p2 ) + 2 * ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t
     + 3 * ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t2 );
 }
-// l6daKunDerivajoj គឺកម្ពស់ទ្វេកោង និងដេរីវេភាគទាំងពីរនៅ ( x, z )។
-// ការអាន 4×4 មួយផ្តល់តម្លៃទាំងបី គឺលឿនជាង 5 ដងបើធៀបនឹងភាពខុសគ្នា
-// កណ្តាលនៃការគំរូទ្វេលីនេអ៊ែរប្រាំ ហើយណរម៉ាល់រលូន ( ដេរីវេ
-// នៃផ្ទៃរលូន គ្មានសំណល់សំណាញ់ )។
+// ſɭɜ ſɭ,w , ꞙɭı ,
+// ſɭэ ſɭᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭэ ſɭᴜ , ꞙɭэ ,
 export function l6daKunDerivajoj(x: number, z: number): [ number, number, number ] {
   const fx = ( x - X0 ) / PASO, fz = ( z - Z0 ) / PASO;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
   const cxelo = ( i: number, j: number ) => hal6da[Math.max(0, Math.min(N - 1, j)) * N + Math.max(0, Math.min(N - 1, i))];
-  // ជួរទាំងបួន គឺកម្ពស់ និងដេរីវេ u ក្នុងមួយជួរ។
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
   const r: number[] = [], rd: number[] = [];
   for ( let k = -1; k <= 2; k++ ) {
     const j = j0 + k;
@@ -265,10 +265,10 @@ export function l6daKunDerivajoj(x: number, z: number): [ number, number, number
   const dhdv = bicubaDerivata(r[0], r[1], r[2], r[3], v);
   return [ h, dhdu / PASO, dhdv / PASO ];
 }
-// rekalkuliDeklivojn គឺស្រមោលភ្នំ ( hillshade ) សម្រាប់ចតុកោណកែង។
-// ណរម៉ាល់នៃវាលកម្ពស់ប្រឈមនឹងពន្លឺពីទិសពាយ័ព្យ ហើយកត្តាស្រមោល
-// 0.7 ដល់ 1.2 គុណនឹងពណ៌ដី។ ដេរីវេមកពី
-// ផ្ទៃទ្វេកោងវិភាគ ( មូលដ្ឋានរាបស្មើ ដូច្នេះដេលតាគ្រប់គ្រាន់ )។
+// ſɭɜ ſɭ,w , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
 export function rekalkuliDeklivojn(px0: number, py0: number, px1: number, py1: number): void {
   const lumoX = -0o43/0o100, lumoY = 0o25/0o40, lumoZ = 0o41/0o100;
   const lumoLen = Math.hypot(lumoX, lumoY, lumoZ);
@@ -289,12 +289,12 @@ export function rekalkuliDeklivojn(px0: number, py0: number, px1: number, py1: n
   }
 }
 
-// pentri គឺការគូរពណ៌នៃចតុកោណកែងលើផ្ទាំងគំនូរពិភពលោក។ ដី
-// រួមបញ្ចូលព្រែកកាត់ទឹក ( គ្រែទន្លេ ) គឺផលបូកដូច alteco()
-// ក្នុងហ្គេម។ ទឹកមកពីការគណនា ( ប្រភព និងអាង ) មិនមែនពី
-// ម៉ាសដែលគូរទេ ហើយកម្រិតជាកម្រិតផ្ទាល់ខ្លួនរបស់ចំណុច ( ទន្លេ
-// ហូរចុះ អាងនៅរាបស្មើ )។
-//     @param px0, py0, px1, py1 ( number ) - ចតុកោណកែងជាភិចសែលរបស់ផ្ទាំងគំនូរ។
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſɭɜ ſɭ,w , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
+//     @param px0, py0, px1, py1 ( number ) , ſɭᴜ ſןᴜ ,
 export function pentri(px0: number, py0: number, px1: number, py1: number): void {
   const datumoj = bazaBildo.data;
   for ( let py = py0; py <= py1; py++ ) {
@@ -304,14 +304,14 @@ export function pentri(px0: number, py0: number, px1: number, py1: number): void
       const i = py * REZ + px;
       const kozuni = bazoj[i];
       const delta = l6daInterp(x, z);
-      // ដីរួមបញ្ចូលព្រែកកាត់ទឹក ( គ្រែទន្លេ ) គឺផលបូកដូច
-      // alteco() ក្នុងហ្គេម។
+// ſɭɜ ſɭ,w , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
       const h = kozuni + delta - akvaKavoInterp(x, z);
       const o = i * 4;
       const hunanu = haga[i] || 1;
-      // ទឹកមកពីការគណនា ( ប្រភព និងអាង ) មិនមែនពី
-      // ម៉ាសដែលគូរទេ។ កម្រិតជាកម្រិតផ្ទាល់ខ្លួនរបស់ចំណុច ព្រោះ
-      // ទន្លេហូរចុះ អាងនៅរាបស្មើ។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
       const vem2 = akvaVem2En(x, z);
       if ( vem2 !== null && tsekeAkvo(x, z) && h < vem2 - 0o1/0o100 ) {
         kolorigiAkvon(datumoj, o, h, vem2, hunanu, delta, x, z);

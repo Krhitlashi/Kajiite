@@ -7,22 +7,22 @@ import { rampaKuro, VOJA_EKSTERA_DUONO, VOJA_KUNIGA_SUPERPONO, VOJA_SUPRO_LEVIGX
   VOJA_TRUA_DUONO } from "./havecax2l.js";
 import { vojSuprajxoj } from "./hahunaq.js";
 
-// ⟪ កម្ពស់ចុងចម្រៀក 📃 ⟫
+// ⟪ ꞙɭı , j͑ʃᴜ ſɭ,w 📃 ⟫
 export interface SegmentaRezulto {
   xaqadi: number;
   z2hak: number;
 }
 
-// ⟪ ជ្រុងជំហាន 📏 ⟫
-/*កម្ពស់ជ្រុងទាំងបួននៃជំហាន ៖ កំពូលតាមកម្ពស់ចុងទាំងពីរ , បាតដល់ដី
-    @param altoA, altoB ( number ) - កម្រិតកំពូលនៅចុងដើម និងចុងចុង
-    @param ax, az, bx, bz ( number ) - ចុងចម្រៀក
-    @param latX, latZ ( number ) - វ៉ិចទ័រចំហៀងទៅគែម
-    @param grundoFn ( function ) - កម្ពស់ដី
-    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
-@returns hatafkaq ( { hateru ; fundoj } ) - កំពូល និងបាត តាមលំដាប់ ដើមឆ្វេង , ដើមស្តាំ , ចុងស្តាំ , ចុងឆ្វេង */
-// ⟨ កំពូលតាមចុង 📃 ⟩ ៖ ផ្នែករាបមានកម្ពស់ស្មើគ្នាទាំងពីរចុង , ផ្នែកជម្រាលមាន
-// កម្ពស់ខុសគ្នា ៖ ដើមខ្ពស់ , ចុងទាប ។ មុខចំហៀងនៅតែឈរត្រង់ ។ 📃 ⟩
+// ⟪ }ʃɹƽ , ſןɔ˞ᴜƴ 📏 ⟫
+/* }ʃɹƽ , ꞙɭэ , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ɭʃᴜ ,
+    @param altoA, altoB ( number ) - ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+    @param ax, az, bx, bz ( number ) - ꞙɭı , ſɭэ ſɭᴜ ,
+    @param latX, latZ ( number ) - ꞙɭı , ꞙɭı ,
+    @param grundoFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
+    @param dikecoBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
+@returns hatafkaq ( { hateru ; fundoj } ) - ꞙɭı , ꞙɭı , ꞙɭэ , ꞙɭı , */
+// ⟨ ꞙɭı , ꞙɭı , 📃 ⟩ , ꞙɭı , ꞙɭı , ꞙɭɿ ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 function angulojDeTreado(altoA: number, altoB: number, ax: number, az: number, bx: number, bz: number,
   latX: number, latZ: number, grundoFn: ( x: number, z: number ) => number,
   dikecoBaza: number
@@ -38,12 +38,12 @@ function angulojDeTreado(altoA: number, altoB: number, ax: number, az: number, b
   return { hateru, fundoj };
 }
 
-// ⟪ ខ្សែនៅចន្លោះជ្រុង 📐 ⟫
-/*កម្ពស់ខ្សែតាមចម្ងាយចំហៀង ៖ ជ្រុងត្រូវបានភ្ជាប់ជាបន្ទាត់ត្រង់
-    @param hatafkaq ( [ number , number , number , number ] ) - កម្ពស់ជ្រុងទាំងបួន
-    @param g0, g1 ( number ) - ចម្ងាយចំហៀងនៃគែមខ្សែ
-    @param eksteraDuon ( number ) - កន្លះទទឹងខាងក្រៅ
-@returns hatskek2 ( [ number , number , number , number ] ) - កម្ពស់នៅគែមខ្សែ */
+// ⟪ ꞙɭı , }ʃɹƽ 📐 ⟫
+/* j͑ʃᴜ ſɭ,w , ꞙɭı , }ʃɹƽ , ꞙɭı ,
+    @param hatafkaq ( [ number , number , number , number ] ) - j͑ʃᴜ ſɭ,w , ꞙɭэ ,
+    @param g0, g1 ( number ) - ꞙɭı , ꞙɭı ,
+    @param eksteraDuon ( number ) - ꞙɭı , ꞙɭı ,
+@returns hatskek2 ( [ number , number , number , number ] ) - ꞙɭı , ꞙɭı , */
 function bendoAnguloj(hatafkaq: readonly [ number, number, number, number ],
   g0: number, g1: number, eksteraDuon: number
 ): [ number, number, number, number ] {
@@ -54,23 +54,23 @@ function bendoAnguloj(hatafkaq: readonly [ number, number, number, number ],
     miks(hatafkaq[ 3 ], hatafkaq[ 2 ], f1), miks(hatafkaq[ 3 ], hatafkaq[ 2 ], f0) ];
 }
 
-// ⟪ សាងសង់ជំហានមួយ 📏 ⟫
-/*សាងសង់ជំហានមួយ ៖ កំពូលរាប , មុខជម្រាល , និងបាតចុះដល់ដី
-    @param ax, az ( number ) - ចំណុចដើមជំហាន
-    @param bx, bz ( number ) - ចំណុចចុងជំហាន
-    @param l6da ( number ) - កម្ពស់កំពូល
-    @param fala ( number ) - កម្ពស់ដែលមុខជំហានចុះទៅជំហានបន្ទាប់ ( ០ គ្មានជម្រាល )
-    @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
-    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
-    @param grundoFn ( function ) - កម្ពស់ដីក្រោម
-    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - កន្លែងប្រមូលធរណីមាត្រ
-@returns hal6da ( [ number , number ] ) - កម្ពស់កំពូលនៅចុងដើម និងចុងចុង */
-// ⟨ អនុគមន៍តែមួយសម្រាប់ជំហានទាំងអស់ 📃 ⟩ ៖ ជណ្តើរចំណត ( កម្ពស់ថេរតាមអនុគមន៍កម្ពស់ )
-// និងផ្លូវកម្រិត ( កម្ពស់ថេរតាមបំណែកកម្រិត ) សាងសង់ជំហានដូចគ្នា ។ មុននេះកូដសាងសង់
-// ស្ទួនគ្នានៅក្នុងអនុគមន៍ពីរ , ដូច្នេះជំហានពីរប្រភេទអាចមើលខុសគ្នា ។ 📃 ⟩
-// ⟨ កំពូលរាប , មុខជម្រាល 📃 ⟩ ៖ កំពូលជំហានរាប និងស្របគ្នាទាំងអស់ , ដូច្នេះផ្លូវ
-// ត្រង់ មិនកោងតាមដី ។ ជម្រាលស្ថិតនៅមុខជំហាន ៖ ផ្នែកខាងចុងនៃកំពូលទ្រេតចុះទៅ
-// កម្រិតបន្ទាប់ ។ ដូច្នេះមុខជំហានមិនឈរត្រង់ ( ចុះផ្តេក ) ទេ , ហើយជំហានជាប់គ្នា ។ 📃 ⟩
+// ⟪ ſןɔ˞ᴜƴ , ꞙɭı 📏 ⟫
+/* ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ɭʃᴜ ,
+    @param ax, az ( number ) - ꞙɭı , ſןɔ˞ᴜƴ ,
+    @param bx, bz ( number ) - ꞙɭı , ſןɔ˞ᴜƴ ,
+    @param l6da ( number ) - ꞙɭı , j͑ʃᴜ ſɭ,w ,
+    @param fala ( number ) - j͑ʃᴜ ſɭ,w , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭɔ ,
+    @param bendoj ( VojBendo [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param dikecoBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
+    @param grundoFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
+    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ ,
+@returns hal6da ( [ number , number ] ) - j͑ʃᴜ ſɭ,w , ꞙɭɿ , */
+// ⟨ ꞙɭı , ꞙɭı , ſןɔ˞ᴜƴ 📃 ⟩ , ſןɔ˞ᴜƴ , ( ꞙɭı , ꞙɭı ) ,
+//   ꞙɭı , ſɭэ ֭ſɭэ , ( ꞙɭı , ꞙɭı ) , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭɿ , ⟅ ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ 📃 ⟩
+// ⟨ ꞙɭı , ꞙɭı , 📃 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅
+//   ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 function aldoniTreadon(ax: number, az: number, bx: number, bz: number, l6da: number,
   fala: number,
   bendoj: VojBendo[],
@@ -81,32 +81,32 @@ function aldoniTreadon(ax: number, az: number, bx: number, bz: number, l6da: num
   const difX = bx - ax, difZ = bz - az;
   const sahakani = Math.hypot(difX, difZ);
   const ndx = difX / sahakani, ndz = difZ / sahakani;
-  // ⟨ ប្រវែងជម្រាល 📏 ⟩ ៖ ច្បាប់តែមួយ rampaKuro គុណកម្ពស់ធ្លាក់នឹង VOJA_STUPA_RAMPO ។
-  // ជណ្តើរចំណតមានចម្រៀកគ្រប់គ្រាន់ , ដូច្នេះការកាត់ត្រឹម sahakani ជាការកាពារ
-  // ចុងចម្រៀកប៉ុណ្ណោះ ។ ផ្លូវធម្មតាមិនឆ្លងកាត់ទីនេះទេ , ព្រោះវាអានកាលវិភាគ
-  // ជម្រាលលើផ្លូវទាំងមូល មុនពេលកាត់ជាចម្រៀក ។ 📃 ⟩
+  // ⟨ ꞙɭı , 📏 ⟩ , rampaKuro , VOJA_STUPA_RAMPO ,
+  //   ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const rampo = fala === 0 ? 0 : Math.min( rampaKuro( fala ), sahakani );
   if ( rampo <= 0o1/0o1000 ) {
     aldoniBokson(ax, az, bx, bz, l6da, l6da, bendoj, dikecoBaza, grundoFn, habakaweKatoma);
     return [ l6da, l6da ];
   }
-  // ⟨ កំពូលរាប បន្ទាប់មកជម្រាល 📃 ⟩ ៖ ផ្នែកដំបូងរាប , ផ្នែកចុងទ្រេតចុះ ។
-  // ចុងជម្រាលស្ថិតនៅកម្រិតជំហានបន្ទាប់ , ដូច្នេះជំហានជាប់គ្នាដោយគ្មានមុខឈរ ។
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , 📃 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
   const px = bx - ndx * rampo, pz = bz - ndz * rampo;
   aldoniBokson(ax, az, px, pz, l6da, l6da, bendoj, dikecoBaza, grundoFn, habakaweKatoma);
   aldoniBokson(px, pz, bx, bz, l6da, l6da - fala, bendoj, dikecoBaza, grundoFn, habakaweKatoma);
   return [ l6da, l6da - fala ];
 }
 
-// ⟪ ប្រអប់ជំហានមួយ 📦 ⟫
-/*សាងសង់ប្រអប់មួយរបស់ជំហាន ៖ កំពូលតាមកម្ពស់ចុងទាំងពីរ , បាតចុះដល់ដី
-    @param ax, az ( number ) - ចំណុចដើម
-    @param bx, bz ( number ) - ចំណុចចុង
-    @param altoA, altoB ( number ) - កម្ពស់កំពូលនៅចុងដើម និងចុងចុង
-    @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
-    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
-    @param grundoFn ( function ) - កម្ពស់ដីក្រោម
-    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - កន្លែងប្រមូលធរណីមាត្រ */
+// ⟪ ſןɔ˞ᴜƴ , ꞙɭı 📦 ⟫
+/* ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ɭʃᴜ ,
+    @param ax, az ( number ) - ꞙɭı , ꞙɭı ,
+    @param bx, bz ( number ) - ꞙɭı , ꞙɭı ,
+    @param altoA, altoB ( number ) - j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı ,
+    @param bendoj ( VojBendo [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param dikecoBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
+    @param grundoFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
+    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ */
 function aldoniBokson(ax: number, az: number, bx: number, bz: number, altoA: number, altoB: number,
   bendoj: VojBendo[],
   dikecoBaza: number,
@@ -131,12 +131,12 @@ function aldoniBokson(ax: number, az: number, bx: number, bz: number, altoA: num
   }
 }
 
-/*កន្លែងដែលផ្លូវឆ្លងកាត់ចានភ្ជាប់ មិនត្រូវសាងសង់ជំហានទេ
-    @param aX, aZ ( number ) - ចំណុចដើមចម្រៀក
-    @param bX, bZ ( number ) - ចំណុចចុងចម្រៀក
-    @param sahakani ( number ) - ប្រវែងចម្រៀក
-    @param haveb6kek ( [ number , number ] [ ] ) - ចំណុចចានភ្ជាប់
-@returns hakek ( [ number , number , boolean ] [ ] ) - ចម្រៀករង និងថាតើត្រូវសាងសង់ឬទេ */
+/* ꞙɭı , ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭɔ , ſןɔ˞ᴜƴ ,
+    @param aX, aZ ( number ) - ꞙɭı , ſɭэ ſɭᴜ ,
+    @param bX, bZ ( number ) - ꞙɭı , ſɭэ ſɭᴜ ,
+    @param sahakani ( number ) - ꞙɭı , ſɭэ ſɭᴜ ,
+    @param haveb6kek ( [ number , number ] [ ] ) - ſɭᴜ ſןᴜ , }ʃɹƽ ,
+@returns hakek ( [ number , number , boolean ] [ ] ) - ꞙɭı , ꞙɭı , */
 export function kf2SegmentajnPartojn(aX: number, aZ: number, bX: number, bZ: number,
   sahakani: number,
   haveb6kek: [ number, number ][]
@@ -148,12 +148,12 @@ export function kf2SegmentajnPartojn(aX: number, aZ: number, bX: number, bZ: num
     const laux = rx * ndx + rz * ndz;
     if ( laux < -VOJA_TRUA_DUONO || laux > sahakani + VOJA_TRUA_DUONO ) continue;
     const perpendikulara = Math.abs(rx * ndz - rz * ndx);
-    // ⟨ នៅចុងចម្រៀក ៖ ចានភ្ជាប់លាតលើសគែមផ្លូវ 📃 ⟩
+    // ⟨ ꞙɭı , ſɭэ ſɭᴜ 📃 ⟩ , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ ,
     const cxeFino = laux <= VOJA_TRUA_DUONO || laux >= sahakani - VOJA_TRUA_DUONO;
     const perpendikularaTolero = ( cxeFino ? VOJA_EKSTERA_DUONO : 0o1/0o100 ) + 0o1/0o1000;
     if ( perpendikulara > perpendikularaTolero ) continue;
-    // ⟨ រន្ធត្រូវតូចជាងគែមចានបន្តិច 📏 ⟩ ៖ ផ្លូវលាតចូលក្នុងចានដើម្បីជាន់គ្នា ,
-    // បិទចន្លោះតូចជាងភិកសែលដែលលេចជាខ្សែងងឹតនៅខ្សែកាត់ ។ 📃 ⟩
+    // ⟨ ꞙɭɔ , ꞙɭı , ꞙɭı , 📏 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const kuna = VOJA_TRUA_DUONO - VOJA_KUNIGA_SUPERPONO;
     truoj.push([ Math.max(0, laux - kuna ), Math.min(sahakani, laux + kuna ) ]);
   }
@@ -170,17 +170,17 @@ export function kf2SegmentajnPartojn(aX: number, aZ: number, bX: number, bZ: num
   return hakek;
 }
 
-// ⟪ ជណ្តើរស្មើគ្នា 📏 ⟫
-/*សាងសង់ជំហានដែលមានកម្ពស់ថេរតាមអនុគមន៍កម្ពស់
-    @param x1, z1 ( number ) - ចំណុចដើម
-    @param x2, z2 ( number ) - ចំណុចចុង
-    @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
-    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
-    @param heightFn ( function ) - កម្ពស់ផ្លូវ
-    @param grundoFn ( function ) - កម្ពស់ដីក្រោម
-    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - កន្លែងប្រមូលធរណីមាត្រ
-    @param fala ( number ) - កម្ពស់ដែលមុខជំហានចុះទៅជំហានបន្ទាប់ ( ០ គ្មានជម្រាល )
-@returns tseuni ( SegmentaRezulto | null ) - កម្ពស់ចុងទាំងពីរ */
+// ⟪ ſןɔ˞ᴜƴ , ꞙɭı 📏 ⟫
+/* ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı ,
+    @param x1, z1 ( number ) - ꞙɭı , ꞙɭı ,
+    @param x2, z2 ( number ) - ꞙɭı , ꞙɭı ,
+    @param bendoj ( VojBendo [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param dikecoBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
+    @param heightFn ( function ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w ,
+    @param grundoFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
+    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ ,
+    @param fala ( number ) - j͑ʃᴜ ſɭ,w , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭɔ ,
+@returns tseuni ( SegmentaRezulto | null ) - j͑ʃᴜ ſɭ,w , ꞙɭɿ , */
 export function vepaqUnuformajnStuparajnHas2nascen(x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikecoBaza: number,
@@ -197,23 +197,23 @@ export function vepaqUnuformajnStuparajnHas2nascen(x1: number, z1: number, x2: n
   return { xaqadi, z2hak };
 }
 
-// ⟪ ផ្លូវជំហាន 📃 ⟫
-/*កាត់កាលវិភាគជម្រាលឱ្យសមនឹងចម្រៀកដែលអាចសាងសង់បាន
-    @param x1, z1 ( number ) - ចំណុចដើម
-    @param x2, z2 ( number ) - ចំណុចចុង
-    @param s0, s1 ( number ) - ចម្ងាយតាមបណ្តោយផ្លូវ
-    @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
-    @param treadoj ( UnuformaTreado [ ] ) - កាលវិភាគលើផ្លូវទាំងមូល
-    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - កន្លែងប្រមូលធរណីមាត្រ
-    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
-    @param grundoFn ( function ) - កម្ពស់ដីក្រោម
-@returns tseuni ( SegmentaRezulto | null ) - កម្ពស់ចុងទាំងពីរ */
-// ⟨ កាត់ មិនមែនគណនាឡើងវិញ 📏 ⟩ ៖ ច្បាប់ជម្រាលទាំងអស់ស្ថិតក្នុង
-// kf2UnuformajnTreadojn ។ ទីនេះគ្រាន់តែយកផ្នែកនៃប្រអប់ដែលស្ថិតក្នុង
-// ចម្រៀកនេះ ហើយបកប្រែជាចំណុចពិភពលោក ។ កម្ពស់កាត់ជាលីនេអ៊ែរ ,
-// ដូច្នេះច្រាំងមិនប្រែប្រួលទេ ទោះបីចម្រៀកកាត់ពាក់កណ្តាលជម្រាលក៏ដោយ ។
-// ពីមុនចម្រៀកនីមួយៗបង្កើតបំណែកកម្រិតផ្ទាល់ខ្លួន ហើយបង្ហាប់ជម្រាល
-// ឱ្យសមនឹងបំណែកខ្លី , ដូច្នេះលេចជាជញ្ជាំងឈរ ។ 📃 ⟩
+// ⟪ ſɭэ ֭ſɭэ , ſןɔ˞ᴜƴ 📃 ⟫
+/* ꞙɭı , ꞙɭı , ꞙɭı , ſɭэ ſɭᴜ ,
+    @param x1, z1 ( number ) - ꞙɭı , ꞙɭı ,
+    @param x2, z2 ( number ) - ꞙɭı , ꞙɭı ,
+    @param s0, s1 ( number ) - ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı ,
+    @param bendoj ( VojBendo [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param treadoj ( UnuformaTreado [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ ,
+    @param dikecoBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
+    @param grundoFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
+@returns tseuni ( SegmentaRezulto | null ) - j͑ʃᴜ ſɭ,w , ꞙɭɿ , */
+// ⟨ ꞙɭı , ꞙɭɔ , ꞙɭı , 📏 ⟩ , ꞙɭı ,
+//   kf2UnuformajnTreadojn , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function vepaqS2nascenEnHabakaweKatoman(x1: number, z1: number, x2: number, z2: number,
   s0: number,
   s1: number,
@@ -245,20 +245,20 @@ export function vepaqS2nascenEnHabakaweKatoman(x1: number, z1: number, x2: numbe
   return xaqadi === Infinity ? null : { xaqadi, z2hak };
 }
 
-// ⟪ ចម្រៀករលូន ( ស្ពាន ) 📃 ⟫
-/*សាងសង់ចម្រៀកផ្លូវដែលមានផ្ទៃរលូនតាមប្រវត្តិរូប
-    @param x1, z1 ( number ) - ចំណុចដើម
-    @param x2, z2 ( number ) - ចំណុចចុង
-    @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
-    @param dikecoBaza ( number ) - កម្រាស់យ៉ាងតិច
-    @param heightFn ( function ) - កម្ពស់ផ្ទៃផ្លូវ
-    @param grundoFn ( function ) - កម្ពស់ដីក្រោម
-    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - កន្លែងប្រមូលធរណីមាត្រ
-@returns tseuni ( SegmentaRezulto | null ) - កម្ពស់ចុងទាំងពីរ */
-// ⟨ ហេតុអ្វីស្ពានរលូន 📃 ⟩ ៖ ស្ពានជាចម្រៀកវែងតែមួយ មិនមែនជណ្តើរ ។ បើសាងសង់
-// ជាប្រអប់តាមជំហាន , ធ្នូក្លាយជាជណ្តើរថ្ម ហើយគែមប្រអប់ឃើញជាធ្មេញ ។ ដូច្នេះ
-// ស្ពានសាងសង់ជាទម្រង់តែមួយរត់តាមធ្នូ ៖ ខ្សែ និងសម្ភារៈដូចផ្លូវឯទៀត ,
-// តែផ្ទៃរលូន ។ ការប៉ះទង្គិចកត់តាមគំរូ , ដូច្នេះការដើរលើស្ពានតាមធ្នូ ។ 📃 ⟩
+// ⟪ ſɭэ ֭ſɭэ , ꞙɭı , ( ſɟɹƽ ꞁȷ̀ᴜ }ʃw ) 📃 ⟫
+/* ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı ,
+    @param x1, z1 ( number ) - ꞙɭı , ꞙɭı ,
+    @param x2, z2 ( number ) - ꞙɭı , ꞙɭı ,
+    @param bendoj ( VojBendo [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param dikecoBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
+    @param heightFn ( function ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w ,
+    @param grundoFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
+    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ ,
+@returns tseuni ( SegmentaRezulto | null ) - j͑ʃᴜ ſɭ,w , ꞙɭɿ , */
+// ⟨ ſᶘɔ ʌ ꞙɭı , 📃 ⟩ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ꞙɭɔ , ſןɔ˞ᴜƴ ,
+//   ꞙɭɔ , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ſȷƽᴜ ʃɔ , ⟅
+//   ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function vepaqGlatanS2nascen(x1: number, z1: number, x2: number, z2: number,
   bendoj: VojBendo[],
   dikecoBaza: number,
@@ -289,7 +289,7 @@ export function vepaqGlatanS2nascen(x1: number, z1: number, x2: number, z2: numb
   for ( let i = 1; i < specimenoj.length; i++ ) {
     const antauxa = specimenoj[i - 1];
     const nuna = specimenoj[i];
-    // ⟨ គ្មានជម្រាលបាត ៖ ព្រំដែនរវាងដី និងស្ពានត្រូវធ្លាក់កាត់កែង 📃 ⟩
+    // ⟨ ꞙɭɔ , ſɭɜ ɭʃᴜ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const antauxaDeko = antauxa.fundo >= antauxa.hateru - dikecoBaza - 0o1/0o10;
     const nunaDeko = nuna.fundo >= nuna.hateru - dikecoBaza - 0o1/0o10;
     if ( antauxaDeko !== nunaDeko ) qoxa.lineTo(nuna.s, antauxa.fundo);
@@ -307,9 +307,9 @@ export function vepaqGlatanS2nascen(x1: number, z1: number, x2: number, z2: numb
     habakaweKatoma.tlunakani(geometrio, bendo.pukek, matrico);
   }
   const hateru = specimenoj.map(s => s.hateru);
-  // ⟨ ការប៉ះទង្គិចតាមគំរូ 📏 ⟩ ៖ ចម្រៀកតែមួយកត់តែកម្ពស់ចុងពីរ , ដូច្នេះការដើរ
-  // តាមខ្សែត្រង់រវាងចុង ។ ធ្នូខ្ពស់នៅកណ្តាល , ដូច្នេះនៅកណ្តាលស្ពានការដើរ
-  // ទាបជាងផ្ទៃដែលឃើញ ។ ដូច្នេះកត់មួយក្នុងមួយគំរូ ៖ ការដើរតាមធ្នូ ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭɿ ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   for ( let i = 1; i < specimenoj.length; i++ ) {
     const antauxa = specimenoj[i - 1];
     const nuna = specimenoj[i];
@@ -320,10 +320,10 @@ export function vepaqGlatanS2nascen(x1: number, z1: number, x2: number, z2: numb
   return { xaqadi: hateru[0], z2hak: hateru[hateru.length - 1] };
 }
 
-// ⟪ កន្លះទទឹងខាងក្រៅ 📏 ⟫
-/*រកកន្លះទទឹងនៃខ្សែផ្លូវធំបំផុត
-    @param bendoj ( VojBendo [ ] ) - ខ្សែនៃផ្ទៃផ្លូវ
-@returns p2somani ( number ) - កន្លះទទឹងខាងក្រៅ */
+// ⟪ ꞙɭı , ꞙɭı 📏 ⟫
+/* ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ ,
+    @param bendoj ( VojBendo [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+@returns p2somani ( number ) - ꞙɭı , ꞙɭı , */
 export function kf2EksteranDuonon( bendoj: readonly VojBendo[] ): number {
   let p2somani = 0;
   for ( const bendo of bendoj ) {

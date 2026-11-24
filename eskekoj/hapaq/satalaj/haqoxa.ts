@@ -4,7 +4,7 @@ import { kf2F2kQan2k } from "../../komunajxoj/haqoxa.js";
 
 export const MURA_KLINO = 0o5/0o20;
 
-// ⟨ ចានអគារកណ្តាល 📏 ⟩ ៖ ព្រុយទ្វារ និងចានប្រើមាត្រដូចគ្នា ។ 📃 ⟩
+// ⟨ ſɟɔȝ ʌ ſןᴜ ſᶘɹ 📏 ⟩ , ſɭɔⰱ ʌ ſɟɔ ɭʃɹ ʌ ſןᴜ ſᶘɹ , ſɭɹ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
 export const SANKTEJA_BAZPLATO_KROMO = 0o72/0o100;
 export const SANKTEJA_BAZPLATO_ALTO = 0o1/0o10;
 
@@ -27,7 +27,7 @@ export function kf2KlinoTavolon(hwB: number, hdB: number, hwT: number, hdT: numb
   return kf2F2kQan2k(g, rB, rT, false, kovrajSkaloj);
 }
 
-// ⟨ ជ្រុងណាត្រូវមូល 📃 ⟩
+// ⟨ ſᶘɹ ɭʃᴜ }ʃꞇ ʌ ſɭᴜ ſɭw j͐ʃᴜ 📃 ⟩
 export function kf2SteleanQoxan(w: number, h: number, r1: number, r2: number): THREE.Shape {
   const s = new THREE.Shape();
   const hw = w / 2;
@@ -40,7 +40,7 @@ export function kf2SteleanQoxan(w: number, h: number, r1: number, r2: number): T
   s.closePath();
   return s;
 }
-// ⟨ ហេតុអ្វីមិនកាត់ CatmullRom 📃 ⟩
+// ⟨ ſɭʞэ ʌ ꞙɭɔ ʌ ſɟᴜ ɭʃᴜ ʌ CatmullRom 📃 ⟩
 export function diamantajDuonoj(s: number, rc = 0o1/0o20): [ number, number ][] {
   const d = s * Math.SQRT1_2;
   const kvar: [ number, number ][] = [ [ d, -d ], [ -d, -d ], [ -d, d ], [ d, d ] ];

@@ -126,7 +126,7 @@ export function k2fKonturanCac2sex(kuns2bana: CanvasRenderingContext2D,
           || cxelo !== cxeloj[raqa(x, y + 0o1)] ? 0o0 : vepat6ni;
       }
     }
-    // រុំពីរជុំ ដើម្បីរក្សាចម្ងាយដូចគ្នាត្រង់ថ្នេរក្បឿង។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
     for ( let ripeto = 0o0; ripeto < 0o2; ripeto++ ) {
       for ( const c2w2q of [ 0o1, -0o1 ] ) {
         for ( let j = 0o0; j < l6da; j++ ) {
@@ -198,8 +198,8 @@ export function neregulaK6h6(fx: number, fy: number, r0: number,
   return k6h6;
 }
 
-// ⟨ ស្រទាប់ដីហូរ ៖ វាលរលោងខ្ពស់ទាបដែលបំបែកជាថ្នាំពណ៌រាបស្មើ
-//   ដូចខ្សែកម្ពស់លើផែនទី ។ វាលខ្យល់វិលជុំដើម្បីរក្សាថ្នេរក្បឿង ។ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
+//   ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
 function periodaBruo(tk2ni: number, kradX: number, kradY: number): ( x: number, y: number ) => number {
   const hazardo = kf2Sakxo(tk2ni);
   const hatskek2 = new Float32Array(kradX * kradY);
@@ -249,7 +249,7 @@ export function k2fFluanCac2sex(kuns2bana: CanvasRenderingContext2D,
         const b = kampoj[i] * bandoj;
         const niv = Math.floor(b);
         havem2[i] = niv;
-        // ⟨ ចម្ងាយគិតជាភិកសែល ៖ គែមចន្លោះមានទទឹងស្មើគ្នាគ្រប់កន្លែង 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
         const gx = ( kampoj[y * sefini + Math.min(sefini - 0o1, x + 0o1)]
           - kampoj[y * sefini + Math.max(0o0, x - 0o1)] ) / 0o2;
         const gy = ( kampoj[Math.min(l6da - 0o1, y + 0o1) * sefini + x]
@@ -269,7 +269,7 @@ export function k2fFluanCac2sex(kuns2bana: CanvasRenderingContext2D,
   for ( let vecax2lani = 0o0; vecax2lani < kampo.havem2.length; vecax2lani++ ) {
     const niv = kampo.havem2[vecax2lani];
     const banda = reliefo ? 0x808080 + Math.min(niv, 0o7) * 0x101010 : hunanuWeh2(paletro[0o0], niv);
-    // ⟨ ចន្លោះជាពណ៌កណ្ដាលរវាងពីរជាន់ មិនមែនខ្មៅជាងទាំងពីរ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
     const fono = banda + ( kampo.frakcioj[vecax2lani] < 0o1/0o2 ? 0x080808 : -0x080808 );
     const kovro = Math.min(0o1, Math.max(0o0,
       ( kampo.distancoj[vecax2lani] - interspaco + glata ) / ( 0o2 * glata )));
@@ -283,8 +283,8 @@ export function k2fFluanCac2sex(kuns2bana: CanvasRenderingContext2D,
   kuns2bana.putImageData(bildo, 0o0, 0o0);
 }
 
-// ⟨ គ្រប់វាយនភាពប្រើជំនួយនេះ ដូច្នេះច្បាប់ជម្រាល KNAKEHE ត្រូវដំឡើងនៅទីនេះ
-//   មិនអាស្រ័យលើលំដាប់នាំចូលម៉ូឌុលផ្សេង ។ 📃 ⟩
+// ⟨ j͐ʃƽɜ , ſ͕ɭɜ ı],ᴜ ,
+//   ſɭэ ᶗ‹ , ꞙɭɿ , 📃 ⟩
 kf2Veb6qaiKs2bu();
 
 export const hazard = ( a: number, b: number ): number => a + Math.random() * ( b - a );
@@ -341,8 +341,8 @@ export function larmo(k: CanvasRenderingContext2D, x: number, y: number, rad: nu
 export function k2fWrapajnNubojn(kuns2bana: CanvasRenderingContext2D, s: number, l6da: number,
   n: number, paletro: string[], minimumo: number, amplekso: number,
   hazardo?: ( a: number, b: number ) => number): void {
-  // ⟨ Math.random មិនយកអាគុយម៉ង់ a និង b ទេ , ដូច្នេះបើគ្មានឧបករណ៍ចៃដន្យ
-  //   ផ្ទាល់ខ្លួន ត្រូវប្រើ hazard ដែលគោរពចន្លោះនោះ ។ កាំក៏ត្រូវប្រើឧបករណ៍ដដែល ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
+//   ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
   const elekti = hazardo ?? hazard;
   for ( let i = 0; i < n; i++ ) {
     const r = l6da * elekti(minimumo, minimumo + amplekso);
@@ -363,10 +363,10 @@ export function sxovu(fn: () => THREE.CanvasTexture): () => THREE.CanvasTexture 
   return () => ( kaŝita ??= fn() );
 }
 
-// ⟪ វាលគណនាមានទំហំកំណត់ 📃 ⟫
-// ⟨ វាលចម្ងាយ និង វាលហូរធំជាងរូបភាពខ្លួនឯង តែប្រើតែពេលគូរលើកដំបូង ។
-//   តារាងទាំងពីររក្សាតែគ្រាប់ថ្មីៗបំផុត ដូច្នេះអង្គចងចាំមិនកើនគ្មានទីបញ្ចប់
-//   ពេលឧបករណ៍បង្កើតវាយនភាពថ្មីៗពេលលេង ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
+//   ſɭэ ᶗ‹ , ꞙɭц ,
+//   ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
 const KAMPA_LIMO = 0o10;
 
 function legiKampon<K, V>(kampo: Map<K, V>, ca3aq: K): V | undefined {
@@ -387,13 +387,13 @@ function skribiKampon<K, V>(kampo: Map<K, V>, ca3aq: K, skek2: V): void {
   }
 }
 
-// ⟨ ក្រណាត់ត្រូវរក្សាពិកសែលដើមជានិច្ច ។ ការដោះលែងវាធ្វើឱ្យវាយនភាពខ្មៅ ព្រោះ
-//   ច្លើនដែលបង្កើតក្រោយ , ការកំណត់ needsUpdate និង ការត្រឡប់មកវិញរបស់បរិបទ WebGL
-//   សុទ្ធតែផ្ទុកឡើងវិញពីក្រណាត់ដដែល ។ គូរឡើងវិញក៏មិនត្រឹមត្រូវដែរ ព្រោះអ្នកគូរ
-//   ជាច្រើនប្រើ Math.random ហើយវាលចម្ងាយត្រូវគណនាឡើងវិញយឺតណាស់ ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+//   ſɭᴜ ſןᴜ , ꞙɭɿ ,
+//   ſ͕ɭɜ ı],ᴜ , ꞙɭц ,
+//   ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
 export function liberigiCac2sexnKampojn(): void {
-  // ⟨ ក្រោយគូរគ្រប់វាយនភាពរួច វាលទាំងនេះលែងប្រើ ។ នេះជាផ្នែកធំបំផុតនៃ
-  //   អង្គចងចាំ ហើយការដោះលែងវាមិនប៉ះរូបភាពលើក្រណាត់ទេ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ ,
+//   ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
   konturajKampoj.clear();
   fluajKampoj.clear();
 }
@@ -426,15 +426,15 @@ export function neregulaQoxa(k: CanvasRenderingContext2D, fx: number, fy: number
   k.closePath();
 }
 
-// ⟪ ម៉ាស៊ីនវាយនភាពរួម 🖌️ ⟫
-// ⟨ ថ្ម និងដាយ៉ូរីតគូរគ្រាប់ត្បូង និងចំណុចតូចៗតាមទម្រង់ដូចគ្នា ៖
-//   ពណ៌ និងកម្ពស់ខុសគ្នាតែនៅជំហានលាបប៉ុណ្ណោះ ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , 🖌️ ⟫
+// ⟨ ſɭɜ ſɭᴜ , ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+//   ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
 
 export interface KristalaQoxa {
   x: number; y: number; tafkaq: number; rx: number; ry: number; verticoj: number[];
 }
 
-/*គូរគ្រាប់ត្បូងពហុកោណដែលបានវិល ៖ ផ្លូវរួចហើយហៅ pentri ដើម្បីលាប
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
     @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
     @param s ( number ) - ទទឹងក្រណាត់សម្រាប់រុំ
     @param kris ( KristalaQoxa ) - ទីតាំង និងកំពូល
@@ -459,7 +459,7 @@ export function k2fWrapanKristalon(k: CanvasRenderingContext2D, s: number,
   });
 }
 
-/*គូរចំណុចតូចៗច្រើនដែលរុំជុំក្រណាត់
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
     @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
     @param s ( number ) - ទទឹងក្រណាត់
     @param n ( number ) - ចំនួនចំណុច
@@ -475,7 +475,7 @@ export function k2fWrapajnMakulojn(k: CanvasRenderingContext2D, s: number, n: nu
   }
 }
 
-/*ផ្លូវខ្សែបត់នៃស្នាមប្រេះ ៖ អ្នកហៅ stroke ខ្លួនឯង
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
     @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
     @param n2k ( [ number , number ][] ) - កំពូលខ្សែ */
 export function k2fFendanK6h6n(k: CanvasRenderingContext2D, n2k: [ number, number ][]): void {
@@ -486,7 +486,7 @@ export function k2fFendanK6h6n(k: CanvasRenderingContext2D, n2k: [ number, numbe
   }
 }
 
-/*ផ្លូវស្លឹករាងពងក្រពើ ៖ អ្នកហៅ fill ខ្លួនឯង
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
     @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
     @param sahakani,sefini ( number ) - ពាក់កណ្តាលប្រវែង និងទទឹង */
 export function k2fSlafK6h6n(k: CanvasRenderingContext2D, sahakani: number, sefini: number): void {

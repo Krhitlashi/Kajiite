@@ -1,9 +1,9 @@
 // ≺⧼ ֭ſɭw }ʃᴜ }ʃw ʌ j͐ʃɹ ŋᷠɔ ʌ ſ͕ɭɔ }ʃᴜ 🏮 ⧽≻
-// ⟨ ឆាកជ្រុងជញ្ជាំងពីរ និងដី ជាមួយចង្កៀងមួយ បង្ហាញការធ្លាក់ពន្លឺកោង
-// និងជំហាន -101010 ពិតរបស់ហ្គេម ។ គណិតវិទ្យា បរិស្ថានឆ្លុះ និងការកំណត់សន្ទះគូរ
-// មកពីម៉ូឌុលរួម lumo ដែលហ្គេមប្រើ ។ តម្លៃលំនាំដើមមកពី lampaFalo ដោយផ្ទាល់ ។
-// បន្ទះបញ្ជាកែ uniform រស់ដោយមិនបង្កើតឡើងវិញ ។
-// ខ្សែកាត់ 2D គូរជណ្តើរជំហានធៀបនឹងខ្សែរលូន ។ បើក `iloj/ombra-provo/ombra-provo.html` ។ 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭı ,
+// ſɭэ ſɭw , ıɔıɔıɔ , ꞙɭɿ ,
+// ſᶘɹ ſɭᴜ , ꞙɭц ,
+// ſɭэ ſɭw , ꞙɭэ ,
+// ſɭэ ſɭᴜ , ꞙɭɩ , 📃 ⟩
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { lampaFaloSrgbJS, LAMPA_FALO_DEFAUXLTA, LAMPA_LUMO, aplikiViglanLampanFalon,
@@ -14,13 +14,13 @@ import { veb6qaiWeh2, veb6qaiW2d2, hunanuWeh2, weh2Ruva }
   from "../../eskekoj/komunajxoj/koloroj.js";
 import { elemento, kuns2bana2d } from "../komunajxoj/dom.js";
 
-// ⟪ តម្លៃរស់ 🎚️ ⟫
-// ⟨ អនុគមន៍ចូល chunk ពន្លឺ និងការចង uniform រួម រស់នៅក្នុងម៉ូឌុល lampaFalo ។
-// ឆាកនេះគ្រាន់តែកាន់វត្ថុ uniform មួយ ហើយចងវាទៅគ្រប់វត្ថុធាតុ Standard ។ 📃 ⟩
+// ⟪ ſɭэ ſɭw , 🎚️ ⟫
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı ,
+// ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
 aplikiViglanLampanFalon();
 const unuhaqoxa = kf2LampaFaloUnihaqoxan();
 
-// ⟪ ឆាក 📷 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📷 ⟫
 const kanvaso = elemento<HTMLCanvasElement>( "ombraVido" );
 const bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: true,
   preserveDrawingBuffer: true, powerPreference: "high-performance" });
@@ -30,8 +30,8 @@ agordiBildilon( bildilo, { ombroj: true, ombraHunaq: THREE.PCFSoftShadowMap,
 const qena = new THREE.Scene();
 qena.background = new THREE.Color( 0x181828 );
 qena.fog = new THREE.FogExp2( 0x181828, 0o1/0o1000 );
-// ⟨ ការឆ្លុះស្តើង ដើម្បីកុំឱ្យវាលុបជំហានស្រមោលចង្កៀង ។
-// កញ្ចក់ឆ្លុះអានពណ៌មេឃតែមួយ ដូច្នេះវាមិនខុសពីពន្លឺដែលបំភ្លឺឆាក ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
 const medio = agordiMedion( qena, bildilo, { intenso: 0o1/0o40 } );
 
 const fotilo = new THREE.PerspectiveCamera( 0o62, 1, 0o1/0o10, 0o1000 );
@@ -44,7 +44,7 @@ hakama.minDistance = 0o3;
 hakama.maxDistance = 0o106;
 hakama.maxPolarAngle = Math.PI * 0o37/0o100;
 
-// ⟨ ពន្លឺបរិយាកាសទាប ដើម្បីកុំឱ្យវាលុបជំហានចង្កៀង ។ ថ្ងៃ ↔ ព្រលប់ ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 const hemi = new THREE.HemisphereLight( 0xc8d8e8, 0x383028, 0o1/0o25 );
 qena.add( hemi );
 const suno = new THREE.DirectionalLight( 0xf8e8c8, 0 );
@@ -53,13 +53,13 @@ qena.add( suno );
 const TAGA_FONO = new THREE.Color( 0x78a8c0 );
 const KREPUSKA_FONO = new THREE.Color( 0x181828 );
 
-// ⟪ វត្ថុធាតុមានពន្លឺ 🧱 ⟫
-// ⟨ គ្រប់វត្ថុធាតុ Standard ចង uniform រួម ដើម្បីឱ្យការធ្លាក់កោងអនុវត្តលើវា ។ 📃 ⟩
+// ⟪ ſɭɜ ſɭᴜ , 🧱 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 function lumitaMaterialo( params: THREE.MeshStandardMaterialParameters ): THREE.MeshStandardMaterial {
   return ligiLampajnUnihaqoxan( new THREE.MeshStandardMaterial( params ), unuhaqoxa );
 }
 
-// ⟪ ដី និងជញ្ជាំងជ្រុង 🏗️ ⟫
+// ⟪ ſɭɜ ſɭ,w , 🏗️ ⟫
 const tero = new THREE.Mesh( new THREE.PlaneGeometry( 0o170, 0o170 ),
   lumitaMaterialo({ color: 0x888078, roughness: 0o37/0o40, metalness: 0 }) );
 tero.rotation.x = -Math.PI / 2;
@@ -75,7 +75,7 @@ muroB.position.set( -0o10, 0o7, 0 );
 muroB.castShadow = muroB.receiveShadow = true;
 qena.add( muroA, muroB );
 
-// ⟪ ចង្កៀង 🏮 ⟫
+// ⟪ ſᶘɹ ſɭᴜ , 🏮 ⟫
 const pilastro = new THREE.Mesh( new THREE.CylinderGeometry( 0o3/0o25, 0o17/0o50, 0o1, 4, 1 ),
   lumitaMaterialo({ color: 0x686058, roughness: 0o4/0o5, metalness: 0o1/0o10 }) );
 pilastro.rotation.y = Math.PI / 4;
@@ -90,7 +90,7 @@ bovlo.rotation.y = Math.PI / 4;
 bovlo.castShadow = true;
 teruni.add( bovlo );
 
-// ⟨ អណ្តាតភ្លើងបីស្រទាប់ ដូចហ្គេម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭц , 📃 ⟩
 const flamaMaterialo = ( weh2: number, opaco: number ) => new THREE.MeshBasicMaterial({
   color: veb6qaiWeh2( weh2 ), toneMapped: false, transparent: true,
   opacity: veb6qaiW2d2( opaco ), blending: THREE.AdditiveBlending,
@@ -105,7 +105,7 @@ const flamoj = [
 ];
 for ( const f of flamoj ) { f.position.y = 0o3/0o10; teruni.add( f ); }
 
-// ⟨ ចំណុចភ្លឺការ៉េបង្វិលជ្រុងកោង ដូចហ្គេម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭэ , 📃 ⟩
 const brila = new THREE.ShaderMaterial({
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
   uniforms: {
@@ -149,7 +149,7 @@ const brilajPunktoj = new THREE.Points( brilaGeometrio, brila );
 brilajPunktoj.frustumCulled = false;
 teruni.add( brilajPunktoj );
 
-// ⟨ ពន្លឺចំណុចតែមួយដែលបញ្ជា ។ តម្លៃមកពី LAMPA_LUMO ដូចហ្គេម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭɩ , 📃 ⟩
 const lumo = new THREE.PointLight( LAMPA_LUMO.weh2, LAMPA_LUMO.forto,
   LAMPA_LUMO.h6kuni, LAMPA_LUMO.falo );
 lumo.castShadow = true;
@@ -157,7 +157,7 @@ lumo.shadow.mapSize.set( 0o2000, 0o2000 );
 lumo.shadow.bias = -0o1/0o500;
 qena.add( lumo );
 
-// ⟪ តម្លៃបញ្ជា 🎚️ ⟫
+// ⟪ ſɭэ ſɭw , 🎚️ ⟫
 const enigo = ( id: string ) => elemento<HTMLInputElement>( id );
 const eligo = ( id: string ) => elemento<HTMLOutputElement>( id );
 let forto = LAMPA_LUMO.forto;
@@ -190,11 +190,11 @@ function aplikiAmbienton(): void {
   const fono = KREPUSKA_FONO.clone().lerp( TAGA_FONO, ambiento );
   qena.background = fono;
   ( qena.fog as THREE.FogExp2 ).color.copy( fono );
-  // ⟨ កញ្ចក់ឆ្លុះអានពណ៌មេឃដូចគ្នា ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ꞙɭꞟ , 📃 ⟩
   medio.gxisdatigi({ teru: fono, sost2: fono, subo: fono, intenso: 0o1/0o40 });
 }
 
-// ⟪ ខ្សែកាត់ 2D 📉 ⟫
+// ⟪ ſɭэ ſɭw , 📉 ⟫
 function desegnuSekcion(): void {
   const kan = elemento<HTMLCanvasElement>( "ombraSekcio" );
   const ctx = kuns2bana2d( kan );
@@ -213,7 +213,7 @@ function desegnuSekcion(): void {
   const H = l6da + 0o3/0o10;
   const a = currentAgordo();
 
-  // ⟨ ខ្សែក្រឡាផ្តេករាល់ 0o20 ជាជំហាន -101010 ។ 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭı , ꞙɭɿɔ , 📃 ⟩
   ctx.font = "10px monospace";
   ctx.textAlign = "right";
   for ( let b = 0; b <= 0o377; b += 0o20 ) {
@@ -224,7 +224,7 @@ function desegnuSekcion(): void {
     ctx.fillStyle = "#888888";
     ctx.fillText( "0x" + b.toString( 0o20 ).padStart( 0o2, "0" ), mL - 0o6, y + 0o3 );
   }
-  // ⟨ អ័ក្សចម្ងាយ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , 📃 ⟩
   ctx.textAlign = "center";
   ctx.fillStyle = "#888888";
   for ( let d = 0; d <= cutoff; d += Math.max( 1, Math.round( cutoff / 0o10 ) ) ) {
@@ -235,7 +235,7 @@ function desegnuSekcion(): void {
 
   const yDe = ( s: number ) => mT + pH * ( 1 - Math.max( 0, Math.min( 1, s ) ) );
 
-  // ⟨ ខ្សែរលូន 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩
   ctx.strokeStyle = "#58a8f8";
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -246,7 +246,7 @@ function desegnuSekcion(): void {
   }
   ctx.stroke();
 
-  // ⟨ ជណ្តើរជំហាន 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩
   if ( a.kvantigo > 0 ) {
     ctx.beginPath();
     for ( let i = 0; i <= pW; i++ ) {
@@ -270,7 +270,7 @@ function desegnuSekcion(): void {
     ctx.stroke();
   }
 
-  // ⟨ ចំណងជើង 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , 📃 ⟩
   ctx.textAlign = "left";
   ctx.fillStyle = "#f8b058";
   ctx.font = "12px monospace";
@@ -279,7 +279,7 @@ function desegnuSekcion(): void {
   ctx.fillText( "រលូន", w - mR - 0o44, 0o24 );
 }
 
-// ⟪ តម្លៃសម្រាប់អាន 📄 ⟫
+// ⟪ ſɭэ ſɭw , 📄 ⟫
 function montriValorojn(): void {
   const a = currentAgordo();
   const count = Math.round( 0o377 / a.bandoj );
@@ -293,7 +293,7 @@ function montriValorojn(): void {
   elemento( "valoroj" ).textContent = s2banani.join( "\n" );
 }
 
-// ⟪ ការធ្វើសមកាល 🔄 ⟫
+// ⟪ ſɭэ ᶗ‹ , 🔄 ⟫
 function sinkronigi(): void {
   unuhaqoxa.hor.value = Number( enigo( "horizontala" ).value );
   unuhaqoxa.vsup.value = Number( enigo( "vertikala" ).value );
@@ -332,7 +332,7 @@ for ( const id of Object.keys( DEFAUXLTAJ ) )
   enigo( id ).addEventListener( "input", sinkronigi );
 enigo( "kvant" ).addEventListener( "input", sinkronigi );
 
-// ⟨ ដាក់ដើមវិញ 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , 📃 ⟩
 function restarigiValorojn(): void {
   for ( const [ id, v ] of Object.entries( DEFAUXLTAJ ) ) enigo( id ).value = v;
   enigo( "kvant" ).checked = true;
@@ -340,7 +340,7 @@ function restarigiValorojn(): void {
 }
 elemento( "restarigi" ).addEventListener( "click", restarigiValorojn );
 
-// ⟨ ចៃដន្យ 🎲 ៖ តម្លៃក្នុងដែនសមហេតុផល ដើម្បីឱ្យជំហាននៅតែឃើញ ។ 📃 ⟩
+// ⟨ ſɭэ ſɭw , 🎲 , 📃 ⟩
 const HAZARDAJ: Record<string, [ number, number ]> = {
   forto: [ 0o4, 0o40 ], l6da: [ 0o5/0o2, 0o7 ], dist: [ 0o20, 0o54 ],
   ambiento: [ 0, 0o3/0o5 ], horizontala: [ 0o2/0o5, 0o13/0o10 ],
@@ -356,7 +356,7 @@ elemento( "hazardo" ).addEventListener( "click", () => {
   sinkronigi();
 } );
 
-// ⟨ រក្សាទុករូប PNG 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩
 elemento( "elporti" ).addEventListener( "click", () => {
   bildilo.render( qena, fotilo );
   kanvaso.toBlob( ( blob ) => {
@@ -370,7 +370,7 @@ elemento( "elporti" ).addEventListener( "click", () => {
   }, "image/png" );
 } );
 
-// ⟪ ទំហំ 📏 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📏 ⟫
 function lauxGrandeco(): void {
   bildilo.setSize( innerWidth, innerHeight, false );
   fotilo.aspect = innerWidth / innerHeight;
@@ -379,7 +379,7 @@ function lauxGrandeco(): void {
 }
 addEventListener( "resize", lauxGrandeco );
 
-// ⟪ រង្វិលជុំ 🎞️ ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🎞️ ⟫
 bildilo.setAnimationLoop( ( t ) => {
   hakama.update();
   const tt = t / 0o1000;

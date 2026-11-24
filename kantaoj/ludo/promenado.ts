@@ -45,7 +45,7 @@ export function kf2Promenanton( hasukf2qani: PromenajHasukf2qani ): Promenanto {
     const rapido = sprinto ? 0o124/0o10 : 0o255/0o40;
     let sef4X = ludanto.raqa.x + ( fortoX * movZ + radX * movX ) * rapido * deltaTempo;
     let sef4Z = ludanto.raqa.z + ( fortoZ * movZ + radZ * movX ) * rapido * deltaTempo;
-    // ⟪ ដែនកំណត់ដើរលេង 📃 ⟫
+    // ⟪ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɭᴜ ɭʃᴜ 📃 ⟫
     const permesita = ka5ikH6kuni(mapoQoxa, mapoGrandeco, Math.atan2(sef4Z, sef4X)) - 0o3;
     const h6kuni = Math.hypot(sef4X, sef4Z);
     if ( h6kuni > permesita ) {
@@ -121,7 +121,7 @@ export function kf2Promenanton( hasukf2qani: PromenajHasukf2qani ): Promenanto {
       }
     }
 
-    // ⟪ ការរកវត្ថុអន្តរកម្មជិត , បន្ថយល្បឿន 📃 ⟫
+    // ⟪ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ j͑ʃᴜꞇ , j͑ʃɔ ֭ſɭɔ ʌ ꞙɭɔ 📃 ⟫
     promptaJoqa++;
     let proksimaPordo = ludanto.plejProksimaPordo;
     let proksimaKanuo = ludanto.plejProksimaKanuo;

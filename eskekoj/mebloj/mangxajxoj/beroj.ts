@@ -12,7 +12,7 @@ export function kf2Tlexlefp2saijnBerojn(g: THREE.Object3D, plantoj: { x: number;
     color: f.col, transparent: true, opacity: 0o45 / 0o100, roughness: 0o15/0o100, depthWrite: false,
   });
   const kernoMaterialo = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0o35/0o100 });
-  // ⟨ ប្រវែងកាត់ចុងដើម 📃 ⟩
+  // ⟨ ſɟɔ ɭʃɹ ʌ ɭʃɜ ſɭɹȝ 📃 ⟩
   const sost2cel2saipintaProfilon = ( t: number ): number => {
     if ( t <= 0o7/0o10 ) return 1;
     const u = Math.min(1, ( t - 0o7/0o10 ) / ( 0o1/0o10 ));
@@ -21,7 +21,7 @@ export function kf2Tlexlefp2saijnBerojn(g: THREE.Object3D, plantoj: { x: number;
   for ( const p of plantoj ) {
     if ( Math.random() > 0o55/0o100 ) continue;
     const klastro = new THREE.Group();
-    // ⟨ ពែង 📃 ⟩
+    // ⟨ ſɟᴜ ı],ɔ ŋᷠᴜ 📃 ⟩
     const plantAlto = p.plantAlto ?? ( 0o5/0o10 + p.s * 0o3/0o10 ) * 0o17/0o20;
     const unuaTavolaY = plantAlto * 0o3/0o10;
     const s2cel2Alto = plantAlto * 0o2/0o10;

@@ -1,16 +1,16 @@
 // ≺⧼ ſɭɜ ı],ɹȝ ꞁȷ̀ᴜ }ʃꞇ 📐 ⧽≻
 
-/*ខ្សែកោងលាយគូប ៖ រលូននៅចុងទាំងពីរ
-    @param t ( number ) - តម្លៃ 0 ដល់ 1
-@returns y ( number ) - 0 ដល់ 1 */
+/* ſȷƽᴜ ʃɔ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ ,
+    @param t ( number ) - តម្លៃ ɔ ដល់ ı
+@returns y ( number ) - ɔ ដល់ ı */
 export function glata(t: number): number {
   return t * t * ( 3 - 2 * t );
 }
 
-/*ការលាយរលូនរវាងសូន្យ និងមួយ ៖ ច្របាច់តម្លៃចូលព្រំដែនសិន
+/* ı],ᴜ ֭ſɭᴜ , ꞙɭɔ , ꞙɭı , ⟅ ſɭэ ſɭᴜ , ꞙɭı ,
     @param lo,hi ( number ) - ព្រំដែន
     @param v ( number ) - តម្លៃ
-@returns t ( number ) - 0 ដល់ 1 */
+@returns t ( number ) - ɔ ដល់ ı */
 export function glataPaso(lo: number, hi: number, v: number): number {
   return glata(Math.max(0, Math.min(1, ( v - lo ) / ( hi - lo ))));
 }
@@ -21,16 +21,16 @@ export function katmullRom(p0: number, p1: number, p2: number, p3: number, t: nu
     + ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t2 + ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t3 );
 }
 
-/*ច្របាច់លេខក្រឡាចូលក្នុងដែនតារាង
+/* ſɭэ ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ſɭэ ſɭɜ , ꞙɭı ,
     @param v ( number ) - លេខក្រឡាដែលអាចហួសដែន
     @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
-@returns i ( number ) - ក្រឡាក្នុងដែន 0 ដល់ n-1 */
+@returns i ( number ) - ក្រឡាក្នុងដែន ɔ ដល់ n-ı */
 export function fiksuKradon(v: number, n: number): number {
   const n1 = n - 1;
   return v < 0 ? 0 : v > n1 ? n1 : v;
 }
 
-/*គំរូ bicubic លើក្រឡាការ៉េ ៖ កូអរដោនេជាក្រឡា , គែមត្រូវច្របាច់ចូល
+/* ſןᶗ‹ɔⅎ ſᶘɜ , ſɭэ ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
     @param krado ( ArrayLike<number> ) - តារាង n × n
     @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
     @param fx, fz ( number ) - កូអរដោនេក្រឡា
@@ -38,8 +38,8 @@ export function fiksuKradon(v: number, n: number): number {
 export function bikubaSpecimeno(krado: ArrayLike<number>, n: number, fx: number, fz: number): number {
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
-  // ⟨ ជួរឈរ និងជួរដេកដែលបានច្របាច់ ៖ គណនាម្តង ប្រើច្រើន 📃 ⟩
-  // ជៀសវាងការបង្កើត closure រាល់ពេលហៅ ព្រោះមុខងារនេះរត់រាល់កំពូលដី ។
+// ⟨ ſɭэ ſɭᴜ , ſןw ſɭᴜƴ , ⟅ ꞙɭı , ꞙɭı , 📃 ⟩
+// ſןɔ˞ᴜƴ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ ,
   const c0 = fiksuKradon(i0 - 1, n), c1 = fiksuKradon(i0, n);
   const c2 = fiksuKradon(i0 + 1, n), c3 = fiksuKradon(i0 + 2, n);
   const r0 = fiksuKradon(j0 - 1, n) * n, r1 = fiksuKradon(j0, n) * n;

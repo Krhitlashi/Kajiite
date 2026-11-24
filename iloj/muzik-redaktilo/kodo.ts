@@ -1,13 +1,13 @@
 // ≺⧼ j͑ʃᴜ ſɭᴜ ʌ j͑ʃɹ ɭʃɜ ꞁȷ̀ᴜ }ʃꞇ 🎼 ⧽≻
-// បង្កើតឯកសារវិល TypeScript ពីទិន្នន័យកែ និងញែកវាត្រឡប់វិញ ។
-// លេខទាំងអស់សរសេរជាគោលប្រាំបី ( ភាគប្រាំបី ) ដូចឯកសារដើមរបស់ហ្គេម ។
-// ការញែកគាំទ្រទិន្នន័យអក្សរដែលឧបករណ៍នេះបង្កើត ( លេខ ខ្សែអក្សរ អារេ វត្ថុ និងប្រមាណវិធី + - * / )។
-// ពេលវេលាគិតជាវិនាទី កម្ពស់គិតជាហឺត កម្រិតសំឡេងជាភាគរយ ។
+// ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭı ,
+// ſɭэ ſɭᴜ , ꞙɭı , ꞙɭɿ ,
+// ſɭэ ſɭᴜ , ꞙɭɿ , ꞙɭц ,
+// ſɭэ ſɭᴜ , j͑ʃᴜ ſɭ,w , ꞙɭц ,
 
 import type { Sekcio } from "../../eskekoj/sonoj/muziko/vokoj/hahunaq.js";
 import { caxomani } from "../../eskekoj/sonoj/muziko/vokoj/tempo.js";
 
-// ⟪ ប្រភេទ 📃 ⟫
+// ⟪ ſɭɜ ſɭᴜ , 📃 ⟫
 
 export interface Noto {
   id: number;
@@ -40,7 +40,7 @@ export interface Registro {
   instrs: string[];
 }
 
-// ⟪ លេខគោលប្រាំបី 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟫
 
 function gcdn(a: number, b: number): number {
   a = Math.abs(a); b = Math.abs(b);
@@ -48,23 +48,23 @@ function gcdn(a: number, b: number): number {
   return a || 0o1;
 }
 
-/* សរសេរតម្លៃជាភាគប្រាំបី ៖ បង្គត់ទៅភាគ den រួចសម្រួលភាគ
+/* ſɭэ ſɭᴜ , ꞙɭɔ ,
     @param x ( number ) - តម្លៃពិត
-    @param den ( number ) - ភាគប្រាំបី ( 0o100 , 0o10000 ... )
+    @param den ( number ) - ភាគប្រាំបី ( ꞙɭıɔɔ , ꞙɭıɔɔɔɔ ... )
 @returns អត្ថបទលេខគោលប្រាំបី ( string ) */
 export function octFrak(x: number, den: number): string {
   const n = Math.round(x * den);
   if ( n === 0 ) return "0";
   const signo = n < 0 ? "-" : "";
   const an = Math.abs(n);
-  if ( an % den === 0 ) return signo + "0o" + ( an / den ).toString(0o10);
+  if ( an % den === 0 ) return signo + "ꞙɭ" + ( an / den ).toString(0o10);
   const g = gcdn(an, den);
-  return signo + "0o" + ( an / g ).toString(0o10) + "/0o" + ( den / g ).toString(0o10);
+  return signo + "ꞙɭ" + ( an / g ).toString(0o10) + "/ꞙɭ" + ( den / g ).toString(0o10);
 }
 
-// ⟪ បង្កើតឯកសារវិល 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟫
 
-/* បង្កើតឯកសារ trakoNN.ts ពេញលេញពីទិន្នន័យវិល
+/* ſɭэ ſɭᴜ , ꞙɭı ,
     @param d ( TrakoDatumo ) - វិលដែលកែ
 @returns អត្ថបទឯកសារ ( string ) */
 export function generiTrako(d: TrakoDatumo): string {
@@ -88,7 +88,7 @@ export function generiTrako(d: TrakoDatumo): string {
     "// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ " + d.no + " · " + d.titolo + " 🎵 ⧽≻",
     "// បង្កើតដោយឧបករណ៍កែតន្ត្រី ( iloj/muzik-redaktilo/muzik-redaktilo.html )។",
     "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - កុំកែដោយដៃ។ ឧបករណ៍កែសរសេរឯកសារនេះឡើងវិញ។",
-    "// ក្រឡាចង្វាក់ ៖ 0o" + d.bpq.toString(0o10) + " បាតកក្នុងមួយគុយអេ , បារមួយ 0o" + d.ppb.toString(0o10) + " ភាគប្រាំបី។",
+    "// ក្រឡាចង្វាក់ ៖ ꞙɭ" + d.bpq.toString(0o10) + " បាតកក្នុងមួយគុយអេ , បារមួយ ꞙɭ" + d.ppb.toString(0o10) + " ភាគប្រាំបី។",
     "",
     "import type { SonoEvento, Sekcio, SpuroDateno } from \"../vokoj/hahunaq.js\";",
     "",
@@ -105,7 +105,7 @@ export function generiTrako(d: TrakoDatumo): string {
   ].join("\n");
 }
 
-/* បង្កើតឯកសារបញ្ជីវិល kantoj.ts ពីបញ្ជីឈ្មោះទាំងអស់
+/* ſɭэ ſɭᴜ , ꞙɭɿ ,
     @param registroj ( Registro[] ) - វិលទាំងអស់តាមលេខ
 @returns អត្ថបទឯកសារ ( string ) */
 export function generiKantoj(registroj: Registro[]): string {
@@ -143,9 +143,9 @@ export function generiKantoj(registroj: Registro[]): string {
   return linioj.join("\n");
 }
 
-// ⟪ ញែកឯកសារវិល 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
 
-/* ញែកកន្សោមទិន្នន័យតូច ( លេខគោលប្រាំបី ខ្សែអក្សរ អារេ វត្ថុ + - * / ) */
+/* ſɭɜ ᶗ‹ , ꞙɭɿ , */
 class Parzilo {
   private i = 0;
   constructor(private s2banani: string) {}
@@ -273,7 +273,7 @@ function eltiri(s2banani: string, ankro: string): string | null {
   return i < 0 ? null : s2banani.slice(i + ankro.length);
 }
 
-/* ញែកឯកសារ trakoNN.ts ដែលឧបករណ៍នេះបង្កើត ត្រឡប់ជាទិន្នន័យវិល
+/* ſɭᴜ ſןᴜ , ꞙɭц ,
     @param s2banani ( string ) - អត្ថបទឯកសារ
 @returns វិល ( TrakoDatumo | null ) បើឯកសារមិនមែនជាវិលរបស់ឧបករណ៍នេះ */
 export function parziTrako(s2banani: string): TrakoDatumo | null {
@@ -321,7 +321,7 @@ export function parziTrako(s2banani: string): TrakoDatumo | null {
 
 // ⟪ WAV 📃 ⟫
 
-/* បម្លែង AudioBuffer ទៅឯកសារ WAV 16-bit PCM
+/* ſᶘɜ ʃᴜ , ꞙɭɩ ,
     @param buf ( AudioBuffer ) - សំឡេងដែលបានផ្តល់រួច
 @returns Blob នៃឯកសារ WAV */
 export function wavDeBuffer(buf: AudioBuffer): Blob {

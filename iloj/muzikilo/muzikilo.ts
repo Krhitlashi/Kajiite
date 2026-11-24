@@ -1,7 +1,7 @@
 // ≺⧼ ŋᷠᴜ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ ʌ j͑ʃп́ꞇ ſɭɔƴ 🎧 ⧽≻
-// ឧបករណ៍នេះចាក់វិលទាំង 0o7 តាមម៉ាស៊ីនលេងតន្ត្រីពិតរបស់ហ្គេម។
-// វាបង្កើត AudioContext ដោយខ្លួនឯងនៅពេលអន្តរកម្មដំបូង ហើយបិទការបន្ត
-// ស្វ័យប្រវត្តិ ដូច្នេះបទនីមួយៗឈប់ពេលចប់ មិនលោតទៅបទផ្សេងទេ។
+// ſɭэ ſɭᴜ , ꞙɭэ , ⟅ ſȷwɔ˞ , ꞙɭı ,
+// ſɭэ ſɭᴜ , ꞙɭɿ ,
+// ſɭэ ſɭᴜ , ꞙɭц ,
 
 import { KANTOJ } from "../../eskekoj/sonoj/muziko/kantoj.js";
 import { iniciati, ludi, halti, sxargiTrako, nunaTrako, tsekeLudas, progreso, salti, agordiAŭtomatan, nunajInstrumentoj } from "../../eskekoj/sonoj/muziko/ludilo.js";
@@ -12,7 +12,7 @@ import { instrumento } from "../../eskekoj/sonoj/muziko/vokoj/instrumento.js";
 import { F, NYAM } from "../../eskekoj/sonoj/muziko/vokoj/skaloj.js";
 import type { SonoEvento } from "../../eskekoj/sonoj/muziko/vokoj/hahunaq.js";
 
-// ⟨ ហេ ៖ 2^32 ជុំវិញសេស្យូម ១៣៣ គិតជាវិនាទី 📃 ⟩
+// ⟨ ſȷwɔ˞ , ɿ^цɿ , ꞙɭı , ꞙɭɿ , 📃 ⟩
 
 const baskuliBut = elemento<HTMLButtonElement>("baskuli");
 const haltiBut = elemento<HTMLButtonElement>("halti");
@@ -29,12 +29,12 @@ const sonListo = elemento("sonListo");
 let AC: AudioContext | null = null;
 let master: GainNode | null = null;
 
-// ⟨ ប៊ូតុងសាកល្បងនីមួយៗភ្ជាប់នឹងឧបករណ៍របស់វា ដើម្បីប្លែងពេលកំពុងលេងក្នុងបទ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const sonButonoj: { i: string; but: HTMLButtonElement }[] = [];
 let instrSpanoj: { i: string; el: HTMLSpanElement }[] = [];
 let lastInstrTrako = -0o1;
 
-/*បង្កើតប្រព័ន្ធសំឡេងនៅពេលត្រូវការ ៖ ហៅម្តងគ្រប់គ្រាន់
+/* ſɭэ ſɭᴜ , ꞙɭı ,
 @returns void */
 function ensureAudio(): void {
   if ( AC ) {
@@ -50,21 +50,21 @@ function ensureAudio(): void {
   iniciati(AC, master);
 }
 
-/*បំប្លែងវិនាទីទៅហេ ជាលេខគោលប្រាំបី
+/* ſɭэ ſɭᴜ , ſȷwɔ˞ , ꞙɭı ,
     @param sek ( number ) - រយៈពេលគិតជាវិនាទី
 @returns ហេ ( string ) */
 function alHe( sek: number ): string {
-  return "0o" + Math.round( sek / HE ).toString(8);
+  return "ꞙɭ" + Math.round( sek / HE ).toString(8);
 }
 
-/* យកឈ្មោះបទពិតពីវចនានុក្រម aih ។ បើគ្មានកូនសោ ត្រឡប់ទៅឈ្មោះក្នុងបញ្ជីវិញ
+/* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭɿ ,
     @param i ( number ) - លេខសន្ទស្សន៍បទ
 @returns ឈ្មោះបទ ( string ) */
 function nomoDeTrako( i: number ): string {
   return AIH["muzikTrako" + i] ?? KANTOJ[i].title;
 }
 
-// ⟪ បញ្ជីបទ 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , 📃 ⟫
 
 agordiAŭtomatan(false);
 
@@ -92,14 +92,14 @@ KANTOJ.forEach(( k, i ) => {
   butonoj.push(b);
 });
 
-// ⟪ សាកល្បងសំឡេងឧបករណ៍ 📃 ⟫
+// ⟪ ſȷwɔ˞ , ꞙɭı , 📃 ⟫
 
 interface SonoProvo {
   ksaka: string;
   cal: SonoEvento;
 }
 
-/* បញ្ជីឧបករណ៍ ទុកកម្ពស់និងរយៈពេលឱ្យសមនឹងសំឡេងរបស់វា
+/* ſȷwɔ˞ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
    ទាំងអស់ឆ្លងកាត់ឧបករណ៍ផ្សាយតែមួយជាមួយសំឡេងក្នុងហ្គេម 📃 */
 const SONPROVOJ: SonoProvo[] = [
   { ksaka: "siku", cal: { t: 0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
@@ -129,7 +129,7 @@ SONPROVOJ.forEach(p => {
   sonButonoj.push({ i: p.cal.i, but: b });
 });
 
-// ⟪ ការបញ្ជា 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
 
 baskuliBut.addEventListener("click", () => {
   ensureAudio();
@@ -146,16 +146,16 @@ volumo.addEventListener("input", () => {
   if ( master && AC ) master.gain.setTargetAtTime(parseFloat(volumo.value), AC.currentTime, 0o1/0o40);
 });
 
-// ⟪ ការរំកិលទៅមុខតំណែងក្នុងបទ 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟫
 
-/* បំប្លែងហេទៅវិនាទី
+/* ſɭэ ſɭᴜ , ſȷwɔ˞ , ꞙɭı ,
     @param he ( number ) - រយៈពេលគិតជាហេ
 @returns វិនាទី ( number ) */
 function alSek( he: number ): number {
   return he * HE;
 }
 
-// ⟨ ខណៈអូសគំនូសរំកិល ការធ្វើបច្ចុប្បន្នភាពមិនរំលើងតម្លៃរបស់វាទេ 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 let trenas = false;
 
 progresoEl.addEventListener("input", () => {
@@ -173,7 +173,7 @@ progresoEl.addEventListener("change", () => {
   salti(alSek(progresoEl.valueAsNumber));
 });
 
-// ⟪ ការធ្វើបច្ចុប្បន្នភាព 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
 
 function ĝisdatigi(): void {
   const cur = nunaTrako();

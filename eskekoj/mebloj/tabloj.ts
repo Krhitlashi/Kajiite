@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ı],ɹͷ̗ 🍽 ⧽≻
-// ⟨ ត្រឡប់ទៅទម្រង់រាបវិញ 📃 ⟩
-// ⟨ ម្ចាស់កម្ពស់ 📃 ⟩
+// ⟨ }ʃᴜ j͐ʃᴜ ʌ ɭʃᴜ ſןɹ 📃 ⟩
+// ⟨ j͐ʃэ ɭ(ᴜ 📃 ⟩
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 

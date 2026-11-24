@@ -1,7 +1,7 @@
 // ≺⧼ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
 
-// ⟪ ថេររូបវិទ្យា 📃 ⟫
-// តម្លៃទាំងនេះជានិយមន័យ SI ដូច្នេះសរសេរជាផលធៀបចំនួនគត់
+// ⟪ ſɭɜ ſɭᴜ , 📃 ⟫
+// ſɭɜ ſɭᴜ , ꞙɭı ,
 
 const CEZIA_FREKVENCO = 0o104373066732;
 const TORIA_FREKVENCO = 0o71330627035345422;
@@ -10,13 +10,13 @@ const ATOMA_MASUNUO = 0o2325145304344 / 0o11316646250265033043640461210440000000
 const ELEKTRONVOLTO = 0o13737643172 / 0o10047716274370450046042000000000;
 const BOLCMANA_KONSTANTO = 0o5210451 / 0o120617017534665620574524000000000;
 
-// ⟪ ពេលវេលា 🕛 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🕛 ⟫
 
-// ហេ គឺ 2^32 វដ្តសេស្យូម 133
+// ſɭэ ſɭᴜ , ɿ^цɿ , ꞙɭı ,
 export const HE_POR_SEKUNDO = CEZIA_FREKVENCO / 0o40000000000;
 export const HE_POR_MILISEKUNDO = HE_POR_SEKUNDO / 0o1750;
 export const SEKUNDOJ_PO_HE = 0o40000000000 / CEZIA_FREKVENCO;
-// ហេថូរៀម គឺ 64^3 × 2^32 វដ្តថូរៀម 229
+// ſɭэ ſɭᴜ , ɩэ^ц , ɿ^цɿ , ꞙɭɿ ,
 export const SEKUNDOJ_PO_HE_TORIA = 0o1000000 * 0o40000000000 / TORIA_FREKVENCO;
 export const SEKUNDOJ_PO_QE = 0o100 * SEKUNDOJ_PO_HE;
 export const SEKUNDOJ_PO_HAQE = 0o100 * SEKUNDOJ_PO_QE;
@@ -24,28 +24,28 @@ export const SEKUNDOJ_PO_SHE = 0o100 * SEKUNDOJ_PO_HAQE;
 export const SEKUNDOJ_PO_SQE = 0o100 * SEKUNDOJ_PO_SHE;
 export const SEKUNDOJ_PO_SHAQE = 0o100 * SEKUNDOJ_PO_SQE;
 
-// ⟪ វិមាត្រ 📏 ⟫
+// ⟪ ſɭэ ſɭw , 📏 ⟫
 
-// ភឺរ គឺពាក់កណ្តាលចម្ងាយដែលពន្លឺធ្វើដំណើរក្នុងវដ្តសេស្យូមមួយ
+// ſɭэ ſɭw , ꞙɭı ,
 export const METROJ_PO_PEU = LUMRAPIDO / ( 0o2 * CEZIA_FREKVENCO );
 export const KVADRATAJ_METROJ_PO_PIISPEU = METROJ_PO_PEU ** 0o2;
 export const KUBAJ_METROJ_PO_TIIXPEU = METROJ_PO_PEU ** 0o3;
 
-// ⟪ ម៉ាស់ និងថាមពល ⚖️ ⟫
+// ⟪ ſɭᴜ ſןᴜ , ⚖️ ⟫
 
-// សុក គឺ 2^88 ម៉ាស់អាតូមឯកតា
+// ſɭᴜ ſןᴜ , ɿ^88 , ꞙɭı ,
 export const KILOGRAMOJ_PO_SOK = 0o200 * 0o10 ** 0o33 * ATOMA_MASUNUO;
-// សសាច គឺ សុក × ភឺរ^2 / ហេ^2
+// ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
 export const JULOJ_PO_SSACA = KILOGRAMOJ_PO_SOK * METROJ_PO_PEU ** 0o2 / SEKUNDOJ_PO_HE ** 0o2;
 
-// ⟪ សីតុណ្ហភាព 🌡️ ⟫
+// ⟪ ſɭэ ſɭw , 🌡️ ⟫
 
-// ហ៊ា គឺ eV / 2^12 ចែកនឹងថេរបុលស្មាន ជាមាត្រដ្ឋានលីនេអ៊ែរគ្មានចំណុចចាប់ផ្តើម
+// ſɭэ ſɭw , ꞙɭɿ ,
 export const KELVINOJ_PO_HIA = ELEKTRONVOLTO / 0o10000 / BOLCMANA_KONSTANTO;
 
-// ⟪ បម្លែង 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
 
-/* បម្លែងមិល្លីវិនាទីទៅជាហេ
+/* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ ,
     @param milisekundoj ( number ) - ចំនួនមិល្លីវិនាទី។
 @returns he
     ចំនួនហេ។ */
@@ -53,9 +53,9 @@ export function alHe(milisekundoj: number): number {
   return milisekundoj * HE_POR_MILISEKUNDO;
 }
 
-/* សរសេរលេខជាគោល 0o10 ដោយមានខ្នាតតូចកំណត់ ។
+/* ſɭэ ſɭᴜ , ꞙɭıɔ ,
     @param skek2 ( number ) - តម្លៃដែលត្រូវសរសេរ
-    @param precizeco ( number = 0o2 ) - ចំនួនខ្ទង់ក្រោយចុច
+    @param precizeco ( number = ꞙɭɿ ) - ចំនួនខ្ទង់ក្រោយចុច
 @returns s2banani */
 export function alOkto( skek2: number, precizeco = 0o2 ): string {
   const negativa = skek2 < 0;
@@ -64,10 +64,10 @@ export function alOkto( skek2: number, precizeco = 0o2 ): string {
   const entiero = Math.floor(rondigita / faktoro);
   const frakcio = precizeco === 0 ? ""
     : "." + ( rondigita % faktoro ).toString(0o10).padStart(precizeco, "0");
-  return ( negativa ? "-" : "" ) + "0o" + entiero.toString(0o10) + frakcio;
+  return ( negativa ? "-" : "" ) + "ꞙɭ" + entiero.toString(0o10) + frakcio;
 }
 
-// ⟪ តារាងឯកតា 📇 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📇 ⟫
 
 type Dimensio = "tempo" | "sahakani" | "areo" | "volumeno" | "maso" | "energio" | "temperaturo";
 
@@ -76,7 +76,7 @@ interface Unuo {
   faktoro: number;
 }
 
-// ថេរខាងក្រោមគិតជាឯកតា SI ក្នុងមួយឯកតាដើម
+// ſɭэ ſɭᴜ , ꞙɭɿ ,
 const UNUOJ: Record<string, Unuo> = {
   he: { dimensio: "tempo", faktoro: SEKUNDOJ_PO_HE },
   he_toria: { dimensio: "tempo", faktoro: SEKUNDOJ_PO_HE_TORIA },
@@ -107,7 +107,7 @@ const UNUOJ: Record<string, Unuo> = {
   k: { dimensio: "temperaturo", faktoro: 1 },
 };
 
-/* បម្លែងតម្លៃរវាងឯកតាពីរក្នុងវិមាត្រតែមួយ
+/* ſɭᴜ ſןᴜ , ꞙɭɿ ,
     @param skek2 ( number ) - តម្លៃដើម។
     @param de ( string ) - ឈ្មោះឯកតាដើម ដូចជា he ឬ s។
     @param al ( string ) - ឈ្មោះឯកតាចុងក្រោយ ដូចជា peu ឬ m។

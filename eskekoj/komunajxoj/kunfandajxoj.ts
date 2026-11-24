@@ -11,7 +11,7 @@ export function kunfandiGeometriojn(geos: THREE.BufferGeometry[]): THREE.BufferG
   const raqa = new Float32Array(tv * 3);
   const normo = new Float32Array(tv * 3);
   const uv = new Float32Array(tv * 2);
-  // ⟨ uv1 និងគុណលក្ខណៈខ្សែកោងត្រូវរស់រានមានជីវិតឆ្លងការរលាយ 📃 ⟩
+// ⟨ j͐ʃƽɜ , ꞙɭı , 📃 ⟩
   const uv1 = new Float32Array(tv * 2);
   const nek2resai = new Float32Array(tv * 4);
   const kovrilo = new Float32Array(tv);
@@ -113,7 +113,7 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
   out.setAttribute("position", new THREE.BufferAttribute(raqa, 3));
   out.setAttribute("normal", new THREE.BufferAttribute(normo, 3));
   out.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
-  // ⟨ ពណ៌តាមកំពូល 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
   const aKol = na.getAttribute("color");
   const bKol = nb.getAttribute("color");
   if ( aKol && bKol ) {
@@ -128,10 +128,10 @@ export function kunfandiDuGeometriojn(a: THREE.BufferGeometry, b: THREE.BufferGe
 export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[]): THREE.BufferGeometry {
   if ( geometrioj.length === 0 ) return new THREE.BufferGeometry();
   if ( geometrioj.length === 1 ) return geometrioj[0];
-  // ⟨ ការរលាយម្តងតែម្តង 📃 ⟩
-  // ការរលាយម្តងមួយគូ ( fold ) ចម្លងតារាងទាំងមូលឡើងវិញរាល់ដង , ដូច្នេះ
-  // តម្លៃការងារកើនឡើងជាការ៉េ ។ ស្មៅមួយវាលប្រើបំណែករាប់រយ , ដូច្នេះ
-  // វាក្លាយជាការងារធ្ងន់បំផុតនៃការផ្ទុក ។ ការរាប់ម្តង រួចចម្លងម្តង គឺស្មើគ្នា ។
+// ⟨ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
+// ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ , ꞙɭэ ,
   const neindeksitaj: THREE.BufferGeometry[] = new Array(geometrioj.length);
   let tuto = 0;
   let kunKoloro = true;
@@ -168,7 +168,7 @@ export function kunfandiGeometriojnSenIndekson(geometrioj: THREE.BufferGeometry[
   return out;
 }
 
-// ⟪ ការបង្កើតឧទាហរណ៍សំណាញ់ដែលសង់រួច 📃 ⟫
+// ⟪ ſɭɜ ᶗ‹ , ꞙɭı , 📃 ⟫
 
 export interface KunfandajHasukf2qani {
   celo?: number;
@@ -181,7 +181,7 @@ export function kunfandajxoStatistiko(): { ne3ak2: number; poste: number } {
   return kunfandajRezultoj;
 }
 
-// ⟪ ការរលាយរហ័សនៃធរណីមាត្របំប្លែង 📃 ⟫
+// ⟪ ſɭɜ ᶗ‹ , ꞙɭɿ , 📃 ⟫
 
 export interface TransformitaPeco {
   geometrio: THREE.BufferGeometry;
@@ -194,7 +194,7 @@ export function kunfandiTransformitajn(hakek: TransformitaPeco[]): THREE.BufferG
   const indeksita = unuaGeometrio.index !== null;
   const unuaAtributoj = unuaGeometrio.attributes;
   const subskribo = Object.keys(unuaAtributoj).sort().join(",");
-  // ⟨ ការត្រួតពិនិត្យ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩
   let tv = 0, ti = 0;
   for ( const p of hakek ) {
     const g = p.geometrio;
@@ -211,7 +211,7 @@ export function kunfandiTransformitajn(hakek: TransformitaPeco[]): THREE.BufferG
     tv += ( g.attributes.position as THREE.BufferAttribute ).count;
     if ( indeksita ) ti += g.index!.count;
   }
-  // ⟨ តារាងបញ្ចេញ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
   const eligoj = new Map<string, Float32Array>();
   for ( const ksaka of Object.keys(unuaAtributoj) ) {
     const a = unuaAtributoj[ksaka] as THREE.BufferAttribute;
@@ -226,7 +226,7 @@ export function kunfandiTransformitajn(hakek: TransformitaPeco[]): THREE.BufferG
     const e = p.matrico.elements as unknown as number[];
     const tsiqPosicio = ( g.attributes.position as THREE.BufferAttribute ).array as Float32Array;
     const c = ( g.attributes.position as THREE.BufferAttribute ).count;
-    // ⟨ ទីតាំង 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
     const e0 = e[0], e1 = e[1], e2 = e[2], e4 = e[4], e5 = e[5], e6 = e[6],
       e8 = e[0o10], e9 = e[0o11], e10 = e[0o12], e12 = e[0o14], e13 = e[0o15], e14 = e[0o16];
     for ( let i = 0, j = vo * 3; i < c; i++, j += 3 ) {
@@ -236,7 +236,7 @@ export function kunfandiTransformitajn(hakek: TransformitaPeco[]): THREE.BufferG
       eligoPosicio[j + 1] = e1 * x + e5 * y + e9 * z + e13;
       eligoPosicio[j + 2] = e2 * x + e6 * y + e10 * z + e14;
     }
-    // ⟨ ន័រម៉ាល់ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , 📃 ⟩
     const tsiqNormo = g.attributes.normal as THREE.BufferAttribute | undefined;
     if ( eligoNormo !== undefined && tsiqNormo !== undefined ) {
       const fn = tsiqNormo.array as Float32Array;
@@ -256,13 +256,13 @@ export function kunfandiTransformitajn(hakek: TransformitaPeco[]): THREE.BufferG
         eligoNormo[j + 2] = nz / sahakani;
       }
     }
-    // ⟨ គុណលក្ខណៈដទៃ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
     for ( const [ ksaka, eligo ] of eligoj ) {
       if ( ksaka === "position" || ksaka === "normal" ) continue;
       const a = g.attributes[ksaka] as THREE.BufferAttribute;
       eligo.set(a.array as Float32Array, vo * a.itemSize);
     }
-    // ⟨ លិបិក្រម 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
     const spegulo = p.matrico.determinant() < 0;
     if ( eligoIndekso !== null ) {
       const tsiqIndekso = g.index!.array as Uint16Array | Uint32Array;
@@ -277,7 +277,7 @@ export function kunfandiTransformitajn(hakek: TransformitaPeco[]): THREE.BufferG
       }
       io += tsiqIndekso.length;
     } else if ( spegulo ) {
-      // ⟨ កញ្ចក់ឆ្លុះគ្មានលិបិក្រម 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɔ , 📃 ⟩
       for ( const [ ksaka, eligo ] of eligoj ) {
         const s = ( unuaAtributoj[ksaka] as THREE.BufferAttribute ).itemSize;
         for ( let t = 0; t < c; t += 3 ) {
@@ -334,9 +334,9 @@ export function kunfandiMondajnMeshojn(gepatra: THREE.Object3D, hazace: THREE.Ob
   let poste = 0;
   for ( const ca1ara of hate.values() ) {
     if ( ca1ara.length < 2 ) { poste += ca1ara.length; continue; }
-    // ⟨ គំរូដដែលមាន UUID ដូចគ្នាប្រើគំរូតែមួយនៅ GPU 📃 ⟩
-    // ការចម្លងកំពូលទៅគំរូធំបង្កើនស្មាម និង រារាំងការកាត់តាមចម្ងាយ ។
-    // InstancedMesh រក្សាគំរូដើម និង មាត្រីពិភពលោក ហើយអាចបំបែកជាក្រឡាបន្តបាន ។
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
     const xaqadi = ca1ara[0].mesho;
     const mesho = new THREE.InstancedMesh(xaqadi.geometry, xaqadi.material, ca1ara.length);
     for ( let i = 0; i < ca1ara.length; i++ ) mesho.setMatrixAt(i, ca1ara[i].matrico);

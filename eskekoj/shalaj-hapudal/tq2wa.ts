@@ -6,7 +6,7 @@ import { katmullRom } from "../../kantaoj/komunajxoj/interpolo.js";
 import { kf2GlacifisanHaŭtanCac2sex } from "../komunajxoj/cac2sex/glacifisa-hauxto.js";
 import { kf2GlacifisanNaĝilanCac2sex } from "../komunajxoj/cac2sex/glacifisa-nagxilo.js";
 
-// ⟪ ត្រីទឹកកក ( Channichthyidae ) 📃 ⟫
+// ⟪ ſɭᴜ ſɭ,ɔ ʌ ſɭˬꞇ ſ̀ȷᴜ ( Channichthyidae ) 📃 ⟫
 
 interface FiŝaStacio { z: number; rx: number; ry: number; }
 export
@@ -249,7 +249,7 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
 }
 
 export function gxisdatigiTq2wan(b: Paga, t: number, dt: number): void {
-  // ⟨ ការហែលត្រីទឹកកក 📃 ⟩
+  // ⟨ ſɭw j͐ʃᴜ ʌ ſɭᴜ ſɭ,ɔ ʌ ſɭˬꞇ ſ̀ȷᴜ 📃 ⟩
   const vx = Math.cos(t * b.rapido + b.phase) * b.amplitudo * b.rapido;
   const vz = Math.cos(t * 0o3/0o4 + b.phase * 0o2) * 0o3/0o4;
   let diferenco = Math.atan2(vx, vz) - b.c2w2q;

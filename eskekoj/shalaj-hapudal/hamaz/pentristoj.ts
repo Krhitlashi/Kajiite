@@ -1,4 +1,4 @@
-// ≺⧼ ជាងគូរផ្ទាំង 🖌️ ⧽≻
+// ≺⧼ ſɟᴜ j͑ʃᴜ ɭʃɹ , j͑ʃɜȝ ɭʃɔ 🖌️ ⧽≻
 import * as THREE from "three";
 import { weh2Ruva, hunanu, tsije, hunanuWeh2 } from "../../komunajxoj/koloroj.js";
 import { k2fFluanStrekon, molaStelaK6h6 } from "../../komunajxoj/cac2sex/helpiloj.js";
@@ -9,9 +9,9 @@ import { malfermaDuono } from "./malfermo.js";
 const vestaCac2sexStoko = new Map<string, THREE.CanvasTexture>();
 const vestaCac2sexKlavo = ( o: Vesto, pudal: string ): string =>
   o.ksaka + "|" + o.geles + "|" + o.akcenta + "|" + o.interno + "|" + o.pantalono + "|" + pudal;
-// ⟪ ជាងគូរផ្ទាំង 🖌️ ⟫
+// ⟪ ſɟᴜ j͑ʃᴜ ɭʃɹ , j͑ʃɜȝ ɭʃɔ 🖌️ ⟫
 
-// ⟨ អាវខាងក្រៅ 📃 ⟩
+// ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
 function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
   const w = k.canvas.width, h = k.canvas.height;
   const M = o.geles, A = o.akcenta, I = o.interno;
@@ -20,17 +20,17 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
   k.fillRect(0, 0, w, h);
   sxtofon(k, M);
 
-  // ⟨ ផ្នត់ 📃 ⟩
+  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
   faldo(k, 0o40, 0o24, M, 0o1, 0o3/0o10);
   faldo(k, 0o124, 0o34, M, 0o1, 0o25/0o100);
   faldo(k, 0o254, 0o34, M, 0o1, 0o25/0o100);
   faldo(k, 0o340, 0o24, M, 0o1, 0o3/0o10);
 
-  // ⟨ គំនូរនៅត្រង់កណ្តាល 📃 ⟩
+  // ⟨ ſ͕ɭɜ ı],ᴜ , ſɭэ ɭʃᴜ , ⟅ ⟩
   k.lineCap = "round";
   k.lineJoin = "round";
 
-  // ⟨ អង្កត់ទ្រូង 📃 ⟩
+  // ⟨ ſɭᴜ ʃןᴜ , ꞙɭı , ⟅ ⟩
   const flankajStrekoj: [ number, number, number ][] = [
     [ 0o0, hunanuWeh2(M, 0o1), 0o6 ],
     [ 0o10, hunanuWeh2(A, 0o1), 0o4 ],
@@ -53,7 +53,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
     }
   }
 
-  // ⟨ កអាវ 📃 ⟩
+  // ⟨ ɭʃᴜ , ⟅ ⟩
   const KOLUMO_ALTO = 0o24;
   k.fillStyle = hunanu(M, 0o1);
   k.fillRect(0, 0, w, KOLUMO_ALTO);
@@ -61,7 +61,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
   k.fillRect(0, 0o4, w, 0o12);
   stebo(k, [ [ 0, KOLUMO_ALTO ], [ w, KOLUMO_ALTO ] ], hunanu(M, 0o2), 0o1);
 
-  // ⟨ គែមមុខ 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ , ɭʃɜ ſɭɹȝ , ⟅ ⟩
   const ombroj: [ [ number, number ][], [ number, number ][] ] = [ [], [] ];
   const bordoj: [ [ number, number ][], [ number, number ][] ] = [ [], [] ];
   for ( let y = KOLUMO_ALTO; y <= h; y += 0o4 ) {
@@ -73,11 +73,11 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
   }
   bordiKkaxten(k, ombroj[0], hunanu(M, 0o1, 0o5/0o10), 0o2);
   bordiKkaxten(k, ombroj[1], hunanu(M, 0o1, 0o5/0o10), 0o2);
-  // ⟨ ខ្សែសង្កត់ 📃 ⟩
+  // ⟨ ꞙɭı , ⟅ ⟩
   bordiKkaxten(k, bordoj[0], Ax, 0o4);
   bordiKkaxten(k, bordoj[1], Ax, 0o4);
 
-  // ⟨ ការកាត់ចេញ 📃 ⟩
+  // ⟨ j͑ʃᴜ ʃɜ , ꞙɭɔ , ⟅ ⟩
   const fenestro = ( x: number, y: number, r: number ) => {
     kvarStelo(k, x, y, r + 0o11, Ax);
     kvarStelo(k, x, y, r + 0o5, Mx);
@@ -89,7 +89,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
   fenestro(0o200 - 0o50, 0o540, 0o13);
   fenestro(0o200 + 0o50, 0o540, 0o13);
 
-  // ⟨ លំនាំទ្រូង 📃 ⟩
+  // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ⟩
   kvarStelo(k, 0o200, 0o120, 0o36, Ax);
   kvarStelo(k, 0o200, 0o120, 0o14, Ix);
   for ( const sx of [ -0o1, 0o1 ] ) for ( const sy of [ -0o1, 0o1 ] ) {
@@ -121,10 +121,10 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
     }
   }
 
-  // ⟨ ខ្នង 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ , ꞙɭı , ⟅ ⟩
   k.lineCap = "round";
   k.lineJoin = "round";
-  // ⟨ V កអាវ 📃 ⟩
+  // ⟨ V , ɭʃᴜ , ⟅ ⟩
   volviX(k, () => {
     k2fFluanStrekon(k, [
       [ -0o37, 0o70 ], [ -0o34, 0o230 ], [ 0o34, 0o230 ], [ 0o37, 0o70 ],
@@ -133,7 +133,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
       [ -0o27, 0o64 ], [ -0o24, 0o174 ], [ 0o24, 0o174 ], [ 0o27, 0o64 ],
     ], hunanuWeh2(M, 0o2), 0o2);
   });
-  // ⟨ ជើងស្មា 📃 ⟩
+  // ⟨ j͑ʃᴜ ʃɜ , ꞙɭı , ⟅ ⟩
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       k2fFluanStrekon(k, [
@@ -142,7 +142,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
       ], hunanuWeh2(M, 0o2), 0o3);
     }
   });
-  // ⟨ ពេជ្រធំ 📃 ⟩
+  // ⟨ ſɭᶗ‹ɜ , ꞙɭı , ⟅ ⟩
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       k2fFluanStrekon(k, [
@@ -185,14 +185,14 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
     }
   });
 
-  // ⟨ ត្បូងកណ្តាល 📃 ⟩
+  // ⟨ }ʃɹƽ , ꞙɭı , ⟅ ⟩
   volviX(k, () => {
     k.fillStyle = Ax;
     k.fill(molaStelaK6h6(0o0, 0o370, 0o21, 0o100));
     k.fillStyle = Mx;
     k.fill(molaStelaK6h6(0o0, 0o370, 0o6, 0o30));
   });
-  // ⟨ ជើងក្រោម 📃 ⟩
+  // ⟨ ꞙɭı , ⟅ ⟩
   volviX(k, () => {
     k2fFluanStrekon(k, [
       [ -0o17, 0o660 ], [ -0o14, 0o560 ], [ 0o14, 0o560 ], [ 0o17, 0o660 ],
@@ -202,8 +202,8 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
     ], hunanuWeh2(M, 0o2), 0o2);
   });
 
-  // ⟨ ខ្នងទទួលលំនាំច្រើនជាង 🖌️ ⟩
-  // ⟨ ធ្នូចំហៀង 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 🖌️ ⟩
+  // ⟨ ſȷƽᴜ ʃɔ , ⟅ ⟩
   const dorsWohaj: [ number, number, number, number, number ][] = [
     [ 0o54, 0o70,  0o30, 0o2, hunanuWeh2(M, 0o2) ],
     [ 0o62, 0o104, 0o42, 0o3, hunanuWeh2(A, 0o1) ],
@@ -221,7 +221,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
       }
     }
   });
-  // ⟨ ឆ្នូតស្មា 📃 ⟩
+  // ⟨ j͑ʃᴜ ʃɜ , ꞙɭı , ⟅ ⟩
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       k2fFluanStrekon(k, [
@@ -230,7 +230,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
       ], hunanuWeh2(A, 0o1), 0o3);
     }
   });
-  // ⟨ ជ្រុងនៅក្រណាត់ 📃 ⟩
+  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       for ( const woha of [ 0o0, 0o12 ] ) {
@@ -244,9 +244,9 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
     }
   });
 
-  // ⟨ គ្មានខ្សែផ្តេក 📃 ⟩
+  // ⟨ ꞙɭı , ⟅ ⟩
 
-  // ⟨ គែមក្រោមជាខ្សែពីរជាន់ 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ , ꞙɭɿ , ⟅ ⟩
   k.fillStyle = Ax;
   k.fillRect(0, h - 0o14, w, 0o14);
   k.fillStyle = hunanu(M, 0o1, 0o5/0o10);
@@ -255,7 +255,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Vesto): void {
   k.fillRect(0, h - 0o14, w, 0o2);
 }
 
-// ⟨ អាវក្នុង 📃 ⟩
+// ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
 function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
   const w = k.canvas.width, h = k.canvas.height;
   const I = o.interno, A = o.akcenta;
@@ -263,7 +263,7 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
   k.fillStyle = Ix;
   k.fillRect(0, 0, w, h);
   sxtofon(k, I);
-  // ⟨ ផ្នត់ទន់ពីរ 📃 ⟩
+  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭɿ , ⟅ ⟩
   faldo(k, 0o120, 0o30, I, 0o1, 0o25/0o100);
   faldo(k, 0o260, 0o30, I, 0o1, 0o25/0o100);
 
@@ -271,7 +271,7 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
   k.lineCap = "round";
   k.lineJoin = "round";
 
-  // ⟨ គំនូរមានខ្សែបញ្ឈរ 📃 ⟩
+  // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ⟩
   for ( const h6kuni of [ 0o56, 0o126 ] ) {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       k2fFluanStrekon(k, [
@@ -289,7 +289,7 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
     }
   }
 
-  // ⟨ ធ្នូកអាវ 📃 ⟩
+  // ⟨ ſȷƽᴜ ʃɔ , ɭʃᴜ , ⟅ ⟩
   k.strokeStyle = hunanu(I, 0o2);
   k.lineWidth = 0o2;
   k.beginPath();
@@ -297,16 +297,16 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
   k.quadraticCurveTo(0o200, MARGENO + 0o50, 0o200 + 0o54, MARGENO + 0o10);
   k.stroke();
 
-  // ⟨ ផ្កាយទ្រូង 📃 ⟩
+  // ⟨ }ʃɹƽ ꞙɭꞟ , ꞙɭı , ⟅ ⟩
   c2qRombo(k, 0o200, 0o166, 0o42, 0o44, null, hunanu(I, 0o2, 0o5/0o10), 0o2);
   kvarStelo(k, 0o200, 0o166, 0o24, Ax);
   kvarStelo(k, 0o200, 0o166, 0o11, Ix);
 
-  // ⟨ បង្អួចមើលឃើញនៃអាវក្នុង 📃 ⟩
-  // ⟨ កណ្តាលជាជើងរង្វង់បន្ទរ 📃 ⟩
+  // ⟨ j͑ʃᴜ ſɭᴜ ɭʃɹ , j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
+  // ⟨ ſɭэ ɭʃᴜ , ꞙɭı , ɭʃɹ ſ͕ɭɹ , ⟅ ⟩
   k.lineCap = "round";
   k.lineJoin = "round";
-  // ⟨ ជើងចុះក្រោម 📃 ⟩
+  // ⟨ ꞙɭı , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ⟅ ⟩
   const sxevrono = ( yPinto: number, p2somani: number, weh2: number, dikeco: number ) => {
     const kamaY = yPinto - ( 0o600 - yPinto ) / 0o3;
     k2fFluanStrekon(k, [
@@ -341,7 +341,7 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
     ], hunanuWeh2(I, 0o2), 0o3);
   }
 
-  // ⟨ ផ្កាយចំហៀងទ្រូង និងក្រោមចង្កេះ 📃 ⟩
+  // ⟨ }ʃɹƽ ꞙɭꞟ , ꞙɭı , ꞙɭı , ⟅ ⟩
   for ( const dx of [ -0o102, 0o102 ] ) {
     kvarStelo(k, 0o200 + dx, 0o160, 0o12, hunanu(I, 0o3));
     kvarStelo(k, 0o200 + dx, 0o160, 0o7, Ax);
@@ -351,7 +351,7 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
   kvarStelo(k, 0o200, 0o640, 0o13, hunanu(A, 0o1));
   kvarStelo(k, 0o200, 0o640, 0o6, Ix);
 
-  // ⟨ ខ្នង 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ , ⟅ ⟩
   volviX(k, () => kvarStelo(k, 0, 0o166, 0o20, hunanu(I, 0o2)));
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
@@ -362,10 +362,10 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Vesto): void {
     }
   });
 
-  // ⟨ ចង្កេះទទេទាំងស្រុង 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭɔ , ⟅ ⟩
 }
 
-// ⟨ ខោ 📃 ⟩
+// ⟨ ꞙɭɿ , ɭʃэ ſɭɔȝ , ⟅ ⟩
 function pentriPantalonon(k: CanvasRenderingContext2D, o: Vesto): void {
   const w = k.canvas.width, h = k.canvas.height;
   const P = o.pantalono, A = o.akcenta;
@@ -376,8 +376,8 @@ function pentriPantalonon(k: CanvasRenderingContext2D, o: Vesto): void {
   faldo(k, 0o200, 0o40, P, 0o1, 0o3/0o10);
   faldo(k, 0o60, 0o24, P, 0o1, 0o25/0o100);
   faldo(k, 0o340, 0o24, P, 0o1, 0o25/0o100);
-  // ⟨ ខ្សែសង្កត់ជាបញ្ឈរ 📃 ⟩
-  // ⟨ ខ្សែស្តើង និងនៅជ្រុងទាំងបួន 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ⟅ ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭэ , ⟅ ⟩
   const pantalonajPaneloj: [ number, number ][] = [
     [ 0o40, 0o1 ], [ 0o140, -0o1 ], [ 0o240, 0o1 ], [ 0o340, -0o1 ],
   ];
@@ -401,16 +401,16 @@ function pentriPantalonon(k: CanvasRenderingContext2D, o: Vesto): void {
       ], hunanuWeh2(P, 0o2), 0o2);
     }
   }
-  // ⟨ ខ្សែសង្កត់នៅចង្កេះ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ⟅ ⟩
   k.fillStyle = Ax;
   k.fillRect(0, 0, w, 0o3);
   k.fillStyle = hunanu(A, 0o1, 0o5/0o10);
   k.fillRect(0, 0o3, w, 0o2);
-  // ⟨ ខ្សែមើលឃើញនៃផ្ទាំងគំនូរ 📃 ⟩
-  // ⟨ ក្រណាត់នៅស្ងៀមនៅស្បែកជើង 📃 ⟩
+  // ⟨ ꞙɭı , j͑ʃɜȝ ɭʃɔ , ⟅ ⟩
+  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ſןᴜ ɭʃэ ɭʃɔ , ⟅ ⟩
   k.fillStyle = hunanu(P, 0o1, 0o5/0o10);
   k.fillRect(0, 0o657, w, 0o3);
-  // ⟨ លំនាំជាផ្កាយ និងងងឹត 📃 ⟩
+  // ⟨ ſ͕ɭɜ ı],ᴜ , }ʃɹƽ ꞙɭꞟ , ꞙɭɔ , ꞙɭı , ⟅ ⟩
   const steloj: [ number, number, number ][] = [
     [ 0o200, 0o564, 0o15 ],
     [ 0o200, 0o613, 0o12 ],
@@ -422,12 +422,12 @@ function pentriPantalonon(k: CanvasRenderingContext2D, o: Vesto): void {
     if ( x === 0 ) volviX(k, () => kvarStelo(k, 0, y, r, hunanu(P, 0o2)));
     else kvarStelo(k, x, y, r, hunanu(P, 0o2));
   }
-  // ⟨ ខ្សែផ្តេកខាងក្រោមត្រូវដកចេញ 📃 ⟩
+  // ⟨ ꞙɭı , ⟅ ⟩
   k.fillStyle = hunanu(P, 0o2);
   k.fillRect(0, h - 0o6, w, 0o3);
 }
 
-// ⟨ ដៃអាវ 📃 ⟩
+// ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
 function pentriManikon(k: CanvasRenderingContext2D, o: Vesto): void {
   const w = k.canvas.width, h = k.canvas.height;
   const M = o.geles, A = o.akcenta;
@@ -463,7 +463,7 @@ function pentriManikon(k: CanvasRenderingContext2D, o: Vesto): void {
       }
     });
   }
-  // ⟨ ផ្កាយបួនចុងលើខ្សែ 📃 ⟩
+  // ⟨ }ʃɹƽ ꞙɭэ , ꞙɭı , ⟅ ⟩
   for ( let i = 0; i < 0o10; i++ )
     kvarStelo(k, i * 0o20 + 0o10, 0o26, 0o6, hunanu(A, 0o1));
   kvarStelo(k, 0, h - 0o24, 0o22, Ax);

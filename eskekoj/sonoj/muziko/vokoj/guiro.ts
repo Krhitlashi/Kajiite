@@ -1,13 +1,13 @@
 // ≺⧼ ſ͔ɭw ꞁȷ̀ꞇ ɽ͑ʃ'ɜ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🥁 ⧽≻
-// ការជូតជាខ្យល់បន្តរលូនលើធ្មេញឈើ ។ ធ្មេញញាប់ៗបង្កើតញ័ររលូន មិនមែនគ្រាប់ដាច់ៗ
-// ដូចការកាត់សំឡេងជាដុំទេ ។ រាងកាយឈើបន្លឺកំពូលថេរ ហើយកំពូលខ្ពស់ភ្លឺពេលជូតលឿន ។
+// ⟨ ɭʃꞇƽ ʌ ſɭᴜ , j͑ʃɹ ŋᷠɹ ꞙɭı , ſɭэ ɭʃᴜ ʌ ſɭɔ ֭ſɭw ⟅ ſɭэ ɭʃᴜ ,
+//   ꞙɭɔ ʃɜ j͐ʃɔ ʌ ſɭɔƽ ⟅ ſɭɜ ſɭ,w ʌ ſɭɔ ֭ſɭw , j͑ʃɹ ſןw ⟅ ꞙɭı , ɭʃэʞ ⟅
 import { noiseSrc } from "./bruo.js";
 import { faktoro } from "./vario.js";
 
-// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+// ⟨ ſɭᴜ j͐ʃэ ɭ(ᴜ ꞙɭɔ ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
 const ETA = 0o1/0o20000;
 
-// ⟨ កំពូលរាងកាយឈើ ៖ កណ្តាលហឺត កម្រិត និងភាពមុត 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ ʌ ſɭɜ ſɭ,w ʌ ſɭɔ ֭ſɭw ⟅ ꞙɭı , ⟅
 const BANDOJ: Array<[ number, number, number ]> = [
   [ 0o540,  0o4/0o10, 0o10 ],
   [ 0o1240, 0o5/0o10, 0o11 ],
@@ -19,9 +19,9 @@ const BANDOJ: Array<[ number, number, number ]> = [
 
 export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number, vel = 1, opts: { cresc?: number } = {}) {
   const tlakakani = t + dur;
-  // ⟨ អត្រាធ្មេញញាប់ ៖ ប្រហែល 0o40 ដងក្នុងវិនាទី លឿនជាងពេលជូតខ្លាំង 📃 ⟩
+// ⟨ ꞙɭэɔ ɭʃэ ɭʃᴜ , ꞙɭı ⟅ ſɭᴜ j͑ʃᴜꞇ ꞙɭı ⟅
   const dento = ( 0o36 + 0o14 * vel ) * faktoro(0o10/0o100);
-  // ⟨ ស្នាមជូតលឿនជាងបន្តិចពេលបង្កើនកម្លាំង 📃 ⟩
+// ⟨ ſןᴜȝ ᶅſw ſɭɹ , ꞙɭı ⟅
   const finoDento = dento * ( opts.cresc ? 0o11/0o10 : 0o1 );
 
   const g = ctx.createGain();
@@ -39,7 +39,7 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
   g.gain.linearRampToValueAtTime(ETA, tlakakani);
   g.connect(out);
 
-  // ⟨ ញ័ររលូន ៖ ស៊ីនូសយឺតៗបីបញ្ចូលគ្នា មិនមែនកាត់សំឡេងជាគ្រាប់ទេ 📃 ⟩
+// ⟨ ꞙɭц ſɭᴜ ſןᴜ , ꞙɭɔ ɭʃꞇƽ ʌ ſɭɔƽ ⟅
   const rasp = ctx.createGain();
   rasp.gain.value = 0o6/0o10;
   const osciloj: Array<[ number, number, number ]> = [
@@ -61,7 +61,7 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
   }
   rasp.connect(g);
 
-  // ⟨ ខ្យល់ជូតតែមួយឆ្លងកាត់ធ្មេញ រួចភ្ញោចកំពូលរាងកាយទាំងអស់ 📃 ⟩
+// ⟨ j͑ʃɹ ŋᷠɹ , ꞙɭı , ⟅
   const n = noiseSrc(ctx);
   const hp = ctx.createBiquadFilter();
   hp.type = "highpass";
@@ -82,7 +82,7 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
     bandGain.connect(bus);
   }
 
-  // ⟨ ផ្នែកទាបនៃរាងកាយ ឮក្នុងឯកសារងងឹត 📃 ⟩
+// ⟨ ſɭᴜ ſɭ,w ꞙɭɔ , ʃɜ j͐ʃɔ ⟅
   const blp = ctx.createBiquadFilter();
   blp.type = "lowpass";
   blp.frequency.value = 0o1200;
@@ -92,7 +92,7 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
   blp.connect(bg);
   bg.connect(bus);
 
-  // ⟨ សំឡេងកោសខ្ពស់ ឮតែបន្តិច ដើម្បីកុំឱ្យរដុបពេក 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ ɭʃᴜʞ ꞙɭı , ꞙɭɔ ⟅
   const rhp = ctx.createBiquadFilter();
   rhp.type = "highpass";
   rhp.frequency.value = 0o10000;

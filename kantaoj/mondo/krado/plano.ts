@@ -10,7 +10,7 @@ export function kf2KradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Cel
   const n = arangxo.arangxaGrando;
   const haKekkozusai = kf2Kradon(arangxo);
   aplikiSuperojn(haKekkozusai, superoj);
-  // ⟨ អគារ 📃 ⟩
+  // ⟨ ſɟɔȝ 📃 ⟩
   const paqj: KradaPaq[] = [];
   const tlunakani = ( x: number, z: number, rot: number, hunaq: CellType, sub: KradaPaq["sub"], stacia: boolean, ekstra = false, konektita = false ) => {
     paqj.push({ x, z, rot, hunaq, cx: Math.round(x / PASXO), cz: Math.round(z / PASXO), sub, stacia, ekstra, konektita });
@@ -53,7 +53,7 @@ export function kf2KradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Cel
     if ( !haKekkozusai.some(( [ lc, lr ] ) => lc === c && lr === r) ) haKekkozusai.push([ c, r, "sanktejo" ]);
   }
 
-  // ⟨ បណ្តាញផ្លូវ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ ſɟᴜ ı],ͷ̗ɔʞ ſɭᴜƽ ꞁȷ̀ᴜꞇ 📃 ⟩
   const hak6h6: KradaVojS2nasce[] = [];
   const colSet = new Set<number>(), rowSet = new Set<number>();
   for ( const [ c, r, t ] of haKekkozusai ) { if ( t !== null ) { colSet.add(c); rowSet.add(r); } }
@@ -94,7 +94,7 @@ export function kf2KradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Cel
     }
   }
 
-  // ⟨ ចង្កៀង 📃 ⟩
+  // ⟨ ֭ſɭwʞ ᶅſw ſɭɹ 📃 ⟩
   const lampoj: { x: number; z: number }[] = [];
   if ( arangxo.lampoj !== false ) {
     const LAMPA_DEDUPO = 0o2;
@@ -127,7 +127,7 @@ export function kf2KradanPlanon(arangxo: KradaArangxo, superoj?: Map<string, Cel
     }
   }
 
-  // ⟨ ស្ពរ៉ុន 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ ſɭᴜ ſ͕ȷɔ 📃 ⟩
   const spronoj: KradaSpono[] = [];
   if ( arangxo.blokaGrando === "unu" ) {
     const ekst = NS_ekstentoj.get(ringoX);

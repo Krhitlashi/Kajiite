@@ -25,7 +25,7 @@ export function vepaqPeriferiajnPlathaqoxan(
   dioritaMaterialo: THREE.MeshStandardMaterial,
   andezitaMaterialo: THREE.MeshStandardMaterial
 ): [ number, number ][] {
-  // ⟨ វាយនភាពអាន uv1 ដូចផ្លូវ ៖ uv រាបនៅសល់សម្រាប់ខ្សែកោង 📃 ⟩
+  // ⟨ j͐ʃƽɜ , ꞙɭı ʌ ſɭэ ֭ſɭэ ⟅ j͐ʃƽɜ ʌ ſȷƽᴜ ʃɔ 📃 ⟩
   const { supraMaterialo, bordaMaterialo: subaMaterialo } = kf2Hak6h6nMaterialojn(
     dioritaMaterialo, andezitaMaterialo, -0o2, -0o1, -0o1, -0o1 );
 

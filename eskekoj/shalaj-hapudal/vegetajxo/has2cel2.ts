@@ -4,7 +4,7 @@ import { kf2AsfanS2cel2nCac2sex } from "../../komunajxoj/cac2sex/asfa-s2cel2.js"
 import { kf2AsfanS2cel2nBumpanCac2sex } from "../../komunajxoj/cac2sex/asfa-s2cel2-bumpo.js";
 import { kunfandiDuGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 
-// ⟨ កន្លែងស្លឹកចេញ 📃 ⟩
+// ⟨ ſɭᴜ ı],ƨɔ , j͑ʃͷ̗ᴜʞ , ſɭэ ɭʃᴜ , ⟅ ⟩
 export function vepaqS2cel2nRingon(): THREE.BufferGeometry {
   const geometrio = new THREE.CylinderGeometry(0o16/0o40, 0o13/0o40, 1, 0o32, 0o6, true).translate(0, 0o1/0o2, 0);
   const haxekuxa = geometrio.attributes.position;
@@ -14,7 +14,7 @@ export function vepaqS2cel2nRingon(): THREE.BufferGeometry {
     const z = haxekuxa.getZ(i);
     const ang = Math.atan2(x, z);
     const lobo = Math.pow(( Math.cos(4 * ang) + 1 ) / 2, 2);
-    // ⟨ មូលដ្ឋានស្លឹក 📃 ⟩
+    // ⟨ ſɭɜ ſɭ,w }ʃw , j͑ʃͷ̗ᴜʞ , ⟅ ⟩
     const baza = Math.pow(1 - y, 3);
     const faktoro = 1 + 0o1/0o10 * y * y + 0o1/0o20 * baza;
     const sef4Y = y + 2/5 * lobo * y - 0o45/0o100 * lobo * baza;
@@ -24,9 +24,9 @@ export function vepaqS2cel2nRingon(): THREE.BufferGeometry {
   return geometrio;
 }
 
-// ⟨ ការធ្វើពែងម្តងទៀត 📃 ⟩
-// ⟨ ធ្វើម្តងទៀតប៉ុន្មាន 📃 ⟩
-// ⟨ ខ្សែកអាវ 📃 ⟩
+// ⟨ ſɟᴜ ı],ɔ ŋᷠᴜ , ꞙɭı , ⟅ ⟩
+// ⟨ ſɟᴜ ı],ɔ ŋᷠᴜ , ꞙɭɿ , ꞙɭı ⟅ ⟩
+// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ꞙɭı , ⟅ ⟩
 export function kf2S2cel2nRinganMaterialon(ripetoY: number, taso: boolean,
   offsetY = 0): THREE.MeshStandardMaterial {
   const mapo = kf2AsfanS2cel2nCac2sex();
@@ -38,8 +38,8 @@ export function kf2S2cel2nRinganMaterialon(ripetoY: number, taso: boolean,
     klono.offset.set(0, offsetY);
     return klono;
   };
-  // ⟨ ចម្លាក់ធ្លាក់ចុះ 📃 ⟩
-  // ⟨ រង្វង់ថយចុះ 📃 ⟩
+  // ⟨ ſ͕ɭɜ ı],ᴜ , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ⟅ ⟩
+  // ⟨ ɭʃɹ ſ͕ɭɹ , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ⟅ ⟩
   return new THREE.MeshStandardMaterial({
     map: uzi(mapo), bumpMap: uzi(reliefo), bumpScale: 0o1/0o50, color: 0xffffff,
     roughness: taso ? 0o63/0o100 : 0o53/0o100,
@@ -47,7 +47,7 @@ export function kf2S2cel2nRinganMaterialon(ripetoY: number, taso: boolean,
   });
 }
 
-// ⟨ ចុងដើម 📃 ⟩
+// ⟨ ɭʃɜ ſɭɹȝ , j͑ʃɜ j͐ʃɹ , ⟅ ⟩
 const TRUNKOPINTA_KOMENCO = 0o7/0o10;
 export function sost2cel2saipintaProfilon(t: number): number {
   if ( t <= TRUNKOPINTA_KOMENCO ) return 1;

@@ -1,13 +1,13 @@
 // ≺⧼ j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃ'w j͐ʃᴜ 📄 ⧽≻
-// ការបង្កើត UI រួមសម្រាប់ម៉ឺនុយទាំងអស់ ៖ ទំព័រពេញ និងផ្ទាំងលេចឡើង ។
-// ម៉ឺនុយមួយមានលេខសម្គាល់តែមួយ ៖ ការហៅដូចគ្នាពីរដងត្រឡប់វត្ថុដូចគ្នា ។
-// ពេលម៉ឺនុយមួយបើក ម៉ឺនុយផ្សេងទាំងអស់បិទ ។ ប៊ូតុងត្រឡប់ ( id + Reeniri )
-// ត្រឡប់ទៅម៉ឺនុយមុនវិញ មិនមែនគ្រាន់តែបិទទេ ។
+// ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ſɭᴜ ſ͕ɭᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭı , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ſɭɹ ſןᴜ ,
+// ſɭɹ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 export interface Stato {
   malfermi(): void;
-  /*ត្រឡប់ ៖ បិទម៉ឺនុយនេះ រួចបើកម៉ឺនុយមុនវិញ , បើមាន */
+/* ſɭɹ ſןᴜ , ⟅ ſɭᴜ ſןᴜ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩ */
   fermi(): void;
-  /*លាក់តែប៉ុណ្ណោះ ៖ មិនបើកម៉ឺនុយមុនវិញទេ */
+/* ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , ꞙɭɔ , 📃 ⟩ */
   kasxi(): void;
   tsekeMalfermita(): boolean;
 }
@@ -17,7 +17,7 @@ const malfermoj = new Map<string, ( () => void )[]>();
 let nunId: string | null = null;
 let antauaId: string | null = null;
 
-/*បង្កើតម៉ឺនុយមួយ ( ទំព័រពេញ ឬ ផ្ទាំងលេចឡើង ) ដោយអនុសញ្ញាប៊ូតុងត្រឡប់
+/* ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ſɭᴜ ſ͕ɭᴜ , ꞙɭɿ ,
     @param id ( string ) - លេខសម្គាល់ , ប៊ូតុងត្រឡប់គឺ id + Reeniri
     @param onMalfermi ( function , optional ) - ដំណើរការមុនបើក
     @param jeSxangxo ( function , optional ) - ដំណើរការពេលបើក ឬបិទ
@@ -75,7 +75,7 @@ export function kf2Staton( id: string, onMalfermi?: () => void, jeSxangxo?: () =
   return stato;
 }
 
-/*បិទម៉ឺនុយទាំងអស់ និងលុបប្រវត្តិ ៖ ប្រើពេលចូលពិភពលោក */
+/* ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩ */
 export function fermiCxiujnPaghojn(): void {
   for ( const stato of statoj.values() ) stato.kasxi();
   nunId = null;

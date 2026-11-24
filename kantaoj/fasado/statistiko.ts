@@ -6,8 +6,8 @@ import { alHe, alOkto, HE_POR_SEKUNDO } from "../komunajxoj/unuoj.js";
 import type { Rultempo } from "../bildo/rultempo.js";
 
 const CENSA_PERIODO = 0o34;
-// ⟨ អត្រាហ្វ្រេមគណនារាល់ហ្វ្រេម ប៉ុន្តែការសរសេរ DOM ធ្វើតែក្នុង
-//   រយៈពេលកំណត់ជា He ។ ស្ថិតិជាឧបករណ៍អភិវឌ្ឍន៍ មិនគួរយកថាមពលហ្វ្រេម ។ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ ,
+//   ſɭэ ſɭᴜ , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 const MONTRA_PERIODO = 0o1 / 0o2;
 
 export interface Statistiko {
@@ -31,7 +31,7 @@ export function kf2Statistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
     + "color:#d8b068;text-shadow:0 1px 2px #000,0 0 6px #000;display:none;";
   document.body.appendChild(surmetajxo);
 
-  // ⟨ ការខ្វះស៊ុម 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭɿ , 📃 ⟩
   let glataJoqa = 0;
   let ne3ak2Tempo = 0;
   let hajoqa = 0;
@@ -57,7 +57,7 @@ export function kf2Statistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
         if ( !gepatraVidebla ) return;
         const mesa = o as THREE.Mesh;
         if ( mesa.isMesh !== true || mesa.geometry === undefined ) return;
-        // ⟨ ស្វ៊ែរដូចដែនមើល 📃 ⟩
+// ⟨ ſȷƽᴜ ʃɔ , ſɭэ ſɭᴜ , 📃 ⟩
         const sfero = sferoDe(o);
         if ( sfero === null ) return;
         SFERO.copy(sfero);
@@ -76,8 +76,8 @@ export function kf2Statistikon(bildilo: THREE.WebGLRenderer, qena: THREE.Scene,
   function gxisdatigu( rultempo?: Rultempo ): void {
     if ( rultempo ) statistiko.rultempo = rultempo;
     if ( !statistiko.ŝaltita ) return;
-    // ⟨ performance.now ផ្តល់មិល្លីវិនាទីនៅ API ។ បម្លែងម្តងទៅ He
-    //   ហើយគណនាអត្រាជាស៊ុមក្នុងមួយ He ដោយផ្ទាល់ 📃 ⟩
+// ⟨ ſɭэ ɭʃᴜ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ꞙɭı ,
+//   ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
     const nun = alHe(performance.now());
     const tahaqSapse1i = ne3ak2Tempo === 0
       ? HE_POR_SEKUNDO / 0o70

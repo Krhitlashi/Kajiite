@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ɭʃэ ֭ſɭэƽ ſɭэ ı],ᴜʞ ꞁȷ̀ᴜꞇ 🔥 ⧽≻
 import * as THREE from "three";
-// ⟨ ស្រមោលអណ្តាតភ្លើង 📃 ⟩
+// ⟨ ֭ſɭw }ʃᴜ }ʃw ʌ ſɟᴜ ɭʃэ ֭ſɭэƽ ſɭэ ı],ᴜʞ ꞁȷ̀ᴜꞇ 📃 ⟩
 const FLAMA_PROFILO: [ number, number ][] = [
   [ 0o0/0o10, 0o0/0o10 ],
   [ 0o23/0o100, 0o0/0o10 ],
@@ -19,7 +19,7 @@ const FLAMA_PROFILO: [ number, number ][] = [
 
 export const LANGA_ALTO = 0o14/0o100;
 
-// ⟨ កម្ពស់ចាន 📃 ⟩
+// ⟨ j͐ʃэ ɭ(ᴜ ʌ ſןᴜ ſᶘɹ 📃 ⟩
 export const BOVLA_ALTO = 0o15/0o100;
 
 export function kf2FlamanGeometrion( l6da: number, sefini: number, ml: number,

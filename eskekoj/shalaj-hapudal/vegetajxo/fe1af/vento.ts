@@ -2,11 +2,11 @@
 import * as THREE from "three";
 import { kf2HerbanKlinganCac2sex } from "../../../komunajxoj/cac2sex/klinga-fe1af.js";
 
-// ⟪ អ្នកដើរលើវាលស្មៅ 📃 ⟫
+// ⟪ ſȷɔ ſᶘᴜʞ , j͑ʃᴜ ſןᴜ , ꞙɭı 📃 ⟫
 export const HERBA_PUSANTOJ = 0o4;
 const HERBA_PUSA_RADIO = 0o13/0o10;
 
-// ⟪ ខ្យល់លើស្មៅ 📃 ⟫
+// ⟪ j͑ʃɹ ŋᷠɹ , ſȷɔ ſᶘᴜʞ , ⟅ 📃 ⟫
 interface HerbaVento {
   uTempo: THREE.IUniform;
   uFotilo: THREE.IUniform;
@@ -26,21 +26,21 @@ export interface HerbaTavolo {
   cx: number;
   cz: number;
   limo: number;
-  // ⟨ ស្មៅពីរកម្រិត ៖ ស្មៅជិតលម្អិត , ស្មៅឆ្ងាយស្តើងជាង ។ ស្មៅឆ្ងាយលាក់លើស្មៅ
-  // ស្តើង ៖ ដុំស្មៅនៅឆ្ងាយលាយចូលគ្នា , ដូច្នេះការបន្ថយកម្រិតមិនឃើញទេ ។ 📃 ⟩
+  // ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭɿ j͑ʃ'ɔ ŋᷠɹ ⟅ ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭɿ , ꞙɭı ⟅
+  //   ſȷɔ ſᶘᴜʞ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭɿ , ⟅ 📃 ⟩
   detalaj: THREE.BufferGeometry;
   malproksimaj: THREE.BufferGeometry;
-  // ⟨ កម្រិតឆ្ងាយវាស់ពីគែមក្រឡាមិនមែនពីចំណុចកណ្តាល ៖ ក្រឡាធំ , ដូច្នេះបើវាស់ពី
-  // កណ្តាល ស្មៅក្រោមជើងអ្នកលេងអាចក្លាយជាស្មៅស្តើង ។ 📃 ⟩
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ſɭɹ ſןᴜ , ꞙɭɔ , ſɭэ ɭʃᴜ , ſɭɹ ſןᴜ , ꞙɭı ,
+  //   ſɭэ ɭʃᴜ , ſȷɔ ſᶘᴜʞ , ſןᴜ ɭʃэ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭɿ , ⟅ 📃 ⟩
   lodDistanco: number;
   ka5ik: number;
   malproksima: boolean;
 }
 export const herbajTavoloj: HerbaTavolo[] = [];
-// ⟨ អ៊ីស្តេរេស៊ីសនៃការឆ្លាស់កម្រិត ។ ចន្លោះនេះធំជាងចលនាកាមេរ៉ាមួយស៊ុម ។ 📃 ⟩
+// ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , j͑ʃᴜ ſɭᴜ , ⟅ ſɭᴜ ſןᴜ , j͑ʃᴜ ʃɜ , ꞙɭı , ꞙɭı ⟅ ⟩
 const HERBA_LOD_HISTEREZO = 0o6;
-// ⟨ កាមេរ៉ាឈរស្ងៀមពេលងាកមើល ។ បញ្ជីក្រឡាមិនប្រែ ដូច្នេះរំលងរង្វិលជុំធំ ។
-//   តែក្រឡាថ្មី ឬ ភាពមើលឃើញដែលអ្នកផ្សេងប្តូរ ត្រូវពិនិត្យឡើងវិញភ្លាម ។ 📃 ⟩
+// ⟨ ſɭᴜ j͑ʃᴜ ɭʃɹ , j͑ʃɜ ɭʃɹȝ , ⟅ ſɭɹ ſןᴜ , ꞙɭɔ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɔ ,
+//   ſɭɹ ſןᴜ , ꞙɭɿ , ꞙɭı , j͑ʃᴜ ſɭᴜ , ⟅ 📃 ⟩
 let lastaHerbaX = Infinity, lastaHerbaZ = Infinity;
 let herbaDevigita = true;
 
@@ -48,7 +48,7 @@ export function devigiHerbanGxisdatigon(): void {
   herbaDevigita = true;
 }
 
-// ⟪ ជម្រើសសម្ភារៈស្មៅ 📃 ⟫
+// ⟪ ſןw ſɭɔƽ , ſȷɔ ſᶘᴜʞ 📃 ⟫
 export interface HerbaMaterialajHasukf2qani {
   doklivo?: boolean;
   l6da?: number;
@@ -56,8 +56,8 @@ export interface HerbaMaterialajHasukf2qani {
   pusxo?: number;
 }
 
-// ⟨ ស្មៅគ្រប់ស្រទាប់ប្រើវាយនភាពដូចគ្នា ។ រក្សាវាតែមួយដើម្បីកុំបង្កើត
-//   ក្រណាត់ និង វាយនភាព GPU ដដែលឡើងវិញ ខណៈវត្ថុធាតុនីមួយៗមានខ្យល់ផ្ទាល់ខ្លួន ។ 📃 ⟩
+// ⟨ ſȷɔ ſᶘᴜʞ , j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , j͑ʃɜ ſɭ,ᴜ , ꞙɭı ⟅ ꞙɭı , ꞙɭı ,
+//   j͑ʃɜȝ ɭʃɔ , j͑ʃɜ ſɭ,ᴜ , GPU , ꞙɭı , ſןw ſɭɔƽ , ꞙɭı , j͑ʃɹ ŋᷠɹ , ꞙɭı ⟅ 📃 ⟩
 let defauxlaHerbaTeksturo: THREE.CanvasTexture | null = null;
 
 export function kf2HerbanMaterialon(limo = 0o100,
@@ -103,57 +103,57 @@ export function kf2HerbanMaterialon(limo = 0o100,
       "#include <begin_vertex>",
       `#include <begin_vertex>
       {
-        // ⟨ គុណមាត្រីពីរដងជាមួយវ៉ិចទ័រ ជំនួសឱ្យគុណមាត្រីមាត្រី ។ លទ្ធផលដូចគ្នា
-        //   តែចំនួនគុណតិចជាងពាក់កណ្តាល លើវើតិចរាប់លានរបស់ស្មៅ ។ 📃 ⟩
+        // ⟨ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ꞙɭɿ , ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ꞙɭɿ , ⟅ ꞙɭı ,
+        //   ⟅ ꞙɭɔ , ꞙɭɿ , ꞙɭı , ꞙɭı , ſȷɔ ſᶘᴜʞ ⟅ 📃 ⟩
         vec3 herbaPunkt = transformed;
         #ifdef USE_INSTANCING
-          herbaPunkt = ( modelMatrix * ( instanceMatrix * vec4( transformed, 1.0 ) ) ).xyz;
+          herbaPunkt = ( modelMatrix * ( instanceMatrix * vec4( transformed, ı.ɔ ) ) ).xyz;
         #endif
-        // ⟨ ប្រភពដុំស្មៅគឺជួរឈរទី 0o3 នៃ instanceMatrix រួចហើយ ។ ពីមុន
-        //   គុណមាត្រីទាំងពីរដើម្បីបានតែចំណុច ( 0 , 0 , 0 , 1 ) ។ 📃 ⟩
+        // ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭц , instanceMatrix , ꞙɭı , ⟅ ꞙɭı ,
+        //   ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ꞙɭɿ , }ʃɹƽ ( ɔ , ɔ , ɔ , ı ) ⟅ 📃 ⟩
         vec3 herbaBazo = herbaPunkt;
         #ifdef USE_INSTANCING
-          herbaBazo = ( modelMatrix * instanceMatrix[ 3 ] ).xyz;
+          herbaBazo = ( modelMatrix * instanceMatrix[ ц ] ).xyz;
         #endif
         float herbaDisto = distance( herbaBazo.xz, uHerbaFotilo );
-        float herbaFado = 1.0 - smoothstep( uHerbaLimo * 0.75, uHerbaLimo, herbaDisto );
-        // ⟨ ពេលរសាត់ដល់សូន្យ គ្រប់ការបន្ថែមខាងក្រោមត្រូវគុណនឹងសូន្យវិញ ។
-        //   ដុំស្មៅទាំងមូលមាន herbaFado តែមួយ ដូច្នេះសាខាមិនបែកខ្ញែក ។
-        //   រំលងខ្យល់ និង អ្នករុញ លើដុំដែលមិនបង្ហាញស្រាប់ ។ 📃 ⟩
-        if ( herbaFado > 0.0 ) {
+        float herbaFado = ı.ɔ - smoothstep( uHerbaLimo * ɔ.ƨꞟ, uHerbaLimo, herbaDisto );
+        // ⟨ j͑ʃɜ j͐ʃɹ ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭɔ , ⟅
+        //   ſȷɔ ſᶘᴜʞ , herbaFado , ꞙɭı , ꞙɭı , ꞙɭɿ , ⟅
+        //   j͑ʃɹ ŋᷠɹ , j͑ʃᴜ ſןɹ , ſɭᴜ ſןᴜ , ꞙɭɔ , ⟅ 📃 ⟩
+        if ( herbaFado > ɔ.ɔ ) {
           #ifdef HERBA_DOKLIVO
             transformed.y += dot( herbaDoklivo, transformed.xz );
           #endif
-          float herbaMaske = clamp( transformed.y / uHerbaAlto, 0.0, 1.0 );
-          float herbaFazo = herbaPunkt.x * 0.53125 + herbaPunkt.z * 0.3125;
-          float herbaOndo = sin( uHerbaTempo * 1.703125 + herbaFazo )
-            + 0.5 * sin( uHerbaTempo * 3.09375 + herbaFazo * 1.90625 );
+          float herbaMaske = clamp( transformed.y / uHerbaAlto, ɔ.ɔ, ı.ɔ );
+          float herbaFazo = herbaPunkt.x * ɔ.ꞟцıɿꞟ + herbaPunkt.z * ɔ.цıɿꞟ;
+          float herbaOndo = sin( uHerbaTempo * ı.ƨɔцıɿꞟ + herbaFazo )
+            + ɔ.ꞟ * sin( uHerbaTempo * 3.09375 + herbaFazo * 1.90625 );
           transformed.x += herbaOndo * uHerbaSvajo * herbaMaske * herbaMaske;
-          transformed.z += herbaOndo * uHerbaSvajo * 0.6455 * herbaMaske * herbaMaske;
+          transformed.z += herbaOndo * uHerbaSvajo * ɔ.ɩэꞟꞟ * herbaMaske * herbaMaske;
           #ifdef USE_INSTANCING
-            vec3 pusxaSumo = vec3( 0.0 );
-            for ( int pi = 0; pi < ${HERBA_PUSANTOJ}; pi ++ ) {
+            vec3 pusxaSumo = vec3( ɔ.ɔ );
+            for ( int pi = ɔ; pi < ${HERBA_PUSANTOJ}; pi ++ ) {
               vec4 pusxo = uHerbaPusantoj[ pi ];
-              if ( pusxo.w <= 0.0 ) continue;
+              if ( pusxo.w <= ɔ.ɔ ) continue;
               vec2 pusxaFor = herbaPunkt.xz - pusxo.xy;
               float pusxaDisto = length( pusxaFor );
               if ( pusxaDisto >= pusxo.z ) continue;
-              vec2 pusxaDir = pusxaFor / max( pusxaDisto, 0.0001 );
-              float pusxaPezo = 1.0 - pusxaDisto / pusxo.z;
+              vec2 pusxaDir = pusxaFor / max( pusxaDisto, ɔ.ɔɔɔı );
+              float pusxaPezo = ı.ɔ - pusxaDisto / pusxo.z;
               pusxaPezo *= pusxaPezo;
-              float pusxaOndo = 1.0 + 0.25 * sin( uHerbaTempo * 7.0 - pusxaDisto * 4.0 );
-              pusxaSumo += vec3( pusxaDir.x, -0.6, pusxaDir.y )
+              float pusxaOndo = ı.ɔ + ɔ.ɿꞟ * sin( uHerbaTempo * ƨ.ɔ - pusxaDisto * э.ɔ );
+              pusxaSumo += vec3( pusxaDir.x, -ɔ.ɩ, pusxaDir.y )
                 * ( pusxo.w * pusxaPezo * pusxaOndo );
             }
-            // ⟨ ពីមុន mat3 និង ចំណែកប្រាំមួយត្រូវគណនាលើគ្រប់វើតិច
-            //   ទោះបីគ្មានអ្នករុញណាមួយនៅជិតក៏ដោយ ។ ពេលផលបូកសូន្យ
-            //   លទ្ធផលចែកក៏សូន្យដែរ ដូច្នេះរំលងបាន ។ 📃 ⟩
-            if ( dot( pusxaSumo, pusxaSumo ) > 0.0 ) {
+            // ⟨ mat3 , ꞙɭɩ ɭʃɜᴜ̩ ɭʃɜƽ , ſɭᴜ ſןᴜ ,
+            //   j͑ʃᴜ ſןɹ , ꞙɭɔ , ꞙɭı , j͑ʃᴜ ſɭᴜ , ⟅ ꞙɭı ꞙɭɔ
+            //   , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
+            if ( dot( pusxaSumo, pusxaSumo ) > ɔ.ɔ ) {
               mat3 pusxaM = mat3( instanceMatrix );
-              vec3 pusxaLoka = vec3( dot( pusxaM[ 0 ], pusxaSumo ), dot( pusxaM[ 1 ], pusxaSumo ),
-                dot( pusxaM[ 2 ], pusxaSumo ) )
-              / vec3( dot( pusxaM[ 0 ], pusxaM[ 0 ] ), dot( pusxaM[ 1 ], pusxaM[ 1 ] ),
-                dot( pusxaM[ 2 ], pusxaM[ 2 ] ) );
+              vec3 pusxaLoka = vec3( dot( pusxaM[ ɔ ], pusxaSumo ), dot( pusxaM[ ı ], pusxaSumo ),
+                dot( pusxaM[ ɿ ], pusxaSumo ) )
+              / vec3( dot( pusxaM[ ɔ ], pusxaM[ ɔ ] ), dot( pusxaM[ ı ], pusxaM[ ı ] ),
+                dot( pusxaM[ ɿ ], pusxaM[ ɿ ] ) );
               transformed += pusxaLoka * ( uHerbaPusxo * herbaMaske * herbaMaske );
             }
           #endif
@@ -182,8 +182,8 @@ export function gxisdatigiFe1afn(t: number, x: number, z: number,
         pusanto.ka5ik ?? HERBA_PUSA_RADIO, pusanto.forto ?? 1);
     }
   }
-  // ⟨ ពេលវត្ថុធាតុបានធ្វើបច្ចុប្បន្នភាពហើយ កាមេរ៉ាមិនផ្លាស់ គ្រប់ក្រឡា
-  //   រក្សាភាពមើលឃើញ និង កម្រិតដដែល ។ ការបង្ខំគ្របដណ្តប់លើករណីនេះ ។ 📃 ⟩
+  // ⟨ ſןw ſɭɔƽ , j͑ʃᴜ ı],ɔ , ſɭᴜ j͑ʃᴜ ɭʃɹ , ꞙɭɔ , ſɭɹ ſןᴜ ,
+  //   ſɭᴜ ſןᴜ , j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   if ( !herbaDevigita && x === lastaHerbaX && z === lastaHerbaZ ) return;
   herbaDevigita = false;
   lastaHerbaX = x; lastaHerbaZ = z;
@@ -194,9 +194,9 @@ export function gxisdatigiFe1afn(t: number, x: number, z: number,
     const limo = tavolo.limo;
     tavolo.mesho.visible = disto2 <= limo * limo;
     if ( !tavolo.mesho.visible ) continue;
-    // ⟨ ការឆ្លាស់កម្រិត ៖ ពេលនៅជិត ត្រូវឆ្លងចម្ងាយធំជាងមុនទើបទៅឆ្ងាយ ។
-    //   ពេលនៅឆ្ងាយ ត្រូវចូលជិតជាងមុនទើបត្រឡប់មកជិត ។ បើសញ្ញាប្រែ , គ្រប់ក្រឡា
-    //   ក្នុងចន្លោះអ៊ីស្តេរេស៊ីសប្តូរធរណីមាត្ររាល់ស៊ុម ហើយស្មៅភ្លឹក ។ 📃 ⟩
+    // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ꞙɭı , ſɭэ ſɭ,w , ꞙɭı , ꞙɭı ,
+    //   ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɹ ſןᴜ , ꞙɭı ,
+    //   ſɭᴜ ſןᴜ , ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ⟅ 📃 ⟩
     const lod = tavolo.lodDistanco + tavolo.ka5ik
       + ( tavolo.malproksima ? -HERBA_LOD_HISTEREZO : HERBA_LOD_HISTEREZO );
     const malproksima = disto2 > lod * lod;

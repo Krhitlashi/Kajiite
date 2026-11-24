@@ -1,32 +1,32 @@
 // ≺⧼ ꞁȷ̀ꞇ }ʃᴜ }ʃɴᴜ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🪕 ⧽≻
-// ខ្សែអ៊ីណាងាមានស្នាមប៉ះខ្លី កម្ពស់ធ្លាក់បន្តិចពេលដក ហើយសំឡេងលេខពីរខ្លាំងជាងមូលដ្ឋាន។
-// ប្រអប់ខ្សែជាបន្ទប់អាហ្គុង វាបន្ថែមសំឡេងជុំវិញ 0o400 ហឺត ហើយខ្សែផ្សេងៗឆ្លើយតបតិចៗ។
-// ទីតាំងដក កម្លាំងម្រាមដៃ និងខ្សែនីមួយៗធ្វើឱ្យរាល់សំឡេងមិនដូចគ្នា។
+// ⟨ ſɭɔ˞ɜⅎ ʌ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ ſᶘɔ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı ,
+//   ſɭᴜ ſ͕ȷɔ ꞙɭı , ꞙɭэɔɔ , ſɭɔ˞ɜⅎ ꞙɭı , ꞙɭı ⟅
+//   ſᶘɹ ſɭɔ ʌ ɭʃꞇƽ , ſ̀ȷɜ ֭ſɭɔ , ſɭɔ˞ɜⅎ ꞙɭı , ʃɜ j͐ʃɔ ꞙɭɔ ⟅
 import { noiseSrc } from "./bruo.js";
 import { devio, faktoro } from "./vario.js";
 
-// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+// ⟨ ſɭᴜ j͐ʃэ ɭ(ᴜ ꞙɭɔ ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
 const ETA = 0o1/0o20000;
 
-/* សំឡេងអ៊ីណាងាដកដោយម្រាមដៃ។ ផ្នែកខ្ពស់ៗធ្លាក់លឿនជាងផ្នែកទាប។
-    @param ctx ( AudioContext ) - បរិយាកាសសំឡេង
-    @param out ( AudioNode ) - ច្រើនចេញ
-    @param t ( number ) - ពេលចាប់ផ្ដើម
-    @param f ( number ) - កម្ពស់ខ្សែជាហឺត
-    @param vel ( number = 1 , optional ) - កម្រិតសំឡេង
-    @param opts ( object , optional ) - dur ជារយៈពេលធ្លាក់ជាវិនាទី
+/* ʃɜ j͐ʃɔ ʌ ſɭɔ˞ɜⅎ , ɭʃꞇƽ ⟅ ꞙɭı ⟅
+    @param ctx ( AudioContext ) - ʃɜ j͐ʃɔ
+    @param out ( AudioNode ) - ſɭᴜ ʃɔ ſןᴜ
+    @param t ( number ) - j͑ʃᴜ ı],ɔ
+    @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ
+    @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ
+    @param opts ( object , optional ) - dur , ſɭᴜ ſןᴜ ʌ j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ
 @returns void */
 export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1, opts: { dur?: number } = {}) {
   const d = ( opts.dur || 0o75/0o100 ) * faktoro(0o7/0o100);
-  // ⟨ កម្ពស់ខ្សែប្រែបន្តិច ទៅតាមការលៃតម្រូវ និងសីតុណ្ហភាព 📃 ⟩
+  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
   const p = f * faktoro(0o1/0o200);
-  // ⟨ ទីតាំងដក កាន់តែជិតស្ពាន ផ្នែកខ្ពស់កាន់តែខ្លាំង 📃 ⟩
+// ⟨ ɭʃꞇƽ , ſᶘɹ ſɭɔ , ꞙɭı ɭʃэʞ ⟅
   const raqa = Math.random();
   const g = ctx.createGain();
   g.gain.value = vel * 0o30/0o100 * faktoro(0o7/0o100);
   g.connect(out);
 
-  // ⟨ ប្រអប់ស្គរខ្សែ ជួយសំឡេងជុំវិញ 0o400 ហឺត 📃 ⟩
+// ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭэɔɔ , ⟅
   const body = ctx.createBiquadFilter();
   body.type = "peaking";
   body.frequency.value = 0o300 * faktoro(0o15/0o100);
@@ -34,9 +34,9 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   body.gain.value = 0o3 * faktoro(0o15/0o100);
   body.connect(g);
 
-  // ⟨ ផ្នែកខ្សែ នីមួយៗមានរយៈពេលធ្លាក់រៀងៗខ្លួន 📃 ⟩
-  // ⟨ កំណត់តាមការវាស់សំឡេងពិត សំឡេងមូលដ្ឋានខ្លាំងជាងគេ ផ្នែកគូតិចណាស់
-  // មានផ្នែកមិនស្មើភាគនៅ 0o24/0o10 ដែលជាសំឡេងប្រអប់ មិនមែនខ្សែ 📃 ⟩
+// ⟨ ꞙɭı , ſɭᴜ ſןᴜ ⟅
+// ⟨ ʃɜ j͐ʃɔ ʌ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
+//   ꞙɭɿэ/ꞙɭıɔ , ſɭᴜ ſ͕ȷɔ ʌ ꞙɭɔ ⟅
   const bazoj = [
     [ 0o1, 0o6/0o10 ],
     [ 0o2, 0o3/0o100 ],
@@ -51,7 +51,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
     const [ mul, amp0 ] = bazoj[j];
     const o = ctx.createOscillator();
     o.type = "sine";
-    // ⟨ ផ្នែកខ្ពស់លើសនៅពេលដកជិតស្ពាន 📃 ⟩
+    // ⟨ ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ , ɭʃꞇƽ ⟅
     const emfazo = 0o1 + raqa * 0o4/0o10 * Math.min(0o1, mul / 0o5);
     o.frequency.setValueAtTime(p * mul * ( 0o103/0o100 + devio(0o1/0o100) ), t);
     o.frequency.exponentialRampToValueAtTime(p * mul, t + 0o25/0o1000 * faktoro(0o4/0o10));
@@ -68,7 +68,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
     o.stop(t + d + 0o1/0o10);
   }
 
-  // ⟨ ទឹកដករបស់ម្រាមដៃលើប្រអប់ ខ្លាំងតាមកម្លាំងដក 📃 ⟩
+// ⟨ j͑ʃɹ ŋᷠɹ , ſ̀ȷɜ ֭ſɭɔ , ⟅
   const frapo = 0o6/0o10 + Math.random() * 0o35/0o100;
   const th = ctx.createOscillator();
   th.type = "sine";
@@ -86,7 +86,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   th.start(t);
   th.stop(t + thFin + 0o1/0o10);
 
-  // ⟨ ស្នាមកកិតម្រាមដៃលើខ្សែ តាមកម្ពស់ខ្សែ 📃 ⟩
+// ⟨ ſןᴜȝ ᶅſw ſɭɹ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
   const n = noiseSrc(ctx);
   const bp = ctx.createBiquadFilter();
   bp.type = "bandpass";
@@ -110,7 +110,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   n.start(t);
   n.stop(t + frotFin + 0o1/0o10);
 
-  // ⟨ សំឡេងខ្សែសល់ពេញកំណត់ កុំឱ្យស្ងាត់ភ្លាមរវាងដក 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ ꞙɭı , ꞙɭɔ ⟅
   const sus = noiseSrc(ctx);
   const sbp = ctx.createBiquadFilter();
   sbp.type = "bandpass";
@@ -133,7 +133,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   sus.start(t);
   sus.stop(t + susFin + 0o1/0o10);
 
-  // ⟨ បន្ទប់លេង សំឡេងសល់នៅខ្ពស់ៗ យូរជាងដកនីមួយៗ ធ្វើឱ្យចន្លោះមិនស្ងាត់ 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ , ꞙɭı , ⟅
   const room = noiseSrc(ctx);
   const rbp = ctx.createBiquadFilter();
   rbp.type = "bandpass";

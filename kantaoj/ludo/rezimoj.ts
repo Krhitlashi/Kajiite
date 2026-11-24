@@ -67,7 +67,7 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
     ludanto.plejProksimaLito = null;
   }
 
-  // ⟪ ឆាកខាងក្រៅពេលនៅក្នុង 📃 ⟫
+  // ⟪ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭɔ ʌ ſɭɜ ſᶘɹ 📃 ⟫
   let kaŝitajEksteraj: { o: THREE.Object3D; antauxa: boolean }[] = [];
   function kasxiEksteron(): void {
     if ( kaŝitajEksteraj.length > 0 ) return;
@@ -86,7 +86,7 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
     kaŝitajEksteraj = [];
   }
 
-  // ⟪ ទិដ្ឋភាពខាងក្នុង 📃 ⟫
+  // ⟪ ſɭꞇ ı],ɹ ʌ ſɭɜ ſᶘɹ 📃 ⟫
   function eniriPaqn(spec: VepaqSpec, pordaAngulo = 0) {
     ludanto.sxtupaTurno = null;
     if ( document.pointerLockElement !== kanvaso ) kanvaso.requestPointerLock();
@@ -120,7 +120,7 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
         montriTost(traduki("eniri") + " " + paqNomo(spec.name, spec.type));
         gxisdatigiRetikulon();
       } catch ( eraro ) {
-        console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ការចូលក្នុងអគារបរាជ័យ" , eraro);
+        console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſȷwɔ˞ ʌ ſɟɔȝ ʌ ꞙɭɔ ʌ ſɭɜ ſɭw j͐ʃᴜ" , eraro);
         eliriElInterno(internaSistemo, qena);
         restarigiEksteron();
         ludanto.rezimo = ludanto.antauxaRezimo || "orbito";
@@ -176,7 +176,7 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
     });
   }
 
-  // ⟪ កុងតាក់របៀប 📃 ⟫
+  // ⟪ ſᶘɹ }ʃᴜ }ʃw j͑ʃᴜ ʃɜ j͑ʃᴜꞇ 📃 ⟫
   function gxisdatigiRezimanButonon() {
     butRezimo.textContent = traduki(ludanto.rezimo === "promeno" ? "butonoPromeni" : "butonoOrbiti");
     butRezimo.setAttribute("aria-pressed", String(ludanto.rezimo === "promeno"));

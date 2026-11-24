@@ -1,6 +1,6 @@
 // ≺⧼ ſȷɔ ſᶘᴜʞ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🟩 ⧽≻
-// វាលស្មៅស្កេនពិភពលោកទាំងមូលតាមក្រឡា ។ នេះជាការងារធ្ងន់បំផុតមួយ
-// នៅពេលចូលពិភពលោក ។ យើងបែងចែករវាង ការស្កេនក្រឡា និង ការសង់ដុំស្មៅ ។
+// ſᶘɜ , j͑ʃᴜ ſɭ,w , ſɭɜ ſɭ,w , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭı ,
+// ſɭɜ ſɭ,w , ſɭэ ſɭᴜ , ꞙɭэ , ⟅ ſᶘɜ , ſɭэ ſɭᴜ , ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { vepaqHerbanTavolon } from "../../eskekoj/shalaj-hapudal/vegetajxo/fe1af/gazono.js";
 import { kf2HerbanMaterialon } from "../../eskekoj/shalaj-hapudal/vegetajxo/fe1af/vento.js";
@@ -18,7 +18,7 @@ const malplenaFiltro: readonly never[] = [];
 const amplekso = SKULPTA_N * SKULPTA_PASO;
 const tabeloj = Math.ceil(amplekso / 0o100);
 const krado = Math.round(0o100 / 0o2);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ទំហំ=${amplekso} ជំហាន=${SKULPTA_PASO} ក្រឡា=${tabeloj * tabeloj * krado * krado}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſןᴜ j͐ʃэ=${amplekso} ｡ ɭʃɜ }ʃᴜ=${SKULPTA_PASO} ｡ ſɭɹ ſןᴜ=${tabeloj * tabeloj * krado * krado}`);
 
 async function kuri( filtro: readonly never[] | readonly string[] ): Promise<THREE.Scene> {
   const qena = new THREE.Scene();
@@ -39,26 +39,26 @@ async function mezuri( etikedo: string, filtro: readonly never[] | readonly stri
     tufoj = 0;
     for ( const c of qena.children ) tufoj += ( c as THREE.InstancedMesh ).count;
   }
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${etikedo.padEnd(0o30)} ${plejBona.toFixed(1)}ms ដុំ=${meshoj} ស្មៅ=${tufoj}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${etikedo.padEnd(0o30)} ${plejBona.toFixed(1)}ms ｡ ſɭw ʃᴜ=${meshoj} ｡ ſȷɔ ſᶘᴜʞ=${tufoj}`);
 }
 
-await mezuri("ស្កេនទទេ ( គ្មានស្មៅ )", malplenaFiltro);
-await mezuri("ពេញលេញ", realaFiltro);
+await mezuri("jɐ ɭʃᴜ ( ſןɔ ʌ ſȷɔ ſᶘᴜʞ )", malplenaFiltro);
+await mezuri("ſɭɹ ſᶘɔ", realaFiltro);
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) akvaVem2=${akvaVem2(0, 0).toFixed(3)}`);
 const materialoA = kf2HerbanMaterialon();
 const materialoB = kf2HerbanMaterialon();
-if ( materialoA.map !== materialoB.map ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) វាយនភាពស្មៅមិនបានចែករំលែក");
-console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) វាយនភាពស្មៅរួមតែមួយ ✅");
+if ( materialoA.map !== materialoB.map ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) j͐ʃƽɜ ʌ ſȷɔ ſᶘᴜʞ ｡ ſןɔ ʌ ſɟw ɭʃᴜ");
+console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͐ʃƽɜ ʌ ſȷɔ ſᶘᴜʞ ｡ ſɟw ɭʃᴜ ｡ ſɭɹ ſᶘɔ ✅");
 const plenaKlingo = kf2HerbanKlingon(0o1, 0o1/0o10, 0o1/0o10, 0o1/0o10, 0,
   new THREE.Color(0x408058), 1, 0o4/0o10, 0o5, true);
 const senFundaKlingo = kf2HerbanKlingon(0o1, 0o1/0o10, 0o1/0o10, 0o1/0o10, 0,
   new THREE.Color(0x408058), 1, 0o4/0o10, 0o5, false);
 if ( plenaKlingo.getIndex()!.count - senFundaKlingo.getIndex()!.count !== 0o11 ) {
-  throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) គូបមូលស្មៅមិនត្រូវបានដកត្រឹមត្រូវ");
+  throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſɭw ʃᴜ ʌ ſȷɔ ſᶘᴜʞ ｡ ſןɔ ʌ }ʃɔ ſ̀ȷw }ʃᴜƽ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ");
 }
 const normalojA = plenaKlingo.getAttribute("normal").array;
 const normalojB = senFundaKlingo.getAttribute("normal").array;
 if ( normalojA.length !== normalojB.length || normalojA.some(( v, i ) => v !== normalojB[i]) ) {
-  throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) នរម៉ាល់ស្មៅបានប្រែ");
+  throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſɟɹ ᶅſɹȝ ʌ ſȷɔ ſᶘᴜʞ ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ");
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ស្លឹក ${plenaKlingo.getIndex()!.count / 3} → ${senFundaKlingo.getIndex()!.count / 3} ត្រីកោណ នរម៉ាល់ដដែល ✅`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſȷɔ ſᶘᴜʞ ${plenaKlingo.getIndex()!.count / 3} → ${senFundaKlingo.getIndex()!.count / 3} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ ｡ ſɟɹ ᶅſɹȝ ｡ ſɭɹ ſᶘɔ ✅`);

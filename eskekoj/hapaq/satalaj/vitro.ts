@@ -7,23 +7,23 @@ import { sax0baPukazQan2k } from "../../komunajxoj/haqoxa.js";
 import { paqMaterialo } from "./hahunaq.js";
 import { veb6qaiWeh2Skek, veb6qaiWeh2 } from "../../komunajxoj/koloroj.js";
 
-// ⟨ កញ្ចក់ត្រជាក់ គ្មាន `transmission` 📃 ⟩
-// ⟨ ហេតុអ្វីមិន `transmission` 📃 ⟩
-// ⟨ ហេតុអ្វី 0.625 មិនថ្លាជាង 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 function steleaVitro(): THREE.MeshStandardMaterial {
   return paqMaterialo("steleo",
     () => new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o5/0o10, metalness: 0,
-      // ⟨ ស្រអាប់តិច 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
       transparent: true, opacity: 0o6/0o10,
       emissive: veb6qaiWeh2(0x0a1a18), emissiveIntensity: 0o1/0o4,
     }));
 }
 
-// ⟨ វណ្ឌវង្កអក្សរសញ្ញា 📃 ⟩
-// ⟨ ទឹកខ្មៅអក្សរ លឿង 📃 ⟩
-// ⟨ ហេតុអ្វីពណ៌លឿងមិនមែនមាស 📃 ⟩
-// ⟨ ពណ៌រួមមួយ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭц , 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 const STELEA_INKO_TAGE = new THREE.Color(0xc2b32f);
 const STELEA_INKO_NOKTE = new THREE.Color(0xf2eea6);
 const steleaInkaKoloro = veb6qaiWeh2Skek(new THREE.Color().copy(STELEA_INKO_TAGE));
@@ -65,8 +65,8 @@ function steleaS2bana(mapo: THREE.Texture): THREE.ShaderMaterial {
   });
 }
 
-// ⟨ កញ្ចក់ស្តេឡាតាមថ្ងៃ 📃 ⟩
-// ⟨ ពណ៌ក៏ចម្រោះការឆ្លងកាត់ដែរ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſᶘɹ ſɭᴜ , 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ſɭэ ſɭᴜ , 📃 ⟩
 export function gxisdatigiSteleanVitron(malhelo: number): void {
   const v = 1 - Math.max(0, Math.min(1, malhelo));
   if ( Math.abs(v - lastaFasw2d2Lumo) < 0o1/0o100 ) return;
@@ -80,23 +80,23 @@ export function gxisdatigiSteleanVitron(malhelo: number): void {
 let lastaFasw2d2Lumo = 1;
 
 export function aldoniSteleanSignon(group: THREE.Group, name: string, hunaq: string, w: number, d: number): void {
-  // ⟨ វាយនភាពជារបាំង 📃 ⟩
+// ⟨ j͐ʃƽɜ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📃 ⟩
   const cac2sex = generiSkribanCac2sex(nomoAih(name, hunaq), { w: 0o300, h: 0o1516, ink: "#ffffff" });
   cac2sex.wrapS = cac2sex.wrapT = THREE.ClampToEdgeWrapping;
   const signaY = 0o1/0o100;
-  // ⟨ uv រាបតាមមុខនីមួយៗ ៖ ខ្សែកោងរុំពីគែមស្តេឡាចូលក្នុង មិនកាត់នៅចំហៀង 📃 ⟩
+// ⟨ j͐ʃƽɜ , ꞙɭɿ , 📃 ⟩
   const steleaGeo = sax0baPukazQan2k(new THREE.ExtrudeGeometry(
     kf2SteleanQoxan(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10),
     { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }));
   const steleo = new THREE.Mesh(
     steleaGeo,
-    // ⟨ ស្តេឡាជាកញ្ចក់ត្រជាក់ 📃 ⟩
-    // ⟨ ហេតុអ្វីមិន `transmission` 📃 ⟩
-    // ⟨ ហេតុអ្វីពណ៌ភ្លឺ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
     steleaVitro()
 );
   steleo.position.set(w * 0o13/0o40, signaY, d / 2 + 0o104/0o100 - 0o5/0o100); steleo.castShadow = false; group.add(steleo);
-  // ⟨ មុខមានវណ្ឌវង្កដូចចាន 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
   const faceGeo = new THREE.ShapeGeometry(kf2SteleanQoxan(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10), 0o10);
   faceGeo.computeBoundingBox();
   const facePoz = faceGeo.getAttribute("position");
@@ -104,7 +104,7 @@ export function aldoniSteleanSignon(group: THREE.Group, name: string, hunaq: str
   const faceUjo = faceGeo.boundingBox!;
   const faceLargho = Math.max(0o10 ** -0o7, faceUjo.max.x - faceUjo.min.x);
   const faceAlto = Math.max(0o10 ** -0o7, faceUjo.max.y - faceUjo.min.y);
-  // ⟨ អក្សរតូចជាងមុខបន្តិច 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
   const s2banaSkalo = 0o7/0o6;
   for ( let i = 0; i < faceUV.count; i++ ) {
     const u = ( facePoz.getX(i) - faceUjo.min.x ) / faceLargho;

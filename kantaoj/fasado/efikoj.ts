@@ -28,7 +28,7 @@ export function kf2Efikojn( hasukf2qani: EfikajHasukf2qani ): Efikoj {
   let tostaTempilo: ReturnType<typeof setTimeout> | null = null;
   let lastPromptaHTML = "";
 
-  // ⟪ ប្រព័ន្ធជូនដំណឹង 📃 ⟫
+  // ⟪ ſ͕ɭᴜ ɭʃᴜ ı],c̗ᴜ ʌ j͑ʃᴜꞇ 📃 ⟫
   function montriTost(mesagxo: string, sahakani = 0o4220) {
     if ( tostaTempilo ) clearTimeout(tostaTempilo);
     tosto.innerHTML = mesagxo;
@@ -44,7 +44,7 @@ export function kf2Efikojn( hasukf2qani: EfikajHasukf2qani ): Efikoj {
     aplikiVacepu();
   }
 
-  // ⟪ ការផ្លាស់ប្តូរបាឡាឡា 📃 ⟫
+  // ⟪ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ 📃 ⟫
   function fariBalailon(callback: () => void, sahakani = 0o1120) {
     balailo.classList.add("montri");
     setTimeout(() => {
@@ -53,7 +53,7 @@ export function kf2Efikojn( hasukf2qani: EfikajHasukf2qani ): Efikoj {
     }, sahakani / 2);
   }
 
-  // ⟪ ការយោល និងបែបផែនពណ៌ 📃 ⟫
+  // ⟪ ſᶘᴜƽ , ᶅſɔ ֭ſɭɹ ʌ ɭʃɜ ŋᷠэ 📃 ⟫
   function pulsiEfikon() {
     svingo.classList.remove("iru");
     void svingo.offsetWidth;

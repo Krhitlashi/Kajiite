@@ -1,5 +1,5 @@
 // ≺⧼ ʃэ ɭʃɔȝ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſןw ſɭᴜƴ ʌ j͐ʃɹ ŋᷠɔ 🧪 ⧽≻
-// ⟨ បង្ហាញរន្ធភ្ជាប់ដែលបានបង្កើត ៖ តើដៃរបស់ចានភ្ជាប់ឆ្ពោះទៅផ្លូវដែលទាញមកឬអត់ ។ 📃 ⟩
+// ⟨ ſןᴜ ſᶘɹ ʌ ſɟᴜ ſɭᴜ ʌ ſɭᴜ ſ͔ȷɔ ⟅ ſɭᴜ ŋᷠᴜ ʌ ſןᴜ ſᶘɹ ʌ ſɭэ ֭ſɭэ 📃 ⟩
 import * as THREE from "three";
 import { aktivajHak6h6, aktivajHaqakaj2, aktivajHakaxte } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { vepaqKradanKaxten } from "../../kantaoj/mondo/kaxte/krada-kaxte.js";
@@ -31,13 +31,13 @@ const landoj = DOKOJ.map( d => {
 const gluitaj = retaj.map(( v, vi ) => gluiK6h6Finon(v.n2k, celoj, landoj,
   [ ...kradajPunktoj, ...retaj.map(( w, wi ) => wi === vi ? [] : w.n2k ) ] as [ number, number ][][] ));
 const haveb6kek = troviK6h6RetajnHaveb6kekn(gluitaj.map(( p, i ) => ({ n2k: p, sefini: retaj[i].sefini })), DOKOJ);
-console.log( `ចានភ្ជាប់សរុប ${haveb6kek.length}` );
+console.log( `ſןᴜ ſᶘɹ ʌ j͑ʃᴜꞇ ${haveb6kek.length}` );
 for ( const k of haveb6kek ) {
   const d = Math.hypot(k.x - CELO[0], k.z - CELO[1]);
   if ( d > 5 ) continue;
-  console.log( `@${k.x.toFixed(2)},${k.z.toFixed(2)} ចម្ងាយ ${d.toFixed(2)}` +
-    ` , ដៃ ${k.direktaj.map( b => `(${b[0].toFixed(2)},${b[1].toFixed(2)})` ).join( " " )}` +
-    ` , បិទ ${k.fermitaj.join( "," )}` );
+  console.log( `@${k.x.toFixed(2)},${k.z.toFixed(2)} ֭ſɭэ ſɭw }ʃꞇ ${d.toFixed(2)}` +
+    ` , ſɭᴜ ŋᷠᴜ ${k.direktaj.map( b => `(${b[0].toFixed(2)},${b[1].toFixed(2)})` ).join( " " )}` +
+    ` , ſȷwɔ˞ ${k.fermitaj.join( "," )}` );
 }
-console.log( "ចុងផ្លូវ ៖ " + gluitaj.map(( p, i ) => `${VOJOJ[i].ksaka} (${p[0][0].toFixed(1)},${p[0][1].toFixed(1)})-` +
+console.log( "ſɭэ ֭ſɭэ ʌ ſɟɔ ɭʃɹ ⟅ " + gluitaj.map(( p, i ) => `${VOJOJ[i].ksaka} (${p[0][0].toFixed(1)},${p[0][1].toFixed(1)})-` +
   `(${p[p.length - 1][0].toFixed(1)},${p[p.length - 1][1].toFixed(1)})` ).join( " | " ) );

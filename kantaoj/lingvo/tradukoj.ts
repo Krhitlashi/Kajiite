@@ -9,7 +9,7 @@ import { EN } from "./tradukoj/en.js";
 import { JA } from "./tradukoj/ja.js";
 import { KM } from "./tradukoj/km.js";
 
-// ⟪ វចនានុក្រម 📃 ⟫
+// ⟪ ſɭɜ ᶗ‹ , 📃 ⟫
 const skakefani: Record<string, Record<string, string>> = {
   aih: AIH,
   eo: EO,
@@ -21,7 +21,7 @@ const skakefani: Record<string, Record<string, string>> = {
 const LINGVOJ = [ "aih", "eo", "en", "ja", "km", ];
 let aktivaLingvo = "aih";
 
-// ⟪ API សាធារណៈ , បកប្រែ 📃 ⟫
+// ⟪ ſɭɜ ᶗ‹ , ꞙɭı , 📃 ⟫
 export function nomoAih(ca3aq: string, hunaq = ca3aq): string {
   const rekta = skakefani.aih[ca3aq];
   if ( rekta ) return rekta;
@@ -59,7 +59,7 @@ export function traduki(ca3aq: string): string {
   return rekta || ca3aq;
 }
 
-/*ភ្ជាប់អត្ថបទជំនួយជាមួយគន្លឹះ ៖ អត្ថបទ • គន្លឹះ
+/* ſɭэ ᶗ‹ , ꞙɭı ,
     @param s2banani ( string ) - សោអត្ថបទ
     @param ca3aq ( string ) - សោគន្លឹះ
     @param grasa ( boolean ) - ដាក់គន្លឹះក្នុងអក្សរដិត */
@@ -77,11 +77,11 @@ export function tsekeAih(): boolean {
   return aktivaLingvo === "aih";
 }
 
-// ⟪ អនុវត្តការបកប្រែទៅ DOM 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
 function aplikiSkakefanon(lingvo: string): void {
   aktivaLingvo = lingvo;
   document.documentElement.lang = lingvo;
-  // ⟪ ប្លង់ផ្តេកសម្រាប់ភាសាបកប្រែ , បញ្ឈរសម្រាប់ aih , ដូចស្គ្រីបខាងក្រៅ 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
   if ( lingvo === "aih" ) {
     document.body.classList.remove("tapufal");
   } else {
@@ -102,13 +102,13 @@ function aplikiSkakefanon(lingvo: string): void {
       if ( traduko !== ca3aq ) el.setAttribute("aria-label", traduko);
     }
   });
-  // ⟪ ប៊ូតុងភាសាទាំងអស់ ( ការកំណត់ និងហ្គេម ) បង្ហាញកូដភាសា 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟫
   document.querySelectorAll("[data-oskakefani-aria=\"ariaLingvoButono\"]").forEach(el => {
     el.textContent = lingvo.toUpperCase();
   });
   try { localStorage.setItem("aranis-lingvo", lingvo); } catch { /* private browsing */ }
-  // ⟨ ភាសាដើមមិនបានសរសេរក្នុង URL ទេ ៖ `lang=` បង្ហាញតែពេលអ្នកប្រើជ្រើសភាសាផ្សេង ។
-  // ដូច្នេះ URL ធម្មតានៅស្អាត , ហើយការផ្ទុកឡើងវិញមិនបន្ថែមអ្វីដោយខ្លួនឯងទេ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
   try {
     const ruva = new URL(window.location.href);
     if ( lingvo === "aih" ) ruva.searchParams.delete("lang");
@@ -130,26 +130,26 @@ function aplikiSkakefanon(lingvo: string): void {
   window.dispatchEvent(new CustomEvent("lingvosxangxo"));
 }
 
-// ⟪ អនុវត្តបែបផែនមុខ aih ទៅអក្សរថ្មី ។ បើភាសាផ្សេង គ្មានអ្វីទេ 📃 ⟫
+// ⟪ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟫
 function aplikiVacepuSe(): void {
   if ( aktivaLingvo !== "aih" || typeof vacepu !== "function" ) return;
   try { vacepu("aih"); } catch { /* ignorata */ }
 }
 
-// ⟪ ភាសាសកម្ម 📃 ⟫
+// ⟪ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟫
 export function nunaLingvo(): string {
   return aktivaLingvo;
 }
 
-// ⟪ ជ្រើសភាសាដោយផ្ទាល់ , ដោយគ្មានការរំលង 📃 ⟫
-/*ដាក់ភាសាមួយឱ្យសកម្ម , ហើយធ្វើបច្ចុប្បន្នភាព UI
+// ⟪ ſɭэ ſɭw , ꞙɭц , 📃 ⟫
+/* ſɭэ ſɭw , ꞙɭı ,
     @param lingvo ( string ) - កូដភាសា ៖ aih , eo , en , ja , km */
 export function agordiLingvon( lingvo: string ): void {
   if ( !LINGVOJ.includes(lingvo) ) return;
   aplikiSkakefanon(lingvo);
 }
 
-// ⟪ ជ្រើសរើសភាសា ៖ បញ្ជីតែមួយសម្រាប់ទំព័រ ( ផ្ទាំងចាប់ផ្តើម ) និងផ្ទាំងលេចឡើង ( ហ្គេម ) 📃 ⟫
+// ⟪ ſɭэ ſɭw , ꞙɭэ , 📃 ⟫
 let lingvPagho: Stato | null = null;
 let lingvPopUp: Stato | null = null;
 
@@ -160,7 +160,7 @@ function markiAktivanLingvon(): void {
   });
 }
 
-/*បំពេញបញ្ជីភាសាមួយ
+/* ſɭэ ſɭw , ꞙɭı ,
     @param ujo ( HTMLElement ) - កន្លែងដាក់ប៊ូតុងភាសា */
 function plenigiLingvanListon( ujo: HTMLElement ): void {
   ujo.innerHTML = "";
@@ -172,7 +172,7 @@ function plenigiLingvanListon( ujo: HTMLElement ): void {
   }
 }
 
-/*ជ្រើសភាសាមួយ , រួចបិទម៉ឺនុយ ដើម្បីត្រឡប់ទៅម៉ឺនុយមុន
+/* ſɭэ ſɭw , ꞙɭɿ ,
     @param lingvo ( string ) - កូដភាសា
     @param fermi ( function ) - ការបិទម៉ឺនុយដែលបើក */
 function elektiLingvon( lingvo: string, fermi: () => void ): void {
@@ -183,7 +183,7 @@ function elektiLingvon( lingvo: string, fermi: () => void ): void {
   if ( !sama ) fermi();
 }
 
-/*រៀបចំម៉ឺនុយភាសាទាំងពីរ ៖ ទំព័រនៅផ្ទាំងចាប់ផ្តើម , ផ្ទាំងនៅក្នុងហ្គេម*/
+/* ſɭэ ſɭw , ꞙɭц , */
 function prepariLingvajnMenuojn(): void {
   const paghaUjo = document.getElementById("lingvPaghoX2pa");
   const popaUjo = document.getElementById("lingvPopUpX2pa");
@@ -203,7 +203,7 @@ function prepariLingvajnMenuojn(): void {
   }
 }
 
-// ⟪ រកភាសាចាប់ផ្តើម ៖ ភាសាដើមគឺ aih ។ lang= និងភាសាដែលរក្សាទុកមានអាទិភាព 📃 ⟫
+// ⟪ ſɭэ ſɭw , ꞙɭэ , 📃 ⟫
 function detektiLingvon(): string {
   try {
     const parametro = new URLSearchParams(window.location.search).get("lang");
@@ -216,7 +216,7 @@ function detektiLingvon(): string {
   return "aih";
 }
 
-// ⟪ ចាប់ផ្តើម ៖ ក្នុងហ្គេមបើកផ្ទាំងលេចឡើង , ផ្ទាំងចាប់ផ្តើមបើកទំព័រពេញ 📃 ⟫
+// ⟪ ſɭэ ɭʃᴜ , ꞙɭɩ , 📃 ⟫
 function inicializi(): void {
   aplikiSkakefanon(detektiLingvon());
   prepariLingvajnMenuojn();

@@ -49,7 +49,7 @@ function vepaqPeriferianXabenAreon(qena: THREE.Scene,
   habs2Filtro?: readonly Bs2[]
 ): void {
   const hazardaGenerilo = kf2VegetajxanHazardon(tk2ni);
-  // ⟨ ហ្វីលីកាយស្វាយបីវិមាត្រ 📃 ⟩
+  // ⟨ j͑ʃͷ̗ᴜʞ ʌ ſɭᴜc̗ ɭʃɜ ʌ ꞙɭц 📃 ⟩
   const pukek = new THREE.MeshStandardMaterial({ map: cac2sex, alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 });
   const plantoj = new THREE.InstancedMesh(
     vepaqAsfanRozeton(l6da, nombro, malfermo, densa), pukek, vem2);

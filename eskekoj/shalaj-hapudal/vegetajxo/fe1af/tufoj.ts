@@ -8,13 +8,13 @@ import { bs2, type Bs2 } from "../../../../kantaoj/mondo/tereno.js";
 import { kf2HerbanKlingon } from "./klingoj.js";
 import { kf2HerbanMaterialon } from "./vento.js";
 
-// ⟨ ចំនួនស្លឹកក្នុងដុំស្មៅ ។ 📃 ⟩
+// ⟨ j͑ʃᴜꞇ ʌ j͑ʃͷ̗ᴜʞ ʌ ſȷɔ ſᶘᴜʞ ⟅ 📃 ⟩
 export const KLINGOJ_POR_TUFO = 0o34;
 
-// ⟨ ចម្ងាយរវាងដុំស្មៅនៅលើដី ។ 📃 ⟩
+// ⟨ ֭ſɭэ ſɭw }ʃꞇ ʌ ſȷɔ ſᶘᴜʞ ʌ ſɭɜ ſɭ,w ⟅ 📃 ⟩
 export const TUFA_DISTO = 0o12/0o10;
 
-// ⟨ អ្នកផ្តល់ពណ៌ស្លឹក ៖ ឆាកពិតប្រើពណ៌ធម្មតា , ឧបករណ៍សាកល្បងអាចផ្តល់ពណ៌ខ្លួនឯង ។ 📃 ⟩
+// ⟨ ſɟᴜ j͑ʃᴜ ʌ ᶅſɔ ֭ſɭɹ ʌ j͑ʃͷ̗ᴜʞ ⟅ 📃 ⟩
 export type KlingaKoloro = ( celo: THREE.Color, seka: boolean,
   hazardo: () => number ) => void;
 
@@ -43,7 +43,7 @@ export function vepaqHerbanTufanGeometrion(tk2ni = 0o2715,
     const arko = Math.sin(ang) * elen * ( 0o13/0o40 + hazardo() * 0o25/0o40 ) * arkaFaktoro
       + ( hazardo() - 0o1/0o2 ) * 0o5/0o40;
     const tordo = ( hazardo() - 0o1/0o2 ) * 0o115/0o100;
-    // ⟨ ស្លឹកស្ងួតមួយក្នុងដប់ ៖ ប្រផេះបៃតង , ដើម្បីកុំឱ្យស្មៅលឿង 📃 ⟩
+    // ⟨ j͑ʃͷ̗ᴜʞ ʌ }ʃɔ ı],ɹ ſɟᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅ ֭ſɭwƽ ʌ j͐ʃᴜ̩ᴜ 📃 ⟩
     const sekaKlingo = i % 0o10 === 0o1;
     const klingaKoloro = sekaKlingo ? seka : verda;
     koloroDeKlingo(klingaKoloro, sekaKlingo, hazardo);

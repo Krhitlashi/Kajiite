@@ -1,5 +1,5 @@
 // ≺⧼ ſɭˬᴜ ſɟɹ ɽ͑ʃ'ɔƽ ʌ j͐ʃэ ɭ(ᴜ ʌ j͑ʃᴜƽ ſןw ʌ ſɭɜ ſɭ,w 📏 ⧽≻
-// ⟨ ផ្លូវដែលអណ្តែតលើដីបង្កើតជញ្ជាំងថ្មនៅក្រោមវា ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭɿ , ſɭɜ ſɭ,w , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { aktivajHak6h6, aktivajHaqakaj2, aktivajHakaxte } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
@@ -64,7 +64,7 @@ const pa12Cxe = (x: number, z: number): number => {
 };
 const ankroj = ciujHaveb6kek.map(([x, z]) => ({ x, z, l6da: pa12Cxe(x, z) }));
 
-// ⟨ អនុគមន៍រួមនៅ komunaj ជាមួយកម្រិតរបស់ឧបករណ៍នេះ 📃 ⟩
+// ⟨ ı],ᴜ ֭ſɭᴜ , ſɭɜ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const punktoCxe = ( pts: readonly [ number, number ][], s: number ): { x: number; z: number } =>
   punktoCxeBaza( pts, s, 0o10 ** -0o12 );
 
@@ -81,7 +81,7 @@ for (let i = 0; i < VOJOJ.length; i++) {
     tlunakani += supero; nombro++;
     radaSumo += supero;
     if (supero > radaMaks) radaMaks = supero;
-    if (supero > maks) { maks = supero; maksLoko = `${q.x.toFixed(1)},${q.z.toFixed(1)} ផ្លូវ ${i}`; }
+    if (supero > maks) { maks = supero; maksLoko = `${q.x.toFixed(1)},${q.z.toFixed(1)} ſɭэ ֭ſɭэ ${i}`; }
     if (-supero > plejBoreo) plejBoreo = -supero;
     if (-supero > STUPA_RISERO) boritaj++;
   }
@@ -100,13 +100,13 @@ for (let i = 0; i < VOJOJ.length; i++) {
           maksG = Math.max(maksG, alteco(qq.x, qq.z));
         }
         longaj.push(`${s0.toFixed(0)}..${p.haxekuxa[j].toFixed(0)}@${nuna.toFixed(1)}` +
-          ` ដី ${malk.toFixed(1)}..${maksG.toFixed(1)} ( ${qa.x.toFixed(0)},${qa.z.toFixed(0)} )`);
+          ` ſɭɜ ſɭ,w ${malk.toFixed(1)}..${maksG.toFixed(1)} ( ${qa.x.toFixed(0)},${qa.z.toFixed(0)} )`);
       }
       if (sahakani > radaPlata) radaPlata = sahakani;
       if (sahakani > maksPlata) {
         maksPlata = sahakani;
         const q = punktoCxe(gluitaj[i], s0);
-        maksPlataK6h6 = `${q.x.toFixed(0)},${q.z.toFixed(0)} ផ្លូវ ${i}`;
+        maksPlataK6h6 = `${q.x.toFixed(0)},${q.z.toFixed(0)} ſɭэ ֭ſɭэ ${i}`;
       }
       s0 = p.haxekuxa[j]; nuna = p.hal6da[j];
     }
@@ -117,13 +117,13 @@ for (let i = 0; i < VOJOJ.length; i++) {
   }
   const a = gluitaj[i][0], b = gluitaj[i][gluitaj[i].length - 1];
   const ma = alteco(a[0], a[1]), mb = alteco(b[0], b[1]);
-  console.log(`${i} ${v.ksaka} , លើសដី មធ្យម ${(radaSumo / p.hal6da.length).toFixed(2)}` +
-    ` ខ្ពស់ ${radaMaks.toFixed(2)} , រាបវែង ${radaPlata.toFixed(1)}` +
-    ` , មាត់ ${(p.hal6da[0] - ma).toFixed(2)} / ${(p.hal6da[p.hal6da.length - 1] - mb).toFixed(2)}`);
-  for (const r of longaj) console.log(`    រាប ${r}`);
+  console.log(`${i} ${v.ksaka} ｡ ɭl̀ᴜ ʌ ſɭɜ ſɭ,w ｡ ſȷƽᴜ ɭʃᴜ ${(radaSumo / p.hal6da.length).toFixed(2)}` +
+    ` ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${radaMaks.toFixed(2)} ｡ j͑ʃ'ɔ ŋᷠɹ ｡ ſɭэ }ʃᴜ ɭl̀ᴜ ${radaPlata.toFixed(1)}` +
+    ` ｡ ᶅſэ ſ͕ɭᴜ ${(p.hal6da[0] - ma).toFixed(2)} / ${(p.hal6da[p.hal6da.length - 1] - mb).toFixed(2)}`);
+  for (const r of longaj) console.log(`    j͑ʃ'ɔ ŋᷠɹ ${r}`);
 }
-console.log(`សរុប ៖ មធ្យម ${(tlunakani / nombro).toFixed(2)} , ខ្ពស់បំផុត ${maks.toFixed(2)} @${maksLoko}` +
-  ` , កប់ ${plejBoreo.toFixed(2)} , គំរូកប់ ${boritaj}` +
-  ` , រាបវែង ${maksPlata.toFixed(1)} @${maksPlataK6h6}` +
-  ` , ជំហានលើស ${saltoj} , លោត ${maksSalto.toFixed(3)}`);
-console.log(CXU_URBO ? `មានទីក្រុង ${kradajHaveb6kek.length} ចំណុច` : "គ្មានទីក្រុង");
+console.log(`ſɭɹ ſᶘɔ ｡ ſȷƽᴜ ɭʃᴜ ${(tlunakani / nombro).toFixed(2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${maks.toFixed(2)} @${maksLoko}` +
+  ` ｡ ɭl̀w ſȷw ${plejBoreo.toFixed(2)} ｡ ſᶘᴜ j͐ʃɹ ɭl̀w ${boritaj}` +
+  ` ｡ j͑ʃ'ɔ ŋᷠɹ ｡ ſɭэ }ʃᴜ ɭl̀ᴜ ${maksPlata.toFixed(1)} @${maksPlataK6h6}` +
+  ` ｡ ɭʃɜ }ʃᴜ ɭl̀ᴜ ${saltoj} ｡ j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ${maksSalto.toFixed(3)}`);
+console.log(CXU_URBO ? `ſɭᴜ ı],ƨɔ ʌ j͑ʃᴜ ｡ ${kradajHaveb6kek.length} ｡ }ʃɹƽ` : "ſןɔ ʌ ſɭᴜ ı],ƨɔ");

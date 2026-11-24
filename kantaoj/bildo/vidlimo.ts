@@ -1,24 +1,24 @@
 // ≺⧼ ſȷɔ ſᶘᴜʞ ʌ j͑ʃ'ɔ ɭʃᴜ ֭ſɭᴜȝ ꞁȷ̀ᴜ }ʃꞇ 🔭 ⧽≻
-// ⟨ ការបែងចែកលំហ 📃 ⟩
-// ⟨ ដែនកំណត់ចម្ងាយ 📃 ⟩
+// ⟨ ſ͕ɭᴜ ſ͕ɭw }ʃɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
+// ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ 📃 ⟩
 import * as THREE from "three";
 import { NEBULA_DENSO_MIN, nebulVidebleco } from "./scena/paletroj.js";
 
-// ⟪ ការកំណត់ 📃 ⟫
-// ⟨ ក្រឡាលំហ 📃 ⟩
+// ⟪ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟫
+// ⟨ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ 📃 ⟩
 const CELA_TABELO = 0o100;
 const MAKS_CXELOJ = 0o10;
 const DIVIDA_MINIMUMO = 0o10;
 const DIVIDA_FAKTORO = 0o3/0o2;
 
-// ⟨ ដែនកំណត់ចម្ងាយ 📃 ⟩
-// ⟨ មាត្រខាងក្រោយដែនកំណត់អតិបរមា 📃 ⟩
-// ⟨ លែងមានលេខពីរសម្រាប់រឿងតែមួយ 📃 ⟩
-// ⟨ វាស់វែង 📃 ⟩
+// ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ 📃 ⟩
+// ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
+// ⟨ ꞙɭɔ ʌ ꞙɭɿ ʌ j͑ʃɜ j͑ʃƨɹ ʌ ꞙɭı 📃 ⟩
+// ⟨ ſɟᴜ ɭʃэ ʌ j͑ʃᴜꞇ 📃 ⟩
 const LIMO_FAKTORO = 0o100;
 const MIN_LIMO = 0o100;
 const MAKS_LIMO = Math.round(nebulVidebleco(NEBULA_DENSO_MIN));
-// ⟨ អ៊ីស្តេរេស៊ីស 📃 ⟩
+// ⟨ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ſȷꞇ }ʃꞇ 📃 ⟩
 const LIMO_HISTEREZO = 0o11/0o10;
 
 interface Vidlima {
@@ -36,16 +36,16 @@ interface Vidlima {
   malproksima: boolean;
 }
 
-// ⟨ វត្ថុស្ងៀម ភាគច្រើនលើសគេ ។ ភាពមើលឃើញរបស់វាប្រែតែពេលកាមេរ៉ាផ្លាស់ទី ។
-//   វត្ថុផ្លាស់ទី មានតិច តែត្រូវពិនិត្យរាល់ហ្វ្រេម ព្រោះទីតាំងវាប្រែដោយខ្លួនឯង ។
-//   បំបែកបញ្ជីទាំងពីរ ដូច្នេះរង្វិលជុំធំមិនរត់លើអ្វីដែលមិនប្រែ ។ 📃 ⟩
+// ⟨ ſןᴜȝ ſɭꞇ ʌ ꞙɭı ʌ ꞙɭı ⟅ ꞁȷ̀ɜ ɭʃɹ ʃᴜ j͑ʃᴜꞇ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ
+//   j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʌ ꞙɭɔ ⟅ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ
+//   ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ʌ ꞙɭɿ ʌ j͑ʃᴜꞇ 📃 ⟩
 const statikaj: Vidlima[] = [];
 const movigxantaj: Vidlima[] = [];
 let aktiva = true;
 let spacigita = false;
-// ⟨ អ៊ីស្តេរេស៊ីសតូចបំផុតគឺ limo * 0o1/0o10 ។ limo តូចបំផុតគឺ MIN_LIMO ,
-//   ដូច្នេះខ្សែបន្ទាត់ព្រំដែនធំជាង 0o6 ។ កាមេរ៉ាផ្លាស់ 0o2 មិនអាចរំលងវាបាន ។
-//   បើវត្ថុថ្មីចូលបញ្ជី ឬ ដែនមើលបើកឡើងវិញ , ពិនិត្យគ្រប់យ៉ាងភ្លាម ។ 📃 ⟩
+// ⟨ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ſȷꞇ }ʃꞇ limo * ꞙɭı/ꞙɭıɔ ⟅ MIN_LIMO ,
+//   ꞙɭɩ ⟅ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ꞙɭɿ ⟅
+//   j͑ʃᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
 const STATIKA_MOVA_SOJLO2 = 0o2 * 0o2;
 let lastaStatikaX = Infinity, lastaStatikaZ = Infinity;
 let devigiStatikan = true;
@@ -68,7 +68,7 @@ export function sferoDe(obj: THREE.Object3D): THREE.Sphere | null {
   return geometria.geometry.boundingSphere;
 }
 
-// ⟨ ហេតុអ្វីប្រភេទមួយ 📃 ⟩
+// ⟨ ſɭʞэ ʌ ſ͕ɭᴜ j͑ʃᴜ ʌ ꞙɭı 📃 ⟩
 interface SubLimo {
   eco: "ombro" | "videbleco";
   limo: number;
@@ -89,7 +89,7 @@ function radiusoDe(obj: THREE.Object3D, sfero: THREE.Sphere | null = sferoDe(obj
 
 function aldonu(obj: THREE.Object3D, limo: number, ka5ik: number,
   cx: number, cz: number, sekvi: boolean, subLimoj: SubLimo[] = []): void {
-  // ⟨ វត្ថុស្ងៀមកក 📃 ⟩
+  // ⟨ ſןᴜȝ ſɭꞇ 📃 ⟩
   if (!sekvi) {
     obj.matrixWorldAutoUpdate = false;
     devigiStatikan = true;
@@ -111,15 +111,15 @@ export function registriVidlimon(obj: THREE.Object3D, limo: number): void {
   aldonu(obj, limo, radiusoDe(obj, sfero), SFERO_CENTRO.x, SFERO_CENTRO.z, false);
 }
 
-// ⟨ ព័ត៌មានលម្អិតរូប 📃 ⟩
-// ⟨ វាស់វែង 📃 ⟩
+// ⟨ ſ͔ɭɔ ſɭᴜ ɽ͑ʃ'ɔ 📃 ⟩
+// ⟨ ſɟᴜ ɭʃэ ʌ j͑ʃᴜꞇ 📃 ⟩
 const VIVANTA_DETALO = 0o44;
 const KERNAJ_PARTOJ = 0o12;
 
 export function sekviVidlimon(obj: THREE.Object3D, limo: number, ka5ik = 0o4,
   ombraLimo = 0, detalaLimo = 0): void {
   const subLimoj: SubLimo[] = [];
-  // ⟨ ស្រមោល 📃 ⟩
+  // ⟨ ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩
   if (ombraLimo > 0) {
     const ombraj: THREE.Mesh[] = [];
     obj.traverse(o => {
@@ -128,7 +128,7 @@ export function sekviVidlimon(obj: THREE.Object3D, limo: number, ka5ik = 0o4,
     });
     if (ombraj.length > 0) subLimoj.push({ eco: "ombro", limo: ombraLimo, meshoj: ombraj, aktiva: true });
   }
-  // ⟨ ផ្នែកតូចៗ 📃 ⟩
+  // ⟨ ſɭɔƽ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ 📃 ⟩
   if (detalaLimo > 0) {
     obj.updateWorldMatrix(true, true);
     const hakek: { m: THREE.Mesh; r: number }[] = [];
@@ -148,9 +148,9 @@ export function sekviVidlimon(obj: THREE.Object3D, limo: number, ka5ik = 0o4,
 const VIVANTA_LIMO = 0o200;
 const VIVANTA_OMBRO = 0o50;
 
-// ⟨ ហេតុអ្វីពួកវាត្រូវការចុះបញ្ជីផ្ទាល់ 📃 ⟩
-// ⟨ ដែនកំណត់មកពីទំហំផ្ទាល់ 📃 ⟩
-// ⟨ ការការពារជើងមេឃ 📃 ⟩
+// ⟨ ſɭʞэ ʌ j͑ʃɹ ſ͔ɭᴜ ᶅſɔ 📃 ⟩
+// ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ j͑ʃɜ ſןᴜ j͐ʃэ 📃 ⟩
+// ⟨ ſןw ֭ſɭͷ̗ᴜ ſןɹ ʌ ſɟᴜ }ʃᴜ 📃 ⟩
 export function registriKunigitajnMeshojn(zace: THREE.Object3D, ksaka = "kunigita"): number {
   const meshoj: THREE.Mesh[] = [];
   zace.traverse(o => {
@@ -169,7 +169,7 @@ export function registriKunigitajnMeshojn(zace: THREE.Object3D, ksaka = "kunigit
   return registritaj;
 }
 
-// ⟨ ដែនកំណត់ស្រមោលរបស់មានជីវិត 📃 ⟩
+// ⟨ ſɟᴜ ֭ſɭэ ſɭэ ʌ j͑ʃɘɹ ʌ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ 📃 ⟩
 export function registriVivantojn(hasukf2qani: {
   npcoj: { group: THREE.Object3D }[];
   kanuoj: { group: THREE.Object3D }[];
@@ -182,8 +182,8 @@ export function registriVivantojn(hasukf2qani: {
   for (const p of hasukf2qani.hatemek) sekviVidlimon(p.hate, VIVANTA_LIMO);
 }
 
-// ⟪ ការដកអ្វីដែលលាក់ចេញ 📃 ⟫
-// ⟨ ហេតុអ្វីការមើលឃើញមិនគ្រប់ 📃 ⟩
+// ⟪ ſɭɜ ʃɔ ʌ j͑ʃᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟫
+// ⟨ ſɭʞэ ʌ ꞁȷ̀ɜ ɭʃɹ ʃᴜ j͑ʃᴜꞇ ʌ ꞙɭɔ 📃 ⟩
 function forprenu(obj: THREE.Object3D): void {
   if (obj.parent !== null) obj.removeFromParent();
 }
@@ -191,8 +191,8 @@ function reAlDonu(obj: THREE.Object3D, gepatro: THREE.Object3D | null): void {
   if (obj.parent === null && gepatro !== null) gepatro.add(obj);
 }
 
-// ⟨ ស្លឹកឈើឆ្ងាយប្រើធរណីមាត្រស្តើង ប៉ុន្តែទីតាំងដដែល ។ អ៊ីស្តេរេស៊ីស
-//   ការពារការឆ្លាស់កម្រិតញឹកញាប់ពេលកាមេរ៉ានៅជិតព្រំដែន 📃 ⟩
+// ⟨ j͑ʃͷ̗ᴜʞ ʌ ſ͔ɭɔ ſɭᴜ ɽ͑ʃ'ɔ , j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ſȷꞇ }ʃꞇ
+//   ſןw ֭ſɭͷ̗ᴜ ſןɹ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ 📃 ⟩
 const GEOMETRIA_HISTEREZO = 0o4;
 function gxisdatigiGeometrion( e: Vidlima, disto2: number ): void {
   if ( e.detalaGeometrio === null || e.malproksimaGeometrio === null ) return;
@@ -222,7 +222,7 @@ function gxisdatigiAron(aro: Vidlima[], x: number, z: number): void {
       }
     }
     gxisdatigiGeometrion(e, disto2);
-    // ⟨ ដែនកំណត់បន្ថែម 📃 ⟩
+    // ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
     for (let k = 0; k < e.subLimoj.length; k++) {
       const s = e.subLimoj[k];
       const r = s.limo + e.ka5ik;
@@ -233,8 +233,8 @@ function gxisdatigiAron(aro: Vidlima[], x: number, z: number): void {
 
 export function gxisdatigiVidlimojn(x: number, z: number): void {
   if (!aktiva) return;
-  // ⟨ វត្ថុស្ងៀម ៖ លទ្ធផលដដែលរហូតដល់កាមេរ៉ាផ្លាស់គ្រប់គ្រាន់ ។
-  //   អ៊ីស្តេរេស៊ីសធានាថាគ្មានវត្ថុលោតភ្លឹក ពេលរំលងហ្វ្រេម ។ 📃 ⟩
+  // ⟨ ſןᴜȝ ſɭꞇ ⟅ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ
+  //   j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ſȷꞇ }ʃꞇ ꞙɭı ʌ ſןᴜȝ ſɭꞇ 📃 ⟩
   const dx = x - lastaStatikaX, dz = z - lastaStatikaZ;
   if (devigiStatikan || dx * dx + dz * dz > STATIKA_MOVA_SOJLO2) {
     lastaStatikaX = x; lastaStatikaZ = z;
@@ -278,7 +278,7 @@ export function vidlimaStatistiko(): { eroj: number; videblaj: number; limoj: nu
     limoj: [ ...limoj ].sort((a, b) => a - b) };
 }
 
-// ⟪ ការបែងចែកលំហ 📃 ⟫
+// ⟪ ſ͕ɭᴜ ſ͕ɭw }ʃɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟫
 export function spacigiInstancojn(zace: THREE.Object3D,
   celtabelo = CELA_TABELO): { tavoloj: number; pecoj: number } {
   if (spacigita) return { tavoloj: 0, pecoj: 0 };
@@ -299,14 +299,14 @@ export function spacigiInstancojn(zace: THREE.Object3D,
     if (m.boundingSphere === null) m.computeBoundingSphere();
     if (m.geometry.boundingSphere === null) m.geometry.computeBoundingSphere();
     const amplekso = m.boundingSphere!.radius * 2;
-    // ⟨ ទំហំក្រឡាផ្ទាល់ 📃 ⟩
+    // ⟨ ſɟᴜ ſ͕ɭɹȝ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 📃 ⟩
     const propraCelo = m.userData.vidlimaCelo;
     const tabelo = typeof propraCelo === "number"
       ? propraCelo
       : Math.max(celtabelo, amplekso / MAKS_CXELOJ);
     if (amplekso <= tabelo * DIVIDA_FAKTORO) continue;
 
-    // ⟨ ការខ្ចាត់ខ្ចាយ 📃 ⟩
+    // ⟨ ſɭᴜͷ̗ ɭʃɜƽ 📃 ⟩
     const raqa = m.instanceMatrix.array as Float32Array;
     ujoj.clear();
     let maksSkalo = 0;
@@ -322,7 +322,7 @@ export function spacigiInstancojn(zace: THREE.Object3D,
     const gepatra = m.parent;
     if (gepatra === null || ujoj.size < 2) continue;
 
-    // ⟨ ដែនកំណត់ផ្ទាល់នៃស្រទាប់ 📃 ⟩
+    // ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ ɭʃᴜ }ʃɔƽ 📃 ⟩
     const propraLimo = m.userData.vidlimo;
     const limo = typeof propraLimo === "number"
       ? propraLimo

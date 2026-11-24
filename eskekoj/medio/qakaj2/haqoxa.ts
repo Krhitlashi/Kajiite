@@ -1,34 +1,34 @@
 // ≺⧼ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ j͑ʃᴜꞇ ʌ ſ͕ɭɜ ı],ᴜ 📐 ⧽≻
-// ⟨ ចុងចំណតឥឡូវជាពាក់រង្វង់ពេញ ដូចមួកចុងផ្លូវ ។ មុននេះវាជាចតុកោណ
-// ដែលមានជ្រុងពីរបត់តិចៗ , ដូច្នេះចុងចំណតមិនដូចចុងផ្លូវទេ ។ ធ្នូមកពី
-// ម៉ូឌុលគែមមូលរួម , ដូច្នេះផ្លូវ និងចំណតប្រើទម្រង់តែមួយ ។ 📃 ⟩
+// ⟨ ɭʃэ ſɭɔȝ , ꞙɭı , ꞙɭı , ᶅſw ſןɜ ɭʃɔ , ſɭэ ֭ſɭэ , ⟅ ꞙɭı , ꞙɭэ ,
+//   ꞙɭɿ , ꞙɭı , ⟅ ꞙɭı , ɭʃэ ſɭɔȝ , ꞙɭı , ɭʃэ ſɭɔȝ , ⟅ ſȷƽᴜ ʃɔ ,
+//   ɭl̀ɜ ſ͕ɭᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ 📃 ⟩
 import * as THREE from "three";
 import { arkajPunktoj } from "../hak6h6/hac2q.js";
 
-// ⟪ ចុងពាក់រង្វង់ 📐 ⟫
-/*បន្ថែមធ្នូពាក់រង្វង់ខាងលើទៅទម្រង់
-    @param qoxa ( Shape ) - ទម្រង់ដែលកំពុងសាង
-    @param ka5ik ( number ) - កាំធ្នូ
-    @param centroY ( number ) - អ័ក្ស y នៃអង្កត់ផ្ចិត
-    @param flankaX ( number ) - កន្លះទទឹងជ្រុងត្រង់
+// ⟪ ɭʃэ ſɭɔȝ , ꞙɭı 📐 ⟫
+/* ſȷƽᴜ ʃɔ , ꞙɭı , ſ͕ɭɜ ı],ᴜ ,
+    @param qoxa ( Shape ) - ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+    @param ka5ik ( number ) - ſɭᴜ ſɭˬꞇƽ , ſȷƽᴜ ʃɔ ,
+    @param centroY ( number ) - ꞙɭı y , ꞙɭɿ ,
+    @param flankaX ( number ) - ꞙɭı , ꞙɭı , ⟅
 @returns void */
-// ⟨ គ្មានជ្រុងតូច 📏 ⟩ ៖ កាំស្មើនឹងកន្លះទទឹងវេទិកា , ដូច្នេះគែមទាំងពីរ
-// ប្រែជាធ្នូដោយគ្មានបន្ទាត់ត្រង់នៅចុង ។ 📃 ⟩
+// ⟨ ꞙɭɔ , ꞙɭı 📏 ⟩ , ſɭᴜ ſɭˬꞇƽ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɿ
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 function aldoniAntauxanDuonc2qn( qoxa: THREE.Shape, ka5ik: number,
   centroY: number, flankaX: number ): void {
   qoxa.lineTo(flankaX, centroY);
   for ( const p of arkajPunktoj(ka5ik, 0, -Math.PI) )
     qoxa.lineTo(p[ 0 ], p[ 1 ] + centroY);
-  // ⟨ ចៀសចំណុចជាន់គ្នា 📏 ⟩ ៖ ពេលកាំស្មើនឹងកន្លះទទឹង ចំណុចចុងធ្នូ
-  // ស្ថិតលើគែមត្រង់រួចហើយ ។ បន្ថែមវាម្តងទៀតបង្កើតត្រីកោណរួញ ។ 📃 ⟩
+  // ⟨ ꞙɭı , }ʃɹƽ , ꞙɭı 📏 ⟩ , ſɭᴜ ſɭˬꞇƽ , ꞙɭı , ꞙɭı , }ʃɹƽ ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭц , ⟅ 📃 ⟩
   if ( flankaX - ka5ik > 0o1 / 0o1000 ) qoxa.lineTo(-flankaX, centroY);
 }
 
-// ⟪ ទម្រង់ផ្ទៃឌីអូរីត 📐 ⟫
-/*បង្កើតវេទិកាដែលមានចុងពាក់រង្វង់ពេញ
-    @param w ( number ) - ទទឹងឌីអូរីត
-    @param l ( number ) - ប្រវែងសរុប
-@returns qoxa ( Shape ) - ទម្រង់បិទ */
+// ⟪ ſ͕ɭɜ ı],ᴜ , ꞙɭı 📐 ⟫
+/* ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭı ,
+    @param w ( number ) - ſɭᴜ ſןᴜ ,
+    @param l ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+@returns qoxa ( Shape ) - ſ͕ɭɜ ı],ᴜ , ꞙɭı */
 export function kf2DokanQoxan(w: number, l: number): THREE.Shape {
   const qoxa = new THREE.Shape();
   const duonW = w / 2, duonL = l / 2;
@@ -42,13 +42,13 @@ export function kf2DokanQoxan(w: number, l: number): THREE.Shape {
   return qoxa;
 }
 
-// ⟪ ទម្រង់ខាងក្រៅ 📐 ⟫
-/*បង្កើតវណ្ឌវង្កដែលលាតស្មាស្មើគ្នាជុំវិញវេទិកា
-    @param w ( number ) - ទទឹងឌីអូរីត
-    @param l ( number ) - ប្រវែងសរុប
-    @param strio ( number ) - ទទឹងស្មាអាន់ដេហ្ស៊ីត
-@returns qoxa ( Shape ) - ទម្រង់បិទ */
-// ⟨ វណ្ឌវង្កមួយ ការប្រើពីរ 📃 ⟩ ៖ ស៊ុម និងម៉ាសក្រោមអានទម្រង់ដូចគ្នា ។
+// ⟪ ſ͕ɭɜ ı],ᴜ , ꞙɭı 📐 ⟫
+/* ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭı , ꞙɭı ,
+    @param w ( number ) - ſɭᴜ ſןᴜ ,
+    @param l ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+    @param strio ( number ) - ꞙɭı , ꞙɭı ,
+@returns qoxa ( Shape ) - ſ͕ɭɜ ı],ᴜ , ꞙɭı */
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭɿ ⟅ 📃 ⟩ , ɭl̀ɜ ſ͕ɭᴜ , ſɭэ j͐ʃꞇȝ , ꞙɭı ,
 export function kf2DokanEksteranQoxan(w: number, l: number, strio: number): THREE.Shape {
   const duonW = w / 2, duonL = l / 2;
   const ka5ik = Math.min(duonW, duonL);
@@ -63,13 +63,13 @@ export function kf2DokanEksteranQoxan(w: number, l: number, strio: number): THRE
   return qoxa;
 }
 
-// ⟪ ស៊ុមអាន់ដេហ្ស៊ីត 📐 ⟫
-/*បង្កើតស៊ុមជាចិញ្ចៀនជុំវិញផ្ទៃឌីអូរីត
-    @param w ( number ) - ទទឹងឌីអូរីត
-    @param l ( number ) - ប្រវែងសរុប
-    @param strio ( number ) - ទទឹងស្មា
-    @param dikeco ( number ) - កម្រាស់
-@returns geometrio ( BufferGeometry ) - ស៊ុមដែលបានបង្វិល */
+// ⟪ ɭl̀ɜ ſ͕ɭᴜ , ꞙɭı 📐 ⟫
+/* ɭl̀ɜ ſ͕ɭᴜ , ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭı
+    @param w ( number ) - ſɭᴜ ſןᴜ ,
+    @param l ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+    @param strio ( number ) - ꞙɭı , ꞙɭı ,
+    @param dikeco ( number ) - ſɭᴜ ſɭ,w ,
+@returns geometrio ( BufferGeometry ) - ɭl̀ɜ ſ͕ɭᴜ , ꞙɭı , */
 export function kf2DokanJoqan(w: number, l: number, strio: number,
   dikeco: number): THREE.BufferGeometry {
   const ekstera = kf2DokanEksteranQoxan(w, l, strio);

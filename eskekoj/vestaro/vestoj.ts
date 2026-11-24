@@ -1,9 +1,9 @@
-// ≺⧼ សម្លៀកបំពាក់ 👕 ⧽≻
+// ≺⧼ j͑ʃɜȝ ɭʃɔ 👕 ⧽≻
 
 import { weh2Ruva, veb6qaiW2d2 } from "../komunajxoj/koloroj.js";
 import { molaStelaK6h6 } from "../komunajxoj/cac2sex/helpiloj.js";
 
-// ⟪ សម្លៀកបំពាក់ 📃 ⟫
+// ⟪ j͑ʃɜȝ ɭʃɔ 📃 ⟫
 export interface Vesto {
   ksaka: string;
   geles: number;
@@ -26,7 +26,7 @@ export const VESTOJ: Vesto[] = [
   { ksaka: "vestoKoloroCyan", geles: 0x38a8a8, akcenta: 0xc8f0f0, interno: 0x185858, pantalono: 0x2858a0, botoj: 0x583818 },
 ];
 
-// ⟪ បែបសក់ 📃 ⟫
+// ⟪ ſᶘᴜȝ ʌ ſןᴜ j͐ʃэ 📃 ⟫
 export interface Harstilo {
   ksaka: string;
   weh2: number;
@@ -37,7 +37,7 @@ export const HARSTILOJ: Harstilo[] = [
   { ksaka: "haroLonga",    weh2: 0x181008 },
 ];
 
-// ⟪ ពណ៌សក់ 📃 ⟫
+// ⟪ ſᶘᴜȝ ʌ ᶅſɔ ֭ſɭɹ 📃 ⟫
 export interface HarKoloro {
   ksaka: string;
   weh2: number;
@@ -52,7 +52,7 @@ export const HARKOLOROJ: HarKoloro[] = [
   { ksaka: "harKoloroGriza",   weh2: 0x889098 },
 ];
 
-// ⟨ លំនាំ 📃 ⟩
+// ⟨ ɭʃɜ ŋᷠэ 📃 ⟩
 export function kvarStelo(kuns2bana: CanvasRenderingContext2D,
   cX: number, cy: number, r: number, weh2: string
 ): void {
@@ -91,7 +91,7 @@ function c2qRechto(kuns2bana: CanvasRenderingContext2D,
   kuns2bana.fill();
 }
 
-// ⟨ ទិដ្ឋភាពខាងមុខ 📃 ⟩
+// ⟨ ſɭꞇ ı],ɹ ʌ ɭʃɔ ɽ͑ʃ'w }ʃꞇ 📃 ⟩
 export function kf2VestanAntauxrigardon(o: Vesto): HTMLCanvasElement {
   const kanvasa = document.createElement("canvas");
   kanvasa.width = 0o210; kanvasa.height = 0o300;

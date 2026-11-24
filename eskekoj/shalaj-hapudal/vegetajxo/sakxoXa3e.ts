@@ -24,7 +24,7 @@ export function hazardaKoloro(hazardaGenerilo: () => number, weh2: THREE.Color, 
 
 export const VEGETAJXA_PLIIGO = 0x682878F5;
 
-// គ្រាប់ពូជនៃរុក្ខជាតិឆ្លងកាត់គ្រាប់ពូជរបស់ពិភពលោកសកម្ម , ដូច្នេះការរាយ
-// រុក្ខជាតិក៏ជារបស់គ្រាប់ពូជដែរ ។ ពិភពលោកដែលគ្មានគ្រាប់ពូជមិនប្តេរ ។
+// ſɟwƽ ʌ j͑ʃᴜ ſɭɹȝ ʌ j͑ʃᴜꞇ ʌ }ʃᴜ j͐ʃᴜ ʌ ſɟwƽ ʌ }ʃᴜ j͐ʃᴜ ⟅
+// j͑ʃᴜ ſɭɹȝ ʌ j͑ʃᴜꞇ ʌ ſɟwƽ ʌ ꞙɭı ʌ ꞙɭı ⟅ }ʃᴜ j͐ʃᴜ ʌ ꞙɭɔ ʌ ſɟwƽ , ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ⟅
 export const kf2VegetajxanHazardon = (tk2ni: number): ( () => number ) =>
   kf2Sakxo(vegetajxaSemo(tk2ni), VEGETAJXA_PLIIGO);

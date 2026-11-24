@@ -11,7 +11,7 @@ for ( let i = 0; i < KOLOJ; i++ ) {
   proverboj.push(( i % 0o200 ) - 0o100, ( i % 0o1000 ) - 0o500, ( i % 0o777 ) - 0o400, 0o25/0o100 );
 }
 
-// ⟨ ផ្ទៀងផ្ទាត់ភាពស្មើគ្នាបេះបិទ 📃 ⟩
+// ⟨ j͑ʃɹ j͐ʃɹ ŋᷠɔ ʌ ſɭᴜ }ʃᴜȝ 📃 ⟩
 let malsamaj = 0;
 for ( let i = 0; i < KOLOJ; i++ ) {
   const o = i * 0o4;
@@ -19,7 +19,7 @@ for ( let i = 0; i < KOLOJ; i++ ) {
   koloroSef4(kolB, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
   if ( kolA.r !== kolB.r || kolA.g !== kolB.g || kolA.b !== kolB.b ) malsamaj++;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ផ្ទៀងផ្ទាត់ ខុស=${malsamaj}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͑ʃɹ j͐ʃɹ ŋᷠɔ ⟅ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ=${malsamaj}`);
 
 function mezuriPare( ksaka: string, sef4: ( c: THREE.Color, h: number, x: number, z: number, d: number ) => number,
   s23ohk2sai: ( c: THREE.Color, h: number, x: number, z: number, d: number ) => number ): void {
@@ -48,7 +48,7 @@ function mezuriPare( ksaka: string, sef4: ( c: THREE.Color, h: number, x: number
   }
   tn.sort(( a, b ) => a - b ); tm.sort(( a, b ) => a - b );
   const mn = tn[tn.length >> 1], mm = tm[tm.length >> 1];
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ចាស់=${mm.toFixed(1)}ms ថ្មី=${mn.toFixed(1)}ms លឿន=${( mm / mn ).toFixed(2)}x min ${Math.min(...tm).toFixed(1)} ${Math.min(...tn).toFixed(1)} លេខ=${sn === sm ? "ស្មើ" : "ខុស"}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ſɭˬɹ=${mm.toFixed(1)}ms ſɭɔ˞ɜƴ=${mn.toFixed(1)}ms j͑ʃɔ ֭ſɭɔ=${( mm / mn ).toFixed(2)}x min ${Math.min(...tm).toFixed(1)} ${Math.min(...tn).toFixed(1)} j͑ʃɜ j͑ʃƨɹ=${sn === sm ? "ſɭᴜ }ʃᴜȝ" : "j͑ʃ'ɔ ſ͕ɭэ ſɭɹ"}`);
 }
 
 mezuriPare(`terenaKoloroEn x${KOLOJ}`,

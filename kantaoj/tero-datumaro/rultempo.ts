@@ -17,7 +17,7 @@ import type { SkulptaKaxte, SkulptaK6h6, SkulptaPlatqoxa,
   MetitaObjekto } from "../mondo/kaxte/hahunaq.js";
 import type { AkvaTsiq } from "../mondo/akvokalkulo.js";
 
-// ⟪ ការឌិកូដ 📃 ⟫
+// ⟪ j͑ʃƨᴜʞ 📃 ⟫
 
 export function dekodiInt16(kruda: string): Int16Array | null {
   if ( kruda === "" ) return null;
@@ -40,10 +40,10 @@ export function dekodiMaskon(kruda: string, vem2: number): Uint8Array | null {
   } catch { return null; }
 }
 
-// ⟪ ដីដែលបានបង្កើត 📃 ⟫
-// ពិភពលោកដែលមានគ្រាប់ពូជបង្កើតដីខ្លួនឯង ( កម្ពស់ ទឹក ជីវតំបន់ សត្វ ប្រភពទឹក ) ។
-// ពិភពលោកដែលគ្មានគ្រាប់ពូជប្រើដីដែលឆ្លាក់ដោយដៃក្នុងថត cxefa ។ ការអាន
-// គ្រាប់ពូជប្រើបញ្ជីពិភពលោកនៃម៉ាស៊ីន ដូច្នេះពិភពលោកសកម្មត្រូវកំណត់រួចមុន ។
+// ⟪ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɟɔȝ 📃 ⟫
+// }ʃᴜ j͐ʃᴜ ʌ ſɟwƽ ʌ j͑ʃᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɟɔȝ ʌ j͑ʃᴜꞇ ( j͐ʃэ ɭ(ᴜ , ſᶘᴜ j͑ʃᴜ , ʃɔ˞ɹ , ſןᴜ ſ͔ɭᴜ , ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɜ ſןɹ ) .
+// }ʃᴜ j͐ʃᴜ ʌ ꞁȷ̀ɜ ɭʃᴜ j͑ʃᴜ ʌ ſɟwƽ ʌ j͑ʃᴜꞇ = ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɟɔȝ ʌ ꞁȷ̀ɹ ɭʃᴜ ŋᷠᴜ ʌ ſɭɜ ſᶘɜ ꞁȷ̀ɔ cxefa .
+// j͑ʃƨᴜʞ ʌ ſɟwƽ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ⺓ ʌ }ʃᴜ j͐ʃᴜ ʌ }ʃᴜ j͐ʃᴜ ʌ j͑ʃɹ ſȷᴜͷ̗ , ſɭɹ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ ʌ j͑ʃᴜꞇ ʌ ɭʃᴜ j͑ʃɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ .
 export const GENERITA_TERO: GeneritaTero | null = ( () => {
   const semoS2bana = aktivaSemo();
   if ( semoS2bana === "" ) return null;
@@ -54,9 +54,9 @@ export const GENERITA_TERO: GeneritaTero | null = ( () => {
     ( x, z ) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z));
 } )();
 
-// ⟪ អ្វីដែលមនុស្សសាងសង់ 📃 ⟫
-// ទីក្រុង ផ្លូវ ចំណត និងវត្ថុដាក់ក៏មកពីគ្រាប់ពូជដែរ ។ ពិភពលោកដែលគ្មាន
-// គ្រាប់ពូជប្រើអ្វីដែលឆ្លាក់ដោយដៃក្នុងថត cxefa ។
+// ⟪ ſɟᴜᴜ̩ ŋᷠᴜƴ ʌ ſɭᴜ j͑ʃᴜ 📃 ⟫
+// ſɭᴜ ı],ƨɔ , ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w }ʃw , ꞁȷ̀ɜ ı],ɔ ŋᷠᴜ }ʃꞇ ʌ j͑ʃᴜꞇ ʌ ſɟwƽ ʌ j͑ʃᴜꞇ .
+// }ʃᴜ j͐ʃᴜ ʌ ꞁȷ̀ɜ ɭʃᴜ j͑ʃᴜ ʌ ſɟwƽ ʌ j͑ʃᴜꞇ = ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɟᴜᴜ̩ ɭʃɹ ʌ ꞁȷ̀ɹ ɭʃᴜ ŋᷠᴜ ʌ ſɭɜ ſᶘɜ ꞁȷ̀ɔ cxefa .
 export const GENERITA_SETLEJO: GeneritaSetlejo | null = ( () => {
   if ( !GENERITA_TERO ) return null;
   const mapo = aktivaMapo();
@@ -75,82 +75,82 @@ const BIOMOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.habs2
 const BESTOJ: Uint8Array | null = GENERITA_TERO ? GENERITA_TERO.hapaga
   : SKULPTA_AKTIVA ? dekodi3Bit(SKULPTA_BESTOJ, SKULPTA_N * SKULPTA_N) : null;
 
-// ⟪ ការនាំចេញរបស់ដីសកម្ម 📃 ⟫
+// ⟪ ʃᴜ j͐ʃɹ ʌ ſɟɔȝ ʌ j͑ʃ'ɜ ſןɹ 📃 ⟫
 
-/*កម្ពស់ធម្មជាតិនៃពិភពលោកសកម្ម
-    @param x,z ( number ) - កូអរដោនេពិភពលោក
-@returns y ( number ) - សូន្យសម្រាប់ដីដែលឆ្លាក់ដោយដៃ */
+/* ſɟɔȝ ʌ j͑ʃ'ɜ ſןɹ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ
+    @param x,z ( number ) - ſɟᴜ j͑ʃᴜ ʌ ſןᴜ j͐ʃэ ʌ }ʃᴜ j͐ʃᴜ
+@returns y ( number ) - ſɭᴜ ſɭᴜ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɟɔȝ ʌ ꞁȷ̀ɹ ɭʃᴜ ŋᷠᴜ */
 export function aktivaAlteco( x: number, z: number ): number {
   return GENERITA_TERO ? GENERITA_TERO.alteco(x, z) : 0;
 }
 
-/*ប្រភពទឹកនៃពិភពលោកសកម្ម
+/* ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɜ ſןɹ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ
 @returns hatsiq ( AkvaTsiq[] ) */
 export function aktivajAkvohatsiq(): AkvaTsiq[] {
   return GENERITA_TERO ? GENERITA_TERO.hatsiq : SKULPTA_HAXAIQ;
 }
 
-/*គ្រាប់អាងទឹកនៃពិភពលោកសកម្ម
+/* ſᶘᴜ j͑ʃᴜ ʌ ſɟwƽ ʌ j͑ʃ'ɜ ſןɹ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ
 @returns k6liqani ( Uint8Array | null ) */
 export function aktivaAkvaMasko(): Uint8Array | null {
   return AKVA_MASKO;
 }
 
-/*គ្រាប់ពូជរបស់ជួរភ្នំជុំវិញពិភពលោក
+/* ſɟwƽ ʌ ɭl̀ᴜ ſ͕ɭɜ ʌ ſᶘɹ ɭʃᴜ }ʃꞇ ʌ }ʃᴜ j͐ʃᴜ
 @returns tk2ni ( number ) */
 export function montaraSemoBazo(): number {
   return GENERITA_TERO ? GENERITA_TERO.montaraSemoBazo : 0o123/0o100;
 }
 
-/*តើពិភពលោកសកម្មបង្កើតដីខ្លួនឯង
+/* j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɟɔȝ ʌ j͑ʃ'ɜ ſןɹ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ ʌ j͑ʃᴜꞇ
 @returns generita ( boolean ) */
 export function tsekeGeneritaTero(): boolean {
   return GENERITA_TERO !== null;
 }
 
-/*តើពិភពលោកសកម្មបង្កើតទីក្រុងខ្លួនឯង
+/* j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɭᴜ ı],ƨɔ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ ʌ j͑ʃᴜꞇ
 @returns generita ( boolean ) */
 export function tsekeGeneritaSetlejo(): boolean {
   return GENERITA_SETLEJO !== null;
 }
 
-/*ទីក្រុងនៃពិភពលោកសកម្ម
+/* ſɭᴜ ı],ƨɔ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ
 @returns hakaxte ( SkulptaKaxte[] ) */
 export function aktivajHakaxte(): SkulptaKaxte[] {
   return GENERITA_SETLEJO ? GENERITA_SETLEJO.hakaxte : SKULPTA_URBOJ as SkulptaKaxte[];
 }
 
-/*ផ្លូវកម្រិតពិភពលោកនៃពិភពលោកសកម្ម
+/* ſɭэ ֭ſɭэ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ
 @returns hak6h6 ( SkulptaK6h6[] ) */
 export function aktivajHak6h6(): SkulptaK6h6[] {
   return GENERITA_SETLEJO ? GENERITA_SETLEJO.hak6h6 : SKULPTA_VOJOJ as SkulptaK6h6[];
 }
 
-/*ចំណតនៃពិភពលោកសកម្ម
+/* ſɭɜ ſɭ,w }ʃw ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ
 @returns haqakaj2 ( SkulptaPlatqoxa[] ) */
 export function aktivajHaqakaj2(): SkulptaPlatqoxa[] {
   return GENERITA_SETLEJO ? GENERITA_SETLEJO.haqakaj2 : SKULPTA_DOKOJ as SkulptaPlatqoxa[];
 }
 
-/*វត្ថុដាក់នៃពិភពលោកសកម្ម
+/* ꞁȷ̀ɜ ı],ɔ ŋᷠᴜ }ʃꞇ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ
 @returns objektoj ( MetitaObjekto[] ) */
 export function aktivajObjektoj(): MetitaObjekto[] {
   return GENERITA_SETLEJO ? GENERITA_SETLEJO.objektoj : SKULPTA_OBJEKTOJ as MetitaObjekto[];
 }
 
-/*គ្រាប់ពូជនៃការរាយរុក្ខជាតិ ។ ក្នុងពិភពលោកដែលមានគ្រាប់ពូជ គ្រាប់ពូជ
-  ដើមត្រូវបានលាយជាមួយគ្រាប់ពូជរបស់ពិភពលោក ។
-    @param bazaSemo ( number ) - គ្រាប់ពូជដើមរបស់រុក្ខជាតិ
+/* ſɟwƽ ʌ ı],ᴜ ſ̀ȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ . }ʃᴜ j͐ʃᴜ ʌ ſɟwƽ ʌ j͑ʃᴜꞇ
+  ſɟwƽ ʌ ı],ᴜ ſ̀ȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ꞁȷ̀ɹ ſɟwƽ ʌ }ʃᴜ j͐ʃᴜ .
+    @param bazaSemo ( number ) - ſɟwƽ ʌ ı],ᴜ ſ̀ȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ
 @returns tk2ni ( number ) */
 export function vegetajxaSemo( bazaSemo: number ): number {
   if ( !GENERITA_TERO ) return bazaSemo;
   return subSemo(GENERITA_TERO.semo, ( bazaSemo & 0o777777 ) + 0o1);
 }
 
-// ⟨ ស្ទ្រីមចៃដន្យដែលនៅសល់ 📃 ⟩
-// អ្វីដែលសល់ ( មនុស្ស , ផេត្រេល , ព្រិល ប្រភពចលនា ) ក៏មកពីគ្រាប់ពូជដែរ ,
-// ដូច្នេះពិភពលោកតែមួយផ្ដល់រូបរាងតែមួយរាល់ដង ។ ពិភពលោកដែលគ្មានគ្រាប់ពូជ
-// ប្រើ Math.random ដូចមុន ។ ហៅម្តងហើយចែកមុខងារដែលបានត្រឡប់ទៅអ្នកហៅ ។
+// ⟨ ſɟwƽ ʌ j͐ʃᴜɔ˞ 📃 ⟩
+// j͑ʃᴜ ſɭᴜ ʌ j͑ʃᴜꞇ ( ŋᷠᴜƴ , ɭʃɔ ŋᷠɔƽ , ſᶘᴜ ſȷᴜ , j͐ʃᴜɔ˞ ) ʌ ſɟwƽ ʌ j͑ʃᴜꞇ ,
+// ſɭɹ ʌ }ʃᴜ j͐ʃᴜ ʌ ꞙɭı ʌ }ʃᴜ j͐ʃᴜ ʌ j͑ʃɜ j͑ʃƨɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ .
+// }ʃᴜ j͐ʃᴜ ʌ ꞁȷ̀ɜ ɭʃᴜ j͑ʃᴜ ʌ ſɟwƽ ʌ j͑ʃᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ Math.random , ſɭɹ ʌ }ʃᴜ j͐ʃᴜ ʌ ꞙɭı ʌ }ʃᴜ j͐ʃᴜ ʌ j͑ʃɜ j͑ʃƨɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ .
 const MONDIA_PLIIGO = 0x7F4A7C15;
 const KANALO_SURTERA = 0o33;
 
@@ -159,7 +159,7 @@ export function mondiaHazardo(): () => number {
   return kf2Sakxo(subSemo(GENERITA_TERO.semo, KANALO_SURTERA), MONDIA_PLIIGO);
 }
 
-// ⟨ អនុគមន៍គំរូ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭᴜ 📃 ⟩
 
 export function skulptaDelta(x: number, z: number): number {
   if ( !DELTAJ ) return 0;
@@ -168,9 +168,9 @@ export function skulptaDelta(x: number, z: number): number {
   return bikubaSpecimeno(DELTAJ, SKULPTA_N, fx, fz) / 0o20;
 }
 
-/*ឌិកូដតម្លៃ 3 ប៊ីតក្នុងមួយក្រឡា ពី base64 ៖ ជីវតំបន់ និងសត្វប្រើទ្រង់ទ្រាយតែមួយ
-    @param kruda ( string ) - ខ្សែ base64
-    @param vem2 ( number ) - ចំនួនក្រឡា
+/* j͑ʃƨᴜʞ ʌ ꞙɭц ʌ ſ͕ɭᴜ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ꞁȷ̀ɹ base64 , ʃɔ˞ɹ ʌ ſןᴜ ſ͔ɭᴜ ʌ j͑ʃᴜꞇ ʌ j͑ʃɜ j͑ʃƨɹ
+    @param kruda ( string ) - ſɟᴜ ɭʃɜ ʌ base64
+    @param vem2 ( number ) - ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ꞙɭı ʌ ſןᴜ j͐ʃэ
 @returns hatskek2 ( Uint8Array | null ) */
 export function dekodi3Bit(kruda: string, vem2: number): Uint8Array | null {
   if ( kruda === "" ) return null;

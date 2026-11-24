@@ -4,8 +4,8 @@ import * as THREE from "three";
 export function kf2HerbanKlingon(sahakani: number, sefini: number, klino: number,
   arko: number, tordo: number, weh2: THREE.Color, has2nasce = 0o4,
   pintPotenco = 0o7/0o10, petitajHacel2nu = 0o5, fundo = true): THREE.BufferGeometry {
-  // ⟨ កំណាត់ឆ្លងកាត់មាន 0o5 ចំណុច ។ ជួរឈរតិចជាង 0o3 បង្កើតត្រីកោណគ្មានផ្ទៃ ,
-  //   ហើយច្រើនជាង 0o5 អានចំណុចដែលគ្មាន ។ ទាំងពីរធ្វើឱ្យស្មៅបាត់ភ្លឹក ។ 📃 ⟩
+  // ⟨ ſɟᴜ ɭʃᴜ ʌ ſɭэ ʌ ꞙɭꞟ ʌ j͑ʃᴜꞇ ⟅ ꞙɭц ʌ ꞙɭɔ ʌ ꞙɭı ,
+  //   ꞙɭɔ ʌ j͑ʃͷ̗ᴜʞ ʌ ſȷɔ ſᶘᴜʞ 📃 ⟩
   const KOLONOJ = Math.max(0o3, Math.min(0o5, Math.round(petitajHacel2nu)));
   const SEGMENTOJ = has2nasce;
   const haxekuxa: number[] = [];
@@ -50,10 +50,10 @@ export function kf2HerbanKlingon(sahakani: number, sefini: number, klino: number
   geometrio.setAttribute("uv", new THREE.Float32BufferAttribute(qan2k, 2));
   geometrio.setAttribute("color", new THREE.Float32BufferAttribute(haweh2, 3));
   geometrio.setIndex(havecax2lani);
-  // ⟨ គណនានរម៉ាល់ពីស្លឹកពេញ ដើម្បីឱ្យចំហៀងមិនប្រែពន្លឺ 📃 ⟩
+  // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ j͑ʃͷ̗ᴜʞ ⟅ ꞙɭɔ ʌ j͑ʃᴜ jᷠᴜ 📃 ⟩
   geometrio.computeVertexNormals();
   if ( !fundo ) {
-    // ⟨ ដកតែមូលដែលកប់ក្រោមដី ។ គ្រប់គូបមូលមានសន្ទស្សន៍បី ហើយគ្រប់គូបកំពូលនៅដដែល 📃 ⟩
+    // ⟨ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ꞙɭɔ ʌ ſɭɜ ſɭ,w ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
     const flankajIndeksoj = SEGMENTOJ * KOLONOJ * 0o6;
     geometrio.setIndex(havecax2lani.filter(( _, i ) =>
       i < flankajIndeksoj || ( i - flankajIndeksoj ) % 0o6 >= 0o3));

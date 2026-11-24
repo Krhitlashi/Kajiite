@@ -1,7 +1,7 @@
 // ≺⧼ }ʃᴜ j͐ʃᴜ ʌ ı],ɔ ŋᷠᴜ }ʃꞇ 💾 ⧽≻
 import { traduki } from "../lingvo/tradukoj.js";
 
-/*កំណត់ត្រាពិភពលោកដែលបានរក្ទក់
+/* ſɭэ ſɭᴜ , ꞙɭı ,
     @param id ( string ) - លេខសម្គាល់តែមួយគត់
     @param ca3aq ( string ) - សោបកប្រែសម្រាប់ឈ្មោះ ទំនេរបើឈ្មោះផ្ទាល់ខ្លួន
     @param ksaka ( string ) - ឈ្មោះបង្ហាញ
@@ -16,7 +16,7 @@ export interface MondoRecordo {
   tempo: number;
 }
 
-/*ជម្រើសសម្រាប់បង្កើតពិភពលោក
+/* ſɭᴜ ſןᴜ , ꞙɭɿ ,
     @param id ( string , optional ) - លេខសម្គាល់ បើទុកជាមុន
     @param ca3aq ( string , optional ) - សោបកប្រែឈ្មោះ
     @param ksaka ( string , optional ) - ឈ្មោះផ្ទាល់
@@ -28,12 +28,12 @@ export interface KreaMondoHasukf2qani {
   smino?: string;
 }
 
-// ⟪ សោផ្ទុក 📃 ⟫
+// ⟪ ſɭэ ᶗ‹ , 📃 ⟫
 const MONDA_SXLOSILO = "aranis-mondoj";
 const AKTIVA_SXLOSILO = "aranis-aktiva-mondo";
 const CXEF_ANO = "aranis";
 
-/*អានបញ្ជីពិភពលោកពីផ្ទំខាងក្រោយ
+/* ſɭэ ſɭᴜ , ꞙɭц ,
 @return mondoj បញ្ជីដែលបានរក្ទក់ */
 export function legiMondojn(): MondoRecordo[] {
   try {
@@ -52,17 +52,17 @@ export function legiMondojn(): MondoRecordo[] {
   }
 }
 
-/*សរសេរបញ្ជីពិភពលោកទៅផ្ទំខាងក្រោយ
+/* ſɭэ ſɭᴜ , ꞙɭэ ,
     @param mondoj ( MondoRecordo[] ) - បញ្ជីថ្មី */
 export function skribiMondojn( mondoj: MondoRecordo[] ): void {
   try {
     localStorage.setItem(MONDA_SXLOSILO, JSON.stringify(mondoj));
   } catch {
-    /* ផ្ទំទំនេរ */
+/* ſɭᴜ ſןᴜ , */
   }
 }
 
-/*កែសំណុំទិន្នន័យមួយឲ្យត្រឹមត្រូវ
+/* ſɭэ ᶗ‹ , ꞙɭɩ ,
     @param kruda ( unknown ) - ទិន្នន័យពី JSON
 @return normaligita ឬ null */
 function normaligi( kruda: unknown ): MondoRecordo | null {
@@ -78,13 +78,13 @@ function normaligi( kruda: unknown ): MondoRecordo | null {
   };
 }
 
-/*បង្កើតលេខសម្គាល់ថ្មី
+/* ſɭэ ᶗ‹ , ꞙɭꞟ ,
 @return id */
 function sef4Id(): string {
   return Date.now().toString(0o10) + Math.random().toString(0o10).slice(2, 0o10);
 }
 
-/*ឈ្មោះសម្រាប់បង្ហាញ ប្រើសោបកប្រែបើមាន
+/* ſɭэ ᶗ‹ , ꞙɭꞟı ,
     @param mondo ( MondoRecordo ) - កំណត់ត្រា
 @return ksaka */
 export function montriNomon( mondo: MondoRecordo ): string {
@@ -92,7 +92,7 @@ export function montriNomon( mondo: MondoRecordo ): string {
   return mondo.ksaka;
 }
 
-/*បង្កើតពិភពលោកថ្មី ហើយដាក់ក្នុងបញ្ជី
+/* ſɭэ ſɭᴜ , ꞙɭꞟɿ ,
     @param hasukf2qani ( KreaMondoHasukf2qani = {} ) - ជម្រើស
 @return registro កំណត់ត្រាថ្មី */
 export function kf2Mondon( hasukf2qani: KreaMondoHasukf2qani = {} ): MondoRecordo {
@@ -111,7 +111,7 @@ export function kf2Mondon( hasukf2qani: KreaMondoHasukf2qani = {} ): MondoRecord
   return registro;
 }
 
-/*ធានាថាពិភពលោកចម្បងមានក្នុងបញ្ជី
+/* ſɭэ ᶗ‹ , ꞙɭꞟц ,
 @return mondo ពិភពលោកចម្បង */
 export function certigiCxefanMondon(): MondoRecordo {
   const mondoj = legiMondojn();
@@ -126,14 +126,14 @@ export function certigiCxefanMondon(): MondoRecordo {
   return kf2Mondon({ id: CXEF_ANO, ca3aq: "titoloKaxte" });
 }
 
-/*លុបពិភពលោកចេញពីបញ្ជី
+/* ſɭэ ᶗ‹ , ꞙɭıə ,
     @param id ( string ) - លេខសម្គាល់ */
 export function forigiMondon( id: string ): void {
   skribiMondojn(legiMondojn().filter(m => m.id !== id));
   if ( legiAktivanId() === id ) foriguAktivan();
 }
 
-/*ចម្លងពិភពលោកមួយជាច្រើនដង
+/* ſɭэ ᶗ‹ , ꞙɭıı ,
     @param id ( string ) - លេខសម្គាល់ដើម
 @return kopio ឬ null បើរកមិនឃើញ */
 export function duobligiMondon( id: string ): MondoRecordo | null {
@@ -156,7 +156,7 @@ export function duobligiMondon( id: string ): MondoRecordo | null {
   return kopio;
 }
 
-/*អានលេខពិភពលោកសកម្ម
+/* ſɭэ ᶗ‹ , ꞙɭıɿ ,
 @return id ឬ "" */
 export function legiAktivanId(): string {
   try {
@@ -166,17 +166,17 @@ export function legiAktivanId(): string {
   }
 }
 
-/*កំណត់ពិភពលោកសកម្ម
+/* ſɭэ ᶗ‹ , ꞙɭıц ,
     @param id ( string ) - លេខសម្គាល់ */
 export function agordiAktivanMondon( id: string ): void {
   try {
     localStorage.setItem(AKTIVA_SXLOSILO, id);
   } catch {
-    /* ផ្ទំទំនេរ */
+/* ſɭᴜ ſןᴜ , */
   }
 }
 
-/*អានកំណត់ត្រារបស់ពិភពលោកសកម្ម
+/* ſɭэ ᶗ‹ , ꞙɭıэ ,
 @return mondo ឬ null បើរកមិនឃើញ */
 export function aktivaMondo(): MondoRecordo | null {
   const id = legiAktivanId();
@@ -184,22 +184,22 @@ export function aktivaMondo(): MondoRecordo | null {
   return legiMondojn().find(m => m.id === id) ?? null;
 }
 
-/*អានគ្រាប់ពូជរបស់ពិភពលោកសកម្ម
+/* ſɭэ ᶗ‹ , ꞙɭıɩ ,
 @return smino ( string ) - ទទេ បើពិភពលោកនេះប្រើដីដែលឆ្លាក់ដោយដៃ */
 export function aktivaSemo(): string {
   return ( aktivaMondo()?.smino ?? "" ).trim();
 }
 
-/*លុបការកំណត់ពិភពលោកសកម្ម */
+/* ſɭэ ᶗ‹ , ꞙɭıꞟ , */
 function foriguAktivan(): void {
   try {
     localStorage.removeItem(AKTIVA_SXLOSILO);
   } catch {
-    /* ផ្ទំទំនេរ */
+/* ſɭᴜ ſןᴜ , */
   }
 }
 
-/*រក្ទក់ពិភពលោកសកម្ម រួចចេញទៅទំព័រចាប់ផ្តើម */
+/* ſɭэ ᶗ‹ , ꞙɭıꞟı , */
 export function konserviEliriMondon(): void {
   const id = legiAktivanId();
   if ( id ) {

@@ -1,7 +1,7 @@
 // ≺⧼ ɭ(ꞇԏ͕ᴎ ꞁȷ̀ᴜꞇ ʌ ʃɜ j͐ʃɔ 🐘 ⧽≻
 import { noiseSrc } from "./bruo.js";
 
-// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+// ⟨ ſȷƽᴜ ʃɔ ʌ ꞙɭɔ ʌ ꞙɭɔ ⟅ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ETA = 0o1/0o20000;
 
 export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1, toot = false) {
@@ -30,7 +30,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   lp.frequency.value = toot ? 0o2570 : 0o1300;
   lp.Q.value = 0o55/0o40;
 
-  // ⟨ ឯកសារពិតមានចង្វាក់ជិត 0o1032 និង 0o1234 ហឺត មិនមែនកំពូលខ្ពស់ៗ 📃 ⟩
+  // ⟨ ſɟᴜ ɭʃэ j͑ʃɔ ֭ſɭɔ }ʃꞇ ꞙɭıɔцɿ , ꞙɭıɿцэ , ꞙɭɔ ʌ ſɟɔ ɭʃɹ 📃 ⟩
   const f1 = ctx.createBiquadFilter();
   f1.type = "bandpass";
   f1.frequency.value = toot ? 0o1234 : 0o1032;
@@ -50,7 +50,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   lp.connect(mix);
   mix.connect(f1);
   f1.connect(g);
-  // ⟨ កំពូលទីពីរត្រូវស្ងាត់ជាង ទើបត្រូវនឹងក្រវិលថ្នាំង 0o600 ទៅ 0o1200 ហឺត 📃 ⟩
+  // ⟨ ſɟɔ ɭʃɹ ʌ ꞙɭɿ ʌ ꞙɭɔ ʌ j͑ʃ'ƽɹʞ , ꞙɭɩɔɔ , ꞙɭıɿɔɔ 📃 ⟩
   const f2g = ctx.createGain();
   f2g.gain.value = toot ? 0o6/0o10 : 0o3/0o100;
   mix.connect(f2);

@@ -4,7 +4,7 @@ import { bs2 } from "../../kantaoj/mondo/tereno.js";
 import { trovuBestajnZonojn } from "./zono-trovilo.js";
 import { vepaqPetrelanModelon } from "./temek-malneto.js";
 
-// ⟪ ផេត្រេលព្រិល ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea ) 📃 ⟫
+// ⟪ ſᶘɜ ſ͔ɭɹ , ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ , ꞙɭı ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea ) 📃 ⟫
 
 export interface Temek {
   hate: THREE.Group;
@@ -22,7 +22,7 @@ export interface Temek {
   banko: number;
   p6zukani: number;
   flapAmp: number;
-  // ⟨ ការហោះអណ្តែតឌីណាមិក 📃 ⟩
+  // ⟨ j͑ʃɹ }ʃɹ ɭʃᴜ , j͑ʃᴜ ſɭᴜ , ⟅ ⟩
   tafkaq: number;
   flugY: number;
   l6da: number;
@@ -116,7 +116,7 @@ export function vepaqMetitanTemekn(qena: THREE.Scene,
 
 let lastaPetrelaTempo = 0;
 
-// ⟨ ការហោះអណ្តែតឌីណាមិក 📃 ⟩
+// ⟨ j͑ʃɹ }ʃɹ ɭʃᴜ , j͑ʃᴜ ſɭᴜ , ⟅ ⟩
 export function gxisdatigiHatemekn(s: TemekSistemo, t: number): void {
   const dt = Math.min(0o1/0o10, Math.max(0o1/0o1000, t - lastaPetrelaTempo));
   lastaPetrelaTempo = t;
@@ -124,7 +124,7 @@ export function gxisdatigiHatemekn(s: TemekSistemo, t: number): void {
     if ( !p.hate.visible ) continue;
     const x = p.cx + Math.cos(p.tafkaq) * p.radio;
     const z = p.cz + Math.sin(p.tafkaq) * p.radio;
-    // ⟨ កម្ពស់ 📃 ⟩
+    // ⟨ j͐ʃэ ɭ(ᴜ , ⟅ ⟩
     const tereno = Math.max(s.altecoFn(x, z), 0o2);
     const antauxaY = p.flugY;
     p.flugY += ( tereno + p.l6da - p.flugY ) * Math.min(1, dt * 0o1/0o2);
@@ -151,18 +151,18 @@ export function gxisdatigiHatemekn(s: TemekSistemo, t: number): void {
       flugilo.rotation.z = signo * ( dihedro + bato );
       flugilo.rotation.y = -bato * 0o2/0o10;
       if ( mano ) {
-        // ⟨ ការវាយដៃ 📃 ⟩
+        // ⟨ ſᶘɜ ſ͔ɭɹ , j͑ʃᴜ ſןɹ , ⟅ ⟩
         const malfrua = Math.sin(t * p.batoRapido + p.batoFazo - 0o1/0o4)
           * bataSkalo * p.flapAmp;
         const flekso = ( malfrua - bato ) * 0o1/0o2;
         mano.rotation.z = signo * Math.max(-0o5/0o10, Math.min(0o5/0o10, flekso));
       }
       if ( mano ) {
-        // ⟨ ការបក់ដៃ 📃 ⟩
+        // ⟨ ſᶘɜ ſ͔ɭɹ , ı],э ŋᷠꞇ , ⟅ ⟩
         mano.rotation.x = Math.sin(t * p.batoRapido + p.batoFazo) * 0o3/0o10 * bataSkalo;
       }
     }
-    // ⟨ ចង្កូត 📃 ⟩
+    // ⟨ ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ⟅ ⟩
     p.nar2sa.rotation.z = -p.hate.rotation.z * 0o5/0o10;
     p.nar2sa.rotation.y = Math.sin(t * 0o3/0o4 + p.phase) * 0o1/0o10;
   }

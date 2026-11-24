@@ -2,7 +2,7 @@
 
 export const AIH: Record<string, string> = {
 
-  // ⟪ ទំព័រចាប់ផ្តើម 🌅 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
 
   "titoloAranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
   "titoloKaxte": "ſɭᴜ ɭl̀ɹ ɭʃɔ",
@@ -13,19 +13,19 @@ export const AIH: Record<string, string> = {
   "butonoVestaro": "ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ",
   "butonoHelpo": "ſȷɔ ſɭ,ꞇ",
 
-  // ⟪ តម្បាញ 🧵 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
 
   "titoloTeksilo": "ſɟᴜ j͑ʃ'ᴜ ı],ͷ̗ɔʞ",
   "subtitoloTeksilo": "j͑ʃᴜ ֭ſɭᴜƽ ʌ ſɭ,ɹ ſ̀ȷɔ ⟅ ſɟɹ }ʃᴜ ʌ ɭʃᴜ ŋᷠᴜ v j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ ⟅ ſ͔ɭɔ j͐ʃɔɔ˞ ʌ ᶅſɔ ֭ſɭɹ ｡ ɭʃɜƽ v ֭ſɭᴜ ı],ɔ j͑ʃᴜꞇ ⟅",
 
-  // ⟪ ការផ្ទុក ⏳ ⟫
+// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
 
   "titoloSxargxo": "}ʃᴜ j͐ʃᴜ",
   "sxargxoSubskribo": "ſɭᶗ‹ɔ ʌ j͑ʃ'ɔ ſןᴜȝ ⟅",
   "sxargxoSatalo": "j͑ʃ'ɔ ſןᴜȝ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ ⟅",
   "sxargxoNebulo": "j͐ʃᴜɔ˞ ʌ j͐ʃɜ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ֭ſɭᴜ ⟅",
 
-  // ⟪ ការគ្រប់គ្រង 🎮 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
 
   "kompasoNordo": "j͐ʃᴜȝ",
   "kamaOrbito": "֭ſɭɹ j͑ʃɔ",
@@ -49,21 +49,21 @@ export const AIH: Record<string, string> = {
   "agoKuxi": "ſȷɔ˞ᴜ ɭʃᴜ",
   "agoLevi": "j͑ʃᴜ ʃɜƽ",
 
-  // ⟪ ផែនទី 🗺️ ⟫
+// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
 
   "titoloMapo": "ʃᴜ j͐ʃɹ",
 
-  // ⟪ ជំនួយ ❓ ⟫
+// ⟪ ſɭэ ſɭw , ❓ ⟫
 
   "titoloHak6h6": "ſɭэ ֭ſɭэ",
   "subtitoloHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
 
-  // ⟪ បណ្តាញ 🌐 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
 
   "retiloAliĝis": "ſɭw ſ̀ȷᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
   "retiloForiris": "j͑ʃwc̗ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
 
-  // ⟪ អាហារ 🍲 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
 
   "manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ı],ꞇƽ",
   "manĝFok1": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ſ͕ɭᴜ ɭʃɹ ᶅſᴜ",
@@ -80,7 +80,7 @@ export const AIH: Record<string, string> = {
   "manĝTla2Gusto": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſɭᶗ‹ɹ j͐ʃᴜ ŋᷠɹⰱ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſɟɔ ɭl̀ɹ v ֭ſɭᴜ }ʃɔ j͑ʃᴜꞇ ( ſᶘᴜ j͑ʃͷ̗ᴜʞ ꞁȷ̀ᴜꞇ ) ⟅",
   "manĝPuss0Gusto": "ſᶘᴜ j͑ʃᴜꞇ ʌ j͐ʃᴜ ſɟɹ ⟅ ſɭɔ˞ɜƴ ʌ ſɭᴜ j͑ʃᴜ ʌ ı],ꞇͷ̗ ⟅",
 
-  // ⟪ ប្រភេទសំណង់ 🏗️ ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
 
   "vepaqHunaqDomo": "ſɭᴜ ſןɹ",
   "vepaqHunaqMangxejo": "ſɭᴜ ſ͔ɭɔȝ",
@@ -95,7 +95,7 @@ export const AIH: Record<string, string> = {
   "vepaqPriskriboTuro": "ᶅſw ſɭɹ ʌ ſןᴜȝ ⟅",
   "vepaqPriskriboSanktejo": "j͑ʃɜ j͑ʃƨɹ ⟅",
 
-  // ⟪ កាតសំណង់ 🪪 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
 
   "kartoHavem2": "ɭʃᴜ }ʃɔƽ",
   "kartoDiamanto": "ɭʃэᴜ̩ ſɭɹ",
@@ -104,7 +104,7 @@ export const AIH: Record<string, string> = {
   "kartoVepaqHunaq": "֭ſɭᴜ ı],ɔ",
   "kartoXekuxa": "ɽ͑ʃ'ᴜ ſ͕ɭᴜ",
 
-  // ⟪ ឈ្មោះសំណង់ 🏙️ ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🏙️ ⟫
 
   "vepaqNomo0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
   "vepaqNomo1": "ſɭᴜ ſןɹ",
@@ -141,7 +141,7 @@ export const AIH: Record<string, string> = {
   "vepaqNomo32": "ſɭᴜ ɭ(ᴜͷ̗",
   "vepaqNomo33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
 
-  // ⟪ ផ្ទាំងព័ត៌មាន 📖 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
 
   "titoloInqoxa": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
   "subtitoloInqoxa": "ſןᴜȝ ｡ ŋᷠɜⅎᶗ‹ ｡ ɭ(ᴜͷ̗ ⟅",
@@ -151,7 +151,7 @@ export const AIH: Record<string, string> = {
   "taboMangxajxoj": "ŋᷠɜⅎᶗ‹",
   "taboHapudal": "ɭ(ᴜͷ̗",
 
-  // ⟪ ពួកសត្វ 🐟 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
 
   "grupoPaga": "ſןᴜ ſ͔ɭᴜ",
   "pudalL2xkupukai": "j͐ʃɹᶗ‹ ſɭw ſןwƽ ꞁȷ̀ᴜꞇ",
@@ -167,7 +167,7 @@ export const AIH: Record<string, string> = {
   "pudalNeĝotemek": "ɭʃɔ ŋᷠɔƽ",
   "pudalPriskriboNeĝotemek": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
 
-  // ⟪ រុក្ខជាតិ 🌿 ⟫
+// ⟪ ſɭэ ſɭw , 🌿 ⟫
 
   "grupoPlanto": "ı],ᴜ ſ̀ȷɔ",
   "pudalBetulo": "j͐ʃᴜ ŋᷠɹⰱ",
@@ -193,7 +193,7 @@ export const AIH: Record<string, string> = {
   "pudalCakeo": "ſᶘᴜ ſɭɔ",
   "pudalPriskriboCakeo": "ı],ɔ ſɭᴜȝ ꞁȷ̀ᴜͷ̗ ʌ ſ̀ȷᴜ ſןɹ j͑ʃᴜꞇ ʌ }ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ ʌ ı],ᴜ ſ̀ȷɔ ⟅",
 
-  // ⟪ សម្លៀកបំពាក់ 👕 ⟫
+// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
 
   "taboVestoj": "j͑ʃɜȝ ɭʃɔ",
   "vestoKoloroVerdant": "j͐ʃᴜ̩ᴜ",
@@ -207,7 +207,7 @@ export const AIH: Record<string, string> = {
   "vestoKoloroObsidian": "֭ſɭw }ʃᴜ",
   "vestoKoloroCyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
 
-  // ⟪ សក់ 💇 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
 
   "taboHararo": "ſᶘᴜȝ",
   "haroSekcio": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
@@ -221,7 +221,7 @@ export const AIH: Record<string, string> = {
   "harKoloroBlonda": "ſɟꞇ",
   "harKoloroGriza": "֭ſɭwƽ",
 
-  // ⟪ តន្ត្រី 🎵 ⟫
+// ⟪ ſȷwɔ˞ , 🎵 ⟫
 
   "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
   "muzikTrako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
@@ -233,7 +233,7 @@ export const AIH: Record<string, string> = {
   "muzikTrako6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
   "muzikTrako7": "ſɭɘᴜ ֭ſɭᴜ",
 
-  // ⟪ អាកាសធាតុ 🌦️ ⟫
+// ⟪ ſɭэ ſɭw , 🌦️ ⟫
 
   "ariaKrepuskoButono": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
   "ariaKrepuskoKama": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
@@ -249,7 +249,7 @@ export const AIH: Record<string, string> = {
   "webglDetalo": "ɭʃɔ ſ͕ɭᴜƴ ʌ WebGL ⟅ j͑ʃɹ j͐ʃɹ ŋᷠꞇ ʌ ſɟᴜ ֭ſɭᴜ ſȷᴜ v ſɭɹ ſןɹ ⟅",
   "webglReprovi": "ɭʃɜ ŋᷠэ",
 
-  // ⟪ ពិភពលោក 🌍 ⟫
+// ⟪ ſɭэ ſɭw , 🌍 ⟫
 
   "ariaEniriMondon": "ſɭw ſ̀ȷᴜ ʌ ſ͕ɭᴜ ſᶘɔ j͐ʃɹ ⟅",
   "komenciMondo": "ſᶘɔ ſɭɔ ʌ ſɭʞɹ ʌ ſɭᴜͷ̗ ʌ ſ͕ɭɹȝ ʌ }ʃᴜ j͐ʃᴜ",
@@ -264,7 +264,7 @@ export const AIH: Record<string, string> = {
   "ariaMondoDuobligi": "ſןw ſɟw ɭʃᴜ",
   "butonoKonserviEliri": "j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭᴜ j͑ʃᴜ ʌ j͑ʃwc̗ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ ⟅",
 
-  // ⟪ ការកំណត់ ⚙️ ⟫
+// ⟪ ſɭэ ſɭw , ⚙️ ⟫
 
   "titoloAgordoj": "ſɭw ſᶘɜ",
   "subtitoloAgordoj": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",

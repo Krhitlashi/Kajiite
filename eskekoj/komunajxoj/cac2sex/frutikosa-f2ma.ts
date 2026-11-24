@@ -4,7 +4,7 @@ import { hunanu } from "../koloroj.js";
 import { kf2Sakxo } from "../hazardo.js";
 import { k2fKonturanQoxan, kf2P2t6zoCac2sex, sxovu } from "./helpiloj.js";
 
-// ⟨ ដើមតូចបញ្ឈរ ៖ ផ្ទាំងឆ្លុះគ្នាត្រូវការរូបរាងបញ្ឈរដែលមានគែមមូល 📃 ⟩
+// ⟨ ɭʃɜ ſɭɹȝ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ ſɭɔƽ , ſןɔ ſ͕ɭɔ }ʃꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɟᴜ ſȷᴜ ʌ ſןw ſɭᴜƴ ʌ ſɭᴜ ſɭw j͐ʃᴜ 📃 ⟩
 function trunketaK6h6(x: number, kozuni: number, l6da: number, kkaxte: number, dikeco: number): Path2D {
   const k6h6 = new Path2D();
   const pintoX = x + kkaxte, pintoY = kozuni - l6da;

@@ -3,13 +3,13 @@ import * as THREE from "three";
 import { surGrid, VOJA_EKSTERA_DUONO, VOJA_SUPRO_LEVIGXO,
   VOJA_TERA_KLINO, VOJA_TRUA_DUONO, k6h6LarghoDuono } from "./havecax2l.js";
 
-// ⟪ កម្ពស់ផ្ទៃផ្លូវ 📏 ⟫
-/*កម្ពស់ខ្ពស់បំផុតក្រោមផ្ទៃផ្លូវ តាមដី ។ អានដីជុំវិញផ្លូវទាំងមូល ,
-   ដូច្នេះផ្លូវមិនកប់ក្នុងដីខ្ពស់ចំហៀង ។
-    @param x, z ( number ) - ចំណុច
-    @param sefini ( number ) - ទទឹងផ្លូវ
-    @param heightFn ( function ) - កម្ពស់ដី ឬវាលផ្លូវ
-@returns hateru ( number ) - កម្ពស់ផ្ទៃផ្លូវ */
+// ⟪ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w 📏 ⟫
+/* ſɭэ ֭ſɭэ , ꞙɭı , j͑ʃᴜ ſɭ,w , ſɭɜ ſɭ,w , ꞙɭı ,
+   ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ⟅
+    @param x, z ( number ) - }ʃɹƽ ,
+    @param sefini ( number ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param heightFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
+@returns hateru ( number ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , */
 export function k6h6Supro( x: number, z: number, sefini: number,
   heightFn: ( x: number, z: number ) => number
 ): number {
@@ -22,18 +22,18 @@ export function k6h6Supro( x: number, z: number, sefini: number,
   return maks + VOJA_SUPRO_LEVIGXO;
 }
 
-// ⟪ កម្រិតផ្លូវនៅចំណុចភ្ជាប់ 📏 ⟫
-// ⟨ កម្រិតផ្លូវនៅចំណុចភ្ជាប់ត្រូវដូចកម្រិតផ្លូវដែលឆ្លងចូលមក ដើម្បីកុំឱ្យចានភ្ជាប់លិចទៅផ្លូវ ។
-// ការស្ថានភាពនេះជាមូលដ្ឋានដែលប្រើសម្រាបផ្លូវ ចានភ្ជាប់ និងជណ្តើរចំណត ដើម្បីឱ្យពួកគេជាមួយគ្នា ។ 📃 ⟩
-// ⟨ គ្រប់ជ្រុង 📃 ⟩ ៖ ចានភ្ជាប់មិនមែនត្រង់ដៃផ្លូវទេ ។ ជ្រុងរវាងដៃពីរក៏ជាផ្ទៃចានដែរ ,
-// ដូច្នេះកម្ពស់ត្រូវអានគែមជុំវិញទាំងមូល ។ បើអានតែដៃ , ដីខ្ពស់នៅជ្រុងមួយ
-// នៅក្រោមចាន , ហើយដីនោះចាក់ចេញក្រោមចាន ។ 📃 ⟩
-// ⟨ ជម្រាលដីសម្រាប់គែម 📏 ⟩ ៖ គែមត្រូវអានដូចវាលកម្ពស់ផ្លូវ ។ ដីដែលឆ្ងាយ r
-// ឯកតាអាចឡើងបាន VOJA_TERA_KLINO * r ឯកតា , ដូច្នេះវាត្រូវដកចំនួននោះ
-// មុនពេលប្រៀបធៀប ។ មុននេះចានអានគែមឆៅ , ដូច្នេះចាននៅលើជម្រាលរាបស្មើ
-// ឡើងដល់កម្ពស់ជើងភ្នំ ហើយផ្លូវដែលចេញពីវាអណ្តែតខ្ពស់លើដីរាប់ឯកតា ,
-// ហើយជញ្ជាំងក្រោមវាខ្ពស់ ។ ឥឡូវចាននៅលើជម្រាលស្មើនឹងដីកណ្តាលរបស់វា ,
-// ហើយឡើងតែលើដីដែលពិតជាខ្ពស់ជាងជម្រាលនោះ ( ពំនូក , ថ្ម ) ។ 📃 ⟩
+// ⟪ ſɭэ ֭ſɭэ , ꞙɭı , }ʃɹƽ 📏 ⟫
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , }ʃɹƽ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ,
+//   ꞙɭɔ , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ⟅ ꞙɭı , ſɭᴜ ſןᴜ , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , 📃 ⟩
+// ⟨ }ʃɹƽ 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı , ſɭэ ֭ſɭэ , }ʃɹƽ , ꞙɭɿ ,
+//   ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , 📏 ⟩ , ꞙɭı , j͑ʃᴜ ſɭ,w , ꞙɭı , ſɭэ ֭ſɭэ ,
+//   r , ꞙɭı , VOJA_TERA_KLINO * r , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭɔ , ⟅ 📃 ⟩
 export function k6h6SuproDeVeb6kek(
   x: number,
   z: number,
@@ -47,7 +47,7 @@ export function k6h6SuproDeVeb6kek(
     if ( h - VOJA_TERA_KLINO * r > maks ) maks = h - VOJA_TERA_KLINO * r;
     if ( h < minimumo ) minimumo = h;
   };
-  // ⟨ រង្វង់ជុំវិញចាន 📏 ⟩ ៖ គែមចានទាំងមូល , មិនមែនតែមាត់ដៃ ។
+  // ⟨ ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ⟩
   for ( const r of [ ka5ik, VOJA_TRUA_DUONO ] ) {
     for ( let i = 0; i < 0o20; i++ ) {
       const tafkaq = i * Math.PI * 0o2 / 0o20;
@@ -59,7 +59,7 @@ export function k6h6SuproDeVeb6kek(
     if ( sahakani < 0o1/0o1000 ) continue;
     const ux = dx / sahakani, uz = dz / sahakani;
     const px = -uz * ka5ik, pz = ux * ka5ik;
-    // ⟨ ចំណុចដែលផ្លូវប៉ះចានភ្ជាប់ ៖ កម្រិតផ្លូវត្រូវស្មើគ្នានឹងចានភ្ជាប់នៅចំណុចនេះ ។ 📃 ⟩
+    // ⟨ }ʃɹƽ , ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ 📃 ⟩
     const ex = x + ux * VOJA_TRUA_DUONO, ez = z + uz * VOJA_TRUA_DUONO;
     for ( const f of [ -1, 1 ] ) {
       for ( const [ bx, bz, br ] of [ [ x + px * f, z + pz * f, ka5ik ],
@@ -71,38 +71,38 @@ export function k6h6SuproDeVeb6kek(
   return { hateru: maks + VOJA_SUPRO_LEVIGXO, minimumo };
 }
 
-// ⟪ កម្ពស់ចានតាមដៃ 📏 ⟫
-// ⟨ ចានមួយ កម្ពស់ច្រើន 📃 ⟩ ៖ ចានភ្ជាប់នៅជ្រុងផ្លូវបួន ។ ដីសងខាងខុសកម្រិត ,
-// ដូច្នេះមាត់ដៃនីមួយៗមានកម្រិតផ្លូវរៀងខ្លួន ។ បើចានយកកម្រិតខ្ពស់បំផុតតែមួយ ,
-// ដៃទាបត្រូវឡើងដល់ចានក្នុងចម្ងាយខ្លី , ហើយក្លាយជាជញ្ជាំងឈរ ។
-// ដូច្នេះចានរក្សាកម្ពស់មួយក្នុងមួយដៃ , ហើយផ្ទៃចានលាយរវាងដៃទាំងនោះ ។ 📃 ⟩
-// ⟨ អ្នកអានវាលកម្ពស់ដូចគ្នា 📃 ⟩ ៖ ផ្លូវ , ចាន , និងឧបករណ៍វាស់អានតម្លៃនេះតែម្តង ។
-// បើអ្នកម្នាក់យកកម្រិតតែមួយ , មាត់ដៃនោះខុសកម្រិតពីអ្នកផ្សេង ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı 📏 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , }ʃɹƽ , ꞙɭэ , ⟅
+//   ꞙɭı , ꞙɭɔ , ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export interface PlataVem2 {
-  // ⟨ កម្ពស់កណ្តាល ៖ ប្រើពេលគ្មានដៃ , និងនៅចំណុចកណ្តាលដែលទិសមិនច្បាស់ ។ 📃 ⟩
+  // ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı 📃 ⟩ , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
   l6da: number;
-  // ⟨ កម្ពស់មាត់ដៃនីមួយៗ ។ 📃 ⟩
+  // ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı ⟅ 📃 ⟩
   hal6da: readonly number[];
-  // ⟨ មុំដៃ , តម្រៀបឡើងលើក្នុងចន្លោះ [ 0 , 2π ) ។ 📃 ⟩
+  // ⟨ }ʃɹƽ , ꞙɭı , [ ꞙɭɔ , ꞙɭɿπ ) ⟅ 📃 ⟩
   hatafkaq: readonly number[];
-  // ⟨ កន្លះមុំមាត់ដៃ ៖ ផ្ទៃចានរាបស្មើក្នុងចន្លោះនេះ ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , }ʃɹƽ , ⟅ 📃 ⟩
   hap2somani: readonly number[];
 }
 
 const DUOBLA_PI = Math.PI * 0o2;
 const ANGULA_TOLERO = 0o1 / 0o1000;
 
-/*នាំមុំទៅចន្លោះ 0 ដល់ 2π
-    @param tafkaq ( number ) - មុំរ៉ាដ្យង់
-@returns tafkaq ( number ) - មុំក្នុងចន្លោះ [ 0 , 2π ) */
+/* ꞙɭı , ꞙɭɔ , ꞙɭɿπ , ꞙɭı ,
+    @param tafkaq ( number ) - }ʃɹƽ , ꞙɭı ,
+@returns tafkaq ( number ) - }ʃɹƽ , [ ꞙɭɔ , ꞙɭɿπ ) */
 export function normAngulo(tafkaq: number): number {
   const r = tafkaq % DUOBLA_PI;
   return r < 0 ? r + DUOBLA_PI : r;
 }
 
-/*មុំខ្លីពី b ទៅ a
-    @param a, b ( number ) - មុំរ៉ាដ្យង់
-@returns delta ( number ) - មុំក្នុងចន្លោះ ( -π , π ] */
+/* }ʃɹƽ , b , a , ꞙɭı ,
+    @param a, b ( number ) - }ʃɹƽ , ꞙɭı ,
+@returns delta ( number ) - }ʃɹƽ , ( -π , π ] */
 function angulaDif(a: number, b: number): number {
   let d = ( a - b ) % DUOBLA_PI;
   if ( d > Math.PI ) d -= DUOBLA_PI;
@@ -110,13 +110,13 @@ function angulaDif(a: number, b: number): number {
   return d;
 }
 
-/*កម្ពស់គែមចានតាមទិស
-    @param vem2 ( PlataVem2 ) - កម្ពស់ដៃរបស់ចាន
-    @param tafkaq ( number ) - ទិសពីកណ្តាលចាន
-@returns l6da ( number ) - កម្ពស់គែមចានតាមទិសនោះ */
-// ⟨ មាត់រាប ចន្លោះជម្រាល 📏 ⟩ ៖ តាមទិសមាត់ដៃ , ផ្ទៃចានរាបស្មើនឹងកម្រិតដៃនោះ ,
-// ព្រោះផ្ទៃផ្លូវរាបស្មើពេញទទឹង ។ រវាងមាត់ពីរ , ផ្ទៃឡើងចុះរលូន ។
-// បើលាយត្រង់ៗ , គែមមាត់មានជ្រុងស្រួច , ហើយឃើញជាខ្សែនៅលើចាន ។ 📃 ⟩
+/* ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
+    @param vem2 ( PlataVem2 ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w ,
+    @param tafkaq ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+@returns l6da ( number ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , */
+// ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , j͑ʃᴜ ſɭ,w ,
+//   ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 function plataRimo(vem2: PlataVem2, tafkaq: number): number {
   const n = vem2.hal6da.length;
   if ( n === 0 ) return vem2.l6da;
@@ -139,7 +139,7 @@ function plataRimo(vem2: PlataVem2, tafkaq: number): number {
     const glata = t * t * ( 3 - 0o2 * t );
     return vem2.hal6da[i] + ( vem2.hal6da[j] - vem2.hal6da[i] ) * glata;
   }
-  // ⟨ មាត់ជាន់គ្នា 📃 ⟩ ៖ ដៃជិតគ្នាពេក , គ្មានចន្លោះលាយ ។ យកដៃជិតបំផុត ។
+  // ⟨ ꞙɭı , 📃 ⟩ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ ꞙɭı , ⟅
   let plej = Infinity, rez = vem2.l6da;
   for ( let i = 0; i < n; i++ ) {
     const d = Math.abs(angulaDif(a, vem2.hatafkaq[i]));
@@ -148,14 +148,14 @@ function plataRimo(vem2: PlataVem2, tafkaq: number): number {
   return rez;
 }
 
-/*កម្ពស់ផ្ទៃចានតាមទិស និងចម្ងាយ
-    @param vem2 ( PlataVem2 ) - កម្ពស់ដៃរបស់ចាន
-    @param tafkaq ( number ) - ទិសពីកណ្តាលចាន
-    @param h6kuni ( number , optional ) - ចម្ងាយពីកណ្តាល , ឬ Infinity សម្រាប់គែម
-@returns l6da ( number ) - កម្ពស់ផ្ទៃចាន */
-// ⟨ កណ្តាលមួយ គែមជុំវិញ 📐 ⟩ ៖ ផ្ទៃចានជាកង្ហារពីកណ្តាលទៅគែម ។ កណ្តាលមានកម្ពស់តែមួយ ,
-// ដូច្នេះត្រូវលាយពីកណ្តាលទៅគែម ។ បើលោតភ្លាមពីកម្ពស់កណ្តាលទៅកម្ពស់ដៃ ,
-// ផ្លូវដែលឆ្លងកណ្តាលឃើញជំហានខ្ពស់មួយនៅចំណុចនោះ ។ 📃 ⟩
+/* ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
+    @param vem2 ( PlataVem2 ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w ,
+    @param tafkaq ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+    @param h6kuni ( number , optional ) - ꞙɭı , Infinity ,
+@returns l6da ( number ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w */
+// ⟨ ꞙɭı , ꞙɭı , 📐 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function plataAltoCxe(vem2: PlataVem2, tafkaq: number,
   h6kuni: number = Infinity): number {
   const rimo = plataRimo(vem2, tafkaq);
@@ -164,16 +164,16 @@ export function plataAltoCxe(vem2: PlataVem2, tafkaq: number,
   return vem2.l6da + ( rimo - vem2.l6da ) * t;
 }
 
-/*កម្ពស់ផ្លូវនៅមាត់ដៃនីមួយៗ
-    @param x, z ( number ) - ចំណុចកណ្តាលចាន
-    @param hac2w2q ( [ number , number ] [ ] ) - ទិសដៃដៃ
-    @param hap2somani ( number [ ] ) - កន្លះទទឹងផ្ទៃផ្លូវតាមលំដាប់ដូច hac2w2q
-    @param heightFn ( function ) - វាលកម្ពស់ដី
-@returns hal6da ( number [ ] ) - កម្ពស់មាត់ដៃលើក្រឡាជំហាន */
-// ⟨ អានពេញទទឹងមាត់ 📏 ⟩ ៖ ផ្ទៃផ្លូវរាបស្មើពេញទទឹង , ដូច្នេះកម្រិតមាត់គឺ
-// ខ្ពស់បំផុតនៅតាមខ្សែមាត់ ។ បើអានតែកណ្តាល , គែមខ្ពស់ជាងផ្លូវ , ហើយផ្លូវកប់ ។ 📃 ⟩
-// ⟨ មាត់អានពីរជាន់ 📏 ⟩ ៖ មាត់ចាននិងមាត់ក្រៅមាត់បន្តិច ។ បើដីឡើងចុះ ,
-// ការអានតែមួយជាន់អាចធ្លាក់ក្នុងរណ្តៅតូច , ហើយចាននៅទាបជាងផ្លូវមួយជំហាន ។ 📃 ⟩
+/* ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
+    @param x, z ( number ) - ſɭᴜ ſןᴜ , }ʃɹƽ ,
+    @param hac2w2q ( [ number , number ] [ ] ) - ꞙɭı , ꞙɭı ,
+    @param hap2somani ( number [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı , hac2w2q ,
+    @param heightFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
+@returns hal6da ( number [ ] ) - ꞙɭı , j͑ʃᴜ ſɭ,w , */
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , 📏 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+// ⟨ ꞙɭı , ꞙɭɿ , 📏 ⟩ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function kunigajBrakAltoj(x: number, z: number,
   hac2w2q: readonly [ number, number ][], hap2somani: readonly number[],
   heightFn: ( x: number, z: number ) => number
@@ -199,14 +199,14 @@ export function kunigajBrakAltoj(x: number, z: number,
   return rez;
 }
 
-/*រៀបកម្ពស់ដៃជាកម្រិតចានតាមទិស
-    @param hac2w2q ( [ number , number ] [ ] ) - ទិសដៃដៃ
-    @param hap2somani ( number [ ] ) - កន្លះទទឹងផ្លូវតាមលំដាប់
-    @param hal6da ( number [ ] ) - កម្ពស់មាត់ដៃតាមលំដាប់
-    @param fallback ( number ) - កម្ពស់កណ្តាលពេលគ្មានដៃ
-@returns vem2 ( PlataVem2 ) - កម្រិតចានតាមទិស */
-// ⟨ តម្រៀបតាមមុំ 📐 ⟩ ៖ ការលាយកម្ពស់រវាងដៃពីរត្រូវការមុំតម្រៀបឡើងលើ ។
-// ដៃដែលមានមុំស្មើគ្នាត្រូវលុប , ព្រោះចន្លោះរវាងពួកវាសូន្យ ហើយការលាយបែងដោយសូន្យ ។ 📃 ⟩
+/* ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
+    @param hac2w2q ( [ number , number ] [ ] ) - ꞙɭı , ꞙɭı ,
+    @param hap2somani ( number [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param hal6da ( number [ ] ) - ꞙɭı , j͑ʃᴜ ſɭ,w ,
+    @param fallback ( number ) - j͑ʃᴜ ſɭ,w , ꞙɭɔ ,
+@returns vem2 ( PlataVem2 ) - ſɭᴜ ſןᴜ , ꞙɭı , */
+// ⟨ ꞙɭı , ꞙɭı , 📐 ⟩ , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
 export function kf2PlataVem2n(
   hac2w2q: readonly [ number, number ][], hap2somani: readonly number[],
   hal6da: readonly number[], fallback: number
@@ -232,20 +232,20 @@ export function kf2PlataVem2n(
   };
 }
 
-// ⟪ ប្រអប់ផ្លូវតាមដី 📐 ⟫
-/*បង្កើតប្រអប់នៃចម្រៀកផ្លូវ ៖ កំពូល និងបាតអាចជម្រាលតាមដីសងខាង
-    @param w ( number ) - ទទឹងខ្សែ
-    @param l ( number ) - ប្រវែងចម្រៀក
-    @param hateru ( [ number , number , number , number ] ) - កម្ពស់កំពូល តាមលំដាប់ ដើមឆ្វេង , ដើមស្តាំ , ចុងឆ្វេង , ចុងស្តាំ
-    @param fundoj ( [ number , number , number , number ] ) - កម្ពស់បាត តាមលំដាប់ដូចគ្នា
-    @param ofsetoX ( number ) - អុហ្វសិតចំហៀងនៃខ្សែ
-@returns geometrio ( BufferGeometry ) - ប្រអប់ដែលមានកម្ពស់ដាច់ខាត */
-// ⟨ ហេតុអ្វីកំពូលជម្រាល 📃 ⟩ ៖ ផ្ទៃផ្លូវសំប៉ែត , តែដីជម្រាលចំហៀង ។ បើកំពូលសំប៉ែត ,
-// គែមម្ខាងខ្ពស់លើដីច្រើន , ហើយឃើញជាជញ្ជាំងថ្មនៅក្រោមគែមផ្លូវគ្រប់កន្លែង
-// ដែលដីជម្រាល ។ កំពូលជម្រាលតាមដីធ្វើឱ្យគែមផ្លូវជិតដី , ដូច្នេះជញ្ជាំងខ្លី ។ 📃 ⟩
-// ⟪ មុខចំហៀងឈរ 📐 ⟫
-// ⟨ គែមផ្លូវឈរត្រង់ 📏 ⟩ ៖ មុខចំហៀងជាជញ្ជាំងថ្មឈរ , ដូចជណ្តើរថ្ម ។
-// ស្មាជម្រាលត្រូវបានដកចេញ ៖ វាធ្វើឱ្យគែមផ្លូវផ្អៀង ហើយផ្លូវមើលទៅធំទូលាយ ។ 📃 ⟩
+// ⟪ ꞙɭı , ſɭэ ֭ſɭэ , 📐 ⟫
+/* ꞙɭı , ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w , ꞙɭı ,
+    @param w ( number ) - ꞙɭı , ꞙɭı ,
+    @param l ( number ) - ꞙɭı , ꞙɭı ,
+    @param hateru ( [ number , number , number , number ] ) - j͑ʃᴜ ſɭ,w , ꞙɭı ,
+    @param fundoj ( [ number , number , number , number ] ) - j͑ʃᴜ ſɭ,w , ꞙɭı ,
+    @param ofsetoX ( number ) - ꞙɭı , ꞙɭı ,
+@returns geometrio ( BufferGeometry ) - ꞙɭı , j͑ʃᴜ ſɭ,w , */
+// ⟨ ſᶘɔ ʌ ꞙɭı , 📃 ⟩ , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+// ⟪ ꞙɭı , 📐 ⟫
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , 📏 ⟩ , ꞙɭı , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function kf2SegmentGeometrion(w: number, l: number,
   hateru: readonly [ number, number, number, number ],
   fundoj: readonly [ number, number, number, number ],
@@ -258,11 +258,11 @@ export function kf2SegmentGeometrion(w: number, l: number,
     [ x0, y0, fundoj[ 0 ] ], [ x1, y0, fundoj[ 1 ] ],
     [ x1, y1, fundoj[ 2 ] ], [ x0, y1, fundoj[ 3 ] ],
   ];
-  // ⟨ ត្រីកោណតាមលំដាប់ក្រៅ 📃 ⟩ ៖ កំពូល , បាត , មុខ , ខ្នង , ឆ្វេង , ស្តាំ ។
-  // ⟨ UV តាមមុខ 📏 ⟩ ៖ មុននេះ UV ជាទីតាំង ( x , y ) ។ នៅមុខចំហៀង x ថេរ ,
-  // ដូច្នេះវាយនភាពត្រូវលាតជាបន្ទាត់មួយ ។ ដូច្នេះជំហានដែលមានមុខខ្ពស់
-  // បង្ហាញវាយនភាពលាត ។ ឥឡូវមុខនីមួយៗមាន UV តាមទិសផ្ទៃរបស់វា ៖
-  // ផ្ទៃខាងលើ/ក្រោម តាម ( x , y ) , មុខចំហៀង តាម ( បណ្តោយ , កម្ពស់ ) ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , 📃 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+  // ⟨ UV , ꞙɭı 📏 ⟩ , ꞙɭı , UV , ( x , y ) , ꞙɭı , x , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , UV , ꞙɭı ,
+  //   ( x , y ) , ꞙɭɔ , ( ꞙɭı , ꞙɭı ) , ⟅ 📃 ⟩
   const kvadratoj: { ind: [ number, number, number, number ]; uv: ( q: [ number, number, number ] ) => [ number, number ] }[] = [
     { ind: [ 0, 1, 2, 3 ], uv: q => [ q[ 0 ], q[ 1 ] ] },
     { ind: [ 4, 7, 6, 5 ], uv: q => [ q[ 0 ], q[ 1 ] ] },

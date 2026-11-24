@@ -4,7 +4,7 @@ import { vepaqFiguron, marŝSvingo } from "../../eskekoj/shalaj-hapudal/hamaz.js
 import type { Figuro } from "../../eskekoj/shalaj-hapudal/hamaz.js";
 import { VESTOJ, HARSTILOJ, HARKOLOROJ } from "../../eskekoj/vestaro/vestoj.js";
 
-// ⟪ ទម្រង់ស្ថានភាព 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ſɭэ ɭʃᴜ , 📃 ⟫
 export interface LokaStato {
   x: number;
   y: number;
@@ -28,8 +28,8 @@ export interface Retilo {
   fermi: () => void;
 }
 
-// ⟪ ច្រកម៉ាស៊ីនមេ និងការកំណត់ពេល 📃 ⟫
-// ⟨ ឯកតានៃលេខទាំងនេះ 📏 ⟩
+// ⟪ ſɭэ ɭʃᴜ , ſ͔ɭᴜ }ʃꞇ , 📃 ⟫
+// ⟨ j͑ʃᴜ ſɭ,w , j͑ʃᴜ ſɭᴜ , 📏 ⟩
 const PORD_RETILO = 0o5660;
 const PORD_FALLO = 0o5671;
 const SENDOPAŬZO = 0o200;
@@ -41,8 +41,8 @@ interface ForaFiguro {
   figuro: Figuro;
   tafkaq: number;
   x: number; y: number; z: number;
-  // ⟨ កម្ពស់គោលដែលរលូន ។ លំអៀងដើររបស់ marŝSwingo ត្រូវបន្ថែមលើកម្ពស់នេះ
-  //   បើអត់ទេ វានឹងកកកុញនៅលើ group.position.y រាល់ស៊ុម ។ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭı ,
+// j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı , 📃 ⟩
   grundaY: number;
   celMovo: number;
   movo: number;
@@ -239,8 +239,8 @@ export function kf2Retilon(qena: THREE.Scene, jeTost: ( mesagxo: string ) => voi
       const g = f.figuro.group;
       const k = Math.min(1, deltaTempo * SEKVO);
       g.position.x += ( f.x - g.position.x ) * k;
-      // ⟨ រលូនកម្ពស់គោល មិនមែន position.y ដែលមានលំអៀងដើរបន្ថែមពីមុន ។ បើអត់ទេ
-      //   តួរបស់អ្នកលេងពីចម្ងាយនឹងអណ្តែតឡើងរាល់ស៊ុម ។ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭı ,
+// ſɭɜ ɭʃᴜ , ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
       f.grundaY += ( f.y - f.grundaY ) * k;
       g.position.y = f.grundaY;
       g.position.z += ( f.z - g.position.z ) * k;

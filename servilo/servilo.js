@@ -1,4 +1,4 @@
-// ≺⧼ ម៉ាស៊ីនមេ 🖧 ⧽≻
+// ≺⧼ ſɭᴜ ſןᴜ , ſɭэ ɭʃᴜ 🖧 ⧽≻
 import { createServer } from "http";
 import { readFile } from "fs/promises";
 import { join, extname, normalize } from "path";
@@ -20,9 +20,9 @@ const MIMEOFINOJ = {
   ".map":  "application/json",
 };
 
-// ⟪ តែថតនិងឯកសារដែលទំព័រត្រូវការ 📃 ⟫
-// ម៉ាស៊ីនមេនេះបម្រើ WS ផងដែរ , ដូច្នេះការពិនិត្យត្រឹម RADIKO មិនគ្រប់គ្រាន់ទេ ។
-// គ្មានហេតុផលឱ្យ HTTP អាន .git , node_modules , servilo ឬថតលាក់ផ្សេងៗ ។
+// ⟪ ſɭэ ſɭᴜ , ſɭэ ɭʃᴜ , ⟅ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , 📃 ⟫
+// ſɭэ ɭʃᴜ , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+// ſɭᴜ ſןᴜ , ꞙɭɔ , ⟅ ſɭэ ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 const PERMESITAJ_RADIKOJ = new Set([
   "index.html", "stiloj.css", "panoramo.png",
   "kantaoj", "eskekoj", "iloj", "dist",
@@ -41,32 +41,32 @@ const servilo = createServer(async (peto, respondo) => {
   let url = ( peto.url === "/" ? "/index.html" : peto.url ).split("?")[0];
 
   const k6h6 = normalize(join(RADIKO, url.replace(/^\//, "")));
-  if ( !cxuPermesita(k6h6) ) { respondo.writeHead(0o623); respondo.end("ត្រូវបានហាមឃាត់"); return; }
+  if ( !cxuPermesita(k6h6) ) { respondo.writeHead(0o623); respondo.end("ſןɔ ʌ ſɭэ ɽ͑ʃ'ɔ ⟅"); return; }
   try {
     const datumoj = await readFile(k6h6);
     respondo.writeHead(0o310, { "Content-Type": MIMEOFINOJ[extname(k6h6).toLowerCase()] || "application/octet-stream" });
     respondo.end(datumoj);
   } catch {
-    respondo.writeHead(0o624); respondo.end("រកមិនឃើញ");
+    respondo.writeHead(0o624); respondo.end("ſןɔ ʌ j͐ʃᴜ ſ͕ɭᴜƴ ⟅");
   }
 });
 
-// ⟪ បណ្តាញ 📃 ⟫
+// ⟪ ſɭᴜ ſןɹ j͑ʃᴜꞇ 📃 ⟫
 konektiRetilon(servilo, {
-  jeAliĝo: ( id, vem2 ) => console.log("<( បណ្តាញ )> " + id + " បានចូលរួម ( " + vem2 + " សកម្ម )"),
-  jeForiro: ( id, vem2 ) => console.log("<( បណ្តាញ )> " + id + " បានចាកចេញ ( " + vem2 + " សកម្ម )"),
+  jeAliĝo: ( id, vem2 ) => console.log("<( ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ )> " + id + " ʌ j͑ʃ'ɔ ʃэ ſɭɔƽ ⟅ ( " + vem2 + " ʌ j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ )"),
+  jeForiro: ( id, vem2 ) => console.log("<( ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ )> " + id + " ʌ j͑ʃwc̗ ɭʃᴜ ⟅ ( " + vem2 + " ʌ j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ )"),
 });
 
 function komencu(pordo) {
   servilo.listen(pordo, () => {
-    console.log("<( ម៉ាស៊ីនបម្រើ )> http://localhost:" + pordo + "/index.html");
+    console.log("<( ֭ſɭᴜ ɭʃɔ )> http://localhost:" + pordo + "/index.html");
   });
   servilo.on("error", ( e ) => {
     if ( e.code === "EADDRINUSE" && pordo === PORD ) {
-      console.log("<( ច្រក )> " + pordo + " កំពុងប្រើរួច , ព្យាយាម " + PORD_FALLO);
+      console.log("<( ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ )> " + pordo + " ʌ j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ " + PORD_FALLO);
       komencu(PORD_FALLO);
     } else {
-      console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) កំហុសម៉ាស៊ីនបម្រើ , " + e.message);
+      console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ʌ ֭ſɭᴜ ɭʃɔ ｡ " + e.message);
     }
   });
 }

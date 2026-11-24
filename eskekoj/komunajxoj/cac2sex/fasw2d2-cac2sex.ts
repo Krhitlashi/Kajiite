@@ -1,4 +1,4 @@
-// ≺⧼ វាយនភាពកញ្ចក់ 🥛 ⧽≻
+// ≺⧼ j͐ʃƽɜ ʌ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ 🥛 ⧽≻
 import { kf2P2t6zoCac2sex } from "./helpiloj.js";
 import * as THREE from "three";
 

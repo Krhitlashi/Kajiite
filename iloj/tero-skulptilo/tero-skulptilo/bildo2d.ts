@@ -1,9 +1,9 @@
 // ≺⧼ ɭʃᴜ ֭ſɭᴜȝ 🗺️ ⧽≻
-// ផ្ទាំងគំនូររបស់ផែនទី និងការគូរទិដ្ឋភាព គឺដី ( ផ្ទាំងគំនូរ
-// ដែលដុតដោយ bako.js ) រូបរាងពិភពលោក ស្រទាប់សំណាញ់ ផ្លូវ
-// កំពង់ ប្រភព វត្ថុ និងទ្រនិច។ ស្ថានភាពរបស់កម្មវិធីកែសម្រួល ( ទិដ្ឋភាព
-// ទ្រនិច ជក់កំពុងប្រើ ) មកតាម agordiBildon2D ហើយការគូរ
-// អានវា ប៉ុន្តែមិនដែលផ្លាស់ប្តូរវាទេ។
+// ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭэ ֭ſɭэ , ꞙɭɿ ,
+// ſɭэ ᶗ‹ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
 import { MONDO, MONDO_HALFO, REZ } from "./havecax2l.js";
 import { bazaCanvas, pentri, rekalkuliDeklivojn } from "./bako.js";
 import { hakaxte, elektitaKaxte, hak6h6, haqakaj2, elektitaK6h6, elektitaPunkto, elektitaQakaj2,
@@ -17,13 +17,13 @@ import { elemento, kuns2bana2d } from "../../komunajxoj/dom.js";
 
 export const mapo = elemento<HTMLCanvasElement>("mapo");
 export const mapoKuns2bana = kuns2bana2d(mapo);
-// សន្លឹកស្ទីលក្នុងតំបន់ ( stiloj.css ) បំពេញទទឹង ព្រោះទ្រនិច និង
-// touch-action មានមុខងារ ( ការគូរដោយជក់ និងការអូសលើផ្ទាំងគំនូរ )។
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
 mapo.style.cursor = "crosshair";
 mapo.style.touchAction = "none";
-// ឧបករណ៍មើល Movigi ✋ ប្រើផ្ទាំងគំនូរដូចគ្នា ដែលទ្រនិចផ្លាស់ប្តូរដោយ
-// gxisdatigiKursoro ( ដៃចាប់ ជំនួសឈើឆ្កាងគោលដៅ )។
-// gxisdatigiPlenan2Dn គឺការគណនាឡើងវិញពេញលេញនៃស្រមោល និងរូបភាព 2D។
+// ſɭэ ſɭw , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
 export function gxisdatigiPlenan2Dn(): void {
   rekalkuliDeklivojn(0, 0, REZ - 1, REZ - 1);
   pentri(0, 0, REZ - 1, REZ - 1);
@@ -31,27 +31,27 @@ export function gxisdatigiPlenan2Dn(): void {
 }
 
 export function k2fVidon(): void {
-  // ស្ថានភាពរបស់កម្មវិធីកែសម្រួលត្រូវបានធ្វើឱ្យស្រស់រាល់ការគូរ ព្រោះទិដ្ឋភាព
-  // ទ្រនិច និងជក់ផ្លាស់ប្តូរដោយគ្មានការផ្លាស់ប្តូរការគូរខ្លួនឯង។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
   ( { cx: vidCX, cz: vidCZ, p6zukani: vidSkalo, kursoro, penikoAktiva, aktivaTabo } = preniStaton() );
   const k = mapoKuns2bana;
   const duonw = mapo.width / 2, duonh = mapo.height / 2;
-  // ពិភពលោកទៅអេក្រង់។ ខាងជើង ( +z ) នៅខាងលើ ខាងកើត ( −x ) នៅខាងស្តាំ គឺ
-  // ការតម្រង់ទិសដូចផែនទីតូចរបស់ហ្គេម។
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
   const sxMondo = ( x: number ): number => duonw - ( x - vidCX ) * vidSkalo;
   const syMondo = ( z: number ): number => duonh - ( z - vidCZ ) * vidSkalo;
   k.imageSmoothingEnabled = true;
-  // ផ្ទៃខាងក្រោយមេឃ គឺសម្លេងខៀវស្រាលដូចទិដ្ឋភាព 3D។ ដីគ្របដណ្តប់
-  // ពិភពលោកទាំងមូល ដូច្នេះមេឃឃើញនៅគែម និងក្រៅពិភពលោក។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
   k.fillStyle = "#a8d0e8";
   k.fillRect(0, 0, mapo.width, mapo.height);
-  // ផ្ទាំងគំនូរមូលដ្ឋានមានខាងលិចនៅខាងឆ្វេង ( ភិចសែល 0 = x +MONDO_HALFO )
-  // និងខាងជើងនៅខាងលើ ( ភិចសែល 0 = z +MONDO_HALFO )។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
   k.drawImage(bazaCanvas, sxMondo(MONDO_HALFO), syMondo(MONDO_HALFO), MONDO * vidSkalo, MONDO * vidSkalo);
-  // ⟪ រូបរាងពិភពលោក 📃 ⟫ គឺពិភពលោកមិនមែនសំណាញ់ទិន្នន័យទាំងមូលទេ។ ផ្នែក
-  // ខាងក្រៅនៃរូបរាង ( រង្វង់ ចតុកោណកែងមូល ឬ
-  // ត្រីកោណមូល ) ងងឹតនៅក្រោមស្រទាប់ភ្លឺ ព្រោះហ្គេមគ្មានដីនោះទាល់តែសោះ
-  // ហើយគែមទទួលបន្ទាត់ ដូច្នេះគេឃើញកន្លែងដែលពិភពលោកបញ្ចប់។
+// ⟪ ſɭэ ſɭw , 📃 ⟫ , ſɭэ ſɭw ,
+// ſɭэ ſɭw , ꞙɭı ,
+// ſɭэ ſɭw , ꞙɭɿ ,
+// ſɭэ ſɭw , ꞙɭц ,
   const qoxaK6h6 = new Path2D();
   const qoxaEkstero = new Path2D();
   qoxaEkstero.rect(0, 0, mapo.width, mapo.height);
@@ -66,40 +66,40 @@ export function k2fVidon(): void {
   k.strokeStyle = "rgba(255,255,255,0.92)";
   k.lineWidth = 2;
   k.stroke(qoxaK6h6);
-  // វត្ថុដែលបានដាក់ គឺការដុតពីលើនៃសំណាញ់ 3D ពិត ( ដូច
-  // ផែនទីពេញរបស់ហ្គេម ) ថ្លានៅលើដី។
+// ſɭɜ ſɭᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
   if ( objektaBakaKanvaso && objektoj.length > 0 && tsekeVidebla("objektoj") ) {
-    // ការដុតមានខាងលិចនៅខាងឆ្វេង ( imgX 0 = x +MONDO_HALFO ) និង
-    // ខាងជើងនៅខាងលើ គឺការតម្រង់ទិសដូចផ្ទាំងគំនូរមូលដ្ឋាន ដូច្នេះវាភ្ជាប់
-    // នៅ sxMondo(MONDO_HALFO) ដូចគោល។ ( ការភ្ជាប់មុន sxMondo(-MONDO_HALFO)
-    // ដាក់ស្រទាប់ដុតនៅខាងខុស គឺក្រៅអេក្រង់ពេល
-    // ពង្រីកធំ )។
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
     k.drawImage(objektaBakaKanvaso,
       sxMondo(MONDO_HALFO), syMondo(MONDO_HALFO), MONDO * vidSkalo, MONDO * vidSkalo);
   }
-  // ទីក្រុងសំណាញ់ គឺផ្លូវ ស្ពរ និងអគារលើដី។
-  // បង្ហាញតែពេលផ្ទាំង សំណាញ់ 🏙️ សកម្ម ( ព្រោះអគារមិនគួរ
-  // បង្ហាញលើផែនទីក្នុងករណីផ្សេង )។ កូអរដោនេផែនការជាសាច់ញាតិទៅ
-  // ចំណុចកណ្តាលសំណាញ់ ហើយអុហ្វសិតដាក់សំណាញ់ក្នុងពិភពលោក។
-  // ⟪ ទីក្រុងសំណាញ់ 🏙️ ⟫ ។ ស្រទាប់ក្រឡាបង្ហាញគ្រប់ផ្ទាំង ( លំនាំដើម បើក )
-  // ព្រោះទីក្រុងជារចនាសម្ព័ន្ធពិភពលោក ដែលគួរឃើញពេលកែដី ឬវត្ថុផងដែរ ។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ⟨ ſɭᴜ ſןᴜ , 🏙️ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ⟪ ſɭᴜ ſןᴜ , 🏙️ ⟫ , ſɭᴜ ſןᴜ ,
+// ſɭэ ſɭw , ꞙɭı ,
   {
-    // ស្រទាប់ក្រឡា ។ ផ្ទាំង មើលឃើញ 👁️ អាចបង្ហាញទីក្រុងច្រើនក្នុងពេល
-    // តែមួយ ដូច្នេះផែនការនីមួយៗត្រូវបានគូរជាមួយអុហ្វសិតរបស់ខ្លួន ។
+// ſɭᴜ ſןᴜ , 👁️ ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
     if ( tsekeVidebla("krado") ) {
       for ( const krado of vidotajKradoj() ) {
         k2fKradanTavolon(k, krado.plano, ( x: number ) => sxMondo(x + krado.ofsX),
           ( z: number ) => syMondo(z + krado.ofsZ), vidSkalo);
       }
     }
-    // សញ្ញាទីក្រុង គឺទីក្រុងនីមួយៗនៃ SKULPTA_URBOJ ជាពេជ្រ ជាមួយ
-    // ឈ្មោះ ហើយទីក្រុងដែលជ្រើសត្រូវបំភ្លឺ។ ការចុចលើសញ្ញាជ្រើសទីក្រុង
-    // ( ដោយ pointerdown របស់ផែនទី )។ សញ្ញាមានទំហំថេរលើ
-    // អេក្រង់ ដើម្បីអានបាននៅគ្រប់ការពង្រីក។
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ( ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
     if ( tsekeVidebla("signoj") ) hakaxte.forEach(( u, i ) => {
       const sx = sxMondo(u.ofsX), sy = syMondo(u.ofsZ);
       const elektita = i === elektitaKaxte;
-      // ទីក្រុងដែលបានធីកក្នុងផ្ទាំង មើលឃើញ មានស៊ុមស្តើងបញ្ជាក់។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
       const montrata = tsekeKaxteMontrata(i);
       k.fillStyle = elektita ? "rgba(255,208,64,0.95)"
         : montrata ? "rgba(184,240,184,0.95)" : "rgba(255,255,255,0.85)";
@@ -122,8 +122,8 @@ export function k2fVidon(): void {
       k.fillStyle = elektita ? "#f8e8a8" : "#ffffff";
       k.fillText(u.ksaka, sx, sy - 0o12);
     });
-    // វេទិកាកំពង់របស់ទីក្រុងមេ គឺការ៉េតូចៗនៅ
-    // ទីតាំង x របស់កំពង់ ( កំពង់ និងមហាវិថីបង្ហាញក្នុងផែនការ )។
+// ſןɔ˞ᴜƴ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
     if ( tsekeVidebla("hak6h6") && elektitaKaxte === 0 ) {
       for ( const d of haqakaj2 ) {
         const dx = d.x;
@@ -135,9 +135,9 @@ export function k2fVidon(): void {
         k.strokeRect(sx - 4, sy - 4, 0o10, 0o10);
       }
     }
-    // ប្លុកបន្ថែម គឺប្លុកដែលជ្រើសបំភ្លឺដោយចិញ្ចៀន ( សំណង់
-    // ខ្លួនឯងបង្ហាញក្នុងផែនការ )។ ការចុចលើសញ្ញា
-    // ជ្រើសវា ហើយការអូសផ្លាស់ទីវា។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
     const uAld = tsekeVidebla("krado") && tsekeKaxteMontrata(elektitaKaxte) ? hakaxte[elektitaKaxte] : undefined;
     const aldonaj = uAld && uAld.aldonajBlokoj ? uAld.aldonajBlokoj : [];
     aldonaj.forEach(( b, i: number ) => {
@@ -151,8 +151,8 @@ export function k2fVidon(): void {
         k.lineWidth = 1;
       }
     });
-    // ខេអ៊ូហ្វហេសូ គឺផ្កាយកំពូលប្រាំមួយបួនជុំវិញចំណុចកណ្តាល ( បង្ហាញតែ
-    // ពេលទីក្រុងដែលកំពុងកែមានពួកវា ) ដូចក្នុងទិដ្ឋភាព 3D។
+// ſ͕ɭɜ ı],ᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
     if ( uAld && uAld.keuxfhxeso ) {
       const R = 0o10;
       k.fillStyle = "rgba(144,208,216,0.95)";
@@ -172,9 +172,9 @@ export function k2fVidon(): void {
         k.stroke();
       }
     }
-    // ចង្កៀងផ្លូវរបស់សំណាញ់ គឺគំរូបួនចង្កៀងជុំវិញថ្នាំងផ្សារ
-    // និងផ្លូវប្រសព្វ ( ធរណីមាត្រដូចហ្គេម ពីផែនការ )។ ចំណុចលឿងក្តៅ
-    // ជាមួយស្នូលភ្លឺ ដូចពន្លឺចង្កៀងក្នុងទិដ្ឋភាព 3D។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
     if ( uAld && uAld.lampoj !== false ) {
       const plano = planoDeKaxte(elektitaKaxte);
       for ( const l of plano ? plano.lampoj : [] ) {
@@ -190,13 +190,13 @@ export function k2fVidon(): void {
       }
     }
   }
-  // ផ្លូវ និងកំពង់កម្រិតពិភពលោក គូរលើផែនទីគ្រប់ផ្ទាំងតាមស្រទាប់ ផ្លូវ ។
-  // រូបរាងដូចផែនទីពេញរបស់ហ្គេម គឺ
-  // ផ្លូវពណ៌ប្រផេះស្រាលជាមួយគែមអង់ដេស៊ីតងងឹត និងវេទិកាកំពង់។
+// ſɭэ ֭ſɭэ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭэ ֭ſɭэ , ꞙɭэ ,
   if ( tsekeVidebla("hak6h6") ) {
-    // ផ្លូវ គឺបន្ទាត់ពហុកោណក្រាស់។ ឆ្នូតងងឹតខាងក្រៅ ( គែម
-    // អង់ដេស៊ីត ទទឹងដូចកន្លះផ្លូវ ) និងស្នូលឌីអូរីតភ្លឺ ជាមួយ
-    // ចុងមូលដូចក្បាលផ្លូវក្នុងហ្គេម។ ផ្លូវដែលជ្រើសត្រូវបំភ្លឺ។
+// ſɭэ ֭ſɭэ , ꞙɭɩ ,
+// ſɭэ ֭ſɭэ , ꞙɭꞟ ,
+// ſɭэ ֭ſɭэ , ꞙɭı ,
     for ( let vi = 0; vi < hak6h6.length; vi++ ) {
       const v = hak6h6[vi];
       if ( !v.n2k || v.n2k.length < 2 ) continue;
@@ -215,7 +215,7 @@ export function k2fVidon(): void {
       };
       spuro(p2somani, elektita ? "rgba(120,136,120,0.95)" : "rgba(88,96,88,0.9)");
       spuro(sost2, elektita ? "rgba(255,232,144,0.95)" : "rgba(216,216,208,0.95)");
-      // ចំណុច គឺចំណុចដែលជ្រើសត្រូវបំភ្លឺ។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
       n2k.forEach(( p, i: number ) => {
         const aktiva = elektita && i === elektitaPunkto;
         k.fillStyle = aktiva ? "#f8e8a8" : "rgba(255,255,255,0.9)";
@@ -227,15 +227,15 @@ export function k2fVidon(): void {
         k.stroke();
       });
     }
-    // វេទិកាកំពង់ គឺស្នូលឌីអូរីតជាមួយស៊ុមអង់ដេស៊ីត ( រង្វាស់
-    // ដូចក្នុង qakaj2.ts គឺទទឹង 0o16/0o10 ស៊ុម 0o4/0o10 )។
-    // ⟨ ការបង្វិល 📃 ⟩ គឺវេទិកាខ្លួនឯងជាចតុកោណកែង ប៉ុន្តែការបង្វិល (
-    // ដូចក្នុងហ្គេម ) សម្រេចថាកំពូលចង្អុលទៅខាងណា
-    // ដូច្នេះការគូរបង្វិលជុំវិញចំណុចកណ្តាលកំពង់។ ការបង្វិលក្នុងពិភពលោក θ ក្លាយជា
-    // ការបង្វិលលើអេក្រង់ −θ ( ផែនទីឆ្លុះអ័ក្ស x គឺខាងកើតខាងស្តាំ = −x )។
-    // កំពូល ( ខាងទឹក ដែលមូល ) ផ្ទុកសញ្ញាខៀវតូច
-    // ដើម្បីឱ្យគេឃើញទិសរបស់កំពង់ ទោះបីកំពង់មិនបង្ហាញ
-    // ( កំពូលស្ថិតនៅ −z ក្នុងតំបន់ ដូច្នេះក្រោមចំណុចកណ្តាលលើផែនទី )។
+// ſןɔ˞ᴜƴ , ꞙɭц ,
+// ſןɔ˞ᴜƴ , ꞙɭэ , ꞙɭıɩ , ꞙɭıɔ ,
+// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩ , ſןɔ˞ᴜƴ ,
+// ſןɔ˞ᴜƴ , ꞙɭɩ ,
+// ſןɔ˞ᴜƴ , ꞙɭꞟ ,
+// ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ( ſןɔ˞ᴜƴ , ꞙɭэ ,
     for ( let di = 0; di < haqakaj2.length; di++ ) {
       const d = haqakaj2[di];
       const elektita = di === elektitaQakaj2;
@@ -251,11 +251,11 @@ export function k2fVidon(): void {
       k.fillStyle = elektita ? "rgba(255,232,144,0.95)" : "rgba(216,216,208,0.95)";
       k.fillRect(-( w / 2 ) * vidSkalo, -( prof / 2 ) * vidSkalo,
         w * vidSkalo, prof * vidSkalo);
-      // ⟨ កំពូលខាងទឹក 📃 ⟩ គឺព្រួញនៅគែមខាងទឹក ( ខាងមុខ )។ បើគ្មានវា កំពង់
-      // ដែលបង្វិល π មើលទៅដូចគ្នាបេះបិទនឹងបង្វិល 0 ( ព្រោះវេទិកាជា
-      // ចតុកោណកែងស៊ីមេទ្រី ) ដូច្នេះព្រួញគឺជាសញ្ញាតែមួយអំពីទិសរបស់
-      // កំពូល។ វាត្រូវបានគូរជាភិចសែលអេក្រង់ ( មិនមែនឯកតាពិភពលោក )
-      // ព្រោះផែនទីខ្លួនឯងបង្ហាញពេលបង្រួមនៅក្នុងទំព័រ។
+// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩ , ſןɔ˞ᴜƴ ,
+// ſןɔ˞ᴜƴ , ꞙɭɩ ,
+// ſןɔ˞ᴜƴ , ꞙɭꞟ ,
+// ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭɿ ,
       const pintoY = ( prof / 2 + joqa ) * vidSkalo;
       k.fillStyle = elektita ? "rgba(144,200,240,0.95)" : "rgba(128,168,208,0.9)";
       k.beginPath();
@@ -264,9 +264,9 @@ export function k2fVidon(): void {
       k.lineTo(7, pintoY + 1);
       k.closePath();
       k.fill();
-      // ⟨ ចំណុចកំពូលកំពង់ 📃 ⟩ គឺចំណុចអូសនៅគែមខាងទឹក ។ អូសវាដើម្បី
-      // ពង្រីក ឬបង្រួមកំពង់ ( ចំណុចដីនៅស្ថិត ) ។ វាមានរង្វង់ស្ថិតលើ
-      // វេទិកាដូចចំណុចផ្លូវ , ហើយបំភ្លឺពេលកំពង់ត្រូវជ្រើស ។
+// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩ , ſןɔ˞ᴜƴ ,
+// ſןɔ˞ᴜƴ , ꞙɭц ,
+// ſןɔ˞ᴜƴ , ꞙɭэ ,
       const pintaY2 = ( prof / 2 ) * vidSkalo;
       k.beginPath();
       k.arc(0, pintaY2, elektita ? 6 : 5, 0, Math.PI * 2);
@@ -275,9 +275,9 @@ export function k2fVidon(): void {
       k.strokeStyle = "rgba(0,0,0,0.55)";
       k.lineWidth = 1.5;
       k.stroke();
-      // ⟨ ចំណុចចុងខាងដី 📃 ⟩ ។ អូសវាដើម្បីផ្លាស់ទី/បង្វិលកំពង់ , ហើយផ្លូវ
-      // អាចឈប់ត្រង់ចំណុចនេះដោយផ្ទាល់ ( ការភ្ជាប់ចំណុចទៅចំណុច ) ។
-      // ពណ៌បៃតងស្រាលដើម្បីបែងចែកពីចំណុចខាងទឹក ។
+// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩ , ſןɔ˞ᴜƴ ,
+// ſןɔ˞ᴜƴ , ꞙɭɩ ,
+// ſןɔ˞ᴜƴ , ꞙɭꞟ ,
       const landaY2 = -( prof / 2 ) * vidSkalo;
       k.beginPath();
       k.arc(0, landaY2, elektita ? 6 : 5, 0, Math.PI * 2);
@@ -289,18 +289,18 @@ export function k2fVidon(): void {
       k.restore();
     }
   }
-  // ពេជ្រជក់ និងចំណុចកណ្តាល ដែលមិនមានក្នុងឧបករណ៍មើល Movigi ✋ ឬក្នុង
-  // ផ្ទាំង សំណាញ់ ( ព្រោះការចុចកែក្រឡា មិនមែនគូរ )។ ជក់ជាពេជ្រ ( មិនមែនរង្វង់ ) ,
-  // ដូច្នេះគែមជក់តាមអ័ក្សក្រឡា ៖ ជ្រុងស្រួចបួននៅលើអ័ក្ស x និង z ។
-  // ក្នុងឧបករណ៍វត្ថុ ពេជ្រមានកាំតូចថេរ ( ជើងរបស់វត្ថុ )។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
   if ( kursoro && !tsekeMovigi() && aktivaTabo !== "krado" ){
     const sx2 = sxMondo(kursoro.x);
     const sy2 = syMondo(kursoro.z);
     const r2 = ( objektaModo ? 0o3/0o2 : ka5ik() ) * vidSkalo;
     k.strokeStyle = "rgba(255,255,255,0.8)";
     k.lineWidth = 0o3/0o2;
-    // ⟨ ជ្រុងស្រួច 📏 ⟩ ៖ ជក់ជាពេជ្រ , ដូច្នេះជ្រុងមិនត្រូវមូល ( ការគូរផ្លូវពីមុន
-    // ទុក lineJoin ជា round ) ។
+// ⟨ ſɭᴜ ſןᴜ , 📏 ⟩ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
     k.lineJoin = "miter";
     k.beginPath();
     k.moveTo(sx2, sy2 - r2);
@@ -313,7 +313,7 @@ export function k2fVidon(): void {
     k.arc(sx2, sy2, 2, 0, Math.PI * 2);
     k.stroke();
   }
-  // វត្ថុដែលជ្រើស គឺចិញ្ចៀនសនៅលើការដុត។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
   if ( elektitaObjekto >= 0 && elektitaObjekto < objektoj.length ) {
     const o = objektoj[elektitaObjekto];
     k.strokeStyle = "#ffffff";
@@ -322,10 +322,10 @@ export function k2fVidon(): void {
     k.arc(sxMondo(o.x), syMondo(o.z), 6, 0, Math.PI * 2);
     k.stroke();
   }
-  // ⟪ ប្រភពទឹក 📃 ⟫ គឺចំណុចដែលទឹកហូរចេញ។ រង្វាស់របស់
-  // ចំណុចតាមលំហូរ ( គ្រាប់រំកិល ) ហើយប្រភពដែលជ្រើសមាន
-  // ចិញ្ចៀនស។ ប្រភពគឺជាការបញ្ចូលតែមួយគត់របស់ទឹក ដូច្នេះពួកវាបង្ហាញ
-  // ជានិច្ច ប៉ុន្តែការបំភ្លឺខ្លាំងជាងពេលប្រើឧបករណ៍ទឹក។
+// ⟪ ſᶘᴜ j͑ʃᴜ , 📃 ⟫ , ſᶘᴜ j͑ʃᴜ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
   if ( tsekeVidebla("hatsiq") ) for ( let i = 0; i < hatsiq.length; i++ ) {
     const f = hatsiq[i];
     const elektita = i === elektitaTsiq;
@@ -347,9 +347,9 @@ export function k2fVidon(): void {
 }
 
 
-// ⟪ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟫ គឺទិដ្ឋភាព ទ្រនិច ជក់កំពុងប្រើ និង
-// ឧបករណ៍ជំនួយរបស់ម៉ូឌុលមេ។ preniStaton ត្រឡប់តម្លៃផ្ទាល់រាល់
-// ការគូរ ( ព្រោះកម្មវិធីកែសម្រួលកាន់កាប់ពួកវា )។
+// ⟪ ſɭэ ᶗ‹ , ꞙɭэ , 📃 ⟫ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
 type Kursoro = { x: number; z: number };
 interface BildaStato {
   cx: number;
@@ -366,7 +366,7 @@ interface BildaLigo {
   ka5ik: () => number;
   markiDesegnon: () => void;
 }
-// តម្លៃដែលការគូរអាន ដែលត្រូវបានធ្វើឱ្យស្រស់រាល់ស៊ុមពី preniStaton។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
 let vidCX = 0, vidCZ = 0, vidSkalo = 1;
 let kursoro: Kursoro | null = null;
 let penikoAktiva = "levi";
@@ -376,7 +376,7 @@ let tsekeMovigi: () => boolean = () => false;
 let hak6h6Aktiva: () => boolean = () => false;
 let ka5ik: () => number = () => 0;
 let markiDesegnon: () => void = () => { };
-/* ការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
+/* ſɭэ ᶗ‹ , ꞙɭɿ ,
     @param L ( BildaLigo ) - កម្មវិធីអានស្ថានភាព និងឧបករណ៍ជំនួយរបស់កម្មវិធីកែសម្រួល។ */
 export function agordiBildon2D(L: BildaLigo): void {
   preniStaton = L.stato;

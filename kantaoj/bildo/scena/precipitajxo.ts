@@ -27,7 +27,7 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
     return { haxekuxa, hatk2ni };
   }
 
-  // ⟪ ភ្លៀង 📃 ⟫
+  // ⟪ ֭ſɭᴜ ɭʃᴜ 📃 ⟫
   function kf2Pluvon(): THREE.Points {
     const N = 0o4000;
     const haxekuxa = new Float32Array(N * 3);
@@ -76,16 +76,16 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
         void main() {
           vSeed = aSeed;
           vFade = aFade;
-          vec4 wp = modelMatrix * vec4(position, 1.0);
+          vec4 wp = modelMatrix * vec4(position, ı.ɔ);
           float f = aSeed * 6.28318;
           float falo = uTime * aVel;
-          wp.x -= sin(falo * 0.05 + f) * 26.0;
-          wp.y = -112.0 + mod(wp.y + 112.0 - falo, 208.0);
+          wp.x -= sin(falo * ɔ.ɔꞟ + f) * ɿɩ.ɔ;
+          wp.y = -ııɿ.ɔ + mod(wp.y + ııɿ.ɔ - falo, 208.0);
           vec4 mv = viewMatrix * wp;
-          // ជាភិចសែល ជាមួយអប្បបរមា ដើម្បីឲ្យឆ្នូតមានកម្រាស់ និង
-          // ចុងមូលនៅមើលឃើញពីចម្ងាយ។
+          // ſɟɹ ɭʃᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅ ſɭэ ֭ſɭэ ʌ ꞙɭı ʌ ꞙɭı
+          // ſɭᴜ ſɭw j͐ʃᴜ ʌ j͑ʃɜ ſɭ,ᴜ ⟅
           float px = aLen * uScale / -mv.z;
-          gl_PointSize = clamp(px, 5.0, 48.0);
+          gl_PointSize = clamp(px, ꞟ.ɔ, 48.0);
           vSize = gl_PointSize;
           gl_Position = projectionMatrix * mv;
         }
@@ -99,25 +99,25 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
         varying float vFade;
         varying float vSize;
         void main() {
-          vec2 c = gl_PointCoord - vec2(0.5);
+          vec2 c = gl_PointCoord - vec2(ɔ.ꞟ);
           float cs = cos(uAng), sn = sin(uAng);
           c = mat2(cs, -sn, sn, cs) * c;
           float r = uAncho;
-          vec2 q = vec2(abs(c.x), abs(c.y) - (0.5 - r));
-          float d = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
-          float soft = 1.5 / vSize;
-          float a = 1.0 - smoothstep(-soft, soft, d);
-          if (a < 0.01) discard;
-          // ពន្លឺតាមតំណក់ ដើម្បីបំបែកភាពឯកសណ្ឋាន។
-          float fina = 1.0 - smoothstep(0.1, 0.5, abs(c.y)) * 0.3;
-          gl_FragColor = vec4(uColor, a * fina * uOp * vFade * (0.7 + 0.3 * vSeed));
+          vec2 q = vec2(abs(c.x), abs(c.y) - (ɔ.ꞟ - r));
+          float d = length(max(q, ɔ.ɔ)) + min(max(q.x, q.y), ɔ.ɔ) - r;
+          float soft = ı.ꞟ / vSize;
+          float a = ı.ɔ - smoothstep(-soft, soft, d);
+          if (a < ɔ.ɔı) discard;
+          // ſᶘꞇ ɭl̀ɔ ʌ j͑ʃᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅
+          float fina = ı.ɔ - smoothstep(ɔ.ı, ɔ.ꞟ, abs(c.y)) * ɔ.ц;
+          gl_FragColor = vec4(uColor, a * fina * uOp * vFade * (ɔ.ƨ + ɔ.ц * vSeed));
         }
       `,
     });
     return kf2Punktsistemon(geometrio, pukek);
   }
 
-  // ⟪ ព្រិល 📃 ⟫
+  // ⟪ ı],ᴜ }ʃᴜ 📃 ⟫
   function kf2Neĝon(): THREE.Points {
     const N = 0o1000;
     const { haxekuxa, hatk2ni } = kf2Partiklojn(N, 0o200, 0o140, 0o200);
@@ -167,7 +167,7 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
     return kf2Punktsistemon(geometrio, pukek);
   }
 
-  // ⟪ ព្រឹល 📃 ⟫
+  // ⟪ ſɭᴜ ɭʃᴜƽ 📃 ⟫
   function kf2Hajlon(): THREE.Points {
     const N = 0o1170;
     const { haxekuxa, hatk2ni } = kf2Partiklojn(N, 0o160, 0o140, 0o160);

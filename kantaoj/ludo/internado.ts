@@ -29,7 +29,7 @@ export function kf2Internanton( hasukf2qani: InternajHasukf2qani ): Internanto {
   function tona( deltaTempo: number, _t: number ): void {
     if ( ludanto.rezimo !== "interno" ) return;
 
-    // ⟪ ការដេក 📃 ⟫
+    // ⟪ ſȷɔ˞ᴜ ɭʃᴜ 📃 ⟫
     if ( ludanto.fsata ) {
       ludanto.celDistanco = 0;
       ludanto.kameraDistanco = 0;
@@ -40,7 +40,7 @@ export function kf2Internanton( hasukf2qani: InternajHasukf2qani ): Internanto {
       return;
     }
 
-    // ⟪ ការដើរខាងក្នុង 📃 ⟫
+    // ⟪ ſɭᴜ ɭʃᴜ ʌ ſɭɜ ſᶘɹ 📃 ⟫
     const spec = ludanto.elektitaSpec;
     if ( !spec ) return;
     const { movX, movZ, sahakani, fortoX, fortoZ, radX, radZ } = movoEniro(ca3aq, ludanto.c2w2q);

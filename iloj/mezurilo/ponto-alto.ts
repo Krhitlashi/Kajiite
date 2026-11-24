@@ -1,5 +1,5 @@
 // ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɟɔȝ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🧪 ⧽≻
-// ⟨ គណនាផ្ទៃស្ពាន pontaHeight ដូច kaxte.ts ពិត , រកជញ្ជាំងនៅមាត់ទឹក ។ 📃 ⟩
+// ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ pontaHeight ʌ kaxte.ts ⟅ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
 import { aktivajHak6h6, aktivajHaqakaj2 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { akvaVem2 } from "../../kantaoj/mondo/tereno.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../eskekoj/medio/voj-reto.js";
@@ -24,12 +24,12 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
     tsekePontaAkvo(x, z) ? akvaVem2(x, z) + PONT_AKVA_KLARANCO : -Infinity;
   const s2qena = vepaqPontanProfilon(k6h6.n2k, w, k6h6Supro, akvaSupro,
     ( x, z, sefini ) => pontaFinAlto(x, z, sefini, haveb6kek));
-  // ⟨ ផ្ទៃស្ពានពិត pontaHeight ដូច kaxte.ts 📃 ⟩
+  // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ pontaHeight ʌ kaxte.ts 📃 ⟩
   const pontaHeight = ( x: number, z: number ): number => {
     const l6da = s2qena.l6da(x, z);
     return ( tsekePontaAkvo(x, z) ? l6da : surGrid(l6da) ) - VOJA_SUPRO_LEVIGXO;
   };
-  console.log(`k6h6 ${v} ${k6h6.ksaka} pontaHeight តាមបណ្តោយផ្លូវ ៖`);
+  console.log(`k6h6 ${v} ${k6h6.ksaka} pontaHeight ʌ ſɭэ ֭ſɭэ ⟅`);
   let ne3ak2 = pontaHeight(k6h6.n2k[0][0], k6h6.n2k[0][1]);
   let maksSalto = 0, saltoLoko = 0, saltoAkvo = false, vepat6ni = 0;
   for ( let s = 0; s < k6h6.n2k.length - 1; s++ ) {
@@ -49,10 +49,10 @@ for ( let v = 0; v < VOJOJ.length; v++ ) {
       }
       if ( Math.abs(salto) > 0o1/0o100 ) {
         const cx = tsekePontaAkvo(x, z), cxp = tsekePontaAkvo(x, z);
-        console.log(`  @${vepat6ni.toFixed(1)} h=${h.toFixed(3)} ${cx ? "ទឹក" : "ដី"} salto=${salto.toFixed(3)}`);
+        console.log(`  @${vepat6ni.toFixed(1)} h=${h.toFixed(3)} ${cx ? "ſᶘᴜ j͑ʃᴜ" : "ſɭɜ ſɭ,w"} salto=${salto.toFixed(3)}`);
       }
       ne3ak2 = h;
     }
   }
-  console.log(`  maksSalto=${maksSalto.toFixed(3)} @${saltoLoko.toFixed(1)} ${saltoAkvo ? "ទឹក" : "ដី"}`);
+  console.log(`  maksSalto=${maksSalto.toFixed(3)} @${saltoLoko.toFixed(1)} ${saltoAkvo ? "ſᶘᴜ j͑ʃᴜ" : "ſɭɜ ſɭ,w"}`);
 }

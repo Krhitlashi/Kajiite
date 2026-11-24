@@ -25,28 +25,28 @@ import { kf2VeterajnPartiklojn } from "./scena/precipitajxo.js";
 import type { ScenaSistemo, Vetero } from "./scena/hahunaq.js";
 
 export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): ScenaSistemo {
-  // ⟪ ពន្លឺចង្កៀងកោងលើផ្ទៃ 📃 ⟫
-  // ⟨ agordiBildilon បញ្ចូលទាំងការធ្លាក់ពន្លឺកោង និងជំហានពណ៌រួម 📃 ⟩
+  // ⟪ ſɟᴜ ɭʃэ ֭ſɭэƽ ſɭэ ı],ᴜʞ ꞁȷ̀ᴜꞇ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟫
+  // ⟨ agordiBildilon ſᶘꞇ ɭl̀ɔ , ᶅſɔ ֭ſɭɹ 📃 ⟩
   let bildilo: THREE.WebGLRenderer;
   try {
-    // ⟨ ឱ្យប្រព័ន្ធជ្រើសកាតក្រាហ្វិក ដើម្បីកុំបង្ខំកាតដែលចំណាយថាមពល
-    //   ពេលកម្មវិធីផ្សេងក៏ត្រូវការវា ។ 📃 ⟩
+    // ⟨ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ GPU ʌ j͑ʃᴜꞏ ᴩ
+    //   ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
     bildilo = new THREE.WebGLRenderer({ canvas: kanvaso, antialias: MULT_SAMPLEA, powerPreference: "default" });
   } catch {
     montriEraronon(sxargxaEl);
-    throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) WebGL មិនអាចប្រើបាន");
+    throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) WebGL ʌ ꞙɭɔ ʌ ſɭ,ɔ ſ͔ɭɔ");
   }
   agordiBildilon( bildilo, { ombroj: OMBROJ, ombraHunaq: THREE.PCFShadowMap,
     pikslaRacio: Math.min( devicePixelRatio, MAKS_RATIO ) } );
-  // ⟪ ចង្វាក់ស្រមោល 📃 ⟫
+  // ⟪ ſɟᴜ ֭ſɭэ ſɭэ ʌ j͑ʃɔ ֭ſɭɔ }ʃꞇ 📃 ⟫
   bildilo.shadowMap.autoUpdate = false;
   bildilo.shadowMap.needsUpdate = true;
-  // ⟪ ច្រកផ្លាស់ប្តូរ , បានលុប 📃 ⟫
-  // ⟨ អ្វីដែលបានប្រែ 📃 ⟩
+  // ⟪ ſȷwɔ˞ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ 📃 ⟫
+  // ⟨ j͑ʃᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
   bildilo.setSize(innerWidth, innerHeight);
 
   const qena = new THREE.Scene();
-  // ⟨ ហេតុអ្វីដង់ស៊ីតេបាលេត 📃 ⟩
+  // ⟨ ſɭʞэ ʌ ſɭw ʃᴜ }ʃꞇ ʌ ᶅſɔ ֭ſɭɹ 📃 ⟩
   qena.fog = new THREE.FogExp2(0xc8d8d8, NEBULA_DENSO);
 
   const fotilo = new THREE.PerspectiveCamera(0o60, innerWidth / innerHeight, 0o15/0o40, 0o1400);
@@ -55,25 +55,25 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
 
   const fotilaDuTan = 2 * Math.tan(fotilo.fov * Math.PI / 0o550);
 
-  // ⟨ វាយនភាពដីតាមចម្ងាយ 📃 ⟩
-  // វាយនភាពដីញឹកញាប់ណាស់ ( ក្បឿងតូច ) ។ នៅចម្ងាយ , mip ត្រូវជ្រើសខុសៗគ្នាតាមជួរ
-  // អេក្រង់ , ហើយវាបង្ហាញជាខ្សែផ្តេក ។ ទូរស័ព្ទឃើញវាច្បាស់ជាង ។
-  // ដូច្នេះបន្ថយវាយនភាពតាមចម្ងាយ ៖ ជិតមានវាយនភាព , ឆ្ងាយប្រើពណ៌កំពូល ។ 📃 ⟩
-  // ⟨ ចម្ងាយផ្លាស់ប្តូរ ៖ តម្លៃតែមួយសម្រាប់គ្រប់ឧបករណ៍ ។ នៅចម្ងាយ , mip
-  // ត្រូវជ្រើសខុសៗគ្នាតាមជួរអេក្រង់ , ហើយវាបង្ហាញជាខ្សែផ្តេក ។ 📃 ⟩
+  // ⟨ j͐ʃƽɜ ʌ ſɭɜ ſɭ,w ʌ ſȷꞇ }ʃꞇ 📃 ⟩
+  // j͐ʃƽɜ ʌ ſɭɜ ſɭ,w , ꞙɭɔ ʌ ſȷꞇ }ʃꞇ ⟅
+  // ſɭᴜ ſ͕ȷɔ ₙ ʌ j͑ʃɜ ſɭ,ᴜ ⟅
+  // ꞙɭı ʌ j͐ʃƽɜ , ꞙɭɔ ʌ ᶅſɔ ֭ſɭɹ 📃 ⟩
+  // ⟨ ſȷꞇ }ʃꞇ ⟅ ꞙɭı ʌ ſɟᴜᴜ̩ ɭʃɹ ʌ j͑ʃᴜꞇ ⟅ j͐ʃƽɜ
+  // ꞙɭɔ ʌ ſɭᴜ ſ͕ȷɔ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
   const GRUNDA_FADO_EL = 0o14;
   const GRUNDA_FADO_GXIS = 0o72;
-  // ⟨ ហេតុអ្វីត្រូវបន្ថយទាំងកម្ពស់ស្រមោល 📃 ⟩ ៖ វាយនភាពដីលាតរាប់រយដង ,
-  // ដូច្នេះនៅចម្ងាយ mip ធំខ្លាំង ។ ការបន្ថយពណ៌តែម្នាក់ឯងមិនគ្រប់ទេ ៖
-  // វាយនភាពកម្ពស់ ( bump ) នៅតែអាននៅចម្ងាយទាំងមូល , ហើយដេរីវេរបស់វា
-  // លោតនៅគ្រប់ព្រំដែនក្បឿង ។ ដូច្នេះដីបង្ហាញជាខ្សែត្រង់ស្របគ្នា ។
-  // ទូរស័ព្ទឃើញច្បាស់ជាង ៖ ផែនទីស្រមោលតូចជាង ហើយដង់ស៊ីតេអេក្រង់ខុស ។
-  // ដូច្នេះកម្ពស់ស្រមោលត្រូវបន្ថយដោយចម្ងាយដូចពណ៌ ។ 📃 ⟩
+  // ⟨ ſɭʞэ ʌ j͐ʃэ ɭ(ᴜ , ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩ ʌ j͐ʃƽɜ ʌ ſɭɜ ſɭ,w ʌ ſɭᴜ ſɭ,w j͐ʃᴜ ,
+  // ꞙɭı ʌ ſȷꞇ }ʃꞇ ʌ ſɟᴜ ɭʃᴜ ֭ſɭᴜȝ ⟅ ᶅſɔ ֭ſɭɹ ꞙɭɔ ʌ j͑ʃᴜꞇ ⟅
+  // j͐ʃƽɜ ʌ j͐ʃэ ɭ(ᴜ ʌ ꞙɭı
+  // ſɭɜ ſɭ,w ʌ ſɭɜ ſɭ,w j͐ʃᴜ ⟅
+  // ſɟᴜ ֭ſɭэ ſɭэ ʌ ꞙɭɔ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ ⟅ ſɭw ʃᴜ }ʃꞇ ⟅
+  // j͐ʃэ ɭ(ᴜ , ſɟᴜ ֭ſɭэ ſɭэ ʌ ſȷꞇ }ʃꞇ , ᶅſɔ ֭ſɭɹ 📃 ⟩
   const fadaGrundon = ( pukek: THREE.MeshStandardMaterial ): THREE.MeshStandardMaterial => {
     pukek.onBeforeCompile = ( shadero ) => {
-      // ⟨ ការរសាត់គណនាម្តងក្នុងមួយភីកសែល មិនមែនពីរដង ។ ពីមុន
-      //   map_fragment និង normal_fragment_maps យក length ផ្ទួនគ្នាលើគ្រប់
-      //   ភីកសែលនៃដីដែលគ្របដណ្តប់អេក្រង់ ។ លទ្ធផលដដែល ។ 📃 ⟩
+      // ⟨ ſɟɹ ɭʃᴜ ʌ ꞙɭı ʌ ꞙɭı , ꞙɭɔ ʌ ꞙɭɿ ⟅
+      //   ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭı , ſɭэ ſɭᴜ
+      //   ſɟɹ ɭʃᴜ ʌ ſɭɜ ſɭ,w ⟅ ꞙɭı ʌ ꞙɭı 📃 ⟩
       shadero.fragmentShader = shadero.fragmentShader.replace(
         "#include <common>",
         `#include <common>
@@ -88,9 +88,9 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
           diffuseColor *= sampledDiffuseColor;
         #endif`
       );
-      // ⟨ កម្ពស់ស្រមោលតាមចម្ងាយ 📏 ⟩ ៖ `nonPerturbedNormal` ជានរម៉ាល់ដើមដែល
-      // បានរក្សាទុកមុន bump ។ លាយនរម៉ាល់ដែលបានប្រែត្រឡប់ទៅវាតាមកម្រិតដូចពណ៌ ។
-      // បើគ្មាន bump , នរម៉ាល់មិនប្រែ , ដូច្នេះការលាយនេះមិនធ្វើអ្វី ។ 📃 ⟩
+      // ⟨ j͐ʃэ ɭ(ᴜ , ſɟᴜ ֭ſɭэ ſɭэ , j͑ʃɜ ſɭ,ᴜ 📏 ⟩ , nonPerturbedNormal
+      // j͐ʃƽɜ ⟅ j͑ʃɜ ſɭ,ᴜ , ᶅſɔ ֭ſɭɹ
+      // j͐ʃƽɜ ꞙɭɔ ⟅ j͑ʃɜ ſɭ,ᴜ ꞙɭɔ ⟅ 📃 ⟩
       shadero.fragmentShader = shadero.fragmentShader.replace(
         "#include <normal_fragment_maps>",
         `#include <normal_fragment_maps>
@@ -100,27 +100,27 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
     return pukek;
   };
 
-  // ⟨ បរិស្ថានឆ្លុះរួម ៖ មេឃតែមួយដែលបំភ្លឺឆាក ក៏បង្កើតការឆ្លុះដែរ ។ 📃 ⟩
+  // ⟨ ſɟᴜ }ʃᴜ ʌ ꞙɭı ⟅ ſᶘꞇ ɭl̀ɔ , ſɟᴜ }ʃᴜ 📃 ⟩
   const medio = agordiMedion( qena, bildilo );
 
   const { cxielo, cxielajUnihaqoxa } = kf2Cxielon(qena);
 
-  // ⟪ ពន្លឺ 📃 ⟫
+  // ⟪ ſᶘꞇ ɭl̀ɔ 📃 ⟫
   const ombraTekselo = 2 * 0o100 / OMBRA_MAPO;
   const { hemiLumo, suno } = kf2CxefajnLumojn( qena, {
     cxielaKoloro: 0xc8e0e8, grundoKoloro: 0x485848, cxielaIntenso: 0o63/0o100,
     sunaKoloro: 0xf8f0d8, sunaIntenso: 0o45/0o40, sunaXekuxa: [ 0o110, 0o160, 0o40 ],
     ombroj: OMBROJ, ombraMapo: OMBRA_MAPO, ombraDuono: 0o100,
     ombraProksima: 0o20, ombraMalproksima: 0o520,
-    // ⟨ ទំហំដុំស្រមោល ៖ ផែនទីស្រមោលតូច ( ទូរស័ព្ទ ) មានដុំធំជាង ។ បើសម្លេងណរម៉ាល់
-    // តូចពេក , ដីបង្កើតឆ្នូតខ្មៅៗជាសំណាញ់ ( shadow acne ) ។ ដូច្នេះសម្លេង
-    // ត្រូវតាមទំហំដុំ ៖ ដុំធំ , សម្លេងធំ ។ 📃 ⟩
+    // ⟨ ſɟᴜ ֭ſɭэ ſɭэ ʌ ſɭᴜ j͐ʃэ ⟅ ſɟᴜ ֭ſɭэ ſɭэ ʌ ꞙɭɔ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ
+    // ſɭɜ ſɭ,w shadow acne ⟅
+    // ꞙɭı ʌ ſɭᴜ j͐ʃэ 📃 ⟩
     ombraBiaso: -0o1 / ( 0o2 * OMBRA_MAPO ),
     ombraNormalBiaso: Math.max( 0o4/0o10, ombraTekselo * 0o22/0o10 ),
   } );
 
-  // ⟪ ស្ព្រាយព្រះអាទិត្យ 📃 ⟫
-  // ⟨ ផ្កាយបួនកាំរាវរលូន ពណ៌ KNAKEHE និងស៊ុមតូចដើម្បីគែមមិនជាភីកសែល 📃 ⟩
+  // ⟪ ſɟᴜ ᶅſɔ ʌ j͑ʃɜ ſᶘɹ 📃 ⟫
+  // ⟨ j͑ʃɔ ı],ꞇ ʌ ɭʃᴜ , ꞙɭı ʌ ᶅſɔ ֭ſɭɹ , ſɟɹ ɭʃᴜ 📃 ⟩
   const sunaTeksturo = new THREE.TextureLoader().load(new URL("./scena/suno.png", import.meta.url).href);
   sunaTeksturo.colorSpace = THREE.SRGBColorSpace;
   sunaTeksturo.magFilter = THREE.LinearFilter;
@@ -138,14 +138,14 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
   let nunaVetero: Vetero = "nebula";
   let lastaKrepusko = 0;
 
-  // ⟪ ស្រមោលព្រះអាទិត្យ 📃 ⟫
+  // ⟪ ſɟᴜ ֭ſɭэ ſɭэ ʌ j͑ʃɜ ſᶘɹ 📃 ⟫
   const ombraTekseloKrado = ( suno.shadow.camera.right - suno.shadow.camera.left ) / suno.shadow.mapSize.x;
-  // ⟨ ពីមុនចំណុចកណ្តាលផែនទីស្រមោលចាប់រាល់តេកសែល ប្រហែល 0o1/0o10 ឯកតា ។
-  //   អ្នកលេងដើរលើសនោះរាល់ហ្វ្រេម ដូច្នេះផែនទីស្រមោលត្រូវគូរធរណីមាត្រ
-  //   ទាំងមូលឡើងវិញរាល់ហ្វ្រេម ទោះបីស្រមោលវត្ថុស្ងៀមមិនប្រែក៏ដោយ ។
-  //   ឥឡូវចាប់ឱ្យជាប់នឹងជំហានប្រហែល 0o1 ឯកតា តែនៅតែជាពហុគុណពិត
-  //   នៃតេកសែល ដូច្នេះស្រមោលមិនរអិល ។ កាមេរ៉ាស្រមោលគ្របដណ្តប់ 0o200
-  //   ឯកតា ហើយស្រមោលគណនាពីធរណីមាត្រ មិនមែនពីភ្នែកអ្នកលេង ។ 📃 ⟩
+  // ⟨ ſɟᴜ ֭ſɭэ ſɭэ ʌ j͑ʃɜ ſᶘɹ ʌ ꞙɭı/ꞙɭıɔ
+  //   ſ͔ɭᴜ ȏŋᷠꞇ ʌ ɭl̀ɜ ſ͕ɭᴜ ⟅ ſɟᴜ ֭ſɭэ ſɭэ
+  //   ſןᴜȝ ſɭꞇ ⟅ ſɟᴜ ֭ſɭэ ſɭэ
+  //   ꞙɭı , ꞙɭı ʌ ꞙɭı
+  //   ſɟᴜ ֭ſɭэ ſɭэ ʌ ꞙɭɿɔɔ
+  //   ſ͔ɭᴜ ȏŋᷠꞇ ʌ ꞙɭɔ 📃 ⟩
   const OMBRA_SNUPO = ombraTekseloKrado * Math.max( 0o1, Math.round( 0o1 / ombraTekseloKrado ) );
   const SUNA_DIREKTO = new THREE.Vector3().copy(suno.position).normalize();
   let sunaDistanco = suno.position.length();
@@ -173,7 +173,7 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
   function gxisdatigiOmbron( x: number, z: number ): boolean {
     if ( x === ombraCentroX && z === ombraCentroZ ) return false;
     ombraCentroX = x; ombraCentroZ = z;
-    // ⟨ តើផែនទីស្រមោលពិតជាត្រូវគូរឡើងវិញ 📃 ⟩
+    // ⟨ ſɟᴜ ֭ſɭэ ſɭэ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
     const ne3ak2X = OMBRA_CENTRO.x, ne3ak2Z = OMBRA_CENTRO.z;
     aplikiOmbranCentron();
     return OMBRA_CENTRO.x !== ne3ak2X || OMBRA_CENTRO.z !== ne3ak2Z;
@@ -193,15 +193,15 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
     cxielajUnihaqoxa.uNokto.value = t;
     const sunDir = new THREE.Vector3().copy(d.tago.sunPos).lerp(d.krepusko.sunPos, t);
     cxielajUnihaqoxa.uSunDir.value = sunDir.clone().normalize();
-    // ⟨ ការលាយថ្ងៃ-ព្រលប់បង្កើតតម្លៃកណ្តាល ។ បង្គត់គ្រប់ពណ៌ពន្លឺ និងអ័ព្ទ
-    //   ត្រឡប់ទៅ #nmnmnm ដើម្បីកុំឱ្យពន្លឺរំលងច្បាប់ពណ៌ ។ 📃 ⟩
+    // ⟨ ſɟᴜ ſᶘɹ , ֭ſɭw }ʃᴜ ⟅ ᶅſɔ ֭ſɭɹ ʌ ſᶘꞇ ɭl̀ɔ , ŋᷠᴜ ֭ſɭᴜ
+    //   ꞙɭı #nmnmnm ⟅ ſᶘꞇ ɭl̀ɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ᶅſɔ ֭ſɭɹ 📃 ⟩
     veb6qaiWeh2Skek(qena.fog!.color.copy(d.tago.fog).lerp(d.krepusko.fog, t));
     ( qena.fog as THREE.FogExp2 ).density = l(d.tago.nebulDenso, d.krepusko.nebulDenso);
     veb6qaiWeh2Skek(hemiLumo.color.copy(d.tago.hemiSky).lerp(d.krepusko.hemiSky, t));
     veb6qaiWeh2Skek(hemiLumo.groundColor.copy(d.tago.hemiGnd).lerp(d.krepusko.hemiGnd, t));
     hemiLumo.intensity = l(d.tago.hemiInt, d.krepusko.hemiInt);
-    // ⟨ ពន្លឺបរិស្ថានលិចតាមព្រលប់ ដើម្បីកុំឱ្យវាលុបជំហានស្រមោលចង្កៀង 📃 ⟩
-    // ⟨ កញ្ចក់ឆ្លុះអានពណ៌ដូចមេឃ ៖ ដែក និងកញ្ចក់ឆ្លុះមេឃដែលបំភ្លឺឆាក ។ 📃 ⟩
+    // ⟨ ſᶘꞇ ɭl̀ɔ ʌ j͑ʃɜ ſɭ,ᴜ , ֭ſɭw }ʃᴜ , ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩
+    // ⟨ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ ʌ ᶅſɔ ֭ſɭɹ ʌ ſɟᴜ }ʃᴜ 📃 ⟩
     medio.gxisdatigi({
       teru: cxielajUnihaqoxa.uTop.value,
       sost2: cxielajUnihaqoxa.uMid.value,
@@ -252,16 +252,16 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
     hajlo.position.copy(fotilo.position);
   }
 
-  // ⟪ វត្ថុធាតុ 📃 ⟫
+  // ⟪ ſןw ſɭɔƽ ʌ j͑ʃᴜꞇ 📃 ⟫
   const dioritaMaterialo = kf2T6g6Pukek(undefined, 0o6/0o10);
   const andezitaMaterialo = kf2T6hnaPukek();
-  // ⟨ ទ្វារយានអវកាសជាកញ្ចក់ 📃 ⟩
+  // ⟨ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ 📃 ⟩
   const eniraMaterialo = kf2Cah6k6Pukek();
   const oraMaterialo = kf2KuhalPukek(0xd8b068);
 
   const { pluvo, nego, hajlo } = kf2VeterajnPartiklojn(qena);
 
-  // ⟪ រូបរាងពិភពលោក 📃 ⟫
+  // ⟪ ſןᴜ j͐ʃэ ʌ }ʃᴜ j͐ʃᴜ 📃 ⟫
   const aktivaMapoDatumoj = aktivaMapo();
   const mapoQoxa = aktivaMapoDatumoj.qoxa;
   const mapoGrandeco = aktivaMapoDatumoj.grandeco;
@@ -269,28 +269,28 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
   const montaGrupo = new THREE.Group();
   qena.add(montaGrupo);
 
-  // ⟨ ភ្នំតាមរូបរាងផែនទី 📃 ⟩
+  // ⟨ ɭl̀ᴜ ſ͕ɭɜ ʌ ſןᴜ j͐ʃэ 📃 ⟩
   ( function vepaqMontojn(): void {
     function montaAlto(px: number, pz: number, tk2ni: number): number {
       const x = px / 0o100 + tk2ni * 0o10;
       const z = pz / 0o100 + tk2ni * 0o20 + 0o20;
       const malglata = ( u: number, v: number ): number => 1 - Math.abs(2 * bruo2D(u, v) - 1);
-      // ⟨ បំប្លែងទីតាំង ៖ ជួរភ្នំកោងវៀចវេរជាធម្មជាតិ មិនត្រង់ 📃 ⟩
+      // ⟨ ſȷƽᴜ ʃɔ ʌ ɭl̀ᴜ ſ͕ɭɜ , ꞙɭɔ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
       const sx = x + ( bruo2D(x * 0o2 + 0o31, z * 0o2 + 0o7) - 0o1/0o2 ) * 0o4/0o10;
       const sz = z + ( bruo2D(x * 0o2 - 0o13, z * 0o2 + 0o41) - 0o1/0o2 ) * 0o4/0o10;
       const maso = bruo2D(x, z);
-      // ⟨ ជ្រលង 📃 ⟩
+      // ⟨ j͐ʃɜ ɭʃᴜ 📃 ⟩
       const valo = 0o13/0o40 + 0o25/0o40 * maso * maso;
       const pinto = malglata(sx * 0o3, sz * 0o3);
       const fajno = malglata(sx * 0o4 + 0o11, sz * 0o4 - 0o5);
-      // ⟨ ជួរកណ្ដាល ៖ បំពេញចន្លោះរវាងកំពូលធំ និងធ្មេញតូច 📃 ⟩
+      // ⟨ ɭl̀ᴜ ſ͕ɭɜ ʌ ſɭᴜ ſɭ,w ⟅ 📃 ⟩
       const mezajxo = malglata(sx * 0o6 + 0o23, sz * 0o6 + 0o3);
-      // ⟨ ឆ្អឹងខ្នង 📃 ⟩
+      // ⟨ ſɟɔ ɭʃɹ ʌ ɭl̀ᴜ ſ͕ɭɜ 📃 ⟩
       const spino = malglata(sx * ( 0o3/0o2 ) + 0o13, sz * ( 0o3/0o2 ) + 0o27);
-      // ⟨ ធ្មេញ 📃 ⟩
+      // ⟨ ſɟɔ ɭʃɹ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ 📃 ⟩
       const dentoj = malglata(sx * 0o10, sz * 0o10);
       const grajno = malglata(sx * 0o22, sz * 0o22);
-      // ⟨ មាត្រទាំងមូល 📃 ⟩
+      // ⟨ ſȷꞇ }ʃꞇ ʌ j͑ʃᴜꞇ 📃 ⟩
       return 0o13
         + 0o36 * maso
         + 0o13 * spino * ( 0o60/0o100 + 0o40/0o100 * ( 1 - maso ))
@@ -311,7 +311,7 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
       if ( malproksimo > 0 ) celo.lerp(NEBUL_TONO, malproksimo * 0o35/0o100);
     }
 
-    // ⟨ វាយនភាពដូចដី 📃 ⟩
+    // ⟨ j͐ʃƽɜ ʌ ſɭɜ ſɭ,w 📃 ⟩
     const montaGrundo = kf2GrundanCac2sex();
     const montaReliefo = kf2GrundanBumpanCac2sex();
     const montaMaterialo = fadaGrundon(new THREE.MeshStandardMaterial({
@@ -362,23 +362,23 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
       const hax2pa = sd + 1;
       const suprN = hacel2nu * hax2pa;
       const fundo = NALA_PSAZ_Y - 0o4;
-      // ⟨ ផ្ទៃក្រោមមិនអាចមើលឃើញទេ ។ រក្សាតែកំពូលក្រោមលើគែម សម្រាប់ជញ្ជាំង
-      //   ចំហៀង ជំនួសឱ្យកំពូលក្រោមពេញមួយស្រទាប់ទៀត ។ 📃 ⟩
+      // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭɔ ⟅ ſןw ſɭᴜƴ , ɭʃw ſɭˬɔƽ
+      //   ɭʃw ſɭˬɔƽ ʌ ɭʃᴜ }ʃɔƽ 📃 ⟩
       const fundoKvanto = 0o2 * ( hacel2nu + hax2pa );
       const tutaN = suprN + fundoKvanto;
       const haxekuxa = new Float32Array(tutaN * 3);
       const haweh2 = new Float32Array(tutaN * 3);
-      // ⟨ UV ដី 📃 ⟩
+      // ⟨ UV ʌ ſɭɜ ſɭ,w 📃 ⟩
       const uvaj = new Float32Array(tutaN * 2);
       const fundoIndeksoj = new Int32Array(suprN).fill(-1);
       let fundoN = 0;
       const pasxoProfundo = profundo / sd;
       const pasxoAngulo = 2 * Math.PI * ( mapoGrandeco + 0o100 ) / sl;
       const hal6da = new Float32Array(suprN);
-      // ⟨ តម្លៃអាស្រ័យលើជួរឈរ ៖ គណនាម្តង ប្រើគ្រប់ជួរដេក 📃 ⟩
-      // កំពូលភ្នំ និងគែមមិនប្រែតាមជម្រៅទេ ។ ការគណនាម្តងទៀតរាល់ជួរដេក
-      // គឺជាការខាតបង់ធំ ព្រោះមានជួរដេកច្រើន ។ តារាងទាំងនេះត្រូវជាលេខទ្វេ
-      // ដើម្បីកុំឱ្យបាត់ភាពជាក់លាក់ ។
+      // ⟨ ſɭᴜ ſ͕ȷɔ ʌ ſɭᴜ ſ͕ȷɔ ⟅ ꞙɭı ʌ ꞙɭı ʌ j͑ʃᴜꞇ 📃 ⟩
+      // ɭl̀ᴜ ſ͕ɭɜ , ſןw ſɭᴜƴ ꞙɭɔ ʌ j͐ʃэ ɭ(ᴜ
+      // ſɭɜ ſȷᴜ ʌ j͑ʃᴜꞇ ⟅ j͐ʃэ ɭ(ᴜ
+      // ꞙɭɔ ʌ j͑ʃɜ j͑ʃƨɹ ⟅
       const cel2nujX = new Float64Array(hacel2nu), cel2nujZ = new Float64Array(hacel2nu);
       const cel2nujNX = new Float64Array(hacel2nu), cel2nujNZ = new Float64Array(hacel2nu);
       const cel2nujSkalo = new Float64Array(hacel2nu), cel2nujBordo = new Float64Array(hacel2nu);
@@ -390,22 +390,22 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
         cel2nujSkalo[k] = p6zukani(ang);
         cel2nujBordo[k] = alteco(c2q.x, c2q.z);
       }
-      // ⟪ ផ្ទៃលើ 📃 ⟫
+      // ⟪ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟫
       for ( let v = 0; v < hax2pa; v ++ ) {
         const tn = v / sd;
         for ( let k = 0; k < hacel2nu; k ++ ) {
           const i = v * hacel2nu + k;
           const x = cel2nujX[k] + cel2nujNX[k] * tn * profundo;
           const z = cel2nujZ[k] + cel2nujNZ[k] * tn * profundo;
-          // ⟨ ប្រវែងកាត់ភ្នំ 📃 ⟩
+          // ⟨ ſɟᴜ ɭʃᴜ ʌ ɭl̀ᴜ ſ͕ɭɜ 📃 ⟩
           const sost2 = 0o40/0o100 + 0o24/0o100 * bruo2D(x / 0o40 + tk2ni * 0o10, z / 0o40 + tk2ni * 0o30);
           const kr = Math.min(1, tn / sost2);
           const kresko = kr * kr * ( 3 - 2 * kr );
           const fal = glataPaso(sost2, 1, tn);
           const s2qena = kresko * ( 1 - fal );
-          // ⟨ ការភ្ជាប់ទៅពិភពលោក 📃 ⟩
+          // ⟨ ſɟᴜ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ 📃 ⟩
           const aligo = 1 - glataPaso(0, 0o1/0o4, tn);
-          // ⟨ កម្ពស់មកពីកំពូល មិនមែនពីកំពូលភ្នំ 📃 ⟩
+          // ⟨ j͐ʃэ ɭ(ᴜ ʌ ſɟɔ ɭʃɹ 📃 ⟩
           const y = cel2nujBordo[k] * aligo
             + montaAlto(x, z, tk2ni) * cel2nujSkalo[k] * s2qena
             + NALA_PSAZ_Y * fal;
@@ -415,7 +415,7 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
           uvaj[i * 2] = uvx; uvaj[i * 2 + 1] = uvz;
         }
       }
-      // ⟨ ពណ៌ 📃 ⟩
+      // ⟨ ᶅſɔ ֭ſɭɹ 📃 ⟩
       const montaKoloro = new THREE.Color();
       for ( let v = 0; v < hax2pa; v ++ ) {
         for ( let k = 0; k < hacel2nu; k ++ ) {
@@ -432,8 +432,8 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
           haweh2[i * 3 + 2] = montaKoloro.b;
         }
       }
-      // ⟨ កំពូលក្រោមត្រូវបង្កើតតែនៅពេលជញ្ជាំងចំហៀងត្រូវការ ។ ពណ៌ និង UV
-      //   នៅដដែលទាំងស្រុង ប៉ុន្តែគ្មានការគណនាសម្រាប់ផ្ទៃក្រោមដែលលាក់ទេ ។ 📃 ⟩
+      // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭɔ ʌ ɭʃw ſɭˬɔƽ ⟅ ᶅſɔ ֭ſɭɹ , UV
+      //   ꞙɭɔ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
       const fundoPor = ( i: number ): number => {
         const ekzista = fundoIndeksoj[i];
         if ( ekzista >= 0 ) return ekzista;
@@ -449,7 +449,7 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
         haweh2[b * 3 + 2] = montaKoloro.b;
         return b;
       };
-      // ⟨ សន្ទស្សន៍ផ្ទៃលើ និង ជញ្ជាំងចំហៀងតែប៉ុណ្ណោះ 📃 ⟩
+      // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭı ʌ ꞙɭı , ɭʃw ſɭˬɔƽ 📃 ⟩
       const havecax2lani = new Uint32Array(0o6 * sd * sl + 0o14 * ( sl + sd ));
       let ip = 0;
       const ses = ( a: number, b: number, c: number, d: number, e: number, f: number ): void => {
@@ -491,12 +491,12 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
       montaGrupo.add(mesh);
     }
 
-    // ⟨ ដង់ស៊ីតេប៉ុន្មាន 📃 ⟩
+    // ⟨ ſɭw ʃᴜ }ʃꞇ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
     const ringajHacel2nu = 0o2000;
 
-    // ⟨ ស្រទាប់ភ្នំ 📃 ⟩
-    // គ្រាប់ពូជមកពីពិភពលោកសកម្ម ។ ពិភពលោកដែលគ្មានគ្រាប់ពូជរក្សា
-    // ជួរភ្នំដើមរបស់ដីដែលឆ្លាក់ដោយដៃ ។
+    // ⟨ ɭʃᴜ }ʃɔƽ ʌ ɭl̀ᴜ ſ͕ɭɜ 📃 ⟩
+    // ſɟwƽ ʌ }ʃᴜ j͐ʃᴜ ⟅ }ʃᴜ j͐ʃᴜ ʌ ꞙɭɔ ʌ ſɟwƽ
+    // ɭl̀ᴜ ſ͕ɭɜ ʌ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ⟅
     const montaSemo = montaraSemoBazo();
     kf2MontanRingon(krestaVagado(0o16, 0o10, montaSemo), 0o240, ringajHacel2nu, 0o100,
       montaSemo, krestaAlto(1, montaSemo), 0, montaMaterialo);
@@ -505,20 +505,20 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
       montaSemo + 0o20, krestaAlto(0o7/0o10, montaSemo + 0o20), 0o35/0o100, montaFona);
   } )();
 
-  // ⟪ ដី 📃 ⟫
+  // ⟪ ſɭɜ ſɭ,w 📃 ⟫
   ( function vepaqTerenon(grandeco: number, has2nasce: number): void {
     const g = new THREE.PlaneGeometry(grandeco, grandeco, has2nasce, has2nasce);
     g.rotateX(-Math.PI / 2);
     const raqa = g.attributes.position;
-    // ⟨ តារាងដើម 📃 ⟩
+    // ⟨ ſɭɜ ſȷᴜ ʌ ꞙɭı 📃 ⟩
     const haxekuxa = raqa.array as Float32Array;
     const haweh2 = new Float32Array(raqa.count * 3);
     const c = new THREE.Color();
     const vepat6ni = grandeco / has2nasce;
     const sx = has2nasce + 1;
     const hoj = new Float32Array(raqa.count);
-    // ⟨ ក្រឡាទាំងស្រុងខាងក្រៅទម្រង់មិនចាំបាច់គូរទេ ។ គែមទម្រង់មានគ្រឹះដាច់ដោយឡែក
-    //   ហើយក្រឡាប៉ះគែមនៅដដែលទាំងស្រុង ។ សញ្ញាក្រឡាគណនាមុនចុចទីតាំង 📃 ⟩
+    // ⟨ ſɭɹ ſןᴜ ʌ ſןw ſɭᴜƴ ꞙɭɔ ʌ ſɟᴜ ſȷᴜɔ˞
+    //   ſɭɹ ſןᴜ ʌ ſןw ſɭᴜƴ 📃 ⟩
     const ene = new Uint8Array(raqa.count);
     for ( let i = 0; i < raqa.count; i++ ) {
       ene[i] = h6kuniQoxa(mapoQoxa, mapoGrandeco,
@@ -561,13 +561,13 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
     g.setAttribute("color", new THREE.BufferAttribute(haweh2, 3));
     const k21eIndeksoj = alternajDiagonalojn(has2nasce);
     g.setIndex(new THREE.BufferAttribute(k21eIndeksoj, 1));
-    // ⟨ គណនានរម៉ាល់ពីធរណីមាត្រពេញ ដើម្បីឱ្យគែមដែលនៅសល់មានពន្លឺដូចដើម 📃 ⟩
+    // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ſןw ſɭᴜƴ , ſᶘꞇ ɭl̀ɔ 📃 ⟩
     g.computeVertexNormals();
     const videblajIndeksoj = k21eIndeksoj.filter(( _, i ) =>
       uzeblajHaKekkozusai[Math.floor(i / 0o6)] !== 0);
     g.setIndex(new THREE.BufferAttribute(videblajIndeksoj, 1));
-    // ⟨ វាយនភាពចម្លាក់ , តែលើឧបករណ៍ខ្លាំង 📃 ⟩
-    // ⟨ ស្មៅរាបស្មើ ៖ កម្ពស់ស្រមោលតិចជាងមុន , ដូច្នេះដីមិនមានរណ្តៅស្រួច 📃 ⟩
+    // ⟨ j͐ʃƽɜ ʌ ſɭɜ ſɭ,w 📃 ⟩
+    // ⟨ ſȷɔ ſᶘᴜʞ ⟅ j͐ʃэ ɭ(ᴜ , ſɟᴜ ֭ſɭэ ſɭэ , ſɭɜ ſɭ,w 📃 ⟩
     const grundMaterialo = fadaGrundon(new THREE.MeshStandardMaterial({
       vertexColors: true, roughness: 0o7/0o10,
       map: kf2GrundanCac2sex(),
@@ -578,7 +578,7 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
     ground.receiveShadow = true;
     qena.add(ground);
 
-    // ⟪ គែមពិភពលោក 📃 ⟫
+    // ⟪ ſןw ſɭᴜƴ ʌ }ʃᴜ j͐ʃᴜ 📃 ⟫
     const qoxaBazo = kf2QoxaZace({
       qoxa: mapoQoxa, pal6: mapoGrandeco, weh2: terenaStrataKoloroEn,
     });
@@ -593,7 +593,7 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
     qena.add(bazaMesh);
 
     const brosxaCac2sex = kf2TerenanCac2sex();
-    // ⟨ ការរអិលជក់ 📃 ⟩
+    // ⟨ ſɭᴜ ſɭ,w j͐ʃᴜ ʌ ſןw ſɭᴜƴ 📃 ⟩
     const brosxaMaterialo = new THREE.MeshStandardMaterial({
       map: brosxaCac2sex, color: 0xffffff, transparent: true,
       alphaTest: 0o1/0o10, depthWrite: false, side: THREE.DoubleSide, roughness: 1,
@@ -625,13 +625,13 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
       brosxoj.add(brosxo);
     }
     qena.add(brosxoj);
-    // ⟨ យន្តហោះស្មើអង្កត់ផ្ចិតពិភពលោក ៖ ជំហាន 0o4 ដូចគ្នា
-    // ដូច្នេះកម្ពស់ និងពណ៌ក្នុងពិភពលោកមិនប្រែប្រួល ។ យន្តហោះធំពីមុនបង្កើត
-    // កំពូលជាង 80 ភាគ 100 នៅក្រៅទម្រង់ ហើយចុចវាត្រឡប់មកគែមវិញ ។
-    // តំបន់នោះមានគម្របរួចហើយ ។ 📃 ⟩
+    // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ }ʃᴜ j͐ʃᴜ ⟅ ꞙɭэ
+    // j͐ʃэ ɭ(ᴜ , ᶅſɔ ֭ſɭɹ ʌ }ʃᴜ j͐ʃᴜ ⟅ j͑ʃɜ ſɭ,ᴜ
+    // 80 ʌ ſןw ſɭᴜƴ ⟅
+    // ſɭɜ ſɭ,w ʌ j͑ʃᴜꞇ 📃 ⟩
   } )(0o1400, 0o300);
 
-  // ⟪ វាលរាបជុំវិញ 📃 ⟫
+  // ⟪ ᶅſɔ ɽ͑ʃ'ɔ ʌ j͑ʃᴜꞏ ᴩ ⺓ 📃 ⟫
   ( function vepaqĈirkaŭanEbenon(): void {
     const KOLONOJ = 0o200;
     const VICOJ = 0o40;
@@ -707,8 +707,8 @@ export function kf2Scenon(kanvaso: HTMLCanvasElement, sxargxaEl: HTMLElement): S
     }
     g.setAttribute("color", new THREE.BufferAttribute(haweh2, 4));
     g.setAttribute("uv", new THREE.BufferAttribute(uvaj, 2));
-    // ⟨ ក្រឡាដែលមានអាល់ហ្វាសូន្យនៅទាំងបួនជ្រុងមិនបង្ហាញអ្វីទេ ។ ដកវាចេញ
-    //   ដើម្បីកុំគូរផ្ទៃថ្លាទទេ ខណៈក្រឡារសាត់នៅដដែលទាំងស្រុង 📃 ⟩
+    // ⟨ ſɭɹ ſןᴜ ʌ ꞙɭɔ ʌ ᶅſɔ ֭ſɭɹ ʌ ſɭᴜ ᶅſᴜ ⟅ ſןw ſɭᴜƴ
+    //   j͑ʃɜ ſɭ,ᴜ ꞙɭɔ ʌ ſɟᴜ ſȷᴜɔ˞ 📃 ⟩
     const nebulajIndeksoj = g.getIndex()!.array.filter(( _, i ) => {
       const kekkozusai = Math.floor(i / 0o6);
       const x = kekkozusai % 0o100, z = Math.floor(kekkozusai / 0o100);

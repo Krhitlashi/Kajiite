@@ -19,8 +19,8 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   const flamajLokoj: THREE.Vector3[] = [];
 
   const lampaMaterialo = dioritaMaterialo.clone();
-  // ⟨ repeat ប្តូរតែម៉ាត្រី UV លើ CPU ។ ការកំណត់ needsUpdate បង្ខំឱ្យផ្ទុក
-  //   ពិកសែលទាំងអស់ឡើង GPU ម្តងទៀតដោយឥតប្រយោជន៍ ។ 📃 ⟩
+  // ⟨ repeat ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ UV ʌ CPU ⟅ needsUpdate
+  //   ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɟɹ ɭʃᴜ ʌ ꞙɭı ʌ ꞙɭı ʌ GPU ⟅ 📃 ⟩
   const lampaMap = ( dioritaMaterialo.map ?? kf2T6g6Cac2sex() ).clone();
   lampaMap.repeat.set(0o4, 0o4);
   lampaMaterialo.map = lampaMap;
@@ -84,7 +84,7 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   const orajRandoj = new THREE.Mesh(kunfandiGeometriojn(orajGeometrioj), oraMaterialo);
   qena.add(orajRandoj);
 
-  // ⟨ អណ្តាតភ្លើង ស្រទាប់បី 📃 ⟩
+  // ⟨ ſɟᴜ ɭʃэ ֭ſɭэƽ ſɭэ ı],ᴜʞ ꞁȷ̀ᴜꞇ ʌ ɭʃᴜ }ʃɔƽ ʌ ꞙɭц 📃 ⟩
   const N = flamajLokoj.length;
   const flamaMaterialo = ( weh2: number, opaco: number ) => new THREE.MeshBasicMaterial({
     color: veb6qaiWeh2(weh2), toneMapped: false, transparent: true, opacity: veb6qaiW2d2(opaco),
@@ -103,13 +103,13 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   flamaKerno.frustumCulled = false;
   qena.add(flamaEkstero, flamaInterno, flamaKerno);
 
-  // ⟨ អណ្តាត 📃 ⟩
+  // ⟨ j͑ʃͷ̗ᴜͷ̗ 📃 ⟩
   const LANGOJ = 0o3;
   const flamaLangoj = new THREE.InstancedMesh(
     kf2FlamanGeometrion(LANGA_ALTO, 0o11/0o100, 0o6/0o10, 0o355/0o100),
     flamaMaterialo(0xff8a2c, 0o17/0o40), N * LANGOJ);
   flamaLangoj.frustumCulled = false;
-  // ⟨ មាត្រីទាំងបួនផ្លាស់ទីរាល់ស៊ុម ដូច្នេះ GPU ជ្រើស buffo សម្រាប់ការសរសេរញឹកញាប់ 📃 ⟩
+  // ⟨ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ɭʃᴜ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʌ ɭʃɜᴜ̩ ɭʃɜƽ ʌ ꞙɭı ʌ ꞙɭı , GPU ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ j͑ʃɜ ſןɹ 📃 ⟩
   flamaEkstero.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   flamaInterno.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   flamaKerno.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
@@ -170,16 +170,16 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
       uniform vec3 uCol; uniform float uOp;
       varying float vA;
       void main() {
-        vec2 p = ( gl_PointCoord - vec2( 0.5 ) ) * 2.0;
+        vec2 p = ( gl_PointCoord - vec2( ɔ.ꞟ ) ) * ɿ.ɔ;
         float r = length( p );
         float ang = atan( p.y, p.x );
-        // ⟨ ការ៉េបង្វិល ៖ ជ្រុងកោងចូលខ្លាំង គែមរលាយថ្នម 📃 ⟩
+        // ⟨ ſɭɔ }ʃɹȝ ʌ j͑ʃɹ j͑ʃᴜ ʃɜ ⟅ ſᶘɹ ɭʃᴜ }ʃꞇ ʌ ſȷƽᴜ ʃɔ , ſןw ſɭᴜƴ ʌ ʃᴜ ſɭ,ɹ 📃 ⟩
         float f = abs( mod( ang + 0.7853982, 1.5707963 ) - 0.7853982 );
-        float korpo = pow( pow( cos( f ), 0.6 ) + pow( sin( f ), 0.6 ), -1.6667 );
+        float korpo = pow( pow( cos( f ), ɔ.ɩ ) + pow( sin( f ), ɔ.ɩ ), -ı.ɩɩɩƨ );
         float R = korpo;
-        float stelo = 1.0 - smoothstep( R - 0.3, R, r );
-        float pleneco = 0.25 + 0.75 * ( 1.0 - smoothstep( 0.0, R, r ) );
-        float lowak = 1.0 - smoothstep( 0.0, 0.3, r );
+        float stelo = ı.ɔ - smoothstep( R - ɔ.ц, R, r );
+        float pleneco = ɔ.ɿꞟ + ɔ.ƨꞟ * ( ı.ɔ - smoothstep( ɔ.ɔ, R, r ) );
+        float lowak = ı.ɔ - smoothstep( ɔ.ɔ, ɔ.ц, r );
         gl_FragColor = vec4( uCol, max( stelo * pleneco, lowak * 0.85 ) * uOp * vA );
       }
     `,

@@ -28,7 +28,7 @@ import { agordiBildilon, agordiMedion, kf2CxefajnLumojn }
   from "../../../eskekoj/komunajxoj/lumo.js";
 import type { MetitaObjekto } from "../../../kantaoj/mondo/kaxte/hahunaq.js";
 
-// ⟪ វត្ថុដែលបានដាក់ 📃 ⟫
+// ⟪ ſɭɜ ſɭᴜ , ꞙɭı , 📃 ⟫
 export let objektoj: MetitaObjekto[] = [];
 export let objektaModo = false;
 export let objektaIlo = "meti";
@@ -37,39 +37,39 @@ export let objektoAktiva = "lam2v";
 export let elektitaObjekto = -1;
 const objektoProp: Record<string, number> = { p6zukani: 1, rotacio: 0, pagapudal: 0, radio: 4, vesto: 0, harstilo: 0, xabePudal: 0, stilo: 0 };
 const OBJEKTO_SPECOJ: Record<string, { ksaka: string; weh2: string }> = {
-  lam2v:       { ksaka: "បេធូឡា 🌳",     weh2: "#a8d8a8" },
-  taksal:       { ksaka: "ឡារីក 🌲",     weh2: "#68a868" },
-  tlexlefhxakai: { ksaka: "ហ្សាក់ស្លេហ្វូ 🥬", weh2: "#b880d0" },
-  tlexlefp2sai:    { ksaka: "ពូសស្លេហ្វូ 🌱",  weh2: "#d8b0e8" },
-  t6keq:         { ksaka: "ថ្ម 🪨",       weh2: "#a0a0a0" },
-  xabe:       { ksaka: "ហ្វេន 🌿",     weh2: "#70c870" },
-  akvapaga:    { ksaka: "សត្វទឹក 🐟", weh2: "#80d0e8" },
-  temek:      { ksaka: "ផេត្រេល 🕊️",   weh2: "#e8e8e8" },
+  lam2v:       { ksaka: "ſɟɔ j͑ʃɹ ʌ ſɭɜ 🌳",     weh2: "#a8d8a8" },
+  taksal:       { ksaka: "ſɟɔ j͑ʃɹ ʌ j͐ʃэ ɭ(ᴜ 🌲",     weh2: "#68a868" },
+  tlexlefhxakai: { ksaka: "ı],ᴜ ſ̀ȷɔ 🥬", weh2: "#b880d0" },
+  tlexlefp2sai:    { ksaka: "ı],ᴜ ſ̀ȷɔ ʌ ſɟᴜ 🌱",  weh2: "#d8b0e8" },
+  t6keq:         { ksaka: "ʃэ ſɭᴜ 🪨",       weh2: "#a0a0a0" },
+  xabe:       { ksaka: "ſɭᴜ ſןᴜ 🌿",     weh2: "#70c870" },
+  akvapaga:    { ksaka: "ſןᴜ ſ͔ɭᴜ ʌ ſᶘᴜ j͑ʃᴜ 🐟", weh2: "#80d0e8" },
+  temek:      { ksaka: "ſᶘɹ ſɭᴜ ɭʃɜ 🕊️",   weh2: "#e8e8e8" },
   npco:         { ksaka: "NPC 🧍",        weh2: "#e0b070" },
-  sanktejo:     { ksaka: "ទីសក្ការៈ 🛕",   weh2: "#184038" },
-  turo:         { ksaka: "ប៉ម 🏢",       weh2: "#205040" },
-  domo:         { ksaka: "ផ្ទះ 🏠",       weh2: "#184838" },
-  mangxejo:     { ksaka: "អាហារដ្ឋាន 🍽️",   weh2: "#584028" },
-  kasafeo:      { ksaka: "ហាងកាហ្វេ 🏛️",   weh2: "#d8c898" },
-  stacio:       { ksaka: "ស្ថានីយ 🚀",     weh2: "#c8c8c8" },
-  hxeuxfo:      { ksaka: "ចង្កៀង 🏮",      weh2: "#d8b068" },
-  hxeuxfoPa12: { ksaka: "ចង្កៀងមានផ្ទាំង 🏮", weh2: "#b8c8c8" },
-  keuxfhxeso:   { ksaka: "គីហ្វហេសូ ⭐",   weh2: "#60a0b8" },
-  kanuo:        { ksaka: "ទូកកាណូ 🛶",      weh2: "#c8b890" },
-  spacosxipo:   { ksaka: "យានអវកាស 🚀", weh2: "#d8b068" },
+  sanktejo:     { ksaka: "ſɭᴜ ſɭ,ɔ ŋᷠɹ ɽ͑ʃ'ꞇɔ˞ 🛕",   weh2: "#184038" },
+  turo:         { ksaka: "ſɭᴜ ᶅſw ſɭɹ 🏢",       weh2: "#205040" },
+  domo:         { ksaka: "ſɭᴜ ſןɹ 🏠",       weh2: "#184838" },
+  mangxejo:     { ksaka: "ſɭᴜ ɭʃɜ ʌ ſɭᴜ ɭʃɜ 🍽️",   weh2: "#584028" },
+  kasafeo:      { ksaka: "ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɹ ɭʃɜ 🏛️",   weh2: "#d8c898" },
+  stacio:       { ksaka: "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ 🚀",     weh2: "#c8c8c8" },
+  hxeuxfo:      { ksaka: "֭ſɭwʞ ᶅſw ſɭɹ 🏮",      weh2: "#d8b068" },
+  hxeuxfoPa12: { ksaka: "֭ſɭwʞ ᶅſw ſɭɹ ʌ ſɭэ ŋᷠɹ 🏮", weh2: "#b8c8c8" },
+  keuxfhxeso:   { ksaka: "ſɭᴜ ſןɜ ⭐",   weh2: "#60a0b8" },
+  kanuo:        { ksaka: "ſᶘᴜ j͑ʃᴜ ｡ ſɭᴜ 🛶",      weh2: "#c8b890" },
+  spacosxipo:   { ksaka: "}ʃᴜ j͐ʃᴜ ｡ ſɟᴜ 🚀", weh2: "#d8b068" },
 };
 const OBJEKTO_BESTOSPECOJ = [ "L2xkupukai", "L2xcaxlefai", "Pleŭrobrakia", "Tq2wa", "Tolxu" ];
-const OBJEKTO_VESTOJ = [ "ពណ៌បៃតង", "ពណ៌ត្នោត", "ពណ៌ស", "ពណ៌ក្រហម", "ពណ៌ខៀវ", "ពណ៌ស្វាយ", "ពណ៌លឿង", "ពណ៌ផ្កាឈូក", "ពណ៌ខ្មៅ", "ពណ៌ស៊ីអាន" ];
-const OBJEKTO_KANUAJ_STILOJ = [ "គោល", "សាតាឡា" ];
+const OBJEKTO_VESTOJ = [ "ſɭɜ ɭʃᴜ", "ſɭэ ſ͕ɭᴜ", "ſɭᴜ ſןɜ", "ſɟᴜ ꞁȷ̀ᴜ", "ſᶘᴜ j͑ʃᴜ", "j͑ʃɹ ı],w", "ſᶘꞇ ɭl̀ɔ", "ſɭɜ ı],ᴜ", "ſɭᴜ ſןᴜ", "ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ" ];
+const OBJEKTO_KANUAJ_STILOJ = [ "ſɭɜ ſɭᴜ", "ſɭᴜ ſןɜ" ];
 
-// ⟪ ឆាកដុត 2D របស់វត្ថុ 📃 ⟫
+// ⟪ ſɭɜ ſɭᴜ , ꞙɭɿ , 📃 ⟫
 export let objektaGrupo2D: THREE.Group | null = null;
 let objektaBakaSceno: THREE.Scene | null = null;
 let objektaBakaFotilo: THREE.OrthographicCamera | null = null;
 let objektaBakaRenderilo: THREE.WebGLRenderer | null = null;
 export let objektaBakaKanvaso: HTMLCanvasElement | null = null;
 
-// ⟪ ការភ្ជាប់ជាមួយកម្មវិធីកែសម្រួល 📃 ⟫
+// ⟪ ſɭɜ ᶗ‹ , ꞙɭц , 📃 ⟫
 interface ObjektaLigo {
   l6daInterp: ( x: number, z: number ) => number;
   vidSkalo: () => number;
@@ -107,8 +107,8 @@ let sxaltiIlTabon: ( tabo: string ) => void;
 let gxisdatigiAgordojn: () => void;
 let gxisdatigiKursoro: () => void;
 
-/* agordiObjektilon គឺការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
-    @param k ( ObjektaLigo ) - ការយោងរបស់ឯកសារមេ។ */
+/* ſɭɜ ᶗ‹ , ꞙɭэ ,
+@param k ( ObjektaLigo ) - ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ */
 export function agordiObjektilon(k: ObjektaLigo): void {
   l6daInterp = k.l6daInterp;
   vidSkalo = k.vidSkalo;
@@ -121,15 +121,15 @@ export function agordiObjektilon(k: ObjektaLigo): void {
   gxisdatigiAgordojn = k.gxisdatigiAgordojn; gxisdatigiKursoro = k.gxisdatigiKursoro;
 }
 
-// ⟪ អនុគមន៍កំណត់ 📃 ⟫
-/* ជំនួសបញ្ជីវត្ថុដែលបានដាក់ទាំងមូល ( ការផ្ទុក ការត្រឡប់វិញ )។
-    @param ca1ara ( MetitaObjekto[] ) - បញ្ជីថ្មី។ */
+// ⟪ ſɭэ ᶗ‹ , ꞙɭɩ , 📃 ⟫
+/* ſɭэ ᶗ‹ , ꞙɭꞟ ,
+@param ca1ara ( MetitaObjekto[] ) - j͑ʃƽɔ ſɭɹ ʌ j͑ʃɔ ſȷэⅎ ｡ */
 export function agordiObjektojn(ca1ara: MetitaObjekto[]): void { objektoj = Array.isArray(ca1ara) ? ca1ara : []; }
-/* ជ្រើសវត្ថុពីបញ្ជី ( -1 = គ្មាន )។
-    @param ind ( number ) - លិបិក្រម។ */
+/* ſɭэ ᶗ‹ , ꞙɭꞟı ,
+@param ind ( number ) - j͑ʃƽɔ ſɭɹ ｡ */
 export function agordiElektitanObjekton(ind: number): void { elektitaObjekto = ind; }
 
-// ⟪ ឧបករណ៍វត្ថុ 🎯 ⟫
+// ⟪ ſɭэ ᶗ‹ , 🎯 ⟫
 const agordojPanel = elemento<HTMLElement>("agordojPanel");
 export const objektoPanel = elemento<HTMLElement>("objektoPanel");
 const objektoPudal = elemento<HTMLSelectElement>("objektoPudal");
@@ -140,24 +140,24 @@ const objektaXEnigo = elemento<HTMLInputElement>("objektaX");
 const objektaZEnigo = elemento<HTMLInputElement>("objektaZ");
 const objektaMetuBtn = elemento<HTMLButtonElement>("objektaMetu");
 
-/* កូអរដោនេពិភពលោកផ្ទាល់របស់ទ្រនិច ( x, z និងកម្ពស់ដី y ) ដើម្បី
-   ឱ្យគេឃើញកន្លែងដែលកំពុងដាក់។
-    @param x ( number | null ) - ពិភពលោក x របស់ទ្រនិច។
-    @param z ( number | null ) - ពិភពលោក z របស់ទ្រនិច។ */
+/* ſɭэ ᶗ‹ , ꞙɭꞟɿ ,
+   ſɭᴜ ſןᴜ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ｡
+@param x ( number | null ) - }ʃᴜ j͐ʃᴜ x ʌ ſɭᴜ ｡
+@param z ( number | null ) - }ʃᴜ j͐ʃᴜ z ʌ ſɭᴜ ｡ */
 export function gxisdatigiKoordinatojn(x: number | null, z: number | null): void {
   if ( !koordinatajEl ) return;
   if ( x === null || z === null ) { koordinatajEl.textContent = "⋯"; return; }
   const h = bazaAlteco(x, z) + l6daInterp(x, z);
-  // ⟨ ទឹកពិត 📃 ⟩ ៖ ទឹកដេរីវេ ( ប្រភព , អាង , ទន្លេ ) , មិនមែនម៉ាសចាស់ដែលបានគូរ ។
+// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı ,
   const akva = tsekeAkvoSurfaco(x, z);
   koordinatajEl.textContent = "x " + x.toFixed(2) + "   z " + z.toFixed(2)
-    + "   y " + h.toFixed(2) + ( akva ? "   ( ទឹក )" : "" );
+    + "   y " + h.toFixed(2) + ( akva ? "   ( ſᶘᴜ j͑ʃᴜ )" : "" );
 }
 
-/* ដាក់វត្ថុដែលជ្រើសនៅទីតាំងនោះ ( ជាប់ 0.25 ) ជាមួយលក្ខណៈ
-   បច្ចុប្បន្ន។ បញ្ជី និងចំណុច 3D ត្រូវបានធ្វើឱ្យស្រស់ភ្លាមៗ។
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។ */
+/* ſɭэ ᶗ‹ , ꞙɭꞟц , ꞙɭɔ , ꞙɭɿꞟ ,
+   ſɭэ ᶗ‹ ｡ 3D ｡ ſᶘᴜ j͐ʃɹ ⟅
+@param x ( number ) - }ʃᴜ j͐ʃᴜ x ｡
+@param z ( number ) - }ʃᴜ j͐ʃᴜ z ｡ */
 export function metiObjekton(x: number, z: number): void {
   if ( Math.abs(x) > MONDO_HALFO || Math.abs(z) > MONDO_HALFO ) return;
   momenti();
@@ -167,18 +167,18 @@ export function metiObjekton(x: number, z: number): void {
   if ( o.pudal === "kanuo" ) o.stilo = objektoProp.stilo === 1 ? "satala" : "baza";
   objektoj.push(o);
   markiSxangxitan();
-  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+    statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
   gxisdatigiObjektoListon();
   vepaqTom6Objektojn();
   markiDesegnon();
 }
 
-/* លិបិក្រមវត្ថុដែលបានដាក់ជិតបំផុតនៅក្នុងកាំជ្រើស
-   ( 8 ភិចសែលអេក្រង់នៅការពង្រីកបច្ចុប្បន្ន ) ឬ -1។ ការចុចលើផែនទីក្នុងឧបករណ៍វត្ថុ
-   ជ្រើសវត្ថុជិតបំផុត ជំនួសការដាក់ថ្មី។
-    @param wx ( number ) - ពិភពលោក x របស់ការចុច។
-    @param wz ( number ) - ពិភពលោក z របស់ការចុច។
-@returns លិបិក្រម ឬ -1 ( number )។ */
+/* ſɭэ ᶗ‹ , ꞙɭıə ,
+( ſɭɹ ſןᴜ 8 ｡ ) ｡ -ı ⟅ ſᶘꞇ ı],ɹ ｡
+j͑ʃƽɔ ſɭɹ ｡ ſɭᴜ ｡
+@param wx ( number ) - }ʃᴜ j͐ʃᴜ x ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡
+@param wz ( number ) - }ʃᴜ j͐ʃᴜ z ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡
+@returns j͑ʃƽɔ ſɭɹ ɭʃᴜ -ı ( number ) ｡ */
 export function objektoCxePunkto(wx: number, wz: number): number {
   const h6kuni = Math.max(0o5/0o2, 0o10 / vidSkalo());
   let plej = -1, plejDisto = h6kuni;
@@ -190,42 +190,42 @@ export function objektoCxePunkto(wx: number, wz: number): number {
   return plej;
 }
 
-/* លុបវត្ថុតាមលិបិក្រម ( បញ្ជី ផែនទី និងទិដ្ឋភាព 3D
-   ត្រូវបានធ្វើឱ្យស្រស់ ហើយការលុបអាចត្រឡប់វិញបាន )។
-    @param i ( number ) - លិបិក្រមក្នុងបញ្ជី។ */
+/* ſɭэ ᶗ‹ , ꞙɭıı ,
+   ſɭэ ᶗ‹ ｡ ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡ }ʃɔ ſɭᴜ j͐ʃᴜ ) ⟅
+@param i ( number ) - j͑ʃƽɔ ſɭɹ ｡ */
 export function forigiObjekton(i: number): void {
   momenti();
   objektoj.splice(i, 1);
   if ( elektitaObjekto === i ) elektitaObjekto = -1;
   else if ( elektitaObjekto > i ) elektitaObjekto--;
   markiSxangxitan();
-  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+    statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
   gxisdatigiObjektoListon();
   sxargiObjektajnEnigojn();
   vepaqTom6Objektojn();
   markiDesegnon();
 }
 
-/* ប្រអប់បញ្ចូល x/z តាមជម្រើស។ ពេលជ្រើសវត្ថុ ពួកវាបង្ហាញកូអរដោនេ
-   របស់វា ហើយប៊ូតុងផ្លាស់ទីវា បើមិនដូច្នេះប៊ូតុងដាក់វត្ថុថ្មី
-   នៅកូអរដោនេដែលបានវាយ។ */
+/* ſɭэ ᶗ‹ , ꞙɭıɿ ,
+｡ ſɭᴜ ſןᴜ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡ ſɟᴜ ᶗ‹ ｡
+j͑ʃƽɔ ſɭɹ ｡ */
 export function sxargiObjektajnEnigojn(): void {
   if ( !objektaXEnigo ) return;
   if ( elektitaObjekto >= 0 && elektitaObjekto < objektoj.length ) {
     const o = objektoj[elektitaObjekto];
     objektaXEnigo.value = String(o.x);
     objektaZEnigo.value = String(o.z);
-    objektaMetuBtn.textContent = "ផ្លាស់ទីដែលជ្រើស ➡️";
+      objektaMetuBtn.textContent = "ſɟᴜꞁȷ̀ɜ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ➡️";
   } else {
-    objektaMetuBtn.textContent = "ដាក់តាមកូអរដោនេ ➕";
+      objektaMetuBtn.textContent = "j͑ʃƽɔ ſɭɹ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ➕";
   }
 }
 objektaMetuBtn.addEventListener("click", () => {
   const x = parseFloat(objektaXEnigo.value);
   const z = parseFloat(objektaZEnigo.value);
-  if ( !isFinite(x) || !isFinite(z) ) { statuso("បញ្ចូលលេខសម្រាប់ x និង z"); return; }
+    if ( !isFinite(x) || !isFinite(z) ) { statuso("ſɭɜ ſɭᴜ x ｡ z"); return; }
   if ( Math.abs(x) > MONDO_HALFO || Math.abs(z) > MONDO_HALFO ) {
-    statuso("កូអរដោនេនៅក្រៅពិភពលោក");
+    statuso("j͑ʃƽɔ ſɭɹ ｡ ɭʃᴜ ɭl̀ɹ ɭʃɔ");
     return;
   }
   if ( elektitaObjekto >= 0 && elektitaObjekto < objektoj.length ) {
@@ -234,7 +234,7 @@ objektaMetuBtn.addEventListener("click", () => {
     o.x = Math.round(x * 4) / 4;
     o.z = Math.round(z * 4) / 4;
     markiSxangxitan();
-    statuso("វត្ថុបានផ្លាស់ទី , ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+    statuso("ſɭᴜ ｡ ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
     gxisdatigiObjektoListon();
     sxargiObjektajnEnigojn();
     vepaqTom6Objektojn();
@@ -256,27 +256,27 @@ objektoPudal.addEventListener("change", () => {
   vepaqTom6ObjektanAntauxrigardon();
   markiDesegnon();
 });
-/* ចាប់វត្ថុសម្រាប់ Movu ✋ ( ការផ្លាស់ទីអាចត្រឡប់វិញបាន ព្រោះប្រវត្តិ
-   កត់ត្រាស្ថានភាពនៅពេលចាប់ )។
-    @param ind ( number ) - លិបិក្រមរបស់វត្ថុ។
-    @param x ( number ) - ពិភពលោក x របស់ការចុច។
-    @param z ( number ) - ពិភពលោក z របស់ការចុច។ */
+/* ſɭэ ᶗ‹ , ꞙɭıц ,
+   ſɭэ ᶗ‹ ｡ ſᶘꞇ ı],ɹ ) ⟅
+@param ind ( number ) - j͑ʃƽɔ ſɭɹ ｡
+@param x ( number ) - }ʃᴜ j͐ʃᴜ x ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡
+@param z ( number ) - }ʃᴜ j͐ʃᴜ z ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡ */
 export function komenciObjektanTrenon(ind: number, x: number, z: number): void {
   if ( objektaTrenata >= 0 ) return;
   momenti();
   objektaTrenata = ind;
   elektitaObjekto = ind;
   markiSxangxitan();
-  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+    statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
   gxisdatigiObjektoListon();
   sxargiObjektajnEnigojn();
   sxangiObjektanXekuxan(ind, x, z);
 }
-/* ធ្វើឱ្យស្រស់ទីតាំងរបស់វត្ថុពេល Movu ✋ ( ជាប់នឹង 0.25 )
-   ដោយសាងសង់រូបរាង 3D ឡើងវិញ។
-    @param ind ( number ) - លិបិក្រមរបស់វត្ថុ។
-    @param x ( number ) - ពិភពលោក x របស់ទ្រនិច។
-    @param z ( number ) - ពិភពលោក z របស់ទ្រនិច។ */
+/* ſɭэ ᶗ‹ , ꞙɭıэ , ꞙɭɔ , ꞙɭɿꞟ ,
+   ſɭэ ᶗ‹ ｡ 3D ｡ ſᶘᴜ j͐ʃɹ ⟅
+@param ind ( number ) - j͑ʃƽɔ ſɭɹ ｡
+@param x ( number ) - }ʃᴜ j͐ʃᴜ x ʌ ſɭᴜ ｡
+@param z ( number ) - }ʃᴜ j͐ʃᴜ z ʌ ſɭᴜ ｡ */
 export function sxangiObjektanXekuxan(ind: number, x: number, z: number): void {
   const o = objektoj[ind];
   o.x = Math.round(x * 4) / 4;
@@ -298,12 +298,12 @@ interface VepaqHasukf2qani {
   l6da?: ( x: number, z: number ) => number;
   sxipaAlto?: number;
 }
-/* សាងសង់រូបរាង 3D ពិតរបស់វត្ថុដែលបានដាក់មួយ ហើយបន្ថែមវាទៅ
-   ក្រុម។
-    @param hate ( THREE.Object3D ) - គោលដៅ ( ក្រុម 2D ក្រុម 3D ឬ
-        ការមើលជាមុន )។
-    @param o ( MetitaObjekto ) - វត្ថុដែលបានដាក់។
-    @param hasukf2qani ( VepaqHasukf2qani = {} ) - ការជំនួសកម្ពស់។ */
+/* ſɭэ ᶗ‹ , ꞙɭıɩ ,
+   ſɭᴜ ｡
+@param hate ( THREE.Object3D ) - j͑ʃƽɔ ſɭɹ ( 2D ｡ 3D ｡
+   ſɭꞇ ı],ɹ ) ⟅
+@param o ( MetitaObjekto ) - j͑ʃƽɔ ſɭɹ ｡
+@param hasukf2qani ( VepaqHasukf2qani = {} ) - j͐ʃэ ɭ(ᴜ ｡ */
 function vepaqObjektonEn(hate: THREE.Object3D, o: MetitaObjekto, hasukf2qani: VepaqHasukf2qani = {}): void {
   const temp = new THREE.Scene();
   const h = hasukf2qani.l6da ? hasukf2qani.l6da : ( x: number, z: number ) => ( bazaAlteco(x, z) + l6daInterp(x, z) ) * YTROIGO;
@@ -376,14 +376,14 @@ function kf2ObjektanBakon() {
   objektaBakaFotilo.position.set(0, 0o470, 0);
   objektaBakaFotilo.lookAt(0, 0, 0);
   objektaBakaSceno = new THREE.Scene();
-  // ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ſɭэ ſɭw , 📃 ⟩
   kf2CxefajnLumojn( objektaBakaSceno, {
     cxielaKoloro: 0xb8d8e8, grundoKoloro: 0x384838, cxielaIntenso: 0o35/0o40,
     sunaKoloro: 0xf8f0d8, sunaIntenso: 0o43/0o40,
     sunaXekuxa: [ -0o400, 0o470, 0o300 ],
     plenigaKoloro: 0x404848, plenigaIntenso: 0o15/0o40,
   } );
-  // ⟨ ការឆ្លុះស្តើង សម្រាប់វត្ថុធាតុដែក និងកញ្ចក់ ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
   agordiMedion( objektaBakaSceno, objektaBakaRenderilo, { intenso: 0o1/0o10 } );
   objektaGrupo2D = new THREE.Group();
   objektaBakaSceno.add(objektaGrupo2D);
@@ -403,7 +403,7 @@ export function vepaqTom6Objektojn(): void {
   }
 }
 
-// ⟨ ការមើលជាមុនរបស់វត្ថុ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 const objektaAntauxrigardo = elemento<HTMLCanvasElement>("objektaAntauxrigardo");
 export let objektaAntauxRenderilo: THREE.WebGLRenderer | null = null;
 export let objektaAntauxSceno: THREE.Scene | null = null;
@@ -417,14 +417,14 @@ function kf2ObjektanAntauxrigardon(): void {
   objektaAntauxSceno = new THREE.Scene();
   objektaAntauxFotilo = new THREE.PerspectiveCamera(0o50, 1, 1, 0o764);
   objektaAntauxFotilo.position.set(0o20, 0o14, 0o20);
-  // ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ſɭэ ſɭw , 📃 ⟩
   kf2CxefajnLumojn( objektaAntauxSceno, {
     cxielaKoloro: 0xc8e0f0, grundoKoloro: 0x404840, cxielaIntenso: 0o1,
     sunaKoloro: 0xf8f0d8, sunaIntenso: 0o115/0o100,
     sunaXekuxa: [ -0o12, 0o24, 0o10 ],
     plenigaKoloro: 0x505858, plenigaIntenso: 0o1/0o2,
   } );
-  // ⟨ ការឆ្លុះរួម សម្រាប់ការមើលវត្ថុជាមុន ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
   agordiMedion( objektaAntauxSceno, objektaAntauxRenderilo, { intenso: 0o1/0o4 } );
   objektaAntauxGrupo = new THREE.Group();
   objektaAntauxSceno.add(objektaAntauxGrupo);
@@ -457,7 +457,7 @@ export function gxisdatigiObjektoListon(): void {
   if ( objektoj.length === 0 ) {
     const malplena = document.createElement("p");
     malplena.className = "kefhuruq";
-    malplena.textContent = "គ្មានវត្ថុ , ចុចលើផែនទីដើម្បីដាក់។";
+    malplena.textContent = "ſɟᴜ ｡ ʃᴜ j͐ʃɹ ｡ ſɭᴜ ſןᴜ ｡";
     objektoListo.append(malplena);
     return;
   }
@@ -475,7 +475,7 @@ export function gxisdatigiObjektoListon(): void {
       markiDesegnon();
     });
     const forigi = document.createElement("button");
-    forigi.textContent = "លុប ✕";
+      forigi.textContent = "ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ✕";
     forigi.addEventListener("click", () => forigiObjekton(i));
     x2pa.append(butono, forigi);
     objektoListo.append(x2pa);
@@ -496,24 +496,24 @@ export function gxisdatigiObjektoPropOJn(): void {
       + hasukf2qani.map(( op, i ) => "<option value=\"" + i + "\"" + ( objektoProp[ca3aq] === i ? " selected" : "" ) + ">" + op + "</option>").join("")
       + "</select></label>";
   };
-  html += glitilo("ខ្នាត", "skalo", 0o1/0o4, 3, 0o1/0o20, "");
+  html += glitilo("ſןᴜ j͐ʃэ", "skalo", 0o1/0o4, 3, 0o1/0o20, "");
   if ( s === "npco" ) {
-    html += glitilo("រង្វិល", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
-    html += elektilo("សម្លៀកបំពាក់", "vesto", OBJEKTO_VESTOJ);
-    html += elektilo("រចនាសក់", "harstilo", [ "ខ្លី", "វែង" ]);
+  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
+  html += elektilo("ſɭᴜ ſןɹ", "vesto", OBJEKTO_VESTOJ);
+  html += elektilo("ſɭᴜ ſןɹ ｡ ſᶘᴜ", "harstilo", [ "ſɟᴜ", "ſɟᴜ ᶗ‹" ]);
   } else if ( s === "akvapaga" ) {
-    html += elektilo("ប្រភេទ", "pagapudal", OBJEKTO_BESTOSPECOJ);
+  html += elektilo("ſ͕ɭɜ ı],ᴜ", "pagapudal", OBJEKTO_BESTOSPECOJ);
   } else if ( s === "temek" ) {
-    html += glitilo("កាំហោះ", "radio", 1, 0o24, 0o1/0o2, " un");
+  html += glitilo("ſɭᴜ ſɭˬꞇƽ", "radio", 1, 0o24, 0o1/0o2, " un");
   } else if ( s === "t6keq" ) {
-    html += glitilo("រង្វិល", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
+  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
   } else if ( s === "xabe" ) {
-    html += elektilo("ពណ៌", "xabePudal", [ "បៃតង", "ស្វាយ" ]);
+  html += elektilo("ſᶘꞇ ɭl̀ɔ", "xabePudal", [ "ſɭɜ ɭʃᴜ", "j͑ʃɹ ı],w" ]);
   } else if ( s === "kanuo" ) {
-    html += glitilo("រង្វិល", "rotacio", -0o315/0o100, 0o315/0o100, 0o1/0o20, " rad");
-    html += elektilo("រចនាប័ទ្ម", "stilo", OBJEKTO_KANUAJ_STILOJ);
+  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "rotacio", -0o315/0o100, 0o315/0o100, 0o1/0o20, " rad");
+  html += elektilo("ſɭᴜ ſןᴜ ɭʃᴜ", "stilo", OBJEKTO_KANUAJ_STILOJ);
   } else if ( OBJEKTO_KONSTRUAJXOJ[s] || s === "hxeuxfo" || s === "hxeuxfoPa12" || s === "keuxfhxeso" ) {
-    html += glitilo("រង្វិល", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
+  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "rotacio", 0, 0o311/0o40, 0o1/0o20, " rad");
   }
   objektoPropOJ.innerHTML = html;
   elementoj<HTMLInputElement | HTMLSelectElement>("input[data-prop], select[data-prop]", objektoPropOJ).forEach(el => {
@@ -536,8 +536,8 @@ function gxisdatigiPropValorojn(): void {
   });
 }
 
-/* បើកឧបករណ៍វត្ថុ ( ផ្ទាំង Objektoj 🎯 )។
-    @param on ( boolean ) - តើរបៀបត្រូវបើកឬទេ។ */
+/* ſɭэ ᶗ‹ , ꞙɭıꞟ ,
+@param on ( boolean ) - ſɭꞇ ı],ɹ ｡ */
 export function sxaltiObjektojn(on: boolean): void {
   objektaModo = on;
   gxisdatigiPenikaron();

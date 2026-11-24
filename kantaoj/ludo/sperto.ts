@@ -31,7 +31,7 @@ import { kf2Statistikon } from "../fasado/statistiko.js";
 import { veb6qaiQena, saxeVeb6qai } from "../../eskekoj/komunajxoj/koloroj.js";
 import { liberigiCac2sexnKampojn } from "../../eskekoj/komunajxoj/cac2sex/helpiloj.js";
 
-// ⟪ រូបរាងពិភពលោក 📃 ⟫
+// ⟪ ſɭэ ſɭw , 📃 ⟫
 const mapoDatumoj = aktivaMapo();
 const mapoQoxa = mapoDatumoj.qoxa;
 const mapoGrandeco = mapoDatumoj.grandeco;
@@ -40,7 +40,7 @@ import { vepaqKaxten } from "../mondo/kaxte.js";
 import { traduki, kunKlavo, paqNomo } from "../lingvo/tradukoj.js";
 import { tsekeLaqazbolesai, sfx } from "../../eskekoj/sonoj/sonoro.js";
 
-// ⟪ ធាតុ DOM 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
 const kanvaso = document.getElementById("sceno") as HTMLCanvasElement;
 const kartoElemento = document.getElementById("karto")!;
 const kartoNomo = document.getElementById("kartoNomo")!;
@@ -61,7 +61,7 @@ const fxVarma = document.getElementById("fxVarma")!;
 const fxMenta = document.getElementById("fxMenta")!;
 const tosto = document.getElementById("tosto")!;
 
-// ⟪ ធាតុទូរស័ព្ទ 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
 const navPopUp = document.getElementById("navPopUp")!;
 const navButono = document.getElementById("navButono")!;
 const butRezimo = document.getElementById("butRezimo")!;
@@ -71,29 +71,29 @@ const mobJoystickTenilo = document.getElementById("mobJoystickTenilo")!;
 const mobButInterakti = document.getElementById("mobButInterakti")!;
 const mobButSalti = document.getElementById("mobButSalti")!;
 
-// ⟪ ធាតុផ្ទាំងព័ត៌មាន 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
 const informButono = document.getElementById("informButono")!;
 const inqoxa = document.getElementById("inqoxa")!;
 const vepaqListo = document.getElementById("vepaqListo")!;
 const mangxaListo = document.getElementById("mangxaListo")!;
 const pudalListo = document.getElementById("pudalListo")!;
 
-// ⟪ បែបផែនមុខ និងវាំងននផ្ទុក 📃 ⟫
+// ⟪ ſ͕ɭɜ ı],ᴜ , 📃 ⟫
 const { montriTost, agordiPrompton, fariBalailon, pulsiEfikon } = kf2Efikojn({ tosto, promptoElemento, balailo, svingo, fxVarma, fxMenta });
 const { montriSargxon } = kf2Sargxilon({ stango, sxargxaElemento });
 
-// ⟪ បង្កើតឆាក និងទីក្រុង 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
 const scena: ScenaSistemo = kf2Scenon(kanvaso, sxargxaElemento);
 const { bildilo, fotilo, qena, dioritaMaterialo, andezitaMaterialo, eniraMaterialo, oraMaterialo, aplikiRezimon, aplikiVeteron, gxisdatigiVeteron, gxisdatigiOmbron, maksimumaRatio } = scena;
 
 ( window as unknown as { __sceno?: typeof qena; __fotilo?: typeof fotilo } ).__sceno = qena;
 ( window as unknown as { __sceno?: typeof qena; __fotilo?: typeof fotilo } ).__fotilo = fotilo;
 
-// ⟪ ស្រទាប់លើរោគវិនិច្ឆ័យ 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟫
 const statistiko = kf2Statistikon(bildilo, qena, fotilo);
 ( window as unknown as { statistiko: typeof statistiko } ).statistiko = statistiko;
 
-// ⟪ ការណែនាំ 📃 ⟫
+// ⟪ ſɭэ ſɭw , 📃 ⟫
 const enkonduko = kf2Enkondukon({
   kanvaso, sxargxaElemento, stango, sxargxaTitolo,
   bildilo, fotilo, qena, maksimumaRatio,
@@ -108,30 +108,30 @@ const {
 } = kaxte;
 enkonduko.halti();
 
-// ⟪ ដែនមើល , ចម្ងាយបង្ហាញ 📃 ⟫
-// ⟨ ឆាកមិនបង្ខំក្រាហ្វិក 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩
 qena.matrixAutoUpdate = false;
 spacigiInstancojn(qena);
-// ⟨ សំណាញ់នៅស្ងៀមដែលភ្ជាប់ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 registriKunigitajnMeshojn(qena);
 registriVivantojn({ npcoj, kanuoj, hapaga: hapaga.hapaga, hatemek: hatemek.hatemek });
 
-// ⟪ រូបអ្នកលេង 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
 const ludantaFiguro: Figuro = vepaqFiguron(VESTOJ[0]);
 ludantaFiguro.group.visible = false;
 qena.add(ludantaFiguro.group);
 
-// ⟪ ពណ៌ KNAKEHE គ្រប់ពន្លឺ 🎨 ⟫
-// ⟨ បន្ទាប់ពីគ្រប់វត្ថុចូលឆាក បង្គត់ពណ៌ពន្លឺ អ័ព្ទ និងវត្ថុធាតុទាំងអស់
-//   ទៅ #nmnmnm ។ ការលាយថ្ងៃ-ព្រលប់បន្តបង្គត់ក្នុង aplikiAtmosferon ។ 📃 ⟩
+// ⟪ ſ͕ɭɜ ı],ᴜ , 🎨 ⟫
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+//   ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
 veb6qaiQena(qena);
-// ⟨ បន្ទាប់ពីនេះ វត្ថុដែលចូលឆាកត្រូវបង្គត់ពណ៌ភ្លាម មិនចាំបាច់ឆ្លងកាត់ឆាកវិញ ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭц , 📃 ⟩
 saxeVeb6qai();
 
-// ⟪ បណ្តាញ ( លេងច្រើននាក់ ) 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
 const retilo = kf2Retilon(qena, montriTost, traduki);
 
-// ⟪ ឧបករណ៍បញ្ជាគន្លង 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
 const hakama = new OrbitControls(fotilo, bildilo.domElement);
 hakama.target.set(0, 2, 0);
 hakama.enableDamping = true;
@@ -142,10 +142,10 @@ hakama.maxDistance = 0o330;
 hakama.update();
 ( window as unknown as { __hakama?: typeof hakama } ).__hakama = hakama;
 
-// ⟪ ស្ថានភាព 📃 ⟫
+// ⟪ ſɭэ ſɭw , 📃 ⟫
 const ludanto = kf2Ludanton();
 
-// ⟪ របៀប 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
 const { eniriPaqn, eliriInternon, sxaltiRezimon } = kf2Rezimojn({
   ludanto,
   kanvaso, butRezimo, kartoElemento, promptoElemento,
@@ -158,7 +158,7 @@ const { eniriPaqn, eliriInternon, sxaltiRezimon } = kf2Rezimojn({
   legiVeston: () => vestejo.legi(),
 });
 
-// ⟪ ផ្ទាំងព័ត៌មាន 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
 const { fermiInqoxan, montriKarton, kasxiKarton } = kf2Paneelojn({
   informButono, inqoxa, vepaqListo, mangxaListo, pudalListo,
   kartoElemento, kartoNomo, kartoChip, kartoStatistikoj, kartoFlavor, kartoEniri,
@@ -171,7 +171,7 @@ const { fermiInqoxan, montriKarton, kasxiKarton } = kf2Paneelojn({
   eniriPaqn,
 });
 
-// ⟪ ម៉ឺនុយ 📃 ⟫
+// ⟪ ſɭэ ſɭw , 📃 ⟫
 const butKrepusko = document.getElementById("butKrepusko")!;
 const duskKama = document.getElementById("duskKama") as HTMLInputElement;
 const butVetero = document.getElementById("butVetero")!;
@@ -188,7 +188,7 @@ const menuo = kf2Menuon({
 });
 const { fermiNaviganPopUp } = menuo;
 
-// ⟪ សកម្មភាព 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
 const { salti, agaEskapon, proviInterakti } = kf2Agojn({
   ludanto, kanuoj, promptoElemento,
   inqoxa, tsekeVestaroMalfermita: () => vestejo.tsekeMalfermita(), fxVarma, fxMenta,
@@ -199,7 +199,7 @@ const { salti, agaEskapon, proviInterakti } = kf2Agojn({
   eniriPaqn, eliriInternon,
 });
 
-// ⟪ ការបញ្ចូល 📃 ⟫
+// ⟪ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟫
 const { ca3aq, tsekeSprintas, tsekeSaltas } = kf2Enigojn({
   kanvaso, promptoElemento,
   joystickZono: mobJoystickZono, joystickBazo: mobJoystickBazo, joystickTenilo: mobJoystickTenilo,
@@ -218,12 +218,12 @@ const { ca3aq, tsekeSprintas, tsekeSaltas } = kf2Enigojn({
   agoj: { interakti: proviInterakti, sxaltiRezimon, salti, eskapo: agaEskapon },
 });
 
-// ⟪ ការបញ្ជាបណ្តាញ 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟫
 function gxisdatigiRetikulon() {
   retikulo.classList.toggle("montri", ludanto.rezimo === "orbito");
 }
 
-// ⟪ ចុចដើម្បីជ្រើស 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟫
 const radioRestilo = new THREE.Raycaster();
 kanvaso.addEventListener("click", ( e ) => {
   if ( ludanto.rezimo !== "orbito" ) return;
@@ -238,7 +238,7 @@ kanvaso.addEventListener("click", ( e ) => {
   }
 });
 
-// ⟪ ស្រទាប់លើរួម ( ជំនួយ និងផែនទីពេញ ) ៖ បិទដោយចុចខាងក្រៅ ឬប៊ូតុង 川 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭꞟ , ꞙɭı , 📃 ⟫
 function fermiSupermetan(): void {
   if ( minimapo.tsekeMalfermita() ) minimapo.fermi();
   else supermeta.classList.remove("montri");
@@ -248,13 +248,13 @@ supermeta.addEventListener("click", ( e ) => {
 });
 document.getElementById("supermetaFermi")!.addEventListener("click", fermiSupermetan);
 
-// ⟪ បន្ទប់សម្លៀកបំពាក់ ៖ ទំព័រតែមួយរួមជាមួយផ្ទាំងចាប់ផ្តើម 📃 ⟫
-// ⟨ ប៊ូតុងនៅក្នុងផ្ទាំងរុករកបើកវា , ដូច្នេះផ្ទាំងលេចឡើងបិទមុន 📃 ⟩
+// ⟪ ſɭɜ ɭʃɔ , ꞙɭɿ , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const vestejo = kf2Vestejon({ ludantaFiguro, montriTost });
 document.getElementById("butVesti")!.addEventListener("click", () => vestejo.malfermiEnMondo());
 
-// ⟪ ជំនួយ 📃 ⟫
-// ⟨ ជួរនីមួយៗ ៖ សោអត្ថបទ , សោគន្លឹះ ។ សញ្ញា • មកពីកូដ , មិនមែនពីវចនានុក្រមទេ ។ 📃 ⟩
+// ⟪ ſɭэ ſɭw , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 const HELPAJ_VICOJ: [ string, string ][] = [
   [ "kamaOrbito", "klavoTreni" ],
   [ "kamaPromeno", "klavoPromeno" ],
@@ -278,16 +278,16 @@ document.getElementById("butHelpi")!.addEventListener("click", () => {
   aplikiVacepu();
 });
 
-// ⟪ ការប៉ះទង្គិចក្រឡា 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
 const koliziaKrado = kf2KolizianKradon(kolizioj, qakaj2Kolizioj);
 const piedoj: PiedaMondo = { fotilo, kolizioj: koliziaKrado };
 
-// ⟪ ការជិះទូក 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟫
 const kanuanto = kf2Kanuanton({
   ludanto, kanuoj, piedoj, ca3aq, promptoElemento, agordiPrompton,
 });
 
-// ⟪ ផែនទីតូច 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟫
 const minimapo = kf2Minimapon({
   qena, bildilo, supermeta, supermetaEnhavo, mapoGrandeco,
   miniKanvaso: document.getElementById("minimapaKanvaso") as HTMLCanvasElement,
@@ -296,21 +296,21 @@ const minimapo = kf2Minimapon({
   movantoj: { npcoj, kanuoj, hapaga, hatemek },
   traduki, aplikiVacepu,
 });
-// ⟪ ការកម្តៅ GPU 📃 ⟫
-// ⟨ កម្តៅបន្ទាប់ពីឆាកចប់ 📃 ⟩ ៖ រូបអ្នកលេង , ពណ៌ KNAKEHE និងផែនទីតូចបន្ថែម
-// វត្ថុធាតុថ្មី ។ បើកម្តៅមុនពួកវា , ស៊ុមដំបូងដែលអ្នកលេងឃើញត្រូវចងក្រងកម្មវិធី
-// ស្រមោលដែលនៅខ្វះម្តងមួយៗ ហើយឆាកកក ។ ដូច្នេះកម្តៅនៅទីនេះ ខណៈវាំងនននៅបិទ ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
 enkonduko.varmigi();
-// ⟨ ដុតផែនទីតូចខណៈវាំងនននៅបិទ ដើម្បីឱ្យរ៉ាដាបង្ហាញភ្លាមពេលលេង ។
-//   ការដុតមានតម្លៃ , ដូច្នេះវាមិនត្រូវរង់ចាំការចុចត្រីវិស័យទេ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ ,
+//   ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
 await minimapo.pretigi();
 enkonduko.fini();
-// ⟨ ដោះលែងវាលចម្ងាយ និង វាលហូរ ព្រោះវាលទាំងនោះធំហើយលែងប្រើ ។
-//   ក្រណាត់នៅរក្សាពិកសែលដើម ដូច្នេះការផ្ទុកឡើងវិញមិនធ្វើឱ្យខ្មៅទេ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı ,
+//   ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 liberigiCac2sexnKampojn();
 gxisdatigiRetikulon();
 
-// ⟪ ចលនា 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
 const { animacii } = kf2Animacion({
   kanvaso, sxargxaElemento, promptoElemento,
   bildilo, fotilo, qena, hakama, maksimumaRatio,
@@ -323,9 +323,9 @@ const { animacii } = kf2Animacion({
   agordiPrompton,
 });
 
-// ⟪ ការផ្ទុក 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , 📃 ⟫
 
-// ⟪ ការចាប់ផ្តើមដំណើរការ 📃 ⟫
+// ⟪ ſɭэ ɭʃᴜ , 📃 ⟫
 animacii();
-// ⟨ កុំដុតផែនទីដោយស្វ័យប្រវត្តិ ។ GPU ត្រូវការវាតែពេលអ្នកប្រើ
-//   ចុចផែនទី ដូច្នេះពិភពលោកដែលទើបបើកមិនមានការងារបន្ថែមធំ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı ,
+//   ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩

@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ı],ɹͷ̗ j͑ʃƨᴜʞ j͐ʃɹ j͑ʃᴜꞇ ʌ j͑ʃɜ ſᶘɹ 📅 ⧽≻
 
-// ⟪ ប្រតិទិន CAX2L 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ſɭэ ſɭw , 📃 ⟫
 
 const SUNLATITUDO = 0o55;
 
@@ -15,29 +15,29 @@ export interface IkrhiaDato {
   tago: number;
 }
 
-/* ចំនួនថ្ងៃក្នុងមួយឆ្នាំ
-    @param jaro ( number ) - ឆ្នាំអ៊ីគ្រីយ៉ា រួមទាំង 0 និងឆ្នាំអវិជ្ជមាន។
+/* ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭı ,
+    @param jaro ( number ) - ឆ្នាំអ៊ីគ្រីយ៉ា រួមទាំង ɔ និងឆ្នាំអវិជ្ជមាន។
 @returns sahakani
-    0o556 ក្នុងឆ្នាំបង្គ្រប់ និង 0o555 ក្នុងឆ្នាំធម្មតា។ */
+    ꞙɭꞟꞟɩ ក្នុងឆ្នាំបង្គ្រប់ និង ꞙɭꞟꞟꞟ ក្នុងឆ្នាំធម្មតា។ */
 export function jaraLongo(jaro: number): number {
   return 0o555 + ( jaro % 0o4 === 0 ? 1 : 0 );
 }
 
-/* ចំនួនថ្ងៃក្នុងមួយខែ
-    @param monato ( number ) - ខែ 1 ដល់ 0o15។
+/* ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+    @param monato ( number ) - ខែ ı ដល់ ꞙɭıꞟ។
     @param jaro ( number ) - ឆ្នាំអ៊ីគ្រីយ៉ា។
 @returns sahakani
-    ខែ 1 ដល់ 11 មាន 0o34 ថ្ងៃ ខែ 12 មាន 0o34 ឬ 0o35 ថ្ងៃ ខែ 0o15 មាន 0o35 ថ្ងៃ។ */
+    ខែ ı ដល់ ıı មាន ꞙɭцэ ថ្ងៃ ខែ ıɿ មាន ꞙɭцэ ឬ ꞙɭцꞟ ថ្ងៃ ខែ ꞙɭıꞟ មាន ꞙɭцꞟ ថ្ងៃ។ */
 export function monataLongo(monato: number, jaro: number): number {
   if ( monato < 0o14 ) return 0o34;
   if ( monato === 0o14 ) return jaraLongo(jaro) - 0o555 + 0o34;
   return 0o35;
 }
 
-/* ឆ្នាំ និងថ្ងៃនៃឆ្នាំពីចំនួនថ្ងៃបន្ទាប់ពីសករាជ
+/* ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɿ ,
     @param tagoj ( number ) - ចំនួនថ្ងៃពីសករាជ អាចអវិជ្ជមាន។
 @returns jaroKajTago
-    ឆ្នាំ និងលិបិក្រមថ្ងៃក្នុងឆ្នាំចាប់ពី 0។ ឆ្នាំ 0 បញ្ចប់នៅថ្ងៃមុនសករាជ។ */
+    ឆ្នាំ និងលិបិក្រមថ្ងៃក្នុងឆ្នាំចាប់ពី ɔ។ ឆ្នាំ ɔ បញ្ចប់នៅថ្ងៃមុនសករាជ។ */
 function jaroKajTagoDeJaro(tagoj: number): { jaro: number; tagoDeJaro: number } {
   let jaro: number;
   if ( tagoj >= 0 ) {
@@ -57,11 +57,11 @@ function jaroKajTagoDeJaro(tagoj: number): { jaro: number; tagoDeJaro: number } 
   return { jaro, tagoDeJaro: tagoj };
 }
 
-/* ខែ និងថ្ងៃពីលិបិក្រមថ្ងៃនៃឆ្នាំ
-    @param tagoDeJaro ( number ) - លិបិក្រមថ្ងៃចាប់ពី 0។
+/* ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+    @param tagoDeJaro ( number ) - លិបិក្រមថ្ងៃចាប់ពី ɔ។
     @param jaro ( number ) - ឆ្នាំអ៊ីគ្រីយ៉ា។
 @returns monatoKajTago
-    ខែ និងថ្ងៃចាប់ពី 1។ */
+    ខែ និងថ្ងៃចាប់ពី ı។ */
 function monatoKajTago(tagoDeJaro: number, jaro: number): { monato: number; tago: number } {
   let monato = 1;
   while ( monato < MONATOJ && tagoDeJaro >= monataLongo(monato, jaro) ) {
@@ -71,10 +71,10 @@ function monatoKajTago(tagoDeJaro: number, jaro: number): { monato: number; tago
   return { monato, tago: tagoDeJaro + 1 };
 }
 
-/* បម្លែងកាលបរិច្ឆេទទៅជាប្រតិទិនអ៊ីគ្រីយ៉ា
+/* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭэ ,
     @param nun ( Date = new Date() , optional ) - កាលបរិច្ឆេទហ្គ្រេហ្គោរី។
 @returns dato
-    ឆ្នាំ ខែ និងថ្ងៃអ៊ីគ្រីយ៉ា។ សករាជគឺ 1.1.1 ហើយឆ្នាំ 0 និងឆ្នាំអវិជ្ជមានត្រូវបានគាំទ្រ។ */
+    ឆ្នាំ ខែ និងថ្ងៃអ៊ីគ្រីយ៉ា។ សករាជគឺ ı.ı.ı ហើយឆ្នាំ ɔ និងឆ្នាំអវិជ្ជមានត្រូវបានគាំទ្រ។ */
 export function ikrhiaDato(nun: Date = new Date()): IkrhiaDato {
   const tagoj = Math.floor(( nun.getTime() - IKRIHIA_EPOKO ) / UNU_TAGO);
   const { jaro, tagoDeJaro } = jaroKajTagoDeJaro(tagoj);
@@ -82,15 +82,15 @@ export function ikrhiaDato(nun: Date = new Date()): IkrhiaDato {
   return { jaro, monato, tago };
 }
 
-/* សរសេរកាលបរិច្ឆេទជាទម្រង់ឆ្នាំ.ខែ.ថ្ងៃ
+/* ſɭэ ſɭᴜ , ſɭэ ſɭw , ꞙɭı ,
     @param dato ( IkrhiaDato ) - កាលបរិច្ឆេទអ៊ីគ្រីយ៉ា។
 @returns kef
-    ខ្សែអក្សរដូចជា 17.3.8។ */
+    ខ្សែអក្សរដូចជា ıƨ.ц.8។ */
 export function formatiDaton(dato: IkrhiaDato): string {
   return `${dato.jaro}.${dato.monato}.${dato.tago}`;
 }
 
-/* បម្លែងកាលបរិច្ឆេទអ៊ីគ្រីយ៉ាទៅជាកាលបរិច្ឆេទហ្គ្រេហ្គោរី
+/* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭɿ ,
     @param dato ( IkrhiaDato ) - ឆ្នាំ ខែ និងថ្ងៃអ៊ីគ្រីយ៉ា។
 @returns nun
     កាលបរិច្ឆេទនៅពាក់កណ្តាលអធ្រាត្រ UTC។ */
@@ -103,12 +103,12 @@ export function deIkrhiaDato(dato: IkrhiaDato): Date {
   return new Date(IKRIHIA_EPOKO + tagoj * UNU_TAGO);
 }
 
-// ⟪ ពន្លឺថ្ងៃដំបូងមកពីព្រះអាទិត្យពិត 📃 ⟫
+// ⟪ ſᶘɹ ſɭᴜ , ꞙɭı , 📃 ⟫
 
-/* កម្ពស់ព្រះអាទិត្យគិតជាដឺក្រេ
+/* ſᶘɹ ſɭᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
     @param nun ( Date ) - កាលបរិច្ឆេទ និងម៉ោងក្នុងតំបន់។
 @returns l6da
-    កម្ពស់ព្រះអាទិត្យពី -0o132 ដល់ 0o132 ដឺក្រេ។ */
+    កម្ពស់ព្រះអាទិត្យពី -ꞙɭıцɿ ដល់ ꞙɭıцɿ ដឺក្រេ។ */
 function sunaAltoGradoj(nun: Date): number {
   const tagoj = Math.floor(( nun.getTime() - IKRIHIA_EPOKO ) / UNU_TAGO);
   const { jaro, tagoDeJaro } = jaroKajTagoDeJaro(tagoj);
@@ -123,10 +123,10 @@ function sunaAltoGradoj(nun: Date): number {
   return Math.asin(Math.max(-1, Math.min(1, sinAlto))) * 0o264 / Math.PI;
 }
 
-/* កម្រិតព្រះអាទិត្យលិចពីពន្លឺពិត
+/* ſᶘɹ ſɭᴜ , ſɭэ ſɭw , ꞙɭı , ꞙɭɿ ,
     @param nun ( Date = new Date() , optional ) - កាលបរិច្ឆេទ និងម៉ោងក្នុងតំបន់។
 @returns krepusko
-    0 នៅពេលថ្ងៃត្រង់ និង 1 នៅពេលយប់។ */
+    ɔ នៅពេលថ្ងៃត្រង់ និង ı នៅពេលយប់។ */
 export function realaKrepusko(nun: Date = new Date()): number {
   const l6da = sunaAltoGradoj(nun);
   const x = Math.max(0, Math.min(1, ( 0o6 - l6da ) / 0o14));

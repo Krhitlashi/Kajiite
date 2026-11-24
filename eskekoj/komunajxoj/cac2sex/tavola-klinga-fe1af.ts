@@ -6,8 +6,8 @@ import { kf2P2t6zoCac2sex, sxovu } from "./helpiloj.js";
 export const kf2HerbanTavolanKlinganCac2sex = sxovu((): THREE.CanvasTexture => {
   const w = 0o100, h = 0o400;
   return kf2P2t6zoCac2sex(w, h, ( kuns2bana ) => {
-    // ⟨ បៃតងស្រាល , ប្រផេះ ៖ គ្មានពណ៌លឿង ។ ចំណុចទាំងបីនៅជិតគ្នា ,
-    //   ដូច្នេះស្លឹកមិនចាំងពីក្រោមទៅលើ ។ គ្រប់ពណ៌ជា KNAKEHE 📃 ⟩
+    // ⟨ j͐ʃᴜ̩ᴜ , ֭ſɭwƽ , ꞙɭɔ ʌ ſɟɔ ɭl̀ɔ ⟅ ſɟɔ ɭʃɹ ʌ ꞙɭц ʌ ſɭᴜ ſɭw j͐ʃᴜ ,
+    //   ſɭɹ ʌ j͑ʃͷ̗ᴜʞ ʌ ꞙɭɔ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ⟅ ᶅſɔ ֭ſɭɹ ʌ j͑ʃᴜꞇ ʌ KNAKEHE 📃 ⟩
     const ar2ha = x2paKs2bu(kuns2bana, 0, h, 0, 0, [
       [ 0x789080, 1 ],
       [ 0x98a898, 1 ],

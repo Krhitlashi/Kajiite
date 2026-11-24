@@ -1,10 +1,10 @@
 // ≺⧼ ſɟꞇ ʃɔ ſןw ſɭᴜƴ 🌗 ⧽≻
-// ⟨ មុននេះ មួកចុងផ្លូវ , ជង្គង់កន្លែងបត់ , និងចុងចំណត មានប្រព័ន្ធបីផ្សេងគ្នា ។
-// ពួកវាបង្កើតវាយនភាព ទម្រង់ធ្នូ និងប៊ូហ្វ័ររៀងខ្លួន , ដូច្នេះគែមមូលពីរ
-// ដែលជួបគ្នាមានកម្រិតខុសគ្នា ហើយស្មាអាន់ដេហ្ស៊ីតជាន់លើឌីអូរីតកណ្តាល ។
-// ឥឡូវគ្រប់គែមមូលឆ្លងកាត់ម៉ូឌុលតែមួយ ៖ ទម្រង់ធ្នូមួយ , សម្ភារៈដូចផ្លូវ ,
-// ប៊ូហ្វ័រដូចផ្លូវ ។ ចុងផ្លូវជាពាក់រង្វង់ , ចុងចំណតជាពាក់រង្វង់ដូចគ្នា ,
-// ហើយកន្លែងបត់យកតែធ្នូនៃជ្រុងខាងក្នុង មិនលាតលើផ្ទៃចម្រៀកត្រង់ទេ ។ 📃 ⟩
+// ⟨ ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , }ʃɹƽ , ſɭᴜ ſןᴜ , ꞙɭц , ⟅ ⟩
+//   ſןw ſɭɔƽ , ſȷƽᴜ ʃɔ , ɭl̀ɜ ſ͕ɭᴜ , ꞙɭɔ , ⟅ }ʃɹƽ ,
+//   ꞙɭı , ꞙɭɔ , ꞙɭı , ſןw ſɭɔƽ , ⟅
+//   }ʃɹƽ , ꞙɭı , ſȷƽᴜ ʃɔ , ſןw ſɭɔƽ , ſɭэ ֭ſɭэ ,
+//   ɭl̀ɜ ſ͕ɭᴜ , ſɭэ ֭ſɭэ , ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 import * as THREE from "three";
 import { ANGULA_PROVOLIRO, type VojGeometriajHabakaweKatoma } from "./habakaweKatoma.js";
 import { VOJA_DIKECO } from "./havecax2l.js";
@@ -12,21 +12,21 @@ import { PONT_KORPA_DIKECO } from "../qakaj2/ponto.js";
 
 export type Punkto2 = [ number, number ];
 
-// ⟪ ចំនួនជំហានធ្នូ 📐 ⟫
+// ⟪ ſןɔ˞ᴜƴ , ſȷƽᴜ ʃɔ 📐 ⟫
 export const RONDA_PASXOJ = 0o40;
-// ⟨ ពាក់រង្វង់ 📏 ⟩ ៖ ចុងផ្លូវ និងចុងចំណត ។
+// ⟨ ꞙɭı , 📏 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
 export const DUONA_RONDO = Math.PI;
 
-// ⟪ ចំណុចលើធ្នូ 📐 ⟫
-/*បង្កើតចំណុចលើធ្នូក្នុងប្លង់ទម្រង់
-    @param ka5ik ( number ) - កាំ
-    @param saxeni ( number ) - មុំចាប់ផ្តើមជារ៉ាដ្យង់ក្នុងប្លង់ XZ
-    @param gamo ( number ) - ទំហំមុំ , អាចអវិជ្ជមានដើម្បីរត់ថយក្រោយ
-    @param havepat6ni ( number ) - ចំនួនជំហាន
-@returns n2k ( Punkto2 [ ] ) - ចំណុចក្នុងប្លង់ទម្រង់ */
-// ⟨ សញ្ញាទីពីរ 📏 ⟩ ៖ ExtrudeGeometry រត់បង្វិល -៩០ ដឺក្រេជុំអ័ក្ស X , ដូច្នេះ
-// អ័ក្ស y របស់ទម្រង់ក្លាយជា -z ក្នុងពិភព ។ សញ្ញាអវិជ្ជមានរក្សាមុំដែល
-// ហៅពីប្លង់ XZ ពិត មិនចាំបាច់ប្ដូរទិសនៅរាល់អ្នកហៅ ។ 📃 ⟩
+// ⟪ ſȷƽᴜ ʃɔ , }ʃɹƽ 📐 ⟫
+/* ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı , ſ͕ɭɜ ı],ᴜ ,
+    @param ka5ik ( number ) - ſɭᴜ ſɭˬꞇƽ ,
+    @param saxeni ( number ) - ꞙɭı , ſȷƽᴜ ʃɔ , XZ ,
+    @param gamo ( number ) - ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı ,
+    @param havepat6ni ( number ) - ſןɔ˞ᴜƴ , ꞙɭı ,
+@returns n2k ( Punkto2 [ ] ) - }ʃɹƽ , ſ͕ɭɜ ı],ᴜ , */
+// ⟨ ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , -ꞙɭıцɿ , ꞙɭı ,
+//   y , ꞙɭı , -z , ꞙɭı , ⟅ ꞙɭı ,
+//   XZ , ꞙɭı , ꞙɭɔ , ⟅ 📃 ⟩
 export function arkajPunktoj( ka5ik: number, saxeni: number, gamo: number,
   havepat6ni: number = RONDA_PASXOJ ): Punkto2[] {
   const rez: Punkto2[] = [];
@@ -37,17 +37,17 @@ export function arkajPunktoj( ka5ik: number, saxeni: number, gamo: number,
   return rez;
 }
 
-// ⟪ ទម្រង់ធ្នូរួម 📐 ⟫
-/*បង្កើតផ្ទៃជាវិស័យរង្វង់ ឬចិញ្ចៀនវិស័យ
-    @param ekstera ( number ) - កាំខាងក្រៅ
-    @param interna ( number ) - កាំខាងក្នុង , ០ បើចង់បានវិស័យពេញ
-    @param sost2 ( number ) - មុំកណ្តាលធ្នូក្នុងប្លង់ XZ
-    @param gamo ( number ) - ទំហំធ្នូ
-@returns qoxa ( Shape ) - ទម្រង់បិទគ្មានរន្ធ */
-// ⟨ គ្មានរន្ធ 📏 ⟩ ៖ ចិញ្ចៀនត្រូវគូរជាពហុកោណតែមួយដែលមានគែមកាំពីរ ។
-// មុននេះចិញ្ចៀនប្រើ Path ជារន្ធ ហើយរន្ធនោះរំកិលដោយចន្លោះតូចមួយ
-// ដើម្បីចៀសជាន់គ្នា ។ ចន្លោះនោះបន្សល់អាន់ដេហ្ស៊ីតនៅលើឌីអូរីត ។ ឥឡូវ
-// គែមកាំទាំងពីរជាផ្នែកនៃគ្រោងតែមួយ ដូច្នេះគ្មានជាន់គ្នា គ្មានរន្ធ ។ 📃 ⟩
+// ⟪ ſȷƽᴜ ʃɔ , ſ͕ɭɜ ı],ᴜ 📐 ⟫
+/* ſ͕ɭɜ ı],ᴜ , ſȷƽᴜ ʃɔ , ꞙɭı ,
+    @param ekstera ( number ) - ſɭᴜ ſɭˬꞇƽ , ꞙɭı ,
+    @param interna ( number ) - ſɭᴜ ſɭˬꞇƽ , ꞙɭı , ꞙɭɔ ,
+    @param sost2 ( number ) - ſȷƽᴜ ʃɔ , ꞙɭı , XZ ,
+    @param gamo ( number ) - ſȷƽᴜ ʃɔ , ꞙɭı ,
+@returns qoxa ( Shape ) - ſ͕ɭɜ ı],ᴜ , ꞙɭı , */
+// ⟨ ꞙɭɔ , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭɿ ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function kf2SektoranQoxan( ekstera: number, interna: number,
   sost2: number, gamo: number ): THREE.Shape {
   const qoxa = new THREE.Shape();
@@ -57,7 +57,7 @@ export function kf2SektoranQoxan( ekstera: number, interna: number,
   for ( let i = 1; i < eksteraj.length; i++ )
     qoxa.lineTo(eksteraj[ i ][ 0 ], eksteraj[ i ][ 1 ]);
   if ( interna > 0o0 ) {
-    // ⟨ ត្រឡប់តាមធ្នូខាងក្នុងវិញ 📃 ⟩ ។
+    // ⟨ ꞙɭı , ſȷƽᴜ ʃɔ 📃 ⟩
     const internaj = arkajPunktoj(interna, sost2 + duonaGamo, -gamo);
     for ( const p of internaj ) qoxa.lineTo(p[ 0 ], p[ 1 ]);
   } else {
@@ -67,11 +67,11 @@ export function kf2SektoranQoxan( ekstera: number, interna: number,
   return qoxa;
 }
 
-// ⟪ ទម្រង់ទៅជាធរណីមាត្រ 🧱 ⟫
-/*បង្វិលទម្រង់ពីប្លង់ XY ទៅប្លង់ XZ ហើយលាតតាមកម្រាស់
-    @param qoxa ( Shape ) - ទម្រង់បិទ
-    @param dikeco ( number ) - កម្រាស់
-@returns geometrio ( ExtrudeGeometry ) - ធរណីមាត្រដែលមាន uv ពីស្វ័យប្រវត្តិ */
+// ⟪ ſ͕ɭɜ ı],ᴜ , ꞙɭı 🧱 ⟫
+/* ꞙɭı , ſ͕ɭɜ ı],ᴜ , XY , XZ , ſɭᴜ ſɭ,w ,
+    @param qoxa ( Shape ) - ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
+    @param dikeco ( number ) - ſɭᴜ ſɭ,w ,
+@returns geometrio ( ExtrudeGeometry ) - ꞙɭı , uv , */
 export function kf2C2qnGeometrion( qoxa: THREE.Shape,
   dikeco: number ): THREE.ExtrudeGeometry {
   const geometrio = new THREE.ExtrudeGeometry(qoxa,
@@ -80,34 +80,34 @@ export function kf2C2qnGeometrion( qoxa: THREE.Shape,
   return geometrio;
 }
 
-// ⟪ គែមមូលមួយ 📏 ⟫
+// ⟪ }ʃɹƽ , ꞙɭı 📏 ⟫
 export interface C2qPeco {
   x: number;
   z: number;
-  // ⟨ មុំកណ្តាលធ្នូក្នុងប្លង់ XZ ។ 📃 ⟩
+  // ⟨ ſȷƽᴜ ʃɔ , XZ , ⟅ 📃 ⟩
   sost2: number;
-  // ⟨ ទំហំធ្នូ ។ ពាក់រង្វង់សម្រាប់ចុងផ្លូវ , មុំបត់សម្រាប់ជង្គង់ ។ 📃 ⟩
+  // ⟨ ſȷƽᴜ ʃɔ , ſɭэ ֭ſɭэ , ꞙɭı , }ʃɹƽ , ⟅ 📃 ⟩
   gamo: number;
-  // ⟨ កាំឌីអូរីត ។ 📃 ⟩
+  // ⟨ ſɭᴜ ſɭˬꞇƽ , ⟅ 📃 ⟩
   p2somani: number;
-  // ⟨ កាំរួមស្មា ។ 📃 ⟩
+  // ⟨ ſɭᴜ ſɭˬꞇƽ , ꞙɭı , ⟅ 📃 ⟩
   ekstera: number;
-  // ⟨ កម្ពស់ផ្ទៃ ។ 📃 ⟩
+  // ⟨ j͑ʃᴜ ſɭ,w , ⟅ 📃 ⟩
   teru: number;
 }
 
-// ⟪ សាងគែមមូលទាំងអស់ 🧱 ⟫
-/*បញ្ចូលគែមមូលទៅក្នុងប៊ូហ្វ័រផ្លូវរួម
-    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - ប៊ូហ្វ័ររបស់ផ្លូវ
-    @param hakek ( C2qPeco [ ] ) - គែមមូលទាំងអស់
-    @param supraMaterialo ( MeshStandardMaterial ) - សម្ភារៈឌីអូរីតរបស់ផ្លូវ
-    @param bordaMaterialo ( MeshStandardMaterial ) - សម្ភារៈអាន់ដេហ្ស៊ីតរបស់ផ្លូវ
-    @param grundoFn ( function ) - កម្ពស់ដីក្រោម
+// ⟪ }ʃɹƽ , ꞙɭı , 🧱 ⟫
+/* ꞙɭı , }ʃɹƽ , ſɭэ ֭ſɭэ , ɭl̀ɜ ſ͕ɭᴜ ,
+    @param habakaweKatoma ( VojGeometriajHabakaweKatoma ) - ſɭэ ֭ſɭэ , ɭl̀ɜ ſ͕ɭᴜ ,
+    @param hakek ( C2qPeco [ ] ) - }ʃɹƽ , ꞙɭı ,
+    @param supraMaterialo ( MeshStandardMaterial ) - ſןw ſɭɔƽ , ꞙɭı ,
+    @param bordaMaterialo ( MeshStandardMaterial ) - ſןw ſɭɔƽ , ꞙɭı ,
+    @param grundoFn ( function ) - j͑ʃᴜ ſɭ,w , ꞙɭı ,
 @returns void */
-// ⟨ សម្ភារៈ និងប៊ូហ្វ័រដូចផ្លូវ 📏 ⟩ ៖ មុននេះគែមមូលបង្កើតវាយនភាពថ្មី
-// និង polygonOffset ផ្សេងគ្នា ដើម្បីឈ្នះផ្ទៃចម្រៀកដែលជាន់គ្នា ។ ឥឡូវវិស័យ
-// មិនជាន់លើចម្រៀកទេ , ដូច្នេះវាប្រើសម្ភារៈដូចគ្នាបេះបិទ ហើយរួមបញ្ចូល
-// ក្នុង Mesh តែមួយជាមួយផ្លូវ ។ គ្មានជាន់គ្នា គ្មានស្នាម គ្មានវាយនភាពលើស ។ 📃 ⟩
+// ⟨ ſןw ſɭɔƽ , ɭl̀ɜ ſ͕ɭᴜ , ſɭэ ֭ſɭэ , 📏 ⟩ , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
+//   ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ⟅ ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
 export function aldoniC2qjnPecojn( habakaweKatoma: VojGeometriajHabakaweKatoma,
   hakek: readonly C2qPeco[],
   supraMaterialo: THREE.MeshStandardMaterial,
@@ -122,7 +122,7 @@ export function aldoniC2qjnPecojn( habakaweKatoma: VojGeometriajHabakaweKatoma,
         minimumo = Math.min(minimumo, grundoFn(kek.x + p[ 0 ], kek.z - p[ 1 ]));
       }
     }
-    // ⟨ បាតឈប់ត្រង់ដី 📏 ⟩ ៖ លើទឹកគ្មានបាត គែមស្តើងដូចផ្លូវ ។ 📃 ⟩
+    // ⟨ ꞙɭı , j͑ʃᴜ ſɭ,w , 📏 ⟩ , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ſ͕ȷɔ , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
     const dikeco = Number.isFinite(minimumo)
       ? Math.max(VOJA_DIKECO, kek.teru - ( minimumo - ANGULA_PROVOLIRO ))
       : VOJA_DIKECO;
@@ -133,11 +133,11 @@ export function aldoniC2qjnPecojn( habakaweKatoma: VojGeometriajHabakaweKatoma,
     ] as [ THREE.Shape, THREE.MeshStandardMaterial ][] ) {
       habakaweKatoma.tlunakani(kf2C2qnGeometrion(qoxa, dikeco), pukek, matrico);
     }
-    // ⟨ បិទរន្ធក្រោមជង្គង់លើទឹក 📏 ⟩ ៖ លើទឹក grundoFn ត្រឡប់ Infinity ,
-    // ដូច្នេះជង្គង់ស្តើងដូចផ្ទៃផ្លូវ ។ ចម្រៀកត្រង់ពីរដែលជួបគ្នាត្រង់បត់
-    // បន្សល់ក្រូចឆ្មារទទេនៅជ្រុងខាងក្នុង , ហើយពីចំហៀងឃើញរន្ធត្រីកោណ
-    // ក្រោមផ្ទៃស្ពាន ។ បន្ថែមស្រទាប់អាន់ដេហ្ស៊ីតក្រោមជង្គង់ ជ្រៅប៉ុន
-    // តួធ្នូ , ដូច្នេះជ្រុងបិទជិតដោយគ្មានផ្ទៃភ្លឺលេចលើជញ្ជាំង ។ 📃 ⟩
+    // ⟨ ꞙɭɔ , }ʃɹƽ , ſᶘᴜ j͑ʃᴜ , 📏 ⟩ , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭı ,
+    //   }ʃɹƽ , ſɭᴜ ſɭ,w , ſɭэ ֭ſɭэ , ⟅ ꞙɭɿ ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅
+    //   ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     if ( !Number.isFinite(minimumo) ) {
       const subaQoxa = kf2SektoranQoxan(kek.ekstera, 0o0, kek.sost2, kek.gamo);
       const subaMatrico = new THREE.Matrix4().makeTranslation(kek.x,

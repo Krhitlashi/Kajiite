@@ -1,7 +1,7 @@
 // ≺⧼ ſɟɔ ŋᷠɔ ꞁȷ̀ᴜ }ʃꞇ ʌ ſ͔ɭɔ ſɭɹʞ 🔣 ⧽≻
 import * as THREE from "three";
 
-// ⟪ ចៃដន្យកំណត់បាន 📃 ⟫
+// ⟪ j͑ʃᴜ ſɭᶗ‹ɜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟫
 let _seed = 0x752;
 function hazardo(): number {
   _seed = ( _seed * 0x1663 + 0x1015 ) % 0x100000;
@@ -28,7 +28,7 @@ function nesimetraRecto(kuns2bana: CanvasRenderingContext2D,
   kuns2bana.closePath();
 }
 
-// ⟪ ប្លុកអក្សរ 📃 ⟫
+// ⟪ ſɭэ j͐ʃꞇȝ ʌ ſɟᴜ ı],ɔ ſȷɹ 📃 ⟫
 function glifaBloko(kuns2bana: CanvasRenderingContext2D,
   x: number, y: number, w: number, h: number,
   ink: string
@@ -77,7 +77,7 @@ function glifaBloko(kuns2bana: CanvasRenderingContext2D,
   kuns2bana.restore();
 }
 
-// ⟨ ផ្ទាំងស្គ្រីប 📃 ⟩
+// ⟨ ſ͔ɭɔ ſɭɹʞ ʌ ſɟᴜ j͐ʃэ ſᶘꞇ ɭl̀ɔ 📃 ⟩
 function k2fSkripto(kuns2bana: CanvasRenderingContext2D,
   W: number, H: number,
   ink: string, frame: string | null
@@ -127,7 +127,7 @@ export function generiSkriptanKanvason(opts: SkriptajHasukf2qani = {}): HTMLCanv
   return kanvasa;
 }
 
-// ⟪ ប្រភេទ Gawekiif 📃 ⟫
+// ⟪ ſ͕ɭᴜ j͑ʃᴜ ʌ Gawekiif 📃 ⟫
 const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
 
 export function generiSkribanCac2sex(s2banani: string, opts: SkriptajHasukf2qani = {}): THREE.CanvasTexture {
@@ -170,7 +170,7 @@ export function generiSkribanCac2sex(s2banani: string, opts: SkriptajHasukf2qani
       document.fonts.load(`16px "j͑ʃꞇȝ"`)
         .then(() => { k2f(); cac2sex.needsUpdate = true; })
         .catch(() => {});
-    } catch ( e ) { /* កំហុសស៊ីនក្រូនកម្រ មិនត្រូវរារាំងការចូល */ }
+    } catch ( e ) { /* ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ʌ ʃɔ j͑ʃ'ɔƽ ʌ ſɭɹ ᶅſɹ , ꞙɭɔ ʌ ſȷwɔ˞ ʌ j͑ʃᴜ ſɭᴜ */ }
   }
   return cac2sex;
 }

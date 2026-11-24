@@ -11,7 +11,7 @@ function kontrolu(ksaka: string, a: number, b: number): void {
   }
 }
 
-// ⟨ ច្បាប់ចាស់ទាំងបួនមកពី bazlinio 📃 ⟩
+// ⟨ ſɭˬɹ ʌ j͑ʃᴜꞇ ʌ ɭʃᴜ ʌ bazlinio 📃 ⟩
 
 let s1 = 1;
 const hazardo = () => ((s1 = (Math.imul(s1, 0x41C64E6D) + 0x3039) | 0) >>> 0) / 0o40000000000;
@@ -31,13 +31,13 @@ for (let i = 0; i < 0o100000; i++) {
   kontrolu("bikuba", specimenoBikuba(K, N, 0o4, O, x, z), bikubaS23ohk2sai(K, N, 0o4, O, x, z));
   kontrolu("l6da", l6daSef4(T, N, 0o4, O, x, z), l6daS23ohk2sai(T, N, 0o4, O, x, z));
 }
-// ⟨ តេស្តគែម ៖ ក្រៅដែន 📃 ⟩
+// ⟨ ſɟᴜ ɭʃᴜ ʌ j͑ʃᴜꞇ ⟅ ꞙɭɔ ʌ ɭʃw ſɭˬɔƽ 📃 ⟩
 for (const [x, z] of [[-0o10000, -0o10000], [0o10000, 0o10000], [-0o600, -0o600], [0, 0]]) {
   kontrolu("bikuba pukaz", specimenoBikuba(K, N, 0o4, O, x, z), bikubaS23ohk2sai(K, N, 0o4, O, x, z));
   kontrolu("l6da pukaz", l6daSef4(T, N, 0o4, O, x, z), l6daS23ohk2sai(T, N, 0o4, O, x, z));
 }
-// ⟨ specimenoDulineara មិនប្រែ 📃 ⟩
+// ⟨ specimenoDulineara ʌ ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
 kontrolu("dulineara", specimenoDulineara(K, N, 0o4, O, 0o10, 0o20), specimenoDulineara(K, N, 0o4, O, 0o10, 0o20));
 
-if (eraroj === 0) console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ទាំងអស់ស្មើគ្នា ✅");
-else console.log(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) មានភាពខុសគ្នា ${eraroj}`);
+if (eraroj === 0) console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͑ʃᴜꞇ ʌ ſɭᴜ }ʃᴜȝ ✅");
+else console.log(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ j͑ʃᴜꞇ ${eraroj}`);

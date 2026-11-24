@@ -22,7 +22,7 @@ export interface Paga {
   amplitudo: number;
   rapido: number;
   pudal: string;
-  // ⟨ ជីពចរកតេណូផរ និងការរាបស្មើ 📃 ⟩
+  // ⟨ j͑ʃɹ }ʃɹ ɭʃᴜ , ſɭɜ ſɭ,w ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   pulsaRapido: number;
   pulsaForto: number;
   pulsaOndo: number;
@@ -46,7 +46,7 @@ export interface PudalMalneto {
   fundaMergo?: number;
   seheMultoblo?: number;
   ampleksaMultoblo?: number;
-  // ⟨ ជីពចរកតេណូផរ 📃 ⟩
+  // ⟨ j͑ʃɹ }ʃɹ ɭʃᴜ 📃 ⟩
   pulsaRapido?: number;
   pulsaForto?: number;
   pulsaOndo?: number;

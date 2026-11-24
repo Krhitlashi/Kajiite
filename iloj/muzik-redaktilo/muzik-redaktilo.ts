@@ -1,6 +1,6 @@
 // ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🎼 ⧽≻
-// ⟨ កែវិលចាស់របស់ល្បែង បង្កើតវិលថ្មី ស្តាប់សំឡេងពិត រក្សាទុកចូលល្បែង 📃 ⟩
-// ⟨ ណោតនីមួយៗគឺជា SonoEvento ពិត ហើយការចាក់ប្រើ instrumento() ដូចល្បែង 📃 ⟩
+// ⟨ ſᶘᴜ j͐ʃɹ , ꞙɭı , 📃 ⟩
+// ⟨ ſɭɜ ʃɔ , ꞙɭɿ , 📃 ⟩
 
 import { KANTOJ } from "../../eskekoj/sonoj/muziko/kantoj.js";
 import { instrumento } from "../../eskekoj/sonoj/muziko/vokoj/instrumento.js";
@@ -11,7 +11,7 @@ import { elemento, elementoj, kuns2bana2d } from "../komunajxoj/dom.js";
 import type { Noto, TrakoDatumo, Registro } from "./kodo.js";
 import { octFrak, generiTrako, generiKantoj, parziTrako, wavDeBuffer } from "./kodo.js";
 
-// ⟪ ពណ៌និងឧបករណ៍ 📃 ⟫
+// ⟪ ſ͕ɭɜ ı],ᴜ , 📃 ⟫
 
 function veb6qai(weh2: number): number {
   if ( weh2 === 0xffffff || weh2 === 0x000000 ) return weh2;
@@ -44,8 +44,8 @@ function tsije(weh2: number, n = 0o1, alfo = 0o1): string {
   return "rgba(" + kan(0o20) + "," + kan(0o10) + "," + kan(0o0) + "," + veb6qaiW2d2(alfo) + ")";
 }
 
-// ⟪ ពណ៌តាមប្រធានបទរបស់គេហទំព័រ 📃 ⟫
-// ផ្ទៃខាងក្រោយ និងក្រឡាប្រើអាល់ហ្វាដូចអថេរ --តានេក របស់ស្ទីលគេហទំព័រ ។
+// ⟪ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟫
+// ſ͕ɭɜ ı],ᴜ , ſᶘᴜ j͐ʃɹ , ꞙɭı ,
 
 const LUMA_MQ = window.matchMedia("(prefers-color-scheme: light)");
 let luma = LUMA_MQ.matches;
@@ -79,16 +79,16 @@ interface Instr {
 }
 
 const INSTRUMENTOJ: Instr[] = [
-  { i: "siku", haksaka: "ស៊ីគូ", emoji: "🪈", weh2: 0x38a088 },
-  { i: "ocarina", haksaka: "អូការីណា", emoji: "🏺", weh2: 0xa06828 },
-  { i: "inanga", haksaka: "អ៊ីណាងា", emoji: "🪕", weh2: 0x98a860 },
-  { i: "mbira", haksaka: "មប៊ីរ៉ា", emoji: "🎶", weh2: 0xc08830 },
-  { i: "slenthem", haksaka: "ស្លេនថេម", emoji: "🔔", weh2: 0x6878a8 },
-  { i: "didj", haksaka: "ដីជេរីឌូ", emoji: "🐘", weh2: 0x885020, hz: true },
-  { i: "tjurunga", haksaka: "ចូរុង្គា", emoji: "🌀", weh2: 0xa03848, hz: true },
-  { i: "kiiqflak", haksaka: "គីគ្វ្លាក", emoji: "🦗", weh2: 0xa858a0 },
-  { i: "hiwe", haksaka: "ហ៊ីវេ", emoji: "🏹", weh2: 0x50a8b8 },
-  { i: "guiro", haksaka: "ហ្គីរ៉ូ", emoji: "🥁", weh2: 0xb8b020, perk: true },
+  { i: "siku", haksaka: "ſɭɹ ſןᴜ", emoji: "🪈", weh2: 0x38a088 },
+  { i: "ocarina", haksaka: "ſᶘɜ j͑ʃɹ ſɭɹ", emoji: "🏺", weh2: 0xa06828 },
+  { i: "inanga", haksaka: "ſɭɹ ſ͕ɭᴜ ſɭᴜ", emoji: "🪕", weh2: 0x98a860 },
+  { i: "mbira", haksaka: "ſɭᴜ ſɭɹ j͑ʃɹ", emoji: "🎶", weh2: 0xc08830 },
+  { i: "slenthem", haksaka: "ſɭꞇ ſɭɜ ſᶘᴜ", emoji: "🔔", weh2: 0x6878a8 },
+  { i: "didj", haksaka: "ſɭɹ ſןᴜ", emoji: "🐘", weh2: 0x885020, hz: true },
+  { i: "tjurunga", haksaka: "j͑ʃᴜ ɭʃᴜ ſɭᴜ", emoji: "🌀", weh2: 0xa03848, hz: true },
+  { i: "kiiqflak", haksaka: "ſɭɹ ſɭᴜ ɭʃɜ", emoji: "🦗", weh2: 0xa858a0 },
+  { i: "hiwe", haksaka: "ſɟᴜ ᶘw", emoji: "🏹", weh2: 0x50a8b8 },
+  { i: "guiro", haksaka: "j͑ʃɹ ſɭᴜ", emoji: "🥁", weh2: 0xb8b020, perk: true },
 ];
 const INSTR_MAP = new Map(INSTRUMENTOJ.map(x => [ x.i, x ]));
 function instrDe(i: string): Instr { return INSTR_MAP.get(i) ?? INSTRUMENTOJ[0o0]; }
@@ -108,7 +108,7 @@ const SONPROVOJ: Record<string, SonoEvento> = {
   guiro: { t: 0o0, i: "guiro", d: HE / 0o10, v: 0o7/0o10 },
 };
 
-// ⟪ ជួរដេកនិងពេលវេលា 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , 📃 ⟫
 
 const VICO_SUP = 0o124;
 const VICO_MAL = 0o34;
@@ -132,7 +132,7 @@ function dur(): number { return trako.baroj * barLong(); }
 function snap(): number { return kapto > 0o0 ? e8() / kapto : 0o0; }
 function kvantigi(t: number): number { const s = snap(); return s > 0o0 ? Math.round(t / s) * s : t; }
 function clamp(x: number, a: number, b: number): number { return Math.max(a, Math.min(b, x)); }
-function oct(n: number): string { return "0o" + Math.round(n).toString(0o10); }
+function oct(n: number): string { return "ꞙɭ" + Math.round(n).toString(0o10); }
 function alHe(sek: number): string { return oct(sek / HE); }
 
 function xDeT(t: number): number { return GUTTER + ( t - vido.t0 ) * vido.pxs; }
@@ -177,7 +177,7 @@ const instrAldoniBut = elemento<HTMLButtonElement>("instrAldoniBut");
 const sekcioListoEl = elemento("sekcioListo");
 const statusoEl = elemento("statuso");
 
-// ⟪ ស្ថានភាព 📃 ⟫
+// ⟪ ſɭэ ſɭw , 📃 ⟫
 
 type Ilo = "elekti" | "k2f" | "forigi";
 
@@ -216,7 +216,7 @@ function registraMalpura(): boolean { return JSON.stringify(registroj) !== regis
 function statuso(t: string): void { statusoEl.textContent = t; }
 function malpurigi(): void { malpura = true; }
 
-// ⟪ ផ្ទុកវិល 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , 📃 ⟫
 
 function deduktiBpq(ev: SonoEvento[]): number {
   const kandidatoj = [ 0o20, 0o30, 0o40, 0o60, 0o100 ];
@@ -319,7 +319,7 @@ function sxargiTrako(no: string, forta = false): void {
   gxisdatigiCxion();
 }
 
-// ⟪ មិនធ្វើវិញ 📃 ⟫
+// ⟪ ſɭɜ ᶗ‹ , 📃 ⟫
 
 function snapshot(): string {
   return JSON.stringify({
@@ -380,7 +380,7 @@ function refari(): void {
   postMutacio();
 }
 
-// ⟪ ម៉ាស៊ីនសំឡេង 📃 ⟫
+// ⟪ ſɭɜ ʃɔ , 📃 ⟫
 
 const L = {
   ctx: null as AudioContext | null,
@@ -573,7 +573,7 @@ function auxdiInstr(i: string): void {
   if ( e ) instrumento(L.ctx, L.master, { ...e }, L.ctx.currentTime + 0o1/0o40);
 }
 
-// ⟪ គំនូរ 📃 ⟫
+// ⟪ ſᶘᴜ j͐ʃɹ , 📃 ⟫
 
 function grandigi(): void {
   dpr = Math.min(0o2, window.devicePixelRatio || 0o1);
@@ -584,7 +584,7 @@ function grandigi(): void {
   malpurigi();
 }
 
-// ជ្រុងមូលមិនស្មើគ្នា តាមស្ទីល --អិត្ភេ របស់គេហទំព័រ ( ធំឆ្វេងលើ និងស្តាំក្រោម )។
+// ſᶘᴜ j͐ʃɹ , ꞙɭı ,
 function rondTema(x: number, y: number, w: number, h: number): void {
   const rg = Math.min(h * 0o5/0o12, w * 0o3/0o5);
   const rm = Math.min(h * 0o1/0o6, w * 0o1/0o4);
@@ -826,7 +826,7 @@ function k2f(): void {
   }
 }
 
-// ⟪ ចលនាទ្រនិច 📃 ⟫
+// ⟪ ꞙɭı , 📃 ⟫
 
 interface Gesto {
   pudal: "movi" | "grandigi" | "marki" | "k2f" | "forigi" | "pani" | "pinch" | "sercxi";
@@ -1125,7 +1125,7 @@ rulo.addEventListener("wheel", (e: WheelEvent) => {
   malpurigi();
 }, { passive: false });
 
-// ⟪ គ្រាប់ចុច 📃 ⟫
+// ⟪ ſᶘᴜ j͐ʃɹ , 📃 ⟫
 
 function forigiElekton(): void {
   if ( !elektitaj.size ) return;
@@ -1211,7 +1211,7 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
   }
   if ( ctrl && e.key.toLowerCase() === "c" ) {
     clipboard = [ ...elektitaj ].map(id => notoPerId(id)).filter((n): n is Noto => !!n).map(n => ({ ...n }));
-    statuso("បានចម្លង " + oct(clipboard.length) + " ណោត 📋");
+    statuso("ſᶘᴜ j͐ʃɹ ʌ ſɟw ɭʃᴜ " + oct(clipboard.length) + " 📋");
     return;
   }
   if ( ctrl && e.key.toLowerCase() === "v" ) {
@@ -1231,7 +1231,7 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
   if ( e.key === "-" ) { vido.pxs = clamp(vido.pxs * 0o10/0o12, 0o24, 0o1130); sinkZomo(); malpurigi(); return; }
 });
 
-// ⟪ បន្ទះគ្រប់គ្រង 📃 ⟫
+// ⟪ ſᶘᴜ j͐ʃɹ , ꞙɭɿ , 📃 ⟫
 
 function butono(s2banani: string, premita = false): HTMLButtonElement {
   const b = document.createElement("button");
@@ -1248,14 +1248,14 @@ function gxisdatigiTransporton(): void {
 
 function gxisdatigiXekuxan(el: number): void {
   const bar = barLong();
-  xekuxaEl.textContent = "បារ " + oct(Math.floor(el / bar) + 0o1) + " · " + alHe(el) + " ហេ";
+  xekuxaEl.textContent = "ſ͕ɭᴜ j͐ʃэ ſɭᶗ‹ɹ " + oct(Math.floor(el / bar) + 0o1) + " · " + alHe(el) + " j͑ʃƨꞇʞ";
   const s = trako.secs.find(sx => el >= sx.a && el < sx.b);
-  sekcioNunaEl.textContent = s ? s.n : "គ្មានកំណាត់";
+  sekcioNunaEl.textContent = s ? s.n : "ſɭɜ ʃɔ ʌ ſɭᴜ ſןᴜ ｡";
 }
 
 function gxisdatigiStatistikojn(): void {
-  statistikojEl.textContent = oct(trako.notoj.length) + " ណោត · " + oct(trako.instrs.length) +
-    " ឧបករណ៍ · " + oct(trako.baroj) + " បារ · " + alHe(dur()) + " ហេ";
+  statistikojEl.textContent = oct(trako.notoj.length) + " ſᶘᴜ j͐ʃɹ · " + oct(trako.instrs.length) +
+    " ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · " + oct(trako.baroj) + " ſ͕ɭᴜ j͐ʃэ ſɭᶗ‹ɹ · " + alHe(dur()) + " j͑ʃƨꞇʞ";
 }
 
 function gxisdatigiTrakoElektilon(): void {
@@ -1371,7 +1371,7 @@ function gxisdatigiSekcioListon(): void {
 
 function gxisdatigiElekton(): void {
   const n = elektitaj.size;
-  elektoNombroEl.textContent = oct(n) + " ណោត";
+  elektoNombroEl.textContent = oct(n) + " ſᶘᴜ j͐ʃɹ";
   elektoVeloEl.disabled = n === 0o0;
   const idj = [ "elektoSupren", "elektoMalsupren", "elektoOktSupren", "elektoOktMalsupren",
     "elektoKvantigi", "elektoDuplikati", "elektoForigi", "elektoCresc", "elektoToot" ];
@@ -1416,7 +1416,7 @@ function gxisdatigiCxion(): void {
   malpurigi();
 }
 
-// ⟪ ព្រឹត្តិការណ៍បន្ទះ 📃 ⟫
+// ⟪ ſᶘᴜ j͐ʃɹ , ꞙɭц , 📃 ⟫
 
 ludiBut.addEventListener("click", ludi);
 elemento("halti").addEventListener("click", halti);
@@ -1438,7 +1438,7 @@ reverbEl.addEventListener("input", () => {
 
 trakoElektilo.addEventListener("change", () => sxargiTrako(trakoElektilo.value));
 titoloEl.addEventListener("change", () => {
-  mutigi(() => { trako.titolo = titoloEl.value.trim() || "វិល"; });
+  mutigi(() => { trako.titolo = titoloEl.value.trim() || "ſɭɜ ʃɔ"; });
 });
 bpqEl.addEventListener("change", () => mutigi(() => { trako.bpq = parseInt(bpqEl.value, 0o12); }));
 ppbEl.addEventListener("change", () => mutigi(() => { trako.ppb = parseInt(ppbEl.value, 0o12); }));
@@ -1558,12 +1558,12 @@ elemento("sekcioAldoni").addEventListener("click", () => {
     const a = clamp(Math.floor(progreso() / bar) * bar, 0o0, Math.max(0o0, dur() - bar));
     const sekva = trako.secs.map(s => s.a).filter(x => x > a).sort((x, y) => x - y)[0o0];
     const b = sekva ?? dur();
-    trako.secs.push({ n: "កំណាត់ " + oct(trako.secs.length + 0o1), a, b: Math.max(a + bar, b) });
+    trako.secs.push({ n: "ſɭɜ ʃɔ ʌ ſɭᴜ ſןᴜ " + oct(trako.secs.length + 0o1), a, b: Math.max(a + bar, b) });
     trako.secs.sort((x, y) => x.a - y.a);
   });
 });
 
-// ⟪ ឯកសារ 📃 ⟫
+// ⟪ ſɭэ ᶗ‹ , 📃 ⟫
 
 const KONSERVILO = "http://127.0.0.1:4173/";
 
@@ -1599,7 +1599,7 @@ async function saviDosierojn(): Promise<void> {
         await skribilo.write(dosieroj[ksaka]);
         await skribilo.close();
       } catch {
-        statuso("បានបោះបង់ការរក្សាទុក");
+        statuso("ſɭɜ j͐ʃɹ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ");
         return;
       }
     }
@@ -1607,7 +1607,7 @@ async function saviDosierojn(): Promise<void> {
     for ( const ksaka of haksaka ) elSxuti(new Blob([ dosieroj[ksaka] ], { type: "text/plain" }), ksaka);
   }
   markiSavitan();
-  statuso("បានរក្សាទុក " + haksaka.join(" , ") + " ✔️");
+  statuso("j͑ʃ'ɔ ſ̀ȷᴜȝ " + haksaka.join(" ｡ ") + " ✔️");
 }
 
 async function saviRekte(): Promise<void> {
@@ -1623,9 +1623,9 @@ async function saviRekte(): Promise<void> {
     });
     if ( !resp.ok ) throw new Error(await resp.text());
     markiSavitan();
-    statuso("បានរក្សាទុកចូលល្បែងដោយផ្ទាល់ ✔️");
+    statuso("j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭᴜ ſןᴜ ʌ j͑ʃᴜ ı],ɹƴ ✔️");
   } catch (er) {
-    statuso("ម៉ាស៊ីនរក្សាទុកមិនឆ្លើយ ៖ រត់ npm run dev (" + er + ")");
+    statuso("ſ̀ȷᴜ ｡ npm run dev (" + er + ")");
   }
 }
 
@@ -1645,7 +1645,7 @@ function perInput(): Promise<string | null> {
 
 async function sargiTrakon(): Promise<void> {
   let s2banani: string | null = null;
-  let haksaka = "ឯកសារ";
+  let haksaka = "ſɟᴜ ｡";
   const elektilo = window.showOpenFilePicker;
   if ( typeof elektilo === "function" ) {
     try {
@@ -1663,7 +1663,7 @@ async function sargiTrakon(): Promise<void> {
   if ( !s2banani ) return;
   const d = parziTrako(s2banani);
   if ( !d ) {
-    statuso("ឯកសារនេះមិនមែនជាវិលដែលអាចអានបានទេ ៖ " + haksaka);
+    statuso("ſɟᴜ ｡ ſɭɜ ʃɔ ʌ ſɟᴜ ｡ " + haksaka);
     return;
   }
   kasxo.set(d.no, d);
@@ -1671,13 +1671,13 @@ async function sargiTrakon(): Promise<void> {
     registroj.push({ no: d.no, titolo: d.titolo, titolKlavo: d.titolKlavo, instrs: [ ...d.instrs ] });
   }
   sxargiTrako(d.no, true);
-  statuso("បានផ្ទុក " + haksaka + " ✔️");
+  statuso("ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃɹ ɭʃɜ j͑ʃᴜᶗ‹ " + haksaka + " ✔️");
 }
 
 async function elsendiWav(): Promise<void> {
   const but = elemento<HTMLButtonElement>("wav");
   but.disabled = true;
-  statuso("កំពុងបង្កើត WAV ...");
+  statuso("j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ WAV ...");
   try {
     const sr = 0o126104;
     const D = dur() + 0o4;
@@ -1706,9 +1706,9 @@ async function elsendiWav(): Promise<void> {
     }
     const buf = await off.startRendering();
     elSxuti(wavDeBuffer(buf), "trako" + trako.no + ".wav");
-    statuso("បាននាំចេញ WAV ✔️");
+    statuso("}ʃɔ ſ͕ɭɹȝ ʌ WAV ✔️");
   } catch (er) {
-    statuso("បរាជ័យ WAV ៖ " + er);
+    statuso("WAV ｡ " + er);
   }
   but.disabled = false;
 }
@@ -1727,22 +1727,22 @@ function sef4Nombro(): string {
 elemento("trakoSef4").addEventListener("click", () => {
   const no = sef4Nombro();
   const d: TrakoDatumo = {
-    no, titolo: "វិលថ្មី", titolKlavo: null,
+    no, titolo: "ſɭɜ ʃɔ ʌ j͑ʃɔ ſȷэⅎ", titolKlavo: null,
     bpq: 0o40, ppb: 0o10, baroj: 0o20,
     notoj: [], secs: [], instrs: [ "siku", "inanga", "guiro" ],
   };
-  d.secs = [ { n: "កំណាត់ 0o1", a: 0o0, b: d.baroj * caxomani(d.bpq) * d.ppb } ];
+  d.secs = [ { n: "ſɭɜ ʃɔ ʌ ſɭᴜ ſןᴜ ꞙɭı", a: 0o0, b: d.baroj * caxomani(d.bpq) * d.ppb } ];
   registroj.push({ no, titolo: d.titolo, titolKlavo: null, instrs: [ ...d.instrs ] });
   kasxo.set(no, d);
   malpurajTrakoj.add(no);
   sxargiTrako(no, true);
-  statuso("បានបង្កើតវិល " + no + " , គូរណោតដំបូងរបស់អ្នក 🎼");
+  statuso("ſɭɜ ʃɔ ʌ j͑ʃɔ ſȷэⅎ " + no + " ｡ ſᶘᴜ j͐ʃɹ ɭʃᴜ 🎼");
 });
 
 elemento("trakoDuplikati").addEventListener("click", () => {
   const no = sef4Nombro();
   const d: TrakoDatumo = {
-    no, titolo: trako.titolo + " ( ចម្លង )", titolKlavo: null,
+    no, titolo: trako.titolo + " ( ſɟw ɭʃᴜ )", titolKlavo: null,
     bpq: trako.bpq, ppb: trako.ppb, baroj: trako.baroj,
     notoj: trako.notoj.map(n => ({ ...n, id: sekvaId++ })),
     secs: trako.secs.map(s => ({ ...s })),
@@ -1752,10 +1752,10 @@ elemento("trakoDuplikati").addEventListener("click", () => {
   kasxo.set(no, d);
   malpurajTrakoj.add(no);
   sxargiTrako(no, true);
-  statuso("បានចម្លងទៅវិល " + no + " ✔️");
+  statuso("ſɭɜ ʃɔ ʌ ſɟw ɭʃᴜ " + no + " ✔️");
 });
 
-// ⟪ ចលនារូបភាព 📃 ⟫
+// ⟪ ſᶘᴜ j͐ʃɹ , ꞙɭэ , 📃 ⟫
 
 function joqa(): void {
   if ( L.ludas && L.ctx ) {
@@ -1774,7 +1774,7 @@ function joqa(): void {
 
 new ResizeObserver(grandigi).observe(rulo);
 
-// ⟪ ចាប់ផ្តើម 📃 ⟫
+// ⟪ ſɭэ ɭʃᴜ , ꞙɭɩ , 📃 ⟫
 
 volValEl.textContent = octFrak(volumoEl.valueAsNumber, 0o100);
 revValEl.textContent = octFrak(reverbEl.valueAsNumber, 0o100);

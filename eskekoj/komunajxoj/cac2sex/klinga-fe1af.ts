@@ -6,7 +6,7 @@ import { kf2P2t6zoCac2sex, sxovu } from "./helpiloj.js";
 export const kf2HerbanKlinganCac2sex = sxovu((): THREE.CanvasTexture => {
   const w = 0o100, h = 0o400;
   return kf2P2t6zoCac2sex(w, h, ( kuns2bana ) => {
-    // ⟨ បៃតងស្រាល , ប្រផេះ និងបៃតងចាស់ ៖ ចុងស្លឹកមិនលឿងទេ 📃 ⟩
+    // ⟨ j͐ʃᴜ̩ᴜ , ֭ſɭwƽ , j͐ʃᴜ̩ᴜ ʌ ſɭɜʞ ⟅ ſɟɔ ɭʃɹ ʌ j͑ʃͷ̗ᴜʞ ʌ ꞙɭɔ ʌ ſɟɔ ɭl̀ɔ 📃 ⟩
     const ar2ha = kuns2bana.createLinearGradient(0, h, 0, 0);
     ar2ha.addColorStop(0, "#203028");
     ar2ha.addColorStop(0o1/0o4, "#305038");

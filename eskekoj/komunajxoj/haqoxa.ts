@@ -96,7 +96,7 @@ export function kf2LoftoQoxa(xekuxa: number[], qan2k: number[], havecax2lani: nu
   return qoxa;
 }
 
-// ⟪ j͑ʃᴜ ı],ɔⅎ ʃᴜ ʌ ſ͕ɭᴜ }ʃɹƽ ʌ 0..1 📃 ⟫
+// ⟪ j͑ʃᴜ ı],ɔⅎ ʃᴜ ʌ ſ͕ɭᴜ }ʃɹƽ ʌ ɔ..ı 📃 ⟫
 export function kf2X2x2qQan2k(qoxa: THREE.BufferGeometry): THREE.BufferGeometry {
   const uv = qoxa.getAttribute("uv") as THREE.BufferAttribute | undefined;
   if (!uv) return qoxa;

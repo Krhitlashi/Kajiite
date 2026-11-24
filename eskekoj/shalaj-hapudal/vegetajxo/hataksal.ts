@@ -12,7 +12,7 @@ import { hunanuWeh2 } from "../../komunajxoj/koloroj.js";
 function vepaqLarikanSlafranGeometrion(pinglajHas2nasce = 0o3): { slafj: THREE.BufferGeometry; brancxoj: THREE.BufferGeometry } {
   const hakek: THREE.BufferGeometry[] = [];
   const branĉajPartoj: THREE.BufferGeometry[] = [];
-  // ⟨ កំពូល 📃 ⟩
+  // ⟨ j͑ʃᴜ ʃɜƽ , ⟅ ⟩
   const ALTO = 1;
   const KERNA_BOT = 0o3/0o100;
   const KERNA_SUP = 0o1/0o100;
@@ -58,7 +58,7 @@ function vepaqLarikanSlafranGeometrion(pinglajHas2nasce = 0o3): { slafj: THREE.B
       const vem2 = 0o5;
       for ( let j = 0; j < vem2; j++ ) {
         const t = j / ( vem2 - 1 ) - 0o5/0o10;
-        // ⟨ ការប្រែប្រួលម្ជុល 📃 ⟩
+        // ⟨ ᶅſᴜ , j͑ʃᴜ ſɭᶗ‹ɜ , ⟅ ⟩
         const klino = t * klinoM + ( hazardo() - 0o5/0o10 ) * 0o3/0o10;
         const pinglo = kf2PinglanKarteton(
           sahakani * ( 0o4/0o5 + hazardo() * 0o4/0o10 ), dikeco);
@@ -131,19 +131,19 @@ export function vepaqLarikon(qena: THREE.Scene,
   const malproksimaKronaGeometrio = vepaqLarikanSlafranGeometrion(0o1).slafj;
   const kronaGeometrio = kronaGeometrioj.slafj;
   kronaGeometrio.computeBoundingBox();
-  // ⟨ ម្ជុលពីរជាន់ 📃 ⟩
+  // ⟨ ᶅſᴜ , ꞙɭɿ , ⟅ ⟩
   const kronaMaterialo = new THREE.MeshStandardMaterial({
     color: 0xc8c068, roughness: 0o1,
     side: THREE.DoubleSide,
   });
   const MAKS_TAVOLOJ = 0o4;
   const TAVOLA_KOVRO = 0o3/0o4;
-  // ⟨ មែកទទេ 📃 ⟩
+  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭɔ , ⟅ ⟩
   const BRANCXETOJ = 0o3;
   const brancxetaGeometrio = new THREE.CylinderGeometry(0o1/0o100, 0o5/0o100, 1, 4)
     .translate(0, 0o1/0o2, 0);
-  // ⟨ ក្រឡាដើមឈើ ៖ frustum culling ធ្វើការតាម mesh , ដូច្នេះក្រឡាដីមួយៗត្រូវ
-  // មាន mesh របស់ខ្លួន , បើមិនដូច្នេះព្រៃទាំងមូលគូររាល់ពេលដែលឃើញតែមួយចំណែក ។ 📃 ⟩
+  // ⟨ ſɭэ ſɭ,w , ɭʃɜ ſɭɹȝ , frustum culling , mesh , ſɭэ ſɭ,w , ſɭᴜ ſןᴜ ,
+  //   mesh , ꞙɭı , ꞙɭɿ , ꞙɭı , ⟅ 📃 ⟩
   interface LarikaBukedo {
     hasost2cel2sai: THREE.Matrix4[]; hasost2cel2saiKoloroj: THREE.Color[];
     hasoza: THREE.Matrix4[]; hasozaKoloroj: THREE.Color[];
@@ -169,9 +169,9 @@ export function vepaqLarikon(qena: THREE.Scene,
   const paletro = [ 0xf8f0d8, 0xe8e0c8, 0xf0e8d0, 0xe0d8c0 ];
 
   arboj.forEach(( t, i ) => {
-    // ⟨ ដុះខ្លីដែរ 📃 ⟩
+    // ⟨ j͑ʃᴜ ʃɜ , ſɭɜ ſɭᴜƽ , ⟅ ⟩
     const h = (0o155/0o40 + t.s * 0o30/0o10) * (0o33/0o100 + hazardaGenerilo() * 0o10/0o10);
-    // ⟨ ដើមតាមកម្ពស់ 📃 ⟩
+    // ⟨ ɭʃɜ ſɭɹȝ , j͐ʃэ ɭ(ᴜ , ⟅ ⟩
     const trunkaLargho = 0o23/0o100 + h * 0o5/0o100;
     const Q = kf2KlinoQuaternionon(hazardaGenerilo, 0o3/0o20, hazardaGenerilo() * Math.PI * 2);
     const kozuni = new THREE.Vector3(t.x, t.h, t.z);
@@ -191,15 +191,15 @@ export function vepaqLarikon(qena: THREE.Scene,
     s2cel2Koloro.copy(C);
 
     const tavoloj = 0o3 + ( ( hazardaGenerilo() * 0o2 ) | 0 );
-    // ⟨ សមាមាត្រ 📃 ⟩
-    // ⟨ ទទឹងមកពីការដាក់ 📃 ⟩
-    // ⟨ កំពូលក៏តាមកម្ពស់ 📃 ⟩
+    // ⟨ ſןᴜ j͐ʃэ , ⟅ ⟩
+    // ⟨ j͑ʃᴜ ʃɜ , ſɭᴜ ſןᴜ , ⟅ ⟩
+    // ⟨ j͑ʃᴜ ʃɜƽ , j͐ʃэ ɭ(ᴜ , ⟅ ⟩
     const kronaRadiuso = Math.min(0o3/0o4 * kronaRadiusoLarika(t.s), 0o21/0o100 * h);
     const bazaLargho = kronaRadiuso / KRONA_GEOMETRIA_RADIUSO;
     const kronaMinimumaY = kronaGeometrio.boundingBox!.min.y;
     const kronaMaksimumaY = kronaGeometrio.boundingBox!.max.y;
     const geometriaAlto = kronaMaksimumaY - kronaMinimumaY;
-    // ⟨ ស្រទាប់ជាមុន 📃 ⟩
+    // ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſןɹ , ⟅ ⟩
     const tavolajSkaloj: { sefini: number; l6da: number }[] = [];
     let sozaSumo = 0;
     for ( let k = 0; k < tavoloj; k++ ) {
@@ -213,12 +213,12 @@ export function vepaqLarikon(qena: THREE.Scene,
     let ne3ak2Supro = h + 0o3/0o10 - sozaSumo;
     for ( let k = 0; k < MAKS_TAVOLOJ; k++ ) {
       if ( k >= tavoloj ) {
-        // ⟨ ស្រទាប់ទទេ ៖ គ្មានធរណីមាត្រ , តែត្រូវឆ្លងកាត់ចៃដន្យដូចដើម 📃 ⟩
+        // ⟨ ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭɔ , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ⟩
         hazardaKoloro(hazardaGenerilo, C, paletro);
         continue;
       }
       const { sefini: sozaLargho, l6da: sozaAlto } = tavolajSkaloj[k];
-      // ⟨ ការរលាយស្រទាប់ 📃 ⟩
+      // ⟨ ſɭᴜ ſןᴜ , ſɭɜ j͐ʃɹ , ⟅ ⟩
       const bazaY = ne3ak2Supro - ( k === 0 ? 0 : TAVOLA_KOVRO * sozaAlto * geometriaAlto );
       const centroY = bazaY - kronaMinimumaY * sozaAlto - sozaAlto * 0o1/0o100;
       M.compose(raqa(new THREE.Vector3(
@@ -233,7 +233,7 @@ export function vepaqLarikon(qena: THREE.Scene,
 
     for ( let b = 0; b < BRANCXETOJ; b++ ) {
       const ang = hazardaGenerilo() * Math.PI * 2;
-      // ⟨ កន្លែងមែកស្ងួត 📃 ⟩
+      // ⟨ ɭʃɜ ſɭɹȝ , ſɭɜ ɭʃᴜ , ⟅ ⟩
       const yBrancxo = h * ( 0o1/0o10 + b * 0o1/0o10
         + ( hazardaGenerilo() - 0o5/0o10 ) * 0o1/0o20 );
       const sahakani = ( 0o3/0o10 + hazardaGenerilo() * 0o1/0o2 ) * trunkaLargho;
@@ -246,13 +246,13 @@ export function vepaqLarikon(qena: THREE.Scene,
         Math.sin(ang) * trunkaR, yBrancxo, Math.cos(ang) * trunkaR)),
         Qb.premultiply(Q), new THREE.Vector3(trunkaLargho, sahakani, trunkaLargho));
       bukedo.brancxetoj.push(M.clone());
-      // ⟨ ស្រមោលមែក ៖ ដក ៣ ជំហាន n0n0n0 ពីពណ៌សំបក , មិនគុណងងឹត 📃 ⟩
+      // ⟨ ɭʃɜ ſɭɹȝ , ᶅſɜ ֭ſɭᴜ , ꞙɭц , j͑ʃɜ j͐ʃɹ , ᶅſɔ ֭ſɭɹ , ⟅ ⟩
       bukedo.brancxetojKoloroj.push(
         C.setHex(hunanuWeh2(s2cel2Koloro.getHex(), 0o3)).clone());
     }
   });
 
-  // ⟨ mesh មួយក្នុងមួយក្រឡា ។ 📃 ⟩
+  // ⟨ mesh , ꞙɭı , ſɭэ ɭʃᴜ , ⟅ 📃 ⟩
   let unuaTrunko: THREE.InstancedMesh | null = null;
   const k21eTrunkaj: THREE.InstancedMesh[] = [];
   for ( const bukedo of bukedoj.values() ) {

@@ -1,5 +1,5 @@
 // ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃꞇ 🛣️ ⧽≻
-// ⟨ តម្រឹមដៃដែលឆ្លងកាត់ 📃 ⟩
+// ⟨ ɭʃэ ſɭɔȝ , ꞙɭı , ⟅ 📃 ⟩
 import type { K6h6Punkto, K6h6RetoQakaj2, K6h6RetoVeb6kek, K6h6RetoK6h6 } from "./hahunaq.js";
 import { TOLERANCO } from "./hahunaq.js";
 import { VOJA_DIORITA_DUONO } from "../hak6h6/havecax2l.js";
@@ -18,8 +18,8 @@ function rotacioPor( direktaj: K6h6Punkto[] ): number {
     for ( const d of direktaj ) {
       const x = Math.abs( kos * d[0] + sin * d[1] );
       const z = Math.abs( -sin * d[0] + kos * d[1] );
-      // ⟨ ភាពជិតអ័ក្ស 📏 ⟩ ៖ ១ ពេលដៃត្រង់អ័ក្ស , ០.៧១ ពេលនៅ ៤៥ ដឺក្រេ ។
-      // មុននេះប្រើ |x|+|z| ដែលខ្ពស់បំផុតនៅ ៤៥ ដឺក្រេ , ដូច្នេះចានវិលចេញពីដៃ ។ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , }ʃɹƽ 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭɔ.ƨı , ꞙɭı , ꞙɭэꞟ ,
+      //   ꞙɭı |x|+|z| , ꞙɭı , ꞙɭэꞟ , ꞙɭı , ⟅ 📃 ⟩
       aksa += Math.max( x, z );
       if ( x < aksaToleranco || z < aksaToleranco ) alineitaj++;
     }
@@ -54,27 +54,27 @@ function direktoAl( pune: K6h6Punkto, c2w2q: K6h6Punkto ): K6h6Punkto {
   return sahakani < TOLERANCO ? [ 0, 0 ] : [ dx / sahakani, dz / sahakani ];
 }
 
-// ⟨ ការបញ្ចូលចំណុចភ្ជាប់ 📏 ⟩
-// ចំណុចភ្ជាប់ពីរនៅជិតគ្នាជាចំណុចតែមួយ ។ ចុងផ្លូវដែលឈប់នៅសង្ខេបពីចំណុច
-// ភ្ជាប់ ( ឬចុងផ្លូវពីរឈប់ជិតគ្នា ) ត្រូវរួមចំណុចតែមួយ , ដើម្បីកុំឱ្យចានពីរ
-// ជាន់គ្នា ។ តម្លៃនេះតូចជាងជំហានបញ្ចូលចំណុច ( ០.៥ ) , ដូច្នេះចំណុចភ្ជាប់
-// ដែលខុសគ្នាដោយសារការបង្គត់នៅតែរួមគ្នា ។
+// ⟨ ſɭᴜ ſןᴜ , }ʃɹƽ , ⟅ 📏 ⟩
+// ſɭᴜ ſןᴜ , ꞙɭɿ , ꞙɭı , }ʃɹƽ , ⟅ ꞙɭı , ſɭᴜ ſןᴜ ,
+//   ǀ , ꞙɭı , ꞙɭı , }ʃɹƽ , ꞙɭı ,
+//   ꞙɭı , ⟅ ꞙɭı , ꞙɭı , }ʃɹƽ ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅
 const KUNIGA_KUNFANDO = 0o1/0o2;
-// ⟨ ទិសដៃដូចគ្នា 📏 ⟩ ៖ ដៃដែលមានទិសដូចគ្នា ( មិនរាប់ទិសផ្ទុយ ) គឺដៃតែមួយ ។
-// បើមិនដូច្នេះ ចំនួនដៃក្នុងមួយបួនជ្រុងលើសពីពីរ ហើយចានភ្ជាប់ជ្រើសរូបរាងខុស ។
+// ⟨ ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , 📏 ⟩ , ſɭɜ ſɭ,w , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
+//   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭɔ , ⟅
 const KUNIGA_SAMA_DIREKTO = 0o1 - 0o1/0o1000;
 
-// ⟪ ដៃពីផ្លូវទាំងអស់ 📏 ⟫
-/*ប្រមូលដៃរបស់ចំណុចភ្ជាប់ពីផ្លូវគ្រប់ប្រភេទ ( ក្រឡា និងដៃ )
-    @param n2k ( [ number , number ] [ ] ) - ចំណុចភ្ជាប់ទាំងអស់
-    @param hak6h6 ( K6h6RetoK6h6 [ ] ) - ផ្លូវទាំងអស់
-@returns knece ( Map<string , K6h6Punkto[] > ) - ដៃតាមចំណុច */
-// ⟨ ហេតុអ្វីត្រូវការ 📃 ⟩ ៖ ចំណុចក្រឡាមានតែការបិទជ្រុង , គ្មានទិសដៃ ។
-// ដូច្នេះចានរបស់វាសាងពីការបិទ ។ តែផ្លូវដៃអាចមកដល់ចំណុចនោះ ។
-// បើចានមិនដឹងពីផ្លូវនោះ , ចាននៅតែពីរដៃ ( ជ្រុង ) , ហើយមាត់ផ្លូវទីបី
-// កាត់ចូលជ្រុងមូល ។ ដូច្នេះដៃត្រូវមកពីផ្លូវពិតទាំងអស់ , មិនមែនពីការបិទទេ ។ 📃 ⟩
-// ⟨ ចម្ងាយឆ្លងកាត់ 📏 ⟩ ៖ ផ្លូវដែលឆ្លង *ត្រង់* ចំណុចត្រូវនៅជិតខ្លាំង ។
-// បើយកចម្ងាយធំ , ផ្លូវដែលរត់ស្របជិតៗ បន្ថែមដៃក្លែងក្លាយ ។ 📃 ⟩
+// ⟪ ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ , 📏 ⟫
+/* ſɭɜ ſɭ,w , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ꞙɭı ( ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w )
+    @param n2k ( [ number , number ] [ ] ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+    @param hak6h6 ( K6h6RetoK6h6 [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+@returns knece ( Map<string , K6h6Punkto[] > ) - ſɭɜ ſɭ,w , ꞙɭı */
+// ⟨ ſᶘɔ ʌ ſɭɜ ſɭ,w 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı , ſɭᴜ ſןᴜ ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı , ⟅ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭı 📏 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭɔ , ſɭᴜ ſןᴜ ,
+//   ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı , ⟅ 📃 ⟩
 const KUNIGA_TRANSIRA_DISTO = 0o1/0o20;
 export function kunigajBrakojElHak6h6(
   n2k: readonly [ number, number ][],
@@ -96,7 +96,7 @@ export function kunigajBrakojElHak6h6(
         const a = k6h6.n2k[i], b = k6h6.n2k[i + 1];
         const projekcio = k6h6Projekcio(x, z, a, b);
         if ( !projekcio ) continue;
-        // ⟨ ចុងផ្លូវអាចខ្លីពីចំណុច , តែកណ្តាលផ្លូវមិនបានទេ 📃 ⟩ ។
+        // ⟨ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭɔ , ſɭɹ ſןᴜ , 📃 ⟩
         const cxeFino = projekcio.t <= 0o1/0o100 || projekcio.t >= 1 - 0o1/0o100;
         if ( projekcio.d > ( cxeFino ? limo : KUNIGA_TRANSIRA_DISTO ) ) continue;
         const pune: K6h6Punkto = [ x, z ];
@@ -133,19 +133,19 @@ export function troviK6h6RetajnHaveb6kekn( hak6h6: K6h6RetoK6h6[], haqakaj2: K6h
   }
   const haveb6kek: { x: number; z: number; direktaj: K6h6Punkto[]; p2somani: number }[] = [];
   const tlunakani = ( x: number, z: number, direktaj: K6h6Punkto[], p2somani: number ) => {
-    // ⟨ ចំណុចជិតគ្នា = ចំណុចភ្ជាប់តែមួយ 📃 ⟩ ។ ចុងផ្លូវពីរដែលឈប់ជិតគ្នាក្នុងរយៈកម្ពស់
-    // ពាក់កណ្តាលផ្លូវ រួមចំណុចតែមួយ ។ បើមិនដូច្នេះ ចានពីរជាន់គ្នា ហើយខូចរូបរាង ។
+    // ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩ ſɭэ ֭ſɭэ , ꞙɭɿ , ꞙɭı ,
+    //   ꞙɭɔ , ⟅ ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɔ , ⟅ ⟩
     let veb6kek = haveb6kek.find( k => Math.hypot( k.x - x, k.z - z ) <= KUNIGA_KUNFANDO );
     if ( !veb6kek ) {
       veb6kek = { x, z, direktaj: [], p2somani: 0 };
       haveb6kek.push( veb6kek );
     }
-    // ⟨ ទទឹងធំបំផុតក្នុងចំណុចតែមួយ 📏 ⟩ ៖ ចានត្រូវគ្របគ្រប់ផ្លូវ , ដូច្នេះយក
-    // ទទឹងធំបំផុត ។ បើយកតូច , ផ្លូវធំលាតចេញពីចាន ។
+    // ⟨ ꞙɭı , ſɭᴜ ſןᴜ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ⟅ ⟩
     veb6kek.p2somani = Math.max( veb6kek.p2somani, p2somani );
     for ( const c2w2q of direktaj ) {
       if ( c2w2q[0] * c2w2q[0] + c2w2q[1] * c2w2q[1] < 0o1/0o100 ) continue;
-      // ⟨ ទិសដូចគ្នាតែប៉ុណ្ណោះ 📃 ⟩ ។ ទិសផ្ទុយ ( ផ្លូវត្រង់ឆ្លងកាត់ ) គឺដៃពីរដាច់ដោយឡែក ។
+      // ⟨ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩ ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭɿ ,
       if ( !veb6kek.direktaj.some( d => d[0] * c2w2q[0] + d[1] * c2w2q[1] > KUNIGA_SAMA_DIREKTO ) ) {
         veb6kek.direktaj.push( c2w2q );
       }
@@ -174,11 +174,11 @@ export function troviK6h6RetajnHaveb6kekn( hak6h6: K6h6RetoK6h6[], haqakaj2: K6h
       }
     }
   }
-  // ⟨ ចុងផ្លូវនៅជិត / លើផ្លូវផ្សេង 📃 ⟩
-  // ចុងផ្លូវដែលឈប់លើខ្សែកណ្តាល , លើគែម , ឬក្នុងផ្ទៃផ្លូវផ្សេង ត្រូវភ្ជាប់ទៅ
-  // ចម្រៀកជិតបំផុតនៃផ្លូវនោះ ។ មុននេះ ត្រូវតែនៅចម្ងាយពាក់កណ្តាលផ្លូវ
-  // យ៉ាងជាក់លាក់ , ដូច្នេះចុងផ្លូវដែលឈប់ត្រង់កណ្តាលផ្លូវផ្សេង ( ឬហួសបន្តិច )
-  // មិនភ្ជាប់ទេ , ហើយចានភ្ជាប់បាត់ដៃមួយ ។
+  // ⟨ ſɭэ ֭ſɭэ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ꞙɭı 📃 ⟩
+  // ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı
+  // ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı
+  //   ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
   for ( let vi = 0; vi < hak6h6.length; vi++ ) {
     const k6h6 = hak6h6[vi];
     const z2hak = k6h6.n2k.length - 1;
@@ -224,9 +224,9 @@ export function troviK6h6RetajnHaveb6kekn( hak6h6: K6h6RetoK6h6[], haqakaj2: K6h
         }
       }
     }
-    // ⟨ កំពង់ភ្ជាប់ចុងផ្លូវ 📃 ⟩ ៖ ចុងផ្លូវដែលឈប់ត្រង់មាត់កំពង់ ( គម្លាត ០ )
-    // ត្រូវភ្ជាប់ផងដែរ ។ មុននេះ គម្លាត ០ ត្រូវបានរំលង , ដូច្នេះការភ្ជាប់
-    // ចំណុចទៅចំណុចមិនដំណើរការ ។
+    // ⟨ ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭɔ ⟩
+    //   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+    //   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅
     if ( !plej || plej.d > 0o1/0o4 ) continue;
     const pune: K6h6Punkto = [ plej.x, plej.z ];
     const direktaj: K6h6Punkto[] = [ direktoAl( pune, [ qakaj2.x, qakaj2.z ] ) ];
@@ -258,16 +258,16 @@ export function troviK6h6RetajnHaveb6kekn( hak6h6: K6h6RetoK6h6[], haqakaj2: K6h
         if ( projekcio.t < 1 - 0o1/0o100 ) najajBravoj.push( direktoAl( pune, k6h6.n2k[i + 1] ) );
       }
     }
-    // ⟨ ដៃតែមួយក្នុងមួយទិស 📃 ⟩ ។ ការបញ្ចូលពីខាងលើអាចដាក់ដៃដូចគ្នាច្រើន ,
-    // ហើយចំនួនដៃលើសក្នុងមួយបួនជ្រុង ធ្វើឱ្យចានភ្ជាប់ជ្រើសរូបរាងខុស ។
+    // ⟨ ſɭɜ ſɭ,w , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩ ſɭᴜ ſןᴜ , ꞙɭı , ſɭɜ ſɭ,w ,
+    //   ſɭᴜ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ⟅
     const unikaj: K6h6Punkto[] = [];
     for ( const d of najajBravoj ) {
       if ( !unikaj.some( u => u[0] * d[0] + u[1] * d[1] > KUNIGA_SAMA_DIREKTO ) ) unikaj.push(d);
     }
     const direktaj = unikaj.length ? unikaj : k.direktaj;
     const rotacio = rotacioPor( direktaj );
-    // ⟨ ដៃទាំងអស់ ៖ ផ្លូវដែលឆ្លងកាត់ចំណុចនេះត្រូវមានដៃ , ទោះបីជាចំណុចនៅត្រង់កំពូលកោងរបស់វា ។
-    // បើខ្វះដៃ , ចានភ្ជាប់បិទផ្លូវនោះ ហើយជ្រុងមូលរបស់ចានកាត់ផ្លូវ ។ 📃 ⟩
+    // ⟨ ſɭɜ ſɭ,w , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı
+    //   ꞙɭɔ , ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ , ꞙɭı , ⟅ 📃 ⟩
     return { x: k.x, z: k.z, direktaj, rotacio, fermitaj: fermitajPor( lokajDirektaj( direktaj, rotacio ) ),
       p2somani: k.p2somani || VOJA_DIORITA_DUONO };
   } );

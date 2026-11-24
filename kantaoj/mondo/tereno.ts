@@ -13,14 +13,14 @@ export function riveroZ(x: number): number { return 0o14 * Math.sin(x * 0o1/0o10
 
 export const RIVERA_DUONSEFINI = 0o124/0o10;
 
-// ⟪ បឹងខាងកើត 📃 ⟫
+// ⟪ j͑ʃɹ ı],w ɽ͑ʃ'w ʌ ɽ͑ʃ'ᴜȝ 📃 ⟫
 export const LAGO_X = -0o270;
 export const LAGO_RX = 0o60;
 export const LAGO_RZ = 0o110;
 export const RIVERA_ENFLUO_X = LAGO_X + LAGO_RX - 0o10;
-// ⟨ តម្លៃថេរ 📏 ⟩ ៖ ទីតាំង និងកម្រិតបឹងមិនប្រែប្រួលទេ ។ មុននេះគណនាឡើងវិញ
-// រាល់ការហៅ , ហើយការអានកម្រិតទឹកមួយចំណាយពេលភាគច្រើនលើត្រីកោណមាត្រ
-// ដែលឲ្យលទ្ធផលដូចដើមជានិច្ច ។ វាលកម្ពស់ផ្លូវអានកម្រិតទឹករាប់លានដង ។ 📃 ⟩
+// ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📏 ⟩ , }ʃɹƽ , ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ
+// j͑ʃ'ɔ ŋᷠɹ , ꞙɭı ⟅ ſᶘᴜ j͑ʃᴜ ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ⟅
+// j͑ʃ'ɔ ŋᷠɹ ʌ ſɭɜ ſɭ,w ⟅ 📃 ⟩
 const LAGO_Z = riveroZ(RIVERA_ENFLUO_X) + 0o30;
 const LAGO_NIVELO = akvoY(RIVERA_ENFLUO_X);
 export function lagoZ(): number { return LAGO_Z; }
@@ -31,10 +31,10 @@ export function lagoRadio(ang: number): number {
   const rz = LAGO_RZ * ( 0o1 + 0o6/0o100 * ondo * 0o53/0o100 );
   return 1 / Math.sqrt(( Math.cos(ang) / rx ) ** 2 + ( Math.sin(ang) / rz ) ** 2);
 }
-// ⟨ ព្រំដែនកាំ 📏 ⟩ ៖ កាំនៃពងក្រពើស្ថិតរវាងអ័ក្សខ្លីបំផុត និងអ័ក្សវែងបំផុតរបស់វា ។
-// រលកប្តូរអ័ក្សបានតែ ០.០៦ គុណ ០.៥៣ នៃទំហំរលក , ដូច្នេះព្រំដែនស្គាល់មុន ។
-// ចំណុចក្រៅព្រំដែនលើ ឬក្នុងព្រំដែនក្រោមមិនបាច់គណនាមុំ និងកាំពិតទេ ។
-// គម្លាតតូចមួយការពារការបង្គត់កន្ទុយលេខនៅព្រំដែន ។ 📃 ⟩
+// ⟨ ſɭᴜ ſɭˬꞇƽ ʌ ſᶘᴜ j͑ʃᴜ 📏 ⟩ , ſᶘᴜ j͑ʃᴜ ʌ ſɭᴜ ſɭᴜ ꞙɭɔɩ ꞙɭꞟц ʌ ſɭɹ ſןᴜ ʌ ſןᴜ j͐ʃэ
+// ꞙɭı ʌ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
+// }ʃɹƽ ʌ ꞙɭɔ ʌ ſɭᴜ ꞁȷ̀ᴜ ʌ ſɭᴜ ſɭˬꞇƽ , ꞙɭɔ ʌ ſɭᴜʞ ſɭᴜȝ , ꞙɭɔ ʌ ſɭᴜ
+// ⟨ ſᶘᴜ j͑ʃᴜ ʌ ſɭɹ ſןᴜ ʌ ſɭᴜ ſɭᴜ 📃 ⟩
 const LAGO_R_MIN = LAGO_RX * ( 0o1 + 0o6/0o100 * ( -0o3/0o2 ) * 0o53/0o100 )
   * ( 0o1 - 0o1/0o1000000 );
 const LAGO_R_MAKS = LAGO_RZ * ( 0o1 + 0o6/0o100 * ( 0o3/0o2 ) * 0o53/0o100 )
@@ -57,8 +57,8 @@ export const RIVERA_BUŜO_X: number = ( () => {
 
 export function riveraAkvaVem2(x: number): number {
   const m = glataPaso(RIVERA_BUŜO_X - 0o110, RIVERA_BUŜO_X, x);
-  // ⟨ ចុងទាំងពីរ 📏 ⟩ ៖ ទម្ងន់សូន្យ ឬមួយមានន័យថាផ្នែកម្ខាងទទេ ។ គុណនឹងសូន្យ
-  // មិនផ្លាស់លទ្ធផល , ដូច្នេះរំលងការគណនាផ្នែកនោះ ។ ចំណុចភាគច្រើននៅឆ្ងាយពីមាត់បឹង ។ 📃 ⟩
+  // ⟨ ꞙɭɿ ʌ ſɭɹ ſןᴜ 📏 ⟩ , ꞙɭɔ ʌ ſɭᴜ ꞙɭı ⟅ ſɭɜ ſɭ,w 📃 ⟩
+  // ꞙɭɔ ʌ ſɭɹ ſןᴜ ʌ ſᶘᴜ j͑ʃᴜ , ꞙɭɔ ʌ }ʃɹƽ , }ʃɹƽ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
   if ( m === 0 ) return akvoY(x);
   if ( m === 1 ) return LAGO_NIVELO;
   return akvoY(x) * ( 1 - m ) + LAGO_NIVELO * m;
@@ -71,7 +71,7 @@ export function akvaVem2(x: number, z: number): number {
   return tsekeEnLago(x, z) ? lagoVem2() : riveraAkvaVem2(x);
 }
 
-// ⟪ ដីមូលដ្ឋាន 📃 ⟫
+// ⟪ ſɭɜ ſɭ,w ʌ ſɭᴜ ꞁȷ̀ᴜ 📃 ⟫
 export function montetaBazo(x: number, z: number): number {
   return 0o215/0o100 * Math.sin(x * 0o1/0o40 + 0o43/0o40) * Math.cos(z * 0o1/0o40 - 0o4/0o10)
     + 0o55/0o40 * Math.sin(x * 0o1/0o20 - 0o163/0o100) * Math.sin(z * 0o1/0o20 + 0o115/0o100)
@@ -102,7 +102,7 @@ export function montaroNordOrienta(x: number, z: number): number {
   return Math.max(0, ( pinto1 + pinto2 + pinto3 - selo ) * envolvaĵo);
 }
 
-// ⟪ ទន្លេភាគឦសាន 📃 ⟫
+// ⟪ ſɭэ j͑ʃꞇ ʌ ɽ͑ʃ'ᴜȝ ʌ j͐ʃᴜȝ 📃 ⟫
 export const RIVERA_NORDORIENTA_FONTO_Z = 0o100;
 export const RIVERA_NORDORIENTA_DUONSEFINI = 0o6;
 
@@ -139,12 +139,12 @@ export function sekaAlteco(x: number, z: number): number {
   return bazaAlteco(x, z) + skulptaDelta(x, z);
 }
 
-// ⟪ ការកាត់ទឹកចេញ 📃 ⟫
+// ⟪ ſɭɜ ʃɔ ſɭᴜ ſᶘᴜ j͑ʃᴜ 📃 ⟫
 export function alteco(x: number, z: number): number {
   return sekaAlteco(x, z) - akvaEltrancxo(x, z);
 }
 
-// ⟪ ជីវតំបន់ ( តំបន់ដាំនៃដីឆ្លាក់ ) 📃 ⟫
+// ⟪ j͑ʃɘɹ ʌ j͑ʃᴜ ʃɭ,ᴜ ( ſɭɜ ſɭ,w ʌ ſɭc̗ᴜ ) 📃 ⟫
 export type Bs2 = "akvo" | "valo" | "ebenaĵo" | "montaro" | "akvaj-plantoj" | "tsake" | "nenio";
 
 export function akvo(x: number, z: number): boolean {
@@ -162,19 +162,19 @@ export function bs2(x: number, z: number): Bs2 {
   return "nenio";
 }
 
-// ⟨ ស្រទាប់ធម្មជាតិ 📃 ⟩
-// ពិភពលោកដែលមានគ្រាប់ពូជបង្កើតស្រទាប់នេះពីគ្រាប់ពូជ ( generilo.ts ) ។
-// ពិភពលោកដែលគ្មានគ្រាប់ពូជរាបស្មើ ហើយដីទាំងមូលមកពីការឆ្លាក់ដោយដៃ ។
+// ⟨ ſɭɜ ſɭ,w ʌ ſɭɜ ſɭɜ 📃 ⟩
+// }ʃᴜ j͐ʃᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ ⟅ ſɭɜ ſɭ,w ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ( generilo.ts ) ⟅
+// }ʃᴜ j͐ʃᴜ ꞙɭɔ ɽ͑ʃ'w j͑ʃ'ᴜ , ſɭɜ ſɭ,w ⟅ ſɭɜ ʃɔ ſɭᴜ 📃 ⟩
 export function bazaAlteco(x: number, z: number): number {
   return aktivaAlteco(x, z);
 }
 
-// ⟪ ការនាំចេញឡើងវិញ 📃 ⟫
+// ⟪ ſɭɜ ʃɔ ſɭᴜ ſɭᴜ 📃 ⟫
 export { SKULPTA_PASO, SKULPTA_AKTIVA } from "../tero-datumaro/aktiva.js";
 export { SKULPTA_AKVA_NIVELO } from "../tero-datumaro/aktiva.js";
 export { SKULPTA_N, SKULPTA_ORIGINO } from "../tero-datumaro/aktiva.js";
 
-// ⟪ ការគណនាទឹក 📃 ⟫
+// ⟪ j͑ʃ'ɜ ſןɹ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟫
 const AKVA: AkvaKalkulo | null = ( () => {
   if ( !SKULPTA_AKTIVA ) return null;
   const mapo = aktivaMapo();
@@ -183,14 +183,14 @@ const AKVA: AkvaKalkulo | null = ( () => {
     sekaAlteco,
     ( x, z ) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z),
     aktivajAkvohatsiq(), aktivaAkvaMasko(),
-    // ⟨ ពិភពលោកដែលបង្កើតពីគ្រាប់ពូជ , ទឹកហូរចុះរហូតដល់សមុទ្រ ឬបឹង ។
-    // ដីដែលឆ្លាក់ដោយដៃរក្សាទឹកដើមវិញ ។ 📃 ⟩
+    // ⟨ }ʃᴜ j͐ʃᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ , ſᶘᴜ j͑ʃᴜ ʌ j͐ʃᴜɔ˞ 📃 ⟩
+    // ſɭɜ ſɭ,w ʌ ſɭc̗ᴜ ⟅ ſᶘᴜ j͑ʃᴜ 📃 ⟩
     { vem2: SKULPTA_AKVA_NIVELO, naturaFluo: tsekeGeneritaTero() } );
 } )();
 
 export function akvaEltrancxo(x: number, z: number): number {
   if ( !AKVA ) return 0;
-  // ⟨ ចង្អូរទឹករលូន ដើម្បីកុំឱ្យច្រាំងកាត់ជ្រុង 📃 ⟩
+  // ⟨ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɜ ſɭ,ᴜ , ꞙɭı ſןw ſɭᴜƴ 📃 ⟩
   return specimenoBikuba(AKVA.kavoj, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGINO, x, z);
 }
 

@@ -41,7 +41,7 @@ function vepaqKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo: b
   const s2nasceAlto = 1 / nodoj;
   const rBazo = 0o3/0o40;
   const rSupro = 0o1/0o40;
-  // ⟨ ឆ្អឹងជំនីរជ្រៅជាង 📃 ⟩
+  // ⟨ ſɭɔ˞ꞇƽ , j͑ʃᴜ ſɭ,w , ꞙɭı ⟅ ⟩
   const flankoj = 0o10;
   const kresta = kunBrancetoj ? 0o16/0o100 : 0o22/0o100;
   for ( let i = 0; i < nodoj; i++ ) {
@@ -49,7 +49,7 @@ function vepaqKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo: b
     const r0 = rBazo - ( rBazo - rSupro ) * ( i / nodoj );
     const r1 = rBazo - ( rBazo - rSupro ) * ( ( i + 1 ) / nodoj );
     hakek.push(kf2RibitanS2nascen(r0, r1, s2nasceAlto, flankoj, kresta).translate(0, y0, 0));
-    // ⟨ រូបរាងស្រោម 📃 ⟩
+    // ⟨ ſ͕ɭɜ ı],ᴜ , j͑ʃᴜ ſןᴜ , ⟅ ⟩
     if ( i > 0 ) {
       const ingaAlto = s2nasceAlto * 0o35/0o100;
       const kolumeto = new THREE.CylinderGeometry(r0 * 0o14/0o10, r0 * 0o11/0o10,
@@ -62,7 +62,7 @@ function vepaqKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo: b
         const eliro = 0o3/0o40 + 0o35/0o100 * ( i / nodoj );
         for ( let b = 0; b < brancetoj; b++ ) {
           const ang = b / brancetoj * Math.PI * 2 + i * 0o3/0o10;
-          // ⟨ មែកកោង 📃 ⟩
+          // ⟨ ɭʃɜ ſɭɹȝ , ſȷƽᴜ ʃɔ , ⟅ ⟩
           const xaqadi = longeco * 0o43/0o100, dua = longeco * 0o43/0o100;
           const hatafkaq = [ eliro, eliro + 0o43/0o100 ];
           const hasahakani = [ xaqadi, dua ];
@@ -91,8 +91,8 @@ function vepaqKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo: b
           }
         }
       } else {
-        // ⟨ ហេតុអ្វីវាមើលទៅដូចស្លឹក 📃 ⟩
-        // ⟨ ធ្មេញមួយក្នុងមួយឆ្អឹងជំនីរ 📃 ⟩
+        // ⟨ j͑ʃп́ɔ ʌ j͑ʃᴜꞇ , j͑ʃͷ̗ᴜʞ , ⟅ ⟩
+        // ⟨ ſɭэ ɭʃᴜ , ꞙɭı , ſɭɔ˞ꞇƽ , ꞙɭı , ⟅ ⟩
         const dentoj = flankoj;
         const dentoAlto = s2nasceAlto * 0o55/0o100;
         for ( let d = 0; d < dentoj; d++ ) {
@@ -129,7 +129,7 @@ function vepaqKanGeometrion(nodoj: number, kunBrancetoj: boolean, kunStrobilo: b
       .translate(0, 1 + 0o1/0o100, 0);
     hakek.push(pinto);
   }
-  // ⟨ សមាមាត្រដើម 📃 ⟩
+  // ⟨ ſɭɜ ſɭ,w }ʃw , ſןᴜ j͐ʃэ , ⟅ ⟩
   const geometrio = kunfandiGeometriojnSenIndekson(hakek);
   geometrio.scale(0o33/0o100, 1, 0o33/0o100);
   return geometrio;
@@ -172,8 +172,8 @@ function instanciiKavalerbojn(qena: THREE.Scene,
     const l6da = minAlto + hazardaGenerilo() * ( maxAlto - minAlto );
     E.set(0, hazardaGenerilo() * Math.PI * 2, ( hazardaGenerilo() - 0o4/0o10 ) * 0o4/0o10);
     Q.setFromEuler(E);
-    // ⟨ មូលដ្ឋានលើដី 📃 ⟩
-    // ⟨ មាត្រឯកសណ្ឋាន 📃 ⟩
+    // ⟨ ſɭɜ ſɭ,w }ʃw , ſɭɜ ſɭ,w , ⟅ ⟩
+    // ⟨ ſןᴜ j͐ʃэ , ꞙɭı , ⟅ ⟩
     const y = heightFn(x, z);
     M.compose(new THREE.Vector3(x, y, z), Q, new THREE.Vector3(l6da, l6da, l6da));
     kavalerboj.setMatrixAt(ki, M);

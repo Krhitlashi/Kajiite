@@ -1,6 +1,6 @@
 // ≺⧼ j͑ʃᴜ ı],ɔ }ʃꞇ ʌ j͑ʃ'w j͐ʃᴜ 🏠 ⧽≻
-// ទំព័រនៃផ្ទាំងចាប់ផ្តើម ៖ ព័ត៌មាន , ការកំណត់ , សម្លៀកបំពាក់ ។
-// ទំព័រទាំងអស់បង្កើតដោយឧបករណ៍រួម ( paghoj.ts ) ដូចហ្គេមដែរ ។
+// ſɭᴜ ſןᴜ , ſɭэ ɭʃᴜ , ꞙɭı , ⟅ ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭɔ ,
+// ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ı],ᴜ ֭ſɭᴜ , ꞙɭı , 📃 ⟩
 import { ligiTabojn } from "./paneeloj.js";
 import {
   plenigiMangxaListonEn, plenigiSpeciaListonEn, plenigiVepaqTipListonEn,
@@ -9,15 +9,15 @@ import { kf2Vestejon } from "./vestejo.js";
 import { kf2Staton } from "./paghoj.js";
 import { aplikiVacepu } from "./efikoj.js";
 
-// ⟪ ធាតុ DOM 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ 📃 ⟫
 const butInhaqoxa = document.getElementById("butInhaqoxa")!;
 const butAgordVestaro = document.getElementById("butAgordVestaro")!;
 const paghoVepaqListo = document.getElementById("paghoVepaqListo")!;
 const paghoMangxaListo = document.getElementById("paghoMangxaListo")!;
 const paghoSpeciaListo = document.getElementById("paghoSpeciaListo")!;
 
-// ⟪ ព័ត៌មាន 📃 ⟫
-// ⟨ បញ្ជីទាំងនេះសម្រាប់អានតែប៉ុណ្ណោះ ៖ ដូច្នេះគ្មានដំណើរការចុចទេ 📃 ⟩
+// ⟪ ſɭэ ſɭᴜ , ꞙɭı 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭɔ , ⟅ ſɭᴜ ſןᴜ , ꞙɭɔ , 📃 ⟩
 function plenigiInformPaghon(): void {
   plenigiVepaqTipListonEn(paghoVepaqListo);
   plenigiMangxaListonEn(paghoMangxaListo);
@@ -29,11 +29,11 @@ const informPagho = kf2Staton("informPagho", plenigiInformPaghon);
 ligiTabojn(document.getElementById("informPagho")!, "hapaq");
 butInhaqoxa.addEventListener("click", () => informPagho.malfermi());
 
-// ⟪ សម្លៀកបំពាក់ ៖ តួតែមួយរួមជាមួយហ្គេម , ដូច្នេះគ្មានអ្វីអណ្តែតលើអ្វីទេ 📃 ⟫
+// ⟪ ſɭɜ ɭʃɔ , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟫
 const vestejo = kf2Vestejon();
 butAgordVestaro.addEventListener("click", () => vestejo.malfermi());
 
-// ⟪ បំពេញឡើងវិញពេលភាសាប្តូរ 📃 ⟫
+// ⟪ ſȷwɔ˞ , ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟫
 window.addEventListener("lingvosxangxo", () => {
   if ( informPagho.tsekeMalfermita() ) plenigiInformPaghon();
 });

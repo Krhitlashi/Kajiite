@@ -1,5 +1,5 @@
 // ≺⧼ ſןᴜ ſ͔ɭᴜ 🐾 ⧽≻
-// ⟨ ប្រភេទនីមួយៗនៅក្នុងឯកសារផ្ទាល់ខ្លួន 📃 ⟩
+// ⟨ ſ͕ɭᴜ j͑ʃᴜ ʌ ꞙɭı ʌ ꞙɭı ʌ j͑ʃᴜ ʌ ꞙɭı ʌ ꞙɭı ʌ j͑ʃᴜꞇ 📃 ⟩
 import * as THREE from "three";
 import { alteco, akvaVem2, bs2, tsekeEnLago } from "../../kantaoj/mondo/tereno.js";
 import type { Paga, PagaSistemo, PudalMalneto } from "./pudal-hahunaq.js";
@@ -182,7 +182,7 @@ export function gxisdatigiHapagan(s: PagaSistemo, t: number): void {
     b.hate.rotation.y = b.c2w2q + Math.sin(t * b.rapido + b.phase) * 0o1/0o4
       + Math.sin(t * 0o1/0o2 + b.phase) * 0o1/0o4;
     b.hate.rotation.z = Math.sin(t * 0o3/0o4 + b.phase) * 0o3/0o40;
-    // ⟨ ចលនាតាមប្រភេទ 📃 ⟩
+    // ⟨ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʌ ſ͕ɭᴜ j͑ʃᴜ 📃 ⟩
     if ( b.pudal === "l2xkupukai" ) {
       gxisdatigiBeran(b, t);
     } else if ( b.pudal === "l2xcaxlefai" ) {

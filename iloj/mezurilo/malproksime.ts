@@ -1,21 +1,21 @@
 // ≺⧼ ſᶘɔ ֭ſɭэ ſɭw j͑ʃᴜꞇ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🔭 ⧽≻
-// ដីត្រូវបានសង់លើយន្តហោះធំ ( 0o3000 ) ប៉ុន្តែពិភពលោកមានកាំតែ 0o600 ។
-// ចំណុចក្រៅទម្រង់ត្រូវបានចុចត្រឡប់មកគែម ។ យើងវាស់ថាតើការងារប៉ុន្មាន
-// ធ្លាក់លើចំណុចឆ្ងាយទាំងនោះ ។ បន្ទាប់មកយើងពិនិត្យថាតើយន្តហោះតូច
-// រក្សាលេខខាងក្នុងពិភពលោកដូចគ្នាបេះបិទឬអត់ ។
+// ſɭɜ ſɭ,w , ſɭᴜ ſןᴜ , ꞙɭцɔɔɔ , ⟅ ſɭэ ſɭw , ꞙɭɩɔɔ ,
+// ſɭэ ſɭᴜ , ſןw ſɭᴜƴ , ꞙɭı ,
+// ſɭɜ ſɭ,w , ſɭɹ ſןᴜ , ꞙɭı ,
+// ſɭэ ſɭw , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { alteco, akvaVem2Proksima } from "../../kantaoj/mondo/tereno.js";
 import { terenaKoloroEn, alternajDiagonalojn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 import { h6kuniQoxa, surokQoxa } from "../../eskekoj/komunajxoj/mapqoxa.js";
 import { aktivaMapo } from "../../kantaoj/tero-datumaro/mapregulo.js";
 
-// ⟨ យន្តហោះបច្ចុប្បន្ន 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const GRANDECO = 0o3000;
 const SEGMENTOJ = 0o600;
 const SX = SEGMENTOJ + 1;
 const N = SX * SX;
 const PASXO = GRANDECO / SEGMENTOJ;
-// ⟨ យន្តហោះតូច ៖ ទទឹងស្មើអង្កត់ផ្ចិតពិភពលោក , ជំហានដូចគ្នា 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
 const TUTA = 0o1400;
 const SEG_TUTA = 0o300;
 const SX_TUTA = SEG_TUTA + 1;
@@ -26,7 +26,7 @@ const weh2 = new THREE.Color();
 const posX = new Float32Array(N);
 const posZ = new Float32Array(N);
 const hoj = new Float32Array(N);
-// ត្រូវជាលេខទ្វេ ៖ បើជា float32 ការប្រៀបធៀបនឹងខុសដោយសារការកាត់តម្លៃ ។
+// ſɭэ ſɭw , ꞙɭɿ , ⟅ ꞙɭɿ , 📃 ⟩
 const kol = new Float64Array(N * 3);
 const interna = new Uint8Array(N);
 {
@@ -40,7 +40,7 @@ const interna = new Uint8Array(N);
       p++;
     }
   }
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចំណុចសរុប=${N} ក្នុងពិភពលោក=${ene} ក្រៅ=${N - ene} ភាគក្រៅ=${((N - ene) / N).toFixed(3)}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) }ʃɹƽ ʌ ſɭɹ ſᶘɔ=${N} ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ }ʃᴜ j͐ʃᴜ=${ene} ｡ j͑ʃᴜ ʌ j͑ʃᴜꞇ=${N - ene} ｡ ſ͕ɭᴜƣ̋ ʌ j͑ʃᴜ ʌ j͑ʃᴜꞇ=${((N - ene) / N).toFixed(3)}`);
 }
 
 function fazoAltoj( kutime: number ): number {
@@ -87,14 +87,14 @@ function mezuri( ksaka: string, f: () => number ): void {
   console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o32)} mediano=${tempaj[0o10].toFixed(1)}ms min=${tempaj[0].toFixed(1)}ms`);
 }
 
-mezuri("alteco តែក្នុងពិភពលោក", () => fazoAltoj(1));
-mezuri("alteco តែក្រៅពិភពលោក", () => fazoAltoj(0));
-mezuri("koloroj តែក្នុងពិភពលោក", () => fazoKoloroj(1));
-mezuri("koloroj តែក្រៅពិភពលោក", () => fazoKoloroj(0));
+mezuri("alteco ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ }ʃᴜ j͐ʃᴜ", () => fazoAltoj(1));
+mezuri("alteco ｡ j͑ʃᴜ ʌ j͑ʃᴜꞇ ʌ }ʃᴜ j͐ʃᴜ", () => fazoAltoj(0));
+mezuri("koloroj ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ }ʃᴜ j͐ʃᴜ", () => fazoKoloroj(1));
+mezuri("koloroj ｡ j͑ʃᴜ ʌ j͑ʃᴜꞇ ʌ }ʃᴜ j͐ʃᴜ", () => fazoKoloroj(0));
 
-// ⟨ ពិនិត្យ ភាពដូចគ្នានៃយន្តហោះតូច 📃 ⟩
-// យន្តហោះតូចប្រើចំណុចដូចគ្នា ។ បញ្ហាតែមួយគត់គឺសន្ទស្សន៍ជាប់គែម
-// ដែលគ្មានអ្នកជិតខាង ។ ដូច្នេះជម្រាល ( និងពណ៌ ) អាចខុសតែនៅជួរខាងក្រៅ ។
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭw , 📃 ⟩
+// ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ſןw ſɭᴜƴ , ꞙɭɿ , 📃 ⟩
 {
   const NT = SX_TUTA * SX_TUTA;
   const hojT = new Float32Array(NT);
@@ -123,12 +123,12 @@ mezuri("koloroj តែក្រៅពិភពលោក", () => fazoKoloroj(0));
       }
     }
   }
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) យន្តហោះតូច ក្នុងពិភពលោក=${enTuto} កម្ពស់ខុស=${altojMalsamaj} ពណ៌ខុស=${kolorojMalsamaj}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͐ʃᴜ ſ͕ɭɜ ŋᷠɹ ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ }ʃᴜ j͐ʃᴜ=${enTuto} ｡ j͐ʃэ ɭ(ᴜ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ=${altojMalsamaj} ｡ ſɭɔʞ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ=${kolorojMalsamaj}`);
 }
 
-// ⟨ ការសង់ដីទាំងស្រុង ៖ ធំ ធៀបនឹង តូច , ឆ្លាស់គ្នា 📃 ⟩
-// យើងធ្វើតាមលំដាប់នៃ vepaqTerenon ៖ កម្ពស់ , ពណ៌ , ការចុច , សន្ទស្សន៍ ។
-// អង្គចងចាំត្រូវបានបម្រុងទុកម្តង ។ តម្លៃ min ទុកចិត្តបានជាង mediano ។
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 function kreuTerenon( grandeco: number, has2nasce: number ): () => number {
   const sx = has2nasce + 1;
   const n = sx * sx;
@@ -182,16 +182,16 @@ function kreuTerenon( grandeco: number, has2nasce: number ): () => number {
   }
   ta.sort(( a, b ) => a - b ); tb.sort(( a, b ) => a - b );
   const ma = ta[ta.length >> 1], mb = tb[tb.length >> 1];
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ដី A/B ធំ=${ma.toFixed(1)}ms min=${ta[0].toFixed(1)} តូច=${mb.toFixed(1)}ms min=${tb[0].toFixed(1)} លឿន=${(ma / mb).toFixed(2)}x`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɜ ſɭ,w A/B ｡ ſןᴜ j͐ʃэ ɭl̀ᴜ=${ma.toFixed(1)}ms min=${ta[0].toFixed(1)} ｡ ſןᴜ j͐ʃэ ŋᷠɹ=${mb.toFixed(1)}ms min=${tb[0].toFixed(1)} ｡ j͑ʃƨꞇʞ ŋᷠɹ=${(ma / mb).toFixed(2)}x`);
 }
 
-// ⟨ ចំណុចដែលចុចមកគែម 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ſןw ſɭᴜƴ , 📃 ⟩
 let premitaj = 0;
 const premita = { x: 0, z: 0 };
 for ( let i = 0; i < N; i++ ) {
   if ( surokQoxa(mapo.qoxa, mapo.grandeco, posX[i], posZ[i], premita) ) premitaj++;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចំណុចចុចមកគែម=${premitaj} ត្រីកោណធំ=${2 * SEGMENTOJ * SEGMENTOJ} ត្រីកោណតូច=${2 * SEG_TUTA * SEG_TUTA}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) }ʃɹƽ ʌ ſןw ſɭᴜƴ=${premitaj} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ ɭl̀ᴜ=${2 * SEGMENTOJ * SEGMENTOJ} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ ŋᷠɹ=${2 * SEG_TUTA * SEG_TUTA}`);
 let haKekkozusaiUzataj = 0;
 for ( let j = 0; j < SEG_TUTA; j++ ) {
   for ( let i = 0; i < SEG_TUTA; i++ ) {
@@ -204,4 +204,4 @@ for ( let j = 0; j < SEG_TUTA; j++ ) {
     if ( internaK2pa ) haKekkozusaiUzataj++;
   }
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡាដីមានគែម=${haKekkozusaiUzataj}/${SEG_TUTA * SEG_TUTA} ត្រីកោណនៅសល់=${haKekkozusaiUzataj * 2}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſןᴜ ʌ ſɭɜ ſɭ,w ʌ ſןw ſɭᴜƴ=${haKekkozusaiUzataj}/${SEG_TUTA * SEG_TUTA} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ ʌ jɑʃᴜ ſȷᴜ=${haKekkozusaiUzataj * 2}`);

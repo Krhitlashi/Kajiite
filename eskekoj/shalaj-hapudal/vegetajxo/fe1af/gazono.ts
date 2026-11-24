@@ -11,13 +11,13 @@ import { bs2, akvaVem2, akvaVem2Proksima, SKULPTA_N, SKULPTA_PASO, SKULPTA_ORIGI
 import { kf2HerbanKlingon } from "./klingoj.js";
 import { kf2HerbanMaterialon, herbajTavoloj, devigiHerbanGxisdatigon } from "./vento.js";
 
-// ⟪ ដុំស្មៅ 🌾 ⟫
+// ⟪ ſȷɔ ſᶘᴜʞ , ꞙɭı 🌾 ⟫
 export interface HerbaTufo {
   x: number; z: number; y: number;
   sx: number; sy: number; sz: number;
   gx: number; gz: number;
-  // ⟨ រក្សាតែមុំ មិនរក្សា Quaternion មួយសម្រាប់គ្រប់ដុំស្មៅ ។
-  //   មានដុំរាប់សែន ហើយ Quaternion ត្រូវបង្កើតឡើងវិញនៅពេលសរសេរមាត្រី ។ 📃 ⟩
+  // ⟨ ſɭɜ ֭ſɭɜ , ꞙɭı , ꞙɭɔ , Quaternion , ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭı ,
+  //   ſȷɔ ſᶘᴜʞ , Quaternion , ꞙɭı , ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ⟅ 📃 ⟩
   yaw: number;
   nuanco: number;
   haga: number;
@@ -25,50 +25,50 @@ export interface HerbaTufo {
   varianto: number;
 }
 
-// ⟪ ក្រឡា និងក្តារ 📃 ⟫
-// ⟨ តម្លៃទាំងនេះនាំចេញដើម្បីឱ្យឧបករណ៍ខាងក្រៅសាងសង់ស្មៅដូចគ្នា
-//   បាន ដោយមិនចាំបាច់ចម្លងលេខ ។ 📃 ⟩
+// ⟪ ſɭɹ ſןᴜ , ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 📃 ⟫
+// ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ſɟᴜᴜ̩ ɭʃɹ , ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭı ,
+//   ꞙɭɔ , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export const HERBA_CXELO = 0o2;
 export const HERBA_TAVOLA_NOMO = "herbaTavolo";
 const HERBA_TABELO = 0o40;
-// ⟨ ស្មៅឆ្ងាយ ៖ ចម្ងាយតែមួយសម្រាប់គ្រប់ឧបករណ៍ ។ ស្មៅជាអ្នកចំណាយធំបំផុតលើ GPU ,
-// ហើយវាលឆ្ងាយបិទដោយវាយនភាពដី ។ 📃 ⟩
+// ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭı , ſɟᴜᴜ̩ ɭʃɹ , ſȷɔ ſᶘᴜʞ , GPU , ꞙɭı ,
+//   ꞙɭı , j͑ʃɜ ſɭ,ᴜ , ſɭɜ ſɭ,w , ⟅ 📃 ⟩
 const HERBA_LIMO = 0o40;
 const HERBA_FADO = HERBA_LIMO;
 
-// ⟪ រូបរាងដុំស្មៅ 📃 ⟫
-// ⟨ វាលស្មៅ ៖ ស្លឹកខ្ពស់ជាងមុន , តែនៅជាវាលរាបស្មើ មិនមែនដុំស្មៅខ្ពស់ដាច់ៗ 📃 ⟩
+// ⟪ ſ͕ɭɜ ı],ᴜ , ſȷɔ ſᶘᴜʞ 📃 ⟫
+// ⟨ ᶅſɔ ɽ͑ʃ'ɔ , ſȷɔ ſᶘᴜʞ , j͑ʃͷ̗ᴜʞ , j͑ʃᴜ ʃɜ , ꞙɭı , ꞙɭı , j͑ʃɜ ſɭ,ᴜ , ꞙɭɔ ,
 export const HERBA_LARGO = 0o26/0o10;
 const HERBA_CXELA_JITERO = 0o1/0o4;
-// ⟨ ស្មៅស្រាល ៖ ស្លឹកតិចជាងមុន , ហើយកំណាត់តែមួយ ។ ស្លឹកនីមួយៗសន្សំត្រីកោណ ។
-// ស្មៅជាអ្នកចំណាយធំបំផុតលើ GPU ៖ ដុំមួយមានស្លឹករាប់រយ ។ ការកំណត់តែមួយ
-// សម្រាប់គ្រប់ឧបករណ៍ ៖ មិនមានការបែងចែកតាមឧបករណ៍ទេ ។ 📃 ⟩
+// ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭı , j͑ʃͷ̗ᴜʞ , ꞙɭı , ꞙɭı , ꞙɭı , j͑ʃͷ̗ᴜʞ , ꞙɭı , ꞙɭı ,
+//   ſȷɔ ſᶘᴜʞ , GPU , ꞙɭı , j͑ʃͷ̗ᴜʞ , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+//   ſɟᴜᴜ̩ ɭʃɹ , ꞙɭı , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
 export const HERBA_AKSOJ = 0o13;
 const HERBA_SEGMENTOJ = 1;
 export const HERBA_VARIANTOJ = 0o3;
-// ⟨ គ្រាប់ពូជទូទៅ ៖ ឧបករណ៍ខាងក្រៅប្រើលេខដូចគ្នា ដើម្បីទទួលរូបរាងដូចគ្នា ។ 📃 ⟩
+// ⟨ ɽ͑ʃ'w j͑ʃ'ᴜ , ꞙɭı , ſɟᴜᴜ̩ ɭʃɹ , ꞙɭı , ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭı ⟅ 📃 ⟩
 export const HERBA_SEMO = 0o2715;
 export const HERBA_SEMA_PASO = 0o1436;
 const HERBA_TABELOJ_ANTUX_JESI = 0o4;
-// ⟨ ស្មៅឆ្ងាយ ៖ ស្លឹកនីមួយៗរក្សាតែជួរឈរខាងមុខ 0o3 ជំនួសឱ្យ 0o5 ។ ទីតាំង
-//   និង រូបរាងខាងមុខនៅដដែលដូចកម្រិតជិត , ដូច្នេះការប្តូរកម្រិតមិនឃើញលោត ។
-//   កម្រិតនេះជាចម្ងាយពីគែមក្រឡាស្មៅ ដល់ភ្នែកអ្នកលេង ។ 📃 ⟩
+// ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭı , j͑ʃͷ̗ᴜʞ , ꞙɭц , ꞙɭɔ , ꞙɭꞟ ⟅ ꞙɭı ,
+//   ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭı , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ , ꞙɭɔ ,
+//   ꞙɭı , ꞙɭı , ſɭɹ ſןᴜ , ſȷɔ ſᶘᴜʞ , ꞙɭı , ⟅ 📃 ⟩
 const HERBA_LOD_DISTO = 0o12;
 const HERBA_LOD_SEGMENTOJ = 1;
 const HERBA_LOD_KOLONOJ = 0o3;
-// ⟨ កម្ពស់ស្លឹក ៖ ខ្យល់បក់តាមកម្ពស់ពិត , មិនបក់លើសស្លឹក ។ តម្លៃនេះត្រូវ
-//   នៅជិតកម្ពស់ស្លឹកខ្ពស់បំផុត ( sahakani ) ដើម្បីឱ្យចុងស្លឹកបក់ពេញ 📃 ⟩
+// ⟨ j͐ʃэ ɭ(ᴜ , j͑ʃͷ̗ᴜʞ , j͑ʃɹ ŋᷠɹ , j͐ʃэ ɭ(ᴜ , ꞙɭı , ꞙɭɔ , j͑ʃͷ̗ᴜʞ ,
+//   j͐ʃэ ɭ(ᴜ , j͑ʃͷ̗ᴜʞ , ( ſɭэ ſɭᴜ ) , j͑ʃͷ̗ᴜʞ , ⟅ 📃 ⟩
 const HERBA_KLINGA_ALTO = 0o44/0o100;
 const HERBA_DEKLIVA_LIMO = 0o7/0o10;
 const HERBA_DOKLIVA_LIMO = 0o13/0o20;
 const HERBA_SUKENO = 0o1/0o100;
 
-// ⟪ អាងស្មៅ ដើម្បីកុំឱ្យចៃដន្យចូលក្នុងផ្លូវ 📃 ⟫
-// ⟨ ចៃដន្យអស់ចូលបំផុត ពីមជ្ឈប់ដុំ នៅទំហំមួយ , រួចសង្កត់តាមចៃដន្យដែលអាចធ្វើបាន ដើម្បីកុំឱ្យមានកន្លែងទទេធំ ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟩
+// ⟪ ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭɔ , ſɭэ ֭ſɭэ 📃 ⟫
+// ⟨ j͑ʃᴜ ſɭᶗ‹ɜ , ꞙɭɔ , ꞙɭı , ꞙɭı , j͑ʃᴜ ſɭᶗ‹ɜ , ꞙɭı , ꞙɭɔ ,
 const HERBA_RADIO = HERBA_LARGO * 0o1/0o2 + ( 0o14/0o100 + 0o2/0o10 )
   * ( 0o5/0o100 + 0o15/0o100 ) * ( 0o5/0o10 + 0o5/0o10 );
 
-// ⟪ ពណ៌តាមតំបន់ 🎨 ⟫
+// ⟪ ᶅſɔ ֭ſɭɹ , ꞙɭı 🎨 ⟫
 export const HERBA_BIOMAJ_KOLOROJ:
   Partial<Record<Bs2, readonly [ number, number, number ]>> = {
     "valo": [ 0o1, 0o1, 0o1 ],
@@ -79,7 +79,7 @@ export const HERBA_BIOMAJ_KOLOROJ:
   };
 
 const HERBA_BLANKA_KOLORO = new THREE.Color(0o1, 0o1, 0o1);
-// ⟨ ដុំស្មៅខ្លះប្រផេះ ខ្លះបៃតងចាស់ ៖ ដើម្បីកុំឱ្យវាលស្មៅស្មើគ្នាទាំងអស់ 📃 ⟩
+// ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭı , ᶅſɔ ֭ſɭɹ , ꞙɭɿ , ꞙɭɔ , ꞙɭɿ , ⟅ 📃 ⟩
 const HERBA_GRUZA_KOLORO = new THREE.Color(0o6/0o10, 0o66/0o100, 0o6/0o10);
 const HERBA_MALHELA_KOLORO = new THREE.Color(0o16/0o100, 0o3/0o10, 0o22/0o100);
 
@@ -91,8 +91,8 @@ function herbaHasho(ix: number, iz: number): number {
   return ( ( h ^ ( h >>> 0o13 ) ) >>> 0 ) / 0o40000000000;
 }
 
-// ⟨ ចម្លងធរណីមាត្រមួយសម្រាប់ក្រឡាមួយ ៖ បន្ថែមទិន្នន័យជម្រាលតាមដុំស្មៅ ។
-//   ឧបករណ៍សាកល្បងក៏ប្រើមុខងារនេះ ដើម្បីឱ្យស្មៅដូចឆាកពិត ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ſɭɹ ſןᴜ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭı ,
+//   ſɟᴜᴜ̩ ɭʃɹ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭı , ⟅ 📃 ⟩
 export function kf2HerbanTavolanKopion(varia: THREE.BufferGeometry, vem2: number,
   doklivo?: THREE.InstancedBufferAttribute): THREE.BufferGeometry {
   const geometrio = new THREE.BufferGeometry();
@@ -102,15 +102,15 @@ export function kf2HerbanTavolanKopion(varia: THREE.BufferGeometry, vem2: number
   }
   const vecax2lani = varia.getIndex();
   if ( vecax2lani ) geometrio.setIndex(vecax2lani);
-  // ⟨ កម្រិតទាំងពីរប្រើទិន្នន័យទំហំជម្រាលតែមួយ ៖ ធនធានតែមួយ , មិនចំលងទ្វេទេ ។ 📃 ⟩
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭɿ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭɿ ⟅ 📃 ⟩
   geometrio.setAttribute("herbaDoklivo", doklivo
     ?? new THREE.InstancedBufferAttribute(new Float32Array(vem2 * 2), 2));
   return geometrio;
 }
 
-// ⟪ ជម្រើសសម្រាប់ដុំស្មៅមួយ 📃 ⟫
-// ⟨ ការគណនាដុំស្មៅត្រូវការតែអនុគមន៍ពីខាងក្រៅប៉ុណ្ណោះ ។ ការបំបែកវាចេញ
-//   ធ្វើឱ្យឧបករណ៍សាកល្បងសាងសង់ស្មៅដូចឆាកពិត ។ 📃 ⟩
+// ⟪ j͑ʃ'ɔ ŋᷠɹ , ſȷɔ ſᶘᴜʞ 📃 ⟫
+// ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+//   ʃɜ j͐ʃɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export interface HerbaTufaHasukf2qani {
   heightFn: ( x: number, z: number ) => number;
   excludeRivers: ( x: number, z: number ) => boolean;
@@ -119,8 +119,8 @@ export interface HerbaTufaHasukf2qani {
   habs2Filtro?: readonly Bs2[];
   k6h6Klaro?: ( x: number, z: number, maks: number ) => number;
   kruxaKlaro?: ( x: number, z: number, maks: number ) => number;
-  // ⟨ ជម្រើសសម្រាប់ឆាកសាកល្បង ៖ តំបន់ និងកម្រិតទឹកអាចមកពីខាងក្រៅ
-  //   ដោយមិនប៉ះពាល់ដល់ពិភពលោកពិត ។ 📃 ⟩
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ , j͑ʃп́ꞇ ſɭɔƴ , ſɭэ ſɭ,w , ꞙɭı ,
+  //   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   bs2Fn?: ( x: number, z: number ) => Bs2;
   akvaVem2Fn?: ( x: number, z: number ) => number;
 }
@@ -128,7 +128,7 @@ export interface HerbaTufaHasukf2qani {
 const TUF_E = new THREE.Euler();
 const TUF_Q = new THREE.Quaternion();
 
-// ⟨ ការគណនាដុំស្មៅមួយនៅក្រឡា ( ix , iz ) ។ ត្រឡប់ null បើក្រឡានោះគ្មានស្មៅ ។ 📃 ⟩
+// ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭı , ſɭɹ ſןᴜ ( ix , iz ) ⟅ null , ſɭɹ ſןᴜ , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
 export function kalkuliHerbanTufon(ix: number, iz: number,
   hasukf2qani: HerbaTufaHasukf2qani): HerbaTufo | null {
   const heightFn = hasukf2qani.heightFn;
@@ -156,7 +156,7 @@ export function kalkuliHerbanTufon(ix: number, iz: number,
   let sz = p6zukani * ( 0o1 - 0o1/0o40 + herbaHasho(ix + 0o35, iz + 0o5) * 0o1/0o20 );
   const sy = p6zukani * ( 0o1 - 0o1/0o10 + herbaHasho(ix + 0o13, iz + 0o7) * 0o2/0o10 );
 
-  // ⟨ បង្រួមដុំស្មៅនៅជិតផ្លូវ និងគីហ្វហេសូ ។ 📃 ⟩
+  // ⟨ ſȷɔ ſᶘᴜʞ , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
   const pleja = Math.max( sx, sz );
   let limo = 0o1;
   for ( const klaroFn of [ hasukf2qani.k6h6Klaro, hasukf2qani.kruxaKlaro ] ) {
@@ -182,7 +182,7 @@ export function kalkuliHerbanTufon(ix: number, iz: number,
     nuanco: 0o1 - 0o1/0o40 + herbaHasho(ix + 0o17, iz + 0o13) * 0o1/0o20 };
 }
 
-// ⟨ តារាងពណ៌ប្រចាំតំបន់ ៖ គណនាម្តង , ប្រើរាល់ដុំស្មៅ ។ 📃 ⟩
+// ⟨ ᶅſɔ ֭ſɭɹ , ꞙɭı , ꞙɭı , ſȷɔ ſᶘᴜʞ , ⟅ 📃 ⟩
 export function kf2BiomajnKolorojn(): Map<Bs2, THREE.Color> {
   const biomaKoloro = new Map<Bs2, THREE.Color>();
   for ( const ksaka of Object.keys(HERBA_BIOMAJ_KOLOROJ) as Bs2[] ) {
@@ -192,8 +192,8 @@ export function kf2BiomajnKolorojn(): Map<Bs2, THREE.Color> {
   return biomaKoloro;
 }
 
-// ⟨ ពណ៌ឧទាហរណ៍សម្រាប់ដុំស្មៅមួយ ៖ ដីផ្តល់ពន្លឺ , ដុំស្មៅផ្តល់ក្តារពណ៌ខ្លួនឯង ,
-//   តំបន់ផ្តល់ការផ្អោប , ហើយចៃដន្យបន្ថែមប្រផេះ និងបៃតងចាស់ម្តងម្កាល ។ 📃 ⟩
+// ⟨ ᶅſɔ ֭ſɭɹ , ſȷɔ ſᶘᴜʞ , ꞙɭı , ſɭэ ſɭ,w , ɭʃэʞ , ꞙɭı , ſȷɔ ſᶘᴜʞ ,
+//   ꞙɭı , ᶅſɔ ֭ſɭɹ , ꞙɭı , j͑ʃᴜ ſɭᶗ‹ɜ , ꞙɭɿ , ⟅ 📃 ⟩
 export function herbaTufaKoloroEn(celo: THREE.Color, teraKoloro: THREE.Color,
   tufo: HerbaTufo, biomaKoloro: ReadonlyMap<Bs2, THREE.Color>,
   vem2Fn?: ( x: number, z: number ) => number): THREE.Color {
@@ -208,24 +208,24 @@ export function herbaTufaKoloroEn(celo: THREE.Color, teraKoloro: THREE.Color,
   const hunanu = 0o15/0o20 + 0o5/0o40 * Math.min(1, teraLumo / ( 0o1/0o2 ));
   celo.multiplyScalar(tufo.nuanco * HERBA_MALHELIGO * hunanu / klingaLumo)
     .multiply(biomaKoloro.get(tufo.bs2) ?? HERBA_BLANKA_KOLORO);
-  // ⟨ ចម្រុះពណ៌តាមដុំ ៖ ប្រផេះ និងបៃតងចាស់លាយចូលម្តងម្កាល ,
-  //   តែតិចជាងមុន ដូច្នេះវាលស្មៅរាបស្មើ មិនលោតពណ៌ខ្លាំង 📃 ⟩
+  // ⟨ ᶅſɔ ֭ſɭɹ , ꞙɭı , ꞙɭı , ᶅſɔ ֭ſɭɹ , ꞙɭɿ , ꞙɭɔ , ꞙɭı ,
+  //   ꞙɭɔ , ꞙɭı , ᶅſɔ ɽ͑ʃ'ɔ , ꞙɭı , ꞙɭɔ , ⟅ 📃 ⟩
   const vario = herbaHasho(Math.floor(tufo.x / 0o6), Math.floor(tufo.z / 0o6));
   if ( vario < 0o1/0o4 ) celo.lerp(HERBA_GRUZA_KOLORO, ( 0o1/0o4 - vario ) * 0o4/0o10);
   else if ( vario > 0o3/0o4 ) celo.lerp(HERBA_MALHELA_KOLORO, ( vario - 0o3/0o4 ) * 0o4/0o10);
-  // ⟨ បង្គត់ទៅ KNAKEHE ៖ គ្រប់ការគុណ និងលាយខាងលើបង្កើតតម្លៃកណ្តាល ,
-  //   ដូច្នេះពណ៌ដុំស្មៅចុងក្រោយត្រូវតែជា #nmnmnm 📃 ⟩
+  // ⟨ KNAKEHE , ꞙɭı , ꞙɭı , ᶅſɔ ֭ſɭɹ , ᶅſɔ ֭ſɭɹ ,
+  //   ꞙɭı , ᶅſɔ ֭ſɭɹ , ſȷɔ ſᶘᴜʞ , #nmnmnm ⟅ 📃 ⟩
   return veb6qaiWeh2Skek(celo);
 }
 
-// ⟨ វត្ថុធាតុសម្រាប់ស្រទាប់ស្មៅ ៖ ដូចឆាកពិត ។ ចម្ងាយបិទអាចពង្រីកបាន
-//   សម្រាប់ឧបករណ៍សាកល្បងតូច ។ 📃 ⟩
+// ⟨ ſןw ſɭɔƽ , ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ſɟᴜᴜ̩ ɭʃɹ , ⟅ 📃 ⟩
 export function kf2HerbanTavolanMaterialon(fado = HERBA_FADO): THREE.MeshStandardMaterial {
   return kf2HerbanMaterialon(fado, kf2HerbanTavolanKlinganCac2sex(),
     { doklivo: true, l6da: HERBA_KLINGA_ALTO, svajo: 0o2/0o100, pusxo: 0o1/0o10 });
 }
 
-// ⟪ ការសង់តាមក្រឡា 🏗 ⟫
+// ⟪ ſɭɹ ſןᴜ 🏗 ⟫
 export async function vepaqHerbanTavolon(
   qena: THREE.Scene,
   jesi: () => Promise<void>,
@@ -244,7 +244,7 @@ export async function vepaqHerbanTavolon(
     variantoj.push(vepaqHerbanTavolanGeometrion(HERBA_LARGO, aksoj,
       HERBA_SEMO + v * HERBA_SEMA_PASO));
   }
-  // ⟨ កម្រិតឆ្ងាយ ៖ ទីតាំងស្លឹកដូចគ្នា , តែជួរឈរឆ្លងកាត់តិចជាង ។ 📃 ⟩
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , j͑ʃͷ̗ᴜʞ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const malproksimajVariantoj: THREE.BufferGeometry[] = [];
   for ( let v = 0; v < HERBA_VARIANTOJ; v++ ) {
     malproksimajVariantoj.push(vepaqHerbanTavolanGeometrion(HERBA_LARGO, aksoj,
@@ -301,7 +301,7 @@ export async function vepaqHerbanTavolon(
         if ( mesho.instanceColor ) mesho.instanceColor.needsUpdate = true;
         mesho.name = HERBA_TAVOLA_NOMO;
         mesho.matrixWorldAutoUpdate = false;
-        // ⟨ ដែនសម្រាប់កាត់ ៖ គណនាម្តង ដើម្បីកុំឲ្យការឆ្លាស់កម្រិតប្តូរដែន ។ 📃 ⟩
+        // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ , ꞙɭɔ , ⟅ 📃 ⟩
         mesho.computeBoundingSphere();
         qena.add(mesho);
         herbajTavoloj.push({
@@ -315,8 +315,8 @@ export async function vepaqHerbanTavolon(
           ka5ik: HERBA_TABELO * Math.SQRT1_2,
           malproksima: false,
         });
-        // ⟨ ក្រឡាថ្មីចូលឆាកជាបណ្តើរៗ ។ កាមេរ៉ាអាចឈរស្ងៀម , ដូច្នេះបង្ខំឱ្យ
-        //   ពិនិត្យភាពមើលឃើញ និង កម្រិតឡើងវិញលើស៊ុមបន្ទាប់ ។ 📃 ⟩
+        // ⟨ ſɭɹ ſןᴜ , j͑ʃᴜ ı],ɔ , ſɭᴜ j͑ʃᴜ ɭʃɹ , j͑ʃɜ ɭʃɹȝ , ꞙɭı ,
+        //   j͑ʃᴜ ſɭᴜ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ⟅ 📃 ⟩
         devigiHerbanGxisdatigon();
       }
       if ( ++vepaqtaj % HERBA_TABELOJ_ANTUX_JESI === 0 ) await jesi();
@@ -325,7 +325,7 @@ export async function vepaqHerbanTavolon(
   await jesi();
 }
 
-// ⟪ រូបរាងដុំស្មៅ 🌿 ⟫
+// ⟪ ſ͕ɭɜ ı],ᴜ , ſȷɔ ſᶘᴜʞ 🌿 ⟫
 export function vepaqHerbanTavolanGeometrion(kanto = HERBA_LARGO, aksoj = HERBA_AKSOJ,
   tk2ni = HERBA_SEMO, has2nasce = HERBA_SEGMENTOJ,
   klingaKoloro?: ( celo: THREE.Color, seka: boolean, hazardo: () => number ) => void,
@@ -343,7 +343,7 @@ export function vepaqHerbanTavolanGeometrion(kanto = HERBA_LARGO, aksoj = HERBA_
       const rz = -p2somani + ( iz + hazardo() ) * vepat6ni;
       const h6kuni = Math.min(1, Math.hypot(rx, rz) / p2somani);
       const tafkaq = Math.atan2(rz, rx);
-      // ⟨ ស្លឹកខ្ពស់ ៖ វាលស្មៅមានកម្ពស់ពិត , ចុងស្លឹកបក់តាមខ្យល់ 📃 ⟩
+      // ⟨ j͑ʃͷ̗ᴜʞ , j͑ʃᴜ ʃɜ , ᶅſɔ ɽ͑ʃ'ɔ , j͐ʃэ ɭ(ᴜ , j͑ʃɹ ŋᷠɹ , ⟅ 📃 ⟩
       const sahakani = 0o22/0o100 + hazardo() * 0o26/0o100;
       const sefini = 0o4/0o100 + hazardo() * 0o2/0o100;
       const elen = sahakani * ( 0o5/0o100 + hazardo() * 0o15/0o100 )
@@ -354,8 +354,8 @@ export function vepaqHerbanTavolanGeometrion(kanto = HERBA_LARGO, aksoj = HERBA_
         + ( hazardo() - 0o1/0o2 ) * 0o6/0o100 * sahakani;
       const tordo = ( hazardo() - 0o1/0o2 ) * 0o16/0o10;
       const sekaKlingo = hazardo() < 0o1/0o10;
-      // ⟨ ពណ៌ស្លឹក ៖ ធម្មតាមកពីតារាងពណ៌ , តែឧបករណ៍សាកល្បងអាចដាក់ការកែ
-      //   របស់ខ្លួន ។ ការហៅត្រូវដូចគ្នា ដើម្បីរក្សារូបរាងដើម ។ 📃 ⟩
+      // ⟨ ᶅſɔ ֭ſɭɹ , j͑ʃͷ̗ᴜʞ , ᶅſɔ ֭ſɭɹ , ꞙɭı , ſɟᴜᴜ̩ ɭʃɹ ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ſ͕ɭɜ ı],ᴜ , ⟅ 📃 ⟩
       if ( klingaKoloro ) klingaKoloro(sekaKlingo ? seka : verda, sekaKlingo, hazardo);
       else if ( sekaKlingo ) sekaHerbaKlingaKoloro(seka, hazardo);
       else herbaKlingaKoloro(verda, hazardo);

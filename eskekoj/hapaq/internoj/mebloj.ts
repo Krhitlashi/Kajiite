@@ -87,7 +87,7 @@ export function aldoniInternanMeblaron(
   }
 }
 
-// ⟨ ហេតុអ្វី 📃 ⟩
+// ⟨ ſɭʞэ 📃 ⟩
 export function aldoniVendotablon(hate: THREE.Group, z: number, sefini: number, profundo: number,
   y: number, lignaMaterialo: THREE.Material, joqaMaterialo: THREE.Material): number {
   const l6da = 0o7/0o10;

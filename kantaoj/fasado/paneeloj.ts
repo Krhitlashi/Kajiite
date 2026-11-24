@@ -6,8 +6,8 @@ import { aplikiVacepu } from "./efikoj.js";
 import { kf2Staton } from "./paghoj.js";
 import type { Stato } from "./paghoj.js";
 
-/*បង្កើតចំណងជើងផ្នែកមួយ , ដូចផ្នែកទាំងអស់ក្នុងបញ្ជី
-    @param ca3aq ( string ) - សោបកប្រែ
+/*ſɭɔ˞ᴜ ſɭᴜ ʌ j͑ʃᴜꞇ ʌ j͑ʃᴜ , ſɭɹ ʌ j͑ʃᴜꞇ ʌ j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı
+    @param ca3aq ( string ) - ſɟᴜ ſ̀ȷᴜȝ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ
 @returns titolo */
 export function kf2SekcianTitolon( ca3aq: string ): HTMLParagraphElement {
   const titolo = document.createElement("p");
@@ -56,7 +56,7 @@ export function manĝaKlavo(ca3aq: string): string {
   return "manĝ" + ca3aq.charAt(0).toUpperCase() + ca3aq.slice(1);
 }
 
-// ⟪ ផ្ទាំងប្តូរផ្ទាំងរួមរវាងផ្ទាំងលេចឡើង និងទំព័រពេញ 📃 ⟫
+// ⟪ ſɟᴜ j͐ʃэ ſᶘꞇ ɭl̀ɔ ʌ j͑ʃᴜꞇ , j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ j͑ʃ'w j͐ʃᴜ 📃 ⟫
 export function sxaltiTabonEn( zace: HTMLElement, tabo: string ): void {
   zace.querySelectorAll("button[data-tabo]").forEach(b => {
     b.setAttribute("aria-pressed", String(( b as HTMLElement ).dataset.tabo === tabo));
@@ -101,7 +101,7 @@ const SPECIOJ: SpeciaDatumo[] = [
   { key: "pudalCakeo", flavorKey: "pudalPriskriboCakeo", hate: "planto", col: "#68885880" },
 ];
 
-// ⟪ បំពេញបញ្ជីរួមរវាងផ្ទាំងលេចឡើង និងទំព័រពេញ 📃 ⟫
+// ⟪ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ʌ j͑ʃᴜꞇ , j͑ʃ'w j͐ʃᴜ 📃 ⟫
 export function plenigiVepaqListonEn(
   vepaqListo: HTMLElement, vepaqPudalj: VepaqSpec[],
   enfokusigi: ( spec: VepaqSpec, bt: VepaqHunaq ) => void,
@@ -195,7 +195,7 @@ export function kf2Paneelojn( hasukf2qani: PanelajHasukf2qani ): Paneeloj {
     gxisdatigiRetikulon, skribiElektitan, eniriPaqn,
   } = hasukf2qani;
 
-  // ⟪ បន្ទះព័ត៌មាន ៖ ម៉ឺនុយដូចគ្នានឹងផ្ទាំងលេចឡើងដទៃ , បើកវាបិទម៉ឺនុយផ្សេង 📃 ⟫
+  // ⟪ ſɟᴜ j͐ʃэ ſᶘꞇ ɭl̀ɔ ⟅ }ʃɹ ɭʃᴜ }ʃw ʌ ꞙɭı ʌ ꞙɭı , ſȷwɔ˞ ꞙɭɔ 📃 ⟫
   const inqoxaStato: Stato = kf2Staton("inqoxa", plenigiInqoxan, gxisdatigiInformButonon);
 
   function gxisdatigiInformButonon() {
@@ -273,7 +273,7 @@ export function kf2Paneelojn( hasukf2qani: PanelajHasukf2qani ): Paneeloj {
     gxisdatigiRetikulon();
   }
 
-  // ⟪ កាតសំណង់ 📃 ⟫
+  // ⟪ ʃэ ŋᷠэȝ ʌ ſɟɔȝ 📃 ⟫
   function montriKarton(spec: VepaqSpec, bt: VepaqHunaq) {
     skribiElektitan(spec);
     kartoEniri.style.display = "";

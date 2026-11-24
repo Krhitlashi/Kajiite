@@ -1,7 +1,7 @@
 // ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſȷͷ̗ᴜƽ ꞁȷ̀ᴜꞇ 🌉 ⧽≻
-// ⟨ សាកល្បងបីយ៉ាងលើឆាកតូច ៖ ជម្រាលឡើងដល់ចានខ្ពស់នៅចុងស្ពាន ,
-// គ្មានរន្ធត្រីកោណក្រោមផ្ទៃនៅកន្លែងបត់លើទឹក , និងគ្មានជំហានក្នុងបត់ ។
-// ឆាកតូចរត់លឿន មិនចាំបាច់សាងពិភពលោកពិតទេ ។ 📃 ⟩
+// ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭц , ⟅ ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ſᶘᴜ j͑ʃᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭэ ſɭᴜ , ſןɔ˞ᴜƴ , ꞙɭɔ , 📃 ⟩
 import "./falsdomo.mjs";
 import * as THREE from "three";
 import { vepaqHak6h6n } from "../../eskekoj/medio/hak6h6.js";
@@ -14,9 +14,9 @@ let eraroj = 0;
 const t6g6 = new THREE.MeshStandardMaterial({ color: 0xff0000 });
 const t6hna = new THREE.MeshStandardMaterial({ color: 0x0000ff });
 
-// ⟪ ទី ១ ៖ ចុងស្ពានឡើងដល់ចានខ្ពស់ 📏 ⟫
-// ⟨ ចានខ្ពស់ ៣ , ផ្ទៃស្ពានធម្មជាតិ ០ ។ ជម្រាលត្រូវលើកផ្លូវឡើង ,
-// មិនមែនទុកជញ្ជាំងឈរទេ ។ 📃 ⟩
+// ⟪ ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭı , 📏 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , ſɭᴜ ſןᴜ , ꞙɭɔ ,
+// ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 {
   vojSuprajxoj.length = 0;
   const qena = new THREE.Scene();
@@ -34,13 +34,13 @@ const t6hna = new THREE.MeshStandardMaterial({ color: 0x0000ff });
   const bona = Number.isFinite(yApud) && Number.isFinite(yMeza)
     && yApud > 0o2 && yMeza < 0o1 && yApud - yMeza > 0o1;
   if ( !bona ) eraroj++;
-  console.log(`ចុងស្ពាន ៖ ជិតចាន ${yApud.toFixed(2)} , កណ្តាល ${yMeza.toFixed(2)}` +
-    ` , ជម្រាល ${bona ? "ល្អ" : "ខ្វះ"}`);
+  console.log(`ſ̀ȷᴜ ſɭᴜƽ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ ſᶘɹ ſɭɔ ʌ ſןᴜ ſᶘɹ ${yApud.toFixed(2)} ｡ j͑ʃɜ j͑ʃƨɹ ${yMeza.toFixed(2)}` +
+    ` ｡ ֭ſɭᴜ ſ͔ɭᴜ ${bona ? "j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſןɔ"}`);
 }
 
-// ⟪ ទី ២ ៖ គ្មានរន្ធក្រោមបត់លើទឹក 📏 ⟫
-// ⟨ ទឹកគ្រប់ទី ៖ fundaFn ត្រឡប់ Infinity ហើយជង្គង់ស្តើង ។
-// កាំរស្មីចុះពីលើត្រូវប៉ះទាំងផ្ទៃ និងស្រទាប់បិទរន្ធ ។ 📃 ⟩
+// ⟪ ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ſᶘᴜ j͑ʃᴜ , 📏 ⟫
+// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ ,
+//   }ʃɹƽ , ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 {
   vojSuprajxoj.length = 0;
   const qena = new THREE.Scene();
@@ -60,12 +60,12 @@ const t6hna = new THREE.MeshStandardMaterial({ color: 0x0000ff });
   }
   const bona = plej >= 0o2;
   if ( !bona ) eraroj++;
-  console.log(`បត់លើទឹក ៖ ផ្ទៃជាន់គ្នាច្រើនបំផុត ${plej} , បិទរន្ធ ${bona ? "ល្អ" : "ខ្វះ"}`);
+  console.log(`ſɭᴜ j͑ʃƨɔ ɭl̀ᴜ ʌ ſᶘᴜ j͑ʃᴜ ｡ j͑ʃɜ ſɭ,ᴜ ɭl̀ᴜ ſןᴜ }ʃᴜ ɔı ${plej} ｡ ſןw ſɭᶗ‹ɔ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ ${bona ? "j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſןɔ"}`);
 }
 
-// ⟪ ទី ៣ ៖ គ្មានជំហានក្នុងបត់ 📏 ⟫
-// ⟨ ដីឡើងជាជម្រាល ហើយផ្លូវបត់ ៩០ ដឺក្រេ ។ គ្រប់គំរូក្នុងរង្វង់
-// បត់ត្រូវមានកម្រិតដូចគ្នា ។ 📃 ⟩
+// ⟪ ꞙɭц , ⟅ ſןɔ˞ᴜƴ , }ʃɹƽ , 📏 ⟫
+// ⟨ ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ , }ʃɹƽ ,
+//   ſןᶗ‹ɔⅎ ᶘɜ , j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
 {
   const pts: [ number, number ][] = [ [ -0o10, 0 ], [ 0, 0 ], [ 0, 0o10 ] ];
   const p2somani = 0o7 / 0o4 + 0o3 / 0o5;
@@ -77,7 +77,7 @@ const t6hna = new THREE.MeshStandardMaterial({ color: 0x0000ff });
     Math.abs(s2qena.haxekuxa[ i ] - turnoS) <= zono);
   const varias = enZono.length > 0 && Math.max(...enZono) - Math.min(...enZono) > 0o1 / 0o1000;
   if ( varias ) eraroj++;
-  console.log(`បត់ ៖ គំរូក្នុងរង្វង់ ${enZono.length} , ខុសកម្រិត ${varias ? "មាន" : "គ្មាន"}`);
+  console.log(`ſɭᴜ j͑ʃƨɔ ｡ ſᶘᴜ j͐ʃɔ ſᶘᴜ ʌ j͑ʃᴜ ʌ j͑ʃɜ j͑ʃᴜ ${enZono.length} ｡ j͑ʃ'ɔ ŋᷠɹ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${varias ? "j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ" : "ſןɔ"}`);
 }
 
-console.log(eraroj === 0 ? "ស្នាមដេកស្ពាន ល្អ" : `ស្នាមដេកស្ពាន ខុស ${eraroj}`);
+console.log(eraroj === 0 ? "ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : `ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${eraroj}`);

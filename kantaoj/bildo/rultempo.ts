@@ -1,11 +1,11 @@
 // ≺⧼ ſɭᴜc̗ ɭʃᴜ ʌ j͑ʃƨꞇʞ ʌ ſɭɔ j͑ʃ'ɔ ⏱️ ⧽≻
 import { alHe, HE_POR_SEKUNDO } from "../komunajxoj/unuoj.js";
 
-// ⟪ គោលដៅរួម 📃 ⟫
-// ⟨ កម្រិតស៊ុម និង ដង់ស៊ីតេភីកសែលត្រូវគ្នានៅគ្រប់ឆាក ។ ការវាស់ផ្អាកលើ
-//   រយៈពេលរវាងស៊ុមដែលបានគូរ មិនមែនលើចំនួនហៅ requestAnimationFrame ។
-//   ដូច្នេះអេក្រង់ដែលមានរយៈពេលស៊ុមខុសៗគ្នាប្រើគោលដៅជា He
-//   ត្រឹមត្រូវ ហើយស៊ុមដែលរំលងមិនធ្វើការអ្វីទេ ។ 📃 ⟩
+// ⟪ }ʃᴜ ɭʃᴜ ſɭᴜ ɭʃɜ ŋᷠᴜ j͑ʃᴜꞇ ʌ ꞙɭı 📃 ⟫
+// ⟨ ɭl̀ɜ ſ͕ɭᴜ , ſɭw ʃᴜ }ʃꞇ ʌ ſɟɹ ɭʃᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅ ſɭɜ ſɭᴜ j͐ʃᴜ
+//   j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ɭl̀ɜ ſ͕ɭᴜ , ꞙɭɔ ʌ requestAnimationFrame ⟅
+//   ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ɭl̀ɜ ſ͕ɭᴜ , He
+//   ꞙɭı ⟅ ɭl̀ɜ ſ͕ɭᴜ ʌ j͑ʃ'ᴜ ſɭᴜ ꞙɭɔ 📃 ⟩
 export interface RultempajHasukf2qani {
   malmultekosta?: boolean;
   minimumaSkalo?: number;
@@ -22,8 +22,8 @@ export interface Rultempo {
   readonly mezaTahaqSapse1i: number;
 }
 
-// ⟨ ខ្នាតពេលទាំងអស់ជា He ។ alHe ប្រើតែនៅព្រំដែន API ឬ ការកំណត់
-//   គំរូដែលយកតម្លៃពីខ្នាតខាងក្រៅ 📃 ⟩
+// ⟨ j͑ʃƨꞇ ֭ſɭɹ ʌ j͑ʃᴜꞇ ʌ He ⟅ alHe ʌ API ⟅
+//   j͑ʃᴜ ſɭᴜ ʌ ꞙɭɔ ⟅ 📃 ⟩
 const NORMALA_TAHAQ_SAPSE1I = HE_POR_SEKUNDO / 0o74;
 const MALMULTA_TAHAQ_SAPSE1I = HE_POR_SEKUNDO / 0o36;
 const SENFOKUSA_TAHAQ_SAPSE1I = HE_POR_SEKUNDO / 0o30;
@@ -32,16 +32,16 @@ const MUQ_FAKTORO = 0o5 / 0o4;
 const SEHE_FAKTORO = 0o11 / 0o10;
 const VARMAJ_HATAHAQ = 0o10;
 const MUQJ_HATAHAQ = 0o10;
-// ⟨ ការឡើងគុណភាពយឺតជាងការចុះ ដើម្បីកុំឱ្យមាត្រឡើងចុះ ។ នៅគោល
-//   ថវិកាទាប វារង់ចាំប្រហែល 0o44 He មុនសាកមាត្រខ្ពស់ជាង ។ 📃 ⟩
+// ⟨ j͑ʃɹ ֭ſɭᴜ ʃᴜ ʌ ꞙɭı ʌ ꞙɭɔ ʌ j͑ʃᴜ ſɭᴜ ⟅
+//   ſɟᴜ ſɭɹ ſןɹ ʌ ꞙɭɔ , ꞙɭээ He , ꞙɭı 📃 ⟩
 const SEHEJ_HATAHAQ = 0o1000;
 const SKALA_PASO = 0o1 / 0o10;
 const DEFAUXLTA_MINIMA_SKALO = 0o1 / 0o2;
 const MEZA_PEZO = 0o1 / 0o10;
 const INTERROMPA_FAKTORO = 0o10;
 
-/* បង្កើតអ្នកកំណត់ល្បឿនស៊ុម និង គុណភាពដោយស្វ័យប្រវត្តិ ។
-    @param hasukf2qani ( RultempajHasukf2qani ) - កម្រិតថវិការបស់ឧបករណ៍
+/* ɭl̀ɜ ſ͕ɭᴜ , j͑ʃɹ ֭ſɭᴜ ʃᴜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ⟅
+    @param hasukf2qani ( RultempajHasukf2qani ) - ſɟᴜ ſɭɹ ſןɹ ʌ ſɟᴜᴜ̩ ɭʃɹ
 @returns rultempo */
 export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultempo {
   const malmultekosta = hasukf2qani.malmultekosta ?? false;
@@ -81,8 +81,8 @@ export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultempo 
   }
 
   function adapti( sapse1i: number, intervalo: number ): void {
-    // ⟨ ការផ្អាកយូររបស់ប្រព័ន្ធ ឬ ការដេកមិនមែនជាកម្រិតសមត្ថភាពថ្មីទេ ។
-    //   រង់ចាំស៊ុមថ្មីជាជាងកាត់គុណភាពដោយស៊ុមមួយខុសប្រក្រតី ។ 📃 ⟩
+    // ⟨ ſɭɜ ſɭᴜ j͐ʃᴜ ʌ ꞙɭı ʌ ꞙɭı , j͑ʃ'ɔ ſᶘw }ʃɹ ꞙɭɔ ʌ ꞙɭı ⟅
+    //   ꞙɭı ʌ ɭl̀ɜ ſ͕ɭᴜ , ꞙɭɔ ʌ j͑ʃɹ ֭ſɭᴜ ʃᴜ 📃 ⟩
     if ( sapse1i > intervalo * INTERROMPA_FAKTORO ) {
       muqjTahaqj = 0;
       sehejTahaqj = 0;
@@ -94,8 +94,8 @@ export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultempo 
       varmajTahaqj--;
       return;
     }
-    // ⟨ មធ្យមរារាំងស៊ុមខ្លី និង វែងឆ្លាស់គ្នាពីការកំណត់ខុស ។ ការរាប់
-    //   ស៊ុមវែងជាប់គ្នាតែមួយមិនឃើញការលើសទំហំពាក់កណ្តាលពេលទេ ។ 📃 ⟩
+    // ⟨ ſȷƽᴜ ɭʃᴜ ʌ ɭl̀ɜ ſ͕ɭᴜ ʌ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ⟅
+    //   ɭl̀ɜ ſ͕ɭᴜ ʌ ꞙɭı ʌ ꞙɭı , ꞙɭɔ 📃 ⟩
     if ( mezaTahaqSapse1i > intervalo * MUQ_FAKTORO ) {
       muqjTahaqj++;
       sehejTahaqj = 0;
@@ -123,8 +123,8 @@ export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultempo 
     }
     if ( sekvaTahaq === -Infinity ) sekvaTahaq = nun;
     const malfruo = nun - sekvaTahaq;
-    // ⟨ រក្សាដំណាក់កាលអេក្រង់ដែលមានស៊ុមមិនស្ម៾គ្នា ។ បន្ទាប់ពីការយឺតយ៉ាវ
-    //   រំលងស៊ុមចាស់ជាជាងគូរជាប់គ្នាដើម្បីទាស់ស៊ុមដែលបានបាត់ ។ 📃 ⟩
+    // ⟨ ſɟᴜ ſȷᴜɔ˞ ʌ ɭl̀ɜ ſ͕ɭᴜ ʌ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ⟅
+    //   ɭl̀ɜ ſ͕ɭᴜ ʌ ſɭˬɹ , ꞙɭɔ ʌ ɭl̀ɜ ſ͕ɭᴜ 📃 ⟩
     sekvaTahaq = malfruo >= intervalo
       ? nun + intervalo
       : sekvaTahaq + intervalo;

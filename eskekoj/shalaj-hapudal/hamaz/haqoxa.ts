@@ -23,11 +23,11 @@ export function kf2RinganSurfacon(hac2q: [ number, number, number ][][]): THREE.
   return kf2BuferanGeometrion(haxekuxa, havecax2lani);
 }
 
-// ⟨ ហេតុអ្វីស្វ៊ែរ មិនបំពង់វែងជាង 📃 ⟩
-// ⟨ វានៅខាងក្នុងបន្តិច 📃 ⟩
+// ⟨ ſɭʞэ ʌ ꞙɭɔ ʌ ʃэȝ ʌ ſᶘɹȝ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
+// ⟨ ꞙɭı ʌ ʃэȝ ʌ j͑ʃ'ᴜ ſɭᴜ ʌ ſɭɜ ſᶘɹ 📃 ⟩
 export function kf2ArtikanSferon(sost2: [ number, number, number ], r: number,
   tap2ĵo = 0o1): THREE.BufferGeometry {
-  // ⟨ ជ្រុងច្រើនជាងបំពង់ 📃 ⟩
+  // ⟨ ſᶘɹ ɭʃᴜ }ʃꞇ ʌ ſᶘɹȝ ʌ ꞙɭı ʌ ꞙɭı ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   const sfero = new THREE.SphereGeometry(r, 0o24, 0o14);
   sfero.scale(0o1, tap2ĵo, 0o1);
   sfero.translate(sost2[0], sost2[1], sost2[2]);

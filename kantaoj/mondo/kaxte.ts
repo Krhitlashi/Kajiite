@@ -78,7 +78,7 @@ export async function vepaqKaxten(
   oraMaterialo: THREE.MeshStandardMaterial,
   raportiProgreson?: ( procento: number ) => void
 ): Promise<UrbaSistemo> {
-  // ⟪ វឌ្ឍនភាពផ្ទុក 📃 ⟫
+  // ⟪ ɽ͑ʃ'w j͑ʃ'ᴜ ʌ ſɭᴜ ı],ƨɔ 📃 ⟫
   const jesi = (): Promise<void> => new Promise(r => setTimeout(r, 0));
   const STAGOJ = 0o14;
   let stago = 0;
@@ -87,10 +87,10 @@ export async function vepaqKaxten(
     raportiProgreson?.(stago / STAGOJ);
     await jesi();
   };
-  // ⟨ បំណែកនៃការសាងសង់ 📃 ⟩
+  // ⟨ ſɭɹ ſןᴜ ʌ ſɭᴜ ı],ƨɔ 📃 ⟩
 
-  // ⟨ អ្វីដែលមនុស្សសាងសង់ ។ ក្នុងពិភពលោកដែលមានគ្រាប់ពូជ វាមកពីគ្រាប់ពូជ ,
-  // ក្នុងពិភពលោកដែលឆ្លាក់ដោយដៃ វាមកពីថត cxefa ។ 📃 ⟩
+  // ⟨ ſɭɜ ſɭ,w ʌ ſɭɜ ʃɔ , ſɭɜ ſɭ,w ʌ }ʃᴜ j͐ʃᴜ
+  // ⟅ ſɭɜ ʃɔ ʌ ſɭc̗ᴜ ſɭɜ ſɭ,w , }ʃᴜ j͐ʃᴜ ʌ ſɭc̗ᴜ 📃 ⟩
   const hazardo = mondiaHazardo();
   const URBOJ = aktivajHakaxte();
   const VOJOJ = aktivajHak6h6();
@@ -112,12 +112,12 @@ export async function vepaqKaxten(
   const vepaqGrupoj = hakaxte.flatMap(r => r.vepaqGrupoj);
   const placajNodoj = hakaxte.flatMap(r => r.placajNodoj);
   const keuxfhxesoLokoj = hakaxte.flatMap(r => r.keuxfhxesoLokoj);
-  // ⟨ បណ្តាញផ្លូវក្រឡា , ជាទិន្នន័យ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ 📃 ⟩
   const kradajDifinoj: VojDifino[] = hakaxte.flatMap(r => r.vojDifinoj);
   const kradajHaveb6kek: [ number, number ][] = hakaxte.flatMap(r => r.kunigajPunktoj);
   const kradajFermitaj = new Map<string, [ number, number ]>(hakaxte.flatMap(r => [ ...r.kunigajFermitaj ]));
-  // ⟪ ទន្លេ 📃 ⟫
-  // ⟪ ទឹកនៃដីឆ្លាក់ 📃 ⟫
+  // ⟪ ſɭэ j͑ʃꞇ 📃 ⟫
+  // ⟪ ſᶘᴜ j͑ʃᴜ ʌ ſɭc̗ᴜ ɭʃэ ſɭɔȝ 📃 ⟫
   const riverData: RiverData | null = SKULPTA_AKTIVA ? null
     : vepaqRiveron(qena, riveroZ, riveraAkvaVem2, RIVERA_DUONSEFINI, 0o600, RIVERA_BUŜO_X, 0o110, alteco);
   const riveroNordOrienta: RiverData | null = SKULPTA_AKTIVA ? null
@@ -126,7 +126,7 @@ export async function vepaqKaxten(
   const lago: RiverData | null = SKULPTA_AKTIVA ? null
     : vepaqLagon(qena, LAGO_X, lagoZ(), lagoRadio, lagoVem2(), alteco);
 
-  // ⟪ ទឹកដេរីវេ ( ការគណនាទឹក ) 📃 ⟫
+  // ⟪ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɜ ſןɹ 📃 ⟫
   const limojSkulptaj = skulptaAkvaLimoj();
   const skulptaAkvo: RiverData | null = limojSkulptaj
     ? vepaqSkulptitanAkvon(qena, limojSkulptaj.x0, limojSkulptaj.z0,
@@ -135,51 +135,51 @@ export async function vepaqKaxten(
     : null;
 
 
-  // ⟨ ផ្ទៃផ្លូវឈរលើដីខ្ពស់ជិតខាង ហើយឡើងចុះទន់ៗ មិនកាត់ភ្នំ 📃 ⟩
-  // ⟨ radius តូច និងជម្រាលចោទ 📏 ⟩ ៖ ផ្លូវគិតតែដីខ្ពស់ក្នុងរង្វង់ ៤ ឯកតា ។ មុននេះ
-  // វាគិតដល់ ២០ ឯកតា , ដូច្នេះភ្នំមួយឆ្ងាយ ១៥ ឯកតាលើកផ្លូវទាំងរង្វង់ ំ ហើយផ្លូវដើរ
-  // ខ្ពស់លើដីរាបដោយមិនចុះ ំ ជញ្ជាំងខាងក្រោមខ្ពស់ច្រើនជាន់ ។ ដីខ្ពស់ក្នុង
-  // ៤ ឯកតានៅតែលើកផ្លូវ , ដូច្នេះផ្លូវមិនកាត់ចូលជញ្ជាំងថ្មជិត ។ 📃 ⟩
-  // ⟨ វាលតែមួយសម្រាប់ផ្លូវទាំងអស់ , និងសម្រាប់ចំណតផង 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ j͐ʃэ ɭ(ᴜ ʌ ſɭɜ ſɭ,w , ſɭᴜ ſɭᴜ , ɭl̀ᴜ ſ͕ɭɜ 📃 ⟩
+  // ⟨ ſɭᴜ ſɭˬꞇƽ ſᶘɔ , ſɟɹ ᶅſɹȝ 📏 ⟩ , ſɭэ ֭ſɭэ ʌ j͐ʃэ ɭ(ᴜ э }ʃɹƽ ⟅
+  // ɿɔ }ʃɹƽ ⟅ ɭl̀ᴜ ſ͕ɭɜ ıꞟ }ʃɹƽ ⟅ ſɭэ ֭ſɭэ
+  // j͐ʃэ ɭ(ᴜ ʌ ᶅſɔ ɽ͑ʃ'ɔ , ſɭэ ֭ſɭэ , }ʃᴜ ꞁȷ̀ɜ 📃 ⟩
+  // э }ʃɹƽ ⟅ ſɭэ ֭ſɭэ , ſɭэ ֭ſɭэ ʌ ɭl̀ᴜ ſ͕ɭɜ 📃 ⟩
+  // ⟨ ᶅſɔ ɽ͑ʃ'ɔ ʌ ꞙɭı , ſɭэ ֭ſɭэ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟩
   const bazaK6h6Alteco = kf2BazanK6h6Alton(alteco);
   let k6h6Alteco = bazaK6h6Alteco;
 
-  // ⟪ ចំណត , ច្រកចូលតាមច្រាំងទន្លេ 📃 ⟫
+  // ⟪ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſᶘᴜ j͑ʃᴜ 📃 ⟫
   const qakaj2Kolizioj: { x: number; z: number; w: number; d: number; rot: number; y: number }[] = [];
   const qakaj2LandajAltoj: number[] = [];
-  // ⟨ ជណ្តើរចំណតជាផ្លូវ ៖ បង្កើតក្រោយពេលដឹងកម្ពស់ចានភ្ជាប់ 📃 ⟩
+  // ⟨ ſןɔ˞ᴜƴ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſɭэ ֭ſɭэ ⟅ j͐ʃэ ɭ(ᴜ ʌ ſןᴜ ſᶘɹ 📃 ⟩
   const qakaj2StuparajDatumoj: {
     landaX: number; landaZ: number; sefini: number; landejaY: number;
     saxeni: [ number, number ]; fino: [ number, number ];
   }[] = [];
 
-  // ⟪ កំពង់ និងមហាវិថីចំណត ( ទីក្រុងចម្បង ) 📃 ⟫
+  // ⟪ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſɭэ ֭ſɭэ ( ſɭᴜ ı],ƨɔ ) 📃 ⟫
   const vojDifinoj: VojDifino[] = [];
 
-  // ⟨ ពីរដំណាក់កាល 📃 ⟩
-  // ⟨ ដែនទឹកវែងគ្រប់គ្រាន់ធ្វើស្ពាន 📃 ⟩
-  // ⟨ ទឹកពិត ៖ ចំណុចដែលនៅក្រោមផ្ទៃទឹក 📃 ⟩
-  // ⟨ ទឹកឆ្លាក់មិនចាំបាច់ 📏 ⟩ ៖ មុននេះត្រូវការម៉ាសទឹកឆ្លាក់ ។ ដូច្នេះក្នុងពិភពលោក
-  // ដែលមានគ្រាប់ពូជ ( ទន្លេធម្មជាតិ ) ផ្លូវមិនដឹងពីទឹក , ចុះដល់បាតទន្លេ , ហើយលិច ។
-  // ឥឡូវគ្រប់កន្លែងដែលដីទាបជាងកម្រិតទឹកជាទឹក ។ 📃 ⟩
+  // ⟨ ꞙɭɿ }ʃɹƽ 📃 ⟩
+  // ⟨ ſᶘᴜ j͑ʃᴜ ʌ ſןᴜ j͐ʃэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw 📃 ⟩
+  // ⟨ ſᶘᴜ j͑ʃᴜ , }ʃɹƽ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
+  // ⟨ ſᶘᴜ j͑ʃᴜ ʌ ſɭc̗ᴜ 📏 ⟩ , ſᶘᴜ j͑ʃᴜ ʌ ſɭc̗ᴜ ⟅ }ʃᴜ j͐ʃᴜ
+  // ʌ ɽ͑ʃ'w j͑ʃ'ᴜ ( ſɭэ j͑ʃꞇ ) , ſɭэ ֭ſɭэ ꞙɭɔ ſᶘᴜ j͑ʃᴜ , ſᶘᴜ j͑ʃᴜ ʌ ſɭᴜ ʃᴜ , ⟅
+  // ſɭɜ ſɭ,w ʌ j͐ʃэ ɭ(ᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ⟅ 📃 ⟩
   function tsekeVeraAkvo( x: number, z: number ): boolean {
     return alteco(x, z) < akvaVem2(x, z) - 0o1/0o200;
   }
-  // ⟨ ផ្ទឃ្លាំងទឹកសម្រាបផ្លូវ ៖ ផ្លូវដែលនៅលើទឹក ត្រូវនៅលើផ្ទឃ្លាំងទឹក មិនអាចកប់ក្នុងទឹកទេ ។ 📃 ⟩
-  // ⟨ អានកម្រិតទឹកម្តង ⟩ ៖ ការធៀប និងលទ្ធផលប្រើកម្រិតតែមួយ ។ មុននេះហៅ
-  // `tsekeVeraAkvo` រួចហៅម្តងទៀត , ដូច្នេះកម្រិតទឹកត្រូវគណនាពីរដងលើទឹក ។ 📃 ⟩
+  // ⟨ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſɭэ ֭ſɭэ ⟅ ſɭэ ֭ſɭэ ʌ ſᶘᴜ j͑ʃᴜ ⟅ 📃 ⟩
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ꞙɭı ⟩ , ſɭэ ֭ſɭэ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ⟅
+  // tsekeVeraAkvo , j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
   const akvaFino = ( x: number, z: number ): number => {
     const vem2 = akvaVem2( x, z );
     return alteco( x, z ) < vem2 - 0o1/0o200 ? vem2 + VOJA_AKVA_KLARANCO : -Infinity;
   };
-  // ⟨ ស្ពានតែពេលទឹកលាតលើសផ្លូវទាំងមូល ៖ ផ្លូវកំពង់នៅមាត់ទឹកនៅតែជាផ្លូវ 📃 ⟩
+  // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſᶘᴜ j͑ʃᴜ ʌ ſɭэ ֭ſɭэ , ſɭэ ֭ſɭэ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟩
   function akvaTrunko( k6h6: SkulptaK6h6 ): boolean {
     if ( k6h6.n2k.length < 0o2 ) return false;
     const sefini = k6h6.pontoSefini ?? k6h6.sefini;
     return havasAkvanTrunkon(k6h6.n2k,
       kf2PontanAkvanTeston(k6h6.n2k, sefini, tsekeVeraAkvo));
   }
-  // ⟨ ចានភ្ជាប់លើចុង 📃 ⟩
+  // ⟨ ſןᴜ ſᶘɹ ʌ }ʃɹƽ 📃 ⟩
   function troviProksimanVeb6kekn( x: number, z: number ): K6h6RetoVeb6kek | null {
     let plejProksima: K6h6RetoVeb6kek | null = null, plejMallonga = Infinity;
     for ( const veb6kek of k6h6jHaveb6kek ) {
@@ -189,12 +189,12 @@ export async function vepaqKaxten(
     return plejMallonga < VOJA_TRUA_DUONO ? plejProksima : null;
   }
   function pontaFinAlto( x: number, z: number, sefini: number ): number {
-    // ⟨ ចំណត ⚓ ⟩ ៖ ចានភ្ជាប់នៅមាត់ចំណតយកកម្រិតដែលចំណតបានចុះឈ្មោះ ។
-    // ជណ្តើរចាប់ផ្តើមពីកម្រិតនោះ ហើយចុះដល់វេទិកាទាប ។ បើគណនាពីវាល
-    // វិញ , កម្រាលទីមួយខុសពីចាន ហើយឃើញជញ្ជាំងនៅក្បាលជណ្តើរ ។ 📃 ⟩
+    // ⟨ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ⚓ ⟩ , ſןᴜ ſᶘɹ ʌ }ʃɹƽ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ
+    // ſןɔ˞ᴜƴ ʌ j͑ʃ'ɔ ŋᷠɹ ⟅ }ʃɹƽ ʌ ſᶘᴜ j͑ʃᴜ
+    // , ſןᴜ ſᶘɹ , ſןɔ˞ᴜƴ 📃 ⟩
     const qakaj2 = qakaj2AltoCxe(x, z);
     if ( qakaj2 !== undefined ) return qakaj2;
-    // ⟨ កម្រិតចានភ្ជាប់ត្រូវដូចកម្រិតផ្លូវដែលឆ្លងចូលមក ដើម្បីកុំឱ្យចានលិចទៅផ្លូវ ។ 📃 ⟩
+    // ⟨ ſןᴜ ſᶘɹ ʌ j͑ʃ'ɔ ŋᷠɹ , ſɭэ ֭ſɭэ ʌ j͑ʃ'ɔ ŋᷠɹ , ſɭэ ֭ſɭэ 📃 ⟩
     const veb6kek = troviProksimanVeb6kekn(x, z);
     if ( veb6kek )
       return surGrid(k6h6SuproDeVeb6kek(veb6kek.x, veb6kek.z, veb6kek.direktaj,
@@ -205,7 +205,7 @@ export async function vepaqKaxten(
   const pontaHak6h6: ( PontoTrako & { w: number } )[] = [];
 
   const k6h6jRetajHak6h6: K6h6RetoK6h6[] = [];
-  // ⟨ ដំណាក់កាលទីមួយ , ទទឹងស្ពាន 📃 ⟩
+  // ⟨ ꞙɭı }ʃɹƽ , ſɭэ ֭ſɭэ ʌ ſןᴜ j͐ʃэ 📃 ⟩
   const akvajHasost2cel2sai: boolean[] = [];
   for ( const k6h6 of VOJOJ ) {
     const sost2cel2sai = akvaTrunko(k6h6);
@@ -214,11 +214,11 @@ export async function vepaqKaxten(
     const k6h6Sefini = sost2cel2sai ? ( k6h6.pontoSefini ?? k6h6.sefini ) : k6h6.sefini;
     k6h6jRetajHak6h6.push( { n2k: k6h6.n2k, sefini: k6h6Sefini } );
   }
-  // ⟨ ការភ្ជាប់រវាងដំណាក់កាល 📃 ⟩
-  // ⟨ ចុងផ្លូវដែលឈប់ខ្លីពីចានភ្ជាប់ ៖ ទាញទៅចានភ្ជាប់ជិតបំផុត ។
-  // បើមិនទាញ , នៅសល់ចន្លោះស្មៅមួយជំហាននៅរវាងចុងផ្លូវ និងចានភ្ជាប់ ។
-  // ចុងផ្លូវចំណតមិនត្រូវទាញទេ ៖ វាឈប់ត្រង់មាត់ចំណតដោយចេតនា ។ 📃 ⟩
-  // ⟨ មាត់ដីចំណត ៖ ទីតាំងតែប៉ុណ្ណោះ ។ កម្ពស់មកពីចំណតដែលសាងសង់ក្រោយ វាលផ្លូវ ។ 📃 ⟩
+  // ⟨ }ʃɹƽ ʌ ſɭɹ ſןᴜ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ }ʃɹƽ , ſןᴜ ſᶘɹ ⟅ ſןᴜ ſᶘɹ ʌ }ʃɹƽ
+  // ſȷɔ ſᶘᴜʞ ʌ ſɭэ ֭ſɭэ , ſןᴜ ſᶘɹ ⟅
+  // ſɭэ ֭ſɭэ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ꞙɭɔ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟩
+  // ⟨ ſɭɜ ſɭ,w ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , }ʃɹƽ ⟅ j͐ʃэ ɭ(ᴜ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſɭэ ֭ſɭэ 📃 ⟩
   const qakaj2Landaj = DOKOJ.map(d => {
     const rotacio = d.rotacio ?? 0;
     return { x: d.x + Math.sin(rotacio) * ( d.profundo / 2 ),
@@ -227,7 +227,7 @@ export async function vepaqKaxten(
   const ne3ak2Haveb6kek = troviK6h6RetajnHaveb6kekn( k6h6jRetajHak6h6, DOKOJ );
   const gluaCelo: [ number, number ][] = [ ...kradajHaveb6kek,
     ...ne3ak2Haveb6kek.map( k => [ k.x, k.z ] as [ number, number ] ) ];
-  // ⟨ ផ្លូវក្រឡាអាចទាញចុងផ្លូវ ៖ ដូច្នេះផ្លូវដល់ផ្លូវ ។ ផ្លូវខ្លួនឯងមិនរាប់ ។ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ , ſɭэ ֭ſɭэ ⟅ ſɭэ ֭ſɭэ ʌ ſɭэ ֭ſɭэ ꞙɭɔ 📃 ⟩
   const kradajPunktoj = kradajDifinoj.map( d => d.pts );
   const gluitajPunktoj: [ number, number ][][] = [];
   for ( let vi = 0; vi < VOJOJ.length; vi++ ) {
@@ -244,15 +244,15 @@ export async function vepaqKaxten(
   const k6h6jVeb6kekPunktoj = k6h6jHaveb6kek.map( k => [ k.x, k.z ] as [ number, number ] );
   const k6h6jFermitaj = new Map( k6h6jHaveb6kek.map( k => [ k.x + "," + k.z, k.fermitaj ] ) );
   const k6h6jRotacioj = new Map( k6h6jHaveb6kek.map( k => [ k.x + "," + k.z, k.rotacio ] ) );
-  // ⟨ កន្លះទទឹងផ្លូវពិត 📏 ⟩ ៖ ចានភ្ជាប់ត្រូវធំល្មមនឹងផ្លូវដែលចូលមក ,
-  // មិនមែនតាមតម្លៃថេរ ។ បើចានតូចជាងផ្លូវ , ស្មាងងឹតរបស់ផ្លូវលាតចេញ
-  // ហួសចាន , ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ ſןᴜ j͐ʃэ 📏 ⟩ , ſןᴜ ſᶘɹ ʌ ſןᴜ j͐ʃэ ʌ ſɭэ ֭ſɭэ
+  // , ꞙɭı ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ⟅ ſןᴜ ſᶘɹ ʌ ſɭэ ֭ſɭэ , ſɭэ ֭ſɭэ
+  // ſןᴜ ſᶘɹ , }ʃᴜ ꞁȷ̀ɜ ʌ }ʃɹƽ 📃 ⟩
   const k6h6jDuonoj = new Map<string, number>(k6h6jHaveb6kek.map( k => [ k.x + "," + k.z, k.p2somani ] ) );
-  // ⟪ ដៃពីផ្លូវទាំងអស់ 📏 ⟫
-  // ⟨ ចំណុចក្រឡាគ្មានទិសដៃ 📃 ⟩ ៖ ចានរបស់វាសាងពីការបិទជ្រុង ។ តែផ្លូវដៃ
-  // អាចមកដល់ចំណុចនោះ ។ បើចានមិនដឹងពីផ្លូវនោះ , ចាននៅតែពីរដៃ ( ជ្រុង ) ,
-  // ហើយមាត់ផ្លូវទីបីកាត់ចូលជ្រុងមូល ។ ដូច្នេះដៃត្រូវមកពីផ្លូវពិតទាំងអស់ ។
-  // ដៃនេះក៏ចូលវាលកម្ពស់ ដើម្បីឱ្យផ្លូវនិងចានអានកម្រិតដូចគ្នា ។ 📃 ⟩
+  // ⟪ ſɭэ ֭ſɭэ ʌ ſɟɹ ᶅſɹȝ 📏 ⟫
+  // ⟨ }ʃɹƽ ʌ ſɭɹ ſןᴜ ꞙɭɔ ſɟɹ ᶅſɹȝ 📃 ⟩ , ſןᴜ ſᶘɹ ʌ ſɭэ ֭ſɭэ
+  // }ʃɹƽ ʌ ſɭэ ֭ſɭэ , ſןᴜ ſᶘɹ ꞙɭɔ ſɭэ ֭ſɭэ , ſןᴜ ſᶘɹ ꞙɭɿ ſɟɹ ᶅſɹȝ
+  // , ſɭэ ֭ſɭэ ꞙɭц }ʃɹƽ , ſɟɹ ᶅſɹȝ ʌ ſɭэ ֭ſɭэ 📃 ⟩
+  // ⟅ ſɟɹ ᶅſɹȝ , ſɭэ ֭ſɭэ , ſןᴜ ſᶘɹ ʌ j͑ʃ'ɔ ŋᷠɹ 📃 ⟩
   const k21eKunigajPunktoj: [ number, number ][] = [ ...kradajHaveb6kek, ...k6h6jVeb6kekPunktoj ];
   const k21eRetajHak6h6: K6h6RetoK6h6[] = [
     ...kradajDifinoj.map( d => ( { n2k: d.pts, sefini: 0o2 * d.w } ) ),
@@ -267,21 +267,21 @@ export async function vepaqKaxten(
     veb6kek.direktaj = ca1ara;
   }
   const k6h6jDirektoj = new Map<string, [ number, number ][]>(derivitajBrakoj);
-  // ⟨ កម្រិតរួមសម្រាប់ចានភ្ជាប់ និងចុងផ្លូវ 📃 ⟩
-  // ⟨ ផ្ទឃ្លាំងទឹក 📃 ⟩ ៖ បញ្ជូនផ្ទឃ្លាំងទឹកទៅវាលផ្លូវ ដូច្នេះកោណមិនលើកផ្លូវលើទឹក ។
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ ʌ ſןᴜ ſᶘɹ , ſɭэ ֭ſɭэ ʌ }ʃɹƽ 📃 ⟩
+  // ⟨ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ 📃 ⟩ , ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ , ſɭэ ֭ſɭэ ʌ ſᶘᴜ j͑ʃᴜ
   k6h6Alteco = kf2K6h6Alton(alteco, k21eKunigajPunktoj.map(([ x, z ]) =>
     ( { x, z, direktaj: derivitajBrakoj.get(x + "," + z) ?? [],
       p2somani: k6h6jDuonoj.get(x + "," + z) ?? VOJA_DIORITA_DUONO } )), akvaFino);
   await raporti();
 
-  // ⟪ ចំណត ⚓ ⟫
-  // ⟨ ចំណតអានវាលផ្លូវដូចគ្នា ៖ ដូច្នេះចំណតនិងផ្លូវឈរស្មើគ្នា ។ មុននេះចំណត
-  // សាងសង់មុនវាល , ដូច្នេះវាឈរទាបជាងផ្លូវមួយជំហានឬច្រើននៅមាត់ដី ។ 📃 ⟩
+  // ⟪ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ⚓ 📃 ⟫
+  // ⟨ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ʌ ſɭэ ֭ſɭэ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſɭэ ֭ſɭэ ⟅ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ
+  // ſɭэ ֭ſɭэ , ſɭэ ֭ſɭэ ʌ ſɭɜ ſɭ,w 📃 ⟩
   for ( let i = 0; i < DOKOJ.length; i++ ) {
     const rotacio = DOKOJ[i].rotacio ?? 0;
     const qakaj2 = vepaqQakaj2n(qena, DOKOJ[i].x, DOKOJ[i].z, rotacio,
       k6h6Alteco, akvaVem2, DOKOJ[i].profundo, alteco);
-    // ⟨ ការប៉ះទង្គិចមួយក្នុងមួយផ្នែក 📃 ⟩
+    // ⟨ }ʃɹƽ ʌ ſɭɹ ſןᴜ ʌ ꞙɭı 📃 ⟩
     const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
     for ( const s of qakaj2.sekcioj ) {
       qakaj2Kolizioj.push({ x: DOKOJ[i].x + kos * s.lx + sin * s.lz,
@@ -299,10 +299,10 @@ export async function vepaqKaxten(
     }
   }
   await raporti();
-  // ⟨ ជណ្តើរចំណត ៖ រត់ពីផ្ទៃចានភ្ជាប់ ចុះដល់ផ្ទៃចំណត ។
-  // កម្ពស់ជំហាន និងកម្រាលជំហានស្មើគ្នាទាំងអស់ ។ 📃 ⟩
+  // ⟨ ſןɔ˞ᴜƴ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſןᴜ ſᶘɹ ʌ j͑ʃɜ ſɭ,ᴜ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ʌ j͑ʃɜ ſɭ,ᴜ ⟅
+  // j͐ʃэ ɭ(ᴜ ʌ ſןɔ˞ᴜƴ , j͑ʃɜ ſɭ,ᴜ ʌ ſןɔ˞ᴜƴ ⟅ 📃 ⟩
   for ( const d of qakaj2StuparajDatumoj ) {
-    // ⟨ ចាប់ផ្តើមត្រង់ផ្ទៃចានភ្ជាប់ ៖ មិនធ្លាក់ពីលើវាមួយកម្ពស់ធំ 📃 ⟩
+    // ⟨ ſןᴜ ſᶘɹ ʌ j͑ʃɜ ſɭ,ᴜ , j͐ʃэ ɭ(ᴜ ⟅ 📃 ⟩
     const starto = pontaFinAlto(d.landaX, d.landaZ, d.sefini);
     const veb6kek = troviProksimanVeb6kekn(d.landaX, d.landaZ);
     let saxeni = d.saxeni;
@@ -314,56 +314,56 @@ export async function vepaqKaxten(
         saxeni = [ veb6kek.x + diferencoX * kek, veb6kek.z + diferencoZ * kek ];
       }
     }
-    // ⟨ ជំហានដូចផ្លូវ ៖ កម្រិតតែមួយសម្រាប់គ្រប់ជណ្តើរ ។ 📃 ⟩
-    // ⟨ ចំណតស្មើផ្លូវ ៖ គ្មានជណ្តើរ , ផ្លូវនិងចំណតជាប់គ្នាផ្ទាល់ 📃 ⟩
+    // ⟨ ſןɔ˞ᴜƴ ʌ ſɭэ ֭ſɭэ , j͑ʃ'ɔ ŋᷠɹ ʌ ꞙɭı }ʃɹƽ 📃 ⟩
+    // ⟨ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ʌ ſɭэ ֭ſɭэ , ꞙɭɔ ſןɔ˞ᴜƴ , ſɭэ ֭ſɭэ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟩
     const stuparo = kf2DokanStuparon(saxeni, d.fino, starto, d.landejaY);
     if ( !stuparo ) continue;
-    // ⟨ ជណ្តើរមានគ្រឹះដូចផ្លូវ ៖ ចុះដល់ដីក្រោមទឹក , មិនអណ្តែតទេ 📃 ⟩
-    // ⟨ កម្រាលទីមួយចុះមួយកម្ពស់ជំហាន ៖ ផ្ទៃផ្លូវនៅមាត់ចានភ្ជាប់គឺជាកម្រាលលើគេ ,
-    // ដូច្នេះជំហានទាំងអស់ចុះមកត្រូវនឹងផ្ទៃចំណត , មិនខ្វះជំហានចុងក្រោយទេ ។ 📃 ⟩
+    // ⟨ ſןɔ˞ᴜƴ ʌ ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w ʌ ſᶘᴜ j͑ʃᴜ , ꞙɭɔ 📃 ⟩
+    // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭı j͐ʃэ ɭ(ᴜ ʌ ſןɔ˞ᴜƴ , ſɭэ ֭ſɭэ ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſןᴜ ſᶘɹ
+    // , ſןɔ˞ᴜƴ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
     vojDifinoj.push({ pts: stuparo.n2k, w: d.sefini, stuparo: true,
       heightFn: stuparo.l6da, grundoFn: alteco });
   }
-  // ⟨ ដំណាក់កាលទីពីរ , និយមន័យ 📃 ⟩
+  // ⟨ ꞙɭɿ }ʃɹƽ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
   for ( let k6h6Indekso = 0; k6h6Indekso < VOJOJ.length; k6h6Indekso++ ) {
     const k6h6 = VOJOJ[k6h6Indekso];
     if ( k6h6.n2k.length < 2 ) continue;
     const sost2cel2sai = akvajHasost2cel2sai[k6h6Indekso];
-    // ⟨ ចំណុចដែលបានទាញទៅចានភ្ជាប់ ៖ ផ្លូវត្រូវចប់ត្រង់ចានភ្ជាប់ , មិនមែននៅមុនវាទេ 📃 ⟩
+    // ⟨ }ʃɹƽ ʌ ſןᴜ ſᶘɹ , ſɭэ ֭ſɭэ ʌ ſןᴜ ſᶘɹ , ſןᴜ ſᶘɹ 📃 ⟩
     const n2k = gluitajPunktoj[k6h6Indekso] ?? k6h6.n2k;
-    // ⟨ ស្ពានធំទូលាយជាងផ្លូវ ៖ តែកម្ពស់ដូចផ្លូវ ។ 📃 ⟩
+    // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɭэ ֭ſɭэ ʌ ſןᴜ j͐ʃэ , j͐ʃэ ɭ(ᴜ ʌ ſɭэ ֭ſɭэ 📃 ⟩
     const k6h6Sefini = sost2cel2sai ? ( k6h6.pontoSefini ?? k6h6.sefini ) : k6h6.sefini;
     let pontaHeight: (( x: number, z: number ) => number) | undefined;
     let pontaGrundo: (( x: number, z: number ) => number) | undefined;
     if ( sost2cel2sai ) {
-      // ⟪ ផ្ទៃស្ពានផុតទឹក 📃 ⟫
-      // ⟨ ធ្នូស្ពាន ៖ ផ្ទៃខ្ពស់នៅកណ្តាលទន្លេ , ហើយចុះដល់ច្រាំងទាំងពីរ ។
-      // ដូច្នេះមាត់ស្ពានស្មើនឹងផ្លូវចូល , ហើយគ្មានជញ្ជាំងឈរនៅមាត់ទឹក ។ 📃 ⟩
+      // ⟪ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟫
+      // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ , j͐ʃэ ɭ(ᴜ ʌ ſɭэ j͑ʃꞇ ʌ }ʃɹƽ , ſᶘᴜ j͑ʃᴜ ⟅
+      // }ʃɹƽ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɭэ ֭ſɭэ , ſᶘᴜ j͑ʃᴜ 📃 ⟩
       const tsekePontaAkvo = kf2PontanAkvanTeston(n2k, k6h6Sefini, tsekeVeraAkvo);
       const s2qena = vepaqPontanProfilon(
         n2k, k6h6Sefini, ( x, z, w ) => k6h6Supro( x, z, w, k6h6Alteco ),
         ( x, z ) => tsekePontaAkvo(x, z)
           ? akvaVem2(x, z) + PONT_AKVA_KLARANCO : -Infinity,
         pontaFinAlto, alteco);
-      // ⟪ ជំហានលើដី , ធ្នូលើទឹក 📏 ⟫
-      // ⟨ បញ្ហាដើម 📃 ⟩ ៖ ផ្លូវចូលស្ពានរលូនតាមដី ។ ដីជម្រាល , ដូច្នេះផ្លូវចូល
-      // ជាជម្រាលវែងរអិល , មិនមែនជណ្តើរដូចផ្លូវដីធម្មតា ។ ឥឡូវលើដីកម្ពស់បង្គត់
-      // ទៅក្រឡាជំហាន , ដូច្នេះផ្លូវចូលស្ពានជាជណ្តើរដូចផ្លូវឯទៀត ។
-      // លើទឹកកម្ពស់នៅតែរលូន ៖ ធ្នូស្ពានមិនក្លាយជាជណ្តើរទេ ។ 📃 ⟩
+      // ⟪ ſןɔ˞ᴜƴ ʌ ſɭɜ ſɭ,w , j͑ʃɜ ſɭ,ᴜ ʌ ſᶘᴜ j͑ʃᴜ 📏 ⟫
+      // ⟨ }ʃɹƽ ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩ , ſɭэ ֭ſɭэ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɭɜ ſɭ,w ⟅ ſɭɜ ſɭ,w ʌ ſɟɹ ᶅſɹȝ ,
+      // ſɭэ ֭ſɭэ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɟɹ ᶅſɹȝ ʌ j͐ʃэ ɭ(ᴜ , ꞙɭɔ ſןɔ˞ᴜƴ ⟅ ſɭɜ ſɭ,w
+      // j͐ʃэ ɭ(ᴜ ʌ ſɭɹ ſןᴜ ʌ ſןɔ˞ᴜƴ , ſɭэ ֭ſɭэ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſןɔ˞ᴜƴ ⟅
+      // ſᶘᴜ j͑ʃᴜ ʌ j͐ʃэ ɭ(ᴜ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ ꞙɭɔ ſןɔ˞ᴜƴ 📃 ⟩
       pontaHeight = ( x, z ) => {
         const l6da = s2qena.l6da(x, z);
         return ( tsekePontaAkvo(x, z) ? l6da : surGrid(l6da) ) - VOJA_SUPRO_LEVIGXO;
       };
       pontaGrundo = ( x, z ) => s2qena.grundo(x, z);
-      // ⟨ តួធ្នូរលូន 📃 ⟩ ៖ ផ្ទៃស្ពានរលូនតាមធ្នូ , ដូច្នេះតួធ្នូក៏រលូនដែរ ។
-      // បើតួធ្នូបង្គត់ទៅក្រឡាជំហាន , វាលាតឡើងលើផ្ទៃផ្លូវ ។ 📃 ⟩
+      // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ ⟅ 📃 ⟩ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ ʌ j͐ʃᴜɔ˞ ⟅
+      // ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſɭɹ ſןᴜ , j͑ʃɜ ſɭ,ᴜ ⟅ ſɭэ ֭ſɭэ 📃 ⟩
       for ( const trako of s2qena.trakoj )
         pontaHak6h6.push({ ...trako, w: k6h6Sefini });
     }
-    // ⟨ និយមន័យមួយក្នុងមួយផ្លូវ 📃 ⟩
+    // ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ꞙɭı }ʃɹƽ ʌ ſɭэ ֭ſɭэ 📃 ⟩
     const difino: VojDifino = { pts: n2k, w: k6h6Sefini / 2, hateruni: true };
-    // ⟨ ស្ពានជាចម្រៀករលូន 📃 ⟩ ៖ ផ្លូវឯទៀតជាជណ្តើរថ្ម , តែស្ពានជាធ្នូតែមួយ ។
-    // វានៅតែសាងសង់ដោយ vepaqHak6h6n ជាមួយខ្សែ និងសម្ភារៈដូចគ្នា ។ 📃 ⟩
+    // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɭэ ֭ſɭэ ⟅ ſɭэ ֭ſɭэ ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ , ɭʃэ ſɭɔȝ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ ⟅
+    // vepaqHak6h6n , ſᶘᴜ j͑ʃᴜ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
     if ( pontaHeight && pontaGrundo ) {
       difino.heightFn = pontaHeight;
       difino.grundoFn = pontaGrundo;
@@ -373,22 +373,22 @@ export async function vepaqKaxten(
   }
   const dockaLandaRando: [ number, number ][] =
     qakaj2Landaj.map(p => [ p.x, p.z ] as [ number, number ]);
-  // ⟨ បណ្តាញមួយ ការសាងសង់មួយ 📃 ⟩
+  // ⟨ j͑ʃ'ɜ ſןɹ ʌ ꞙɭı , ſɭɜ ʃɔ ſɭᴜ ʌ ꞙɭı 📃 ⟩
   const k21eDifinoj: VojDifino[] = [ ...kradajDifinoj, ...vojDifinoj ];
   const k21eHaveb6kek: [ number, number ][] = [ ...kradajHaveb6kek, ...k6h6jVeb6kekPunktoj ];
   const k21eFermitaj = new Map<string, [ number, number ]>([ ...kradajFermitaj, ...k6h6jFermitaj ]);
-  // ⟨ មាត់ផ្លូវមកដល់ចំណុចក្រឡា ៖ ចានភ្ជាប់ត្រូវបើកពេញ ដូចប្រសព្វក្នុងទីក្រុងចម្បង ។
-  // ការបិទជ្រុងរបស់សំណាញ់សម្រាប់ចុងផ្លូវក្រឡា ។ បើផ្លូវភ្ជាប់មកដល់ទីនោះ
-  // ផ្លូវនឹងជាប់នឹងជ្រុងដែលបិទ ។ ដូច្នេះលុបការបិទនៅចុងផ្លូវភ្ជាប់ទាំងអស់ ។ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ }ʃɹƽ , ſןᴜ ſᶘɹ ⟅ ſɭᴜ ı],ƨɔ ⟅
+  // ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ ⟅ ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ , ſɭэ ֭ſɭэ
+  // }ʃɹƽ ʌ ſɭэ ֭ſɭэ , ſɭэ ֭ſɭэ 📃 ⟩
   for ( const k6h6 of VOJOJ ) {
     if ( k6h6.n2k.length < 0o2 ) continue;
     for ( const p of [ k6h6.n2k[0], k6h6.n2k[k6h6.n2k.length - 1] ] )
       k21eFermitaj.delete(p[0] + "," + p[1]);
   }
-  // ⟨ បាតផ្លូវចុះដល់ដីពិត 📏 ⟩ ៖ មុននេះបាតអានវាលផ្លូវ ( រលូនជាងដី ) , ដូច្នេះ
-  // បាតនៅខ្ពស់ជាងដីដែលឃើញ , ហើយផ្លូវអណ្តែតលើស្មៅដោយចន្លោះខ្យល់ក្រោម ។
-  // ឥឡូវបាតអានដីពិត , ហើយមុខចំហៀងខ្ពស់ក្លាយជាស្មាជម្រាល ( SKIRTA_KLINO ) ,
-  // ដូច្នេះផ្លូវឈរលើដី ហើយគ្មានជញ្ជាំងថ្ម ។ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſɭɜ ſɭ,w 📏 ⟩ , j͑ʃɜ ſɭ,ᴜ ʌ ſɭэ ֭ſɭэ ( j͑ʃɜ ſɭ,ᴜ ʌ ſɭɜ ſɭ,w ) ,
+  // j͑ʃɜ ſɭ,ᴜ ʌ j͐ʃэ ɭ(ᴜ ʌ ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ ʌ ſȷɔ ſᶘᴜʞ , ſᶘᴜ j͑ʃᴜ ⟅
+  // j͑ʃɜ ſɭ,ᴜ ʌ ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ ʌ j͐ʃэ ɭ(ᴜ ( SKIRTA_KLINO ) ,
+  // ſɭэ ֭ſɭэ ʌ ſɭɜ ſɭ,w , ɭl̀ᴜ ſ͕ɭɜ 📃 ⟩
   const gelesVojSpecimenoj = vepaqHak6h6n(qena, k21eDifinoj, k6h6Alteco,
     dioritaMaterialo, andezitaMaterialo, k21eHaveb6kek,
     { akvaFn: akvaFino, grundoFn: alteco, kunigajDirektoj: k6h6jDirektoj,
@@ -397,12 +397,12 @@ export async function vepaqKaxten(
   vepaqIntersekcajnHapa12n( qena, k21eHaveb6kek, k6h6Alteco,
     dioritaMaterialo, andezitaMaterialo, k21eFermitaj, k6h6jRotacioj, k6h6jDirektoj, alteco,
     k6h6jDuonoj );
-  // ⟨ ស្ពាន ៖ ផ្ទៃស្ពានគឺជាកម្រិតចានភ្ជាប់ខ្លួនឯង , ដូច្នេះគ្មានជំហានលោតនៅមាត់ទឹក ។ 📃 ⟩
+  // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ = ſןᴜ ſᶘɹ ʌ j͑ʃ'ɔ ŋᷠɹ , ſᶘᴜ j͑ʃᴜ 📃 ⟩
   for ( const p of pontaHak6h6 )
     vepaqPonton(qena, p.ax, p.az, p.bx, p.bz, p.w, andezitaMaterialo, p.deko, alteco);
 
-  // ⟨ មហាវិថីកំពង់ ។ ក្នុងពិភពលោកដែលមានគ្រាប់ពូជ ចំណុចមកពីចុងផ្លូវ ,
-  // ក្នុងពិភពលោកដែលឆ្លាក់ដោយដៃ ពួកវាជាចំណុចដើម ។ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ⟅ }ʃᴜ j͐ʃᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ , }ʃɹƽ ʌ ſɭэ ֭ſɭэ ,
+  // }ʃᴜ j͐ʃᴜ ʌ ſɭc̗ᴜ , }ʃɹƽ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ 📃 ⟩
   const placajTsiq: [ number, number ][] = !tsekeGeneritaSetlejo()
     ? [ [ -0o124, -0o140 ], [ 0o124, -0o122 ] ]
     : ( () => {
@@ -410,7 +410,7 @@ export async function vepaqKaxten(
       for ( const k6h6 of VOJOJ ) {
         if ( k6h6.n2k.length < 0o2 ) continue;
         const [ x, z ] = k6h6.n2k[k6h6.n2k.length - 1];
-        // ⟨ ចុងផ្លូវដែលជាប់នឹងចំណតមានមហាវិថីរួចហើយ 📃 ⟩
+        // ⟨ ſɭэ ֭ſɭэ ʌ }ʃɹƽ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟩
         if ( qakaj2Landaj.some(p => Math.hypot(p.x - x, p.z - z) < 0o20) ) continue;
         hatlakakani.push([ x, z ]);
         if ( hatlakakani.length >= 0o2 ) break;
@@ -423,7 +423,7 @@ export async function vepaqKaxten(
 
   await raporti();
 
-  // ⟪ ចង្កៀង 📃 ⟫
+  // ⟪ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ 📃 ⟫
   const lampLokoj: LampLoko[] = hakaxte.flatMap(r => r.lampLokoj);
   const addLamp = kf2LampAldonilon(vepaqPudalj, lampLokoj);
   const addLampGroup = kf2KvarLampAldonilon(addLamp, lampLokoj);
@@ -431,7 +431,7 @@ export async function vepaqKaxten(
     addLampGroup(aX, aZ, 0o21/0o10);
   }
 
-  // ⟨ ចង្កៀងដែលមនុស្សដាក់ ៖ មិនរើ , មិនលុប ។ អ្នកសាងសង់ដាក់វាដោយចេតនា ។ 📃 ⟩
+  // ⟨ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ , ꞙɭɔ , ꞙɭɔ ⟅ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
   const lampKvantoAntauxObjektoj = lampLokoj.length;
   for ( const o of OBJEKTOJ ) {
     if ( o.pudal === "hxeuxfo" ) {
@@ -442,9 +442,9 @@ export async function vepaqKaxten(
     }
   }
 
-  // ⟨ ចង្កៀងមិនឈរក្នុងទឹក ៖ ចង្កៀងជ្រុងក្រឡា ៗ អាចស្ថិតលើទឹក ។
-  // ចង្កៀងទាំងនោះរើរួចហើយក្នុង `lampoj.ts` ។ នៅសល់តែចង្កៀងដែលរើរកដីគោកមិនបាន ,
-  // ហើយចង្កៀងដែលមនុស្សដាក់ដោយដៃ ៖ រក្សាទុក ។ 📃 ⟩
+  // ⟨ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ꞙɭɔ ſᶘᴜ j͑ʃᴜ , ſɭɹ ſןᴜ ʌ ſɭɹ ſןᴜ , ſᶘᴜ j͑ʃᴜ ⟅
+  // ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ſɭɜ ʃɔ lampoj.ts ⟅ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ſɭɜ ſɭ,w ,
+  // ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ , 📃 ⟩
   for ( let i = lampKvantoAntauxObjektoj - 1; i >= 0; i-- ) {
     const l = lampLokoj[i];
     if ( akvo(l.x, l.z) || l.y < akvaVem2(l.x, l.z) + 0o1/0o10 ) lampLokoj.splice(i, 1);
@@ -454,10 +454,10 @@ export async function vepaqKaxten(
   for ( const l of lampLokoj ) kolizioj.push({ x: l.x, z: l.z, r: 0o5/0o10 });
   await raporti();
 
-  // ⟪ រុក្ខជាតិ 📃 ⟫
+  // ⟪ ſȷɔ ſᶘᴜʞ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟫
   const ekskluziviRiveron = ( x: number, z: number ) => akvo(x, z);
   const vojSpecimenoj = gelesVojSpecimenoj;
-  // ⟪ លិបិក្រមក្រឡាសម្រាប់ការដកផ្លូវចេញ 📃 ⟫
+  // ⟪ ſɭɹ ſןᴜ ʌ }ʃɹƽ ʌ ſɭэ ֭ſɭэ 📃 ⟫
   const K6H6_KEKKOZUSAI = 0o10;
   const k6h6Krado = new Map<number, THREE.Vector3[]>();
   for ( const p of vojSpecimenoj ) {
@@ -489,7 +489,7 @@ export async function vepaqKaxten(
     return false;
   };
 
-  // ⟪ ចម្ងាយដល់បាតគីហ្វហេសូ , ដើម្បីឱ្យស្មៅមកដល់ជិតគីហ្វហេសូ និងកុំឱ្យមានកន្លែងទទេធំពេក ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟫
+  // ⟪ ſȷɔ ſᶘᴜʞ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ʌ ſɟɹ ᶅſɹȝ , }ʃɹƽ 📃 ⟫
   const keuxfhxesoKlaro = ( x: number, z: number, maks: number ): number => {
     const limo = KEUXFHXESO_KA5IK + maks;
     const limo2 = limo * limo;
@@ -502,7 +502,7 @@ export async function vepaqKaxten(
     return Math.sqrt( plejProkximo ) - KEUXFHXESO_KA5IK;
   };
 
-  // ⟪ ចម្ងាយដល់មជ្ឈប់ផ្លូវ , ដើម្បីកុំឱ្យស្មៅដុះចូលផ្លូវ និងដើម្បីកុំឱ្យមានកន្លែងទទេដែលធំ ជាងចា។ច្ចាន់ តែងតែបាន 📃 ⟫
+  // ⟪ ſȷɔ ſᶘᴜʞ , ſɭэ ֭ſɭэ ʌ }ʃɹƽ , }ʃɹƽ 📃 ⟫
   const k6h6Klaro = ( x: number, z: number, maks: number ): number => {
     const r = Math.ceil(maks / K6H6_KEKKOZUSAI) + 1;
     const bx = Math.floor(x / K6H6_KEKKOZUSAI), bz = Math.floor(z / K6H6_KEKKOZUSAI);
@@ -551,12 +551,12 @@ export async function vepaqKaxten(
     [ ...arboj, ...hataksal, ...tlexlefhxakaij ], VALAJ_BIOMOJ);
   await jesi();
 
-  // ⟨ ថ្មរឹង 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ 📃 ⟩
   const likenSxtonoj = vepaqLikenSxtonojn(qena, 0o60, alteco, ekskluziviRiveron,
     ekskluziviHak6h6n, ekskluziviPaqn);
   await jesi();
 
-  // ⟪ គ្រួសតាមច្រាំងទឹក 📃 ⟫
+  // ⟪ ɭʃэ ſɭɔȝ ʌ ſɭэ j͑ʃꞇ 📃 ⟫
   vepaqBordajnSxtonojn(qena, alteco, ekskluziviHak6h6n, ekskluziviPaqn);
   await jesi();
 
@@ -566,14 +566,14 @@ export async function vepaqKaxten(
   vepaqFe1afn(qena, 0o1170, alteco, ekskluziviRiveron, ekskluziviHak6h6n, ekskluziviPaqn, VALAJ_BIOMOJ);
   await jesi();
 
-  // ⟪ ស្រទាប់ស្មៅ 📃 ⟫
-  // ⟨ ចំនួនស្លឹកក្នុងដុំស្មៅ ៖ ស្មៅជាអ្នកចំណាយធំបំផុតក្នុងស៊ុម ( រាប់លានត្រីកោណ ) ។
-  // បន្ថយពី 15 មក 11 គឺស្មើនឹងកម្រិតដែលទូរស័ព្ទប្រើស្រាប់ ។ 📃 ⟩
+  // ⟪ ſȷɔ ſᶘᴜʞ ʌ ſȷɔ ſᶘᴜʞ 📃 ⟫
+  // ⟨ ſȷɔ ſᶘᴜʞ ʌ ſȷɔ ſᶘᴜʞ ʌ ſןᴜ j͐ʃэ ⟅ ſȷɔ ſᶘᴜʞ ʌ ſןᴜ j͐ʃэ ɭ(ᴜ ⟅ ꞙɭı
+  // ıꞟ ⟅ ıı , ſɭɜ ʃɔ ʌ ſȷɔ ſᶘᴜʞ 📃 ⟩
   await vepaqHerbanTavolon(qena, jesi, alteco, ekskluziviRiveron, ekskluziviHak6h6n,
     ekskluziviPaqn, [ ...VALAJ_BIOMOJ, ...EBENAJAJ_BIOMOJ ],
     surPosxtelefono ? 0o11 : 0o13, k6h6Klaro, keuxfhxesoKlaro);
 
-  // ⟪ វាលរាប 📃 ⟫
+  // ⟪ ᶅſɔ ɽ͑ʃ'ɔ 📃 ⟫
   await jesi();
   vepaqFe1afn(qena, 0o2000, alteco, ekskluziviRiveron, ekskluziviHak6h6n, ekskluziviPaqn, EBENAJAJ_BIOMOJ);
   vepaqAsfajnPlantojn(qena, 0o1000, alteco, ekskluziviRiveron, ekskluziviHak6h6n, ekskluziviPaqn, EBENAJAJ_BIOMOJ);
@@ -591,7 +591,7 @@ export async function vepaqKaxten(
     ( x: number, z: number ) => ekskluziviPaqn(x, z, 3), ekskluziviHak6h6n, EKVIZETO_BIOMOJ);
   await raporti();
 
-  // ⟪ រុក្ខជាតិជុំវិញបឹង 📃 ⟫
+  // ⟪ ſȷɔ ſᶘᴜʞ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟫
   const lagArboj = metiArbojnCxirkauLagon(alteco, 0o60, LAGO_X, lagoZ(), lagoRadio, akvaVem2,
     ekskluziviRiveron, ekskluziviHak6h6n, ekskluziviPaqn, 0o53120, [ ...arboj, ...hataksal ], 0o10,
     undefined, VALAJ_BIOMOJ);
@@ -616,7 +616,7 @@ export async function vepaqKaxten(
     ekskluziviRiveron, ekskluziviHak6h6n, ekskluziviPaqn, 0o53134, VALAJ_BIOMOJ);
   await raporti();
 
-  // ⟪ រុក្ខជាតិភ្នំ 📃 ⟫
+  // ⟪ ſȷɔ ſᶘᴜʞ ʌ ɭl̀ᴜ ſ͕ɭɜ 📃 ⟫
   const montajHalam2v = metiMontajnArbojn(alteco, 0o100, 0o210, 0o270,
     ekskluziviRiveron, ekskluziviHak6h6n, ekskluziviPaqn, 0o53132,
     [ ...arboj, ...hataksal ], 0o10, undefined, 0, 0o340, MONTAJ_BIOMOJ);
@@ -632,7 +632,7 @@ export async function vepaqKaxten(
     ekskluziviRiveron, ekskluziviHak6h6n, true, ekskluziviPaqn);
   vepaqTrunkajnF2majn(qena, [ montajLarikaHasost2cel2sai, montajLam2vHasost2cel2sai ], 0o62453);
 
-  // ⟪ រុក្ខជាតិភ្នំភាគឦសាន 📃 ⟫
+  // ⟪ ſȷɔ ſᶘᴜʞ ʌ ɭl̀ᴜ ſ͕ɭɜ ʌ ɽ͑ʃ'ᴜȝ j͐ʃᴜȝ 📃 ⟫
   const neHalam2v = metiMontajnArbojn(alteco, 0o40, 0o40, 0o140,
     ekskluziviRiveron, ekskluziviHak6h6n, ekskluziviPaqn, 0o53135,
     [ ...arboj, ...hataksal ], 0o10, undefined, -0o350, 0o64, MONTAJ_BIOMOJ);
@@ -660,7 +660,7 @@ export async function vepaqKaxten(
   const tlexlefp2saiBeroj = kf2Tlexlefp2saijnBerojn(qena, tlexlefp2saij);
   await raporti();
 
-  // ⟪ ចំណុចអ័ព្ទ 📃 ⟫
+  // ⟪ ŋᷠᴜ ֭ſɭᴜ ʌ }ʃɹƽ 📃 ⟫
   const nebulSistemo = ( (): NebulaSistemo => {
     const nebulaCac2sex = kf2NebulanCac2sex();
     const fiksitaj: number[][] = [
@@ -717,14 +717,14 @@ export async function vepaqKaxten(
         attribute float aRapido;
         varying float vOpakeco;
         void main() {
-          // ចលនាជំរុញតាមទិសជាមួយការរុំជុំវិញ ( ការរុំចាស់នៅ
+          // ſɭɜ ʃɔ ʌ ſɟɹ ᶅſɹȝ ⟅ ſɭɜ ʃɔ ⟅
           vec3 p = position;
           float falo = uTime * aRapido;
-          p.x = mod(p.x + falo + 160.0, 320.0) - 160.0;
+          p.x = mod(p.x + falo + ıɩɔ.ɔ, цɿɔ.ɔ) - ıɩɔ.ɔ;
           vOpakeco = aOpakeco;
-          vec4 mv = viewMatrix * vec4(p, 1.0);
-          // ទំហំពិភពលោក → ភិចសែល ( រូបមន្តបំប្លែងដូចព្រិល )។
-          gl_PointSize = aGrando * ( 100.0 / -mv.z );
+          vec4 mv = viewMatrix * vec4(p, ı.ɔ);
+          // ſןᴜ j͐ʃэ ʌ }ʃᴜ j͐ʃᴜ ⟅ }ʃɹƽ ʌ ſɭᴜ ſɭᴜ ⟅
+          gl_PointSize = aGrando * ( ıɔɔ.ɔ / -mv.z );
           gl_Position = projectionMatrix * mv;
         }
       `,
@@ -744,11 +744,11 @@ export async function vepaqKaxten(
   } )();
   await raporti();
 
-  // ⟪ កតេណូផរ 📃 ⟫
+  // ⟪ ſȷɔ ſᶘᴜʞ ʌ ɭʃэ ſɭɔȝ 📃 ⟫
   const hapaga = vepaqHapagan(qena, 0o30, riveroZ, riveraAkvaVem2,
     { x: LAGO_X, z: lagoZ(), r: LAGO_RZ, vem2: lagoVem2() });
 
-  // ⟨ រុក្ខជាតិរឹង 📃 ⟩
+  // ⟨ ſȷɔ ſᶘᴜʞ ʌ ɭʃэ ſɭɔȝ 📃 ⟩
   const trunkaR = 0o5/0o20;
   for ( const t of arboj ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
   for ( const t of hataksal ) kolizioj.push({ x: t.x, z: t.z, r: trunkaR });
@@ -771,11 +771,11 @@ export async function vepaqKaxten(
     }
   }
 
-  // ⟪ ផេត្រេលព្រិល 📃 ⟫
+  // ⟪ ŋᷠᴜ ֭ſɭᴜ ʌ }ʃɹƽ 📃 ⟫
   const hatemek = vepaqHatemekn(qena, 0o20, alteco);
   await raporti();
 
-  // ⟪ ការកំណត់ NPC 📃 ⟫
+  // ⟪ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ NPC 📃 ⟫
   const VESTA_LISTO: Vesto[] = VESTOJ;
 
   const npcZonoj: { x: number; z: number }[] = [];
@@ -811,7 +811,7 @@ export async function vepaqKaxten(
   }
   await raporti();
 
-  // ⟪ វត្ថុដាក់ ( ឧបករណ៍វត្ថុនៃឧបករណ៍ឆ្លាក់ ) 📃 ⟫
+  // ⟪ ɽ͑ʃ'w j͑ʃ'ᴜ ʌ ſɭɜ ſɭ,w ( ſɟᴜᴜ̩ ɭʃɹ ʌ ſɭc̗ᴜ ) 📃 ⟫
   const kanuoj: Kanoto[] = [];
   const xipo = vepaqMetitajnObjektojn(qena, OBJEKTOJ,
     alteco, akvo, akvaVem2, hapaga, hatemek, npcoj, kanuoj, oraMaterialo, eniraMaterialo,
@@ -820,12 +820,12 @@ export async function vepaqKaxten(
   if ( stacioSxipo && xipo ) stacioSxipo.flugoY = xipo.group.position.y;
   await raporti();
 
-  // ⟪ ប្រព័ន្ធខាងក្នុង 📃 ⟫
+  // ⟪ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ }ʃᴜ j͐ʃᴜ 📃 ⟫
   const internaSistemo: InternaSistemo = kf2InternanSistemon();
 
-  // ⟨ ការវិភាគសម្រាប់ឧបករណ៍វាស់ 📏 ⟩ ៖ វាលកម្ពស់ផ្លូវ , ចំណុចភ្ជាប់ និងនិយមន័យផ្លូវ
-  // ដែលសាងសង់ពិត ។ ឧបករណ៍វាស់អានវាដើម្បីវាស់ជាមួយពិភពលោកពិត ,
-  // ដូច្នេះការវាស់និងហ្គេមអានលេខតែមួយ ។ 📃 ⟩
+  // ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɟᴜᴜ̩ ɭʃɹ ʌ ſɭc̗ᴜ 📏 ⟩ , ſɭэ ֭ſɭэ ʌ j͐ʃэ ɭ(ᴜ , }ʃɹƽ , ſɭэ ֭ſɭэ ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ
+  // ſɟᴜᴜ̩ ɭʃɹ ʌ ſɭc̗ᴜ ʌ }ʃᴜ j͐ʃᴜ ,
+  // ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ }ʃɹƽ 📃 ⟩
   ( globalThis as any ).__kaxteDiagnostiko = {
     k6h6Alteco, haveb6kek: k21eHaveb6kek, difinoj: k21eDifinoj, bazaK6h6Alteco,
   };

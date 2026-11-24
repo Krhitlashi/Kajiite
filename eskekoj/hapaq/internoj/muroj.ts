@@ -21,7 +21,7 @@ export function vepaqMuronKunPilolaTruo(
   const segLargho = plataLargho - ww / 2;
   const segAlto = l6da - ( fenLokY + hh );
 
-  // ⟨ អ្វីៗសង់ក្នុងក្រុមមូលដ្ឋាន 📃 ⟩
+  // ⟨ ſɟᴜ j͑ʃᴜ ʌ ſɟɔȝ ʌ j͑ʃᴜ ʌ ſɭɜ ſɭ,w }ʃw 📃 ⟩
   const hate = new THREE.Group();
   hate.position.set(cx, bazaY, cz);
   hate.rotation.y = rotacio;
@@ -95,7 +95,7 @@ export function aldoniLonganFenestron(
   if ( fenY + hh > bazaY + l6da ) return;
   const neteru = orientacio === "neteru";
   const ne3ak2 = orientacio === "ne3ak2";
-  // ⟨ ទិសបួន 📃 ⟩
+  // ⟨ ſɟɹ ᶅſɹȝ ʌ ɭʃᴜ 📃 ⟩
   const rotacio = orientacio === "dekstra" ? -Math.PI / 2
     : orientacio === "maldekstra" ? Math.PI / 2 : Math.PI;
   const ofseto = 0o3/0o40;
@@ -108,9 +108,9 @@ export function aldoniLonganFenestron(
   fen.position.set(aCx, fenY, aCz);
   if ( !neteru ) fen.rotation.y = rotacio;
   group.add(fen);
-  // ⟨ ស៊ុមផ្កាយដូចបង្អួចខាងក្រៅ 📃 ⟩
+  // ⟨ j͑ʃɔ ı],ꞇ ʌ ſɟᴜ ֭ſɭэ ſɭэ ʌ j͑ʃᴜ jᷠᴜ 📃 ⟩
   const joqaLargho = 0o1/0o10, joqaDikeco = 0o1/0o20;
-  // ⟨ ជញ្ជាំងទទេជុំវិញបង្អួចប៉ុន្មាន 📃 ⟩
+  // ⟨ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩
   const liberoLonga = plataLargho - ww / 2;
   const liberoMallonga = Math.min(fenY - hh / 2 - bazaY, bazaY + l6da - fenY - hh / 2);
   const pintoSupre = hh * 0o1/0o2;
@@ -124,7 +124,7 @@ export function aldoniLonganFenestron(
   const joqaGeo = new THREE.ExtrudeGeometry(stelo,
     { depth: joqaDikeco, bevelEnabled: false, curveSegments: 0o10 });
   const joqa = new THREE.Mesh(joqaGeo, joqaMaterialo);
-  // ⟨ ការលេចតូចនៅមុខកញ្ចក់ 📃 ⟩
+  // ⟨ ſ͕ɭᴜ ʃэ ɭʃɔ ŋᷠɹ ʌ ſןɔ ſ͕ɭɔ }ʃꞇ 📃 ⟩
   const elstaro = 0o1/0o100;
   joqa.position.set(
     neteru || ne3ak2 ? aCx : aCx + ( orientacio === "dekstra" ? -elstaro : elstaro ),

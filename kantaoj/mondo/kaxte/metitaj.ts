@@ -87,7 +87,7 @@ export function vepaqMetitajnObjektojn(
       }, qena, selektajxoj, altecoFn);
     }
   }
-  // ⟨ ការរលាយអគារដែលបានដាក់ 📃 ⟩
+  // ⟨ ſɭɜ ı],ɹȝ ʌ j͑ʃᴜꞇ ʌ ſɟɔȝ 📃 ⟩
   const konservotaj = new Set<THREE.Object3D>(selektajxoj);
   const movaj = new Set<THREE.Object3D>();
   for ( const f of npcoj ) movaj.add(f.group);

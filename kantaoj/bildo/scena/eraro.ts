@@ -28,12 +28,12 @@ export function montriEraronon( sxargxaEl: HTMLElement ): void {
   montriPanelon(sxargxaEl, [ traduki("webglNeSubtenata"), traduki("webglDetalo") ]);
 }
 
-/* បង្ហាញកំហុសផ្ទុកដែលមិនមែនកំហុស WebGL ដោយផ្ទាល់ ។
-    @param sxargxaEl ( HTMLElement ) - វាំងននផ្ទុកដែលត្រូវបិទ
-    @param eraro ( unknown ) - កំហុសពីការនាំចូល ឬ សាងសង់ពិភពលោក
+/* ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ʌ ꞙɭɔ ʌ WebGL ⟅
+    @param sxargxaEl ( HTMLElement ) - ſɟᴜ ſȷᴜɔ˞ ʌ ſȷwɔ˞
+    @param eraro ( unknown ) - ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ʌ }ʃᴜ j͐ʃᴜ
 @returns void */
 export function montriSargxanEraron( sxargxaEl: HTMLElement, eraro: unknown ): void {
-  console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ការផ្ទុកពិភពលោកបរាជ័យ", eraro);
+  console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) }ʃᴜ j͐ʃᴜ ʌ ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ", eraro);
   if ( document.getElementById("sargaEraro") ) return;
   const detalo = eraro instanceof Error ? eraro.message : String(eraro);
   montriPanelon(sxargxaEl, [ detalo ]);

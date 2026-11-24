@@ -1,16 +1,16 @@
 // ≺⧼ j͑ʃɔ j͑ʃɜȝ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
 
-// ⟪ មាត្ររូប 📏 ⟫
+// ⟪ ſ͕ɭɜ ı],ᴜ , ſɭᴜ ſ͕ȷɔ 📏 ⟫
 export const ROB_Y_MALSUPRO = 0o7/0o16;
-// ⟨ រ៉ូបបញ្ចប់ក្រោមចង្កា 📃 ⟩
-// ⟪ ចំណុចសំខាន់តួ 📏 ⟫
-// ⟨ អាវធំវែងជាង 📃 ⟩
+// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ſɭɜ ſɭᴜƽ , ɭʃᴜ , ⟅ ⟩
+// ⟪ ſɭᴜ ſ͕ȷɔ , j͑ʃᴜ ſןɹ , ſɭɜ ſɭ,w 📏 ⟫
+// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , j͑ʃᴜ ʃɜ , ⟅ ⟩
 export const ROB_ALTO = 0o75/0o100;
-// ⟨ 0.8 មិនមែន 0.75 📃 ⟩
+// ⟨ 0.8 , ɔ.ƨꞟ , ꞙɭɔ ⟅ ⟩
 export const ROB_PROFUNDO = 0o4/0o5;
-// ⟨ អាវព័ទ្ធក 📃 ⟩
-// ⟨ កអាវមូល 📃 ⟩
-// ⟨ អាវខ្លីចុះ 📃 ⟩
+// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ꞙɭı , ⟅ ⟩
+// ⟨ ɭʃᴜ , ɭʃɹ ſ͕ɭɹ , ⟅ ⟩
+// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ſɭɜ ſɭᴜƽ , ⟅ ⟩
 export const INTERNO_Y_MALSUPRO = 0o45/0o100;
 export const INTERNO_Y_SUPRO = 0o274/0o200;
 export const INTERNO_ALTO = INTERNO_Y_SUPRO - INTERNO_Y_MALSUPRO;

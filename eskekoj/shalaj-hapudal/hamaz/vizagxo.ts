@@ -5,7 +5,7 @@ import { superelipso, kf2RinganSurfacon } from "./haqoxa.js";
 import { KAPA_Y, KOLO_Y } from "./havecax2l.js";
 import { T2BANU_ALTO, T2BANU_DX, T2BANU_DY, T2BANU_DZ, T2BANU_SEFINI, BROVA_DUONO, BROVA_ALTO, BROVA_ARko, BROVA_KLINO, BROVA_SEFINI, BROVA_DIKECO, BROVA_LEVO, LAŜO_SEFINI, LAŜO_DIKECO, LAŜO_LEVO, BUŜO_DUONO, BUŜO_ANGULO, BUŜO_MEZO, BUŜO_SEFINI, BUŜO_DIKECO, BUŜO_LEVO, BUŜO_STACIOJ, STRIO_STACIOJ, T2BANU_DIKO, PALPEBRA_GRANDO, PALPEBRA_DIKO, T2BANU_NORMALA_Y, PALPEBRA_STRIO } from "./okuloj.js";
 
-// ⟪ ទម្រង់មុខ 👁️ ⟫
+// ⟪ ſ͕ɭɜ ı],ᴜ , j͑ʃᴜ ʃɜƽ 👁️ ⟫
 
 function vizaĝaBazaro(dx: number, dy: number, dz: number)
   : [ THREE.Vector3, THREE.Vector3, THREE.Vector3 ] {
@@ -17,24 +17,24 @@ function vizaĝaBazaro(dx: number, dy: number, dz: number)
 export function kf2Okulon(dir: number, dx: number, dy: number, dz: number,
   sefini: number, l6da: number, klino: number): THREE.BufferGeometry {
   const [ horizontala, vertikala, normalo ] = vizaĝaBazaro(dir * dx, dy, dz);
-  // ⟨ ស្លឹកត្រូវការចំណុចច្រើន 📃 ⟩
+  // ⟨ j͑ʃͷ̗ᴜʞ , }ʃɹƽ , ꞙɭı , ⟅ ⟩
   const N = 0o20;
   const DIKO = 0o1/0o200;
   const kozuni = new THREE.Vector3(dir * dx, KAPA_Y + dy, dz);
   const kos = Math.cos(klino), sin = Math.sin(klino);
   const haxekuxa: number[] = [];
-  // ⟨ UV បង្ហាញរង្វង់ភ្នែក 📃 ⟩
+  // ⟨ UV , ɭʃɹ ʃᴜ }ʃw , ⟅ ⟩
   const qan2k: number[] = [];
-  // ⟨ រង្វង់ពីរ និងកណ្តាល 📃 ⟩
+  // ⟨ ɭʃɹ ſ͕ɭɹ , ꞙɭɿ , ɭʃэ ɭʃᴜ , ⟅ ⟩
   for ( const [ grando, diko ] of [ [ 0o1, 0 ], [ 0o11/0o20, DIKO * 0o7/0o10 ] ] as [ number, number ][] ) {
-    // ⟨ កាំធ្នូស្លឹក 📃 ⟩
+    // ⟨ ɭʃꞇƽ , j͑ʃͷ̗ᴜʞ , ⟅ ⟩
     const lg = sefini * grando, ag = l6da * grando;
     const R = ( lg * lg + ag * ag ) / ( 0o2 * ag );
     const Rr = R * R, Rm = R - ag;
     for ( let i = 0; i < N; i++ ) {
       const t = i / N * Math.PI * 0o2;
       const k = Math.cos(t), s = Math.sin(t);
-      // ⟨ ស្លឹក 📃 ⟩
+      // ⟨ j͑ʃͷ̗ᴜʞ , ⟅ ⟩
       const fx = lg * k;
       const slaf = Math.sqrt(Math.max(0, Rr - fx * fx)) - Rm;
       const py = Math.sign(s) * slaf;
@@ -57,13 +57,13 @@ export function kf2Okulon(dir: number, dx: number, dy: number, dz: number,
   return kf2BuferanGeometrion(haxekuxa, havecax2lani, { qan2k });
 }
 
-// ⟨ ហេតុអ្វីអ័ក្សស្មើនឹងឆ្នូត 📃 ⟩
+// ⟨ ſᶘɔ ʌ ꞙɭı , ꞙɭı , ⟅ ⟩
 export function palpebraPivoto(): number {
   return KAPA_Y + T2BANU_DY + PALPEBRA_STRIO - KOLO_Y;
 }
 
-// ⟨ ត្របកភ្នែកស្របនឹងភ្នែក 📃 ⟩
-// ⟨ កម្ពស់ធរណីមាត្រត្រូវផ្លាស់ 📃 ⟩
+// ⟨ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ɭʃɹ ʃᴜ }ʃw j͑ʃᴜꞇ , ꞙɭı , ⟅ ⟩
+// ⟨ j͐ʃэ ɭ(ᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ⟩
 export function kf2Palpebrojn(): THREE.BufferGeometry {
   const N = 0o20;
   const sefini = T2BANU_SEFINI * PALPEBRA_GRANDO;
@@ -75,7 +75,7 @@ export function kf2Palpebrojn(): THREE.BufferGeometry {
   for ( const dir of [ -0o1, 0o1 ] ) {
     const [ horizontala, vertikala, normalo ] = vizaĝaBazaro(dir * T2BANU_DX,
       T2BANU_DY, T2BANU_DZ);
-    // ⟨ ការផ្អៀងភ្នែកនៅដដែល 📃 ⟩
+    // ⟨ ɭʃɹ ʃᴜ }ʃw , ꞙɭı , ⟅ ⟩
     const klino = dir * 0o1/0o10;
     const kos = Math.cos(klino), sin = Math.sin(klino);
     const haxekuxa: number[] = [], qan2k: number[] = [], havecax2lani: number[] = [];
@@ -124,7 +124,7 @@ function kf2VizaĝanStrikon(sost2: THREE.Vector3[], normaloj: THREE.Vector3[],
   const qan2k: number[] = [];
   const havecax2lani: number[] = [];
   for ( let i = 0; i < sost2.length; i++ ) {
-    // ⟨ អ័ក្សធំមកពីខ្សែកោង 📃 ⟩
+    // ⟨ ꞙɭı , ſȷƽᴜ ʃɔ , ⟅ ⟩
     const ne3ak2 = sost2[Math.max(0, i - 0o1)];
     const post = sost2[Math.min(sost2.length - 0o1, i + 0o1)];
     const tanĝanto = post.clone().sub(ne3ak2).normalize();
@@ -135,7 +135,7 @@ function kf2VizaĝanStrikon(sost2: THREE.Vector3[], normaloj: THREE.Vector3[],
       haxekuxa.push(sost2[i].x + larĝa.x * sb * p2somaniSefini + normalo.x * sn * duonDikeco,
         sost2[i].y + larĝa.y * sb * p2somaniSefini + normalo.y * sn * duonDikeco,
         sost2[i].z + larĝa.z * sb * p2somaniSefini + normalo.z * sn * duonDikeco);
-      // ⟨ UV បង្ហាញវាយនភាពសក់ 📃 ⟩
+      // ⟨ UV , ſᶘᴜȝ , j͑ʃɜ ſɭ,ᴜ , ⟅ ⟩
       qan2k.push(i / ( sost2.length - 0o1 ), 0o1/0o2 + sn * 0o1/0o2);
     }
   }
@@ -156,7 +156,7 @@ export function kf2VizaĝajnStrikojn(): THREE.BufferGeometry {
     const klino = dir * 0o1/0o10;
     const [ horizontala, vertikala, normalo ] = vizaĝaBazaro(dir * T2BANU_DX, T2BANU_DY, T2BANU_DZ);
     const kozuni = new THREE.Vector3(dir * T2BANU_DX, KAPA_Y + T2BANU_DY, T2BANU_DZ);
-    // ⟨ ចិញ្ចើម 📃 ⟩
+    // ⟨ ſ̀ȷᴜ ſɟɔ ɭʃɹ ʃᴜ }ʃw j͑ʃᴜꞇ , ⟅ ⟩
     const brovCentroj: THREE.Vector3[] = [];
     const brovNormaloj: THREE.Vector3[] = [];
     const brovSefinij: number[] = [];
@@ -170,7 +170,7 @@ export function kf2VizaĝajnStrikojn(): THREE.BufferGeometry {
       brovSefinij.push(BROVA_SEFINI * ( 0o1 - 0o3/0o4 * s * s ));
     }
     hakek.push(kf2VizaĝanStrikon(brovCentroj, brovNormaloj, brovSefinij, BROVA_DIKECO));
-    // ⟨ រោមភ្នែក 📃 ⟩
+    // ⟨ ɭʃɹ ʃᴜ }ʃw , ſᶘᴜȝ , ⟅ ⟩
     const laŝCentroj: THREE.Vector3[] = [];
     const laŝNormaloj: THREE.Vector3[] = [];
     const laŝSefinij: number[] = [];
@@ -194,7 +194,7 @@ export function kf2VizaĝajnStrikojn(): THREE.BufferGeometry {
   return kunfandiGeometriojn(hakek);
 }
 
-// ⟨ UV បង្ហាញជ្រុងងងឹត 📃 ⟩
+// ⟨ UV , ꞙɭı , ⟅ ⟩
 export function kf2Buŝon(): THREE.BufferGeometry {
   const hakek: THREE.BufferGeometry[] = [];
   for ( const dir of [ -0o1, 0o1 ] ) {
@@ -203,12 +203,12 @@ export function kf2Buŝon(): THREE.BufferGeometry {
     const sefini: number[] = [];
     for ( let i = 0; i <= BUŜO_STACIOJ; i++ ) {
       const t = i / BUŜO_STACIOJ;
-      // ⟨ ជ្រុងឡើងលើ និងកណ្តាលចុះក្រោម 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭɿ , ⟅ ⟩
       const [ soza, n ] = kapaSurfaco(dir * BUŜO_DUONO * ( 0o1 - t ),
         BUŜO_ANGULO + ( BUŜO_MEZO - BUŜO_ANGULO ) * t, T2BANU_DZ);
       sost2.push(soza.addScaledVector(n, BUŜO_LEVO));
       normaloj.push(n);
-      // ⟨ ឆ្នូតស្រួចទៅជ្រុង 📃 ⟩
+      // ⟨ ꞙɭı , ⟅ ⟩
       sefini.push(BUŜO_SEFINI * ( 0o1/0o4 + 0o3/0o4 * t ));
     }
     hakek.push(kf2VizaĝanStrikon(sost2, normaloj, sefini, BUŜO_DIKECO));
@@ -220,15 +220,15 @@ export function kf2Buŝon(): THREE.BufferGeometry {
 }
 
 export function kf2Nazon(): THREE.BufferGeometry {
-  // ⟨ ច្រមុះនៅលើមុខ 📃 ⟩
-  // ⟨ ច្រមុះឡើងលើ និងថយចុះ 📃 ⟩
+  // ⟨ }ʃᴜƴ ꞁȷ̀ᴜ }ʃw , ⟅ ⟩
+  // ⟨ }ʃᴜƴ ꞁȷ̀ᴜ }ʃw , j͑ʃᴜ ʃɜƽ , ꞙɭı , ⟅ ⟩
   const dy = -0o44/0o1000, dz = 0o122/0o1000;
   const [ horizontala, vertikala, normalo ] = vizaĝaBazaro(0, dy, dz);
   const kozuni = new THREE.Vector3(0, KAPA_Y + dy, dz);
   const ALTO = 0o13/0o1000;
   const hatafkaq: [ number, number ][] = [
     [ 0, ALTO ], [ -0o1/0o40, -ALTO ], [ 0o1/0o40, -ALTO ] ];
-  // ⟨ ប្លង់ទ្រទ្រង់ 📃 ⟩
+  // ⟨ ꞙɭı , ⟅ ⟩
   const ebenoj: [ number, number, number ][] = [];
   for ( let i = 0; i < 0o3; i++ ) {
     const a = hatafkaq[i], b = hatafkaq[( i + 0o1 ) % 0o3 ];
@@ -252,7 +252,7 @@ export function kf2Nazon(): THREE.BufferGeometry {
       }
       const r = tlunakani > 0 ? Math.pow(tlunakani, -0o1/0o4) : 0;
       const px = r * ux, py = r * uy;
-      // ⟨ ចុងលេចចេញជាង 📃 ⟩
+      // ⟨ j͑ʃɜ j͐ʃɹ , ⟅ ⟩
       const f = 0o55/0o100 + 0o45/0o100 * ( 0o1 - ( py / ( 0o2 * ALTO ) + 0o1/0o2 ) );
       const diko = faktoro * f;
       haxekuxa.push(
@@ -272,7 +272,7 @@ export function kf2Nazon(): THREE.BufferGeometry {
   }
   return kf2BuferanGeometrion(haxekuxa, havecax2lani);
 }
-// ⟪ ប្រវែងកាត់លលាដ៍ 🗿 ⟫
+// ⟪ j͑ʃᴜ ʃɜ , ſ̀ȷᴜ ſןɹ ᶅſw ſןɜ j͑ʃᴜꞇ 🗿 ⟫
 const KRANIAJ_RINGOJ: [ number, number, number, number ][] = [
   [  0o122/0o1000, 0o40/0o1000,  0o40/0o1000, 0           ],
   [  0o110/0o1000, 0o63/0o1000,  0o63/0o1000, 0           ],
@@ -289,8 +289,8 @@ const KRANIAJ_RINGOJ: [ number, number, number, number ][] = [
   [ -0o130/0o1000, 0o6/0o1000,   0o22/0o1000,  0o13/0o1000 ],
 ];
 
-// ⟨ ក្បាលមានរាងអានីមេ 📃 ⟩
-// ⟨ ក្បាលលែងជាស្វ៊ែរ 📃 ⟩
+// ⟨ ſɭэ ɭʃᴜ , ꞙɭı , ⟅ ⟩
+// ⟨ ſɭэ ɭʃᴜ , ꞙɭɔ , ⟅ ⟩
 export function kf2KapanKranion(): THREE.BufferGeometry {
   const K = 0o20;
   const hac2q = KRANIAJ_RINGOJ;
@@ -303,8 +303,8 @@ export function kf2KapanKranion(): THREE.BufferGeometry {
     })), sost2(hac2q[hac2q.length - 0o1][0], hac2q[hac2q.length - 0o1][3]) ]);
 }
 
-// ⟪ ត្រចៀក 👂 ⟫
-// ⟨ ហេតុអ្វីតារាងផ្ទាល់ 📃 ⟩
+// ⟪ j͐ʃw ſɭʞɔ }ʃw 👂 ⟫
+// ⟨ ſᶘɔ ʌ ꞙɭı , ⟅ ⟩
 const ORELAJ_SEKCOJ: [ number, number, number, number ][] = [
   [ -0o4/0o1000,  -0o3/0o1000,  -0o10/0o1000, 0o5/0o10  ],
   [ -0o10/0o1000,  0o1/0o1000,  -0o22/0o1000, 0o7/0o10  ],
@@ -314,17 +314,17 @@ const ORELAJ_SEKCOJ: [ number, number, number, number ][] = [
   [ -0o43/0o1000,  0o2/0o1000,  -0o20/0o1000, 0o5/0o10  ],
   [ -0o47/0o1000,  0o1/0o1000,  -0o10/0o1000, 0o4/0o10  ],
 ];
-// ⟨ ជម្រៅបីនៃត្រចៀក 📃 ⟩
+// ⟨ j͐ʃw ſɭʞɔ }ʃw , ꞙɭц , j͑ʃᴜ ſɭ,w , ⟅ ⟩
 const ORELA_ENIRO = 0o6/0o1000;
 const ORELA_KLINO = 0o15/0o1000;
 const ORELA_DIKO = 0o4/0o1000;
 const ORELA_KONKO = 0o4/0o1000;
 
-// ⟨ ការកាត់ 📃 ⟩
-// ⟨ កង្ហារ 📃 ⟩
+// ⟨ j͑ʃᴜ ʃɜ , ⟅ ⟩
+// ⟨ ɭʃɜ ſɭɹȝ , ⟅ ⟩
 export function kf2Orelon(dir: number): THREE.BufferGeometry {
   const K = 0o16;
-  // ⟨ ប្រហោង ( សំបក ) 📃 ⟩
+  // ⟨ ſɭэ ɭʃᴜ , ſɟɔȝ , ⟅ ⟩
   const kavo = (kos: number, sin: number) =>
     Math.max(0, kos) * ( 0o1 - sin * sin );
   const sekco = (dy: number, ne3ak2: number, neterue: number, elstaro: number)
@@ -349,7 +349,7 @@ export function kf2Orelon(dir: number): THREE.BufferGeometry {
     return Array.from({ length: K },
       () => [ dir * x, KAPA_Y + dy, zc ] as [ number, number, number ]);
   };
-  // ⟨ កង្ហារនៅក្រៅតារាង 📃 ⟩
+  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭı , ⟅ ⟩
   const xaqadi = ORELAJ_SEKCOJ[0], z2hak = ORELAJ_SEKCOJ[ORELAJ_SEKCOJ.length - 0o1];
   const preter = 0o2/0o1000;
   return kf2RinganSurfacon([

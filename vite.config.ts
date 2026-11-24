@@ -3,8 +3,8 @@ import { defineConfig, type Plugin } from "vite";
 
 const PORD_RETILO = 0o5660;
 
-// ⟨ ឧបករណ៍វាស់មិនផ្ទុកហ្គេមឡើងវិញ ៖ `iloj/mezurilo` រត់លើ Node ហើយមិនមែនជា
-// ផ្នែកនៃទំព័រណាមួយទេ ។ ដូច្នេះការកែវាមិនត្រូវផ្ទុកហ្គេមឡើងវិញទេ ។ 📃 ⟩
+// ⟨ ſɟᴜᴜ̩ ɭʃɹ ʌ j͑ʃɹ j͐ʃɹ ŋᷠɔ ꞙɭɔ ʌ j͑ʃᴜꞇ ⟅ `iloj/mezurilo` ʌ Node
+// ꞙɭɔ ʌ j͑ʃ'w j͐ʃᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ꞙɭɔ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ignoriIlojn = (): Plugin => ( {
   name: "ignori-ilojn",
   apply: "serve",

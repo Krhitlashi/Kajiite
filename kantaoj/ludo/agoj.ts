@@ -12,7 +12,7 @@ export interface AgajHasukf2qani {
   kanuoj: Kanoto[];
   promptoElemento: HTMLElement;
   inqoxa: HTMLElement;
-  /*តើទំព័រសម្លៀកបំពាក់កំពុងបើកឬទេ ៖ Ctrl+Esc បិទវាមុន
+  /*j͑ʃɜ j͑ʃƨɹ ʌ j͑ʃɜȝ ɭʃɔ ⟅ Ctrl+Esc ʌ ſȷwɔ˞ ʌ ꞙɭɔ
       @param tsekeVestaroMalfermita ( function ) */
   tsekeVestaroMalfermita: () => boolean;
   fxVarma: HTMLElement;
@@ -54,7 +54,7 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
     else if ( ludanto.rezimo === "interno" ) { if ( ludanto.fsata ) leviĝi(); else eliriInternon(); }
   }
 
-  // ⟪ ធ្វើអន្តរកម្ម ( គ្រាប់ចុច E ) 📃 ⟫
+  // ⟪ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ( ſɟᴜ ſ̀ȷᴜȝ E ) 📃 ⟫
   function proviInterakti() {
     if ( ludanto.rezimo === "interno" ) {
       if ( ludanto.fsata ) { leviĝi(); return; }

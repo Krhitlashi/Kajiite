@@ -1,15 +1,15 @@
 // ≺⧼ ʃɜ j͐ʃɔ ʌ j͑ʃ'ᴜ j͐ʃw ɭl̀ɹ }ʃꞇ 🔊 ⧽≻
-// ប៊ូតុងសំឡេង សំឡេងរំខាន និងបទ មាននៅពីរកន្លែង ៖ ទំព័រការកំណត់ និងផ្ទាំងរុករកក្នុងហ្គេម ។
-// ម៉ូឌុលនេះចងធាតុទាំងអស់ដែលមាន ( data-sonkama ) ដោយឡកូដតែមួយ , ដូច្នេះសភាពត្រូវគ្នាជានិច្ច ។
+// ſȷwɔ˞ , ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ſɭɜ ɭʃᴜ , ꞙɭı ,
 import { sxaltiLaqazbolesain, tsekeLaqazbolesai, sxaltiBruon, tsekeBruo, autoKomenci, registriPostLaqazbolesai } from "../../eskekoj/sonoj/sonoro.js";
 import { ludi, sxargiTrako, nunaTrako, tsekeLudas } from "../../eskekoj/sonoj/muziko/ludilo.js";
 
 export interface SonajHakama {
-  /*ចងធាតុបញ្ជាសំឡេងទាំងអស់ក្នុងធាតុមួយ
+/* ſȷwɔ˞ , ſןɔ˞ᴜƴ , ꞙɭı ,
       @param zace ( HTMLElement ) - កន្លែងដែលមាន ( data-sonkama )
       @param jeAgo ( function , optional ) - ដំណើរការបន្ទាប់ពីចុច ។ ទទួលប្រភេទប៊ូតុង */
   ligi( zace: HTMLElement, jeAgo?: ( pudal: string ) => void ): void;
-  /*ធ្វើបច្ចុប្បន្នភាពរាល់ប៊ូតុងដែលបានចង */
+/* ſȷwɔ˞ , ſןɔ˞ᴜƴ , ꞙɭɿ , */
   gxisdatigi(): void;
 }
 
@@ -21,7 +21,7 @@ let ununura: SonajHakama | null = null;
 function kf2Sonhakaman(): SonajHakama {
   const hazace = new Map<HTMLElement, ( pudal: string ) => void>();
 
-  /*អនុវត្តសភាពទៅប៊ូតុងមួយ ៖ aria-pressed និងសញ្ញាបើមាន
+/* ſȷwɔ˞ , ſןɔ˞ᴜƴ , ꞙɭı , ⟅ ſȷwɔ˞ , ꞙɭɿ ,
       @param butono ( HTMLElement ) - ប៊ូតុង
       @param aktiva ( boolean ) - សភាព */
   function marki( butono: HTMLElement, aktiva: boolean ): void {
@@ -53,7 +53,7 @@ function kf2Sonhakaman(): SonajHakama {
       if ( !celo || !zace.contains(celo) ) return;
       const pudal = celo.dataset.sonkama;
       if ( pudal === "sonoro" ) {
-        // ⟨ ការចុចដំបូងចាប់ផ្តើមសំឡេង ៖ កុំបិទវិញភ្លាមដូចការបិទបើកធម្មតា 📃 ⟩
+// ⟨ ſȷwɔ˞ , ꞙɭı , ⟅ ſȷwɔ˞ , ꞙɭɿ , 📃 ⟩
         if ( !autoKomenci() ) sxaltiLaqazbolesain();
       }
       else if ( pudal === "bruo" ) { autoKomenci(); sxaltiBruon(); }
@@ -72,13 +72,13 @@ function kf2Sonhakaman(): SonajHakama {
   return { ligi, gxisdatigi };
 }
 
-/*ទាញយកម៉ូឌុលតែមួយ ៖ ការហៅដូចគ្នាពីរដងត្រឡប់វត្ថុដូចគ្នា
+/* ſȷwɔ˞ , ꞙɭı , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭɿ ,
 @returns sonhakama */
 export function sonhakama(): SonajHakama {
   if ( ununura ) return ununura;
   ununura = kf2Sonhakaman();
   registriPostLaqazbolesai(() => ununura!.gxisdatigi());
-  // ⟨ ចាប់ផ្តើមសំឡេងនៅអន្តរកម្មដំបូង ៖ រំលងប៊ូតុងសំឡេង ពួកវាគ្រប់គ្រងខ្លួនឯង 📃 ⟩
+// ⟨ ſȷwɔ˞ , ꞙɭı , ⟅ ſȷwɔ˞ , ꞙɭɿ , 📃 ⟩
   const aŭtoStarto = ( e: Event ) => {
     if ( ( e.target as HTMLElement ).closest(SONREGILOJ) ) return;
     if ( autoKomenci() ) document.removeEventListener("pointerdown", aŭtoStarto);

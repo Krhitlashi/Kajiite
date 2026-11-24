@@ -1,6 +1,6 @@
 // ≺⧼ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɭɜ ı],ɹȝ ʌ j͑ʃɹ ſɟᴜ ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ 🔬 ⧽≻
-// ⟨ បង្ហាញកម្ពស់វាល , ចានភ្ជាប់ , ដី , កម្រិតផ្លូវជិតចំណុចមួយ ,
-// និងកម្ពស់ផ្ទៃពិតតាមកាំរស្មី ។ ដើម្បីដឹងថាជញ្ជាំងមកពីចានទាប ឬផ្លូវខ្ពស់ ។ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ſɭɜ ſɭ,w , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
+// j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { vepaqKradanKaxten } from "../../kantaoj/mondo/kaxte/krada-kaxte.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
@@ -38,20 +38,20 @@ for ( const celo of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
   const fermita = kaxte.kunigajFermitaj.get(ca3aq);
   const pa12 = surGrid(k6h6SuproDeVeb6kek(cx, cz, fermita ? [ fermita ] : [],
     VOJA_EKSTERA_DUONO, k6h6Alteco).hateru);
-  console.log(`⟨ ( ${cx}, ${cz} ) ⟩ បិទ ${JSON.stringify(fermita)}` +
-    ` , វាល ${k6h6Alteco(cx, cz).toFixed(3)} , ចាន ${pa12.toFixed(3)}` +
-    ` , ដី ${alteco(cx, cz).toFixed(3)}`);
-  for ( const [ ksaka, ux, uz ] of [ [ "កើត", 1, 0 ], [ "លិច", -1, 0 ],
-    [ "ជើង", 0, -1 ], [ "ត្បូង", 0, 1 ] ] as const ) {
+  console.log(`⟨ ( ${cx}, ${cz} ) ⟩ ｡ ſןw ſɭᶗ‹ɔ ${JSON.stringify(fermita)}` +
+    ` ｡ ᶅſɔ ɽ͑ʃ'ɔ ${k6h6Alteco(cx, cz).toFixed(3)} ｡ ſןᴜ ſᶘɹ ${pa12.toFixed(3)}` +
+    ` ｡ ſɭɜ ſɭ,w ${alteco(cx, cz).toFixed(3)}`);
+  for ( const [ ksaka, ux, uz ] of [ [ "ſɟɹ ᶅſɹȝ ɔ", 1, 0 ], [ "ſɟɹ ᶅſɹȝ ı", -1, 0 ],
+    [ "ſɟɹ ᶅſɹȝ ɿ", 0, -1 ], [ "ſɟɹ ᶅſɹȝ ц", 0, 1 ] ] as const ) {
     const hax2pa: string[] = [];
     for ( let r = 0; r <= 6; r += 0.5 ) {
       rc.set(new THREE.Vector3(cx + ux * r, 0o120, cz + uz * r), new THREE.Vector3(0, -1, 0));
       const h = rc.intersectObjects(qena.children, true).find(x => x.object.visible);
       hax2pa.push(`${r}:${h ? h.point.y.toFixed(2) : "-"}`);
     }
-    console.log(`  ${ksaka} ៖ ${hax2pa.join(" ")}`);
+    console.log(`  ${ksaka} ｡ ${hax2pa.join(" ")}`);
   }
-  // ⟨ ផ្លូវដែលឆ្លងកាត់ជិតចំណុចនេះ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭɿ , ꞙɭı , 📃 ⟩
   for ( const d of kaxte.vojDifinoj ) {
     for ( let k = 0; k < d.pts.length - 1; k++ ) {
       const [ ax, az ] = d.pts[k], [ bx, bz ] = d.pts[k + 1];
@@ -65,11 +65,11 @@ for ( const celo of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
       const ekstera = kf2EksteranDuonon(bendoj);
       const s2qena = kf2NivelanProfilon(d.pts as [ number, number ][], ekstera, k6h6Alteco);
       const s = t * sahakani;
-      console.log(`  ផ្លូវ ( ${ax},${az} ) ំ ( ${bx},${bz} ) ឆ្លងកាត់ ${dist.toFixed(2)}` +
-        ` ស ${s.toFixed(2)} កម្រិត ${s2qena.altoCxe(s).toFixed(2)}` +
-        ` គោល ${s2qena.celoj[ Math.round(s / ( s2qena.sahakani /
+      console.log(`  ſɭэ ֭ſɭэ ( ${ax},${az} ) ｡ ( ${bx},${bz} ) ｡ ſɭᴜc̗ ɭʃɜ ${dist.toFixed(2)}` +
+        ` ｡ s ${s.toFixed(2)} ｡ j͑ʃ'ɔ ŋᷠɹ ${s2qena.altoCxe(s).toFixed(2)}` +
+        ` ｡ ſɭэ ᶗ‹ ${s2qena.celoj[ Math.round(s / ( s2qena.sahakani /
           Math.max(1, Math.ceil(s2qena.sahakani / 0.5)) ) ) ].toFixed(2)}` +
-        ` កន្លែងកាត់ ${s2qena.altoCxe(Math.max(0, s - VOJA_TRUA_DUONO)).toFixed(2)}` +
+        ` ｡ j͑ʃɜ j͑ʃᴜ ʌ jɐ ɭʃᴜ ${s2qena.altoCxe(Math.max(0, s - VOJA_TRUA_DUONO)).toFixed(2)}` +
         `/${s2qena.altoCxe(Math.min(s2qena.sahakani, s + VOJA_TRUA_DUONO)).toFixed(2)}`);
     }
   }

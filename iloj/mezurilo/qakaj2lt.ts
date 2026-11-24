@@ -47,20 +47,20 @@ for ( const d of DOKOJ ) {
   const hasoza = vojSuprajxoj.map(s => s.y0);
   const saltoj: number[] = [];
   for ( let i = 1; i < hasoza.length; i++ ) saltoj.push(hasoza[i] - hasoza[i - 1]);
-  console.log("  ជំហាន " + hasoza.length + " , លើគេ " + hasoza[0].toFixed(4) +
-    " , ក្រោមគេ " + hasoza[hasoza.length - 1].toFixed(4) +
-    " , ចន្លោះដល់ចំណត " + ( hasoza[hasoza.length - 1] - qakaj2.landejaY ).toFixed(4));
-  console.log("  សល្តូត " + [ ...new Set(saltoj.map(s => s.toFixed(5))) ].join(" , ") );
-  // ⟨ ជាមួយរន្ធភ្ជាប់ពិត ៖ ចានភ្ជាប់កាត់ជំហានខាងលើឬអត់ 📃 ⟩
+  console.log("  ｡ ɭʃɜ }ʃᴜ " + hasoza.length + " ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ " + hasoza[0].toFixed(4) +
+    " ｡ ɭl̀ᴜȝ ſןᴜ ɭʃɔ " + hasoza[hasoza.length - 1].toFixed(4) +
+    " ｡ ſ͕ɭᴜ ſ͕ɭw }ʃɹ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ " + ( hasoza[hasoza.length - 1] - qakaj2.landejaY ).toFixed(4));
+  console.log("  j͐ʃэ ɭ(ᴜ ɭl̀ᴜ " + [ ...new Set(saltoj.map(s => s.toFixed(5))) ].join(" ｡ ") ) ;
+// ⟨ ſɭᴜ ſןᴜ , ֭ſɭэ ſɭэ , ⟅ ſןɔ˞ᴜƴ , j͑ʃɜ ſɭ,ᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
   vojSuprajxoj.length = 0;
   vepaqHak6h6n(qena, [ { pts: n2k, w: qakaj2.platformWidth, stuparo: true,
     heightFn: kf2StuparanAlton(n2k, saxeni - VOJA_SUPRO_LEVIGXO, qakaj2.landejaY) } ],
     alteco, t6g6, t6hna, haveb6kek.map(k => [ k.x, k.z ] as [ number, number ]));
   const kunSurfacoj = vojSuprajxoj.map(s => s.y0);
-  console.log("  ជាមួយរន្ធ " + kunSurfacoj.length + " , លើគេ " +
-    kunSurfacoj[0]?.toFixed(4) + " , ក្រោមគេ " +
+  console.log("  ｡ j͑ʃɜ ſɭ,ᴜ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ " + kunSurfacoj.length + " ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ " +
+    kunSurfacoj[0]?.toFixed(4) + " ｡ ɭl̀ᴜȝ ſןᴜ ɭʃɔ " +
     kunSurfacoj[kunSurfacoj.length - 1]?.toFixed(4));
   const kunSaltoj: number[] = [];
   for ( let i = 1; i < kunSurfacoj.length; i++ ) kunSaltoj.push(kunSurfacoj[i] - kunSurfacoj[i - 1]);
-  console.log("  សល្តូតរន្ធ " + [ ...new Set(kunSaltoj.map(s => s.toFixed(5))) ].join(" , "));
+  console.log("  j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ " + [ ...new Set(kunSaltoj.map(s => s.toFixed(5))) ].join(" ｡ "));
 }

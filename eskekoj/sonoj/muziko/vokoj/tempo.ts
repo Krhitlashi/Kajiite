@@ -1,18 +1,18 @@
 // ≺⧼ j͑ʃɔ ֭ſɭɔ }ʃꞇ gawek2f 🎼 ⧽≻
-// គ្រប់បទចាក់លើក្រឡាចង្វាក់ដែលទាញពីហេ និងគុយអេ ។ ចង្វាក់គិតជាបាតក្នុងមួយគុយអេ ជាលេខគោលប្រាំបី ។
+// j͑ʃп́ꞇ ſɭɔƴ ʌ j͑ʃᴜꞇ ʌ j͑ʃɔ ֭ſɭɔ }ʃꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ⟅ j͑ʃɔ ֭ſɭɔ }ʃꞇ ʌ j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı
 
 import { SEKUNDOJ_PO_HE, SEKUNDOJ_PO_QE } from "../../../../kantaoj/komunajxoj/unuoj.js";
 
-// ⟪ ឯកតាពេល 📃 ⟫
+// ⟪ ſɭɔƽ ʌ j͑ʃƨꞇ ֭ſɭɹ 📃 ⟫
 
 export const HE = SEKUNDOJ_PO_HE;
 export const QE = SEKUNDOJ_PO_QE;
 
-// ⟪ ក្រឡាចង្វាក់ 📃 ⟫
+// ⟪ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ j͑ʃɔ ֭ſɭɔ }ʃꞇ 📃 ⟫
 
-/* ប្រវែងណោតភាគប្រាំបីគិតជាវិនាទី ពាក់កណ្តាលបាតក
-    @param bpq ( number ) - បាតក្នុងមួយគុយអេ ជាគោលប្រាំបី
-@returns វិនាទី ( number ) */
+/* ſᶘᴜ j͐ʃɹ ʌ ꞙɭı ʌ ꞙɭı ʌ j͑ʃƨꞇ ֭ſɭɹ
+    @param bpq ( number ) - j͑ʃɔ ֭ſɭɔ }ʃꞇ ʌ ꞙɭı ʌ ꞙɭı
+@returns j͑ʃƨꞇ ֭ſɭɹ ( number ) */
 export function caxomani( bpq: number ): number {
   return QE / bpq / 0o2;
 }

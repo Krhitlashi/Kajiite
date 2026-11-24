@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import type { Vetero, VeteraDuopo } from "./hahunaq.js";
 
-// ⟪ ដង់ស៊ីតេអ័ព្ទ 📃 ⟫
+// ⟪ ŋᷠᴜ ֭ſɭᴜ ʌ ſɭw ʃᴜ }ʃꞇ 📃 ⟫
 export const NEBULA_DENSO = 0o5/0o400;
 export const PLUVA_DENSO = 0o3/0o200;
 export const NEBULA_DENSO_MIN = Math.min(NEBULA_DENSO, PLUVA_DENSO);

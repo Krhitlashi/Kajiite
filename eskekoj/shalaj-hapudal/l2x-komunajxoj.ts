@@ -1,5 +1,5 @@
 // ≺⧼ j͐ʃɹᶗ‹ j͑ʃᴜꞇ ʌ ſɟᴜ ʃᴜ 🪼 ⧽≻
-// ⟨ វាយនភាពជែល 📃 ⟩
+// ⟨ j͐ʃƽɜ ʌ j͐ʃᴜͷ̗ j͑ʃᴜ̭ᴜ ſɟɔ 📃 ⟩
 import * as THREE from "three";
 import { kf2LoftoQoxa } from "../komunajxoj/haqoxa.js";
 import type { Paga } from "./pudal-hahunaq.js";
@@ -45,15 +45,15 @@ export function profiloR( s2qena: [ number, number ][], y: number ): number {
   return ordigitaj[ordigitaj.length - 1][0];
 }
 
-// ⟨ រូបរាងចានតូច 📃 ⟩
-// ⟨ ហេតុអ្វីមានសំណាញ់ដោយឡែក 📃 ⟩
+// ⟨ ſןᴜ ſᶘɹ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ ſɭɔƽ 📃 ⟩
+// ⟨ ſɭʞэ ʌ ſɟᴜ ı],ͷ̗ɔʞ ſɭᴜƽ ꞁȷ̀ᴜꞇ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
 export function aldoniKombohax2pan(hate: THREE.Group, s2qena: [ number, number ][],
   pukek: THREE.Material): void {
   const hax2pa = 0o10;
   const hapa12 = 0o50;
   const rMaks = Math.max(...s2qena.map(( [ r ] ) => r));
-  // ⟨ ចានតូច 📃 ⟩
-  // ⟨ ការចែកស្មើ 📃 ⟩
+  // ⟨ ſןᴜ ſᶘɹ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ 📃 ⟩
+  // ⟨ ſɭᴜͷ̗ ɭʃɜƽ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   const arkoj: number[] = [ 0 ];
   for ( let i = 1; i < s2qena.length; i++ ) {
     arkoj.push(arkoj[i - 1] + Math.hypot(s2qena[i][0] - s2qena[i - 1][0],
@@ -110,7 +110,7 @@ export function kf2KombilanMaterialon(emisio: number): THREE.MeshPhysicalMateria
   });
 }
 
-// ⟨ ហេតុអ្វីការបែកចេញកើតឡើង 📃 ⟩
+// ⟨ ſɭʞэ ʌ ſɭᴜͷ̗ ɭʃɜƽ 📃 ⟩
 export function surfacxaParto(kek: THREE.Object3D): void {
   kek.userData.surfaco = {
     x: kek.position.x, y: kek.position.y, z: kek.position.z,

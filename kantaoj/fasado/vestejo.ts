@@ -19,10 +19,10 @@ export interface LudantaAspekto {
 }
 
 export interface VestarajHasukf2qani {
-  /*រូបលេងនៅក្នុងពិភពលោក ។ នៅផ្ទាំងចាប់ផ្តើមគ្មានរូបទេ
+/* ſɭᴜ ſןᴜ , ſɭэ ſɭw , ⟅ ſɭэ ɭʃᴜ , ꞙɭı ,
       @param ludantaFiguro ( Figuro , optional ) */
   ludantaFiguro?: Figuro;
-  /*ការជូនដំណឹង ។ នៅផ្ទាំងចាប់ផ្តើមគ្មានទេ
+/* ſɭᴜ ſןᴜ , ſɭэ ſɭw , ꞙɭı ,
       @param montriTost ( function , optional ) */
   montriTost?: ( mesagxo: string ) => void;
 }
@@ -30,15 +30,15 @@ export interface VestarajHasukf2qani {
 export interface Vestejo {
   legi(): LudantaAspekto;
   plenigi(): void;
-  /*ទំព័រពេញ ៖ ប្រើនៅផ្ទាំងចាប់ផ្តើម */
+/* ſɭᴜ ſןᴜ , ſɭᴜ ſ͕ɭᴜ , ꞙɭı , */
   malfermi(): void;
-  /*ផ្ទាំងលេចឡើង ៖ ប្រើក្នុងហ្គេម ដូចមុន */
+/* ſɭᴜ ſ͕ɭᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ , */
   malfermiEnMondo(): void;
   fermi(): void;
   tsekeMalfermita(): boolean;
 }
 
-// ⟪ សម្លៀកបំពាក់រក្សាទុក ( localStorage ) 📃 ⟫
+// ⟪ ſɭɜ ɭʃɔ , ꞙɭı , 📃 ⟫
 export interface VestaElekto { v: number; h: number; c: number; }
 export const VESTARA_SXLOSILO = "aranis-vestaro";
 
@@ -59,8 +59,8 @@ export function konserviVestaron( elekto: VestaElekto ): void {
   } catch { /* ការរុករកឯកជន */ }
 }
 
-// ⟪ តួសម្លៀកបំពាក់រួម ៖ សង់ម្តង , ដាក់ចូលទំព័រពេញ ឬផ្ទាំងលេចឡើងតាមការបើក 📃 ⟫
-// ⟨ មានតែមួយផ្ទាំងបើកបាន ៖ ដូច្នេះតួតែមួយផ្លាស់ទីរវាងសែលទាំងពីរ ជំនួសការសង់ស្ទួន 📃 ⟩
+// ⟪ ſɭɜ ɭʃɔ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 interface VestaraKorpo {
   elemento: HTMLElement;
   taboj: HTMLElement;
@@ -102,7 +102,7 @@ function vepaqKorpon(): VestaraKorpo {
   return { elemento, taboj, vestaListo, haraListo };
 }
 
-// ⟨ បំពេញបញ្ជីសម្លៀកបំពាក់ 📃 ⟩
+// ⟨ ſɭɜ ɭʃɔ , ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void {
   korpo.vestaListo.innerHTML = "";
   VESTOJ.forEach(( o, vestoIdx ) => {
@@ -139,7 +139,7 @@ function plenigiVestajnListojn( korpo: VestaraKorpo, elekto: VestaElekto ): void
   korpo.haraListo.appendChild(koloraKartaro);
 }
 
-// ⟨ ស្ថានភាពរួម ៖ តួតែមួយសម្រាប់ទំព័រពេញ ( ផ្ទាំងចាប់ផ្តើម ) និងផ្ទាំងលេចឡើង ( ហ្គេម ) 📃 ⟩
+// ⟨ ſɭɜ ɭʃɔ , ⟅ ſɭᴜ ſןᴜ , ſɭᴜ ſ͕ɭᴜ , ꞙɭɿ , 📃 ⟩
 let korpo: VestaraKorpo | null = null;
 let ujoPagho: HTMLElement | null = null;
 let ujoPanelo: HTMLElement | null = null;
@@ -174,7 +174,7 @@ function konserviNunan(): void {
   konserviVestaron({ v: aktivaVestoIdx, h: aktivaHarStiloIdx, c: aktivaHarKoloroIdx });
 }
 
-// ⟨ ការជ្រើស ៖ ប្រភេទទាំងបីចែកកូដជ្រើសតែមួយ , រួចធ្វើបច្ចុប្បន្នភាពទាំងអស់ 📃 ⟩
+// ⟨ ſɭɜ ɭʃɔ , ꞙɭц , ⟅ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
 type ElektaHunaq = "vesto" | "haro" | "koloro";
 
 function nomoDe( hunaq: ElektaHunaq, idx: number ): string {
@@ -217,13 +217,13 @@ function plenigiVestaron(): void {
   aplikiVacepu();
 }
 
-// ⟨ ដាក់តួរួមចូលសែលដែលកំពុងបើក 📃 ⟩
+// ⟨ ſɭɜ ɭʃɔ , ſɭᴜ ſןᴜ , 📃 ⟩
 function surmeti( ujo: HTMLElement | null ): void {
   if ( !ujo || !korpo || korpo.elemento.parentElement === ujo ) return;
   ujo.appendChild(korpo.elemento);
 }
 
-/*បង្កើតឬទាញយកទំព័រសម្លៀកបំពាក់ ៖ តួតែមួយសម្រាប់ទាំងអស់
+/* ſɭɜ ɭʃɔ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
     @param hasukf2qani ( VestarajHasukf2qani ) - រូបលេង និងការជូនដំណឹង , បើមាន
 @returns vestejo */
 export function kf2Vestejon( hasukf2qani: VestarajHasukf2qani = {} ): Vestejo {

@@ -6,7 +6,7 @@ export interface KoliziaCirklo { x: number; z: number; r: number; }
 export interface DokaPlatqoxa { x: number; z: number; w: number; d: number; rot: number; y: number; }
 
 export function kf2KolizianKradon(kolizioj: KoliziaCirklo[], qakaj2Kolizioj: DokaPlatqoxa[]) {
-  // ⟪ ក្រឡាលំហ 📃 ⟫
+  // ⟪ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ 📃 ⟫
   const KRADA_CXELO = 0o20;
   const kradaSxlosilo = ( cx: number, cz: number ): number => ( cx + 0o10000 ) * 0o20000 + cz + 0o10000;
   const koliziaKrado = new Map<number, number[]>();
@@ -42,7 +42,7 @@ export function kf2KolizianKradon(kolizioj: KoliziaCirklo[], qakaj2Kolizioj: Dok
       }
     }
   }
-  // ⟨ ផ្ទៃផ្លូវ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
   const k6h6Krado = new Map<number, number[]>();
   for ( let i = 0; i < vojSuprajxoj.length; i++ ) {
     const v = vojSuprajxoj[i];

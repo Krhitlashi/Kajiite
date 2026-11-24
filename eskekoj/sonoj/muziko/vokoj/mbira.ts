@@ -2,7 +2,7 @@
 import { noiseSrc } from "./bruo.js";
 import { faktoro } from "./vario.js";
 
-// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+// ⟨ ſȷƽᴜ ʃɔ ʌ ꞙɭɔ ʌ ꞙɭɔ ⟅ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ETA = 0o1/0o20000;
 
 export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {
@@ -11,7 +11,7 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   g.gain.value = 0o7/0o40 * vel;
   g.connect(out);
 
-  // ⟨ ក្របចេកធ្វើឱ្យមានខ្លួននៅ 0o270 ហឺត មិនមែនតែសំឡេងខ្សែ 📃 ⟩
+  // ⟨ ſɭɔ ſᶘɹ ꞙɭɿƨɔ ʌ j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   const body = ctx.createBiquadFilter();
   body.type = "peaking";
   body.frequency.value = 0o270 * faktoro(0o15/0o100);
@@ -37,7 +37,7 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
     o.stop(t + dd + 0o1/0o10);
   }
 
-  // ⟨ ទឹកម្រាមដៃលើក្រប ខ្លី មិនបន្សល់ស្នាមខ្ពស់ៗយូរ 📃 ⟩
+  // ⟨ ɭʃꞇƽ ʌ ꞙɭı ʌ ꞙɭı , ꞙɭɔ ʌ j͑ʃɜ ſןɹ 📃 ⟩
   const th = ctx.createOscillator();
   th.type = "sine";
   th.frequency.value = 0o150 * faktoro(0o15/0o100);

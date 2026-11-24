@@ -13,7 +13,7 @@ const baza = kf2BazanK6h6Alton(alteco);
 
 const celoj: [ number, number ][] = [ [ 0o24, -0o100 ], [ 0o65, -0o44 ], [ 0o70, -0o44 ], [ 0o134, -0o74 ] ];
 for ( const [ qx, qz ] of celoj ) {
-  console.log(`\nចំណុច ${qx},${qz} ដី ${alteco(qx, qz).toFixed(2)}`);
+  console.log(`\n}ʃɹƽ ${qx},${qz} ｡ ſɭɜ ſɭ,w ${alteco(qx, qz).toFixed(2)}`);
   for ( const k of mondo.haveb6kek ) {
     const d = Math.hypot(k.x - qx, k.z - qz);
     if ( d > 0o12 ) continue;
@@ -24,12 +24,12 @@ for ( const [ qx, qz ] of celoj ) {
     const hap2somani = knece.map(b => b.p2somani);
     const hal6da = kunigajBrakAltoj(k.x, k.z, knece.map(b => [ b.ux, b.uz ]), hap2somani, baza);
     const vem2 = kunigaPlataVem2(k.x, k.z, knece, mondo.k6h6Alteco);
-    console.log(`  ចាន ${k.x.toFixed(1)},${k.z.toFixed(1)} d=${d.toFixed(1)}` +
-      ` ដី ${alteco(k.x, k.z).toFixed(2)} វាល ${mondo.k6h6Alteco(k.x, k.z).toFixed(2)}`);
-    console.log(`    ដីមាត់ ${hal6da.map(v => v.toFixed(2)).join(" ")}` +
-      ` | វាលមាត់ ${vem2.hal6da.map(v => v.toFixed(2)).join(" ")}` +
-      ` | កណ្តាល ${vem2.l6da.toFixed(2)}`);
-    console.log(`    ទិស ${knece.map(b => `${b.ux.toFixed(2)}/${b.uz.toFixed(2)}`).join(" ")}`);
+    console.log(`  ｡ ſןᴜ ſᶘɹ ${k.x.toFixed(1)},${k.z.toFixed(1)} d=${d.toFixed(1)}` +
+      ` ｡ ſɭɜ ſɭ,w ${alteco(k.x, k.z).toFixed(2)} ｡ ᶅſɔ ɽ͑ʃ'ɔ ${mondo.k6h6Alteco(k.x, k.z).toFixed(2)}`);
+    console.log(`    ｡ ſɭɜ ſɭ,w ʌ ᶅſэ ſ͕ɭᴜ ${hal6da.map(v => v.toFixed(2)).join(" ")}` +
+      ` | ᶅſɔ ɽ͑ʃ'ɔ ʌ ᶅſэ ſ͕ɭᴜ ${vem2.hal6da.map(v => v.toFixed(2)).join(" ")}` +
+      ` | j͑ʃɜ j͑ʃƨɹ ${vem2.l6da.toFixed(2)}`);
+    console.log(`    ｡ ſɟɹ ᶅſɹȝ ${knece.map(b => `${b.ux.toFixed(2)}/${b.uz.toFixed(2)}`).join(" ")}`);
   }
   for ( const ox of [ -6, -3, 0, 3, 6 ] ) {
     const x2pa: string[] = [];

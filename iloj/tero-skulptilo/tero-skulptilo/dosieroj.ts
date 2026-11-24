@@ -30,9 +30,9 @@ export function oktala(skek2: number): string {
   const n = Math.round(skek2 * 0o100);
   if ( n % 0o100 === 0 ) {
     const tuta = n / 0o100;
-    return ( tuta < 0 ? "-" : "" ) + "0o" + Math.abs(tuta).toString(0o10);
+    return ( tuta < 0 ? "-" : "" ) + "ꞙɭ" + Math.abs(tuta).toString(0o10);
   }
-  return ( n < 0 ? "-" : "" ) + "0o" + Math.abs(n).toString(0o10) + "/0o100";
+  return ( n < 0 ? "-" : "" ) + "ꞙɭ" + Math.abs(n).toString(0o10) + "/ꞙɭıɔɔ";
 }
 export function gcdn(a: number, b: number): number {
   a = Math.abs(a); b = Math.abs(b);
@@ -65,18 +65,18 @@ export function formatiNombron(skek2: number): string {
   const p = piFrakcio(skek2);
   if ( p !== null ) return p;
   if ( Number.isInteger(skek2) && Math.abs(skek2) <= 0o7777777777 ) {
-    return ( skek2 < 0 ? "-" : "" ) + "0o" + Math.abs(skek2).toString(0o10);
+    return ( skek2 < 0 ? "-" : "" ) + "ꞙɭ" + Math.abs(skek2).toString(0o10);
   }
   const n64 = skek2 * 0o100;
   if ( Number.isInteger(n64) && Math.abs(n64) <= 0o7777777777 ) {
-    return ( n64 < 0 ? "-" : "" ) + "0o" + Math.abs(n64).toString(0o10) + "/0o100";
+    return ( n64 < 0 ? "-" : "" ) + "ꞙɭ" + Math.abs(n64).toString(0o10) + "/ꞙɭıɔɔ";
   }
   return String(skek2);
 }
-/* សរសេរតម្លៃទិន្នន័យ ( ទីក្រុង ផ្លូវ កំពង់ វត្ថុ ) តាម
-   រចនាប័ទ្មលេខរបស់ឯកសារ ( គោលប្រាំបី ប្រភាគ π ) ជំនួស JSON។
-    @param skek2 ( unknown ) - តម្លៃដែលត្រូវសរសេរ។
-@returns អត្ថបទនៃតម្លៃ ( string )។ */
+/* ſɭэ ſɭᴜ , ꞙɭı , ⟅ j͑ʃɜ j͑ʃƨɹ , ſɭэ ֭ſɭэ , ſɭэ ſɭᴜ ,
+   j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭɹ ſȷɔ ( ɭʃэ ɭʃᴜ ꞙɭı ｡ π ) ɭʃɜ ʌ JSON ⟅
+    @param skek2 ( unknown ) - ſɭɹ ſȷɔ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ⟅
+@returns ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ( string ) ⟅ */
 export function skribiValoron(skek2: unknown): string {
   if ( skek2 === null || skek2 === undefined ) return "null";
   if ( typeof skek2 === "number" ) return formatiNombron(skek2);
@@ -91,13 +91,13 @@ export function skribiValoron(skek2: unknown): string {
   }
   return "{ " + eroj.join(", ") + " }";
 }
-/* កម្មវិធីញែកកន្សោមតូចសម្រាប់ទិន្នន័យរបស់ឧបករណ៍ឆ្លាក់។
-    @param s2banani ( string ) - កន្សោម ( ខ្លឹមសារដើមនៃឯកសារ )។
-@returns តម្លៃដែលបានញែក ( any ) ព្រោះលទ្ធផលជាទិន្នន័យឌីណាមិក។ */
+/* ſɭɜ ʃɔ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ſɭэ ſɭᴜ ,
+    @param s2banani ( string ) - ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃɹ ɭʃɜ ( ſɟᴜ ｡ ) ⟅
+@returns ſɭɹ ſȷɔ ʌ j͑ʃɹ ɭl̀ɹ ( any ) ｡ ſɭɹ ſȷɔ ɭʃᴜ ɭʃᴜ ⟅ */
 export function parziValoron(s2banani: string): any {
   let i = 0;
   const sp = () => { while ( i < s2banani.length && /\s/.test(s2banani[i]) ) i++; };
-  const eraro = (): never => { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) កន្សោមមិនអាចញែកនៅ " + i + " , " + s2banani.slice(i, i + 0o40)); };
+  const eraro = (): never => { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſɟᴜ ſɭɹ ſȷɔ ｡ " + i + " , " + s2banani.slice(i, i + 0o40)); };
   function nombro(): number {
     sp();
     const m = s2banani.slice(i).match(/^-?0o[0-7]+(?:\/0o[0-7]+)?|^-?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/);
@@ -293,7 +293,7 @@ export function cirkuloDeDatumojValidas(): boolean {
       && JSON.stringify(parziValoron(skribiValoron(haqakaj2))) === JSON.stringify(haqakaj2);
   } catch { return false; }
 }
-// ⟪ ផែនទីទាំងឡាយ 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟫
 export const DATUMDOSIEROJ = Object.keys(manifesto.datumaj).map(n => n.replace(/\.ts$/, ""));
 export function dosierujo(kodo: string): string { return "tero-datumaro/" + kodo + "/"; }
 export const mapoDosierujo = dosierujo(mapoDatumo.kodo);
@@ -324,14 +324,14 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
   const paga64 = hapagaAktivaj ? bazo64DeHapaga(hapaga) : "";
   const aktiva = hal6daAktivaj || maskoAktiva || habs2Aktivaj || hapagaAktivaj;
   const komunajKom = [
-    "// បង្កើតដោយឧបករណ៍ឆ្លាក់ដី ( iloj/tero-skulptilo/tero-skulptilo.html )។",
-    "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - កុំកែដោយដៃ។ ឧបករណ៍ឆ្លាក់សរសេរឯកសារឡើងវិញ។",
+    "// ſɟᴜᴜ̩ ɭʃɹ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ( iloj/tero-skulptilo/tero-skulptilo.html ) ⟅",
+    "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ſɭɜ ʃɔ ſɟᴜᴜ̩ ɭʃɹ ɭʃɜ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ⟅",
   ];
   const kradoS2bana = [
     "// ≺⧼ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ ក្រឡាឆ្លាក់ 📃 ⟩ , ជំហាន , ទំហំ , ប្រភពដើម , ទង់សកម្ម និងដេលតា។",
+    "// ⟨ ſɭɹ ſןᴜ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ 📃 ⟩ ｡ ſɭᴜ ſןᴜ ｡ ſɭɜ ｡ ſᶘꞇȝ ｡",
     "export const SKULPTA_PASO = " + oktala(PASO) + ";",
     "export const SKULPTA_N = " + oktala(N) + ";",
     "export const SKULPTA_ORIGINO = [ " + oktala(X0) + ", " + oktala(Z0) + " ];",
@@ -342,9 +342,9 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "// ≺⧼ ſᶘᴜ j͑ʃᴜ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ ស្រទាប់ទឹក 📃 ⟩ , កម្រិតនៃអាង និងម៉ាសពណ៌ទឹកចាស់",
-    "// ( ឥឡូវគ្រាន់តែជាគ្រាប់អាង , ទឹកខ្លួនឯងកាត់បន្ថយពី",
-    "// ប្រភពតាម kantaoj/mondo/akvokalkulo.ts )។",
+    "// ⟨ ſᶘᴜ j͑ʃᴜ ɭʃᴜ 📃 ⟩ ｡ ſᶘꞇȝ ｡",
+    "// ( ſᶘᴜ j͑ʃᴜ ｡ ſᶘᴜ j͑ʃᴜ ｡",
+    "// ſᶘꞇȝ ʌ kantaoj/mondo/akvokalkulo.ts ) ⟅",
     "export const SKULPTA_AKVA_NIVELO = " + oktala(akvaVem2Valoro) + ";",
     "export const SKULPTA_AKVA_MASKO = " + JSON.stringify(masko64) + ";",
   ].join("\n");
@@ -352,78 +352,78 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "// ≺⧼ ſᶘꞇȝ 🌊 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ ប្រភពទឹក 📃 ⟩ , ប្រភពទឹក។ ទឹកលែងគូរទៀតទេ ,",
-    "// វាហូរពីចំណុចទាំងនេះចុះតាមដី ( kantaoj/mondo/akvokalkulo.ts ) ,",
-    "// បំពេញប្រហោង និងកាត់ស្នងទន្លេ។ ប្រភពនីមួយៗ - x, z ( ឯកតាពិភពលោក",
-    "// ) និងលំហូរ ( លំហូរធំជាង = ទន្លេជ្រៅនិងធំជាង )។",
+    "// ⟨ ſᶘꞇȝ ɭʃᴜ 📃 ⟩ ｡ ſᶘꞇȝ ｡ ſᶘᴜ j͑ʃᴜ ｡",
+    "// ſᶘꞇȝ ſɭɹ ſȷɔ ɭl̀ᴜ j͑ʃᴜ ( kantaoj/mondo/akvokalkulo.ts ) ｡",
+    "// ſᶘᴜ j͑ʃᴜ ｡ j͑ʃɹ ı],w ɽ͑ʃ'w ⟅ ſᶘꞇȝ ɭʃᴜ - x, z ( }ʃᴜ j͐ʃᴜ",
+    "// ) ｡ j͐ʃᴜɔ˞ ( j͐ʃᴜɔ˞ ſɭᴜ = ſɭэ j͑ʃꞇ ſɭɜ ſɟᴜ ) ⟅",
     "export const SKULPTA_HAXAIQ = " + skribiValoron(hatsiq) + ";",
   ].join("\n");
   const bs2Dosiero = [
     "// ≺⧼ ʃɔ˞ɹ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ ស្រទាប់ជីវតំបន់ 📃 ⟩ ( 0=ស្វ័យប្រវត្តិ , 1=ភ្នំ , 2=ជ្រលង , 3=វាលរាប",
-    "// 4=រុក្ខជាតិទឹក , 5=ហូសេថេល )។",
+    "// ⟨ ſɭɜ ſɭ,w j͑ʃƨɹ 📃 ⟩ ( 0 = ſɭᴜ ſןᴜ ɭʃᴜ ｡ 1 = ſɭƨw ֭ſɭᴜ ｡ 2 = j͐ʃɜ ɭʃᴜ ｡ 3 = ſ͕ɭw }ʃɹ ｡",
+    "// 4 = ı],ᴜ ſ̀ȷɔ ʌ ſᶘᴜ j͑ʃᴜ ｡ 5 = ſɭᴜ ſןɹ ɭʃɜ ) ⟅",
     "export const SKULPTA_BIOMOJ = " + JSON.stringify(bs264) + ";",
   ].join("\n");
   const pagaDosiero = [
     "// ≺⧼ ſןᴜ ſ͔ɭᴜ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ ស្រទាប់សត្វ 📃 ⟩ ( ប៊ីត 1=សត្វទឹក , 2=ផេត្រេល , 4=NPC )។",
+    "// ⟨ ſɭɜ ſɭ,w ſןᴜ ſ͔ɭᴜ 📃 ⟩ ( 1 = ſןᴜ ſ͔ɭᴜ ʌ ſᶘᴜ j͑ʃᴜ ｡ 2 = ſᶘɹ ſɭᴜ ｡ 4 = NPC ) ⟅",
     "export const SKULPTA_BESTOJ = " + JSON.stringify(paga64) + ";",
   ].join("\n");
   const objektoS2bana = [
     "// ≺⧼ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ 📃 ⧽≻",
     ...komunajKom,
-    "// វត្ថុដាក់របស់ឧបករណ៍វត្ថុនៃឧបករណ៍ឆ្លាក់ដី , ទូកកាណូ",
-    "// 🛶 , យានអវកាស 🚀 , ចង្កៀង 🏮 , keuxfhxesoj ⭐ និងអគារ",
-    "// បុគ្គល 🏛️ ក៏ជាវត្ថុដែរ។ ទទេ = គ្មានវត្ថុ។",
-    "// វត្ថុនីមួយៗ - x, z ( ភ្ជាប់ 0.25 ) , ប្រភេទ ( lam2v | taksal | tlexlefhxakai",
+    "// ſɟᴜᴜ̩ ɭʃɹ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ｡ ſɭᴜ ｡",
+    "// 🛶 ｡ 🚀 ｡ 🏮 ｡ ⭐ ｡",
+    "// 🏛️ ｡ ſɟᴜ ｡ ſɟᴜ ｡ ⟅",
+    "// ſɭɹ ſȷɔ ɭʃᴜ - x, z ( 0.25 ) ｡ ( lam2v | taksal | tlexlefhxakai",
     "// | tlexlefp2sai | t6keq | xabe | akvapaga | temek | npco | sanktejo | turo",
     "// | domo | mangxejo | kasafeo | stacio | hxeuxfo | hxeuxfoPa12 | keuxfhxeso | kanuo | spacosxipo ) ,",
-    "// មាត្រដ្ឋាន , ការបង្វិល , ប្រភេទសត្វ , កាំ , សម្លៀកបំពាក់ , រចនាសក់ , ប្រភេទហ្វេន , រចនាប័ទ្ម។",
+    "// ſɭɜ ｡ j͑ʃɹ j͑ʃᴜ ʃɜ ｡ ſןᴜ ſ͔ɭᴜ ｡ ſɭᴜ ſɭˬꞇƽ ｡ ſɭᴜ ſןɹ ｡ ſᶘꞇȝ ｡",
     "export const SKULPTA_OBJEKTOJ = " + skribiValoron(objektoj) + ";",
   ].join("\n");
   const kaxteS2bana = [
     "// ≺⧼ ſɭᴜ ı],ƨɔ 📃 ⧽≻",
     ...komunajKom,
-    "// ទីក្រុងនៃពិភពលោក , ការរៀបចំក្រឡា និងអុហ្វសិតកែដោយ",
-    "// ផ្ទាំងក្រឡា។ ទីក្រុងទីមួយជាទីក្រុងមេ។ ទីក្រុងនីមួយៗ - ឈ្មោះ , arangxaGrando ,",
-    "// blokaGrando ( unu | kvar ) , ofsX, ofsZ, keuxfhxeso ( ជ្រុងទាំងបួនជុំវិញ",
-    "// កណ្តាល ) , lampoj ( គំរូផ្លូវចង្កៀងបួន ) , superoj ( ការដាក់លើក្រឡាដោយដៃ",
-    "// , \"c,r\" និង \"c,r,SUB\" → ប្រភេទ ) និង aldonajBlokoj",
-    "// ( x, z, hunaq, rot, sub, stacia, konektita )។",
+    "// ſɭᴜ ı],ƨɔ ʌ }ʃᴜ j͐ʃᴜ ｡ ſɭɹ ſןᴜ ｡",
+    "// ſɭɹ ſןᴜ ｡ ſɭᴜ ı],ƨɔ ɭʃɜ ŋᷠэ ⟅ ſɭᴜ ı],ƨɔ ｡ arangxaGrando ｡",
+    "// blokaGrando ( unu | kvar ) ｡ ofsX, ofsZ, keuxfhxeso ( ſɭᴜ ｡",
+    "// ſɭɹ ſȷɔ ) ｡ lampoj ( ſɭᴜ ｡ ) ｡ superoj ( ſןᴜ ɭʃᴜ ʌ ſɭɹ ſןᴜ",
+    "// ｡ \"c,r\" ｡ \"c,r,SUB\" → ſɭᴜ ) ｡ aldonajBlokoj",
+    "// ( x, z, hunaq, rot, sub, stacia, konektita ) ⟅",
     "export const SKULPTA_URBOJ = " + skribiValoron(hakaxte) + ";",
   ].join("\n");
   const k6h6S2bana = [
     "// ≺⧼ ſɭэ ֭ſɭэ 📃 ⧽≻",
     ...komunajKom,
-    "// ផ្លូវកម្រិតពិភពលោក ( កំពង់ , មហាវិថី ) ជាប៉ូលីលីនដែលមានឈ្មោះ និង",
-    "// ទទឹង , និងវេទិកាចតុកោណដែលមានទីតាំង និងជម្រៅ , កែដោយ",
-    "// ផ្ទាំងផ្លូវរបស់ឧបករណ៍ឆ្លាក់ដី។",
+    "// ſɭэ ֭ſɭэ ʌ }ʃᴜ j͐ʃᴜ ( ſɭᴜ ｡ ſɭэ ֭ſɭэ ) ｡",
+    "// j͑ʃɔ ſȷꞇ }ʃꞇ ｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ ſɭɹ ſȷɔ ｡",
+    "// ſɭэ ֭ſɭэ ʌ ſɭᴜ ſןᴜ ｡ ⟅",
     "export const SKULPTA_VOJOJ = " + skribiValoron(hak6h6) + ";",
     "export const SKULPTA_DOKOJ = " + skribiValoron(haqakaj2) + ";",
   ].join("\n");
-  // ⟪ បញ្ជីផែនទី និងទ្វារ 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ſןw ſɭᴜƴ , 📃 ⟫
   const mapoNuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
   if ( mapoNuna ) { mapoNuna.qoxa = mapoQoxa; mapoNuna.grandeco = mapoGrandeco; }
   const mapojS2bana = [
     "// ≺⧼ ʃᴜ j͐ʃɹ 🗺️ ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ ផែនទីនៃពិភពលោក 📃 ⟩ , ផែនទីនីមួយៗជាពិភពលោកឯករាជ្យដែលមានទិន្នន័យផ្ទាល់ខ្លួន",
-    "// ( kantaoj/tero-datumaro/<kodo>/ , ក្រឡា , ទឹក , ជីវតំបន់ , សត្វ ,",
-    "// វត្ថុដាក់ , ទីក្រុង និងផ្លូវ/ចតុកោណ )។ ឧបករណ៍ឆ្លាក់ដី",
-    "// ជ្រើសផែនទី , កែវា និងសរសេរទិន្នន័យផែនទីនោះ , ហ្គេម",
-    "// អានផែនទីដែលសម្គាល់ថាសកម្ម ( តាមច្រកទ្វារ aktiva.ts )។",
+    "// ⟨ ʃᴜ j͐ʃɹ ʌ }ʃᴜ j͐ʃᴜ 📃 ⟩ ｡ ʃᴜ j͐ʃɹ ɭʃᴜ ｡",
+    "// ( kantaoj/tero-datumaro/<kodo>/ ｡ ſɭɹ ſןᴜ ｡ ſᶘᴜ j͑ʃᴜ ｡ ſɭɜ ſɭ,w j͑ʃƨɹ ｡ ſןᴜ ſ͔ɭᴜ ｡",
+    "// ſɭɹ ſȷɔ ｡ ſɭᴜ ı],ƨɔ ｡ ſɭэ ֭ſɭэ ) ⟅ ſɭᴜ ſןᴜ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ",
+    "// ʃᴜ j͐ʃɹ ɭʃᴜ ｡ ſɭэ ᶗ‹ ｡ ſɭᴜ ｡ }ʃᴜ j͐ʃᴜ ｡",
+    "// ʃᴜ j͐ʃɹ ʌ j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ ( aktiva.ts ) ⟅",
     "//",
-    "// qoxa , ទម្រង់ដី ( eskekoj/komunajxoj/mapqoxa.ts ) , រង្វង់ (",
-    "// លំនាំដើម ) , ការ៉េមូល ឬត្រីកោណមូល។",
-    "// grandeco , កន្លះទំហំទម្រង់គិតជាឯកតាពិភពលោក , កាំរង្វង់ ,",
-    "// កន្លះទទឹងការ៉េ ឬកាំរង្វង់ជុំត្រីកោណ។",
+    "// qoxa ｡ ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ( eskekoj/komunajxoj/mapqoxa.ts ) ｡ j͑ʃɹ j͑ʃᴜ ʃɜ (",
+    "// ſɭɜ ſɭᴜ ) ｡ ſɭɜ ſɭᴜ ı],ᴜ ｡ ſɭɜ ı],ᴜ ⟅",
+    "// grandeco ｡ ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ｡ ſɭᴜ ſɭˬꞇƽ ｡",
+    "// ſɭэ }ʃᴜ ʌ ſɭɜ ſɭᴜ ı],ᴜ ｡ ſɭɜ ı],ᴜ ⟅",
     "//",
-    "// ប្រភេទ និងឧបករណ៍ជំនួយស្ថិតនៅ kantaoj/tero-datumaro/mapregulo.ts។",
+    "// ſɭɹ ſȷɔ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡ kantaoj/tero-datumaro/mapregulo.ts ⟅",
     "import type { MapoDatumo } from \"./mapregulo.js\";",
     "",
     "export const MAPOJ: MapoDatumo[] = [",
@@ -437,11 +437,11 @@ export function generiDosierojn(kodo: string = mapoDatumo.kodo): Record<string, 
     "// ≺⧼ ʃᴜ j͐ʃɹ 📃 ⧽≻",
     ...komunajKom,
     "",
-    "// ⟨ ទិន្នន័យផែនទីសកម្ម 📃 ⟩ , ច្រកទ្វារទៅទិន្នន័យផែនទីដែល",
-    "// ហ្គេមអាន។ ផែនទីទាំងនេះជាពិភពលោកឯករាជ្យ ( mapoj.ts ) , ឯកសារនេះ",
-    "// នាំចេញឡើងវិញនូវឯកសារទិន្នន័យទាំង 0o" + DATUMDOSIEROJ.length.toString(0o10) + " នៃមួយក្នុងចំណោមពួកវា , ដូច្នេះហ្គេមទាំងមូលនាំចូលច្រក",
-    "// ស្គាល់មួយ ( tereno.ts, kaxte.ts, ... ) ហើយមិនដែលនាំចូលថត។ ឧបករណ៍ឆ្លាក់",
-    "// សរសេរវាឡើងវិញពេលវាប្តូរផែនទីសកម្ម។",
+    "// ⟨ ʃᴜ j͐ʃɹ ʌ j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟩ ｡ ʃᴜ j͐ʃɹ ｡",
+    "// }ʃᴜ j͐ʃᴜ ɭʃɜ ⟅ ʃᴜ j͐ʃɹ ɭʃᴜ ( mapoj.ts ) ｡ ſɟᴜ ｡",
+    "// ſɟᴜ ｡ ꞙɭ" + DATUMDOSIEROJ.length.toString(0o10) + " ｡ ſɭᴜ ı],ƨɔ ɭʃɜ ｡",
+    "// ( tereno.ts, kaxte.ts, ... ) ｡ ſɭᴜ ſןᴜ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ",
+    "// ɭʃɜ ｡ ʃᴜ j͐ʃɹ ʌ j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ ⟅",
     ...DATUMDOSIEROJ.map(d => "export * from \"./" + aktivaKodo + "/" + d + ".js\";"),
   ].join("\n");
   return {
@@ -541,7 +541,7 @@ export function sxargiDatumaronElMapo(dosieroj: Record<string, string>): boolean
   try {
     const parzitaj = uj !== null ? parziValoron(uj) : null;
     if ( parzitaj && Array.isArray(parzitaj) && parzitaj.length ) agordiHakaxten(parzitaj.map(u => ( {
-      ksaka: String(u && u.ksaka !== undefined ? u.ksaka : "ទីក្រុង"),
+      ksaka: String(u && u.ksaka !== undefined ? u.ksaka : "ſɭᴜ ı],ƨɔ"),
       arangxaGrando: Number(u && u.arangxaGrando) || 1,
       blokaGrando: u && u.blokaGrando === "kvar" ? "kvar" : "unu",
       ofsX: Number(u && u.ofsX) || 0,
@@ -615,10 +615,10 @@ export function sxargiDatumaronElKodo(): void {
   gxisdatigiK6h6jnHakaman();
 }
 
-// ⟪ ចំណុចកាន់ឯកសារ ( File System Access API ) 📃 ⟫
+// ⟪ ſןw ſɭᴜƴ , ſɭэ ſɭᴜ , 📃 ⟫
 export let dosierajTeniloj: Record<string, FileSystemFileHandle> = {};
-/* បើកឃ្លាំងចំណុចកាន់របស់ IndexedDB ( ដែលចំណុចកាន់ឯកសារត្រូវបានចងចាំ )។
-@returns មូលដ្ឋានទិន្នន័យ ( Promise<IDBDatabase> )។ */
+/* ſןw ſɭᴜƴ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ſɭэ ſɭᴜ ,
+@returns ſɭᴜ ſɟᴜ ſ͕ɭᴜ ( Promise<IDBDatabase> ) ⟅ */
 export function idbMalfermi(): Promise<IDBDatabase> {
   return new Promise(( solvi, rifuzi ) => {
     const peto = indexedDB.open("tero-skulptilo", 1);
@@ -685,27 +685,27 @@ export async function skribiPerTenilo(tenilo: FileSystemFileHandle, s2banani: st
     await skribilo.write(s2banani);
     await skribilo.close();
     markiSavitan();
-    statuso("បានរក្សាទុកផ្ទាល់ទៅ " + tenilo.name + " ✔️");
+    statuso("j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ }ʃᴜ j͐ʃᴜ " + tenilo.name + " ✔️");
     return true;
   } catch { return false; }
 }
 export async function saviDosieron(): Promise<void> {
   const dosieroj = generiDosierojn();
   if ( !cirkuloValidas() || !cirkuloDeDatumojValidas() ){
-    statuso("ទិន្នន័យមិនត្រឹមត្រូវ , ការរក្សាទុកត្រូវបានលុបចោល");
+    statuso("ſɭᴜ ſɭ,w ｡ ſɭɜ j͐ʃɹ ɭʃᴜ");
     return;
   }
   const elektilo = window.showSaveFilePicker;
   if ( !elektilo ) {
     for ( const [ ksaka, s2banani ] of Object.entries(dosieroj) ) elSxuti(s2banani, ksaka);
     markiSavitan();
-    statuso("បានទាញយក។ ដាក់ឯកសារទៅ kantaoj/ ហើយផ្ទុកហ្គេមឡើងវិញ");
+    statuso("ɭʃɜ ʌ ſɭᴜ ſ͕ɭᴜ ｡ kantaoj/ ｡ j͑ʃɹ ɭʃɜ j͑ʃᴜᶗ‹");
     return;
   }
   for ( const [ ksaka, s2banani ] of Object.entries(dosieroj) ) {
     let tenilo: FileSystemFileHandle | null = dosierajTeniloj[ksaka] ?? null;
     if ( tenilo && !await skribiPerTenilo(tenilo, s2banani) ) {
-      statuso("ឯកសារដែលចងចាំលែងមាន , ជ្រើសម្តងទៀត");
+      statuso("ſɟᴜ ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ");
       await forgesiDosieranTenilon(ksaka);
       tenilo = null;
     }
@@ -713,10 +713,10 @@ export async function saviDosieron(): Promise<void> {
       try {
         tenilo = await elektilo({
           suggestedName: ksaka,
-          types: [ { description: "ទិន្នន័យ TypeScript", accept: { "text/plain": [ ".ts" ] } } ],
+          types: [ { description: "ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ TypeScript", accept: { "text/plain": [ ".ts" ] } } ],
         });
       } catch {
-        statuso("ការជ្រើសត្រូវបានលុបចោល , ការផ្លាស់ប្តូរនៅមិនបានរក្សាទុក");
+        statuso("ſɭɜ j͐ʃɹ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ ｡");
         return;
       }
       if ( !await skribiPerTenilo(tenilo, s2banani) ) {
@@ -731,12 +731,12 @@ export async function saviDosieron(): Promise<void> {
 export async function sargiDosieron(): Promise<void> {
   const elektilo = window.showOpenFilePicker;
   if ( !elektilo ) {
-    statuso("ការផ្ទុកឯកសារត្រូវការ Chromium");
+    statuso("ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃɹ ɭʃɜ j͑ʃᴜᶗ‹ ｡ Chromium");
     return;
   }
   try {
     const [ tenilo ] = await elektilo({
-      types: [ { description: "ទិន្នន័យ TypeScript", accept: { "text/plain": [ ".ts" ] } } ],
+          types: [ { description: "ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ TypeScript", accept: { "text/plain": [ ".ts" ] } } ],
       multiple: false,
     });
     const dosiero = await tenilo.getFile();
@@ -745,23 +745,23 @@ export async function sargiDosieron(): Promise<void> {
       const ksaka = Object.keys(DOSIERA_TITOLO).find(n => n.split("/").pop() === tenilo.name) ?? tenilo.name;
       await konserviDosieranTenilon(tenilo, ksaka);
       dosierajTeniloj[ksaka] = tenilo;
-      statuso("បានផ្ទុកពី " + tenilo.name + " 📂");
+      statuso("j͑ʃɹ ɭʃɜ j͑ʃᴜᶗ‹ " + tenilo.name + " 📂");
     } else {
-      statuso("ឯកសារមិនមែនជាទិន្នន័យឆ្លាក់ទេ");
+      statuso("ſɟᴜ ｡ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ｡");
     }
   } catch { }
 }
 
-// ⟪ ការរក្សាទុកផ្ទាល់ទៅ kantaoj/tero-datumaro 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ſɭɹ ſןᴜ , 📃 ⟫
 export const KONSERVILO = "http://127.0.0.1:4173/";
 export async function saviRekteAlDosiero(): Promise<void> {
   if ( !tsekeSxangxita() ) {
-    statuso("គ្មានការផ្លាស់ប្តូរ , ដីមាននៅក្នុងឯកសាររួចហើយ ✔️");
+    statuso("ſɭɜ j͐ʃɹ ɭʃᴜ ｡ ſɭэ }ʃᴜ ʌ ſɟᴜ ✔️");
     return;
   }
   const dosieroj = generiDosierojn();
   if ( !cirkuloValidas() || !cirkuloDeDatumojValidas() ){
-    statuso("ទិន្នន័យមិនត្រឹមត្រូវ , ការរក្សាទុកត្រូវបានលុបចោល");
+    statuso("ſɭᴜ ſɭ,w ｡ ſɭɜ j͐ʃɹ ɭʃᴜ");
     return;
   }
   try {
@@ -773,16 +773,16 @@ export async function saviRekteAlDosiero(): Promise<void> {
     const mesagxo = await respondo.text();
     if ( respondo.ok ) {
       markiSavitan();
-      statuso("បានរក្សាទុកផ្ទាល់ទៅ kantaoj/ ✔️ ( " + mesagxo + " )");
+      statuso("j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ }ʃᴜ j͐ʃᴜ kantaoj/ ✔️ ( " + mesagxo + " )");
     } else {
-      statuso("ឧបករណ៍រក្សាទុកបដិសេធ , " + mesagxo);
+      statuso("ſɭᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ " + mesagxo);
     }
   } catch {
-    statuso("ម៉ាស៊ីនរក្សាទុកមិនដំណើរការ , រត់ , npm run konservilo");
+    statuso("ſɭᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ npm run konservilo");
   }
 }
 
-// ⟪ ផែនទីទាំងឡាយ 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟫
 export const mapoElektilo = elemento<HTMLSelectElement>("mapoElektilo");
 export const mapoQoxaElektilo = elemento<HTMLSelectElement>("mapoQoxaElektilo");
 export const mapoGrandecoEnigo = elemento<HTMLInputElement>("mapoGrandeco");
@@ -801,7 +801,7 @@ export function gxisdatigiMapajnElektilojn(): void {
   for ( const m of mapojRegistroj ) {
     const sukf2qani = document.createElement("option");
     sukf2qani.value = m.kodo;
-    sukf2qani.textContent = m.ksaka + ( m.aktiva ? " ⭐" : "" ) + ( m.kodo === mapoDatumo.kodo ? " ( កំពុងកែ )" : "" );
+  sukf2qani.textContent = m.ksaka + ( m.aktiva ? " ⭐" : "" ) + ( m.kodo === mapoDatumo.kodo ? " ( ſɭэ ᶗ‹ )" : "" );
     mapoElektilo.appendChild(sukf2qani);
   }
   mapoElektilo.value = mapoDatumo.kodo;
@@ -821,7 +821,7 @@ gxisdatigiMapajnElektilojn();
 
 export function sxaltiMapon(kodo: string): void {
   if ( kodo === mapoDatumo.kodo ) return;
-  if ( tsekeSxangxita() && !confirm("ការផ្លាស់ប្តូរមិនបានរក្សាទុកក្នុងផែនទីនេះ , បោះបង់វាទេ ?") ) {
+  if ( tsekeSxangxita() && !confirm("ſɭɜ j͐ʃɹ ɭʃᴜ ｡ ʃᴜ j͐ʃɹ ɭʃɜ ɭʃᴜ ?") ) {
     gxisdatigiMapajnElektilojn();
     return;
   }
@@ -838,46 +838,46 @@ export async function skribiPerKonservilo(dosieroj: Record<string, string>): Pro
     });
     const mesagxo = await respondo.text();
     if ( respondo.ok ) return mesagxo;
-    statuso("ឧបករណ៍រក្សាទុកបដិសេធ , " + mesagxo);
+    statuso("ſɭᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ " + mesagxo);
     return null;
   } catch {
-    statuso("ម៉ាស៊ីនរក្សាទុកមិនដំណើរការ , ផែនទីថ្មីត្រូវការវា ( npm run konservilo )");
+    statuso("ſɭᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ ʃᴜ j͐ʃɹ ʌ j͑ʃɔ ſȷэⅎ ｡ ( npm run konservilo )");
     return null;
   }
 }
 
 export async function mapoSef4(): Promise<void> {
-  const ksaka = prompt("ឈ្មោះផែនទីថ្មី", "ផែនទីថ្មី");
+  const ksaka = prompt("ſɭɔ˞ᴜ ſɭᴜ ʌ ʃᴜ j͐ʃɹ ʌ j͑ʃɔ ſȷэⅎ", "ſɭᴜ ı],ƨɔ ʌ j͑ʃɔ ſȷэⅎ");
   if ( !ksaka ) return;
   const kodo = kodoDeNomo(ksaka);
-  if ( !kodo ) { statuso("ឈ្មោះមិនផ្តល់ឈ្មោះថតឯកសារ , ប្រើអក្សរ ឬលេខ"); return; }
-  if ( mapojRegistroj.some(m => m.kodo === kodo) ) { statuso("ផែនទីដែលមានឈ្មោះថតឯកសារនោះមានរួចហើយ"); return; }
+  if ( !kodo ) { statuso("ſɭɔ˞ᴜ ｡ ſɭɹ ſןᴜ ｡"); return; }
+  if ( mapojRegistroj.some(m => m.kodo === kodo) ) { statuso("ʃᴜ j͐ʃɹ ɭʃɜ ｡"); return; }
   mapojRegistroj.push({ kodo, ksaka, aktiva: false, qoxa: mapoQoxa, grandeco: mapoGrandeco });
-  statuso("កំពុងបង្កើតផែនទី " + kodo + " …");
+  statuso("ɭʃɜ ʌ ʃᴜ j͐ʃɹ " + kodo + " …");
   const tseuni = await skribiPerKonservilo(generiDosierojn(kodo));
   if ( !tseuni ) {
     mapojRegistroj = mapojRegistroj.filter(m => m.kodo !== kodo);
     gxisdatigiMapajnElektilojn();
     return;
   }
-  statuso("ផែនទី " + ksaka + " បានបង្កើត ✔️ , កំពុងប្តូរទៅវា");
+  statuso("ʃᴜ j͐ʃɹ " + ksaka + " ɭʃɜ ✔️ ｡ ɭʃɜ ʌ ｡");
   location.search = "?mapo=" + encodeURIComponent(kodo);
 }
 
 export function mapoAlinomi(): void {
   const nuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
-  const ksaka = prompt("ឈ្មោះថ្មីនៃផែនទី", nuna ? nuna.ksaka : mapoDatumo.kodo);
+  const ksaka = prompt("ſɭɔ˞ᴜ ʌ j͑ʃɔ ſȷэⅎ ʌ ʃᴜ j͐ʃɹ", nuna ? nuna.ksaka : mapoDatumo.kodo);
   if ( !ksaka ) return;
   if ( nuna ) nuna.ksaka = ksaka;
   markiSxangxitan();
   gxisdatigiMapajnElektilojn();
-  statuso("ឈ្មោះបានប្តូរ , រក្សាទុកដើម្បីសរសេរទៅ mapoj.ts");
+  statuso("ſɭɔ˞ᴜ ɭʃɜ ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ mapoj.ts");
 }
 
 export function mapoForigi(): void {
-  if ( mapojRegistroj.length <= 1 ) { statuso("ផែនទីចុងក្រោយមិនអាចលុបបានទេ"); return; }
+  if ( mapojRegistroj.length <= 1 ) { statuso("ʃᴜ j͐ʃɹ ｡ ſɭɜ ʃɔ ſɟᴜᴜ̩ ɭʃɹ"); return; }
   const nuna = mapojRegistroj.find(m => m.kodo === mapoDatumo.kodo);
-  if ( !confirm("លុបផែនទី „" + ( nuna ? nuna.ksaka : mapoDatumo.kodo ) + "“ ចេញពីបញ្ជីឈ្មោះទេ ? ( ឯកសារនៅសល់ )") ) return;
+  if ( !confirm("ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ʃᴜ j͐ʃɹ „" + ( nuna ? nuna.ksaka : mapoDatumo.kodo ) + "“ ? ( ſɟᴜ ｡ )") ) return;
   mapojRegistroj = mapojRegistroj.filter(m => m.kodo !== mapoDatumo.kodo);
   if ( !mapojRegistroj.some(m => m.aktiva) ) mapojRegistroj[0].aktiva = true;
   markiSxangxitan();
@@ -889,7 +889,7 @@ export function mapoElektiAktivan(): void {
   for ( const m of mapojRegistroj ) m.aktiva = m.kodo === mapoDatumo.kodo;
   markiSxangxitan();
   gxisdatigiMapajnElektilojn();
-  statuso("ផែនទីនេះនឹងជាផែនទីរបស់ហ្គេមបន្ទាប់ពីរក្សាទុក ⭐");
+  statuso("ʃᴜ j͐ʃɹ ɭʃɜ ｡ ɭʃᴜ ɭl̀ɹ ɭʃɔ ⭐");
 }
 
 export function gxisdatigiQoxan(): void {
@@ -898,8 +898,8 @@ export function gxisdatigiQoxan(): void {
   markiSxangxitan();
   gxisdatigiQoxan3D();
   gxisdatigiPlenan2Dn();
-  statuso("ទម្រង់ " + mapoQoxa + " , ទំហំ " + Math.round(mapoGrandeco)
-    + " , រក្សាទុកដើម្បីសរសេរទៅ mapoj.ts");
+  statuso("ſ͕ɭɜ ı],ᴜ " + mapoQoxa + " ｡ ſןᴜ j͐ʃэ " + Math.round(mapoGrandeco)
+    + " ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ mapoj.ts");
 }
 
 mapoQoxaElektilo.addEventListener("change", () => {
@@ -915,12 +915,12 @@ elemento<HTMLButtonElement>("mapoAlinomi").addEventListener("click", mapoAlinomi
 elemento<HTMLButtonElement>("mapoForigi").addEventListener("click", mapoForigi);
 elemento<HTMLButtonElement>("mapoAktiva").addEventListener("click", mapoElektiAktivan);
 
-// ⟪ ការចាប់ផ្តើម 📃 ⟫
+// ⟪ ſɭэ ɭʃᴜ , 📃 ⟫
 elemento<HTMLButtonElement>("savi").addEventListener("click", saviDosieron);
 elemento<HTMLButtonElement>("saviRekte").addEventListener("click", saviRekteAlDosiero);
 elemento<HTMLButtonElement>("sargi").addEventListener("click", sargiDosieron);
 
-// ⟪ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟫
+// ⟪ ſɭэ ɭʃᴜ , ſןw ſɭᴜƴ , 📃 ⟫
 interface DosieraLigo {
   PASO: number;
   N: number;
@@ -977,8 +977,8 @@ export let SKULPTA_OBJEKTOJ: MetitaObjekto[];
 export let SKULPTA_URBOJ: SkulptaKaxte[];
 export let SKULPTA_VOJOJ: SkulptaK6h6[];
 export let SKULPTA_DOKOJ: SkulptaPlatqoxa[];
-/* ការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
-    @param k ( DosieraLigo ) - ការភ្ជាប់របស់ម៉ូឌុលមេ។ */
+/* ſɭэ ɭʃᴜ , ꞙɭı , ⟅ ſɭэ ſɭᴜ ,
+    @param k ( DosieraLigo ) - ſɭᴜ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡ */
 export function agordiDosierojn(k: DosieraLigo): void {
   ( { PASO, N, X0, Z0, hal6da, k6liqani, habs2, hapaga, historio, refaraHistorio,
     vem2Kama, statuso, gxisdatigiValorojn, gxisdatigiPlenan2Dn,

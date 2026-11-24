@@ -11,7 +11,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     const k = paqj[i];
     if ( k.stacia || ( k.x === 0 && k.z === 0 ) ) continue;
     if ( !konektitaj.has(i) ) {
-      problemoj.push({ kodo: "sen-sprono", vop2lna: `អគារ ${i} ( ${k.hunaq} @ ${k.x},${k.z} ) គ្មាន sprono` });
+      problemoj.push({ kodo: "sen-sprono", vop2lna: `ſןᴜȝ ${i} ( ${k.hunaq} @ ${k.x},${k.z} ) ꞙɭɔ sprono` });
     }
   }
 
@@ -24,7 +24,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
       if ( j === sp.paq ) continue;
       const k = paqj[j];
       if ( x1 <= k.x + p2somaniSefini && x2 >= k.x - p2somaniSefini && z1 <= k.z + p2somaniSefini && z2 >= k.z - p2somaniSefini ) {
-        problemoj.push({ kodo: "sprono-transiras", vop2lna: `sprono ${sp.paq} ( ${paqj[sp.paq].hunaq} ) ឆ្លងកាត់អគារ ${j} ( ${k.hunaq} @ ${k.x},${k.z} )` });
+        problemoj.push({ kodo: "sprono-transiras", vop2lna: `sprono ${sp.paq} ( ${paqj[sp.paq].hunaq} ) ſɭɜ ʃɔ ſɭᴜ ſןᴜȝ ${j} ( ${k.hunaq} @ ${k.x},${k.z} )` });
       }
     }
   }
@@ -37,11 +37,11 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
       if ( c === 0 && r === 0 ) continue;
       const cx = c * PASXO, cz = r * PASXO;
       const mankas: string[] = [];
-      if ( !havasEW(cz + M, cx) ) mankas.push("ជើង");
-      if ( !havasEW(cz - M, cx) ) mankas.push("ត្បូង");
-      if ( !havasNS(cx - M, cz) ) mankas.push("លិច");
-      if ( !havasNS(cx + M, cz) ) mankas.push("កើត");
-      if ( mankas.length ) problemoj.push({ kodo: "k6h6-bloko", vop2lna: `ប្លុក (${c},${r}) ${t} ខ្វះផ្លូវ , ${mankas.join(", ")}` });
+      if ( !havasEW(cz + M, cx) ) mankas.push("j͐ʃᴜȝ");
+      if ( !havasEW(cz - M, cx) ) mankas.push("ſɭᴜȝ");
+      if ( !havasNS(cx - M, cz) ) mankas.push("j͑ʃᴜȝ");
+      if ( !havasNS(cx + M, cz) ) mankas.push("ɽ͑ʃ'ᴜȝ");
+      if ( mankas.length ) problemoj.push({ kodo: "k6h6-bloko", vop2lna: `ſɭɹ ſןᴜ (${c},${r}) ${t} , ꞙɭɔ ſɭэ ֭ſɭэ , ${mankas.join(", ")}` });
     }
   }
 
@@ -58,7 +58,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     const rotita = new Set(neStaciaj.map(k => signaturo(k, true, kunRotacio)));
     if ( originalo.size !== rotita.size || [ ...originalo ].some(s => !rotita.has(s)) ) {
       const mankantaj = [ ...originalo ].filter(s => !rotita.has(s)).slice(0, 4);
-      problemoj.push({ kodo, vop2lna: `ក្រឡាមិនស៊ីមេទ្រី 4 ដងទេ , ខ្វះ , ${mankantaj.join(" ; ")}` });
+      problemoj.push({ kodo, vop2lna: `ſɭɹ ſןᴜ ꞙɭэ , ꞙɭɔ , ${mankantaj.join(" ; ")}` });
     }
   };
   kontroliSimetrion(false, "simetrio-xekuxa");
@@ -69,7 +69,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
     const rotita = new Set(neDiagonalaj.map(k => signaturo(k, true, true)));
     if ( originalo.size !== rotita.size || [ ...originalo ].some(s => !rotita.has(s)) ) {
       const mankantaj = [ ...originalo ].filter(s => !rotita.has(s)).slice(0, 4);
-      problemoj.push({ kodo: "simetrio-rotacia", vop2lna: `ការបង្វិលមិនអង្កត់ទ្រូងមិនស៊ីមេទ្រី 4 ដងទេ , ខ្វះ , ${mankantaj.join(" ; ")}` });
+      problemoj.push({ kodo: "simetrio-rotacia", vop2lna: `ſɭɹ ſןᴜ ʌ ꞙɭэ , ꞙɭɔ , ${mankantaj.join(" ; ")}` });
     }
   }
 
@@ -79,7 +79,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
       const sahakani = Math.hypot(sp.al[0] - sp.de[0], sp.al[1] - sp.de[1]);
       const dist = sahakani + duonL;
       if ( Math.abs(dist - 0o10) > 0o1/0o1000 ) {
-        problemoj.push({ kodo: "spaco", vop2lna: `sprono ${sp.paq} , ចម្ងាយទៅផ្លូវ ${dist.toFixed(0o1)} ≠ 0o10 ( ចន្លោះក្នុងប្លុក )` });
+        problemoj.push({ kodo: "spaco", vop2lna: `sprono ${sp.paq} , ֭ſɭэ ſɭw }ʃꞇ ʌ ſɭэ ֭ſɭэ ${dist.toFixed(0o1)} ≠ ꞙɭıɔ` });
       }
     }
   }
@@ -94,7 +94,7 @@ export function validiKradon(plano: KradaPlano): KradaProblemo[] {
       ? n2k.map(x => distMin(x, v.haxekuxa))
       : n2k.map(z => distMin(v.haxekuxa, z));
     if ( distoj.some(d => d > 2 * PASXO) ) {
-      problemoj.push({ kodo: "k6h6-malplena", vop2lna: `ចម្រៀក ${v.orient} @ ${v.haxekuxa} ( ${v.de}..${v.al} ) ឆ្ងាយជាង 2 havepat6ni ពីក្រឡាជិតបំផុត` });
+      problemoj.push({ kodo: "k6h6-malplena", vop2lna: `ſɭэ ֭ſɭэ ʌ ſɭɔƽ ${v.orient} @ ${v.haxekuxa} ( ${v.de}..${v.al} ) , ſɭᴜ ſɭᴜ ɿ havepat6ni ʌ ſɭɹ ſןᴜ ʌ ſᶘɹ ſɭɔ` });
     }
   }
 

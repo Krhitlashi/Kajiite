@@ -1,6 +1,6 @@
 // ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſןw ſɭᴜƴ ʌ j͑ʃᴜƽ ſןw ʌ ſɭɔ ᶅſɔ ꞁȷ̀ᴜ }ʃꞇ 🧪 ⧽≻
-// ⟨ ចុងផ្លូវដែលឈប់ខ្លីពីផ្លូវផ្សេង ៖ ត្រូវឃើញជាចន្លោះស្មៅដូចជំហានមួយបាត់ ។
-// ស្គ្រីបនេះវាស់ចន្លោះនោះមុន និងក្រោយការទាញចុងផ្លូវ ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ ʌ ſɟɔ ɭʃɹ ʌ j͑ʃ'ᴜ ſɭᴜ ⟅ ſ͕ɭᴜ ʃэ ɭʃɔ ʌ ſȷɔ ſᶘᴜʞ
+// ſ͔ɭɔ ſɭɹʞ ꞙɭı ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɭˬɹ , ſɭɔ˞ɜƴ 📃 ⟩
 import * as THREE from "three";
 import { aktivajHak6h6, aktivajHaqakaj2, aktivajHakaxte } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { vepaqKradanKaxten } from "../../kantaoj/mondo/kaxte/krada-kaxte.js";
@@ -46,7 +46,7 @@ function projekcio( x: number, z: number, a: readonly [ number, number ], b: rea
   return { d: Math.hypot(px - x, pz - z), x: px, z: pz };
 }
 
-// ⟨ ចម្ងាយពីចំណុចមួយទៅគែមផ្លូវជិតបំផុត ( ផ្លូវខ្លួនឯងមិនរាប់ ) 📃 ⟩
+// ⟨ ֭ſɭэ ſɭw }ʃꞇ ʌ j͑ʃᴜꞇ ʌ ſɭэ ֭ſɭэ ( ꞙɭɔ ʌ ꞙɭı ʌ ꞙɭı ) 📃 ⟩
 function fendo( e: [ number, number ], propra: number, aliaj: [ number, number ][][] ): number {
   let plej = Infinity;
   for ( let wi = 0; wi < aliaj.length; wi++ ) {
@@ -75,12 +75,12 @@ for ( let vi = 0; vi < k21e.length; vi++ ) {
       const g = gluitaj[i];
       const postF = fendo(g, kradajHak6h6.length + vi, aliaj);
       if ( postF > 0o1/0o10 && postF < 0o4 ) poste++;
-      console.log( `មុន ${f.toFixed(2)} → ក្រោយ ${postF.toFixed(2)} ៖ ${( k21e[vi].ksaka ?? "k6h6" )} ` +
+      console.log( `ſɭˬɹ ${f.toFixed(2)} → ſɭɔ˞ɜƴ ${postF.toFixed(2)} ⟅ ${( k21e[vi].ksaka ?? "k6h6" )} ` +
         `( ${e[0].toFixed(1)}, ${e[1].toFixed(1)} )` );
     }
   }
 }
-console.log( `ទីក្រុង ${URBOJ.map( u => u.ksaka ).join( "+" )} , ផ្លូវ ${k21e.map( v => v.ksaka ).join( "/" )}` );
-console.log( `ផ្លូវ ${k21e.length} , ចន្លោះមុន ${ne3ak2} , ក្រោយ ${poste}` );
+console.log( `ſɭᴜ ı],ƨɔ ${URBOJ.map( u => u.ksaka ).join( "+" )} , ſɭэ ֭ſɭэ ${k21e.map( v => v.ksaka ).join( "/" )}` );
+console.log( `ſɭэ ֭ſɭэ ${k21e.length} , ſɭˬɹ ${ne3ak2} , ſɭɔ˞ɜƴ ${poste}` );
 
 for ( const v of k21e ) console.log( `⟪ ${v.ksaka} ⟫ ` + v.n2k.map( p => `(${p[0].toFixed(1)},${p[1].toFixed(1)})` ).join( " " ) );

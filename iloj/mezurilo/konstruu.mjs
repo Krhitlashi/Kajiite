@@ -1,12 +1,12 @@
-// ≺⧼ ការសាងសង់ឧបករណ៍វាស់ 🛠️ ⧽≻
-// ⟨ ឯកសារ `.mjs` ជាលទ្ធផលសាងសង់ ៖ មិនរក្សាទុកក្នុង git ទេ ។
-// ស្គ្រីបនេះសាងសង់ឯកសារ `.ts` ទាំងអស់ក្នុងថតនេះទៅ `.mjs` ។ 📃 ⟩
+// ≺⧼ ſ͕ɭɜ ᶗ‹ , ſɭэ ɭʃᴜ 🛠️ ⧽≻
+// ⟨ ſ͕ɭɜ ᶗ‹ , ſɭэ ſɭᴜ , ꞙɭı ,
+// ſ͕ɭɜ ᶗ‹ , ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
 //
-// ការប្រើ ៖
-//   node iloj/mezurilo/konstruu.mjs            # សាងសង់ទាំងអស់
-//   node iloj/mezurilo/konstruu.mjs provo      # សាងសង់តែមួយ
+// ſɭэ ɭʃᴜ , ⟅
+//   node iloj/mezurilo/konstruu.mjs            # ſ͕ɭɜ ᶗ‹ , ꞙɭı ,
+//   node iloj/mezurilo/konstruu.mjs provo      # ſ͕ɭɜ ᶗ‹ , ꞙɭı ,
 //
-// បន្ទាប់មក ៖
+// ſɭэ ɭʃᴜ , ⟅
 //   node --import ./iloj/mezurilo/falsdomo.mjs iloj/mezurilo/provo.mjs vojoj
 import { readdirSync } from "node:fs";
 import { spawnSync } from "node:child_process";
@@ -14,8 +14,8 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ĉiTie = dirname(fileURLToPath(import.meta.url));
-// ⟨ rolldown ហៅដោយ node ផ្ទាល់ 📏 ⟩ ៖ ផ្លូវមានអក្សរពិសេស , ហើយ shell កាត់ពួកវា ។
-// ដូច្នេះហៅឯកសារ CLI ដោយ `process.execPath` , មិនមែនដោយ `npx` ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ᶗ‹ , ſɭэ ɭʃᴜ , 📏 ⟩ , ſɭэ ɭʃᴜ , ꞙɭı ,
+// ſɭэ ɭʃᴜ , ꞙɭı , 📃 ⟩
 const roldownCli = resolve(ĉiTie, "../../node_modules/rolldown/bin/cli.mjs");
 const elektitaj = process.argv.slice(2);
 const dosieroj = readdirSync(ĉiTie)
@@ -25,7 +25,7 @@ const dosieroj = readdirSync(ĉiTie)
   .sort();
 
 if ( dosieroj.length === 0 ) {
-  console.error("គ្មានឯកសារ .ts ត្រូវសាងសង់");
+  console.error("ſןɔ ʌ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ .ts ｡ ſɭʞɹ");
   process.exit(1);
 }
 
@@ -33,7 +33,7 @@ let malsukcesoj = 0;
 for ( const nomo of dosieroj ) {
   const fonto = join(ĉiTie, nomo + ".ts");
   const celo = join(ĉiTie, nomo + ".mjs");
-  // ⟨ គ្មាន shell 📏 ⟩ ៖ ផ្លូវមានអក្សរពិសេស , ហើយ shell កាត់ពួកវា ។
+// ⟨ ſɭэ ɭʃᴜ , ꞙɭɿ , 📏 ⟩ , ſɭэ ɭʃᴜ , ꞙɭı ,
   const rezulto = spawnSync(process.execPath,
     [ roldownCli, fonto, "-o", celo, "--format", "esm", "--platform", "node" ],
     { stdio: "pipe", encoding: "utf8" });
@@ -47,5 +47,6 @@ for ( const nomo of dosieroj ) {
   }
 }
 
-console.log(`\nសាងសង់ ${dosieroj.length - malsukcesoj}/${dosieroj.length} បានជោគជ័យ`);
+console.log(`
+ſɭʞɹ ｡ ${dosieroj.length - malsukcesoj}/${dosieroj.length} ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ`);
 process.exitCode = malsukcesoj === 0 ? 0 : 1;

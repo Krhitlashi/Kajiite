@@ -1,7 +1,7 @@
 // ≺⧼ j͑ʃɹ ſɟɔ j͐ʃɹ 🌳 ⧽≻
 import * as THREE from "three";
 
-// ⟨ ហេតុអ្វី 📃 ⟩
+// ⟨ ſɭʞэ 📃 ⟩
 export function kf2TrunkanGeometrion(larghoBazo: number, larghoSupro: number,
   larghoRadiko: number, has2nasce = 0o11): THREE.BufferGeometry {
   const s2qena: THREE.Vector2[] = [

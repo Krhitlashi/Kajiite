@@ -2,7 +2,7 @@
 
 export const KM: Record<string, string> = {
 
-  // ⟪ ទំព័រចាប់ផ្តើម 🌅 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
 
   "titoloAranis": "អារានីស",
   "titoloKaxte": "កាយិតេ",
@@ -13,19 +13,19 @@ export const KM: Record<string, string> = {
   "butonoVestaro": "សម្លៀកបំពាក់",
   "butonoHelpo": "ជំនួយ",
 
-  // ⟪ តម្បាញ 🧵 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
 
   "titoloTeksilo": "តម្បាញ",
   "subtitoloTeksilo": "អាវវែង, ដៃខ្លី, ពណ៌ចម្បង និង ពណ៌បន្ទាប់។",
 
-  // ⟪ ការផ្ទុក ⏳ ⟫
+// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
 
   "titoloSxargxo": "ពិភពលោក",
   "sxargxoSubskribo": "កំពុងសាងសង់។",
   "sxargxoSatalo": "ហ្សីហ្គូរ៉ាត់កំពុងឡើង។",
   "sxargxoNebulo": "អ័ព្ទហូរកាត់ជ្រលង។",
 
-  // ⟪ ការគ្រប់គ្រង 🎮 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
 
   "kompasoNordo": "ជ",
   "kamaOrbito": "ទស្សនា",
@@ -49,21 +49,21 @@ export const KM: Record<string, string> = {
   "agoKuxi": "ដេក",
   "agoLevi": "ក្រោក",
 
-  // ⟪ ផែនទី 🗺️ ⟫
+// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
 
   "titoloMapo": "ផែនទី",
 
-  // ⟪ ជំនួយ ❓ ⟫
+// ⟪ ſɭэ ſɭw , ❓ ⟫
 
   "titoloHak6h6": "ផ្លូវ",
   "subtitoloHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
 
-  // ⟪ បណ្តាញ 🌐 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
 
   "retiloAliĝis": "នរណាម្នាក់បានចូលរួម។",
   "retiloForiris": "នរណាម្នាក់បានចាកចេញ។",
 
-  // ⟪ អាហារ 🍲 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
 
   "manĝPuss0": "ពីកសេត្លេឆលេផពិសឺ",
   "manĝFok0": "ផុកិមាសឺ • ឆីក",
@@ -80,7 +80,7 @@ export const KM: Record<string, string> = {
   "manĝTla2Gusto": "ទឹកខ្មេះ ទឹកប៊ីច ជីអង្កាម និងតែប៊ឺហ្គាម៉ុត។",
   "manĝPuss0Gusto": "ត្រជាក់ មានទឹក និងផ្អែមបន្តិច។",
 
-  // ⟪ ប្រភេទសំណង់ 🏗️ ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
 
   "vepaqPriskriboDomo": "ផ្ទះ។",
   "vepaqPriskriboMangxejo": "កន្លែងបរិភោគអាហាររួម។",
@@ -89,7 +89,7 @@ export const KM: Record<string, string> = {
   "vepaqPriskriboTuro": "អគារខ្ពស់។",
   "vepaqPriskriboSanktejo": "មជ្ឈមណ្ឌល។",
 
-  // ⟪ កាតសំណង់ 🪪 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
 
   "kartoHavem2": "ជាន់",
   "kartoDiamanto": "ពេជ្រ",
@@ -98,7 +98,7 @@ export const KM: Record<string, string> = {
   "kartoVepaqHunaq": "ប្រភេទ",
   "kartoXekuxa": "ទីតាំង",
 
-  // ⟪ ផ្ទាំងព័ត៌មាន 📖 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
 
   "titoloInqoxa": "ព័ត៌មាន",
   "subtitoloInqoxa": "អាគារ, អាហារ, ប្រភេទ",
@@ -108,7 +108,7 @@ export const KM: Record<string, string> = {
   "taboMangxajxoj": "អាហារ",
   "taboHapudal": "ប្រភេទ",
 
-  // ⟪ ពួកសត្វ 🐟 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
 
   "grupoPaga": "សត្វ",
   "pudalL2xkupukai": "បេរ៉ូ",
@@ -124,7 +124,7 @@ export const KM: Record<string, string> = {
   "pudalNeĝotemek": "បក្សីព្រិល",
   "pudalPriskriboNeĝotemek": "សត្វសមុទ្រពណ៌សសុទ្ធ ហើរពីលើបឹង និងទន្លេ។",
 
-  // ⟪ រុក្ខជាតិ 🌿 ⟫
+// ⟪ ſɭэ ſɭw , 🌿 ⟫
 
   "grupoPlanto": "រុក្ខជាតិ",
   "pudalBetulo": "លាមិថ",
@@ -150,7 +150,7 @@ export const KM: Record<string, string> = {
   "pudalCakeo": "ត្សាកេ",
   "pudalPriskriboCakeo": "រុក្ខជាតិដូចជាកន្ទុយឆ្អឹង ( Equisetum telmateia )។",
 
-  // ⟪ សម្លៀកបំពាក់ 👕 ⟫
+// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
 
   "taboVestoj": "សម្លៀកបំពាក់",
   "vestoKoloroVerdant": "ពណ៌បៃតង",
@@ -164,7 +164,7 @@ export const KM: Record<string, string> = {
   "vestoKoloroObsidian": "ពណ៌ខ្មៅ",
   "vestoKoloroCyan": "ពណ៌ស៊ីអាន",
 
-  // ⟪ សក់ 💇 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
 
   "taboHararo": "សក់",
   "haroSekcio": "ម៉ូដសក់",
@@ -178,11 +178,11 @@ export const KM: Record<string, string> = {
   "harKoloroBlonda": "ទង់ដែង",
   "harKoloroGriza": "ប្រផេះ",
 
-  // ⟪ តន្ត្រី 🎵 ⟫
+// ⟪ ſȷwɔ˞ , 🎵 ⟫
 
   "muziko": "តន្ត្រី",
 
-  // ⟪ អាកាសធាតុ 🌦️ ⟫
+// ⟪ ſɭэ ſɭw , 🌦️ ⟫
 
   "ariaKrepuskoButono": "ប្តូររបៀបព្រលប់",
   "ariaKrepuskoKama": "កម្រិតព្រលប់",
@@ -198,7 +198,7 @@ export const KM: Record<string, string> = {
   "webglDetalo": "កាជីតេ ត្រូវការ WebGL ដើម្បីដំណើរការ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នក ឬពិនិត្យការកំណត់ GPU របស់អ្នក។",
   "webglReprovi": "ព្យាយាមម្តងទៀត",
 
-  // ⟪ ពិភពលោក 🌍 ⟫
+// ⟪ ſɭэ ſɭw , 🌍 ⟫
 
   "ariaEniriMondon": "ចូលពិភពលោកចម្បង។",
   "komenciMondo": "បង្កើត ឬ ផ្ទុកពិភពលោក",
@@ -213,7 +213,7 @@ export const KM: Record<string, string> = {
   "ariaMondoDuobligi": "ចម្លង",
   "butonoKonserviEliri": "រក្ទក់ និង ចេញពីពិភពលោក។",
 
-  // ⟪ ការកំណត់ ⚙️ ⟫
+// ⟪ ſɭэ ſɭw , ⚙️ ⟫
 
   "titoloAgordoj": "ការកំណត់",
   "subtitoloAgordoj": "ភាសា, សំឡេង, តន្ត្រី, សម្លៀកបំពាក់។",

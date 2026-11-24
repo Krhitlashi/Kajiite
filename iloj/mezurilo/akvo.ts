@@ -1,5 +1,5 @@
 // ≺⧼ ſᶘᴜ j͑ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 💧 ⧽≻
-// ប្រៀបធៀបកំណែចាស់ ( ច្បាប់ចម្លងពី git ) និងកំណែថ្មីលើដីពិត ។
+// ſᶘɔⅎ ſɟc̗ᴜƽ ʌ ſɭˬɹ ( git ) , ſɭɔ˞ɜƴ ʌ ſɭɜ ſɭ,w
 import * as THREE from "three";
 import { vepaqSkulptitanAkvon } from "../../eskekoj/medio/akvo.js";
 import { kalkuliAkvon as kalkuliAkvonSef4 } from "../../kantaoj/mondo/akvokalkulo.js";
@@ -37,7 +37,7 @@ function komparu( a: AkvaKalkulo, b: AkvaKalkulo ): boolean {
 
 const s23ohk2sai = kuri("s23ohk2sai");
 const sef4 = kuri("sef4");
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) លេខស្មើគ្នា=${komparu(s23ohk2sai, sef4)} ទឹក=${sef4.statistikoj.akvaj} ប្រឡាយ=${sef4.statistikoj.haqar6xe}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ }ʃᴜȝ=${komparu(s23ohk2sai, sef4)} ſᶘᴜ j͑ʃᴜ=${sef4.statistikoj.akvaj} ſɭɹ ſןᴜ=${sef4.statistikoj.haqar6xe}`);
 
 let minM = Infinity, minN = Infinity;
 for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
@@ -52,15 +52,15 @@ for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
   if ( dS23ohk2sai < minM ) minM = dS23ohk2sai;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) kalkuliAkvon ចាស់=${minM.toFixed(1)}ms ថ្មី=${minN.toFixed(1)}ms លឿន=${(minM / minN).toFixed(2)}x`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) kalkuliAkvon ſɭˬɹ=${minM.toFixed(1)}ms ſɭɔ˞ɜƴ=${minN.toFixed(1)}ms j͑ʃɔ ֭ſɭɔ=${(minM / minN).toFixed(2)}x`);
 
-// ⟨ ក្រឡាសាកល្បង 0o11 × 0o11 ៖ មានទឹកតែ 0o4 ក្រឡាក្នុង 0o11 ក្រឡា 📃 ⟩
+// ⟨ ſɭɹ ſןᴜ ꞙɭıı × ꞙɭıı ⟅ ſᶘᴜ j͑ʃᴜ ʌ ꞙɭэ ſɭɹ ſןᴜ ʌ ꞙɭıı 📃 ⟩
 const qena = new THREE.Scene();
 const akvaMesho = vepaqSkulptitanAkvon(qena, 0, 0, 2, 2, 2,
   ( x, z ) => x >= 1 && z >= 1, () => 1,
   ( x, z ) => x >= 1 && z >= 1 ? 0 : 2);
 const akvaIndeksoj = akvaMesho.mesh.geometry.getIndex()!;
 if ( akvaIndeksoj.count !== 0o30 ) {
-  throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) សន្ទស្សន៍ទឹក ${akvaIndeksoj.count} មិនមែន 0o30`);
+  throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɜ j͑ʃƨɹ ${akvaIndeksoj.count} , ꞙɭɔ ʌ ꞙɭцɔ`);
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡាទឹកមើលឃើញ=0o4/0o11 ត្រីកោណ=${akvaIndeksoj.count / 3} ✅`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſᶘᴜ j͑ʃᴜ ſɭɹ ſןᴜ=ꞙɭэ/ꞙɭıı ſ͕ɭɜ ɭʃɹ ı],ɔ=${akvaIndeksoj.count / 3} ✅`);

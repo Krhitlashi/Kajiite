@@ -1,6 +1,6 @@
 // ≺⧼ j͑ʃᴜ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ ʌ ſȷɔ ſɭ,ꞇ ꞁȷ̀ᴜ }ʃꞇ 🧪 ⧽≻
-// ⟨ ឧបករណ៍វាស់ទាំងអស់អានដីដូចហ្គេម ។ អនុគមន៍ទូទៅនៅទីនេះតែម្តង ,
-// ដើម្បីកុំឱ្យស្គ្រីបនីមួយ ៗ មានច្បាប់ផ្ទាល់ខ្លួន ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭэ ֭ſɭэ , ꞙɭɿ , 📃 ⟩
 import * as THREE from "three";
 import { alteco, akvaVem2 } from "../../kantaoj/mondo/tereno.js";
 import { aktivajHak6h6, aktivajHaqakaj2, aktivajHakaxte } from "../../kantaoj/tero-datumaro/rultempo.js";
@@ -21,32 +21,32 @@ import { VOJA_AKVA_KLARANCO, VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO,
   KORNA_R, surGrid, k6h6LarghoDuono } from "../../eskekoj/medio/hak6h6/havecax2l.js";
 import { type PlataVem2 } from "../../eskekoj/medio/hak6h6/haqoxa.js";
 
-// ⟪ ទឹកពិត 📏 ⟫
-// ⟨ ទឹកត្រូវមានផ្ទៃលើដី ៖ មិនមែនត្រឹមដែនទឹកឆ្លាក់ទេ ។ 📃 ⟩
-// ⟨ ដូចហ្គេម 📏 ⟩ ៖ ហ្គេមមិនទាមទារម៉ាសទឹកឆ្លាក់ទេ ។ ពិភពលោកមានគ្រាប់ពូជ
-// មានទន្លេធម្មជាតិដោយគ្មានម៉ាសឆ្លាក់ , ដូច្នេះបើឧបករណ៍វាស់ទាមទារម៉ាសនោះ ,
-// វានឹងវាស់ខុសពីហ្គេម ៖ ផ្លូវឆ្លងទន្លេមិនត្រូវបានចាត់ជាស្ពាន ,
-// ហើយការវាស់រាយការធ្លាក់ក្នុងទឹកជាកំហុសផ្លូវ ។ 📃 ⟩
+// ⟪ ſᶘᴜ j͑ʃᴜ , 📏 ⟫
+// ⟨ ſᶘᴜ j͑ʃᴜ , ſɭɜ ſɭ,w , 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , 📏 ⟩ , ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
+// ſɭэ ֭ſɭэ , ꞙɭц ,
+// ſɭэ ֭ſɭэ , ꞙɭэ , 📃 ⟩
 export function tsekeVeraAkvo( x: number, z: number ): boolean {
   return alteco(x, z) < akvaVem2(x, z) - 0o1/0o200;
 }
 
-// ⟨ កម្ពស់ផ្ទៃទឹកបូកចន្លោះ , ឬ -Infinity លើដីគោក ។ 📃 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭɩ , 📃 ⟩
 export function akvaFino( x: number, z: number ): number {
   return tsekeVeraAkvo(x, z) ? akvaVem2(x, z) + VOJA_AKVA_KLARANCO : -Infinity;
 }
 
-// ⟪ កម្ពស់ផ្លូវតាមដី 📏 ⟫
-// ⟨ រូបមន្តតែមួយនៅ haqoxa.js 📃 ⟩ ៖ ឧបករណ៍វាស់មិនមានច្បាប់ផ្ទាល់ខ្លួនទេ ។
+// ⟪ ſɭэ ֭ſɭэ , 📏 ⟫
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭɩ , 📃 ⟩
 export function k6h6Supro( x: number, z: number, sefini: number ): number {
   return k6h6SuproBaza(x, z, sefini, alteco);
 }
 
-/*កម្ពស់ផ្លូវនៅចុង ដែលត្រូវដូចចានភ្ជាប់ជិតបំផុត
-    @param x, z ( number ) - ចំណុចចុងផ្លូវ
-    @param sefini ( number ) - ទទឹងផ្លូវ
-    @param haveb6kek ( [ number , number ] [ ] ) - ចំណុចចានភ្ជាប់
-@returns teru ( number ) - កម្ពស់ផ្ទៃផ្លូវ */
+/* ſɭэ ֭ſɭэ , ꞙɭı ,
+@param x, z ( number ) - }ʃɹƽ ʌ ſ̀ȷᴜ ſɭᴜƽ ʌ ſɭэ ֭ſɭэ
+@param sefini ( number ) - j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ſɭэ ֭ſɭэ
+@param haveb6kek ( [ number , number ] [ ] ) - }ʃɹƽ ʌ ſɟɹƽ
+@returns teru ( number ) - j͐ʃэ ɭ(ᴜ ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſɭэ ֭ſɭэ */
 export function pontaFinAlto( x: number, z: number, sefini: number,
   haveb6kek: readonly { x: number; z: number; direktaj: [ number, number ][] }[] ): number {
   let plejProksima: { x: number; z: number; direktaj: [ number, number ][] } | null = null;
@@ -61,14 +61,14 @@ export function pontaFinAlto( x: number, z: number, sefini: number,
   return k6h6Supro(x, z, sefini);
 }
 
-// ⟪ ពិភពលោកសម្រាប់ការវាស់ 🌍 ⟫
-// ⟨ ស្គ្រិបវាស់គ្រប់គ្រាន់ចាប់ផ្តើមដោយប្លុកដូចគ្នា ៖ ទីក្រុងក្រឡា , ការទាញចុងផ្លូវ ,
-// ចំណុចភ្ជាប់ , វាលកម្ពស់ , និងកម្រិតផ្លូវ ។ មុននេះប្លុកនេះចម្លងក្នុងស្គ្រីបដប់ឯកសារ ,
-// ហើយពួកវាខុសគ្នាបន្តិចម្តងៗ ៖ ដូច្នេះការវាស់ពីរបានលេខខុសគ្នាលើពិភពលោកតែមួយ ។
-// ឥឡូវនៅទីនេះតែម្តង ។ 📃 ⟩
-// ⟨ ដៃចានភ្ជាប់ក៏ត្រូវដូចហ្គេម 📃 ⟩ ៖ ហ្គេមគណនាកម្រិតចានពីដៃពិត ( `kf2Brakojn` ) ,
-// មិនមែនពីទិសដៃទទេទេ ។ បើឧបករណ៍វាស់ប្រើទិសដៃទទេ , កម្រិតចានខុស ,
-// ហើយការវាស់រាយការជញ្ជាំងក្លែងក្លាយ ។ 📃 ⟩
+// ⟪ ſɭэ ſɭw , 🌍 ⟫
+// ⟨ ſɭэ ſɭw , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 export interface KunigajMapoj {
   fermitaj: Map<string, [ number, number ]>;
   rotacioj: Map<string, number>;
@@ -77,31 +77,31 @@ export interface KunigajMapoj {
 }
 
 export interface MezuraMondo {
-  // ⟨ ឆាកសាកល្បង ៖ ធរណីមាត្រផ្លូវសាងសង់នៅទីនេះ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , 📃 ⟩
   qena: THREE.Scene;
-  // ⟨ ផ្លូវសាងសង់ដោយដៃ ( មិនមែនក្រឡា ) ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , 📃 ⟩
   hak6h6: SkulptaK6h6[];
-  // ⟨ ចុងផ្លូវដែលបានទាញទៅចានភ្ជាប់ ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , 📃 ⟩
   gluitaj: K6h6Punkto[][];
-  // ⟨ ចំណុចភ្ជាប់ និងចំណុចរបស់វា ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
   haveb6kek: K6h6RetoVeb6kek[];
   kunigajPunktoj: [ number, number ][];
-  // ⟨ កម្ពស់ចានភ្ជាប់តាមចំណុច ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
   ankroj: NivelaVeb6kek[];
-  // ⟨ វាលកម្ពស់ផ្លូវ និងវាលមូលដ្ឋាន ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
   k6h6Alteco: ( x: number, z: number ) => number;
   bazaK6h6Alteco: ( x: number, z: number ) => number;
-  // ⟨ កម្រិតចានភ្ជាប់នៅចំណុចមួយ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
   pa12Cxe: ( x: number, z: number ) => number;
-  // ⟨ ទទឹងពេញនៃផ្លូវ ( ស្ពានធំជាងផ្លូវ ) ។ 📃 ⟩
+// ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ֭ſɭэ , 📃 ⟩
   larghoDe: ( i: number ) => number;
-  // ⟨ កម្រិតផ្លូវពេញលេញតាមលំដាប់ ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭɿ , 📃 ⟩
   profiloDe: ( i: number ) => NivelaProfilo;
-  // ⟨ ដៃ/ការបិទ/ការបង្វិល/ទទឹង របស់ចានភ្ជាប់នីមួយៗ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
   mapoj: KunigajMapoj;
 }
 
-// ⟨ កម្ពស់ចានភ្ជាប់ ៖ អានវាលកម្ពស់ដែលផ្លូវអាន ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 function kf2PlatanFunkcion(
   k6h6Alteco: ( x: number, z: number ) => number,
   mapoj: KunigajMapoj
@@ -120,10 +120,10 @@ function kf2PlatanFunkcion(
     }
     return vem2;
   };
-  // ⟨ កម្រិតចានរាបដូចហ្គេម 📏 ⟩ បើ vepaqHak6h6n បានតាមដានកម្ពស់ផ្លូវ
-  // តាមដៃរួចហើយ , អានកម្រិតដែលវាជ្រើស ។ បើគ្មាន ( ឧបករណ៍ដែលមិនគូរ
-  // ធរណីមាត្រ ) , យកកម្រិតដីដូចអនុគមន៍បម្រុងរបស់ហ្គេម ។ កុំយកមធ្យមដៃចាស់ ,
-  // វាធ្វើឱ្យប្រវត្តិរូបឧបករណ៍ខុសពីផ្លូវពិត ។ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ſɭᴜ ſןᴜ , 📏 ⟩
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
   const pa12Cxe = ( x: number, z: number ): number => {
     const ca3aq = x + "," + z;
     const registrita = plataAltoDeVeb6kek(ca3aq);
@@ -136,21 +136,21 @@ function kf2PlatanFunkcion(
   return { pa12Cxe, vem2Cxe };
 }
 
-/*សាងសង់ពិភពលោកតាមលំដាប់ដូចហ្គេម
-    @param kunKradaj ( boolean , optional ) - បញ្ចូលទីក្រុងក្រឡាផង
-@returns mondo ( MezuraMondo ) - ទិន្នន័យទាំងអស់ដែលការវាស់ត្រូវការ */
+/* ſɭэ ſɭw , ꞙɭı ,
+@param kunKradaj ( boolean , optional ) - j͑ʃ'ᴜ ſȷᴜ ｡ ſɭᴜ ı],ƨɔ ｡ ſɭɹ ſןᴜ ｡
+@returns mondo ( MezuraMondo ) - j͑ʃ'ɜ ſןɹ ｡ ſɭɹ ſᶘɔ ｡ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ｡ ſɭэ ᶗ‹ */
 export function kf2MezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
   const qena = new THREE.Scene();
   const hak6h6 = aktivajHak6h6().filter(v => v.n2k.length >= 2);
   const haqakaj2 = aktivajHaqakaj2();
 
-  // ⟪ ទីក្រុងក្រឡា ៖ ចំណុចភ្ជាប់របស់វា 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
   const kradajHaveb6kek: [ number, number ][] = [];
   const kradajPunktoj: [ number, number ][][] = [];
   const kradajRetajHak6h6: K6h6RetoK6h6[] = [];
-  // ⟨ ការបិទជ្រុងរបស់ទីក្រុងក្រឡា 📃 ⟩ ៖ ចំណុចក្រឡាគ្មានទិសដៃ , ដូច្នេះ
-  // ចានរបស់វាសាងសង់ពីជ្រុងបិទ ។ បើឧបករណ៍វាស់មិនអានការបិទទាំងនោះ ,
-  // ចានក្រឡាក្លាយជាប្រសព្វបួនជ្រុង , ហើយការវាស់មិនឃើញបញ្ហាពិត ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
   const kradajFermitaj = new Map<string, [ number, number ]>();
   if ( kunKradaj ) {
     const oro = kf2KuhalPukek(0xd8b45a);
@@ -170,7 +170,7 @@ export function kf2MezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
     }
   }
 
-  // ⟪ ការទាញចុងផ្លូវ ៖ ដូច `vepaqKaxten` 📃 ⟫
+// ⟪ ſɭэ ֭ſɭэ , ꞙɭɿ , 📃 ⟫
   const landoj = haqakaj2.map(d => {
     const r = d.rotacio ?? 0;
     return { x: d.x + Math.sin(r) * ( d.profundo / 2 ),
@@ -185,12 +185,12 @@ export function kf2MezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
   const haveb6kek = troviK6h6RetajnHaveb6kekn(
     hak6h6.map((v, i) => ( { n2k: gluitaj[ i ], sefini: v.sefini } )), haqakaj2);
 
-  // ⟪ វាលកម្ពស់ និងកម្រិតចាន ៖ ដូច `vepaqKaxten` 📃 ⟫
+// ⟪ ſɭɜ ſɭ,w , ꞙɭц , 📃 ⟫
   const k21eHaveb6kek: [ number, number ][] =
     [ ...kradajHaveb6kek, ...haveb6kek.map(k => [ k.x, k.z ] as [ number, number ]) ];
   const bazaK6h6Alteco = kf2BazanK6h6Alton(alteco);
-  // ⟨ ដៃពីផ្លូវទាំងអស់ 📏 ⟩ ៖ ដូច `vepaqKaxten` ។ ចំណុចក្រឡាក៏ទទួលដៃពីផ្លូវក្រឡាដែរ ,
-  // បើមិនដូច្នេះការវាស់មិនឃើញកម្រិតតាមដៃដែលហ្គេមប្រើ ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
   const k21eRetajHak6h6: K6h6RetoK6h6[] = [
     ...kradajRetajHak6h6,
     ...hak6h6.map(( v, i ) => ( { n2k: gluitaj[ i ], sefini: v.sefini } )) ];
@@ -203,13 +203,13 @@ export function kf2MezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
     derivitajBrakoj.set(ca3aq, ca1ara);
     k.direktaj = ca1ara;
   }
-  // ⟨ ផ្ទឃ្លាំងទឹក 📃 ⟩ ៖ បញ្ជូនផ្ទឃ្លាំងទឹកទៅវាលផ្លូវ ដូច kaxte.ts ។
+// ⟨ ſᶘᴜ j͑ʃᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
   const kunigajDuonoj = new Map<string, number>(haveb6kek.map(k => [ k.x + "," + k.z, k.p2somani ]));
   const k6h6Alteco = kf2K6h6Alton(alteco, k21eHaveb6kek.map(([ x, z ]) =>
     ( { x, z, direktaj: derivitajBrakoj.get(x + "," + z) ?? [],
       p2somani: kunigajDuonoj.get(x + "," + z) ?? VOJA_DIORITA_DUONO } )), akvaFino);
-  // ⟨ ដៃរបស់ចានភ្ជាប់ ៖ ដូច `vepaqKaxten` 📃 ⟩ ។ ចំណុចក្រឡាមានតែការបិទជ្រុង ,
-  // ចំណុចផ្លូវមានទិសដៃពិត ។ ចុងផ្លូវដែលមកដល់ចំណុចក្រឡាបើកជ្រុងនោះ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
   const mapoj: KunigajMapoj = {
     fermitaj: new Map<string, [ number, number ]>([
       ...kradajFermitaj,
@@ -224,9 +224,9 @@ export function kf2MezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
       mapoj.fermitaj.delete(p[0] + "," + p[1]);
   }
   const { pa12Cxe } = kf2PlatanFunkcion(k6h6Alteco, mapoj);
-  // ⟨ គ្មាន vem2 តាមទិស 📏 ⟩ ៖ ហ្គេមប្រើចានរាបតែមួយកម្រិត , ហើយ
-  // kf2NivelanProfilon អានតែ `l6da` ។ បញ្ជូន vem2 ចាស់ធ្វើឱ្យឧបករណ៍វាស់
-  // ឃើញកម្រិតខុសពីផ្លូវដែលបានសាងសង់ ។ 📃 ⟩
+// ⟨ ꞙɭı , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
   const ankroj: NivelaVeb6kek[] = k21eHaveb6kek.map(([ x, z ]) =>
     ( { x, z, l6da: pa12Cxe(x, z) } ));
 
@@ -242,10 +242,10 @@ export function kf2MezuranMondon( kunKradaj: boolean = true ): MezuraMondo {
     k6h6Alteco, bazaK6h6Alteco, pa12Cxe, larghoDe, profiloDe, mapoj };
 }
 
-/*ចម្ងាយទៅចំណុចភ្ជាប់ជិតបំផុត
-    @param kunigajPunktoj ( [ number , number ] [ ] ) - ចំណុចភ្ជាប់
-    @param x, z ( number ) - ចំណុច
-@returns h6kuni ( number ) - ចម្ងាយ , ឬ Infinity បើគ្មាន */
+/* ſɭэ ֭ſɭэ , ꞙɭɿ ,
+@param kunigajPunktoj ( [ number , number ] [ ] ) - }ʃɹƽ ʌ ſɟɹƽ
+@param x, z ( number ) - }ʃɹƽ
+@returns h6kuni ( number ) - ֭ſɭэ ſɭw }ʃꞇ ｡ ſןɔ ｡ Infinity ｡ ſɭᴜ ｡ */
 export function distoAlVeb6kek( kunigajPunktoj: readonly [ number, number ][],
   x: number, z: number ): number {
   let plej = Infinity;
@@ -254,14 +254,14 @@ export function distoAlVeb6kek( kunigajPunktoj: readonly [ number, number ][],
   return plej;
 }
 
-/*ចំណុចនៅចម្ងាយមួយតាមបណ្តោយបន្ទាត់ផ្លូវ
-    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
-    @param s ( number ) - ចម្ងាយតាមបណ្តោយ
-    @param eps ( number = 0o10 ** -0o11 , optional ) - កម្រិតប្រវែងអប្បបរមា
-@returns n2k ( { x , z } ) - ចំណុច */
-// ⟨ ឧបករណ៍ខ្លះប្រើកម្រិតខុសគ្នាសម្រាប់ផ្នែកខ្លីបំផុត ។ ពីមុនគ្រប់ឧបករណ៍
-//   ចម្លងអនុគមន៍ទាំងមូលដើម្បីប្តូរតែលេខមួយ ។ ឥឡូវអនុគមន៍មួយ
-//   ហើយឧបករណ៍នីមួយៗបញ្ជូនកម្រិតរបស់ខ្លួន ។ 📃 ⟩
+/* ſɭэ ֭ſɭэ , ꞙɭц ,
+@param n2k ( [ number , number ] [ ] ) - }ʃɹƽ ʌ ſɭэ ֭ſɭэ
+@param s ( number ) - ֭ſɭэ ſɭw }ʃꞇ ʌ ſɭэ ֭ſɭэ
+@param eps ( number = ꞙɭıɔ ** -ꞙɭıı , optional ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſɭэ }ʃᴜ ｡ ſןᴜ ſɭw
+@returns n2k ( { x , z } ) - }ʃɹƽ */
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭэ ,
+//   ſɭᴜ ſןᴜ , ꞙɭɩ ,
+//   ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
 export function punktoCxe( n2k: readonly ( readonly [ number, number ] )[],
   s: number, eps = 0o10 ** -0o11 ): { x: number; z: number } {
   let akum = 0;

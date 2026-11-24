@@ -10,8 +10,8 @@ import { kalkuliStupanNombron } from "./qakaj2/stuparo.js";
 import { registriDokanAlton } from "./hak6h6/kunig-havem2.js";
 import { DOKO_JOQA_SEFINI, DOKO_PLATFORMA_SEFINI, type DokaSekcio, type Qakaj2 } from "./qakaj2/hahunaq.js";
 
-// ⟨ ហេតុអ្វីជណ្តើរ មិនវេទិការាប 📃 ⟩
-// ⟨ ក្រឡារាបមួយសម្រាប់រូបវិទ្យា 📃 ⟩
+// ⟨ ſᶘɔ ʌ ſןɔ˞ᴜƴ , ꞙɭɔ , ſɭэ ֭ſɭэ , ⟅ ⟩
+// ⟨ ſɭɹ ſןᴜ , ꞙɭı , ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
 export function vepaqQakaj2n(
   qena: THREE.Scene,
   x: number,
@@ -25,18 +25,18 @@ export function vepaqQakaj2n(
   const group = new THREE.Group();
   const k6h6Largho = DOKO_PLATFORMA_SEFINI;
   const platformDepth = profundo;
-  // ⟨ កម្រាស់ដូចផ្លូវ 📃 ⟩
+  // ⟨ j͑ʃᴜ ſɭ,w , ſɭэ ֭ſɭэ , ⟅ ⟩
   const dikeco = VOJA_DIKECO;
-  // ⟨ សម្ភារៈផ្លូវរួម 📏 ⟩ ៖ វេទិកាចំណតជាផ្លូវមួយចម្រៀក , ដូច្នេះវាប្រើ
-  // វាយនភាព និង polygonOffset ដូចផ្លូវ មិនមែនបង្កើតប្រព័ន្ធសម្ភារៈផ្ទាល់ខ្លួន ។ 📃 ⟩
+  // ⟨ ſןw ſɭɔƽ , ſɭэ ֭ſɭэ , ꞙɭı 📏 ⟩ , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ꞙɭı ,
+  //   j͑ʃɜ ſɭ,ᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭɔ , ꞙɭı , ſןw ſɭɔƽ , ⟅ 📃 ⟩
   const { supraMaterialo: t6g6, bordaMaterialo: t6hna } = kf2Hak6h6nMaterialojn(
     kf2T6g6Pukek(), kf2T6hnaPukek(), -0o2, -0o4, -0o1, -0o1 );
-  // ⟨ លេខរួមពីរ 📃 ⟩
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭɿ , ⟅ ⟩
   const joqaStrio = DOKO_JOQA_SEFINI;
   const joqaMalsupro = -0o1/0o40;
   const plenaDuono = k6h6Largho / 2 + joqaStrio;
   const plenaProud = 0o1/0o500;
-  // ⟨ កម្រិតជណ្តើរ 📃 ⟩
+  // ⟨ j͑ʃ'ɔ ŋᷠɹ , ſןɔ˞ᴜƴ , ⟅ ⟩
 
   const duonL = platformDepth / 2;
   const cosR = Math.cos(c2w2q), sinR = Math.sin(c2w2q);
@@ -48,15 +48,15 @@ export function vepaqQakaj2n(
   for ( const ofseto of [ -0o6/0o10, 0, 0o6/0o10 ] ) {
     k6h6Y = Math.max(k6h6Y, heightFn(landX + cosR * ofseto, landZ - sinR * ofseto));
   }
-  // ⟨ ចំណតនៅលើក្រឡាដូចផ្លូវ ៖ ដូច្នេះផ្លូវមកដល់ចំណតមួយជំហានប៉ុណ្ណោះ ។ 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ , ſɭɹ ſןᴜ , ſɭэ ֭ſɭэ , ⟅ ſɭэ ֭ſɭэ , ꞙɭı , ⟅ 📃 ⟩
   k6h6Y = surGrid(k6h6Y + VOJA_SUPRO_LEVIGXO) - VOJA_SUPRO_LEVIGXO;
-  // ⟨ ចុះឈ្មោះកម្រិតចំណត 📏 ⟩ ៖ ចានភ្ជាប់នៅមាត់ដីត្រូវយកកម្រិតនេះ ។
-  // ផ្ទៃវេទិកាស្ថិតនៅ k6h6Y + VOJA_DIKECO , តិចជាងកម្រិតក្រឡា
-  // ( VOJA_SUPRO_LEVIGXO - VOJA_DIKECO ) ប៉ុណ្ណោះ ។ បើចានគណនាកម្រិតដោយ
-  // ច្បាប់ផ្សេង , ស្នាមដេករវាងផ្លូវនិងចំណតក្លាយជាជញ្ជាំងមួយជំហាន ។ 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ſɭᴜ ſןᴜ 📏 ⟩ , ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w , ꞙɭı ,
+  //   k6h6Y + VOJA_DIKECO , ꞙɭɔ , ſɭɹ ſןᴜ ,
+  //   ( VOJA_SUPRO_LEVIGXO - VOJA_DIKECO ) , ſɭᴜ ſןᴜ , ⟅ ꞙɭı ,
+  //   ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ 📃 ⟩
   registriDokanAlton(landX, landZ, k6h6Y + VOJA_SUPRO_LEVIGXO);
 
-  // ⟨ វេទិកា 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ , ⟅ ⟩
   const aldoniLandejon = ( centroZ: number, sahakani: number, teru: number ): void => {
     const kozuni = teru - dikeco;
     const surfacaGeometrio = new THREE.ExtrudeGeometry(
@@ -78,8 +78,8 @@ export function vepaqQakaj2n(
     pukaz.castShadow = pukaz.receiveShadow = true;
     group.add(pukaz);
 
-    // ⟨ រចនាសម្ព័ន្ធក្រោមពេញ 📃 ⟩
-    // ⟨ វណ្ឌវង្កមួយ ការប្រើពីរ 📃 ⟩
+    // ⟨ j͑ʃᴜ ʃɜ , ꞙɭı , ⟅ ⟩
+    // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭɿ ⟅ ⟩
     const plenaSupro = kozuni - 0o1/0o200;
     let teraPlejProfunda = Infinity;
     for ( const lz of [ -sahakani / 0o2 - joqaStrio, -sahakani / 0o4, 0, sahakani / 0o4, sahakani / 0o2 ] ) {
@@ -88,7 +88,7 @@ export function vepaqQakaj2n(
           grundoFn(mondaX(lx, centroZ + lz), mondaZ(lx, centroZ + lz)) - k6h6Y);
       }
     }
-    // ⟨ ពេលគ្មានទំហំអាចបំពេញ 📃 ⟩
+    // ⟨ ꞙɭı , ſɭᴜ ſןᴜ , ⟅ ⟩
     if ( teraPlejProfunda < kozuni + joqaMalsupro ) {
       const plenaMalsupro = teraPlejProfunda - 0o1/0o4;
       const plenaGeometrio = new THREE.ExtrudeGeometry(
@@ -104,16 +104,16 @@ export function vepaqQakaj2n(
     }
   };
 
-  // ⟪ វេទិកាទាប និងជណ្តើរ 📏 ⟫
-  // ⟨ ចំណតឈរលើទឹក 📃 ⟩ ៖ វេទិកាស្ថិតលើផ្ទៃទឹកបន្តិច , មិនមែនលើកម្រិតផ្លូវទេ ។
-  // មុននេះ Math.max( dikeco , ... ) បង្ខំវេទិកាឱ្យឡើងដល់កម្រិតផ្លូវជានិច្ច ,
-  // ដូច្នេះគ្មានជណ្តើរណាមួយត្រូវបានបង្កើតឡើយ ។ ឥឡូវបើផ្លូវខ្ពស់ជាងទឹក
-  // ច្រើនជាងពាក់កណ្តាលជំហាន , ចំណតមានជណ្តើរចុះពីគែមចានភ្ជាប់មកវេទិកា ។ 📃 ⟩
-  // ⟨ វេទិកាមិនកប់ក្នុងច្រាំង 📏 ⟩ ៖ មុននេះកម្រិតវេទិកាមកពីផ្ទៃទឹក
-  // តែមាត់ដីនៅជិតច្រាំងខ្ពស់ជាងផ្ទៃទឹក ។ ជណ្តើរចុះពីចានមកដល់
-  // វេទិកាទាប ហើយកថាប៉ាសចុងក្រោយបាត់ចូលក្នុងដី ។ អានដីខ្ពស់បំផុត
-  // ក្រោមវេទិកា ហើយលើកវេទិកាឱ្យឈរលើវា ។ ច្រាំងខ្ពស់ណាស់នៅមាត់ដី
-  // មិនរាប់ទេ ព្រោះចានភ្ជាប់ និងជណ្តើរគ្របតំបន់នោះរួចហើយ ។ 📃 ⟩
+  // ⟪ ſɭᴜ ſןᴜ , ſןɔ˞ᴜƴ 📏 ⟫
+  // ⟨ ſɭᴜ ſןᴜ , ſᶘᴜ j͑ʃᴜ , ⟅ ꞙɭı , ſᶘᴜ j͑ʃᴜ , ſɭэ ֭ſɭэ , ⟅
+  //   ꞙɭı , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ꞙɭı ,
+  //   ꞙɭɔ , ſןɔ˞ᴜƴ , ⟅ ſɭэ ֭ſɭэ , ſᶘᴜ j͑ʃᴜ ,
+  //   ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , ⟅ 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w , 📏 ⟩ , ſɭᴜ ſןᴜ , ſᶘᴜ j͑ʃᴜ ,
+  //   ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ , ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , ꞙɭı ,
+  //   ſɭᴜ ſןᴜ , ꞙɭı , ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w ,
+  //   ſɭᴜ ſןᴜ , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı , ſɭᴜ ſןᴜ ,
+  //   ꞙɭɔ , ſɭᴜ ſןᴜ , ſןɔ˞ᴜƴ , ꞙɭı , ⟅ 📃 ⟩
   const ne3ak2Insido = VOJA_TRUA_DUONO + 0o2;
   let teraMaks = -Infinity;
   for ( let lz = -duonL; lz <= duonL - ne3ak2Insido; lz += 0o2 ) {
@@ -127,19 +127,19 @@ export function vepaqQakaj2n(
   const havasStuparon = falto > STUPA_RISERO * 0o1/0o2;
   const nombro = havasStuparon
     ? kalkuliStupanNombron(falto) : 0;
-  // ⟨ ប្រវែងរត់របស់ជណ្តើរ 📏 ⟩ ៖ កថាប៉ាសនីមួយៗទទឹងពាក់កណ្តាលឯកតា ,
-  // តែមិនលើសពាក់កណ្តាលប្រវែងចំណត ដើម្បីនៅសល់វេទិកាគ្រប់គ្រាន់ ។ 📃 ⟩
+  // ⟨ ſןɔ˞ᴜƴ , j͑ʃᴜ ʃɜ 📏 ⟩ , ꞙɭı , ꞙɭı ,
+  //   ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const stuparaLongo = havasStuparon
     ? Math.min(platformDepth * 0o1/0o2, Math.max(0o2, nombro * 0o1/0o2)) : 0;
   const landejaLocala = havasStuparon ? ferdekaSupro - k6h6Y : dikeco;
-  // ⟨ វេទិកាចាប់ពីចុងជណ្តើរ 📏 ⟩ ៖ ចានគ្របដល់ VOJA_TRUA_DUONO ពីមាត់ដី ,
-  // ជណ្តើរយកចន្លោះបន្ទាប់ , ហើយវេទិកាយកអ្វីដែលនៅសល់ ។ 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ , ſןɔ˞ᴜƴ 📏 ⟩ , ſɭᴜ ſןᴜ , VOJA_TRUA_DUONO , ꞙɭı ,
+  //   ſןɔ˞ᴜƴ , ꞙɭı , ſɭᴜ ſןᴜ , ⟅ 📃 ⟩
   const landaInsido = VOJA_TRUA_DUONO + stuparaLongo;
   const landaLongo = Math.max(0o2, platformDepth - landaInsido);
   const landaCentroZ = -landaInsido / 0o2;
   const sekcioj: DokaSekcio[] = [];
-  // ⟨ ចំណុចពីរ 📐 ⟩ ៖ គែមចានភ្ជាប់ ទៅ គែមវេទិកា ។ លេខជំហានពិត
-  // គណនាដោយ kf2DokanStuparon ពេលដឹងកម្ពស់ចានភ្ជាប់រួច ។ 📃 ⟩
+  // ⟨ }ʃɹƽ , ꞙɭɿ 📐 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ſɭᴜ ſןᴜ ⟅ ꞙɭı ,
+  //   kf2DokanStuparon , ſɭᴜ ſןᴜ , ⟅ 📃 ⟩
   const stuparaKomencoLz = duonL - VOJA_TRUA_DUONO;
   const stuparaFinaLz = stuparaKomencoLz - stuparaLongo;
   const stuparajPunktoj: [ number, number ][] = havasStuparon ? [

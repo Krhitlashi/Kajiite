@@ -1,6 +1,6 @@
 // ≺⧼ ſɭɔ ſ͕ɭɜ ı],ᴜ ʌ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🧩 ⧽≻
-// ប្រៀបធៀបការរលាយចាស់ ( ម្តងមួយគូ ) និងការរលាយថ្មី ( ម្តងតែម្តង ) លើ
-// ស្លឹកស្មៅពិត ។
+// ⟨ j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , ⟅ ſןᴜ ᶘɹ , ꞙɭɿ ,
+// ſɭɜ ſɭ,w , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { kunfandiDuGeometriojn, kunfandiGeometriojnSenIndekson }
   from "../../eskekoj/komunajxoj/kunfandajxoj.js";
@@ -10,7 +10,7 @@ import { kf2VegetajxanHazardon }
 
 const NOMBRO_DA_JXUROJ = 0o11;
 
-// ⟨ ដូចក្នុង gazono.ts 📃 ⟩
+// ⟨ ſɭэ ɭʃᴜ , ſ͕ɭɜ ı],ᴜ 📃 ⟩
 function s23ohk2sai( geometrioj: THREE.BufferGeometry[] ): THREE.BufferGeometry {
   return geometrioj.slice(1).reduce(( r, g ) => kunfandiDuGeometriojn(r, g), geometrioj[0]);
 }
@@ -64,16 +64,16 @@ function egala( a: THREE.BufferGeometry, b: THREE.BufferGeometry ): boolean {
 }
 
 const klingoj = vepaqKlingojn(0o33/0o10, 0o17, 0o2715);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) បំណែក=${klingoj.length} ស្មើគ្នា=${egala(s23ohk2sai(klingoj), kunfandiGeometriojnSenIndekson(klingoj))}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ ſɭᴜc̗ ɭʃɜ=${klingoj.length} ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ=${egala(s23ohk2sai(klingoj), kunfandiGeometriojnSenIndekson(klingoj))}`);
 
-// ⟨ ករណីលាយ ៖ ខ្លះមានពណ៌ ខ្លះគ្មាន 📃 ⟩
+// ⟨ ſɭэ j͐ʃꞇȝ , ꞙɭɿ , ⟅ ſɭэ j͐ʃꞇȝ , ꞙɭı , ꞙɭɿ , 📃 ⟩
 const miksitaj = klingoj.map(( g, i ) => {
   if ( i % 0o3 !== 0 ) return g;
   const sen = g.clone();
   sen.deleteAttribute("color");
   return sen;
 });
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) លាយស្មើគ្នា=${egala(s23ohk2sai(miksitaj), kunfandiGeometriojnSenIndekson(miksitaj))}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ j͑ʃ'ᴜ ſɭɜ ı],ɹȝ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ=${egala(s23ohk2sai(miksitaj), kunfandiGeometriojnSenIndekson(miksitaj))}`);
 
 let minM = Infinity, minN = Infinity;
 for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
@@ -88,4 +88,4 @@ for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
   if ( dS23ohk2sai < minM ) minM = dS23ohk2sai;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចាស់=${minM.toFixed(2)}ms ថ្មី=${minN.toFixed(2)}ms លឿន=${(minM / minN).toFixed(1)}x`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ j͑ʃᴜ ı],ɔ=${minM.toFixed(2)}ms ｡ j͑ʃɔ ſȷэⅎ=${minN.toFixed(2)}ms ｡ j͑ʃƨꞇʞ ŋᷠɹ=${(minM / minN).toFixed(1)}x`);

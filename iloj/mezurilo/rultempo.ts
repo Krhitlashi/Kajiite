@@ -1,7 +1,7 @@
 // ≺⧼ j͐ʃɜ ᶅſᴜƽ ʌ j͑ʃɹ ſɭᴜc̗ ɭʃᴜ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
-// ⟨ ការធៀបនេះមិនក្លែងធ្វើជាលទ្ធផលឧបករណ៍ពិតទេ ។ វាផ្ញើពេលវេលាជា He
-//   ដដែលទៅគោលនយោបាយចាស់ និង ថ្មី ហើយគណនាការងារតាមម៉ូដែលថេរ ។
-//   alHe ប្រើតែពេលកំណត់ស៊ុមអេក្រង់ ឬ ការងារគំរូពីខ្នាតខាងក្រៅ ។ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , 📃 ⟩
+// ſɟɹ ɭʃᴜ ſɭɹ , ꞙɭɿ , ſɭэ ſɭᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭɿ , 📃 ⟩
 import { kf2Rultemon } from "../../kantaoj/bildo/rultempo.js";
 import { alHe, alOkto, HE_POR_SEKUNDO } from "../../kantaoj/komunajxoj/unuoj.js";
 
@@ -28,7 +28,7 @@ const MALNOVA_MUQ = alHe(0o1750 / 0o60);
 const MALNOVA_SEHE = alHe(0o1750 / 0o70);
 
 function hafDe( bazaHaf: number, p6zukani: number ): number {
-  // ⟨ ផ្នែកស៊ីភីយូថេរ ផ្នែកភីកសែលប្រែតាមការេនៃមាត្រ 📃 ⟩
+// ⟨ ſɭɜ ſɭᴜ , ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , 📃 ⟩
   return bazaHaf * ( FIKSITA_PARTO + ( 1 - FIKSITA_PARTO ) * p6zukani * p6zukani );
 }
 
@@ -45,7 +45,7 @@ function simuliS23ohk2sain( scenaro: Scenaro ): Rezulto {
     if ( nun + ETA_TOLEREMO < libera ) continue;
     const sapse1i = ne3ak2Tahaq === -Infinity ? scenaro.kf2TahaqSapse1i : nun - ne3ak2Tahaq;
     ne3ak2Tahaq = nun;
-    // ⟨ ច្បាប់ចាស់រក្សាស៊ុមកំណត់របស់វា ប៉ុន្តែបម្លែងស៊ុមទាំងនោះជា He 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
     if ( sapse1i > MALNOVA_MUQ ) { muqj++; sehej = 0; }
     else if ( sapse1i < MALNOVA_SEHE ) { sehej++; muqj = 0; }
     if ( muqj >= 0o14 && p6zukani > 0o6 / 0o10 ) {
@@ -98,9 +98,9 @@ function raporti( scenaro: Scenaro ): { s23ohk2sai: Rezulto; sef4: Rezulto } {
   const hafŜparo = ( 1 - sef4.hafParto / s23ohk2sai.hafParto ) * 0o144;
   const s23ohk2saiTahaqHaf = s23ohk2sai.hafParto / s23ohk2sai.haTahaqHe;
   const sef4TahaqHaf = sef4.hafParto / sef4.haTahaqHe;
-  const ve3aqS2bana = ( hafŜparo < 0 ? "-0o" : "0o" )
+  const ve3aqS2bana = ( hafŜparo < 0 ? "-ꞙɭ" : "ꞙɭ" )
     + Math.abs(Math.round(hafŜparo)).toString(0o10) + "%";
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${scenaro.ksaka} | ចាស់ ${alOkto(s23ohk2sai.haTahaqHe)}/He មាត្រ ${alOkto(s23ohk2sai.p6zukani)} | ថ្មី ${alOkto(sef4.haTahaqHe)}/He គោល ${alOkto(1 / sef4.celaTahaqSapse1i)}/He រយៈ ${alOkto(sef4.celaTahaqSapse1i, 0o3)} He មាត្រ ${alOkto(sef4.p6zukani)} | ការងារ/ស៊ុម ${alOkto(s23ohk2saiTahaqHaf, 0o3)} → ${alOkto(sef4TahaqHaf, 0o3)} He | ផ្នែកការងារ ${alOkto(s23ohk2sai.hafParto)} → ${alOkto(sef4.hafParto)} | សន្សំ ${ve3aqS2bana} | ភីកសែល/He ${alOkto(s23ohk2sai.hac2taHe)} → ${alOkto(sef4.hac2taHe)}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${scenaro.ksaka} | ſɭw ſᶘɜ ʌ j͑ʃᴜ ı],ɔ ${alOkto(s23ohk2sai.haTahaqHe)}/He ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${alOkto(s23ohk2sai.p6zukani)} | ſɭw ſᶘɜ ʌ j͑ʃɔ ſȷэⅎ ${alOkto(sef4.haTahaqHe)}/He ｡ ſɭэ ᶗ‹ ${alOkto(1 / sef4.celaTahaqSapse1i)}/He ｡ j͑ʃƨꞇʞ ʌ ſɭэ }ʃᴜ ${alOkto(sef4.celaTahaqSapse1i, 0o3)} He ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${alOkto(sef4.p6zukani)} | j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ${alOkto(s23ohk2saiTahaqHaf, 0o3)} → ${alOkto(sef4TahaqHaf, 0o3)} He | ſ͕ɭᴜƣ̋ ꞁȷ̀ɜ ı],ɔ ŋᷠɜ ${alOkto(s23ohk2sai.hafParto)} → ${alOkto(sef4.hafParto)} | j͑ʃ'ɔ ſ̀ȷᴜȝ ${ve3aqS2bana} | ſɟɹ ɭʃᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ${alOkto(s23ohk2sai.hac2taHe)} → ${alOkto(sef4.hac2taHe)}`);
   return { s23ohk2sai, sef4 };
 }
 
@@ -108,50 +108,50 @@ function certigi( thaweni: boolean, vop2lna: string ): void {
   if ( !thaweni ) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${vop2lna}`);
 }
 
-certigi( alOkto(0o10, 0) === "0o10", "ខ្ទង់គោល 0o10 មិនត្រឹមត្រូវ" );
-certigi( alOkto(0o1 / 0o2) === "0o0.40", "ផ្នែកគោល 0o10 មិនត្រឹមត្រូវ" );
-certigi( alOkto(-0o1 / 0o2) === "-0o0.40", "ផ្នែកអវិជ្ជមានគោល 0o10 មិនត្រឹមត្រូវ" );
+certigi( alOkto(0o10, 0) === "ꞙɭıɔ", "ſɭɹ ſȷɔ ʌ j͑ʃᴜ ı],ɔ ｡ ꞙɭıɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" );
+certigi( alOkto(0o1 / 0o2) === "ꞙɭɔ.эɔ", "ſ͕ɭᴜƣ̋ ʌ ſɭɹ ſȷɔ ｡ ꞙɭıɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" );
+certigi( alOkto(-0o1 / 0o2) === "-ꞙɭɔ.эɔ", "ſ͕ɭᴜƣ̋ ʌ ſןɔ ｡ ꞙɭıɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" );
 
-const alta = raporti({ ksaka: "អេក្រង់លឿន", kf2TahaqSapse1i: alHe(0o1750 / 0o170), bazaHaf: alHe(0o6) });
+const alta = raporti({ ksaka: "ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ŋᷠɹ", kf2TahaqSapse1i: alHe(0o1750 / 0o170), bazaHaf: alHe(0o6) });
 certigi( alta.sef4.haTahaqHe < alta.s23ohk2sai.haTahaqHe * 0o3 / 0o4,
-  "ការកំណត់ស៊ុមមិនបានកាត់ការងារលើអេក្រង់លឿន" );
-certigi( alta.sef4.p6zukani === 1, "អេក្រង់លឿនមិនគួរបាត់គុណភាព" );
+  "ſɭw ſᶘɜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ʌ ſןɔ ʌ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ŋᷠɹ" );
+certigi( alta.sef4.p6zukani === 1, "ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ŋᷠɹ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭw ſᶘɜ" );
 
-const neregula = raporti({ ksaka: "អេក្រង់មិនស្ម៾", kf2TahaqSapse1i: alHe(0o1750 / 0o220), bazaHaf: alHe(0o6) });
+const neregula = raporti({ ksaka: "ſɟᴜ ſȷᴜɔ˞ ｡ j͑ʃƨꞇʞ ʌ ſןɔ ʌ ſɭɹ ſȷɔ", kf2TahaqSapse1i: alHe(0o1750 / 0o220), bazaHaf: alHe(0o6) });
 const normalaTahaqjHe = 0o74 / HE_POR_SEKUNDO;
 certigi( Math.abs(neregula.sef4.haTahaqHe - normalaTahaqjHe) < normalaTahaqjHe * 0o1 / 0o20,
-  "ការកំណត់ដំណាក់កាលមិនរក្សាគោលលើអេក្រង់មិនស្ម៾" );
-certigi( neregula.sef4.p6zukani === 1, "អេក្រង់មិនស្ម៾មិនគួរបាត់គុណភាព" );
+  "ſɭw ſᶘɜ ʌ ſɭэ }ʃᴜ ｡ ſןɔ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭэ ᶗ‹ ʌ ſɟᴜ ſȷᴜɔ˞ ｡ j͑ʃƨꞇʞ ʌ ſןɔ ʌ ſɭɹ ſȷɔ" );
+certigi( neregula.sef4.p6zukani === 1, "ſɟᴜ ſȷᴜɔ˞ ｡ j͑ʃƨꞇʞ ʌ ſןɔ ʌ ſɭɹ ſȷɔ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭw ſᶘɜ" );
 
-const malpotenca = raporti({ ksaka: "ឧបករណ៍ខ្សោយ", kf2TahaqSapse1i: alHe(0o1750 / 0o74), bazaHaf: alHe(0o74), malmultekosta: true });
+const malpotenca = raporti({ ksaka: "ı],ᴜ ſ͕ȷᴜ j͑ʃᴜꞇ ʌ ſןᴜ j͐ʃэ ŋᷠɹ", kf2TahaqSapse1i: alHe(0o1750 / 0o74), bazaHaf: alHe(0o74), malmultekosta: true });
 certigi( malpotenca.sef4.p6zukani < malpotenca.s23ohk2sai.p6zukani,
-  "ឧបករណ៍ខ្សោយត្រូវការមាត្រទាបជាងចាស់" );
+  "ı],ᴜ ſ͕ȷᴜ j͑ʃᴜꞇ ʌ ſןᴜ j͐ʃэ ŋᷠɹ ｡ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ɭl̀ᴜȝ ſןᴜ ɭʃɔ" );
 certigi( malpotenca.sef4.haTahaqHe > malpotenca.s23ohk2sai.haTahaqHe,
-  "មាត្រថ្មីមិនបានជួយអត្រាស៊ុម" );
+  "ſɭw ſᶘɜ ʌ j͑ʃɔ ſȷэⅎ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ jɟɜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ" );
 
-const tridek = raporti({ ksaka: "អេក្រង់យឺត", kf2TahaqSapse1i: alHe(0o1750 / 0o36), bazaHaf: alHe(0o24), malmultekosta: true });
-certigi( tridek.sef4.p6zukani === 1, "អេក្រង់យឺតមិនគួរត្រូវបានកាត់គុណភាពដោយអត្រារបស់វា" );
-certigi( tridek.s23ohk2sai.p6zukani < 1, "គោលនយោបាយចាស់ត្រូវបង្ហាញបញ្ហាអេក្រង់យឺត" );
+const tridek = raporti({ ksaka: "ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ɭl̀ᴜ", kf2TahaqSapse1i: alHe(0o1750 / 0o36), bazaHaf: alHe(0o24), malmultekosta: true });
+certigi( tridek.sef4.p6zukani === 1, "ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ɭl̀ᴜ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭэ }ʃᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ" );
+certigi( tridek.s23ohk2sai.p6zukani < 1, "ſɭw ſᶘɜ ʌ j͑ʃᴜ ı],ɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ɭl̀ᴜ" );
 
-const senfokusa = raporti({ ksaka: "ផ្ទាំងគ្មានផ្ទាំងផ្តិត", kf2TahaqSapse1i: alHe(0o1750 / 0o170), bazaHaf: alHe(0o6), senfokusa: true });
+const senfokusa = raporti({ ksaka: "ſɟᴜ ſȷᴜɔ˞ ʌ ſɭɜ ʃɔ j͑ʃᴜꞇ", kf2TahaqSapse1i: alHe(0o1750 / 0o170), bazaHaf: alHe(0o6), senfokusa: true });
 certigi( senfokusa.sef4.celaTahaqSapse1i === HE_POR_SEKUNDO / 0o30,
-  "ផ្ទាំងគ្មានផ្ទាំងផ្តិតត្រូវការរយៈពេលវែង" );
+  "ſɟᴜ ſȷᴜɔ˞ ʌ ſɭɜ ʃɔ j͑ʃᴜꞇ ｡ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ j͑ʃƨꞇʞ ʌ ſɭэ }ʃᴜ ɭl̀ᴜ" );
 certigi( senfokusa.sef4.hafParto < senfokusa.s23ohk2sai.hafParto / 0o4,
-  "ផ្ទាំងគ្មានផ្ទាំងផ្តិតមិនបានសន្សំការងារគ្រប់គ្រាន់" );
+  "ſɟᴜ ſȷᴜɔ˞ ʌ ſɭɜ ʃɔ j͑ʃᴜꞇ ｡ ſןɔ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗" );
 
-// ⟨ ស៊ុមវែងមួយតាមស៊ុមខ្លីមួយ មានមធ្យមលើសគោល ទោះស៊ុមវែងមិនជាប់គ្នាក៏ដោយ 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ⟅ ſɭɜ ſɭᴜ , ꞙɭı , 📃 ⟩
 const alterna = kf2Rultemon();
 let alternaTempo = 0;
 for ( let i = 0; i < 0o100; i++ ) {
   alterna.bildigu(alternaTempo);
   alternaTempo += HE_POR_SEKUNDO / ( i % 0o2 === 0 ? 0o36 : 0o74 );
 }
-certigi( alterna.p6zukani < 1, "មធ្យមស៊ុមមិនបានរកការលើសទំហំឆ្លាស់" );
+certigi( alterna.p6zukani < 1, "ſȷƽᴜ ɭʃᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭэ }ʃᴜ ʌ jɟɜ ʌ ſɭᴜ j͑ʃƨɔ ɭl̀ᴜ" );
 
-// ⟨ ការដេករបស់ប្រព័ន្ធមិនត្រូវកាត់គុណភាព 📃 ⟩
+// ⟨ ı],ᴜ ֭ſɭᴜ , j͑ʃᴜ ſɭ,w , ꞙɭɿ , 📃 ⟩
 const interrompo = kf2Rultemon();
 for ( let i = 0; i < 0o200; i++ ) interrompo.bildigu(i * ( HE_POR_SEKUNDO / 0o74 ));
 interrompo.bildigu(0o200000);
-certigi( interrompo.p6zukani === 1, "ការផ្អាកយូរបានកាត់គុណភាពខុស" );
+certigi( interrompo.p6zukani === 1, "j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ j͑ʃƨꞇʞ ɭl̀ᴜ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭw ſᶘɜ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" );
 
-console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ការសាកល្បងគោលនយោបាយទាំងអស់ជោគជ័យ");
+console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭw ſᶘɜ ʌ ſɭɹ ſᶘɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſןɔ");

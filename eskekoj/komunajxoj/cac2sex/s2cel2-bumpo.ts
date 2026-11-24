@@ -1,4 +1,4 @@
-// វាយនភាពចម្លាក់សំបកប៊ឺច
+// j͐ʃƽɜ ʌ ʃᴜ ŋᷠᴜȝ ʌ ſɭɔ ֭ſɭw
 import * as THREE from "three";
 import { k2fKonturanCac2sex, kf2P2t6zoCac2sex, sxovu } from "./helpiloj.js";
 import { s2cel2H, s2cel2W } from "./s2cel2.js";

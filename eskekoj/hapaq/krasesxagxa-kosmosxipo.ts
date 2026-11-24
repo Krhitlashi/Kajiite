@@ -9,16 +9,16 @@ import { sax0baPukazQan2kS2qena } from "../komunajxoj/haqoxa.js";
 import { kf2Cah6k6Pukek } from "../komunajxoj/materialoj.js";
 
 
-// ⟪ រង្វាស់យាន 📏 ⟫
-// ⟨ ស្រទាប់ដូចអគារ 📃 ⟩
-// យានប្រើទទឹង កម្ពស់ស្រទាប់ និងជម្រាលដូចផ្ទះ ដូច្នេះស្រទាប់ និង
-// បង្អួចរបស់វាមានចន្លោះដូចអគារក្នុងទីក្រុង។
+// ⟪ ſɭᴜ ſןᴜ , 📏 ⟫
+// ⟨ ſɭɜ ſɭᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
+// ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
 export const SXIPA_LARGO = 0o10;
 export const SXIPA_TIERO = 0o315/0o100;
 export const SXIPA_NIVELOJ = 0o5;
 
-// ⟨ ទម្រង់ទ្វារពីរ 📃 ⟩
-// ⟨ ហេតុអ្វីមិននាឡិកាខ្សាច់ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
 function rondigitaDupordaQoxa(blokoLargho: number, tw: number, eh: number,
   r: number): THREE.Shape {
   const s = new THREE.Shape();
@@ -64,11 +64,11 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const muraMaterialo = new THREE.MeshStandardMaterial({
     color: 0x184838, roughness: 0o33/0o100, metalness: 0o5/0o100, envMapIntensity: 0o23/0o40,
   });
-  // ⟨ កញ្ចក់ដូចទីក្រុង 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
   const fenestraMaterialo = kf2Cah6k6Pukek();
 
-  // ⟨ ស្រទាប់ដូចអគារ 📃 ⟩
-  // ⟨ ស្រទាប់ក្រោមជារូបឆ្លុះ 📃 ⟩
+// ⟨ ſɭɜ ſɭᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ſɭɜ ſɭᴜ , ꞙɭц , 📃 ⟩
   const hateru = preniTavolajnGeometriojn("spacosxipo", SXIPA_LARGO, SXIPA_LARGO, up, tieroAlto);
   const subajMuroj = hateru.muroj.clone().rotateX(Math.PI);
   const subajJoqaj = hateru.hajoqa.clone().rotateX(Math.PI);
@@ -82,13 +82,13 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const pordaSupraLargho = pordaBlokaLargho * 0o45 / 0o100;
   const pordaAlto = 0o11 / 0o4;
   const pordQoxa = rondigitaDupordaQoxa(pordaBlokaLargho, pordaSupraLargho, pordaAlto, 0o1/0o4);
-  // ⟨ ទ្វារកម្រាស់ដូចអគារ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
   const pordDikeco = 0o7/0o100, pordBevelo = 0o1/0o40;
   const pordDikecoTuta = pordDikeco + pordBevelo * 2;
-  // ⟨ កន្លែងប្លង់ទ្វារនៅ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭэ , 📃 ⟩
   const pordaRadiuso = hw0 - 0o1/0o100;
-  // ⟨ ខ្សែមាសកណ្តាល ៖ តែលើផ្ទៃទ្វារប៉ុណ្ណោះ , មិនព័ទ្ធជុំវិញយានទេ ។ វាខ្ពស់ជាង
-  // គែមស្រទាប់ ដើម្បីឲ្យឃើញច្បាស់លើផ្ទៃទ្វារ , ហើយកាត់ស្លឹកទ្វារជាពីរ ។ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
   const CENTRA_RANDO_ALTO = 0o11/0o100;
   const CENTRA_RANDO_LARGO = 0o233/0o100 + 0o5/0o100;
   const CENTRA_RANDO_DIKECO = 0o12/0o100;
@@ -100,7 +100,7 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
       depth: pordDikeco, bevelEnabled: true, bevelSize: pordBevelo, bevelThickness: pordBevelo,
       bevelSegments: 2, curveSegments: 0o20,
     });
-    // ⟨ មុខ trapeza ទាំងពីរទទួល uv ដាច់ដោយឡែក ដូច្នេះផ្នែកខាងក្រោមមិនបញ្ច្រាសខ្សែកោង 📃 ⟩
+// ⟨ j͐ʃƽɜ , ꞙɭɿ , 📃 ⟩
     sax0baPukazQan2kS2qena(enirejaGeometrio, [
       [ -pordaAlto, pordaSupraLargho ], [ 0, pordaBlokaLargho ],
       [ pordaAlto, pordaSupraLargho ],
@@ -111,7 +111,7 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
       Math.cos(f * Math.PI / 2) * pordaRadiuso);
     group.add(enirejaMreto);
 
-    // ⟨ វណ្ឌវង្កមាស 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭɜ ſɭᴜ , 📃 ⟩
     const joqaKkaxte = kf2JoqanKkaxten(pordQoxa, pordDikeco / 2);
     const ornamo = new THREE.Mesh(new THREE.TubeGeometry(joqaKkaxte, 0o200, pordDikecoTuta / 2, 0o14, true),
       oraMaterialo);
@@ -120,8 +120,8 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
       Math.cos(f * Math.PI / 2) * pordaRadiuso);
     group.add(ornamo);
 
-    // ⟨ ខ្សែកណ្តាល ៖ រត់កាត់ទ្វារនេះ ។ វាលាតហួសគែមទ្វារបន្តិច ហើយចេញហួស
-    // ផ្ទៃទ្វារ ដូច្នេះឃើញច្បាស់ជាខ្សែមួយ ។ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
     const centra = new THREE.Mesh(centraGeometrio, oraMaterialo);
     centra.rotation.y = f * Math.PI / 2;
     centra.position.set(Math.sin(f * Math.PI / 2) * centraRadiuso, 0,
@@ -129,8 +129,8 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
     group.add(centra);
   }
 
-  // ⟨ បង្អួច 📃 ⟩
-  // ⟨ ចន្លោះដូចអគារ 📃 ⟩
+// ⟨ ſɭʃɹ ʃᴜ }ʃw , 📃 ⟩
+// ⟨ j͐ʃƽɜ , 📃 ⟩
   const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
   const facoPlejLarga = hw0 - klino / 2;
   const fenMargxeno = fenestraMargxeno(facoPlejLarga);
@@ -138,7 +138,7 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const fenestrajMretoj: THREE.Mesh[] = [];
   for ( let i = 1; i < up; i++ ) {
     const faco = havem2[i].hw - klino / 2;
-    // ⟨ រង្វង់តូចពេក 📃 ⟩
+// ⟨ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , 📃 ⟩
     const horizontala = faco * 2 - fenMargxeno * 2 >= fenAlto;
     if ( !horizontala && faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
     const hax2pa: { y: number; psaz: boolean }[] = [ { y: havem2[i].y + tieroAlto / 2, psaz: false } ];

@@ -32,4 +32,4 @@ for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
   tempoj.push(performance.now() - t0);
 }
 tempoj.sort(( a, b ) => a - b);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) បង្កើតដី mediano=${tempoj[tempoj.length >> 1].toFixed(1)}ms min=${tempoj[0].toFixed(1)}ms ផលបូក=${kontrolsumo.toFixed(4)}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɟɔȝ mediano=${tempoj[tempoj.length >> 1].toFixed(1)}ms min=${tempoj[0].toFixed(1)}ms kontrolsumo=${kontrolsumo.toFixed(4)}`);

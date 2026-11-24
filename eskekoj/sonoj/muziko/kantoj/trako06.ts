@@ -1,5 +1,5 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ 06 · ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ · 0o440 ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
-// ⟨ មេឡូឌីពី MP3 អៃស៊ីអាគ្រី ៖ អូស្ទីណាតូមប៊ីរ៉ាក្នុងផ្សារ 📃 ⟩
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ɔɩ · ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ · ꞙɭээɔ ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
+// ⟨ ſɭᴜ , j͑ʃп́ꞇ ſɭɔƴ , MP3 , ſɭᴜ ı],ƨɔ ʌ j͑ʃ'ɔ ŋᷠɹ ⟅ ⟩
 
 import type { SonoEvento, Sekcio, SpuroDateno } from "../vokoj/hahunaq.js";
 import { F } from "../vokoj/skaloj.js";
@@ -9,7 +9,7 @@ import { motifo, U1, U2, U0, MIN_BB } from "./komunajxoj.js";
 export function buildTrack6(): SpuroDateno {
   const ev: SonoEvento[] = [];
   const secs: Sekcio[] = [];
-  // ⟨ ចង្វាក់ ៖ បាតក្នុងមួយគុយអេ 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭıɔ ɭʃɜᴜ̩ ɭʃɜƽ ʌ ꞙɭı ⟅ ⟩
   const BPQ = 0o40;
   const e8 = caxomani(BPQ), bar = e8 * 0o14;
   const f0 = F(0o45);
@@ -26,13 +26,13 @@ export function buildTrack6(): SpuroDateno {
     ev.push({ t: t0 + 6 * e8, i: "slenthem", f: F(am ? 0o65 : 0o54), d: e8 * 0o2, v: 0o33/0o40 });
   };
 
-  secs.push({ n: "ផ្សារភ្ញាក់", a: 0, b: 0o2 * bar });
+  secs.push({ n: "ſɭᴜ ı],ƨɔ ʌ j͑ʃ'ɔ ŋᷠɹ , ſɭэ ſɭ,w", a: 0, b: 0o2 * bar });
   ev.push({ t: 0, i: "didj", f: f0, d: 0o2 * bar, v: 0o55/0o100 });
   ev.push({ t: 0, i: "slenthem", f: F(0o61), d: e8 * 0o2, v: 0o33/0o40 });
   for ( let k = 0; k < 0o14; k++ ) ev.push({ t: bar + k * e8, i: "mbira", f: F(MIN_BB[ost[k]] + 0o14), d: e8 * 0o2, v: 0o35/0o100 });
   [ 0, 3, 6, 9 ].forEach(k => ev.push({ t: bar + k * e8, i: "guiro", d: HE / 0o10, v: 0o4/0o10 }));
 
-  secs.push({ n: "ស៊ីគូលើផ្សារ", a: 0o2 * bar, b: 0o12 * bar });
+  secs.push({ n: "ſɭᴜ ſ͕ȷɔ , ſɭᴜ ı],ƨɔ ʌ j͑ʃ'ɔ ŋᷠɹ", a: 0o2 * bar, b: 0o12 * bar });
   ev.push({ t: 0o2 * bar, i: "didj", f: f0, d: 0o10 * bar, v: 0o55/0o100 });
   for ( let b = 0; b < 0o10; b++ ) {
     const t0 = ( 0o2 + b ) * bar, am = b % 0o2 === 1;
@@ -42,7 +42,7 @@ export function buildTrack6(): SpuroDateno {
     if ( b === 0o7 ) ev.push({ t: t0 + 9 * e8, i: "guiro", d: e8 * 0o3/0o2, v: 0o43/0o100, cresc: 1 });
   }
 
-  secs.push({ n: "អូការីណាឆ្លើយ", a: 0o12 * bar, b: 0o22 * bar });
+  secs.push({ n: "ſɭᴜ ſ͕ȷɔ , ſɭᴜ ſןᴜ ʃɜ j͐ʃɔ", a: 0o12 * bar, b: 0o22 * bar });
   ev.push({ t: 0o12 * bar, i: "tjurunga", f: 0o406, d: 0o21 * HE, v: 0o63/0o100 });
   ev.push({ t: 0o12 * bar, i: "didj", f: f0, d: 0o10 * bar, v: 0o63/0o100 });
   for ( let b = 0; b < 0o10; b++ ) {
@@ -53,7 +53,7 @@ export function buildTrack6(): SpuroDateno {
     if ( b % 0o2 === 0 ) ev.push({ t: t0 + 6 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o35/0o40, toot: true });
   }
 
-  secs.push({ n: "ផ្សារពេញ", a: 0o22 * bar, b: 0o26 * bar });
+  secs.push({ n: "ſɭᴜ ı],ƨɔ ʌ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı ʃɜ j͐ʃɔ", a: 0o22 * bar, b: 0o26 * bar });
   ev.push({ t: 0o22 * bar, i: "tjurunga", f: 0o507, d: 0o21 * HE, v: 0o63/0o100 });
   ev.push({ t: 0o22 * bar, i: "didj", f: f0, d: 0o4 * bar, v: 0o63/0o100 });
   for ( let b = 0; b < 0o4; b++ ) {
@@ -64,7 +64,7 @@ export function buildTrack6(): SpuroDateno {
     ev.push({ t: t0 + 3 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o35/0o40, toot: true });
   }
 
-  secs.push({ n: "ផ្សារស្ងាត់", a: 0o26 * bar, b: 0o440 * HE });
+  secs.push({ n: "ſɭᴜ ı],ƨɔ ʌ j͑ʃ'ɔ ŋᷠɹ , j͑ʃɜ ɭʃɹȝ", a: 0o26 * bar, b: 0o440 * HE });
   ev.push({ t: 0o26 * bar, i: "didj", f: f0, d: 0o2 * bar, v: 0o33/0o40 });
   motifo(ev, 0o26 * bar, e8, [ [ 0, 0o101, 2 ], [ 2, 0o104, 1 ], [ 3, 0o101, 2 ] ], "siku", 0o43/0o100);
   ev.push({ t: 0o26 * bar, i: "slenthem", f: F(0o61), d: e8 * 0o2, v: 0o35/0o40 });

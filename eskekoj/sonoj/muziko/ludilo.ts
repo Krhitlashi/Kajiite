@@ -5,7 +5,7 @@ import { instrumento } from "./vokoj/instrumento.js";
 import type { SonoEvento, Sekcio } from "./vokoj/hahunaq.js";
 import { vefalKu1o, ve3aqKu1o } from "../../komunajxoj/agordoj.js";
 
-// ⟪ ស្ថានភាពឧបករណ៍លេង 📃 ⟫
+// ⟪ ſɟᴜᴜ̩ ɭʃɹ ʌ ſᶘᴜ j͐ʃɹ , ſɭᴜ ſןᴜ 📃 ⟫
 
 interface AktivaNoto {
   i: string;
@@ -31,7 +31,7 @@ interface LudiloStato {
   aktivaj: AktivaNoto[];
 }
 
-// ⟨ បទចុងក្រោយដែលបានជ្រើស ៖ ផ្ទុកពីការកំណត់ , កាត់ឱ្យស្ថិតក្នុងជួរបទ 📃 ⟩
+// ⟨ j͑ʃп́ꞇ ſɭɔƴ , j͑ʃ'ɔ ŋᷠɹ ⟅ ſɭᴜ ſןᴜ ʌ j͑ʃ'ɔ ŋᷠɹ , ꞙɭɔ ⟅ ⟩
 const KONSERVITA_TRAKO = vefalKu1o("trako", -0o1);
 const KOMENCA_TRAKO = KONSERVITA_TRAKO >= 0 && KONSERVITA_TRAKO < KANTOJ.length ? KONSERVITA_TRAKO : -0o1;
 
@@ -42,23 +42,23 @@ const L: LudiloStato = {
   aktivaj: [],
 };
 
-// ⟪ តំបន់តន្ត្រី 📃 ⟫
+// ⟪ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭэ ſɭ,w 📃 ⟫
 
 const URBAJ_TRAKOJ = [ 4, 5, 6, 7 ];
 const MONDAJ_TRAKOJ = [ 0, 1, 2, 3 ];
 let enKaxte = false;
-// ⟨ ការបន្តស្វ័យប្រវត្តិ ៖ ហ្គេមបន្តទៅបទបន្ទាប់ , ឧបករណ៍ចាក់អាចបិទបាន 📃 ⟩
+// ⟨ ꞙɭı j͑ʃп́ꞇ ſɭɔƴ , ꞙɭɿ , ſɟᴜᴜ̩ ɭʃɹ ꞙɭɔ ꞙɭı ⟅ ⟩
 let aŭtomata = true;
-// ⟨ ភ្ជាប់ reverb ទៅ master តែម្ដង កុំឱ្យច្រើនដងពេលចាក់បទថ្មី 📃 ⟩
+// ⟨ ᶅſɜ ֭ſɭᴜ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , ꞙɭı , ꞙɭɔ ꞙɭɿ ⟅ ⟩
 let reverbKonektita = false;
 
 function hazardaEl( ca1ara: number[] ): number {
   return ca1ara[Math.floor(Math.random() * ca1ara.length)];
 }
 
-/*រយៈពេលដែលឧបករណ៍នៅតែឮ សម្រាប់បង្ហាញឧបករណ៍កំពុងលេង
-   @param e ( SonoEvento ) - ព្រឹត្តិការណ៍សំឡេង
-@returns វិនាទី ( number ) */
+/* ſɭᴜ ſןᴜ ʌ ſɟᴜᴜ̩ ɭʃɹ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ
+   @param e ( SonoEvento ) - ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ
+@returns ſɭᴜ ſןᴜ ( number ) */
 function notLongo( e: SonoEvento ): number {
   const d = e.dur ?? e.d ?? 0o1;
   switch ( e.i ) {
@@ -74,14 +74,14 @@ function notLongo( e: SonoEvento ): number {
   }
 }
 
-/*ជ្រើសបទបន្ទាប់តាមតំបន់ ៖ ក្នុងក្រុងបទក្រុង , ក្រៅក្រុងបទពិភពលោក
+/* j͑ʃп́ꞇ ſɭɔƴ , ſɭэ ſɭ,w , j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭᴜ , ꞙɭı
 @returns sekva ( number ) */
 function sekvaTrako(): number {
   if ( enKaxte ) return hazardaEl(URBAJ_TRAKOJ);
   return hazardaEl(MONDAJ_TRAKOJ);
 }
 
-// ⟪ ជំនួយឯកជន 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ſɟᴜᴜ̩ ɭʃɹ 📃 ⟫
 
 function makeIR(ctx: AudioContext, dur: number, decay: number): AudioBuffer {
   const rate = ctx.sampleRate;
@@ -167,9 +167,9 @@ function sxargi(i: number) {
   L.secs = T.data.secs;
 }
 
-// ⟪ API សាធារណៈ 📃 ⟫
+// ⟪ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ 📃 ⟫
 
-/** ចាប់ផ្តើមកម្មវិធីចាក់តន្ត្រីដោយ AudioContext រួម និង master gain។ */
+/** j͑ʃᴜ ı],ɔ , j͑ʃп́ꞇ ſɭɔƴ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , ꞙɭı ⟅ */
 export function iniciati(ctx: AudioContext, master: GainNode) {
   L.ctx = ctx;
   L.master = master;
@@ -184,7 +184,7 @@ export function iniciati(ctx: AudioContext, master: GainNode) {
   }
 }
 
-/** ចាប់ផ្តើម ឬបន្តការចាក់។ ការចាប់ផ្តើមដំបូងជ្រើសរើសរឹតចៃដន្យ។ */
+/** j͑ʃᴜ ı],ɔ , j͑ʃп́ꞇ ſɭɔƴ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᶗ‹ɜ ⟅ */
 export function ludi() {
   if ( !L.ctx ) return;
   if ( L.cur < 0 ) sxargi(hazardaTrako());
@@ -202,7 +202,7 @@ export function ludi() {
 
   if ( L.pausedAt != null ) {
     L.startAt = L.ctx.currentTime + 0o1/0o10 - L.pausedAt;
-    // ⟨ រៀបសន្ទស្សន៍ព្រឹត្តិការណ៍ឡើងវិញ ដើម្បីឱ្យអាចលោតទៅមុខឬថយក្រោយបាន 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭı , ꞙɭɿ , ſɭɜ j͐ʃɹ ⟅ ⟩
     L.idx = 0;
     while ( L.idx < L.events!.length && L.events![L.idx].t < L.pausedAt - 0o1/0o100 ) L.idx++;
     L.pausedAt = null;
@@ -216,7 +216,7 @@ export function ludi() {
   tick();
 }
 
-/** ផ្អាកការចាក់។ */
+/** ſɭɜ j͐ʃɹ , j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı ⟅ */
 export function paŭzi() {
   if ( !L.playing || !L.ctx ) return;
   L.pausedAt = Math.min(L.dur, Math.max(0, L.ctx.currentTime - L.startAt));
@@ -225,7 +225,7 @@ export function paŭzi() {
   stopBus();
 }
 
-/** បញ្ឈប់ការចាក់ និងកំណត់ឡើងវិញ។ */
+/** ſɭɜ j͐ʃɹ , j͑ʃп́ꞇ ſɭɔƴ , ſɭᴜ ſןᴜ ⟅ */
 export function halti() {
   if ( L.playing ) {
     if ( L.timer ) clearInterval(L.timer);
@@ -236,12 +236,12 @@ export function halti() {
   L.idx = 0;
 }
 
-/** តើតន្ត្រីកំពុងចាក់ឬទេ។ */
+/** j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ꞙɭı ⟅ */
 export function tsekeLudas(): boolean {
   return L.playing;
 }
 
-/*ឧបករណ៍ដែលកំពុងឮពេលនេះ ។ ប្រើសម្រាប់ប្លែងប៊ូតុងសាកល្បងសំឡេងក្នុង muzikilo 📃 */
+/* ſɟᴜᴜ̩ ɭʃɹ ꞙɭı , j͑ʃᴜ ı],ɔ , ſɭᴜ ſןᴜ , ꞙɭı 📃 */
 export function nunajInstrumentoj(): string[] {
   if ( !L.ctx || !L.playing ) return [];
   const now = L.ctx.currentTime;
@@ -253,27 +253,27 @@ export function nunajInstrumentoj(): string[] {
   return [ ...nunaj ];
 }
 
-/** ផ្ទុកបទជាក់លាក់តាមសន្ទស្សន៍។ */
+/** j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ ⟅ */
 export function sxargiTrako(i: number) {
   if ( i < 0 || i >= KANTOJ.length ) return;
   sxargi(i);
   ve3aqKu1o("trako", i);
 }
 
-/** ទទួលសន្ទស្សន៍បទបច្ចុប្បន្ន។ */
+/** j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅ */
 export function nunaTrako(): number {
   return L.cur;
 }
 
-/** ទទួលពេលកន្លងផ្ទុកនៃបទបច្ចុប្បន្នគិតជាវិនាទី។ ឈប់រាប់ពេលផ្អាក។ */
+/** j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ı],ɔ , ſɭᴜ ſןᴜ , ſɭɜ j͐ʃɹ ⟅ */
 export function progreso(): number {
   if ( !L.ctx ) return 0;
   if ( !L.playing ) return L.pausedAt ?? 0;
   return Math.min(L.dur, Math.max(0, L.ctx.currentTime - L.startAt));
 }
 
-/*លោតទៅពេលជាក់លាក់ក្នុងបទបច្ចុប្បន្ន ។ បើកំពុងចាក់ វាបន្តចាក់ពីទីនោះ បើផ្អាក វាចងចាំទីនោះ
-    @param sek ( number ) - ពេលគិតជាវិនាទី */
+/* j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ı],ɔ , ꞙɭı , ꞙɭɿ ꞙɭı , ꞙɭı
+   @param sek ( number ) - j͑ʃᴜ ı],ɔ ⟅ */
 export function salti( sek: number ): void {
   if ( !L.ctx || L.cur < 0 ) return;
   if ( !L.events ) sxargi(L.cur);
@@ -287,14 +287,14 @@ export function salti( sek: number ): void {
   if ( ludis ) ludi();
 }
 
-/*កំណត់ការបន្តស្វ័យប្រវត្តិ ៖ បើបិទ បទឈប់ពេលចប់ មិនលោតទៅបទបន្ទាប់
-    @param on ( boolean ) - តើត្រូវបន្តស្វ័យប្រវត្តិឬទេ */
+/* j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , ꞙɭɔ , j͑ʃп́ꞇ ſɭɔƴ , ꞙɭɿ , ꞙɭı
+   @param on ( boolean ) - ꞙɭı j͑ʃп́ꞇ ſɭɔƴ ⟅ */
 export function agordiAŭtomatan( on: boolean ): void {
   aŭtomata = on;
 }
 
-/*កំណត់តំបន់តន្ត្រី ៖ ក្នុងក្រុង ឬពិភពលោក ។ ប្តូរបទភ្លាមបើកំពុងចាក់ ហើយបទបច្ចុប្បន្នមិនសមនឹងតំបន់ថ្មី
-    @param kaxte ( boolean ) - តើអ្នកលេងកំពុងនៅក្នុងក្រុងឬទេ */
+/* j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭэ ſɭ,w , ſɭᴜ ı],ƨɔ , ꞙɭı , j͑ʃп́ꞇ ſɭɔƴ ꞙɭɿ
+   @param kaxte ( boolean ) - ſɭᴜ ı],ƨɔ ꞙɭı ⟅ */
 export function agordiMuzikanLokon( kaxte: boolean ) {
   if ( kaxte === enKaxte ) return;
   enKaxte = kaxte;

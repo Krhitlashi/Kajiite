@@ -1,7 +1,7 @@
 // ≺⧼ ſɭэ ֭ſɭэ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſןᴜ ſᶘɹ ʌ j͐ʃэ ɭ(ᴜ 🧪 ⧽≻
-// ⟨ ពីរបញ្ហានៅតំបន់ចំណត ៖ ចានភ្ជាប់តូចជាងផ្លូវ , និងផ្លូវខ្ពស់ខុសគ្នា
-// រវាងខ្សែដេកនិងខ្សែឈរ ។ វាស់នៅទីនេះ , ដើម្បីកុំឱ្យការកែជាការស្មាន ។
-// វាស់តែផ្លូវឆ្លាក់និងចំណត ។ ផ្លូវក្រឡាទីក្រុងនៅឆ្ងាយ , ដូច្នេះមិនរាប់ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭэ ֭ſɭэ , ꞙɭɿ ,
+// ſɭэ ֭ſɭэ , ꞙɭц , 📃 ⟩
 import { aktivajHaqakaj2 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { k6h6KunigaDuono } from "../../eskekoj/medio/voj-reto.js";
@@ -13,18 +13,18 @@ import { kf2Brakojn, kf2PlatajnPoligonojn } from "../../eskekoj/medio/hak6h6/hap
 import { akvaFino, kf2MezuranMondon } from "./komunaj.js";
 import type { K6h6Punkto } from "../../eskekoj/medio/voj-reto/hahunaq.js";
 
-// ⟨ ដូច kaxte.ts ៖ ចុងផ្លូវទាក់ទៅចានភ្ជាប់ , បន្ទាប់មករកចំណុចភ្ជាប់ម្តងទៀត 📃 ⟩
-// ⟨ ប្លុកសាងសង់ពិភពលោកនៅ `komunaj.ts` 📏 ⟩ ៖ ដូច្នេះការវាស់នេះអាន
-// ពិភពលោកដូចឧបករណ៍ឯទៀត ។ ទីក្រុងក្រឡាមិនរាប់ ( ដូចក្នុងឯកសារនេះ ) ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , 📏 ⟩ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 const mondo = kf2MezuranMondon(false);
 const VOJOJ = mondo.hak6h6;
 const DOKOJ = aktivajHaqakaj2();
 const gluitaj = mondo.gluitaj;
 const haveb6kek = mondo.haveb6kek;
 
-// ⟪ ផ្នែកទីមួយ , ទទឹងចានភ្ជាប់ 📏 ⟫
-console.log("<( ទទឹងចានភ្ជាប់ )>");
-// ⟨ ចានភ្ជាប់ប្រើ VOJA_EKSTERA_DUONO ថេរ ។ បើផ្លូវធំជាងនោះ , ចានតូចជាងផ្លូវ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , 📏 ⟫
+console.log("<( j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ſɟɹƽ )>");
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 let mallarĝaj = 0;
 for ( const k of haveb6kek ) {
   let plej = 0, ksaka = "";
@@ -42,17 +42,17 @@ for ( const k of haveb6kek ) {
   }
   if ( plej > VOJA_EKSTERA_DUONO + 0o1/0o100 ) {
     mallarĝaj++;
-    console.log(`  ( ${k.x.toFixed(1)}, ${k.z.toFixed(1)} ) ផ្លូវ ${ksaka}` +
-      ` កន្លះទទឹង ${plej.toFixed(2)} , ចាន ${VOJA_EKSTERA_DUONO.toFixed(2)}` +
-      ` , ខ្វះ ${( plej - VOJA_EKSTERA_DUONO ).toFixed(2)}`);
+    console.log(`  ( ${k.x.toFixed(1)}, ${k.z.toFixed(1)} ) ｡ ſɭэ ֭ſɭэ ${ksaka}` +
+      ` ｡ ſɭɜc̗ ɭʃɜ ʌ j͑ʃɔ ſȷꞇ }ʃꞇ ${plej.toFixed(2)} ｡ ſןᴜ ſᶘɹ ${VOJA_EKSTERA_DUONO.toFixed(2)}` +
+      ` ｡ ſןɔ ${( plej - VOJA_EKSTERA_DUONO ).toFixed(2)}`);
   }
 }
-console.log(`  ចំណុចភ្ជាប់ ${haveb6kek.length} , ចានតូចជាងផ្លូវ ${mallarĝaj}`);
+console.log(`  ſɟɹƽ ${haveb6kek.length} ｡ ſןᴜ ſᶘɹ ŋᷠɹ ŋᷠɹ ʌ ſɭэ ֭ſɭэ ${mallarĝaj}`);
 
-// ⟪ ផ្នែកទីពីរ , មាត់ចាន 📏 ⟫
-// ⟨ ចានធ្វើតាមដៃពិត ។ ដូច្នេះការពិនិត្យគឺ ៖ តើពហុកោណចានគ្របពីរជ្រុងមាត់ដៃនីមួយៗឬទេ ។
-// បើខ្វះ , ផ្លូវនឹងជាប់នឹងគែមចានដែលកាត់ចូល , ហើយលេចរន្ធឬជំហាន ។
-// ការរាប់តាមត្រីមាសចាស់មិនត្រឹមត្រូវទៀតទេ , ព្រោះចានលែងបែងជាការេ ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📏 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
 function enaPoligono( px: number, pz: number, pukaz: readonly [ number, number ][]): boolean {
   let ene = false;
   for ( let i = 0, j = pukaz.length - 1; i < pukaz.length; j = i++ ) {
@@ -62,7 +62,7 @@ function enaPoligono( px: number, pz: number, pukaz: readonly [ number, number ]
   }
   return ene;
 }
-console.log("<( មាត់ចាន )>");
+console.log("<( ᶅſэ ſ͕ɭᴜ ʌ ſןᴜ ſᶘɹ )>");
 let malplenaj = 0;
 for ( const k of haveb6kek ) {
   const knece = kf2Brakojn(k.direktaj, k.fermitaj, k.rotacio);
@@ -73,16 +73,16 @@ for ( const k of haveb6kek ) {
       const pz = b.uz * VOJA_TRUA_DUONO * 0.98 + b.ux * VOJA_EKSTERA_DUONO * 0.9 * f;
       if ( enaPoligono(px, pz, pa12.hateru) || pa12.bandoj.some(r => enaPoligono(px, pz, r)) ) continue;
       malplenaj++;
-      console.log(`  ( ${k.x.toFixed(1)}, ${k.z.toFixed(1)} ) ដៃ ${( b.ang * 180 / Math.PI ).toFixed(0)}°`
-        + ` ជ្រុង ${f} មិនគ្រប , ដៃ ${knece.length}`);
+      console.log(`  ( ${k.x.toFixed(1)}, ${k.z.toFixed(1)} ) ｡ ſɭᴜc̗ ɭʃɜ ${( b.ang * 180 / Math.PI ).toFixed(0)}°`
+        + ` ｡ ſɭᴜc̗ ɭʃɜ ${f} ｡ ſןɔ ｡ ſɭᴜc̗ ɭʃɜ ${knece.length}`);
     }
   }
 }
-console.log(`  មាត់ចានខ្វះ ${malplenaj}`);
+console.log(`  ᶅſэ ſ͕ɭᴜ ʌ ſןᴜ ſᶘɹ ʌ ſןɔ ${malplenaj}`);
 
-// ⟪ ផ្នែកទីបី , កម្ពស់ផ្លូវ 📏 ⟫
-// ⟨ baza = ដីតែម្នាក់ , ruluma = ដីបូកចំណុចភ្ជាប់ ។ ផ្លូវអាន ruluma 📃 ⟩
-console.log("<( កម្ពស់ផ្លូវ )>");
+// ⟪ ſɭэ ֭ſɭэ , ꞙɭц , 📏 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+console.log("<( j͐ʃэ ɭ(ᴜ ʌ ſɭэ ֭ſɭэ )>");
 const baza = kf2BazanK6h6Alton(alteco);
 const k6h6Alteco = mondo.k6h6Alteco;
 let diferencoMaks = 0, diferencoLoko = "";
@@ -109,20 +109,20 @@ for ( let i = 0; i < VOJOJ.length; i++ ) {
   for ( let j = 1; j < difino.hal6da.length; j++ ) {
     const d = Math.abs(difino.hal6da[j] - difino.hal6da[j - 1]);
     if ( d > salto ) { salto = d; saltoLoko = difino.haxekuxa[j].toFixed(1); }
-    // ⟨ ជំហានចុះមួយកម្រិត = មួយជំហាន 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭı , 📃 ⟩
     if ( difino.hal6da[j] < difino.hal6da[j - 1] ) supremaj++;
   }
   if ( maks > diferencoMaks ) { diferencoMaks = maks; diferencoLoko = raqa; }
-  console.log(`  ផ្លូវ ${i} ${VOJOJ[i].ksaka} , តម្រឹមខ្ពស់បំផុត ${maks.toFixed(2)} @${raqa}` +
-    ` , កម្ពស់ខ្ពស់បំផុត ${altoMaks.toFixed(2)} @${altecoMaks}` +
-    ` , ជំហាន ${supremaj} , លោតខ្ពស់បំផុត ${salto.toFixed(2)} @${saltoLoko}`);
+  console.log(`  ſɭэ ֭ſɭэ ${i} ${VOJOJ[i].ksaka} ｡ j͑ʃ'ɔ ŋᷠɹ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${maks.toFixed(2)} @${raqa}` +
+    ` ｡ j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${altoMaks.toFixed(2)} @${altecoMaks}` +
+    ` ｡ ɭʃɜ }ʃᴜ ${supremaj} ｡ j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${salto.toFixed(2)} @${saltoLoko}`);
 }
-console.log(`  តម្រឹមខ្ពស់បំផុត ${diferencoMaks.toFixed(2)} @${diferencoLoko}`);
+console.log(`  j͑ʃ'ɔ ŋᷠɹ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${diferencoMaks.toFixed(2)} @${diferencoLoko}`);
 
-// ⟪ ផ្នែកទីបួន , ជញ្ជាំងក្រោមផ្លូវ 📏 ⟫
-// ⟨ ផ្លូវខ្ពស់លើដីទាប ឬលើទឹក ៖ បាតផ្លូវចុះដល់ដី ។ បើដីជ្រៅ , ជញ្ជាំងខ្ពស់ទទេ 📃 ⟩
-console.log("<( ជញ្ជាំង )>");
-// ⟨ ចំណុចតាមចម្ងាយ s លើបន្ទាត់ផ្លូវ 📃 ⟩
+// ⟪ ſןɔ˞ᴜƴ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📏 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+console.log("<( ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ )>");
+// ⟨ ſɭэ һɔ , ꞙɭɿ , 📃 ⟩
 function raqa( n2k: readonly K6h6Punkto[], s: number ) {
   let kur = 0;
   for ( let k = 0; k < n2k.length - 1; k++ ) {
@@ -137,7 +137,7 @@ function raqa( n2k: readonly K6h6Punkto[], s: number ) {
   return { x: p[0], z: p[1], latX: 0, latZ: 0 };
 }
 let muroMaks = 0, muroLoko = "", muroAkva = false;
-// ⟨ បំបែកជញ្ជាំងជាពីរផ្នែក ៖ ការលើកដី , និងការរអាក់រអួលនៃជំហាន 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 let teroLiftoMaks = 0, teroLiftoLoko = "", ratĉetoMaks = 0, ratĉetoLoko = "";
 for ( let i = 0; i < VOJOJ.length; i++ ) {
   const n2k = gluitaj[i];
@@ -154,34 +154,34 @@ for ( let i = 0; i < VOJOJ.length; i++ ) {
       muroLoko = p.x.toFixed(1) + "," + p.z.toFixed(1);
       muroAkva = Number.isFinite(akvaFino(p.x, p.z));
     }
-    // ⟨ តើកម្ពស់លើសមកពីវាលដី ( រង្វង់ ៤ ឯកតា ) ឬពីជំហានចុះយឺត 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ſןɔ˞ᴜƴ , ꞙɭɔ , 📃 ⟩
     const lifto = baza(p.x, p.z) - fundo;
     const ratĉeto = difino.hal6da[j] - baza(p.x, p.z);
     if ( lifto > teroLiftoMaks ) { teroLiftoMaks = lifto; teroLiftoLoko = p.x.toFixed(1) + "," + p.z.toFixed(1); }
     if ( ratĉeto > ratĉetoMaks ) { ratĉetoMaks = ratĉeto; ratĉetoLoko = p.x.toFixed(1) + "," + p.z.toFixed(1); }
   }
 }
-console.log(`  ការលើកដីខ្ពស់បំផុត ${teroLiftoMaks.toFixed(2)} @${teroLiftoLoko}`);
-console.log(`  ជំហានយឺតខ្ពស់បំផុត ${ratĉetoMaks.toFixed(2)} @${ratĉetoLoko}`);
-console.log(`  ជញ្ជាំងខ្ពស់បំផុត ${muroMaks.toFixed(2)} @${muroLoko}` +
-  ( muroAkva ? " , លើទឹក" : " , លើដីគោក" ));
-// ⟨ នៅកន្លែងជញ្ជាំងខ្ពស់បំផុត ៖ ជម្រាលដីតាមផ្លូវនិងឆ្លងកាត់ 📃 ⟩
+console.log(`  j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ʌ ſɭɜ ſɭ,w ${teroLiftoMaks.toFixed(2)} @${teroLiftoLoko}`);
+console.log(`  ɭʃɜ }ʃᴜ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${ratĉetoMaks.toFixed(2)} @${ratĉetoLoko}`);
+console.log(`  ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${muroMaks.toFixed(2)} @${muroLoko}` +
+  ( muroAkva ? " ｡ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɜ ſɭ,ᴜ" : " ｡ ſɭɜ ſɭ,w ʌ j͑ʃɜ ſɭ,ᴜ" ));
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
 {
   const [ mx, mz ] = muroLoko.split(",").map(Number);
   const tero = alteco(mx, mz);
-  console.log(`  នៅ ${muroLoko} ៖ ដី ${tero.toFixed(2)}` +
-    ` , តាមផ្លូវ +៤ ${alteco(mx + 0o4, mz).toFixed(2)} ${alteco(mx - 0o4, mz).toFixed(2)}` +
-    ` , ឆ្លងកាត់ +៤ ${alteco(mx, mz + 0o4).toFixed(2)} ${alteco(mx, mz - 0o4).toFixed(2)}`);
+  console.log(`  ʌ ${muroLoko} ｡ ſɭɜ ſɭ,w ${tero.toFixed(2)}` +
+    ` ｡ ſɭэ ֭ſɭэ +ꞙɭц ${alteco(mx + 0o4, mz).toFixed(2)} ${alteco(mx - 0o4, mz).toFixed(2)}` +
+    ` ｡ ſɭᴜc̗ ɭʃɜ +ꞙɭц ${alteco(mx, mz + 0o4).toFixed(2)} ${alteco(mx, mz - 0o4).toFixed(2)}`);
 }
 
-// ⟪ ផ្នែកទីប្រាំ , ចំណត 📏 ⟫
-// ⟨ កម្ពស់ចំណតត្រូវគណនាដោយវាលតែមួយនឹងផ្លូវ ។ បើ baza , ចំណតអាចខុសកម្រិត 📃 ⟩
-console.log("<( ចំណត )>");
+// ⟪ ſןɔ˞ᴜƴ , ꞙɭɩ , 📏 ⟫
+// ⟨ ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+console.log("<( ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ )>");
 for ( const d of DOKOJ ) {
   const r = d.rotacio ?? 0;
   const lx = d.x + Math.sin(r) * ( d.profundo / 2 );
   const lz = d.z + Math.cos(r) * ( d.profundo / 2 );
-  console.log(`  ( ${d.x.toFixed(1)}, ${d.z.toFixed(1)} ) មាត់ដី baza ${baza(lx, lz).toFixed(2)}` +
-    ` , តម្រឹម ${k6h6Alteco(lx, lz).toFixed(2)}` +
-    ` , ខុស ${( k6h6Alteco(lx, lz) - baza(lx, lz) ).toFixed(2)}`);
+  console.log(`  ( ${d.x.toFixed(1)}, ${d.z.toFixed(1)} ) ｡ ᶅſэ ſ͕ɭᴜ ʌ ſɭɜ ſɭ,w baza ${baza(lx, lz).toFixed(2)}` +
+    ` ｡ j͑ʃ'ɔ ŋᷠɹ ${k6h6Alteco(lx, lz).toFixed(2)}` +
+    ` ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${( k6h6Alteco(lx, lz) - baza(lx, lz) ).toFixed(2)}`);
 }

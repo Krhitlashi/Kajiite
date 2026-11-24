@@ -21,7 +21,7 @@ import { k6h6DuonLargho as retoK6h6DuonLargho, k6h6KunigaDuono as retoK6h6Kuniga
   qakaj2LandaS2nasce as retoQakaj2LandaS2nasce,
   DOKO_PLATFORMA_SEFINI } from "../../../eskekoj/medio/voj-reto.js";
 
-// ⟪ តំណជាមួយកម្មវិធីកែ 📃 ⟫
+// ⟪ ſɭэ ᶗ‹ , 📃 ⟫
 interface KradaLigo {
   vidCX: () => number;
   vidCZ: () => number;
@@ -39,15 +39,15 @@ let statuso: ( s2banani: string ) => void;
 let markiSxangxitan: () => void;
 let markiDesegnon: () => void;
 
-/* agordiKradaron ។ ការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
-    @param k ( KradaLigo ) - ឯកសារយោងរបស់ឯកសារមេ។ */
+/* ſɭэ ᶗ‹ , ꞙɭı ,
+    @param k ( KradaLigo ) - ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ */
 export function agordiKradaron(k: KradaLigo): void {
   vidCX = k.vidCX; vidCZ = k.vidCZ; vidSkalo = k.vidSkalo;
   momenti = k.momenti; statuso = k.statuso;
   markiSxangxitan = k.markiSxangxitan; markiDesegnon = k.markiDesegnon;
 }
 
-// ⟪ អនុគមន៍កំណត់ 📃 ⟫
+// ⟪ ſɭэ ᶗ‹ , 📃 ⟫
 export function agordiHakaxten(ca1ara: SkulptaKaxte[]) { hakaxte = Array.isArray(ca1ara) ? ca1ara : []; }
 export function agordiElektitanKaxten(i: number) { elektitaKaxte = i; }
 export function agordiElektitanAldonanBlokon(i: number) { elektitaAldonaBloko = i; }
@@ -73,8 +73,8 @@ interface SkulptaDatumoj {
   hak6h6?: SkulptaK6h6[];
   haqakaj2?: SkulptaPlatqoxa[];
 }
-/* agordiDatumojn ។ ការផ្ទុកដំបូងរបស់ទិន្នន័យផែនទី។
-    @param datumoj ( SkulptaDatumoj ) - ទីក្រុង ផ្លូវ និងកំពង់។ */
+/* ſɭэ ᶗ‹ , ꞙɭɿ ,
+    @param datumoj ( SkulptaDatumoj ) - ſɭᴜ ı],ƨɔ ｡ ſɭэ ֭ſɭэ ｡ ſɭᴜ ｡ */
 export function agordiDatumojn(datumoj: SkulptaDatumoj): void {
   hakaxte = ( datumoj.hakaxte ?? [] ).map(u => ( { ...u } ));
   elektitaKaxte = 0;
@@ -93,8 +93,8 @@ export function agordiDatumojn(datumoj: SkulptaDatumoj): void {
   haqakaj2 = datumajHaqakaj2.length
     ? datumajHaqakaj2.map(d => ( { ...d } ))
     : [ { x: -0o60, z: -0o154, profundo: 0o20 }, { x: 0, z: -0o142, profundo: 0o20 }, { x: 0o60, z: -0o130, profundo: 0o20 } ];
-  // ⟨ ទីក្រុងទាំងអស់បង្ហាញពីដំបូង 📃 ⟩ ។ ផ្ទាំង មើលឃើញ 👁️ អាចបិទខ្លះ ,
-  // តែលំនាំដើមគឺឃើញទាំងអស់ ព្រោះទីក្រុងជារចនាសម្ព័ន្ធពិភពលោក ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ , 👁️ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
   agordiMontrendajnHakaxten(hakaxte.map(( _, i ) => i));
 }
 
@@ -135,33 +135,33 @@ export let elektitaQakaj2 = 0;
 let k6h6Ilo: string = "movu";
 type K6h6Celo = { pudal: "punkto"; k6h6: number; n2k: number }
   | { pudal: "qakaj2"; qakaj2: number }
-  // ⟨ ចំណុចកំពូលកំពង់ ( ខាងទឹក ) , អូសវាដើម្បីពង្រីក/បង្រួមកំពង់ ។ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩
   | { pudal: "qakaj2Pinto"; qakaj2: number }
-  // ⟨ ចំណុចចុងកំពង់ខាងដី , អូសវាដើម្បីផ្លាស់ទី/បង្វិលកំពង់ , ហើយវាជាចំណុច
-  // ភ្ជាប់សម្រាប់ផ្លូវ ។ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſɭэ ֭ſɭэ , 📃 ⟩
   | { pudal: "qakaj2Lando"; qakaj2: number }
   | { pudal: "k6h6"; k6h6: number };
 export let k6h6Trenata: K6h6Celo | null = null;
-// ⟨ គោលកំពង់ខាងដី , ជាប់ពេលអូសកំពូល , ដូច្នេះកំពង់រីកចេញទៅទឹក 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
 let qakaj2PintaBazo: { x: number; z: number; ax: number; az: number } | null = null;
-// ⟨ គោលកំពង់ខាងទឹក , ជាប់ពេលអូសចុងខាងដី , ដូច្នេះចុងទឹកមិនផ្លាស់ទី 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭц , 📃 ⟩
 let qakaj2LandaBazo: { x: number; z: number } | null = null;
-// ⟨ ប្រវែងកំពង់តិចបំផុត និងច្រើនបំផុត 📏 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭэ , 📏 ⟩
 export const DOKO_PROFUNDO_MIN = 4;
 export const DOKO_PROFUNDO_MAKS = 0o44;
-/* ចំណុចកំពូលកំពង់ ( ខាងទឹក ) ក្នុងពិភពលោក ។ ខាងដីស្ថិតនៅ + sin/cos
-   ដូច្នេះកំពូលស្ថិតនៅ − sin/cos ។
-    @param d ( SkulptaPlatqoxa ) - ចតុកោណ។
-@returns pinto ( { x , z } ) - ចំណុចកំពូល។ */
+/* ſןɔ˞ᴜƴ , ꞙɭɩ ,
+   ｡ − sin/cos ⟅
+    @param d ( SkulptaPlatqoxa ) - ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ⟅
+@returns pinto ( { x , z } ) - }ʃɹƽ ｡ */
 export function qakaj2Pinto(d: SkulptaPlatqoxa): { x: number; z: number } {
   const rotacio = d.rotacio ?? 0;
   const duon = ( d.profundo || 0o20 ) / 2;
   return { x: d.x - Math.sin(rotacio) * duon, z: d.z - Math.cos(rotacio) * duon };
 }
-/* ចំណុចចុងកំពង់ខាងដី ( ខាងផ្លូវ ) ក្នុងពិភពលោក ។ វាជាចំណុចភ្ជាប់ដែល
-   ផ្លូវអាចឈប់ត្រង់នោះដោយផ្ទាល់ ។
-    @param d ( SkulptaPlatqoxa ) - ចតុកោណ។
-@returns pinto ( { x , z } ) - ចំណុចចុងខាងដី។ */
+/* ſןɔ˞ᴜƴ , ꞙɭꞟ ,
+   ſɭэ ֭ſɭэ ｡ ⟅
+    @param d ( SkulptaPlatqoxa ) - ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ⟅
+@returns pinto ( { x , z } ) - }ʃɹƽ ʌ ſɭэ }ʃᴜ ⟅ */
 export function qakaj2LandaPinto(d: SkulptaPlatqoxa): { x: number; z: number } {
   const rotacio = d.rotacio ?? 0;
   const duon = ( d.profundo || 0o20 ) / 2;
@@ -214,9 +214,9 @@ export function kradoPlano() {
   }
   return kradaPlanoCache;
 }
-// ⟪ ផែនការរបស់ទីក្រុងណាមួយ 📃 ⟫ ។ ទីក្រុងដែលកំពុងកែប្រើ kradoPlano
-// ( ដែលរួមបញ្ចូលផ្លូវកម្រិតពិភពលោក ) , ទីក្រុងផ្សេងទៀតគឺផែនការមូលដ្ឋាន
-// របស់ខ្លួន ។ លទ្ធផលត្រូវបានឃ្លាំងទុក ដើម្បីឱ្យការគូរទីក្រុងច្រើនមិនយឺត ។
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫ , ſɭᴜ ſןᴜ ,
+// ( ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 const kaxtejPlanoj = new Map<number, KradaPlano>();
 export function planoDeKaxte(i: number): KradaPlano | null {
   if ( i === elektitaKaxte ) return kradoPlano();
@@ -231,9 +231,9 @@ export function planoDeKaxte(i: number): KradaPlano | null {
   }
   return plano;
 }
-/* vidotajKradoj ។ បញ្ជីទីក្រុងដែលត្រូវគូរជាមួយ ( ជាមួយផែនការ និង
-   អុហ្វសិតរបស់ពួកវា ) ។ ផ្ទាំង មើលឃើញ 👁️ ជ្រើសពួកវា ។
-    @returns បញ្ជី { vecax2lani, plano, ofsX, ofsZ } ( អារេ )។ */
+/* ſɭᴜ ſןᴜ , ꞙɭц ,
+   ｡ ) ⟅ ſɭꞇ ı],ɹ 👁️ ｡ ⟅
+    @returns }ʃɹƽ { vecax2lani, plano, ofsX, ofsZ } ( ｡ ) ⟅ */
 export function vidotajKradoj() {
   const tseuni: { vecax2lani: number; plano: KradaPlano; ofsX: number; ofsZ: number }[] = [];
   for ( const i of montrendajHakaxte() ) {
@@ -251,9 +251,9 @@ export function gxisdatigiKradon() {
   kradoPlano();
   gxisdatigiKradajnStatistikojn();
   vepaqTom6Kradon3D();
-  // ⟨ ផ្លូវសំណាញ់ក៏ប្រែប្រួលដែរ 📃 ⟩ ។ ផ្លូវរបស់ផែនការ ( និងស្ពរ ) ត្រូវបាន
-  // សាងសង់ក្នុងក្រុមផ្លូវ 3D , ដូច្នេះការផ្លាស់ទំហំ ប្លុក ឬអុហ្វសិតត្រូវ
-  // ធ្វើឱ្យផ្លូវស្រស់ផង ។
+// ⟨ ſɭэ ֭ſɭэ , 📃 ⟩ , ſɭэ ֭ſɭэ ,
+// ſɭэ ֭ſɭэ , ꞙɭı ,
+// ſɭэ ֭ſɭэ , ꞙɭɿ ,
   if ( bildilo3d && !k6h6Trenata ) vepaqTom6Hak6h6n3D();
   markiDesegnon();
 }
@@ -262,10 +262,10 @@ function gxisdatigiKradajnStatistikojn() {
   if ( !el || !kradaPlanoCache ) return;
   const plano = kradaPlanoCache;
   const problemoj = validiKradon(plano).filter(p => !p.kodo.startsWith("simetrio-"));
-  const kozuni = `${plano.haKekkozusai.length} ក្រឡា · ${plano.paqj.length} អគារ · ${plano.hak6h6.length} ផ្លូវ · ${plano.spronoj.length} spronoj`;
+  const kozuni = `${plano.haKekkozusai.length} ſɭɹ ſןᴜ · ${plano.paqj.length} ſɭᴜ ſןɹ · ${plano.hak6h6.length} ſɭэ ֭ſɭэ · ${plano.spronoj.length} spronoj`;
   el.textContent = problemoj.length
-    ? kozuni + ` , ✗ ${problemoj.length} បញ្ហា , ${problemoj.slice(0, 3).map(p => p.kodo).join(", ")}`
-    : kozuni + " , ✓ រចនាសម្ព័ន្ធត្រឹមត្រូវ";
+    ? kozuni + ` , ✗ ${problemoj.length} ſɭᴜ ſɭ,w , ${problemoj.slice(0, 3).map(p => p.kodo).join(", ")}`
+    : kozuni + " , ✓ ſɭᴜ ſןɜ ｡";
 }
 
 export function gxisdatigiKaxteElektilon() {
@@ -279,7 +279,7 @@ export function gxisdatigiKaxteElektilon() {
   kaxteElektilo.value = String(elektitaKaxte);
   kaxteNomoEl.value = hakaxte[elektitaKaxte]?.ksaka ?? "";
   kaxteForigiBtn.disabled = hakaxte.length <= 1;
-  // បញ្ជីទីក្រុងរបស់ផ្ទាំង មើលឃើញ 👁️ តាមដានការបន្ថែម លុប និងឈ្មោះ
+// ſɭᴜ ſןᴜ , ꞙɭц , 👁️ ,
   refresxigiVidon();
 }
 
@@ -303,8 +303,8 @@ export function elektiKaxten(i: number) {
   kaxteNomoEl.value = u.ksaka;
   gxisdatigiKaxteElektilon();
   gxisdatigiAldonaBlokojn();
-  // ទីក្រុងដែលទើបជ្រើសត្រូវបង្ហាញផងដែរ ប៉ុន្តែទីក្រុងដែលបានធីករួច
-  // នៅតែបង្ហាញ ( ដូច្នេះទីក្រុងច្រើនអាចមើលបានក្នុងពេលតែមួយ ) ។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
   sekvuKaxten(elektitaKaxte);
   gxisdatigiKradon();
 }
@@ -330,7 +330,7 @@ export function gxisdatigiAldonaBlokojn() {
   blokoj.forEach(( b, i: number ) => {
     const o = document.createElement("option");
     o.value = String(i);
-    o.textContent = ( b.stacia ? "ស្ថានីយ" : ALDONA_TIPO_NOMOJ[b.hunaq] || b.hunaq ) + ( b.konektita ? " 🛣️" : "" ) + " ( " + b.x + ", " + b.z + " )";
+    o.textContent = ( b.stacia ? "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ" : ALDONA_TIPO_NOMOJ[b.hunaq] || b.hunaq ) + ( b.konektita ? " 🛣️" : "" ) + " ( " + b.x + ", " + b.z + " )";
     aldonaBlokoElektilo.appendChild(o);
   });
   elektitaAldonaBloko = blokoj.length ? Math.max(0, Math.min(blokoj.length - 1, elektitaAldonaBloko)) : -1;
@@ -361,7 +361,7 @@ function skribiAldonanBlokon() {
   b.konektita = aldonaBlokoKonektitaEl.checked;
   markiSxangxitan();
 }
-const ALDONA_TIPO_NOMOJ = { sanktejo: "ទីសក្ការៈ", turo: "ប៉ម", domo: "ផ្ទះ", mangxejo: "អាហារដ្ឋាន", kasafeo: "ហាងកាហ្វេ", stacio: "ស្ថានីយ" };
+const ALDONA_TIPO_NOMOJ = { sanktejo: "ſɭᴜ ſɭ,ɔ ŋᷠɹ ɽ͑ʃ'ꞇɔ˞", turo: "ſɭᴜ ᶅſw ſɭɹ", domo: "ſɭᴜ ſןɹ", mangxejo: "ſɭᴜ ɭʃɜ ʌ ſɭᴜ ɭʃɜ", kasafeo: "ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɹ ɭʃɜ", stacio: "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ" };
 
 export function aldonaBlokoCxePunkto(mx: number, mz: number) {
   const u = hakaxte[elektitaKaxte];
@@ -383,7 +383,7 @@ export function komenciAldonaTrenon(i: number) {
   momenti();
   aldonaTrenata = i;
   markiSxangxitan();
-  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+  statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
   markiDesegnon();
 }
 export function sxangiAldonaXekuxan(mx: number, mz: number) {
@@ -414,7 +414,7 @@ export function gxisdatigiK6h6jnHakaman() {
   hak6h6.forEach(( v, i ) => {
     const o = document.createElement("option");
     o.value = String(i);
-    o.textContent = ( v.ksaka || "ផ្លូវ" ) + " ( " + v.n2k.length + " pkt )";
+    o.textContent = ( v.ksaka || "ſɭэ ֭ſɭэ" ) + " ( " + v.n2k.length + " pkt )";
     k6h6Elektilo.appendChild(o);
   });
   elektitaK6h6 = Math.max(0, Math.min(hak6h6.length - 1, elektitaK6h6));
@@ -428,7 +428,7 @@ export function gxisdatigiK6h6jnHakaman() {
     v.n2k.forEach(( p, j: number ) => {
       const o = document.createElement("option");
       o.value = String(j);
-      o.textContent = "ចំណុច " + ( j + 1 ) + " ( " + p[0] + ", " + p[1] + " )";
+      o.textContent = "}ʃɹƽ " + ( j + 1 ) + " ( " + p[0] + ", " + p[1] + " )";
       k6h6PunktoElektilo.appendChild(o);
     });
     elektitaPunkto = Math.max(0, Math.min(v.n2k.length - 1, elektitaPunkto));
@@ -449,7 +449,7 @@ export function gxisdatigiK6h6jnHakaman() {
   haqakaj2.forEach(( d, i ) => {
     const o = document.createElement("option");
     o.value = String(i);
-    o.textContent = "ចតុកោណ " + ( i + 1 ) + " ( " + d.x + ", " + d.z + " )";
+    o.textContent = "ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ " + ( i + 1 ) + " ( " + d.x + ", " + d.z + " )";
     qakaj2Elektilo.appendChild(o);
   });
   elektitaQakaj2 = Math.max(0, Math.min(haqakaj2.length - 1, elektitaQakaj2));
@@ -487,7 +487,7 @@ function skribiK6h6Sekure() {
   }
   if ( k6h6Vakox2q(v, elektitaK6h6) && !kunfandisNe3ak2 ) {
     hak6h6[elektitaK6h6] = kopio;
-    statuso("ផ្លូវកែត្រូវបានបដិសេធព្រោះត្រួតគ្នា 🛑");
+    statuso("ſɭэ ֭ſɭэ ｡ ſɭɜ j͐ʃɹ ｡ 🛑");
   }
   markiSxangxitan();
   gxisdatigiK6h6jnHakaman();
@@ -499,9 +499,9 @@ function skribiQakaj2Sekure() {
   if ( !d ) return;
   const kopio = { ...d };
   const kunfandisNe3ak2 = qakaj2Vakox2q(d, elektitaQakaj2);
-  // ការកែរង្វិលដោយដៃ ( វាល រង្វិល ) ស្តាប់តាមអ្វីដែលបានវាយ ។ បើ
-  // រង្វិលមិនបានផ្លាស់ប្តូរ ( កែ x, z ឬ ជម្រៅ ) កំពង់ងាកទៅរកទឹក
-  // ដោយស្វ័យប្រវត្តី ( ឬតភ្ជាប់ទៅផ្លូវជិត ) ។
+// ſןɔ˞ᴜƴ , ꞙɭꞟ ,
+// ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭɿ ,
   const antaupaRot = d.rotacio ?? 0;
   const sef4Rot = parseFloat(qakaj2RotacioEl.value) || 0;
   const rotacioMano = Math.abs(sef4Rot - antaupaRot) > 0o10 ** -0o12;
@@ -512,7 +512,7 @@ function skribiQakaj2Sekure() {
   else orientiQakaj2n(d, elektitaQakaj2);
   if ( qakaj2Vakox2q(d, elektitaQakaj2) && !kunfandisNe3ak2 ) {
     haqakaj2[elektitaQakaj2] = kopio;
-    statuso("ចតុកោណកែត្រូវបានបដិសេធព្រោះត្រួតគ្នា 🛑");
+    statuso("ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ ſɭэ ֭ſɭэ ｡ 🛑");
   }
   markiSxangxitan();
   gxisdatigiK6h6jnHakaman();
@@ -528,11 +528,11 @@ function gxisdatigiK6h6Statistikojn() {
     return a + Math.hypot(p[0] - q[0], p[1] - q[1]);
   }, 0), 0);
   const kunfandajxoj = k6h6jKunfandajxoj();
-  el.textContent = hak6h6.length + " ផ្លូវ ( " + sahakani.toFixed(1) + " un ) · "
-    + haqakaj2.length + " ចតុកោណ · " + k6h6Haveb6kek() + " ការភ្ជាប់ 🔗 · "
-    + ( kunfandajxoj.totalo ? kunfandajxoj.totalo + " ការត្រួតគ្នា ( "
-      + kunfandajxoj.k6h6K6h6 + " ផ្លូវ-ផ្លូវ , " + kunfandajxoj.k6h6Qakaj2
-      + " ផ្លូវ-ចតុកោណ , " + kunfandajxoj.qakaj2Qakaj2 + " ចតុកោណ-ចតុកោណ ) ⚠️" : "0 ការត្រួតគ្នា ✓" );
+  el.textContent = hak6h6.length + " ſɭэ ֭ſɭэ ( " + sahakani.toFixed(1) + " un ) · "
+    + haqakaj2.length + " ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ · " + k6h6Haveb6kek() + " ſɟɹƽ 🔗 · "
+    + ( kunfandajxoj.totalo ? kunfandajxoj.totalo + " ſɭɜ j͐ʃɹ ( "
+      + kunfandajxoj.k6h6K6h6 + " ſɭэ ֭ſɭэ ŋᷠɹ , " + kunfandajxoj.k6h6Qakaj2
+      + " ſɭэ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ , " + kunfandajxoj.qakaj2Qakaj2 + " ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ŋᷠɹ ) ⚠️" : "0 ſɭɜ j͐ʃɹ ✓" );
 }
 
 function k6h6Haveb6kek() {
@@ -595,11 +595,11 @@ function konektiHaqakaj2nAlHak6h6n() {
   return haveb6kek;
 }
 
-// ⟨ កំពង់ងាកទៅរកទឹក 📃 ⟩
-// កំពង់ងាកខ្លួនឯងទៅរកទឹកដោយស្វ័យប្រវត្តី ។ រង្វង់ទិស ៣០ និងបីរយាង
-// ក្នុងទិសនីមួយៗ ផ្ទៀងផ្ទាត់ថាខាងសមុទ្រ ( ទិសផ្ទុយនឹងទិសដី ) ជាទឹក
-// ហើយខាងដីនៅពីក្រោយស្ងួត ។ ពិន្ទុច្រើនឈ្នះ ហើយពិន្ទុស្មើគ្នាទុក
-// ទិសបច្ចុប្បន្ន ដូច្នេះកំពង់មិនញ័រ ។
+// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩
+// ſןɔ˞ᴜƴ , ꞙɭц ,
+// ſןɔ˞ᴜƴ , ꞙɭэ ,
+// ſןɔ˞ᴜƴ , ꞙɭɩ ,
+// ſןɔ˞ᴜƴ , ꞙɭꞟ ,
 const DOKO_AKVA_PASOJ = 0o40;
 const DOKO_AKVA_MULTOJ = [ 0o1/0o2, 1, 0o7/0o4, 3, 0o5 ];
 const DOKO_AKVA_FLANKOJ = [ -0o3/0o5, 0, 0o3/0o5 ];
@@ -614,7 +614,7 @@ function akvaAngulo(d: SkulptaPlatqoxa): number | null {
   let plejAngulo = nuna, plejPoento = -Infinity;
   for ( let i = 0; i < DOKO_AKVA_PASOJ; i++ ) {
     const ang = i * 2 * Math.PI / DOKO_AKVA_PASOJ;
-    const sx = -Math.sin(ang), sz = -Math.cos(ang);   // ទិសទៅសមុទ្រ
+    const sx = -Math.sin(ang), sz = -Math.cos(ang);   // ſᶘᴜ j͑ʃᴜ
     let poento = 0;
     for ( const mult of DOKO_AKVA_MULTOJ ) {
       const r = duon * mult;
@@ -632,12 +632,12 @@ function akvaAngulo(d: SkulptaPlatqoxa): number | null {
   }
   return plejPoento > 0 ? plejAngulo : null;
 }
-/* orientiQakaj2n ។ ងាកកំពង់ឱ្យងាកទៅរកទឹក ។ បើមានផ្លូវជិត វាតភ្ជាប់ខ្លួន
-   ទៅផ្លូវ ( ជម្រើសណាមួយនៃសស្រាដែលងាកទៅទឹក ) ដូច្នេះការតភ្ជាប់
-   ផ្លូវនៅតែរក្សាទុក ។ បើគ្មានផ្លូវ វាងាកតាមទិសទឹក ។
-    @param d ( SkulptaPlatqoxa ) - ចតុកោណ។
-    @param kromQakaj2 ( number = -1 ) - ចតុកោណដែលមិនគិត។
-@returns តើការងាកត្រូវបានផ្លាស់ប្តូរ ( boolean )។ */
+/* ſןɔ˞ᴜƴ , ꞙɭı ,
+   ſɭэ ֭ſɭэ ( ｡ ſᶘꞇ ɭl̀ɔ ) ｡
+   ſɭэ ֭ſɭэ ｡ ⟅ ſɭэ ֭ſɭэ ｡ ſᶘᴜ j͑ʃᴜ ⟅
+    @param d ( SkulptaPlatqoxa ) - ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ⟅
+    @param kromQakaj2 ( number = -ı ) - ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſɟᴜ ｡
+@returns ｡ ſɭᶘ ᶗ‹ ( boolean ) ⟅ */
 export function orientiQakaj2n(d: SkulptaPlatqoxa, kromQakaj2 = -1): boolean {
   const antaupa = d.rotacio ?? 0;
   if ( konektiQakaj2nAlK6h6(d, kromQakaj2) ) return ( d.rotacio ?? 0 ) !== antaupa;
@@ -665,12 +665,12 @@ export function kaxteCxePunkto(mx: number, mz: number) {
   return -1;
 }
 
-/* តំបន់ប៉ះក្នុងឯកតាពិភពលោកសម្រាប់ចំណុចប៉ះជាភីកសែលអេក្រង់ CSS ។
-   ផ្ទាំងគំនូស 900px អាចត្រូវបានបង្ហាញតូចជាង ដូច្នេះ 8px អេក្រង់
-   គឺជាចំនួនភីកសែលឧបករណ៍តិចតួច ( មុនទំព័រនេះប្រើភីកសែល
-   ខ្នាតផ្ទាំងគំនូស ដូច្នេះការចុចចំណុចពិបាកណាស់ក្នុងបង្អួចតូច )។
-    @param r ( number ) - ផ្ទៃប៉ះជាភីកសែលអេក្រង់។
-@returns កាំជាឯកតាពិភពលោក ( number )។ */
+/* ſɭɜ ſɭ,w , ꞙɭɿ ,
+   ſɭɹ ſןᴜ 900px ｡ ſɭɹ ſןᴜ 8px ſɭɹ ſןᴜ
+   ſɭɹ ſןᴜ ʌ ſɭᴜ ( ſɟᴜ ｡
+   ſɭɹ ſןᴜ ｡ ) ⟅
+    @param r ( number ) - ſɭɹ ſןᴜ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ⟅
+@returns ſɭᴜ ſɭˬꞇƽ ʌ }ʃᴜ j͐ʃᴜ ( number ) ⟅ */
 function tuxaMondo(r: number): number {
   const rekt = mapo.getBoundingClientRect();
   const larghxo = rekt.width || mapo.width;
@@ -690,8 +690,8 @@ function k6h6CeloCxePunkto(mx: number, mz: number, ignoriPunktojn = false): K6h6
     }
     if ( plej ) return plej;
   }
-  // ⟨ ចំណុចចុងកំពង់ទាំងពីរ 📃 ⟩ , ខាងទឹក ( អូស = ពង្រីក ) និងខាងដី
-  // ( អូស = ផ្លាស់ទី/បង្វិល , ហើយជាចំណុចភ្ជាប់ផ្លូវ ) ។ ជ្រើសចំណុចជិតបំផុត ។
+// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩ , ſןɔ˞ᴜƴ ,
+// ſןɔ˞ᴜƴ , ſɭэ ֭ſɭэ ,
   let plejQakaj2: { pudal: "qakaj2Pinto" | "qakaj2Lando"; qakaj2: number } | null = null;
   let plejQakaj2D = r;
   for ( let di = 0; di < haqakaj2.length; di++ ) {
@@ -725,17 +725,17 @@ function k6h6CeloCxePunkto(mx: number, mz: number, ignoriPunktojn = false): K6h6
 }
 
 export function sxangxiK6h6nCelon(mx: number, mz: number) {
-  // ឧបករណ៍បន្ថែម មិនគិតពីចំណុចដែលមានរួចទេ ដូច្នេះការចុចលើផ្លូវ
-  // ដាក់ចំណុចថ្មី ( ចំណុចទ្វេត្រូវលុបចេញដោយស្វ័យប្រវត្តី ) ។
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
   const proks = k6h6CeloCxePunkto(mx, mz, k6h6Ilo === "aldoni");
   if ( k6h6Ilo === "forigi" ) {
     if ( proks && proks.pudal === "punkto" ) { forigiK6h6nPunkton(proks.k6h6, proks.n2k); return; }
-    statuso("ចុចលើចំណុចផ្លូវដើម្បីលុបវា 📍 ( ផ្លូវមួយត្រូវការចំណុចយ៉ាងតិចពីរ )");
+    statuso("}ʃɹƽ ʌ ſɭэ ֭ſɭэ ｡ 📍 ( ſɭэ ֭ſɭэ ｡ ſɭɜ )");
     return;
   }
   if ( k6h6Ilo === "aldoni" ) {
-    // បន្ថែមចំណុចនៅទីដែលចុច ។ ចុចលើផ្លូវ = បន្ថែមក្នុងផ្លូវនោះ ។ ចុច
-    // កន្លែងទំនេរ = បន្ថែមក្នុងផ្លូវដែលបានជ្រើស ។
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
     const vi = proks && proks.pudal === "k6h6" ? proks.k6h6 : elektitaK6h6;
     aldoniK6h6nPunkton(vi, mx, mz);
     return;
@@ -768,7 +768,7 @@ function komenciK6h6Trenon(celo: K6h6Celo): void {
   if ( celo.pudal === "qakaj2Pinto" ) {
     const d = haqakaj2[celo.qakaj2];
     if ( !d ) return;
-    // ⟨ គោលដី = ចំណុចកណ្តាល + ប្រវែង/២ ទៅខាងដី ; អ័ក្ស A ទៅខាងទឹក 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭı , 📃 ⟩
     const rotacio = d.rotacio ?? 0;
     const duon = ( d.profundo || 0o20 ) / 2;
     const sx = Math.sin(rotacio), cz = Math.cos(rotacio);
@@ -776,19 +776,19 @@ function komenciK6h6Trenon(celo: K6h6Celo): void {
   } else if ( celo.pudal === "qakaj2Lando" ) {
     const d = haqakaj2[celo.qakaj2];
     if ( !d ) return;
-    // ⟨ គោលទឹក , ចំណុចចុងខាងទឹកនៅស្ថិត , ចុងខាងដីដើរតាមទ្រនិច 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
     const pinto = qakaj2Pinto(d);
     qakaj2LandaBazo = { x: pinto.x, z: pinto.z };
   }
   k6h6Trenata = celo;
   markiSxangxitan();
-  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+  statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
   markiDesegnon();
 }
 
 function kradaK6h6Alglu(mx: number, mz: number) {
-  // ⟨ ចំណុចប្រសព្វសំណាញ់ 🎯 ⟩ , ការភ្ជាប់ផ្លូវទៅផ្លូវសំណាញ់ត្រូវទៅចំចំណុចប្រសព្វ
-  // ( មិនមែនកណ្តាលចម្រៀក ) ដូច្នេះចានភ្ជាប់និងជ្រុងផ្លូវលេចឡើង ។
+// ⟨ ſɭᴜ ſןᴜ , 🎯 ⟩ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
   const pinto = plejProksimaPinto(kradajPintoj(), mx, mz);
   if (pinto) return [ pinto[0], pinto[1] ];
   const plano = kradoPlano();
@@ -836,18 +836,18 @@ function kradaS2nasceAlglu(ax: number, az: number, bx: number, bz: number) {
   }
   return null;
 }
-// ⟪ ការបិទភ្ជាប់ចំណុច 🎯 ⟫
-// ⟨ ចំណុចភ្ជាប់ , មិនមែនគែមផ្លូវ 📃 ⟩ គឺផ្លូវពីរភ្ជាប់គ្នាបានល្អតែពេលចុងជួប
-// ចំណុចតែមួយ , ចំណុចប្រសព្វសំណាញ់ទីក្រុង , កំពូលផ្លូវ , ឬមាត់កំពង់ ។
-// ការបិទភ្ជាប់ទៅគែមផ្លូវបង្កើតចុងកណ្តាលផ្លូវ ដែលមើលទៅដូចផ្លូវកាត់ ។
+// ⟪ ſɭᴜ ſןᴜ , 🎯 ⟫
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭэ ֭ſɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭэ ֭ſɭэ , ꞙɭɿ ,
 const VOJA_PINTA_RANDO = 0o5/0o2;
-// ⟨ ការឃ្លាំងទុក , ចំណុចសំណាញ់គឺថេរតាមផែនការ 📃 ⟩ ។ ការគណនាដំបូងគឺ
-// O ( ns × ew ) , ដូច្នេះវាត្រូវធ្វើតែម្តងក្នុងមួយផែនការ ( ការអូសហៅវារាល់
-// ចលនាកណ្ដុរ ) ។ ផែនការថ្មី = វត្ថុថ្មី , ដូច្នេះ WeakMap គឺជាការឃ្លាំងត្រឹមត្រូវ ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 const kradajPintajKasxoj = new WeakMap<KradaPlano, K6h6Punkto[]>();
-/* ចំណុចភ្ជាប់របស់ផែនការមួយ , ធៀបនឹងចំណុចកណ្តាលសំណាញ់
-@param plano ( KradaPlano ) - ផែនការ
-@returns n2k ( [ number , number ] [ ] ) - ចំណុចមូលដ្ឋាន */
+/* ſɭᴜ ſןᴜ , ꞙɭц ,
+@param plano ( KradaPlano ) - ſɭэ ſɭᴜ ɭl̀ɹ
+@returns n2k ( [ number , number ] [ ] ) - }ʃɹƽ ｡ */
 function kradajRelativajPintoj(plano: KradaPlano): K6h6Punkto[] {
   const kasxita = kradajPintajKasxoj.get(plano);
   if (kasxita) return kasxita;
@@ -873,8 +873,8 @@ function kradajRelativajPintoj(plano: KradaPlano): K6h6Punkto[] {
   kradajPintajKasxoj.set(plano, tseuni);
   return tseuni;
 }
-/* ចំណុចភ្ជាប់របស់ផ្លូវសំណាញ់ ( ចុងចម្រៀក , ចំណុចប្រសព្វ , និងចុងស្ពន )
-@returns n2k ( [ number , number ] [ ] ) - ចំណុចក្នុងពិភពលោក */
+/* ſɭэ ֭ſɭэ , ꞙɭэ ,
+@returns n2k ( [ number , number ] [ ] ) - }ʃɹƽ ʌ }ʃᴜ j͐ʃᴜ */
 function kradajPintoj(): K6h6Punkto[] {
   const n2k: K6h6Punkto[] = [];
   const viditaj = new Set<string>();
@@ -888,9 +888,9 @@ function kradajPintoj(): K6h6Punkto[] {
   }
   return n2k;
 }
-/* គ្រប់ចំណុចដែលផ្លូវអាចបិទភ្ជាប់ （ កំពូលផ្លូវផ្សេង , មាត់កំពង់ , ចំណុចសំណាញ់ ）
-@param kromK6h6 ( number = -1 ) - ផ្លូវដែលមិនគិត（ ខ្លួនវា ）
-@returns n2k ( [ number , number ] [ ] ) - ចំណុចក្នុងពិភពលោក */
+/* ſɭэ ֭ſɭэ , ꞙɭɩ ,
+@param kromK6h6 ( number = -ı ) - ſɭэ ֭ſɭэ ʌ ſɟᴜ （ ｡ ）
+@returns n2k ( [ number , number ] [ ] ) - }ʃɹƽ ʌ }ʃᴜ j͐ʃᴜ */
 function pintajAlgluoj(kromK6h6 = -1): K6h6Punkto[] {
   const n2k = kradajPintoj();
   const viditaj = new Set<string>(n2k.map(p => p[0] + "," + p[1]));
@@ -910,10 +910,10 @@ function pintajAlgluoj(kromK6h6 = -1): K6h6Punkto[] {
   }
   return n2k;
 }
-/* ចំណុចភ្ជាប់ជិតបំផុតក្នុងរង្វង់បិទភ្ជាប់
-@param n2k ( [ number , number ] [ ] ) - បញ្ជីចំណុច
-@param mx, mz ( number ) - ទ្រនិច
-@returns n2k ( [ number , number ] | null ) - ចំណុចឬ null */
+/* ſɭэ ֭ſɭэ , ꞙɭꞟ ,
+@param n2k ( [ number , number ] [ ] ) - }ʃɹƽ ɭʃᴜ
+@param mx, mz ( number ) - }ʃɹƽ
+@returns n2k ( [ number , number ] | null ) - }ʃɹƽ ｡ null */
 function plejProksimaPinto(n2k: K6h6Punkto[], mx: number, mz: number): K6h6Punkto | null {
   let plej: K6h6Punkto | null = null, plejD = VOJA_PINTA_RANDO;
   for (const p of n2k) {
@@ -923,11 +923,11 @@ function plejProksimaPinto(n2k: K6h6Punkto[], mx: number, mz: number): K6h6Punkt
   return plej;
 }
 
-// ⟨ ការតភ្ជាប់ស្វ័យប្រវត្តិនៃផ្លូវ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , 📃 ⟩
 const VOJA_ALGLUA_RANDO = 0o5/0o2;
 function k6h6Algluo(mx: number, mz: number, kromK6h6: number, najbaro: K6h6Punkto | null = null) {
-  // ⟨ ចំណុចភ្ជាប់ឈ្នះមុន 📃 ⟩ , បើចុងផ្លូវនៅជិតកំពូលផ្លូវផ្សេង , មាត់កំពង់ ,
-  // ឬចំណុចប្រសព្វសំណាញ់ ចុងនោះត្រូវទៅចំចំណុចនោះ ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭэ ֭ſɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
   const pinto = plejProksimaPinto(pintajAlgluoj(kromK6h6), mx, mz);
   if (pinto) return [ pinto[0], pinto[1] ];
   let plej = null, plejD = Infinity;
@@ -942,9 +942,9 @@ function k6h6Algluo(mx: number, mz: number, kromK6h6: number, najbaro: K6h6Punkt
       if ( !projekcio || projekcio.d > pukaz ) continue;
       const dx = b[0] - a[0], dz = b[1] - a[1], sahakani = Math.hypot(dx, dz);
       const nx = -dz / sahakani, nz = dx / sahakani;
-      // ⟨ ចុងជួបចុង 📃 ⟩ ។ បើចំណុចធ្លាក់នៅជិតចុងផ្លូវផ្សេង ( ជ្រុង ឬផ្លូវ
-      // បន្តគ្នា ) តភ្ជាប់នៅចុងនោះផ្ទាល់ ជំនួសឱ្យបញ្ជូលទៅគែមដែល
-      // ធ្វើឱ្យចុងផ្លូវលោតថ្លេងកណ្តាលទទឹងផ្លូវ ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭэ ֭ſɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭэ ֭ſɭэ , ꞙɭц ,
       if ( sahakani > 0 ) {
         const finoA = projekcio.t * sahakani <= VOJA_ALGLUA_RANDO;
         const finoB = ( 1 - projekcio.t ) * sahakani <= VOJA_ALGLUA_RANDO;
@@ -1026,13 +1026,13 @@ export function sxangiK6h6Xekuxan(mx: number, mz: number) {
     const kradaAlgluo = kradaK6h6Alglu(mx, mz);
     const najbaro = pi > 0 ? v.n2k[pi - 1] : v.n2k[1];
     const k6h6 = k6h6Algluo(mx, mz, c.k6h6, najbaro);
-    // ⟨ បិទភ្ជាប់ណាជិតជាងគេ 📃 ⟩ ក្រឡាទីក្រុង ឬចុង/គែមផ្លូវផ្សេង ។
-    // មុនក្រឡាតែងឈ្នះ ដែលធ្វើឱ្យចំណុចលោតចេញពីផ្លូវដែលកំពុងតភ្ជាប់
-    // ពេលមានទាំងពីរនៅជិតគ្នា ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
     const dKrada = kradaAlgluo ? Math.hypot(kradaAlgluo[0] - mx, kradaAlgluo[1] - mz) : Infinity;
     const dK6h6 = k6h6 ? Math.hypot(k6h6[0] - mx, k6h6[1] - mz) : Infinity;
-    // ⟨ ចំណុចភ្ជាប់ឈ្នះមុន 📃 ⟩ , ការភ្ជាប់ផ្លូវទៅផ្លូវត្រូវនៅចំចំណុចតែមួយ ។
-    // បើខ្សែសំណាញ់ឈ្នះ , ចំណុចលោតចេញពីចំណុចភ្ជាប់ ហើយការភ្ជាប់បាក់ ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭэ ֭ſɭэ ,
+// ſɭэ ֭ſɭэ , ꞙɭц ,
     const pinto = plejProksimaPinto(pintajAlgluoj(c.k6h6), mx, mz);
     let gx, gz;
     if ( pinto ) { gx = pinto[0]; gz = pinto[1]; }
@@ -1048,7 +1048,7 @@ export function sxangiK6h6Xekuxan(mx: number, mz: number) {
       if ( s.linioX !== null ) { n[0] = s.linioX; linioX = s.linioX; }
       else { n[1] = s.linioZ; linioZ = s.linioZ; }
     }
-    // ⟨ ចំណុចដែលបានបិទភ្ជាប់មិនត្រូវរំកិលទេ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩
     if ( !pinto ) {
       if ( linioX !== null ) gx = linioX;
       if ( linioZ !== null ) gz = linioZ;
@@ -1056,7 +1056,7 @@ export function sxangiK6h6Xekuxan(mx: number, mz: number) {
     v.n2k[pi] = [ gx, gz ];
     if ( k6h6Vakox2q(v, c.k6h6) ) {
       for ( const [ ni, p ] of s23ohk2saij ) v.n2k[ni] = p;
-      statuso("ផ្លូវនោះនឹងត្រួតគ្នានឹងខ្លួនឯង ឬចតុកោណ 🛑");
+      statuso("ſɭэ ֭ſɭэ ｡ ſɭɜ j͐ʃɹ ｡ 🛑");
       return;
     }
     elektitaPunkto = pi;
@@ -1066,12 +1066,12 @@ export function sxangiK6h6Xekuxan(mx: number, mz: number) {
     const antaupa = { ...d };
     d.x = Math.round(mx * 2) / 2;
     d.z = Math.round(mz * 2) / 2;
-    // អូសកំពង់ , តភ្ជាប់ទៅផ្លូវជិត ( ជម្រើសដែលងាកទៅទឹក ) ឬបើគ្មាន
-    // ផ្លូវ ងាកទៅរកទឹកដោយស្វ័យប្រវត្តី ។
+// ſןɔ˞ᴜƴ , ſɭэ ֭ſɭэ ,
+// ſןɔ˞ᴜƴ , ꞙɭı ,
     orientiQakaj2n(d, c.qakaj2);
     if ( qakaj2Vakox2q(d, c.qakaj2) ) {
       Object.assign(d, antaupa);
-      statuso("ចតុកោណនោះនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
+      statuso("ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ ſɭэ ֭ſɭэ ｡ 🛑");
       return;
     }
     elektitaQakaj2 = c.qakaj2;
@@ -1079,10 +1079,10 @@ export function sxangiK6h6Xekuxan(mx: number, mz: number) {
     const d = haqakaj2[c.qakaj2];
     if ( !d || !qakaj2PintaBazo ) return;
     const antaupa = { ...d };
-    // ⟨ កំពូលអូស , ចំណុចដីនៅស្ថិត , កំពូលដើរតាមទ្រនិច , ប្រវែងកំពង់
-    // = ចម្ងាយតាមអ័ក្សពីគោលដី ។ ដូច្នេះកំពង់ពង្រីក/បង្រួម ហើយ
-    // ចំណុចទឹកផ្លាស់ទីផងដែរ , ដោយមិនលើកចំណុចដីចេញពីច្រាំង ។
-    // បង្គត់ទៅ ០.៥ ដូចការអូសដទៃ ។ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭɿ ,
+// ſןɔ˞ᴜƴ , ꞙɭц ,
+// ſןɔ˞ᴜƴ , ꞙɭэ , 📃 ⟩
     const b = qakaj2PintaBazo;
     const t = ( mx - b.x ) * b.ax + ( mz - b.z ) * b.az;
     const prof = Math.round(Math.max(DOKO_PROFUNDO_MIN, Math.min(DOKO_PROFUNDO_MAKS, t)) * 2) / 2;
@@ -1091,15 +1091,15 @@ export function sxangiK6h6Xekuxan(mx: number, mz: number) {
     d.z = Math.round(( b.z + b.az * prof / 2 ) * 2) / 2;
     if ( qakaj2Vakox2q(d, c.qakaj2) ) {
       Object.assign(d, antaupa);
-      statuso("ចតុកោណនោះនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
+      statuso("ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ ſɭэ ֭ſɭэ ｡ 🛑");
       return;
     }
   } else if ( c.pudal === "qakaj2Lando" ) {
     const d = haqakaj2[c.qakaj2];
     if ( !d || !qakaj2LandaBazo ) return;
     const antaupa = { ...d };
-    // ⟨ ចុងដីអូស , ចុងទឹកនៅស្ថិត , ចុងដីដើរតាមទ្រនិច , ហើយកំពង់បង្វិលតាម ។
-    // ជម្រៅ = ចម្ងាយពីចុងទឹក , ដូច្នេះការអូសក៏ពង្រីក/បង្រួមកំពង់ ។ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɩ ,
+// ſןɔ˞ᴜƴ , ꞙɭꞟ , 📃 ⟩
     const b = qakaj2LandaBazo;
     const dx = mx - b.x, dz = mz - b.z;
     const sahakani = Math.hypot(dx, dz);
@@ -1112,7 +1112,7 @@ export function sxangiK6h6Xekuxan(mx: number, mz: number) {
     d.z = Math.round(( b.z + uz * prof / 2 ) * 2) / 2;
     if ( qakaj2Vakox2q(d, c.qakaj2) ) {
       Object.assign(d, antaupa);
-      statuso("ចតុកោណនោះនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
+      statuso("ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ ſɭэ ֭ſɭэ ｡ 🛑");
       return;
     }
     elektitaQakaj2 = c.qakaj2;
@@ -1128,7 +1128,7 @@ export function finiK6h6Trenon() {
     if ( v ) forigiDuoblajnPunktojn(v);
   }
   if ( k6h6Trenata.pudal === "qakaj2Pinto" ) {
-    // ⟨ កំពង់ថ្មីងាកទៅទឹកវិញ ក្រោយពង្រីក 📃 ⟩ បើការងាកមិនធ្វើឱ្យត្រួតគ្នា ។
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭı , 📃 ⟩
     const d = haqakaj2[k6h6Trenata.qakaj2];
     if ( d ) orientiQakaj2n(d, k6h6Trenata.qakaj2);
   }
@@ -1139,24 +1139,24 @@ export function finiK6h6Trenon() {
   markiDesegnon();
 }
 
-/* aldoniK6h6nPunkton ។ បន្ថែមចំណុចមួយក្នុងផ្លូវនៅទីដែលចុច ។ ចំណុចថ្មី
-   ដាក់លើផ្លូវ ( ចំណុចគោលលើស៊ីមែនត៍ជិតបំផុត ) ហើយបិទភ្ជាប់ទៅ
-   ក្រឡាទីក្រុង ឬផ្លូវ/ចតុកោណផ្សេង បើជិតគោល ដូច្នេះចំណុចនៅតែ
-   ស្ថិតលើផ្លូវដែលកំពុងកែ ។
-    @param vi ( number ) - លិបិក្រមផ្លូវ។
-    @param mx ( number ) - ពិភពលោក x ។
-    @param mz ( number ) - ពិភពលោក z ។
-@returns តើចំណុចត្រូវបានបន្ថែម ( boolean )។ */
+/* ſןɔ˞ᴜƴ , ꞙɭɿ ,
+   ſɭэ ֭ſɭэ ( }ʃɹƽ ｡ ) ｡
+   ſɭᴜ ı],ƨɔ ｡ ſɭэ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ }ʃɹƽ ｡
+   ſɭэ ֭ſɭэ ʌ ſɭэ ᶗ‹ ⟅
+    @param vi ( number ) - }ʃɹƽ ʌ ſɭэ ֭ſɭэ ｡
+    @param mx ( number ) - }ʃᴜ j͐ʃᴜ x ｡
+    @param mz ( number ) - }ʃᴜ j͐ʃᴜ z ｡
+@returns ｡ }ʃɹƽ ｡ }ʃᴜƽ ( boolean ) ⟅ */
 function aldoniK6h6nPunkton(vi: number, mx: number, mz: number): boolean {
   const v = hak6h6[vi];
   if ( !v || !v.n2k ) {
-    statuso("មិនមានផ្លូវដែលបានជ្រើសដើម្បីបន្ថែមចំណុចទេ");
+    statuso("ſɭэ ֭ſɭэ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡");
     return false;
   }
   const kopio: SkulptaK6h6 = { ...v, n2k: v.n2k.map(p => [ ...p ] as K6h6Punkto) };
   const kunfandisNe3ak2 = k6h6Vakox2q(v, vi);
-  // ⟨ ចំណុចដែលបានជ្រើសនៅផ្លូវនេះឬ ? 📃 ⟩ ។ បើមិនដូច្នេះ ការចុចលើផ្លូវផ្សេង
-  // នឹងបន្ថែមចំណុចនៅជាប់លិបិក្រមចាស់របស់ផ្លូវមុន ( ចំណុចខុសទីតាំង ) ។
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭц , 📃 ⟩
+// ſןɔ˞ᴜƴ , ꞙɭэ ,
   const elektisCxiTiu = elektitaK6h6 === vi && elektitaPunkto >= 0;
   const elektitaAntaue = elektitaPunkto;
   momenti();
@@ -1167,10 +1167,10 @@ function aldoniK6h6nPunkton(vi: number, mx: number, mz: number): boolean {
     v.n2k.push([ nx, nz ]);
     elektitaPunkto = v.n2k.length - 1;
   } else {
-    // ⟨ គោលដៅ = ចម្រៀកជាប់នឹងចំណុចដែលជ្រើស , ឬចម្រៀកជិតបំផុត 📃 ⟩
-    // ចំណុចថ្មីត្រូវបញ្ចូលជាប់នឹងចំណុចដែលបានជ្រើស ( មុន ឬក្រោយវា ) ,
-    // ដូច្នេះការបន្ថែមចំណុចនៅកន្លែងដែលកំពុងកែ ។ បើគ្មានចំណុចជ្រើស ,
-    // ចម្រៀកជិតបំផុតនឹងទ្រនិចឈ្នះ ។
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɩ , 📃 ⟩
+// ſןɔ˞ᴜƴ , ꞙɭꞟ ,
+// ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭɿ ,
     const z2hak = v.n2k.length - 1;
     let plej = 0, plejD = Infinity, plejT = 0;
     const projekcii = ( pi: number ): void => {
@@ -1181,13 +1181,13 @@ function aldoniK6h6nPunkton(vi: number, mx: number, mz: number): boolean {
       if ( d < plejD ) { plejD = d; plej = pi; plejT = t; }
     };
     if ( elektisCxiTiu && elektitaAntaue <= z2hak ) {
-      // ⟨ ចម្រៀកក្រោយចំណុចដែលជ្រើស , ឬចម្រៀកមុនវាបើវាជាចំណុចចុងក្រោយ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭц , 📃 ⟩
       const km = elektitaAntaue < z2hak ? elektitaAntaue : Math.max(0, z2hak - 1);
       plej = km;
       projekcii(km);
-      // ⟨ នៅជាប់នឹងចំណុចជ្រើសជានិច្ច 📃 ⟩ , បើការចុចនៅឆ្ងាយពីចម្រៀកនោះ ,
-      // ការបញ្ចាំងត្រូវនឹងចុងម្ខាង ( = ចំណុចដែលមានរួច ) ដូច្នេះចំណុចថ្មី
-      // មិនត្រូវបានបន្ថែមទេ ។ ដូច្នេះបម្រុងការបញ្ចាំងក្នុងកណ្តាលចម្រៀក ។
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭэ , 📃 ⟩ , ſןɔ˞ᴜƴ ,
+// ſןɔ˞ᴜƴ , ꞙɭɩ ,
+// ſןɔ˞ᴜƴ , ꞙɭꞟ , 📃 ⟩
       if ( plejT < 0.2 || plejT > 0.8 ) plejT = 0.5;
       plejD = 0;
     } else {
@@ -1196,8 +1196,8 @@ function aldoniK6h6nPunkton(vi: number, mx: number, mz: number): boolean {
     const a = v.n2k[plej], b = v.n2k[plej + 1];
     nx = a[0] + plejT * ( b[0] - a[0] );
     nz = a[1] + plejT * ( b[1] - a[1] );
-    // ⟨ ការបិទភ្ជាប់ 📃 ⟩ ១ សមានីក្រឡាទីក្រុង ២ ផ្លូវ/ចតុកោណផ្សេង ។
-    // បិទភ្ជាប់តែបើជិតគោល ដូច្នេះចំណុចថ្មីមិនលោតចេញពីផ្លូវទេ ។
+// ⟨ ſɭэ ֭ſɭэ , 📃 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭɿ ,
     const seg = kradaS2nasceAlglu(a[0], a[1], b[0], b[1]);
     if ( seg ) {
       if ( seg.linioX !== null ) {
@@ -1224,7 +1224,7 @@ function aldoniK6h6nPunkton(vi: number, mx: number, mz: number): boolean {
   if ( k6h6Vakox2q(v, vi) && !kunfandisNe3ak2 ) {
     hak6h6[vi] = kopio;
     elektitaPunkto = Math.min(elektitaPunkto, kopio.n2k.length - 1);
-    statuso("ចំណុចថ្មីនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
+    statuso("}ʃɹƽ ʌ j͑ʃɔ ſȷэⅎ ｡ ſɭэ ֭ſɭэ ｡ 🛑");
     gxisdatigiK6h6jnHakaman();
     markiDesegnon();
     return false;
@@ -1234,7 +1234,7 @@ function aldoniK6h6nPunkton(vi: number, mx: number, mz: number): boolean {
   elektitaPunkto = trovi >= 0 ? trovi
     : Math.max(0, Math.min(elektitaPunkto, v.n2k.length - 1));
   const kreskis = v.n2k.length > kopio.n2k.length;
-  if ( !kreskis ) statuso("ចំណុចមានរួចហើយនៅទីនោះ");
+  if ( !kreskis ) statuso("}ʃɹƽ ｡ ſɟᴜ ｡");
   if ( JSON.stringify(v.n2k) === JSON.stringify(kopio.n2k) ) {
     gxisdatigiK6h6jnHakaman();
     markiDesegnon();
@@ -1249,7 +1249,7 @@ function aldoniK6h6nPunkton(vi: number, mx: number, mz: number): boolean {
 function forigiK6h6nPunkton(vi: number, pi: number) {
   const v = hak6h6[vi];
   if ( !v || v.n2k.length <= 2 ) {
-    statuso("ផ្លូវត្រូវការចំណុចយ៉ាងតិចពីរ , មិនអាចលុបបានទេ 🚫");
+    statuso("ſɭэ ֭ſɭэ ｡ ſɭɜ ｡ 🚫");
     return;
   }
   momenti();
@@ -1262,15 +1262,15 @@ function forigiK6h6nPunkton(vi: number, pi: number) {
 }
 
 export function sxangxiKradanCelon(mx: number, mz: number) {
-  // បើការចុចនៅលើក្រឡារបស់ទីក្រុងផ្សេងដែលកំពុងបង្ហាញ ជ្រើសទីក្រុង
-  // នោះជំនួសការកែក្រឡាឆ្ងាយក្នុងទីក្រុងបច្ចុប្បន្ន ។
+// ſןɔ˞ᴜƴ , ꞙɭц ,
+// ſןɔ˞ᴜƴ , ꞙɭэ ,
   for ( const k of vidotajKradoj() ) {
     if ( k.vecax2lani === elektitaKaxte ) continue;
     const kc = Math.round(( mx - k.ofsX ) / k.plano.PASXO);
     const kr = Math.round(( mz - k.ofsZ ) / k.plano.PASXO);
     if ( k.plano.haKekkozusai.some(( [ lc, lr ] ) => lc === kc && lr === kr) ) {
       elektiKaxten(k.vecax2lani);
-      statuso("បានជ្រើសទីក្រុង " + ( hakaxte[k.vecax2lani]?.ksaka ?? "" ) + " 🏙️");
+      statuso("ſɭᴜ ı],ƨɔ " + ( hakaxte[k.vecax2lani]?.ksaka ?? "" ) + " 🏙️");
       markiDesegnon();
       return;
     }
@@ -1296,11 +1296,11 @@ export function sxangxiKradanCelon(mx: number, mz: number) {
       kradoSuperoj.set(ŝ, kradoHunaqElektita);
     }
     sinkronigiSuperojn();
-    // ការកែក្រឡាក្នុងប្លុកបួន ត្រូវសម្គាល់ដូចគ្នានឹងប្លុកមួយ ដូច្នេះ
-    // ប៊ូតុងរក្សាទុកឃើញការផ្លាស់ប្តូរ ( មុនទំព័រនេះបានត្រឡប់មកវិញ
-    // ដោយគ្មានសញ្ញា ហើយការរក្សាទុកឆ្លើយ „គ្មានការផ្លាស់ប្តូរ“ )។
+// ſןɔ˞ᴜƴ , ꞙɭɩ ,
+// ſןɔ˞ᴜƴ , ꞙɭꞟ ,
+// ſןɔ˞ᴜƴ , ꞙɭı ,
     markiSxangxitan();
-    statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+    statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
     gxisdatigiKradon();
     return;
   }
@@ -1313,7 +1313,7 @@ export function sxangxiKradanCelon(mx: number, mz: number) {
   }
   sinkronigiSuperojn();
   markiSxangxitan();
-  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+  statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
   gxisdatigiKradon();
 }
 
@@ -1325,12 +1325,12 @@ const KRADAJ_KOLOROJ: Record<string, string> = {
   kasafeo: "#6898d8",
   stacio: "#9868e0",
 };
-/* គូរស្រទាប់ទីក្រុងក្រឡាលើបរិបទ 2D ណាមួយ។
-    @param k ( CanvasRenderingContext2D ) - បរិបទ។
-    @param plano ( KradaPlano ) - ផែនការក្រឡា។
-    @param X ( funkcio ) - ពិភពលោក x ទៅជួរឈរផ្ទាំងគំនូស។
-    @param Z ( funkcio ) - ពិភពលោក z ទៅជួរផ្ទាំងគំនូស។
-    @param p6zukani ( number ) - ភីកសែលក្នុងមួយឯកតាពិភពលោក។ */
+/* ſɭᴜ ſןᴜ , ꞙɭɿ ,
+    @param k ( CanvasRenderingContext2D ) - ſɭᴜ ｡
+    @param plano ( KradaPlano ) - ſɭэ ſɭᴜ ɭl̀ɹ ʌ ſɭɹ ſןᴜ ｡
+    @param X ( funkcio ) - }ʃᴜ j͐ʃᴜ x ｡ ſɭɹ ſןᴜ ｡
+    @param Z ( funkcio ) - }ʃᴜ j͐ʃᴜ z ｡ ſɭɹ ſןᴜ ｡
+    @param p6zukani ( number ) - ſɭɹ ſןᴜ ｡ */
 export function k2fKradanTavolon(k: CanvasRenderingContext2D, plano: KradaPlano,
   X: ( x: number ) => number, Z: ( z: number ) => number, p6zukani: number): void {
   k.lineWidth = 0o7/0o2 * p6zukani;
@@ -1391,7 +1391,7 @@ kaxteNomoEl.addEventListener("input", () => {
   markiDesegnon();
 });
 kaxteAldoniBtn.addEventListener("click", () => {
-  hakaxte.push({ ksaka: "ទីក្រុងថ្មី", arangxaGrando: 1, blokaGrando: "unu", ofsX: 0o200, ofsZ: -0o200, aldonajBlokoj: [] });
+  hakaxte.push({ ksaka: "ſɭᴜ ı],ƨɔ ʌ j͑ʃɔ ſȷэⅎ", arangxaGrando: 1, blokaGrando: "unu", ofsX: 0o200, ofsZ: -0o200, aldonajBlokoj: [] });
   elektiKaxten(hakaxte.length - 1);
   markiSxangxitan();
   markiDesegnon();
@@ -1482,13 +1482,13 @@ k6h6AldoniBtn.addEventListener("click", () => {
   momenti();
   const v = hak6h6[elektitaK6h6];
   const last: K6h6Punkto = v && v.n2k && v.n2k.length ? v.n2k[v.n2k.length - 1] : [ 0, 0 ];
-  const sef4: SkulptaK6h6 = { ksaka: "ផ្លូវថ្មី", sefini: 0o7/0o2, n2k: [
+  const sef4: SkulptaK6h6 = { ksaka: "ſɭэ ֭ſɭэ ʌ j͑ʃɔ ſȷэⅎ", sefini: 0o7/0o2, n2k: [
     [ Math.round(( last[0] - 0o12 ) * 2) / 2, last[1] ],
     [ Math.round(( last[0] + 0o12 ) * 2) / 2, last[1] ] ] };
   hak6h6.push(sef4);
   if ( k6h6Vakox2q(sef4, hak6h6.length - 1) ) {
     hak6h6.pop();
-    statuso("ផ្លូវថ្មីនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណដែលមានស្រាប់ 🛑");
+    statuso("ſɭэ ֭ſɭэ ʌ j͑ʃɔ ſȷэⅎ ｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ 🛑");
     return;
   }
   elektitaK6h6 = hak6h6.length - 1;
@@ -1524,16 +1524,16 @@ k6h6KonektiBtn.addEventListener("click", () => {
   markiSxangxitan();
   gxisdatigiK6h6jnHakaman();
   gxisdatigiKradon();
-  statuso("បានភ្ជាប់ " + k6h6jHaveb6kek + " ចុងផ្លូវ និង " + haqakaj2ajHaveb6kek + " ចតុកោណ 🔗");
+  statuso("ſɟɹƽ " + k6h6jHaveb6kek + " ſɭэ ֭ſɭэ ｡ " + haqakaj2ajHaveb6kek + " ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ 🔗");
   markiDesegnon();
 });
 k6h6PunktoAldoniBtn.addEventListener("click", () => {
   const v = hak6h6[elektitaK6h6];
   if ( !v ) return;
   momenti();
-  // ⟨ បន្ថែមនៅជាប់ចំណុចដែលជ្រើស 📃 ⟩ ។ បើជ្រើសចំណុចកណ្តាល , ចំណុចថ្មី
-  // ចូលក្នុងចម្រៀកបន្ទាប់ពីវា ( ពាក់កណ្តាលចម្រៀក ) ។ បើជ្រើសចំណុចចុងក្រោយ ,
-  // ចំណុចថ្មីបន្ថែមបន្តទៅមុខ ។ បើគ្មានការជ្រើស , បន្ថែមនៅចុងផ្លូវ ។
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭɿ ,
+// ſןɔ˞ᴜƴ , ꞙɭц ,
   const sel = elektitaPunkto >= 0
     ? Math.max(0, Math.min(elektitaPunkto, v.n2k.length - 1))
     : v.n2k.length - 1;
@@ -1547,7 +1547,7 @@ k6h6PunktoAldoniBtn.addEventListener("click", () => {
   if ( k6h6Vakox2q(v, elektitaK6h6) ) {
     v.n2k.splice(sel + 1, 1);
     elektitaPunkto = sel;
-    statuso("ចំណុចថ្មីនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
+    statuso("}ʃɹƽ ʌ j͑ʃɔ ſȷэⅎ ｡ ſɭэ ֭ſɭэ ｡ 🛑");
   }
   markiSxangxitan();
   gxisdatigiK6h6jnHakaman();
@@ -1580,7 +1580,7 @@ qakaj2AldoniBtn.addEventListener("click", () => {
   const vecax2lani = haqakaj2.length - 1;
   if ( qakaj2Vakox2q(sef4, vecax2lani) ) {
     haqakaj2.pop();
-    statuso("ចតុកោណថ្មីនឹងត្រួតគ្នានឹងផ្លូវ ឬចតុកោណ 🛑");
+    statuso("ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ j͑ʃɔ ſȷэⅎ ｡ ſɭэ ֭ſɭэ ｡ 🛑");
     return;
   }
   orientiQakaj2n(sef4, vecax2lani);
@@ -1604,7 +1604,7 @@ elementoj<HTMLButtonElement>("#k6h6Iloj button").forEach(b => {
     elementoj<HTMLButtonElement>("#k6h6Iloj button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   });
 });
-kradoRestarigiBtn.addEventListener("click", () => { kradoSuperoj.clear(); sinkronigiSuperojn(); markiSxangxitan(); statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក"); gxisdatigiKradon(); });
+kradoRestarigiBtn.addEventListener("click", () => { kradoSuperoj.clear(); sinkronigiSuperojn(); markiSxangxitan(); statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ"); gxisdatigiKradon(); });
 kradoKopiiBtn.addEventListener("click", async() => {
   const u = hakaxte[elektitaKaxte];
   const s2banani = u
@@ -1612,9 +1612,9 @@ kradoKopiiBtn.addEventListener("click", async() => {
     : "";
   try {
     await navigator.clipboard.writeText(s2banani);
-    statuso("បានចម្លង , " + s2banani);
+    statuso("ſɟw ɭʃᴜ ｡ " + s2banani);
   } catch {
-    statuso("មិនអាចចម្លងស្វ័យប្រវត្តិបាន , ជ្រើសដោយដៃ , " + s2banani);
+    statuso("ſɟw ɭʃᴜ ｡ ſɭɜ ſɭᴜ ｡ " + s2banani);
   }
 });
 

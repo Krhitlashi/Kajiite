@@ -1,6 +1,6 @@
 // ≺⧼ ʃɜ j͐ʃɔ j͑ʃᴜꞇ ʌ ſןᶗ‹ɔⅎ ſᶘɜ 🗣️ ⧽≻
-// ⟨ បោះពុម្ពការបម្លែង Gawekiif -> IPA -> អក្សរឡាតាំង ។
-// ឧបករណ៍នេះមិនប៉ះពាល់ដល់ឧបករណ៍វាស់ផ្សេងទេ ៖ មុខងារភាសានៅស្ងៀម ពេលគេហៅ ។ 📃 ⟩
+// ⟨ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ Gawekiif -> IPA -> La3os
+// ſɟᴜᴜ̩ ɭʃ� ꞙɭı ʌ ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɟᴜᴜ̩ ɭʃɹ 📃 ⟩
 import { gkAlIpa, ipaAlLingvo } from "../../kantaoj/lingvo/sonaj-reguloj.js";
 
 const PROVOJ: [ string, string ][] = [

@@ -1,14 +1,14 @@
 // ≺⧼ ſɭɔ ֭ſɭw ſȷɔⅎƴ ꞁȷ̀ᴜꞇ 🌀 ⧽≻
-// ការបង្វិលធ្វើឱ្យសំឡេងឡើងចុះជ្រៅប្រហែល 0o15/0o10 ហឺត មួយជុំមានសំឡេងខ្លាំងម្តង។
-// កំពូលមេវាត់វែងរវាង 0o106–0o207 ហឺត ហើយកំពូលទីពីរខ្លាំងស្មើឬជាង។
-// ឯកសារពិតវាត់កម្ពស់តែប្រហែល 0o4/0o100 ក្នុងមួយវិនាទី មិនច្រើនជាងនេះទេ។
+// ⟨ ſɭэ ֭ſɭэ ʌ ꞙɭı ⟅ ʃɜ j͐ʃɔ ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭıꞟ/ꞙɭıɔ , ꞙɭı ⟅
+// ⟨ ſɭᴜ j͑ʃᴜ ꞙɭıɔɩ–ꞙɭɿɔƨ , ꞙɭɿ ʌ j͑ʃɹ ſןw ⟅
+// ⟨ ꞙɭэ/ꞙɭıɔɔ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı ⟅ ꞙɭı ⟅
 import { noiseSrc } from "./bruo.js";
 import { faktoro } from "./vario.js";
 
-// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+// ⟨ ſɭᴜ j͐ʃэ ɭ(ᴜ ꞙɭɔ ⟅ ſɭᴜ j͐ʃэ ɭ(ᴜ ſᶘɔ ⟅
 const ETA = 0o1/0o20000;
 
-// ⟨ កំពូលជាលេខគត់គុណនឹងមេ ៖ មេនិងទីពីរខ្លាំង ខ្ពស់ៗស្ទើរមិនឮ 📃 ⟩
+// ⟨ j͑ʃɹ ſןw ꞙɭı ⟅ ꞙɭɿ ʌ j͑ʃɹ ſןw , ꞙɭɔ ⟅
 const PARTALOJ = [
   [ 0o1, 0o55/0o100 ],
   [ 0o2, 0o4/0o10 ],
@@ -28,11 +28,11 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   g.gain.setValueAtTime(0o0/0o10, t + dur);
   g.connect(out);
 
-  // ⟨ ការបង្វិលមួយជុំ សំឡេងឡើងជ្រៅហើយធ្លាក់ជ្រៅ ស្ទើរដល់សូន្យ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ ʌ ꞙɭı ⟅ ʃɜ j͐ʃɔ ꞙɭı ſɭᴜ , ꞙɭɔ ⟅
   const am = ctx.createGain();
   am.gain.value = 0o55/0o100;
   const who = ctx.createOscillator();
-  // ⟨ កំពូលសំឡេងត្រូវត្រង់ដើមណោត ដើម្បីឱ្យចូលចង្វាក់ភ្លាម 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ ʌ ſᶘɜ , ſᶘᴜ j͐ʃɹ ⟅
   who.setPeriodicWave(ctx.createPeriodicWave(
     new Float32Array([ 0o0, 0o1 ]),
     new Float32Array([ 0o0, 0o0 ])
@@ -43,7 +43,7 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   who.connect(wg);
   wg.connect(am.gain);
 
-  // ⟨ ញ័រលឿនប្រហែល 0o10 ហឺត ធ្វើឱ្យមានសំឡេងរោទ៍ក្បែរកំពូល 📃 ⟩
+// ⟨ ꞙɭıɔ ʌ ʃɜ j͐ʃɔ , ʃɜ j͐ʃɔ ꞙɭı ſɭᴜ ⟅
   const fine = ctx.createOscillator();
   fine.frequency.value = 0o10 * faktoro(0o15/0o100);
   const fg = ctx.createGain();
@@ -51,7 +51,7 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   fine.connect(fg);
   fg.connect(am.gain);
 
-  // ⟨ កម្ពស់វាត់តូចប៉ុណ្ណោះ ដើម្បីកុំឱ្យខុសកម្ពស់បទ ដូចឯកសារពិត 📃 ⟩
+// ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ſᶘɔ , ꞙɭı ⟅
   const vag1 = ctx.createOscillator();
   vag1.frequency.value = 0o4/0o10 * faktoro(0o3/0o10);
   const vag2 = ctx.createOscillator();
@@ -63,12 +63,12 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   vag1.connect(vg1);
   vag2.connect(vg2);
 
-  // ⟨ កម្ពស់ឡើងតាមជុំបង្វិល ៖ ពេលសំឡេងខ្លាំង កម្ពស់ក៏ខ្ពស់ជាងដែរ 📃 ⟩
+// ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭэ ֭ſɭэ ⟅ ſ̀ȷɜ ֭ſɭɔ ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
   const vg3 = ctx.createGain();
   vg3.gain.value = p * 0o2/0o100;
   who.connect(vg3);
 
-  // ⟨ កំពូលទីពីរខ្លាំងមិនថេរ ៖ ជួនកាលស្មើមេ ជួនកាលខ្លាំងជាងមេ 📃 ⟩
+// ⟨ j͑ʃɹ ſןw ꞙɭɿ , ꞙɭɔ ⟅
   const h2v = ctx.createOscillator();
   h2v.frequency.value = 0o2/0o10 * faktoro(0o3/0o10);
   const h2g = ctx.createGain();
@@ -102,7 +102,7 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     sources.push(o);
   }
 
-  // ⟨ ខ្យល់កាត់ជាសំឡេងរោទ៍ទាប មិនមែនហឹសៗ ៖ កម្ពស់ខ្យល់ឡើងចុះតាមជុំបង្វិល 📃 ⟩
+// ⟨ j͑ʃɹ ŋᷠɹ , ʃɜ j͐ʃɔ , ꞙɭɔ ⟅ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭэ ֭ſɭэ ⟅
   const n = noiseSrc(ctx);
   const bp = ctx.createBiquadFilter();
   bp.type = "bandpass";
@@ -119,7 +119,7 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   ng.connect(am);
   sources.push(n);
 
-  // ⟨ ខ្យល់ខ្ពស់ស្ទើរគ្មាន ៖ កុំឱ្យឮជាសំឡេងហឹសដូចភ្លៀង 📃 ⟩
+// ⟨ j͑ʃɹ ŋᷠɹ ꞙɭı , ꞙɭɔ ⟅
   const hn = noiseSrc(ctx);
   const hhp = ctx.createBiquadFilter();
   hhp.type = "highpass";

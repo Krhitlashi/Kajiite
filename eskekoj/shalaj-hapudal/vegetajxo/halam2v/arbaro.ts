@@ -8,9 +8,9 @@ import { type ArboRaqa } from "../raqa.js";
 import { kf2TrunkanGeometrion } from "../hasost2cel2sai.js";
 import { vepaqLam2vnSlafranGeometrion } from "./slafro.js";
 
-// ⟨ ក្រឡាដើមឈើ ៖ ដើមឈើត្រូវដាក់ជាក្រុមតាមក្រឡាដី ។ frustum culling ធ្វើការតាម
-// mesh , ដូច្នេះបើព្រៃទាំងមូលនៅក្នុង mesh តែមួយ , ដើមឈើក្រោយខ្នងក៏គូរដែរ ។
-// បែងចែកជាក្រឡា ហើយបិទបានក្រឡាដែលមិននៅក្នុងវិស័យឃើញ ។ 📃 ⟩
+// ⟨ ſɭэ ſɭ,w , ɭʃɜ ſɭɹȝ , ſɭэ ſɭ,w ⟅ ɭʃɜ ſɭɹȝ , ꞙɭı , ſɭэ ſɭ,w ,
+//   mesh , ꞙɭı , ꞙɭı , ſɭэ ſɭ,w , ꞙɭı , ꞙɭı , ⟅
+//   ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
 const ARBA_KROLO = 0o100;
 
 interface ArbaBukedo {
@@ -32,12 +32,12 @@ export function vepaqArbaron(qena: THREE.Scene,
   if ( arboj.length === 0 ) return hasost2cel2sai;
 
   const kronaGeometrioj = vepaqLam2vnSlafranGeometrion();
-  // ⟨ ស្លឹកឆ្ងាយមានខ្សែកោងតែមួយ ប៉ុន្តែទីតាំង និង ពណ៌ដូចស្លឹកជិត 📃 ⟩
+  // ⟨ j͑ʃͷ̗ᴜʞ , j͑ʃᴜ ʃɜ , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ᶅſɔ ֭ſɭɹ , ꞙɭı ⟅ ⟩
   const malproksimaSlafGeometrio = vepaqLam2vnSlafranGeometrion(0o1).slafj;
   const kronaMaterialo = new THREE.MeshStandardMaterial({
     color: 0x887858, roughness: 0o1, vertexColors: true,
   });
-  // ⟨ ស្លឹកនីមួយៗ 📃 ⟩
+  // ⟨ j͑ʃͷ̗ᴜʞ , ꞙɭı , ⟅ ⟩
   const slafMaterialo = new THREE.MeshStandardMaterial({
     map: kf2Lam2vnSlafCac2sex(), color: 0xffffff, roughness: 0o35/0o40,
     alphaTest: 0o45/0o100, vertexColors: true, side: THREE.DoubleSide,
@@ -46,9 +46,9 @@ export function vepaqArbaron(qena: THREE.Scene,
 
   const M = new THREE.Matrix4();
   const C = new THREE.Color();
-  // ⟨ បន្ទះពីរ 📃 ⟩
+  // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , ⟅ ⟩
   const paletroSlafj = [ 0xf0f8e8, 0xe8f0d8, 0xe0e8d0, 0xe8f0e0 ];
-  // ⟨ ស្នូលមិនត្រូវខ្មៅ 📃 ⟩
+  // ⟨ ſɭэ ɭʃᴜ , ꞙɭɔ , ⟅ ⟩
   const paletroMaso = [ 0xf0f8e8, 0xe8f0e0, 0xe0e8d8, 0xf8f8f0 ];
 
   const bukedoj = new Map<string, ArbaBukedo>();
@@ -70,7 +70,7 @@ export function vepaqArbaron(qena: THREE.Scene,
     const raqa = kf2Poziciilon(kozuni, Q);
     const bukedo = bukedoDe(t.x, t.z);
 
-    // ⟨ ដើមបញ្ចប់ក្នុងកំពូល 📃 ⟩
+    // ⟨ ɭʃɜ ſɭɹȝ , j͑ʃɜ j͐ʃɹ , j͑ʃᴜ ʃɜƽ , ⟅ ⟩
     const trunkaAlto = h * 0o3/0o4;
     M.compose(raqa(new THREE.Vector3(0, trunkaAlto / 2, 0)), Q, new THREE.Vector3(1, trunkaAlto, 1));
     bukedo.hasost2cel2sai.push(M.clone());
@@ -159,7 +159,7 @@ export function vepaqArbaron(qena: THREE.Scene,
     }
   });
 
-  // ⟨ ដំណាក់កាលទីពីរ ៖ mesh មួយក្នុងមួយក្រឡា ។ 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , mesh ꞙɭı , ſɭэ ɭʃᴜ , ⟅ 📃 ⟩
   let unuaTrunko: THREE.InstancedMesh | null = null;
   const k21eTrunkaj: THREE.InstancedMesh[] = [];
   for ( const bukedo of bukedoj.values() ) {
@@ -186,7 +186,7 @@ export function vepaqArbaron(qena: THREE.Scene,
     if ( cxelajHasost2cel2sai.instanceColor ) cxelajHasost2cel2sai.instanceColor.needsUpdate = true;
     if ( hasoza.instanceColor ) hasoza.instanceColor.needsUpdate = true;
     if ( slafj.instanceColor ) slafj.instanceColor.needsUpdate = true;
-    // ⟨ ឈ្មោះ 📃 ⟩
+    // ⟨ j͑ʃᴜ ſɭᴜ ɭʃɹ , ⟅ ⟩
     cxelajHasost2cel2sai.name = "lam2vTrunko";
     hasoza.name = "lam2vKrono";
     slafj.name = "lam2vSlaf";
@@ -198,8 +198,8 @@ export function vepaqArbaron(qena: THREE.Scene,
     k21eTrunkaj.push(cxelajHasost2cel2sai);
     if ( !unuaTrunko ) unuaTrunko = cxelajHasost2cel2sai;
   }
-  // ⟨ ដើមទាំងអស់ ៖ អ្នកហៅខ្លះចងដើមសម្រាប់ដាក់លីគែន ។ ដោយក្រឡា , ត្រូវឲ្យវាដឹង
-  // រឿងក្រឡាទាំងអស់ មិនមែនតែក្រឡាដំបូងទេ ។ 📃 ⟩
+  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭı , ſɭэ ſɭ,w , ſɭᴜ ſןᴜ , ⟅ ɭʃɜ ſɭɹȝ , ſɭэ ſɭ,w ,
+  //   ꞙɭı , ſɭэ ɭʃᴜ , ꞙɭɔ , ⟅ 📃 ⟩
   const tseuni = unuaTrunko ?? hasost2cel2sai;
   tseuni.userData.k21eTrunkaj = k21eTrunkaj;
   return tseuni;

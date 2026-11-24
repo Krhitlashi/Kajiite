@@ -1,6 +1,6 @@
 // ≺⧼ j͑ʃɔ ſȷɔ j͑ʃᴜꞇ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🧪 ⧽≻
-// ⟨ មើលថាតើផ្លូវឆ្លងទឹកទាំងអស់ក្លាយជាស្ពាន , ផ្ទៃស្ពានផុតទឹក ,
-// ស្ពានរត់តាមបន្ទាត់ផ្លូវ , និងគ្មានជំហានលោតធំតាមបណ្តោយផ្លូវ ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ ʌ j͑ʃᴜꞇ ʌ ſᶘᴜ j͑ʃᴜ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ
+// ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɭэ ֭ſɭэ , ꞙɭɔ ʌ ſɟᴜ ſɟᴜ ſןɹ ʌ ſɭᴜ ſɭ,w j͐ʃᴜ 📃 ⟩
 import { aktivajHak6h6, aktivajHaqakaj2 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco, akvaVem2 } from "../../kantaoj/mondo/tereno.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../eskekoj/medio/voj-reto.js";
@@ -23,13 +23,13 @@ for (let v = 0; v < VOJOJ.length; v++) {
   const w = k6h6.pontoSefini ?? k6h6.sefini;
   const tsekePontaAkvo = kf2PontanAkvanTeston(k6h6.n2k, w, tsekeVeraAkvo);
   const akva = havasAkvanTrunkon(k6h6.n2k, tsekePontaAkvo);
-  if (!akva) { console.log(`k6h6 ${v} ${k6h6.ksaka} , គ្មានស្ពាន`); continue; }
+  if (!akva) { console.log(`k6h6 ${v} ${k6h6.ksaka} , ꞙɭɔ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw`); continue; }
   pontoNombro++;
   const akvaSupro = (x: number, z: number) =>
     tsekePontaAkvo(x, z) ? akvaVem2(x, z) + PONT_AKVA_KLARANCO : -Infinity;
   const s2qena = vepaqPontanProfilon(k6h6.n2k, w, k6h6Supro,
     akvaSupro, ( x, z, sefini ) => pontaFinAlto(x, z, sefini, haveb6kek));
-  // ⟨ ជម្រាលតាមបណ្តោយផ្លូវ 📃 ⟩
+  // ⟨ ֭ſɭᴜ ſ͔ɭᴜ ʌ ſɭэ ֭ſɭэ 📃 ⟩
   let maksSalto = 0, saltoLoko = 0;
   let ne3ak2 = s2qena.l6da(k6h6.n2k[0][0], k6h6.n2k[0][1]);
   let vepat6ni = 0;
@@ -63,7 +63,7 @@ for (let v = 0; v < VOJOJ.length; v++) {
       const deka = trako.deko(t);
       maksSaltoTrako = Math.max(maksSaltoTrako, Math.abs(deka - ne3ak2T));
       ne3ak2T = deka;
-      // ⟨ ចម្ងាយពីបន្ទាត់ផ្លូវ 📃 ⟩
+      // ⟨ ֭ſɭэ ſɭw }ʃꞇ ʌ ſɭэ ֭ſɭэ 📃 ⟩
       if (!tsekePontaAkvo(px, pz)) {
         subTero = Math.max(subTero, alteco(px, pz) - deka);
         superTero = Math.max(superTero, deka - k6h6Supro(px, pz, w));
@@ -82,4 +82,4 @@ for (let v = 0; v < VOJOJ.length; v++) {
       `${difekta ? "  ⚠" : ""}`);
   }
 }
-console.log(`ផ្លូវមានស្ពាន ${pontoNombro} , ត្រប់ ${trakNombro} , បញ្ហា ${difektoj}`);
+console.log(`ſɭэ ֭ſɭэ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ${pontoNombro} , ſɭɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ${trakNombro} , ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ${difektoj}`);

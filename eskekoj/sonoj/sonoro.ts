@@ -6,8 +6,8 @@ import { vefalKu1o, ve3aqKu1o } from "../komunajxoj/agordoj.js";
 let AC: AudioContext | null = null;
 let master: GainNode | null = null;
 let bruoGain: GainNode | null = null;
-// ⟨ សភាពសំឡេងផ្ទុកពីការកំណត់ ៖ ដូច្នេះការផ្ទុកឡើងវិញរក្សាសភាពដដែល 📃 ⟩
-// ⟨ លំនាំដើមបើក ៖ ដូចមុន សំឡេងចាប់ផ្តើមពេលអន្តរកម្មដំបូង 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃ'ɔ ŋᷠɹ , ſɭᴜ ſןᴜ ꞙɭɔ , ꞙɭı ⟅
+// ⟨ ſɭэ ſɭᴜƽ ʌ ʃɜ j͐ʃɔ , ʃɜ j͐ʃɔ j͑ʃᴜ ı],ɔ ꞙɭı , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅
 let audioOn: boolean = vefalKu1o("sonoro", true);
 let bruoOn: boolean = vefalKu1o("bruo", true);
 let unuaInterago = true;
@@ -72,7 +72,7 @@ function ensureAudio() {
   src.start();
 }
 
-/** លេងសំឡេងដោយមានការរអិលស្រេចចិត្ត */
+/** ſɭᴜ ʃɜ j͐ʃɔ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ſןᴜ ʌ j͑ʃᴜ ſɭᶗ‹ɜ ⟅ */
 function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0o3/0o20, glide = 0, dest?: GainNode) {
   if ( !AC || !audioOn ) return;
   const o = AC.createOscillator();
@@ -89,7 +89,7 @@ function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0o3/0
   o.stop(t + dur + 0o1/0o20);
 }
 
-/** ការផ្ទុះសំឡេងរំខានដែលបានចម្រាញ់ */
+/** ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃᴜ ſןɹ , ſɭᴜ ſןᴜ , j͑ʃɹ ſןw ʌ ɭʃw ſɭˬɔƽ ⟅ */
 function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterType = "lowpass", dest?: GainNode) {
   if ( !AC || !audioOn ) return;
   const n = Math.floor(AC.sampleRate * dur);
@@ -109,7 +109,7 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
   s.start();
 }
 
-// ⟨ សំឡេងរំខានយោល 📃 ⟩
+// ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , ı],э ŋᷠꞇ , ꞙɭɿ ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅ ⟩
 function whoosh(dur: number, f0: number, f1: number, vol: number, q = 1,
   hunaq: BiquadFilterType = "bandpass", dest?: GainNode): void {
   if ( !AC || !audioOn ) return;
@@ -141,7 +141,7 @@ function whoosh(dur: number, f0: number, f1: number, vol: number, q = 1,
   s.stop(t + dur + 0o1/0o20);
 }
 
-// ⟪ សំឡេង 📃 ⟫
+// ⟪ ʃɜ j͐ʃɔ 📃 ⟫
 
 export const sfx = {
   step: () => noiseBurst(0o1/0o20, 0o420 + Math.random() * 0o110, 0o1/0o10),
@@ -173,14 +173,14 @@ export const sfx = {
     tone(f, 0o3/0o40, "sine", 0o1/0o20, -0o610, bruoGain!);
     setTimeout(() => tone(f * 0o12/0o10, 0o1/0o20, "sine", 0o3/0o100, -0o450, bruoGain!), 0o160);
   },
-  // ⟨ ការលោត 📃 ⟩
+// ⟨ j͑ʃᴜ ʃɜƽ , ʃɜ j͐ʃɔ , j͑ʃᴜ ſןɹ , ſɭɜ ſɭᴜƽ ⟅ ⟩
   jump: ( forto = 1 ) => {
     tone(0o130, 0o5/0o40, "sine", 0o1/0o25 * ( 0o6/0o10 + 0o4/0o10 * forto ), -0o44);
     noiseBurst(0o3/0o40, 0o1500 + 0o600 * forto, 0o1/0o40, "highpass");
     whoosh(0o26/0o40, 0o260, 0o1020 + 0o400 * forto, 0o1/0o10 * ( 0o6/0o10 + 0o4/0o10 * forto ), 2);
     setTimeout(() => whoosh(0o22/0o40, 0o1000, 0o220, 0o1/0o20 * ( 0o4/0o10 + 0o6/0o10 * forto ), 3), 0o140);
   },
-  // ⟨ ការចុះចត 📃 ⟩
+// ⟨ j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ʃɜ j͐ʃɔ , ſɭэ ſɭ,w , j͑ʃᴜ ſןɹ ⟅ ⟩
   land: ( forto = 1 ) => {
     tone(0o106, 0o1/0o5, "sine", 0o1/0o10 * ( 0o3/0o10 + 0o7/0o10 * forto ), -( 0o44 + 0o30 * forto ));
     noiseBurst(0o1/0o20, 0o2000, 0o1/0o40 * ( 0o4/0o10 + 0o6/0o10 * forto ), "highpass");
@@ -188,7 +188,7 @@ export const sfx = {
   },
 };
 
-// ⟪ ការញ័រ ( សម្រាប់ទូក / ម៉ាស៊ីន ) 📃 ⟫
+// ⟪ ſɭɜ ſɭᴜƽ ʌ ı],э ŋᷠꞇ , ſɭᴜ j͑ʃᴜ , ſɟᴜ j͐ʃw 📃 ⟫
 
 let rumbleNodes: { o: OscillatorNode; n: AudioBufferSourceNode; g: GainNode } | null = null;
 
@@ -238,9 +238,9 @@ export function rumble(on: boolean) {
 
 let chirpInterval: ReturnType<typeof setInterval> | null = null;
 
-// ⟪ API សាធារណៈ 📃 ⟫
+// ⟪ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ 📃 ⟫
 
-// ⟨ ចាប់ផ្តើមសំឡេង ៖ បង្កើតប្រព័ន្ធ , បើក master , ចាប់ផ្តើមចាក់តន្ត្រី 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ , j͑ʃᴜ ı],ɔ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , j͑ʃп́ꞇ ſɭɔƴ ⟅ ⟩
 function komenciAuxdon(): void {
   ensureAudio();
   iniciati(AC!, master!);
@@ -254,7 +254,7 @@ function komenciAuxdon(): void {
   ludi();
 }
 
-// ⟨ បញ្ឈប់សំឡេង ៖ ស្ងាត់ master , បញ្ឈប់តន្ត្រី និងសំឡេងរំខាន 📃 ⟩
+// ⟨ ſɭɜ j͐ʃɹ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , j͑ʃп́ꞇ ſɭɔƴ , ı],ɔ ɭʃɜ ֭ſɭɹ ⟅ ⟩
 function haltiAuxdon(): void {
   if ( AC && master ) master.gain.setTargetAtTime(0, AC.currentTime, 0o1);
   halti();
@@ -265,7 +265,7 @@ function haltiAuxdon(): void {
   if ( rumbleNodes ) rumble(false);
 }
 
-/** បើកសំឡេងជុំវិញ។ ត្រឡប់ស្ថានភាពថ្មី។ */
+/** ſɭᴜ ʃɜ j͐ʃɔ , ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭı ⟅ */
 export function sxaltiLaqazbolesain(): boolean {
   audioOn = !audioOn;
   if ( audioOn ) komenciAuxdon();
@@ -274,12 +274,12 @@ export function sxaltiLaqazbolesain(): boolean {
   return audioOn;
 }
 
-/** តើសំឡេងកំពុងសកម្មឬទេ */
+/** ʃɜ j͐ʃɔ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ſɭᴜ ſןᴜ ⟅ */
 export function tsekeLaqazbolesai(): boolean {
   return audioOn;
 }
 
-/** បើកតែសំឡេងផ្ទៃខាងក្រោយ ( ខ្យល់/រលក/សត្វ ) ដោយឯករាជ្យពីតន្ត្រី។ */
+/** ſɭᴜ ʃɜ j͐ʃɔ , j͑ʃɹ ŋᷠɹ , ı],э ŋᷠꞇ , ꞙɭɿ , ʃɜ j͐ʃɔ ʌ ſɭᴜ ⟅ */
 export function sxaltiBruon(): boolean {
   bruoOn = !bruoOn;
   if ( AC && bruoGain ) {
@@ -289,22 +289,22 @@ export function sxaltiBruon(): boolean {
   return bruoOn;
 }
 
-/** តើសំឡេងផ្ទៃខាងក្រោយកំពុងឮឬទេ។ */
+/** ʃɜ j͐ʃɔ ʌ j͑ʃɹ ŋᷠɹ , ſɭᴜ ſןᴜ ꞙɭı , ꞙɭɔ ꞙɭı ⟅ */
 export function tsekeBruo(): boolean {
   return bruoOn;
 }
 
-/** ចាប់ផ្តើមសំឡេងដោយស្វ័យប្រវត្តិនៅអន្តរកម្មអ្នកប្រើដំបូង។ ធ្វើបច្ចុប្បន្នភាព UI ប្រសិនបើមានការហៅផ្តល់។ */
+/** ʃɜ j͐ʃɔ , j͑ʃᴜ ı],ɔ ʌ ſɭᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃ'ɔ ŋᷠɹ ⟅ */
 let postLaqazbolesai: ( ( aktiva: boolean ) => void ) | null = null;
 export function registriPostLaqazbolesai(fn: ( aktiva: boolean ) => void) {
   postLaqazbolesai = fn;
 }
-/*តើការហៅនេះបានចាប់ផ្តើមសំឡេងឬទេ ៖ ប្រើដើម្បីកុំឱ្យប៊ូតុងបិទវិញភ្លាម
-@returns true បើទើបចាប់ផ្តើម ( boolean ) */
+/* ʃɜ j͐ʃɔ j͑ʃᴜ ı],ɔ ꞙɭı , ꞙɭɔ ꞙɭı , ſɭᴜ ſןᴜ ʌ ꞙɭı
+@returns ſɭᴜ ſןᴜ ʌ ꞙɭı ( boolean ) */
 export function autoKomenci(): boolean {
   if ( !unuaInterago ) return false;
   unuaInterago = false;
-  // ⟨ សំឡេងបើកស្រាប់ ៖ ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ ។ បើបិទទុក មិនចាប់ផ្តើមទេ 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ j͑ʃᴜ ı],ɔ ſɭᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅ ꞙɭɔ j͑ʃᴜ ı],ɔ ꞙɭɔ ⟅ ⟩
   if ( audioOn ) {
     komenciAuxdon();
     if ( postLaqazbolesai ) postLaqazbolesai(true);

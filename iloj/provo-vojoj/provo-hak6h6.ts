@@ -1,9 +1,9 @@
 // ≺⧼ ſɭэ ֭ſɭэ ʌ j͐ʃɹ ŋᷠɔ ʌ ſ͕ɭɔ }ʃᴜ 🛣️ ⧽≻
-// ⟨ ហេតុអ្វីឆាកតូច 📃 ⟩ គឺការសាកល្បងផ្លូវ 3D ជាធម្មតាត្រូវការផ្ទុកពិភពលោកទាំងមូល
-// ( ដី ទឹក ទីក្រុង ) ដែលយឺតណាស់ ។ ឆាកនេះប្រើឧបករណ៍សាងសង់ពិតរបស់ហ្គេម
-// ( vepaqHak6h6n , vepaqIntersekcajnHapa12n , vepaqQakaj2n ) លើដីតូចមួយ
-// ដែលមានឆ្នេរ និងទឹក , ដូច្នេះចានភ្ជាប់ ជណ្តើរកំពង់ និងកម្ពស់ផ្លូវ
-// អាចមើលឃើញភ្លាម ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
+// ( ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
+// ( ſɭэ ſɭᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { agordiBildilon, agordiMedion, kf2CxefajnLumojn }
@@ -23,20 +23,20 @@ import { kf2K6h6Alton } from "../../eskekoj/medio/hak6h6/alto.js";
 import type { VojDifino } from "../../eskekoj/medio/hak6h6/hahunaq.js";
 import type { SkulptaPlatqoxa, SkulptaK6h6 } from "../../kantaoj/mondo/kaxte/hahunaq.js";
 
-// ⟪ ព្រំដែនឆាក 📏 ⟫ ។ ឆាកតូចដែលមានឆ្នេរនៅខាងលិច ( −x ) ។
+// ⟪ ſɭᴜ ſןᴜ , 📏 ⟫ , ſɭᴜ ſןᴜ , ꞙɭı ,
 const GRANDO = 0o170;
 const DUONO = GRANDO / 2;
-// ⟨ ឆ្នេរ ៖ ដីនៅ x > −0o42 , សមុទ្រនៅខាងឆ្វេង ។ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
 const RANDO = -0o42;
 const TRANSIRA = 0o24;
 const MARA_PROFUNDO = -0o10;
 
 let haga = 3;
 let akvaVem2 = -3;
-// ⟨ សាកល្បងចានភ្ជាប់តែមួយ 📃 ⟩ ៖ លាក់ផ្លូវដើម្បីមើលចានភ្ជាប់ឯករាជ្យ ។
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
 let nurHapa12 = false;
 
-/* កម្ពស់ដីនៃឆាកសាកល្បង ។ ដីចុះទៅសមុទ្រនៅខាងលិច , ហើយជម្រាល ( haga )
+/* ſɭɜ ſɭ,w , ꞙɭц ,
    ផ្អៀងតាម −z ដើម្បីឱ្យចំណុចភ្ជាប់មានកម្រិតខុសគ្នា ។
     @param x ( number ) - ពិភពលោក x ។
     @param z ( number ) - ពិភពលោក z ។
@@ -46,13 +46,13 @@ function grundo(x: number, z: number): number {
   const glata = t * t * (3 - 2 * t);
   return MARA_PROFUNDO + (0 - MARA_PROFUNDO) * glata + haga * 0o10 * (z / GRANDO);
 }
-/* កម្រិតទឹក , ឬ −Infinity បើគ្មានទឹក ។ ទឹកមានតែខាងលិចឆ្នេរ ។
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
     @returns kម្រិត ( number )។ */
 function akvaVem2En(x: number): number {
   return x < RANDO + TRANSIRA / 2 ? akvaVem2 : -Infinity;
 }
 
-// ⟪ ទិន្នន័យដែលកែបាន 📃 ⟫ ។ ផ្លូវ និងកំពង់តូចៗ , ដូចទិន្នន័យរបស់កម្មវិធីកែ ។
+// ⟪ ſɭэ ᶗ‹ , ꞙɭɩ , 📃 ⟫ , ſɭэ ֭ſɭэ , ꞙɭɿ ,
 let hak6h6: SkulptaK6h6[] = [];
 let haqakaj2: SkulptaPlatqoxa[] = [];
 
@@ -68,15 +68,15 @@ function antauaStato(): { hak6h6: SkulptaK6h6[]; haqakaj2: SkulptaPlatqoxa[] } {
   };
 }
 
-/* ក្រុមអាចប្រើជាឆាក ៖ ឧបករណ៍សាងសង់របស់ហ្គេមប្រកាសឆាក , រីឯឧបករណ៍ផ្តល់ក្រុម ។
+/* ſɭᴜ ſןᴜ , ꞙɭɿ ,
     @param g ( THREE.Object3D ) - ក្រុម ។
 @returns ឆាក ( THREE.Scene )។ */
 function kielSceno(g: THREE.Object3D): THREE.Scene {
   return g as THREE.Scene;
 }
 
-// ⟪ ឆាក 3D 🎥 ⟫
-// ⟨ agordiBildilon បញ្ចូលពន្លឺចង្កៀងកោង និងជំហានពណ៌រួម 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , 🎥 ⟫
+// ⟨ ſɭэ ſɭw , ꞙɭı , 📃 ⟩
 const bildilo = new THREE.WebGLRenderer({ canvas: elemento("vido3d") as HTMLCanvasElement, antialias: true });
 agordiBildilon( bildilo, { pikslaRacio: Math.min( 0o2, globalThis.devicePixelRatio || 1 ) } );
 const qena = new THREE.Scene();
@@ -88,16 +88,16 @@ hakama.target.set(-0o16, 0, -2);
 hakama.enableDamping = true;
 hakama.dampingFactor = 0.08;
 hakama.maxPolarAngle = Math.PI * 0.48;
-// ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , ſɭэ ſɭw , 📃 ⟩
 kf2CxefajnLumojn( qena, {
   cxielaKoloro: 0xb8d8e8, grundoKoloro: 0x384838, cxielaIntenso: 0o11/0o10,
   sunaKoloro: 0xf8f0d8, sunaIntenso: 0o3/0o2, sunaXekuxa: [ -0o50, 0o74, 0o36 ],
   plenigaKoloro: 0x404848, plenigaIntenso: 0o27/0o100,
 } );
-// ⟨ ការឆ្លុះរួម សម្រាប់វត្ថុធាតុដែក និងកញ្ចក់ ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 agordiMedion( qena, bildilo );
 
-// ⟪ ដី 🏔️ ⟫ ។ សំណាញ់ដែលអាចគណនាឡើងវិញពេលជម្រាលប្តូរ ។
+// ⟪ ſɭɜ ſɭ,w , 🏔️ ⟫ , ſɭᴜ ſןᴜ , ꞙɭı ,
 const TERENA_SEGMENTOJ = 0o74;
 const teraGeometrio = new THREE.PlaneGeometry(GRANDO, GRANDO, TERENA_SEGMENTOJ, TERENA_SEGMENTOJ);
 teraGeometrio.rotateX(-Math.PI / 2);
@@ -106,7 +106,7 @@ const teraMesh = new THREE.Mesh(teraGeometrio, new THREE.MeshStandardMaterial({
 }));
 qena.add(teraMesh);
 
-// ⟪ ទឹក 🌊 ⟫ ។ បន្ទះថ្លានៅកម្រិតទឹក , ខាងលិចឆ្នេរ ។
+// ⟪ ſᶘᴜ j͑ʃᴜ , 🌊 ⟫ , ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
 const akvaGeometrio = new THREE.PlaneGeometry(0o132, GRANDO);
 akvaGeometrio.rotateX(-Math.PI / 2);
 const akvaMesh = new THREE.Mesh(akvaGeometrio, new THREE.MeshStandardMaterial({
@@ -115,31 +115,31 @@ const akvaMesh = new THREE.Mesh(akvaGeometrio, new THREE.MeshStandardMaterial({
 }));
 qena.add(akvaMesh);
 
-// ⟨ ក្រុមផ្លូវ និងកំពង់ 📃 ⟩ ។ សាងសង់ឡើងវិញទាំងស្រុងរាល់ការផ្លាស់ប្តូរ ។
+// ⟪ ſɭэ ֭ſɭэ , ꞙɭɿ , 📃 ⟫ , ſɭᴜ ſןᴜ , ꞙɭц ,
 const k6h6Grupo = new THREE.Group();
 qena.add(k6h6Grupo);
 
-/* គណនាកម្ពស់ដី 3D នៃឆាក ។ */
+/* ſɭɜ ſɭ,w , ꞙɭɿ , */
 function alteco(x: number, z: number): number {
   return grundo(x, z);
 }
 
-/* កម្រិតទឹកសម្រាប់ផ្ទៃផ្លូវ ( បូកចន្លោះស្ពាន ) ។ */
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , */
 function akvaFino(x: number, z: number): number {
   const vem2 = akvaVem2En(x);
   return vem2 === -Infinity ? -Infinity : vem2 + 0.15;
 }
 
-// ⟪ កម្ពស់ផ្ទៃផ្លូវ 📏 ⟫
-// ⟨ រូបមន្តតែមួយនៅ haqoxa.js 📃 ⟩ ៖ មុននេះឆាកនេះប្រើ `sefini / 2` ,
-// ដូច្នេះផ្ទៃផ្លូវធំជាងហ្គេមពីរដង ។ ឥឡូវអានអនុគមន៍រួម ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , 📏 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
 
-// ⟪ កម្រិតរួមនៅចំណុចភ្ជាប់ 📏 ⟫
-// ⟨ វាលតែមួយ , ដូចហ្គេម 📃 ⟩ ៖ កម្ពស់ផ្លូវនៅទីនេះមកពី `kf2K6h6Alton` , ដូច
-// kantaoj/mondo/kaxte.ts ។ មុននេះឆាកនេះមានច្បាប់ផ្ទាល់ខ្លួន , ដូច្នេះវាបង្ហាញ
-// កម្ពស់ខុសពីហ្គេម ។
+// ⟪ ſɭᴜ ſןᴜ , 📏 ⟫
+// ⟨ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
 
-/* គណនាកម្ពស់ផ្លូវដែលបានតម្រឹមតាមចំណុចភ្ជាប់ ។
+/* ſɭᴜ ſןᴜ , ꞙɭɿ ,
     @param difinoj ( VojDifino[] ) - ផ្លូវទាំងអស់ ។
 @returns harmoniigita ( ( x , z ) => number ) - កម្ពស់ផ្លូវ ។ */
 function harmoniigi(difinoj: VojDifino[]): (x: number, z: number) => number {
@@ -148,7 +148,7 @@ function harmoniigi(difinoj: VojDifino[]): (x: number, z: number) => number {
   return kf2K6h6Alton(alteco, haveb6kek);
 }
 
-/* សាងសង់ក្រុមផ្លូវឡើងវិញ ៖ ផ្លូវ , ចានភ្ជាប់ , កំពង់ និងជណ្តើរកំពង់ ។ */
+/* ſɭᴜ ſןᴜ , ꞙɭц , */
 function vepaqHak6h6n3D(): void {
   for (const o of k6h6Grupo.children.slice()) {
     k6h6Grupo.remove(o);
@@ -164,8 +164,8 @@ function vepaqHak6h6n3D(): void {
     difinoj.push({ pts: v.n2k.map(p => [ p[0], p[1] ] as [ number, number ]),
       w: v.sefini / 2, hateruni: true });
   }
-  // ⟪ ការទាញចុងផ្លូវ 🧲 ⟫ ។ ចុងផ្លូវទាក់ទៅចំណុចភ្ជាប់ជិតបំផុត ដើម្បីកុំឱ្យ
-  // នៅសល់ចន្លោះស្មៅរវាងផ្លូវ និងចានភ្ជាប់ ។
+// ⟪ ſɭэ ֭ſɭэ , 🧲 ⟫ , ſɭэ ֭ſɭэ , ꞙɭı ,
+// ſɭэ ֭ſɭэ , ꞙɭɿ ,
   const qakaj2Landaj = haqakaj2.map(d => {
     const rotacio = d.rotacio ?? 0;
     return { x: d.x + Math.sin(rotacio) * (d.profundo / 2),
@@ -179,9 +179,9 @@ function vepaqHak6h6n3D(): void {
     difinoj[i] = { ...difinoj[i], pts: gluiK6h6Finon(difinoj[i].pts, celoj, qakaj2Landaj, aliaj) };
   }
   const harmoniigita = harmoniigi(difinoj);
-  // ⟨ កម្រិតចានភ្ជាប់ 📏 ⟩ ៖ ជណ្តើរចាប់ផ្តើមត្រង់កម្រិតចាន , ដូច pontaFinAlto
-  // ក្នុង kantaoj/mondo/kaxte.ts ។ បើឆាកអានតែដី , កម្រាលខ្ពស់បំផុតនៃជណ្តើរ
-  // ខុសពីចាន , ហើយឃើញជាជញ្ជាំងឈរ ។
+// ⟨ ſɭᴜ ſןᴜ , 📏 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
   const pa12Nivele = (px: number, pz: number): number | null => {
     for (const k of antauaj) {
       if (Math.hypot(px - k.x, pz - k.z) > VOJA_TRUA_DUONO) continue;
@@ -190,8 +190,8 @@ function vepaqHak6h6n3D(): void {
     }
     return null;
   };
-  // ⟪ កំពង់ និងជណ្តើរ ⚓ ⟫ ។ កំពង់សាងសង់ដោយ vepaqQakaj2n , ហើយជណ្តើររបស់វា
-  // ជាផ្លូវជំហាន ( stuparo ) ដូច kantaoj/mondo/kaxte.ts ។
+// ⟪ ſןɔ˞ᴜƴ , ⚓ ⟫ , ſןɔ˞ᴜƴ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ſɭэ ֭ſɭэ , ꞙɭɿ ,
   for (const d of haqakaj2) {
     const rotacio = d.rotacio ?? 0;
     const qakaj2 = vepaqQakaj2n(kielSceno(k6h6Grupo), d.x, d.z, rotacio,
@@ -213,8 +213,8 @@ function vepaqHak6h6n3D(): void {
   const protektoj = haveb6kek.map(k => [ k.x, k.z ] as [ number, number ]);
   const t6g6 = kf2T6g6Pukek();
   const t6hna = kf2T6hnaPukek();
-  // ⟨ ដៃពិតរបស់ចានភ្ជាប់ 📃 ⟩ ៖ ផ្លូវត្រូវអានកម្រិតចានដូចចានសាងសង់ ,
-  // ដូច្នេះឆាកនេះត្រូវផ្ញើដៃទៅដូច kantaoj/mondo/kaxte.ts ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
   const fermitaj = new Map<string, [ number, number ]>(haveb6kek.map(k => [ k.x + "," + k.z, k.fermitaj ]));
   const rotacioj = new Map<string, number>(haveb6kek.map(k => [ k.x + "," + k.z, k.rotacio ]));
   const hac2w2q = new Map<string, [ number, number ][]>(
@@ -227,7 +227,7 @@ function vepaqHak6h6n3D(): void {
     t6g6, t6hna, fermitaj, rotacioj, hac2w2q, alteco, hap2somani);
 }
 
-// ⟪ ដី និងទឹក 🏔️ ⟫ ។ កម្ពស់សំណាញ់ត្រូវបានគណនាឡើងវិញពេលជម្រាលប្តូរ ។
+// ⟪ ſɭɜ ſɭ,w , 🏔️ ⟫ , ſɭᴜ ſןᴜ , ꞙɭı ,
 function gxisdatigiTeranon(): void {
   const haxekuxa = teraGeometrio.attributes.position;
   const kol = new THREE.BufferAttribute(new Float32Array(haxekuxa.count * 3), 3);
@@ -247,7 +247,7 @@ function gxisdatigiTeranon(): void {
   akvaMesh.position.set(-0o36 - 0o55, akvaVem2, 0);
 }
 
-// ⟪ ផែនទីតូច 2D 🗺️ ⟫ ។ អូសចំណុចផ្លូវ និងកំពូលកំពង់ ។
+// ⟪ ſɭᴜ ſןᴜ , 🗺️ ⟫ , ſɭэ ֭ſɭэ , ꞙɭɿ ,
 const plano = elemento("plano2d") as HTMLCanvasElement;
 plano.width = 0o670;
 plano.height = 0o670;
@@ -266,7 +266,7 @@ let trenata: Trenebla | null = null;
 function k2fPlanon(): void {
   pk.fillStyle = "#182028";
   pk.fillRect(0, 0, plano.width, plano.height);
-  // សមុទ្រ និងឆ្នេរ ។
+// ſᶘᴜ j͑ʃᴜ , ſɭɜ ſɭ,w ,
   pk.fillStyle = "#285860";
   pk.fillRect(0, 0, c2taX(RANDO + TRANSIRA / 2), plano.height);
   pk.strokeStyle = "rgba(255,255,255,0.25)";
@@ -275,7 +275,7 @@ function k2fPlanon(): void {
   pk.moveTo(c2taX(RANDO + TRANSIRA / 2), 0);
   pk.lineTo(c2taX(RANDO + TRANSIRA / 2), plano.height);
   pk.stroke();
-  // កំពង់ ។
+// ſןɔ˞ᴜƴ ,
   for (const d of haqakaj2) {
     const rotacio = d.rotacio ?? 0;
     const w = 4;
@@ -286,7 +286,7 @@ function k2fPlanon(): void {
     pk.fillRect(-w / 2 * p6zukani, -d.profundo / 2 * p6zukani, w * p6zukani, d.profundo * p6zukani);
     pk.restore();
   }
-  // ផ្លូវ ។
+// ſɭэ ֭ſɭэ ,
   for (const v of hak6h6) {
     if (v.n2k.length < 2) continue;
     pk.strokeStyle = "rgba(216,216,208,0.95)";
@@ -305,7 +305,7 @@ function k2fPlanon(): void {
       pk.fill();
     }
   }
-  // កំពូលកំពង់ ។
+// ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ ,
   pk.fillStyle = "#f8e8a8";
   for (const d of haqakaj2) {
     const rotacio = d.rotacio ?? 0;
@@ -318,7 +318,7 @@ function k2fPlanon(): void {
   }
 }
 
-/* រកវត្ថុអូសជិតបំផុតនឹងទ្រនិច ( ចំណុចផ្លូវ , កំពូលកំពង់ , ឬវេទិកាកំពង់ ) ។ */
+/* ſɭэ ſɭᴜ , ꞙɭı , */
 function troviTreneblan(mx: number, mz: number): Trenebla | null {
   let plej: Trenebla | null = null, plejD = 1.8;
   for (let vi = 0; vi < hak6h6.length; vi++) {
@@ -369,7 +369,7 @@ plano.addEventListener("pointermove", (e) => {
   } else {
     const d = haqakaj2[trenata.qakaj2];
     if (d) {
-      // ⟨ កំពូលអូស ៖ ចំណុចដីនៅស្ថិត , ប្រវែង = ចម្ងាយតាមអ័ក្ស 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
       const rotacio = d.rotacio ?? 0;
       const sin = Math.sin(rotacio), kos = Math.cos(rotacio);
       const bazoX = d.x + sin * (d.profundo / 2), bazoZ = d.z + kos * (d.profundo / 2);
@@ -385,8 +385,8 @@ plano.addEventListener("pointermove", (e) => {
 plano.addEventListener("pointerup", () => { trenata = null; petiRevepaqn(); });
 plano.addEventListener("pointercancel", () => { trenata = null; });
 
-// ⟪ ការសាងសង់ឡើងវិញ 🏗️ ⟫ ។ ការអូសហៅបន្តបន្ទាប់ , ដូច្នេះការសាងសង់ត្រូវ
-// ធ្វើតែម្តងក្នុងមួយស៊ុម ។
+// ⟪ ſɭэ ſɭᴜ , 🏗️ ⟫ , ſɭэ ᶗ‹ , ꞙɭı ,
+// ſɭэ ᶗ‹ , ꞙɭɿ ,
 let revepaqPetita = false;
 function petiRevepaqn(): void {
   if (revepaqPetita) return;
@@ -403,7 +403,7 @@ function statuso(s2banani: string): void {
   el.textContent = s2banani;
 }
 
-// ⟪ ប៊ូតុង 🛠️ ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🛠️ ⟫
 elemento("k6h6Sef4").addEventListener("click", () => {
   hak6h6.push({ ksaka: "K6h6 " + (hak6h6.length + 1), sefini: 3.5,
     n2k: [ [ 0o12, 0o12 ], [ 0o12, 0o36 ] ] });
@@ -429,7 +429,7 @@ elemento("restarigi").addEventListener("click", () => {
   petiRevepaqn();
 });
 
-// ⟪ ជម្រាល និងទឹក 🏔️ ⟫ ។ ការប្តូរដីធ្វើឱ្យផ្លូវសាងសង់ឡើងវិញផ្ទាល់ ។
+// ⟪ ſɭɜ ſɭ,w , 🏔️ ⟫ , ſɭэ ֭ſɭэ , ꞙɭı ,
 const deklivoEn = elemento("haga") as HTMLInputElement;
 const akvoEn = elemento("akvoVem2") as HTMLInputElement;
 deklivoEn.addEventListener("input", () => {
@@ -445,7 +445,7 @@ akvoEn.addEventListener("input", () => {
   petiRevepaqn();
 });
 
-// ⟪ ស៊ុម 🎥 ⟫ ។ ផ្ទាំងគំនូរ 3D ប្តូរទំហំតាមបង្អួច ។
+// ⟪ ſɭᴜ ſןᴜ , 🎥 ⟫ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
 function gxisdatigiGrandon(): void {
   const rekt = bildilo.domElement.getBoundingClientRect();
   const w = Math.max(1, Math.round(rekt.width)), h = Math.max(1, Math.round(rekt.height));
@@ -464,8 +464,8 @@ vepaqHak6h6n3D();
 k2fPlanon();
 statuso("អូសចំណុចផ្លូវ ឬកំពូលកំពង់ ។ ផ្លូវ 3D សាងសង់ឡើងវិញភ្លាម ។");
 
-// ⟨ ចូលពីកុងសូល 📃 ⟩ ៖ ដើម្បីដាក់ទិន្នន័យផ្លូវដោយផ្ទាល់ខ្លួនក្នុងការសាកល្បង
-// ពីជំនួយការទំព័រ ( __provo.reagordi ( hak6h6 , haqakaj2 ) ) ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı ,
+// ſɭэ ֭ſɭэ , ꞙɭɿ ,
 (globalThis as unknown as { __provo: unknown }).__provo = {
   get hak6h6() { return hak6h6; },
   get haqakaj2() { return haqakaj2; },
@@ -492,7 +492,7 @@ function animacii(): void {
 }
 animacii();
 
-/* យកធាតុពីឯកសារ ។ បើគ្មាន , កំហុស ។
+/* ſɭэ ᶗ‹ , ꞙɭı ,
     @param id ( string ) - លេខសម្គាល់ធាតុ ។
 @returns ធាតុ ( HTMLElement )។ */
 function elemento(id: string): HTMLElement {

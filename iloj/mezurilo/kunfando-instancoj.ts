@@ -20,43 +20,43 @@ for ( let i = 0; i < 0o10; i++ ) {
 }
 const tseuni = kunfandiMondajnMeshojn(zace, [ ...zace.children ]);
 certigi( tseuni.ne3ak2 === 0o10 && tseuni.poste === 1,
-  "ចំនួនមុន និង ក្រោយមិនត្រឹមត្រូវ" );
-certigi( zace.children.length === 1, "គំរូដើមមិនបានដកចេញ" );
+  "ſɭɹ ſȷɔ ʌ j͑ʃᴜ ı],ɔ ｡ ſɭɹ ſȷɔ ʌ j͑ʃᴜɔ˞ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſןɔ" );
+certigi( zace.children.length === 1, "ſᶘᴜ j͐ʃɔ ſᶘᴜ ʌ j͑ʃᴜ ı],ɔ ｡ ſןɔ ʌ }ʃɔ ſ̀ȷw }ʃᴜƽ" );
 const instancigita = zace.children[0] as THREE.InstancedMesh;
 certigi( instancigita.isInstancedMesh && instancigita.count === 0o10,
-  "ការបង្កើតឧទាហរណ៍មិនត្រឹមត្រូវ" );
-certigi( instancigita.geometry === geometrio, "គំរូត្រូវបានចម្លងជំនួសឱ្យចែករំលែក" );
+  "j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ ｡ ſןɔ" );
+certigi( instancigita.geometry === geometrio, "ſᶘᴜ j͐ʃɔ ſᶘᴜ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɟw ɭʃᴜ ʌ j͑ʃᴜ }ʃꞇ" );
 const matrico = new THREE.Matrix4();
 instancigita.getMatrixAt(0o1, matrico);
-certigi( matrico.elements[0o14] === 0o200, "មាត្រីពិភពលោកមិនរក្សាទីតាំង" );
+certigi( matrico.elements[0o14] === 0o200, "ſɭэ }ʃᴜ ʌ }ʃᴜ j͐ʃᴜ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ j͑ʃɜ j͑ʃᴜ" );
 
 const disigo = spacigiInstancojn(zace, 0o40);
 certigi( disigo.tavoloj === 1 && disigo.pecoj === 0o2,
-  "ការបំបែកលំហមិនជោគជ័យ" );
+  "ſɭэ }ʃᴜ ｡ ſɭɜc̗ ɭʃɜ ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ" );
 certigi( zace.children.every(infano => ( infano as THREE.InstancedMesh ).geometry === geometrio ),
-  "ការបំបែកបានផ្លាស់ប្តូរ ឬ ចម្លងគំរូ" );
+  "ſɭэ }ʃᴜ ｡ ſɭɜc̗ ɭʃɜ ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʃэ ｡ ſɟw ɭʃᴜ ʃэ" );
 
-// ⟨ គំរូខុស UUID មិនត្រូវបញ្ចូលគ្នា 📃 ⟩
+// ⟨ ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ꞙɭı , j͑ʃᴜ ſɭ,w , ꞙɭɔ , 📃 ⟩
 const malsama = new THREE.Scene();
 malsama.add(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), pukek));
 malsama.add(new THREE.Mesh(new THREE.BoxGeometry(0o2, 1, 1), pukek));
 const malsamaRezulto = kunfandiMondajnMeshojn(malsama, [ ...malsama.children ]);
 certigi( malsamaRezulto.poste === 0o2 && malsama.children.length === 0o2,
-  "គំរូខុស UUID ត្រូវបានបញ្ចូលខុស" );
+  "ſᶘᴜ j͐ʃɔ ſᶘᴜ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ UUID ｡ ſɭɜ ɭʃᴜ ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ" );
 
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ចែករំលែក ${alOkto(tseuni.ne3ak2, 0)} ទៅ ${alOkto(tseuni.poste, 0)} ហើយបំបែកជា ${alOkto(disigo.pecoj, 0)} ដោយគំរូតែមួយ`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɟw ɭʃᴜ ${alOkto(tseuni.ne3ak2, 0)} ʌ ${alOkto(tseuni.poste, 0)} ｡ jɐ ɭʃᴜ ${alOkto(disigo.pecoj, 0)} ｡ ſᶘᴜ j͐ʃɔ ſᶘᴜ ɔ`);
 
-// ⟨ កម្រិតធរណីមាត្រឆ្លាស់តាមចម្ងាយ ហើយត្រឡប់ដើមនៅជិត 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , j͑ʃᴜ ſɭ,w , ֭ſɭэ ſɭw }ʃꞇ , ꞙɭı , ı],ᴜ ֭ſɭᴜ , ꞙɭı , 📃 ⟩
 const malproksimaGeometrio = new THREE.BoxGeometry(0o2, 0o2, 0o2);
 const lodMesho = new THREE.Mesh(geometrio, pukek);
 lodMesho.userData.malproksimaGeometrio = malproksimaGeometrio;
 zace.add(lodMesho);
 registriVidlimon(lodMesho, 0o200);
 gxisdatigiVidlimojn(0, 0);
-certigi(lodMesho.geometry === geometrio, "កម្រិតជិតមិនប្រើគំរូពេញ");
+certigi(lodMesho.geometry === geometrio, "j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘɹ ſɭɔ ｡ ſןɔ ʌ ſɟɹ ɭʃᴜ ʌ ſᶘᴜ j͐ʃɔ ſᶘᴜ ʌ ſɭɹ ſᶘɔ");
 gxisdatigiVidlimojn(0o1000, 0);
-certigi(lodMesho.geometry === malproksimaGeometrio, "កម្រិតឆ្ងាយមិនប្រើគំរូស្តើង");
+certigi(lodMesho.geometry === malproksimaGeometrio, "j͑ʃ'ɔ ŋᷠɹ ʌ ſɭɜʞ ｡ ſןɔ ʌ ſɟɹ ɭʃᴜ ʌ ſᶘᴜ j͐ʃɔ ſᶘᴜ ŋᷠɹ");
 gxisdatigiVidlimojn(0, 0);
-certigi(lodMesho.geometry === geometrio, "កម្រិតជិតមិនត្រឡប់ដើម");
+certigi(lodMesho.geometry === geometrio, "j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘɹ ſɭɔ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ j͑ʃᴜ ı],ɔ");
 vidlimojnMalŝalti();
-console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) កម្រិតធរណីមាត្រជិត និង ឆ្ងាយឆ្លាស់ត្រឹមត្រូវ ✅");
+console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ｡ ſᶘɹ ſɭɔ ｡ ſɭɜʞ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ✅");

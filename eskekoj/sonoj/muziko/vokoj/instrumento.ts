@@ -13,7 +13,7 @@ import type { SonoEvento } from "./hahunaq.js";
 import { faktoro } from "./vario.js";
 export function instrumento(ctx: AudioContext, out: AudioNode, e: SonoEvento, t: number) {
   const f = e.f ?? 0;
-  // ⟨ កម្លាំងដៃមិនស្មើគ្នារាល់ដង ទោះជាឧបករណ៍ណាក៏ដោយ 📃 ⟩
+  // ⟨ ſɭᴜ ŋᷠᴜ ʌ ꞙɭɔ ʌ ſɭᴜ }ʃᴜȝ , ꞙɭı ʌ ꞙɭı 📃 ⟩
   const v = ( e.v == null ? 1 : e.v ) * faktoro( 0o5/0o100 );
   const d = ( e.d == null ? 1 : e.d );
 

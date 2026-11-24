@@ -28,7 +28,7 @@ export interface MinimapajHasukf2qani {
 export interface Minimapo {
   gxisdatigi(vidX: number, vidZ: number, centroX: number, centroZ: number): void;
   tsekeBakita(): boolean;
-  // ⟨ សន្យាបញ្ចប់ពេលការដុតចប់ ឬ ពេលវាមិនអាចធ្វើបានឥឡូវ 📃 ⟩
+  // ⟨ j͑ʃᴜꞇ ʌ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   pretigi(): Promise<void>;
   tsekeMalfermita(): boolean;
   malfermi(): void;
@@ -42,7 +42,7 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
     mapoGrandeco, traduki, aplikiVacepu } = hasukf2qani;
   const { npcoj, kanuoj, hapaga, hatemek } = hasukf2qani.movantoj;
 
-  // ⟪ ផែនទីតូច , ត្រីវិស័យក្លាយជាផែនទីរ៉ាដា; ចុចបើកទិដ្ឋភាពពេញ 📃 ⟫
+  // ⟪ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ , ſȷwɔ˞ ʌ ſɭꞇ ı],ɹ ʌ j͑ʃᴜꞇ 📃 ⟫
   let mapoMalfermita = false;
   let plenaKanvaso: HTMLCanvasElement | null = null;
   let plenaKuns2bana: CanvasRenderingContext2D | null = null;
@@ -59,20 +59,20 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
   const MINA_DUONO = 0o10;
   const MAXA_DUONO = Math.round(PLENA_DUONO * 0o15/0o10);
   const MAPA_BAKA_DUONO = 0o1270;
-  // ⟨ ផែនទីដុតតែម្តង , ក្រោយពេលពិភពលោកផ្ទុករួច ។ ចានគំនូរតូចកាត់ទាំងការងារ GPU
-  //   និង ស្មាមអានត្រឡប់ ហើយគុណភាពផ្លាស់ទីក៏តាម maxTextureSize 📃 ⟩
+  // ⟨ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ , }ʃᴜ j͐ʃᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ⟅ ſןɹ ɭʃэ ſɭ,ɜ ʌ ꞙɭı ʌ ꞙɭı GPU
+  //   maxTextureSize 📃 ⟩
   const MAPA_BAKA_REZ = Math.min(MALPOTENCA_APARATO ? 0o1000 : 0o2000,
     bildilo.capabilities.maxTextureSize);
-  // ⟨ កាំរង្វង់ឆ្លុះផែនទី , គិតជាផ្នែកនៃទំហំផែនទី ។ គែមការ៉េត្រូវបើក
-  //   ចំហៀង មិនមែនបិទជាប់ ទើបមិនឃើញក្រឡាចតុកោណពណ៌សជុំវិញផែនទី 📃 ⟩
+  // ⟨ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ſɭᴜ ſɭw j͐ʃᴜ ʌ ʃэȝ , ſɭᴜ ſ͕ȷɔ ʌ ſȷwɔ˞
+  //   ꞙɭɔ ʌ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ 📃 ⟩
   const MAPA_BAKA_FADO = Math.round(0o230 * MAPA_BAKA_REZ / 0o3000);
   let mapaRandaKoloro = "#585848";
   let mapaNebulaKoloro = "#c8d8d8";
   let plenaDuono = PLENA_DUONO;
   let mapaPanX = 0;
   let mapaPanZ = 0;
-  // ⟨ ទិដ្ឋភាពពេញគូរឡើងវិញតែ 0o100 មិល្លីវិនាទីម្តង ។ ការបង្វិល
-  //   កង់ ទាញ ឬ ពង្រីកបង្ខំឱ្យគូរភ្លាម ដើម្បីរក្សាអារម្មណ៍ឆ្លើយតប ។ 📃 ⟩
+  // ⟨ ſɭꞇ ı],ɹ ʌ j͑ʃᴜꞇ ʌ ꞙɭıɔɔ ⟅ j͑ʃɹ j͑ʃᴜ ʃɜ
+  //   j͑ʃɹ j͑ʃᴜ ʃɜ ʌ j͑ʃᴜꞇ 📃 ⟩
   const PLENA_MAPA_PERIODO = 0o100;
   let lastaPlenaMapoTempo = -Infinity;
   function postuliPlenanMapon(): void { lastaPlenaMapoTempo = -Infinity; }
@@ -83,24 +83,24 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
       minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
     });
     try {
-      // ⟨ ចានគំនូរត្រូវសរសេរជាពណ៌ដូចអេក្រង់ ។ បើមិនកំណត់ , ចានគំនូរសរសេរជាលីនេអ៊ែរ
-      // ហើយផែនទីក្លាយជាងងឹត និងឆ្អែតពណ៌ខុសពីពិភពលោក ។ 📃 ⟩
+      // ⟨ ſןɹ ɭʃэ ſɭ,ɜ ʌ ᶅſɔ ֭ſɭɹ ʌ j͑ʃɜ j͑ʃƨɹ ⟅
+      // ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ 📃 ⟩
       rt.texture.colorSpace = THREE.SRGBColorSpace;
       const mapFotilo = new THREE.OrthographicCamera(-p2somani, p2somani, p2somani, -p2somani, 1, 0o230);
       mapFotilo.up.set(0, 0, 1);
       mapFotilo.position.set(0, 0o130, 0);
       mapFotilo.lookAt(0, 0, 0);
-      // ⟨ រក្សាស្រមោលដូចឆាកចម្បង ។ ការបិទវាបង្កើត shader programs ថ្មី
-      //   សម្រាប់វត្ថុរាប់ពាន់ ហើយអាចធ្វើឱ្យ Edge អស់ស្មាម 📃 ⟩
+      // ⟨ ſɟᴜ ֭ſɭэ ſɭэ ʌ ꞙɭı ʌ ꞙɭı ⟅ ſȷwɔ˞ ſןw ʃᴜ }ʃꞇ ʌ ꞙɭı
+      //   j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı , ſɭэ ſɭᴜ 📃 ⟩
       const kaŝitaj: { obj: THREE.Object3D; videbla: boolean }[] = [];
       const kaŝu = ( obj: THREE.Object3D ): void => {
         kaŝitaj.push({ obj, videbla: obj.visible });
         obj.visible = false;
       };
-      // ⟨ អ័ព្ទបិទពេលដុតផែនទី ។ កាមេរ៉ាផែនទីនៅខ្ពស់ ,
-      //   ដូច្នេះអ័ព្ទធម្មតាគ្របដណ្តប់ស្ទើរតែទាំងអស់ , ហើយផែនទីក្លាយជាផ្ទៃស ។
-      //   ការកំណត់ដង់ស៊ីតេជា 0 មិនបង្កើតកម្មវិធីស្រមោលថ្មីទេ ,
-      //   ខុសពីការដកអ័ព្ទចេញទាំងស្រុង 📃 ⟩
+      // ⟨ ŋᷠᴜ ֭ſɭᴜ ʌ ſȷwɔ˞ ʌ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ⟅ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ſɟᴜ ɭʃᴜ ֭ſɭᴜȝ
+      //   ŋᷠᴜ ֭ſɭᴜ ʌ j͑ʃᴜꞇ ⟅ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃɜ ſɭ,ᴜ ⟅
+      //   ſɭw ʃᴜ }ʃꞇ ʌ ꞙɭɔ ⟅ ſןw ʃᴜ }ʃꞇ ꞙɭɔ ⟅
+      //   ꞙɭɔ ʌ ꞙɭı ʌ ſɭɜ ʃɔ ʌ ſȷwɔ˞ 📃 ⟩
       const nebulo = qena.fog;
       let restarigiNebulon = (): void => {};
       try {
@@ -114,9 +114,9 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
           nebulo.far = 0o100000 + 1;
           restarigiNebulon = (): void => { nebulo.near = proksima; nebulo.far = malproksima; };
         }
-        // ⟨ ដែនមើលបិទ 📃 ⟩
+        // ⟨ ſȷwɔ˞ ʌ ſɭꞇ ı],ɹ 📃 ⟩
         vidlimojnMalŝalti();
-        // ⟨ ស្មៅមិនក្តៅ 📃 ⟩
+        // ⟨ ſȷɔ ſᶘᴜʞ ʌ ꞙɭɔ ʌ ſɭᴜʞ ꞁȷ̀ᴜ }ʃꞇ 📃 ⟩
         for ( const o of qena.children ) {
           if ( o.name !== HERBA_TAVOLA_NOMO ) continue;
           kaŝu(o);
@@ -126,21 +126,21 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
         for ( const b of hapaga.hapaga ) kaŝu(b.hate);
         for ( const p of hatemek.hatemek ) kaŝu(p.hate);
         bildilo.setRenderTarget(rt);
-        // ⟨ ឆាកចម្បងបានចងក្រងរួចហើយ ។ ការចងក្រងឆាកទាំងមូលម្តងទៀត
-        //   មុនផែនទីបង្កើនស្មាម និង ពេលផ្ទុកដោយមិនចាំបាច់ 📃 ⟩
+        // ⟨ ſɟᴜ j͑ʃᴜ ʌ j͑ʃᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ⟅
+        //   ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭɔ ʌ ſɟᴜ ſȷᴜɔ˞ 📃 ⟩
         bildilo.render(qena, mapFotilo);
       } finally {
-        // ⟨ សូម្បីការគូរបរាជ័យក៏ត្រូវដកចានគំនូរ និង ស្ថានភាពចាស់ចេញ 📃 ⟩
+        // ⟨ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭɔ , ſןɹ ɭʃэ ſɭ,ɜ ʌ ſɭˬɹ ʌ ſɭɜ ʃɔ 📃 ⟩
         restarigiNebulon();
         bildilo.setRenderTarget(null);
         for ( const ero of kaŝitaj ) ero.obj.visible = ero.videbla;
         vidlimojnŜalti();
-        // ⟨ ការដុតផែនទីបិទភាពមើលឃើញរបស់ក្រឡាទាំងអស់ ហើយបើកវាឡើងវិញដោយ
-        //   មិនដឹងចម្ងាយ ។ បង្ខំឱ្យប្រព័ន្ធស្មៅគណនាឡើងវិញលើស៊ុមបន្ទាប់ ។ 📃 ⟩
+        // ⟨ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ſȷwɔ˞ ʌ ꞁȷ̀ɜ ɭʃɹ ʃᴜ j͑ʃᴜꞇ ʌ ſɭɹ ſןᴜ ⟅
+        //   ſȷɔ ſᶘᴜʞ ʌ ꞙɭı ʌ ſɭɜ ɭʃᴜ 📃 ⟩
         devigiHerbanGxisdatigon();
       }
       if ( qena.fog ) mapaNebulaKoloro = "#" + qena.fog.color.getHexString();
-      // ⟨ ប៊ូហ្វ័រមួយ 📃 ⟩
+      // ⟨ ſɭɹ ſןᴜ ʌ ꞙɭı 📃 ⟩
       const buf = new Uint8Array(rez * rez * 4);
       bildilo.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
       const tempX2pa = new Uint8Array(rez * 4);
@@ -159,19 +159,19 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
       molaRandon(kanvasa, MAPA_BAKA_FADO);
       return kanvasa;
     } catch ( e ) {
-      console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ការដុតផែនទីមិនអាចប្រើបាន" , e);
+      console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭɔ ʌ ſɭ,ɔ ſ͔ɭɔ" , e);
       return null;
     } finally {
-      // ⟨ ការអាន ឬ ការបម្លែងបរាជ័យក៏មិនទុក GPU render target នៅឡើយ 📃 ⟩
+      // ⟨ GPU render target ʌ ꞙɭɔ ʌ j͑ʃᴜꞇ 📃 ⟩
       rt.dispose();
     }
   }
 
-  // ⟨ វាស់គែមដោយផ្ទាល់ពីប៊ូហ្វ័រដែលបានអានពី GPU រួចហើយ ។ ពីមុន
-  //   getImageData អាន 0o10 ជួរពេញពីចានគំនូរវិញ ទាំងដែលប៊ូហ្វ័រមានរួច ។ 📃 ⟩
+  // ⟨ ſןw ſɭᴜƴ ʌ GPU ⟅
+  //   getImageData ꞙɭıɔ ⟅ ſןɹ ɭʃэ ſɭ,ɜ 📃 ⟩
   function mezuriRandanKoloron(buf: Uint8Array, rez: number): string {
     const bendo = 0o10;
-    // ⟨ តែគែម 📃 ⟩
+    // ⟨ ſןw ſɭᴜƴ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
     const hax2pa = [ 0, bendo - 1, rez - 1, rez - bendo ];
     const kolumnoj = [ 0, bendo - 1, rez - 1, rez - bendo ];
     let sr = 0, sg = 0, sb = 0, n = 0;
@@ -233,7 +233,7 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
     return [ ( ( cx + hw ) - x ) / ( 2 * hw ) * w, ( ( cz + hh ) - z ) / ( 2 * hh ) * h ];
   }
 
-  // ⟨ ព្រួញផែនទី , ទម្រង់មួយសម្រាប់ទាំងពីរ 📃 ⟩
+  // ⟨ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   const SAGO_R = 0o12/0o2;
   const SAGO_RONDIGO = 0o12/0o10;
   const SAGO_BORDO = 0o2;
@@ -294,7 +294,7 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
     for ( const n of npcoj ) n2k(n.group.position.x, n.group.position.z, "#b8b0a0");
   }
 
-  // ⟨ ម្ជុលពាក់សញ្ញាសម្គាល់លើរ៉ាដា 📃 ⟩
+  // ⟨ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ſɭɔ ſᶘɹ ʌ ꞙɭı 📃 ⟩
   const radaraKuns2bana = miniKanvaso.getContext("2d");
   function k2fRadaron(): void {
     const ctx = radaraKuns2bana;
@@ -321,11 +321,11 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
     k2fMovantajnPunktojn(ctx, w, h, mapX + mapaPanX, mapZ + mapaPanZ, hw, hh);
   }
 
-  // ⟨ ផែនទីជាជម្រើសបន្ថែម មិនមែនលក្ខខណ្ឌចូលពិភពលោក 📃 ⟩
-  // រង់ចាំស៊ុមហ្គេមមួយ រួចទុកពេលឱ្យកម្មវិធីរុករកបង្ហាញវា ។ ការបរាជ័យ
-  // បិទតែផែនទី ហើយមិនបញ្ឈប់ពិភពលោក ឬ ព្យាយាមបង្កើត GPU context ថ្មីជាប់ៗគ្នាទេ ។
-  // ⟨ អ្នករង់ចាំការដុត ៖ វាំងននផ្ទុករង់ចាំរហូតរ៉ាដារួចរាល់ ។
-  //   បើការដុតពន្យារ , ពួកគេត្រូវដោះលែងដើម្បីកុំឱ្យហ្គេមជាប់ជារៀងរហូត 📃 ⟩
+  // ⟨ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭı ʌ ꞙɭı , ꞙɭɔ ʌ ſȷwɔ˞ ʌ }ʃᴜ j͐ʃᴜ 📃 ⟩
+  // ſɭɜ ſɭᴜ j͐ʃᴜ ʌ ɭl̀ɜ ſ͕ɭᴜ ⟅ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞
+  // ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ſȷwɔ˞ , ꞙɭɔ ʌ }ʃᴜ j͐ʃᴜ ⟅
+  // ⟨ j͑ʃᴜꞇ ʌ j͑ʃᴜ ʌ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ⟅ ſɟᴜ ſȷᴜɔ˞
+  //   ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃɜ ſןɹ , ꞙɭı 📃 ⟩
   let bakajSolvantoj: ( () => void )[] = [];
   function solviBakadon(): void {
     const solvantoj = bakajSolvantoj;
@@ -348,12 +348,12 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
             bakitaMapo = bakiMapon();
           }
         } catch ( e ) {
-          console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ការរៀបចំផែនទីបរាជ័យ", e);
+          console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭɔ ʌ ſɭ,ɔ ſ͔ɭɔ", e);
         } finally {
           mapaBakado = false;
         }
-        // ⟨ មិនបានសាកល្បង ( ផ្ទាំងលាក់ ឬ GPU បាត់ ) ៖ ទុកសំណើទុក
-        //   ហើយព្រឹត្តិការណ៍បន្តនឹងហៅម្តងទៀត 📃 ⟩
+        // ⟨ ꞙɭɔ ʌ j͑ʃɹ j͐ʃɹ ŋᷠɔ ( ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ſɭɜ ʃɔ ) ⟅
+        //   j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
         if ( !provis ) { solviBakadon(); return; }
         mapaPetita = false;
         if ( bakitaMapo ) {
@@ -392,7 +392,7 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
       kanvasa.height = innerHeight;
       plenaKanvaso = kanvasa;
       plenaKuns2bana = kanvasa.getContext("2d");
-      if ( !plenaKuns2bana ) { console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ផែនទីពេញមិនអាចប្រើបាន ( បរិបទ 2D )"); plenaKanvaso = null; return; }
+      if ( !plenaKuns2bana ) { console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭɔ ʌ ſɭ,ɔ ſ͔ɭɔ ( 2D )"); plenaKanvaso = null; return; }
       kanvasa.addEventListener("wheel", ( e ) => {
         e.preventDefault();
         const delt = e.deltaMode === 1 ? e.deltaY * 0o20 : e.deltaY;
@@ -455,8 +455,8 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
     nadlo.style.setProperty("--sago", `url("${sagoBildo}")`);
   }
 
-  // ⟨ សរសេរ style.transform តែពេលមុំប្រែ ។ ការសរសេរ DOM រាល់ហ្វ្រេម
-  //   បង្ខំឱ្យកម្មវិធីរុករកគណនារចនាប័ទ្មឡើងវិញដោយឥតប្រយោជន៍ ។ 📃 ⟩
+  // ⟨ style.transform ʌ j͑ʃᴜꞇ ʌ ſɭɜ ⟅ DOM ɭl̀ɜ ſ͕ɭᴜ
+  //   ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
   let lastaNadlaAngulo = NaN;
   function gxisdatigi(vx: number, vz: number, cx: number, cz: number): void {
     vidX = vx; vidZ = vz;

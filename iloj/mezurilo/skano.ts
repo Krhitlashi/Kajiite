@@ -1,6 +1,6 @@
 // ≺⧼ j͑ʃɹ ɭʃɹ ʃᴜ ſɭᴜ }ʃɜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🔬 ⧽≻
-// វាស់តម្លៃមុខងារនីមួយៗលើក្រឡាទាំងអស់នៃពិភពលោក ។ លេខទាំងនេះបង្ហាញ
-// ថាតើផ្នែកណានៃការស្កេនថ្លៃបំផុត ។
+// ſɭɜ ſɭ,w , ꞙɭı , ı],ᴜ ֭ſɭᴜ , ꞙɭı ,
+// ꞙɭэ , ⟅ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { bs2, alteco, akvaVem2, akvaVem2Proksima }
   from "../../kantaoj/mondo/tereno.js";
@@ -22,7 +22,7 @@ function herbaHasho( ix: number, iz: number ): number {
   return ( ( h ^ ( h >>> 0o13 ) ) >>> 0 ) / 0o4000000000000;
 }
 
-// ⟨ ក្រឡាទាំងអស់ គណនាម្តង 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭı , ꞙɭı , 📃 ⟩
 const xs = new Float64Array(N), zs = new Float64Array(N);
 let p = 0;
 for ( let tz = 0; tz < tabeloj; tz++ ) {
@@ -51,13 +51,13 @@ function mezuri( ksaka: string, fn: ( x: number, z: number ) => number ): void {
     if ( t1 - t0 < plejBona ) plejBona = t1 - t0;
   }
   const po = plejBona * 0o3641100 / N;
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${plejBona.toFixed(1)}ms ${po.toFixed(0)}ns/ក្រឡា [${tlunakani.toFixed(0)}]`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${plejBona.toFixed(1)}ms ${po.toFixed(0)}ns/ſɭɹ ſןᴜ [${tlunakani.toFixed(0)}]`);
 }
 
 const biomajxo: Record<string, number> = { akvo: 0, valo: 1, "ebenaĵo": 2, montaro: 3, "akvaj-plantoj": 4, ekyizeto: 5, nenio: 6 };
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ក្រឡា=${N}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſןᴜ=${N}`);
 
-// ⟨ ស្កេនទទេ ដូចក្នុងវាលស្មៅ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɔ , 📃 ⟩
 const filtro = [ "valo", "ebenaĵo" ];
 let akceptitaj = 0;
 function skani(): number {
@@ -87,9 +87,9 @@ for ( let r = 0; r < 0o7; r++ ) {
   const t1 = performance.now();
   if ( t1 - t0 < skanoPlejBona ) skanoPlejBona = t1 - t0;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ស្កេនដៃ ${skanoPlejBona.toFixed(1)}ms ទទួល=${akceptitaj}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) jɐ ɭʃᴜ ʌ ſɟᴜ=${skanoPlejBona.toFixed(1)}ms ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ=${akceptitaj}`);
 
-mezuri("ទទេ ( គ្មានអ្វី )", () => 1);
+mezuri("jɐ ɭʃᴜ ( ſןɔ ʌ ſɭɹ ſᶘɔ )", () => 1);
 mezuri("bs2", (x, z) => biomajxo[bs2(x, z)] ?? 0);
 mezuri("alteco", alteco);
 mezuri("akvaVem2", akvaVem2);

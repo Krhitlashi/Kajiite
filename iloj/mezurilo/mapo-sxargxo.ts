@@ -1,7 +1,7 @@
 // ≺⧼ ʃᴜ j͐ʃɹ ʌ j͑ʃɹ ɭʃɜ j͑ʃᴜᶗ‹ ꞁȷ̀ᴜ }ʃꞇ ʌ j͐ʃɹ ŋᷠɔ 🗺️ ⧽≻
-// ⟨ សន្ទះក្លែងក្លាយវាស់តែលំដាប់ការងារ និង ការដោះលែងធនធាន ។ វាមិន
-//   គូររូប ឬ ផ្ទៀងផ្ទាត់ WebGL driver ទេ ដូច្នេះលទ្ធផលនេះជាការពិនិត្យ
-//   សុវត្ថិភាពផ្ទុក មិនមែនការវាស់ល្បឿន GPU ពិត 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭэ ɭʃᴜ , ꞙɭɿ , 📃 ⟩
+//   ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭɔ ,
+//   ſɭэ ɭʃᴜ , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { kf2Minimapon } from "../../kantaoj/bildo/minimapo.js";
 import type { Minimapo } from "../../kantaoj/bildo/minimapo.js";
@@ -13,7 +13,7 @@ interface FiksaStato {
   kompiligitaj: number;
   forigitaj: number;
   celoj: ( THREE.WebGLRenderTarget | null )[];
-  // ⟨ ដង់ស៊ីតេអ័ព្ទខណៈគូរ ៖ -0o1 មានន័យថាគ្មានអ័ព្ទ 📃 ⟩
+// ⟨ ſɭэ ſɭw , ꞙɭı , ⟅ ꞙɭɔ , 📃 ⟩
   densoj: number[];
 }
 
@@ -24,13 +24,13 @@ function certigi( thaweni: boolean, vop2lna: string ): void {
 async function atendi( thaweni: () => boolean = () => true ): Promise<void> {
   const limo = Date.now() + 0o10000;
   while ( !thaweni() ) {
-    if ( Date.now() > limo ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ការរង់ចាំស្ថានភាពសាកល្បងផុតពេល");
+    if ( Date.now() > limo ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ j͑ʃɜ j͑ʃᴜ ʌ ſᶘᴜ j͐ʃɔ ſᶘᴜ ｡ j͑ʃƨꞇʞ ɭl̀ᴜ");
     await new Promise(resolve => setTimeout(resolve, 0o10));
   }
 }
 
-// ⟨ Node មិនមាន ImageData នៅក្នុងជំនាន់ខ្លះទេ ។ ផែនទីត្រូវការតែ
-//   រចនាសម្ព័ន្ធទិន្នន័យ មិនមែនវិធីគូរ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
+//   ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 if ( typeof globalThis.ImageData === "undefined" ) {
   ( globalThis as unknown as Record<string, unknown> ).ImageData = class {
     constructor( public data: Uint8ClampedArray, public width: number, public height: number ) {}
@@ -100,78 +100,78 @@ function kf2Fikston( agordiScenon?: ( qena: THREE.Scene ) => void ): {
   };
 }
 
-// ⟨ ការត្រឡប់ GPU ដោយគ្មានសំណើ មិនត្រូវផ្ទុកផែនទី 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , 📃 ⟩
 const senpeto = kf2Fikston();
 senpeto.restarigi();
 await atendi();
 certigi( senpeto.stato.bildigitaj === 0 && senpeto.stato.forigitaj === 0,
-  "ផែនទីរត់ដោយគ្មានសំណើរបស់អ្នកប្រើ" );
+  "ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſɭɜ ʃᴜ j͐ʃɹ ʌ j͑ʃп́ꞇ ſɟᴜ ſȷᴜɔ˞" );
 
-// ⟨ ការសាងសង់មិនអាចប៉ះ GPU មុនស៊ុមហ្គេម 📃 ⟩
+// ⟨ ſɭɜ ᶗ‹ , ſɭэ ɭʃᴜ , 📃 ⟩
 const sukcesa = kf2Fikston();
 certigi( sukcesa.stato.bildigitaj === 0 && sukcesa.stato.kompiligitaj === 0,
-  "ការសាងសង់ផែនទីបានប៉ះ GPU ភ្លាម" );
+  "j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ʃᴜ j͐ʃɹ ｡ j͑ʃɜ j͑ʃᴜ ſᶘᴜ j͐ʃɔ ſᶘᴜ ʌ GPU" );
 sukcesa.mapo.pretigi();
 await atendi(() => sukcesa.stato.bildigitaj === 1);
-certigi( sukcesa.stato.bildigitaj === 1, "ការរៀបចំយឺតមិនបានគូរម្តង" );
-certigi( sukcesa.stato.kompiligitaj === 0, "ផែនទីបានចងក្រងឆាកម្តងទៀត" );
-certigi( sukcesa.stato.forigitaj === 1, "render target មិនបានដោះលែង" );
-certigi( sukcesa.stato.celoj.at(-1) === null, "render target សកម្មមិនបានដកចេញ" );
-certigi( sukcesa.mapo.tsekeBakita(), "ផែនទីជោគជ័យមិនបានសម្គាល់" );
+certigi( sukcesa.stato.bildigitaj === 1, "ſɭʞᴜƴ ſɭɔ˞ɜƴ ꞁȷ̀ᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſןɔ ʌ ſɭɹʞ" );
+certigi( sukcesa.stato.kompiligitaj === 0, "ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭɹ ſȷɔ ʌ ſɭэ ſ͕ɭᴜ" );
+certigi( sukcesa.stato.forigitaj === 1, "render target ｡ ſןɔ ʌ }ʃɔ ſ̀ȷw }ʃᴜƽ" );
+certigi( sukcesa.stato.celoj.at(-1) === null, "render target ʌ j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ ｡ ſןɔ ʌ }ʃɔ ſ̀ȷw }ʃᴜƽ" );
+certigi( sukcesa.mapo.tsekeBakita(), "ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ" );
 
-// ⟨ ការហៅពីរដងក្នុងពេលតែមួយចែកការដុតតែមួយ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 const duopa = kf2Fikston();
 await Promise.all([ duopa.mapo.pretigi(), duopa.mapo.pretigi() ]);
-certigi( duopa.stato.bildigitaj === 1, "ការហៅពីរដងបានដុតពីរដង" );
-certigi( duopa.mapo.tsekeBakita(), "ការហៅពីរដងមិនបានបញ្ចប់ផែនទី" );
+certigi( duopa.stato.bildigitaj === 1, "ſɭэ }ʃᴜ ɔı ｡ j͑ʃ'ɜ j͐ʃɔ ｡ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ɔı" );
+certigi( duopa.mapo.tsekeBakita(), "ſɭэ }ʃᴜ ɔı ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ" );
 
-// ⟨ ផ្ទាំងលាក់ ៖ មិនដុត , ប៉ុន្តែសន្យាត្រូវបញ្ចប់ ដើម្បីកុំឱ្យវាំងននផ្ទុកជាប់ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɔ , 📃 ⟩
 const kasxita = kf2Fikston();
 const dokumento = globalThis.document as unknown as { hidden?: boolean };
 dokumento.hidden = true;
 await kasxita.mapo.pretigi();
 certigi( kasxita.stato.bildigitaj === 0 && !kasxita.mapo.tsekeBakita(),
-  "ផ្ទាំងលាក់បានដុតផែនទី" );
+  "ſɟᴜ ſȷᴜɔ˞ ʌ ſɭɜ ʃɔ j͑ʃᴜꞇ ｡ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ" );
 dokumento.hidden = false;
 
-// ⟨ ការអានបរាជ័យត្រូវដោះលែង និង បិទតែផែនទី មិនព្យាយាមជាប់ៗគ្នា 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 const malsukcesa = kf2Fikston();
 malsukcesa.stato.fiasku = true;
 malsukcesa.mapo.pretigi();
 await atendi(() => malsukcesa.stato.bildigitaj === 1);
-certigi( malsukcesa.stato.bildigitaj === 1, "ការអានបរាជ័យមិនបានឆ្លងកាត់ផ្លូវសាកល្បង" );
-certigi( malsukcesa.stato.forigitaj === 1, "ការអានបរាជ័យទុក render target" );
-certigi( malsukcesa.stato.celoj.at(-1) === null, "ការអានបរាជ័យទុកចានគំនូរសកម្ម" );
+certigi( malsukcesa.stato.bildigitaj === 1, "j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭэ ֭ſɭэ ʌ ſᶘᴜ j͐ʃɔ ſᶘᴜ" );
+certigi( malsukcesa.stato.forigitaj === 1, "j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ｡ j͑ʃᴜ ſȷᴜ ʌ render target" );
+certigi( malsukcesa.stato.celoj.at(-1) === null, "j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ｡ j͑ʃᴜ ſȷᴜ ʌ ſןᴜ ſᶘɹ ʌ ſɭɹʞ" );
 certigi( !malsukcesa.mapo.tsekeBakita() && malsukcesa.kompaso.style.display === "none",
-  "ការបរាជ័យមិនបានបិទតែផែនទី" );
+  "j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ｡ ſןɔ ʌ ſןw ſɭᶗ‹ɔ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſɭɹ ſᶘɔ" );
 malsukcesa.mapo.pretigi();
 await atendi(() => malsukcesa.stato.bildigitaj === 1);
-certigi( malsukcesa.stato.bildigitaj === 1, "ការបរាជ័យបានបង្កើតរង្វិលជុំសាកល្បង" );
+certigi( malsukcesa.stato.bildigitaj === 1, "j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭэ ֭ſɭэ ʌ j͑ʃ'ɔ ʃɜ j͐ʃɔ" );
 
-// ⟨ GPU បាត់មុនដុត មិនគួរគូរ ហើយត្រូវបន្តបន្ទាប់ពី restored 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
 const perdita = kf2Fikston();
 perdita.stato.perdita = true;
 perdita.mapo.pretigi();
 await atendi();
 certigi( perdita.stato.bildigitaj === 0 && perdita.stato.forigitaj === 0,
-  "GPU បាត់បង់ប៉ុន្តែផែនទីនៅតែគូរ" );
+  "GPU ｡ j͑ʃwc̗ ɭʃᴜ ʌ j͑ʃᴜ ſɭᴜ ｡ j͑ʃᴜ ſȷᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſɭɹʞ" );
 perdita.restarigi();
 await atendi(() => perdita.stato.bildigitaj === 1);
 certigi( perdita.stato.bildigitaj === 1 && perdita.mapo.tsekeBakita(),
-  "ការត្រឡប់ GPU មិនបានបន្តផែនទី" );
+  "GPU ｡ j͑ʃwc̗ ɭʃᴜ ʌ j͑ʃᴜ ſɭᴜ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ" );
 
-// ⟨ អ័ព្ទបិទខណៈដុត ហើយស្តារវិញ 📃 ⟩
-// កាមេរ៉ាផែនទីនៅខ្ពស់ , ដូច្នេះអ័ព្ទធម្មតាគ្របដណ្តប់ផែនទីទាំងមូល ។
-// បើមិនបិទ , ផែនទីក្លាយជាផ្ទៃពណ៌ស ។
+// ⟨ ſɭэ ſɭw , ꞙɭɔ , 📃 ⟩
+// ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const NEBULA_DENSO_PROVO = 0o5 / 0o400;
 const nebula = kf2Fikston(( qena ) => {
   qena.fog = new THREE.FogExp2(0xc8d8d8, NEBULA_DENSO_PROVO);
 });
 nebula.mapo.pretigi();
 await atendi(() => nebula.stato.bildigitaj === 1);
-certigi( nebula.stato.densoj[0] === 0, "អ័ព្ទមិនបានបិទខណៈដុតផែនទី" );
+certigi( nebula.stato.densoj[0] === 0, "ŋᷠᴜ ֭ſɭᴜ ｡ ſןɔ ʌ ſןw ſɭᶗ‹ɔ ʌ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ" );
 certigi( nebula.qena.fog instanceof THREE.FogExp2
-  && nebula.qena.fog.density === NEBULA_DENSO_PROVO, "អ័ព្ទមិនបានស្តារក្រោយដុត" );
-certigi( nebula.mapo.tsekeBakita(), "ផែនទីដែលមានអ័ព្ទមិនបានសម្គាល់" );
+  && nebula.qena.fog.density === NEBULA_DENSO_PROVO, "ŋᷠᴜ ֭ſɭᴜ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ j͐ʃᴜɔ˞ ʌ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ" );
+certigi( nebula.mapo.tsekeBakita(), "ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ŋᷠᴜ ֭ſɭᴜ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ" );
 
-console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ការផ្ទុកផែនទីយឺត ការបរាជ័យ និង ការដោះលែងទាំងអស់ត្រឹមត្រូវ");
+console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭʞᴜƴ ſɭɔ˞ɜƴ ꞁȷ̀ᴜꞇ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ｡ }ʃɔ ſ̀ȷw }ʃᴜƽ ｡ ſɭɹ ſᶘɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſןɔ");

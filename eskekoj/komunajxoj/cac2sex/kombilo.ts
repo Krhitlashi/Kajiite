@@ -13,7 +13,7 @@ export function kf2KombilanCac2sex(): THREE.CanvasTexture {
       const x = ( i + 0o1/0o2 ) / linioj * s;
       const sefini = s / linioj * 0o45/0o100;
       const nuanco = Math.round(i / linioj * 0o700/0o2 + 0o300/0o2) % 0o700;
-      // ⟨ ពណ៌ឥឡូវមកពី HSL ប៉ុន្តែឆ្លងកាត់ការបង្គត់ KNAKEHE 📃 ⟩
+      // ⟨ ᶅſɔ ֭ſɭɹ ʌ }ʃᴜ j͐ʃᴜ ʌ HSL , ſɭɹ ʌ KNAKEHE 📃 ⟩
       const weh2 = veb6qaiHsl(nuanco, 0o7/0o10, 0o72/0o100);
       const ar2ha = kuns2bana.createLinearGradient(x - sefini, 0, x + sefini, 0);
       ar2ha.addColorStop(0, veb6qaiRgba(weh2, 0));

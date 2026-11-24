@@ -1,4 +1,4 @@
-// ≺⧼ វាយនភាពចម្លាក់ក្រណាត់ 🧵 ⧽≻
+// ≺⧼ j͐ʃƽɜ ʌ j͑ʃɜȝ ɭʃɔ 🧵 ⧽≻
 import * as THREE from "three";
 import { k2fWrapajnNubojn, k2fWrapan, kf2P2t6zoCac2sex, sxovu } from "./helpiloj.js";
 

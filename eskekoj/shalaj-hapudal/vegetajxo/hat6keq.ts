@@ -15,7 +15,7 @@ function vepaqRokGeometrion(tk2ni = 1): THREE.BufferGeometry {
     let x = haxekuxa.getX(i), y = haxekuxa.getY(i), z = haxekuxa.getZ(i);
     const sahakani = Math.hypot(x, y, z) || 1;
     const nx = x / sahakani, ny = y / sahakani, nz = z / sahakani;
-    // ⟨ ការរំខានរលូន 📃 ⟩
+    // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɜ ſɭ,ᴜ , ⟅ ⟩
     const ondo = ( ax: number, ay: number, az: number, ofto: number ): number =>
       Math.sin(( nx * ax + ny * ay + nz * az ) * 2 + ofto + tk2ni * 0o55/0o100);
     const r = 1
@@ -68,7 +68,7 @@ export function vepaqMontajnHat6keqn(qena: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const C = new THREE.Color();
-  // ⟨ សម្លេងមកពីវាយនភាព 📃 ⟩
+  // ⟨ ʃɜ j͐ʃɔ , j͑ʃɜ ſɭ,ᴜ , ⟅ ⟩
   const paletro = [ 0xf0f0f0, 0xffffff, 0xe8e8e0, 0xf0f0e8, 0xe8e8e0, 0xe8f0e0 ];
   const metitaj: ArboRaqa[] = [];
   let li = 0;
@@ -90,7 +90,7 @@ export function vepaqMontajnHat6keqn(qena: THREE.Scene,
     if ( montaKruteco(heightFn, x, z) > 0o1 ) continue;
 
     const skaloY = 0o5/0o10 + hazardaGenerilo() * 0o5/0o10;
-    // ⟨ មិនរាបស្មើពេក 📃 ⟩
+    // ⟨ ꞙɭɔ , ꞙɭı , ⟅ ⟩
     const skaloX = skaloY * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 );
     const skaloZ = skaloY * ( 0o33/0o40 + hazardaGenerilo() * 0o23/0o100 );
     E.set(hazardaGenerilo() * 0o15/0o40, hazardaGenerilo() * Math.PI * 2, hazardaGenerilo() * 0o15/0o40);
@@ -138,7 +138,7 @@ export function vepaqMetitanRokon(qena: THREE.Scene,
     rotacio >= 0 ? 0 : Math.random() * 0o15/0o40);
   Q.setFromEuler(E);
   const y = heightFn(x, z);
-  // ⟨ ប្លុកកប់ក្នុងដី 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w , ſɭᴜ , ⟅ ⟩
   const skaloY = p6zukani * 0o11/0o12;
   const skaloXZ = p6zukani * ( 0o35/0o40 + Math.random() * 0o23/0o100 );
   M.compose(new THREE.Vector3(x, y + skaloY * 0o2/0o10, z),
@@ -151,7 +151,7 @@ export function vepaqMetitanRokon(qena: THREE.Scene,
   return sxtonoj;
 }
 
-// ⟨ ថ្មរឹង 📃 ⟩
+// ⟨ ɭʃэ ſɭɔȝ , ſ̀ȷɜ ֭ſɭɔ , ⟅ ⟩
 export function vepaqLikenSxtonojn(qena: THREE.Scene,
   vem2: number,
   heightFn: ( x: number, z: number ) => number,
@@ -201,12 +201,12 @@ export function vepaqLikenSxtonojn(qena: THREE.Scene,
   return metitaj;
 }
 
-// ⟨ គ្រួសតាមច្រាំងទន្លេ និងបឹង 📃 ⟩
-/* ដាក់គ្រួសតូចៗនៅតាមក្រឡាដីដែលជាប់នឹងទឹក។
-    @param qena ( THREE.Scene ) - ឆាកដែលបន្ថែមសំណាញ់។
-    @param heightFn ( ( x , z ) => number ) - អនុគមន៍កម្ពស់ដី។
-    @param excludePaths ( ( x , z , m ) => boolean ) - តំបន់ផ្លូវដែលត្រូវគេច។
-    @param excludeBuildings ( ( x , z , m ) => boolean , ជាជម្រើស ) - តំបន់សំណង់។
+// ⟨ ſɭэ ɭʃᴜ , ſɭэ j͑ʃꞇ , j͑ʃɹ ı],w ɽ͑ʃ'w , ⟅ ⟩
+/* ⟨ ſɭэ ɭʃᴜ , j͑ʃɹ ı],w ɽ͑ʃ'w , ſɭᴜ ſןᴜ , ſᶘᴜ j͑ʃᴜ ,
+    @param qena ( THREE.Scene ) - j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅
+    @param heightFn ( ( x , z ) => number ) - ſɭэ ſɭ,w , j͐ʃэ ɭ(ᴜ ⟅
+    @param excludePaths ( ( x , z , m ) => boolean ) - ſɭэ ֭ſɭэ , ſɭɜ j͐ʃɹ ⟅
+    @param excludeBuildings ( ( x , z , m ) => boolean , optional ) - ſןᴜȝ , ſɭɜ j͐ʃɹ ⟅
 @returns metitaj */
 export function vepaqBordajnSxtonojn(qena: THREE.Scene,
   heightFn: ( x: number, z: number ) => number,
@@ -238,7 +238,7 @@ export function vepaqBordajnSxtonojn(qena: THREE.Scene,
       const x = SKULPTA_ORIGINO[0] + ( i + 0o1/0o2 ) * PASO;
       const z = SKULPTA_ORIGINO[1] + ( j + 0o1/0o2 ) * PASO;
       if ( akvo(x, z) ) continue;
-      // ⟨ ក្រឡាដីដែលជាប់នឹងទឹក 📃 ⟩
+      // ⟨ ſɭэ ɭʃᴜ , ſᶘᴜ j͑ʃᴜ , ſɭɜ ɭʃᴜ , ⟅ ⟩
       if ( !( akvo(x + PASO, z) || akvo(x - PASO, z)
         || akvo(x, z + PASO) || akvo(x, z - PASO) ) ) continue;
       if ( hazardaGenerilo() > 0o5/0o10 ) continue;

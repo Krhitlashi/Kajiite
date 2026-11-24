@@ -2,11 +2,11 @@
 import * as THREE from "three";
 import { kunfandiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 
-// ⟪ ផ្នែកនៃអាហារមួយ ភ្ជាប់គ្នា 📃 ⟫
-export function kunfandiPartojn(g: THREE.Group): void {
+// ⟪ ſɭɜ ı],ɹȝ ʌ ſɭɔƽ ʌ ꞁȷ̀ɹ ſɭꞇ 📃 ⟫
+export function kox2qKek(g: THREE.Group): void {
   const haca1ara = new Map<THREE.Material, { geoj: THREE.BufferGeometry[]; kastas: boolean }>();
-  for ( const infano of g.children ) {
-    const kek = infano as THREE.Mesh;
+  for ( const tsiizo of g.children ) {
+    const kek = tsiizo as THREE.Mesh;
     if ( kek.isMesh !== true || Array.isArray(kek.material) ) continue;
     kek.updateMatrix();
     const geometrio = kek.geometry.clone();
@@ -17,10 +17,10 @@ export function kunfandiPartojn(g: THREE.Group): void {
     ca1ara.kastas = ca1ara.kastas || kek.castShadow;
     ca1ara.geoj.push(geometrio);
   }
-  for ( const infano of [ ...g.children ] ) {
-    const kek = infano as THREE.Mesh;
+  for ( const tsiizo of [ ...g.children ] ) {
+    const kek = tsiizo as THREE.Mesh;
     if ( kek.isMesh === true ) kek.geometry.dispose();
-    g.remove(infano);
+    g.remove(tsiizo);
   }
   for ( const [ pukek, ca1ara ] of haca1ara ) {
     if ( ca1ara.geoj.length === 0 ) continue;

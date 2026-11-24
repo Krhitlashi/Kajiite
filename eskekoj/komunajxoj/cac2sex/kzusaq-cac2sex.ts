@@ -1,4 +1,4 @@
-// ≺⧼ វាយនភាពក្រូចឆ្មារ 🍋 ⧽≻
+// ≺⧼ j͐ʃƽɜ ʌ ſɟᴜ̩ɔ ɭl̀ɹ ſɟɹ ᶅſᴜ 🍋 ⧽≻
 import { kf2P2t6zoCac2sex } from "./helpiloj.js";
 import * as THREE from "three";
 

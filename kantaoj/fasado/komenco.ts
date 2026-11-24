@@ -6,13 +6,13 @@ import {
   agordiAktivanMondon, certigiCxefanMondon, duobligiMondon,
   forigiMondon, kf2Mondon, legiMondojn, montriNomon,
 } from "./mondoj.js";
-// ⟨ ទំព័រដើម ( ព័ត៌មាន · ការកំណត់ · សម្លៀកបំពាក់ ) ត្រូវបានភ្ជាប់ដោយការនាំចូលនេះ 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ſɭэ ſɭw , ꞙɭı , 📃 ⟩
 import "./hejmpaghoj.js";
 import { kf2Staton, fermiCxiujnPaghojn } from "./paghoj.js";
 import { sonhakama } from "./sonhakama.js";
 import { montriSargxanEraron } from "../bildo/scena/eraro.js";
 
-// ⟪ ធាតុ DOM 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
 const saxeni = document.getElementById("komenco")!;
 const butAranis = document.getElementById("butAranis")!;
 const butMondo = document.getElementById("butMondo")!;
@@ -22,10 +22,10 @@ const mondListo = document.getElementById("mondListo")!;
 const butAgordoj = document.getElementById("butAgordoj")!;
 const butAgordLingvo = document.getElementById("butAgordLingvo");
 
-// ⟪ ស្ថានភាព 📃 ⟫
+// ⟪ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟫
 let ludata = false;
 
-/*បង្កើតប៊ូតុងតូចមួយក្នុងបញ្ជី
+/* ſɭэ ſɭᴜ , ꞙɭı ,
     @param s2banani ( string ) - អក្សរបង្ហាញ
     @param ca3aq ( string ) - សោបកប្រែសម្រាប់ aria
     @param ago ( string ) - សកម្មភាព
@@ -40,7 +40,7 @@ function kf2Butonon( s2banani: string, ca3aq: string, ago: string, id: string ):
   return butono;
 }
 
-/*បង្កើតបន្ទាត់មួយសម្រាប់ពិភពលោក
+/* ſɭэ ſɭᴜ , ꞙɭɿ ,
     @param mondo ( MondoRecordo ) - កំណត់ត្រា
 @return x2pa */
 function kf2X2pan( mondo: MondoRecordo ): HTMLElement {
@@ -56,7 +56,7 @@ function kf2X2pan( mondo: MondoRecordo ): HTMLElement {
   return x2pa;
 }
 
-/*បង្ហាញបញ្ជីពិភពលោកទាំងមូល */
+/* ſɭэ ſɭᴜ , ꞙɭц , */
 function montriListon(): void {
   const mondoj = legiMondojn();
   mondListo.textContent = "";
@@ -70,7 +70,7 @@ function montriListon(): void {
   for ( const mondo of mondoj ) mondListo.appendChild(kf2X2pan(mondo));
 }
 
-/*ចូលពិភពលោក ហើយផ្ទុកកូដធំដោយស្ងាត់
+/* ſɭэ ſɭᴜ , ꞙɭэ ,
     @param mondo ( MondoRecordo ) - ពិភពលោកដែលត្រូវចូល */
 function eniriMondon( mondo: MondoRecordo ): void {
   if ( ludata ) return;
@@ -79,24 +79,24 @@ function eniriMondon( mondo: MondoRecordo ): void {
   saxeni.classList.add("finita");
   fermiCxiujnPaghojn();
   import("../ludo/sperto.js").catch(( eraro: unknown ) => {
-    // ⟨ ការនាំចូល ឬ សាងសង់បរាជ័យមិនត្រូវទុកវាំងននផ្ទុកជារៀងរហូត 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
     montriSargxanEraron(document.getElementById("sxargxo")!, eraro);
   });
 }
 
-// ⟪ ប៊ូតុងចូល 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
 butAranis.addEventListener("click", () => eniriMondon(certigiCxefanMondon()));
 
-// ⟪ ទំព័របង្កើត និងផ្ទុកពិភពលោក 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
 const mondPagho = kf2Staton("mondPagho", () => {
   montriListon();
   sxonoEnigo.focus();
 });
 butMondo.addEventListener("click", () => mondPagho.malfermi());
 
-// ⟪ ការបង្កើតពិភពលោក 📃 ⟫
-// គ្រាប់ពូជទទេបង្កើតគ្រាប់ពូជចៃដន្យ ដើម្បីឱ្យគ្រប់ពិភពលោកដែលបានបង្កើត
-// មានដីផ្ទាល់ខ្លួន ។ ពិភពលោកចម្បង ( គ្មានគ្រាប់ពូជ ) ប្រើដីដែលឆ្លាក់ដោយដៃ ។
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
+// ſɭэ ᶗ‹ , ſɭэ ᶗ‹ , ꞙɭı ,
+// ſɭэ ᶗ‹ , ꞙɭɿ ,
 function kf2ElMondon(): void {
   const skribita = sxonoEnigo.value.trim();
   kf2Mondon({ smino: skribita || semoEnBazo8(hazardaSemo()) });
@@ -108,7 +108,7 @@ sxonoEnigo.addEventListener("keydown", ( e ) => {
   if ( e.key === "Enter" ) kf2ElMondon();
 });
 
-// ⟪ សកម្មភាពក្នុងបញ្ជី ( បន្ត · លុប · ចម្លង ) 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
 mondListo.addEventListener("click", ( e ) => {
   const celo = ( e.target as HTMLElement ).closest("button");
   if ( !celo ) return;
@@ -127,11 +127,11 @@ mondListo.addEventListener("click", ( e ) => {
   }
 });
 
-// ⟪ ការផ្លាស់ភាសា 📃 ⟫
+// ⟪ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟫
 window.addEventListener("lingvosxangxo", montriListon);
 
-// ⟪ ម៉ឺនុយការកំណត់ដាច់ដោយឡែក , ពេញអេក្រង់ដោយគ្មានផ្ទាំងលេចឡើង 📃 ⟫
-// ⟨ សំឡេង · សំឡេងរំខាន · បទ ៖ ចែករំលែកកូដជាមួយផ្ទាំងរុករកក្នុងហ្គេម 📃 ⟩
+// ⟪ ſɭэ ſɭw , ꞙɭц , 📃 ⟫
+// ⟨ ſȷwɔ˞ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 const agordPagho = kf2Staton("agordPagho", () => {
   sonhakama().gxisdatigi();
   ( butAgordLingvo as HTMLButtonElement | null )?.focus();

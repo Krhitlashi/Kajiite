@@ -35,10 +35,10 @@ body { display:block; overscroll-behavior:none; user-select:none; }
 /* ⟨ បន្ទាត់បួន 📃 ⟩ */
 #retikulo { position:fixed; z-index:3; inset-block-start:50%; inset-inline-start:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:opacity .2336092301648s; writing-mode:horizontal-tb; }
 #retikulo.montri { opacity:.4375; }
-/* ⟨ ដេក 📏 ⟩ ៖ ឆ្វេង −9.5 → −2.5 , ស្តាំ 2.5 → 9.5 ( ស្រមោលរាល 12px ) */
+/* ⟨ ដេក 📏 ⟩ ៖ ឆ្វេង −9.ꞟ → −ɿ.ꞟ , ស្តាំ ɿ.ꞟ → 9.5 ( ស្រមោលរាល 12px ) */
 #retikulo::before,#retikulo::after { content:""; position:absolute; background:var(--ក្ព៏); border-radius:1px; }
 #retikulo::before { inline-size:7px; block-size:2px; inset-block-start:-1px; inset-inline-start:-9.5px; box-shadow:12px 0 0 var(--ក្ព៏); }
-/* ⟨ ឈរ 📏 ⟩ ៖ លើ −9.5 → −2.5 , ក្រោម 2.5 → 9.5 */
+/* ⟨ ឈរ 📏 ⟩ ៖ លើ −9.ꞟ → −ɿ.ꞟ , ក្រោម ɿ.ꞟ → 9.5 */
 #retikulo::after { inline-size:2px; block-size:7px; inset-block-start:-9.5px; inset-inline-start:-1px; box-shadow:0 12px 0 var(--ក្ព៏); }
 
 /* ⟪ សារលេចឡើង និងការណែនាំ 📃 ⟫ */
@@ -94,7 +94,7 @@ html[lang="km"] #informo, html[lang="km"] #vestaro, html[lang="km"] #lingvPopUp 
 /* ⟨ ជាប់ប៊ូតុង 书 ខាងលើឆ្វេង ហើយលូតចុះក្រោម ៖ បន្ទះព័ត៌មាន 📃 ⟩ */
 #informo { left:calc(var(--អារេងព៏) + var(--sal)); top:calc(72px + var(--sat)); }
 /* ⟨ បន្ទះរុករក ៖ ទុកចន្លោះខាងលើសម្រាប់ប៊ូតុង 书 ៖ 88px ,
-   ដូច្នេះកម្ពស់ត្រឹម 100% - ( 72px + 88px ) ជំនួស 100% - 88px ខាងលើ 📃 ⟩ */
+   ដូច្នេះកម្ពស់ត្រឹម ıɔɔ% - ( 72px + 88px ) ជំនួស ıɔɔ% - 88px ខាងលើ 📃 ⟩ */
 #navPopUp { max-block-size:calc(100% - 160px); }
 #navPopUp.montri, #informo.montri, #vestaro.montri, #lingvPopUp.montri { transform:none; }
 .menuPanel { position:relative; }
@@ -109,12 +109,12 @@ html[lang="km"] #informo, html[lang="km"] #vestaro, html[lang="km"] #lingvPopUp 
 /* ⟨ ប៊ូតុងផ្ទាំងផ្លាស់ផ្ទាំង ៖ ពីមុន grid បែងចែកកម្ពស់ស្មើគ្នា ( 1fr ) ។
    cakaxa ដាក់ពួកវានៅកណ្តាលជាដុំតូច ៖ ដូច្នេះឱ្យពួកវាលូតវិញ 📃 ⟩ */
 #informTaboj > button, #informPaghoTaboj > button, .vestaraTaboj > button { flex:1 1 0; }
-/* ⟨ ជួរប៊ូតុងរុករក ៖ ពីមុន grid មាន 2 ជួរឈរ គឺ 3 ប៊ូតុង × 2 ជួរ ។
-   maxema ដាក់ទាំង 6 ក្នុងជួរតែមួយ ដែលធ្វើឱ្យបន្ទះធំជាងមុន ៖ ដូច្នេះចែក 2 ជួរវិញ 📃 ⟩ */
+/* ⟨ ជួរប៊ូតុងរុករក ៖ ពីមុន grid មាន ɿ ជួរឈរ គឺ ц ប៊ូតុង × ɿ ជួរ ។
+   maxema ដាក់ទាំង ɩ ក្នុងជួរតែមួយ ដែលធ្វើឱ្យបន្ទះធំជាងមុន ៖ ដូច្នេះចែក ɿ ជួរវិញ 📃 ⟩ */
 #navPopUpVico { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
 /* ⟨ ផ្នែកខាងក្នុងទំព័រ , ផ្ទាំងផ្លាស់ផ្ទាំង និង ប៊ូតុងចេញ ៖ ពេញទទឹងដូចជួរដទៃ ។
    box-sizing ចាំបាច់ ៖ ciihii និង ariiba នៅជាយស្តុកជា content-box , ដូច្នេះ
-   inline-size:100% នឹងលើសរឹមខាងក្នុងចេញក្រៅ ( ដូច #mondSxonoGrupo ពីមុន ) 📃 ⟩ */
+   inline-size:ıɔɔ% នឹងលើសរឹមខាងក្នុងចេញក្រៅ ( ដូច #mondSxonoGrupo ពីមុន ) 📃 ⟩ */
 #agordSonaSekcio, #mondSxonoGrupo, #mondListo, .informSekcio { inline-size:100%; box-sizing:border-box; }
 /* ⟪ ផ្នែកសំឡេង និងតន្ត្រីក្នុងការកំណត់ ៖ សំឡេងគ្មានកាត , តន្ត្រីនៅក្នុងកាត 📃 ⟫ */
 /* ⟨ ផ្នែកខាងក្រៅគ្មានផ្ទៃខាងក្រោយ គ្មានស៊ុម , ដូចជាប្លុកធម្មតា 📃 ⟩ */

@@ -11,9 +11,9 @@ export const TIPARO: Record<string, VepaqHunaq> = {
   sanktejo: { labelKey: "vepaqHunaqSanktejo",  wall: 0x184038, frame: 0xe0c078, chip: "#e0c07880", flavorKey: "vepaqPriskriboSanktejo" },
 };
 
-/* ចំនួនស្រទាប់លំនាំដើមរបស់ប្រភេទសំណង់មួយ ដូច្នេះកន្លែងទាំងអស់ប្រើ
-   លេខតែមួយ។
-@returns ចំនួនស្រទាប់តាមកូដប្រភេទ ដោយគ្មានតម្លៃលំនាំដើម។ */
+/* ſɟɔȝ ʌ ɭʃᴜ }ʃɔƽ ʌ ꞙɭı ʌ ꞙɭı , ſɭɹ ʌ j͑ʃᴜꞇ
+   ʌ j͑ʃɜ j͑ʃƨɹ ʌ ꞙɭı ⟅
+@returns ɭʃᴜ }ʃɔƽ ʌ j͑ʃᴜꞇ ʌ ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ */
 export const TIPAJ_NIVELOJ: Record<string, number> = {
   domo: 4, mangxejo: 4, kasafeo: 4, stacioxipo: 4, turo: 0o10, sanktejo: 7,
 };

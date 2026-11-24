@@ -1,10 +1,10 @@
 // ≺⧼ ֭ſɭᴜ ſȷɔ ſᶘᴜʞ ʌ j͑ʃ'ɔ ſןᴜȝ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🌿 ⧽≻
-// ការសង់ដុំស្មៅក្នុងវាលស្មៅជាការងារធ្ងន់បំផុតទីពីរ ។ យើងវាស់វាតាមបំណែក ។
+// ſᶘɜ , ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , ⟅ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭı , 📃 ⟩
 import * as THREE from "three";
 import { terenaKoloroEn } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 import { alteco, akvaVem2Proksima } from "../../kantaoj/mondo/tereno.js";
 
-const N = 0o333333; // ប្រហែល ១១១ ៦៥៤
+const N = 0o333333; // ſɭɹ ſȷɔ ꞙɭɿɿɿɿɿɿ
 const HERBA_MALHELIGO = 0o62 / 0o100;
 const NOMBRO_DA_JXUROJ = 0o7;
 
@@ -43,10 +43,10 @@ function mezuri( ksaka: string, ripetoj: number, fn: () => void ): void {
     if ( t1 - t0 < plejBona ) plejBona = t1 - t0;
   }
   const po = plejBona * 0o3641100 / ( N * ripetoj );
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${plejBona.toFixed(1)}ms ${po.toFixed(0)}ns/ដុំ`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${plejBona.toFixed(1)}ms ${po.toFixed(0)}ns/ſɭw ʃᴜ`);
 }
 
-// ⟨ ការបង្កើតម៉ាទ្រីស និងការដាក់ចូល 📃 ⟩
+// ⟨ ſ͕ɭɜ ᶗ‹ , ſ͕ɭᴜ , ſɭᴜ ſ͕ɭᴜ , 📃 ⟩
 let mesho = new THREE.InstancedMesh(geometrio, pukek, N);
 mezuri("compose + setMatrixAt", 1, () => {
   for ( let i = 0; i < N; i++ ) {
@@ -57,16 +57,16 @@ mezuri("compose + setMatrixAt", 1, () => {
   mesho.instanceMatrix.needsUpdate = true;
 });
 
-mezuri("តែ compose", 1, () => {
+mezuri("ſɭɹ ſᶘɔ ｡ compose", 1, () => {
   for ( let i = 0; i < N; i++ ) {
     const t = tufoj[i];
     M.compose(P.set(t.x, t.y, t.z), Q.setFromEuler(E.set(0, 0.5, 0)), S.set(t.sx, t.sy, t.sz));
   }
 });
 
-// ⟨ ការសរសេរដោយផ្ទាល់ចូលតារាង 📃 ⟩
+// ⟨ ſ͕ɭɜ ᶗ‹ , ſɭэ ſɭᴜ , ſɭᴜ ſ͕ɭᴜ , 📃 ⟩
 const matrico = new Float32Array(N * 0o20);
-mezuri("compose + សរសេរផ្ទាល់", 1, () => {
+mezuri("compose + ſɭɹʞ ɭʃɜ ſɭᴜ", 1, () => {
   const e = M.elements;
   for ( let i = 0; i < N; i++ ) {
     const t = tufoj[i];
@@ -103,7 +103,7 @@ mezuri("terenaKoloroEn + akvaVem2Proksima", 1, () => {
   }
 });
 
-mezuri("គ្មានអ្វី", 1, () => {
+mezuri("ſןɔ ʌ ſɭɹ ſᶘɔ", 1, () => {
   for ( let i = 0; i < N; i++ ) if ( tufoj[i].x < -0o1000 ) console.log("neniam");
 });
 

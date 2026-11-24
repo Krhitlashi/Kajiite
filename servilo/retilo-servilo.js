@@ -1,4 +1,4 @@
-// ≺⧼ ម៉ាស៊ីនមេបណ្តាញ 🖧 ⧽≻
+// ≺⧼ ſɟᴜ ı],ͷ̗ɔʞ ſɭᴜƽ ꞁȷ̀ᴜꞇ ʌ ſ͔ɭɔƽ 🖧 ⧽≻
 import { createHash, randomBytes } from "crypto";
 
 const GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
@@ -142,7 +142,7 @@ export function konektiRetilon(servilo, opcioj = {}) {
     so.on("error", () => { try { so.destroy(); } catch { /* fermita */ } });
   });
 
-  // ⟨ ការវាយកន្ត្រក 📃 ⟩
+  // ⟨ ſɟᴜ ſ̀ȷɔƽ ʌ ſɟᴜ ſ͕ɭɹȝ 📃 ⟩
   const koro = setInterval(() => {
     for ( const kliento of klientoj.values() ) {
       try { kliento.so.write(Buffer.from([ 0x89, 0x00 ])); } catch { kliento.so.destroy(); }

@@ -17,7 +17,7 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
   const S = FLAMA_S;
   const TMP = FLAMA_TMP;
 
-  // ⟨ ហេតុអ្វីអណ្តាតភ្លើងឡើងលើ 📃 ⟩
+  // ⟨ ɭʃᴜ ſɟɔ ʌ ſɭʞэ ʌ ſɟᴜ ɭʃэ ֭ſɭэƽ ſɭэ ı],ᴜʞ ꞁȷ̀ᴜꞇ 📃 ⟩
   sys.spots.forEach(( p, i ) => {
     const fazo = sys.phases[i];
     const p6zukani = 1 + 0o5/0o40 * Math.sin(t * 0o1223/0o100 + fazo) + 0o3/0o40 * Math.sin(t * 0o2755/0o100 + fazo * 0o155/0o100);
@@ -42,7 +42,7 @@ export function animaciiFlammojn(sys: HxeuxfaSistemo, t: number): void {
     sys.flamaKerno.setMatrixAt(i, M);
   });
 
-  // ⟨ អណ្តាត 📃 ⟩
+  // ⟨ j͑ʃͷ̗ᴜͷ̗ 📃 ⟩
   const langojPoLampo = sys.langojPoLampo;
   sys.spots.forEach(( p, i ) => {
     const fazoFlama = sys.phases[i];

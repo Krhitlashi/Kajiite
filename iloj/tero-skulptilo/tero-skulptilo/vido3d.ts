@@ -1,10 +1,10 @@
 // ≺⧼ ſɭꞇ ı],ɹ 🧊 ⧽≻
-// ទិដ្ឋភាព 3D និងការកែសម្រួល 3D របស់ឧបករណ៍ឆ្លាក់ គឺឆាក កាមេរ៉ា សំណាញ់
-// ដី និងទឹក ចំណោត ចិញ្ចៀនជក់ ការបាញ់កាំរស្មី និង
-// ជក់លើចំណោត។ ស្ថានភាពទិដ្ឋភាពស្ថិតនៅទីនេះ ព្រោះឯកសារមេ
-// អានវាដោយផ្ទាល់ ( ការភ្ជាប់ផ្ទាល់របស់ម៉ូឌុល ES ) ហើយអនុគមន៍កំណត់
-// ខាងក្រោមគឺជាផ្លូវតែមួយដើម្បីផ្លាស់ប្តូរស្ថានភាពកម្មវិធីកែសម្រួល ( ជក់
-// ប្រវត្តិ វត្ថុ ) ដែលស្ថិតនៅក្នុងឯកសារមេ។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { agordiBildilon, agordiMedion, kf2CxefajnLumojn }
@@ -19,17 +19,17 @@ import { elemento } from "../../komunajxoj/dom.js";
 import { tsekeVidebla } from "./videco.js";
 import { terenaKoloro255, almetiBiomanNuancon, l6daKunDerivajoj,
   rekalkuliDeklivojn, pentri } from "./bako.js";
-// ទឹក គឺសំណាញ់ទឹកតាមកម្រិតនៃការគណនា ( មិនមែន
-// ម៉ាសដែលគូរទេ ) ហើយសញ្ញាប្រភពបង្ហាញប្រភពទាំងនោះ។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
 import { hatsiq, elektitaTsiq, tsiqTrenata, akvaRezulto, akvaVem2De,
   teraAlto, tsiqCxePunkto, metiTsiqn, forigiTsiqn, komenciFontanTrenon,
   sxangiFontanXekuxan, finiFontanTrenon, markiAkvonMalpuran,
   agordiAkvoTrenantan } from "./akvo.js";
 
-// ⟪ ស្ថានភាពទិដ្ឋភាព 📃 ⟫ គឺឆាក និងសំណាញ់របស់វា កាមេរ៉ា
-// ចិញ្ចៀនជក់ និងរទេះកាំរស្មី។ ឯកសារមេអានពួកវាដោយផ្ទាល់ រីឯ
-// អនុគមន៍កំណត់ ( agordiVidon ) ភ្ជាប់កម្មវិធីកែសម្រួល។
-export let triaDimensia = false;      // តើទិដ្ឋភាព 3D បង្ហាញ
+// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+export let triaDimensia = false;      // ſɭꞇ ı],ɹ 3D ſɭᴜ ſןᴜ
 export let bildilo3d: THREE.WebGLRenderer | null = null;
 export let sceno3d: THREE.Scene | null = null;
 export let fotilo3d: THREE.PerspectiveCamera | null = null;
@@ -37,8 +37,8 @@ export let hakama3d: OrbitControls | null = null;
 export let teraMesh: THREE.Mesh | null = null;
 export let akvaMesh: THREE.Mesh | null = null;
 export let ringaObjekto: THREE.Line | null = null;
-// RadiaTreno គឺស្ថានភាពនៃការអូសជក់ 3D ( កូអរដោនេពិភពលោកចុងក្រោយ
-// និងចតុកោណកែងសំណាញ់ដែលការអូសបានប៉ះ )។
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
 export interface RadiaTreno {
   lastX: number;
   lastZ: number;
@@ -49,40 +49,40 @@ export interface RadiaTreno {
   t12na: Map<number, number>;
 }
 export let radiaTreno: RadiaTreno | null = null;
-export let radiaPunkto: THREE.Vector3 | null = null;   // ការបាញ់កាំរស្មីចុងក្រោយលើដី
-// ក្រុមរបស់ឆាក គឺវត្ថុដែលបានដាក់ ( រូបរាង 3D ពិត ) ទីក្រុងសំណាញ់
-// ផ្លូវសំណាញ់របស់ស្ថានីយ និងផ្លូវកម្រិតពិភពលោក។ ឯកសារមេ
-// បំពេញពួកវា ( vepaqTom6Objektojn, vepaqTom6Kradon3D, vepaqTom6Hak6h6n3D )
-// ហើយបើកបិទភាពមើលឃើញរបស់ពួកវា រីឯក្រុមខ្លួនឯងកើតឡើងនៅទីនេះ ( eniri3D )។
+export let radiaPunkto: THREE.Vector3 | null = null;   // }ʃɹƽ ʌ ſɭэ }ʃᴜ
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 export let objektaGrupo3D: THREE.Group | null = null;
-export let kradaGrupo3D: THREE.Group | null = null;           // រូបរាង 3D របស់អគារទីក្រុង ( តាមស្រទាប់ សំណាញ់ )
-export let k6h6Grupo3D: THREE.Group | null = null;            // ផ្លូវ និងកំពង់ ( តាមស្រទាប់ ផ្លូវ )
-export const YTROIGO = 0o24/0o10;             // 2.5 គឺការបំផ្លើសបញ្ឈរសម្រាប់ចំណោត
-const RINGA_PUNKTOJ = 0o100;                  // 64 គឺចម្រៀកនៃចិញ្ចៀនជក់
+export let kradaGrupo3D: THREE.Group | null = null;           // 3D ʌ ſɭᴜ ſןɹ ſɭᴜ ı],ƨɔ ( ſɭɹ ſןᴜ ｡ ſɭɹ ſןᴜ )
+export let k6h6Grupo3D: THREE.Group | null = null;            // ſɭэ ֭ſɭэ ｡ ſɭᴜ ( ſɭɹ ſןᴜ ｡ ſɭэ ֭ſɭэ )
+export const YTROIGO = 0o24/0o10;             // ɿ.ꞟ ｡ j͐ʃэ ɭ(ᴜ ʌ ſɭᴜ ſ͔ɭᴜ
+const RINGA_PUNKTOJ = 0o100;                  // ɩэ ｡ j͑ʃɹ j͑ʃᴜ ʃɜ ｡
 export const mapo3d = elemento<HTMLCanvasElement>("mapo3d");
-// ផ្ទាំងគំនូរ 2D គឺធាតុដូចគ្នានឹងឯកសារមេ ហើយ sxaltiVidon
-// បិទវាជាមួយផ្ទាំងគំនូរ 3D ( ទិដ្ឋភាពទាំងពីរឆ្លាស់គ្នា )។
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
 const mapo = elemento<HTMLCanvasElement>("mapo");
-// សន្លឹកស្ទីលក្នុងតំបន់ ( stiloj.css ) បំពេញទទឹង ហើយកាត់
-// រូបភាព WebGL ឱ្យមានជ្រុងមូល។
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
 mapo3d.style.cursor = "crosshair";
 mapo3d.style.touchAction = "none";
 mapo3d.style.display = "none";
 
-// ចំណោត និងបាតពិភពលោក សញ្ញាប្រភព និងពណ៌ខូចនៃ
-// សំណាញ់ដី ដែលមានតែទិដ្ឋភាព 3D ប្រើ។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 let qoxaBazo3D: QoxaZace | null = null;
 let bazaMesh3D: THREE.Mesh | null = null;
 let tsiqGrupo3D: THREE.Group | null = null;
-// skrapaLinia គឺពណ៌ THREE.Color សម្រាប់សំណាញ់ 3D ( បៃ sRGB នៃ
-// ស្រទាប់សម្លេងដែលបំប្លែងត្រឡប់ទៅកន្លែងធ្វើការលីនេអ៊ែរ ព្រោះហ្គេមសរសេរ
-// ពណ៌កំពូលជាលីនេអ៊ែរ ដូច្នេះទិដ្ឋភាព 3D របស់ឧបករណ៍ឥឡូវត្រូវគ្នា )។
+// ſ͕ɭɜ ı],ᴜ , ꞙɭц ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭэ ,
+// ſ͕ɭɜ ı],ᴜ , ꞙɭɩ ,
 const skrapaLinia = new THREE.Color();
 
-// ⟪ ការភ្ជាប់ជាមួយកម្មវិធីកែសម្រួល 📃 ⟫ គឺការយោងរបស់ឯកសារមេ ដែល
-// ភ្ជាប់តែម្តងដោយ agordiVidon។ តារាង និងអនុគមន៍របស់កម្មវិធីកែសម្រួល ( ជក់
-// ស្ថានភាព ប្រវត្តិ វត្ថុ សំណាញ់ ) ស្ថិតនៅទីនោះ រីឯ
-// តម្លៃដែលផ្លាស់ប្តូរពេលប្រើត្រូវបានអានដោយអនុគមន៍។
+// ⟪ ſɭэ ᶗ‹ , ꞙɭэ , 📃 ⟫ , ſɭэ ᶗ‹ ,
+// ſɭэ ᶗ‹ , ꞙɭɩ ,
+// ſɭэ ᶗ‹ , ꞙɭꞟ ,
+// ſɭэ ᶗ‹ , ꞙɭı ,
 interface Vido3DLigo {
   hal6da: Float32Array;
   l6daInterp: ( x: number, z: number ) => number;
@@ -154,8 +154,8 @@ let vepaqTom6Objektojn: () => void;
 let vepaqTom6Kradon3D: () => void;
 let vepaqTom6Hak6h6n3D: () => void;
 
-/* agordiVidon គឺការភ្ជាប់តែម្តងជាមួយឯកសារមេ។
-    @param k ( Vido3DLigo ) - ការយោងរបស់ឯកសារមេ។ */
+/* ſɭэ ᶗ‹ , ꞙɭɿ ,
+    @param k ( Vido3DLigo ) - ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ */
 export function agordiVidon(k: Vido3DLigo): void {
   hal6da = k.hal6da; l6daInterp = k.l6daInterp;
   N = k.N; PASO = k.PASO; X0 = k.X0; Z0 = k.Z0;
@@ -179,21 +179,21 @@ export function agordiVidon(k: Vido3DLigo): void {
   vepaqTom6Hak6h6n3D = k.vepaqTom6Hak6h6n3D;
 }
 
-// ⟪ ទិដ្ឋភាព 3D និងការកែសម្រួល 📃 ⟫
-// vepaq3DIndeksojn គឺសំណាញ់ត្រីកោណសម្រាប់កំពូល ( N + 1 )² ពី
-// ឧបករណ៍សាងសង់រួម ( ការឆ្លាស់អង្កត់ទ្រូងដូចក្តារអុក ដូចដី
-// របស់ហ្គេមក្នុង scena.ts ដែលពីមុនចម្លងនៅទីនេះ )។
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , ꞙɭэ , 📃 ⟫
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
 function vepaq3DIndeksojn(){
   return alternajDiagonalojn(N);
 }
 
-// inicializi3DKradon គឺសំណាញ់ផ្តេក ( x, z ) របស់កំពូល។ សំណាញ់
-// ជាការ៉េ ( សំណាញ់ទិន្នន័យជាការ៉េ ) ប៉ុន្តែពិភពលោកជា
-// រូបរាងផែនទី ដូច្នេះកំពូលខាងក្រៅត្រូវបានច្របាច់ទៅគែម ដូច្នេះទិដ្ឋភាព 3D
-// បង្ហាញរូបរាងដូចហ្គេម ( ហើយចំណោតតាមគែមនោះ )។
-/* ច្របាច់កំពូលខាងក្រៅនៃសំណាញ់ទៅគែមនៃរូបរាងពិភពលោក។
-    @param geometrio ( THREE.BufferGeometry ) - ធរណីមាត្ររបស់ដី ឬ
-        ទឹក។ */
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+/* ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+    @param geometrio ( THREE.BufferGeometry ) - ſɭэ }ʃᴜ ｡ ſ͕ɭɜ ı],ᴜ ｡
+        ſᶘᴜ j͑ʃᴜ ⟅ */
 function inicializi3DKradon(geometrio: THREE.BufferGeometry): void {
   const N1 = N + 1;
   const haxekuxa = geometrio.attributes.position;
@@ -215,9 +215,9 @@ function inicializi3DKradon(geometrio: THREE.BufferGeometry): void {
   }
 }
 
-// gxisdatigiQoxan3D គឺរូបរាង ឬទំហំពិភពលោកបានផ្លាស់ប្តូរ ដូច្នេះច្របាច់
-// កំពូលគែមម្តងទៀតទៅគែមថ្មី ផ្ទុកចំណោតឡើងវិញ និង
-// គូរដីឡើងវិញ។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
 export function gxisdatigiQoxan3D(): void {
   if ( !teraMesh ) return;
   inicializi3DKradon(teraMesh.geometry);
@@ -234,12 +234,12 @@ export function gxisdatigiQoxan3D(): void {
   gxisdatigi3DMeshon({ ix0: 0, iz0: 0, ix1: N, iz1: N });
 }
 
-// grundo3D គឺអនុគមន៍កម្ពស់ដីនៃទិដ្ឋភាព 3D ( ជាមួយការបំផ្លើសកម្ពស់ )។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
 function grundo3D(x: number, z: number): number { return teraAlto(x, z) * YTROIGO; }
 
-// ⟨ សញ្ញាប្រភព ( ក្នុងទិដ្ឋភាព 3D ) 📃 ⟩ គឺក្រុមមួយសម្រាប់ប្រភពទាំងអស់ ជាមួយ
-// ស្វ៊ែរ ( រង្វាស់តាមលំហូរ ) និងចិញ្ចៀននៅដី។ ក្រុម
-// ត្រូវបានសាងសង់ឡើងវិញពេលប្រភព ឬដីផ្លាស់ប្តូរ។
+// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
 export function vepaqTom6Hatsiqn3D(): void {
   if ( !tsiqGrupo3D ) return;
   for ( const infano of tsiqGrupo3D.children.slice() ) {
@@ -266,23 +266,23 @@ export function vepaqTom6Hatsiqn3D(): void {
   }
 }
 
-// gxisdatigiFormanBazon3D គឺធ្វើឱ្យចំណោតតាមដីនៃទិដ្ឋភាព 3D។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
 function gxisdatigiFormanBazon3D(): void {
   if ( !qoxaBazo3D ) return;
   qoxaBazo3D.qoxa3ak2(grundo3D, NALA_PSAZ_Y * YTROIGO);
 }
 
-// eniri3D គឺសាងសង់ឆាក 3D ទាំងមូលតែម្តង ( ការបើកទិដ្ឋភាព 3D លើកដំបូង )។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 function eniri3D(): void {
   if ( bildilo3d ) return;
   try {
     sceno3d = new THREE.Scene();
-    // មេឃ គឺជម្រាលបញ្ឈរ ( សម្លេងដូចហ្គេម ) និងអ័ព្ទ
-    // ដែលបញ្ចូលដីឆ្ងាយទៅនឹងជើងមេឃ។
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
     const cieloK = document.createElement("canvas");
     cieloK.width = 2; cieloK.height = 0o200;
     const ck = cieloK.getContext("2d");
-    if ( !ck ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) បរិបទ 2D នៃជម្រាលមេឃមិនអាចប្រើបាន");
+    if ( !ck ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) 2D ｡ ſɭэ }ʃᴜ ｡");
     const cieloGradiento = ck.createLinearGradient(0, 0, 0, 0o200);
     cieloGradiento.addColorStop(0, "#70a8d8");
     cieloGradiento.addColorStop(0o5/0o10, "#a8d0e8");
@@ -294,19 +294,19 @@ function eniri3D(): void {
     sceno3d.background = cieloCac2sex;
     sceno3d.fog = new THREE.Fog(0xe0f0f0, 0o1000, 0o3000);
     fotilo3d = new THREE.PerspectiveCamera(0o62, 1, 1, 0o4770);
-    fotilo3d.position.set(0o400, 0o300, 0o400);   // ( 256, 192, 256 ) ។ ទីតាំងដំបូងរបស់កាមេរ៉ា
+    fotilo3d.position.set(0o400, 0o300, 0o400);   // ( ɿꞟɩ, 192, ɿꞟɩ ) ⟅ }ʃɹƽ ʌ ſɭᴜ ｡
     bildilo3d = new THREE.WebGLRenderer({ canvas: mapo3d, antialias: true });
     agordiBildilon( bildilo3d );
-    // ⟨ ពន្លឺមេឃ ព្រះអាទិត្យ និងពន្លឺបំពេញ តាមឧបករណ៍រួម ។ 📃 ⟩
+// ⟨ ſᶘɹ ſɭᴜ , 📃 ⟩
     kf2CxefajnLumojn( sceno3d, {
       cxielaKoloro: 0xb8d8e8, grundoKoloro: 0x384838, cxielaIntenso: 0o35/0o40,
       sunaKoloro: 0xf8f0d8, sunaIntenso: 0o43/0o40,
       sunaXekuxa: [ -0o400, 0o470, 0o300 ],
       plenigaKoloro: 0x404848, plenigaIntenso: 0o15/0o40,
     } );
-    // ⟨ ការឆ្លុះរួម ដើម្បីឱ្យវត្ថុធាតុដែក និងទឹកឆ្លុះដូចហ្គេម ។ 📃 ⟩
+// ⟨ ſɭɜ ı],ᴜ , 📃 ⟩
     agordiMedion( sceno3d, bildilo3d );
-    // សំណាញ់ដី គឺសំណាញ់ដូចការឆ្លាក់ ជាមួយពណ៌បញ្ឈរ។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
     const N1 = N + 1;
     const geometrio = new THREE.BufferGeometry();
     geometrio.setAttribute("position", new THREE.BufferAttribute(new Float32Array(N1 * N1 * 3), 3));
@@ -317,9 +317,9 @@ function eniri3D(): void {
       vertexColors: true, roughness: 0o73/0o100, metalness: 0,
     }));
     sceno3d.add(teraMesh);
-    // ចំណោត និងបាតពិភពលោក គឺរូបរាង និងបន្ទះពណ៌ដូចគ្នា
-    // ដូចក្នុងហ្គេម ( scena.ts ) ដើម្បីឱ្យទិដ្ឋភាព 3D បង្ហាញរូបរាងពិត
-    // នៃគែមពិភពលោក។
+// ſɭɜ ſɭ,w , ꞙɭɿ ,
+// ( ſɭɜ ſɭ,w , ꞙɭц ,
+// ſɭɜ ſɭ,w , ꞙɭэ ,
     const [ fl, fg ] = qoxa();
     qoxaBazo3D = kf2QoxaZace({
       qoxa: fl, pal6: fg, weh2: terenaStrataKoloroEn,
@@ -330,75 +330,75 @@ function eniri3D(): void {
       vertexColors: true, roughness: 1, metalness: 0,
     }));
     sceno3d.add(bazaMesh3D);
-    // ទឹក គឺផ្ទៃថ្លាតាមកម្រិត ហើយក្រឡាគ្មានទឹក
-    // ត្រូវបានលិចក្រោមដីដើម្បីមិនឱ្យមើលឃើញ។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
     const akvaGeometrio = new THREE.BufferGeometry();
     akvaGeometrio.setAttribute("position", new THREE.BufferAttribute(new Float32Array(N1 * N1 * 3), 3));
     akvaGeometrio.setIndex(new THREE.BufferAttribute(vepaq3DIndeksojn(), 1));
     inicializi3DKradon(akvaGeometrio);
-    // ទឹកថ្លាពាក់កណ្តាល ដើម្បីឱ្យបាតដែលមានពណ៌ ( និង
-    // ការឆ្លាក់ក្រោមផ្ទៃ ) មើលឃើញពេលកែសម្រួល។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
     akvaMesh = new THREE.Mesh(akvaGeometrio, new THREE.MeshStandardMaterial({
       color: 0x287888, transparent: true, opacity: 0o43/0o100,
       roughness: 0o5/0o40, metalness: 0o1/0o10, side: THREE.DoubleSide,
     }));
     akvaMesh.renderOrder = 1;
     sceno3d.add(akvaMesh);
-    // ⟪ ប្រភពទឹក 📃 ⟫ គឺសញ្ញាតូចៗនៅប្រភពទឹក ដើម្បី
-    // ឱ្យគេឃើញកន្លែងដែលទន្លេហូរចេញ ( ព្រោះប្រភពជាការបញ្ចូល )។
+// ⟪ ſᶘᴜ j͑ʃᴜ , 📃 ⟫ , ſᶘᴜ j͑ʃᴜ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
     tsiqGrupo3D = new THREE.Group();
     sceno3d.add(tsiqGrupo3D);
     vepaqTom6Hatsiqn3D();
-    // ណរម៉ាល់សម្រាប់សំណាញ់ទាំងពីរ ព្រោះ MeshStandardMaterial ត្រូវការគុណលក្ខណៈនៅ
-    // ការបង្ហាញដំបូង ( gxisdatigi3DMeshon គណនាដីឡើងវិញរាល់ដង )។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
     geometrio.computeVertexNormals();
     akvaGeometrio.computeVertexNormals();
-    // ចិញ្ចៀនជក់ គឺតាមដីនៅទ្រនិច។
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
     const ringaGeometrio = new THREE.BufferGeometry();
     ringaGeometrio.setAttribute("position", new THREE.BufferAttribute(new Float32Array(( RINGA_PUNKTOJ + 1 ) * 3), 3));
     ringaObjekto = new THREE.Line(ringaGeometrio, new THREE.LineBasicMaterial({ color: 0xffffff }));
     ringaObjekto.visible = false;
     sceno3d.add(ringaObjekto);
-    // វត្ថុដែលបានដាក់ គឺសំណាញ់ 3D ពិត ( ឧបករណ៍សាងសង់ដូច
-    // ហ្គេម ) ដែលសាងសង់ឡើងវិញរាល់ការផ្លាស់ប្តូរ។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
     objektaGrupo3D = new THREE.Group();
     objektaGrupo3D.visible = tsekeVidebla("objektoj");
     sceno3d.add(objektaGrupo3D);
     vepaqTom6Objektojn();
-    // ទីក្រុងសំណាញ់ គឺរូបរាង 3D របស់ការតំរង់បច្ចុប្បន្ន។ មើលឃើញតែពេល
-    // ផ្ទាំង សំណាញ់ សកម្ម ( sxaltiIlTabon គ្រប់គ្រងភាពមើលឃើញ )។
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
     kradaGrupo3D = new THREE.Group();
     kradaGrupo3D.visible = tsekeVidebla("krado");
     sceno3d.add(kradaGrupo3D);
     vepaqTom6Kradon3D();
-    // ផ្លូវ និងកំពង់ គឺរបស់ពិតរបស់ហ្គេម ( ឆ្នូតឌីអូរីត អង់ដេស៊ីត និង
-    // វេទិកាកំពង់ ) ។ ពួកវាបង្ហាញតាមស្រទាប់ ផ្លូវ ( លំនាំដើម បើក )
-    // គ្រប់ផ្ទាំង ព្រោះផ្លូវជារចនាសម្ព័ន្ធរបស់ពិភពលោក ។
+// ſɭэ ֭ſɭэ , ꞙɭɩ ,
+// ſɭэ ֭ſɭэ , ꞙɭꞟ ,
+// ſɭэ ֭ſɭэ , ꞙɭı ,
     k6h6Grupo3D = new THREE.Group();
     k6h6Grupo3D.visible = tsekeVidebla("hak6h6");
     sceno3d.add(k6h6Grupo3D);
     vepaqTom6Hak6h6n3D();
-    // ការវិលជុំ។ ការចុចស្តាំបង្វិល ការចុចកណ្តាលផ្លាស់ទី កង់ពង្រីក រីឯ
-    // ការចុចឆ្វេងនៅសល់សម្រាប់ជក់។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
     hakama3d = new OrbitControls(fotilo3d, bildilo3d.domElement);
     hakama3d.target.set(0, 0, 0);
     hakama3d.enableDamping = true;
     hakama3d.dampingFactor = 0o1/0o20;
-    hakama3d.minDistance = 0o60;                    // 48 ។ ចម្ងាយជិតបំផុតនៃការពង្រីក
-    hakama3d.maxDistance = 0o1400;                  // 768 ។ ចម្ងាយឆ្ងាយបំផុតនៃការពង្រីក
+    hakama3d.minDistance = 0o60;                    // 48 ⟅ ֭ſɭэ ſɭw }ʃꞇ ʌ ſɭꞇ ı],ɹ
+    hakama3d.maxDistance = 0o1400;                  // 768 ⟅ ֭ſɭэ ſɭw }ʃꞇ ʌ ſɭꞇ ı],ɹ
     hakama3d.maxPolarAngle = Math.PI * 0o37/0o100;
     hakama3d.mouseButtons = { LEFT: -1, MIDDLE: THREE.MOUSE.PAN, RIGHT: THREE.MOUSE.ROTATE };
     hakama3d.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
     gxisdatigi3DMeshon({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
   } catch ( eraro ) {
-    console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ទិដ្ឋភាព 3D មិនអាចប្រើបាន" , eraro);
-    statuso("ទិដ្ឋភាព 3D មិនអាចប្រើបាន");
+    console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) 3D ｡ ɭʃᴜ ｡" , eraro);
+    statuso("3D ｡ ɭʃᴜ ｡");
     sxaltiVidon(false);
   }
 }
 
-// gxisdatigi3DMeshon គឺគណនាកម្ពស់ និងពណ៌របស់សំណាញ់ដីក្នុង
-// ចតុកោណកែងសំណាញ់ g ( ix0..ix1, iz0..iz1, ក្រឡាសំណាញ់ )។ ទឹកតាម។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
 export function gxisdatigi3DMeshon(g: KradaRektangulo): void {
   if ( !teraMesh ) return;
   const N1 = N + 1;
@@ -409,18 +409,18 @@ export function gxisdatigi3DMeshon(g: KradaRektangulo): void {
   for ( let j = iz0; j <= iz1; j++ ) {
     for ( let i = ix0; i <= ix1; i++ ) {
       const v = ( j * N1 + i ) * 3;
-      // កម្ពស់មកពីទីតាំងដែលបានច្របាច់ ព្រោះកំពូលដែលច្របាច់ទៅគែម
-      // ទទួលកម្ពស់របស់គែម ដូច្នេះគែមដី និងចំណោត
-      // ជាប់គ្នាដោយគ្មានជណ្តើរ។
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
       const x = haxekuxa.array[v], z = haxekuxa.array[v + 2];
       const d = hal6da[Math.min(j, N - 1) * N + Math.min(i, N - 1)];
-      // ជាមួយព្រែកកាត់ទឹក គឺគ្រែទន្លេមើលឃើញក្នុងទិដ្ឋភាព 3D ដូច
-      // ក្នុងហ្គេម ( alteco() = bazaAlteco + skulptaDelta + akvaEltrancxo )។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
       const kav = akvaRezulto ? akvaRezulto.kavoj[Math.min(j, N - 1) * N + Math.min(i, N - 1)] : 0;
       const h = bazaAlteco(x, z) + d + kav;
       haxekuxa.array[v + 1] = h * YTROIGO;
-      // ជម្រាលពីផ្ទៃទ្វេកោងវិភាគ ព្រោះការលោតថ្មនៃបន្ទះពណ៌រួម
-      // ត្រូវការវា ( ការបញ្ចូលដូចក្នុង scena.ts )។
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
       const [ , deklX, deklZ ] = l6daKunDerivajoj(x, z);
       const k = almetiBiomanNuancon(terenaKoloro255(h, x, z, Math.hypot(deklX, deklZ)), x, z, d);
       skrapaLinia.setRGB(k[0] / 0o377, k[1] / 0o377, k[2] / 0o377, THREE.SRGBColorSpace);
@@ -436,8 +436,8 @@ export function gxisdatigi3DMeshon(g: KradaRektangulo): void {
   gxisdatigiFormanBazon3D();
 }
 
-// gxisdatigi3DAkvon គឺកម្រិតទឹកសម្រាប់កំពូលនីមួយៗក្នុងចតុកោណកែង។
-// ក្រឡាគ្មានទឹកលិចក្រោមដី។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
 function gxisdatigi3DAkvon(g: KradaRektangulo): void {
   if ( !akvaMesh ) return;
   const N1 = N + 1;
@@ -463,16 +463,16 @@ function gxisdatigi3DAkvon(g: KradaRektangulo): void {
 
 const radiaRadio = new THREE.Raycaster();
 const radiaMuso = new THREE.Vector2();
-/* ការបាញ់កាំរស្មីរបស់កណ្ដុរលើសំណាញ់ដី ( ឬគ្មានចំណុច )។
-    @param e ( PointerEvent ) - ព្រឹត្តិការណ៍កណ្ដុរ។
-@returns ចំណុចដែលបាញ់ត្រូវ ឬ null ( THREE.Vector3 | null )។ */
+/* ſɭᴜ ſןᴜ , ꞙɭц ,
+    @param e ( PointerEvent ) - ſɭᴜ ｡
+@returns }ʃɹƽ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡ null ( THREE.Vector3 | null ) ⟅ */
 function radiaTrafo(e: PointerEvent): THREE.Vector3 | null {
-  if ( !bildilo3d || !hakama3d || !fotilo3d || !teraMesh ) return null;   // ទិដ្ឋភាព 3D មិនទាន់រួចរាល់
+  if ( !bildilo3d || !hakama3d || !fotilo3d || !teraMesh ) return null;   // 3D ｡ ſɭꞇ ı],ɹ ｡
   const rect = bildilo3d.domElement.getBoundingClientRect();
   radiaMuso.x = ( ( e.clientX - rect.left ) / rect.width ) * 2 - 1;
   radiaMuso.y = -( ( e.clientY - rect.top ) / rect.height ) * 2 + 1;
-  // ម៉ាទ្រីសកាមេរ៉ាត្រូវបានបង្កើតតែពេលបង្ហាញរូប ដូច្នេះធ្វើឱ្យវាស្រស់
-  // មុនការបាញ់កាំរស្មី ដើម្បីឱ្យការចុចដំបូងបាញ់ត្រូវច្បាស់។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
   hakama3d.update();
   fotilo3d.updateMatrixWorld();
   radiaRadio.setFromCamera(radiaMuso, fotilo3d);
@@ -480,16 +480,16 @@ function radiaTrafo(e: PointerEvent): THREE.Vector3 | null {
   return trafoj.length > 0 ? trafoj[0].point : null;
 }
 
-/* ពេជ្រជក់តាមដីនៅចំណុចកាំរស្មី។ ជក់ជាពេជ្រ ( មិនមែនរង្វង់ ) ដូចក្នុងផែនទី 2D ,
-   ដូច្នេះបរិមាត្រដើរតាមជ្រុងទាំងបួននៃពេជ្រ ៖ កំពូល , ស្តាំ , បាត , ឆ្វេង ។
-    @param p ( THREE.Vector3 | null ) - ចំណុចកាំរស្មី ឬ null ( លាក់វា )។ */
+/* ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+   ｡ ſɭᴜ ｡ ſɭᴜ ᶗ‹ ｡ ɭl̀ᴜȝ ｡ ɭl̀ᴜȝ ⟅
+    @param p ( THREE.Vector3 | null ) - }ʃɹƽ ｡ null ( ſɭɜ j͐ʃɹ ) ⟅ */
 function gxisdatigiRingon(p: THREE.Vector3 | null): void {
   if ( !ringaObjekto ) return;
   if ( !p ) { ringaObjekto.visible = false; return; }
   const r = objektaModo() ? 0o3/0o2 : ka5ik();
   const haxekuxa = ringaObjekto.geometry.attributes.position.array;
   for ( let a = 0; a <= RINGA_PUNKTOJ; a++ ) {
-    // ចំណុចតាមបរិមាត្រពេជ្រ ៖ បួនជ្រុងស្មើគ្នា , ដូច្នេះ a បែងចែកជា 4 ចម្រៀក ។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
     const t = a / RINGA_PUNKTOJ * 0o4;
     const kek = Math.floor(t) % 0o4;
     const f = t - Math.floor(t);
@@ -507,13 +507,13 @@ function gxisdatigiRingon(p: THREE.Vector3 | null): void {
   ringaObjekto.visible = true;
 }
 
-// gxisdatigi3DnIlon គឺឧបករណ៍បានផ្លាស់ប្តូរ។ ក្នុង Movigi ✋ ការចុចឆ្វេងបង្វិល
-// កាមេរ៉ា ( OrbitControls ) ហើយការឆ្លាក់ត្រូវបានចាក់សោ រីឯក្នុងជក់
-// ការចុចឆ្វេងនៅសល់សម្រាប់ការឆ្លាក់ ( LEFT. -1 បិទការបង្វិល )។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
 export function gxisdatigi3DnIlon(): void {
   if ( !hakama3d ) return;
-  // ឧបករណ៍វត្ថុប្រព្រឹត្តដូចជក់ ព្រោះការចុចឆ្វេងដាក់វត្ថុ
-  // មិនបង្វិលកាមេរ៉ា ( ទោះបីជក់ចុងក្រោយជា Movigi ✋ )។
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
   const moviga = tsekeMovigi() && !objektaModo();
   hakama3d.mouseButtons.LEFT = moviga ? THREE.MOUSE.ROTATE : -1;
   if ( moviga ){
@@ -523,12 +523,12 @@ export function gxisdatigi3DnIlon(): void {
   }
 }
 
-// ជក់ 3D គឺការចុចឆ្វេង និងការអូសឆ្លាក់ផ្ទាល់លើចំណោត
-// ( លើកលែងក្នុងឧបករណ៍មើល Movigi ✋ ដែលបង្វិលកាមេរ៉ា )។
+// ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 function peniko3dKomenci(e: PointerEvent): void {
   if ( e.button !== 0 || e.pointerType === "touch" ) return;
-  // ឧបករណ៍វត្ថុ គឺឧបករណ៍រងសម្រេចការចុច ( ដូចលើផែនទី 2D )។
-  // Meti ➕ ដាក់ Movu ✋ ចាប់ដើម្បីអូស Forigi 🗑️ លុប។
+// ſɭᴜ ſןᴜ , ꞙɭц ,
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
   if ( objektaModo() ) {
     const p = radiaTrafo(e);
     if ( !p ) return;
@@ -544,13 +544,13 @@ function peniko3dKomenci(e: PointerEvent): void {
     return;
   }
   if ( tsekeMovigi() ){ mapo3d.style.cursor = "grabbing"; return; }
-  // ផ្ទាំង សំណាញ់ កែតែលើផែនទី 2D ដូច្នេះទិដ្ឋភាព 3D មិនឆ្លាក់ទេ។
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
   if ( aktivaTabo() === "krado" ) return;
   const p = radiaTrafo(e);
   if ( !p ) return;
   e.preventDefault();
-  // ឧបករណ៍ទឹកដាក់ និងលុបប្រភពនៅក្នុងទិដ្ឋភាព 3D ផងដែរ ( ឥរិយាបថ
-  // ដូចលើផែនទី 2D )។
+// ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
+// ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
   if ( peniko() === "akvo" ) {
     const ind = tsiqCxePunkto(p.x, p.z);
     if ( ind >= 0 ) komenciFontanTrenon(ind, p.x, p.z);
@@ -569,13 +569,13 @@ function peniko3dKomenci(e: PointerEvent): void {
   peniko3dPasxo(p.x, p.z);
 }
 function peniko3dMovi(e: PointerEvent): void {
-  if ( tsekeMovigi() && !objektaModo() ) return;   // ការវិលជុំខ្លួនឯងផ្លាស់ទីកាមេរ៉ា
+  if ( tsekeMovigi() && !objektaModo() ) return;   // j͑ʃɹ j͑ʃᴜ ʃɜ ｡ ſɭᴜ ｡
   const p = radiaTrafo(e);
   radiaPunkto = p;
   gxisdatigiRingon(p);
   if ( objektaModo() ) {
     gxisdatigiKoordinatojn(p ? p.x : null, p ? p.z : null);
-    // Movu ✋ គឺវត្ថុដែលបានចាប់តាមចំណុចកាំរស្មី។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
     if ( objektaTrenata() >= 0 && p ) sxangiObjektanXekuxan(objektaTrenata(), p.x, p.z);
   }
   if ( peniko() === "akvo" && tsiqTrenata >= 0 && p ) {
@@ -593,9 +593,9 @@ function peniko3dFini(): void {
   agordiAkvoTrenantan(false);
   if ( tsekeMovigi() )mapo3d.style.cursor = "grab";
 }
-/* ជក់កាំរស្មី គឺអនុវត្តជក់តាមផ្លូវរវាងចំណុចពីរ។
-    @param cx ( number ) - ពិភពលោក x ថ្មី។
-    @param cz ( number ) - ពិភពលោក z ថ្មី។ */
+/* ſɭᴜ ſןᴜ , ꞙɭц ,
+    @param cx ( number ) - }ʃᴜ j͐ʃᴜ x ʌ j͑ʃɔ ſȷэⅎ ⟅
+    @param cz ( number ) - }ʃᴜ j͐ʃᴜ z ʌ j͑ʃɔ ſȷэⅎ ⟅ */
 function peniko3dPasxo(cx: number, cz: number): void {
   const t = radiaTreno;
   if ( !t ) return;
@@ -608,15 +608,15 @@ function peniko3dPasxo(cx: number, cz: number): void {
     t.ix0 = Math.min(t.ix0, g.ix0); t.ix1 = Math.max(t.ix1, g.ix1);
     t.iz0 = Math.min(t.iz0, g.iz0); t.iz1 = Math.max(t.iz1, g.iz1);
   }
-  // ចំណុចចាស់មុនការធ្វើបច្ចុប្បន្នភាព ដើម្បីឱ្យការគូរ 2D គ្របដណ្តប់ផ្លូវ
-  // ទាំងមូល ( ដូចក្នុង penikoPasxo )។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
   const deX = t.lastX, deZ = t.lastZ;
   t.lastX = cx; t.lastZ = cz;
   markiSxangxitan();
-  // ដីបានផ្លាស់ប្តូរ ដូច្នេះទឹក ( អាង ទន្លេ ព្រែកកាត់ )
-  // អាស្រ័យលើវា ដូច្នេះទឹកនឹងត្រូវគណនាឡើងវិញនៅចុងបញ្ចប់នៃជំហានជក់។
+// ſɭᴜ ſןᴜ , ꞙɭꞟ ,
+// ſɭᴜ ſןᴜ , ꞙɭı ,
   markiAkvonMalpuran();
-  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+  statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
   const r = ka5ik();
   const px0 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.max(deX, cx) + r + 1)));
   const px1 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.min(deX, cx) - r - 1)));
@@ -633,15 +633,15 @@ mapo3d.addEventListener("pointerup", peniko3dFini);
 mapo3d.addEventListener("pointercancel", peniko3dFini);
 mapo3d.addEventListener("pointerleave", () => gxisdatigiRingon(null));
 
-// gxisdatigi3DnPostPlena គឺការធ្វើបច្ចុប្បន្នភាព 3D ពេញលេញក្រោយការត្រឡប់វិញ ការធ្វើឡើងវិញ ឬការផ្ទុក។
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 export function gxisdatigi3DnPostPlena(): void {
   if ( !triaDimensia ) return;
   gxisdatigi3DMeshon({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
   gxisdatigiRingon(radiaPunkto);
 }
 
-/* បើកបិទរវាងផែនទី 2D និងចំណោត 3D។
-    @param tria ( boolean ) - តើទិដ្ឋភាព 3D បង្ហាញ។ */
+/* ſɭᴜ ſןᴜ , ꞙɭц ,
+    @param tria ( boolean ) - ſɭꞇ ı],ɹ 3D ſɭᴜ ſןᴜ ⟅ */
 export function sxaltiVidon(tria: boolean): void {
   triaDimensia = tria;
   elemento<HTMLButtonElement>("vido2d").setAttribute("aria-pressed", String(!tria));
@@ -654,8 +654,8 @@ export function sxaltiVidon(tria: boolean): void {
     gxisdatigiKursoro();
     if ( bildilo3d && fotilo3d ) {
       const rect = mapo3d.getBoundingClientRect();
-      // updateStyle=false ដើម្បីឱ្យទទឹង CSS ( 100% ) នៅដដែល ហើយមានតែបូហ្វឺរូបភាព
-      // តាមធុង ( បើមិនដូច្នេះភិចសែលថេរនឹងធ្វើឱ្យទទឹងពេញខូច )។
+// ſɭᴜ ſןᴜ , ꞙɭэ ,
+// ſɭᴜ ſןᴜ , ꞙɭɩ ,
       bildilo3d.setSize(rect.width, rect.height, false);
       fotilo3d.aspect = rect.width / rect.height;
       fotilo3d.updateProjectionMatrix();

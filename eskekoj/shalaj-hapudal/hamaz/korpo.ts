@@ -3,12 +3,12 @@ import * as THREE from "three";
 import { kunfandiGeometriojn } from "../../komunajxoj/kunfandajxoj.js";
 import { superelipso, kf2RinganSurfacon, kf2ArtikanSferon } from "./haqoxa.js";
 
-// ⟨ តួមានកាយវិភាគ 📃 ⟩
-// ⟨ ត្រគាក និងក្រលៀន 📃 ⟩
-// ⟨ ស្មាធ្វើដោយដៃ 📃 ⟩
-// ⟨ ទ្រូងជាចំណុចមុខបំផុត 📃 ⟩
-// ⟨ ការកាត់ជារាងពងក្រពើ 📃 ⟩
-// ⟨ ឆ្អឹងខ្នង 📃 ⟩
+// ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭı , j͑ʃɜ ſɭ,ᴜ , ⟅ ⟩
+// ⟨ ſɭᴜ ſ͕ȷɔ , ſɭɜ ſɭᴜƽ , ꞙɭı , ⟅ ⟩
+// ⟨ ſɭᴜ ſ͕ȷɔ , j͑ʃᴜ ʃɜ , ɭʃꞇƽ , ⟅ ⟩
+// ⟨ ſɭᴜ ſ͕ȷɔ , j͑ʃᴜ ʃɜƽ , ꞙɭı , ⟅ ⟩
+// ⟨ ſȷƽᴜ ʃɔ , ⟅ ⟩
+// ⟨ ſ̀ȷᴜ ſןɹ , ꞙɭı , ⟅ ⟩
 export function kf2KorpanTorson(): THREE.BufferGeometry {
   const K = 0o20;
   const hac2q: [ number, number, number, number ][] = [
@@ -23,7 +23,7 @@ export function kf2KorpanTorson(): THREE.BufferGeometry {
     [ 0o132/0o100, 0o47/0o400, 0o35/0o400,  0o3/0o400 ],
     [ 0o263/0o200, 0o44/0o400, 0o35/0o400,  0o2/0o400 ],
     [ 0o131/0o100, 0o43/0o400, 0o36/0o400,  0o2/0o400 ],
-    // ⟨ តួក្រោមថយចុះ 📃 ⟩
+    // ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
     [ 0o256/0o200, 0o43/0o400, 0o36/0o400,  0o3/0o400 ],
     [ 0o241/0o200, 0o42/0o400, 0o35/0o400,  0o2/0o400 ],
     [ 0o225/0o200, 0o40/0o400, 0o33/0o400,  0o1/0o400 ],
@@ -31,7 +31,7 @@ export function kf2KorpanTorson(): THREE.BufferGeometry {
     [ 0o204/0o200, 0o40/0o400, 0o33/0o400,  0        ],
     [ 0o175/0o200, 0o44/0o400, 0o35/0o400, -0o1/0o400 ],
     [ 0o167/0o200, 0o46/0o400, 0o37/0o400, -0o3/0o400 ],
-    // ⟨ អាងចុះរលូន 📃 ⟩
+    // ⟨ ſɭᴜ ſ͕ȷɔ , ſɭɜ ſɭᴜƽ , ꞙɭı , ⟅ ⟩
     [ 0o161/0o200, 0o51/0o400, 0o37/0o400, -0o4/0o400 ],
     [ 0o155/0o200, 0o44/0o400, 0o34/0o400,  0        ],
     [ 0o153/0o200, 0o37/0o400, 0o27/0o400,  0        ],
@@ -48,16 +48,16 @@ export function kf2KorpanTorson(): THREE.BufferGeometry {
     })), sost2(hac2q[hac2q.length - 0o1][0], hac2q[hac2q.length - 0o1][3]) ]);
 }
 
-// ⟨ ជើងមានរូបរាង 📃 ⟩
-// ⟨ ជើងចាប់ផ្តើមក្នុងតួ 📃 ⟩
-// ⟨ ជើងវែងជាង 📃 ⟩
-// ⟨ ជើងបែកនៅជង្គង់ 📃 ⟩
+// ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ſ͕ɭɜ ı],ᴜ , ⟅ ⟩
+// ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ſɭᴜ ſ͕ȷɔ , ſɭэ ɭʃᴜ , ⟅ ⟩
+// ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , j͑ʃᴜ ʃɜ , ⟅ ⟩
+// ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
 export function kf2KorpanKruropon(): { teru: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
   const K = 0o20;
   const GENUO = 0o4;
-  // ⟨ ជើងមានជង្គង់ 📃 ⟩
-  // ⟨ កំភួនជើងជាសាច់ដុំ 📃 ⟩
-  // ⟨ ភ្លៅលើតាមខោ 📃 ⟩
+  // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ꞙɭı , ⟅ ⟩
+  // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ꞙɭı , j͑ʃᴜ ſɭ,w , ⟅ ⟩
+  // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ꞙɭı , ꞙɭɿ , ɭʃэ ſɭɔȝ , ⟅ ⟩
   const hac2q: [ number, number, number, number ][] = [
     [  0o67/0o200, 0o21/0o400, 0o20/0o400,  0           ],
     [  0o51/0o200, 0o26/0o400, 0o25/0o400,  0o1/0o400   ],
@@ -80,21 +80,21 @@ export function kf2KorpanKruropon(): { teru: THREE.BufferGeometry; malsupra: THR
   const teru = kf2RinganSurfacon([ sost2(hac2q[0][0], 0),
     ...hax2pa.slice(0, GENUO + 0o1) ]);
   const malsupra = kf2RinganSurfacon([ ...hax2pa.slice(GENUO), sost2(z2hak, 0) ]);
-  // ⟨ ឆ្អឹងជង្គង់ 📃 ⟩
+  // ⟨ ſ̀ȷᴜ ſןɹ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
   const g = hac2q[GENUO];
   const artiko = kf2ArtikanSferon([ 0, 0, g[3] ], g[1] - 0o1/0o1000, 0o7/0o10);
   return { teru, malsupra: kunfandiGeometriojn([ malsupra, artiko ]) };
 }
 
-// ⟨ ដៃបាត់ 📃 ⟩
+// ⟨ ɭʃꞇƽ , ꞙɭɔ , ⟅ ⟩
 export function kf2KorpanBrakon(): { teru: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
-  // ⟨ ដៃមូល មិនប្រាំបីជ្រុង 📃 ⟩
+  // ⟨ ɭʃꞇƽ , ꞙɭı , ꞙɭɔ , ꞙɭꞟ , ⟅ ⟩
   const K = 0o20;
-  // ⟨ ដៃមានសន្លាក់ 📃 ⟩
-  // ⟨ កំភួនដៃថយចុះ 📃 ⟩
-  // ⟨ ដៃ 📃 ⟩
-  // ⟨ ស្មានៅលើតួ 📃 ⟩
-  // ⟨ កំពូលដៃតាមតួ 📃 ⟩
+  // ⟨ ɭʃꞇƽ , ɭʃᴜc̭ ſɟɹƽ , ⟅ ⟩
+  // ⟨ ɭʃꞇƽ , ꞙɭı , ꞙɭı , ⟅ ⟩
+  // ⟨ ɭʃꞇƽ , ⟅ ⟩
+  // ⟨ j͑ʃᴜ ʃɜ , ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
+  // ⟨ ɭʃꞇƽ , j͑ʃᴜ ʃɜƽ , ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
   const hac2q: [ number, number, number, number, number ][] = [
     [  0o14/0o1000,  0o4/0o1000,  0o4/0o1000,  0,          -0o112/0o1000 ],
     [  0o10/0o1000,  0o6/0o1000,  0o6/0o1000,  0,          -0o100/0o1000 ],
@@ -120,7 +120,7 @@ export function kf2KorpanBrakon(): { teru: THREE.BufferGeometry; malsupra: THREE
     const [ x, z ] = superelipso(i / K * Math.PI * 0o2, a, b, 0o2);
     return [ cx + x, y, z + dz ] as [ number, number, number ];
   }));
-  // ⟨ ដៃបែកនៅកែងដៃ 📃 ⟩
+  // ⟨ ɭʃꞇƽ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
   const KUBUTO = 0o13;
   const z2hak = hac2q[hac2q.length - 0o1];
   const teru = kf2RinganSurfacon([ sost2(hac2q[0][0], hac2q[0][3], hac2q[0][4]),
@@ -129,16 +129,16 @@ export function kf2KorpanBrakon(): { teru: THREE.BufferGeometry; malsupra: THREE
   const malsupra = kf2RinganSurfacon([ ...hax2pa.slice(KUBUTO),
     sost2(z2hak[0], z2hak[3], z2hak[4]) ]);
   malsupra.translate(0, -yKubuto, 0);
-  // ⟨ ឆ្អឹងកែងដៃ 📃 ⟩
+  // ⟨ ſ̀ȷᴜ ſןɹ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
   const kubuto = hac2q[KUBUTO];
   const artiko = kf2ArtikanSferon([ 0, 0, kubuto[3] ],
     kubuto[1] - 0o1/0o1000, 0o7/0o10);
   return { teru, malsupra: kunfandiGeometriojn([ malsupra, artiko ]) };
 }
 
-// ⟨ ប្រអប់ដៃ និងបំពង់ប្រាំ 📃 ⟩
-// ⟨ សមាមាត្រ 📃 ⟩
-// ⟨ ដៃពាក់ក្រចក 💅 ⟩
+// ⟨ ɭʃꞇƽ , ꞙɭꞟ , ⟅ ⟩
+// ⟨ ſןᴜ j͐ʃэ , ⟅ ⟩
+// ⟨ ɭʃꞇƽ , ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , 💅 ⟩
 export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.BufferGeometry } {
   const K = 0o20;
   const sost2 = ( y: number, x: number, z = 0 ) => Array.from({ length: K },
@@ -163,7 +163,7 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
     [ -0o46/0o1000, 0, 0o11/0o1000, 0o6/0o1000  ],
     [ -0o50/0o1000, 0, 0o4/0o1000,  0o3/0o1000  ],
   ]);
-  // ⟨ គន្លឹះអាចចុះក្រោម 📃 ⟩
+  // ⟨ ꞙɭı , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ꞙɭı , ⟅ ⟩
   const interpolo = ( tabelo: number[][], k: number ): number[] => {
     const signo = tabelo[0][0] > tabelo[tabelo.length - 0o1][0] ? -0o1 : 0o1;
     if ( ( k - tabelo[0][0] ) * signo <= 0 ) return tabelo[0];
@@ -176,8 +176,8 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
     }
     return tabelo[tabelo.length - 0o1];
   };
-  // ⟨ ប្រវែងកាត់ម្រាម 📃 ⟩
-  // ⟨ ម្រាមបញ្ចប់ដោយសាច់រាប 📃 ⟩
+  // ⟨ ɭʃꞇƽ , j͑ʃᴜ ʃɜ , ꞙɭı , ⟅ ⟩
+  // ⟨ ɭʃꞇƽ , j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ⟩
   const FINGRAJ_SEKCOJ: [ number, number, number ][] = [
     [ 0,           0o7/0o1000, 0o7/0o1000 ],
     [ 0o20/0o100,  0o6/0o1000, 0o6/0o1000 ],
@@ -194,7 +194,7 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
     FINGRA_BAZO_Y + ( pinto - FINGRA_BAZO_Y ) * f;
   const fingraC = ( f: number, bazoX: number, pintoX: number ) =>
     bazoX + ( pintoX - bazoX ) * f;
-  // ⟨ ម្រាមកោងទៅមុខ 📃 ⟩
+  // ⟨ ɭʃꞇƽ , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ ⟩
   const fingraZ = ( f: number ) => 0o16/0o1000 * f * f;
   const fingro = ( bazoX: number, pintoX: number, pinto: number ) => tubo(0o2,
     FINGRAJ_SEKCOJ.map(( [ f, a, b ] ) => [ fingraP(f, pinto),
@@ -207,7 +207,7 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
     [  0o25/0o1000,  0o27/0o1000, -0o100/0o1000 ],
   ];
   const fingroj = FINGROJ.map(( [ bazoX, pintoX, pinto ] ) => fingro(bazoX, pintoX, pinto));
-  // ⟨ មេដៃជាសាច់ជាមួយសន្លាក់ 📃 ⟩
+  // ⟨ ɭʃꞇƽ , ꞙɭı , ɭʃᴜc̭ ſɟɹƽ , ⟅ ⟩
   const DIKFINGRAJ_SEKCOJ: [ number, number, number, number, number ][] = [
     [  0o16/0o1000, 0o14/0o1000, 0o10/0o1000, 0o10/0o1000, 0 ],
     [ -0o4/0o1000,  0o25/0o1000, 0o10/0o1000, 0o10/0o1000, 0 ],
@@ -221,14 +221,14 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
   const dikfingro = tubo(0o2, DIKFINGRAJ_SEKCOJ);
   const DIKFINGRA_BAZO_Y = DIKFINGRAJ_SEKCOJ[0][0];
   const DIKFINGRA_PINTO_Y = DIKFINGRAJ_SEKCOJ[DIKFINGRAJ_SEKCOJ.length - 0o1][0];
-  // ⟨ មេដៃមានប៉ារ៉ាម៉ែត្រផ្ទាល់ 📃 ⟩
+  // ⟨ ɭʃꞇƽ , ꞙɭı , ſןᴜ j͐ʃэ , ⟅ ⟩
   const dikfingraSekco = ( f: number ): number[] => interpolo(DIKFINGRAJ_SEKCOJ,
     DIKFINGRA_BAZO_Y + ( DIKFINGRA_PINTO_Y - DIKFINGRA_BAZO_Y ) * f);
-  // ⟪ ក្រចក 💅 ⟫
-  // ⟨ ហេតុអ្វីក្រចកជាកញ្ចក់ឆ្លុះ 📃 ⟩
+  // ⟪ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ 💅 ⟫
+  // ⟨ ſᶘɔ ʌ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ᶅſɜ ֭ſɭᴜ , ⟅ ⟩
   const UNGA_ELSTARO = 0o1/0o1000;
-  // ⟨ វណ្ឌវង្កក្រចកពិត 📃 ⟩
-  // ⟨ វណ្ឌវង្ករលូន 📃 ⟩
+  // ⟨ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ⟩
+  // ⟨ ſ͕ɭɜ ı],ᴜ , ɭʃэ ſɭɔȝ , ⟅ ⟩
   const UNGAJ_PROFILO: [ number, number, number ][] = [
     [ 0,           0o6/0o7,   0o1/0o10  ],
     [ 0o1/0o10,    0o15/0o16, 0o3/0o10  ],
@@ -238,9 +238,9 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
     [ 0o7/0o10,    0o31/0o32, 0o12/0o10 ],
     [ 1,           0o31/0o32, 0o12/0o10 ],
   ];
-  // ⟨ ក្រចកកោងតាមទទឹង 📃 ⟩
+  // ⟨ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ ⟩
   const UNGA_KURBO = 0o3/0o10;
-  // ⟨ ក្រចកដេកលើម្រាម 📃 ⟩
+  // ⟨ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ɭʃꞇƽ , ⟅ ⟩
   const ungaAlto = ( b: number, sefini: number ) =>
     b * Math.sqrt(Math.max(0, 0o1 - sefini * sefini));
   const ungaDiko = ( b: number, sefini: number, elstaro: number ) =>
@@ -268,14 +268,14 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
       return Array.from({ length: U }, ( _, i ) => {
         const ang = i / U * Math.PI * 0o2;
         const kos = Math.cos(ang), sin = Math.sin(ang);
-        // ⟨ រង្វង់តាមម្រាម 📃 ⟩
+        // ⟨ ɭʃɹ ſ͕ɭɹ , ɭʃꞇƽ , ⟅ ⟩
         return [ cx + lx * sefini * kos - dx * diko * sin, cy + k * kos * kos,
           cz + lz * sefini * kos - dz * diko * sin ] as [ number, number, number ];
       });
     };
     const ventumilo = ( f: number, konturoF: number, t: number ):
       [ number, number, number ][] => Array.from({ length: U }, () => sost2(f, konturoF, t));
-    // ⟨ កង្ហារស្បែករាបស្មើ 📃 ⟩
+    // ⟨ ɭʃɜ ſɭɹȝ , ſɟɔȝ , ꞙɭı , ⟅ ⟩
     const preter = ( al - de ) * 0o1/0o20;
     const z2hak = UNGAJ_PROFILO[UNGAJ_PROFILO.length - 0o1];
     const tlakakani = 0o1 + preter / ( al - de );
@@ -285,7 +285,7 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
         hac2q(de + ( al - de ) * t, konturoF, elstaroF, t)),
       ventumilo(al + preter, z2hak[1], tlakakani) ]);
   };
-  // ⟨ ក្រចកម្រាម 📃 ⟩
+  // ⟨ ɭʃꞇƽ , ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ⟅ ⟩
   const UNGA_DE = 0o66/0o100, UNGA_AL = 0o76/0o100;
   const fingraSekco = ( f: number ): [ number, number ] => {
     const x2pa = interpolo(FINGRAJ_SEKCOJ, f);
@@ -295,8 +295,8 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
     ...FINGROJ.map(( [ bazoX, pintoX, pinto ] ) => kf2Ungon(
       ( f ) => [ fingraC(f, bazoX, pintoX), fingraP(f, pinto), fingraZ(f) ],
       fingraSekco, UNGA_DE, UNGA_AL, [ 0, -0o1 ] )),
-    // ⟨ ក្រចកមេដៃ 📃 ⟩
-    // ⟨ គែមទទេដល់ចុង ប៉ុន្តែក្រចកនៅខ្លី 📃 ⟩
+    // ⟨ ɭʃꞇƽ , ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ꞙɭı , ⟅ ⟩
+    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ⟩
     kf2Ungon(( f ) => {
       const x2pa = dikfingraSekco(f);
       return [ x2pa[1], x2pa[0], x2pa[4] ];
@@ -309,12 +309,12 @@ export function kf2KorpanManon(): { mano: THREE.BufferGeometry; ungoj: THREE.Buf
     ungoj: kunfandiGeometriojn(ungoj) };
 }
 
-// ⟨ ជើងរមៀលជាមួយស្បែកជើង 📃 ⟩
+// ⟨ ſןᴜ ɭʃэ , ſןᴜ ɭʃэ ɭʃɔ , ⟅ ⟩
 export function kf2KorpanPiedon(): THREE.BufferGeometry {
   const K = 0o20;
   const sost2 = ( y: number, z: number ) => Array.from({ length: K },
     () => [ 0, y, z ] as [ number, number, number ]);
-  // ⟨ ជើង 📃 ⟩
+  // ⟨ ſןᴜ ɭʃэ , ⟅ ⟩
   const FUNDO = -0o74/0o200;
   const sekcoj: [ number, number, number ][] = [
     [ -0o11/0o200, 0o6/0o200,  -0o72/0o200 ],
@@ -336,13 +336,13 @@ export function kf2KorpanPiedon(): THREE.BufferGeometry {
   return piedo;
 }
 
-// ⟨ ភ្លៅមិនត្រូវលេចចេញ 📃 ⟩
-// ⟨ ក្រណាត់ចូលក្នុងស្បែកជើង 📃 ⟩
-// ⟨ ខ្យល់លើគែមប៉ុន្មាន 📃 ⟩
+// ⟨ ꞙɭɿ , ꞙɭı , ꞙɭɔ , ⟅ ⟩
+// ⟨ j͑ʃɜȝ ɭʃɔ , ſןᴜ ɭʃэ ɭʃɔ , ⟅ ⟩
+// ⟨ j͑ʃɹ ŋᷠɹ , ꞙɭı , ⟅ ⟩
 export function kf2Pantalonan(): { teru: THREE.BufferGeometry; malsupra: THREE.BufferGeometry } {
   const K = 0o20;
-  // ⟨ ខោតាមជង្គង់ 📃 ⟩
-  // ⟨ ត្រគាកស្តើងចុះ 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
+  // ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
   const hac2q: [ number, number, number, number ][] = [
     [  0o67/0o200, 0o30/0o400, 0o30/0o400,  0        ],
     [  0o51/0o200, 0o30/0o400, 0o30/0o400,  0        ],
@@ -353,26 +353,26 @@ export function kf2Pantalonan(): { teru: THREE.BufferGeometry; malsupra: THREE.B
     [ -0o34/0o200, 0o23/0o400, 0o23/0o400,  0        ],
     [ -0o27/0o100, 0o21/0o400, 0o21/0o400,  0        ],
   ];
-  // ⟨ ខោចូលជ្រៅក្នុងស្បែកជើង 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ , ſןᴜ ɭʃэ ɭʃɔ , ꞙɭı , ⟅ ⟩
   const sost2 = ( y: number ) => Array.from({ length: K },
     () => [ 0, y, 0 ] as [ number, number, number ]);
   const hax2pa = hac2q.map(([ y, a, b, dz ]) => Array.from({ length: K }, ( _, i ) => {
-    // ⟨ ការកាត់ជារាងពងក្រពើ មិនចតុកោណ 📃 ⟩
+    // ⟨ ſȷƽᴜ ʃɔ , ꞙɭɔ , ꞙɭэ , ⟅ ⟩
     const [ x, z ] = superelipso(i / K * Math.PI * 0o2, a, b, 0o2);
     return [ x, y, z + dz ] as [ number, number, number ];
   }));
-  // ⟨ ខោក៏បែកនៅជង្គង់ 📃 ⟩
+  // ⟨ ɭʃэ ſɭɔȝ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
   const GENUO = 0o4;
   const z2hak = hac2q[hac2q.length - 0o1][0];
   const teru = kf2RinganSurfacon([ sost2(hac2q[0][0]),
     ...hax2pa.slice(0, GENUO + 0o1) ]);
   const malsupra = kf2RinganSurfacon([ ...hax2pa.slice(GENUO), sost2(z2hak) ]);
-  // ⟨ ជង្គង់បត់ទៅមុខ 📃 ⟩
-  // ⟨ ស្វ៊ែរវាស់តាមទទឹង មិនតាមជម្រៅ 📃 ⟩
+  // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ꞙɭı , ⟅ ⟩
+  // ⟨ ꞙɭı , j͑ʃᴜ ʃɜ , ꞙɭɔ , j͑ʃᴜ ſɭ,w , ⟅ ⟩
   const g = hac2q[GENUO];
   const artiko = kf2ArtikanSferon([ 0, 0, g[3] ], g[1] - 0o1/0o1000, 0o7/0o10);
   // ⟨ UV 📃 ⟩
-  // ⟨ UV ជាសកល 📃 ⟩
+  // ⟨ UV , ſɭɜ ſɭ,w , ⟅ ⟩
   const hax2paTutaj = hac2q.length + 0o2;
   const alUvoj = ( geometrio: THREE.BufferGeometry, havecax2lani: number[] ) => {
     const qan2k: number[] = [];

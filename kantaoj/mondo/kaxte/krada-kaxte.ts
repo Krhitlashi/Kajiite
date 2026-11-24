@@ -19,7 +19,7 @@ export interface KradaUrbaRezulto {
   selektajxoj: THREE.Mesh[];
   vepaqGrupoj: THREE.Group[];
   placajNodoj: [ number, number ][];
-  // ⟨ បណ្តាញផ្លូវជាទិន្នន័យ មិនមែនធរណីមាត្រ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ , ꞙɭɔ ʌ ſ͕ɭɜ ı],ᴜ 📃 ⟩
   vojDifinoj: VojDifino[];
   kunigajPunktoj: [ number, number ][];
   kunigajFermitaj: Map<string, [ number, number ]>;
@@ -108,7 +108,7 @@ export function vepaqKradanKaxten(
 
   const selektajxoj: THREE.Mesh[] = [];
 
-  // ⟪ បណ្តាញផ្លូវ 📃 ⟫
+  // ⟪ ſɭэ ֭ſɭэ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ 📃 ⟫
   const vojDifinoj: VojDifino[] = [];
 
   const colSet = new Set<number>(), rowSet = new Set<number>();
@@ -152,7 +152,7 @@ export function vepaqKradanKaxten(
   const vepaqGrupoj: THREE.Group[] = [];
   const ne3ak2Gefiloj = new Set<THREE.Object3D>(qena.children);
   vepaqPudalj.forEach(s => vepaqGrupoj.push(vepaqSatalon(s, qena, selektajxoj, alteco)));
-  // ⟪ អគារទីក្រុងរលាយ 📃 ⟫
+  // ⟪ ſɭᴜ ı],ƨɔ ʌ ſןᴜȝ ʌ j͐ʃᴜɔ˞ 📃 ⟫
   const konservotaj = new Set<THREE.Object3D>(selektajxoj);
   kunfandiMondajnMeshojn(qena, qena.children.filter(o => !ne3ak2Gefiloj.has(o)), {
     celo: 0o100,
@@ -246,8 +246,8 @@ export function vepaqKradanKaxten(
   for ( const [ px, pz ] of placajNodoj ) realajIntersekcoj.delete(px + "," + pz);
   for ( const ca3aq of arkajKlavoj ) realajIntersekcoj.delete(ca3aq);
 
-  // ⟪ ផ្លូវស្ពរ៉ុន 📃 ⟫
-  // ⟨ ស្ពរ៉ុនជាផ្លូវធម្មតា 📃 ⟩
+  // ⟪ ſɭэ ֭ſɭэ sprono 📃 ⟫
+  // ⟨ sprono ⟅ ſɭэ ֭ſɭэ 📃 ⟩
   const spurXoj = RETO_X;
   const spurZoj = RETO_Z;
   if ( arangxo.blokaGrando === "unu" ) {
@@ -279,7 +279,7 @@ export function vepaqKradanKaxten(
       const duonL = 0o7/0o10;
       const ekstX = NS_ekstentoj.get(celX);
       if ( !ekstX || spronoZ < ekstX[0] - duonL || spronoZ > ekstX[1] + duonL ) continue;
-      // ⟨ ដល់កណ្តាលផ្លូវ 📃 ⟩
+      // ⟨ }ʃɹƽ ʌ ſɭэ ֭ſɭэ 📃 ⟩
       vojX = celX;
       vojZ = spronoZ;
       spronaVeb6kek = [ celX, spronoZ, signo, 0 ];
@@ -309,16 +309,16 @@ export function vepaqKradanKaxten(
     }
   }
 
-  // ⟪ ចានភ្ជាប់ 📃 ⟫
+  // ⟪ ſןᴜ ſᶘɹ 📃 ⟫
   const kunigajKlavoj = [ ...realajIntersekcoj, ...spronajHaveb6kek.keys(), ...arkajKlavoj,
     ...tNodoj.map(( [ px, pz ] ) => px + "," + pz ) ];
   const kunigajPunktoj = kunigajKlavoj.map(ca3aq => ca3aq.split(",").map(Number) as [ number, number ]);
   const fermitaj = new Map<string, [ number, number ]>([ ...tFermitaj, ...spronajHaveb6kek ]);
   for ( const a of arkajNodoj ) fermitaj.set(a.x + "," + a.z, [ a.sx, a.sz ]);
 
-  // ⟨ បណ្តាញមួយ ការសាងសង់មួយ 📃 ⟩
+  // ⟨ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ꞙɭı , ſןᴜȝ ʌ ꞙɭı 📃 ⟩
 
-  // ⟪ ចង្កៀង ( ផ្នែកក្រឡា ) 📃 ⟫
+  // ⟪ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ( ſɭɹ ſןᴜ ʌ ſɭɔƽ ) 📃 ⟫
   const lampLokoj: LampLoko[] = [];
   const addLamp = kf2LampAldonilon(vepaqPudalj, lampLokoj);
   const addLampGroup = kf2KvarLampAldonilon(addLamp, lampLokoj);
@@ -338,7 +338,7 @@ export function vepaqKradanKaxten(
     }
   }
 
-  // ⟪ គីហ្វហេសូ 📃 ⟫
+  // ⟪ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟫
   const keuxfhxesoKa5ik = 0o10;
   const raqa: KeuxfhxesoRaqa[] = [];
   if ( arangxo.keuxfhxeso ) {

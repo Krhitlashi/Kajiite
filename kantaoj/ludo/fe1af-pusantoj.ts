@@ -15,7 +15,7 @@ export interface HerbajPusantoj {
   kolekti( x: number, z: number ): readonly HerbaPusanto[];
 }
 
-// ⟨ គ្មានសំរាមរាល់ស៊ុម 📃 ⟩
+// ⟨ ꞙɭɔ ʌ ſןw ɭʃᴜ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
 export function kf2HerbajnPusantojn( hasukf2qani: HerbajPusajHasukf2qani ): HerbajPusantoj {
   const { npcoj, hapaga, ludanto, promenas } = hasukf2qani;
   const herbaPusaProvizo: HerbaPusanto[] = [
@@ -46,7 +46,7 @@ export function kf2HerbajnPusantojn( hasukf2qani: HerbajPusajHasukf2qani ): Herb
 
   function kolekti(x: number, z: number): readonly HerbaPusanto[] {
     herbajPusantoj.length = 0;
-    // ⟨ អ្នកលេង 📃 ⟩
+    // ⟨ ſ͔ɭᴜ ȏŋᷠꞇ 📃 ⟩
     if ( promenas() ) {
       const glito = herbaPusaProvizo[0];
       const p = ludanto();

@@ -1,6 +1,6 @@
-// ≺⧼ ចម្រៀង 🎵 ⧽≻
-// វិលនីមួយៗស្ថិតក្នុងឯកសារដាច់ដោយឡែកក្រោមថត kantoj/ ។
-// ឯកសារនេះប្រមូលពួកវាជាបញ្ជីតែមួយសម្រាប់ឧបករណ៍លេង។
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻
+// j͑ʃп́ꞇ ſɭɔƴ ʌ ꞙɭı ʌ ꞙɭı ʌ kantoj/ ⟅
+// j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ j͑ʃп́ꞇ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ⟅
 
 import type { SpuroDateno } from "./vokoj/hahunaq.js";
 import { AIH } from "../../../kantaoj/lingvo/tradukoj/aih.js";
@@ -13,7 +13,7 @@ import { buildTrack6 } from "./kantoj/trako06.js";
 import { buildTrack7 } from "./kantoj/trako07.js";
 import { buildTrack8 } from "./kantoj/trako08.js";
 
-// ⟪ ការនាំចេញត្រាក 📃 ⟫
+// ⟪ j͑ʃп́ꞇ ſɭɔƴ ʌ ʃᴜ j͐ʃɹ 📃 ⟫
 
 export interface Kanto {
   no: string;
@@ -22,7 +22,7 @@ export interface Kanto {
   data: SpuroDateno;
 }
 
-// ⟨ ឈ្មោះបទយកពីវចនានុក្រម aih ៖ ជាឈ្មោះពិត មិនមែនឈ្មោះបណ្តោះអាសន្ន 📃 ⟩
+// ⟨ ſɭɔ˞ᴜ ſɭᴜ ʌ j͑ʃп́ꞇ ſɭɔƴ ʌ }ʃᴜ j͐ʃᴜ ʌ aih ⟅ ſɭɔ˞ᴜ ſɭᴜ ʌ j͑ʃɜ j͑ʃƨɹ , ſɭɔ˞ᴜ ſɭᴜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ⟅ 📃 ⟩
 export const KANTOJ: Kanto[] = [
   { no: "01", title: AIH["muzikTrako0"], instrs: [ "siku", "ocarina", "guiro", "inanga", "hiwe" ], data: buildTrack1() },
   { no: "02", title: AIH["muzikTrako1"], instrs: [ "didj", "tjurunga", "mbira", "inanga", "kiiqflak" ], data: buildTrack2() },

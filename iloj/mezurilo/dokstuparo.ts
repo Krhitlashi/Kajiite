@@ -1,7 +1,7 @@
 // ≺⧼ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ j͑ʃᴜꞇ ʌ ſɟᴜ ſןᴜ ɭʃэ ʌ j͑ʃᴜ ſɟɹƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſןᴜ ſᶘɹ 🔬 ⧽≻
-// ⟨ ជណ្តើរចំណតចាប់ផ្តើមនៅមាត់ចានភ្ជាប់ ។ បើកម្ពស់ជំហានទីមួយគណនាពីចំណុចផ្សេង ,
-// ជណ្តើរធ្លាក់ក្រោមចាន , ហើយអ្នកឃើញរណ្តៅនៅមាត់ចំណត ។ ស្គ្រីបនេះសាងសង់ចំណតពិត ,
-// ហើយប្រៀបធៀបជំហានទីមួយនឹងចាន , និងជំហានចុងក្រោយនឹងមាត់ចំណត ។ 📃 ⟩
+// ⟨ ſɟᴜ ſןᴜ ɭʃэ , ſɭᴜ ſןᴜ , ſɭэ ɭʃᴜ , ⟅ ſןɔ˞ᴜƴ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
+// ſɟᴜ ſןᴜ ɭʃэ , ſɭᴜ ſןᴜ , ꞙɭɿ , ſɭᴜ ſןᴜ , ֭ſɭэ ſɭэ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 import * as THREE from "three";
 import { aktivajHak6h6, aktivajHaqakaj2 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco, akvaVem2 } from "../../kantaoj/mondo/tereno.js";
@@ -56,18 +56,18 @@ function finAlto( x: number, z: number, sefini: number ): number {
 for ( let i = 0; i < DOKOJ.length; i++ ) {
   const d = DOKOJ[i];
   const r = d.rotacio ?? 0;
-  // ⟨ សាងសង់ចំណតដូចហ្គេម 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭ,w , 📃 ⟩
   const qakaj2 = vepaqQakaj2n(qena, d.x, d.z, r, k6h6Alteco, akvaVem2, d.profundo, alteco);
   if ( qakaj2.stuparajPunktoj.length < 2 ) {
-    console.log(`  ចំណត ${i} ៖ គ្មានជណ្តើរ , វេទិកា ${qakaj2.platformY.toFixed(2)} , មាត់ចំណត ${qakaj2.landejaY.toFixed(2)}`);
+    console.log(`  ｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${i} ｡ ſןɔ ʌ ſɟᴜ ſןᴜ ɭʃэ ｡ j͑ʃ'ᴜ j͑ʃꞇ ${qakaj2.platformY.toFixed(2)} ｡ ᶅſэ ſ͕ɭᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${qakaj2.landejaY.toFixed(2)}`);
     continue;
   }
   const landaX = d.x + Math.sin(r) * ( d.profundo / 2 );
   const landaZ = d.z + Math.cos(r) * ( d.profundo / 2 );
   const sefini = qakaj2.platformWidth;
-  // ⟨ អានកម្រិតចានដែលបានចុះឈ្មោះ 📏 ⟩ ៖ ដូច pontaFinAlto ក្នុងហ្គេម ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı , 📏 ⟩
   const starto = qakaj2AltoCxe(landaX, landaZ) ?? finAlto(landaX, landaZ, sefini);
-  // ⟨ ចំណុចចាប់ផ្តើមក្រោយការផ្លាស់ ៖ នៅមាត់ចានភ្ជាប់ 📃 ⟩
+// ⟨ ſɟᴜ ſןᴜ ɭʃэ , ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
   const veb6kek = proksima(landaX, landaZ, VOJA_TRUA_DUONO);
   let saxeni = qakaj2.stuparajPunktoj[0];
   const tlakakani = qakaj2.stuparajPunktoj[1];
@@ -77,20 +77,20 @@ for ( let i = 0; i < DOKOJ.length; i++ ) {
     if ( sahakani > VOJA_TRUA_DUONO )
       saxeni = [ veb6kek.x + dx * VOJA_TRUA_DUONO / sahakani, veb6kek.z + dz * VOJA_TRUA_DUONO / sahakani ];
   }
-  // ⟨ ហៅអនុគមន៍តែមួយដូចហ្គេម 📏 ⟩ ៖ កុំគណនាលេខជំហានដោយច្បាប់ផ្សេង ។ 📃 ⟩
+// ⟨ ı],ᴜ ֭ſɭᴜ , ſןɔ˞ᴜƴ , ꞙɭı , 📏 ⟩
   const stuparo = kf2DokanStuparon(saxeni, tlakakani, starto, qakaj2.landejaY);
   if ( !stuparo ) {
-    console.log(`  ចំណត ${i} ៖ គ្មានជណ្តើរ , វេទិកា ${qakaj2.landejaY.toFixed(3)}`);
+    console.log(`  ｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${i} ｡ ſןɔ ʌ ſɟᴜ ſןᴜ ɭʃэ ｡ j͑ʃ'ᴜ j͑ʃꞇ ${qakaj2.landejaY.toFixed(3)}`);
     continue;
   }
   const xaqadi = stuparo.l6da(saxeni[0], saxeni[1]) + VOJA_SUPRO_LEVIGXO;
   const z2hak = stuparo.l6da(tlakakani[0], tlakakani[1]) + VOJA_SUPRO_LEVIGXO;
-  console.log(`  ចំណត ${i} ( ${d.x.toFixed(1)}, ${d.z.toFixed(1)} )` +
-    ` ៖ ចាន ${starto.toFixed(3)} , ជំហាន ${stuparo.nombro}` +
-    ` , លើ ${xaqadi.toFixed(3)} , ក្រោម ${z2hak.toFixed(3)}` +
-    ` , មាត់ចំណត ${qakaj2.landejaY.toFixed(3)}` +
-    ` , ចុងខុស ${( z2hak - qakaj2.landejaY ).toFixed(3)}` +
-    ` , ក្បាលខុស ${( starto - xaqadi ).toFixed(3)}` +
-    ` , ចម្ងាយ ${Math.hypot(saxeni[0] - qakaj2.stuparajPunktoj[0][0],
+  console.log(`  ｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${i} ( ${d.x.toFixed(1)}, ${d.z.toFixed(1)} )` +
+    ` ｡ ſןᴜ ſᶘɹ ${starto.toFixed(3)} ｡ ɭʃɜ }ʃᴜ ${stuparo.nombro}` +
+    ` ｡ ɭl̀ᴜ ${xaqadi.toFixed(3)} ｡ ɭl̀ᴜȝ ${z2hak.toFixed(3)}` +
+    ` ｡ ᶅſэ ſ͕ɭᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${qakaj2.landejaY.toFixed(3)}` +
+    ` ｡ ſ̀ȷᴜ ſɭᴜƽ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${( z2hak - qakaj2.landejaY ).toFixed(3)}` +
+    ` ｡ j͑ʃᴜ ı],ɔ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${( starto - xaqadi ).toFixed(3)}` +
+    ` ｡ ֭ſɭэ ſɭw }ʃꞇ ${Math.hypot(saxeni[0] - qakaj2.stuparajPunktoj[0][0],
       saxeni[1] - qakaj2.stuparajPunktoj[0][1]).toFixed(2)}`);
 }

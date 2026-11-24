@@ -5,7 +5,7 @@ import { MURA_KLINO, rondigitaTrapezaQoxa, SANKTEJA_BAZPLATO_ALTO,
   SANKTEJA_BAZPLATO_KROMO } from "./haqoxa.js";
 import { sax0baPukazQan2k, sax0baPukazQan2kS2qena } from "../../komunajxoj/haqoxa.js";
 
-// ⟨ ហេតុអ្វី 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
 export function kf2JoqanKkaxten(qoxa: THREE.Path, z: number,
   sampoj = 0o20): THREE.CurvePath<THREE.Vector3> {
   const putho = new THREE.CurvePath<THREE.Vector3>();
@@ -22,11 +22,11 @@ export function kf2JoqanKkaxten(qoxa: THREE.Path, z: number,
   return putho;
 }
 
-// ⟨ ទំហំច្រកចូល 📃 ⟩ ៖ ទ្វារ និងស៊ុមមានទំហំដូចគ្នាគ្រប់អគារ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩ , ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const BLOKA_LARGHO = 0o233/0o100, TW = BLOKA_LARGHO * 0o45/0o100, EH = 0o11/0o4;
-// ⟨ ទ្វារស្តើង 📃 ⟩
-// ⟨ ឥឡូវវែងជាងទៅមុខ 📃 ⟩
-// ⟨ ហេតុអ្វីមិន 0o3/0o40 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ſɭᴜ ſɭ,w , 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ſɭэ ſɭᴜ , 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭц , ꞙɭэɔ , 📃 ⟩
 const PORD_DIKECO = 0o7/0o100, PORD_BEVELO = 0o1/0o40;
 const PORD_DIKECO_TUTA = PORD_DIKECO + PORD_BEVELO * 2;
 const PORD_Z = -0o1/0o100;
@@ -36,27 +36,27 @@ interface EnirejajGeometrioj {
   joqa: THREE.BufferGeometry;
 }
 
-// ⟨ ឃ្លាំងធរណីមាត្រច្រកចូល 📃 ⟩ ៖ អគារនីមួយៗដាក់ច្រកចូលនៅទីតាំង និងផ្អៀងខុសគ្នា ,
-// តែរូបរាងទ្វារ ស៊ុម និងព្រុយដូចគ្នាទាំងស្រុង ។ ស៊ុមជាបំពង់ដែលមានកង់រាប់រយ ,
-// ដូច្នេះសង់ម្តង ហើយចែករំលែក ។ 📃 ⟩
+// ⟨ ɭl̀ɜ ſ͕ɭᴜ , ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 let enirejajKashmemoro: EnirejajGeometrioj | null = null;
 
 function preniEnirejajnGeometriojn(): EnirejajGeometrioj {
   if ( enirejajKashmemoro ) return enirejajKashmemoro;
-  // ⟨ ស៊ុមស៊ីមេទ្រី 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſȷƽᴜ ʃɔ , 📃 ⟩
   const pordaC2q = 0o1/0o4;
   const shape = rondigitaTrapezaQoxa(BLOKA_LARGHO, TW, EH, pordaC2q, pordaC2q);
   const pordo = new THREE.ExtrudeGeometry(shape, { depth: PORD_DIKECO, bevelEnabled: true, bevelSize: PORD_BEVELO, bevelThickness: PORD_BEVELO, bevelSegments: 2, curveSegments: 0o20 });
-  // ⟨ uv1 រក្សាវាយនភាព ។ uv ធ្វើតាមទទឹង trapeza នៃមុខទ្វារ ដើម្បីកុំកាត់ខ្សែកោងនៅជ្រុង 📃 ⟩
+// ⟨ j͐ʃƽɜ , ꞙɭı , ⟅ j͐ʃƽɜ , ꞙɭɿ , 📃 ⟩
   sax0baPukazQan2kS2qena(pordo, [ [ 0, BLOKA_LARGHO ], [ EH, TW ] ]);
-  // ⟨ ស៊ុមគ្របទ្វារទាំងមូល 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſןɔ˞ᴜƴ , 📃 ⟩
   const joqaKkaxte = kf2JoqanKkaxten(shape, PORD_Z + PORD_DIKECO / 2);
   const joqa = new THREE.TubeGeometry(joqaKkaxte, 0o40, PORD_DIKECO_TUTA / 2, 0o10, true);
   enirejajKashmemoro = { pordo, joqa };
   return enirejajKashmemoro;
 }
 
-/*សាងសង់ព្រុយពីជ្រុងទ្វារទៅផ្ទៃខាងលើចានមូលដ្ឋាន
+/* ſןɔ˞ᴜƴ , ſןɔ˞ᴜƴ , ɭl̀ɜ ſ͕ɭᴜ ,
     @param tieroAlto ( number ) - កម្ពស់ស្រទាប់ដែលកំណត់ផ្អៀងទ្វារ
 @returns nagetoj ( BufferGeometry [ ] ) - ព្រុយឆ្វេង និងស្តាំ */
 function kf2Nagetojn( tieroAlto: number ): THREE.BufferGeometry[] {
@@ -67,8 +67,8 @@ function kf2Nagetojn( tieroAlto: number ): THREE.BufferGeometry[] {
   const tafkaq = tieroAlto > 0 ? -Math.atan(MURA_KLINO / tieroAlto) : 0;
   const kos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
   const celZ = SANKTEJA_BAZPLATO_KROMO / 2;
-  // ⟨ បម្លែងចំណុចលើចានទៅកូអរដោនេទ្វារផ្អៀង 📏 ⟩ ៖ ក្រោយបង្វិលក្រុម ,
-  // ព្រុយប៉ះផ្ទៃខាងលើចាន នៅគែមខាងក្រៅពិតប្រាកដ ។ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭɿ , 📃 ⟩
   const celY = kos * SANKTEJA_BAZPLATO_ALTO + sin * celZ;
   const lokaCelZ = -sin * SANKTEJA_BAZPLATO_ALTO + kos * celZ;
   const nagetoj: THREE.BufferGeometry[] = [];
@@ -113,9 +113,9 @@ export function aldoniEnirejon(group: THREE.Group, d: number, joqaMaterialo: THR
   const enirejo = new THREE.Mesh(geo.pordo, eniraMaterialo);
   enirejo.position.set(0, 0, PORD_Z); klinGrupo.add(enirejo);
   klinGrupo.add(new THREE.Mesh(geo.joqa, joqaMaterialo));
-  // ⟨ ទ្វារផ្អៀងតាមជញ្ជាំង 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ſɭɜ ſɭᴜ , 📃 ⟩
   if ( tieroAlto > 0 ) klinGrupo.rotation.x = -Math.atan(MURA_KLINO / tieroAlto);
-  // ⟨ ព្រុយនៃអគារកណ្តាល 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , j͑ʃɜ j͑ʃƨɹ , 📃 ⟩
   if ( nagetoj ) for ( const g of kf2Nagetojn(tieroAlto) ) {
     const nageto = new THREE.Mesh(g, joqaMaterialo);
     nageto.name = "porda-nageto";

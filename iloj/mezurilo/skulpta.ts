@@ -1,12 +1,12 @@
 // ≺⧼ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɭɜ ſɭ,w ʌ ſ͕ɭɔ }ʃᴜ ʌ j͑ʃɔ }ʃᴜȝ }ʃꞇ 📏 ⧽≻
-// ⟨ ឆាក 3D របស់ឧបករណ៍ឆ្លាក់ដីបំផ្លើសកម្ពស់ ២.៥ ដង , តែថេរផ្លូវ ( ជំហាន ០.៥ )
-// មិនបំផ្លើសទេ ។ ដូច្នេះផ្លូវនៅទីនោះលិចក្នុងដី , ហើយគ្មានជញ្ជាំងចំហៀង ។ 📃 ⟩
+// ⟨ ſɟᴜ ſȷᴜɔ˞ ʌ ſɭᴜc̗ ɭʃɜ ʌ ꞙɭц ʌ ſɟᴜᴜ̩ ɭʃɹ ⟅ j͐ʃэ ɭ(ᴜ ꞙɭɿэ/ꞙɭıɔ ʌ ſɭэ ֭ſɭэ ( ꞙɭэ/ꞙɭıɔ )
+// ꞙɭɔ ⟅ ſɭэ ֭ſɭэ ʌ j͑ʃ'ƽɹʞ ʌ ſɭɜ ſɭ,w , ꞙɭɔ ʌ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ 📃 ⟩
 import { aktivajHak6h6 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { kf2NivelanProfilon } from "../../eskekoj/medio/hak6h6/havem2.js";
 import { VOJA_BORDA_SEFINI } from "../../eskekoj/medio/hak6h6/havecax2l.js";
 
-const YTROIGO = 0o24 / 0o10; // 2.5 , ដូច iloj/tero-skulptilo/tero-skulptilo/vido3d.ts
+const YTROIGO = 0o24 / 0o10; // ɿ.ꞟ , ſɭɹ ʌ iloj/tero-skulptilo/tero-skulptilo/vido3d.ts
 const VOJOJ = aktivajHak6h6().filter(v => v.n2k.length >= 2);
 
 for (let i = 0; i < VOJOJ.length; i++) {
@@ -32,6 +32,6 @@ for (let i = 0; i < VOJOJ.length; i++) {
     tlunakani += d;
     if (d > 0) supero++; else { subo++; if (-d > 0o1/0o2) kasxita++; }
   }
-  console.log(`${i} ${v.ksaka} : លើដី ${supero} , ក្រោមដី ${subo} , កប់លើសមួយជំហាន ${kasxita}` +
-    ` / ${p.hal6da.length} , មធ្យម ${(tlunakani / p.hal6da.length).toFixed(2)}`);
+  console.log(`${i} ${v.ksaka} : ſɭɜ ſɭ,w ${supero} , ſɭɜ ſɭ,w ʌ ꞙɭɔ ${subo} , ſɭɜ ſɭ,w ʌ ꞙɭı ${kasxita}` +
+    ` / ${p.hal6da.length} , ſȷƽᴜ ɭʃᴜ ${(tlunakani / p.hal6da.length).toFixed(2)}`);
 }

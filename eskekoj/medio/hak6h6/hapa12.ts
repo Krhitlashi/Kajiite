@@ -7,13 +7,13 @@ import { kunigajHavem2 } from "./kunig-havem2.js";
 import { surGrid, VOJA_BORDA_SEFINI, VOJA_DIORITA_DUONO, VOJA_EKSTERA_DUONO,
   VOJA_SUPRO_LEVIGXO, VOJA_TRUA_DUONO } from "./havecax2l.js";
 
-// ⟪ មុំនៃចានភ្ជាប់ 🧭 ⟫
-// ⟨ ចានភ្ជាប់ធ្វើតាមទិសដៃពិត ។ មុននេះវាបែងជាបួនជ្រុងតាមអ័ក្ស ,
-// ដូច្នេះផ្លូវដែលកាត់តាមមុំ ៤៥ ឬ ១៣០ ដឺក្រេ មិនត្រូវនឹងជ្រុងចាន ,
-// ហើយលេចចន្លោះ ឬគែមលើស ។ ឥឡូវចានជាសហជីវនៃបន្ទះផ្លូវទាំងអស់
-// បូករង្វង់កណ្តាល , ហើយជ្រុងរវាងដៃពីរត្រូវបំពេញដោយធ្នូមូល ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı 🧭 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭэ , ꞙɭı ,
+//   ꞙɭı , ꞙɭꞟꞟ , ꞙɭıцɿ , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 const DUOBLA_PI = Math.PI * 0o2;
-// ⟨ ជំហានមុំ 📏 ⟩ ៖ គ្រប់គ្រងភាពរលូននៃគែម ។ ១/៣២ រ៉ាដ្យង់គឺតូចល្មម ។
+// ⟨ ſןɔ˞ᴜƴ , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭцɿ , ꞙɭı , ⟅ ⟩
 const ANGULA_PASXO = 0o1 / 0o40;
 const ANGULA_TOLERO = 0o1 / 0o1000;
 
@@ -23,36 +23,36 @@ export interface Knece {
   uz: number;
   nx: number;
   nz: number;
-  // ⟨ កន្លះទទឹងផ្លូវពិត 🛣️ ⟩ ៖ ចានត្រូវធំល្មមនឹងផ្លូវដែលចូលមក , មិនមែន
-  // តាមតម្លៃថេរទេ ។ បើចានតូចជាងផ្លូវ , ស្មាងងឹតរបស់ផ្លូវលាតចេញហួសចាន ,
-  // ហើយឃើញជាខ្សែងងឹតកាត់ចំណុចភ្ជាប់ ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ 🛣️ ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   p2somani: number;
-  // ⟨ កន្លះទទឹងរួមស្មា 📏 ⟩ ៖ កំពូលបូកស្មា ។
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ⟅ ⟩
   ekstera: number;
 }
 
-// ⟪ មុំធម្មតា 📐 ⟫
-/*នាំមុំទៅចន្លោះ 0 ដល់ 2π
-    @param tafkaq ( number ) - មុំរ៉ាដ្យង់
-@returns tafkaq ( number ) - មុំក្នុងចន្លោះ [ 0 , 2π ) */
+// ⟪ }ʃɹƽ , ꞙɭı 📐 ⟫
+/* }ʃɹƽ , ꞙɭɔ , ꞙɭɿπ , ꞙɭı ,
+    @param tafkaq ( number ) - }ʃɹƽ , ꞙɭı ,
+@returns tafkaq ( number ) - }ʃɹƽ , [ ꞙɭɔ , ꞙɭɿπ ) */
 function normAng(tafkaq: number): number {
   const r = tafkaq % DUOBLA_PI;
   return r < 0 ? r + DUOBLA_PI : r;
 }
 
-// ⟪ មុំស្មើគ្នា 📐 ⟫
-/*ពិនិត្យថាមុំពីរជិតគ្នាលើរង្វង់
-    @param a, b ( number ) - មុំរ៉ាដ្យង់
-@returns sama ( boolean ) - ពិតបើខុសគ្នាតិចជាង ANGULA_TOLERO */
+// ⟪ }ʃɹƽ , ꞙɭı 📐 ⟫
+/* }ʃɹƽ , ꞙɭɿ , ꞙɭı ,
+    @param a, b ( number ) - }ʃɹƽ , ꞙɭı ,
+@returns sama ( boolean ) - ꞙɭı , ANGULA_TOLERO */
 function samaAng(a: number, b: number): boolean {
   const d = Math.abs(normAng(a) - normAng(b));
   return Math.min(d, DUOBLA_PI - d) < ANGULA_TOLERO;
 }
 
-// ⟪ ដៃពីទិសដៅ 📏 ⟫
-/*បំប្លែងទិសដៅទៅជាដៃដែលមានមុំ និងណរម៉ាល់
-    @param hac2w2q ( [ number , number ] [ ] ) - ទិសដៅដៃ
-@returns knece ( Knece [ ] ) - ដៃតម្រៀបតាមមុំ */
+// ⟪ ꞙɭı , ꞙɭı 📏 ⟫
+/* ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+    @param hac2w2q ( [ number , number ] [ ] ) - ꞙɭı , ꞙɭı ,
+@returns knece ( Knece [ ] ) - ꞙɭı , ꞙɭı , */
 function brakojElDirektoj(hac2w2q: readonly [ number, number ][], p2somani: number): Knece[] {
   const rez: Knece[] = [];
   const ekstera = p2somani + VOJA_BORDA_SEFINI;
@@ -68,11 +68,11 @@ function brakojElDirektoj(hac2w2q: readonly [ number, number ][], p2somani: numb
   return rez;
 }
 
-// ⟪ ដៃពីការបិទជ្រុង 📏 ⟫
-/*បង្កើតដៃពីព័ត៌មានបិទជ្រុង នៅពេលគ្មានទិសដៅពិត
-    @param ferma ( [ number , number ] ) - ជ្រុងបិទ ( អ័ក្ស x និង z )
-    @param rotacio ( number ) - មុំបង្វិលនៃចាន
-@returns knece ( Knece [ ] ) - ដៃតាមអ័ក្ស */
+// ⟪ ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟫
+/* ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı ,
+    @param ferma ( [ number , number ] ) - }ʃɹƽ , ( x , z ) ,
+    @param rotacio ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+@returns knece ( Knece [ ] ) - ꞙɭı , ꞙɭı , */
 function brakojElFermitaj(ferma: [ number, number ], rotacio: number, p2somani: number): Knece[] {
   const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
   const lokaj: [ number, number ][] = [];
@@ -84,12 +84,12 @@ function brakojElFermitaj(ferma: [ number, number ], rotacio: number, p2somani: 
     [ kos * lx - sin * lz, sin * lx + kos * lz ] as [ number, number ]), p2somani);
 }
 
-// ⟪ កាំនៃបន្ទះផ្លូវ 📏 ⟫
-/*រកចម្ងាយរហូតដល់គែមបន្ទះផ្លូវតាមមុំមួយ
-    @param knece ( Knece ) - ដៃផ្លូវ
-    @param p2somani ( number ) - កន្លះទទឹងបន្ទះ
-    @param tafkaq ( number ) - មុំសម្រាប់ស្កេន
-@returns ka5ik ( number ) - ចម្ងាយតាមរង្វង់ , ឬ 0 បើខាងក្រោយ */
+// ⟪ ſɭᴜ ſɭˬꞇƽ , ſɭэ ֭ſɭэ 📏 ⟫
+/* ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param knece ( Knece ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param p2somani ( number ) - ꞙɭı , ꞙɭı ,
+    @param tafkaq ( number ) - }ʃɹƽ , ꞙɭı ,
+@returns ka5ik ( number ) - ꞙɭı , ꞙɭı , ꞙɭɔ , */
 function bendoRadiuso(knece: Knece, p2somani: number, tafkaq: number): number {
   const rel = normAng(tafkaq - knece.ang);
   const laux = Math.cos(rel);
@@ -100,7 +100,7 @@ function bendoRadiuso(knece: Knece, p2somani: number, tafkaq: number): number {
   return Math.min(tlakakani, pukaz);
 }
 
-// ⟪ ធ្នូជ្រុង 📐 ⟫
+// ⟪ ſȷƽᴜ ʃɔ , }ʃɹƽ 📐 ⟫
 interface Fileto {
   cx: number;
   cz: number;
@@ -110,10 +110,10 @@ interface Fileto {
   delta: number;
 }
 
-// ⟪ មុំខ្លី 📐 ⟫
-/*នាំភាពខុសគ្នាមុំទៅចន្លោះ ( -π , π ]
-    @param a, b ( number ) - មុំរ៉ាដ្យង់
-@returns delta ( number ) - មុំខ្លីពី b ទៅ a */
+// ⟪ }ʃɹƽ , ꞙɭı 📐 ⟫
+/* }ʃɹƽ , ( -π , π ] , ꞙɭı ,
+    @param a, b ( number ) - }ʃɹƽ , ꞙɭı ,
+@returns delta ( number ) - }ʃɹƽ , b , a */
 function angulaDiferenco(a: number, b: number): number {
   let d = ( a - b ) % DUOBLA_PI;
   if ( d > Math.PI ) d -= DUOBLA_PI;
@@ -121,20 +121,20 @@ function angulaDiferenco(a: number, b: number): number {
   return d;
 }
 
-// ⟪ ធ្នូរវាងដៃពីរ 📏 ⟫
-/*បង្កើតធ្នូមូលដែលបំពេញជ្រុងរវាងដៃពីរ ។ មជ្ឈមណ្ឌលជាចំណុចប្រសព្វ
-    នៃបន្ទាត់មាត់ដៃទាំងពីរ , ដូច្នេះធ្នូប៉ះបន្ទាត់ចំហៀងដៃដោយរលូន ។
-    @param xaqadi, dua ( Knece ) - ដៃជាប់គ្នា
-    @param delta ( number ) - មុំរវាងដៃតាមទិសវិញ្ញាណ
-@returns fileto ( Fileto | null ) - ធ្នូ , ឬ null បើជ្រុងចង្អៀតពេក */
+// ⟪ ſȷƽᴜ ʃɔ , ꞙɭı 📏 ⟫
+/* ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ꞙɭı ,
+   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+    @param xaqadi, dua ( Knece ) - ꞙɭı , ꞙɭı ,
+    @param delta ( number ) - }ʃɹƽ , ꞙɭı , ꞙɭı ,
+@returns fileto ( Fileto | null ) - ſȷƽᴜ ʃɔ , null , ꞙɭɔ , ꞙɭı , */
 function filetoPor(xaqadi: Knece, dua: Knece, delta: number): Fileto | null {
   if ( delta >= Math.PI - ANGULA_TOLERO ) return null;
   const det = xaqadi.ux * dua.uz - xaqadi.uz * dua.ux;
   if ( det <= ANGULA_TOLERO ) return null;
   const cx = ( VOJA_TRUA_DUONO * dua.uz - xaqadi.uz * VOJA_TRUA_DUONO ) / det;
   const cz = ( xaqadi.ux * VOJA_TRUA_DUONO - VOJA_TRUA_DUONO * dua.ux ) / det;
-  // ⟨ ចម្ងាយតាមណរម៉ាល់ 📏 ⟩ ៖ បើតូចជាងគែមខាងក្រៅ , ដៃទាំងពីរជាន់គ្នា ,
-  // ដូច្នេះសហជីវនៃបន្ទះគ្របគ្រាន់ហើយ ។ ការបង្កើតធ្នូនៅទីនោះនឹងកាត់ចូលផ្លូវ ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭɔ , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
   const t = ( cx - xaqadi.ux * VOJA_TRUA_DUONO ) * xaqadi.nx
     + ( cz - xaqadi.uz * VOJA_TRUA_DUONO ) * xaqadi.nz;
   if ( t <= xaqadi.ekstera + ANGULA_TOLERO ) return null;
@@ -150,12 +150,12 @@ function filetoPor(xaqadi: Knece, dua: Knece, delta: number): Fileto | null {
   return { cx, cz, rTop, rOut, phi0, delta: angulaDiferenco(phi1, phi0) };
 }
 
-// ⟪ កាំនៃធ្នូ 📏 ⟫
-/*រកចម្ងាយតាមរង្វង់ដល់ធ្នូ , បើកាំរង្វង់កាត់ធ្នូនោះ
-    @param fileto ( Fileto ) - ធ្នូជ្រុង
-    @param r ( number ) - កាំធ្នូ
-    @param tafkaq ( number ) - មុំស្កេន
-@returns ka5ik ( number ) - ចម្ងាយ , ឬ 0 បើមិនប៉ះ */
+// ⟪ ſɭᴜ ſɭˬꞇƽ , ſȷƽᴜ ʃɔ 📏 ⟫
+/* ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı ,
+    @param fileto ( Fileto ) - ſȷƽᴜ ʃɔ , ꞙɭı ,
+    @param r ( number ) - ꞙɭı , ſȷƽᴜ ʃɔ ,
+    @param tafkaq ( number ) - }ʃɹƽ , ꞙɭı ,
+@returns ka5ik ( number ) - ꞙɭı , ꞙɭɔ , ꞙɭı , */
 function filetaRadiuso(fileto: Fileto, r: number, tafkaq: number): number {
   const kos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
   const projekcio = fileto.cx * kos + fileto.cz * sin;
@@ -163,9 +163,9 @@ function filetaRadiuso(fileto: Fileto, r: number, tafkaq: number): number {
   const diskriminanto = projekcio * projekcio - kvadrato;
   if ( diskriminanto < 0 ) return 0;
   const zace = Math.sqrt(diskriminanto);
-  // ⟨ កាត់ពីរចំណុច 📏 ⟩ ៖ ធ្នូបែរទៅរកជ្រុងខាងក្នុង , ដូច្នេះចំណុចជិតគឺជាគែមចាន ។
-  // ចំណុចឆ្ងាយនៅខាងក្រៅធ្នូ , ដូច្នេះយកតែចំណុចដែលនៅលើធ្នូ ។ បើយកចំណុចឆ្ងាយ ,
-  // ចាននឹងលាតហួសធ្នូ ឬគ្មានធ្នូទាល់តែសោះ , ហើយជ្រុងក្លាយជាស្រួច ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭɿ , 📏 ⟩ , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+  //   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   for ( const lambda of [ projekcio - zace, projekcio + zace ] ) {
     if ( lambda <= 0 ) continue;
     const phi = Math.atan2(sin * lambda - fileto.cz, kos * lambda - fileto.cx);
@@ -180,10 +180,10 @@ function filetaRadiuso(fileto: Fileto, r: number, tafkaq: number): number {
   return 0;
 }
 
-// ⟨ កាំមាត់ផ្លូវ 📏 ⟩ ៖ ចម្ងាយដែលបន្ទាត់កាត់ផ្លូវស្ថិតនៅ ។
-// ផ្លូវកាត់ត្រង់នៅ VOJA_TRUA_DUONO , ដូច្នេះចានមិនត្រូវលាតហួសបន្ទាត់នេះទេ ,
-// បើមិនដូច្នេះគែមចាននិងស្មាផ្លូវជាន់គ្នានៅមុំទ្រេត ។ បើបន្ទាត់កាត់នៅក្រៅ
-// ជ្រុងផ្លូវវិញ ( ធ្នូតូច ) , ដៃនោះមិនកាត់ទេ ។ 📃 ⟩
+// ⟨ ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ſɭэ ֭ſɭэ , VOJA_TRUA_DUONO , ꞙɭɔ , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ ,
+//   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
 function kapoRadiuso(haknece: readonly Knece[], tafkaq: number): number {
   let teruni = Infinity;
   for ( const knece of haknece ) {
@@ -198,7 +198,7 @@ function kapoRadiuso(haknece: readonly Knece[], tafkaq: number): number {
   return teruni;
 }
 
-// ⟪ កាំគែមខាងលើ និងខាងក្រៅ 📏 ⟫
+// ⟪ ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟫
 function suproRadiuso(haknece: readonly Knece[], fileto: Fileto | null, tafkaq: number): number {
   let r = VOJA_DIORITA_DUONO;
   for ( const knece of haknece ) {
@@ -219,11 +219,11 @@ function eksteraRadiuso(haknece: readonly Knece[], fileto: Fileto | null, tafkaq
   return r;
 }
 
-// ⟪ គំរូមុំក្នុងចន្លោះ 📐 ⟫
-/*បង្កើតបញ្ជីមុំគំរូរវាងមុំពីរ , ដោយរួមមុំបំបែកទាំងអស់
-    @param a0, a1 ( number ) - មុំដើម និងចុង ( a1 > a0 )
-    @param rompoj ( number [ ] ) - មុំដែលគែមប្តូរទម្រង់
-@returns hatafkaq ( number [ ] ) - មុំគំរូតាមលំដាប់ */
+// ⟪ ꞙɭı , ꞙɭı , ꞙɭı 📐 ⟫
+/* ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ ,
+    @param a0, a1 ( number ) - ꞙɭı , ꞙɭı , ( a1 > a0 )
+    @param rompoj ( number [ ] ) - ꞙɭı , ꞙɭı , ꞙɭı ,
+@returns hatafkaq ( number [ ] ) - ꞙɭı , ꞙɭı , */
 function angulojGap(a0: number, a1: number, rompoj: readonly number[]): number[] {
   const enaj: number[] = [ a0, a1 ];
   for ( const r of rompoj ) {
@@ -243,39 +243,39 @@ function angulojGap(a0: number, a1: number, rompoj: readonly number[]): number[]
   return rez;
 }
 
-// ⟪ ដៃចានភ្ជាប់ 📏 ⟫
-/*រកដៃពិតរបស់ចំណុចភ្ជាប់ ។ បើគ្មានទិសដៃ , សន្មតជាប្រសព្វបួនជ្រុង
-    @param hac2w2q ( [ number , number ] [ ] ) - ទិសដៅដៃពិត
-    @param ferma ( [ number , number ] | undefined ) - ជ្រុងបិទ
-    @param rotacio ( number ) - មុំបង្វិលនៃចាន
-@returns knece ( Knece [ ] ) - ដៃតម្រៀបតាមមុំ */
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı 📏 ⟫
+/* ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭэ ,
+    @param hac2w2q ( [ number , number ] [ ] ) - ꞙɭı , ꞙɭı , ꞙɭı ,
+    @param ferma ( [ number , number ] | undefined ) - }ʃɹƽ , ꞙɭı ,
+    @param rotacio ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+@returns knece ( Knece [ ] ) - ꞙɭı , ꞙɭı , */
 export function kf2Brakojn(hac2w2q: readonly [ number, number ][],
   ferma: [ number, number ] | undefined, rotacio: number,
   p2somani: number = VOJA_DIORITA_DUONO): Knece[] {
   const haknece = brakojElDirektoj(hac2w2q, p2somani);
   if ( haknece.length ) return haknece;
-  // ⟨ គ្មានព័ត៌មានដៃ 📃 ⟩ ៖ បើគ្មានទិសដៃ និងគ្មានការបិទជ្រុង ( ឧ. ចំណុចក្រឡាដែលការបិទ
-  // ត្រូវលុប ព្រោះផ្លូវភ្ជាប់មកដល់ ) សន្មតជាប្រសព្វបួនជ្រុង ។ ចានមូលតូចមិនគ្រប់ទេ ,
-  // ព្រោះផ្លូវកាត់រន្ធនៅ VOJA_TRUA_DUONO , ដូច្នេះរន្ធរង្វង់នៅមាត់ផ្លូវនឹងនៅទទេ ។ 📃 ⟩
+  // ⟨ ꞙɭɔ , ꞙɭı , 📃 ⟩ , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı , ( ꞙɭɔ , ꞙɭı ,
+  //   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı , ) , ꞙɭɔ , ꞙɭэ , ⟅ ꞙɭɔ ,
+  //   ꞙɭɔ , VOJA_TRUA_DUONO , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
   return brakojElFermitaj(ferma ?? [ 0, 0 ], rotacio, p2somani);
 }
 
-// ⟪ ពហុកោណចានភ្ជាប់ 🔲 ⟫
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı 🔲 ⟫
 export interface PlatajPoligonoj {
   hateru: [ number, number ][];
   bandoj: [ number, number ][][];
-  // ⟨ មុំ និងកាំនៃគែមកំពូល តាមលំដាប់ដូច `hateru` ។ ចានមិនរាបស្មើទេ ,
-  // ដូច្នេះកម្ពស់ត្រូវគណនាតាមមុំនៃចំណុចនីមួយៗ ។ 📃 ⟩
+  // ⟨ ɭʃᴜʞ ſɭᴜȝ , ꞙɭı ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı ,
+  //   ꞙɭı , j͑ʃᴜ ſɭ,w , ꞙɭı , }ʃɹƽ , ⟅ 📃 ⟩
   hatafkaq: number[];
   rs: number[];
   re: number[];
 }
 
-/*សាងសង់ពហុកោណកំពូល និងបន្ទះគែមរបស់ចានភ្ជាប់
-    @param knece ( readonly Knece [ ] ) - ដៃរបស់ចាន
-@returns poligonoj ( PlatajPoligonoj ) - ពហុកោណក្នុងកូអរដោនេមូលដ្ឋាន */
+/* ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
+    @param knece ( readonly Knece [ ] ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+@returns poligonoj ( PlatajPoligonoj ) - ꞙɭı , ꞙɭı , */
 export function kf2PlatajnPoligonojn(haknece: readonly Knece[]): PlatajPoligonoj {
-  // ⟨ មុំបំបែក 📐 ⟩ ៖ មុំដែលគែមបន្ទះប្តូរពីមាត់ទៅចំហៀង ។
+  // ⟨ }ʃɹƽ , ꞙɭı 📐 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ⟩
   const rompoj: number[] = [];
   for ( const knece of haknece ) {
     for ( const p2somani of [ knece.p2somani, knece.ekstera ] ) {
@@ -298,8 +298,8 @@ export function kf2PlatajnPoligonojn(haknece: readonly Knece[]): PlatajPoligonoj
     const suprajGap: [ number, number ][] = [];
     const bendoGap: { rs: number; re: number; kos: number; sin: number; tafkaq: number }[] = [];
     for ( const tafkaq of angulojGapListo ) {
-      // ⟨ កាត់តាមមាត់ផ្លូវ 📏 ⟩ ៖ គែមក្រៅមិនលាតហួសបន្ទាត់កាត់ផ្លូវទេ ។
-      // កំពូលក៏កាត់ដែរ , ព្រោះជ្រុងផ្លូវមួយចូលក្នុងបន្ទះផ្លូវផ្សេងនៅមុំទ្រេត ។ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
       const limito = Math.min(eksteraRadiuso(haknece, fileto, tafkaq),
         kapoRadiuso(haknece, tafkaq));
       const rs = Math.min(suproRadiuso(haknece, fileto, tafkaq), limito);
@@ -316,10 +316,10 @@ export function kf2PlatajnPoligonojn(haknece: readonly Knece[]): PlatajPoligonoj
       rsListo.push(bendoGap[j].rs);
       reListo.push(bendoGap[j].re);
     }
-    // ⟨ បន្ទះខាងក្រៅ 📏 ⟩ ៖ ខ្សែក្រៅទៅមុខ , ខ្សែក្នុងត្រឡប់ក្រោយ ។
-    // ត្រង់ណាដែលខ្សែទាំងពីរជាប់គ្នា ( មាត់ដៃ ឬបន្ទាត់កាត់ ) បន្ទះមានទទឹងសូន្យ ។
-    // បើយកចំណុចស្មើគ្នាច្រើនចូល , ពហុកោណកាត់ខ្លួនឯង ហើយការបំបែកត្រីកោណចេញខុស ។
-    // ដូច្នេះយកតែចន្លោះដែលមានទទឹង បូកជ្រុងម្ខាងម្នាក់ ដើម្បីបិទចុងឱ្យជាប់ ។ 📃 ⟩
+    // ⟨ ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+    //   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ( ꞙɭı , ꞙɭı ) , ꞙɭı , ꞙɭɔ ,
+    //   ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+    //   ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const larghaj = bendoGap.map(b => b.re - b.rs > ANGULA_TOLERO);
     let j = 0;
     while ( j < bendoGap.length ) {
@@ -343,26 +343,26 @@ export function kf2PlatajnPoligonojn(haknece: readonly Knece[]): PlatajPoligonoj
   return { hateru, bandoj, hatafkaq, rs: rsListo, re: reListo };
 }
 
-// ⟪ កម្រិតចានភ្ជាប់ពីដៃ 📏 ⟫
-/*គណនាកម្រិតកំពូលចានភ្ជាប់ពីដៃដែលបានដោះស្រាយរួច ។ ផ្លូវ និងចានត្រូវប្រើ
-   អនុគមន៍នេះដូចគ្នា ។ បើផ្លូវអានពីទិសដៃឆៅ ហើយចានអានពីដៃសំយោគ ( ពេលទិសដៃទទេ ) ,
-   កម្រិតខុសគ្នាមួយជំហាន , ហើយឃើញជាជញ្ជាំងឈរ ។
-    @param x, z ( number ) - ពិភពលោក
-    @param knece ( readonly Knece [ ] ) - ដៃចាន
-    @param heightFn ( function ) - កម្ពស់វាល
-@returns teru ( number ) - កម្រិតកំពូលដែលបានបង្គត់ទៅក្រឡាជំហាន */
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı 📏 ⟫
+/* ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ,
+   ꞙɭı , ꞙɭı , ꞙɭı , ( ꞙɭɔ , ꞙɭı , ꞙɭı ) ,
+   ꞙɭı , ꞙɭı , ꞙɭı , ⟅
+    @param x, z ( number ) - ꞙɭı , ꞙɭı ,
+    @param knece ( readonly Knece [ ] ) - ſɭᴜ ſןᴜ , ꞙɭı ,
+    @param heightFn ( function ) - ꞙɭı , j͑ʃᴜ ſɭ,w ,
+@returns teru ( number ) - ꞙɭı , j͑ʃᴜ ſɭ,w , ꞙɭı , */
 export function kunigaPlataAlto(x: number, z: number, knece: readonly Knece[],
   heightFn: ( x: number, z: number ) => number): number {
   const hac2w2q = knece.map(b => [ b.ux, b.uz ] as [ number, number ]);
-  // ⟨ កាំអានកម្រិតនៅតែថេរ 📏 ⟩ ៖ ទទឹងចានធំជាងមុន , តែកាំអានកម្រិតមិនប្តូរទេ ។
-  // ការប្តូរកាំនឹងប្តូរកម្ពស់ផ្លូវទាំងអស់ , ដែលជាការប្តូរធំហួសពីបញ្ហាគែមចាន ។ 📃 ⟩
-  // ⟨ លុបការបង្គត់ឡើងក្រោយ 📃 ⟩ ៖ កម្រិតកំពូលមានរួចជា VOJA_SUPRO_LEVIGXO ,
-  // ដូច្នេះបង្គត់លើ `maks` ជាកម្រិតដែលចានអាន ។ 📃 ⟩
-  // ⟨ មាត់ចានក៏ជាដី 📏 ⟩ ៖ k6h6SuproDeVeb6kek អានត្រឹមកាំ VOJA_EKSTERA_DUONO ,
-  // តែផ្លូវចាប់ផ្តើមនៅ VOJA_TRUA_DUONO ។ នៅជម្រាល ដីនៅមាត់ខ្ពស់ជាងដី
-  // កណ្តាលច្រើន , ដូច្នេះចានទាបពេក ហើយផ្លូវដែលមិនកប់ត្រូវលោតឡើងភ្លាមៗ
-  // ពីចាន = ជញ្ជាំងឈរ ។ អានកម្ពស់ដីនៅមាត់ដៃនីមួយៗ ហើយយកខ្ពស់បំផុត ។
-  // អ្នកគណនាចាន អ្នកគណនាផ្លូវ និងឧបករណ៍វាស់ ទាំងអស់ហៅអនុគមន៍តែមួយនេះ ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı 📃 ⟩ , ꞙɭı , VOJA_SUPRO_LEVIGXO ,
+  //   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟩ , k6h6SuproDeVeb6kek , VOJA_EKSTERA_DUONO ,
+  //   ꞙɭı , VOJA_TRUA_DUONO , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭɔ , = ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const randaj = kunigajBrakAltoj(x, z, hac2w2q, knece.map(b => b.p2somani), heightFn)
     .filter(Number.isFinite);
   const randaSupro = randaj.length ? Math.max(...randaj) : -Infinity;
@@ -372,10 +372,10 @@ export function kunigaPlataAlto(x: number, z: number, knece: readonly Knece[],
     randaSupro );
 }
 
-// ⟪ កម្រិតចានតាមដៃ 📏 ⟫
-// ⟨ ចានមួយ កម្ពស់ច្រើន 📃 ⟩ ៖ ចានមិនមានកម្ពស់តែមួយទេ ។ ដៃនីមួយៗមកពីដីរៀងខ្លួន ,
-// ដូច្នេះមាត់ដៃមានកម្រិតផ្លូវរៀងខ្លួន ។ ការអានវាលនៅមាត់ដៃត្រឡប់កម្រិតមាត់នោះ ,
-// ព្រោះវាលបង្កប់កម្រិតចានតាមទិសរួចហើយ ។ 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı 📏 ⟫
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function kunigaPlataVem2(x: number, z: number, knece: readonly Knece[],
   heightFn: ( x: number, z: number ) => number): PlataVem2 {
   const hac2w2q = knece.map(b => [ b.ux, b.uz ] as [ number, number ]);
@@ -398,20 +398,20 @@ export function vepaqIntersekcajnHapa12n(qena: THREE.Scene,
   hap2somani: Map<string, number> = new Map()
 ): void {
   if ( n2k.length === 0 ) return;
-  // ⟨ លំដាប់ជម្រៅ 📏 ⟩ ៖ ស្មាងងឹត ( borda ) មិនត្រូវគូរលើកំពូលភ្លឺរបស់ផ្លូវទេ ។
-  //   ពីមុនស្មាចាននៅ (-4,-5) ជិតជាងកំពូលផ្លូវ (-2,-4) , ដូច្នេះនៅកន្លែងជាន់គ្នា
-  //   ស្មាងងឹតឈ្នះ ហើយលេចជាខ្សែងងឹតកាត់ផ្លូវ ។ ឥឡូវស្មាចាននៅក្រោយកំពូលទាំងពីរ ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+  //   ( -ꞙɭэ , -ꞙɭꞟ ) , ( -ꞙɭɿ , -ꞙɭэ ) , ꞙɭı , ꞙɭɔ ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const { supraMaterialo, bordaMaterialo } = kf2Hak6h6nMaterialojn(dioritaMaterialo, andezitaMaterialo, -3, -2, -1, -3);
   const habakaweKatoma = kf2GeometriajnHabakaweKatoman();
   for ( const [ x, z ] of n2k ) {
     const ca3aq = x + "," + z;
     const knece = kf2Brakojn(hac2w2q.get(ca3aq) ?? [], fermitaj.get(ca3aq),
       rotacioj.get(ca3aq) ?? 0, hap2somani.get(ca3aq) ?? VOJA_DIORITA_DUONO);
-    // ⟪ ចានរាបតែមួយកម្រិត 📏 ⟫
-    // ⟨ កម្ពស់មកពីផ្លូវពិត 📃 ⟩ ៖ vepaqHak6h6n បានតាមដានកម្ពស់ផ្លូវតាមដៃ
-    // នីមួយៗ ហើយជ្រើសកម្រិតចានពីដៃទាបបំផុត ។ ចានទាំងមូលរាបស្មើនៅកម្រិត
-    // នោះ , គ្មានកង្ហារជម្រាល , គ្មានស្នាមកាត់កណ្តាល , គ្មានជ្រុងលើក ។
-    // ផ្លូវខ្ពស់ៗឡើងជាជំហានពីចានទៅរកកម្រិតរបស់វា ។ 📃 ⟩
+    // ⟪ ſɭᴜ ſןᴜ , ꞙɭı 📏 ⟫
+    // ⟨ ꞙɭı , ꞙɭı , 📃 ⟩ , vepaqHak6h6n , ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+    //   ꞙɭı , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const reg = kunigajHavem2.get(ca3aq);
     const plataAlto = reg ? reg.l6da
       : surGrid(kunigaPlataVem2(x, z, knece, heightFn).l6da);
@@ -420,20 +420,20 @@ export function vepaqIntersekcajnHapa12n(qena: THREE.Scene,
     if ( vem2 < 3 ) continue;
     const eksterajHaxekuxa: [ number, number ][] = poligonoj.hatafkaq.map((tafkaq, k) =>
       [ Math.cos(tafkaq) * poligonoj.re[k], Math.sin(tafkaq) * poligonoj.re[k] ]);
-    // ⟨ បាតតាមដី 📏 ⟩ ៖ ចានជាបន្ទះស្តើងដែលតាមដី , មិនមែនប្លុកថ្មខ្ពស់ ។
-    // បាតអានដីត្រង់កាំខាងក្រៅ ( ជាកន្លែងដែលមុខចំហៀងឈរ ) មិនមែនកាំខាងក្នុង ។ 📃 ⟩
+    // ⟨ ꞙɭı , ꞙɭı 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭɔ ,
+    //   ꞙɭı , ꞙɭı , ( ꞙɭı , ꞙɭɔ ) , ꞙɭɔ , ⟅ 📃 ⟩
     const malsupraj = eksterajHaxekuxa.map(p =>
       Math.min(plataAlto, grundoFn(x + p[0], z + p[1])) - ANGULA_PROVOLIRO);
     const centroMalsupra = Math.min(plataAlto - ANGULA_PROVOLIRO, ...malsupraj);
-    // ⟨ បណ្តោយគែមសម្រាប់ uv 📏 ⟩ ៖ មុខចំហៀងជាជញ្ជាំងឈរ ។ បើ uv តាម ( x , z ) ,
-    // វាយនភាពលាតជាបន្ទាត់មួយ ។ ដូច្នេះមុខចំហៀងប្រើ ( បណ្តោយគែម , កម្ពស់ ) ។ 📃 ⟩
+    // ⟨ j͐ʃƽɜ 📏 ⟩ , ꞙɭɔ , j͐ʃƽɜ , ( x , z ) ,
+    //   ꞙɭı , ꞙɭɔ , ꞙɭı , ( ꞙɭı , ꞙɭı ) , ⟅ 📃 ⟩
     const arkoj: number[] = [ 0 ];
     for ( let k = 1; k < vem2; k++ )
       arkoj.push(arkoj[k - 0o1] + Math.max(0,
         poligonoj.hatafkaq[k] - poligonoj.hatafkaq[k - 0o1]) * poligonoj.re[k]);
     const tutaArko = arkoj[vem2 - 0o1] + Math.max(0,
       poligonoj.hatafkaq[0] + DUOBLA_PI - poligonoj.hatafkaq[vem2 - 0o1]) * poligonoj.re[0];
-    // ⟨ សាងសង់ជាបួនផ្នែក 🧱 ⟩ ៖ កំពូល , បន្ទះខាងក្រៅ , មុខចំហៀង , និងបាត ។ 📃 ⟩
+    // ⟨ ꞙɭэ , 🧱 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     type P3 = [ number, number, number ];
     type UV = [ number, number ];
     const suprajHaxekuxa: number[] = [], suprajUV: number[] = [];
@@ -458,26 +458,26 @@ export function vepaqIntersekcajnHapa12n(qena: THREE.Scene,
       const ekstera2 = n2k(k2, poligonoj.re[k2], plataAlto);
       const uEna = plana(ena), uEna2 = plana(ena2),
         uEkstera = plana(ekstera), uEkstera2 = plana(ekstera2);
-      // ⟨ កំពូល ៖ កង្ហារពីកណ្តាល 📐 ⟩ ។
+      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı 📐 ⟩ ,
       tri(suprajHaxekuxa, suprajUV, centroSupraP, ena2, ena,
         plana(centroSupraP), uEna2, uEna);
-      // ⟨ បន្ទះខាងក្រៅ ៖ ចិញ្ចៀនរាបនៅកម្រិតចាន 📐 ⟩ ។
+      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı 📐 ⟩ ,
       tri(bordajHaxekuxa, bordajUV, ena, ena2, ekstera2, uEna, uEna2, uEkstera2);
       tri(bordajHaxekuxa, bordajUV, ena, ekstera2, ekstera, uEna, uEkstera2, uEkstera);
-      // ⟨ មុខចំហៀង ៖ ពីបាតដល់កំពូល 📐 ⟩ ។
+      // ⟨ ꞙɭı , ꞙɭɔ , ꞙɭı 📐 ⟩ ,
       const kozuni = n2k(k, poligonoj.re[k], malsupraj[k]);
       const bazo2 = n2k(k2, poligonoj.re[k2], malsupraj[k2]);
       const ua = flanka(kozuni, arkoj[k]), ue = flanka(ekstera, arkoj[k]),
         ue2 = flanka(ekstera2, arko2), ub2 = flanka(bazo2, arko2);
       tri(bordajHaxekuxa, bordajUV, kozuni, ekstera, ekstera2, ua, ue, ue2);
       tri(bordajHaxekuxa, bordajUV, kozuni, ekstera2, bazo2, ua, ue2, ub2);
-      // ⟨ បាត ៖ បិទប្រអប់ 📐 ⟩ ។
+      // ⟨ ꞙɭɔ , ꞙɭı 📐 ⟩ ,
       tri(suprajHaxekuxa, suprajUV, centroBazo, kozuni, bazo2,
         plana(centroBazo), plana(kozuni), plana(bazo2));
     }
-    // ⟨ វាយនភាពត្រឡប់មកវិញ 🪨 ⟩ ៖ មុននេះធរណីមាត្រមានតែ position និង normal , គ្មាន uv ។
-    // សម្ភារៈមាន map , ដូច្នេះគ្រប់ចំណុចអាន uv ( 0 , 0 ) ហើយចានក្លាយជាពណ៌ប្រផេះរាប ។
-    // ឥឡូវផ្ទៃរាបប្រើ uv តាម ( x , z ) ពិភពលោក ហើយមុខចំហៀងប្រើ uv តាមគែម និងកម្ពស់ ។ 📃 ⟩
+    // ⟨ ꞙɭɔ , 🪨 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , j͐ʃƽɜ ,
+    //   j͐ʃƽɜ , ꞙɭı , j͐ʃƽɜ ( ꞙɭɔ , ꞙɭɔ ) , ꞙɭı , ꞙɭı ,
+    //   j͐ʃƽɜ , ( x , z ) , ꞙɭı , ꞙɭı , j͐ʃƽɜ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const alglui = ( haxekuxa: number[], uv: number[],
       pukek: THREE.MeshStandardMaterial ): void => {
       if ( haxekuxa.length < 0o11 ) return;

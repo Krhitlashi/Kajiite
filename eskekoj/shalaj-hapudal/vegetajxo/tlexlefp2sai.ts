@@ -11,7 +11,7 @@ export function vepaqTlexlefp2saijn(qena: THREE.Scene,
   const hazardaGenerilo = kf2VegetajxanHazardon(0o62450);
   const MAX_TAVOLOJ = 2;
   const trunkaGeometrio = new THREE.CylinderGeometry(0o3/0o40, 0o5/0o40, 1, 0o30, 0o20);
-  // ⟨ ចុងដើម 📃 ⟩
+  // ⟨ ſɟɔ ɭʃɹ ʌ ɭʃɜ ſɭɹȝ 📃 ⟩
   {
     const haxekuxa = trunkaGeometrio.attributes.position;
     for ( let i = 0; i < haxekuxa.count; i++ ) {
@@ -63,7 +63,7 @@ export function vepaqTlexlefp2saijn(qena: THREE.Scene,
       const tavolaSkalo = ( 1 - tavolo * 0o1/0o10 );
       const trunkaRadiuso = trunkaR(y);
       const ellagxo = trunkaRadiuso * 0o7/0o10;
-      // ⟨ ស៊ីមេទ្រី 📃 ⟩
+      // ⟨ ſןɔ ſ͕ɭɔ }ʃꞇ 📃 ⟩
       const p6zukani = tavolaSkalo * ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 );
       for ( let kanto = 0; kanto < 4; kanto++ ) {
         const tafkaq = kanto / 4 * Math.PI * 2;
@@ -80,11 +80,11 @@ export function vepaqTlexlefp2saijn(qena: THREE.Scene,
       }
     }
 
-    // ⟨ សមាមាត្រកម្ពស់ពែង 📃 ⟩
+    // ⟨ ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ ɭ(ɜ ŋᷠᴜ ʌ j͐ʃэ ɭ(ᴜ ʌ ſɟᴜ ı],ɔ ŋᷠᴜ 📃 ⟩
     const unuaTavolaY = h * 0o3/0o10;
     const s2cel2Alto = h * 0o2/0o10;
     if ( unuaTavolaY <= h - s2cel2Alto ) {
-      // ⟨ មាត្រមកពីបាតពែង 📃 ⟩
+      // ⟨ ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ ɭ(ɜ ŋᷠᴜ ʌ }ʃᴜ j͐ʃᴜ ʌ ſɟᴜ ı],ɔ ŋᷠᴜ 📃 ⟩
       const tasMalsupro = unuaTavolaY - s2cel2Alto * 0o14/0o40;
       const trunkaRadiuso = trunkaR(tasMalsupro);
       const ringaSkalo = Math.max(0o3/0o40, trunkaRadiuso / ( 0o13/0o40 ) * 0o11/0o10);
@@ -94,7 +94,7 @@ export function vepaqTlexlefp2saijn(qena: THREE.Scene,
       si++;
     }
 
-    // ⟨ កំពូលចុង 📃 ⟩
+    // ⟨ ſɟɔ ɭʃɹ ʌ j͑ʃᴜ ƨ 📃 ⟩
     const PINTAJ_TAVOLOJ = 0o3;
     const pintaBazo = h * 0o7/0o10;
     const pintaAlto = h;
@@ -103,7 +103,7 @@ export function vepaqTlexlefp2saijn(qena: THREE.Scene,
       const pintaY = pintaBazo + ( pintaAlto - pintaBazo ) * tFrakcio;
       const elklino = 0o13/0o40 - tFrakcio * 0o23/0o100;
       const trunkaRadiuso = trunkaR(pintaY);
-      // ⟨ កំពូលចុងស៊ីមេទ្រី 📃 ⟩
+      // ⟨ ſɟɔ ɭʃɹ ʌ j͑ʃᴜ ƨſןɔ ſ͕ɭɔ }ʃꞇ 📃 ⟩
       const p6zukani = ( 0o12/0o100 + hazardaGenerilo() * 0o13/0o100 )
         * ( 0o3/0o4 - tFrakcio * 0o35/0o100 );
       for ( let kanto = 0; kanto < 4; kanto++ ) {

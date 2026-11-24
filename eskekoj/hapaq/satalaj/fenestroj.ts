@@ -4,7 +4,7 @@ import { kf2Cah6k6Pukek } from "../../komunajxoj/materialoj.js";
 import { kf2Cawez2Qoxa, kf2SexiQoxa, veb6qaiPukaz, kf2X2x2qQan2k } from "../../komunajxoj/haqoxa.js";
 import { paqMaterialo } from "./hahunaq.js";
 
-// ⟨ បង្អួចរាងគ្រាប់ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const fenProud = 0o1/0o100;
 
 const joqaRondigo = 0o1/0o20;
@@ -17,23 +17,23 @@ export function fenestraSubFaco(facaRadiuso: number, klino: number, fenAlto: num
     + fenProud / Math.cos(klinaAngulo);
 }
 
-// ⟨ លេខមួយសម្រាប់អគារទាំងមូល 📃 ⟩
-// ⟨ ធំប៉ុន្មាន 📃 ⟩
-// ⟨ ហេតុអ្វីមិនពីស្រទាប់ចុង 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭэ , 📃 ⟩
 export function fenestraMargxeno(facaRadiusoLarga: number): number {
   return facaRadiusoLarga * 0o2/0o10;
 }
 
-// ⟨ ជាមួយរឹម 📃 ⟩
-// ⟨ គ្មានរឹម 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 export function fenestraLargho(facaRadiuso: number, fenAlto: number, margxeno?: number): number {
   if ( margxeno !== undefined ) return facaRadiuso * 2 - margxeno * 2;
   return Math.min(facaRadiuso * 2 - 0o3/0o10, facaRadiuso * 4/3 + 0o1/0o4, fenAlto * 0o11);
 }
 
-// ⟨ ឃ្លាំងធរណីមាត្របង្អួច 📃 ⟩ ៖ អគារជាច្រើនមានស្រទាប់ដូចគ្នា , ដូច្នេះបង្អួចរបស់ពួកវា
-// មានរូបរាងដូចគ្នាទាំងស្រុង ។ ទីតាំង និងការបង្វិលខុសគ្នា , តែធរណីមាត្រអាស្រ័យតែលើ
-// ទំហំទាំងនេះ ។ ការកាត់រូបរាងផ្កាយដែលមានរន្ធចំណាយពេលច្រើន , ដូច្នេះធ្វើម្តង ។ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ɭl̀ɜ ſ͕ɭᴜ , 📃 ⟩
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
 const fenestrajKashmemoroj = new Map<string, { vitro: THREE.BufferGeometry; joqa: THREE.BufferGeometry }>();
 
 function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
@@ -42,18 +42,18 @@ function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
   const ca3aq = `${ww}|${fenAlto}|${facaRadiuso}|${tieroAlto}|${vertikala ? 1 : 0}`;
   const trovita = fenestrajKashmemoroj.get(ca3aq);
   if ( trovita ) return trovita;
-  // ⟨ ការបង្វិលបញ្ឈរ 📃 ⟩
+// ⟨ ſȷƽᴜ ʃɔ , 📃 ⟩
   const qoxa = kf2Cawez2Qoxa(ww, fenAlto);
   const vitro = new THREE.ShapeGeometry(qoxa, 0o20);
   if ( vertikala ) {
     vitro.rotateZ(Math.PI / 2);
     vitro.translate(fenAlto / 2, ww / 2, 0);
   }
-  // ⟨ ស៊ុមមាសជាចានរាប 📃 ⟩
-  // ⟨ ហេតុអ្វីផ្កាយហើម 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
   const joqaLargho = 0o1/0o10, joqaDikeco = 0o1/0o20;
-  // ⟨ ចុងចំហៀងនៅលើមុខ 📃 ⟩
-  // ⟨ ទំហំទទេប៉ុន្មាន 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
   const liberoLonga = vertikala ? ( tieroAlto - ww ) * 0o1/0o2 : facaRadiuso - ww * 0o1/0o2;
   const liberoMallonga = vertikala ? facaRadiuso - fenAlto * 0o1/0o2
     : ( tieroAlto - fenAlto ) * 0o1/0o2;
@@ -61,7 +61,7 @@ function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
   const pintoFlanko = Math.max(0, Math.min(pintoSupre, liberoLonga - joqaLargho - 0o1/0o100));
   const pintoMallonga = Math.max(0, Math.min(pintoSupre,
     liberoMallonga - joqaLargho - 0o1/0o100));
-  // ⟨ គ្មានជ្រុង 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
   const stelo = veb6qaiPukaz(
     kf2SexiQoxa(ww, fenAlto, joqaLargho, pintoFlanko, pintoMallonga).getPoints(0o10),
     joqaRondigo);
@@ -78,7 +78,7 @@ function fenestrajGeometrioj(ww: number, fenAlto: number, facaRadiuso: number,
   return sef4;
 }
 
-// ⟨ ពេលវាមានប្រយោជន៍ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
 export function aldoniPilolFenestron(
   group: THREE.Group, joqaMaterialo: THREE.MeshStandardMaterial,
   fenestraMaterialo: THREE.MeshStandardMaterial,
@@ -87,9 +87,9 @@ export function aldoniPilolFenestron(
   vertikala = false
 ): THREE.Mesh {
   const klinaAngulo = Math.atan(klino / tieroAlto);
-  // ⟨ មាត្រវែង 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
   const ww = vertikala ? fenAlto * 0o2 : fenestraLargho(facaRadiuso, fenAlto, margxeno);
-  // ⟨ មាត្របញ្ឈរបង្អួច 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſȷƽᴜ ʃɔ , 📃 ⟩
   const fenAltoTuta = vertikala ? ww : fenAlto;
   const faco = new THREE.Group();
   faco.rotation.y = facoIndekso * Math.PI / 2;

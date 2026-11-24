@@ -1,6 +1,6 @@
-// ≺⧼ ផ្ទះក្លែងក្លាយ 🧪 ⧽≻
-// ⟨ ដុំពុម្ព DOM តូចសម្រាប់ឧបករណ៍វាស់ ៖ គ្មានការគូរទេ , គ្រាន់តែឱ្យកូដផ្ទុកបាន ។
-// គ្រាប់ពូជមកពី SEMO ៖ ដូច្នេះការវាស់មួយគ្រាប់ពូជតែមួយផ្តល់លេខដូចគ្នារាល់ដង ។ 📃 ⟩
+// ≺⧼ ſɭɜ ſɭ,w ʌ j͑ʃɹ j͐ʃɹ ŋᷠɔ 🧪 ⧽≻
+// ⟨ DOM ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ ʌ j͑ʃɹ j͐ʃɹ ŋᷠɔ ⟅ ꞙɭɔ ʌ ſɟᴜ ſȷᴜɔ˞
+// ſɟwƽ ʌ }ʃᴜ j͐ʃᴜ ʌ SEMO ⟅ ſɭᴜ }ʃᴜȝ ʌ j͑ʃɜ j͑ʃƨɹ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
 
 const semo = process.env.SEMO ?? "testo";
 
@@ -26,8 +26,8 @@ class FalsaKunteksto {
   drawImage() {} setLineDash() {} getLineDash() { return []; }
 }
 
-// ⟨ ផ្លូវគូរក្លែងក្លាយ 📏 ⟩ ៖ វាយនភាពស្លឹកឈើប្រើ Path2D ។ ឧបករណ៍វាស់
-// មិនគូរអ្វីទេ , ដូច្នេះគ្រាន់តែឱ្យវិធីសាស្ត្រហៅបាន ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ ʌ ſɟᴜ ſȷᴜɔ˞ 📏 ⟩ ⟅ j͐ʃƽɜ ʌ j͑ʃͷ̗ᴜʞ ʌ Path2D ⟅ ſɟᴜᴜ̩ ɭʃɹ
+// ꞙɭɔ ʌ ſɟᴜ ſȷᴜɔ˞ ⟅ ſɭᴜ ſɭ,w j͐ʃᴜ ʌ j͑ʃᴜꞇ 📃 ⟩
 class FalsaPath2D {
   moveTo() {} lineTo() {} closePath() {} arc() {} arcTo() {} rect() {} ellipse() {}
   quadraticCurveTo() {} bezierCurveTo() {} translate() {} rotate() {} scale() {}
@@ -73,7 +73,7 @@ const falsaStokado = {
   get length() { return stokejo.size; },
 };
 
-// ⟨ ពិភពលោកដែលមានគ្រាប់ពូជ ៖ ការបង្កើតដី និងសំណង់ដើរតាមគ្រាប់ពូជនេះ ។ 📃 ⟩
+// ⟨ }ʃᴜ j͐ʃᴜ ʌ ſɟwƽ ⟅ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɟɔȝ , j͑ʃᴜꞇ ʌ ſɟwƽ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
 stokejo.set("aranis-mondoj", JSON.stringify([
   { id: "kajiite", klavo: "titoloUrbo", nomo: "Ĉefa", smino: semo, tempo: 0 },
 ]));

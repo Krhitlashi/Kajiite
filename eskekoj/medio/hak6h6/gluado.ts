@@ -1,19 +1,19 @@
 // ≺⧼ j͑ʃɔ ſןw ſɭᴜƴ ʌ ſɭэ ֭ſɭэ ʌ j͑ʃ'ɔ ŋᷠᴜ }ʃɹ }ʃw }ʃꞇ 🧲 ⧽≻
-// ⟨ ចុងផ្លូវដែលឈប់ខ្លីពីចានភ្ជាប់ ៖ នៅសល់ចន្លោះស្មៅរវាងចុងផ្លូវ និងចានភ្ជាប់ ។
-// ចុងផ្លូវត្រូវទាញទៅចានភ្ជាប់ជិតបំផុត ដែលនៅត្រង់ទៅមុខ , ដើម្បីឱ្យផ្លូវដល់ចានពិត ។
-// បើចុងផ្លូវនៅចំណត , មិនទាញទេ ៖ ជណ្តើរចំណតចាប់ពីទីនោះ ។ 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , ſɭɜ j͑ʃᴜ , ſɭᴜ ſןᴜ , ⟅ ſȷɔ ſᶘᴜʞ , ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ ,
+//   ſɭэ ֭ſɭэ , ſɭɜ j͑ʃᴜ , ſɭᴜ ſןᴜ , ꞙɭı , ſɭэ ſɭ,w , ⟅ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı ,
+//   ꞙɭı , ſɭɜ ſɭ,w , ꞙɭɔ , ⟅ ſןɔ˞ᴜƴ , ſɭэ ſɭ,w , ꞙɭı , ⟅ 📃 ⟩
 
 export const GLUA_DISTO = 0o6;
 
-// ⟨ ចន្លោះអតិបរមា ៖ ចុងផ្លូវឆ្ងាយជាងនេះគឺជាផ្លូវដាច់ដោយចេតនា , មិនមែនជាចន្លោះខុសទេ 📃 ⟩
+// ⟨ ſɭɹ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ſɭɹ ſןᴜ , ꞙɭı , ꞙɭɔ , 📃 ⟩
 export const GLUA_FENDO = 0o3;
 
-/*ទាញចុងផ្លូវទៅផ្លូវជិតបំផុត
-    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
-    @param celoj ( [ number , number ] [ ] ) - ចានភ្ជាប់ដែលអាចទាញទៅ
-    @param malpermesoj ( { x , z } [ ] ) - ចំណុចដែលមិនត្រូវទាញចេញ ( មាត់ចំណត )
-    @param aliaj ( [ number , number ] [ ] [ ] ) - ផ្លូវផ្សេង , ដើម្បីទាញទៅខ្សែកណ្តាល
-@returns n2k ( [ number , number ] [ ] ) - បន្ទាត់ថ្មី ( មិនកែដើម ) */
+/* ſɭэ ֭ſɭэ , ſɭэ ɭʃᴜ , ſɭɜ j͑ʃᴜ , ꞙɭı
+    @param n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭɿ ,
+    @param celoj ( [ number , number ] [ ] ) - ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı ,
+    @param malpermesoj ( { x , z } [ ] ) - ſɭэ ɭʃᴜ , ꞙɭɔ , ꞙɭı ( ɭʃᴜ , ꞙɭı )
+    @param aliaj ( [ number , number ] [ ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı , ſɭэ ɭʃᴜ ,
+@returns n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ( ꞙɭɔ , ꞙɭı ) */
 export function gluiK6h6Finon(
   n2k: readonly ( readonly [ number, number ] )[],
   celoj: readonly ( readonly [ number, number ] )[],
@@ -34,13 +34,13 @@ export function gluiK6h6Finon(
     for ( const celo of celoj ) {
       const h6kuni = Math.hypot(celo[0] - e[0], celo[1] - e[1]);
       if ( h6kuni < 0o1/0o10 || h6kuni >= plejDisto ) continue;
-      // ⟨ ត្រង់ទៅមុខ ៖ កុំទាញចុងផ្លូវទៅចំហៀងដោយបង្ខំ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
       if ( ( ( celo[0] - e[0] ) * dx + ( celo[1] - e[1] ) * dz ) / ( h6kuni * sahakani ) < 0o1/0o2 ) continue;
       plejBona = [ celo[0], celo[1] ]; plejDisto = h6kuni;
     }
-    // ⟨ គ្មានចានភ្ជាប់ ៖ ទាញទៅខ្សែកណ្តាលផ្លូវជិតបំផុត ។ ផ្លូវដែលដល់ខ្សែកណ្តាល
-    // បង្កើតចានភ្ជាប់ដោយខ្លួនឯង , ហើយចាននោះគ្របលើចុងផ្លូវ ។
-    // ដូច្នេះចន្លោះបិទ ៖ មិននៅសល់ស្មៅរវាងចុងផ្លូវ និងចានទេ ។ 📃 ⟩
+    // ⟨ ꞙɭɔ , ſɭᴜ ſןᴜ ⟅ ſɭэ ֭ſɭэ , ſɭэ ɭʃᴜ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ſɭэ ɭʃᴜ ,
+    //   ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ꞙɭı ,
+    //   ꞙɭɔ , ſȷɔ ſᶘᴜʞ , ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ , ⟅ 📃 ⟩
     if ( !plejBona ) {
       let plejFendo = GLUA_FENDO;
       for ( const k6h6 of aliaj ) {
@@ -54,7 +54,7 @@ export function gluiK6h6Finon(
           const h6kuni = Math.hypot(px - e[0], pz - e[1]);
           if ( h6kuni < 0o1/0o10 || h6kuni >= plejDisto ) continue;
           if ( ( ( px - e[0] ) * dx + ( pz - e[1] ) * dz ) / ( h6kuni * sahakani ) < 0o1/0o2 ) continue;
-          // ⟨ ចន្លោះតូច ៖ ចុងផ្លូវគួរតែជាប់ ។ ផ្លូវធំជាងនេះគឺជាផ្លូវដាច់ ។ 📃 ⟩
+          // ⟨ ſɭɹ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
           if ( h6kuni > 0o3 + 0o1/0o2 ) continue;
           plejFendo = h6kuni; plejBona = [ px, pz ];
         }

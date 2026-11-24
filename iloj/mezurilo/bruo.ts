@@ -1,7 +1,7 @@
 // ≺⧼ ſȷᴜ ŋᷠᴜʞ ʌ j͑ʃ'ɔ ſ͕ɭᴜ ſןᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
 import { bruo2D } from "../../eskekoj/komunajxoj/terenkoloroj.js";
 
-// ⟨ បំណែកដូចដើម ដែលមាន closure ក្នុងមួយហៅ 📃 ⟩
+// ⟨ ſɭɔƽ ʌ ꞙɭı ʌ ꞙɭı , closure ʌ j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
 function bruo2DClosure(x: number, z: number): number {
   const ix = Math.floor(x), iz = Math.floor(z);
   const fx = x - ix, fz = z - iz;
@@ -29,7 +29,7 @@ function mezuri(ksaka: string, f: (x: number, z: number) => number): number {
   return dt;
 }
 
-// ⟨ កម្ដៅ 📃 ⟩
+// ⟨ ſɭᴜʞ ꞁȷ̀ᴜ }ʃꞇ 📃 ⟩
 for (let i = 0; i < 0o3; i++) bruo2D(i, i);
 
 const c = mezuri("closure", bruo2DClosure);

@@ -1,6 +1,6 @@
 // ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ j͑ʃᴜƽ ſןэ j͑ʃᴜ̭ᴜ j͑ʃᴜꞇ ʌ ſɭɜ ſɭ,w 🔬 ⧽≻
-// ⟨ បង្ហាញកម្ពស់ដីនៅកណ្តាលផ្លូវ និងនៅសងខាង ។ ដើម្បីដឹងថាការលើកកម្ពស់
-// មកពីជម្រាលចំហៀង ឬមកពីពំនូកក្នុងរង្វង់ ។ 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ſɭэ ֭ſɭэ , j͑ʃɜ j͑ʃƨɹ , ꞙɭɿ , ⟅ j͑ʃᴜ ſɭ,w ,
+// ſɭɜ ſɭ,w , ſȷƽᴜ ʃɔ , ſןᴜ ſᶘɹ , ꞙɭı , 📃 ⟩
 import { aktivajHak6h6, aktivajHaqakaj2 } from "../../kantaoj/tero-datumaro/rultempo.js";
 import { alteco } from "../../kantaoj/mondo/tereno.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../eskekoj/medio/voj-reto.js";
@@ -46,7 +46,7 @@ let sahakani = 0;
 for ( let k = 0; k < n2k.length - 1; k++ )
   sahakani += Math.hypot(n2k[k + 1][0] - n2k[k][0], n2k[k + 1][1] - n2k[k][1]);
 const flanka = k6h6LarghoDuono( VOJOJ[celo].sefini );
-console.log(`⟨ ${VOJOJ[celo].ksaka} ⟩ ប្រវែង ${sahakani.toFixed(1)} កន្លះ ${flanka.toFixed(2)}`);
+console.log(`⟨ ${VOJOJ[celo].ksaka} ⟩ ｡ ſɭэ }ʃᴜ ${sahakani.toFixed(1)} ｡ ſɭɜc̗ ɭʃɜ ${flanka.toFixed(2)}`);
 const xaqadi = Number(process.argv[3] ?? 0), z2hak = Number(process.argv[4] ?? sahakani);
 for ( let s = xaqadi; s <= z2hak; s += 0o2 ) {
   const p = raqa(n2k, s);
@@ -64,8 +64,8 @@ for ( let s = xaqadi; s <= z2hak; s += 0o2 ) {
   }
   const du = alteco(p.x + p.lx * flanka, p.z + p.lz * flanka);
   const mdu = alteco(p.x - p.lx * flanka, p.z - p.lz * flanka);
-  console.log(`  s ${s.toFixed(1)} ៖ កណ្តាល ${sost2.toFixed(2)}` +
-    ` , សងខាង ${du.toFixed(2)}/${mdu.toFixed(2)}` +
-    ` , វាល ${k6h6Alteco(p.x, p.z).toFixed(2)}` +
-    ` , គោល ${baza(p.x, p.z).toFixed(2)} , រង្វង់ ${radioj.join(" ")}`);
+  console.log(`  ｡ s ${s.toFixed(1)} ｡ j͑ʃɜ j͑ʃƨɹ ${sost2.toFixed(2)}` +
+    ` ｡ ſɭᴜc̗ ɭʃɜ ɔı ${du.toFixed(2)}/${mdu.toFixed(2)}` +
+    ` ｡ ᶅſɔ ɽ͑ʃ'ɔ ${k6h6Alteco(p.x, p.z).toFixed(2)}` +
+    ` ｡ ſɭэ ᶗ‹ ${baza(p.x, p.z).toFixed(2)} ｡ ſɭɹ ſɭˬꞇƽ ${radioj.join(" ")}`);
 }

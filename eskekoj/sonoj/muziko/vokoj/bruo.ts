@@ -1,13 +1,13 @@
 // ≺⧼ ı],ɔ ɭʃɜ ֭ſɭɹ j͑ʃᴜꞇ ʌ ſןɹ ſȷɜ 🔊 ⧽≻
-// ⟨ កុំឱ្យដង្ហើមគ្រប់ណោតឮដូចគ្នា។ ប្រើប៊ូហ្វ័រវែង ហើយចាប់ផ្ដើម
-//   មុខរបស់វាជាកន្លែងចៃដន្យ ទើបសំឡេងខ្យល់មិនដដែលៗដូចម៉ាស៊ីន 📃 ⟩
+// ⟨ ꞙɭı j͑ʃ'ƽᴜ ɭl̀ɹ ꞙɭı ſᶘᴜ j͐ʃɹ ⟅ ſɭᴜ ꞙɭı ,
+//   ꞙɭı , j͑ʃɹ ŋᷠɹ ꞙɭɔ ꞙɭı ⟅
 let noiseCache: AudioBuffer | null = null;
 let noiseRate = 0;
 
 function noiseBuf(ctx: AudioContext) {
   if ( noiseCache && noiseRate === ctx.sampleRate ) return noiseCache;
   noiseRate = ctx.sampleRate;
-  // ⟨ ប៊ូហ្វ័រប្រាំពីរវិនាទី វែងជាងណោតណាមួយ កុំឱ្យលើកឡើងឮច្បាស់ 📃 ⟩
+// ⟨ ꞙɭƨ ſɭᴜ ſןᴜ , ꞙɭı ⟅ ꞙɭı ⟅
   const len = Math.floor( ctx.sampleRate * 0o7 );
   const b = ctx.createBuffer( 1, len, ctx.sampleRate );
   const d = b.getChannelData( 0 );
@@ -21,16 +21,16 @@ export function noiseSrc(ctx: AudioContext) {
   const b = noiseBuf(ctx);
   s.buffer = b;
   s.loop = true;
-  // ⟨ គែមនៃប៊ូហ្វ័រកាត់ភ្លាម អាចឮជាចុចៗ។ បន្ថយវាដោយលាយគែមចូលគ្នា 📃 ⟩
+// ⟨ ſɭᴜ ꞙɭı , ꞙɭı , ⟅
   s.loopStart = 0;
   s.loopEnd = b.duration;
   return s;
 }
 
-/* ⟨ ខ្យល់បក់ពិតមិនឱ្យផ្នែកនីមួយៗនៅស្ងៀមទេ។ វាធ្វើឱ្យកម្លាំងផ្នែក
-   ហើមស្រកមិនទៀងទាត់ លឿនជាងផ្នែកខ្ពស់ យឺតជាងផ្នែកទាប។
-   ប្រើសំឡេងរំខានតែមួយចែកឱ្យគ្រប់ផ្នែក តាមរយៈច្រោះយឺតៗផ្សេងគ្នា ទើប
-   ការហើមស្រកមានមូលហេតុតែមួយដូចដង្ហើមពិត តែឆ្លើយតបមិនដូចគ្នា 📃 ⟩ */
+/* ⟨ j͑ʃɹ ŋᷠɹ , ꞙɭɔ ſɭᴜ ꞙɭı ⟅
+   ꞙɭı , ⟅
+   ı],ɔ ɭʃɜ ֭ſɭɹ ꞙɭı ,
+   ꞙɭı ⟅ 📃 ⟩ */
 export function jetTurbulence(
   ctx: AudioContext,
   t: number,
@@ -46,7 +46,7 @@ export function jetTurbulence(
     lp.frequency.value = cutoff;
     lp.Q.value = Math.SQRT1_2;
     const g = ctx.createGain();
-    // ⟨ សំឡេងរំខានក្រោយច្រោះមានកម្លាំងតិចណាស់ គុណឱ្យឡើងដល់ចំណែកដែលចង់បាន 📃 ⟩
+    // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , ꞙɭɔ ⟅
     const std = Math.sqrt( Math.PI * cutoff / ( 0o3 * sr ) );
     g.gain.value = frac / Math.max( std, 0o1/0o1000000 );
     src.connect(lp);
@@ -57,8 +57,8 @@ export function jetTurbulence(
   src.stop(end);
 }
 
-/* ចាប់ផ្ដើមសំឡេងរំខាននៅកន្លែងចៃដន្យក្នុងប៊ូហ្វ័រ។
-   ហៅជំនួស s.start(t) គ្រប់កន្លែងដែលប្រើ noiseSrc 📃 */
+/* ſɭɜ ʃɔ ı],ɔ ɭʃɜ ֭ſɭɹ ,
+   s.start(t) , noiseSrc */
 export function startNoise( s: AudioBufferSourceNode, t: number ) {
   const b = s.buffer;
   const dur = b ? b.duration : 0;

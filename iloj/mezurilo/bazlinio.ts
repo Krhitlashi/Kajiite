@@ -1,12 +1,12 @@
 // ≺⧼ ſןɹ ʌ j͑ʃᴜ ʌ j͑ʃɹ ſɭᴜc̗ ɭʃᴜ 📏 ⧽≻
-// ⟨ ច្បាប់ទាំងបួនជាច្បាប់ត្រជាក់ ។ verifiki ពិនិត្យថាកូដហ្គេមបច្ចុប្បន្ន
-//   ផ្តល់លេខដូចគ្នា ហើយ komparo វាស់ល្បឿនធៀបនឹងច្បាប់ដដែល ។ ពីមុន
-//   ឯកសារទាំងពីរចម្លងច្បាប់ទាំងនេះដោយឡែក ។ ឥឡូវមានតែមួយកន្លែង ។
-//   កុំនាំចូលម៉ូឌុលហ្គេមបច្ចុប្បន្នមកទីនេះ ។ បើច្បាប់ហ្គេមប្រែ ច្បាប់
-//   នៅទីនេះត្រូវនៅដដែល ទើប A/B នៅមានន័យ ។ 📃 ⟩
+// ⟨ ſɭɜ ſɭᴜ , ꞙɭэ , ⟅ ı],ᴜ ֭ſɭᴜ , ꞙɭı ,
+// j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭı ,
+// ſɭэ ſɭᴜ , ꞙɭɿ , ꞙɭı , ꞙɭı , ſɭэ ſɭᴜ ,
+// ſɭэ ſɭᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ı],ᴜ ֭ſɭᴜ ,
+// ſɭэ ſɭᴜ , ꞙɭэ , 📃 ⟩
 import { katmullRom } from "../../kantaoj/komunajxoj/interpolo.js";
 
-// ⟨ កំណែចាស់របស់ bruo2D 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
 export function bruo2DS23ohk2sai( x: number, z: number ): number {
   const ix = Math.floor(x), iz = Math.floor(z);
   const fx = x - ix, fz = z - iz;
@@ -21,7 +21,7 @@ export function bruo2DS23ohk2sai( x: number, z: number ): number {
   return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
 }
 
-// ⟨ កំណែចាស់របស់ specimenoBikuba 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ſ͕ɭɜ ı],ᴜ , 📃 ⟩
 export function bikubaS23ohk2sai( krado: Float32Array, n: number, vepat6ni: number,
   origino: number[], x: number, z: number ): number {
   const fx = ( x - origino[0] ) / vepat6ni, fz = ( z - origino[1] ) / vepat6ni;
@@ -37,7 +37,7 @@ export function bikubaS23ohk2sai( krado: Float32Array, n: number, vepat6ni: numb
   return Math.max(0, katmullRom(x2pa(j0 - 1), x2pa(j0), x2pa(j0 + 1), x2pa(j0 + 2), v));
 }
 
-// ⟨ កំណែចាស់របស់ skulptaDelta 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 export function l6daS23ohk2sai( T: Int16Array, n: number, vepat6ni: number,
   o: number[], x: number, z: number ): number {
   const val = ( i: number, j: number ): number => {
@@ -53,8 +53,8 @@ export function l6daS23ohk2sai( T: Int16Array, n: number, vepat6ni: number,
   return katmullRom(x2pa(j0 - 1), x2pa(j0), x2pa(j0 + 1), x2pa(j0 + 2), v) / 0o20;
 }
 
-// ⟨ កំណែដែលមានតារាងជាប់គ្នា ។ komparo ធ្លាប់សរសេរ fk ជាអនុគមន៍
-//   ខ្លីជាងនេះ តែលេខដូចគ្នាបេះបិទ ។ 📃 ⟩
+// ⟨ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭᴜ , ꞙɭı ,
+// j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
 export function l6daSef4( T: Int16Array, n: number, vepat6ni: number,
   o: number[], x: number, z: number ): number {
   const fk = ( w: number ): number => {

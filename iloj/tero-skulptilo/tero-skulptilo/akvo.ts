@@ -7,7 +7,7 @@ import type { AkvaTsiq, AkvaKalkulo } from "../../../kantaoj/mondo/akvokalkulo.j
 import type { Bal2Qoxa } from "../../../eskekoj/komunajxoj/mapqoxa.js";
 export type { AkvaTsiq };
 
-// ⟪ ស្ថានភាពទឹក 📃 ⟫
+// ⟪ ſᶘᴜ j͑ʃᴜ , 📃 ⟫
 export let hatsiq: AkvaTsiq[] = [];
 export let elektitaTsiq = -1;
 export let tsiqTrenata = -1;
@@ -17,7 +17,7 @@ export let akvoMalpura = true;
 export let akvoTrenanta = false;
 export let akvaVem2Valoro = 0;
 
-// ⟨ ការភ្ជាប់ទៅកម្មវិធីកែសម្រួល 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ , ꞙɭı , 📃 ⟩
 interface AkvaLigo {
   k6liqani: Uint8Array;
   hal6da: Float32Array;
@@ -59,7 +59,7 @@ let gxisdatigi3DnPostPlena: () => void;
 let markiSxangxitan: () => void;
 let markiDesegnon: () => void;
 
-/* agordiAkvon គឺការភ្ជាប់តែម្តងជាមួយឯកសារមេ។ តារាង ( ម៉ាស
+/* ſɭэ ᶗ‹ , ꞙɭɿ ,
    និងដេលតា ) មិនដែលចាត់ចែងឡើងវិញទេ ដូច្នេះការយោងនៅតែត្រឹមត្រូវពេញ
    វគ្គ។ រូបរាងពិភពលោកត្រូវបានអានដោយអនុគមន៍ ព្រោះវាផ្លាស់ប្តូរ
    នៅក្នុងបន្ទះផែនទី ហើយអនុគមន៍គូរមកជាក្លូសៀ ព្រោះស្ថានភាពរបស់ពួកវា
@@ -80,7 +80,7 @@ export function agordiAkvon(k: AkvaLigo): void {
   markiSxangxitan = k.markiSxangxitan; markiDesegnon = k.markiDesegnon;
 }
 
-// ⟪ អនុគមន៍កំណត់ 📃 ⟫
+// ⟪ ſɭэ ᶗ‹ , ꞙɭц , 📃 ⟫
 export function agordiHatsiqn(ca1ara: AkvaTsiq[]): void { hatsiq = ca1ara; }
 export function agordiElektitanTsiqn(ind: number): void { elektitaTsiq = ind; }
 export function agordiTsiqTrenatan(ind: number): void { tsiqTrenata = ind; }
@@ -89,8 +89,8 @@ export function agordiAkvanVem2n(v: number): void { akvaVem2Valoro = v; }
 export function agordiAkvoTrenantan(b: boolean): void { akvoTrenanta = b; }
 export function markiAkvonMalpuran() { akvoMalpura = true; }
 
-// ⟨ ឧបករណ៍ជំនួយទឹក 📃 ⟩
-/* ព្រែកកាត់របស់ទឹក ( គ្រែទន្លេដែលទឹកកាត់ )។
+// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭı , 📃 ⟩
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
 @returns ព្រែកកាត់គិតជាឯកតាពិភពលោក ( number )។ */
@@ -98,7 +98,7 @@ export function akvaKavoInterp(x: number, z: number): number {
   if ( !akvaRezulto ) return 0;
   return specimenoDulineara(akvaRezulto.kavoj, N, PASO, ORIGINO, x, z);
 }
-/* ដីដែលមើលឃើញ គឺមូលដ្ឋានប្រូសេឌូរ៉ាល់ ដេលតាដែលឆ្លាក់ និង
+/* ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
    ព្រែកកាត់របស់ទឹក ( ផលបូកដូច alteco() ក្នុង tereno.ts )។
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
@@ -106,14 +106,14 @@ export function akvaKavoInterp(x: number, z: number): number {
 export function teraAlto(x: number, z: number): number {
   return bazaAlteco(x, z) + l6daInterp(x, z) - akvaKavoInterp(x, z);
 }
-/* តើចំណុចជាទឹក ( ម៉ាសដេរីវេ )។
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
 @returns តើជាទឹក ( boolean )។ */
 export function tsekeAkvo(x: number, z: number): boolean {
   return !!akvaRezulto && akvoCxe(akvaRezulto, N, PASO, ORIGINO, x, z);
 }
-/* Y នៃផ្ទៃទឹក ឬ null។ ទន្លេហូរចុះ រីឯអាងគឺ
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
    រាបស្មើ ដូច្នេះក្រឡាទឹកនីមួយៗផ្ទុកកម្រិតរបស់វា។
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
@@ -123,7 +123,7 @@ export function akvaVem2En(x: number, z: number): number | null {
   const v = vem2Cxe(akvaRezulto, N, PASO, ORIGINO, x, z, 0o1);
   return Number.isNaN(v) ? null : v;
 }
-/* កម្រិតទឹកជិតបំផុត ( រហូតពីរក្រឡា ) ឬកម្រិតទឹក
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
    ដែលបានកំណត់។ ស្រទាប់ច្រាំងទន្លេត្រូវការវា។
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
@@ -133,7 +133,7 @@ export function akvaVem2Proksima(x: number, z: number): number {
   const v = vem2Proksima(akvaRezulto, N, PASO, ORIGINO, x, z, 0o2);
   return Number.isNaN(v) ? akvaVem2Valoro : v;
 }
-/* កម្រិតទឹកសម្រាប់ក្រឡាសំណាញ់ ( i, j ) នៅ ( x, z )។ ម៉ាសដែល
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
    គូរដោយជក់សម្រេច តាមច្បាប់របស់ហ្គេម បើមិនដូច្នេះគ្មានអ្វីទេ។
     @param i ( number ) - ជួរឈរសំណាញ់។
     @param j ( number ) - ជួរសំណាញ់។
@@ -145,7 +145,7 @@ export function akvaVem2De(i: number, j: number, _x: number, _z: number): number
   const vem2 = akvaRezulto.havem2[j * N + i];
   return Number.isNaN(vem2) ? akvaVem2Valoro : vem2;
 }
-/* តើក្រឡាសំណាញ់មួយជាទឹកពិត ( ម៉ាសទឹកដេរីវេ ) ។
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟı ,
    ម៉ាសចាស់ដែលបានគូរ ( ម៉ាសដើម ) មិនសម្រេចទេ ៖ វាគ្រាន់តែជាគ្រាប់ពូជអាង , ដូច្នេះ
    ទន្លេដែលមកពីប្រភពក៏ជាទឹកដែរ ។ ការអានក្រឡាផ្ទាល់គឺរហ័ស ( ជក់ហៅវារាល់ក្រឡា ) ។
     @param i ( number ) - ជួរឈរសំណាញ់។
@@ -155,7 +155,7 @@ export function tsekeAkvoCxelo(i: number, j: number): boolean {
   if ( !akvaRezulto || i < 0 || j < 0 || i >= N || j >= N ) return false;
   return akvaRezulto.k6liqani[ j * N + i ] === 1;
 }
-/* តើចំណុចជាទឹកពិត ( គំរូរលូន ) ។ ដូច tsekeAkvoCxelo ប៉ុន្តែសម្រាប់ការគូរ
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟɿ ,
    និងតំបន់ជីវៈដែលមិនមានលិបិក្រមក្រឡា ។
     @param x ( number ) - ពិភពលោក x ។
     @param z ( number ) - ពិភពលោក z ។
@@ -165,7 +165,7 @@ export function tsekeAkvoSurfaco(x: number, z: number): boolean {
   const vem2 = akvaVem2En(x, z);
   return vem2 === null || teraAlto(x, z) < vem2 - 0o1/0o100;
 }
-/* រត់ការគណនាទឹក។ ដីគឺដីស្ងួត ( ដេលតាដោយគ្មាន
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟц ,
    ព្រែកកាត់ ) បើមិនដូច្នេះការគណនានឹងធ្វើព្រែកកាត់របស់ខ្លួនឡើងវិញ ហើយប្រឡាយ
    នឹងជ្រៅគ្មានទីបញ្ចប់។ */
 export function rekalkuliAkvon(): void {
@@ -181,7 +181,7 @@ export function rekalkuliAkvon(): void {
   gxisdatigiPlenan2Dn();
   gxisdatigi3DnPostPlena();
 }
-/* អ្វីមួយបានផ្លាស់ប្តូរទឹក ( ដី ប្រភព កម្រិត )។ រង្វិលជុំ
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭıə ,
    គណនាឡើងវិញម្តងក្នុងមួយស៊ុម ( ប៉ុន្តែមិនមែនពេលអូសប្រភព ព្រោះពេលនោះការគណនា
    នឹងរង់ចាំចុងបញ្ចប់នៃការអូស )។ */
 export function akvoSxangxigxis(): void {
@@ -189,15 +189,15 @@ export function akvoSxangxigxis(): void {
   markiSxangxitan();
 }
 
-// ⟨ ប្រភពទឹក 📃 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭı , 📃 ⟩
 const FONTA_GLUO = 0o1/0o4;
 function algluiTsiqn(v: number): number { return Math.round(v / FONTA_GLUO) * FONTA_GLUO; }
-/* លិបិក្រមរបស់ប្រភពជិតបំផុតទៅចំណុច ( គិតជាឯកតាពិភពលោក ) ឬ -1
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭıı ,
    បើគ្មានណាមួយនៅក្នុងកាំ។
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
-    @param r ( number = 0o10 ) - កាំស្វែងរក។
-@returns លិបិក្រម ឬ -1 ( number )។ */
+    @param r ( number = ꞙɭıɔ ) - កាំស្វែងរក។
+@returns លិបិក្រម ឬ -ı ( number )។ */
 export function tsiqCxePunkto(x: number, z: number, r = 0o10): number {
   let plejBona = -1, plejBonaD = r;
   for ( let i = 0; i < hatsiq.length; i++ ) {
@@ -206,7 +206,7 @@ export function tsiqCxePunkto(x: number, z: number, r = 0o10): number {
   }
   return plejBona;
 }
-/* ប្រភពថ្មីនៅចំណុច ជាមួយលំហូររបស់គ្រាប់រំកិល។
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭıɿ ,
     @param x ( number ) - ពិភពលោក x។
     @param z ( number ) - ពិភពលោក z។
     @param fluo ( number = fluoValoro ) - លំហូររបស់ប្រភពថ្មី។ */
@@ -218,7 +218,7 @@ export function metiTsiqn(x: number, z: number, fluo: number = fluoValoro): void
   akvoSxangxigxis();
   markiDesegnon();
 }
-/* លុបប្រភព ( ទឹករបស់វាបាត់ )។
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭıц ,
     @param ind ( number ) - លិបិក្រមរបស់ប្រភព។ */
 export function forigiTsiqn(ind: number): void {
   if ( ind < 0 || ind >= hatsiq.length ) return;
@@ -230,7 +230,7 @@ export function forigiTsiqn(ind: number): void {
   akvoSxangxigxis();
   markiDesegnon();
 }
-// ⟨ ការអូសប្រភព 📃 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , 📃 ⟩
 export function komenciFontanTrenon(ind: number, x: number, z: number): void {
   momenti();
   elektitaTsiq = ind;
@@ -255,7 +255,7 @@ export function finiFontanTrenon(): void {
   akvoSxangxigxis();
   statuso("ប្រភព " + ( elektitaTsiq + 1 ) + " បានផ្លាស់ទី , ទឹកធ្វើឱ្យស្រស់ឡើងវិញ");
 }
-/* គ្រាប់រំកិលលំហូរពេលប្រើឧបករណ៍ប្រភព គឺបើមានប្រភពជ្រើស វាផ្លាស់ប្តូរ
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭıэ ,
    លំហូររបស់វា បើមិនដូច្នេះវាកំណត់លំហូររបស់ប្រភពបន្ទាប់។ */
 export function sxangxiFluonDeElektita(): void {
   if ( elektitaTsiq >= 0 && elektitaTsiq < hatsiq.length ) {
@@ -264,8 +264,8 @@ export function sxangxiFluonDeElektita(): void {
   }
 }
 
-// ⟨ ប្រភពចេញពីទឹកដែលគូរដោយជក់ 📃 ⟩
-/* ទាញប្រភពចេញពីទឹកចាស់ដែលគូរដោយជក់។
+// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭıɩ , 📃 ⟩
+/* ſᶘᴜ j͑ʃᴜ , ꞙɭıꞟ ,
 @returns ប្រភពដែលបានដាក់ គោលដៅស្ងួតដែលនៅសល់ និងការគ្របដណ្តប់ ( object )។ */
 export function deriviHatsiqnElPentrita(): { hatsiq: AkvaTsiq[]; sekaj: number; kovro: number } {
   const H = new Float32Array(N * N);

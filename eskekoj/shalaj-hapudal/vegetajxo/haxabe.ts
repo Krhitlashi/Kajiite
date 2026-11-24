@@ -19,8 +19,8 @@ export function vepaqXabejn(qena: THREE.Scene,
   const hazardaGenerilo = kf2VegetajxanHazardon(0o154555);
   const xabeCac2sex = kf2XabenCac2sex();
 
-  // ⟨ ហ្វីលីកាបីវិមាត្រ 📃 ⟩
-  // ⟨ សមាមាត្រ 📃 ⟩
+  // ⟨ j͑ʃͷ̗ᴜʞ ʌ j͔ʃᴜ ʃᴜ }ʃꞇ ʌ ꞙɭц 📃 ⟩
+  // ⟨ ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ ɭ(ɜ ŋᷠᴜ 📃 ⟩
   const xabeGeometrio = vepaqFc2qnKronon(0o11, 0o5/0o20, 0o103/0o100, 0o15/0o100, 0o1/0o100, 0o5/0o10);
   const xabeMaterialo = new THREE.MeshStandardMaterial({ map: xabeCac2sex, alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 });
   const haxabe = new THREE.InstancedMesh(xabeGeometrio, xabeMaterialo, vem2);
@@ -71,7 +71,7 @@ export function vepaqXabejn(qena: THREE.Scene,
   qena.add(haxabe);
 }
 
-// ⟨ បីវិមាត្រ 📃 ⟩
+// ⟨ ſɭᴜc̗ ɭʃɜ ʌ ꞙɭц 📃 ⟩
 export function vepaqMetitanXaben(qena: THREE.Scene,
   x: number, z: number,
   heightFn: ( x: number, z: number ) => number,

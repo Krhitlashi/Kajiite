@@ -1,4 +1,4 @@
-// ≺⧼ វាយនភាពស្បែក 👞 ⧽≻
+// ≺⧼ j͐ʃƽɜ ʌ ſᶘw ֭ſɭᴜ 👞 ⧽≻
 import * as THREE from "three";
 import { k2fWrapajnNubojn, k2fWrapan, kf2P2t6zoCac2sex, sxovu } from "./helpiloj.js";
 

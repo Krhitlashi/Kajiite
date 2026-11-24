@@ -1,71 +1,71 @@
 // ≺⧼ ֭ſɭꞇ ᶅſɔ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🏹 ⧽≻
-// ផ្នែករលោងមួយត្រូវអូសតាមខ្សែ ។ ការកកិតចាប់រួចរអិលធ្វើឱ្យខ្សែញ័រ
-// ហើយខ្សែនោះជាសំឡេងមេ មិនមែនសំឡេងកកិតទេ ។ ខ្សែពិតលឺផ្នែកលេខច្រើន ៖
-// ផ្នែកខ្ពស់រលត់លឿនជាងផ្នែកទាប ហើយផ្នែកដែលមានថ្នាំងត្រង់កន្លែងអូស
-// ត្រូវបាត់ ដូច្នេះសំឡេងប្រែតាមកន្លែងដែលដៃអូស ។ ខ្យល់កកិតជាស្រទាប់ទន់
-// នៅក្រោមវា ហើយវាលោតញ័រលឿនតាមល្បឿនអូស ដូចហ៊ីបដែលរអិលធ្មេញ ។
-// ខ្សែវែងជាងឮទាបជាងតាម f ។
+// ⟨ ſɭɔ˞ɜⅎ , j͑ʃɜ ſɭ,ᴜ , ɭʃꞇƽ , ſɭᴜ ʃןᴜ , ſןᴜȝ ᶅſw ſɭɹ , ſɭɔ˞ɜⅎ ſɭᴜ ɭl̀ɹ ⟅
+//   ſɭɔ˞ɜⅎ , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , ꞙɭɔ ı],ɔ ɭʃɜ ֭ſɭɹ ⟅ ſɭɔ˞ɜⅎ , j͑ʃɹ ſןw ꞙɭɿ ⟅
+//   j͑ʃɹ ſןw , ɭʃэʞ , ſɭɜ ſɭᴜƽ , j͑ʃᴜ ſɭᴜ , j͑ʃɹ ſןw , j͑ʃɹ ſןw ʌ ſɭэ ɭʃᴜ ⟅
+//   ſɭɜ j͐ʃɹ , ʃɜ j͐ʃɔ , ſɭᴜ ʃןᴜ , ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɜ ſɭ,ᴜ ⟅
+//   j͑ʃᴜ ſɭᶗ‹ɜ , ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , j͑ʃɔ ֭ſɭɔ , ſɭэ ɭʃᴜ ɭʃᴜ , ſɭэ ɭʃᴜ ⟅
+// ⟨ ſɭɔ˞ɜⅎ , j͑ʃᴜ ʃɜ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭɜ ſɭᴜƽ , f ⟅
 //
-// ⟨ កុំឱ្យឮជាម៉ាស៊ីន 📃 ⟩
-// ⟨ ខ្សែពិតញ័រជាពីរទិស ៖ ទិសនីមួយៗមានកម្ពស់ខុសគ្នាបន្តិច ដូច្នេះផ្នែកទាប
-//   លោតញ័រយឺតៗ មិននៅស្មើ ។ ផ្នែកទាំងអស់មិនចាប់ផ្ដើមព្រមគ្នាទេ ហើយកម្ពស់
-//   ខ្សែរសាត់តិចៗ ដូចដៃកាន់ខ្សែមិននឹង ។ ពេលចាប់ សំឡេងរំខានខ្លីរត់ចូល
-//   ប្រអប់ខ្សែ ៖ នោះជាសំឡេងនៃការប៉ះ មិនមែនស៊ីនបើកភ្លាម ។ ស្រទាប់កកិត
-//   ចុះខ្សោយ និងច្រោះខ្លាំងជាងមុន ដើម្បីឱ្យវាឮជាខ្យល់ មិនមែនជាសំឡេងគែម 📃 ⟩
+// ⟨ ꞙɭɔ ʃɜ j͐ʃɔ ſɟᴜ j͐ʃw ⟅ ⟩
+// ⟨ ſɭɔ˞ɜⅎ , ꞙɭɿ ſɟɹ ᶅſɹȝ , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭı , ſɭɜ ſɭᴜƽ
+//   j͑ʃᴜ ſɭᶗ‹ɜ , ꞙɭɔ , ꞙɭı ⟅ j͑ʃɹ ſןw , ꞙɭı , j͑ʃᴜ ı],ɔ ꞙɭı ,
+//   ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ʃןᴜ , ſɟɹ ᶅſɹȝ , ꞙɭɔ ⟅ j͑ʃᴜ ı],ɔ , ı],ɔ ɭʃɜ ֭ſɭɹ ,
+//   ſɭᴜ ſןᴜ ʌ ſɭᴜ , ſɭᴜ ʃɜ j͐ʃɔ ʌ j͑ʃᴜ ſןɹ , ꞙɭɔ ſɭᴜ ʃɜ j͐ʃɔ ʌ ɭl̀ɹ ⟅ j͑ʃɜ ſɭ,ᴜ
+//   ſןᴜȝ ᶅſw ſɭɹ , ɭʃэʞ , ꞙɭɔ ſɭᴜ ʃᶘɔ ⟅ 📃 ⟩
 import { noiseSrc, startNoise } from "./bruo.js";
 import { faktoro } from "./vario.js";
 
-// ⟨ អិកស្ប៉ូណង់ស្យែលមិនអាចរំកិលទៅសូន្យ ប្រើតម្លៃតូចជំនួស 📃 ⟩
+// ⟨ ʃɜ j͐ʃɔ ꞙɭɔ ſɭэ ֭ſɭэ ꞙɭɔ , ꞙɭɔ , ſɭᴜ ſןᴜ ʌ ſɭᴜ 🎶 ⧽
 const ETA = 0o1/0o20000;
 
-// ⟨ ខ្សែរឹងបន្តិច ដូច្នេះផ្នែកខ្ពស់ៗខ្ពស់ជាងពហុគុណពិតបន្តិច
-//   ហើយមិនតម្រឹមនឹងផ្នែកទាបទេ 📃 ⟩
+// ⟨ ſɭɔ˞ɜⅎ , ſ̀ȷɜ ֭ſɭɔ , j͑ʃɹ ſןw , ɭʃэʞ , ꞙɭı j͑ʃɹ ſןw ,
+//   ꞙɭɔ j͑ʃᴜ ſɭᴜ , j͑ʃɹ ſןw , j͑ʃɜ ſɭᴜƽ , ⟅
 const INHARMONIO = 0o1/0o4000;
 
-// ⟨ ខ្សែពិតមានពីរទិសញ័រ ៖ ទិសនីមួយៗមានកម្ពស់និងរយៈពេលរលត់ខុសគ្នាតិចៗ
-//   បំបែកផ្នែកដែលទាបជាងចំនួននេះជាពីរ ដើម្បីឱ្យវាលោតញ័រ ។ កម្លាំងរួមដដែល
-//   ព្រោះថាមពលខ្សែបែងចែករវាងពីរទិស 📃 ⟩
+// ⟨ ſɭɔ˞ɜⅎ , ꞙɭɿ ſɟɹ ᶅſɹȝ , ꞙɭı ſɟɹ ᶅſɹȝ , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ,
+//   j͑ʃɹ ſןw , ſɭɜ ſɭᴜƽ , ꞙɭɿ , j͑ʃᴜ ſɭᶗ‹ɜ ⟅ j͐ʃэ ɭ(ᴜ ꞙɭı ,
+//   ſɭᴜ ſןᴜ , ꞙɭɿ ſɟɹ ᶅſɹȝ , ⟅
 const DUPLEX = 0o6;
 
-// ⟨ ផ្នែកនីមួយៗមិនចាប់ផ្ដើមព្រមគ្នាទេ ៖ ការខុសគ្នាប៉ុន្មានមីលីវិនាទី
-//   ធ្វើឱ្យកំពូលដំបូងទន់ មិនឮជាចុច 📃 ⟩
+// ⟨ j͑ʃɹ ſןw , ꞙɭı , ꞙɭı ɭʃэ ɭʃᴜ , ꞙɭı
+//   ꞙɭı , j͑ʃᴜ ſןɹ ɭl̀ɹ , ꞙɭɔ ⟅ ꞙɭɔ j͑ʃᴜ ı],ɔ ꞙɭı ⟅ ⟩
 const DISPERSO = 0o5/0o1000;
 
-/* សំឡេងហ៊ីវេ ផ្នែករលោងអូសតាមខ្សែ ។ ការកកិតចាប់រអិលធ្វើឱ្យខ្សែរោទ៍
-   ជាសំឡេងមេ ដែលមានផ្នែកលេខច្រើន ហើយថ្នាំងត្រង់កន្លែងអូសបិទផ្នែកខ្លះ ។
-   ខ្យល់កកិតនៅក្រោម មានសំឡេងរអិលធ្មេញខ្លីៗ លឿនតាមកម្លាំងអូស ។
-   ដៃអូសប្រែកម្លាំងជារលកយឺតបី មិនប្រែជាគ្រាប់ៗទេ ។
-   ពេលឈប់អូស ខ្យល់កកិតស្ងាត់ភ្លាម តែខ្សែនៅរោទ៍បន្តិចទៀត ។
-    @param ctx ( AudioContext ) - បរិយាកាសសំឡេង
-    @param out ( AudioNode ) - ច្រកចេញ
-    @param t ( number ) - ពេលចាប់ផ្ដើម
-    @param dur ( number ) - រយៈពេលអូសជាវិនាទី
-    @param f ( number ) - កម្ពស់ខ្សែជាហឺត
-    @param vel ( number = 1 , optional ) - កម្លាំងអូស
+/* ⟨ ʃɜ j͐ʃɔ ʌ hiwe , j͑ʃɜ ſɭ,ᴜ , ſɭᴜ ʃןᴜ , ſɭɔ˞ɜⅎ ⟅ ſןᴜȝ ᶅſw ſɭɹ ,
+   ſɭɔ˞ɜⅎ , ſɭᴜ ɭl̀ɹ , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , j͑ʃɹ ſןw , j͑ʃɹ ſןw ,
+   ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɜ ſɭ,ᴜ , ſɭᴜ ʃןᴜ ɭʃᴜ , ſɭᴜ ʃןᴜ , j͑ʃᴜ ſןɹ ,
+   ɭʃꞇƽ , ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , ꞙɭц , ꞙɭɔ , ſɭᴜ ſןᴜ ⟅
+   ſɭɜ j͐ʃɹ , ſɭᴜ ʃןᴜ , ı],ɔ ɭʃɜ ֭ſɭɹ , ɭʃɜ ɭʃɹȝ , ſɭɜ j͐ʃɹ , ꞙɭı ⟅
+    @param ctx ( AudioContext ) - ʃɜ j͐ʃɔ ʌ ſɭᴜ ſɭᴜ
+    @param out ( AudioNode ) - ſɭᴜ ʃɔ ſןᴜ
+    @param t ( number ) - j͑ʃᴜ ı],ɔ ʌ ſɭэ ɭʃᴜ
+    @param dur ( number ) - ſɭᴜ ſןᴜ ʌ ſɭᴜ ʃןᴜ
+    @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ
+    @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ ʌ ſɭᴜ ʃןᴜ
 @returns void */
 export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
   const d = Math.max(0o1/0o10, dur) * faktoro(0o7/0o100);
   const tlakakani = t + d;
-  // ⟨ កម្ពស់ខ្សែប្រែបន្តិច ទៅតាមការលៃតម្រូវ និងសីតុណ្ហភាព 📃 ⟩
+  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ , ꞙɭı , ſɭᴜ ſןᴜ , ſɭᴜ ſɭ,w , j͑ʃᴜ ⟅ ⟩
   const p = f * faktoro(0o1/0o600);
   const atako = 0o1/0o70 * faktoro(0o2/0o10);
   const malatako = 0o30/0o1000;
   const vivo = 0o5/0o10 * faktoro(0o2/0o10);
-  // ⟨ ផ្នែកអូសខិតទៅចុង ខ្សែរោទ៍ខ្ពស់ឡើងបន្តិច ៖ បួនសេនគឺគ្រប់គ្រាន់
-  //   ធំជាងនេះឮដូចកាសែតរអិល 📃 ⟩
+  // ⟨ ſɭᴜ ʃןᴜ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , j͑ʃᴜ ʃɜƽ , ꞙɭı ⟅ ꞙɭэ ſɭᴜ ,
+  //   ſɭᴜ ʃןᴜ , ꞙɭı , ʃɜ j͐ʃɔ ʌ ſɭᴜ ʃןᴜ ⟅ ⟩
   const glito = 0o1/0o600 * faktoro(0o5/0o10);
-  // ⟨ អូសខ្លាំង កកិតក្ដៅឡើង សំឡេងភ្លឺឡើងតាមកម្លាំង 📃 ⟩
+  // ⟨ ſɭᴜ ʃןᴜ , ſ̀ȷɜ ֭ſɭɔ , ɭʃэʞ , ʃɜ j͐ʃɔ ⟅ ⟩
   const brilo = 0o7/0o10 + 0o3/0o10 * vel;
-  // ⟨ កន្លែងអូសលើខ្សែ ៖ ជិតស្ពានឮខ្លាំង កណ្តាលឮទន់
-  //   ហើយថ្នាំងនៅទីនោះបិទផ្នែកលេខខ្លះ 📃 ⟩
+  // ⟨ ſɭᴜ ʃןᴜ , ſɭɔ˞ɜⅎ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſ̀ȷɜ ֭ſɭɔ , ꞙɭı ,
+  //   ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , j͑ʃɹ ſןw , ⟅ ⟩
   const raqa = 0o2/0o10 + Math.random() * 0o5/0o10;
 
   const g = ctx.createGain();
   g.gain.value = 0o30/0o100 * vel * faktoro(0o7/0o100);
   g.connect(out);
 
-  // ⟨ ប្រអប់ខ្សែ ៖ ពីរកំពូលទាបធ្វើឱ្យសំឡេងមានខ្លួន
-  //   មិនស្តើងដូចសំឡេងខ្សែទទេ 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ ʌ ſɭᴜ , ꞙɭɿ ɭl̀ɹ ᶅſᴜ }ʃꞇ , ʃɜ j͐ʃɔ , j͑ʃᴜ ſɭᴜ ,
+  //   ꞙɭɔ ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭɔ˞ɜⅎ ꞙɭı ⟅ ⟩
   const korpo = ctx.createBiquadFilter();
   korpo.type = "peaking";
   korpo.frequency.value = 0o240 * faktoro(0o15/0o100);
@@ -79,14 +79,14 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   korpo.connect(korpo2);
   korpo2.connect(g);
 
-  // ⟨ ដៃអូសមិនស្មើ ៖ រលកយឺតបីបញ្ចូលគ្នា ប្រែកម្លាំងតិចៗ ជុំវិញ 0o1
-  //   មិនប្រើសំឡេងរំខានប្រែកម្លាំង ព្រោះវាធ្វើឱ្យសំឡេងរដុបជាគ្រាប់
-  //   ល្បឿនទាំងបីមិនចែកគ្នាចេញ ដូច្នេះការលោតមិនដដែលៗ 📃 ⟩
+  // ⟨ ɭʃꞇƽ ſɭᴜ ʃןᴜ , ꞙɭɔ , ꞙɭц ı],э ŋᷠꞇ ɭʃɜ ⟅ j͐ʃэ ɭ(ᴜ , ꞙɭı ,
+  //   ʃɜ j͐ʃɔ ꞙɭɔ ı],ɔ ɭʃɜ ֭ſɭɹ , j͐ʃэ ɭ(ᴜ , ⟅
+  //   ꞙɭц ı],э ŋᷠꞇ , ꞙɭц , ꞙɭı , ſɭᴜ ſןᴜ ꞙɭı ⟅ ⟩
   const trem = ctx.createGain();
   trem.gain.value = 0o1;
   trem.connect(korpo);
-  // ⟨ ខ្សែប៉ុណ្ណោះ ៖ ការរអិលធ្មេញបន្ថែមកម្លាំងចូលខ្សែរាល់ដងដែលវារអិល
-  //   ដូច្នេះខ្សែខ្លួនឯងលោតញ័រតាមចង្វាក់នោះដែរ មិនត្រឹមតែខ្យល់កកិតទេ 📃 ⟩
+  // ⟨ ſɭᴜ ʃןᴜ , ſɭэ ɭʃᴜ , ſɭᴜ ʃןᴜ , j͐ʃэ ɭ(ᴜ , ſɭɔ˞ɜⅎ , ꞙɭı ,
+  //   ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , j͑ʃɹ ſןw , ꞙɭɔ ı],ɔ ɭʃɜ ֭ſɭɹ ⟅ ⟩
   const kordoj = ctx.createGain();
   kordoj.gain.value = 0o1;
   kordoj.connect(trem);
@@ -107,8 +107,8 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     m.stop(tlakakani + vivo + 0o1/0o10);
   }
 
-  // ⟨ កម្ពស់ខ្សែរសាត់បន្តិច ៖ ដៃទាញខ្សែប្រែកម្លាំង ដូច្នេះកម្ពស់លោតតិចៗ
-  //   គិតជាសេន មិនមែនជាហឺត ដើម្បីឱ្យគ្រប់ផ្នែករសាត់ស្មើគ្នា 📃 ⟩
+  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ , ɭʃꞇƽ , ſɭᴜ ʃןᴜ , ⟅ ꞙɭı ,
+  //   j͑ʃɹ ſןw ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ⟩
   const vibro = ctx.createGain();
   vibro.gain.value = 0o1;
   const vibroj: [ number, number ][] = [
@@ -127,9 +127,9 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     v.stop(tlakakani + vivo + 0o1/0o10);
   }
 
-  // ⟨ ខ្សែរោទ៍ជាសំឡេងមេ ៖ ផ្នែកលេខនីមួយៗរលត់រៀងៗខ្លួន
-  //   ផ្នែកខ្ពស់រលត់លឿនជាងផ្នែកទាប ដូចខ្សែពិត ។
-  //   កម្លាំងផ្នែកនីមួយៗគុណនឹងថ្នាំងត្រង់កន្លែងអូស 📃 ⟩
+  // ⟨ ſɭɔ˞ɜⅎ , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ , ꞙɭı ,
+  //   j͑ʃɹ ſןw , ɭʃэʞ , ſɭɜ ſɭᴜƽ , ſɭɔ˞ɜⅎ , ſɭэ ɭʃᴜ ⟅
+  //   j͐ʃэ ɭ(ᴜ , j͑ʃɹ ſןw , j͑ʃɹ ſןw ʌ ſɭэ ɭʃᴜ ⟅ ⟩
   const hakek: { n: number; mul: number; s2karanu: number; detuno: number; malfruo: number }[] = [];
   let tlunakani = 0;
   for ( let n = 0o1; n <= 0o20; n++ ) {
@@ -137,8 +137,8 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     if ( p * mul > 0o10000 ) break;
     const nodo = 0o3/0o20 + 0o17/0o20 * Math.abs( Math.sin( n * Math.PI * raqa ) );
     const s2karanu = Math.pow( n, -0o11/0o10 ) * nodo;
-    // ⟨ ផ្នែកទាបបំបែកជាពីរទិសញ័រ ៖ កម្លាំងរួមនៅដើម តែកម្ពស់ខុសគ្នា
-    //   ប៉ុន្មានសេន ដូច្នេះវាលោតញ័រយឺតៗ ។ ទិសទីពីររលត់ខុសគ្នាតិច 📃 ⟩
+    // ⟨ j͑ʃɹ ſןw , ꞙɭɿ ſɟɹ ᶅſɹȝ , j͐ʃэ ɭ(ᴜ , ꞙɭı , j͐ʃэ ɭ(ᴜ ,
+    //   ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭɿ , ⟅ j͑ʃᴜ ſɭᶗ‹ɜ , ꞙɭɔ , ⟅ ⟩
     if ( n <= DUPLEX ) {
       const detuno = 0o2 + Math.random() * 0o2;
       hakek.push({ n, mul, s2karanu: s2karanu * 0o4/0o10, detuno: -detuno, malfruo: Math.random() * DISPERSO });
@@ -152,18 +152,18 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     const t0 = t + malfruo;
     const o = ctx.createOscillator();
     o.type = "sine";
-    // ⟨ ផ្នែកដែលមិនបំបែកក៏មានកម្ពស់ខុសគ្នាតិចៗដែរ 📃 ⟩
+    // ⟨ j͑ʃɹ ſןw , ꞙɭɔ , ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ſןᴜ , ꞙɭı ⟅ ⟩
     o.detune.value = detuno === 0 ? ( Math.random() * 0o2 - 0o1 ) * 0o1 : detuno;
     vibro.connect(o.detune);
-    // ⟨ ចាប់ផ្ដើមទាបបន្តិច រួចឡើងដល់កម្ពស់ពិត ព្រោះដៃទាញខ្សែមុនពេលរអិល 📃 ⟩
+    // ⟨ j͑ʃᴜ ı],ɔ , ſɭɜ ſɭᴜƽ , ſɭᴜ ʃןᴜ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ɭʃꞇƽ , ꞙɭı ⟅ ⟩
     o.frequency.setValueAtTime(fn * 0o77/0o100, t0);
     o.frequency.exponentialRampToValueAtTime(fn, t0 + atako * 0o4);
     const viva = Math.max(vivo * Math.pow(n, -0o5/0o10), 0o3/0o20);
     o.frequency.linearRampToValueAtTime(fn * (0o1 + glito), tlakakani + viva * 0o6/0o10);
     const og = ctx.createGain();
     const amp = s2karanu * normo * faktoro(0o5/0o100);
-    // ⟨ កម្លាំងលើសបន្តិចពេលចាប់ រួចធ្លាក់មកកម្រិតនឹង ៖ ខ្សែពិតមិនចាប់ផ្ដើម
-    //   ដោយកម្រិតស្មើភ្លាមទេ 📃 ⟩
+    // ⟨ j͐ʃэ ɭ(ᴜ , ꞙɭı , j͑ʃᴜ ſןɹ , ſɭɜ ſɭᴜƽ , j͐ʃэ ɭ(ᴜ , ꞙɭı ⟅ ſɭɔ˞ɜⅎ
+    //   , j͑ʃᴜ ı],ɔ , j͐ʃэ ɭ(ᴜ ꞙɭı ꞙɭɔ ⟅ ⟩
     const svelo = 0o1 + Math.random() * 0o12/0o100;
     const fino2 = Math.min( t0 + atako + 0o6/0o100, tlakakani - 0o1/0o100 );
     og.gain.setValueAtTime(ETA, t0);
@@ -179,9 +179,9 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     o.stop(tlakakani + viva + 0o1/0o10);
   }
 
-  // ⟨ ខ្យល់កកិតជាស្រទាប់ទន់ ៖ ច្រោះរំខានខ្ពស់ៗចោល កុំឱ្យឮជាគ្រាប់ស្អិត
-  //   បន្ថែមក្រុមចង្អៀលតិចនៅកម្ពស់ខ្សែ ដើម្បីឱ្យកកិតមានកម្ពស់ដូចខ្សែ
-  //   ការច្រោះបិទបន្តិចម្ដងៗ ព្រោះដៃអូសយឺតចុះពេលជិតចប់ 📃 ⟩
+  // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɜ ſɭ,ᴜ , ſᶘɔ , ı],ɔ ɭʃɜ ֭ſɭɹ ɭʃэʞ ꞙɭɔ ,
+  //   ſɭᴜ ſןᴜ , ı],ɔ ɭʃɜ ֭ſɭɹ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ , ⟅
+  //   ſᶘɔ , ſɭᴜ ſןᴜ , ɭʃꞇƽ ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , ŋᷠwȝ , ⟅ ⟩
   const n = noiseSrc(ctx);
   const nhp = ctx.createBiquadFilter();
   nhp.type = "highpass";
@@ -191,9 +191,9 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   nlp.frequency.setValueAtTime(Math.min(0o3400, p * 0o7 * brilo * faktoro(0o2/0o10)), t);
   nlp.frequency.linearRampToValueAtTime(Math.min(0o3400, p * 0o5 * brilo), tlakakani);
   nlp.Q.value = 0o5/0o10;
-  // ⟨ សំឡេងរអិលធ្មេញ ៖ អូសលឿនញ័រលឿន អូសយឺតញ័រយឺត
-  //   ច្រោះខ្ពស់ៗចោល ដើម្បីកុំឱ្យឮជាចុចៗ ។ វាជាការប្រែកម្លាំងយឺត
-  //   មិនមែនជាសំឡេងបន្ថែម ដូច្នេះជម្រៅរបស់វាតូច 📃 ⟩
+  // ⟨ ʃɜ j͐ʃɔ ʌ ſɭᴜ ʃןᴜ , j͑ʃᴜ ſɭᶗ‹ɜ , ſɭᴜ ʃןᴜ , ꞙɭı ſɭᴜ ſןᴜ ,
+  //   ſᶘɔ , ɭʃэʞ , ꞙɭɔ , ꞙɭɔ ʃɜ j͐ʃɔ , j͐ʃэ ɭ(ᴜ ſɭᴜ ſןᴜ ,
+  //   ꞙɭɔ ʃɜ j͐ʃɔ ſᶘɔ , ʃɜ j͐ʃɔ ꞙɭı , ſɭᴜ ſןᴜ , ⟅ ⟩
   const skrap = ctx.createGain();
   skrap.gain.value = 0o5/0o10;
   const sirr = ctx.createOscillator();
@@ -210,8 +210,8 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   sirr.connect(sirrLp);
   sirrLp.connect(sirrG);
   sirrG.connect(skrap.gain);
-  // ⟨ កម្លាំងបន្តិចចូលខ្សែតាមចង្វាក់រអិល ៖ ជម្រៅតូចប៉ុណ្ណោះ
-  //   ធំជាងនេះឮជាសំឡេងម៉ាស៊ីន 📃 ⟩
+  // ⟨ j͐ʃэ ɭ(ᴜ , ſɭᴜ ſןᴜ , ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , ſɭᴜ ſןᴜ , ꞙɭı ,
+  //   ꞙɭı , ʃɜ j͐ʃɔ ſɟᴜ j͐ʃw ⟅ ⟩
   const sirrK = ctx.createGain();
   sirrK.gain.value = 0o1/0o10;
   sirrLp.connect(sirrK);
@@ -223,7 +223,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   const nbg = ctx.createGain();
   nbg.gain.value = 0o6/0o100;
   const ng = ctx.createGain();
-  // ⟨ master gain គុណកម្លាំងអូសរួចហើយ កុំគុណ vel ម្ដងទៀត 📃 ⟩
+  // ⟨ master gain , ſ̀ȷɜ ֭ſɭɔ ʌ ſɭᴜ ʃןᴜ , ꞙɭı , ꞙɭɔ vel ꞙɭɿ ⟅ ⟩
   const namp = 0o10/0o100 * brilo * faktoro(0o25/0o100);
   ng.gain.setValueAtTime(ETA, t);
   ng.gain.linearRampToValueAtTime(namp, t + atako);
@@ -239,9 +239,9 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   nbg.connect(ng);
   ng.connect(trem);
 
-  // ⟨ ចាប់ផ្ដើម ៖ ផ្នែករលោងចាប់ខ្សែ ៖ សំឡេងរំខានខ្លីរត់ចូលប្រអប់ខ្សែ
-  //   ដូច្នេះការចាប់ផ្ដើមឮជាការប៉ះ មិនមែនជាស៊ីនបើកភ្លាម ។ បូកសំឡេង
-  //   ទាបខ្លីទន់មួយទៀត ជាកម្លាំងដៃទាញខ្សែ 📃 ⟩
+  // ⟨ j͑ʃᴜ ı],ɔ , j͑ʃɜ ſɭ,ᴜ , ſɭɔ˞ɜⅎ , ı],ɔ ɭʃɜ ֭ſɭɹ , ſɭᴜ ſןᴜ
+  //   ſɭᴜ ſןᴜ ʌ ſɭᴜ , j͑ʃᴜ ı],ɔ , j͑ʃᴜ ſןɹ , ꞙɭɔ ɭl̀ɹ ᶅſᴜ }ʃꞇ ɭʃɜ ⟅ ʃɜ j͐ʃɔ
+  //   j͑ʃɜ ſɭᴜƽ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭı , ſɭᴜ ſןᴜ ʌ ɭʃꞇƽ ⟅ ⟩
   const th = ctx.createOscillator();
   th.type = "sine";
   th.frequency.setValueAtTime(0o140 * faktoro(0o15/0o100), t);
@@ -272,8 +272,8 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   klp.connect(kg);
   kg.connect(trem);
 
-  // ⟨ ឈប់ ៖ ដៃលើកផ្នែករលោងចេញពីខ្សែ ៖ សំឡេងរអិលខ្លីមួយទៀត
-  //   បូកសំឡេងទាបខ្លីបំផុត 📃 ⟩
+  // ⟨ ſɭɜ j͐ʃɹ , ɭʃꞇƽ , j͑ʃɜ ſɭ,ᴜ , ſɭɔ˞ɜⅎ , ꞙɭɔ ,
+  //   ʃɜ j͐ʃɔ ʌ ſɭᴜ ʃןᴜ , ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭɜ ſɭᴜƽ ⟅ ⟩
   const ln = noiseSrc(ctx);
   const lbp = ctx.createBiquadFilter();
   lbp.type = "bandpass";

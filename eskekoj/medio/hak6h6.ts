@@ -15,11 +15,11 @@ import { vepaqGlatanS2nascen, vepaqS2nascenEnHabakaweKatoman,
   kf2SegmentajnPartojn } from "./hak6h6/has2nasce.js";
 import { vojSuprajxoj, type VojDifino, type VojHasukf2qani } from "./hak6h6/hahunaq.js";
 
-// ⟪ ចម្ងាយតាមបណ្តោយផ្លូវ 📏 ⟫
-// ⟨ តារាងចម្រៀកគណនាម្តង 📃 ⟩ ៖ មាត់ដៃនីមួយៗនៃចំណុចភ្ជាប់ត្រូវប្រៀបធៀបនឹង
-// ផ្លូវទាំងអស់ ។ បើគណនាប្រវែងចម្រៀកឡើងវិញរាល់ដង , Math.hypot រត់រាប់សែនដង
-// លើផ្លូវដែលនៅឆ្ងាយ ។ តារាងនេះរក្សាប្រវែង និងព្រំដែនរបស់ផ្លូវម្តង , ហើយ
-// ព្រំដែនអនុញ្ញាតឱ្យរំលងផ្លូវឆ្ងាយដោយមិនគណនាអ្វីទាំងអស់ ។ 📃 ⟩
+// ⟪ ſɭэ ֭ſɭэ , ꞙɭı 📏 ⟫
+// ⟨ ſɭэ ſɭᴜ , ꞙɭı 📃 ⟩ , ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , }ʃɹƽ ,
+//   ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭɔ , ⟅ ꞙɭɔ , ꞙɭɔ , ꞙɭɔ ,
+//   ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭɔ , ⟅ ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ ,
+//   ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
 interface K6h6Projekcio {
   minX: number;
   maxX: number;
@@ -60,10 +60,10 @@ function projekcioDe( n2k: readonly ( readonly [ number, number ] )[] ): K6h6Pro
   return projekcio;
 }
 
-/*រកចំណុចជិតបំផុតលើបន្ទាត់ផ្លូវ និងចម្ងាយរបស់វាពីដើម
-    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
-    @param x, z ( number ) - ចំណុចស្វែងរក
-@returns { s , h6kuni } ( object ) - ចម្ងាយតាមបណ្តោយ និងចម្ងាយកាត់ */
+/* ꞙɭɔ , }ʃɹƽ , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭı ,
+    @param n2k ( [ number , number ] [ ] ) - ſɭэ ſɭᴜ , ꞙɭı ,
+    @param x, z ( number ) - }ʃɹƽ , ꞙɭı ,
+@returns { s , h6kuni } ( object ) - ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , */
 function projekcioSurK6h6( n2k: readonly ( readonly [ number, number ] )[],
   x: number, z: number ): { s: number; h6kuni: number } {
   let plej = Infinity, plejS = 0;
@@ -77,11 +77,11 @@ function projekcioSurK6h6( n2k: readonly ( readonly [ number, number ] )[],
   return { s: plejS, h6kuni: plej };
 }
 
-/*ចម្ងាយកាត់ទៅផ្លូវ ឬ Infinity បើផ្លូវនៅឆ្ងាយជាង limo
-    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
-    @param x, z ( number ) - ចំណុចស្វែងរក
-    @param limo ( number ) - ចម្ងាយអតិបរមាដែលអ្នកហៅយកចិត្តទុកដាក់
-@returns h6kuni ( number ) - ចម្ងាយកាត់ ឬ Infinity */
+/* ꞙɭɔ , ſɭэ ſɭᴜ , ꞙɭɔ , ſɭэ ſɭᴜ , ꞙɭı ,
+    @param n2k ( [ number , number ] [ ] ) - ſɭэ ſɭᴜ , ꞙɭı ,
+    @param x, z ( number ) - }ʃɹƽ , ꞙɭı ,
+    @param limo ( number ) - ꞙɭı , ꞙɭı , ꞙɭı ,
+@returns h6kuni ( number ) - ꞙɭɔ , ſɭэ ſɭᴜ , Infinity */
 function distancoAlK6h6( n2k: readonly ( readonly [ number, number ] )[],
   x: number, z: number, limo: number ): number {
   const projekcio = projekcioDe(n2k);
@@ -98,24 +98,24 @@ function distancoAlK6h6( n2k: readonly ( readonly [ number, number ] )[],
   return plej;
 }
 
-// ⟪ ជម្រាលផ្លូវរលូនចូលចាន 📏 ⟫
-/*បង្កើតអនុគមន៍កម្ពស់ដែលនាំផ្លូវរលូន ( ស្ពាន ) ទៅកម្រិតចានរាប ។
-    ផ្លូវរលូនគ្មាន kf2NivelanProfilon ទេ , ដូច្នេះវាមិនដឹងពីកោណចាន ។
-    បើគ្មានការកែនេះ ស្ពានឈប់នៅកម្ពស់ផ្ទាល់ខ្លួន ហើយមាត់ចានក្លាយជាជញ្ជាំង ។
-    @param kruda ( function ) - កម្ពស់ផ្ទៃផ្លូវដើម
-    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
-    @param haveb6kek ( [ number , number ] [ ] ) - ចំណុចភ្ជាប់
-    @param plataAlto ( function ) - កម្រិតចានរាបនៅចំណុចភ្ជាប់
-    @param p2somani ( number ) - កន្លះទទឹងផ្លូវ
-@returns l6da ( function ) - កម្ពស់ដែលឡើងជាជម្រាលពីចាន */
-// ⟨ ចម្ងាយតាមបណ្តោយផ្លូវ មិនមែនចម្ងាយត្រង់ 📏 ⟩ ៖ ផ្លូវរលូនអានកម្ពស់
-// នៅគែមទាំងពីរ ( ឆ្វេង / ស្តាំ ) ។ បើវាស់ចម្ងាយត្រង់ពីចំណុចភ្ជាប់ , គែម
-// នៅឆ្ងាយជាងខ្សែកណ្តាល , ទទួលបានជម្រាលខ្ពស់ជាង , ហើយផ្លូវលោតនៅមាត់ចាន ។
-// ឥឡូវគ្រប់ចំណុចលើបន្ទាត់កាត់ដូចគ្នាប្រើចម្ងាយតាមបណ្តោយដូចគ្នា ,
-// ដូច្នេះផ្ទៃផ្លូវនៅរាបពេញទទឹង ហើយជម្រាលចាប់ពីកម្រិតចានពិត ។ 📃 ⟩
-// ⟨ ជម្រាលមួយជំហានក្នុងមួយឯកតា 📏 ⟩ ៖ ចម្ងាយពីមាត់ចានកំណត់ថាផ្លូវ
-// អាចខុសពីកម្រិតចានប៉ុន្មាន ។ ដូច្នេះផ្លូវឡើងដល់កម្ពស់របស់វាដោយជម្រាល ,
-// មិនលោតភ្លាមៗ ។ 📃 ⟩
+// ⟪ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı 📏 ⟫
+/* j͑ʃᴜ ſɭ,w , ꞙɭı , ſɭэ ֭ſɭэ , ( ſɟɹƽ ꞁȷ̀ᴜ }ʃw ) , ſɭᴜ ſןᴜ ,
+   ꞙɭı , kf2NivelanProfilon , ꞙɭɔ , ꞙɭɔ , ꞙɭı ,
+   ꞙɭɔ , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭɔ , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ , ꞙɭı ,
+    @param kruda ( function ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w ,
+    @param n2k ( [ number , number ] [ ] ) - ſɭэ ſɭᴜ , ꞙɭı ,
+    @param haveb6kek ( [ number , number ] [ ] ) - ſɭᴜ ſןᴜ , }ʃɹƽ ,
+    @param plataAlto ( function ) - ſɭᴜ ſןᴜ , ꞙɭı , }ʃɹƽ ,
+    @param p2somani ( number ) - ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ ,
+@returns l6da ( function ) - j͑ʃᴜ ſɭ,w , ꞙɭı , ſɭᴜ ſןᴜ , */
+// ⟨ ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭɔ , ꞙɭı , 📏 ⟩ , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w ,
+//   ꞙɭı , ꞙɭɿ , ( ꞙɭɔ , ꞙɭı ) , ⟅ ꞙɭɔ , ꞙɭı ,
+//   ꞙɭɔ , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭɔ ,
+//   ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ ,
+//   ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
+// ⟨ ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı , 📏 ⟩ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɔ ,
+//   ꞙɭɔ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɔ ,
+//   ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
 function rampigiAlPa12n(
   kruda: ( x: number, z: number ) => number,
   n2k: readonly ( readonly [ number, number ] )[],
@@ -123,17 +123,17 @@ function rampigiAlPa12n(
   plataAlto: ( x: number, z: number ) => number,
   p2somani: number
 ): ( x: number, z: number ) => number {
-  // ⟨ ទីតាំងចំណុចភ្ជាប់លើផ្លូវ 📐 ⟩ ៖ គណនាម្តង , មិនគណនារាល់គំរូ ។
+  // ⟨ ꞙɭı , ſɭᴜ ſןᴜ , }ʃɹƽ , ꞙɭı , 📐 ⟩ , ꞙɭı , ꞙɭɔ , ꞙɭɔ , ⟅
   const lokoj = haveb6kek.map(([ kx, kz ]) => {
     const p = projekcioSurK6h6(n2k, kx, kz);
     return { x: kx, z: kz, s: p.s, h6kuni: p.h6kuni };
   }).filter(l => l.h6kuni <= p2somani + 0o1/0o100);
-  // ⟨ កោណទាំងពីរទិស 📏 ⟩ ៖ មុននេះ tseuni ចាប់ផ្តើមពី soza ហើយ
-  // គ្រាន់តែយក Math.min ជាមួយកោណនីមួយៗ ។ ដូច្នេះវាអាចទាញផ្លូវចុះ
-  // មករកចាន តែមិនអាចលើកផ្លូវឡើងដល់ចានខ្ពស់ជាងបានទេ ។ ចុងម្ខាង
-  // នៃស្ពាននៅទាបជាងចាន ហើយជម្រាលមិនកើតឡើង = ជញ្ជាំងឈរ ។ ឥឡូវ
-  // ប្រមូលព្រំដែនទាញឡើងទាំងអស់ និងព្រំដែនទាញចុះទាំងអស់ រួចកំណត់
-  // ផ្ទៃឱ្យនៅក្នុងចន្លោះនោះ ។ កោណឆ្ងាយរលាយទៅជាគ្មានកំណត់ ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭɿ , 📏 ⟩ , ꞙɭı , j͐ʃэ ɭ(ᴜ , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭɔ , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭɔ , ꞙɭı , = ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ⟅ ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   return ( x, z ) => {
     const soza = kruda( x, z ) + VOJA_SUPRO_LEVIGXO;
     const { s } = projekcioSurK6h6(n2k, x, z);
@@ -146,8 +146,8 @@ function rampigiAlPa12n(
       psaz = Math.max(psaz, p - margxo);
       teru = Math.min(teru, p + margxo);
     }
-    // ⟨ កោណជាន់គ្នា 📏 ⟩ ៖ ចានពីរខុសកម្រិតខ្លាំងពេកសម្រាប់ចម្ងាយ ។
-    // យកកណ្តាល ដើម្បីកុំឱ្យផ្លូវលោតពីកោណមួយទៅកោណមួយ ។ 📃 ⟩
+    // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ , ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const tseuni = psaz <= teru
       ? Math.max(psaz, Math.min(teru, soza))
       : ( psaz + teru ) / 0o2;
@@ -155,7 +155,7 @@ function rampigiAlPa12n(
   };
 }
 
-// ⟪ ការសាងសង់បណ្តាញផ្លូវ 🏗️ ⟫
+// ⟪ ſɭэ ֭ſɭэ , ꞙɭı 🏗️ ⟫
 export function vepaqHak6h6n(qena: THREE.Scene,
   defs: VojDifino[],
   heightFn: ( x: number, z: number ) => number,
@@ -166,16 +166,16 @@ export function vepaqHak6h6n(qena: THREE.Scene,
 ): THREE.Vector3[] {
   const { akvaFn, grundoFn = heightFn, kunigajDirektoj,
     kunigajFermitaj, kunigajRotacioj, kunigajDuonoj } = hasukf2qani;
-  // ⟨ បាតផ្លូវមិនចុះក្រោមទឹក 📏 ⟩ ៖ បាតអានដីពិត , ហើយដីក្រោមទឹកជាបាតទន្លេ ។
-  // បើបាតចុះដល់បាតទន្លេ , ផ្លូវក្លាយជាទំនប់ ហើយឃើញជាជញ្ជាំងក្នុងទឹក ។
-  // ដូច្នេះលើទឹក បាតមិនចុះទេ ៖ វាត្រឡប់ជាស្តើង , ដូចស្ពាន ។
-  // ផ្លូវនៅលើទឹកក៏មើលទៅដូចផ្លូវកំពង់ ។ 📃 ⟩
+  // ⟨ ꞙɭɔ , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , 📏 ⟩ , ſɭɜ ſɭ,w , ꞙɭı ,
+  //   ꞙɭı , ſᶘᴜ j͑ʃᴜ , ſɭэ ſɭ,w , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ,
+  //   ꞙɭı , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
+  //   ꞙɭı , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ⟅ 📃 ⟩
   const fundaFn: ( x: number, z: number ) => number = akvaFn
     ? ( x, z ) => {
         const grundo = grundoFn(x, z);
         const akvo = akvaFn(x, z);
         if ( akvo <= -Infinity ) return grundo;
-        // ⟨ លិចក្រោមទឹក ៖ គ្មានបាត ៖ ផ្លូវស្តើងស្មើគ្នា ។ 📃 ⟩
+        // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ⟅ 📃 ⟩
         if ( grundo < akvo ) return Infinity;
         return grundo;
       }
@@ -184,22 +184,22 @@ export function vepaqHak6h6n(qena: THREE.Scene,
   const { supraMaterialo, bordaMaterialo } = kf2Hak6h6nMaterialojn(dioritaMaterialo, andezitaMaterialo, -2, -4, -1, -1);
 
   const habakaweKatoma = kf2GeometriajnHabakaweKatoman();
-  // ⟪ កម្ពស់ផ្លូវតាមដៃ 📏 ⟫
-  // ⟨ តាមដានផ្លូវពិត មិនមែនវាលរួម 📃 ⟩ ៖ មុននេះចានអានវាលកម្ពស់រួមនៅមាត់
-  // ដៃទាំងអស់ ។ វាលនោះមានកោណចានរួចហើយ ( វង់ ) , ដូច្នេះគ្រប់ដៃរកឃើញ
-  // កម្ពស់តែមួយ ។ ផ្លូវដែលមានអនុគមន៍កម្ពស់ផ្ទាល់ខ្លួន ( ស្ពាន ) មិនត្រូវបាន
-  // គិតទាល់តែសោះ ហើយបញ្ចប់ដោយជញ្ជាំងឈរ ។ ឥឡូវរាល់ផ្លូវរាយការណ៍កម្ពស់
-  // ផ្ទៃរបស់វាតាមដៃនីមួយៗ មុនពេលកោណចានណាមួយត្រូវបានអនុវត្ត ។ 📃 ⟩
+  // ⟪ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı 📏 ⟫
+  // ⟨ ſɭэ ֭ſɭэ , ꞙɭɔ , ꞙɭı , 📃 ⟩ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ( ꞙɭɔ ) , ⟅ ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ( ſɟɹƽ ꞁȷ̀ᴜ }ʃw ) , ꞙɭɔ ,
+  //   ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭı , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   purigiKunigajnHavem2n();
-  // ⟨ កម្រិតចំណត ⚓ ⟩ ៖ ចំណតបានចុះឈ្មោះមុនផ្លូវ ។ យកវាម្តង ហើយលុប
-  // ដើម្បីឱ្យការសាងសង់បន្ទាប់ចាប់ផ្តើមស្អាត ។ 📃 ⟩
+  // ⟨ ſɭᴜ ſןᴜ , ⚓ ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const qakaj2jAltoj = konsumiDokajnAltojn();
   const naturaj = defs.map(def => {
     const bendoj = kf2K6h6jnBendojn(def.w, supraMaterialo, bordaMaterialo);
     const p2somani = kf2EksteranDuonon(bendoj);
     const kruda = def.heightFn || heightFn;
     const pudalla = def.glata === true || def.stuparo === true;
-    // ⟨ ប្រវត្តិរូបធម្មជាតិ 📏 ⟩ ៖ គ្មាន haveb6kek , ដូច្នេះវាមិនអានកម្រិតចានវិញទេ ។
+    // ⟨ ꞙɭı , 📏 ⟩ , ꞙɭɔ , haveb6kek , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ⟅
     const s2qena = pudalla ? null : kf2NivelanProfilon(def.pts, p2somani, kruda, akvaFn);
     return { p2somani, altoCxe: ( px: number, pz: number ): number => {
       if ( s2qena ) return s2qena.altoCxe(projekcioSurK6h6(def.pts, px, pz).s);
@@ -212,7 +212,7 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       kunigajFermitaj?.get(ca3aq), kunigajRotacioj?.get(ca3aq) ?? 0,
       kunigajDuonoj?.get(ca3aq));
     const brakajAltoj: BrakaAlto[] = knece.map(b => {
-      // ⟨ អានមាត់ដៃខាងក្រៅរន្ធ 📏 ⟩ ៖ ត្រង់ណាដែលផ្លូវពិតចាប់ផ្តើម ។
+      // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅
       const px = kx + b.ux * ( VOJA_TRUA_DUONO + 0o1/0o4 );
       const pz = kz + b.uz * ( VOJA_TRUA_DUONO + 0o1/0o4 );
       let plej = Infinity, l6da = NaN;
@@ -222,18 +222,18 @@ export function vepaqHak6h6n(qena: THREE.Scene,
         if ( h6kuni > limo ) continue;
         if ( h6kuni < plej ) { plej = h6kuni; l6da = naturaj[ i ].altoCxe(px, pz); }
       }
-      // ⟨ ជ្រុងបិទ 📏 ⟩ ៖ គ្មានផ្លូវមកដល់ដៃនេះ , អានវាលជុំវិញជំនួស ។
+      // ⟨ }ʃɹƽ , ꞙɭı 📏 ⟩ , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅
       if ( !Number.isFinite(l6da) )
         l6da = kunigajBrakAltoj(kx, kz, [ [ b.ux, b.uz ] ], [ b.p2somani ], heightFn)[ 0 ]
           + VOJA_SUPRO_LEVIGXO;
       return { ux: b.ux, uz: b.uz, l6da: surGrid(l6da), p2somani: b.p2somani };
     });
-    // ⟨ កម្រិតដី 📏 ⟩ ៖ ចានមិនអាចទាបជាងដីកណ្តាល ឬ ដីនៅមាត់ដៃទេ ។
-    // kunigaPlataAlto អានទាំងពីរ ហើយហ្គេម ចាន និងឧបករណ៍វាស់ប្រើវាដូចគ្នា ។ 📃 ⟩
+    // ⟨ ſɭɜ ſɭ,w , ꞙɭı 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı , ꞙɭı ,
+    //   kunigaPlataAlto , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const rezervo = kunigaPlataAlto(kx, kz, knece, heightFn);
-    // ⟨ ចាននៅមាត់ចំណត ⚓ ⟩ ៖ វេទិកាចំណតជាប់នឹងចានដោយផ្ទាល់ ។ ចានត្រូវ
-    // យកកម្រិតវេទិកា , មិនមែនកម្រិតដែលគណនាពីផ្លូវទេ ។ ផ្លូវឡើង/ចុះ
-    // ជាជំហានមករកចានវិញ ដូចគ្រប់ចំណុចភ្ជាប់ផ្សេង ។ 📃 ⟩
+    // ⟨ ſɭᴜ ſןᴜ , ⚓ ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭɔ ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const qakaj2Alto = qakaj2AltoEl(qakaj2jAltoj, kx, kz);
     kunigajHavem2.set(ca3aq, { x: kx, z: kz,
       l6da: qakaj2Alto ?? elektiPlatanAlton(brakajAltoj, rezervo),
@@ -248,21 +248,21 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       kunigajDuonoj?.get(ca3aq));
     return surGrid(kunigaPlataVem2(x, z, knece, heightFn).l6da);
   };
-  // ⟨ កម្រិតរាបតែមួយ 📏 ⟩ ៖ ចាន និងចុងជណ្តើរអានលេខដូចគ្នា ។
+  // ⟨ ꞙɭɔ , ꞙɭı , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı ,
   const pa12Cxe = plataAltoCxeVeb6kek;
-  // ⟨ កម្រិតផ្លូវនៅចុងក្រោយ ៖ ប្រើសម្រាប់មួកផ្លូវដែលឆ្លងចូលមកចានភ្ជាប់ ។ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const kapoAltoj = new Map<VojDifino, { saxeni: number | null; fino: number | null }>();
-  // ⟨ គែមមូលទាំងអស់ 🌗 ⟩ ៖ ចុងផ្លូវសេរី និងជ្រុងកន្លែងបត់ ឆ្លងកាត់
-  // ប៊ូហ្វ័រតែមួយជាមួយចម្រៀកត្រង់ ។ ប្រមូលមុនគូរធរណីមាត្រ , ព្រោះ
-  // កម្ពស់របស់វាត្រូវស្ថិតលើកម្រិតផ្លូវដូចគ្នានឹងចម្រៀកទាំងពីរ ។ 📃 ⟩
+  // ⟨ }ʃɹƽ , ꞙɭı , 🌗 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const c2qjPecoj: C2qPeco[] = [];
 
   for ( const def of defs ) {
     const krudaAlt = def.heightFn || heightFn;
-    // ⟨ ស្ពានត្រូវឡើងដល់ចានដោយជម្រាល 📏 ⟩ ៖ ផ្លូវរលូនគ្មានប្រវត្តិរូប
-    // ជំហាន , ដូច្នេះកោណចានក្នុង kf2NivelanProfilon មិនប៉ះវាទេ ។
-    // ផ្លូវធម្មតាមានប្រវត្តិរូបរួចហើយ ; ជណ្តើរចំណតមានកម្រាលផ្ទាល់ខ្លួន ។
-    // ការរុំអនុគមន៍កម្ពស់នាំតែស្ពានចុះ/ឡើងដល់កម្រិតចានត្រង់មាត់រន្ធ ។ 📃 ⟩
+    // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+    //   ꞙɭı , ꞙɭɔ , kf2NivelanProfilon , ꞙɭɔ , ꞙɭı , ꞙɭɔ ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const bendoj = kf2K6h6jnBendojn(def.w, supraMaterialo, bordaMaterialo);
     const eksteraDuono = kf2EksteranDuonon(bendoj);
     const defAlt = def.glata === true
@@ -277,9 +277,9 @@ export function vepaqHak6h6n(qena: THREE.Scene,
     };
     if ( def.stuparo === true ) {
       let xaqadi: number | null = null, z2hak: number | null = null;
-      // ⟨ ចានភ្ជាប់នៅចុងជណ្តើរ 📏 ⟩ ៖ ជណ្តើរដែលចូលដល់ចានភ្ជាប់ត្រូវយកកម្រិតចាននោះ ,
-      // មិនមែនកម្រិតរបស់ខ្លួនទេ ។ បើមិនដូច្នេះ , កម្រាលខ្ពស់បំផុតរបស់ជណ្តើរ
-      // ខុសពីចាន , ហើយឃើញជាជញ្ជាំងឈរនៅចន្លោះ ។ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , ſןɔ˞ᴜƴ , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ⟅ ꞙɭɔ , ꞙɭı , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
       const pa12CxeFinon = ( pto: [ number, number ] ): number | null => {
         for ( const [ kX, kZ ] of haveb6kek ) {
           if ( Math.hypot(pto[0] - kX, pto[1] - kZ) > VOJA_TRUA_DUONO ) continue;
@@ -289,20 +289,20 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       };
       const unuaPa12 = pa12CxeFinon(def.pts[0]);
       const lastaPa12 = pa12CxeFinon(def.pts[def.pts.length - 1]);
-      // ⟨ កម្រាលទីមួយចុះមួយជំហាន 📏 ⟩ ៖ ផ្ទៃចានជាកន្លែងឈរ , ដូច្នេះកម្រាលទីមួយ
-      // ទាបជាងចានមួយជំហាន ។ អនុគមន៍សាងសង់បន្ថែម VOJA_SUPRO_LEVIGXO ,
-      // ដូច្នេះដកវាចេញនៅទីនេះ ។ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , VOJA_SUPRO_LEVIGXO ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
       const stupaAlto = ( x: number, z: number ): number => {
         const pa12 = pa12CxeFinon([ x, z ]);
         if ( pa12 !== null ) return pa12 - STUPA_RISERO - VOJA_SUPRO_LEVIGXO;
         return defAlt(x, z);
       };
-      // ⟨ ជម្រាលមុខជំហាន 📏 ⟩ ៖ ជំហាននីមួយៗចុះទៅកម្រិតជំហានបន្ទាប់ ។
-      // កម្រិតអានត្រង់កណ្តាលចម្រៀក , ដូចអនុគមន៍សាងសង់ , ដូច្នេះជម្រាលត្រូវនឹងជំហានពិត ។
-      // ជំហានចុងក្រោយគ្មានជំហានបន្ទាប់ទេ , ដូច្នេះវារាបទាំងស្រុង ។ 📃 ⟩
-      // ⟨ កម្រាលមិនកប់ក្នុងដី 📏 ⟩ ៖ ប្រវត្តិរូបជណ្តើរចំណតដឹងតែកម្រិតចាន
-      // និងវេទិកា ។ ដីអាចខ្ពស់ជាងជម្រាលនៅកណ្តាល ឬនៅគែមកម្រាល ។ អានទទឹង
-      // ពេញនៃកម្រាលនីមួយៗ ហើយលើកវាឱ្យនៅលើដីខ្ពស់បំផុត ។ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , ꞙɭɔ , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
       const teraPlanko = ( ax: number, az: number, bx: number, bz: number ): number => {
         const sahakani = Math.hypot(bx - ax, bz - az);
         if ( sahakani < 0o1/0o1000 ) return -Infinity;
@@ -315,8 +315,8 @@ export function vepaqHak6h6n(qena: THREE.Scene,
             const grundo = defGrundo(px + latX * kanto, pz + latZ * kanto);
             if ( !Number.isFinite(grundo) ) continue;
             const akvo = akvaFn?.(px + latX * kanto, pz + latZ * kanto) ?? -Infinity;
-            // ⟨ កម្រាលក្រោមទឹកឡើងមួយជំហាន 📏 ⟩ ៖ កម្ពស់ថ្មីនៅតែក្រោម
-            // ផ្ទៃទឹក ដូច្នេះជណ្តើរលេចច្បាស់ដោយមិនក្លាយជាស្ពានទាប ។ 📃 ⟩
+            // ⟨ ꞙɭɔ , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭı , 📏 ⟩ , j͑ʃᴜ ſɭ,w , ꞙɭɔ ,
+            //   ſᶘᴜ j͑ʃᴜ , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
             const levigita = Math.min(grundo + VOJA_SUPRO_LEVIGXO + STUPA_RISERO,
               akvo - VOJA_SUPRO_LEVIGXO);
             planko = Math.max(planko, grundo + VOJA_SUPRO_LEVIGXO, levigita);
@@ -331,13 +331,13 @@ export function vepaqHak6h6n(qena: THREE.Scene,
         const sost2 = stupaAlto(( ax + bx ) / 0o2, ( az + bz ) / 0o2);
         stupajAltoj.push(Math.max(sost2, teraPlanko(ax, az, bx, bz)));
       }
-      // ⟨ ចុងជណ្តើរយកកម្រិតចានដោយផ្ទាល់ 📏 ⟩ ៖ ការអានត្រង់កណ្តាលចម្រៀកមិនគ្រប់ទេ ,
-      // ព្រោះចំណុចកណ្តាលអាចនៅឆ្ងាយពីចាន ។ ដូច្នេះចម្រៀកដំបូង និងចុងក្រោយ
-      // យកកម្រិតចាន លើកលែងតែដីនៅទីនោះខ្ពស់ជាង ។ 📃 ⟩
-      // ⟨ ជម្រាលចុងយកកម្រិតពីអនុគមន៍កម្ពស់ ៖ មិនប្រើជំហានថេរ STUPA_RISERO ទេ ។
-      // បើប្រើជំហានថេរ , ចំណតដែលធ្លាក់តិច ( ឧ. 0.4 ) នឹងលើសជំហាន 0.5 ហើយ
-      // ជណ្តើរលិចក្រោមផ្ទៃចំណត រួចឡើងវិញ = ជញ្ជាំងឈរ ។ អនុគមន៍កម្ពស់ដឹងជំហានពិត
-      // ដូច្នេះចានភ្ជាប់បានរាបដល់ផ្ទៃចំណតដោយគ្មានជញ្ជាំង ។ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , STUPA_RISERO , ꞙɭɔ , ꞙɭı ,
+      //   ꞙɭɔ , ꞙɭı , ꞙɭı , ( ꞙɭɔ , ꞙɭɔ.э , ) , ꞙɭı , ꞙɭɔ.ꞟ , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , = ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ⟅ ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
       if ( lastaIndekso >= 0 ) {
         if ( unuaPa12 !== null ) stupajAltoj[0] = Math.max(stupajAltoj[0],
           defAlt(def.pts[0][0], def.pts[0][1]));
@@ -359,22 +359,22 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       notiFinon(xaqadi, z2hak);
       continue;
     }
-    // ⟨ កម្រិតទាំងអស់កំណត់ម្តង មុនការសាងសង់ ៖ ដូច្នេះជំហានមិនអាចលោត
-    // ឬធ្លាក់ចូលរណ្តៅខ្លីនៅចន្លោះចម្រៀកបានទេ ។ 📃 ⟩
-    // ⟨ ផ្លូវទាំងអស់ចេញពីកន្លែងតែមួយ 📃 ⟩ ៖ ស្ពានមិនមែនប្រព័ន្ធដាច់ដោយឡែកទេ ។
-    // វាចូលរួមខ្សែ , សម្ភារៈ , មួកផ្លូវ និងការប៉ះទង្គិចដូចផ្លូវឯទៀត ។
-    // ភាពខុសគ្នាតែមួយ ៖ ផ្ទៃរបស់វារលូន , ព្រោះវាជាចម្រៀកវែងតែមួយ ( ធ្នូ ) ,
-    // មិនមែនជណ្តើរថ្មដូចផ្លូវលើដី ។ 📃 ⟩
+    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
+    //   ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , 📃 ⟩ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭɔ , ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+    //   ꞙɭı , ꞙɭɔ , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ( ſȷƽᴜ ʃɔ ) ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const s2qena = def.glata === true
       ? null
       : kf2NivelanProfilon(def.pts, eksteraDuono, defAlt, akvaFn,
         haveb6kek.map(([ x, z ]) => ( { x, z, l6da: pa12Cxe(x, z) } )));
-    // ⟨ កាលវិភាគជម្រាលម្តងសម្រាប់ផ្លូវទាំងមូល 📏 ⟩ ៖ ចម្រៀក និងរន្ធ
-    // ចានភ្ជាប់កាត់ផ្លូវនៅចំណុចណាមួយ ។ បើគណនាជម្រាលក្រោយកាត់ , បំណែកខ្លី
-    // បង្ហាប់ជម្រាលឱ្យឈរដូចជញ្ជាំង ។ គណនាមុនកាត់ រួចគ្រាន់តែកាត់ប្រអប់ ។ 📃 ⟩
-    // ⟨ គែមចេញនៃរន្ធ 📏 ⟩ ៖ ប្រមូលរន្ធពី kf2SegmentajnPartojn ដដែល
-    // ដែលកាត់ធរណីមាត្រ ។ កាលវិភាគប្រើវាដើម្បីកុំឱ្យជម្រាលចាប់ផ្តើម
-    // នៅក្រោមចាន ។ គ្មានច្បាប់កាត់ផ្លូវទីពីរទេ ។ 📃 ⟩
+    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , 📏 ⟩ , ſɭэ ſɭᴜ , ꞙɭı ,
+    //   ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı ,
+    // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , kf2SegmentajnPartojn , ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
+    //   ꞙɭɔ , ſɭᴜ ſןᴜ , ⟅ ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
     const truoj: K6h6Truo[] = [];
     if ( s2qena ) {
       let sTruo = 0;
@@ -389,9 +389,9 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       }
     }
     const treadoj = s2qena ? kf2UnuformajnTreadojn(s2qena, truoj) : [];
-    // ⟪ ជង្គង់មូលនៅកន្លែងបត់ 🌗 ⟫
-    // ⟨ ចៀសចំណុចភ្ជាប់ 📏 ⟩ ៖ ចានភ្ជាប់មានធ្នូជ្រុងរួចហើយ ។ បើដាក់
-    // ជង្គង់លើវាទៀត , ផ្ទៃពីរជាន់គ្នាហើយលេចជាស្រទាប់ ។ 📃 ⟩
+    // ⟪ ſןɔ˞ᴜƴ , }ʃɹƽ , 🌗 ⟫
+    // ⟨ ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     let akum = 0;
     for ( let k = 1; k < def.pts.length - 0o1; k++ ) {
       const antaux = def.pts[ k - 0o1 ], nuna = def.pts[ k ], sekva = def.pts[ k + 0o1 ];
@@ -410,11 +410,11 @@ export function vepaqHak6h6n(qena: THREE.Scene,
         }
       }
       if ( enTruo ) continue;
-      // ⟨ តែធ្នូនៃជ្រុងខាងក្នុង 📏 ⟩ ៖ មុននេះជង្គង់ជាចិញ្ចៀនពេញ , ដូច្នេះ
-      // អាន់ដេហ្ស៊ីតលាតលើឌីអូរីតនៃចម្រៀកត្រង់ទាំងពីរ ហើយលេចជាសំណល់
-      // នៅកណ្តាលផ្លូវ ។ ចន្លោះដែលគ្មានប្រអប់ចម្រៀកគឺជាក្រូចឆ្មាររវាង
-      // ទិសចូល និងទិសចេញ ។ កណ្តាលរបស់វាស្ថិតលើ u1 − u2 , ទំហំរបស់វា
-      // ស្មើនឹងមុំបត់ ។ គូរតែវិស័យនោះ គ្មានជាន់គ្នានឹងផ្លូវត្រង់ទេ ។ 📃 ⟩
+      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , ꞙɭı ,
+      //   ꞙɭı , ꞙɭı , u1 , u2 , ꞙɭɔ ,
+      //   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ⟅ 📃 ⟩
       c2qjPecoj.push({ x: nuna[ 0 ], z: nuna[ 1 ],
         sost2: Math.atan2(u1z - u2z, u1x - u2x), gamo: turno,
         teru: s2qena ? s2qena.altoCxe(akum)
@@ -443,7 +443,7 @@ export function vepaqHak6h6n(qena: THREE.Scene,
           }
           continue;
         }
-        // ⟨ រន្ធភ្ជាប់ ៖ ចានភ្ជាប់គ្របទីនោះ , តែកម្រិតត្រូវកត់ទុកសម្រាប់ការប៉ះទង្គិច ។ 📃 ⟩
+        // ⟨ ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
         const mX = ( px1 + px2 ) / 0o2, mZ = ( pz1 + pz2 ) / 0o2;
         const kunigaSupro = s2qena
           ? s2qena.altoCxe(saxeni + ( t0 + t1 ) / 0o2)
@@ -456,9 +456,9 @@ export function vepaqHak6h6n(qena: THREE.Scene,
     }
     notiFinon(xaqadi, z2hak);
   }
-  // ⟪ មួកផ្លូវចុងសេរី 🌗 ⟫
-  // ⟨ ពាក់រង្វង់ពេញដូចចុងចំណត 📏 ⟩ ៖ ចុងផ្លូវប្រើទម្រង់ធ្នូរួមដូចគ្នា
-  // នឹងជង្គង់ , គ្រាន់តែទំហំធ្នូ π ជំនួសឱ្យមុំបត់ ។ 📃 ⟩
+  // ⟪ ꞙɭı , ꞙɭı , 🌗 ⟫
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , π , ꞙɭɔ , ⟅ 📃 ⟩
   const finokalkulo = new Map<string, number>();
   for ( const def of defs ) {
     if ( def.pts.length < 2 || def.hateruni !== true ) continue;
@@ -494,20 +494,20 @@ export function vepaqHak6h6n(qena: THREE.Scene,
         teru: supraY ?? defAlt(tlakakani[ 0 ], tlakakani[ 1 ]) + VOJA_SUPRO_LEVIGXO });
     }
   }
-  // ⟨ ផ្លូវទាំងអស់ជា Mesh តែមួយក្នុងមួយសម្ភារៈ 📏 ⟩ ។
+  // ⟨ ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , 📏 ⟩ ,
   aldoniC2qjnPecojn(habakaweKatoma, c2qjPecoj, supraMaterialo, bordaMaterialo, fundaFn);
-  // ⟨ ផ្លូវទទួលស្រមោលតែមិនបញ្ចេញ ៖ មាត់ចានជាន់គ្នាបន្តិច ,
-  //   ដូច្នេះស្រមោលខ្លួនឯងបង្កើតខ្សែខ្មៅរវាងចំណុចភ្ជាប់ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭɔ ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   habakaweKatoma.kunigi(qena, false);
   return samples;
 }
 
-// ⟪ គំរូផ្លូវសម្រាប់ការដករុក្ខជាតិ 🌿 ⟫
-/*បន្ថែមចំណុចតាមបណ្តោយផ្លូវ ដើម្បីកុំឱ្យរុក្ខជាតិដុះលើផ្លូវ
-    @param samples ( Vector3 [ ] ) - បញ្ជីចំណុចសរុប
-    @param aX, aZ ( number ) - ចំណុចដើម
-    @param bX, bZ ( number ) - ចំណុចចុង
-    @param altFn ( function ) - កម្ពស់ផ្លូវ */
+// ⟪ ſɭэ ֭ſɭэ , ꞙɭı , 🌿 ⟫
+/* ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭɔ , ꞙɭı ,
+    @param samples ( Vector3 [ ] ) - }ʃɹƽ , ꞙɭı ,
+    @param aX, aZ ( number ) - ꞙɭı , ꞙɭı ,
+    @param bX, bZ ( number ) - ꞙɭı , ꞙɭı ,
+    @param altFn ( function ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w */
 function aldonuSpecimenojn( samples: THREE.Vector3[], aX: number, aZ: number,
   bX: number, bZ: number, altFn: ( x: number, z: number ) => number ): void {
   const sahakani = Math.hypot(bX - aX, bZ - aZ);

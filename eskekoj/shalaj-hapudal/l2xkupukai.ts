@@ -1,5 +1,5 @@
 // ≺⧼ j͐ʃɹ ı],ƽw ſןw ſɭᴜꞇ 🪼 ⧽≻
-// ⟨ អ្វីដែលបានបែក 📃 ⟩
+// ⟨ j͑ʃᴜꞇ ʌ ſɭᴜͷ̗ ɭʃɜƽ 📃 ⟩
 import * as THREE from "three";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
 import { aldoniKombohax2pan, aplikiL2xnPulson, gluuSurfacxon, kf2KombilanMaterialon,

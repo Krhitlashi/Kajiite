@@ -13,10 +13,10 @@ import { aldoniJoqanTubon } from "./satalaj/pilieroj.js";
 import { paqMaterialo, TIPARO, type VepaqSpec } from "./satalaj/hahunaq.js";
 import { aldoniSteleanSignon } from "./satalaj/vitro.js";
 
-// ⟨ កម្រិតនៃស្រទាប់ 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , 📃 ⟩
 export interface TavolaVem2 { y: number; hw: number; hd: number; }
 
-/* គណនាកម្រិតនៃស្រទាប់ទាំងអស់ ចាប់ពីស្រទាប់ក្រោមបំផុត។ អគារ
+/* ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
    និងយានអវកាសប្រើលេខទាំងនេះដូចគ្នា ដូច្នេះស្រទាប់ និងបង្អួច
    មានចន្លោះដូចគ្នា។
     @param w ( number ) - ទទឹងមូលដ្ឋាន។
@@ -36,7 +36,7 @@ export function tavolajHavem2(w: number, d: number, tiers: number, tieroAlto: nu
   return havem2;
 }
 
-// ⟨ ឃ្លាំងសម្ងាត់ធរណីមាត្រស្រទាប់ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ɭl̀ɜ ſ͕ɭᴜ , 📃 ⟩
 const tavolajKashmemoroj = new Map<string, { muroj: THREE.BufferGeometry; hajoqa: THREE.BufferGeometry }>();
 function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: number): { muroj: THREE.BufferGeometry; hajoqa: THREE.BufferGeometry } {
   const klino = MURA_KLINO;
@@ -45,7 +45,7 @@ function tavolajGeometrioj(w: number, d: number, tiers: number, tieroAlto: numbe
   for ( let i = 0; i < havem2.length; i++ ) {
     const { y, hw, hd } = havem2[ i ];
     const malsupra = havem2[ i - 1 ], teru = havem2[ i + 1 ];
-    // ⟨ ការគ្របគណនាពីផ្ទៃជិតខាងពិត ។ គ្មានការកំណត់ពិសេសសម្រាប់ស្រទាប់កំពូល 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , 📃 ⟩
     const supraKovrilo = teru ? Math.min( 1, teru.hw / ( hw - klino ), teru.hd / ( hd - klino ) ) : 0;
     const subaKovrilo = malsupra ? Math.min( 1, ( malsupra.hw - klino ) / hw, ( malsupra.hd - klino ) / hd ) : 0;
     const tavolo = kf2KlinoTavolon(hw, hd, hw - klino, hd - klino, tieroAlto,
@@ -65,7 +65,7 @@ export function preniTavolajnGeometriojn(typeKey: string, w: number, d: number, 
   }
   return g;
 }
-/*រកកម្ពស់មូលដ្ឋានដែលគ្របផ្ទៃមូលដ្ឋាននៅលើដីទាំងអស់
+/* ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭı ,
     @param spec ( VepaqSpec ) - ទីតាំង និងទំហំអគារ
     @param grundoFn ( function , optional ) - កម្ពស់ដីពិភពលោក
 @returns l6da ( number ) - កម្ពស់ Y របស់ក្រុមអគារ */
@@ -104,8 +104,8 @@ export function vepaqSatalon(spec: VepaqSpec, qena: THREE.Scene, selektajxoj: TH
     () => new THREE.MeshStandardMaterial({ color: muraKoloro, roughness: typeKey === "kasafeo" ? 0o41/0o100 : 0o3/0o4, metalness: 0, envMapIntensity: 0 }));
   const joqaMaterialo = paqMaterialo("joqa" + joqaKoloro,
     () => kf2KuhalPukek(joqaKoloro));
-  // ⟨ ទ្វារប្រើជញ្ជាំងខ្លួនឯង 📃 ⟩
-  // ⟨ ទ្វារកញ្ចក់ 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , 📃 ⟩
   const fasw2d2Pordo = typeKey === "kasafeo" || typeKey === "stacioxipo";
   const eniraMaterialo = fasw2d2Pordo
     ? fenestraMaterialo()
@@ -153,27 +153,27 @@ export function vepaqSatalon(spec: VepaqSpec, qena: THREE.Scene, selektajxoj: TH
       const brilo = new THREE.Mesh(new THREE.SphereGeometry(0o5/0o40, 0o10, 0o6), eniraMaterialo);
       brilo.position.set(sX * ( w / 2 + 0o15/0o10 ), 0o7/0o4 + 0o5/0o40, sZ * ( d / 2 + 0o15/0o10 )); group.add(brilo);
     }
-    // ⟨ ដីស្តង់នៅលើដំបូល ៖ តូចល្មមមិនហូសចុងដំបូល 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ſɭɜ ſɭᴜ , 📃 ⟩
     const roofY = tiers * tieroAlto;
     const c2q = new THREE.Mesh(new THREE.RingGeometry(0o5/0o20, 0o11/0o20, 0o40).rotateX(-Math.PI / 2), joqaMaterialo);
     c2q.position.y = roofY + 0o1/0o40; group.add(c2q);
   }
 
-  // ⟨ បង្អួចខាងក្រៅលើជ្រុងទាំងបួន 📃 ⟩
-  // ⟨ ច្បាប់ 📃 ⟩
-  // ⟨ ទីសក្ការៈ 📃 ⟩
-  // ⟨ កន្លែងប្រជុំ ( កាហ្វេ ) 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
   const senEksterajFenestroj = typeKey === "domo" || typeKey === "mangxejo"
     || typeKey === "turo" || typeKey === "sanktejo";
   if ( !senEksterajFenestroj ) {
     const fenAlto = Math.min(0o5/0o10, tieroAlto * 0o23/0o100);
     const vitro = fenestraMaterialo();
-    // ⟨ លេខរឹមមួយសម្រាប់អគារទាំងមូល 📃 ⟩
+// ⟨ ſɭэ ſɭᴜ , ꞙɭц , 📃 ⟩
     const facoLarga = Math.min(w / 2, d / 2) - klino / 2;
     const fenMargxeno = fenestraMargxeno(facoLarga);
     for ( const { y, hw, hd } of tavolajHavem2(w, d, tiers, tieroAlto) ) {
       const faco = Math.min(hw, hd) - klino / 2;
-      // ⟨ ស្រទាប់តូចពេក 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
       const horizontala = faco * 2 - fenMargxeno * 2 >= fenAlto;
       if ( !horizontala && faco < fenAlto * 0o1/0o2 + 0o1/0o10 ) continue;
       const yC = y + tieroAlto / 2;
@@ -198,7 +198,7 @@ export function vepaqSatalon(spec: VepaqSpec, qena: THREE.Scene, selektajxoj: TH
     }
   }
   if ( sube > 0 && typeKey === "sanktejo" ) {
-    // ⟨ មូលដ្ឋានរាបស្មើជាង 📃 ⟩
+// ⟨ ſɭɜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , 📃 ⟩
     const joqaW = w + SANKTEJA_BAZPLATO_KROMO, joqaD = d + SANKTEJA_BAZPLATO_KROMO;
     const dikeco = 0o1/0o2;
     const rAnguloj = 0o1/0o2;

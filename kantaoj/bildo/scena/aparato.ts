@@ -1,9 +1,9 @@
 // ≺⧼ ſɟᴜ ſɭɹ ſןɹ 📱 ⧽≻
 
-// ⟪ ថវិកាឧបករណ៍ 📃 ⟫
-// ⟨ ហេតុអ្វីដង់ស៊ីតេអេក្រង់ 📃 ⟩
-// ⟨ ហេតុអ្វីបិទ MSAA ពេលដង់ស៊ីតេខ្ពស់ 📃 ⟩
-// ⟨ ហេតុអ្វីផែនទីស្រមោលតូចជាង 📃 ⟩
+// ⟪ ſɟᴜ ſɭɹ ſןɹ ʌ ſɟᴜᴜ̩ ɭʃɹ 📃 ⟫
+// ⟨ ſɭʞэ ʌ ſɭw ʃᴜ }ʃꞇ ʌ ſɟᴜ ſȷᴜɔ˞ 📃 ⟩
+// ⟨ ſɭʞэ ʌ ſȷwɔ˞ MSAA ʌ ſɭw ʃᴜ }ʃꞇ 📃 ⟩
+// ⟨ ſɭʞэ ʌ ſɟᴜ ֭ſɭэ ſɭэ ʌ ꞙɭɔ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ 📃 ⟩
 export const surPosxtelefono: boolean = ( () => {
   if ( typeof location !== "undefined" && location.search.includes("telefono") ) return true;
   const kohera = typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches;
@@ -12,17 +12,17 @@ export const surPosxtelefono: boolean = ( () => {
 } )();
 export const surEdge = /Edg\//.test(navigator.userAgent);
 const petitaMalpeza = typeof location !== "undefined" && location.search.includes("malpeza");
-// ⟨ លើតុ DPR 0o2 ជាមួយ MSAA គូរភីកសែល 0o4 ដងក្នុងមួយភីកសែលអេក្រង់ ។
-//   កំណត់ត្រឹម 0o16/0o10 កាត់បន្ថយភីកសែលប្រហែល 0o1/0o4 ដោយរក្សា
-//   រូបភាពច្បាស់ ។ ការបន្ថយបន្ថែមមានរួចហើយក្នុង dinamikaSkalo ។ 📃 ⟩
+// ⟨ DPR ꞙɭɿ ʌ MSAA , ſɟɹ ɭʃᴜ ꞙɭэ ʌ ꞙɭı ʌ ꞙɭı ʌ ſɟɹ ɭʃᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ⟅
+//   ꞙɭıɩ/ꞙɭıɔ ⟅ ſɟɹ ɭʃᴜ ʌ ꞙɭı/ꞙɭэ
+//   ſןᴜ j͐ʃэ ⟅ j͑ʃᴜꞇ ʌ dinamikaSkalo 📃 ⟩
 export const MAKS_RATIO = surEdge || petitaMalpeza ? 0o1 : surPosxtelefono ? 0o14/0o10 : 0o16/0o10;
 export const OMBRA_MAPO = surEdge || petitaMalpeza || surPosxtelefono ? 0o400 : 0o2000;
 export const MULT_SAMPLEA = !surEdge && !petitaMalpeza
   && !( surPosxtelefono && devicePixelRatio >= 0o14/0o10 );
 
-// ⟨ ថវិកាសាមញ្ញ មិនជ្រើសតាមឈ្មោះឧបករណ៍ 📃 ⟩
-// ⟨ រយៈពេលស៊ុមវែងជាងគ្រប់គ្រាន់លើឧបករណ៍ដែលមានស៊ីភីយូ ឬ ស្មាមតិច ។
-//   saveData និង reduced-motion ក៏ជាសញ្ញារបស់អ្នកប្រើដើម្បីសន្សំធនធាន ។ 📃 ⟩
+// ⟨ ſɟᴜ ſɭɹ ſןɹ ʌ ꞙɭı ʌ ꞙɭı , ꞙɭɔ ʌ ſɭɔ˞ᴜ ſɭᴜ ʌ ſɟᴜᴜ̩ ɭʃɹ 📃 ⟩
+// ⟨ j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ɭl̀ɜ ſ͕ɭᴜ ʌ ɭl̀ɜ ſ͕ɭᴜ ʌ ſɟᴜᴜ̩ ɭʃɹ ⟅
+//   saveData , reduced-motion ʌ j͑ʃᴜ ſɭɜ ʌ j͑ʃᴜꞇ 📃 ⟩
 interface AparataNavigator extends Navigator {
   deviceMemory?: number;
   connection?: { saveData?: boolean };
@@ -35,6 +35,6 @@ const malplenaMovo = typeof matchMedia === "function"
   && matchMedia("(prefers-reduced-motion: reduce)").matches;
 export const MALPOTENCA_APARATO = surPosxtelefono || surEdge || petitaMalpeza
   || aparataMemoro <= 0o4 || aparataKernoj <= 0o4 || ŝpariDatumojn || malplenaMovo;
-// ⟨ Edge អាចអស់អង្គចងចាំនៅ ANGLE ពេលគូរផែនទីស្រមោលធំជាប់ៗគ្នា ។
-//   បិទវាទាំងស្រុងលើឧបករណ៍ថវិកាទាប មិនមែនបន្ថយតែទំហំផែនទី 📃 ⟩
+// ⟨ Edge ʌ ֭ſɭᴜ ı],ɹ }ʃꞇ ʌ ANGLE ⟅ ſɟᴜ ֭ſɭэ ſɭэ ʌ ꞙɭı ʌ ꞙɭı
+//   ſȷwɔ˞ ʌ ſɟᴜᴜ̩ ɭʃɹ ʌ ſɟᴜ ſɭɹ ſןɹ ʌ ꞙɭɔ , ꞙɭɔ ʌ ꞙɭı ı],ᴜ 📃 ⟩
 export const OMBROJ = !MALPOTENCA_APARATO;

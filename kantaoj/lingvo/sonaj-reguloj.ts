@@ -1,7 +1,7 @@
 // ≺⧼ j͑ʃɹ ſɭᴜc̗ ɭʃᴜ ʌ ʃɜ j͐ʃɔ 🗣️ ⧽≻
-// ⟪ ច្បាប់អក្ខរាវិរុទ្ធអង់គ្លេស ( en ) 🏴󠁧󠁢󠁥󠁮󠁧󠁿 ⟫
+// ⟪ ſȷwɔ˞ , ſȷwɔ˞ , ⟅ ſȷwɔ˞ , 🏴 ⟫
 
-// ⟪ ដើម ( 36 ) , ទម្រង់ព្យញ្ជនៈចាប់ផ្តើមព្យាង្គ 🗣️ ⟫
+// ⟪ ſɭэ ɭʃᴜ , ꞙɭɩ , ſɭэ ſɭᴜ , 🗣️ ⟫
 const KOMENCAĴ: [ string, string, string ][] = [
   [ "ᶅſ", "w", "ⱱ̥" ], [ "ſן", "p", "p" ], [ "ſȷ", "f", "ɸ" ],
   [ "ʃ", "b", "ɸˠ" ], [ "ŋᷠ", "m", "m̥" ], [ "ɽ͑ʃ'", "r", "ɾ̪̥" ],
@@ -9,7 +9,7 @@ const KOMENCAĴ: [ string, string, string ][] = [
   [ "ſᶘ", "1", "ts" ], [ "j͑ʃ", "s", "s" ], [ "}ʃ", "n", "n̥" ],
   [ "ſ̀ȷ", "3", "tɬ" ], [ "j͐ʃ", "l", "ɬ" ], [ "ſɭˬ", "5", "kʂ" ],
   [ "ſɭ,", "z", "ʂ" ], [ "ɭl̀", "j", "ɟ̥̆" ], [ "ſɟ", "c", "c" ],
-  [ "ı],", "x", "ç" ], [ "ſ͕ȷ", "y", "ɲ̥" ], [ "ſ͔ɭ", "g", "xʲ" ],
+  [ "1],", "x", "ç" ], [ "ſ͕ȷ", "y", "ɲ̥" ], [ "ſ͔ɭ", "g", "xʲ" ],
   [ "ſɭ", "k", "k" ], [ "֭ſɭ", "h", "x" ], [ "ſ͕ɭ", "q", "ŋ̥" ],
   [ "ȏſן", "p'", "ʘ" ], [ "ȏɭʃ'", "v'", "ǀ" ], [ "ȏſ̀ȷ", "l'", "ǁ" ],
   [ "ȏſɟ", "c'", "ǂ" ], [ "ȏɭʃ", "t'", "ǃ" ], [ "ȏŋᷠ", "m'", "ʘ̃" ],
@@ -17,28 +17,28 @@ const KOMENCAĴ: [ string, string, string ][] = [
   [ "ȏ}ʃ", "n'", "ǃ̃" ], [ "ꞁȷ̀", "", "" ], [ "⺓", "piise", "pɪ̈sɛ" ],
 ];
 
-// ⟪ ខាងក្នុង ( 45 ) , ព្យញ្ជនៈ និងស្រៈក្នុងព្យាង្គ 🗣️ ⟫
+// ⟪ ſɭэ ſɭw , ꞙɭэꞟ , ſɭэ ſɭᴜ , 🗣️ ⟫
 const INTERNAĴ: [ string, string, string ][] = [
   [ "п́", "w", "ⱱ̥" ], [ "ɘ", "p", "p" ], [ "ʞ", "f", "ɸ" ],
   [ "ɀ", "b", "ɸˠ" ], [ "c̭", "m", "m̥" ], [ "ƣ̋", "r", "ɾ̪̥" ],
-  [ "ⰱ", "v", "θ" ], [ "ƨ", "t", "t" ], [ "ԏ͕", "d", "s̪" ],
-  [ "ꝛ̗", "1", "ts" ], [ "ɔ˞", "s", "s" ], [ "c̗", "n", "n̥" ],
+  [ "ⰱ", "v", "θ" ], [ "7", "t", "t" ], [ "ԏ͕", "d", "s̪" ],
+  [ "ꝛ̗", "1", "ts" ], [ "0˞", "s", "s" ], [ "c̗", "n", "n̥" ],
   [ "ŋ", "3", "tɬ" ], [ "ͷ̗", "l", "ɬ" ], [ "ɯ", "5", "kʂ" ],
   [ "ƴ", "z", "ʂ" ], [ "ᴎ", "j", "ɟ̥̆" ], [ "ᴜ̭", "c", "c" ],
   [ "ᶗ‹", "x", "ç" ], [ "ⱷ̮̀", "y", "ɲ̥" ], [ "ɴ", "g", "xʲ" ],
   [ "ƽ", "k", "k" ], [ "ᴜ̩", "h", "x" ], [ "ȝ", "q", "ŋ̥" ],
   [ "ɘȏ", "p'", "ʘ" ], [ "ⱷ᷐ȏ", "v'", "ǀ" ], [ "ŋȏ", "l'", "ǁ" ],
-  [ "ᴜ̭ȏ", "c'", "ǂ" ], [ "ƨȏ", "t'", "ǃ" ], [ "c̭ȏ", "m'", "ʘ̃" ],
+  [ "ᴜ̭ȏ", "c'", "ǂ" ], [ "7ȏ", "t'", "ǃ" ], [ "c̭ȏ", "m'", "ʘ̃" ],
   [ "c̏ȏ", "nv'", "ǀ̃" ], [ "ŋoͩȏ", "nl'", "ǁ̃" ], [ "ⱷ̮̀ȏ", "y'", "ǂ̃" ],
   [ "c̗ȏ", "n'", "ǃ̃" ],
-  // ⟨ ស្រៈក្នុង 🎶 ⟩
-  [ "ꞇ", "i", "i" ], [ "ɔ", "e", "ɛ" ], [ "ᴜ", "a", "a" ],
+// ⟨ ſɭэ ſɭw , 🎶 ⟩
+  [ "ꞇ", "i", "i" ], [ "0", "e", "ɛ" ], [ "ᴜ", "a", "a" ],
   [ "w", "u", "ə" ], [ "ɹ", "2", "ɪ̈" ], [ "ɜ", "o", "ɤ" ],
-  [ "э", "6", "ɑ" ], [ "ɔⅎ", "0", "ɛ̃" ], [ "ɜⅎ", "7", "ɤ̃" ],
-  [ "эⅎ", "4", "ɑ̃" ], [ "ᴜꞇ", "ai", "ə" ],
+  [ "4", "6", "ɑ" ], [ "0ⅎ", "0", "ɛ̃" ], [ "ɜⅎ", "7", "ɤ̃" ],
+  [ "4ⅎ", "4", "ɑ̃" ], [ "ᴜꞇ", "ai", "ə" ],
 ];
 
-// ⟨ ស្តេណូក្រាហ្វីឌីជីថល 🔢 ⟩
+// ⟨ ſȷwɔ˞ , 🔢 ⟩
 const NUMERA: Record<string, string> = { ts: "1", ii: "2", tl: "3", au: "4", kz: "5", aa: "6", ou: "7", eu: "0" };
 const NUMERA_REV: Record<string, string> = {};
 for ( const [ v, k ] of Object.entries(NUMERA) ) NUMERA_REV[k] = v;
@@ -64,7 +64,7 @@ function avideKongruigi(s2banani: string, tokenaListo: string[]): string[] {
   return esxaq;
 }
 
-// ⟪ តារាងផែនទីសំឡេងភាសា 🌍 ⟫
+// ⟪ ſɭэ ſɭᴜ , ᶗ‹ , 🌍 ⟫
 const MAPO_EO: Record<string, string> = {
   "ⱱ̥": "v", "p": "p", "ɸ": "f", "ɸˠ": "fĥ",
   "m̥": "m", "ɾ̪̥": "r", "θ": "z", "t": "t", "s̪": "sh",
@@ -119,7 +119,7 @@ const MAPO_KM: Record<string, string> = {
 
 const LINGVAJ_MAPOJ: Record<string, Record<string, string>> = { eo: MAPO_EO, en: MAPO_EN, ja: MAPO_JA, km: MAPO_KM };
 
-// ⟨ តារាងកាតាកាណាជប៉ុន , បង្កើតដោយកម្មវិធី ⛩️ ⟩
+// ⟨ ſɭэ ſɭᴜ , ⛩️ ⟩
 const JA_GOJŪON: Record<string, Record<string, string>> = {
   k: { a: "カ", i: "キ", ɛ: "ケ", ɤ: "コ" },
   s: { a: "サ", i: "シ", ɛ: "セ", ɤ: "ソ" },
@@ -167,7 +167,7 @@ for ( const [ kon, rulo ] of Object.entries(JA_KONSONANTAJ_RULEROJ) ) {
 const _JA_IPA: string[] = Array.from(new Set([ ...ĈIUJ_IPA, ...Object.keys(JA_KV_KOMBOJ) ]))
   .sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
 
-// ⟨ ជំនួយអក្ខរាវិរុទ្ធអង់គ្លេស 🇬🇧 ⟩
+// ⟨ ſȷwɔ˞ , 🇬🇧 ⟩
 const ANGLAJ_VOKALOJ = new Set([ "i", "ɛ", "a", "ə", "ɪ̈", "ɤ", "ɑ", "ɛ̃", "ɤ̃", "ɑ̃" ]);
 const ANGLAJ_MALFAVORAJ = new Set([ "ɪ̈", "ɛ", "ə", "ɛ̃", "ɤ̃", "ɑ̃" ]);
 const ANGLAJ_GLITOJ = new Set([ "ɟ̥̆", "ⱱ̥" ]);
@@ -176,7 +176,7 @@ function duobligi(konsono: string): string {
   return konsono[0] + konsono;
 }
 
-/** ចម្លងសូរស័ព្ទ IPA ទៅជាភាសាអង់គ្លេសដោយច្បាប់អក្ខរាវិរុទ្ធអង់គ្លេស។ */
+/** ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſȷwɔ˞ , ſɭэ ſᶘɹ , ⟅ ſɭɹ ꞇɔʊ , ſɭэ ſɭᴜ , 📃 ⟩ */
 export function anglaKonverti(ipaaS2bana: string): string {
   const esxaq = avideKongruigi(ipaaS2bana, ĈIUJ_IPA);
   const n = esxaq.length;
@@ -217,7 +217,7 @@ export function anglaKonverti(ipaaS2bana: string): string {
   return eligo.join("");
 }
 
-/** ចម្លងសូរស័ព្ទ IPA ទៅភាសាគោលដៅ ( eo, en, ja, km )។ */
+/** ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſȷwɔ˞ , ſɭэ ſᶘɹ , ꞙɭɿ , */
 export function ipaAlLingvo(ipaaS2bana: string, lingvaKodo: string): string {
   if ( lingvaKodo === "en" ) return anglaKonverti(ipaaS2bana);
   const lingvaMapo: Record<string, string> = { ...( LINGVAJ_MAPOJ[lingvaKodo] ?? {} ) };
@@ -235,8 +235,8 @@ export function ipaAlLingvo(ipaaS2bana: string, lingvaKodo: string): string {
 }
 
 /**
- * បម្លែង Gawekiif ( អក្សរដើម ) ដោយផ្ទាល់ទៅជាខ្សែអក្សរសូរស័ព្ទ IPA។
- * ចន្លោះគឺជាអ្នកបំបែកព្យាង្គក្នុងពាក្យ aih ហើយមិនផ្ទុកសំឡេងណាមួយឡើយ។
+ * ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſɭɹ ꞇɔʊ , ⟅ ſɭэ ſɭᴜ , ſɭɹ ꞇɔʊ , 📃 ⟩
+ * ſɭэ ſɭw , ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ ſɭэ ſɭw , ſɭэ ſᶘɹ , ꞙɭɔ , 📃 ⟩
  */
 export function gkAlIpa(gkaS2bana: string): string {
   const densigita = gkaS2bana.replace(/\s+/g, "");
@@ -245,5 +245,5 @@ export function gkAlIpa(gkaS2bana: string): string {
   return avideKongruigi(densigita, ĈIUJ_GK).map(gk => ludo[gk] ?? gk).join("");
 }
 
-// ⟨ គំរូរត់ត្រង់ ៖ ផ្លាស់ទៅ `iloj/mezurilo/sonaj-provoj.ts` ,
-// ដើម្បីកុំឱ្យម៉ូឌុលភាសាបោះពុម្ពពេលឧបករណ៍វាស់ផ្ទុកវា ។ 📃 ⟩
+// ⟨ ſןᶗ‹ɔⅎ ᶘɜ , ⟅ ſɭэ ɭʃᴜ , ꞙɭı ,
+// ı],ᴜ ֭ſɭᴜ , ꞙɭı , 📃 ⟩

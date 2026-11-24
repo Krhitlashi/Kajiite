@@ -1,4 +1,4 @@
-// វាយនភាពចម្លាក់សំបកល្មុត
+// j͐ʃƽɜ ʌ ʃᴜ ŋᷠᴜȝ ʌ ſɭɔ ֭ſɭw
 import * as THREE from "three";
 import { k2fKonturanCac2sex, kf2P2t6zoCac2sex, sxovu } from "./helpiloj.js";
 

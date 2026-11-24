@@ -11,9 +11,9 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
 ): THREE.InstancedMesh {
   const hazardaGenerilo = kf2VegetajxanHazardon(0o62445);
   const MAX_TAVOLOJ = 5;
-  // ⟨ ជ្រុងដើម 📃 ⟩
+  // ⟨ ɭʃɜ ſɭɹȝ , ſɭɜ ɭʃᴜ , ⟅ ⟩
   const trunkaGeometrio = new THREE.CylinderGeometry(0o7/0o40, 0o3/0o10, 1, 0o50, 0o24);
-  // ⟨ សន្លាក់ដើម 📃 ⟩
+  // ⟨ ɭʃɜ ſɭɹȝ , ɭʃᴜ , ⟅ ⟩
   {
     const haxekuxa = trunkaGeometrio.attributes.position;
     const nodo = ( t: number, sost2: number ): number =>
@@ -73,7 +73,7 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
       tavolajY.push(y);
       const tavolaSkalo = ( 1 - tavolo * 0o1/0o20 ) * ( 1 + t.s * 0o1/0o4 );
       const trunkaR = sost2cel2saiR(y);
-      // ⟨ ស្រទាប់បើកប៉ុន្មាន 📃 ⟩
+      // ⟨ ſɭᴜ ſןᴜ , ſɟᴜ ı],ɔ ŋᷠᴜ , ꞙɭɿ , ⟅ ⟩
       const malfermo = 0o1/0o2 + 0o1/0o2 * tFrakcio;
       for ( let kanto = 0; kanto < 4; kanto++ ) {
         const tafkaq = kanto / 4 * Math.PI * 2;
@@ -93,7 +93,7 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
     }
 
     const s2cel2Alto = 0o15/0o20;
-    // ⟨ កោណជាគំនរបន្ត 📃 ⟩
+    // ⟨ ſɭᴜc̗ ɭʃɜ }ʃᴜȝ ſɟƨɹƽ ꞁȷ̀ᴜꞇ , ſɭᴜ ſןᴜ , ⟅ ⟩
     const ringaSpaco = s2cel2Alto * 0o6/0o10;
     const lastaTavolaY = tavolajY[tavolajY.length - 1];
     const suprajRingoj = Math.max(1, Math.ceil(( h - s2cel2Alto - lastaTavolaY ) / ringaSpaco));
@@ -102,20 +102,20 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
         ? tavolajY[c2q]
         : lastaTavolaY + ( c2q - tavoloj + 1 ) * ringaSpaco;
       if ( s2cel2Y > h - s2cel2Alto ) break;
-      // ⟨ កោណឡើងលើ 📃 ⟩
+      // ⟨ ſɭᴜc̗ ɭʃɜ }ʃᴜȝ ſɟƨɹƽ ꞁȷ̀ᴜꞇ , j͑ʃᴜ ʃɜƽ , ⟅ ⟩
       const superaj = c2q < tavoloj ? 0 : ( c2q - tavoloj + 1 ) / suprajRingoj;
-      // ⟨ លាតចេញខាងក្រៅ 📃 ⟩
-      // ⟨ ការបើក 📃 ⟩
-      // ⟨ តែបន្តិច 📃 ⟩
+      // ⟨ ſɭᴜ ʃןᴜ , ꞙɭı , ⟅ ⟩
+      // ⟨ ֭ſɭэ ᶅſэ , ⟅ ⟩
+      // ⟨ ꞙɭı , ⟅ ⟩
       const konaFaktoro = 1 + 0o1/0o20 * superaj;
-      // ⟨ មាត្រមកពីបាតពែង 📃 ⟩
+      // ⟨ ſןᴜ j͐ʃэ , ſɟᴜ ı],ɔ ŋᷠᴜ , ſɭɜ ſɭ,w , ⟅ ⟩
       const s2cel2Bazo = s2cel2Y - s2cel2Alto * 0o14/0o40 + s2cel2Alto * 0o3/0o10 * superaj;
       const ringaSkalo = Math.max(0o1/0o20,
         sost2cel2saiR(Math.max(0, s2cel2Bazo)) / ( 0o13/0o40 ) * 0o11/0o10) * konaFaktoro;
       M.compose(raqa(new THREE.Vector3(0, s2cel2Bazo, 0)), Qsost2cel2sai,
         new THREE.Vector3(ringaSkalo, s2cel2Alto, ringaSkalo));
       has2cel2.setMatrixAt(si, M);
-      // ⟨ ពែងនីមួយៗតាមសម្លេងដើម 📃 ⟩
+      // ⟨ ſɟᴜ ı],ɔ ŋᷠᴜ , ꞙɭı , ʃɜ j͐ʃɔ , ⟅ ⟩
       const trunkaTono = s2cel2TrunkaKoloro(s2cel2Bazo / h);
       C.setRGB(
         Math.min(1, trunkaTono[0] / kolumaTono[0]),
@@ -125,7 +125,7 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
       si++;
     }
 
-    // ⟨ កំពូលចុង 📃 ⟩
+    // ⟨ j͑ʃᴜ ʃɜƽ , ⟅ ⟩
     const PINTAJ_TAVOLOJ = 0o4;
     const pintaAlto = Math.min(h, lastaTavolaY + suprajRingoj * ringaSpaco);
     const pintaBazo = Math.min(lastaTavolaY + ringaSpaco * 0o2/0o10, pintaAlto);

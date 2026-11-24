@@ -1,6 +1,6 @@
 // ≺⧼ ſɭƨw ֭ſɭᴜ j͑ʃᴜꞇ ʌ j͑ʃᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ ⛰️ ⧽≻
-// ជួរភ្នំសាងសង់នៅពេលចូលពិភពលោក ហើយមិនស្ថិតក្នុងការវាស់ដីទេ ។
-// វាដូចកូដក្នុង scena.ts បេះបិទ ។ កំណែចាស់ និងកំណែថ្មីរត់ឆ្លាស់គ្នា ។
+// ſןᴜ ᶘɹ , ſɭɜ ſɭ,w , ꞙɭı , ſɭэ ɭʃᴜ , ꞙɭı ,
+// ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭɿ , 📃 ⟩
 import * as THREE from "three";
 import { bruo2D, terenaKoloroEn, terenaStrataKoloroEn }
   from "../../eskekoj/komunajxoj/terenkoloroj.js";
@@ -79,7 +79,7 @@ function krestaAlto( bazoS: number, tk2ni: number ): ( ang: number ) => number {
 
 interface RingaRezulto { haxekuxa: Float32Array; haweh2: Float32Array; uvaj: Float32Array; havecax2lani: number[] }
 
-/** កំណែចាស់ ៖ តម្លៃអាស្រ័យលើជួរឈរគណនាឡើងវិញរាល់ជួរដេក */
+/** ſןɔ˞ᴜƴ , ꞙɭı , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ꞙɭı , */
 function s23ohk2saiRingo( kresto: ( ang: number ) => number, profundo: number, sl: number, sd: number,
   tk2ni: number, p6zukani: ( ang: number ) => number, malproksimo: number ): RingaRezulto {
   const hacel2nu = sl + 1, hax2pa = sd + 1, suprN = hacel2nu * hax2pa;
@@ -140,7 +140,7 @@ function s23ohk2saiRingo( kresto: ( ang: number ) => number, profundo: number, s
   return { haxekuxa, haweh2, uvaj, havecax2lani };
 }
 
-/** កំណែថ្មី ៖ តម្លៃអាស្រ័យលើជួរឈរគណនាម្តង ទុកក្នុងតារាង */
+/** ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ſɭɜ ſɭᴜ , ꞙɭı , */
 function sef4Ringo( kresto: ( ang: number ) => number, profundo: number, sl: number, sd: number,
   tk2ni: number, p6zukani: ( ang: number ) => number, malproksimo: number ): RingaRezulto {
   const hacel2nu = sl + 1, hax2pa = sd + 1, suprN = hacel2nu * hax2pa;
@@ -151,7 +151,7 @@ function sef4Ringo( kresto: ( ang: number ) => number, profundo: number, sl: num
   const pasxoProfundo = profundo / sd;
   const pasxoAngulo = 2 * Math.PI * ( mapoGrandeco + 0o100 ) / sl;
   const hal6da = new Float32Array(suprN);
-  // ⟨ តម្លៃអាស្រ័យលើជួរឈរ ៖ គណនាម្តង ប្រើគ្រប់ជួរដេក 📃 ⟩
+// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ⟅ ꞙɭı , ꞙɭı , 📃 ⟩
   const kX = new Float64Array(hacel2nu), kZ = new Float64Array(hacel2nu);
   const kNX = new Float64Array(hacel2nu), kNZ = new Float64Array(hacel2nu);
   const kSkalo = new Float64Array(hacel2nu), kBordo = new Float64Array(hacel2nu);
@@ -233,7 +233,7 @@ const montaSemo = montaraSemoBazo();
 const s23ohk2saij = kalkuli("s23ohk2sai", montaSemo);
 const sef4 = kalkuli("sef4", montaSemo);
 const sumoM = kontrolsumo(s23ohk2saij), sumoN = kontrolsumo(sef4);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) លេខចាស់=${sumoM} លេខថ្មី=${sumoN} ${sumoM === sumoN ? "លេខស្មើគ្នា" : "ខុសគ្នា"}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſȷɔ ʌ j͑ʃᴜ ı],ɔ=${sumoM} ſɭɹ ſȷɔ ʌ j͑ʃɔ ſȷэⅎ=${sumoN} ${sumoM === sumoN ? "ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſɭɹ ſȷɔ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ"}`);
 
 let minM = Infinity, minN = Infinity;
 for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
@@ -248,9 +248,9 @@ for ( let r = 0; r < NOMBRO_DA_JXUROJ; r++ ) {
   if ( dS23ohk2sai < minM ) minM = dS23ohk2sai;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) c2q ចាស់=${minM.toFixed(1)}ms ថ្មី=${minN.toFixed(1)}ms លឿន=${(minM / minN).toFixed(2)}x`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) c2q ｡ j͑ʃᴜ ı],ɔ=${minM.toFixed(1)}ms ｡ j͑ʃɔ ſȷэⅎ=${minN.toFixed(1)}ms ｡ j͑ʃƨꞇʞ ŋᷠɹ=${(minM / minN).toFixed(2)}x`);
 
-// ⟨ ទំហំធរណីមាត្ររបស់ឆាក ៖ ផ្ទៃលើ និង ជញ្ជាំងនៅដដែល ផ្ទៃក្រោមត្រូវដកចេញ 📃 ⟩
+// ⟨ ſ͕ɭɜ ı],ᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ j͑ʃɜ ſɭ,ᴜ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📃 ⟩
 let s23ohk2saijVerticoj = 0, sef4jVerticoj = 0, s23ohk2saijTrianguloj = 0, sef4jTrianguloj = 0;
 for ( const [ sl, sd ] of [ [ 0o2000, 0o100 ], [ 0o2000, 0o60 ] ] as const ) {
   const suprN = ( sl + 1 ) * ( sd + 1 );
@@ -261,4 +261,4 @@ for ( const [ sl, sd ] of [ [ 0o2000, 0o100 ], [ 0o2000, 0o60 ] ] as const ) {
 }
 const s23ohk2saijBajtoj = s23ohk2saijVerticoj * 0o40 + s23ohk2saijTrianguloj * 0o14;
 const sef4jBajtoj = sef4jVerticoj * 0o40 + sef4jTrianguloj * 0o14;
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ធរណីមាត្រឆាក កំពូល=${s23ohk2saijVerticoj} → ${sef4jVerticoj} ត្រីកោណ=${s23ohk2saijTrianguloj} → ${sef4jTrianguloj} យ៉ាង=${( s23ohk2saijBajtoj / 0o4000000 ).toFixed(2)} → ${( sef4jBajtoj / 0o4000000 ).toFixed(2)} MiB សន្សំ=${( ( s23ohk2saijBajtoj - sef4jBajtoj ) / 0o4000000 ).toFixed(2)} MiB`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ｡ ſןͷ̗ɜ j͑ʃƨɔȝ=${s23ohk2saijVerticoj} → ${sef4jVerticoj} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ=${s23ohk2saijTrianguloj} → ${sef4jTrianguloj} ｡ ſןᴜ j͐ʃэ=${( s23ohk2saijBajtoj / 0o4000000 ).toFixed(2)} → ${( sef4jBajtoj / 0o4000000 ).toFixed(2)} MiB ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ=${( ( s23ohk2saijBajtoj - sef4jBajtoj ) / 0o4000000 ).toFixed(2)} MiB`);

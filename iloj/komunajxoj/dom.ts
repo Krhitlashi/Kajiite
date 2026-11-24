@@ -1,15 +1,15 @@
 // ≺⧼ ſȷɔ ſɭ,ꞇ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜ j͑ʃɹ ɭʃᴜɔ˞ ʌ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ 🪟 ⧽≻
-// ឧបករណ៍ក្នុង iloj/ អាន id ថេរពីទំព័រ HTML រៀងៗខ្លួន។ ការហៅ
-// document.getElementById ធម្មតាត្រឡប់ HTMLElement | null ដូច្នេះគ្រប់ការប្រើ
-// ត្រូវការការត្រួតពិនិត្យដោយឡែក ប៉ុន្តែ id ដែលបាត់គឺជាកំហុសក្នុងកម្មវិធី
-// ( ទំព័រ និងស្គ្រីបផ្លាស់ប្តូរជាមួយគ្នា ) មិនមែនជាស្ថានភាពពេលដំណើរការទេ។
-// ឧបករណ៍ជំនួយទាំងនេះត្រឡប់ធាតុ ឬបោះកំហុសច្បាស់លាស់ភ្លាមៗ ហើយពួកវារក្សា
-// ប្រភេទពិត ( HTMLInputElement, HTMLCanvasElement, ... ) ដើម្បីឱ្យការអានបន្ត
-// ( .value, .checked, .getContext ) ត្រូវបានត្រួតពិនិត្យដោយកម្មវិធីបំប្លែងប្រភេទ។
+// ſ͕ɭɜ ı],ᴜ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ſɭэ ſɭᴜ ,
+// ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭı ,
+// ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭɿ ,
+// ſɭᴜ ſןᴜ , ſɭɜ ſɭᴜ , ꞙɭı ,
+// ſɭᴜ ſןᴜ , ꞙɭɿ ,
 
-// ⟪ ធាតុនីមួយៗ 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟫
 
-/* យកធាតុតាម id របស់វា។
+/* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭı ,
     @param id ( string ) - id របស់ធាតុក្នុងទំព័រ។
 @returns ធាតុនោះ ( T )។ */
 export function elemento<T extends HTMLElement = HTMLElement>(id: string): T {
@@ -18,7 +18,7 @@ export function elemento<T extends HTMLElement = HTMLElement>(id: string): T {
   return el;
 }
 
-/* កុងតេក្ស 2D របស់ផ្ទាំងគំនូរ ព្រោះឧបករណ៍គូរលើវាជាប្រចាំ ដូច្នេះវា
+/* ſɭᴜ ſ͕ɭᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
    ត្រូវតែមាន។
     @param kanvaso ( HTMLCanvasElement ) - ផ្ទាំងគំនូរ។
 @returns កុងតេក្ស 2D ( CanvasRenderingContext2D )។ */
@@ -28,9 +28,9 @@ export function kuns2bana2d(kanvaso: HTMLCanvasElement): CanvasRenderingContext2
   return k;
 }
 
-// ⟪ បញ្ជី និងធាតុដែលអាចជ្រើស 📃 ⟫
+// ⟪ ſɭэ ſɭᴜ , ſɭɜ ɭʃɔ , 📃 ⟫
 
-/* ធាតុទាំងអស់ដែលត្រូវនឹងអ្នកជ្រើស។
+/* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭɿ ,
     @param selektilo ( string ) - អ្នកជ្រើស CSS ណាមួយ។
     @param zace ( ParentNode = document ) - កន្លែងស្វែងរក។
 @returns ធាតុដែលត្រូវនឹង ( T[] )។ */
@@ -38,7 +38,7 @@ export function elementoj<T extends HTMLElement = HTMLElement>(selektilo: string
   return Array.from(zace.querySelectorAll<T>(selektilo));
 }
 
-/* ធាតុដំបូងដែលត្រូវនឹង ឬ null។ ប្រើវាតែពេលធាតុអាចបាត់បាន
+/* ſɭэ ſɭᴜ , ꞙɭı , ⟅ ꞙɭɔ ,
    បើមិនដូច្នេះទេ elemento រក្សាកិច្ចសន្យា id។
     @param selektilo ( string ) - អ្នកជ្រើស CSS ណាមួយ។
 @returns ធាតុដំបូងដែលត្រូវនឹង ( T | null )។ */

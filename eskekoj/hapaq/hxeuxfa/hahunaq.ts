@@ -3,7 +3,7 @@ import * as THREE from "three";
 
 export interface HxeuxfaLoko {
   x: number; z: number; y: number;
-  /** ការតម្រង់ទិសការ៉េស្រេចចិត្ត , ចង្កៀងវេទិកាអាចតម្រង់ជួរជាមួយពេជ្ររបស់វា។ */
+  /** ſɭɔ }ʃɹȝ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ , ſɭɜ ſɭ,w }ʃw ʌ ֭ſɭwʞ ᶅſw ſɭɹ ʌ ɭʃэᴜ̩ ſɭɹ ⟅ */
   rotacio?: number;
 }
 

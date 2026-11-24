@@ -2,7 +2,7 @@
 
 export const JA: Record<string, string> = {
 
-  // ⟪ ទំព័រចាប់ផ្តើម 🌅 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
 
   "titoloAranis": "アラニス",
   "titoloKaxte": "カユウテ",
@@ -13,19 +13,19 @@ export const JA: Record<string, string> = {
   "butonoVestaro": "ワードローブ",
   "butonoHelpo": "ヘルプ",
 
-  // ⟪ តម្បាញ 🧵 ⟫
+// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
 
   "titoloTeksilo": "ザ・ルーム",
   "subtitoloTeksilo": "長いシャツ、短い袖、メインとアクセント。",
 
-  // ⟪ ការផ្ទុក ⏳ ⟫
+// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
 
   "titoloSxargxo": "ワールド",
   "sxargxoSubskribo": "建設中。",
   "sxargxoSatalo": "サタルを建設中。",
   "sxargxoNebulo": "霧が谷を流れる。",
 
-  // ⟪ ការគ្រប់គ្រង 🎮 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
 
   "kompasoNordo": "北",
   "kamaOrbito": "周回",
@@ -49,21 +49,21 @@ export const JA: Record<string, string> = {
   "agoKuxi": "横になる",
   "agoLevi": "起きる",
 
-  // ⟪ ផែនទី 🗺️ ⟫
+// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
 
   "titoloMapo": "地図",
 
-  // ⟪ ជំនួយ ❓ ⟫
+// ⟪ ſɭэ ſɭw , ❓ ⟫
 
   "titoloHak6h6": "道",
   "subtitoloHelpo": "街のノート",
 
-  // ⟪ បណ្តាញ 🌐 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
 
   "retiloAliĝis": "誰かが加わりました。",
   "retiloForiris": "誰かが去りました。",
 
-  // ⟪ អាហារ 🍲 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
 
   "manĝPuss0": "ピクセトレシレフプウスア",
   "manĝFok0": "フォクウマスア • シク",
@@ -80,7 +80,7 @@ export const JA: Record<string, string> = {
   "manĝTla2Gusto": "酢、白樺樹液、ミント、ベルガモット茶。",
   "manĝPuss0Gusto": "ひんやりと水気のある食感で、ほのかに甘い。",
 
-  // ⟪ ប្រភេទសំណង់ 🏗️ ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
 
   "vepaqPriskriboDomo": "家。",
   "vepaqPriskriboMangxejo": "共同の食事処。",
@@ -89,7 +89,7 @@ export const JA: Record<string, string> = {
   "vepaqPriskriboTuro": "超高層建築。",
   "vepaqPriskriboSanktejo": "中心。",
 
-  // ⟪ កាតសំណង់ 🪪 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
 
   "kartoHavem2": "階層",
   "kartoDiamanto": "ダイヤ",
@@ -98,7 +98,7 @@ export const JA: Record<string, string> = {
   "kartoVepaqHunaq": "種類",
   "kartoXekuxa": "位置",
 
-  // ⟪ ផ្ទាំងព័ត៌មាន 📖 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
 
   "titoloInqoxa": "情報",
   "subtitoloInqoxa": "建物、食べ物、種族",
@@ -108,7 +108,7 @@ export const JA: Record<string, string> = {
   "taboMangxajxoj": "食べ物",
   "taboHapudal": "種族",
 
-  // ⟪ ពួកសត្វ 🐟 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
 
   "grupoPaga": "動物",
   "pudalL2xkupukai": "ベロー",
@@ -124,7 +124,7 @@ export const JA: Record<string, string> = {
   "pudalNeĝotemek": "ユキドリ",
   "pudalPriskriboNeĝotemek": "湖と川の上を滑空する真っ白な海鳥。",
 
-  // ⟪ រុក្ខជាតិ 🌿 ⟫
+// ⟪ ſɭэ ſɭw , 🌿 ⟫
 
   "grupoPlanto": "植物",
   "pudalBetulo": "カバノキ",
@@ -150,7 +150,7 @@ export const JA: Record<string, string> = {
   "pudalCakeo": "ツァケ",
   "pudalPriskriboCakeo": "骨のような尾を持つトクサ（Equisetum telmateia）。",
 
-  // ⟪ សម្លៀកបំពាក់ 👕 ⟫
+// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
 
   "taboVestoj": "服",
   "vestoKoloroVerdant": "緑",
@@ -164,7 +164,7 @@ export const JA: Record<string, string> = {
   "vestoKoloroObsidian": "黒",
   "vestoKoloroCyan": "シアン",
 
-  // ⟪ សក់ 💇 ⟫
+// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
 
   "taboHararo": "髪",
   "haroSekcio": "髪型",
@@ -178,11 +178,11 @@ export const JA: Record<string, string> = {
   "harKoloroBlonda": "金髪",
   "harKoloroGriza": "グレー",
 
-  // ⟪ តន្ត្រី 🎵 ⟫
+// ⟪ ſȷwɔ˞ , 🎵 ⟫
 
   "muziko": "音楽",
 
-  // ⟪ អាកាសធាតុ 🌦️ ⟫
+// ⟪ ſɭэ ſɭw , 🌦️ ⟫
 
   "ariaKrepuskoButono": "夕暮れモードを切り替え",
   "ariaKrepuskoKama": "夕暮れのレベル",
@@ -198,7 +198,7 @@ export const JA: Record<string, string> = {
   "webglDetalo": "カジーテはWebGLが必要です。ブラウザを更新するか、GPU設定を確認してください。",
   "webglReprovi": "再試行",
 
-  // ⟪ ពិភពលោក 🌍 ⟫
+// ⟪ ſɭэ ſɭw , 🌍 ⟫
 
   "ariaEniriMondon": "メインワールドに入る。",
   "komenciMondo": "ワールドを作成または読み込む",
@@ -213,7 +213,7 @@ export const JA: Record<string, string> = {
   "ariaMondoDuobligi": "複製",
   "butonoKonserviEliri": "保存してワールドから出る。",
 
-  // ⟪ ការកំណត់ ⚙️ ⟫
+// ⟪ ſɭэ ſɭw , ⚙️ ⟫
 
   "titoloAgordoj": "設定",
   "subtitoloAgordoj": "言語、音、音楽、ワードローブ。",

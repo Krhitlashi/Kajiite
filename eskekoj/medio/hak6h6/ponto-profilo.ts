@@ -1,6 +1,6 @@
 // ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw j͑ʃᴜꞇ ʌ j͑ʃᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɭэ ֭ſɭэ j͑ʃᴜꞇ 🌉 ⧽≻
-// ⟨ ស្ពានរត់តាមបន្ទាត់ផ្លូវ , មិនមែនតាមខ្សែត្រង់រវាងចុងទាំងពីរ ៗ ។
-// ដូច្នេះផ្លូវកោងមិនបានស្ពានឆ្លងកាត់ស្មៅ ៗ 📃 ⟩
+// ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ֭ſɭэ , ſȷƽᴜ ʃɔ , ⟅ ⟩
+//   ſɭэ ֭ſɭэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ʃɜ ſןɹ , ⟅ 📃 ⟩
 
 import { VOJA_DIKECO, surGrid, k6h6LarghoDuono } from "./havecax2l.js";
 import { ANGULA_PROVOLIRO } from "./habakaweKatoma.js";
@@ -12,29 +12,29 @@ export interface PontoTrako {
 }
 
 export interface PontoProfilo {
-  /** កម្ពស់ផ្ទៃផ្លូវ ៖ ដីធម្មតា , ឬធ្នូស្ពានលើទឹក */
+  /** ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſᶘᴜ j͑ʃᴜ */
   l6da: ( x: number, z: number ) => number;
-  /** កម្ពស់បាតផ្លូវ ៖ ដីសម្រាប់ផ្លូវធម្មតា , ឬផ្ទៃខាងក្រោមធ្នូស្ពាន */
+  /** ſɭɜ ɭʃᴜ , ſɭэ ֭ſɭэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw */
   grundo: ( x: number, z: number ) => number;
   trakoj: PontoTrako[];
 }
 
-// ⟨ ចម្ងាយតូចបំផុតដែលនៅតែហៅថាស្ពាន 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ , ſȷƽᴜ ʃɔ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı 📃 ⟩
 const PONTA_MINIMUMO = 0o2;
 
-// ⟨ កម្ពស់ប៉ោងខ្ពស់បំផុតលើទឹក 📃 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ſȷƽᴜ ʃɔ , ꞙɭı 📃 ⟩
 const PONTA_AKVA_ARKECO = 0o4;
 
-// ⟨ ទឹកសម្រាប់ស្ពាន 📏 ⟩
-// ⟨ ទឹកត្រូវលាតហួសគែមផ្លូវទាំងសងខាង ។ បើវាគ្រាន់តែប៉ះគែមម្ខាង
-// នោះជាផ្លូវកំពង់នៅមាត់ទឹក , មិនមែនស្ពានទេ ៗ 📃 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw 📏 ⟩
+// ⟨ ſᶘᴜ j͑ʃᴜ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭɔ , ⟅ ꞙɭı ,
+//   ſɭэ ֭ſɭэ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ⟅ 📃 ⟩
 export const PONTA_BORDA_MARĜENO = 0o4;
 
-/*បង្កើតការសាកល្បងទឹកសម្រាប់ស្ពានមួយ
-    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
-    @param sefini ( number ) - ទទឹងផ្លូវ
-    @param tsekeAkvo ( function ) - តើចំណុចមួយជាទឹក
-@returns testi ( function ) - តើចំណុចមួយជាទឹកឆ្លងកាត់ពេញទទឹង */
+/* ſᶘᴜ j͑ʃᴜ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
+    @param n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param sefini ( number ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param tsekeAkvo ( function ) - ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭı ,
+@returns testi ( function ) - ſᶘᴜ j͑ʃᴜ , ꞙɭı , */
 export function kf2PontanAkvanTeston(
   n2k: readonly [ number, number ][],
   sefini: number,
@@ -64,10 +64,10 @@ export function kf2PontanAkvanTeston(
   };
 }
 
-// ⟪ ដែនទឹកវែងបំផុត 📏 ⟫
-/*រកដែនទឹកវែងបំផុតតាមគំរូ
-    @param akvo ( Float32Array ) - កម្ពស់ទឹក , ឬ -Infinity លើដីគោក
-@returns dejo ( { start , end } | null ) - លេខគំរូចាប់ផ្តើម និងបញ្ចប់ */
+// ⟪ ſᶘᴜ j͑ʃᴜ , ſȷƽᴜ ʃɔ , ꞙɭı 📏 ⟫
+/* ꞙɭı , ſᶘᴜ j͑ʃᴜ , ſȷƽᴜ ʃɔ ,
+    @param akvo ( Float32Array ) - ſᶘᴜ j͑ʃᴜ , ꞙɭı , -Infinity ,
+@returns dejo ( { start , end } | null ) - ꞙɭı , ꞙɭı , */
 function plejLonganAkvanDejon( akvo: Float32Array ): { start: number; end: number } | null {
   let dejo: { start: number; end: number } | null = null;
   let saxeni = -1;
@@ -83,14 +83,14 @@ function plejLonganAkvanDejon( akvo: Float32Array ): { start: number; end: numbe
   return dejo;
 }
 
-/*គណនាប្រវែងស្ពានតាមបណ្តោយផ្លូវ ៗ
-    @param n2k ( [ number , number ] [ ] ) - ចំណុចផ្លូវ
-    @param sefini ( number ) - ទទឹងផ្លូវ
-    @param k6h6Supro ( function ) - កម្ពស់ផ្ទៃផ្លូវតាមដី
-    @param akvaSupro ( function ) - កម្ពស់ទឹកបូកចន្លោះ , ឬ -Infinity លើដីគោក
-    @param pontaFinAlto ( function ) - កម្ពស់ចានភ្ជាប់នៅចុងផ្លូវ
-    @param alteco ( function , optional ) - កម្ពស់ដីធម្មតា
-@returns s2qena ( PontoProfilo ) - កម្ពស់ផ្ទៃ , កម្ពស់បាត , និងធ្នូ */
+/* ſɭэ ֭ſɭэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
+    @param n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param sefini ( number ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param k6h6Supro ( function ) - ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ ,
+    @param akvaSupro ( function ) - ſᶘᴜ j͑ʃᴜ , ꞙɭı , -Infinity ,
+    @param pontaFinAlto ( function ) - ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ ,
+    @param alteco ( function , optional ) - ſɭɜ ſɭ,w , ſɭэ ſɭ,w ,
+@returns s2qena ( PontoProfilo ) - ſɭɜ ſɭ,w , ſɭɜ ɭʃᴜ , ſȷƽᴜ ʃɔ */
 export function vepaqPontanProfilon(
   n2k: readonly [ number, number ][],
   sefini: number,
@@ -119,7 +119,7 @@ export function vepaqPontanProfilon(
       trakoj: []
     };
 
-  // ⟨ ចំណុចនៅចម្ងាយមួយតាមបណ្តោយផ្លូវ 📃 ⟩
+  // ⟨ ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const specimenoj = Math.max(0o20, Math.round(tuta * 0o2));
   const raqa = ( s: number ): [ number, number ] => {
     let k = 0;
@@ -139,13 +139,13 @@ export function vepaqPontanProfilon(
   const startAlto = pontaFinAlto(...raqa(0), sefini);
   const finoAlto = pontaFinAlto(...raqa(tuta), sefini);
   const akvaDejo = plejLonganAkvanDejon(akvo);
-  // ⟨ ខ្សែដើរតាមដី , មិនមែនខ្សែត្រង់ពីចុងដល់ចុង 📏 ⟩
-  // ⟨ មូលហេតុ 📃 ⟩ ៖ មុននេះខ្សែជាបន្ទាត់ត្រង់រវាងកម្ពស់ចានទាំងពីរ ។ ដីរវាងវា
-  // អាចទាបជាងច្រើនឯកតា , ដូច្នេះផ្លូវទាំងមូលក្លាយជាស្ពានវែងអណ្តែតលើដី ,
-  // ហើយមុខចំហៀងរបស់វាខ្ពស់ដូចជញ្ជាំង ។ ឥឡូវខ្សែដើរតាមដី ,
-  // ហើយកែតម្រូវតែប៉ុន្មានដែលត្រូវការដើម្បីដល់កម្ពស់ចាននៅចុងទាំងពីរ ។
-  // ដូច្នេះផ្លូវចូលស្ពានចុះតាមដី , ហើយស្ពាននៅតែលើកតែលើទឹក ។ 📃 ⟩
-  // ⟨ ការកែតម្រូវតាមចំណុចយោង ៖ ដើម , ចន្លោះ , ចុង ។ ចំណុចចន្លោះ = ចំណុចភ្ជាប់ 📃 ⟩
+  // ⟨ ſɭэ ſɭ,w , ſȷƽᴜ ʃɔ , ꞙɭɔ , ꞙɭı , 📏 ⟩
+  // ⟨ ſᶘɔ ʌ ꞙɭı 📃 ⟩ , ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı ,
+  //   ſɭэ ֭ſɭэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ſɭ,w , ꞙɭı ,
+  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅
+  //   ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭı ,
+  //   ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſᶘᴜ j͑ʃᴜ , ⟅ 📃 ⟩
+  // ⟨ ꞙɭı , ꞙɭı , ⟅ ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ 📃 ⟩
   const ankoroj: { s: number; delta: number }[] = [
     { s: 0, delta: startAlto - deka[ 0 ] }
   ];
@@ -166,23 +166,23 @@ export function vepaqPontanProfilon(
     deka[ i ] += a0.delta + ( a1.delta - a0.delta ) * t;
   }
   if ( akvaDejo ) {
-    // ⟪ ធ្នូស្ពាន 🌉 ⟫
-    // ⟨ ធ្នូចេញពីច្រាំង ៖ ខ្ពស់នៅកណ្តាល , ស្មើច្រាំងនៅចុងទាំងពីរ ។ 📃 ⟩
-    // ⟨ បញ្ហាដើម 📃 ⟩ ៖ មុននេះខ្សែលើកដល់ផ្ទៃទឹកបូកចន្លោះភ្លាមនៅគំរូទឹកដំបូង ។
-    // ដីច្រាំងស្ថិតនៅកម្រិតទឹក , ដូច្នេះស្ពានលោតឡើងពីរឯកតាភ្លាម ៖ មាត់ស្ពាន
-    // ក្លាយជាជញ្ជាំងឈរ ។ ឥឡូវធ្នូចេញពីកម្ពស់ច្រាំង ហើយឡើងរលូនដល់កណ្តាល ,
-    // ដូច្នេះមាត់ស្ពានស្មើនឹងផ្លូវចូល ។ 📃 ⟩
+    // ⟪ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſȷƽᴜ ʃɔ 🌉 ⟫
+    // ⟨ ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+    // ⟨ ſᶘɔ ʌ ꞙɭı 📃 ⟩ , ꞙɭı , ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+    //   ſɭɜ ſɭ,w , ꞙɭı , ꞙɭı , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ,
+    //   ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ꞙɭı ,
+    //   ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
     const dejo = Math.max(1, akvaDejo.end - akvaDejo.start);
     const bordoA = Math.max(0, akvaDejo.start - 0o1);
     const bordoB = Math.min(specimenoj, akvaDejo.end + 0o1);
-    // ⟨ ចិញ្ចៀនច្រាំងត្រូវរួបរួមជាមួយក្រឡាជំហាន ៖ ផ្លូវចូលស្ពានជាជណ្តើរ ( surGrid ) ,
-    // តែធ្នូទឹករលូន ( មិន surGrid ) ។ បើមិនត្រួបរួមច្រាំង , មាត់ស្ពានលោតឡើងពីរឯកតាពីផ្លូវចូល ។
-    // ដូច្នេះត្រួបរួមគំរូច្រាំងទៅក្រឡា ដើម្បីឱ្យមាត់ស្ពានស្មើនឹងផ្លូវចូល ។ 📃 ⟩
+    // ⟨ ſɭɜ ſɭ,w , ſןɔ˞ᴜƴ , ꞙɭɔ ʌ ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ,
+    //   ſɭᴜ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
     deka[ bordoA ] = surGrid(deka[ bordoA ]);
     deka[ bordoB ] = surGrid(deka[ bordoB ]);
     const bankoA = deka[ bordoA ], bankoB = deka[ bordoB ];
     const akvaLongo = tuta * dejo / specimenoj;
-    // ⟨ កម្ពស់ធ្នូ ៖ ល្មមលើសទឹកបូកចន្លោះនៅកណ្តាល ។ 📃 ⟩
+    // ⟨ ſȷƽᴜ ʃɔ , ſᶘᴜ j͑ʃᴜ , ꞙɭı 📃 ⟩
     let arkeĉo = PONTA_AKVA_ARKECO * 0o1/0o10;
     for ( let i = akvaDejo.start; i <= akvaDejo.end; i++ ) {
       if ( akvo[ i ] <= -Infinity ) continue;
@@ -190,13 +190,13 @@ export function vepaqPontanProfilon(
       const banko = bankoA + ( bankoB - bankoA ) * f;
       arkeĉo = Math.max(arkeĉo, akvo[ i ] - banko);
     }
-    // ⟨ ស្ពានវែងអាចធ្នូខ្ពស់ , ស្ពានខ្លីត្រូវធ្នូទាប 📃 ⟩ ៖ ធ្នូខ្ពស់លើប្រវែងខ្លី
-    // ធ្វើឱ្យផ្លូវចូលឡើងចោត , ដូច្នេះធ្នូកំណត់តាមប្រវែងដែនទឹក ។
+    // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı 📃 ⟩
+    //   ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ ſȷƽᴜ ʃɔ , ſᶘᴜ j͑ʃᴜ ,
     arkeĉo = Math.min(arkeĉo, Math.max(PONTA_AKVA_ARKECO * 0o1/0o10, akvaLongo * 0o1/0o10));
-    // ⟨ រាបនៅច្រាំង , កោងឡើងនៅកណ្តាល 📃 ⟩ ៖ មុននេះធ្នូជា sin ធម្មតា , ដែលឡើងចោត
-    // ភ្លាមនៅច្រាំង , ដូចធ្នូរង្វង់ពាក់កណ្តាល ។ ដូច្នេះស្ពានបត់ភ្លាមពីផ្លូវចូល ។
-    // sin² ចាប់ផ្តើមរាប ( ជម្រាលសូន្យនៅច្រាំង ) ហើយកោងឡើងខ្លាំងនៅពាក់កណ្តាល ,
-    // ដូច្នេះស្ពានចេញពីច្រាំងដោយរលូន ហើយកោងឡើងច្រើនជាងមុន ។ 📃 ⟩
+    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , 📃 ⟩
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
+    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     for ( let i = akvaDejo.start; i <= akvaDejo.end; i++ ) {
       const f = ( i - akvaDejo.start ) / dejo;
       const banko = bankoA + ( bankoB - bankoA ) * f;
@@ -230,10 +230,10 @@ export function vepaqPontanProfilon(
     if ( !alteco ) return l6da(x, z);
     if ( sStart < 0 ) return alteco(x, z);
     const s = sPorPunkto(x, z);
-    // ⟨ នៅលើធ្នូស្ពាន ៖ បាតផ្លូវស្តើង , ហើយតួធ្នូកាន់វា ។ 📃 ⟩
+    // ⟨ ſȷƽᴜ ʃɔ , ſɭэ ֭ſɭэ , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     if ( s >= sStart - 0o1/0o100 && s <= sEnd + 0o1/0o100 )
       return altoJe(s) - VOJA_DIKECO + ANGULA_PROVOLIRO - 0o1/0o200;
-    // ⟨ នៅលើផ្លូវចូល ៖ បាតអង់ដេស៊ីតចុះដល់ដី ។ 📃 ⟩
+    // ⟨ ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w , ꞙɭı , ⟅ 📃 ⟩
     return alteco(x, z);
   };
 
@@ -246,10 +246,10 @@ export function vepaqPontanProfilon(
   return { l6da, grundo, trakoj };
 }
 
-/*តើផ្លូវមានដែនទឹកវែងគ្រប់គ្រាន់ធ្វើស្ពានឬទេ
-    @param n2k ( [ number , number ] [ ] ) - បន្ទាត់ផ្លូវ
-    @param tsekeAkvo ( function ) - តើចំណុចមួយជាទឹកឆ្លងកាត់ពេញទទឹង
-@returns havas ( boolean ) - តើមានដែនទឹកវែងល្មម */
+/* ſɭэ ֭ſɭэ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ſȷƽᴜ ʃɔ ,
+    @param n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
+    @param tsekeAkvo ( function ) - ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
+@returns havas ( boolean ) - ſɭэ ֭ſɭэ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , */
 export function havasAkvanTrunkon(
   n2k: readonly [ number, number ][],
   tsekeAkvo: ( x: number, z: number ) => boolean
