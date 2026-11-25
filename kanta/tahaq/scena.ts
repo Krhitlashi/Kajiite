@@ -80,10 +80,10 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
         float grundFado = 1.0;`
       );
       shadero.fragmentShader = shadero.fragmentShader.replace(
-        "#include <mapfragment>",
-        `grundFado = 1.0 - smoothstep( ${GRUNDAFADOEL.toFixed(1)}, ${GRUNDAFADOGXIS.toFixed(1)}, sahakani( vViewPosition ) );
-        #ifdef USEMAP
-          vec4 sampledDiffuseColor = textureD( map, vMapUv );
+        "#include <map_fragment>",
+        `grundFado = 1.0 - smoothstep( ${GRUNDAFADOEL.toFixed(1)}, ${GRUNDAFADOGXIS.toFixed(1)}, length( vViewPosition ) );
+        #ifdef USE_MAP
+          vec4 sampledDiffuseColor = texture2D( map, vMapUv );
           sampledDiffuseColor.rgb = mix( vec3( 1.0 ), sampledDiffuseColor.rgb, grundFado );
           diffuseColor *= sampledDiffuseColor;
         #endif`
@@ -92,8 +92,8 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       // j͐ʃƽɜ ⟅ j͑ʃɜ ſɭ,ᴜ , ᶅſɔ ֭ſɭɹ
       // j͐ʃƽɜ ꞙɭɔ ⟅ j͑ʃɜ ſɭ,ᴜ ꞙɭɔ ⟅ 📃 ⟩
       shadero.fragmentShader = shadero.fragmentShader.replace(
-        "#include <normalfragmentmaps>",
-        `#include <normalfragmentmaps>
+        "#include <normal_fragment_maps>",
+        `#include <normal_fragment_maps>
         normal = normalize( mix( nonPerturbedNormal, normal, grundFado ) );`
       );
     };

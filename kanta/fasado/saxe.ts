@@ -26,10 +26,10 @@ const butAgordGawe = document.getElementById("butAgordGawe");
 let ludata = false;
 
 /* ſɭэ ſɭᴜ , ꞙɭı ,
-    @param s2banani ( string ) - អក្សរបង្ហាញ
-    @param ca3aq ( string ) - សោបកប្រែសម្រាប់ aria
-    @param zegeni ( string ) - សកម្មភាព
-    @param id ( string ) - លេខសម្គាល់ពិភពលោក
+    @param s2banani ( string ) - j͑ʃɹ ʃᴜ }ʃᴜ ｡ ſɟᴜ ſȷᴜɔ˞ ｡
+    @param ca3aq ( string ) - aria ｡ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ｡ ſɭɔ˞ᴜ ſɭᴜ ｡
+    @param zegeni ( string ) - j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡
+    @param id ( string ) - j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ｡ ʃᴜ j͐ʃɹ ｡
 @return catsiina */
 function kf2Catsiina( s2banani: string, ca3aq: string, zegeni: string, id: string ): HTMLButtonElement {
   const catsiina = document.createElement("button");
@@ -41,7 +41,7 @@ function kf2Catsiina( s2banani: string, ca3aq: string, zegeni: string, id: strin
 }
 
 /* ſɭэ ſɭᴜ , ꞙɭɿ ,
-    @param nala ( NalaRecordo ) - កំណត់ត្រា
+    @param nala ( NalaRecordo ) - j͑ʃ'ɔ ŋᷠᴜƣ̋ ꞁȷ̀ɹ ſɭꞇ ｡
 @return x2pa */
 function kf2X2pan( nala: NalaRecordo ): HTMLElement {
   const x2pa = document.createElement("ciihii");
@@ -71,7 +71,7 @@ function laqaziCatsara(): void {
 }
 
 /* ſɭэ ſɭᴜ , ꞙɭэ ,
-    @param nala ( NalaRecordo ) - ពិភពលោកដែលត្រូវចូល */
+    @param nala ( NalaRecordo ) - j͑ʃ'ɔ ŋᷠᴜƣ̋ ꞁȷ̀ɹ ſɭꞇ ｡ ʃᴜ j͐ʃɹ ｡ */
 function eniriNala( nala: NalaRecordo ): void {
   if ( ludata ) return;
   ludata = true;

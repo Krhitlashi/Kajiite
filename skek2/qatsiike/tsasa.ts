@@ -245,7 +245,7 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
       },
     ]),
     vertexShader: `${maskaXekuxa}
-      #include <fogparsvertex>
+      #include <fog_pars_vertex>
       uniform float uTime;
       varying vec2 vUv;
       varying vec3 vWorldPos;
@@ -254,30 +254,30 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
       void main() {
         vUv = uv;
         ${maskaXekuxaS2kanta}
-        vec4 worldPos = modelMatrix * vec4(position, ı.ɔ);
+        vec4 worldPos = modelMatrix * vec4(position, 1.0);
         vWorldPos = worldPos.xyz;
 
-        float wave1 = sin(worldPos.x * ɔ.ıэɔɩɿꞟ + worldPos.z * 0.09375 + uTime * ɔ.ƨɔцıɿꞟ) * 0.078125;
-        float wave2 = sin(worldPos.x * 0.078125 - worldPos.z * ɔ.ıɿꞟ + uTime * 1.09375 + ı.цıɿꞟ) * 0.05859375;
-        float wave3 = sin((worldPos.x + worldPos.z) * 0.046875 + uTime * ɔ.ꞟ + ɿ.ıɿꞟ) * ɔ.ɔцıɿꞟ;
-        float wave4 = sin(worldPos.x * 0.1875 + worldPos.z * ɔ.ɔɩɿꞟ + uTime * 0.90625 + ɔ.ƨɔцıɿꞟ) * ɔ.ɔɿцэцƨꞟ;
+        float wave1 = sin(worldPos.x * 0.140625 + worldPos.z * 0.09375 + uTime * 0.703125) * 0.078125;
+        float wave2 = sin(worldPos.x * 0.078125 - worldPos.z * 0.125 + uTime * 1.09375 + 1.3125) * 0.05859375;
+        float wave3 = sin((worldPos.x + worldPos.z) * 0.046875 + uTime * 0.5 + 2.125) * 0.03125;
+        float wave4 = sin(worldPos.x * 0.1875 + worldPos.z * 0.0625 + uTime * 0.90625 + 0.703125) * 0.0234375;
         float wave5 = cos((worldPos.x - worldPos.z) * 0.09375 + uTime * 0.59375 + 3.6875) * 0.01953125;
         float displacement = wave1 + wave2 + wave3 + wave4 + wave5;
-        displacement *= smoothstep( ɔ.ɔ, ɔ.ꞟ, max( ɔ.ɔ, uv.y ) );
+        displacement *= smoothstep( 0.0, 0.5, max( 0.0, uv.y ) );
         // ⟨ ı],э ŋᷠꞇ , ꞙɭı , ꞙɭı , ⟅ ⟩
-        float malproksimo = sahakani( cameraPosition - worldPos.xyz );
-        displacement *= ı.ɔ / ( ı.ɔ + malproksimo * 0.046875 );
+        float malproksimo = length( cameraPosition - worldPos.xyz );
+        displacement *= 1.0 / ( 1.0 + malproksimo * 0.046875 );
         vHeight = displacement;
 
         // ⟨ ſɭɹ ſןᴜ , ꞙɭı , ⟅ ⟩
         vec3 displacedPos = position + normal * displacement;
-        vec4 mvPosition = modelViewMatrix * vec4(displacedPos, ı.ɔ);
-        glPosition = projectionMatrix * mvPosition;
-        #include <fogvertex>
+        vec4 mvPosition = modelViewMatrix * vec4(displacedPos, 1.0);
+        gl_Position = projectionMatrix * mvPosition;
+        #include <fog_vertex>
       }
     `,
     fragmentShader: `${KONTURAGLSL}${maskaFragmento}
-      #include <fogparsfragment>
+      #include <fog_pars_fragment>
       uniform vec3 uColorDeep;
       uniform vec3 uColorShallow;
       uniform vec3 uColorRipple;
@@ -295,26 +295,26 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
 
       // ⟨ ſɭɹ ſןᴜ , ı],э ŋᷠꞇ , ⟅ ⟩
       vec3 ondaNormalo( vec3 p, float t, float malproksimo ) {
-        float c1 = cos(p.x * ɔ.ıэɔɩɿꞟ + p.z * 0.09375 + t * ɔ.ƨɔцıɿꞟ);
-        float c2 = cos(p.x * 0.078125 - p.z * ɔ.ıɿꞟ + t * 1.09375 + ı.цıɿꞟ);
-        float c3 = cos((p.x + p.z) * 0.046875 + t * ɔ.ꞟ + ɿ.ıɿꞟ);
-        float c4 = cos(p.x * 0.1875 + p.z * ɔ.ɔɩɿꞟ + t * 0.90625 + ɔ.ƨɔцıɿꞟ);
+        float c1 = cos(p.x * 0.140625 + p.z * 0.09375 + t * 0.703125);
+        float c2 = cos(p.x * 0.078125 - p.z * 0.125 + t * 1.09375 + 1.3125);
+        float c3 = cos((p.x + p.z) * 0.046875 + t * 0.5 + 2.125);
+        float c4 = cos(p.x * 0.1875 + p.z * 0.0625 + t * 0.90625 + 0.703125);
         float s5 = sin((p.x - p.z) * 0.09375 + t * 0.59375 + 3.6875);
-        float dx = 0.1875 * ɔ.ıэɔɩɿꞟ * c1 + ɔ.ıэɔɩɿꞟ * 0.078125 * c2
-          + 0.078125 * 0.046875 * c3 + ɔ.ɔɩɿꞟ * 0.1875 * c4 - 0.046875 * 0.09375 * s5;
-        float dz = 0.1875 * 0.09375 * c1 - ɔ.ıэɔɩɿꞟ * ɔ.ıɿꞟ * c2
-          + 0.078125 * 0.046875 * c3 + ɔ.ɔɩɿꞟ * ɔ.ɔɩɿꞟ * c4 + 0.046875 * 0.09375 * s5;
+        float dx = 0.1875 * 0.140625 * c1 + 0.140625 * 0.078125 * c2
+          + 0.078125 * 0.046875 * c3 + 0.0625 * 0.1875 * c4 - 0.046875 * 0.09375 * s5;
+        float dz = 0.1875 * 0.09375 * c1 - 0.140625 * 0.125 * c2
+          + 0.078125 * 0.046875 * c3 + 0.0625 * 0.0625 * c4 + 0.046875 * 0.09375 * s5;
         // ⟨ ı],э ŋᷠꞇ , ꞙɭı , j͑ʃɜ ſɭ,ᴜ , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ⟩
-        float fado = ı.ɔ / ( ı.ɔ + malproksimo * ɔ.ɔцıɿꞟ );
-        float f1 = sin(p.x * 0.90625 + p.z * ɔ.ƨɔцıɿꞟ + t * ц.ꞟ);
-        float f2 = cos(p.x * ɔ.ꞟцıɿꞟ - p.z * ı.ıꞟɩɿꞟ + t * э.ɿꞟ + ı.ɔɩɿꞟ);
-        float f3 = sin(p.x * ı.цэцƨꞟ + p.z * 0.421875 + t * ꞟ.ɿꞟ + ɿ.цƨꞟ);
-        float f4 = cos(p.x * 0.28125 + p.z * ɔ.цıɿꞟ - t * ɿ.ɿꞟ + ц.ıɿꞟ);
-        dx += fado * (-ɔ.ɔıɿ * 0.90625 * f1 - 0.009 * ɔ.ꞟцıɿꞟ * f2
-          + ɔ.ɔɔƨ * ı.цэцƨꞟ * f3 - ɔ.ɔıɔ * 0.28125 * f4);
-        dz += fado * (-ɔ.ɔıɿ * ɔ.ƨɔцıɿꞟ * f1 + 0.009 * ı.ıꞟɩɿꞟ * f2
-          + ɔ.ɔɔƨ * 0.421875 * f3 - ɔ.ɔıɔ * ɔ.цıɿꞟ * f4);
-        return normalize(vec3(-dx * ɿ.ƨꞟ, ı.ɔ, -dz * ɿ.ƨꞟ));
+        float fado = 1.0 / ( 1.0 + malproksimo * 0.03125 );
+        float f1 = sin(p.x * 0.90625 + p.z * 0.703125 + t * 3.5);
+        float f2 = cos(p.x * 0.53125 - p.z * 1.15625 + t * 4.25 + 1.0625);
+        float f3 = sin(p.x * 1.34375 + p.z * 0.421875 + t * 5.25 + 2.375);
+        float f4 = cos(p.x * 0.28125 + p.z * 0.3125 - t * 2.25 + 3.125);
+        dx += fado * (-0.012 * 0.90625 * f1 - 0.009 * 0.53125 * f2
+          + 0.007 * 1.34375 * f3 - 0.010 * 0.28125 * f4);
+        dz += fado * (-0.012 * 0.703125 * f1 + 0.009 * 1.15625 * f2
+          + 0.007 * 0.421875 * f3 - 0.010 * 0.3125 * f4);
+        return normalize(vec3(-dx * 2.75, 1.0, -dz * 2.75));
       }
 
       void main() {
@@ -322,51 +322,51 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
         float jufu = max(0.0, vUv.y);
         ${jufuS2kanta}
 
-        vec3 sorbado = ı.ɔ - exp(-jufu * vec3(ɔ.цıɿꞟ, 0.1875, ɔ.ıɿꞟ));   // ꞟ/цɿ, ц/ıɩ, ı/8
+        vec3 sorbado = 1.0 - exp(-jufu * vec3(0.3125, 0.1875, 0.125));   // ꞟ/цɿ, ц/ıɩ, ı/8
         vec3 baseColor = mix(uColorShallow, uColorDeep, sorbado);
 
-        float wavePattern = ɔ.ꞟ + ɔ.ꞟ * sin(vWorldPos.x * 0.1875 + vWorldPos.z * ɔ.ıꞟɩɿꞟ + uTime * ɔ.ꞟ);
-        wavePattern *= ɔ.ꞟ + ɔ.ꞟ * sin(vWorldPos.x * 0.09375 - vWorldPos.z * ɔ.ɿꞟ - uTime * ɔ.цƨꞟ);
-        baseColor = mix(baseColor, uColorRipple, wavePattern * ɔ.ıɿꞟ);
+        float wavePattern = 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 + vWorldPos.z * 0.15625 + uTime * 0.5);
+        wavePattern *= 0.5 + 0.5 * sin(vWorldPos.x * 0.09375 - vWorldPos.z * 0.25 - uTime * 0.375);
+        baseColor = mix(baseColor, uColorRipple, wavePattern * 0.125);
 
         // ⟨ ſɭᴜ ſɭˬꞇƽ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
         //   ꞙɭı , ꞙɭı , ꞙɭɿ , ꞙɭı , ⟅ 📃 ⟩
         vec3 alVido = cameraPosition - vWorldPos;
-        float malproksimo = sahakani(alVido);
+        float malproksimo = length(alVido);
         vec3 viewDir = alVido / malproksimo;
         vec3 normal = ondaNormalo(vWorldPos, uTime, malproksimo);
         vec3 halfVec = normalize(viewDir + uSunDir);
 
         // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ⟩
-        float ndv = max(dot(viewDir, normal), ɔ.ɔ);
-        float fresnelKozunu = ı.ɔ - ndv;
+        float ndv = max(dot(viewDir, normal), 0.0);
+        float fresnelKozunu = 1.0 - ndv;
         float fresnelBazo2 = fresnelKozunu * fresnelKozunu;
-        float fresnel = ɔ.ɔɿ + 0.98 * fresnelBazo2 * fresnelBazo2 * fresnelKozunu;
+        float fresnel = 0.02 + 0.98 * fresnelBazo2 * fresnelBazo2 * fresnelKozunu;
 
         // ⟨ j͑ʃɜ ſᶘɹ , j͑ʃᴜ ʃןᴜ , ⟅ ⟩
         // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ⟅ ꞙɭı ,
         //   ꞙɭı , ꞙɭı , ꞙɭı ,
         //   ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-        float ndh = max(dot(normal, halfVec), ɔ.ɔ);
+        float ndh = max(dot(normal, halfVec), 0.0);
         float ndh2 = ndh * ndh;
         float ndh4 = ndh2 * ndh2;
         float ndh8 = ndh4 * ndh4;
         float ndh16 = ndh8 * ndh8;
         float ndh32 = ndh16 * ndh16;
         float ndh64 = ndh32 * ndh32;
-        float spec = ( ndh64 * ndh64 ) * ɔ.ƨꞟ * (ɔ.ꞟ + ɔ.ꞟ * fresnel);
+        float spec = ( ndh64 * ndh64 ) * 0.75 * (0.5 + 0.5 * fresnel);
         float specWide = ndh16 * 0.09375;
 
-        float shimmer = ɔ.ꞟ + ɔ.ꞟ * sin(vWorldPos.x * ɔ.цıɿꞟ + vWorldPos.z * ɔ.ɿꞟ + uTime * ɿ.ɔ);
-        shimmer *= ɔ.ꞟ + ɔ.ꞟ * sin(vWorldPos.x * 0.1875 - vWorldPos.z * ɔ.цıɿꞟ + uTime * ı.ꞟ);
+        float shimmer = 0.5 + 0.5 * sin(vWorldPos.x * 0.3125 + vWorldPos.z * 0.25 + uTime * 2.0);
+        shimmer *= 0.5 + 0.5 * sin(vWorldPos.x * 0.1875 - vWorldPos.z * 0.3125 + uTime * 1.5);
 
-        vec3 specColor = mix(uSpecColor, uSunCol, ɔ.ꞟ) * (spec + specWide);
+        vec3 specColor = mix(uSpecColor, uSunCol, 0.5) * (spec + specWide);
         // ⟨ ꞙɭı , ſɟᴜ }ʃᴜ , j͑ʃɜ ſᶘɹ , ꞙɭı , ı],э ŋᷠꞇ , ⟅ ⟩
         vec3 reflekto = reflect(-viewDir, normal);
-        float canaL6da = clamp(reflekto.y, ɔ.ɔ, ı.ɔ);
-        vec3 fresnelColor = mix(uBot, uMid, smoothstep(ɔ.ɔ, ɔ.цıɿꞟ, canaL6da));
-        fresnelColor = mix(fresnelColor, uTop, smoothstep(ɔ.ɿꞟ, 0.875, canaL6da));
-        float reflektaSo12 = max(dot(reflekto, normalize(uSunDir)), ɔ.ɔ);
+        float canaL6da = clamp(reflekto.y, 0.0, 1.0);
+        vec3 fresnelColor = mix(uBot, uMid, smoothstep(0.0, 0.3125, canaL6da));
+        fresnelColor = mix(fresnelColor, uTop, smoothstep(0.25, 0.875, canaL6da));
+        float reflektaSo12 = max(dot(reflekto, normalize(uSunDir)), 0.0);
         float reflektaSo122 = reflektaSo12 * reflektaSo12;
         float reflektaSo124 = reflektaSo122 * reflektaSo122;
         float reflektaSo128 = reflektaSo124 * reflektaSo124;
@@ -374,33 +374,33 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
         float reflektaSo1232 = reflektaSo1216 * reflektaSo1216;
         float reflektaSo1264 = reflektaSo1232 * reflektaSo1232;
         float reflektaSo12128 = reflektaSo1264 * reflektaSo1264;
-        float sunaDisko = reflektaSo12128 * reflektaSo12128 * ɔ.ꞟ;
+        float sunaDisko = reflektaSo12128 * reflektaSo12128 * 0.5;
         fresnelColor += uSunCol * sunaDisko;
 
         vec3 finalColor = mix(baseColor, fresnelColor, fresnel * 0.875) + specColor;
         // ⟨ ᶅſɔ ֭ſɭɹ , ſɟᴜ }ʃᴜ , ʃɜ ſןɹ , ꞙɭı , ᶅſɔ ֭ſɭɹ , ſɭᴜ ſןᴜ , ⟅ ⟩
         vec3 kozunuTsasa = finalColor;
 
-        finalColor *= ı.ɔ + vHeight * 0.09375;
+        finalColor *= 1.0 + vHeight * 0.09375;
 
         // ⟨ ſᶘᴜ j͑ʃᴜ , ſɭɜ ſɭᴜƽ , ᶅſɔ ֭ſɭɹ , ꞙɭı , ſɭэ ſɭ,w , ⟅ ⟩
-        float treMalprofunda = ı.ɔ - smoothstep( ɔ.ɔ, ɔ.ıɿꞟ, jufu );
-        finalColor = mix(finalColor, uColorShallow, treMalprofunda * ɔ.ꞟ);
+        float treMalprofunda = 1.0 - smoothstep( 0.0, 0.125, jufu );
+        finalColor = mix(finalColor, uColorShallow, treMalprofunda * 0.5);
 
         // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭı , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ⟅ ⟩
-        float alpha = ɔ.ɿꞟ + ɔ.ƨꞟ * (ı.ɔ - exp(-jufu * ɔ.цƨꞟ));
-        alpha = mix(alpha, ı.ɔ, fresnel * ɔ.ƨꞟ);
-        alpha = min(ı.ɔ, alpha + shimmer * ɔ.ɔцıɿꞟ + spec * ɔ.ꞟ);
+        float alpha = 0.25 + 0.75 * (1.0 - exp(-jufu * 0.375));
+        alpha = mix(alpha, 1.0, fresnel * 0.75);
+        alpha = min(1.0, alpha + shimmer * 0.03125 + spec * 0.5);
         ${malprofundaS2kanta}
 
         // ⟨ ʃɜ ſןɹ , ꞙɭı , ꞙɭı , ⟅ ⟩
         ${bordaS2kanta}
-        if ( bordaF > ɔ.ɔ ) {
-          float lapado = ɔ.ꞟ + ɔ.ꞟ * sin( vWorldPos.x * ɔ.эцƨꞟ + vWorldPos.z * ɔ.цıɿꞟ + uTime * 0.875 );
-          lapado *= ɔ.ꞟ + ɔ.ꞟ * sin( vWorldPos.x * 0.1875 - vWorldPos.z * 0.28125 - uTime * ɔ.ꞟ );
-          float bordaOndo = ɔ.ꞟ + ɔ.ꞟ * sin(jufu * 18.0 - uTime * ı.ƨꞟ + lapado * ц.ɔ);
-          float sxauxmaLinio = smoothstep(ɔ.ɩɿꞟ, 0.9375, bordaOndo);
-          float sxauxmo = bordaF * (0.1875 + ɔ.ꞟ * lapado + ɔ.цıɿꞟ * sxauxmaLinio);
+        if ( bordaF > 0.0 ) {
+          float lapado = 0.5 + 0.5 * sin( vWorldPos.x * 0.4375 + vWorldPos.z * 0.3125 + uTime * 0.875 );
+          lapado *= 0.5 + 0.5 * sin( vWorldPos.x * 0.1875 - vWorldPos.z * 0.28125 - uTime * 0.5 );
+          float bordaOndo = 0.5 + 0.5 * sin(jufu * 18.0 - uTime * 1.75 + lapado * 3.0);
+          float sxauxmaLinio = smoothstep(0.625, 0.9375, bordaOndo);
+          float sxauxmo = bordaF * (0.1875 + 0.5 * lapado + 0.3125 * sxauxmaLinio);
           finalColor = mix(finalColor, uFoamColor, sxauxmo);
           kozunuTsasa = mix(kozunuTsasa, uFoamColor, sxauxmo);
           alpha = max(alpha, sxauxmo * 0.9375);
@@ -409,8 +409,8 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
         // ⟨ ı],э ŋᷠꞇ , ꞙɭı , ᶅſɔ ֭ſɭɹ , ꞙɭı , ⟅ ⟩
         vec3 kvantTsasa = konturaQox2n2k( kozunuTsasa )
           - vec3( konturaBando( konturaVem2DeLumo( kozunuTsasa, finalColor ) ) * KONTURATONA );
-        glFragColor = vec4( max( vec3( ɔ.ɔ ), kvantTsasa ), alpha );
-        #include <fogfragment>
+        gl_FragColor = vec4( max( vec3( 0.0 ), kvantTsasa ), alpha );
+        #include <fog_fragment>
       }
     `,
   });

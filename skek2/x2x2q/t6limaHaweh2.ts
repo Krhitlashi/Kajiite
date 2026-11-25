@@ -5,8 +5,8 @@ import { xaha } from "../../kanta/x2x2q/interpolo.js";
 import { veb6qaiWeh2Skek, hunanuWeh2 } from "./haweh2.js";
 
 /* ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
-    @param xi,zi ( number ) - ក្រឡាចំនួនគត់
-@returns n ( number ) - ɔ ដល់ ı */
+    @param xi,zi ( number ) - ſɭɹ ſןᴜ ｡ ſɭɹ ſȷɔ ｡
+@returns n ( number ) - ɔ ｡ ı ｡ */
 function xetoh2Qox2n2k(xi: number, zi: number): number {
   let n = ( xi * 0x28f0f0 + zi * 0x28d8e8 ) | 0;
   n = ( n ^ ( n >>> 0o15 ) ) * 0x48a028;
@@ -127,8 +127,8 @@ function fe1afKekVecax2l(sakxo: () => number): number {
 }
 
 /* ſ͕ɭɜ ı],ᴜ , ꞙɭɩ ,
-    @param natakatomasai ( THREE.Color ) - វត្ថុសម្រាប់សរសេរ
-    @param sakxo ( function ) - លេខចៃដន្យ ɔ ដល់ ı
+    @param natakatomasai ( THREE.Color ) - ſɭɹ ｡ ſȷɔ ſɭ,ꞇ ｡
+    @param sakxo ( function ) - ſɟwƽ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡ ɔ ｡ ı ｡
 @returns natakatomasai */
 export function fe1afKekWeh2(natakatomasai: THREE.Color, sakxo: () => number): THREE.Color {
   const xaqadi = FE1AFKEKHAWEH2[fe1afKekVecax2l(sakxo)];
@@ -142,8 +142,8 @@ export function fe1afKekWeh2(natakatomasai: THREE.Color, sakxo: () => number): T
 }
 
 /* ſ͕ɭɜ ı],ᴜ , ꞙɭц ,
-    @param natakatomasai ( THREE.Color ) - វត្ថុសម្រាប់សរសេរ
-    @param sakxo ( function ) - លេខចៃដន្យ ɔ ដល់ ı
+    @param natakatomasai ( THREE.Color ) - ſɭɹ ｡ ſȷɔ ſɭ,ꞇ ｡
+    @param sakxo ( function ) - ſɟwƽ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡ ɔ ｡ ı ｡
 @returns natakatomasai */
 export function nex2caFe1afKekWeh2(natakatomasai: THREE.Color, sakxo: () => number): THREE.Color {
   const f = sakxo();

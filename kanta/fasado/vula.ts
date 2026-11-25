@@ -18,9 +18,9 @@ let nunId: string | null = null;
 let antauaId: string | null = null;
 
 /* ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ſɭᴜ ſ͕ɭᴜ , ꞙɭɿ ,
-    @param id ( string ) - លេខសម្គាល់ , ប៊ូតុងត្រឡប់គឺ id + Reeniri
-    @param onH6w6i ( function , optional ) - ដំណើរការមុនបើក
-    @param jeVasaka ( function , optional ) - ដំណើរការពេលបើក ឬបិទ
+    @param id ( string ) - j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ｡ ſɟᴜ ſᶘɹ }ʃᴜ ｡ id + Reeniri ｡
+    @param onH6w6i ( function , optional ) - j͑ʃɜ ｡ j͑ʃᴜ ｡
+    @param jeVasaka ( function , optional ) - j͑ʃɜ ｡ j͑ʃᴜ j͑ʃᴜ ｡
 @returns s2k61o */
 export function kf2S2k61o( id: string, onH6w6i?: () => void, jeVasaka?: () => void ): S2k61o {
   const jam = s2k61oBal2.get(id);

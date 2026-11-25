@@ -23,13 +23,13 @@ const RANDOLARGHO = 0o1/0o10;
 export const RANDOL6DA = 0o1/0o40;
 
 /* ſןw ſɭᴜƴ , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ſɭᴜ ſןɹ , ꞙɭı ,
-   ដូច្នេះគែមកណ្តាលរបស់យានមានទំហំដូចគែមស្រទាប់អគារ ។
-    @param hw ( number ) - កន្លះទទឹង ។
-    @param hd ( number ) - កន្លះជម្រៅ ។
-    @param y ( number ) - បាតខ្សែ ។
-    @param s2sabo ( number ) - ជម្រាលជញ្ជាំង ( ɔ សម្រាប់ខ្សែឯករាជ្យ ) ។
-    @param l6da ( number = RANDOL6DA ) - កម្ពស់ខ្សែ ។
-@returns ធរណីមាត្រខ្សែ ដែលអាចដាក់ក្នុងក្រុមដោយផ្ទាល់ ។ */
+   j͑ʃᴜ j͐ʃɹ ｡ ſɟᴜ ſןᴜȝ ｡ j͑ʃᴜ ｡
+    @param hw ( number ) - j͑ʃɜ ſɭ,ᴜ ｡ j͑ʃɔ ſȷꞇ }ʃꞇ ｡
+    @param hd ( number ) - j͑ʃэ ɭ(ᴜ ſןɔ˞ᴜƴ ｡
+    @param y ( number ) - }ʃꞇ ｡ ſןɔ˞ᴜƴ ｡
+    @param s2sabo ( number ) - j͑ʃᴜ ｡ ɔ ｡ }ʃꞇ ｡
+    @param l6da ( number = RANDOL6DA ) - }ʃꞇ ｡ j͑ʃэ ɭ(ᴜ ｡
+@returns }ʃꞇ ｡ ſɟᴜ ſןᴜȝ ｡ ſɭᴜ ｡ */
 export function kf2TanekanPukazanQoxaKefoun(hw: number, hd: number, y: number,
   s2sabo: number, l6da = RANDOL6DA): THREE.BufferGeometry {
   const pukazR = 0o3/0o20;

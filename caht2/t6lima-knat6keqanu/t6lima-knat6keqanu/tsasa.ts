@@ -60,11 +60,11 @@ let s2tasVeq6k2itan: () => void;
 let s2tasDesegnon: () => void;
 
 /* ſɭэ ᶗ‹ , ꞙɭɿ ,
-   និងដេលតា ) មិនដែលចាត់ចែងឡើងវិញទេ ដូច្នេះការយោងនៅតែត្រឹមត្រូវពេញ
-   វគ្គ។ រូបរាងពិភពលោកត្រូវបានអានដោយអនុគមន៍ ព្រោះវាផ្លាស់ប្តូរ
-   នៅក្នុងបន្ទះផែនទី ហើយអនុគមន៍គូរមកជាក្លូសៀ ព្រោះស្ថានភាពរបស់ពួកវា
-   ( ការសរសេរស្ថានភាព តម្រូវការគូរ ) ស្ថិតនៅក្នុងឯកសារមេ។
-    @param k ( AkvaLigo ) - ការយោងរបស់ឯកសារមេ។ */
+   j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſɭɜ ｡ j͑ʃᴜ j͑ʃᴜ ｡ j͑ʃᴜ j͐ʃɹ ｡
+   ʃᴜ j͐ʃɹ ｡ ſɭᴜc̗ ɭʃᴜ ｡ ʃᴜ j͐ʃɹ ｡
+   ſɭᴜc̗ ɭʃᴜ ｡ j͑ʃᴜ j͑ʃᴜ ｡
+   j͑ʃᴜ j͑ʃᴜ ſȷᴜ ｡ j͑ʃᴜ j͐ʃɹ ｡
+    @param k ( AkvaLigo ) - j͑ʃᴜ j͐ʃɹ ｡ j͑ʃ'ɜ ſןɹ ſɭɹ ſᶘɔ ｡ */
 export function catsaraTsasa(k: AkvaLigo): void {
   k6liqani = k.k6liqani; hal6da = k.hal6da; l6daInterp = k.l6daInterp;
   N = k.N; Tona = k.Tona; X0 = k.X0; Z0 = k.Z0;
@@ -91,83 +91,83 @@ export function s2tasTsasaS23ohk2sain() { tsasaS23ohk2sai = true; }
 
 // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭı , 📃 ⟩
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-@returns ព្រែកកាត់គិតជាឯកតាពិភពលោក ( number )។ */
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃᴜ ｡ ʃᴜ j͐ʃɹ ( number ) ｡ */
 export function tsasaKavoInterp(x: number, z: number): number {
   if ( !tsasaTseuni ) return 0;
   return px01oDulineara(tsasaTseuni.hah6k6, N, Tona, Tsiq, x, z);
 }
 /* ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
-   ព្រែកកាត់របស់ទឹក ( ផលបូកដូច l6da() ក្នុង kozu.ts )។
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-@returns កម្ពស់ដី ( number )។ */
+   ſᶘꞇȝ ｡ j͑ʃ'ɔ ŋᷠɹ ｡ l6da() ｡ kozu.ts ｡
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns ſɭɜ ſɭ,w j͑ʃэ ɭ(ᴜ ( number ) ｡ */
 export function t6limaL6da(x: number, z: number): number {
   return kozonuL6da(x, z) + l6daInterp(x, z) - tsasaKavoInterp(x, z);
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-@returns តើជាទឹក ( boolean )។ */
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns ſᶘꞇȝ ( boolean ) ｡ */
 export function tsekeTsasa(x: number, z: number): boolean {
   return !!tsasaTseuni && tsasaJe(tsasaTseuni, N, Tona, Tsiq, x, z);
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
-   រាបស្មើ ដូច្នេះក្រឡាទឹកនីមួយៗផ្ទុកកម្រិតរបស់វា។
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-@returns Y នៃផ្ទៃ ( number | null )។ */
+   ᶅſɔ ɽ͑ʃ'ɔ ｡ ſɭɹ ſןᴜ ｡ ſᶘꞇȝ ｡ j͑ʃ'ɔ ŋᷠɹ ｡
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃɜ ſɭ,ᴜ Y ( number | null ) ｡ */
 export function tsasaVem2En(x: number, z: number): number | null {
   if ( !tsasaTseuni ) return null;
   const v = vem2Je(tsasaTseuni, N, Tona, Tsiq, x, z, 0o1);
   return Number.isNaN(v) ? null : v;
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
-   ដែលបានកំណត់។ ស្រទាប់ច្រាំងទន្លេត្រូវការវា។
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-@returns កម្រិត ( number )។ */
+   j͑ʃᴜ j͑ʃᴜ ｡ ſᶘꞇȝ ｡ ı],ᴜͷ̗ ｡
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃ'ɔ ŋᷠɹ ( number ) ｡ */
 export function tsasaVem2Tsiike(x: number, z: number): number {
   if ( !tsasaTseuni ) return tsasaVem2Vem2;
   const v = vem2Tsiike(tsasaTseuni, N, Tona, Tsiq, x, z, 0o2);
   return Number.isNaN(v) ? tsasaVem2Vem2 : v;
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
-   គូរដោយជក់សម្រេច តាមច្បាប់របស់ហ្គេម បើមិនដូច្នេះគ្មានអ្វីទេ។
-    @param i ( number ) - ជួរឈរសំណាញ់។
-    @param j ( number ) - ជួរសំណាញ់។
-    @param x ( number ) - ពិភពលោក x ( មិនអាន ព្រោះកម្រិតមកពីសំណាញ់ )។
-    @param z ( number ) - ពិភពលោក z ( មិនអាន ព្រោះកម្រិតមកពីសំណាញ់ )។
-@returns កម្រិត ឬ null ( number | null )។ */
+   ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡ ſɭɹʞ ｡ ſɭɜ ｡
+    @param i ( number ) - j͑ʃᴜ ｡ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡
+    @param j ( number ) - j͑ʃᴜ ｡ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃ'ɔ ŋᷠɹ ｡ null ( number | null ) ｡ */
 export function tsasaVem2De(i: number, j: number, x: number, z: number): number | null {
   if ( !tsasaTseuni || tsasaTseuni.k6liqani[j * N + i] !== 1 ) return null;
   const vem2 = tsasaTseuni.havem2[j * N + i];
   return Number.isNaN(vem2) ? tsasaVem2Vem2 : vem2;
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟı ,
-   ម៉ាសចាស់ដែលបានគូរ ( ម៉ាសដើម ) មិនសម្រេចទេ ៖ វាគ្រាន់តែជាគ្រាប់ពូជអាង , ដូច្នេះ
-   ទន្លេដែលមកពីប្រភពក៏ជាទឹកដែរ ។ ការអានក្រឡាផ្ទាល់គឺរហ័ស ( ជក់ហៅវារាល់ក្រឡា ) ។
-    @param i ( number ) - ជួរឈរសំណាញ់។
-    @param j ( number ) - ជួរសំណាញ់។
-@returns តើជាទឹក ( boolean )។ */
+   j͑ʃɜ ſɭ,w j͑ʃ'ɔ ŋᷠɹ ｡ ſɭɜ ſȷᴜ ｡ ſɟwƽ ｡
+   ſᶘꞇȝ ｡ j͑ʃᴜ ｡ ſɭɹ ſןᴜ ｡ ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡
+    @param i ( number ) - j͑ʃᴜ ｡ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡
+    @param j ( number ) - j͑ʃᴜ ｡ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡
+@returns ſᶘꞇȝ ( boolean ) ｡ */
 export function tsekeTsasaK2pa(i: number, j: number): boolean {
   if ( !tsasaTseuni || i < 0 || j < 0 || i >= N || j >= N ) return false;
   return tsasaTseuni.k6liqani[ j * N + i ] === 1;
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟɿ ,
-   និងតំបន់ជីវៈដែលមិនមានលិបិក្រមក្រឡា ។
-    @param x ( number ) - ពិភពលោក x ។
-    @param z ( number ) - ពិភពលោក z ។
-@returns តើជាទឹក ( boolean )។ */
+   j͑ʃᴜ j͑ʃᴜ ｡ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ｡
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns ſᶘꞇȝ ( boolean ) ｡ */
 export function tsekeTsasaSoza(x: number, z: number): boolean {
   if ( !tsekeTsasa(x, z) ) return false;
   const vem2 = tsasaVem2En(x, z);
   return vem2 === null || t6limaL6da(x, z) < vem2 - 0o1/0o100;
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟц ,
-   ព្រែកកាត់ ) បើមិនដូច្នេះការគណនានឹងធ្វើព្រែកកាត់របស់ខ្លួនឡើងវិញ ហើយប្រឡាយ
-   នឹងជ្រៅគ្មានទីបញ្ចប់។ */
+   j͑ʃᴜ j͑ʃᴜ ｡ ſɭɜ ｡ j͑ʃᴜ ｡
+   ſᶘꞇȝ ｡ ſɭᴜ ｡ */
 export function revek2feTsasa(): void {
   tsasaS23ohk2sai = false;
   const [ fl, fg ] = qoxa();
@@ -182,8 +182,8 @@ export function revek2feTsasa(): void {
   tlak23DnPostL2ha();
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭıə ,
-   គណនាឡើងវិញម្តងក្នុងមួយស៊ុម ( ប៉ុន្តែមិនមែនពេលអូសប្រភព ព្រោះពេលនោះការគណនា
-   នឹងរង់ចាំចុងបញ្ចប់នៃការអូស )។ */
+   j͑ʃᴜ j͑ʃᴜ ｡ j͑ʃᴜ j͐ʃɹ ｡
+   j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡ */
 export function tsasaVasakagxis(): void {
   tsasaS23ohk2sai = true;
   s2tasVeq6k2itan();
@@ -193,11 +193,11 @@ export function tsasaVasakagxis(): void {
 const FONTAGLUO = 0o1/0o4;
 function algluiTsiqn(v: number): number { return Math.round(v / FONTAGLUO) * FONTAGLUO; }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭıı ,
-   បើគ្មានណាមួយនៅក្នុងកាំ។
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-    @param r ( number = ꞙɭıɔ ) - កាំស្វែងរក។
-@returns លិបិក្រម ឬ -ı ( number )។ */
+   ſɭɜ ｡ j͑ʃɜ j͑ʃƨɹ ｡
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+    @param r ( number = ꞙɭıɔ ) - j͑ʃɜ j͑ʃƨɹ ｡
+@returns j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ｡ -ı ( number ) ｡ */
 export function tsiqJeN2k(x: number, z: number, r = 0o10): number {
   let kmaXobe = -1, kmaXobeD = r;
   for ( let i = 0; i < hatsiq.length; i++ ) {
@@ -207,26 +207,26 @@ export function tsiqJeN2k(x: number, z: number, r = 0o10): number {
   return kmaXobe;
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭıɿ ,
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-    @param las ( number = lasVem2 ) - លំហូររបស់ប្រភពថ្មី។ */
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+    @param las ( number = lasVem2 ) - ſᶘꞇȝ ſȷэⅎ ｡ ſᶘꞇȝ ｡ */
 export function neq2qTsiqn(x: number, z: number, las: number = lasVem2): void {
   momenti();
   hatsiq.push({ x: algluiTsiqn(x), z: algluiTsiqn(z), las });
   sukf2qitaTsiq = hatsiq.length - 1;
-  statuso("បានដាក់ប្រភព ( លំហូរ " + lasVem2 + " ) , ទឹកហូរចុះក្រោម");
+  statuso("ſᶘꞇȝ ｡ j͐ʃᴜɔ˞ " + lasVem2 + " ｡ ⬇");
   tsasaVasakagxis();
   s2tasDesegnon();
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭıц ,
-    @param ind ( number ) - លិបិក្រមរបស់ប្រភព។ */
+    @param ind ( number ) - ſᶘꞇȝ ｡ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ｡ */
 export function h2liTsiqn(ind: number): void {
   if ( ind < 0 || ind >= hatsiq.length ) return;
   momenti();
   hatsiq.splice(ind, 1);
   sukf2qitaTsiq = -1;
   tsiqTrenata = -1;
-  statuso("ប្រភពត្រូវបានលុប");
+  statuso("ſᶘꞇȝ ｡ ֭ſɭɹͷ̗");
   tsasaVasakagxis();
   s2tasDesegnon();
 }
@@ -253,10 +253,10 @@ export function finiFontanTrenon(): void {
   tsiqTrenata = -1;
   tsasaTrenanta = false;
   tsasaVasakagxis();
-  statuso("ប្រភព " + ( sukf2qitaTsiq + 1 ) + " បានផ្លាស់ទី , ទឹកធ្វើឱ្យស្រស់ឡើងវិញ");
+  statuso("ſᶘꞇȝ " + ( sukf2qitaTsiq + 1 ) + " ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡");
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭıэ ,
-   លំហូររបស់វា បើមិនដូច្នេះវាកំណត់លំហូររបស់ប្រភពបន្ទាប់។ */
+   ſᶘꞇȝ ｡ ſɭɜ ｡ ſᶘꞇȝ ｡ */
 export function vasakaLasDeSukf2qita(): void {
   if ( sukf2qitaTsiq >= 0 && sukf2qitaTsiq < hatsiq.length ) {
     hatsiq[sukf2qitaTsiq].las = lasVem2;
@@ -266,7 +266,7 @@ export function vasakaLasDeSukf2qita(): void {
 
 // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭıɩ , 📃 ⟩
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭıꞟ ,
-@returns ប្រភពដែលបានដាក់ គោលដៅស្ងួតដែលនៅសល់ និងការគ្របដណ្តប់ ( object )។ */
+@returns ſᶘꞇȝ ｡ j͑ʃ'ɔ ŋᷠɹ ｡ ( object ) ｡ */
 export function deriviHatsiqnElPentrita(): { hatsiq: AkvaTsiq[]; hаnex2ca: number; kovro: number } {
   const H = new Float32Array(N * N);
   let jufu = 0;
@@ -338,9 +338,9 @@ export function deriviHatsiqnElPentrita(): { hatsiq: AkvaTsiq[]; hаnex2ca: numb
   }
   const kovro = jufu ? Math.round(( 0o1 - hаnex2ca / jufu ) * 0o144) : 0o144;
   statuso(hasef4.length
-    ? hasef4.length + " ប្រភពបានដាក់ , ទឹកហូរចុះក្រោម"
-      + ( kovro < 0o144 ? " ( ប្រភពតូចៗមិនគ្របដណ្តប់ទឹកចាស់ដែលបានគូរទាំងអស់ទេ )" : "" )
-    : ( jufu ? "ទឹកហូររួចហើយ , មិនត្រូវការប្រភព ( ទឹកដែលបានគូរគឺជាអាង )"
-      : "រកមិនឃើញទឹកដែលបានគូរ" ));
+    ? hasef4.length + " ſᶘꞇȝ ｡ j͐ʃᴜɔ˞ ⬇"
+      + ( kovro < 0o144 ? " ( ſɭᴜ ſᶘꞇȝ ｡ ſɭɜ )" : "" )
+    : ( jufu ? "ſᶘꞇȝ ｡ j͐ʃᴜɔ˞ ｡ ſɭᴜ ｡ ( ſᶘꞇȝ ｡ ſɭᴜ )"
+      : "ſɭɜ ſᶘꞇȝ ｡ ſɭᴜ ｡" ));
   return { hatsiq: hasef4, hаnex2ca, kovro };
 }

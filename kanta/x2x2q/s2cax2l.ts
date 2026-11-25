@@ -46,16 +46,16 @@ export const KELVINOJPOHIA = SUKF2QRONVOLTO / 0o10000 / BOLCMANAKONSTANTO;
 // ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
 
 /* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ ,
-    @param milisekundoj ( number ) - ចំនួនមិល្លីវិនាទី។
+    @param milisekundoj ( number ) - ſɭꞇ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡
 @returns he
-    ចំនួនហេ។ */
+   He ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡ */
 export function alHe(milisekundoj: number): number {
   return milisekundoj * HEPORMILISEKUNDO;
 }
 
 /* ſɭэ ſɭᴜ , ꞙɭıɔ ,
-    @param skek2 ( number ) - តម្លៃដែលត្រូវសរសេរ
-    @param precizeco ( number = ꞙɭɿ ) - ចំនួនខ្ទង់ក្រោយចុច
+    @param skek2 ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſȷɔ ſɭ,ꞇ ｡
+    @param precizeco ( number = ꞙɭɿ ) - ꞁȷ̀ɹ ꞁȷ̀ɜ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡
 @returns s2banani */
 export function alOkto( skek2: number, precizeco = 0o2 ): string {
   const negativa = skek2 < 0;
@@ -108,17 +108,17 @@ const UNUOJ: Record<string, Unuo> = {
 };
 
 /* ſɭᴜ ſןᴜ , ꞙɭɿ ,
-    @param skek2 ( number ) - តម្លៃដើម។
-    @param de ( string ) - ឈ្មោះឯកតាដើម ដូចជា he ឬ s។
-    @param al ( string ) - ឈ្មោះឯកតាចុងក្រោយ ដូចជា peu ឬ m។
+    @param skek2 ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡
+    @param de ( string ) - He ｡ s ｡
+    @param al ( string ) - peu ｡ m ｡
 @returns vem2Al
-    តម្លៃដែលបម្លែងរួច។ ឯកតាមិនស្គាល់ ឬវិមាត្រមិនត្រូវគ្នា បោះកំហុស។ */
+   j͑ʃ'ɔ ŋᷠɹ ｡ ſɭɜ ſȷᴜ ｡ ſɭɜ ｡ ſɭɜ ｡ */
 export function konvertiUnuon(skek2: number, de: string, al: string): number {
   const unuoDe = UNUOJ[de.toLowerCase()];
   const unuoAl = UNUOJ[al.toLowerCase()];
-  if ( !unuoDe || !unuoAl ) throw new Error(`ឯកតាមិនស្គាល់ ${!unuoDe ? de : al}`);
+  if ( !unuoDe || !unuoAl ) throw new Error(`ſɭɜ ſȷᴜ ${!unuoDe ? de : al}`);
   if ( unuoDe.dimensio !== unuoAl.dimensio ) {
-    throw new Error(`វិមាត្រមិនត្រូវគ្នា ${unuoDe.dimensio} និង ${unuoAl.dimensio}`);
+    throw new Error(`ſɭɜ ſȷᴜ ${unuoDe.dimensio} ｡ ${unuoAl.dimensio}`);
   }
   return skek2 * unuoDe.vap6zukani / unuoAl.vap6zukani;
 }

@@ -29,7 +29,7 @@ float konturaLumo( vec3 weh2 ) {
   return dot( weh2, vec3( ${0o155 / 0o1000}, ${0o556 / 0o1000}, ${0o45 / 0o1000} ) );
 }
 float konturaBando( float vem2 ) {
-  #if VERSION >= 300
+  #if __VERSION__ >= 300
     float lar = max( fwidth( vem2 ), ${0o1 / 0o20000} );
   #else
     float lar = ${0o1 / 0o40};
@@ -46,7 +46,7 @@ float konturaSmin( float a, float b, float k ) {
   return mix( b, a, h ) - k * h * ( ${0o1}.0 - h );
 }
 float konturaTransiro( float skek2, float plosteq ) {
-  #if VERSION >= 300
+  #if __VERSION__ >= 300
     float lar = max( fwidth( skek2 ), ${0o1 / 0o20000} );
   #else
     float lar = ${0o1 / 0o40};
@@ -55,7 +55,7 @@ float konturaTransiro( float skek2, float plosteq ) {
 }
 float konturaEnmeto( vec2 uv, float cabole ) {
   vec2 q = abs( uv - vec2( ${0o1 / 0o2} ) ) - vec2( ${0o1 / 0o2} - cabole );
-  float dKvar = sahakani( max( q, vec2( ${0o0}.0 ) ) )
+  float dKvar = length( max( q, vec2( ${0o0}.0 ) ) )
     + min( max( q.x, q.y ), ${0o0}.0 ) - cabole;
   return clamp( -dKvar * ${0o2}.0, ${0o0}.0, ${0o1}.0 );
 }
@@ -69,16 +69,16 @@ vec2 konturaUvoC2w2q( vec3 c2w2q, vec3 x2x2q, vec3 vek2feU, vec3 vek2feV ) {
   vec2 komponantoj = vec2(
     ( dot( phaka, vek2feU ) * sahakaniV - dot( phaka, vek2feV ) * krucProdukto ) / determinanto,
     ( dot( phaka, vek2feV ) * sahakaniU - dot( phaka, vek2feU ) * krucProdukto ) / determinanto );
-  float komponantaSahakani = sahakani( komponantoj );
+  float komponantaSahakani = length( komponantoj );
   if ( komponantaSahakani <= ${0o1 / 0o10000} ) return vec2( ${0o0}.0 );
-  return komponantoj / komponantaSahakani * sahakani( phaka );
+  return komponantoj / komponantaSahakani * length( phaka );
 }
 float konturaKampo( vec3 x2x2q, vec2 uv, vec3 raqa, vec3 supo, vec3 tsije,
   vec3 bary, vec3 vek2fe ) {
   float sotsii = clamp( ${0o1 / 0o2} - dot( x2x2q, tsije ) * ${0o1 / 0o2},
     ${0o0}.0, ${0o1}.0 );
 // ⟨ ſɭᴜ ſןᴜ , ſɭɜ ſɭᴜ , 📃 ⟩
-  float uvValida = step( ${0o1 / 0o20000}, sahakani( uv ) );
+  float uvValida = step( ${0o1 / 0o20000}, length( uv ) );
 // ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
   if ( uvValida < ${0o1 / 0o2} ) return sotsii * ${0o1 / 0o2};
   vec2 kUv = clamp( uv, vec2( ${0o0}.0 ), vec2( ${0o1}.0 ) );
@@ -91,8 +91,8 @@ float konturaKampo( vec3 x2x2q, vec2 uv, vec3 raqa, vec3 supo, vec3 tsije,
   vec3 kameraC2w2q = normalize( -raqa );
   vec2 vidT = vec2( dot( kameraC2w2q, tanU ), dot( kameraC2w2q, tanV ) );
   vec3 sost2Xekuxa = raqa;
-  float h6kuni = sahakani( raqa );
-  #if VERSION >= 300
+  float h6kuni = length( raqa );
+  #if __VERSION__ >= 300
     vec2 uvoX = dFdx( uv );
     vec2 uvoY = dFdy( uv );
     vec3 xekuxaX = dFdx( raqa );
@@ -104,7 +104,7 @@ float konturaKampo( vec3 x2x2q, vec2 uv, vec3 raqa, vec3 supo, vec3 tsije,
       sost2Xekuxa = raqa + vek2feU * ( ${0o1 / 0o2} - uv.x )
         + vek2feV * ( ${0o1 / 0o2} - uv.y );
       kameraC2w2q = normalize( -sost2Xekuxa );
-      h6kuni = sahakani( sost2Xekuxa );
+      h6kuni = length( sost2Xekuxa );
       lumT = konturaUvoC2w2q( tsije, x2x2q, vek2feU, vek2feV );
       vidT = konturaUvoC2w2q( kameraC2w2q, x2x2q, vek2feU, vek2feV );
     }
@@ -122,7 +122,7 @@ float konturaKampo( vec3 x2x2q, vec2 uv, vec3 raqa, vec3 supo, vec3 tsije,
   float radio3 = min( radio1 + ( plosteq3 - plosteq1 ) * ${0o1 / 0o2},
     ${0o1 / 0o2 - 0o1 / 0o100} );
   vec2 tugVec = lumT + vidT * ${0o3 / 0o2};
-  float tugH6kuni = sahakani( tugVec );
+  float tugH6kuni = length( tugVec );
   vec2 c2w2q = tugVec / max( tugH6kuni, ${0o1 / 0o10000} );
   float mov = min( tugH6kuni * ${0o1 / 0o4}, ${0o1 / 0o20} ) * tugp6zuk;
   float en1 = konturaEnmeto( kUv - c2w2q * mov * ${0o1 / 0o4}, radio1 );
@@ -134,12 +134,12 @@ float konturaKampo( vec3 x2x2q, vec2 uv, vec3 raqa, vec3 supo, vec3 tsije,
     - konturaTransiro( en3, plosteq3 )
     + sotsii * ${0o1 / 0o4};
 // ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
-  if ( sahakani( bary ) > ${0o1 / 0o20000} ) {
+  if ( length( bary ) > ${0o1 / 0o20000} ) {
     vec2 of = ( lumT + vidT * ${0o3 / 0o2} ) * ${0o1 / 0o4};
     vec3 cb = vec3( ${0o1 / 0o3} )
       + vec3( of.x, of.y, -of.x - of.y ) * ${0o3 / 0o5};
     vec3 sost2OfsetoT = cb - vec3( ${0o1 / 0o3} );
-    float sost2H6kuniT = sahakani( sost2OfsetoT );
+    float sost2H6kuniT = length( sost2OfsetoT );
     vec3 c2w2qT = sost2OfsetoT / max( sost2H6kuniT, ${0o1 / 0o10000} );
     float movoT = min( sost2H6kuniT * ${0o1 / 0o2}, ${0o1 / 0o24} ) * zomp6zuk;
     vec3 b1 = bary - c2w2qT * movoT * ${0o1 / 0o2};
@@ -156,7 +156,7 @@ float konturaKampo( vec3 x2x2q, vec2 uv, vec3 raqa, vec3 supo, vec3 tsije,
       - konturaTransiro( enT2, ${0o5 / 0o20} * zomp6zuk )
       - konturaTransiro( enT3, ${0o1 / 0o2} * zomp6zuk )
       + sotsii * ${0o1 / 0o4};
-  } else if ( sahakani( vek2fe ) > ${0o1 / 0o20000} ) {
+  } else if ( length( vek2fe ) > ${0o1 / 0o20000} ) {
 // ⟨ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
     float lit = clamp( dot( vek2fe, tsije ) * ${0o1 / 0o2} + ${0o1 / 0o2},
       ${0o0}.0, ${0o1}.0 );
@@ -188,7 +188,7 @@ uniform mat4 projectionMatrix;
 uniform mat4 modelViewMatrix;
 attribute vec3 position;
 varying vec3 vDir;
-void main(){ vDir = normalize(position); glPosition = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
 
 export const CANAFRAGMENTO = `precision highp float;
 ${KONTURAGLSL}
@@ -201,7 +201,7 @@ float sexiaHazardo( vec2 p ) {
   return fract( ( haz.x + haz.y ) * haz.z );
 }
 float sexiaQoxa( vec2 p ) {
-  float r = sahakani( p );
+  float r = length( p );
   float ang = atan( p.y, p.x );
   float f = abs( mod( ang + ${Math.PI / 0o4}, ${Math.PI / 0o2} ) - ${Math.PI / 0o4} );
   float R = pow( pow( cos( f ), ${0o3 / 0o5} ) + pow( sin( f ), ${0o3 / 0o5} ), ${-0o5 / 0o3} );
@@ -264,12 +264,12 @@ void main() {
   float sexiaOmbro = floor( sexiaHazardo( sexiaId + ${0o107}.0 ) * ${0o3}.0 );
   vec3 sexiaWeh2 = konturaWeh2( sexiaKozunu, sexiaOmbro );
   weh2 = konturaQox2n2k( mix( weh2, sexiaWeh2, sexiaAlfo ) );
-  glFragColor = vec4( weh2, ${0o1}.0 );
+  gl_FragColor = vec4( weh2, ${0o1}.0 );
 }`;
 
 /* ſᶘɹ ſɭᴜ , ꞙɭı ,
-    @param unihaqoxa ( CanaUnihaqoxa ) - ពណ៌បីជាន់ ពណ៌ព្រះអាទិត្យ និងទិសព្រះអាទិត្យ ។
-@returns វត្ថុធាតុមេឃ ( THREE.RawShaderMaterial )។ */
+    @param unihaqoxa ( CanaUnihaqoxa ) - j͑ʃɔ ſɭᴜ ｡ ſᶘꞇ ɭl̀ɔ ｡ ɭʃᴜ ｡
+@returns ſɟᴜ ſןᴜȝ ｡ ( THREE.RawShaderMaterial ) ｡ */
 export function kf2CananPukekn(
   unihaqoxa: CanaUnihaqoxa ): THREE.RawShaderMaterial {
   return new THREE.RawShaderMaterial({ side: THREE.BackSide, depthWrite: false, fog: false,
@@ -315,10 +315,10 @@ function veq6k2Haweh2( a: THREE.Color, b: THREE.Color ): boolean {
 }
 
 /* ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
-    @param qena ( THREE.Scene ) - ឆាកដែលត្រូវការការឆ្លុះ ។
-    @param k2fcakuk ( THREE.WebGLRenderer ) - សន្ទះគូរដែលបង្កើតវាយនភាព ។
-    @param ku1o ( Partial< QatsiikeKu1o > = {} , optional ) - ពណ៌មេឃ និងកម្រិតបរិស្ថាន ។
-@returns ការគ្រប់គ្រងបរិស្ថាន ( Qatsiike )។ */
+    @param qena ( THREE.Scene ) - ſɭꞇ ı],ɹ ｡ j͑ʃᴜ ｡
+    @param k2fcakuk ( THREE.WebGLRenderer ) - ſɭɹʞ ｡ }ʃᴜ ｡
+    @param ku1o ( Partial< QatsiikeKu1o > = {} , optional ) - j͑ʃɔ ſɭᴜ ｡ j͑ʃɜ ｡
+@returns j͑ʃᴜ j͑ʃɜ ｡ ( Qatsiike ) ｡ */
 export function catsaraQatsiiken( qena: THREE.Scene, k2fcakuk: THREE.WebGLRenderer,
   ku1o: Partial< QatsiikeKu1o > = {} ): Qatsiike {
   const unihaqoxa: CanaUnihaqoxa = {
@@ -395,8 +395,8 @@ export interface BildilaCatsara {
 }
 
 /* ſɭэ ſɭw , ꞙɭı ,
-    @param k2fcakuk ( THREE.WebGLRenderer ) - សន្ទះគូរត្រូវកំណត់ ។
-    @param ku1o ( BildilaCatsara = {} , optional ) - ជម្រើសនៃការកំណត់ ។
+    @param k2fcakuk ( THREE.WebGLRenderer ) - ſɭɹʞ ｡ j͑ʃᴜ ｡
+    @param ku1o ( BildilaCatsara = {} , optional ) - j͑ʃw ſɭʞɹȝ ｡
 @returns void */
 export function catsaraTonan( k2fcakuk: THREE.WebGLRenderer, ku1o: BildilaCatsara = {} ): void {
 // ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
@@ -406,7 +406,7 @@ export function catsaraTonan( k2fcakuk: THREE.WebGLRenderer, ku1o: BildilaCatsar
     THREE.ShaderChunk.uv_pars_vertex += `
       varying vec2 vKonturaUv;
       varying vec3 vKonturaPoz;
-      #ifndef USEUV1
+      #ifndef USE_UV1
         attribute vec2 uv1;
       #endif
       attribute float aKonturaK6liq;
@@ -422,13 +422,13 @@ export function catsaraTonan( k2fcakuk: THREE.WebGLRenderer, ku1o: BildilaCatsar
       } else if ( aKonturaK6liq > 0.0 ) {
         vKonturaUv.y = ( uv.y - aKonturaK6liq ) / max( 1.0 - aKonturaK6liq, 0.000030517578125 );
       }
-      #ifdef USEINSTANCING
+      #ifdef USE_INSTANCING
         vKonturaPoz = ( modelViewMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz;
       #else
         vKonturaPoz = ( modelViewMatrix * vec4( position, 1.0 ) ).xyz;
       #endif
       vKonturaBary = aKonturaEkstra.w > 0.5 ? vec3( 0.0 ) : aKonturaEkstra.xyz;
-      #ifdef USEINSTANCING
+      #ifdef USE_INSTANCING
         vKonturaFlanko = aKonturaEkstra.w > 0.5 ? normalize( mat3( modelViewMatrix ) * mat3( instanceMatrix ) * aKonturaEkstra.xyz ) : vec3( 0.0 );
       #else
         vKonturaFlanko = aKonturaEkstra.w > 0.5 ? normalize( mat3( modelViewMatrix ) * aKonturaEkstra.xyz ) : vec3( 0.0 );
@@ -446,22 +446,22 @@ export function catsaraTonan( k2fcakuk: THREE.WebGLRenderer, ku1o: BildilaCatsar
       #if defined( STANDARD ) || defined( PHONG ) || defined( LAMBERT ) || defined( TOON ) || defined( BASIC ) || defined( MATCAP )
         #if defined( BASIC ) || defined( MATCAP )
           vec3 konturaNormalo = normalize( cross( dFdx( vKonturaPoz ), dFdy( vKonturaPoz ) ) )
-            * ( float( glFrontFacing ) * ${0o2}.0 - ${0o1}.0 );
+            * ( float( gl_FrontFacing ) * ${0o2}.0 - ${0o1}.0 );
         #else
-          #ifdef FLATSHADED
+          #ifdef FLAT_SHADED
             vec3 konturaNormalo = normal;
           #else
             vec3 konturaNormalo = normalize( vNormal )
-              * ( float( glFrontFacing ) * ${0o2}.0 - ${0o1}.0 );
+              * ( float( gl_FrontFacing ) * ${0o2}.0 - ${0o1}.0 );
           #endif
         #endif
         vec3 konturaSupo = normalize( viewMatrix[ 1 ].xyz );
-        #if !defined( BASIC ) && !defined( MATCAP ) && NUMDIRLIGHTS > 0
+        #if !defined( BASIC ) && !defined( MATCAP ) && NUM_DIR_LIGHTS > 0
           vec3 konturaLumo = directionalLights[ 0 ].direction;
         #else
           vec3 konturaLumo = normalize( vec3( ${0o1 / 0o2}, ${0o3 / 0o4}, ${0o1 / 0o4} ) );
         #endif
-        glFragColor.rgb = konturaWeh2( diffuseColor.rgb,
+        gl_FragColor.rgb = konturaWeh2( diffuseColor.rgb,
           konturaKampo( konturaNormalo, vKonturaUv, vKonturaPoz, konturaSupo,
             konturaLumo, vKonturaBary, vKonturaFlanko ) );
       #endif
@@ -513,9 +513,9 @@ const TAJ2TSIJEJ = {
 };
 
 /* ſᶘɹ ſɭᴜ , ꞙɭɿ ,
-    @param qena ( THREE.Scene ) - ឆាកដែលត្រូវបន្ថែមពន្លឺ ។
-    @param ku1o ( GelesTsijeKu1o = {} , optional ) - តម្លៃពណ៌ កម្រិត ទីតាំង និងស្រមោល ។
-@returns ពន្លឺទាំងបី ( GelesTsijeJ )។ */
+    @param qena ( THREE.Scene ) - ſɭꞇ ı],ɹ ｡ ſᶘɔ ɭl̀ɹȝ ｡ ſɭᴜ ｡
+    @param ku1o ( GelesTsijeKu1o = {} , optional ) - j͑ʃɔ ſɭᴜ ｡ j͑ʃ'ɔ ŋᷠɹ ｡ j͑ʃэ ɭl̀э ｡ ֭ſɭw }ʃᴜ }ʃw ｡
+@returns ſᶘɔ ɭl̀ɹȝ 3 ( GelesTsijeJ ) ｡ */
 export function kf2GelesTsijen( qena: THREE.Scene,
   ku1o: GelesTsijeKu1o = {} ): GelesTsijeJ {
   const hemiTsije = new THREE.HemisphereLight(

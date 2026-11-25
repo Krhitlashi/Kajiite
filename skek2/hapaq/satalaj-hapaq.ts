@@ -17,13 +17,13 @@ import { tlunakSexieanKaatse } from "./satalaj/fasw2d2.js";
 export interface TavolaVem2 { y: number; hw: number; hd: number; }
 
 /* ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-   និងយានអវកាសប្រើលេខទាំងនេះដូចគ្នា ដូច្នេះស្រទាប់ និងបង្អួច
-   មានចន្លោះដូចគ្នា។
-    @param w ( number ) - ទទឹងមូលដ្ឋាន។
-    @param d ( number ) - ជម្រៅមូលដ្ឋាន។
-    @param tiers ( number ) - ចំនួនស្រទាប់។
-    @param b6k61oL6da ( number ) - កម្ពស់ស្រទាប់មួយ។
-@returns បញ្ជីស្រទាប់ ដោយ `y` ជាបាតស្រទាប់ ហើយ `hw` និង `hd` ជាកន្លះទទឹង និងកន្លះជម្រៅនៅបាត។ */
+   j͑ʃᴜ j͐ʃɹ ｡ ſɭɹ ſȷɔ ｡
+   j͑ʃɜ ſɭ,ᴜ ｡ j͑ʃᴜ ｡
+    @param w ( number ) - j͑ʃɔ ſȷꞇ }ʃꞇ ｡
+    @param d ( number ) - j͑ʃэ ɭ(ᴜ ſןɔ˞ᴜƴ ｡
+    @param tiers ( number ) - j͑ʃᴜ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡
+    @param b6k61oL6da ( number ) - j͑ʃᴜ ｡ j͑ʃэ ɭ(ᴜ ｡
+@returns ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡ y ｡ hw ｡ hd ｡ */
 export function hatanekHavem2(w: number, d: number, tiers: number, b6k61oL6da: number): TavolaVem2[] {
   const teruSefini = Math.max(0o215/0o100, w * 0o23/0o100);
   const teruProfundo = Math.max(0o20/0o10, d * 0o23/0o100);
@@ -66,9 +66,9 @@ export function bokTavolajnQoxaKefoujn(typeKey: string, w: number, d: number, ti
   return g;
 }
 /* ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-    @param spec ( VepaqSpec ) - ទីតាំង និងទំហំអគារ
-    @param t6limaFn ( function , optional ) - កម្ពស់ដីពិភពលោក
-@returns l6da ( number ) - កម្ពស់ Y របស់ក្រុមអគារ */
+    @param spec ( VepaqSpec ) - j͑ʃэ ɭl̀э ｡ ſןᴜ j͐ʃэ ｡
+    @param t6limaFn ( function , optional ) - ʃᴜ j͐ʃɹ ｡ j͑ʃэ ɭ(ᴜ ｡
+@returns l6da ( number ) - j͑ʃэ ɭ(ᴜ Y ｡ */
 function satalaBazaL6da(spec: VepaqSpec,
   t6limaFn?: ( x: number, z: number ) => number): number {
   const sost2 = spec.h0 || 0;

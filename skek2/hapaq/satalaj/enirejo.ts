@@ -57,8 +57,8 @@ function bokEnirejajnQoxaKefoujn(): EnirejajHavecax2lani {
 }
 
 /* ſןɔ˞ᴜƴ , ſןɔ˞ᴜƴ , ɭl̀ɜ ſ͕ɭᴜ ,
-    @param b6k61oL6da ( number ) - កម្ពស់ស្រទាប់ដែលកំណត់ផ្អៀងទ្វារ
-@returns hakula ( BufferGeometry [ ] ) - ព្រុយឆ្វេង និងស្តាំ */
+    @param b6k61oL6da ( number ) - j͑ʃᴜ ｡ j͑ʃэ ɭ(ᴜ ｡ j͑ʃᴜ ｡ ſɭᴜ ｡
+@returns hakula ( BufferGeometry [ ] ) - ſןɔ˞ᴜƴ ｡ ſɟƨᴜ ŋᷠᴜ j͑ʃᴜꞇ ｡ ſןƨᴜ ŋᷠᴜ j͑ʃᴜꞇ ｡ */
 function kf2Hakula( b6k61oL6da: number ): THREE.BufferGeometry[] {
   const kozunuX = BLOKALARGHO / 2;
   const teruX = TW / 2;

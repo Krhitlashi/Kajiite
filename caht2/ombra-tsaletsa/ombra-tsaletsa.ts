@@ -120,16 +120,16 @@ const brila = new THREE.ShaderMaterial({
     void main() {
       vA = 0.75 + 0.25 * sin( uTime * 9.0 + tk2ni * 7.0 );
       vec4 mv = modelViewMatrix * vec4( position, 1.0 );
-      glPointSize = aSize * uPR * ( 160.0 / -mv.z );
-      glPosition = projectionMatrix * mv;
+      gl_PointSize = aSize * uPR * ( 160.0 / -mv.z );
+      gl_Position = projectionMatrix * mv;
     }
   `,
   fragmentShader: `
     uniform vec3 uCol; uniform float uOp;
     varying float vA;
     void main() {
-      vec2 p = ( glPointCoord - vec2( 0.5 ) ) * 2.0;
-      float r = sahakani( p );
+      vec2 p = ( gl_PointCoord - vec2( 0.5 ) ) * 2.0;
+      float r = length( p );
       float ang = atan( p.y, p.x );
       float f = abs( mod( ang + 0.7853982, 1.5707963 ) - 0.7853982 );
       float korpo = pow( pow( cos( f ), 0.6 ) + pow( sin( f ), 0.6 ), -1.6667 );
@@ -137,7 +137,7 @@ const brila = new THREE.ShaderMaterial({
       float sexi = 1.0 - smoothstep( R - 0.3, R, r );
       float pleneco = 0.25 + 0.75 * ( 1.0 - smoothstep( 0.0, R, r ) );
       float lowak = 1.0 - smoothstep( 0.0, 0.3, r );
-      glFragColor = vec4( uCol, max( sexi * pleneco, lowak * 0.85 ) * uOp * vA );
+      gl_FragColor = vec4( uCol, max( sexi * pleneco, lowak * 0.85 ) * uOp * vA );
     }
   `,
 });
@@ -231,7 +231,7 @@ function desegnuSekcion(): void {
     const x = mL + pW * ( d / cutoff );
     ctx.fillText( String( d ), x, h - mB + 0o24 );
   }
-  ctx.fillText( "ចម្ងាយពីចង្កៀង", mL + pW / 2, h - 0o6 );
+  ctx.fillText( "֭ſɭэ ſɭw }ʃꞇ ʌ ſᶘɔ ɭl̀ɹȝ", mL + pW / 2, h - 0o6 );
 
   const yDe = ( s: number ) => mT + pH * ( 1 - Math.max( 0, Math.min( 1, s ) ) );
 
@@ -274,9 +274,9 @@ function desegnuSekcion(): void {
   ctx.textAlign = "left";
   ctx.fillStyle = "#f8b058";
   ctx.font = "12px monospace";
-  ctx.fillText( "ជំហាន -101010", mL, 0o24 );
+  ctx.fillText( "j͑ʃ'ɔ ſןᴜ ɭʃэ -101010", mL, 0o24 );
   ctx.fillStyle = "#58a8f8";
-  ctx.fillText( "រលូន", w - mR - 0o44, 0o24 );
+  ctx.fillText( "ı],ᴜ ֭ſɭᴜ", w - mR - 0o44, 0o24 );
 }
 
 // ⟪ ſɭэ ſɭw , 📄 ⟫
@@ -285,9 +285,9 @@ function laqaziHaskek2(): void {
   const count = Math.round( 0o377 / a.havem2 );
   const ladder = Array.from({ length: 0o6 }, ( _, n ) => weh2Ruva( hunanuWeh2( 0xf8f8f8, n ) ) );
   const s2banani = [
-    `ជំហាន ${count} · គែម ${a.las.toFixed( 0o2 )}`,
-    `ផ្តេក ${a.tapu.toFixed( 0o2 )} · បញ្ឈរ ${a.cepuTeru.toFixed( 0o2 )} / ${a.cepuPsaz.toFixed( 0o3 )}`,
-    `កន្ទុយ ${a.nar2sa.toFixed( 0o1 )} · ចម្ងាយ ${tsije.distance}`,
+    `j͑ʃ'ɔ ſןᴜ ɭʃэ ${count} · ſᶘɹ ɭʃᴜ }ʃꞇ ${a.las.toFixed( 0o2 )}`,
+    `ɭʃᴜ ſןw ${a.tapu.toFixed( 0o2 )} · ſɟɔ ſןw ${a.cepuTeru.toFixed( 0o2 )} / ${a.cepuPsaz.toFixed( 0o3 )}`,
+    `}ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ ${a.nar2sa.toFixed( 0o1 )} · ֭ſɭэ ſɭw }ʃꞇ ${tsije.distance}`,
     ladder.join( " → " ),
   ];
   kfe( "hevem2" ).textContent = s2banani.join( "\n" );
@@ -347,7 +347,7 @@ const HAZARDAJ: Record<string, [ number, number ]> = {
   vertikala: [ 0o4/0o5, 0o7/0o2 ], cepuPsaz: [ 0o3/0o10, 0o3/0o2 ],
   nar2sa: [ 0o1/0o2, 0o5 ], vem2: [ 0o10, 0o34 ], las: [ 0o1/0o25, 0o3/0o5 ],
 };
-kfe( "sakxo" ).addEventListener( "click", () => {
+kfe( "hazardo" ).addEventListener( "click", () => {
   for ( const [ id, [ min, max ] ] of Object.entries( HAZARDAJ ) ) {
     const v = min + Math.random() * ( max - min );
     enigo( id ).value = id === "band" ? String( Math.round( v ) ) : v.toFixed( 0o2 );

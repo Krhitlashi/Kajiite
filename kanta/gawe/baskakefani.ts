@@ -60,9 +60,9 @@ export function traduki(ca3aq: string): string {
 }
 
 /* ſɭэ ᶗ‹ , ꞙɭı ,
-    @param s2banani ( string ) - សោអត្ថបទ
-    @param ca3aq ( string ) - សោគន្លឹះ
-    @param grasa ( boolean ) - ដាក់គន្លឹះក្នុងអក្សរដិត */
+    @param s2banani ( string ) - j͑ʃɹ ʃᴜ }ʃᴜ ｡ j͑ʃᴜ ｡
+    @param ca3aq ( string ) - j͑ʃᴜ ｡ j͑ʃ'ɔ ŋᷠɹ ｡
+    @param grasa ( boolean ) - j͑ʃᴜ ｡ ſɟᴜ ſᶘɔ ｡ */
 export function kunCatlaq( s2banani: string, ca3aq: string, grasa = false ): string {
   const qaksaka = traduki(ca3aq);
   return traduki(s2banani) + " • " + ( grasa ? `<b>${qaksaka}</b>` : qaksaka );
@@ -143,7 +143,7 @@ export function cutluGawe(): string {
 
 // ⟪ ſɭэ ſɭw , ꞙɭц , 📃 ⟫
 /* ſɭэ ſɭw , ꞙɭı ,
-    @param gawe ( string ) - កូដភាសា ៖ aih , eo , en , ja , km */
+    @param gawe ( string ) - j͑ʃᴜ ｡ ( aih , eo , en , ja , km ) */
 export function catsaraGawe( gawe: string ): void {
   if ( !Hagawe.includes(gawe) ) return;
   aplikiSkakefanon(gawe);
@@ -161,7 +161,7 @@ function s2tasAktivanGawe(): void {
 }
 
 /* ſɭэ ſɭw , ꞙɭı ,
-    @param ujo ( HTMLElement ) - កន្លែងដាក់ប៊ូតុងភាសា */
+    @param ujo ( HTMLElement ) - ſɟᴜ ſᶘɹ }ʃᴜ ｡ j͑ʃᴜ ｡ */
 function vetem2iLingvanCatsara( ujo: HTMLElement ): void {
   ujo.innerHTML = "";
   for ( const gawe of Hagawe ) {
@@ -173,8 +173,8 @@ function vetem2iLingvanCatsara( ujo: HTMLElement ): void {
 }
 
 /* ſɭэ ſɭw , ꞙɭɿ ,
-    @param gawe ( string ) - កូដភាសា
-    @param pukxei ( function ) - ការបិទម៉ឺនុយដែលបើក */
+    @param gawe ( string ) - j͑ʃᴜ ｡
+    @param pukxei ( function ) - ſɟᴜ ſᶘɹ }ʃᴜ ｡ ſɭᴜ ｡ */
 function sukf2qiGawe( gawe: string, pukxei: () => void ): void {
   const sama = gawe === tikGawe;
   catsaraGawe(gawe);

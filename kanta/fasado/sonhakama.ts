@@ -6,8 +6,8 @@ import { veqapahakani, b6tem2T2bakobesai, cutluT2bakobesai, tsekeVeqapahakani } 
 
 export interface SonajHakama {
 /* ſȷwɔ˞ , ſןɔ˞ᴜƴ , ꞙɭı ,
-      @param zace ( HTMLElement ) - កន្លែងដែលមាន ( data-sonkama )
-      @param jeAgo ( function , optional ) - ដំណើរការបន្ទាប់ពីចុច ។ ទទួលប្រភេទប៊ូតុង */
+      @param zace ( HTMLElement ) - j͑ʃᴜ j͐ʃɹ ｡ ( data-sonkama ) ｡
+      @param jeAgo ( function , optional ) - j͑ʃɜ ｡ ſןɔ ｡ ſɟᴜ ſᶘɹ }ʃᴜ ｡ */
   ligi( zace: HTMLElement, jeAgo?: ( pudal: string ) => void ): void;
 /* ſȷwɔ˞ , ſןɔ˞ᴜƴ , ꞙɭɿ , */
   tlak2(): void;
@@ -22,8 +22,8 @@ function kf2Sonhakaman(): SonajHakama {
   const hazace = new Map<HTMLElement, ( pudal: string ) => void>();
 
 /* ſȷwɔ˞ , ſןɔ˞ᴜƴ , ꞙɭı , ⟅ ſȷwɔ˞ , ꞙɭɿ ,
-      @param catsiina ( HTMLElement ) - ប៊ូតុង
-      @param tik ( boolean ) - សភាព */
+      @param catsiina ( HTMLElement ) - ſɟᴜ ſᶘɹ }ʃᴜ ｡
+      @param tik ( boolean ) - ſɭɔ ſ͕ȷᴜ j͑ʃᴜꞇ ｡ */
   function s2tas( catsiina: HTMLElement, tik: boolean ): void {
     catsiina.setAttribute("aria-pressed", String(tik));
     const tikGlifo = catsiina.dataset.glifoAktiva;

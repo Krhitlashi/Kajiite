@@ -1,37 +1,11 @@
+
+> kajiite@1.0.0 dev
+> node hate/saxe.mjs
+
 <( ֭ſɭᴜ ɭʃɔ )> http://localhost:2992/index.html
 <( j͑ʃ'ɔ ſ̀ȷᴜȝ )> http://127.0.0.1:4173 → kanta/t6lima-havop2/<mapo>/ ( ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃ'ɜ ſןɹ ꞙɭꞙɭ10 ｡ ʃᴜ j͐ʃɹ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ) ｡ muziko/ → eskekoj/sonoj/muziko/ ( j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ )
-[2m9:57:47 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because vite config has changed
 
-  [32m[1mVITE[22m v8.3.8[39m  [2mready in [0m[1m586[22m[2m[0m ms[22m
+  [32m[1mVITE[22m v8.3.8[39m  [2mready in [0m[1m335[22m[2m[0m ms[22m
 
   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
 [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mskek2/bole/swikez/cagaqi.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/tahaq/scena/tlohk2nik2p2.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/qatlaq.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/hejmpaghoj.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/saxe.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/mak2zaf.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/sonhakama.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/ja.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/km.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/en.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/aih.ts[22m
-[2m9:58:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/eo.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mskek2/bole/swikez/cagaqi.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/tahaq/scena/tlohk2nik2p2.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/qatlaq.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/saxe.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/sonhakama.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/ja.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/km.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/en.ts[22m
-[2m9:59:20 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/hahaxe.css?direct[22m
-[2m9:59:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/aih.ts[22m
-[2m9:59:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/gawe/baskakefani/eo.ts[22m
-[2m9:59:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m
-[2m10:01:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mkanta/fasado/nesakf6ni.ts[22m
-[2m10:03:23 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m
-[2m10:03:36 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m

@@ -37,17 +37,17 @@ let tsasaVem2 = -3;
 let nurHapa12 = false;
 
 /* ſɭɜ ſɭ,w , ꞙɭц ,
-   ផ្អៀងតាម −z ដើម្បីឱ្យចំណុចភ្ជាប់មានកម្រិតខុសគ្នា ។
-    @param x ( number ) - ពិភពលោក x ។
-    @param z ( number ) - ពិភពលោក z ។
-@returns kម្ពស់ ( number )។ */
+   −z ｡ j͐ʃэ ɭ(ᴜ ｡
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͐ʃэ ɭ(ᴜ ( number ) ｡ */
 function t6lima(x: number, z: number): number {
   const t = Math.max(0, Math.min(1, (x - RANDO) / TRANSIRA));
   const xaha = t * t * (3 - 2 * t);
   return MARAPROFUNDO + (0 - MARAPROFUNDO) * xaha + haga * 0o10 * (z / GRANDO);
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
-    @returns kម្រិត ( number )។ */
+    @returns j͑ʃ'ɔ ŋᷠɹ ( number ) ｡ */
 function tsasaVem2En(x: number): number {
   return x < RANDO + TRANSIRA / 2 ? tsasaVem2 : -Infinity;
 }
@@ -69,8 +69,8 @@ function antauaS2k61o(): { hak6h6: Knat6keqanuK6h6N2k[]; haqakaj2: Knat6keqanuTa
 }
 
 /* ſɭᴜ ſןᴜ , ꞙɭɿ ,
-    @param g ( THREE.Object3D ) - ក្រុម ។
-@returns ឆាក ( THREE.Scene )។ */
+    @param g ( THREE.Object3D ) - j͑ʃᴜ j͑ʃᴜ ſȷᴜ ｡
+@returns ſɭꞇ ı],ɹ ( THREE.Scene ) ｡ */
 function kielKagani(g: THREE.Object3D): THREE.Scene {
   return g as THREE.Scene;
 }
@@ -140,8 +140,8 @@ function tsasatlakak(x: number, z: number): number {
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
 
 /* ſɭᴜ ſןᴜ , ꞙɭɿ ,
-    @param havop2ni ( Kas2kantaDitlakak[] ) - ផ្លូវទាំងអស់ ។
-@returns harmoniigita ( ( x , z ) => number ) - កម្ពស់ផ្លូវ ។ */
+    @param havop2ni ( Kas2kantaDitlakak[] ) - ſɭэ ֭ſɭэ ｡
+@returns harmoniigita ( ( x , z ) => number ) - ſɭэ ֭ſɭэ ʌ j͐ʃэ ɭ(ᴜ ｡ */
 function harmoniigi(havop2ni: Kas2kantaDitlakak[]): (x: number, z: number) => number {
   const haveb6kek = troviK6h6RetajnHaveb6kekn(
     havop2ni.map(d => ({ n2k: d.pts, sefini: 2 * d.w })), haqakaj2);
@@ -407,25 +407,25 @@ function statuso(s2banani: string): void {
 kfe("k6h6Sef4").addEventListener("click", () => {
   hak6h6.push({ ksaka: "K6h6 " + (hak6h6.length + 1), sefini: 3.5,
     n2k: [ [ 0o12, 0o12 ], [ 0o12, 0o36 ] ] });
-  statuso("ផ្លូវថ្មីនៅខាងស្តាំ ។ អូសចំណុចរបស់វាក្នុងផែនទីតូច ។");
+  statuso("j͑ʃɔ ſȷэⅎ ʌ ſɭэ ֭ſɭэ ｡ ʃэ ɭʃɔȝ ʌ }ʃɹƽ ｡ ʃᴜ j͐ʃɹ 🛣️");
   petiRevepaqn();
 });
 kfe("qakaj2Sef4").addEventListener("click", () => {
   haqakaj2.push({ x: -0o46, z: 0o16, jufu: 0o20, s2sabo: Math.PI / 2 });
-  statuso("ចតុកោណថ្មីនៅឆ្នេរ ។ អូសកំពូលរបស់វាដើម្បីពង្រីក ។");
+  statuso("j͑ʃɔ ſȷэⅎ ʌ ſɭᴜ ɭl̀ɹ ｡ ʃэ ɭʃɔȝ ʌ ſɭ,ɔƴ ｡");
   petiRevepaqn();
 });
 kfe("k6h6H2li").addEventListener("click", () => {
   if (!hak6h6.length) return;
   hak6h6.pop();
-  statuso("បានលុបផ្លូវចុងក្រោយ ។");
+  statuso("ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ ʌ ſɭэ ֭ſɭэ ｡ ֭ſɭɹͷ̗ 🛑");
   petiRevepaqn();
 });
 kfe("restarigi").addEventListener("click", () => {
   const s = antauaS2k61o();
   hak6h6 = s.hak6h6;
   haqakaj2 = s.haqakaj2;
-  statuso("បានដាក់ដើមវិញ ។");
+  statuso("ſɭᴜ j͐ʃᴜ ʌ ſɭэ ֭ſɭэ ｡ ↺");
   petiRevepaqn();
 });
 
@@ -462,7 +462,7 @@ tlak2Teranon();
 tlak2Gpukazn();
 vepaqHak6h6n3D();
 k2fPlanon();
-statuso("អូសចំណុចផ្លូវ ឬកំពូលកំពង់ ។ ផ្លូវ 3D សាងសង់ឡើងវិញភ្លាម ។");
+statuso("ʃэ ɭʃɔȝ ʌ }ʃɹƽ ｡ 3D ｡ ſɭэ ֭ſɭэ ｡ ⟅");
 
 // ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı ,
 // ſɭэ ֭ſɭэ , ꞙɭɿ ,
@@ -493,10 +493,10 @@ function animacii(): void {
 animacii();
 
 /* ſɭэ ᶗ‹ , ꞙɭı ,
-    @param id ( string ) - លេខសម្គាល់ធាតុ ។
-@returns ធាតុ ( HTMLElement )។ */
+    @param id ( string ) - ſɭᴜ ſɭɔ ｡
+@returns ſɭᴜ ſɭɔ ( HTMLElement ) ｡ */
 function kfe(id: string): HTMLElement {
   const el = document.getElementById(id);
-  if (!el) throw new Error("ធាតុ " + id + " មិនមានទេ");
+  if (!el) throw new Error("ſɭɜ " + id);
   return el;
 }

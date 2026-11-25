@@ -720,20 +720,20 @@ export async function vepaqKaxten(
           // ſɭɜ ʃɔ ʌ ſɟɹ ᶅſɹȝ ⟅ ſɭɜ ʃɔ ⟅
           vec3 p = position;
           float falo = uTime * aSeheni;
-          p.x = mod(p.x + falo + ıɩɔ.ɔ, цɿɔ.ɔ) - ıɩɔ.ɔ;
+          p.x = mod(p.x + falo + 160.0, 320.0) - 160.0;
           vOpakeco = aOpakeco;
-          vec4 mv = viewMatrix * vec4(p, ı.ɔ);
+          vec4 mv = viewMatrix * vec4(p, 1.0);
           // ſןᴜ j͐ʃэ ʌ }ʃᴜ j͐ʃᴜ ⟅ }ʃɹƽ ʌ ſɭᴜ ſɭᴜ ⟅
-          glPointSize = aGpukaz * ( ıɔɔ.ɔ / -mv.z );
-          glPosition = projectionMatrix * mv;
+          gl_PointSize = aGpukaz * ( 100.0 / -mv.z );
+          gl_Position = projectionMatrix * mv;
         }
       `,
       fragmentShader: `
         uniform sampler2D uMap;
         varying float vOpakeco;
         void main() {
-          vec4 tex = textureD(uMap, glPointCoord);
-          glFragColor = vec4(tex.rgb, tex.a * vOpakeco);
+          vec4 tex = texture2D(uMap, gl_PointCoord);
+          gl_FragColor = vec4(tex.rgb, tex.a * vOpakeco);
         }
       `,
     });

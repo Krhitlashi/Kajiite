@@ -51,9 +51,9 @@ let siicatsiicanaAktiva: () => string;
 let pagaAktiva: () => number;
 
 /* ſɭэ ᶗ‹ , ꞙɭı ,
-   អនុគមន៍ មិនមែនតម្លៃទេ ព្រោះជក់កំពុងប្រើផ្លាស់ប្តូរពេលប្រើ ដូច្នេះការដុត
-   អានវាទាន់ពេល ( សម្លេងលេចឡើង និងបាត់តាមឧបករណ៍ )។
-    @param k ( BakaLigo ) - ការយោងរបស់ឯកសារមេ។ */
+   ſɭᴜc̗ ɭʃᴜ ｡ ſɭɜ j͑ʃ'ɔ ŋᷠɹ ｡ ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡
+   ſɜ j͐ʃɔ ｡ j͑ʃᴜ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡
+    @param k ( BakaLigo ) - j͑ʃᴜ j͐ʃɹ ｡ j͑ʃɜ ſןɹ ſɭɹ ſᶘɔ ｡ */
 export function catsaraTsanen(k: BakaLigo): void {
   hal6da = k.hal6da; habs2 = k.habs2; hapaga = k.hapaga;
   N = k.N; Tona = k.Tona; X0 = k.X0; Z0 = k.Z0;
@@ -69,9 +69,9 @@ export const kozunuCanvas = document.createElement("canvas");
 kozunuCanvas.width = kozunuCanvas.height = REZ;
 const kozunuKuns2bana = kuns2bana2d(kozunuCanvas);
 const kozunuBildo = kozunuKuns2bana.createImageData(REZ, REZ);
-const hakozonu = new Float32Array(REZ * REZ);            // កម្ពស់ប្រូសេឌូរ៉ាល់
-const haga = new Float32Array(REZ * REZ);         // កត្តាស្រមោលភ្នំតូច
-const deklivoGradientoj = new Float32Array(REZ * REZ); // |∇h| គឺជម្រាលថ្មសម្រាប់បន្ទះពណ៌រួម
+const hakozonu = new Float32Array(REZ * REZ);            // j͑ʃэ ɭ(ᴜ ｡ j͑ʃᴜ j͑ʃᴜ ｡
+const haga = new Float32Array(REZ * REZ);         // ֭ſɭw }ʃᴜ }ʃw ｡ ɭl̀ᴜ ſ͕ɭɜ ｡
+const deklivoGradientoj = new Float32Array(REZ * REZ); // |∇h| ｡ ſɭw ſɭᴜƴ ｡ j͑ʃɔ ſɭᴜ ｡
 
 // ſɭᴜ ſןᴜ , ꞙɭц ,
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
@@ -117,11 +117,11 @@ export function kozuaWeh2(h: number, x: number, z: number, haga: number): number
 // ſɭɜ ſɭ,w , ꞙɭꞟ ,
 // ſɭᴜ ſןᴜ , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
-const JAQONUANCO = [ 0o230, 0o60, 0o300 ];    // ពណ៌ស្វាយ គឺតំបន់ជីវៈភ្នំ
-const VALANUANCO = [ 0o40, 0o230, 0o260 ];     // បៃតងខៀវ គឺតំបន់ជីវៈជ្រលង
-const EBENAJANUANCO = [ 0o220, 0o300, 0o110 ]; // បៃតងស្រាល គឺតំបន់ជីវៈវាលរាប
-const AKVAJPLANTOJNUANCO = [ 0o40, 0o200, 0o260 ]; // ខៀវបៃតងជ្រៅ គឺរុក្ខជាតិទឹក
-const EKVIZETONUANCO = [ 0o100, 0o260, 0o140 ];     // បៃតងស្រាល គឺ tsake
+const JAQONUANCO = [ 0o230, 0o60, 0o300 ];    // j͑ʃɔ ſɭᴜ ｡ ɭl̀ᴜ ſ͕ɭɜ ｡
+const VALANUANCO = [ 0o40, 0o230, 0o260 ];     // j͑ʃɔ ſɭᴜ ｡ j͐ʃɜ ɭʃᴜ ｡
+const EBENAJANUANCO = [ 0o220, 0o300, 0o110 ]; // j͑ʃɔ ſɭᴜ ｡ ᶅſɔ ɽ͑ʃ'ɔ ｡
+const AKVAJPLANTOJNUANCO = [ 0o40, 0o200, 0o260 ]; // j͑ʃɔ ſɭᴜ ｡ ſᶘꞇȝ ｡ j͑ʃ'ᴜ ſɟwƽ ｡
+const EKVIZETONUANCO = [ 0o100, 0o260, 0o140 ];     // j͑ʃɔ ſɭᴜ ｡ tsake
 const BIOMANUANCO: Record<string, [ number[], number ]> = {
   jaqo: [ JAQONUANCO, 0o23/0o100 ],
   lota: [ VALANUANCO, 0o23/0o100 ],
@@ -195,7 +195,7 @@ export function alneq2qBiomanNuancon(k: number[], x: number, z: number, d: numbe
       ];
     }
     return k;
-  }  // មានតែពេលឧបករណ៍សត្វបើក ហើយទិដ្ឋភាពបង្ហាញតែ
+  }  // j͑ʃᴜ ｡ ſןᴜ ſ͔ɭᴜ ｡ j͑ʃᴜ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡
 // ſɭɜ ſɭ,w , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
   if ( siicatsiicanaAktiva() === "hapaga" ) {

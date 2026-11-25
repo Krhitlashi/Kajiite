@@ -1,16 +1,16 @@
 // ≺⧼ ſɭɜ ı],ɹȝ ꞁȷ̀ᴜ }ʃꞇ 📐 ⧽≻
 
 /* ſȷƽᴜ ʃɔ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ ,
-    @param t ( number ) - តម្លៃ ɔ ដល់ ı
-@returns y ( number ) - ɔ ដល់ ı */
+    @param t ( number ) - j͑ʃ'ɔ ŋᷠɹ ɔ ｡ ı ｡
+@returns y ( number ) - ɔ ｡ ı ｡ */
 export function xaha(t: number): number {
   return t * t * ( 3 - 2 * t );
 }
 
 /* ı],ᴜ ֭ſɭᴜ , ꞙɭɔ , ꞙɭı , ⟅ ſɭэ ſɭᴜ , ꞙɭı ,
-    @param lo,hi ( number ) - ព្រំដែន
-    @param v ( number ) - តម្លៃ
-@returns t ( number ) - ɔ ដល់ ı */
+    @param lo,hi ( number ) - j͑ʃᴜ ｡
+    @param v ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡
+@returns t ( number ) - ɔ ｡ ı ｡ */
 export function glataTona(lo: number, hi: number, v: number): number {
   return xaha(Math.max(0, Math.min(1, ( v - lo ) / ( hi - lo ))));
 }
@@ -22,19 +22,19 @@ export function katmullRom(p0: number, p1: number, p2: number, p3: number, t: nu
 }
 
 /* ſɭэ ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ſɭэ ſɭɜ , ꞙɭı ,
-    @param v ( number ) - លេខក្រឡាដែលអាចហួសដែន
-    @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
-@returns i ( number ) - ក្រឡាក្នុងដែន ɔ ដល់ n-ı */
+    @param v ( number ) - ſɭɹ ſןᴜ ｡ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ｡
+    @param n ( number ) - ſɭɹ ſןᴜ ｡ j͑ʃᴜ ｡
+@returns i ( number ) - ſɭɹ ſןᴜ ｡ ɔ ｡ n-ı ｡ */
 export function fiksuQox2n2k(v: number, n: number): number {
   const n1 = n - 1;
   return v < 0 ? 0 : v > n1 ? n1 : v;
 }
 
 /* ſןᶗ‹ɔⅎ ſᶘɜ , ſɭэ ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
-    @param qox2n2k ( ArrayLike<number> ) - តារាង n × n
-    @param n ( number ) - ចំនួនក្រឡាក្នុងមួយជ្រុង
-    @param fx, fz ( number ) - កូអរដោនេក្រឡា
-@returns skek2 ( number ) - តម្លៃដែលបានអន្តរប៉ូល */
+    @param qox2n2k ( ArrayLike<number> ) - ſɟᴜ ı],ɹͷ̗ ｡ n × n ｡
+    @param n ( number ) - ſɭɹ ſןᴜ ｡ j͑ʃᴜ ｡
+    @param fx, fz ( number ) - ſɭɹ ſןᴜ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡
+@returns skek2 ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſɭᴜ ſɭᴜ ｡ */
 export function bikubaPx01o(qox2n2k: ArrayLike<number>, n: number, fx: number, fz: number): number {
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;

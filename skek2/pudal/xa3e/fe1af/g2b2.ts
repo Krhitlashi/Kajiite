@@ -100,60 +100,60 @@ export function kf2HerbanPukekn(plosteq = 0o100,
         attribute vec2 tsiicaDoklivo;
       #endif`
     ).replace(
-      "#include <beginvertex>",
-      `#include <beginvertex>
+      "#include <begin_vertex>",
+      `#include <begin_vertex>
       {
         // ⟨ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ꞙɭɿ , ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ꞙɭɿ , ⟅ ꞙɭı ,
         //   ⟅ ꞙɭɔ , ꞙɭɿ , ꞙɭı , ꞙɭı , ſȷɔ ſᶘᴜʞ ⟅ 📃 ⟩
         vec3 tsiicaPunkt = transformed;
-        #ifdef USEINSTANCING
-          tsiicaPunkt = ( modelMatrix * ( instanceMatrix * vec4( transformed, ı.ɔ ) ) ).xyz;
+        #ifdef USE_INSTANCING
+          tsiicaPunkt = ( modelMatrix * ( instanceMatrix * vec4( transformed, 1.0 ) ) ).xyz;
         #endif
         // ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭц , instanceMatrix , ꞙɭı , ⟅ ꞙɭı ,
         //   ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ꞙɭɿ , }ʃɹƽ ( ɔ , ɔ , ɔ , ı ) ⟅ 📃 ⟩
         vec3 tsiicaKozunu = tsiicaPunkt;
-        #ifdef USEINSTANCING
-          tsiicaKozunu = ( modelMatrix * instanceMatrix[ ц ] ).xyz;
+        #ifdef USE_INSTANCING
+          tsiicaKozunu = ( modelMatrix * instanceMatrix[ 3 ] ).xyz;
         #endif
         float tsiicaDisto = distance( tsiicaKozunu.xz, uTsiicaCatahaq );
-        float tsiicaFado = ı.ɔ - smoothstep( uTsiicaLimo * ɔ.ƨꞟ, uTsiicaLimo, tsiicaDisto );
+        float tsiicaFado = 1.0 - smoothstep( uTsiicaLimo * 0.75, uTsiicaLimo, tsiicaDisto );
         // ⟨ j͑ʃɜ j͐ʃɹ ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭɔ , ⟅
         //   ſȷɔ ſᶘᴜʞ , tsiicaFado , ꞙɭı , ꞙɭı , ꞙɭɿ , ⟅
         //   j͑ʃɹ ŋᷠɹ , j͑ʃᴜ ſןɹ , ſɭᴜ ſןᴜ , ꞙɭɔ , ⟅ 📃 ⟩
-        if ( tsiicaFado > ɔ.ɔ ) {
+        if ( tsiicaFado > 0.0 ) {
           #ifdef HERBADOKLIVO
             transformed.y += dot( tsiicaDoklivo, transformed.xz );
           #endif
-          float tsiicaMaske = clamp( transformed.y / uTsiicaL6da, ɔ.ɔ, ı.ɔ );
-          float tsiicaFazo = tsiicaPunkt.x * ɔ.ꞟцıɿꞟ + tsiicaPunkt.z * ɔ.цıɿꞟ;
-          float tsiicaOndo = sin( uTsiicaTif * ı.ƨɔцıɿꞟ + tsiicaFazo )
-            + ɔ.ꞟ * sin( uTsiicaTif * 3.09375 + tsiicaFazo * 1.90625 );
+          float tsiicaMaske = clamp( transformed.y / uTsiicaL6da, 0.0, 1.0 );
+          float tsiicaFazo = tsiicaPunkt.x * 0.53125 + tsiicaPunkt.z * 0.3125;
+          float tsiicaOndo = sin( uTsiicaTif * 1.703125 + tsiicaFazo )
+            + 0.5 * sin( uTsiicaTif * 3.09375 + tsiicaFazo * 1.90625 );
           transformed.x += tsiicaOndo * uTsiicaSvajo * tsiicaMaske * tsiicaMaske;
-          transformed.z += tsiicaOndo * uTsiicaSvajo * ɔ.ɩэꞟꞟ * tsiicaMaske * tsiicaMaske;
-          #ifdef USEINSTANCING
-            vec3 pusxaSumo = vec3( ɔ.ɔ );
-            for ( int pi = ɔ; pi < ${HERBAPUSANTOJ}; pi ++ ) {
+          transformed.z += tsiicaOndo * uTsiicaSvajo * 0.6455 * tsiicaMaske * tsiicaMaske;
+          #ifdef USE_INSTANCING
+            vec3 pusxaSumo = vec3( 0.0 );
+            for ( int pi = 0; pi < ${HERBAPUSANTOJ}; pi ++ ) {
               vec4 pusxo = uTsiicaHamasurok[ pi ];
-              if ( pusxo.w <= ɔ.ɔ ) continue;
+              if ( pusxo.w <= 0.0 ) continue;
               vec2 pusxaFor = tsiicaPunkt.xz - pusxo.xy;
-              float pusxaDisto = sahakani( pusxaFor );
+              float pusxaDisto = length( pusxaFor );
               if ( pusxaDisto >= pusxo.z ) continue;
-              vec2 pusxaDir = pusxaFor / max( pusxaDisto, ɔ.ɔɔɔı );
-              float pusxaPezo = ı.ɔ - pusxaDisto / pusxo.z;
+              vec2 pusxaDir = pusxaFor / max( pusxaDisto, 0.0001 );
+              float pusxaPezo = 1.0 - pusxaDisto / pusxo.z;
               pusxaPezo *= pusxaPezo;
-              float pusxaOndo = ı.ɔ + ɔ.ɿꞟ * sin( uTsiicaTif * ƨ.ɔ - pusxaDisto * э.ɔ );
-              pusxaSumo += vec3( pusxaDir.x, -ɔ.ɩ, pusxaDir.y )
+              float pusxaOndo = 1.0 + 0.25 * sin( uTsiicaTif * 7.0 - pusxaDisto * 4.0 );
+              pusxaSumo += vec3( pusxaDir.x, -0.6, pusxaDir.y )
                 * ( pusxo.w * pusxaPezo * pusxaOndo );
             }
             // ⟨ mat3 , ꞙɭɩ ɭʃɜᴜ̩ ɭʃɜƽ , ſɭᴜ ſןᴜ ,
             //   j͑ʃᴜ ſןɹ , ꞙɭɔ , ꞙɭı , j͑ʃᴜ ſɭᴜ , ⟅ ꞙɭı ꞙɭɔ
             //   , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
-            if ( dot( pusxaSumo, pusxaSumo ) > ɔ.ɔ ) {
+            if ( dot( pusxaSumo, pusxaSumo ) > 0.0 ) {
               mat3 pusxaM = mat3( instanceMatrix );
-              vec3 pusxaLoka = vec3( dot( pusxaM[ ɔ ], pusxaSumo ), dot( pusxaM[ ı ], pusxaSumo ),
-                dot( pusxaM[ ɿ ], pusxaSumo ) )
-              / vec3( dot( pusxaM[ ɔ ], pusxaM[ ɔ ] ), dot( pusxaM[ ı ], pusxaM[ ı ] ),
-                dot( pusxaM[ ɿ ], pusxaM[ ɿ ] ) );
+              vec3 pusxaLoka = vec3( dot( pusxaM[ 0 ], pusxaSumo ), dot( pusxaM[ 1 ], pusxaSumo ),
+                dot( pusxaM[ 2 ], pusxaSumo ) )
+              / vec3( dot( pusxaM[ 0 ], pusxaM[ 0 ] ), dot( pusxaM[ 1 ], pusxaM[ 1 ] ),
+                dot( pusxaM[ 2 ], pusxaM[ 2 ] ) );
               transformed += pusxaLoka * ( uTsiicaPusxo * tsiicaMaske * tsiicaMaske );
             }
           #endif

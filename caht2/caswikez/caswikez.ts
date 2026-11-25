@@ -1,4 +1,4 @@
-// ≺⧼ ŋᷠᴜ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ ʌ j͑ʃп́ꞇ ſɭɔƴ 🎧 ⧽≻
+// ≺⧼ ŋᷠᴜ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ ʌ j͑ʃп́ꞇ ſɭɔƴ 🎧 ⧽≻
 // ſɭэ ſɭᴜ , ꞙɭэ , ⟅ ſȷwɔ˞ , ꞙɭı ,
 // ſɭэ ſɭᴜ , ꞙɭɿ ,
 // ſɭэ ſɭᴜ , ꞙɭц ,
@@ -18,10 +18,10 @@ const baskuliBut = kfe<HTMLButtonElement>("baskuli");
 const haltiBut = kfe<HTMLButtonElement>("halti");
 const volumo = kfe<HTMLInputElement>("volumo");
 const volVal = kfe<HTMLOutputElement>("volVal");
-const cutluTitolo = kfe("cutluTitolo");
-const cutluInstrs = kfe("cutluInstrs");
-const progresoEl = kfe<HTMLInputElement>("progreso");
-const tif = kfe("tif");
+const nunaTitolo = kfe("nunaTitolo");
+const nunaInstrs = kfe("nunaInstrs");
+const progreso = kfe<HTMLInputElement>("progreso");
+const tempo = kfe("tempo");
 const qaroxema = kfe("qaroxema");
 const trakCatsara = kfe("trakCatsara");
 const sonCatsara = kfe("sonCatsara");
@@ -51,15 +51,15 @@ function ensureAudio(): void {
 }
 
 /* ſɭэ ſɭᴜ , ſȷwɔ˞ , ꞙɭı ,
-    @param sek ( number ) - រយៈពេលគិតជាវិនាទី
-@returns ហេ ( string ) */
+    @param sek ( number ) - ſןɹ j͑ʃᴜ ɭ(ꞇ ｡
+@returns ɭʃꞇʞ ( string ) */
 function alHe( sek: number ): string {
   return "ꞙɭ" + Math.round( sek / HE ).toString(8);
 }
 
 /* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭɿ ,
-    @param i ( number ) - លេខសន្ទស្សន៍បទ
-@returns ឈ្មោះបទ ( string ) */
+    @param i ( number ) - j͑ʃ'ɔ ŋᷠɹ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡
+@returns ſɭɔ˞ᴜ ſɭᴜ ʌ j͑ʃп́ꞇ ſɭɔƴ ( string ) */
 function ksakaDeT2bakobesai( i: number ): string {
   return AIH["muzikT2bakobesai" + i] ?? KANTOJ[i].title;
 }
@@ -81,7 +81,7 @@ KANTOJ.forEach(( k, i ) => {
   hate2.textContent = ksakaDeT2bakobesai(i);
   const meta = document.createElement("span");
   meta.className = "t2bakobesaiMeta";
-  meta.textContent = `${k.instrs.length} ឧបករណ៍ · ${alHe(k.data.dur)} ហេ`;
+  meta.textContent = `${"ꞙɭ" + k.instrs.length.toString(8)} j͑ʃᴜꞇ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · ${alHe(k.data.dur)} ɭʃꞇʞ}`;
   b.append(no, hate2, meta);
   b.addEventListener("click", () => {
     ensureAudio();
@@ -100,12 +100,12 @@ interface BoleTsaletsa {
 }
 
 /* ſȷwɔ˞ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
-   ទាំងអស់ឆ្លងកាត់ឧបករណ៍ផ្សាយតែមួយជាមួយសំឡេងក្នុងហ្គេម 📃 */
+   ſɭᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ʌ j͑ʃ'ɔ ʃɜ j͐ʃɔ ʌ j͑ʃᴜ ı],ɹƴ 📃 */
 const SONPROK6H6: BoleTsaletsa[] = [
   { ksaka: "siku", cal: { t: 0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
   { ksaka: "ocarina", cal: { t: 0, i: "ocarina", f: F(0o105), d: 0o35/0o100, v: 0o6/0o10 } },
   { ksaka: "didj", cal: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o150/0o100, v: 0o6/0o10 } },
-  { ksaka: "didj · សូរខ្លី", cal: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o25/0o100, v: 0o6/0o10, toot: true } },
+  { ksaka: "didj · ʃɜ j͐ʃɔ", cal: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o25/0o100, v: 0o6/0o10, toot: true } },
   { ksaka: "guiro", cal: { t: 0, i: "guiro", f: 0, d: 0o100/0o100, v: 0o6/0o10, cresc: 1 } },
   { ksaka: "tjurunga", cal: { t: 0, i: "tjurunga", f: 0o334, d: 0o6/0o10, v: 0o6/0o10 } },
   { ksaka: "slenthem", cal: { t: 0, i: "slenthem", f: F(0o67), d: 0o2/0o10, v: 0o6/0o10 } },
@@ -149,8 +149,8 @@ volumo.addEventListener("input", () => {
 // ⟪ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟫
 
 /* ſɭэ ſɭᴜ , ſȷwɔ˞ , ꞙɭı ,
-    @param he ( number ) - រយៈពេលគិតជាហេ
-@returns វិនាទី ( number ) */
+    @param he ( number ) - ɭʃꞇʞ ｡
+@returns ſןɹ j͑ʃᴜ ɭ(ꞇ ( number ) */
 function alSek( he: number ): number {
   return he * HE;
 }
@@ -158,19 +158,19 @@ function alSek( he: number ): number {
 // ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 let trenas = false;
 
-progresoEl.addEventListener("input", () => {
+progreso.addEventListener("input", () => {
   trenas = true;
   const cur = cutluT2bakobesai();
   if ( cur < 0 ) return;
-  tif.textContent = `${alHe(alSek(progresoEl.valueAsNumber))} / ${alHe(KANTOJ[cur].data.dur)} ហេ`;
+  tempo.textContent = `${alHe(alSek(progreso.valueAsNumber))} / ${alHe(KANTOJ[cur].data.dur)} ɭʃꞇʞ`;
 });
 
-progresoEl.addEventListener("change", () => {
+progreso.addEventListener("change", () => {
   trenas = false;
   const cur = cutluT2bakobesai();
   if ( cur < 0 ) return;
   ensureAudio();
-  salti(alSek(progresoEl.valueAsNumber));
+  salti(alSek(progreso.valueAsNumber));
 });
 
 // ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
@@ -189,7 +189,7 @@ function ĝisdatigi(): void {
   if ( cur >= 0 ) {
     const k = KANTOJ[cur];
     const elapsed = progreso();
-    cutluTitolo.textContent = `${k.no} · ${ksakaDeT2bakobesai(cur)}`;
+    nunaTitolo.textContent = `${k.no} · ${ksakaDeT2bakobesai(cur)}`;
     if ( cur !== lastInstrT2bakobesai ) {
       instrSpanoj = k.instrs.map(i => {
         const s = document.createElement("span");
@@ -202,28 +202,28 @@ function ĝisdatigi(): void {
         if ( idx ) frag.append(document.createTextNode(" · "));
         frag.append(s.el);
       });
-      cutluInstrs.replaceChildren(frag);
+      nunaInstrs.replaceChildren(frag);
       lastInstrT2bakobesai = cur;
     }
     for ( const { i, el } of instrSpanoj ) el.classList.toggle("instrAktiva", hatik.has(i));
     const dauxro = Math.max(0o1, Math.round(k.data.dur / HE));
-    progresoEl.max = String(dauxro);
+    progreso.max = String(dauxro);
     if ( !trenas ) {
-      progresoEl.value = String(Math.min(dauxro, Math.round(elapsed / HE)));
-      tif.textContent = `${alHe(elapsed)} / ${alHe(k.data.dur)} ហេ`;
+      progreso.value = String(Math.min(dauxro, Math.round(elapsed / HE)));
+      tempo.textContent = `${alHe(elapsed)} / ${alHe(k.data.dur)} ɭʃꞇʞ`;
     }
     const sc = k.data.secs.find(s => elapsed >= s.a && elapsed < s.b);
     qaroxema.textContent = sc ? sc.n : "";
   } else {
-    cutluTitolo.textContent = "—";
+    nunaTitolo.textContent = "—";
     if ( lastInstrT2bakobesai !== -0o1 ) {
       instrSpanoj = [];
-      cutluInstrs.replaceChildren();
+      nunaInstrs.replaceChildren();
       lastInstrT2bakobesai = -0o1;
     }
     if ( !trenas ) {
-      progresoEl.value = "0";
-      tif.textContent = `${alHe(0)} / ${alHe(0)} ហេ`;
+      progreso.value = "0";
+      tempo.textContent = `${alHe(0)} / ${alHe(0)} ɭʃꞇʞ`;
     }
     qaroxema.textContent = "";
   }

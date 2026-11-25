@@ -49,9 +49,9 @@ function gcdn(a: number, b: number): number {
 }
 
 /* ſɭэ ſɭᴜ , ꞙɭɔ ,
-    @param x ( number ) - តម្លៃពិត
-    @param den ( number ) - ភាគប្រាំបី ( ꞙɭıɔɔ , ꞙɭıɔɔɔɔ ... )
-@returns អត្ថបទលេខគោលប្រាំបី ( string ) */
+    @param x ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡
+    @param den ( number ) - ſɭɹ ſȷɔ ｡ ( ꞙɭıɔɔ , ꞙɭıɔɔɔɔ ... )
+@returns j͑ʃɹ ʃᴜ }ʃᴜ ｡ ſɭɹ ſȷɔ ( string ) */
 export function octFrak(x: number, den: number): string {
   const n = Math.round(x * den);
   if ( n === 0 ) return "0";
@@ -65,8 +65,8 @@ export function octFrak(x: number, den: number): string {
 // ⟪ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟫
 
 /* ſɭэ ſɭᴜ , ꞙɭı ,
-    @param d ( T2bakobesaiVop2 ) - វិលដែលកែ
-@returns អត្ថបទឯកសារ ( string ) */
+    @param d ( T2bakobesaiVop2 ) - j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ ｡
+@returns j͑ʃɹ ʃᴜ }ʃᴜ ( string ) */
 export function generiT2bakobesai(d: T2bakobesaiVop2): string {
   const n = parseInt(d.no, 0o12);
   const bar = caxomani(d.bpq) * d.ppb;
@@ -85,10 +85,10 @@ export function generiT2bakobesai(d: T2bakobesaiVop2): string {
   const secLinoj = [ ...d.secs ].sort(( a, b ) => a.a - b.a).map(s =>
     "    { n: " + JSON.stringify(s.n) + ", a: " + octFrak(s.a, 0o10000) + ", b: " + octFrak(s.b, 0o10000) + " },");
   return [
-    "// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ " + d.no + " · " + d.hate2 + " 🎵 ⧽≻",
-    "// បង្កើតដោយឧបករណ៍កែតន្ត្រី ( hacaht2/muzik-redaktilo/muzik-redaktilo.html )។",
-    "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) - កុំកែដោយដៃ។ ឧបករណ៍កែសរសេរឯកសារនេះឡើងវិញ។",
-    "// ក្រឡាចង្វាក់ ៖ ꞙɭ" + d.bpq.toString(0o10) + " បាតកក្នុងមួយគុយអេ , បារមួយ ꞙɭ" + d.ppb.toString(0o10) + " ភាគប្រាំបី។",
+    "// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ " + d.no + " · " + d.hate2 + " 🎵 ⧽≻",
+    "// j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɜ ſןɹ ſɭɹ ſᶘɔ ｡ ( hacaht2/muzik-redaktilo/muzik-redaktilo.html ) ｡",
+    "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ｡ ſɭɜ ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ ｡ ſȷɔ ſɭ,ꞇ ｡",
+    "// ı],ɔ ſɭw ｡ ꞙɭ" + d.bpq.toString(0o10) + " ı],ɔ ſɭw ｡ ſɭᴜ ſɭᴜ ꞙɭ" + d.ppb.toString(0o10) + " ｡",
     "",
     "import type { BoleEg2b2, Qaroxema, SpuroDateno } from \"../habal/hahunaq.js\";",
     "",
@@ -106,16 +106,16 @@ export function generiT2bakobesai(d: T2bakobesaiVop2): string {
 }
 
 /* ſɭэ ſɭᴜ , ꞙɭɿ ,
-    @param havalaqaz ( Registro[] ) - វិលទាំងអស់តាមលេខ
-@returns អត្ថបទឯកសារ ( string ) */
+    @param havalaqaz ( Registro[] ) - j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡
+@returns j͑ʃɹ ʃᴜ }ʃᴜ ( string ) */
 export function generiKantoj(havalaqaz: Registro[]): string {
   const hahaxe = [ ...havalaqaz ].sort(( a, b ) => parseInt(a.no, 0o12) - parseInt(b.no, 0o12));
   const uzasAiH = hahaxe.some(r => r.titolCatlaq);
   const hax2pa = [
-    "// ≺⧼ ចម្រៀង 🎵 ⧽≻",
-    "// វិលនីមួយៗស្ថិតក្នុងឯកសារដាច់ដោយឡែកក្រោមថត kanta/ ។",
-    "// ឯកសារនេះប្រមូលពួកវាជាបញ្ជីតែមួយសម្រាប់ឧបករណ៍លេង។",
-    "// បង្កើតដោយឧបករណ៍កែតន្ត្រី ( hacaht2/muzik-redaktilo/muzik-redaktilo.html )។",
+    "// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻",
+    "// j͑ʃп́ꞇ ſɭɔƴ ｡ ſɭᴜ ｡ kanta/ ｡",
+    "// ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡",
+    "// j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɜ ſןɹ ſɭɹ ſᶘɔ ｡ ( hacaht2/muzik-redaktilo/muzik-redaktilo.html ) ｡",
     "",
     "import type { SpuroDateno } from \"./habal/hahunaq.js\";",
   ];
@@ -150,7 +150,7 @@ class Parzilo {
   private i = 0;
   constructor(private s2banani: string) {}
   private sp(): void { while ( this.i < this.s2banani.length && /\s/.test(this.s2banani[this.i]) ) this.i++; }
-  private tlohk2nik2p2(): never { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) កន្សោមមិនអាចញែកនៅ " + this.i); }
+  private tlohk2nik2p2(): never { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſɭɜ ſȷᴜ ｡ " + this.i); }
   private k2fe(): number {
     this.sp();
     const m = this.s2banani.slice(this.i).match(/^-?0o[0-7]+(?:\/0o[0-7]+)?|^-?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/);
@@ -274,16 +274,16 @@ function eltiri(s2banani: string, cakukkaj2sai: string): string | null {
 }
 
 /* ſɭᴜ ſןᴜ , ꞙɭц ,
-    @param s2banani ( string ) - អត្ថបទឯកសារ
-@returns វិល ( T2bakobesaiVop2 | null ) បើឯកសារមិនមែនជាវិលរបស់ឧបករណ៍នេះ */
+    @param s2banani ( string ) - j͑ʃɹ ʃᴜ }ʃᴜ ｡ j͑ʃᴜ j͐ʃɹ ｡
+@returns j͑ʃп́ꞇ ſɭɔƴ ( T2bakobesaiVop2 | null ) ｡ j͑ʃᴜ j͐ʃɹ ｡ */
 export function parziT2bakobesai(s2banani: string): T2bakobesaiVop2 | null {
   try {
     const fn = /export function buildTrack(\d+)\(/.exec(s2banani);
     if ( !fn ) return null;
     const no = fn[1].padStart(0o2, "0");
     const tit = /· (.+) 🎵/.exec(s2banani);
-    const bpqM = /0o([0-7]+) បាតក/.exec(s2banani);
-    const ppbM = /បារមួយ 0o([0-7]+)/.exec(s2banani);
+    const bpqM = /ꞙɭ([0-7]+) ı],ɔ ſɭw/.exec(s2banani);
+    const ppbM = /ſɭᴜ ſɭᴜ ꞙɭ([0-7]+)/.exec(s2banani);
     const bpq = bpqM ? parseInt(bpqM[1], 0o10) : 0o40;
     const ppb = ppbM ? parseInt(ppbM[1], 0o10) : 0o10;
     const evResto = eltiri(s2banani, "const ev: BoleEg2b2[] = ");
@@ -315,15 +315,15 @@ export function parziT2bakobesai(s2banani: string): T2bakobesaiVop2 | null {
       if ( typeof s.n !== "string" || typeof s.a !== "number" || typeof s.b !== "number" ) return null;
     const haqal6kx2 = Math.max(0o1, Math.round(dur / ( caxomani(bpq) * ppb )));
     const instrs = [ ...new Set(hatsal2.map(n => n.i)) ];
-    return { no, hate2: tit ? tit[1] : "វិល " + no, titolCatlaq: null, bpq, ppb, haqal6kx2, hatsal2, secs, instrs };
+    return { no, hate2: tit ? tit[1] : "j͑ʃп́ꞇ ſɭɔƴ " + no, titolCatlaq: null, bpq, ppb, haqal6kx2, hatsal2, secs, instrs };
   } catch { return null; }
 }
 
 // ⟪ WAV 📃 ⟫
 
 /* ſᶘɜ ʃᴜ , ꞙɭɩ ,
-    @param buf ( AudioBuffer ) - សំឡេងដែលបានផ្តល់រួច
-@returns Blob នៃឯកសារ WAV */
+    @param buf ( AudioBuffer ) - ʃɜ j͐ʃɔ ｡
+@returns Blob ｡ WAV ｡ */
 export function wavDeBuffer(buf: AudioBuffer): Blob {
   const haqar6xe = buf.numberOfChannels;
   const n = buf.length;

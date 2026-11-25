@@ -20,10 +20,10 @@ import { s2tasTsasaS23ohk2sain, tsekeTsasaK2pa } from "./tsasa.js";
 // ſɭᴜ ſןᴜ , ꞙɭꞟ ,
 // ſɭᴜ ſןᴜ , ꞙɭı ,
 /* ſɭᴜ ſןᴜ , ꞙɭɿ ,
-   ថ្នាំងសំណាញ់នៅតែស្មើតម្លៃក្រឡាពិត។
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-@returns ដេលតាដែលបញ្ចូល ( number )។ */
+   ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡ ſɭɹ ſןᴜ ｡ ſɭᴜ ｡
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ( number ) ｡ */
 export function l6daInterp(x: number, z: number): number {
   const fx = ( x - X0 ) / Tona;
   const fz = ( z - Z0 ) / Tona;
@@ -34,9 +34,9 @@ export function l6daInterp(x: number, z: number): number {
   return katmullRom(x2pa(j0 - 1), x2pa(j0), x2pa(j0 + 1), x2pa(j0 + 2), v);
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
-    @param x ( number ) - ពិភពលោក x។
-    @param z ( number ) - ពិភពលោក z។
-@returns តម្លៃម៉ាស ( number )។ */
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃ'ɔ ŋᷠɹ ( number ) ｡ */
 export function maskoInterp(x: number, z: number): number {
   const fx = Math.max(0, Math.min(N - 1, ( x - X0 ) / Tona));
   const fz = Math.max(0, Math.min(N - 1, ( z - Z0 ) / Tona));
@@ -49,9 +49,9 @@ export function maskoInterp(x: number, z: number): number {
 }
 
 /* ſɭɜ ſɭ,w , ꞙɭɿ ,
-    @param ix ( number ) - ជួរឈរសំណាញ់។
-    @param iz ( number ) - ជួរសំណាញ់។
-@returns ដេលតា ( number )។ */
+    @param ix ( number ) - j͑ʃᴜ ｡ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡
+    @param iz ( number ) - j͑ʃᴜ ｡ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡
+@returns j͑ʃᴜ ( number ) ｡ */
 export function l6daK2pa(ix: number, iz: number): number {
   const ii = Math.max(0, Math.min(N - 1, ix));
   const jj = Math.max(0, Math.min(N - 1, iz));
@@ -63,9 +63,9 @@ export function l6daK2pa(ix: number, iz: number): number {
 // ſɭɜ ᶗ‹ , ꞙɭɿ ,
 // ſɭᴜ ſןᴜ , ꞙɭц ,
 export let siicatsiicanaAktiva = "movigi";
-export let bs2Aktiva = 1;           // ជក់រងរបស់ឧបករណ៍តំបន់ជីវៈ ( ı=ភ្នំ, ɿ=ជ្រលង, ц=វាលរាប, э=រុក្ខជាតិទឹក, ꞟ=tsake, ɔ=ស្វ័យប្រវត្តិ )
-export let pagaAktiva = 1;           // ជក់រងរបស់ឧបករណ៍សត្វ ( ı=សត្វទឹក, ɿ=បក្សីព្រិល, э=NPC )
-export let pagaForvisxa = false;      // តើឧបករណ៍សត្វកំពុងលុប ( ឧបករណ៍ដូចគ្នា ) ជំនួសការគូរ
+export let bs2Aktiva = 1;           // ɭʃэ ſɟᴜ ｡ j͑ʃᴜ j͑ʃᴜ ｡ ( ı=ɭl̀ᴜ ſ͕ɭɜ, ɿ=j͐ʃɜ ɭʃᴜ, ц=ᶅſɔ ɽ͑ʃ'ɔ, э=ſᶘꞇȝ ſɟwƽ, ꞟ=tsake, ɔ=ſɭᴜ ｡ )
+export let pagaAktiva = 1;           // ɭʃэ ſɟᴜ ｡ ſןᴜ ſ͔ɭᴜ ｡ ( ı=ſᶘꞇȝ ſןᴜ ſ͔ɭᴜ, ɿ=ſɟɜ ŋᷠᴜ ֭ſɭᴜƽ, э=NPC )
+export let pagaForvisxa = false;      // ſןᴜ ſ͔ɭᴜ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡ ֭ſɭɹͷ̗ ｡ ſɭɹʞ ｡
 // ſɭэ ſɭw , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 // ſɭᴜ ſןᴜ , ꞙɭц ,
@@ -74,15 +74,15 @@ export const ka5ik = () => +ka5ikKama.value;
 export const g2sa = () => +g2saKama.value;
 
 /* ſɭᴜ ſןᴜ , ꞙɭı ,
-   |dx| + |dz| , ដូច្នេះគែមជក់តាមអ័ក្សក្រឡា ហើយជ្រុងស្រួចបួនស្ថិតលើអ័ក្ស x និង z ។
-    @param cx ( number ) - ពិភពលោក x របស់ជក់។
-    @param cz ( number ) - ពិភពលោក z របស់ជក់។
-    @param r ( number ) - កាំរបស់ជក់ ( ចម្ងាយពីកណ្តាលទៅជ្រុងស្រួច )។
-    @param g2saVal ( number ) - កម្លាំង ( គ្រាប់រំកិល )។
-    @param hunaq ( string ) - ជក់កំពុងប្រើ។
-    @param t12na ( Map<number, number> ) - ក្រឡាដែលបានប៉ះក្នុងជំហាន
-        ជក់បច្ចុប្បន្ន ( ក្រឡាទទួលជក់តែម្តងក្នុងមួយជំហាន )។
-@returns ចតុកោណកែងសំណាញ់ដែលបានប៉ះ ( KradaRektangulo )។ */
+   |dx| + |dz| ｡ ſɭɹ ſןᴜ ｡ ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡ x ｡ z ｡
+    @param cx ( number ) - ʃᴜ j͐ʃɹ x ｡ ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡
+    @param cz ( number ) - ʃᴜ j͐ʃɹ z ｡ ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡
+    @param r ( number ) - j͑ʃɜ j͑ʃƨɹ ｡ ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡
+    @param g2saVal ( number ) - ſ͕ɭɜ ｡
+    @param hunaq ( string ) - ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡ j͑ʃᴜ j͑ʃᴜ ｡
+    @param t12na ( Map<number, number> ) - ſɭɹ ſןᴜ ｡ ſɭᴜ ｡
+        ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ｡ ſɭɹ ſןᴜ ｡ ſɭᴜ ｡
+@returns ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ( KradaRektangulo ) ｡ */
 export function siicatsiicanaApliki(cx: number, cz: number, r: number, g2saVal: number,
   hunaq: string, t12na: Map<number, number>): KradaRektangulo {
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
@@ -99,7 +99,7 @@ export function siicatsiicanaApliki(cx: number, cz: number, r: number, g2saVal: 
 // ſ͕ɭɜ ı],ᴜ , ꞙɭɿ ,
       const d = Math.abs(x - cx) + Math.abs(z - cz);
       if ( d > r ) continue;
-      const f = 1 - ( d / r ) * ( d / r );       // ការស្រអាប់រលូនទៅគែម
+      const f = 1 - ( d / r ) * ( d / r );       // j͑ʃɜ j͑ʃƨɹ ｡ ſןw ſɭᴜƴ ｡
       const idx = iz * N + ix;
 // ſɭᴜ ſןᴜ , ꞙɭц ,
 // ( ſןɔ˞ᴜƴ , ꞙɭɿɔ , ꞙɭɩ ,
@@ -158,8 +158,8 @@ export function siicatsiicanaApliki(cx: number, cz: number, r: number, g2saVal: 
   return { ix0, ix1, iz0, iz1 };
 }
 /* ſɭᴜ ſןᴜ , ꞙɭɿ ,
-    @param cx ( number ) - ពិភពលោក x ថ្មី។
-    @param cz ( number ) - ពិភពលោក z ថ្មី។ */
+    @param cx ( number ) - ʃᴜ j͐ʃɹ x ｡ ſȷэⅎ ｡
+    @param cz ( number ) - ʃᴜ j͐ʃɹ z ｡ ſȷэⅎ ｡ */
 export function siicatsiicanaTona(cx: number, cz: number): void {
 // ſɭᴜ ſןᴜ , ꞙɭц ,
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
@@ -182,7 +182,7 @@ export function siicatsiicanaTona(cx: number, cz: number): void {
 // ſɭɜ ſɭ,w , ꞙɭɿ ,
 // ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
   s2tasTsasaS23ohk2sain();
-  statuso("ការផ្លាស់ប្តូរមិនបានរក្សាទុក");
+  statuso("j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſɭɜ ſȷɔ ſɭ,ꞇ");
   const r = ka5ik();
   const px0 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.max(deX, cx) + r + 1)));
   const px1 = Math.max(0, Math.min(REZ - 1, mondoxAlPikselo(Math.min(deX, cx) - r - 1)));
@@ -241,7 +241,7 @@ let treno: PenikaTreno | null = null;
 let bokMuson: () => MusoS2k61o = () => ( { platigaCelo: null, treno: null } );
 
 /* ſɭэ ᶗ‹ , ꞙɭɿ ,
-    @param L ( PenikaLigo ) - តារាង និងកម្មវិធីបង្ហាញរបស់កម្មវិធីកែសម្រួល។ */
+    @param L ( PenikaLigo ) - j͑ʃᴜ j͑ʃᴜ ｡ ſɭɜ ſȷᴜ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡ */
 export function catsaraPenikojn(L: PenikaLigo): void {
   ( { hal6da, k6liqani, habs2, hapaga, N, Tona, X0, Z0, statuso, s2tasDesegnon,
     s2tasVeq6k2itan, ka5ikKama, g2saKama } = L );

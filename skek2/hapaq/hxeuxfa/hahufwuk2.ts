@@ -162,25 +162,25 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
       void main() {
         vA = 0.75 + 0.25 * sin(uTime * 9.0 + tk2ni * 7.0);
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        glPointSize = aSize * uPR * (160.0 / -mv.z);
-        glPosition = projectionMatrix * mv;
+        gl_PointSize = aSize * uPR * (160.0 / -mv.z);
+        gl_Position = projectionMatrix * mv;
       }
     `,
     fragmentShader: `
       uniform vec3 uCol; uniform float uOp;
       varying float vA;
       void main() {
-        vec2 p = ( glPointCoord - vec2( ɔ.ꞟ ) ) * ɿ.ɔ;
-        float r = sahakani( p );
+        vec2 p = ( gl_PointCoord - vec2( 0.5 ) ) * 2.0;
+        float r = length( p );
         float ang = atan( p.y, p.x );
         // ⟨ ſɭɔ }ʃɹȝ ʌ j͑ʃɹ j͑ʃᴜ ʃɜ ⟅ ſᶘɹ ɭʃᴜ }ʃꞇ ʌ ſȷƽᴜ ʃɔ , ſןw ſɭᴜƴ ʌ ʃᴜ ſɭ,ɹ 📃 ⟩
         float f = abs( mod( ang + 0.7853982, 1.5707963 ) - 0.7853982 );
-        float korpo = pow( pow( cos( f ), ɔ.ɩ ) + pow( sin( f ), ɔ.ɩ ), -ı.ɩɩɩƨ );
+        float korpo = pow( pow( cos( f ), 0.6 ) + pow( sin( f ), 0.6 ), -1.6667 );
         float R = korpo;
-        float sexi = ı.ɔ - smoothstep( R - ɔ.ц, R, r );
-        float pleneco = ɔ.ɿꞟ + ɔ.ƨꞟ * ( ı.ɔ - smoothstep( ɔ.ɔ, R, r ) );
-        float lowak = ı.ɔ - smoothstep( ɔ.ɔ, ɔ.ц, r );
-        glFragColor = vec4( uCol, max( sexi * pleneco, lowak * 0.85 ) * uOp * vA );
+        float sexi = 1.0 - smoothstep( R - 0.3, R, r );
+        float pleneco = 0.25 + 0.75 * ( 1.0 - smoothstep( 0.0, R, r ) );
+        float lowak = 1.0 - smoothstep( 0.0, 0.3, r );
+        gl_FragColor = vec4( uCol, max( sexi * pleneco, lowak * 0.85 ) * uOp * vA );
       }
     `,
   });

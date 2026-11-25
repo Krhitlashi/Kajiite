@@ -59,17 +59,17 @@ export interface SotlakakEsxaq {
 }
 
 /* ſᶘɹ ſɭᴜ , ꞙɭı ,
-    @param v ( SotlakakEsxaq ) - ថូខឹនជំនួសតម្លៃកោង
-@returns ខ្សែអនុគមន៍ so3akakKek ( string )*/
+    @param v ( SotlakakEsxaq ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſɭɹ ｡
+@returns so3akakKek ｡ ( string )*/
 export function so3akakGLSL( v: SotlakakEsxaq ): string {
   return `
 float so3akakKek( const in vec3 surfacaXekuxa, const in vec3 lupaXekuxa, const in float cutoffDistance, const in float decayExponent ) {
 	vec3 lVector = lupaXekuxa - surfacaXekuxa;
 	vec3 nalaVektoro = transpose( mat3( viewMatrix ) ) * lVector;
-	float tapu = sahakani( nalaVektoro.xz );
+	float tapu = length( nalaVektoro.xz );
 	float l6da = -nalaVektoro.y;
 	float vertikala = l6da > 0.0 ? l6da * ${v.cepuTeru} : l6da * ${v.cepuPsaz};
-	float kkaxteH6kuni = sahakani( vec2( tapu * ${v.tapu}, vertikala ) );
+	float kkaxteH6kuni = length( vec2( tapu * ${v.tapu}, vertikala ) );
 	float distanceFalloff = 1.0 / max( pow( kkaxteH6kuni, decayExponent ), 0.01 );
 	if ( cutoffDistance > 0.0 ) {
 		float t = saturate( kkaxteH6kuni / cutoffDistance );
@@ -106,7 +106,7 @@ function c2kSotlakak( funkcio: string, s2bana = "" ): void {
 }
 
 /* ſᶘɹ ſɭᴜ , ꞙɭэ ,
-    @param ku1o ( SotlakakKu1o = SO3AKAKTAJ2 , optional ) - តម្លៃកោងថេរ។
+    @param ku1o ( SotlakakKu1o = SO3AKAKTAJ2 , optional ) - j͑ʃ'ɔ ŋᷠɹ ｡
 @returns void*/
 export function ku1oSotlakak( ku1o: SotlakakKu1o = SO3AKAKTAJ2 ): void {
   const fn = so3akakGLSL({
@@ -145,8 +145,8 @@ export const SO3AKAKKSAKAJ: SotlakakEsxaq = {
 };
 
 /* ſɭэ ſɭw , ꞙɭı ,
-    @param ku1o ( SotlakakKu1o = SO3AKAKTAJ2 , optional ) - តម្លៃចាប់ផ្តើម។
-@returns វត្ថុ uniform ទាំងប្រាំពីរ ( SotlakakUnihaqoxa )។*/
+    @param ku1o ( SotlakakKu1o = SO3AKAKTAJ2 , optional ) - j͑ʃ'ɔ ŋᷠɹ ｡ ı ｡
+@returns j͑ʃ'ɔ ŋᷠɹ ｡ ( SotlakakUnihaqoxa ) ｡*/
 export function kf2SotlakakUnihaqoxan(
   ku1o: SotlakakKu1o = SO3AKAKTAJ2 ): SotlakakUnihaqoxa {
   return {
@@ -169,9 +169,9 @@ export function ku1oPufosakanSotlakak(): void {
 }
 
 /* ſɭэ ſɭw , ꞙɭц ,
-    @param pukek ( THREE.MeshStandardMaterial ) - វត្ថុធាតុត្រូវចង។
-    @param unihaqoxa ( SotlakakUnihaqoxa ) - វត្ថុ uniform រួម។
-@returns វត្ថុធាតុដូចដើម ( THREE.MeshStandardMaterial )។*/
+    @param pukek ( THREE.MeshStandardMaterial ) - ſɟᴜ ſןᴜȝ ｡
+    @param unihaqoxa ( SotlakakUnihaqoxa ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡
+@returns ſɟᴜ ſןᴜȝ ( THREE.MeshStandardMaterial ) ｡*/
 export function c2kSotlakakUnihaqoxan( pukek: THREE.MeshStandardMaterial,
   unihaqoxa: SotlakakUnihaqoxa ): THREE.MeshStandardMaterial {
   const ne3ak2 = pukek.onBeforeCompile;
@@ -191,12 +191,12 @@ export function c2kSotlakakUnihaqoxan( pukek: THREE.MeshStandardMaterial,
 
 // ⟪ ꞙɭɩ , 📐 ⟫
 /* ſᶘɹ ſɭᴜ , ꞙɭэ ,
-    @param tapu ( number ) - ចម្ងាយផ្តេកពីចង្កៀង
-    @param vy ( number ) - កម្ពស់ចង្កៀងពីលើផ្ទៃ ( វិជ្ជមានបើចង្កៀងខ្ពស់ជាង )
-    @param cutoff ( number ) - ចម្ងាយបិទ
-    @param decay ( number ) - និទស្សន្តធ្លាក់
-    @param a ( SotlakakKu1o ) - តម្លៃកោង
-@returns ពន្លឺ sRGB ɔ ដល់ ı ( number )*/
+    @param tapu ( number ) - j͑ʃэ ɭ(ᴜ ｡ ſᶘɔ ɭl̀ɹȝ ｡
+    @param vy ( number ) - ſᶘɔ ɭl̀ɹȝ ｡ j͑ʃэ ɭ(ᴜ ｡
+    @param cutoff ( number ) - j͑ʃэ ɭ(ᴜ ｡ ſɭɜ ｡
+    @param decay ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſןɔ˞ᴜƴ ｡
+    @param a ( SotlakakKu1o ) - j͑ʃ'ɔ ŋᷠɹ ｡ j͑ʃᴜ ｡
+@returns ſᶘɔ ɭl̀ɹȝ sRGB ɔ ｡ ı ( number )*/
 export function so3akakSrgbJS( tapu: number, vy: number,
   cutoff: number, decay: number, a: SotlakakKu1o ): number {
   const l6da = -vy;

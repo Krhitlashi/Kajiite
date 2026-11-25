@@ -36,10 +36,10 @@ export interface HistoriaMomento {
 export const historio: HistoriaMomento[] = [];
 export const refaraHistorio: HistoriaMomento[] = [];
 /* ſɭэ ᶗ‹ , ꞙɭц ,
-   សំណាញ់ ( ទីក្រុងជាមួយស្រទាប់ខាងលើរបស់ពួកវា ) ផ្លូវ និងកំពង់ មិនត្រឹមតែ
-   ដី និងវត្ថុទេ។ ការរក្សាទុក និងការញែកឡើងវិញនៃទីក្រុង ផ្លូវ និងកំពង់
-   មានលក្ខណៈវង់ ( cirkuloDeHavop2Validas ) ដូច្នេះការចម្លង JSON ជ្រៅគ្រប់គ្រាន់។
-@returns ស្ថានភាពនោះ ( HistoriaMomento )។ */
+   ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡ ſɭᴜ ı],ƨɔ ｡ ſɭэ ֭ſɭэ ｡ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ｡
+   ſɭɜ ｡ ſɭᴜ ɭl̀ɹ ｡ j͑ʃƽɔ ſɭɹ ｡ ſɭᴜ ı],ƨɔ ｡ ſɭэ ֭ſɭэ ｡ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ｡
+   cirkuloDeHavop2Validas ｡ JSON ｡ j͑ʃᴜ ｡
+@returns ɭʃᴜ̩ᴜ ᶅſɔ }ʃꞇ ( HistoriaMomento ) ｡ */
 export function s2k61oMomento(): HistoriaMomento {
   return {
     hal6da: hal6da.slice(), k6liqani: k6liqani.slice(), habs2: habs2.slice(), hapaga: hapaga.slice(),
@@ -57,7 +57,7 @@ export function momenti(): void {
   if ( historio.length > 0o40 ) historio.shift();
 }
 /* ſɭэ ᶗ‹ , ꞙɭɿ ,
-    @param s ( HistoriaMomento ) - ស្ថានភាពដែលត្រូវស្តារឡើងវិញ។ */
+    @param s ( HistoriaMomento ) - ɭʃᴜ̩ᴜ ᶅſɔ }ʃꞇ ｡ j͑ʃᴜ ſȷᴜ ｡ */
 export function restoriS2k61o(s: HistoriaMomento): void {
   hal6da.set(s.hal6da);
   k6liqani.set(s.k6liqani);
@@ -125,7 +125,7 @@ let tlak2Haskek2: () => void;
 let s2tasVeq6k2itan: () => void;
 
 /* ſɭэ ᶗ‹ , ꞙɭı ,
-    @param L ( HistoriaLigo ) - តារាង និងកម្មវិធីបង្ហាញរបស់កម្មវិធីកែសម្រួល។ */
+    @param L ( HistoriaLigo ) - j͑ʃᴜ j͑ʃᴜ ｡ ſɭɜ ſȷᴜ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡ */
 export function catsaraHistorion(L: HistoriaLigo): void {
   ( { hal6da, k6liqani, habs2, hapaga, vem2Kama, tlak2Haskek2,
     s2tasVeq6k2itan } = L );

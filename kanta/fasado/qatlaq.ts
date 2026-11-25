@@ -56,7 +56,7 @@ export function vefalVetlaqitanHasoqte(): SoqteMasukf2q | null {
 export function vetlaqiHasoqte( sukf2qani: SoqteMasukf2q ): void {
   try {
     localStorage.setItem(HASOQTESXCA3AQ, JSON.stringify(sukf2qani));
-  } catch { /* ការរុករកឯកជន */ }
+  } catch { /* j͑ʃᴜ j͐ʃɹ ｡ ſɭɜ ｡ */ }
 }
 
 // ⟪ ſɭɜ ɭʃɔ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
@@ -224,7 +224,7 @@ function surneq2q( ujo: HTMLElement | null ): void {
 }
 
 /* ſɭɜ ɭʃɔ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
-    @param hasukf2qani ( VestarajHasukf2qani ) - រូបលេង និងការជូនដំណឹង , បើមាន
+    @param hasukf2qani ( VestarajHasukf2qani ) - j͑ʃ'ɔ ɭʃᴜ ֭ſɭᴜȝ ｡ ʃɜ j͐ʃɔ ｡
 @returns soqte */
 export function kf2Vestejon( hasukf2qani: VestarajHasukf2qani = {} ): Vestejo {
   if ( hasukf2qani.ludantaQoxa ) {

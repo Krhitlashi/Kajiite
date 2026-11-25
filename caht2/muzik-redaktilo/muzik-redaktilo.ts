@@ -1,4 +1,4 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🎼 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🎼 ⧽≻
 // ⟨ ſᶘᴜ j͐ʃɹ , ꞙɭı , 📃 ⟩
 // ⟨ ſɭɜ ʃɔ , ꞙɭɿ , 📃 ⟩
 
@@ -146,8 +146,8 @@ function maxV0(): number { return Math.max(0o0, HAVESEFESTAF - ( H - RULER ) / k
 const roll = kfe<HTMLCanvasElement>("roll");
 const k = kuns2bana2d(roll);
 const veqapahakaniBut = kfe<HTMLButtonElement>("veqapahakani");
-const xekuxaEl = kfe("xekuxa");
-const qaroxemaCu3uEl = kfe("qaroxemaCu3u");
+const xekuxaEl = kfe("pozicio");
+const qaroxemaCu3uEl = kfe("qaroxemaNuna");
 const volumoEl = kfe<HTMLInputElement>("volumo");
 const volValEl = kfe("volVal");
 const reverbEl = kfe<HTMLInputElement>("reverb");
@@ -157,7 +157,7 @@ const hate2El = kfe<HTMLInputElement>("hate2");
 const bpqEl = kfe<HTMLSelectElement>("bpq");
 const ppbEl = kfe<HTMLSelectElement>("ppb");
 const barojEl = kfe<HTMLInputElement>("haqal6kx2");
-const havop2kekaiEl = kfe("vop2kekai");
+const havop2kekaiEl = kfe("havop2kekai");
 const kaptoEl = kfe<HTMLSelectElement>("kapto");
 const defSahakaniEl = kfe<HTMLSelectElement>("defSahakani");
 const veloEl = kfe<HTMLInputElement>("velo");
@@ -1255,7 +1255,7 @@ function tlak2Xekuxan(el: number): void {
 
 function tlak2Havop2kekai(): void {
   havop2kekaiEl.textContent = oct(t2bakobesai.hatsal2.length) + " ſᶘᴜ j͐ʃɹ · " + oct(t2bakobesai.instrs.length) +
-    " ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · " + oct(t2bakobesai.haqal6kx2) + " ſ͕ɭᴜ j͐ʃэ ſɭᶗ‹ɹ · " + alHe(dur()) + " j͑ʃƨꞇʞ";
+    " ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · " + oct(t2bakobesai.haqal6kx2) + " ſ͕ɭᴜ j͐ʃэ ſɭᶗ‹ɹ · " + alHe(dur()) + " j͑ʃƨꞇʞ";
 }
 
 function tlak2T2bakobesaiMasukf2q(): void {
@@ -1727,7 +1727,7 @@ function sef4Nombro(): string {
 kfe("t2bakobesaiSef4").addEventListener("click", () => {
   const no = sef4Nombro();
   const d: T2bakobesaiVop2 = {
-    no, hate2: "ſɭɜ ʃɔ ʌ j͑ʃɔ ſȷэⅎ", titolCatlaq: null,
+    no, hate2: "j͑ʃɔ ſȷэⅎ ʌ ſɭɜ ʃɔ", titolCatlaq: null,
     bpq: 0o40, ppb: 0o10, haqal6kx2: 0o20,
     hatsal2: [], secs: [], instrs: [ "siku", "inanga", "guiro" ],
   };
@@ -1736,7 +1736,7 @@ kfe("t2bakobesaiSef4").addEventListener("click", () => {
   kuba.set(no, d);
   s23ohk2saijHat2bakobesai.add(no);
   b6tem2T2bakobesai(no, true);
-  statuso("ſɭɜ ʃɔ ʌ j͑ʃɔ ſȷэⅎ " + no + " ｡ ſᶘᴜ j͐ʃɹ ɭʃᴜ 🎼");
+  statuso("j͑ʃɔ ſȷэⅎ ʌ ſɭɜ ʃɔ " + no + " ｡ ſᶘᴜ j͐ʃɹ ɭʃᴜ 🎼");
 });
 
 kfe("t2bakobesaiDuplikati").addEventListener("click", () => {

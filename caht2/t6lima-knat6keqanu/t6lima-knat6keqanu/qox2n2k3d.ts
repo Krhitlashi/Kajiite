@@ -36,17 +36,17 @@ import type { KekufxesoRaqa } from "../../../skek2/w2ta/kubes.js";
 export let qox2n2k3DPaqj: THREE.Object3D[] = [];
 
 /* ſɭᴜ ſןᴜ , ꞙɭэ ,
-   ObjectцD។ ឧបករណ៍ជំនួយបង្ហាញការបំប្លែងនៅកន្លែងតែមួយ។
-    @param g ( THREE.Object3D ) - ធុង។
-@returns ធុងដូចគ្នាជាឆាក ( THREE.Scene )។ */
+   Object3D ｡ ſɟᴜ ı],ɜ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡
+    @param g ( THREE.Object3D ) - ֭ſɭᴜ ɭʃɔ ｡
+@returns ֭ſɭᴜ ɭʃɔ ｡ ſɭꞇ ı],ɹ ( THREE.Scene ) ｡ */
 function kielKagani(g: THREE.Object3D): THREE.Scene {
   return g as THREE.Scene;
 }
 
 /* ſɭᴜ ſןᴜ , ꞙɭɩ ,
-   វត្ថុរបស់ពួកវា ។ កំពង់ ( និងជណ្តើរ ) ជាក្រុមកូន ដូច្នេះការដើរឆ្លង
-   ត្រូវចុះដល់ក្រោម បើមិនដូច្នេះធរណីមាត្រនៅសល់ក្នុងអង្គចងចាំ ។
-    @param hate2 ( THREE.Object3D ) - ក្រុមដែលត្រូវធ្វើឱ្យទទេ។ */
+   j͑ʃƽɔ ſɭɹ ｡ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ｡ ֭ſɭᴜ ɭʃɔ ｡ ſןɔ˞ᴜƴ ｡
+   ſɭɜ ſȷᴜ ｡ j͑ʃƽɔ ſɭɹ ｡ ſᶘɜ ŋᷠɹ ｡
+    @param hate2 ( THREE.Object3D ) - ֭ſɭᴜ ɭʃɔ ｡ ſ͕ɭw }ʃɹ ｡ */
 function malvetem2iHate(hate2: THREE.Object3D): void {
   while ( hate2.children.length ) {
     const m = hate2.children.pop() as THREE.Object3D;
@@ -87,7 +87,7 @@ let hak6h6: () => Knat6keqanuK6h6N2k[];
 let haqakaj2: () => Knat6keqanuTap2Qoxa[];
 
 /* ſɭэ ᶗ‹ , ꞙɭɩ ,
-    @param k ( Krada3DLigo ) - ការយោងរបស់ឯកសារមេ។ */
+    @param k ( Krada3DLigo ) - j͑ʃᴜ j͐ʃɹ ｡ j͑ʃɜ ſןɹ ſɭɹ ſᶘɔ ｡ */
 export function catsaraQox2n2kn3D(k: Krada3DLigo): void {
   dioritaPukek = k.dioritaPukek;
   vidotajHaqox2n2k = k.vidotajHaqox2n2k;
@@ -101,24 +101,24 @@ export function catsaraQox2n2kn3D(k: Krada3DLigo): void {
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 // ſɭᴜ ſןᴜ , ꞙɭц ,
 /* ſɭᴜ ſןᴜ , ꞙɭэ ,
-    @param x ( number ) - ពិភពលោក x ។
-    @param z ( number ) - ពិភពលោក z ។
-@returns កម្ពស់ ( number )។ */
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃэ ɭ(ᴜ ( number ) ｡ */
 function t6lima3D(x: number, z: number): number {
   return t6limaL6da(x, z) * YTROIGO;
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
-    @param x ( number ) - ពិភពលោក x ។
-    @param z ( number ) - ពិភពលោក z ។
-@returns កម្រិត ឬ -Infinity ( number )។ */
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃ'ɔ ŋᷠɹ ｡ -Infinity ( number ) ｡ */
 function tsasaVem23D(x: number, z: number): number {
   const vem2 = tsasaVem2En(x, z);
   return vem2 === null ? -Infinity : vem2 * YTROIGO;
 }
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
-    @param x ( number ) - ពិភពលោក x ។
-    @param z ( number ) - ពិភពលោក z ។
-@returns កម្រិត ឬ -Infinity ( number )។ */
+    @param x ( number ) - ʃᴜ j͐ʃɹ x ｡
+    @param z ( number ) - ʃᴜ j͐ʃɹ z ｡
+@returns j͑ʃ'ɔ ŋᷠɹ ｡ -Infinity ( number ) ｡ */
 function tsasatlakak3D(x: number, z: number): number {
   const vem2 = tsasaVem23D(x, z);
   return vem2 === -Infinity ? -Infinity : vem2 + K6H6AAKVAKLARANCO * YTROIGO;
@@ -301,11 +301,11 @@ export function vepaqTom6Hak6h6n3D(): void {
 // ( ſɭᴜ ſןᴜ , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 /* ſɭᴜ ſןᴜ , ꞙɭц ,
-    @param hunaq ( string ) - ប្រភេទអគារ ( រួមទាំង ka5asexazxipo ) ។
-    @param sx, sz ( number ) - ទីតាំងក្នុងពិភពលោក ។
-    @param rot ( number ) - ការបង្វិល ។
-    @param ksaka ( string ) - ឈ្មោះខាងក្នុង ។
-@returns spec ( VepaqSpec ) ដែលឧបករណ៍សាងសង់ទទួល */
+    @param hunaq ( string ) - ſɭᴜ ſןɹ ｡ ( ka5asexazxipo ) ｡
+    @param sx, sz ( number ) - ʃᴜ j͐ʃɹ ｡
+    @param rot ( number ) - ʃᴜ j͑ʃᴜ ʃɜ ｡
+    @param ksaka ( string ) - ſɭɔ˞ᴜ ſɭᴜ ｡
+@returns spec ( VepaqSpec ) ｡ ſɭᴜ ı],ƨɔ ｡ */
 function qox2n2kPudal(hunaq: string, sx: number, sz: number, rot: number, ksaka: string) {
   const estasKa5asexaz = hunaq === "ka5asexazxipo";
   const havem2 = estasKa5asexaz ? TIPAJNIVELOJ.ka5asexazxipo

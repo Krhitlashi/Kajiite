@@ -76,18 +76,18 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
         void main() {
           vSeed = aSeed;
           vFade = aFade;
-          vec4 wp = modelMatrix * vec4(position, ı.ɔ);
+          vec4 wp = modelMatrix * vec4(position, 1.0);
           float f = aSeed * 6.28318;
           float falo = uTime * aVel;
-          wp.x -= sin(falo * ɔ.ɔꞟ + f) * ɿɩ.ɔ;
-          wp.y = -ııɿ.ɔ + mod(wp.y + ııɿ.ɔ - falo, 208.0);
+          wp.x -= sin(falo * 0.05 + f) * 26.0;
+          wp.y = -112.0 + mod(wp.y + 112.0 - falo, 208.0);
           vec4 mv = viewMatrix * wp;
           // ſɟɹ ɭʃᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅ ſɭэ ֭ſɭэ ʌ ꞙɭı ʌ ꞙɭı
           // ſɭᴜ ſɭw j͐ʃᴜ ʌ j͑ʃɜ ſɭ,ᴜ ⟅
           float px = aLen * uScale / -mv.z;
-          glPointSize = clamp(px, ꞟ.ɔ, 48.0);
-          vSize = glPointSize;
-          glPosition = projectionMatrix * mv;
+          gl_PointSize = clamp(px, 5.0, 48.0);
+          vSize = gl_PointSize;
+          gl_Position = projectionMatrix * mv;
         }
       `,
       fragmentShader: `
@@ -99,18 +99,18 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
         varying float vFade;
         varying float vSize;
         void main() {
-          vec2 c = glPointCoord - vec2(ɔ.ꞟ);
+          vec2 c = gl_PointCoord - vec2(0.5);
           float cs = cos(uAng), sn = sin(uAng);
           c = mat2(cs, -sn, sn, cs) * c;
           float r = uAncho;
-          vec2 q = vec2(abs(c.x), abs(c.y) - (ɔ.ꞟ - r));
-          float d = sahakani(max(q, ɔ.ɔ)) + min(max(q.x, q.y), ɔ.ɔ) - r;
-          float soft = ı.ꞟ / vSize;
-          float a = ı.ɔ - smoothstep(-soft, soft, d);
-          if (a < ɔ.ɔı) discard;
+          vec2 q = vec2(abs(c.x), abs(c.y) - (0.5 - r));
+          float d = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+          float soft = 1.5 / vSize;
+          float a = 1.0 - smoothstep(-soft, soft, d);
+          if (a < 0.01) discard;
           // ſᶘꞇ ɭl̀ɔ ʌ j͑ʃᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅
-          float tlakak = ı.ɔ - smoothstep(ɔ.ı, ɔ.ꞟ, abs(c.y)) * ɔ.ц;
-          glFragColor = vec4(uColor, a * tlakak * uOp * vFade * (ɔ.ƨ + ɔ.ц * vSeed));
+          float tlakak = 1.0 - smoothstep(0.1, 0.5, abs(c.y)) * 0.3;
+          gl_FragColor = vec4(uColor, a * tlakak * uOp * vFade * (0.7 + 0.3 * vSeed));
         }
       `,
     });
@@ -147,8 +147,8 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
           wp.y = -112.0 + mod(wp.y + 112.0 - falo, 208.0);
           vec4 mv = viewMatrix * wp;
           float px = uSize * (100.0 / -mv.z) * (0.6 + 0.5 * sin(f));
-          glPointSize = min(px, 50.0);
-          glPosition = projectionMatrix * mv;
+          gl_PointSize = min(px, 50.0);
+          gl_Position = projectionMatrix * mv;
         }
       `,
       fragmentShader: `
@@ -156,11 +156,11 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
         uniform float uOp;
         varying float vSeed;
         void main() {
-          vec2 c = glPointCoord - vec2(0.5);
-          float d = sahakani(c) * 2.0;
+          vec2 c = gl_PointCoord - vec2(0.5);
+          float d = length(c) * 2.0;
           float a = (1.0 - smoothstep(0.4, 1.0, d)) * (0.6 + 0.4 * vSeed);
           if (a < 0.01) discard;
-          glFragColor = vec4(uColor, a * uOp);
+          gl_FragColor = vec4(uColor, a * uOp);
         }
       `,
     });
@@ -197,8 +197,8 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
           wp.y = -112.0 + mod(wp.y + 112.0 - falo, 208.0);
           vec4 mv = viewMatrix * wp;
           float px = uSize * (100.0 / -mv.z) * (0.55 + 0.6 * vSeed);
-          glPointSize = min(px, 40.0);
-          glPosition = projectionMatrix * mv;
+          gl_PointSize = min(px, 40.0);
+          gl_Position = projectionMatrix * mv;
         }
       `,
       fragmentShader: `
@@ -206,13 +206,13 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
         uniform float uOp;
         varying float vSeed;
         void main() {
-          vec2 c = glPointCoord - vec2(0.5);
-          float d = sahakani(c) * 2.0;
+          vec2 c = gl_PointCoord - vec2(0.5);
+          float d = length(c) * 2.0;
           float korpo = 1.0 - smoothstep(0.3, 0.55, d);
           float lowak = 1.0 - smoothstep(0.0, 0.35, d);
           float a = korpo * (0.5 + 0.5 * lowak) * (0.6 + 0.4 * vSeed);
           if (a < 0.02) discard;
-          glFragColor = vec4(mix(uColor, vec3(1.0), lowak), a * uOp);
+          gl_FragColor = vec4(mix(uColor, vec3(1.0), lowak), a * uOp);
         }
       `,
     });

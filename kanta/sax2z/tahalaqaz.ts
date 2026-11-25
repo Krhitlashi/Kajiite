@@ -32,8 +32,8 @@ import { kf2Rultemon } from "../tahaq/tlohk2nikziisai.js";
 import { MALPOTENCAAPARATO } from "../tahaq/scena/cak2p2.js";
 
 /* ſɭэ ſɭᴜ , j͑ʃɜ j͑ʃƨɹ , ꞙɭı ,
-    @param x ( number ) - ទីតាំង X
-    @param z ( number ) - ទីតាំង Z
+    @param x ( number ) - j͑ʃэ ɭl̀э ｡ X ｡
+    @param z ( number ) - j͑ʃэ ɭl̀э ｡ Z ｡
 @returns enKaxte ( boolean ) */
 function tsekeEnKaxte( x: number, z: number ): boolean {
   for ( const u of tikHakaxte() ) {

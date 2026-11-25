@@ -41,26 +41,26 @@ function sexieaS2bana(bal2: THREE.Texture): THREE.ShaderMaterial {
     transparent: true, depthWrite: false, toneMapped: false,
     vertexShader: `varying vec2 vUv;
     void main(){ vUv = uv; vec4 haxekuxa = vec4( position, 1.0 );
-    #ifdef USEINSTANCING
+    #ifdef USE_INSTANCING
       haxekuxa = instanceMatrix * haxekuxa;
     #endif
-    glPosition = projectionMatrix * modelViewMatrix * haxekuxa; }`,
+    gl_Position = projectionMatrix * modelViewMatrix * haxekuxa; }`,
     fragmentShader: `precision highp float;
     uniform sampler2D uBal2; uniform vec3 uInko; uniform vec3 uBordo;
     uniform vec2 uTeksele; uniform float uKof; varying vec2 vUv;
     void main(){
-      float a = textureD( uBal2, vUv ).a;
+      float a = texture2D( uBal2, vUv ).a;
       float r = 0.0;
       for ( int i = 0; i < 8; i++ ) {
         float ang = float( i ) * 0.7853981634;
         vec2 of = vec2( cos( ang ), sin( ang ) ) * uTeksele * uKof;
-        r = max( r, textureD( uBal2, vUv + of ).a );
-        r = max( r, textureD( uBal2, vUv + of * 0.55 ).a );
+        r = max( r, texture2D( uBal2, vUv + of ).a );
+        r = max( r, texture2D( uBal2, vUv + of * 0.55 ).a );
       }
       float inka = smoothstep( 0.35, 0.6, a );
       float kontura = smoothstep( 0.35, 0.6, r );
       if ( kontura < 0.004 ) discard;
-      glFragColor = vec4( mix( uBordo, uInko, inka ), max( inka, kontura ) );
+      gl_FragColor = vec4( mix( uBordo, uInko, inka ), max( inka, kontura ) );
     }`,
   });
 }

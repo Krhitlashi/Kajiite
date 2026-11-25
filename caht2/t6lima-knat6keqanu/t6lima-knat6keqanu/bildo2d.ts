@@ -377,7 +377,7 @@ let hak6h6Aktiva: () => boolean = () => false;
 let ka5ik: () => number = () => 0;
 let s2tasDesegnon: () => void = () => { };
 /* ſɭэ ᶗ‹ , ꞙɭɿ ,
-    @param L ( BildaLigo ) - កម្មវិធីអានស្ថានភាព និងឧបករណ៍ជំនួយរបស់កម្មវិធីកែសម្រួល។ */
+    @param L ( BildaLigo ) - j͑ʃᴜ j͑ʃᴜ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡ */
 export function catsaraBildon2D(L: BildaLigo): void {
   bokS2k61o = L.s2k61o;
   tsekeMovigi = L.tsekeMovigi;

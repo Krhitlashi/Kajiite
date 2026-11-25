@@ -435,10 +435,10 @@ export interface KristalaQoxa {
 }
 
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
-    @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
-    @param s ( number ) - ទទឹងក្រណាត់សម្រាប់រុំ
-    @param kris ( KristalaQoxa ) - ទីតាំង និងកំពូល
-    @param pentri ( ( k ) => void ) - លាប fill និង stroke */
+    @param k ( CanvasRenderingContext2D ) - ſɭɹʞ ｡
+    @param s ( number ) - j͑ʃɔ ſȷꞇ }ʃꞇ ｡ j͑ʃɜ ſɭ,ᴜ ｡
+    @param kris ( KristalaQoxa ) - j͑ʃэ ɭl̀э ｡ j͑ʃɜ ſɭ,ᴜ ｡
+    @param pentri ( ( k ) => void ) - fill ｡ stroke ｡ */
 export function k2fWrapanKristalon(k: CanvasRenderingContext2D, s: number,
   kris: KristalaQoxa, pentri: ( k: CanvasRenderingContext2D ) => void): void {
   k2fWrapan(k, s, () => {
@@ -460,10 +460,10 @@ export function k2fWrapanKristalon(k: CanvasRenderingContext2D, s: number,
 }
 
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
-    @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
-    @param s ( number ) - ទទឹងក្រណាត់
-    @param n ( number ) - ចំនួនចំណុច
-    @param pxeutso ( ( i ) => [ x , y , wd , hd , weh2 ] ) - យកតម្លៃចៃដន្យតាមលំដាប់ដើម */
+    @param k ( CanvasRenderingContext2D ) - ſɭɹʞ ｡
+    @param s ( number ) - j͑ʃɔ ſȷꞇ }ʃꞇ ｡
+    @param n ( number ) - }ʃɹƽ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡
+    @param pxeutso ( ( i ) => [ x , y , wd , hd , weh2 ] ) - ſɟwƽ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡ */
 export function k2fVas2flofajnXet7jn(k: CanvasRenderingContext2D, s: number, n: number,
   pxeutso: ( i: number ) => [ number, number, number, number, string ]): void {
   for ( let i = 0; i < n; i++ ) {
@@ -476,8 +476,8 @@ export function k2fVas2flofajnXet7jn(k: CanvasRenderingContext2D, s: number, n: 
 }
 
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
-    @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
-    @param n2k ( [ number , number ][] ) - កំពូលខ្សែ */
+    @param k ( CanvasRenderingContext2D ) - ſɭɹʞ ｡
+    @param n2k ( [ number , number ][] ) - ꞁȷ̀ɹ ꞁȷ̀ᴜȝ ｡ */
 export function k2fFendanK6h6n(k: CanvasRenderingContext2D, n2k: [ number, number ][]): void {
   k.beginPath();
   k.moveTo(n2k[0][0], n2k[0][1]);
@@ -487,8 +487,8 @@ export function k2fFendanK6h6n(k: CanvasRenderingContext2D, n2k: [ number, numbe
 }
 
 /* ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
-    @param k ( CanvasRenderingContext2D ) - បរិបទគូរ
-    @param sahakani,sefini ( number ) - ពាក់កណ្តាលប្រវែង និងទទឹង */
+    @param k ( CanvasRenderingContext2D ) - ſɭɹʞ ｡
+    @param sahakani,sefini ( number ) - j͑ʃɜ ſɭ,ᴜ ｡ j͑ʃɔ ſȷꞇ }ʃꞇ ｡ */
 export function k2fSlafK6h6n(k: CanvasRenderingContext2D, sahakani: number, sefini: number): void {
   k.beginPath();
   k.moveTo(-sahakani, 0);
