@@ -67,7 +67,8 @@ export const GENERITASETLEJO: GeneritaSetlejo | null = ( () => {
   });
 } )();
 
-const DELTAJ: Int16Array | null = GENERITAT6LIMA || !SKULPTAAKTIVA ? null : dekodiInt16(SKULPTADELTAJ);
+const DELTAJ: Int16Array | null = ( ( d ) => d && d.length === SKULPTAN * SKULPTAN ? d : null )(
+  GENERITAT6LIMA || !SKULPTAAKTIVA ? null : dekodiInt16(SKULPTADELTAJ));
 const AKVAMASKO: Uint8Array | null = GENERITAT6LIMA ? GENERITAT6LIMA.tsasaMasko
   : SKULPTAAKTIVA ? dekodiMaskon(SKULPTAAKVAMASKO, SKULPTAN * SKULPTAN) : null;
 const BIOMOJ: Uint8Array | null = GENERITAT6LIMA ? GENERITAT6LIMA.habs2
