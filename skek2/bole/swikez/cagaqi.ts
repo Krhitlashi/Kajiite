@@ -1,0 +1,306 @@
+// ≺⧼ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🎧 ⧽≻
+
+import { KANTOJ } from "./kantoj.js";
+import { instrumento } from "./habal/caswikez.js";
+import type { BoleEg2b2, Qaroxema } from "./habal/hahunaq.js";
+import { vefalKu1o, ve3aqKu1o } from "../../x2x2q/kutso.js";
+
+// ⟪ ſɟᴜᴜ̩ ɭʃɹ ʌ ſᶘᴜ j͐ʃɹ , ſɭᴜ ſןᴜ 📃 ⟫
+
+interface AktivaTsalii {
+  i: string;
+  de: number;
+  gxis: number;
+}
+
+interface VeqapahakaniloS2k61o {
+  ctx: AudioContext | null;
+  bus: GainNode | null;
+  revSend: GainNode | null;
+  reverb: ConvolverNode | null;
+  cur: number;
+  idx: number;
+  events: BoleEg2b2[] | null;
+  dur: number;
+  secs: Qaroxema[] | null;
+  playing: boolean;
+  startJe: number;
+  pausedJe: number | null;
+  timer: ReturnType<typeof setInterval> | null;
+  master: GainNode | null;
+  tik: AktivaTsalii[];
+}
+
+// ⟨ j͑ʃп́ꞇ ſɭɔƴ , j͑ʃ'ɔ ŋᷠɹ ⟅ ſɭᴜ ſןᴜ ʌ j͑ʃ'ɔ ŋᷠɹ , ꞙɭɔ ⟅ ⟩
+const VETLAQITATRAKO = vefalKu1o("t2bakobesai", -0o1);
+const SAXEATRAKO = VETLAQITATRAKO >= 0 && VETLAQITATRAKO < KANTOJ.length ? VETLAQITATRAKO : -0o1;
+
+const L: VeqapahakaniloS2k61o = {
+  ctx: null, bus: null, revSend: null, reverb: null,
+  cur: SAXEATRAKO, idx: 0, events: null, dur: 0, secs: null,
+  playing: false, startJe: 0, pausedJe: null, timer: null, master: null,
+  tik: [],
+};
+
+// ⟪ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭэ ſɭ,w 📃 ⟫
+
+const URBAJTRAKOJ = [ 4, 5, 6, 7 ];
+const MONDAJTRAKOJ = [ 0, 1, 2, 3 ];
+let enKaxte = false;
+// ⟨ ꞙɭı j͑ʃп́ꞇ ſɭɔƴ , ꞙɭɿ , ſɟᴜᴜ̩ ɭʃɹ ꞙɭɔ ꞙɭı ⟅ ⟩
+let aŭtomata = true;
+// ⟨ ᶅſɜ ֭ſɭᴜ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , ꞙɭı , ꞙɭɔ ꞙɭɿ ⟅ ⟩
+let reverbKonektita = false;
+
+function hazardaEl( ca1ara: number[] ): number {
+  return ca1ara[Math.floor(Math.random() * ca1ara.length)];
+}
+
+/* ſɭᴜ ſןᴜ ʌ ſɟᴜᴜ̩ ɭʃɹ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ
+   @param e ( BoleEg2b2 ) - ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ
+@returns ſɭᴜ ſןᴜ ( number ) */
+function notSahakani( e: BoleEg2b2 ): number {
+  const d = e.dur ?? e.d ?? 0o1;
+  switch ( e.i ) {
+    case "slenthem": return 0o223/0o40;
+    case "mbira":    return 0o155/0o100;
+    case "inanga":   return d * 0o15/0o10;
+    case "siku":     return d * 0o3;
+    case "ocarina":  return d + 0o23/0o100;
+    case "kiiqflak": return d + 0o1/0o10;
+    case "guiro":    return d + 0o3/0o100;
+    case "hiwe":     return d + 0o7/0o10;
+    default:         return d;
+  }
+}
+
+/* j͑ʃп́ꞇ ſɭɔƴ , ſɭэ ſɭ,w , j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭᴜ , ꞙɭı
+@returns ksoz ( number ) */
+function panaaT2bakobesai(): number {
+  if ( enKaxte ) return hazardaEl(URBAJTRAKOJ);
+  return hazardaEl(MONDAJTRAKOJ);
+}
+
+// ⟪ ſɭᴜ ſןᴜ , ſɟᴜᴜ̩ ɭʃɹ 📃 ⟫
+
+function makeIR(ctx: AudioContext, dur: number, decay: number): AudioBuffer {
+  const rate = ctx.sampleRate;
+  const len = Math.floor(rate * dur);
+  const buf = ctx.createBuffer(2, len, rate);
+  for ( let c = 0; c < 2; c++ ) {
+    const d = buf.getChannelData(c);
+    for ( let i = 0; i < len; i++ )
+      d[i] = ( Math.random() * 2 - 1 ) * Math.pow(1 - i / len, decay);
+  }
+  return buf;
+}
+
+function stopBus() {
+  const b = L.bus;
+  if ( b && L.ctx ) {
+    b.gain.cancelScheduledValues(L.ctx.currentTime);
+    b.gain.setValueAtTime(Math.max(0o0/0o10, b.gain.value), L.ctx.currentTime);
+    b.gain.linearRampToValueAtTime(0o0/0o10, L.ctx.currentTime + 0o1/0o10);
+    setTimeout(() => { try { b.disconnect(); } catch ( _ ) { /* ok */ } }, 0o702);
+  }
+  L.bus = null;
+  L.revSend = null;
+  L.tik.length = 0;
+}
+
+function scheduleTick() {
+  if ( L.timer ) clearInterval(L.timer);
+  L.timer = setInterval(tick, 0o120);
+}
+
+function tick() {
+  if ( !L.ctx || !L.events ) return;
+  const elapsed = L.ctx.currentTime - L.startJe;
+  const horizon = elapsed + ( document.hidden ? 0o63/0o40 : 0o4/0o10 );
+
+  while ( L.idx < L.events.length && L.events[L.idx].t < horizon ) {
+    const e = L.events[L.idx++];
+    const at = L.startJe + e.t;
+    if ( at < L.ctx.currentTime - 0o1/0o40 ) continue;
+    const g = L.ctx.createGain();
+    g.gain.value = 1;
+    instrumento(L.ctx, g, e, at);
+    L.tik.push({ i: e.i, de: at, gxis: at + notSahakani(e) });
+    if ( L.bus ) g.connect(L.bus);
+    if ( L.revSend ) g.connect(L.revSend);
+  }
+
+  if ( elapsed >= L.dur + 0o115/0o100 ) finish();
+}
+
+function finish() {
+  if ( L.timer ) clearInterval(L.timer);
+  L.playing = false;
+  stopBus();
+  if ( !aŭtomata ) return;
+  const next = panaaT2bakobesai();
+  setTimeout(() => {
+    if ( !L.playing ) {
+      b6tem2(next);
+      veqapahakani();
+    }
+  }, 0o1274);
+}
+
+function hazardaT2bakobesai(): number {
+  return panaaT2bakobesai();
+}
+
+function b6tem2(i: number) {
+  if ( L.playing ) {
+    if ( L.timer ) clearInterval(L.timer);
+    L.playing = false;
+    stopBus();
+  }
+  L.pausedJe = null;
+  L.cur = i;
+  L.idx = 0;
+  L.tik = [];
+  const T = KANTOJ[i];
+  L.events = T.data.events;
+  L.dur = T.data.dur;
+  L.secs = T.data.secs;
+}
+
+// ⟪ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ 📃 ⟫
+
+/** j͑ʃᴜ ı],ɔ , j͑ʃп́ꞇ ſɭɔƴ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , ꞙɭı ⟅ */
+export function iniciati(ctx: AudioContext, master: GainNode) {
+  L.ctx = ctx;
+  L.master = master;
+
+  if ( !L.reverb ) {
+    L.reverb = ctx.createConvolver();
+    L.reverb.buffer = makeIR(ctx, 0o30/0o10, 0o115/0o40);
+  }
+  if ( !reverbKonektita && L.reverb ) {
+    L.reverb.connect(master);
+    reverbKonektita = true;
+  }
+}
+
+/** j͑ʃᴜ ı],ɔ , j͑ʃп́ꞇ ſɭɔƴ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᶗ‹ɜ ⟅ */
+export function veqapahakani() {
+  if ( !L.ctx ) return;
+  if ( L.cur < 0 ) b6tem2(hazardaT2bakobesai());
+  else if ( !L.events ) b6tem2(L.cur);
+  if ( L.playing ) { paŭzi(); return; }
+
+  L.bus = L.ctx.createGain();
+  L.bus.gain.setValueAtTime(0o0/0o10, L.ctx.currentTime);
+  L.bus.gain.linearRampToValueAtTime(0o13/0o40, L.ctx.currentTime + 0o5/0o40);
+  if ( L.master ) L.bus.connect(L.master);
+
+  L.revSend = L.ctx.createGain();
+  L.revSend.gain.value = 0o23/0o100;
+  if ( L.reverb ) L.revSend.connect(L.reverb);
+
+  if ( L.pausedJe != null ) {
+    L.startJe = L.ctx.currentTime + 0o1/0o10 - L.pausedJe;
+// ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭı , ꞙɭɿ , ſɭɜ j͐ʃɹ ⟅ ⟩
+    L.idx = 0;
+    while ( L.idx < L.events!.length && L.events![L.idx].t < L.pausedJe - 0o1/0o100 ) L.idx++;
+    L.pausedJe = null;
+  } else {
+    L.startJe = L.ctx.currentTime + 0o1/0o10;
+    L.idx = 0;
+  }
+
+  L.playing = true;
+  scheduleTick();
+  tick();
+}
+
+/** ſɭɜ j͐ʃɹ , j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı ⟅ */
+export function paŭzi() {
+  if ( !L.playing || !L.ctx ) return;
+  L.pausedJe = Math.min(L.dur, Math.max(0, L.ctx.currentTime - L.startJe));
+  if ( L.timer ) clearInterval(L.timer);
+  L.playing = false;
+  stopBus();
+}
+
+/** ſɭɜ j͐ʃɹ , j͑ʃп́ꞇ ſɭɔƴ , ſɭᴜ ſןᴜ ⟅ */
+export function halti() {
+  if ( L.playing ) {
+    if ( L.timer ) clearInterval(L.timer);
+    L.playing = false;
+  }
+  stopBus();
+  L.pausedJe = null;
+  L.idx = 0;
+}
+
+/** j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ꞙɭı ⟅ */
+export function tsekeVeqapahakani(): boolean {
+  return L.playing;
+}
+
+/* ſɟᴜᴜ̩ ɭʃɹ ꞙɭı , j͑ʃᴜ ı],ɔ , ſɭᴜ ſןᴜ , ꞙɭı 📃 */
+export function cutlujInstrumentoj(): string[] {
+  if ( !L.ctx || !L.playing ) return [];
+  const now = L.ctx.currentTime;
+  if ( L.tik.length ) L.tik = L.tik.filter( a => a.gxis >= now );
+  const cutluj = new Set<string>();
+  for ( const a of L.tik ) {
+    if ( a.de <= now ) cutluj.add( a.i );
+  }
+  return [ ...cutluj ];
+}
+
+/** j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ ⟅ */
+export function b6tem2T2bakobesai(i: number) {
+  if ( i < 0 || i >= KANTOJ.length ) return;
+  b6tem2(i);
+  ve3aqKu1o("t2bakobesai", i);
+}
+
+/** j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅ */
+export function cutluT2bakobesai(): number {
+  return L.cur;
+}
+
+/** j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ı],ɔ , ſɭᴜ ſןᴜ , ſɭɜ j͐ʃɹ ⟅ */
+export function progreso(): number {
+  if ( !L.ctx ) return 0;
+  if ( !L.playing ) return L.pausedJe ?? 0;
+  return Math.min(L.dur, Math.max(0, L.ctx.currentTime - L.startJe));
+}
+
+/* j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ı],ɔ , ꞙɭı , ꞙɭɿ ꞙɭı , ꞙɭı
+   @param sek ( number ) - j͑ʃᴜ ı],ɔ ⟅ */
+export function salti( sek: number ): void {
+  if ( !L.ctx || L.cur < 0 ) return;
+  if ( !L.events ) b6tem2(L.cur);
+  if ( !L.events ) return;
+  const natakatomasai = Math.min(L.dur, Math.max(0, sek));
+  const veqapahakanis = L.playing;
+  if ( L.timer ) clearInterval(L.timer);
+  L.playing = false;
+  stopBus();
+  L.pausedJe = natakatomasai;
+  if ( veqapahakanis ) veqapahakani();
+}
+
+/* j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , ꞙɭɔ , j͑ʃп́ꞇ ſɭɔƴ , ꞙɭɿ , ꞙɭı
+   @param on ( boolean ) - ꞙɭı j͑ʃп́ꞇ ſɭɔƴ ⟅ */
+export function catsaraAŭtomatan( on: boolean ): void {
+  aŭtomata = on;
+}
+
+/* j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭэ ſɭ,w , ſɭᴜ ı],ƨɔ , ꞙɭı , j͑ʃп́ꞇ ſɭɔƴ ꞙɭɿ
+   @param kaxte ( boolean ) - ſɭᴜ ı],ƨɔ ꞙɭı ⟅ */
+export function catsaraMuzikanLokon( kaxte: boolean ) {
+  if ( kaxte === enKaxte ) return;
+  enKaxte = kaxte;
+  if ( !L.playing ) return;
+  const permesitaj = kaxte ? URBAJTRAKOJ : MONDAJTRAKOJ;
+  if ( permesitaj.includes(L.cur) ) return;
+  b6tem2(panaaT2bakobesai());
+  veqapahakani();
+}

@@ -1,0 +1,224 @@
+// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ɔ j͑ʃɜ ſᶘꞇ }ʃᴜ ſɭᴜͷ̗ j͑ʃᴜꞇ ʌ ſ͔ɭᴜ ᶅſɔ 🗣️ ⧽≻
+
+export const JA: Record<string, string> = {
+
+// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
+
+  "hate2Aranis": "アラニス",
+  "hate2Kaxte": "カユウテ",
+  "subtitoloKaxte": "ロタ・ウホウス、ラムウスア・カシテ",
+  "eniri": "入る",
+  "catsiinaPromeni": "歩く",
+  "catsiinaOrbiti": "周回",
+  "catsiinaHasoqte": "ワードローブ",
+  "catsiinaHelpo": "ヘルプ",
+
+// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
+
+  "hate2Teksilo": "ザ・ルーム",
+  "subtitoloTeksilo": "長いシャツ、短い袖、メインとアクセント。",
+
+// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
+
+  "hate2Sxargxo": "ワールド",
+  "b6tem2Subskribo": "建設中。",
+  "b6tem2Satalo": "サタルを建設中。",
+  "b6tem2Nebulo": "霧が谷を流れる。",
+
+// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
+
+  "kompasoNordo": "北",
+  "kamaOrbito": "周回",
+  "catlaqTreni": "ドラッグ",
+  "kamaPromeno": "歩く",
+  "catlaqPromeno": "WASD",
+  "kamaMovado": "走る",
+  "catlaqKuro": "Shift",
+  "kamaSl6da": "ジャンプ",
+  "catlaqSl6da": "Space",
+  "kamaEniri": "建物に入る",
+  "catlaqEniri": "E",
+  "kamaBal2": "地図",
+  "catlaqBal2": "M",
+  "kamaEliri": "出る",
+  "catlaqEliri": "Esc",
+  "kamaSpajroj": "尖塔のノートを読む",
+  "catlaqKlako": "クリック",
+  "kamaKanuo": "操縦",
+  "agoGusti": "味見",
+  "agoKuxi": "横になる",
+  "agoLevi": "起きる",
+
+// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
+
+  "hate2Bal2": "地図",
+
+// ⟪ ſɭэ ſɭw , ❓ ⟫
+
+  "hate2Hak6h6": "道",
+  "subtitoloHelpo": "街のノート",
+
+// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
+
+  "caxlefkakaiP2d2": "誰かが加わりました。",
+  "caxlefkakaiSunta": "誰かが去りました。",
+
+// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
+
+  "manĝPuss0": "ピクセトレシレフプウスア",
+  "manĝFok0": "フォクウマスア • シク",
+  "manĝFok1": "フォクウマスア • ンアトウワ",
+  "manĝFok2": "フォクウマスア • トラシア",
+  "manĝTla0": "トラトウワ • トクウ",
+  "manĝTla1": "トラトウワ • トウク",
+  "manĝTla2": "トラトウワ • ラムウス",
+  "manĝFok0Gusto": "リケンパンの鴨入り包子。",
+  "manĝFok1Gusto": "ツァハラ酢とアイスフィッシュ。",
+  "manĝFok2Gusto": "ツァハラ酢、ウミグモ、アイスフィッシュ、シュレフ。",
+  "manĝTla0Gusto": "酢、牛乳、ミント、炭酸水。",
+  "manĝTla1Gusto": "酢、唐辛子、柚子、ミント、炭酸水。",
+  "manĝTla2Gusto": "酢、白樺樹液、ミント、ベルガモット茶。",
+  "manĝPuss0Gusto": "ひんやりと水気のある食感で、ほのかに甘い。",
+
+// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
+
+  "vepaqPriskriboKap2": "家。",
+  "vepaqPriskriboGeqqa": "共同の食事処。",
+  "vepaqPriskriboKasafeo": "会議室。",
+  "vepaqPriskriboStacioxipo": "駅。",
+  "vepaqPriskriboTuro": "超高層建築。",
+  "vepaqPriskriboSanktejo": "中心。",
+
+// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
+
+  "thalaHavem2": "階層",
+  "thalaDiamanto": "ダイヤ",
+  "thalaJes": "有",
+  "thalaNe": "無",
+  "thalaVepaqHunaq": "種類",
+  "thalaXekuxa": "位置",
+
+// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
+
+  "hate2Inqoxa": "情報",
+  "subtitoloInqoxa": "建物、食べ物、種族",
+  "ariaInqoxaCatsiina": "情報を開く",
+  "ariaPukxeiCatsiina": "閉じる",
+  "cax2lPaqj": "建物",
+  "cax2lMangxajxoj": "食べ物",
+  "cax2lHapudal": "種族",
+
+// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
+
+  "hatePaga": "動物",
+  "pudalLiixkupukai": "ベロー",
+  "pudalPriskriboLiixkupukai": "細長い有櫛動物。八列の櫛を持つ。",
+  "pudalLiixcaxlefai": "ネミオプシス",
+  "pudalPriskriboLiixcaxlefai": "四つの口葉を持つ丸い有櫛動物。",
+  "pudalPleŭrobrakia": "プレウロブラキア",
+  "pudalPriskriboPleŭrobrakia": "二本の長い触手を持つ小さな丸い有櫛動物。",
+  "pudalTq2wa": "氷魚",
+  "pudalPriskriboTq2wa": "ヘモグロビンを持たない、ほぼ透明な魚。",
+  "pudalTolxu": "ウミグモ",
+  "pudalPriskriboTolxu": "八本の長い脚を持つ小さなウミグモ。",
+  "pudalNeĝotemek": "ユキドリ",
+  "pudalPriskriboNeĝotemek": "湖と川の上を滑空する真っ白な海鳥。",
+
+// ⟪ ſɭэ ſɭw , 🌿 ⟫
+
+  "hatePlanto": "植物",
+  "pudalBetulo": "カバノキ",
+  "pudalPriskriboBetulo": "白い木材を持つ木。",
+  "pudalLariko": "アルプスカラマツ",
+  "pudalPriskriboLariko": "秋に黄金色の針葉を持つ高山性の針葉樹。",
+  "pudalTlexlefhxakai": "トレシレフホシャクア",
+  "pudalPriskriboTlexlefhxakai": "紫色のレタスの木。巻いた葉を持ち、酢作りに使う。",
+  "pudalTlexlefp2sai": "トレシレフプウスア",
+  "pudalPriskriboTlexlefp2sai": "シダほどの大きさの紫色のレタス植物。透き通った食べられる実をつける。",
+  "pudalXabe": "シダ",
+  "pudalPriskriboXabe": "森の地面に生える緑の植物。",
+  "pudalAsfaXabe": "トレシレフシャフエスア",
+  "pudalPriskriboAsfaXabe": "外側の森に生える高い紫色のシダ。",
+  "pudalF2ma": "地衣類",
+  "pudalPriskriboF2ma": "藻類と菌類。イマセ。",
+  "pudalFe1af": "草",
+  "pudalPriskriboFe1af": "シアン色の植物のような草。",
+  "pudalC6x": "コケ",
+  "pudalPriskriboC6x": "実は植物である小山。",
+  "pudalCetkuo": "ツェトクウ",
+  "pudalPriskriboCetkuo": "ふわふわしたトクサ（Equisetum praeltum）。",
+  "pudalCakeo": "ツァケ",
+  "pudalPriskriboCakeo": "骨のような尾を持つトクサ（Equisetum telmateia）。",
+
+// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
+
+  "cax2lHasoqte": "服",
+  "soqteWeh2Lhant": "緑",
+  "soqteWeh2Hearth": "茶色",
+  "soqteWeh2Mist": "白",
+  "soqteWeh2Ember": "赤",
+  "soqteWeh2Azure": "青",
+  "soqteWeh2Violet": "紫",
+  "soqteWeh2Gilt": "黄",
+  "soqteWeh2Rose": "桃色",
+  "soqteWeh2Obsidian": "黒",
+  "soqteWeh2Cyan": "シアン",
+
+// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
+
+  "cax2lHararo": "髪",
+  "tsaqQaroxema": "髪型",
+  "tsaqPsazai": "ショート",
+  "tsaqSahakani": "ロング",
+  "harWeh2Qaroxema": "髪の色",
+  "harWeh2Bruna": "茶色",
+  "harWeh2Hunasai": "黒",
+  "harWeh2Ruĝeta": "赤茶",
+  "harWeh2Kaŝtana": "栗色",
+  "harWeh2Blonda": "金髪",
+  "harWeh2Griza": "グレー",
+
+// ⟪ ſȷwɔ˞ , 🎵 ⟫
+
+  "muziko": "音楽",
+
+// ⟪ ſɭэ ſɭw , 🌦️ ⟫
+
+  "ariaKrepuskoCatsiina": "夕暮れモードを切り替え",
+  "ariaKrepuskoKama": "夕暮れのレベル",
+  "ariaVet6limaCatsiina": "天気",
+  "vet6limaNebula": "霧",
+  "vet6limaPluva": "雨",
+  "vet6limaHajla": "雹",
+  "vet6limaNega": "雪",
+
+  // ⟪ WebGL 🖥️ ⟫
+
+  "webglNeSubtenata": "お使いのブラウザはWebGLをサポートしていません。ブラウザを更新してください。",
+  "webglDetalo": "カジーテはWebGLが必要です。ブラウザを更新するか、GPU設定を確認してください。",
+  "webglReprovi": "再試行",
+
+// ⟪ ſɭэ ſɭw , 🌍 ⟫
+
+  "ariaEniriNala": "メインワールドに入る。",
+  "saxeiNala": "ワールドを作成または読み込む",
+  "mondTitolo": "ワールド",
+  "mondKsaka": "ワールド",
+  "mondSxono": "シード",
+  "catsiinaKf2Nala": "作成",
+  "mondSavitaCatsara": "保存済みワールド",
+  "mondQun2": "保存されたワールドはまだありません",
+  "ariaNalaRestauri": "再開",
+  "ariaNalaH2li": "削除",
+  "ariaNalaDuobligi": "複製",
+  "catsiinaVetlaqiEliri": "保存してワールドから出る。",
+
+// ⟪ ſɭэ ſɭw , ⚙️ ⟫
+
+  "hate2Haku1o": "設定",
+  "subtitoloHaku1o": "言語、音、音楽、ワードローブ。",
+  "catsiinaSono": "音",
+  "catsiinaBruo": "背景ノイズ",
+  "ariaGaweCatsiina": "言語",
+  "hate2Gawe": "言語",
+};

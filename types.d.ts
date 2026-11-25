@@ -26,4 +26,4 @@ declare module "three/addons/utils/BufferGeometryUtils.js" {
   export function mergeGeometries(geometries: THREE.BufferGeometry[], useGroups?: boolean): THREE.BufferGeometry;
 }
 
-declare function vacepu(klasoNomo: string): void;
+declare function vacepu(klasoKsaka: string): void;

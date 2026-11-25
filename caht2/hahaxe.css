@@ -1,0 +1,37 @@
+/* ≺⧼ ស្ទីល 📃 ⧽≻ */
+
+#mapo, #mapo3d { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; }
+
+#mapo3d { clip-path:inset(0 round var(--អិត្ភេ)); }
+
+#bestoVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; clip-path:inset(0 round var(--អិត្ភេ)); }
+
+#objektaAntauxrigardo { inline-size:50%; aspect-ratio:1 / 1; align-self:center; border-radius:var(--អិត្ភេ); clip-path:inset(0 round var(--អិត្ភេ)); background:linear-gradient(180deg,#68a8d8,#a8d0e8 55%,#d8e8f0); }
+
+#k6h6aVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; clip-path:inset(0 round var(--អិត្ភេ)); }
+
+#rulo { inline-size:min(100%,72vh); aspect-ratio:16 / 9; align-self:center; touch-action:none; border-radius:var(--អិត្ភេ); border:var(--សាកព៏); clip-path:inset(0 round var(--អិត្ភេ)); }
+#rulo[data-ilo="sukf2qi"] { cursor:default; }
+#rulo[data-ilo="desegni"] { cursor:crosshair; }
+#rulo[data-ilo="h2li"] { cursor:not-allowed; }
+
+#instrListo ksaka { border-width:2px; }
+#instrListo ksaka p { text-align:start; }
+#instrListo ksaka[data-muta="true"] p { opacity:.4; }
+#instrListo ksaka[data-instr="siku"] { border-color:#38a088; }
+#instrListo ksaka[data-instr="ocarina"] { border-color:#a06828; }
+#instrListo ksaka[data-instr="didj"] { border-color:#885020; }
+#instrListo ksaka[data-instr="guiro"] { border-color:#b8b020; }
+#instrListo ksaka[data-instr="tjurunga"] { border-color:#a03848; }
+#instrListo ksaka[data-instr="slenthem"] { border-color:#6878a8; }
+#instrListo ksaka[data-instr="inanga"] { border-color:#98a860; }
+#instrListo ksaka[data-instr="mbira"] { border-color:#c08830; }
+#instrListo ksaka[data-instr="kiiqflak"] { border-color:#a858a0; }
+#instrListo ksaka[data-instr="hiwe"] { border-color:#50a8b8; }
+
+#sekcioListo input[type="number"] { inline-size:72px; }
+
+::-webkit-scrollbar { width:8px; height:8px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--តានេក២); border-radius:var(--ចិង); }
+::-webkit-scrollbar-thumb:hover { background:var(--ក្ព៏២); }

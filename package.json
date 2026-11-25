@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node servilo/ekigo.mjs",
-    "retilo": "node servilo/servilo.js",
-    "konservilo": "node servilo/konservilo.mjs",
+    "dev": "node hate/saxe.mjs",
+    "caxlefkakai": "node hate/hate.js",
+    "vetlaqilo": "node hate/tlaq.mjs",
     "build": "npx tsc-rs --noEmit && vite build"
   },
   "devDependencies": {

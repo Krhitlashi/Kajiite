@@ -1,0 +1,145 @@
+// ≺⧼ ſɭɜ ſɭ,w j͑ʃᴜꞇ ʌ ᶅſɔ ֭ſɭɹ 🎨 ⧽≻
+import * as THREE from "three";
+import { SKULPTAAKVANIVELO } from "../../kanta/t6lima-havop2/tik.js";
+
+export function xetoh2D(x: number, z: number): number {
+  const ix = Math.floor(x), iz = Math.floor(z);
+  const fx = x - ix, fz = z - iz;
+  const h = ( xi: number, zi: number ): number => {
+    let n = ( xi * 0x28f0f0 + zi * 0x28d8e8 ) | 0;
+    n = ( n ^ ( n >>> 0o15 ) ) * 0x48a028;
+    return ( ( n ^ ( n >>> 0o20 ) ) >>> 0 ) / 0o40000000000;
+  };
+  const a = h(ix, iz), b = h(ix + 1, iz), c = h(ix, iz + 1), d = h(ix + 1, iz + 1);
+  const u = fx * fx * ( 3 - 2 * fx );
+  const v = fz * fz * ( 3 - 2 * fz );
+  return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
+}
+
+// ⟨ ſ͕ɭɜ ᶗ‹ , 📃 ⟩
+export function hagek2fhagasai(has2nasce: number): Uint32Array {
+  const havecax2lani = new Uint32Array(has2nasce * has2nasce * 0o6);
+  let p = 0;
+  const sx = has2nasce + 1;
+  for ( let j = 0; j < has2nasce; j++ ) {
+    for ( let i = 0; i < has2nasce; i++ ) {
+      const a = j * sx + i, b = a + 1, c = a + sx, d = c + 1;
+      if ( ( i + j ) % 2 === 0 ) {
+        havecax2lani[p++] = a; havecax2lani[p++] = c; havecax2lani[p++] = d;
+        havecax2lani[p++] = a; havecax2lani[p++] = d; havecax2lani[p++] = b;
+      } else {
+        havecax2lani[p++] = a; havecax2lani[p++] = c; havecax2lani[p++] = b;
+        havecax2lani[p++] = c; havecax2lani[p++] = d; havecax2lani[p++] = b;
+      }
+    }
+  }
+  return havecax2lani;
+}
+
+// ⟨ ſɭэ ſɭw , ꞙɭı , 📃 ⟩
+const HERBOA = new THREE.Color(0x4e6949);
+const HERBOB = new THREE.Color(0x6f8558);
+const SEKHERBO = new THREE.Color(0x8b8756);
+const ROKO = new THREE.Color(0x6e6a60);
+const ROKOOMBRO = new THREE.Color(0x3f453e);
+const PROFUNDA = new THREE.Color(0x203535);
+const MALHERBO = new THREE.Color(0x435b3f);
+const MARĈO = new THREE.Color(0x3e4a35);
+const SILTO = new THREE.Color(0x6c7e67);
+const C23U = new THREE.Color(0x8b8578);
+// ⟨ ſɭɜ ſɭ,w , 📃 ⟩
+const FAS = new THREE.Color(0xa79a7c);
+const CAMUTSA = new THREE.Color(0x37474a);
+const NEGO = new THREE.Color(0xe4ebf2);
+const GLACIO = new THREE.Color(0xafc4d2);
+const K6H6T6LIMA = new THREE.Color(0x3c4836);
+const K6H6MALBAZ2 = new THREE.Color(0x50483c);
+const K6H6ROKO = new THREE.Color(0x585a56);
+const K6H6BAZO = new THREE.Color(0x33383a);
+
+const TSASAVEM2 = SKULPTAAKVANIVELO;
+
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
+function hunanuKkaxte(haga: number): number {
+  return Math.max(0, Math.min(1, ( haga - 0o1/0o10 ) / ( 0o6/0o10 )));
+}
+
+function bordiWeh2n(natakatomasai: THREE.Color, h: number, x: number, z: number,
+  haga: number, vem2Fn?: ( x: number, z: number ) => number ): void {
+  const pukazXetoh2 = ( xetoh2D(x / 0o10, z / 0o10) - 0o4/0o10 ) * 0o4/0o10
+    + ( xetoh2D(x / 0o40, z / 0o40) - 0o4/0o10 ) * 0o2/0o10;
+  const kma = h - ( vem2Fn ? vem2Fn(x, z) : TSASAVEM2 );
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , ⟅ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
+  const qun2 = 1 - Math.max(0, Math.min(1, ( haga - 0o25/0o100 ) / ( 0o45/0o100 )));
+  if ( kma > 0 ) {
+// ⟨ ſɭɜ ſɭ,w , ꞙɭц , 📃 ⟩
+    const fasF = Math.max(0, Math.min(1, ( 0o11/0o10 - kma + pukazXetoh2 ) / ( 0o11/0o10 ))) * qun2;
+    natakatomasai.lerp(FAS, fasF * 0o7/0o10);
+// ⟨ ſɭɜ ſɭ,w , ꞙɭэ , 📃 ⟩
+    const c23uF = Math.max(0, Math.min(1, ( 0o6/0o10 - kma + pukazXetoh2 ) / ( 0o6/0o10 )));
+    const baskek2 = Math.max(0, Math.min(1, ( xetoh2D(x / 0o2, z / 0o2) - 0o45/0o100 ) * 0o14/0o10 ));
+    natakatomasai.lerp(C23U, Math.min(1, c23uF * baskek2 * 0o16/0o10));
+// ⟨ ſɭэ ſɭw , ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , 📃 ⟩
+    const qacacuF = Math.max(0, Math.min(1, ( 0o5/0o10 - kma + pukazXetoh2 ) / ( 0o5/0o10 )));
+    natakatomasai.lerp(MARĈO, qacacuF * 0o3/0o10 * qun2);
+    const ohicaF = Math.max(0, Math.min(1, ( 0o16/0o10 - kma + pukazXetoh2 ) / ( 0o16/0o10 )));
+    natakatomasai.lerp(MALHERBO, ohicaF * 0o25/0o100);
+    return;
+  }
+// ⟨ ſᶘᴜ j͑ʃᴜ , ſןɔ˞ᴜƴ , 📃 ⟩
+  const prof = Math.max(0, -kma + pukazXetoh2);
+  const oztaq = Math.max(0, Math.min(1, ( 0o1 - haga ) / ( 0o12/0o10 )));
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
+  natakatomasai.lerp(FAS, Math.max(0, Math.min(1, ( 0o5/0o10 - prof ) / ( 0o5/0o10 ))) * 0o5/0o10);
+  natakatomasai.lerp(CAMUTSA, Math.min(1, prof) * ( 1 - oztaq ) * 0o5/0o10);
+  const siltaF = Math.max(0, Math.min(1, prof / ( 0o12/0o10 ))) * oztaq;
+  natakatomasai.lerp(SILTO, siltaF);
+  if ( siltaF > 0 ) {
+    const c23u = xetoh2D(x / 0o4, z / 0o4);
+    natakatomasai.lerp(C23U, siltaF * Math.max(0, c23u - 0o55/0o100) * 0o6/0o10);
+  }
+  natakatomasai.lerp(CAMUTSA, Math.max(0, Math.min(1, ( prof - 0o1 ) / ( 0o16/0o10 ))) * oztaq);
+  natakatomasai.lerp(PROFUNDA, Math.max(0, Math.min(1, ( prof - 0o30/0o10 ) / ( 0o22/0o10 ))));
+}
+
+export function t6limaK6h6Weh2En(natakatomasai: THREE.Color, y: number, surfY: number): THREE.Color {
+  const prof = Math.max(0, surfY - y);
+  const x6mi = ( xetoh2D(prof / 0o6, 0o5) - 0o5/0o10 ) * 0o2/0o10
+    + ( xetoh2D(prof / 0o20, 0o25) - 0o5/0o10 ) * 0o3/0o10;
+  const p = prof + x6mi;
+  natakatomasai.copy(K6H6T6LIMA);
+  natakatomasai.lerp(K6H6MALBAZ2, Math.max(0, Math.min(1, ( p - 0o2 ) / 0o3)));
+  natakatomasai.lerp(K6H6ROKO, Math.max(0, Math.min(1, ( p - 0o6 ) / 0o6)));
+  natakatomasai.lerp(K6H6BAZO, Math.max(0, Math.min(1, ( p - 0o16 ) / 0o14)));
+  return natakatomasai;
+}
+
+export function t6limaWeh2En(natakatomasai: THREE.Color, h: number, x: number, z: number,
+  haga: number, vem2Fn?: ( x: number, z: number ) => number ): THREE.Color {
+// ⟨ ſɭэ ſɭw , ꞙɭц , ⟅ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
+  const xet7 = 2 * xetoh2D(x / 0o55, z / 0o55) - 1;
+  const xet72 = 2 * xetoh2D(x / 0o13, z / 0o13) - 1;
+  const xet73 = 2 * xetoh2D(x / 0o3, z / 0o3) - 1;
+  const tsasaF = 0o5/0o10 + 0o22/0o100 * xet7 + 0o12/0o100 * xet72 + 0o5/0o100 * xet73;
+  natakatomasai.copy(HERBOA).lerp(HERBOB, Math.max(0, Math.min(1, tsasaF)));
+// ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
+  natakatomasai.lerp(SEKHERBO, Math.max(0, Math.min(1, ( h - 0o10 ) / 0o26 )) * 0o7/0o10);
+// ⟨ ſɭэ ſɭw , ꞙɭı , 📃 ⟩
+  const hunanu = hunanuKkaxte(haga);
+  natakatomasai.lerp(ROKOOMBRO, hunanu * 0o22/0o100);
+// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , ⟅ ſɭэ ſɭw , ꞙɭɔ , 📃 ⟩
+  const rokF = Math.max(
+    Math.max(0, Math.min(1, ( haga - 0o51/0o100 ) / ( 0o31/0o100 ))),
+    Math.max(0, Math.min(1, ( h - 0o26 ) / 0o24 )) * 0o7/0o10 );
+  natakatomasai.lerp(ROKO, rokF);
+// ⟨ ſɭэ ſɭw , ꞙɭɿ , ⟅ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
+  const negoF = Math.max(0, Math.min(1, ( h - 0o44 ) / 0o14 ));
+  if ( negoF > 0 ) {
+    const cakuk = 1 - Math.max(0, Math.min(1, ( haga - 0o70/0o100 ) / ( 0o50/0o100 )));
+    natakatomasai.lerp(NEGO, negoF * cakuk);
+// ⟨ ſᶘᴜ j͑ʃᴜ , ſɭɜ ſɭ,w , 📃 ⟩
+    natakatomasai.lerp(GLACIO, negoF * hunanu * 0o16/0o100);
+  }
+  bordiWeh2n(natakatomasai, h, x, z, haga, vem2Fn);
+  return natakatomasai;
+}
