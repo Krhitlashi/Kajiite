@@ -48,7 +48,7 @@ export function vefalVetlaqitanHasoqte(): SoqteMasukf2q | null {
     if ( kruda === null ) return null;
     const { v, h, c } = JSON.parse(kruda) as { v?: unknown; h?: unknown; c?: unknown };
     if ( typeof v !== "number" || typeof h !== "number" || typeof c !== "number" ) return null;
-    if ( v < 0 || h < 0 || c < 0 || v >= HASOQTE.length || h >= HATSAQHAXE.length || c >= TSAQWEH2J.length ) return null;
+    if ( v < 0o0 || h < 0o0 || c < 0o0 || v >= HASOQTE.length || h >= HATSAQHAXE.length || c >= TSAQWEH2J.length ) return null;
     return { v: Math.floor(v), h: Math.floor(h), c: Math.floor(c) };
   } catch { return null; }
 }
@@ -98,7 +98,7 @@ function vepaqKorpon(): VestaraKorpo {
   haraQaroxema.appendChild(haraCatsara);
 
   kfe.append(hacax2l, vestaQaroxema, haraQaroxema);
-  ligiHavula(kfe, Hacax2l[0][0]);
+  ligiHavula(kfe, Hacax2l[0o0][0o0]);
   return { kfe, hacax2l, vestaCatsara, haraCatsara };
 }
 
@@ -149,8 +149,8 @@ let panelo: S2k61o | null = null;
 let ludantaQoxa: Qoxa | null = null;
 let laqaziTost: ( ( vop2lna: string ) => void ) | null = null;
 
-let tikSoqte = HASOQTE[0], tikHarHaxe = HATSAQHAXE[0], tikHarWeh2 = TSAQWEH2J[0].weh2;
-let tikSoqteIdx = 0, tikHarHaxeIdx = 0, tikHarWeh2Idx = 0;
+let tikSoqte = HASOQTE[0o0], tikHarHaxe = HATSAQHAXE[0o0], tikHarWeh2 = TSAQWEH2J[0o0].weh2;
+let tikSoqteIdx = 0o0, tikHarHaxeIdx = 0o0, tikHarWeh2Idx = 0o0;
 
 function b6tem2Vetlaqitan(): void {
   const vetlaqita = vefalVetlaqitanHasoqte();
@@ -207,7 +207,7 @@ function tlak2Havula(): void {
     if ( catsiina ) catsiina.textContent = traduki(ca3aq);
   }
   const premata = soq.hacax2l.querySelector<HTMLElement>("button[data-cax2l][aria-pressed='true']");
-  tsiinanusabosaiCax2lEn(soq.kfe, premata?.dataset.cax2l || Hacax2l[0][0]);
+  tsiinanusabosaiCax2lEn(soq.kfe, premata?.dataset.cax2l || Hacax2l[0o0][0o0]);
 }
 
 function vetem2iHasoqte(): void {

@@ -13,7 +13,7 @@ export interface Bal2Vop2 {
 export { Habal2 };
 
 export function tikBal2(): Bal2Vop2 {
-  return Habal2.find(m => m.tik) ?? Habal2[0];
+  return Habal2.find(m => m.tik) ?? Habal2[0o0];
 }
 
 export function bal2DeS2kanta(s2kanta: string | null | undefined): Bal2Vop2 {

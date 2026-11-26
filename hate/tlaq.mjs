@@ -123,15 +123,21 @@ const hate = createServer(async (peto, respondo) => {
       skribitaj++;
     }
     respondo.writeHead(0o310, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
-    respondo.end("ok ｡ ꞙɭ" + skribitaj.toString(8) + " ʌ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʌ kanta/");
+    respondo.end("ok ｡ " + knak2fecajasai(skribitaj) + " ʌ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʌ kanta/");
   } catch ( e ) {
     respondo.writeHead(0o764, { ...CORS, "Content-Type": "text/plain; charset=utf-8" });
     respondo.end("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) " + ( e && e.message ? e.message : String(e) ));
   }
 });
 
-const KVANTO_DOSIEROJ = "ꞙɭ" + Object.keys(DOSIEROJ).length.toString(8);
+const KNAK2FECAJASAI = "ɔıɿцэꞟɩƨ";
+
+function knak2fecajasai( n ) {
+  return "ꞙɭ" + Math.round( n ).toString( 0o10 ).replace( /[0-7]/g, c => KNAK2FECAJASAI[ Number( c ) ] );
+}
+
+const KVANTO_DOSIEROJ = knak2fecajasai(Object.keys(DOSIEROJ).length);
 
 hate.listen(PORD, "127.0.0.1", () => {
-  console.log("<( j͑ʃ'ɔ ſ̀ȷᴜȝ )> http://127.0.0.1:" + PORD + " → kanta/t6lima-havop2/<mapo>/ ( ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃ'ɜ ſןɹ ꞙɭ" + KVANTO_DOSIEROJ + " ｡ ʃᴜ j͐ʃɹ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ) ｡ muziko/ → eskekoj/sonoj/muziko/ ( j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ )");
+  console.log("<( j͑ʃ'ɔ ſ̀ȷᴜȝ )> http://127.0.0.1:" + PORD + " → kanta/t6lima-havop2/<mapo>/ ( ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ " + KVANTO_DOSIEROJ + " ｡ ʃᴜ j͐ʃɹ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ) ｡ muziko/ → eskekoj/sonoj/muziko/ ( j͑ʃп́ꞇ ſᶘᴜ ɽ͑ʃ'ᴜ )");
 });

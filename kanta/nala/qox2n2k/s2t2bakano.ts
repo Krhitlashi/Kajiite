@@ -31,18 +31,18 @@ export function skaniK6h6nCaxlefkakai(
         : hasCellJe(p1, q1) || hasCellJe(p1, q2) || hasCellJe(p2, q1) || hasCellJe(p2, q2);
       if ( t12na ) intersekcantoj.push(s);
     }
-    if ( intersekcantoj.length < 2 ) return null;
+    if ( intersekcantoj.length < 0o2 ) return null;
     const pts = [ ...intersekcantoj ].sort(( a, b ) => a - b);
     if ( plosteq === null ) return pts;
-    let xaqadi = -1, z2hak = -1;
-    for ( let i = 0; i < pts.length - 1; i++ ) {
-      if ( Math.abs(( pts[i] + pts[i + 1] ) / 2 - ofsSkanata) + Math.abs(konstanto - ofsKonstanta) <= plosteq ) {
-        if ( xaqadi < 0 ) xaqadi = i;
+    let xaqadi = -0o1, z2hak = -0o1;
+    for ( let i = 0o0; i < pts.length - 0o1; i++ ) {
+      if ( Math.abs(( pts[i] + pts[i + 0o1] ) / 0o2 - ofsSkanata) + Math.abs(konstanto - ofsKonstanta) <= plosteq ) {
+        if ( xaqadi < 0o0 ) xaqadi = i;
         z2hak = i;
       }
     }
-    if ( xaqadi < 0 ) return null;
-    return pts.slice(xaqadi, z2hak + 2);
+    if ( xaqadi < 0o0 ) return null;
+    return pts.slice(xaqadi, z2hak + 0o2);
   };
   const EW = new Map<number, number[]>();
   for ( const roadZ of caxlefkakaiZ ) {

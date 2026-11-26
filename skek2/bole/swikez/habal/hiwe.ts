@@ -43,7 +43,7 @@ const DISPERSO = 0o5/0o1000;
     @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ
     @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ ʌ ſɭᴜ ʃןᴜ
 @returns void */
-export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
+export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1) {
   const d = Math.max(0o1/0o10, dur) * vap6zukani(0o7/0o100);
   const tlakakani = t + d;
   // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ , ꞙɭı , ſɭᴜ ſןᴜ , ſɭᴜ ſɭ,w , j͑ʃᴜ ⟅ ⟩
@@ -131,7 +131,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   //   j͑ʃɹ ſןw , ɭʃэʞ , ſɭɜ ſɭᴜƽ , ſɭɔ˞ɜⅎ , ſɭэ ɭʃᴜ ⟅
   //   j͐ʃэ ɭ(ᴜ , j͑ʃɹ ſןw , j͑ʃɹ ſןw ʌ ſɭэ ɭʃᴜ ⟅ ⟩
   const hakek: { n: number; mul: number; s2karanu: number; detuno: number; malfruo: number }[] = [];
-  let tlunakani = 0;
+  let tlunakani = 0o0;
   for ( let n = 0o1; n <= 0o20; n++ ) {
     const mul = n * Math.sqrt( 0o1 + INHARMONIO * n * n );
     if ( p * mul > 0o10000 ) break;
@@ -143,7 +143,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
       const detuno = 0o2 + Math.random() * 0o2;
       hakek.push({ n, mul, s2karanu: s2karanu * 0o4/0o10, detuno: -detuno, malfruo: Math.random() * DISPERSO });
       hakek.push({ n, mul, s2karanu: s2karanu * 0o4/0o10, detuno: detuno * vap6zukani(0o25/0o100), malfruo: Math.random() * DISPERSO });
-    } else hakek.push({ n, mul, s2karanu, detuno: 0, malfruo: Math.random() * DISPERSO });
+    } else hakek.push({ n, mul, s2karanu, detuno: 0o0, malfruo: Math.random() * DISPERSO });
     tlunakani += s2karanu;
   }
   const xiix2q = 0o34/0o100 / Math.max( tlunakani, 0o1 );
@@ -153,7 +153,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     const o = ctx.createOscillator();
     o.type = "sine";
     // ⟨ j͑ʃɹ ſןw , ꞙɭɔ , ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ſןᴜ , ꞙɭı ⟅ ⟩
-    o.detune.value = detuno === 0 ? ( Math.random() * 0o2 - 0o1 ) * 0o1 : detuno;
+    o.detune.value = detuno === 0o0 ? ( Math.random() * 0o2 - 0o1 ) * 0o1 : detuno;
     vibro.connect(o.detune);
     // ⟨ j͑ʃᴜ ı],ɔ , ſɭɜ ſɭᴜƽ , ſɭᴜ ʃןᴜ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ɭʃꞇƽ , ꞙɭı ⟅ ⟩
     o.frequency.setValueAtTime(fn * 0o77/0o100, t0);

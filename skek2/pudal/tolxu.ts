@@ -5,10 +5,10 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
 import { kf2KutiklanCac2sex } from "../x2x2q/cac2sex/marlaraksxa-kutiklo.js";
 
-const kruroBataAkso = new THREE.Vector3(0, 1, 0);
+const kruroBataAkso = new THREE.Vector3(0o0, 0o1, 0o0);
 const kruroBataKvaterniono = new THREE.Quaternion();
 
-const sozasai = new THREE.Vector3(0, 1, 0);
+const sozasai = new THREE.Vector3(0o0, 0o1, 0o0);
 
 function kf2Tubon(de: THREE.Vector3, al: THREE.Vector3,
   rDe: number, rAl: number): THREE.BufferGeometry {
@@ -35,28 +35,28 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
   // ⟨ ɭʃɜ ſɭɹȝ , ⟅ ⟩
   const zHas2nasce = [ 0o12/0o100, 0o2/0o100, -0o4/0o100, -0o12/0o100 ];
   const sost2cel2saiHan2k = [
-    new THREE.Vector3(0, 0, -0o14/0o100),
-    new THREE.Vector3(0, 0o1/0o200, -0o7/0o100),
-    new THREE.Vector3(0, 0o1/0o100, 0),
-    new THREE.Vector3(0, 0o1/0o200, 0o7/0o100),
-    new THREE.Vector3(0, 0, 0o14/0o100),
+    new THREE.Vector3(0o0, 0o0, -0o14/0o100),
+    new THREE.Vector3(0o0, 0o1/0o200, -0o7/0o100),
+    new THREE.Vector3(0o0, 0o1/0o100, 0o0),
+    new THREE.Vector3(0o0, 0o1/0o200, 0o7/0o100),
+    new THREE.Vector3(0o0, 0o0, 0o14/0o100),
   ];
   const sost2cel2saiCakamaha = new THREE.Mesh(mergeGeometries([
-    kf2Tubon(sost2cel2saiHan2k[0], sost2cel2saiHan2k[1], 0o30/0o1000, 0o44/0o1000),
-    kf2Tubon(sost2cel2saiHan2k[1], sost2cel2saiHan2k[2], 0o44/0o1000, 0o50/0o1000),
-    kf2Tubon(sost2cel2saiHan2k[2], sost2cel2saiHan2k[3], 0o50/0o1000, 0o46/0o1000),
-    kf2Tubon(sost2cel2saiHan2k[3], sost2cel2saiHan2k[4], 0o46/0o1000, 0o32/0o1000),
-    kf2Artikon(sost2cel2saiHan2k[0], 0o30/0o1000),
-    kf2Artikon(sost2cel2saiHan2k[4], 0o32/0o1000),
+    kf2Tubon(sost2cel2saiHan2k[0o0], sost2cel2saiHan2k[0o1], 0o30/0o1000, 0o44/0o1000),
+    kf2Tubon(sost2cel2saiHan2k[0o1], sost2cel2saiHan2k[0o2], 0o44/0o1000, 0o50/0o1000),
+    kf2Tubon(sost2cel2saiHan2k[0o2], sost2cel2saiHan2k[0o3], 0o50/0o1000, 0o46/0o1000),
+    kf2Tubon(sost2cel2saiHan2k[0o3], sost2cel2saiHan2k[0o4], 0o46/0o1000, 0o32/0o1000),
+    kf2Artikon(sost2cel2saiHan2k[0o0], 0o30/0o1000),
+    kf2Artikon(sost2cel2saiHan2k[0o4], 0o32/0o1000),
     ...zHas2nasce.map(z => new THREE.SphereGeometry(0o50/0o1000, 0o10, 0o6)
-      .scale(0o1, 0o17/0o20, 0o1/0o4).translate(0, 0o1/0o100, z)),
+      .scale(0o1, 0o17/0o20, 0o1/0o4).translate(0o0, 0o1/0o100, z)),
   ])!, korpaPukek);
   sost2cel2saiCakamaha.scale.set(0o1, 0o17/0o20, 0o1);
   sost2cel2saiCakamaha.name = "korpo";
   hate2.add(sost2cel2saiCakamaha);
 
   // ⟨ ſɭᴜ ʃןᴜ , ꞙɭı , ⟅ ⟩
-  for ( const k of [ 0, 0o1, 0o2, 0o3 ] ) {
+  for ( const k of [ 0o0, 0o1, 0o2, 0o3 ] ) {
     for ( const s of [ 0o1, -0o1 ] ) {
       const elstaraĵo = new THREE.Mesh(
         new THREE.SphereGeometry(0o4/0o100, 0o10, 0o6), korpaPukek);
@@ -68,30 +68,30 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
 
   // ⟨ j͑ʃᴜ ſɭ,w , ⟅ ⟩
   const rostrajHan2k = [
-    new THREE.Vector3(0, -0o1/0o100, 0o16/0o100),
-    new THREE.Vector3(0, -0o6/0o100, 0o30/0o100),
-    new THREE.Vector3(0, -0o12/0o100, 0o44/0o100),
+    new THREE.Vector3(0o0, -0o1/0o100, 0o16/0o100),
+    new THREE.Vector3(0o0, -0o6/0o100, 0o30/0o100),
+    new THREE.Vector3(0o0, -0o12/0o100, 0o44/0o100),
   ];
   const rostro = new THREE.Mesh(mergeGeometries([
-    kf2Tubon(rostrajHan2k[0], rostrajHan2k[1], 0o32/0o1000, 0o26/0o1000),
-    kf2Tubon(rostrajHan2k[1], rostrajHan2k[2], 0o26/0o1000, 0o20/0o1000),
-    kf2Artikon(rostrajHan2k[2], 0o20/0o1000),
+    kf2Tubon(rostrajHan2k[0o0], rostrajHan2k[0o1], 0o32/0o1000, 0o26/0o1000),
+    kf2Tubon(rostrajHan2k[0o1], rostrajHan2k[0o2], 0o26/0o1000, 0o20/0o1000),
+    kf2Artikon(rostrajHan2k[0o2], 0o20/0o1000),
   ])!, korpaPukek);
   rostro.name = "rostro";
   hate2.add(rostro);
-  const w6qaN2k = new THREE.Vector3(0, -0o16/0o100, 0o50/0o100);
+  const w6qaN2k = new THREE.Vector3(0o0, -0o16/0o100, 0o50/0o100);
   const rostrocet2 = new THREE.Mesh(mergeGeometries([
-    kf2Tubon(rostrajHan2k[2], w6qaN2k, 0o20/0o1000, 0o11/0o1000),
+    kf2Tubon(rostrajHan2k[0o2], w6qaN2k, 0o20/0o1000, 0o11/0o1000),
     kf2Artikon(w6qaN2k, 0o11/0o1000),
   ])!, new THREE.MeshStandardMaterial({ color: 0x584838, roughness: 0o3/0o4,
     map: kutiklo.weh2, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50 }));
   rostrocet2.name = "rostrocet2";
   hate2.add(rostrocet2);
 
-  const t2banuPukek = new THREE.MeshStandardMaterial({ color: 0x18202a, roughness: 0o1/0o4 });
+  const t2banuPukek = new THREE.MeshStandardMaterial({ color: 0x182028, roughness: 0o1/0o4 });
   const tubero = new THREE.Mesh(new THREE.SphereGeometry(0o5/0o100, 0o10, 0o6), korpaPukek);
-  tubero.scale.set(1, 0o4/0o5, 0o6/0o10);
-  tubero.position.set(0, 0o7/0o100, 0o1/0o12);
+  tubero.scale.set(0o1, 0o4/0o5, 0o6/0o10);
+  tubero.position.set(0o0, 0o7/0o100, 0o1/0o12);
   hate2.add(tubero);
   for ( const sx of [ 0o1, -0o1 ] ) {
     for ( const sz of [ 0o1, -0o1 ] ) {
@@ -104,7 +104,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
   const abdomeno = new THREE.Mesh(
     new THREE.CylinderGeometry(0o3/0o100, 0o2/0o100, 0o10/0o100, 0o6), korpaPukek);
   abdomeno.rotation.x = -Math.PI / 0o2 - 0o3/0o10;
-  abdomeno.position.set(0, 0o3/0o100, -0o1/0o6);
+  abdomeno.position.set(0o0, 0o3/0o100, -0o1/0o6);
   hate2.add(abdomeno);
 
   for ( const s of [ 0o1, -0o1 ] ) {
@@ -122,7 +122,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
   const kruraPukek = new THREE.MeshStandardMaterial({
     color: 0xd8b890, map: kutiklo.weh2,
     bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
-    transparent: false, opacity: 1,
+    transparent: false, opacity: 0o1,
     depthWrite: true, depthTest: true, side: THREE.DoubleSide,
     roughness: 0o1/0o2, emissive: 0x382818, emissiveIntensity: 0o1/0o10,
   });
@@ -132,7 +132,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
   const piedojZ = [ 0o46/0o100, 0o20/0o100, -0o20/0o100, -0o46/0o100 ];
   const piedojX = [ 0o44/0o100, 0o62/0o100, 0o62/0o100, 0o44/0o100 ];
   const GENUAX = 0o40/0o100, GENUAY = 0o37/0o100, PIEDAY = -0o45/0o100;
-  for ( let k = 0; k < 0o4; k++ ) {
+  for ( let k = 0o0; k < 0o4; k++ ) {
     for ( const s of [ 0o1, -0o1 ] ) {
       const kokso = new THREE.Vector3(s * 0o5/0o100, -0o2/0o100, koksojZ[k]);
       const tafanitamcesai = new THREE.Vector3(s * GENUAX, GENUAY, genuojZ[k]);
@@ -143,7 +143,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
         .setLength(0o12/0o100).add(pat6);
       const nasce = new THREE.Group();
       nasce.name = "kruro";
-      nasce.renderOrder = 6;
+      nasce.renderOrder = 0o6;
       // ⟨ ſɭᴜ ʃןᴜ , ⟅ ⟩
       nasce.userData.vek2fe = s;
       nasce.position.copy(kokso);
@@ -185,21 +185,21 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
 
 export function tlak2Tolxun(b: Paga, t: number): void {
   const subtila = Math.sin(t * 0o1/0o2 + b.phase * 0o3);
-  let i = 0;
+  let i = 0o0;
   for ( const bazaro of b.kozunuKruroj ) {
-    const qanu = Math.floor(i / 2);
-    const vek2fe = i % 2;
+    const qanu = Math.floor(i / 0o2);
+    const vek2fe = i % 0o2;
     const xafanitapu = t * 0o33/0o10 + b.phase + qanu * 0o7/0o10 + vek2fe * Math.PI;
     const tona = Math.sin(xafanitapu);
-    const levo = Math.max(0, Math.sin(xafanitapu + Math.PI * 0o1/0o4));
-    const cab6ka = tona * 0o14/0o100 + Math.sin(xafanitapu * 2) * 0o3/0o100;
+    const levo = Math.max(0o0, Math.sin(xafanitapu + Math.PI * 0o1/0o4));
+    const cab6ka = tona * 0o14/0o100 + Math.sin(xafanitapu * 0o2) * 0o3/0o100;
     // ⟨ j͑ʃᴜ ſןɹ , ⟅ ⟩
     kruroBataKvaterniono.setFromAxisAngle(kruroBataAkso, -bazaro.vek2fe * cab6ka);
     bazaro.nasce.quaternion.copy(kruroBataKvaterniono).multiply(bazaro.q);
 
     // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
     if ( bazaro.tafanitamcesai ) {
-      const flekso = levo * 0o2/0o5 + Math.max(0, tona) * 0o10/0o100;
+      const flekso = levo * 0o2/0o5 + Math.max(0o0, tona) * 0o10/0o100;
       bazaro.tafanitamcesai.rotation.z = -bazaro.vek2fe * ( 0o1/0o40 + flekso );
     }
     i++;

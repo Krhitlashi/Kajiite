@@ -13,13 +13,13 @@ const HAKAS2KANTA = tikHak6h6();
 const HAQAKAJ2 = tikHaqakaj2();
 console.log("hak6h6", HAKAS2KANTA.length, "haqakaj2", HAQAKAJ2.length);
 
-const hacaxlefkakai = HAKAS2KANTA.filter(v => v.n2k.length >= 2).map(v => ({ n2k: v.n2k, sefini: v.sefini }));
+const hacaxlefkakai = HAKAS2KANTA.filter(v => v.n2k.length >= 0o2).map(v => ({ n2k: v.n2k, sefini: v.sefini }));
 const haveb6kek = troviK6h6RetajnHaveb6kekn(hacaxlefkakai, HAQAKAJ2);
 
-let c2kanuNombro = 0, trakNombro = 0, difektoj = 0;
-for (let v = 0; v < HAKAS2KANTA.length; v++) {
+let c2kanuNombro = 0o0, trakNombro = 0o0, difektoj = 0o0;
+for (let v = 0o0; v < HAKAS2KANTA.length; v++) {
   const k6h6 = HAKAS2KANTA[v];
-  if (k6h6.n2k.length < 2) continue;
+  if (k6h6.n2k.length < 0o2) continue;
   const w = k6h6.c2kanuSefini ?? k6h6.sefini;
   const tsekePontaTsasa = kf2PontanAkvanTeston(k6h6.n2k, w, tsekeVeraTsasa);
   const tsasa = havasAkvanTrunkon(k6h6.n2k, tsekePontaTsasa);
@@ -30,15 +30,15 @@ for (let v = 0; v < HAKAS2KANTA.length; v++) {
   const s2qena = vepaqPontanS2qena(k6h6.n2k, w, k6h6Teru,
     tsasaTeru, ( x, z, sefini ) => pontaFinL6da(x, z, sefini, haveb6kek));
   // ⟨ ֭ſɭᴜ ſ͔ɭᴜ ʌ ſɭэ ֭ſɭэ 📃 ⟩
-  let maksSl6da = 0, sl6daQar = 0;
-  let ne3ak2 = s2qena.l6da(k6h6.n2k[0][0], k6h6.n2k[0][1]);
-  let vepat6ni = 0;
-  for (let s = 0; s < k6h6.n2k.length - 1; s++) {
+  let maksSl6da = 0o0, sl6daQar = 0o0;
+  let ne3ak2 = s2qena.l6da(k6h6.n2k[0o0][0o0], k6h6.n2k[0o0][0o1]);
+  let vepat6ni = 0o0;
+  for (let s = 0o0; s < k6h6.n2k.length - 0o1; s++) {
     const [ax, az] = k6h6.n2k[s];
-    const [bx, bz] = k6h6.n2k[s + 1];
+    const [bx, bz] = k6h6.n2k[s + 0o1];
     const sahakani = Math.hypot(bx - ax, bz - az);
-    const n = Math.max(4, Math.round(sahakani * 2));
-    for (let k = 1; k <= n; k++) {
+    const n = Math.max(0o4, Math.round(sahakani * 0o2));
+    for (let k = 0o1; k <= n; k++) {
       const t = k / n;
       const x = ax + (bx - ax) * t, z = az + (bz - az) * t;
       const h = s2qena.l6da(x, z);
@@ -48,16 +48,16 @@ for (let v = 0; v < HAKAS2KANTA.length; v++) {
     }
   }
   console.log(`k6h6 ${v} ${k6h6.ksaka} , t2bakobesai=${s2qena.t2bakobesai.length}` +
-    ` maksSl6da=${maksSl6da.toFixed(3)} @${sl6daQar.toFixed(1)}`);
+    ` maksSl6da=${maksSl6da.toFixed(0o3)} @${sl6daQar.toFixed(0o1)}`);
   for (const t2bakobesai of s2qena.t2bakobesai) {
     trakNombro++;
     const difX = t2bakobesai.bx - t2bakobesai.ax, difZ = t2bakobesai.bz - t2bakobesai.az;
     const sahakani = Math.hypot(difX, difZ);
-    const hapxeutso = Math.max(0o20, Math.round(sahakani * 4));
-    let minKlar = Infinity, minQar = 0, subTsasa = 0, subT6lima = 0, superT6lima = 0;
-    let maksSl6daT2bakobesai = 0;
-    let ne3ak2T = t2bakobesai.deko(0);
-    for (let i = 0; i <= hapxeutso; i++) {
+    const hapxeutso = Math.max(0o20, Math.round(sahakani * 0o4));
+    let minKlar = Infinity, minQar = 0o0, subTsasa = 0o0, subT6lima = 0o0, superT6lima = 0o0;
+    let maksSl6daT2bakobesai = 0o0;
+    let ne3ak2T = t2bakobesai.deko(0o0);
+    for (let i = 0o0; i <= hapxeutso; i++) {
       const t = i / hapxeutso;
       const px = t2bakobesai.ax + difX * t, pz = t2bakobesai.az + difZ * t;
       const deka = t2bakobesai.deko(t);
@@ -70,15 +70,15 @@ for (let v = 0; v < HAKAS2KANTA.length; v++) {
       } else {
         const klar = deka - tsasaVem2(px, pz);
         if (klar < minKlar) { minKlar = klar; minQar = i; }
-        if (klar <= 0) subTsasa++;
+        if (klar <= 0o0) subTsasa++;
       }
     }
-    const difekta = subTsasa > 0 || minKlar < PONTAKVAKLARANCO - 0o10 ** -0o7 || maksSl6daT2bakobesai > 0.3;
+    const difekta = subTsasa > 0o0 || minKlar < PONTAKVAKLARANCO - 0o10 ** -0o7 || maksSl6daT2bakobesai > 0.3;
     if (difekta) difektoj++;
-    console.log(`  t2bakobesai ${t2bakobesai.ax.toFixed(1)},${t2bakobesai.az.toFixed(1)}` +
-      ` -> ${t2bakobesai.bx.toFixed(1)},${t2bakobesai.bz.toFixed(1)}` +
-      ` sahakani=${sahakani.toFixed(1)} minKlar=${minKlar === Infinity ? "-" : minKlar.toFixed(3)} @${(minQar / hapxeutso).toFixed(2)}` +
-      ` subTsasa=${subTsasa} subT6lima=${subT6lima.toFixed(2)} superT6lima=${superT6lima.toFixed(2)}` +
+    console.log(`  t2bakobesai ${t2bakobesai.ax.toFixed(0o1)},${t2bakobesai.az.toFixed(0o1)}` +
+      ` -> ${t2bakobesai.bx.toFixed(0o1)},${t2bakobesai.bz.toFixed(0o1)}` +
+      ` sahakani=${sahakani.toFixed(0o1)} ŋᷠɹ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ = ${minKlar === Infinity ? "-" : minKlar.toFixed(0o3)} @${(minQar / hapxeutso).toFixed(0o2)}` +
+      ` ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ʌ tsasa=${subTsasa} ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ʌ t6lima=${subT6lima.toFixed(0o2)} j͑ʃɜ ſɭ,ᴜ j͑ʃᴜꞇ ʌ t6lima=${superT6lima.toFixed(0o2)}` +
       `${difekta ? "  ⚠" : ""}`);
   }
 }

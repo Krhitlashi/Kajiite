@@ -76,7 +76,7 @@ function krudecoDe(
   t6lima: GeneritaT6lima, x: number, z: number, p2somani: number,
 ): number {
   let kmaPsazai = Infinity, kmaAlta = -Infinity;
-  for ( const [ dx, dz ] of [ [ 0, 0 ], [ p2somani, 0 ], [ -p2somani, 0 ], [ 0, p2somani ], [ 0, -p2somani ],
+  for ( const [ dx, dz ] of [ [ 0o0, 0o0 ], [ p2somani, 0o0 ], [ -p2somani, 0o0 ], [ 0o0, p2somani ], [ 0o0, -p2somani ],
     [ p2somani, p2somani ], [ -p2somani, p2somani ], [ p2somani, -p2somani ], [ -p2somani, -p2somani ] ] ) {
     const h = t6lima.l6da(x + dx, z + dz);
     if ( h < kmaPsazai ) kmaPsazai = h;
@@ -94,7 +94,7 @@ function surSekuraT6lima(
   t6lima: GeneritaT6lima, vem2: number, x: number, z: number,
 ): boolean {
   return t6lima.l6da(x, z) > vem2 + EJASEKURAPROFUNDO
-    && Math.max(krudecoDe(t6lima, x, z, EJAKRUDEJO), 0) < EJAKRUDAL6DA;
+    && Math.max(krudecoDe(t6lima, x, z, EJAKRUDEJO), 0o0) < EJAKRUDAL6DA;
 }
 
 /*ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ }ʃɹƽ ⟅ j͑ʃ'ɔ ŋᷠɹ = }ʃɹƽ , ſɭɜ ſɭ,w , ɭl̀ᴜ ſ͕ɭɜ
@@ -132,7 +132,7 @@ function trovuEjon(
   let kmaN2k = -Infinity;
   let rezervo: { x: number; z: number } | null = null;
   let rezervaN2k = -Infinity;
-  let i = 0;
+  let i = 0o0;
   for ( let z = -EJAMARGXENO; z <= EJAMARGXENO; z += EJATONA ) {
     for ( let x = -EJAMARGXENO; x <= EJAMARGXENO; x += EJATONA ) {
       i++;
@@ -181,10 +181,10 @@ function hatafkaqDeKaxte( kaxte: Knat6keqanuKuba ): { x: number; z: number; kfek
       hakix2.add(k);
       // ⟨ ſɭэ ֭ſɭэ ʌ ſɟɹ ᶅſɹȝ ⟅ }ʃɹƽ ʌ ſɟɹ ᶅſɹȝ 📃 ⟩
       const kfekoc2kaij: [ number, number ][] = [];
-      if ( !NS.some(v => Math.abs(v.haxekuxa - lx) < EPS && v.al > lz + EPS) ) kfekoc2kaij.push([ 0, 1 ]);
-      if ( !NS.some(v => Math.abs(v.haxekuxa - lx) < EPS && v.de < lz - EPS) ) kfekoc2kaij.push([ 0, -1 ]);
-      if ( !EW.some(v => Math.abs(v.haxekuxa - lz) < EPS && v.al > lx + EPS) ) kfekoc2kaij.push([ 1, 0 ]);
-      if ( !EW.some(v => Math.abs(v.haxekuxa - lz) < EPS && v.de < lx - EPS) ) kfekoc2kaij.push([ -1, 0 ]);
+      if ( !NS.some(v => Math.abs(v.haxekuxa - lx) < EPS && v.al > lz + EPS) ) kfekoc2kaij.push([ 0o0, 0o1 ]);
+      if ( !NS.some(v => Math.abs(v.haxekuxa - lx) < EPS && v.de < lz - EPS) ) kfekoc2kaij.push([ 0o0, -0o1 ]);
+      if ( !EW.some(v => Math.abs(v.haxekuxa - lz) < EPS && v.al > lx + EPS) ) kfekoc2kaij.push([ 0o1, 0o0 ]);
+      if ( !EW.some(v => Math.abs(v.haxekuxa - lz) < EPS && v.de < lx - EPS) ) kfekoc2kaij.push([ -0o1, 0o0 ]);
       if ( !kfekoc2kaij.length ) continue;
       hatafkaq.push({ x: kaxte.ofsX + lx, z: kaxte.ofsZ + lz, kfekoc2kaij });
     }
@@ -253,12 +253,12 @@ function troviCxefojn(
       const dist = Math.hypot(x - sost2.x, z - sost2.z);
       if ( dist < QAKAJ2DISTANCOMIN || dist > QAKAJ2DISTANCOMAKS ) continue;
       // ⟨ ſɟɹ ᶅſɹȝ ʌ ſᶘᴜ j͑ʃᴜ , ſɭɹ ſןᴜ ʌ ſɭɜ ʃɔ ſᶘᴜ j͑ʃᴜ 📃 ⟩
-      let nx = 0, nz = 0, tsasa = 0;
-      for ( const [ dx, dz ] of [ [ 1, 0 ], [ -1, 0 ], [ 0, 1 ], [ 0, -1 ] ] ) {
-        if ( laqazo(x + dx * vepat6ni, z + dz * vepat6ni) < 0 ) { nx += dx; nz += dz; tsasa++; }
+      let nx = 0o0, nz = 0o0, tsasa = 0o0;
+      for ( const [ dx, dz ] of [ [ 0o1, 0o0 ], [ -0o1, 0o0 ], [ 0o0, 0o1 ], [ 0o0, -0o1 ] ] ) {
+        if ( laqazo(x + dx * vepat6ni, z + dz * vepat6ni) < 0o0 ) { nx += dx; nz += dz; tsasa++; }
       }
-      if ( tsasa === 0 ) continue;
-      const sahakani = Math.hypot(nx, nz) || 1;
+      if ( tsasa === 0o0 ) continue;
+      const sahakani = Math.hypot(nx, nz) || 0o1;
       trovajxoj.push({ x, z, nx: nx / sahakani, nz: nz / sahakani, dist });
     }
   }
@@ -280,8 +280,8 @@ function sukf2qiCxefojn(
     // ⟨ ſɭэ ֭ſɭэ ʌ ſɭɜ ſɭ,w , ſɭᴜ ı],ƨɔ ⟅ 📃 ⟩
     const al = Math.hypot(sost2.x - k.x, sost2.z - k.z);
     const havepat6ni = Math.max(0o2, Math.round(al / QAKAJ2ALTERANDO));
-    let hatsasa = 0;
-    for ( let s = 1; s <= havepat6ni; s++ ) {
+    let hatsasa = 0o0;
+    for ( let s = 0o1; s <= havepat6ni; s++ ) {
       const t = s / havepat6ni;
       if ( t6lima.l6da(k.x + ( sost2.x - k.x ) * t, k.z + ( sost2.z - k.z ) * t) < hasukf2qani.vem2 ) hatsasa++;
     }
@@ -330,14 +330,14 @@ export function generiSetlejon(
     k6liqPal6: "vakox2qita",
     ofsX: cefa.x,
     ofsZ: cefa.z,
-    kekufxeso: sHakaxte % 0o3 !== 0,
+    kekufxeso: sHakaxte % 0o3 !== 0o0,
     hahufwuk2: true,
     // ⟨ ſןᴜȝ ʌ ſɟɹ ᶅſɹȝ ʌ j͐ʃᴜȝ 📃 ⟩
     // ⟨ }ʃɹƽ ʌ ſɭᴜ ı],ƨɔ ( ſɟᴜᴜ̩ ɭʃɹ ʌ ſɭc̗ᴜ ) , }ʃɹƽ ʌ }ʃᴜ j͐ʃᴜ
     // ſɭɹ ſןᴜ ʌ ſɭᴜ ı],ƨɔ 📃 ⟩
     tlunakHak6liq: [
       {
-        x: 0, z: ( cefaGpukaz + 0o1 ) * cefaTona,
+        x: 0o0, z: ( cefaGpukaz + 0o1 ) * cefaTona,
         hunaq: "qaman2", rot: Math.PI, veq6k2: "sost2", stacia: true, konektita: true,
       },
     ],
@@ -363,7 +363,7 @@ export function generiSetlejon(
   }
 
   // ⟪ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſɭэ ֭ſɭэ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟫
-  const sost2 = hakaxte[0];
+  const sost2 = hakaxte[0o0];
   const hatafkaq = hatafkaqDeKaxte(sost2);
   // ⟨ }ʃɹƽ ʌ ſɭэ ֭ſɭэ , ſɭэ ֭ſɭэ ʌ }ʃɹƽ , ſɭɜ ʃɔ }ʃɹƽ 📃 ⟩
   const uzitajHatafkaq = new Set<string>();
@@ -373,7 +373,7 @@ export function generiSetlejon(
   const hasoza = troviCxefojn(t6lima, hasukf2qani, { x: sost2.ofsX, z: sost2.ofsZ }, 0o4);
   const cxefoj = sukf2qiCxefojn(hasoza, t6lima, hasukf2qani, { x: sost2.ofsX, z: sost2.ofsZ },
     QAKAJ2KVANTO);
-  for ( let i = 0; i < cxefoj.length; i++ ) {
+  for ( let i = 0o0; i < cxefoj.length; i++ ) {
     const k = cxefoj[i];
     // ⟨ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ʌ ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ 📃 ⟩
     const s2sabo = Math.atan2(-k.nx, -k.nz);
@@ -388,7 +388,7 @@ export function generiSetlejon(
       ?? { x: sost2.ofsX, z: sost2.ofsZ };
     registri(saxeni);
     hak6h6.push({
-      ksaka: "Cutfa " + ( i + 0o1 ).toString(8),
+      ksaka: "Cutfa " + ( i + 0o1 ).toString(0o10),
       sefini: 0o340/0o100,
       n2k: [
         [ saxeni.x, saxeni.z ],
@@ -409,7 +409,7 @@ export function generiSetlejon(
   const ejoDeAvenuo = (): { x: number; z: number } | null => {
     let kmaXobe: { x: number; z: number } | null = null;
     let kmaN2k = -Infinity;
-    for ( let a = 0; a < 0o20; a++ ) {
+    for ( let a = 0o0; a < 0o20; a++ ) {
       const h = subRuva(sKrompoj, a);
       const tafkaq = ( h % 0o1000 ) / 0o1000 * Math.PI * 0o2;
       const h6kuni = 0o300 + ( h >>> 0o10 ) % 0o300;
@@ -428,7 +428,7 @@ export function generiSetlejon(
   };
 
   const natakatomasai = hakaxte.length >= 0o2
-    ? { x: hakaxte[1].ofsX, z: hakaxte[1].ofsZ }
+    ? { x: hakaxte[0o1].ofsX, z: hakaxte[0o1].ofsZ }
     : ejoDeAvenuo();
   if ( natakatomasai ) {
     // ⟨ ſɭэ ֭ſɭэ ʌ }ʃᴜ j͐ʃᴜ ʌ }ʃɹƽ ʌ ſɭэ ֭ſɭэ ⟅ }ʃɹƽ ʌ ſɭᴜ ı],ƨɔ 📃 ⟩
@@ -438,7 +438,7 @@ export function generiSetlejon(
     const mezX = ( ekiro.x + natakatomasai.x ) / 0o2;
     const mezZ = ( ekiro.z + natakatomasai.z ) / 0o2;
     // ⟨ ſɭэ ֭ſɭэ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ 📃 ⟩
-    const vek2fe = ( sKrompoj % 0o2 ) === 0 ? 0o1 : -0o1;
+    const vek2fe = ( sKrompoj % 0o2 ) === 0o0 ? 0o1 : -0o1;
     const bendX = mezX - ( natakatomasai.z - ekiro.z ) * 0o3/0o100 * vek2fe;
     const bendZ = mezZ + ( natakatomasai.x - ekiro.x ) * 0o3/0o100 * vek2fe;
     const n2k: [ number, number ][] = [ [ ekiro.x, ekiro.z ] ];
@@ -451,22 +451,22 @@ export function generiSetlejon(
 
   // ⟪ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ſɭэ ֭ſɭэ 📃 ⟫
   for ( const k6h6 of hak6h6 ) {
-    for ( let i = 0; i + 1 < k6h6.n2k.length; i++ ) {
+    for ( let i = 0o0; i + 0o1 < k6h6.n2k.length; i++ ) {
       const [ ax, az ] = k6h6.n2k[i];
-      const [ bx, bz ] = k6h6.n2k[i + 1];
+      const [ bx, bz ] = k6h6.n2k[i + 0o1];
       const sahakani = Math.hypot(bx - ax, bz - az);
       const havepat6ni = Math.max(0o1, Math.round(sahakani / LAMPATONA));
-      const nx = -( bz - az ) / ( sahakani || 1 ), nz = ( bx - ax ) / ( sahakani || 1 );
-      for ( let s = 0; s <= havepat6ni; s++ ) {
+      const nx = -( bz - az ) / ( sahakani || 0o1 ), nz = ( bx - ax ) / ( sahakani || 0o1 );
+      for ( let s = 0o0; s <= havepat6ni; s++ ) {
         const t = s / havepat6ni;
-        if ( i === 0 && s === 0 ) continue;
-        const vek2fe = ( ( ( s + i ) & 1 ) === 0 ) ? 1 : -1;
+        if ( i === 0o0 && s === 0o0 ) continue;
+        const vek2fe = ( ( ( s + i ) & 0o1 ) === 0o0 ) ? 0o1 : -0o1;
         const x = ax + ( bx - ax ) * t + nx * LAMPAALTERANDO * vek2fe;
         const z = az + ( bz - az ) * t + nz * LAMPAALTERANDO * vek2fe;
         if ( !hasukf2qani.enQoxa(x, z) ) continue;
         if ( t6lima.l6da(x, z) < hasukf2qani.vem2 + 0o1/0o2 ) continue;
         // ⟨ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ſɭɜ ʃɔ }ʃᴜ j͐ʃᴜ 📃 ⟩
-        if ( ( sOrnamoj >>> ( ( s + i * 0o7 ) % 0o10 ) ) % 0o5 === 0 ) continue;
+        if ( ( sOrnamoj >>> ( ( s + i * 0o7 ) % 0o10 ) ) % 0o5 === 0o0 ) continue;
         hazace.push({ x, z, pudal: "hxeuxfoPa12", s2sabo: Math.PI / 0o4 });
       }
     }

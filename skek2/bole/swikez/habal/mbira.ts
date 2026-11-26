@@ -5,7 +5,7 @@ import { vap6zukani } from "./hakfeKx2keve.js";
 // ⟨ ſȷƽᴜ ʃɔ ʌ ꞙɭɔ ʌ ꞙɭɔ ⟅ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ETA = 0o1/0o20000;
 
-export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {
+export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 0o1) {
   const p = f * vap6zukani(0o1/0o200);
   const g = ctx.createGain();
   g.gain.value = 0o7/0o40 * vel;
@@ -22,7 +22,7 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   const ratios = [ 0o1, 0o201/0o100, 0o377/0o100, 0o327/0o40 ];
   const gains = [ 0o1, 0o15/0o40, 0o5/0o40, 0o1/0o20 ];
   const decs = [ 0o155/0o100, 0o33/0o40, 0o5/0o20, 0o5/0o40 ];
-  for ( let i = 0; i < ratios.length; i++ ) {
+  for ( let i = 0o0; i < ratios.length; i++ ) {
     const o = ctx.createOscillator();
     o.type = "sine";
     o.frequency.value = p * ratios[i] * vap6zukani(0o2/0o1000);

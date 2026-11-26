@@ -16,12 +16,12 @@ export function kf2StuparajnHan2kn(
   tlakakani: readonly [ number, number ],
   k2fe: number
 ): [ number, number ][] {
-  const havepat6ni = Math.max(1, Math.round(k2fe));
+  const havepat6ni = Math.max(0o1, Math.round(k2fe));
   const n2k: [ number, number ][] = [];
-  for ( let i = 0; i <= havepat6ni; i++ ) {
+  for ( let i = 0o0; i <= havepat6ni; i++ ) {
     const t = i / havepat6ni;
-    n2k.push([ saxeni[0] + ( tlakakani[0] - saxeni[0] ) * t,
-      saxeni[1] + ( tlakakani[1] - saxeni[1] ) * t ]);
+    n2k.push([ saxeni[0o0] + ( tlakakani[0o0] - saxeni[0o0] ) * t,
+      saxeni[0o1] + ( tlakakani[0o1] - saxeni[0o1] ) * t ]);
   }
   return n2k;
 }
@@ -96,43 +96,43 @@ export function kf2StuparanL6da(
   teru: number,
   psaz?: number
 ): ( x: number, z: number ) => number {
-  const k2fe = n2k.length - 1;
+  const k2fe = n2k.length - 0o1;
   const tlakakL6da = psaz ?? teru - k2fe * STUPARISERO;
-  if ( k2fe < 1 ) return () => tlakakL6da;
-  const [ saxeoX, saxeoZ ] = n2k[0];
+  if ( k2fe < 0o1 ) return () => tlakakL6da;
+  const [ saxeoX, saxeoZ ] = n2k[0o0];
   const [ tlakakX, tlakakZ ] = n2k[k2fe];
   const diferencoX = tlakakX - saxeoX, diferencoZ = tlakakZ - saxeoZ;
   const sahakaniKvadrato = diferencoX * diferencoX + diferencoZ * diferencoZ;
-  if ( sahakaniKvadrato <= 0 ) return () => tlakakL6da;
+  if ( sahakaniKvadrato <= 0o0 ) return () => tlakakL6da;
   // ⟨ ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , 📃 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı , j͑ʃ'ɔ ſɭɹ ſȷɔ ,
   // ꞙɭı , ꞙɭı , ( j͑ʃɜ ſɭ,ᴜ - ſןɔ˞ᴜƴ ) / j͑ʃ'ɔ ſɭɹ ſȷɔ , ꞙɭı ,
   // ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭɔ , STUPARISERO ,
   // ꞙɭı , j͑ʃ'ɔ ſɭɹ ſȷɔ , ꞙɭı ( ꞙɭɿ , ... ) , ⟅ 📃 ⟩
   if ( psaz !== undefined ) {
-    if ( k2fe === 1 ) {
+    if ( k2fe === 0o1 ) {
       return ( x: number, z: number ): number => {
         let t = ( ( x - saxeoX ) * diferencoX + ( z - saxeoZ ) * diferencoZ ) / sahakaniKvadrato;
-        t = Math.min(1, Math.max(0, t));
-        return teru * ( 1 - t ) + tlakakL6da * t;
+        t = Math.min(0o1, Math.max(0o0, t));
+        return teru * ( 0o1 - t ) + tlakakL6da * t;
       };
     }
     // ⟨ ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , 📃 ⟩ , ( j͑ʃ'ɔ ſɭɹ ſȷɔ - ꞙɭı ) , ꞙɭı ,
     // ꞙɭı , ſןɔ˞ᴜƴ , ( ꞙɭɔ , ꞙɭı ) , ꞙɭı ,
     // ꞙɭı , j͑ʃ'ɔ ſɭɹ ſȷɔ , ꞙɭı ,
     // ꞙɭı , ꞙɭı , STUPARISERO , ⟅ 📃 ⟩
-    const tona = ( teru - tlakakL6da ) / ( k2fe - 1 );
+    const tona = ( teru - tlakakL6da ) / ( k2fe - 0o1 );
     return ( x: number, z: number ): number => {
       let t = ( ( x - saxeoX ) * diferencoX + ( z - saxeoZ ) * diferencoZ ) / sahakaniKvadrato;
-      t = Math.min(1, Math.max(0, t));
-      const vem2 = Math.min(k2fe - 1, Math.max(0, Math.floor(t * k2fe)));
+      t = Math.min(0o1, Math.max(0o0, t));
+      const vem2 = Math.min(k2fe - 0o1, Math.max(0o0, Math.floor(t * k2fe)));
       return teru - vem2 * tona;
     };
   }
   // ⟨ ꞙɭɔ , ſןɔ˞ᴜƴ , ꞙɭı , STUPARISERO , ꞙɭı , ⟅ 📃 ⟩
   return ( x: number, z: number ): number => {
     let t = ( ( x - saxeoX ) * diferencoX + ( z - saxeoZ ) * diferencoZ ) / sahakaniKvadrato;
-    t = Math.min(1, Math.max(0, t));
-    const vem2 = Math.min(k2fe - 1, Math.max(0, Math.floor(t * k2fe)));
+    t = Math.min(0o1, Math.max(0o0, t));
+    const vem2 = Math.min(k2fe - 0o1, Math.max(0o0, Math.floor(t * k2fe)));
     return teru - vem2 * STUPARISERO;
   };
 }

@@ -23,9 +23,9 @@ export function kox2qKek(g: THREE.Group): void {
     g.remove(tsiizo);
   }
   for ( const [ pukek, ca1ara ] of haca1ara ) {
-    if ( ca1ara.geoj.length === 0 ) continue;
-    const veb6kekita = ca1ara.geoj.length === 1 ? ca1ara.geoj[0] : vakox2qQoxaKefoujn(ca1ara.geoj);
-    if ( ca1ara.geoj.length > 1 ) for ( const geo of ca1ara.geoj ) geo.dispose();
+    if ( ca1ara.geoj.length === 0o0 ) continue;
+    const veb6kekita = ca1ara.geoj.length === 0o1 ? ca1ara.geoj[0o0] : vakox2qQoxaKefoujn(ca1ara.geoj);
+    if ( ca1ara.geoj.length > 0o1 ) for ( const geo of ca1ara.geoj ) geo.dispose();
     const cakamaha = new THREE.Mesh(veb6kekita, pukek);
     cakamaha.castShadow = ca1ara.kastas;
     g.add(cakamaha);

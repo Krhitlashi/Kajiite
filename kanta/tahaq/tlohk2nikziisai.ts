@@ -46,16 +46,16 @@ const INTERROMPAFAKTORO = 0o10;
 export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultif {
   const malmultekosta = hasukf2qani.malmultekosta ?? false;
   const minimumaP6zuk = Math.max( 0o1 / 0o4,
-    Math.min( 1, hasukf2qani.minimumaP6zuk ?? DEFAUXLTAMINIMASKALO ) );
+    Math.min( 0o1, hasukf2qani.minimumaP6zuk ?? DEFAUXLTAMINIMASKALO ) );
   let fokusita = true;
-  let dinamikaP6zuk = 1;
+  let dinamikaP6zuk = 0o1;
   let panaaTahaq = -Infinity;
   let ne3ak2Tahaq = -Infinity;
   let kafs2jTahaqj = KAFS2JHATAHAQ;
-  let muqjTahaqj = 0;
-  let sehejTahaqj = 0;
-  let habilde = 0;
-  let preterpasitaj = 0;
+  let muqjTahaqj = 0o0;
+  let sehejTahaqj = 0o0;
+  let habilde = 0o0;
+  let preterpasitaj = 0o0;
   let mezaTahaqSapse1i = malmultekosta
     ? MALMULTATAHAQSAPSE1I
     : NORMALATAHAQSAPSE1I;
@@ -69,8 +69,8 @@ export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultif {
     panaaTahaq = -Infinity;
     ne3ak2Tahaq = -Infinity;
     kafs2jTahaqj = KAFS2JHATAHAQ;
-    muqjTahaqj = 0;
-    sehejTahaqj = 0;
+    muqjTahaqj = 0o0;
+    sehejTahaqj = 0o0;
     mezaTahaqSapse1i = celaTahaqSapse1i();
   }
 
@@ -84,13 +84,13 @@ export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultif {
     // ⟨ ſɭɜ ſɭᴜ j͐ʃᴜ ʌ ꞙɭı ʌ ꞙɭı , j͑ʃ'ɔ ſᶘw }ʃɹ ꞙɭɔ ʌ ꞙɭı ⟅
     //   ꞙɭı ʌ ɭl̀ɜ ſ͕ɭᴜ , ꞙɭɔ ʌ j͑ʃɹ ֭ſɭᴜ ʃᴜ 📃 ⟩
     if ( sapse1i > interlota * INTERROMPAFAKTORO ) {
-      muqjTahaqj = 0;
-      sehejTahaqj = 0;
+      muqjTahaqj = 0o0;
+      sehejTahaqj = 0o0;
       mezaTahaqSapse1i = interlota;
       return;
     }
     mezaTahaqSapse1i += ( sapse1i - mezaTahaqSapse1i ) * MEZAPEZO;
-    if ( kafs2jTahaqj > 0 ) {
+    if ( kafs2jTahaqj > 0o0 ) {
       kafs2jTahaqj--;
       return;
     }
@@ -98,20 +98,20 @@ export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultif {
     //   ɭl̀ɜ ſ͕ɭᴜ ʌ ꞙɭı ʌ ꞙɭı , ꞙɭɔ 📃 ⟩
     if ( mezaTahaqSapse1i > interlota * MUQFAKTORO ) {
       muqjTahaqj++;
-      sehejTahaqj = 0;
+      sehejTahaqj = 0o0;
     } else if ( mezaTahaqSapse1i < interlota * SEHEFAKTORO ) {
       sehejTahaqj++;
-      muqjTahaqj = 0;
+      muqjTahaqj = 0o0;
     } else {
-      muqjTahaqj = 0;
-      sehejTahaqj = 0;
+      muqjTahaqj = 0o0;
+      sehejTahaqj = 0o0;
     }
     if ( muqjTahaqj >= MUQJHATAHAQ && dinamikaP6zuk > minimumaP6zuk ) {
       dinamikaP6zuk = Math.max( minimumaP6zuk, dinamikaP6zuk - SKALAPASO );
-      muqjTahaqj = 0;
-    } else if ( sehejTahaqj >= SEHEJHATAHAQ && dinamikaP6zuk < 1 ) {
-      dinamikaP6zuk = Math.min( 1, dinamikaP6zuk + SKALAPASO );
-      sehejTahaqj = 0;
+      muqjTahaqj = 0o0;
+    } else if ( sehejTahaqj >= SEHEJHATAHAQ && dinamikaP6zuk < 0o1 ) {
+      dinamikaP6zuk = Math.min( 0o1, dinamikaP6zuk + SKALAPASO );
+      sehejTahaqj = 0o0;
     }
   }
 
@@ -130,7 +130,7 @@ export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultif {
       : panaaTahaq + interlota;
     const sapse1i = ne3ak2Tahaq === -Infinity
       ? interlota
-      : Math.max( 0, nun - ne3ak2Tahaq );
+      : Math.max( 0o0, nun - ne3ak2Tahaq );
     ne3ak2Tahaq = nun;
     habilde++;
     adapti( sapse1i, interlota );

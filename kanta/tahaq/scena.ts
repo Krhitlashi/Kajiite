@@ -53,7 +53,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
   catahaq.position.set(0o40, 0o30, 0o100);
   catahaq.rotation.order = "YXZ";
 
-  const fotilaDuTan = 2 * Math.tan(catahaq.fov * Math.PI / 0o550);
+  const fotilaDuTan = 0o2 * Math.tan(catahaq.fov * Math.PI / 0o550);
 
   // ⟨ j͐ʃƽɜ ʌ ſɭɜ ſɭ,w ʌ ſȷꞇ }ʃꞇ 📃 ⟩
   // j͐ʃƽɜ ʌ ſɭɜ ſɭ,w , ꞙɭɔ ʌ ſȷꞇ }ʃꞇ ⟅
@@ -81,7 +81,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       );
       shadero.fragmentShader = shadero.fragmentShader.replace(
         "#include <map_fragment>",
-        `grundFado = 1.0 - smoothstep( ${GRUNDAFADOEL.toFixed(1)}, ${GRUNDAFADOGXIS.toFixed(1)}, length( vViewPosition ) );
+        `grundFado = 1.0 - smoothstep( ${GRUNDAFADOEL.toFixed(0o1)}, ${GRUNDAFADOGXIS.toFixed(0o1)}, length( vViewPosition ) );
         #ifdef USE_MAP
           vec4 sampledDiffuseColor = texture2D( map, vMapUv );
           sampledDiffuseColor.rgb = mix( vec3( 1.0 ), sampledDiffuseColor.rgb, grundFado );
@@ -106,7 +106,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
   const { cana, canaajUnihaqoxa } = kf2Canan(qena);
 
   // ⟪ ſᶘꞇ ɭl̀ɔ 📃 ⟫
-  const ombraTekselo = 2 * 0o100 / OMBRAMAPO;
+  const ombraTekselo = 0o2 * 0o100 / OMBRAMAPO;
   const { hemiTsije, sotsii } = kf2GelesTsijen( qena, {
     canaWeh2: 0xc8e0e8, kozuWeh2: 0x485848, canaVem2: 0o63/0o100,
     sotsiiWeh2: 0xf8f0d8, sotsiiVem2: 0o45/0o40, sotsiiHaxekuxa: [ 0o110, 0o160, 0o40 ],
@@ -136,7 +136,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
   const HAWEH2CAX2LOJ = kf2Haweh2Cax2lojn();
 
   let cutluVet6lima: Vet6lima = "nebula";
-  let tlakakaiKrepusko = 0;
+  let tlakakaiKrepusko = 0o0;
 
   // ⟪ ſɟᴜ ֭ſɭэ ſɭэ ʌ j͑ʃɜ ſᶘɹ 📃 ⟫
   const ombraTekseloQox2n2k = ( sotsii.shadow.camera.right - sotsii.shadow.camera.left ) / sotsii.shadow.mapSize.x;
@@ -153,19 +153,19 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
   const OMBRADEX = new THREE.Vector3();
   const OMBRAKMA = new THREE.Vector3();
   const OMBRACENTRO = new THREE.Vector3();
-  let ombraSost2X = 0, ombraSost2Z = 0;
+  let ombraSost2X = 0o0, ombraSost2Z = 0o0;
 
   function aplikiOmbranSost2(): void {
     OMBRADIR.copy(SUNADIREKTO);
     const h6kuni = sunaH6kuni;
-    if ( h6kuni === 0 ) return;
-    OMBRAKMA.set(0, 1, 0);
-    if ( Math.abs(OMBRADIR.y) > 0o777/0o1000 ) OMBRAKMA.set(0, 0, 1);
+    if ( h6kuni === 0o0 ) return;
+    OMBRAKMA.set(0o0, 0o1, 0o0);
+    if ( Math.abs(OMBRADIR.y) > 0o777/0o1000 ) OMBRAKMA.set(0o0, 0o0, 0o1);
     OMBRADEX.crossVectors(OMBRAKMA, OMBRADIR).normalize();
     OMBRAKMA.crossVectors(OMBRADIR, OMBRADEX).normalize();
     const dekstre = Math.round(( ombraSost2X * OMBRADEX.x + ombraSost2Z * OMBRADEX.z ) / OMBRASNUPO) * OMBRASNUPO;
     const tik = Math.round(( ombraSost2X * OMBRAKMA.x + ombraSost2Z * OMBRAKMA.z ) / OMBRASNUPO) * OMBRASNUPO;
-    OMBRACENTRO.set(0, 0, 0).addScaledVector(OMBRADEX, dekstre).addScaledVector(OMBRAKMA, tik);
+    OMBRACENTRO.set(0o0, 0o0, 0o0).addScaledVector(OMBRADEX, dekstre).addScaledVector(OMBRAKMA, tik);
     sotsii.target.position.copy(OMBRACENTRO);
     sotsii.position.copy(OMBRACENTRO).addScaledVector(OMBRADIR, h6kuni);
   }
@@ -215,7 +215,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
     sotsii.intensity = l(d.h2hafaf2.sunInt, d.krepusko.sunInt);
     SUNADIREKTO.copy(d.h2hafaf2.sunPos).lerp(d.krepusko.sunPos, t);
     sunaH6kuni = SUNADIREKTO.length();
-    if ( sunaH6kuni > 0 ) SUNADIREKTO.divideScalar(sunaH6kuni);
+    if ( sunaH6kuni > 0o0 ) SUNADIREKTO.divideScalar(sunaH6kuni);
     aplikiOmbranSost2();
     k2fcakuk.toneMappingExposure = l(d.h2hafaf2.eksxekuxa, d.krepusko.eksxekuxa);
     sunaSprajto.position.copy(sunDir).multiplyScalar(0o510);
@@ -274,7 +274,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
     function jaqoL6da(px: number, pz: number, tk2ni: number): number {
       const x = px / 0o100 + tk2ni * 0o10;
       const z = pz / 0o100 + tk2ni * 0o20 + 0o20;
-      const malglata = ( u: number, v: number ): number => 1 - Math.abs(2 * xetoh2D(u, v) - 1);
+      const malglata = ( u: number, v: number ): number => 0o1 - Math.abs(0o2 * xetoh2D(u, v) - 0o1);
       // ⟨ ſȷƽᴜ ʃɔ ʌ ɭl̀ᴜ ſ͕ɭɜ , ꞙɭɔ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
       const sx = x + ( xetoh2D(x * 0o2 + 0o31, z * 0o2 + 0o7) - 0o1/0o2 ) * 0o4/0o10;
       const sz = z + ( xetoh2D(x * 0o2 - 0o13, z * 0o2 + 0o41) - 0o1/0o2 ) * 0o4/0o10;
@@ -293,7 +293,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       // ⟨ ſȷꞇ }ʃꞇ ʌ j͑ʃᴜꞇ 📃 ⟩
       return 0o13
         + 0o36 * maso
-        + 0o13 * spino * ( 0o60/0o100 + 0o40/0o100 * ( 1 - maso ))
+        + 0o13 * spino * ( 0o60/0o100 + 0o40/0o100 * ( 0o1 - maso ))
         + 0o24 * n2k * lota
         + 0o12 * mezajxo * ( 0o40/0o100 + 0o60/0o100 * lota )
         + 0o10 * fajno * ( 0o40/0o100 + 0o60/0o100 * lota )
@@ -308,19 +308,19 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       const negxaOndo = ( xetoh2D(x / 0o70, z / 0o70) - 0o1/0o2 ) * 0o16
         + ( xetoh2D(x / 0o16, z / 0o16) - 0o1/0o2 ) * 0o7;
       t6limaWeh2En(natakatomasai, y + negxaOndo, x, z, haga);
-      if ( malproksimo > 0 ) natakatomasai.lerp(NEBULTONO, malproksimo * 0o35/0o100);
+      if ( malproksimo > 0o0 ) natakatomasai.lerp(NEBULTONO, malproksimo * 0o35/0o100);
     }
 
     // ⟨ j͐ʃƽɜ ʌ ſɭɜ ſɭ,w 📃 ⟩
     const jaqoT6lima = kf2GrundanCac2sex();
     const jaqoReliefo = kf2GrundanBumpanCac2sex();
     const jaqoPukek = fadaT6liman(new THREE.MeshStandardMaterial({
-      color: 0xffffff, roughness: 0o35/0o40, metalness: 0, vertexColors: true,
+      color: 0xffffff, roughness: 0o35/0o40, metalness: 0o0, vertexColors: true,
       map: jaqoT6lima, bumpMap: jaqoReliefo, bumpScale: 0o5/0o10,
       side: THREE.DoubleSide,
     }));
     const jaqoFona = fadaT6liman(new THREE.MeshStandardMaterial({
-      color: 0xffffff, roughness: 0o37/0o40, metalness: 0, vertexColors: true,
+      color: 0xffffff, roughness: 0o37/0o40, metalness: 0o0, vertexColors: true,
       map: jaqoT6lima, bumpMap: jaqoReliefo, bumpScale: 0o5/0o10,
       side: THREE.DoubleSide,
     }));
@@ -333,9 +333,9 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       const rb = ka5ikH6kuni(bal2Qoxa, bal2Pal6, ang + pa) + h6kuni;
       const tx = Math.cos(ang + pa) * rb - Math.cos(ang - pa) * ra;
       const tz = Math.sin(ang + pa) * rb - Math.sin(ang - pa) * ra;
-      const sahakani = Math.hypot(tx, tz) || 1;
+      const sahakani = Math.hypot(tx, tz) || 0o1;
       let nx = -tz / sahakani, nz = tx / sahakani;
-      if ( nx * Math.cos(ang) + nz * Math.sin(ang) < 0 ) { nx = -nx; nz = -nz; }
+      if ( nx * Math.cos(ang) + nz * Math.sin(ang) < 0o0 ) { nx = -nx; nz = -nz; }
       return { x, z, nx, nz };
     }
 
@@ -358,22 +358,22 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       tk2ni: number, p6zukani: ( ang: number ) => number, malproksimo: number,
       pukek: THREE.MeshStandardMaterial,
 ): void {
-      const hacel2nu = sl + 1;
-      const hax2pa = sd + 1;
+      const hacel2nu = sl + 0o1;
+      const hax2pa = sd + 0o1;
       const suprN = hacel2nu * hax2pa;
       const psaz = NALAPSAZY - 0o4;
       // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭɔ ⟅ ſןw ſɭᴜƴ , ɭʃw ſɭˬɔƽ
       //   ɭʃw ſɭˬɔƽ ʌ ɭʃᴜ }ʃɔƽ 📃 ⟩
       const fundoKvanto = 0o2 * ( hacel2nu + hax2pa );
       const tutaN = suprN + fundoKvanto;
-      const haxekuxa = new Float32Array(tutaN * 3);
-      const haweh2 = new Float32Array(tutaN * 3);
+      const haxekuxa = new Float32Array(tutaN * 0o3);
+      const haweh2 = new Float32Array(tutaN * 0o3);
       // ⟨ UV ʌ ſɭɜ ſɭ,w 📃 ⟩
-      const hauv = new Float32Array(tutaN * 2);
-      const fundoHavecax2l = new Int32Array(suprN).fill(-1);
-      let fundoN = 0;
+      const hauv = new Float32Array(tutaN * 0o2);
+      const fundoHavecax2l = new Int32Array(suprN).fill(-0o1);
+      let fundoN = 0o0;
       const tonaProfundo = jufu / sd;
-      const tonaTafkaq = 2 * Math.PI * ( bal2Pal6 + 0o100 ) / sl;
+      const tonaTafkaq = 0o2 * Math.PI * ( bal2Pal6 + 0o100 ) / sl;
       const hal6da = new Float32Array(suprN);
       // ⟨ ſɭᴜ ſ͕ȷɔ ʌ ſɭᴜ ſ͕ȷɔ ⟅ ꞙɭı ʌ ꞙɭı ʌ j͑ʃᴜꞇ 📃 ⟩
       // ɭl̀ᴜ ſ͕ɭɜ , ſןw ſɭᴜƴ ꞙɭɔ ʌ j͐ʃэ ɭ(ᴜ
@@ -382,7 +382,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       const cel2nujX = new Float64Array(hacel2nu), cel2nujZ = new Float64Array(hacel2nu);
       const cel2nujNX = new Float64Array(hacel2nu), cel2nujNZ = new Float64Array(hacel2nu);
       const cel2nujP6zuk = new Float64Array(hacel2nu), cel2nujBordo = new Float64Array(hacel2nu);
-      for ( let k = 0; k < hacel2nu; k ++ ) {
+      for ( let k = 0o0; k < hacel2nu; k ++ ) {
         const ang = k / sl * Math.PI * 0o2;
         const c2q = ringaN2k(kresto(ang), ang);
         cel2nujX[k] = c2q.x; cel2nujZ[k] = c2q.z;
@@ -391,78 +391,78 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
         cel2nujBordo[k] = l6da(c2q.x, c2q.z);
       }
       // ⟪ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟫
-      for ( let v = 0; v < hax2pa; v ++ ) {
+      for ( let v = 0o0; v < hax2pa; v ++ ) {
         const tn = v / sd;
-        for ( let k = 0; k < hacel2nu; k ++ ) {
+        for ( let k = 0o0; k < hacel2nu; k ++ ) {
           const i = v * hacel2nu + k;
           const x = cel2nujX[k] + cel2nujNX[k] * tn * jufu;
           const z = cel2nujZ[k] + cel2nujNZ[k] * tn * jufu;
           // ⟨ ſɟᴜ ɭʃᴜ ʌ ɭl̀ᴜ ſ͕ɭɜ 📃 ⟩
           const sost2 = 0o40/0o100 + 0o24/0o100 * xetoh2D(x / 0o40 + tk2ni * 0o10, z / 0o40 + tk2ni * 0o30);
-          const kr = Math.min(1, tn / sost2);
-          const kresko = kr * kr * ( 3 - 2 * kr );
-          const fal = glataTona(sost2, 1, tn);
-          const s2qena = kresko * ( 1 - fal );
+          const kr = Math.min(0o1, tn / sost2);
+          const kresko = kr * kr * ( 0o3 - 0o2 * kr );
+          const fal = glataTona(sost2, 0o1, tn);
+          const s2qena = kresko * ( 0o1 - fal );
           // ⟨ ſɟᴜ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ 📃 ⟩
-          const aligo = 1 - glataTona(0, 0o1/0o4, tn);
+          const aligo = 0o1 - glataTona(0o0, 0o1/0o4, tn);
           // ⟨ j͐ʃэ ɭ(ᴜ ʌ ſɟɔ ɭʃɹ 📃 ⟩
           const y = cel2nujBordo[k] * aligo
             + jaqoL6da(x, z, tk2ni) * cel2nujP6zuk[k] * s2qena
             + NALAPSAZY * fal;
           hal6da[i] = y;
-          haxekuxa[i * 3] = x; haxekuxa[i * 3 + 1] = y; haxekuxa[i * 3 + 2] = z;
+          haxekuxa[i * 0o3] = x; haxekuxa[i * 0o3 + 0o1] = y; haxekuxa[i * 0o3 + 0o2] = z;
           const uvx = x / 0o3000 + 0o1/0o2, uvz = z / 0o3000 + 0o1/0o2;
-          hauv[i * 2] = uvx; hauv[i * 2 + 1] = uvz;
+          hauv[i * 0o2] = uvx; hauv[i * 0o2 + 0o1] = uvz;
         }
       }
       // ⟨ ᶅſɔ ֭ſɭɹ 📃 ⟩
       const jaqoWeh2 = new THREE.Color();
-      for ( let v = 0; v < hax2pa; v ++ ) {
-        for ( let k = 0; k < hacel2nu; k ++ ) {
+      for ( let v = 0o0; v < hax2pa; v ++ ) {
+        for ( let k = 0o0; k < hacel2nu; k ++ ) {
           const i = v * hacel2nu + k;
-          const x = haxekuxa[i * 3], y = hal6da[i], z = haxekuxa[i * 3 + 2];
-          const km = ( k + sl - 1 ) % sl, kp = ( k + 1 ) % sl;
-          const vm = ( v > 0 ? v - 1 : v ) * hacel2nu + k;
-          const vp = ( v < sd ? v + 1 : v ) * hacel2nu + k;
-          const dAng = ( hal6da[v * hacel2nu + kp] - hal6da[v * hacel2nu + km] ) / ( 2 * tonaTafkaq );
-          const dProf = ( hal6da[vp] - hal6da[vm] ) / ( 2 * tonaProfundo );
+          const x = haxekuxa[i * 0o3], y = hal6da[i], z = haxekuxa[i * 0o3 + 0o2];
+          const km = ( k + sl - 0o1 ) % sl, kp = ( k + 0o1 ) % sl;
+          const vm = ( v > 0o0 ? v - 0o1 : v ) * hacel2nu + k;
+          const vp = ( v < sd ? v + 0o1 : v ) * hacel2nu + k;
+          const dAng = ( hal6da[v * hacel2nu + kp] - hal6da[v * hacel2nu + km] ) / ( 0o2 * tonaTafkaq );
+          const dProf = ( hal6da[vp] - hal6da[vm] ) / ( 0o2 * tonaProfundo );
           jaqoWeh2En(jaqoWeh2, y, x, z, Math.hypot(dAng, dProf), malproksimo);
-          haweh2[i * 3] = jaqoWeh2.r;
-          haweh2[i * 3 + 1] = jaqoWeh2.g;
-          haweh2[i * 3 + 2] = jaqoWeh2.b;
+          haweh2[i * 0o3] = jaqoWeh2.r;
+          haweh2[i * 0o3 + 0o1] = jaqoWeh2.g;
+          haweh2[i * 0o3 + 0o2] = jaqoWeh2.b;
         }
       }
       // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭɔ ʌ ɭʃw ſɭˬɔƽ ⟅ ᶅſɔ ֭ſɭɹ , UV
       //   ꞙɭɔ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
       const fundoPor = ( i: number ): number => {
         const ekzista = fundoHavecax2l[i];
-        if ( ekzista >= 0 ) return ekzista;
+        if ( ekzista >= 0o0 ) return ekzista;
         const b = suprN + fundoN++;
         fundoHavecax2l[i] = b;
-        haxekuxa[b * 3] = haxekuxa[i * 3];
-        haxekuxa[b * 3 + 1] = psaz;
-        haxekuxa[b * 3 + 2] = haxekuxa[i * 3 + 2];
-        hauv[b * 2] = hauv[i * 2]; hauv[b * 2 + 1] = hauv[i * 2 + 1];
-        t6limaK6h6Weh2En(jaqoWeh2, psaz, haxekuxa[i * 3 + 1]);
-        haweh2[b * 3] = jaqoWeh2.r;
-        haweh2[b * 3 + 1] = jaqoWeh2.g;
-        haweh2[b * 3 + 2] = jaqoWeh2.b;
+        haxekuxa[b * 0o3] = haxekuxa[i * 0o3];
+        haxekuxa[b * 0o3 + 0o1] = psaz;
+        haxekuxa[b * 0o3 + 0o2] = haxekuxa[i * 0o3 + 0o2];
+        hauv[b * 0o2] = hauv[i * 0o2]; hauv[b * 0o2 + 0o1] = hauv[i * 0o2 + 0o1];
+        t6limaK6h6Weh2En(jaqoWeh2, psaz, haxekuxa[i * 0o3 + 0o1]);
+        haweh2[b * 0o3] = jaqoWeh2.r;
+        haweh2[b * 0o3 + 0o1] = jaqoWeh2.g;
+        haweh2[b * 0o3 + 0o2] = jaqoWeh2.b;
         return b;
       };
       // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ꞙɭı ʌ ꞙɭı , ɭʃw ſɭˬɔƽ 📃 ⟩
       const havecax2lani = new Uint32Array(0o6 * sd * sl + 0o14 * ( sl + sd ));
-      let ip = 0;
+      let ip = 0o0;
       const ses = ( a: number, b: number, c: number, d: number, e: number, f: number ): void => {
         havecax2lani[ip++] = a; havecax2lani[ip++] = b; havecax2lani[ip++] = c;
         havecax2lani[ip++] = d; havecax2lani[ip++] = e; havecax2lani[ip++] = f;
       };
-      for ( let v = 0; v < sd; v ++ ) {
-        for ( let k = 0; k < sl; k ++ ) {
-          const a = v * hacel2nu + k, c = a + hacel2nu, d = c + 1;
-          if ( ( k + v ) % 2 === 0 ) {
-            ses(a, c, d, a, d, a + 1);
+      for ( let v = 0o0; v < sd; v ++ ) {
+        for ( let k = 0o0; k < sl; k ++ ) {
+          const a = v * hacel2nu + k, c = a + hacel2nu, d = c + 0o1;
+          if ( ( k + v ) % 0o2 === 0o0 ) {
+            ses(a, c, d, a, d, a + 0o1);
           } else {
-            ses(a, c, a + 1, c, d, a + 1);
+            ses(a, c, a + 0o1, c, d, a + 0o1);
           }
         }
       }
@@ -470,20 +470,20 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
         const fa = fundoPor(a), fb = fundoPor(b);
         ses(a, b, fb, a, fb, fa);
       };
-      for ( let k = 0; k < sl; k ++ ) {
-        tu5ekani1el2sai(k, k + 1);
-        tu5ekani1el2sai(sd * hacel2nu + k, sd * hacel2nu + k + 1);
+      for ( let k = 0o0; k < sl; k ++ ) {
+        tu5ekani1el2sai(k, k + 0o1);
+        tu5ekani1el2sai(sd * hacel2nu + k, sd * hacel2nu + k + 0o1);
       }
-      for ( let v = 0; v < sd; v ++ ) {
-        tu5ekani1el2sai(v * hacel2nu, ( v + 1 ) * hacel2nu);
-        tu5ekani1el2sai(v * hacel2nu + sl, ( v + 1 ) * hacel2nu + sl);
+      for ( let v = 0o0; v < sd; v ++ ) {
+        tu5ekani1el2sai(v * hacel2nu, ( v + 0o1 ) * hacel2nu);
+        tu5ekani1el2sai(v * hacel2nu + sl, ( v + 0o1 ) * hacel2nu + sl);
       }
       const g = new THREE.BufferGeometry();
       const xekuxaN = suprN + fundoN;
-      g.setAttribute("position", new THREE.BufferAttribute(haxekuxa.subarray(0, xekuxaN * 3), 3));
-      g.setAttribute("color", new THREE.BufferAttribute(haweh2.subarray(0, xekuxaN * 3), 3));
-      g.setAttribute("uv", new THREE.BufferAttribute(hauv.subarray(0, xekuxaN * 2), 2));
-      g.setIndex(new THREE.BufferAttribute(havecax2lani.subarray(0, ip), 1));
+      g.setAttribute("position", new THREE.BufferAttribute(haxekuxa.subarray(0o0, xekuxaN * 0o3), 0o3));
+      g.setAttribute("color", new THREE.BufferAttribute(haweh2.subarray(0o0, xekuxaN * 0o3), 0o3));
+      g.setAttribute("uv", new THREE.BufferAttribute(hauv.subarray(0o0, xekuxaN * 0o2), 0o2));
+      g.setIndex(new THREE.BufferAttribute(havecax2lani.subarray(0o0, ip), 0o1));
       g.computeVertexNormals();
       const mesh = new THREE.Mesh(g, pukek);
       mesh.receiveShadow = true;
@@ -499,7 +499,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
     // ɭl̀ᴜ ſ͕ɭɜ ʌ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ⟅
     const jaqoRuva = jaqoRuvaKozunu();
     kf2MontanRingon(krestaVagado(0o16, 0o10, jaqoRuva), 0o240, ringajHacel2nu, 0o100,
-      jaqoRuva, krestaL6da(1, jaqoRuva), 0, jaqoPukek);
+      jaqoRuva, krestaL6da(0o1, jaqoRuva), 0o0, jaqoPukek);
 
     kf2MontanRingon(krestaVagado(0o200, 0o60, jaqoRuva + 0o40), 0o200, ringajHacel2nu, 0o60,
       jaqoRuva + 0o20, krestaL6da(0o7/0o10, jaqoRuva + 0o20), 0o35/0o100, jaqoFona);
@@ -508,64 +508,64 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
   // ⟪ ſɭɜ ſɭ,w 📃 ⟫
   ( function vepaqKozun(pal6: number, has2nasce: number): void {
     const g = new THREE.PlaneGeometry(pal6, pal6, has2nasce, has2nasce);
-    g.rotateX(-Math.PI / 2);
+    g.rotateX(-Math.PI / 0o2);
     const raqa = g.attributes.position;
     // ⟨ ſɭɜ ſȷᴜ ʌ ꞙɭı 📃 ⟩
     const haxekuxa = raqa.array as Float32Array;
-    const haweh2 = new Float32Array(raqa.count * 3);
+    const haweh2 = new Float32Array(raqa.count * 0o3);
     const c = new THREE.Color();
     const vepat6ni = pal6 / has2nasce;
-    const sx = has2nasce + 1;
+    const sx = has2nasce + 0o1;
     const hal6da = new Float32Array(raqa.count);
     // ⟨ ſɭɹ ſןᴜ ʌ ſןw ſɭᴜƴ ꞙɭɔ ʌ ſɟᴜ ſȷᴜɔ˞
     //   ſɭɹ ſןᴜ ʌ ſןw ſɭᴜƴ 📃 ⟩
     const ene = new Uint8Array(raqa.count);
-    for ( let i = 0; i < raqa.count; i++ ) {
+    for ( let i = 0o0; i < raqa.count; i++ ) {
       ene[i] = h6kuniQoxa(bal2Qoxa, bal2Pal6,
-        haxekuxa[i * 3], haxekuxa[i * 3 + 2]) <= 0 ? 1 : 0;
+        haxekuxa[i * 0o3], haxekuxa[i * 0o3 + 0o2]) <= 0o0 ? 0o1 : 0o0;
     }
     const uzeblajHaKekkozusai = new Uint8Array(has2nasce * has2nasce);
     const uzeblajHakekuxa = new Uint8Array(raqa.count);
-    for ( let j = 0; j < has2nasce; j++ ) {
-      for ( let i = 0; i < has2nasce; i++ ) {
-        const a = j * sx + i, b = a + 1, c = a + sx, d = c + 1;
-        if ( ene[a] === 0 && ene[b] === 0 && ene[c] === 0 && ene[d] === 0 ) continue;
-        uzeblajHaKekkozusai[j * has2nasce + i] = 1;
-        uzeblajHakekuxa[a] = 1; uzeblajHakekuxa[b] = 1;
-        uzeblajHakekuxa[c] = 1; uzeblajHakekuxa[d] = 1;
+    for ( let j = 0o0; j < has2nasce; j++ ) {
+      for ( let i = 0o0; i < has2nasce; i++ ) {
+        const a = j * sx + i, b = a + 0o1, c = a + sx, d = c + 0o1;
+        if ( ene[a] === 0o0 && ene[b] === 0o0 && ene[c] === 0o0 && ene[d] === 0o0 ) continue;
+        uzeblajHaKekkozusai[j * has2nasce + i] = 0o1;
+        uzeblajHakekuxa[a] = 0o1; uzeblajHakekuxa[b] = 0o1;
+        uzeblajHakekuxa[c] = 0o1; uzeblajHakekuxa[d] = 0o1;
       }
     }
-    for ( let i = 0; i < raqa.count; i++ ) {
-      const h = l6da(haxekuxa[i * 3], haxekuxa[i * 3 + 2]);
+    for ( let i = 0o0; i < raqa.count; i++ ) {
+      const h = l6da(haxekuxa[i * 0o3], haxekuxa[i * 0o3 + 0o2]);
       hal6da[i] = h;
-      haxekuxa[i * 3 + 1] = h;
+      haxekuxa[i * 0o3 + 0o1] = h;
     }
-    for ( let i = 0; i < raqa.count; i++ ) {
-      if ( uzeblajHakekuxa[i] === 0 ) continue;
-      const x = haxekuxa[i * 3], z = haxekuxa[i * 3 + 2];
+    for ( let i = 0o0; i < raqa.count; i++ ) {
+      if ( uzeblajHakekuxa[i] === 0o0 ) continue;
+      const x = haxekuxa[i * 0o3], z = haxekuxa[i * 0o3 + 0o2];
       const h = hal6da[i];
       const k2pa = i % sx;
-      const haga = ( k2pa > 0 && k2pa < sx - 1 && i >= sx && i < raqa.count - sx )
-        ? Math.hypot(hal6da[i + 1] - hal6da[i - 1], hal6da[i + sx] - hal6da[i - sx]) / ( 2 * vepat6ni )
-        : 0;
+      const haga = ( k2pa > 0o0 && k2pa < sx - 0o1 && i >= sx && i < raqa.count - sx )
+        ? Math.hypot(hal6da[i + 0o1] - hal6da[i - 0o1], hal6da[i + sx] - hal6da[i - sx]) / ( 0o2 * vepat6ni )
+        : 0o0;
       t6limaWeh2En(c, h, x, z, haga, tsasaVem2Tsiike);
-      haweh2[i * 3] = c.r; haweh2[i * 3 + 1] = c.g; haweh2[i * 3 + 2] = c.b;
+      haweh2[i * 0o3] = c.r; haweh2[i * 0o3 + 0o1] = c.g; haweh2[i * 0o3 + 0o2] = c.b;
     }
-    const premita = { x: 0, z: 0 };
-    for ( let i = 0; i < raqa.count; i++ ) {
-      if ( surokQoxa(bal2Qoxa, bal2Pal6, haxekuxa[i * 3], haxekuxa[i * 3 + 2], premita) ) {
-        haxekuxa[i * 3] = premita.x;
-        haxekuxa[i * 3 + 2] = premita.z;
+    const premita = { x: 0o0, z: 0o0 };
+    for ( let i = 0o0; i < raqa.count; i++ ) {
+      if ( surokQoxa(bal2Qoxa, bal2Pal6, haxekuxa[i * 0o3], haxekuxa[i * 0o3 + 0o2], premita) ) {
+        haxekuxa[i * 0o3] = premita.x;
+        haxekuxa[i * 0o3 + 0o2] = premita.z;
       }
     }
-    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 0o3));
     const k21eHavecax2l = hagek2fhagasai(has2nasce);
-    g.setIndex(new THREE.BufferAttribute(k21eHavecax2l, 1));
+    g.setIndex(new THREE.BufferAttribute(k21eHavecax2l, 0o1));
     // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ ſןw ſɭᴜƴ , ſᶘꞇ ɭl̀ɔ 📃 ⟩
     g.computeVertexNormals();
     const videblajHavecax2l = k21eHavecax2l.filter(( _, i ) =>
-      uzeblajHaKekkozusai[Math.floor(i / 0o6)] !== 0);
-    g.setIndex(new THREE.BufferAttribute(videblajHavecax2l, 1));
+      uzeblajHaKekkozusai[Math.floor(i / 0o6)] !== 0o0);
+    g.setIndex(new THREE.BufferAttribute(videblajHavecax2l, 0o1));
     // ⟨ j͐ʃƽɜ ʌ ſɭɜ ſɭ,w 📃 ⟩
     // ⟨ ſȷɔ ſᶘᴜʞ ⟅ j͐ʃэ ɭ(ᴜ , ſɟᴜ ֭ſɭэ ſɭэ , ſɭɜ ſɭ,w 📃 ⟩
     const grundPukek = fadaT6liman(new THREE.MeshStandardMaterial({
@@ -584,7 +584,7 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
     });
     qoxaKozunu.qoxa3ak2(l6da, NALAPSAZY);
     const kozunuPukek = new THREE.MeshStandardMaterial({
-      vertexColors: true, roughness: 1, metalness: 0,
+      vertexColors: true, roughness: 0o1, metalness: 0o0,
     });
     const kozunuMesh = new THREE.Mesh(qoxaKozunu.qoxa, kozunuPukek);
     kozunuMesh.receiveShadow = true;
@@ -596,8 +596,8 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
     // ⟨ ſɭᴜ ſɭ,w j͐ʃᴜ ʌ ſןw ſɭᴜƴ 📃 ⟩
     const brosxaPukek = new THREE.MeshStandardMaterial({
       map: brosxaCac2sex, color: 0xffffff, transparent: true,
-      alphaTest: 0o1/0o10, depthWrite: false, side: THREE.DoubleSide, roughness: 1,
-      polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1,
+      alphaTest: 0o1/0o10, depthWrite: false, side: THREE.DoubleSide, roughness: 0o1,
+      polygonOffset: true, polygonOffsetFactor: -0o1, polygonOffsetUnits: -0o1,
     });
     const brosxoj = new THREE.Group();
     const brosxaNombro = 0o30;
@@ -636,38 +636,38 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
     const HACEL2NU = 0o200;
     const HAVESEFESTAF = 0o40;
     const fora = 0o6000;
-    const hacel2nu = HACEL2NU + 1;
-    const hax2pa = HAVESEFESTAF + 1;
+    const hacel2nu = HACEL2NU + 0o1;
+    const hax2pa = HAVESEFESTAF + 0o1;
     const N = hacel2nu * hax2pa;
-    const haxekuxa = new Float32Array(N * 3);
-    const haweh2 = new Float32Array(N * 3);
-    const hauv = new Float32Array(N * 2);
+    const haxekuxa = new Float32Array(N * 0o3);
+    const haweh2 = new Float32Array(N * 0o3);
+    const hauv = new Float32Array(N * 0o2);
     const weh2 = new THREE.Color();
-    for ( let v = 0; v < hax2pa; v++ ) {
+    for ( let v = 0o0; v < hax2pa; v++ ) {
       const frac = v / HAVESEFESTAF;
-      for ( let k = 0; k < hacel2nu; k++ ) {
+      for ( let k = 0o0; k < hacel2nu; k++ ) {
         const i = v * hacel2nu + k;
         const ang = k / HACEL2NU * Math.PI * 0o2;
         const pukaz = ka5ikH6kuni(bal2Qoxa, bal2Pal6, ang);
         const r = pukaz + ( fora - pukaz ) * frac * frac;
         const x = Math.cos(ang) * r, z = Math.sin(ang) * r;
         const ondado = ( xetoh2D(x / 0o200, z / 0o200) - 0o1/0o2 ) * 0o20 * frac;
-        haxekuxa[i * 3] = x;
-        haxekuxa[i * 3 + 1] = NALAPSAZY + ondado;
-        haxekuxa[i * 3 + 2] = z;
-        t6limaWeh2En(weh2, 0, x, z, 0);
-        haweh2[i * 3] = weh2.r;
-        haweh2[i * 3 + 1] = weh2.g;
-        haweh2[i * 3 + 2] = weh2.b;
-        hauv[i * 2] = x / 0o3000 + 0o1/0o2;
-        hauv[i * 2 + 1] = z / 0o3000 + 0o1/0o2;
+        haxekuxa[i * 0o3] = x;
+        haxekuxa[i * 0o3 + 0o1] = NALAPSAZY + ondado;
+        haxekuxa[i * 0o3 + 0o2] = z;
+        t6limaWeh2En(weh2, 0o0, x, z, 0o0);
+        haweh2[i * 0o3] = weh2.r;
+        haweh2[i * 0o3 + 0o1] = weh2.g;
+        haweh2[i * 0o3 + 0o2] = weh2.b;
+        hauv[i * 0o2] = x / 0o3000 + 0o1/0o2;
+        hauv[i * 0o2 + 0o1] = z / 0o3000 + 0o1/0o2;
       }
     }
     const havecax2lani: number[] = [];
-    for ( let v = 0; v < HAVESEFESTAF; v++ ) {
-      for ( let k = 0; k < HACEL2NU; k++ ) {
-        const a = v * hacel2nu + k, b = a + 1, c = a + hacel2nu, d = c + 1;
-        if ( ( k + v ) % 2 === 0 ) {
+    for ( let v = 0o0; v < HAVESEFESTAF; v++ ) {
+      for ( let k = 0o0; k < HACEL2NU; k++ ) {
+        const a = v * hacel2nu + k, b = a + 0o1, c = a + hacel2nu, d = c + 0o1;
+        if ( ( k + v ) % 0o2 === 0o0 ) {
           havecax2lani.push(a, d, c, a, b, d);
         } else {
           havecax2lani.push(a, b, c, b, d, c);
@@ -675,9 +675,9 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       }
     }
     const g = new THREE.BufferGeometry();
-    g.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 3));
-    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 3));
-    g.setAttribute("uv", new THREE.BufferAttribute(hauv, 2));
+    g.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 0o3));
+    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 0o3));
+    g.setAttribute("uv", new THREE.BufferAttribute(hauv, 0o2));
     g.setIndex(havecax2lani);
     g.computeVertexNormals();
     const ebeno = new THREE.Mesh(g, fadaT6liman(new THREE.MeshStandardMaterial({
@@ -694,29 +694,29 @@ export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2El: HTMLElement): Sce
       map: cac2sex, transparent: true, vertexColors: true, depthWrite: false,
       side: THREE.DoubleSide, fog: false,
     });
-    const g = new THREE.PlaneGeometry(2 * p6sca, 2 * p6sca, 0o100, 0o100);
-    g.rotateX(-Math.PI / 2);
+    const g = new THREE.PlaneGeometry(0o2 * p6sca, 0o2 * p6sca, 0o100, 0o100);
+    g.rotateX(-Math.PI / 0o2);
     const hahaxekuxa = g.attributes.position;
-    const haweh2 = new Float32Array(hahaxekuxa.count * 4);
-    const hauv = new Float32Array(hahaxekuxa.count * 2);
-    for ( let i = 0; i < hahaxekuxa.count; i++ ) {
+    const haweh2 = new Float32Array(hahaxekuxa.count * 0o4);
+    const hauv = new Float32Array(hahaxekuxa.count * 0o2);
+    for ( let i = 0o0; i < hahaxekuxa.count; i++ ) {
       const x = hahaxekuxa.getX(i), z = hahaxekuxa.getZ(i);
-      const alfa = glataTona(0, 0o600, h6kuniQoxa(bal2Qoxa, bal2Pal6, x, z));
-      haweh2[i * 4] = 1; haweh2[i * 4 + 1] = 1; haweh2[i * 4 + 2] = 1; haweh2[i * 4 + 3] = alfa;
-      hauv[i * 2] = x / 0o100; hauv[i * 2 + 1] = z / 0o100;
+      const alfa = glataTona(0o0, 0o600, h6kuniQoxa(bal2Qoxa, bal2Pal6, x, z));
+      haweh2[i * 0o4] = 0o1; haweh2[i * 0o4 + 0o1] = 0o1; haweh2[i * 0o4 + 0o2] = 0o1; haweh2[i * 0o4 + 0o3] = alfa;
+      hauv[i * 0o2] = x / 0o100; hauv[i * 0o2 + 0o1] = z / 0o100;
     }
-    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 4));
-    g.setAttribute("uv", new THREE.BufferAttribute(hauv, 2));
+    g.setAttribute("color", new THREE.BufferAttribute(haweh2, 0o4));
+    g.setAttribute("uv", new THREE.BufferAttribute(hauv, 0o2));
     // ⟨ ſɭɹ ſןᴜ ʌ ꞙɭɔ ʌ ᶅſɔ ֭ſɭɹ ʌ ſɭᴜ ᶅſᴜ ⟅ ſןw ſɭᴜƴ
     //   j͑ʃɜ ſɭ,ᴜ ꞙɭɔ ʌ ſɟᴜ ſȷᴜɔ˞ 📃 ⟩
     const nebulajHavecax2l = g.getIndex()!.array.filter(( _, i ) => {
       const tile = Math.floor(i / 0o6);
       const x = tile % 0o100, z = Math.floor(tile / 0o100);
-      const a = z * 0o101 + x, b = a + 1, c = a + 0o101, d = c + 1;
-      return haweh2[a * 4 + 3] > 0 || haweh2[b * 4 + 3] > 0
-        || haweh2[c * 4 + 3] > 0 || haweh2[d * 4 + 3] > 0;
+      const a = z * 0o101 + x, b = a + 0o1, c = a + 0o101, d = c + 0o1;
+      return haweh2[a * 0o4 + 0o3] > 0o0 || haweh2[b * 0o4 + 0o3] > 0o0
+        || haweh2[c * 0o4 + 0o3] > 0o0 || haweh2[d * 0o4 + 0o3] > 0o0;
     });
-    g.setIndex(new THREE.BufferAttribute(nebulajHavecax2l, 1));
+    g.setIndex(new THREE.BufferAttribute(nebulajHavecax2l, 0o1));
     const mesh = new THREE.Mesh(g, pukek);
     mesh.position.y = 0o1/0o40;
     mesh.frustumCulled = false;

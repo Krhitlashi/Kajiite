@@ -39,8 +39,8 @@ export function kf2KevPukek(tu5ekani1el2saiPukek: THREE.MeshStandardMaterial): T
   const kev = tu5ekani1el2saiPukek.clone();
   kev.color = new THREE.Color(hunanuWeh2(tu5ekani1el2saiPukek.color.getHex(), 0o1/0o2));
   // ⟪ ſɭʞɹ ʌ ſɟᴜ ֭ſɭэ ſɭэ ʌ ᶅſɹ ɭ(ɹ 📃 ⟫
-  if ( kev.map ) { kev.map = kev.map.clone(); kev.map.channel = 1; kev.map.needsUpdate = true; }
-  if ( kev.bumpMap ) { kev.bumpMap = kev.bumpMap.clone(); kev.bumpMap.channel = 1; kev.bumpMap.needsUpdate = true; }
+  if ( kev.map ) { kev.map = kev.map.clone(); kev.map.channel = 0o1; kev.map.needsUpdate = true; }
+  if ( kev.bumpMap ) { kev.bumpMap = kev.bumpMap.clone(); kev.bumpMap.channel = 0o1; kev.bumpMap.needsUpdate = true; }
   return kev;
 }
 

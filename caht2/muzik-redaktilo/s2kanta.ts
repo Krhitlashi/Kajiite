@@ -6,6 +6,7 @@
 
 import type { Qaroxema } from "../../skek2/bole/swikez/habal/hahunaq.js";
 import { caxomani } from "../../skek2/bole/swikez/habal/tif.js";
+import { KNAK2FECAJASAI } from "../../kanta/x2x2q/s2cax2l.js";
 
 // ⟪ ſɭɜ ſɭᴜ , 📃 ⟫
 
@@ -42,7 +43,7 @@ export interface Registro {
 
 // ⟪ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟫
 
-function gcdn(a: number, b: number): number {
+function kaltok(a: number, b: number): number {
   a = Math.abs(a); b = Math.abs(b);
   while ( b ) { const r = a % b; a = b; b = r; }
   return a || 0o1;
@@ -52,14 +53,14 @@ function gcdn(a: number, b: number): number {
     @param x ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡
     @param den ( number ) - ſɭɹ ſȷɔ ｡ ( ꞙɭıɔɔ , ꞙɭıɔɔɔɔ ... )
 @returns j͑ʃɹ ʃᴜ }ʃᴜ ｡ ſɭɹ ſȷɔ ( string ) */
-export function octFrak(x: number, den: number): string {
+export function knak2fe(x: number, den: number): string {
   const n = Math.round(x * den);
-  if ( n === 0 ) return "0";
-  const kaatse = n < 0 ? "-" : "";
+  if ( n === 0o0 ) return "0";
+  const kaatse = n < 0o0 ? "-" : "";
   const an = Math.abs(n);
-  if ( an % den === 0 ) return kaatse + "ꞙɭ" + ( an / den ).toString(0o10);
-  const g = gcdn(an, den);
-  return kaatse + "ꞙɭ" + ( an / g ).toString(0o10) + "/ꞙɭ" + ( den / g ).toString(0o10);
+  if ( an % den === 0o0 ) return kaatse + "ꞙɭ" + ( an / den ).toString(0o10).replace( /[0-7]/g, c => KNAK2FECAJASAI[ Number( c ) ] );
+  const g = kaltok(an, den);
+  return kaatse + "ꞙɭ" + ( an / g ).toString(0o10).replace( /[0-7]/g, c => KNAK2FECAJASAI[ Number( c ) ] ) + "/ꞙɭ" + ( den / g ).toString(0o10).replace( /[0-7]/g, c => KNAK2FECAJASAI[ Number( c ) ] );
 }
 
 // ⟪ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟫
@@ -73,17 +74,17 @@ export function generiT2bakobesai(d: T2bakobesaiVop2): string {
   const dur = d.haqal6kx2 * bar;
   const hatsal2 = [ ...d.hatsal2 ].sort(( a, b ) => a.t - b.t || a.id - b.id);
   const evLinoj = hatsal2.map(nt => {
-    const hakek = [ "t: " + octFrak(nt.t, 0o10000), "i: " + JSON.stringify(nt.i) ];
-    if ( nt.i !== "guiro" ) hakek.push("f: " + octFrak(nt.f, 0o100));
-    hakek.push("d: " + octFrak(nt.d, 0o10000));
-    hakek.push("v: " + octFrak(nt.v, 0o100));
-    if ( nt.dur != null ) hakek.push("dur: " + octFrak(nt.dur, 0o10000));
+    const hakek = [ "t: " + knak2fe(nt.t, 0o10000), "i: " + JSON.stringify(nt.i) ];
+    if ( nt.i !== "guiro" ) hakek.push("f: " + knak2fe(nt.f, 0o100));
+    hakek.push("d: " + knak2fe(nt.d, 0o10000));
+    hakek.push("v: " + knak2fe(nt.v, 0o100));
+    if ( nt.dur != null ) hakek.push("dur: " + knak2fe(nt.dur, 0o10000));
     if ( nt.cresc ) hakek.push("cresc: 1");
     if ( nt.toot ) hakek.push("toot: true");
     return "    { " + hakek.join(", ") + " },";
   });
   const secLinoj = [ ...d.secs ].sort(( a, b ) => a.a - b.a).map(s =>
-    "    { n: " + JSON.stringify(s.n) + ", a: " + octFrak(s.a, 0o10000) + ", b: " + octFrak(s.b, 0o10000) + " },");
+    "    { n: " + JSON.stringify(s.n) + ", a: " + knak2fe(s.a, 0o10000) + ", b: " + knak2fe(s.b, 0o10000) + " },");
   return [
     "// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ " + d.no + " · " + d.hate2 + " 🎵 ⧽≻",
     "// j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɜ ſןɹ ſɭɹ ſᶘɔ ｡ ( hacaht2/muzik-redaktilo/muzik-redaktilo.html ) ｡",
@@ -99,7 +100,7 @@ export function generiT2bakobesai(d: T2bakobesaiVop2): string {
     "  const secs: Qaroxema[] = [",
     ...secLinoj,
     "  ];",
-    "  return { events: ev.sort(( a, b ) => a.t - b.t), dur: " + octFrak(dur, 0o10000) + ", secs };",
+    "  return { events: ev.sort(( a, b ) => a.t - b.t), dur: " + knak2fe(dur, 0o10000) + ", secs };",
     "}",
     "",
   ].join("\n");
@@ -147,7 +148,7 @@ export function generiKantoj(havalaqaz: Registro[]): string {
 
 /* ſɭɜ ᶗ‹ , ꞙɭɿ , */
 class Parzilo {
-  private i = 0;
+  private i = 0o0;
   constructor(private s2banani: string) {}
   private sp(): void { while ( this.i < this.s2banani.length && /\s/.test(this.s2banani[this.i]) ) this.i++; }
   private tlohk2nik2p2(): never { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſɭɜ ſȷᴜ ｡ " + this.i); }
@@ -155,13 +156,13 @@ class Parzilo {
     this.sp();
     const m = this.s2banani.slice(this.i).match(/^-?0o[0-7]+(?:\/0o[0-7]+)?|^-?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/);
     if ( !m ) return this.tlohk2nik2p2();
-    this.i += m[0].length;
-    const s = m[0];
+    this.i += m[0o0].length;
+    const s = m[0o0];
     if ( /^-?0o/.test(s) ) {
       const neg = s.startsWith("-");
       const hakek = ( neg ? s.slice(0o1) : s ).split("/");
-      let v = parseInt(hakek[0].slice(0o2), 0o10);
-      if ( hakek.length > 0o1 ) v = v / parseInt(hakek[1].slice(0o2), 0o10);
+      let v = parseInt(hakek[0o0].slice(0o2), 0o10);
+      if ( hakek.length > 0o1 ) v = v / parseInt(hakek[0o1].slice(0o2), 0o10);
       return neg ? -v : v;
     }
     return parseFloat(s);
@@ -218,8 +219,8 @@ class Parzilo {
     if ( this.s2banani[this.i] === "\"" ) return this.stringo();
     const m = this.s2banani.slice(this.i).match(/^[A-Za-z$][A-Za-z0-9_$]*/);
     if ( !m ) return this.tlohk2nik2p2();
-    this.i += m[0].length;
-    return m[0];
+    this.i += m[0o0].length;
+    return m[0o0];
   }
   skek2(): unknown {
     this.sp();
@@ -270,7 +271,7 @@ class Parzilo {
 
 function eltiri(s2banani: string, cakukkaj2sai: string): string | null {
   const i = s2banani.indexOf(cakukkaj2sai);
-  return i < 0 ? null : s2banani.slice(i + cakukkaj2sai.length);
+  return i < 0o0 ? null : s2banani.slice(i + cakukkaj2sai.length);
 }
 
 /* ſɭᴜ ſןᴜ , ꞙɭц ,
@@ -280,19 +281,19 @@ export function parziT2bakobesai(s2banani: string): T2bakobesaiVop2 | null {
   try {
     const fn = /export function buildTrack(\d+)\(/.exec(s2banani);
     if ( !fn ) return null;
-    const no = fn[1].padStart(0o2, "0");
+    const no = fn[0o1].padStart(0o2, "0");
     const tit = /· (.+) 🎵/.exec(s2banani);
     const bpqM = /ꞙɭ([0-7]+) ı],ɔ ſɭw/.exec(s2banani);
     const ppbM = /ſɭᴜ ſɭᴜ ꞙɭ([0-7]+)/.exec(s2banani);
-    const bpq = bpqM ? parseInt(bpqM[1], 0o10) : 0o40;
-    const ppb = ppbM ? parseInt(ppbM[1], 0o10) : 0o10;
+    const bpq = bpqM ? parseInt(bpqM[0o1], 0o10) : 0o40;
+    const ppb = ppbM ? parseInt(ppbM[0o1], 0o10) : 0o10;
     const evResto = eltiri(s2banani, "const ev: BoleEg2b2[] = ");
     const secResto = eltiri(s2banani, "const secs: Qaroxema[] = ");
     const durM = /dur: ([^,]+), secs \};/.exec(s2banani);
     if ( !evResto || !secResto || !durM ) return null;
     const ev = new Parzilo(evResto).skek2();
     const secs = new Parzilo(secResto).skek2() as Qaroxema[];
-    const dur = new Parzilo(durM[1]).adicio();
+    const dur = new Parzilo(durM[0o1]).adicio();
     if ( !Array.isArray(ev) || !Array.isArray(secs) || !Number.isFinite(dur) ) return null;
     const hatsal2: Tsalii[] = [];
     let id = 0o1;
@@ -303,7 +304,7 @@ export function parziT2bakobesai(s2banani: string): T2bakobesaiVop2 | null {
         id: id++,
         t: o.t,
         i: o.i,
-        f: typeof o.f === "number" ? o.f : 0,
+        f: typeof o.f === "number" ? o.f : 0o0,
         d: o.d,
         v: typeof o.v === "number" ? o.v : 0o6/0o10,
         dur: typeof o.dur === "number" ? o.dur : undefined,
@@ -315,7 +316,7 @@ export function parziT2bakobesai(s2banani: string): T2bakobesaiVop2 | null {
       if ( typeof s.n !== "string" || typeof s.a !== "number" || typeof s.b !== "number" ) return null;
     const haqal6kx2 = Math.max(0o1, Math.round(dur / ( caxomani(bpq) * ppb )));
     const instrs = [ ...new Set(hatsal2.map(n => n.i)) ];
-    return { no, hate2: tit ? tit[1] : "j͑ʃп́ꞇ ſɭɔƴ " + no, titolCatlaq: null, bpq, ppb, haqal6kx2, hatsal2, secs, instrs };
+    return { no, hate2: tit ? tit[0o1] : "j͑ʃп́ꞇ ſɭɔƴ " + no, titolCatlaq: null, bpq, ppb, haqal6kx2, hatsal2, secs, instrs };
   } catch { return null; }
 }
 
@@ -331,21 +332,21 @@ export function wavDeBuffer(buf: AudioBuffer): Blob {
   const ab = new ArrayBuffer(hacacaja);
   const dv = new DataView(ab);
   const skribi = ( ofs: number, s: string ): void => {
-    for ( let i = 0; i < s.length; i++ ) dv.setUint8(ofs + i, s.charCodeAt(i));
+    for ( let i = 0o0; i < s.length; i++ ) dv.setUint8(ofs + i, s.charCodeAt(i));
   };
-  skribi(0, "RIFF"); dv.setUint32(0o4, hacacaja - 0o10, true); skribi(0o10, "WAVE");
+  skribi(0o0, "RIFF"); dv.setUint32(0o4, hacacaja - 0o10, true); skribi(0o10, "WAVE");
   skribi(0o14, "fmt "); dv.setUint32(0o20, 0o20, true); dv.setUint16(0o24, 0o1, true);
   dv.setUint16(0o26, haqar6xe, true);
   dv.setUint32(0o30, buf.sampleRate, true); dv.setUint32(0o34, buf.sampleRate * haqar6xe * 0o2, true);
   dv.setUint16(0o40, haqar6xe * 0o2, true); dv.setUint16(0o42, 0o20, true);
   skribi(0o44, "data"); dv.setUint32(0o50, n * haqar6xe * 0o2, true);
   const havop2: Float32Array[] = [];
-  for ( let c = 0; c < haqar6xe; c++ ) havop2.push(buf.getChannelData(c));
+  for ( let c = 0o0; c < haqar6xe; c++ ) havop2.push(buf.getChannelData(c));
   let ofs = 0o54;
-  for ( let i = 0; i < n; i++ ) {
-    for ( let c = 0; c < haqar6xe; c++ ) {
+  for ( let i = 0o0; i < n; i++ ) {
+    for ( let c = 0o0; c < haqar6xe; c++ ) {
       const s = Math.max(-0o1, Math.min(0o1, havop2[c][i]));
-      dv.setInt16(ofs, s < 0 ? s * 0o100000 : s * 0o77777, true);
+      dv.setInt16(ofs, s < 0o0 ? s * 0o100000 : s * 0o77777, true);
       ofs += 0o2;
     }
   }

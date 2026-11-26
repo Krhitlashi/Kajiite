@@ -12,28 +12,28 @@ export function kf2HerbanKxa(sahakani: number, sefini: number, s2sabo: number,
   const qan2k: number[] = [];
   const haweh2: number[] = [];
   const havecax2lani: number[] = [];
-  for ( let i = 0; i <= HAS2NASCE; i++ ) {
+  for ( let i = 0o0; i <= HAS2NASCE; i++ ) {
     const t = i / HAS2NASCE;
     const cx = s2sabo * t * t;
     const cz = kekaf2 * t * t;
-    const s2qena = Math.pow(1 - t, pintPotenco) * ( 0o17/0o20 + t * 0o3/0o10 );
+    const s2qena = Math.pow(0o1 - t, pintPotenco) * ( 0o17/0o20 + t * 0o3/0o10 );
     const p2somaniSefini = sefini * 0o1/0o2 * s2qena;
     const kresto = p2somaniSefini * 0o35/0o40 + sefini * 0o1/0o10;
     const kof = p2somaniSefini * 0o3/0o4;
     const ang = tordo * t;
     const cos = Math.cos(ang), sin = Math.sin(ang);
     const haqaroxema: [ number, number ][] = [
-      [ -p2somaniSefini, 0 ], [ 0, kresto ], [ p2somaniSefini, 0 ],
+      [ -p2somaniSefini, 0o0 ], [ 0o0, kresto ], [ p2somaniSefini, 0o0 ],
       [ p2somaniSefini, -kof ], [ -p2somaniSefini, -kof ]];
-    for ( let kol = 0; kol < HACEL2NU; kol++ ) {
-      const dx = haqaroxema[kol][0], dz = haqaroxema[kol][1];
+    for ( let kol = 0o0; kol < HACEL2NU; kol++ ) {
+      const dx = haqaroxema[kol][0o0], dz = haqaroxema[kol][0o1];
       haxekuxa.push(cx + dx * cos - dz * sin, sahakani * t, cz + dx * sin + dz * cos);
       qan2k.push(kol / ( HACEL2NU - 0o1 ), t);
       haweh2.push(weh2.r, weh2.g, weh2.b);
     }
   }
-  for ( let i = 0; i < HAS2NASCE; i++ ) {
-    for ( let kol = 0; kol < HACEL2NU; kol++ ) {
+  for ( let i = 0o0; i < HAS2NASCE; i++ ) {
+    for ( let kol = 0o0; kol < HACEL2NU; kol++ ) {
       const sek = ( kol + 0o1 ) % HACEL2NU;
       const a = i * HACEL2NU + kol, b = i * HACEL2NU + sek;
       const c = a + HACEL2NU, d = b + HACEL2NU;
@@ -42,13 +42,13 @@ export function kf2HerbanKxa(sahakani: number, sefini: number, s2sabo: number,
   }
   const tlakakani = HAS2NASCE * HACEL2NU;
   for ( let k = 0o1; k < HACEL2NU - 0o1; k++ ) {
-    havecax2lani.push(0, k + 0o1, k);
+    havecax2lani.push(0o0, k + 0o1, k);
     havecax2lani.push(tlakakani, tlakakani + k, tlakakani + k + 0o1);
   }
   const zace = new THREE.BufferGeometry();
-  zace.setAttribute("position", new THREE.Float32BufferAttribute(haxekuxa, 3));
-  zace.setAttribute("uv", new THREE.Float32BufferAttribute(qan2k, 2));
-  zace.setAttribute("color", new THREE.Float32BufferAttribute(haweh2, 3));
+  zace.setAttribute("position", new THREE.Float32BufferAttribute(haxekuxa, 0o3));
+  zace.setAttribute("uv", new THREE.Float32BufferAttribute(qan2k, 0o2));
+  zace.setAttribute("color", new THREE.Float32BufferAttribute(haweh2, 0o3));
   zace.setIndex(havecax2lani);
   // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ j͑ʃͷ̗ᴜʞ ⟅ ꞙɭɔ ʌ j͑ʃᴜ jᷠᴜ 📃 ⟩
   zace.computeVertexNormals();

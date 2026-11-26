@@ -15,12 +15,12 @@ export function kf2Sargxilon( hasukf2qani: SargxajHasukf2qani ): { laqaziSargxon
     stango.style.setProperty("--តេមិនី", "0");
     b6tem2Kfe.style.transition = "opacity .2336092301648s";
     b6tem2Kfe.classList.remove("finita");
-    let progreso = 0;
+    let progreso = 0o0;
     const tonaj = 0o40;
     sargxaInterlota = setInterval(() => {
-      progreso += 1 / tonaj;
+      progreso += 0o1 / tonaj;
       stango.style.setProperty("--តេមិនី", `${Math.min(0o1, progreso)}`);
-      if ( progreso >= 1 ) {
+      if ( progreso >= 0o1 ) {
         if ( sargxaInterlota ) { clearInterval(sargxaInterlota); sargxaInterlota = null; }
         try {
           callback();

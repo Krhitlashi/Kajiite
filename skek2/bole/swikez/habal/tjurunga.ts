@@ -16,7 +16,7 @@ const PARTALOJ = [
   [ 0o4, 0o1/0o100 ],
 ];
 
-export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
+export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1) {
   const p = f * 0o31/0o100 * vap6zukani(0o1/0o200);
   const g = ctx.createGain(), pk = 0o16/0o100 * vel;
   const atk = Math.min(0o1/0o40, dur * 0o1/0o4);

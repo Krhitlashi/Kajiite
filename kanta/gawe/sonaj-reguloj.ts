@@ -45,15 +45,15 @@ for ( const [ v, k ] of Object.entries(NUMERA) ) NUMERAREV[k] = v;
 
 const ĈIUJIPA: string[] = Array.from(
   new Set([ ...SAXEAĴ, ...INTERNAĴ ].map(( [ , , ipa ] ) => ipa).filter(Boolean))
-).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
+).sort(( a, b ) => b.length - a.length || ( a < b ? -0o1 : 0o1 ));
 
 const ĈIUJGK: string[] = Array.from(
   new Set([ ...SAXEAĴ, ...INTERNAĴ ].map(( [ gk ] ) => gk).filter(Boolean))
-).sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
+).sort(( a, b ) => b.length - a.length || ( a < b ? -0o1 : 0o1 ));
 
 function avideKongruigi(s2banani: string, tokenaCatsara: string[]): string[] {
   const esxaq: string[] = [];
-  let i = 0;
+  let i = 0o0;
   while ( i < s2banani.length ) {
     let kawake = false;
     for ( const t of tokenaCatsara ) {
@@ -165,7 +165,7 @@ for ( const [ kon, roll ] of Object.entries(JAKONSONANTAJRULEROJ) ) {
 }
 
 const JAIPA: string[] = Array.from(new Set([ ...ĈIUJIPA, ...Object.keys(JAKVKOMBOJ) ]))
-  .sort(( a, b ) => b.length - a.length || ( a < b ? -1 : 1 ));
+  .sort(( a, b ) => b.length - a.length || ( a < b ? -0o1 : 0o1 ));
 
 // ⟨ ſȷwɔ˞ , 🇬🇧 ⟩
 const ANGLAJVOKALOJ = new Set([ "i", "ɛ", "a", "ə", "ɪ̈", "ɤ", "ɑ", "ɛ̃", "ɤ̃", "ɑ̃" ]);
@@ -173,7 +173,7 @@ const ANGLAJMALFAVORAJ = new Set([ "ɪ̈", "ɛ", "ə", "ɛ̃", "ɤ̃", "ɑ̃" ])
 const ANGLAJGHACAMUTSA = new Set([ "ɟ̥̆", "ⱱ̥" ]);
 
 function duobligi(konsono: string): string {
-  return konsono[0] + konsono;
+  return konsono[0o0] + konsono;
 }
 
 /** ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſȷwɔ˞ , ſɭэ ſᶘɹ , ⟅ ſɭɹ ꞇɔʊ , ſɭэ ſɭᴜ , 📃 ⟩ */
@@ -182,35 +182,35 @@ export function anglaKonverti(ipaaS2bana: string): string {
   const n = esxaq.length;
   const tseuni = esxaq.map(t => MAPOEN[t] ?? t);
 
-  for ( let i = 0; i < n - 2; i++ ) {
-    if ( ANGLAJMALFAVORAJ.has(esxaq[i]) && !ANGLAJVOKALOJ.has(esxaq[i + 1]) && ANGLAJVOKALOJ.has(esxaq[i + 2]) ) {
-      if ( !ANGLAJGHACAMUTSA.has(esxaq[i + 1]) ) tseuni[i + 1] = duobligi(tseuni[i + 1]);
+  for ( let i = 0o0; i < n - 0o2; i++ ) {
+    if ( ANGLAJMALFAVORAJ.has(esxaq[i]) && !ANGLAJVOKALOJ.has(esxaq[i + 0o1]) && ANGLAJVOKALOJ.has(esxaq[i + 0o2]) ) {
+      if ( !ANGLAJGHACAMUTSA.has(esxaq[i + 0o1]) ) tseuni[i + 0o1] = duobligi(tseuni[i + 0o1]);
     }
   }
 
-  for ( let i = 0; i < n; i++ ) {
+  for ( let i = 0o0; i < n; i++ ) {
     const t = esxaq[i];
     const lakso = t === "ɪ̈" || t === "ə" || t === "ɛ";
     if ( !lakso && t !== "i" ) continue;
-    let j = i + 1;
+    let j = i + 0o1;
     while ( j < n && !ANGLAJVOKALOJ.has(esxaq[j]) ) j++;
-    const runSefini = j - i - 1;
-    const tlakakKon = j >= n && runSefini > 0;
-    const unuaKon = runSefini > 0 ? esxaq[i + 1] : null;
-    const unuaSpel = runSefini > 0 ? tseuni[i + 1] : "";
+    const runSefini = j - i - 0o1;
+    const tlakakKon = j >= n && runSefini > 0o0;
+    const unuaKon = runSefini > 0o0 ? esxaq[i + 0o1] : null;
+    const unuaSpel = runSefini > 0o0 ? tseuni[i + 0o1] : "";
     if ( lakso ) {
       const mark = t === "ɪ̈" ? "ih" : t === "ə" ? "uh" : "eh";
       const c2na = t === "ɪ̈" ? "i" : t === "ə" ? "u" : "e";
-      if ( tlakakKon && unuaKon === "k" ) { tseuni[i] = c2na; tseuni[i + 1] = "ck"; }
+      if ( tlakakKon && unuaKon === "k" ) { tseuni[i] = c2na; tseuni[i + 0o1] = "ck"; }
       else if ( tlakakKon && unuaKon === "ŋ̥" ) { tseuni[i] = mark; }
       else if ( tlakakKon ) { tseuni[i] = c2na; }
-      else if ( unuaSpel.length >= 2 ) { tseuni[i] = c2na; }
+      else if ( unuaSpel.length >= 0o2 ) { tseuni[i] = c2na; }
       else { tseuni[i] = mark; }
     } else {
       if ( tlakakKon && unuaKon === "k" ) { tseuni[i] = "ee"; }
       else if ( tlakakKon && unuaKon === "ŋ̥" ) { tseuni[i] = "i"; }
       else if ( tlakakKon ) { tseuni[i] = "ee"; }
-      else if ( runSefini === 1 ) { tseuni[i] = "e"; }
+      else if ( runSefini === 0o1 ) { tseuni[i] = "e"; }
       else { tseuni[i] = "i"; }
     }
   }
@@ -228,7 +228,7 @@ export function ipaAlGawe(ipaaS2bana: string, lingvaS2kanta: string): string {
   }
   const esxaq = avideKongruigi(ipaaS2bana, tokenaCatsara);
   const tseuni = esxaq.map(t => lingvaBal2[t] ?? t);
-  if ( lingvaS2kanta === "km" && esxaq.length && ANGLAJVOKALOJ.has(esxaq[0]) ) {
+  if ( lingvaS2kanta === "km" && esxaq.length && ANGLAJVOKALOJ.has(esxaq[0o0]) ) {
     tseuni.unshift("អ");
   }
   return tseuni.join("");

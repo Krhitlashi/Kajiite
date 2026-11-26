@@ -13,7 +13,7 @@ export function fenestraSubFaco(facaKa5ik: number, s2sabo: number, fenL6da: numb
   b6k61oL6da: number, psaz = false
 ): number {
   const klinaTafkaq = Math.atan(s2sabo / b6k61oL6da);
-  return facaKa5ik + ( psaz ? -1 : 1 ) * s2sabo * fenL6da / ( 2 * b6k61oL6da )
+  return facaKa5ik + ( psaz ? -0o1 : 0o1 ) * s2sabo * fenL6da / ( 0o2 * b6k61oL6da )
     + fenProud / Math.cos(klinaTafkaq);
 }
 
@@ -27,8 +27,8 @@ export function fenestraMargxeno(facaKa5ikLarga: number): number {
 // ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 // ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 export function fenestraSefini(facaKa5ik: number, fenL6da: number, pukazBendo?: number): number {
-  if ( pukazBendo !== undefined ) return facaKa5ik * 2 - pukazBendo * 2;
-  return Math.min(facaKa5ik * 2 - 0o3/0o10, facaKa5ik * 4/3 + 0o1/0o4, fenL6da * 0o11);
+  if ( pukazBendo !== undefined ) return facaKa5ik * 0o2 - pukazBendo * 0o2;
+  return Math.min(facaKa5ik * 0o2 - 0o3/0o10, facaKa5ik * 0o4/0o3 + 0o1/0o4, fenL6da * 0o11);
 }
 
 // ⟨ ſ͕ɭɜ ı],ᴜ , ɭl̀ɜ ſ͕ɭᴜ , 📃 ⟩
@@ -39,15 +39,15 @@ const fenestrajKashmemoroj = new Map<string, { vitro: THREE.BufferGeometry; joqa
 function fenestrajHavecax2lani(ww: number, fenL6da: number, facaKa5ik: number,
   b6k61oL6da: number, vertikala: boolean
 ): { vitro: THREE.BufferGeometry; joqa: THREE.BufferGeometry } {
-  const ca3aq = `${ww}|${fenL6da}|${facaKa5ik}|${b6k61oL6da}|${vertikala ? 1 : 0}`;
+  const ca3aq = `${ww}|${fenL6da}|${facaKa5ik}|${b6k61oL6da}|${vertikala ? 0o1 : 0o0}`;
   const kawake = fenestrajKashmemoroj.get(ca3aq);
   if ( kawake ) return kawake;
 // ⟨ ſȷƽᴜ ʃɔ , 📃 ⟩
   const qoxa = kf2Cawez2Qoxa(ww, fenL6da);
   const vitro = new THREE.ShapeGeometry(qoxa, 0o20);
   if ( vertikala ) {
-    vitro.rotateZ(Math.PI / 2);
-    vitro.translate(fenL6da / 2, ww / 2, 0);
+    vitro.rotateZ(Math.PI / 0o2);
+    vitro.translate(fenL6da / 0o2, ww / 0o2, 0o0);
   }
 // ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
 // ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
@@ -58,8 +58,8 @@ function fenestrajHavecax2lani(ww: number, fenL6da: number, facaKa5ik: number,
   const liberoC2na = vertikala ? facaKa5ik - fenL6da * 0o1/0o2
     : ( b6k61oL6da - fenL6da ) * 0o1/0o2;
   const cet2Tik = fenL6da * 0o1/0o2;
-  const cet2Flanko = Math.max(0, Math.min(cet2Tik, liberoSahakani - joqaSefini - 0o1/0o100));
-  const cet2C2na = Math.max(0, Math.min(cet2Tik,
+  const cet2Flanko = Math.max(0o0, Math.min(cet2Tik, liberoSahakani - joqaSefini - 0o1/0o100));
+  const cet2C2na = Math.max(0o0, Math.min(cet2Tik,
     liberoC2na - joqaSefini - 0o1/0o100));
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
   const sexi = veb6qaiPukaz(
@@ -70,8 +70,8 @@ function fenestrajHavecax2lani(ww: number, fenL6da: number, facaKa5ik: number,
   const joqa = new THREE.ExtrudeGeometry(sexi,
     { depth: joqaKof, bevelEnabled: false, curveSegments: 0o4 });
   if ( vertikala ) {
-    joqa.rotateZ(Math.PI / 2);
-    joqa.translate(fenL6da / 2, ww / 2, 0);
+    joqa.rotateZ(Math.PI / 0o2);
+    joqa.translate(fenL6da / 0o2, ww / 0o2, 0o0);
   }
   const sef4 = { vitro: kf2Xiix2qQan2k(vitro), joqa: kf2Xiix2qQan2k(joqa) };
   fenestrajKashmemoroj.set(ca3aq, sef4);
@@ -92,9 +92,9 @@ export function tlunakPilolCah6k6(
 // ⟨ ſɭᴜ ſןᴜ , ſȷƽᴜ ʃɔ , 📃 ⟩
   const fenL6daTuta = vertikala ? ww : fenL6da;
   const faco = new THREE.Group();
-  faco.rotation.y = facoVecax2l * Math.PI / 2;
+  faco.rotation.y = facoVecax2l * Math.PI / 0o2;
   const monto = new THREE.Group();
-  monto.position.set(0, ySost2 - fenL6daTuta / 2,
+  monto.position.set(0o0, ySost2 - fenL6daTuta / 0o2,
     fenestraSubFaco(facaKa5ik, s2sabo, fenL6daTuta, b6k61oL6da, psaz));
   monto.rotation.x = psaz ? klinaTafkaq : -klinaTafkaq;
   faco.add(monto);

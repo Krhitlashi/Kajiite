@@ -72,7 +72,7 @@ export function registriQakaj2nL6da( x: number, z: number, l6da: number ): void 
     @returns ca1ara ( Qakaj2L6da [ ] ) - ſɭᴜ ſןᴜ , ꞙɭı , */
 export function konsumiQakaj2jnL6dajn(): Qakaj2L6da[] {
   const kopio = qakaj2jHal6da.map(d => ( { ...d } ));
-  qakaj2jHal6da.length = 0;
+  qakaj2jHal6da.length = 0o0;
   return kopio;
 }
 
@@ -116,8 +116,8 @@ export function tap2L6daDeVeb6kek( ca3aq: string ): number | undefined {
 export function sukf2qiTap2nL6da( knece: readonly BrakaL6da[], rezervo: number ): number {
   const s2l2me = knece.map(b => b.l6da).filter(Number.isFinite);
   const t6lima = surGrid(rezervo);
-  if ( s2l2me.length === 0 ) return t6lima;
-  let sukf2qita = s2l2me[ 0 ], kmaTsiike = Infinity;
+  if ( s2l2me.length === 0o0 ) return t6lima;
+  let sukf2qita = s2l2me[ 0o0 ], kmaTsiike = Infinity;
   for ( const l6da of s2l2me ) {
     const h6kuni = Math.abs(l6da - t6lima);
     if ( h6kuni < kmaTsiike || ( h6kuni === kmaTsiike && l6da < sukf2qita ) ) {

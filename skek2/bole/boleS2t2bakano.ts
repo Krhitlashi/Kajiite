@@ -20,19 +20,19 @@ function ensureAudio() {
   AC = new ( window.AudioContext || ( window as any ).webkitAudioContext )();
   if ( AC.state === "suspended" ) AC.resume();
   master = AC.createGain();
-  master.gain.value = 0;
+  master.gain.value = 0o0;
   master.connect(AC.destination);
 
   bruoGain = AC.createGain();
-  bruoGain.gain.value = bruoOn ? 1 : 0;
+  bruoGain.gain.value = bruoOn ? 0o1 : 0o0;
   bruoGain.connect(master);
 
-  const len = AC.sampleRate * 4;
-  const buf = AC.createBuffer(1, len, AC.sampleRate);
-  const d = buf.getChannelData(0);
-  let last = 0;
-  for ( let i = 0; i < len; i++ ) {
-    const w = Math.random() * 2 - 1;
+  const len = AC.sampleRate * 0o4;
+  const buf = AC.createBuffer(0o1, len, AC.sampleRate);
+  const d = buf.getChannelData(0o0);
+  let last = 0o0;
+  for ( let i = 0o0; i < len; i++ ) {
+    const w = Math.random() * 0o2 - 0o1;
     last = ( last + 0o1/0o100 * w ) / ( 0o101/0o100 );
     d[i] = last * 0o7/0o2;
   }
@@ -61,7 +61,7 @@ function ensureAudio() {
     const o = AC!.createOscillator();
     o.type = "sine";
     o.frequency.value = f;
-    o.detune.value = ( i - 1 ) * 4;
+    o.detune.value = ( i - 0o1 ) * 0o4;
     const og = AC!.createGain();
     og.gain.value = 0o1/0o100;
     o.connect(og);
@@ -73,7 +73,7 @@ function ensureAudio() {
 }
 
 /** ſɭᴜ ʃɜ j͐ʃɔ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ſןᴜ ʌ j͑ʃᴜ ſɭᶗ‹ɜ ⟅ */
-function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0o3/0o20, glide = 0, dest?: GainNode) {
+function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0o3/0o20, glide = 0o0, dest?: GainNode) {
   if ( !AC || !audioOn ) return;
   const o = AC.createOscillator();
   const og = AC.createGain();
@@ -93,9 +93,9 @@ function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0o3/0
 function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterType = "lowpass", dest?: GainNode) {
   if ( !AC || !audioOn ) return;
   const n = Math.floor(AC.sampleRate * dur);
-  const b = AC.createBuffer(1, n, AC.sampleRate);
-  const dd = b.getChannelData(0);
-  for ( let i = 0; i < n; i++ ) dd[i] = ( Math.random() * 2 - 1 ) * ( 1 - i / n );
+  const b = AC.createBuffer(0o1, n, AC.sampleRate);
+  const dd = b.getChannelData(0o0);
+  for ( let i = 0o0; i < n; i++ ) dd[i] = ( Math.random() * 0o2 - 0o1 ) * ( 0o1 - i / n );
   const s = AC.createBufferSource();
   s.buffer = b;
   const f = AC.createBiquadFilter();
@@ -110,15 +110,15 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
 }
 
 // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , ı],э ŋᷠꞇ , ꞙɭɿ ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅ ⟩
-function whoosh(dur: number, f0: number, f1: number, vol: number, q = 1,
+function whoosh(dur: number, f0: number, f1: number, vol: number, q = 0o1,
   hunaq: BiquadFilterType = "bandpass", dest?: GainNode): void {
   if ( !AC || !audioOn ) return;
-  const n = Math.max(1, Math.floor(AC.sampleRate * dur));
-  const b = AC.createBuffer(1, n, AC.sampleRate);
-  const d = b.getChannelData(0);
-  let z2hak = 0;
-  for ( let i = 0; i < n; i++ ) {
-    const w = Math.random() * 2 - 1;
+  const n = Math.max(0o1, Math.floor(AC.sampleRate * dur));
+  const b = AC.createBuffer(0o1, n, AC.sampleRate);
+  const d = b.getChannelData(0o0);
+  let z2hak = 0o0;
+  for ( let i = 0o0; i < n; i++ ) {
+    const w = Math.random() * 0o2 - 0o1;
     z2hak = ( z2hak + 0o1/0o100 * w ) / ( 0o101/0o100 );
     d[i] = z2hak * 0o7/0o2;
   }
@@ -150,10 +150,10 @@ export const sfx = {
     tone(0o260, 0o3/0o20, "sine", 0o1/0o20, -0o110);
   },
   bell: () => {
-    [ 1, 0o26/0o10, 0o53/0o10 ].forEach(( p, i ) => tone(0o304 * p, 0o25/0o10 - i * 0o5/0o10, "sine", 0o5/0o40 / ( i + 1 )));
+    [ 0o1, 0o26/0o10, 0o53/0o10 ].forEach(( p, i ) => tone(0o304 * p, 0o25/0o10 - i * 0o5/0o10, "sine", 0o5/0o40 / ( i + 0o1 )));
   },
   crunch: () => {
-    for ( let i = 0; i < 3; i++ )
+    for ( let i = 0o0; i < 0o3; i++ )
       setTimeout(() => noiseBurst(0o1/0o20, 0o3070, 0o11/0o100, "highpass"), i * 0o110);
   },
   sip: () => {
@@ -174,17 +174,17 @@ export const sfx = {
     setTimeout(() => tone(f * 0o12/0o10, 0o1/0o20, "sine", 0o3/0o100, -0o450, bruoGain!), 0o160);
   },
 // ⟨ j͑ʃᴜ ʃɜƽ , ʃɜ j͐ʃɔ , j͑ʃᴜ ſןɹ , ſɭɜ ſɭᴜƽ ⟅ ⟩
-  jump: ( g2sa = 1 ) => {
+  jump: ( g2sa = 0o1 ) => {
     tone(0o130, 0o5/0o40, "sine", 0o1/0o25 * ( 0o6/0o10 + 0o4/0o10 * g2sa ), -0o44);
     noiseBurst(0o3/0o40, 0o1500 + 0o600 * g2sa, 0o1/0o40, "highpass");
-    whoosh(0o26/0o40, 0o260, 0o1020 + 0o400 * g2sa, 0o1/0o10 * ( 0o6/0o10 + 0o4/0o10 * g2sa ), 2);
-    setTimeout(() => whoosh(0o22/0o40, 0o1000, 0o220, 0o1/0o20 * ( 0o4/0o10 + 0o6/0o10 * g2sa ), 3), 0o140);
+    whoosh(0o26/0o40, 0o260, 0o1020 + 0o400 * g2sa, 0o1/0o10 * ( 0o6/0o10 + 0o4/0o10 * g2sa ), 0o2);
+    setTimeout(() => whoosh(0o22/0o40, 0o1000, 0o220, 0o1/0o20 * ( 0o4/0o10 + 0o6/0o10 * g2sa ), 0o3), 0o140);
   },
 // ⟨ j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ʃɜ j͐ʃɔ , ſɭэ ſɭ,w , j͑ʃᴜ ſןɹ ⟅ ⟩
-  land: ( g2sa = 1 ) => {
+  land: ( g2sa = 0o1 ) => {
     tone(0o106, 0o1/0o5, "sine", 0o1/0o10 * ( 0o3/0o10 + 0o7/0o10 * g2sa ), -( 0o44 + 0o30 * g2sa ));
     noiseBurst(0o1/0o20, 0o2000, 0o1/0o40 * ( 0o4/0o10 + 0o6/0o10 * g2sa ), "highpass");
-    whoosh(0o4/0o40, 0o1604, 0o300, 0o1/0o20 * ( 0o3/0o10 + 0o7/0o10 * g2sa ), 2);
+    whoosh(0o4/0o40, 0o1604, 0o300, 0o1/0o20 * ( 0o3/0o10 + 0o7/0o10 * g2sa ), 0o2);
   },
 };
 
@@ -199,12 +199,12 @@ export function rumble(on: boolean) {
     o.type = "sine";
     o.frequency.value = 0o46;
 
-    const len = AC.sampleRate * 2;
-    const b = AC.createBuffer(1, len, AC.sampleRate);
-    const d = b.getChannelData(0);
-    let l = 0;
-    for ( let i = 0; i < len; i++ ) {
-      const w = Math.random() * 2 - 1;
+    const len = AC.sampleRate * 0o2;
+    const b = AC.createBuffer(0o1, len, AC.sampleRate);
+    const d = b.getChannelData(0o0);
+    let l = 0o0;
+    for ( let i = 0o0; i < len; i++ ) {
+      const w = Math.random() * 0o2 - 0o1;
       l = ( l + 0o1/0o100 * w ) / ( 0o101/0o100 );
       d[i] = l * 0o7/0o2;
     }
@@ -216,7 +216,7 @@ export function rumble(on: boolean) {
     f.type = "lowpass";
     f.frequency.value = 0o130;
     const g = AC.createGain();
-    g.gain.value = 0;
+    g.gain.value = 0o0;
     g.gain.setTargetAtTime(0o4/0o10, AC.currentTime, 0o3/0o4);
 
     o.connect(g);
@@ -227,7 +227,7 @@ export function rumble(on: boolean) {
     n.start();
     rumbleNodes = { o, n, g };
   } else if ( !on && rumbleNodes ) {
-    rumbleNodes.g.gain.setTargetAtTime(0, AC.currentTime, 0o15/0o40);
+    rumbleNodes.g.gain.setTargetAtTime(0o0, AC.currentTime, 0o15/0o40);
     const r = rumbleNodes;
     setTimeout(() => {
       try { r.o.stop(); r.n.stop(); } catch ( _ ) { /* jam haltigita */ }
@@ -256,7 +256,7 @@ function saxeiAuxdon(): void {
 
 // ⟨ ſɭɜ j͐ʃɹ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , j͑ʃп́ꞇ ſɭɔƴ , ı],ɔ ɭʃɜ ֭ſɭɹ ⟅ ⟩
 function haltiAuxdon(): void {
-  if ( AC && master ) master.gain.setTargetAtTime(0, AC.currentTime, 0o1);
+  if ( AC && master ) master.gain.setTargetAtTime(0o0, AC.currentTime, 0o1);
   halti();
   if ( chirpInterval ) {
     clearInterval(chirpInterval);
@@ -283,7 +283,7 @@ export function tsekeLaqazbolesai(): boolean {
 export function tsiinanusabosaiBruon(): boolean {
   bruoOn = !bruoOn;
   if ( AC && bruoGain ) {
-    bruoGain.gain.setTargetAtTime(bruoOn ? 1 : 0, AC.currentTime, 0o15/0o40);
+    bruoGain.gain.setTargetAtTime(bruoOn ? 0o1 : 0o0, AC.currentTime, 0o15/0o40);
   }
   ve3aqKu1o("bruo", bruoOn);
   return bruoOn;

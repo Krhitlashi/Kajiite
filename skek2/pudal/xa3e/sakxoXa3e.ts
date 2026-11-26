@@ -4,11 +4,11 @@ import { kf2Sakxo } from "../../x2x2q/caq2q.js";
 import { vegetajxaRuva } from "../../../kanta/t6lima-havop2/tlohk2nikziisai.js";
 
 export function kf2S2saboQuaternionon(sakxoCasacakai: () => number, l2haKlinangulo: number, yaw: number): THREE.Quaternion {
-  const b6n = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, yaw, 0));
-  const c2w2q = sakxoCasacakai() * Math.PI * 2;
+  const b6n = new THREE.Quaternion().setFromEuler(new THREE.Euler(0o0, yaw, 0o0));
+  const c2w2q = sakxoCasacakai() * Math.PI * 0o2;
   const tafkaq = ( sakxoCasacakai() - 0o4/0o10 ) * l2haKlinangulo;
   const s2sabo = new THREE.Quaternion().setFromAxisAngle(
-    new THREE.Vector3(Math.sin(c2w2q), 0, Math.cos(c2w2q)), tafkaq);
+    new THREE.Vector3(Math.sin(c2w2q), 0o0, Math.cos(c2w2q)), tafkaq);
   return s2sabo.multiply(b6n);
 }
 
@@ -17,8 +17,8 @@ export function kf2Poziciilon(kozuni: THREE.Vector3, Q: THREE.Quaternion): ( lok
 }
 
 export function hazardaWeh2(sakxoCasacakai: () => number, weh2: THREE.Color, weh2Cax2lo: number[]): THREE.Color {
-  weh2.setHex(weh2Cax2lo[( sakxoCasacakai() * weh2Cax2lo.length ) | 0]);
-  weh2.offsetHSL(0, 0, ( sakxoCasacakai() - 0o4/0o10 ) * 0o1/0o10);
+  weh2.setHex(weh2Cax2lo[( sakxoCasacakai() * weh2Cax2lo.length ) | 0o0]);
+  weh2.offsetHSL(0o0, 0o0, ( sakxoCasacakai() - 0o4/0o10 ) * 0o1/0o10);
   return weh2;
 }
 

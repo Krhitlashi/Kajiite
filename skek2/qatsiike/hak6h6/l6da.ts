@@ -45,7 +45,7 @@ export const K6H6AALTECAKVANTO = 0o4;
 const TERAOFSETAJ: readonly ( readonly [ number, number, number ] )[] = ( () => {
   const ca1ara: [ number, number, number ][] = [];
   for ( const r of K6H6ATERARADII )
-    for ( let i = 0; i < K6H6ATERAANGULOJ; i++ ) {
+    for ( let i = 0o0; i < K6H6ATERAANGULOJ; i++ ) {
       const tafkaq = i * Math.PI * 0o2 / K6H6ATERAANGULOJ;
       ca1ara.push([ Math.cos(tafkaq) * r, Math.sin(tafkaq) * r, K6H6ATERAKLINO * r ]);
     }
@@ -135,8 +135,8 @@ export function kf2K6h6L6dan(
   const BRAKATOLERO = Math.cos(Math.PI / 0o10);
   // ⟨ ꞙɭı , ꞙɭı , }ʃɹƽ 📏 ⟩ , ꞙɭı , -ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
   const brakaVecax2l = ( k: AltaVeb6kek, tx: number, tz: number ): number => {
-    let plosteq = -1, kmaGajno = BRAKATOLERO;
-    for ( let b = 0; b < k.c2w2qa.length; b++ ) {
+    let plosteq = -0o1, kmaGajno = BRAKATOLERO;
+    for ( let b = 0o0; b < k.c2w2qa.length; b++ ) {
       const [ dx, dz ] = k.c2w2qa[ b ];
       const sahakani = Math.hypot(dx, dz);
       if ( sahakani < 0o1/0o1000 ) continue;
@@ -146,15 +146,15 @@ export function kf2K6h6L6dan(
     return plosteq;
   };
   const vefal = ( i: number, b: number ): number =>
-    b >= 0 && Number.isFinite(brakHal6da[ i ][ b ]) ? brakHal6da[ i ][ b ] : hab6qaiQafej2[ i ];
+    b >= 0o0 && Number.isFinite(brakHal6da[ i ][ b ]) ? brakHal6da[ i ][ b ] : hab6qaiQafej2[ i ];
   const skribu = ( i: number, b: number, l6da: number ): void => {
-    if ( b >= 0 && Number.isFinite(brakHal6da[ i ][ b ]) ) brakHal6da[ i ][ b ] = l6da;
+    if ( b >= 0o0 && Number.isFinite(brakHal6da[ i ][ b ]) ) brakHal6da[ i ][ b ] = l6da;
     else hab6qaiQafej2[ i ] = Math.max(hab6qaiQafej2[ i ], l6da);
   };
-  for ( let vepat6ni = 0; vepat6ni < VEB6KEKAALTECAPASOJ; vepat6ni++ ) {
+  for ( let vepat6ni = 0o0; vepat6ni < VEB6KEKAALTECAPASOJ; vepat6ni++ ) {
     let vasaka = false;
-    for ( let i = 0; i < hacakukkaj2sai.length; i++ ) {
-      for ( let j = i + 1; j < hacakukkaj2sai.length; j++ ) {
+    for ( let i = 0o0; i < hacakukkaj2sai.length; i++ ) {
+      for ( let j = i + 0o1; j < hacakukkaj2sai.length; j++ ) {
         const dx = hacakukkaj2sai[ j ].x - hacakukkaj2sai[ i ].x, dz = hacakukkaj2sai[ j ].z - hacakukkaj2sai[ i ].z;
         const h6kuni = Math.hypot(dx, dz);
         if ( h6kuni < 0o1/0o100 ) continue;
@@ -164,9 +164,9 @@ export function kf2K6h6L6dan(
         //   ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ⟅ 📃 ⟩
         const bi = brakaVecax2l(hacakukkaj2sai[ i ], ux, uz);
         const bj = brakaVecax2l(hacakukkaj2sai[ j ], -ux, -uz);
-        if ( bi < 0 || bj < 0 ) continue;
+        if ( bi < 0o0 || bj < 0o0 ) continue;
         const plosteq = K6H6ATERAKLINO * ( h6kuni - 0o2 * K6H6ATRUAP2SOMANI );
-        if ( plosteq <= 0 ) continue;
+        if ( plosteq <= 0o0 ) continue;
         const altI = vefal(i, bi), altJ = vefal(j, bj);
         if ( altJ - altI > plosteq ) {
           skribu(i, bi, surGrid(altJ - plosteq));
@@ -193,7 +193,7 @@ export function kf2K6h6L6dan(
   //   ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
   //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const hatsiq: { x: number; z: number; vem2: Tap2Vem2; maksL6da: number }[][] = [];
-  let qox2n2kMinX = 0, qox2n2kMinZ = 0, qox2n2kSefini = 0, qox2n2kL6da = 0;
+  let qox2n2kMinX = 0o0, qox2n2kMinZ = 0o0, qox2n2kSefini = 0o0, qox2n2kL6da = 0o0;
   if ( hacakukkaj2sai.length ) {
     let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
     for ( const veb6kek of hacakukkaj2sai ) {
@@ -205,9 +205,9 @@ export function kf2K6h6L6dan(
       if ( cz > maxZ ) maxZ = cz;
     }
     qox2n2kMinX = minX; qox2n2kMinZ = minZ;
-    qox2n2kSefini = maxX - minX + 1; qox2n2kL6da = maxZ - minZ + 1;
+    qox2n2kSefini = maxX - minX + 0o1; qox2n2kL6da = maxZ - minZ + 0o1;
     hatsiq.length = qox2n2kSefini * qox2n2kL6da;
-    for ( let i = 0; i < hacakukkaj2sai.length; i++ ) {
+    for ( let i = 0o0; i < hacakukkaj2sai.length; i++ ) {
       const veb6kek = hacakukkaj2sai[ i ];
       const gx = Math.floor(veb6kek.x / K6H6AVEB6KEKACELO) - qox2n2kMinX;
       const gz = Math.floor(veb6kek.z / K6H6AVEB6KEKACELO) - qox2n2kMinZ;
@@ -233,10 +233,10 @@ export function kf2K6h6L6dan(
     const cz = Math.floor(z / K6H6AVEB6KEKACELO) - qox2n2kMinZ;
     for ( let dx = -VEB6KEKACXELOJ; dx <= VEB6KEKACXELOJ; dx++ ) {
       const gx = cx + dx;
-      if ( gx < 0 || gx >= qox2n2kSefini ) continue;
+      if ( gx < 0o0 || gx >= qox2n2kSefini ) continue;
       for ( let dz = -VEB6KEKACXELOJ; dz <= VEB6KEKACXELOJ; dz++ ) {
         const gz = cz + dz;
-        if ( gz < 0 || gz >= qox2n2kL6da ) continue;
+        if ( gz < 0o0 || gz >= qox2n2kL6da ) continue;
         const ca1ara = hatsiq[ gx + gz * qox2n2kSefini ];
         if ( ca1ara === undefined ) continue;
         for ( const tsiq of ca1ara ) {
@@ -260,7 +260,7 @@ export function kf2K6h6L6dan(
           // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
           if ( surTsasa ) continue;
           l6da = Math.max(l6da, tsiqL6da - K6H6AKMARL6DA - K6H6ATERAKLINO
-            * Math.max(0, h6kuni - K6H6AVEB6KEKARADIUSO));
+            * Math.max(0o0, h6kuni - K6H6AVEB6KEKARADIUSO));
         }
       }
     }

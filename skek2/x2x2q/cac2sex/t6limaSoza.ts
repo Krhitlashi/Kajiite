@@ -18,7 +18,7 @@ export const kf2KozuanCac2sex = p2somani((): THREE.CanvasTexture =>
       const x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d;
       const r = 0o60 + sakxo() * 0o40;
       k2fKonturanQoxan(kuns2bana,
-        neregulaK6h6(x, y, r, 0o4 + ( ( sakxo() * 0o3 ) | 0 ), 0o15/0o100, sakxo() * Math.PI * 0o2),
+        neregulaK6h6(x, y, r, 0o4 + ( ( sakxo() * 0o3 ) | 0o0 ), 0o15/0o100, sakxo() * Math.PI * 0o2),
         hakozonu[( i + 0o1 ) % hakozonu.length], 0o6, 0o2);
     }
   }, [ 0o1, 0o1 ], { g2b2: THREE.ClampToEdgeWrapping, anisotropio: 0o4 }));

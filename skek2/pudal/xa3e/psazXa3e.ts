@@ -31,44 +31,44 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
   // ⟨ j͑ʃᴜ ſɭɹȝ ʌ ſɭᴜc̗ ɭʃɜ ʌ ꞙɭц 📃 ⟩
   const xabeVecax2l = vepaqXabenRozeton(0o53/0o40, 0o11, 0o15/0o100);
   const haxabe = new THREE.InstancedMesh(xabeVecax2l,
-    new THREE.MeshStandardMaterial({ map: kf2XabenCac2sex(), alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 1 }), vem2);
+    new THREE.MeshStandardMaterial({ map: kf2XabenCac2sex(), alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 0o1 }), vem2);
 
   const asfaVecax2l = vepaqAsfanRozeton(0o143/0o100, 0o12, 0o7/0o40);
   const hasfa = new THREE.InstancedMesh(asfaVecax2l,
-    new THREE.MeshStandardMaterial({ map: kf2AsfanFc2qnCac2sex(), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), vem2);
+    new THREE.MeshStandardMaterial({ map: kf2AsfanFc2qnCac2sex(), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 0o1 }), vem2);
 
   const psazaiVecax2l = vepaqAsfanRozeton(0o75/0o100, 0o15, 0o5/0o20, true);
   const psazaij = new THREE.InstancedMesh(psazaiVecax2l,
-    new THREE.MeshStandardMaterial({ map: kf2AsfanFc2qnCac2sex(true), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), vem2);
+    new THREE.MeshStandardMaterial({ map: kf2AsfanFc2qnCac2sex(true), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 0o1 }), vem2);
 
   const hafe1af = new THREE.InstancedMesh(vepaqHerbanTufanQoxaKefoun(),
     kf2HerbanPukekn(), vem2);
 
   const muskaTexture = kf2MuskanCac2sex();
   const hac6x = new THREE.InstancedMesh(vepaqFlokanMuskanQoxaKefoun(),
-    new THREE.MeshStandardMaterial({ map: muskaTexture, color: 0xffffff, roughness: 1 }), vem2);
+    new THREE.MeshStandardMaterial({ map: muskaTexture, color: 0xffffff, roughness: 0o1 }), vem2);
 
   const l6daPudal = { sost2cel2saiL6da: 0o74/0o10, kronaL6da: 0o73/0o10, kronaSefini: 0o16/0o10, k2fe: 0o10, mallevo: 0o10/0o10 };
-  const l6daKronoVecax2l = vepaqTavolanFc2qnKronon(l6daPudal, 2);
+  const l6daKronoVecax2l = vepaqTavolanFc2qnKronon(l6daPudal, 0o2);
   const l6daTrunkaVecax2l = new THREE.CylinderGeometry(
-    PURPURAJTRUNKAJRADIOJ.teru, PURPURAJTRUNKAJRADIOJ.psaz, l6daPudal.sost2cel2saiL6da, 7);
+    PURPURAJTRUNKAJRADIOJ.teru, PURPURAJTRUNKAJRADIOJ.psaz, l6daPudal.sost2cel2saiL6da, 0o7);
   const l6daHasost2cel2sai = new THREE.InstancedMesh(l6daTrunkaVecax2l,
     new THREE.MeshStandardMaterial({
       map: kf2AsfanTrunkanCac2sex(), bumpMap: kf2AsfanTrunkanBumpanCac2sex(),
       bumpScale: 0o6/0o10, color: 0xffffff, roughness: 0o7/0o10,
     }), vem2);
   const l6daKronoj = new THREE.InstancedMesh(l6daKronoVecax2l,
-    new THREE.MeshStandardMaterial({ map: kf2AsfanTronkoxabenCac2sex(false), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 1 }), vem2);
+    new THREE.MeshStandardMaterial({ map: kf2AsfanTronkoxabenCac2sex(false), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 0o1 }), vem2);
 
   const haf2maFrutikozaj = new THREE.InstancedMesh(vepaqFrutikosanLikenQoxaKefoun(),
     new THREE.MeshStandardMaterial({ map: kf2FrutikosanLikenanCac2sex(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
-      transparent: true, depthWrite: false, roughness: 1 }), vem2);
+      transparent: true, depthWrite: false, roughness: 0o1 }), vem2);
   const haf2maSlafj = new THREE.InstancedMesh(vepaqKrustanLikenQoxaKefoun(),
     new THREE.MeshStandardMaterial({ map: kf2FolisanLikenanCac2sex(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
-      transparent: true, depthWrite: false, roughness: 1 }), vem2);
+      transparent: true, depthWrite: false, roughness: 0o1 }), vem2);
   const haf2maBisoidaj = new THREE.InstancedMesh(vepaqByssoidanLikenQoxaKefoun(),
     new THREE.MeshStandardMaterial({ map: kf2ByssoidanLikenanCac2sex(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
-      transparent: true, depthWrite: false, roughness: 1 }), vem2);
+      transparent: true, depthWrite: false, roughness: 0o1 }), vem2);
 
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
@@ -77,17 +77,17 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
   const P = new THREE.Vector3();
   const C = new THREE.Color();
   const yawQ = new THREE.Quaternion();
-  const vertikala = new THREE.Vector3(0, 1, 0);
+  const vertikala = new THREE.Vector3(0o0, 0o1, 0o0);
   const x2x2q = new THREE.Vector3();
   const ena = new THREE.Vector3();
   const enX = new THREE.Vector3();
   const enZ = new THREE.Vector3();
   const haneq2qKp6taf = new PunktaKp6taf<[ number, number ]>(0o4);
-  let fi = 0, pu = 0, mp = 0, hi = 0, ta = 0, mi = 0, li = 0, lf = 0, lo = 0, lb = 0;
-  let vatsel2ni = 0;
+  let fi = 0o0, pu = 0o0, mp = 0o0, hi = 0o0, ta = 0o0, mi = 0o0, li = 0o0, lf = 0o0, lo = 0o0, lb = 0o0;
+  let vatsel2ni = 0o0;
 
   const neq2qYaw = ( mesh: THREE.InstancedMesh, i: number, x: number, y: number, z: number, p6zukani: number, stibix?: number ): void => {
-    E.set(0, stibix ?? sakxoCasacakai() * Math.PI * 2, 0);
+    E.set(0o0, stibix ?? sakxoCasacakai() * Math.PI * 0o2, 0o0);
     Q.setFromEuler(E);
     M.compose(P.set(x, y, z), Q, S.setScalar(p6zukani));
     mesh.setMatrixAt(i, M);
@@ -104,7 +104,7 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
   while ( fi + pu + mp + hi + ta + mi + li < vem2 && vatsel2ni++ < vatsel2niLim ) {
     const raqa = provizi();
     if ( !raqa ) continue;
-    const x = raqa[0], z = raqa[1];
+    const x = raqa[0o0], z = raqa[0o1];
     const pudal = sakxoCasacakai();
     const l6da = pudal >= 0o7/0o10 && pudal < 0o63/0o100;
     const arbLibero = l6da ? 0o146/0o100 + KRONALIBERO : 0o4/0o10;
@@ -128,8 +128,8 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
       neq2qYaw(hafe1af, hi++, x, y, z, 0o3/0o10 + sakxoCasacakai() * 0o5/0o10);
     } else if ( pudal < 0o63/0o100 ) {
       const p6zukani = 0o5/0o10 + sakxoCasacakai() * 0o11/0o10;
-      const stibix = sakxoCasacakai() * Math.PI * 2;
-      neq2qYaw(l6daHasost2cel2sai, ta, x, y + l6daPudal.sost2cel2saiL6da * p6zukani / 2, z, p6zukani, stibix);
+      const stibix = sakxoCasacakai() * Math.PI * 0o2;
+      neq2qYaw(l6daHasost2cel2sai, ta, x, y + l6daPudal.sost2cel2saiL6da * p6zukani / 0o2, z, p6zukani, stibix);
       neq2qYaw(l6daKronoj, ta, x, y, z, p6zukani, stibix);
       const tsije = 0o73/0o100 + sakxoCasacakai() * 0o5/0o100;
       C.setRGB(tsije, tsije * 0o77/0o100, tsije * 0o101/0o100);
@@ -149,11 +149,11 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
         const u = Math.tan(maxHaga);
         const hx = x2x2q.x / horiz;
         const hz = x2x2q.z / horiz;
-        x2x2q.set(hx * u, 1, hz * u);
+        x2x2q.set(hx * u, 0o1, hz * u);
       }
       x2x2q.normalize();
       Q.setFromUnitVectors(vertikala, x2x2q);
-      E.set(0, sakxoCasacakai() * Math.PI * 2, 0);
+      E.set(0o0, sakxoCasacakai() * Math.PI * 0o2, 0o0);
       yawQ.setFromEuler(E);
       Q.multiply(yawQ);
       M.compose(P.set(x, y + 0o1/0o40, z), Q,
@@ -173,11 +173,11 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
         const u = Math.tan(maxHaga);
         const hx = x2x2q.x / horiz;
         const hz = x2x2q.z / horiz;
-        x2x2q.set(hx * u, 1, hz * u);
+        x2x2q.set(hx * u, 0o1, hz * u);
       }
       x2x2q.normalize();
       Q.setFromUnitVectors(vertikala, x2x2q);
-      E.set(0, sakxoCasacakai() * Math.PI * 2, 0);
+      E.set(0o0, sakxoCasacakai() * Math.PI * 0o2, 0o0);
       yawQ.setFromEuler(E);
       Q.multiply(yawQ);
       M.compose(P.set(x, y + 0o1/0o40, z), Q, S.setScalar(p6zukani));
@@ -211,20 +211,20 @@ export function vepaqMontajnSubkreskajxojn(qena: THREE.Scene,
 
   const sudaFado = ( z: number ): number => glataTona(0o174, 0o210, z);
   const xEnvelopo = ( z: number ): number => spronaP2somani(0o340, z, sudaFado);
-  const cel2liniaFado = ( h: number ): number => 1 - glataTona(0o20, 0o34, h);
+  const cel2liniaFado = ( h: number ): number => 0o1 - glataTona(0o20, 0o34, h);
 
   const provizi = (): [ number, number ] | null => {
     let x: number, z: number;
     if ( hajaqoHacel2.length && sakxoCasacakai() < 0o3/0o4 ) {
-      const t = hajaqoHacel2[( sakxoCasacakai() * hajaqoHacel2.length ) | 0];
-      const a = sakxoCasacakai() * Math.PI * 2;
+      const t = hajaqoHacel2[( sakxoCasacakai() * hajaqoHacel2.length ) | 0o0];
+      const a = sakxoCasacakai() * Math.PI * 0o2;
       const d = ( t.r ?? kronaKa5ikLam2v(t.s) ) + 0o5/0o10 + sakxoCasacakai() * 0o4;
       x = t.x + Math.sin(a) * d;
       z = t.z + Math.cos(a) * d;
     } else {
       z = 0o174 + sakxoCasacakai() * 0o250;
       if ( sakxoCasacakai() > sudaFado(z) ) return null;
-      x = ( sakxoCasacakai() + sakxoCasacakai() - 1 ) * xEnvelopo(z);
+      x = ( sakxoCasacakai() + sakxoCasacakai() - 0o1 ) * xEnvelopo(z);
     }
     if ( Math.hypot(x, z) < 0o20 ) return null;
     if ( habs2Tu5ekomani && !habs2Tu5ekomani.includes(bs2(x, z)) ) return null;
@@ -256,13 +256,13 @@ export function vepaqLaganSubkreskajxojn(qena: THREE.Scene,
   const provizi = (): [ number, number ] | null => {
     let x: number, z: number;
     if ( lagHacel2.length && sakxoCasacakai() < 0o3/0o4 ) {
-      const t = lagHacel2[( sakxoCasacakai() * lagHacel2.length ) | 0];
-      const a = sakxoCasacakai() * Math.PI * 2;
+      const t = lagHacel2[( sakxoCasacakai() * lagHacel2.length ) | 0o0];
+      const a = sakxoCasacakai() * Math.PI * 0o2;
       const d = ( t.r ?? kronaKa5ikLam2v(t.s) ) + 0o5/0o10 + sakxoCasacakai() * 0o4;
       x = t.x + Math.sin(a) * d;
       z = t.z + Math.cos(a) * d;
     } else {
-      const tafkaq = sakxoCasacakai() * Math.PI * 2;
+      const tafkaq = sakxoCasacakai() * Math.PI * 0o2;
       const ka5ik = caboleFn(tafkaq) + sakxoCasacakai() * 0o40;
       x = cx + Math.cos(tafkaq) * ka5ik;
       z = cz + Math.sin(tafkaq) * ka5ik;

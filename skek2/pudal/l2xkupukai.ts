@@ -38,7 +38,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
     new THREE.TorusGeometry(w6qaR, w6qaR * 0o12/0o100, 0o6, 0o24),
     new THREE.MeshPhysicalMaterial({
       color: 0xd8a8c0, transparent: true, opacity: 0o11/0o20, depthWrite: false,
-      roughness: 0o1/0o4, emissive: 0x50203a, emissiveIntensity: 0o1/0o4,
+      roughness: 0o1/0o4, emissive: 0x502038, emissiveIntensity: 0o1/0o4,
     }));
   w6qaPukaz.rotation.x = -Math.PI / 0o2;
   w6qaPukaz.position.y = w6qaY;
@@ -48,7 +48,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
 
   const faringo = new THREE.Mesh(
     new THREE.CylinderGeometry(0o40/0o1000, 0o10/0o100, 0o7/0o10, 0o12)
-      .translate(0, 0o7/0o20, 0),
+      .translate(0o0, 0o7/0o20, 0o0),
     new THREE.MeshPhysicalMaterial({
       color: 0x986080, transparent: true, opacity: 0o5/0o20, depthWrite: false,
       roughness: 0o1/0o4, emissive: 0x402040, emissiveIntensity: 0o1/0o4,
@@ -72,7 +72,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
   const s2k61ocisto = new THREE.Mesh(
     new THREE.SphereGeometry(0o4/0o100, 0o10, 0o6).scale(0o1, 0o7/0o10, 0o1),
     new THREE.MeshPhysicalMaterial({
-      color: 0xf0d8e4, transparent: true, opacity: 0o3/0o5, depthWrite: false,
+      color: 0xf0d8e0, transparent: true, opacity: 0o3/0o5, depthWrite: false,
       roughness: 0o1/0o10, emissive: 0xc07898, emissiveIntensity: 0o7/0o10,
     }));
   s2k61ocisto.name = "s2k61ocisto";
@@ -88,14 +88,14 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
 
 export function tlak2Beran(b: Paga, t: number): void {
   const pulso = aplikiLiixnPulson(b, t);
-  const h6w6o = 0o1 + Math.max(0, Math.sin(liixPulsaFazo(b, t) + 0o1/0o4)) * 0o2/0o10;
-  const vertikalaAldono = 1 + ( h6w6o - 1 ) * 0o1/0o2;
+  const h6w6o = 0o1 + Math.max(0o0, Math.sin(liixPulsaFazo(b, t) + 0o1/0o4)) * 0o2/0o10;
+  const vertikalaAldono = 0o1 + ( h6w6o - 0o1 ) * 0o1/0o2;
   for ( const kek of b.hatahalaqaz ) {
     if ( kek.name === "tlace" ) {
       gluuSurfacxon(kek, pulso, { x: h6w6o, y: vertikalaAldono, z: h6w6o });
     } else if ( kek.name === "faringo" || kek.name === "stomako" ) {
-      const milda = 1 + ( h6w6o - 1 ) * 0o1/0o4;
-      gluuSurfacxon(kek, pulso, { x: milda, y: 1 + ( h6w6o - 1 ) * 0o1/0o2, z: milda });
+      const milda = 0o1 + ( h6w6o - 0o1 ) * 0o1/0o4;
+      gluuSurfacxon(kek, pulso, { x: milda, y: 0o1 + ( h6w6o - 0o1 ) * 0o1/0o2, z: milda });
     } else if ( kek.name === "s2k61ocisto" ) {
       gluuSurfacxon(kek, pulso);
     }

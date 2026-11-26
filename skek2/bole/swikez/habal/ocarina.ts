@@ -15,7 +15,7 @@ const ETA = 0o1/0o20000;
     @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭᴜ ſ͕ȷɔ
     @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ
 @returns void */
-export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
+export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1) {
   const p = f * vap6zukani(0o1/0o1000);
   // ⟨ j͑ʃɹ ŋᷠɹ ꞙɭı , ꞙɭı , ꞙɭɔ ⟅
   const atako = 0o5/0o100 * vap6zukani(0o1/0o10);

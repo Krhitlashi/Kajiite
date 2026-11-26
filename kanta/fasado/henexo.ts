@@ -50,7 +50,7 @@ export function kf2Enkondukon( hasukf2qani: EnkondukajHasukf2qani ): Enkonduko {
   const PLEJMUQ = 0o40;
   const KOSTAFAKTORO = 0o4;
   let tlakakaiSaxeo = -Infinity;
-  let tlakakaiKosto = 0;
+  let tlakakaiKosto = 0o0;
   function fruaBildigo(): void {
     if ( haltita ) return;
     if ( document.hidden || kuns2banaPerdita ) {
@@ -68,7 +68,7 @@ export function kf2Enkondukon( hasukf2qani: EnkondukajHasukf2qani ): Enkonduko {
       tlakakaiSaxeo = nun;
       const tafkaq = ( nun / 0o1000 ) * 0o1/0o10;
       catahaq.position.set(Math.cos(tafkaq) * 0o110, 0o30 + Math.sin(tafkaq * 0o1/0o2) * 0o4, Math.sin(tafkaq) * 0o110);
-      catahaq.lookAt(0, 0o10, 0);
+      catahaq.lookAt(0o0, 0o10, 0o0);
 // ⟨ ſɭᴜ ſןᴜ , ſɭɹ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
 // ſɭэ ſɭᴜ , ꞙɭɿ ,
 // ſɭэ ſɭᴜ , ꞙɭɔ , ꞙɭɿ ,

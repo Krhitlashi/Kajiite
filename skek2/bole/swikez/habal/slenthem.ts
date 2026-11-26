@@ -5,7 +5,7 @@ import { vap6zukani } from "./hakfeKx2keve.js";
 // ⟨ ſȷƽᴜ ʃɔ ʌ ꞙɭɔ ʌ ꞙɭɔ ⟅ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ETA = 0o1/0o20000;
 
-export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1) {
+export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 0o1) {
   const p = f * vap6zukani(0o1/0o200);
   const ratios = [ 0o1, 0o26/0o10, 0o255/0o40, 0o217/0o20 ];
   const gains = [ 0o1, 0o23/0o100, 0o5/0o100, 0o2/0o100 ];
@@ -30,7 +30,7 @@ export function slenthem(ctx: AudioContext, out: AudioNode, t: number, f: number
   tg.connect(g.gain);
 
   // ⟨ ſɭɔƽ ʌ ꞙɭɔ ʌ ſɭᴜ }ʃᴜȝ , ꞙɭı ʌ ꞙɭı ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ 📃 ⟩
-  for ( let i = 0; i < ratios.length; i++ ) {
+  for ( let i = 0o0; i < ratios.length; i++ ) {
     const o = ctx.createOscillator();
     o.type = "sine";
     o.frequency.value = p * ratios[i] * vap6zukani(0o3/0o1000);

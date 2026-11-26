@@ -30,8 +30,8 @@ export function vepaqHerbanTufanQoxaKefoun(tk2ni = 0o2715,
   const hakxa: THREE.BufferGeometry[] = [];
   const lha = new THREE.Color();
   const nex2ca = new THREE.Color();
-  for ( let i = 0; i < HAKXAPORTUFO; i++ ) {
-    const ang = sakxo() * Math.PI * 2;
+  for ( let i = 0o0; i < HAKXAPORTUFO; i++ ) {
+    const ang = sakxo() * Math.PI * 0o2;
     const r = 0o13/0o100 * Math.sqrt(sakxo());
     const kozunuX = Math.cos(ang) * r, kozunuZ = Math.sin(ang) * r;
     const elen = 0o5/0o10 + r * 0o55/0o100;
@@ -49,7 +49,7 @@ export function vepaqHerbanTufanQoxaKefoun(tk2ni = 0o2715,
     weh2DeKxa(klingaWeh2, nex2caKxa, sakxo);
     const kxa = kf2HerbanKxa(sahakani, sefini, s2sabo, kekaf2, tordo,
       klingaWeh2);
-    kxa.translate(kozunuX, 0, kozunuZ);
+    kxa.translate(kozunuX, 0o0, kozunuZ);
     hakxa.push(kxa);
   }
   return vakox2qSenIndekson(hakxa);
@@ -71,25 +71,25 @@ export function vepaqFe1afn(qena: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const haneq2qKp6taf = new PunktaKp6taf<[ number, number ]>(0o4);
-  let hi = 0;
-  let vatsel2ni = 0;
+  let hi = 0o0;
+  let vatsel2ni = 0o0;
 
   while ( hi < vem2 && vatsel2ni++ < 0o5660 ) {
-    const tafkaq = sakxoCasacakai() * Math.PI * 2;
+    const tafkaq = sakxoCasacakai() * Math.PI * 0o2;
     const ka5ik = 0o20 + 0o1000 * Math.sqrt(sakxoCasacakai());
     const x = Math.sin(tafkaq) * ka5ik;
     const z = Math.cos(tafkaq) * ka5ik;
     if ( Math.abs(x) > 0o600 || Math.abs(z) > 0o600 ) continue;
     if ( habs2Tu5ekomani && !habs2Tu5ekomani.includes(bs2(x, z)) ) continue;
     if ( excludeRivers(x, z) ) continue;
-    if ( excludePaths(x, z, 2) ) continue;
-    if ( excludeBuildings(x, z, 2) ) continue;
+    if ( excludePaths(x, z, 0o2) ) continue;
+    if ( excludeBuildings(x, z, 0o2) ) continue;
     if ( Math.hypot(x, z) < 0o16 ) continue;
     if ( !n2kKfekoc2kai(haneq2qKp6taf, x, z, TUFADISTO) ) continue;
 
     const p6zukani = 0o4/0o10 + sakxoCasacakai() * 0o6/0o10;
     E.set(( sakxoCasacakai() - 0o1/0o2 ) * 0o5/0o40,
-      sakxoCasacakai() * Math.PI * 2,
+      sakxoCasacakai() * Math.PI * 0o2,
       ( sakxoCasacakai() - 0o1/0o2 ) * 0o5/0o40);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,
@@ -124,22 +124,22 @@ export function vepaqFe1afnCxirkauS2xuru(qena: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const haneq2qKp6taf = new PunktaKp6taf<[ number, number ]>(0o4);
-  let hi = 0;
-  let vatsel2ni = 0;
+  let hi = 0o0;
+  let vatsel2ni = 0o0;
 
   while ( hi < vem2 && vatsel2ni++ < 0o5660 ) {
-    const tafkaq = sakxoCasacakai() * Math.PI * 2;
+    const tafkaq = sakxoCasacakai() * Math.PI * 0o2;
     const ka5ik = caboleFn(tafkaq) + sakxoCasacakai() * 0o40;
     const x = cx + Math.cos(tafkaq) * ka5ik;
     const z = cz + Math.sin(tafkaq) * ka5ik;
     if ( Math.abs(x) > 0o450 || Math.abs(z) > 0o450 ) continue;
-    if ( excludeRivers(x, z) || excludePaths(x, z, 2) || excludeBuildings(x, z, 2) ) continue;
+    if ( excludeRivers(x, z) || excludePaths(x, z, 0o2) || excludeBuildings(x, z, 0o2) ) continue;
     if ( heightFn(x, z) < tsasaVem2Fn(x, z) ) continue;
     if ( !n2kKfekoc2kai(haneq2qKp6taf, x, z, TUFADISTO) ) continue;
 
     const p6zukani = 0o4/0o10 + sakxoCasacakai() * 0o6/0o10;
     E.set(( sakxoCasacakai() - 0o1/0o2 ) * 0o5/0o40,
-      sakxoCasacakai() * Math.PI * 2,
+      sakxoCasacakai() * Math.PI * 0o2,
       ( sakxoCasacakai() - 0o1/0o2 ) * 0o5/0o40);
     Q.setFromEuler(E);
     M.compose(new THREE.Vector3(x, heightFn(x, z), z), Q,

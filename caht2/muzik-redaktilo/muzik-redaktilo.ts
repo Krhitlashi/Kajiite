@@ -9,7 +9,8 @@ import { HE, caxomani } from "../../skek2/bole/swikez/habal/tif.js";
 import type { BoleEg2b2, Qaroxema } from "../../skek2/bole/swikez/habal/hahunaq.js";
 import { kfe, hakfe, kuns2bana2d } from "../x2x2q/dom.js";
 import type { Tsalii, T2bakobesaiVop2, Registro } from "./s2kanta.js";
-import { octFrak, generiT2bakobesai, generiKantoj, parziT2bakobesai, wavDeBuffer } from "./s2kanta.js";
+import { knak2fe, generiT2bakobesai, generiKantoj, parziT2bakobesai, wavDeBuffer } from "./s2kanta.js";
+import { knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
 
 // ⟪ ſ͕ɭɜ ı],ᴜ , 📃 ⟫
 
@@ -132,8 +133,6 @@ function dur(): number { return t2bakobesai.haqal6kx2 * barLong(); }
 function snap(): number { return kapto > 0o0 ? e8() / kapto : 0o0; }
 function kvantigi(t: number): number { const s = snap(); return s > 0o0 ? Math.round(t / s) * s : t; }
 function clamp(x: number, a: number, b: number): number { return Math.max(a, Math.min(b, x)); }
-function oct(n: number): string { return "ꞙɭ" + Math.round(n).toString(0o10); }
-function alHe(sek: number): string { return oct(sek / HE); }
 
 function xDeT(t: number): number { return GUTTER + ( t - kix2.t0 ) * kix2.pxs; }
 function tDeX(x: number): number { return kix2.t0 + ( x - GUTTER ) / kix2.pxs; }
@@ -431,7 +430,7 @@ function tsaliiAlEg2b2(n: Tsalii): BoleEg2b2 {
   const e: BoleEg2b2 = { t: n.t, i: n.i, d: n.d, v: n.v };
   if ( !instrDe(n.i).perk ) e.f = n.f;
   if ( n.dur != null ) e.dur = n.dur;
-  if ( n.cresc ) e.cresc = 1;
+  if ( n.cresc ) e.cresc = 0o1;
   if ( n.toot ) e.toot = true;
   return e;
 }
@@ -645,7 +644,7 @@ function k2fTsalii(n: Tsalii, fantomo = false): void {
     k.textAlign = "start";
     k.fillStyle = etikedWeh2(ins.weh2, cento, fantomo ? 0o3/0o5 : ( tik ? 0o1 : 0o3/0o5 ));
     let s2banani = ins.emoji;
-    if ( w > 0o64 && !ins.perk ) s2banani += " " + oct(Math.round(midiDe(n.f)));
+    if ( w > 0o64 && !ins.perk ) s2banani += " " + knak2fecajasai(Math.round(midiDe(n.f)), 0o0);
     k.fillText(s2banani, x + ( n.toot ? 0o14 : 0o5 ), y + 0o1 + h / 0o2 + 0o1);
   }
 }
@@ -755,7 +754,7 @@ function k2f(): void {
       const x = xDeT(b * bar);
       if ( x < GUTTER || x > W - 0o20 ) continue;
       k.fillStyle = tekstWeh2(0o3/0o5);
-      k.fillText(oct(b + 0o1), x + 0o3, RULER - 0o6);
+      k.fillText(knak2fecajasai(b + 0o1, 0o0), x + 0o3, RULER - 0o6);
     }
   }
 
@@ -821,7 +820,7 @@ function k2f(): void {
     } else if ( ( VICOKMA - v ) % etikedTona === 0o0 ) {
       const midi = VICOKMA - v;
       k.fillStyle = midi % 0o14 === 0o0 ? rgba(0x38a088, 0o11/0o10) : tekstWeh2(0o1/0o2);
-      k.fillText(oct(midi), GUTTER - 0o5, y);
+      k.fillText(knak2fecajasai(midi, 0o0), GUTTER - 0o5, y);
     }
   }
 }
@@ -877,9 +876,9 @@ function sukf2qiTsalii(n: Tsalii, tlunakani: boolean): void {
 
 function sinkZomo(): void {
   zomoTifEl.valueAsNumber = Math.round(kix2.pxs);
-  zomTempValEl.textContent = oct(kix2.pxs);
+  zomTempValEl.textContent = knak2fecajasai(kix2.pxs, 0o0);
   zomoX2paEl.valueAsNumber = Math.round(kix2.rowH);
-  zomVicValEl.textContent = oct(kix2.rowH);
+  zomVicValEl.textContent = knak2fecajasai(kix2.rowH, 0o0);
 }
 
 roll.addEventListener("pointerdown", (e: PointerEvent) => {
@@ -1211,7 +1210,7 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
   }
   if ( ctrl && e.key.toLowerCase() === "c" ) {
     clipboard = [ ...hasukf2qita ].map(id => tsaliiPerId(id)).filter((n): n is Tsalii => !!n).map(n => ({ ...n }));
-    statuso("ſᶘᴜ j͐ʃɹ ʌ ſɟw ɭʃᴜ " + oct(clipboard.length) + " 📋");
+    statuso("ſᶘᴜ j͐ʃɹ ʌ ſɟw ɭʃᴜ " + knak2fecajasai(clipboard.length, 0o0) + " 📋");
     return;
   }
   if ( ctrl && e.key.toLowerCase() === "v" ) {
@@ -1248,14 +1247,14 @@ function tlak2Transporton(): void {
 
 function tlak2Xekuxan(el: number): void {
   const bar = barLong();
-  xekuxaEl.textContent = "ſ͕ɭᴜ j͐ʃэ ſɭᶗ‹ɹ " + oct(Math.floor(el / bar) + 0o1) + " · " + alHe(el) + " j͑ʃƨꞇʞ";
+  xekuxaEl.textContent = "ſ͕ɭᴜ j͐ʃэ ſɭᶗ‹ɹ " + knak2fecajasai(Math.floor(el / bar) + 0o1, 0o0) + " · " + knak2fecajasai(el / HE, 0o0) + " j͑ʃƨꞇʞ";
   const s = t2bakobesai.secs.find(sx => el >= sx.a && el < sx.b);
   qaroxemaCu3uEl.textContent = s ? s.n : "ſɭɜ ʃɔ ʌ ſɭᴜ ſןᴜ ｡";
 }
 
 function tlak2Havop2kekai(): void {
-  havop2kekaiEl.textContent = oct(t2bakobesai.hatsal2.length) + " ſᶘᴜ j͐ʃɹ · " + oct(t2bakobesai.instrs.length) +
-    " ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · " + oct(t2bakobesai.haqal6kx2) + " ſ͕ɭᴜ j͐ʃэ ſɭᶗ‹ɹ · " + alHe(dur()) + " j͑ʃƨꞇʞ";
+  havop2kekaiEl.textContent = knak2fecajasai(t2bakobesai.hatsal2.length, 0o0) + " ſᶘᴜ j͐ʃɹ · " + knak2fecajasai(t2bakobesai.instrs.length, 0o0) +
+    " ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · " + knak2fecajasai(t2bakobesai.haqal6kx2, 0o0) + " ſ͕ɭᴜ j͐ʃэ ſɭᶗ‹ɹ · " + knak2fecajasai(dur() / HE, 0o0) + " j͑ʃƨꞇʞ";
 }
 
 function tlak2T2bakobesaiMasukf2q(): void {
@@ -1371,7 +1370,7 @@ function tlak2QaroxemaCatsara(): void {
 
 function tlak2Sukf2qon(): void {
   const n = hasukf2qita.size;
-  sukf2qoNombroEl.textContent = oct(n) + " ſᶘᴜ j͐ʃɹ";
+  sukf2qoNombroEl.textContent = knak2fecajasai(n, 0o0) + " ſᶘᴜ j͐ʃɹ";
   sukf2qoVeloEl.disabled = n === 0o0;
   const idj = [ "sukf2qoTikn", "sukf2qoMaltikn", "sukf2qoOktTikn", "sukf2qoOktMaltikn",
     "sukf2qoKvantigi", "sukf2qoDuplikati", "sukf2qoH2li", "sukf2qoCresc", "sukf2qoToot" ];
@@ -1388,11 +1387,11 @@ function tlak2Sukf2qon(): void {
     }
     const mez = cnt ? sum / cnt : velo;
     sukf2qoVeloEl.valueAsNumber = mez;
-    sukf2qoVelValEl.textContent = octFrak(mez, 0o100);
+    sukf2qoVelValEl.textContent = knak2fe(mez, 0o100);
     sukf2qoCrescBut.setAttribute("aria-pressed", String(cresc));
     sukf2qoTootBut.setAttribute("aria-pressed", String(toot));
   } else {
-    sukf2qoVelValEl.textContent = octFrak(velo, 0o100);
+    sukf2qoVelValEl.textContent = knak2fe(velo, 0o100);
     sukf2qoCrescBut.setAttribute("aria-pressed", "false");
     sukf2qoTootBut.setAttribute("aria-pressed", "false");
   }
@@ -1428,11 +1427,11 @@ kfe("metronomo").addEventListener("click", () => {
 });
 
 volumoEl.addEventListener("input", () => {
-  volValEl.textContent = octFrak(volumoEl.valueAsNumber, 0o100);
+  volValEl.textContent = knak2fe(volumoEl.valueAsNumber, 0o100);
   if ( L.ctx && L.master ) L.master.gain.setTargetAtTime(volumoEl.valueAsNumber, L.ctx.currentTime, 0o1/0o40);
 });
 reverbEl.addEventListener("input", () => {
-  revValEl.textContent = octFrak(reverbEl.valueAsNumber, 0o100);
+  revValEl.textContent = knak2fe(reverbEl.valueAsNumber, 0o100);
   if ( L.ctx && L.revSend ) L.revSend.gain.setTargetAtTime(reverbEl.valueAsNumber, L.ctx.currentTime, 0o1/0o40);
 });
 
@@ -1460,17 +1459,17 @@ kaptoEl.addEventListener("change", () => { kapto = parseInt(kaptoEl.value, 0o12)
 defSahakaniEl.addEventListener("change", () => { defSahakani = parseInt(defSahakaniEl.value, 0o12); });
 veloEl.addEventListener("input", () => {
   velo = veloEl.valueAsNumber;
-  velValEl.textContent = octFrak(velo, 0o100);
+  velValEl.textContent = knak2fe(velo, 0o100);
 });
 zomoTifEl.addEventListener("input", () => {
   kix2.pxs = zomoTifEl.valueAsNumber;
-  zomTempValEl.textContent = oct(kix2.pxs);
+  zomTempValEl.textContent = knak2fecajasai(kix2.pxs, 0o0);
   malpurigi();
 });
 zomoX2paEl.addEventListener("input", () => {
   kix2.rowH = zomoX2paEl.valueAsNumber;
   kix2.v0 = clamp(kix2.v0, 0o0, maxV0());
-  zomVicValEl.textContent = oct(kix2.rowH);
+  zomVicValEl.textContent = knak2fecajasai(kix2.rowH, 0o0);
   malpurigi();
 });
 kfe("qox2n2kLaqazi").addEventListener("click", (e) => {
@@ -1490,7 +1489,7 @@ sukf2qoVeloEl.addEventListener("pointerdown", () => {
 });
 sukf2qoVeloEl.addEventListener("input", () => {
   const v = sukf2qoVeloEl.valueAsNumber;
-  sukf2qoVelValEl.textContent = octFrak(v, 0o100);
+  sukf2qoVelValEl.textContent = knak2fe(v, 0o100);
   if ( !hasukf2qita.size ) return;
   if ( !velTamaVaxafa ) { pushMalfaron(); velTamaVaxafa = true; }
   for ( const id of hasukf2qita ) {
@@ -1558,7 +1557,7 @@ kfe("qaroxemaAldoni").addEventListener("click", () => {
     const a = clamp(Math.floor(progreso() / bar) * bar, 0o0, Math.max(0o0, dur() - bar));
     const ksoz = t2bakobesai.secs.map(s => s.a).filter(x => x > a).sort((x, y) => x - y)[0o0];
     const b = ksoz ?? dur();
-    t2bakobesai.secs.push({ n: "ſɭɜ ʃɔ ʌ ſɭᴜ ſןᴜ " + oct(t2bakobesai.secs.length + 0o1), a, b: Math.max(a + bar, b) });
+    t2bakobesai.secs.push({ n: "ſɭɜ ʃɔ ʌ ſɭᴜ ſןᴜ " + knak2fecajasai(t2bakobesai.secs.length + 0o1, 0o0), a, b: Math.max(a + bar, b) });
     t2bakobesai.secs.sort((x, y) => x.a - y.a);
   });
 });
@@ -1776,9 +1775,9 @@ new ResizeObserver(grandigi).observe(roll);
 
 // ⟪ ſɭэ ɭʃᴜ , ꞙɭɩ , 📃 ⟫
 
-volValEl.textContent = octFrak(volumoEl.valueAsNumber, 0o100);
-revValEl.textContent = octFrak(reverbEl.valueAsNumber, 0o100);
-velValEl.textContent = octFrak(velo, 0o100);
+volValEl.textContent = knak2fe(volumoEl.valueAsNumber, 0o100);
+revValEl.textContent = knak2fe(reverbEl.valueAsNumber, 0o100);
+velValEl.textContent = knak2fe(velo, 0o100);
 roll.dataset.ilo = ilo;
 
 const parametro = new URLSearchParams(location.search).get("t2bakobesai");

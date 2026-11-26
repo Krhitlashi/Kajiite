@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { vakox2qStatistiko } from "../../skek2/x2x2q/hakox2q.js";
 import { sferoDe, vidlimaStatistiko } from "../tahaq/vidlimo.js";
-import { alHe, alOkto, HEPORSEKUNDO } from "../x2x2q/s2cax2l.js";
+import { alHe, knak2fecajasai, HEPORSEKUNDO } from "../x2x2q/s2cax2l.js";
 import type { Rultif } from "../tahaq/tlohk2nikziisai.js";
 
 const CENSAPERIODO = 0o34;
@@ -32,10 +32,10 @@ export function kf2Statistikon(k2fcakuk: THREE.WebGLRenderer, qena: THREE.Scene,
   document.body.appendChild(surmetajxo);
 
 // ⟨ j͑ʃᴜ ſɭ,w , ꞙɭɿ , 📃 ⟩
-  let glataJoqa = 0;
-  let ne3ak2Tif = 0;
-  let hajoqa = 0;
-  let joqaNombro = 0;
+  let glataJoqa = 0o0;
+  let ne3ak2Tif = 0o0;
+  let hajoqa = 0o0;
+  let joqaNombro = 0o0;
   let tlakakaiLaqazaTif = -Infinity;
   const frustumo = new THREE.Frustum();
   const qox2n2k = new THREE.Matrix4();
@@ -43,12 +43,12 @@ export function kf2Statistikon(k2fcakuk: THREE.WebGLRenderer, qena: THREE.Scene,
   const censo: { ksaka: string; obj: number; vid: number }[] = [];
 
   function censu(): void {
-    censo.length = 0;
+    censo.length = 0o0;
     catahaq.updateMatrixWorld();
     qox2n2k.multiplyMatrices(catahaq.projectionMatrix, catahaq.matrixWorldInverse);
     frustumo.setFromProjectionMatrix(qox2n2k);
     for ( const m2rap2 of qena.children ) {
-      let obj = 0, vid = 0;
+      let obj = 0o0, vid = 0o0;
       m2rap2.traverse(o => {
         let gepatraVidebla = true;
         for ( let g: THREE.Object3D | null = o; g !== null && g !== qena; g = g.parent ) {
@@ -65,9 +65,9 @@ export function kf2Statistikon(k2fcakuk: THREE.WebGLRenderer, qena: THREE.Scene,
         if ( !frustumo.intersectsSphere(SFERO) ) return;
         const instancigita = o as THREE.InstancedMesh;
         obj++;
-        vid += instancigita.isInstancedMesh ? instancigita.count : 1;
+        vid += instancigita.isInstancedMesh ? instancigita.count : 0o1;
       });
-      if ( obj > 0 ) censo.push({ ksaka: m2rap2.name || m2rap2.type, obj, vid });
+      if ( obj > 0o0 ) censo.push({ ksaka: m2rap2.name || m2rap2.type, obj, vid });
     }
     censo.sort((a, b) => b.obj - a.obj);
     censo.splice(0o10);
@@ -79,37 +79,37 @@ export function kf2Statistikon(k2fcakuk: THREE.WebGLRenderer, qena: THREE.Scene,
 // ⟨ ſɭэ ɭʃᴜ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ꞙɭı ,
 //   ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
     const nun = alHe(performance.now());
-    const tahaqSapse1i = ne3ak2Tif === 0
+    const tahaqSapse1i = ne3ak2Tif === 0o0
       ? HEPORSEKUNDO / 0o70
       : Math.max(alHe(0o1 / 0o100), nun - ne3ak2Tif);
     ne3ak2Tif = nun;
-    const kxeTahaq = 1 / tahaqSapse1i;
-    glataJoqa = glataJoqa === 0 ? kxeTahaq : glataJoqa * ( 0o76/0o100 ) + kxeTahaq * ( 0o2/0o100 );
+    const kxeTahaq = 0o1 / tahaqSapse1i;
+    glataJoqa = glataJoqa === 0o0 ? kxeTahaq : glataJoqa * ( 0o76/0o100 ) + kxeTahaq * ( 0o2/0o100 );
     hajoqa++;
     joqaNombro++;
-    if ( joqaNombro >= CENSAPERIODO ) { joqaNombro = 0; censu(); }
+    if ( joqaNombro >= CENSAPERIODO ) { joqaNombro = 0o0; censu(); }
     if ( nun - tlakakaiLaqazaTif < LAQAZAPERIODO ) return;
     tlakakaiLaqazaTif = nun;
     const informo = k2fcakuk.info;
     const plosteq = vidlimaStatistiko();
     const kox2qo = vakox2qStatistiko();
     const hax2pa = [
-      alOkto(glataJoqa) + " ſɭꞇ ｡ He ｡ " + alOkto(1 / Math.max(0o10 ** -0o4, glataJoqa), 0o3)
-        + " He ｡ ſɭꞇ ｡ " + alOkto(hajoqa, 0),
-      "j͑ʃ'ɔ ſɭᴜ ſ͕ȷɔ ｡ " + alOkto(informo.render.calls, 0) + " ｡ ꞁȷ̀ɹ ꞁȷ̀ᴜȝ ｡ " + alOkto(informo.render.triangles, 0)
-        + " ｡ j͑ʃᴜ j͑ʃᴜ ｡ " + alOkto(informo.programs === null ? 0 : informo.programs.length, 0),
-      "ſɟᴜ ı],ɜ ｡ " + alOkto(informo.memory.geometries, 0) + " ｡ j͐ʃƽɜ ｡ " + alOkto(informo.memory.textures, 0),
+      knak2fecajasai(glataJoqa) + " ſɭꞇ ｡ He ｡ " + knak2fecajasai(0o1 / Math.max(0o10 ** -0o4, glataJoqa), 0o3)
+        + " He ｡ ſɭꞇ ｡ " + knak2fecajasai(hajoqa, 0o0),
+      "j͑ʃ'ɔ ſɭᴜ ſ͕ȷɔ ｡ " + knak2fecajasai(informo.render.calls, 0o0) + " ｡ ꞁȷ̀ɹ ꞁȷ̀ᴜȝ ｡ " + knak2fecajasai(informo.render.triangles, 0o0)
+        + " ｡ j͑ʃᴜ j͑ʃᴜ ｡ " + knak2fecajasai(informo.programs === null ? 0o0 : informo.programs.length, 0o0),
+      "ſɟᴜ ı],ɜ ｡ " + knak2fecajasai(informo.memory.geometries, 0o0) + " ｡ j͐ʃƽɜ ｡ " + knak2fecajasai(informo.memory.textures, 0o0),
       rultif
-        ? "ſɭꞇ ꞁȷ̀ɜ ｡ " + alOkto(1 / rultif.celaTahaqSapse1i) + "/He ｡ ı],ᴜ ｡ " + alOkto(rultif.celaTahaqSapse1i, 0o3)
-          + " He ｡ j͑ʃᴜ ｡ " + alOkto(rultif.p6zukani) + " ｡ ſɭɜ ｡ " + alOkto(rultif.preterpasitaj, 0)
-          + " ｡ ſɭᴜ ｡ " + alOkto(rultif.mezaTahaqSapse1i, 0o3) + " He"
+        ? "ſɭꞇ ꞁȷ̀ɜ ｡ " + knak2fecajasai(0o1 / rultif.celaTahaqSapse1i) + "/He ｡ ı],ᴜ ｡ " + knak2fecajasai(rultif.celaTahaqSapse1i, 0o3)
+          + " He ｡ j͑ʃᴜ ｡ " + knak2fecajasai(rultif.p6zukani) + " ｡ ſɭɜ ｡ " + knak2fecajasai(rultif.preterpasitaj, 0o0)
+          + " ｡ ſɭᴜ ｡ " + knak2fecajasai(rultif.mezaTahaqSapse1i, 0o3) + " He"
         : "ſɭꞇ ꞁȷ̀ɜ ｡ ſɭᴜ ｡",
-      "ſןw ſɭᴜƴ ｡ " + alOkto(plosteq.hakix2, 0) + "/" + alOkto(plosteq.hakek, 0) + " ｡ ſןw ᶅſɹ ɭ(ɹ ｡",
-      "ſɭɹʞ ｡ " + alOkto(kox2qo.ne3ak2, 0) + " ｡ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡ → " + alOkto(kox2qo.kvoz, 0),
+      "ſןw ſɭᴜƴ ｡ " + knak2fecajasai(plosteq.hakix2, 0o0) + "/" + knak2fecajasai(plosteq.hakek, 0o0) + " ｡ ſןw ᶅſɹ ɭ(ɹ ｡",
+      "ſɭɹʞ ｡ " + knak2fecajasai(kox2qo.ne3ak2, 0o0) + " ｡ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ｡ → " + knak2fecajasai(kox2qo.kvoz, 0o0),
       "<( j͑ʃƽɔ ſɭɹ ｡ ſןw ᶅſɹ ɭ(ɹ ｡ ꞁȷ̀ɹ ꞁȷ̀ᴜȝ ｡ )>",
     ];
-    for ( const c of censo ) hax2pa.push("  " + c.ksaka.padEnd(0o20).slice(0, 0o20)
-      + alOkto(c.obj, 0).padStart(0o6) + " · " + alOkto(c.vid, 0));
+    for ( const c of censo ) hax2pa.push("  " + c.ksaka.padEnd(0o20).slice(0o0, 0o20)
+      + knak2fecajasai(c.obj, 0o0).padStart(0o6) + " · " + knak2fecajasai(c.vid, 0o0));
     surmetajxo.textContent = hax2pa.join("\n");
   }
 
@@ -122,7 +122,7 @@ export function kf2Statistikon(k2fcakuk: THREE.WebGLRenderer, qena: THREE.Scene,
     ŝalti: ( ŝaltita: boolean ) => {
       vop2kekai.ŝaltita = ŝaltita;
       surmetajxo.style.display = ŝaltita ? "block" : "none";
-      hajoqa = 0; glataJoqa = 0; tlakakaiLaqazaTif = -Infinity;
+      hajoqa = 0o0; glataJoqa = 0o0; tlakakaiLaqazaTif = -Infinity;
     },
     gxisdatigu,
   };

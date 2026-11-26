@@ -13,7 +13,7 @@ const FNVPLIIGO = 0x01000193;
 @returns tk2ni ( number ) - ꞙɭцɿ ʌ ſɭᴜ , ꞙɭɔ ʌ j͑ʃᴜ ſɭᴜ */
 export function ruvaDeS2bana( s2banani: string ): number {
   let h = FNVSAXEO;
-  for ( let i = 0; i < s2banani.length; i++ ) {
+  for ( let i = 0o0; i < s2banani.length; i++ ) {
     h ^= s2banani.charCodeAt(i);
     h = Math.imul(h, FNVPLIIGO);
   }
@@ -21,14 +21,14 @@ export function ruvaDeS2bana( s2banani: string ): number {
   h ^= h >>> 0o15;
   h = Math.imul(h, 0x2545F491);
   h ^= h >>> 0o13;
-  return h >>> 0;
+  return h >>> 0o0;
 }
 
 /*ɽ͑ʃ'w j͑ʃ'ᴜ ʌ ꞙɭ8 ʌ ſɭᴜ
     @param tk2ni ( number ) - ɽ͑ʃ'w j͑ʃ'ᴜ ʌ ſɭᴜ
 @returns s2banani ( string ) */
 export function ruvaEnBazo8( tk2ni: number ): string {
-  return ( tk2ni >>> 0 ).toString(8);
+  return ( tk2ni >>> 0o0 ).toString(0o10);
 }
 
 /*ſɭɜ ʃɔ ſɭᴜ ɽ͑ʃ'w j͑ʃ'ᴜ ɭl̀ᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ ſᶘɔ ʌ ſ͕ɭᴜ ɽ͑ʃ'э ı],ɔ
@@ -36,15 +36,15 @@ export function ruvaEnBazo8( tk2ni: number ): string {
     @param qar6xe ( number ) - ſ͕ɭᴜ ɽ͑ʃ'э ı],ɔ ʌ ſɭᴜ , ſɭᴜ ı],ᴜ ſȷᴜ ı],ɹ ſ̀ȷw
 @returns tk2ni ( number ) - ɽ͑ʃ'w j͑ʃ'ᴜ ſᶘɔ , ꞙɭцɿ ʌ ſɭᴜ */
 export function subRuva( tk2ni: number, qar6xe: number ): number {
-  let h = ( tk2ni + Math.imul(qar6xe + 0o1, 0x9E3779B1) ) | 0;
+  let h = ( tk2ni + Math.imul(qar6xe + 0o1, 0x9E3779B1) ) | 0o0;
   h ^= h >>> 0o16;
   h = Math.imul(h, 0x85EBCA77);
   h ^= h >>> 0o13;
-  return h >>> 0;
+  return h >>> 0o0;
 }
 
 /*ſɭɜ ʃɔ ſɭᴜ ɽ͑ʃ'w j͑ʃ'ᴜ j͑ʃᴜ ſɭᶗ‹ɜ }ʃᴜ j͐ʃᴜ ʌ ꞙɭı
 @returns tk2ni ( number ) - ꞙɭцɿ ʌ ſɭᴜ */
 export function hazardaRuva(): number {
-  return ( Math.random() * 0o40000000000 ) >>> 0;
+  return ( Math.random() * 0o40000000000 ) >>> 0o0;
 }

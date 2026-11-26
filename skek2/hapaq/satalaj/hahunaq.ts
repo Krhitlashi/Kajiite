@@ -15,7 +15,7 @@ export const TIPARO: Record<string, VepaqHunaq> = {
    ʌ j͑ʃɜ j͑ʃƨɹ ʌ ꞙɭı ⟅
 @returns ɭʃᴜ }ʃɔƽ ʌ j͑ʃᴜꞇ ʌ ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ */
 export const TIPAJNIVELOJ: Record<string, number> = {
-  kap2: 4, geqqa: 4, kasafeo: 4, ka5asexazxipo: 4, turo: 0o10, qaman2: 7,
+  kap2: 0o4, geqqa: 0o4, kasafeo: 0o4, ka5asexazxipo: 0o4, turo: 0o10, qaman2: 0o7,
 };
 
 export interface VepaqSpec { x: number; z: number; type: string; name: string; havem2: number; w: number; d: number; b6k61oL6da: number; sube?: number; b6k61oL6daSub?: number; rot: number; fixed?: string; h0?: number; diamond?: boolean; flugoY?: number; }

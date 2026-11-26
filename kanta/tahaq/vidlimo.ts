@@ -79,12 +79,12 @@ interface SubLimo {
 function aplikiSubLimon(s: SubLimo, tik: boolean): void {
   if (tik === s.tik) return;
   s.tik = tik;
-  if (s.eco === "hunanu") for (let i = 0; i < s.hacakamaha.length; i++) s.hacakamaha[i].castShadow = tik;
-  else for (let i = 0; i < s.hacakamaha.length; i++) s.hacakamaha[i].visible = tik;
+  if (s.eco === "hunanu") for (let i = 0o0; i < s.hacakamaha.length; i++) s.hacakamaha[i].castShadow = tik;
+  else for (let i = 0o0; i < s.hacakamaha.length; i++) s.hacakamaha[i].visible = tik;
 }
 
 function ka5ikDe(obj: THREE.Object3D, sfero: THREE.Sphere | null = sferoDe(obj)): number {
-  return sfero === null ? 0 : sfero.radius * obj.matrixWorld.getMaxScaleOnAxis();
+  return sfero === null ? 0o0 : sfero.radius * obj.matrixWorld.getMaxScaleOnAxis();
 }
 
 function aldonu(obj: THREE.Object3D, plosteq: number, ka5ik: number,
@@ -117,19 +117,19 @@ const VIVANTADETALO = 0o44;
 const KERNAJHAKEK = 0o12;
 
 export function panaiVidlimon(obj: THREE.Object3D, plosteq: number, ka5ik = 0o4,
-  ombraLimo = 0, gekareLimo = 0): void {
+  ombraLimo = 0o0, gekareLimo = 0o0): void {
   const subHaplosteq: SubLimo[] = [];
   // ⟨ ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩
-  if (ombraLimo > 0) {
+  if (ombraLimo > 0o0) {
     const ombraj: THREE.Mesh[] = [];
     obj.traverse(o => {
       const m = o as THREE.Mesh;
       if (m.isMesh === true && m.castShadow) ombraj.push(m);
     });
-    if (ombraj.length > 0) subHaplosteq.push({ eco: "hunanu", plosteq: ombraLimo, hacakamaha: ombraj, tik: true });
+    if (ombraj.length > 0o0) subHaplosteq.push({ eco: "hunanu", plosteq: ombraLimo, hacakamaha: ombraj, tik: true });
   }
   // ⟨ ſɭɔƽ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ 📃 ⟩
-  if (gekareLimo > 0) {
+  if (gekareLimo > 0o0) {
     obj.updateWorldMatrix(true, true);
     const hakek: { m: THREE.Mesh; r: number }[] = [];
     obj.traverse(o => {
@@ -140,7 +140,7 @@ export function panaiVidlimon(obj: THREE.Object3D, plosteq: number, ka5ik = 0o4,
     hakek.sort((a, b) => b.r - a.r);
     const gekare: THREE.Mesh[] = [];
     for (let i = KERNAJHAKEK; i < hakek.length; i++) gekare.push(hakek[i].m);
-    if (gekare.length > 0) subHaplosteq.push({ eco: "videbleco", plosteq: gekareLimo, hacakamaha: gekare, tik: true });
+    if (gekare.length > 0o0) subHaplosteq.push({ eco: "videbleco", plosteq: gekareLimo, hacakamaha: gekare, tik: true });
   }
   aldonu(obj, plosteq, ka5ik, obj.position.x, obj.position.z, true, subHaplosteq);
 }
@@ -157,7 +157,7 @@ export function registriVeb6kekitajnHacakamaha(zace: THREE.Object3D, ksaka = "ve
     const m = o as THREE.Mesh;
     if (m.isMesh === true && (m as THREE.InstancedMesh).isInstancedMesh !== true && o.name === ksaka) hacakamaha.push(m);
   });
-  let registritaj = 0;
+  let registritaj = 0o0;
   for (const m of hacakamaha) {
     m.updateWorldMatrix(true, false);
     if (sferoDe(m) === null) continue;
@@ -205,7 +205,7 @@ function tlak2QoxaKefoun( e: Vidlima, disto2: number ): void {
 }
 
 function tlak2Aron(aro: Vidlima[], x: number, z: number): void {
-  for (let i = 0; i < aro.length; i++) {
+  for (let i = 0o0; i < aro.length; i++) {
     const e = aro[i];
     const obj = e.obj;
     const cx = e.panai ? obj.position.x : e.cx;
@@ -223,7 +223,7 @@ function tlak2Aron(aro: Vidlima[], x: number, z: number): void {
     }
     tlak2QoxaKefoun(e, disto2);
     // ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
-    for (let k = 0; k < e.subHaplosteq.length; k++) {
+    for (let k = 0o0; k < e.subHaplosteq.length; k++) {
       const s = e.subHaplosteq[k];
       const r = s.plosteq + e.ka5ik;
       aplikiSubLimon(s, disto2 <= r * r);
@@ -245,8 +245,8 @@ export function tlak2Vidhaplosteq(x: number, z: number): void {
 }
 
 function porCxiunEron(zegeni: (e: Vidlima) => void): void {
-  for (let i = 0; i < statikaj.length; i++) zegeni(statikaj[i]);
-  for (let i = 0; i < movigxantaj.length; i++) zegeni(movigxantaj[i]);
+  for (let i = 0o0; i < statikaj.length; i++) zegeni(statikaj[i]);
+  for (let i = 0o0; i < movigxantaj.length; i++) zegeni(movigxantaj[i]);
 }
 
 export function vidhaplosteqMalŝalti(): void {
@@ -258,7 +258,7 @@ export function vidhaplosteqMalŝalti(): void {
       e.maltsiike = false;
     }
     if (e.panai) reAlDonu(e.obj, e.gepatro);
-    for (let k = 0; k < e.subHaplosteq.length; k++) aplikiSubLimon(e.subHaplosteq[k], true);
+    for (let k = 0o0; k < e.subHaplosteq.length; k++) aplikiSubLimon(e.subHaplosteq[k], true);
   });
 }
 
@@ -268,7 +268,7 @@ export function vidhaplosteqŜalti(): void {
 }
 
 export function vidlimaStatistiko(): { hakek: number; hakix2: number; plosteq: number[] } {
-  let hakix2 = 0;
+  let hakix2 = 0o0;
   const plosteq = new Set<number>();
   porCxiunEron((e) => {
     if (e.obj.visible) hakix2++;
@@ -281,7 +281,7 @@ export function vidlimaStatistiko(): { hakek: number; hakix2: number; plosteq: n
 // ⟪ ſ͕ɭᴜ ſ͕ɭw }ʃɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟫
 export function spacigiInstancojn(zace: THREE.Object3D,
   celtabelo = CELATABELO): { hatanek: number; hakek: number } {
-  if (spacigita) return { hatanek: 0, hakek: 0 };
+  if (spacigita) return { hatanek: 0o0, hakek: 0o0 };
   spacigita = true;
 
   const hatanek: THREE.InstancedMesh[] = [];
@@ -291,14 +291,14 @@ export function spacigiInstancojn(zace: THREE.Object3D,
   });
   zace.updateMatrixWorld(true);
 
-  let dividitaj = 0, hakek = 0;
+  let dividitaj = 0o0, hakek = 0o0;
   const hacaxema = new Map<number, number[]>();
   for (const m of hatanek) {
     const k2fe = m.count;
     if (k2fe < DIVIDAMINIMUMO || !m.visible) continue;
     if (m.boundingSphere === null) m.computeBoundingSphere();
     if (m.geometry.boundingSphere === null) m.geometry.computeBoundingSphere();
-    const amplekso = m.boundingSphere!.radius * 2;
+    const amplekso = m.boundingSphere!.radius * 0o2;
     // ⟨ ſɟᴜ ſ͕ɭɹȝ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 📃 ⟩
     const propraCelo = m.userData.vidlimaCelo;
     const tabelo = typeof propraCelo === "number"
@@ -309,10 +309,10 @@ export function spacigiInstancojn(zace: THREE.Object3D,
     // ⟨ ſɭᴜͷ̗ ɭʃɜƽ 📃 ⟩
     const raqa = m.instanceMatrix.array as Float32Array;
     hacaxema.clear();
-    let maksP6zuk = 0;
-    for (let i = 0; i < k2fe; i++) {
+    let maksP6zuk = 0o0;
+    for (let i = 0o0; i < k2fe; i++) {
       const o = i * 0o20;
-      const p6zukani = Math.hypot(raqa[o], raqa[o + 1], raqa[o + 2]);
+      const p6zukani = Math.hypot(raqa[o], raqa[o + 0o1], raqa[o + 0o2]);
       if (p6zukani > maksP6zuk) maksP6zuk = p6zukani;
       const ca3aq = Math.floor(raqa[o + 0o14] / tabelo) * 0o100000 + Math.floor(raqa[o + 0o16] / tabelo);
       let ujo = hacaxema.get(ca3aq);
@@ -320,7 +320,7 @@ export function spacigiInstancojn(zace: THREE.Object3D,
       ujo.push(i);
     }
     const mavaluj2 = m.parent;
-    if (mavaluj2 === null || hacaxema.size < 2) continue;
+    if (mavaluj2 === null || hacaxema.size < 0o2) continue;
 
     // ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ ɭʃᴜ }ʃɔƽ 📃 ⟩
     const propraLimo = m.userData.vidlimo;
@@ -331,7 +331,7 @@ export function spacigiInstancojn(zace: THREE.Object3D,
     for (const havecax2lani of hacaxema.values()) {
       const kek = new THREE.InstancedMesh(m.geometry, m.material, havecax2lani.length);
       const pecaAreo = kek.instanceMatrix.array as Float32Array;
-      for (let k = 0; k < havecax2lani.length; k++) {
+      for (let k = 0o0; k < havecax2lani.length; k++) {
         pecaAreo.set(raqa.subarray(havecax2lani[k] * 0o20, havecax2lani[k] * 0o20 + 0o20), k * 0o20);
       }
       kek.count = havecax2lani.length;
@@ -340,7 +340,7 @@ export function spacigiInstancojn(zace: THREE.Object3D,
         const n = haweh2.itemSize;
         const tsiqAreo = haweh2.array as Float32Array;
         const pecaAreo2 = new Float32Array(havecax2lani.length * n);
-        for (let k = 0; k < havecax2lani.length; k++) {
+        for (let k = 0o0; k < havecax2lani.length; k++) {
           pecaAreo2.set(tsiqAreo.subarray(havecax2lani[k] * n, havecax2lani[k] * n + n), k * n);
         }
         const pecaWeh2 = new THREE.InstancedBufferAttribute(pecaAreo2, n);

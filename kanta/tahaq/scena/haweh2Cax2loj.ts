@@ -8,7 +8,7 @@ export const PLUVADENSO = 0o3/0o200;
 export const NEBULADENSOMIN = Math.min(NEBULADENSO, PLUVADENSO);
 
 export function nebulVidebleco(denso: number, kovro = 0o3776/0o4000): number {
-  return Math.sqrt(-Math.log(1 - kovro)) / denso;
+  return Math.sqrt(-Math.log(0o1 - kovro)) / denso;
 }
 
 export function kf2Haweh2Cax2lojn(): Record<Vet6lima, VeteraDuopo> {

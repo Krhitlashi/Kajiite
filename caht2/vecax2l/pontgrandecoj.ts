@@ -20,7 +20,7 @@ const Teru = ( sahakani: number ) => ( t: number ): number =>
   DEKO + Math.min(DEKOARKECO, sahakani * 0o1/0o10) * Math.sin(Math.PI * t);
 
 const KMARAJ: number[] = [];
-for ( let i = 0; i <= 0o200; i++ ) KMARAJ.push(i / 0o200);
+for ( let i = 0o0; i <= 0o200; i++ ) KMARAJ.push(i / 0o200);
 
 // ⟪ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , 📏 ⟫
 /* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭı ,
@@ -39,7 +39,7 @@ function kofJe( teru: ( t: number ) => number, psaz: ( t: number ) => number,
   return teru(t) - psaz(t);
 }
 
-let difektoj = 0;
+let difektoj = 0o0;
 for ( const sahakani of NASA ) {
   const teru = Teru(sahakani);
   const psaz = kf2PontanSubon(sahakani, teru, () => FUNDO);
@@ -54,33 +54,33 @@ for ( const sahakani of NASA ) {
   }
 
 // ⟨ ſɭɜ ſɭ,w , ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
-  const tlakakKof = kofJe(teru, psaz, 0);
-  const tlakakKofB = kofJe(teru, psaz, 1);
-  if ( Math.abs(tlakakKof - ( teru(0) - FUNDO )) > 0o10 ** -0o7 ) hajeqani.push("ſ̀ȷᴜ ſɭᴜƽ ｡ ſןᴜ j͐ʃэ ŋᷠɹ");
-  if ( Math.abs(tlakakKofB - ( teru(1) - FUNDO )) > 0o10 ** -0o7 ) hajeqani.push("ſ̀ȷᴜ ſɭᴜƽ ( ſ̀ȷᴜ ſɭᴜƽ ) ｡ ſןᴜ j͐ʃэ ŋᷠɹ");
+  const tlakakKof = kofJe(teru, psaz, 0o0);
+  const tlakakKofB = kofJe(teru, psaz, 0o1);
+  if ( Math.abs(tlakakKof - ( teru(0o0) - FUNDO )) > 0o10 ** -0o7 ) hajeqani.push("ſ̀ȷᴜ ſɭᴜƽ ｡ ſןᴜ j͐ʃэ ŋᷠɹ");
+  if ( Math.abs(tlakakKofB - ( teru(0o1) - FUNDO )) > 0o10 ** -0o7 ) hajeqani.push("ſ̀ȷᴜ ſɭᴜƽ ( ſ̀ȷᴜ ſɭᴜƽ ) ｡ ſןᴜ j͐ʃэ ŋᷠɹ");
   for ( const t of KMARAJ )
-    if ( Math.abs(psaz(t) - psaz(1 - t)) > 0o10 ** -0o7 ) { hajeqani.push("ſɭᴜc̗ ɭʃɜ ɔı ｡ j͐ʃэ ɭ(ᴜ ʌ ſןɔ ʌ ſɭɹ ſȷɔ"); break; }
+    if ( Math.abs(psaz(t) - psaz(0o1 - t)) > 0o10 ** -0o7 ) { hajeqani.push("ſɭᴜc̗ ɭʃɜ ɔı ｡ j͐ʃэ ɭ(ᴜ ʌ ſןɔ ʌ ſɭɹ ſȷɔ"); break; }
 
 // ⟨ ſȷƽᴜ ʃɔ , j͑ʃɜ j͑ʃƨɹ , 📃 ⟩
   const tolero = 0.02;
-  const ca1ara = pontaFinaOrdo(sahakani, teru(0) - FUNDO);
-  let arkaStarto = 0, arkatlakak = 1;
+  const ca1ara = pontaFinaOrdo(sahakani, teru(0o0) - FUNDO);
+  let arkaStarto = 0o0, arkatlakak = 0o1;
   for ( const t of KMARAJ ) {
     if ( Math.abs(kofJe(teru, psaz, t) - bando) > tolero ) continue;
     arkaStarto = t;
     break;
   }
-  for ( let i = KMARAJ.length - 1; i >= 0; i-- ) {
+  for ( let i = KMARAJ.length - 0o1; i >= 0o0; i-- ) {
     const t = KMARAJ[i];
     if ( Math.abs(kofJe(teru, psaz, t) - bando) <= tolero ) { arkatlakak = t; break; }
   }
   if ( arkaStarto > ca1ara + tolero ) hajeqani.push("ſ̀ȷᴜ ſɭᴜƽ ｡ ſןᴜ j͐ʃэ ɭl̀ᴜ");
-  if ( Math.abs(arkaStarto - ( 1 - arkatlakak )) > tolero ) hajeqani.push("ſןɔ ʌ j͑ʃɜ j͑ʃƨɹ");
+  if ( Math.abs(arkaStarto - ( 0o1 - arkatlakak )) > tolero ) hajeqani.push("ſןɔ ʌ j͑ʃɜ j͑ʃƨɹ");
   if ( kofJe(teru, psaz, 0o1/0o2 ) < bando - 0o10 ** -0o7 ) hajeqani.push("j͑ʃɜ j͑ʃƨɹ ｡ ſןᴜ j͐ʃэ ŋᷠɹ");
 
 // ⟨ ſɭɜ ſɭ,w , ſȷƽᴜ ʃɔ , 📃 ⟩
-  let ne3ak2 = psaz(0);
-  for ( let i = 1; i <= 0o100; i++ ) {
+  let ne3ak2 = psaz(0o0);
+  for ( let i = 0o1; i <= 0o100; i++ ) {
     const d = psaz(i / 0o200);
     if ( d < ne3ak2 - 0o10 ** -0o7 ) { hajeqani.push("ɭl̀ᴜȝ ſןᴜ ɭʃɔ ｡ j͐ʃᴜɔ˞ ʃэ"); break; }
     ne3ak2 = d;
@@ -88,11 +88,11 @@ for ( const sahakani of NASA ) {
 
 // ⟨ ſ͕ɭɜ ı],ᴜ , ſɭɜ ſɭᴜ , ꞙɭц , 📃 ⟩
   const qena = new THREE.Scene();
-  vepaqC2kanu(qena, 0, 0, sahakani, 0, SEFINI,
+  vepaqC2kanu(qena, 0o0, 0o0, sahakani, 0o0, SEFINI,
     new THREE.MeshStandardMaterial(), teru, () => FUNDO);
-  const hate2 = qena.children[0] as THREE.Group | undefined;
+  const hate2 = qena.children[0o0] as THREE.Group | undefined;
   let bbox: THREE.Box3 | null = null;
-  let hakek = 0;
+  let hakek = 0o0;
   if ( !hate2 ) hajeqani.push("ſןɔ ʌ ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ");
   else {
     hate2.updateMatrixWorld(true);
@@ -102,7 +102,7 @@ for ( const sahakani of NASA ) {
     let n2kValidaj = true;
     for ( const c of hate2.children ) {
       const raqa = ( c as THREE.Mesh ).geometry.getAttribute("position").array;
-      for ( let i = 0; i < raqa.length; i++ )
+      for ( let i = 0o0; i < raqa.length; i++ )
         if ( !s2l2me(raqa[i]) ) { n2kValidaj = false; break; }
     }
     if ( !n2kValidaj ) hajeqani.push("}ʃɹƽ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ");
@@ -116,12 +116,12 @@ for ( const sahakani of NASA ) {
   }
 
   if ( hajeqani.length ) difektoj++;
-  console.log(`ſɭэ }ʃᴜ ${sahakani.toFixed(1)}` +
-    ` ｡ ſɭɜʞ ʌ ſ̀ȷᴜ ſɭᴜƽ ${tlakakKof.toFixed(2)}` +
-    ` ｡ ſɭɜʞ ʌ j͑ʃɜ j͑ʃƨɹ ${bando.toFixed(2)}` +
-    ` ｡ ſȷƽᴜ ʃɔ ${( ( arkatlakak - arkaStarto ) * 100 ).toFixed(0)}%` +
-    ` ｡ ſ̀ȷᴜ ſɭᴜƽ ${( ca1ara * 100 ).toFixed(0)}%` +
-    ( bbox ? ` y ${bbox.min.y.toFixed(2)}..${bbox.max.y.toFixed(2)}` : "" ) +
+  console.log(`ſɭэ }ʃᴜ ${sahakani.toFixed(0o1)}` +
+    ` ｡ ſɭɜʞ ʌ ſ̀ȷᴜ ſɭᴜƽ ${tlakakKof.toFixed(0o2)}` +
+    ` ｡ ſɭɜʞ ʌ j͑ʃɜ j͑ʃƨɹ ${bando.toFixed(0o2)}` +
+    ` ｡ ſȷƽᴜ ʃɔ ${( ( arkatlakak - arkaStarto ) * 0o144 ).toFixed(0o0)}%` +
+    ` ｡ ſ̀ȷᴜ ſɭᴜƽ ${( ca1ara * 0o144 ).toFixed(0o0)}%` +
+    ( bbox ? ` y ${bbox.min.y.toFixed(0o2)}..${bbox.max.y.toFixed(0o2)}` : "" ) +
     ` ｡ ſɭᴜc̗ ɭʃɜ ${hakek}` +
     ( hajeqani.length ? `  ⚠ ${hajeqani.join(" , ")}` : "" ));
 }

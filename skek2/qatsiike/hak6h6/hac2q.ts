@@ -30,7 +30,7 @@ export const DUONAC2Q = Math.PI;
 export function hakekaf2n2k( ka5ik: number, saxeni: number, gamo: number,
   havepat6ni: number = RONDAHATONA ): N2k[] {
   const rez: N2k[] = [];
-  for ( let i = 0; i <= havepat6ni; i++ ) {
+  for ( let i = 0o0; i <= havepat6ni; i++ ) {
     const tafkaq = saxeni + gamo * i / havepat6ni;
     rez.push([ ka5ik * Math.cos(tafkaq), -ka5ik * Math.sin(tafkaq) ]);
   }
@@ -53,15 +53,15 @@ export function kf2SektoranQoxan( p6sca: number, c2h2: number,
   const qoxa = new THREE.Shape();
   const p2somaniGamo = gamo / 0o2;
   const hap6sca = hakekaf2n2k(p6sca, sost2 - p2somaniGamo, gamo);
-  qoxa.moveTo(hap6sca[ 0 ][ 0 ], hap6sca[ 0 ][ 1 ]);
-  for ( let i = 1; i < hap6sca.length; i++ )
-    qoxa.lineTo(hap6sca[ i ][ 0 ], hap6sca[ i ][ 1 ]);
+  qoxa.moveTo(hap6sca[ 0o0 ][ 0o0 ], hap6sca[ 0o0 ][ 0o1 ]);
+  for ( let i = 0o1; i < hap6sca.length; i++ )
+    qoxa.lineTo(hap6sca[ i ][ 0o0 ], hap6sca[ i ][ 0o1 ]);
   if ( c2h2 > 0o0 ) {
     // ⟨ ꞙɭı , ſȷƽᴜ ʃɔ 📃 ⟩
     const hac2h2 = hakekaf2n2k(c2h2, sost2 + p2somaniGamo, -gamo);
-    for ( const p of hac2h2 ) qoxa.lineTo(p[ 0 ], p[ 1 ]);
+    for ( const p of hac2h2 ) qoxa.lineTo(p[ 0o0 ], p[ 0o1 ]);
   } else {
-    qoxa.lineTo(0, 0);
+    qoxa.lineTo(0o0, 0o0);
   }
   qoxa.closePath();
   return qoxa;
@@ -119,7 +119,7 @@ export function tlunakC2qjnKek( habakaweKatoma: Kas2kantaGeometriajHabakaweKatom
     for ( const ka5ik of [ kek.p2somani, kek.p6sca ] ) {
       for ( const p of hakekaf2n2k(ka5ik, kek.sost2 - kek.gamo / 0o2,
         kek.gamo, 0o20) ) {
-        minimumo = Math.min(minimumo, t6limaFn(kek.x + p[ 0 ], kek.z - p[ 1 ]));
+        minimumo = Math.min(minimumo, t6limaFn(kek.x + p[ 0o0 ], kek.z - p[ 0o1 ]));
       }
     }
     // ⟨ ꞙɭı , j͑ʃᴜ ſɭ,w , 📏 ⟩ , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ſ͕ȷɔ , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩

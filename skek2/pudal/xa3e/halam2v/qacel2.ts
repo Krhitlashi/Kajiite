@@ -29,7 +29,7 @@ export function vepaqQacel2n(qena: THREE.Scene,
   const sost2cel2saiVecax2l = kf2TrunkanQoxaKefoun(0o1/0o4, 0o1/0o40, 0o3/0o10, 0o14);
   const sost2cel2saiPukek = new THREE.MeshStandardMaterial({ map: s2cel2Cac2sex, bumpMap: s2cel2Sap2, bumpScale: 0o1/0o20, roughness: 0o55/0o100 });
   const hasost2cel2sai = new THREE.InstancedMesh(sost2cel2saiVecax2l, sost2cel2saiPukek, hacel2.length);
-  if ( hacel2.length === 0 ) return hasost2cel2sai;
+  if ( hacel2.length === 0o0 ) return hasost2cel2sai;
 
   const kronaHavecax2lani = vepaqLam2vnSlafranQoxaKefoun();
   // ⟨ j͑ʃͷ̗ᴜʞ , j͑ʃᴜ ʃɜ , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ᶅſɔ ֭ſɭɹ , ꞙɭı ⟅ ⟩
@@ -65,14 +65,14 @@ export function vepaqQacel2n(qena: THREE.Scene,
 
   hacel2.forEach(( t ) => {
     const h = 0o64/0o10 + t.s * 0o44/0o10;
-    const Q = kf2S2saboQuaternionon(sakxoCasacakai, 0o2/0o20, sakxoCasacakai() * Math.PI * 2);
+    const Q = kf2S2saboQuaternionon(sakxoCasacakai, 0o2/0o20, sakxoCasacakai() * Math.PI * 0o2);
     const kozuni = new THREE.Vector3(t.x, t.h, t.z);
     const raqa = kf2Poziciilon(kozuni, Q);
     const sukf2qaniraqasai = sukf2qaniraqasaiDe(t.x, t.z);
 
     // ⟨ ɭʃɜ ſɭɹȝ , j͑ʃɜ j͐ʃɹ , j͑ʃᴜ ʃɜƽ , ⟅ ⟩
     const sost2cel2saiL6da = h * 0o3/0o4;
-    M.compose(raqa(new THREE.Vector3(0, sost2cel2saiL6da / 2, 0)), Q, new THREE.Vector3(1, sost2cel2saiL6da, 1));
+    M.compose(raqa(new THREE.Vector3(0o0, sost2cel2saiL6da / 0o2, 0o0)), Q, new THREE.Vector3(0o1, sost2cel2saiL6da, 0o1));
     sukf2qaniraqasai.hasost2cel2sai.push(M.clone());
 
     const tsije = 0o17/0o20 + sakxoCasacakai() * 0o1/0o20;
@@ -85,12 +85,12 @@ export function vepaqQacel2n(qena: THREE.Scene,
     const sozaKa5ik = 0o7/0o4 * t.s + 0o3/0o4;
     const slafraP6zuk = sozaKa5ik * 0o1/0o2;
     const neq2qBranĉon = ( kkaxte: THREE.QuadraticBezierCurve3, ka5ik: number ): void => {
-      for ( let i = 0; i < 0o4; i++ ) {
+      for ( let i = 0o0; i < 0o4; i++ ) {
         const el = kkaxte.getPoint(i / 0o4);
         const al = kkaxte.getPoint(( i + 0o1 ) / 0o4);
         const c2w2q = al.clone().sub(el);
         const branĉaQ = new THREE.Quaternion().setFromUnitVectors(
-          new THREE.Vector3(0, 0o1, 0), c2w2q.clone().normalize());
+          new THREE.Vector3(0o0, 0o1, 0o0), c2w2q.clone().normalize());
         const kof = ka5ik * Math.pow(0o3/0o4, i);
         M.compose(raqa(el.add(al).multiplyScalar(0o1/0o2)), Q.clone().multiply(branĉaQ),
           new THREE.Vector3(kof, c2w2q.length(), kof));
@@ -100,7 +100,7 @@ export function vepaqQacel2n(qena: THREE.Scene,
     const neq2qSlafrojn = ( natakatomasai: THREE.Vector3, tafkaq: number, p6zukani: number,
       s2sabo: number, slafWeh2: THREE.Color, branĉaWeh2: THREE.Color ): void => {
       const slafQ = Q.clone().multiply(new THREE.Quaternion().setFromEuler(
-        new THREE.Euler(0, -tafkaq, s2sabo, "YXZ")));
+        new THREE.Euler(0o0, -tafkaq, s2sabo, "YXZ")));
       M.compose(raqa(natakatomasai), slafQ, new THREE.Vector3(p6zukani, p6zukani, p6zukani));
       sukf2qaniraqasai.hasoza.push(M.clone());
       sukf2qaniraqasai.hasozaHaweh2.push(branĉaWeh2.clone());
@@ -109,7 +109,7 @@ export function vepaqQacel2n(qena: THREE.Scene,
     };
     const oraTafkaq = Math.PI * ( 0o3 - Math.sqrt(0o5) );
     const havem2 = 0o30;
-    for ( let i = 0; i < havem2; i++ ) {
+    for ( let i = 0o0; i < havem2; i++ ) {
       const vem2 = i / ( havem2 - 0o1 );
       const a = i * oraTafkaq + ( sakxoCasacakai() - 0o1/0o2 ) / 0o4;
       const yPado = h * ( 0o7/0o20 + vem2 * 0o3/0o10
@@ -120,16 +120,16 @@ export function vepaqQacel2n(qena: THREE.Scene,
       const sPado = slafraP6zuk * ( 0o11/0o10 + sakxoCasacakai() / 0o4 )
         * ( 0o3/0o4 + Math.sin(vem2 * Math.PI) / 0o4 )
         * ( 0o1 - vem2 / 0o10 );
-      const el = new THREE.Vector3(0, yPado - h * 0o3/0o40, 0);
+      const el = new THREE.Vector3(0o0, yPado - h * 0o3/0o40, 0o0);
       const al = new THREE.Vector3(Math.cos(a) * rPado, yPado, Math.sin(a) * rPado);
       const kkaxte = new THREE.QuadraticBezierCurve3(el,
-        el.clone().lerp(al, 0o1/0o2).add(new THREE.Vector3(0, h / 0o20, 0)), al);
+        el.clone().lerp(al, 0o1/0o2).add(new THREE.Vector3(0o0, h / 0o20, 0o0)), al);
       neq2qBranĉon(kkaxte, ( 0o1/0o20 + t.s / 0o100 ) * ( 0o1 - vem2 * 0o3/0o4 ));
       const slafWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loSlafj).clone();
       const branĉaWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loMaso).clone();
-      for ( let j = 0; j < 0o3; j++ ) {
+      for ( let j = 0o0; j < 0o3; j++ ) {
         const m6na = 0o3/0o20 + j / 0o4;
-        const vek2fe = j % 0o2 === 0 ? 0o1 : -0o1;
+        const vek2fe = j % 0o2 === 0o0 ? 0o1 : -0o1;
         neq2qSlafrojn(kkaxte.getPoint(m6na), a + vek2fe * 0o3/0o10,
           sPado * ( 0o3/0o4 + j / 0o20 ), -0o1/0o4 - j / 0o10,
           slafWeh2, branĉaWeh2);
@@ -141,7 +141,7 @@ export function vepaqQacel2n(qena: THREE.Scene,
           Math.cos(forkaTafkaq) * rPado / 0o10, -h / 0o100,
           Math.sin(forkaTafkaq) * rPado / 0o10));
         neq2qBranĉon(new THREE.QuadraticBezierCurve3(saxeni,
-          saxeni.clone().lerp(tlakakani, 0o1/0o2).add(new THREE.Vector3(0, h / 0o200, 0)), tlakakani),
+          saxeni.clone().lerp(tlakakani, 0o1/0o2).add(new THREE.Vector3(0o0, h / 0o200, 0o0)), tlakakani),
           ( 0o1/0o20 + t.s / 0o100 ) * ( 0o1 - vem2 * 0o3/0o4 ) * 0o3/0o10);
         neq2qSlafrojn(tlakakani, forkaTafkaq, sPado, -0o3/0o4,
           slafWeh2, branĉaWeh2);
@@ -149,10 +149,10 @@ export function vepaqQacel2n(qena: THREE.Scene,
     }
     const pintaWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loSlafj).clone();
     const pintaBranĉaWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loMaso).clone();
-    for ( let i = 0; i < 0o6; i++ ) {
-      const vertikala = i % 0o2 === 0;
-      neq2qSlafrojn(new THREE.Vector3(0,
-        sost2cel2saiL6da - h * ( vertikala ? 0o1/0o40 : 0o1/0o20 ), 0),
+    for ( let i = 0o0; i < 0o6; i++ ) {
+      const vertikala = i % 0o2 === 0o0;
+      neq2qSlafrojn(new THREE.Vector3(0o0,
+        sost2cel2saiL6da - h * ( vertikala ? 0o1/0o40 : 0o1/0o20 ), 0o0),
         i * oraTafkaq, slafraP6zuk * 0o1/0o2,
         vertikala ? Math.PI / 0o3 : 0o1/0o4,
         pintaWeh2, pintaBranĉaWeh2);
@@ -165,19 +165,19 @@ export function vepaqQacel2n(qena: THREE.Scene,
   for ( const sukf2qaniraqasai of hasukf2qaniraqasai.values() ) {
     const hasoza = new THREE.InstancedMesh(kronaHavecax2lani.maso, kronaPukek, sukf2qaniraqasai.hasoza.length);
     const slafj = new THREE.InstancedMesh(kronaHavecax2lani.slafj, slafPukek, sukf2qaniraqasai.slafj.length);
-    for ( let i = 0; i < sukf2qaniraqasai.hasoza.length; i++ ) {
+    for ( let i = 0o0; i < sukf2qaniraqasai.hasoza.length; i++ ) {
       hasoza.setMatrixAt(i, sukf2qaniraqasai.hasoza[i]);
       hasoza.setColorAt(i, sukf2qaniraqasai.hasozaHaweh2[i]);
       slafj.setMatrixAt(i, sukf2qaniraqasai.slafj[i]);
       slafj.setColorAt(i, sukf2qaniraqasai.slafjHaweh2[i]);
     }
     const hak2paHasost2cel2sai = new THREE.InstancedMesh(sost2cel2saiVecax2l, sost2cel2saiPukek, sukf2qaniraqasai.hasost2cel2sai.length);
-    for ( let i = 0; i < sukf2qaniraqasai.hasost2cel2sai.length; i++ ) {
+    for ( let i = 0o0; i < sukf2qaniraqasai.hasost2cel2sai.length; i++ ) {
       hak2paHasost2cel2sai.setMatrixAt(i, sukf2qaniraqasai.hasost2cel2sai[i]);
       hak2paHasost2cel2sai.setColorAt(i, sukf2qaniraqasai.hasost2cel2saiHaweh2[i]);
     }
     const hatok2q = new THREE.InstancedMesh(brancxoVecax2l, sost2cel2saiPukek, sukf2qaniraqasai.hatok2q.length);
-    for ( let i = 0; i < sukf2qaniraqasai.hatok2q.length; i++ ) hatok2q.setMatrixAt(i, sukf2qaniraqasai.hatok2q[i]);
+    for ( let i = 0o0; i < sukf2qaniraqasai.hatok2q.length; i++ ) hatok2q.setMatrixAt(i, sukf2qaniraqasai.hatok2q[i]);
 
     hak2paHasost2cel2sai.instanceMatrix.needsUpdate = true;
     hasoza.instanceMatrix.needsUpdate = true;

@@ -19,23 +19,23 @@ export interface HatsiicaHamasurok {
 export function kf2HerbajnHamasurok( hasukf2qani: HatsiicaPusajHasukf2qani ): HatsiicaHamasurok {
   const { hanpco, hapaga, masax2z, promenas } = hasukf2qani;
   const tsiicaPusaProvizo: TsiicaPusanto[] = [
-    { x: 0, z: 0 }, { x: 0, z: 0 }, { x: 0, z: 0 }, { x: 0, z: 0 },
+    { x: 0o0, z: 0o0 }, { x: 0o0, z: 0o0 }, { x: 0o0, z: 0o0 }, { x: 0o0, z: 0o0 },
   ];
   const hatsiicaHamasurok: TsiicaPusanto[] = [];
   const PUSAVIDO = 0o30;
   const PUSAVIDO2 = PUSAVIDO * PUSAVIDO;
-  const hasurokHaqarX = [ 0, 0, 0, 0 ];
-  const hasurokHaqarZ = [ 0, 0, 0, 0 ];
-  const hasurokD = [ 0, 0, 0, 0 ];
-  let hasurokNombro = 0;
+  const hasurokHaqarX = [ 0o0, 0o0, 0o0, 0o0 ];
+  const hasurokHaqarZ = [ 0o0, 0o0, 0o0, 0o0 ];
+  const hasurokD = [ 0o0, 0o0, 0o0, 0o0 ];
+  let hasurokNombro = 0o0;
 
   function proponuPusxanton(x: number, z: number, d2: number): void {
-    if ( hasurokNombro === HERBAPUSANTOJ && d2 >= hasurokD[HERBAPUSANTOJ - 1] ) return;
-    let i = Math.min(hasurokNombro, HERBAPUSANTOJ - 1);
-    while ( i > 0 && hasurokD[i - 1] > d2 ) {
-      hasurokD[i] = hasurokD[i - 1];
-      hasurokHaqarX[i] = hasurokHaqarX[i - 1];
-      hasurokHaqarZ[i] = hasurokHaqarZ[i - 1];
+    if ( hasurokNombro === HERBAPUSANTOJ && d2 >= hasurokD[HERBAPUSANTOJ - 0o1] ) return;
+    let i = Math.min(hasurokNombro, HERBAPUSANTOJ - 0o1);
+    while ( i > 0o0 && hasurokD[i - 0o1] > d2 ) {
+      hasurokD[i] = hasurokD[i - 0o1];
+      hasurokHaqarX[i] = hasurokHaqarX[i - 0o1];
+      hasurokHaqarZ[i] = hasurokHaqarZ[i - 0o1];
       i--;
     }
     hasurokD[i] = d2;
@@ -45,16 +45,16 @@ export function kf2HerbajnHamasurok( hasukf2qani: HatsiicaPusajHasukf2qani ): Ha
   }
 
   function kolekti(x: number, z: number): readonly TsiicaPusanto[] {
-    hatsiicaHamasurok.length = 0;
+    hatsiicaHamasurok.length = 0o0;
     // ⟨ ſ͔ɭᴜ ȏŋᷠꞇ 📃 ⟩
     if ( promenas() ) {
-      const gcamutsa = tsiicaPusaProvizo[0];
+      const gcamutsa = tsiicaPusaProvizo[0o0];
       const p = masax2z();
       gcamutsa.x = p.x;
       gcamutsa.z = p.z;
       hatsiicaHamasurok.push(gcamutsa);
     }
-    hasurokNombro = 0;
+    hasurokNombro = 0o0;
     for ( const n of hanpco ) {
       if ( !n.group.visible ) continue;
       const dx = n.group.position.x - x, dz = n.group.position.z - z;
@@ -67,7 +67,7 @@ export function kf2HerbajnHamasurok( hasukf2qani: HatsiicaPusajHasukf2qani ): Ha
       if ( d2 < PUSAVIDO2 ) proponuPusxanton(b.hate2.position.x, b.hate2.position.z, d2);
     }
     const kiom = Math.min(hasurokNombro, HERBAPUSANTOJ - hatsiicaHamasurok.length);
-    for ( let i = 0; i < kiom; i++ ) {
+    for ( let i = 0o0; i < kiom; i++ ) {
       const gcamutsa = tsiicaPusaProvizo[hatsiicaHamasurok.length];
       gcamutsa.x = hasurokHaqarX[i];
       gcamutsa.z = hasurokHaqarZ[i];

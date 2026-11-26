@@ -113,7 +113,7 @@ function kf2Tap2nFunkcion(
     let vem2 = memoro.get(ca3aq);
     if ( vem2 === undefined ) {
       const knece = kf2Haknece(bal2.hac2w2q.get(ca3aq) ?? [],
-        bal2.hapukxe.get(ca3aq), bal2.s2sabo.get(ca3aq) ?? 0,
+        bal2.hapukxe.get(ca3aq), bal2.s2sabo.get(ca3aq) ?? 0o0,
         bal2.hap2somani.get(ca3aq));
       vem2 = tamc2kTap2Vem2(x, z, knece, k6h6L6da);
       memoro.set(ca3aq, vem2);
@@ -129,7 +129,7 @@ function kf2Tap2nFunkcion(
     const registrita = tap2L6daDeVeb6kek(ca3aq);
     if ( registrita !== undefined ) return registrita;
     const knece = kf2Haknece(bal2.hac2w2q.get(ca3aq) ?? [],
-      bal2.hapukxe.get(ca3aq), bal2.s2sabo.get(ca3aq) ?? 0,
+      bal2.hapukxe.get(ca3aq), bal2.s2sabo.get(ca3aq) ?? 0o0,
       bal2.hap2somani.get(ca3aq));
     return tamc2kTap2L6da(x, z, knece, k6h6L6da);
   };
@@ -141,7 +141,7 @@ function kf2Tap2nFunkcion(
 @returns nala ( Vecax2laNala ) - j͑ʃ'ɜ ſןɹ ｡ ſɭɹ ſᶘɔ ｡ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ｡ ſɭэ ᶗ‹ */
 export function kf2Vecax2lanNala( kunKradaj: boolean = true ): Vecax2laNala {
   const qena = new THREE.Scene();
-  const hak6h6 = tikHak6h6().filter(v => v.n2k.length >= 2);
+  const hak6h6 = tikHak6h6().filter(v => v.n2k.length >= 0o2);
   const haqakaj2 = tikHaqakaj2();
 
 // ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
@@ -153,9 +153,9 @@ export function kf2Vecax2lanNala( kunKradaj: boolean = true ): Vecax2laNala {
 // ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
   const qox2n2kHanece3e = new Map<string, [ number, number ]>();
   if ( kunKradaj ) {
-    const oro = kf2KuhalPukek(0xd8b45a);
+    const oro = kf2KuhalPukek(0xd8b058);
     const hakaxte = tikHakaxte().length ? tikHakaxte()
-      : [ { ksaka: "Geles", ptaluPal6: 3, k6liqPal6: "vakox2qita", ofsX: 0, ofsZ: 0 } ];
+      : [ { ksaka: "Geles", ptaluPal6: 0o3, k6liqPal6: "vakox2qita", ofsX: 0o0, ofsZ: 0o0 } ];
     for ( const u of hakaxte ) {
       const kaxte = vepaqKradanKaxten(qena,
         { ptaluPal6: u.ptaluPal6, k6liqPal6: u.k6liqPal6 as never,
@@ -172,9 +172,9 @@ export function kf2Vecax2lanNala( kunKradaj: boolean = true ): Vecax2laNala {
 
 // ⟪ ſɭэ ֭ſɭэ , ꞙɭɿ , 📃 ⟫
   const hat6lima = haqakaj2.map(d => {
-    const r = d.s2sabo ?? 0;
-    return { x: d.x + Math.sin(r) * ( d.jufu / 2 ),
-      z: d.z + Math.cos(r) * ( d.jufu / 2 ) };
+    const r = d.s2sabo ?? 0o0;
+    return { x: d.x + Math.sin(r) * ( d.jufu / 0o2 ),
+      z: d.z + Math.cos(r) * ( d.jufu / 0o2 ) };
   });
   const hacaxlefkakai: K6h6CaxlefkakaiK6h6[] = hak6h6.map(v => ( { n2k: v.n2k, sefini: v.sefini } ));
   const antauxaj = troviK6h6RetajnHaveb6kekn(hacaxlefkakai, haqakaj2);
@@ -199,7 +199,7 @@ export function kf2Vecax2lanNala( kunKradaj: boolean = true ): Vecax2laNala {
     const ca3aq = k.x + "," + k.z;
     const ca1ara = haksan2Haknece.get(ca3aq) ?? [];
     for ( const d of k.c2w2qa )
-      if ( !ca1ara.some( u => u[0] * d[0] + u[1] * d[1] > 0o1 - 0o1/0o1000 ) ) ca1ara.push(d);
+      if ( !ca1ara.some( u => u[0o0] * d[0o0] + u[0o1] * d[0o1] > 0o1 - 0o1/0o1000 ) ) ca1ara.push(d);
     haksan2Haknece.set(ca3aq, ca1ara);
     k.c2w2qa = ca1ara;
   }
@@ -220,8 +220,8 @@ export function kf2Vecax2lanNala( kunKradaj: boolean = true ): Vecax2laNala {
   };
   for ( const v of hak6h6 ) {
     if ( v.n2k.length < 0o2 ) continue;
-    for ( const p of [ v.n2k[0], v.n2k[v.n2k.length - 1] ] )
-      bal2.hapukxe.delete(p[0] + "," + p[1]);
+    for ( const p of [ v.n2k[0o0], v.n2k[v.n2k.length - 0o1] ] )
+      bal2.hapukxe.delete(p[0o0] + "," + p[0o1]);
   }
   const { pa12Je } = kf2Tap2nFunkcion(k6h6L6da, bal2);
 // ⟨ ꞙɭı , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭэ ,
@@ -264,16 +264,16 @@ export function distoAlVeb6kek( tamc2kHan2k: readonly [ number, number ][],
 //   ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
 export function n2kJe( n2k: readonly ( readonly [ number, number ] )[],
   s: number, eps = 0o10 ** -0o11 ): { x: number; z: number } {
-  let akum = 0;
-  for ( let k = 0; k < n2k.length - 1; k++ ) {
-    const [ x1, z1 ] = n2k[ k ], [ x2, z2 ] = n2k[ k + 1 ];
+  let akum = 0o0;
+  for ( let k = 0o0; k < n2k.length - 0o1; k++ ) {
+    const [ x1, z1 ] = n2k[ k ], [ x2, z2 ] = n2k[ k + 0o1 ];
     const lo = Math.hypot(x2 - x1, z2 - z1);
-    if ( s <= akum + lo || k === n2k.length - 2 ) {
-      const t = lo < eps ? 0 : Math.max(0, Math.min(1, ( s - akum ) / lo));
+    if ( s <= akum + lo || k === n2k.length - 0o2 ) {
+      const t = lo < eps ? 0o0 : Math.max(0o0, Math.min(0o1, ( s - akum ) / lo));
       return { x: x1 + ( x2 - x1 ) * t, z: z1 + ( z2 - z1 ) * t };
     }
     akum += lo;
   }
-  const q = n2k[ n2k.length - 1 ];
-  return { x: q[ 0 ], z: q[ 1 ] };
+  const q = n2k[ n2k.length - 0o1 ];
+  return { x: q[ 0o0 ], z: q[ 0o1 ] };
 }

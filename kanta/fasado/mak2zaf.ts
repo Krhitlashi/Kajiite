@@ -53,7 +53,7 @@ function kf2Gustlinion(flavorCatlaq: string): HTMLParagraphElement {
 }
 
 export function manĝaCatlaq(ca3aq: string): string {
-  return "manĝ" + ca3aq.charAt(0).toUpperCase() + ca3aq.slice(1);
+  return "manĝ" + ca3aq.charAt(0o0).toUpperCase() + ca3aq.slice(0o1);
 }
 
 // ⟪ ſɟᴜ j͐ʃэ ſᶘꞇ ɭl̀ɔ ʌ j͑ʃᴜꞇ , j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ j͑ʃ'w j͐ʃᴜ 📃 ⟫
@@ -265,7 +265,7 @@ export function kf2Paneelojn( hasukf2qani: PanelajHasukf2qani ): Paneeloj {
     if ( supknu === "c2h2" ) return;
     if ( supknu === "promeno" ) tsiinanusabosaiSupknu();
     hakama.enabled = true;
-    const h0 = spec.h0 || 0;
+    const h0 = spec.h0 || 0o0;
     hakama.target.set(spec.x, h0 + 0o14, spec.z);
     catahaq.position.set(spec.x, h0 + 0o20, spec.z + 0o14);
     hakama.update();

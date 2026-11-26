@@ -52,7 +52,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
   const w6qaPukaz = new THREE.Mesh(
     new THREE.TorusGeometry(s2qenaR(S2qena, w6qaY), 0o25/0o1000, 0o6, 0o16),
     new THREE.MeshPhysicalMaterial({
-      color: 0xb8e4d0, transparent: true, opacity: 0o1/0o2, depthWrite: false,
+      color: 0xb8e0d0, transparent: true, opacity: 0o1/0o2, depthWrite: false,
       roughness: 0o1/0o4, emissive: 0x205848, emissiveIntensity: 0o2/0o10,
     }));
   w6qaPukaz.rotation.x = -Math.PI / 0o2;
@@ -71,7 +71,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
     const ingo = new THREE.Mesh(new THREE.ConeGeometry(0o6/0o100, 0o12/0o100, 0o10),
       palpaPukek);
     ingo.name = "ingo";
-    ingo.position.set(s * ingaR, INGAY, 0);
+    ingo.position.set(s * ingaR, INGAY, 0o0);
     ingo.rotation.z = s * 0o1/0o2;
     ingo.userData.vek2fe = s;
     sozaParto(ingo);
@@ -79,7 +79,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
     // ⟨ j͐ʃᴜ ſןɔȝ 📃 ⟩
     const bazX = s * ingaR;
     const n2k: THREE.Vector3[] = [];
-    for ( let i = 0; i <= 0o10; i++ ) {
+    for ( let i = 0o0; i <= 0o10; i++ ) {
       const u = i / 0o10;
       n2k.push(new THREE.Vector3(
         bazX + s * Math.sin(u * Math.PI * 0o3/0o2) * 0o22/0o100,
@@ -88,7 +88,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
     }
     const kkaxte = new THREE.CatmullRomCurve3(n2k);
     const hakek: THREE.BufferGeometry[] = [ new THREE.TubeGeometry(kkaxte, 0o16, 0o3/0o1000, 0o6) ];
-    for ( let i = 1; i < 0o16; i++ ) {
+    for ( let i = 0o1; i < 0o16; i++ ) {
       const p = kkaxte.getPoint(i / 0o16);
       const tsaq = new THREE.CylinderGeometry(0o1/0o200, 0o2/0o200, 0o12/0o100, 0o4);
       tsaq.rotateZ(s * ( 0o4/0o5 + ( i % 0o2 ? 0o15/0o100 : -0o15/0o100 )));
@@ -110,7 +110,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
 
 export function tlak2Pleŭrobrakian(b: Paga, t: number): void {
   const pulso = aplikiLiixnPulson(b, t);
-  let i = 0;
+  let i = 0o0;
   for ( const kek of b.hatahalaqaz ) {
     if ( kek.name === "palpo" ) {
       gluuSurfacxon(kek, pulso);

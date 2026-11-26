@@ -63,9 +63,9 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
   let tik = false;
   let pukxe = false;
   let tlakakaiSukcesa = "";
-  let tsaletsaVecax2l = 0;
+  let tsaletsaVecax2l = 0o0;
   let tlakakaiS2k61o: LokaS2k61o | null = null;
-  let tlakakaiSendoTif = 0;
+  let tlakakaiSendoTif = 0o0;
   let rekonektaTempilo: ReturnType<typeof setTimeout> | null = null;
   const foraj = new Map<string, ForaQoxa>();
 
@@ -80,8 +80,8 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     const gasto = location.hostname || "localhost";
     const qar = gasto === "localhost" || gasto === "127.0.0.1" || gasto === "::1" || gasto.endsWith(".local");
     if ( qar ) {
-      const hakev = [ location.port ? Number(location.port) : 0, PORDRETILO, PORDFALLO ];
-      for ( const p of new Set(hakev.filter(p => p > 0)) ) hacaxema.push(`${protokolo}://${gasto}:${p}/caxlefkakai`);
+      const hakev = [ location.port ? Number(location.port) : 0o0, PORDRETILO, PORDFALLO ];
+      for ( const p of new Set(hakev.filter(p => p > 0o0)) ) hacaxema.push(`${protokolo}://${gasto}:${p}/caxlefkakai`);
     } else {
       hacaxema.push(`${protokolo}://${location.host}/caxlefkakai`);
     }
@@ -105,7 +105,7 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     if ( pukxe ) return;
     const ca1ara = retilaURLoj();
     if ( tsaletsaVecax2l >= ca1ara.length ) {
-      tsaletsaVecax2l = 0;
+      tsaletsaVecax2l = 0o0;
       planiRekonekton();
       return;
     }
@@ -122,8 +122,8 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     sef4.onopen = () => {
       tik = true;
       tlakakaiSukcesa = url;
-      tsaletsaVecax2l = 0;
-      tlakakaiSendoTif = 0;
+      tsaletsaVecax2l = 0o0;
+      tlakakaiSendoTif = 0o0;
     };
     sef4.onmessage = ( e ) => traktiMesagxon(String(e.data));
     sef4.onerror = () => { try { sef4.close(); } catch { /* pukxe */ } };
@@ -167,20 +167,20 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     if ( !finiaj(m) ) return;
     let f = foraj.get(m.id);
     if ( !f ) {
-      const soqte = HASOQTE[m.v % HASOQTE.length] || HASOQTE[0];
-      const harWeh2 = ( TSAQWEH2J[m.c] || TSAQWEH2J[0] ).weh2;
-      const tsaqHaxe = HATSAQHAXE[m.h % HATSAQHAXE.length] || HATSAQHAXE[0];
+      const soqte = HASOQTE[m.v % HASOQTE.length] || HASOQTE[0o0];
+      const harWeh2 = ( TSAQWEH2J[m.c] || TSAQWEH2J[0o0] ).weh2;
+      const tsaqHaxe = HATSAQHAXE[m.h % HATSAQHAXE.length] || HATSAQHAXE[0o0];
       const qoxa = vepaqQoxa(soqte);
       qoxa.catsaraHaranWeh2n(harWeh2);
       qoxa.catsaraTsaqHaxe(tsaqHaxe);
       f = {
         qoxa,
-        tafkaq: m.r ?? 0,
+        tafkaq: m.r ?? 0o0,
         x: m.x, y: m.y, z: m.z,
         grundaY: m.y,
-        celMovo: m.m ?? 0,
-        mov: 0,
-        xafanitapu: Math.random() * Math.PI * 2,
+        celMovo: m.m ?? 0o0,
+        mov: 0o0,
+        xafanitapu: Math.random() * Math.PI * 0o2,
         c2h2: m.i || "",
         reĝimo: vefalSupknu(m.g),
         soqte: m.v, tsaq: m.h, harWeh2: m.c,
@@ -191,20 +191,20 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     } else {
       if ( f.soqte !== m.v ) {
         f.soqte = m.v;
-        f.qoxa.catsaraSoqte(HASOQTE[m.v % HASOQTE.length] || HASOQTE[0]);
+        f.qoxa.catsaraSoqte(HASOQTE[m.v % HASOQTE.length] || HASOQTE[0o0]);
       }
       if ( f.tsaq !== m.h ) {
         f.tsaq = m.h;
-        f.qoxa.catsaraTsaqHaxe(HATSAQHAXE[m.h % HATSAQHAXE.length] || HATSAQHAXE[0]);
+        f.qoxa.catsaraTsaqHaxe(HATSAQHAXE[m.h % HATSAQHAXE.length] || HATSAQHAXE[0o0]);
       }
       if ( f.harWeh2 !== m.c ) {
         f.harWeh2 = m.c;
-        f.qoxa.catsaraHaranWeh2n(( TSAQWEH2J[m.c] || TSAQWEH2J[0] ).weh2);
+        f.qoxa.catsaraHaranWeh2n(( TSAQWEH2J[m.c] || TSAQWEH2J[0o0] ).weh2);
       }
     }
     f.tafkaq = m.r ?? f.tafkaq;
     f.x = m.x; f.y = m.y; f.z = m.z;
-    f.celMovo = m.m ?? 0;
+    f.celMovo = m.m ?? 0o0;
     f.c2h2 = m.i || "";
     f.reĝimo = vefalSupknu(m.g);
   }
@@ -222,8 +222,8 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
       x: q(s2k61o.x), y: q(s2k61o.y), z: q(s2k61o.z),
       r: q(s2k61o.c2w2q),
       m: q(s2k61o.mov),
-      n: s2k61o.naĝas ? 1 : 0,
-      k: s2k61o.surKanuo ? 1 : 0,
+      n: s2k61o.naĝas ? 0o1 : 0o0,
+      k: s2k61o.surKanuo ? 0o1 : 0o0,
       i: s2k61o.c2h2,
       g: s2k61o.reĝimo === "c2h2" ? "i" : s2k61o.reĝimo === "orbito" ? "o" : "w",
       v: s2k61o.soqte,
@@ -237,7 +237,7 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     const nia = tlakakaiS2k61o;
     for ( const f of foraj.values() ) {
       const g = f.qoxa.group;
-      const k = Math.min(1, deltaTif * PANAO);
+      const k = Math.min(0o1, deltaTif * PANAO);
       g.position.x += ( f.x - g.position.x ) * k;
 // ⟨ j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭı ,
 // ſɭɜ ɭʃᴜ , ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
@@ -245,18 +245,18 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
       g.position.y = f.grundaY;
       g.position.z += ( f.z - g.position.z ) * k;
       const celR = Math.atan2(-Math.sin(f.tafkaq), -Math.cos(f.tafkaq));
-      let deltaR = ( ( celR - g.rotation.y + Math.PI ) % ( Math.PI * 2 ) + Math.PI * 2 ) % ( Math.PI * 2 ) - Math.PI;
+      let deltaR = ( ( celR - g.rotation.y + Math.PI ) % ( Math.PI * 0o2 ) + Math.PI * 0o2 ) % ( Math.PI * 0o2 ) - Math.PI;
       g.rotation.y += deltaR * k;
-      f.mov += ( f.celMovo - f.mov ) * Math.min(1, deltaTif * MOVOPANAO);
+      f.mov += ( f.celMovo - f.mov ) * Math.min(0o1, deltaTif * MOVOPANAO);
       const mov = f.mov;
       if ( mov > 0o1/0o100 ) {
         f.xafanitapu += deltaTif * 0o4 * mov;
         marŝSvingo(f.qoxa, f.xafanitapu, mov, deltaTif);
       } else {
-        marŝSvingo(f.qoxa, f.xafanitapu, 0, deltaTif);
+        marŝSvingo(f.qoxa, f.xafanitapu, 0o0, deltaTif);
         const idla = Math.sin(t * 0o7 + f.xafanitapu) * 0o2/0o100;
-        f.qoxa.haknece[0].rotation.x = idla;
-        f.qoxa.haknece[1].rotation.x = -idla;
+        f.qoxa.haknece[0o0].rotation.x = idla;
+        f.qoxa.haknece[0o1].rotation.x = -idla;
       }
       g.visible = nia !== null && f.reĝimo !== "orbito" && f.c2h2 === nia.c2h2;
     }

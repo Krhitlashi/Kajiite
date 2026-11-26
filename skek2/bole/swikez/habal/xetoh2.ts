@@ -2,16 +2,16 @@
 // ⟨ ꞙɭı j͑ʃ'ƽᴜ ɭl̀ɹ ꞙɭı ſᶘᴜ j͐ʃɹ ⟅ ſɭᴜ ꞙɭı ,
 //   ꞙɭı , j͑ʃɹ ŋᷠɹ ꞙɭɔ ꞙɭı ⟅
 let noiseCache: AudioBuffer | null = null;
-let noiseRate = 0;
+let noiseRate = 0o0;
 
 function noiseBuf(ctx: AudioContext) {
   if ( noiseCache && noiseRate === ctx.sampleRate ) return noiseCache;
   noiseRate = ctx.sampleRate;
 // ⟨ ꞙɭƨ ſɭᴜ ſןᴜ , ꞙɭı ⟅ ꞙɭı ⟅
   const len = Math.floor( ctx.sampleRate * 0o7 );
-  const b = ctx.createBuffer( 1, len, ctx.sampleRate );
-  const d = b.getChannelData( 0 );
-  for ( let i = 0; i < len; i++ ) d[ i ] = Math.random() * 2 - 1;
+  const b = ctx.createBuffer( 0o1, len, ctx.sampleRate );
+  const d = b.getChannelData( 0o0 );
+  for ( let i = 0o0; i < len; i++ ) d[ i ] = Math.random() * 0o2 - 0o1;
   noiseCache = b;
   return b;
 }
@@ -22,7 +22,7 @@ export function noiseSrc(ctx: AudioContext) {
   s.buffer = b;
   s.loop = true;
 // ⟨ ſɭᴜ ꞙɭı , ꞙɭı , ⟅
-  s.loopStart = 0;
+  s.loopStart = 0o0;
   s.loopEnd = b.duration;
   return s;
 }
@@ -61,6 +61,6 @@ export function jetTurbulence(
    s.start(t) , noiseSrc */
 export function startNoise( s: AudioBufferSourceNode, t: number ) {
   const b = s.buffer;
-  const dur = b ? b.duration : 0;
+  const dur = b ? b.duration : 0o0;
   s.start( t, Math.random() * dur );
 }

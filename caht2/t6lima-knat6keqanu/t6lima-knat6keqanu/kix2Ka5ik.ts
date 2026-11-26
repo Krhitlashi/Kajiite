@@ -16,7 +16,7 @@ export function catsaraVidecon(pudal: VidaPudal, jes: boolean): void { videco[ p
 
 // ⟪ j͑ʃɜ j͑ʃƨɹ , 🏙️ ⟫ , ꞙɭɿ ,
 // j͑ʃɜ j͑ʃƨɹ , ꞙɭɿ , ꞙɭı ,
-const laqazi = new Set<number>([ 0 ]);
+const laqazi = new Set<number>([ 0o0 ]);
 let refresxilo: () => void = () => { };
 /* ſȷwɔ˞ , ſɭэ ſɭᴜ , ꞙɭı , ⟅ j͑ʃɜ j͑ʃƨɹ ,
     @param fn ( funkcio ) - ſɭɹʞ ｡ j͑ʃᴜ j͑ʃᴜ ｡ */
@@ -50,7 +50,7 @@ export function h2luKaxten(i: number): void {
   const sef4 = new Set<number>();
   for ( const j of laqazi ) {
     if ( j === i ) continue;
-    sef4.add(j > i ? j - 1 : j);
+    sef4.add(j > i ? j - 0o1 : j);
   }
   laqazi.clear();
   for ( const j of sef4 ) laqazi.add(j);

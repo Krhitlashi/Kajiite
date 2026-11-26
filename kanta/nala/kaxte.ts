@@ -79,11 +79,11 @@ export async function vepaqKaxten(
   raportiProgreson?: ( procento: number ) => void
 ): Promise<UrbaKanta> {
   // ⟪ ɽ͑ʃ'w j͑ʃ'ᴜ ʌ ſɭᴜ ı],ƨɔ 📃 ⟫
-  const jesi = (): Promise<void> => new Promise(r => setTimeout(r, 0));
+  const jesi = (): Promise<void> => new Promise(r => setTimeout(r, 0o0));
   const STAGOJ = 0o14;
-  let sh2hafaf2 = 0;
+  let sh2hafaf2 = 0o0;
   const raporti = async (): Promise<void> => {
-    sh2hafaf2 = Math.min(STAGOJ, sh2hafaf2 + 1);
+    sh2hafaf2 = Math.min(STAGOJ, sh2hafaf2 + 0o1);
     raportiProgreson?.(sh2hafaf2 / STAGOJ);
     await jesi();
   };
@@ -98,12 +98,12 @@ export async function vepaqKaxten(
   const OBJEKTOJ = tikHatoxemani();
   const kaxteCatsara: Knat6keqanuKuba[] = HAKAXTE.length
     ? HAKAXTE
-    : [ { ksaka: "Geles", ptaluPal6: 3, k6liqPal6: "vakox2qita", ofsX: 0, ofsZ: 0 } ];
+    : [ { ksaka: "Geles", ptaluPal6: 0o3, k6liqPal6: "vakox2qita", ofsX: 0o0, ofsZ: 0o0 } ];
   const hakaxte = kaxteCatsara.map(u => vepaqKradanKaxten(qena,
     { ptaluPal6: u.ptaluPal6, k6liqPal6: u.k6liqPal6, kekufxeso: !!u.kekufxeso, hahufwuk2: u.hahufwuk2 !== false },
     [ u.ofsX, u.ofsZ ], oraPukek,
     u.tlunakHak6liq ?? [], superajElVop2(u.hateru)));
-  const cefa = hakaxte[0];
+  const cefa = hakaxte[0o0];
   await raporti();
 
   const vepaqPudalj = hakaxte.flatMap(r => r.vepaqPudalj);
@@ -210,7 +210,7 @@ export async function vepaqKaxten(
   for ( const k6h6 of HAKAS2KANTA ) {
     const sost2cel2sai = tsasaTrunko(k6h6);
     tsasaHasost2cel2sai.push(sost2cel2sai);
-    if ( k6h6.n2k.length < 2 ) continue;
+    if ( k6h6.n2k.length < 0o2 ) continue;
     const k6h6Sefini = sost2cel2sai ? ( k6h6.c2kanuSefini ?? k6h6.sefini ) : k6h6.sefini;
     k6h6jHacaxlefkakaiHak6h6.push( { n2k: k6h6.n2k, sefini: k6h6Sefini } );
   }
@@ -220,9 +220,9 @@ export async function vepaqKaxten(
   // ſɭэ ֭ſɭэ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ꞙɭɔ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟩
   // ⟨ ſɭɜ ſɭ,w ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , }ʃɹƽ ⟅ j͐ʃэ ɭ(ᴜ ʌ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſɭэ ֭ſɭэ 📃 ⟩
   const qakaj2Landaj = HAQAKAJ2.map(d => {
-    const s2sabo = d.s2sabo ?? 0;
-    return { x: d.x + Math.sin(s2sabo) * ( d.jufu / 2 ),
-      z: d.z + Math.cos(s2sabo) * ( d.jufu / 2 ), y: 0 };
+    const s2sabo = d.s2sabo ?? 0o0;
+    return { x: d.x + Math.sin(s2sabo) * ( d.jufu / 0o2 ),
+      z: d.z + Math.cos(s2sabo) * ( d.jufu / 0o2 ), y: 0o0 };
   });
   const ne3ak2Haveb6kek = troviK6h6RetajnHaveb6kekn( k6h6jHacaxlefkakaiHak6h6, HAQAKAJ2 );
   const gluaCelo: [ number, number ][] = [ ...qox2n2kHaveb6kek,
@@ -230,15 +230,15 @@ export async function vepaqKaxten(
   // ⟨ ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ , ſɭэ ֭ſɭэ ⟅ ſɭэ ֭ſɭэ ʌ ſɭэ ֭ſɭэ ꞙɭɔ 📃 ⟩
   const qox2n2kHan2k = qox2n2kHavop2ni.map( d => d.pts );
   const gluitajHan2k: [ number, number ][][] = [];
-  for ( let vi = 0; vi < HAKAS2KANTA.length; vi++ ) {
+  for ( let vi = 0o0; vi < HAKAS2KANTA.length; vi++ ) {
     const xaqadi = k6h6jHacaxlefkakaiHak6h6[vi]?.n2k ?? [];
     const has2tonome = [ ...qox2n2kHan2k,
       ...k6h6jHacaxlefkakaiHak6h6.map(( v, i ) => i === vi ? [] : v.n2k ) ];
-    const n2k = xaqadi.length < 2
-      ? xaqadi.map( p => [ p[0], p[1] ] as [ number, number ] )
+    const n2k = xaqadi.length < 0o2
+      ? xaqadi.map( p => [ p[0o0], p[0o1] ] as [ number, number ] )
       : gluiK6h6tlakakn(xaqadi, gluaCelo, qakaj2Landaj, has2tonome);
     gluitajHan2k.push(n2k);
-    if ( n2k.length >= 2 ) k6h6jHacaxlefkakaiHak6h6[vi] = { ...k6h6jHacaxlefkakaiHak6h6[vi], n2k };
+    if ( n2k.length >= 0o2 ) k6h6jHacaxlefkakaiHak6h6[vi] = { ...k6h6jHacaxlefkakaiHak6h6[vi], n2k };
   }
   const k6h6jHaveb6kek = troviK6h6RetajnHaveb6kekn( k6h6jHacaxlefkakaiHak6h6, HAQAKAJ2 );
   const k6h6jVeb6kekHan2k = k6h6jHaveb6kek.map( k => [ k.x, k.z ] as [ number, number ] );
@@ -262,7 +262,7 @@ export async function vepaqKaxten(
     const ca3aq = veb6kek.x + "," + veb6kek.z;
     const ca1ara = haksan2Haknece.get(ca3aq) ?? [];
     for ( const d of veb6kek.c2w2qa )
-      if ( !ca1ara.some( u => u[0] * d[0] + u[1] * d[1] > 0o1 - 0o1/0o1000 ) ) ca1ara.push(d);
+      if ( !ca1ara.some( u => u[0o0] * d[0o0] + u[0o1] * d[0o1] > 0o1 - 0o1/0o1000 ) ) ca1ara.push(d);
     haksan2Haknece.set(ca3aq, ca1ara);
     veb6kek.c2w2qa = ca1ara;
   }
@@ -277,8 +277,8 @@ export async function vepaqKaxten(
   // ⟪ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ⚓ 📃 ⟫
   // ⟨ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ ʌ ſɭэ ֭ſɭэ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ , ſɭэ ֭ſɭэ ⟅ ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ
   // ſɭэ ֭ſɭэ , ſɭэ ֭ſɭэ ʌ ſɭɜ ſɭ,w 📃 ⟩
-  for ( let i = 0; i < HAQAKAJ2.length; i++ ) {
-    const s2sabo = HAQAKAJ2[i].s2sabo ?? 0;
+  for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
+    const s2sabo = HAQAKAJ2[i].s2sabo ?? 0o0;
     const qakaj2 = vepaqQakaj2n(qena, HAQAKAJ2[i].x, HAQAKAJ2[i].z, s2sabo,
       k6h6L6da, tsasaVem2, HAQAKAJ2[i].jufu, l6da);
     // ⟨ }ʃɹƽ ʌ ſɭɹ ſןᴜ ʌ ꞙɭı 📃 ⟩
@@ -289,12 +289,12 @@ export async function vepaqKaxten(
     }
     qakaj2LandajHal6da.push(qakaj2.kozunuY);
     qakaj2Landaj[i].y = qakaj2.kozunuY + PONTFINAL6DA;
-    if ( qakaj2.capat6aN2kj.length >= 2 ) {
+    if ( qakaj2.capat6aN2kj.length >= 0o2 ) {
       qakaj2StuparajHavop2.push({
-        landaX: HAQAKAJ2[i].x + sin * ( HAQAKAJ2[i].jufu / 2 ),
-        landaZ: HAQAKAJ2[i].z + kos * ( HAQAKAJ2[i].jufu / 2 ),
+        landaX: HAQAKAJ2[i].x + sin * ( HAQAKAJ2[i].jufu / 0o2 ),
+        landaZ: HAQAKAJ2[i].z + kos * ( HAQAKAJ2[i].jufu / 0o2 ),
         sefini: qakaj2.kozunuSefini, landejaY: qakaj2.landejaY,
-        saxeni: qakaj2.capat6aN2kj[0], tlakak: qakaj2.capat6aN2kj[1],
+        saxeni: qakaj2.capat6aN2kj[0o0], tlakak: qakaj2.capat6aN2kj[0o1],
       });
     }
   }
@@ -307,7 +307,7 @@ export async function vepaqKaxten(
     const veb6kek = troviTsiikenVeb6kekn(d.landaX, d.landaZ);
     let saxeni = d.saxeni;
     if ( veb6kek ) {
-      const diferencoX = d.tlakak[0] - veb6kek.x, diferencoZ = d.tlakak[1] - veb6kek.z;
+      const diferencoX = d.tlakak[0o0] - veb6kek.x, diferencoZ = d.tlakak[0o1] - veb6kek.z;
       const sahakani = Math.hypot(diferencoX, diferencoZ);
       if ( sahakani > K6H6ATRUAP2SOMANI ) {
         const kek = K6H6ATRUAP2SOMANI / sahakani;
@@ -325,9 +325,9 @@ export async function vepaqKaxten(
       heightFn: capat6.l6da, t6limaFn: l6da });
   }
   // ⟨ ꞙɭɿ }ʃɹƽ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
-  for ( let k6h6Vecax2l = 0; k6h6Vecax2l < HAKAS2KANTA.length; k6h6Vecax2l++ ) {
+  for ( let k6h6Vecax2l = 0o0; k6h6Vecax2l < HAKAS2KANTA.length; k6h6Vecax2l++ ) {
     const k6h6 = HAKAS2KANTA[k6h6Vecax2l];
-    if ( k6h6.n2k.length < 2 ) continue;
+    if ( k6h6.n2k.length < 0o2 ) continue;
     const sost2cel2sai = tsasaHasost2cel2sai[k6h6Vecax2l];
     // ⟨ }ʃɹƽ ʌ ſןᴜ ſᶘɹ , ſɭэ ֭ſɭэ ʌ ſןᴜ ſᶘɹ , ſןᴜ ſᶘɹ 📃 ⟩
     const n2k = gluitajHan2k[k6h6Vecax2l] ?? k6h6.n2k;
@@ -361,7 +361,7 @@ export async function vepaqKaxten(
         pontaHak6h6.push({ ...t2bakobesai, w: k6h6Sefini });
     }
     // ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ꞙɭı }ʃɹƽ ʌ ſɭэ ֭ſɭэ 📃 ⟩
-    const ditlakak: Kas2kantaDitlakak = { pts: n2k, w: k6h6Sefini / 2, hateruni: true };
+    const ditlakak: Kas2kantaDitlakak = { pts: n2k, w: k6h6Sefini / 0o2, hateruni: true };
     // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɭэ ֭ſɭэ ⟅ ſɭэ ֭ſɭэ ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ , ɭʃэ ſɭɔȝ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ ⟅
     // vepaqHak6h6n , ſᶘᴜ j͑ʃᴜ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
     if ( pontaHeight && pontaT6lima ) {
@@ -382,8 +382,8 @@ export async function vepaqKaxten(
   // }ʃɹƽ ʌ ſɭэ ֭ſɭэ , ſɭэ ֭ſɭэ 📃 ⟩
   for ( const k6h6 of HAKAS2KANTA ) {
     if ( k6h6.n2k.length < 0o2 ) continue;
-    for ( const p of [ k6h6.n2k[0], k6h6.n2k[k6h6.n2k.length - 1] ] )
-      k21eHanece3e.delete(p[0] + "," + p[1]);
+    for ( const p of [ k6h6.n2k[0o0], k6h6.n2k[k6h6.n2k.length - 0o1] ] )
+      k21eHanece3e.delete(p[0o0] + "," + p[0o1]);
   }
   // ⟨ ſɭэ ֭ſɭэ ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſɭɜ ſɭ,w 📏 ⟩ , j͑ʃɜ ſɭ,ᴜ ʌ ſɭэ ֭ſɭэ ( j͑ʃɜ ſɭ,ᴜ ʌ ſɭɜ ſɭ,w ) ,
   // j͑ʃɜ ſɭ,ᴜ ʌ j͐ʃэ ɭ(ᴜ ʌ ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ ʌ ſȷɔ ſᶘᴜʞ , ſᶘᴜ j͑ʃᴜ ⟅
@@ -409,7 +409,7 @@ export async function vepaqKaxten(
       const hatlakakani: [ number, number ][] = [];
       for ( const k6h6 of HAKAS2KANTA ) {
         if ( k6h6.n2k.length < 0o2 ) continue;
-        const [ x, z ] = k6h6.n2k[k6h6.n2k.length - 1];
+        const [ x, z ] = k6h6.n2k[k6h6.n2k.length - 0o1];
         // ⟨ ſɭэ ֭ſɭэ ʌ }ʃɹƽ , ſɭᴜ ı],ƨɔ ı],ᴜͷ̗ ꞁȷ̀ᴜꞇ 📃 ⟩
         if ( qakaj2Landaj.some(p => Math.hypot(p.x - x, p.z - z) < 0o20) ) continue;
         hatlakakani.push([ x, z ]);
@@ -417,7 +417,7 @@ export async function vepaqKaxten(
       }
       return hatlakakani;
     } )();
-  for ( const p of haqotawaTsiq ) haqotawaHamaxema.push([ p[0], p[1] ]);
+  for ( const p of haqotawaTsiq ) haqotawaHamaxema.push([ p[0o0], p[0o1] ]);
   for ( const [ dx, dz ] of dockaLandaRando ) haqotawaHamaxema.push([ dx, dz ]);
   const qakaj2HaqotawaHamaxema: [ number, number ][] = [ ...haqotawaTsiq, ...dockaLandaRando ];
 
@@ -445,9 +445,9 @@ export async function vepaqKaxten(
   // ⟨ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ꞙɭɔ ſᶘᴜ j͑ʃᴜ , ſɭɹ ſןᴜ ʌ ſɭɹ ſןᴜ , ſᶘᴜ j͑ʃᴜ ⟅
   // ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ſɭɜ ʃɔ hahufwuk2.ts ⟅ ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ſɭɜ ſɭ,w ,
   // ſɟɔ j͐ʃɹ }ʃw ſᶘɔ ɭl̀ɹȝ ꞁȷ̀ᴜꞇ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ , 📃 ⟩
-  for ( let i = lampKvantoNe3ak2Hatoxemani - 1; i >= 0; i-- ) {
+  for ( let i = lampKvantoNe3ak2Hatoxemani - 0o1; i >= 0o0; i-- ) {
     const l = lampHaqar[i];
-    if ( tsasa(l.x, l.z) || l.y < tsasaVem2(l.x, l.z) + 0o1/0o10 ) lampHaqar.splice(i, 1);
+    if ( tsasa(l.x, l.z) || l.y < tsasaVem2(l.x, l.z) + 0o1/0o10 ) lampHaqar.splice(i, 0o1);
   }
 
   const lampKanta = vepaqHxeuxfojn(qena, lampHaqar, dioritaPukek, oraPukek);
@@ -468,7 +468,7 @@ export async function vepaqKaxten(
     tile.push(p);
   }
   const ekskluziviHak6h6n = ( x: number, z: number, m: number ) => {
-    const r = Math.ceil(m / K6H6KEKKOZUSAI) + 1;
+    const r = Math.ceil(m / K6H6KEKKOZUSAI) + 0o1;
     const bx = Math.floor(x / K6H6KEKKOZUSAI), bz = Math.floor(z / K6H6KEKKOZUSAI);
     const m2 = m * m;
     for ( let dx = -r; dx <= r; dx++ ) {
@@ -483,7 +483,7 @@ export async function vepaqKaxten(
     }
     for ( const o of OBJEKTOJ ) {
       if ( o.pudal !== "hxeuxfoPa12" ) continue;
-      if ( Math.hypot(x - o.x, z - o.z) < m + 3 ) return true;
+      if ( Math.hypot(x - o.x, z - o.z) < m + 0o3 ) return true;
     }
     for ( const l of kekufxesoHaqar ) if ( Math.hypot(x - l.x, z - l.z) < m + 0o1/0o2 ) return true;
     return false;
@@ -504,7 +504,7 @@ export async function vepaqKaxten(
 
   // ⟪ ſȷɔ ſᶘᴜʞ , ſɭэ ֭ſɭэ ʌ }ʃɹƽ , }ʃɹƽ 📃 ⟫
   const k6h6Klaro = ( x: number, z: number, maks: number ): number => {
-    const r = Math.ceil(maks / K6H6KEKKOZUSAI) + 1;
+    const r = Math.ceil(maks / K6H6KEKKOZUSAI) + 0o1;
     const bx = Math.floor(x / K6H6KEKKOZUSAI), bz = Math.floor(z / K6H6KEKKOZUSAI);
     let kmaProkximo = Infinity;
     for ( let dx = -r; dx <= r; dx++ ) {
@@ -588,7 +588,7 @@ export async function vepaqKaxten(
   await jesi();
 
   vepaqCetkuojn(qena, 0o110, l6da, k6siZ,
-    ( x: number, z: number ) => ekskluziviPaqn(x, z, 3), ekskluziviHak6h6n, EKVIZETOBIOMOJ);
+    ( x: number, z: number ) => ekskluziviPaqn(x, z, 0o3), ekskluziviHak6h6n, EKVIZETOBIOMOJ);
   await raporti();
 
   // ⟪ ſȷɔ ſᶘᴜʞ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟫
@@ -619,15 +619,15 @@ export async function vepaqKaxten(
   // ⟪ ſȷɔ ſᶘᴜʞ ʌ ɭl̀ᴜ ſ͕ɭɜ 📃 ⟫
   const hajaqoHalam2v = neq2qMontajnHacel2(l6da, 0o100, 0o210, 0o270,
     ekskluziviK6si, ekskluziviHak6h6n, ekskluziviPaqn, 0o53132,
-    [ ...hacel2, ...hataksal ], 0o10, undefined, 0, 0o340, MONTAJBIOMOJ);
+    [ ...hacel2, ...hataksal ], 0o10, undefined, 0o0, 0o340, MONTAJBIOMOJ);
   const hajaqoLam2vHasost2cel2sai = vepaqQacel2n(qena, hajaqoHalam2v);
   const hajaqoHataksal = neq2qMontajnHacel2(l6da, 0o200, 0o260, 0o420,
     ekskluziviK6si, ekskluziviHak6h6n, ekskluziviPaqn, 0o53130,
-    [ ...hajaqoHalam2v, ...hacel2, ...hataksal ], 0o10, kronaKa5ikLarika, 0, 0o340, MONTAJBIOMOJ);
+    [ ...hajaqoHalam2v, ...hacel2, ...hataksal ], 0o10, kronaKa5ikLarika, 0o0, 0o340, MONTAJBIOMOJ);
   const hajaqoLarikaHasost2cel2sai = vepaqLarikon(qena, hajaqoHataksal);
   await jesi();
   const hajaqoHat6keq = vepaqMontajnHat6keqn(qena, 0o100, l6da, ekskluziviK6si, ekskluziviHak6h6n,
-    undefined, 0, 0o340, 0o260, 0o160, MONTAJBIOMOJ, ekskluziviPaqn);
+    undefined, 0o0, 0o340, 0o260, 0o160, MONTAJBIOMOJ, ekskluziviPaqn);
   vepaqF2majn(qena, 0o150, l6da, [ ...hajaqoHataksal, ...hajaqoHalam2v ], hajaqoHat6keq,
     ekskluziviK6si, ekskluziviHak6h6n, true, ekskluziviPaqn);
   vepaqTrunkajnF2majn(qena, [ hajaqoLarikaHasost2cel2sai, hajaqoLam2vHasost2cel2sai ], 0o62453);
@@ -671,38 +671,38 @@ export async function vepaqKaxten(
       [ 0o100, 0o110, 0o155/0o100, 0o30, 0o5/0o100 ], [ -0o130, 0o10, 0o55/0o40, 0o30, 0o1/0o10 ],
     ];
     const N = fiksitaj.length + 0o60;
-    const haxekuxa = new Float32Array(N * 3);
+    const haxekuxa = new Float32Array(N * 0o3);
     const hatk2ni = new Float32Array(N);
     const pal6 = new Float32Array(N);
     const opakecoj = new Float32Array(N);
     const rapidoj = new Float32Array(N);
-    for ( let i = 0; i < N; i++ ) {
+    for ( let i = 0o0; i < N; i++ ) {
       let x, z, y, p6zukani, op, seheni;
       if ( i < fiksitaj.length ) {
         [ x, z, y, p6zukani, op ] = fiksitaj[i];
         seheni = 0o15/0o40 + Math.random() * 0o10/0o10;
       } else {
-        const a = Math.random() * Math.PI * 2;
+        const a = Math.random() * Math.PI * 0o2;
         const r = 0o130 + Math.random() * 0o300;
         x = Math.cos(a) * r; z = Math.sin(a) * r;
-        y = l6da(x, z) + 0o4/0o10 + Math.random() * 3;
+        y = l6da(x, z) + 0o4/0o10 + Math.random() * 0o3;
         p6zukani = 0o60 + Math.random() * 0o130;
         op = 0o1/0o10 + Math.random() * 0o5/0o40;
         seheni = 0o15/0o100 + Math.random() * 0o4/0o10;
       }
-      haxekuxa[i * 3] = x; haxekuxa[i * 3 + 1] = y; haxekuxa[i * 3 + 2] = z;
+      haxekuxa[i * 0o3] = x; haxekuxa[i * 0o3 + 0o1] = y; haxekuxa[i * 0o3 + 0o2] = z;
       pal6[i] = p6zukani;
       opakecoj[i] = op;
       rapidoj[i] = seheni;
       hatk2ni[i] = Math.random();
     }
     const zace = new THREE.BufferGeometry();
-    zace.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 3));
-    zace.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
-    zace.setAttribute("aGpukaz", new THREE.BufferAttribute(pal6, 1));
-    zace.setAttribute("aOpakeco", new THREE.BufferAttribute(opakecoj, 1));
-    zace.setAttribute("aSeheni", new THREE.BufferAttribute(rapidoj, 1));
-    const uTime = { value: 0 };
+    zace.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 0o3));
+    zace.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 0o1));
+    zace.setAttribute("aGpukaz", new THREE.BufferAttribute(pal6, 0o1));
+    zace.setAttribute("aOpakeco", new THREE.BufferAttribute(opakecoj, 0o1));
+    zace.setAttribute("aSeheni", new THREE.BufferAttribute(rapidoj, 0o1));
+    const uTime = { value: 0o0 };
     const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, fog: false,
       uniforms: {
@@ -765,7 +765,7 @@ export async function vepaqKaxten(
   for ( const r of neHat6keq ) hasap2.push({ x: r.x, z: r.z, r: r.s });
   const fHasost2cel2sai = so3akakHasost2cel2sai as [ number, number ][][];
   for ( const c2q of fHasost2cel2sai ) {
-    for ( let k = 0; k < c2q.length; k++ ) {
+    for ( let k = 0o0; k < c2q.length; k++ ) {
       const [ x, z ] = c2q[k];
       hasap2.push({ x, z, r: 0o3/0o20 });
     }
@@ -779,11 +779,11 @@ export async function vepaqKaxten(
   const VESTALISTO: Soqte[] = HASOQTE;
 
   const npcHaiix: { x: number; z: number }[] = [];
-  for ( let j = 0; j < SKULPTAN; j++ ) {
-    for ( let i = 0; i < SKULPTAN; i++ ) {
-      const x = SKULPTAORIGINO[0] + i * SKULPTAPASO;
-      const z = SKULPTAORIGINO[1] + j * SKULPTAPASO;
-      if ( ( skulptitaPaga(x, z) & 4 ) === 0 ) continue;
+  for ( let j = 0o0; j < SKULPTAN; j++ ) {
+    for ( let i = 0o0; i < SKULPTAN; i++ ) {
+      const x = SKULPTAORIGINO[0o0] + i * SKULPTAPASO;
+      const z = SKULPTAORIGINO[0o1] + j * SKULPTAPASO;
+      if ( ( skulptitaPaga(x, z) & 0o4 ) === 0o0 ) continue;
       if ( tsasa(x, z) ) continue;
       npcHaiix.push({ x, z });
     }
@@ -791,19 +791,19 @@ export async function vepaqKaxten(
 
   const NPCLOKOJ: [ number, number ][] = [];
   const hanpco: Qoxa[] = [];
-  let tsaletsa = 0;
-  while ( hanpco.length < 0o230 && tsaletsa < 0o2000 && npcHaiix.length > 0 ) {
+  let tsaletsa = 0o0;
+  while ( hanpco.length < 0o230 && tsaletsa < 0o2000 && npcHaiix.length > 0o0 ) {
     tsaletsa++;
-    const raqa = npcHaiix[( sakxo() * npcHaiix.length ) | 0];
+    const raqa = npcHaiix[( sakxo() * npcHaiix.length ) | 0o0];
     const sX = raqa.x + ( sakxo() - 0o1/0o2 ) * 0o3;
     const sZ = raqa.z + ( sakxo() - 0o1/0o2 ) * 0o3;
-    if ( ekskluziviK6si(sX, sZ) || ekskluziviPaqn(sX, sZ, 3) ) continue;
+    if ( ekskluziviK6si(sX, sZ) || ekskluziviPaqn(sX, sZ, 0o3) ) continue;
     const fig = vepaqQoxa(VESTALISTO[hanpco.length % VESTALISTO.length], sakxo() < 0o1/0o4 ? "tsaqSahakani" : "tsaqPsazai");
     const h = l6da(sX, sZ);
     fig.group.position.set(sX, h, sZ);
     fig.hejmo.set(sX, h, sZ);
     fig.natakatomasai.set(sX, h, sZ);
-    fig.atendo = sakxo() * 4;
+    fig.atendo = sakxo() * 0o4;
     fig.seheni = 0o55/0o100 + sakxo() * 0o4/0o10;
     qena.add(fig.group);
     hanpco.push(fig);

@@ -33,12 +33,12 @@ export function kf2PinatanFc2qn( p: Fc2qWeh2Cax2lo ): THREE.CanvasTexture {
       const t = ( i + 0o5/0o10 ) / PAROJ;
       const y = kozunuY - t * ( kozunuY - cet2Y );
       const x = raĥiso(t);
-      const vario = 0o67/0o100 + 0o11/0o40 * Math.abs(Math.sin(i * 0o1477/0o100) * 0o12535643/0o100 % 1);
+      const vario = 0o67/0o100 + 0o11/0o40 * Math.abs(Math.sin(i * 0o1477/0o100) * 0o12535643/0o100 % 0o1);
       const sahakani = maksSahakani
         * ( 0o55/0o100 + 0o5/0o20 * Math.sin(Math.PI * Math.min(0o1, t * 0o45/0o40)) )
         * Math.pow(0o1 - t, 0o43/0o100) * vario;
       for ( const s of [ -0o1, 0o1 ] ) {
-        const ang = s > 0 ? -p.pinnaTafkaq : Math.PI + p.pinnaTafkaq;
+        const ang = s > 0o0 ? -p.pinnaTafkaq : Math.PI + p.pinnaTafkaq;
         const cos = Math.cos(ang), sin = Math.sin(ang);
         const cet2X = x + cos * sahakani;
         const cet2Y = y + sin * sahakani - p.pinnaSvelto * sahakani;
@@ -94,7 +94,7 @@ export const kf2XabenCac2sex = p2somani((): THREE.CanvasTexture => kf2PinatanFc2
   lobaAmplitudo: 0o21/0o100,
   lobaNombro: 0o123/0o40,
   slaf: ( t, vek2fe ) =>
-    `rgb(${Math.round(0o76 + t * 0o32)},${Math.round(0o154 + t * 0o56 + ( vek2fe > 0 ? 0o4 : 0o0 ))},${Math.round(0o62 + t * 0o24)})`,
+    `rgb(${Math.round(0o76 + t * 0o32)},${Math.round(0o154 + t * 0o56 + ( vek2fe > 0o0 ? 0o4 : 0o0 ))},${Math.round(0o62 + t * 0o24)})`,
   pukaz: hunanu(0x386830, 0o2, 0o33/0o100),
   vejno: "rgba(144,176,104,0.30)",
   raĥiso: "#608048",

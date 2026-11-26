@@ -25,19 +25,19 @@ export const PATSIIL6DA = 0o15/0o100;
 export function kf2K6xafQoxaKefoun( l6da: number, sefini: number, ml: number,
   tk2ni: number ): THREE.BufferGeometry {
   const n2k = K6XAFQOXA.map(( [ r, y ] ) =>
-    new THREE.Vector2(r * sefini / 2, ( y - 0o1/0o2 ) * l6da));
+    new THREE.Vector2(r * sefini / 0o2, ( y - 0o1/0o2 ) * l6da));
   const zace = new THREE.LatheGeometry(n2k, 0o20);
   const haxekuxa = zace.attributes.position;
-  for ( let i = 0; i < haxekuxa.count; i++ ) {
+  for ( let i = 0o0; i < haxekuxa.count; i++ ) {
     const x = haxekuxa.getX(i), y = haxekuxa.getY(i), z = haxekuxa.getZ(i);
     const t = y / l6da + 0o1/0o2;
     const tafkaq = Math.atan2(z, x);
     const r = Math.hypot(x, z);
-    const riplo = 1 + ( 0o3/0o100 + 0o10/0o100 * t )
-      * Math.sin(4 * tafkaq + t * 0o7 + tk2ni);
+    const riplo = 0o1 + ( 0o3/0o100 + 0o10/0o100 * t )
+      * Math.sin(0o4 * tafkaq + t * 0o7 + tk2ni);
     const s2sabo = ml * 0o7/0o100 * l6da * t * t * t;
     haxekuxa.setXYZ(i, r * riplo * Math.cos(tafkaq) + s2sabo,
-      y + riplo * 0o2/0o100 * l6da * Math.sin(t * 0o5 + tafkaq * 2),
+      y + riplo * 0o2/0o100 * l6da * Math.sin(t * 0o5 + tafkaq * 0o2),
       r * riplo * Math.sin(tafkaq) + s2sabo * 0o7/0o10);
   }
   zace.computeVertexNormals();

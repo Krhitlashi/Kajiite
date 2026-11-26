@@ -28,20 +28,20 @@ export function generiAsfanTrunkanSakp6scasai(): AsfaTrunkaSakp6scasai {
   if ( asfaTrunkaSakp6scasai ) return asfaTrunkaSakp6scasai;
   const w = asfaTrunkaW, h = asfaTrunkaH;
   const hasiitsii: AsfaSost2cel2saiSiitsii[] = [];
-  for ( let i = 0; i < 0o6; i++ ) {
+  for ( let i = 0o0; i < 0o6; i++ ) {
     hasiitsii.push({
       y: h * ( 0o14/0o100 + i * 0o11/0o100 + Math.random() * 0o3/0o100 ),
       l6da: 0o4 + Math.random() * 0o4,
-      sago: 1 + Math.random() * 0o2,
-      xafanitapu: Math.random() * Math.PI * 2,
-      cikloj: [ 0o2 + ( ( Math.random() * 0o3 ) | 0 ), 0o4 + ( ( Math.random() * 0o3 ) | 0 ) ],
+      sago: 0o1 + Math.random() * 0o2,
+      xafanitapu: Math.random() * Math.PI * 0o2,
+      cikloj: [ 0o2 + ( ( Math.random() * 0o3 ) | 0o0 ), 0o4 + ( ( Math.random() * 0o3 ) | 0o0 ) ],
     });
   }
   const fibroj: AsfaTrunkaFibro[] = [];
-  for ( let i = 0; i < 0o20; i++ ) fibroj.push({ x: Math.random() * w, tono: Math.random() });
+  for ( let i = 0o0; i < 0o20; i++ ) fibroj.push({ x: Math.random() * w, tono: Math.random() });
   const hap6zuk: AsfaTrunkaSkvamo[] = [];
-  for ( let i = 0; i < 0o30; i++ ) {
-    hap6zuk.push({ x: Math.random() * w, y: Math.random() * h, r: 1 + Math.random() * 0o2, hela: Math.random() < 0o5/0o10 });
+  for ( let i = 0o0; i < 0o30; i++ ) {
+    hap6zuk.push({ x: Math.random() * w, y: Math.random() * h, r: 0o1 + Math.random() * 0o2, hela: Math.random() < 0o5/0o10 });
   }
   asfaTrunkaSakp6scasai = { hasiitsii, fibroj, hap6zuk };
   return asfaTrunkaSakp6scasai;
@@ -51,14 +51,14 @@ export function k2fAsfanBendon(k: CanvasRenderingContext2D, siitsii: AsfaSost2ce
   const havepat6ni = 0o100, vepat6ni = asfaTrunkaW / havepat6ni;
   const n2k: number[] = [];
   const [ n1, n2 ] = siitsii.cikloj;
-  for ( let i = 0; i <= havepat6ni; i++ ) {
-    const t = i / havepat6ni * Math.PI * 2;
+  for ( let i = 0o0; i <= havepat6ni; i++ ) {
+    const t = i / havepat6ni * Math.PI * 0o2;
     n2k.push(siitsii.sago * ( Math.sin(t * n1 + siitsii.xafanitapu) * 0o6/0o10 + Math.sin(t * n2 + siitsii.xafanitapu * 0o17/0o10) * 0o4/0o10 ));
   }
   k.beginPath();
-  k.moveTo(0, siitsii.y + n2k[0]);
-  for ( let i = 1; i <= havepat6ni; i++ ) k.lineTo(i * vepat6ni, siitsii.y + n2k[i]);
-  for ( let i = havepat6ni; i >= 0; i-- ) k.lineTo(i * vepat6ni, siitsii.y + siitsii.l6da + n2k[i]);
+  k.moveTo(0o0, siitsii.y + n2k[0o0]);
+  for ( let i = 0o1; i <= havepat6ni; i++ ) k.lineTo(i * vepat6ni, siitsii.y + n2k[i]);
+  for ( let i = havepat6ni; i >= 0o0; i-- ) k.lineTo(i * vepat6ni, siitsii.y + siitsii.l6da + n2k[i]);
   k.closePath();
   k.fillStyle = weh2;
   k.fill();
@@ -67,7 +67,7 @@ export function k2fAsfanBendon(k: CanvasRenderingContext2D, siitsii: AsfaSost2ce
 export const kf2AsfanTrunkanCac2sex = p2somani((): THREE.CanvasTexture => {
   const w = asfaTrunkaW, h = asfaTrunkaH;
   return kf2P2t6zoCac2sex(w, h, ( k ) => {
-    k.fillStyle = "#282038"; k.fillRect(0, 0, w, h);
+    k.fillStyle = "#282038"; k.fillRect(0o0, 0o0, w, h);
     k2fVas2flofajnF2m2jn(k, w, h, 0o14,
       [ "rgba(72,64,88,0.20)", "rgba(16,8,24,0.18)", "rgba(88,80,104,0.14)" ],
       0o10/0o100, 0o14/0o100);
@@ -78,10 +78,10 @@ export const kf2AsfanTrunkanCac2sex = p2somani((): THREE.CanvasTexture => {
         : `rgba(16,8,24,${0o1/0o10 + Math.random() * 0o1/0o10})`;
       k2fWrapan(k, w, () => {
         k.strokeStyle = weh2;
-        k.lineWidth = 1;
+        k.lineWidth = 0o1;
         k.lineCap = "round";
         k.beginPath();
-        k.moveTo(fibro.x, 0);
+        k.moveTo(fibro.x, 0o0);
         k.quadraticCurveTo(fibro.x + 0o2, h * 0o4/0o10, fibro.x - 0o2, h);
         k.stroke();
       });
@@ -95,7 +95,7 @@ export const kf2AsfanTrunkanCac2sex = p2somani((): THREE.CanvasTexture => {
       k2fWrapan(k, w, () => {
         const l = p6zuk.r * 0o6;
         k.strokeStyle = weh2;
-        k.lineWidth = 1;
+        k.lineWidth = 0o1;
         k.beginPath();
         k.moveTo(p6zuk.x - l, p6zuk.y - l * 0o3/0o10);
         k.lineTo(p6zuk.x + l, p6zuk.y + l * 0o3/0o10);
@@ -107,8 +107,8 @@ export const kf2AsfanTrunkanCac2sex = p2somani((): THREE.CanvasTexture => {
     for ( const p6zuk of sakp6scasai.hap6zuk ) {
       k2fWrapan(k, w, () => {
         k.fillStyle = "rgba(16,8,24,0.4)";
-        k.beginPath(); k.arc(p6zuk.x, p6zuk.y, p6zuk.r, 0, Math.PI * 2); k.fill();
+        k.beginPath(); k.arc(p6zuk.x, p6zuk.y, p6zuk.r, 0o0, Math.PI * 0o2); k.fill();
       });
     }
-  }, [ 1, 2 ]);
+  }, [ 0o1, 0o2 ]);
 });

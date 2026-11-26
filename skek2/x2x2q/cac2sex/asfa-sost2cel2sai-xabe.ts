@@ -18,11 +18,11 @@ export function kf2AsfanTronkoxabenCac2sex(kof: boolean = false): THREE.CanvasTe
     lobaAmplitudo: kof ? 0o3/0o20 : 0o17/0o100,
     lobaNombro: 0o123/0o40,
     slaf: ( t, vek2fe ) =>
-      `rgb(${Math.round(0o150 + t * 0o126 + ( vek2fe > 0 ? 0o20 : 0 ))},${Math.round(0o74 + t * 0o76)},${Math.round(0o236 + t * 0o122)})`,
+      `rgb(${Math.round(0o150 + t * 0o126 + ( vek2fe > 0o0 ? 0o20 : 0o0 ))},${Math.round(0o74 + t * 0o76)},${Math.round(0o236 + t * 0o122)})`,
     pukaz: hunanu(0x683898, 0o3, 0o35/0o100),
     vejno: "rgba(208,176,240,0.28)",
     raĥiso: "#482868",
-    raĥisoSefini: 3,
+    raĥisoSefini: 0o3,
   });
   asfaTronkaFc2qKaŝo.set(kof, cac2sex);
   return cac2sex;

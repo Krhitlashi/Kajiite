@@ -13,10 +13,10 @@ import { veb6qaiWeh2Skek, veb6qaiWeh2 } from "../../x2x2q/haweh2.js";
 function sexieaVitro(): THREE.MeshStandardMaterial {
   return paqPukek("sexieo",
     () => new THREE.MeshStandardMaterial({
-      color: 0xffffff, roughness: 0o5/0o10, metalness: 0,
+      color: 0xffffff, roughness: 0o5/0o10, metalness: 0o0,
 // ⟨ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
       transparent: true, opacity: 0o6/0o10,
-      emissive: veb6qaiWeh2(0x0a1a18), emissiveIntensity: 0o1/0o4,
+      emissive: veb6qaiWeh2(0x081818), emissiveIntensity: 0o1/0o4,
     }));
 }
 
@@ -24,8 +24,8 @@ function sexieaVitro(): THREE.MeshStandardMaterial {
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭц , 📃 ⟩
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
-const SEXIEAINKOTAGE = new THREE.Color(0xc2b32f);
-const SEXIEAINKONOKTE = new THREE.Color(0xf2eea6);
+const SEXIEAINKOTAGE = new THREE.Color(0xc0b028);
+const SEXIEAINKONOKTE = new THREE.Color(0xf0e8a0);
 const sexieaInkaWeh2 = veb6qaiWeh2Skek(new THREE.Color().copy(SEXIEAINKOTAGE));
 const sexieaBordoWeh2 = new THREE.Color(0xffffff);
 function sexieaS2bana(bal2: THREE.Texture): THREE.ShaderMaterial {
@@ -35,7 +35,7 @@ function sexieaS2bana(bal2: THREE.Texture): THREE.ShaderMaterial {
       uBal2: { value: bal2 },
       uInko: { value: sexieaInkaWeh2 },
       uBordo: { value: sexieaBordoWeh2 },
-      uTeksele: { value: new THREE.Vector2(1 / im.width, 1 / im.height) },
+      uTeksele: { value: new THREE.Vector2(0o1 / im.width, 0o1 / im.height) },
       uKof: { value: 0o5/0o2 },
     },
     transparent: true, depthWrite: false, toneMapped: false,
@@ -68,7 +68,7 @@ function sexieaS2bana(bal2: THREE.Texture): THREE.ShaderMaterial {
 // ⟨ ſɭᴜ ſןᴜ , ſᶘɹ ſɭᴜ , 📃 ⟩
 // ⟨ ſ͕ɭɜ ı],ᴜ , ſɭэ ſɭᴜ , 📃 ⟩
 export function tlak2SexieanVitron(malhelo: number): void {
-  const v = 1 - Math.max(0, Math.min(1, malhelo));
+  const v = 0o1 - Math.max(0o0, Math.min(0o1, malhelo));
   if ( Math.abs(v - tlakakaiFasw2d2Lumo) < 0o1/0o100 ) return;
   tlakakaiFasw2d2Lumo = v;
   const m = sexieaVitro();
@@ -77,7 +77,7 @@ export function tlak2SexieanVitron(malhelo: number): void {
   veb6qaiWeh2Skek(sexieaBordoWeh2.setRGB(v, v, v));
   m.emissiveIntensity = v * 0o1/0o4;
 }
-let tlakakaiFasw2d2Lumo = 1;
+let tlakakaiFasw2d2Lumo = 0o1;
 
 export function tlunakSexieanKaatse(group: THREE.Group, name: string, hunaq: string, w: number, d: number): void {
 // ⟨ j͐ʃƽɜ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📃 ⟩
@@ -95,7 +95,7 @@ export function tlunakSexieanKaatse(group: THREE.Group, name: string, hunaq: str
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
     sexieaVitro()
 );
-  sexieo.position.set(w * 0o13/0o40, signaY, d / 2 + 0o104/0o100 - 0o5/0o100); sexieo.castShadow = false; group.add(sexieo);
+  sexieo.position.set(w * 0o13/0o40, signaY, d / 0o2 + 0o104/0o100 - 0o5/0o100); sexieo.castShadow = false; group.add(sexieo);
 // ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
   const faceGeo = new THREE.ShapeGeometry(kf2SexieanQoxan(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10), 0o10);
   faceGeo.computeBoundingBox();
@@ -106,12 +106,12 @@ export function tlunakSexieanKaatse(group: THREE.Group, name: string, hunaq: str
   const faceL6da = Math.max(0o10 ** -0o7, faceUjo.max.y - faceUjo.min.y);
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
   const s2banaP6zuk = 0o7/0o6;
-  for ( let i = 0; i < faceUV.count; i++ ) {
+  for ( let i = 0o0; i < faceUV.count; i++ ) {
     const u = ( facePoz.getX(i) - faceUjo.min.x ) / faceSefini;
     const v = ( facePoz.getY(i) - faceUjo.min.y ) / faceL6da;
     faceUV.setXY(i, 0o1/0o2 + ( u - 0o1/0o2 ) * s2banaP6zuk, 0o1/0o2 + ( v - 0o1/0o2 ) * s2banaP6zuk);
   }
   faceUV.needsUpdate = true;
   const face = new THREE.Mesh(faceGeo, sexieaS2bana(cac2sex));
-  face.position.set(w * 0o13/0o40, signaY, d / 2 + 0o112/0o100); group.add(face);
+  face.position.set(w * 0o13/0o40, signaY, d / 0o2 + 0o112/0o100); group.add(face);
 }

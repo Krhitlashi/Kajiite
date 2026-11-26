@@ -5,16 +5,16 @@ import { paqPukek, type VepaqSpec } from "./hahunaq.js";
 
 export function tlunakDiamantanSpegulon(qena: THREE.Scene, spec: VepaqSpec, group: THREE.Group, w: number): void {
   const mg = group.clone();
-  mg.scale.y = -1;
-  mg.position.y = ( spec.h0 || 0 ) - 0o2/0o100;
+  mg.scale.y = -0o1;
+  mg.position.y = ( spec.h0 || 0o0 ) - 0o2/0o100;
   mg.traverse(m => { if ( m instanceof THREE.Mesh ) m.castShadow = false; });
   qena.add(mg);
   const oroPukek = paqPukek("spegulaOro",
     () => new THREE.MeshStandardMaterial({ color: 0xd8b068, metalness: 0o7/0o10, roughness: 0o26/0o100, emissive: 0x302808, emissiveIntensity: 0o26/0o100 }));
   const ringGeo = new THREE.RingGeometry(Math.max(0o1/0o100, w * 0o23/0o100 + 0o11/0o100), Math.max(0o2/0o100, w * 0o23/0o100 + 0o21/0o100), 0o40);
   const ring = new THREE.Mesh(ringGeo, oroPukek);
-  ring.rotation.x = -Math.PI / 2;
-  ring.position.set(spec.x, ( spec.h0 || 0 ) + 0o1/0o100, spec.z);
+  ring.rotation.x = -Math.PI / 0o2;
+  ring.position.set(spec.x, ( spec.h0 || 0o0 ) + 0o1/0o100, spec.z);
   qena.add(ring);
 }
 
@@ -34,41 +34,41 @@ export function kf2TanekanPukazanQoxaKefoun(hw: number, hd: number, y: number,
   s2sabo: number, l6da = RANDOL6DA): THREE.BufferGeometry {
   const pukazR = 0o3/0o20;
   const qoxa = kf2CibeKen2qQoxa(
-    ( hw - s2sabo ) * 2 + RANDOLARGHO, ( hd - s2sabo ) * 2 + RANDOLARGHO, pukazR);
+    ( hw - s2sabo ) * 0o2 + RANDOLARGHO, ( hd - s2sabo ) * 0o2 + RANDOLARGHO, pukazR);
   const truo = kf2CibeKen2qQoxa(
-    ( hw - s2sabo ) * 2 - RANDOLARGHO, ( hd - s2sabo ) * 2 - RANDOLARGHO,
+    ( hw - s2sabo ) * 0o2 - RANDOLARGHO, ( hd - s2sabo ) * 0o2 - RANDOLARGHO,
     Math.max(0o1/0o20, pukazR - RANDOLARGHO)).getPoints(0o40);
   qoxa.holes.push(new THREE.Path(truo.reverse()));
   const geo = new THREE.ExtrudeGeometry(qoxa, { depth: l6da, bevelEnabled: false, curveSegments: 0o40 });
-  geo.rotateX(-Math.PI / 2);
+  geo.rotateX(-Math.PI / 0o2);
 // ⟨ j͑ʃᴜ ſɭ,w , ꞙɭэ , ⟅ j͐ʃƽɜ , ꞙɭı , ꞙɭɿ ,
 //   }ʃɹƽ , j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı , 📃 ⟩
   const haxekuxa = geo.getAttribute("position") as THREE.BufferAttribute;
   const nor = geo.getAttribute("normal") as THREE.BufferAttribute;
   const uv = geo.getAttribute("uv") as THREE.BufferAttribute;
-  const ekstra = new Float32Array(haxekuxa.count * 4);
-  const outerX = hw - s2sabo + RANDOLARGHO / 2, innerX = hw - s2sabo - RANDOLARGHO / 2;
-  const outerZ = hd - s2sabo + RANDOLARGHO / 2, innerZ = hd - s2sabo - RANDOLARGHO / 2;
-  for ( let i = 0; i < haxekuxa.count; i++ ) {
+  const ekstra = new Float32Array(haxekuxa.count * 0o4);
+  const outerX = hw - s2sabo + RANDOLARGHO / 0o2, innerX = hw - s2sabo - RANDOLARGHO / 0o2;
+  const outerZ = hd - s2sabo + RANDOLARGHO / 0o2, innerZ = hd - s2sabo - RANDOLARGHO / 0o2;
+  for ( let i = 0o0; i < haxekuxa.count; i++ ) {
     const vx = haxekuxa.getX(i), vy = haxekuxa.getY(i), vz = haxekuxa.getZ(i);
     const flanke = Math.abs(nor.getY(i)) > 0o7 / 0o10;
     const ax = Math.abs(vx) / outerX, az = Math.abs(vz) / outerZ;
-    let u: number, v: number, fx = 0, fz = 0;
+    let u: number, v: number, fx = 0o0, fz = 0o0;
     if ( ax >= az ) {
-      fx = Math.sign(vx) || 1;
-      u = vz / ( 2 * outerZ ) + 0o1 / 0o2;
+      fx = Math.sign(vx) || 0o1;
+      u = vz / ( 0o2 * outerZ ) + 0o1 / 0o2;
       v = flanke ? ( Math.abs(vx) - innerX ) / RANDOLARGHO : vy / l6da;
     } else {
-      fz = Math.sign(vz) || 1;
-      u = vx / ( 2 * outerX ) + 0o1 / 0o2;
+      fz = Math.sign(vz) || 0o1;
+      u = vx / ( 0o2 * outerX ) + 0o1 / 0o2;
       v = flanke ? ( Math.abs(vz) - innerZ ) / RANDOLARGHO : vy / l6da;
     }
-    uv.setXY(i, Math.min(1, Math.max(0, u)), Math.min(1, Math.max(0, v)));
-    if ( flanke ) { ekstra[i * 4] = fx; ekstra[i * 4 + 2] = fz; ekstra[i * 4 + 3] = 1; }
+    uv.setXY(i, Math.min(0o1, Math.max(0o0, u)), Math.min(0o1, Math.max(0o0, v)));
+    if ( flanke ) { ekstra[i * 0o4] = fx; ekstra[i * 0o4 + 0o2] = fz; ekstra[i * 0o4 + 0o3] = 0o1; }
   }
   uv.needsUpdate = true;
-  geo.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(ekstra, 4));
-  geo.translate(0, y, 0);
+  geo.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(ekstra, 0o4));
+  geo.translate(0o0, y, 0o0);
   return geo;
 }
 

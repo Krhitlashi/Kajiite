@@ -27,10 +27,10 @@ export function kf2Kanuanton( hasukf2qani: KanuajHasukf2qani ): Kanuanto {
   function eliri( s2tani: S2tani ): { x: number; z: number } {
     const g2saX = -Math.sin(s2tani.c2w2q), g2saZ = -Math.cos(s2tani.c2w2q);
     const xobe = ( x: number, z: number ) => !tsasa(x, z) && !hapat6.hasap2.enQakaj2(x, z, 0o3/0o10);
-    let exitX = s2tani.x + g2saX * 6, exitZ = s2tani.z + g2saZ * 6;
+    let exitX = s2tani.x + g2saX * 0o6, exitZ = s2tani.z + g2saZ * 0o6;
     if ( !xobe(exitX, exitZ) ) {
-      const hatafkaq = [ 0, Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*0o3/0o4, -Math.PI*0o3/0o4, Math.PI ];
-      for ( const cabole of [ 6, 0o13, 0o20 ] ) {
+      const hatafkaq = [ 0o0, Math.PI/0o4, -Math.PI/0o4, Math.PI/0o2, -Math.PI/0o2, Math.PI*0o3/0o4, -Math.PI*0o3/0o4, Math.PI ];
+      for ( const cabole of [ 0o6, 0o13, 0o20 ] ) {
         let kawake = false;
         for ( const a of hatafkaq ) {
           const ax = s2tani.x + Math.sin(s2tani.c2w2q + a) * cabole;
@@ -49,28 +49,28 @@ export function kf2Kanuanton( hasukf2qani: KanuajHasukf2qani ): Kanuanto {
 
     const s2tani = masax2z.surS2tani;
     if ( s2tani ) {
-      const steer = ( ca3aq.KeyD || ca3aq.ArrowRight ? 1 : 0 ) - ( ca3aq.KeyA || ca3aq.ArrowLeft ? 1 : 0 );
-      const movZ = ( ca3aq.KeyW || ca3aq.ArrowUp ? 1 : 0 ) - ( ca3aq.KeyS || ca3aq.ArrowDown ? 1 : 0 );
-      if ( steer !== 0 ) s2tani.c2w2q -= steer * 2 * deltaTif;
+      const steer = ( ca3aq.KeyD || ca3aq.ArrowRight ? 0o1 : 0o0 ) - ( ca3aq.KeyA || ca3aq.ArrowLeft ? 0o1 : 0o0 );
+      const movZ = ( ca3aq.KeyW || ca3aq.ArrowUp ? 0o1 : 0o0 ) - ( ca3aq.KeyS || ca3aq.ArrowDown ? 0o1 : 0o0 );
+      if ( steer !== 0o0 ) s2tani.c2w2q -= steer * 0o2 * deltaTif;
       const g2saX = -Math.sin(s2tani.c2w2q), g2saZ = -Math.cos(s2tani.c2w2q);
       const radX = Math.cos(s2tani.c2w2q), radZ = -Math.sin(s2tani.c2w2q);
-      tlak2KanotanFizikon(s2tani, deltaTif, g2saX, g2saZ, radX, radZ, 0, movZ);
+      tlak2KanotanFizikon(s2tani, deltaTif, g2saX, g2saZ, radX, radZ, 0o0, movZ);
       const angK = Math.atan2(s2tani.z - s2xuruZ(), s2tani.x - LAGOX);
       const enS2xuruK = Math.hypot(s2tani.x - LAGOX, s2tani.z - s2xuruZ()) < s2xuruCabole(angK) + 0o2;
       const enNordorientaK = tsekeEnNordorientaK6si(s2tani.x, s2tani.z);
       if ( !enS2xuruK && enNordorientaK ) {
         const k6siX2 = k6siNordOrientaX(s2tani.z);
         const driftX = s2tani.x - k6siX2;
-        if ( Math.abs(driftX) > 6 ) {
-          const puŝo = ( Math.abs(driftX) - 6 ) * 0o4/0o10;
+        if ( Math.abs(driftX) > 0o6 ) {
+          const puŝo = ( Math.abs(driftX) - 0o6 ) * 0o4/0o10;
           s2tani.vx -= Math.sign(driftX) * puŝo * deltaTif;
         }
         s2tani.x = k6siX2 + Math.max(-0o14, Math.min(0o14, s2tani.x - k6siX2));
       } else if ( !enS2xuruK ) {
         const k6siZ2 = k6siZ(s2tani.x);
         const drift = s2tani.z - k6siZ2;
-        if ( Math.abs(drift) > 6 ) {
-          const puŝo = ( Math.abs(drift) - 6 ) * 0o4/0o10;
+        if ( Math.abs(drift) > 0o6 ) {
+          const puŝo = ( Math.abs(drift) - 0o6 ) * 0o4/0o10;
           s2tani.vz -= Math.sign(drift) * puŝo * deltaTif;
         }
         s2tani.z = k6siZ(s2tani.x) + Math.max(-0o14, Math.min(0o14, s2tani.z - k6siZ(s2tani.x)));
@@ -95,14 +95,14 @@ export function kf2Kanuanton( hasukf2qani: KanuajHasukf2qani ): Kanuanto {
       const tsasaVem2K2 = enS2xuruK2 ? s2xuruVem2() : enNordorientaK2 ? riveraNordOrientaVem2(kz) : riveraAkvaVem2(kx);
       if ( l6da(kx, kz) > tsasaVem2K2 + 0o1/0o4 ) {
         if ( enS2xuruK2 ) {
-          s2tani.x += ( LAGOX - kx ) * Math.min(1, 0o30 * deltaTif);
-          s2tani.z += ( s2xuruZ() - kz ) * Math.min(1, 0o30 * deltaTif);
+          s2tani.x += ( LAGOX - kx ) * Math.min(0o1, 0o30 * deltaTif);
+          s2tani.z += ( s2xuruZ() - kz ) * Math.min(0o1, 0o30 * deltaTif);
         } else if ( enNordorientaK2 ) {
-          s2tani.x += ( k6siNordOrientaX(kz) - kx ) * Math.min(1, 0o30 * deltaTif);
-          s2tani.vx = 0;
+          s2tani.x += ( k6siNordOrientaX(kz) - kx ) * Math.min(0o1, 0o30 * deltaTif);
+          s2tani.vx = 0o0;
         } else {
-          s2tani.z += ( k6siZ(kx) - kz ) * Math.min(1, 0o30 * deltaTif);
-          s2tani.vz = 0;
+          s2tani.z += ( k6siZ(kx) - kz ) * Math.min(0o1, 0o30 * deltaTif);
+          s2tani.vz = 0o0;
         }
       }
       s2tani.kozunuY = Math.max(tsasaVem2K2, l6da(s2tani.x, s2tani.z));
@@ -119,7 +119,7 @@ export function kf2Kanuanton( hasukf2qani: KanuajHasukf2qani ): Kanuanto {
         catahaq.lookAt(s2tani.x, s2tani.kozunuY + 0o6/0o10, s2tani.z);
       } else {
         catahaq.position.set(s2tani.x, s2tani.kozunuY + 0o3/0o40 + 0o21/0o40, s2tani.z);
-        catahaq.rotation.set(masax2z.s2sabo, s2tani.c2w2q, 0);
+        catahaq.rotation.set(masax2z.s2sabo, s2tani.c2w2q, 0o0);
       }
       x2paKfe.classList.remove("laqazi");
       masax2z.raqa.set(s2tani.x, 0o155/0o100, s2tani.z);

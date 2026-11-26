@@ -12,6 +12,7 @@ import { catsaraHakaxten, catsaraSukf2qitanKaxten, catsaraHak6h6n, catsaraHaqaka
   tlak2K6h6jnHakaman, sinkronigiHatik, hakaxte, hak6h6, haqakaj2, sukf2qitaKaxte } from "./haqox2n2k.js";
 import { tlak2Qoxan3D } from "./vido3d.js";
 import { kfe } from "../../x2x2q/dom.js";
+import { knak2fecajasai, KNAK2FECAJASAI } from "../../../../kanta/x2x2q/s2cax2l.js";
 import type { Bal2Qoxa } from "../../../skek2/x2x2q/mapqoxa.js";
 import type { Bal2Vop2 } from "../../../kanta/t6lima-havop2/mapregulo.js";
 import type { AkvaTsiq } from "./tsasa.js";
@@ -26,50 +27,50 @@ export let bal2Pal6: number = bal2Vop2.pal6;
 export let bal2Havalaqaz: Bal2Vop2[] = Habal2.map(m => ( { ...m } ));
 export let formajHapukaz = qoxaPukazN2k(bal2Qoxa, bal2Pal6, 0o100);
 
-export function oktala(skek2: number): string {
+export function knak2fe(skek2: number): string {
   const n = Math.round(skek2 * 0o100);
-  if ( n % 0o100 === 0 ) {
+  if ( n % 0o100 === 0o0 ) {
     const tuta = n / 0o100;
-    return ( tuta < 0 ? "-" : "" ) + "ꞙɭ" + Math.abs(tuta).toString(0o10);
+    return knak2fecajasai(tuta, 0o0);
   }
-  return ( n < 0 ? "-" : "" ) + "ꞙɭ" + Math.abs(n).toString(0o10) + "/ꞙɭıɔɔ";
+  return ( n < 0o0 ? "-" : "" ) + "ꞙɭ" + Math.abs(n).toString(0o10).replace( /[0-7]/g, c => KNAK2FECAJASAI[ Number( c ) ] ) + "/ꞙɭıɔɔ";
 }
-export function gcdn(a: number, b: number): number {
+export function kaltok(a: number, b: number): number {
   a = Math.abs(a); b = Math.abs(b);
   while ( b ) { const r = a % b; a = b; b = r; }
-  return a || 1;
+  return a || 0o1;
 }
-export function piFrakcio(skek2: number): string | null {
+export function kanc2q(skek2: number): string | null {
   if ( !Number.isFinite(skek2) ) return null;
   const r = skek2 / Math.PI;
   if ( Math.abs(r) < 0o10 ** -0o12 ) return "0";
-  for ( let d = 1; d <= 0o20; d++ ) {
+  for ( let d = 0o1; d <= 0o20; d++ ) {
     const k = Math.round(r * d);
     if ( Math.abs(r - k / d) < 0o10 ** -0o11 ) {
-      if ( k === 0 ) return "0";
-      const g = gcdn(k, d);
+      if ( k === 0o0 ) return "0";
+      const g = kaltok(k, d);
       const kk = k / g, dd = d / g;
-      const kaatse = kk < 0 ? "-" : "";
+      const kaatse = kk < 0o0 ? "-" : "";
       const abso = Math.abs(kk);
-      if ( dd === 1 ) {
-        return abso === 1 ? kaatse + "Math.PI" : kaatse + abso + " * Math.PI";
+      if ( dd === 0o1 ) {
+        return abso === 0o1 ? kaatse + "Math.PI" : kaatse + abso + " * Math.PI";
       }
-      return abso === 1 ? kaatse + "Math.PI / " + dd : kaatse + abso + " * Math.PI / " + dd;
+      return abso === 0o1 ? kaatse + "Math.PI / " + dd : kaatse + abso + " * Math.PI / " + dd;
     }
   }
   return null;
 }
-export function formatiNombron(skek2: number): string {
+export function knak2feVem2(skek2: number): string {
   if ( !Number.isFinite(skek2) ) return "null";
-  if ( skek2 === 0 ) return "0";
-  const p = piFrakcio(skek2);
+  if ( skek2 === 0o0 ) return "0";
+  const p = kanc2q(skek2);
   if ( p !== null ) return p;
   if ( Number.isInteger(skek2) && Math.abs(skek2) <= 0o7777777777 ) {
-    return ( skek2 < 0 ? "-" : "" ) + "ꞙɭ" + Math.abs(skek2).toString(0o10);
+    return knak2fecajasai(skek2, 0o0);
   }
   const n64 = skek2 * 0o100;
   if ( Number.isInteger(n64) && Math.abs(n64) <= 0o7777777777 ) {
-    return ( n64 < 0 ? "-" : "" ) + "ꞙɭ" + Math.abs(n64).toString(0o10) + "/ꞙɭıɔɔ";
+    return ( n64 < 0o0 ? "-" : "" ) + "ꞙɭ" + Math.abs(n64).toString(0o10).replace( /[0-7]/g, c => KNAK2FECAJASAI[ Number( c ) ] ) + "/ꞙɭıɔɔ";
   }
   return String(skek2);
 }
@@ -79,7 +80,7 @@ export function formatiNombron(skek2: number): string {
 @returns ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ( string ) ⟅ */
 export function skribiVem2(skek2: unknown): string {
   if ( skek2 === null || skek2 === undefined ) return "null";
-  if ( typeof skek2 === "number" ) return formatiNombron(skek2);
+  if ( typeof skek2 === "number" ) return knak2feVem2(skek2);
   if ( typeof skek2 === "boolean" ) return skek2 ? "true" : "false";
   if ( typeof skek2 === "string" ) return JSON.stringify(skek2);
   if ( Array.isArray(skek2) ) return "[ " + skek2.map(v => skribiVem2(v)).join(", ") + " ]";
@@ -95,21 +96,21 @@ export function skribiVem2(skek2: unknown): string {
     @param s2banani ( string ) - ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃɹ ɭʃɜ ( ſɟᴜ ｡ ) ⟅
 @returns ſɭɹ ſȷɔ ʌ j͑ʃɹ ɭl̀ɹ ( any ) ｡ ſɭɹ ſȷɔ ɭʃᴜ ɭʃᴜ ⟅ */
 export function parziVem2(s2banani: string): any {
-  let i = 0;
+  let i = 0o0;
   const sp = () => { while ( i < s2banani.length && /\s/.test(s2banani[i]) ) i++; };
-  const tlohk2nik2p2 = (): never => { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſɟᴜ ſɭɹ ſȷɔ ｡ " + i + " , " + s2banani.slice(i, i + 0o40)); };
+  const tlohk2nik2p2 = (): never => { throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſɟᴜ ſɭɹ ſȷɔ ｡ " + i + " ｡ " + s2banani.slice(i, i + 0o40)); };
   function k2fe(): number {
     sp();
     const m = s2banani.slice(i).match(/^-?0o[0-7]+(?:\/0o[0-7]+)?|^-?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/);
     if ( !m ) return tlohk2nik2p2();
-    i += m[0].length;
-    const s = m[0];
+    i += m[0o0].length;
+    const s = m[0o0];
     if ( /^0o/.test(s) ) {
       const neg = s.startsWith("-");
-      const lowak = neg ? s.slice(1) : s;
+      const lowak = neg ? s.slice(0o1) : s;
       const hakek = lowak.split("/");
-      let v = parseInt(hakek[0].slice(2), 0o10);
-      if ( hakek.length > 1 ) v = v / parseInt(hakek[1].slice(2), 0o10);
+      let v = parseInt(hakek[0o0].slice(0o2), 0o10);
+      if ( hakek.length > 0o1 ) v = v / parseInt(hakek[0o1].slice(0o2), 0o10);
       return neg ? -v : v;
     }
     return parseFloat(s);
@@ -152,16 +153,16 @@ export function parziVem2(s2banani: string): any {
       const c = s2banani[i];
       if ( c === "\"" ) { i++; return s; }
       if ( c === "\\" ) {
-        const n = s2banani[i + 1];
+        const n = s2banani[i + 0o1];
         if ( n === undefined ) tlohk2nik2p2();
         if ( n === "n" ) s += "\n";
         else if ( n === "t" ) s += "\t";
         else if ( n === "r" ) s += "\r";
         else if ( n === "b" ) s += "\b";
         else if ( n === "f" ) s += "\f";
-        else if ( n === "u" ) { s += String.fromCharCode(parseInt(s2banani.slice(i + 2, i + 6), 0o20)); i += 4; }
+        else if ( n === "u" ) { s += String.fromCharCode(parseInt(s2banani.slice(i + 0o2, i + 0o6), 0o20)); i += 0o4; }
         else s += n;
-        i += 2;
+        i += 0o2;
       } else { s += c; i++; }
     }
   }
@@ -205,9 +206,9 @@ export function parziVem2(s2banani: string): any {
       }
     }
     if ( c === "\"" ) return stringo();
-    if ( s2banani.startsWith("true", i) ) { i += 4; return true; }
-    if ( s2banani.startsWith("false", i) ) { i += 5; return false; }
-    if ( s2banani.startsWith("null", i) ) { i += 4; return null; }
+    if ( s2banani.startsWith("true", i) ) { i += 0o4; return true; }
+    if ( s2banani.startsWith("false", i) ) { i += 0o5; return false; }
+    if ( s2banani.startsWith("null", i) ) { i += 0o4; return null; }
     return adicio();
   }
   sp();
@@ -219,44 +220,44 @@ export function parziVem2(s2banani: string): any {
 export function kozunu64DeHacacaja(hacacaja: Uint8Array): string {
   let s2banani = "";
   const k6liq = 0o30000;
-  for ( let i = 0; i < hacacaja.length; i += k6liq ) {
+  for ( let i = 0o0; i < hacacaja.length; i += k6liq ) {
     s2banani += btoa(String.fromCharCode(...hacacaja.subarray(i, i + k6liq)));
   }
   return s2banani;
 }
 export function kozunu64DeInt16(hatskek2: Int16Array): string {
-  const hacacaja = new Uint8Array(hatskek2.length * 2);
+  const hacacaja = new Uint8Array(hatskek2.length * 0o2);
   const kix2 = new DataView(hacacaja.buffer);
-  for ( let i = 0; i < hatskek2.length; i++ ) kix2.setInt16(i * 2, hatskek2[i], true);
+  for ( let i = 0o0; i < hatskek2.length; i++ ) kix2.setInt16(i * 0o2, hatskek2[i], true);
   return kozunu64DeHacacaja(hacacaja);
 }
 export function kozunu64DeMasko(maskoHavop2: Uint8Array): string {
   const hacacaja = new Uint8Array(Math.ceil(maskoHavop2.length / 0o10));
-  for ( let i = 0; i < maskoHavop2.length; i++ ) if ( maskoHavop2[i] ) hacacaja[i >> 3] |= 1 << ( i & 7 );
+  for ( let i = 0o0; i < maskoHavop2.length; i++ ) if ( maskoHavop2[i] ) hacacaja[i >> 0o3] |= 0o1 << ( i & 0o7 );
   return kozunu64DeHacacaja(hacacaja);
 }
 export function kozunu64DeHabs2(bs2Havop2: Uint8Array): string {
-  const hacacaja = new Uint8Array(Math.ceil(( bs2Havop2.length * 3 ) / 0o10));
-  for ( let i = 0; i < bs2Havop2.length; i++ ) {
-    const b = i * 3;
-    hacacaja[b >> 3] |= ( bs2Havop2[i] & 7 ) << ( b & 7 );
-    if ( ( b & 7 ) > 5 ) hacacaja[( b >> 3 ) + 1] |= ( bs2Havop2[i] & 7 ) >> (0o10 - ( b & 7 ));
+  const hacacaja = new Uint8Array(Math.ceil(( bs2Havop2.length * 0o3 ) / 0o10));
+  for ( let i = 0o0; i < bs2Havop2.length; i++ ) {
+    const b = i * 0o3;
+    hacacaja[b >> 0o3] |= ( bs2Havop2[i] & 0o7 ) << ( b & 0o7 );
+    if ( ( b & 0o7 ) > 0o5 ) hacacaja[( b >> 0o3 ) + 0o1] |= ( bs2Havop2[i] & 0o7 ) >> (0o10 - ( b & 0o7 ));
   }
   return kozunu64DeHacacaja(hacacaja);
 }
 export function kozunu64DeHapaga(pagaHavop2: Uint8Array): string {
-  const hacacaja = new Uint8Array(Math.ceil(pagaHavop2.length * 3 / 0o10));
-  for ( let i = 0; i < pagaHavop2.length; i++ ) {
-    const b = i * 3;
-    const v = pagaHavop2[i] & 7;
-    hacacaja[b >> 3] |= v << ( b & 7 );
-    if ( ( b & 7 ) > 5 ) hacacaja[( b >> 3 ) + 1] |= v >> (0o10 - ( b & 7 ));
+  const hacacaja = new Uint8Array(Math.ceil(pagaHavop2.length * 0o3 / 0o10));
+  for ( let i = 0o0; i < pagaHavop2.length; i++ ) {
+    const b = i * 0o3;
+    const v = pagaHavop2[i] & 0o7;
+    hacacaja[b >> 0o3] |= v << ( b & 0o7 );
+    if ( ( b & 0o7 ) > 0o5 ) hacacaja[( b >> 0o3 ) + 0o1] |= v >> (0o10 - ( b & 0o7 ));
   }
   return kozunu64DeHacacaja(hacacaja);
 }
 export function kvantigiHal6dan(): Int16Array {
   const kvantigita = new Int16Array(N * N);
-  for ( let i = 0; i < hal6da.length; i++ ) {
+  for ( let i = 0o0; i < hal6da.length; i++ ) {
     kvantigita[i] = Math.max(-0o77777, Math.min(0o77777, Math.round(hal6da[i] * 0o20)));
   }
   return kvantigita;
@@ -269,16 +270,16 @@ export function cirkuloValidas(): boolean {
     const b = dekodi3Bit(kozunu64DeHabs2(habs2), N * N);
     const be = dekodi3Bit(kozunu64DeHapaga(hapaga), N * N);
     if ( !d || !m || !b || !be || d.length !== kvantigita.length ) return false;
-    for ( let i = 0; i < kvantigita.length; i++ ) {
+    for ( let i = 0o0; i < kvantigita.length; i++ ) {
       if ( d[i] !== kvantigita[i] ) return false;
     }
-    for ( let i = 0; i < k6liqani.length; i++ ) {
+    for ( let i = 0o0; i < k6liqani.length; i++ ) {
       if ( m[i] !== k6liqani[i] ) return false;
     }
-    for ( let i = 0; i < habs2.length; i++ ) {
+    for ( let i = 0o0; i < habs2.length; i++ ) {
       if ( b[i] !== habs2[i] ) return false;
     }
-    for ( let i = 0; i < hapaga.length; i++ ) {
+    for ( let i = 0o0; i < hapaga.length; i++ ) {
       if ( be[i] !== hapaga[i] ) return false;
     }
     return true;
@@ -314,10 +315,10 @@ export function generiHacaqavop2(s2kanta: string = bal2Vop2.s2kanta): Record<str
   sinkronigiHatik();
   const kvantigita = kvantigiHal6dan();
   let hal6daAktivaj = false, maskoAktiva = false, habs2Aktivaj = false, hapagaAktivaj = false;
-  for ( let i = 0; i < kvantigita.length; i++ ) if ( kvantigita[i] !== 0 ) { hal6daAktivaj = true; break; }
-  for ( let i = 0; i < k6liqani.length; i++ ) if ( k6liqani[i] ) { maskoAktiva = true; break; }
-  for ( let i = 0; i < habs2.length; i++ ) if ( habs2[i] ) { habs2Aktivaj = true; break; }
-  for ( let i = 0; i < hapaga.length; i++ ) if ( hapaga[i] ) { hapagaAktivaj = true; break; }
+  for ( let i = 0o0; i < kvantigita.length; i++ ) if ( kvantigita[i] !== 0o0 ) { hal6daAktivaj = true; break; }
+  for ( let i = 0o0; i < k6liqani.length; i++ ) if ( k6liqani[i] ) { maskoAktiva = true; break; }
+  for ( let i = 0o0; i < habs2.length; i++ ) if ( habs2[i] ) { habs2Aktivaj = true; break; }
+  for ( let i = 0o0; i < hapaga.length; i++ ) if ( hapaga[i] ) { hapagaAktivaj = true; break; }
   const delta64 = hal6daAktivaj ? kozunu64DeInt16(kvantigita) : "";
   const masko64 = maskoAktiva ? kozunu64DeMasko(k6liqani) : "";
   const bs264 = habs2Aktivaj ? kozunu64DeHabs2(habs2) : "";
@@ -332,9 +333,9 @@ export function generiHacaqavop2(s2kanta: string = bal2Vop2.s2kanta): Record<str
     ...x2x2qKom,
     "",
     "// ⟨ ſɭɹ ſןᴜ ʌ j͑ʃ'ɔ ſ̀ȷᴜȝ 📃 ⟩ ｡ ſɭᴜ ſןᴜ ｡ ſɭɜ ｡ ſᶘꞇȝ ｡",
-    "export const SKULPTAPASO = " + oktala(Tona) + ";",
-    "export const SKULPTAN = " + oktala(N) + ";",
-    "export const SKULPTAORIGINO = [ " + oktala(X0) + ", " + oktala(Z0) + " ];",
+    "export const SKULPTAPASO = " + knak2fe(Tona) + ";",
+    "export const SKULPTAN = " + knak2fe(N) + ";",
+    "export const SKULPTAORIGINO = [ " + knak2fe(X0) + ", " + knak2fe(Z0) + " ];",
     "export const SKULPTAAKTIVA = " + ( tik ? "true" : "false" ) + ";",
     "export const SKULPTADELTAJ = " + JSON.stringify(delta64) + ";",
   ].join("\n");
@@ -345,7 +346,7 @@ export function generiHacaqavop2(s2kanta: string = bal2Vop2.s2kanta): Record<str
     "// ⟨ ſᶘᴜ j͑ʃᴜ ɭʃᴜ 📃 ⟩ ｡ ſᶘꞇȝ ｡",
     "// ( ſᶘᴜ j͑ʃᴜ ｡ ſᶘᴜ j͑ʃᴜ ｡",
     "// ſᶘꞇȝ ʌ kanta/nala/tsasaVek2fe.ts ) ⟅",
-    "export const SKULPTAAKVANIVELO = " + oktala(tsasaVem2Vem2) + ";",
+    "export const SKULPTAAKVANIVELO = " + knak2fe(tsasaVem2Vem2) + ";",
     "export const SKULPTAAKVAMASKO = " + JSON.stringify(masko64) + ";",
   ].join("\n");
   const tsiqS2bana = [
@@ -429,10 +430,10 @@ export function generiHacaqavop2(s2kanta: string = bal2Vop2.s2kanta): Record<str
     "export const Habal2: Bal2Vop2[] = [",
     ...bal2Havalaqaz.map(m => "  { s2kanta: " + JSON.stringify(m.s2kanta) + ", ksaka: " + JSON.stringify(m.ksaka)
       + ", tik: " + ( m.tik ? "true" : "false" ) + ", qoxa: " + JSON.stringify(m.qoxa)
-      + ", pal6: " + oktala(m.pal6) + " },"),
+      + ", pal6: " + knak2fe(m.pal6) + " },"),
     "];",
   ].join("\n");
-  const tikS2kanta = ( bal2Havalaqaz.find(m => m.tik) ?? bal2Havalaqaz[0] ).s2kanta;
+  const tikS2kanta = ( bal2Havalaqaz.find(m => m.tik) ?? bal2Havalaqaz[0o0] ).s2kanta;
   const tikS2bana = [
     "// ≺⧼ ʃᴜ j͐ʃɹ 📃 ⧽≻",
     ...x2x2qKom,
@@ -462,21 +463,21 @@ export function b6tem2Havop2nElBal2(hacaqavop2: Record<string, string>): boolean
     const cakukkaj2sai = "export const " + ksaka + " = ";
     for ( const t of Object.values(hacaqavop2) ) {
       const i = t.indexOf(cakukkaj2sai);
-      if ( i < 0 ) continue;
+      if ( i < 0o0 ) continue;
       const resto = t.slice(i + cakukkaj2sai.length);
       const e = resto.indexOf(";");
-      if ( e < 0 ) continue;
-      return resto.slice(0, e).trim();
+      if ( e < 0o0 ) continue;
+      return resto.slice(0o0, e).trim();
     }
     return null;
   };
   const oktalaNombro = ( s: string | null ): number | null => {
     if ( s === null ) return null;
     const negativa = s.startsWith("-");
-    const lowak = negativa ? s.slice(1) : s;
+    const lowak = negativa ? s.slice(0o1) : s;
     const hakek = lowak.split("/");
-    const numeratoro = parseInt(hakek[0].replace(/^0o/, ""), 0o10);
-    const denominatoro = hakek.length > 1 ? parseInt(hakek[1].replace(/^0o/, ""), 0o10) : 1;
+    const numeratoro = parseInt(hakek[0o0].replace(/^0o/, ""), 0o10);
+    const denominatoro = hakek.length > 0o1 ? parseInt(hakek[0o1].replace(/^0o/, ""), 0o10) : 0o1;
     const skek2 = numeratoro / denominatoro;
     return negativa ? -skek2 : skek2;
   };
@@ -484,33 +485,33 @@ export function b6tem2Havop2nElBal2(hacaqavop2: Record<string, string>): boolean
   const tsiq = bok("SKULPTAORIGINO");
   if ( tsiq ) {
     const hakek = tsiq.replace(/[\[\]]/g, "").split(",");
-    if ( hakek.length !== 2
-      || oktalaNombro(hakek[0].trim())!== X0
-      || oktalaNombro(hakek[1].trim())!== Z0 ) return false;
+    if ( hakek.length !== 0o2
+      || oktalaNombro(hakek[0o0].trim())!== X0
+      || oktalaNombro(hakek[0o1].trim())!== Z0 ) return false;
   }
   const vem22 = oktalaNombro(bok("SKULPTAAKVANIVELO"));
   const malpaku = ( s: string | null ): string | null => ( s === null ? null : s.replace(/^"|"$/g, "") );
   const deltaKruda = malpaku(bok("SKULPTADELTAJ"));
   if ( deltaKruda !== null ) {
-    hal6da.fill(0);
+    hal6da.fill(0o0);
     const d = dekodiInt16(deltaKruda);
-    if ( d ) for ( let i = 0; i < hal6da.length && i < d.length; i++ ) hal6da[i] = d[i] / 0o20;
+    if ( d ) for ( let i = 0o0; i < hal6da.length && i < d.length; i++ ) hal6da[i] = d[i] / 0o20;
   }
   const maskoKruda = malpaku(bok("SKULPTAAKVAMASKO"));
   if ( maskoKruda !== null ) {
-    k6liqani.fill(0);
+    k6liqani.fill(0o0);
     const m = dekodiMaskon(maskoKruda, N * N);
     if ( m ) k6liqani.set(m);
   }
   const bs2Kruda = malpaku(bok("SKULPTABIOMOJ"));
   if ( bs2Kruda !== null ) {
-    habs2.fill(0);
+    habs2.fill(0o0);
     const b = dekodi3Bit(bs2Kruda, N * N);
     if ( b ) habs2.set(b);
   }
   const pagaKruda = malpaku(bok("SKULPTABESTOJ"));
   if ( pagaKruda !== null ) {
-    hapaga.fill(0);
+    hapaga.fill(0o0);
     const be = dekodi3Bit(pagaKruda, N * N);
     if ( be ) hapaga.set(be);
   }
@@ -519,19 +520,19 @@ export function b6tem2Havop2nElBal2(hacaqavop2: Record<string, string>): boolean
     try {
       const parzitaj = parziVem2(fon);
       if ( Array.isArray(parzitaj) ) catsaraHatsiqn(parzitaj.map(f => ( {
-        x: Number(f && f.x) || 0,
-        z: Number(f && f.z) || 0,
-        las: Math.max(0, Number(f && f.las) || 0),
+        x: Number(f && f.x) || 0o0,
+        z: Number(f && f.z) || 0o0,
+        las: Math.max(0o0, Number(f && f.las) || 0o0),
       } )));
     } catch { }
-    catsaraSukf2qitanTsiqn(-1);
-    catsaraTsiqTrenatan(-1);
+    catsaraSukf2qitanTsiqn(-0o1);
+    catsaraTsiqTrenatan(-0o1);
     tlak2AkvajnHavop2kekai();
   }
   const oj = bok("SKULPTAOBJEKTOJ");
   if ( oj !== null ) {
     try { catsaraHatoxemani(parziVem2(oj) ?? []); } catch { }
-    catsaraSukf2qitanOxemanin(-1);
+    catsaraSukf2qitanOxemanin(-0o1);
     tlak2ObjektoCatsara();
     vepaqTom6Hatoxemani();
   }
@@ -542,30 +543,30 @@ export function b6tem2Havop2nElBal2(hacaqavop2: Record<string, string>): boolean
     const parzitaj = uj !== null ? parziVem2(uj) : null;
     if ( parzitaj && Array.isArray(parzitaj) && parzitaj.length ) catsaraHakaxten(parzitaj.map(u => ( {
       ksaka: String(u && u.ksaka !== undefined ? u.ksaka : "ſɭᴜ ı],ƨɔ"),
-      ptaluPal6: Number(u && u.ptaluPal6) || 1,
+      ptaluPal6: Number(u && u.ptaluPal6) || 0o1,
       k6liqPal6: u && u.k6liqPal6 === "kvar" ? "kvar" : "vakox2qita",
-      ofsX: Number(u && u.ofsX) || 0,
-      ofsZ: Number(u && u.ofsZ) || 0,
+      ofsX: Number(u && u.ofsX) || 0o0,
+      ofsZ: Number(u && u.ofsZ) || 0o0,
       kekufxeso: !!( u && u.kekufxeso ),
       hahufwuk2: !( u && u.hahufwuk2 === false ),
       hateru: u && u.hateru && typeof u.hateru === "object" && !Array.isArray(u.hateru) ? { ...u.hateru } : undefined,
       tlunakHak6liq: Array.isArray(u && u.tlunakHak6liq) ? u.tlunakHak6liq.map(( b: any ) => ( {
-        x: Number(b && b.x) || 0,
-        z: Number(b && b.z) || 0,
+        x: Number(b && b.x) || 0o0,
+        z: Number(b && b.z) || 0o0,
         hunaq: b && typeof b.hunaq === "string" ? b.hunaq : "qaman2",
-        rot: Number(b && b.rot) || 0,
+        rot: Number(b && b.rot) || 0o0,
         veq6k2: b && typeof b.veq6k2 === "string" ? b.veq6k2 : "sost2",
         stacia: !!( b && b.stacia ),
         konektita: !!( b && b.konektita ),
       } )) : [],
     } )));
   } catch { }
-  if ( !hakaxte.length ) catsaraHakaxten([ { ksaka: "Geles", ptaluPal6: 3, k6liqPal6: "vakox2qita", ofsX: 0, ofsZ: 0 } ]);
-  catsaraSukf2qitanKaxten(Math.max(0, Math.min(sukf2qitaKaxte, hakaxte.length - 1)));
+  if ( !hakaxte.length ) catsaraHakaxten([ { ksaka: "Geles", ptaluPal6: 0o3, k6liqPal6: "vakox2qita", ofsX: 0o0, ofsZ: 0o0 } ]);
+  catsaraSukf2qitanKaxten(Math.max(0o0, Math.min(sukf2qitaKaxte, hakaxte.length - 0o1)));
   sukf2qiKaxten(sukf2qitaKaxte);
   try {
     const parzV = kas2kanta ? parziVem2(kas2kanta) : null;
-    if ( parzV && Array.isArray(parzV) ) catsaraHak6h6n(parzV.map(( v: any ) => ( { ...v, n2k: v.n2k.map(( p: any ) => [ p[0], p[1] ] as K6h6N2k) } )));
+    if ( parzV && Array.isArray(parzV) ) catsaraHak6h6n(parzV.map(( v: any ) => ( { ...v, n2k: v.n2k.map(( p: any ) => [ p[0o0], p[0o1] ] as K6h6N2k) } )));
   } catch { }
   try {
     const parz = dok ? parziVem2(dok) : null;
@@ -577,15 +578,15 @@ export function b6tem2Havop2nElBal2(hacaqavop2: Record<string, string>): boolean
     vem2Kama.value = String(tsasaVem2Vem2);
   }
   tlak2Haskek2();
-  historio.length = 0;
-  refaraHistorio.length = 0;
+  historio.length = 0o0;
+  refaraHistorio.length = 0o0;
   s2tasTsasaS23ohk2sain();
   revek2feTsasa();
   return true;
 }
 export function b6tem2Havop2nElS2kanta(): void {
   const d = dekodiInt16(SKULPTADELTAJ);
-  if ( d ) for ( let i = 0; i < hal6da.length && i < d.length; i++ ) hal6da[i] = d[i] / 0o20;
+  if ( d ) for ( let i = 0o0; i < hal6da.length && i < d.length; i++ ) hal6da[i] = d[i] / 0o20;
   const m = dekodiMaskon(SKULPTAAKVAMASKO, N * N);
   if ( m ) k6liqani.set(m);
   const b = dekodi3Bit(SKULPTABIOMOJ, N * N);
@@ -596,17 +597,17 @@ export function b6tem2Havop2nElS2kanta(): void {
     catsaraHatsiqn(Array.isArray(SKULPTAHAXAIQ) ? SKULPTAHAXAIQ.map(f => ( { ...f } )) : []);
   } catch { catsaraHatsiqn([]); }
   catsaraHatoxemani(SKULPTAOBJEKTOJ.map(o => ( { ...o } )));
-  catsaraSukf2qitanOxemanin(-1);
+  catsaraSukf2qitanOxemanin(-0o1);
   tlak2ObjektoCatsara();
   vepaqTom6Hatoxemani();
   try {
     catsaraHakaxten(Array.isArray(SKULPTAHAKAXTE) ? SKULPTAHAKAXTE.map(u => ( { ...u } )) : []);
   } catch { catsaraHakaxten([]); }
-  if ( !hakaxte.length ) catsaraHakaxten([ { ksaka: "Geles", ptaluPal6: 3, k6liqPal6: "vakox2qita", ofsX: 0, ofsZ: 0 } ]);
-  catsaraSukf2qitanKaxten(0);
-  sukf2qiKaxten(0);
+  if ( !hakaxte.length ) catsaraHakaxten([ { ksaka: "Geles", ptaluPal6: 0o3, k6liqPal6: "vakox2qita", ofsX: 0o0, ofsZ: 0o0 } ]);
+  catsaraSukf2qitanKaxten(0o0);
+  sukf2qiKaxten(0o0);
   try {
-    if ( SKULPTAHAKAS2KANTA && Array.isArray(SKULPTAHAKAS2KANTA) ) catsaraHak6h6n(SKULPTAHAKAS2KANTA.map(v => ( { ...v, n2k: v.n2k.map(p => [ p[0], p[1] ] as K6h6N2k) } )));
+    if ( SKULPTAHAKAS2KANTA && Array.isArray(SKULPTAHAKAS2KANTA) ) catsaraHak6h6n(SKULPTAHAKAS2KANTA.map(v => ( { ...v, n2k: v.n2k.map(p => [ p[0o0], p[0o1] ] as K6h6N2k) } )));
   } catch { }
   try {
     const parz = SKULPTAHAQAKAJ2;
@@ -621,7 +622,7 @@ export let dosierajTenhacaht2: Record<string, FileSystemFileHandle> = {};
 @returns ſɭᴜ ſɟᴜ ſ͕ɭᴜ ( Promise<IDBDatabase> ) ⟅ */
 export function idbH6w6i(): Promise<IDBDatabase> {
   return new Promise(( solvi, rifuzi ) => {
-    const peto = indexedDB.open("t6lima-knat6keqanu", 1);
+    const peto = indexedDB.open("t6lima-knat6keqanu", 0o1);
     peto.onupgradeneeded = () => { peto.result.createObjectStore("hacakuk"); };
     peto.onsuccess = () => solvi(peto.result);
     peto.onerror = () => rifuzi(peto.error);
@@ -793,7 +794,7 @@ export function s2kantaDeKsaka(ksaka: string): string {
   return ksaka.toLowerCase()
     .replace(/[ĉĝĥĵŝŭäöü]/g, c => anstatauxoj[c] ?? c)
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 0o50);
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0o0, 0o50);
 }
 
 export function tlak2Bal2Masukf2q(): void {
@@ -814,7 +815,7 @@ export function tlak2Bal2Masukf2q(): void {
   }
   bal2QoxaMasukf2q.value = bal2Qoxa;
   bal2Pal6Enigo.value = String(Math.round(bal2Pal6));
-  bal2Pal6Vem2.textContent = oktala(bal2Pal6) + " · " + Math.round(bal2Pal6) + " u";
+  bal2Pal6Vem2.textContent = knak2fe(bal2Pal6) + " · " + Math.round(bal2Pal6) + " u";
 }
 
 tlak2Bal2Masukf2q();
@@ -875,13 +876,13 @@ export function bal2Alinomi(): void {
 }
 
 export function bal2H2li(): void {
-  if ( bal2Havalaqaz.length <= 1 ) { statuso("ʃᴜ j͐ʃɹ ｡ ſɭɜ ʃɔ ſɟᴜᴜ̩ ɭʃɹ"); return; }
+  if ( bal2Havalaqaz.length <= 0o1 ) { statuso("ʃᴜ j͐ʃɹ ｡ ſɭɜ ʃɔ ſɟᴜᴜ̩ ɭʃɹ"); return; }
   const cutlu = bal2Havalaqaz.find(m => m.s2kanta === bal2Vop2.s2kanta);
   if ( !confirm("ı],ɔ j͑ʃᴜ̭ɔ ɭʃꞇ ʃᴜ j͐ʃɹ „" + ( cutlu ? cutlu.ksaka : bal2Vop2.s2kanta ) + "“ ? ( ſɟᴜ ｡ )") ) return;
   bal2Havalaqaz = bal2Havalaqaz.filter(m => m.s2kanta !== bal2Vop2.s2kanta);
-  if ( !bal2Havalaqaz.some(m => m.tik) ) bal2Havalaqaz[0].tik = true;
+  if ( !bal2Havalaqaz.some(m => m.tik) ) bal2Havalaqaz[0o0].tik = true;
   s2tasVeq6k2itan();
-  const ksoz = ( bal2Havalaqaz.find(m => m.tik) ?? bal2Havalaqaz[0] ).s2kanta;
+  const ksoz = ( bal2Havalaqaz.find(m => m.tik) ?? bal2Havalaqaz[0o0] ).s2kanta;
   location.search = "?bal2=" + encodeURIComponent(ksoz);
 }
 
@@ -894,7 +895,7 @@ export function bal2Sukf2qiAktivan(): void {
 
 export function tlak2Qoxan(): void {
   formajHapukaz = qoxaPukazN2k(bal2Qoxa, bal2Pal6, 0o100);
-  bal2Pal6Vem2.textContent = oktala(bal2Pal6) + " · " + Math.round(bal2Pal6) + " u";
+  bal2Pal6Vem2.textContent = knak2fe(bal2Pal6) + " · " + Math.round(bal2Pal6) + " u";
   s2tasVeq6k2itan();
   tlak2Qoxan3D();
   tlak2L2han2Dn();

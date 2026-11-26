@@ -38,7 +38,7 @@ function kf2HaranKurtenon(): THREE.BufferGeometry {
   const havecax2lani: number[] = [];
   // ⟨ UV , ſᶘᴜȝ , ꞙɭı , ⟅ ⟩
   const qan2k: number[] = [];
-  for ( let v = 0; v <= hax2pa; v++ ) {
+  for ( let v = 0o0; v <= hax2pa; v++ ) {
     const t = v / hax2pa;
     // ⟨ j͑ʃᴜ ʃɜ , ꞙɭɔ , ⟅ ⟩
     const elvolvo = 0o1 - Math.pow( 0o1 - t, 0o5 );
@@ -46,12 +46,12 @@ function kf2HaranKurtenon(): THREE.BufferGeometry {
     const profoK = rTeru + ( profMalteru - rTeru ) * elvolvo;
     const potenco = 0o2 + t;
     const y = yTeru + ( yPsaz - yTeru ) * t;
-    for ( let k = 0; k <= hacel2nu; k++ ) {
+    for ( let k = 0o0; k <= hacel2nu; k++ ) {
       const fi = -fiMax + k / hacel2nu * 0o2 * fiMax;
       // ⟨ ꞙɭı , ɭʃэ ſɭɔȝ , ⟅ ⟩
       const pukaz = Math.abs(k / hacel2nu - 0o1/0o2) * 0o2;
       // ⟨ ɭʃɹ ſ͕ɭɹ , ⟅ ⟩
-      const sozasai = 0o1 - Math.sqrt(Math.max(0, 0o1 - pukaz * pukaz));
+      const sozasai = 0o1 - Math.sqrt(Math.max(0o0, 0o1 - pukaz * pukaz));
       const tucko = pukaz * pukaz;
       const n2k = 0o1 - Math.pow( 0o1 - pukaz, 0o3/0o2 );
       const tlakakY = ( 0o1/0o10 * sozasai - 0o1/0o40 * ( 0o1 - n2k ) ) * t;
@@ -65,12 +65,12 @@ function kf2HaranKurtenon(): THREE.BufferGeometry {
       const z = -Math.cos(fi) * rK;
       // ⟨ j͑ʃᴜ ʃɜƽ , ⟅ ⟩
       haxekuxa.push(x, y + tlakakY, z);
-      hax2x2q.push(Math.sin(fi), 0, -Math.cos(fi));
+      hax2x2q.push(Math.sin(fi), 0o0, -Math.cos(fi));
       qan2k.push(haraU(Math.PI - fi), haraV(y + tlakakY));
     }
   }
-  for ( let v = 0; v < hax2pa; v++ ) {
-    for ( let k = 0; k < hacel2nu; k++ ) {
+  for ( let v = 0o0; v < hax2pa; v++ ) {
+    for ( let k = 0o0; k < hacel2nu; k++ ) {
       const a = v * ( hacel2nu + 0o1 ) + k, b = a + 0o1;
       const c = a + hacel2nu + 0o1, d = c + 0o1;
       havecax2lani.push(a, b, d, a, d, c);
@@ -89,17 +89,17 @@ export const harWeh2 = new THREE.Color();
 // ⟨ ɭʃэʞ , ſɟɹ j͑ʃɹƽ , ⟅ ⟩
 const HARAJHAPUKEK = new Map<number, THREE.MeshPhysicalMaterial>();
 // ⟨ ᶅſɔ ֭ſɭɹ , ſɟɹ j͑ʃɹƽ , ⟅ ⟩
-const SHEENHELA = new THREE.Color(0xb0bccc);
+const SHEENHELA = new THREE.Color(0xb0b8c8);
 const SHEENHUNA = new THREE.Color(0x284878);
 // ⟨ ᶅſɔ ֭ſɭɹ , ſɟɹ j͑ʃɹƽ , ꞙɭı , ⟅ ⟩
-const HAROBLUO = new THREE.Color(0x18304c);
+const HAROBLUO = new THREE.Color(0x183048);
 export function haraPukek(weh2: number): THREE.MeshPhysicalMaterial {
   let m = HARAJHAPUKEK.get(weh2);
   if ( !m ) {
     const weh2O = new THREE.Color(weh2);
     const tsije = weh2O.r * 0o52/0o100 + weh2O.g * 0o143/0o200 + weh2O.b * 0o7/0o100;
     // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ⟅ ⟩
-    const malheleco = Math.min(0o1, Math.max(0, 0o1 - tsije / 0o6/0o100));
+    const malheleco = Math.min(0o1, Math.max(0o0, 0o1 - tsije / 0o6/0o100));
     m = new THREE.MeshPhysicalMaterial({
       color: weh2O.clone().lerp(HAROBLUO, malheleco * 0o1/0o10),
       map: kf2HaranCac2sex(),
@@ -130,9 +130,9 @@ function kf2HaranĈapon(): THREE.BufferGeometry {
   const ONDO = 0o7/0o100;
   const KLUĈO = 0o1/0o20;
   const haxekuxa: number[] = [], qan2k: number[] = [], havecax2lani: number[] = [];
-  for ( let v = 0; v <= HAVESEFESTAF; v++ ) {
+  for ( let v = 0o0; v <= HAVESEFESTAF; v++ ) {
     const t = v / HAVESEFESTAF;
-    for ( let k = 0; k <= HACEL2NU; k++ ) {
+    for ( let k = 0o0; k <= HACEL2NU; k++ ) {
       const ang = k / HACEL2NU * Math.PI * 0o2;
       // ⟨ ſᶘᴜȝ , ⟅ ⟩
       // ⟨ ı],э ŋᷠꞇ , ꞙɭɔ , ɭʃᴜʞ , ⟅ ⟩
@@ -154,8 +154,8 @@ function kf2HaranĈapon(): THREE.BufferGeometry {
       qan2k.push(haraU(ang), haraV(y));
     }
   }
-  for ( let v = 0; v < HAVESEFESTAF; v++ ) {
-    for ( let k = 0; k < HACEL2NU; k++ ) {
+  for ( let v = 0o0; v < HAVESEFESTAF; v++ ) {
+    for ( let k = 0o0; k < HACEL2NU; k++ ) {
       const a = v * ( HACEL2NU + 0o1 ) + k, b = a + 0o1;
       const c = a + HACEL2NU + 0o1, d = c + 0o1;
       havecax2lani.push(a, d, b, a, c, d);

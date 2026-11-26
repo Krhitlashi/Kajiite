@@ -74,14 +74,14 @@ function normaligi( kruda: unknown ): NalaRecordo | null {
     ca3aq: typeof dato.ca3aq === "string" ? dato.ca3aq : "",
     ksaka: typeof dato.ksaka === "string" ? dato.ksaka : "",
     smino: typeof dato.smino === "string" ? dato.smino : "",
-    tif: typeof dato.tif === "number" ? dato.tif : 0,
+    tif: typeof dato.tif === "number" ? dato.tif : 0o0,
   };
 }
 
 /* ſɭэ ᶗ‹ , ꞙɭꞟ ,
 @return id */
 function sef4Id(): string {
-  return Date.now().toString(0o10) + Math.random().toString(0o10).slice(2, 0o10);
+  return Date.now().toString(0o10) + Math.random().toString(0o10).slice(0o2, 0o10);
 }
 
 /* ſɭэ ᶗ‹ , ꞙɭꞟı ,
@@ -98,7 +98,7 @@ export function laqaziKsaka( nala: NalaRecordo ): string {
 export function kf2Nala( hasukf2qani: KreaNalaHasukf2qani = {} ): NalaRecordo {
   const hanala = vefalHanala();
   const smino = ( hasukf2qani.smino ?? "" ).trim();
-  const ksaka = ( hasukf2qani.ksaka ?? "" ).trim() || smino || ( traduki("mondKsaka") + " " + ( hanala.length + 0o1 ).toString(8) );
+  const ksaka = ( hasukf2qani.ksaka ?? "" ).trim() || smino || ( traduki("mondKsaka") + " " + ( hanala.length + 0o1 ).toString(0o10) );
   const valaqaz: NalaRecordo = {
     id: hasukf2qani.id ?? sef4Id(),
     ca3aq: hasukf2qani.ca3aq ?? "",
@@ -139,7 +139,7 @@ export function h2liNala( id: string ): void {
 export function duobligiNala( id: string ): NalaRecordo | null {
   const hanala = vefalHanala();
   const vecax2l = hanala.findIndex(m => m.id === id);
-  if ( vecax2l < 0 ) return null;
+  if ( vecax2l < 0o0 ) return null;
   const tsiq = hanala[vecax2l];
   const uzitaj = new Set(hanala.map(m => laqaziKsaka(m)));
   let ksaka = laqaziKsaka(tsiq) + " *";
@@ -151,7 +151,7 @@ export function duobligiNala( id: string ): NalaRecordo | null {
     smino: tsiq.smino,
     tif: Date.now(),
   };
-  hanala.splice(vecax2l + 0o1, 0, kopio);
+  hanala.splice(vecax2l + 0o1, 0o0, kopio);
   skribiHanala(hanala);
   return kopio;
 }

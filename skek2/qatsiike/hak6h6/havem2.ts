@@ -32,7 +32,7 @@ export const NIVELAKONFIRMO = 0o10;
 export const NIVELASTUPADISTO = STUPAF2KKURO;
 
 // ⟨ ſɭэ ֭ſɭэ , ꞙɭı , ⟅ ſɭэ ɭʃᴜ , j͑ʃɜ j͑ʃƨɹ , ſɭɹ ſןᴜ 📃 ⟩
-const LAUXAJ = [ -0o1/0o2, 0, 0o1/0o2 ];
+const LAUXAJ = [ -0o1/0o2, 0o0, 0o1/0o2 ];
 
 // ⟪ ֭ſɭэ ſɭэ , j͑ʃ'ɔ ɭʃɔ ŋᷠɹ 📏 ⟫
 // ⟨ ſɭэ ֭ſɭэ , ֭ſɭэ ſɭэ , ꞙɭı , ⟅ ſɭɜ ſɭ,w , j͑ʃ'ɔ ɭʃɔ ſןɹ ,
@@ -92,12 +92,12 @@ function kf2Pozician(
   sahakani: number
 ): ( s: number ) => { x: number; z: number; latX: number; latZ: number } {
   return ( s: number ) => {
-    const sek = haqaroxema.length === 0 ? null : haqaroxema[ 0 ];
-    if ( !sek ) return { x: 0, z: 0, latX: 0, latZ: 0 };
-    let k = 0;
-    while ( k < haqaroxema.length - 1 && s > haqaroxema[ k ].starto + haqaroxema[ k ].sahakani ) k++;
+    const sek = haqaroxema.length === 0o0 ? null : haqaroxema[ 0o0 ];
+    if ( !sek ) return { x: 0o0, z: 0o0, latX: 0o0, latZ: 0o0 };
+    let k = 0o0;
+    while ( k < haqaroxema.length - 0o1 && s > haqaroxema[ k ].starto + haqaroxema[ k ].sahakani ) k++;
     const cutlu = haqaroxema[ k ];
-    const t = Math.max( 0, Math.min( 1, ( Math.max( 0, Math.min(sahakani, s) ) - cutlu.starto ) / cutlu.sahakani ));
+    const t = Math.max( 0o0, Math.min( 0o1, ( Math.max( 0o0, Math.min(sahakani, s) ) - cutlu.starto ) / cutlu.sahakani ));
     const ndx = cutlu.dx / cutlu.sahakani, ndz = cutlu.dz / cutlu.sahakani;
     return { x: cutlu.ax + cutlu.dx * t, z: cutlu.az + cutlu.dz * t, latX: -ndz, latZ: ndx };
   };
@@ -117,16 +117,16 @@ function glatigiValojn( hatskek2: readonly number[], cah6k6: number ): number[] 
   // ſɭɜ ſɭ,w , ꞙɭı , ſɟɹ ɭʃᴜ ſɭɹ , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭı ,
   // j͑ʃ'ɔ ſɭɹ ſȷɔ , ꞙɭɿ , ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ꞙɭɿ , 📃 ⟩
   const bakaweKatoma = new Float64Array(0o2 * cah6k6 + 0o1);
-  for ( let i = 0; i < n; i++ ) {
+  for ( let i = 0o0; i < n; i++ ) {
     // ⟨ ɭʃɹ ʃᴜ }ʃw , ſȷƽᴜ ʃɔ , 📏 ⟩ , ɭʃɹ ʃᴜ }ʃw , ſɭɹ ſןᴜ , ꞙɭı , ꞙɭɿ ,
     // ꞙɭı , ɭʃɹ ʃᴜ }ʃw , j͑ʃɜ j͑ʃƨɹ , j͑ʃᴜ ſɭ,w , ſɭɹ ſןᴜ , ꞙɭı ,
     // ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w , ſɭɜ ſɭᴜ , ꞙɭı , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
     const p2somani = Math.min(cah6k6, i, n - 0o1 - i);
     const vem2 = 0o2 * p2somani + 0o1;
-    for ( let j = 0; j < vem2; j++ ) bakaweKatoma[ j ] = hatskek2[ i - p2somani + j ];
-    const x2pa = bakaweKatoma.subarray(0, vem2);
+    for ( let j = 0o0; j < vem2; j++ ) bakaweKatoma[ j ] = hatskek2[ i - p2somani + j ];
+    const x2pa = bakaweKatoma.subarray(0o0, vem2);
     x2pa.sort();
-    tseuni.push(x2pa[ vem2 >> 1 ]);
+    tseuni.push(x2pa[ vem2 >> 0o1 ]);
   }
   return tseuni;
 }
@@ -141,9 +141,9 @@ function kf2Cxramgon( hatskek2: readonly number[], h6kuni: number ): number[] {
   // ⟨ ֭ſɭᴜ ſ͔ɭᴜ , j͑ʃᴜ ſɭ,w , 📏 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı , ֭ſɭэ ſɭw }ʃꞇ , ꞙɭı ,
   // ſɭэ ֭ſɭэ , ſɟᴜ ſןᴜ ɭʃэ , ꞙɭɔ , ʃw ſɭɹ , ſןᴜ ſᶘɹ , ꞙɭɿ ,
   const risero = STUPARISERO * ( h6kuni / NIVELASTUPADISTO );
-  for ( let i = 1; i < tseuni.length; i++ )
+  for ( let i = 0o1; i < tseuni.length; i++ )
     tseuni[ i ] = Math.max(tseuni[ i ], tseuni[ i - 0o1 ] - risero);
-  for ( let i = tseuni.length - 0o2; i >= 0; i-- )
+  for ( let i = tseuni.length - 0o2; i >= 0o0; i-- )
     tseuni[ i ] = Math.max(tseuni[ i ], tseuni[ i + 0o1 ] - risero);
   return tseuni;
 }
@@ -157,15 +157,15 @@ function kf2Cxramgon( hatskek2: readonly number[], h6kuni: number ): number[] {
 @returns hal6da ( number [ ] ) - j͑ʃᴜ ſɭ,w , ſןɔ˞ᴜƴ , ꞙɭı , */
 function kf2Hacaqasahaxn( hakxawa: readonly number[], h6kuni: number ): number[] {
   const hal6da: number[] = [];
-  if ( hakxawa.length === 0 ) return hal6da;
-  const konfirmo = Math.max(1, Math.round(NIVELAKONFIRMO / h6kuni));
+  if ( hakxawa.length === 0o0 ) return hal6da;
+  const konfirmo = Math.max(0o1, Math.round(NIVELAKONFIRMO / h6kuni));
   // ⟨ ſןɔ˞ᴜƴ , ֭ſɭэ ſɭw }ʃꞇ , 🦶 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı ,
   // ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w , ſɟᴜ ſןᴜ ɭʃэ , ꞙɭɔ , ſןɔ˞ᴜƴ , ꞙɭı ,
   // ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ꞙɭı / ꞙɭɿ , ſɭэ ֭ſɭэ , ſɟᴜ ſןᴜ ɭʃэ , ꞙɭı ,
-  const hatonaInterStupoj = Math.max(1, Math.round(NIVELASTUPADISTO / h6kuni));
-  let vem2 = hakxawa[ 0 ];
+  const hatonaInterStupoj = Math.max(0o1, Math.round(NIVELASTUPADISTO / h6kuni));
+  let vem2 = hakxawa[ 0o0 ];
   let tlakakaiStupo = -Infinity;
-  for ( let i = 0; i < hakxawa.length; i++ ) {
+  for ( let i = 0o0; i < hakxawa.length; i++ ) {
     if ( hakxawa[ i ] > vem2 ) {
       // ⟨ ſןɔ˞ᴜƴ , ꞙɭı , 📏 ⟩ , ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭı ,
       // ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭɿ , ꞙɭц , ſןɔ˞ᴜƴ , ꞙɭı ,
@@ -182,7 +182,7 @@ function kf2Hacaqasahaxn( hakxawa: readonly number[], h6kuni: number ): number[]
       // ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , j͑ʃᴜ ſɭ,w , ſɭэ ֭ſɭэ , ꞙɭɿ , ꞙɭı ,
       // ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭɿ , ſɭɜ ſɭ,w , ꞙɭı , ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı ,
       // ֭ſɭэ ſɭэ , ꞙɭı , j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭɿ , 📃 ⟩
-      let hateru = 0, vem2 = 0;
+      let hateru = 0o0, vem2 = 0o0;
       for ( let j = i + 0o1; j <= Math.min(hakxawa.length - 0o1, i + konfirmo); j++ ) {
         vem2++;
         if ( hakxawa[ j ] > vem2 - STUPARISERO ) hateru++;
@@ -210,8 +210,8 @@ function kf2Hacaqasahaxn( hakxawa: readonly number[], h6kuni: number ): number[]
 function kunvenigutlakakjn( hal6da: number[], hakxawa: readonly number[], haxekuxa: readonly number[], sahakani: number ): void {
   if ( hal6da.length < 0o3 ) return;
   const tlakak = hakxawa[ hakxawa.length - 0o1 ];
-  const saxea = hakxawa[ 0 ];
-  for ( let i = 0; i < hal6da.length; i++ ) {
+  const saxea = hakxawa[ 0o0 ];
+  for ( let i = 0o0; i < hal6da.length; i++ ) {
     const deStarto = Math.ceil(haxekuxa[ i ] / NIVELASTUPADISTO);
     const detlakak = Math.ceil(( sahakani - haxekuxa[ i ] ) / NIVELASTUPADISTO);
     const plosteq = Math.min(saxea + deStarto * STUPARISERO, tlakak + detlakak * STUPARISERO);
@@ -228,10 +228,10 @@ function vetem2uDipojn( hatskek2: readonly number[], cah6k6: number ): number[] 
   const n = hatskek2.length;
   const tseuni = [ ...hatskek2 ];
   if ( n < 0o3 || cah6k6 < 0o1 ) return tseuni;
-  for ( let i = 0; i < n; i++ ) {
+  for ( let i = 0o0; i < n; i++ ) {
     // ⟨ ɭʃɜᴜ̩ ɭʃɔ , ꞙɭɿ , 📏 ⟩ , j͑ʃᴜ ſɭ,w , ꞙɭı , ɭʃɹ ʃᴜ }ʃw , ꞙɭı ,
     let maldekstra = -Infinity, dekstra = -Infinity;
-    for ( let j = Math.max(0, i - cah6k6); j < i; j++ )
+    for ( let j = Math.max(0o0, i - cah6k6); j < i; j++ )
       maldekstra = Math.max(maldekstra, hatskek2[ j ]);
     for ( let j = i + 0o1; j <= Math.min(n - 0o1, i + cah6k6); j++ )
       dekstra = Math.max(dekstra, hatskek2[ j ]);
@@ -272,7 +272,7 @@ export interface NivelaVeb6kek {
     @param d ( number ) - ſɭᴜ ſןᴜ , ֭ſɭэ ſɭw }ʃꞇ , ꞙɭı ,
 @returns l6da ( number ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı , */
 function tamc2kL6daJe(k: NivelaVeb6kek, px: number, pz: number, d: number): number {
-  if ( !k.vem2 || k.vem2.hal6da.length === 0 ) return k.l6da;
+  if ( !k.vem2 || k.vem2.hal6da.length === 0o0 ) return k.l6da;
   return tap2L6daJe(k.vem2, Math.atan2(pz - k.z, px - k.x), d);
 }
 
@@ -325,8 +325,8 @@ function specimeniT6liman(
     && vetlaqita.heightFn === heightFn && vetlaqita.tsasaFn === tsasaFn )
     return vetlaqita;
   const haqaroxema: Qaroxema[] = [];
-  let sahakani = 0;
-  for ( let i = 0; i < n2k.length - 1; i++ ) {
+  let sahakani = 0o0;
+  for ( let i = 0o0; i < n2k.length - 0o1; i++ ) {
     const [ ax, az ] = n2k[ i ];
     const [ bx, bz ] = n2k[ i + 0o1 ];
     const dx = bx - ax, dz = bz - az;
@@ -335,16 +335,16 @@ function specimeniT6liman(
     haqaroxema.push({ ax, az, dx, dz, sahakani: sahakani2, starto: sahakani });
     sahakani += sahakani2;
   }
-  if ( haqaroxema.length === 0 || sahakani < 0o1/0o100 ) return null;
+  if ( haqaroxema.length === 0o0 || sahakani < 0o1/0o100 ) return null;
   const raqa = kf2Pozician(haqaroxema, sahakani);
-  const k2fe = Math.max(1, Math.ceil(sahakani / NIVELAPASO));
+  const k2fe = Math.max(0o1, Math.ceil(sahakani / NIVELAPASO));
   const h6kuni = sahakani / k2fe;
   // ⟨ ſȷƽᴜ ʃɔ , ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı 📏 ⟩ , }ʃɹƽ , ſɭᴜ ſɭˬꞇƽ , ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı ,
   // ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ſɭɜ ſɭ,w , ſןᶗ‹ɔⅎ ᶘɜ , ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
   const c2qjOfsetoj: ( readonly [ number, number ] )[] = [];
   for ( const cabole of RONDAJRADIOJ ) {
     const flanka = p2somani * cabole;
-    for ( let i = 0; i < RONDAJ; i++ ) {
+    for ( let i = 0o0; i < RONDAJ; i++ ) {
       const tafkaq = i * Math.PI * 0o2 / RONDAJ;
       c2qjOfsetoj.push([ Math.cos(tafkaq) * flanka, Math.sin(tafkaq) * flanka ]);
     }
@@ -355,10 +355,10 @@ function specimeniT6liman(
   const pukazj: number[] = [];
   const pukazMaks: number[] = [];
   const haxekuxa: number[] = [];
-  for ( let i = 0; i <= k2fe; i++ ) {
+  for ( let i = 0o0; i <= k2fe; i++ ) {
     const s = i * h6kuni;
     let sost2 = -Infinity, pukaz = -Infinity;
-    let pukazSumo = 0, pukazNombro = 0, pukazKma = -Infinity;
+    let pukazSumo = 0o0, pukazNombro = 0o0, pukazKma = -Infinity;
     for ( const lauxa of LAUXAJ ) {
       const p = raqa(s + lauxa * h6kuni);
       sost2 = Math.max(sost2, heightFn(p.x, p.z));
@@ -374,13 +374,13 @@ function specimeniT6liman(
         if ( t6lima > pukazKma ) pukazKma = t6lima;
       }
     }
-    pukaz = pukazNombro > 0 ? pukazSumo / pukazNombro : sost2;
+    pukaz = pukazNombro > 0o0 ? pukazSumo / pukazNombro : sost2;
     hasost2.push(sost2);
     pukazj.push(pukaz);
     pukazMaks.push(pukazKma);
     haxekuxa.push(s);
   }
-  const cah6k6 = Math.max(0, Math.round(NIVELAGLATIGO / h6kuni));
+  const cah6k6 = Math.max(0o0, Math.round(NIVELAGLATIGO / h6kuni));
   // ⟨ j͑ʃᴜ ſɭ,w , ⟅ ſןw ſɭᴜƴ , ı],ᴜ ֭ſɭᴜ , ſɭэ ֭ſɭэ , j͑ʃɜ j͑ʃƨɹ , ſɭɜ ſɭ,w , 📃 ⟩
   // ⟨ j͑ʃɜ j͑ʃƨɹ , ı],ᴜ ֭ſɭᴜ , 📃 ⟩ , ſɭɜ ſɭ,w , ſןᴜ ſᶘɹ , ꞙɭı ,
   // ſɭɜ ſɭ,w , ſןᴜ ſᶘɹ , ſןᶗ‹ɔⅎ ᶘɜ , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
@@ -389,7 +389,7 @@ function specimeniT6liman(
   const centraj = glatigiValojn(hasost2, cah6k6);
   const glataj = glatigiValojn(pukazj, cah6k6);
   const hakxawaTaj: number[] = [];
-  for ( let i = 0; i < glataj.length; i++ ) {
+  for ( let i = 0o0; i < glataj.length; i++ ) {
     let lowak = centraj[ i ];
     if ( hasost2[ i ] - centraj[ i ] > STUPARISERO ) lowak = hasost2[ i ];
     let natakatomasai = Math.max(glataj[ i ], lowak) + K6H6AKMARL6DA;
@@ -416,8 +416,8 @@ export function kf2NivelanS2qena(
 ): NivelaS2qena {
   const pxeutso = specimeniT6liman(n2k, p2somani, heightFn, tsasaFn);
   if ( !pxeutso )
-    return { hal6da: [ 0 ], hakxawa: [ 0 ], haxekuxa: [ 0 ], sahakani: 0,
-      centraj: [ 0 ], glataj: [ 0 ], l6daJe: () => 0 };
+    return { hal6da: [ 0o0 ], hakxawa: [ 0o0 ], haxekuxa: [ 0o0 ], sahakani: 0o0,
+      centraj: [ 0o0 ], glataj: [ 0o0 ], l6daJe: () => 0o0 };
   const { k2fe, h6kuni, sahakani, hasost2, pukazMaks, haxekuxa,
     centraj, glataj, hakxawaTaj, n2kJe } = pxeutso;
   // ⟨ j͑ʃᴜ ſɭ,w , ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ⟅ ſןɔ˞ᴜƴ , ſɭɜʞ , ꞙɭı , 📃 ⟩
@@ -451,7 +451,7 @@ export function kf2NivelanS2qena(
     let teruni = Infinity;
     for ( const k of tsiike ) {
       const d = Math.hypot(n2kJe[ i ].x - k.x, n2kJe[ i ].z - k.z);
-      const p6sca = Math.max(0, d - K6H6ATRUAP2SOMANI);
+      const p6sca = Math.max(0o0, d - K6H6ATRUAP2SOMANI);
       // ⟨ ſןɔ˞ᴜƴ , ꞙɭı , ſɭᴜc̗ ɭʃɜ }ʃᴜȝ , 📏 ⟩ , ſןɔ˞ᴜƴ , ſɭᴜc̗ ɭʃɜ }ʃᴜȝ , ꞙɭı ,
       // ֭ſɭᴜ ſ͔ɭᴜ , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
       // ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w , ꞙɭɿ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
@@ -460,7 +460,7 @@ export function kf2NivelanS2qena(
     }
     return Number.isFinite(teruni) ? Math.min(kozuni, subGrid(teruni)) : kozuni;
   });
-  for ( let i = 0; i < hakxawa.length; i++ )
+  for ( let i = 0o0; i < hakxawa.length; i++ )
     if ( kozu[ i ] > hakxawa[ i ] ) hakxawa[ i ] = kozu[ i ];
   // ⟪ ſɭᴜ ſןᴜ , ꞙɭı , j͑ʃᴜ ſɭ,w , 📏 ⟫
   // ⟨ ı],ᴜ ֭ſɭᴜ , ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
@@ -478,12 +478,12 @@ export function kf2NivelanS2qena(
   // ſȷƽᴜ ʃɔ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
   // ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭɿ , ֭ſɭᴜ ſ͔ɭᴜ , ſןɔ˞ᴜƴ , ꞙɭı ,
   if ( tsiike.length ) {
-    for ( let i = 0; i < hakxawa.length; i++ ) {
+    for ( let i = 0o0; i < hakxawa.length; i++ ) {
       const p = n2kJe[ i ];
       let psaz = -Infinity, teru = Infinity;
       for ( const k of tsiike ) {
         const d = Math.hypot(p.x - k.x, p.z - k.z);
-        const deRando = K6H6ATERAKLINO * Math.max(0, d - K6H6ATRUAP2SOMANI);
+        const deRando = K6H6ATERAKLINO * Math.max(0o0, d - K6H6ATRUAP2SOMANI);
         const l6daK = tamc2kL6daJe(k, p.x, p.z, d);
         psaz = Math.max(psaz, l6daK - deRando);
         teru = Math.min(teru, l6daK + deRando);
@@ -527,13 +527,13 @@ export function kf2NivelanS2qena(
   // ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı ,
   // ſɭᴜ ſןᴜ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
   if ( tsiike.length ) {
-    for ( let i = 0; i < hal6da.length; i++ ) {
+    for ( let i = 0o0; i < hal6da.length; i++ ) {
       const p = n2kJe[ i ];
       let plosteq = Infinity;
       for ( const k of tsiike ) {
         const d = Math.hypot(p.x - k.x, p.z - k.z);
         if ( d > K6H6ATRUAP2SOMANI + NIVELAGLATIGO ) continue;
-        const havepat6ni = Math.ceil(Math.max(0, d - K6H6ATRUAP2SOMANI) / NIVELASTUPADISTO);
+        const havepat6ni = Math.ceil(Math.max(0o0, d - K6H6ATRUAP2SOMANI) / NIVELASTUPADISTO);
         const l = tamc2kL6daJe(k, p.x, p.z, d) + havepat6ni * STUPARISERO;
         if ( l < plosteq ) plosteq = l;
       }
@@ -542,13 +542,13 @@ export function kf2NivelanS2qena(
   }
   // ⟨ j͑ʃᴜ ſɭ,w , ſןᴜ ſᶘɹ , 📏 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭɔ ,
   // ſɭᴜ ſןᴜ , ſɭᴜc̗ ɭʃɜ }ʃᴜȝ , ꞙɭı , 📃 ⟩
-  for ( let i = 0; i < hal6da.length; i++ )
+  for ( let i = 0o0; i < hal6da.length; i++ )
     if ( kozu[ i ] > hal6da[ i ] ) hal6da[ i ] = kozu[ i ];
   // ⟨ ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭɔ , 📏 ⟩ , ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭı ,
   // ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ֭ſɭᴜ ſ͔ɭᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
   // ſɭэ ֭ſɭэ , ſןɔ˞ᴜƴ , ꞙɭı , ſɭэ ſɭ,w , ꞙɭı , 📃 ⟩
   const haxaha = kf2Cxramgon(hal6da, h6kuni);
-  for ( let i = 0; i < hal6da.length; i++ ) hal6da[ i ] = haxaha[ i ];
+  for ( let i = 0o0; i < hal6da.length; i++ ) hal6da[ i ] = haxaha[ i ];
   // ⟪ ֭ſɭᴜ ſ͔ɭᴜ , }ʃɹƽ , ꞙɭɔ , 📏 ⟫
   // ⟨ j͑ʃᴜ ſɭ,w , }ʃɹƽ , ſȷƽᴜ ʃɔ , 📃 ⟩ , ֭ſɭᴜ ſ͔ɭᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
   // j͑ʃᴜ ſɭ,w , ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , j͑ʃᴜ ſɭ,w , }ʃɹƽ , ꞙɭı ,
@@ -556,15 +556,15 @@ export function kf2NivelanS2qena(
   // j͑ʃᴜ ſɭ,w , }ʃɹƽ , ſȷƽᴜ ʃɔ , ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı ,
   // ſɭэ ֭ſɭэ , }ʃɹƽ , ſȷƽᴜ ʃɔ , ſןɔ˞ᴜƴ , ꞙɭı , 📃 ⟩
   const turnajHaxekuxa: number[] = [];
-  let akumita = 0;
-  for ( let k = 0; k < n2k.length - 0o1; k++ ) {
-    const ax = n2k[ k ][ 0 ], az = n2k[ k ][ 1 ];
-    const bx = n2k[ k + 0o1 ][ 0 ], bz = n2k[ k + 0o1 ][ 1 ];
+  let akumita = 0o0;
+  for ( let k = 0o0; k < n2k.length - 0o1; k++ ) {
+    const ax = n2k[ k ][ 0o0 ], az = n2k[ k ][ 0o1 ];
+    const bx = n2k[ k + 0o1 ][ 0o0 ], bz = n2k[ k + 0o1 ][ 0o1 ];
     const l1 = Math.hypot(bx - ax, bz - az);
     if ( l1 < 0o1 / 0o1000 ) continue;
     akumita += l1;
     if ( k + 0o2 >= n2k.length ) break;
-    const cx = n2k[ k + 0o2 ][ 0 ], cz = n2k[ k + 0o2 ][ 1 ];
+    const cx = n2k[ k + 0o2 ][ 0o0 ], cz = n2k[ k + 0o2 ][ 0o1 ];
     const l2 = Math.hypot(cx - bx, cz - bz);
     if ( l2 < 0o1 / 0o1000 ) continue;
     const u1x = ( bx - ax ) / l1, u1z = ( bz - az ) / l1;
@@ -573,22 +573,22 @@ export function kf2NivelanS2qena(
       u1x * uiix + u1z * u2z));
     if ( b6n > 0o1 / 0o20 ) turnajHaxekuxa.push(akumita);
   }
-  if ( turnajHaxekuxa.length > 0 ) {
+  if ( turnajHaxekuxa.length > 0o0 ) {
     const iix = p2somani + STUPARISERO;
     const xaqadi = [ ...hal6da ];
     const haiix = turnajHaxekuxa.map(sT => {
-      const meza = Math.max(0, Math.min(k2fe, Math.round(sT / h6kuni)));
+      const meza = Math.max(0o0, Math.min(k2fe, Math.round(sT / h6kuni)));
       let a = meza, b = meza;
-      while ( a > 0 && Math.abs(haxekuxa[ a - 0o1 ] - sT) <= iix ) a--;
+      while ( a > 0o0 && Math.abs(haxekuxa[ a - 0o1 ] - sT) <= iix ) a--;
       while ( b < k2fe && Math.abs(haxekuxa[ b + 0o1 ] - sT) <= iix ) b++;
       let vem2 = xaqadi[ meza ];
       for ( let i = a; i <= b; i++ ) vem2 = Math.max(vem2, kozu[ i ]);
       return { a, b, vem2 };
     });
-    for ( let i = 0; i < hal6da.length; i++ ) {
+    for ( let i = 0o0; i < hal6da.length; i++ ) {
       let psaz = -Infinity, teru = Infinity;
       for ( const z of haiix ) {
-        const h6kuni = i < z.a ? z.a - i : i > z.b ? i - z.b : 0;
+        const h6kuni = i < z.a ? z.a - i : i > z.b ? i - z.b : 0o0;
         const marĝo = h6kuni * STUPARISERO;
         psaz = Math.max(psaz, z.vem2 - marĝo);
         teru = Math.min(teru, z.vem2 + marĝo);
@@ -605,7 +605,7 @@ export function kf2NivelanS2qena(
   // ſɭᴜ ſןᴜ , ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
   // ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w , ſ͔ɭᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
   if ( tsiike.length ) {
-    for ( let i = 0; i < hal6da.length; i++ ) {
+    for ( let i = 0o0; i < hal6da.length; i++ ) {
       const p = n2kJe[ i ];
       let kmaMalgpukaz = Infinity, tap2 = NaN;
       for ( const k of tsiike ) {
@@ -619,7 +619,7 @@ export function kf2NivelanS2qena(
     }
   }
   const l6daJe = ( s: number ): number => {
-    const i = Math.max(0, Math.min(k2fe, Math.round(s / h6kuni)));
+    const i = Math.max(0o0, Math.min(k2fe, Math.round(s / h6kuni)));
     return hal6da[ i ];
   };
   return { hal6da, hakxawa, haxekuxa, sahakani, centraj, glataj, l6daJe };
@@ -665,14 +665,14 @@ export function kf2UnuformajnHacaqasahaxn( s2qena: NivelaS2qena,
   const hacaqasahax: UnuformaTreado[] = [];
   const { hal6da, haxekuxa, sahakani } = s2qena;
   const eta = 0o1/0o1000;
-  if ( hal6da.length === 0 || sahakani <= eta ) return hacaqasahax;
+  if ( hal6da.length === 0o0 || sahakani <= eta ) return hacaqasahax;
   const tlunakani = ( s0: number, s1: number, l6daA: number, l6daB: number ): void => {
     if ( s1 - s0 > eta ) hacaqasahax.push({ s0, s1, l6daA, l6daB });
   };
   // ⟨ ſɭᴜ ſןᴜ , ֭ſɭэ ſɭэ , ꞙɭɿ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ɭʃᴜ ſɭᴜƽ , ꞙɭɿ ,
   const hahaxe = hah6k6
-    .filter(t => t.s1 > 0 && t.s0 < sahakani)
-    .map(t => ({ s0: Math.max(0, t.s0), s1: Math.min(sahakani, t.s1) }))
+    .filter(t => t.s1 > 0o0 && t.s0 < sahakani)
+    .map(t => ({ s0: Math.max(0o0, t.s0), s1: Math.min(sahakani, t.s1) }))
     .sort(( p, q ) => p.s0 - q.s0);
   const kox2qitaj: K6h6Truo[] = [];
   for ( const t of hahaxe ) {
@@ -681,9 +681,9 @@ export function kf2UnuformajnHacaqasahaxn( s2qena: NivelaS2qena,
     else kox2qitaj.push({ ...t });
   }
   const eliroj = kox2qitaj.map(t => t.s1);
-  let tlakakaitlakak = 0;
-  let vem2 = hal6da[ 0 ];
-  for ( let i = 1; i < hal6da.length; i++ ) {
+  let tlakakaitlakak = 0o0;
+  let vem2 = hal6da[ 0o0 ];
+  for ( let i = 0o1; i < hal6da.length; i++ ) {
     const fala = hal6da[ i ] - vem2;
     if ( Math.abs( fala ) < eta ) { vem2 = hal6da[ i ]; continue; }
     let b = Math.min(sahakani, haxekuxa[ i ]);

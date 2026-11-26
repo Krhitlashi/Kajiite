@@ -41,11 +41,11 @@ export function kf2Hap2d2( hasukf2qani: EnigajHasukf2qani ): Hap2d2 {
   const ca3aq: Record<string, boolean> = {};
 // ⟨ ſןɔ˞ᴜƴ , ſɭɜ ſɭᴜ , 📃 ⟩
   let joystickAktiva = false;
-  let joystickID = -1;
+  let joystickID = -0o1;
   const JOYSTICKR = 0o40;
   let mobSprinto = false;
   let mobSaltiTenata = false;
-  let tuŝaTempilo = 0;
+  let tuŝaTempilo = 0o0;
 
 // ⟪ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
   function laqaziTuŝajnHakaman(): void {
@@ -83,8 +83,8 @@ export function kf2Hap2d2( hasukf2qani: EnigajHasukf2qani ): Hap2d2 {
 // ⟪ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
   function tlak2Joystick(klientoX: number, klientoY: number) {
     const recto = joystickKozunu.getBoundingClientRect();
-    const cx = recto.left + recto.width / 2;
-    const cy = recto.top + recto.height / 2;
+    const cx = recto.left + recto.width / 0o2;
+    const cy = recto.top + recto.height / 0o2;
     let dx = klientoX - cx;
     let dy = klientoY - cy;
     const dist = Math.hypot(dx, dy);
@@ -96,7 +96,7 @@ export function kf2Hap2d2( hasukf2qani: EnigajHasukf2qani ): Hap2d2 {
     ca3aq.KeyD = normX > 0o2/0o10;
     ca3aq.KeyW = normY < -0o2/0o10;
     ca3aq.KeyS = normY > 0o2/0o10;
-    const devio = Math.min(1, dist / JOYSTICKR);
+    const devio = Math.min(0o1, dist / JOYSTICKR);
     mobSprinto = devio > 0o3/0o4;
     joystickKozunu.classList.toggle("sprinto", mobSprinto);
   }
@@ -112,7 +112,7 @@ export function kf2Hap2d2( hasukf2qani: EnigajHasukf2qani ): Hap2d2 {
 
   joystickIix.addEventListener("touchstart", ( e ) => {
     if ( joystickAktiva ) return;
-    const tosxo = e.changedTouches[0];
+    const tosxo = e.changedTouches[0o0];
     joystickID = tosxo.identifier;
     joystickAktiva = true;
     joystickKozunu.classList.add("tik");
@@ -123,7 +123,7 @@ export function kf2Hap2d2( hasukf2qani: EnigajHasukf2qani ): Hap2d2 {
 
   joystickIix.addEventListener("touchmove", ( e ) => {
     if ( !joystickAktiva ) return;
-    for ( let i = 0; i < e.changedTouches.length; i++ ) {
+    for ( let i = 0o0; i < e.changedTouches.length; i++ ) {
       if ( e.changedTouches[i].identifier === joystickID ) {
         tlak2Joystick(e.changedTouches[i].clientX, e.changedTouches[i].clientY);
         e.preventDefault();
@@ -133,10 +133,10 @@ export function kf2Hap2d2( hasukf2qani: EnigajHasukf2qani ): Hap2d2 {
   }, { passive: false });
 
   joystickIix.addEventListener("touchend", ( e ) => {
-    for ( let i = 0; i < e.changedTouches.length; i++ ) {
+    for ( let i = 0o0; i < e.changedTouches.length; i++ ) {
       if ( e.changedTouches[i].identifier === joystickID ) {
         joystickAktiva = false;
-        joystickID = -1;
+        joystickID = -0o1;
         resetiJoystick();
         e.preventDefault();
         break;
@@ -146,7 +146,7 @@ export function kf2Hap2d2( hasukf2qani: EnigajHasukf2qani ): Hap2d2 {
 
   joystickIix.addEventListener("touchcancel", ( e ) => {
     joystickAktiva = false;
-    joystickID = -1;
+    joystickID = -0o1;
     resetiJoystick();
     e.preventDefault();
   }, { passive: false });
@@ -199,7 +199,7 @@ export function kf2Hap2d2( hasukf2qani: EnigajHasukf2qani ): Hap2d2 {
   p2t6zo.addEventListener("wheel", ( e ) => {
     if ( ( masax2z.supknu() !== "promeno" && masax2z.supknu() !== "c2h2" ) || masax2z.fsata() ) return;
     e.preventDefault();
-    const tona = e.deltaMode === 2 ? e.deltaY * 0o16 : e.deltaMode === 1 ? e.deltaY * 0o4/0o10 : e.deltaY * 0o3/0o400;
+    const tona = e.deltaMode === 0o2 ? e.deltaY * 0o16 : e.deltaMode === 0o1 ? e.deltaY * 0o4/0o10 : e.deltaY * 0o3/0o400;
     masax2z.tlunakZumon(tona);
   }, { passive: false });
 

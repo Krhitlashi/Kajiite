@@ -24,13 +24,13 @@ const S2qena: [ number, number ][] = [
 
 function kf2Lobon(): THREE.ExtrudeGeometry {
   const qoxa = new THREE.Shape();
-  qoxa.moveTo(0, 0);
+  qoxa.moveTo(0o0, 0o0);
   qoxa.quadraticCurveTo(0o34/0o100, -0o5/0o100, 0o30/0o100, -0o34/0o100);
   qoxa.quadraticCurveTo(0o24/0o100, -0o52/0o100, 0o12/0o100, -0o56/0o100);
   qoxa.quadraticCurveTo(0o5/0o100, -0o44/0o100, -0o2/0o100, -0o50/0o100);
   qoxa.quadraticCurveTo(-0o10/0o100, -0o40/0o100, -0o12/0o100, -0o46/0o100);
   qoxa.quadraticCurveTo(-0o16/0o100, -0o30/0o100, -0o10/0o100, -0o10/0o100);
-  qoxa.quadraticCurveTo(-0o6/0o100, -0o2/0o100, 0, 0);
+  qoxa.quadraticCurveTo(-0o6/0o100, -0o2/0o100, 0o0, 0o0);
   return new THREE.ExtrudeGeometry(qoxa, { depth: 0o2/0o100, bevelEnabled: false });
 }
 
@@ -68,7 +68,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
     // ⟨ ſןᴜ ɭʃᴜ 📃 ⟩
     const l6ksabosai = new THREE.Mesh(lobaQoxa, lobaPukek);
     l6ksabosai.name = "l6ksabosai";
-    l6ksabosai.position.set(s * 0o24/0o100, w6qaY, 0);
+    l6ksabosai.position.set(s * 0o24/0o100, w6qaY, 0o0);
     l6ksabosai.rotation.z = -s * 0o3/0o10;
     l6ksabosai.scale.set(s * 0o12/0o10, 0o12/0o10, 0o1);
     l6ksabosai.userData.vek2fe = s;
@@ -86,7 +86,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
     }
     // ⟨ j͐ʃᴜ ſןɔȝ ʌ ſɟᴜ ɭʃᴜ 📃 ⟩
     const n2k: THREE.Vector3[] = [];
-    for ( let i = 0; i <= 0o10; i++ ) {
+    for ( let i = 0o0; i <= 0o10; i++ ) {
       const u = i / 0o10;
       n2k.push(new THREE.Vector3(
         s * ( 0o20/0o100 + u * 0o10/0o100 + Math.sin(u * Math.PI * 0o2) * 0o4/0o100 ),
@@ -95,7 +95,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
     }
     const kkaxte = new THREE.CatmullRomCurve3(n2k);
     const hakek: THREE.BufferGeometry[] = [ new THREE.TubeGeometry(kkaxte, 0o12, 0o4/0o1000, 0o6) ];
-    for ( let i = 1; i < 0o10; i++ ) {
+    for ( let i = 0o1; i < 0o10; i++ ) {
       const p = kkaxte.getPoint(i / 0o10);
       const tsaq = new THREE.CylinderGeometry(0o1/0o200, 0o2/0o200, 0o10/0o100, 0o4);
       tsaq.rotateZ(s * ( 0o7/0o10 + ( i % 0o2 ? 0o1/0o10 : -0o1/0o10 )));
@@ -129,12 +129,12 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
 export function tlak2Mnemiopsan(b: Paga, t: number): void {
   const pulso = aplikiLiixnPulson(b, t);
   const xafanitapu = liixPulsaFazo(b, t);
-  let i = 0;
+  let i = 0o0;
   for ( const kek of b.hatahalaqaz ) {
     if ( kek.name === "l6ksabosai" ) {
-      const h6w6o = 0o1 + Math.max(0, Math.sin(xafanitapu + i * 0o5/0o10)) * 0o12/0o100;
-      gluuSurfacxon(kek, pulso, { x: 1 + ( h6w6o - 1 ) * 0o4/0o5,
-        y: h6w6o, z: 1 + ( h6w6o - 1 ) * 0o4/0o5 });
+      const h6w6o = 0o1 + Math.max(0o0, Math.sin(xafanitapu + i * 0o5/0o10)) * 0o12/0o100;
+      gluuSurfacxon(kek, pulso, { x: 0o1 + ( h6w6o - 0o1 ) * 0o4/0o5,
+        y: h6w6o, z: 0o1 + ( h6w6o - 0o1 ) * 0o4/0o5 });
       kek.rotation.x = Math.sin(t * 0o2 + b.phase + i) * 0o2/0o10;
       i++;
     } else if ( kek.name === "palpo" ) {

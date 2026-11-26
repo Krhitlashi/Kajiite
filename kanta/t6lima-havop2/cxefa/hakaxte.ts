@@ -7,4 +7,4 @@
 // hahufwuk2 ( ſɭэ ֭ſɭэ ʌ ſɟᴜ j͑ʃƨɹ ʌ j͐ʃɜ ɭʃᴜ ) , hateru ( ꞁȷ̀ɜ ı],ɔ ŋᷠᴜ }ʃꞇ ʌ j͑ʃ'ᴜ j͑ʃп́ɔ
 // , "c,r" , "c,r,SUB" → ſ͕ɭᴜ j͑ʃᴜ ) , tlunakHak6liq
 // ( x , z , hunaq , rot , veq6k2 , stacia , konektita )
-export const SKULPTAHAKAXTE = [ { "ksaka": "Geles", "ptaluPal6": 0o3, "k6liqPal6": "vakox2qita", "ofsX": 0, "ofsZ": 0, "kekufxeso": true, "tlunakHak6liq": [ { "x": 0, "z": 0o140, "hunaq": "qaman2", "rot": Math.PI, "veq6k2": "sost2", "stacia": true, "konektita": true } ] }, { "ksaka": "Testa", "ptaluPal6": 0o2, "k6liqPal6": "kvar", "ofsX": 0o140, "ofsZ": -0o400, "kekufxeso": false, "tlunakHak6liq": [  ] } ];
+export const SKULPTAHAKAXTE = [ { "ksaka": "Geles", "ptaluPal6": 0o3, "k6liqPal6": "vakox2qita", "ofsX": 0o0, "ofsZ": 0o0, "kekufxeso": true, "tlunakHak6liq": [ { "x": 0o0, "z": 0o140, "hunaq": "qaman2", "rot": Math.PI, "veq6k2": "sost2", "stacia": true, "konektita": true } ] }, { "ksaka": "Testa", "ptaluPal6": 0o2, "k6liqPal6": "kvar", "ofsX": 0o140, "ofsZ": -0o400, "kekufxeso": false, "tlunakHak6liq": [  ] } ];

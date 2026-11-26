@@ -32,10 +32,10 @@ import type { Neq2qObjekto } from "../../../kanta/nala/kaxte/hahunaq.js";
 export let hazace: Neq2qObjekto[] = [];
 export let oxemaniModo = false;
 export let oxemaniIlo = "neq2q";
-export let oxemaniTrenata = -1;
+export let oxemaniTrenata = -0o1;
 export let oxemaniAktiva = "lam2v";
-export let sukf2qitaOxemani = -1;
-const oxemaniProp: Record<string, number> = { p6zukani: 1, s2sabo: 0, pagapudal: 0, cabole: 4, soqte: 0, tsaqHaxe: 0, xabePudal: 0, haxe: 0 };
+export let sukf2qitaOxemani = -0o1;
+const oxemaniProp: Record<string, number> = { p6zukani: 0o1, s2sabo: 0o0, pagapudal: 0o0, cabole: 0o4, soqte: 0o0, tsaqHaxe: 0o0, xabePudal: 0o0, haxe: 0o0 };
 const OBJEKTOSPECOJ: Record<string, { ksaka: string; weh2: string }> = {
   lam2v:       { ksaka: "ſɟɔ j͑ʃɹ ʌ ſɭɜ 🌳",     weh2: "#a8d8a8" },
   taksal:       { ksaka: "ſɟɔ j͑ʃɹ ʌ j͐ʃэ ɭ(ᴜ 🌲",     weh2: "#68a868" },
@@ -150,8 +150,8 @@ export function tlak2Haqan2k(x: number | null, z: number | null): void {
   const h = kozonuL6da(x, z) + l6daInterp(x, z);
 // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı ,
   const tsasa = tsekeTsasaSoza(x, z);
-  koordinatajEl.textContent = "x " + x.toFixed(2) + "   z " + z.toFixed(2)
-    + "   y " + h.toFixed(2) + ( tsasa ? "   ( ſᶘᴜ j͑ʃᴜ )" : "" );
+  koordinatajEl.textContent = "x " + x.toFixed(0o2) + "   z " + z.toFixed(0o2)
+    + "   y " + h.toFixed(0o2) + ( tsasa ? "   ( ſᶘᴜ j͑ʃᴜ )" : "" );
 }
 
 /* ſɭэ ᶗ‹ , ꞙɭꞟц , ꞙɭɔ , ꞙɭɿꞟ ,
@@ -161,10 +161,10 @@ export function tlak2Haqan2k(x: number | null, z: number | null): void {
 export function neq2qObjekton(x: number, z: number): void {
   if ( Math.abs(x) > MONDOHALFO || Math.abs(z) > MONDOHALFO ) return;
   momenti();
-  const o: Neq2qObjekto = { x: Math.round(x * 4) / 4, z: Math.round(z * 4) / 4, pudal: oxemaniAktiva };
+  const o: Neq2qObjekto = { x: Math.round(x * 0o4) / 0o4, z: Math.round(z * 0o4) / 0o4, pudal: oxemaniAktiva };
   const ecoj = o as unknown as Record<string, number>;
   for ( const k of Object.keys(oxemaniProp) ) ecoj[k] = oxemaniProp[k];
-  if ( o.pudal === "s2kaj2" ) o.haxe = oxemaniProp.haxe === 1 ? "satala" : "kozunu";
+  if ( o.pudal === "s2kaj2" ) o.haxe = oxemaniProp.haxe === 0o1 ? "satala" : "kozunu";
   hazace.push(o);
   s2tasVeq6k2itan();
     statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
@@ -181,8 +181,8 @@ j͑ʃƽɔ ſɭɹ ｡ ſɭᴜ ｡
 @returns j͑ʃƽɔ ſɭɹ ɭʃᴜ -ı ( number ) ｡ */
 export function oxemaniJeN2k(wx: number, wz: number): number {
   const h6kuni = Math.max(0o5/0o2, 0o10 / kix2P6zuk());
-  let plosteq = -1, kmaDisto = h6kuni;
-  for ( let i = 0; i < hazace.length; i++ ) {
+  let plosteq = -0o1, kmaDisto = h6kuni;
+  for ( let i = 0o0; i < hazace.length; i++ ) {
     const o = hazace[i];
     const d = Math.hypot(o.x - wx, o.z - wz);
     if ( d < kmaDisto ) { kmaDisto = d; plosteq = i; }
@@ -195,8 +195,8 @@ export function oxemaniJeN2k(wx: number, wz: number): number {
 @param i ( number ) - j͑ʃƽɔ ſɭɹ ｡ */
 export function h2liObjekton(i: number): void {
   momenti();
-  hazace.splice(i, 1);
-  if ( sukf2qitaOxemani === i ) sukf2qitaOxemani = -1;
+  hazace.splice(i, 0o1);
+  if ( sukf2qitaOxemani === i ) sukf2qitaOxemani = -0o1;
   else if ( sukf2qitaOxemani > i ) sukf2qitaOxemani--;
   s2tasVeq6k2itan();
     statuso("ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
@@ -211,7 +211,7 @@ export function h2liObjekton(i: number): void {
 j͑ʃƽɔ ſɭɹ ｡ */
 export function b6tem2ObjektajnHap2d2(): void {
   if ( !oxemaniXEnigo ) return;
-  if ( sukf2qitaOxemani >= 0 && sukf2qitaOxemani < hazace.length ) {
+  if ( sukf2qitaOxemani >= 0o0 && sukf2qitaOxemani < hazace.length ) {
     const o = hazace[sukf2qitaOxemani];
     oxemaniXEnigo.value = String(o.x);
     oxemaniZEnigo.value = String(o.z);
@@ -228,11 +228,11 @@ oxemaniMetuBtn.addEventListener("click", () => {
     statuso("j͑ʃƽɔ ſɭɹ ｡ ɭʃᴜ ɭl̀ɹ ɭʃɔ");
     return;
   }
-  if ( sukf2qitaOxemani >= 0 && sukf2qitaOxemani < hazace.length ) {
+  if ( sukf2qitaOxemani >= 0o0 && sukf2qitaOxemani < hazace.length ) {
     momenti();
     const o = hazace[sukf2qitaOxemani];
-    o.x = Math.round(x * 4) / 4;
-    o.z = Math.round(z * 4) / 4;
+    o.x = Math.round(x * 0o4) / 0o4;
+    o.z = Math.round(z * 0o4) / 0o4;
     s2tasVeq6k2itan();
     statuso("ſɭᴜ ｡ ſɭэ j͐ʃꞇ ｡ ɭʃᴜ");
     tlak2ObjektoCatsara();
@@ -262,7 +262,7 @@ oxemaniPudal.addEventListener("change", () => {
 @param x ( number ) - }ʃᴜ j͐ʃᴜ x ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡
 @param z ( number ) - }ʃᴜ j͐ʃᴜ z ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ｡ */
 export function saxeiObjektanTrenon(ind: number, x: number, z: number): void {
-  if ( oxemaniTrenata >= 0 ) return;
+  if ( oxemaniTrenata >= 0o0 ) return;
   momenti();
   oxemaniTrenata = ind;
   sukf2qitaOxemani = ind;
@@ -279,20 +279,20 @@ export function saxeiObjektanTrenon(ind: number, x: number, z: number): void {
 @param z ( number ) - }ʃᴜ j͐ʃᴜ z ʌ ſɭᴜ ｡ */
 export function sxangiObjektanXekuxan(ind: number, x: number, z: number): void {
   const o = hazace[ind];
-  o.x = Math.round(x * 4) / 4;
-  o.z = Math.round(z * 4) / 4;
+  o.x = Math.round(x * 0o4) / 0o4;
+  o.z = Math.round(z * 0o4) / 0o4;
   vepaqTom6Hatoxemani();
   s2tasDesegnon();
 }
 export function finiObjektanTrenon(): void {
-  if ( oxemaniTrenata < 0 ) return;
-  oxemaniTrenata = -1;
+  if ( oxemaniTrenata < 0o0 ) return;
+  oxemaniTrenata = -0o1;
   tlak2ObjektoCatsara();
   b6tem2ObjektajnHap2d2();
   s2tasDesegnon();
 }
 
-const OBJEKTOKONSTRUAJXOJ: Record<string, number> = { qaman2: 1, turo: 1, kap2: 1, geqqa: 1, kasafeo: 1, ka5asexaz: 1 };
+const OBJEKTOKONSTRUAJXOJ: Record<string, number> = { qaman2: 0o1, turo: 0o1, kap2: 0o1, geqqa: 0o1, kasafeo: 0o1, ka5asexaz: 0o1 };
 
 interface VepaqHasukf2qani {
   l6da?: ( x: number, z: number ) => number;
@@ -308,61 +308,61 @@ function vepaqObjektonEn(hate2: THREE.Object3D, o: Neq2qObjekto, hasukf2qani: Ve
   const temp = new THREE.Scene();
   const h = hasukf2qani.l6da ? hasukf2qani.l6da : ( x: number, z: number ) => ( kozonuL6da(x, z) + l6daInterp(x, z) ) * YTROIGO;
   const vaknesmiL6da = hasukf2qani.vaknesmiL6da !== undefined ? hasukf2qani.vaknesmiL6da : 0o40 * YTROIGO;
-  const s = o.p6zukani ?? 1;
+  const s = o.p6zukani ?? 0o1;
   if ( o.pudal === "lam2v" ) vepaqQacel2n(temp, [ { x: o.x, z: o.z, h: h(o.x, o.z), s } ]);
   else if ( o.pudal === "taksal" ) vepaqLarikon(temp, [ { x: o.x, z: o.z, h: h(o.x, o.z), s } ]);
   else if ( o.pudal === "tlexlefhxakai" ) vepaqTlexlefhxakaijn(temp, [ { x: o.x, z: o.z, h: h(o.x, o.z), s } ]);
   else if ( o.pudal === "tlexlefp2sai" ) vepaqTlexlefp2saijn(temp, [ { x: o.x, z: o.z, h: h(o.x, o.z), s } ]);
-  else if ( o.pudal === "t6keq" ) vepaqNeq2qnRokon(temp, o.x, o.z, h, s, o.s2sabo ?? -1);
-  else if ( o.pudal === "xabe" ) vepaqNeq2qnXaben(temp, o.x, o.z, h, s, o.xabePudal ?? 0);
+  else if ( o.pudal === "t6keq" ) vepaqNeq2qnRokon(temp, o.x, o.z, h, s, o.s2sabo ?? -0o1);
+  else if ( o.pudal === "xabe" ) vepaqNeq2qnXaben(temp, o.x, o.z, h, s, o.xabePudal ?? 0o0);
   else if ( o.pudal === "akvapaga" ) {
-    const i = Math.max(0, Math.min(N - 1, Math.floor(( o.x - X0 ) / Tona)));
-    const j = Math.max(0, Math.min(N - 1, Math.floor(( o.z - Z0 ) / Tona)));
+    const i = Math.max(0o0, Math.min(N - 0o1, Math.floor(( o.x - X0 ) / Tona)));
+    const j = Math.max(0o0, Math.min(N - 0o1, Math.floor(( o.z - Z0 ) / Tona)));
     const niv = tsasaVem2De(i, j, o.x, o.z);
-    const b = vepaqNeq2qnPagan(temp, o.pagapudal ?? 0, o.x, o.z,
+    const b = vepaqNeq2qnPagan(temp, o.pagapudal ?? 0o0, o.x, o.z,
       niv === null ? h(o.x, o.z) : niv * YTROIGO, s);
     if ( b ) { temp.remove(b.hate2); hate2.add(b.hate2); }
   } else if ( o.pudal === "temek" ) {
-    const p = vepaqNeq2qnTemekn(temp, o.x, o.z, h, o.cabole ?? 4, s);
+    const p = vepaqNeq2qnTemekn(temp, o.x, o.z, h, o.cabole ?? 0o4, s);
     if ( p ) { temp.remove(p.hate2); hate2.add(p.hate2); }
   } else if ( o.pudal === "npco" ) {
-    const fig = vepaqQoxa(HASOQTE[( o.soqte ?? 0 ) % HASOQTE.length],
-      ( o.tsaqHaxe ?? 0 ) === 1 ? "tsaqSahakani" : "tsaqPsazai");
+    const fig = vepaqQoxa(HASOQTE[( o.soqte ?? 0o0 ) % HASOQTE.length],
+      ( o.tsaqHaxe ?? 0o0 ) === 0o1 ? "tsaqSahakani" : "tsaqPsazai");
     fig.group.position.set(o.x, h(o.x, o.z), o.z);
-    fig.group.rotation.y = o.s2sabo ?? 0;
+    fig.group.rotation.y = o.s2sabo ?? 0o0;
     hate2.add(fig.group);
   } else if ( o.pudal === "s2kaj2" ) {
-    const i = Math.max(0, Math.min(N - 1, Math.floor(( o.x - X0 ) / Tona)));
-    const j = Math.max(0, Math.min(N - 1, Math.floor(( o.z - Z0 ) / Tona)));
+    const i = Math.max(0o0, Math.min(N - 0o1, Math.floor(( o.x - X0 ) / Tona)));
+    const j = Math.max(0o0, Math.min(N - 0o1, Math.floor(( o.z - Z0 ) / Tona)));
     const niv = tsasaVem2De(i, j, o.x, o.z);
-    const s2tani = kf2S2tani(temp, o.x, o.z, o.s2sabo ?? 0, ORAPUKEK,
+    const s2tani = kf2S2tani(temp, o.x, o.z, o.s2sabo ?? 0o0, ORAPUKEK,
       niv === null ? h(o.x, o.z) : niv * YTROIGO, o.haxe === "satala" ? "satala" : "kozunu");
     s2tani.group.position.set(o.x, niv === null ? h(o.x, o.z) : niv * YTROIGO, o.z);
-    s2tani.group.rotation.y = o.s2sabo ?? 0;
+    s2tani.group.rotation.y = o.s2sabo ?? 0o0;
   } else if ( o.pudal === "spacosxipo" ) {
     vepaqKrasesxagxon(temp, o.x, vaknesmiL6da, o.z, ORAPUKEK, ENIRAPUKEK);
   } else if ( OBJEKTOKONSTRUAJXOJ[o.pudal] ) {
     const hunaq = o.pudal === "ka5asexaz" ? "ka5asexazxipo" : o.pudal;
-    const havem2 = hunaq === "ka5asexazxipo" ? TIPAJNIVELOJ.ka5asexazxipo : hunaq === "qaman2" ? 7 : hunaq === "turo" ? 0o10 : 4;
+    const havem2 = hunaq === "ka5asexazxipo" ? TIPAJNIVELOJ.ka5asexazxipo : hunaq === "qaman2" ? 0o7 : hunaq === "turo" ? 0o10 : 0o4;
     const spec = {
       x: o.x, z: o.z, type: hunaq, name: "zace",
       havem2, w: 0o10 * s, d: 0o10 * s,
       b6k61oL6da: hunaq === "ka5asexazxipo" ? 0o155/0o40 : hunaq === "turo" ? 0o30/0o10 : hunaq === "kasafeo" ? 0o155/0o40 : 0o315/0o100,
-      rot: o.s2sabo ?? 0, diamond: true, h0: h(o.x, o.z),
-      sube: hunaq === "ka5asexazxipo" ? 0 : havem2, b6k61oL6daSub: 0o123/0o40,
+      rot: o.s2sabo ?? 0o0, diamond: true, h0: h(o.x, o.z),
+      sube: hunaq === "ka5asexazxipo" ? 0o0 : havem2, b6k61oL6daSub: 0o123/0o40,
     };
     vepaqSatalon(spec, temp, [], h);
   } else if ( o.pudal === "hxeuxfo" || o.pudal === "hxeuxfoPa12" ) {
     if ( o.pudal === "hxeuxfoPa12" ) {
       vepaqPeriferiajnPlathaqoxan(temp, [ [ o.x, o.z ] ], h, dioritaPukek(), kf2T6hnaPukek());
-      vepaqHxeuxfojn(temp, [ { x: o.x, z: o.z, y: h(o.x, o.z) + 0o4/0o10 - 0o1/0o40, s2sabo: o.s2sabo ?? Math.PI / 4 } ], dioritaPukek(), ORAPUKEK);
+      vepaqHxeuxfojn(temp, [ { x: o.x, z: o.z, y: h(o.x, o.z) + 0o4/0o10 - 0o1/0o40, s2sabo: o.s2sabo ?? Math.PI / 0o4 } ], dioritaPukek(), ORAPUKEK);
     } else {
-      vepaqHxeuxfojn(temp, [ { x: o.x, z: o.z, y: h(o.x, o.z), s2sabo: o.s2sabo ?? Math.PI / 4 } ], dioritaPukek(), ORAPUKEK);
+      vepaqHxeuxfojn(temp, [ { x: o.x, z: o.z, y: h(o.x, o.z), s2sabo: o.s2sabo ?? Math.PI / 0o4 } ], dioritaPukek(), ORAPUKEK);
     }
   } else if ( o.pudal === "kekufxeso" ) {
-    vepaqKekufxeso(temp, [ { x: o.x, z: o.z, s2sabo: o.s2sabo ?? 0 } ], h, ORAPUKEK);
+    vepaqKekufxeso(temp, [ { x: o.x, z: o.z, s2sabo: o.s2sabo ?? 0o0 } ], h, ORAPUKEK);
   }
-  while ( temp.children.length ) hate2.add(temp.children[0]);
+  while ( temp.children.length ) hate2.add(temp.children[0o0]);
 }
 
 function kf2ObjektanTsanen() {
@@ -370,11 +370,11 @@ function kf2ObjektanTsanen() {
   oxemaniBakaMak2f = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   catsaraTonan( oxemaniBakaMak2f );
   oxemaniBakaMak2f.setSize(0o2000, 0o2000);
-  oxemaniBakaMak2f.setClearColor(0x000000, 0);
-  oxemaniBakaCatahaq = new THREE.OrthographicCamera(-MONDOHALFO, MONDOHALFO, MONDOHALFO, -MONDOHALFO, 1, 0o600);
-  oxemaniBakaCatahaq.up.set(0, 0, 1);
-  oxemaniBakaCatahaq.position.set(0, 0o470, 0);
-  oxemaniBakaCatahaq.lookAt(0, 0, 0);
+  oxemaniBakaMak2f.setClearColor(0x000000, 0o0);
+  oxemaniBakaCatahaq = new THREE.OrthographicCamera(-MONDOHALFO, MONDOHALFO, MONDOHALFO, -MONDOHALFO, 0o1, 0o600);
+  oxemaniBakaCatahaq.up.set(0o0, 0o0, 0o1);
+  oxemaniBakaCatahaq.position.set(0o0, 0o470, 0o0);
+  oxemaniBakaCatahaq.lookAt(0o0, 0o0, 0o0);
   oxemaniBakaKagani = new THREE.Scene();
 // ⟨ ſᶘɹ ſɭᴜ , ſɭэ ſɭw , 📃 ⟩
   kf2GelesTsijen( oxemaniBakaKagani, {
@@ -391,14 +391,14 @@ function kf2ObjektanTsanen() {
 }
 
 export function vepaqTom6Hatoxemani(): void {
-  if ( hazace.length > 0 ) kf2ObjektanTsanen();
+  if ( hazace.length > 0o0 ) kf2ObjektanTsanen();
   if ( oxemaniGrupo2D && oxemaniBakaMak2f && oxemaniBakaKagani && oxemaniBakaCatahaq ) {
-    while ( oxemaniGrupo2D.children.length ) oxemaniGrupo2D.remove(oxemaniGrupo2D.children[0]);
+    while ( oxemaniGrupo2D.children.length ) oxemaniGrupo2D.remove(oxemaniGrupo2D.children[0o0]);
     for ( const o of hazace ) vepaqObjektonEn(oxemaniGrupo2D, o);
     oxemaniBakaMak2f.render(oxemaniBakaKagani, oxemaniBakaCatahaq);
   }
   if ( oxemaniGrupo3D ) {
-    while ( oxemaniGrupo3D.children.length ) oxemaniGrupo3D.remove(oxemaniGrupo3D.children[0]);
+    while ( oxemaniGrupo3D.children.length ) oxemaniGrupo3D.remove(oxemaniGrupo3D.children[0o0]);
     for ( const o of hazace ) vepaqObjektonEn(oxemaniGrupo3D, o);
   }
 }
@@ -413,9 +413,9 @@ function kf2ObjektanAntauxrigardon(): void {
   if ( oxemaniNe3ak2Mak2f ) return;
   oxemaniNe3ak2Mak2f = new THREE.WebGLRenderer({ canvas: oxemaniAntauxrigardo, antialias: true, alpha: true });
   catsaraTonan( oxemaniNe3ak2Mak2f );
-  oxemaniNe3ak2Mak2f.setClearColor(0x000000, 0);
+  oxemaniNe3ak2Mak2f.setClearColor(0x000000, 0o0);
   oxemaniNe3ak2Kagani = new THREE.Scene();
-  oxemaniNe3ak2Catahaq = new THREE.PerspectiveCamera(0o50, 1, 1, 0o764);
+  oxemaniNe3ak2Catahaq = new THREE.PerspectiveCamera(0o50, 0o1, 0o1, 0o764);
   oxemaniNe3ak2Catahaq.position.set(0o20, 0o14, 0o20);
 // ⟨ ſᶘɹ ſɭᴜ , ſɭэ ſɭw , 📃 ⟩
   kf2GelesTsijen( oxemaniNe3ak2Kagani, {
@@ -432,29 +432,29 @@ function kf2ObjektanAntauxrigardon(): void {
 export function vepaqTom6ObjektanAntauxrigardon(): void {
   kf2ObjektanAntauxrigardon();
   if ( !oxemaniNe3ak2Hate || !oxemaniNe3ak2Catahaq ) return;
-  while ( oxemaniNe3ak2Hate.children.length ) oxemaniNe3ak2Hate.remove(oxemaniNe3ak2Hate.children[0]);
-  oxemaniNe3ak2Hate.position.set(0, 0, 0);
-  oxemaniNe3ak2Hate.rotation.set(0, 0, 0);
-  const o = { x: 0, z: 0, pudal: oxemaniAktiva, p6zukani: oxemaniProp.p6zukani,
+  while ( oxemaniNe3ak2Hate.children.length ) oxemaniNe3ak2Hate.remove(oxemaniNe3ak2Hate.children[0o0]);
+  oxemaniNe3ak2Hate.position.set(0o0, 0o0, 0o0);
+  oxemaniNe3ak2Hate.rotation.set(0o0, 0o0, 0o0);
+  const o = { x: 0o0, z: 0o0, pudal: oxemaniAktiva, p6zukani: oxemaniProp.p6zukani,
     s2sabo: oxemaniProp.s2sabo, pagapudal: oxemaniProp.pagapudal, cabole: oxemaniProp.cabole,
     soqte: oxemaniProp.soqte, tsaqHaxe: oxemaniProp.tsaqHaxe, xabePudal: oxemaniProp.xabePudal,
-    haxe: oxemaniProp.haxe === 1 ? "satala" : "kozunu" };
-  vepaqObjektonEn(oxemaniNe3ak2Hate, o, { l6da: () => 0, vaknesmiL6da: 0o10 });
+    haxe: oxemaniProp.haxe === 0o1 ? "satala" : "kozunu" };
+  vepaqObjektonEn(oxemaniNe3ak2Hate, o, { l6da: () => 0o0, vaknesmiL6da: 0o10 });
   const kesto = new THREE.Box3().setFromObject(oxemaniNe3ak2Hate);
   const pal6 = kesto.getSize(new THREE.Vector3()).length() || 0o10;
   const sost2 = kesto.getCenter(new THREE.Vector3());
   oxemaniNe3ak2Hate.position.sub(sost2);
   const h6kuni = Math.max(0o14, pal6 * 0o35/0o40);
-  oxemaniNe3ak2Catahaq.near = Math.max(1, h6kuni * 0o1/0o20);
+  oxemaniNe3ak2Catahaq.near = Math.max(0o1, h6kuni * 0o1/0o20);
   oxemaniNe3ak2Catahaq.far = h6kuni * 0o10 + 0o200;
   oxemaniNe3ak2Catahaq.position.set(h6kuni * 0o63/0o100, h6kuni * 0o25/0o40, h6kuni * 0o63/0o100);
   oxemaniNe3ak2Catahaq.updateProjectionMatrix();
-  oxemaniNe3ak2Catahaq.lookAt(0, 0, 0);
+  oxemaniNe3ak2Catahaq.lookAt(0o0, 0o0, 0o0);
 }
 
 export function tlak2ObjektoCatsara(): void {
   oxemaniCatsara.innerHTML = "";
-  if ( hazace.length === 0 ) {
+  if ( hazace.length === 0o0 ) {
     const qun2 = document.createElement("p");
     qun2.className = "kefhuruq";
     qun2.textContent = "ſɟᴜ ｡ ʃᴜ j͐ʃɹ ｡ ſɭᴜ ſןᴜ ｡";
@@ -466,10 +466,10 @@ export function tlak2ObjektoCatsara(): void {
     const pudal = OBJEKTOSPECOJ[o.pudal];
     const ksaka = pudal ? pudal.ksaka : o.pudal;
     const catsiina = document.createElement("button");
-    catsiina.textContent = ksaka + "  ( " + o.x.toFixed(2) + ", " + o.z.toFixed(2) + " )";
+    catsiina.textContent = ksaka + "  ( " + o.x.toFixed(0o2) + ", " + o.z.toFixed(0o2) + " )";
     catsiina.setAttribute("aria-pressed", String(i === sukf2qitaOxemani));
     catsiina.addEventListener("click", () => {
-      sukf2qitaOxemani = sukf2qitaOxemani === i ? -1 : i;
+      sukf2qitaOxemani = sukf2qitaOxemani === i ? -0o1 : i;
       tlak2ObjektoCatsara();
       b6tem2ObjektajnHap2d2();
       s2tasDesegnon();
@@ -496,24 +496,24 @@ export function tlak2ObjektoPropOJn(): void {
       + hasukf2qani.map(( op, i ) => "<option value=\"" + i + "\"" + ( oxemaniProp[ca3aq] === i ? " selected" : "" ) + ">" + op + "</option>").join("")
       + "</select></label>";
   };
-  html += glitilo("ſןᴜ j͐ʃэ", "p6zuk", 0o1/0o4, 3, 0o1/0o20, "");
+  html += glitilo("ſןᴜ j͐ʃэ", "p6zuk", 0o1/0o4, 0o3, 0o1/0o20, "");
   if ( s === "npco" ) {
-  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "s2sabo", 0, 0o311/0o40, 0o1/0o20, " rad");
+  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "s2sabo", 0o0, 0o311/0o40, 0o1/0o20, " rad");
   html += masukf2q("ſɭᴜ ſןɹ", "soqte", OBJEKTOHASOQTE);
   html += masukf2q("ſɭᴜ ſןɹ ｡ ſᶘᴜ", "tsaqHaxe", [ "ſɟᴜ", "ſɟᴜ ᶗ‹" ]);
   } else if ( s === "akvapaga" ) {
   html += masukf2q("ſ͕ɭɜ ı],ᴜ", "pagapudal", OBJEKTOBESTOSPECOJ);
   } else if ( s === "temek" ) {
-  html += glitilo("ſɭᴜ ſɭˬꞇƽ", "cabole", 1, 0o24, 0o1/0o2, " un");
+  html += glitilo("ſɭᴜ ſɭˬꞇƽ", "cabole", 0o1, 0o24, 0o1/0o2, " un");
   } else if ( s === "t6keq" ) {
-  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "s2sabo", 0, 0o311/0o40, 0o1/0o20, " rad");
+  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "s2sabo", 0o0, 0o311/0o40, 0o1/0o20, " rad");
   } else if ( s === "xabe" ) {
   html += masukf2q("ſᶘꞇ ɭl̀ɔ", "xabePudal", [ "ſɭɜ ɭʃᴜ", "j͑ʃɹ ı],w" ]);
   } else if ( s === "s2kaj2" ) {
   html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "s2sabo", -0o315/0o100, 0o315/0o100, 0o1/0o20, " rad");
   html += masukf2q("ſɭᴜ ſןᴜ ɭʃᴜ", "haxe", OBJEKTOKANUAHAAXE);
   } else if ( OBJEKTOKONSTRUAJXOJ[s] || s === "hxeuxfo" || s === "hxeuxfoPa12" || s === "kekufxeso" ) {
-  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "s2sabo", 0, 0o311/0o40, 0o1/0o20, " rad");
+  html += glitilo("j͑ʃɹ j͑ʃᴜ ʃɜ", "s2sabo", 0o0, 0o311/0o40, 0o1/0o20, " rad");
   }
   oxemaniPropOJ.innerHTML = html;
   hakfe<HTMLInputElement | HTMLSelectElement>("input[data-prop], select[data-prop]", oxemaniPropOJ).forEach(el => {
@@ -532,7 +532,7 @@ export function tlak2ObjektoPropOJn(): void {
 function tlak2PropHaskek2(): void {
   hakfe<HTMLInputElement>("input[type=range]", oxemaniPropOJ).forEach(el => {
     const sp = xaqadi<HTMLElement>("#propVal" + String(el.dataset.prop));
-    if ( sp ) sp.textContent = ( +el.value ).toFixed(2);
+    if ( sp ) sp.textContent = ( +el.value ).toFixed(0o2);
   });
 }
 
@@ -547,9 +547,9 @@ export function tsiinanusabosaiHatoxemani(on: boolean): void {
   tlak2Haku1o();
   tlak2Kursoro();
   tlak23DnIlon();
-  if ( !on ) { tlak2Haqan2k(null, null); sukf2qitaOxemani = -1; tlak2ObjektoCatsara(); }
+  if ( !on ) { tlak2Haqan2k(null, null); sukf2qitaOxemani = -0o1; tlak2ObjektoCatsara(); }
   b6tem2ObjektajnHap2d2();
-  pentri(0, 0, REZ - 1, REZ - 1);
+  pentri(0o0, 0o0, REZ - 0o1, REZ - 0o1);
   s2tasDesegnon();
-  if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
+  if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0o0, ix1: N - 0o1, iz0: 0o0, iz1: N - 0o1 });
 }

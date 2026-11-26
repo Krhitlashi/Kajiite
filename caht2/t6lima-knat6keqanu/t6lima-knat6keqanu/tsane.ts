@@ -77,9 +77,9 @@ const deklivoGradientoj = new Float32Array(REZ * REZ); // |∇h| ｡ ſɭw ſɭ�
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
 // ſɭᶗɜ ᶘᴜ , ꞙɭɩ ,
 export function prerenderiKozunu(): void {
-  for ( let py = 0; py < REZ; py++ ) {
+  for ( let py = 0o0; py < REZ; py++ ) {
     const z = MONDOHALFO - ( py + 0o1/0o2 ) * Nala / REZ;
-    for ( let px = 0; px < REZ; px++ ) {
+    for ( let px = 0o0; px < REZ; px++ ) {
       const x = MONDOHALFO - ( px + 0o1/0o2 ) * Nala / REZ;
       const i = py * REZ + px;
       hakozonu[i] = kozonuL6da(x, z);
@@ -100,9 +100,9 @@ export function kozuaWeh2(h: number, x: number, z: number, haga: number): number
   t6limaWeh2En(skrapaWeh2, h, x, z, haga, tsasaVem2Tsiike);
   skrapaWeh2.convertLinearToSRGB();
   return [
-    Math.max(0, Math.min(0o377, skrapaWeh2.r * 0o377)),
-    Math.max(0, Math.min(0o377, skrapaWeh2.g * 0o377)),
-    Math.max(0, Math.min(0o377, skrapaWeh2.b * 0o377)),
+    Math.max(0o0, Math.min(0o377, skrapaWeh2.r * 0o377)),
+    Math.max(0o0, Math.min(0o377, skrapaWeh2.g * 0o377)),
+    Math.max(0o0, Math.min(0o377, skrapaWeh2.b * 0o377)),
   ];
 }
 
@@ -138,17 +138,17 @@ const AKVAJBESTOJNUANCO = [ 0o110, 0o220, 0o300 ];
 const PETRELANUANCO = [ 0o320, 0o320, 0o320 ];
 const NPCANUANCO = [ 0o320, 0o260, 0o110 ];
 const BESTONUANCO: Record<number, [ number[], number ]> = {
-  1: [ AKVAJBESTOJNUANCO, 0o13/0o40 ],
-  2: [ PETRELANUANCO, 0o13/0o40 ],
-  4: [ NPCANUANCO, 0o13/0o40 ],
+  0o1: [ AKVAJBESTOJNUANCO, 0o13/0o40 ],
+  0o2: [ PETRELANUANCO, 0o13/0o40 ],
+  0o4: [ NPCANUANCO, 0o13/0o40 ],
 };
 
 // ſɭɜ ſɭ,w , ꞙɭɿ ,
 // ꞙɭı , ſɭɜ ſɭ,w , ꞙɭɿ ,
 // ſɭɜ ſɭ,w , ꞙɭц ,
 function bs2Interp(x: number, z: number): number {
-  const i = Math.max(0, Math.min(N - 1, Math.floor(( x - X0 ) / Tona)));
-  const j = Math.max(0, Math.min(N - 1, Math.floor(( z - Z0 ) / Tona)));
+  const i = Math.max(0o0, Math.min(N - 0o1, Math.floor(( x - X0 ) / Tona)));
+  const j = Math.max(0o0, Math.min(N - 0o1, Math.floor(( z - Z0 ) / Tona)));
   return habs2[j * N + i];
 }
 const JAQONAMOJ: ( string | null )[] = [ null, "jaqo", "lota", "qun2nu", "tsasa-haxa3e", "tsake" ];
@@ -157,8 +157,8 @@ const JAQONAMOJ: ( string | null )[] = [ null, "jaqo", "lota", "qun2nu", "tsasa-
 // ſɭᴜ ſןᴜ , ꞙɭɩ ,
 // ſɭɜ ſɭ,w , ꞙɭꞟ ,
 function pagaInterp(x: number, z: number): number {
-  const i = Math.max(0, Math.min(N - 1, Math.floor(( x - X0 ) / Tona)));
-  const j = Math.max(0, Math.min(N - 1, Math.floor(( z - Z0 ) / Tona)));
+  const i = Math.max(0o0, Math.min(N - 0o1, Math.floor(( x - X0 ) / Tona)));
+  const j = Math.max(0o0, Math.min(N - 0o1, Math.floor(( z - Z0 ) / Tona)));
   return hapaga[j * N + i];
 }
 
@@ -171,10 +171,10 @@ function bs2De(x: number, z: number): string {
 // ⟨ ſᶘᴜ j͑ʃᴜ , 📃 ⟩ , ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
 // ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
   const tsasa = tsekeTsasaSoza(x, z);
-  if ( pentrita === 4 && tsasa ) return "tsasa-haxa3e";
-  if ( pentrita === 5 && tsasa ) return "tsake";
+  if ( pentrita === 0o4 && tsasa ) return "tsasa-haxa3e";
+  if ( pentrita === 0o5 && tsasa ) return "tsake";
   if ( tsasa ) return "tsasa";
-  if ( pentrita !== 0 ) return JAQONAMOJ[pentrita] ?? "qun2";
+  if ( pentrita !== 0o0 ) return JAQONAMOJ[pentrita] ?? "qun2";
   return "qun2";
 }
 // ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
@@ -187,11 +187,11 @@ export function alneq2qBiomanNuancon(k: number[], x: number, z: number, d: numbe
   if ( siicatsiicanaAktiva() === "bs2" ) {
     const n = BIOMANUANCO[bs2De(x, z)];
     if ( n ) {
-      const m = n[1];
+      const m = n[0o1];
       return [
-        k[0] + ( n[0][0] - k[0] ) * m,
-        k[1] + ( n[0][1] - k[1] ) * m,
-        k[2] + ( n[0][2] - k[2] ) * m,
+        k[0o0] + ( n[0o0][0o0] - k[0o0] ) * m,
+        k[0o1] + ( n[0o0][0o1] - k[0o1] ) * m,
+        k[0o2] + ( n[0o0][0o2] - k[0o2] ) * m,
       ];
     }
     return k;
@@ -200,13 +200,13 @@ export function alneq2qBiomanNuancon(k: number[], x: number, z: number, d: numbe
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
   if ( siicatsiicanaAktiva() === "hapaga" ) {
     const b = pagaInterp(x, z);
-    const n = BESTONUANCO[pagaAktiva() & 7];
-    if ( !n || ( b & ( pagaAktiva() & 7 ) ) === 0 ) return k;
-    const m = n[1];
+    const n = BESTONUANCO[pagaAktiva() & 0o7];
+    if ( !n || ( b & ( pagaAktiva() & 0o7 ) ) === 0o0 ) return k;
+    const m = n[0o1];
     return [
-      k[0] + ( n[0][0] - k[0] ) * m,
-      k[1] + ( n[0][1] - k[1] ) * m,
-      k[2] + ( n[0][2] - k[2] ) * m,
+      k[0o0] + ( n[0o0][0o0] - k[0o0] ) * m,
+      k[0o1] + ( n[0o0][0o1] - k[0o1] ) * m,
+      k[0o2] + ( n[0o0][0o2] - k[0o2] ) * m,
     ];
   }
   return k;
@@ -218,30 +218,30 @@ export function alneq2qBiomanNuancon(k: number[], x: number, z: number, d: numbe
 // ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
 function kolorigiTsasa(havop2: Uint8ClampedArray, o: number, h: number, vem2: number,
   hunanu: number, delta: number, x: number, z: number): void {
-  const prof = Math.min(6, vem2 - h);
-  const t = prof / 6;
+  const prof = Math.min(0o6, vem2 - h);
+  const t = prof / 0o6;
   let r = 0o40 + ( 0o10 - 0o40 ) * t;
   let g = 0o150 - 0o110 * t;
   let b = 0o150 - 0o110 * t;
-  if ( delta !== 0 ) {
-    const s = 0o5/0o40 + Math.min(0o1/0o2, Math.abs(delta) / 4);
+  if ( delta !== 0o0 ) {
+    const s = 0o5/0o40 + Math.min(0o1/0o2, Math.abs(delta) / 0o4);
     r += 0o30 * s; g -= 0o14 * s; b -= 0o20 * s;
   }
 // ſɭɜ ſɭ,w , ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
 // ( ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
   const k = alneq2qBiomanNuancon([ r, g, b ], x, z, delta);
-  r = k[0]; g = k[1]; b = k[2];
+  r = k[0o0]; g = k[0o1]; b = k[0o2];
   havop2[o] = Math.min(0o377, r * hunanu);
-  havop2[o + 1] = Math.min(0o377, g * hunanu);
-  havop2[o + 2] = Math.min(0o377, b * hunanu);
-  havop2[o + 3] = 0o377;
+  havop2[o + 0o1] = Math.min(0o377, g * hunanu);
+  havop2[o + 0o2] = Math.min(0o377, b * hunanu);
+  havop2[o + 0o3] = 0o377;
 }
 
 // ſ͕ɭɜ ı],ᴜ , ꞙɭꞟ ,
 function bicubaDerivata(p0: number, p1: number, p2: number, p3: number, t: number): number {
   const t2 = t * t;
-  return 0o1/0o2 * ( ( -p0 + p2 ) + 2 * ( 2 * p0 - 5 * p1 + 4 * p2 - p3 ) * t
-    + 3 * ( -p0 + 3 * p1 - 3 * p2 + p3 ) * t2 );
+  return 0o1/0o2 * ( ( -p0 + p2 ) + 0o2 * ( 0o2 * p0 - 0o5 * p1 + 0o4 * p2 - p3 ) * t
+    + 0o3 * ( -p0 + 0o3 * p1 - 0o3 * p2 + p3 ) * t2 );
 }
 // ſɭɜ ſɭ,w , ꞙɭı ,
 // ſɭэ ſɭᴜ , ꞙɭɿ ,
@@ -251,18 +251,18 @@ export function l6daKunDerivajoj(x: number, z: number): [ number, number, number
   const fx = ( x - X0 ) / Tona, fz = ( z - Z0 ) / Tona;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
   const u = fx - i0, v = fz - j0;
-  const k2pa = ( i: number, j: number ) => hal6da[Math.max(0, Math.min(N - 1, j)) * N + Math.max(0, Math.min(N - 1, i))];
+  const k2pa = ( i: number, j: number ) => hal6da[Math.max(0o0, Math.min(N - 0o1, j)) * N + Math.max(0o0, Math.min(N - 0o1, i))];
 // ſɭᴜ ſןᴜ , ꞙɭɩ ,
   const r: number[] = [], rd: number[] = [];
-  for ( let k = -1; k <= 2; k++ ) {
+  for ( let k = -0o1; k <= 0o2; k++ ) {
     const j = j0 + k;
-    const a = k2pa(i0 - 1, j), b = k2pa(i0, j), c = k2pa(i0 + 1, j), d = k2pa(i0 + 2, j);
+    const a = k2pa(i0 - 0o1, j), b = k2pa(i0, j), c = k2pa(i0 + 0o1, j), d = k2pa(i0 + 0o2, j);
     r.push(katmullRom(a, b, c, d, u));
     rd.push(bicubaDerivata(a, b, c, d, u));
   }
-  const h = katmullRom(r[0], r[1], r[2], r[3], v);
-  const dhdu = katmullRom(rd[0], rd[1], rd[2], rd[3], v);
-  const dhdv = bicubaDerivata(r[0], r[1], r[2], r[3], v);
+  const h = katmullRom(r[0o0], r[0o1], r[0o2], r[0o3], v);
+  const dhdu = katmullRom(rd[0o0], rd[0o1], rd[0o2], rd[0o3], v);
+  const dhdv = bicubaDerivata(r[0o0], r[0o1], r[0o2], r[0o3], v);
   return [ h, dhdu / Tona, dhdv / Tona ];
 }
 // ſɭɜ ſɭ,w , ꞙɭɿ ,
@@ -272,8 +272,8 @@ export function l6daKunDerivajoj(x: number, z: number): [ number, number, number
 export function revek2feDeklik6h6n(px0: number, py0: number, px1: number, py1: number): void {
   const lumoX = -0o43/0o100, lumoY = 0o25/0o40, lumoZ = 0o41/0o100;
   const lumoLen = Math.hypot(lumoX, lumoY, lumoZ);
-  const minPx = Math.max(1, px0), maxPx = Math.min(REZ - 2, px1);
-  const minPy = Math.max(1, py0), maxPy = Math.min(REZ - 2, py1);
+  const minPx = Math.max(0o1, px0), maxPx = Math.min(REZ - 0o2, px1);
+  const minPy = Math.max(0o1, py0), maxPy = Math.min(REZ - 0o2, py1);
   for ( let py = minPy; py <= maxPy; py++ ) {
     const z = MONDOHALFO - ( py + 0o1/0o2 ) * Nala / REZ;
     for ( let px = minPx; px <= maxPx; px++ ) {
@@ -281,10 +281,10 @@ export function revek2feDeklik6h6n(px0: number, py0: number, px1: number, py1: n
       const i = py * REZ + px;
       const [ , deklX, deklZ ] = l6daKunDerivajoj(x, z);
       deklivoGradientoj[i] = Math.hypot(deklX, deklZ);
-      const nx = -deklX * 0o215/0o100, nz = -deklZ * 0o215/0o100, ny = 1;
+      const nx = -deklX * 0o215/0o100, nz = -deklZ * 0o215/0o100, ny = 0o1;
       const len = Math.hypot(nx, ny, nz);
       const tsije = ( nx * lumoX + ny * lumoY + nz * lumoZ ) / len / lumoLen;
-      haga[i] = 0o55/0o100 + 0o1/0o2 * Math.max(0, tsije);
+      haga[i] = 0o55/0o100 + 0o1/0o2 * Math.max(0o0, tsije);
     }
   }
 }
@@ -307,8 +307,8 @@ export function pentri(px0: number, py0: number, px1: number, py1: number): void
 // ſɭɜ ſɭ,w , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
       const h = kozuni + delta - tsasaKavoInterp(x, z);
-      const o = i * 4;
-      const hunanu = haga[i] || 1;
+      const o = i * 0o4;
+      const hunanu = haga[i] || 0o1;
 // ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
 // ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
 // ſᶘᴜ j͑ʃᴜ , ꞙɭɩ ,
@@ -316,13 +316,13 @@ export function pentri(px0: number, py0: number, px1: number, py1: number): void
       if ( vem2 !== null && tsekeTsasa(x, z) && h < vem2 - 0o1/0o100 ) {
         kolorigiTsasa(havop2, o, h, vem2, hunanu, delta, x, z);
       } else {
-        const k = alneq2qBiomanNuancon(kozuaWeh2(h, x, z, deklivoGradientoj[i] || 0), x, z, delta);
-        havop2[o] = Math.min(0o377, k[0] * hunanu);
-        havop2[o + 1] = Math.min(0o377, k[1] * hunanu);
-        havop2[o + 2] = Math.min(0o377, k[2] * hunanu);
-        havop2[o + 3] = 0o377;
+        const k = alneq2qBiomanNuancon(kozuaWeh2(h, x, z, deklivoGradientoj[i] || 0o0), x, z, delta);
+        havop2[o] = Math.min(0o377, k[0o0] * hunanu);
+        havop2[o + 0o1] = Math.min(0o377, k[0o1] * hunanu);
+        havop2[o + 0o2] = Math.min(0o377, k[0o2] * hunanu);
+        havop2[o + 0o3] = 0o377;
       }
     }
   }
-  kozunuKuns2bana.putImageData(kozunuBildo, 0, 0);
+  kozunuKuns2bana.putImageData(kozunuBildo, 0o0, 0o0);
 }

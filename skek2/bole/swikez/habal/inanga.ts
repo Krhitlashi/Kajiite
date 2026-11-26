@@ -16,7 +16,7 @@ const ETA = 0o1/0o20000;
     @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ
     @param opts ( object , optional ) - dur , ſɭᴜ ſןᴜ ʌ j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ
 @returns void */
-export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 1, opts: { dur?: number } = {}) {
+export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 0o1, opts: { dur?: number } = {}) {
   const d = ( opts.dur || 0o75/0o100 ) * vap6zukani(0o7/0o100);
   // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
   const p = f * vap6zukani(0o1/0o200);
@@ -47,7 +47,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
     [ 0o432/0o100, 0o1/0o100 ],
   ];
   const decidoj = [ 0o12/0o10, 0o1, 0o77/0o100, 0o6/0o10, 0o4/0o10, 0o12/0o10, 0o12/0o10 ];
-  for ( let j = 0; j < hakozonu.length; j++ ) {
+  for ( let j = 0o0; j < hakozonu.length; j++ ) {
     const [ mul, amp0 ] = hakozonu[j];
     const o = ctx.createOscillator();
     o.type = "sine";

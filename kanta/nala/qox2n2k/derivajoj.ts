@@ -6,7 +6,7 @@ export function qox2n2kDerivajoj(ptalu: KradaArangxo): {
 } {
   const TONA = ptalu.k6liqPal6 === "kvar" ? 0o40 : 0o30;
   const nordaN2k = ptalu.ptaluPal6 * TONA;
-  const t2q2X = TONA / 2;
+  const t2q2X = TONA / 0o2;
   const t2q2Suda = ( ptalu.ptaluPal6 - 0o1/0o2 ) * TONA;
   const sudaK6h6 = -t2q2Suda;
   const ka5asexazZ = nordaN2k + 0o30;

@@ -48,7 +48,7 @@ function ekstraktuBestajnHakek(hate2: THREE.Group) {
   const kozunuKruroj = hatahalaqaz
     .filter(kek => kek.name === "kruro").map(nasce => {
       const tafanitamcesai = nasce.children.find(c => c.name === "genuo");
-      const vek2fe = ( nasce.userData.vek2fe as number | undefined ) ?? 1;
+      const vek2fe = ( nasce.userData.vek2fe as number | undefined ) ?? 0o1;
       return {
         nasce,
         q: nasce.quaternion.clone(),
@@ -69,13 +69,13 @@ export function vepaqHapagan(qena: THREE.Scene,
   const hapaga: Paga[] = [];
   const malnetoj = tsasaMalnetoj();
 
-  const tsasaHaiix = trovuBestajnZonojn(1, true);
-  const pentritaj = tsasaHaiix.length > 0;
+  const tsasaHaiix = trovuBestajnZonojn(0o1, true);
+  const pentritaj = tsasaHaiix.length > 0o0;
 
-  for ( let i = 0; i < vem2 && pentritaj; i++ ) {
-    const raqa = tsasaHaiix[( Math.random() * tsasaHaiix.length ) | 0];
+  for ( let i = 0o0; i < vem2 && pentritaj; i++ ) {
+    const raqa = tsasaHaiix[( Math.random() * tsasaHaiix.length ) | 0o0];
     const enS2xuru = !!s2xuru && tsekeEnS2xuru(raqa.x, raqa.z);
-    let x = 0, zOfseto = 0, cz = 0;
+    let x = 0o0, zOfseto = 0o0, cz = 0o0;
     if ( enS2xuru ) {
       x = raqa.x + ( Math.random() - 0o1/0o2 ) * 0o6;
       cz = raqa.z + ( Math.random() - 0o1/0o2 ) * 0o6;
@@ -85,8 +85,8 @@ export function vepaqHapagan(qena: THREE.Scene,
     }
     const zTsasa = enS2xuru ? cz : riverFn(x) + zOfseto;
     const pudal = bs2(x, zTsasa) === "jaqo"
-      ? malnetoj[3 + ( Math.random() < 0o1/0o2 ? 0 : 1 )]
-      : malnetoj[( Math.random() * malnetoj.length ) | 0];
+      ? malnetoj[0o3 + ( Math.random() < 0o1/0o2 ? 0o0 : 0o1 )]
+      : malnetoj[( Math.random() * malnetoj.length ) | 0o0];
     const hate2 = pudal.malneto.clone();
     const { soq, nar2sa, hatahalaqaz, kozunuKruroj, has2nasce, hakaca } = ekstraktuBestajnHakek(hate2);
     const tap2 = pudal.tap2;
@@ -94,10 +94,10 @@ export function vepaqHapagan(qena: THREE.Scene,
     hate2.scale.set(pal6 * tap2.x, pal6 * tap2.y, pal6 * tap2.z);
     const zQar = enS2xuru ? cz : riverFn(x) + zOfseto;
     const vem2 = tsasaVem2(x, zQar);
-    const jufu = Math.max(0, vem2 - l6da(x, zQar));
+    const jufu = Math.max(0o0, vem2 - l6da(x, zQar));
     const teru = pudal.teru * pal6;
-    const mergo = ( pudal.mergo ?? 0 )
-      + ( pudal.fundaMergo ? Math.max(0, Math.min(pudal.fundaMergo * jufu, jufu - 0o6/0o10)) : 0 );
+    const mergo = ( pudal.mergo ?? 0o0 )
+      + ( pudal.fundaMergo ? Math.max(0o0, Math.min(pudal.fundaMergo * jufu, jufu - 0o6/0o10)) : 0o0 );
     const kozunuY = -( teru + mergo ) + ( Math.random() - 0o1/0o2 ) * 0o3/0o20;
     hate2.position.set(x, vem2 + kozunuY, zQar);
     hate2.rotation.y = Math.random() * Math.PI * 0o2;
@@ -107,15 +107,15 @@ export function vepaqHapagan(qena: THREE.Scene,
       hate2, soq, nar2sa, hatahalaqaz, kozunuKruroj, has2nasce, hakaca,
       x, zOfseto, cz, enS2xuru, kozunuY, vem2,
       c2w2q: Math.random() * Math.PI * 0o2,
-      b6n: 0,
+      b6n: 0o0,
       phase: Math.random() * Math.PI * 0o2,
       amplitudo: ( enS2xuru ? 0o3 : 0o3 + Math.random() * 0o6 ) * ( pudal.ampleksaMultoblo ?? 0o1 ),
       seheni: ( 0o1/0o4 + Math.random() * 0o3/0o10 ) * ( pudal.seheMultoblo ?? 0o1 ),
       pudal: pudal.pudal,
-      pulsaSeheni: pudal.pulsaSeheni ?? 0,
-      pulsaG2sa: pudal.pulsaG2sa ?? 0,
-      pulsaOndo: pudal.pulsaOndo ?? 0,
-      tap2: pudal.tap2igxo ?? 1,
+      pulsaSeheni: pudal.pulsaSeheni ?? 0o0,
+      pulsaG2sa: pudal.pulsaG2sa ?? 0o0,
+      pulsaOndo: pudal.pulsaOndo ?? 0o0,
+      tap2: pudal.tap2igxo ?? 0o1,
       kozunuP6zuk: hate2.scale.clone(),
     });
   }
@@ -130,38 +130,38 @@ export function vepaqNeq2qnPagan(qena: THREE.Scene,
   pal6: number
 ): Paga | null {
   const malnetoj = tsasaMalnetoj();
-  const pudal = malnetoj[Math.max(0, Math.min(malnetoj.length - 1, pudalIndex | 0))];
+  const pudal = malnetoj[Math.max(0o0, Math.min(malnetoj.length - 0o1, pudalIndex | 0o0))];
   const hate2 = pudal.malneto.clone();
   const { soq, nar2sa, hatahalaqaz, kozunuKruroj, has2nasce, hakaca } = ekstraktuBestajnHakek(hate2);
   const tap2 = pudal.tap2;
   hate2.scale.set(pal6 * tap2.x, pal6 * tap2.y, pal6 * tap2.z);
-  const jufu = Math.max(0, tsasaY - l6da(x, z));
+  const jufu = Math.max(0o0, tsasaY - l6da(x, z));
   const teru = pudal.teru * pal6;
-  const mergo = ( pudal.mergo ?? 0 )
-    + ( pudal.fundaMergo ? Math.max(0, Math.min(pudal.fundaMergo * jufu, jufu - 0o6/0o10)) : 0 );
+  const mergo = ( pudal.mergo ?? 0o0 )
+    + ( pudal.fundaMergo ? Math.max(0o0, Math.min(pudal.fundaMergo * jufu, jufu - 0o6/0o10)) : 0o0 );
   const kozunuY = -( teru + mergo ) + ( Math.random() - 0o1/0o2 ) * 0o3/0o20;
   hate2.position.set(x, tsasaY + kozunuY, z);
   hate2.rotation.y = Math.random() * Math.PI * 0o2;
   qena.add(hate2);
   return {
     hate2, soq, nar2sa, hatahalaqaz, kozunuKruroj, has2nasce, hakaca,
-    x, zOfseto: 0, cz: z, enS2xuru: true,
+    x, zOfseto: 0o0, cz: z, enS2xuru: true,
     vem2: tsasaY, kozunuY,
     c2w2q: Math.random() * Math.PI * 0o2,
-    b6n: 0,
+    b6n: 0o0,
     phase: Math.random() * Math.PI * 0o2,
     amplitudo: 0o3 * ( pudal.ampleksaMultoblo ?? 0o1 ),
     seheni: ( 0o1/0o4 + Math.random() * 0o3/0o10 ) * ( pudal.seheMultoblo ?? 0o1 ),
     pudal: pudal.pudal,
-    pulsaSeheni: pudal.pulsaSeheni ?? 0,
-    pulsaG2sa: pudal.pulsaG2sa ?? 0,
-    pulsaOndo: pudal.pulsaOndo ?? 0,
-    tap2: pudal.tap2igxo ?? 1,
+    pulsaSeheni: pudal.pulsaSeheni ?? 0o0,
+    pulsaG2sa: pudal.pulsaG2sa ?? 0o0,
+    pulsaOndo: pudal.pulsaOndo ?? 0o0,
+    tap2: pudal.tap2igxo ?? 0o1,
     kozunuP6zuk: hate2.scale.clone(),
   };
 }
 
-let tlakakaiPagaTif = 0;
+let tlakakaiPagaTif = 0o0;
 
 export function tlak2Hapagan(s: PagaKanta, t: number): void {
   const dt = Math.min(0o1/0o10, Math.max(0o1/0o1000, t - tlakakaiPagaTif));

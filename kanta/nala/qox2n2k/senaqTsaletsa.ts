@@ -7,20 +7,20 @@ export function validiQox2n2k(b6vakanta: KradaPlano): KradaProblemo[] {
   const { ptalu, paqj, hak6h6, hatohtanu, TONA } = b6vakanta;
   const konektitaj = new Set(hatohtanu.map(s => s.paq));
 
-  for ( let i = 0; i < paqj.length; i++ ) {
+  for ( let i = 0o0; i < paqj.length; i++ ) {
     const k = paqj[i];
-    if ( k.stacia || ( k.x === 0 && k.z === 0 ) ) continue;
+    if ( k.stacia || ( k.x === 0o0 && k.z === 0o0 ) ) continue;
     if ( !konektitaj.has(i) ) {
       hajeqani.push({ s2kanta: "sen-tohtanu", vop2lna: `ſןᴜȝ ${i} ( ${k.hunaq} @ ${k.x},${k.z} ) ꞙɭɔ tohtanu` });
     }
   }
 
-  const p2somaniSefini = 0o10 / 2;
+  const p2somaniSefini = 0o10 / 0o2;
   for ( const sp of hatohtanu ) {
     const [ ax, az ] = sp.de, [ bx, bz ] = sp.al;
     const x1 = Math.min(ax, bx), x2 = Math.max(ax, bx);
     const z1 = Math.min(az, bz), z2 = Math.max(az, bz);
-    for ( let j = 0; j < paqj.length; j++ ) {
+    for ( let j = 0o0; j < paqj.length; j++ ) {
       if ( j === sp.paq ) continue;
       const k = paqj[j];
       if ( x1 <= k.x + p2somaniSefini && x2 >= k.x - p2somaniSefini && z1 <= k.z + p2somaniSefini && z2 >= k.z - p2somaniSefini ) {
@@ -30,11 +30,11 @@ export function validiQox2n2k(b6vakanta: KradaPlano): KradaProblemo[] {
   }
 
   if ( ptalu.k6liqPal6 === "kvar" ) {
-    const M = TONA / 2;
+    const M = TONA / 0o2;
     const havasNS = ( rx: number, z: number ) => hak6h6.some(v => v.orient === "NS" && Math.abs(v.haxekuxa - rx) < 0o1/0o1000 && v.de <= z && z <= v.al);
     const havasEW = ( rz: number, x: number ) => hak6h6.some(v => v.orient === "EW" && Math.abs(v.haxekuxa - rz) < 0o1/0o1000 && v.de <= x && x <= v.al);
     for ( const [ c, r, t ] of b6vakanta.haKekkozusai ) {
-      if ( c === 0 && r === 0 ) continue;
+      if ( c === 0o0 && r === 0o0 ) continue;
       const cx = c * TONA, cz = r * TONA;
       const mankas: string[] = [];
       if ( !havasEW(cz + M, cx) ) mankas.push("j͐ʃᴜȝ");
@@ -45,19 +45,19 @@ export function validiQox2n2k(b6vakanta: KradaPlano): KradaProblemo[] {
     }
   }
 
-  const normalizi = ( r: number ) => { const m = ( ( r % ( 2 * Math.PI ) ) + 2 * Math.PI ) % ( 2 * Math.PI ); return m > Math.PI ? m - 2 * Math.PI : m; };
+  const normalizi = ( r: number ) => { const m = ( ( r % ( 0o2 * Math.PI ) ) + 0o2 * Math.PI ) % ( 0o2 * Math.PI ); return m > Math.PI ? m - 0o2 * Math.PI : m; };
   const neStaciaj = paqj.filter(k => !k.stacia);
   const signaturo = ( k: KradaPaq, rotita: boolean, kunS2sabo: boolean ): string => {
     const x = rotita ? -k.z : k.x;
     const z = rotita ? k.x : k.z;
-    const rot = kunS2sabo ? normalizi(rotita ? k.rot - Math.PI / 2 : k.rot) : 0;
-    return `${x.toFixed(3)},${z.toFixed(3)},${k.hunaq},${rot.toFixed(3)}`;
+    const rot = kunS2sabo ? normalizi(rotita ? k.rot - Math.PI / 0o2 : k.rot) : 0o0;
+    return `${x.toFixed(0o3)},${z.toFixed(0o3)},${k.hunaq},${rot.toFixed(0o3)}`;
   };
   const kamaiSimetrion = ( kunS2sabo: boolean, s2kanta: string ) => {
     const originalo = new Set(neStaciaj.map(k => signaturo(k, false, kunS2sabo)));
     const rotita = new Set(neStaciaj.map(k => signaturo(k, true, kunS2sabo)));
     if ( originalo.size !== rotita.size || [ ...originalo ].some(s => !rotita.has(s)) ) {
-      const mankantaj = [ ...originalo ].filter(s => !rotita.has(s)).slice(0, 4);
+      const mankantaj = [ ...originalo ].filter(s => !rotita.has(s)).slice(0o0, 0o4);
       hajeqani.push({ s2kanta, vop2lna: `ſɭɹ ſןᴜ ꞙɭэ , ꞙɭɔ , ${mankantaj.join(" ; ")}` });
     }
   };
@@ -68,7 +68,7 @@ export function validiQox2n2k(b6vakanta: KradaPlano): KradaProblemo[] {
     const originalo = new Set(neDiagonalaj.map(k => signaturo(k, false, true)));
     const rotita = new Set(neDiagonalaj.map(k => signaturo(k, true, true)));
     if ( originalo.size !== rotita.size || [ ...originalo ].some(s => !rotita.has(s)) ) {
-      const mankantaj = [ ...originalo ].filter(s => !rotita.has(s)).slice(0, 4);
+      const mankantaj = [ ...originalo ].filter(s => !rotita.has(s)).slice(0o0, 0o4);
       hajeqani.push({ s2kanta: "simetrio-s2sabo", vop2lna: `ſɭɹ ſןᴜ ʌ ꞙɭэ , ꞙɭɔ , ${mankantaj.join(" ; ")}` });
     }
   }
@@ -76,7 +76,7 @@ export function validiQox2n2k(b6vakanta: KradaPlano): KradaProblemo[] {
   if ( ptalu.k6liqPal6 === "kvar" ) {
     const p2somaniL = 0o7/0o10;
     for ( const sp of hatohtanu ) {
-      const sahakani = Math.hypot(sp.al[0] - sp.de[0], sp.al[1] - sp.de[1]);
+      const sahakani = Math.hypot(sp.al[0o0] - sp.de[0o0], sp.al[0o1] - sp.de[0o1]);
       const dist = sahakani + p2somaniL;
       if ( Math.abs(dist - 0o10) > 0o1/0o1000 ) {
         hajeqani.push({ s2kanta: "spaco", vop2lna: `tohtanu ${sp.paq} , ֭ſɭэ ſɭw }ʃꞇ ʌ ſɭэ ֭ſɭэ ${dist.toFixed(0o1)} ≠ ꞙɭıɔ` });
@@ -89,11 +89,11 @@ export function validiQox2n2k(b6vakanta: KradaPlano): KradaProblemo[] {
     Math.min(...ĉelPozoj.map(( [ cx, cz ] ) => Math.hypot(x - cx, z - cz)));
   for ( const v of hak6h6 ) {
     if ( v.stacia ) continue;
-    const n2k = [ v.de, ( v.de + v.al ) / 2, v.al ];
+    const n2k = [ v.de, ( v.de + v.al ) / 0o2, v.al ];
     const distoj = v.orient === "EW"
       ? n2k.map(x => distMin(x, v.haxekuxa))
       : n2k.map(z => distMin(v.haxekuxa, z));
-    if ( distoj.some(d => d > 2 * TONA) ) {
+    if ( distoj.some(d => d > 0o2 * TONA) ) {
       hajeqani.push({ s2kanta: "k6h6-qun2", vop2lna: `ſɭэ ֭ſɭэ ʌ ſɭɔƽ ${v.orient} @ ${v.haxekuxa} ( ${v.de}..${v.al} ) , ſɭᴜ ſɭᴜ ɿ havepat6ni ʌ ſɭɹ ſןᴜ ʌ ſᶘɹ ſɭɔ` });
     }
   }

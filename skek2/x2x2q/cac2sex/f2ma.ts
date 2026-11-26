@@ -19,7 +19,7 @@ export function pentriLikenanMakulon(kuns2bana: CanvasRenderingContext2D, s: num
     const x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d;
     const r = s * ( 0o4/0o100 + sakxo() * 0o3/0o100 );
     k2fKonturanQoxan(kuns2bana,
-      neregulaK6h6(x, y, r, 0o4 + ( ( sakxo() * 0o3 ) | 0 ), 0o2/0o10, sakxo() * Math.PI * 0o2),
+      neregulaK6h6(x, y, r, 0o4 + ( ( sakxo() * 0o3 ) | 0o0 ), 0o2/0o10, sakxo() * Math.PI * 0o2),
       hakozonu[i % hakozonu.length], s * 0o1/0o60, s * 0o1/0o140);
   }
   const apotecioj = 0o6;

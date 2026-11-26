@@ -41,30 +41,30 @@ function vepaqK6siLaŭAkso(qena: THREE.Scene,
   steps: number,
   l6daFn: ( x: number, z: number ) => number,
   lauZ: boolean,
-  tsiqMallarĝiĝo = 0
+  tsiqMallarĝiĝo = 0o0
 ): RiverData {
   const pts: THREE.Vector3[] = [];
-  for ( let i = 0; i <= steps; i++ ) {
+  for ( let i = 0o0; i <= steps; i++ ) {
     const t = tStart + ( tEnd - tStart ) * i / steps;
     pts.push(lauZ
       ? new THREE.Vector3(riverFn(t), tsasaY(t) + 0o1/0o20, t)
       : new THREE.Vector3(t, tsasaY(t) + 0o1/0o20, riverFn(t)));
   }
   const w6qaMallarĝiĝo = ( t: number ) =>
-    glataTona(tEnd, tEnd + 0o40, t) * ( tsiqMallarĝiĝo > 0 ? 1 - glataTona(tStart - tsiqMallarĝiĝo, tStart, t) : 1 );
+    glataTona(tEnd, tEnd + 0o40, t) * ( tsiqMallarĝiĝo > 0o0 ? 0o1 - glataTona(tStart - tsiqMallarĝiĝo, tStart, t) : 0o1 );
   const sefiniFn = ( i: number ) => w6qaMallarĝiĝo(lauZ ? pts[i].z : pts[i].x);
 
-  const { geometry } = vepaqRubandon(pts, p2somaniSefini, 0, sefiniFn);
+  const { geometry } = vepaqRubandon(pts, p2somaniSefini, 0o0, sefiniFn);
   const pukek = kf2OndanAkvanPukekn(qena);
   const mesh = new THREE.Mesh(geometry, pukek);
-  mesh.renderOrder = 0;
+  mesh.renderOrder = 0o0;
   qena.add(mesh);
 
   const hahaxekuxa = geometry.getAttribute("position") as THREE.BufferAttribute;
   const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
-  for ( let v = 0; v < hahaxekuxa.count; v++ ) {
+  for ( let v = 0o0; v < hahaxekuxa.count; v++ ) {
     const t = lauZ ? hahaxekuxa.getZ(v) : hahaxekuxa.getX(v);
-    uv.setY(v, Math.max(0, tsasaY(t) - l6daFn(hahaxekuxa.getX(v), hahaxekuxa.getZ(v))));
+    uv.setY(v, Math.max(0o0, tsasaY(t) - l6daFn(hahaxekuxa.getX(v), hahaxekuxa.getZ(v))));
   }
   uv.needsUpdate = true;
 
@@ -81,28 +81,28 @@ export function vepaqS2xuru(qena: THREE.Scene,
   const haxekuxa: number[] = [];
   const qan2k: number[] = [];
   const havecax2lani: number[] = [];
-  for ( let j = 0; j <= c2q; j++ ) {
+  for ( let j = 0o0; j <= c2q; j++ ) {
     const f = j / c2q;
-    for ( let i = 0; i <= has2nasce; i++ ) {
-      const ang = i / has2nasce * Math.PI * 2;
-      const r = j === 0 ? 0 : cabole(ang) * f;
+    for ( let i = 0o0; i <= has2nasce; i++ ) {
+      const ang = i / has2nasce * Math.PI * 0o2;
+      const r = j === 0o0 ? 0o0 : cabole(ang) * f;
       const x = cx + Math.cos(ang) * r;
       const z = cz + Math.sin(ang) * r;
       haxekuxa.push(x, tsasaVem2 + 0o1/0o20, z);
-      qan2k.push(0o1/0o2 + 0o1/0o2 * f, Math.max(0, tsasaVem2 - l6daFn(x, z)));
+      qan2k.push(0o1/0o2 + 0o1/0o2 * f, Math.max(0o0, tsasaVem2 - l6daFn(x, z)));
     }
   }
-  for ( let j = 0; j < c2q; j++ ) {
-    for ( let i = 0; i < has2nasce; i++ ) {
-      const a = j * ( has2nasce + 1 ) + i, b = a + 1;
-      const c = a + has2nasce + 1, d = c + 1;
+  for ( let j = 0o0; j < c2q; j++ ) {
+    for ( let i = 0o0; i < has2nasce; i++ ) {
+      const a = j * ( has2nasce + 0o1 ) + i, b = a + 0o1;
+      const c = a + has2nasce + 0o1, d = c + 0o1;
       havecax2lani.push(a, b, d, a, d, c);
     }
   }
   const zace = kf2Bufezacen(haxekuxa, havecax2lani, { qan2k });
   const pukek = kf2OndanAkvanPukekn(qena);
   const mesh = new THREE.Mesh(zace, pukek);
-  mesh.renderOrder = 0;
+  mesh.renderOrder = 0o0;
   qena.add(mesh);
 
   return { mesh, waterSurfaceY: ( x: number, z: number ) => tsasaVem2 };
@@ -114,37 +114,37 @@ export function vepaqRubandon(points: THREE.Vector3[],
   sefiniFn?: ( i: number, N: number ) => number
 ): { geometry: THREE.BufferGeometry; samples: THREE.Vector3[] } {
   const N = points.length;
-  const posArr = new Float32Array(N * 2 * 3);
-  const uvArr = new Float32Array(N * 2 * 2);
+  const posArr = new Float32Array(N * 0o2 * 0o3);
+  const uvArr = new Float32Array(N * 0o2 * 0o2);
   const vecax2l: number[] = [];
-  const up = new THREE.Vector3(0, 1, 0);
+  const up = new THREE.Vector3(0o0, 0o1, 0o0);
   const samples: THREE.Vector3[] = [];
 
-  for ( let i = 0; i < N; i++ ) {
+  for ( let i = 0o0; i < N; i++ ) {
     const p = points[i];
-    const pn = points[Math.min(i + 1, N - 1)];
-    const pp = points[Math.max(i - 1, 0)];
-    const tan = new THREE.Vector3(pn.x - pp.x, 0, pn.z - pp.z).normalize();
+    const pn = points[Math.min(i + 0o1, N - 0o1)];
+    const pp = points[Math.max(i - 0o1, 0o0)];
+    const tan = new THREE.Vector3(pn.x - pp.x, 0o0, pn.z - pp.z).normalize();
     const side = new THREE.Vector3().crossVectors(up, tan).normalize();
     const y = p.y + yLift;
-    const w = p2somaniSefini * ( sefiniFn ? sefiniFn(i, N) : 1 );
+    const w = p2somaniSefini * ( sefiniFn ? sefiniFn(i, N) : 0o1 );
 
     posArr.set([
       p.x - side.x * w, y, p.z - side.z * w,
       p.x + side.x * w, y, p.z + side.z * w,
-    ], i * 6);
-    uvArr.set([ 0, i / ( N - 1 ), 1, i / ( N - 1 ) ], i * 4);
+    ], i * 0o6);
+    uvArr.set([ 0o0, i / ( N - 0o1 ), 0o1, i / ( N - 0o1 ) ], i * 0o4);
 
-    if ( i < N - 1 ) {
-      const a = i * 2;
-      vecax2l.push(a, a + 1, a + 2, a + 1, a + 3, a + 2);
+    if ( i < N - 0o1 ) {
+      const a = i * 0o2;
+      vecax2l.push(a, a + 0o1, a + 0o2, a + 0o1, a + 0o3, a + 0o2);
     }
-    if ( i % 4 === 0 ) samples.push(p.clone());
+    if ( i % 0o4 === 0o0 ) samples.push(p.clone());
   }
 
   const g = new THREE.BufferGeometry();
-  g.setAttribute("position", new THREE.BufferAttribute(posArr, 3));
-  g.setAttribute("uv", new THREE.BufferAttribute(uvArr, 2));
+  g.setAttribute("position", new THREE.BufferAttribute(posArr, 0o3));
+  g.setAttribute("uv", new THREE.BufferAttribute(uvArr, 0o2));
   g.setIndex(vecax2l);
   g.computeVertexNormals();
   return { geometry: g, samples };
@@ -166,8 +166,8 @@ export function vepaqKnat6keqanuitanTsasa(qena: THREE.Scene,
   const hak6liqani: number[] = [];
   const havecax2lani: number[] = [];
   const videblajHavecax2l: number[] = [];
-  for ( let j = 0; j <= nz; j++ ) {
-    for ( let i = 0; i <= nx; i++ ) {
+  for ( let j = 0o0; j <= nz; j++ ) {
+    for ( let i = 0o0; i <= nx; i++ ) {
       const x = x0 + ( x1 - x0 ) * i / nx;
       const z = z0 + ( z1 - z0 ) * j / nz;
       const t6lima = l6daFn(x, z);
@@ -175,36 +175,36 @@ export function vepaqKnat6keqanuitanTsasa(qena: THREE.Scene,
       const jufu = vem2 - t6lima;
       // ⟨ ſᶘᴜ j͑ʃᴜ , j͑ʃᴜ ſɭэ ɭʃᴜ , ſɭэ ſɭ,w , ⟅ ⟩
       haxekuxa.push(x, vem2 + 0o1/0o20, z);
-      qan2k.push(0o1/0o2, Math.max(0, jufu));
+      qan2k.push(0o1/0o2, Math.max(0o0, jufu));
       // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭı , ſɭэ ſɭ,w , ꞙɭı , ſɭᴜ ı],ƨɔ , ⟅ ⟩
-      hak6liqani.push(maskFn(x, z) ? 1 : 0);
+      hak6liqani.push(maskFn(x, z) ? 0o1 : 0o0);
     }
   }
-  for ( let j = 0; j < nz; j++ ) {
-    for ( let i = 0; i < nx; i++ ) {
-      const a = j * ( nx + 1 ) + i, b = a + 1;
-      const c = a + nx + 1, d = c + 1;
+  for ( let j = 0o0; j < nz; j++ ) {
+    for ( let i = 0o0; i < nx; i++ ) {
+      const a = j * ( nx + 0o1 ) + i, b = a + 0o1;
+      const c = a + nx + 0o1, d = c + 0o1;
       havecax2lani.push(a, b, d, a, d, c);
       // ⟨ ſɭɹ ſןᴜ , j͑ʃɜ ſɭ,ᴜ , ꞙɭɔ , ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
       //   , ꞙɭı , ſɭɹ ſןᴜ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ⟅ 📃 ⟩
-      const videbla = ( hak6liqani[a] === 1 && qan2k[a * 2 + 1] > 0 )
-        || ( hak6liqani[b] === 1 && qan2k[b * 2 + 1] > 0 )
-        || ( hak6liqani[c] === 1 && qan2k[c * 2 + 1] > 0 )
-        || ( hak6liqani[d] === 1 && qan2k[d * 2 + 1] > 0 );
+      const videbla = ( hak6liqani[a] === 0o1 && qan2k[a * 0o2 + 0o1] > 0o0 )
+        || ( hak6liqani[b] === 0o1 && qan2k[b * 0o2 + 0o1] > 0o0 )
+        || ( hak6liqani[c] === 0o1 && qan2k[c * 0o2 + 0o1] > 0o0 )
+        || ( hak6liqani[d] === 0o1 && qan2k[d * 0o2 + 0o1] > 0o0 );
       if ( videbla ) videblajHavecax2l.push(a, b, d, a, d, c);
     }
   }
   const zace = new THREE.BufferGeometry();
-  zace.setAttribute("position", new THREE.Float32BufferAttribute(haxekuxa, 3));
-  zace.setAttribute("uv", new THREE.Float32BufferAttribute(qan2k, 2));
-  zace.setAttribute("aTsasa", new THREE.BufferAttribute(new Float32Array(hak6liqani), 1));
+  zace.setAttribute("position", new THREE.Float32BufferAttribute(haxekuxa, 0o3));
+  zace.setAttribute("uv", new THREE.Float32BufferAttribute(qan2k, 0o2));
+  zace.setAttribute("aTsasa", new THREE.BufferAttribute(new Float32Array(hak6liqani), 0o1));
   zace.setIndex(havecax2lani);
   // ⟨ ſɭɹ ſןᴜ , j͑ʃɜ ſɭ,ᴜ , ꞙɭı , ſɭᴜ ſןᴜ , ⟅ ⟩
   zace.computeVertexNormals();
   zace.setIndex(videblajHavecax2l);
   const pukek = kf2OndanAkvanPukekn(qena, true);
   const mesh = new THREE.Mesh(zace, pukek);
-  mesh.renderOrder = 0;
+  mesh.renderOrder = 0o0;
   qena.add(mesh);
   return { mesh, waterSurfaceY: vem2Fn };
 }
@@ -230,7 +230,7 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
     uniforms: THREE.UniformsUtils.merge([
       THREE.UniformsLib.fog,
       {
-        uTime: { value: 0 },
+        uTime: { value: 0o0 },
         uColorDeep: { value: new THREE.Color(veb6qaiWeh2(0x185868)) },
         uColorShallow: { value: new THREE.Color(veb6qaiWeh2(0x389898)) },
         uColorRipple: { value: new THREE.Color(veb6qaiWeh2(0x68b8b0)) },

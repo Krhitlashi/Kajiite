@@ -50,8 +50,8 @@ export function restarigiC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: THRE
   if ( !hidden ) return null;
   sys.kuba.delete(ca3aq);
   const hate2 = hidden.hate2;
-  hate2.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
-  hate2.rotation.y = spec.rot || 0;
+  hate2.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0o0 ), spec.z);
+  hate2.rotation.y = spec.rot || 0o0;
   gelesKagani.add(hate2);
   sys.currentGroup = hate2;
   sys.animated = hidden.animated;
@@ -64,17 +64,17 @@ export function restarigiC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: THRE
     if ( it.vam2m2 ) { cancelAnimationFrame(it.vam2m2); it.vam2m2 = null; }
     it.dead = false;
     it.mesh.visible = true;
-    it.mesh.scale.setScalar(1);
+    it.mesh.scale.setScalar(0o1);
   }
   for ( const v of sys.vaporHaf2m2 ) {
-    v.ph = 0;
+    v.ph = 0o0;
     const haxekuxa = v.f2m2.geometry.attributes.position as THREE.BufferAttribute;
-    for ( let i = 0; i < haxekuxa.count; i++ ) haxekuxa.setY(i, v.kozunuHaxekuxa.y);
+    for ( let i = 0o0; i < haxekuxa.count; i++ ) haxekuxa.setY(i, v.kozunuHaxekuxa.y);
     haxekuxa.needsUpdate = true;
   }
   sys.cutluCa3aq = ca3aq;
-  if ( spec.type === "ka5asexazxipo" ) return { x: 0, z: 0o5/0o2, y: 0o4/0o10, c2w2q: 0 };
+  if ( spec.type === "ka5asexazxipo" ) return { x: 0o0, z: 0o5/0o2, y: 0o4/0o10, c2w2q: 0o0 };
   const d = Math.min(spec.d, 0o10);
-  const enirR = Math.max(0o3/0o2, d / 2) - 0o4/0o10;
+  const enirR = Math.max(0o3/0o2, d / 0o2) - 0o4/0o10;
   return { x: Math.sin(pordaTafkaq) * enirR, z: Math.cos(pordaTafkaq) * enirR, y: 0o4/0o10, c2w2q: pordaTafkaq };
 }

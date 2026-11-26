@@ -71,7 +71,7 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
     t2banuPukek(T2BANUJSUKF2QOJ[Math.floor(Math.random() * T2BANUJSUKF2QOJ.length)]));
 
   harWeh2.lerpColors(harWeh2A, harWeh2B,
-    Math.floor(Math.random() * HARAJNUANCOJ) / ( HARAJNUANCOJ - 1 ));
+    Math.floor(Math.random() * HARAJNUANCOJ) / ( HARAJNUANCOJ - 0o1 ));
   const tsaqM = haraPukek(harWeh2.getHex());
   // ⟨ ſ̀ȷᴜ ſɟɔ ɭʃɹ ʃᴜ }ʃw j͑ʃᴜꞇ , ſᶘᴜȝ , ⟅ ⟩
   const strikoj = new THREE.Mesh(G.vizaĝajStrikoj, tsaqM);
@@ -105,11 +105,11 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
   const kruroR = new THREE.Group(); kruroR.position.y = koksoY;
   // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
   // ⟨ ꞙɭɿ , ꞙɭı , ꞙɭɿ , ⟅ ⟩
-  const pL = new THREE.Mesh(G.pantalonaTeru, pantalonoM); pL.position.set(-0o3/0o40, genuoKompenso, 0);
-  const pR = new THREE.Mesh(G.pantalonaTeru, pantalonoM); pR.position.set(0o3/0o40, genuoKompenso, 0);
+  const pL = new THREE.Mesh(G.pantalonaTeru, pantalonoM); pL.position.set(-0o3/0o40, genuoKompenso, 0o0);
+  const pR = new THREE.Mesh(G.pantalonaTeru, pantalonoM); pR.position.set(0o3/0o40, genuoKompenso, 0o0);
   // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ꞙɭı , ⟅ ⟩
-  const korpoL = new THREE.Mesh(G.kruroTeru, ceqo); korpoL.position.set(-0o3/0o40, genuoKompenso, 0);
-  const korpoR = new THREE.Mesh(G.kruroTeru, ceqo); korpoR.position.set(0o3/0o40, genuoKompenso, 0);
+  const korpoL = new THREE.Mesh(G.kruroTeru, ceqo); korpoL.position.set(-0o3/0o40, genuoKompenso, 0o0);
+  const korpoR = new THREE.Mesh(G.kruroTeru, ceqo); korpoR.position.set(0o3/0o40, genuoKompenso, 0o0);
   // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ꞙɭı , ⟅ ⟩
   // ⟨ ꞙɭı , ꞙɭɔ , ⟅ ⟩
   const genuoL = new THREE.Group(); genuoL.position.y = genuoKompenso;
@@ -118,13 +118,13 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
   const pSubR = new THREE.Mesh(G.pantalonaMaltik, pantalonoM);
   const kSubL = new THREE.Mesh(G.kruroMaltik, ceqo);
   const kSubR = new THREE.Mesh(G.kruroMaltik, ceqo);
-  pSubL.position.set(-0o3/0o40, 0, 0); pSubR.position.set(0o3/0o40, 0, 0);
-  kSubL.position.set(-0o3/0o40, 0, 0); kSubR.position.set(0o3/0o40, 0, 0);
+  pSubL.position.set(-0o3/0o40, 0o0, 0o0); pSubR.position.set(0o3/0o40, 0o0, 0o0);
+  kSubL.position.set(-0o3/0o40, 0o0, 0o0); kSubR.position.set(0o3/0o40, 0o0, 0o0);
   // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ſןᴜ ɭʃэ ɭʃɔ , ⟅ ⟩
   const korpaPiedoL = new THREE.Mesh(G.korpaPiedo, ceqo);
   const korpaPiedoR = new THREE.Mesh(G.korpaPiedo, ceqo);
-  korpaPiedoL.position.set(-0o3/0o40, -MALEOLOY, 0);
-  korpaPiedoR.position.set(0o3/0o40, -MALEOLOY, 0);
+  korpaPiedoL.position.set(-0o3/0o40, -MALEOLOY, 0o0);
+  korpaPiedoR.position.set(0o3/0o40, -MALEOLOY, 0o0);
   // ⟨ ɭʃᴜ , ſןᴜ ɭʃэ , ⟅ ⟩
   // ⟨ ɭʃᴜ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
   const sxuoL = new THREE.Group(); sxuoL.position.y = MALEOLOY;
@@ -133,10 +133,10 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
   const bR = new THREE.Mesh(G.boto, botoM);
   const akcL = new THREE.Mesh(G.akcenta, akcentaM);
   const akcR = new THREE.Mesh(G.akcenta, akcentaM);
-  bL.position.set(-0o3/0o40, -MALEOLOY, 0);
-  bR.position.set(0o3/0o40, -MALEOLOY, 0);
-  akcL.position.set(-0o3/0o40, -MALEOLOY, 0);
-  akcR.position.set(0o3/0o40, -MALEOLOY, 0);
+  bL.position.set(-0o3/0o40, -MALEOLOY, 0o0);
+  bR.position.set(0o3/0o40, -MALEOLOY, 0o0);
+  akcL.position.set(-0o3/0o40, -MALEOLOY, 0o0);
+  akcR.position.set(0o3/0o40, -MALEOLOY, 0o0);
   sxuoL.add(bL, akcL, korpaPiedoL);
   sxuoR.add(bR, akcR, korpaPiedoR);
   genuoL.add(pSubL, kSubL, sxuoL);
@@ -148,8 +148,8 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
   // ⟨ ꞙɭı , j͑ʃᴜ ʃɜ , ꞙɭı , ⟅ ⟩
   // ⟨ ɭʃꞇƽ , ꞙɭı , ⟅ ⟩
   // ⟨ ꞙɭı , ꞙɭı , ⟅ ⟩
-  const brakoL = new THREE.Group(); brakoL.position.set(-0o70/0o400, 0o265/0o200, 0);
-  const brakoR = new THREE.Group(); brakoR.position.set(0o70/0o400, 0o265/0o200, 0);
+  const brakoL = new THREE.Group(); brakoL.position.set(-0o70/0o400, 0o265/0o200, 0o0);
+  const brakoR = new THREE.Group(); brakoR.position.set(0o70/0o400, 0o265/0o200, 0o0);
   const hatamasoqtesai: THREE.Mesh[] = [];
   const manikajHacakamaha: THREE.Mesh[] = [];
   const hatama: THREE.Mesh[] = [];
@@ -206,18 +206,18 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
   kapoHate.add(wopo, vizaĝo, strikoj, hatu5ekanit2banusai);
   // ⟨ ſᶘᴜȝ , ſɭэ ɭʃᴜ , ꞙɭı , ⟅ ⟩
   const tsaqHate = new THREE.Group();
-  tsaqHate.position.set(0, HAROY - KOLOY, -0o3/0o40);
+  tsaqHate.position.set(0o0, HAROY - KOLOY, -0o3/0o40);
   kapoHate.add(tsaqHate);
   for ( const [ ca3aq, cakamaha ] of tsaqHacakamaha ) {
     cakamaha.visible = ca3aq === tikHaro;
-    cakamaha.position.set(0, -HAROY, 0o3/0o40);
+    cakamaha.position.set(0o0, -HAROY, 0o3/0o40);
     tsaqHate.add(cakamaha);
   }
 
   // ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
   const torsoHate = new THREE.Group();
   torsoHate.position.y = SASAY;
-  roboHate.position.y = 0;
+  roboHate.position.y = 0o0;
   torso.position.y = -SASAY;
   kapoHate.position.y = KOLOY - SASAY;
   brakoL.position.y = 0o133/0o100 - SASAY;
@@ -226,7 +226,7 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
 
   // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , ⟅ ⟩
   const korpoj: THREE.Mesh[] = [ wopo, vizaĝo, strikoj, hatu5ekanit2banusai, torso, korpoL, korpoR,
-    kSubL, kSubR, korpaPiedoL, korpaPiedoR, ...haknece, hatama[0], hatama[1], ...hacavaxaha,
+    kSubL, kSubR, korpaPiedoL, korpaPiedoR, ...haknece, hatama[0o0], hatama[0o1], ...hacavaxaha,
     ...tsaqHacakamaha.values() ];
   const hasoqte: THREE.Mesh[] = [ c2h2, p6sca, pL, pR, pSubL, pSubR,
     bL, bR, akcL, akcR, ...manikajHacakamaha ];
@@ -244,8 +244,8 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
   korpaPiedoL.castShadow = false;
   korpaPiedoR.castShadow = false;
   for ( const b of haknece ) b.castShadow = false;
-  hatama[0].castShadow = false;
-  hatama[1].castShadow = false;
+  hatama[0o0].castShadow = false;
+  hatama[0o1].castShadow = false;
   for ( const cavaxaha of hacavaxaha ) cavaxaha.castShadow = false;
 
   const fig: Qoxa = {
@@ -253,16 +253,16 @@ export function vepaqQoxa(o: Soqte, tsaqCatlaq = "tsaqPsazai",
     l6da: l6daVap6zukani,
     hejmo: new THREE.Vector3(),
     natakatomasai: new THREE.Vector3(),
-    atendo: 0, seheni: 0o63/0o100,
+    atendo: 0o0, seheni: 0o63/0o100,
     marsoFazo: Math.random() * Math.PI * 0o2,
-    movoVap6zukani: 0,
+    movoVap6zukani: 0o0,
     grundaY: Number.NaN,
     palpebraFazo: Math.random() * PALPEBRAINTERVALO,
     hatu5ekanit2banusai,
     hanasce: [ kruroL, kruroR ],
     haknece: [ brakoL, brakoR ],
     hatafanitamcesai: [ genuoL, genuoR ],
-    kubutoj: [ kubutajHahate[0], kubutajHahate[1] ],
+    kubutoj: [ kubutajHahate[0o0], kubutajHahate[0o1] ],
     roboHate,
     kapoHate,
     torsoHate,
@@ -312,30 +312,30 @@ export function marŝSvingo(
   // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ⟅ ⟩
   // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
   const svingoKruro = 0o3/0o20 * mov * vepat6ni;
-  fig.hanasce[0].rotation.x = -svingoKruro;
-  fig.hanasce[1].rotation.x = svingoKruro;
+  fig.hanasce[0o0].rotation.x = -svingoKruro;
+  fig.hanasce[0o1].rotation.x = svingoKruro;
   // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
   // ⟨ ſɭэ ſɭ,w , ꞙɭı , ⟅ ⟩
   const fleksoGenuo = ( p: number ) =>
-    ( 0o1/0o20 + 0o13/0o40 * Math.max(0, -Math.sin(p - 0o3/0o10)) ) * mov;
-  fig.hatafanitamcesai[0].rotation.x = fleksoGenuo(xafanitapu);
-  fig.hatafanitamcesai[1].rotation.x = fleksoGenuo(xafanitapu + Math.PI);
+    ( 0o1/0o20 + 0o13/0o40 * Math.max(0o0, -Math.sin(p - 0o3/0o10)) ) * mov;
+  fig.hatafanitamcesai[0o0].rotation.x = fleksoGenuo(xafanitapu);
+  fig.hatafanitamcesai[0o1].rotation.x = fleksoGenuo(xafanitapu + Math.PI);
   // ⟨ ſןᴜ ɭʃэ , ꞙɭı , ⟅ ⟩
   // ⟨ ꞙɭı , ꞙɭı , ⟅ ⟩
   const maleolo = 0o5/0o200 * mov * Math.sin(xafanitapu - 0o7/0o10);
-  fig.hapat6te[0].rotation.x = -maleolo;
-  fig.hapat6te[1].rotation.x = maleolo;
+  fig.hapat6te[0o0].rotation.x = -maleolo;
+  fig.hapat6te[0o1].rotation.x = maleolo;
   // ⟨ j͑ʃᴜ ſןᴜ , ꞙɭı , ⟅ ⟩
   fig.group.position.y += ( 0o7/0o1000 + 0o7/0o1000 * Math.cos(xafanitapu * 0o2) ) * mov;
   // ⟨ ɭʃꞇƽ , ⟅ ⟩
   const svingoBrako = 0o4/0o100 * mov * vepat6ni;
-  fig.haknece[0].rotation.x = svingoBrako;
-  fig.haknece[1].rotation.x = -svingoBrako;
+  fig.haknece[0o0].rotation.x = svingoBrako;
+  fig.haknece[0o1].rotation.x = -svingoBrako;
   // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
   const fleksoKubuto = ( p: number ) => -( 0o1/0o25
     + 0o1/0o50 * mov * ( 0o1/0o2 + 0o1/0o2 * Math.sin(p) ) );
-  fig.hatafanitamcesai[0].rotation.x = fleksoKubuto(xafanitapu);
-  fig.hatafanitamcesai[1].rotation.x = fleksoKubuto(xafanitapu + Math.PI);
+  fig.hatafanitamcesai[0o0].rotation.x = fleksoKubuto(xafanitapu);
+  fig.hatafanitamcesai[0o1].rotation.x = fleksoKubuto(xafanitapu + Math.PI);
   // ⟨ ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
   fig.torsoHate.rotation.y = -0o4/0o100 * mov * vepat6ni;
   fig.torsoHate.rotation.x = 0o5/0o100 * mov - 0o1/0o100 * mov * duobla;
@@ -356,8 +356,8 @@ export function marŝSvingo(
   fig.c2h2Hate.rotation.x = -0o1/0o10 * fig.torsoHate.rotation.x;
   fig.c2h2Hate.rotation.z = 0o3/0o10 * fig.torsoHate.rotation.z;
   // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
-  fig.hatamasoqtesai[0].rotation.x = -0o1/0o40 * mov * Math.sin(xafanitapu - 0o5/0o10);
-  fig.hatamasoqtesai[1].rotation.x = 0o1/0o40 * mov * Math.sin(xafanitapu - 0o5/0o10);
+  fig.hatamasoqtesai[0o0].rotation.x = -0o1/0o40 * mov * Math.sin(xafanitapu - 0o5/0o10);
+  fig.hatamasoqtesai[0o1].rotation.x = 0o1/0o40 * mov * Math.sin(xafanitapu - 0o5/0o10);
   // ⟨ ſɭэ ɭʃᴜ , ⟅ ⟩
   fig.kapoHate.rotation.x = 0o1/0o100 * mov * duobla + 0o1/0o100 * mov;
   fig.kapoHate.rotation.z = -0o1/0o100 * mov * vepat6ni;
@@ -369,7 +369,7 @@ export function marŝSvingo(
   fig.palpebraFazo += deltaTif;
   const palpebraCiklo = fig.palpebraFazo % PALPEBRAINTERVALO;
   const pukxeiteco = palpebraCiklo < PALPEBRADAURO
-    ? Math.sin(palpebraCiklo / PALPEBRADAURO * Math.PI) : 0;
+    ? Math.sin(palpebraCiklo / PALPEBRADAURO * Math.PI) : 0o0;
   fig.hatu5ekanit2banusai.scale.y = PALPEBRAPUKXEO + ( 0o1 - PALPEBRAPUKXEO ) * pukxeiteco;
 }
 
@@ -377,7 +377,7 @@ export function tlak2Npc(fig: Qoxa, deltaTif: number, t: number,
   l6da: ( x: number, z: number ) => number,
   soza?: ( x: number, z: number ) => number): void {
   fig.atendo -= deltaTif;
-  if ( fig.atendo <= 0 ) {
+  if ( fig.atendo <= 0o0 ) {
     const a = Math.random() * Math.PI * 0o2, sakxoKa5ik = Math.random() * 0o4;
     const cx = fig.hejmo.x + Math.sin(a) * sakxoKa5ik, cz = fig.hejmo.z + Math.cos(a) * sakxoKa5ik;
     const cy = soza ? soza(cx, cz) : l6da(cx, cz);
@@ -389,7 +389,7 @@ export function tlak2Npc(fig: Qoxa, deltaTif: number, t: number,
   const difX = fig.natakatomasai.x - fig.group.position.x, difZ = fig.natakatomasai.z - fig.group.position.z;
   const d = Math.hypot(difX, difZ);
   const movas = d > 0o23/0o100;
-  fig.movoVap6zukani += ( ( movas ? 0o1 : 0 ) - fig.movoVap6zukani ) * Math.min(0o1, deltaTif * 0o10);
+  fig.movoVap6zukani += ( ( movas ? 0o1 : 0o0 ) - fig.movoVap6zukani ) * Math.min(0o1, deltaTif * 0o10);
   const mov = fig.movoVap6zukani;
   fig.marsoFazo += deltaTif * fig.seheni * 0o4 * mov;
   if ( movas ) {
@@ -405,6 +405,6 @@ export function tlak2Npc(fig: Qoxa, deltaTif: number, t: number,
   fig.group.rotation.z = Math.sin(t * 0o115/0o100 + fig.hejmo.x) * 0o1/0o100 * ( 0o1 - mov );
   const idlaBrako = Math.sin(t * 0o7 + fig.hejmo.z) * 0o2/0o100 * ( 0o1 - mov );
   marŝSvingo(fig, fig.marsoFazo, mov, deltaTif);
-  fig.haknece[0].rotation.x += idlaBrako;
-  fig.haknece[1].rotation.x -= idlaBrako;
+  fig.haknece[0o0].rotation.x += idlaBrako;
+  fig.haknece[0o1].rotation.x -= idlaBrako;
 }

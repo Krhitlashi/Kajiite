@@ -70,7 +70,7 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
   // ⟪ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭɔ ʌ ſɭɜ ſᶘɹ 📃 ⟫
   let kaŝitajEksteraj: { o: THREE.Object3D; ne3ak2: boolean }[] = [];
   function kobesaiEkst6liman(): void {
-    if ( kaŝitajEksteraj.length > 0 ) return;
+    if ( kaŝitajEksteraj.length > 0o0 ) return;
     const tenataj = new Set<THREE.Object3D>([
       cana, hatsije.hemiTsije, hatsije.suna, hatsije.suna.target, hatsije.sunaSprajto,
       ludantaQoxa.group, caxlefkakai.hate2,
@@ -87,7 +87,7 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
   }
 
   // ⟪ ſɭꞇ ı],ɹ ʌ ſɭɜ ſᶘɹ 📃 ⟫
-  function eniriPaqn(spec: VepaqSpec, pordaTafkaq = 0) {
+  function eniriPaqn(spec: VepaqSpec, pordaTafkaq = 0o0) {
     masax2z.sxtupaTurno = null;
     if ( document.pointerLockElement !== p2t6zo ) p2t6zo.requestPointerLock();
     if ( tsekeLaqazbolesai() ) sfx.door();
@@ -102,19 +102,19 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
         const enirN2k = eniriC2h2(c2h2Kanta, spec, qena, pordaTafkaq, aspekto.soqte.soqteWeh2, aspekto.soqte.tokhaxesai);
         kobesaiEkst6liman();
         const specX = spec.x, specZ = spec.z;
-        const specH0 = spec.flugoY ?? ( spec.h0 || 0 );
-        const rot = spec.rot || 0;
+        const specH0 = spec.flugoY ?? ( spec.h0 || 0o0 );
+        const rot = spec.rot || 0o0;
         const cosR = Math.cos(rot), sinR = Math.sin(rot);
         const eX = enirN2k.x, eZ = enirN2k.z;
         const wX = specX + cosR * eX - sinR * eZ;
         const wZ = specZ + sinR * eX + cosR * eZ;
         catahaq.position.set(wX, specH0 + enirN2k.y, wZ);
-        catahaq.lookAt(specX, specH0 + 1, specZ);
+        catahaq.lookAt(specX, specH0 + 0o1, specZ);
         masax2z.c2w2q = enirN2k.c2w2q + rot;
-        masax2z.s2sabo = 0;
+        masax2z.s2sabo = 0o0;
         masax2z.raqa.set(wX, specH0 + enirN2k.y, wZ);
         masax2z.estasSurKOZU = true;
-        masax2z.seheniY = 0;
+        masax2z.seheniY = 0o0;
         hakama.enabled = false;
         thalaKfe.classList.remove("laqazi");
         laqaziTost(traduki("eniri") + " " + paqKsaka(spec.name, spec.type));
@@ -147,9 +147,9 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
       if ( estasPromene ) {
         hakama.enabled = false;
         if ( pudal && pudal.type === "ka5asexazxipo" ) {
-          const rot = pudal.rot || 0;
-          const pordX = pudal.x + Math.sin(rot) * ( pudal.d / 2 + 0o14/0o10 );
-          const pordZ = pudal.z + Math.cos(rot) * ( pudal.d / 2 + 0o14/0o10 );
+          const rot = pudal.rot || 0o0;
+          const pordX = pudal.x + Math.sin(rot) * ( pudal.d / 0o2 + 0o14/0o10 );
+          const pordZ = pudal.z + Math.cos(rot) * ( pudal.d / 0o2 + 0o14/0o10 );
           masax2z.raqa.set(pordX, l6da(pordX, pordZ), pordZ);
           catahaq.position.set(pordX, l6da(pordX, pordZ) + 0o65/0o40, pordZ);
           masax2z.c2w2q = rot;
@@ -163,8 +163,8 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
         hakama.enabled = true;
         if ( pudal ) {
           if ( pudal.type === "ka5asexazxipo" ) {
-            hakama.target.set(pudal.x, ( pudal.h0 || 0 ) + 0o14, pudal.z);
-            catahaq.position.set(pudal.x, ( pudal.h0 || 0 ) + 0o20, pudal.z + 0o14);
+            hakama.target.set(pudal.x, ( pudal.h0 || 0o0 ) + 0o14, pudal.z);
+            catahaq.position.set(pudal.x, ( pudal.h0 || 0o0 ) + 0o20, pudal.z + 0o14);
           } else {
             hakama.target.set(pudal.x, pudal.h0! + 0o14, pudal.z);
           }
@@ -201,8 +201,8 @@ export function kf2Rezimojn( hasukf2qani: RezimajHasukf2qani ): Rezimoj {
       masax2z.kmaTsiikeKev = null;
       x2paKfe.classList.remove("laqazi");
       hakama.enabled = true;
-      hakama.target.copy(masax2z.raqa).add(new THREE.Vector3(0, 4, 0));
-      catahaq.position.copy(masax2z.raqa).add(new THREE.Vector3(0, 4, 0o14));
+      hakama.target.copy(masax2z.raqa).add(new THREE.Vector3(0o0, 0o4, 0o0));
+      catahaq.position.copy(masax2z.raqa).add(new THREE.Vector3(0o0, 0o4, 0o14));
     }
   }
   butSupknu.addEventListener("click", () => {

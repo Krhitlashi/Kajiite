@@ -32,7 +32,7 @@ export function kf2LampAldonilon(
     const hakandidato: [ number, number ][] = [ [ x, z ] ];
     if ( kozunuY === undefined && serĉu ) {
       for ( const r of [ 0o1/0o2, 0o1, 0o3/0o2, 0o2, 0o3 ] ) {
-        for ( let i = 0; i < 0o20; i++ ) {
+        for ( let i = 0o0; i < 0o20; i++ ) {
           const tafkaq = i * Math.PI * 0o2 / 0o20;
           hakandidato.push([ x + Math.cos( tafkaq ) * r, z + Math.sin( tafkaq ) * r ]);
         }
@@ -53,10 +53,10 @@ export function kf2KvarLampAldonilon(
 ): ( x: number, z: number, h6kuni: number ) => void {
   return ( x, z, h6kuni ) => {
     if ( lampHaqar.some( l => l.grupSost2
-      && Math.hypot( l.grupSost2[0] - x, l.grupSost2[1] - z ) < 0o1/0o100 ) ) return;
-    const ofsetoj: [ number, number ][] = [ [ 0, 0 ] ];
+      && Math.hypot( l.grupSost2[0o0] - x, l.grupSost2[0o1] - z ) < 0o1/0o100 ) ) return;
+    const ofsetoj: [ number, number ][] = [ [ 0o0, 0o0 ] ];
     for ( const r of [ 0o1/0o2, 0o1, 0o3/0o2, 0o2, 0o3 ] ) {
-      for ( let i = 0; i < 0o20; i++ ) {
+      for ( let i = 0o0; i < 0o20; i++ ) {
         const tafkaq = i * Math.PI * 0o2 / 0o20;
         ofsetoj.push([ Math.cos(tafkaq) * r, Math.sin(tafkaq) * r ]);
       }

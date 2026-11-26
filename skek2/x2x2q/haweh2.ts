@@ -78,7 +78,7 @@ export function saxeVeb6qai(): void {
     ( this: THREE.Object3D, ...hazace: THREE.Object3D[] ) => THREE.Object3D;
   const ruhi = function ( this: THREE.Object3D,
     ...hazace: THREE.Object3D[] ): THREE.Object3D {
-    for ( let i = 0; i < hazace.length; i++ ) kol2saiVeb6qai.push(hazace[i]);
+    for ( let i = 0o0; i < hazace.length; i++ ) kol2saiVeb6qai.push(hazace[i]);
     return xaqadi.apply(this, hazace);
   };
   THREE.Object3D.prototype.add = ruhi as typeof THREE.Object3D.prototype.add;
@@ -88,7 +88,7 @@ export function veb6qaiQena(qena: THREE.Scene, l2ha = true): THREE.Scene {
   if ( qena.fog ) veb6qaiWeh2Skek(qena.fog.color);
   kataZace(qena, kf2Caqaxema(l2ha));
   // ⟪ ſɭᴜ ɭʃᴜ ʌ ſɭ,ᴜ ſɟɔ 📃 ⟫
-  kol2saiVeb6qai.length = 0;
+  kol2saiVeb6qai.length = 0o0;
   return qena;
 }
 
@@ -97,10 +97,10 @@ export function veb6qaiQena(qena: THREE.Scene, l2ha = true): THREE.Scene {
 @returns void */
 export function veb6qaiSef4Qena(qena: THREE.Scene): void {
   if ( qena.fog ) veb6qaiWeh2Skek(qena.fog.color);
-  if ( kol2saiVeb6qai.length === 0 ) return;
-  const hazace = kol2saiVeb6qai.splice(0, kol2saiVeb6qai.length);
+  if ( kol2saiVeb6qai.length === 0o0 ) return;
+  const hazace = kol2saiVeb6qai.splice(0o0, kol2saiVeb6qai.length);
   const caqaxema = kf2Caqaxema(false);
-  for ( let i = 0; i < hazace.length; i++ ) {
+  for ( let i = 0o0; i < hazace.length; i++ ) {
     const zace = hazace[i];
     // ⟪ ſɭ,ᴜ ſɟɔ 📃 ⟫
     if ( akezaiVeb6qaiZace.has(zace) ) continue;

@@ -51,8 +51,8 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
   let bal2Malsukcesis = false;
   let bal2Petita = false;
   let h6w6oAtendas = false;
-  let mapX = 0, mapZ = 0;
-  let vidX = 0, vidZ = 0;
+  let mapX = 0o0, mapZ = 0o0;
+  let vidX = 0o0, vidZ = 0o0;
 
   const RADARAP2SOMANI = 0o30;
   const L2HAP2SOMANI = Math.round(bal2Pal6 * 0o13/0o10);
@@ -69,8 +69,8 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
   let bal2PukazWeh2 = "#585848";
   let bal2NebulaWeh2 = "#c8d8d8";
   let l2haP2somani = L2HAP2SOMANI;
-  let bal2PanX = 0;
-  let bal2PanZ = 0;
+  let bal2PanX = 0o0;
+  let bal2PanZ = 0o0;
   // ⟨ ſɭꞇ ı],ɹ ʌ j͑ʃᴜꞇ ʌ ꞙɭıɔɔ ⟅ j͑ʃɹ j͑ʃᴜ ʃɜ
   //   j͑ʃɹ j͑ʃᴜ ʃɜ ʌ j͑ʃᴜꞇ 📃 ⟩
   const L2HAMAPAPERIODO = 0o100;
@@ -86,10 +86,10 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
       // ⟨ ſןɹ ɭʃэ ſɭ,ɜ ʌ ᶅſɔ ֭ſɭɹ ʌ j͑ʃɜ j͑ʃƨɹ ⟅
       // ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ 📃 ⟩
       rt.texture.colorSpace = THREE.SRGBColorSpace;
-      const mapCatahaq = new THREE.OrthographicCamera(-p2somani, p2somani, p2somani, -p2somani, 1, 0o230);
-      mapCatahaq.up.set(0, 0, 1);
-      mapCatahaq.position.set(0, 0o130, 0);
-      mapCatahaq.lookAt(0, 0, 0);
+      const mapCatahaq = new THREE.OrthographicCamera(-p2somani, p2somani, p2somani, -p2somani, 0o1, 0o230);
+      mapCatahaq.up.set(0o0, 0o0, 0o1);
+      mapCatahaq.position.set(0o0, 0o130, 0o0);
+      mapCatahaq.lookAt(0o0, 0o0, 0o0);
       // ⟨ ſɟᴜ ֭ſɭэ ſɭэ ʌ ꞙɭı ʌ ꞙɭı ⟅ ſȷwɔ˞ ſןw ʃᴜ }ʃꞇ ʌ ꞙɭı
       //   j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı , ſɭэ ſɭᴜ 📃 ⟩
       const kaŝitaj: { obj: THREE.Object3D; videbla: boolean }[] = [];
@@ -106,12 +106,12 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
       try {
         if ( f2m2 instanceof THREE.FogExp2 ) {
           const denso = f2m2.density;
-          f2m2.density = 0;
+          f2m2.density = 0o0;
           restarigiNebulon = (): void => { f2m2.density = denso; };
         } else if ( f2m2 ) {
           const tsiike = f2m2.near, maltsiike = f2m2.far;
           f2m2.near = 0o100000;
-          f2m2.far = 0o100000 + 1;
+          f2m2.far = 0o100000 + 0o1;
           restarigiNebulon = (): void => { f2m2.near = tsiike; f2m2.far = maltsiike; };
         }
         // ⟨ ſȷwɔ˞ ʌ ſɭꞇ ı],ɹ 📃 ⟩
@@ -141,20 +141,20 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
       }
       if ( qena.fog ) bal2NebulaWeh2 = "#" + qena.fog.color.getHexString();
       // ⟨ ſɭɹ ſןᴜ ʌ ꞙɭı 📃 ⟩
-      const buf = new Uint8Array(rez * rez * 4);
-      k2fcakuk.readRenderTargetPixels(rt, 0, 0, rez, rez, buf);
-      const tempX2pa = new Uint8Array(rez * 4);
-      for ( let y = 0; y < ( rez >> 1 ); y++ ) {
-        const teru = y * rez * 4, maltik = ( rez - 1 - y ) * rez * 4;
-        tempX2pa.set(buf.subarray(teru, teru + rez * 4));
-        buf.copyWithin(teru, maltik, maltik + rez * 4);
+      const buf = new Uint8Array(rez * rez * 0o4);
+      k2fcakuk.readRenderTargetPixels(rt, 0o0, 0o0, rez, rez, buf);
+      const tempX2pa = new Uint8Array(rez * 0o4);
+      for ( let y = 0o0; y < ( rez >> 0o1 ); y++ ) {
+        const teru = y * rez * 0o4, maltik = ( rez - 0o1 - y ) * rez * 0o4;
+        tempX2pa.set(buf.subarray(teru, teru + rez * 0o4));
+        buf.copyWithin(teru, maltik, maltik + rez * 0o4);
         buf.set(tempX2pa, maltik);
       }
       const bildo = new ImageData(new Uint8ClampedArray(buf.buffer), rez, rez);
       const kanvasa = document.createElement("canvas");
       kanvasa.width = kanvasa.height = rez;
       // ⟨ willReadFrequently 📃 ⟩
-      kanvasa.getContext("2d", { willReadFrequently: true })!.putImageData(bildo, 0, 0);
+      kanvasa.getContext("2d", { willReadFrequently: true })!.putImageData(bildo, 0o0, 0o0);
       bal2PukazWeh2 = vecax2lPukaznWeh2n(buf, rez);
       baz2Randon(kanvasa, MAPABAKAFADO);
       return kanvasa;
@@ -172,15 +172,15 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
   function vecax2lPukaznWeh2n(buf: Uint8Array, rez: number): string {
     const siitsii = 0o10;
     // ⟨ ſןw ſɭᴜƴ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
-    const hax2pa = [ 0, siitsii - 1, rez - 1, rez - siitsii ];
-    const hakolumno = [ 0, siitsii - 1, rez - 1, rez - siitsii ];
-    let sr = 0, sg = 0, sb = 0, n = 0;
+    const hax2pa = [ 0o0, siitsii - 0o1, rez - 0o1, rez - siitsii ];
+    const hakolumno = [ 0o0, siitsii - 0o1, rez - 0o1, rez - siitsii ];
+    let sr = 0o0, sg = 0o0, sb = 0o0, n = 0o0;
     const tlunakEl = ( vecax2lani: number ): void => {
-      sr += buf[vecax2lani]; sg += buf[vecax2lani + 1]; sb += buf[vecax2lani + 2]; n++;
+      sr += buf[vecax2lani]; sg += buf[vecax2lani + 0o1]; sb += buf[vecax2lani + 0o2]; n++;
     };
-    for ( let k2 = 0; k2 < rez; k2 += 0o4 ) {
-      for ( let i = 0; i < hax2pa.length; i++ ) tlunakEl(( hax2pa[i] * rez + k2 ) * 4);
-      for ( let i = 0; i < hakolumno.length; i++ ) tlunakEl(( k2 * rez + hakolumno[i] ) * 4);
+    for ( let k2 = 0o0; k2 < rez; k2 += 0o4 ) {
+      for ( let i = 0o0; i < hax2pa.length; i++ ) tlunakEl(( hax2pa[i] * rez + k2 ) * 0o4);
+      for ( let i = 0o0; i < hakolumno.length; i++ ) tlunakEl(( k2 * rez + hakolumno[i] ) * 0o4);
     }
     if ( !n ) return "#585848";
     return "rgb(" + Math.round(sr / n) + "," + Math.round(sg / n) + "," + Math.round(sb / n) + ")";
@@ -194,43 +194,43 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
     const gradientaBendo = ( x0: number, y0: number, x1: number, y1: number,
       rekt: [ number, number, number, number ] ): void => {
       const g = k.createLinearGradient(x0, y0, x1, y1);
-      g.addColorStop(0, "rgba(0,0,0,1)");
-      g.addColorStop(1, "rgba(0,0,0,0)");
+      g.addColorStop(0o0, "rgba(0,0,0,1)");
+      g.addColorStop(0o1, "rgba(0,0,0,0)");
       k.fillStyle = g;
-      k.fillRect(rekt[0], rekt[1], rekt[2], rekt[3]);
+      k.fillRect(rekt[0o0], rekt[0o1], rekt[0o2], rekt[0o3]);
     };
-    gradientaBendo(0, 0, 0, fado, [ 0, 0, r, fado ]);
-    gradientaBendo(0, r, 0, r - fado, [ 0, r - fado, r, fado ]);
-    gradientaBendo(0, 0, fado, 0, [ 0, 0, fado, r ]);
-    gradientaBendo(r, 0, r - fado, 0, [ r - fado, 0, fado, r ]);
+    gradientaBendo(0o0, 0o0, 0o0, fado, [ 0o0, 0o0, r, fado ]);
+    gradientaBendo(0o0, r, 0o0, r - fado, [ 0o0, r - fado, r, fado ]);
+    gradientaBendo(0o0, 0o0, fado, 0o0, [ 0o0, 0o0, fado, r ]);
+    gradientaBendo(r, 0o0, r - fado, 0o0, [ r - fado, 0o0, fado, r ]);
     k.globalCompositeOperation = "source-over";
   }
 
   function k2fMapanFonon(ctx: CanvasRenderingContext2D, w: number, h: number,
     cx: number, cz: number, hw: number, hh: number): void {
-    const unuo = w / ( 2 * hw );
-    const [ mx, my ] = nalaAlEkrano(0, 0, cx, cz, hw, hh, w, h);
+    const unuo = w / ( 0o2 * hw );
+    const [ mx, my ] = nalaAlEkrano(0o0, 0o0, cx, cz, hw, hh, w, h);
     const pukaz = MAPABAKAP2SOMANI * unuo;
     const horizonto = Math.max(pukaz * 0o3, Math.hypot(w, h) * 0o1/0o2);
-    const ar2ha = ctx.createRadialGradient(mx, my, 0, mx, my, horizonto);
-    ar2ha.addColorStop(0, bal2PukazWeh2);
+    const ar2ha = ctx.createRadialGradient(mx, my, 0o0, mx, my, horizonto);
+    ar2ha.addColorStop(0o0, bal2PukazWeh2);
     ar2ha.addColorStop(Math.min(0o3/0o4, pukaz / horizonto), bal2PukazWeh2);
-    ar2ha.addColorStop(1, bal2NebulaWeh2);
+    ar2ha.addColorStop(0o1, bal2NebulaWeh2);
     ctx.fillStyle = ar2ha;
-    ctx.fillRect(0, 0, w, h);
+    ctx.fillRect(0o0, 0o0, w, h);
   }
 
   function k2fMapanTavolon(ctx: CanvasRenderingContext2D, tsiq: HTMLCanvasElement, cx: number, cz: number, hw: number, hh: number, w: number, h: number): void {
     const rez = MAPABAKAREZ, p2somani = MAPABAKAP2SOMANI;
-    const sx = ( p2somani - ( cx + hw ) ) / ( 2 * p2somani ) * rez;
-    const sy = ( p2somani - ( cz + hh ) ) / ( 2 * p2somani ) * rez;
-    const sw = ( 2 * hw ) / ( 2 * p2somani ) * rez;
-    const sh = ( 2 * hh ) / ( 2 * p2somani ) * rez;
-    ctx.drawImage(tsiq, sx, sy, sw, sh, 0, 0, w, h);
+    const sx = ( p2somani - ( cx + hw ) ) / ( 0o2 * p2somani ) * rez;
+    const sy = ( p2somani - ( cz + hh ) ) / ( 0o2 * p2somani ) * rez;
+    const sw = ( 0o2 * hw ) / ( 0o2 * p2somani ) * rez;
+    const sh = ( 0o2 * hh ) / ( 0o2 * p2somani ) * rez;
+    ctx.drawImage(tsiq, sx, sy, sw, sh, 0o0, 0o0, w, h);
   }
 
   function nalaAlEkrano(x: number, z: number, cx: number, cz: number, hw: number, hh: number, w: number, h: number): [ number, number ] {
-    return [ ( ( cx + hw ) - x ) / ( 2 * hw ) * w, ( ( cz + hh ) - z ) / ( 2 * hh ) * h ];
+    return [ ( ( cx + hw ) - x ) / ( 0o2 * hw ) * w, ( ( cz + hh ) - z ) / ( 0o2 * hh ) * h ];
   }
 
   // ⟨ ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
@@ -238,7 +238,7 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
   const SAGORONDIGO = 0o12/0o10;
   const SAGOBORDO = 0o2;
   const SAGOVERTICOJ = [
-    { x: 0, y: -SAGOR },
+    { x: 0o0, y: -SAGOR },
     { x: SAGOR * 0o71/0o100, y: SAGOR * 0o5/0o10 },
     { x: -SAGOR * 0o71/0o100, y: SAGOR * 0o5/0o10 },
   ];
@@ -261,7 +261,7 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
   }
 
   function kf2SaganBildon(pal6 = SAGOGRANDO): string {
-    const denso = Math.min(0o2, Math.max(1, devicePixelRatio || 1));
+    const denso = Math.min(0o2, Math.max(0o1, devicePixelRatio || 0o1));
     const kanvasa = document.createElement("canvas");
     kanvasa.width = kanvasa.height = Math.ceil(pal6 * denso);
     const k = kanvasa.getContext("2d");
@@ -286,9 +286,9 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
   function k2fMovantajnHan2kn(ctx: CanvasRenderingContext2D, w: number, h: number, cx: number, cz: number, hw: number, hh: number): void {
     const n2k = ( x: number, z: number, weh2: string ) => {
       const [ px, py ] = nalaAlEkrano(x, z, cx, cz, hw, hh, w, h);
-      if ( px < -3 || px > w + 3 || py < -3 || py > h + 3 ) return;
+      if ( px < -0o3 || px > w + 0o3 || py < -0o3 || py > h + 0o3 ) return;
       ctx.fillStyle = weh2;
-      ctx.beginPath(); ctx.arc(px, py, 0o14/0o10, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(px, py, 0o14/0o10, 0o0, Math.PI * 0o2); ctx.fill();
     };
     for ( const c of has2kaj2 ) n2k(c.x, c.z, "#e8d8b0");
     for ( const n of hanpco ) n2k(n.group.position.x, n.group.position.z, "#b8b0a0");
@@ -367,7 +367,7 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
           kompaso.style.display = "none";
         }
         solviBakadon();
-      }, 0);
+      }, 0o0);
     });
     return promeso;
   }
@@ -395,17 +395,17 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
       if ( !l2haKuns2bana ) { console.warn("( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ſןᴜ j͐ʃэ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ ꞙɭɔ ʌ ſɭ,ɔ ſ͔ɭɔ ( 2D )"); l2haP2t6zo = null; return; }
       kanvasa.addEventListener("wheel", ( e ) => {
         e.preventDefault();
-        const delt = e.deltaMode === 1 ? e.deltaY * 0o20 : e.deltaY;
+        const delt = e.deltaMode === 0o1 ? e.deltaY * 0o20 : e.deltaY;
         l2haP2somani = Math.max(MINAP2SOMANI, Math.min(MAXAP2SOMANI, l2haP2somani * Math.exp(delt * 0o1/0o2000)));
         postuliL2hanBal2();
       }, { passive: false });
       const tiriPans = ( dx: number, dy: number ) => {
-        const pp = ( 2 * l2haP2somani ) / ( kanvasa.clientHeight || innerHeight );
+        const pp = ( 0o2 * l2haP2somani ) / ( kanvasa.clientHeight || innerHeight );
         const aspekto = ( kanvasa.clientWidth || innerWidth ) / ( kanvasa.clientHeight || innerHeight );
         const hw = l2haP2somani * aspekto, hh = l2haP2somani;
         const lim = ( sost2: number, p2somani: number ) => {
           const min = -MAPABAKAP2SOMANI + p2somani, max = MAPABAKAP2SOMANI - p2somani;
-          return min > max ? 0 : Math.max(min, Math.min(max, sost2));
+          return min > max ? 0o0 : Math.max(min, Math.min(max, sost2));
         };
         bal2PanX = lim(mapX + bal2PanX + dx * pp, hw) - mapX;
         bal2PanZ = lim(mapZ + bal2PanZ + dy * pp, hh) - mapZ;
@@ -418,10 +418,10 @@ export function kf2Minimapon(hasukf2qani: MinimapajHasukf2qani): Minimapo {
           postuliL2hanBal2();
         },
       });
-      kanvasa.addEventListener("dblclick", () => { bal2PanX = 0; bal2PanZ = 0; postuliL2hanBal2(); });
+      kanvasa.addEventListener("dblclick", () => { bal2PanX = 0o0; bal2PanZ = 0o0; postuliL2hanBal2(); });
     }
     l2haP2somani = L2HAP2SOMANI;
-    bal2PanX = 0; bal2PanZ = 0;
+    bal2PanX = 0o0; bal2PanZ = 0o0;
     postuliL2hanBal2();
     document.getElementById("kubapuc2qx2t2Titolo")!.textContent = traduki("hate2Bal2");
     document.getElementById("kubapuc2qx2t2Teru")!.textContent = "";

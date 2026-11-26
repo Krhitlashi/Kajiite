@@ -22,10 +22,10 @@ import type { AkvaTsiq } from "../nala/tsasaVek2fe.js";
 export function dekodiInt16(kruda: string): Int16Array | null {
   if ( kruda === "" ) return null;
   try {
-    const hacacaja = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
-    const havop2 = new Int16Array(hacacaja.length / 2);
+    const hacacaja = Uint8Array.from(atob(kruda), c => c.charCodeAt(0o0));
+    const havop2 = new Int16Array(hacacaja.length / 0o2);
     const kix2 = new DataView(hacacaja.buffer);
-    for ( let i = 0; i < havop2.length; i++ ) havop2[i] = kix2.getInt16(i * 2, true);
+    for ( let i = 0o0; i < havop2.length; i++ ) havop2[i] = kix2.getInt16(i * 0o2, true);
     return havop2;
   } catch { return null; }
 }
@@ -33,9 +33,9 @@ export function dekodiInt16(kruda: string): Int16Array | null {
 export function dekodiMaskon(kruda: string, vem2: number): Uint8Array | null {
   if ( kruda === "" ) return null;
   try {
-    const hacacaja = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
+    const hacacaja = Uint8Array.from(atob(kruda), c => c.charCodeAt(0o0));
     const k6liqani = new Uint8Array(vem2);
-    for ( let i = 0; i < vem2; i++ ) k6liqani[i] = ( hacacaja[i >> 3] >> (i & 7) ) & 1;
+    for ( let i = 0o0; i < vem2; i++ ) k6liqani[i] = ( hacacaja[i >> 0o3] >> (i & 0o7) ) & 0o1;
     return k6liqani;
   } catch { return null; }
 }
@@ -82,7 +82,7 @@ const BESTOJ: Uint8Array | null = GENERITAT6LIMA ? GENERITAT6LIMA.hapaga
     @param x,z ( number ) - ſɟᴜ j͑ʃᴜ ʌ ſןᴜ j͐ʃэ ʌ }ʃᴜ j͐ʃᴜ
 @returns y ( number ) - ſɭᴜ ſɭᴜ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ſɟɔȝ ʌ ꞁȷ̀ɹ ɭʃᴜ ŋᷠᴜ */
 export function tikL6da( x: number, z: number ): number {
-  return GENERITAT6LIMA ? GENERITAT6LIMA.l6da(x, z) : 0;
+  return GENERITAT6LIMA ? GENERITAT6LIMA.l6da(x, z) : 0o0;
 }
 
 /* ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɜ ſןɹ ʌ }ʃᴜ j͐ʃᴜ ʌ ʃᴜ j͐ʃɹ
@@ -163,9 +163,9 @@ export function mondiaHazardo(): () => number {
 // ⟨ j͑ʃᴜ ſɭᴜ 📃 ⟩
 
 export function knat6keqanuDelta(x: number, z: number): number {
-  if ( !DELTAJ ) return 0;
-  const fx = ( x - SKULPTAORIGINO[0] ) / SKULPTAPASO;
-  const fz = ( z - SKULPTAORIGINO[1] ) / SKULPTAPASO;
+  if ( !DELTAJ ) return 0o0;
+  const fx = ( x - SKULPTAORIGINO[0o0] ) / SKULPTAPASO;
+  const fz = ( z - SKULPTAORIGINO[0o1] ) / SKULPTAPASO;
   return bikubaPx01o(DELTAJ, SKULPTAN, fx, fz) / 0o20;
 }
 
@@ -176,32 +176,32 @@ export function knat6keqanuDelta(x: number, z: number): number {
 export function dekodi3Bit(kruda: string, vem2: number): Uint8Array | null {
   if ( kruda === "" ) return null;
   try {
-    const hacacaja = Uint8Array.from(atob(kruda), c => c.charCodeAt(0));
+    const hacacaja = Uint8Array.from(atob(kruda), c => c.charCodeAt(0o0));
     const hatskek2 = new Uint8Array(vem2);
-    for ( let i = 0; i < vem2; i++ ) {
-      const b = i * 3;
-      hatskek2[i] = ( hacacaja[b >> 3] >> (b & 7) )
-        | ( ( b & 7 ) > 5 ? hacacaja[( b >> 3 ) + 1] : 0 ) << ( 0o10 - ( b & 7 ) );
-      hatskek2[i] &= 7;
+    for ( let i = 0o0; i < vem2; i++ ) {
+      const b = i * 0o3;
+      hatskek2[i] = ( hacacaja[b >> 0o3] >> (b & 0o7) )
+        | ( ( b & 0o7 ) > 0o5 ? hacacaja[( b >> 0o3 ) + 0o1] : 0o0 ) << ( 0o10 - ( b & 0o7 ) );
+      hatskek2[i] &= 0o7;
     }
     return hatskek2;
   } catch { return null; }
 }
 
 export function skulptitaBs2(x: number, z: number): number {
-  if ( !BIOMOJ ) return 0;
-  const fx = ( x - SKULPTAORIGINO[0] ) / SKULPTAPASO;
-  const fz = ( z - SKULPTAORIGINO[1] ) / SKULPTAPASO;
-  const i = Math.max(0, Math.min(SKULPTAN - 1, Math.floor(fx)));
-  const j = Math.max(0, Math.min(SKULPTAN - 1, Math.floor(fz)));
+  if ( !BIOMOJ ) return 0o0;
+  const fx = ( x - SKULPTAORIGINO[0o0] ) / SKULPTAPASO;
+  const fz = ( z - SKULPTAORIGINO[0o1] ) / SKULPTAPASO;
+  const i = Math.max(0o0, Math.min(SKULPTAN - 0o1, Math.floor(fx)));
+  const j = Math.max(0o0, Math.min(SKULPTAN - 0o1, Math.floor(fz)));
   return BIOMOJ[j * SKULPTAN + i];
 }
 
 export function skulptitaPaga(x: number, z: number): number {
-  if ( !BESTOJ ) return 0;
-  const fx = ( x - SKULPTAORIGINO[0] ) / SKULPTAPASO;
-  const fz = ( z - SKULPTAORIGINO[1] ) / SKULPTAPASO;
-  const i = Math.max(0, Math.min(SKULPTAN - 1, Math.floor(fx)));
-  const j = Math.max(0, Math.min(SKULPTAN - 1, Math.floor(fz)));
+  if ( !BESTOJ ) return 0o0;
+  const fx = ( x - SKULPTAORIGINO[0o0] ) / SKULPTAPASO;
+  const fz = ( z - SKULPTAORIGINO[0o1] ) / SKULPTAPASO;
+  const i = Math.max(0o0, Math.min(SKULPTAN - 0o1, Math.floor(fx)));
+  const j = Math.max(0o0, Math.min(SKULPTAN - 0o1, Math.floor(fz)));
   return BESTOJ[j * SKULPTAN + i];
 }

@@ -9,18 +9,18 @@ export function vepaqFlokanMuskanQoxaKefoun(): THREE.BufferGeometry {
   const hakek: THREE.BufferGeometry[] = [];
   const R = 0o7/0o10;
   const fadenoj = 0o230;
-  for ( let i = 0; i < fadenoj; i++ ) {
-    const a = Math.random() * Math.PI * 2;
+  for ( let i = 0o0; i < fadenoj; i++ ) {
+    const a = Math.random() * Math.PI * 0o2;
     const r = Math.sqrt(Math.random()) * R;
-    const s2qena = 1 - r / R;
+    const s2qena = 0o1 - r / R;
     const l6da = ( 0o4/0o10 + Math.random() * 0o4/0o10 ) * ( 0o3/0o10 + 0o7/0o10 * s2qena );
     const sefini = 0o2/0o100 + Math.random() * 0o4/0o100;
     const s2sabo = 0o1/0o10 + Math.random() * 0o2/0o10;
-    const fadeno = new THREE.ConeGeometry(sefini, l6da, 4).translate(0, l6da / 2, 0);
-    const vek2fe = new THREE.Vector3(-Math.sin(a), 0, Math.cos(a));
+    const fadeno = new THREE.ConeGeometry(sefini, l6da, 0o4).translate(0o0, l6da / 0o2, 0o0);
+    const vek2fe = new THREE.Vector3(-Math.sin(a), 0o0, Math.cos(a));
     fadeno.applyMatrix4(new THREE.Matrix4().makeRotationAxis(vek2fe, s2sabo));
     fadeno.rotateY(a + ( Math.random() - 0o5/0o10 ) * 0o2/0o10);
-    fadeno.translate(Math.cos(a) * r, 0, Math.sin(a) * r);
+    fadeno.translate(Math.cos(a) * r, 0o0, Math.sin(a) * r);
     hakek.push(fadeno);
   }
   return vakox2qSenIndekson(hakek);
@@ -37,7 +37,7 @@ export function vepaqMusxajnMontetojn(qena: THREE.Scene,
   const sakxoCasacakai = kf2Xa3eHazardon(0o201175);
   const muskaVecax2l = vepaqFlokanMuskanQoxaKefoun();
   const muskaTexture = kf2MuskanCac2sex();
-  const muskaPukek = new THREE.MeshStandardMaterial({ map: muskaTexture, color: 0xffffff, roughness: 1 });
+  const muskaPukek = new THREE.MeshStandardMaterial({ map: muskaTexture, color: 0xffffff, roughness: 0o1 });
   const hac6x = new THREE.InstancedMesh(muskaVecax2l, muskaPukek, vem2);
 
   const M = new THREE.Matrix4();
@@ -48,21 +48,21 @@ export function vepaqMusxajnMontetojn(qena: THREE.Scene,
   const ena = new THREE.Vector3();
   const enX = new THREE.Vector3();
   const enZ = new THREE.Vector3();
-  const vertikala = new THREE.Vector3(0, 1, 0);
+  const vertikala = new THREE.Vector3(0o0, 0o1, 0o0);
   const yawQ = new THREE.Quaternion();
-  let mi = 0;
-  let vatsel2ni = 0;
+  let mi = 0o0;
+  let vatsel2ni = 0o0;
 
   while ( mi < vem2 && vatsel2ni++ < 0o3710 ) {
     let x: number, z: number;
     if ( sakxoCasacakai() < 0o26/0o40 && nearTrees.length ) {
-      const t = nearTrees[( sakxoCasacakai() * nearTrees.length ) | 0];
-      const a = sakxoCasacakai() * Math.PI * 2;
-      const sakxoKa5ik = 1 + sakxoCasacakai() * 3;
+      const t = nearTrees[( sakxoCasacakai() * nearTrees.length ) | 0o0];
+      const a = sakxoCasacakai() * Math.PI * 0o2;
+      const sakxoKa5ik = 0o1 + sakxoCasacakai() * 0o3;
       x = t.x + Math.sin(a) * sakxoKa5ik;
       z = t.z + Math.cos(a) * sakxoKa5ik;
     } else {
-      const a = sakxoCasacakai() * Math.PI * 2;
+      const a = sakxoCasacakai() * Math.PI * 0o2;
       const r = 0o22 + sakxoCasacakai() * 0o166;
       x = Math.cos(a) * r;
       z = Math.sin(a) * r;
@@ -86,11 +86,11 @@ export function vepaqMusxajnMontetojn(qena: THREE.Scene,
       const u = Math.tan(maxHaga);
       const hx = x2x2q.x / horiz;
       const hz = x2x2q.z / horiz;
-      x2x2q.set(hx * u, 1, hz * u);
+      x2x2q.set(hx * u, 0o1, hz * u);
     }
     x2x2q.normalize();
     Q.setFromUnitVectors(vertikala, x2x2q);
-    E.set(0, sakxoCasacakai() * Math.PI * 2, 0);
+    E.set(0o0, sakxoCasacakai() * Math.PI * 0o2, 0o0);
     yawQ.setFromEuler(E);
     Q.multiply(yawQ);
     M.compose(new THREE.Vector3(x, y + 0o1/0o40, z), Q,

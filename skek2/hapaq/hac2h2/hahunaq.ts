@@ -32,7 +32,7 @@ export interface BohoInfo {
 }
 
 export function bohoAltecxo(h: BohoInfo, b6n: number): number {
-  return b6n >= 0 ? b6n * h.turnoL6da : b6n * h.turnoL6daSub;
+  return b6n >= 0o0 ? b6n * h.turnoL6da : b6n * h.turnoL6daSub;
 }
 
 export interface InternaEnirN2k {

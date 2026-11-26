@@ -29,7 +29,7 @@ export function s2xuruCabole(ang: number): number {
   const x6mi = Math.sin(0o4 * ang + 0o23/0o20) + 0o1/0o2 * Math.sin(0o13 * ang + 0o7/0o10);
   const rx = LAGORX * ( 0o1 + 0o6/0o100 * x6mi * 0o53/0o100 );
   const rz = LAGORZ * ( 0o1 + 0o6/0o100 * x6mi * 0o53/0o100 );
-  return 1 / Math.sqrt(( Math.cos(ang) / rx ) ** 2 + ( Math.sin(ang) / rz ) ** 2);
+  return 0o1 / Math.sqrt(( Math.cos(ang) / rx ) ** 0o2 + ( Math.sin(ang) / rz ) ** 0o2);
 }
 // ⟨ ſɭᴜ ſɭˬꞇƽ ʌ ſᶘᴜ j͑ʃᴜ 📏 ⟩ , ſᶘᴜ j͑ʃᴜ ʌ ſɭᴜ ſɭᴜ ꞙɭɔɩ ꞙɭꞟц ʌ ſɭɹ ſןᴜ ʌ ſןᴜ j͐ʃэ
 // ꞙɭı ʌ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
@@ -48,7 +48,7 @@ export function tsekeEnS2xuru(x: number, z: number): boolean {
 }
 
 export const RIVERABUŜOX: number = ( () => {
-  for ( let i = 0; i <= 0o470; i++ ) {
+  for ( let i = 0o0; i <= 0o470; i++ ) {
     const x = LAGOX + LAGORX + 0o100 - i;
     if ( tsekeEnS2xuru(x, k6siZ(x)) ) return x;
   }
@@ -59,9 +59,9 @@ export function riveraAkvaVem2(x: number): number {
   const m = glataTona(RIVERABUŜOX - 0o110, RIVERABUŜOX, x);
   // ⟨ ꞙɭɿ ʌ ſɭɹ ſןᴜ 📏 ⟩ , ꞙɭɔ ʌ ſɭᴜ ꞙɭı ⟅ ſɭɜ ſɭ,w 📃 ⟩
   // ꞙɭɔ ʌ ſɭɹ ſןᴜ ʌ ſᶘᴜ j͑ʃᴜ , ꞙɭɔ ʌ }ʃɹƽ , }ʃɹƽ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
-  if ( m === 0 ) return tsasaY(x);
-  if ( m === 1 ) return LAGONIVELO;
-  return tsasaY(x) * ( 1 - m ) + LAGONIVELO * m;
+  if ( m === 0o0 ) return tsasaY(x);
+  if ( m === 0o1 ) return LAGONIVELO;
+  return tsasaY(x) * ( 0o1 - m ) + LAGONIVELO * m;
 }
 
 export function tsasaVem2(x: number, z: number): number {
@@ -82,13 +82,13 @@ export function tsasaY(x: number): number { return jaqoKozunu(x, k6siZ(x)) - 0o4
 
 export function jaqoNordOrienta(x: number, z: number): number {
   const sudaEniro = glataTona(0o44, 0o122, z);
-  if ( sudaEniro <= 0 ) return 0;
-  const nordaEliro = 1 - glataTona(0o130, 0o200, z);
-  if ( nordaEliro <= 0 ) return 0;
+  if ( sudaEniro <= 0o0 ) return 0o0;
+  const nordaEliro = 0o1 - glataTona(0o130, 0o200, z);
+  if ( nordaEliro <= 0o0 ) return 0o0;
   const okcidentaEliro = glataTona(-0o434, -0o400, x);
-  if ( okcidentaEliro <= 0 ) return 0;
-  const orientaEliro = 1 - glataTona(-0o366, -0o302, x);
-  if ( orientaEliro <= 0 ) return 0;
+  if ( okcidentaEliro <= 0o0 ) return 0o0;
+  const orientaEliro = 0o1 - glataTona(-0o366, -0o302, x);
+  if ( orientaEliro <= 0o0 ) return 0o0;
   const envolvaĵo = Math.min(sudaEniro, nordaEliro, okcidentaEliro, orientaEliro);
 
   const dx1 = ( x + 0o370 ) / 0o56, dz1 = ( z - 0o126 ) / 0o56;
@@ -99,7 +99,7 @@ export function jaqoNordOrienta(x: number, z: number): number {
   const cet23 = 0o16 * Math.exp(-0o1/0o2 * ( dx3 * dx3 + dz3 * dz3 ));
   const dxS = ( x + 0o354 ) / 0o42, dzS = ( z - 0o116 ) / 0o40;
   const selo = 0o14 * Math.exp(-0o1/0o2 * ( dxS * dxS + dzS * dzS ));
-  return Math.max(0, ( cet21 + cet22 + cet23 - selo ) * envolvaĵo);
+  return Math.max(0o0, ( cet21 + cet22 + cet23 - selo ) * envolvaĵo);
 }
 
 // ⟪ ſɭэ j͑ʃꞇ ʌ ɽ͑ʃ'ᴜȝ ʌ j͐ʃᴜȝ 📃 ⟫
@@ -108,13 +108,13 @@ export const RIVERANORDORIENTADUONSEFINI = 0o6;
 
 export function k6siNordOrientaX(z: number): number {
   const zS = RIVERANORDORIENTAFONTOZ, zM = -0o200;
-  const t = Math.max(0, Math.min(1, ( z - zM ) / ( zS - zM )));
-  const maltikn = 1 - t;
-  return -0o350 + 0o30 * maltikn + 0o4 * Math.sin(maltikn * Math.PI * 2);
+  const t = Math.max(0o0, Math.min(0o1, ( z - zM ) / ( zS - zM )));
+  const maltikn = 0o1 - t;
+  return -0o350 + 0o30 * maltikn + 0o4 * Math.sin(maltikn * Math.PI * 0o2);
 }
 
 export const RIVERANORDORIENTABUŜOZ: number = ( () => {
-  for ( let i = 0; i <= 0o700; i++ ) {
+  for ( let i = 0o0; i <= 0o700; i++ ) {
     const z = RIVERANORDORIENTAFONTOZ - i;
     if ( tsekeEnS2xuru(k6siNordOrientaX(z), z) ) return z;
   }
@@ -122,12 +122,12 @@ export const RIVERANORDORIENTABUŜOZ: number = ( () => {
 } )();
 
 export function riveraNordOrientaVem2(z: number): number {
-  const m = 1 - glataTona(RIVERANORDORIENTABUŜOZ, RIVERANORDORIENTABUŜOZ + 0o110, z);
-  if ( m === 1 ) return LAGONIVELO;
+  const m = 0o1 - glataTona(RIVERANORDORIENTABUŜOZ, RIVERANORDORIENTABUŜOZ + 0o110, z);
+  if ( m === 0o1 ) return LAGONIVELO;
   const x = k6siNordOrientaX(z);
   const t6lima = jaqoKozunu(x, z) + jaqoNordOrienta(x, z) - 0o415/0o100;
-  if ( m === 0 ) return t6lima;
-  return t6lima * ( 1 - m ) + LAGONIVELO * m;
+  if ( m === 0o0 ) return t6lima;
+  return t6lima * ( 0o1 - m ) + LAGONIVELO * m;
 }
 
 export function tsekeEnNordorientaK6si(x: number, z: number): boolean {
@@ -153,12 +153,12 @@ export function tsasa(x: number, z: number): boolean {
 
 export function bs2(x: number, z: number): Bs2 {
   const pentrita = skulptitaBs2(x, z);
-  if ( pentrita === 4 && tsasa(x, z) ) return "tsasa-haxa3e";
-  if ( pentrita === 5 && tsasa(x, z) ) return "tsake";
+  if ( pentrita === 0o4 && tsasa(x, z) ) return "tsasa-haxa3e";
+  if ( pentrita === 0o5 && tsasa(x, z) ) return "tsake";
   if ( tsasa(x, z) ) return "tsasa";
-  if ( pentrita === 1 ) return "jaqo";
-  if ( pentrita === 2 ) return "lota";
-  if ( pentrita === 3 ) return "qun2nu";
+  if ( pentrita === 0o1 ) return "jaqo";
+  if ( pentrita === 0o2 ) return "lota";
+  if ( pentrita === 0o3 ) return "qun2nu";
   return "qun2";
 }
 
@@ -189,7 +189,7 @@ const AKVA: AkvaKek2 | null = ( () => {
 } )();
 
 export function tsasaEltrancxo(x: number, z: number): number {
-  if ( !AKVA ) return 0;
+  if ( !AKVA ) return 0o0;
   // ⟨ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɜ ſɭ,ᴜ , ꞙɭı ſןw ſɭᴜƴ 📃 ⟩
   return px01oBikuba(AKVA.hah6k6, SKULPTAN, SKULPTAPASO, SKULPTAORIGINO, x, z);
 }

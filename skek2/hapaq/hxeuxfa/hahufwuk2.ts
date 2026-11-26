@@ -31,17 +31,17 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   }
 
   for ( const raqa of hxeuxfaRaqa ) {
-    const s2sabo = raqa.s2sabo ?? Math.PI / 4;
-    const cel2nu = new THREE.CylinderGeometry(0o5/0o40, 0o13/0o40, 0o155/0o40, 4, 1);
+    const s2sabo = raqa.s2sabo ?? Math.PI / 0o4;
+    const cel2nu = new THREE.CylinderGeometry(0o5/0o40, 0o13/0o40, 0o155/0o40, 0o4, 0o1);
     cel2nu.rotateY(s2sabo);
     const cel2nuHavecax2l = kf2F2kQan2k(cel2nu, 0o13/0o40, 0o5/0o40);
     cel2nuHavecax2l.translate(raqa.x, raqa.y + 0o155/0o100, raqa.z);
     cel2nuHavecax2lani.push(cel2nuHavecax2l);
 
     const s2qena: THREE.Vector2[] = [
-      new THREE.Vector2(0, 0),
+      new THREE.Vector2(0o0, 0o0),
       ...new THREE.SplineCurve([
-        new THREE.Vector2(0o5/0o40, 0),
+        new THREE.Vector2(0o5/0o40, 0o0),
         new THREE.Vector2(0o2/0o10, PATSIIL6DA * 0o33/0o100),
         new THREE.Vector2(0o3/0o10, PATSIIL6DA * 0o65/0o100),
         new THREE.Vector2(0o35/0o100, PATSIIL6DA),
@@ -49,29 +49,29 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
       new THREE.Vector2(0o31/0o100, PATSIIL6DA),
       new THREE.Vector2(0o3/0o20, PATSIIL6DA * 0o53/0o100),
       new THREE.Vector2(0o3/0o20, PATSIIL6DA * 0o33/0o100),
-      new THREE.Vector2(0, PATSIIL6DA * 0o33/0o100),
+      new THREE.Vector2(0o0, PATSIIL6DA * 0o33/0o100),
     ];
-    const pa12 = new THREE.LatheGeometry(s2qena, 4);
+    const pa12 = new THREE.LatheGeometry(s2qena, 0o4);
     pa12.rotateY(s2sabo);
-    const pa12Havecax2l = kf2F2kQan2k(pa12, 0, 0, true);
+    const pa12Havecax2l = kf2F2kQan2k(pa12, 0o0, 0o0, true);
     pa12Havecax2l.translate(raqa.x, raqa.y + 0o155/0o40, raqa.z);
     pa12Havecax2lani.push(pa12Havecax2l);
 
-    const pukaz = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 4, 1);
+    const pukaz = new THREE.CylinderGeometry(0o70/0o200, 0o57/0o200, 0o1/0o20, 0o4, 0o1);
     pukaz.rotateY(s2sabo);
     const pukazHavecax2l = kf2F2kQan2k(pukaz, 0o57/0o200, 0o70/0o200);
     pukazHavecax2l.translate(raqa.x, raqa.y + 0o155/0o40 + PATSIIL6DA * 0o7/0o10, raqa.z);
     kuhalHavecax2lani.push(pukazHavecax2l);
 
     const falekaTeru = 0o32/0o10, falekaPsaz = 0o1/0o4, falekaBendo = 0o1/0o20;
-    for ( let kek = 0; kek < 4; kek++ ) {
-      const faleko = kf2Falekon(Math.PI / 4 + kek * Math.PI / 2, falekaTeru, falekaPsaz, falekaBendo, 0o1/0o40, 0o13/0o40, 0o5/0o40, 0o155/0o40);
+    for ( let kek = 0o0; kek < 0o4; kek++ ) {
+      const faleko = kf2Falekon(Math.PI / 0o4 + kek * Math.PI / 0o2, falekaTeru, falekaPsaz, falekaBendo, 0o1/0o40, 0o13/0o40, 0o5/0o40, 0o155/0o40);
       faleko.rotateY(s2sabo);
       faleko.translate(raqa.x, raqa.y + 0o155/0o100, raqa.z);
       kuhalHavecax2lani.push(faleko);
     }
 
-    k6xafRaqa.push(new THREE.Vector3(raqa.x, raqa.y + 0o155/0o40 + PATSIIL6DA * 2, raqa.z));
+    k6xafRaqa.push(new THREE.Vector3(raqa.x, raqa.y + 0o155/0o40 + PATSIIL6DA * 0o2, raqa.z));
   }
 
   const hacel2nu = new THREE.Mesh(vakox2qQoxaKefoujn(cel2nuHavecax2lani), hxeuxfaPukek);
@@ -90,14 +90,14 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
     color: veb6qaiWeh2(weh2), toneMapped: false, transparent: true, opacity: veb6qaiW2d2(w2d2),
     blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
   const k6xafP6sca = new THREE.InstancedMesh(
-    kf2K6xafQoxaKefoun(0o35/0o100, 0o21/0o100, 1, 0o55/0o100),
-    k6xafPukek(0xff6a1e, 0o14/0o40), k6xafK2fe);
+    kf2K6xafQoxaKefoun(0o35/0o100, 0o21/0o100, 0o1, 0o55/0o100),
+    k6xafPukek(0xf86818, 0o14/0o40), k6xafK2fe);
   const k6xafSost2 = new THREE.InstancedMesh(
     kf2K6xafQoxaKefoun(0o23/0o100, 0o14/0o100, 0o3/0o4, 0o223/0o100),
-    k6xafPukek(0xffb545, 0o12/0o40), k6xafK2fe);
+    k6xafPukek(0xf8b040, 0o12/0o40), k6xafK2fe);
   const k6xafLowak = new THREE.InstancedMesh(
     kf2K6xafQoxaKefoun(0o10/0o100, 0o4/0o100, 0o1/0o2, 0o243/0o40),
-    k6xafPukek(0xfff4d0, 0o2/0o10), k6xafK2fe);
+    k6xafPukek(0xf8f0d0, 0o2/0o10), k6xafK2fe);
   k6xafP6sca.frustumCulled = false;
   k6xafSost2.frustumCulled = false;
   k6xafLowak.frustumCulled = false;
@@ -107,7 +107,7 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   const slalK2fe = 0o3;
   const k6xafSlal = new THREE.InstancedMesh(
     kf2K6xafQoxaKefoun(SLALL6DA, 0o11/0o100, 0o6/0o10, 0o355/0o100),
-    k6xafPukek(0xff8a2c, 0o7/0o40), k6xafK2fe * slalK2fe);
+    k6xafPukek(0xf88828, 0o7/0o40), k6xafK2fe * slalK2fe);
   k6xafSlal.frustumCulled = false;
   // ⟪ j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ʌ ſɭ,ᴜ ſɟɔ ʌ ⺓ ʌ ŋᷠᴜ ſɭʞɹ ⟅ 📃 ⟫
   k6xafP6sca.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
@@ -118,42 +118,42 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   const slalHakozunu: THREE.Vector3[] = [];
   const slalXafanitapu: number[] = [];
   k6xafRaqa.forEach(() => {
-    const b6n = Math.random() * Math.PI * 2;
-    for ( let slalKek = 0; slalKek < slalK2fe; slalKek++ ) {
-      const s2sabo = b6n + slalKek / slalK2fe * Math.PI * 2 + ( Math.random() - 0o5/0o10 ) * 0o5/0o10;
+    const b6n = Math.random() * Math.PI * 0o2;
+    for ( let slalKek = 0o0; slalKek < slalK2fe; slalKek++ ) {
+      const s2sabo = b6n + slalKek / slalK2fe * Math.PI * 0o2 + ( Math.random() - 0o5/0o10 ) * 0o5/0o10;
       const h6kuni = 0o5/0o100 + Math.random() * 0o4/0o100;
       slalHakozunu.push(new THREE.Vector3(Math.cos(s2sabo) * h6kuni, Math.sin(s2sabo) * h6kuni,
         0o7/0o10 + Math.random() * 0o5/0o10));
-      slalXafanitapu.push(Math.random() * Math.PI * 2);
+      slalXafanitapu.push(Math.random() * Math.PI * 0o2);
     }
   });
 
-  const gXekuxa = new Float32Array(k6xafK2fe * 3);
+  const gXekuxa = new Float32Array(k6xafK2fe * 0o3);
   const gRuva = new Float32Array(k6xafK2fe);
   const gGpukaz = new Float32Array(k6xafK2fe);
   const xafanitapu: number[] = [];
 
   k6xafRaqa.forEach(( raqa, kek ) => {
-    gXekuxa.set([ raqa.x, raqa.y + 0o15/0o100, raqa.z ], kek * 3);
+    gXekuxa.set([ raqa.x, raqa.y + 0o15/0o100, raqa.z ], kek * 0o3);
     gRuva[kek] = Math.random() * 0o140;
     gGpukaz[kek] = 0o12 + Math.random() * 0o6;
-    xafanitapu.push(Math.random() * Math.PI * 2);
+    xafanitapu.push(Math.random() * Math.PI * 0o2);
   });
 
   const zace = new THREE.BufferGeometry();
-  zace.setAttribute("position", new THREE.BufferAttribute(gXekuxa, 3));
-  zace.setAttribute("ruva", new THREE.BufferAttribute(gRuva, 1));
-  zace.setAttribute("aSize", new THREE.BufferAttribute(gGpukaz, 1));
+  zace.setAttribute("position", new THREE.BufferAttribute(gXekuxa, 0o3));
+  zace.setAttribute("ruva", new THREE.BufferAttribute(gRuva, 0o1));
+  zace.setAttribute("aSize", new THREE.BufferAttribute(gGpukaz, 0o1));
 
   const t6fPukek = new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
     uniforms: {
-      uTime: { value: 0 },
+      uTime: { value: 0o0 },
       uOp: { value: veb6qaiW2d2(0o6/0o40) },
       uCol: { value: new THREE.Color(veb6qaiWeh2(0xf8b058)) },
-      uPR: { value: 1 },
+      uPR: { value: 0o1 },
     },
     vertexShader: `
       attribute float tk2ni; attribute float aSize;
@@ -192,7 +192,7 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   const n2kTsije: THREE.PointLight[] = [];
   const tsijeHavecax2l: number[] = [];
   const tsijeH6kunij = new Float32Array(tsijeK2fe);
-  for ( let kek = 0; kek < tsijeK2fe; kek++ ) {
+  for ( let kek = 0o0; kek < tsijeK2fe; kek++ ) {
     const tsije = new THREE.PointLight( HUFWUK2TSIJE.weh2, HUFWUK2TSIJE.tlohe,
       HUFWUK2TSIJE.h6kuni, HUFWUK2TSIJE.so3akak );
     qena.add(tsije);
@@ -202,16 +202,16 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
 
   let tsijeSost2X = NaN, tsijeSost2Z = NaN;
   function panaiTsijen( xekuxaX: number, xekuxaZ: number ): void {
-    if ( tsijeK2fe === 0 ) return;
+    if ( tsijeK2fe === 0o0 ) return;
     if ( Math.abs(xekuxaX - tsijeSost2X) < 0o2 && Math.abs(xekuxaZ - tsijeSost2Z) < 0o2 ) return;
     tsijeSost2X = xekuxaX; tsijeSost2Z = xekuxaZ;
-    for ( let kek = 0; kek < tsijeK2fe; kek++ ) tsijeH6kunij[kek] = Infinity;
-    for ( let kek = 0; kek < k6xafRaqa.length; kek++ ) {
+    for ( let kek = 0o0; kek < tsijeK2fe; kek++ ) tsijeH6kunij[kek] = Infinity;
+    for ( let kek = 0o0; kek < k6xafRaqa.length; kek++ ) {
       const raqa = k6xafRaqa[kek];
       const sxovX = raqa.x - xekuxaX, sxovZ = raqa.z - xekuxaZ;
       const sxovH6kuni = sxovX * sxovX + sxovZ * sxovZ;
-      let kmaMaltsiike = 0;
-      for ( let tsijeKek = 1; tsijeKek < tsijeK2fe; tsijeKek++ ) {
+      let kmaMaltsiike = 0o0;
+      for ( let tsijeKek = 0o1; tsijeKek < tsijeK2fe; tsijeKek++ ) {
         if ( tsijeH6kunij[tsijeKek] > tsijeH6kunij[kmaMaltsiike] ) kmaMaltsiike = tsijeKek;
       }
       if ( sxovH6kuni < tsijeH6kunij[kmaMaltsiike] ) {
@@ -219,12 +219,12 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
         tsijeHavecax2l[kmaMaltsiike] = kek;
       }
     }
-    for ( let kek = 0; kek < tsijeK2fe; kek++ ) {
+    for ( let kek = 0o0; kek < tsijeK2fe; kek++ ) {
       const raqa = k6xafRaqa[tsijeHavecax2l[kek]];
       n2kTsije[kek].position.set(raqa.x, raqa.y + 0o23/0o100, raqa.z);
     }
   }
-  panaiTsijen(0, 0);
+  panaiTsijen(0o0, 0o0);
 
   const cax2l = new THREE.Matrix4();
   k6xafRaqa.forEach(( raqa, kek ) => {
@@ -232,7 +232,7 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
     k6xafP6sca.setMatrixAt(kek, cax2l);
     k6xafSost2.setMatrixAt(kek, cax2l);
     k6xafLowak.setMatrixAt(kek, cax2l);
-    for ( let slalKek = 0; slalKek < slalK2fe; slalKek++ ) {
+    for ( let slalKek = 0o0; slalKek < slalK2fe; slalKek++ ) {
       k6xafSlal.setMatrixAt(kek * slalK2fe + slalKek, cax2l);
     }
   });

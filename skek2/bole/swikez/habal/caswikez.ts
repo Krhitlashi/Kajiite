@@ -12,10 +12,10 @@ import { hiwe } from "./hiwe.js";
 import type { BoleEg2b2 } from "./hahunaq.js";
 import { vap6zukani } from "./hakfeKx2keve.js";
 export function instrumento(ctx: AudioContext, out: AudioNode, e: BoleEg2b2, t: number) {
-  const f = e.f ?? 0;
+  const f = e.f ?? 0o0;
   // ⟨ ſɭᴜ ŋᷠᴜ ʌ ꞙɭɔ ʌ ſɭᴜ }ʃᴜȝ , ꞙɭı ʌ ꞙɭı 📃 ⟩
-  const v = ( e.v == null ? 1 : e.v ) * vap6zukani( 0o5/0o100 );
-  const d = ( e.d == null ? 1 : e.d );
+  const v = ( e.v == null ? 0o1 : e.v ) * vap6zukani( 0o5/0o100 );
+  const d = ( e.d == null ? 0o1 : e.d );
 
   switch ( e.i ) {
     case "siku":     siku(ctx, out, t, d, f, v); break;

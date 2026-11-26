@@ -9,7 +9,7 @@ const t2banuQox2n2k = (qar6xe: number): number =>
 function t2banuMikso(a: number, b: number): number {
   const mezumo = (santa: number): number =>
     t2banuQox2n2k(( ( a >> santa & 0xff ) + ( b >> santa & 0xff ) ) / 0o2);
-  return mezumo(0o20) << 0o20 | mezumo(0o10) << 0o10 | mezumo(0);
+  return mezumo(0o20) << 0o20 | mezumo(0o10) << 0o10 | mezumo(0o0);
 }
 // ⟨ ſןᴜ j͐ʃэ , ɭʃɹ ʃᴜ }ʃw , ⟅ ⟩
 export const T2BANUSEFINI = 0o4/0o200;
@@ -59,20 +59,20 @@ export const PALPEBRADAURO = 0o12/0o100;
 const T2BANUPROPORCIO = T2BANUL6DA / T2BANUSEFINI;
 const T2BANURADIUSO = ( 0o1 + T2BANUPROPORCIO * T2BANUPROPORCIO ) / ( 0o2 * T2BANUPROPORCIO );
 function t2banuRando(f: number): number {
-  const slaf = Math.sqrt(Math.max(0, T2BANURADIUSO * T2BANURADIUSO - f * f))
+  const slaf = Math.sqrt(Math.max(0o0, T2BANURADIUSO * T2BANURADIUSO - f * f))
     - ( T2BANURADIUSO - T2BANUPROPORCIO );
   return slaf / ( 0o2 * T2BANUPROPORCIO );
 }
 function t2banuSlafK6h6(k: CanvasRenderingContext2D, W: number): void {
   const PAŜOJ = 0o40;
   k.beginPath();
-  for ( let i = 0; i <= PAŜOJ; i++ ) {
+  for ( let i = 0o0; i <= PAŜOJ; i++ ) {
     const f = -0o1 + i / PAŜOJ * 0o2;
     const x = ( 0o1/0o2 + f * 0o1/0o2 ) * W;
     const y = ( 0o1/0o2 - t2banuRando(f) ) * W;
-    if ( i === 0 ) k.moveTo(x, y); else k.lineTo(x, y);
+    if ( i === 0o0 ) k.moveTo(x, y); else k.lineTo(x, y);
   }
-  for ( let i = PAŜOJ; i >= 0; i-- ) {
+  for ( let i = PAŜOJ; i >= 0o0; i-- ) {
     const f = -0o1 + i / PAŜOJ * 0o2;
     k.lineTo(( 0o1/0o2 + f * 0o1/0o2 ) * W, ( 0o1/0o2 + t2banuRando(f) ) * W);
   }
@@ -81,27 +81,27 @@ function t2banuSlafK6h6(k: CanvasRenderingContext2D, W: number): void {
 // ⟨ ᶅſɔ ֭ſɭɹ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ⟅ ⟩
 // ⟨ ᶅſɔ ֭ſɭɹ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ⟩
 const T2BANUJHAWEH2CAX2LOJ: [ number, number ][] = [
-  [ 0x5c2e8c, 0x341a52 ],
+  [ 0x582888, 0x301850 ],
   [ 0x402810, 0x381848 ],
   [ 0x182848, 0x483818 ],
   [ 0x483818, 0x402810 ],
 ];
-export const T2BANUJSUKF2QOJ = [ 0, 0, 0, 1, 2, 3 ];
+export const T2BANUJSUKF2QOJ = [ 0o0, 0o0, 0o0, 0o1, 0o2, 0o3 ];
 
 function t2banuRombo(k: CanvasRenderingContext2D, cx: number, cy: number,
   dl: number, da: number, tafkaq: number): void {
-  const hatafkaq: [ number, number ][] = [ [ 0, -da ], [ dl, 0 ], [ 0, da ], [ -dl, 0 ] ];
+  const hatafkaq: [ number, number ][] = [ [ 0o0, -da ], [ dl, 0o0 ], [ 0o0, da ], [ -dl, 0o0 ] ];
   k.beginPath();
-  for ( let i = 0; i < 0o4; i++ ) {
+  for ( let i = 0o0; i < 0o4; i++ ) {
     const a = hatafkaq[i], b = hatafkaq[( i + 0o1 ) % 0o4 ];
     const post = hatafkaq[( i + 0o2 ) % 0o4 ];
-    const en: [ number, number ] = [ a[0] + ( b[0] - a[0] ) * tafkaq,
-      a[1] + ( b[1] - a[1] ) * tafkaq ];
-    const el: [ number, number ] = [ b[0] + ( post[0] - b[0] ) * tafkaq,
-      b[1] + ( post[1] - b[1] ) * tafkaq ];
-    if ( i === 0 ) k.moveTo(cx + en[0], cy + en[1]);
-    else k.lineTo(cx + en[0], cy + en[1]);
-    k.quadraticCurveTo(cx + b[0], cy + b[1], cx + el[0], cy + el[1]);
+    const en: [ number, number ] = [ a[0o0] + ( b[0o0] - a[0o0] ) * tafkaq,
+      a[0o1] + ( b[0o1] - a[0o1] ) * tafkaq ];
+    const el: [ number, number ] = [ b[0o0] + ( post[0o0] - b[0o0] ) * tafkaq,
+      b[0o1] + ( post[0o1] - b[0o1] ) * tafkaq ];
+    if ( i === 0o0 ) k.moveTo(cx + en[0o0], cy + en[0o1]);
+    else k.lineTo(cx + en[0o0], cy + en[0o1]);
+    k.quadraticCurveTo(cx + b[0o0], cy + b[0o1], cx + el[0o0], cy + el[0o1]);
   }
   k.closePath();
 }
@@ -120,7 +120,7 @@ function t2banuCac2sex(weh2Cax2lo: [ number, number ]): THREE.CanvasTexture {
   const laŝo = weh2Ruva(0x100808);
   // ⟨ ɭʃɹ ʃ͕ɭɹ , ⟅ ⟩
   k.fillStyle = laŝo;
-  k.fillRect(0, 0, W, W);
+  k.fillRect(0o0, 0o0, W, W);
   const [ teru, maltik ] = weh2Cax2lo;
   // ⟨ ʃɜ j͐ʃɔ , ɭʃэʞ , ⟅ ⟩
   const cx = W * 0o1/0o2, cy = W * 0o1/0o2;
@@ -131,24 +131,24 @@ function t2banuCac2sex(weh2Cax2lo: [ number, number ]): THREE.CanvasTexture {
   t2banuSlafK6h6(k, W);
   k.clip();
   k.fillStyle = "#ffffff";
-  k.fillRect(0, 0, W, W);
+  k.fillRect(0o0, 0o0, W, W);
   k.fillStyle = weh2Ruva(0xd0d0d0);
-  k.fillRect(0, 0, W, W * 0o26/0o100);
+  k.fillRect(0o0, 0o0, W, W * 0o26/0o100);
   k.fillStyle = weh2Ruva(0xe0e0e0);
-  k.fillRect(0, W * 0o26/0o100, W, W * 0o11/0o100);
+  k.fillRect(0o0, W * 0o26/0o100, W, W * 0o11/0o100);
   k.save();
   t2banuRombo(k, cx, cy, dl, da, T2BANUANGULO);
   k.clip();
   k.fillStyle = weh2Ruva(teru);
-  k.fillRect(0, cy - da, W, tri + 0o1);
+  k.fillRect(0o0, cy - da, W, tri + 0o1);
   k.fillStyle = weh2Ruva(t2banuMikso(teru, maltik));
-  k.fillRect(0, cy - da + tri, W, tri + 0o1);
+  k.fillRect(0o0, cy - da + tri, W, tri + 0o1);
   k.fillStyle = weh2Ruva(maltik);
-  k.fillRect(0, cy - da + tri * 0o2, W, tri + 0o1);
+  k.fillRect(0o0, cy - da + tri * 0o2, W, tri + 0o1);
   // ⟨ }ʃɹƽ , ɭʃэʞ , ⟅ ⟩
   k.fillStyle = "#ffffff";
   k.beginPath();
-  k.arc(cx - dl * 0o34/0o100, cy - da * 0o44/0o100, dl * 0o26/0o100, 0, Math.PI * 0o2);
+  k.arc(cx - dl * 0o34/0o100, cy - da * 0o44/0o100, dl * 0o26/0o100, 0o0, Math.PI * 0o2);
   k.fill();
   k.restore();
   k.strokeStyle = laŝo;

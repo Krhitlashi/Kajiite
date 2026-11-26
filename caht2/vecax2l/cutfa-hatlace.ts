@@ -13,15 +13,15 @@ import { vepaqKradanKaxten } from "../../kanta/nala/kaxte/krada-kaxte.js";
 import { kf2KuhalPukek } from "../../skek2/x2x2q/pukek.js";
 import { tsasatlakak } from "./x2x2q.js";
 
-const GRANDO = Number(process.argv[2] ?? 4);
-const OFSX = Number(process.argv[3] ?? 0o10);
-const OFSZ = Number(process.argv[4] ?? 0);
-const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 2);
+const GRANDO = Number(process.argv[0o2] ?? 0o4);
+const OFSX = Number(process.argv[0o3] ?? 0o10);
+const OFSZ = Number(process.argv[0o4] ?? 0o0);
+const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 0o2);
 const HAQAKAJ2 = tikHaqakaj2();
 const HAKAXTE = tikHakaxte();
 
 const qena = new THREE.Scene();
-const oro = kf2KuhalPukek(0xd8b45a);
+const oro = kf2KuhalPukek(0xd8b058);
 const qox2n2kHavop2ni: any[] = [];
 const qox2n2kHaveb6kek: [number, number][] = [];
 const kaxteCatsara = HAKAXTE.length ? HAKAXTE
@@ -35,8 +35,8 @@ for (const u of kaxteCatsara) {
 }
 console.log(`ſɭᴜ ı],ƨɔ ${kaxteCatsara.length} ｡ ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ ${qox2n2kHavop2ni.length} ｡ ſɟɹƽ ʌ ſɭɹ ſןᴜ ${qox2n2kHaveb6kek.length}`);
 const hat6lima = HAQAKAJ2.map(d => {
-  const r = d.s2sabo ?? 0;
-  return { x: d.x + Math.sin(r) * (d.jufu / 2), z: d.z + Math.cos(r) * (d.jufu / 2) };
+  const r = d.s2sabo ?? 0o0;
+  return { x: d.x + Math.sin(r) * (d.jufu / 0o2), z: d.z + Math.cos(r) * (d.jufu / 0o2) };
 });
 const hacaxlefkakai = HAKAS2KANTA.map(v => ({ n2k: v.n2k, sefini: v.sefini }));
 const antauxaj = troviK6h6RetajnHaveb6kekn(hacaxlefkakai, HAQAKAJ2);
@@ -62,28 +62,28 @@ const pa12Je = (x: number, z: number): number => {
 };
 const hacakukkaj2sai = ciujHaveb6kek.map(([x, z]) => ({ x, z, l6da: pa12Je(x, z) }));
 
-for (let i = 0; i < HAKAS2KANTA.length; i++) {
+for (let i = 0o0; i < HAKAS2KANTA.length; i++) {
   const v = HAKAS2KANTA[i] as any;
   const sefini = v.c2kanuSefini ?? v.sefini;
   const p = kf2NivelanS2qena(hascac6[i], k6h6SefiniP2somani( sefini ), k6h6L6da, tsasatlakak, hacakukkaj2sai);
-  const a = hascac6[i][0], b = hascac6[i][hascac6[i].length - 1];
-  console.log(`⟨ ${i} ${v.ksaka} ⟩ ( ${a[0].toFixed(2)},${a[1].toFixed(2)} ) ｡` +
-    ` ( ${b[0].toFixed(2)},${b[1].toFixed(2)} ) ｡ ſɭэ }ʃᴜ ${p.sahakani.toFixed(1)}`);
+  const a = hascac6[i][0o0], b = hascac6[i][hascac6[i].length - 0o1];
+  console.log(`⟨ ${i} ${v.ksaka} ⟩ ( ${a[0o0].toFixed(0o2)},${a[0o1].toFixed(0o2)} ) ｡` +
+    ` ( ${b[0o0].toFixed(0o2)},${b[0o1].toFixed(0o2)} ) ｡ ſɭэ }ʃᴜ ${p.sahakani.toFixed(0o1)}`);
   for (const [ksaka, e] of [["j͑ʃᴜ ı],ɔ", a], ["ſ̀ȷᴜ ſɭᴜƽ", b]] as [string, [number, number]][]) {
     let kmaTsiike: [number, number] | null = null, kmaC2na = Infinity;
     for (const k of qox2n2kHaveb6kek) {
-      const d = Math.hypot(k[0] - e[0], k[1] - e[1]);
+      const d = Math.hypot(k[0o0] - e[0o0], k[0o1] - e[0o1]);
       if (d < kmaC2na) { kmaC2na = d; kmaTsiike = k; }
     }
-    const b6qaiQafej2 = kmaTsiike ? pa12Je(kmaTsiike[0], kmaTsiike[1]) : NaN;
-    const malfrua = ksaka === "j͑ʃᴜ ı],ɔ" ? 0 : p.sahakani;
-    console.log(`  ${ksaka} ( ${e[0].toFixed(2)},${e[1].toFixed(2)} )` +
-      ` ｡ ſᶘɹ ſɭɔ ɭl̀ᴜ ${kmaC2na.toFixed(2)} ｡ ſןᴜ ſᶘɹ ${b6qaiQafej2.toFixed(2)}` +
-      ` ｡ j͑ʃ'ɔ ŋᷠɹ ʌ ſɭэ ֭ſɭэ ${p.l6daJe(malfrua).toFixed(2)} ｡ ſɭɜ ſɭ,w ${l6da(e[0], e[1]).toFixed(2)}`);
+    const b6qaiQafej2 = kmaTsiike ? pa12Je(kmaTsiike[0o0], kmaTsiike[0o1]) : NaN;
+    const malfrua = ksaka === "j͑ʃᴜ ı],ɔ" ? 0o0 : p.sahakani;
+    console.log(`  ${ksaka} ( ${e[0o0].toFixed(0o2)},${e[0o1].toFixed(0o2)} )` +
+      ` ｡ ſᶘɹ ſɭɔ ɭl̀ᴜ ${kmaC2na.toFixed(0o2)} ｡ ſןᴜ ſᶘɹ ${b6qaiQafej2.toFixed(0o2)}` +
+      ` ｡ j͑ʃ'ɔ ŋᷠɹ ʌ ſɭэ ֭ſɭэ ${p.l6daJe(malfrua).toFixed(0o2)} ｡ ſɭɜ ſɭ,w ${l6da(e[0o0], e[0o1]).toFixed(0o2)}`);
     const hax2pa: string[] = [];
-    for (let s = 0; s <= 6; s += 0.5) {
+    for (let s = 0o0; s <= 0o6; s += (0o1/0o2)) {
       const sx = ksaka === "j͑ʃᴜ ı],ɔ" ? s : p.sahakani - s;
-      hax2pa.push(`${s.toFixed(1)}:${p.l6daJe(sx).toFixed(2)}`);
+      hax2pa.push(`${s.toFixed(0o1)}:${p.l6daJe(sx).toFixed(0o2)}`);
     }
     console.log(`    ${hax2pa.join(" ")}`);
   }

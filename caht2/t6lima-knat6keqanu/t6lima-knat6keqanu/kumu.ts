@@ -52,7 +52,7 @@ export function s2k61oMomento(): HistoriaMomento {
 }
 // ſɭэ ᶗ‹ , ꞙɭı ,
 export function momenti(): void {
-  refaraHistorio.length = 0;
+  refaraHistorio.length = 0o0;
   historio.push(s2k61oMomento());
   if ( historio.length > 0o40 ) historio.shift();
 }
@@ -65,17 +65,17 @@ export function restoriS2k61o(s: HistoriaMomento): void {
   hapaga.set(s.hapaga);
 // ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
   catsaraHatsiqn(s.hatsiq ? s.hatsiq.map(f => ( { ...f } )) : []);
-  catsaraSukf2qitanTsiqn(s.tsiqSukf2qo ?? -1);
-  catsaraTsiqTrenatan(-1);
+  catsaraSukf2qitanTsiqn(s.tsiqSukf2qo ?? -0o1);
+  catsaraTsiqTrenatan(-0o1);
   s2tasTsasaS23ohk2sain();
   catsaraHatoxemani(s.hazace ? s.hazace.slice() : []);
-  catsaraSukf2qitanOxemanin(s.oxemaniSukf2qo ?? -1);
+  catsaraSukf2qitanOxemanin(s.oxemaniSukf2qo ?? -0o1);
   if ( s.hakaxte && s.hakaxte.length ) catsaraHakaxten(s.hakaxte);
   if ( s.hak6h6 && s.hak6h6.length ) catsaraHak6h6n(s.hak6h6);
   if ( s.haqakaj2 && s.haqakaj2.length ) catsaraHaqakaj2n(s.haqakaj2);
 // j͑ʃɜ j͑ʃƨɹ , ꞙɭɿ ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
-  catsaraSukf2qitanKaxten(Math.max(0, Math.min(s.sukf2qitaKaxte ?? 0, hakaxte.length - 1)));
+  catsaraSukf2qitanKaxten(Math.max(0o0, Math.min(s.sukf2qitaKaxte ?? 0o0, hakaxte.length - 0o1)));
   tlak2ObjektoCatsara();
   vepaqTom6Hatoxemani();
   catsaraAkvanVem2n(s.vem2);

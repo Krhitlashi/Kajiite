@@ -16,7 +16,7 @@ const HAKAXTE = tikHakaxte();
 const qena = new THREE.Scene();
 const t6g6 = kf2T6g6Pukek( new THREE.Texture() );
 const t6hna = kf2T6hnaPukek( new THREE.Texture() );
-const oro = kf2KuhalPukek( 0xd8b45a );
+const oro = kf2KuhalPukek( 0xd8b058 );
 
 const qox2n2kHak6h6: [ number, number ][][] = [];
 const qox2n2kHaveb6kek: [ number, number ][] = [];
@@ -28,59 +28,59 @@ for ( const u of HAKAXTE ) {
   qox2n2kHaveb6kek.push( ...kaxte.tamc2kHan2k );
 }
 
-const hacaxlefkakai = HAKAS2KANTA.filter( v => v.n2k.length >= 2 ).map( v => ({ n2k: v.n2k, sefini: v.sefini }) );
+const hacaxlefkakai = HAKAS2KANTA.filter( v => v.n2k.length >= 0o2 ).map( v => ({ n2k: v.n2k, sefini: v.sefini }) );
 const ne3ak2Haveb6kek = troviK6h6RetajnHaveb6kekn(hacaxlefkakai, HAQAKAJ2);
 const hakxawa: [ number, number ][] = [ ...qox2n2kHaveb6kek,
   ...ne3ak2Haveb6kek.map( k => [ k.x, k.z ] as [ number, number ] ) ];
 const hat6lima = HAQAKAJ2.map( d => {
-  const r = d.s2sabo ?? 0;
-  return { x: d.x + Math.sin(r) * ( d.jufu / 2 ), z: d.z + Math.cos(r) * ( d.jufu / 2 ) };
+  const r = d.s2sabo ?? 0o0;
+  return { x: d.x + Math.sin(r) * ( d.jufu / 0o2 ), z: d.z + Math.cos(r) * ( d.jufu / 0o2 ) };
 });
 
 function phaka( x: number, z: number, a: readonly [ number, number ], b: readonly [ number, number ] ) {
-  const dx = b[0] - a[0], dz = b[1] - a[1];
+  const dx = b[0o0] - a[0o0], dz = b[0o1] - a[0o1];
   const l2 = dx * dx + dz * dz;
   if ( l2 < 0o10 ** -0o12 ) return null;
-  const t = Math.max(0, Math.min(1, ( ( x - a[0] ) * dx + ( z - a[1] ) * dz ) / l2));
-  const px = a[0] + dx * t, pz = a[1] + dz * t;
+  const t = Math.max(0o0, Math.min(0o1, ( ( x - a[0o0] ) * dx + ( z - a[0o1] ) * dz ) / l2));
+  const px = a[0o0] + dx * t, pz = a[0o1] + dz * t;
   return { d: Math.hypot(px - x, pz - z), x: px, z: pz };
 }
 
 // ⟨ ֭ſɭэ ſɭw }ʃꞇ ʌ j͑ʃᴜꞇ ʌ ſɭэ ֭ſɭэ ( ꞙɭɔ ʌ ꞙɭı ʌ ꞙɭı ) 📃 ⟩
 function c2c2k( e: [ number, number ], propra: number, has2tonome: [ number, number ][][] ): number {
   let plosteq = Infinity;
-  for ( let wi = 0; wi < has2tonome.length; wi++ ) {
+  for ( let wi = 0o0; wi < has2tonome.length; wi++ ) {
     if ( wi === propra ) continue;
     const w = has2tonome[wi];
-    for ( let i = 0; i < w.length - 1; i++ ) {
-      const p = phaka(e[0], e[1], w[i], w[i + 1]);
+    for ( let i = 0o0; i < w.length - 0o1; i++ ) {
+      const p = phaka(e[0o0], e[0o1], w[i], w[i + 0o1]);
       if ( p && p.d < plosteq ) plosteq = p.d;
     }
   }
-  return plosteq - ( K6H6AEKSTERAP2SOMANI - K6H6ABORDASEFINI / 4 );
+  return plosteq - ( K6H6AEKSTERAP2SOMANI - K6H6ABORDASEFINI / 0o4 );
 }
 
-let ne3ak2 = 0, kvoz = 0;
-const k21e = HAKAS2KANTA.filter( v => v.n2k.length >= 2 );
-for ( let vi = 0; vi < k21e.length; vi++ ) {
+let ne3ak2 = 0o0, kvoz = 0o0;
+const k21e = HAKAS2KANTA.filter( v => v.n2k.length >= 0o2 );
+for ( let vi = 0o0; vi < k21e.length; vi++ ) {
   const xaqadi = k21e[vi].n2k;
   const hascac6 = gluiK6h6tlakakn(xaqadi, hakxawa, hat6lima);
   const has2tonome = [ ...qox2n2kHak6h6, ...k21e.map( v => v.n2k ) ];
-  for ( const [ tlakak, i ] of [ [ true, xaqadi.length - 1 ], [ false, 0 ] ] as const ) {
+  for ( const [ tlakak, i ] of [ [ true, xaqadi.length - 0o1 ], [ false, 0o0 ] ] as const ) {
     const e = xaqadi[i];
-    if ( hat6lima.some( l => Math.hypot(l.x - e[0], l.z - e[1]) < 1 ) ) continue;
+    if ( hat6lima.some( l => Math.hypot(l.x - e[0o0], l.z - e[0o1]) < 0o1 ) ) continue;
     const f = c2c2k(e, qox2n2kHak6h6.length + vi, has2tonome);
     if ( f > 0o1/0o10 && f < 0o4 ) {
       ne3ak2++;
       const g = hascac6[i];
       const postF = c2c2k(g, qox2n2kHak6h6.length + vi, has2tonome);
       if ( postF > 0o1/0o10 && postF < 0o4 ) kvoz++;
-      console.log( `ſɭˬɹ ${f.toFixed(2)} → ſɭɔ˞ɜƴ ${postF.toFixed(2)} ⟅ ${( k21e[vi].ksaka ?? "k6h6" )} ` +
-        `( ${e[0].toFixed(1)}, ${e[1].toFixed(1)} )` );
+      console.log( `ſɭˬɹ ${f.toFixed(0o2)} → ſɭɔ˞ɜƴ ${postF.toFixed(0o2)} ⟅ ${( k21e[vi].ksaka ?? "k6h6" )} ` +
+        `( ${e[0o0].toFixed(0o1)}, ${e[0o1].toFixed(0o1)} )` );
     }
   }
 }
-console.log( `ſɭᴜ ı],ƨɔ ${HAKAXTE.map( u => u.ksaka ).join( "+" )} , ſɭэ ֭ſɭэ ${k21e.map( v => v.ksaka ).join( "/" )}` );
-console.log( `ſɭэ ֭ſɭэ ${k21e.length} , ſɭˬɹ ${ne3ak2} , ſɭɔ˞ɜƴ ${kvoz}` );
+console.log( `ſɭᴜ ı],ƨɔ ${HAKAXTE.map( u => u.ksaka ).join( "+" )} ｡ ſɭэ ֭ſɭэ ${k21e.map( v => v.ksaka ).join( "/" )}` );
+console.log( `ſɭэ ֭ſɭэ ${k21e.length} ｡ ſɭˬɹ ${ne3ak2} ｡ ſɭɔ˞ɜƴ ${kvoz}` );
 
-for ( const v of k21e ) console.log( `⟪ ${v.ksaka} ⟫ ` + v.n2k.map( p => `(${p[0].toFixed(1)},${p[1].toFixed(1)})` ).join( " " ) );
+for ( const v of k21e ) console.log( `⟪ ${v.ksaka} ⟫ ` + v.n2k.map( p => `(${p[0o0].toFixed(0o1)},${p[0o1].toFixed(0o1)})` ).join( " " ) );

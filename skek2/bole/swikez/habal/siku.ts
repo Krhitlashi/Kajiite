@@ -15,7 +15,7 @@ const ETA = 0o1/0o20000;
     @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭᴜ ſ͕ȷɔ
     @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ
 @returns void */
-export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number, f: number, vel = 1) {
+export function siku(ctx: AudioContext, out: AudioNode, t0: number, dur: number, f: number, vel = 0o1) {
   // ⟨ ſɭᴜ ſןᴜ ɭʃᴜ ꞙɭɔ , j͑ʃᴜ ı],ɔ ʌ ſɭэ ɭʃᴜ ꞙɭɔ ſɭэ ſɭɹ ⟅
   const t = t0 + 0o1/0o100000;
   const d = Math.max(0o1/0o10, dur * vap6zukani(0o5/0o100));

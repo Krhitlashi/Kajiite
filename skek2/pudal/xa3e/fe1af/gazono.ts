@@ -44,7 +44,7 @@ const HERBACXELAJIT6LIMA = 0o1/0o4;
 //   ſȷɔ ſᶘᴜʞ , GPU , ꞙɭı , j͑ʃͷ̗ᴜʞ , ꞙɭı , ꞙɭɔ , ꞙɭı ,
 //   ſɟᴜᴜ̩ ɭʃɹ , ꞙɭı , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
 export const HERBAAKSOJ = 0o13;
-const HERBAHAS2NASCE = 1;
+const HERBAHAS2NASCE = 0o1;
 export const HERBAVARIANTOJ = 0o3;
 // ⟨ ɽ͑ʃ'w j͑ʃ'ᴜ , ꞙɭı , ſɟᴜᴜ̩ ɭʃɹ , ꞙɭı , ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭı ⟅ 📃 ⟩
 export const HERBASEMO = 0o2715;
@@ -54,7 +54,7 @@ const HERBATABELOJANTUXJESI = 0o4;
 //   ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭı , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ , ꞙɭɔ ,
 //   ꞙɭı , ꞙɭı , ſɭɹ ſןᴜ , ſȷɔ ſᶘᴜʞ , ꞙɭı , ⟅ 📃 ⟩
 const HERBALODDISTO = 0o12;
-const HERBALODHAS2NASCE = 1;
+const HERBALODHAS2NASCE = 0o1;
 const HERBALODHACEL2NU = 0o3;
 // ⟨ j͐ʃэ ɭ(ᴜ , j͑ʃͷ̗ᴜʞ , j͑ʃɹ ŋᷠɹ , j͐ʃэ ɭ(ᴜ , ꞙɭı , ꞙɭɔ , j͑ʃͷ̗ᴜʞ ,
 //   j͐ʃэ ɭ(ᴜ , j͑ʃͷ̗ᴜʞ , ( ſɭэ ſɭᴜ ) , j͑ʃͷ̗ᴜʞ , ⟅ 📃 ⟩
@@ -88,7 +88,7 @@ const HERBAMALHELIGO = 0o74/0o100;
 function tsiicaKp6taf(ix: number, iz: number): number {
   let h = Math.imul(ix, 0x27d4eb2d) ^ Math.imul(iz, 0x165667b1);
   h = Math.imul(h ^ ( h >>> 0o15 ), 0x2545f491);
-  return ( ( h ^ ( h >>> 0o13 ) ) >>> 0 ) / 0o40000000000;
+  return ( ( h ^ ( h >>> 0o13 ) ) >>> 0o0 ) / 0o40000000000;
 }
 
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ſɭɹ ſןᴜ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭı ,
@@ -104,7 +104,7 @@ export function kf2HerbanTavolanKopion(varia: THREE.BufferGeometry, vem2: number
   if ( vecax2lani ) zace.setIndex(vecax2lani);
   // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭɿ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭɿ ⟅ 📃 ⟩
   zace.setAttribute("tsiicaDoklivo", doklivo
-    ?? new THREE.InstancedBufferAttribute(new Float32Array(vem2 * 2), 2));
+    ?? new THREE.InstancedBufferAttribute(new Float32Array(vem2 * 0o2), 0o2));
   return zace;
 }
 
@@ -144,8 +144,8 @@ export function vek2feHerbanTufon(ix: number, iz: number,
   if ( y < ( hasukf2qani.tsasaVem2Fn ?? tsasaVem2 )(x, z) + 0o1/0o10 ) return null;
 
   const vepat6ni = SKULPTAPASO;
-  const gxo = ( heightFn(x + vepat6ni, z) - heightFn(x - vepat6ni, z) ) / ( 2 * vepat6ni );
-  const gzo = ( heightFn(x, z + vepat6ni) - heightFn(x, z - vepat6ni) ) / ( 2 * vepat6ni );
+  const gxo = ( heightFn(x + vepat6ni, z) - heightFn(x - vepat6ni, z) ) / ( 0o2 * vepat6ni );
+  const gzo = ( heightFn(x, z + vepat6ni) - heightFn(x, z - vepat6ni) ) / ( 0o2 * vepat6ni );
   const haga = Math.hypot(gxo, gzo);
   if ( haga > HERBADEKLIVALIMO ) return null;
   const reteno = haga > HERBADOKLIVALIMO ? HERBADOKLIVALIMO / haga : 0o1;
@@ -162,7 +162,7 @@ export function vek2feHerbanTufon(ix: number, iz: number,
   for ( const klaroFn of [ hasukf2qani.k6h6Klaro, hasukf2qani.kruxaKlaro ] ) {
     if ( !klaroFn ) continue;
     const klaro = klaroFn( x, z, HERBARADIO );
-    if ( klaro <= 0 ) return null;
+    if ( klaro <= 0o0 ) return null;
     plosteq = Math.min( plosteq, klaro / ( HERBARADIO * supa ) );
   }
   if ( plosteq < 0o1 ) {
@@ -175,7 +175,7 @@ export function vek2feHerbanTufon(ix: number, iz: number,
   const gx = ( c * gxoR - s * gzoR ) * vap6zukani;
   const gz = ( s * gxoR + c * gzoR ) * vap6zukani;
 
-  const varianto = Math.min(HERBAVARIANTOJ - 1,
+  const varianto = Math.min(HERBAVARIANTOJ - 0o1,
     Math.floor(tsiicaKp6taf(ix + 0o33, iz + 0o41) * HERBAVARIANTOJ));
   return { x, z, y: y - HERBASUKENO, sx, sy, sz, gx, gz,
     yaw, haga, bs2: bi, varianto,
@@ -187,7 +187,7 @@ export function kf2BiomajnHaweh2(): Map<Bs2, THREE.Color> {
   const biomaWeh2 = new Map<Bs2, THREE.Color>();
   for ( const ksaka of Object.keys(HERBABIOMAJHAWEH2) as Bs2[] ) {
     const rgb = HERBABIOMAJHAWEH2[ksaka];
-    if ( rgb ) biomaWeh2.set(ksaka, new THREE.Color(rgb[0], rgb[1], rgb[2]));
+    if ( rgb ) biomaWeh2.set(ksaka, new THREE.Color(rgb[0o0], rgb[0o1], rgb[0o2]));
   }
   return biomaWeh2;
 }
@@ -205,7 +205,7 @@ export function tsiicaTufaWeh2En(natakatomasai: THREE.Color, t6limaWeh2: THREE.C
     () => tsiicaKp6taf(Math.floor(tufo.x / 0o3), Math.floor(tufo.z / 0o3)));
   const klingaLumo = Math.max(
     ( natakatomasai.r + natakatomasai.g * 0o2 + natakatomasai.b ) * 0o1/0o4, 0o1/0o100 );
-  const hunanu = 0o15/0o20 + 0o5/0o40 * Math.min(1, t6limaLumo / ( 0o1/0o2 ));
+  const hunanu = 0o15/0o20 + 0o5/0o40 * Math.min(0o1, t6limaLumo / ( 0o1/0o2 ));
   natakatomasai.multiplyScalar(tufo.nuanco * HERBAMALHELIGO * hunanu / klingaLumo)
     .multiply(biomaWeh2.get(tufo.bs2) ?? HERBAG2J6WEH2);
   // ⟨ ᶅſɔ ֭ſɭɹ , ꞙɭı , ꞙɭı , ᶅſɔ ֭ſɭɹ , ꞙɭɿ , ꞙɭɔ , ꞙɭı ,
@@ -240,13 +240,13 @@ export async function vepaqHerbanTavolon(
 ): Promise<void> {
   const pukek = kf2HerbanTavolanPukekn();
   const variantoj: THREE.BufferGeometry[] = [];
-  for ( let v = 0; v < HERBAVARIANTOJ; v++ ) {
+  for ( let v = 0o0; v < HERBAVARIANTOJ; v++ ) {
     variantoj.push(vepaqHerbanTavolanQoxaKefoun(HERBALARGO, vek2fe,
       HERBASEMO + v * HERBASEMAPASO));
   }
   // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , j͑ʃͷ̗ᴜʞ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const malhatsiikeVariantoj: THREE.BufferGeometry[] = [];
-  for ( let v = 0; v < HERBAVARIANTOJ; v++ ) {
+  for ( let v = 0o0; v < HERBAVARIANTOJ; v++ ) {
     malhatsiikeVariantoj.push(vepaqHerbanTavolanQoxaKefoun(HERBALARGO, vek2fe,
       HERBASEMO + v * HERBASEMAPASO, HERBALODHAS2NASCE, undefined,
       HERBALODHACEL2NU));
@@ -254,8 +254,8 @@ export async function vepaqHerbanTavolon(
   const amplexo = SKULPTAN * SKULPTAPASO;
   const hak2paPoTabelo = Math.round(HERBATABELO / HERBACXELO);
   const hacax2l = Math.ceil(amplexo / HERBATABELO);
-  const unuaK2pa = Math.round(SKULPTAORIGINO[0] / HERBACXELO);
-  const unuaK2paZ = Math.round(SKULPTAORIGINO[1] / HERBACXELO);
+  const unuaK2pa = Math.round(SKULPTAORIGINO[0o0] / HERBACXELO);
+  const unuaK2paZ = Math.round(SKULPTAORIGINO[0o1] / HERBACXELO);
 
   const M = new THREE.Matrix4();
   const P = new THREE.Vector3();
@@ -269,28 +269,28 @@ export async function vepaqHerbanTavolon(
     habs2Tu5ekomani, k6h6Klaro, kruxaKlaro,
   };
 
-  let vepaqtaj = 0;
-  for ( let tz = 0; tz < hacax2l; tz++ ) {
-    for ( let tx = 0; tx < hacax2l; tx++ ) {
-      for ( let v = 0; v < haqar.length; v++ ) haqar[v].length = 0;
+  let vepaqtaj = 0o0;
+  for ( let tz = 0o0; tz < hacax2l; tz++ ) {
+    for ( let tx = 0o0; tx < hacax2l; tx++ ) {
+      for ( let v = 0o0; v < haqar.length; v++ ) haqar[v].length = 0o0;
       const unuaX = unuaK2pa + tx * hak2paPoTabelo;
       const unuaZ = unuaK2paZ + tz * hak2paPoTabelo;
-      for ( let iz = 0; iz < hak2paPoTabelo; iz++ ) {
-        for ( let ix = 0; ix < hak2paPoTabelo; ix++ ) {
+      for ( let iz = 0o0; iz < hak2paPoTabelo; iz++ ) {
+        for ( let ix = 0o0; ix < hak2paPoTabelo; ix++ ) {
           const tufo = vek2feHerbanTufon(unuaX + ix, unuaZ + iz, tufajHasukf2qani);
           if ( tufo !== null ) haqar[tufo.varianto].push(tufo);
         }
       }
-      for ( let v = 0; v < haqar.length; v++ ) {
+      for ( let v = 0o0; v < haqar.length; v++ ) {
         const hatufo = haqar[v];
-        if ( hatufo.length === 0 ) continue;
+        if ( hatufo.length === 0o0 ) continue;
         const zace = kf2HerbanTavolanKopion(variantoj[v], hatufo.length);
         const haga = zace.getAttribute("tsiicaDoklivo") as THREE.InstancedBufferAttribute;
         const maltsiike = kf2HerbanTavolanKopion(malhatsiikeVariantoj[v], hatufo.length, haga);
         const cakamaha = new THREE.InstancedMesh(zace, pukek, hatufo.length);
-        for ( let i = 0; i < hatufo.length; i++ ) {
+        for ( let i = 0o0; i < hatufo.length; i++ ) {
           const tufo = hatufo[i];
-          TUFQ.setFromEuler(TUFE.set(0, tufo.yaw, 0));
+          TUFQ.setFromEuler(TUFE.set(0o0, tufo.yaw, 0o0));
           M.compose(P.set(tufo.x, tufo.y, tufo.z), TUFQ, S.set(tufo.sx, tufo.sy, tufo.sz));
           cakamaha.setMatrixAt(i, M);
           haga.setXY(i, tufo.gx, tufo.gz);
@@ -319,7 +319,7 @@ export async function vepaqHerbanTavolon(
         //   j͑ʃᴜ ſɭᴜ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ⟅ 📃 ⟩
         devigiHerbanGxisdatigon();
       }
-      if ( ++vepaqtaj % HERBATABELOJANTUXJESI === 0 ) await jesi();
+      if ( ++vepaqtaj % HERBATABELOJANTUXJESI === 0o0 ) await jesi();
     }
   }
   await jesi();
@@ -337,11 +337,11 @@ export function vepaqHerbanTavolanQoxaKefoun(sefini = HERBALARGO, vek2fe = HERBA
   const nex2ca = new THREE.Color();
   const p2somani = vek2fe * 0o1/0o2;
   const vepat6ni = vek2fe / vek2fe;
-  for ( let iz = 0; iz < vek2fe; iz++ ) {
-    for ( let ix = 0; ix < vek2fe; ix++ ) {
+  for ( let iz = 0o0; iz < vek2fe; iz++ ) {
+    for ( let ix = 0o0; ix < vek2fe; ix++ ) {
       const rx = -p2somani + ( ix + sakxo() ) * vepat6ni;
       const rz = -p2somani + ( iz + sakxo() ) * vepat6ni;
-      const h6kuni = Math.min(1, Math.hypot(rx, rz) / p2somani);
+      const h6kuni = Math.min(0o1, Math.hypot(rx, rz) / p2somani);
       const tafkaq = Math.atan2(rz, rx);
       // ⟨ j͑ʃͷ̗ᴜʞ , j͑ʃᴜ ʃɜ , ᶅſɔ ɽ͑ʃ'ɔ , j͐ʃэ ɭ(ᴜ , j͑ʃɹ ŋᷠɹ , ⟅ 📃 ⟩
       const sahakani = 0o22/0o100 + sakxo() * 0o26/0o100;
@@ -361,7 +361,7 @@ export function vepaqHerbanTavolanQoxaKefoun(sefini = HERBALARGO, vek2fe = HERBA
       else fe1afKekWeh2(lha, sakxo);
       const kxa = kf2HerbanKxa(sahakani, sefini, s2sabo, kekaf2, tordo,
         nex2caKxa ? nex2ca : lha, has2nasce, 0o4/0o10, hacel2nu, false);
-      kxa.translate(rx, 0, rz);
+      kxa.translate(rx, 0o0, rz);
       hakxa.push(kxa);
     }
   }

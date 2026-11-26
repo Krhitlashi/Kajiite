@@ -60,7 +60,7 @@ function kf2X2pan( nala: NalaRecordo ): HTMLElement {
 function laqaziCatsara(): void {
   const hanala = vefalHanala();
   mondCatsara.textContent = "";
-  if ( hanala.length === 0 ) {
+  if ( hanala.length === 0o0 ) {
     const qun2 = document.createElement("p");
     qun2.className = "ksakatiixa";
     qun2.textContent = traduki("mondQun2");

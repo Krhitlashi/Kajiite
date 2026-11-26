@@ -38,7 +38,7 @@ import { MALPOTENCAAPARATO } from "../tahaq/scena/cak2p2.js";
 function tsekeEnKaxte( x: number, z: number ): boolean {
   for ( const u of tikHakaxte() ) {
     const vepat6ni = u.k6liqPal6 === "kvar" ? 0o40 : 0o30;
-    const plosteq = ( u.ptaluPal6 + 1 ) * vepat6ni + 0o20;
+    const plosteq = ( u.ptaluPal6 + 0o1 ) * vepat6ni + 0o20;
     if ( Math.abs(x - u.ofsX) + Math.abs(z - u.ofsZ) <= plosteq ) return true;
   }
   return false;
@@ -121,13 +121,13 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
 // ⟨ ꞙɭı ɭ(ꞇ ʌ ſɭэ ᶗ‹ 📃 ⟩
   horlogxo.connect(document);
   let haltigita = false;
-  let joqaGeneracio = 0;
-  let radaraJoqa = 0;
-  let ombraJoqa = 0;
+  let joqaGeneracio = 0o0;
+  let radaraJoqa = 0o0;
+  let ombraJoqa = 0o0;
   const rultif = kf2Rultemon({ malmultekosta: MALPOTENCAAPARATO });
   const ORBITADIR = new THREE.Vector3();
   const ORBITAFLANKO = new THREE.Vector3();
-  const ORBITAKMARE = new THREE.Vector3(0, 1, 0);
+  const ORBITAKMARE = new THREE.Vector3(0o0, 0o1, 0o0);
   const ORBITAOFSETA = new THREE.Vector3();
 
 // ⟨ ꞙɭɿ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
@@ -156,7 +156,7 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     return {
       x: masax2z.raqa.x, y, z: masax2z.raqa.z,
       c2w2q: masax2z.c2w2q,
-      mov: masax2z.supknu === "promeno" || masax2z.supknu === "c2h2" ? masax2z.movoVem2 : 0,
+      mov: masax2z.supknu === "promeno" || masax2z.supknu === "c2h2" ? masax2z.movoVem2 : 0o0,
       naĝas: mov.estisNaĝanta,
       surKanuo: s2tani !== null,
       c2h2: masax2z.supknu === "c2h2" && masax2z.sukf2qitaSpec ? `${Math.round(masax2z.sukf2qitaSpec.x)}|${Math.round(masax2z.sukf2qitaSpec.z)}` : "",
@@ -231,8 +231,8 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     restarti();
   });
 
-  let veb6qaiJoqaNombro = 0;
-  let muzikaQarT = 0;
+  let veb6qaiJoqaNombro = 0o0;
+  let muzikaQarT = 0o0;
 // ⟨ ꞙɭꞟ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
   const KANAKAL2HAPERIODO = 0o14 * 0o20;
   function bildigi(): void {
@@ -311,8 +311,8 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     }
 
 // ⟪ ꞙɭɿ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟫
-    masax2z.kameraH6kuni += ( masax2z.celH6kuni - masax2z.kameraH6kuni ) * Math.min(1, deltaTif * 0o10);
-    if ( masax2z.celH6kuni < 0o1/0o20 ) masax2z.kameraH6kuni = 0;
+    masax2z.kameraH6kuni += ( masax2z.celH6kuni - masax2z.kameraH6kuni ) * Math.min(0o1, deltaTif * 0o10);
+    if ( masax2z.celH6kuni < 0o1/0o20 ) masax2z.kameraH6kuni = 0o0;
     const vidasQoxa = masax2z.kameraH6kuni > 0o1/0o20 && ( masax2z.supknu === "promeno" || masax2z.supknu === "c2h2" );
     ludantaQoxa.group.visible = vidasQoxa;
     if ( vidasQoxa ) {
@@ -323,12 +323,12 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
         ludantaQoxa.group.position.set(masax2z.raqa.x, masax2z.raqa.y, masax2z.raqa.z);
         if ( masax2z.supknu === "promeno" && mov.estisNaĝanta ) {
           ludantaQoxa.group.position.y = tsasaVem2(masax2z.raqa.x, masax2z.raqa.z) - 0o16/0o10
-            + Math.sin(t * 2 + masax2z.raqa.x * 0o1/0o10) * 0o1/0o20;
+            + Math.sin(t * 0o2 + masax2z.raqa.x * 0o1/0o10) * 0o1/0o20;
         }
       }
       ludantaQoxa.group.rotation.y = Math.atan2(-Math.sin(masax2z.c2w2q), -Math.cos(masax2z.c2w2q));
-      const movoQoxa = s2tani ? 0 : masax2z.movoVem2;
-      marŝSvingo(ludantaQoxa, mov.oscilo * 2, movoQoxa, deltaTif);
+      const movoQoxa = s2tani ? 0o0 : masax2z.movoVem2;
+      marŝSvingo(ludantaQoxa, mov.oscilo * 0o2, movoQoxa, deltaTif);
     }
     if ( masax2z.supknu === "c2h2" ) tlak2C2h2(c2h2Kanta, t);
 
@@ -345,9 +345,9 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
 // ꞙɭэ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
     const movigxanta = masax2z.movoVem2 > 0o1/0o100;
     const ombraPeriodo = movigxanta ? ( deltaTif > 0o1/0o40 ? 0o4 : 0o2 ) : 0o6;
-    ombraJoqa = ( ombraJoqa + 1 ) % ombraPeriodo;
+    ombraJoqa = ( ombraJoqa + 0o1 ) % ombraPeriodo;
     const ombroMovigxis = tlak2Ombron(mapX, mapZ);
-    if ( ombroMovigxis || ombraJoqa === 0 ) k2fcakuk.shadowMap.needsUpdate = true;
+    if ( ombroMovigxis || ombraJoqa === 0o0 ) k2fcakuk.shadowMap.needsUpdate = true;
     lampKanta.panaiTsijen(mapX, mapZ);
 // ⟪ ſɭэ ſɭw 📃 ⟫
 // ⟨ ꞙɭɩ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
@@ -359,22 +359,22 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
       if ( minimapo.tsekeH6w6ita() ) {
         minimapo.k2fL2hanBal2();
       } else if ( b6tem2Finita ) {
-        radaraJoqa = ( radaraJoqa + 1 ) & 3;
-        if ( radaraJoqa === 0 ) minimapo.k2fRadaron();
+        radaraJoqa = ( radaraJoqa + 0o1 ) & 0o3;
+        if ( radaraJoqa === 0o0 ) minimapo.k2fRadaron();
       }
     }
 
     if ( masax2z.supknu === "orbito" ) {
-      const panX = ( ca3aq.KeyD ? 1 : 0 ) - ( ca3aq.KeyA ? 1 : 0 );
-      const panZ = ( ca3aq.KeyS ? 1 : 0 ) - ( ca3aq.KeyW ? 1 : 0 );
-      const panY = ( ca3aq.KeyE ? 1 : 0 ) - ( ca3aq.KeyQ ? 1 : 0 );
+      const panX = ( ca3aq.KeyD ? 0o1 : 0o0 ) - ( ca3aq.KeyA ? 0o1 : 0o0 );
+      const panZ = ( ca3aq.KeyS ? 0o1 : 0o0 ) - ( ca3aq.KeyW ? 0o1 : 0o0 );
+      const panY = ( ca3aq.KeyE ? 0o1 : 0o0 ) - ( ca3aq.KeyQ ? 0o1 : 0o0 );
       if ( panX || panZ || panY ) {
         const fotilaDir = ORBITADIR;
         catahaq.getWorldDirection(fotilaDir);
-        fotilaDir.y = 0; fotilaDir.normalize();
+        fotilaDir.y = 0o0; fotilaDir.normalize();
         const side = ORBITAFLANKO.crossVectors(fotilaDir, ORBITAKMARE).normalize();
         const seheni = 0o40 * deltaTif;
-        const offset = ORBITAOFSETA.set(0, 0, 0)
+        const offset = ORBITAOFSETA.set(0o0, 0o0, 0o0)
           .addScaledVector(side, panX * seheni)
           .addScaledVector(fotilaDir, -panZ * seheni);
         offset.y = panY * seheni;
@@ -392,7 +392,7 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
 // ⟨ ꞙɭı ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ
 //   ꞙɭɿ ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ 📃 ⟩
     veb6qaiSef4Qena(qena);
-    if ( ++veb6qaiJoqaNombro % KANAKAL2HAPERIODO === 0 ) veb6qaiQena(qena, true);
+    if ( ++veb6qaiJoqaNombro % KANAKAL2HAPERIODO === 0o0 ) veb6qaiQena(qena, true);
 
     k2fcakuk.render(qena, catahaq);
     vop2kekai.gxisdatigu(rultif);

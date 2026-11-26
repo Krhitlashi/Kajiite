@@ -44,7 +44,7 @@ const BRUOJ: Array<[ number, number, number ]> = [
   [ 0o2200, 0o140/0o1000, 0o34/0o100 ],
 ];
 
-export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1) {
+export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1) {
   const d = Math.min(dur > 0o0/0o10 ? dur : 0o30/0o100, 0o30/0o100) * vap6zukani(0o10/0o100);
   // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɟɔȝ , f , ꞙɭɔ ⟅
   const p = f * vap6zukani(0o1/0o100);

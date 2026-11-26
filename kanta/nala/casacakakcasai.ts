@@ -84,9 +84,9 @@ export interface GeneritaT6lima {
     @param s ( number ) - ɽ͑ʃ'w j͑ʃ'ᴜ ʌ ſᶘɔ
 @returns n ( number ) */
 function miksu( a: number, b: number, s: number ): number {
-  let n = ( Math.imul(a, 0x1B873593) ^ Math.imul(b, 0x27D4EB2D) ^ s ) | 0;
+  let n = ( Math.imul(a, 0x1B873593) ^ Math.imul(b, 0x27D4EB2D) ^ s ) | 0o0;
   n = Math.imul(n ^ ( n >>> 0o15 ), 0x85EBCA6B);
-  return ( ( n ^ ( n >>> 0o13 ) ) >>> 0 ) / 0o40000000000;
+  return ( ( n ^ ( n >>> 0o13 ) ) >>> 0o0 ) / 0o40000000000;
 }
 
 /*ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ }ʃɹƽ ʌ ꞙɭɿ ʌ }ʃɹƽ
@@ -99,9 +99,9 @@ function famaf( x: number, z: number, s: number ): number {
   const u = xaha(fx);
   const v = xaha(fz);
   const a = miksu(ix, iz, s);
-  const b = miksu(ix + 1, iz, s);
-  const c = miksu(ix, iz + 1, s);
-  const d = miksu(ix + 1, iz + 1, s);
+  const b = miksu(ix + 0o1, iz, s);
+  const c = miksu(ix, iz + 0o1, s);
+  const d = miksu(ix + 0o1, iz + 0o1, s);
   return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
 }
 
@@ -111,8 +111,8 @@ function famaf( x: number, z: number, s: number ): number {
     @param s ( number ) - ɽ͑ʃ'w j͑ʃ'ᴜ ʌ }ʃɹƽ
 @returns n ( number ) - ꞙɭɔ ⟅ ꞙɭı */
 function multoblaBruo( x: number, z: number, oktoj: number, s: number ): number {
-  let tlunakani = 0, amplekso = 1, xiix2q = 0, f = 1;
-  for ( let i = 0; i < oktoj; i++ ) {
+  let tlunakani = 0o0, amplekso = 0o1, xiix2q = 0o0, f = 0o1;
+  for ( let i = 0o0; i < oktoj; i++ ) {
     tlunakani += amplekso * famaf(x * f, z * f, s + i * 0x51ED27);
     xiix2q += amplekso;
     amplekso *= 0o1/0o2;
@@ -127,10 +127,10 @@ function multoblaBruo( x: number, z: number, oktoj: number, s: number ): number 
     @param s ( number ) - ɽ͑ʃ'w j͑ʃ'ᴜ ʌ }ʃɹƽ
 @returns n ( number ) - ꞙɭɔ ⟅ ꞙɭı */
 function kresto( x: number, z: number, oktoj: number, s: number ): number {
-  let tlunakani = 0, amplekso = 1, xiix2q = 0, f = 1;
-  for ( let i = 0; i < oktoj; i++ ) {
+  let tlunakani = 0o0, amplekso = 0o1, xiix2q = 0o0, f = 0o1;
+  for ( let i = 0o0; i < oktoj; i++ ) {
     const n = famaf(x * f, z * f, s + i * 0x27D4EB2D);
-    const k = 1 - Math.abs(2 * n - 1);
+    const k = 0o1 - Math.abs(0o2 * n - 0o1);
     tlunakani += k * k * amplekso;
     xiix2q += amplekso;
     amplekso *= 0o1/0o2;
@@ -164,19 +164,19 @@ export function generiT6liman(
   const sHapaga = subRuva(tk2ni, KANALOBESTOJ);
 
   const N = n * n;
-  const x0 = tsiq[0], z0 = tsiq[1];
+  const x0 = tsiq[0o0], z0 = tsiq[0o1];
 
   // ⟪ j͐ʃэ ɭ(ᴜ ʌ ſɭɜ ſɭ,w 📃 ⟫
   // j͐ʃэ ɭ(ᴜ ʌ ſɭɜ ſɭ,w , ſɭɜ ſɭ,w ʌ j͑ʃ'ɔ ŋᷠɹ , ɭl̀ᴜ ſ͕ɭɜ ⟅
   const kontinentoj: number[] = [];
   const kontinentajHevem2 = new Float64Array(N);
   const ene = new Uint8Array(N);
-  for ( let j = 0; j < n; j++ ) {
-    for ( let i = 0; i < n; i++ ) {
+  for ( let j = 0o0; j < n; j++ ) {
+    for ( let i = 0o0; i < n; i++ ) {
       const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
       const id = j * n + i;
       const ena = enQoxa(x, z);
-      ene[id] = ena ? 1 : 0;
+      ene[id] = ena ? 0o1 : 0o0;
       if ( !ena ) continue;
       const kontinento = multoblaBruo(x / KONTINENTASKALO, z / KONTINENTASKALO, 0o5, sKontinento);
       kontinentajHevem2[id] = kontinento;
@@ -185,8 +185,8 @@ export function generiT6liman(
   }
   kontinentoj.sort(( a, b ) => a - b);
   const havecax2l = kontinentoj.length;
-  const mediano = havecax2l > 0 ? kontinentoj[havecax2l >> 1] : KONTINENTAMEDIANO;
-  const plosteq = havecax2l > 0
+  const mediano = havecax2l > 0o0 ? kontinentoj[havecax2l >> 0o1] : KONTINENTAMEDIANO;
+  const plosteq = havecax2l > 0o0
     ? kontinentoj[Math.floor(havecax2l * MONTARAKVANTILO)]
     : KONTINENTAMEDIANO;
   const montoVap6zukani = KARAKTERABAZO
@@ -218,8 +218,8 @@ export function generiT6liman(
   // ⟨ j͐ʃэ ɭ(ᴜ ʌ ſɭɜ ſɭ,w ʌ ɽ͑ʃ'w j͑ʃ'ᴜ ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ
   //   ɽ͑ʃ'w j͑ʃ'ᴜ ʌ ſɭɹ ſןᴜ 📃 ⟩
   const hal6da = new Float32Array(N);
-  for ( let j = 0; j < n; j++ ) {
-    for ( let i = 0; i < n; i++ ) {
+  for ( let j = 0o0; j < n; j++ ) {
+    for ( let i = 0o0; i < n; i++ ) {
       const id = j * n + i;
       const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
       hal6da[id] = ene[id]
@@ -234,20 +234,20 @@ export function generiT6liman(
   // ſɭɹ ſןᴜ ʌ ſɭɜ ſɭ,w , ꞙɭı ſ͕ɭɜ ı],w ʌ ſɭɜ ſɭ,w ⟅
   const tsasaMasko = new Uint8Array(N);
   const veq6k2 = ( i: number, j: number ): boolean =>
-    i < 0 || j < 0 || i >= n || j >= n ? false : ene[j * n + i] === 1 && hal6da[j * n + i] < vem2;
-  for ( let j = 0; j < n; j++ ) {
-    for ( let i = 0; i < n; i++ ) {
+    i < 0o0 || j < 0o0 || i >= n || j >= n ? false : ene[j * n + i] === 0o1 && hal6da[j * n + i] < vem2;
+  for ( let j = 0o0; j < n; j++ ) {
+    for ( let i = 0o0; i < n; i++ ) {
       const id = j * n + i;
       if ( !ene[id] || hal6da[id] >= vem2 ) continue;
-      if ( veq6k2(i - 1, j) || veq6k2(i, j - 1) ) continue;
-      tsasaMasko[id] = 1;
+      if ( veq6k2(i - 0o1, j) || veq6k2(i, j - 0o1) ) continue;
+      tsasaMasko[id] = 0o1;
     }
   }
 
   // ⟪ j͑ʃɘɹ ʌ j͑ʃᴜ ʃɭ,ᴜ 📃 ⟫
   const habs2 = new Uint8Array(N);
-  for ( let j = 0; j < n; j++ ) {
-    for ( let i = 0; i < n; i++ ) {
+  for ( let j = 0o0; j < n; j++ ) {
+    for ( let i = 0o0; i < n; i++ ) {
       const id = j * n + i;
       if ( !ene[id] ) continue;
       const h = hal6da[id];
@@ -267,20 +267,20 @@ export function generiT6liman(
   // ꞙɭı = ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ſɭ,w , ꞙɭɿ = ɭl̀ᴜ ſ͕ɭɜ ʌ ſɭɜ ſɭ,w , ꞙɭэ = NPC ⟅ ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ſɭ,w , j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ,
   // ɭl̀ᴜ ſ͕ɭɜ ʌ ſɭɜ ſɭ,w , ɭl̀ᴜ ſ͕ɭɜ , NPC , ſɭɜ ſɭ,w ʌ ᶅſɔ ɽ͑ʃ'ɔ ⟅
   const hapaga = new Uint8Array(N);
-  for ( let j = 0; j < n; j++ ) {
-    for ( let i = 0; i < n; i++ ) {
+  for ( let j = 0o0; j < n; j++ ) {
+    for ( let i = 0o0; i < n; i++ ) {
       const id = j * n + i;
       if ( !ene[id] ) continue;
       const h = hal6da[id];
       if ( h < vem2 + 0o4/0o10 ) { hapaga[id] |= BESTOAKVA; continue; }
       if ( famaf(i / 0o14, j / 0o14, sHapaga) > 0o70/0o100 ) hapaga[id] |= BESTOPETRELA;
-      const v = ( i > 0 && i < n - 1 ) ? i - 1 : i;
-      const w = ( i > 0 && i < n - 1 ) ? i + 1 : i;
-      const p = ( j > 0 && j < n - 1 ) ? j - 1 : j;
-      const q = ( j > 0 && j < n - 1 ) ? j + 1 : j;
+      const v = ( i > 0o0 && i < n - 0o1 ) ? i - 0o1 : i;
+      const w = ( i > 0o0 && i < n - 0o1 ) ? i + 0o1 : i;
+      const p = ( j > 0o0 && j < n - 0o1 ) ? j - 0o1 : j;
+      const q = ( j > 0o0 && j < n - 0o1 ) ? j + 0o1 : j;
       const haga = Math.max(
         Math.abs(hal6da[j * n + w] - hal6da[j * n + v]),
-        Math.abs(hal6da[q * n + i] - hal6da[p * n + i])) / ( 2 * vepat6ni );
+        Math.abs(hal6da[q * n + i] - hal6da[p * n + i])) / ( 0o2 * vepat6ni );
       if ( haga < 0o30/0o100 && h > vem2 + 0o1 ) hapaga[id] |= BESTONPC;
     }
   }
@@ -288,16 +288,16 @@ export function generiT6liman(
   // ⟪ ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ſɭ,w ʌ }ʃɹƽ 📃 ⟫
   // ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ſɭ,w ʌ ɭl̀ᴜ ſ͕ɭɜ , ſᶘᴜ j͑ʃᴜ ʌ j͐ʃᴜɔ˞ 📃 ⟩
   const hakandidato: { id: number; h: number }[] = [];
-  for ( let j = 1; j < n - 1; j++ ) {
-    for ( let i = 1; i < n - 1; i++ ) {
+  for ( let j = 0o1; j < n - 0o1; j++ ) {
+    for ( let i = 0o1; i < n - 0o1; i++ ) {
       const id = j * n + i;
       if ( !ene[id] ) continue;
       const h = hal6da[id];
       if ( h < FONTAMINIMUMAL6DA ) continue;
       let plosteq = h;
-      for ( let dj = -1; dj <= 1; dj++ ) {
-        for ( let di = -1; di <= 1; di++ ) {
-          if ( di === 0 && dj === 0 ) continue;
+      for ( let dj = -0o1; dj <= 0o1; dj++ ) {
+        for ( let di = -0o1; di <= 0o1; di++ ) {
+          if ( di === 0o0 && dj === 0o0 ) continue;
           plosteq = Math.max(plosteq, hal6da[( j + dj ) * n + i + di]);
         }
       }

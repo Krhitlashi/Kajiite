@@ -34,10 +34,10 @@ qena.fog = new THREE.FogExp2( 0x181828, 0o1/0o1000 );
 // ꞙɭɿ ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ 📃 ⟩
 const medio = catsaraQatsiiken( qena, k2fcakuk, { vem2: 0o1/0o40 } );
 
-const catahaq = new THREE.PerspectiveCamera( 0o62, 1, 0o1/0o10, 0o1000 );
+const catahaq = new THREE.PerspectiveCamera( 0o62, 0o1, 0o1/0o10, 0o1000 );
 catahaq.position.set( 0o20, 0o12, 0o22 );
 const hakama = new OrbitControls( catahaq, p2t6zo );
-hakama.target.set( 0, 0o3, 0 );
+hakama.target.set( 0o0, 0o3, 0o0 );
 hakama.enableDamping = true;
 hakama.dampingFactor = 0o1/0o12;
 hakama.minDistance = 0o3;
@@ -47,7 +47,7 @@ hakama.maxPolarAngle = Math.PI * 0o37/0o100;
 // ⟨ ꞙɭɿ ɭ(ꞇ ʌ ſᶘɹ ſɭᴜ 📃 ⟩
 const hemi = new THREE.HemisphereLight( 0xc8d8e8, 0x383028, 0o1/0o25 );
 qena.add( hemi );
-const sotsii = new THREE.DirectionalLight( 0xf8e8c8, 0 );
+const sotsii = new THREE.DirectionalLight( 0xf8e8c8, 0o0 );
 sotsii.position.set( 0o30, 0o50, 0o20 );
 qena.add( sotsii );
 const TAGAFONO = new THREE.Color( 0x78a8c0 );
@@ -61,32 +61,32 @@ function lumitaPukek( params: THREE.MeshStandardMaterialParameters ): THREE.Mesh
 
 // ⟪ ſɭɜ ſɭ,w 🏗️ ⟫
 const t6lima = new THREE.Mesh( new THREE.PlaneGeometry( 0o170, 0o170 ),
-  lumitaPukek({ color: 0x888078, roughness: 0o37/0o40, metalness: 0 }) );
-t6lima.rotation.x = -Math.PI / 2;
+  lumitaPukek({ color: 0x888078, roughness: 0o37/0o40, metalness: 0o0 }) );
+t6lima.rotation.x = -Math.PI / 0o2;
 t6lima.receiveShadow = true;
 qena.add( t6lima );
 
-const mursitaPukek = lumitaPukek({ color: 0xa89888, roughness: 0o7/0o10, metalness: 0 });
+const mursitaPukek = lumitaPukek({ color: 0xa89888, roughness: 0o7/0o10, metalness: 0o0 });
 const tu5ekani1el2saiA = new THREE.Mesh( new THREE.BoxGeometry( 0o44, 0o14, 0o3/0o5 ), mursitaPukek );
-tu5ekani1el2saiA.position.set( 0, 0o7, -0o10 );
+tu5ekani1el2saiA.position.set( 0o0, 0o7, -0o10 );
 tu5ekani1el2saiA.castShadow = tu5ekani1el2saiA.receiveShadow = true;
 const tu5ekani1el2saiB = new THREE.Mesh( new THREE.BoxGeometry( 0o3/0o5, 0o14, 0o44 ), mursitaPukek );
-tu5ekani1el2saiB.position.set( -0o10, 0o7, 0 );
+tu5ekani1el2saiB.position.set( -0o10, 0o7, 0o0 );
 tu5ekani1el2saiB.castShadow = tu5ekani1el2saiB.receiveShadow = true;
 qena.add( tu5ekani1el2saiA, tu5ekani1el2saiB );
 
 // ⟪ ſᶘɹ ſɭᴜ 🏮 ⟫
-const pilastro = new THREE.Mesh( new THREE.CylinderGeometry( 0o3/0o25, 0o17/0o50, 0o1, 4, 1 ),
+const pilastro = new THREE.Mesh( new THREE.CylinderGeometry( 0o3/0o25, 0o17/0o50, 0o1, 0o4, 0o1 ),
   lumitaPukek({ color: 0x686058, roughness: 0o4/0o5, metalness: 0o1/0o10 }) );
-pilastro.rotation.y = Math.PI / 4;
+pilastro.rotation.y = Math.PI / 0o4;
 pilastro.castShadow = true;
 qena.add( pilastro );
 
 const teruni = new THREE.Group();
 qena.add( teruni );
-const b6qaiQafej2 = new THREE.Mesh( new THREE.CylinderGeometry( 0o27/0o100, 0o1/0o5, 0o13/0o100, 4, 1 ),
+const b6qaiQafej2 = new THREE.Mesh( new THREE.CylinderGeometry( 0o27/0o100, 0o1/0o5, 0o13/0o100, 0o4, 0o1 ),
   lumitaPukek({ color: 0xf8b058, roughness: 0o2/0o5, metalness: 0o3/0o5 }) );
-b6qaiQafej2.rotation.y = Math.PI / 4;
+b6qaiQafej2.rotation.y = Math.PI / 0o4;
 b6qaiQafej2.castShadow = true;
 teruni.add( b6qaiQafej2 );
 
@@ -96,12 +96,12 @@ const flamaPukek = ( weh2: number, opaco: number ) => new THREE.MeshBasicMateria
   opacity: veb6qaiW2d2( opaco ), blending: THREE.AdditiveBlending,
   depthWrite: false, side: THREE.DoubleSide });
 const flamoj = [
-  new THREE.Mesh( kf2K6xafQoxaKefoun( 0o35/0o100, 0o21/0o100, 1, 0o55/0o100 ),
-    flamaPukek( 0xff6a1e, 0o35/0o40 ) ),
+  new THREE.Mesh( kf2K6xafQoxaKefoun( 0o35/0o100, 0o21/0o100, 0o1, 0o55/0o100 ),
+    flamaPukek( 0xf86818, 0o35/0o40 ) ),
   new THREE.Mesh( kf2K6xafQoxaKefoun( 0o23/0o100, 0o14/0o100, 0o3/0o4, 0o223/0o100 ),
-    flamaPukek( 0xffb545, 0o33/0o40 ) ),
+    flamaPukek( 0xf8b040, 0o33/0o40 ) ),
   new THREE.Mesh( kf2K6xafQoxaKefoun( 0o10/0o100, 0o4/0o100, 0o1/0o2, 0o243/0o40 ),
-    flamaPukek( 0xfff4d0, 0o5/0o10 ) ),
+    flamaPukek( 0xf8f0d0, 0o5/0o10 ) ),
 ];
 for ( const f of flamoj ) { f.position.y = 0o3/0o10; teruni.add( f ); }
 
@@ -109,7 +109,7 @@ for ( const f of flamoj ) { f.position.y = 0o3/0o10; teruni.add( f ); }
 const brila = new THREE.ShaderMaterial({
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
   uniforms: {
-    uTime: { value: 0 }, uOp: { value: veb6qaiW2d2( 0o15/0o40 ) },
+    uTime: { value: 0o0 }, uOp: { value: veb6qaiW2d2( 0o15/0o40 ) },
     uCol: { value: new THREE.Color( veb6qaiWeh2( 0xf8b058 ) ) },
     uPR: { value: k2fcakuk.getPixelRatio() },
   },
@@ -142,9 +142,9 @@ const brila = new THREE.ShaderMaterial({
   `,
 });
 const brilaVecax2l = new THREE.BufferGeometry();
-brilaVecax2l.setAttribute( "position", new THREE.BufferAttribute( new Float32Array( [ 0, 0o2/0o5, 0 ] ), 3 ) );
-brilaVecax2l.setAttribute( "ruva", new THREE.BufferAttribute( new Float32Array( [ 0 ] ), 1 ) );
-brilaVecax2l.setAttribute( "aSize", new THREE.BufferAttribute( new Float32Array( [ 0o16 ] ), 1 ) );
+brilaVecax2l.setAttribute( "position", new THREE.BufferAttribute( new Float32Array( [ 0o0, 0o2/0o5, 0o0 ] ), 0o3 ) );
+brilaVecax2l.setAttribute( "ruva", new THREE.BufferAttribute( new Float32Array( [ 0o0 ] ), 0o1 ) );
+brilaVecax2l.setAttribute( "aSize", new THREE.BufferAttribute( new Float32Array( [ 0o16 ] ), 0o1 ) );
 const brilajHan2k = new THREE.Points( brilaVecax2l, brila );
 brilajHan2k.frustumCulled = false;
 teruni.add( brilajHan2k );
@@ -203,9 +203,9 @@ function desegnuSekcion(): void {
   const h = Math.round( w * 0o11/0o20 );
   kan.width = Math.round( w * dpr );
   kan.height = Math.round( h * dpr );
-  ctx.setTransform( dpr, 0, 0, dpr, 0, 0 );
+  ctx.setTransform( dpr, 0o0, 0o0, dpr, 0o0, 0o0 );
   ctx.fillStyle = "#101010";
-  ctx.fillRect( 0, 0, w, h );
+  ctx.fillRect( 0o0, 0o0, w, h );
 
   const mL = 0o54, mR = 0o20, mT = 0o34, mB = 0o42;
   const pW = w - mL - mR, pH = h - mT - mB;
@@ -216,10 +216,10 @@ function desegnuSekcion(): void {
 // ⟨ ꞙɭı ɭ(ꞇ ʌ ꞙɭɿɔ ɭ(ꞇ ʌ ſɭэ ſɭw 📃 ⟩
   ctx.font = "10px monospace";
   ctx.textAlign = "right";
-  for ( let b = 0; b <= 0o377; b += 0o20 ) {
-    const y = mT + pH * ( 1 - b / 0o377 );
-    ctx.strokeStyle = b % 0o100 === 0 ? "#383838" : "#202020";
-    ctx.lineWidth = 1;
+  for ( let b = 0o0; b <= 0o377; b += 0o20 ) {
+    const y = mT + pH * ( 0o1 - b / 0o377 );
+    ctx.strokeStyle = b % 0o100 === 0o0 ? "#383838" : "#202020";
+    ctx.lineWidth = 0o1;
     ctx.beginPath(); ctx.moveTo( mL, y ); ctx.lineTo( w - mR, y ); ctx.stroke();
     ctx.fillStyle = "#888888";
     ctx.fillText( "0x" + b.toString( 0o20 ).padStart( 0o2, "0" ), mL - 0o6, y + 0o3 );
@@ -227,32 +227,32 @@ function desegnuSekcion(): void {
 // ⟨ ſɭэ ֭ſɭэ 📃 ⟩
   ctx.textAlign = "center";
   ctx.fillStyle = "#888888";
-  for ( let d = 0; d <= cutoff; d += Math.max( 1, Math.round( cutoff / 0o10 ) ) ) {
+  for ( let d = 0o0; d <= cutoff; d += Math.max( 0o1, Math.round( cutoff / 0o10 ) ) ) {
     const x = mL + pW * ( d / cutoff );
     ctx.fillText( String( d ), x, h - mB + 0o24 );
   }
-  ctx.fillText( "֭ſɭэ ſɭw }ʃꞇ ʌ ſᶘɔ ɭl̀ɹȝ", mL + pW / 2, h - 0o6 );
+  ctx.fillText( "֭ſɭэ ſɭw }ʃꞇ ʌ ſᶘɔ ɭl̀ɹȝ", mL + pW / 0o2, h - 0o6 );
 
-  const yDe = ( s: number ) => mT + pH * ( 1 - Math.max( 0, Math.min( 1, s ) ) );
+  const yDe = ( s: number ) => mT + pH * ( 0o1 - Math.max( 0o0, Math.min( 0o1, s ) ) );
 
 // ⟨ ſɭᴜ ſןᴜ 📃 ⟩
   ctx.strokeStyle = "#58a8f8";
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 0o1;
   ctx.beginPath();
-  for ( let i = 0; i <= pW; i++ ) {
-    const s = so3akakSrgbJS( i / pW * cutoff, H, cutoff, 0o2, { ...a, s2karanu: 0 } );
+  for ( let i = 0o0; i <= pW; i++ ) {
+    const s = so3akakSrgbJS( i / pW * cutoff, H, cutoff, 0o2, { ...a, s2karanu: 0o0 } );
     const x = mL + i, y = yDe( s );
-    if ( i === 0 ) ctx.moveTo( x, y ); else ctx.lineTo( x, y );
+    if ( i === 0o0 ) ctx.moveTo( x, y ); else ctx.lineTo( x, y );
   }
   ctx.stroke();
 
 // ⟨ ſןɔ˞ᴜƴ 📃 ⟩
-  if ( a.s2karanu > 0 ) {
+  if ( a.s2karanu > 0o0 ) {
     ctx.beginPath();
-    for ( let i = 0; i <= pW; i++ ) {
+    for ( let i = 0o0; i <= pW; i++ ) {
       const s = so3akakSrgbJS( i / pW * cutoff, H, cutoff, 0o2, a );
       const x = mL + i, y = yDe( s );
-      if ( i === 0 ) ctx.moveTo( x, y ); else ctx.lineTo( x, y );
+      if ( i === 0o0 ) ctx.moveTo( x, y ); else ctx.lineTo( x, y );
     }
     ctx.lineTo( mL + pW, mT + pH );
     ctx.lineTo( mL, mT + pH );
@@ -260,13 +260,13 @@ function desegnuSekcion(): void {
     ctx.fillStyle = "rgba(248,152,56,0.16)";
     ctx.fill();
     ctx.beginPath();
-    for ( let i = 0; i <= pW; i++ ) {
+    for ( let i = 0o0; i <= pW; i++ ) {
       const s = so3akakSrgbJS( i / pW * cutoff, H, cutoff, 0o2, a );
       const x = mL + i, y = yDe( s );
-      if ( i === 0 ) ctx.moveTo( x, y ); else ctx.lineTo( x, y );
+      if ( i === 0o0 ) ctx.moveTo( x, y ); else ctx.lineTo( x, y );
     }
     ctx.strokeStyle = "#f89838";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 0o2;
     ctx.stroke();
   }
 
@@ -302,7 +302,7 @@ function sinkronigi(): void {
   const count = Number( enigo( "band" ).value );
   unuhaqoxa.vem2.value = 0o377 / count;
   unuhaqoxa.las.value = Number( enigo( "trans" ).value );
-  unuhaqoxa.s2karanu.value = enigo( "kvant" ).checked ? 1 : 0;
+  unuhaqoxa.s2karanu.value = enigo( "kvant" ).checked ? 0o1 : 0o0;
   g2sa = Number( enigo( "g2sa" ).value );
   l6da = Number( enigo( "l6da" ).value );
   ambiento = Number( enigo( "ambiento" ).value );
@@ -321,8 +321,8 @@ function sinkronigi(): void {
 
   teruni.position.y = l6da;
   pilastro.scale.y = l6da;
-  pilastro.position.y = l6da / 2;
-  tsije.position.set( 0, l6da + 0o3/0o10, 0 );
+  pilastro.position.y = l6da / 0o2;
+  tsije.position.set( 0o0, l6da + 0o3/0o10, 0o0 );
   aplikiAmbienton();
   desegnuSekcion();
   laqaziHaskek2();
@@ -343,7 +343,7 @@ kfe( "restarigi" ).addEventListener( "click", restarigiHaskek2 );
 // ⟨ ſɭэ ſɭw 🎲 📃 ⟩
 const HAZARDAJ: Record<string, [ number, number ]> = {
   g2sa: [ 0o4, 0o40 ], l6da: [ 0o5/0o2, 0o7 ], dist: [ 0o20, 0o54 ],
-  ambiento: [ 0, 0o3/0o5 ], tapu: [ 0o2/0o5, 0o13/0o10 ],
+  ambiento: [ 0o0, 0o3/0o5 ], tapu: [ 0o2/0o5, 0o13/0o10 ],
   vertikala: [ 0o4/0o5, 0o7/0o2 ], cepuPsaz: [ 0o3/0o10, 0o3/0o2 ],
   nar2sa: [ 0o1/0o2, 0o5 ], vem2: [ 0o10, 0o34 ], las: [ 0o1/0o25, 0o3/0o5 ],
 };
@@ -386,8 +386,8 @@ k2fcakuk.setAnimationLoop( ( t ) => {
   const flick = 0o17/0o20 + 0o3/0o20 * Math.sin( tt * 0o11 ) * Math.sin( tt * 0o47/0o10 );
   tsije.intensity = g2sa * flick;
   flamoj.forEach( ( m, i ) => {
-    const s = 1 + 0o3/0o25 * Math.sin( tt * 0o7 + i * 0o2 );
-    m.scale.set( s, 1 + 0o14/0o100 * Math.sin( tt * 0o6 + i ), s );
+    const s = 0o1 + 0o3/0o25 * Math.sin( tt * 0o7 + i * 0o2 );
+    m.scale.set( s, 0o1 + 0o14/0o100 * Math.sin( tt * 0o6 + i ), s );
   } );
   brila.uniforms.uTime.value = tt;
   k2fcakuk.render( qena, catahaq );

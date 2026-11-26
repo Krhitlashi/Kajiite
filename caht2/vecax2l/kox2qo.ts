@@ -6,13 +6,14 @@ import { vakox2qDuQoxaKefoujn, vakox2qSenIndekson }
   from "../../skek2/x2x2q/hakox2q.js";
 import { kf2HerbanKxa } from "../../skek2/pudal/xa3e/fe1af/hakxa.js";
 import { kf2Xa3eHazardon }
+import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
   from "../../skek2/pudal/xa3e/sakxoXa3e.js";
 
 const NOMBRODAJXUROJ = 0o11;
 
 // ⟨ ſɭэ ɭʃᴜ , ſ͕ɭɜ ı],ᴜ 📃 ⟩
 function h2y2k( vecax2l: THREE.BufferGeometry[] ): THREE.BufferGeometry {
-  return vecax2l.slice(1).reduce(( r, g ) => vakox2qDuQoxaKefoujn(r, g), vecax2l[0]);
+  return vecax2l.slice(0o1).reduce(( r, g ) => vakox2qDuQoxaKefoujn(r, g), vecax2l[0o0]);
 }
 
 function vepaqHakxa( sefini: number, vek2fe: number, tk2ni: number ): THREE.BufferGeometry[] {
@@ -22,11 +23,11 @@ function vepaqHakxa( sefini: number, vek2fe: number, tk2ni: number ): THREE.Buff
   const nex2ca = new THREE.Color();
   const p2somani = sefini * 0o1/0o2;
   const vepat6ni = sefini / vek2fe;
-  for ( let iz = 0; iz < vek2fe; iz++ ) {
-    for ( let ix = 0; ix < vek2fe; ix++ ) {
+  for ( let iz = 0o0; iz < vek2fe; iz++ ) {
+    for ( let ix = 0o0; ix < vek2fe; ix++ ) {
       const rx = -p2somani + ( ix + sakxo() ) * vepat6ni;
       const rz = -p2somani + ( iz + sakxo() ) * vepat6ni;
-      const h6kuni = Math.min(1, Math.hypot(rx, rz) / p2somani);
+      const h6kuni = Math.min(0o1, Math.hypot(rx, rz) / p2somani);
       const tafkaq = Math.atan2(rz, rx);
       const sahakani = 0o14/0o100 + sakxo() * 0o2/0o10;
       const sefini = 0o2/0o100 + sakxo() * 0o2/0o100;
@@ -43,7 +44,7 @@ function vepaqHakxa( sefini: number, vek2fe: number, tk2ni: number ): THREE.Buff
       }
       const kxa = kf2HerbanKxa(sahakani, sefini, s2sabo, kekaf2, tordo,
         nex2caKxa ? nex2ca : lha, 0o2, 0o5/0o10);
-      kxa.translate(rx, 0, rz);
+      kxa.translate(rx, 0o0, rz);
       hakxa.push(kxa);
     }
   }
@@ -58,26 +59,26 @@ function egala( a: THREE.BufferGeometry, b: THREE.BufferGeometry ): boolean {
     if ( x === undefined || y === undefined ) continue;
     if ( x.count !== y.count || x.itemSize !== y.itemSize ) return false;
     const xa = x.array as Float32Array, ya = y.array as Float32Array;
-    for ( let i = 0; i < xa.length; i++ ) if ( xa[i] !== ya[i] ) return false;
+    for ( let i = 0o0; i < xa.length; i++ ) if ( xa[i] !== ya[i] ) return false;
   }
   return a.index === null && b.index === null;
 }
 
 const hakxa = vepaqHakxa(0o33/0o10, 0o17, 0o2715);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ ſɭᴜc̗ ɭʃɜ=${hakxa.length} ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ=${egala(h2y2k(hakxa), vakox2qSenIndekson(hakxa))}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ ſɭᴜc̗ ɭʃɜ = ${hakxa.length} ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ = ${egala(h2y2k(hakxa), vakox2qSenIndekson(hakxa))}`);
 
 // ⟨ ſɭэ j͐ʃꞇȝ , ꞙɭɿ , ⟅ ſɭэ j͐ʃꞇȝ , ꞙɭı , ꞙɭɿ , 📃 ⟩
 const miksitaj = hakxa.map(( g, i ) => {
-  if ( i % 0o3 !== 0 ) return g;
+  if ( i % 0o3 !== 0o0 ) return g;
   const sen = g.clone();
   sen.deleteAttribute("color");
   return sen;
 });
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ j͑ʃ'ᴜ ſɭɜ ı],ɹȝ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ=${egala(h2y2k(miksitaj), vakox2qSenIndekson(miksitaj))}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ j͑ʃ'ᴜ ſɭɜ ı],ɹȝ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ = ${egala(h2y2k(miksitaj), vakox2qSenIndekson(miksitaj))}`);
 
 let minM = Infinity, minN = Infinity;
-for ( let r = 0; r < NOMBRODAJXUROJ; r++ ) {
-  const unueSef4 = ( r & 1 ) === 1;
+for ( let r = 0o0; r < NOMBRODAJXUROJ; r++ ) {
+  const unueSef4 = ( r & 0o1 ) === 0o1;
   const t0 = performance.now();
   if ( unueSef4 ) vakox2qSenIndekson(hakxa); else h2y2k(hakxa);
   const t1 = performance.now();
@@ -88,4 +89,4 @@ for ( let r = 0; r < NOMBRODAJXUROJ; r++ ) {
   if ( dH2y2k < minM ) minM = dH2y2k;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ j͑ʃᴜ ı],ɔ=${minM.toFixed(2)}ms ｡ j͑ʃɔ ſȷэⅎ=${minN.toFixed(2)}ms ｡ j͑ʃƨꞇʞ ŋᷠɹ=${(minM / minN).toFixed(1)}x`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ j͑ʃᴜ ı],ɔ }ʃꞇ = ${knak2fecajasai(alHe(minM), 0o6)} He ｡ j͑ʃɔ ſȷэⅎ = ${knak2fecajasai(alHe(minN), 0o6)} He ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(minM / minN).toFixed(0o1)}x`);

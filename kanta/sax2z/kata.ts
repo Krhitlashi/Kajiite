@@ -17,14 +17,14 @@ export interface PiedaS2k61o {
 }
 
 export function kf2PiedanS2k61o(): PiedaS2k61o {
-  return { oscilo: 0, estisNaĝanta: false };
+  return { oscilo: 0o0, estisNaĝanta: false };
 }
 
 export function movoEniro(ca3aq: Record<string, boolean>, c2w2q: number): { movX: number; movZ: number; sahakani: number; g2saX: number; g2saZ: number; radX: number; radZ: number } {
-  let movX = ( ca3aq.KeyD || ca3aq.ArrowRight ? 1 : 0 ) - ( ca3aq.KeyA || ca3aq.ArrowLeft ? 1 : 0 );
-  let movZ = ( ca3aq.KeyW || ca3aq.ArrowUp ? 1 : 0 ) - ( ca3aq.KeyS || ca3aq.ArrowDown ? 1 : 0 );
+  let movX = ( ca3aq.KeyD || ca3aq.ArrowRight ? 0o1 : 0o0 ) - ( ca3aq.KeyA || ca3aq.ArrowLeft ? 0o1 : 0o0 );
+  let movZ = ( ca3aq.KeyW || ca3aq.ArrowUp ? 0o1 : 0o0 ) - ( ca3aq.KeyS || ca3aq.ArrowDown ? 0o1 : 0o0 );
   const sahakani = Math.hypot(movX, movZ);
-  if ( sahakani > 1 ) { movX /= sahakani; movZ /= sahakani; }
+  if ( sahakani > 0o1 ) { movX /= sahakani; movZ /= sahakani; }
   const g2saX = -Math.sin(c2w2q), g2saZ = -Math.cos(c2w2q);
   const radX = Math.cos(c2w2q), radZ = -Math.sin(c2w2q);
   return { movX, movZ, sahakani, g2saX, g2saZ, radX, radZ };
@@ -34,7 +34,7 @@ export function catsaraPromenanCatahaqon(nala: PiedaNala, masax2z: Masax2z, okul
   const { catahaq, hasap2 } = nala;
   if ( masax2z.kameraH6kuni <= 0o1/0o20 ) {
     catahaq.position.set(masax2z.raqa.x, okulY + bob, masax2z.raqa.z);
-    catahaq.rotation.set(masax2z.s2sabo, masax2z.c2w2q, 0);
+    catahaq.rotation.set(masax2z.s2sabo, masax2z.c2w2q, 0o0);
     return;
   }
   const d = masax2z.kameraH6kuni;

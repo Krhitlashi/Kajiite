@@ -17,14 +17,14 @@ const KUROTOLERO = 0o1 / 0o40;
 
 const qena = new THREE.Scene();
 const texture = new THREE.Texture();
-kas2kantaHasoza.length = 0;
+kas2kantaHasoza.length = 0o0;
 await vepaqKaxten(qena,
   kf2T6g6Pukek(texture), kf2T6hnaPukek(texture),
   kf2Cah6k6Pukek(), kf2KuhalPukek(0xd8b068), () => {});
 
 interface F2k { fala: number; kuro: number; haga: number; x: number; z: number }
 const haf2k: F2k[] = [];
-let glataj = 0;
+let glataj = 0o0;
 for ( const kek of kas2kantaHasoza ) {
   const kuro = Math.hypot(kek.x2 - kek.x1, kek.z2 - kek.z1);
   const fala = Math.abs(kek.y1 - kek.y0);
@@ -42,18 +42,18 @@ haf2k.sort(( p, q ) => q.haga - p.haga);
 const troaj = haf2k.filter(r => r.haga > DEKLIVOLIMO);
 const premitaj = haf2k.filter(r => rampaKuro(r.fala) - r.kuro > KUROTOLERO);
 const haga = [ ...new Set(haf2k.map(r => r.haga.toFixed(0o2))) ].sort();
-const plosteq = haf2k[0];
+const plosteq = haf2k[0o0];
 
 console.log( `ſɭᴜc̗ ɭʃɜ ʌ ɭʃɜ }ʃᴜ ${haf2k.length} ｡ j͑ʃɜ ſɭ,ᴜ ı],ᴜ ֭ſɭᴜ ${glataj} ｡ ɭl̀ᴜ ʌ ſןw ſɭᴜƴ ʌ ɭʃɜ }ʃᴜ ${troaj.length}` +
-  ` ｡ ſןw ſɭᴜƴ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${( plosteq?.haga ?? 0 ).toFixed(2)}` +
-  ( plosteq ? ` @${plosteq.x.toFixed(1)},${plosteq.z.toFixed(1)}` : "" ) );
-console.log( `ſןw ſɭᴜƴ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${haga.length} [ ${haga.slice(0, 0o10).join(" ")} ]` +
-  ` ｡ ſɭэ }ʃᴜ ʌ ֭ſɭᴜ ſ͔ɭᴜ ʌ ſɭɹ ſᶘɔ ${STUPAF2KKURO.toFixed(2)}` );
-console.log( `֭ſɭᴜ ſ͔ɭᴜ ʌ j͑ʃɔ ſȷꞇ }ʃꞇ ŋᷠɹ ${premitaj.length}` );
-for ( const r of troaj.slice(0, 0o10) )
-  console.log( `  ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ ｡ j͐ʃᴜɔ˞ ${r.fala.toFixed(2)} ｡ ſɭэ ɭʃᴜ ${r.kuro.toFixed(3)}` +
-    ` ｡ ſןw ſɭᴜƴ ${r.haga.toFixed(2)} @${r.x.toFixed(1)},${r.z.toFixed(1)}` );
+  ` ｡ ſןw ſɭᴜƴ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${( plosteq?.haga ?? 0o0 ).toFixed(0o2)}` +
+  ( plosteq ? ` @${plosteq.x.toFixed(0o1)},${plosteq.z.toFixed(0o1)}` : "" ) );
+console.log( `ſןw ſɭᴜƴ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${haga.length} [ ${haga.slice(0o0, 0o10).join(" ")} ]` +
+  ` ｡ ſɭэ }ʃᴜ ʌ ֭ſɭᴜ ſ͔ɭᴜ ʌ ſɭɹ ſᶘɔ ${STUPAF2KKURO.toFixed(0o2)}` );
+console.log( `֭ſɭᴜ ſ͔ɭᴜ ʌ ŋᷠɹ ŋᷠɹ ʌ j͑ʃɔ ſȷꞇ }ʃꞇ ${premitaj.length}` );
+for ( const r of troaj.slice(0o0, 0o10) )
+  console.log( `  ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ ｡ j͐ʃᴜɔ˞ ${r.fala.toFixed(0o2)} ｡ ſɭэ ɭʃᴜ ${r.kuro.toFixed(0o3)}` +
+    ` ｡ ſןw ſɭᴜƴ ${r.haga.toFixed(0o2)} @${r.x.toFixed(0o1)},${r.z.toFixed(0o1)}` );
 
-const xobe = troaj.length === 0 && premitaj.length === 0 && haf2k.length > 0;
+const xobe = troaj.length === 0o0 && premitaj.length === 0o0 && haf2k.length > 0o0;
 console.log( xobe ? "ſןᴜ j͐ʃэ ʌ ֭ſɭᴜ ſ͔ɭᴜ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" :
   `ſןᴜ j͐ʃэ ʌ ֭ſɭᴜ ſ͔ɭᴜ ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${troaj.length + premitaj.length}` );

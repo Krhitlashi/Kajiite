@@ -4,7 +4,7 @@ import { noiseSrc } from "./xetoh2.js";
 // ⟨ ſȷƽᴜ ʃɔ ʌ ꞙɭɔ ʌ ꞙɭɔ ⟅ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ETA = 0o1/0o20000;
 
-export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 1, toot = false) {
+export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1, toot = false) {
   const g = ctx.createGain(), pk = ( toot ? 0o3/0o40 : 0o20/0o100 ) * vel;
   const atk = toot ? 0o1/0o20 : 0o1/0o10;
   const rel = toot ? 0o5/0o100 : 0o2/0o10;
@@ -34,7 +34,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   const f1 = ctx.createBiquadFilter();
   f1.type = "bandpass";
   f1.frequency.value = toot ? 0o1234 : 0o1032;
-  f1.Q.value = toot ? 4 : 0o5;
+  f1.Q.value = toot ? 0o4 : 0o5;
 
   const f2 = ctx.createBiquadFilter();
   f2.type = "bandpass";

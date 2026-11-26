@@ -22,20 +22,20 @@ export const SXIPANIVELOJ = 0o5;
 function rondigitaDupordaQoxa(k6liqSefini: number, tw: number, eh: number,
   r: number): THREE.Shape {
   const s = new THREE.Shape();
-  const hb = k6liqSefini / 2, ht = tw / 2;
+  const hb = k6liqSefini / 0o2, ht = tw / 0o2;
   const sl = ( hb - ht ) / eh;
   const d = sl * r;
   s.moveTo(-ht + r, -eh);
   s.lineTo(ht - r, -eh);
   s.quadraticCurveTo(ht, -eh, ht + d, -eh + r);
   s.lineTo(hb - d, -r);
-  s.quadraticCurveTo(hb, 0, hb - d, r);
+  s.quadraticCurveTo(hb, 0o0, hb - d, r);
   s.lineTo(ht + d, eh - r);
   s.quadraticCurveTo(ht, eh, ht - r, eh);
   s.lineTo(-ht + r, eh);
   s.quadraticCurveTo(-ht, eh, -ht - d, eh - r);
   s.lineTo(-hb + d, r);
-  s.quadraticCurveTo(-hb, 0, -hb + d, -r);
+  s.quadraticCurveTo(-hb, 0o0, -hb + d, -r);
   s.lineTo(-ht - d, -eh + r);
   s.quadraticCurveTo(-ht, -eh, -ht + r, -eh);
   s.closePath();
@@ -58,7 +58,7 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const up = SXIPANIVELOJ, down = up;
   const b6k61oL6da = SXIPATIERO;
   const s2sabo = MURAKLINO;
-  const hw0 = SXIPALARGO / 2;
+  const hw0 = SXIPALARGO / 0o2;
   const face = Math.atan2(-x, -z);
 
   const muraPukek = new THREE.MeshStandardMaterial({
@@ -84,7 +84,7 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const pordQoxa = rondigitaDupordaQoxa(pordaBlokaSefini, pordaTeruSefini, pordaL6da, 0o1/0o4);
 // ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
   const pordKof = 0o7/0o100, pordBevelo = 0o1/0o40;
-  const pordKofTuta = pordKof + pordBevelo * 2;
+  const pordKofTuta = pordKof + pordBevelo * 0o2;
 // ⟨ ſןɔ˞ᴜƴ , ꞙɭэ , 📃 ⟩
   const pordaKa5ik = hw0 - 0o1/0o100;
 // ⟨ ſןɔ˞ᴜƴ , ꞙɭı ,
@@ -92,66 +92,66 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const CENTRARANDOL6DA = 0o11/0o100;
   const CENTRARANDOLARGO = 0o233/0o100 + 0o5/0o100;
   const CENTRARANDODIKECO = 0o12/0o100;
-  const sost2Ka5ik = pordaKa5ik + pordKof / 2 + pordBevelo / 2;
+  const sost2Ka5ik = pordaKa5ik + pordKof / 0o2 + pordBevelo / 0o2;
   const sost2Vecax2l = new THREE.BoxGeometry(CENTRARANDOLARGO, CENTRARANDOL6DA,
     CENTRARANDODIKECO);
-  for ( let f = 0; f < 4; f++ ) {
+  for ( let f = 0o0; f < 0o4; f++ ) {
     const enirejaVecax2l = new THREE.ExtrudeGeometry(pordQoxa, {
       depth: pordKof, bevelEnabled: true, bevelSize: pordBevelo, bevelThickness: pordBevelo,
-      bevelSegments: 2, curveSegments: 0o20,
+      bevelSegments: 0o2, curveSegments: 0o20,
     });
 // ⟨ j͐ʃƽɜ , ꞙɭɿ , 📃 ⟩
     sax0baPukazQan2kS2qena(enirejaVecax2l, [
-      [ -pordaL6da, pordaTeruSefini ], [ 0, pordaBlokaSefini ],
+      [ -pordaL6da, pordaTeruSefini ], [ 0o0, pordaBlokaSefini ],
       [ pordaL6da, pordaTeruSefini ],
     ]);
     const enirejaMreto = new THREE.Mesh(enirejaVecax2l, eniraPukek);
-    enirejaMreto.rotation.y = f * Math.PI / 2;
-    enirejaMreto.position.set(Math.sin(f * Math.PI / 2) * pordaKa5ik, 0,
-      Math.cos(f * Math.PI / 2) * pordaKa5ik);
+    enirejaMreto.rotation.y = f * Math.PI / 0o2;
+    enirejaMreto.position.set(Math.sin(f * Math.PI / 0o2) * pordaKa5ik, 0o0,
+      Math.cos(f * Math.PI / 0o2) * pordaKa5ik);
     group.add(enirejaMreto);
 
 // ⟨ ſɭᴜ ſןᴜ , ſɭɜ ſɭᴜ , 📃 ⟩
-    const joqaKkaxte = kf2JoqanKkaxten(pordQoxa, pordKof / 2);
-    const ornamo = new THREE.Mesh(new THREE.TubeGeometry(joqaKkaxte, 0o200, pordKofTuta / 2, 0o14, true),
+    const joqaKkaxte = kf2JoqanKkaxten(pordQoxa, pordKof / 0o2);
+    const ornamo = new THREE.Mesh(new THREE.TubeGeometry(joqaKkaxte, 0o200, pordKofTuta / 0o2, 0o14, true),
       oraPukek);
-    ornamo.rotation.y = f * Math.PI / 2;
-    ornamo.position.set(Math.sin(f * Math.PI / 2) * pordaKa5ik, 0,
-      Math.cos(f * Math.PI / 2) * pordaKa5ik);
+    ornamo.rotation.y = f * Math.PI / 0o2;
+    ornamo.position.set(Math.sin(f * Math.PI / 0o2) * pordaKa5ik, 0o0,
+      Math.cos(f * Math.PI / 0o2) * pordaKa5ik);
     group.add(ornamo);
 
 // ⟨ ſןɔ˞ᴜƴ , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
     const sost2 = new THREE.Mesh(sost2Vecax2l, oraPukek);
-    sost2.rotation.y = f * Math.PI / 2;
-    sost2.position.set(Math.sin(f * Math.PI / 2) * sost2Ka5ik, 0,
-      Math.cos(f * Math.PI / 2) * sost2Ka5ik);
+    sost2.rotation.y = f * Math.PI / 0o2;
+    sost2.position.set(Math.sin(f * Math.PI / 0o2) * sost2Ka5ik, 0o0,
+      Math.cos(f * Math.PI / 0o2) * sost2Ka5ik);
     group.add(sost2);
   }
 
 // ⟨ ſɭʃɹ ʃᴜ }ʃw , 📃 ⟩
 // ⟨ j͐ʃƽɜ , 📃 ⟩
   const fenL6da = Math.min(0o5/0o10, b6k61oL6da * 0o23/0o100);
-  const facoKmaLarga = hw0 - s2sabo / 2;
+  const facoKmaLarga = hw0 - s2sabo / 0o2;
   const fenMargxeno = fenestraMargxeno(facoKmaLarga);
   const havem2 = hatanekHavem2(SXIPALARGO, SXIPALARGO, up, b6k61oL6da);
   const fenestrajMretoj: THREE.Mesh[] = [];
-  for ( let i = 1; i < up; i++ ) {
-    const faco = havem2[i].hw - s2sabo / 2;
+  for ( let i = 0o1; i < up; i++ ) {
+    const faco = havem2[i].hw - s2sabo / 0o2;
 // ⟨ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , 📃 ⟩
-    const tapu = faco * 2 - fenMargxeno * 2 >= fenL6da;
+    const tapu = faco * 0o2 - fenMargxeno * 0o2 >= fenL6da;
     if ( !tapu && faco < fenL6da * 0o1/0o2 + 0o1/0o10 ) continue;
-    const hax2pa: { y: number; psaz: boolean }[] = [ { y: havem2[i].y + b6k61oL6da / 2, psaz: false } ];
-    if ( i < down ) hax2pa.push({ y: -havem2[i].y - b6k61oL6da / 2, psaz: true });
-    for ( const x2pa of hax2pa ) for ( let f = 0; f < 4; f++ ) {
+    const hax2pa: { y: number; psaz: boolean }[] = [ { y: havem2[i].y + b6k61oL6da / 0o2, psaz: false } ];
+    if ( i < down ) hax2pa.push({ y: -havem2[i].y - b6k61oL6da / 0o2, psaz: true });
+    for ( const x2pa of hax2pa ) for ( let f = 0o0; f < 0o4; f++ ) {
       fenestrajMretoj.push(tlunakPilolCah6k6(group, oraPukek, fenestraPukek,
         f, x2pa.y, faco, s2sabo, b6k61oL6da, fenL6da, x2pa.psaz,
         tapu ? fenMargxeno : undefined, !tapu));
     }
   }
 
-  const dir = new THREE.Vector3(Math.sin(face), 0, Math.cos(face));
-  const pordaXekuxa = new THREE.Vector3(dir.x * ( hw0 + 0o20/0o10 ), 0,
+  const dir = new THREE.Vector3(Math.sin(face), 0o0, Math.cos(face));
+  const pordaXekuxa = new THREE.Vector3(dir.x * ( hw0 + 0o20/0o10 ), 0o0,
     dir.z * ( hw0 + 0o20/0o10 ));
 
   group.position.set(x, y, z);
@@ -174,8 +174,8 @@ export function animaciiKrasesxagxon(ship: Krasesxagxo,
   ship.group.rotation.z = Math.sin(t * 0o2/0o10) * 0o1/0o40;
 
   if ( isFlying ) {
-    const pulso = 0o23/0o100 + 0o15/0o100 * Math.sin(t * 3);
-    const fenestraPukek = ship.windows[0]?.material as THREE.MeshStandardMaterial;
+    const pulso = 0o23/0o100 + 0o15/0o100 * Math.sin(t * 0o3);
+    const fenestraPukek = ship.windows[0o0]?.material as THREE.MeshStandardMaterial;
     if ( fenestraPukek ) {
       fenestraPukek.emissiveIntensity = 0o15/0o40 + pulso;
     }
@@ -195,14 +195,14 @@ export function saxeiFlugon(ship: Krasesxagxo,
   function tiktako() {
     if ( nuligita ) { ship.group.position.y = saxeaY; return; }
     const pasinta = performance.now() / 0o1740 - saxeaTif;
-    const t = Math.min(1, pasinta / dauxro);
-    const mildigita = t < 0o4/0o10 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const t = Math.min(0o1, pasinta / dauxro);
+    const mildigita = t < 0o4/0o10 ? 0o4 * t * t * t : 0o1 - Math.pow(-0o2 * t + 0o2, 0o3) / 0o2;
 
     ship.group.position.y = saxeaY + ( celaY - saxeaY ) * mildigita;
     ship.group.rotation.y += 0o3/0o100;
     onProgress(mildigita);
 
-    if ( t < 1 ) {
+    if ( t < 0o1 ) {
       requestAnimationFrame(tiktako);
     } else {
       onComplete();

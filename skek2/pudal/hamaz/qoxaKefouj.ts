@@ -44,7 +44,7 @@ export function figurajQoxaKefoujn(): NonNullable<typeof figurajHavecax2lani> {
   const wopo = kf2KapanKranion();
   // ⟨ ɭʃᴜ , ꞙɭı , ⟅ ⟩
   const laz = new THREE.CylinderGeometry(0o56/0o1000, 0o71/0o1000, 0o5/0o40, 0o14, 0o1);
-  laz.translate(0, KOLOY, 0);
+  laz.translate(0o0, KOLOY, 0o0);
   const kapajHakek: THREE.BufferGeometry[] = [ wopo, laz ];
   // ⟨ ɭʃɜ ſɭɹȝ , ſɟɔȝ , ⟅ ⟩
   for ( const dir of [ -0o1, 0o1 ] ) kapajHakek.push(kf2Orelon(dir));
@@ -85,18 +85,18 @@ export function figurajQoxaKefoujn(): NonNullable<typeof figurajHavecax2lani> {
   const KUBUTAV = KUBUTAY / MANIKABAZO;
   // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭɔ , ꞙɭı , ⟅ ⟩
   const KUBUTAR = MANIKAKMARO + ( MANIKAMALKMARO - MANIKAKMARO ) * 0o1/0o4;
-  const manikaTeru = remapiUVon(kf2SlafTonditanTubon(MANIKAKMARO, KUBUTAR, 0,
-    KUBUTAY, 0o60, 0o4, 0, 0, true), 0, KUBUTAV);
+  const manikaTeru = remapiUVon(kf2SlafTonditanTubon(MANIKAKMARO, KUBUTAR, 0o0,
+    KUBUTAY, 0o60, 0o4, 0o0, 0o0, true), 0o0, KUBUTAV);
   // ⟨ j͑ʃͷ̗ᴜʞ , j͑ʃᴜ ʃɜ , ſɭɜ ſɭᴜƽ , ⟅ ⟩
   // ⟨ ı],э ŋᷠꞇ , ꞙɭı , ɭʃꞇƽ , ⟅ ⟩
   const malprofundeco = 0o3/0o200;
   const manikaMaltik = kf2SlafTonditanTubon(KUBUTAR, MANIKAMALKMARO, KUBUTAY,
     MANIKABAZO, 0o60, 0o4, malprofundeco, 0o10/0o1000, false);
   remapiUVon(manikaMaltik, KUBUTAV, 0o1);
-  manikaMaltik.translate(0, -KUBUTAY, 0);
+  manikaMaltik.translate(0o0, -KUBUTAY, 0o0);
   // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , j͑ʃɜȝ ɭʃɔ , ⟅ ⟩
   // ⟨ ꞙɭı , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
-  const manikaArtiko = kf2ArtikanSferon([ 0, 0, -0o3/0o1000 ], KUBUTAR, 0o7/0o10);
+  const manikaArtiko = kf2ArtikanSferon([ 0o0, 0o0, -0o3/0o1000 ], KUBUTAR, 0o7/0o10);
   figurajHavecax2lani = {
     // ⟨ ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
     kapa,

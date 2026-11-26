@@ -117,7 +117,7 @@ registriVeb6kekitajnHacakamaha(qena);
 registriVivantojn({ hanpco, has2kaj2, hapaga: hapaga.hapaga, hatemek: hatemek.hatemek });
 
 // ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
-const ludantaQoxa: Qoxa = vepaqQoxa(HASOQTE[0]);
+const ludantaQoxa: Qoxa = vepaqQoxa(HASOQTE[0o0]);
 ludantaQoxa.group.visible = false;
 qena.add(ludantaQoxa.group);
 
@@ -133,7 +133,7 @@ const caxlefkakai = kf2Caxlefkakai(qena, laqaziTost, traduki);
 
 // ⟪ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟫
 const hakama = new OrbitControls(catahaq, k2fcakuk.domElement);
-hakama.target.set(0, 2, 0);
+hakama.target.set(0o0, 0o2, 0o0);
 hakama.enableDamping = true;
 hakama.dampingFactor = 0o5/0o100;
 hakama.maxPolarAngle = Math.PI * 0o37/0o100;
@@ -213,7 +213,7 @@ const { ca3aq, tsekeSprintas, tsekeSaltas } = kf2Hap2d2({
       masax2z.c2w2q += dC2w2q;
       masax2z.s2sabo = Math.max(-0o135/0o100, Math.min(0o135/0o100, masax2z.s2sabo + dKlinigxo));
     },
-    tlunakZumon: ( dZumo ) => { masax2z.celH6kuni = Math.max(0, Math.min(0o16, masax2z.celH6kuni + dZumo)); },
+    tlunakZumon: ( dZumo ) => { masax2z.celH6kuni = Math.max(0o0, Math.min(0o16, masax2z.celH6kuni + dZumo)); },
   },
   hazegeni: { interakti: proviInterakti, tsiinanusabosaiSupknu, salti, eskapo: agaEskapon },
 });
@@ -227,11 +227,11 @@ function tlak2Retikulon() {
 const caboleRehaxe = new THREE.Raycaster();
 p2t6zo.addEventListener("click", ( e ) => {
   if ( masax2z.supknu !== "orbito" ) return;
-  const muso = new THREE.Vector2(( e.clientX / innerWidth ) * 2 - 1, -( e.clientY / innerHeight ) * 2 + 1);
+  const muso = new THREE.Vector2(( e.clientX / innerWidth ) * 0o2 - 0o1, -( e.clientY / innerHeight ) * 0o2 + 0o1);
   caboleRehaxe.setFromCamera(muso, catahaq);
   const haxes2waz = caboleRehaxe.intersectObjects(knasukf2qdalai);
-  if ( haxes2waz.length > 0 ) {
-    const data = haxes2waz[0].object.userData;
+  if ( haxes2waz.length > 0o0 ) {
+    const data = haxes2waz[0o0].object.userData;
     if ( data && data.spec ) laqaziThala(data.spec, data.buildingType);
   } else {
     kobesaiThala();

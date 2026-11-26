@@ -17,35 +17,35 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
   };
   for ( const [ col, row, hunaq ] of haKekkozusai ) {
     const cx = col * TONA, cz = row * TONA;
-    if ( col === 0 && row === 0 ) {
-      if ( ptalu.k6liqPal6 === "kvar" ) tlunakani(0, 0, 0, "qaman2", "sost2", true);
-      else tlunakani(0, 0, 0, hunaq, "sost2", false);
+    if ( col === 0o0 && row === 0o0 ) {
+      if ( ptalu.k6liqPal6 === "kvar" ) tlunakani(0o0, 0o0, 0o0, "qaman2", "sost2", true);
+      else tlunakani(0o0, 0o0, 0o0, hunaq, "sost2", false);
       continue;
     }
     if ( ptalu.k6liqPal6 === "kvar" ) {
       const suboj: [ number, number, number, KradaPaq["veq6k2"] ][] = [
-        [ BLOKO,  BLOKO,  0,            "NE" ],
-        [ -BLOKO,  BLOKO,  -Math.PI / 2, "NW" ],
+        [ BLOKO,  BLOKO,  0o0,            "NE" ],
+        [ -BLOKO,  BLOKO,  -Math.PI / 0o2, "NW" ],
         [ -BLOKO, -BLOKO,   Math.PI,     "SW" ],
-        [ BLOKO, -BLOKO,   Math.PI / 2, "SE" ],
+        [ BLOKO, -BLOKO,   Math.PI / 0o2, "SE" ],
       ];
       for ( const [ blx, blz, rot, veq6k2 ] of suboj ) {
         const subHunaq = hateru?.get(`${col},${row},${veq6k2}`);
         tlunakani(cx + blx, cz + blz, rot, subHunaq ?? hunaqDeK6liq(hunaq, col, row, blx, blz), veq6k2, false);
       }
     } else {
-      tlunakani(cx, cz, 0, hunaq, "sost2", false);
+      tlunakani(cx, cz, 0o0, hunaq, "sost2", false);
     }
   }
   if ( ptalu.k6liqPal6 === "vakox2qita" ) {
     for ( const k of paqj ) {
-      if ( k.stacia || k.ekstra || ( k.x === 0 && k.z === 0 ) ) continue;
-      if ( Math.abs(k.x) > Math.abs(k.z) ) k.rot = k.x > 0 ? -Math.PI / 2 : Math.PI / 2;
-      else k.rot = k.z > 0 ? Math.PI : 0;
+      if ( k.stacia || k.ekstra || ( k.x === 0o0 && k.z === 0o0 ) ) continue;
+      if ( Math.abs(k.x) > Math.abs(k.z) ) k.rot = k.x > 0o0 ? -Math.PI / 0o2 : Math.PI / 0o2;
+      else k.rot = k.z > 0o0 ? Math.PI : 0o0;
     }
   }
   for ( const b of tlunakHak6liq ?? [] ) {
-    tlunakani(b.x, b.z, b.rot ?? 0, b.hunaq, b.veq6k2 ?? "sost2", !!b.stacia, true, !!b.konektita);
+    tlunakani(b.x, b.z, b.rot ?? 0o0, b.hunaq, b.veq6k2 ?? "sost2", !!b.stacia, true, !!b.konektita);
   }
   for ( const b of tlunakHak6liq ?? [] ) {
     if ( !b.konektita ) continue;
@@ -60,12 +60,12 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
   const KOLOJ = [ ...colSet ].sort(( a, b ) => a - b);
   const HAVESEFESTAF = [ ...rowSet ].sort(( a, b ) => a - b);
   const RETOX: number[] = [];
-  for ( let ci = 0; ci < KOLOJ.length - 1; ci++ ) {
-    if ( KOLOJ[ci + 1] - KOLOJ[ci] === 1 ) RETOX.push(( KOLOJ[ci] + KOLOJ[ci + 1] ) / 2 * TONA);
+  for ( let ci = 0o0; ci < KOLOJ.length - 0o1; ci++ ) {
+    if ( KOLOJ[ci + 0o1] - KOLOJ[ci] === 0o1 ) RETOX.push(( KOLOJ[ci] + KOLOJ[ci + 0o1] ) / 0o2 * TONA);
   }
   const RETOZ: number[] = [];
-  for ( let ri = 0; ri < HAVESEFESTAF.length - 1; ri++ ) {
-    if ( HAVESEFESTAF[ri + 1] - HAVESEFESTAF[ri] === 1 ) RETOZ.push(( HAVESEFESTAF[ri] + HAVESEFESTAF[ri + 1] ) / 2 * TONA);
+  for ( let ri = 0o0; ri < HAVESEFESTAF.length - 0o1; ri++ ) {
+    if ( HAVESEFESTAF[ri + 0o1] - HAVESEFESTAF[ri] === 0o1 ) RETOZ.push(( HAVESEFESTAF[ri] + HAVESEFESTAF[ri + 0o1] ) / 0o2 * TONA);
   }
   if ( ptalu.k6liqPal6 === "kvar" ) {
     const e = ( n + 0o1/0o2 ) * TONA;
@@ -75,21 +75,21 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
   const hasCellJe = ( c: number, r: number ) =>
     haKekkozusai.some(( [ lc, lr, lt ] ) => lc === c && lr === r && lt !== null);
 
-  const { EW, NS } = skaniK6h6nCaxlefkakai(RETOX, RETOZ, TONA, 0, 0,
-    ptalu.k6liqPal6 === "vakox2qita" ? ( n + 1 ) * TONA : null, hasCellJe);
+  const { EW, NS } = skaniK6h6nCaxlefkakai(RETOX, RETOZ, TONA, 0o0, 0o0,
+    ptalu.k6liqPal6 === "vakox2qita" ? ( n + 0o1 ) * TONA : null, hasCellJe);
   const NSekstentoj = new Map<number, [ number, number ]>();
   const EWekstentoj = new Map<number, [ number, number ]>();
   for ( const [ roadZ, hakamekai ] of EW ) {
-    EWekstentoj.set(roadZ, [ hakamekai[0], hakamekai[hakamekai.length - 1] ]);
-    for ( let i = 0; i < hakamekai.length - 1; i++ ) {
-      const x1 = hakamekai[i], x2 = hakamekai[i + 1];
+    EWekstentoj.set(roadZ, [ hakamekai[0o0], hakamekai[hakamekai.length - 0o1] ]);
+    for ( let i = 0o0; i < hakamekai.length - 0o1; i++ ) {
+      const x1 = hakamekai[i], x2 = hakamekai[i + 0o1];
       if ( Math.abs(x2 - x1) > 0o1/0o10 ) hak6h6.push({ orient: "EW", haxekuxa: roadZ, de: x1, al: x2 });
     }
   }
   for ( const [ roadX, hakamekai ] of NS ) {
-    NSekstentoj.set(roadX, [ hakamekai[0], hakamekai[hakamekai.length - 1] ]);
-    for ( let i = 0; i < hakamekai.length - 1; i++ ) {
-      const z1 = hakamekai[i], z2 = hakamekai[i + 1];
+    NSekstentoj.set(roadX, [ hakamekai[0o0], hakamekai[hakamekai.length - 0o1] ]);
+    for ( let i = 0o0; i < hakamekai.length - 0o1; i++ ) {
+      const z1 = hakamekai[i], z2 = hakamekai[i + 0o1];
       if ( Math.abs(z2 - z1) > 0o1/0o10 ) hak6h6.push({ orient: "NS", haxekuxa: roadX, de: z1, al: z2 });
     }
   }
@@ -131,14 +131,14 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
   const hatohtanu: KradaSpono[] = [];
   if ( ptalu.k6liqPal6 === "vakox2qita" ) {
     const ekst = NSekstentoj.get(t2q2X);
-    if ( ekst ) ekst[0] = Math.min(ekst[0], -0o130);
+    if ( ekst ) ekst[0o0] = Math.min(ekst[0o0], -0o130);
   }
-  for ( let i = 0; i < paqj.length; i++ ) {
+  for ( let i = 0o0; i < paqj.length; i++ ) {
     const s = paqj[i];
     if ( s.ekstra && !s.konektita ) continue;
-    if ( s.x === 0 && s.z === 0 ) continue;
-    const rot = s.rot || 0;
-    const p2somaniD = 0o10 / 2;
+    if ( s.x === 0o0 && s.z === 0o0 ) continue;
+    const rot = s.rot || 0o0;
+    const p2somaniD = 0o10 / 0o2;
     const kevOffset = p2somaniD + 0o14/0o10;
     const kevX = s.x + Math.sin(rot) * kevOffset;
     const kevZ = s.z + Math.cos(rot) * kevOffset;
@@ -146,29 +146,29 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
     const tohtanuZ = s.z + Math.cos(rot) * p2somaniD;
     const fX = Math.sin(rot), fZ = Math.cos(rot);
     const p2somaniL = 0o7/0o10;
-    let celX = 0, celZ = 0, celita = false;
+    let celX = 0o0, celZ = 0o0, celita = false;
     if ( Math.abs(fX) > Math.abs(fZ) ) {
-      const kaatse = fX > 0 ? 1 : -1;
-      celX = kaatse > 0 ? Math.max(...RETOX) : Math.min(...RETOX);
+      const kaatse = fX > 0o0 ? 0o1 : -0o1;
+      celX = kaatse > 0o0 ? Math.max(...RETOX) : Math.min(...RETOX);
       for ( const rx of RETOX ) {
-        if ( kaatse > 0 && rx > kevX && rx < celX ) celX = rx;
-        if ( kaatse < 0 && rx < kevX && rx > celX ) celX = rx;
+        if ( kaatse > 0o0 && rx > kevX && rx < celX ) celX = rx;
+        if ( kaatse < 0o0 && rx < kevX && rx > celX ) celX = rx;
       }
-      if ( ( kaatse > 0 && celX <= tohtanuX ) || ( kaatse < 0 && celX >= tohtanuX ) ) continue;
+      if ( ( kaatse > 0o0 && celX <= tohtanuX ) || ( kaatse < 0o0 && celX >= tohtanuX ) ) continue;
       const ekstX = NSekstentoj.get(celX);
-      if ( !ekstX || tohtanuZ < ekstX[0] - p2somaniL || tohtanuZ > ekstX[1] + p2somaniL ) continue;
+      if ( !ekstX || tohtanuZ < ekstX[0o0] - p2somaniL || tohtanuZ > ekstX[0o1] + p2somaniL ) continue;
       celZ = tohtanuZ;
       celita = true;
     } else {
-      const kaatse = fZ > 0 ? 1 : -1;
-      celZ = kaatse > 0 ? Math.max(...RETOZ) : Math.min(...RETOZ);
+      const kaatse = fZ > 0o0 ? 0o1 : -0o1;
+      celZ = kaatse > 0o0 ? Math.max(...RETOZ) : Math.min(...RETOZ);
       for ( const rz of RETOZ ) {
-        if ( kaatse > 0 && rz > kevZ && rz < celZ ) celZ = rz;
-        if ( kaatse < 0 && rz < kevZ && rz > celZ ) celZ = rz;
+        if ( kaatse > 0o0 && rz > kevZ && rz < celZ ) celZ = rz;
+        if ( kaatse < 0o0 && rz < kevZ && rz > celZ ) celZ = rz;
       }
-      if ( ( kaatse > 0 && celZ <= tohtanuZ ) || ( kaatse < 0 && celZ >= tohtanuZ ) ) continue;
+      if ( ( kaatse > 0o0 && celZ <= tohtanuZ ) || ( kaatse < 0o0 && celZ >= tohtanuZ ) ) continue;
       const ekstZ = EWekstentoj.get(celZ);
-      if ( !ekstZ || tohtanuX < ekstZ[0] - p2somaniL || tohtanuX > ekstZ[1] + p2somaniL ) continue;
+      if ( !ekstZ || tohtanuX < ekstZ[0o0] - p2somaniL || tohtanuX > ekstZ[0o1] + p2somaniL ) continue;
       celX = tohtanuX;
       celita = true;
     }

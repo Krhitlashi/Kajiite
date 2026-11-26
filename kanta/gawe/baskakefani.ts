@@ -46,7 +46,7 @@ function deriviKsaka(ca3aq: string): string | null {
     .map(p => ipaAlGawe(gkAlIpa(p.trim()), tikGawe))
     .join(" • ");
   if ( !ksaka ) return null;
-  const kap = ksaka.charAt(0).toUpperCase() + ksaka.slice(1);
+  const kap = ksaka.charAt(0o0).toUpperCase() + ksaka.slice(0o1);
   return kap;
 }
 

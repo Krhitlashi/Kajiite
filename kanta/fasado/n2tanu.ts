@@ -66,7 +66,7 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
 // ⟨ ſɭэ ſɭw , ſɭэ ſɭᴜ , ꞙɭı , ⟅ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
 // ⟨ ſɭэ ſɭw , ꞙɭɿ , ⟅ ſɭэ ſɭw , ꞙɭı ,
 //   ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
-  let krepuskaVem2 = 0;
+  let krepuskaVem2 = 0o0;
   function aplikiKrepuskon( skek2: number ): void {
     krepuskaVem2 = skek2;
     duskRegilo.value = String(skek2);
@@ -76,17 +76,17 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
     aplikiSupknu(skek2);
   }
   butKrepusko.addEventListener("click", () => {
-    aplikiKrepuskon(krepuskaVem2 > 0o4/0o10 ? 0 : 1);
+    aplikiKrepuskon(krepuskaVem2 > 0o4/0o10 ? 0o0 : 0o1);
     ve3aqKu1o("krepusko", krepuskaVem2);
     pukxeiNaviganPopUp();
   });
   duskRegilo.addEventListener("input", () => {
-    aplikiKrepuskon(parseFloat(duskRegilo.value) || 0);
+    aplikiKrepuskon(parseFloat(duskRegilo.value) || 0o0);
     ve3aqKu1o("krepusko", krepuskaVem2);
   });
   const vetlaqitaKrepusko = vefalKu1o("krepusko", -0o1);
   aplikiKrepuskon(
-    vetlaqitaKrepusko >= 0 && vetlaqitaKrepusko <= 1
+    vetlaqitaKrepusko >= 0o0 && vetlaqitaKrepusko <= 0o1
       ? vetlaqitaKrepusko
       : Math.round(realaKrepusko() * 0o100) / 0o100
   );
@@ -101,7 +101,7 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
 // ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
   const vetlaqitaVet6lima = vefalKu1o<string>("vet6lima", "");
   const vetlaqitaVecax2l = VETERAJ.findIndex(v => v.s2kanta === vetlaqitaVet6lima);
-  let veteraVecax2l = vetlaqitaVecax2l >= 0 ? vetlaqitaVecax2l : 0;
+  let veteraVecax2l = vetlaqitaVecax2l >= 0o0 ? vetlaqitaVecax2l : 0o0;
   function tlak2VeteranCatsiina(): void {
     const v = VETERAJ[veteraVecax2l];
     butVet6lima.textContent = v.glifo;
@@ -111,7 +111,7 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
     aplikiVet6liman(v.s2kanta);
   }
   butVet6lima.addEventListener("click", () => {
-    veteraVecax2l = ( veteraVecax2l + 1 ) % VETERAJ.length;
+    veteraVecax2l = ( veteraVecax2l + 0o1 ) % VETERAJ.length;
     tlak2VeteranCatsiina();
     ve3aqKu1o("vet6lima", VETERAJ[veteraVecax2l].s2kanta);
     pukxeiNaviganPopUp();

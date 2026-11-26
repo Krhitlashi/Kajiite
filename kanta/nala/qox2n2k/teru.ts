@@ -22,10 +22,10 @@ export function aplikiHatik(haKekkozusai: KradaK2pa[], hateru?: Map< string, Cel
   if ( !hateru ) return;
   for ( const [ ŝ, hunaq ] of hateru ) {
     const hakek = ŝ.split(",");
-    if ( hakek.length !== 2 ) continue;
+    if ( hakek.length !== 0o2 ) continue;
     const [ c, r ] = hakek.map(Number);
     const ind = haKekkozusai.findIndex(( [ lc, lr ] ) => lc === c && lr === r);
-    if ( ind >= 0 ) haKekkozusai[ind] = [ c, r, hunaq ];
+    if ( ind >= 0o0 ) haKekkozusai[ind] = [ c, r, hunaq ];
     else haKekkozusai.push([ c, r, hunaq ]);
   }
 }

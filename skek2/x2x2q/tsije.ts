@@ -345,7 +345,7 @@ export function catsaraQatsiiken( qena: THREE.Scene, k2fcakuk: THREE.WebGLRender
   function kf2(): void {
     if ( natakatomasai ) natakatomasai.dispose();
 // ⟨ ſᶘɹ ſɭᴜ , ꞙɭц , 📃 ⟩
-    natakatomasai = generilo.fromScene( peqeniKagani, 0, 0o1/0o100, 0o400 );
+    natakatomasai = generilo.fromScene( peqeniKagani, 0o0, 0o1/0o100, 0o400 );
     qena.environment = natakatomasai.texture;
     qena.environmentIntensity = vem2;
   }
@@ -530,7 +530,7 @@ export function kf2GelesTsijen( qena: THREE.Scene,
     ku1o.sotsiiVem2 ?? TAJ2TSIJEJ.sotsiiVem2
   );
   const raqa = ku1o.sotsiiHaxekuxa ?? TAJ2TSIJEJ.sotsiiHaxekuxa;
-  sotsii.position.set( raqa[ 0 ], raqa[ 1 ], raqa[ 2 ] );
+  sotsii.position.set( raqa[ 0o0 ], raqa[ 0o1 ], raqa[ 0o2 ] );
   if ( ku1o.hahunanu ) {
     const bal2 = ku1o.ombraBal2 ?? 0o2000;
     const p2somani = ku1o.ombraP2somani ?? 0o100;

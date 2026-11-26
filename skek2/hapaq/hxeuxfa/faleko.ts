@@ -9,51 +9,51 @@ export function kf2Falekon(sost2: number, uCet2: number, uSubo: number, pukazBen
   const tx = -cz, tz = cx;
   const d = ( u: number ) => ( rBot - ( rBot - rTop ) * ( u / H ) ) * Math.SQRT1_2;
   const haga = ( rBot - rTop ) * Math.SQRT1_2 / H;
-  const uB = ( uSubo + rBot * Math.SQRT1_2 - pukazBendo ) / ( 1 + haga );
+  const uB = ( uSubo + rBot * Math.SQRT1_2 - pukazBendo ) / ( 0o1 + haga );
   const Rb = d(uB) - pukazBendo;
-  const uT = ( uCet2 - rBot * Math.SQRT1_2 + pukazBendo ) / ( 1 - haga );
+  const uT = ( uCet2 - rBot * Math.SQRT1_2 + pukazBendo ) / ( 0o1 - haga );
   const Rt = d(uT) - pukazBendo;
   const k6h6: Array<[ number, number ]> = [];
-  for ( let i = 0; i <= SEG; i++ ) {
+  for ( let i = 0o0; i <= SEG; i++ ) {
     const a = Math.PI - Math.PI * i / SEG;
     k6h6.push([ Rt * Math.cos(a), uT + Rt * Math.sin(a) ]);
   }
-  for ( let i = 1; i <= ARMA; i++ ) {
+  for ( let i = 0o1; i <= ARMA; i++ ) {
     const u = uT + ( uB - uT ) * i / ARMA;
     k6h6.push([ d(u) - pukazBendo, u ]);
   }
-  for ( let i = 1; i <= SEG; i++ ) {
+  for ( let i = 0o1; i <= SEG; i++ ) {
     const a = -Math.PI * i / SEG;
     k6h6.push([ Rb * Math.cos(a), uB + Rb * Math.sin(a) ]);
   }
-  for ( let i = 1; i < ARMA; i++ ) {
+  for ( let i = 0o1; i < ARMA; i++ ) {
     const u = uB + ( uT - uB ) * i / ARMA;
     k6h6.push([ -( d(u) - pukazBendo ), u ]);
   }
   const N = k6h6.length;
   const vertoj: number[] = [];
   const havecax2lani: number[] = [];
-  for ( let i = 0; i < N; i++ ) {
+  for ( let i = 0o0; i < N; i++ ) {
     const [ x, u ] = k6h6[i];
-    const [ xa, ua ] = k6h6[( i - 1 + N ) % N];
-    const [ xs, us ] = k6h6[( i + 1 ) % N];
+    const [ xa, ua ] = k6h6[( i - 0o1 + N ) % N];
+    const [ xs, us ] = k6h6[( i + 0o1 ) % N];
     let dx = xs - xa, du = us - ua;
-    const len = Math.hypot(dx, du) || 1;
+    const len = Math.hypot(dx, du) || 0o1;
     dx /= len; du /= len;
     const px = du, pu = -dx;
-    for ( let s = -1; s <= 1; s += 2 ) {
-      const x1 = x + px * largxo / 2 * s;
-      const u1 = u + pu * largxo / 2 * s;
-      vertoj.push(cx * d(u1) + tx * x1 + EPS * cx, -H / 2 + u1, cz * d(u1) + tz * x1 + EPS * cz);
+    for ( let s = -0o1; s <= 0o1; s += 0o2 ) {
+      const x1 = x + px * largxo / 0o2 * s;
+      const u1 = u + pu * largxo / 0o2 * s;
+      vertoj.push(cx * d(u1) + tx * x1 + EPS * cx, -H / 0o2 + u1, cz * d(u1) + tz * x1 + EPS * cz);
     }
   }
-  for ( let i = 0; i < N; i++ ) {
-    const j = ( i + 1 ) % N;
-    const a = i * 2, b = a + 1, c2 = j * 2, d2 = c2 + 1;
+  for ( let i = 0o0; i < N; i++ ) {
+    const j = ( i + 0o1 ) % N;
+    const a = i * 0o2, b = a + 0o1, c2 = j * 0o2, d2 = c2 + 0o1;
     havecax2lani.push(a, c2, b, b, c2, d2);
   }
   const g = new THREE.BufferGeometry();
-  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(vertoj), 3));
+  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(vertoj), 0o3));
   g.setIndex(havecax2lani);
   g.computeVertexNormals();
   return g;

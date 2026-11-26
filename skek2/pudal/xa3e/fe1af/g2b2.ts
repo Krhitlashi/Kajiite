@@ -65,17 +65,17 @@ export function kf2HerbanPukekn(plosteq = 0o100,
   hasukf2qani?: TsiicaMaterialajHasukf2qani ): THREE.MeshStandardMaterial {
   const tikTexture = cac2sex
     ?? ( defauxlaTsiicaTexture ??= kf2HerbanKlinganCac2sex() );
-  const uTif = { value: 0 };
-  const uCatahaq = { value: new THREE.Vector2(0, 0) };
+  const uTif = { value: 0o0 };
+  const uCatahaq = { value: new THREE.Vector2(0o0, 0o0) };
   const uLimo = { value: plosteq };
   const uL6da = { value: hasukf2qani?.l6da ?? 0o1 };
   const uSvajo = { value: hasukf2qani?.svajo ?? 0o7/0o100 };
   const uPusxo = { value: hasukf2qani?.pusxo ?? 0o6/0o10 };
   const uHamasurok = { value: Array.from({ length: HERBAPUSANTOJ },
-    () => new THREE.Vector4(0, 0, 0, 0)) };
+    () => new THREE.Vector4(0o0, 0o0, 0o0, 0o0)) };
   const pukek = new THREE.MeshStandardMaterial({
     map: tikTexture, side: THREE.DoubleSide,
-    vertexColors: true, roughness: 1,
+    vertexColors: true, roughness: 0o1,
   });
   if ( hasukf2qani?.doklivo ) pukek.defines = { ...pukek.defines, HERBADOKLIVO: "" };
   pukek.onBeforeCompile = ( shadero ) => {
@@ -168,18 +168,18 @@ export function kf2HerbanPukekn(plosteq = 0o100,
 
 export function tlak2Fe1afn(t: number, x: number, z: number,
   hasurok?: readonly TsiicaPusanto[]): void {
-  const kiom = hasurok === undefined ? 0 : Math.min(hasurok.length, HERBAPUSANTOJ);
-  for ( let i = 0; i < hatsiicaG2b2j.length; i++ ) {
+  const kiom = hasurok === undefined ? 0o0 : Math.min(hasurok.length, HERBAPUSANTOJ);
+  for ( let i = 0o0; i < hatsiicaG2b2j.length; i++ ) {
     const g2b2 = hatsiicaG2b2j[i];
     g2b2.uTif.value = t;
     ( g2b2.uCatahaq.value as THREE.Vector2 ).set(x, z);
     const ghacamutsa = g2b2.uHamasurok.value as THREE.Vector4[];
-    for ( let k = 0; k < HERBAPUSANTOJ; k++ ) {
+    for ( let k = 0o0; k < HERBAPUSANTOJ; k++ ) {
       const gcamutsa = ghacamutsa[k];
-      if ( k >= kiom ) { gcamutsa.set(0, 0, 0, 0); continue; }
+      if ( k >= kiom ) { gcamutsa.set(0o0, 0o0, 0o0, 0o0); continue; }
       const surok = hasurok![k];
       gcamutsa.set(surok.x, surok.z,
-        surok.ka5ik ?? HERBAPUSARADIO, surok.g2sa ?? 1);
+        surok.ka5ik ?? HERBAPUSARADIO, surok.g2sa ?? 0o1);
     }
   }
   // ⟨ ſןw ſɭɔƽ , j͑ʃᴜ ı],ɔ , ſɭᴜ j͑ʃᴜ ɭʃɹ , ꞙɭɔ , ſɭɹ ſןᴜ ,
@@ -187,7 +187,7 @@ export function tlak2Fe1afn(t: number, x: number, z: number,
   if ( !tsiicaDevigita && x === tlakakaiTsiicaX && z === tlakakaiTsiicaZ ) return;
   tsiicaDevigita = false;
   tlakakaiTsiicaX = x; tlakakaiTsiicaZ = z;
-  for ( let i = 0; i < hatsiicaTavoloj.length; i++ ) {
+  for ( let i = 0o0; i < hatsiicaTavoloj.length; i++ ) {
     const tanek = hatsiicaTavoloj[i];
     const dx = tanek.cx - x, dz = tanek.cz - z;
     const disto2 = dx * dx + dz * dz;

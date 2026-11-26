@@ -189,8 +189,8 @@ export function neregulaK6h6(fx: number, fy: number, r0: number,
   const k6h6 = new Path2D();
   for ( let i = 0o0; i <= 0o100; i++ ) {
     const a = i / 0o100 * Math.PI * 0o2;
-    const r = r0 * ( 1 + sago * Math.sin(a * hax6mi + xafanitapu)
-      + sago * 0o2/0o10 * Math.sin(a * hax6mi * 0o2 + xafanitapu * 0o3 + 1) );
+    const r = r0 * ( 0o1 + sago * Math.sin(a * hax6mi + xafanitapu)
+      + sago * 0o2/0o10 * Math.sin(a * hax6mi * 0o2 + xafanitapu * 0o3 + 0o1) );
     const x = fx + Math.cos(a) * r, y = fy + Math.sin(a) * r;
     if ( i === 0o0 ) k6h6.moveTo(x, y); else k6h6.lineTo(x, y);
   }
@@ -291,8 +291,8 @@ export const hazard = ( a: number, b: number ): number => a + Math.random() * ( 
 
 export function k2fWrapan(kuns2bana: CanvasRenderingContext2D, s: number, qoxa: () => void): void {
   const sy = kuns2bana.canvas.height;
-  for ( const dx of [ -s, 0, s ] ) {
-    for ( const dy of [ -sy, 0, sy ] ) {
+  for ( const dx of [ -s, 0o0, s ] ) {
+    for ( const dy of [ -sy, 0o0, sy ] ) {
       kuns2bana.save();
       kuns2bana.translate(dx, dy);
       qoxa();
@@ -304,12 +304,12 @@ export function k2fWrapan(kuns2bana: CanvasRenderingContext2D, s: number, qoxa: 
 export function senAlfa(weh2: string): string {
   const m = /rgba?\(([^)]+)\)/.exec(weh2);
   if ( m ) {
-    const [ r, g, b ] = m[1].split(",");
+    const [ r, g, b ] = m[0o1].split(",");
     return veb6qaiCss(`rgba(${r.trim()},${g.trim()},${b.trim()},0)`);
   }
   const h = /^#([0-9a-f]{6})$/i.exec(weh2.trim());
   if ( h ) {
-    const n = parseInt(h[1], 0o20);
+    const n = parseInt(h[0o1], 0o20);
     return veb6qaiCss(`rgba(${( n >> 0o20 ) & 0o377},${( n >> 0o10 ) & 0o377},${n & 0o377},0)`);
   }
   return "transparent";
@@ -319,7 +319,7 @@ export function larmo(k: CanvasRenderingContext2D, x: number, y: number, rad: nu
   ang: number, weh2: string): void {
   const tipX = x + Math.cos(ang) * rad * 0o22/0o10;
   const tipY = y + Math.sin(ang) * rad * 0o22/0o10;
-  const b1 = ang + Math.PI / 2, b2 = ang - Math.PI / 2;
+  const b1 = ang + Math.PI / 0o2, b2 = ang - Math.PI / 0o2;
   k.fillStyle = weh2;
   k.beginPath();
   k.moveTo(tipX, tipY);
@@ -344,16 +344,16 @@ export function k2fVas2flofajnF2m2jn(kuns2bana: CanvasRenderingContext2D, s: num
 // ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
 //   ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
   const sukf2qi = sakxo ?? hazard;
-  for ( let i = 0; i < n; i++ ) {
+  for ( let i = 0o0; i < n; i++ ) {
     const r = l6da * sukf2qi(minimumo, minimumo + amplekso);
-    const x = sukf2qi(0, s), y = sukf2qi(0, l6da);
+    const x = sukf2qi(0o0, s), y = sukf2qi(0o0, l6da);
     const weh2 = weh2Cax2lo[i % weh2Cax2lo.length];
     k2fWrapan(kuns2bana, s, () => {
-      const g = kuns2bana.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, weh2);
-      g.addColorStop(1, senAlfa(weh2));
+      const g = kuns2bana.createRadialGradient(x, y, 0o0, x, y, r);
+      g.addColorStop(0o0, weh2);
+      g.addColorStop(0o1, senAlfa(weh2));
       kuns2bana.fillStyle = g;
-      kuns2bana.beginPath(); kuns2bana.arc(x, y, r, 0, Math.PI * 2); kuns2bana.fill();
+      kuns2bana.beginPath(); kuns2bana.arc(x, y, r, 0o0, Math.PI * 0o2); kuns2bana.fill();
     });
   }
 }
@@ -400,7 +400,7 @@ export function fu36Cac2sexnWerejn(): void {
 
 export function kf2P2t6zoCac2sex(w: number, h: number,
   pentri: ( k: CanvasRenderingContext2D ) => void,
-  ripeto: [ number, number ] = [ 1, 1 ],
+  ripeto: [ number, number ] = [ 0o1, 0o1 ],
   haku1o: { g2b2?: THREE.Wrapping; sRGB?: boolean; anisotropio?: number } = {}
 ): THREE.CanvasTexture {
   const kanvasa = document.createElement("canvas");
@@ -410,18 +410,18 @@ export function kf2P2t6zoCac2sex(w: number, h: number,
   const cac2sex = new THREE.CanvasTexture(kanvasa);
   if ( haku1o.sRGB !== false ) cac2sex.colorSpace = THREE.SRGBColorSpace;
   cac2sex.wrapS = cac2sex.wrapT = haku1o.g2b2 ?? THREE.RepeatWrapping;
-  cac2sex.repeat.set(ripeto[0], ripeto[1]);
+  cac2sex.repeat.set(ripeto[0o0], ripeto[0o1]);
   if ( haku1o.anisotropio ) cac2sex.anisotropy = haku1o.anisotropio;
   return cac2sex;
 }
 
 export function neregulaQoxa(k: CanvasRenderingContext2D, fx: number, fy: number, r0: number, hax6mi: number, sago: number, xafanitapu: number): void {
   k.beginPath();
-  for ( let i = 0; i <= 0o40; i++ ) {
-    const a = i / 0o40 * Math.PI * 2;
-    const r = r0 * ( 1 + sago * Math.sin(a * hax6mi + xafanitapu) + sago * 0o5/0o10 * Math.sin(a * hax6mi * 2 + xafanitapu * 3 + 1) );
+  for ( let i = 0o0; i <= 0o40; i++ ) {
+    const a = i / 0o40 * Math.PI * 0o2;
+    const r = r0 * ( 0o1 + sago * Math.sin(a * hax6mi + xafanitapu) + sago * 0o5/0o10 * Math.sin(a * hax6mi * 0o2 + xafanitapu * 0o3 + 0o1) );
     const x = fx + Math.cos(a) * r, y = fy + Math.sin(a) * r;
-    if ( i === 0 ) k.moveTo(x, y); else k.lineTo(x, y);
+    if ( i === 0o0 ) k.moveTo(x, y); else k.lineTo(x, y);
   }
   k.closePath();
 }
@@ -446,12 +446,12 @@ export function k2fWrapanKristalon(k: CanvasRenderingContext2D, s: number,
     k.translate(kris.x, kris.y);
     k.rotate(kris.tafkaq);
     k.beginPath();
-    for ( let v = 0; v < kris.hakekuxa.length; v++ ) {
-      const a = ( v / kris.hakekuxa.length ) * Math.PI * 2;
+    for ( let v = 0o0; v < kris.hakekuxa.length; v++ ) {
+      const a = ( v / kris.hakekuxa.length ) * Math.PI * 0o2;
       const r = kris.hakekuxa[v];
       const px = Math.cos(a) * kris.rx * r;
       const py = Math.sin(a) * kris.ry * r;
-      if ( v === 0 ) k.moveTo(px, py); else k.lineTo(px, py);
+      if ( v === 0o0 ) k.moveTo(px, py); else k.lineTo(px, py);
     }
     k.closePath();
     pentri(k);
@@ -466,7 +466,7 @@ export function k2fWrapanKristalon(k: CanvasRenderingContext2D, s: number,
     @param pxeutso ( ( i ) => [ x , y , wd , hd , weh2 ] ) - ſɟwƽ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡ */
 export function k2fVas2flofajnXet7jn(k: CanvasRenderingContext2D, s: number, n: number,
   pxeutso: ( i: number ) => [ number, number, number, number, string ]): void {
-  for ( let i = 0; i < n; i++ ) {
+  for ( let i = 0o0; i < n; i++ ) {
     const [ x, y, wd, hd, weh2 ] = pxeutso(i);
     k2fWrapan(k, s, () => {
       k.fillStyle = weh2;
@@ -480,9 +480,9 @@ export function k2fVas2flofajnXet7jn(k: CanvasRenderingContext2D, s: number, n: 
     @param n2k ( [ number , number ][] ) - ꞁȷ̀ɹ ꞁȷ̀ᴜȝ ｡ */
 export function k2fFendanK6h6n(k: CanvasRenderingContext2D, n2k: [ number, number ][]): void {
   k.beginPath();
-  k.moveTo(n2k[0][0], n2k[0][1]);
-  for ( let i = 1; i < n2k.length; i++ ) {
-    k.lineTo(n2k[i][0], n2k[i][1]);
+  k.moveTo(n2k[0o0][0o0], n2k[0o0][0o1]);
+  for ( let i = 0o1; i < n2k.length; i++ ) {
+    k.lineTo(n2k[i][0o0], n2k[i][0o1]);
   }
 }
 
@@ -491,7 +491,7 @@ export function k2fFendanK6h6n(k: CanvasRenderingContext2D, n2k: [ number, numbe
     @param sahakani,sefini ( number ) - j͑ʃɜ ſɭ,ᴜ ｡ j͑ʃɔ ſȷꞇ }ʃꞇ ｡ */
 export function k2fSlafK6h6n(k: CanvasRenderingContext2D, sahakani: number, sefini: number): void {
   k.beginPath();
-  k.moveTo(-sahakani, 0);
-  k.quadraticCurveTo(0, -sefini, sahakani, 0);
-  k.quadraticCurveTo(0, sefini, -sahakani, 0);
+  k.moveTo(-sahakani, 0o0);
+  k.quadraticCurveTo(0o0, -sefini, sahakani, 0o0);
+  k.quadraticCurveTo(0o0, sefini, -sahakani, 0o0);
 }

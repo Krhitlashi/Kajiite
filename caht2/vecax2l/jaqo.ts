@@ -9,6 +9,7 @@ import { glataTona } from "../../kanta/x2x2q/interpolo.js";
 import { ka5ikH6kuni, NALAPSAZY } from "../../skek2/x2x2q/mapqoxa.js";
 import { tikBal2 } from "../../kanta/t6lima-havop2/mapregulo.js";
 import { jaqoRuvaKozunu } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
+import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
 
 const NOMBRODAJXUROJ = 0o11;
 const tikBal2Havop2 = tikBal2();
@@ -19,7 +20,7 @@ const NEBULTONO = new THREE.Color(0xc8d8d8);
 function jaqoL6da( px: number, pz: number, tk2ni: number ): number {
   const x = px / 0o100 + tk2ni * 0o10;
   const z = pz / 0o100 + tk2ni * 0o20 + 0o20;
-  const malglata = ( u: number, v: number ): number => 1 - Math.abs(2 * xetoh2D(u, v) - 1);
+  const malglata = ( u: number, v: number ): number => 0o1 - Math.abs(0o2 * xetoh2D(u, v) - 0o1);
   const sx = x + ( xetoh2D(x * 0o2 + 0o31, z * 0o2 + 0o7) - 0o1/0o2 ) * 0o4/0o10;
   const sz = z + ( xetoh2D(x * 0o2 - 0o13, z * 0o2 + 0o41) - 0o1/0o2 ) * 0o4/0o10;
   const maso = xetoh2D(x, z);
@@ -32,7 +33,7 @@ function jaqoL6da( px: number, pz: number, tk2ni: number ): number {
   const cehe = malglata(sx * 0o22, sz * 0o22);
   return 0o13
     + 0o36 * maso
-    + 0o13 * spino * ( 0o60/0o100 + 0o40/0o100 * ( 1 - maso ))
+    + 0o13 * spino * ( 0o60/0o100 + 0o40/0o100 * ( 0o1 - maso ))
     + 0o24 * n2k * lota
     + 0o12 * mezajxo * ( 0o40/0o100 + 0o60/0o100 * lota )
     + 0o10 * fajno * ( 0o40/0o100 + 0o60/0o100 * lota )
@@ -47,7 +48,7 @@ function jaqoWeh2En( natakatomasai: THREE.Color, y: number, x: number, z: number
   const negxaOndo = ( xetoh2D(x / 0o70, z / 0o70) - 0o1/0o2 ) * 0o16
     + ( xetoh2D(x / 0o16, z / 0o16) - 0o1/0o2 ) * 0o7;
   t6limaWeh2En(natakatomasai, y + negxaOndo, x, z, haga);
-  if ( malproksimo > 0 ) natakatomasai.lerp(NEBULTONO, malproksimo * 0o35/0o100);
+  if ( malproksimo > 0o0 ) natakatomasai.lerp(NEBULTONO, malproksimo * 0o35/0o100);
 }
 
 function ringaN2k( h6kuni: number, ang: number ): { x: number; z: number; nx: number; nz: number } {
@@ -58,9 +59,9 @@ function ringaN2k( h6kuni: number, ang: number ): { x: number; z: number; nx: nu
   const rb = ka5ikH6kuni(bal2Qoxa, bal2Pal6, ang + pa) + h6kuni;
   const tx = Math.cos(ang + pa) * rb - Math.cos(ang - pa) * ra;
   const tz = Math.sin(ang + pa) * rb - Math.sin(ang - pa) * ra;
-  const sahakani = Math.hypot(tx, tz) || 1;
+  const sahakani = Math.hypot(tx, tz) || 0o1;
   let nx = -tz / sahakani, nz = tx / sahakani;
-  if ( nx * Math.cos(ang) + nz * Math.sin(ang) < 0 ) { nx = -nx; nz = -nz; }
+  if ( nx * Math.cos(ang) + nz * Math.sin(ang) < 0o0 ) { nx = -nx; nz = -nz; }
   return { x, z, nx, nz };
 }
 
@@ -82,16 +83,16 @@ interface RingaTseuni { haxekuxa: Float32Array; haweh2: Float32Array; hauv: Floa
 /** ſןɔ˞ᴜƴ , ꞙɭı , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ꞙɭı , */
 function h2y2kT2q2( kresto: ( ang: number ) => number, jufu: number, sl: number, sd: number,
   tk2ni: number, p6zukani: ( ang: number ) => number, malproksimo: number ): RingaTseuni {
-  const hacel2nu = sl + 1, hax2pa = sd + 1, suprN = hacel2nu * hax2pa;
+  const hacel2nu = sl + 0o1, hax2pa = sd + 0o1, suprN = hacel2nu * hax2pa;
   const psaz = NALAPSAZY - 0o4;
-  const haxekuxa = new Float32Array(suprN * 2 * 3);
-  const haweh2 = new Float32Array(suprN * 2 * 3);
-  const hauv = new Float32Array(suprN * 2 * 2);
+  const haxekuxa = new Float32Array(suprN * 0o2 * 0o3);
+  const haweh2 = new Float32Array(suprN * 0o2 * 0o3);
+  const hauv = new Float32Array(suprN * 0o2 * 0o2);
   const tonaProfundo = jufu / sd;
-  const tonaTafkaq = 2 * Math.PI * ( bal2Pal6 + 0o100 ) / sl;
+  const tonaTafkaq = 0o2 * Math.PI * ( bal2Pal6 + 0o100 ) / sl;
   const hal6da = new Float32Array(suprN);
-  for ( let v = 0; v < hax2pa; v ++ ) {
-    for ( let k = 0; k < hacel2nu; k ++ ) {
+  for ( let v = 0o0; v < hax2pa; v ++ ) {
+    for ( let k = 0o0; k < hacel2nu; k ++ ) {
       const i = v * hacel2nu + k;
       const tn = v / sd;
       const ang = k / sl * Math.PI * 0o2;
@@ -99,43 +100,43 @@ function h2y2kT2q2( kresto: ( ang: number ) => number, jufu: number, sl: number,
       const x = c2q.x + c2q.nx * tn * jufu;
       const z = c2q.z + c2q.nz * tn * jufu;
       const sost2 = 0o40/0o100 + 0o24/0o100 * xetoh2D(x / 0o40 + tk2ni * 0o10, z / 0o40 + tk2ni * 0o30);
-      const kr = Math.min(1, tn / sost2);
-      const kresko = kr * kr * ( 3 - 2 * kr );
-      const fal = glataTona(sost2, 1, tn);
-      const s2qena = kresko * ( 1 - fal );
+      const kr = Math.min(0o1, tn / sost2);
+      const kresko = kr * kr * ( 0o3 - 0o2 * kr );
+      const fal = glataTona(sost2, 0o1, tn);
+      const s2qena = kresko * ( 0o1 - fal );
       const bordo = l6da(c2q.x, c2q.z);
-      const aligo = 1 - glataTona(0, 0o1/0o4, tn);
+      const aligo = 0o1 - glataTona(0o0, 0o1/0o4, tn);
       const y = bordo * aligo + jaqoL6da(x, z, tk2ni) * p6zukani(ang) * s2qena + NALAPSAZY * fal;
       hal6da[i] = y;
-      haxekuxa[i * 3] = x; haxekuxa[i * 3 + 1] = y; haxekuxa[i * 3 + 2] = z;
+      haxekuxa[i * 0o3] = x; haxekuxa[i * 0o3 + 0o1] = y; haxekuxa[i * 0o3 + 0o2] = z;
       const uvx = x / 0o3000 + 0o1/0o2, uvz = z / 0o3000 + 0o1/0o2;
-      hauv[i * 2] = uvx; hauv[i * 2 + 1] = uvz;
+      hauv[i * 0o2] = uvx; hauv[i * 0o2 + 0o1] = uvz;
       const b = i + suprN;
-      haxekuxa[b * 3] = x; haxekuxa[b * 3 + 1] = psaz; haxekuxa[b * 3 + 2] = z;
-      hauv[b * 2] = uvx; hauv[b * 2 + 1] = uvz;
+      haxekuxa[b * 0o3] = x; haxekuxa[b * 0o3 + 0o1] = psaz; haxekuxa[b * 0o3 + 0o2] = z;
+      hauv[b * 0o2] = uvx; hauv[b * 0o2 + 0o1] = uvz;
     }
   }
-  for ( let v = 0; v < hax2pa; v ++ ) {
-    for ( let k = 0; k < hacel2nu; k ++ ) {
+  for ( let v = 0o0; v < hax2pa; v ++ ) {
+    for ( let k = 0o0; k < hacel2nu; k ++ ) {
       const i = v * hacel2nu + k;
-      const x = haxekuxa[i * 3], y = hal6da[i], z = haxekuxa[i * 3 + 2];
-      const km = ( k + sl - 1 ) % sl, kp = ( k + 1 ) % sl;
-      const vm = ( v > 0 ? v - 1 : v ) * hacel2nu + k;
-      const vp = ( v < sd ? v + 1 : v ) * hacel2nu + k;
-      const dAng = ( hal6da[v * hacel2nu + kp] - hal6da[v * hacel2nu + km] ) / ( 2 * tonaTafkaq );
-      const dProf = ( hal6da[vp] - hal6da[vm] ) / ( 2 * tonaProfundo );
+      const x = haxekuxa[i * 0o3], y = hal6da[i], z = haxekuxa[i * 0o3 + 0o2];
+      const km = ( k + sl - 0o1 ) % sl, kp = ( k + 0o1 ) % sl;
+      const vm = ( v > 0o0 ? v - 0o1 : v ) * hacel2nu + k;
+      const vp = ( v < sd ? v + 0o1 : v ) * hacel2nu + k;
+      const dAng = ( hal6da[v * hacel2nu + kp] - hal6da[v * hacel2nu + km] ) / ( 0o2 * tonaTafkaq );
+      const dProf = ( hal6da[vp] - hal6da[vm] ) / ( 0o2 * tonaProfundo );
       jaqoWeh2En(jaqoWeh2, y, x, z, Math.hypot(dAng, dProf), malproksimo);
-      haweh2[i * 3] = jaqoWeh2.r; haweh2[i * 3 + 1] = jaqoWeh2.g; haweh2[i * 3 + 2] = jaqoWeh2.b;
+      haweh2[i * 0o3] = jaqoWeh2.r; haweh2[i * 0o3 + 0o1] = jaqoWeh2.g; haweh2[i * 0o3 + 0o2] = jaqoWeh2.b;
       const b = i + suprN;
       t6limaK6h6Weh2En(jaqoWeh2, psaz, y);
-      haweh2[b * 3] = jaqoWeh2.r; haweh2[b * 3 + 1] = jaqoWeh2.g; haweh2[b * 3 + 2] = jaqoWeh2.b;
+      haweh2[b * 0o3] = jaqoWeh2.r; haweh2[b * 0o3 + 0o1] = jaqoWeh2.g; haweh2[b * 0o3 + 0o2] = jaqoWeh2.b;
     }
   }
   const havecax2lani: number[] = [];
-  for ( let v = 0; v < sd; v ++ ) for ( let k = 0; k < sl; k ++ ) {
-    const a = v * hacel2nu + k, c = a + hacel2nu, d = c + 1;
-    if ( ( k + v ) % 2 === 0 ) havecax2lani.push(a, c, d, a, d, a + 1);
-    else havecax2lani.push(a, c, a + 1, c, d, a + 1);
+  for ( let v = 0o0; v < sd; v ++ ) for ( let k = 0o0; k < sl; k ++ ) {
+    const a = v * hacel2nu + k, c = a + hacel2nu, d = c + 0o1;
+    if ( ( k + v ) % 0o2 === 0o0 ) havecax2lani.push(a, c, d, a, d, a + 0o1);
+    else havecax2lani.push(a, c, a + 0o1, c, d, a + 0o1);
   }
   return { haxekuxa, haweh2, hauv, havecax2lani };
 }
@@ -143,68 +144,68 @@ function h2y2kT2q2( kresto: ( ang: number ) => number, jufu: number, sl: number,
 /** ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ſɭɜ ſɭᴜ , ꞙɭı , */
 function sef4T2q2( kresto: ( ang: number ) => number, jufu: number, sl: number, sd: number,
   tk2ni: number, p6zukani: ( ang: number ) => number, malproksimo: number ): RingaTseuni {
-  const hacel2nu = sl + 1, hax2pa = sd + 1, suprN = hacel2nu * hax2pa;
+  const hacel2nu = sl + 0o1, hax2pa = sd + 0o1, suprN = hacel2nu * hax2pa;
   const psaz = NALAPSAZY - 0o4;
-  const haxekuxa = new Float32Array(suprN * 2 * 3);
-  const haweh2 = new Float32Array(suprN * 2 * 3);
-  const hauv = new Float32Array(suprN * 2 * 2);
+  const haxekuxa = new Float32Array(suprN * 0o2 * 0o3);
+  const haweh2 = new Float32Array(suprN * 0o2 * 0o3);
+  const hauv = new Float32Array(suprN * 0o2 * 0o2);
   const tonaProfundo = jufu / sd;
-  const tonaTafkaq = 2 * Math.PI * ( bal2Pal6 + 0o100 ) / sl;
+  const tonaTafkaq = 0o2 * Math.PI * ( bal2Pal6 + 0o100 ) / sl;
   const hal6da = new Float32Array(suprN);
 // ⟨ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ⟅ ꞙɭı , ꞙɭı , 📃 ⟩
   const kX = new Float64Array(hacel2nu), kZ = new Float64Array(hacel2nu);
   const kNX = new Float64Array(hacel2nu), kNZ = new Float64Array(hacel2nu);
   const kP6zuk = new Float64Array(hacel2nu), kBordo = new Float64Array(hacel2nu);
-  for ( let k = 0; k < hacel2nu; k ++ ) {
+  for ( let k = 0o0; k < hacel2nu; k ++ ) {
     const ang = k / sl * Math.PI * 0o2;
     const c2q = ringaN2k(kresto(ang), ang);
     kX[k] = c2q.x; kZ[k] = c2q.z; kNX[k] = c2q.nx; kNZ[k] = c2q.nz;
     kP6zuk[k] = p6zukani(ang);
     kBordo[k] = l6da(c2q.x, c2q.z);
   }
-  for ( let v = 0; v < hax2pa; v ++ ) {
+  for ( let v = 0o0; v < hax2pa; v ++ ) {
     const tn = v / sd;
-    for ( let k = 0; k < hacel2nu; k ++ ) {
+    for ( let k = 0o0; k < hacel2nu; k ++ ) {
       const i = v * hacel2nu + k;
       const x = kX[k] + kNX[k] * tn * jufu;
       const z = kZ[k] + kNZ[k] * tn * jufu;
       const sost2 = 0o40/0o100 + 0o24/0o100 * xetoh2D(x / 0o40 + tk2ni * 0o10, z / 0o40 + tk2ni * 0o30);
-      const kr = Math.min(1, tn / sost2);
-      const kresko = kr * kr * ( 3 - 2 * kr );
-      const fal = glataTona(sost2, 1, tn);
-      const s2qena = kresko * ( 1 - fal );
-      const aligo = 1 - glataTona(0, 0o1/0o4, tn);
+      const kr = Math.min(0o1, tn / sost2);
+      const kresko = kr * kr * ( 0o3 - 0o2 * kr );
+      const fal = glataTona(sost2, 0o1, tn);
+      const s2qena = kresko * ( 0o1 - fal );
+      const aligo = 0o1 - glataTona(0o0, 0o1/0o4, tn);
       const y = kBordo[k] * aligo + jaqoL6da(x, z, tk2ni) * kP6zuk[k] * s2qena + NALAPSAZY * fal;
       hal6da[i] = y;
-      haxekuxa[i * 3] = x; haxekuxa[i * 3 + 1] = y; haxekuxa[i * 3 + 2] = z;
+      haxekuxa[i * 0o3] = x; haxekuxa[i * 0o3 + 0o1] = y; haxekuxa[i * 0o3 + 0o2] = z;
       const uvx = x / 0o3000 + 0o1/0o2, uvz = z / 0o3000 + 0o1/0o2;
-      hauv[i * 2] = uvx; hauv[i * 2 + 1] = uvz;
+      hauv[i * 0o2] = uvx; hauv[i * 0o2 + 0o1] = uvz;
       const b = i + suprN;
-      haxekuxa[b * 3] = x; haxekuxa[b * 3 + 1] = psaz; haxekuxa[b * 3 + 2] = z;
-      hauv[b * 2] = uvx; hauv[b * 2 + 1] = uvz;
+      haxekuxa[b * 0o3] = x; haxekuxa[b * 0o3 + 0o1] = psaz; haxekuxa[b * 0o3 + 0o2] = z;
+      hauv[b * 0o2] = uvx; hauv[b * 0o2 + 0o1] = uvz;
     }
   }
-  for ( let v = 0; v < hax2pa; v ++ ) {
-    for ( let k = 0; k < hacel2nu; k ++ ) {
+  for ( let v = 0o0; v < hax2pa; v ++ ) {
+    for ( let k = 0o0; k < hacel2nu; k ++ ) {
       const i = v * hacel2nu + k;
-      const x = haxekuxa[i * 3], y = hal6da[i], z = haxekuxa[i * 3 + 2];
-      const km = ( k + sl - 1 ) % sl, kp = ( k + 1 ) % sl;
-      const vm = ( v > 0 ? v - 1 : v ) * hacel2nu + k;
-      const vp = ( v < sd ? v + 1 : v ) * hacel2nu + k;
-      const dAng = ( hal6da[v * hacel2nu + kp] - hal6da[v * hacel2nu + km] ) / ( 2 * tonaTafkaq );
-      const dProf = ( hal6da[vp] - hal6da[vm] ) / ( 2 * tonaProfundo );
+      const x = haxekuxa[i * 0o3], y = hal6da[i], z = haxekuxa[i * 0o3 + 0o2];
+      const km = ( k + sl - 0o1 ) % sl, kp = ( k + 0o1 ) % sl;
+      const vm = ( v > 0o0 ? v - 0o1 : v ) * hacel2nu + k;
+      const vp = ( v < sd ? v + 0o1 : v ) * hacel2nu + k;
+      const dAng = ( hal6da[v * hacel2nu + kp] - hal6da[v * hacel2nu + km] ) / ( 0o2 * tonaTafkaq );
+      const dProf = ( hal6da[vp] - hal6da[vm] ) / ( 0o2 * tonaProfundo );
       jaqoWeh2En(jaqoWeh2, y, x, z, Math.hypot(dAng, dProf), malproksimo);
-      haweh2[i * 3] = jaqoWeh2.r; haweh2[i * 3 + 1] = jaqoWeh2.g; haweh2[i * 3 + 2] = jaqoWeh2.b;
+      haweh2[i * 0o3] = jaqoWeh2.r; haweh2[i * 0o3 + 0o1] = jaqoWeh2.g; haweh2[i * 0o3 + 0o2] = jaqoWeh2.b;
       const b = i + suprN;
       t6limaK6h6Weh2En(jaqoWeh2, psaz, y);
-      haweh2[b * 3] = jaqoWeh2.r; haweh2[b * 3 + 1] = jaqoWeh2.g; haweh2[b * 3 + 2] = jaqoWeh2.b;
+      haweh2[b * 0o3] = jaqoWeh2.r; haweh2[b * 0o3 + 0o1] = jaqoWeh2.g; haweh2[b * 0o3 + 0o2] = jaqoWeh2.b;
     }
   }
   const havecax2lani: number[] = [];
-  for ( let v = 0; v < sd; v ++ ) for ( let k = 0; k < sl; k ++ ) {
-    const a = v * hacel2nu + k, c = a + hacel2nu, d = c + 1;
-    if ( ( k + v ) % 2 === 0 ) havecax2lani.push(a, c, d, a, d, a + 1);
-    else havecax2lani.push(a, c, a + 1, c, d, a + 1);
+  for ( let v = 0o0; v < sd; v ++ ) for ( let k = 0o0; k < sl; k ++ ) {
+    const a = v * hacel2nu + k, c = a + hacel2nu, d = c + 0o1;
+    if ( ( k + v ) % 0o2 === 0o0 ) havecax2lani.push(a, c, d, a, d, a + 0o1);
+    else havecax2lani.push(a, c, a + 0o1, c, d, a + 0o1);
   }
   return { haxekuxa, haweh2, hauv, havecax2lani };
 }
@@ -212,19 +213,19 @@ function sef4T2q2( kresto: ( ang: number ) => number, jufu: number, sl: number, 
 function vek2fe( kiu: "h2y2k" | "sef4", jaqoRuva: number ): RingaTseuni[] {
   const fn = kiu === "h2y2k" ? h2y2kT2q2 : sef4T2q2;
   return [
-    fn(krestaVagado(0o16, 0o10, jaqoRuva), 0o240, 0o2000, 0o100, jaqoRuva, krestaL6da(1, jaqoRuva), 0),
+    fn(krestaVagado(0o16, 0o10, jaqoRuva), 0o240, 0o2000, 0o100, jaqoRuva, krestaL6da(0o1, jaqoRuva), 0o0),
     fn(krestaVagado(0o200, 0o60, jaqoRuva + 0o40), 0o200, 0o2000, 0o60, jaqoRuva + 0o20,
       krestaL6da(0o7/0o10, jaqoRuva + 0o20), 0o35/0o100),
   ];
 }
 
 function kamasumo( hatseuni: RingaTseuni[] ): string {
-  let s = 0;
+  let s = 0o0;
   for ( const r of hatseuni ) {
-    for ( let i = 0; i < r.haxekuxa.length; i++ ) s += r.haxekuxa[i] * ( i % 0o7 );
-    for ( let i = 0; i < r.haweh2.length; i++ ) s += r.haweh2[i] * ( i % 0o5 );
-    for ( let i = 0; i < r.hauv.length; i++ ) s += r.hauv[i];
-    for ( let i = 0; i < r.havecax2lani.length; i++ ) s += r.havecax2lani[i];
+    for ( let i = 0o0; i < r.haxekuxa.length; i++ ) s += r.haxekuxa[i] * ( i % 0o7 );
+    for ( let i = 0o0; i < r.haweh2.length; i++ ) s += r.haweh2[i] * ( i % 0o5 );
+    for ( let i = 0o0; i < r.hauv.length; i++ ) s += r.hauv[i];
+    for ( let i = 0o0; i < r.havecax2lani.length; i++ ) s += r.havecax2lani[i];
   }
   return s.toFixed(0o4);
 }
@@ -233,11 +234,11 @@ const jaqoRuva = jaqoRuvaKozunu();
 const h2y2kj = vek2fe("h2y2k", jaqoRuva);
 const sef4 = vek2fe("sef4", jaqoRuva);
 const sumoM = kamasumo(h2y2kj), sumoN = kamasumo(sef4);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſȷɔ ʌ j͑ʃᴜ ı],ɔ=${sumoM} ſɭɹ ſȷɔ ʌ j͑ʃɔ ſȷэⅎ=${sumoN} ${sumoM === sumoN ? "ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſɭɹ ſȷɔ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ"}`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſȷɔ j͑ʃᴜꞇ ʌ j͑ʃᴜ ı],ɔ }ʃꞇ = ${sumoM} ſɭɹ ſȷɔ j͑ʃᴜꞇ ʌ j͑ʃɔ ſȷэⅎ = ${sumoN} ${sumoM === sumoN ? "ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſɭɹ ſȷɔ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ"}`);
 
 let minM = Infinity, minN = Infinity;
-for ( let r = 0; r < NOMBRODAJXUROJ; r++ ) {
-  const unueSef4 = ( r & 1 ) === 1;
+for ( let r = 0o0; r < NOMBRODAJXUROJ; r++ ) {
+  const unueSef4 = ( r & 0o1 ) === 0o1;
   const t0 = performance.now();
   if ( unueSef4 ) vek2fe("sef4", jaqoRuva); else vek2fe("h2y2k", jaqoRuva);
   const t1 = performance.now();
@@ -248,17 +249,17 @@ for ( let r = 0; r < NOMBRODAJXUROJ; r++ ) {
   if ( dH2y2k < minM ) minM = dH2y2k;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) c2q ｡ j͑ʃᴜ ı],ɔ=${minM.toFixed(1)}ms ｡ j͑ʃɔ ſȷэⅎ=${minN.toFixed(1)}ms ｡ j͑ʃƨꞇʞ ŋᷠɹ=${(minM / minN).toFixed(2)}x`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) c2q ｡ j͑ʃᴜ ı],ɔ }ʃꞇ = ${knak2fecajasai(alHe(minM), 0o6)} He ｡ j͑ʃɔ ſȷэⅎ = ${knak2fecajasai(alHe(minN), 0o6)} He ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(minM / minN).toFixed(0o2)}x`);
 
 // ⟨ ſ͕ɭɜ ı],ᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ j͑ʃɜ ſɭ,ᴜ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📃 ⟩
-let h2y2kjHakekuxa = 0, sef4jHakekuxa = 0, h2y2kjTrianguloj = 0, sef4jTrianguloj = 0;
+let h2y2kjHakekuxa = 0o0, sef4jHakekuxa = 0o0, h2y2kjTrianguloj = 0o0, sef4jTrianguloj = 0o0;
 for ( const [ sl, sd ] of [ [ 0o2000, 0o100 ], [ 0o2000, 0o60 ] ] as const ) {
-  const suprN = ( sl + 1 ) * ( sd + 1 );
-  h2y2kjHakekuxa += suprN * 2;
-  sef4jHakekuxa += suprN + 2 * ( sl + 1 + sd );
-  h2y2kjTrianguloj += 4 * sl * sd + 4 * ( sl + sd );
-  sef4jTrianguloj += 2 * sl * sd + 4 * ( sl + sd );
+  const suprN = ( sl + 0o1 ) * ( sd + 0o1 );
+  h2y2kjHakekuxa += suprN * 0o2;
+  sef4jHakekuxa += suprN + 0o2 * ( sl + 0o1 + sd );
+  h2y2kjTrianguloj += 0o4 * sl * sd + 0o4 * ( sl + sd );
+  sef4jTrianguloj += 0o2 * sl * sd + 0o4 * ( sl + sd );
 }
 const h2y2kjHacacaja = h2y2kjHakekuxa * 0o40 + h2y2kjTrianguloj * 0o14;
 const sef4jHacacaja = sef4jHakekuxa * 0o40 + sef4jTrianguloj * 0o14;
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ｡ ſןͷ̗ɜ j͑ʃƨɔȝ=${h2y2kjHakekuxa} → ${sef4jHakekuxa} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ=${h2y2kjTrianguloj} → ${sef4jTrianguloj} ｡ ſןᴜ j͐ʃэ=${( h2y2kjHacacaja / 0o4000000 ).toFixed(2)} → ${( sef4jHacacaja / 0o4000000 ).toFixed(2)} MiB ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ=${( ( h2y2kjHacacaja - sef4jHacacaja ) / 0o4000000 ).toFixed(2)} MiB`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ｡ ſןͷ̗ɜ j͑ʃƨɔȝ = ${h2y2kjHakekuxa} → ${sef4jHakekuxa} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ = ${h2y2kjTrianguloj} → ${sef4jTrianguloj} ｡ ſןᴜ j͐ʃэ = ${( h2y2kjHacacaja / 0o4000000 ).toFixed(0o2)} → ${( sef4jHacacaja / 0o4000000 ).toFixed(0o2)} MiB ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ = ${( ( h2y2kjHacacaja - sef4jHacacaja ) / 0o4000000 ).toFixed(0o2)} MiB`);

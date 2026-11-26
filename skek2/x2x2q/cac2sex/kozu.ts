@@ -11,18 +11,18 @@ function k2fTom6( ka5ik: number, tom6Puf: number, slaf: number, tafkaq0: number 
   const qoxa = new Path2D();
   const n = slaf * 0o10;
   const n2kQoxa: [ number, number ][] = [];
-  for ( let i = 0; i < n; i++ ) {
+  for ( let i = 0o0; i < n; i++ ) {
     const tafkaq = tafkaq0 + Math.PI * 0o2 * i / n;
     const r = ka5ik * ( 0o1 + tom6Puf * Math.cos( slaf * ( tafkaq - tafkaq0 ) ) );
     n2kQoxa.push([ r * Math.cos(tafkaq), r * Math.sin(tafkaq) ]);
   }
   const sost2 = ( p: [ number, number ], q: [ number, number ] ): [ number, number ] =>
-    [ ( p[0] + q[0] ) / 0o2, ( p[1] + q[1] ) / 0o2 ];
+    [ ( p[0o0] + q[0o0] ) / 0o2, ( p[0o1] + q[0o1] ) / 0o2 ];
   for ( let i = -0o1; i < n; i++ ) {
     const n2kA = n2kQoxa[( i + n ) % n], n2kB = n2kQoxa[( i + 0o1 ) % n];
     const n2kSost2 = sost2(n2kA, n2kB);
-    if ( i < 0o0 ) qoxa.moveTo(n2kSost2[0], n2kSost2[1]);
-    else qoxa.quadraticCurveTo(n2kA[0], n2kA[1], n2kSost2[0], n2kSost2[1]);
+    if ( i < 0o0 ) qoxa.moveTo(n2kSost2[0o0], n2kSost2[0o1]);
+    else qoxa.quadraticCurveTo(n2kA[0o0], n2kA[0o1], n2kSost2[0o0], n2kSost2[0o1]);
   }
   qoxa.closePath();
   return qoxa;

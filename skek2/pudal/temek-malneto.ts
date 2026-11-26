@@ -13,7 +13,7 @@ const PETRELASPINO: PetrelaKa5asexaz[] = [
   { z: -0o50/0o200, y:  0o2/0o200,  r: 0o3/0o200 },
   { z: -0o40/0o200, y:  0o1/0o200,  r: 0o10/0o200 },
   { z: -0o20/0o200, y: -0o1/0o200,  r: 0o16/0o200 },
-  { z:  0,          y:  0,          r: 0o20/0o200 },
+  { z:  0o0,          y:  0o0,          r: 0o20/0o200 },
   { z:  0o14/0o200, y:  0o1/0o100,  r: 0o17/0o200 },
   { z:  0o25/0o200, y:  0o7/0o200,  r: 0o12/0o200 },
   { z:  0o32/0o200, y:  0o13/0o200, r: 0o6/0o200 },
@@ -27,18 +27,18 @@ const PETRELALARGHO = 0o16/0o20;
 
 function spinoEn(z: number): { y: number; r: number } {
   const n = PETRELASPINO.length;
-  if ( z <= PETRELASPINO[0].z ) return { y: PETRELASPINO[0].y, r: PETRELASPINO[0].r };
-  if ( z >= PETRELASPINO[n - 1].z ) {
-    return { y: PETRELASPINO[n - 1].y, r: PETRELASPINO[n - 1].r };
+  if ( z <= PETRELASPINO[0o0].z ) return { y: PETRELASPINO[0o0].y, r: PETRELASPINO[0o0].r };
+  if ( z >= PETRELASPINO[n - 0o1].z ) {
+    return { y: PETRELASPINO[n - 0o1].y, r: PETRELASPINO[n - 0o1].r };
   }
-  for ( let i = 0; i < n - 1; i++ ) {
-    const a = PETRELASPINO[i], b = PETRELASPINO[i + 1];
+  for ( let i = 0o0; i < n - 0o1; i++ ) {
+    const a = PETRELASPINO[i], b = PETRELASPINO[i + 0o1];
     if ( z >= a.z && z <= b.z ) {
       const t = ( z - a.z ) / ( b.z - a.z );
       return { y: a.y + ( b.y - a.y ) * t, r: a.r + ( b.r - a.r ) * t };
     }
   }
-  return { y: 0, r: 0 };
+  return { y: 0o0, r: 0o0 };
 }
 
 function sozaN2k(s: number, z: number, tafkaq: number): THREE.Vector3 {
@@ -49,26 +49,26 @@ function sozaN2k(s: number, z: number, tafkaq: number): THREE.Vector3 {
 
 export function vPorZ(z: number): number {
   const n = PETRELASPINO.length;
-  const limigita = Math.min(PETRELASPINO[n - 1].z, Math.max(PETRELASPINO[0].z, z));
-  for ( let i = 0; i < n - 1; i++ ) {
-    const a = PETRELASPINO[i], b = PETRELASPINO[i + 1];
+  const limigita = Math.min(PETRELASPINO[n - 0o1].z, Math.max(PETRELASPINO[0o0].z, z));
+  for ( let i = 0o0; i < n - 0o1; i++ ) {
+    const a = PETRELASPINO[i], b = PETRELASPINO[i + 0o1];
     if ( limigita >= a.z && limigita <= b.z ) {
       const t = ( limigita - a.z ) / ( b.z - a.z );
-      return ( i + t ) / ( n - 1 );
+      return ( i + t ) / ( n - 0o1 );
     }
   }
-  return 1;
+  return 0o1;
 }
 
 function kf2Lofton(haka5asexaz: PetrelaKa5asexaz[], subdividoj: number,
   hatafkaq: number, sefini: number): THREE.BufferGeometry {
   const n = haka5asexaz.length;
-  const je = ( i: number ) => haka5asexaz[Math.max(0, Math.min(n - 1, i))];
+  const je = ( i: number ) => haka5asexaz[Math.max(0o0, Math.min(n - 0o1, i))];
   const skek2 = ( i: number, t: number, bok: ( s: PetrelaKa5asexaz ) => number ): number =>
-    katmullRom(bok(je(i - 1)), bok(je(i)), bok(je(i + 1)), bok(je(i + 2)), t);
+    katmullRom(bok(je(i - 0o1)), bok(je(i)), bok(je(i + 0o1)), bok(je(i + 0o2)), t);
   const kof: PetrelaKa5asexaz[] = [];
-  for ( let i = 0; i < n - 1; i++ ) {
-    for ( let k = 0; k < subdividoj; k++ ) {
+  for ( let i = 0o0; i < n - 0o1; i++ ) {
+    for ( let k = 0o0; k < subdividoj; k++ ) {
       const t = k / subdividoj;
       kof.push({
         z: skek2(i, t, s => s.z),
@@ -77,24 +77,24 @@ function kf2Lofton(haka5asexaz: PetrelaKa5asexaz[], subdividoj: number,
       });
     }
   }
-  kof.push(je(n - 1));
+  kof.push(je(n - 0o1));
   const haxekuxa: number[] = [];
   const qan2k: number[] = [];
   const havecax2lani: number[] = [];
-  const c2q = hatafkaq + 1;
-  for ( let i = 0; i < kof.length; i++ ) {
+  const c2q = hatafkaq + 0o1;
+  for ( let i = 0o0; i < kof.length; i++ ) {
     const ka5asexaz = kof[i];
-    for ( let j = 0; j <= hatafkaq; j++ ) {
-      const tafkaq = j / hatafkaq * Math.PI * 2;
+    for ( let j = 0o0; j <= hatafkaq; j++ ) {
+      const tafkaq = j / hatafkaq * Math.PI * 0o2;
       const cos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
-      const vertikala = sin < 0 ? ka5asexaz.r * 0o11/0o10 : ka5asexaz.r;
+      const vertikala = sin < 0o0 ? ka5asexaz.r * 0o11/0o10 : ka5asexaz.r;
       haxekuxa.push(cos * ka5asexaz.r * sefini, ka5asexaz.y + sin * vertikala, ka5asexaz.z);
-      qan2k.push(j / hatafkaq, i / ( kof.length - 1 ));
+      qan2k.push(j / hatafkaq, i / ( kof.length - 0o1 ));
     }
   }
-  for ( let i = 0; i < kof.length - 1; i++ ) {
-    for ( let j = 0; j < hatafkaq; j++ ) {
-      const a = i * c2q + j, b = a + 1;
+  for ( let i = 0o0; i < kof.length - 0o1; i++ ) {
+    for ( let j = 0o0; j < hatafkaq; j++ ) {
+      const a = i * c2q + j, b = a + 0o1;
       const c = a + c2q, d = b + c2q;
       havecax2lani.push(a, b, d, a, d, c);
     }
@@ -107,7 +107,7 @@ interface PetrelaRipo {
 }
 
 const FLUGILAJRIPOJ: PetrelaRipo[] = [
-  { x: -0o6/0o100,  y: 0,           antauxo:  0o6/0o200,  malantauxo: -0o30/0o200, kof: 0o22/0o2000 },
+  { x: -0o6/0o100,  y: 0o0,           antauxo:  0o6/0o200,  malantauxo: -0o30/0o200, kof: 0o22/0o2000 },
   { x:  0o5/0o100,  y: 0o1/0o200,   antauxo:  0o6/0o200,  malantauxo: -0o31/0o200, kof: 0o22/0o2000 },
   { x:  0o15/0o100, y: 0o2/0o200,   antauxo:  0o5/0o200,  malantauxo: -0o31/0o200, kof: 0o20/0o2000 },
   { x:  0o24/0o100, y: 0o2/0o200,   antauxo:  0o4/0o200,  malantauxo: -0o30/0o200, kof: 0o17/0o2000 },
@@ -126,12 +126,12 @@ const KUBUTAX = FLUGILAJRIPOJ[KUBUTAINDESKO].x;
 function kf2Flugilon(ripoj: PetrelaRipo[], uDe: number, uAl: number,
   subdividoj: number, hatafkaq: number): THREE.BufferGeometry {
   const n = ripoj.length;
-  const je = ( i: number ) => ripoj[Math.max(0, Math.min(n - 1, i))];
+  const je = ( i: number ) => ripoj[Math.max(0o0, Math.min(n - 0o1, i))];
   const skek2 = ( i: number, t: number, bok: ( r: PetrelaRipo ) => number ): number =>
-    katmullRom(bok(je(i - 1)), bok(je(i)), bok(je(i + 1)), bok(je(i + 2)), t);
+    katmullRom(bok(je(i - 0o1)), bok(je(i)), bok(je(i + 0o1)), bok(je(i + 0o2)), t);
   const kof: PetrelaRipo[] = [];
-  for ( let i = 0; i < n - 1; i++ ) {
-    for ( let k = 0; k < subdividoj; k++ ) {
+  for ( let i = 0o0; i < n - 0o1; i++ ) {
+    for ( let k = 0o0; k < subdividoj; k++ ) {
       const t = k / subdividoj;
       kof.push({
         x: skek2(i, t, r => r.x), y: skek2(i, t, r => r.y),
@@ -141,26 +141,26 @@ function kf2Flugilon(ripoj: PetrelaRipo[], uDe: number, uAl: number,
       });
     }
   }
-  kof.push(je(n - 1));
+  kof.push(je(n - 0o1));
   const haxekuxa: number[] = [];
   const qan2k: number[] = [];
   const havecax2lani: number[] = [];
-  const c2q = hatafkaq + 1;
-  for ( let i = 0; i < kof.length; i++ ) {
+  const c2q = hatafkaq + 0o1;
+  for ( let i = 0o0; i < kof.length; i++ ) {
     const ripo = kof[i];
-    const u = uDe + ( uAl - uDe ) * ( i / ( kof.length - 1 ) );
-    for ( let j = 0; j <= hatafkaq; j++ ) {
-      const tafkaq = j / hatafkaq * Math.PI * 2;
+    const u = uDe + ( uAl - uDe ) * ( i / ( kof.length - 0o1 ) );
+    for ( let j = 0o0; j <= hatafkaq; j++ ) {
+      const tafkaq = j / hatafkaq * Math.PI * 0o2;
       const cos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
-      const kordo = ( 1 + cos ) / 0o2;
+      const kordo = ( 0o1 + cos ) / 0o2;
       haxekuxa.push(ripo.x, ripo.y - sin * ripo.kof / 0o2,
         ripo.malantauxo + kordo * ( ripo.antauxo - ripo.malantauxo ));
       qan2k.push(u, kordo);
     }
   }
-  for ( let i = 0; i < kof.length - 1; i++ ) {
-    for ( let j = 0; j < hatafkaq; j++ ) {
-      const a = i * c2q + j, b = a + 1;
+  for ( let i = 0o0; i < kof.length - 0o1; i++ ) {
+    for ( let j = 0o0; j < hatafkaq; j++ ) {
+      const a = i * c2q + j, b = a + 0o1;
       const c = a + c2q, d = b + c2q;
       havecax2lani.push(a, b, d, a, d, c);
     }
@@ -179,8 +179,8 @@ function kox2qiPoPukek(hakek: THREE.Mesh[]): Hakox2q[] {
   }
   const hakox2q: Hakox2q[] = [];
   for ( const [ pukek, ca1ara ] of haca1ara ) {
-    if ( ca1ara.length === 1 ) {
-      hakox2q.push({ cakamaha: ca1ara[0], hatsiq: ca1ara });
+    if ( ca1ara.length === 0o1 ) {
+      hakox2q.push({ cakamaha: ca1ara[0o0], hatsiq: ca1ara });
       continue;
     }
     const vecax2l = ca1ara.map(p => {
@@ -200,16 +200,16 @@ export function vepaqPetrelanModelon(): THREE.Group {
   const cac2sex = petrelajCac2sex(vPorZ);
   const g2j6 = new THREE.MeshStandardMaterial({
     color: 0xffffff, map: cac2sex.soq, bumpMap: cac2sex.korpoBump,
-    bumpScale: 0o1/0o200, roughness: 0o3/0o4, metalness: 0,
+    bumpScale: 0o1/0o200, roughness: 0o3/0o4, metalness: 0o0,
   });
   // ⟨ ſᶘɜ ſ͔ɭɹ , ſןw ſɭɔƽ , ⟅ ⟩
   const flugilaPukek = new THREE.MeshStandardMaterial({
     color: 0xffffff, map: cac2sex.tsog2, bumpMap: cac2sex.flugiloBump,
-    bumpScale: 0o1/0o200, roughness: 0o3/0o4, metalness: 0,
+    bumpScale: 0o1/0o200, roughness: 0o3/0o4, metalness: 0o0,
     side: THREE.DoubleSide,
   });
   const hunasai = new THREE.MeshStandardMaterial({
-    color: 0x101018, roughness: 0o1/0o4, metalness: 0,
+    color: 0x101018, roughness: 0o1/0o4, metalness: 0o0,
   });
 
   // ⟨ ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
@@ -232,7 +232,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
   const naztubo = new THREE.Mesh(new THREE.CylinderGeometry(
     0o6/0o1000, 0o6/0o1000, 0o4/0o100, 0o6), hunasai);
   naztubo.rotation.x = Math.PI / 0o2 - 0o1/0o20;
-  naztubo.position.set(0, 0o17/0o200, 0o64/0o200);
+  naztubo.position.set(0o0, 0o17/0o200, 0o64/0o200);
   hate2.add(naztubo);
 
   // ⟨ ɭʃɹ ʃᴜ }ʃw , ⟅ ⟩
@@ -241,7 +241,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
   for ( const s of [ 0o1, -0o1 ] ) {
     const soza = sozaN2k(s, T2BANUZ, T2BANUANGULO);
     const c2h2 = new THREE.Vector3(s * Math.cos(T2BANUANGULO),
-      Math.sin(T2BANUANGULO), 0).multiplyScalar(t2banuKa5ik * 0o1/0o2);
+      Math.sin(T2BANUANGULO), 0o0).multiplyScalar(t2banuKa5ik * 0o1/0o2);
     const t2banu = new THREE.Mesh(
       new THREE.SphereGeometry(t2banuKa5ik, 0o10, 0o10), hunasai);
     t2banu.position.copy(soza).sub(c2h2);
@@ -258,22 +258,22 @@ export function vepaqPetrelanModelon(): THREE.Group {
   // ⟨ }ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ , ⟅ ⟩
   const vostaHate = new THREE.Group();
   vostaHate.name = "vosto";
-  vostaHate.position.set(0, 0o2/0o200, -0o50/0o200);
+  vostaHate.position.set(0o0, 0o2/0o200, -0o50/0o200);
   const vostaj: THREE.BufferGeometry[] = [];
   for ( let k = -0o2; k <= 0o2; k++ ) {
     const sahakani = 0o15/0o100 - Math.abs(k) * 0o1/0o100;
     const p2somani = 0o3/0o200;
     const qoxa = new THREE.Shape();
-    qoxa.moveTo(0, -p2somani);
-    qoxa.quadraticCurveTo(sahakani * 0o7/0o10, -p2somani * 0o11/0o10, sahakani, 0);
-    qoxa.quadraticCurveTo(sahakani * 0o7/0o10, p2somani * 0o11/0o10, 0, p2somani);
+    qoxa.moveTo(0o0, -p2somani);
+    qoxa.quadraticCurveTo(sahakani * 0o7/0o10, -p2somani * 0o11/0o10, sahakani, 0o0);
+    qoxa.quadraticCurveTo(sahakani * 0o7/0o10, p2somani * 0o11/0o10, 0o0, p2somani);
     qoxa.closePath();
     const plumo = new THREE.ExtrudeGeometry(qoxa, {
       depth: 0o4/0o1000, bevelEnabled: false, curveSegments: 0o10,
     });
     plumo.rotateX(Math.PI / 0o2);
     plumo.rotateY(Math.PI / 0o2 + k * 0o13/0o100);
-    plumo.translate(0, 0o1/0o200, 0);
+    plumo.translate(0o0, 0o1/0o200, 0o0);
     vostaj.push(plumo);
   }
   const vostajVeb6kekitaj = mergeGeometries(vostaj, false);
@@ -287,10 +287,10 @@ export function vepaqPetrelanModelon(): THREE.Group {
 
   // ⟨ ſᶘɜ ſ͔ɭɹ , ⟅ ⟩
   const brakaVecax2l = kf2Flugilon(
-    FLUGILAJRIPOJ.slice(0, KUBUTAINDESKO + 1), 0, 0o52/0o100, 0o3, 0o12);
+    FLUGILAJRIPOJ.slice(0o0, KUBUTAINDESKO + 0o1), 0o0, 0o52/0o100, 0o3, 0o12);
   const manajRipoj = FLUGILAJRIPOJ.slice(KUBUTAINDESKO)
     .map(r => ({ ...r, x: r.x - KUBUTAX }));
-  const manaVecax2l = kf2Flugilon(manajRipoj, 0o52/0o100, 1, 0o3, 0o12);
+  const manaVecax2l = kf2Flugilon(manajRipoj, 0o52/0o100, 0o1, 0o3, 0o12);
 
   // ⟨ ᶅſɜ ֭ſɭᴜ , ⟅ ⟩
   for ( const s of [ 0o1, -0o1 ] ) {
@@ -306,7 +306,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
     // ⟨ ɭʃꞇƽ , ⟅ ⟩
     const manoHate = new THREE.Group();
     manoHate.name = "mano";
-    manoHate.position.set(-s * KUBUTAX, 0, 0);
+    manoHate.position.set(-s * KUBUTAX, 0o0, 0o0);
     manoHate.scale.x = peqeni;
     const tama = new THREE.Mesh(manaVecax2l, flugilaPukek);
     tama.name = "mano";
@@ -318,7 +318,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
   // ⟪ ſɭɜ j͐ʃɹ , ſɭᴜ ſןᴜ 📃 ⟫
   const statikaj = hate2.children.filter(c => ( c as THREE.Mesh ).isMesh) as THREE.Mesh[];
   for ( const k of kox2qiPoPukek(statikaj) ) {
-    if ( k.hatsiq.length === 1 ) continue;
+    if ( k.hatsiq.length === 0o1 ) continue;
     for ( const m of k.hatsiq ) hate2.remove(m);
     hate2.add(k.cakamaha);
   }

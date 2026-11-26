@@ -168,7 +168,7 @@ import * as THREE from "three";
 // ════════════════════════ ſɭᴜ ſןᴜ ════════════════════════
 const Tona = SKULPTAPASO;
 const N = SKULPTAN;
-const X0 = SKULPTAORIGINO[0], Z0 = SKULPTAORIGINO[1];
+const X0 = SKULPTAORIGINO[0o0], Z0 = SKULPTAORIGINO[0o1];
 const hal6da = new Float32Array(N * N);       // hal6da ʌ }ʃᴜ j͐ʃᴜ
 const k6liqani = new Uint8Array(N * N);          // ſᶘᴜ j͑ʃᴜ ｡ ( ɔ/ı ) ⟅ ſɶᴜ j͑ʃᴜ ｡
 // ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
@@ -291,20 +291,20 @@ catsaraHaqox2n2kn({
 import { bal2, k2fVidon, tlak2L2han2Dn, catsaraBildon2D } from "./t6lima-knat6keqanu/bildo2d.js";
 
 // ════════════════════════ ſɭᴜ ſןᴜ ════════════════════════
-let vidCX = 0, vidCZ = 0, kix2P6zuk = minimaP6zuk();   // }ʃɹƽ ʌ }ʃᴜ j͐ʃᴜ ｡ ſɭɹ ſןᴜ / ſɭᴜ
+let vidCX = 0o0, vidCZ = 0o0, kix2P6zuk = minimaP6zuk();   // }ʃɹƽ ʌ }ʃᴜ j͐ʃᴜ ｡ ſɭɹ ſןᴜ / ſɭᴜ
 // ſɭᴜ ſןᴜ , ꞙɭɩ ,
 // ſɭᴜ ſןᴜ , ꞙɭꞟ ,
 function minimaP6zuk(){ return Math.min(bal2.width, bal2.height) / ( Nala + 0o200 ); }
 // ſɭᴜ ſןᴜ , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 function alpingiVidon(){
-  const duonw = bal2.width / kix2P6zuk / 2;
-  const duonh = bal2.height / kix2P6zuk / 2;
+  const duonw = bal2.width / kix2P6zuk / 0o2;
+  const duonh = bal2.height / kix2P6zuk / 0o2;
   const ekst6lima = 0o100;
 // ſɭᴜ ſןᴜ , ꞙɭц ,
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
-  vidCX = duonw >= MONDOHALFO + ekst6lima ? 0 : Math.max(-( MONDOHALFO + ekst6lima - duonw ), Math.min(MONDOHALFO + ekst6lima - duonw, vidCX));
-  vidCZ = duonh >= MONDOHALFO + ekst6lima ? 0 : Math.max(-( MONDOHALFO + ekst6lima - duonh ), Math.min(MONDOHALFO + ekst6lima - duonh, vidCZ));
+  vidCX = duonw >= MONDOHALFO + ekst6lima ? 0o0 : Math.max(-( MONDOHALFO + ekst6lima - duonw ), Math.min(MONDOHALFO + ekst6lima - duonw, vidCX));
+  vidCZ = duonh >= MONDOHALFO + ekst6lima ? 0o0 : Math.max(-( MONDOHALFO + ekst6lima - duonh ), Math.min(MONDOHALFO + ekst6lima - duonh, vidCZ));
 }
 // ⟨ ſɭᴜ ſןᴜ , 📃 ⟩ , ſɭᴜ ſןᴜ ,
 // ſɭᴜ ſןᴜ , ꞙɭı ,
@@ -373,7 +373,7 @@ const prematajHacatlaq = new Set<string>();
 function moviKlavare(){
   if ( !triaDimensia ) {
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
-    const seheni = prematajHacatlaq.has("Shift") ? 4 : 0o63/0o40;
+    const seheni = prematajHacatlaq.has("Shift") ? 0o4 : 0o63/0o40;
     const tona = seheni / kix2P6zuk;
     let vasaka = false;
 // ſɭᴜ ſןᴜ , ꞙɭɩ ,
@@ -382,7 +382,7 @@ function moviKlavare(){
     if ( prematajHacatlaq.has("s") ) { vidCZ -= tona; vasaka = true; }
     if ( prematajHacatlaq.has("a") ) { vidCX += tona; vasaka = true; }
     if ( prematajHacatlaq.has("d") ) { vidCX -= tona; vasaka = true; }
-    if ( prematajHacatlaq.has("zomi") ) { kix2P6zuk = Math.min(4, kix2P6zuk * 0o103/0o100); vasaka = true; }
+    if ( prematajHacatlaq.has("zomi") ) { kix2P6zuk = Math.min(0o4, kix2P6zuk * 0o103/0o100); vasaka = true; }
     if ( prematajHacatlaq.has("malzomi") ) { kix2P6zuk = Math.max(minimaP6zuk(), kix2P6zuk * 0o75/0o100); vasaka = true; }
     if ( vasaka ) bezonoDesegno = true;
     return;
@@ -392,13 +392,13 @@ function moviKlavare(){
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 // ſɭᴜ ſןᴜ , ꞙɭц ,
   const h6kuni = catahaq3d.position.distanceTo(hakama3d.target);
-  const seheni = ( prematajHacatlaq.has("Shift") ? 3 : 1 ) * Math.max(1, h6kuni * 0o1/0o100);
+  const seheni = ( prematajHacatlaq.has("Shift") ? 0o3 : 0o1 ) * Math.max(0o1, h6kuni * 0o1/0o100);
   const ne3ak2 = new THREE.Vector3().subVectors(hakama3d.target, catahaq3d.position);
-  ne3ak2.y = 0;
-  if ( ne3ak2.lengthSq()< 0o10 ** -0o7 ) ne3ak2.set(0, 0, -1);
+  ne3ak2.y = 0o0;
+  if ( ne3ak2.lengthSq()< 0o10 ** -0o7 ) ne3ak2.set(0o0, 0o0, -0o1);
   ne3ak2.normalize();
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
-  const dekstren = new THREE.Vector3(-ne3ak2.z, 0, ne3ak2.x);
+  const dekstren = new THREE.Vector3(-ne3ak2.z, 0o0, ne3ak2.x);
   const mov = new THREE.Vector3();
   if ( prematajHacatlaq.has("w") ) mov.addScaledVector(ne3ak2, seheni);
   if ( prematajHacatlaq.has("s") ) mov.addScaledVector(ne3ak2, -seheni);
@@ -406,7 +406,7 @@ function moviKlavare(){
   if ( prematajHacatlaq.has("a") ) mov.addScaledVector(dekstren, -seheni);
   if ( prematajHacatlaq.has("e") ) mov.y += seheni * 0o63/0o100;
   if ( prematajHacatlaq.has("q") ) mov.y -= seheni * 0o63/0o100;
-  if ( mov.lengthSq()=== 0 ) return;
+  if ( mov.lengthSq()=== 0o0 ) return;
   hakama3d.target.add(mov);
   catahaq3d.position.add(mov);
 // ſɭᴜ ſןᴜ , ꞙɭɩ ,
@@ -423,8 +423,8 @@ function nalaDeEg2b2(e: { clientX: number; clientY: number }): { x: number; z: n
   const px = ( e.clientX - rect.left ) * ( bal2.width / rect.width );
   const py = ( e.clientY - rect.top ) * ( bal2.height / rect.height );
   return {
-    x: vidCX + ( bal2.width / 2 - px ) / kix2P6zuk,
-    z: vidCZ + ( bal2.height / 2 - py ) / kix2P6zuk,
+    x: vidCX + ( bal2.width / 0o2 - px ) / kix2P6zuk,
+    z: vidCZ + ( bal2.height / 0o2 - py ) / kix2P6zuk,
   };
 }
 function tlak2Kursoro(){
@@ -439,13 +439,13 @@ bal2.addEventListener("pointerdown", ( e ) => {
 // ſɭᴜ ſןᴜ , ꞙɭц ,
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
 // ſɭᴜ ſןᴜ , ꞙɭɩ ,
-  if ( e.button === 1 || e.shiftKey || ( e.button === 0 && tsekeMovigi() && !oxemaniModo ) ){
+  if ( e.button === 0o1 || e.shiftKey || ( e.button === 0o0 && tsekeMovigi() && !oxemaniModo ) ){
     treno = { hunaq: "mov", lastX: e.clientX, lastY: e.clientY };
     if ( tsekeMovigi() )bal2.style.cursor = "grabbing";
     e.preventDefault();
     return;
   }
-  if ( e.button !== 0 ) return;
+  if ( e.button !== 0o0 ) return;
 // ſɭᴜ ſןᴜ , ꞙɭꞟ ,
 // ſɭᴜ ſןᴜ , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
@@ -461,9 +461,9 @@ bal2.addEventListener("pointerdown", ( e ) => {
 // ſɭᴜ ſןᴜ , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
     const u = kaxteJeN2k(m.x, m.z);
-    if ( u >= 0 ) { sukf2qiKaxten(u); return; }
+    if ( u >= 0o0 ) { sukf2qiKaxten(u); return; }
     const ab = tlunakK6liqJeN2k(m.x, m.z);
-    if ( ab >= 0 ) {
+    if ( ab >= 0o0 ) {
       catsaraSukf2qitanAldonanBlokon(ab);
       saxeiAldonaTrenon(ab);
       tlak2AldonaHak6liq();
@@ -478,17 +478,17 @@ bal2.addEventListener("pointerdown", ( e ) => {
   if ( oxemaniModo ) {
     if ( oxemaniIlo === "movigi" ) {
       const ind = oxemaniJeN2k(m.x, m.z);
-      if ( ind >= 0 ) saxeiObjektanTrenon(ind, m.x, m.z);
+      if ( ind >= 0o0 ) saxeiObjektanTrenon(ind, m.x, m.z);
       return;
     }
     if ( oxemaniIlo === "h2li" ) {
       const ind = oxemaniJeN2k(m.x, m.z);
-      if ( ind >= 0 ) h2liObjekton(ind);
+      if ( ind >= 0o0 ) h2liObjekton(ind);
       return;
     }
     const ind = oxemaniJeN2k(m.x, m.z);
-    if ( ind >= 0 ) {
-      catsaraSukf2qitanOxemanin(sukf2qitaOxemani === ind ? -1 : ind);
+    if ( ind >= 0o0 ) {
+      catsaraSukf2qitanOxemanin(sukf2qitaOxemani === ind ? -0o1 : ind);
       tlak2ObjektoCatsara();
       b6tem2ObjektajnHap2d2();
       bezonoDesegno = true;
@@ -502,13 +502,13 @@ bal2.addEventListener("pointerdown", ( e ) => {
 // ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
   if ( siicatsiicanaAktiva === "tsasa" ) {
     const ind = tsiqJeN2k(m.x, m.z);
-    if ( ind >= 0 ) saxeiFontanTrenon(ind, m.x, m.z);
+    if ( ind >= 0o0 ) saxeiFontanTrenon(ind, m.x, m.z);
     else neq2qTsiqn(m.x, m.z);
     return;
   }
   if ( siicatsiicanaAktiva === "tsasaforvisxi" ) {
     const ind = tsiqJeN2k(m.x, m.z);
-    if ( ind >= 0 ) h2liTsiqn(ind);
+    if ( ind >= 0o0 ) h2liTsiqn(ind);
     return;
   }
   momenti();
@@ -522,7 +522,7 @@ bal2.addEventListener("pointermove", ( e ) => {
   kursoro = m;
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 // ſɭᴜ ſןᴜ , ꞙɭц ,
-  if ( tikCax2l === "qox2n2k" && tlunakTrenata >= 0 ) {
+  if ( tikCax2l === "qox2n2k" && tlunakTrenata >= 0o0 ) {
     sxangiAldonaXekuxan(m.x, m.z);
     return;
   }
@@ -535,7 +535,7 @@ bal2.addEventListener("pointermove", ( e ) => {
   if ( oxemaniModo ) {
     tlak2Haqan2k(m.x, m.z);
 // ſɭᴜ ſןᴜ , ꞙɭꞟ ,
-    if ( oxemaniTrenata >= 0 ) sxangiObjektanXekuxan(oxemaniTrenata, m.x, m.z);
+    if ( oxemaniTrenata >= 0o0 ) sxangiObjektanXekuxan(oxemaniTrenata, m.x, m.z);
   }
   if ( treno && treno.hunaq === "mov" ) {
     const dx = e.clientX - treno.lastX, dy = e.clientY - treno.lastY;
@@ -545,7 +545,7 @@ bal2.addEventListener("pointermove", ( e ) => {
     bezonoDesegno = true;
     return;
   }
-  if ( siicatsiicanaAktiva === "tsasa" && tsiqTrenata >= 0 ) {
+  if ( siicatsiicanaAktiva === "tsasa" && tsiqTrenata >= 0o0 ) {
     sxangiFontanXekuxan(tsiqTrenata, m.x, m.z);
     return;
   }
@@ -573,18 +573,18 @@ bal2.addEventListener("wheel", ( e ) => {
 // ſɭᴜ ſןᴜ , ꞙɭı ,
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 // ſɭᴜ ſןᴜ , ꞙɭц ,
-  const delt = e.deltaMode === 1 ? e.deltaY * 0o20 : e.deltaY;
-  const sef4P6zuk = Math.max(minimaP6zuk(), Math.min(4, kix2P6zuk * Math.exp(-delt * 0o1/0o2000)));
+  const delt = e.deltaMode === 0o1 ? e.deltaY * 0o20 : e.deltaY;
+  const sef4P6zuk = Math.max(minimaP6zuk(), Math.min(0o4, kix2P6zuk * Math.exp(-delt * 0o1/0o2000)));
   const rect = bal2.getBoundingClientRect();
   const px = ( e.clientX - rect.left ) * ( bal2.width / rect.width );
   const py = ( e.clientY - rect.top ) * ( bal2.height / rect.height );
-  vidCX = m.x + ( px - bal2.width / 2 ) / sef4P6zuk;
-  vidCZ = m.z + ( py - bal2.height / 2 ) / sef4P6zuk;
+  vidCX = m.x + ( px - bal2.width / 0o2 ) / sef4P6zuk;
+  vidCZ = m.z + ( py - bal2.height / 0o2 ) / sef4P6zuk;
   kix2P6zuk = sef4P6zuk;
   bezonoDesegno = true;
 }, { passive: false });
 bal2.addEventListener("dblclick", () => {
-  vidCX = 0; vidCZ = 0;
+  vidCX = 0o0; vidCZ = 0o0;
   kix2P6zuk = minimaP6zuk();
   bezonoDesegno = true;
 });
@@ -602,13 +602,13 @@ function statuso(s2banani: string): void {
 }
 function tlak2Haskek2(){
   kfe<HTMLElement>("ka5ikVem2").textContent = ka5ik()+ " un";
-  kfe<HTMLElement>("g2saVem2").textContent = g2sa().toFixed(2);
+  kfe<HTMLElement>("g2saVem2").textContent = g2sa().toFixed(0o2);
 // ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
 // ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
   vem2Kama.value = String(tsasaVem2Vem2);
   kfe<HTMLElement>("vem2Vem2").textContent = tsasaVem2Vem2 + " un";
   kfe<HTMLElement>("lasVem2").textContent = lasKama.value
-    + ( sukf2qitaTsiq >= 0 ? " ( ſᶘꞇȝ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ )" : "" );
+    + ( sukf2qitaTsiq >= 0o0 ? " ( ſᶘꞇȝ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ )" : "" );
 }
 // ⟪ ſɭᴜ ſןᴜ , 📃 ⟫ , ſɭᴜ ſןᴜ ,
 // ſɭᴜ ſןᴜ , ꞙɭэ ,
@@ -732,9 +732,9 @@ ilHacax2l.forEach(b => {
     tlak2Haku1o();
     tlak2Kursoro();
     tlak23DnIlon();
-    pentri(0, 0, REZ - 1, REZ - 1);
+    pentri(0o0, 0o0, REZ - 0o1, REZ - 0o1);
     bezonoDesegno = true;
-    if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
+    if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0o0, ix1: N - 0o1, iz0: 0o0, iz1: N - 0o1 });
   });
 });
 // ſɭᴜ ſןᴜ , ꞙɭц ,
@@ -885,9 +885,9 @@ movigiIlo.addEventListener("click", () => {
   tlak2Haku1o();
   tlak2Kursoro();
   tlak23DnIlon();
-  pentri(0, 0, REZ - 1, REZ - 1);
+  pentri(0o0, 0o0, REZ - 0o1, REZ - 0o1);
   bezonoDesegno = true;
-  if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
+  if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0o0, ix1: N - 0o1, iz0: 0o0, iz1: N - 0o1 });
 });
 // ſɭᴜ ſןᴜ , ꞙɭɩ ,
 // ſɭᴜ ſןᴜ , ꞙɭꞟ ,
@@ -904,9 +904,9 @@ hakfe<HTMLButtonElement>("#kozuaro button").forEach(b => {
 // ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
 // ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
 // ſᶘᴜ j͑ʃᴜ , ꞙɭэ ,
-    pentri(0, 0, REZ - 1, REZ - 1);
+    pentri(0o0, 0o0, REZ - 0o1, REZ - 0o1);
     bezonoDesegno = true;
-    if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
+    if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0o0, ix1: N - 0o1, iz0: 0o0, iz1: N - 0o1 });
   });
 });
 // ⟪ ſᶘᴜ j͑ʃᴜ , 📃 ⟫ , ſᶘᴜ j͑ʃᴜ ,
@@ -916,9 +916,9 @@ hakfe<HTMLButtonElement>("#biomaro button").forEach(b => {
     catsaraBs2n(parseInt(b.dataset.bs2 ?? "0", 0o12));
     hakfe<HTMLButtonElement>("#biomaro button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
 // ſᶘᴜ j͑ʃᴜ , ꞙɭꞟ ,
-    pentri(0, 0, REZ - 1, REZ - 1);
+    pentri(0o0, 0o0, REZ - 0o1, REZ - 0o1);
     bezonoDesegno = true;
-    if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
+    if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0o0, ix1: N - 0o1, iz0: 0o0, iz1: N - 0o1 });
   });
 });
 // ⟪ ſᶘᴜ j͑ʃᴜ , 📃 ⟫ , ſᶘᴜ j͑ʃᴜ ,
@@ -928,9 +928,9 @@ hakfe<HTMLButtonElement>("#pagaro button[data-paga]").forEach(b => {
     catsaraPagan(parseInt(b.dataset.paga ?? "0", 0o12));
     hakfe<HTMLButtonElement>("#pagaro button[data-paga]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
 // ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
-    pentri(0, 0, REZ - 1, REZ - 1);
+    pentri(0o0, 0o0, REZ - 0o1, REZ - 0o1);
     bezonoDesegno = true;
-    if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0, ix1: N - 1, iz0: 0, iz1: N - 1 });
+    if ( triaDimensia && t6limaMesh ) tlak23DCakamahan({ ix0: 0o0, ix1: N - 0o1, iz0: 0o0, iz1: N - 0o1 });
   });
 });
 // ſᶘᴜ j͑ʃᴜ , ꞙɭц ,
@@ -971,7 +971,7 @@ function tlak2Haku1o() {
 function tlak2AkvajnHavop2kekai() {
   if ( !tsasaHavop2kekai ) return;
   const s = tsasaTseuni ? tsasaTseuni.vop2kekai
-    : { hatsiq: hatsiq.length, haqar6xe: 0, hatsasa: 0, hat6lima: 0 };
+    : { hatsiq: hatsiq.length, haqar6xe: 0o0, hatsasa: 0o0, hat6lima: 0o0 };
   const raqa = Math.round(s.hatsasa * Tona * Tona);
   tsasaHavop2kekai.textContent = s.hatsiq + " ſᶘꞇȝ"
     + " · " + s.haqar6xe + " ſɭɹ ſןᴜ · " + s.hatsasa + " ſɭɹ ſןᴜ ( " + raqa + " u² )"
@@ -1012,7 +1012,7 @@ lasKama.addEventListener("input", () => {
 });
 lasKama.addEventListener("change", () => {
   vasakaLasDeSukf2qita();
-  if ( !( sukf2qitaTsiq >= 0 ) ) bezonoDesegno = true;
+  if ( !( sukf2qitaTsiq >= 0o0 ) ) bezonoDesegno = true;
 });
 // ſᶘᴜ j͑ʃᴜ , ꞙɭɿ ,
 kfe<HTMLButtonElement>("hatsiqElPentrita").addEventListener("click", deriviHatsiqnElPentrita);
@@ -1020,12 +1020,12 @@ kfe<HTMLButtonElement>("malfari").addEventListener("click", malfari);
 kfe<HTMLButtonElement>("refari").addEventListener("click", refari);
 kfe<HTMLButtonElement>("restarigi").addEventListener("click", () => {
   momenti();
-  hal6da.fill(0);
-  k6liqani.fill(0);
-  habs2.fill(0);
-  hapaga.fill(0);
+  hal6da.fill(0o0);
+  k6liqani.fill(0o0);
+  habs2.fill(0o0);
+  hapaga.fill(0o0);
   catsaraHatsiqn([]);
-  catsaraSukf2qitanTsiqn(-1);
+  catsaraSukf2qitanTsiqn(-0o1);
   vasakata = true;
   revek2feTsasa();
 });
@@ -1064,7 +1064,7 @@ window.addEventListener("keydown", ( e ) => {
   if ( natakatomasai && ( natakatomasai.tagName === "INPUT" || natakatomasai.tagName === "SELECT" || natakatomasai.tagName === "TEXTAREA" ) ) return;
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 // ſɭᴜ ſןᴜ , ꞙɭц ,
-  if ( oxemaniModo && sukf2qitaOxemani >= 0
+  if ( oxemaniModo && sukf2qitaOxemani >= 0o0
     && ( e.key === "Delete" || e.key === "Backspace" ) ) {
     e.preventDefault();
     h2liObjekton(sukf2qitaOxemani);
@@ -1109,7 +1109,7 @@ window.knat6keqanu = {
   tsasa: ( x: number, z: number ) => ( { tsasa: tsekeTsasa(x, z), vem2: tsasaVem2En(x, z),
     l6da: t6limaL6da(x, z), nex2caL6da: kozonuL6da(x, z) + l6daInterp(x, z) } ),
   kix23d: ( on: boolean ) => { tsiinanusabosaiVidon(!!on); return !!tona3d; },
-  kamera: ( x: number, y: number, z: number, cx = 0, cy = 0, cz = 0 ) => {
+  kamera: ( x: number, y: number, z: number, cx = 0o0, cy = 0o0, cz = 0o0 ) => {
     if ( !catahaq3d || !hakama3d ) return false;
     catahaq3d.position.set(x, y, z);
     hakama3d.target.set(cx, cy, cz);

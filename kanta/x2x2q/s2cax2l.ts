@@ -57,14 +57,16 @@ export function alHe(milisekundoj: number): number {
     @param skek2 ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſȷɔ ſɭ,ꞇ ｡
     @param precizeco ( number = ꞙɭɿ ) - ꞁȷ̀ɹ ꞁȷ̀ɜ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡
 @returns s2banani */
-export function alOkto( skek2: number, precizeco = 0o2 ): string {
-  const negativa = skek2 < 0;
+export const KNAK2FECAJASAI = "ɔıɿцэꞟɩƨ";
+
+export function knak2fecajasai( skek2: number, precizeco = 0o2 ): string {
+  const negativa = skek2 < 0o0;
   const vap6zukani = 0o10 ** precizeco;
   const rondigita = Math.round(Math.abs(skek2) * vap6zukani);
   const enb6k61o = Math.floor(rondigita / vap6zukani);
-  const doma = precizeco === 0 ? ""
-    : "." + ( rondigita % vap6zukani ).toString(0o10).padStart(precizeco, "0");
-  return ( negativa ? "-" : "" ) + "ꞙɭ" + enb6k61o.toString(0o10) + doma;
+  const doma = precizeco === 0o0 ? ""
+    : "." + ( rondigita % vap6zukani ).toString(0o10).padStart(precizeco, "0").replace( /[0-7]/g, c => KNAK2FECAJASAI[ Number( c ) ] );
+  return ( negativa ? "-" : "" ) + "ꞙɭ" + enb6k61o.toString(0o10).replace( /[0-7]/g, c => KNAK2FECAJASAI[ Number( c ) ] ) + doma;
 }
 
 // ⟪ ſɭᴜ ſןᴜ , 📇 ⟫
@@ -85,26 +87,26 @@ const UNUOJ: Record<string, Unuo> = {
   she: { dimensio: "tif", vap6zukani: SEKUNDOJPOSHE },
   sqe: { dimensio: "tif", vap6zukani: SEKUNDOJPOSQE },
   shaqe: { dimensio: "tif", vap6zukani: SEKUNDOJPOSHAQE },
-  s: { dimensio: "tif", vap6zukani: 1 },
+  s: { dimensio: "tif", vap6zukani: 0o1 },
   min: { dimensio: "tif", vap6zukani: 0o74 },
   h: { dimensio: "tif", vap6zukani: 0o7020 },
   h2hafaf2: { dimensio: "tif", vap6zukani: 0o250600 },
   peu: { dimensio: "sahakani", vap6zukani: METROJPOPEU },
-  m: { dimensio: "sahakani", vap6zukani: 1 },
-  cm: { dimensio: "sahakani", vap6zukani: 1 / 0o144 },
+  m: { dimensio: "sahakani", vap6zukani: 0o1 },
+  cm: { dimensio: "sahakani", vap6zukani: 0o1 / 0o144 },
   km: { dimensio: "sahakani", vap6zukani: 0o1750 },
   piispeu: { dimensio: "areo", vap6zukani: KVADRATAJMETROJPOPIISPEU },
-  m2: { dimensio: "areo", vap6zukani: 1 },
+  m2: { dimensio: "areo", vap6zukani: 0o1 },
   tiixpeu: { dimensio: "volumeno", vap6zukani: KUBAJMETROJPOTIIXPEU },
-  l: { dimensio: "volumeno", vap6zukani: 1 / 0o1750 },
-  m3: { dimensio: "volumeno", vap6zukani: 1 },
+  l: { dimensio: "volumeno", vap6zukani: 0o1 / 0o1750 },
+  m3: { dimensio: "volumeno", vap6zukani: 0o1 },
   sok: { dimensio: "maso", vap6zukani: KILOGRAMOJPOSOK },
-  kg: { dimensio: "maso", vap6zukani: 1 },
-  g: { dimensio: "maso", vap6zukani: 1 / 0o1750 },
+  kg: { dimensio: "maso", vap6zukani: 0o1 },
+  g: { dimensio: "maso", vap6zukani: 0o1 / 0o1750 },
   ssaca: { dimensio: "energio", vap6zukani: JULOJPOSSACA },
-  j: { dimensio: "energio", vap6zukani: 1 },
+  j: { dimensio: "energio", vap6zukani: 0o1 },
   hia: { dimensio: "temperaturo", vap6zukani: KELVINOJPOHIA },
-  k: { dimensio: "temperaturo", vap6zukani: 1 },
+  k: { dimensio: "temperaturo", vap6zukani: 0o1 },
 };
 
 /* ſɭᴜ ſןᴜ , ꞙɭɿ ,

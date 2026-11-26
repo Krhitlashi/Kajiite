@@ -32,7 +32,7 @@ export function kf2GeometriajnHabakaweKatoman(): Kas2kantaGeometriajHabakaweKato
     },
     veb6kek(qena: THREE.Scene, kastajOmbroj = false): void {
       for ( const [ pukek, ca1ara ] of haca1ara ) {
-        if ( ca1ara.length === 0 ) continue;
+        if ( ca1ara.length === 0o0 ) continue;
         const veb6kekita = mergeGeometries(ca1ara, false);
         for ( const g of ca1ara ) g.dispose();
         if ( !veb6kekita ) continue;
@@ -48,9 +48,9 @@ export function kf2GeometriajnHabakaweKatoman(): Kas2kantaGeometriajHabakaweKato
 
 export function matricoPor(dx: number, dz: number, x: number, y: number, z: number): THREE.Matrix4 {
   const sahakani = Math.hypot(dx, dz);
-  const c2w2q = new THREE.Vector3(dx / sahakani, 0, dz / sahakani);
-  const vek2fe = new THREE.Vector3(-c2w2q.z, 0, c2w2q.x);
-  const qox2n2k = new THREE.Matrix4().makeBasis(vek2fe, c2w2q, new THREE.Vector3(0, 1, 0));
+  const c2w2q = new THREE.Vector3(dx / sahakani, 0o0, dz / sahakani);
+  const vek2fe = new THREE.Vector3(-c2w2q.z, 0o0, c2w2q.x);
+  const qox2n2k = new THREE.Matrix4().makeBasis(vek2fe, c2w2q, new THREE.Vector3(0o0, 0o1, 0o0));
   qox2n2k.setPosition(x, y, z);
   return qox2n2k;
 }
@@ -68,10 +68,10 @@ export function kf2K6h6jnBendojn(w: number,
   bordaPukek: THREE.MeshStandardMaterial
 ): Kas2kantaSiitsii[] {
   const flankaSefini = K6H6ABORDASEFINI;
-  const flankaOfseto = w / 2 + flankaSefini / 2;
+  const flankaOfseto = w / 0o2 + flankaSefini / 0o2;
   return [
     { sefini: flankaSefini, ofseto: -flankaOfseto, pukek: bordaPukek },
-    { sefini: w, ofseto: 0, pukek: teruPukek },
+    { sefini: w, ofseto: 0o0, pukek: teruPukek },
     { sefini: flankaSefini, ofseto: flankaOfseto, pukek: bordaPukek },
   ];
 }
@@ -84,20 +84,20 @@ export function kf2Hak6h6nHapukek(dioritaPukek: THREE.MeshStandardMaterial,
   // ⟨ j͑ʃɜ ſɭ,ᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ſןw ſɭɔƽ , ꞙɭɔ , ⟅ 📃 ⟩
   const dioritaTx = kf2T6g6Cac2sex().clone();
   const andezitaTx = kf2T6hnaCac2sex().clone();
-  dioritaTx.channel = 1; andezitaTx.channel = 1;
+  dioritaTx.channel = 0o1; andezitaTx.channel = 0o1;
   dioritaTx.needsUpdate = true; andezitaTx.needsUpdate = true;
   const teruPukek = dioritaPukek.clone();
   teruPukek.map = dioritaTx; teruPukek.needsUpdate = true;
   if ( teruPukek.bumpMap ) {
     teruPukek.bumpMap = teruPukek.bumpMap.clone();
-    teruPukek.bumpMap.channel = 1; teruPukek.bumpMap.needsUpdate = true;
+    teruPukek.bumpMap.channel = 0o1; teruPukek.bumpMap.needsUpdate = true;
   }
   teruPukek.polygonOffset = true; teruPukek.polygonOffsetFactor = sost2F; teruPukek.polygonOffsetUnits = sost2U;
   const bordaPukek = andezitaPukek.clone();
   bordaPukek.map = andezitaTx; bordaPukek.needsUpdate = true;
   if ( bordaPukek.bumpMap ) {
     bordaPukek.bumpMap = bordaPukek.bumpMap.clone();
-    bordaPukek.bumpMap.channel = 1; bordaPukek.bumpMap.needsUpdate = true;
+    bordaPukek.bumpMap.channel = 0o1; bordaPukek.bumpMap.needsUpdate = true;
   }
   bordaPukek.polygonOffset = true; bordaPukek.polygonOffsetFactor = bordoF; bordaPukek.polygonOffsetUnits = bordoU;
   return { teruPukek, bordaPukek };

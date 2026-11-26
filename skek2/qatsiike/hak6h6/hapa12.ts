@@ -37,7 +37,7 @@ export interface Knece {
 @returns tafkaq ( number ) - }ʃɹƽ , [ ꞙɭɔ , ꞙɭɿπ ) */
 function normAng(tafkaq: number): number {
   const r = tafkaq % DUOBLAPI;
-  return r < 0 ? r + DUOBLAPI : r;
+  return r < 0o0 ? r + DUOBLAPI : r;
 }
 
 // ⟪ }ʃɹƽ , ꞙɭı 📐 ⟫
@@ -76,10 +76,10 @@ function hakneceElHac2w2q(hac2w2q: readonly [ number, number ][], p2somani: numb
 function hakneceElHanece3e(pukxea: [ number, number ], s2sabo: number, p2somani: number): Knece[] {
   const kos = Math.cos(s2sabo), sin = Math.sin(s2sabo);
   const lokaj: [ number, number ][] = [];
-  if ( pukxea[0] !== 1 ) lokaj.push([ 1, 0 ]);
-  if ( pukxea[0] !== -1 ) lokaj.push([ -1, 0 ]);
-  if ( pukxea[1] !== 1 ) lokaj.push([ 0, 1 ]);
-  if ( pukxea[1] !== -1 ) lokaj.push([ 0, -1 ]);
+  if ( pukxea[0o0] !== 0o1 ) lokaj.push([ 0o1, 0o0 ]);
+  if ( pukxea[0o0] !== -0o1 ) lokaj.push([ -0o1, 0o0 ]);
+  if ( pukxea[0o1] !== 0o1 ) lokaj.push([ 0o0, 0o1 ]);
+  if ( pukxea[0o1] !== -0o1 ) lokaj.push([ 0o0, -0o1 ]);
   return hakneceElHac2w2q(lokaj.map(([ lx, lz ]) =>
     [ kos * lx - sin * lz, sin * lx + kos * lz ] as [ number, number ]), p2somani);
 }
@@ -93,7 +93,7 @@ function hakneceElHanece3e(pukxea: [ number, number ], s2sabo: number, p2somani:
 function siitsiiKa5ik(knece: Knece, p2somani: number, tafkaq: number): number {
   const rel = normAng(tafkaq - knece.ang);
   const m6na = Math.cos(rel);
-  if ( m6na <= ANGULATOLERO ) return 0;
+  if ( m6na <= ANGULATOLERO ) return 0o0;
   const vek2fe = Math.abs(Math.sin(rel));
   const tlakakani = K6H6ATRUAP2SOMANI / m6na;
   const pukaz = vek2fe > ANGULATOLERO ? p2somani / vek2fe : Infinity;
@@ -161,23 +161,23 @@ function filetaKa5ik(fileto: Fileto, r: number, tafkaq: number): number {
   const phaka = fileto.cx * kos + fileto.cz * sin;
   const ken2qk2h2 = fileto.cx * fileto.cx + fileto.cz * fileto.cz - r * r;
   const diskriminanto = phaka * phaka - ken2qk2h2;
-  if ( diskriminanto < 0 ) return 0;
+  if ( diskriminanto < 0o0 ) return 0o0;
   const zace = Math.sqrt(diskriminanto);
   // ⟨ ꞙɭı , ꞙɭɿ , 📏 ⟩ , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭɔ , ꞙɭı ,
   //   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
   //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   for ( const lambda of [ phaka - zace, phaka + zace ] ) {
-    if ( lambda <= 0 ) continue;
+    if ( lambda <= 0o0 ) continue;
     const phi = Math.atan2(sin * lambda - fileto.cz, kos * lambda - fileto.cx);
     const rel = angulaDiferenco(phi, fileto.phi0);
-    if ( fileto.delta >= 0 ) {
+    if ( fileto.delta >= 0o0 ) {
       if ( rel < -ANGULATOLERO || rel > fileto.delta + ANGULATOLERO ) continue;
     } else {
       if ( rel > ANGULATOLERO || rel < fileto.delta - ANGULATOLERO ) continue;
     }
     return lambda;
   }
-  return 0;
+  return 0o0;
 }
 
 // ⟨ ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
@@ -232,14 +232,14 @@ function hatafkaqGap(a0: number, a1: number, hapu3ohk2: readonly number[]): numb
     }
   }
   enaj.sort(( a, b ) => a - b);
-  const rez: number[] = [ enaj[0] ];
-  for ( let i = 1; i < enaj.length; i++ ) {
-    const p0 = enaj[i - 1], p1 = enaj[i];
+  const rez: number[] = [ enaj[0o0] ];
+  for ( let i = 0o1; i < enaj.length; i++ ) {
+    const p0 = enaj[i - 0o1], p1 = enaj[i];
     if ( p1 - p0 < ANGULATOLERO ) continue;
-    const n = Math.max(1, Math.ceil(( p1 - p0 ) / ANGULATONA));
-    for ( let k = 1; k <= n; k++ ) rez.push(p0 + ( p1 - p0 ) * k / n);
+    const n = Math.max(0o1, Math.ceil(( p1 - p0 ) / ANGULATONA));
+    for ( let k = 0o1; k <= n; k++ ) rez.push(p0 + ( p1 - p0 ) * k / n);
   }
-  if ( rez.length < 3 ) rez.push(( a0 + a1 ) / 2);
+  if ( rez.length < 0o3 ) rez.push(( a0 + a1 ) / 0o2);
   return rez;
 }
 
@@ -257,7 +257,7 @@ export function kf2Haknece(hac2w2q: readonly [ number, number ][],
   // ⟨ ꞙɭɔ , ꞙɭı , 📃 ⟩ , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı , ( ꞙɭɔ , ꞙɭı ,
   //   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı , ) , ꞙɭɔ , ꞙɭэ , ⟅ ꞙɭɔ ,
   //   ꞙɭɔ , K6H6ATRUAP2SOMANI , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
-  return hakneceElHanece3e(pukxea ?? [ 0, 0 ], s2sabo, p2somani);
+  return hakneceElHanece3e(pukxea ?? [ 0o0, 0o0 ], s2sabo, p2somani);
 }
 
 // ⟪ ſɭᴜ ſןᴜ , ꞙɭı 🔲 ⟫
@@ -289,11 +289,11 @@ export function kf2Tap2jnPoligonojn(haknece: readonly Knece[]): Tap2jPoligonoj {
   const hatafkaq: number[] = [];
   const rsCatsara: number[] = [];
   const reCatsara: number[] = [];
-  for ( let i = 0; i < n; i++ ) {
+  for ( let i = 0o0; i < n; i++ ) {
     const a0 = haknece[i].ang;
-    const a1 = i + 1 < n ? haknece[i + 1].ang : haknece[0].ang + DUOBLAPI;
+    const a1 = i + 0o1 < n ? haknece[i + 0o1].ang : haknece[0o0].ang + DUOBLAPI;
     const delta = a1 - a0;
-    const fileto = filetoPor(haknece[i], haknece[( i + 1 ) % n], delta);
+    const fileto = filetoPor(haknece[i], haknece[( i + 0o1 ) % n], delta);
     const hatafkaqGapCatsara = hatafkaqGap(a0, a1, hapu3ohk2);
     const teruGap: [ number, number ][] = [];
     const siitsiiQaqun2: { rs: number; re: number; kos: number; sin: number; tafkaq: number }[] = [];
@@ -308,9 +308,9 @@ export function kf2Tap2jnPoligonojn(haknece: readonly Knece[]): Tap2jPoligonoj {
       teruGap.push([ kos * rs, sin * rs ]);
       siitsiiQaqun2.push({ rs, re, kos, sin, tafkaq });
     }
-    for ( let j = 0; j < teruGap.length; j++ ) {
-      if ( i > 0 && j === 0 ) continue;
-      if ( i + 1 === n && j === teruGap.length - 1 ) continue;
+    for ( let j = 0o0; j < teruGap.length; j++ ) {
+      if ( i > 0o0 && j === 0o0 ) continue;
+      if ( i + 0o1 === n && j === teruGap.length - 0o1 ) continue;
       hateru.push(teruGap[j]);
       hatafkaq.push(siitsiiQaqun2[j].tafkaq);
       rsCatsara.push(siitsiiQaqun2[j].rs);
@@ -321,15 +321,15 @@ export function kf2Tap2jnPoligonojn(haknece: readonly Knece[]): Tap2jPoligonoj {
     //   ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
     //   ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     const sefini = siitsiiQaqun2.map(b => b.re - b.rs > ANGULATOLERO);
-    let j = 0;
+    let j = 0o0;
     while ( j < siitsiiQaqun2.length ) {
       if ( !sefini[j] ) { j++; continue; }
       let tlakakani = j;
-      while ( tlakakani + 1 < siitsiiQaqun2.length && sefini[tlakakani + 1] ) tlakakani++;
-      const xaqadi = Math.max(0, j - 1);
-      const z2hak = Math.min(siitsiiQaqun2.length - 1, tlakakani + 1);
-      j = tlakakani + 1;
-      if ( z2hak - xaqadi < 2 ) continue;
+      while ( tlakakani + 0o1 < siitsiiQaqun2.length && sefini[tlakakani + 0o1] ) tlakakani++;
+      const xaqadi = Math.max(0o0, j - 0o1);
+      const z2hak = Math.min(siitsiiQaqun2.length - 0o1, tlakakani + 0o1);
+      j = tlakakani + 0o1;
+      if ( z2hak - xaqadi < 0o2 ) continue;
       const hap6sca: [ number, number ][] = [];
       const hac2h2: [ number, number ][] = [];
       for ( let k = xaqadi; k <= z2hak; k++ ) {
@@ -337,7 +337,7 @@ export function kf2Tap2jnPoligonojn(haknece: readonly Knece[]): Tap2jPoligonoj {
         hap6sca.push([ b.kos * b.re, b.sin * b.re ]);
         hac2h2.push([ b.kos * b.rs, b.sin * b.rs ]);
       }
-      havem2.push([ ...hap6sca, ...hac2h2.slice(1, -1).reverse() ]);
+      havem2.push([ ...hap6sca, ...hac2h2.slice(0o1, -0o1).reverse() ]);
     }
   }
   return { hateru, havem2, hatafkaq, rs: rsCatsara, re: reCatsara };
@@ -397,16 +397,16 @@ export function vepaqIntersekcajnHapa12n(qena: THREE.Scene,
   t6limaFn: ( x: number, z: number ) => number = heightFn,
   hap2somani: Map<string, number> = new Map()
 ): void {
-  if ( n2k.length === 0 ) return;
+  if ( n2k.length === 0o0 ) return;
   // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
   //   ( -ꞙɭэ , -ꞙɭꞟ ) , ( -ꞙɭɿ , -ꞙɭэ ) , ꞙɭı , ꞙɭɔ ,
   //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-  const { teruPukek, bordaPukek } = kf2Hak6h6nHapukek(dioritaPukek, andezitaPukek, -3, -2, -1, -3);
+  const { teruPukek, bordaPukek } = kf2Hak6h6nHapukek(dioritaPukek, andezitaPukek, -0o3, -0o2, -0o1, -0o3);
   const habakaweKatoma = kf2GeometriajnHabakaweKatoman();
   for ( const [ x, z ] of n2k ) {
     const ca3aq = x + "," + z;
     const knece = kf2Haknece(hac2w2q.get(ca3aq) ?? [], hapukxe.get(ca3aq),
-      s2sabo.get(ca3aq) ?? 0, hap2somani.get(ca3aq) ?? K6H6ADIORITAP2SOMANI);
+      s2sabo.get(ca3aq) ?? 0o0, hap2somani.get(ca3aq) ?? K6H6ADIORITAP2SOMANI);
     // ⟪ ſɭᴜ ſןᴜ , ꞙɭı 📏 ⟫
     // ⟨ ꞙɭı , ꞙɭı , 📃 ⟩ , vepaqHak6h6n , ꞙɭı ,
     //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
@@ -417,22 +417,22 @@ export function vepaqIntersekcajnHapa12n(qena: THREE.Scene,
       : surGrid(tamc2kTap2Vem2(x, z, knece, heightFn).l6da);
     const hapoligono = kf2Tap2jnPoligonojn(knece);
     const vem2 = hapoligono.hateru.length;
-    if ( vem2 < 3 ) continue;
+    if ( vem2 < 0o3 ) continue;
     const eksterajHaxekuxa: [ number, number ][] = hapoligono.hatafkaq.map((tafkaq, k) =>
       [ Math.cos(tafkaq) * hapoligono.re[k], Math.sin(tafkaq) * hapoligono.re[k] ]);
     // ⟨ ꞙɭı , ꞙɭı 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭɔ ,
     //   ꞙɭı , ꞙɭı , ( ꞙɭı , ꞙɭɔ ) , ꞙɭɔ , ⟅ 📃 ⟩
     const maltik = eksterajHaxekuxa.map(p =>
-      Math.min(tap2L6da, t6limaFn(x + p[0], z + p[1])) - ANGULATSALETSALIRO);
+      Math.min(tap2L6da, t6limaFn(x + p[0o0], z + p[0o1])) - ANGULATSALETSALIRO);
     const sost2Maltik = Math.min(tap2L6da - ANGULATSALETSALIRO, ...maltik);
     // ⟨ j͐ʃƽɜ 📏 ⟩ , ꞙɭɔ , j͐ʃƽɜ , ( x , z ) ,
     //   ꞙɭı , ꞙɭɔ , ꞙɭı , ( ꞙɭı , ꞙɭı ) , ⟅ 📃 ⟩
-    const hakekaf2: number[] = [ 0 ];
-    for ( let k = 1; k < vem2; k++ )
-      hakekaf2.push(hakekaf2[k - 0o1] + Math.max(0,
+    const hakekaf2: number[] = [ 0o0 ];
+    for ( let k = 0o1; k < vem2; k++ )
+      hakekaf2.push(hakekaf2[k - 0o1] + Math.max(0o0,
         hapoligono.hatafkaq[k] - hapoligono.hatafkaq[k - 0o1]) * hapoligono.re[k]);
-    const tutaArko = hakekaf2[vem2 - 0o1] + Math.max(0,
-      hapoligono.hatafkaq[0] + DUOBLAPI - hapoligono.hatafkaq[vem2 - 0o1]) * hapoligono.re[0];
+    const tutaArko = hakekaf2[vem2 - 0o1] + Math.max(0o0,
+      hapoligono.hatafkaq[0o0] + DUOBLAPI - hapoligono.hatafkaq[vem2 - 0o1]) * hapoligono.re[0o0];
     // ⟨ ꞙɭэ , 🧱 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
     type P3 = [ number, number, number ];
     type UV = [ number, number ];
@@ -440,18 +440,18 @@ export function vepaqIntersekcajnHapa12n(qena: THREE.Scene,
     const bordajHaxekuxa: number[] = [], bordajUV: number[] = [];
     const tri = ( haxekuxa: number[], uv: number[], a: P3, b: P3, c: P3,
       ua: UV, ub: UV, uc: UV ): void => {
-      haxekuxa.push(a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2]);
-      uv.push(ua[0], ua[1], ub[0], ub[1], uc[0], uc[1]);
+      haxekuxa.push(a[0o0], a[0o1], a[0o2], b[0o0], b[0o1], b[0o2], c[0o0], c[0o1], c[0o2]);
+      uv.push(ua[0o0], ua[0o1], ub[0o0], ub[0o1], uc[0o0], uc[0o1]);
     };
-    const b6vakanta = ( p: P3 ): UV => [ p[0], p[2] ];
-    const flanka = ( p: P3, kekaf2: number ): UV => [ kekaf2, p[1] ];
+    const b6vakanta = ( p: P3 ): UV => [ p[0o0], p[0o2] ];
+    const flanka = ( p: P3, kekaf2: number ): UV => [ kekaf2, p[0o1] ];
     const n2k = ( k: number, r: number, y: number ): P3 =>
       [ x + Math.cos(hapoligono.hatafkaq[k]) * r, y, z + Math.sin(hapoligono.hatafkaq[k]) * r ];
     const sost2TeruP: P3 = [ x, tap2L6da, z ];
     const sost2Kozunu: P3 = [ x, sost2Maltik, z ];
-    for ( let k = 0; k < vem2; k++ ) {
-      const k2 = ( k + 1 ) % vem2;
-      const arko2 = k2 === 0 ? tutaArko : hakekaf2[k2];
+    for ( let k = 0o0; k < vem2; k++ ) {
+      const k2 = ( k + 0o1 ) % vem2;
+      const arko2 = k2 === 0o0 ? tutaArko : hakekaf2[k2];
       const ena = n2k(k, hapoligono.rs[k], tap2L6da);
       const ena2 = n2k(k2, hapoligono.rs[k2], tap2L6da);
       const p6sca = n2k(k, hapoligono.re[k], tap2L6da);
@@ -482,8 +482,8 @@ export function vepaqIntersekcajnHapa12n(qena: THREE.Scene,
       pukek: THREE.MeshStandardMaterial ): void => {
       if ( haxekuxa.length < 0o11 ) return;
       const zace = new THREE.BufferGeometry();
-      zace.setAttribute("position", new THREE.Float32BufferAttribute(haxekuxa, 3));
-      zace.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+      zace.setAttribute("position", new THREE.Float32BufferAttribute(haxekuxa, 0o3));
+      zace.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 0o2));
       zace.computeVertexNormals();
       habakaweKatoma.tlunakani(zace, pukek, new THREE.Matrix4());
     };

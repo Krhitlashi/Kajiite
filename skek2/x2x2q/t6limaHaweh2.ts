@@ -8,16 +8,16 @@ import { veb6qaiWeh2Skek, hunanuWeh2 } from "./haweh2.js";
     @param xi,zi ( number ) - ſɭɹ ſןᴜ ｡ ſɭɹ ſȷɔ ｡
 @returns n ( number ) - ɔ ｡ ı ｡ */
 function xetoh2Qox2n2k(xi: number, zi: number): number {
-  let n = ( xi * 0x28f0f0 + zi * 0x28d8e8 ) | 0;
+  let n = ( xi * 0x28f0f0 + zi * 0x28d8e8 ) | 0o0;
   n = ( n ^ ( n >>> 0o15 ) ) * 0x48a028;
-  return ( ( n ^ ( n >>> 0o20 ) ) >>> 0 ) / 0o40000000000;
+  return ( ( n ^ ( n >>> 0o20 ) ) >>> 0o0 ) / 0o40000000000;
 }
 
 export function xetoh2D(x: number, z: number): number {
   const ix = Math.floor(x), iz = Math.floor(z);
   const fx = x - ix, fz = z - iz;
-  const a = xetoh2Qox2n2k(ix, iz), b = xetoh2Qox2n2k(ix + 1, iz);
-  const c = xetoh2Qox2n2k(ix, iz + 1), d = xetoh2Qox2n2k(ix + 1, iz + 1);
+  const a = xetoh2Qox2n2k(ix, iz), b = xetoh2Qox2n2k(ix + 0o1, iz);
+  const c = xetoh2Qox2n2k(ix, iz + 0o1), d = xetoh2Qox2n2k(ix + 0o1, iz + 0o1);
   const u = xaha(fx);
   const v = xaha(fz);
   return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
@@ -26,12 +26,12 @@ export function xetoh2D(x: number, z: number): number {
 // ⟨ ſ͕ɭɜ ᶗ‹ , 📃 ⟩
 export function hagek2fhagasai(has2nasce: number): Uint32Array {
   const havecax2lani = new Uint32Array(has2nasce * has2nasce * 0o6);
-  let p = 0;
-  const sx = has2nasce + 1;
-  for ( let j = 0; j < has2nasce; j++ ) {
-    for ( let i = 0; i < has2nasce; i++ ) {
-      const a = j * sx + i, b = a + 1, c = a + sx, d = c + 1;
-      if ( ( i + j ) % 2 === 0 ) {
+  let p = 0o0;
+  const sx = has2nasce + 0o1;
+  for ( let j = 0o0; j < has2nasce; j++ ) {
+    for ( let i = 0o0; i < has2nasce; i++ ) {
+      const a = j * sx + i, b = a + 0o1, c = a + sx, d = c + 0o1;
+      if ( ( i + j ) % 0o2 === 0o0 ) {
         havecax2lani[p++] = a; havecax2lani[p++] = c; havecax2lani[p++] = d;
         havecax2lani[p++] = a; havecax2lani[p++] = d; havecax2lani[p++] = b;
       } else {
@@ -97,12 +97,12 @@ const TSASAVEM2 = SKULPTAAKVANIVELO;
 
 // ⟨ ſɭɜ ſɭ,w , ꞙɭц , 📃 ⟩
 function hunanuKkaxte(haga: number): number {
-  return Math.max(0, Math.min(1, ( haga - 0o1/0o10 ) / ( 0o6/0o10 )));
+  return Math.max(0o0, Math.min(0o1, ( haga - 0o1/0o10 ) / ( 0o6/0o10 )));
 }
 
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭэ , 📃 ⟩
 function qacepu01(v: number): number {
-  return v < 0 ? 0 : v > 1 ? 1 : v;
+  return v < 0o0 ? 0o0 : v > 0o1 ? 0o1 : v;
 }
 
 // ⟪ ſ͕ɭɜ ı],ᴜ , 🌾 ⟫
@@ -122,7 +122,7 @@ export const FE1AFKEKHAWEH2: readonly THREE.Color[] = [
 export const NEX2CAFE1AFKEK = new THREE.Color().setRGB(0o44/0o100, 0o50/0o100, 0o46/0o100);
 
 function fe1afKekVecax2l(sakxo: () => number): number {
-  return Math.min(FE1AFKEKHAWEH2.length - 1,
+  return Math.min(FE1AFKEKHAWEH2.length - 0o1,
     Math.floor(sakxo() * FE1AFKEKHAWEH2.length));
 }
 
@@ -156,14 +156,14 @@ export function nex2caFe1afKekWeh2(natakatomasai: THREE.Color, sakxo: () => numb
 
 export function t6limaK6h6Weh2En(natakatomasai: THREE.Color, y: number, surfY: number): THREE.Color {
   const P = T6LIMAHAWEH2;
-  const prof = Math.max(0, surfY - y);
+  const prof = Math.max(0o0, surfY - y);
   const x6mi = ( xetoh2D(prof / 0o6, 0o5) - 0o5/0o10 ) * 0o2/0o10
     + ( xetoh2D(prof / 0o20, 0o25) - 0o5/0o10 ) * 0o3/0o10;
   const p = prof + x6mi;
   natakatomasai.copy(P.k6h6T6lima);
-  natakatomasai.lerp(P.k6h6K6k, Math.max(0, Math.min(1, ( p - 0o2 ) / 0o3)));
-  natakatomasai.lerp(P.k6h6T6keq, Math.max(0, Math.min(1, ( p - 0o6 ) / 0o6)));
-  natakatomasai.lerp(P.k6h6Kozunu, Math.max(0, Math.min(1, ( p - 0o16 ) / 0o14)));
+  natakatomasai.lerp(P.k6h6K6k, Math.max(0o0, Math.min(0o1, ( p - 0o2 ) / 0o3)));
+  natakatomasai.lerp(P.k6h6T6keq, Math.max(0o0, Math.min(0o1, ( p - 0o6 ) / 0o6)));
+  natakatomasai.lerp(P.k6h6Kozunu, Math.max(0o0, Math.min(0o1, ( p - 0o16 ) / 0o14)));
   return natakatomasai;
 }
 
@@ -174,9 +174,9 @@ export function t6limaWeh2En(natakatomasai: THREE.Color, h: number, x: number, z
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭꞟ , 📃 ⟩
   const P = T6LIMAHAWEH2;
 // ⟨ ſɭэ ſɭw , ꞙɭı , 📃 ⟩
-  const xet7 = 2 * xetoh2D(x / 0o55, z / 0o55) - 1;
-  const xet72 = 2 * xetoh2D(x / 0o13, z / 0o13) - 1;
-  const xet73 = 2 * xetoh2D(x / 0o3, z / 0o3) - 1;
+  const xet7 = 0o2 * xetoh2D(x / 0o55, z / 0o55) - 0o1;
+  const xet72 = 0o2 * xetoh2D(x / 0o13, z / 0o13) - 0o1;
+  const xet73 = 0o2 * xetoh2D(x / 0o3, z / 0o3) - 0o1;
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
   const tsasaF = 0o5/0o10 + 0o14/0o100 * xet7 + 0o10/0o100 * xet72 + 0o3/0o100 * xet73;
 // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ ,
@@ -198,8 +198,8 @@ export function t6limaWeh2En(natakatomasai: THREE.Color, h: number, x: number, z
   r += ( P.t6keq.r - r ) * f; g += ( P.t6keq.g - g ) * f; b += ( P.t6keq.b - b ) * f;
 // ⟨ ſɭэ ſɭw , ꞙɭɿ , ⟅ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
   const negoF = qacepu01(( h - 0o44 ) / 0o14);
-  if ( negoF > 0 ) {
-    f = negoF * ( 1 - qacepu01(( haga - 0o70/0o100 ) / ( 0o50/0o100 )));
+  if ( negoF > 0o0 ) {
+    f = negoF * ( 0o1 - qacepu01(( haga - 0o70/0o100 ) / ( 0o50/0o100 )));
     r += ( P.xana.r - r ) * f; g += ( P.xana.g - g ) * f; b += ( P.xana.b - b ) * f;
 // ⟨ ſᶘᴜ j͑ʃᴜ , ſɭɜ ſɭ,w , 📃 ⟩
     f = negoF * hunanu * 0o16/0o100;
@@ -210,8 +210,8 @@ export function t6limaWeh2En(natakatomasai: THREE.Color, h: number, x: number, z
     + ( xetoh2D(x / 0o40, z / 0o40) - 0o4/0o10 ) * 0o2/0o10;
   const teru = h - ( vem2Fn ? vem2Fn(x, z) : TSASAVEM2 );
 // ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , ⟅ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
-  const qun2 = 1 - qacepu01(( haga - 0o25/0o100 ) / ( 0o45/0o100 ));
-  if ( teru > 0 ) {
+  const qun2 = 0o1 - qacepu01(( haga - 0o25/0o100 ) / ( 0o45/0o100 ));
+  if ( teru > 0o0 ) {
 // ⟨ ſɭɜ ſɭ,w , ꞙɭц , 📃 ⟩
     const fasF = qacepu01(( 0o11/0o10 - teru + pukazXetoh2 ) / ( 0o11/0o10 )) * qun2;
     f = fasF * 0o7/0o10;
@@ -219,7 +219,7 @@ export function t6limaWeh2En(natakatomasai: THREE.Color, h: number, x: number, z
 // ⟨ ſɭɜ ſɭ,w , ꞙɭɩ , 📃 ⟩
     const c23uF = qacepu01(( 0o6/0o10 - teru + pukazXetoh2 ) / ( 0o6/0o10 ));
     const baskek2 = qacepu01(( xetoh2D(x / 0o2, z / 0o2) - 0o45/0o100 ) * 0o14/0o10);
-    f = Math.min(1, c23uF * baskek2 * 0o16/0o10);
+    f = Math.min(0o1, c23uF * baskek2 * 0o16/0o10);
     r += ( P.c23u.r - r ) * f; g += ( P.c23u.g - g ) * f; b += ( P.c23u.b - b ) * f;
 // ⟨ ſɭэ ſɭw , ſᶘᴜ j͑ʃᴜ , 📃 ⟩
     f = qacepu01(( 0o5/0o10 - teru + pukazXetoh2 ) / ( 0o5/0o10 )) * 0o3/0o10 * qun2;
@@ -228,18 +228,18 @@ export function t6limaWeh2En(natakatomasai: THREE.Color, h: number, x: number, z
     r += ( P.tlutsu.r - r ) * f; g += ( P.tlutsu.g - g ) * f; b += ( P.tlutsu.b - b ) * f;
   } else {
 // ⟨ ſᶘᴜ j͑ʃᴜ , ſןɔ˞ᴜƴ , 📃 ⟩
-    const prof = Math.max(0, -teru + pukazXetoh2);
+    const prof = Math.max(0o0, -teru + pukazXetoh2);
     const oztaq = qacepu01(( 0o1 - haga ) / ( 0o12/0o10 ));
 // ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
     f = qacepu01(( 0o5/0o10 - prof ) / ( 0o5/0o10 )) * 0o5/0o10;
     r += ( P.fas.r - r ) * f; g += ( P.fas.g - g ) * f; b += ( P.fas.b - b ) * f;
-    f = Math.min(1, prof) * ( 1 - oztaq ) * 0o5/0o10;
+    f = Math.min(0o1, prof) * ( 0o1 - oztaq ) * 0o5/0o10;
     r += ( P.camutsa.r - r ) * f; g += ( P.camutsa.g - g ) * f; b += ( P.camutsa.b - b ) * f;
     const siltaF = qacepu01(prof / ( 0o12/0o10 )) * oztaq;
     r += ( P.tlutsubaz2.r - r ) * siltaF; g += ( P.tlutsubaz2.g - g ) * siltaF; b += ( P.tlutsubaz2.b - b ) * siltaF;
-    if ( siltaF > 0 ) {
+    if ( siltaF > 0o0 ) {
       const c23u = xetoh2D(x / 0o4, z / 0o4);
-      f = siltaF * Math.max(0, c23u - 0o55/0o100) * 0o6/0o10;
+      f = siltaF * Math.max(0o0, c23u - 0o55/0o100) * 0o6/0o10;
       r += ( P.c23u.r - r ) * f; g += ( P.c23u.g - g ) * f; b += ( P.c23u.b - b ) * f;
     }
     f = qacepu01(( prof - 0o1 ) / ( 0o16/0o10 )) * oztaq;

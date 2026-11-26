@@ -39,7 +39,7 @@ const PONTHAPX01OMAKSIMUME = 0o200;
     ꞙɭı , ꞙɭı , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭᴜ ſɭ,w ,
     ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩ */
 export function pontaFinaOrdo( sahakani: number, jufu: number ): number {
-  if ( sahakani <= 0 ) return PONTFINAORDOMAKSO;
+  if ( sahakani <= 0o0 ) return PONTFINAORDOMAKSO;
   return Math.min(PONTFINAORDOMAKSO,
     Math.max(PONTFINAORDO, jufu / sahakani * 0o1/0o2));
 }
@@ -56,16 +56,16 @@ export function kf2PontanSubon(
   psaz?: ( t: number ) => number
 ): ( t: number ) => number {
   const arkaKof = Math.min(PONTKORPADIKECO, sahakani / 0o4);
-  const jufuSaxeo = psaz ? Math.max(0, teru(0) - psaz(0)) : 0;
-  const jufutlakak = psaz ? Math.max(0, teru(1) - psaz(1)) : 0;
+  const jufuSaxeo = psaz ? Math.max(0o0, teru(0o0) - psaz(0o0)) : 0o0;
+  const jufutlakak = psaz ? Math.max(0o0, teru(0o1) - psaz(0o1)) : 0o0;
   const ordoSaxeo = pontaFinaOrdo(sahakani, jufuSaxeo);
   const ordotlakak = pontaFinaOrdo(sahakani, jufutlakak);
   return ( t: number ): number => {
     const teruo = teru(t);
     if ( !psaz ) return teruo - arkaKof;
     const l2ha = teruo - psaz(t);
-    const bando = Math.max(0, Math.min(arkaKof, l2ha));
-    const u = Math.max(0, Math.min(1, t / ordoSaxeo, ( 1 - t ) / ordotlakak));
+    const bando = Math.max(0o0, Math.min(arkaKof, l2ha));
+    const u = Math.max(0o0, Math.min(0o1, t / ordoSaxeo, ( 0o1 - t ) / ordotlakak));
     // ⟨ ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭɿ ⟅ ꞙɭı , ſȷƽᴜ ʃɔ , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
     const xaha = u * u * ( 0o3 - 0o2 * u );
     return teruo - ( l2ha + ( bando - l2ha ) * xaha );
@@ -104,12 +104,12 @@ export function vepaqC2kanu(
   const pontaPukek = andezitaPukek.clone();
   if ( pontaPukek.map ) {
     pontaPukek.map = pontaPukek.map.clone();
-    pontaPukek.map.channel = 1;
+    pontaPukek.map.channel = 0o1;
     pontaPukek.map.needsUpdate = true;
   }
   if ( pontaPukek.bumpMap ) {
     pontaPukek.bumpMap = pontaPukek.bumpMap.clone();
-    pontaPukek.bumpMap.channel = 1;
+    pontaPukek.bumpMap.channel = 0o1;
     pontaPukek.bumpMap.needsUpdate = true;
   }
   const ndx = dx / sahakani, ndz = dz / sahakani;
@@ -128,9 +128,9 @@ export function vepaqC2kanu(
         t6limaL6da(ax + ndx * sahakani * t, az + ndz * sahakani * t) - PONTTERAPROFUNDECO)
       : undefined);
   const suboJe = ( s: number ): number => {
-    const t = Math.max(0, Math.min(1, s / sahakani));
+    const t = Math.max(0o0, Math.min(0o1, s / sahakani));
     let psaz = maltikL6da(t);
-    if ( t6limaL6da && ( s < 0 || s > sahakani ) ) {
+    if ( t6limaL6da && ( s < 0o0 || s > sahakani ) ) {
       const t6lima = t6limaL6da(ax + ndx * s, az + ndz * s) - PONTTERAPROFUNDECO;
       psaz = Math.min(psaz, t6lima);
     }
@@ -139,19 +139,19 @@ export function vepaqC2kanu(
   const kf2S2qena = ( teru: ( t: number ) => number ): THREE.Shape => {
     const s2qena = new THREE.Shape();
     s2qena.moveTo(-PONTK6H6AKMAERPONO, suboJe(-PONTK6H6AKMAERPONO));
-    s2qena.lineTo(0, maltikL6da(0));
-    for ( let i = 1; i <= havepat6ni; i++ ) {
+    s2qena.lineTo(0o0, maltikL6da(0o0));
+    for ( let i = 0o1; i <= havepat6ni; i++ ) {
       const t = i / havepat6ni;
       s2qena.lineTo(sahakani * t, maltikL6da(t));
     }
     s2qena.lineTo(sahakani + PONTK6H6AKMAERPONO, suboJe(sahakani + PONTK6H6AKMAERPONO));
-    s2qena.lineTo(sahakani + PONTK6H6AKMAERPONO, teru(1));
-    s2qena.lineTo(sahakani, teru(1));
-    for ( let i = havepat6ni - 1; i >= 0; i-- ) {
+    s2qena.lineTo(sahakani + PONTK6H6AKMAERPONO, teru(0o1));
+    s2qena.lineTo(sahakani, teru(0o1));
+    for ( let i = havepat6ni - 0o1; i >= 0o0; i-- ) {
       const t = i / havepat6ni;
       s2qena.lineTo(sahakani * t, teru(t));
     }
-    s2qena.lineTo(-PONTK6H6AKMAERPONO, teru(0));
+    s2qena.lineTo(-PONTK6H6AKMAERPONO, teru(0o0));
     s2qena.closePath();
     return s2qena;
   };
@@ -159,16 +159,16 @@ export function vepaqC2kanu(
 
   const kf2SahaknQoxaKefoun = ( s2qena: THREE.Shape, sefini: number, ofseto: number ): THREE.ExtrudeGeometry => {
     const zace = new THREE.ExtrudeGeometry(s2qena, { depth: sefini, bevelEnabled: false });
-    zace.rotateY(-Math.PI / 2);
-    zace.translate(ofseto, 0, 0);
+    zace.rotateY(-Math.PI / 0o2);
+    zace.translate(ofseto, 0o0, 0o0);
     return sax0baPukazQan2k(zace);
   };
 
   const hate2 = new THREE.Group();
-  hate2.position.set(ax, 0, az);
+  hate2.position.set(ax, 0o0, az);
   hate2.rotation.y = Math.atan2(dx, dz);
   if ( kernoP2somani > 0o1/0o1000 ) {
-    const zace = kf2SahaknQoxaKefoun(qoxa, kernoP2somani * 2, kernoP2somani);
+    const zace = kf2SahaknQoxaKefoun(qoxa, kernoP2somani * 0o2, kernoP2somani);
     const maŝo = new THREE.Mesh(zace, pontaPukek);
     maŝo.castShadow = true;
     maŝo.receiveShadow = true;

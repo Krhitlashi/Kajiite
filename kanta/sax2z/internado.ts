@@ -24,17 +24,17 @@ export interface Internanto {
 export function kf2Internanton( hasukf2qani: Hac2h2Hasukf2qani ): Internanto {
   const { masax2z, mov, c2h2: c2h2Kanta, hapat6, ca3aq, x2paKfe, catsaraX2pa } = hasukf2qani;
 
-  let ne3ak2BohoFrac = 0;
+  let ne3ak2BohoFrac = 0o0;
 
   function tona( deltaTif: number, t: number ): void {
     if ( masax2z.supknu !== "c2h2" ) return;
 
     // ⟪ ſȷɔ˞ᴜ ɭʃᴜ 📃 ⟫
     if ( masax2z.fsata ) {
-      masax2z.celH6kuni = 0;
-      masax2z.kameraH6kuni = 0;
+      masax2z.celH6kuni = 0o0;
+      masax2z.kameraH6kuni = 0o0;
       hapat6.catahaq.position.set(masax2z.raqa.x, masax2z.raqa.y + 0o1/0o10, masax2z.raqa.z);
-      hapat6.catahaq.rotation.set(masax2z.s2sabo, masax2z.c2w2q, 0);
+      hapat6.catahaq.rotation.set(masax2z.s2sabo, masax2z.c2w2q, 0o0);
       catsaraX2pa(`<span class="catlaq">E</span> ` + traduki("agoLevi"));
       x2paKfe.classList.add("laqazi");
       return;
@@ -48,13 +48,13 @@ export function kf2Internanton( hasukf2qani: Hac2h2Hasukf2qani ): Internanto {
     let sef4X = masax2z.raqa.x + ( g2saX * movZ + radX * movX ) * seheni * deltaTif;
     let sef4Z = masax2z.raqa.z + ( g2saZ * movZ + radZ * movX ) * seheni * deltaTif;
 
-    const specX = spec.x, specZ = spec.z, specH0 = spec.flugoY ?? ( spec.h0 || 0 );
-    const rot = spec.rot || 0;
+    const specX = spec.x, specZ = spec.z, specH0 = spec.flugoY ?? ( spec.h0 || 0o0 );
+    const rot = spec.rot || 0o0;
     const cosR = Math.cos(rot), sinR = Math.sin(rot);
     const hakozu = c2h2Kanta.hakozu;
     const boho = c2h2Kanta.boho;
     const ludY = masax2z.raqa.y - specH0;
-    let tikKozu = hakozu[0];
+    let tikKozu = hakozu[0o0];
     let etapy = specH0;
     for ( const p of hakozu ) {
       if ( ludY >= p.y - 0o4/0o10 && ludY < p.y + p.l6da ) { tikKozu = p; break; }
@@ -76,7 +76,7 @@ export function kf2Internanton( hasukf2qani: Hac2h2Hasukf2qani ): Internanto {
           lokalZ = ( lokalZ / dist ) * nR;
         } else {
           lokalX = nR;
-          lokalZ = 0;
+          lokalZ = 0o0;
         }
         dist = nR;
       }
@@ -89,16 +89,16 @@ export function kf2Internanton( hasukf2qani: Hac2h2Hasukf2qani ): Internanto {
       if ( dist >= boho.rKol - 0o1/0o10 && dist <= boho.rEkster ) {
         surBoho = true;
         const ang = Math.atan2(lokalX, lokalZ);
-        const frac = ( ( ang % ( Math.PI * 2 ) ) + Math.PI * 2 ) % ( Math.PI * 2 ) / ( Math.PI * 2 );
+        const frac = ( ( ang % ( Math.PI * 0o2 ) ) + Math.PI * 0o2 ) % ( Math.PI * 0o2 ) / ( Math.PI * 0o2 );
         if ( masax2z.sxtupaTurno === null ) {
-          const turno0 = ludY >= 0 ? ludY / boho.turnoL6da : ludY / boho.turnoL6daSub;
+          const turno0 = ludY >= 0o0 ? ludY / boho.turnoL6da : ludY / boho.turnoL6daSub;
           const maltikLim = -boho.hab6nSube;
           masax2z.sxtupaTurno = Math.max(maltikLim, Math.min(boho.hab6n, Math.round(turno0 - frac) + frac));
           ne3ak2BohoFrac = frac;
         } else {
           let delta = frac - ne3ak2BohoFrac;
-          if ( delta > 0o4/0o10 ) delta -= 1;
-          else if ( delta < -0o4/0o10 ) delta += 1;
+          if ( delta > 0o4/0o10 ) delta -= 0o1;
+          else if ( delta < -0o4/0o10 ) delta += 0o1;
           ne3ak2BohoFrac = frac;
           masax2z.sxtupaTurno = Math.max(-boho.hab6nSube, Math.min(boho.hab6n, masax2z.sxtupaTurno + delta));
         }
@@ -122,25 +122,25 @@ export function kf2Internanton( hasukf2qani: Hac2h2Hasukf2qani ): Internanto {
 
     masax2z.raqa.x = sef4X;
     masax2z.raqa.z = sef4Z;
-    const moving = Math.min(1, sahakani);
+    const moving = Math.min(0o1, sahakani);
     masax2z.movoVem2 = moving;
 
     if ( masax2z.estasSurKOZU ) {
       masax2z.raqa.y += ( etapy - masax2z.raqa.y ) * 0o3/0o20;
-      masax2z.seheniY = 0;
+      masax2z.seheniY = 0o0;
       if ( Math.abs(masax2z.raqa.y - etapy) < 0o1/0o200 ) masax2z.raqa.y = etapy;
     } else {
       masax2z.seheniY -= 0o22 * deltaTif;
       masax2z.raqa.y += masax2z.seheniY * deltaTif;
       if ( masax2z.raqa.y <= etapy ) {
         masax2z.raqa.y = etapy;
-        masax2z.seheniY = 0;
+        masax2z.seheniY = 0o0;
         masax2z.estasSurKOZU = true;
       }
     }
 
     mov.oscilo += moving * seheni * deltaTif * 0o14/0o10;
-    catsaraPromenanCatahaqon(hapat6, masax2z, masax2z.raqa.y + 0o65/0o40, Math.sin(mov.oscilo * 2) * 0o3/0o100 * moving, false, etapy + 0o4/0o10);
+    catsaraPromenanCatahaqon(hapat6, masax2z, masax2z.raqa.y + 0o65/0o40, Math.sin(mov.oscilo * 0o2) * 0o3/0o100 * moving, false, etapy + 0o4/0o10);
 
     let tsiikeCamutsa: CamutsaInfo | null = null;
     let tsiikeCamutsaDist = 0o16/0o10;
@@ -155,7 +155,7 @@ export function kf2Internanton( hasukf2qani: Hac2h2Hasukf2qani ): Internanto {
     }
     masax2z.kmaTsiikeCamutsa = tsiikeCamutsa;
     let tsiikeManĝaĵo: MangxajxEro | null = null;
-    let tsiikeManĝaĵoDist = 2;
+    let tsiikeManĝaĵoDist = 0o2;
     for ( const it of c2h2Kanta.m7x ) {
       if ( it.dead ) continue;
       const mX = specX + cosR * it.haxekuxa.x - sinR * it.haxekuxa.z;

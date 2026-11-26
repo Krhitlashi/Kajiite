@@ -53,10 +53,10 @@ export function eniriSxipanC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: TH
   const vaknesmiB6k61oL6da = SXIPATIERO;
   const up = SXIPANIVELOJ, down = up;
   const rMezCx = 0o17/0o4, rTeru = 0o3/0o4, rBoto = 0o155/0o100;
-  const rBoho = 1;
+  const rBoho = 0o1;
   const yB = -down * vaknesmiB6k61oL6da, yT = up * vaknesmiB6k61oL6da;
   const konusaR = ( y: number ): number =>
-    y >= 0 ? rMezCx - ( rMezCx - rTeru ) * ( y / ( up * vaknesmiB6k61oL6da ) )
+    y >= 0o0 ? rMezCx - ( rMezCx - rTeru ) * ( y / ( up * vaknesmiB6k61oL6da ) )
            : rMezCx - ( rMezCx - rBoto ) * ( -y / ( down * vaknesmiB6k61oL6da ) );
 
   const kareno = new THREE.MeshStandardMaterial({ color: 0x103028, roughness: 0o3/0o10, metalness: 0o11/0o40, side: THREE.DoubleSide });
@@ -69,30 +69,30 @@ export function eniriSxipanC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: TH
   const boho: BohoInfo = {
     rKol: 0o3/0o10, rEkster: rBoho, perTurno: 0o14,
     turnoL6da: vaknesmiB6k61oL6da, turnoL6daSub: vaknesmiB6k61oL6da,
-    hab6n: up - 1, hab6nSube: down,
+    hab6n: up - 0o1, hab6nSube: down,
   };
   sys.boho = boho;
 
   sys.hakozu = [];
-  for ( let j = down; j >= 1; j-- ) {
+  for ( let j = down; j >= 0o1; j-- ) {
     const r = konusaR(-j * vaknesmiB6k61oL6da);
     sys.hakozu.push({ y: -j * vaknesmiB6k61oL6da, hw: r / Math.SQRT2, hd: r / Math.SQRT2, l6da: vaknesmiB6k61oL6da });
   }
-  for ( let i = 0; i < up; i++ ) {
+  for ( let i = 0o0; i < up; i++ ) {
     const r = konusaR(i * vaknesmiB6k61oL6da);
     sys.hakozu.push({ y: i * vaknesmiB6k61oL6da, hw: r / Math.SQRT2, hd: r / Math.SQRT2, l6da: vaknesmiB6k61oL6da });
   }
 
-  const teru = new THREE.Mesh(new THREE.CylinderGeometry(rTeru, rMezCx, up * vaknesmiB6k61oL6da, 0o40, 1, true), kareno);
-  teru.position.y = up * vaknesmiB6k61oL6da / 2;
+  const teru = new THREE.Mesh(new THREE.CylinderGeometry(rTeru, rMezCx, up * vaknesmiB6k61oL6da, 0o40, 0o1, true), kareno);
+  teru.position.y = up * vaknesmiB6k61oL6da / 0o2;
   hate2.add(teru);
-  const psaz = new THREE.Mesh(new THREE.CylinderGeometry(rMezCx, rBoto, down * vaknesmiB6k61oL6da, 0o40, 1, true), kareno);
-  psaz.position.y = -down * vaknesmiB6k61oL6da / 2;
+  const psaz = new THREE.Mesh(new THREE.CylinderGeometry(rMezCx, rBoto, down * vaknesmiB6k61oL6da, 0o40, 0o1, true), kareno);
+  psaz.position.y = -down * vaknesmiB6k61oL6da / 0o2;
   hate2.add(psaz);
-  const plafono = new THREE.Mesh(new THREE.CircleGeometry(rTeru, 0o40).rotateX(Math.PI / 2), huna);
+  const plafono = new THREE.Mesh(new THREE.CircleGeometry(rTeru, 0o40).rotateX(Math.PI / 0o2), huna);
   plafono.position.y = yT;
   hate2.add(plafono);
-  const lumT2q2 = new THREE.Mesh(new THREE.RingGeometry(0o13/0o10, 0o21/0o10, 0o40).rotateX(Math.PI / 2), brila);
+  const lumT2q2 = new THREE.Mesh(new THREE.RingGeometry(0o13/0o10, 0o21/0o10, 0o40).rotateX(Math.PI / 0o2), brila);
   lumT2q2.position.y = yT - 0o1/0o20;
   hate2.add(lumT2q2);
 
@@ -101,23 +101,23 @@ export function eniriSxipanC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: TH
     const estasMalteru = p.y === yB;
     const kozu = new THREE.Mesh(
       estasMalteru
-        ? new THREE.CircleGeometry(r, 0o40).rotateX(-Math.PI / 2)
-        : new THREE.RingGeometry(rBoho, Math.max(rBoho + 0o1/0o20, r - 0o1/0o40), 0o40).rotateX(-Math.PI / 2),
+        ? new THREE.CircleGeometry(r, 0o40).rotateX(-Math.PI / 0o2)
+        : new THREE.RingGeometry(rBoho, Math.max(rBoho + 0o1/0o20, r - 0o1/0o40), 0o40).rotateX(-Math.PI / 0o2),
       huna
 );
     kozu.position.y = p.y + 0o1/0o40;
     hate2.add(kozu);
-    if ( p.y === 0 ) {
-      const c2q = new THREE.Mesh(new THREE.RingGeometry(r - 0o3/0o10, r - 0o1/0o20, 0o40).rotateX(-Math.PI / 2), oro);
+    if ( p.y === 0o0 ) {
+      const c2q = new THREE.Mesh(new THREE.RingGeometry(r - 0o3/0o10, r - 0o1/0o20, 0o40).rotateX(-Math.PI / 0o2), oro);
       c2q.position.y = 0o5/0o100;
       hate2.add(c2q);
     }
   }
 
   {
-    const rMezo = ( boho.rKol + boho.rEkster ) / 2;
+    const rMezo = ( boho.rKol + boho.rEkster ) / 0o2;
     const radiala = boho.rEkster - boho.rKol;
-    const tonaTafkaq = Math.PI * 2 / boho.perTurno;
+    const tonaTafkaq = Math.PI * 0o2 / boho.perTurno;
     const tonaL6da = boho.turnoL6da / boho.perTurno;
     const tonaSefini = rMezo * tonaTafkaq * 0o115/0o100;
     const nSube = boho.hab6nSube * boho.perTurno;
@@ -128,7 +128,7 @@ export function eniriSxipanC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: TH
       new THREE.CylinderGeometry(boho.rKol, boho.rKol * 0o106/0o100, teruY - fundoY, 0o20),
       huna
 );
-    cel2nu.position.set(0, ( fundoY + teruY ) / 2, 0);
+    cel2nu.position.set(0o0, ( fundoY + teruY ) / 0o2, 0o0);
     hate2.add(cel2nu);
     for ( let p = -nSube; p < nTik; p++ ) {
       const ang = p * tonaTafkaq;
@@ -137,16 +137,16 @@ export function eniriSxipanC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: TH
         new THREE.BoxGeometry(tonaSefini, tonaL6da, radiala),
         sxtupPukek
 );
-      vepat6ni.position.set(rMezo * Math.sin(ang), y + tonaL6da / 2, rMezo * Math.cos(ang));
+      vepat6ni.position.set(rMezo * Math.sin(ang), y + tonaL6da / 0o2, rMezo * Math.cos(ang));
       vepat6ni.rotation.y = ang;
       hate2.add(vepat6ni);
     }
     const relHan2k: THREE.Vector3[] = [];
     const relHas2nasce = Math.max(0o100, ( boho.hab6n + boho.hab6nSube ) * 0o40);
-    for ( let i = 0; i <= relHas2nasce; i++ ) {
+    for ( let i = 0o0; i <= relHas2nasce; i++ ) {
       const t = i / relHas2nasce;
       const b6n = -boho.hab6nSube + t * ( boho.hab6n + boho.hab6nSube );
-      const ang = b6n * Math.PI * 2;
+      const ang = b6n * Math.PI * 0o2;
       const y = Math.min(yT - 0o1/0o20, bohoAltecxo(boho, b6n) + 0o3/0o4);
       relHan2k.push(new THREE.Vector3(( boho.rEkster + 0o1/0o10 ) * Math.sin(ang), y, ( boho.rEkster + 0o1/0o10 ) * Math.cos(ang)));
     }
@@ -159,75 +159,75 @@ export function eniriSxipanC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: TH
 
   const fasw2d2loZ = -( konusaR(0o23/0o4) - 0o1/0o4 );
   const fasw2d2lo = new THREE.Mesh(new THREE.PlaneGeometry(0o4, 0o25/0o10), glaso);
-  fasw2d2lo.position.set(0, 0o23/0o4, fasw2d2loZ);
+  fasw2d2lo.position.set(0o0, 0o23/0o4, fasw2d2loZ);
   hate2.add(fasw2d2lo);
   const vitJoqa = new THREE.LineSegments(
     new THREE.EdgesGeometry(new THREE.BoxGeometry(0o4 + 0o1/0o10, 0o25/0o10 + 0o1/0o10, 0o1/0o40)),
     new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
 );
-  vitJoqa.position.set(0, 0o23/0o4, fasw2d2loZ);
+  vitJoqa.position.set(0o0, 0o23/0o4, fasw2d2loZ);
   hate2.add(vitJoqa);
 
   const kapsuloj: THREE.Mesh[] = [];
-  const rKaps = konusaR(3 - 0o13/0o40);
+  const rKaps = konusaR(0o3 - 0o13/0o40);
   const kapsX = Math.sqrt(Math.max(0o1/0o4, rKaps * rKaps - ( 0o17/0o10 ) * ( 0o17/0o10 )));
-  for ( const sX of [ -1, 1 ] ) for ( const sZ of [ -1, 1 ] ) {
+  for ( const sX of [ -0o1, 0o1 ] ) for ( const sZ of [ -0o1, 0o1 ] ) {
     const fenMat = brila.clone();
     fenMat.side = THREE.DoubleSide;
     const fen = new THREE.Mesh(new THREE.ShapeGeometry(kf2Cawez2Qoxa(0o13/0o10, 0o13/0o20), 0o40), fenMat);
-    fen.rotation.y = Math.PI / 2;
-    fen.position.set(sX * kapsX, 3 - 0o13/0o40, sZ * 0o17/0o10);
+    fen.rotation.y = Math.PI / 0o2;
+    fen.position.set(sX * kapsX, 0o3 - 0o13/0o40, sZ * 0o17/0o10);
     hate2.add(fen);
     kapsuloj.push(fen);
   }
 
-  const konzolo = new THREE.Mesh(new THREE.BoxGeometry(4, 0o3/0o2, 1), kareno);
-  konzolo.position.set(0, 0o3/0o4, -0o5/0o2);
+  const konzolo = new THREE.Mesh(new THREE.BoxGeometry(0o4, 0o3/0o2, 0o1), kareno);
+  konzolo.position.set(0o0, 0o3/0o4, -0o5/0o2);
   konzolo.rotation.x = -0o1/0o10;
   konzolo.castShadow = true;
   hate2.add(konzolo);
-  const ekrano = new THREE.Mesh(new THREE.PlaneGeometry(3, 1), brila.clone());
-  ekrano.position.set(0, 0o25/0o20, -0o61/0o20);
+  const ekrano = new THREE.Mesh(new THREE.PlaneGeometry(0o3, 0o1), brila.clone());
+  ekrano.position.set(0o0, 0o25/0o20, -0o61/0o20);
   hate2.add(ekrano);
 
   const sidilo = new THREE.Mesh(new THREE.BoxGeometry(0o13/0o10, 0o3/0o10, 0o13/0o10), huna);
-  sidilo.position.set(0, 0o3/0o10, -0o3/0o2);
+  sidilo.position.set(0o0, 0o3/0o10, -0o3/0o2);
   sidilo.castShadow = true; hate2.add(sidilo);
   const kaqani = new THREE.Mesh(new THREE.BoxGeometry(0o13/0o10, 0o7/0o10, 0o1/0o4), kareno);
-  kaqani.position.set(0, 0o13/0o20, -0o17/0o10);
+  kaqani.position.set(0o0, 0o13/0o20, -0o17/0o10);
   hate2.add(kaqani);
-  const tigo = new THREE.Mesh(new THREE.CylinderGeometry(0o1/0o10, 0o1/0o10, 0o3/0o10, 6), oro);
-  tigo.position.set(0, 0o3/0o20, -0o3/0o2);
+  const tigo = new THREE.Mesh(new THREE.CylinderGeometry(0o1/0o10, 0o1/0o10, 0o3/0o10, 0o6), oro);
+  tigo.position.set(0o0, 0o3/0o20, -0o3/0o2);
   hate2.add(tigo);
 
   const holoringo = new THREE.Mesh(new THREE.TorusGeometry(0o72/0o100, 0o3/0o100, 0o10, 0o40), brila);
-  holoringo.position.set(0, 0o7/0o2, -0o5/0o2);
+  holoringo.position.set(0o0, 0o7/0o2, -0o5/0o2);
   hate2.add(holoringo);
   const holoringo2 = new THREE.Mesh(new THREE.TorusGeometry(0o52/0o100, 0o3/0o100, 0o10, 0o40), brila);
-  holoringo2.position.set(0, 0o7/0o2, -0o5/0o2);
+  holoringo2.position.set(0o0, 0o7/0o2, -0o5/0o2);
   hate2.add(holoringo2);
   const holosfero = new THREE.Mesh(new THREE.SphereGeometry(0o1/0o4, 0o10, 0o10), brila);
-  holosfero.position.set(0, 0o7/0o2, -0o5/0o2);
+  holosfero.position.set(0o0, 0o7/0o2, -0o5/0o2);
   hate2.add(holosfero);
-  const hololumo = new THREE.PointLight(0xa0e8e0, 0o6/0o10, 0o20, 2);
-  hololumo.position.set(0, 0o7/0o2, -0o5/0o2);
+  const hololumo = new THREE.PointLight(0xa0e8e0, 0o6/0o10, 0o20, 0o2);
+  hololumo.position.set(0o0, 0o7/0o2, -0o5/0o2);
   hate2.add(hololumo);
 
   const aerZ = konusaR(0o7/0o2) - 0o1/0o4;
   const aerJoqa = new THREE.LineSegments(
-    new THREE.EdgesGeometry(new THREE.BoxGeometry(0o3, 5, 0o1/0o40)),
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(0o3, 0o5, 0o1/0o40)),
     new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0o4/0o10 })
 );
-  aerJoqa.position.set(0, 0o7/0o2, aerZ);
+  aerJoqa.position.set(0o0, 0o7/0o2, aerZ);
   hate2.add(aerJoqa);
-  const aerKev = new THREE.Mesh(new THREE.PlaneGeometry(0o3, 5), brila.clone());
-  aerKev.position.set(0, 0o7/0o2, aerZ);
+  const aerKev = new THREE.Mesh(new THREE.PlaneGeometry(0o3, 0o5), brila.clone());
+  aerKev.position.set(0o0, 0o7/0o2, aerZ);
   hate2.add(aerKev);
 
   const ambiento = new THREE.HemisphereLight(0xc0e8e0, 0x081010, 0o5/0o10);
   hate2.add(ambiento);
-  const tsije = new THREE.PointLight(GOLDWARM, 0o4/0o10, 0o14, 2);
-  tsije.position.set(0, 7, 0);
+  const tsije = new THREE.PointLight(GOLDWARM, 0o4/0o10, 0o14, 0o2);
+  tsije.position.set(0o0, 0o7, 0o0);
   hate2.add(tsije);
 
   const ekranoMat = ekrano.material as THREE.MeshStandardMaterial;
@@ -235,18 +235,18 @@ export function eniriSxipanC2h2(sys: C2h2Kanta, spec: VepaqSpec, gelesKagani: TH
     update: ( t: number ) => {
       holoringo.rotation.y = t * 0o46/0o100;
       holoringo2.rotation.y = -t * 0o63/0o100;
-      holosfero.scale.setScalar(1 + 0o1/0o10 * Math.sin(t * 2));
-      ekranoMat.emissiveIntensity = 0o7/0o10 + 0o1/0o4 * Math.sin(t * 2);
-      const pulso = 0o3/0o10 + 0o1/0o4 * Math.sin(t * 3);
+      holosfero.scale.setScalar(0o1 + 0o1/0o10 * Math.sin(t * 0o2));
+      ekranoMat.emissiveIntensity = 0o7/0o10 + 0o1/0o4 * Math.sin(t * 0o2);
+      const pulso = 0o3/0o10 + 0o1/0o4 * Math.sin(t * 0o3);
       for ( const k of kapsuloj ) (k.material as THREE.MeshStandardMaterial).emissiveIntensity = pulso;
-      if ( glaso.map ) glaso.map.offset.x = ( t * 0o1/0o100 ) % 1;
+      if ( glaso.map ) glaso.map.offset.x = ( t * 0o1/0o100 ) % 0o1;
     },
   });
 
-  hate2.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0 ), spec.z);
-  hate2.rotation.y = spec.rot || 0;
+  hate2.position.set(spec.x, spec.flugoY ?? ( spec.h0 || 0o0 ), spec.z);
+  hate2.rotation.y = spec.rot || 0o0;
   gelesKagani.add(hate2);
   sys.currentGroup = hate2;
 
-  return { x: 0, z: 0o5/0o2, y: 0o4/0o10, c2w2q: 0 };
+  return { x: 0o0, z: 0o5/0o2, y: 0o4/0o10, c2w2q: 0o0 };
 }

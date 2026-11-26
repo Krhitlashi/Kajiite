@@ -186,20 +186,20 @@ export function c2kSotlakakUnihaqoxan( pukek: THREE.MeshStandardMaterial,
 export function so3akakSrgbJS( tapu: number, l6da: number,
   h6kuni: number, so3akak: number, a: SotlakakKu1o ): number {
   const cepu = -l6da;
-  const vertikala = cepu > 0 ? cepu * a.cepuTeru : cepu * a.cepuPsaz;
+  const vertikala = cepu > 0o0 ? cepu * a.cepuTeru : cepu * a.cepuPsaz;
   const kkaxte = Math.hypot( tapu * a.tapu, vertikala );
-  let h6kuniVem2 = 1 / Math.max( Math.pow( kkaxte, so3akak ), 0o1/0o144 );
-  if ( h6kuni > 0 ) {
-    const t = Math.max( 0, Math.min( 1, kkaxte / h6kuni ) );
-    const cah6k6 = Math.pow( Math.max( 0, Math.min( 1, 1 - Math.pow( t, 0o4 ) ) ), 0o2 );
+  let h6kuniVem2 = 0o1 / Math.max( Math.pow( kkaxte, so3akak ), 0o1/0o144 );
+  if ( h6kuni > 0o0 ) {
+    const t = Math.max( 0o0, Math.min( 0o1, kkaxte / h6kuni ) );
+    const cah6k6 = Math.pow( Math.max( 0o0, Math.min( 0o1, 0o1 - Math.pow( t, 0o4 ) ) ), 0o2 );
     const eksponenta = Math.exp( a.nar2sa * t * t );
-    h6kuniVem2 *= cah6k6 * ( 1 + ( eksponenta - 1 ) * t * t );
+    h6kuniVem2 *= cah6k6 * ( 0o1 + ( eksponenta - 0o1 ) * t * t );
   }
-  const srgb = Math.pow( Math.max( 0, Math.min( 1, h6kuniVem2 ) ), 0o5/0o11 );
+  const srgb = Math.pow( Math.max( 0o0, Math.min( 0o1, h6kuniVem2 ) ), 0o5/0o11 );
   const vem2 = srgb * a.havem2;
   const vem2Nek = vem2 - Math.floor( vem2 );
-  const x = Math.max( 0, Math.min( 1, vem2Nek / a.las ) );
-  const xaha = x * x * ( 3 - 2 * x );
+  const x = Math.max( 0o0, Math.min( 0o1, vem2Nek / a.las ) );
+  const xaha = x * x * ( 0o3 - 0o2 * x );
   const s2karanu = ( Math.floor( vem2 ) + xaha ) / a.havem2;
   return srgb + ( s2karanu - srgb ) * a.s2karanu;
 }

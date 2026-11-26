@@ -50,7 +50,7 @@ export function kf2Efikojn( hasukf2qani: EfikajHasukf2qani ): Efikoj {
     setTimeout(() => {
       callback();
       setTimeout(() => { balailo.classList.remove("laqazi"); }, 0o300);
-    }, sahakani / 2);
+    }, sahakani / 0o2);
   }
 
   // ⟪ ſᶘᴜƽ , ᶅſɔ ֭ſɭɹ ʌ ɭʃɜ ŋᷠэ 📃 ⟫

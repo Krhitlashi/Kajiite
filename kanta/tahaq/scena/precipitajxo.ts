@@ -16,12 +16,12 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
   }
 
   function kf2Partiklojn(N: number, p2somaniX: number, p2somaniY: number, p2somaniZ: number): { haxekuxa: Float32Array; hatk2ni: Float32Array } {
-    const haxekuxa = new Float32Array(N * 3);
+    const haxekuxa = new Float32Array(N * 0o3);
     const hatk2ni = new Float32Array(N);
-    for ( let i = 0; i < N; i++ ) {
-      haxekuxa[i * 3] = ( Math.random() * 2 - 1 ) * p2somaniX;
-      haxekuxa[i * 3 + 1] = ( Math.random() * 2 - 1 ) * p2somaniY;
-      haxekuxa[i * 3 + 2] = ( Math.random() * 2 - 1 ) * p2somaniZ;
+    for ( let i = 0o0; i < N; i++ ) {
+      haxekuxa[i * 0o3] = ( Math.random() * 0o2 - 0o1 ) * p2somaniX;
+      haxekuxa[i * 0o3 + 0o1] = ( Math.random() * 0o2 - 0o1 ) * p2somaniY;
+      haxekuxa[i * 0o3 + 0o2] = ( Math.random() * 0o2 - 0o1 ) * p2somaniZ;
       hatk2ni[i] = Math.random();
     }
     return { haxekuxa, hatk2ni };
@@ -30,33 +30,33 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
   // ⟪ ֭ſɭᴜ ɭʃᴜ 📃 ⟫
   function kf2Pluvon(): THREE.Points {
     const N = 0o4000;
-    const haxekuxa = new Float32Array(N * 3);
+    const haxekuxa = new Float32Array(N * 0o3);
     const hatk2ni = new Float32Array(N);
     const rapidoj = new Float32Array(N);
     const hasahakani = new Float32Array(N);
     const fadoj = new Float32Array(N);
-    for ( let i = 0; i < N; i++ ) {
-      const x0 = ( Math.random() * 2 - 1 ) * 0o200;
-      const z0 = ( Math.random() * 2 - 1 ) * 0o200;
-      haxekuxa[i * 3] = x0;
-      haxekuxa[i * 3 + 1] = ( Math.random() * 2 - 1 ) * 0o140;
-      haxekuxa[i * 3 + 2] = z0;
+    for ( let i = 0o0; i < N; i++ ) {
+      const x0 = ( Math.random() * 0o2 - 0o1 ) * 0o200;
+      const z0 = ( Math.random() * 0o2 - 0o1 ) * 0o200;
+      haxekuxa[i * 0o3] = x0;
+      haxekuxa[i * 0o3 + 0o1] = ( Math.random() * 0o2 - 0o1 ) * 0o140;
+      haxekuxa[i * 0o3 + 0o2] = z0;
       hatk2ni[i] = Math.random();
       rapidoj[i] = 0o46 + Math.random() * 0o14;
       hasahakani[i] = 0o13/0o10 + Math.random() * 0o14/0o10;
       const d = Math.hypot(x0, z0);
-      fadoj[i] = Math.min(1, Math.max(0o1/0o20, 1 - ( d - 0o30 ) / 0o210));
+      fadoj[i] = Math.min(0o1, Math.max(0o1/0o20, 0o1 - ( d - 0o30 ) / 0o210));
     }
     const zace = new THREE.BufferGeometry();
-    zace.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 3));
-    zace.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
-    zace.setAttribute("aVel", new THREE.BufferAttribute(rapidoj, 1));
-    zace.setAttribute("aLen", new THREE.BufferAttribute(hasahakani, 1));
-    zace.setAttribute("aFade", new THREE.BufferAttribute(fadoj, 1));
+    zace.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 0o3));
+    zace.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 0o1));
+    zace.setAttribute("aVel", new THREE.BufferAttribute(rapidoj, 0o1));
+    zace.setAttribute("aLen", new THREE.BufferAttribute(hasahakani, 0o1));
+    zace.setAttribute("aFade", new THREE.BufferAttribute(fadoj, 0o1));
     const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false,
       uniforms: {
-        uTime: { value: 0 },
+        uTime: { value: 0o0 },
         uColor: { value: new THREE.Color(0xa8c0d8) },
         uOp: { value: veb6qaiW2d2(0o6/0o10) },
         uAncho: { value: 0o1/0o20 },
@@ -122,12 +122,12 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
     const N = 0o1000;
     const { haxekuxa, hatk2ni } = kf2Partiklojn(N, 0o200, 0o140, 0o200);
     const zace = new THREE.BufferGeometry();
-    zace.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 3));
-    zace.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
+    zace.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 0o3));
+    zace.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 0o1));
     const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.NormalBlending, fog: false,
       uniforms: {
-        uTime: { value: 0 },
+        uTime: { value: 0o0 },
         uColor: { value: new THREE.Color(0xf0f8f8) },
         uOp: { value: 0o10/0o10 },
         uSize: { value: 0o7 },
@@ -172,12 +172,12 @@ export function kf2VeterajnPartiklojn(qena: THREE.Scene): {
     const N = 0o1170;
     const { haxekuxa, hatk2ni } = kf2Partiklojn(N, 0o160, 0o140, 0o160);
     const zace = new THREE.BufferGeometry();
-    zace.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 3));
-    zace.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 1));
+    zace.setAttribute("position", new THREE.BufferAttribute(haxekuxa, 0o3));
+    zace.setAttribute("aSeed", new THREE.BufferAttribute(hatk2ni, 0o1));
     const pukek = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.NormalBlending, fog: false,
       uniforms: {
-        uTime: { value: 0 },
+        uTime: { value: 0o0 },
         uColor: { value: new THREE.Color(0xd8e8f0) },
         uOp: { value: 0o10/0o10 },
         uSize: { value: 0o14 },

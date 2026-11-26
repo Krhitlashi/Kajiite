@@ -101,7 +101,7 @@ export function kf2SoqteKix2(o: Soqte): HTMLCanvasElement {
   const I = weh2Ruva(o.c2h2);
 
   kuns2bana.fillStyle = "rgba(0,16,8,0.9)";
-  kuns2bana.fillRect(0, 0, 0o210, 0o300);
+  kuns2bana.fillRect(0o0, 0o0, 0o210, 0o300);
 
   kuns2bana.fillStyle = I;
   kuns2bana.beginPath();
@@ -143,7 +143,7 @@ export function kf2SoqteKix2(o: Soqte): HTMLCanvasElement {
 
   kuns2bana.fillStyle = A;
   kuns2bana.fillRect(0o100, 0o66, 0o3, 0o104);
-  for ( let i = 0; i < 0o3; i++ ) kuns2bana.fillRect(0o102, 0o100 + i * 0o32, 0o3, 0o3);
+  for ( let i = 0o0; i < 0o3; i++ ) kuns2bana.fillRect(0o102, 0o100 + i * 0o32, 0o3, 0o3);
 
   ausexi(kuns2bana, 0o104, 0o124, 0o20, A);
   b2tbehagasai(kuns2bana, 0o66, 0o204, 0o11, 0o15, I, A);
@@ -183,7 +183,7 @@ export function kf2TsaqKix2(haxe: TsaqHaxe, weh2?: number): HTMLCanvasElement {
   const tozaX = 0o104, wopoY = 0o66, wopoR = 0o20;
 
   kuns2bana.fillStyle = "rgba(0,16,8,0.9)";
-  kuns2bana.fillRect(0, 0, 0o210, 0o300);
+  kuns2bana.fillRect(0o0, 0o0, 0o210, 0o300);
 
   kuns2bana.fillStyle = "#282828";
   kuns2bana.beginPath();
@@ -197,7 +197,7 @@ export function kf2TsaqKix2(haxe: TsaqHaxe, weh2?: number): HTMLCanvasElement {
   kuns2bana.fillRect(0o77, 0o102, 0o14, 0o20);
 
   kuns2bana.beginPath();
-  kuns2bana.arc(tozaX, wopoY, wopoR, 0, Math.PI * 0o2);
+  kuns2bana.arc(tozaX, wopoY, wopoR, 0o0, Math.PI * 0o2);
   kuns2bana.fill();
 
   kuns2bana.fillStyle = H;

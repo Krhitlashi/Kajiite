@@ -37,53 +37,53 @@ export function vepaqNeq2qnHatoxemani(
   const hatsaaf6k6k: Krasesxagxo[] = [];
   const ne3ak2Gefhacaht2 = new Set<THREE.Object3D>(qena.children);
   for ( const o of hazace ) {
-    const s = o.p6zukani ?? 1;
+    const s = o.p6zukani ?? 0o1;
     if ( o.pudal === "lam2v" ) vepaqQacel2n(qena, [ { x: o.x, z: o.z, h: l6daFn(o.x, o.z), s } ]);
     else if ( o.pudal === "taksal" ) vepaqLarikon(qena, [ { x: o.x, z: o.z, h: l6daFn(o.x, o.z), s } ]);
     else if ( o.pudal === "tlexlefhxakai" ) vepaqTlexlefhxakaijn(qena, [ { x: o.x, z: o.z, h: l6daFn(o.x, o.z), s } ]);
     else if ( o.pudal === "tlexlefp2sai" ) vepaqTlexlefp2saijn(qena, [ { x: o.x, z: o.z, h: l6daFn(o.x, o.z), s } ]);
-    else if ( o.pudal === "t6keq" ) vepaqNeq2qnRokon(qena, o.x, o.z, l6daFn, s, o.s2sabo ?? -1);
-    else if ( o.pudal === "xabe" ) vepaqNeq2qnXaben(qena, o.x, o.z, l6daFn, s, o.xabePudal ?? 0);
+    else if ( o.pudal === "t6keq" ) vepaqNeq2qnRokon(qena, o.x, o.z, l6daFn, s, o.s2sabo ?? -0o1);
+    else if ( o.pudal === "xabe" ) vepaqNeq2qnXaben(qena, o.x, o.z, l6daFn, s, o.xabePudal ?? 0o0);
     else if ( o.pudal === "akvapaga" ) {
       if ( !tsasaFn(o.x, o.z) ) continue;
-      const b = vepaqNeq2qnPagan(qena, o.pagapudal ?? 0, o.x, o.z, tsasaVem2Fn(o.x, o.z), s);
+      const b = vepaqNeq2qnPagan(qena, o.pagapudal ?? 0o0, o.x, o.z, tsasaVem2Fn(o.x, o.z), s);
       if ( b ) hapaga.hapaga.push(b);
     } else if ( o.pudal === "temek" ) {
-      const p = vepaqNeq2qnTemekn(qena, o.x, o.z, l6daFn, o.cabole ?? 4, s);
+      const p = vepaqNeq2qnTemekn(qena, o.x, o.z, l6daFn, o.cabole ?? 0o4, s);
       if ( p ) hatemek.hatemek.push(p);
     } else if ( o.pudal === "npco" ) {
-      const v = HASOQTE[( o.soqte ?? 0 ) % HASOQTE.length];
-      const fig = vepaqQoxa(v, ( o.tsaqHaxe ?? 0 ) === 1 ? "tsaqSahakani" : "tsaqPsazai");
+      const v = HASOQTE[( o.soqte ?? 0o0 ) % HASOQTE.length];
+      const fig = vepaqQoxa(v, ( o.tsaqHaxe ?? 0o0 ) === 0o1 ? "tsaqSahakani" : "tsaqPsazai");
       const h = l6daFn(o.x, o.z);
       fig.group.position.set(o.x, h, o.z);
       fig.hejmo.set(o.x, h, o.z);
       fig.natakatomasai.set(o.x, h, o.z);
-      fig.group.rotation.y = o.s2sabo ?? 0;
-      fig.atendo = Math.random() * 4;
+      fig.group.rotation.y = o.s2sabo ?? 0o0;
+      fig.atendo = Math.random() * 0o4;
       fig.seheni = 0o55/0o100 + Math.random() * 0o4/0o10;
       qena.add(fig.group);
       hanpco.push(fig);
     } else if ( o.pudal === "s2kaj2" ) {
       if ( !tsasaFn(o.x, o.z) ) continue;
-      has2kaj2.push(kf2S2tani(qena, o.x, o.z, o.s2sabo ?? 0, oraPukek,
+      has2kaj2.push(kf2S2tani(qena, o.x, o.z, o.s2sabo ?? 0o0, oraPukek,
         tsasaVem2Fn(o.x, o.z), o.haxe === "satala" ? "satala" : "kozunu"));
     } else if ( o.pudal === "hxeuxfo" || o.pudal === "hxeuxfoPa12" ) {
     } else if ( o.pudal === "kekufxeso" ) {
-      vepaqKekufxeso(qena, [ { x: o.x, z: o.z, s2sabo: o.s2sabo ?? 0 } ], l6daFn, oraPukek);
+      vepaqKekufxeso(qena, [ { x: o.x, z: o.z, s2sabo: o.s2sabo ?? 0o0 } ], l6daFn, oraPukek);
     } else if ( o.pudal === "spacosxipo" ) {
       hatsaaf6k6k.push(vepaqKrasesxagxon(qena, o.x, 0o40, o.z, oraPukek, eniraPukek));
     } else if ( o.pudal === "qaman2" || o.pudal === "turo" || o.pudal === "kap2"
         || o.pudal === "geqqa" || o.pudal === "kasafeo" || o.pudal === "ka5asexaz" ) {
       const hunaq = o.pudal === "ka5asexaz" ? "ka5asexazxipo" : o.pudal;
-      const havem2 = hunaq === "ka5asexazxipo" ? TIPAJNIVELOJ.ka5asexazxipo : hunaq === "qaman2" ? 7 : hunaq === "turo" ? 0o10 : 4;
-      const w = 0o10 * ( o.p6zukani ?? 1 ), d = w;
+      const havem2 = hunaq === "ka5asexazxipo" ? TIPAJNIVELOJ.ka5asexazxipo : hunaq === "qaman2" ? 0o7 : hunaq === "turo" ? 0o10 : 0o4;
+      const w = 0o10 * ( o.p6zukani ?? 0o1 ), d = w;
       vepaqSatalon({
         x: o.x, z: o.z, type: hunaq, name: "zace",
         havem2, w, d,
         b6k61oL6da: hunaq === "ka5asexazxipo" ? 0o155/0o40
           : hunaq === "turo" ? 0o30/0o10 : hunaq === "kasafeo" ? 0o155/0o40 : 0o315/0o100,
-        rot: o.s2sabo ?? 0, diamond: true, h0: l6daFn(o.x, o.z),
-        sube: hunaq === "ka5asexazxipo" ? 0 : havem2, b6k61oL6daSub: 0o123/0o40,
+        rot: o.s2sabo ?? 0o0, diamond: true, h0: l6daFn(o.x, o.z),
+        sube: hunaq === "ka5asexazxipo" ? 0o0 : havem2, b6k61oL6daSub: 0o123/0o40,
       }, qena, knasukf2qdalai, l6daFn);
     }
   }
@@ -100,5 +100,5 @@ export function vepaqNeq2qnHatoxemani(
       natakatomasai: 0o100,
       ve3aq: ( m ) => vetlaqotaj.has(m),
     });
-  return hatsaaf6k6k.length ? hatsaaf6k6k[0] : null;
+  return hatsaaf6k6k.length ? hatsaaf6k6k[0o0] : null;
 }

@@ -17,7 +17,7 @@ const BANDOJ: Array<[ number, number, number ]> = [
   [ 0o7000, 0o1/0o10, 0o14 ],
 ];
 
-export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number, vel = 1, opts: { cresc?: number } = {}) {
+export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number, vel = 0o1, opts: { cresc?: number } = {}) {
   const tlakakani = t + dur;
 // ⟨ ꞙɭэɔ ɭʃэ ɭʃᴜ , ꞙɭı ⟅ ſɭᴜ j͑ʃᴜꞇ ꞙɭı ⟅
   const k6ta = ( 0o36 + 0o14 * vel ) * vap6zukani(0o10/0o100);

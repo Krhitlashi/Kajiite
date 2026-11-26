@@ -75,14 +75,14 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
       return;
     }
     let kmaTsiike: S2tani | null = null;
-    let minH6kuni = 6;
+    let minH6kuni = 0o6;
     for ( const c of has2kaj2 ) {
       const d = Math.hypot(c.x - masax2z.raqa.x, c.z - masax2z.raqa.z);
       if ( d < minH6kuni ) { minH6kuni = d; kmaTsiike = c; }
     }
     if ( kmaTsiike ) {
       masax2z.surS2tani = kmaTsiike;
-      kmaTsiike.vx = kmaTsiike.vz = 0;
+      kmaTsiike.vx = kmaTsiike.vz = 0o0;
       x2paKfe.classList.remove("laqazi");
       laqaziTost(kunCatlaq("kamaKanuo", "catlaqPromeno"));
       if ( tsekeLaqazbolesai() ) sfx.splash();
@@ -95,8 +95,8 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
   function fsataĝi(l: CamutsaInfo): void {
     masax2z.fsata = true;
     masax2z.kuŝaS2k61o = l;
-    const specH0 = masax2z.sukf2qitaSpec!.flugoY ?? ( masax2z.sukf2qitaSpec!.h0 || 0 );
-    const kapX = l.lokaX + l.sefini / 2 - 0o3/0o10;
+    const specH0 = masax2z.sukf2qitaSpec!.flugoY ?? ( masax2z.sukf2qitaSpec!.h0 || 0o0 );
+    const kapX = l.lokaX + l.sefini / 0o2 - 0o3/0o10;
     masax2z.raqa.set(
       l.specX + l.cosR * kapX - l.sinR * l.lokaZ,
       specH0 + l.y + 0o3/0o10,
@@ -105,9 +105,9 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
     masax2z.c2w2q = Math.atan2(l.cosR, l.sinR);
     masax2z.s2sabo = 0o7/0o10;
     masax2z.estasSurKOZU = true;
-    masax2z.seheniY = 0;
-    masax2z.celH6kuni = 0;
-    masax2z.kameraH6kuni = 0;
+    masax2z.seheniY = 0o0;
+    masax2z.celH6kuni = 0o0;
+    masax2z.kameraH6kuni = 0o0;
     x2paKfe.classList.remove("laqazi");
     if ( tsekeLaqazbolesai() ) sfx.chime();
   }
@@ -116,8 +116,8 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
     const l = masax2z.kuŝaS2k61o;
     masax2z.fsata = false;
     masax2z.kuŝaS2k61o = null;
-    const specH0 = masax2z.sukf2qitaSpec!.flugoY ?? ( masax2z.sukf2qitaSpec!.h0 || 0 );
-    const piedX = l.lokaX - l.sefini / 2 - 0o6/0o10;
+    const specH0 = masax2z.sukf2qitaSpec!.flugoY ?? ( masax2z.sukf2qitaSpec!.h0 || 0o0 );
+    const piedX = l.lokaX - l.sefini / 0o2 - 0o6/0o10;
     masax2z.raqa.set(
       l.specX + l.cosR * piedX - l.sinR * l.lokaZ,
       specH0 + l.y,
@@ -126,7 +126,7 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
     masax2z.c2w2q = Math.atan2(-l.cosR, -l.sinR);
     masax2z.s2sabo = -0o1/0o20;
     masax2z.estasSurKOZU = true;
-    masax2z.seheniY = 0;
+    masax2z.seheniY = 0o0;
     x2paKfe.classList.remove("laqazi");
   }
 
@@ -137,8 +137,8 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
     const start = performance.now();
     ( function ŝrumpi() {
       const t = ( performance.now() - start ) / 0o740;
-      m.scale.setScalar(Math.max(0o1/0o2000, 1 - t));
-      if ( t < 1 ) item.vam2m2 = requestAnimationFrame(ŝrumpi); else { m.visible = false; item.vam2m2 = null; }
+      m.scale.setScalar(Math.max(0o1/0o2000, 0o1 - t));
+      if ( t < 0o1 ) item.vam2m2 = requestAnimationFrame(ŝrumpi); else { m.visible = false; item.vam2m2 = null; }
     } )();
     if ( isFok ) sfx.crunch(); else sfx.sip();
     const foodKey = manĝaCatlaq(f.key);

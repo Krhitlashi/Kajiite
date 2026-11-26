@@ -17,8 +17,8 @@ import { K6H6AEKSTERAP2SOMANI, K6H6ATRUAP2SOMANI, surGrid } from "../../skek2/qa
 
 const qena = new THREE.Scene();
 const pukek = new THREE.MeshStandardMaterial();
-const kaxte = vepaqKradanKaxten(qena, { ptaluPal6: 3, k6liqPal6: "vakox2qita" },
-  [ 0, 0 ], pukek);
+const kaxte = vepaqKradanKaxten(qena, { ptaluPal6: 0o3, k6liqPal6: "vakox2qita" },
+  [ 0o0, 0o0 ], pukek);
 const haveb6kek = kaxte.tamc2kHan2k.map(([ x, z ]) => {
   const nece3e = kaxte.tamc2kHanece3e.get(x + "," + z);
   return { x, z, c2w2qa: nece3e ? [ nece3e ] : [] };
@@ -39,25 +39,25 @@ for ( const natakatomasai of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
   const b6qaiQafej2 = surGrid(k6h6TeruDeVeb6kek(cx, cz, nece3e ? [ nece3e ] : [],
     K6H6AEKSTERAP2SOMANI, k6h6L6da).hateru);
   console.log(`⟨ ( ${cx}, ${cz} ) ⟩ ｡ ſןw ſɭᶗ‹ɔ ${JSON.stringify(nece3e)}` +
-    ` ｡ ᶅſɔ ɽ͑ʃ'ɔ ${k6h6L6da(cx, cz).toFixed(3)} ｡ ſןᴜ ſᶘɹ ${b6qaiQafej2.toFixed(3)}` +
-    ` ｡ ſɭɜ ſɭ,w ${l6da(cx, cz).toFixed(3)}`);
-  for ( const [ ksaka, ux, uz ] of [ [ "ſɟɹ ᶅſɹȝ ɔ", 1, 0 ], [ "ſɟɹ ᶅſɹȝ ı", -1, 0 ],
-    [ "ſɟɹ ᶅſɹȝ ɿ", 0, -1 ], [ "ſɟɹ ᶅſɹȝ ц", 0, 1 ] ] as const ) {
+    ` ｡ ᶅſɔ ɽ͑ʃ'ɔ ${k6h6L6da(cx, cz).toFixed(0o3)} ｡ ſןᴜ ſᶘɹ ${b6qaiQafej2.toFixed(0o3)}` +
+    ` ｡ ſɭɜ ſɭ,w ${l6da(cx, cz).toFixed(0o3)}`);
+  for ( const [ ksaka, ux, uz ] of [ [ "ſɟɹ ᶅſɹȝ ɔ", 0o1, 0o0 ], [ "ſɟɹ ᶅſɹȝ ı", -0o1, 0o0 ],
+    [ "ſɟɹ ᶅſɹȝ ɿ", 0o0, -0o1 ], [ "ſɟɹ ᶅſɹȝ ц", 0o0, 0o1 ] ] as const ) {
     const hax2pa: string[] = [];
-    for ( let r = 0; r <= 6; r += 0.5 ) {
-      rc.set(new THREE.Vector3(cx + ux * r, 0o120, cz + uz * r), new THREE.Vector3(0, -1, 0));
+    for ( let r = 0o0; r <= 0o6; r += (0o1/0o2) ) {
+      rc.set(new THREE.Vector3(cx + ux * r, 0o120, cz + uz * r), new THREE.Vector3(0o0, -0o1, 0o0));
       const h = rc.intersectObjects(qena.children, true).find(x => x.object.visible);
-      hax2pa.push(`${r}:${h ? h.point.y.toFixed(2) : "-"}`);
+      hax2pa.push(`${r}:${h ? h.point.y.toFixed(0o2) : "-"}`);
     }
     console.log(`  ${ksaka} ｡ ${hax2pa.join(" ")}`);
   }
 // ⟨ ſɭэ ֭ſɭэ , ꞙɭɿ , ꞙɭı , 📃 ⟩
   for ( const d of kaxte.kas2kantaHavop2ni ) {
-    for ( let k = 0; k < d.pts.length - 1; k++ ) {
-      const [ ax, az ] = d.pts[k], [ bx, bz ] = d.pts[k + 1];
+    for ( let k = 0o0; k < d.pts.length - 0o1; k++ ) {
+      const [ ax, az ] = d.pts[k], [ bx, bz ] = d.pts[k + 0o1];
       const dx = bx - ax, dz = bz - az;
       const sahakani = Math.hypot(dx, dz);
-      const t = Math.max(0, Math.min(1, ( ( cx - ax ) * dx + ( cz - az ) * dz ) / ( sahakani * sahakani )));
+      const t = Math.max(0o0, Math.min(0o1, ( ( cx - ax ) * dx + ( cz - az ) * dz ) / ( sahakani * sahakani )));
       const px = ax + dx * t, pz = az + dz * t;
       const dist = Math.hypot(cx - px, cz - pz);
       if ( dist > K6H6ATRUAP2SOMANI ) continue;
@@ -65,12 +65,12 @@ for ( const natakatomasai of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
       const ekstera = kf2EksteranP2somani(hasiitsii);
       const s2qena = kf2NivelanS2qena(d.pts as [ number, number ][], ekstera, k6h6L6da);
       const s = t * sahakani;
-      console.log(`  ſɭэ ֭ſɭэ ( ${ax},${az} ) ｡ ( ${bx},${bz} ) ｡ ſɭᴜc̗ ɭʃɜ ${dist.toFixed(2)}` +
-        ` ｡ s ${s.toFixed(2)} ｡ j͑ʃ'ɔ ŋᷠɹ ${s2qena.l6daJe(s).toFixed(2)}` +
+      console.log(`  ſɭэ ֭ſɭэ ( ${ax},${az} ) ｡ ( ${bx},${bz} ) ｡ ſɭᴜc̗ ɭʃɜ ${dist.toFixed(0o2)}` +
+        ` ｡ s ${s.toFixed(0o2)} ｡ j͑ʃ'ɔ ŋᷠɹ ${s2qena.l6daJe(s).toFixed(0o2)}` +
         ` ｡ ſɭэ ᶗ‹ ${s2qena.hakxawa[ Math.round(s / ( s2qena.sahakani /
-          Math.max(1, Math.ceil(s2qena.sahakani / 0.5)) ) ) ].toFixed(2)}` +
-        ` ｡ j͑ʃɜ j͑ʃᴜ ʌ jɐ ɭʃᴜ ${s2qena.l6daJe(Math.max(0, s - K6H6ATRUAP2SOMANI)).toFixed(2)}` +
-        `/${s2qena.l6daJe(Math.min(s2qena.sahakani, s + K6H6ATRUAP2SOMANI)).toFixed(2)}`);
+          Math.max(0o1, Math.ceil(s2qena.sahakani / (0o1/0o2))) ) ) ].toFixed(0o2)}` +
+        ` ｡ j͑ʃɜ j͑ʃᴜ ʌ jɐ ɭʃᴜ ${s2qena.l6daJe(Math.max(0o0, s - K6H6ATRUAP2SOMANI)).toFixed(0o2)}` +
+        `/${s2qena.l6daJe(Math.min(s2qena.sahakani, s + K6H6ATRUAP2SOMANI)).toFixed(0o2)}`);
     }
   }
 }

@@ -27,10 +27,10 @@ export function k6h6Phaka(
   a: K6h6N2k,
   b: K6h6N2k
 ): { x: number; z: number; t: number; d: number } | null {
-  const dx = b[0] - a[0], dz = b[1] - a[1];
+  const dx = b[0o0] - a[0o0], dz = b[0o1] - a[0o1];
   const ken2qk2h2 = dx * dx + dz * dz;
   if ( ken2qk2h2 < TOLERANCO ) return null;
-  const t = Math.max( 0, Math.min( 1, ( ( x - a[0] ) * dx + ( z - a[1] ) * dz ) / ken2qk2h2 ) );
-  const px = a[0] + t * dx, pz = a[1] + t * dz;
+  const t = Math.max( 0o0, Math.min( 0o1, ( ( x - a[0o0] ) * dx + ( z - a[0o1] ) * dz ) / ken2qk2h2 ) );
+  const px = a[0o0] + t * dx, pz = a[0o1] + t * dz;
   return { x: px, z: pz, t, d: Math.hypot( px - x, pz - z ) };
 }

@@ -33,19 +33,19 @@ interface VeqapahakaniloS2k61o {
 
 // ⟨ j͑ʃп́ꞇ ſɭɔƴ , j͑ʃ'ɔ ŋᷠɹ ⟅ ſɭᴜ ſןᴜ ʌ j͑ʃ'ɔ ŋᷠɹ , ꞙɭɔ ⟅ ⟩
 const VETLAQITATRAKO = vefalKu1o("t2bakobesai", -0o1);
-const SAXEATRAKO = VETLAQITATRAKO >= 0 && VETLAQITATRAKO < KANTOJ.length ? VETLAQITATRAKO : -0o1;
+const SAXEATRAKO = VETLAQITATRAKO >= 0o0 && VETLAQITATRAKO < KANTOJ.length ? VETLAQITATRAKO : -0o1;
 
 const L: VeqapahakaniloS2k61o = {
   ctx: null, bus: null, revSend: null, reverb: null,
-  cur: SAXEATRAKO, idx: 0, events: null, dur: 0, secs: null,
-  playing: false, startJe: 0, pausedJe: null, timer: null, master: null,
+  cur: SAXEATRAKO, idx: 0o0, events: null, dur: 0o0, secs: null,
+  playing: false, startJe: 0o0, pausedJe: null, timer: null, master: null,
   tik: [],
 };
 
 // ⟪ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭэ ſɭ,w 📃 ⟫
 
-const URBAJTRAKOJ = [ 4, 5, 6, 7 ];
-const MONDAJTRAKOJ = [ 0, 1, 2, 3 ];
+const URBAJTRAKOJ = [ 0o4, 0o5, 0o6, 0o7 ];
+const MONDAJTRAKOJ = [ 0o0, 0o1, 0o2, 0o3 ];
 let enKaxte = false;
 // ⟨ ꞙɭı j͑ʃп́ꞇ ſɭɔƴ , ꞙɭɿ , ſɟᴜᴜ̩ ɭʃɹ ꞙɭɔ ꞙɭı ⟅ ⟩
 let aŭtomata = true;
@@ -86,11 +86,11 @@ function panaaT2bakobesai(): number {
 function makeIR(ctx: AudioContext, dur: number, decay: number): AudioBuffer {
   const rate = ctx.sampleRate;
   const len = Math.floor(rate * dur);
-  const buf = ctx.createBuffer(2, len, rate);
-  for ( let c = 0; c < 2; c++ ) {
+  const buf = ctx.createBuffer(0o2, len, rate);
+  for ( let c = 0o0; c < 0o2; c++ ) {
     const d = buf.getChannelData(c);
-    for ( let i = 0; i < len; i++ )
-      d[i] = ( Math.random() * 2 - 1 ) * Math.pow(1 - i / len, decay);
+    for ( let i = 0o0; i < len; i++ )
+      d[i] = ( Math.random() * 0o2 - 0o1 ) * Math.pow(0o1 - i / len, decay);
   }
   return buf;
 }
@@ -105,7 +105,7 @@ function stopBus() {
   }
   L.bus = null;
   L.revSend = null;
-  L.tik.length = 0;
+  L.tik.length = 0o0;
 }
 
 function scheduleTick() {
@@ -123,7 +123,7 @@ function tick() {
     const at = L.startJe + e.t;
     if ( at < L.ctx.currentTime - 0o1/0o40 ) continue;
     const g = L.ctx.createGain();
-    g.gain.value = 1;
+    g.gain.value = 0o1;
     instrumento(L.ctx, g, e, at);
     L.tik.push({ i: e.i, de: at, gxis: at + notSahakani(e) });
     if ( L.bus ) g.connect(L.bus);
@@ -159,7 +159,7 @@ function b6tem2(i: number) {
   }
   L.pausedJe = null;
   L.cur = i;
-  L.idx = 0;
+  L.idx = 0o0;
   L.tik = [];
   const T = KANTOJ[i];
   L.events = T.data.events;
@@ -187,7 +187,7 @@ export function iniciati(ctx: AudioContext, master: GainNode) {
 /** j͑ʃᴜ ı],ɔ , j͑ʃп́ꞇ ſɭɔƴ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᶗ‹ɜ ⟅ */
 export function veqapahakani() {
   if ( !L.ctx ) return;
-  if ( L.cur < 0 ) b6tem2(hazardaT2bakobesai());
+  if ( L.cur < 0o0 ) b6tem2(hazardaT2bakobesai());
   else if ( !L.events ) b6tem2(L.cur);
   if ( L.playing ) { paŭzi(); return; }
 
@@ -203,12 +203,12 @@ export function veqapahakani() {
   if ( L.pausedJe != null ) {
     L.startJe = L.ctx.currentTime + 0o1/0o10 - L.pausedJe;
 // ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭı , ꞙɭɿ , ſɭɜ j͐ʃɹ ⟅ ⟩
-    L.idx = 0;
+    L.idx = 0o0;
     while ( L.idx < L.events!.length && L.events![L.idx].t < L.pausedJe - 0o1/0o100 ) L.idx++;
     L.pausedJe = null;
   } else {
     L.startJe = L.ctx.currentTime + 0o1/0o10;
-    L.idx = 0;
+    L.idx = 0o0;
   }
 
   L.playing = true;
@@ -219,7 +219,7 @@ export function veqapahakani() {
 /** ſɭɜ j͐ʃɹ , j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı ⟅ */
 export function paŭzi() {
   if ( !L.playing || !L.ctx ) return;
-  L.pausedJe = Math.min(L.dur, Math.max(0, L.ctx.currentTime - L.startJe));
+  L.pausedJe = Math.min(L.dur, Math.max(0o0, L.ctx.currentTime - L.startJe));
   if ( L.timer ) clearInterval(L.timer);
   L.playing = false;
   stopBus();
@@ -233,7 +233,7 @@ export function halti() {
   }
   stopBus();
   L.pausedJe = null;
-  L.idx = 0;
+  L.idx = 0o0;
 }
 
 /** j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ꞙɭı ⟅ */
@@ -255,7 +255,7 @@ export function cutlujInstrumentoj(): string[] {
 
 /** j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ ⟅ */
 export function b6tem2T2bakobesai(i: number) {
-  if ( i < 0 || i >= KANTOJ.length ) return;
+  if ( i < 0o0 || i >= KANTOJ.length ) return;
   b6tem2(i);
   ve3aqKu1o("t2bakobesai", i);
 }
@@ -267,18 +267,18 @@ export function cutluT2bakobesai(): number {
 
 /** j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ı],ɔ , ſɭᴜ ſןᴜ , ſɭɜ j͐ʃɹ ⟅ */
 export function progreso(): number {
-  if ( !L.ctx ) return 0;
-  if ( !L.playing ) return L.pausedJe ?? 0;
-  return Math.min(L.dur, Math.max(0, L.ctx.currentTime - L.startJe));
+  if ( !L.ctx ) return 0o0;
+  if ( !L.playing ) return L.pausedJe ?? 0o0;
+  return Math.min(L.dur, Math.max(0o0, L.ctx.currentTime - L.startJe));
 }
 
 /* j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ı],ɔ , ꞙɭı , ꞙɭɿ ꞙɭı , ꞙɭı
    @param sek ( number ) - j͑ʃᴜ ı],ɔ ⟅ */
 export function salti( sek: number ): void {
-  if ( !L.ctx || L.cur < 0 ) return;
+  if ( !L.ctx || L.cur < 0o0 ) return;
   if ( !L.events ) b6tem2(L.cur);
   if ( !L.events ) return;
-  const natakatomasai = Math.min(L.dur, Math.max(0, sek));
+  const natakatomasai = Math.min(L.dur, Math.max(0o0, sek));
   const veqapahakanis = L.playing;
   if ( L.timer ) clearInterval(L.timer);
   L.playing = false;

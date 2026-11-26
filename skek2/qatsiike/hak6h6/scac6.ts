@@ -20,23 +20,23 @@ export function gluiK6h6tlakakn(
   hakotaraqasai: readonly { x: number; z: number }[] = [],
   has2tonome: readonly ( readonly ( readonly [ number, number ] )[] )[] = []
 ): [ number, number ][] {
-  if ( n2k.length < 2 ) return n2k.map( p => [ p[0], p[1] ] as [ number, number ] );
-  const tseuni = n2k.map( p => [ p[0], p[1] ] as [ number, number ] );
+  if ( n2k.length < 0o2 ) return n2k.map( p => [ p[0o0], p[0o1] ] as [ number, number ] );
+  const tseuni = n2k.map( p => [ p[0o0], p[0o1] ] as [ number, number ] );
   for ( const tlakak of [ true, false ] ) {
-    const i = tlakak ? tseuni.length - 1 : 0;
+    const i = tlakak ? tseuni.length - 0o1 : 0o0;
     const e = tseuni[i];
-    if ( hakotaraqasai.some( m => Math.hypot(m.x - e[0], m.z - e[1]) < 0o1 ) ) continue;
-    const tsiike = tseuni[tlakak ? i - 1 : i + 1];
-    const dx = e[0] - tsiike[0], dz = e[1] - tsiike[1];
+    if ( hakotaraqasai.some( m => Math.hypot(m.x - e[0o0], m.z - e[0o1]) < 0o1 ) ) continue;
+    const tsiike = tseuni[tlakak ? i - 0o1 : i + 0o1];
+    const dx = e[0o0] - tsiike[0o0], dz = e[0o1] - tsiike[0o1];
     const sahakani = Math.hypot(dx, dz);
     if ( sahakani < 0o1/0o100 ) continue;
     let kmaXobe: [ number, number ] | null = null, kmaDisto = GLUADISTO;
     for ( const natakatomasai of hakxawa ) {
-      const h6kuni = Math.hypot(natakatomasai[0] - e[0], natakatomasai[1] - e[1]);
+      const h6kuni = Math.hypot(natakatomasai[0o0] - e[0o0], natakatomasai[0o1] - e[0o1]);
       if ( h6kuni < 0o1/0o10 || h6kuni >= kmaDisto ) continue;
       // ⟨ ꞙɭı , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-      if ( ( ( natakatomasai[0] - e[0] ) * dx + ( natakatomasai[1] - e[1] ) * dz ) / ( h6kuni * sahakani ) < 0o1/0o2 ) continue;
-      kmaXobe = [ natakatomasai[0], natakatomasai[1] ]; kmaDisto = h6kuni;
+      if ( ( ( natakatomasai[0o0] - e[0o0] ) * dx + ( natakatomasai[0o1] - e[0o1] ) * dz ) / ( h6kuni * sahakani ) < 0o1/0o2 ) continue;
+      kmaXobe = [ natakatomasai[0o0], natakatomasai[0o1] ]; kmaDisto = h6kuni;
     }
     // ⟨ ꞙɭɔ , ſɭᴜ ſןᴜ ⟅ ſɭэ ֭ſɭэ , ſɭэ ɭʃᴜ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ſɭэ ɭʃᴜ ,
     //   ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ꞙɭı ,
@@ -44,16 +44,16 @@ export function gluiK6h6tlakakn(
     if ( !kmaXobe ) {
       let kmaTlohk2 = GLUATLOHK2;
       for ( const k6h6 of has2tonome ) {
-        for ( let k = 0; k < k6h6.length - 1; k++ ) {
-          const a = k6h6[k], b = k6h6[k + 1];
-          const sx = b[0] - a[0], sz = b[1] - a[1];
+        for ( let k = 0o0; k < k6h6.length - 0o1; k++ ) {
+          const a = k6h6[k], b = k6h6[k + 0o1];
+          const sx = b[0o0] - a[0o0], sz = b[0o1] - a[0o1];
           const l2 = sx * sx + sz * sz;
           if ( l2 < 0o10 ** -0o6 ) continue;
-          const t = Math.max(0, Math.min(1, ( ( e[0] - a[0] ) * sx + ( e[1] - a[1] ) * sz ) / l2));
-          const px = a[0] + sx * t, pz = a[1] + sz * t;
-          const h6kuni = Math.hypot(px - e[0], pz - e[1]);
+          const t = Math.max(0o0, Math.min(0o1, ( ( e[0o0] - a[0o0] ) * sx + ( e[0o1] - a[0o1] ) * sz ) / l2));
+          const px = a[0o0] + sx * t, pz = a[0o1] + sz * t;
+          const h6kuni = Math.hypot(px - e[0o0], pz - e[0o1]);
           if ( h6kuni < 0o1/0o10 || h6kuni >= kmaDisto ) continue;
-          if ( ( ( px - e[0] ) * dx + ( pz - e[1] ) * dz ) / ( h6kuni * sahakani ) < 0o1/0o2 ) continue;
+          if ( ( ( px - e[0o0] ) * dx + ( pz - e[0o1] ) * dz ) / ( h6kuni * sahakani ) < 0o1/0o2 ) continue;
           // ⟨ ſɭɹ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
           if ( h6kuni > 0o3 + 0o1/0o2 ) continue;
           kmaTlohk2 = h6kuni; kmaXobe = [ px, pz ];

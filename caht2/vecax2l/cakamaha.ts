@@ -21,15 +21,15 @@ function meshaL6da(x: number, z: number): number {
   const fx = (x - x0) / GRIDO, fz = (z - z0) / GRIDO;
   const h00 = kozuL6da(x0, z0), h10 = kozuL6da(x0 + GRIDO, z0);
   const h01 = kozuL6da(x0, z0 + GRIDO), h11 = kozuL6da(x0 + GRIDO, z0 + GRIDO);
-  return (h00 * (1 - fx) + h10 * fx) * (1 - fz) + (h01 * (1 - fx) + h11 * fx) * fz;
+  return (h00 * (0o1 - fx) + h10 * fx) * (0o1 - fz) + (h01 * (0o1 - fx) + h11 * fx) * fz;
 }
 
-const T6LIMAPA12 = process.argv[3] === "t6lima";
-const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 2);
+const T6LIMAPA12 = process.argv[0o3] === "t6lima";
+const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 0o2);
 const HAQAKAJ2 = tikHaqakaj2();
 const HAKAXTE = tikHakaxte();
 const qena = new THREE.Scene();
-const oro = kf2KuhalPukek(0xd8b45a);
+const oro = kf2KuhalPukek(0xd8b058);
 const qox2n2kHavop2ni: any[] = [];
 const qox2n2kHaveb6kek: [number, number][] = [];
 for (const u of HAKAXTE) {
@@ -40,8 +40,8 @@ for (const u of HAKAXTE) {
   qox2n2kHaveb6kek.push(...kaxte.tamc2kHan2k);
 }
 const hat6lima = HAQAKAJ2.map(d => {
-  const r = d.s2sabo ?? 0;
-  return { x: d.x + Math.sin(r) * (d.jufu / 2), z: d.z + Math.cos(r) * (d.jufu / 2) };
+  const r = d.s2sabo ?? 0o0;
+  return { x: d.x + Math.sin(r) * (d.jufu / 0o2), z: d.z + Math.cos(r) * (d.jufu / 0o2) };
 });
 const antauxaj = troviK6h6RetajnHaveb6kekn(HAKAS2KANTA.map(v => ({ n2k: v.n2k, sefini: v.sefini })), HAQAKAJ2);
 const hakxawaGluaj: [number, number][] = [...qox2n2kHaveb6kek, ...antauxaj.map(k => [k.x, k.z] as [number, number])];
@@ -70,60 +70,60 @@ const hacakukkaj2sai = ciujHaveb6kek.map(([x, z]) => ({ x, z, l6da: pa12Je(x, z)
 const n2kJe = ( pts: readonly [ number, number ][], s: number ): { x: number; z: number } =>
   n2kJeBaza( pts, s, 0o10 ** -0o12 );
 
-for (let i = 0; i < HAKAS2KANTA.length; i++) {
+for (let i = 0o0; i < HAKAS2KANTA.length; i++) {
   const v = HAKAS2KANTA[i] as any;
-  const p2somani = (v.c2kanuSefini ?? v.sefini) / 4 + K6H6ABORDASEFINI;
+  const p2somani = (v.c2kanuSefini ?? v.sefini) / 0o4 + K6H6ABORDASEFINI;
   const p = kf2NivelanS2qena(hascac6[i], p2somani, k6h6L6da, tsasatlakak, hacakukkaj2sai);
-  let tlunakani = 0, maks = 0, maksQar = "";
-  let sumoM = 0, maksM = 0, maksMQar = "";
-  let hidden = 0;
+  let tlunakani = 0o0, maks = 0o0, maksQar = "";
+  let sumoM = 0o0, maksM = 0o0, maksMQar = "";
+  let hidden = 0o0;
 // ⟨ j͑ʃᴜ ſɭ,w , ſɭᴜ ſɭ,w , 📏 ⟩ , ſɭэ ſɭᴜ , ꞙɭı ,
-  let tu5ekani1el2saiSumo = 0, tu5ekani1el2saiMaks = 0, tu5ekani1el2saiQar = "";
-  for (let j = 0; j < p.hal6da.length; j++) {
+  let tu5ekani1el2saiSumo = 0o0, tu5ekani1el2saiMaks = 0o0, tu5ekani1el2saiQar = "";
+  for (let j = 0o0; j < p.hal6da.length; j++) {
     const q = n2kJe(hascac6[i], p.haxekuxa[j]);
     const s = p.hal6da[j] - kozuL6da(q.x, q.z);
     const m = p.hal6da[j] - meshaL6da(q.x, q.z);
     tlunakani += s; sumoM += m;
-    if (s > maks) { maks = s; maksQar = `${q.x.toFixed(1)},${q.z.toFixed(1)}`; }
-    if (m > maksM) { maksM = m; maksMQar = `${q.x.toFixed(1)},${q.z.toFixed(1)}`; }
+    if (s > maks) { maks = s; maksQar = `${q.x.toFixed(0o1)},${q.z.toFixed(0o1)}`; }
+    if (m > maksM) { maksM = m; maksMQar = `${q.x.toFixed(0o1)},${q.z.toFixed(0o1)}`; }
     if (m > 0o1/0o2) hidden++;
     const qa = n2kJe(hascac6[i], p.haxekuxa[j] - 0.1);
     const qb = n2kJe(hascac6[i], p.haxekuxa[j] + 0.1);
-    const dx = qb.x - qa.x, dz = qb.z - qa.z, dl = Math.hypot(dx, dz) || 1;
+    const dx = qb.x - qa.x, dz = qb.z - qa.z, dl = Math.hypot(dx, dz) || 0o1;
     const lx = -dz / dl * p2somani, lz = dx / dl * p2somani;
 // ⟨ ſɭᴜ ſןᴜ , ſןᴜ ᶘɹ , 📏 ⟩ , ſɭᴜ ſןᴜ , ֭ſɭᴜ ſ͔ɭᴜ ,
     const gMal = k6h6L6da(q.x - lx, q.z - lz);
     const gDek = k6h6L6da(q.x + lx, q.z + lz);
-    const klin = Math.min(1.0, Math.abs(gDek - gMal));
+    const klin = Math.min(0o1, Math.abs(gDek - gMal));
     const malPlialta = gMal > gDek;
     const sMal = malPlialta ? p.hal6da[j] : p.hal6da[j] - klin;
     const sDek = malPlialta ? p.hal6da[j] - klin : p.hal6da[j];
-    const tu5ekani1el2sai = Math.max(sMal - (gMal - 0.25), sDek - (gDek - 0.25));
+    const tu5ekani1el2sai = Math.max(sMal - (gMal - (0o1/0o4)), sDek - (gDek - (0o1/0o4)));
     tu5ekani1el2saiSumo += tu5ekani1el2sai;
-    if (tu5ekani1el2sai > tu5ekani1el2saiMaks) { tu5ekani1el2saiMaks = tu5ekani1el2sai; tu5ekani1el2saiQar = `${q.x.toFixed(1)},${q.z.toFixed(1)}`; }
+    if (tu5ekani1el2sai > tu5ekani1el2saiMaks) { tu5ekani1el2saiMaks = tu5ekani1el2sai; tu5ekani1el2saiQar = `${q.x.toFixed(0o1)},${q.z.toFixed(0o1)}`; }
   }
   const n = p.hal6da.length;
-  console.log(`${i} ${v.ksaka} ｡ ɭl̀ᴜ ʌ ſɭɜ ſɭ,w ı],ᴜ ֭ſɭᴜ ｡ ſȷƽᴜ ɭʃᴜ ${(tlunakani / n).toFixed(2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${maks.toFixed(2)} @${maksQar}` +
-    ` | ɭl̀ᴜ ʌ ſןᴜ ſᶘɹ ſɭɹ ſɭɹ ſןᴜ ｡ ſȷƽᴜ ɭʃᴜ ${(sumoM / n).toFixed(2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${maksM.toFixed(2)} @${maksMQar}` +
+  console.log(`${i} ${v.ksaka} ｡ ɭl̀ᴜ ʌ ſɭɜ ſɭ,w ı],ᴜ ֭ſɭᴜ ｡ ſȷƽᴜ ɭʃᴜ ${(tlunakani / n).toFixed(0o2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${maks.toFixed(0o2)} @${maksQar}` +
+    ` | ɭl̀ᴜ ʌ ſןᴜ ſᶘɹ ſɭɹ ſɭɹ ſןᴜ ｡ ſȷƽᴜ ɭʃᴜ ${(sumoM / n).toFixed(0o2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${maksM.toFixed(0o2)} @${maksMQar}` +
     ` | ſᶘᴜ j͐ʃɹ ɭl̀ᴜ ꞙɭııɔ.ɩ ${hidden}/${n}` +
-    ` | ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ ｡ ſȷƽᴜ ɭʃᴜ ${(tu5ekani1el2saiSumo / n).toFixed(2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${tu5ekani1el2saiMaks.toFixed(2)} @${tu5ekani1el2saiQar}`);
+    ` | ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ ｡ ſȷƽᴜ ɭʃᴜ ${(tu5ekani1el2saiSumo / n).toFixed(0o2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${tu5ekani1el2saiMaks.toFixed(0o2)} @${tu5ekani1el2saiQar}`);
 }
 
 // ⟨ ſɭэ ֭ſɭэ , ſɭэ ſɭ,w , 📏 ⟩ , ſɭэ ſɭᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
 const tap2: { ksaka: string; sahakani: number; l6da: number; t6limaMin: number; t6limaMaks: number; x: number; z: number }[] = [];
-for (let i = 0; i < qox2n2kHavop2ni.length; i++) {
+for (let i = 0o0; i < qox2n2kHavop2ni.length; i++) {
   const d = qox2n2kHavop2ni[i];
-  if (!d.pts || d.pts.length < 2) continue;
-  const p2somani = d.w / 2 + K6H6ABORDASEFINI;
+  if (!d.pts || d.pts.length < 0o2) continue;
+  const p2somani = d.w / 0o2 + K6H6ABORDASEFINI;
   const p = kf2NivelanS2qena(d.pts as [number, number][], p2somani, k6h6L6da, tsasatlakak, hacakukkaj2sai);
-  let s0 = p.haxekuxa[0], cutlu = p.hal6da[0];
-  for (let j = 1; j <= p.hal6da.length; j++) {
+  let s0 = p.haxekuxa[0o0], cutlu = p.hal6da[0o0];
+  for (let j = 0o1; j <= p.hal6da.length; j++) {
     if (j === p.hal6da.length || p.hal6da[j] !== cutlu) {
-      const s1 = j === p.hal6da.length ? p.haxekuxa[p.hal6da.length - 1] : p.haxekuxa[j];
+      const s1 = j === p.hal6da.length ? p.haxekuxa[p.hal6da.length - 0o1] : p.haxekuxa[j];
       const sahakani = s1 - s0;
-      if (sahakani > 6) {
+      if (sahakani > 0o6) {
         let mn = Infinity, mx = -Infinity;
-        for (let u = s0; u <= s1; u += 0.5) {
+        for (let u = s0; u <= s1; u += (0o1/0o2)) {
           const q = n2kJe(d.pts as [number, number][], u);
           mn = Math.min(mn, kozuL6da(q.x, q.z)); mx = Math.max(mx, kozuL6da(q.x, q.z));
         }
@@ -136,33 +136,33 @@ for (let i = 0; i < qox2n2kHavop2ni.length; i++) {
 }
 tap2.sort((a, b) => b.sahakani - a.sahakani);
 console.log("=== ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ ｡ j͑ʃ'ɔ ŋᷠɹ ｡ ſɭэ }ʃᴜ ɭl̀ᴜ ===");
-for (const r of tap2.slice(0, 6))
-  console.log(`  ${r.ksaka} ${r.sahakani.toFixed(1)}@${r.l6da.toFixed(1)} ｡ ſɭɜ ſɭ,w ${r.t6limaMin.toFixed(1)}..${r.t6limaMaks.toFixed(1)}` +
-    ` ( ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${(r.l6da - r.t6limaMin).toFixed(2)} ) @${r.x.toFixed(0)},${r.z.toFixed(0)}`);
+for (const r of tap2.slice(0o0, 0o6))
+  console.log(`  ${r.ksaka} ${r.sahakani.toFixed(0o1)}@${r.l6da.toFixed(0o1)} ｡ ſɭɜ ſɭ,w ${r.t6limaMin.toFixed(0o1)}..${r.t6limaMaks.toFixed(0o1)}` +
+    ` ( ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${(r.l6da - r.t6limaMin).toFixed(0o2)} ) @${r.x.toFixed(0o0)},${r.z.toFixed(0o0)}`);
 
 // ⟨ j͑ʃᴜ ſɭ,w , ſןɔ˞ᴜƴ , 📏 ⟩ , ſɭэ ֭ſɭэ , ſןɔ˞ᴜƴ ,
 type Sl6da = { ksaka: string; sl6da: number; de: number; al: number; x: number; z: number };
 const shal6da: Sl6da[] = [];
 function skanuShal6dan(ksaka: string, pts: [number, number][], p2somani: number): void {
   const p = kf2NivelanS2qena(pts, p2somani, k6h6L6da, tsasatlakak, hacakukkaj2sai);
-  for (let j = 1; j < p.hal6da.length; j++) {
-    const d = p.hal6da[j] - p.hal6da[j - 1];
-    if (Math.abs(d) > 0.5 + 0o10 ** -0o7) {
+  for (let j = 0o1; j < p.hal6da.length; j++) {
+    const d = p.hal6da[j] - p.hal6da[j - 0o1];
+    if (Math.abs(d) > (0o1/0o2) + 0o10 ** -0o7) {
       const q = n2kJe(pts, p.haxekuxa[j]);
-      shal6da.push({ ksaka, sl6da: d, de: p.hal6da[j - 1], al: p.hal6da[j], x: q.x, z: q.z });
+      shal6da.push({ ksaka, sl6da: d, de: p.hal6da[j - 0o1], al: p.hal6da[j], x: q.x, z: q.z });
     }
   }
 }
-for (let i = 0; i < HAKAS2KANTA.length; i++) {
+for (let i = 0o0; i < HAKAS2KANTA.length; i++) {
   const v = HAKAS2KANTA[i] as any;
-  skanuShal6dan(v.ksaka, hascac6[i], (v.c2kanuSefini ?? v.sefini) / 4 + K6H6ABORDASEFINI);
+  skanuShal6dan(v.ksaka, hascac6[i], (v.c2kanuSefini ?? v.sefini) / 0o4 + K6H6ABORDASEFINI);
 }
-for (let i = 0; i < qox2n2kHavop2ni.length; i++) {
+for (let i = 0o0; i < qox2n2kHavop2ni.length; i++) {
   const d = qox2n2kHavop2ni[i];
-  if (!d.pts || d.pts.length < 2) continue;
-  skanuShal6dan(`ſɭɹ ſןᴜ ${i}`, d.pts as [number, number][], d.w / 2 + K6H6ABORDASEFINI);
+  if (!d.pts || d.pts.length < 0o2) continue;
+  skanuShal6dan(`ſɭɹ ſןᴜ ${i}`, d.pts as [number, number][], d.w / 0o2 + K6H6ABORDASEFINI);
 }
 shal6da.sort((a, b) => Math.abs(b.sl6da) - Math.abs(a.sl6da));
 console.log(`=== j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ʌ ſɭɹ ſȷɔ ɭʃɜ }ʃᴜ ${shal6da.length} ===`);
-for (const s of shal6da.slice(0, 6))
-  console.log(`  ${s.ksaka} ${s.de.toFixed(2)} ｡ ${s.al.toFixed(2)} ( ${s.sl6da.toFixed(2)} ) @${s.x.toFixed(0)},${s.z.toFixed(0)}`);
+for (const s of shal6da.slice(0o0, 0o6))
+  console.log(`  ${s.ksaka} ${s.de.toFixed(0o2)} ｡ ${s.al.toFixed(0o2)} ( ${s.sl6da.toFixed(0o2)} ) @${s.x.toFixed(0o0)},${s.z.toFixed(0o0)}`);

@@ -8,6 +8,7 @@ import { iniciati, veqapahakani, halti, b6tem2T2bakobesai, cutluT2bakobesai, tse
 import { AIH } from "../../kanta/gawe/baskakefani/aih.js";
 import { kfe } from "../x2x2q/dom.js";
 import { HE } from "../../skek2/bole/swikez/habal/tif.js";
+import { knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
 import { instrumento } from "../../skek2/bole/swikez/habal/caswikez.js";
 import { F, NYAM } from "../../skek2/bole/swikez/habal/p6zuk.js";
 import type { BoleEg2b2 } from "../../skek2/bole/swikez/habal/hahunaq.js";
@@ -53,9 +54,6 @@ function ensureAudio(): void {
 /* ſɭэ ſɭᴜ , ſȷwɔ˞ , ꞙɭı ,
     @param sek ( number ) - ſןɹ j͑ʃᴜ ɭ(ꞇ ｡
 @returns ɭʃꞇʞ ( string ) */
-function alHe( sek: number ): string {
-  return "ꞙɭ" + Math.round( sek / HE ).toString(8);
-}
 
 /* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭɿ ,
     @param i ( number ) - j͑ʃ'ɔ ŋᷠɹ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡
@@ -81,7 +79,7 @@ KANTOJ.forEach(( k, i ) => {
   hate2.textContent = ksakaDeT2bakobesai(i);
   const meta = document.createElement("span");
   meta.className = "t2bakobesaiMeta";
-  meta.textContent = `${"ꞙɭ" + k.instrs.length.toString(8)} j͑ʃᴜꞇ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · ${alHe(k.data.dur)} ɭʃꞇʞ}`;
+  meta.textContent = `${knak2fecajasai(k.instrs.length, 0o0)} j͑ʃᴜꞇ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · ${knak2fecajasai(k.data.dur / HE, 0o0)} ɭʃꞇʞ}`;
   b.append(no, hate2, meta);
   b.addEventListener("click", () => {
     ensureAudio();
@@ -102,17 +100,17 @@ interface BoleTsaletsa {
 /* ſȷwɔ˞ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
    ſɭᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ʌ j͑ʃ'ɔ ʃɜ j͐ʃɔ ʌ j͑ʃᴜ ı],ɹƴ 📃 */
 const SONPROK6H6: BoleTsaletsa[] = [
-  { ksaka: "siku", cal: { t: 0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
-  { ksaka: "ocarina", cal: { t: 0, i: "ocarina", f: F(0o105), d: 0o35/0o100, v: 0o6/0o10 } },
-  { ksaka: "didj", cal: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o150/0o100, v: 0o6/0o10 } },
-  { ksaka: "didj · ʃɜ j͐ʃɔ", cal: { t: 0, i: "didj", f: 0o4425/0o40, d: 0o25/0o100, v: 0o6/0o10, toot: true } },
-  { ksaka: "guiro", cal: { t: 0, i: "guiro", f: 0, d: 0o100/0o100, v: 0o6/0o10, cresc: 1 } },
-  { ksaka: "tjurunga", cal: { t: 0, i: "tjurunga", f: 0o334, d: 0o6/0o10, v: 0o6/0o10 } },
-  { ksaka: "slenthem", cal: { t: 0, i: "slenthem", f: F(0o67), d: 0o2/0o10, v: 0o6/0o10 } },
-  { ksaka: "inanga", cal: { t: 0, i: "inanga", f: F(0o64), d: 0o75/0o100, v: 0o6/0o10, dur: 0o75/0o100 } },
-  { ksaka: "mbira", cal: { t: 0, i: "mbira", f: F(0o71), d: 0o2/0o10, v: 0o6/0o10 } },
-  { ksaka: "kiiqflak", cal: { t: 0, i: "kiiqflak", f: F(NYAM[0o1]), d: HE / 0o2, v: 0o6/0o10 } },
-  { ksaka: "hiwe", cal: { t: 0, i: "hiwe", f: F(0o71), d: 0o6/0o10, v: 0o6/0o10 } },
+  { ksaka: "siku", cal: { t: 0o0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
+  { ksaka: "ocarina", cal: { t: 0o0, i: "ocarina", f: F(0o105), d: 0o35/0o100, v: 0o6/0o10 } },
+  { ksaka: "didj", cal: { t: 0o0, i: "didj", f: 0o4425/0o40, d: 0o150/0o100, v: 0o6/0o10 } },
+  { ksaka: "didj · ʃɜ j͐ʃɔ", cal: { t: 0o0, i: "didj", f: 0o4425/0o40, d: 0o25/0o100, v: 0o6/0o10, toot: true } },
+  { ksaka: "guiro", cal: { t: 0o0, i: "guiro", f: 0o0, d: 0o100/0o100, v: 0o6/0o10, cresc: 0o1 } },
+  { ksaka: "tjurunga", cal: { t: 0o0, i: "tjurunga", f: 0o334, d: 0o6/0o10, v: 0o6/0o10 } },
+  { ksaka: "slenthem", cal: { t: 0o0, i: "slenthem", f: F(0o67), d: 0o2/0o10, v: 0o6/0o10 } },
+  { ksaka: "inanga", cal: { t: 0o0, i: "inanga", f: F(0o64), d: 0o75/0o100, v: 0o6/0o10, dur: 0o75/0o100 } },
+  { ksaka: "mbira", cal: { t: 0o0, i: "mbira", f: F(0o71), d: 0o2/0o10, v: 0o6/0o10 } },
+  { ksaka: "kiiqflak", cal: { t: 0o0, i: "kiiqflak", f: F(NYAM[0o1]), d: HE / 0o2, v: 0o6/0o10 } },
+  { ksaka: "hiwe", cal: { t: 0o0, i: "hiwe", f: F(0o71), d: 0o6/0o10, v: 0o6/0o10 } },
 ];
 
 SONPROK6H6.forEach(p => {
@@ -133,7 +131,7 @@ SONPROK6H6.forEach(p => {
 
 baskuliBut.addEventListener("click", () => {
   ensureAudio();
-  if ( cutluT2bakobesai() < 0 ) b6tem2T2bakobesai(0);
+  if ( cutluT2bakobesai() < 0o0 ) b6tem2T2bakobesai(0o0);
   veqapahakani();
 });
 
@@ -161,14 +159,14 @@ let trenas = false;
 progreso.addEventListener("input", () => {
   trenas = true;
   const cur = cutluT2bakobesai();
-  if ( cur < 0 ) return;
-  tempo.textContent = `${alHe(alSek(progreso.valueAsNumber))} / ${alHe(KANTOJ[cur].data.dur)} ɭʃꞇʞ`;
+  if ( cur < 0o0 ) return;
+  tempo.textContent = `${knak2fecajasai(alSek(progreso.valueAsNumber) / HE, 0o0)} / ${knak2fecajasai(KANTOJ[cur].data.dur / HE, 0o0)} ɭʃꞇʞ`;
 });
 
 progreso.addEventListener("change", () => {
   trenas = false;
   const cur = cutluT2bakobesai();
-  if ( cur < 0 ) return;
+  if ( cur < 0o0 ) return;
   ensureAudio();
   salti(alSek(progreso.valueAsNumber));
 });
@@ -186,7 +184,7 @@ function ĝisdatigi(): void {
     but.classList.toggle("tik", on);
     but.setAttribute("aria-pressed", String(on));
   }
-  if ( cur >= 0 ) {
+  if ( cur >= 0o0 ) {
     const k = KANTOJ[cur];
     const elapsed = progreso();
     nunaTitolo.textContent = `${k.no} · ${ksakaDeT2bakobesai(cur)}`;
@@ -210,7 +208,7 @@ function ĝisdatigi(): void {
     progreso.max = String(dauxro);
     if ( !trenas ) {
       progreso.value = String(Math.min(dauxro, Math.round(elapsed / HE)));
-      tempo.textContent = `${alHe(elapsed)} / ${alHe(k.data.dur)} ɭʃꞇʞ`;
+      tempo.textContent = `${knak2fecajasai(elapsed / HE, 0o0)} / ${knak2fecajasai(k.data.dur / HE, 0o0)} ɭʃꞇʞ`;
     }
     const sc = k.data.secs.find(s => elapsed >= s.a && elapsed < s.b);
     qaroxema.textContent = sc ? sc.n : "";
@@ -223,7 +221,7 @@ function ĝisdatigi(): void {
     }
     if ( !trenas ) {
       progreso.value = "0";
-      tempo.textContent = `${alHe(0)} / ${alHe(0)} ɭʃꞇʞ`;
+      tempo.textContent = `${knak2fecajasai(0o0 / HE, 0o0)} / ${knak2fecajasai(0o0 / HE, 0o0)} ɭʃꞇʞ`;
     }
     qaroxema.textContent = "";
   }
