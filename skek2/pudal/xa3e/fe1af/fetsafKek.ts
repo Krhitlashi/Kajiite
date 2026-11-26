@@ -1,20 +1,17 @@
-// ≺⧼ ֭ſɭᴜ ſȷɔ ſᶘᴜʞ 🌾 ⧽≻
+// ≺⧼ ֭ſɭᴜ ſȷɔ ſᶘᴜʞ ʌ ſȷɔ ſᶘᴜ ſȷƽɔƽ 🌾 ⧽≻
 import * as THREE from "three";
-import { vakox2qSenIndekson } from "../../../x2x2q/hakox2q.js";
+import { vakox2qSenIndekson } from "../../../p6kpu/hakox2q.js";
 import { kf2Xa3eHazardon } from "../sakxoXa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai } from "../raqa.js";
-import { fe1afKekWeh2, nex2caFe1afKekWeh2 } from "../../../x2x2q/t6limaHaweh2.js";
-import { bs2, type Bs2 } from "../../../../kanta/nala/t6limaSoza.js";
+import { fe1afKekWeh2, nex2caFe1afKekWeh2 } from "../../../p6kpu/mut6qHaweh2.js";
+import { bs2, type Bs2 } from "../../../../kanta/nala/mut6qSoza.js";
 import { kf2HerbanKxa } from "./hakxa.js";
 import { kf2HerbanPukekn } from "./g2b2.js";
 
-// ⟨ j͑ʃᴜꞇ ʌ j͑ʃͷ̗ᴜʞ ʌ ſȷɔ ſᶘᴜʞ ⟅ 📃 ⟩
 export const HAKXAPORTUFO = 0o34;
 
-// ⟨ ֭ſɭэ ſɭw }ʃꞇ ʌ ſȷɔ ſᶘᴜʞ ʌ ſɭɜ ſɭ,w ⟅ 📃 ⟩
 export const TUFADISTO = 0o12/0o10;
 
-// ⟨ ſɟᴜ j͑ʃᴜ ʌ ᶅſɔ ֭ſɭɹ ʌ j͑ʃͷ̗ᴜʞ ⟅ 📃 ⟩
 export type KlingaWeh2 = ( natakatomasai: THREE.Color, nex2ca: boolean,
   sakxo: () => number ) => void;
 
@@ -43,7 +40,7 @@ export function vepaqHerbanTufanQoxaKefoun(tk2ni = 0o2715,
     const kekaf2 = Math.sin(ang) * elen * ( 0o13/0o40 + sakxo() * 0o25/0o40 ) * arkaFaktoro
       + ( sakxo() - 0o1/0o2 ) * 0o5/0o40;
     const tordo = ( sakxo() - 0o1/0o2 ) * 0o115/0o100;
-    // ⟨ j͑ʃͷ̗ᴜʞ ʌ }ʃɔ ı],ɹ ſɟᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅ ֭ſɭwƽ ʌ j͐ʃᴜ̩ᴜ 📃 ⟩
+
     const nex2caKxa = i % 0o10 === 0o1;
     const klingaWeh2 = nex2caKxa ? nex2ca : lha;
     weh2DeKxa(klingaWeh2, nex2caKxa, sakxo);

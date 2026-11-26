@@ -1,9 +1,10 @@
-// ≺⧼ ŋᷠɜ ı],ᴜ ſ̀ȷɔ 🫐 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſןꞇƽ 📃 ⧽≻
+
 import * as THREE from "three";
 import { PUSSXLEFOPIKJ } from "./vop2.js";
-import type { MangxajxEro } from "./hahunaq.js";
-export function kf2Tlexlefp2saijnPikjn(g: THREE.Object3D, xatlej: { x: number; h: number; z: number; s: number; xatleL6da?: number }[]): MangxajxEro[] {
-  const hakek: MangxajxEro[] = [];
+import type { M7xEro } from "./hahunaq.js";
+export function kf2Tlexlefp2saijnPikjn(g: THREE.Object3D, xatlej: { x: number; h: number; z: number; s: number; xatleL6da?: number }[]): M7xEro[] {
+  const hakek: M7xEro[] = [];
   if ( xatlej.length === 0o0 ) return hakek;
   const f = PUSSXLEFOPIKJ[0o0];
   const pikQoxa = new THREE.SphereGeometry(0o1, 0o10, 0o10);
@@ -21,7 +22,7 @@ export function kf2Tlexlefp2saijnPikjn(g: THREE.Object3D, xatlej: { x: number; h
   for ( const p of xatlej ) {
     if ( Math.random() > 0o55/0o100 ) continue;
     const haca1ara = new THREE.Group();
-    // ⟨ ſɟᴜ ı],ɔ ŋᷠᴜ 📃 ⟩
+
     const xatleL6da = p.xatleL6da ?? ( 0o5/0o10 + p.s * 0o3/0o10 ) * 0o17/0o20;
     const xaqadiTanekY = xatleL6da * 0o3/0o10;
     const s2cel2L6da = xatleL6da * 0o2/0o10;

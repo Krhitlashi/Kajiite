@@ -1,13 +1,13 @@
-// ≺⧼ }ʃɔ ſ͕ɭɹȝ ꞁȷ̀ᴜ }ʃꞇ 🍽️ ⧽≻
+// ≺⧼ }ʃɔ ſ͕ɭɹȝ ꞁȷ̀ᴜ }ʃꞇ ʌ ɽ͑ʃ'ᴜ ſ͕ɭᴜ 🍽️ ⧽≻
 import * as THREE from "three";
 import { CAX2LTERU } from "../cax2loj.js";
 import { kf2Ts6f6n } from "./tsaafaa.js";
 import { kf2Fasw2d2n } from "./fasw2d2.js";
 import { FOKS, TLAS } from "./vop2.js";
 import type { MangxajxVop2 } from "./vop2.js";
-import type { MangxajxEro } from "./hahunaq.js";
-export function kf2Mangxajxojn(g: THREE.Group, cx: number, cz: number, cax2loj: { x: number; z: number }[] = []): MangxajxEro[] {
-  const hakek: MangxajxEro[] = [];
+import type { M7xEro } from "./hahunaq.js";
+export function kf2Mangxajxojn(g: THREE.Group, cx: number, cz: number, cax2loj: { x: number; z: number }[] = []): M7xEro[] {
+  const hakek: M7xEro[] = [];
   const vop2De = ( k: string ): MangxajxVop2 => FOKS.find(x => x.key === k) || TLAS.find(x => x.key === k)!;
   const tlunakani = ( k: string, x: number, y: number, z: number ) => {
     const havop2 = vop2De(k);

@@ -1,14 +1,12 @@
-// ≺⧼ ᶅſɔ ֭ſɭɹ j͑ʃᴜꞇ ʌ j͑ʃɹ j͐ʃɹ ŋᷠɔ }ʃꞇ 🎨 ⧽≻
-// ⟨ ſ͕ɭɜ ı],ᴜ , ſɭэ ſɭᴜ , ꞙɭı ,
-//   ſ͕ɭɜ ı],ᴜ , ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭɔ ,
-//   ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭɔ , 📃 ⟩
+// ≺⧼ ᶅſɔ ֭ſɭɹ ƽ ŋᷠᴜ 🧪 ⧽≻
+
 import * as THREE from "three";
 import {
   weh2Ruva, veb6qaiHsl, veb6qaiWeh2, veb6qaiQena, veHuna, hunanu, hunanuWeh2, veb6qaiRgba,
-} from "../../skek2/x2x2q/haweh2.js";
+} from "../../skek2/p6kpu/haweh2.js";
 import {
   FE1AFKEKHAWEH2, T6LIMAHAWEH2,
-} from "../../skek2/x2x2q/t6limaHaweh2.js";
+} from "../../skek2/p6kpu/mut6qHaweh2.js";
 
 let hatlohk2nik2p2 = 0o0;
 
@@ -18,7 +16,6 @@ function kamai(ksaka: string, kondicxo: boolean): void {
   console.log(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${ksaka}`);
 }
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , ⟅ ꞙɭɔ , ꞙɭıɔ 📃 ⟩
 function estasVeb6qai(weh2: number): boolean {
   if ( weh2 === 0xffffff || weh2 === 0x000000 ) return true;
   for ( const sovo of [ 0o20, 0o10, 0o0 ] ) {
@@ -28,7 +25,6 @@ function estasVeb6qai(weh2: number): boolean {
   return true;
 }
 
-// ⟨ ſɭэ ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 for ( const [ ksaka, weh2 ] of Object.entries(T6LIMAHAWEH2) ) {
   kamai(`ſɭɜ ſɭ,w ｡ ſɭɔʞ ${ksaka} ${weh2Ruva(weh2.getHex())}`, estasVeb6qai(weh2.getHex()));
 }
@@ -37,11 +33,9 @@ for ( let i = 0o0; i < FE1AFKEKHAWEH2.length; i++ ) {
     estasVeb6qai(FE1AFKEKHAWEH2[i].getHex()));
 }
 
-// ⟨ ſɭɜ ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ⟅ ꞙɭц , 📃 ⟩
 kamai("t6keqHunanu ｡ ſןɔ ʌ j͑ʃᴜ ı],ɔ ʌ ʃэ ſɭᴜ",
   T6LIMAHAWEH2.t6keqHunanu.getHex() === hunanuWeh2(T6LIMAHAWEH2.t6keq.getHex(), 0o3));
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , ⟅ ꞙɭɔ , 📃 ⟩
 const Hakozunu = [ 0x686860, 0x486838, 0xffffff, 0x000000, 0xa8c0a8, 0x507040 ];
 for ( const kozuni of Hakozunu ) {
   const veb6qai = veb6qaiWeh2(kozuni);
@@ -57,14 +51,12 @@ for ( const kozuni of Hakozunu ) {
   }
 }
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 for ( let i = 0o0; i < 0o1000; i++ ) {
   const weh2 = ( Math.imul(i + 0o1, 0x9e3779b1) >>> 0o0 ) & 0xffffff;
   kamai(`ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſןɔ ʌ j͑ʃᴜ ı],ɔ ʃэ ${weh2Ruva(weh2)}`,
     veb6qaiWeh2(veb6qaiWeh2(weh2)) === veb6qaiWeh2(weh2));
 }
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
 for ( const weh2 of Hakozunu ) {
   const veb6qai = veb6qaiWeh2(weh2);
   kamai(`ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſɭɹ ſȷɔ ɭl̀ᴜ ${weh2Ruva(weh2)}`,
@@ -72,13 +64,11 @@ for ( const weh2 of Hakozunu ) {
       || ( veb6qai & 0xf0f0f0 ) === ( weh2 & 0xf0f0f0 ));
 }
 
-// ⟨ ſɭэ ſɭw , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 const huna = veHuna("#686860", 0o6/0o10);
 kamai("veHuna ｡ ſןɔ ʌ KNAKEHE", estasVeb6qai(parseInt(huna.slice(0o1), 0o20)));
 kamai("veHuna ｡ ſןɔ ʌ ſɭɜ ſ͔ɭᴜ ʃэ",
   huna === weh2Ruva(hunanuWeh2(0x686860, Math.round(0o2/0o10 * 0xff / 0x10))));
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭц , 📃 ⟩
 for ( const h of [ 0o0, 0o170, 0o360 ] ) {
   kamai(`veb6qaiHsl ｡ ſןɔ ʌ KNAKEHE ${h}`,
     estasVeb6qai(veb6qaiHsl(h, 0o7/0o10, 0o72/0o100)));
@@ -86,7 +76,6 @@ for ( const h of [ 0o0, 0o170, 0o360 ] ) {
 const rugxa = veb6qaiHsl(0o0, 0o7/0o10, 0o72/0o100);
 kamai("veb6qaiHsl ｡ ſɭɔʞ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ", ( ( rugxa >> 0o20 ) & 0xff ) > ( ( rugxa >> 0o10 ) & 0xff ));
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭэ , 📃 ⟩
 const rgba = veb6qaiRgba(0x507040, 0o5/0o10);
 const k2fe = rgba.match(/\d+/g)?.slice(0o0, 0o3).map(Number) ?? [];
 const kanalaVeb6qai = ( c: number ): boolean => ( c & 0xf ) === 0o0 || ( c & 0xf ) === 0o10;

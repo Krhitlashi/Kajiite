@@ -1,17 +1,15 @@
-// ≺⧼ ſɭɔ ſ͕ɭɜ ı],ᴜ ʌ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🧩 ⧽≻
-// ⟨ j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , ⟅ ſןᴜ ᶘɹ , ꞙɭɿ ,
-// ſɭɜ ſɭ,w , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
+// ≺⧼ ſɭɜ ı],ɹ ſ͕ɭɜ 🧪 ⧽≻
+
 import * as THREE from "three";
 import { vakox2qDuQoxaKefoujn, vakox2qSenIndekson }
-  from "../../skek2/x2x2q/hakox2q.js";
+  from "../../skek2/p6kpu/hakox2q.js";
 import { kf2HerbanKxa } from "../../skek2/pudal/xa3e/fe1af/hakxa.js";
 import { kf2Xa3eHazardon }
-import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
   from "../../skek2/pudal/xa3e/sakxoXa3e.js";
 
 const NOMBRODAJXUROJ = 0o11;
 
-// ⟨ ſɭэ ɭʃᴜ , ſ͕ɭɜ ı],ᴜ 📃 ⟩
 function h2y2k( vecax2l: THREE.BufferGeometry[] ): THREE.BufferGeometry {
   return vecax2l.slice(0o1).reduce(( r, g ) => vakox2qDuQoxaKefoujn(r, g), vecax2l[0o0]);
 }
@@ -67,7 +65,6 @@ function egala( a: THREE.BufferGeometry, b: THREE.BufferGeometry ): boolean {
 const hakxa = vepaqHakxa(0o33/0o10, 0o17, 0o2715);
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ ſɭᴜc̗ ɭʃɜ = ${hakxa.length} ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ = ${egala(h2y2k(hakxa), vakox2qSenIndekson(hakxa))}`);
 
-// ⟨ ſɭэ j͐ʃꞇȝ , ꞙɭɿ , ⟅ ſɭэ j͐ʃꞇȝ , ꞙɭı , ꞙɭɿ , 📃 ⟩
 const miksitaj = hakxa.map(( g, i ) => {
   if ( i % 0o3 !== 0o0 ) return g;
   const sen = g.clone();
@@ -89,4 +86,4 @@ for ( let r = 0o0; r < NOMBRODAJXUROJ; r++ ) {
   if ( dH2y2k < minM ) minM = dH2y2k;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ j͑ʃᴜ ı],ɔ }ʃꞇ = ${knak2fecajasai(alHe(minM), 0o6)} He ｡ j͑ʃɔ ſȷэⅎ = ${knak2fecajasai(alHe(minN), 0o6)} He ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(minM / minN).toFixed(0o1)}x`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ｡ j͑ʃᴜ ı],ɔ }ʃꞇ = ${knak2fecajasai(tbo(minM), 0o6)} He ｡ j͑ʃɔ ſȷэⅎ = ${knak2fecajasai(tbo(minN), 0o6)} He ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(minM / minN).toFixed(0o1)}x`);

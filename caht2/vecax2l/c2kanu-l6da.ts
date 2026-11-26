@@ -1,11 +1,11 @@
-// ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɟɔȝ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🧪 ⧽≻
-// ⟨ j͐ʃэ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { tsasaVem2 } from "../../kanta/nala/t6limaSoza.js";
+// ≺⧼ ſɟɹ ſɭᴜ }ʃw ͷ̗ ɭ(ᴜ 🧪 ⧽≻
+
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
 import { K6H6AKMARL6DA, surGrid } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
 import { PONTAKVAKLARANCO } from "../../skek2/qatsiike/qakaj2/c2kanu.js";
-import { tsekeVeraTsasa, pontaFinL6da, k6h6Teru } from "./x2x2q.js";
+import { tsekeVeraTsasa, pontaFinL6da, k6h6Teru } from "./p6kpu.js";
 import { vepaqPontanS2qena, havasAkvanTrunkon,
   kf2PontanAkvanTeston } from "../../skek2/qatsiike/hak6h6/c2kanu-profilo.js";
 
@@ -24,7 +24,7 @@ for ( let v = 0o0; v < HAKAS2KANTA.length; v++ ) {
     tsekePontaTsasa(x, z) ? tsasaVem2(x, z) + PONTAKVAKLARANCO : -Infinity;
   const s2qena = vepaqPontanS2qena(k6h6.n2k, w, k6h6Teru, tsasaTeru,
     ( x, z, sefini ) => pontaFinL6da(x, z, sefini, haveb6kek));
-  // ⟨ j͐ʃэ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
+
   const pontaHeight = ( x: number, z: number ): number => {
     const l6da = s2qena.l6da(x, z);
     return ( tsekePontaTsasa(x, z) ? l6da : surGrid(l6da) ) - K6H6AKMARL6DA;

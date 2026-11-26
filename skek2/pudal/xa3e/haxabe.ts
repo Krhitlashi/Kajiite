@@ -1,11 +1,12 @@
-// ≺⧼ ı],ᴜ ʃɔ 🌱 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ı],ᴜ ʃɔ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2XabenCac2sex } from "../../x2x2q/cac2sex/xabe.js";
-import { kf2AsfanFc2qnCac2sex } from "../../x2x2q/cac2sex/asfa-fc2q.js";
+import { kf2XabenCac2sex } from "../../p6kpu/cac2sex/xabe.js";
+import { kf2AsfanFc2qnCac2sex } from "../../p6kpu/cac2sex/asfa-fc2q.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { vepaqXabenRozeton, vepaqFc2qnKronon, vepaqAsfanRozeton } from "./fhac2q.js";
 import { PunktaKp6taf, n2kKfekoc2kai, kf2Grok6h6n, hazardaGrovaQar, type Cel2Raqa } from "./raqa.js";
-import { bs2, type Bs2 } from "../../../kanta/nala/t6limaSoza.js";
+import { bs2, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
 
 export function vepaqXabejn(qena: THREE.Scene,
   vem2: number,
@@ -19,7 +20,6 @@ export function vepaqXabejn(qena: THREE.Scene,
   const sakxoCasacakai = kf2Xa3eHazardon(0o154555);
   const xabeCac2sex = kf2XabenCac2sex();
 
-  // ⟨ j͑ʃͷ̗ᴜʞ ʌ j͔ʃᴜ ʃᴜ }ʃꞇ ʌ ꞙɭц 📃 ⟩
   // ⟨ ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ ɭ(ɜ ŋᷠᴜ 📃 ⟩
   const xabeVecax2l = vepaqFc2qnKronon(0o11, 0o5/0o20, 0o103/0o100, 0o15/0o100, 0o1/0o100, 0o5/0o10);
   const xabePukek = new THREE.MeshStandardMaterial({ map: xabeCac2sex, alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 0o1 });
@@ -71,7 +71,6 @@ export function vepaqXabejn(qena: THREE.Scene,
   qena.add(haxabe);
 }
 
-// ⟨ ſɭᴜc̗ ɭʃɜ ʌ ꞙɭц 📃 ⟩
 export function vepaqNeq2qnXaben(qena: THREE.Scene,
   x: number, z: number,
   heightFn: ( x: number, z: number ) => number,

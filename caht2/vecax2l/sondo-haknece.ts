@@ -1,12 +1,13 @@
-// ≺⧼ ɭʃꞇƽ ʌ j͐ʃэ ɭ(ᴜ ʌ j͐ʃɹ ŋᷠɔ 🔬 ⧽≻
+// ≺⧼ j͑ʃɜ }ʃԏ͕ɜ ᴜ̩ ſɭc̗ɔ ſɟɔ 🧪 ⧽≻
+
 import "./ceh2kap2.mjs";
-import { l6da } from "../../kanta/nala/t6limaSoza.js";
+import { l6da } from "../../kanta/nala/mut6qSoza.js";
 import { kf2BazanK6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
 import { kf2Tap2Vem2n, tamc2kBrakHal6da, tap2L6daJe } from
   "../../skek2/qatsiike/hak6h6/haqoxa.js";
 import { kf2Haknece, tamc2kTap2Vem2 } from "../../skek2/qatsiike/hak6h6/hapa12.js";
 import { K6H6ADIORITAP2SOMANI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
-import { kf2Vecax2lanNala } from "./x2x2q.js";
+import { kf2Vecax2lanNala } from "./p6kpu.js";
 
 const nala = kf2Vecax2lanNala(false);
 const kozunu = kf2BazanK6h6L6dan(l6da);

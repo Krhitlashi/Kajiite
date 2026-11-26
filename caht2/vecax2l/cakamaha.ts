@@ -1,21 +1,20 @@
-// ≺⧼ ı],ᴜ ֭ſɭᴜ ſɭɜ ſɭ,w ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɭɜ ſɭ,w ʌ j͑ʃɔ }ʃᴜȝ }ʃꞇ 📏 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ⟅ ſɭɜ ſɭ,w ,
-// ſɭэ ſɭᴜ , ꞙɭэ , ꞙɭı , 📃 ⟩
+// ≺⧼ ſɟᴜ ſɭᴜ ŋᷠᴜ ֭ſɭᴜ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da as kozuL6da } from "../../kanta/nala/t6limaSoza.js";
+import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da as kozuL6da } from "../../kanta/nala/mut6qSoza.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
 import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
 import { kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
 import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
 import { K6H6ABORDASEFINI, K6H6AEKSTERAP2SOMANI, surGrid } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
 import { k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
-import { vepaqKradanKaxten } from "../../kanta/nala/kaxte/krada-kaxte.js";
-import { kf2KuhalPukek } from "../../skek2/x2x2q/pukek.js";
-import { tsasatlakak, n2kJe as n2kJeBaza } from "./x2x2q.js";
+import { vepaqQox2n2kKaxten } from "../../kanta/nala/kaxte/qox2n2k-kaxte.js";
+import { kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
+import { tsasatlakak, n2kJe as n2kJeBaza } from "./p6kpu.js";
 
-const GRIDO = 0o4; // ɭʃɜ }ʃᴜ ʌ j͑ʃɜ ſɭ,w ʌ j͑ʃw ſɭɹ ſɭɹ ſןᴜ ( SKULPTAPASO )
-// ⟨ ſɭɜ ſɭ,w , ſɭэ ſɭᴜ , 📏 ⟩ , ſɭэ ſɭᴜ , ꞙɭэ , ꞙɭı ,
+const GRIDO = 0o4;
+
 function meshaL6da(x: number, z: number): number {
   const x0 = Math.floor(x / GRIDO) * GRIDO, z0 = Math.floor(z / GRIDO) * GRIDO;
   const fx = (x - x0) / GRIDO, fz = (z - z0) / GRIDO;
@@ -24,7 +23,7 @@ function meshaL6da(x: number, z: number): number {
   return (h00 * (0o1 - fx) + h10 * fx) * (0o1 - fz) + (h01 * (0o1 - fx) + h11 * fx) * fz;
 }
 
-const T6LIMAPA12 = process.argv[0o3] === "t6lima";
+const T6LIMAPA12 = process.argv[0o3] === "mut6q";
 const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 0o2);
 const HAQAKAJ2 = tikHaqakaj2();
 const HAKAXTE = tikHakaxte();
@@ -33,7 +32,7 @@ const oro = kf2KuhalPukek(0xd8b058);
 const qox2n2kHavop2ni: any[] = [];
 const qox2n2kHaveb6kek: [number, number][] = [];
 for (const u of HAKAXTE) {
-  const kaxte = vepaqKradanKaxten(qena,
+  const kaxte = vepaqQox2n2kKaxten(qena,
     { ptaluPal6: u.ptaluPal6, k6liqPal6: u.k6liqPal6 as any, kekufxeso: false, hahufwuk2: false },
     [u.ofsX, u.ofsZ], oro);
   qox2n2kHavop2ni.push(...kaxte.kas2kantaHavop2ni);
@@ -66,7 +65,6 @@ const pa12Je = (x: number, z: number): number => {
 };
 const hacakukkaj2sai = ciujHaveb6kek.map(([x, z]) => ({ x, z, l6da: pa12Je(x, z) }));
 
-// ⟨ ı],ᴜ ֭ſɭᴜ , ſɭɜ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const n2kJe = ( pts: readonly [ number, number ][], s: number ): { x: number; z: number } =>
   n2kJeBaza( pts, s, 0o10 ** -0o12 );
 
@@ -77,7 +75,7 @@ for (let i = 0o0; i < HAKAS2KANTA.length; i++) {
   let tlunakani = 0o0, maks = 0o0, maksQar = "";
   let sumoM = 0o0, maksM = 0o0, maksMQar = "";
   let hidden = 0o0;
-// ⟨ j͑ʃᴜ ſɭ,w , ſɭᴜ ſɭ,w , 📏 ⟩ , ſɭэ ſɭᴜ , ꞙɭı ,
+
   let tu5ekani1el2saiSumo = 0o0, tu5ekani1el2saiMaks = 0o0, tu5ekani1el2saiQar = "";
   for (let j = 0o0; j < p.hal6da.length; j++) {
     const q = n2kJe(hascac6[i], p.haxekuxa[j]);
@@ -91,7 +89,7 @@ for (let i = 0o0; i < HAKAS2KANTA.length; i++) {
     const qb = n2kJe(hascac6[i], p.haxekuxa[j] + 0.1);
     const dx = qb.x - qa.x, dz = qb.z - qa.z, dl = Math.hypot(dx, dz) || 0o1;
     const lx = -dz / dl * p2somani, lz = dx / dl * p2somani;
-// ⟨ ſɭᴜ ſןᴜ , ſןᴜ ᶘɹ , 📏 ⟩ , ſɭᴜ ſןᴜ , ֭ſɭᴜ ſ͔ɭᴜ ,
+
     const gMal = k6h6L6da(q.x - lx, q.z - lz);
     const gDek = k6h6L6da(q.x + lx, q.z + lz);
     const klin = Math.min(0o1, Math.abs(gDek - gMal));
@@ -109,8 +107,7 @@ for (let i = 0o0; i < HAKAS2KANTA.length; i++) {
     ` | ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ ｡ ſȷƽᴜ ɭʃᴜ ${(tu5ekani1el2saiSumo / n).toFixed(0o2)} ｡ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${tu5ekani1el2saiMaks.toFixed(0o2)} @${tu5ekani1el2saiQar}`);
 }
 
-// ⟨ ſɭэ ֭ſɭэ , ſɭэ ſɭ,w , 📏 ⟩ , ſɭэ ſɭᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-const tap2: { ksaka: string; sahakani: number; l6da: number; t6limaMin: number; t6limaMaks: number; x: number; z: number }[] = [];
+const tap2: { ksaka: string; sahakani: number; l6da: number; mut6qMin: number; mut6qMaks: number; x: number; z: number }[] = [];
 for (let i = 0o0; i < qox2n2kHavop2ni.length; i++) {
   const d = qox2n2kHavop2ni[i];
   if (!d.pts || d.pts.length < 0o2) continue;
@@ -128,7 +125,7 @@ for (let i = 0o0; i < qox2n2kHavop2ni.length; i++) {
           mn = Math.min(mn, kozuL6da(q.x, q.z)); mx = Math.max(mx, kozuL6da(q.x, q.z));
         }
         const q = n2kJe(d.pts as [number, number][], s0);
-        tap2.push({ ksaka: `ſɭɹ ſןᴜ ${i}`, sahakani, l6da: cutlu, t6limaMin: mn, t6limaMaks: mx, x: q.x, z: q.z });
+        tap2.push({ ksaka: `ſɭɹ ſןᴜ ${i}`, sahakani, l6da: cutlu, mut6qMin: mn, mut6qMaks: mx, x: q.x, z: q.z });
       }
       if (j < p.hal6da.length) { s0 = p.haxekuxa[j]; cutlu = p.hal6da[j]; }
     }
@@ -137,10 +134,9 @@ for (let i = 0o0; i < qox2n2kHavop2ni.length; i++) {
 tap2.sort((a, b) => b.sahakani - a.sahakani);
 console.log("=== ſɭэ ֭ſɭэ ʌ ſɭɹ ſןᴜ ｡ j͑ʃ'ɔ ŋᷠɹ ｡ ſɭэ }ʃᴜ ɭl̀ᴜ ===");
 for (const r of tap2.slice(0o0, 0o6))
-  console.log(`  ${r.ksaka} ${r.sahakani.toFixed(0o1)}@${r.l6da.toFixed(0o1)} ｡ ſɭɜ ſɭ,w ${r.t6limaMin.toFixed(0o1)}..${r.t6limaMaks.toFixed(0o1)}` +
-    ` ( ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${(r.l6da - r.t6limaMin).toFixed(0o2)} ) @${r.x.toFixed(0o0)},${r.z.toFixed(0o0)}`);
+  console.log(`  ${r.ksaka} ${r.sahakani.toFixed(0o1)}@${r.l6da.toFixed(0o1)} ｡ ſɭɜ ſɭ,w ${r.mut6qMin.toFixed(0o1)}..${r.mut6qMaks.toFixed(0o1)}` +
+    ` ( ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${(r.l6da - r.mut6qMin).toFixed(0o2)} ) @${r.x.toFixed(0o0)},${r.z.toFixed(0o0)}`);
 
-// ⟨ j͑ʃᴜ ſɭ,w , ſןɔ˞ᴜƴ , 📏 ⟩ , ſɭэ ֭ſɭэ , ſןɔ˞ᴜƴ ,
 type Sl6da = { ksaka: string; sl6da: number; de: number; al: number; x: number; z: number };
 const shal6da: Sl6da[] = [];
 function skanuShal6dan(ksaka: string, pts: [number, number][], p2somani: number): void {

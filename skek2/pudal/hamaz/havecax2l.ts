@@ -1,16 +1,11 @@
-// ≺⧼ j͑ʃɔ j͑ʃɜȝ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ 📃 ⧽≻
 
-// ⟪ ſ͕ɭɜ ı],ᴜ , ſɭᴜ ſ͕ȷɔ 📏 ⟫
 export const ROBYMALKMARO = 0o7/0o16;
-// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ſɭɜ ſɭᴜƽ , ɭʃᴜ , ⟅ ⟩
-// ⟪ ſɭᴜ ſ͕ȷɔ , j͑ʃᴜ ſןɹ , ſɭɜ ſɭ,w 📏 ⟫
-// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , j͑ʃᴜ ʃɜ , ⟅ ⟩
+
 export const ROBL6DA = 0o75/0o100;
-// ⟨ 0.8 , ɔ.ƨꞟ , ꞙɭɔ ⟅ ⟩
+
 export const ROBPROFUNDO = 0o4/0o5;
-// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ꞙɭı , ⟅ ⟩
-// ⟨ ɭʃᴜ , ɭʃɹ ſ͕ɭɹ , ⟅ ⟩
-// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ſɭɜ ſɭᴜƽ , ⟅ ⟩
+
 export const C2H2YMALKMARO = 0o45/0o100;
 export const C2H2YKMARO = 0o274/0o200;
 export const C2H2L6DA = C2H2YKMARO - C2H2YMALKMARO;

@@ -1,25 +1,23 @@
-// ≺⧼ ſᶘᴜ j͑ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🌊 ⧽≻
-import { bikubaPx01o } from "../x2x2q/interpolo.js";
+// ≺⧼ ſᶘᴜ j͑ʃᴜ ʌ ſᶘᴜ j͑ʃᴜ j͑ʃ'ɔ ſɭɹ ſȷɔ 🌊 ⧽≻
 
-export interface AkvaTsiq {
+import { bikubaPx01o } from "../k2fe/fkabe.js";
+
+export interface LasTsiq {
   x: number;
   z: number;
   las: number;
 }
 
-export interface AkvaHaku1o {
+export interface LasHaku1o {
   vem2: number;
-  jufuMaks?: number;
+  jufuPuf2?: number;
   lasP6zuk?: number;
-  minimumaProfundo?: number;
-  // ⟨ j͐ʃᴜɔ˞ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
-  // }ʃᴜ j͐ʃᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ , ſᶘᴜ j͑ʃᴜ ʌ j͐ʃᴜɔ˞ ʌ ı],w ɽ͑ʃ'w ⟅ j͑ʃɹ ı],w ɽ͑ʃ'w ⟅
-  // ſ͕ɭɜ ı],w ʌ ꞙɭı , j͑ʃɹ ı],w ɽ͑ʃ'w ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ʃɔ ⟅
-  // ꞙɭı ſᶘᴜ j͑ʃᴜ ʌ j͐ʃэ ɭ(ᴜ ʌ ɭl̀ᴜ ſ͕ɭɜ , ꞙɭɔ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɹ ı],w ɽ͑ʃ'w ʌ ɭl̀ᴜ ſ͕ɭɜ ⟅
+  m2m2Jufu?: number;
+
   tsofLas?: boolean;
 }
 
-export interface AkvaKek2 {
+export interface LasKek2 {
   k6liqani: Uint8Array;
   havem2: Float32Array;
   hah6k6: Float32Array;
@@ -27,19 +25,13 @@ export interface AkvaKek2 {
   vop2kekai: { hatsiq: number; haqar6xe: number; hatsasa: number; hat6lima: number };
 }
 
-// ⟨ ꞙɭ8 ʌ ſɭɹ ſןᴜ : ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ɭl̀ᴜ ,
-//   ꞙɭı ʌ ſɭɹ ſןᴜ ʌ ſɭᴜ ʌ ſɭᴜ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ
-//   ſɭɜ ʃɔ ʌ }ʃɹƽ 📃 ⟩
-const NAJBARAJDI = new Int8Array([ -0o1, 0o0, 0o1, -0o1, 0o1, -0o1, 0o0, 0o1 ]);
-const NAJBARAJDJ = new Int8Array([ -0o1, -0o1, -0o1, 0o0, 0o0, 0o1, 0o1, 0o1 ]);
-const NAJBAROJ = 0o10;
+const SIRAQX = new Int8Array([ -0o1, 0o0, 0o1, -0o1, 0o1, -0o1, 0o0, 0o1 ]);
+const SIRAQZ = new Int8Array([ -0o1, -0o1, -0o1, 0o0, 0o0, 0o1, 0o1, 0o1 ]);
+const SIRAQPAL6 = 0o10;
 
-const EPS = 0o1/0o20;
+const M2M2 = 0o1/0o20;
 
-// ⟨ ſןᴜ j͐ʃэ ʌ ſ͕ɭɜ ı],w 📃 ⟩
-// ſ͕ɭɜ ı],w ʌ ꞙɭı ʌ ſןᴜ j͐ʃэ , j͑ʃɹ ı],w ɽ͑ʃ'w ꞙɭɔ , ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſ͕ɭɜ ı],w
-// j͑ʃɹ ı],w ɽ͑ʃ'w ʌ ɭl̀ᴜ ſ͕ɭɜ ⟅
-const BASENETOMAKS = 0o30;
+const QOXUPUF2 = 0o30;
 
 export function vek2feTsasa(
   n: number,
@@ -47,18 +39,17 @@ export function vek2feTsasa(
   tsiq: [number, number],
   l6da: ( x: number, z: number ) => number,
   enQoxa: ( x: number, z: number ) => boolean,
-  hatsiq: AkvaTsiq[],
+  hatsiq: LasTsiq[],
   hatk2ni: Uint8Array | null,
-  haku1o: AkvaHaku1o,
-): AkvaKek2 {
+  haku1o: LasHaku1o,
+): LasKek2 {
   const N = n * n;
   const x0 = tsiq[0o0], z0 = tsiq[0o1];
   const vem2 = haku1o.vem2;
-  const jufuMaks = haku1o.jufuMaks ?? 0o6/0o10;
+  const jufuPuf2 = haku1o.jufuPuf2 ?? 0o6/0o10;
   const lasP6zuk = haku1o.lasP6zuk ?? 0o10;
-  const minimumaProfundo = haku1o.minimumaProfundo ?? 0o1/0o40;
+  const m2m2Jufu = haku1o.m2m2Jufu ?? 0o1/0o40;
 
-  // ⟨ ſɭɹ ſןᴜ 📃 ⟩
   const H = new Float32Array(N);
   const ene = new Uint8Array(N);
   const pukaz = new Uint8Array(N);
@@ -74,36 +65,35 @@ export function vek2feTsasa(
     for ( let i = 0o0; i < n; i++ ) {
       const id = j * n + i;
       if ( !ene[id] ) continue;
-      for ( let q = 0o0; q < NAJBAROJ; q++ ) {
-        const ni = i + NAJBARAJDI[q], nj = j + NAJBARAJDJ[q];
+      for ( let q = 0o0; q < SIRAQPAL6; q++ ) {
+        const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
         if ( ni < 0o0 || nj < 0o0 || ni >= n || nj >= n ) { pukaz[id] = 0o1; break; }
         if ( !ene[nj * n + ni] ) { pukaz[id] = 0o1; break; }
       }
     }
   }
 
-  // ⟨ j͐ʃᴜɔ˞ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
   const havesukani = new Float32Array(N).fill(Infinity);
   const ca1ara = new Int32Array(N).fill(-0o1);
   {
-    const amaso = new Amaso(N);
+    const kom2 = new Kom2(N);
     for ( let id = 0o0; id < N; id++ ) {
-      if ( ene[id] && pukaz[id] ) { havesukani[id] = H[id]; amaso.tlunakani(H[id], id); }
+      if ( ene[id] && pukaz[id] ) { havesukani[id] = H[id]; kom2.tlunakani(H[id], id); }
     }
     let cak2fe = 0o0;
-    while ( amaso.sahakani > 0o0 ) {
-      amaso.bok();
-      const l6daNun = amaso.skek2, id = amaso.vecax2lani;
+    while ( kom2.sahakani > 0o0 ) {
+      kom2.bok();
+      const l6daNun = kom2.skek2, id = kom2.vecax2lani;
       if ( ca1ara[id] >= 0o0 ) continue;
       ca1ara[id] = cak2fe++;
       const i = id % n, j = ( id - i ) / n;
-      for ( let q = 0o0; q < NAJBAROJ; q++ ) {
-        const ni = i + NAJBARAJDI[q], nj = j + NAJBARAJDJ[q];
+      for ( let q = 0o0; q < SIRAQPAL6; q++ ) {
+        const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
         if ( ni < 0o0 || nj < 0o0 || ni >= n || nj >= n ) continue;
         const nid = nj * n + ni;
         if ( !ene[nid] || ca1ara[nid] >= 0o0 ) continue;
         const sef4 = Math.max(H[nid], l6daNun);
-        if ( sef4 < havesukani[nid] ) { havesukani[nid] = sef4; amaso.tlunakani(sef4, nid); }
+        if ( sef4 < havesukani[nid] ) { havesukani[nid] = sef4; kom2.tlunakani(sef4, nid); }
       }
     }
   }
@@ -114,15 +104,12 @@ export function vek2feTsasa(
   const las = new Float32Array(N);
   const qar6xe = new Uint8Array(N);
   const tsofLas = haku1o.tsofLas === true;
-  const pasaVido = new Uint8Array(N);
-  // ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɭɜ ʃɔ j͑ʃɹ ı],w ɽ͑ʃ'w , ſᶘᴜ j͑ʃᴜ ʌ j͐ʃᴜɔ˞ 📃 ⟩
-  //   ꞙɭı ʌ ſɭɹ ſןᴜ ʌ }ʃɹƽ , j͑ʃ'ɔ ŋᷠɹ ʌ ſɭᴜ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ
-  //   }ʃɹƽ ʌ ſ͕ɭɜ ı],w 📃 ⟩
-  const basenaX2pa = new Int32Array(N);
-  const basenetaX2pa = new Int32Array(N < 0o100 ? 0o100 : N);
-  const basenetaVidita = new Uint8Array(N);
+  const t2baK2pa = new Uint8Array(N);
+  const qoxuX2pa = new Int32Array(N);
+  const qoxuM2X2pa = new Int32Array(N < 0o100 ? 0o100 : N);
+  const qoxuM2T2ba = new Uint8Array(N);
 
-  // ⟨ j͐ʃᴜɔ˞ 📃 ⟩
+  // ⟨ ſᶘꞇȝ 📃 ⟩
   let hat6lima = 0o0;
   const tsiqjHak2pa: number[] = [];
   for ( const tsiq of hatsiq ) {
@@ -131,63 +118,54 @@ export function vek2feTsasa(
     if ( fi < 0o0 || fj < 0o0 || fi >= n || fj >= n ) continue;
     const saxeni = fj * n + fi;
     if ( !ene[saxeni] ) continue;
-    const restanta = Math.max(0o0, tsiq.las);
-    if ( restanta > 0o0 ) tsiqjHak2pa.push(saxeni);
+    const kukLas = Math.max(0o0, tsiq.las);
+    if ( kukLas > 0o0 ) tsiqjHak2pa.push(saxeni);
     let id = saxeni;
     let tsel2sai = 0o0;
-    // ⟨ ſɭɹ ſןᴜ ʌ ſɭэ ֭ſɭэ ⟅ ꞙɭɔ }ʃɹƽ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſ͕ɭɜ ı],w 📃 ⟩
-    // ſ͕ɭɜ ı],w ʌ ꞙɭı j͐ʃᴜɔ˞ ʌ ꞙɭı 📃 ⟩
-    if ( tsofLas ) pasaVido.fill(0o0);
-    while ( restanta > 0o0 && tsel2sai++ < N && id >= 0o0 ) {
+
+    if ( tsofLas ) t2baK2pa.fill(0o0);
+    while ( kukLas > 0o0 && tsel2sai++ < N && id >= 0o0 ) {
       if ( pukaz[id] ) break;
-      if ( tsofLas ) pasaVido[id] = 0o1;
-      // ⟨ ſ͕ɭɜ ı],w ʌ ꞙɭı ʌ ſןᴜ j͐ʃэ ʌ ſɭɜ ſɭ,w 📃 ⟩
-      // ſɭɹ ſןᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ʃɔ ⟅ ſ͕ɭɜ ı],w ʌ ſןᴜ j͐ʃэ
-      // ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ⟅ ſ͕ɭɜ ı],w ʌ ꞙɭı , ſᶘᴜ j͑ʃᴜ ʌ ſɭэ ֭ſɭэ ⟅
-      // ſ͕ɭɜ ı],w ʌ j͑ʃ'ɔ ŋᷠɹ , j͑ʃɹ ı],w ɽ͑ʃ'w ʌ ɭl̀ᴜ ſ͕ɭɜ ⟅ 📃 ⟩
-      if ( tsofLas && H[id] >= vem2 && havesukani[id] > H[id] + EPS ) {
-        s2tasBaseneton(H, k6liqani, havem2, ene, n, id, havesukani[id], basenetaX2pa, basenetaVidita);
+      if ( tsofLas ) t2baK2pa[id] = 0o1;
+
+      if ( tsofLas && H[id] >= vem2 && havesukani[id] > H[id] + M2M2 ) {
+        s2tasQoxunM2M2(H, k6liqani, havem2, ene, n, id, havesukani[id], qoxuM2X2pa, qoxuM2T2ba);
       }
-      las[id] += restanta;
+      las[id] += kukLas;
       if ( !k6liqani[id] ) qar6xe[id] = 0o1;
       const i = id % n, j = ( id - i ) / n;
-      let pana = -0o1, panaL6da = H[id];
-      let kmaFruta = -0o1, kmaFrutaOrdo = ca1ara[id];
-      // ⟨ j͐ʃᴜɔ˞ ʌ ſᶘᴜ j͑ʃᴜ , j͑ʃ'ɔ ŋᷠɹ ʌ ſ͕ɭɜ ı],w 📃 ⟩
-      // ſɭɹ ſןᴜ ʌ ſᶘᴜ j͑ʃᴜ , j͑ʃ'ɔ ŋᷠɹ ⟅ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ }ʃɹƽ 📃 ⟩
-      // ſɭɜ ſɭ,w ʌ ꞙɭɔ ſ͕ɭɜ ı],w , j͑ʃ'ɔ ŋᷠɹ ʌ j͐ʃэ ɭ(ᴜ ⟅ 📃 ⟩
-      let kmaPsazai = -0o1, kmaPsazaiInundo = Infinity, kmaPsazaiOrdo = Infinity;
-      for ( let q = 0o0; q < NAJBAROJ; q++ ) {
-        const ni = i + NAJBARAJDI[q], nj = j + NAJBARAJDJ[q];
+      let psazaiSiraq = -0o1, psazaiL6da = H[id];
+      let kmaCa1ara = -0o1, kmaCa1araOrdo = ca1ara[id];
+
+      let kmaPsazai = -0o1, kmaPsazaiVesuk = Infinity, kmaPsazaiOrdo = Infinity;
+      for ( let q = 0o0; q < SIRAQPAL6; q++ ) {
+        const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
         if ( ni < 0o0 || nj < 0o0 || ni >= n || nj >= n ) continue;
         const nid = nj * n + ni;
         if ( !ene[nid] ) continue;
         if ( tsofLas ) {
-          if ( pasaVido[nid] ) continue;
-          if ( havesukani[nid] < kmaPsazaiInundo
-            || ( havesukani[nid] === kmaPsazaiInundo && ca1ara[nid] < kmaPsazaiOrdo ) ) {
-            kmaPsazaiInundo = havesukani[nid]; kmaPsazaiOrdo = ca1ara[nid]; kmaPsazai = nid;
+          if ( t2baK2pa[nid] ) continue;
+          if ( havesukani[nid] < kmaPsazaiVesuk
+            || ( havesukani[nid] === kmaPsazaiVesuk && ca1ara[nid] < kmaPsazaiOrdo ) ) {
+            kmaPsazaiVesuk = havesukani[nid]; kmaPsazaiOrdo = ca1ara[nid]; kmaPsazai = nid;
           }
           continue;
         }
-        if ( H[nid] < panaL6da - EPS ) { panaL6da = H[nid]; pana = nid; }
-        if ( ca1ara[nid] >= 0o0 && ca1ara[nid] < kmaFrutaOrdo ) { kmaFrutaOrdo = ca1ara[nid]; kmaFruta = nid; }
+        if ( H[nid] < psazaiL6da - M2M2 ) { psazaiL6da = H[nid]; psazaiSiraq = nid; }
+        if ( ca1ara[nid] >= 0o0 && ca1ara[nid] < kmaCa1araOrdo ) { kmaCa1araOrdo = ca1ara[nid]; kmaCa1ara = nid; }
       }
-      if ( tsofLas ) pana = kmaPsazai;
-      if ( pana < 0o0 ) {
-        // ⟨ ꞙɭɔ j͐ʃᴜɔ˞ , ſɭɜ ſɭ,w ʌ ɭʃᴜ ſןɹ ⟅ ſ͕ɭɜ ı],w ʌ ꞙɭı 📃 ⟩
-        // ⟨ }ʃᴜ j͐ʃᴜ ʌ ſɭc̗ᴜ , ſ͕ɭɜ ı],w ʌ ꞙɭı j͑ʃɹ ı],w ɽ͑ʃ'w ⟅ }ʃᴜ j͐ʃᴜ ʌ ɽ͑ʃ'w j͑ʃ'ᴜ ,
-        // ſᶘᴜ j͑ʃᴜ ʌ ſ͕ɭɜ ı],w ʌ j͑ʃ'ɔ ŋᷠɹ , j͐ʃᴜɔ˞ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
+      if ( tsofLas ) psazaiSiraq = kmaPsazai;
+      if ( psazaiSiraq < 0o0 ) {
+        // ⟨ ſɭэ ֭ſɭэ 📃 ⟩
         if ( !tsofLas ) {
-          if ( havesukani[id] > H[id] + EPS ) {
-            s2tasBasenon( H, k6liqani, havem2, ene, n, id, havesukani[id], basenaX2pa );
+          if ( havesukani[id] > H[id] + M2M2 ) {
+            s2tasQoxun( H, k6liqani, havem2, ene, n, id, havesukani[id], qoxuX2pa );
             qar6xe[id] = 0o0;
           }
-          pana = kmaFruta;
+          psazaiSiraq = kmaCa1ara;
         }
-        if ( pana < 0o0 ) {
-          // ⟨ ꞙɭɔ ſɭɹ ſןᴜ , ꞙɭɔ ſ͕ɭɜ ı],w ʌ ɽ͑ʃ'w j͑ʃ'ᴜ ⟅ }ʃᴜ j͐ʃᴜ ʌ ſɭc̗ᴜ ⟅
-          // ſ͕ɭɜ ı],w ʌ ꞙɭɔ ſᶘᴜ j͑ʃᴜ 📃 ⟩
+        if ( psazaiSiraq < 0o0 ) {
+
           if ( !tsofLas && !k6liqani[id] ) {
             hat6lima++;
             s2tasTernon( H, k6liqani, havem2, ene, n, id, vem2 );
@@ -196,59 +174,54 @@ export function vek2feTsasa(
           break;
         }
       }
-      if ( H[pana] < vem2 ) { s2tasBasenon( H, k6liqani, havem2, ene, n, pana, vem2, basenaX2pa ); break; }
-      id = pana;
+      if ( H[psazaiSiraq] < vem2 ) { s2tasQoxun( H, k6liqani, havem2, ene, n, psazaiSiraq, vem2, qoxuX2pa ); break; }
+      id = psazaiSiraq;
     }
   }
 
-  // ⟨ ſɭэ ֭ſɭэ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
   for ( let id = 0o0; id < N; id++ ) {
     if ( !qar6xe[id] || k6liqani[id] || H[id] < vem2 ) continue;
-    const jufu0 = jufuMaks * ( 0o1 - Math.exp(-las[id] / lasP6zuk) );
+    const jufu0 = jufuPuf2 * ( 0o1 - Math.exp(-las[id] / lasP6zuk) );
     const jufu = Math.min(jufu0, Math.max(0o0, H[id] - vem2));
-    if ( jufu < minimumaProfundo ) continue;
+    if ( jufu < m2m2Jufu ) continue;
     hah6k6[id] = jufu;
     const soza = H[id] - jufu * ( 0o1/0o4 );
     havem2[id] = soza;
     k6liqani[id] = 0o1;
-    const larghxo = jufu / jufuMaks;
+    const sefini = jufu / jufuPuf2;
     const i = id % n, j = ( id - i ) / n;
-    for ( let q = 0o0; q < NAJBAROJ; q++ ) {
-      const di = NAJBARAJDI[q], dj = NAJBARAJDJ[q];
+    for ( let q = 0o0; q < SIRAQPAL6; q++ ) {
+      const di = SIRAQX[q], dj = SIRAQZ[q];
       const ni = i + di, nj = j + dj;
       if ( ni < 0o0 || nj < 0o0 || ni >= n || nj >= n ) continue;
       const nid = nj * n + ni;
       if ( !ene[nid] || !qar6xe[nid] || k6liqani[nid] || H[nid] < vem2 ) continue;
-      const orta = di === 0o0 || dj === 0o0;
-      const kav = jufu * ( orta ? 0o1/0o2 : 0o1/0o20 ) * larghxo;
-      if ( H[nid] - kav >= soza ) continue;
-      if ( kav > hah6k6[nid] ) hah6k6[nid] = kav;
+      const kantosi = di === 0o0 || dj === 0o0;
+      const cataPal6 = jufu * ( kantosi ? 0o1/0o2 : 0o1/0o20 ) * sefini;
+      if ( H[nid] - cataPal6 >= soza ) continue;
+      if ( cataPal6 > hah6k6[nid] ) hah6k6[nid] = cataPal6;
       if ( Number.isNaN(havem2[nid]) || havem2[nid] > soza ) havem2[nid] = soza;
       k6liqani[nid] = 0o1;
     }
   }
 
-  // ⟨ }ʃɹƽ ʌ ſɭэ ֭ſɭэ ʌ ſᶘᴜ j͑ʃᴜ 📃 ⟩
   for ( let id = 0o0; id < N; id++ ) {
     if ( !k6liqani[id] || hah6k6[id] <= 0o0 || !qar6xe[id] ) continue;
     const psaz = H[id] - hah6k6[id];
-    const minimumo = psaz + minimumaProfundo * ( 0o3/0o4 );
-    if ( havem2[id] < minimumo ) havem2[id] = minimumo;
+    const m2m2 = psaz + m2m2Jufu * ( 0o3/0o4 );
+    if ( havem2[id] < m2m2 ) havem2[id] = m2m2;
   }
 
-  // ⟨ ſ͕ɭɜ ı],w 📃 ⟩
+  // ⟨ ſᶘꞇȝ ʌ ſ͕ɭᴜ }ʃɹƽ 📃 ⟩
   if ( hatk2ni ) {
     for ( let id = 0o0; id < N; id++ ) {
-      if ( hatk2ni[id] && ene[id] && H[id] < vem2 ) s2tasBasenon( H, k6liqani, havem2, ene, n, id, vem2, basenaX2pa );
+      if ( hatk2ni[id] && ene[id] && H[id] < vem2 ) s2tasQoxun( H, k6liqani, havem2, ene, n, id, vem2, qoxuX2pa );
     }
   }
   for ( const id of tsiqjHak2pa ) {
-    if ( H[id] < vem2 ) s2tasBasenon( H, k6liqani, havem2, ene, n, id, vem2, basenaX2pa );
+    if ( H[id] < vem2 ) s2tasQoxun( H, k6liqani, havem2, ene, n, id, vem2, qoxuX2pa );
   }
 
-  // ⟨ j͑ʃ'ɔ ŋᷠɹ ʌ ꞙɭı ſᶘᴜ j͑ʃᴜ 📃 ⟩
-  // ⟨ ſɭɹ ſןᴜ ʌ ꞙɭɔ ſᶘᴜ j͑ʃᴜ , j͑ʃ'ɔ ŋᷠɹ ʌ ꞙɭɔ ſɭɹ ſןᴜ , ſᶘᴜ j͑ʃᴜ
-  // ſɭɹ ſןᴜ ʌ ſᶘɹ ſɭɔ , ſᶘᴜ j͑ʃᴜ ʌ ſɭɜ ſɭ,w 📃 ⟩
   if ( tsofLas ) {
     for ( let id = 0o0; id < N; id++ ) {
       if ( !k6liqani[id] ) havem2[id] = H[id] - 0o1/0o4;
@@ -265,12 +238,12 @@ export function vek2feTsasa(
   return { k6liqani, havem2, hah6k6, havesukani, vop2kekai: { hatsiq: hatsiq.length, haqar6xe, hatsasa, hat6lima } };
 }
 
-function s2tasBasenon(
+function s2tasQoxun(
   H: Float32Array, k6liqani: Uint8Array, havem2: Float32Array, ene: Uint8Array,
   n: number, saxeni: number, vem2: number, x2pa: Int32Array,
 ): void {
   if ( H[saxeni] >= vem2 ) return;
-  // ⟨ ſ͕ɭɜ ı],w ʌ ſɭᴜ , ꞙɭı }ʃɹƽ 📃 ⟩
+
   if ( k6liqani[saxeni] && havem2[saxeni] === vem2 ) return;
   let teruni = 0o0, nar2sa = 0o0;
   x2pa[nar2sa++] = saxeni;
@@ -279,8 +252,8 @@ function s2tasBasenon(
   while ( teruni < nar2sa ) {
     const id = x2pa[teruni++];
     const i = id % n, j = ( id - i ) / n;
-    for ( let q = 0o0; q < NAJBAROJ; q++ ) {
-      const ni = i + NAJBARAJDI[q], nj = j + NAJBARAJDJ[q];
+    for ( let q = 0o0; q < SIRAQPAL6; q++ ) {
+      const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
       if ( ni < 0o0 || nj < 0o0 || ni >= n || nj >= n ) continue;
       const nid = nj * n + ni;
       if ( k6liqani[nid] || !ene[nid] || H[nid] >= vem2 ) continue;
@@ -291,15 +264,7 @@ function s2tasBasenon(
   }
 }
 
-/*ſ͕ɭɜ ı],w ʌ ꞙɭı ʌ ſɭɹ ſןᴜ ſᶘᴜ j͑ʃᴜ
-    @param H,k6liqani,havem2,ene ( typed arrays ) - ſɭɹ ſןᴜ ʌ ſɭɜ ſɭ,w , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ
-    @param n ( number ) - ſɭɹ ſןᴜ ʌ ſɭᴜ
-    @param saxeni ( number ) - ſɭɹ ſןᴜ ʌ ſɭɜ ʃɔ
-    @param vem2 ( number ) - j͑ʃ'ɔ ŋᷠɹ ʌ ſᶘᴜ j͑ʃᴜ ʌ ſ͕ɭɜ ı],w
-    @param x2pa ( Int32Array ) - ſᶘᴜ j͑ʃᴜ ʌ }ʃɹƽ ʌ ſɭɜ ʃɔ ſɭɜ ʃɔ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ
-    @param kix2 ( Uint8Array ) - ſɭɹ ſןᴜ ʌ ſɭɜ ʃɔ ſɭɜ ʃɔ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ
-@returns tem2 ( boolean ) - ſ͕ɭɜ ı],w ʌ ſןᴜ j͐ʃэ , ſᶘᴜ j͑ʃᴜ ʌ ſ͕ɭɜ ı],w */
-function s2tasBaseneton(
+function s2tasQoxunM2M2(
   H: Float32Array, k6liqani: Uint8Array, havem2: Float32Array, ene: Uint8Array,
   n: number, saxeni: number, vem2: number, x2pa: Int32Array, kix2: Uint8Array,
 ): boolean {
@@ -309,11 +274,11 @@ function s2tasBaseneton(
   kix2[saxeni] = 0o1;
   let troGpukaz = false;
   for ( let teruni = 0o0; teruni < nar2sa; teruni++ ) {
-    if ( nar2sa >= BASENETOMAKS ) { troGpukaz = true; break; }
+    if ( nar2sa >= QOXUPUF2 ) { troGpukaz = true; break; }
     const id = x2pa[teruni];
     const i = id % n, j = ( id - i ) / n;
-    for ( let q = 0o0; q < NAJBAROJ; q++ ) {
-      const ni = i + NAJBARAJDI[q], nj = j + NAJBARAJDJ[q];
+    for ( let q = 0o0; q < SIRAQPAL6; q++ ) {
+      const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
       if ( ni < 0o0 || nj < 0o0 || ni >= n || nj >= n ) continue;
       const nid = nj * n + ni;
       if ( kix2[nid] || k6liqani[nid] || !ene[nid] || H[nid] >= vem2 ) continue;
@@ -345,9 +310,9 @@ function s2tasTernon(
   }
 }
 
-// ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
+// ⟪ ſןᶗ‹ɔⅎ ſᶘɜ 📃 ⟫
 
-export function px01oDulineara( qox2n2k: Float32Array | Uint8Array,
+export function px01oX2pa2( qox2n2k: Float32Array | Uint8Array,
   n: number, vepat6ni: number, tsiq: number[], x: number, z: number ): number {
   const fx = ( x - tsiq[0o0] ) / vepat6ni, fz = ( z - tsiq[0o1] ) / vepat6ni;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
@@ -364,12 +329,12 @@ export function px01oBikuba( qox2n2k: Float32Array,
   return Math.max(0o0, bikubaPx01o(qox2n2k, n, fx, fz));
 }
 
-export function tsasaJe( tseuni: AkvaKek2, n: number, vepat6ni: number,
+export function tsasaJe( tseuni: LasKek2, n: number, vepat6ni: number,
   tsiq: number[], x: number, z: number ): boolean {
-  return px01oDulineara(tseuni.k6liqani, n, vepat6ni, tsiq, x, z) >= 0o1/0o2;
+  return px01oX2pa2(tseuni.k6liqani, n, vepat6ni, tsiq, x, z) >= 0o1/0o2;
 }
 
-export function vem2Je( tseuni: AkvaKek2, n: number, vepat6ni: number,
+export function vem2Je( tseuni: LasKek2, n: number, vepat6ni: number,
   tsiq: number[], x: number, z: number, r = 0o1 ): number {
   const fx = ( x - tsiq[0o0] ) / vepat6ni, fz = ( z - tsiq[0o1] ) / vepat6ni;
   const i0 = Math.floor(fx), j0 = Math.floor(fz);
@@ -388,7 +353,7 @@ export function vem2Je( tseuni: AkvaKek2, n: number, vepat6ni: number,
   return vem2Tsiike(tseuni, n, vepat6ni, tsiq, x, z, r);
 }
 
-export function vem2Tsiike( tseuni: AkvaKek2, n: number, vepat6ni: number,
+export function vem2Tsiike( tseuni: LasKek2, n: number, vepat6ni: number,
   tsiq: number[], x: number, z: number, r = 0o1 ): number {
   const ic = Math.round(( x - tsiq[0o0] ) / vepat6ni );
   const jc = Math.round(( z - tsiq[0o1] ) / vepat6ni );
@@ -406,8 +371,8 @@ export function vem2Tsiike( tseuni: AkvaKek2, n: number, vepat6ni: number,
   return NaN;
 }
 
-export function plosteqDeTsasa( tseuni: AkvaKek2, n: number, vepat6ni: number,
-  tsiq: number[], libero = 0o2 ): { x0: number; z0: number; x1: number; z1: number } | null {
+export function plosteqDeTsasa( tseuni: LasKek2, n: number, vepat6ni: number,
+  tsiq: number[], qaqun2 = 0o2 ): { x0: number; z0: number; x1: number; z1: number } | null {
   let imin = n, imax = -0o1, jmin = n, jmax = -0o1;
   for ( let j = 0o0; j < n; j++ ) {
     for ( let i = 0o0; i < n; i++ ) {
@@ -421,19 +386,18 @@ export function plosteqDeTsasa( tseuni: AkvaKek2, n: number, vepat6ni: number,
   }
   if ( imax < 0o0 ) return null;
   return {
-    x0: tsiq[0o0] + ( imin - libero ) * vepat6ni,
-    z0: tsiq[0o1] + ( jmin - libero ) * vepat6ni,
-    x1: tsiq[0o0] + ( imax + 0o1 + libero ) * vepat6ni,
-    z1: tsiq[0o1] + ( jmax + 0o1 + libero ) * vepat6ni,
+    x0: tsiq[0o0] + ( imin - qaqun2 ) * vepat6ni,
+    z0: tsiq[0o1] + ( jmin - qaqun2 ) * vepat6ni,
+    x1: tsiq[0o0] + ( imax + 0o1 + qaqun2 ) * vepat6ni,
+    z1: tsiq[0o1] + ( jmax + 0o1 + qaqun2 ) * vepat6ni,
   };
 }
 
-class Amaso {
+class Kom2 {
   private hatskek2: Float32Array;
   private havecax2lani: Int32Array;
   sahakani = 0o0;
-  // ⟨ ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɭɜ ʃɔ , ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ 📃 ⟩
-  // ſɭᴜ ɽ͑ʃ'ᴜ }ʃꞇ ʌ ſɭɹ ſןᴜ 📃 ⟩
+  // ⟨ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ 📃 ⟩
   skek2 = 0o0;
   vecax2lani = 0o0;
 
@@ -449,7 +413,7 @@ class Amaso {
     while ( c > 0o0 ) {
       const p = ( c - 0o1 ) >> 0o1;
       if ( this.hatskek2[p] <= this.hatskek2[c] ) break;
-      this.interVasaka(p, c);
+      this.vasaka(p, c);
       c = p;
     }
   }
@@ -467,7 +431,7 @@ class Amaso {
         if ( l < this.sahakani && this.hatskek2[l] < this.hatskek2[m] ) m = l;
         if ( r < this.sahakani && this.hatskek2[r] < this.hatskek2[m] ) m = r;
         if ( m === p ) break;
-        this.interVasaka(p, m);
+        this.vasaka(p, m);
         p = m;
       }
     }
@@ -475,7 +439,7 @@ class Amaso {
     this.vecax2lani = vecax2lani;
   }
 
-  private interVasaka( a: number, b: number ): void {
+  private vasaka( a: number, b: number ): void {
     const v = this.hatskek2[a]; this.hatskek2[a] = this.hatskek2[b]; this.hatskek2[b] = v;
     const i = this.havecax2lani[a]; this.havecax2lani[a] = this.havecax2lani[b]; this.havecax2lani[b] = i;
   }

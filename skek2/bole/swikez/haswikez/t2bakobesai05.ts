@@ -1,15 +1,14 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ɔꞟ · ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ · ꞙɭꞟɿɔ ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
-// ⟨ ſɭᴜ , j͑ʃп́ꞇ ſɭɔƴ , MP3 , ſɭᴜ ſ͕ȷɔ , j͑ʃᴜ ſɭᴜ ɭʃɹ , C# ⟅ ⟩
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ꞁȷ̀ɔⅎɯ 🎵 ⧽≻
 
 import type { BoleEg2b2, Qaroxema, SpuroDateno } from "../habal/hahunaq.js";
 import { F } from "../habal/p6zuk.js";
 import { HE, caxomani } from "../habal/tif.js";
-import { motifo, treni, U1, U2, U0, MINBB } from "./hax2x2q.js";
+import { motifo, treni, U1, U2, U0, MINBB } from "./tom6nu.js";
 
 export function buildTrack5(): SpuroDateno {
   const ev: BoleEg2b2[] = [];
   const secs: Qaroxema[] = [];
-  // ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭıɔ ɭʃɜᴜ̩ ɭʃɜƽ ʌ ꞙɭı ⟅ ⟩
+
   const BPQ = 0o40;
   const e8 = caxomani(BPQ), bar = e8 * 0o14;
   const f0 = F(0o45);
@@ -44,7 +43,7 @@ export function buildTrack5(): SpuroDateno {
     motifo(ev, t0, e8, am ? U2 : U1, b < 0o4 ? "ocarina" : "siku", b < 0o4 ? 0o63/0o100 : 0o55/0o100);
     akompani(t0, am, b >= 0o4);
     if ( b === 0o3 || b === 0o5 ) ev.push({ t: t0 + 0o6 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
-    // ⟨ hiwe , ꞙɭɿ ɭʃɜᴜ̩ ɭʃɜƽ , ſɭɜ j͐ʃɹ ʌ j͑ʃп́ꞇ ſɭɔƴ , ſɭᴜ ſןᴜ ⟅ ⟩
+
     if ( b < 0o4 ) treni(ev, t0 + 0o6 * e8, e8, MINBB, [ [ 0o0, 0o11 ], [ 0o3, 0o7 ] ], 0o33/0o40);
   }
 
@@ -57,7 +56,7 @@ export function buildTrack5(): SpuroDateno {
     ev.push({ t: t0, i: "siku", f: F(am ? 0o75 : 0o101), d: bar * 0o75/0o100, v: 0o23/0o40 });
     akompani(t0, am, true);
     if ( b % 0o2 === 0o1 ) ev.push({ t: t0 + 0o3 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
-    // ⟨ hiwe , ſɭᴜ ſ͕ȷɔ , ſɭɜ j͐ʃɹ , ꞙɭı ſɭᴜ , ꞙɭɔ ⟅ ⟩
+
     if ( b % 0o2 === 0o1 ) motifo(ev, t0, e8, am ? U2 : U1, "hiwe", 0o23/0o40, 0o17/0o20, -0o14);
   }
 
@@ -70,7 +69,7 @@ export function buildTrack5(): SpuroDateno {
   ev.push({ t: 0o23 * bar, i: "slenthem", f: F(0o54), d: e8 * 0o2, v: 0o33/0o40 });
   [ 0o0, 0o6 ].forEach(k => ev.push({ t: 0o22 * bar + k * e8, i: "guiro", d: HE / 0o10, v: 0o23/0o40 }));
   ev.push({ t: 0o23 * bar + 0o6 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
-  // ⟨ hiwe , j͑ʃ'ƽᴜ ɭl̀ɹ , ꞙɭı ɭʃɜᴜ̩ ɭʃɜƽ , ꞙɭɿ ⟅ ⟩
+
   ev.push({ t: 0o22 * bar, i: "hiwe", f: F(MINBB[0o11] - 0o14), d: 0o10 * e8, v: 0o25/0o40 });
   treni(ev, 0o23 * bar + 0o2 * e8, e8, MINBB, [ [ 0o0, 0o7 ], [ 0o4, 0o5 ] ], 0o33/0o40, 0o10/0o10);
 
@@ -83,7 +82,7 @@ export function buildTrack5(): SpuroDateno {
     motifo(ev, t0, e8, am ? U2 : U1, "siku", 0o33/0o40, 0o17/0o20, 0o14);
     akompani(t0, am, true);
     if ( b % 0o2 === 0o0 ) ev.push({ t: t0 + 0o6 * e8, i: "didj", f: f0 * 0o201/0o100, d: e8 * 0o6/0o10, v: 0o33/0o40, toot: true });
-    // ⟨ hiwe , ʃɔ ſᶘэ ſɭ,ɜ , ſɭᴜ ſ͕ȷɔ , ꞙɭı ⟅ ⟩
+
     if ( b % 0o2 === 0o0 ) motifo(ev, t0, e8, am ? U2 : U1, "hiwe", 0o25/0o40, 0o17/0o20, -0o14);
   }
 
@@ -95,7 +94,7 @@ export function buildTrack5(): SpuroDateno {
   ev.push({ t: 0o33 * bar, i: "slenthem", f: F(0o45), d: e8 * 0o2, v: 0o33/0o40 });
   [ 0o0, 0o3, 0o6, 0o11 ].forEach(( k, j ) => ev.push({ t: 0o32 * bar + k * e8, i: "inanga", f: F(MINBB[[ 0o5, 0o7, 0o11, 0o7 ][j]]), d: e8 * 0o5/0o3, v: 0o23/0o40, dur: e8 * 0o5/0o3 }));
   ev.push({ t: 0o33 * bar + 0o6 * e8, i: "guiro", d: e8 * 0o3/0o2, v: 0o33/0o40, cresc: 0o1 });
-  // ⟨ hiwe , ſɭɜ j͐ʃɹ , ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ , j͑ʃᴜ ʃɜƽ ⟅ ⟩
+
   ev.push({ t: 0o32 * bar, i: "hiwe", f: F(MINBB[0o5] - 0o14), d: 0o10 * e8, v: 0o33/0o40 });
   ev.push({ t: 0o32 * bar + 0o12 * e8, i: "hiwe", f: F(MINBB[0o1] - 0o14), d: 0o7 * e8, v: 0o23/0o40 });
 

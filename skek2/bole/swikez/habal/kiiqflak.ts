@@ -1,17 +1,10 @@
-// ≺⧼ ſɭɹ ſ͕ɭʞͷ̗ᴜƽ ꞁȷ̀ᴜꞇ ʌ ʃɜ j͐ʃɔ 🥁 ⧽≻
-// ⟨ ſɭᴜ , ꞙɭɿ ʌ ſɭᴜ ⟅ ſɟɔȝ ʌ ſɭɹȝ , ꞙɭı ⟅
-// ⟨ ſɭɔ˞ɜⅎ ʌ ſɟɔȝ , ʃɜ j͐ʃɔ ⟅ ſɟɔȝ ⟅
-// ⟨ ſɭᴜ ꞙɭıцɔɔ–ꞙɭцıɔɔ , ſɟᴜ j͐ʃw ꞙɭɩэ ⟅
-// ⟨ j͐ʃэ ɭ(ᴜ ı],э ŋᷠꞇ j͑ʃᴜꞇ ꞙɭэꞟɔ , ſɟɔȝ ꞙɭı ſɭɔ˞ɜⅎ ⟅
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭɹ ſ͕ɭʞͷ̗ᴜƽ 🎵 ⧽≻
+
 import { noiseSrc } from "./xetoh2.js";
 import { vap6zukani } from "./hakfeKx2keve.js";
 
-// ⟨ ſɭᴜ j͐ʃэ ɭ(ᴜ ꞙɭɔ ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
 const ETA = 0o1/0o20000;
 
-/* ſɭɹȝ ʌ ſɟɔȝ ⟅ ꞙɭıэꞟ/ꞙɭıɔɔ ʌ
-   j͑ʃɹ ſןw ꞙɭı ⟅
-   j͑ʃɹ ſןw ꞙɭı ʃэ ſɟᴜ ŋᷠɹ , ſɭɹȝ ⟅ 📃 */
 const MODOJ: Array<[ number, number, number ]> = [
   [ 0o1,           0o10/0o10, 0o130/0o100 ],
   [ 0o133/0o100,   0o34/0o100, 0o160/0o100 ],
@@ -19,15 +12,11 @@ const MODOJ: Array<[ number, number, number ]> = [
   [ 0o274/0o100,   0o1/0o10, 0o40/0o100 ],
 ];
 
-// ⟨ j͑ʃɹ ŋᷠɹ ʌ ſɭɹȝ , j͑ʃɹ ŋᷠɹ ʌ ſɟᴜ ſɭᴜ , ꞙɭı ſɟɔȝ ⟅
 const AEROJ: Array<[ number, number, number ]> = [
   [ 0o36/0o100, 0o6/0o10, 0o30/0o100 ],
   [ 0o54/0o100, 0o4/0o10, 0o22/0o100 ],
 ];
 
-/* ſɭɔ˞ɜⅎ ʌ ſɟɔȝ ⟅ ſɭᴜ ꞙɭɔ ɭʃэʞ ⟅
-   ſɭᴜ j͑ʃᴜ ꞙɭı j͑ʃɹ ſןw ꞙɭɔ ,
-   ꞙɭı ꞙɭɔ , ꞙɭı ⟅ 📃 */
 const KORDOJ: Array<[ number, number, number, number ]> = [
   [ 0o472/0o100,  0o24/0o1000, 0o34/0o100, 0o6/0o1000 ],
   [ 0o546/0o100,  0o17/0o1000, 0o31/0o100, 0o10/0o1000 ],
@@ -37,7 +26,6 @@ const KORDOJ: Array<[ number, number, number, number ]> = [
   [ 0o1052/0o100, 0o5/0o1000,  0o15/0o100, 0o20/0o1000 ],
 ];
 
-// ⟨ ſɭᴜ ꞙɭı , ꞙɭı , ꞙɭı , ʃэ ſɟᴜ ŋᷠɹ ⟅
 const BRUOJ: Array<[ number, number, number ]> = [
   [ 0o1300, 0o1700/0o1000, 0o70/0o100 ],
   [ 0o1600, 0o700/0o1000, 0o50/0o100 ],
@@ -46,9 +34,9 @@ const BRUOJ: Array<[ number, number, number ]> = [
 
 export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1) {
   const d = Math.min(dur > 0o0/0o10 ? dur : 0o30/0o100, 0o30/0o100) * vap6zukani(0o10/0o100);
-  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɟɔȝ , f , ꞙɭɔ ⟅
+
   const p = f * vap6zukani(0o1/0o100);
-  // ⟨ ſɭᴜ ſɭ,w ʌ ſɟɔȝ , ſɭɔ˞ɜⅎ ꞙɭı , ſɟɔȝ ꞙɭı ⟅
+
   const raqa = Math.random();
   const g2sa = 0o4/0o10 + 0o6/0o10 * vel;
 
@@ -56,7 +44,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   g.gain.value = 0o2/0o10 * vel * vap6zukani(0o7/0o100);
   g.connect(out);
 
-  // ⟨ ſɟɔȝ ʌ ſɭɹȝ ⟅ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı , ſɭᴜ ꞙɭı , ꞙɭı ⟅
   for ( const [ rilato, amp, deco ] of MODOJ ) {
     const o = ctx.createOscillator();
     o.type = "sine";
@@ -76,7 +63,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     o.stop(t + vivo + 0o1/0o10);
   }
 
-  // ⟨ j͑ʃɹ ŋᷠɹ ʌ ſɭɹȝ , ꞙɭı , ꞙɭı ⟅ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭɔ ⟅
   for ( const [ rilato, amp, deco ] of AEROJ ) {
     const o = ctx.createOscillator();
     o.type = "sine";
@@ -93,7 +79,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     o.stop(t + vivo + 0o1/0o10);
   }
 
-  // ⟨ ſɭɔ˞ɜⅎ , ꞙɭı ⟅ ꞙɭı , ꞙɭı , j͑ʃɹ ſןw ꞙɭı , ʃэ ſɟᴜ ŋᷠɹ ⟅
   for ( const [ rilato, amp, deco, detuno ] of KORDOJ ) {
     const vivo = deco * ( 0o6/0o10 + 0o4/0o10 * vel ) * vap6zukani(0o2/0o10);
     const og = ctx.createGain();
@@ -115,7 +100,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     }
   }
 
-  // ⟨ ſɟᴜ j͐ʃw ʌ ſɭɔ˞ɜⅎ , ꞙɭɩэ ⟅
   const rat = ctx.createOscillator();
   rat.type = "sine";
   rat.frequency.value = 0o64 * vap6zukani(0o10/0o100);
@@ -125,7 +109,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   rat.start(t);
   rat.stop(t + 0o12/0o10);
 
-  // ⟨ ſɭɔ˞ɜⅎ , j͑ʃɹ ſןw ꞙɭı , ꞙɭı , ʃэ ſɟᴜ ŋᷠɹ ⟅
   for ( const [ sost2, amp, deco ] of BRUOJ ) {
     const n = noiseSrc(ctx);
     const bp = ctx.createBiquadFilter();
@@ -151,7 +134,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     n.stop(t + vivo + 0o1/0o10);
   }
 
-  // ⟨ ſɭɔ ֭ſɭw ꞙɭɩɔꞟ ⟅
   const kn = noiseSrc(ctx);
   const kbp = ctx.createBiquadFilter();
   kbp.type = "bandpass";
@@ -165,7 +147,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   kbp.connect(kg);
   kg.connect(g);
 
-  // ⟨ j͑ʃɹ ŋᷠɹ ꞙɭı , ꞙɭɔ ⟅
   const n = noiseSrc(ctx);
   const hp = ctx.createBiquadFilter();
   hp.type = "highpass";
@@ -178,7 +159,6 @@ export function kiiqflak(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   hp.connect(ng);
   ng.connect(g);
 
-  // ⟨ ſɭᴜ , ꞙɭı ⟅
   const room = noiseSrc(ctx);
   const rlp = ctx.createBiquadFilter();
   rlp.type = "lowpass";

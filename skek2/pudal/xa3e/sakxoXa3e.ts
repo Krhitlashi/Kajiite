@@ -1,7 +1,8 @@
-// ≺⧼ j͑ʃᴜ ſɭᶗ‹ɜ ʌ ı],ᴜ ſ̀ȷɔ 🎲 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃᴜ ſɭᶗ‹ɜ ı],ᴜ ſ̀ȷɔ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2Sakxo } from "../../x2x2q/caq2q.js";
-import { vegetajxaRuva } from "../../../kanta/t6lima-havop2/tlohk2nikziisai.js";
+import { kf2Sakxo } from "../../p6kpu/caq2q.js";
+import { vegetajxaRuva } from "../../../kanta/mut6q-havop2/tlohk2nikziisai.js";
 
 export function kf2S2saboQuaternionon(sakxoCasacakai: () => number, l2haKlinangulo: number, yaw: number): THREE.Quaternion {
   const b6n = new THREE.Quaternion().setFromEuler(new THREE.Euler(0o0, yaw, 0o0));
@@ -24,7 +25,5 @@ export function hazardaWeh2(sakxoCasacakai: () => number, weh2: THREE.Color, weh
 
 export const VEGETAJXAPLIIGO = 0x682878F5;
 
-// ſɟwƽ ʌ j͑ʃᴜ ſɭɹȝ ʌ j͑ʃᴜꞇ ʌ }ʃᴜ j͐ʃᴜ ʌ ſɟwƽ ʌ }ʃᴜ j͐ʃᴜ ⟅
-// j͑ʃᴜ ſɭɹȝ ʌ j͑ʃᴜꞇ ʌ ſɟwƽ ʌ ꞙɭı ʌ ꞙɭı ⟅ }ʃᴜ j͐ʃᴜ ʌ ꞙɭɔ ʌ ſɟwƽ , ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ⟅
 export const kf2Xa3eHazardon = (tk2ni: number): ( () => number ) =>
   kf2Sakxo(vegetajxaRuva(tk2ni), VEGETAJXAPLIIGO);

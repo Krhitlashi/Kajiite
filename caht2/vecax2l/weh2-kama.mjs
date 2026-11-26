@@ -15913,7 +15913,7 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// eskekoj/hax2x2q/haweh2.ts
+// eskekoj/tom6nu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -16063,7 +16063,7 @@ function veb6qaiHsl(h, s, l) {
 	const qar6xe = (skek) => Math.max(0, Math.min(255, Math.round((skek + m) * 255)));
 	return veb6qaiWeh2(qar6xe(r) << 16 | qar6xe(g) << 8 | qar6xe(b));
 }
-// eskekoj/hax2x2q/kozuhaweh2.ts
+// eskekoj/tom6nu/kozuhaweh2.ts
 const KOZUA_HAWEH2 = {
 	fe1afA: new Color(16424),
 	fe1afB: new Color(4223064),

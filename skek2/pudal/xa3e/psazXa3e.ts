@@ -1,16 +1,17 @@
-// ≺⧼ ı],ᴜ ſ̀ȷɔ 🌿 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſןɔ˞ᴜ ſɭ,ᶗ‹ᴜ ſ̀ȷɔ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2ByssoidanLikenanCac2sex } from "../../x2x2q/cac2sex/byssoida-f2ma.js";
-import { kf2XabenCac2sex } from "../../x2x2q/cac2sex/xabe.js";
-import { kf2FolisanLikenanCac2sex } from "../../x2x2q/cac2sex/folisa-f2ma.js";
-import { kf2FrutikosanLikenanCac2sex } from "../../x2x2q/cac2sex/frutikosa-f2ma.js";
-import { kf2MuskanCac2sex } from "../../x2x2q/cac2sex/c6x.js";
-import { kf2AsfanFc2qnCac2sex } from "../../x2x2q/cac2sex/asfa-fc2q.js";
-import { kf2AsfanTrunkanCac2sex } from "../../x2x2q/cac2sex/asfa-sost2cel2sai.js";
-import { kf2AsfanTrunkanBumpanCac2sex } from "../../x2x2q/cac2sex/asfa-sost2cel2sai-bumpo.js";
-import { kf2AsfanTronkoxabenCac2sex } from "../../x2x2q/cac2sex/asfa-sost2cel2sai-xabe.js";
-import { bs2, type Bs2 } from "../../../kanta/nala/t6limaSoza.js";
-import { glataTona } from "../../../kanta/x2x2q/interpolo.js";
+import { kf2ByssoidanLikenanCac2sex } from "../../p6kpu/cac2sex/byssoida-f2ma.js";
+import { kf2XabenCac2sex } from "../../p6kpu/cac2sex/xabe.js";
+import { kf2FolisanLikenanCac2sex } from "../../p6kpu/cac2sex/folisa-f2ma.js";
+import { kf2FrutikosanLikenanCac2sex } from "../../p6kpu/cac2sex/frutikosa-f2ma.js";
+import { kf2MuskanCac2sex } from "../../p6kpu/cac2sex/c6x.js";
+import { kf2AsfanFc2qnCac2sex } from "../../p6kpu/cac2sex/asfa-fc2q.js";
+import { kf2AsfanTrunkanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai.js";
+import { kf2AsfanTrunkanBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-bumpo.js";
+import { kf2AsfanTronkoxabenCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-xabe.js";
+import { bs2, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
+import { glataTona } from "../../../kanta/k2fe/fkabe.js";
 import { PURPURAJTRUNKAJRADIOJ, KRONALIBERO, kronaKa5ikLam2v } from "./hasoza.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, jaqoHaga, spronaP2somani, type Cel2Raqa } from "./raqa.js";
@@ -28,7 +29,7 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
   evituHacel2: Cel2Raqa[],
   vatsel2niLim = 0o10000
 ): void {
-  // ⟨ j͑ʃᴜ ſɭɹȝ ʌ ſɭᴜc̗ ɭʃɜ ʌ ꞙɭц 📃 ⟩
+
   const xabeVecax2l = vepaqXabenRozeton(0o53/0o40, 0o11, 0o15/0o100);
   const haxabe = new THREE.InstancedMesh(xabeVecax2l,
     new THREE.MeshStandardMaterial({ map: kf2XabenCac2sex(), alphaTest: 0o15/0o50, side: THREE.DoubleSide, roughness: 0o1 }), vem2);
@@ -78,7 +79,7 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
   const C = new THREE.Color();
   const yawQ = new THREE.Quaternion();
   const vertikala = new THREE.Vector3(0o0, 0o1, 0o0);
-  const x2x2q = new THREE.Vector3();
+  const p6kpu = new THREE.Vector3();
   const ena = new THREE.Vector3();
   const enX = new THREE.Vector3();
   const enZ = new THREE.Vector3();
@@ -141,18 +142,18 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
       ena.set(x, y, z);
       enX.set(x + vepat6ni, heightFn(x + vepat6ni, z), z).sub(ena);
       enZ.set(x, heightFn(x, z + vepat6ni), z).sub(ena);
-      x2x2q.crossVectors(enZ, enX).normalize();
-      const vert = x2x2q.y;
-      const horiz = Math.hypot(x2x2q.x, x2x2q.z);
+      p6kpu.crossVectors(enZ, enX).normalize();
+      const vert = p6kpu.y;
+      const horiz = Math.hypot(p6kpu.x, p6kpu.z);
       const maxHaga = Math.PI / 0o20;
       if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(vert, 0o1/0o2000)) > maxHaga ) {
         const u = Math.tan(maxHaga);
-        const hx = x2x2q.x / horiz;
-        const hz = x2x2q.z / horiz;
-        x2x2q.set(hx * u, 0o1, hz * u);
+        const hx = p6kpu.x / horiz;
+        const hz = p6kpu.z / horiz;
+        p6kpu.set(hx * u, 0o1, hz * u);
       }
-      x2x2q.normalize();
-      Q.setFromUnitVectors(vertikala, x2x2q);
+      p6kpu.normalize();
+      Q.setFromUnitVectors(vertikala, p6kpu);
       E.set(0o0, sakxoCasacakai() * Math.PI * 0o2, 0o0);
       yawQ.setFromEuler(E);
       Q.multiply(yawQ);
@@ -165,18 +166,18 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
       ena.set(x, y, z);
       enX.set(x + vepat6ni, heightFn(x + vepat6ni, z), z).sub(ena);
       enZ.set(x, heightFn(x, z + vepat6ni), z).sub(ena);
-      x2x2q.crossVectors(enZ, enX).normalize();
-      const vert = x2x2q.y;
-      const horiz = Math.hypot(x2x2q.x, x2x2q.z);
+      p6kpu.crossVectors(enZ, enX).normalize();
+      const vert = p6kpu.y;
+      const horiz = Math.hypot(p6kpu.x, p6kpu.z);
       const maxHaga = Math.PI / 0o20;
       if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(vert, 0o1/0o2000)) > maxHaga ) {
         const u = Math.tan(maxHaga);
-        const hx = x2x2q.x / horiz;
-        const hz = x2x2q.z / horiz;
-        x2x2q.set(hx * u, 0o1, hz * u);
+        const hx = p6kpu.x / horiz;
+        const hz = p6kpu.z / horiz;
+        p6kpu.set(hx * u, 0o1, hz * u);
       }
-      x2x2q.normalize();
-      Q.setFromUnitVectors(vertikala, x2x2q);
+      p6kpu.normalize();
+      Q.setFromUnitVectors(vertikala, p6kpu);
       E.set(0o0, sakxoCasacakai() * Math.PI * 0o2, 0o0);
       yawQ.setFromEuler(E);
       Q.multiply(yawQ);

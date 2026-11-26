@@ -1,6 +1,5 @@
-// ≺⧼ ſɟᴜ ı],ɹͷ̗ 🍽 ⧽≻
-// ⟨ }ʃᴜ j͐ʃᴜ ʌ ɭʃᴜ ſןɹ 📃 ⟩
-// ⟨ j͐ʃэ ɭ(ᴜ 📃 ⟩
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɟᴜ ı],ɹ j͐ʃɜᴎ 📃 ⧽≻
+
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 

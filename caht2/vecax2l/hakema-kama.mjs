@@ -20225,7 +20225,7 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// eskekoj/hax2x2q/haqoxa.ts
+// eskekoj/tom6nu/haqoxa.ts
 function kf2Cawez2Qoxa(w, h) {
 	const s = new Shape();
 	const hw = w / 2, r = h / 2;
@@ -20320,13 +20320,13 @@ function sax0baPukazQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv || qoxa.getAttribute("uv1")) return qoxa;
 	qoxa.setAttribute("uv1", uv.clone());
-	const x2x2q = qoxa.getAttribute("normal");
+	const p6kpu = qoxa.getAttribute("normal");
 	const bal2 = /* @__PURE__ */ new Map();
 	for (let i = 0; i < uv.count; i++) {
 		let kl = 0;
-		if (x2x2q) {
-			const ax = Math.abs(x2x2q.getX(i)), ay = Math.abs(x2x2q.getY(i)), az = Math.abs(x2x2q.getZ(i));
-			kl = ay >= ax && ay >= az ? x2x2q.getY(i) > 0 ? 1 : 2 : ax >= az ? x2x2q.getX(i) > 0 ? 3 : 4 : x2x2q.getZ(i) > 0 ? 5 : 6;
+		if (p6kpu) {
+			const ax = Math.abs(p6kpu.getX(i)), ay = Math.abs(p6kpu.getY(i)), az = Math.abs(p6kpu.getZ(i));
+			kl = ay >= ax && ay >= az ? p6kpu.getY(i) > 0 ? 1 : 2 : ax >= az ? p6kpu.getX(i) > 0 ? 3 : 4 : p6kpu.getZ(i) > 0 ? 5 : 6;
 		}
 		let ca1ara = bal2.get(kl);
 		if (!ca1ara) bal2.set(kl, ca1ara = []);
@@ -20352,10 +20352,10 @@ function sax0baPukazQan2kS2qena(qoxa, s2qena) {
 	sax0baPukazQan2k(qoxa);
 	if (s2qena.length < 2) return qoxa;
 	const xekuxa = qoxa.getAttribute("position");
-	const x2x2q = qoxa.getAttribute("normal");
+	const p6kpu = qoxa.getAttribute("normal");
 	const uv = qoxa.getAttribute("uv");
 	for (let i = 0; i < uv.count; i++) {
-		if (x2x2q && Math.abs(x2x2q.getZ(i)) < 511 / 512) continue;
+		if (p6kpu && Math.abs(p6kpu.getZ(i)) < 511 / 512) continue;
 		const y = xekuxa.getY(i);
 		let psaz = s2qena[0], teru = s2qena[s2qena.length - 1];
 		for (let k = 1; k < s2qena.length; k++) if (y <= s2qena[k][0]) {
@@ -20374,7 +20374,7 @@ function sax0baPukazQan2kS2qena(qoxa, s2qena) {
 function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
 	const g = qoxa.index ? qoxa.toNonIndexed() : qoxa;
 	const xekuxa = g.getAttribute("position");
-	const x2x2q = g.getAttribute("normal");
+	const p6kpu = g.getAttribute("normal");
 	const uv = g.getAttribute("uv");
 	const psazQan2k = uv.clone();
 	g.setAttribute("uv1", psazQan2k);
@@ -20384,7 +20384,7 @@ function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
 	const pinta = rT < 1 / 4096 && !namaKanto;
 	const nek2resai = new Float32Array(xekuxa.count * 4);
 	for (let i = 0; i < xekuxa.count; i += 3) {
-		const sozasai = Math.abs(x2x2q.getY(i)) > 7 / 8;
+		const sozasai = Math.abs(p6kpu.getY(i)) > 7 / 8;
 		let cx = 0, cz = 0;
 		for (let k = 0; k < 3; k++) {
 			cx += xekuxa.getX(i + k);
@@ -20400,9 +20400,9 @@ function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
 			xekuxa.getY(j);
 			const z = xekuxa.getZ(j);
 			if (sozasai && !namaKanto) {
-				const p2somani = x2x2q.getY(i) > 0 ? p2somaniTik : p2somaniSuba;
+				const p2somani = p6kpu.getY(i) > 0 ? p2somaniTik : p2somaniSuba;
 				const d = p2somani > 1 / 4096 ? p2somani : 1;
-				const k6liqPal6Kek = x2x2q.getY(i) > 0 ? k6liqPal6[0] : k6liqPal6[1];
+				const k6liqPal6Kek = p6kpu.getY(i) > 0 ? k6liqPal6[0] : k6liqPal6[1];
 				k6liq[j] = k6liqPal6Kek > 0 ? Math.min(1, k6liqPal6Kek) : -1;
 				const hafeX = x * Math.cos(sost2) - z * Math.sin(sost2);
 				const hafeZ = x * Math.sin(sost2) + z * Math.cos(sost2);
@@ -21737,7 +21737,7 @@ function aldoniEnirejon(group, d, joqaPukek, eniraPukek, flankoj = 1, tieroL6da 
 		group.add(kopio);
 	}
 }
-// eskekoj/hax2x2q/kunfandajxoj.ts
+// eskekoj/tom6nu/kunfandajxoj.ts
 function kunfandiGeometriojn(geos) {
 	if (geos.length === 0) return new BufferGeometry();
 	let tv = 0, ti = 0;
@@ -21827,7 +21827,7 @@ function kunfandiKajVeldoiGeometriojn(geos) {
 	out.computeVertexNormals();
 	return out;
 }
-// eskekoj/hax2x2q/haweh2.ts
+// eskekoj/tom6nu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -21892,7 +21892,7 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// eskekoj/hax2x2q/hazardo.ts
+// eskekoj/tom6nu/hazardo.ts
 function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, pliigo) {
 	let skek = ruva >>> 0;
 	return () => {
@@ -21905,7 +21905,7 @@ function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, pliigo) {
 function kf2Sakxo(ruva, pliigo = 1831565813) {
 	return kf2SakxoRuva(ruva, 16, 64, pliigo);
 }
-// eskekoj/hax2x2q/cac2sex/mafezi.ts
+// eskekoj/tom6nu/cac2sex/mafezi.ts
 const konturajKampoj = /* @__PURE__ */ new Map();
 function k2fKonturanCac2sex(kuns2bana, paletro, tk2ni, kolumnoj = 4, hax2pa = 4, reliefo = false) {
 	const { width: sefini, height: l6da } = kuns2bana.canvas;
@@ -22037,7 +22037,7 @@ function kf2P2t6zoCac2sex(w, h, pentri, ripeto = [1, 1], haku1o = {}) {
 	if (haku1o.anisotropio) cac2sex.anisotropy = haku1o.anisotropio;
 	return cac2sex;
 }
-// eskekoj/hax2x2q/cac2sex/t6hna.ts
+// eskekoj/tom6nu/cac2sex/t6hna.ts
 const kf2T6hnaCac2sex = sxovu(() => {
 	const pal6 = 512;
 	return kf2P2t6zoCac2sex(pal6, pal6, (kuns2bana) => {
@@ -22051,7 +22051,7 @@ const kf2T6hnaCac2sex = sxovu(() => {
 		anisotropio: 4
 	});
 });
-// eskekoj/hax2x2q/cac2sex/t6g6.ts
+// eskekoj/tom6nu/cac2sex/t6g6.ts
 const kf2T6g6Cac2sex = sxovu(() => {
 	const pal6 = 512;
 	return kf2P2t6zoCac2sex(pal6, pal6, (kuns2bana) => {
@@ -22066,7 +22066,7 @@ const kf2T6g6Cac2sex = sxovu(() => {
 		anisotropio: 4
 	});
 });
-// eskekoj/hax2x2q/pukek.ts
+// eskekoj/tom6nu/pukek.ts
 function kf2KevPukek(tu5ekani1el2saiPukek) {
 	const kev = tu5ekani1el2saiPukek.clone();
 	kev.color = new Color(hunanuWeh2(tu5ekani1el2saiPukek.color.getHex(), 1 / 2));
@@ -22597,7 +22597,7 @@ function aldoniJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, klino = 0, slaf 
 	}
 	if (!(upward || slaf)) geos.push(kunfandiKajVeldoiGeometriojn(hakek));
 }
-// eskekoj/hax2x2q/skripto-rivelilo.ts
+// eskekoj/tom6nu/skripto-rivelilo.ts
 const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
 function generiSkribanCac2sex(s2banani, opts = {}) {
 	const vortoj = s2banani.split(/\s+/).filter(Boolean);
@@ -25579,10 +25579,10 @@ function specimeniT6liman(n2k, p2somani, heightFn, akvaFn) {
 			const p = raqa(s + lauxa * h6kuni);
 			sost2 = Math.max(sost2, heightFn(p.x, p.z));
 			for (const [ofsX, ofsZ] of c2qjOfsetoj) {
-				const t6lima = heightFn(p.x + ofsX, p.z + ofsZ);
-				randoSumo += t6lima;
+				const mut6q = heightFn(p.x + ofsX, p.z + ofsZ);
+				randoSumo += mut6q;
 				randoNombro++;
-				if (t6lima > randoKma) randoKma = t6lima;
+				if (mut6q > randoKma) randoKma = mut6q;
 			}
 		}
 		pukaz = randoNombro > 0 ? randoSumo / randoNombro : sost2;

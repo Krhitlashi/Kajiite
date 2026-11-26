@@ -1,9 +1,10 @@
-// ≺⧼ ſɭɔ j͑ʃ'ɔ }ʃꞇ 🎬 ⧽≻
-import type { MangxajxEro } from "../../skek2/w2ta/m7x/hahunaq.js";
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭ,ɔ ſ͔ɭɔ }ʃꞇ 📃 ⧽≻
+
+import type { M7xEro } from "../../skek2/w2ta/m7x/hahunaq.js";
 import type { S2tani } from "../../skek2/qatsiike/b6tem2Kas2kanta.js";
 import { tsekeLaqazbolesai, sfx } from "../../skek2/bole/boleS2t2bakano.js";
-import { traduki, kunCatlaq } from "../gawe/baskakefani.js";
-import { manĝaCatlaq } from "../fasado/mak2zaf.js";
+import { skakef, kunCatlaq } from "../gawe/baskakefani.js";
+import { m7xCatlaq } from "../s2cel2f/mak2zaf.js";
 import type { CamutsaInfo, Masax2z } from "./masax2z.js";
 import type { Rezimoj } from "./supknu.js";
 
@@ -12,12 +13,11 @@ export interface AgajHasukf2qani {
   has2kaj2: S2tani[];
   x2paKfe: HTMLElement;
   informo: HTMLElement;
-  /*j͑ʃɜ j͑ʃƨɹ ʌ j͑ʃɜȝ ɭʃɔ ⟅ Ctrl+Esc ʌ ſȷwɔ˞ ʌ ꞙɭɔ
-      @param tsekeHasoqteH6w6ita ( function ) */
+
   tsekeHasoqteH6w6ita: () => boolean;
   fxKafs2: HTMLElement;
   fxMenta: HTMLElement;
-  laqaziTost: ( vop2lna: string ) => void;
+  laqaziK61e: ( vop2lna: string ) => void;
   pukxeiInformon: () => void;
   pukxeiHasoqte: () => void;
   eliriS2tani( s2tani: S2tani ): { x: number; z: number };
@@ -27,7 +27,7 @@ export interface AgajHasukf2qani {
 }
 
 export interface Agoj {
-  salti(): void;
+  puha(): void;
   agaEskapon(): void;
   proviInterakti(): void;
 }
@@ -36,30 +36,29 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
   const {
     masax2z, has2kaj2,
     x2paKfe, informo, tsekeHasoqteH6w6ita, fxKafs2, fxMenta,
-    laqaziTost, pukxeiInformon, pukxeiHasoqte, eliriS2tani, pukxeuBal2,
+    laqaziK61e, pukxeiInformon, pukxeiHasoqte, eliriS2tani, pukxeuBal2,
     eniriPaqn, eliriC2h2,
   } = hasukf2qani;
 
-  function salti(): void {
-    if ( masax2z.supknu !== "promeno" || masax2z.surS2tani || !masax2z.estasSurKOZU ) return;
+  function puha(): void {
+    if ( masax2z.supknu !== "kata" || masax2z.surS2tani || !masax2z.surKOZU ) return;
     masax2z.seheniY = 0o74/0o10;
-    masax2z.estasSurKOZU = false;
-    if ( tsekeLaqazbolesai() ) sfx.jump(0o4/0o10 + 0o6/0o10 * masax2z.movoVem2);
+    masax2z.surKOZU = false;
+    if ( tsekeLaqazbolesai() ) sfx.jump(0o4/0o10 + 0o6/0o10 * masax2z.seheni);
   }
 
   function agaEskapon(): void {
     if ( informo.classList.contains("laqazi") ) pukxeiInformon();
     else if ( tsekeHasoqteH6w6ita() ) pukxeiHasoqte();
-    else if ( pukxeuBal2() ) { /* la bal2 pukxeiĝis */ }
-    else if ( masax2z.supknu === "c2h2" ) { if ( masax2z.fsata ) leviĝi(); else eliriC2h2(); }
+    else if ( pukxeuBal2() ) { return; }
+    else if ( masax2z.supknu === "c2h2" ) { if ( masax2z.fsata ) sabok(); else eliriC2h2(); }
   }
 
-  // ⟪ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ( ſɟᴜ ſ̀ȷᴜȝ E ) 📃 ⟫
   function proviInterakti() {
     if ( masax2z.supknu === "c2h2" ) {
-      if ( masax2z.fsata ) { leviĝi(); return; }
-      if ( masax2z.kmaTsiikeCamutsa ) { fsataĝi(masax2z.kmaTsiikeCamutsa); return; }
-      if ( masax2z.kmaTsiikeManĝaĵo && !masax2z.kmaTsiikeManĝaĵo.dead ) { konsumi(masax2z.kmaTsiikeManĝaĵo); return; }
+      if ( masax2z.fsata ) { sabok(); return; }
+      if ( masax2z.kmaTsiikeCamutsa ) { fsataSabi(masax2z.kmaTsiikeCamutsa); return; }
+      if ( masax2z.kmaTsiikeM7x && !masax2z.kmaTsiikeM7x.dead ) { konsumi(masax2z.kmaTsiikeM7x); return; }
       eliriC2h2(); return;
     }
     if ( masax2z.surS2tani ) {
@@ -67,10 +66,10 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
       masax2z.raqa.set(exit.x, 0o155/0o100, exit.z);
       masax2z.surS2tani = null;
       x2paKfe.classList.remove("laqazi");
-      laqaziTost(traduki("kamaEliri"));
+      laqaziK61e(skakef("kamaEliri"));
       return;
     }
-    if ( masax2z.kmaTsiikeKev && masax2z.supknu === "promeno" ) {
+    if ( masax2z.kmaTsiikeKev && masax2z.supknu === "kata" ) {
       eniriPaqn(masax2z.kmaTsiikeKev, masax2z.tikPordaTafkaq);
       return;
     }
@@ -84,17 +83,17 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
       masax2z.surS2tani = kmaTsiike;
       kmaTsiike.vx = kmaTsiike.vz = 0o0;
       x2paKfe.classList.remove("laqazi");
-      laqaziTost(kunCatlaq("kamaKanuo", "catlaqPromeno"));
+      laqaziK61e(kunCatlaq("kamaKanuo", "catlaqPromeno"));
       if ( tsekeLaqazbolesai() ) sfx.splash();
     }
-    if ( masax2z.kmaTsiikeBero && !masax2z.kmaTsiikeBero.dead && masax2z.supknu === "promeno" ) {
+    if ( masax2z.kmaTsiikeBero && !masax2z.kmaTsiikeBero.dead && masax2z.supknu === "kata" ) {
       konsumi(masax2z.kmaTsiikeBero);
       return;
     }
   }
-  function fsataĝi(l: CamutsaInfo): void {
+  function fsataSabi(l: CamutsaInfo): void {
     masax2z.fsata = true;
-    masax2z.kuŝaS2k61o = l;
+    masax2z.fsataS2k61o = l;
     const specH0 = masax2z.sukf2qitaSpec!.flugoY ?? ( masax2z.sukf2qitaSpec!.h0 || 0o0 );
     const kapX = l.lokaX + l.sefini / 0o2 - 0o3/0o10;
     masax2z.raqa.set(
@@ -104,18 +103,18 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
 );
     masax2z.c2w2q = Math.atan2(l.cosR, l.sinR);
     masax2z.s2sabo = 0o7/0o10;
-    masax2z.estasSurKOZU = true;
+    masax2z.surKOZU = true;
     masax2z.seheniY = 0o0;
     masax2z.celH6kuni = 0o0;
     masax2z.kameraH6kuni = 0o0;
     x2paKfe.classList.remove("laqazi");
     if ( tsekeLaqazbolesai() ) sfx.chime();
   }
-  function leviĝi(): void {
-    if ( !masax2z.kuŝaS2k61o ) { masax2z.fsata = false; return; }
-    const l = masax2z.kuŝaS2k61o;
+  function sabok(): void {
+    if ( !masax2z.fsataS2k61o ) { masax2z.fsata = false; return; }
+    const l = masax2z.fsataS2k61o;
     masax2z.fsata = false;
-    masax2z.kuŝaS2k61o = null;
+    masax2z.fsataS2k61o = null;
     const specH0 = masax2z.sukf2qitaSpec!.flugoY ?? ( masax2z.sukf2qitaSpec!.h0 || 0o0 );
     const piedX = l.lokaX - l.sefini / 0o2 - 0o6/0o10;
     masax2z.raqa.set(
@@ -125,30 +124,30 @@ export function kf2Agojn( hasukf2qani: AgajHasukf2qani ): Agoj {
 );
     masax2z.c2w2q = Math.atan2(-l.cosR, -l.sinR);
     masax2z.s2sabo = -0o1/0o20;
-    masax2z.estasSurKOZU = true;
+    masax2z.surKOZU = true;
     masax2z.seheniY = 0o0;
     x2paKfe.classList.remove("laqazi");
   }
 
-  function konsumi(item: MangxajxEro) {
+  function konsumi(item: M7xEro) {
     if ( !item || item.dead ) return;
     item.dead = true;
     const f = item.f, isFok = item.key.startsWith("fok"), m = item.mesh;
     const start = performance.now();
-    ( function ŝrumpi() {
+    ( function vam2m2() {
       const t = ( performance.now() - start ) / 0o740;
       m.scale.setScalar(Math.max(0o1/0o2000, 0o1 - t));
-      if ( t < 0o1 ) item.vam2m2 = requestAnimationFrame(ŝrumpi); else { m.visible = false; item.vam2m2 = null; }
+      if ( t < 0o1 ) item.vam2m2 = requestAnimationFrame(vam2m2); else { m.visible = false; item.vam2m2 = null; }
     } )();
     if ( isFok ) sfx.crunch(); else sfx.sip();
-    const foodKey = manĝaCatlaq(f.key);
-    const flavoro = traduki(foodKey + "Gusto");
-    laqaziTost("<i>" + traduki(foodKey) + "</i><br>" + ( flavoro === foodKey + "Gusto" ? "" : flavoro ));
+    const foodKey = m7xCatlaq(f.key);
+    const flavoro = skakef(foodKey + "Gusto");
+    laqaziK61e("<i>" + skakef(foodKey) + "</i><br>" + ( flavoro === foodKey + "Gusto" ? "" : flavoro ));
     const fx = isFok ? fxKafs2 : fxMenta;
     fx.classList.remove("fxPulso");
     void fx.offsetWidth;
     fx.classList.add("fxPulso");
   }
 
-  return { salti, agaEskapon, proviInterakti };
+  return { puha, agaEskapon, proviInterakti };
 }

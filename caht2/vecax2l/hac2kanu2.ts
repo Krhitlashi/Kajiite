@@ -1,11 +1,10 @@
-// ≺⧼ j͑ʃɔ ſȷɔ j͑ʃᴜꞇ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🧪 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ ʌ j͑ʃᴜꞇ ʌ ſᶘᴜ j͑ʃᴜ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃɜ ſɭ,ᴜ
-// ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſɭэ ֭ſɭэ , ꞙɭɔ ʌ ſɟᴜ ſɟᴜ ſןɹ ʌ ſɭᴜ ſɭ,w j͐ʃᴜ 📃 ⟩
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/t6limaSoza.js";
+// ≺⧼ ֭ſɭᴜ ſɟɹ ſɭᴜ }ʃw ꞁȷ̀ɹ 🧪 ⧽≻
+
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
 import { PONTAKVAKLARANCO } from "../../skek2/qatsiike/qakaj2/c2kanu.js";
-import { tsekeVeraTsasa, pontaFinL6da, k6h6Teru } from "./x2x2q.js";
+import { tsekeVeraTsasa, pontaFinL6da, k6h6Teru } from "./p6kpu.js";
 import { vepaqPontanS2qena, havasAkvanTrunkon,
   kf2PontanAkvanTeston } from "../../skek2/qatsiike/hak6h6/c2kanu-profilo.js";
 
@@ -63,7 +62,7 @@ for (let v = 0o0; v < HAKAS2KANTA.length; v++) {
       const deka = t2bakobesai.deko(t);
       maksSl6daT2bakobesai = Math.max(maksSl6daT2bakobesai, Math.abs(deka - ne3ak2T));
       ne3ak2T = deka;
-      // ⟨ ֭ſɭэ ſɭw }ʃꞇ ʌ ſɭэ ֭ſɭэ 📃 ⟩
+
       if (!tsekePontaTsasa(px, pz)) {
         subT6lima = Math.max(subT6lima, l6da(px, pz) - deka);
         superT6lima = Math.max(superT6lima, deka - k6h6Teru(px, pz, w));
@@ -78,7 +77,7 @@ for (let v = 0o0; v < HAKAS2KANTA.length; v++) {
     console.log(`  t2bakobesai ${t2bakobesai.ax.toFixed(0o1)},${t2bakobesai.az.toFixed(0o1)}` +
       ` -> ${t2bakobesai.bx.toFixed(0o1)},${t2bakobesai.bz.toFixed(0o1)}` +
       ` sahakani=${sahakani.toFixed(0o1)} ŋᷠɹ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ = ${minKlar === Infinity ? "-" : minKlar.toFixed(0o3)} @${(minQar / hapxeutso).toFixed(0o2)}` +
-      ` ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ʌ tsasa=${subTsasa} ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ʌ t6lima=${subT6lima.toFixed(0o2)} j͑ʃɜ ſɭ,ᴜ j͑ʃᴜꞇ ʌ t6lima=${superT6lima.toFixed(0o2)}` +
+      ` ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ʌ tsasa=${subTsasa} ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ʌ mut6q=${subT6lima.toFixed(0o2)} j͑ʃɜ ſɭ,ᴜ j͑ʃᴜꞇ ʌ mut6q=${superT6lima.toFixed(0o2)}` +
       `${difekta ? "  ⚠" : ""}`);
   }
 }

@@ -1,7 +1,8 @@
-// ≺⧼ ſɟɔȝ ʌ ſɭɔ ŋᷠᴜ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ j͐ʃɹ ŋᷠɔ }ʃꞇ 🔬 ⧽≻
+// ≺⧼ ֭ſɭᴜ ſɭɔ ŋᷠᴜ ƽ ŋᷠᴜ 🧪 ⧽≻
+
 import * as THREE from "three";
 import { vepaqC2kanu, PONTK6H6AKMAERPONO } from "../../skek2/qatsiike/qakaj2/c2kanu.js";
-import { tlunakEnirejon } from "../../skek2/hapaq/satalaj/enirejo.js";
+import { tlunakEnirejon } from "../../skek2/hapaq/satalaj/c2h2.js";
 import { vepaqSatalon } from "../../skek2/hapaq/satalaj-hapaq.js";
 import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
 import { kas2kantaHasoza } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
@@ -13,7 +14,6 @@ function cel2nu(thaweni: boolean, vop2lna: string): void {
   if ( !thaweni ) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${vop2lna}`);
 }
 
-// ⟪ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſ͕ɭɜ ı],ᴜ 🌉 ⟫
 {
   const qena = new THREE.Scene();
   const pukek = new THREE.MeshStandardMaterial({
@@ -21,19 +21,19 @@ function cel2nu(thaweni: boolean, vop2lna: string): void {
   });
   const sahakani = 0o20;
   vepaqC2kanu(qena, 0o0, 0o0, sahakani, 0o0, 0o7/0o2, pukek, () => 0o0);
-  const maŝoj = qena.children[0o0].children.filter(( m2rap2 ): m2rap2 is THREE.Mesh =>
+  const cakamahaj = qena.children[0o0].children.filter(( m2rap2 ): m2rap2 is THREE.Mesh =>
     ( m2rap2 as THREE.Mesh ).isMesh);
-  cel2nu(maŝoj.length > 0o0, "ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ ſןɔ ʌ j͑ʃɜ ſɭ,ᴜ");
-  for ( const maŝo of maŝoj ) {
-    const mat = maŝo.material as THREE.MeshStandardMaterial;
+  cel2nu(cakamahaj.length > 0o0, "ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ ſןɔ ʌ j͑ʃɜ ſɭ,ᴜ");
+  for ( const cakamaha of cakamahaj ) {
+    const mat = cakamaha.material as THREE.MeshStandardMaterial;
     cel2nu(mat.map?.channel === 0o1 && mat.bumpMap?.channel === 0o1,
       "ſɟɹƽ ꞁȷ̀ᴜ }ʃw ｡ ſןɔ ʌ ſɟɹ ɭʃᴜ ʌ j͐ʃƽɜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ");
-    const zace = maŝo.geometry;
+    const zace = cakamaha.geometry;
     const uv1 = zace.getAttribute("uv1") as THREE.BufferAttribute;
-    const hax2x2q = zace.getAttribute("normal") as THREE.BufferAttribute;
+    const tom6nu = zace.getAttribute("normal") as THREE.BufferAttribute;
     let malgpukaz = Infinity, pal6 = -Infinity;
     for ( let i = 0o0; i < uv1.count; i++ ) {
-      if ( Math.abs(hax2x2q.getX(i)) < 0o7/0o10 ) continue;
+      if ( Math.abs(tom6nu.getX(i)) < 0o7/0o10 ) continue;
       malgpukaz = Math.min(malgpukaz, uv1.getX(i));
       pal6 = Math.max(pal6, uv1.getX(i));
     }
@@ -48,7 +48,6 @@ function cel2nu(thaweni: boolean, vop2lna: string): void {
   }
 }
 
-// ⟪ ſןɔ˞ᴜƴ , ſɭɜ ſɭᴜ 🚪 ⟫
 {
   const hate2 = new THREE.Group();
   const pukek = new THREE.MeshStandardMaterial();
@@ -80,61 +79,58 @@ function cel2nu(thaweni: boolean, vop2lna: string): void {
   }
 }
 
-// ⟪ j͑ʃɜ j͑ʃƨɹ , ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w 🏛️ ⟫
 {
   const qena = new THREE.Scene();
-  const t6lima = ( x: number, z: number ): number => x * 0o1/0o4;
+  const mut6q = ( x: number, z: number ): number => x * 0o1/0o4;
   const hate2 = vepaqSatalon({
     x: 0o0, z: 0o0, type: "qaman2", name: "tsaletsa", havem2: 0o7,
     w: 0o10, d: 0o10, b6k61oL6da: 0o3, sube: 0o7, rot: 0o0, h0: 0o0,
-  }, qena, [], t6lima);
+  }, qena, [], mut6q);
   const bazpa12 = hate2.getObjectByName("sankteja-bazpa12") as THREE.Mesh;
   cel2nu(!!bazpa12, "ſןɔ ʌ ɭl̀ᴜȝ ſןᴜ ɭʃɔ");
   cel2nu(bazpa12.castShadow && bazpa12.receiveShadow,
     "ɭl̀ᴜȝ ſןᴜ ɭʃɔ ｡ ſןɔ ʌ ֭ſɭw }ʃᴜ }ʃw");
   const p2somani = ( 0o10 + 0o72/0o100 ) / 0o2;
-  cel2nu(hate2.position.y >= t6lima(p2somani, 0o0),
+  cel2nu(hate2.position.y >= mut6q(p2somani, 0o0),
     "ɭl̀ᴜȝ ſןᴜ ɭʃɔ ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſɭɜ ſɭ,w");
 }
 
-// ⟪ ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w ⚓ ⟫
 {
   kas2kantaHasoza.length = 0o0;
   const qena = new THREE.Scene();
-  const t6lima = ( x: number, z: number ): number => z > 0o1 && z < 0o3 ? 0o3/0o2 : -0o2;
+  const mut6q = ( x: number, z: number ): number => z > 0o1 && z < 0o3 ? 0o3/0o2 : -0o2;
   const t6g6 = new THREE.MeshStandardMaterial();
   const t6hna = new THREE.MeshStandardMaterial();
   vepaqHak6h6n(qena, [ {
     pts: [ [ 0o0, 0o0 ], [ 0o0, 0o1 ], [ 0o0, 0o2 ], [ 0o0, 0o3 ], [ 0o0, 0o4 ] ],
     w: 0o7/0o4, capat6: true,
     heightFn: ( x, z ) => 0o2 - z * 0o1/0o2,
-    t6limaFn: t6lima,
-  } ], t6lima, t6g6, t6hna);
+    mut6qFn: mut6q,
+  } ], mut6q, t6g6, t6hna);
   for ( const kek of kas2kantaHasoza ) {
     for ( const [ x, y, z ] of [ [ kek.x1, kek.y0, kek.z1 ],
       [ kek.x2, kek.y1, kek.z2 ] ] ) {
-      cel2nu(y >= t6lima(x, z) + K6H6AKMARL6DA - 0o1/0o1000,
+      cel2nu(y >= mut6q(x, z) + K6H6AKMARL6DA - 0o1/0o1000,
         "j͑ʃɜ ſɭ,ᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſɭɜ ſɭ,w");
     }
   }
 }
 
-// ⟪ ſᶘᴜ j͑ʃᴜ , ſןɔ˞ᴜƴ 🌊 ⟫
 {
   kas2kantaHasoza.length = 0o0;
   const qena = new THREE.Scene();
-  const t6lima = (): number => -0o2;
+  const mut6q = (): number => -0o2;
   const tsasa = (): number => 0o0;
   vepaqHak6h6n(qena, [ {
     pts: [ [ 0o0, 0o0 ], [ 0o0, 0o1 ], [ 0o0, 0o2 ], [ 0o0, 0o3 ], [ 0o0, 0o4 ] ],
     w: 0o7/0o4, capat6: true,
     heightFn: ( x, z ) => 0o1 - z,
-    t6limaFn: t6lima,
-  } ], t6lima, new THREE.MeshStandardMaterial(), new THREE.MeshStandardMaterial(), [],
+    mut6qFn: mut6q,
+  } ], mut6q, new THREE.MeshStandardMaterial(), new THREE.MeshStandardMaterial(), [],
   { tsasaFn: tsasa } );
   const subakvaj = kas2kantaHasoza.filter(kek => kek.z1 >= 0o2);
   cel2nu(subakvaj.length > 0o0, "ſןɔ ʌ j͑ʃɜ ſɭ,ᴜ ʌ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſᶘᴜ j͑ʃᴜ ｡ ſᶘᴜ j͐ʃɔ ſᶘᴜ");
-  const natakatomasai = t6lima() + K6H6AKMARL6DA + STUPARISERO;
+  const natakatomasai = mut6q() + K6H6AKMARL6DA + STUPARISERO;
   for ( const kek of subakvaj ) {
     cel2nu(kek.y0 >= natakatomasai - 0o1/0o1000, "j͑ʃɜ ſɭ,ᴜ ʌ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſᶘᴜ j͑ʃᴜ ｡ ſןɔ ʌ ꞁȷ̀ꞇʞ ʌ ſɭɹ ſȷɔ ɭʃɜ }ʃᴜ");
     cel2nu(kek.y0 <= tsasa() - K6H6AKMARL6DA + 0o1/0o1000,

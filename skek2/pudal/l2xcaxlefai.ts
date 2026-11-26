@@ -1,13 +1,12 @@
-// ≺⧼ j͐ʃɹ ı],ᴜ̭ᴜ ı],ͷ̗ɔ ſȷᴜꞇ 🪼 ⧽≻
-// ⟨ j͑ʃᴜꞇ ʌ ſɭᴜͷ̗ ɭʃɜƽ 📃 ⟩
-// ⟨ j͐ʃᴜ ſןɔȝ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ ſɭɔƽ 📃 ⟩
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͐ʃɹ ı],ᴜ̭ᴜ ı],ͷ̗ɔ ſȷᴜꞇ 📃 ⧽≻
+
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
-import { tlunakKombohax2pan, aplikiLiixnPulson, gluuSurfacxon, kf2KombilanPukekn,
+import { tlunakKombohax2pan, k2reiLiixnPulson, gluuSurfacxon, kf2KombilanPukekn,
   kf2Korpon, liixPulsaFazo,
-  sozaParto } from "./l2x-hax2x2q.js";
-import { kf2GelanCac2sex } from "../x2x2q/cac2sex/l2x-gelo.js";
+  sozaParto } from "./l2x-soq.js";
+import { kf2GelanCac2sex } from "../p6kpu/cac2sex/l2x-gelo.js";
 
 const S2qena: [ number, number ][] = [
   [ 0o23/0o100, -0o50/0o100 ],
@@ -84,7 +83,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
       sozaParto(auriklo);
       hate2.add(auriklo);
     }
-    // ⟨ j͐ʃᴜ ſןɔȝ ʌ ſɟᴜ ɭʃᴜ 📃 ⟩
+
     const n2k: THREE.Vector3[] = [];
     for ( let i = 0o0; i <= 0o10; i++ ) {
       const u = i / 0o10;
@@ -127,7 +126,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
 }
 
 export function tlak2Mnemiopsan(b: Paga, t: number): void {
-  const pulso = aplikiLiixnPulson(b, t);
+  const pulso = k2reiLiixnPulson(b, t);
   const xafanitapu = liixPulsaFazo(b, t);
   let i = 0o0;
   for ( const kek of b.hatahalaqaz ) {

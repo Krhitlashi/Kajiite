@@ -1,4 +1,4 @@
-// ≺⧼ ſ͕ɭᴜ 📐 ⧽≻
+// ≺⧼ ſ͕ɭᴜ ʌ ɽ͑ʃ'ᴜ ſ͕ɭᴜ 📐 ⧽≻
 import { KRONALIBERO } from "./hasoza.js";
 
 export class PunktaKp6taf<T> {

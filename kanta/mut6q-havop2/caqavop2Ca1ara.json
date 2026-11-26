@@ -1,0 +1,16 @@
+{
+  "k2fe": {
+    "qox2n2k.ts": [ "export const SKULPTA_Tona", "export const SKULPTA_DELTAJ" ],
+    "tsasa.ts": [ "export const SKULPTA_AKVA_NIVELO", "export const SKULPTA_AKVA_MASKO" ],
+    "tsasafontoj.ts": [ "export const SKULPTA_TSASAFONTOJ" ],
+    "biomoj.ts": [ "export const SKULPTA_BIOMOJ" ],
+    "bestoj.ts": [ "export const SKULPTA_BESTOJ" ],
+    "hatoxemani.ts": [ "export const SKULPTA_OBJEKTOJ" ],
+    "hakaxte.ts": [ "export const SKULPTA_HAKAXTE" ],
+    "hak6h6.ts": [ "export const SKULPTA_HAK6H6", "export const SKULPTA_HAQAKAJ2" ]
+  },
+  "ca1ara": {
+    "mapoj.ts": [ "export const MAPOJ" ],
+    "aktiva.ts": []
+  }
+}

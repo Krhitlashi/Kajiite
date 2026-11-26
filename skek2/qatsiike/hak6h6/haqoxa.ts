@@ -1,15 +1,9 @@
-// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſ͕ɭɜ ı],ᴜ 📐 ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ֭ſɭᴜ ſ͕ɭɜ ı],ᴜ 🛣️ ⧽≻
+
 import * as THREE from "three";
 import { surGrid, K6H6AEKSTERAP2SOMANI, K6H6AKMARL6DA,
   K6H6ATERAKLINO, K6H6ATRUAP2SOMANI, k6h6SefiniP2somani } from "./havecax2l.js";
 
-// ⟪ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w 📏 ⟫
-/* ſɭэ ֭ſɭэ , ꞙɭı , j͑ʃᴜ ſɭ,w , ſɭɜ ſɭ,w , ꞙɭı ,
-   ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ⟅
-    @param x, z ( number ) - }ʃɹƽ ,
-    @param sefini ( number ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param heightFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
-@returns hateru ( number ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , */
 export function k6h6Teru( x: number, z: number, sefini: number,
   heightFn: ( x: number, z: number ) => number
 ): number {
@@ -22,32 +16,20 @@ export function k6h6Teru( x: number, z: number, sefini: number,
   return maks + K6H6AKMARL6DA;
 }
 
-// ⟪ ſɭэ ֭ſɭэ , ꞙɭı , }ʃɹƽ 📏 ⟫
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , }ʃɹƽ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ,
-//   ꞙɭɔ , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ⟅ ꞙɭı , ſɭᴜ ſןᴜ , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , 📃 ⟩
-// ⟨ }ʃɹƽ 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı , ſɭэ ֭ſɭэ , }ʃɹƽ , ꞙɭɿ ,
-//   ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-// ⟨ ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , 📏 ⟩ , ꞙɭı , j͑ʃᴜ ſɭ,w , ꞙɭı , ſɭэ ֭ſɭэ ,
-//   r , ꞙɭı , K6H6ATERAKLINO * r , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭɔ , ⟅ 📃 ⟩
 export function k6h6TeruDeVeb6kek(
   x: number,
   z: number,
   hac2w2q: readonly [ number, number ][],
   ka5ik: number,
   heightFn: ( x: number, z: number ) => number
-): { hateru: number; minimumo: number } {
-  let maks = heightFn( x, z ), minimumo = maks;
+): { hateru: number; m2m2: number } {
+  let maks = heightFn( x, z ), m2m2 = maks;
   const konsideru = ( px: number, pz: number, r: number ): void => {
     const h = heightFn( px, pz );
     if ( h - K6H6ATERAKLINO * r > maks ) maks = h - K6H6ATERAKLINO * r;
-    if ( h < minimumo ) minimumo = h;
+    if ( h < m2m2 ) m2m2 = h;
   };
-  // ⟨ ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ⟩
+
   for ( const r of [ ka5ik, K6H6ATRUAP2SOMANI ] ) {
     for ( let i = 0o0; i < 0o20; i++ ) {
       const tafkaq = i * Math.PI * 0o2 / 0o20;
@@ -59,7 +41,7 @@ export function k6h6TeruDeVeb6kek(
     if ( sahakani < 0o1/0o1000 ) continue;
     const ux = dx / sahakani, uz = dz / sahakani;
     const px = -uz * ka5ik, pz = ux * ka5ik;
-    // ⟨ }ʃɹƽ , ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ 📃 ⟩
+
     const ex = x + ux * K6H6ATRUAP2SOMANI, ez = z + uz * K6H6ATRUAP2SOMANI;
     for ( const f of [ -0o1, 0o1 ] ) {
       for ( const [ bx, bz, br ] of [ [ x + px * f, z + pz * f, ka5ik ],
@@ -68,41 +50,28 @@ export function k6h6TeruDeVeb6kek(
       }
     }
   }
-  return { hateru: maks + K6H6AKMARL6DA, minimumo };
+  return { hateru: maks + K6H6AKMARL6DA, m2m2 };
 }
 
-// ⟪ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı 📏 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , }ʃɹƽ , ꞙɭэ , ⟅
-//   ꞙɭı , ꞙɭɔ , ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export interface Tap2Vem2 {
-  // ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı 📃 ⟩ , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
+
   l6da: number;
-  // ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı ⟅ 📃 ⟩
+
   hal6da: readonly number[];
-  // ⟨ }ʃɹƽ , ꞙɭı , [ ꞙɭɔ , ꞙɭɿπ ) ⟅ 📃 ⟩
+
   hatafkaq: readonly number[];
-  // ⟨ ꞙɭı , ꞙɭı , }ʃɹƽ , ⟅ 📃 ⟩
+
   hap2somani: readonly number[];
 }
 
 const DUOBLAPI = Math.PI * 0o2;
 const ANGULATOLERO = 0o1 / 0o1000;
 
-/* ꞙɭı , ꞙɭɔ , ꞙɭɿπ , ꞙɭı ,
-    @param tafkaq ( number ) - }ʃɹƽ , ꞙɭı ,
-@returns tafkaq ( number ) - }ʃɹƽ , [ ꞙɭɔ , ꞙɭɿπ ) */
 export function normTafkaq(tafkaq: number): number {
   const r = tafkaq % DUOBLAPI;
   return r < 0o0 ? r + DUOBLAPI : r;
 }
 
-/* }ʃɹƽ , b , a , ꞙɭı ,
-    @param a, b ( number ) - }ʃɹƽ , ꞙɭı ,
-@returns delta ( number ) - }ʃɹƽ , ( -π , π ] */
 function angulaDif(a: number, b: number): number {
   let d = ( a - b ) % DUOBLAPI;
   if ( d > Math.PI ) d -= DUOBLAPI;
@@ -110,13 +79,6 @@ function angulaDif(a: number, b: number): number {
   return d;
 }
 
-/* ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-    @param vem2 ( Tap2Vem2 ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w ,
-    @param tafkaq ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
-@returns l6da ( number ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , */
-// ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , j͑ʃᴜ ſɭ,w ,
-//   ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 function tap2Rimo(vem2: Tap2Vem2, tafkaq: number): number {
   const n = vem2.hal6da.length;
   if ( n === 0o0 ) return vem2.l6da;
@@ -139,7 +101,7 @@ function tap2Rimo(vem2: Tap2Vem2, tafkaq: number): number {
     const xaha = t * t * ( 0o3 - 0o2 * t );
     return vem2.hal6da[i] + ( vem2.hal6da[j] - vem2.hal6da[i] ) * xaha;
   }
-  // ⟨ ꞙɭı , 📃 ⟩ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ ꞙɭı , ⟅
+
   let plosteq = Infinity, rez = vem2.l6da;
   for ( let i = 0o0; i < n; i++ ) {
     const d = Math.abs(angulaDif(a, vem2.hatafkaq[i]));
@@ -148,14 +110,6 @@ function tap2Rimo(vem2: Tap2Vem2, tafkaq: number): number {
   return rez;
 }
 
-/* ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-    @param vem2 ( Tap2Vem2 ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w ,
-    @param tafkaq ( number ) - ſɭᴜ ſןᴜ , ꞙɭı ,
-    @param h6kuni ( number , optional ) - ꞙɭı , Infinity ,
-@returns l6da ( number ) - ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w */
-// ⟨ ꞙɭı , ꞙɭı , 📐 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function tap2L6daJe(vem2: Tap2Vem2, tafkaq: number,
   h6kuni: number = Infinity): number {
   const rimo = tap2Rimo(vem2, tafkaq);
@@ -164,16 +118,6 @@ export function tap2L6daJe(vem2: Tap2Vem2, tafkaq: number,
   return vem2.l6da + ( rimo - vem2.l6da ) * t;
 }
 
-/* ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-    @param x, z ( number ) - ſɭᴜ ſןᴜ , }ʃɹƽ ,
-    @param hac2w2q ( [ number , number ] [ ] ) - ꞙɭı , ꞙɭı ,
-    @param hap2somani ( number [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı , hac2w2q ,
-    @param heightFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
-@returns hal6da ( number [ ] ) - ꞙɭı , j͑ʃᴜ ſɭ,w , */
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , 📏 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-// ⟨ ꞙɭı , ꞙɭɿ , 📏 ⟩ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function tamc2kBrakHal6da(x: number, z: number,
   hac2w2q: readonly [ number, number ][], hap2somani: readonly number[],
   heightFn: ( x: number, z: number ) => number
@@ -199,14 +143,6 @@ export function tamc2kBrakHal6da(x: number, z: number,
   return rez;
 }
 
-/* ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ,
-    @param hac2w2q ( [ number , number ] [ ] ) - ꞙɭı , ꞙɭı ,
-    @param hap2somani ( number [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param hal6da ( number [ ] ) - ꞙɭı , j͑ʃᴜ ſɭ,w ,
-    @param fallback ( number ) - j͑ʃᴜ ſɭ,w , ꞙɭɔ ,
-@returns vem2 ( Tap2Vem2 ) - ſɭᴜ ſןᴜ , ꞙɭı , */
-// ⟨ ꞙɭı , ꞙɭı , 📐 ⟩ , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
 export function kf2Tap2Vem2n(
   hac2w2q: readonly [ number, number ][], hap2somani: readonly number[],
   hal6da: readonly number[], fallback: number
@@ -232,20 +168,6 @@ export function kf2Tap2Vem2n(
   };
 }
 
-// ⟪ ꞙɭı , ſɭэ ֭ſɭэ , 📐 ⟫
-/* ꞙɭı , ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w , ꞙɭı ,
-    @param w ( number ) - ꞙɭı , ꞙɭı ,
-    @param l ( number ) - ꞙɭı , ꞙɭı ,
-    @param hateru ( [ number , number , number , number ] ) - j͑ʃᴜ ſɭ,w , ꞙɭı ,
-    @param hapsaz ( [ number , number , number , number ] ) - j͑ʃᴜ ſɭ,w , ꞙɭı ,
-    @param ofsetoX ( number ) - ꞙɭı , ꞙɭı ,
-@returns zace ( BufferGeometry ) - ꞙɭı , j͑ʃᴜ ſɭ,w , */
-// ⟨ ſᶘɔ ʌ ꞙɭı , 📃 ⟩ , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-// ⟪ ꞙɭı , 📐 ⟫
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , 📏 ⟩ , ꞙɭı , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function kf2SegmentQoxaKefoun(w: number, l: number,
   hateru: readonly [ number, number, number, number ],
   hapsaz: readonly [ number, number, number, number ],
@@ -258,11 +180,7 @@ export function kf2SegmentQoxaKefoun(w: number, l: number,
     [ x0, y0, hapsaz[ 0o0 ] ], [ x1, y0, hapsaz[ 0o1 ] ],
     [ x1, y1, hapsaz[ 0o2 ] ], [ x0, y1, hapsaz[ 0o3 ] ],
   ];
-  // ⟨ ꞙɭı , ꞙɭı , 📃 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-  // ⟨ UV , ꞙɭı 📏 ⟩ , ꞙɭı , UV , ( x , y ) , ꞙɭı , x , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , UV , ꞙɭı ,
-  //   ( x , y ) , ꞙɭɔ , ( ꞙɭı , ꞙɭı ) , ⟅ 📃 ⟩
+
   const haken2qk2h2: { ind: [ number, number, number, number ]; uv: ( q: [ number, number, number ] ) => [ number, number ] }[] = [
     { ind: [ 0o0, 0o1, 0o2, 0o3 ], uv: q => [ q[ 0o0 ], q[ 0o1 ] ] },
     { ind: [ 0o4, 0o7, 0o6, 0o5 ], uv: q => [ q[ 0o0 ], q[ 0o1 ] ] },

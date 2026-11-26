@@ -1,10 +1,11 @@
-// ≺⧼ ŋᷠᴜ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ 🎮 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ŋᷠᴜ j͑ʃᴜ ı],ɹƴ 📃 ⧽≻
+
 import * as THREE from "three";
 import type { S2tani } from "../../skek2/qatsiike/b6tem2Kas2kanta.js";
 import type { VepaqSpec } from "../../skek2/hapaq/satalaj/hahunaq.js";
-import type { MangxajxEro } from "../../skek2/w2ta/m7x/hahunaq.js";
+import type { M7xEro } from "../../skek2/w2ta/m7x/hahunaq.js";
 
-export type Supknu = "orbito" | "promeno" | "c2h2";
+export type Supknu = "h2se" | "kata" | "c2h2";
 
 export interface CamutsaInfo {
   specX: number; specZ: number; cosR: number; sinR: number;
@@ -13,37 +14,37 @@ export interface CamutsaInfo {
 
 export interface Masax2z {
   supknu: Supknu;
-  ne3ak2Supknu: "orbito" | "promeno" | null;
+  ne3ak2Supknu: "h2se" | "kata" | null;
   surS2tani: S2tani | null;
   sukf2qitaSpec: VepaqSpec | null;
   kmaTsiikeKev: VepaqSpec | null;
   tikPordaTafkaq: number;
-  kmaTsiikeManĝaĵo: MangxajxEro | null;
-  kmaTsiikeBero: MangxajxEro | null;
+  kmaTsiikeM7x: M7xEro | null;
+  kmaTsiikeBero: M7xEro | null;
   kmaTsiikeKanuo: S2tani | null;
   sxtupaTurno: number | null;
   c2w2q: number;
   s2sabo: number;
   raqa: THREE.Vector3;
   seheniY: number;
-  estasSurKOZU: boolean;
+  surKOZU: boolean;
   kameraH6kuni: number;
   celH6kuni: number;
   fsata: boolean;
-  kuŝaS2k61o: CamutsaInfo | null;
+  fsataS2k61o: CamutsaInfo | null;
   kmaTsiikeCamutsa: CamutsaInfo | null;
-  movoVem2: number;
+  seheni: number;
 }
 
 export function kf2Ludanton(): Masax2z {
   return {
-    supknu: "orbito",
+    supknu: "h2se",
     ne3ak2Supknu: null,
     surS2tani: null,
     sukf2qitaSpec: null,
     kmaTsiikeKev: null,
     tikPordaTafkaq: 0o0,
-    kmaTsiikeManĝaĵo: null,
+    kmaTsiikeM7x: null,
     kmaTsiikeBero: null,
     kmaTsiikeKanuo: null,
     sxtupaTurno: null,
@@ -51,12 +52,12 @@ export function kf2Ludanton(): Masax2z {
     s2sabo: -0o1/0o20,
     raqa: new THREE.Vector3(0o0, 0o5/0o40, 0o44),
     seheniY: 0o0,
-    estasSurKOZU: false,
+    surKOZU: false,
     kameraH6kuni: 0o0,
     celH6kuni: 0o0,
     fsata: false,
-    kuŝaS2k61o: null,
+    fsataS2k61o: null,
     kmaTsiikeCamutsa: null,
-    movoVem2: 0o0,
+    seheni: 0o0,
   };
 }

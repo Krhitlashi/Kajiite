@@ -1,4 +1,5 @@
-// ≺⧼ ſɭэ ı],ᴜʞ ſ͕ɭɜ ı],ᴜ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ɭʃᴜ ֭ſɭᴜ j͐ʃᴜ ſ͕ɭᴜƴ 📃 ⧽≻
+
 import * as THREE from "three";
 import { SLALL6DA } from "./cat6h6kk6xafai.js";
 import type { HxeuxfaKanta } from "./hahunaq.js";
@@ -11,7 +12,7 @@ const FLAMAS = new THREE.Vector3();
 const FLAMATMP = new THREE.Vector3();
 
 export function animaciiFlammojn(kanta: HxeuxfaKanta, stih2: number): void {
-  // ⟪ j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ʌ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ʌ ⺓ ʌ ſɭэ ı],ᴜʞ ⟅ 📃 ⟫
+
   kanta.k6xafRaqa.forEach(( raqa, kek ) => {
     const xafanitapu = kanta.xafanitapu[kek];
     const p6zukani = 0o1 + 0o5/0o40 * Math.sin(stih2 * 0o1223/0o100 + xafanitapu) + 0o3/0o40 * Math.sin(stih2 * 0o2755/0o100 + xafanitapu * 0o155/0o100);
@@ -36,7 +37,6 @@ export function animaciiFlammojn(kanta: HxeuxfaKanta, stih2: number): void {
     kanta.k6xafLowak.setMatrixAt(kek, FLAMAM);
   });
 
-  // ⟪ ı],ɔ ŋᷠᴜ ʌ j͑ʃͷ̗ᴜͷ̗ ʌ ⺓ ʌ ֭ſɭᶗ‹ɔⅎ ı],ʞᴜ ⟅ 📃 ⟫
   const slalK2fe = kanta.slalK2fe;
   kanta.k6xafRaqa.forEach(( raqa, kek ) => {
     const xafanitapuFlama = kanta.xafanitapu[kek];

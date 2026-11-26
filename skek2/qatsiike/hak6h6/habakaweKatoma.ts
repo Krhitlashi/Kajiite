@@ -1,18 +1,12 @@
-// ≺⧼ j͑ʃɔ ſןw ſɭᴜƴ ʌ ſɭэ ֭ſɭэ ʌ ſןɹ ſȷɜ 🧱 ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ֭ſɭᴜ ʃᴜ ſɭᴜ ᶅſɔ ſɭᴜ ɭʃɜ ŋᷠᴜ 🛣️ ⧽≻
+
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { sax0baPukazQan2k } from "../../x2x2q/haqoxa.js";
-import { kf2T6hnaCac2sex } from "../../x2x2q/cac2sex/t6hna.js";
-import { kf2T6g6Cac2sex } from "../../x2x2q/cac2sex/t6g6.js";
+import { sax0baPukazQan2k } from "../../p6kpu/haqoxa.js";
+import { kf2T6hnaCac2sex } from "../../p6kpu/cac2sex/t6hna.js";
+import { kf2T6g6Cac2sex } from "../../p6kpu/cac2sex/t6g6.js";
 import { K6H6ABORDASEFINI } from "./havecax2l.js";
 
-// ⟪ ſɭᴜ ſןᴜ , ſ͕ɭɜ ı],ᴜ 📃 ⟫
-
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭɔ , ֭ſɭw }ʃᴜ }ʃw ⟅ ſɭэ ֭ſɭэ , ɭʃэ ſɭɔȝ , ɭʃɜ ſɭɹȝ ,
-//   ɭʃᴜ ſ͕ɭɹ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ֭ſɭw }ʃᴜ }ʃw , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ⟅
-//   ꞙɭı , ſɭэ ֭ſɭэ , ֭ſɭw }ʃᴜ }ʃw , ꞙɭɔ , ⟅ ſןᴜȝ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ,
-//   ֭ſɭw }ʃᴜ }ʃw , ꞙɭı , ⟅ 📃 ⟩
 export interface Kas2kantaGeometriajHabakaweKatoma {
   haca1ara: Map<THREE.Material, THREE.BufferGeometry[]>;
   tlunakani(zace: THREE.BufferGeometry, pukek: THREE.Material, qox2n2k: THREE.Matrix4): void;
@@ -81,7 +75,7 @@ export function kf2Hak6h6nHapukek(dioritaPukek: THREE.MeshStandardMaterial,
   sost2F: number, sost2U: number,
   bordoF: number, bordoU: number
 ): { teruPukek: THREE.MeshStandardMaterial; bordaPukek: THREE.MeshStandardMaterial } {
-  // ⟨ j͑ʃɜ ſɭ,ᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ſןw ſɭɔƽ , ꞙɭɔ , ⟅ 📃 ⟩
+
   const dioritaTx = kf2T6g6Cac2sex().clone();
   const andezitaTx = kf2T6hnaCac2sex().clone();
   dioritaTx.channel = 0o1; andezitaTx.channel = 0o1;

@@ -10246,7 +10246,7 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// kantaoj/t6lima-havop2/cxefa/tsasa.ts
+// kantaoj/mut6q-havop2/geles/tsasa.ts
 const SKULPTA_AKVA_NIVELO = -288 / 64;
 // hacaht2/vecax2l/h2y2k-kozuhaweh2.ts
 function bruo2D(x, z) {

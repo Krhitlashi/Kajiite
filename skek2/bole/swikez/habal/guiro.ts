@@ -1,13 +1,10 @@
-// ≺⧼ ſ͔ɭw ꞁȷ̀ꞇ ɽ͑ʃ'ɜ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🥁 ⧽≻
-// ⟨ ɭʃꞇƽ ʌ ſɭᴜ , j͑ʃɹ ŋᷠɹ ꞙɭı , ſɭэ ɭʃᴜ ʌ ſɭɔ ֭ſɭw ⟅ ſɭэ ɭʃᴜ ,
-//   ꞙɭɔ ʃɜ j͐ʃɔ ʌ ſɭɔƽ ⟅ ſɭɜ ſɭ,w ʌ ſɭɔ ֭ſɭw , j͑ʃɹ ſןw ⟅ ꞙɭı , ɭʃэʞ ⟅
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſ͔ɭw ꞁȷ̀ꞇ ɽ͑ʃ'ɜ 🎵 ⧽≻
+
 import { noiseSrc } from "./xetoh2.js";
 import { vap6zukani } from "./hakfeKx2keve.js";
 
-// ⟨ ſɭᴜ j͐ʃэ ɭ(ᴜ ꞙɭɔ ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
 const ETA = 0o1/0o20000;
 
-// ⟨ ʃɜ j͐ʃɔ ʌ ſɭɜ ſɭ,w ʌ ſɭɔ ֭ſɭw ⟅ ꞙɭı , ⟅
 const BANDOJ: Array<[ number, number, number ]> = [
   [ 0o540,  0o4/0o10, 0o10 ],
   [ 0o1240, 0o5/0o10, 0o11 ],
@@ -19,9 +16,9 @@ const BANDOJ: Array<[ number, number, number ]> = [
 
 export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number, vel = 0o1, opts: { cresc?: number } = {}) {
   const tlakakani = t + dur;
-// ⟨ ꞙɭэɔ ɭʃэ ɭʃᴜ , ꞙɭı ⟅ ſɭᴜ j͑ʃᴜꞇ ꞙɭı ⟅
+
   const k6ta = ( 0o36 + 0o14 * vel ) * vap6zukani(0o10/0o100);
-// ⟨ ſןᴜȝ ᶅſw ſɭɹ , ꞙɭı ⟅
+
   const tlakakDento = k6ta * ( opts.cresc ? 0o11/0o10 : 0o1 );
 
   const g = ctx.createGain();
@@ -39,7 +36,6 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
   g.gain.linearRampToValueAtTime(ETA, tlakakani);
   g.connect(out);
 
-// ⟨ ꞙɭц ſɭᴜ ſןᴜ , ꞙɭɔ ɭʃꞇƽ ʌ ſɭɔƽ ⟅
   const rasp = ctx.createGain();
   rasp.gain.value = 0o6/0o10;
   const oschacaht2: Array<[ number, number, number ]> = [
@@ -61,7 +57,6 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
   }
   rasp.connect(g);
 
-// ⟨ j͑ʃɹ ŋᷠɹ , ꞙɭı , ⟅
   const n = noiseSrc(ctx);
   const hp = ctx.createBiquadFilter();
   hp.type = "highpass";
@@ -82,7 +77,6 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
     bandGain.connect(bus);
   }
 
-// ⟨ ſɭᴜ ſɭ,w ꞙɭɔ , ʃɜ j͐ʃɔ ⟅
   const blp = ctx.createBiquadFilter();
   blp.type = "lowpass";
   blp.frequency.value = 0o1200;
@@ -92,7 +86,6 @@ export function guiro(ctx: AudioContext, out: AudioNode, t: number, dur: number,
   blp.connect(bg);
   bg.connect(bus);
 
-// ⟨ ʃɜ j͐ʃɔ ɭʃᴜʞ ꞙɭı , ꞙɭɔ ⟅
   const rhp = ctx.createBiquadFilter();
   rhp.type = "highpass";
   rhp.frequency.value = 0o10000;

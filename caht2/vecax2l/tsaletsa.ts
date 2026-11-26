@@ -1,27 +1,13 @@
-// ≺⧼ ſɭэ ֭ſɭэ ʌ j͐ʃɹ ŋᷠɔ 🔬 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
-//
-// ſɭᴜ ſןᴜ ,
-//   node --import ./caht2/vecax2l/ceh2kap2.mjs hacaht2/vecax2l/tsaletsa.mjs hak6h6
-//   ꞙɭı , ꞙɭɿ ,
-//   ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɿ ,
-//   ſɭᴜ ſןᴜ , ꞙɭɿ , ꞙɭɩɔ ,
-//   node ... tsaletsa.mjs n2k 92 -ɩɔ
-//   node ... tsaletsa.mjs vem2
-//
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📏 ⟩ ,
-// ſɭэ ſɭᴜ , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
-import { l6da } from "../../kanta/nala/t6limaSoza.js";
+// ≺⧼ ſᶘᴜ j͐ʃɔ ſᶘᴜ 🧪 ⧽≻
+
+import { l6da } from "../../kanta/nala/mut6qSoza.js";
 import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
 import { kf2BazanK6h6L6dan, K6H6AVEB6KEKARADIUSO,
   K6H6ATERAKLINO } from "../../skek2/qatsiike/hak6h6/l6da.js";
 import { K6H6AEKSTERAP2SOMANI, K6H6AKMARL6DA,
   surGrid } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
 import { k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
-import { kf2Vecax2lanNala, n2kJe, type Vecax2laNala } from "./x2x2q.js";
+import { kf2Vecax2lanNala, n2kJe, type Vecax2laNala } from "./p6kpu.js";
 
 const ordono = process.argv[ 0o2 ] ?? "hak6h6";
 const k2fe = ( i: number, defaŭlto: number ): number => {
@@ -29,9 +15,6 @@ const k2fe = ( i: number, defaŭlto: number ): number => {
   return Number.isFinite(v) ? v : defaŭlto;
 };
 
-// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
-// ⟨ ſɭᴜ ſןᴜ , 📏 ⟩ ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 function vem2(): void {
   const n2k: [ number, number ][] = [ [ 0o0, 0o0 ], [ 0o12, 0o0 ] ];
   const h = ( x: number ): number => x * 0.2;
@@ -42,11 +25,9 @@ function vem2(): void {
       ` ｡ ſɭэ ֭ſɭэ ʌ j͑ʃ'ɔ ŋᷠɹ ${p.hakxawa[ i ].toFixed(0o2)} ｡ j͑ʃ'ɔ ŋᷠɹ ${p.hal6da[ i ].toFixed(0o2)}`);
 }
 
-// ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
 let nala: Vecax2laNala | null = null;
 const nalan = (): Vecax2laNala => ( nala ??= kf2Vecax2lanNala() );
 
-// ⟪ ſɭэ ֭ſɭэ , 📃 ⟫
 function hak6h6(): void {
   const m = nalan();
   for ( let i = 0o0; i < m.hak6h6.length; i++ ) {
@@ -63,7 +44,6 @@ function hak6h6(): void {
   }
 }
 
-// ⟪ ſɭэ ֭ſɭэ , ꞙɭı , 📃 ⟫
 function s2qena(): void {
   const m = nalan();
   const i = k2fe(0o3, 0o0);
@@ -85,9 +65,6 @@ function s2qena(): void {
   console.log("  " + hax2pa.join(" | "));
 }
 
-// ⟪ ſɭэ ֭ſɭэ , ꞙɭɿ , 📃 ⟫
-// ⟨ ſɭᴜ ſןᴜ , 📏 ⟩ ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 function kruda(): void {
   const m = nalan();
   const i = k2fe(0o3, 0o0);
@@ -111,7 +88,6 @@ function kruda(): void {
   }
 }
 
-// ⟪ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟫
 function kozu(): void {
   const X = k2fe(3, 0), Z = k2fe(4, 0);
   const tona = k2fe(5, 0.5), cabole = k2fe(6, 3);
@@ -124,7 +100,6 @@ function kozu(): void {
   console.log(`j͑ʃɜ j͑ʃƨɹ ${l6da(X, Z).toFixed(0o2)}`);
 }
 
-// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
 function n2k(): void {
   const X = k2fe(3, 0), Z = k2fe(4, 0);
   const m = nalan();

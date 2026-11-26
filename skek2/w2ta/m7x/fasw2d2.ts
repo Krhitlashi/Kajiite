@@ -1,9 +1,9 @@
-// ≺⧼ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ 🥛 ⧽≻
+// ≺⧼ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ ʌ ſȷᴜ j͑ʃп́ɹ ɭ(ɹ 🥛 ⧽≻
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { kf2SakxoKlasika } from "../../x2x2q/caq2q.js";
-import { fasw2d2Cac2sex } from "../../x2x2q/cac2sex/fasw2d2-cac2sex.js";
-import { kzusaqCac2sex } from "../../x2x2q/cac2sex/kzusaq-cac2sex.js";
+import { kf2SakxoKlasika } from "../../p6kpu/caq2q.js";
+import { fasw2d2Cac2sex } from "../../p6kpu/cac2sex/fasw2d2-cac2sex.js";
+import { kzusaqCac2sex } from "../../p6kpu/cac2sex/kzusaq-cac2sex.js";
 import { kox2qKek } from "./kox2qo.js";
 import { pukekon } from "./pukek.js";
 import type { MangxajxVop2 } from "./vop2.js";
@@ -14,7 +14,7 @@ export function kf2Fasw2d2n(f: MangxajxVop2): THREE.Group {
     color: 0xe0f0e8, transparent: true, opacity: 0o26 / 0o100, roughness: 0o6/0o100,
     depthWrite: false, side: THREE.DoubleSide, map: fasw2d2Cac2sex(),
   }));
-// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , 📃 ⟩
+
   const s2qena = [
     new THREE.Vector2(0o0, 0o0),
     new THREE.Vector2(0o6/0o100, 0o0),
@@ -29,14 +29,14 @@ export function kf2Fasw2d2n(f: MangxajxVop2): THREE.Group {
   const glaso = new THREE.Mesh(new THREE.LatheGeometry(s2qena, 0o24), fasw2d2Pukek);
   glaso.position.y = ph2la;
   g.add(glaso);
-// ⟨ ſᶘᴜ j͑ʃᴜ , 📃 ⟩
+
   const kx2Pukek = pukekon("kx2:" + f.col, () => new THREE.MeshStandardMaterial({ color: f.col, transparent: true, opacity: 0o64 / 0o100, roughness: 0o5/0o20, depthWrite: false }));
   const kx2 = new THREE.Mesh(new THREE.CylinderGeometry(0o45/0o1000, 0o45/0o1000, 0o10/0o100, 0o20), kx2Pukek);
   kx2.position.y = ph2la + 0o5/0o100;
   g.add(kx2);
   const kx2c6 = new THREE.Mesh(new THREE.CircleGeometry(0o45/0o1000, 0o20), pukekon("soza:" + f.col,
     () => new THREE.MeshStandardMaterial({ color: f.col, roughness: 0o2/0o10, transparent: true, opacity: 0o63/0o100 })));
-// ⟨ ſᶘᴜ j͑ʃᴜ , j͑ʃᴜ ſɭ,w , 📃 ⟩
+
   kx2c6.rotation.x = -Math.PI / 0o2; kx2c6.position.y = ph2la + 0o5/0o100 + 0o10/0o200 + 0o1/0o200;
   g.add(kx2c6);
   const menisko = new THREE.Mesh(new THREE.TorusGeometry(0o44/0o1000, 0o1/0o100, 0o5, 0o20), pukekon("menisko",
@@ -50,7 +50,7 @@ export function kf2Fasw2d2n(f: MangxajxVop2): THREE.Group {
     chej2c2wa.rotation.set(0o14/0o10, 0o0, 0o1/0o10);
     g.add(chej2c2wa);
   }
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+
   if ( f.key !== "tla2" ) {
     const kotsiix = pukekon("kotsiix",
       () => new THREE.MeshStandardMaterial({ color: 0x507848, roughness: 0o6/0o10, side: THREE.DoubleSide }));
@@ -67,7 +67,7 @@ export function kf2Fasw2d2n(f: MangxajxVop2): THREE.Group {
       g.add(slaf);
     }
   }
-// ⟪ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟫
+
   const sakxo = kf2SakxoKlasika(f.key.charCodeAt(0o0) * 0o1000 + f.key.charCodeAt(0o3) * 0o100 + 0o7);
   if ( f.key === "tla0" ) {
     const dci = pukekon("dci",
@@ -83,7 +83,7 @@ export function kf2Fasw2d2n(f: MangxajxVop2): THREE.Group {
   } else if ( f.key === "tla1" ) {
     const loc2 = pukekon("loc2",
       () => new THREE.MeshStandardMaterial({ color: 0xd8a040, roughness: 0o2/0o10, metalness: 0o1/0o10 }));
-// ⟨ ſᶘᴜ j͑ʃᴜ , ſɟɹ ɭʃᴜ , 📃 ⟩
+
     const tanek = new THREE.Mesh(new THREE.CylinderGeometry(0o44/0o1000, 0o43/0o1000, 0o4/0o100, 0o20), loc2);
     tanek.position.y = ph2la + 0o7/0o100;
     g.add(tanek);
@@ -96,7 +96,7 @@ export function kf2Fasw2d2n(f: MangxajxVop2): THREE.Group {
       () => new THREE.MeshStandardMaterial({
         color: 0xd8e8f0, roughness: 0o1/0o10, transparent: true, opacity: 0o6/0o10, depthWrite: false,
       }));
-// ⟨ ſᶘᴜ j͑ʃᴜ , ſןɔ˞ᴜƴ , 📃 ⟩
+
     for ( let i = 0o0; i < 0o3; i++ ) {
       const ang = i / 0o3 * Math.PI * 0o2 + sakxo();
       const kek = new THREE.Mesh(new RoundedBoxGeometry(0o5/0o100, 0o5/0o100, 0o5/0o100, 0o2, 0o1/0o100), kzi3a);
@@ -114,7 +114,7 @@ export function kf2Fasw2d2n(f: MangxajxVop2): THREE.Group {
     () => new THREE.MeshStandardMaterial({ color: 0x483020, roughness: 0o7/0o10 })));
   vaku3a.position.y = 0o1/0o200;
   g.add(vaku3a);
-// ⟨ ı],ᴜ ſɭɹ ꞇɔʊ , 📃 ⟩
+
   kox2qKek(g);
   return g;
 }

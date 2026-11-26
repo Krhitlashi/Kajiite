@@ -1,4 +1,5 @@
-// ≺⧼ j͐ʃɜ ᶅſᴜƽ ʌ j͑ʃɹ ſɟᴜ ʃᴜ ʌ j͐ʃɹ ŋᷠɔ 🧪 ⧽≻
+// ≺⧼ ſᶘᴜ j͐ʃɔ ſᶘᴜ ⰱ ʃэ ſɭɔ ſɭᴜ }ʃꞇ 🧪 ⧽≻
+
 import * as THREE from "three";
 import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
 import { vepaqIntersekcajnHapa12n } from "../../skek2/qatsiike/hak6h6/hapa12.js";
@@ -12,10 +13,6 @@ const d = (): number => 0o0;
 const t6g6 = new THREE.MeshStandardMaterial({ color: 0xd8d8d8 });
 const t6hna = new THREE.MeshStandardMaterial({ color: 0x989898 });
 
-// ⟨ ſɭэ ֭ſɭэ , ſɭэ ſɭᴜ , 📃 ⟩
-/* ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param knece ( [ number , number ] [ ] ) - ſɟɹ ᶅſɹȝ ʌ ſɭᴜc̗ ɭʃɜ ( ſןɔ ʌ ſɭɹ ſȷɔ ɔ )
-@returns defs ( Kas2kantaDitlakak [ ] ) - ſɭэ ֭ſɭэ ʌ j͑ʃɜ j͑ʃƨɹ */
 function defsPor(knece: readonly [ number, number ][]): Kas2kantaDitlakak[] {
   return knece.map(([ dx, dz ]) => {
     const sahakani = Math.hypot(dx, dz);
@@ -38,22 +35,15 @@ function kaganiPor(knece: [ number, number ][] | null): THREE.Scene {
   return qena;
 }
 
-/* ſɭᴜ ſןᴜ , ꞙɭı ,
-    @param x, z ( number ) - }ʃɹƽ
-    @param knece ( [ number , number ] [ ] ) - ſɭᴜc̗ ɭʃɜ ʌ ſɭэ ֭ſɭэ
-@returns ena ( boolean ) - j͑ʃɜ ſɭ,ᴜ ʌ j͑ʃᴜ / ſɭɹ ſᶘɔ */
 function atenduKovron( x: number, z: number, knece: [ number , number ][]): boolean {
-// ⟨ ſɭᴜ ſןᴜ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
+
   if ( Math.hypot(x, z) <= K6H6AEKSTERAP2SOMANI ) return true;
   for ( const [ dx, dz ] of knece ) {
     const sahakani = Math.hypot(dx, dz);
     const ux = dx / sahakani, uz = dz / sahakani;
     const m6na = x * ux + z * uz;
     const flanka = Math.abs(-x * uz + z * ux);
-// ⟨ ſɭᴜ ſןᴜ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ꞙɭэ , ꞙɭɔ , 📃 ⟩
+
     if ( m6na >= 0o0 && m6na <= K6H6ATRUAP2SOMANI - 0.02 && flanka <= K6H6AEKSTERAP2SOMANI - 0.02 ) return true;
   }
   return false;
@@ -90,19 +80,11 @@ function analizi(ksaka: string, qena: THREE.Scene, knece: [ number , number ][])
   if ( duoblajHan2k.length ) console.log("  ſɭᴜ }ʃᴜ ɔı " + duoblajHan2k.slice(0o0, 0o14).join(" "));
 }
 
-// ⟨ ɭʃᴜʞ ſɭᴜȝ , 📐 ⟩
-/* ɭʃᴜʞ ſɭᴜȝ , ſ͔ɭᴜ ,
-    @param gradoj ( number ) - ſɭᴜc̗ ɭʃɜ ʌ ſɭɹ ſȷɔ
-@returns c2w2q ( [ number , number ] ) - ſɟɹ ᶅſɹȝ ɔ */
 function c2w2q(gradoj: number): [ number, number ] {
   const r = gradoj * Math.PI / 0o264;
   return [ Math.cos(r), Math.sin(r) ];
 }
 
-// ⟪ ɭʃᴜʞ ſɭᴜȝ , 📐 ⟫
-// ⟨ ɭʃᴜʞ ſɭᴜȝ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
 interface FilletTsaletsa {
   cx: number;
   cz: number;
@@ -111,11 +93,6 @@ interface FilletTsaletsa {
   delta: number;
 }
 
-/* ɭʃᴜʞ ſɭᴜȝ , ꞙɭı ,
-    @param xaqadi, p2sadi ( Knece ) - ſɭᴜc̗ ɭʃɜ ʌ ſɟɹƽ
-    @param delta ( number ) - ſɭᴜc̗ ɭʃɜ ɔı ʌ j͑ʃɜ j͑ʃƨɹ
-    @param p2somani ( number ) - ſɭɜc̗ ɭʃɜ ʌ j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ſȷƽᴜ ʃɔ
-@returns fillet ( FilletTsaletsa | null ) - ſȷƽᴜ ʃɔ ｡ ſןɔ ｡ null ｡ ſɭᴜ ｡ */
 function filletTsaletsa( xaqadi: Knece, p2sadi: Knece, delta: number, p2somani: number ): FilletTsaletsa | null {
   if ( delta >= Math.PI - 0o1 / 0o2000 ) return null;
   const det = xaqadi.ux * p2sadi.uz - xaqadi.uz * p2sadi.ux;
@@ -139,9 +116,6 @@ function filletTsaletsa( xaqadi: Knece, p2sadi: Knece, delta: number, p2somani: 
   return { cx, cz, r, phi0, delta: dd };
 }
 
-/* ɭʃᴜʞ ſɭᴜȝ , ꞙɭɿ ,
-    @param ksaka ( string ) - ſɭɔ˞ᴜ ſɭᴜ ʌ j͑ʃᴜ ı],ᴜ ｡
-    @param knece ( Knece [ ] ) - ſɭᴜc̗ ɭʃɜ ʌ ſןᴜ ſᶘɹ ｡ */
 function kamauMolon( ksaka: string, knece: Knece[] ): void {
   const pukazj = kf2Tap2jnPoligonojn(knece).hateru;
   const n = knece.length;
@@ -176,13 +150,12 @@ function kamauMolon( ksaka: string, knece: Knece[] ): void {
     ( gekare.length ? "  " + gekare.join(" ") : "" ));
 }
 
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , 📃 ⟩
 const kazoj: { ksaka: string; knece: [ number, number ][] }[] = [
   { ksaka: "ſɭᴜc̗ ɭʃɜ ꞙɭц ʌ ꞙɭııɔ ꞙɭıɿэ ꞙɭцıɔ", knece: [ c2w2q(0o0), c2w2q(0o132), c2w2q(0o264), c2w2q(0o416) ]},
   { ksaka: "ſɭᴜc̗ ɭʃɜ ɿ ʌ T", knece: [ c2w2q(0o0), c2w2q(0o132), c2w2q(0o264) ]},
   { ksaka: "ſɭᴜc̗ ɭʃɜ ɔı ʌ ꞙɭııɔ ꞙɭıɿэ", knece: [ c2w2q(0o0), c2w2q(0o132) ]},
   { ksaka: "ſɭᴜc̗ ɭʃɜ ŋᷠɹ ʌ ꞙɭııɔ ꞙɭɩц", knece: [ c2w2q(0o0), c2w2q(0o74) ]},
-// ⟨ ɭʃᴜʞ ſɭᴜȝ , ꞙɭɿ , 📃 ⟩
+
   { ksaka: "ſɭᴜc̗ ɭʃɜ ꞙɭц ʌ ꞙɭɿꞟ ꞙɭıɔɔ ꞙɭɿıɔ ꞙɭцɿэ", knece: [ c2w2q(0o36), c2w2q(0o170), c2w2q(0o322), c2w2q(0o454) ]},
   { ksaka: "ſɭᴜc̗ ɭʃɜ ꞙɭɿц ʌ ꞙɭııɔ ꞙɭııэ ꞙɭıɔɔ", knece: [ c2w2q(0o24), c2w2q(0o156), c2w2q(0o310), c2w2q(0o442) ]},
   { ksaka: "ſɭᴜc̗ ɭʃɜ ɿ ʌ ꞙɭıɔɔ ꞙɭıɿɔ ꞙɭцıɔ", knece: [ c2w2q(0o0), c2w2q(0o207), c2w2q(0o416) ]},
@@ -195,7 +168,7 @@ for ( const kazo of kazoj ) {
   analizi(kazo.ksaka, kaganiPor(kazo.knece), kazo.knece);
   kamauMolon(kazo.ksaka, kf2Haknece(kazo.knece, undefined, 0o0));
 }
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
+
 const vek2feKruco: [ number, number ][] = [ c2w2q(0o0), c2w2q(0o132), c2w2q(0o264), c2w2q(0o416) ];
 analizi("ſןɔ ʌ ſɭᴜc̗ ɭʃɜ ( ſɭᴜc̗ ɭʃɜ ꞙɭц ʌ ſɭɹ ſȷɔ )", kaganiPor(null), vek2feKruco);
 kamauMolon("ſןɔ ʌ ſɭᴜc̗ ɭʃɜ ( ſɭᴜc̗ ɭʃɜ ꞙɭц ʌ ſɭɹ ſȷɔ )", kf2Haknece([], [ 0o0, 0o0 ], 0o0));

@@ -1,7 +1,6 @@
-// ≺⧼ ſןɹ ɭʃэ ſɭ,ɜ ʌ j͑ʃᴜꞇ 🖌️ ⧽≻
-import { hunanu, tsije, veb6qaiW2d2 } from "../../x2x2q/haweh2.js";
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſןɹ ɭʃэ ſɭ,ɜ 📃 ⧽≻
 
-// ⟪ ſןɹ ɭʃэ ſɭ,ɜ ʌ j͑ʃᴜꞇ 🖌️ ⟫
+import { hunanu, tsije, veb6qaiW2d2 } from "../../p6kpu/haweh2.js";
 
 export function volviX(k: CanvasRenderingContext2D, qoxa: () => void): void {
   const s = k.canvas.width;
@@ -15,7 +14,7 @@ export function volviX(k: CanvasRenderingContext2D, qoxa: () => void): void {
 
 export function sxtofon(k: CanvasRenderingContext2D, kozuni: number): void {
   const w = k.canvas.width, h = k.canvas.height;
-  // ⟨ ı],ͷ̗ɔʞ ʌ ʃᴜ ſɭ,ɹ 📃 ⟩
+
   const vepat6ni = 0o10, fadeno = 0o2;
   k.globalAlpha = veb6qaiW2d2(0o1/0o20);
   for ( let i = 0o0; i < w; i += vepat6ni ) {

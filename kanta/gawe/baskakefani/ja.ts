@@ -1,31 +1,23 @@
-// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ɔ j͑ʃɜ ſᶘꞇ }ʃᴜ ſɭᴜͷ̗ j͑ʃᴜꞇ ʌ ſ͔ɭᴜ ᶅſɔ 🗣️ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ɭl̀ᴜ 📃 ⧽≻
 
 export const JA: Record<string, string> = {
 
-// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
-
   "hate2Aranis": "アラニス",
   "hate2Kaxte": "カユウテ",
-  "subtitoloKaxte": "ロタ・ウホウス、ラムウスア・カシテ",
+  "ksakat2xaKaxte": "ロタ・ウホウス、ラムウスア・カシテ",
   "eniri": "入る",
   "catsiinaPromeni": "歩く",
   "catsiinaOrbiti": "周回",
   "catsiinaHasoqte": "ワードローブ",
   "catsiinaHelpo": "ヘルプ",
 
-// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
-
   "hate2Teksilo": "ザ・ルーム",
-  "subtitoloTeksilo": "長いシャツ、短い袖、メインとアクセント。",
-
-// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
+  "ksakat2xaTeksilo": "長いシャツ、短い袖、メインとアクセント。",
 
   "hate2Sxargxo": "ワールド",
   "b6tem2Subskribo": "建設中。",
   "b6tem2Satalo": "サタルを建設中。",
   "b6tem2Nebulo": "霧が谷を流れる。",
-
-// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
 
   "kompasoNordo": "北",
   "kamaOrbito": "周回",
@@ -49,21 +41,13 @@ export const JA: Record<string, string> = {
   "agoKuxi": "横になる",
   "agoLevi": "起きる",
 
-// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
-
   "hate2Bal2": "地図",
 
-// ⟪ ſɭэ ſɭw , ❓ ⟫
-
   "hate2Hak6h6": "道",
-  "subtitoloHelpo": "街のノート",
-
-// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
+  "ksakat2xaHelpo": "街のノート",
 
   "caxlefkakaiP2d2": "誰かが加わりました。",
   "caxlefkakaiSunta": "誰かが去りました。",
-
-// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
 
   "manĝPuss0": "ピクセトレシレフプウスア",
   "manĝFok0": "フォクウマスア • シク",
@@ -80,16 +64,12 @@ export const JA: Record<string, string> = {
   "manĝTla2Gusto": "酢、白樺樹液、ミント、ベルガモット茶。",
   "manĝPuss0Gusto": "ひんやりと水気のある食感で、ほのかに甘い。",
 
-// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
-
   "vepaqPriskriboKap2": "家。",
   "vepaqPriskriboGeqqa": "共同の食事処。",
   "vepaqPriskriboKasafeo": "会議室。",
   "vepaqPriskriboStacioxipo": "駅。",
   "vepaqPriskriboTuro": "超高層建築。",
   "vepaqPriskriboSanktejo": "中心。",
-
-// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
 
   "thalaHavem2": "階層",
   "thalaDiamanto": "ダイヤ",
@@ -98,17 +78,13 @@ export const JA: Record<string, string> = {
   "thalaVepaqHunaq": "種類",
   "thalaXekuxa": "位置",
 
-// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
-
   "hate2Inqoxa": "情報",
-  "subtitoloInqoxa": "建物、食べ物、種族",
+  "ksakat2xaInqoxa": "建物、食べ物、種族",
   "ariaInqoxaCatsiina": "情報を開く",
   "ariaPukxeiCatsiina": "閉じる",
   "cax2lPaqj": "建物",
   "cax2lMangxajxoj": "食べ物",
   "cax2lHapudal": "種族",
-
-// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
 
   "hatePaga": "動物",
   "pudalLiixkupukai": "ベロー",
@@ -123,8 +99,6 @@ export const JA: Record<string, string> = {
   "pudalPriskriboTolxu": "八本の長い脚を持つ小さなウミグモ。",
   "pudalNeĝotemek": "ユキドリ",
   "pudalPriskriboNeĝotemek": "湖と川の上を滑空する真っ白な海鳥。",
-
-// ⟪ ſɭэ ſɭw , 🌿 ⟫
 
   "hatePlanto": "植物",
   "pudalBetulo": "カバノキ",
@@ -150,8 +124,6 @@ export const JA: Record<string, string> = {
   "pudalCakeo": "ツァケ",
   "pudalPriskriboCakeo": "骨のような尾を持つトクサ（Equisetum telmateia）。",
 
-// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
-
   "cax2lHasoqte": "服",
   "soqteWeh2Lhant": "緑",
   "soqteWeh2Hearth": "茶色",
@@ -163,8 +135,6 @@ export const JA: Record<string, string> = {
   "soqteWeh2Rose": "桃色",
   "soqteWeh2Obsidian": "黒",
   "soqteWeh2Cyan": "シアン",
-
-// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
 
   "cax2lHararo": "髪",
   "tsaqQaroxema": "髪型",
@@ -178,11 +148,7 @@ export const JA: Record<string, string> = {
   "harWeh2Blonda": "金髪",
   "harWeh2Griza": "グレー",
 
-// ⟪ ſȷwɔ˞ , 🎵 ⟫
-
   "muziko": "音楽",
-
-// ⟪ ſɭэ ſɭw , 🌦️ ⟫
 
   "ariaKrepuskoCatsiina": "夕暮れモードを切り替え",
   "ariaKrepuskoKama": "夕暮れのレベル",
@@ -192,17 +158,14 @@ export const JA: Record<string, string> = {
   "vet6limaHajla": "雹",
   "vet6limaNega": "雪",
 
-  // ⟪ WebGL 🖥️ ⟫
+  // ⟪ ſɟᴜ ſɭɹ ſןɹ ʌ ɭʃᴜ ֭ſɭᴜȝ 🖥️ ⟫
 
   "webglNeSubtenata": "お使いのブラウザはWebGLをサポートしていません。ブラウザを更新してください。",
   "webglDetalo": "カジーテはWebGLが必要です。ブラウザを更新するか、GPU設定を確認してください。",
   "webglReprovi": "再試行",
 
-// ⟪ ſɭэ ſɭw , 🌍 ⟫
-
   "ariaEniriNala": "メインワールドに入る。",
   "saxeiNala": "ワールドを作成または読み込む",
-  "mondTitolo": "ワールド",
   "mondKsaka": "ワールド",
   "mondSxono": "シード",
   "catsiinaKf2Nala": "作成",
@@ -213,10 +176,8 @@ export const JA: Record<string, string> = {
   "ariaNalaDuobligi": "複製",
   "catsiinaVetlaqiEliri": "保存してワールドから出る。",
 
-// ⟪ ſɭэ ſɭw , ⚙️ ⟫
-
   "hate2Haku1o": "設定",
-  "subtitoloHaku1o": "言語、音、音楽、ワードローブ。",
+  "ksakat2xaHaku1o": "言語、音、音楽、ワードローブ。",
   "catsiinaSono": "音",
   "catsiinaBruo": "背景ノイズ",
   "ariaGaweCatsiina": "言語",

@@ -1,19 +1,9 @@
-// ≺⧼ j͑ʃɔ ſןw ſɭᴜƴ ʌ ſɭэ ֭ſɭэ ʌ j͑ʃ'ɔ ŋᷠᴜ }ʃɹ }ʃw }ʃꞇ 🧲 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭı , ſɭɜ j͑ʃᴜ , ſɭᴜ ſןᴜ , ⟅ ſȷɔ ſᶘᴜʞ , ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ ,
-//   ſɭэ ֭ſɭэ , ſɭɜ j͑ʃᴜ , ſɭᴜ ſןᴜ , ꞙɭı , ſɭэ ſɭ,w , ⟅ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı ,
-//   ꞙɭı , ſɭɜ ſɭ,w , ꞙɭɔ , ⟅ ſןɔ˞ᴜƴ , ſɭэ ſɭ,w , ꞙɭı , ⟅ 📃 ⟩
+// ≺⧼ ſɭэ ֭ſɭэ ʌ j͑ʃᴜ̭ᴜ ſɟэ 🛣️ ⧽≻
 
 export const GLUADISTO = 0o6;
 
-// ⟨ ſɭɹ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ſɭɹ ſןᴜ , ꞙɭı , ꞙɭɔ , 📃 ⟩
 export const GLUATLOHK2 = 0o3;
 
-/* ſɭэ ֭ſɭэ , ſɭэ ɭʃᴜ , ſɭɜ j͑ʃᴜ , ꞙɭı
-    @param n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭɿ ,
-    @param hakxawa ( [ number , number ] [ ] ) - ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı ,
-    @param hakotaraqasai ( { x , z } [ ] ) - ſɭэ ɭʃᴜ , ꞙɭɔ , ꞙɭı ( ɭʃᴜ , ꞙɭı )
-    @param has2tonome ( [ number , number ] [ ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı , ſɭэ ɭʃᴜ ,
-@returns n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ( ꞙɭɔ , ꞙɭı ) */
 export function gluiK6h6tlakakn(
   n2k: readonly ( readonly [ number, number ] )[],
   hakxawa: readonly ( readonly [ number, number ] )[],
@@ -34,13 +24,11 @@ export function gluiK6h6tlakakn(
     for ( const natakatomasai of hakxawa ) {
       const h6kuni = Math.hypot(natakatomasai[0o0] - e[0o0], natakatomasai[0o1] - e[0o1]);
       if ( h6kuni < 0o1/0o10 || h6kuni >= kmaDisto ) continue;
-      // ⟨ ꞙɭı , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
       if ( ( ( natakatomasai[0o0] - e[0o0] ) * dx + ( natakatomasai[0o1] - e[0o1] ) * dz ) / ( h6kuni * sahakani ) < 0o1/0o2 ) continue;
       kmaXobe = [ natakatomasai[0o0], natakatomasai[0o1] ]; kmaDisto = h6kuni;
     }
-    // ⟨ ꞙɭɔ , ſɭᴜ ſןᴜ ⟅ ſɭэ ֭ſɭэ , ſɭэ ɭʃᴜ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ſɭэ ɭʃᴜ ,
-    //   ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ꞙɭı ,
-    //   ꞙɭɔ , ſȷɔ ſᶘᴜʞ , ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ , ⟅ 📃 ⟩
+
     if ( !kmaXobe ) {
       let kmaTlohk2 = GLUATLOHK2;
       for ( const k6h6 of has2tonome ) {
@@ -54,7 +42,7 @@ export function gluiK6h6tlakakn(
           const h6kuni = Math.hypot(px - e[0o0], pz - e[0o1]);
           if ( h6kuni < 0o1/0o10 || h6kuni >= kmaDisto ) continue;
           if ( ( ( px - e[0o0] ) * dx + ( pz - e[0o1] ) * dz ) / ( h6kuni * sahakani ) < 0o1/0o2 ) continue;
-          // ⟨ ſɭɹ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
           if ( h6kuni > 0o3 + 0o1/0o2 ) continue;
           kmaTlohk2 = h6kuni; kmaXobe = [ px, pz ];
         }

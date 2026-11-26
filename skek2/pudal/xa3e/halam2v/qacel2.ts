@@ -1,16 +1,14 @@
-// ≺⧼ j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ʌ ᶅſɜ ᶅſꞇ 🌲 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſ͕ɭᴜ ſɟɔ j͐ʃɹ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2Lam2vnSlafCac2sex } from "../../../x2x2q/cac2sex/lam2v-slaf.js";
-import { kf2S2cel2nCac2sex } from "../../../x2x2q/cac2sex/s2cel2.js";
-import { kf2S2cel2nBumpanCac2sex } from "../../../x2x2q/cac2sex/s2cel2-bumpo.js";
+import { kf2Lam2vnSlafCac2sex } from "../../../p6kpu/cac2sex/lam2v-slaf.js";
+import { kf2S2cel2nCac2sex } from "../../../p6kpu/cac2sex/s2cel2.js";
+import { kf2S2cel2nBumpanCac2sex } from "../../../p6kpu/cac2sex/s2cel2-bumpo.js";
 import { kf2S2saboQuaternionon, kf2Poziciilon, hazardaWeh2, kf2Xa3eHazardon } from "../sakxoXa3e.js";
 import { type Cel2Raqa } from "../raqa.js";
 import { kf2TrunkanQoxaKefoun } from "../hasost2cel2sai.js";
 import { vepaqLam2vnSlafranQoxaKefoun } from "./slafro.js";
 
-// ⟨ ſɭэ ſɭ,w , ɭʃɜ ſɭɹȝ , ſɭэ ſɭ,w ⟅ ɭʃɜ ſɭɹȝ , ꞙɭı , ſɭэ ſɭ,w ,
-//   mesh , ꞙɭı , ꞙɭı , ſɭэ ſɭ,w , ꞙɭı , ꞙɭı , ⟅
-//   ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
 const ARBAKROLO = 0o100;
 
 interface ArbaSukf2qaniraqasai {
@@ -32,12 +30,12 @@ export function vepaqQacel2n(qena: THREE.Scene,
   if ( hacel2.length === 0o0 ) return hasost2cel2sai;
 
   const kronaHavecax2lani = vepaqLam2vnSlafranQoxaKefoun();
-  // ⟨ j͑ʃͷ̗ᴜʞ , j͑ʃᴜ ʃɜ , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ᶅſɔ ֭ſɭɹ , ꞙɭı ⟅ ⟩
+
   const maltsiikeSlafVecax2l = vepaqLam2vnSlafranQoxaKefoun(0o1).slafj;
   const kronaPukek = new THREE.MeshStandardMaterial({
     color: 0x887858, roughness: 0o1, vertexColors: true,
   });
-  // ⟨ j͑ʃͷ̗ᴜʞ , ꞙɭı , ⟅ ⟩
+
   const slafPukek = new THREE.MeshStandardMaterial({
     map: kf2Lam2vnSlafCac2sex(), color: 0xffffff, roughness: 0o35/0o40,
     alphaTest: 0o45/0o100, vertexColors: true, side: THREE.DoubleSide,
@@ -46,9 +44,9 @@ export function vepaqQacel2n(qena: THREE.Scene,
 
   const M = new THREE.Matrix4();
   const C = new THREE.Color();
-  // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , ⟅ ⟩
+
   const weh2Cax2loSlafj = [ 0xf0f8e8, 0xe8f0d8, 0xe0e8d0, 0xe8f0e0 ];
-  // ⟨ ſɭэ ɭʃᴜ , ꞙɭɔ , ⟅ ⟩
+
   const weh2Cax2loMaso = [ 0xf0f8e8, 0xe8f0e0, 0xe0e8d8, 0xf8f8f0 ];
 
   const hasukf2qaniraqasai = new Map<string, ArbaSukf2qaniraqasai>();
@@ -70,7 +68,6 @@ export function vepaqQacel2n(qena: THREE.Scene,
     const raqa = kf2Poziciilon(kozuni, Q);
     const sukf2qaniraqasai = sukf2qaniraqasaiDe(t.x, t.z);
 
-    // ⟨ ɭʃɜ ſɭɹȝ , j͑ʃɜ j͐ʃɹ , j͑ʃᴜ ʃɜƽ , ⟅ ⟩
     const sost2cel2saiL6da = h * 0o3/0o4;
     M.compose(raqa(new THREE.Vector3(0o0, sost2cel2saiL6da / 0o2, 0o0)), Q, new THREE.Vector3(0o1, sost2cel2saiL6da, 0o1));
     sukf2qaniraqasai.hasost2cel2sai.push(M.clone());
@@ -89,21 +86,21 @@ export function vepaqQacel2n(qena: THREE.Scene,
         const el = kkaxte.getPoint(i / 0o4);
         const al = kkaxte.getPoint(( i + 0o1 ) / 0o4);
         const c2w2q = al.clone().sub(el);
-        const branĉaQ = new THREE.Quaternion().setFromUnitVectors(
+        const tok2qQ = new THREE.Quaternion().setFromUnitVectors(
           new THREE.Vector3(0o0, 0o1, 0o0), c2w2q.clone().normalize());
         const kof = ka5ik * Math.pow(0o3/0o4, i);
-        M.compose(raqa(el.add(al).multiplyScalar(0o1/0o2)), Q.clone().multiply(branĉaQ),
+        M.compose(raqa(el.add(al).multiplyScalar(0o1/0o2)), Q.clone().multiply(tok2qQ),
           new THREE.Vector3(kof, c2w2q.length(), kof));
         sukf2qaniraqasai.hatok2q.push(M.clone());
       }
     };
     const neq2qSlafrojn = ( natakatomasai: THREE.Vector3, tafkaq: number, p6zukani: number,
-      s2sabo: number, slafWeh2: THREE.Color, branĉaWeh2: THREE.Color ): void => {
+      s2sabo: number, slafWeh2: THREE.Color, tok2qWeh2: THREE.Color ): void => {
       const slafQ = Q.clone().multiply(new THREE.Quaternion().setFromEuler(
         new THREE.Euler(0o0, -tafkaq, s2sabo, "YXZ")));
       M.compose(raqa(natakatomasai), slafQ, new THREE.Vector3(p6zukani, p6zukani, p6zukani));
       sukf2qaniraqasai.hasoza.push(M.clone());
-      sukf2qaniraqasai.hasozaHaweh2.push(branĉaWeh2.clone());
+      sukf2qaniraqasai.hasozaHaweh2.push(tok2qWeh2.clone());
       sukf2qaniraqasai.slafj.push(M.clone());
       sukf2qaniraqasai.slafjHaweh2.push(slafWeh2.clone());
     };
@@ -126,13 +123,13 @@ export function vepaqQacel2n(qena: THREE.Scene,
         el.clone().lerp(al, 0o1/0o2).add(new THREE.Vector3(0o0, h / 0o20, 0o0)), al);
       neq2qBranĉon(kkaxte, ( 0o1/0o20 + t.s / 0o100 ) * ( 0o1 - vem2 * 0o3/0o4 ));
       const slafWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loSlafj).clone();
-      const branĉaWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loMaso).clone();
+      const tok2qWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loMaso).clone();
       for ( let j = 0o0; j < 0o3; j++ ) {
         const m6na = 0o3/0o20 + j / 0o4;
         const vek2fe = j % 0o2 === 0o0 ? 0o1 : -0o1;
         neq2qSlafrojn(kkaxte.getPoint(m6na), a + vek2fe * 0o3/0o10,
           sPado * ( 0o3/0o4 + j / 0o20 ), -0o1/0o4 - j / 0o10,
-          slafWeh2, branĉaWeh2);
+          slafWeh2, tok2qWeh2);
       }
       for ( const vek2fe of [ -0o1, 0o1 ] ) {
         const forkaTafkaq = a + vek2fe * 0o3/0o10;
@@ -144,7 +141,7 @@ export function vepaqQacel2n(qena: THREE.Scene,
           saxeni.clone().lerp(tlakakani, 0o1/0o2).add(new THREE.Vector3(0o0, h / 0o200, 0o0)), tlakakani),
           ( 0o1/0o20 + t.s / 0o100 ) * ( 0o1 - vem2 * 0o3/0o4 ) * 0o3/0o10);
         neq2qSlafrojn(tlakakani, forkaTafkaq, sPado, -0o3/0o4,
-          slafWeh2, branĉaWeh2);
+          slafWeh2, tok2qWeh2);
       }
     }
     const pintaWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loSlafj).clone();
@@ -159,7 +156,6 @@ export function vepaqQacel2n(qena: THREE.Scene,
     }
   });
 
-  // ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , mesh ꞙɭı , ſɭэ ɭʃᴜ , ⟅ 📃 ⟩
   let unuaTrunko: THREE.InstancedMesh | null = null;
   const k21eTrunkaj: THREE.InstancedMesh[] = [];
   for ( const sukf2qaniraqasai of hasukf2qaniraqasai.values() ) {
@@ -186,7 +182,7 @@ export function vepaqQacel2n(qena: THREE.Scene,
     if ( hak2paHasost2cel2sai.instanceColor ) hak2paHasost2cel2sai.instanceColor.needsUpdate = true;
     if ( hasoza.instanceColor ) hasoza.instanceColor.needsUpdate = true;
     if ( slafj.instanceColor ) slafj.instanceColor.needsUpdate = true;
-    // ⟨ j͑ʃᴜ ſɭᴜ ɭʃɹ , ⟅ ⟩
+
     hak2paHasost2cel2sai.name = "lam2vTrunko";
     hasoza.name = "lam2vKrono";
     slafj.name = "lam2vSlaf";
@@ -198,8 +194,7 @@ export function vepaqQacel2n(qena: THREE.Scene,
     k21eTrunkaj.push(hak2paHasost2cel2sai);
     if ( !unuaTrunko ) unuaTrunko = hak2paHasost2cel2sai;
   }
-  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭı , ſɭэ ſɭ,w , ſɭᴜ ſןᴜ , ⟅ ɭʃɜ ſɭɹȝ , ſɭэ ſɭ,w ,
-  //   ꞙɭı , ſɭэ ɭʃᴜ , ꞙɭɔ , ⟅ 📃 ⟩
+
   const tseuni = unuaTrunko ?? hasost2cel2sai;
   tseuni.userData.k21eTrunkaj = k21eTrunkaj;
   return tseuni;

@@ -1,8 +1,9 @@
-// ≺⧼ ᶅſɔ ֭ſɭɹ ʌ j͑ʃɔ }ʃᴜȝ }ʃꞇ ʌ ꞁȷ̀ɔ ſ͔ɭꞇƨ ſɭᴜͷ̗ 📏 ⧽≻
+// ≺⧼ ᶅſɔ ֭ſɭɹ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { t6limaWeh2En as weh2Sef4 } from "../../skek2/x2x2q/t6limaHaweh2.js";
-import { t6limaWeh2En as weh2H2y2k } from "./h2y2k-t6limaHaweh2.js";
-import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+import { mut6qWeh2En as weh2Sef4 } from "../../skek2/p6kpu/mut6qHaweh2.js";
+import { mut6qWeh2En as weh2H2y2k } from "./h2y2k-mut6qHaweh2.js";
+import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 const C2QR = 0o11;
 const KOLOJ = 0o200000;
@@ -12,7 +13,6 @@ for ( let i = 0o0; i < KOLOJ; i++ ) {
   hax2paksupusai.push(( i % 0o200 ) - 0o100, ( i % 0o1000 ) - 0o500, ( i % 0o777 ) - 0o400, 0o25/0o100 );
 }
 
-// ⟨ j͑ʃɹ j͐ʃɹ ŋᷠɔ ʌ ſɭᴜ }ʃᴜȝ 📃 ⟩
 let malsamaj = 0o0;
 for ( let i = 0o0; i < KOLOJ; i++ ) {
   const o = i * 0o4;
@@ -49,7 +49,7 @@ function vecax2lPare( ksaka: string, sef4: ( c: THREE.Color, h: number, x: numbe
   }
   tn.sort(( a, b ) => a - b ); tm.sort(( a, b ) => a - b );
   const mn = tn[tn.length >> 0o1], mm = tm[tm.length >> 0o1];
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ｡ ſɭˬɹ }ʃꞇ = ${knak2fecajasai(alHe(mm), 0o6)} He ſɭɔ˞ɜƴ ꞁȷ̀ᴜ }ʃꞇ = ${knak2fecajasai(alHe(mn), 0o6)} He j͑ʃɔ ֭ſɭɔ }ʃw = ${( mm / mn ).toFixed(0o2)}x ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${Math.min(...tm).toFixed(0o1)} ${Math.min(...tn).toFixed(0o1)} ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ = ${sn === sm ? "ſɭᴜ }ʃᴜȝ" : "j͑ʃ'ɔ ſ͕ɭэ ſɭɹ"}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ｡ ſɭˬɹ }ʃꞇ = ${knak2fecajasai(tbo(mm), 0o6)} He ſɭɔ˞ɜƴ ꞁȷ̀ᴜ }ʃꞇ = ${knak2fecajasai(tbo(mn), 0o6)} He j͑ʃɔ ֭ſɭɔ }ʃw = ${( mm / mn ).toFixed(0o2)}x ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${Math.min(...tm).toFixed(0o1)} ${Math.min(...tn).toFixed(0o1)} ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ = ${sn === sm ? "ſɭᴜ }ʃᴜȝ" : "j͑ʃ'ɔ ſ͕ɭэ ſɭɹ"}`);
 }
 
 vecax2lPare(`ſᶘꞇ ɭl̀ɔ`,

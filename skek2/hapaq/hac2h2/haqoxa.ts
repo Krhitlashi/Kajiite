@@ -1,4 +1,5 @@
-// ≺⧼ ſ͕ɭɜ ı],ᴜ ʌ ſɟɹ ֭ſɭɹ ✨ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ſ͕ɭɜ ı],ᴜ 📃 ⧽≻
+
 import * as THREE from "three";
 
 export const GOLD = 0xd8b068;

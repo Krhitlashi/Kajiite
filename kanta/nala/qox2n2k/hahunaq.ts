@@ -1,57 +1,58 @@
-// ≺⧼ ֭ſɭw }ʃᴜȝ 📐 ⧽≻
-export interface KradaArangxo {
+// ≺⧼ ʃᴜ j͐ʃɹ ʌ ֭ſɭᴜ ֭ſɭw }ʃᴜȝ 🗺️ ⧽≻
+
+export interface Qox2n2kPtalu {
   ptaluPal6: number;
   k6liqPal6: "vakox2qita" | "kvar";
   kekufxeso?: boolean;
   hahufwuk2?: boolean;
 }
-export type CellType = "kap2" | "turo" | "geqqa" | "kasafeo" | "qaman2" | "ka5asexaz";
-export type KradaK2pa = [ number, number, CellType ];
-export interface KradaPaq {
-  x: number; z: number; rot: number; hunaq: CellType;
+export type K2paHunaq = "kap2" | "turo" | "geqqa" | "kasafeo" | "qaman2" | "ka5asexaz";
+export type Qox2n2kK2pa = [ number, number, K2paHunaq ];
+export interface Qox2n2kKekkozusai {
+  x: number; z: number; rot: number; hunaq: K2paHunaq;
   cx: number; cz: number;
-  veq6k2: "sost2" | "NE" | "NW" | "SW" | "SE";
-  stacia: boolean;
-  ekstra?: boolean;
-  konektita?: boolean;
+  c2w2q: "sost2" | "NE" | "NW" | "SW" | "SE";
+  kuk: boolean;
+  nek2resai?: boolean;
+  c2k?: boolean;
 }
 
-export interface AldonaK6liq {
+export interface Nek2resaiK6liq {
   x: number;
   z: number;
-  hunaq: CellType;
+  hunaq: K2paHunaq;
   rot?: number;
-  veq6k2?: KradaPaq["veq6k2"];
-  stacia?: boolean;
-  konektita?: boolean;
+  c2w2q?: Qox2n2kKekkozusai["c2w2q"];
+  kuk?: boolean;
+  c2k?: boolean;
 }
 
-export interface KradaKas2kantaS2nasce {
-  orient: "NS" | "EW";
+export interface Qox2n2kKas2kantaS2nasce {
+  kanto: "NS" | "EW";
   haxekuxa: number;
-  de: number; al: number;
-  stacia?: boolean;
+  l6: number; sai: number;
+  kuk?: boolean;
 }
 
-export interface KradaSpono {
-  de: [ number, number ];
-  al: [ number, number ];
+export interface Qox2n2kC2k {
+  l6: [ number, number ];
+  sai: [ number, number ];
   paq: number;
 }
 
-export interface KradaPlano {
-  ptalu: KradaArangxo;
-  haKekkozusai: KradaK2pa[];
+export interface Qox2n2kB6vakanta {
+  ptalu: Qox2n2kPtalu;
+  haKekkozusai: Qox2n2kK2pa[];
   TONA: number;
-  nordaN2k: number;
+  laqN2k: number;
   t2q2X: number;
-  t2q2Suda: number;
-  sudaK6h6: number;
+  t2q2Kaq: number;
+  kaqK6h6: number;
   ka5asexazZ: number;
-  staciaRingaNordo: number;
-  paqj: KradaPaq[];
-  hak6h6: KradaKas2kantaS2nasce[];
-  hatohtanu: KradaSpono[];
+  kukc2qLaq: number;
+  paqj: Qox2n2kKekkozusai[];
+  hak6h6: Qox2n2kKas2kantaS2nasce[];
+  hatohtanu: Qox2n2kC2k[];
   spurXoj: number[];
   spurZoj: number[];
   caxlefkakaiX: number[];

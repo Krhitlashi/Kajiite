@@ -1,367 +1,343 @@
-// ≺⧼ ſȷɔ ſᶘᴜʞ ʌ j͑ʃ'ɔ ɭʃᴜ ֭ſɭᴜȝ ꞁȷ̀ᴜ }ʃꞇ 🔭 ⧽≻
-// ⟨ ſ͕ɭᴜ ſ͕ɭw }ʃɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
-// ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ 📃 ⟩
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃ'ꞇ ɭ(ͷ̗ꞇ ŋᷠɜ 📃 ⧽≻
+
 import * as THREE from "three";
-import { NEBULADENSOMIN, nebulVidebleco } from "./scena/haweh2Cax2loj.js";
+import { MAHAVEM2MIN, mahaH6kuni } from "./scena/haweh2Cax2loj.js";
 
-// ⟪ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟫
-// ⟨ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ 📃 ⟩
-const CELATABELO = 0o100;
-const MAKSCXELOJ = 0o10;
-const DIVIDAMINIMUMO = 0o10;
-const DIVIDAFAKTORO = 0o3/0o2;
+const C2TACA1ARA = 0o100;
+const PLOSTEQC2TA = 0o10;
+const KALTOKMIN = 0o10;
+const KALTOKVEM2 = 0o3/0o2;
 
-// ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ 📃 ⟩
-// ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
-// ⟨ ꞙɭɔ ʌ ꞙɭɿ ʌ j͑ʃɜ j͑ʃƨɹ ʌ ꞙɭı 📃 ⟩
-// ⟨ ſɟᴜ ɭʃэ ʌ j͑ʃᴜꞇ 📃 ⟩
-const LIMOFAKTORO = 0o100;
-const MINLIMO = 0o100;
-const MAKSLIMO = Math.round(nebulVidebleco(NEBULADENSOMIN));
-// ⟨ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ſȷꞇ }ʃꞇ 📃 ⟩
-const LIMOHISTEREZO = 0o11/0o10;
+const PLOSTEQVEM2 = 0o100;
+const PLOSTEQSAXE = 0o100;
+const PLOSTEQ3AKAK = Math.round(mahaH6kuni(MAHAVEM2MIN));
 
-interface Vidlima {
+const PLOSTEQP2SA = 0o11/0o10;
+
+interface KekVidlima {
   obj: THREE.Object3D;
-  gepatro: THREE.Object3D | null;
+  xaqadiKuba: THREE.Object3D | null;
   plosteq: number;
-  plosteqPluso: number;
+  plosteqP2sa: number;
   ka5ik: number;
-  cx: number;
-  cz: number;
-  panai: boolean;
-  subHaplosteq: SubLimo[];
+  c2taX: number;
+  c2taZ: number;
+  haxekuxaSak: boolean;
+  hapLimoCatsara: HapLimo[];
   gekareVecax2l: THREE.BufferGeometry | null;
   maltsiikeVecax2l: THREE.BufferGeometry | null;
   maltsiike: boolean;
 }
 
-// ⟨ ſןᴜȝ ſɭꞇ ʌ ꞙɭı ʌ ꞙɭı ⟅ ꞁȷ̀ɜ ɭʃɹ ʃᴜ j͑ʃᴜꞇ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ
-//   j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʌ ꞙɭɔ ⟅ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ
-//   ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ʌ ꞙɭɿ ʌ j͑ʃᴜꞇ 📃 ⟩
-const statikaj: Vidlima[] = [];
-const movigxantaj: Vidlima[] = [];
-let tik = true;
-let spacigita = false;
-// ⟨ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ſȷꞇ }ʃꞇ plosteq * ꞙɭı/ꞙɭıɔ ⟅ MINLIMO ,
-//   ꞙɭɩ ⟅ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ꞙɭɿ ⟅
-//   j͑ʃᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟩
-const STATIKAMOVASOJLO2 = 0o2 * 0o2;
-let tlakakaiStatikaX = Infinity, tlakakaiStatikaZ = Infinity;
-let devigiStatikan = true;
+const kant2Catsara: KekVidlima[] = [];
+const sakCatsara: KekVidlima[] = [];
+let tlak2Amal = true;
+let kaltokAmal = false;
 
-const SFEROCENTRO = new THREE.Vector3();
+const KANT2SAKPLOSTEQ2 = 0o2 * 0o2;
+let tlakakaiKant2X = Infinity, tlakakaiKant2Z = Infinity;
+let devigiKant2n = true;
+
+const KUQASOST2 = new THREE.Vector3();
 
 function plosteqDePal6(pal6: number): number {
-  return Math.min(MAKSLIMO, Math.max(MINLIMO, pal6 * LIMOFAKTORO));
+  return Math.min(PLOSTEQ3AKAK, Math.max(PLOSTEQSAXE, pal6 * PLOSTEQVEM2));
 }
 
-export function sferoDe(obj: THREE.Object3D): THREE.Sphere | null {
-  const instancigita = obj as THREE.InstancedMesh;
-  if (instancigita.isInstancedMesh) {
-    if (instancigita.boundingSphere === null) instancigita.computeBoundingSphere();
-    return instancigita.boundingSphere;
+export function kuqaDe(obj: THREE.Object3D): THREE.Sphere | null {
+  const kekKantan = obj as THREE.InstancedMesh;
+  if (kekKantan.isInstancedMesh) {
+    if (kekKantan.boundingSphere === null) kekKantan.computeBoundingSphere();
+    return kekKantan.boundingSphere;
   }
-  const qoxaKefoua = obj as THREE.Mesh;
-  if (qoxaKefoua.geometry === undefined) return null;
-  if (qoxaKefoua.geometry.boundingSphere === null) qoxaKefoua.geometry.computeBoundingSphere();
-  return qoxaKefoua.geometry.boundingSphere;
+  const zaceKefoua = obj as THREE.Mesh;
+  if (zaceKefoua.geometry === undefined) return null;
+  if (zaceKefoua.geometry.boundingSphere === null) zaceKefoua.geometry.computeBoundingSphere();
+  return zaceKefoua.geometry.boundingSphere;
 }
 
-// ⟨ ſɭʞэ ʌ ſ͕ɭᴜ j͑ʃᴜ ʌ ꞙɭı 📃 ⟩
-interface SubLimo {
-  eco: "hunanu" | "videbleco";
+interface HapLimo {
+  s2kanta: "hunanu" | "videbleco";
   plosteq: number;
   hacakamaha: THREE.Mesh[];
-  tik: boolean;
+  c2h2: boolean;
 }
 
-function aplikiSubLimon(s: SubLimo, tik: boolean): void {
-  if (tik === s.tik) return;
-  s.tik = tik;
-  if (s.eco === "hunanu") for (let i = 0o0; i < s.hacakamaha.length; i++) s.hacakamaha[i].castShadow = tik;
-  else for (let i = 0o0; i < s.hacakamaha.length; i++) s.hacakamaha[i].visible = tik;
+function k2reiHapLimon(hapLimo: HapLimo, c2h2: boolean): void {
+  if (c2h2 === hapLimo.c2h2) return;
+  hapLimo.c2h2 = c2h2;
+  if (hapLimo.s2kanta === "hunanu") for (let kek = 0o0; kek < hapLimo.hacakamaha.length; kek++) hapLimo.hacakamaha[kek].castShadow = c2h2;
+  else for (let kek = 0o0; kek < hapLimo.hacakamaha.length; kek++) hapLimo.hacakamaha[kek].visible = c2h2;
 }
 
-function ka5ikDe(obj: THREE.Object3D, sfero: THREE.Sphere | null = sferoDe(obj)): number {
-  return sfero === null ? 0o0 : sfero.radius * obj.matrixWorld.getMaxScaleOnAxis();
+function ka5ikDe(obj: THREE.Object3D, kuqa: THREE.Sphere | null = kuqaDe(obj)): number {
+  return kuqa === null ? 0o0 : kuqa.radius * obj.matrixWorld.getMaxScaleOnAxis();
 }
 
-function aldonu(obj: THREE.Object3D, plosteq: number, ka5ik: number,
-  cx: number, cz: number, panai: boolean, subHaplosteq: SubLimo[] = []): void {
+function k2reiKekon(obj: THREE.Object3D, plosteq: number, ka5ik: number,
+  c2taX: number, c2taZ: number, haxekuxaSak: boolean, hapLimoCatsara: HapLimo[] = []): void {
   // ⟨ ſןᴜȝ ſɭꞇ 📃 ⟩
-  if (!panai) {
+  if (!haxekuxaSak) {
     obj.matrixWorldAutoUpdate = false;
-    devigiStatikan = true;
+    devigiKant2n = true;
   }
   const gekareVecax2l = ( obj as THREE.Mesh ).geometry ?? null;
   const maltsiikeVecax2l = obj.userData.maltsiikeVecax2l instanceof THREE.BufferGeometry
     ? obj.userData.maltsiikeVecax2l as THREE.BufferGeometry : null;
-  ( panai ? movigxantaj : statikaj ).push({ obj, gepatro: obj.parent, plosteq,
-    plosteqPluso: plosteq * LIMOHISTEREZO, ka5ik, cx, cz, panai, subHaplosteq,
+  ( haxekuxaSak ? sakCatsara : kant2Catsara ).push({ obj, xaqadiKuba: obj.parent, plosteq,
+    plosteqP2sa: plosteq * PLOSTEQP2SA, ka5ik, c2taX, c2taZ, haxekuxaSak, hapLimoCatsara,
     gekareVecax2l, maltsiikeVecax2l, maltsiike: false });
 }
 
 export function registriVidlimon(obj: THREE.Object3D, plosteq: number): void {
   if (!obj.visible) return;
   obj.updateWorldMatrix(true, false);
-  const sfero = sferoDe(obj);
-  if (sfero === null) return;
-  SFEROCENTRO.copy(sfero.center).applyMatrix4(obj.matrixWorld);
-  aldonu(obj, plosteq, ka5ikDe(obj, sfero), SFEROCENTRO.x, SFEROCENTRO.z, false);
+  const kuqa = kuqaDe(obj);
+  if (kuqa === null) return;
+  KUQASOST2.copy(kuqa.center).applyMatrix4(obj.matrixWorld);
+  k2reiKekon(obj, plosteq, ka5ikDe(obj, kuqa), KUQASOST2.x, KUQASOST2.z, false);
 }
 
 // ⟨ ſ͔ɭɔ ſɭᴜ ɽ͑ʃ'ɔ 📃 ⟩
-// ⟨ ſɟᴜ ɭʃэ ʌ j͑ʃᴜꞇ 📃 ⟩
-const VIVANTADETALO = 0o44;
-const KERNAJHAKEK = 0o12;
+
+const VIVANTAH6KUNI = 0o44;
+const KERNAHAKEK = 0o12;
 
 export function panaiVidlimon(obj: THREE.Object3D, plosteq: number, ka5ik = 0o4,
-  ombraLimo = 0o0, gekareLimo = 0o0): void {
-  const subHaplosteq: SubLimo[] = [];
+  hunanuPlosteq = 0o0, gekarePlosteq = 0o0): void {
+  const hapLimoCatsara: HapLimo[] = [];
   // ⟨ ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩
-  if (ombraLimo > 0o0) {
-    const ombraj: THREE.Mesh[] = [];
-    obj.traverse(o => {
-      const m = o as THREE.Mesh;
-      if (m.isMesh === true && m.castShadow) ombraj.push(m);
+  if (hunanuPlosteq > 0o0) {
+    const hunanuKek: THREE.Mesh[] = [];
+    obj.traverse(kub => {
+      const cakamaha = kub as THREE.Mesh;
+      if (cakamaha.isMesh === true && cakamaha.castShadow) hunanuKek.push(cakamaha);
     });
-    if (ombraj.length > 0o0) subHaplosteq.push({ eco: "hunanu", plosteq: ombraLimo, hacakamaha: ombraj, tik: true });
+    if (hunanuKek.length > 0o0) hapLimoCatsara.push({ s2kanta: "hunanu", plosteq: hunanuPlosteq, hacakamaha: hunanuKek, c2h2: true });
   }
   // ⟨ ſɭɔƽ ʌ ſᶘɔ ŋᷠɹ ŋᷠɹ 📃 ⟩
-  if (gekareLimo > 0o0) {
+  if (gekarePlosteq > 0o0) {
     obj.updateWorldMatrix(true, true);
-    const hakek: { m: THREE.Mesh; r: number }[] = [];
-    obj.traverse(o => {
-      const m = o as THREE.Mesh;
-      if (m.isMesh !== true) return;
-      hakek.push({ m, r: ka5ikDe(m) });
+    const hakek: { cakamaha: THREE.Mesh; kuqaKa5ik: number }[] = [];
+    obj.traverse(kub => {
+      const cakamaha = kub as THREE.Mesh;
+      if (cakamaha.isMesh !== true) return;
+      hakek.push({ cakamaha, kuqaKa5ik: ka5ikDe(cakamaha) });
     });
-    hakek.sort((a, b) => b.r - a.r);
+    hakek.sort((kek1, kek4) => kek4.kuqaKa5ik - kek1.kuqaKa5ik);
     const gekare: THREE.Mesh[] = [];
-    for (let i = KERNAJHAKEK; i < hakek.length; i++) gekare.push(hakek[i].m);
-    if (gekare.length > 0o0) subHaplosteq.push({ eco: "videbleco", plosteq: gekareLimo, hacakamaha: gekare, tik: true });
+    for (let kek = KERNAHAKEK; kek < hakek.length; kek++) gekare.push(hakek[kek].cakamaha);
+    if (gekare.length > 0o0) hapLimoCatsara.push({ s2kanta: "videbleco", plosteq: gekarePlosteq, hacakamaha: gekare, c2h2: true });
   }
-  aldonu(obj, plosteq, ka5ik, obj.position.x, obj.position.z, true, subHaplosteq);
+  k2reiKekon(obj, plosteq, ka5ik, obj.position.x, obj.position.z, true, hapLimoCatsara);
 }
 
-const VIVANTALIMO = 0o200;
-const VIVANTAOMBRO = 0o50;
+const VIVANTAPLOSTEQ = 0o200;
+const VIVANTAHUNANU = 0o50;
 
-// ⟨ ſɭʞэ ʌ j͑ʃɹ ſ͔ɭᴜ ᶅſɔ 📃 ⟩
-// ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ j͑ʃɜ ſןᴜ j͐ʃэ 📃 ⟩
-// ⟨ ſןw ֭ſɭͷ̗ᴜ ſןɹ ʌ ſɟᴜ }ʃᴜ 📃 ⟩
 export function registriVeb6kekitajnHacakamaha(zace: THREE.Object3D, ksaka = "veb6kekita"): number {
   const hacakamaha: THREE.Mesh[] = [];
-  zace.traverse(o => {
-    const m = o as THREE.Mesh;
-    if (m.isMesh === true && (m as THREE.InstancedMesh).isInstancedMesh !== true && o.name === ksaka) hacakamaha.push(m);
+  zace.traverse(kub => {
+    const cakamaha = kub as THREE.Mesh;
+    if (cakamaha.isMesh === true && (cakamaha as THREE.InstancedMesh).isInstancedMesh !== true && kub.name === ksaka) hacakamaha.push(cakamaha);
   });
   let registritaj = 0o0;
-  for (const m of hacakamaha) {
-    m.updateWorldMatrix(true, false);
-    if (sferoDe(m) === null) continue;
-    const ka5ik = ka5ikDe(m);
-    if (ka5ik >= MAKSLIMO) continue;
-    registriVidlimon(m, plosteqDePal6(ka5ik));
+  for (const cakamaha of hacakamaha) {
+    cakamaha.updateWorldMatrix(true, false);
+    if (kuqaDe(cakamaha) === null) continue;
+    const ka5ik = ka5ikDe(cakamaha);
+    if (ka5ik >= PLOSTEQ3AKAK) continue;
+    registriVidlimon(cakamaha, plosteqDePal6(ka5ik));
     registritaj++;
   }
   return registritaj;
 }
 
-// ⟨ ſɟᴜ ֭ſɭэ ſɭэ ʌ j͑ʃɘɹ ʌ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ 📃 ⟩
 export function registriVivantojn(hasukf2qani: {
   hanpco: { group: THREE.Object3D }[];
   has2kaj2: { group: THREE.Object3D }[];
   hapaga: { hate2: THREE.Object3D }[];
   hatemek: { hate2: THREE.Object3D }[];
 }): void {
-  for (const n of hasukf2qani.hanpco) panaiVidlimon(n.group, VIVANTALIMO, 0o4, VIVANTAOMBRO, VIVANTADETALO);
-  for (const k of hasukf2qani.has2kaj2) panaiVidlimon(k.group, VIVANTALIMO, 0o4, VIVANTAOMBRO, VIVANTADETALO);
-  for (const b of hasukf2qani.hapaga) panaiVidlimon(b.hate2, VIVANTALIMO);
-  for (const p of hasukf2qani.hatemek) panaiVidlimon(p.hate2, VIVANTALIMO);
+  for (const kekPal6 of hasukf2qani.hanpco) panaiVidlimon(kekPal6.group, VIVANTAPLOSTEQ, 0o4, VIVANTAHUNANU, VIVANTAH6KUNI);
+  for (const kek2 of hasukf2qani.has2kaj2) panaiVidlimon(kek2.group, VIVANTAPLOSTEQ, 0o4, VIVANTAHUNANU, VIVANTAH6KUNI);
+  for (const kek4 of hasukf2qani.hapaga) panaiVidlimon(kek4.hate2, VIVANTAPLOSTEQ);
+  for (const kek3 of hasukf2qani.hatemek) panaiVidlimon(kek3.hate2, VIVANTAPLOSTEQ);
 }
 
-// ⟪ ſɭɜ ʃɔ ʌ j͑ʃᴜꞇ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟫
-// ⟨ ſɭʞэ ʌ ꞁȷ̀ɜ ɭʃɹ ʃᴜ j͑ʃᴜꞇ ʌ ꞙɭɔ 📃 ⟩
-function forbok(obj: THREE.Object3D): void {
+function k2reiKoben(obj: THREE.Object3D): void {
   if (obj.parent !== null) obj.removeFromParent();
 }
-function reAlDonu(obj: THREE.Object3D, gepatro: THREE.Object3D | null): void {
-  if (obj.parent === null && gepatro !== null) gepatro.add(obj);
+function k2reiKuban(obj: THREE.Object3D, xaqadiKuba: THREE.Object3D | null): void {
+  if (obj.parent === null && xaqadiKuba !== null) xaqadiKuba.add(obj);
 }
 
-// ⟨ j͑ʃͷ̗ᴜʞ ʌ ſ͔ɭɔ ſɭᴜ ɽ͑ʃ'ɔ , j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ſȷꞇ }ʃꞇ
-//   ſןw ֭ſɭͷ̗ᴜ ſןɹ ʌ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ 📃 ⟩
-const GEOMETRIAHISTEREZO = 0o4;
-function tlak2QoxaKefoun( e: Vidlima, disto2: number ): void {
-  if ( e.gekareVecax2l === null || e.maltsiikeVecax2l === null ) return;
-  const kozuni = Math.max(0o40, e.plosteq * 0o1 / 0o4) + e.ka5ik;
-  const lod = kozuni + ( e.maltsiike ? -GEOMETRIAHISTEREZO : GEOMETRIAHISTEREZO );
-  const maltsiike = disto2 > lod * lod;
-  if ( maltsiike === e.maltsiike ) return;
-  e.maltsiike = maltsiike;
-  ( e.obj as THREE.Mesh ).geometry = maltsiike ? e.maltsiikeVecax2l : e.gekareVecax2l;
+const ZACEP2SA = 0o4;
+function tlak2ZaceKefoun( kekVidlima: KekVidlima, h6kuni2: number ): void {
+  if ( kekVidlima.gekareVecax2l === null || kekVidlima.maltsiikeVecax2l === null ) return;
+  const kozuH6kuni = Math.max(0o40, kekVidlima.plosteq * 0o1 / 0o4) + kekVidlima.ka5ik;
+  const h6kuniPlosteq = kozuH6kuni + ( kekVidlima.maltsiike ? -ZACEP2SA : ZACEP2SA );
+  const maltsiike = h6kuni2 > h6kuniPlosteq * h6kuniPlosteq;
+  if ( maltsiike === kekVidlima.maltsiike ) return;
+  kekVidlima.maltsiike = maltsiike;
+  ( kekVidlima.obj as THREE.Mesh ).geometry = maltsiike ? kekVidlima.maltsiikeVecax2l : kekVidlima.gekareVecax2l;
 }
 
-function tlak2Aron(aro: Vidlima[], x: number, z: number): void {
-  for (let i = 0o0; i < aro.length; i++) {
-    const e = aro[i];
-    const obj = e.obj;
-    const cx = e.panai ? obj.position.x : e.cx;
-    const cz = e.panai ? obj.position.z : e.cz;
-    const plosteq = (obj.visible ? e.plosteqPluso : e.plosteq) + e.ka5ik;
-    const dx = cx - x, dz = cz - z;
-    const disto2 = dx * dx + dz * dz;
-    const videbla = disto2 <= plosteq * plosteq;
-    if (videbla !== obj.visible) {
-      obj.visible = videbla;
-      if (e.panai) {
-        if (videbla) reAlDonu(obj, e.gepatro);
-        else forbok(obj);
+function tlak2Catsaran(aro: KekVidlima[], x: number, z: number): void {
+  for (let kek = 0o0; kek < aro.length; kek++) {
+    const kekVidlima = aro[kek];
+    const obj = kekVidlima.obj;
+    const c2taX = kekVidlima.haxekuxaSak ? obj.position.x : kekVidlima.c2taX;
+    const c2taZ = kekVidlima.haxekuxaSak ? obj.position.z : kekVidlima.c2taZ;
+    const plosteq = (obj.visible ? kekVidlima.plosteqP2sa : kekVidlima.plosteq) + kekVidlima.ka5ik;
+    const h6kuniX = c2taX - x, h6kuniZ = c2taZ - z;
+    const h6kuni2 = h6kuniX * h6kuniX + h6kuniZ * h6kuniZ;
+    const ot2basai = h6kuni2 <= plosteq * plosteq;
+    if (ot2basai !== obj.visible) {
+      obj.visible = ot2basai;
+      if (kekVidlima.haxekuxaSak) {
+        if (ot2basai) k2reiKuban(obj, kekVidlima.xaqadiKuba);
+        else k2reiKoben(obj);
       }
     }
-    tlak2QoxaKefoun(e, disto2);
-    // ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
-    for (let k = 0o0; k < e.subHaplosteq.length; k++) {
-      const s = e.subHaplosteq[k];
-      const r = s.plosteq + e.ka5ik;
-      aplikiSubLimon(s, disto2 <= r * r);
+    tlak2ZaceKefoun(kekVidlima, h6kuni2);
+
+    for (let kek2 = 0o0; kek2 < kekVidlima.hapLimoCatsara.length; kek2++) {
+      const hapLimo = kekVidlima.hapLimoCatsara[kek2];
+      const kuqaKa5ik = hapLimo.plosteq + kekVidlima.ka5ik;
+      k2reiHapLimon(hapLimo, h6kuni2 <= kuqaKa5ik * kuqaKa5ik);
     }
   }
 }
 
 export function tlak2Vidhaplosteq(x: number, z: number): void {
-  if (!tik) return;
-  // ⟨ ſןᴜȝ ſɭꞇ ⟅ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ
-  //   j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ſȷꞇ }ʃꞇ ꞙɭı ʌ ſןᴜȝ ſɭꞇ 📃 ⟩
-  const dx = x - tlakakaiStatikaX, dz = z - tlakakaiStatikaZ;
-  if (devigiStatikan || dx * dx + dz * dz > STATIKAMOVASOJLO2) {
-    tlakakaiStatikaX = x; tlakakaiStatikaZ = z;
-    devigiStatikan = false;
-    tlak2Aron(statikaj, x, z);
+  if (!tlak2Amal) return;
+
+  const h6kuniX = x - tlakakaiKant2X, h6kuniZ = z - tlakakaiKant2Z;
+  if (devigiKant2n || h6kuniX * h6kuniX + h6kuniZ * h6kuniZ > KANT2SAKPLOSTEQ2) {
+    tlakakaiKant2X = x; tlakakaiKant2Z = z;
+    devigiKant2n = false;
+    tlak2Catsaran(kant2Catsara, x, z);
   }
-  tlak2Aron(movigxantaj, x, z);
+  tlak2Catsaran(sakCatsara, x, z);
 }
 
-function porCxiunEron(zegeni: (e: Vidlima) => void): void {
-  for (let i = 0o0; i < statikaj.length; i++) zegeni(statikaj[i]);
-  for (let i = 0o0; i < movigxantaj.length; i++) zegeni(movigxantaj[i]);
+function hakekCatsara(k2reiKek: (kekVidlima: KekVidlima) => void): void {
+  for (let kek = 0o0; kek < kant2Catsara.length; kek++) k2reiKek(kant2Catsara[kek]);
+  for (let kek = 0o0; kek < sakCatsara.length; kek++) k2reiKek(sakCatsara[kek]);
 }
 
-export function vidhaplosteqMalŝalti(): void {
-  tik = false;
-  porCxiunEron((e) => {
-    e.obj.visible = true;
-    if ( e.gekareVecax2l !== null && e.maltsiike ) {
-      ( e.obj as THREE.Mesh ).geometry = e.gekareVecax2l;
-      e.maltsiike = false;
+export function vidhaplosteqKol2(): void {
+  tlak2Amal = false;
+  hakekCatsara((kekVidlima) => {
+    kekVidlima.obj.visible = true;
+    if ( kekVidlima.gekareVecax2l !== null && kekVidlima.maltsiike ) {
+      ( kekVidlima.obj as THREE.Mesh ).geometry = kekVidlima.gekareVecax2l;
+      kekVidlima.maltsiike = false;
     }
-    if (e.panai) reAlDonu(e.obj, e.gepatro);
-    for (let k = 0o0; k < e.subHaplosteq.length; k++) aplikiSubLimon(e.subHaplosteq[k], true);
+    if (kekVidlima.haxekuxaSak) k2reiKuban(kekVidlima.obj, kekVidlima.xaqadiKuba);
+    for (let kek2 = 0o0; kek2 < kekVidlima.hapLimoCatsara.length; kek2++) k2reiHapLimon(kekVidlima.hapLimoCatsara[kek2], true);
   });
 }
 
-export function vidhaplosteqŜalti(): void {
-  tik = true;
-  devigiStatikan = true;
+export function vidhaplosteqSaxe(): void {
+  tlak2Amal = true;
+  devigiKant2n = true;
 }
 
-export function vidlimaStatistiko(): { hakek: number; hakix2: number; plosteq: number[] } {
+export function vidlimaVop2kekai(): { hakek: number; hakix2: number; plosteq: number[] } {
   let hakix2 = 0o0;
   const plosteq = new Set<number>();
-  porCxiunEron((e) => {
-    if (e.obj.visible) hakix2++;
-    plosteq.add(e.plosteq);
+  hakekCatsara((kekVidlima) => {
+    if (kekVidlima.obj.visible) hakix2++;
+    plosteq.add(kekVidlima.plosteq);
   });
-  return { hakek: statikaj.length + movigxantaj.length, hakix2,
-    plosteq: [ ...plosteq ].sort((a, b) => a - b) };
+  return { hakek: kant2Catsara.length + sakCatsara.length, hakix2,
+    plosteq: [ ...plosteq ].sort((kek1, kek4) => kek1 - kek4) };
 }
 
-// ⟪ ſ͕ɭᴜ ſ͕ɭw }ʃɹ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ 📃 ⟫
 export function spacigiInstancojn(zace: THREE.Object3D,
-  celtabelo = CELATABELO): { hatanek: number; hakek: number } {
-  if (spacigita) return { hatanek: 0o0, hakek: 0o0 };
-  spacigita = true;
+  c2taPal6 = C2TACA1ARA): { kekKantanVek2fe: number; hakek: number } {
+  if (kaltokAmal) return { kekKantanVek2fe: 0o0, hakek: 0o0 };
+  kaltokAmal = true;
 
-  const hatanek: THREE.InstancedMesh[] = [];
-  zace.traverse(o => {
-    const instancigita = o as THREE.InstancedMesh;
-    if (instancigita.isInstancedMesh && instancigita.frustumCulled !== false) hatanek.push(instancigita);
+  const kekKantanVek2fe: THREE.InstancedMesh[] = [];
+  zace.traverse(kub => {
+    const kekKantan = kub as THREE.InstancedMesh;
+    if (kekKantan.isInstancedMesh && kekKantan.frustumCulled !== false) kekKantanVek2fe.push(kekKantan);
   });
   zace.updateMatrixWorld(true);
 
-  let dividitaj = 0o0, hakek = 0o0;
-  const hacaxema = new Map<number, number[]>();
-  for (const m of hatanek) {
-    const k2fe = m.count;
-    if (k2fe < DIVIDAMINIMUMO || !m.visible) continue;
-    if (m.boundingSphere === null) m.computeBoundingSphere();
-    if (m.geometry.boundingSphere === null) m.geometry.computeBoundingSphere();
-    const amplekso = m.boundingSphere!.radius * 0o2;
+  let kaltokVek2fe = 0o0, hakek = 0o0;
+  const c2taBal2 = new Map<number, number[]>();
+  for (const cakamaha of kekKantanVek2fe) {
+    const k2fe = cakamaha.count;
+    if (k2fe < KALTOKMIN || !cakamaha.visible) continue;
+    if (cakamaha.boundingSphere === null) cakamaha.computeBoundingSphere();
+    if (cakamaha.geometry.boundingSphere === null) cakamaha.geometry.computeBoundingSphere();
+    const pal6 = cakamaha.boundingSphere!.radius * 0o2;
     // ⟨ ſɟᴜ ſ͕ɭɹȝ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 📃 ⟩
-    const propraCelo = m.userData.vidlimaCelo;
-    const tabelo = typeof propraCelo === "number"
-      ? propraCelo
-      : Math.max(celtabelo, amplekso / MAKSCXELOJ);
-    if (amplekso <= tabelo * DIVIDAFAKTORO) continue;
+    const kekC2ta = cakamaha.userData.vidlimaCelo;
+    const c2taSefini = typeof kekC2ta === "number"
+      ? kekC2ta
+      : Math.max(c2taPal6, pal6 / PLOSTEQC2TA);
+    if (pal6 <= c2taSefini * KALTOKVEM2) continue;
 
     // ⟨ ſɭᴜͷ̗ ɭʃɜƽ 📃 ⟩
-    const raqa = m.instanceMatrix.array as Float32Array;
-    hacaxema.clear();
-    let maksP6zuk = 0o0;
-    for (let i = 0o0; i < k2fe; i++) {
-      const o = i * 0o20;
-      const p6zukani = Math.hypot(raqa[o], raqa[o + 0o1], raqa[o + 0o2]);
-      if (p6zukani > maksP6zuk) maksP6zuk = p6zukani;
-      const ca3aq = Math.floor(raqa[o + 0o14] / tabelo) * 0o100000 + Math.floor(raqa[o + 0o16] / tabelo);
-      let ujo = hacaxema.get(ca3aq);
-      if (ujo === undefined) hacaxema.set(ca3aq, ujo = []);
-      ujo.push(i);
+    const raqa = cakamaha.instanceMatrix.array as Float32Array;
+    c2taBal2.clear();
+    let plosteqP6zuk = 0o0;
+    for (let kek = 0o0; kek < k2fe; kek++) {
+      const haxekuxaVem2 = kek * 0o20;
+      const p6zukani = Math.hypot(raqa[haxekuxaVem2], raqa[haxekuxaVem2 + 0o1], raqa[haxekuxaVem2 + 0o2]);
+      if (p6zukani > plosteqP6zuk) plosteqP6zuk = p6zukani;
+      const ca3aq = Math.floor(raqa[haxekuxaVem2 + 0o14] / c2taSefini) * 0o100000 + Math.floor(raqa[haxekuxaVem2 + 0o16] / c2taSefini);
+      let kuba = c2taBal2.get(ca3aq);
+      if (kuba === undefined) c2taBal2.set(ca3aq, kuba = []);
+      kuba.push(kek);
     }
-    const mavaluj2 = m.parent;
-    if (mavaluj2 === null || hacaxema.size < 0o2) continue;
+    const sozaKuba = cakamaha.parent;
+    if (sozaKuba === null || c2taBal2.size < 0o2) continue;
 
-    // ⟨ ſȷꞇ }ʃꞇ ʌ ɭʃw ſɭˬɔƽ ʌ ɭʃᴜ }ʃɔƽ 📃 ⟩
-    const propraLimo = m.userData.vidlimo;
-    const plosteq = typeof propraLimo === "number"
-      ? propraLimo
-      : plosteqDePal6(m.geometry.boundingSphere!.radius * maksP6zuk);
-    const haweh2 = m.instanceColor;
-    for (const havecax2lani of hacaxema.values()) {
-      const kek = new THREE.InstancedMesh(m.geometry, m.material, havecax2lani.length);
-      const pecaAreo = kek.instanceMatrix.array as Float32Array;
-      for (let k = 0o0; k < havecax2lani.length; k++) {
-        pecaAreo.set(raqa.subarray(havecax2lani[k] * 0o20, havecax2lani[k] * 0o20 + 0o20), k * 0o20);
+    const kekPlosteq = cakamaha.userData.vidlimo;
+    const plosteq = typeof kekPlosteq === "number"
+      ? kekPlosteq
+      : plosteqDePal6(cakamaha.geometry.boundingSphere!.radius * plosteqP6zuk);
+    const haweh2 = cakamaha.instanceColor;
+    for (const havecax2lani of c2taBal2.values()) {
+      const kek = new THREE.InstancedMesh(cakamaha.geometry, cakamaha.material, havecax2lani.length);
+      const kekHaxekuxa = kek.instanceMatrix.array as Float32Array;
+      for (let kek2 = 0o0; kek2 < havecax2lani.length; kek2++) {
+        kekHaxekuxa.set(raqa.subarray(havecax2lani[kek2] * 0o20, havecax2lani[kek2] * 0o20 + 0o20), kek2 * 0o20);
       }
       kek.count = havecax2lani.length;
       kek.instanceMatrix.needsUpdate = true;
       if (haweh2 !== null) {
-        const n = haweh2.itemSize;
-        const tsiqAreo = haweh2.array as Float32Array;
-        const pecaAreo2 = new Float32Array(havecax2lani.length * n);
-        for (let k = 0o0; k < havecax2lani.length; k++) {
-          pecaAreo2.set(tsiqAreo.subarray(havecax2lani[k] * n, havecax2lani[k] * n + n), k * n);
+        const kekPal6 = haweh2.itemSize;
+        const weh2Haxekuxa = haweh2.array as Float32Array;
+        const kekWeh2Haxekuxa = new Float32Array(havecax2lani.length * kekPal6);
+        for (let kek2 = 0o0; kek2 < havecax2lani.length; kek2++) {
+          kekWeh2Haxekuxa.set(weh2Haxekuxa.subarray(havecax2lani[kek2] * kekPal6, havecax2lani[kek2] * kekPal6 + kekPal6), kek2 * kekPal6);
         }
-        const pecaWeh2 = new THREE.InstancedBufferAttribute(pecaAreo2, n);
-        pecaWeh2.needsUpdate = true;
-        kek.instanceColor = pecaWeh2;
+        const kekWeh2 = new THREE.InstancedBufferAttribute(kekWeh2Haxekuxa, kekPal6);
+        kekWeh2.needsUpdate = true;
+        kek.instanceColor = kekWeh2;
       }
-      kek.castShadow = m.castShadow;
-      kek.receiveShadow = m.receiveShadow;
-      kek.renderOrder = m.renderOrder;
-      kek.visible = m.visible;
-      kek.name = m.name;
-      kek.userData = m.userData;
-      kek.layers.mask = m.layers.mask;
+      kek.castShadow = cakamaha.castShadow;
+      kek.receiveShadow = cakamaha.receiveShadow;
+      kek.renderOrder = cakamaha.renderOrder;
+      kek.visible = cakamaha.visible;
+      kek.name = cakamaha.name;
+      kek.userData = cakamaha.userData;
+      kek.layers.mask = cakamaha.layers.mask;
       kek.computeBoundingSphere();
-      mavaluj2.add(kek);
+      sozaKuba.add(kek);
       registriVidlimon(kek, plosteq);
       hakek++;
     }
-    mavaluj2.remove(m);
-    m.dispose();
-    dividitaj++;
+    sozaKuba.remove(cakamaha);
+    cakamaha.dispose();
+    kaltokVek2fe++;
   }
-  return { hatanek: dividitaj, hakek: hakek };
+  return { kekKantanVek2fe: kaltokVek2fe, hakek: hakek };
 }

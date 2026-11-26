@@ -1,4 +1,5 @@
-// ≺⧼ ſןᴜ ſ͔ɭᴜ j͑ʃᴜꞇ ʌ ֭ſɭw }ʃᴜȝ 🐾 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſןw ɭ(ᴜ j͐ʃᴜ̩ ֭ſɭw }ʃᴜȝ 📃 ⧽≻
+
 import * as THREE from "three";
 
 export interface Paga {
@@ -22,7 +23,7 @@ export interface Paga {
   amplitudo: number;
   seheni: number;
   pudal: string;
-  // ⟨ j͑ʃɹ }ʃɹ ɭʃᴜ , ſɭɜ ſɭ,w ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
+
   pulsaSeheni: number;
   pulsaG2sa: number;
   pulsaOndo: number;
@@ -46,7 +47,7 @@ export interface PudalMalneto {
   fundaMergo?: number;
   seheMultoblo?: number;
   ampleksaMultoblo?: number;
-  // ⟨ j͑ʃɹ }ʃɹ ɭʃᴜ 📃 ⟩
+
   pulsaSeheni?: number;
   pulsaG2sa?: number;
   pulsaOndo?: number;

@@ -1,8 +1,8 @@
-// ≺⧼ ſɭɔ }ʃɹȝ 🔷 ⧽≻
-import type { CellType, KradaArangxo, KradaK2pa } from "./hahunaq.js";
-export function kf2Qox2n2k(ptalu: KradaArangxo): KradaK2pa[] {
+// ≺⧼ ſɭɔ }ʃɹȝ ʌ ſɭᶗ‹ᴜ ᶅſᴜ 🔷 ⧽≻
+import type { K2paHunaq, Qox2n2kPtalu, Qox2n2kK2pa } from "./hahunaq.js";
+export function kf2Qox2n2k(ptalu: Qox2n2kPtalu): Qox2n2kK2pa[] {
   const n = ptalu.ptaluPal6;
-  const haKekkozusai: KradaK2pa[] = [];
+  const haKekkozusai: Qox2n2kK2pa[] = [];
   if ( n === 0o1 ) {
     for ( const [ x, z ] of [ [ 0o0, 0o1 ], [ 0o0, -0o1 ], [ -0o1, 0o0 ], [ 0o1, 0o0 ] ] ) haKekkozusai.push([ x, z, "kasafeo" ]);
     haKekkozusai.push([ 0o0, 0o0, "qaman2" ]);
@@ -23,7 +23,7 @@ function enQox2n2k(n: number, x: number, z: number): boolean {
   return Math.abs(x) + Math.abs(z) <= n + 0o1;
 }
 
-export function hunaqDeT2q2(r: number, x: number, z: number): CellType {
+export function hunaqDeT2q2(r: number, x: number, z: number): K2paHunaq {
   if ( r === 0o0 ) return "qaman2";
   if ( r === 0o1 ) return Math.abs(x) === Math.abs(z) ? "geqqa" : "kasafeo";
   if ( r === 0o2 ) return Math.min(Math.abs(x), Math.abs(z)) === 0o0 ? "turo" : "kap2";
@@ -48,11 +48,11 @@ export function xafanitapuDeCelo(cx: number, cz: number): number {
   return cx > 0o0 ? 0o3 : 0o1;
 }
 
-export function hunaqDeK6liq(kozuni: CellType, cx: number, cz: number, ox: number, oz: number): CellType {
+export function hunaqDeK6liq(kozuni: K2paHunaq, cx: number, cz: number, ox: number, oz: number): K2paHunaq {
   if ( kozuni === "qaman2" ) return kozuni;
   if ( kozuni === "ka5asexaz" ) return "ka5asexaz";
   if ( kozuni === "kap2" ) return "kap2";
-  const kozunuHahunaq: CellType[] = kozuni === "turo"
+  const kozunuHahunaq: K2paHunaq[] = kozuni === "turo"
     ? [ "kap2", "turo", "kasafeo", "turo" ]
     : [ "kasafeo", "geqqa", "kasafeo", "geqqa" ];
   const xafanitapu = xafanitapuDeCelo(cx, cz);

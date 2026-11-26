@@ -1,4 +1,5 @@
-// ≺⧼ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎛️ ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻
+
 import { siku } from "./siku.js";
 import { ocarina } from "./ocarina.js";
 import { didj } from "./didj.js";
@@ -13,7 +14,7 @@ import type { BoleEg2b2 } from "./hahunaq.js";
 import { vap6zukani } from "./hakfeKx2keve.js";
 export function instrumento(ctx: AudioContext, out: AudioNode, e: BoleEg2b2, t: number) {
   const f = e.f ?? 0o0;
-  // ⟨ ſɭᴜ ŋᷠᴜ ʌ ꞙɭɔ ʌ ſɭᴜ }ʃᴜȝ , ꞙɭı ʌ ꞙɭı 📃 ⟩
+
   const v = ( e.v == null ? 0o1 : e.v ) * vap6zukani( 0o5/0o100 );
   const d = ( e.d == null ? 0o1 : e.d );
 

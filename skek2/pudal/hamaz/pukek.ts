@@ -1,11 +1,11 @@
-// ≺⧼ ſןw ſɭɔƽ 🎨 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſןw ſɭɔƽ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2LederanCac2sex } from "../../x2x2q/cac2sex/tsuha.js";
-import { kf2SxtofanBumpanCac2sex } from "../../x2x2q/cac2sex/flofSiraq.js";
+import { kf2LederanCac2sex } from "../../p6kpu/cac2sex/tsuha.js";
+import { kf2SxtofanBumpanCac2sex } from "../../p6kpu/cac2sex/flofSiraq.js";
 import { type Soqte } from "../../hasoqte/hasoqte.js";
 import { vestaCac2sex } from "./kx2weh2ani.js";
 
-// ⟨ ſᶘɔ ʌ ſןw ſɭɔƽ , ꞙɭı , ⟅ ⟩
 const UNGAWEH2 = 0x987880;
 let ungaPukekStoko: THREE.MeshStandardMaterial | null = null;
 export function ungaPukek(): THREE.MeshStandardMaterial {
@@ -14,7 +14,6 @@ export function ungaPukek(): THREE.MeshStandardMaterial {
   return ungaPukekStoko;
 }
 
-// ⟨ ſɟɔȝ , ꞙɭı , ſןw ſɭɔƽ , ꞙɭı ⟅ ⟩
 let ceqaPukekStoko: THREE.MeshStandardMaterial | null = null;
 export function ceqaPukek(): THREE.MeshStandardMaterial {
   if ( !ceqaPukekStoko ) ceqaPukekStoko = new THREE.MeshStandardMaterial({
@@ -22,8 +21,6 @@ export function ceqaPukek(): THREE.MeshStandardMaterial {
   return ceqaPukekStoko;
 }
 
-// ⟨ ſןw ſɭɔƽ , ſɟɔȝ , ⟅ ⟩
-// ⟨ j͑ʃ'ɔ ŋᷠɹ , ſɟɔȝ , j͑ʃᴜ ſןᴜ , ⟅ ⟩
 interface LedajHapukek {
   botoM: THREE.MeshStandardMaterial;
   akcentaM: THREE.MeshStandardMaterial;
@@ -48,8 +45,6 @@ export function ledajHapukek(o: Soqte): LedajHapukek {
   return m;
 }
 
-// ⟨ ſןw ſɭɔƽ , j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
-// ⟨ j͑ʃɜȝ ɭʃɔ , ſ͕ɭɜ ı],ᴜ , ⟅ ⟩
 interface VestajHapukek {
   c2h2M: THREE.MeshStandardMaterial;
   eksteraM: THREE.MeshStandardMaterial;

@@ -1,10 +1,8 @@
 // ≺⧼ ɭʃɔ ŋᷠɔƽ 🕊️ ⧽≻
 import * as THREE from "three";
-import { bs2 } from "../../kanta/nala/t6limaSoza.js";
-import { trovuBestajnZonojn } from "./zono-trovilo.js";
+import { bs2 } from "../../kanta/nala/mut6qSoza.js";
+import { trovuBestajnZonojn } from "./keweani.js";
 import { vepaqPetrelanModelon } from "./temek-malneto.js";
-
-// ⟪ ſᶘɜ ſ͔ɭɹ , ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ , ꞙɭı ( ſᶘᴜ ſȷᴜ ſɭэ ſɭɔ / Pagodroma nivea ) 📃 ⟫
 
 export interface Temek {
   hate2: THREE.Group;
@@ -22,7 +20,7 @@ export interface Temek {
   banko: number;
   p6zukani: number;
   flapAmp: number;
-  // ⟨ j͑ʃɹ }ʃɹ ɭʃᴜ , j͑ʃᴜ ſɭᴜ , ⟅ ⟩
+
   tafkaq: number;
   flugY: number;
   l6da: number;
@@ -48,7 +46,7 @@ function kf2Temekn(qena: THREE.Scene,
   const hate2 = petrelaMalneto().clone();
   const flughacaht2 = hate2.children.filter(c => c.name === "tsog2");
   const hatama = flughacaht2.map(f => f.getObjectByName("mano")!);
-  const nar2sa = hate2.getObjectByName("vosto")!;
+  const nar2sa = hate2.getObjectByName("nar2sa")!;
   let l6daKozu = l6daFn(cx, cz);
   for ( let k = 0o0; k < 0o6; k++ ) {
     const a = k / 0o6 * Math.PI * 0o2;
@@ -116,7 +114,6 @@ export function vepaqNeq2qnTemekn(qena: THREE.Scene,
 
 let tlakakaiPetrelaTif = 0o0;
 
-// ⟨ j͑ʃɹ }ʃɹ ɭʃᴜ , j͑ʃᴜ ſɭᴜ , ⟅ ⟩
 export function tlak2Hatemekn(s: TemekKanta, t: number): void {
   const dt = Math.min(0o1/0o10, Math.max(0o1/0o1000, t - tlakakaiPetrelaTif));
   tlakakaiPetrelaTif = t;
@@ -124,7 +121,7 @@ export function tlak2Hatemekn(s: TemekKanta, t: number): void {
     if ( !p.hate2.visible ) continue;
     const x = p.cx + Math.cos(p.tafkaq) * p.cabole;
     const z = p.cz + Math.sin(p.tafkaq) * p.cabole;
-    // ⟨ j͐ʃэ ɭ(ᴜ , ⟅ ⟩
+
     const kozu = Math.max(s.l6daFn(x, z), 0o2);
     const ne3ak2Y = p.flugY;
     p.flugY += ( kozu + p.l6da - p.flugY ) * Math.min(0o1, dt * 0o1/0o2);
@@ -151,18 +148,18 @@ export function tlak2Hatemekn(s: TemekKanta, t: number): void {
       tsog2.rotation.z = kaatse * ( dihedro + bato );
       tsog2.rotation.y = -bato * 0o2/0o10;
       if ( tama ) {
-        // ⟨ ſᶘɜ ſ͔ɭɹ , j͑ʃᴜ ſןɹ , ⟅ ⟩
-        const malfrua = Math.sin(t * p.batoSeheni + p.batoFazo - 0o1/0o4)
+
+        const s2su = Math.sin(t * p.batoSeheni + p.batoFazo - 0o1/0o4)
           * bataP6zuk * p.flapAmp;
-        const flekso = ( malfrua - bato ) * 0o1/0o2;
+        const flekso = ( s2su - bato ) * 0o1/0o2;
         tama.rotation.z = kaatse * Math.max(-0o5/0o10, Math.min(0o5/0o10, flekso));
       }
       if ( tama ) {
-        // ⟨ ſᶘɜ ſ͔ɭɹ , ı],э ŋᷠꞇ , ⟅ ⟩
+
         tama.rotation.x = Math.sin(t * p.batoSeheni + p.batoFazo) * 0o3/0o10 * bataP6zuk;
       }
     }
-    // ⟨ ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ⟅ ⟩
+
     p.nar2sa.rotation.z = -p.hate2.rotation.z * 0o5/0o10;
     p.nar2sa.rotation.y = Math.sin(t * 0o3/0o4 + p.phase) * 0o1/0o10;
   }

@@ -1,31 +1,23 @@
-// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ɔ ſɭэ ſᶘɹƴ ŋᷠᴜ ſɭᴜͷ̗ 🗣️ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ꞁȷ̀ɔc̗ 📃 ⧽≻
 
 export const EN: Record<string, string> = {
 
-// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
-
   "hate2Aranis": "Aranis",
   "hate2Kaxte": "Kajiite",
-  "subtitoloKaxte": "Khiss Lhota, Lhammithai Kayitteh",
+  "ksakat2xaKaxte": "Khiss Lhota, Lhammithai Kayitteh",
   "eniri": "Enter",
   "catsiinaPromeni": "Walk",
   "catsiinaOrbiti": "Orbit",
   "catsiinaHasoqte": "Wardrobe",
   "catsiinaHelpo": "Help",
 
-// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
-
   "hate2Teksilo": "Loom",
-  "subtitoloTeksilo": "Long shirts, Short sleeves, Geles and accent.",
-
-// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
+  "ksakat2xaTeksilo": "Long shirts, Short sleeves, Geles and accent.",
 
   "hate2Sxargxo": "World",
   "b6tem2Subskribo": "Loading.",
   "b6tem2Satalo": "Constructing satals.",
   "b6tem2Nebulo": "Mist flows through the valley.",
-
-// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
 
   "kompasoNordo": "N",
   "kamaOrbito": "Orbit",
@@ -49,21 +41,13 @@ export const EN: Record<string, string> = {
   "agoKuxi": "Lie down",
   "agoLevi": "Get up",
 
-// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
-
   "hate2Bal2": "Map",
 
-// ⟪ ſɭэ ſɭw , ❓ ⟫
-
   "hate2Hak6h6": "Paths",
-  "subtitoloHelpo": "City notes",
-
-// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
+  "ksakat2xaHelpo": "City notes",
 
   "caxlefkakaiP2d2": "Someone joined.",
   "caxlefkakaiSunta": "Someone left.",
-
-// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
 
   "manĝPuss0": "Shlef Piisu berry",
   "manĝFok0Gusto": "Lichen bread with duck baozi.",
@@ -74,16 +58,12 @@ export const EN: Record<string, string> = {
   "manĝTla2Gusto": "Vinegar, birch sap, mint, and bergamot tea.",
   "manĝPuss0Gusto": "A cool, watery pop with a faint sweet aftertaste.",
 
-// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
-
   "vepaqPriskriboKap2": "House.",
   "vepaqPriskriboGeqqa": "Restaurant.",
   "vepaqPriskriboKasafeo": "Meeting room.",
   "vepaqPriskriboStacioxipo": "Station.",
   "vepaqPriskriboTuro": "Skyscraper.",
   "vepaqPriskriboSanktejo": "Center building.",
-
-// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
 
   "thalaHavem2": "Layers",
   "thalaDiamanto": "Diamond",
@@ -92,17 +72,13 @@ export const EN: Record<string, string> = {
   "thalaVepaqHunaq": "Type",
   "thalaXekuxa": "Position",
 
-// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
-
   "hate2Inqoxa": "Aravopii",
-  "subtitoloInqoxa": "Buildings, Food, Species",
+  "ksakat2xaInqoxa": "Buildings, Food, Species",
   "ariaInqoxaCatsiina": "Information",
   "ariaPukxeiCatsiina": "Close",
   "cax2lPaqj": "Buildings",
   "cax2lMangxajxoj": "Food",
   "cax2lHapudal": "Species",
-
-// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
 
   "hatePaga": "Animal",
   "pudalLiixkupukai": "Liixkupukai",
@@ -117,8 +93,6 @@ export const EN: Record<string, string> = {
   "pudalPriskriboTolxu": "A tiny sea spider with eight long legs.",
   "pudalNeĝotemek": "Snow petrel",
   "pudalPriskriboNeĝotemek": "A pure white seabird gliding over the lake and the river.",
-
-// ⟪ ſɭэ ſɭw , 🌿 ⟫
 
   "hatePlanto": "Plant",
   "pudalBetulo": "Birch",
@@ -144,8 +118,6 @@ export const EN: Record<string, string> = {
   "pudalCakeo": "Tsakeh",
   "pudalPriskriboCakeo": "Equisetum telmateia like a boney tail.",
 
-// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
-
   "cax2lHasoqte": "Clothing",
   "soqteWeh2Lhant": "Green",
   "soqteWeh2Hearth": "Brown",
@@ -157,8 +129,6 @@ export const EN: Record<string, string> = {
   "soqteWeh2Rose": "Pink",
   "soqteWeh2Obsidian": "Black",
   "soqteWeh2Cyan": "Cyan",
-
-// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
 
   "cax2lHararo": "Hair",
   "tsaqQaroxema": "Hair styles",
@@ -172,11 +142,7 @@ export const EN: Record<string, string> = {
   "harWeh2Blonda": "Blonde",
   "harWeh2Griza": "Gray",
 
-// ⟪ ſȷwɔ˞ , 🎵 ⟫
-
   "muziko": "Music",
-
-// ⟪ ſɭэ ſɭw , 🌦️ ⟫
 
   "ariaKrepuskoCatsiina": "Dusk",
   "ariaKrepuskoKama": "Dusk level",
@@ -186,18 +152,15 @@ export const EN: Record<string, string> = {
   "vet6limaHajla": "Hail",
   "vet6limaNega": "Snowy",
 
-  // ⟪ WebGL 🖥️ ⟫
+  // ⟪ ſɟᴜ ſɭɹ ſןɹ ʌ ɭʃᴜ ֭ſɭᴜȝ 🖥️ ⟫
 
   "webglNeSubtenata": "Your browser does not support WebGL. Update your browser for the full experience.",
   "webglDetalo": "Kajiite requires WebGL to run. Please update your browser or check your GPU settings.",
   "webglReprovi": "Retry",
 
-// ⟪ ſɭэ ſɭw , 🌍 ⟫
-
   "ariaEniriNala": "Enter the main world.",
   "saxeiNala": "Generate or load a world",
-  "mondTitolo": "Worlds",
-  "mondKsaka": "World",
+  "mondKsaka": "Worlds",
   "mondSxono": "Seed",
   "catsiinaKf2Nala": "Generate",
   "mondSavitaCatsara": "Saved worlds",
@@ -207,10 +170,8 @@ export const EN: Record<string, string> = {
   "ariaNalaDuobligi": "Duplicate",
   "catsiinaVetlaqiEliri": "Save and exit world.",
 
-// ⟪ ſɭэ ſɭw , ⚙️ ⟫
-
   "hate2Haku1o": "Settings",
-  "subtitoloHaku1o": "Language, sound, music, wardrobe.",
+  "ksakat2xaHaku1o": "Language, sound, music, wardrobe.",
   "catsiinaSono": "Sound",
   "catsiinaBruo": "Background noise",
   "ariaGaweCatsiina": "Language",

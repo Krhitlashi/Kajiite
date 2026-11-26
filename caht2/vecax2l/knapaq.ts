@@ -1,9 +1,10 @@
-// ≺⧼ ſןᴜȝ ʌ ſɭɔ ſ͕ɭɜ ı],ᴜ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🏛️ ⧽≻
+// ≺⧼ ſɭc̗ᴜ ſןᴜȝ 🧪 ⧽≻
+
 import * as THREE from "three";
 import { bokTavolajnQoxaKefoujn } from "../../skek2/hapaq/satalaj-hapaq.js";
-import { tlunakEnirejon } from "../../skek2/hapaq/satalaj/enirejo.js";
+import { tlunakEnirejon } from "../../skek2/hapaq/satalaj/c2h2.js";
 import { tlunakPilolCah6k6 } from "../../skek2/hapaq/satalaj/cah6k6.js";
-import { knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+import { knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 interface Vecax2l {
   hakekuxa: number;

@@ -1,6 +1,7 @@
-// ≺⧼ j͑ʃͷ̗ᴜʞ 🌿 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷᴜ̩ᴜ ſɟɹȝ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2Bufezacen, vakox2qSenIndekson } from "../../x2x2q/hakox2q.js";
+import { kf2Bufezacen, vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
 import { PURPURAJTRUNKAJRADIOJ } from "./hasoza.js";
 
 // ⟨ ſɭʞэ 📃 ⟩

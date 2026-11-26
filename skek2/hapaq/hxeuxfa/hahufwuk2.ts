@@ -1,12 +1,13 @@
-// ≺⧼ ֭ſɭᶗ‹ɔⅎ ı],ʞᴜ ŋᷠᴜ ſɭʞɹ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ֭ſɭw ſȷп́w ſɭɹ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2T6g6Cac2sex } from "../../x2x2q/cac2sex/t6g6.js";
-import { kf2F2kQan2k } from "../../x2x2q/haqoxa.js";
-import { vakox2qQoxaKefoujn } from "../../x2x2q/hakox2q.js";
+import { kf2T6g6Cac2sex } from "../../p6kpu/cac2sex/t6g6.js";
+import { kf2F2kQan2k } from "../../p6kpu/haqoxa.js";
+import { vakox2qQoxaKefoujn } from "../../p6kpu/hakox2q.js";
 import { PATSIIL6DA, kf2K6xafQoxaKefoun, SLALL6DA } from "./cat6h6kk6xafai.js";
 import { kf2Falekon } from "./faleko.js";
-import { veb6qaiWeh2, veb6qaiW2d2 } from "../../x2x2q/haweh2.js";
-import { HUFWUK2TSIJE } from "../../x2x2q/so3akak.js";
+import { veb6qaiWeh2, veb6qaiW2d2 } from "../../p6kpu/haweh2.js";
+import { HUFWUK2TSIJE } from "../../p6kpu/so3akak.js";
 import type { HxeuxfaRaqa, HxeuxfaKanta } from "./hahunaq.js";
 export function vepaqHxeuxfojn(qena: THREE.Scene,
   hxeuxfaRaqa: HxeuxfaRaqa[],
@@ -19,12 +20,12 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   const k6xafRaqa: THREE.Vector3[] = [];
 
   const hxeuxfaPukek = t6g6Pukek.clone();
-  // ⟪ ſɟw ɭʃᴜ ʌ ʃᴜ ſɟᴜ ſɟɹ j͑ʃɔᶗ‹ ʌ ⺓ ʌ ſןw ſɭɔƽ ⟅ 📃 ⟫
+
   const hxeuxfaBacac2sex = ( t6g6Pukek.map ?? kf2T6g6Cac2sex() ).clone();
   hxeuxfaBacac2sex.repeat.set(0o4, 0o4);
   hxeuxfaPukek.map = hxeuxfaBacac2sex;
   if ( t6g6Pukek.bumpMap ) {
-    // ⟪ ɭʃɜ ŋᷠэ ʌ ſɭɹ ᶅſɹƽ ʌ ⺓ ʌ ſןw ſɭɔƽ ⟅ 📃 ⟫
+
     const hxeuxfaK2w2k = t6g6Pukek.bumpMap.clone();
     hxeuxfaK2w2k.repeat.set(0o4, 0o4);
     hxeuxfaPukek.bumpMap = hxeuxfaK2w2k;
@@ -84,7 +85,6 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   const kuhalHakek = new THREE.Mesh(vakox2qQoxaKefoujn(kuhalHavecax2lani), kuhalPukek);
   qena.add(kuhalHakek);
 
-  // ⟪ ſɭʞɹ ʌ ſɭɹ ſȷɔ ʌ ⺓ ʌ ſɭэ ı],ᴜʞ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ⟅ 📃 ⟫
   const k6xafK2fe = k6xafRaqa.length;
   const k6xafPukek = ( weh2: number, w2d2: number ) => new THREE.MeshBasicMaterial({
     color: veb6qaiWeh2(weh2), toneMapped: false, transparent: true, opacity: veb6qaiW2d2(w2d2),
@@ -103,13 +103,12 @@ export function vepaqHxeuxfojn(qena: THREE.Scene,
   k6xafLowak.frustumCulled = false;
   qena.add(k6xafP6sca, k6xafSost2, k6xafLowak);
 
-  // ⟪ ı],ɔ ŋᷠᴜ ʌ j͑ʃͷ̗ᴜͷ̗ ʌ ⺓ ʌ ֭ſɭᶗ‹ɔⅎ ı],ʞᴜ ⟅ 📃 ⟫
   const slalK2fe = 0o3;
   const k6xafSlal = new THREE.InstancedMesh(
     kf2K6xafQoxaKefoun(SLALL6DA, 0o11/0o100, 0o6/0o10, 0o355/0o100),
     k6xafPukek(0xf88828, 0o7/0o40), k6xafK2fe * slalK2fe);
   k6xafSlal.frustumCulled = false;
-  // ⟪ j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ʌ ſɭ,ᴜ ſɟɔ ʌ ⺓ ʌ ŋᷠᴜ ſɭʞɹ ⟅ 📃 ⟫
+
   k6xafP6sca.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   k6xafSost2.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   k6xafLowak.instanceMatrix.setUsage(THREE.DynamicDrawUsage);

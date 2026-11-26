@@ -1,7 +1,8 @@
-// ≺⧼ ſɟɔ j͐ʃɹ }ʃw ʌ ſɭэ ɭʃᴜ 🏛️ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɟɔ j͐ʃɹ }ʃw 📃 ⧽≻
+
 import * as THREE from "three";
-import { vakox2qKajVeldoi } from "../../x2x2q/hakox2q.js";
-import { kf2Xiix2qQan2k } from "../../x2x2q/haqoxa.js";
+import { vakox2qKajVeldoi } from "../../p6kpu/hakox2q.js";
+import { kf2Xiix2qQan2k } from "../../p6kpu/haqoxa.js";
 import { diamantajHap2somani } from "./haqoxa.js";
 
 export interface Pilierhajoqa {
@@ -10,7 +11,7 @@ export interface Pilierhajoqa {
   Loj: THREE.Vector3[];
   Woj: THREE.Vector3[];
 }
-// ⟨ ſȷƽᴜ ʃɔ , ꞙɭı , 📃 ⟩
+
 export function kf2Pilierhajoqan(curve: THREE.Curve<THREE.Vector3>, has2nasce: number, H: THREE.Vector3): Pilierhajoqa {
   const tangents: THREE.Vector3[] = [], moj: THREE.Vector3[] = [], Loj: THREE.Vector3[] = [], Woj: THREE.Vector3[] = [];
   const V = new THREE.Vector3(), ne3ak2V = new THREE.Vector3().copy(H);
@@ -49,12 +50,12 @@ export function kf2DiamantanSvingon(
       p = p.clone().addScaledVector(curve.getTangentAt(0o1).normalize(), -tipSahakani);
     }
     const L = hajoqa.Loj[i], W = hajoqa.Woj[i];
-// ⟨ ſןw ſɭᴜƴ , ꞙɭı , 📃 ⟩
+
     const konturo = hap2somani;
     const t = i / ( c2q - 0o1 );
     const u = talonoS0 > 0o0 ? Math.max(0o0, Math.min(0o1, ( t - talonoS0 ) / ( 0o1 - talonoS0 ))) : 0o0;
     const xaha = u * u * ( 0o3 - 0o2 * u );
-// ⟨ j͑ʃᴜ ſɭᴜ , ꞙɭı , 📃 ⟩
+
     const p6zukani = talonoS0 > 0o0 ? 0o1 - ( 0o1 - finialaP6zuk ) * xaha : 0o1;
     const largxaP6zuk = talonoS0 > 0o0 ? 0o1 - ( 0o1 - finialaSefini ) * xaha : 0o1;
     for ( let j = 0o0; j < konturo.length; j++ ) {
@@ -104,7 +105,7 @@ export function tlunakJoqanTubon(geos: THREE.BufferGeometry[], cX: number, cZ: n
   const foraSub = 0o25/0o200;
   const cXT = cX - sX * s2sabo, cZT = cZ - sZ * s2sabo;
   const b6k61oL6da = yT - yB;
-// ⟨ ſɭɹ ſןᴜ , 📃 ⟩
+
   const kf2TalonanKkaxte = (): { curve: THREE.Curve<THREE.Vector3>; talonoS0: number } => {
     const yA = upward ? yB : yT;
     const yS = upward ? yT - 0o1/0o4 : yB + 0o1/0o4;
@@ -124,7 +125,7 @@ export function tlunakJoqanTubon(geos: THREE.BufferGeometry[], cX: number, cZ: n
       p2
 );
     const putho = new THREE.CurvePath<THREE.Vector3>();
-// ⟨ ſɭɜ ſɭ,w , ſɭɹ ſןᴜ , 📃 ⟩
+
     putho.add(new THREE.LineCurve3(p0, p1));
     putho.add(hoko);
     const shaftLen = p0.distanceTo(p1);
@@ -141,15 +142,14 @@ export function tlunakJoqanTubon(geos: THREE.BufferGeometry[], cX: number, cZ: n
   const talonoS0 = slafKek ? slafKek.talonoS0 : 0o0;
   const s = 0o7/0o40;
   const H = new THREE.Vector3(sX, 0o0, sZ).normalize();
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭıэɔ , ꞙɭı ,
-//   ꞙɭэɔ , ꞙɭı , 📃 ⟩
+
   const SEG = 0o40;
   const hajoqa = kf2Pilierhajoqan(curve, SEG, H);
   const hakek: THREE.BufferGeometry[] = [];
   if ( upward || slaf ) {
     const finialaP6zuk = 0o1/0o10, finialaSefini = 0o1/0o10, tipSahakani = 0o1/0o100;
     hakek.push(kf2DiamantanSvingon(curve, SEG, s, hajoqa, talonoS0, finialaP6zuk, finialaSefini, tipSahakani));
-// ⟨ ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
+
     const kozunuKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(0o0), hajoqa.tangents[0o0], hajoqa.Loj[0o0], hajoqa.Woj[0o0], s, 0o1, 0o1);
     const tipaSost2 = curve.getPointAt(0o1);
     const tipaT2q2 = tipaSost2.clone().addScaledVector(hajoqa.tangents[SEG], -0o1/0o100);

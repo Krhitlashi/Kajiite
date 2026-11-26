@@ -1,7 +1,8 @@
-// ≺⧼ ſɟɔ j͐ʃɹ ʌ j͑ʃɜ j͑ʃƨɹ 🪵 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃɜ ſ̀ȷᴜ ſɭᴜ ſɭᴜ̩ j͑ʃɜ j͑ʃƨɹ ſɟɔ j͐ʃɹ j͑ʃᴜꞇ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2S2cel2nCac2sex } from "../../x2x2q/cac2sex/s2cel2.js";
-import { kf2S2cel2nBumpanCac2sex } from "../../x2x2q/cac2sex/s2cel2-bumpo.js";
+import { kf2S2cel2nCac2sex } from "../../p6kpu/cac2sex/s2cel2.js";
+import { kf2S2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/s2cel2-bumpo.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, type Cel2Raqa } from "./raqa.js";
 

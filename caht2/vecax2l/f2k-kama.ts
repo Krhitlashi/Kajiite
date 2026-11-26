@@ -1,17 +1,13 @@
-// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ֭ſɭᴜ ſ͔ɭᴜ ʌ ſןᴜ j͐ʃэ 📏 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ſɭэ ſɭᴜ , j͑ʃᴜ ſɭ,w ,
-// ſɭɜ ſɭ,w , ꞙɭɿ , ſɭɜ ſɭ,w , ꞙɭı ,
-// j͑ʃᴜ ſɭ,w , ꞙɭı , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
+// ≺⧼ ſȷɹ ſɭƽ ŋᷠᴜ 🧪 ⧽≻
+
 import "./ceh2kap2.mjs";
 import * as THREE from "three";
 import { vepaqKaxten } from "../../kanta/nala/kaxte.js";
 import { kf2T6g6Pukek, kf2T6hnaPukek,
-  kf2Cah6k6Pukek, kf2KuhalPukek } from "../../skek2/x2x2q/pukek.js";
+  kf2Cah6k6Pukek, kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
 import { kas2kantaHasoza } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
 import { rampaKuro, STUPAF2KKURO, K6H6ASTUPAF2K } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
 
-// ⟪ ֭ſɭᴜ ſ͔ɭᴜ , ꞙɭı , 📏 ⟫
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭı , ⟅ ꞙɭɿ , ꞙɭı , ꞙɭı , 📃 ⟩
 const DEKLIVOLIMO = 0o1 / K6H6ASTUPAF2K + 0o1 / 0o20;
 const KUROTOLERO = 0o1 / 0o40;
 
@@ -29,16 +25,13 @@ for ( const kek of kas2kantaHasoza ) {
   const kuro = Math.hypot(kek.x2 - kek.x1, kek.z2 - kek.z1);
   const fala = Math.abs(kek.y1 - kek.y0);
   if ( fala < 0o1 / 0o1000 || kuro < 0o1 / 0o1000 ) continue;
-// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭ,w , 📃 ⟩ , ſȷƽᴜ ʃɔ , ꞙɭı ,
-// ſɭэ ɭʃᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
+
   if ( kek.f2k !== true ) { glataj++; continue; }
   haf2k.push({ fala, kuro, haga: fala / kuro,
     x: ( kek.x1 + kek.x2 ) / 0o2, z: ( kek.z1 + kek.z2 ) / 0o2 });
 }
 haf2k.sort(( p, q ) => q.haga - p.haga);
 
-// ⟨ ſɭэ ſɭᴜ , j͑ʃᴜ ſɭ,w , 📏 ⟩ , ſɭэ ſɭᴜ , ꞙɭı ,
-// ſɭэ ſɭᴜ , ꞙɭɿ , ꞙɭı , ꞙɭı , 📃 ⟩
 const troaj = haf2k.filter(r => r.haga > DEKLIVOLIMO);
 const premitaj = haf2k.filter(r => rampaKuro(r.fala) - r.kuro > KUROTOLERO);
 const haga = [ ...new Set(haf2k.map(r => r.haga.toFixed(0o2))) ].sort();

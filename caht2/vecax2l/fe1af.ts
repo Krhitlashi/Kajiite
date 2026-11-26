@@ -1,15 +1,14 @@
-// ≺⧼ ſȷɔ ſᶘᴜʞ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🟩 ⧽≻
-// ſᶘɜ , j͑ʃᴜ ſɭ,w , ſɭɜ ſɭ,w , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭı ,
-// ſɭɜ ſɭ,w , ſɭэ ſɭᴜ , ꞙɭэ , ⟅ ſᶘɜ , ſɭэ ſɭᴜ , ꞙɭı , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
+// ≺⧼ ſȷɔ ſᶘᴜʞ 🧪 ⧽≻
+
 import * as THREE from "three";
 import { vepaqHerbanTavolon } from "../../skek2/pudal/xa3e/fe1af/gazono.js";
 import { kf2HerbanPukekn } from "../../skek2/pudal/xa3e/fe1af/g2b2.js";
 import { kf2HerbanKxa } from "../../skek2/pudal/xa3e/fe1af/hakxa.js";
 import { VALAJBIOMOJ, EBENAJAJBIOMOJ }
   from "../../skek2/pudal/xa3e/habs2.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/t6limaSoza.js";
-import { SKULPTAN, SKULPTAPASO } from "../../kanta/t6lima-havop2/tik.js";
-import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
+import { SKULPTAN, SKULPTAPASO } from "../../kanta/mut6q-havop2/kxe.js";
+import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 const NOMBRODAJXUROJ = 0o5;
 const neniam = (): boolean => false;
@@ -40,7 +39,7 @@ async function vecax2l( qaksaka: string, tu5ekomani: readonly never[] | readonly
     hatufo = 0o0;
     for ( const c of qena.children ) hatufo += ( c as THREE.InstancedMesh ).count;
   }
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${qaksaka.padEnd(0o30)} ${knak2fecajasai(alHe(kmaXobe), 0o6)} He ｡ ſɭw ʃᴜ = ${hacakamaha} ｡ ſȷɔ ſᶘᴜʞ = ${hatufo}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${qaksaka.padEnd(0o30)} ${knak2fecajasai(tbo(kmaXobe), 0o6)} He ｡ ſɭw ʃᴜ = ${hacakamaha} ｡ ſȷɔ ſᶘᴜʞ = ${hatufo}`);
 }
 
 await vecax2l("jɐ ɭʃᴜ ( ſןɔ ʌ ſȷɔ ſᶘᴜʞ )", qun2Tu5ekomani);

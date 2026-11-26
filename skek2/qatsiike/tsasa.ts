@@ -1,10 +1,11 @@
 // ≺⧼ ſᶘᴜ j͑ʃᴜ 🌊 ⧽≻
+
 import * as THREE from "three";
-import { KONTURAGLSL } from "../x2x2q/tsije.js";
-import type { CanaUnihaqoxa } from "../x2x2q/tsije.js";
-import { glataTona } from "../../kanta/x2x2q/interpolo.js";
-import { kf2Bufezacen } from "../x2x2q/hakox2q.js";
-import { veb6qaiWeh2 } from "../x2x2q/haweh2.js";
+import { KONTURAGLSL } from "../p6kpu/tsije.js";
+import type { CanaUnihaqoxa } from "../p6kpu/tsije.js";
+import { glataTona } from "../../kanta/k2fe/fkabe.js";
+import { kf2Bufezacen } from "../p6kpu/hakox2q.js";
+import { veb6qaiWeh2 } from "../p6kpu/haweh2.js";
 
 export type RiverData = { mesh: THREE.Mesh; waterSurfaceY: ( x: number, z: number ) => number };
 
@@ -17,7 +18,7 @@ export function vepaqK6si(qena: THREE.Scene,
   steps: number,
   l6daFn: ( x: number, z: number ) => number
 ): RiverData {
-  return vepaqK6siLaŭAkso(qena, riverFn, tsasaY, p2somaniSefini, xStart, xEnd, steps, l6daFn, false);
+  return vepaqK6siKanto(qena, riverFn, tsasaY, p2somaniSefini, xStart, xEnd, steps, l6daFn, false);
 }
 
 export function vepaqK6siNordan(qena: THREE.Scene,
@@ -29,10 +30,10 @@ export function vepaqK6siNordan(qena: THREE.Scene,
   steps: number,
   l6daFn: ( x: number, z: number ) => number
 ): RiverData {
-  return vepaqK6siLaŭAkso(qena, riverFn, tsasaY, p2somaniSefini, zStart, zEnd, steps, l6daFn, true, 0o20);
+  return vepaqK6siKanto(qena, riverFn, tsasaY, p2somaniSefini, zStart, zEnd, steps, l6daFn, true, 0o20);
 }
 
-function vepaqK6siLaŭAkso(qena: THREE.Scene,
+function vepaqK6siKanto(qena: THREE.Scene,
   riverFn: ( t: number ) => number,
   tsasaY: ( t: number ) => number,
   p2somaniSefini: number,
@@ -156,7 +157,7 @@ export function vepaqKnat6keqanuitanTsasa(qena: THREE.Scene,
   vem2Fn: ( x: number, z: number ) => number,
   l6daFn: ( x: number, z: number ) => number
 ): RiverData {
-  // ⟨ ſᶘᴜ j͑ʃᴜ , j͑ʃᴜ ſɭ,w , ⟅ ⟩
+
   const densigo = 0o3;
   const sx = vepat6ni / densigo;
   const nx = Math.max(0o2, Math.round(( x1 - x0 ) / sx));
@@ -170,13 +171,13 @@ export function vepaqKnat6keqanuitanTsasa(qena: THREE.Scene,
     for ( let i = 0o0; i <= nx; i++ ) {
       const x = x0 + ( x1 - x0 ) * i / nx;
       const z = z0 + ( z1 - z0 ) * j / nz;
-      const t6lima = l6daFn(x, z);
+      const mut6q = l6daFn(x, z);
       const vem2 = vem2Fn(x, z);
-      const jufu = vem2 - t6lima;
-      // ⟨ ſᶘᴜ j͑ʃᴜ , j͑ʃᴜ ſɭэ ɭʃᴜ , ſɭэ ſɭ,w , ⟅ ⟩
+      const jufu = vem2 - mut6q;
+
       haxekuxa.push(x, vem2 + 0o1/0o20, z);
       qan2k.push(0o1/0o2, Math.max(0o0, jufu));
-      // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭı , ſɭэ ſɭ,w , ꞙɭı , ſɭᴜ ı],ƨɔ , ⟅ ⟩
+
       hak6liqani.push(maskFn(x, z) ? 0o1 : 0o0);
     }
   }
@@ -185,8 +186,7 @@ export function vepaqKnat6keqanuitanTsasa(qena: THREE.Scene,
       const a = j * ( nx + 0o1 ) + i, b = a + 0o1;
       const c = a + nx + 0o1, d = c + 0o1;
       havecax2lani.push(a, b, d, a, d, c);
-      // ⟨ ſɭɹ ſןᴜ , j͑ʃɜ ſɭ,ᴜ , ꞙɭɔ , ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
-      //   , ꞙɭı , ſɭɹ ſןᴜ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ⟅ 📃 ⟩
+
       const videbla = ( hak6liqani[a] === 0o1 && qan2k[a * 0o2 + 0o1] > 0o0 )
         || ( hak6liqani[b] === 0o1 && qan2k[b * 0o2 + 0o1] > 0o0 )
         || ( hak6liqani[c] === 0o1 && qan2k[c * 0o2 + 0o1] > 0o0 )
@@ -199,7 +199,7 @@ export function vepaqKnat6keqanuitanTsasa(qena: THREE.Scene,
   zace.setAttribute("uv", new THREE.Float32BufferAttribute(qan2k, 0o2));
   zace.setAttribute("aTsasa", new THREE.BufferAttribute(new Float32Array(hak6liqani), 0o1));
   zace.setIndex(havecax2lani);
-  // ⟨ ſɭɹ ſןᴜ , j͑ʃɜ ſɭ,ᴜ , ꞙɭı , ſɭᴜ ſןᴜ , ⟅ ⟩
+
   zace.computeVertexNormals();
   zace.setIndex(videblajHavecax2l);
   const pukek = kf2OndanAkvanPukekn(qena, true);
@@ -210,7 +210,7 @@ export function vepaqKnat6keqanuitanTsasa(qena: THREE.Scene,
 }
 
 function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMaterial {
-  // ⟨ ſᶘᴜ j͑ʃᴜ , ſɟᴜ }ʃᴜ , ᶅſɔ ֭ſɭɹ , j͑ʃɜ ſᶘɹ , ꞙɭı , ⟅ ⟩
+
   const cana = qena.userData.canaajUnihaqoxa as CanaUnihaqoxa | undefined;
   const maskaXekuxa = maskita ? "attribute float aTsasa;\nvarying float vTsasa;\n" : "";
   const maskaXekuxaS2kanta = maskita ? "vTsasa = aTsasa;\n" : "";
@@ -225,7 +225,7 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
     side: THREE.DoubleSide,
     transparent: true,
     depthWrite: false,
-    // ⟨ ſᶘᴜ j͑ʃᴜ , j͑ʃɜ ɭʃɹȝ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ſɭэ ſɭ,w , ⟅ ⟩
+
     fog: true,
     uniforms: THREE.UniformsUtils.merge([
       THREE.UniformsLib.fog,
@@ -234,7 +234,7 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
         uColorDeep: { value: new THREE.Color(veb6qaiWeh2(0x185868)) },
         uColorShallow: { value: new THREE.Color(veb6qaiWeh2(0x389898)) },
         uColorRipple: { value: new THREE.Color(veb6qaiWeh2(0x68b8b0)) },
-        // ⟨ ᶅſɔ ֭ſɭɹ , ſɟᴜ }ʃᴜ , ſᶘᴜ j͑ʃᴜ , ᶅſɔ ֭ſɭɹ , ꞙɭı ⟅ ⟩
+
         uTop: cana?.uTop ?? { value: new THREE.Color(veb6qaiWeh2(0x78a8c0)) },
         uMid: cana?.uMid ?? { value: new THREE.Color(veb6qaiWeh2(0xb8d0d8)) },
         uBot: cana?.uBot ?? { value: new THREE.Color(veb6qaiWeh2(0xe0e8e8)) },
@@ -414,7 +414,7 @@ function kf2OndanAkvanPukekn(qena: THREE.Scene, maskita = false): THREE.ShaderMa
       }
     `,
   });
-  // ⟨ UniformsUtils.merge , ſɟᴜ }ʃᴜ , ꞙɭı , ꞙɭɿ , ⟅ 📃 ⟩
+
   if ( cana ) Object.assign(pukek.uniforms, {
     uTop: cana.uTop, uMid: cana.uMid, uBot: cana.uBot,
     uSunCol: cana.uSunCol, uSunDir: cana.uSunDir,

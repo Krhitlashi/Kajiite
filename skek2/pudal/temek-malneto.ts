@@ -1,11 +1,10 @@
-// ≺⧼ ɭʃɔ ŋᷠɔƽ ꞁȷ̀ᴜꞇ ʌ ſɟᴜ ſɟɔ ŋᷠɔ 🕊️ ⧽≻
-// ⟨ ſᶘɔ ʌ ſɭᴜ ſ͕ȷɔ , LOFT , ⟅ ⟩
-// ⟨ ſᶘɔ ʌ ſᶘɜ ſ͔ɭɹ , LOFT , ⟅ ⟩
+// ≺⧼ ɭʃɔ ŋᷠɔƽ ꞁȷ̀ᴜꞇ ʌ ſɟᴜ ſɟɔ ŋᷠɔ ʌ ɭʃɔ ŋᷠɔ ſɭc̭ j͐ʃc̗ɔ ɭʃɜ 🕊️ ⧽≻
+
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { kf2LoftoQoxa } from "../x2x2q/haqoxa.js";
-import { katmullRom } from "../../kanta/x2x2q/interpolo.js";
-import { petrelajCac2sex } from "../x2x2q/cac2sex/petrela-plumaro.js";
+import { kf2LoftoQoxa } from "../p6kpu/haqoxa.js";
+import { katmullRom } from "../../kanta/k2fe/fkabe.js";
+import { petrelajCac2sex } from "../p6kpu/cac2sex/petrela-plumaro.js";
 
 interface PetrelaKa5asexaz { z: number; y: number; r: number; }
 
@@ -194,7 +193,6 @@ function kox2qiPoPukek(hakek: THREE.Mesh[]): Hakox2q[] {
   return hakox2q;
 }
 
-// ⟨ ſןᴜ j͐ʃэ , ⟅ ⟩
 export function vepaqPetrelanModelon(): THREE.Group {
   const hate2 = new THREE.Group();
   const cac2sex = petrelajCac2sex(vPorZ);
@@ -202,7 +200,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
     color: 0xffffff, map: cac2sex.soq, bumpMap: cac2sex.korpoBump,
     bumpScale: 0o1/0o200, roughness: 0o3/0o4, metalness: 0o0,
   });
-  // ⟨ ſᶘɜ ſ͔ɭɹ , ſןw ſɭɔƽ , ⟅ ⟩
+
   const flugilaPukek = new THREE.MeshStandardMaterial({
     color: 0xffffff, map: cac2sex.tsog2, bumpMap: cac2sex.flugiloBump,
     bumpScale: 0o1/0o200, roughness: 0o3/0o4, metalness: 0o0,
@@ -212,14 +210,10 @@ export function vepaqPetrelanModelon(): THREE.Group {
     color: 0x101018, roughness: 0o1/0o4, metalness: 0o0,
   });
 
-  // ⟨ ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
   const soq = new THREE.Mesh(kf2Lofton(PETRELASPINO, 0o4, 0o20, PETRELALARGHO), g2j6);
   soq.name = "korpo";
   hate2.add(soq);
 
-  // ⟨ ſɟƨɹƽ , ⟅ ⟩
-  // ⟨ ſɟƨɹƽ , j͑ʃᴜ ſɭ,w , ⟅ ⟩
-  // ⟨ ſɟƨɹƽ , j͑ʃᴜ ʃɜ , ⟅ ⟩
   const bekajHaka5asexaz: PetrelaKa5asexaz[] = [
     { z: 0o60/0o200, y: 0o16/0o200, r: 0o2/0o200 },
     { z: 0o66/0o200, y: 0o16/0o200, r: 0o6/0o1000 },
@@ -235,7 +229,6 @@ export function vepaqPetrelanModelon(): THREE.Group {
   naztubo.position.set(0o0, 0o17/0o200, 0o64/0o200);
   hate2.add(naztubo);
 
-  // ⟨ ɭʃɹ ʃᴜ }ʃw , ⟅ ⟩
   const T2BANUZ = 0o50/0o200, T2BANUANGULO = 0o7/0o20;
   const t2banuKa5ik = 0o5/0o1000;
   for ( const s of [ 0o1, -0o1 ] ) {
@@ -245,7 +238,7 @@ export function vepaqPetrelanModelon(): THREE.Group {
     const t2banu = new THREE.Mesh(
       new THREE.SphereGeometry(t2banuKa5ik, 0o10, 0o10), hunasai);
     t2banu.position.copy(soza).sub(c2h2);
-    t2banu.name = "okulo";
+    t2banu.name = "t2banu";
     hate2.add(t2banu);
   }
     for ( const s of [ 0o1, -0o1 ] ) {
@@ -255,9 +248,8 @@ export function vepaqPetrelanModelon(): THREE.Group {
       hate2.add(pat6);
     }
 
-  // ⟨ }ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ , ⟅ ⟩
   const vostaHate = new THREE.Group();
-  vostaHate.name = "vosto";
+  vostaHate.name = "nar2sa";
   vostaHate.position.set(0o0, 0o2/0o200, -0o50/0o200);
   const vostaj: THREE.BufferGeometry[] = [];
   for ( let k = -0o2; k <= 0o2; k++ ) {
@@ -280,19 +272,17 @@ export function vepaqPetrelanModelon(): THREE.Group {
   for ( const g of vostaj ) g.dispose();
   if ( vostajVeb6kekitaj ) {
     const vostaCakamaha = new THREE.Mesh(vostajVeb6kekitaj, g2j6);
-    vostaCakamaha.name = "vostoplumoj";
+    vostaCakamaha.name = "nar2saplumoj";
     vostaHate.add(vostaCakamaha);
     hate2.add(vostaHate);
   }
 
-  // ⟨ ſᶘɜ ſ͔ɭɹ , ⟅ ⟩
   const brakaVecax2l = kf2Flugilon(
     FLUGILAJRIPOJ.slice(0o0, KUBUTAINDESKO + 0o1), 0o0, 0o52/0o100, 0o3, 0o12);
   const manajRipoj = FLUGILAJRIPOJ.slice(KUBUTAINDESKO)
     .map(r => ({ ...r, x: r.x - KUBUTAX }));
   const manaVecax2l = kf2Flugilon(manajRipoj, 0o52/0o100, 0o1, 0o3, 0o12);
 
-  // ⟨ ᶅſɜ ֭ſɭᴜ , ⟅ ⟩
   for ( const s of [ 0o1, -0o1 ] ) {
     const flugilaHate = new THREE.Group();
     flugilaHate.name = "tsog2";
@@ -303,7 +293,6 @@ export function vepaqPetrelanModelon(): THREE.Group {
     knece.scale.x = peqeni;
     flugilaHate.add(knece);
 
-    // ⟨ ɭʃꞇƽ , ⟅ ⟩
     const manoHate = new THREE.Group();
     manoHate.name = "mano";
     manoHate.position.set(-s * KUBUTAX, 0o0, 0o0);
@@ -315,7 +304,6 @@ export function vepaqPetrelanModelon(): THREE.Group {
     hate2.add(flugilaHate);
   }
 
-  // ⟪ ſɭɜ j͐ʃɹ , ſɭᴜ ſןᴜ 📃 ⟫
   const statikaj = hate2.children.filter(c => ( c as THREE.Mesh ).isMesh) as THREE.Mesh[];
   for ( const k of kox2qiPoPukek(statikaj) ) {
     if ( k.hatsiq.length === 0o1 ) continue;

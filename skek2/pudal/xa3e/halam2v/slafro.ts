@@ -1,5 +1,6 @@
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃͷ̗ᴜ ſȷƣ̋ɜ 📃 ⧽≻
 import * as THREE from "three";
-import { vakox2qSenIndekson } from "../../../x2x2q/hakox2q.js";
+import { vakox2qSenIndekson } from "../../../p6kpu/hakox2q.js";
 import { kf2Xa3eHazardon } from "../sakxoXa3e.js";
 
 export function vepaqLam2vnSlafranQoxaKefoun(slafjHas2nasce = 0o2): { maso: THREE.BufferGeometry; slafj: THREE.BufferGeometry } {

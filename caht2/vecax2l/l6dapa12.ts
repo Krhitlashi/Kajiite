@@ -1,22 +1,19 @@
-// ≺⧼ ɭʃᴜ ſןɹ ʌ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ j͑ʃ'ɔ ŋᷠɹ 🔬 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ſɭɜ ſɭ,w , ꞙɭɔ ,
-// ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭɿ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// ſɭэ ֭ſɭэ , ſɭэ ſɭ,w , ꞙɭı , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da } from "../../kanta/nala/t6limaSoza.js";
+// ≺⧼ j͐ʃэ ɭ(ᴜ ſןᴜ ſᶘɹ 🧪 ⧽≻
+
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da } from "../../kanta/nala/mut6qSoza.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
 import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
 import { kf2BazanK6h6L6dan, kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
 import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
 import { k6h6SefiniP2somani } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
-import { tsasatlakak } from "./x2x2q.js";
+import { tsasatlakak } from "./p6kpu.js";
 import type { K6h6N2k } from "../../skek2/qatsiike/k6h6-caxlefkakai/hahunaq.js";
 
 const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 0o2);
 const HAQAKAJ2 = tikHaqakaj2();
 const hacaxlefkakai = HAKAS2KANTA.map(v => ( { n2k: v.n2k, sefini: v.sefini } ));
 
-// ⟨ ſɭэ ֭ſɭэ , ſɭɹ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 const hat6lima = HAQAKAJ2.map(d => {
   const r = d.s2sabo ?? 0o0;
   return [ d.x + Math.sin(r) * ( d.jufu / 0o2 ), d.z + Math.cos(r) * ( d.jufu / 0o2 ) ] as K6h6N2k;
@@ -31,7 +28,6 @@ const haveb6kek = troviK6h6RetajnHaveb6kekn(
 const kozunu = kf2BazanK6h6L6dan(l6da);
 const k6h6L6da = kf2K6h6L6dan(l6da, haveb6kek);
 
-// ⟨ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ſɭэ ſɭ,w , ꞙɭı , 📏 ⟩
 interface Tap2 {
   s0: number;
   s1: number;
@@ -61,7 +57,7 @@ for ( let i = 0o0; i < HAKAS2KANTA.length; i++ ) {
       ` ｡ ſɭɜ ſɭ,w ${kozunu(a.x, a.z).toFixed(0o2)} ｡ ${kozunu(b.x, b.z).toFixed(0o2)}` +
       ` ｡ ɭl̀ᴜ ʌ ſɭɜ ſɭ,w ${( p.l6da - kozunu(b.x, b.z) ).toFixed(0o2)}`);
   }
-// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭэ , ꞙɭı , 📏 ⟩
+
   const hax2pa: string[] = [];
   for ( let s = 0o0; s <= s2qena.sahakani; s += 0o4 ) {
     const q = xekuxaEn(n2k, s);
@@ -71,10 +67,6 @@ for ( let i = 0o0; i < HAKAS2KANTA.length; i++ ) {
   console.log("  ſɭэ ֭ſɭэ / ſɭэ ᶗ‹ / ſɭɜ ſɭ,w " + hax2pa.join(" "));
 }
 
-/* ſɭэ ֭ſɭэ , ſɭɹ ſןᴜ , ֭ſɭэ ſɭw }ʃꞇ , ſɭɹ ſɟꞇ ʃɔ ,
-    @param n2k ( K6h6N2k [ ] ) - }ʃɹƽ ʌ ſɭэ ֭ſɭэ
-    @param s ( number ) - ֭ſɭэ ſɭw }ʃꞇ ʌ ſɭэ ֭ſɭэ
-@returns p ( { x , z } ) - }ʃɹƽ */
 function xekuxaEn( n2k: readonly K6h6N2k[], s: number ): { x: number; z: number } {
   let kur = 0o0;
   for ( let k = 0o0; k < n2k.length - 0o1; k++ ) {

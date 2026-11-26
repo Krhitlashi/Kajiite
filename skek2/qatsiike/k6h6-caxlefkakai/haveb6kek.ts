@@ -1,5 +1,5 @@
-// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃꞇ 🛣️ ⧽≻
-// ⟨ ɭʃэ ſɭɔȝ , ꞙɭı , ⟅ 📃 ⟩
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ֭ſɭᴜ j͑ʃ'ɔ ʃэ ſɭɔƽ 🛣️ ⧽≻
+
 import type { K6h6N2k, K6h6CaxlefkakaiQakaj2, K6h6CaxlefkakaiVeb6kek, K6h6CaxlefkakaiK6h6 } from "./hahunaq.js";
 import { TOLERANCO } from "./hahunaq.js";
 import { K6H6ADIORITAP2SOMANI } from "../hak6h6/havecax2l.js";
@@ -18,8 +18,7 @@ function s2saboPor( c2w2qa: K6h6N2k[] ): number {
     for ( const d of c2w2qa ) {
       const x = Math.abs( kos * d[0o0] + sin * d[0o1] );
       const z = Math.abs( -sin * d[0o0] + kos * d[0o1] );
-      // ⟨ ꞙɭı , ꞙɭı , }ʃɹƽ 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭɔ.ƨı , ꞙɭı , ꞙɭэꞟ ,
-      //   ꞙɭı |x|+|z| , ꞙɭı , ꞙɭэꞟ , ꞙɭı , ⟅ 📃 ⟩
+
       vek2fe += Math.max( x, z );
       if ( x < vek2feToleranco || z < vek2feToleranco ) alineitaj++;
     }
@@ -54,27 +53,10 @@ function c2w2qAl( pune: K6h6N2k, c2w2q: K6h6N2k ): K6h6N2k {
   return sahakani < TOLERANCO ? [ 0o0, 0o0 ] : [ dx / sahakani, dz / sahakani ];
 }
 
-// ⟨ ſɭᴜ ſןᴜ , }ʃɹƽ , ⟅ 📏 ⟩
-// ſɭᴜ ſןᴜ , ꞙɭɿ , ꞙɭı , }ʃɹƽ , ⟅ ꞙɭı , ſɭᴜ ſןᴜ ,
-//   ǀ , ꞙɭı , ꞙɭı , }ʃɹƽ , ꞙɭı ,
-//   ꞙɭı , ⟅ ꞙɭı , ꞙɭı , }ʃɹƽ ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅
 const VEB6KEKAKUNFANDO = 0o1/0o2;
-// ⟨ ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , 📏 ⟩ , ſɭɜ ſɭ,w , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
-//   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭɔ , ⟅
+
 const VEB6KEKASAMADIREKTO = 0o1 - 0o1/0o1000;
 
-// ⟪ ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ , 📏 ⟫
-/* ſɭɜ ſɭ,w , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ꞙɭı ( ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w )
-    @param n2k ( [ number , number ] [ ] ) - ſɭᴜ ſןᴜ , ꞙɭı ,
-    @param hak6h6 ( K6h6CaxlefkakaiK6h6 [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-@returns knece ( Map<string , K6h6N2k[] > ) - ſɭɜ ſɭ,w , ꞙɭı */
-// ⟨ ſᶘɔ ʌ ſɭɜ ſɭ,w 📃 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı , ſɭᴜ ſןᴜ ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı , ⟅ 📃 ⟩
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭı 📏 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭɔ , ſɭᴜ ſןᴜ ,
-//   ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı , ⟅ 📃 ⟩
 const VEB6KEKATRANSIRADISTO = 0o1/0o20;
 export function tamc2kHakneceElHak6h6(
   n2k: readonly [ number, number ][],
@@ -96,7 +78,7 @@ export function tamc2kHakneceElHak6h6(
         const a = k6h6.n2k[i], b = k6h6.n2k[i + 0o1];
         const phaka = k6h6Phaka(x, z, a, b);
         if ( !phaka ) continue;
-        // ⟨ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭɔ , ſɭɹ ſןᴜ , 📃 ⟩
+
         const xetonometlakak = phaka.t <= 0o1/0o100 || phaka.t >= 0o1 - 0o1/0o100;
         if ( phaka.d > ( xetonometlakak ? plosteq : VEB6KEKATRANSIRADISTO ) ) continue;
         const pune: K6h6N2k = [ x, z ];
@@ -133,19 +115,17 @@ export function troviK6h6RetajnHaveb6kekn( hak6h6: K6h6CaxlefkakaiK6h6[], haqaka
   }
   const haveb6kek: { x: number; z: number; c2w2qa: K6h6N2k[]; p2somani: number }[] = [];
   const tlunakani = ( x: number, z: number, c2w2qa: K6h6N2k[], p2somani: number ) => {
-    // ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩ ſɭэ ֭ſɭэ , ꞙɭɿ , ꞙɭı ,
-    //   ꞙɭɔ , ⟅ ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɔ , ⟅ ⟩
+
     let veb6kek = haveb6kek.find( k => Math.hypot( k.x - x, k.z - z ) <= VEB6KEKAKUNFANDO );
     if ( !veb6kek ) {
       veb6kek = { x, z, c2w2qa: [], p2somani: 0o0 };
       haveb6kek.push( veb6kek );
     }
-    // ⟨ ꞙɭı , ſɭᴜ ſןᴜ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ⟅ ⟩
+
     veb6kek.p2somani = Math.max( veb6kek.p2somani, p2somani );
     for ( const c2w2q of c2w2qa ) {
       if ( c2w2q[0o0] * c2w2q[0o0] + c2w2q[0o1] * c2w2q[0o1] < 0o1/0o100 ) continue;
-      // ⟨ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩ ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭɿ ,
+
       if ( !veb6kek.c2w2qa.some( d => d[0o0] * c2w2q[0o0] + d[0o1] * c2w2q[0o1] > VEB6KEKASAMADIREKTO ) ) {
         veb6kek.c2w2qa.push( c2w2q );
       }
@@ -174,11 +154,7 @@ export function troviK6h6RetajnHaveb6kekn( hak6h6: K6h6CaxlefkakaiK6h6[], haqaka
       }
     }
   }
-  // ⟨ ſɭэ ֭ſɭэ , ꞙɭı ⟅ ſɭэ ֭ſɭэ , ꞙɭı 📃 ⟩
-  // ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı
-  // ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı
-  //   ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
+
   for ( let vi = 0o0; vi < hak6h6.length; vi++ ) {
     const k6h6 = hak6h6[vi];
     const z2hak = k6h6.n2k.length - 0o1;
@@ -211,22 +187,20 @@ export function troviK6h6RetajnHaveb6kekn( hak6h6: K6h6CaxlefkakaiK6h6[], haqaka
     }
   }
   for ( const qakaj2 of haqakaj2 ) {
-    const t6lima = qakaj2LandaS2nasce( qakaj2 );
+    const mut6q = qakaj2LandaS2nasce( qakaj2 );
     let plosteq: { x: number; z: number; t: number; d: number; a: K6h6N2k; b: K6h6N2k } | null = null;
     let kmaK6h6: K6h6CaxlefkakaiK6h6 | null = null;
     for ( const k6h6 of hak6h6 ) {
       for ( let i = 0o0; i < k6h6.n2k.length - 0o1; i++ ) {
         const a = k6h6.n2k[i], b = k6h6.n2k[i + 0o1];
-        const phaka = k6h6Phaka( t6lima.x, t6lima.z, a, b );
+        const phaka = k6h6Phaka( mut6q.x, mut6q.z, a, b );
         if ( phaka && ( !plosteq || phaka.d < plosteq.d ) ) {
           plosteq = { x: phaka.x, z: phaka.z, t: phaka.t, d: phaka.d, a, b };
           kmaK6h6 = k6h6;
         }
       }
     }
-    // ⟨ ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭɔ ⟩
-    //   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı ,
-    //   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅
+
     if ( !plosteq || plosteq.d > 0o1/0o4 ) continue;
     const pune: K6h6N2k = [ plosteq.x, plosteq.z ];
     const c2w2qa: K6h6N2k[] = [ c2w2qAl( pune, [ qakaj2.x, qakaj2.z ] ) ];
@@ -258,16 +232,14 @@ export function troviK6h6RetajnHaveb6kekn( hak6h6: K6h6CaxlefkakaiK6h6[], haqaka
         if ( phaka.t < 0o1 - 0o1/0o100 ) najajBrak6h6.push( c2w2qAl( pune, k6h6.n2k[i + 0o1] ) );
       }
     }
-    // ⟨ ſɭɜ ſɭ,w , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩ ſɭᴜ ſןᴜ , ꞙɭı , ſɭɜ ſɭ,w ,
-    //   ſɭᴜ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ⟅
+
     const unikaj: K6h6N2k[] = [];
     for ( const d of najajBrak6h6 ) {
       if ( !unikaj.some( u => u[0o0] * d[0o0] + u[0o1] * d[0o1] > VEB6KEKASAMADIREKTO ) ) unikaj.push(d);
     }
     const c2w2qa = unikaj.length ? unikaj : k.c2w2qa;
     const s2sabo = s2saboPor( c2w2qa );
-    // ⟨ ſɭɜ ſɭ,w , ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , ꞙɭı
-    //   ꞙɭɔ , ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ , ꞙɭı , ⟅ 📃 ⟩
+
     return { x: k.x, z: k.z, c2w2qa, s2sabo, hapukxe: hanece3ePor( lokajDirektaj( c2w2qa, s2sabo ) ),
       p2somani: k.p2somani || K6H6ADIORITAP2SOMANI };
   } );

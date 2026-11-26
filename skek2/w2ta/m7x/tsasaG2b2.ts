@@ -1,4 +1,4 @@
-// ≺⧼ ſȷэ ſȷɹ ♨️ ⧽≻
+// ≺⧼ ſȷэ ſȷɹ ʌ ſᶘᴜ j͑ʃᴜ ſ͔ɭɹ ʃɹ ♨️ ⧽≻
 import * as THREE from "three";
 
 export function tlunakF6f2n(g: THREE.Group, haxekuxa: THREE.Vector3): { f2m2: THREE.Points; kozunuHaxekuxa: THREE.Vector3 } {

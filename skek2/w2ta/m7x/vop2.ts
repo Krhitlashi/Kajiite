@@ -1,4 +1,5 @@
-// ≺⧼ j͑ʃ'ɜ ſןɹ 🍲 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃ'ɜ ſןɹ 📃 ⧽≻
+
 export interface MangxajxVop2 { key: string; name: string; col: number; flavor: string; }
 export const FOKS: MangxajxVop2[] = [
   { key: "fok0", name: "ហ្វុក អ៊ីម៉ាសាយ · សំបកលីគែន", col: 0xe0d8c0, flavor: "នំបុ័ងលីគែនក្តៅ , ទាយឺត , ចំហាយក្តៅ។" },

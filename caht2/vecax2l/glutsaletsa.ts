@@ -1,11 +1,11 @@
-// ≺⧼ ʃэ ɭʃɔȝ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſןw ſɭᴜƴ ʌ j͐ʃɹ ŋᷠɔ 🧪 ⧽≻
-// ⟨ ſןᴜ ſᶘɹ ʌ ſɟᴜ ſɭᴜ ʌ ſɭᴜ ſ͔ȷɔ ⟅ ſɭᴜ ŋᷠᴜ ʌ ſןᴜ ſᶘɹ ʌ ſɭэ ֭ſɭэ 📃 ⟩
+// ≺⧼ ſ͔ɭͷ̗w ſᶘᴜ j͐ʃɔ ſᶘᴜ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { vepaqKradanKaxten } from "../../kanta/nala/kaxte/krada-kaxte.js";
+import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { vepaqQox2n2kKaxten } from "../../kanta/nala/kaxte/qox2n2k-kaxte.js";
 import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
-import { kf2T6g6Pukek, kf2T6hnaPukek, kf2KuhalPukek } from "../../skek2/x2x2q/pukek.js";
+import { kf2T6g6Pukek, kf2T6hnaPukek, kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
 
 const CELO: [ number, number ] = [ 0o160, -0o171 ];
 const HAKAS2KANTA = tikHak6h6();
@@ -15,7 +15,7 @@ const oro = kf2KuhalPukek(0xd8b058);
 const qox2n2kHan2k: [ number, number ][][] = [];
 const qox2n2kHaveb6kek: [ number, number ][] = [];
 for ( const u of tikHakaxte() ) {
-  const kaxte = vepaqKradanKaxten(qena,
+  const kaxte = vepaqQox2n2kKaxten(qena,
     { ptaluPal6: u.ptaluPal6, k6liqPal6: u.k6liqPal6, kekufxeso: false, hahufwuk2: false },
     [ u.ofsX, u.ofsZ ], oro, u.tlunakHak6liq ?? [] );
   for ( const d of kaxte.kas2kantaHavop2ni ) qox2n2kHan2k.push(d.pts);

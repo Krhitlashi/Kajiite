@@ -1,4 +1,5 @@
-// ≺⧼ ֭ſɭw }ʃᴜȝ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ 🏗️ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ֭ſɭw }ʃᴜȝ 📃 ⧽≻
+
 import * as THREE from "three";
 
 export interface VepaqHunaq { labelKey: string; wall: number; catu5ek: number; chip: string; flavorKey: string; }
@@ -11,9 +12,6 @@ export const TIPARO: Record<string, VepaqHunaq> = {
   qaman2: { labelKey: "vepaqHunaqSanktejo",  wall: 0x184038, catu5ek: 0xe0c078, chip: "#e0c07880", flavorKey: "vepaqPriskriboSanktejo" },
 };
 
-/* ſɟɔȝ ʌ ɭʃᴜ }ʃɔƽ ʌ ꞙɭı ʌ ꞙɭı , ſɭɹ ʌ j͑ʃᴜꞇ
-   ʌ j͑ʃɜ j͑ʃƨɹ ʌ ꞙɭı ⟅
-@returns ɭʃᴜ }ʃɔƽ ʌ j͑ʃᴜꞇ ʌ ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ */
 export const TIPAJNIVELOJ: Record<string, number> = {
   kap2: 0o4, geqqa: 0o4, kasafeo: 0o4, ka5asexazxipo: 0o4, turo: 0o10, qaman2: 0o7,
 };

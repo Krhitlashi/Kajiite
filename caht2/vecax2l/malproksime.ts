@@ -1,33 +1,29 @@
-// ≺⧼ ſᶘɔ ֭ſɭэ ſɭw j͑ʃᴜꞇ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🔭 ⧽≻
-// ſɭɜ ſɭ,w , ſɭᴜ ſןᴜ , ꞙɭцɔɔɔ , ⟅ ſɭэ ſɭw , ꞙɭɩɔɔ ,
-// ſɭэ ſɭᴜ , ſןw ſɭᴜƴ , ꞙɭı ,
-// ſɭɜ ſɭ,w , ſɭɹ ſןᴜ , ꞙɭı ,
-// ſɭэ ſɭw , ꞙɭı , 📃 ⟩
-import * as THREE from "three";
-import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/t6limaSoza.js";
-import { t6limaWeh2En, hagek2fhagasai } from "../../skek2/x2x2q/t6limaHaweh2.js";
-import { h6kuniQoxa, surokQoxa } from "../../skek2/x2x2q/mapqoxa.js";
-import { tikBal2 } from "../../kanta/t6lima-havop2/mapregulo.js";
-import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+// ≺⧼ ŋᷠᴜ j͐ʃɘƣ̋ɜ ſɭɔ˞ꞇ ŋᷠɔ 🧪 ⧽≻
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+import * as THREE from "three";
+import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6qSoza.js";
+import { mut6qWeh2En, hagek2fhagasai } from "../../skek2/p6kpu/mut6qHaweh2.js";
+import { h6kuniQoxa, surokQoxa } from "../../skek2/p6kpu/mapqoxa.js";
+import { kxeBal2 } from "../../kanta/mut6q-havop2/bal2S2kanta.js";
+import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
+
 const GRANDECO = 0o3000;
 const HAS2NASCE = 0o600;
 const SX = HAS2NASCE + 0o1;
 const N = SX * SX;
 const TONA = GRANDECO / HAS2NASCE;
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
+
 const TUTA = 0o1400;
 const SEGTUTA = 0o300;
 const SXTUTA = SEGTUTA + 0o1;
 const TONATUTA = TUTA / SEGTUTA;
-const bal2 = tikBal2();
+const bal2 = kxeBal2();
 const weh2 = new THREE.Color();
 
 const posX = new Float32Array(N);
 const posZ = new Float32Array(N);
 const hal6da = new Float32Array(N);
-// ſɭэ ſɭw , ꞙɭɿ , ⟅ ꞙɭɿ , 📃 ⟩
+
 const kol = new Float64Array(N * 0o3);
 const c2h2 = new Uint8Array(N);
 {
@@ -60,7 +56,7 @@ function xafanitapuHaweh2( kutime: number ): number {
     const haga = ( k2pa > 0o0 && k2pa < SX - 0o1 && i >= SX && i < N - SX )
       ? Math.hypot(hal6da[i + 0o1] - hal6da[i - 0o1], hal6da[i + SX] - hal6da[i - SX]) / ( 0o2 * TONA )
       : 0o0;
-    t6limaWeh2En(weh2, hal6da[i], posX[i], posZ[i], haga, tsasaVem2Tsiike);
+    mut6qWeh2En(weh2, hal6da[i], posX[i], posZ[i], haga, tsasaVem2Tsiike);
     s += weh2.r;
   }
   return s;
@@ -72,7 +68,7 @@ for ( let i = 0o0; i < N; i++ ) {
   const haga = ( k2pa > 0o0 && k2pa < SX - 0o1 && i >= SX && i < N - SX )
     ? Math.hypot(hal6da[i + 0o1] - hal6da[i - 0o1], hal6da[i + SX] - hal6da[i - SX]) / ( 0o2 * TONA )
     : 0o0;
-  t6limaWeh2En(weh2, hal6da[i], posX[i], posZ[i], haga, tsasaVem2Tsiike);
+  mut6qWeh2En(weh2, hal6da[i], posX[i], posZ[i], haga, tsasaVem2Tsiike);
   kol[i * 0o3] = weh2.r; kol[i * 0o3 + 0o1] = weh2.g; kol[i * 0o3 + 0o2] = weh2.b;
 }
 
@@ -85,7 +81,7 @@ function vecax2l( ksaka: string, f: () => number ): void {
     tif.push(performance.now() - t0);
   }
   tif.sort(( a, b ) => a - b);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o32)} ſȷƽᴜ ɭʃᴜ }ʃw = ${knak2fecajasai(alHe(tif[0o10]), 0o6)} He ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${knak2fecajasai(alHe(tif[0o0]), 0o6)} He`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o32)} ſȷƽᴜ ɭʃᴜ }ʃw = ${knak2fecajasai(tbo(tif[0o10]), 0o6)} He ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${knak2fecajasai(tbo(tif[0o0]), 0o6)} He`);
 }
 
 vecax2l("l6da ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ }ʃᴜ j͐ʃᴜ", () => xafanitapuHal6da(0o1));
@@ -93,9 +89,6 @@ vecax2l("l6da ｡ j͑ʃᴜ ʌ j͑ʃᴜꞇ ʌ }ʃᴜ j͐ʃᴜ", () => xafanitapuH
 vecax2l("haweh2 ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ }ʃᴜ j͐ʃᴜ", () => xafanitapuHaweh2(0o1));
 vecax2l("haweh2 ｡ j͑ʃᴜ ʌ j͑ʃᴜꞇ ʌ }ʃᴜ j͐ʃᴜ", () => xafanitapuHaweh2(0o0));
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭw , 📃 ⟩
-// ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭᴜ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ſןw ſɭᴜƴ , ꞙɭɿ , 📃 ⟩
 {
   const NT = SXTUTA * SXTUTA;
   const hojT = new Float32Array(NT);
@@ -118,7 +111,7 @@ vecax2l("haweh2 ｡ j͑ʃᴜ ʌ j͑ʃᴜꞇ ʌ }ʃᴜ j͐ʃᴜ", () => xafanitap
       const haga = ( k2pa > 0o0 && k2pa < SXTUTA - 0o1 && idx >= SXTUTA && idx < NT - SXTUTA )
         ? Math.hypot(hojT[idx + 0o1] - hojT[idx - 0o1], hojT[idx + SXTUTA] - hojT[idx - SXTUTA]) / ( 0o2 * TONATUTA )
         : 0o0;
-      t6limaWeh2En(weh2, hojT[idx], x, z, haga, tsasaVem2Tsiike);
+      mut6qWeh2En(weh2, hojT[idx], x, z, haga, tsasaVem2Tsiike);
       if ( weh2.r !== kol[idxH2y2k * 0o3] || weh2.g !== kol[idxH2y2k * 0o3 + 0o1] || weh2.b !== kol[idxH2y2k * 0o3 + 0o2] ) {
         weh2Malsamaj++;
       }
@@ -127,9 +120,6 @@ vecax2l("haweh2 ｡ j͑ʃᴜ ʌ j͑ʃᴜꞇ ʌ }ʃᴜ j͐ʃᴜ", () => xafanitap
   console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͐ʃᴜ ſ͕ɭɜ ŋᷠɹ ｡ j͑ʃᴜ ꞁȷ̀ᴜ ʌ }ʃᴜ j͐ʃᴜ = ${enTuto} ｡ j͐ʃэ ɭ(ᴜ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ = ${l6daMalsamaj} ｡ ſɭɔʞ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ = ${weh2Malsamaj}`);
 }
 
-// ⟨ ſɭɜ ſɭ,w , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
-// ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 function kreuKozun( pal6: number, has2nasce: number ): () => number {
   const sx = has2nasce + 0o1;
   const n = sx * sx;
@@ -155,7 +145,7 @@ function kreuKozun( pal6: number, has2nasce: number ): () => number {
       const haga = ( k2pa > 0o0 && k2pa < sx - 0o1 && k >= sx && k < n - sx )
         ? Math.hypot(hh[k + 0o1] - hh[k - 0o1], hh[k + sx] - hh[k - sx]) / ( 0o2 * vepat6ni )
         : 0o0;
-      t6limaWeh2En(kk, hh[k], px[k], pz[k], haga, tsasaVem2Tsiike);
+      mut6qWeh2En(kk, hh[k], px[k], pz[k], haga, tsasaVem2Tsiike);
       s += kk.r;
     }
     for ( let k = 0o0; k < n; k++ ) {
@@ -183,10 +173,9 @@ function kreuKozun( pal6: number, has2nasce: number ): () => number {
   }
   ta.sort(( a, b ) => a - b ); tb.sort(( a, b ) => a - b );
   const ma = ta[ta.length >> 0o1], mb = tb[tb.length >> 0o1];
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɜ ſɭ,w A/B ｡ ſןᴜ j͐ʃэ ɭl̀ᴜ = ${knak2fecajasai(alHe(ma), 0o6)} He ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${ta[0o0].toFixed(0o1)} ｡ ſןᴜ j͐ʃэ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${knak2fecajasai(alHe(mb), 0o6)} He ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${tb[0o0].toFixed(0o1)} ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(ma / mb).toFixed(0o2)}x`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɜ ſɭ,w A/B ｡ ſןᴜ j͐ʃэ ɭl̀ᴜ = ${knak2fecajasai(tbo(ma), 0o6)} He ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${ta[0o0].toFixed(0o1)} ｡ ſןᴜ j͐ʃэ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${knak2fecajasai(tbo(mb), 0o6)} He ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${tb[0o0].toFixed(0o1)} ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(ma / mb).toFixed(0o2)}x`);
 }
 
-// ⟨ ſɭэ ſɭᴜ , ſןw ſɭᴜƴ , 📃 ⟩
 let premitaj = 0o0;
 const premita = { x: 0o0, z: 0o0 };
 for ( let i = 0o0; i < N; i++ ) {

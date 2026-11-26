@@ -1,32 +1,28 @@
-// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ᴜꞇ ֭ſɭᴜ ſɭᴜͷ̗ 🗣️ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ꞁȷ̀ᴜꞇᴜ̩ 📃 ⧽≻
 
 export const AIH: Record<string, string> = {
 
-// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
-
+  // ⟪ ֭ſɭᴜ ı],ɔ ſɭɹ ſןɹ 📃 ⟫
   "hate2Aranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
   "hate2Kaxte": "ſɭᴜ ɭl̀ɹ ɭʃɔ",
-  "subtitoloKaxte": "j͐ʃɜ ɭʃᴜ ʌ ꞁȷ̀ɹ ֭ſɭɹɔ˞ ⟅ j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ʌ ſɭᴜ ı],ƨɔ",
+  "ksakat2xaKaxte": "j͐ʃɜ ɭʃᴜ ʌ ꞁȷ̀ɹ ֭ſɭɹɔ˞ ⟅ j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ʌ ſɭᴜ ı],ƨɔ",
   "eniri": "ſɭw ſ̀ȷᴜ",
   "catsiinaPromeni": "ſɭᴜ ɭʃᴜ",
   "catsiinaOrbiti": "֭ſɭɹ j͑ʃɔ",
   "catsiinaHasoqte": "ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ",
   "catsiinaHelpo": "ſȷɔ ſɭ,ꞇ",
 
-// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
-
+  // ⟪ j͑ʃɜȝ ɭʃɔ 📃 ⟫
   "hate2Teksilo": "ſɟᴜ j͑ʃ'ᴜ ı],ͷ̗ɔʞ",
-  "subtitoloTeksilo": "j͑ʃᴜ ֭ſɭᴜƽ ʌ ſɭ,ɹ ſ̀ȷɔ ⟅ ſɟɹ }ʃᴜ ʌ ɭʃᴜ ŋᷠᴜ v j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ ⟅ ſ͔ɭɔ j͐ʃɔɔ˞ ʌ ᶅſɔ ֭ſɭɹ ｡ ɭʃɜƽ v ֭ſɭᴜ ı],ɔ j͑ʃᴜꞇ ⟅",
+  "ksakat2xaTeksilo": "j͑ʃᴜ ֭ſɭᴜƽ ʌ ſɭ,ɹ ſ̀ȷɔ ⟅ ſɟɹ }ʃᴜ ʌ ɭʃᴜ ŋᷠᴜ v j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ ⟅ ſ͔ɭɔ j͐ʃɔɔ˞ ʌ ᶅſɔ ֭ſɭɹ ｡ ɭʃɜƽ v ֭ſɭᴜ ı],ɔ j͑ʃᴜꞇ ⟅",
 
-// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
-
+  // ⟪ }ʃᴜ j͐ʃᴜ 📃 ⟫
   "hate2Sxargxo": "}ʃᴜ j͐ʃᴜ",
   "b6tem2Subskribo": "ſɭᶗ‹ɔ ʌ j͑ʃ'ɔ ſןᴜȝ ⟅",
   "b6tem2Satalo": "j͑ʃ'ɔ ſןᴜȝ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ ⟅",
   "b6tem2Nebulo": "j͐ʃᴜɔ˞ ʌ j͐ʃɜ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ֭ſɭᴜ ⟅",
 
-// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
-
+  // ⟪ ſɟᴜ ſɭᴜ ŋᷠᴜ 📃 ⟫
   "kompasoNordo": "j͐ʃᴜȝ",
   "kamaOrbito": "֭ſɭɹ j͑ʃɔ",
   "catlaqTreni": "ʃэ ɭʃɔȝ",
@@ -49,22 +45,18 @@ export const AIH: Record<string, string> = {
   "agoKuxi": "ſȷɔ˞ᴜ ɭʃᴜ",
   "agoLevi": "j͑ʃᴜ ʃɜƽ",
 
-// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
-
+  // ⟪ ʃᴜ j͐ʃɹ 📃 ⟫
   "hate2Bal2": "ʃᴜ j͐ʃɹ",
 
-// ⟪ ſɭэ ſɭw , ❓ ⟫
-
+  // ⟪ j͑ʃ'ɜ ſןɹ j͐ʃc̗ᴜ 📃 ⟫
   "hate2Hak6h6": "ſɭэ ֭ſɭэ",
-  "subtitoloHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
+  "ksakat2xaHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
 
-// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
-
+  // ⟪ ſɭэ ſᶘɔ 📃 ⟫
   "caxlefkakaiP2d2": "ſɭw ſ̀ȷᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
   "caxlefkakaiSunta": "j͑ʃwc̗ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
 
-// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
-
+  // ⟪ ŋᷠɜⅎᶗ‹ 📃 ⟫
   "manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ı],ꞇƽ",
   "manĝFok1": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ſ͕ɭᴜ ɭʃɹ ᶅſᴜ",
   "manĝFok2": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ɭʃɜͷ̗ ı],w",
@@ -80,8 +72,7 @@ export const AIH: Record<string, string> = {
   "manĝTla2Gusto": "ſᶘᴜ ֭ſɭᴜͷ̗ ｡ ſɭᶗ‹ɹ j͐ʃᴜ ŋᷠɹⰱ ｡ ſɭɜ ſᶘɹᶗ‹ ｡ ſɟɔ ɭl̀ɹ v ֭ſɭᴜ }ʃɔ j͑ʃᴜꞇ ( ſᶘᴜ j͑ʃͷ̗ᴜʞ ꞁȷ̀ᴜꞇ ) ⟅",
   "manĝPuss0Gusto": "ſᶘᴜ j͑ʃᴜꞇ ʌ j͐ʃᴜ ſɟɹ ⟅ ſɭɔ˞ɜƴ ʌ ſɭᴜ j͑ʃᴜ ʌ ı],ꞇͷ̗ ⟅",
 
-// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
-
+  // ⟪ ɽ͑ʃ'ᴜ ſ͕ɭᴜ 📃 ⟫
   "vepaqHunaqKap2": "ſɭᴜ ſןɹ",
   "vepaqHunaqGeqqa": "ſɭᴜ ſ͔ɭɔȝ",
   "vepaqHunaqKasafeo": "ſɭᴜ j͑ʃᴜ ſȷɔ",
@@ -95,8 +86,7 @@ export const AIH: Record<string, string> = {
   "vepaqPriskriboTuro": "ᶅſw ſɭɹ ʌ ſןᴜȝ ⟅",
   "vepaqPriskriboSanktejo": "j͑ʃɜ j͑ʃƨɹ ⟅",
 
-// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
-
+  // ⟪ ʃᴜ j͐ʃɹ 📃 ⟫
   "thalaHavem2": "ɭʃᴜ }ʃɔƽ",
   "thalaDiamanto": "ɭʃэᴜ̩ ſɭɹ",
   "thalaJes": "ſɭɹ ֭ſɭɹ",
@@ -104,8 +94,7 @@ export const AIH: Record<string, string> = {
   "thalaVepaqHunaq": "֭ſɭᴜ ı],ɔ",
   "thalaXekuxa": "ɽ͑ʃ'ᴜ ſ͕ɭᴜ",
 
-// ⟪ ſɭᴜ ſןᴜ , 🏙️ ⟫
-
+  // ⟪ ɽ͑ʃ'ᴜ ſ͕ɭᴜ 📃 ⟫
   "vepaqNomo0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
   "vepaqNomo1": "ſɭᴜ ſןɹ",
   "vepaqNomo2": "ſɭᴜ ᶅſw ſɭɹ",
@@ -141,18 +130,16 @@ export const AIH: Record<string, string> = {
   "vepaqNomo32": "ſɭᴜ ɭ(ᴜͷ̗",
   "vepaqNomo33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
 
-// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
-
+  // ⟪ ſɟᴜ ſ͕ɭɹȝ 📃 ⟫
   "hate2Inqoxa": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
-  "subtitoloInqoxa": "ſןᴜȝ ｡ ŋᷠɜⅎᶗ‹ ｡ ɭ(ᴜͷ̗ ⟅",
+  "ksakat2xaInqoxa": "ſןᴜȝ ｡ ŋᷠɜⅎᶗ‹ ｡ ɭ(ᴜͷ̗ ⟅",
   "ariaInqoxaCatsiina": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
   "ariaPukxeiCatsiina": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
   "cax2lPaqj": "ſןᴜȝ",
   "cax2lMangxajxoj": "ŋᷠɜⅎᶗ‹",
   "cax2lHapudal": "ɭ(ᴜͷ̗",
 
-// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
-
+  // ⟪ ſןᴜ ſ͔ɭᴜ 📃 ⟫
   "hatePaga": "ſןᴜ ſ͔ɭᴜ",
   "pudalLiixkupukai": "j͐ʃɹᶗ‹ ſɭw ſןwƽ ꞁȷ̀ᴜꞇ",
   "pudalPriskriboLiixkupukai": "j͐ʃᴜ ֭ſɭᴜƽ ʌ j͐ʃɹᶗ‹",
@@ -167,8 +154,7 @@ export const AIH: Record<string, string> = {
   "pudalNeĝotemek": "ɭʃɔ ŋᷠɔƽ",
   "pudalPriskriboNeĝotemek": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
 
-// ⟪ ſɭэ ſɭw , 🌿 ⟫
-
+  // ⟪ ı],ᴜ ſ̀ȷɔ 📃 ⟫
   "hatePlanto": "ı],ᴜ ſ̀ȷɔ",
   "pudalBetulo": "j͐ʃᴜ ŋᷠɹⰱ",
   "pudalPriskriboBetulo": "j͑ʃ'ɔ ſ͔ɭэ ʌ ſɭɔ ֭ſɭw ʌ ſɟɔ ⟅",
@@ -193,8 +179,7 @@ export const AIH: Record<string, string> = {
   "pudalCakeo": "ſᶘᴜ ſɭɔ",
   "pudalPriskriboCakeo": "ı],ɔ ſɭᴜȝ ꞁȷ̀ᴜͷ̗ ʌ ſ̀ȷᴜ ſןɹ j͑ʃᴜꞇ ʌ }ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ ʌ ı],ᴜ ſ̀ȷɔ ⟅",
 
-// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
-
+  // ⟪ ᶅſɔ ֭ſɭɹ 📃 ⟫
   "cax2lHasoqte": "j͑ʃɜȝ ɭʃɔ",
   "soqteWeh2Lhant": "j͐ʃᴜ̩ᴜ",
   "soqteWeh2Hearth": "ſ̀ȷwɔ˞",
@@ -207,8 +192,7 @@ export const AIH: Record<string, string> = {
   "soqteWeh2Obsidian": "֭ſɭw }ʃᴜ",
   "soqteWeh2Cyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
 
-// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
-
+  // ⟪ ſᶘᴜȝ 📃 ⟫
   "cax2lHararo": "ſᶘᴜȝ",
   "tsaqQaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
   "tsaqPsazai": "ſɟɹ }ʃᴜ ſᶘᴜȝ",
@@ -221,8 +205,7 @@ export const AIH: Record<string, string> = {
   "harWeh2Blonda": "ſɟꞇ",
   "harWeh2Griza": "֭ſɭwƽ",
 
-// ⟪ ſȷwɔ˞ , 🎵 ⟫
-
+  // ⟪ j͑ʃп́ꞇ ſɭɔƴ 📃 ⟫
   "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
   "muzikT2bakobesai0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
   "muzikT2bakobesai1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
@@ -233,8 +216,7 @@ export const AIH: Record<string, string> = {
   "muzikT2bakobesai6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
   "muzikT2bakobesai7": "ſɭɘᴜ ֭ſɭᴜ",
 
-// ⟪ ſɭэ ſɭw , 🌦️ ⟫
-
+  // ⟪ ſ͕ɭɹ ſᶘɜ 📃 ⟫
   "ariaKrepuskoCatsiina": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
   "ariaKrepuskoKama": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
   "ariaVet6limaCatsiina": "ſ͕ɭɹ ſᶘɜ",
@@ -243,17 +225,15 @@ export const AIH: Record<string, string> = {
   "vet6limaHajla": "ſɭᴜ ɭʃᴜƽ",
   "vet6limaNega": "ſᶘᴜ ſȷᴜ",
 
-  // ⟪ WebGL 🖥️ ⟫
+  // ⟪ ſɟᴜ ſɭɹ ſןɹ ʌ ɭʃᴜ ֭ſɭᴜȝ 📃 ⟫
 
   "webglNeSubtenata": "ſ͕ȷɜ ſɭɹ ɽ͑ʃ'ɔ ʌ WebGL ⟅",
   "webglDetalo": "ɭʃɔ ſ͕ɭᴜƴ ʌ WebGL ⟅ j͑ʃɹ j͐ʃɹ ŋᷠꞇ ʌ ſɟᴜ ֭ſɭᴜ ſȷᴜ v ſɭɹ ſןɹ ⟅",
   "webglReprovi": "ɭʃɜ ŋᷠэ",
 
-// ⟪ ſɭэ ſɭw , 🌍 ⟫
-
+  // ⟪ }ʃᴜ j͐ʃᴜ 📃 ⟫
   "ariaEniriNala": "ſɭw ſ̀ȷᴜ ʌ ſ͕ɭᴜ ſᶘɔ j͐ʃɹ ⟅",
   "saxeiNala": "ſᶘɔ ſɭɔ ʌ ſɭʞɹ ʌ ſɭᴜͷ̗ ʌ ſ͕ɭɹȝ ʌ }ʃᴜ j͐ʃᴜ",
-  "mondTitolo": "}ʃᴜ j͐ʃᴜ",
   "mondKsaka": "}ʃᴜ j͐ʃᴜ",
   "mondSxono": "ɽ͑ʃ'w j͑ʃ'ᴜ",
   "catsiinaKf2Nala": "ſɭʞɹ",
@@ -264,10 +244,9 @@ export const AIH: Record<string, string> = {
   "ariaNalaDuobligi": "ſןw ſɟw ɭʃᴜ",
   "catsiinaVetlaqiEliri": "j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭᴜ j͑ʃᴜ ʌ j͑ʃwc̗ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ ⟅",
 
-// ⟪ ſɭэ ſɭw , ⚙️ ⟫
-
+  // ⟪ ſ͔ɭᴜ ᶅſɔ 📃 ⟫
   "hate2Haku1o": "ſɭw ſᶘɜ",
-  "subtitoloHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
+  "ksakat2xaHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
   "catsiinaSono": "ʃɔ",
   "catsiinaBruo": "ſȷᴜ ŋᷠᴜʞ",
   "ariaGaweCatsiina": "ſ͔ɭᴜ ᶅſɔ",

@@ -1,20 +1,16 @@
-// ≺⧼ ſɭᴜc̗ ɭʃᴜ ʌ j͑ʃƨꞇʞ ʌ ſɭɔ j͑ʃ'ɔ ⏱️ ⧽≻
-import { alHe, HEPORSEKUNDO } from "../x2x2q/s2cax2l.js";
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſ̀ȷɜ ֭ſɭƽɹ }ʃꞇ ſɭˬɹ j͑ʃᴜꞇ 📃 ⧽≻
 
-// ⟪ }ʃᴜ ɭʃᴜ ſɭᴜ ɭʃɜ ŋᷠᴜ j͑ʃᴜꞇ ʌ ꞙɭı 📃 ⟫
-// ⟨ ɭl̀ɜ ſ͕ɭᴜ , ſɭw ʃᴜ }ʃꞇ ʌ ſɟɹ ɭʃᴜ ʌ ꞙɭı ʌ ꞙɭı ⟅ ſɭɜ ſɭᴜ j͐ʃᴜ
-//   j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ɭl̀ɜ ſ͕ɭᴜ , ꞙɭɔ ʌ requestAnimationFrame ⟅
-//   ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ʌ ɭl̀ɜ ſ͕ɭᴜ , He
-//   ꞙɭı ⟅ ɭl̀ɜ ſ͕ɭᴜ ʌ j͑ʃ'ᴜ ſɭᴜ ꞙɭɔ 📃 ⟩
-export interface RultempajHasukf2qani {
+import { tbo, HEKE } from "../k2fe/s2cax2l.js";
+
+export interface STIH2HASUKF2QANI {
   malmultekosta?: boolean;
-  minimumaP6zuk?: number;
+  saxeP6zuk?: number;
 }
 
 export interface Rultif {
-  bildigu( nun: number ): boolean;
+  bildigu( cal: number ): boolean;
   restarigi(): void;
-  catsaraFokuson( fokusita: boolean ): void;
+  catsaraFokuson( ksabita: boolean ): void;
   readonly p6zukani: number;
   readonly celaTahaqSapse1i: number;
   readonly habilde: number;
@@ -22,118 +18,109 @@ export interface Rultif {
   readonly mezaTahaqSapse1i: number;
 }
 
-// ⟨ j͑ʃƨꞇ ֭ſɭɹ ʌ j͑ʃᴜꞇ ʌ He ⟅ alHe ʌ API ⟅
-//   j͑ʃᴜ ſɭᴜ ʌ ꞙɭɔ ⟅ 📃 ⟩
-const NORMALATAHAQSAPSE1I = HEPORSEKUNDO / 0o74;
-const MALMULTATAHAQSAPSE1I = HEPORSEKUNDO / 0o36;
-const SENFOKUSATAHAQSAPSE1I = HEPORSEKUNDO / 0o30;
-const TAHAQTOLEREMO = alHe(0o1 / 0o4);
-const MUQFAKTORO = 0o5 / 0o4;
-const SEHEFAKTORO = 0o11 / 0o10;
+const AMALTAHAQSAPSE1I = HEKE / 0o74;
+const VAHASATAHAQSAPSE1I = HEKE / 0o36;
+const QUN2KSABATAHAQSAPSE1I = HEKE / 0o30;
+const TAHAQPLOSTEQ = tbo(0o1 / 0o4);
+const MUQVEM2 = 0o5 / 0o4;
+const SEHEVEM2 = 0o11 / 0o10;
 const KAFS2JHATAHAQ = 0o10;
 const MUQJHATAHAQ = 0o10;
-// ⟨ j͑ʃɹ ֭ſɭᴜ ʃᴜ ʌ ꞙɭı ʌ ꞙɭɔ ʌ j͑ʃᴜ ſɭᴜ ⟅
-//   ſɟᴜ ſɭɹ ſןɹ ʌ ꞙɭɔ , ꞙɭээ He , ꞙɭı 📃 ⟩
-const SEHEJHATAHAQ = 0o1000;
-const SKALAPASO = 0o1 / 0o10;
-const DEFAUXLTAMINIMASKALO = 0o1 / 0o2;
-const MEZAPEZO = 0o1 / 0o10;
-const INTERROMPAFAKTORO = 0o10;
 
-/* ɭl̀ɜ ſ͕ɭᴜ , j͑ʃɹ ֭ſɭᴜ ʃᴜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ⟅
-    @param hasukf2qani ( RultempajHasukf2qani ) - ſɟᴜ ſɭɹ ſןɹ ʌ ſɟᴜᴜ̩ ɭʃɹ
-@returns rultif */
-export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultif {
+const SEHEJHATAHAQ = 0o1000;
+const PAL6TBO = 0o1 / 0o10;
+const SAXEPAL6MIN = 0o1 / 0o2;
+const SOST2VEM2 = 0o1 / 0o10;
+const TAHAQ3AKAKVEM2 = 0o10;
+
+export function kf2Rultemon( hasukf2qani: STIH2HASUKF2QANI = {} ): Rultif {
   const malmultekosta = hasukf2qani.malmultekosta ?? false;
-  const minimumaP6zuk = Math.max( 0o1 / 0o4,
-    Math.min( 0o1, hasukf2qani.minimumaP6zuk ?? DEFAUXLTAMINIMASKALO ) );
-  let fokusita = true;
-  let dinamikaP6zuk = 0o1;
-  let panaaTahaq = -Infinity;
-  let ne3ak2Tahaq = -Infinity;
-  let kafs2jTahaqj = KAFS2JHATAHAQ;
-  let muqjTahaqj = 0o0;
-  let sehejTahaqj = 0o0;
+  const saxeP6zuk = Math.max( 0o1 / 0o4,
+    Math.min( 0o1, hasukf2qani.saxeP6zuk ?? SAXEPAL6MIN ) );
+  let ksabita = true;
+  let sakP6zuk = 0o1;
+  let sakTahaq = -Infinity;
+  let xaqadiTahaq = -Infinity;
+  let kafs2jTahaqVek2fe = KAFS2JHATAHAQ;
+  let muqjTahaqVek2fe = 0o0;
+  let sehejTahaqVek2fe = 0o0;
   let habilde = 0o0;
   let preterpasitaj = 0o0;
   let mezaTahaqSapse1i = malmultekosta
-    ? MALMULTATAHAQSAPSE1I
-    : NORMALATAHAQSAPSE1I;
+    ? VAHASATAHAQSAPSE1I
+    : AMALTAHAQSAPSE1I;
 
   function celaTahaqSapse1i(): number {
-    if ( !fokusita ) return SENFOKUSATAHAQSAPSE1I;
-    return malmultekosta ? MALMULTATAHAQSAPSE1I : NORMALATAHAQSAPSE1I;
+    if ( !ksabita ) return QUN2KSABATAHAQSAPSE1I;
+    return malmultekosta ? VAHASATAHAQSAPSE1I : AMALTAHAQSAPSE1I;
   }
 
   function restarigi(): void {
-    panaaTahaq = -Infinity;
-    ne3ak2Tahaq = -Infinity;
-    kafs2jTahaqj = KAFS2JHATAHAQ;
-    muqjTahaqj = 0o0;
-    sehejTahaqj = 0o0;
+    sakTahaq = -Infinity;
+    xaqadiTahaq = -Infinity;
+    kafs2jTahaqVek2fe = KAFS2JHATAHAQ;
+    muqjTahaqVek2fe = 0o0;
+    sehejTahaqVek2fe = 0o0;
     mezaTahaqSapse1i = celaTahaqSapse1i();
   }
 
-  function catsaraFokuson( fokusas: boolean ): void {
-    if ( fokusita === fokusas ) return;
-    fokusita = fokusas;
+  function catsaraFokuson( ksaba2s2: boolean ): void {
+    if ( ksabita === ksaba2s2 ) return;
+    ksabita = ksaba2s2;
     restarigi();
   }
 
-  function adapti( sapse1i: number, interlota: number ): void {
-    // ⟨ ſɭɜ ſɭᴜ j͐ʃᴜ ʌ ꞙɭı ʌ ꞙɭı , j͑ʃ'ɔ ſᶘw }ʃɹ ꞙɭɔ ʌ ꞙɭı ⟅
-    //   ꞙɭı ʌ ɭl̀ɜ ſ͕ɭᴜ , ꞙɭɔ ʌ j͑ʃɹ ֭ſɭᴜ ʃᴜ 📃 ⟩
-    if ( sapse1i > interlota * INTERROMPAFAKTORO ) {
-      muqjTahaqj = 0o0;
-      sehejTahaqj = 0o0;
+  function xesaka( sapse1i: number, interlota: number ): void {
+
+    if ( sapse1i > interlota * TAHAQ3AKAKVEM2 ) {
+      muqjTahaqVek2fe = 0o0;
+      sehejTahaqVek2fe = 0o0;
       mezaTahaqSapse1i = interlota;
       return;
     }
-    mezaTahaqSapse1i += ( sapse1i - mezaTahaqSapse1i ) * MEZAPEZO;
-    if ( kafs2jTahaqj > 0o0 ) {
-      kafs2jTahaqj--;
+    mezaTahaqSapse1i += ( sapse1i - mezaTahaqSapse1i ) * SOST2VEM2;
+    if ( kafs2jTahaqVek2fe > 0o0 ) {
+      kafs2jTahaqVek2fe--;
       return;
     }
-    // ⟨ ſȷƽᴜ ɭʃᴜ ʌ ɭl̀ɜ ſ͕ɭᴜ ʌ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ⟅
-    //   ɭl̀ɜ ſ͕ɭᴜ ʌ ꞙɭı ʌ ꞙɭı , ꞙɭɔ 📃 ⟩
-    if ( mezaTahaqSapse1i > interlota * MUQFAKTORO ) {
-      muqjTahaqj++;
-      sehejTahaqj = 0o0;
-    } else if ( mezaTahaqSapse1i < interlota * SEHEFAKTORO ) {
-      sehejTahaqj++;
-      muqjTahaqj = 0o0;
+
+    if ( mezaTahaqSapse1i > interlota * MUQVEM2 ) {
+      muqjTahaqVek2fe++;
+      sehejTahaqVek2fe = 0o0;
+    } else if ( mezaTahaqSapse1i < interlota * SEHEVEM2 ) {
+      sehejTahaqVek2fe++;
+      muqjTahaqVek2fe = 0o0;
     } else {
-      muqjTahaqj = 0o0;
-      sehejTahaqj = 0o0;
+      muqjTahaqVek2fe = 0o0;
+      sehejTahaqVek2fe = 0o0;
     }
-    if ( muqjTahaqj >= MUQJHATAHAQ && dinamikaP6zuk > minimumaP6zuk ) {
-      dinamikaP6zuk = Math.max( minimumaP6zuk, dinamikaP6zuk - SKALAPASO );
-      muqjTahaqj = 0o0;
-    } else if ( sehejTahaqj >= SEHEJHATAHAQ && dinamikaP6zuk < 0o1 ) {
-      dinamikaP6zuk = Math.min( 0o1, dinamikaP6zuk + SKALAPASO );
-      sehejTahaqj = 0o0;
+    if ( muqjTahaqVek2fe >= MUQJHATAHAQ && sakP6zuk > saxeP6zuk ) {
+      sakP6zuk = Math.max( saxeP6zuk, sakP6zuk - PAL6TBO );
+      muqjTahaqVek2fe = 0o0;
+    } else if ( sehejTahaqVek2fe >= SEHEJHATAHAQ && sakP6zuk < 0o1 ) {
+      sakP6zuk = Math.min( 0o1, sakP6zuk + PAL6TBO );
+      sehejTahaqVek2fe = 0o0;
     }
   }
 
-  function bildigu( nun: number ): boolean {
+  function bildigu( cal: number ): boolean {
     const interlota = celaTahaqSapse1i();
-    if ( nun + TAHAQTOLEREMO < panaaTahaq ) {
+    if ( cal + TAHAQPLOSTEQ < sakTahaq ) {
       preterpasitaj++;
       return false;
     }
-    if ( panaaTahaq === -Infinity ) panaaTahaq = nun;
-    const malfruo = nun - panaaTahaq;
-    // ⟨ ſɟᴜ ſȷᴜɔ˞ ʌ ɭl̀ɜ ſ͕ɭᴜ ʌ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ ⟅
-    //   ɭl̀ɜ ſ͕ɭᴜ ʌ ſɭˬɹ , ꞙɭɔ ʌ ɭl̀ɜ ſ͕ɭᴜ 📃 ⟩
-    panaaTahaq = malfruo >= interlota
-      ? nun + interlota
-      : panaaTahaq + interlota;
-    const sapse1i = ne3ak2Tahaq === -Infinity
+    if ( sakTahaq === -Infinity ) sakTahaq = cal;
+    const stih2P2sa = cal - sakTahaq;
+
+    sakTahaq = stih2P2sa >= interlota
+      ? cal + interlota
+      : sakTahaq + interlota;
+    const sapse1i = xaqadiTahaq === -Infinity
       ? interlota
-      : Math.max( 0o0, nun - ne3ak2Tahaq );
-    ne3ak2Tahaq = nun;
+      : Math.max( 0o0, cal - xaqadiTahaq );
+    xaqadiTahaq = cal;
     habilde++;
-    adapti( sapse1i, interlota );
+    xesaka( sapse1i, interlota );
     return true;
   }
 
@@ -141,7 +128,7 @@ export function kf2Rultemon( hasukf2qani: RultempajHasukf2qani = {} ): Rultif {
     bildigu,
     restarigi,
     catsaraFokuson,
-    get p6zukani() { return dinamikaP6zuk; },
+    get p6zukani() { return sakP6zuk; },
     get celaTahaqSapse1i() { return celaTahaqSapse1i(); },
     get habilde() { return habilde; },
     get preterpasitaj() { return preterpasitaj; },

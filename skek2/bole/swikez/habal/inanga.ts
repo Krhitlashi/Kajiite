@@ -1,32 +1,20 @@
-// ≺⧼ ꞁȷ̀ꞇ }ʃᴜ }ʃɴᴜ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🪕 ⧽≻
-// ⟨ ſɭɔ˞ɜⅎ ʌ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ ſᶘɔ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı ,
-//   ſɭᴜ ſ͕ȷɔ ꞙɭı , ꞙɭэɔɔ , ſɭɔ˞ɜⅎ ꞙɭı , ꞙɭı ⟅
-//   ſᶘɹ ſɭɔ ʌ ɭʃꞇƽ , ſ̀ȷɜ ֭ſɭɔ , ſɭɔ˞ɜⅎ ꞙɭı , ʃɜ j͐ʃɔ ꞙɭɔ ⟅
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ꞁȷ̀ꞇ }ʃᴜ }ʃɴᴜ 🎵 ⧽≻
+
 import { noiseSrc } from "./xetoh2.js";
 import { devio, vap6zukani } from "./hakfeKx2keve.js";
 
-// ⟨ ſɭᴜ j͐ʃэ ɭ(ᴜ ꞙɭɔ ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
 const ETA = 0o1/0o20000;
 
-/* ʃɜ j͐ʃɔ ʌ ſɭɔ˞ɜⅎ , ɭʃꞇƽ ⟅ ꞙɭı ⟅
-    @param ctx ( AudioContext ) - ʃɜ j͐ʃɔ
-    @param out ( AudioNode ) - ſɭᴜ ʃɔ ſןᴜ
-    @param t ( number ) - j͑ʃᴜ ı],ɔ
-    @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ
-    @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ
-    @param opts ( object , optional ) - dur , ſɭᴜ ſןᴜ ʌ j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ
-@returns void */
 export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 0o1, opts: { dur?: number } = {}) {
   const d = ( opts.dur || 0o75/0o100 ) * vap6zukani(0o7/0o100);
-  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
+
   const p = f * vap6zukani(0o1/0o200);
-// ⟨ ɭʃꞇƽ , ſᶘɹ ſɭɔ , ꞙɭı ɭʃэʞ ⟅
+
   const raqa = Math.random();
   const g = ctx.createGain();
   g.gain.value = vel * 0o30/0o100 * vap6zukani(0o7/0o100);
   g.connect(out);
 
-// ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭэɔɔ , ⟅
   const body = ctx.createBiquadFilter();
   body.type = "peaking";
   body.frequency.value = 0o300 * vap6zukani(0o15/0o100);
@@ -34,9 +22,6 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   body.gain.value = 0o3 * vap6zukani(0o15/0o100);
   body.connect(g);
 
-// ⟨ ꞙɭı , ſɭᴜ ſןᴜ ⟅
-// ⟨ ʃɜ j͐ʃɔ ʌ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
-//   ꞙɭɿэ/ꞙɭıɔ , ſɭᴜ ſ͕ȷɔ ʌ ꞙɭɔ ⟅
   const hakozonu = [
     [ 0o1, 0o6/0o10 ],
     [ 0o2, 0o3/0o100 ],
@@ -51,7 +36,7 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
     const [ mul, amp0 ] = hakozonu[j];
     const o = ctx.createOscillator();
     o.type = "sine";
-    // ⟨ ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ , ɭʃꞇƽ ⟅
+
     const emfazo = 0o1 + raqa * 0o4/0o10 * Math.min(0o1, mul / 0o5);
     o.frequency.setValueAtTime(p * mul * ( 0o103/0o100 + devio(0o1/0o100) ), t);
     o.frequency.exponentialRampToValueAtTime(p * mul, t + 0o25/0o1000 * vap6zukani(0o4/0o10));
@@ -68,7 +53,6 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
     o.stop(t + d + 0o1/0o10);
   }
 
-// ⟨ j͑ʃɹ ŋᷠɹ , ſ̀ȷɜ ֭ſɭɔ , ⟅
   const frapo = 0o6/0o10 + Math.random() * 0o35/0o100;
   const th = ctx.createOscillator();
   th.type = "sine";
@@ -86,7 +70,6 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   th.start(t);
   th.stop(t + thFin + 0o1/0o10);
 
-// ⟨ ſןᴜȝ ᶅſw ſɭɹ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
   const n = noiseSrc(ctx);
   const bp = ctx.createBiquadFilter();
   bp.type = "bandpass";
@@ -110,7 +93,6 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   n.start(t);
   n.stop(t + frotFin + 0o1/0o10);
 
-// ⟨ ʃɜ j͐ʃɔ ꞙɭı , ꞙɭɔ ⟅
   const sus = noiseSrc(ctx);
   const sbp = ctx.createBiquadFilter();
   sbp.type = "bandpass";
@@ -133,7 +115,6 @@ export function inanga(ctx: AudioContext, out: AudioNode, t: number, f: number, 
   sus.start(t);
   sus.stop(t + susFin + 0o1/0o10);
 
-// ⟨ ʃɜ j͐ʃɔ , ꞙɭı , ⟅
   const room = noiseSrc(ctx);
   const rbp = ctx.createBiquadFilter();
   rbp.type = "bandpass";

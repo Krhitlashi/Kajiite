@@ -1,23 +1,23 @@
-// ≺⧼ ſɭˬᴜ ſɟɹ ɽ͑ʃ'ɔƽ ʌ j͐ʃэ ɭ(ᴜ ʌ j͑ʃᴜƽ ſןw ʌ ſɭɜ ſɭ,w 📏 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭɿ , ſɭɜ ſɭ,w , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
+// ≺⧼ ſɟw ɭʃʞᴜ c̭ ɭʃƣ̋ɜ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da as kozuL6da } from "../../kanta/nala/t6limaSoza.js";
+import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da as kozuL6da } from "../../kanta/nala/mut6qSoza.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
 import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
 import { kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
 import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
 import { K6H6ABORDASEFINI, K6H6AEKSTERAP2SOMANI, surGrid, STUPARISERO } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
 import { k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
-import { vepaqKradanKaxten } from "../../kanta/nala/kaxte/krada-kaxte.js";
-import { kf2KuhalPukek } from "../../skek2/x2x2q/pukek.js";
-import { tsasatlakak, n2kJe as n2kJeBaza } from "./x2x2q.js";
+import { vepaqQox2n2kKaxten } from "../../kanta/nala/kaxte/qox2n2k-kaxte.js";
+import { kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
+import { tsasatlakak, n2kJe as n2kJeBaza } from "./p6kpu.js";
 
 const CXUURBO = process.argv[0o2] !== "sen";
 const GRANDO = Number(process.argv[0o3] ?? 0o4);
 const OFSX = Number(process.argv[0o4] ?? 0o10);
 const OFSZ = Number(process.argv[0o5] ?? 0o0);
-const T6LIMAPA12 = process.argv[0o6] === "t6lima";
+const T6LIMAPA12 = process.argv[0o6] === "mut6q";
 const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 0o2);
 const HAQAKAJ2 = tikHaqakaj2();
 const HAKAXTE = tikHakaxte();
@@ -30,7 +30,7 @@ if (CXUURBO) {
   const kaxteCatsara = HAKAXTE.length ? HAKAXTE
     : [{ ksaka: "Geles", ptaluPal6: GRANDO, k6liqPal6: "vakox2qita", ofsX: OFSX, ofsZ: OFSZ }];
   for (const u of kaxteCatsara) {
-    const kaxte = vepaqKradanKaxten(qena,
+    const kaxte = vepaqQox2n2kKaxten(qena,
       { ptaluPal6: u.ptaluPal6, k6liqPal6: u.k6liqPal6 as any, kekufxeso: false, hahufwuk2: false },
       [u.ofsX, u.ofsZ], oro);
     qox2n2kHavop2ni.push(...kaxte.kas2kantaHavop2ni);
@@ -64,7 +64,6 @@ const pa12Je = (x: number, z: number): number => {
 };
 const hacakukkaj2sai = ciujHaveb6kek.map(([x, z]) => ({ x, z, l6da: pa12Je(x, z) }));
 
-// ⟨ ı],ᴜ ֭ſɭᴜ , ſɭɜ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const n2kJe = ( pts: readonly [ number, number ][], s: number ): { x: number; z: number } =>
   n2kJeBaza( pts, s, 0o10 ** -0o12 );
 

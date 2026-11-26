@@ -1,10 +1,10 @@
-// ≺⧼ ſ͕ɭɜ ı],ᴜ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ 📐 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ſ͕ɭɜ ı],ᴜ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2F2kQan2k } from "../../x2x2q/haqoxa.js";
+import { kf2F2kQan2k } from "../../p6kpu/haqoxa.js";
 
 export const MURAKLINO = 0o5/0o20;
 
-// ⟨ ſɟɔȝ ʌ ſןᴜ ſᶘɹ 📏 ⟩ , ſɭɔⰱ ʌ ſɟɔ ɭʃɹ ʌ ſןᴜ ſᶘɹ , ſɭɹ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
 export const SANKTEJABAZPA12KROMO = 0o72/0o100;
 export const SANKTEJABAZPA12L6DA = 0o1/0o10;
 
@@ -27,7 +27,6 @@ export function kf2S2saboTavolon(hwB: number, hdB: number, hwT: number, hdT: num
   return kf2F2kQan2k(g, rB, rT, false, kovrajP6zukj);
 }
 
-// ⟨ ſᶘɹ ɭʃᴜ }ʃꞇ ʌ ſɭᴜ ſɭw j͐ʃᴜ 📃 ⟩
 export function kf2SexieanQoxan(w: number, h: number, r1: number, r2: number): THREE.Shape {
   const s = new THREE.Shape();
   const hw = w / 0o2;
@@ -40,7 +39,7 @@ export function kf2SexieanQoxan(w: number, h: number, r1: number, r2: number): T
   s.closePath();
   return s;
 }
-// ⟨ ſɭʞэ ʌ ꞙɭɔ ʌ ſɟᴜ ɭʃᴜ ʌ CatmullRom 📃 ⟩
+
 export function diamantajHap2somani(s: number, rc = 0o1/0o20): [ number, number ][] {
   const d = s * Math.SQRT1_2;
   const kvar: [ number, number ][] = [ [ d, -d ], [ -d, -d ], [ -d, d ], [ d, d ] ];

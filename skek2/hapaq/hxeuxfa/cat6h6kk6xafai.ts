@@ -1,6 +1,7 @@
-// ≺⧼ ſɭэ ı],ᴜʞ ſ͕ɭɜ ı],ᴜ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɟᴜ ɭʃэ ֭ſɭэ ſɭƽэ ı],ᴜ ſȷᴜꞇ 📃 ⧽≻
+
 import * as THREE from "three";
-// ⟪ ſɭʞɹ ʌ ſ͕ɭɜ ı],ᴜ ʌ ⺓ ʌ ֭ſɭᴜ }ʃɹƽ ⟅ 📃 ⟫
+
 const K6XAFQOXA: [ number, number ][] = [
   [ 0o0/0o10, 0o0/0o10 ],
   [ 0o23/0o100, 0o0/0o10 ],
@@ -19,7 +20,6 @@ const K6XAFQOXA: [ number, number ][] = [
 
 export const SLALL6DA = 0o14/0o100;
 
-// ⟪ ſɭʞɹ ʌ ſ͕ɭɜ ı],ᴜ ʌ ⺓ ʌ ſןᴜ ſᶘɹ ⟅ 📃 ⟫
 export const PATSIIL6DA = 0o15/0o100;
 
 export function kf2K6xafQoxaKefoun( l6da: number, sefini: number, ml: number,

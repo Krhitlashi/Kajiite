@@ -1,11 +1,11 @@
-// ≺⧼ ſȷɔ ſᶘᴜʞ j͑ʃᴜꞇ ʌ j͑ʃͷ̗ᴜʞ 🌿 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ſɭᶗ‹ᴜ 📃 ⧽≻
+
 import * as THREE from "three";
 
 export function kf2HerbanKxa(sahakani: number, sefini: number, s2sabo: number,
   kekaf2: number, tordo: number, weh2: THREE.Color, has2nasce = 0o4,
   pintPotenco = 0o7/0o10, petitajHacel2nu = 0o5, psaz = true): THREE.BufferGeometry {
-  // ⟨ ſɟᴜ ɭʃᴜ ʌ ſɭэ ʌ ꞙɭꞟ ʌ j͑ʃᴜꞇ ⟅ ꞙɭц ʌ ꞙɭɔ ʌ ꞙɭı ,
-  //   ꞙɭɔ ʌ j͑ʃͷ̗ᴜʞ ʌ ſȷɔ ſᶘᴜʞ 📃 ⟩
+
   const HACEL2NU = Math.max(0o3, Math.min(0o5, Math.round(petitajHacel2nu)));
   const HAS2NASCE = has2nasce;
   const haxekuxa: number[] = [];
@@ -50,10 +50,10 @@ export function kf2HerbanKxa(sahakani: number, sefini: number, s2sabo: number,
   zace.setAttribute("uv", new THREE.Float32BufferAttribute(qan2k, 0o2));
   zace.setAttribute("color", new THREE.Float32BufferAttribute(haweh2, 0o3));
   zace.setIndex(havecax2lani);
-  // ⟨ j͑ʃɜ ſɭ,ᴜ ʌ j͑ʃͷ̗ᴜʞ ⟅ ꞙɭɔ ʌ j͑ʃᴜ jᷠᴜ 📃 ⟩
+
   zace.computeVertexNormals();
   if ( !psaz ) {
-    // ⟨ ſɭc̗ᴜ ɭʃэ ſɭɔȝ ꞁȷ̀ᴜ }ʃw ʌ ꞙɭɔ ʌ ſɭɜ ſɭ,w ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
+
     const flankajHavecax2l = HAS2NASCE * HACEL2NU * 0o6;
     zace.setIndex(havecax2lani.filter(( _, i ) =>
       i < flankajHavecax2l || ( i - flankajHavecax2l ) % 0o6 >= 0o3));

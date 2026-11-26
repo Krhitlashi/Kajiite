@@ -10246,13 +10246,13 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// kantaoj/t6lima-havop2/cxefa/tsasa.ts
+// kantaoj/mut6q-havop2/geles/tsasa.ts
 const SKULPTA_AKVA_NIVELO = -288 / 64;
-// kantaoj/hax2x2q/interpolo.ts
+// kantaoj/tom6nu/interpolo.ts
 function glata(t) {
 	return t * t * (3 - 2 * t);
 }
-// eskekoj/hax2x2q/haweh2.ts
+// eskekoj/tom6nu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -10311,7 +10311,7 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// eskekoj/hax2x2q/kozuhaweh2.ts
+// eskekoj/tom6nu/kozuhaweh2.ts
 function bruoKrado(xi, zi) {
 	let n = xi * 2683120 + zi * 2676968 | 0;
 	n = (n ^ n >>> 13) * 4759592;

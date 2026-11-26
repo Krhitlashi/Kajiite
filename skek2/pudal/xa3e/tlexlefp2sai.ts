@@ -1,6 +1,7 @@
-// ≺⧼ ɭl̀ᴜ ſ͕ɭɜ ʌ ſɟɔ j͐ʃɹ 🪴 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſ̀ȷɔ ı],ͷ̗ɔ ſȷɘɹ j͑ʃᴜꞇ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2AsfanSlafCac2sex } from "../../x2x2q/cac2sex/asfa-slaf.js";
+import { kf2AsfanSlafCac2sex } from "../../p6kpu/cac2sex/asfa-slaf.js";
 import { kf2S2saboQuaternionon, kf2Poziciilon, kf2Xa3eHazardon, hazardaWeh2 } from "./sakxoXa3e.js";
 import { type Cel2Raqa } from "./raqa.js";
 import { vepaqKkaxtenLaktukanSlafn, vepaqS2cel2nRingon, kf2S2cel2nRinganPukekn, sost2cel2saipintaS2qena } from "./has2cel2.js";
@@ -80,11 +81,10 @@ export function vepaqTlexlefp2saijn(qena: THREE.Scene,
       }
     }
 
-    // ⟨ ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ ɭ(ɜ ŋᷠᴜ ʌ j͐ʃэ ɭ(ᴜ ʌ ſɟᴜ ı],ɔ ŋᷠᴜ 📃 ⟩
     const unuaTavolaY = h * 0o3/0o10;
     const s2cel2L6da = h * 0o2/0o10;
     if ( unuaTavolaY <= h - s2cel2L6da ) {
-      // ⟨ ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ ɭ(ɜ ŋᷠᴜ ʌ }ʃᴜ j͐ʃᴜ ʌ ſɟᴜ ı],ɔ ŋᷠᴜ 📃 ⟩
+
       const tasMalteru = unuaTavolaY - s2cel2L6da * 0o14/0o40;
       const sost2cel2saiKa5ik = sost2cel2saiR(tasMalteru);
       const ringaP6zuk = Math.max(0o3/0o40, sost2cel2saiKa5ik / ( 0o13/0o40 ) * 0o11/0o10);
@@ -94,7 +94,6 @@ export function vepaqTlexlefp2saijn(qena: THREE.Scene,
       si++;
     }
 
-    // ⟨ ſɟɔ ɭʃɹ ʌ j͑ʃᴜ ƨ 📃 ⟩
     const PINTAJTAVOLOJ = 0o3;
     const pintaKozunu = h * 0o7/0o10;
     const pintaL6da = h;
@@ -103,7 +102,7 @@ export function vepaqTlexlefp2saijn(qena: THREE.Scene,
       const pintaY = pintaKozunu + ( pintaL6da - pintaKozunu ) * tFrakcio;
       const elklino = 0o13/0o40 - tFrakcio * 0o23/0o100;
       const sost2cel2saiKa5ik = sost2cel2saiR(pintaY);
-      // ⟨ ſɟɔ ɭʃɹ ʌ j͑ʃᴜ ƨſןɔ ſ͕ɭɔ }ʃꞇ 📃 ⟩
+
       const p6zukani = ( 0o12/0o100 + sakxoCasacakai() * 0o13/0o100 )
         * ( 0o3/0o4 - tFrakcio * 0o35/0o100 );
       for ( let vek2fe = 0o0; vek2fe < 0o4; vek2fe++ ) {

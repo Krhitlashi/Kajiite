@@ -1,18 +1,19 @@
-// ≺⧼ ֭ſɭw }ʃᴜȝ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ֭ſɭw }ʃᴜȝ 📃 ⧽≻
+
 import * as THREE from "three";
-import type { CanaUnihaqoxa } from "../../../skek2/x2x2q/tsije.js";
+import type { CanaUnihaqoxa } from "../../../skek2/p6kpu/tsije.js";
 
 export type Vet6lima = "nebula" | "pluva" | "hajla" | "nega";
 
-export interface VeteraWeh2Cax2lo {
-  top: THREE.Color; mid: THREE.Color; bot: THREE.Color;
-  sunCol: THREE.Color; fog: THREE.Color;
-  hemiSky: THREE.Color; hemiGnd: THREE.Color;
-  sunPos: THREE.Vector3;
-  sunInt: number; hemiInt: number; sprajtaOp: number; eksxekuxa: number; nebulDenso: number;
+export interface Vet6Haweh2Cax2lo {
+  soza: THREE.Color; sost2: THREE.Color; psaz: THREE.Color;
+  sunaHaweh2: THREE.Color; maha: THREE.Color;
+  hemiCana: THREE.Color; hemiKozu: THREE.Color;
+  sunaHaxekuxa: THREE.Vector3;
+  sunaVem2: number; hemiVem2: number; sprajtaVem2: number; t6fani: number; mahaVem2: number;
 }
 
-export interface VeteraDuopo { h2hafaf2: VeteraWeh2Cax2lo; krepusko: VeteraWeh2Cax2lo; }
+export interface Vet6Kcakca { h2hafaf2: Vet6Haweh2Cax2lo; pukobestaf: Vet6Haweh2Cax2lo; }
 
 export interface ScenaKanta {
   k2fcakuk: THREE.WebGLRenderer;
@@ -27,8 +28,8 @@ export interface ScenaKanta {
   hemiTsije: THREE.HemisphereLight;
   suna: THREE.DirectionalLight;
   sunaSprajto: THREE.Sprite;
-  aplikiSupknu: ( t: number ) => void;
-  aplikiVet6liman: ( v: Vet6lima ) => void;
+  k2reiSupknu: ( t: number ) => void;
+  k2reiVet6liman: ( v: Vet6lima ) => void;
   tlak2Vet6liman: ( t: number ) => void;
   tlak2Ombron: ( x: number, z: number ) => boolean;
   maksimumaRatio: number;

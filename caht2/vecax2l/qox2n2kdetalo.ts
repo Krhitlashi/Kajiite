@@ -1,9 +1,8 @@
-// ≺⧼ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɭɜ ı],ɹȝ ʌ j͑ʃɹ ſɟᴜ ʃᴜ ʌ j͑ʃ'ɔ ŋᷠɹ 🔬 ⧽≻
-// ⟨ j͑ʃᴜ ſɭ,w , ſɭɜ ſɭ,w , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
+// ≺⧼ ſ͕ɭɜ ı],ɹ }ʃɹ ſɭԏ͕ɔ ɭʃᴜ j͐ʃɜ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { vepaqKradanKaxten } from "../../kanta/nala/kaxte/krada-kaxte.js";
-import { l6da } from "../../kanta/nala/t6limaSoza.js";
+import { vepaqQox2n2kKaxten } from "../../kanta/nala/kaxte/qox2n2k-kaxte.js";
+import { l6da } from "../../kanta/nala/mut6qSoza.js";
 import { kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
 import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
 import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
@@ -12,12 +11,12 @@ import { k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
 import { kf2EksteranP2somani } from "../../skek2/qatsiike/hak6h6/has2nasce.js";
 import { kf2K6h6jnBendojn } from "../../skek2/qatsiike/hak6h6/habakaweKatoma.js";
 import { kf2T6g6Pukek,
-  kf2T6hnaPukek } from "../../skek2/x2x2q/pukek.js";
+  kf2T6hnaPukek } from "../../skek2/p6kpu/pukek.js";
 import { K6H6AEKSTERAP2SOMANI, K6H6ATRUAP2SOMANI, surGrid } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
 
 const qena = new THREE.Scene();
 const pukek = new THREE.MeshStandardMaterial();
-const kaxte = vepaqKradanKaxten(qena, { ptaluPal6: 0o3, k6liqPal6: "vakox2qita" },
+const kaxte = vepaqQox2n2kKaxten(qena, { ptaluPal6: 0o3, k6liqPal6: "vakox2qita" },
   [ 0o0, 0o0 ], pukek);
 const haveb6kek = kaxte.tamc2kHan2k.map(([ x, z ]) => {
   const nece3e = kaxte.tamc2kHanece3e.get(x + "," + z);
@@ -51,7 +50,7 @@ for ( const natakatomasai of [ [ 0o24, -0o154 ], [ 0o104, -0o204 ] ] ) {
     }
     console.log(`  ${ksaka} ｡ ${hax2pa.join(" ")}`);
   }
-// ⟨ ſɭэ ֭ſɭэ , ꞙɭɿ , ꞙɭı , 📃 ⟩
+
   for ( const d of kaxte.kas2kantaHavop2ni ) {
     for ( let k = 0o0; k < d.pts.length - 0o1; k++ ) {
       const [ ax, az ] = d.pts[k], [ bx, bz ] = d.pts[k + 0o1];

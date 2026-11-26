@@ -1,6 +1,7 @@
-// ≺⧼ ֭ſɭᴜ ſɟɹ }ʃw ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ 💠 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ſɟɹ }ʃw 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2CibeKen2qQoxa } from "../../x2x2q/haqoxa.js";
+import { kf2CibeKen2qQoxa } from "../../p6kpu/haqoxa.js";
 import { paqPukek, type VepaqSpec } from "./hahunaq.js";
 
 export function tlunakDiamantanSpegulon(qena: THREE.Scene, spec: VepaqSpec, group: THREE.Group, w: number): void {
@@ -18,18 +19,9 @@ export function tlunakDiamantanSpegulon(qena: THREE.Scene, spec: VepaqSpec, grou
   qena.add(ring);
 }
 
-// ⟨ ſןw ſɭᴜƴ , ſɭᴜ ſɭ,w , ꞙɭı , 📃 ⟩
 const RANDOLARGHO = 0o1/0o10;
 export const RANDOL6DA = 0o1/0o40;
 
-/* ſןw ſɭᴜƴ , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ſɭᴜ ſןɹ , ꞙɭı ,
-   j͑ʃᴜ j͐ʃɹ ｡ ſɟᴜ ſןᴜȝ ｡ j͑ʃᴜ ｡
-    @param hw ( number ) - j͑ʃɜ ſɭ,ᴜ ｡ j͑ʃɔ ſȷꞇ }ʃꞇ ｡
-    @param hd ( number ) - j͑ʃэ ɭ(ᴜ ſןɔ˞ᴜƴ ｡
-    @param y ( number ) - }ʃꞇ ｡ ſןɔ˞ᴜƴ ｡
-    @param s2sabo ( number ) - j͑ʃᴜ ｡ ɔ ｡ }ʃꞇ ｡
-    @param l6da ( number = RANDOL6DA ) - }ʃꞇ ｡ j͑ʃэ ɭ(ᴜ ｡
-@returns }ʃꞇ ｡ ſɟᴜ ſןᴜȝ ｡ ſɭᴜ ｡ */
 export function kf2TanekanPukazanQoxaKefoun(hw: number, hd: number, y: number,
   s2sabo: number, l6da = RANDOL6DA): THREE.BufferGeometry {
   const pukazR = 0o3/0o20;
@@ -41,12 +33,11 @@ export function kf2TanekanPukazanQoxaKefoun(hw: number, hd: number, y: number,
   qoxa.holes.push(new THREE.Path(truo.reverse()));
   const geo = new THREE.ExtrudeGeometry(qoxa, { depth: l6da, bevelEnabled: false, curveSegments: 0o40 });
   geo.rotateX(-Math.PI / 0o2);
-// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭэ , ⟅ j͐ʃƽɜ , ꞙɭı , ꞙɭɿ ,
-//   }ʃɹƽ , j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı , 📃 ⟩
+
   const haxekuxa = geo.getAttribute("position") as THREE.BufferAttribute;
   const nor = geo.getAttribute("normal") as THREE.BufferAttribute;
   const uv = geo.getAttribute("uv") as THREE.BufferAttribute;
-  const ekstra = new Float32Array(haxekuxa.count * 0o4);
+  const nek2resai = new Float32Array(haxekuxa.count * 0o4);
   const outerX = hw - s2sabo + RANDOLARGHO / 0o2, innerX = hw - s2sabo - RANDOLARGHO / 0o2;
   const outerZ = hd - s2sabo + RANDOLARGHO / 0o2, innerZ = hd - s2sabo - RANDOLARGHO / 0o2;
   for ( let i = 0o0; i < haxekuxa.count; i++ ) {
@@ -64,15 +55,14 @@ export function kf2TanekanPukazanQoxaKefoun(hw: number, hd: number, y: number,
       v = flanke ? ( Math.abs(vz) - innerZ ) / RANDOLARGHO : vy / l6da;
     }
     uv.setXY(i, Math.min(0o1, Math.max(0o0, u)), Math.min(0o1, Math.max(0o0, v)));
-    if ( flanke ) { ekstra[i * 0o4] = fx; ekstra[i * 0o4 + 0o2] = fz; ekstra[i * 0o4 + 0o3] = 0o1; }
+    if ( flanke ) { nek2resai[i * 0o4] = fx; nek2resai[i * 0o4 + 0o2] = fz; nek2resai[i * 0o4 + 0o3] = 0o1; }
   }
   uv.needsUpdate = true;
-  geo.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(ekstra, 0o4));
+  geo.setAttribute("aKonturaEkstra", new THREE.BufferAttribute(nek2resai, 0o4));
   geo.translate(0o0, y, 0o0);
   return geo;
 }
 
-// ⟨ j͑ʃɜ ſɭ,ᴜ , ſȷƽᴜ ʃɔ , 📃 ⟩
 export function tlunakTavolanRandon(geos: THREE.BufferGeometry[], hw: number, hd: number, y: number, s2sabo: number, b6k61oL6da: number): void {
   const lipoL6da = 0o1/0o50;
   geos.push(kf2TanekanPukazanQoxaKefoun(hw, hd, y + b6k61oL6da - RANDOL6DA, s2sabo));

@@ -1,4 +1,4 @@
-// ≺⧼ ſɭэ ֭ſɭэ 🛣️ ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ֭ſɭᴜ ſɭэ ֭ſɭэ 🛣️ ⧽≻
 import * as THREE from "three";
 import { kf2GeometriajnHabakaweKatoman, kf2K6h6jnBendojn, kf2Hak6h6nHapukek } from "./hak6h6/habakaweKatoma.js";
 import { tlunakC2qjnKek, DUONAC2Q, type C2qKek } from "./hak6h6/hac2q.js";
@@ -15,11 +15,6 @@ import { vepaqGlatanS2nascen, vepaqS2nascenEnHabakaweKatoman,
   kf2SegmentajnHakek } from "./hak6h6/has2nasce.js";
 import { kas2kantaHasoza, type Kas2kantaDitlakak, type Kas2kantaHasukf2qani } from "./hak6h6/hahunaq.js";
 
-// ⟪ ſɭэ ֭ſɭэ , ꞙɭı 📏 ⟫
-// ⟨ ſɭэ ſɭᴜ , ꞙɭı 📃 ⟩ , ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , }ʃɹƽ ,
-//   ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭɔ , ⟅ ꞙɭɔ , ꞙɭɔ , ꞙɭɔ ,
-//   ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭɔ , ⟅ ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ ,
-//   ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
 interface K6h6Projekcio {
   minX: number;
   maxX: number;
@@ -60,10 +55,6 @@ function projekcioDe( n2k: readonly ( readonly [ number, number ] )[] ): K6h6Pro
   return phaka;
 }
 
-/* ꞙɭɔ , }ʃɹƽ , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭı ,
-    @param n2k ( [ number , number ] [ ] ) - ſɭэ ſɭᴜ , ꞙɭı ,
-    @param x, z ( number ) - }ʃɹƽ , ꞙɭı ,
-@returns { s , h6kuni } ( object ) - ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı , */
 function projekcioSurK6h6( n2k: readonly ( readonly [ number, number ] )[],
   x: number, z: number ): { s: number; h6kuni: number } {
   let plosteq = Infinity, kmaS = 0o0;
@@ -77,11 +68,6 @@ function projekcioSurK6h6( n2k: readonly ( readonly [ number, number ] )[],
   return { s: kmaS, h6kuni: plosteq };
 }
 
-/* ꞙɭɔ , ſɭэ ſɭᴜ , ꞙɭɔ , ſɭэ ſɭᴜ , ꞙɭı ,
-    @param n2k ( [ number , number ] [ ] ) - ſɭэ ſɭᴜ , ꞙɭı ,
-    @param x, z ( number ) - }ʃɹƽ , ꞙɭı ,
-    @param plosteq ( number ) - ꞙɭı , ꞙɭı , ꞙɭı ,
-@returns h6kuni ( number ) - ꞙɭɔ , ſɭэ ſɭᴜ , Infinity */
 function h6kuniAlK6h6( n2k: readonly ( readonly [ number, number ] )[],
   x: number, z: number, plosteqM: number ): number {
   const phaka = projekcioDe(n2k);
@@ -98,24 +84,6 @@ function h6kuniAlK6h6( n2k: readonly ( readonly [ number, number ] )[],
   return plosteq;
 }
 
-// ⟪ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı 📏 ⟫
-/* j͑ʃᴜ ſɭ,w , ꞙɭı , ſɭэ ֭ſɭэ , ( ſɟɹƽ ꞁȷ̀ᴜ }ʃw ) , ſɭᴜ ſןᴜ ,
-   ꞙɭı , kf2NivelanS2qena , ꞙɭɔ , ꞙɭɔ , ꞙɭı ,
-   ꞙɭɔ , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭɔ , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ , ꞙɭı ,
-    @param kruda ( function ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w ,
-    @param n2k ( [ number , number ] [ ] ) - ſɭэ ſɭᴜ , ꞙɭı ,
-    @param haveb6kek ( [ number , number ] [ ] ) - ſɭᴜ ſןᴜ , }ʃɹƽ ,
-    @param tap2L6da ( function ) - ſɭᴜ ſןᴜ , ꞙɭı , }ʃɹƽ ,
-    @param p2somani ( number ) - ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ ,
-@returns l6da ( function ) - j͑ʃᴜ ſɭ,w , ꞙɭı , ſɭᴜ ſןᴜ , */
-// ⟨ ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭɔ , ꞙɭı , 📏 ⟩ , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w ,
-//   ꞙɭı , ꞙɭɿ , ( ꞙɭɔ , ꞙɭı ) , ⟅ ꞙɭɔ , ꞙɭı ,
-//   ꞙɭɔ , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭɔ ,
-//   ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭɔ ,
-//   ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
-// ⟨ ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı , 📏 ⟩ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɔ ,
-//   ꞙɭɔ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɔ ,
-//   ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
 function rampigiAlPa12n(
   kruda: ( x: number, z: number ) => number,
   n2k: readonly ( readonly [ number, number ] )[],
@@ -123,17 +91,12 @@ function rampigiAlPa12n(
   tap2L6da: ( x: number, z: number ) => number,
   p2somani: number
 ): ( x: number, z: number ) => number {
-  // ⟨ ꞙɭı , ſɭᴜ ſןᴜ , }ʃɹƽ , ꞙɭı , 📐 ⟩ , ꞙɭı , ꞙɭɔ , ꞙɭɔ , ⟅
+
   const haqar = haveb6kek.map(([ kx, kz ]) => {
     const p = projekcioSurK6h6(n2k, kx, kz);
     return { x: kx, z: kz, s: p.s, h6kuni: p.h6kuni };
   }).filter(l => l.h6kuni <= p2somani + 0o1/0o100);
-  // ⟨ ꞙɭı , ꞙɭɿ , 📏 ⟩ , ꞙɭı , j͐ʃэ ɭ(ᴜ , ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭɔ , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭɔ , ꞙɭı , = ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ⟅ ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   return ( x, z ) => {
     const soza = kruda( x, z ) + K6H6AKMARL6DA;
     const { s } = projekcioSurK6h6(n2k, x, z);
@@ -146,8 +109,7 @@ function rampigiAlPa12n(
       psaz = Math.max(psaz, p - margxo);
       teru = Math.min(teru, p + margxo);
     }
-    // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɿ , ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     const tseuni = psaz <= teru
       ? Math.max(psaz, Math.min(teru, soza))
       : ( psaz + teru ) / 0o2;
@@ -155,7 +117,6 @@ function rampigiAlPa12n(
   };
 }
 
-// ⟪ ſɭэ ֭ſɭэ , ꞙɭı 🏗️ ⟫
 export function vepaqHak6h6n(qena: THREE.Scene,
   defs: Kas2kantaDitlakak[],
   heightFn: ( x: number, z: number ) => number,
@@ -164,42 +125,33 @@ export function vepaqHak6h6n(qena: THREE.Scene,
   haveb6kek: [ number, number ][] = [],
   hasukf2qani: Kas2kantaHasukf2qani = {}
 ): THREE.Vector3[] {
-  const { tsasaFn, t6limaFn = heightFn, tamc2kHac2w2q,
+  const { tsasaFn, mut6qFn = heightFn, tamc2kHac2w2q,
     tamc2kHanece3e, tamc2kHas2sabo, tamc2kHap2somani } = hasukf2qani;
-  // ⟨ ꞙɭɔ , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , 📏 ⟩ , ſɭɜ ſɭ,w , ꞙɭı ,
-  //   ꞙɭı , ſᶘᴜ j͑ʃᴜ , ſɭэ ſɭ,w , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ,
-  //   ꞙɭı , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
-  //   ꞙɭı , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ⟅ 📃 ⟩
+
   const fundaFn: ( x: number, z: number ) => number = tsasaFn
     ? ( x, z ) => {
-        const t6lima = t6limaFn(x, z);
+        const mut6q = mut6qFn(x, z);
         const tsasa = tsasaFn(x, z);
-        if ( tsasa <= -Infinity ) return t6lima;
-        // ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ⟅ 📃 ⟩
-        if ( t6lima < tsasa ) return Infinity;
-        return t6lima;
+        if ( tsasa <= -Infinity ) return mut6q;
+
+        if ( mut6q < tsasa ) return Infinity;
+        return mut6q;
       }
-    : t6limaFn;
+    : mut6qFn;
   const samples: THREE.Vector3[] = [];
   const { teruPukek, bordaPukek } = kf2Hak6h6nHapukek(dioritaPukek, andezitaPukek, -0o2, -0o4, -0o1, -0o1);
 
   const habakaweKatoma = kf2GeometriajnHabakaweKatoman();
-  // ⟪ ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı 📏 ⟫
-  // ⟨ ſɭэ ֭ſɭэ , ꞙɭɔ , ꞙɭı , 📃 ⟩ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ( ꞙɭɔ ) , ⟅ ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ( ſɟɹƽ ꞁȷ̀ᴜ }ʃw ) , ꞙɭɔ ,
-  //   ꞙɭɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭı , ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   purigiVeb6kekajnHavem2n();
-  // ⟨ ſɭᴜ ſןᴜ , ⚓ ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   const qakaj2jHal6da = konsumiQakaj2jnL6dajn();
   const tsofj = defs.map(def => {
     const hasiitsii = kf2K6h6jnBendojn(def.w, teruPukek, bordaPukek);
     const p2somani = kf2EksteranP2somani(hasiitsii);
     const kruda = def.heightFn || heightFn;
     const pudalla = def.xaha === true || def.capat6 === true;
-    // ⟨ ꞙɭı , 📏 ⟩ , ꞙɭɔ , haveb6kek , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ⟅
+
     const s2qena = pudalla ? null : kf2NivelanS2qena(def.pts, p2somani, kruda, tsasaFn);
     return { p2somani, l6daJe: ( px: number, pz: number ): number => {
       if ( s2qena ) return s2qena.l6daJe(projekcioSurK6h6(def.pts, px, pz).s);
@@ -212,7 +164,7 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       tamc2kHanece3e?.get(ca3aq), tamc2kHas2sabo?.get(ca3aq) ?? 0o0,
       tamc2kHap2somani?.get(ca3aq));
     const brakajHal6da: BrakaL6da[] = knece.map(b => {
-      // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅
+
       const px = kx + b.ux * ( K6H6ATRUAP2SOMANI + 0o1/0o4 );
       const pz = kz + b.uz * ( K6H6ATRUAP2SOMANI + 0o1/0o4 );
       let plosteq = Infinity, l6da = NaN;
@@ -222,18 +174,15 @@ export function vepaqHak6h6n(qena: THREE.Scene,
         if ( h6kuni > plosteqTsof ) continue;
         if ( h6kuni < plosteq ) { plosteq = h6kuni; l6da = tsofj[ i ].l6daJe(px, pz); }
       }
-      // ⟨ }ʃɹƽ , ꞙɭı 📏 ⟩ , ꞙɭɔ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅
+
       if ( !Number.isFinite(l6da) )
         l6da = tamc2kBrakHal6da(kx, kz, [ [ b.ux, b.uz ] ], [ b.p2somani ], heightFn)[ 0o0 ]
           + K6H6AKMARL6DA;
       return { ux: b.ux, uz: b.uz, l6da: surGrid(l6da), p2somani: b.p2somani };
     });
-    // ⟨ ſɭɜ ſɭ,w , ꞙɭı 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı , ꞙɭı ,
-    //   tamc2kTap2L6da , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     const rezervo = tamc2kTap2L6da(kx, kz, knece, heightFn);
-    // ⟨ ſɭᴜ ſןᴜ , ⚓ ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭɔ ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     const qakaj2L6da = qakaj2L6daEl(qakaj2jHal6da, kx, kz);
     tamc2kHavem2.set(ca3aq, { x: kx, z: kz,
       l6da: qakaj2L6da ?? sukf2qiTap2nL6da(brakajHal6da, rezervo),
@@ -248,27 +197,22 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       tamc2kHap2somani?.get(ca3aq));
     return surGrid(tamc2kTap2Vem2(x, z, knece, heightFn).l6da);
   };
-  // ⟨ ꞙɭɔ , ꞙɭı , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı ,
+
   const pa12Je = tap2L6daJeVeb6kek;
-  // ⟨ ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   const kapoHal6da = new Map<Kas2kantaDitlakak, { saxeni: number | null; tlakak: number | null }>();
-  // ⟨ }ʃɹƽ , ꞙɭı , 🌗 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   const c2qjHakek: C2qKek[] = [];
 
   for ( const def of defs ) {
     const krudaAlt = def.heightFn || heightFn;
-    // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭɔ , ꞙɭı ,
-    //   ꞙɭı , ꞙɭɔ , kf2NivelanS2qena , ꞙɭɔ , ꞙɭı , ꞙɭɔ ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     const hasiitsii = kf2K6h6jnBendojn(def.w, teruPukek, bordaPukek);
     const eksteraP2somani = kf2EksteranP2somani(hasiitsii);
     const defAlt = def.xaha === true
       ? rampigiAlPa12n(krudaAlt, def.pts, haveb6kek, tap2L6daJeVeb6kek, eksteraP2somani)
       : krudaAlt;
-    const defT6lima = def.t6limaFn ?? fundaFn;
+    const defT6lima = def.mut6qFn ?? fundaFn;
     kapoHal6da.set( def, { saxeni: null, tlakak: null } );
     const notitlakakn = ( saxeni: number | null, tlakakani: number | null ): void => {
       const teruni = kapoHal6da.get(def)!;
@@ -277,9 +221,7 @@ export function vepaqHak6h6n(qena: THREE.Scene,
     };
     if ( def.capat6 === true ) {
       let xaqadi: number | null = null, z2hak: number | null = null;
-      // ⟨ ꞙɭı , ꞙɭı , ſןɔ˞ᴜƴ , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ⟅ ꞙɭɔ , ꞙɭı , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
       const pa12Jetlakakn = ( pto: [ number, number ] ): number | null => {
         for ( const [ kX, kZ ] of haveb6kek ) {
           if ( Math.hypot(pto[0o0] - kX, pto[0o1] - kZ) > K6H6ATRUAP2SOMANI ) continue;
@@ -289,21 +231,14 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       };
       const unuaPa12 = pa12Jetlakakn(def.pts[0o0]);
       const tlakakaiPa12 = pa12Jetlakakn(def.pts[def.pts.length - 0o1]);
-      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , K6H6AKMARL6DA ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
       const stupaL6da = ( x: number, z: number ): number => {
         const b6qaiQafej2 = pa12Jetlakakn([ x, z ]);
         if ( b6qaiQafej2 !== null ) return b6qaiQafej2 - STUPARISERO - K6H6AKMARL6DA;
         return defAlt(x, z);
       };
-      // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
-      // ⟨ ꞙɭı , ꞙɭı , ꞙɭɔ , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
-      const t6limaKozu = ( ax: number, az: number, bx: number, bz: number ): number => {
+
+      const mut6qKozu = ( ax: number, az: number, bx: number, bz: number ): number => {
         const sahakani = Math.hypot(bx - ax, bz - az);
         if ( sahakani < 0o1/0o1000 ) return -Infinity;
         const latX = -( bz - az ) / sahakani * eksteraP2somani;
@@ -312,14 +247,13 @@ export function vepaqHak6h6n(qena: THREE.Scene,
         for ( const t of [ 0o0, 0o1/0o2, 0o1 ] ) {
           const px = ax + ( bx - ax ) * t, pz = az + ( bz - az ) * t;
           for ( const vek2fe of [ -0o1, 0o0, 0o1 ] ) {
-            const t6lima = defT6lima(px + latX * vek2fe, pz + latZ * vek2fe);
-            if ( !Number.isFinite(t6lima) ) continue;
+            const mut6q = defT6lima(px + latX * vek2fe, pz + latZ * vek2fe);
+            if ( !Number.isFinite(mut6q) ) continue;
             const tsasa = tsasaFn?.(px + latX * vek2fe, pz + latZ * vek2fe) ?? -Infinity;
-            // ⟨ ꞙɭɔ , ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭı , 📏 ⟩ , j͑ʃᴜ ſɭ,w , ꞙɭɔ ,
-            //   ſᶘᴜ j͑ʃᴜ , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-            const levigita = Math.min(t6lima + K6H6AKMARL6DA + STUPARISERO,
+
+            const levigita = Math.min(mut6q + K6H6AKMARL6DA + STUPARISERO,
               tsasa - K6H6AKMARL6DA);
-            kozu = Math.max(kozu, t6lima + K6H6AKMARL6DA, levigita);
+            kozu = Math.max(kozu, mut6q + K6H6AKMARL6DA, levigita);
           }
         }
         return kozu;
@@ -329,15 +263,9 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       for ( let i = 0o0; i < def.pts.length - 0o1; i++ ) {
         const [ ax, az ] = def.pts[i], [ bx, bz ] = def.pts[i + 0o1];
         const sost2 = stupaL6da(( ax + bx ) / 0o2, ( az + bz ) / 0o2);
-        stupajHal6da.push(Math.max(sost2, t6limaKozu(ax, az, bx, bz)));
+        stupajHal6da.push(Math.max(sost2, mut6qKozu(ax, az, bx, bz)));
       }
-      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭɔ , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
-      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , STUPARISERO , ꞙɭɔ , ꞙɭı ,
-      //   ꞙɭɔ , ꞙɭı , ꞙɭı , ( ꞙɭɔ , ꞙɭɔ.э , ) , ꞙɭı , ꞙɭɔ.ꞟ , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , = ſɭᴜc̗ ɭʃɜ ſןᴜȝ ꞁȷ̀ᴜꞇ ⟅ ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
       if ( tlakakaiVecax2l >= 0o0 ) {
         if ( unuaPa12 !== null ) stupajHal6da[0o0] = Math.max(stupajHal6da[0o0],
           defAlt(def.pts[0o0][0o0], def.pts[0o0][0o1]));
@@ -359,22 +287,12 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       notitlakakn(xaqadi, z2hak);
       continue;
     }
-    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
-    //   ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , 📃 ⟩ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭɔ , ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-    //   ꞙɭı , ꞙɭɔ , ꞙɭɔ , ꞙɭı , ꞙɭı , ꞙɭı , ( ſȷƽᴜ ʃɔ ) ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     const s2qena = def.xaha === true
       ? null
       : kf2NivelanS2qena(def.pts, eksteraP2somani, defAlt, tsasaFn,
         haveb6kek.map(([ x, z ]) => ( { x, z, l6da: pa12Je(x, z) } )));
-    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , 📏 ⟩ , ſɭэ ſɭᴜ , ꞙɭı ,
-    //   ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı ,
-    // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , kf2SegmentajnHakek , ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı ,
-    //   ꞙɭɔ , ſɭᴜ ſןᴜ , ⟅ ꞙɭɔ , ꞙɭɔ , ⟅ 📃 ⟩
+
     const hah6k6: K6h6Truo[] = [];
     if ( s2qena ) {
       let sTruo = 0o0;
@@ -389,9 +307,7 @@ export function vepaqHak6h6n(qena: THREE.Scene,
       }
     }
     const hacaqasahax = s2qena ? kf2UnuformajnHacaqasahaxn(s2qena, hah6k6) : [];
-    // ⟪ ſןɔ˞ᴜƴ , }ʃɹƽ , 🌗 ⟫
-    // ⟨ ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     let akum = 0o0;
     for ( let k = 0o1; k < def.pts.length - 0o1; k++ ) {
       const ne3ak2 = def.pts[ k - 0o1 ], cutlu = def.pts[ k ], ksoz = def.pts[ k + 0o1 ];
@@ -410,11 +326,7 @@ export function vepaqHak6h6n(qena: THREE.Scene,
         }
       }
       if ( enTruo ) continue;
-      // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , ꞙɭı ,
-      //   ꞙɭı , ꞙɭı , u1 , u2 , ꞙɭɔ ,
-      //   ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭɔ , ⟅ 📃 ⟩
+
       c2qjHakek.push({ x: cutlu[ 0o0 ], z: cutlu[ 0o1 ],
         sost2: Math.atan2(u1z - u2z, u1x - uiix), gamo: b6n,
         teru: s2qena ? s2qena.l6daJe(akum)
@@ -443,7 +355,7 @@ export function vepaqHak6h6n(qena: THREE.Scene,
           }
           continue;
         }
-        // ⟨ ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
+
         const mX = ( px1 + px2 ) / 0o2, mZ = ( pz1 + pz2 ) / 0o2;
         const tamc2kTeru = s2qena
           ? s2qena.l6daJe(saxeni + ( t0 + t1 ) / 0o2)
@@ -456,9 +368,7 @@ export function vepaqHak6h6n(qena: THREE.Scene,
     }
     notitlakakn(xaqadi, z2hak);
   }
-  // ⟪ ꞙɭı , ꞙɭı , 🌗 ⟫
-  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , π , ꞙɭɔ , ⟅ 📃 ⟩
+
   const tlakakvek2fe = new Map<string, number>();
   for ( const def of defs ) {
     if ( def.pts.length < 0o2 || def.hateruni !== true ) continue;
@@ -494,20 +404,13 @@ export function vepaqHak6h6n(qena: THREE.Scene,
         teru: teruY ?? defAlt(tlakakani[ 0o0 ], tlakakani[ 0o1 ]) + K6H6AKMARL6DA });
     }
   }
-  // ⟨ ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , 📏 ⟩ ,
+
   tlunakC2qjnKek(habakaweKatoma, c2qjHakek, teruPukek, bordaPukek, fundaFn);
-  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭɔ ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   habakaweKatoma.veb6kek(qena, false);
   return samples;
 }
 
-// ⟪ ſɭэ ֭ſɭэ , ꞙɭı , 🌿 ⟫
-/* ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭɔ , ꞙɭı ,
-    @param samples ( Vector3 [ ] ) - }ʃɹƽ , ꞙɭı ,
-    @param aX, aZ ( number ) - ꞙɭı , ꞙɭı ,
-    @param bX, bZ ( number ) - ꞙɭı , ꞙɭı ,
-    @param altFn ( function ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w */
 function aldonuHapx01on( samples: THREE.Vector3[], aX: number, aZ: number,
   bX: number, bZ: number, altFn: ( x: number, z: number ) => number ): void {
   const sahakani = Math.hypot(bX - aX, bZ - aZ);

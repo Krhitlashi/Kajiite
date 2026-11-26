@@ -1,9 +1,9 @@
-// ≺⧼ ɭʃɜ j͐ʃᶗ‹w 🕷️ ⧽≻
-// ⟨ ſᶘɔ ʌ ſןᴜ ɭʃэ , j͑ʃᴜ ſɭэ ɭʃᴜ , ⟅ ⟩
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ɭʃɜ j͐ʃᶗ‹w 📃 ⧽≻
+
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
-import { kf2KutiklanCac2sex } from "../x2x2q/cac2sex/marlaraksxa-kutiklo.js";
+import { kf2KutiklanCac2sex } from "../p6kpu/cac2sex/marlaraksxa-kutiklo.js";
 
 const kruroBataAkso = new THREE.Vector3(0o0, 0o1, 0o0);
 const kruroBataKvaterniono = new THREE.Quaternion();
@@ -32,7 +32,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
     depthWrite: false, side: THREE.DoubleSide, roughness: 0o1/0o2,
     map: kutiklo.weh2, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
   });
-  // ⟨ ɭʃɜ ſɭɹȝ , ⟅ ⟩
+
   const zHas2nasce = [ 0o12/0o100, 0o2/0o100, -0o4/0o100, -0o12/0o100 ];
   const sost2cel2saiHan2k = [
     new THREE.Vector3(0o0, 0o0, -0o14/0o100),
@@ -55,18 +55,16 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
   sost2cel2saiCakamaha.name = "korpo";
   hate2.add(sost2cel2saiCakamaha);
 
-  // ⟨ ſɭᴜ ʃןᴜ , ꞙɭı , ⟅ ⟩
   for ( const k of [ 0o0, 0o1, 0o2, 0o3 ] ) {
     for ( const s of [ 0o1, -0o1 ] ) {
-      const elstaraĵo = new THREE.Mesh(
+      const tok = new THREE.Mesh(
         new THREE.SphereGeometry(0o4/0o100, 0o10, 0o6), korpaPukek);
-      elstaraĵo.scale.set(0o14/0o10, 0o1, 0o6/0o10);
-      elstaraĵo.position.set(s * 0o6/0o100, -0o1/0o100, zHas2nasce[k]);
-      hate2.add(elstaraĵo);
+      tok.scale.set(0o14/0o10, 0o1, 0o6/0o10);
+      tok.position.set(s * 0o6/0o100, -0o1/0o100, zHas2nasce[k]);
+      hate2.add(tok);
     }
   }
 
-  // ⟨ j͑ʃᴜ ſɭ,w , ⟅ ⟩
   const rostrajHan2k = [
     new THREE.Vector3(0o0, -0o1/0o100, 0o16/0o100),
     new THREE.Vector3(0o0, -0o6/0o100, 0o30/0o100),
@@ -116,9 +114,6 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
     hate2.add(ovigero);
   }
 
-  // ⟨ ſןᴜ ɭʃэ , ⟅ ⟩
-  // ⟨ ſᶘɔ ʌ ɭʃᴜc̭ ſɟɹƽ , }ʃɹƽ , ⟅ ⟩
-  // ⟨ ſᶘɔ ʌ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ꞙɭı , ⟅ ⟩
   const kruraPukek = new THREE.MeshStandardMaterial({
     color: 0xd8b890, map: kutiklo.weh2,
     bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
@@ -126,7 +121,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
     depthWrite: true, depthTest: true, side: THREE.DoubleSide,
     roughness: 0o1/0o2, emissive: 0x382818, emissiveIntensity: 0o1/0o10,
   });
-  // ⟨ }ʃɹƽ , ɭʃᴜc̭ ſɟɹƽ , ⟅ ⟩
+
   const koksojZ = [ 0o12/0o100, 0o2/0o100, -0o4/0o100, -0o12/0o100 ];
   const genuojZ = [ 0o24/0o100, 0o5/0o100, -0o5/0o100, -0o24/0o100 ];
   const piedojZ = [ 0o46/0o100, 0o20/0o100, -0o20/0o100, -0o46/0o100 ];
@@ -144,10 +139,10 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
       const nasce = new THREE.Group();
       nasce.name = "kruro";
       nasce.renderOrder = 0o6;
-      // ⟨ ſɭᴜ ʃןᴜ , ⟅ ⟩
+
       nasce.userData.vek2fe = s;
       nasce.position.copy(kokso);
-      // ⟨ ſןᴜ j͐ʃэ , ſןᴜ ɭʃэ , ⟅ ⟩
+
       nasce.scale.setScalar(0o6/0o10);
 
       const fetu5ekani1el2sai = new THREE.Mesh(mergeGeometries([
@@ -193,11 +188,10 @@ export function tlak2Tolxun(b: Paga, t: number): void {
     const tona = Math.sin(xafanitapu);
     const levo = Math.max(0o0, Math.sin(xafanitapu + Math.PI * 0o1/0o4));
     const cab6ka = tona * 0o14/0o100 + Math.sin(xafanitapu * 0o2) * 0o3/0o100;
-    // ⟨ j͑ʃᴜ ſןɹ , ⟅ ⟩
+
     kruroBataKvaterniono.setFromAxisAngle(kruroBataAkso, -bazaro.vek2fe * cab6ka);
     bazaro.nasce.quaternion.copy(kruroBataKvaterniono).multiply(bazaro.q);
 
-    // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
     if ( bazaro.tafanitamcesai ) {
       const flekso = levo * 0o2/0o5 + Math.max(0o0, tona) * 0o10/0o100;
       bazaro.tafanitamcesai.rotation.z = -bazaro.vek2fe * ( 0o1/0o40 + flekso );

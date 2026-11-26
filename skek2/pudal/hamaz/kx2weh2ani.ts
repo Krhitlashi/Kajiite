@@ -1,7 +1,8 @@
-// ≺⧼ ſɟᴜ j͑ʃᴜ ɭʃɹ , j͑ʃɜȝ ɭʃɔ 🖌️ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭᶗ‹ɹ ᶅſɔ ֭ſɭɹ ꞁȷ̀ᴜ }ʃꞇ 📃 ⧽≻
+
 import * as THREE from "three";
-import { weh2Ruva, hunanu, tsije, hunanuWeh2 } from "../../x2x2q/haweh2.js";
-import { k2fFluanStrekon, baz2SexiaK6h6 } from "../../x2x2q/cac2sex/mafezi.js";
+import { weh2Ruva, hunanu, tsije, hunanuWeh2 } from "../../p6kpu/haweh2.js";
+import { k2fFluanStrekon, baz2SexiaK6h6 } from "../../p6kpu/cac2sex/mafezi.js";
 import { ausexi, type Soqte } from "../../hasoqte/hasoqte.js";
 import { volviX, sxtofon, faldo, stebo, bordiKkaxten, c2qRombo } from "./p2t6zo.js";
 import { h6w6aP2somani } from "./h6w6.js";
@@ -9,9 +10,7 @@ import { h6w6aP2somani } from "./h6w6.js";
 const vestaCac2sexStoko = new Map<string, THREE.CanvasTexture>();
 const vestaCac2sexCatlaq = ( o: Soqte, pudal: string ): string =>
   o.ksaka + "|" + o.soqteWeh2 + "|" + o.tokhaxesai + "|" + o.c2h2 + "|" + o.nascete + "|" + pudal;
-// ⟪ ſɟᴜ j͑ʃᴜ ɭʃɹ , j͑ʃɜȝ ɭʃɔ 🖌️ ⟫
 
-// ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
 function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
   const w = k.canvas.width, h = k.canvas.height;
   const M = o.soqteWeh2, A = o.tokhaxesai, I = o.c2h2;
@@ -20,17 +19,14 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
   k.fillRect(0o0, 0o0, w, h);
   sxtofon(k, M);
 
-  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
   faldo(k, 0o40, 0o24, M, 0o1, 0o3/0o10);
   faldo(k, 0o124, 0o34, M, 0o1, 0o25/0o100);
   faldo(k, 0o254, 0o34, M, 0o1, 0o25/0o100);
   faldo(k, 0o340, 0o24, M, 0o1, 0o3/0o10);
 
-  // ⟨ ſ͕ɭɜ ı],ᴜ , ſɭэ ɭʃᴜ , ⟅ ⟩
   k.lineCap = "round";
   k.lineJoin = "round";
 
-  // ⟨ ſɭᴜ ʃןᴜ , ꞙɭı , ⟅ ⟩
   const flankajStrekoj: [ number, number, number ][] = [
     [ 0o0, hunanuWeh2(M, 0o1), 0o6 ],
     [ 0o10, hunanuWeh2(A, 0o1), 0o4 ],
@@ -53,7 +49,6 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
     }
   }
 
-  // ⟨ ɭʃᴜ , ⟅ ⟩
   const KOLUMOL6DA = 0o24;
   k.fillStyle = hunanu(M, 0o1);
   k.fillRect(0o0, 0o0, w, KOLUMOL6DA);
@@ -61,7 +56,6 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
   k.fillRect(0o0, 0o4, w, 0o12);
   stebo(k, [ [ 0o0, KOLUMOL6DA ], [ w, KOLUMOL6DA ] ], hunanu(M, 0o2), 0o1);
 
-  // ⟨ ɭʃэ ſɭɔȝ , ɭʃɜ ſɭɹȝ , ⟅ ⟩
   const hahunanu: [ [ number, number ][], [ number, number ][] ] = [ [], [] ];
   const bordoj: [ [ number, number ][], [ number, number ][] ] = [ [], [] ];
   for ( let y = KOLUMOL6DA; y <= h; y += 0o4 ) {
@@ -73,11 +67,10 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
   }
   bordiKkaxten(k, hahunanu[0o0], hunanu(M, 0o1, 0o5/0o10), 0o2);
   bordiKkaxten(k, hahunanu[0o1], hunanu(M, 0o1, 0o5/0o10), 0o2);
-  // ⟨ ꞙɭı , ⟅ ⟩
+
   bordiKkaxten(k, bordoj[0o0], Ax, 0o4);
   bordiKkaxten(k, bordoj[0o1], Ax, 0o4);
 
-  // ⟨ j͑ʃᴜ ʃɜ , ꞙɭɔ , ⟅ ⟩
   const cah6k6 = ( x: number, y: number, r: number ) => {
     ausexi(k, x, y, r + 0o11, Ax);
     ausexi(k, x, y, r + 0o5, Mx);
@@ -89,7 +82,6 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
   cah6k6(0o200 - 0o50, 0o540, 0o13);
   cah6k6(0o200 + 0o50, 0o540, 0o13);
 
-  // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ⟩
   ausexi(k, 0o200, 0o120, 0o36, Ax);
   ausexi(k, 0o200, 0o120, 0o14, Ix);
   for ( const sx of [ -0o1, 0o1 ] ) for ( const sy of [ -0o1, 0o1 ] ) {
@@ -121,10 +113,9 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
     }
   }
 
-  // ⟨ ɭʃэ ſɭɔȝ , ꞙɭı , ⟅ ⟩
   k.lineCap = "round";
   k.lineJoin = "round";
-  // ⟨ V , ɭʃᴜ , ⟅ ⟩
+
   volviX(k, () => {
     k2fFluanStrekon(k, [
       [ -0o37, 0o70 ], [ -0o34, 0o230 ], [ 0o34, 0o230 ], [ 0o37, 0o70 ],
@@ -133,7 +124,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
       [ -0o27, 0o64 ], [ -0o24, 0o174 ], [ 0o24, 0o174 ], [ 0o27, 0o64 ],
     ], hunanuWeh2(M, 0o2), 0o2);
   });
-  // ⟨ j͑ʃᴜ ʃɜ , ꞙɭı , ⟅ ⟩
+
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       k2fFluanStrekon(k, [
@@ -142,7 +133,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
       ], hunanuWeh2(M, 0o2), 0o3);
     }
   });
-  // ⟨ ſɭᶗ‹ɜ , ꞙɭı , ⟅ ⟩
+
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       k2fFluanStrekon(k, [
@@ -185,14 +176,13 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
     }
   });
 
-  // ⟨ }ʃɹƽ , ꞙɭı , ⟅ ⟩
   volviX(k, () => {
     k.fillStyle = Ax;
     k.fill(baz2SexiaK6h6(0o0, 0o370, 0o21, 0o100));
     k.fillStyle = Mx;
     k.fill(baz2SexiaK6h6(0o0, 0o370, 0o6, 0o30));
   });
-  // ⟨ ꞙɭı , ⟅ ⟩
+
   volviX(k, () => {
     k2fFluanStrekon(k, [
       [ -0o17, 0o660 ], [ -0o14, 0o560 ], [ 0o14, 0o560 ], [ 0o17, 0o660 ],
@@ -202,8 +192,6 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
     ], hunanuWeh2(M, 0o2), 0o2);
   });
 
-  // ⟨ ɭʃэ ſɭɔȝ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 🖌️ ⟩
-  // ⟨ ſȷƽᴜ ʃɔ , ⟅ ⟩
   const dorsWohaj: [ number, number, number, number, number ][] = [
     [ 0o54, 0o70,  0o30, 0o2, hunanuWeh2(M, 0o2) ],
     [ 0o62, 0o104, 0o42, 0o3, hunanuWeh2(A, 0o1) ],
@@ -221,7 +209,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
       }
     }
   });
-  // ⟨ j͑ʃᴜ ʃɜ , ꞙɭı , ⟅ ⟩
+
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       k2fFluanStrekon(k, [
@@ -230,7 +218,7 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
       ], hunanuWeh2(A, 0o1), 0o3);
     }
   });
-  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
+
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       for ( const woha of [ 0o0, 0o12 ] ) {
@@ -244,9 +232,6 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
     }
   });
 
-  // ⟨ ꞙɭı , ⟅ ⟩
-
-  // ⟨ ɭʃэ ſɭɔȝ , ꞙɭɿ , ⟅ ⟩
   k.fillStyle = Ax;
   k.fillRect(0o0, h - 0o14, w, 0o14);
   k.fillStyle = hunanu(M, 0o1, 0o5/0o10);
@@ -255,7 +240,6 @@ function pentriEksteran(k: CanvasRenderingContext2D, o: Soqte): void {
   k.fillRect(0o0, h - 0o14, w, 0o2);
 }
 
-// ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
 function pentriInternan(k: CanvasRenderingContext2D, o: Soqte): void {
   const w = k.canvas.width, h = k.canvas.height;
   const I = o.c2h2, A = o.tokhaxesai;
@@ -263,7 +247,7 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Soqte): void {
   k.fillStyle = Ix;
   k.fillRect(0o0, 0o0, w, h);
   sxtofon(k, I);
-  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭɿ , ⟅ ⟩
+
   faldo(k, 0o120, 0o30, I, 0o1, 0o25/0o100);
   faldo(k, 0o260, 0o30, I, 0o1, 0o25/0o100);
 
@@ -271,7 +255,6 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Soqte): void {
   k.lineCap = "round";
   k.lineJoin = "round";
 
-  // ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ⟩
   for ( const h6kuni of [ 0o56, 0o126 ] ) {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
       k2fFluanStrekon(k, [
@@ -289,7 +272,6 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Soqte): void {
     }
   }
 
-  // ⟨ ſȷƽᴜ ʃɔ , ɭʃᴜ , ⟅ ⟩
   k.strokeStyle = hunanu(I, 0o2);
   k.lineWidth = 0o2;
   k.beginPath();
@@ -297,16 +279,13 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Soqte): void {
   k.quadraticCurveTo(0o200, MARGENO + 0o50, 0o200 + 0o54, MARGENO + 0o10);
   k.stroke();
 
-  // ⟨ }ʃɹƽ ꞙɭꞟ , ꞙɭı , ⟅ ⟩
   c2qRombo(k, 0o200, 0o166, 0o42, 0o44, null, hunanu(I, 0o2, 0o5/0o10), 0o2);
   ausexi(k, 0o200, 0o166, 0o24, Ax);
   ausexi(k, 0o200, 0o166, 0o11, Ix);
 
-  // ⟨ j͑ʃᴜ ſɭᴜ ɭʃɹ , j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
-  // ⟨ ſɭэ ɭʃᴜ , ꞙɭı , ɭʃɹ ſ͕ɭɹ , ⟅ ⟩
   k.lineCap = "round";
   k.lineJoin = "round";
-  // ⟨ ꞙɭı , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ⟅ ⟩
+
   const sxevrono = ( yCet2: number, p2somani: number, weh2: number, kof: number ) => {
     const kamaY = yCet2 - ( 0o600 - yCet2 ) / 0o3;
     k2fFluanStrekon(k, [
@@ -341,7 +320,6 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Soqte): void {
     ], hunanuWeh2(I, 0o2), 0o3);
   }
 
-  // ⟨ }ʃɹƽ ꞙɭꞟ , ꞙɭı , ꞙɭı , ⟅ ⟩
   for ( const dx of [ -0o102, 0o102 ] ) {
     ausexi(k, 0o200 + dx, 0o160, 0o12, hunanu(I, 0o3));
     ausexi(k, 0o200 + dx, 0o160, 0o7, Ax);
@@ -351,7 +329,6 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Soqte): void {
   ausexi(k, 0o200, 0o640, 0o13, hunanu(A, 0o1));
   ausexi(k, 0o200, 0o640, 0o6, Ix);
 
-  // ⟨ ɭʃэ ſɭɔȝ , ⟅ ⟩
   volviX(k, () => ausexi(k, 0o0, 0o166, 0o20, hunanu(I, 0o2)));
   volviX(k, () => {
     for ( const c2w2q of [ -0o1, 0o1 ] ) {
@@ -362,10 +339,8 @@ function pentriInternan(k: CanvasRenderingContext2D, o: Soqte): void {
     }
   });
 
-  // ⟨ ꞙɭı , ꞙɭɔ , ⟅ ⟩
 }
 
-// ⟨ ꞙɭɿ , ɭʃэ ſɭɔȝ , ⟅ ⟩
 function pentriPantalonon(k: CanvasRenderingContext2D, o: Soqte): void {
   const w = k.canvas.width, h = k.canvas.height;
   const P = o.nascete, A = o.tokhaxesai;
@@ -376,8 +351,7 @@ function pentriPantalonon(k: CanvasRenderingContext2D, o: Soqte): void {
   faldo(k, 0o200, 0o40, P, 0o1, 0o3/0o10);
   faldo(k, 0o60, 0o24, P, 0o1, 0o25/0o100);
   faldo(k, 0o340, 0o24, P, 0o1, 0o25/0o100);
-  // ⟨ ꞙɭı , ꞙɭı , ⟅ ⟩
-  // ⟨ ꞙɭı , ꞙɭı , ꞙɭэ , ⟅ ⟩
+
   const pantalonajPaneloj: [ number, number ][] = [
     [ 0o40, 0o1 ], [ 0o140, -0o1 ], [ 0o240, 0o1 ], [ 0o340, -0o1 ],
   ];
@@ -401,16 +375,15 @@ function pentriPantalonon(k: CanvasRenderingContext2D, o: Soqte): void {
       ], hunanuWeh2(P, 0o2), 0o2);
     }
   }
-  // ⟨ ꞙɭı , ꞙɭı , ⟅ ⟩
+
   k.fillStyle = Ax;
   k.fillRect(0o0, 0o0, w, 0o3);
   k.fillStyle = hunanu(A, 0o1, 0o5/0o10);
   k.fillRect(0o0, 0o3, w, 0o2);
-  // ⟨ ꞙɭı , j͑ʃɜȝ ɭʃɔ , ⟅ ⟩
-  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ſןᴜ ɭʃэ ɭʃɔ , ⟅ ⟩
+
   k.fillStyle = hunanu(P, 0o1, 0o5/0o10);
   k.fillRect(0o0, 0o657, w, 0o3);
-  // ⟨ ſ͕ɭɜ ı],ᴜ , }ʃɹƽ ꞙɭꞟ , ꞙɭɔ , ꞙɭı , ⟅ ⟩
+
   const sexij: [ number, number, number ][] = [
     [ 0o200, 0o564, 0o15 ],
     [ 0o200, 0o613, 0o12 ],
@@ -422,12 +395,11 @@ function pentriPantalonon(k: CanvasRenderingContext2D, o: Soqte): void {
     if ( x === 0o0 ) volviX(k, () => ausexi(k, 0o0, y, r, hunanu(P, 0o2)));
     else ausexi(k, x, y, r, hunanu(P, 0o2));
   }
-  // ⟨ ꞙɭı , ⟅ ⟩
+
   k.fillStyle = hunanu(P, 0o2);
   k.fillRect(0o0, h - 0o6, w, 0o3);
 }
 
-// ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
 function pentriManikon(k: CanvasRenderingContext2D, o: Soqte): void {
   const w = k.canvas.width, h = k.canvas.height;
   const M = o.soqteWeh2, A = o.tokhaxesai;
@@ -463,7 +435,7 @@ function pentriManikon(k: CanvasRenderingContext2D, o: Soqte): void {
       }
     });
   }
-  // ⟨ }ʃɹƽ ꞙɭэ , ꞙɭı , ⟅ ⟩
+
   for ( let i = 0o0; i < 0o10; i++ )
     ausexi(k, i * 0o20 + 0o10, 0o26, 0o6, hunanu(A, 0o1));
   ausexi(k, 0o0, h - 0o24, 0o22, Ax);
@@ -479,7 +451,7 @@ const VESTAJKANVASOJ: Record<string, [ number, number ]> = {
   teru: [ 0o400, 0o1000 ],
   c2h2: [ 0o400, 0o1000 ],
   nascete: [ 0o400, 0o1000 ],
-  tamasoqtesai: [ 0o200, 0o200 ],
+  tkom2qtesai: [ 0o200, 0o200 ],
 };
 
 export function vestaCac2sex(o: Soqte, pudal: string): THREE.CanvasTexture {

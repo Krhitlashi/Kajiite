@@ -1,14 +1,13 @@
-// ≺⧼ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ j͑ʃᴜ ſɟɹƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſןᴜ ſᶘɹ 🚢 ⧽≻
-// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ſןw ſɭᴜƴ , ꞙɭɔ , ⟅ ſɭᴜ ſןᴜ ,
-// ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭɿ , 📃 ⟩
+// ≺⧼ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ⰱ ʃэ ſɭɔ ſɭᴜ }ʃꞇ 🧪 ⧽≻
+
 import "./ceh2kap2.mjs";
-import { tikHaqakaj2 } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/t6limaSoza.js";
+import { tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
 import { vepaqQakaj2n } from "../../skek2/qatsiike/qakaj2.js";
 import { qakaj2L6daJe } from "../../skek2/qatsiike/hak6h6/veb6kek-havem2.js";
 import { HAQAKAJ2OQASEFINI, QAKAJ2KOZUNUASEFINI } from "../../skek2/qatsiike/qakaj2/hahunaq.js";
 import { K6H6AEKSTERAP2SOMANI, K6H6ATRUAP2SOMANI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
-import { kf2Vecax2lanNala } from "./x2x2q.js";
+import { kf2Vecax2lanNala } from "./p6kpu.js";
 
 const nala = kf2Vecax2lanNala(false);
 const HAQAKAJ2 = tikHaqakaj2();
@@ -18,7 +17,7 @@ for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
   const D = HAQAKAJ2[ i ];
   const r = D.s2sabo ?? 0o0;
   const kos = Math.cos(r), sin = Math.sin(r);
-// ⟨ ſɭᴜ ſןᴜ , ſןw ſɭᴜƴ , ſɭᴜ ſןᴜ , 📃 ⟩
+
   const landaZ = D.jufu / 0o2 - K6H6ATRUAP2SOMANI;
   const hx = QAKAJ2KOZUNUASEFINI / 0o2 + HAQAKAJ2OQASEFINI;
   const qar = ( x: number, z: number ) => ( {
@@ -31,12 +30,10 @@ for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
     const d = Math.hypot(k.x - D.x, k.z - D.z);
     if ( d < kmaTsiike ) { kmaTsiike = d; raqa = `${k.x.toFixed(0o1)},${k.z.toFixed(0o1)}`; kmaLz = lz; }
   }
-// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ⟅ ꞙɭɿ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+
   const landX = D.x + sin * ( D.jufu / 0o2 );
   const landZ = D.z + kos * ( D.jufu / 0o2 );
-// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📏 ⟩ , j͑ʃᴜ ſɭ,w ,
-// j͑ʃᴜ ſɭ,w , ſɭᴜ ſןᴜ , ſןɔ˞ᴜƴ , 📃 ⟩
-// ſɟᴜ ſןᴜ ɭʃэ , ꞙɭı , 📃 ⟩
+
   const dok = vepaqQakaj2n(nala.qena, D.x, D.z, r, nala.k6h6L6da,
     tsasaVem2, D.jufu, l6da);
   const b6qaiQafej2 = qakaj2L6daJe(landX, landZ) ?? nala.pa12Je(landX, landZ);

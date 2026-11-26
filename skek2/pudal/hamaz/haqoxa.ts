@@ -1,6 +1,7 @@
-// ≺⧼ ı],ɹ ı],ɹȝ ſ͕ɭɜ ı],ᴜ 📐 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ſ͕ɭɜ ı],ᴜ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2Bufezacen } from "../../x2x2q/hakox2q.js";
+import { kf2Bufezacen } from "../../p6kpu/hakox2q.js";
 
 export function superpuc2q(ang: number, a: number, b: number, n: number): [ number, number ] {
   const k = 0o2 / n, ko = Math.cos(ang), si = Math.sin(ang);
@@ -23,11 +24,8 @@ export function kf2RinganSurfacon(hac2q: [ number, number, number ][][]): THREE.
   return kf2Bufezacen(haxekuxa, havecax2lani);
 }
 
-// ⟨ ſɭʞэ ʌ ꞙɭɔ ʌ ʃэȝ ʌ ſᶘɹȝ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
-// ⟨ ꞙɭı ʌ ʃэȝ ʌ j͑ʃ'ᴜ ſɭᴜ ʌ ſɭɜ ſᶘɹ 📃 ⟩
 export function kf2ArtikanSferon(sost2: [ number, number, number ], r: number,
   tap2ĵo = 0o1): THREE.BufferGeometry {
-  // ⟨ ſᶘɹ ɭʃᴜ }ʃꞇ ʌ ſᶘɹȝ ʌ ꞙɭı ʌ ꞙɭı ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   const sfero = new THREE.SphereGeometry(r, 0o24, 0o14);
   sfero.scale(0o1, tap2ĵo, 0o1);
   sfero.translate(sost2[0o0], sost2[0o1], sost2[0o2]);

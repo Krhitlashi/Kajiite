@@ -24,7 +24,7 @@ const MIMEOFINOJ = {
 // ſɭэ ɭʃᴜ , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 // ſɭᴜ ſןᴜ , ꞙɭɔ , ⟅ ſɭэ ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 const PERMESITAJ_ZACEJ = new Set([
-  "index.html", "hahaxe.css", "panoramo.png",
+  "index.html", "haxek2p2.css", "panoramo.png",
   "kanta", "skek2", "caht2", "dist",
 ]);
 

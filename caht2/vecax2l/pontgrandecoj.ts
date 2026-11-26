@@ -1,19 +1,15 @@
-// ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ j͑ʃᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🌉 ⧽≻
-// ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ſɭᴜ , ⟅ ſɭɜ ſɭ,w , ꞙɭɿ ,
-// ſȷƽᴜ ʃɔ , j͑ʃɜ j͑ʃƨɹ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
+// ≺⧼ ſןɜ }ʃƨɴƣ̋ᴜ }ʃԏ͕ɔ ſɟɜᴎ 🧪 ⧽≻
+
 import * as THREE from "three";
 import { vepaqC2kanu, kf2PontanSubon, pontaFinaOrdo,
   PONTKORPADIKECO, PONTTERAPROFUNDECO, PONTK6H6AKMAERPONO }
   from "../../skek2/qatsiike/qakaj2/c2kanu.js";
 
-// ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
-const FUNDO = 0o2;          // j͐ʃэ ɭ(ᴜ ʌ ſɭɜ ſɭ,w ʌ ɭl̀ᴜȝ ſןᴜ ɭʃɔ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw
-const DEKO = 0o12;          // j͐ʃэ ɭ(ᴜ ʌ j͑ʃɜ ſɭ,ᴜ ʌ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſ̀ȷᴜ ſɭᴜƽ
-const DEKOARKECO = 0o4;    // j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ʌ j͑ʃɜ j͑ʃƨɹ
+const FUNDO = 0o2;
+const DEKO = 0o12;
+const DEKOARKECO = 0o4;
 const SEFINI = 0o10;
 
-// ⟨ ſɭэ ſɭᴜ , ꞙɭц , ⟅ ſɭᴜ ſןᴜ , ꞙɭı , 📏 ⟩
 const NASA = [ 0o3, 0o4, 0o6, 0o10, 0o14, 0o24, 0o40, 0o60, 0o100 ];
 
 const Teru = ( sahakani: number ) => ( t: number ): number =>
@@ -22,18 +18,10 @@ const Teru = ( sahakani: number ) => ( t: number ): number =>
 const KMARAJ: number[] = [];
 for ( let i = 0o0; i <= 0o200; i++ ) KMARAJ.push(i / 0o200);
 
-// ⟪ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , 📏 ⟫
-/* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭı ,
-    @param v ( number ) - ſɭɹ ſȷɔ
-@returns s2l2me ( boolean ) - ſןɔ ʌ NaN ｡ ſןɔ ʌ Infinity */
 function s2l2me( v: number ): boolean {
   return Number.isFinite(v);
 }
 
-/* ſɭᴜ ſɭ,w , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
-    @param teru ( function ) - j͐ʃэ ɭ(ᴜ ʌ ſןͷ̗ɜ j͑ʃƨɔȝ
-    @param psaz ( function ) - j͐ʃэ ɭ(ᴜ ʌ ɭl̀ᴜȝ ſןᴜ ɭʃɔ
-@returns kof ( number ) - ſɭɜʞ */
 function kofJe( teru: ( t: number ) => number, psaz: ( t: number ) => number,
   t: number ): number {
   return teru(t) - psaz(t);
@@ -46,14 +34,12 @@ for ( const sahakani of NASA ) {
   const bando = Math.min(PONTKORPADIKECO, sahakani / 0o4);
   const hajeqani: string[] = [];
 
-// ⟨ ſɭэ ſɭᴜ , ꞙɭɔ , 📃 ⟩
   for ( const t of KMARAJ ) {
     if ( !s2l2me(psaz(t)) || !s2l2me(teru(t)) ) { hajeqani.push("ſɭɹ ſȷɔ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ"); break; }
     if ( psaz(t) > teru(t) ) { hajeqani.push("ɭl̀ᴜȝ ſןᴜ ɭʃɔ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ"); break; }
     if ( psaz(t) < FUNDO - 0o10 ** -0o7 ) { hajeqani.push("ɭl̀ᴜȝ ſןᴜ ɭʃɔ ʌ j͑ʃᴜ ꞁȷ̀ᴜ ʌ ſɭɜ ſɭ,w"); break; }
   }
 
-// ⟨ ſɭɜ ſɭ,w , ſɭɜ ſɭ,w , ꞙɭɿ , 📃 ⟩
   const tlakakKof = kofJe(teru, psaz, 0o0);
   const tlakakKofB = kofJe(teru, psaz, 0o1);
   if ( Math.abs(tlakakKof - ( teru(0o0) - FUNDO )) > 0o10 ** -0o7 ) hajeqani.push("ſ̀ȷᴜ ſɭᴜƽ ｡ ſןᴜ j͐ʃэ ŋᷠɹ");
@@ -61,7 +47,6 @@ for ( const sahakani of NASA ) {
   for ( const t of KMARAJ )
     if ( Math.abs(psaz(t) - psaz(0o1 - t)) > 0o10 ** -0o7 ) { hajeqani.push("ſɭᴜc̗ ɭʃɜ ɔı ｡ j͐ʃэ ɭ(ᴜ ʌ ſןɔ ʌ ſɭɹ ſȷɔ"); break; }
 
-// ⟨ ſȷƽᴜ ʃɔ , j͑ʃɜ j͑ʃƨɹ , 📃 ⟩
   const tolero = 0.02;
   const ca1ara = pontaFinaOrdo(sahakani, teru(0o0) - FUNDO);
   let arkaStarto = 0o0, arkatlakak = 0o1;
@@ -78,7 +63,6 @@ for ( const sahakani of NASA ) {
   if ( Math.abs(arkaStarto - ( 0o1 - arkatlakak )) > tolero ) hajeqani.push("ſןɔ ʌ j͑ʃɜ j͑ʃƨɹ");
   if ( kofJe(teru, psaz, 0o1/0o2 ) < bando - 0o10 ** -0o7 ) hajeqani.push("j͑ʃɜ j͑ʃƨɹ ｡ ſןᴜ j͐ʃэ ŋᷠɹ");
 
-// ⟨ ſɭɜ ſɭ,w , ſȷƽᴜ ʃɔ , 📃 ⟩
   let ne3ak2 = psaz(0o0);
   for ( let i = 0o1; i <= 0o100; i++ ) {
     const d = psaz(i / 0o200);
@@ -86,7 +70,6 @@ for ( const sahakani of NASA ) {
     ne3ak2 = d;
   }
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ſɭɜ ſɭᴜ , ꞙɭц , 📃 ⟩
   const qena = new THREE.Scene();
   vepaqC2kanu(qena, 0o0, 0o0, sahakani, 0o0, SEFINI,
     new THREE.MeshStandardMaterial(), teru, () => FUNDO);

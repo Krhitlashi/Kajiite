@@ -1,14 +1,9 @@
-// ≺⧼ j͑ʃɜȝ 🧍 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃɜȝ 📃 ⧽≻
+
 import * as THREE from "three";
-import { vakox2qQoxaKefoujn } from "../../x2x2q/hakox2q.js";
+import { vakox2qQoxaKefoujn } from "../../p6kpu/hakox2q.js";
 import { superpuc2q, kf2RinganSurfacon, kf2ArtikanSferon } from "./haqoxa.js";
 
-// ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭı , j͑ʃɜ ſɭ,ᴜ , ⟅ ⟩
-// ⟨ ſɭᴜ ſ͕ȷɔ , ſɭɜ ſɭᴜƽ , ꞙɭı , ⟅ ⟩
-// ⟨ ſɭᴜ ſ͕ȷɔ , j͑ʃᴜ ʃɜ , ɭʃꞇƽ , ⟅ ⟩
-// ⟨ ſɭᴜ ſ͕ȷɔ , j͑ʃᴜ ʃɜƽ , ꞙɭı , ⟅ ⟩
-// ⟨ ſȷƽᴜ ʃɔ , ⟅ ⟩
-// ⟨ ſ̀ȷᴜ ſןɹ , ꞙɭı , ⟅ ⟩
 export function kf2KorpanTorson(): THREE.BufferGeometry {
   const K = 0o20;
   const hac2q: [ number, number, number, number ][] = [
@@ -23,7 +18,7 @@ export function kf2KorpanTorson(): THREE.BufferGeometry {
     [ 0o132/0o100, 0o47/0o400, 0o35/0o400,  0o3/0o400 ],
     [ 0o263/0o200, 0o44/0o400, 0o35/0o400,  0o2/0o400 ],
     [ 0o131/0o100, 0o43/0o400, 0o36/0o400,  0o2/0o400 ],
-    // ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
+
     [ 0o256/0o200, 0o43/0o400, 0o36/0o400,  0o3/0o400 ],
     [ 0o241/0o200, 0o42/0o400, 0o35/0o400,  0o2/0o400 ],
     [ 0o225/0o200, 0o40/0o400, 0o33/0o400,  0o1/0o400 ],
@@ -31,7 +26,7 @@ export function kf2KorpanTorson(): THREE.BufferGeometry {
     [ 0o204/0o200, 0o40/0o400, 0o33/0o400,  0o0        ],
     [ 0o175/0o200, 0o44/0o400, 0o35/0o400, -0o1/0o400 ],
     [ 0o167/0o200, 0o46/0o400, 0o37/0o400, -0o3/0o400 ],
-    // ⟨ ſɭᴜ ſ͕ȷɔ , ſɭɜ ſɭᴜƽ , ꞙɭı , ⟅ ⟩
+
     [ 0o161/0o200, 0o51/0o400, 0o37/0o400, -0o4/0o400 ],
     [ 0o155/0o200, 0o44/0o400, 0o34/0o400,  0o0        ],
     [ 0o153/0o200, 0o37/0o400, 0o27/0o400,  0o0        ],
@@ -48,16 +43,10 @@ export function kf2KorpanTorson(): THREE.BufferGeometry {
     })), sost2(hac2q[hac2q.length - 0o1][0o0], hac2q[hac2q.length - 0o1][0o3]) ]);
 }
 
-// ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ſ͕ɭɜ ı],ᴜ , ⟅ ⟩
-// ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ſɭᴜ ſ͕ȷɔ , ſɭэ ɭʃᴜ , ⟅ ⟩
-// ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , j͑ʃᴜ ʃɜ , ⟅ ⟩
-// ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
 export function kf2KorpanKruropon(): { teru: THREE.BufferGeometry; maltik: THREE.BufferGeometry } {
   const K = 0o20;
   const GENUO = 0o4;
-  // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ꞙɭı , ⟅ ⟩
-  // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ꞙɭı , j͑ʃᴜ ſɭ,w , ⟅ ⟩
-  // ⟨ }ʃᴜ j͑ʃᴜ̭ɔ , ꞙɭı , ꞙɭɿ , ɭʃэ ſɭɔȝ , ⟅ ⟩
+
   const hac2q: [ number, number, number, number ][] = [
     [  0o67/0o200, 0o21/0o400, 0o20/0o400,  0o0           ],
     [  0o51/0o200, 0o26/0o400, 0o25/0o400,  0o1/0o400   ],
@@ -80,21 +69,16 @@ export function kf2KorpanKruropon(): { teru: THREE.BufferGeometry; maltik: THREE
   const teru = kf2RinganSurfacon([ sost2(hac2q[0o0][0o0], 0o0),
     ...hax2pa.slice(0o0, GENUO + 0o1) ]);
   const maltik = kf2RinganSurfacon([ ...hax2pa.slice(GENUO), sost2(z2hak, 0o0) ]);
-  // ⟨ ſ̀ȷᴜ ſןɹ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
+
   const g = hac2q[GENUO];
   const artiko = kf2ArtikanSferon([ 0o0, 0o0, g[0o3] ], g[0o1] - 0o1/0o1000, 0o7/0o10);
   return { teru, maltik: vakox2qQoxaKefoujn([ maltik, artiko ]) };
 }
 
-// ⟨ ɭʃꞇƽ , ꞙɭɔ , ⟅ ⟩
 export function kf2KorpanBrakon(): { teru: THREE.BufferGeometry; maltik: THREE.BufferGeometry } {
-  // ⟨ ɭʃꞇƽ , ꞙɭı , ꞙɭɔ , ꞙɭꞟ , ⟅ ⟩
+
   const K = 0o20;
-  // ⟨ ɭʃꞇƽ , ɭʃᴜc̭ ſɟɹƽ , ⟅ ⟩
-  // ⟨ ɭʃꞇƽ , ꞙɭı , ꞙɭı , ⟅ ⟩
-  // ⟨ ɭʃꞇƽ , ⟅ ⟩
-  // ⟨ j͑ʃᴜ ʃɜ , ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
-  // ⟨ ɭʃꞇƽ , j͑ʃᴜ ʃɜƽ , ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
+
   const hac2q: [ number, number, number, number, number ][] = [
     [  0o14/0o1000,  0o4/0o1000,  0o4/0o1000,  0o0,          -0o112/0o1000 ],
     [  0o10/0o1000,  0o6/0o1000,  0o6/0o1000,  0o0,          -0o100/0o1000 ],
@@ -120,7 +104,7 @@ export function kf2KorpanBrakon(): { teru: THREE.BufferGeometry; maltik: THREE.B
     const [ x, z ] = superpuc2q(i / K * Math.PI * 0o2, a, b, 0o2);
     return [ cx + x, y, z + dz ] as [ number, number, number ];
   }));
-  // ⟨ ɭʃꞇƽ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
+
   const KUBUTO = 0o13;
   const z2hak = hac2q[hac2q.length - 0o1];
   const teru = kf2RinganSurfacon([ sost2(hac2q[0o0][0o0], hac2q[0o0][0o3], hac2q[0o0][0o4]),
@@ -129,16 +113,13 @@ export function kf2KorpanBrakon(): { teru: THREE.BufferGeometry; maltik: THREE.B
   const maltik = kf2RinganSurfacon([ ...hax2pa.slice(KUBUTO),
     sost2(z2hak[0o0], z2hak[0o3], z2hak[0o4]) ]);
   maltik.translate(0o0, -yKubuto, 0o0);
-  // ⟨ ſ̀ȷᴜ ſןɹ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
+
   const tafanitamcesai = hac2q[KUBUTO];
   const artiko = kf2ArtikanSferon([ 0o0, 0o0, tafanitamcesai[0o3] ],
     tafanitamcesai[0o1] - 0o1/0o1000, 0o7/0o10);
   return { teru, maltik: vakox2qQoxaKefoujn([ maltik, artiko ]) };
 }
 
-// ⟨ ɭʃꞇƽ , ꞙɭꞟ , ⟅ ⟩
-// ⟨ ſןᴜ j͐ʃэ , ⟅ ⟩
-// ⟨ ɭʃꞇƽ , ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , 💅 ⟩
 export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THREE.BufferGeometry } {
   const K = 0o20;
   const sost2 = ( y: number, x: number, z = 0o0 ) => Array.from({ length: K },
@@ -163,7 +144,7 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
     [ -0o46/0o1000, 0o0, 0o11/0o1000, 0o6/0o1000  ],
     [ -0o50/0o1000, 0o0, 0o4/0o1000,  0o3/0o1000  ],
   ]);
-  // ⟨ ꞙɭı , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ꞙɭı , ⟅ ⟩
+
   const interpolo = ( tabelo: number[][], k: number ): number[] => {
     const kaatse = tabelo[0o0][0o0] > tabelo[tabelo.length - 0o1][0o0] ? -0o1 : 0o1;
     if ( ( k - tabelo[0o0][0o0] ) * kaatse <= 0o0 ) return tabelo[0o0];
@@ -176,8 +157,7 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
     }
     return tabelo[tabelo.length - 0o1];
   };
-  // ⟨ ɭʃꞇƽ , j͑ʃᴜ ʃɜ , ꞙɭı , ⟅ ⟩
-  // ⟨ ɭʃꞇƽ , j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ⟩
+
   const FINGRAJSEKCOJ: [ number, number, number ][] = [
     [ 0o0,           0o7/0o1000, 0o7/0o1000 ],
     [ 0o20/0o100,  0o6/0o1000, 0o6/0o1000 ],
@@ -194,9 +174,9 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
     FINGRABAZOY + ( n2k - FINGRABAZOY ) * f;
   const fingraC = ( f: number, kozunuX: number, cet2X: number ) =>
     kozunuX + ( cet2X - kozunuX ) * f;
-  // ⟨ ɭʃꞇƽ , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ ⟩
+
   const fingraZ = ( f: number ) => 0o16/0o1000 * f * f;
-  const tik = ( kozunuX: number, cet2X: number, n2k: number ) => tubo(0o2,
+  const kxe = ( kozunuX: number, cet2X: number, n2k: number ) => tubo(0o2,
     FINGRAJSEKCOJ.map(( [ f, a, b ] ) => [ fingraP(f, n2k),
       fingraC(f, kozunuX, cet2X), a, b, fingraZ(f) ] as
         [ number, number, number, number, number ]));
@@ -206,8 +186,8 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
     [  0o7/0o1000,   0o10/0o1000, -0o125/0o1000 ],
     [  0o25/0o1000,  0o27/0o1000, -0o100/0o1000 ],
   ];
-  const hatik = FINGROJ.map(( [ kozunuX, cet2X, n2k ] ) => tik(kozunuX, cet2X, n2k));
-  // ⟨ ɭʃꞇƽ , ꞙɭı , ɭʃᴜc̭ ſɟɹƽ , ⟅ ⟩
+  const hatik = FINGROJ.map(( [ kozunuX, cet2X, n2k ] ) => kxe(kozunuX, cet2X, n2k));
+
   const DIKFINGRAJSEKCOJ: [ number, number, number, number, number ][] = [
     [  0o16/0o1000, 0o14/0o1000, 0o10/0o1000, 0o10/0o1000, 0o0 ],
     [ -0o4/0o1000,  0o25/0o1000, 0o10/0o1000, 0o10/0o1000, 0o0 ],
@@ -221,14 +201,12 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
   const dikfingro = tubo(0o2, DIKFINGRAJSEKCOJ);
   const DIKFINGRABAZOY = DIKFINGRAJSEKCOJ[0o0][0o0];
   const DIKFINGRAPINTOY = DIKFINGRAJSEKCOJ[DIKFINGRAJSEKCOJ.length - 0o1][0o0];
-  // ⟨ ɭʃꞇƽ , ꞙɭı , ſןᴜ j͐ʃэ , ⟅ ⟩
+
   const dikfingraQaroxema = ( f: number ): number[] => interpolo(DIKFINGRAJSEKCOJ,
     DIKFINGRABAZOY + ( DIKFINGRAPINTOY - DIKFINGRABAZOY ) * f);
-  // ⟪ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ 💅 ⟫
-  // ⟨ ſᶘɔ ʌ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ᶅſɜ ֭ſɭᴜ , ⟅ ⟩
+
   const UNGASANTA = 0o1/0o1000;
-  // ⟨ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ⟩
-  // ⟨ ſ͕ɭɜ ı],ᴜ , ɭʃэ ſɭɔȝ , ⟅ ⟩
+
   const UNGAJPROFILO: [ number, number, number ][] = [
     [ 0o0,           0o6/0o7,   0o1/0o10  ],
     [ 0o1/0o10,    0o15/0o16, 0o3/0o10  ],
@@ -238,18 +216,18 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
     [ 0o7/0o10,    0o31/0o32, 0o12/0o10 ],
     [ 0o1,           0o31/0o32, 0o12/0o10 ],
   ];
-  // ⟨ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ ⟩
+
   const UNGAKURBO = 0o3/0o10;
-  // ⟨ ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ɭʃꞇƽ , ⟅ ⟩
+
   const ungaL6da = ( b: number, sefini: number ) =>
     b * Math.sqrt(Math.max(0o0, 0o1 - sefini * sefini));
   const ungaDiko = ( b: number, sefini: number, santa: number ) =>
     b + UNGASANTA * santa - ungaL6da(b, sefini);
   const kf2Ungon = ( vek2fe: ( f: number ) => [ number, number, number ],
     qaroxema: ( f: number ) => [ number, number ], de: number, al: number,
-    dorsa: [ number, number ], sefiniF = 0o7/0o10 ) => {
+    ksokosaini: [ number, number ], sefiniF = 0o7/0o10 ) => {
     const U = 0o20;
-    const [ dx, dz ] = dorsa;
+    const [ dx, dz ] = ksokosaini;
     const lx = -dz, lz = dx;
     const kkaxte = ( sefini: number, t: number ) => UNGAKURBO * sefini * ( 0o2 * t - 0o1 );
     const sost2 = ( f: number, konturoF: number, t: number ) => {
@@ -268,14 +246,14 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
       return Array.from({ length: U }, ( _, i ) => {
         const ang = i / U * Math.PI * 0o2;
         const kos = Math.cos(ang), sin = Math.sin(ang);
-        // ⟨ ɭʃɹ ſ͕ɭɹ , ɭʃꞇƽ , ⟅ ⟩
+
         return [ cx + lx * sefini * kos - dx * diko * sin, cy + k * kos * kos,
           cz + lz * sefini * kos - dz * diko * sin ] as [ number, number, number ];
       });
     };
     const ventumilo = ( f: number, konturoF: number, t: number ):
       [ number, number, number ][] => Array.from({ length: U }, () => sost2(f, konturoF, t));
-    // ⟨ ɭʃɜ ſɭɹȝ , ſɟɔȝ , ꞙɭı , ⟅ ⟩
+
     const preter = ( al - de ) * 0o1/0o20;
     const z2hak = UNGAJPROFILO[UNGAJPROFILO.length - 0o1];
     const tlakakani = 0o1 + preter / ( al - de );
@@ -285,7 +263,7 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
         hac2q(de + ( al - de ) * t, konturoF, santaF, t)),
       ventumilo(al + preter, z2hak[0o1], tlakakani) ]);
   };
-  // ⟨ ɭʃꞇƽ , ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ⟅ ⟩
+
   const UNGADE = 0o66/0o100, UNGAAL = 0o76/0o100;
   const fingraQaroxema = ( f: number ): [ number, number ] => {
     const x2pa = interpolo(FINGRAJSEKCOJ, f);
@@ -295,8 +273,7 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
     ...FINGROJ.map(( [ kozunuX, cet2X, n2k ] ) => kf2Ungon(
       ( f ) => [ fingraC(f, kozunuX, cet2X), fingraP(f, n2k), fingraZ(f) ],
       fingraQaroxema, UNGADE, UNGAAL, [ 0o0, -0o1 ] )),
-    // ⟨ ɭʃꞇƽ , ſɟᴜ j͑ʃ'ᴜ ı],ᴜ ֭ſɭᴜ , ꞙɭı , ⟅ ⟩
-    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ⟩
+
     kf2Ungon(( f ) => {
       const x2pa = dikfingraQaroxema(f);
       return [ x2pa[0o1], x2pa[0o0], x2pa[0o4] ];
@@ -309,12 +286,11 @@ export function kf2KorpanManon(): { tama: THREE.BufferGeometry; hacavaxaha: THRE
     hacavaxaha: vakox2qQoxaKefoujn(hacavaxaha) };
 }
 
-// ⟨ ſןᴜ ɭʃэ , ſןᴜ ɭʃэ ɭʃɔ , ⟅ ⟩
 export function kf2KorpanPiedon(): THREE.BufferGeometry {
   const K = 0o20;
   const sost2 = ( y: number, z: number ) => Array.from({ length: K },
     () => [ 0o0, y, z ] as [ number, number, number ]);
-  // ⟨ ſןᴜ ɭʃэ , ⟅ ⟩
+
   const FUNDO = -0o74/0o200;
   const haqaroxema: [ number, number, number ][] = [
     [ -0o11/0o200, 0o6/0o200,  -0o72/0o200 ],
@@ -336,13 +312,9 @@ export function kf2KorpanPiedon(): THREE.BufferGeometry {
   return pat6;
 }
 
-// ⟨ ꞙɭɿ , ꞙɭı , ꞙɭɔ , ⟅ ⟩
-// ⟨ j͑ʃɜȝ ɭʃɔ , ſןᴜ ɭʃэ ɭʃɔ , ⟅ ⟩
-// ⟨ j͑ʃɹ ŋᷠɹ , ꞙɭı , ⟅ ⟩
 export function kf2Pantalonan(): { teru: THREE.BufferGeometry; maltik: THREE.BufferGeometry } {
   const K = 0o20;
-  // ⟨ ɭʃэ ſɭɔȝ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
-  // ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭı , ꞙɭı , ⟅ ⟩
+
   const hac2q: [ number, number, number, number ][] = [
     [  0o67/0o200, 0o30/0o400, 0o30/0o400,  0o0        ],
     [  0o51/0o200, 0o30/0o400, 0o30/0o400,  0o0        ],
@@ -353,26 +325,25 @@ export function kf2Pantalonan(): { teru: THREE.BufferGeometry; maltik: THREE.Buf
     [ -0o34/0o200, 0o23/0o400, 0o23/0o400,  0o0        ],
     [ -0o27/0o100, 0o21/0o400, 0o21/0o400,  0o0        ],
   ];
-  // ⟨ ɭʃэ ſɭɔȝ , ſןᴜ ɭʃэ ɭʃɔ , ꞙɭı , ⟅ ⟩
+
   const sost2 = ( y: number ) => Array.from({ length: K },
     () => [ 0o0, y, 0o0 ] as [ number, number, number ]);
   const hax2pa = hac2q.map(([ y, a, b, dz ]) => Array.from({ length: K }, ( _, i ) => {
-    // ⟨ ſȷƽᴜ ʃɔ , ꞙɭɔ , ꞙɭэ , ⟅ ⟩
+
     const [ x, z ] = superpuc2q(i / K * Math.PI * 0o2, a, b, 0o2);
     return [ x, y, z + dz ] as [ number, number, number ];
   }));
-  // ⟨ ɭʃэ ſɭɔȝ , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
+
   const GENUO = 0o4;
   const z2hak = hac2q[hac2q.length - 0o1][0o0];
   const teru = kf2RinganSurfacon([ sost2(hac2q[0o0][0o0]),
     ...hax2pa.slice(0o0, GENUO + 0o1) ]);
   const maltik = kf2RinganSurfacon([ ...hax2pa.slice(GENUO), sost2(z2hak) ]);
-  // ⟨ ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ꞙɭı , ⟅ ⟩
-  // ⟨ ꞙɭı , j͑ʃᴜ ʃɜ , ꞙɭɔ , j͑ʃᴜ ſɭ,w , ⟅ ⟩
+
   const g = hac2q[GENUO];
   const artiko = kf2ArtikanSferon([ 0o0, 0o0, g[0o3] ], g[0o1] - 0o1/0o1000, 0o7/0o10);
-  // ⟨ UV 📃 ⟩
-  // ⟨ UV , ſɭɜ ſɭ,w , ⟅ ⟩
+  // ⟨ ſ͕ɭᴜ }ʃɹƽ 📃 ⟩
+
   const hax2paTutaj = hac2q.length + 0o2;
   const alUk6h6 = ( zace: THREE.BufferGeometry, havecax2lani: number[] ) => {
     const qan2k: number[] = [];

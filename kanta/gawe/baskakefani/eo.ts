@@ -1,31 +1,23 @@
-// ≺⧼ ʃᴜ j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ ʌ ꞁȷ̀ɔ j͑ʃɘɔ ɽ͑ʃ'ᴜ }ʃƨɜ ſɭᴜͷ̗ 🗣️ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ꞁȷ̀ɔ ꞁȷ̀ɜ 📃 ⧽≻
 
 export const EO: Record<string, string> = {
 
-// ⟪ ſɭэ ſɭᴜ , 🌅 ⟫
-
   "hate2Aranis": "Araniso",
   "hate2Kaxte": "Kajteo",
-  "subtitoloKaxte": "Ĥusa Lotao, Lamuza Kajteo",
+  "ksakat2xaKaxte": "Ĥusa Lotao, Lamuza Kajteo",
   "eniri": "Eniri",
   "catsiinaPromeni": "PROMENI",
   "catsiinaOrbiti": "ORBITI",
   "catsiinaHasoqte": "VESTARO",
   "catsiinaHelpo": "Helpo",
 
-// ⟪ ſɭэ ſɭᴜ , 🧵 ⟫
-
   "hate2Teksilo": "Teksilo",
-  "subtitoloTeksilo": "Sahakj ĉemizoj, c2naj manikoj, main kaj akcenta.",
-
-// ⟪ ſɭэ ſɭᴜ , ⏳ ⟫
+  "ksakat2xaTeksilo": "Sahakj ĉemizoj, c2naj manikoj, main kaj akcenta.",
 
   "hate2Sxargxo": "Nala",
   "b6tem2Subskribo": "Ŝargado.",
   "b6tem2Satalo": "Vepaqdo de satalaĵoj.",
   "b6tem2Nebulo": "Nebulo fluas tra la valo.",
-
-// ⟪ ſɭᴜ ſןᴜ , 🎮 ⟫
 
   "kompasoNordo": "N",
   "kamaOrbito": "Orbito",
@@ -49,21 +41,13 @@ export const EO: Record<string, string> = {
   "agoKuxi": "Kuŝi",
   "agoLevi": "Leviĝi",
 
-// ⟪ ſɭɜ ſɭ,w , 🗺️ ⟫
-
   "hate2Bal2": "Bal2",
 
-// ⟪ ſɭэ ſɭw , ❓ ⟫
-
   "hate2Hak6h6": "Hak6h6",
-  "subtitoloHelpo": "Urbaj hatsalii",
-
-// ⟪ ſɭᴜ ſןᴜ , 🌐 ⟫
+  "ksakat2xaHelpo": "Urbaj hatsalii",
 
   "caxlefkakaiP2d2": "Iu aliĝis.",
   "caxlefkakaiSunta": "Iu foriris.",
-
-// ⟪ ſɭᴜ ſןᴜ , 🍲 ⟫
 
   "manĝPuss0": "Pusŝlefo-bero",
   "manĝFok0Gusto": "Pano el f2ma kun anasa baozi.",
@@ -74,16 +58,12 @@ export const EO: Record<string, string> = {
   "manĝTla2Gusto": "Vinagro, lam2v suko, mento kaj bergamota teo.",
   "manĝPuss0Gusto": "Malvarmeta, tsasa krispo kun sukereta postgusto.",
 
-// ⟪ ſɭᴜ ſןᴜ , 🏗️ ⟫
-
   "vepaqPriskriboKap2": "Kap2.",
   "vepaqPriskriboGeqqa": "Restoracio.",
   "vepaqPriskriboKasafeo": "Kunvenejo.",
   "vepaqPriskriboStacioxipo": "Ka5asexaz.",
   "vepaqPriskriboTuro": "Nubskrapulo.",
   "vepaqPriskriboSanktejo": "Sost2.",
-
-// ⟪ ſɭᴜ ſןᴜ , 🪪 ⟫
 
   "thalaHavem2": "Tavoloj",
   "thalaDiamanto": "Diamanto",
@@ -92,17 +72,13 @@ export const EO: Record<string, string> = {
   "thalaVepaqHunaq": "Hunaq",
   "thalaXekuxa": "Xekuxa",
 
-// ⟪ ſɭᴜ ſןᴜ , 📖 ⟫
-
   "hate2Inqoxa": "Arazopuo",
-  "subtitoloInqoxa": "Vepaqĵoj, m7x, hapudal",
+  "ksakat2xaInqoxa": "Vepaqĵoj, m7x, hapudal",
   "ariaInqoxaCatsiina": "Inhaqoxa",
   "ariaPukxeiCatsiina": "Pukxei",
   "cax2lPaqj": "Vepaqĵoj",
   "cax2lMangxajxoj": "Manĝaĵoj",
   "cax2lHapudal": "Hapudal",
-
-// ⟪ ſɭᴜ ſןᴜ , 🐟 ⟫
 
   "hatePaga": "Paga",
   "pudalLiixkupukai": "Beroo",
@@ -118,8 +94,6 @@ export const EO: Record<string, string> = {
   "pudalNeĝotemek": "Neĝotemek",
   "pudalPriskriboNeĝotemek": "Pura g2j6 marbirdo glitanta super la s2xuru kaj la k6si.",
 
-// ⟪ ſɭэ ſɭw , 🌿 ⟫
-
   "hatePlanto": "Planto",
   "pudalBetulo": "Betulo",
   "pudalPriskriboBetulo": "Cel2 kun g2j6 ligno.",
@@ -130,7 +104,7 @@ export const EO: Record<string, string> = {
   "pudalTlexlefp2sai": "Pusŝlefo",
   "pudalPriskriboTlexlefp2sai": "Fern-pal6 asfa laktukplanto kun travideblaj manĝeblaj beroj.",
   "pudalXabe": "Xabe",
-  "pudalPriskriboXabe": "Lha xa3e sur la arbara t6lima.",
+  "pudalPriskriboXabe": "Lha xa3e sur la arbara mut6q.",
   "pudalAsfaXabe": "Ŝafiŝlefo",
   "pudalPriskriboAsfaXabe": "Alta asfa xabe de la ekstera qacel2.",
   "pudalF2ma": "F2ma",
@@ -144,8 +118,6 @@ export const EO: Record<string, string> = {
   "pudalCakeo": "Cakeo",
   "pudalPriskriboCakeo": "Equisetum telmateia kiel osta nar2sa.",
 
-// ⟪ ſɭɜ ɭʃɔ , 👕 ⟫
-
   "cax2lHasoqte": "Hasoqte",
   "soqteWeh2Lhant": "Lha",
   "soqteWeh2Hearth": "Bruna",
@@ -157,8 +129,6 @@ export const EO: Record<string, string> = {
   "soqteWeh2Rose": "Roza",
   "soqteWeh2Obsidian": "Hunasai",
   "soqteWeh2Cyan": "Cejana",
-
-// ⟪ ſɭᴜ ſןᴜ , 💇 ⟫
 
   "cax2lHararo": "Hararo",
   "tsaqQaroxema": "Harstiloj",
@@ -172,11 +142,7 @@ export const EO: Record<string, string> = {
   "harWeh2Blonda": "Blonda",
   "harWeh2Griza": "Griza",
 
-// ⟪ ſȷwɔ˞ , 🎵 ⟫
-
   "muziko": "Muziko",
-
-// ⟪ ſɭэ ſɭw , 🌦️ ⟫
 
   "ariaKrepuskoCatsiina": "Krepusko",
   "ariaKrepuskoKama": "Krepuska vem2",
@@ -186,18 +152,15 @@ export const EO: Record<string, string> = {
   "vet6limaHajla": "Hajla",
   "vet6limaNega": "Neĝa",
 
-  // ⟪ WebGL 🖥️ ⟫
+  // ⟪ ſɟᴜ ſɭɹ ſןɹ ʌ ɭʃᴜ ֭ſɭᴜȝ 🖥️ ⟫
 
   "webglNeSubtenata": "Via retumilo ne subtenas WebGL. Ĝisdatigu vian retumilon por sperti la l2han sperton.",
   "webglDetalo": "Kajteo postulas WebGL por funkcii. Ĝisdatigu vian retumilon aŭ kamau viajn GPU-hacatsaran.",
   "webglReprovi": "Reprovi",
 
-// ⟪ ſɭэ ſɭw , 🌍 ⟫
-
   "ariaEniriNala": "Eniri la nala.",
   "saxeiNala": "Kf2 aŭ ŝargi nala",
-  "mondTitolo": "Hanala",
-  "mondKsaka": "Nala",
+  "mondKsaka": "Hanala",
   "mondSxono": "Ruva",
   "catsiinaKf2Nala": "Kf2",
   "mondSavitaCatsara": "Vetlaqitaj hanala",
@@ -207,10 +170,8 @@ export const EO: Record<string, string> = {
   "ariaNalaDuobligi": "Duobligi",
   "catsiinaVetlaqiEliri": "Vetlaqi kaj eliri el la nala.",
 
-// ⟪ ſɭэ ſɭw , ⚙️ ⟫
-
   "hate2Haku1o": "Hacatsara",
-  "subtitoloHaku1o": "Gawe, bole, muziko, vestaro.",
+  "ksakat2xaHaku1o": "Gawe, bole, muziko, vestaro.",
   "catsiinaSono": "Bole",
   "catsiinaBruo": "Fona famaf",
   "ariaGaweCatsiina": "Gawe",

@@ -1,8 +1,8 @@
-// ≺⧼ ŋᷠɀꞇ ɽ͑ʃ'ᴜ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🎹 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ŋᷠɀꞇ ɽ͑ʃ'ᴜ 🎵 ⧽≻
+
 import { noiseSrc } from "./xetoh2.js";
 import { vap6zukani } from "./hakfeKx2keve.js";
 
-// ⟨ ſȷƽᴜ ʃɔ ʌ ꞙɭɔ ʌ ꞙɭɔ ⟅ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ETA = 0o1/0o20000;
 
 export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, vel = 0o1) {
@@ -11,7 +11,6 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
   g.gain.value = 0o7/0o40 * vel;
   g.connect(out);
 
-  // ⟨ ſɭɔ ſᶘɹ ꞙɭɿƨɔ ʌ j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
   const body = ctx.createBiquadFilter();
   body.type = "peaking";
   body.frequency.value = 0o270 * vap6zukani(0o15/0o100);
@@ -37,7 +36,6 @@ export function mbira(ctx: AudioContext, out: AudioNode, t: number, f: number, v
     o.stop(t + dd + 0o1/0o10);
   }
 
-  // ⟨ ɭʃꞇƽ ʌ ꞙɭı ʌ ꞙɭı , ꞙɭɔ ʌ j͑ʃɜ ſןɹ 📃 ⟩
   const th = ctx.createOscillator();
   th.type = "sine";
   th.frequency.value = 0o150 * vap6zukani(0o15/0o100);

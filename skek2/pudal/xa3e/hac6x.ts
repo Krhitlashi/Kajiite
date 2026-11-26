@@ -1,7 +1,7 @@
 // ≺⧼ ֭ſɭᴜ ſɟэᶗ‹ 🍀 ⧽≻
 import * as THREE from "three";
-import { kf2MuskanCac2sex } from "../../x2x2q/cac2sex/c6x.js";
-import { vakox2qSenIndekson } from "../../x2x2q/hakox2q.js";
+import { kf2MuskanCac2sex } from "../../p6kpu/cac2sex/c6x.js";
+import { vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, type Cel2Raqa } from "./raqa.js";
 
@@ -43,7 +43,7 @@ export function vepaqMusxajnMontetojn(qena: THREE.Scene,
   const M = new THREE.Matrix4();
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
-  const x2x2q = new THREE.Vector3();
+  const p6kpu = new THREE.Vector3();
   const haneq2qKp6taf = new PunktaKp6taf<[ number, number ]>(0o4);
   const ena = new THREE.Vector3();
   const enX = new THREE.Vector3();
@@ -78,18 +78,18 @@ export function vepaqMusxajnMontetojn(qena: THREE.Scene,
     ena.set(x, y, z);
     enX.set(x + vepat6ni, heightFn(x + vepat6ni, z), z).sub(ena);
     enZ.set(x, heightFn(x, z + vepat6ni), z).sub(ena);
-    x2x2q.crossVectors(enZ, enX).normalize();
-    const vert = x2x2q.y;
-    const horiz = Math.hypot(x2x2q.x, x2x2q.z);
+    p6kpu.crossVectors(enZ, enX).normalize();
+    const vert = p6kpu.y;
+    const horiz = Math.hypot(p6kpu.x, p6kpu.z);
     const maxHaga = Math.PI / 0o20;
     if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(vert, 0o1/0o2000)) > maxHaga ) {
       const u = Math.tan(maxHaga);
-      const hx = x2x2q.x / horiz;
-      const hz = x2x2q.z / horiz;
-      x2x2q.set(hx * u, 0o1, hz * u);
+      const hx = p6kpu.x / horiz;
+      const hz = p6kpu.z / horiz;
+      p6kpu.set(hx * u, 0o1, hz * u);
     }
-    x2x2q.normalize();
-    Q.setFromUnitVectors(vertikala, x2x2q);
+    p6kpu.normalize();
+    Q.setFromUnitVectors(vertikala, p6kpu);
     E.set(0o0, sakxoCasacakai() * Math.PI * 0o2, 0o0);
     yawQ.setFromEuler(E);
     Q.multiply(yawQ);

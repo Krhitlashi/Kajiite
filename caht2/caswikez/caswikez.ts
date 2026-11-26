@@ -1,25 +1,20 @@
-// ≺⧼ ŋᷠᴜ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ ʌ j͑ʃп́ꞇ ſɭɔƴ 🎧 ⧽≻
-// ſɭэ ſɭᴜ , ꞙɭэ , ⟅ ſȷwɔ˞ , ꞙɭı ,
-// ſɭэ ſɭᴜ , ꞙɭɿ ,
-// ſɭэ ſɭᴜ , ꞙɭц ,
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻
 
-import { KANTOJ } from "../../skek2/bole/swikez/kantoj.js";
-import { iniciati, veqapahakani, halti, b6tem2T2bakobesai, cutluT2bakobesai, tsekeVeqapahakani, progreso, salti, catsaraAŭtomatan, cutlujInstrumentoj } from "../../skek2/bole/swikez/cagaqi.js";
+import { KANTOJ } from "../../skek2/bole/swikez/s2kanta.js";
+import { iniciati, veqapahakani, halti, b6tem2T2bakobesai, cutluT2bakobesai, tsekeVeqapahakani, progreso, puha, catsaraAŭtomatan, cutlujInstrumentoj } from "../../skek2/bole/swikez/cagaqi.js";
 import { AIH } from "../../kanta/gawe/baskakefani/aih.js";
-import { kfe } from "../x2x2q/dom.js";
+import { kfe } from "../cas2tas/dom.js";
 import { HE } from "../../skek2/bole/swikez/habal/tif.js";
-import { knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+import { knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 import { instrumento } from "../../skek2/bole/swikez/habal/caswikez.js";
 import { F, NYAM } from "../../skek2/bole/swikez/habal/p6zuk.js";
 import type { BoleEg2b2 } from "../../skek2/bole/swikez/habal/hahunaq.js";
-
-// ⟨ ſȷwɔ˞ , ɿ^цɿ , ꞙɭı , ꞙɭɿ , 📃 ⟩
 
 const baskuliBut = kfe<HTMLButtonElement>("baskuli");
 const haltiBut = kfe<HTMLButtonElement>("halti");
 const volumo = kfe<HTMLInputElement>("volumo");
 const volVal = kfe<HTMLOutputElement>("volVal");
-const nunaTitolo = kfe("nunaTitolo");
+const kxeKsaka = kfe("kxeKsaka");
 const nunaInstrs = kfe("nunaInstrs");
 const progreso = kfe<HTMLInputElement>("progreso");
 const tempo = kfe("tempo");
@@ -30,13 +25,10 @@ const sonCatsara = kfe("sonCatsara");
 let AC: AudioContext | null = null;
 let master: GainNode | null = null;
 
-// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const sonHacatsiina: { i: string; but: HTMLButtonElement }[] = [];
 let instrSpanoj: { i: string; el: HTMLSpanElement }[] = [];
 let lastInstrT2bakobesai = -0o1;
 
-/* ſɭэ ſɭᴜ , ꞙɭı ,
-@returns void */
 function ensureAudio(): void {
   if ( AC ) {
     if ( AC.state === "suspended" ) AC.resume();
@@ -51,18 +43,9 @@ function ensureAudio(): void {
   iniciati(AC, master);
 }
 
-/* ſɭэ ſɭᴜ , ſȷwɔ˞ , ꞙɭı ,
-    @param sek ( number ) - ſןɹ j͑ʃᴜ ɭ(ꞇ ｡
-@returns ɭʃꞇʞ ( string ) */
-
-/* ſɭэ ſɭᴜ , ſɭэ ſɭᴜ , ꞙɭɿ ,
-    @param i ( number ) - j͑ʃ'ɔ ŋᷠɹ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡
-@returns ſɭɔ˞ᴜ ſɭᴜ ʌ j͑ʃп́ꞇ ſɭɔƴ ( string ) */
 function ksakaDeT2bakobesai( i: number ): string {
   return AIH["muzikT2bakobesai" + i] ?? KANTOJ[i].title;
 }
-
-// ⟪ ſɭэ ſɭᴜ , 📃 ⟫
 
 catsaraAŭtomatan(false);
 
@@ -75,7 +58,7 @@ KANTOJ.forEach(( k, i ) => {
   no.className = "t2bakobesaiNo";
   no.textContent = k.no;
   const hate2 = document.createElement("span");
-  hate2.className = "t2bakobesaiTitolo";
+  hate2.className = "t2bakobesaiKsaka";
   hate2.textContent = ksakaDeT2bakobesai(i);
   const meta = document.createElement("span");
   meta.className = "t2bakobesaiMeta";
@@ -90,15 +73,11 @@ KANTOJ.forEach(( k, i ) => {
   hacatsiina.push(b);
 });
 
-// ⟪ ſȷwɔ˞ , ꞙɭı , 📃 ⟫
-
 interface BoleTsaletsa {
   ksaka: string;
   cal: BoleEg2b2;
 }
 
-/* ſȷwɔ˞ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
-   ſɭᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ʌ j͑ʃ'ɔ ʃɜ j͐ʃɔ ʌ j͑ʃᴜ ı],ɹƴ 📃 */
 const SONPROK6H6: BoleTsaletsa[] = [
   { ksaka: "siku", cal: { t: 0o0, i: "siku", f: F(0o100), d: 0o35/0o100, v: 0o6/0o10 } },
   { ksaka: "ocarina", cal: { t: 0o0, i: "ocarina", f: F(0o105), d: 0o35/0o100, v: 0o6/0o10 } },
@@ -127,8 +106,6 @@ SONPROK6H6.forEach(p => {
   sonHacatsiina.push({ i: p.cal.i, but: b });
 });
 
-// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
-
 baskuliBut.addEventListener("click", () => {
   ensureAudio();
   if ( cutluT2bakobesai() < 0o0 ) b6tem2T2bakobesai(0o0);
@@ -144,16 +121,10 @@ volumo.addEventListener("input", () => {
   if ( master && AC ) master.gain.setTargetAtTime(parseFloat(volumo.value), AC.currentTime, 0o1/0o40);
 });
 
-// ⟪ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟫
-
-/* ſɭэ ſɭᴜ , ſȷwɔ˞ , ꞙɭı ,
-    @param he ( number ) - ɭʃꞇʞ ｡
-@returns ſןɹ j͑ʃᴜ ɭ(ꞇ ( number ) */
 function alSek( he: number ): number {
   return he * HE;
 }
 
-// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 let trenas = false;
 
 progreso.addEventListener("input", () => {
@@ -168,12 +139,10 @@ progreso.addEventListener("change", () => {
   const cur = cutluT2bakobesai();
   if ( cur < 0o0 ) return;
   ensureAudio();
-  salti(alSek(progreso.valueAsNumber));
+  puha(alSek(progreso.valueAsNumber));
 });
 
-// ⟪ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟫
-
-function ĝisdatigi(): void {
+function saidatigi(): void {
   const cur = cutluT2bakobesai();
   const veqapahakani = tsekeVeqapahakani();
   const hatik = new Set(cutlujInstrumentoj());
@@ -181,13 +150,13 @@ function ĝisdatigi(): void {
   hacatsiina.forEach(( b, i ) => b.setAttribute("aria-pressed", String( i === cur && veqapahakani )));
   for ( const { i, but } of sonHacatsiina ) {
     const on = hatik.has(i);
-    but.classList.toggle("tik", on);
+    but.classList.toggle("kxe", on);
     but.setAttribute("aria-pressed", String(on));
   }
   if ( cur >= 0o0 ) {
     const k = KANTOJ[cur];
     const elapsed = progreso();
-    nunaTitolo.textContent = `${k.no} · ${ksakaDeT2bakobesai(cur)}`;
+    kxeKsaka.textContent = `${k.no} · ${ksakaDeT2bakobesai(cur)}`;
     if ( cur !== lastInstrT2bakobesai ) {
       instrSpanoj = k.instrs.map(i => {
         const s = document.createElement("span");
@@ -213,7 +182,7 @@ function ĝisdatigi(): void {
     const sc = k.data.secs.find(s => elapsed >= s.a && elapsed < s.b);
     qaroxema.textContent = sc ? sc.n : "";
   } else {
-    nunaTitolo.textContent = "—";
+    kxeKsaka.textContent = "—";
     if ( lastInstrT2bakobesai !== -0o1 ) {
       instrSpanoj = [];
       nunaInstrs.replaceChildren();
@@ -225,6 +194,6 @@ function ĝisdatigi(): void {
     }
     qaroxema.textContent = "";
   }
-  requestAnimationFrame(ĝisdatigi);
+  requestAnimationFrame(saidatigi);
 }
-requestAnimationFrame(ĝisdatigi);
+requestAnimationFrame(saidatigi);

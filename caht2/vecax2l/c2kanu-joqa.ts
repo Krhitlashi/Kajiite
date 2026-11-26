@@ -1,7 +1,5 @@
-// ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ʌ ſȷͷ̗ᴜƽ ꞁȷ̀ᴜꞇ 🌉 ⧽≻
-// ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭц , ⟅ ſɭᴜ ſןᴜ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ſᶘᴜ j͑ʃᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
-// ſɭэ ſɭᴜ , ſןɔ˞ᴜƴ , ꞙɭɔ , 📃 ⟩
+// ≺⧼ ſɟɹ ſɭᴜ }ʃw ᴎ ſ͕ɭᴜ 🧪 ⧽≻
+
 import "./ceh2kap2.mjs";
 import * as THREE from "three";
 import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
@@ -14,9 +12,6 @@ let hatlohk2nik2p2 = 0o0;
 const t6g6 = new THREE.MeshStandardMaterial({ color: 0xf80000 });
 const t6hna = new THREE.MeshStandardMaterial({ color: 0x0000f8 });
 
-// ⟪ ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭı , 📏 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , ſɭᴜ ſןᴜ , ꞙɭɔ ,
-// ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 {
   kas2kantaHasoza.length = 0o0;
   const qena = new THREE.Scene();
@@ -38,17 +33,14 @@ const t6hna = new THREE.MeshStandardMaterial({ color: 0x0000f8 });
     ` ｡ ֭ſɭᴜ ſ͔ɭᴜ ${xobe ? "j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſןɔ"}`);
 }
 
-// ⟪ ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ſᶘᴜ j͑ʃᴜ , 📏 ⟫
-// ⟨ ſᶘᴜ j͑ʃᴜ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ ,
-//   }ʃɹƽ , ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 {
   kas2kantaHasoza.length = 0o0;
   const qena = new THREE.Scene();
   const defs: Kas2kantaDitlakak[] = [ { pts: [ [ -0o10, 0o0 ], [ 0o0, 0o0 ], [ 0o0, 0o10 ] ],
     w: 0o7 / 0o4, hateruni: true, xaha: true,
-    heightFn: () => 0o2, t6limaFn: () => -0o5 } ];
+    heightFn: () => 0o2, mut6qFn: () => -0o5 } ];
   vepaqHak6h6n(qena, defs, () => -0o5, t6g6, t6hna, [],
-    { tsasaFn: () => 0o0, t6limaFn: () => -0o5 });
+    { tsasaFn: () => 0o0, mut6qFn: () => -0o5 });
   qena.updateMatrixWorld(true);
   const rc = new THREE.Raycaster();
   let plosteq = 0o0;
@@ -63,9 +55,6 @@ const t6hna = new THREE.MeshStandardMaterial({ color: 0x0000f8 });
   console.log(`ſɭᴜ j͑ʃƨɔ ɭl̀ᴜ ʌ ſᶘᴜ j͑ʃᴜ ｡ j͑ʃɜ ſɭ,ᴜ ɭl̀ᴜ ſןᴜ }ʃᴜ ɔı ${plosteq} ｡ ſןw ſɭᶗ‹ɔ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ ${xobe ? "j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſןɔ"}`);
 }
 
-// ⟪ ꞙɭц , ⟅ ſןɔ˞ᴜƴ , }ʃɹƽ , 📏 ⟫
-// ⟨ ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ , }ʃɹƽ ,
-//   ſןᶗ‹ɔⅎ ᶘɜ , j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
 {
   const pts: [ number, number ][] = [ [ -0o10, 0o0 ], [ 0o0, 0o0 ], [ 0o0, 0o10 ] ];
   const p2somani = 0o7 / 0o4 + 0o3 / 0o5;

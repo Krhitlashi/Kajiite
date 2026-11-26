@@ -1,9 +1,10 @@
-// ≺⧼ ֭ſɭᶗ‹ɔⅎ ı],ʞᴜ ſ͕ɭɜ ı],ᴜ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ֭ſɭw }ʃᴜȝ 📃 ⧽≻
+
 import * as THREE from "three";
 
 export interface HxeuxfaRaqa {
   x: number; z: number; y: number;
-  /** ⟪ ı],ɔ ŋᷠᴜ ʌ ſɭэ ı],ᴜʞ ʌ ⺓ ʌ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ⟅ 📃 ⟫ */
+
   s2sabo?: number;
 }
 

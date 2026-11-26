@@ -18580,18 +18580,18 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// eskekoj/hax2x2q/haqoxa.ts
+// eskekoj/tom6nu/haqoxa.ts
 function sax0baPukazQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv || qoxa.getAttribute("uv1")) return qoxa;
 	qoxa.setAttribute("uv1", uv.clone());
-	const x2x2q = qoxa.getAttribute("normal");
+	const p6kpu = qoxa.getAttribute("normal");
 	const bal2 = /* @__PURE__ */ new Map();
 	for (let i = 0; i < uv.count; i++) {
 		let kl = 0;
-		if (x2x2q) {
-			const ax = Math.abs(x2x2q.getX(i)), ay = Math.abs(x2x2q.getY(i)), az = Math.abs(x2x2q.getZ(i));
-			kl = ay >= ax && ay >= az ? x2x2q.getY(i) > 0 ? 1 : 2 : ax >= az ? x2x2q.getX(i) > 0 ? 3 : 4 : x2x2q.getZ(i) > 0 ? 5 : 6;
+		if (p6kpu) {
+			const ax = Math.abs(p6kpu.getX(i)), ay = Math.abs(p6kpu.getY(i)), az = Math.abs(p6kpu.getZ(i));
+			kl = ay >= ax && ay >= az ? p6kpu.getY(i) > 0 ? 1 : 2 : ax >= az ? p6kpu.getX(i) > 0 ? 3 : 4 : p6kpu.getZ(i) > 0 ? 5 : 6;
 		}
 		let ca1ara = bal2.get(kl);
 		if (!ca1ara) bal2.set(kl, ca1ara = []);

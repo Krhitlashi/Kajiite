@@ -1,14 +1,10 @@
-// ≺⧼ ſɭɔ ֭ſɭw ſȷɔⅎƴ ꞁȷ̀ᴜꞇ 🌀 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ ʌ ꞙɭı ⟅ ʃɜ j͐ʃɔ ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭıꞟ/ꞙɭıɔ , ꞙɭı ⟅
-// ⟨ ſɭᴜ j͑ʃᴜ ꞙɭıɔɩ–ꞙɭɿɔƨ , ꞙɭɿ ʌ j͑ʃɹ ſןw ⟅
-// ⟨ ꞙɭэ/ꞙɭıɔɔ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı ⟅ ꞙɭı ⟅
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃᴎw ɽ͑ʃ'w }ʃɴᴜ 🎵 ⧽≻
+
 import { noiseSrc } from "./xetoh2.js";
 import { vap6zukani } from "./hakfeKx2keve.js";
 
-// ⟨ ſɭᴜ j͐ʃэ ɭ(ᴜ ꞙɭɔ ⟅ ſɭᴜ j͐ʃэ ɭ(ᴜ ſᶘɔ ⟅
 const ETA = 0o1/0o20000;
 
-// ⟨ j͑ʃɹ ſןw ꞙɭı ⟅ ꞙɭɿ ʌ j͑ʃɹ ſןw , ꞙɭɔ ⟅
 const PARTALOJ = [
   [ 0o1, 0o55/0o100 ],
   [ 0o2, 0o4/0o10 ],
@@ -28,11 +24,10 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   g.gain.setValueAtTime(0o0/0o10, t + dur);
   g.connect(out);
 
-// ⟨ ſɭэ ֭ſɭэ ʌ ꞙɭı ⟅ ʃɜ j͐ʃɔ ꞙɭı ſɭᴜ , ꞙɭɔ ⟅
   const am = ctx.createGain();
   am.gain.value = 0o55/0o100;
   const who = ctx.createOscillator();
-// ⟨ ʃɜ j͐ʃɔ ʌ ſᶘɜ , ſᶘᴜ j͐ʃɹ ⟅
+
   who.setPeriodicWave(ctx.createPeriodicWave(
     new Float32Array([ 0o0, 0o1 ]),
     new Float32Array([ 0o0, 0o0 ])
@@ -43,7 +38,6 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   who.connect(wg);
   wg.connect(am.gain);
 
-// ⟨ ꞙɭıɔ ʌ ʃɜ j͐ʃɔ , ʃɜ j͐ʃɔ ꞙɭı ſɭᴜ ⟅
   const fine = ctx.createOscillator();
   fine.frequency.value = 0o10 * vap6zukani(0o15/0o100);
   const fg = ctx.createGain();
@@ -51,7 +45,6 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   fine.connect(fg);
   fg.connect(am.gain);
 
-// ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ſᶘɔ , ꞙɭı ⟅
   const vag1 = ctx.createOscillator();
   vag1.frequency.value = 0o4/0o10 * vap6zukani(0o3/0o10);
   const vag2 = ctx.createOscillator();
@@ -63,12 +56,10 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   vag1.connect(vg1);
   vag2.connect(vg2);
 
-// ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭэ ֭ſɭэ ⟅ ſ̀ȷɜ ֭ſɭɔ ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
   const vg3 = ctx.createGain();
   vg3.gain.value = p * 0o2/0o100;
   who.connect(vg3);
 
-// ⟨ j͑ʃɹ ſןw ꞙɭɿ , ꞙɭɔ ⟅
   const h2v = ctx.createOscillator();
   h2v.frequency.value = 0o2/0o10 * vap6zukani(0o3/0o10);
   const h2g = ctx.createGain();
@@ -102,7 +93,6 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
     sources.push(o);
   }
 
-// ⟨ j͑ʃɹ ŋᷠɹ , ʃɜ j͐ʃɔ , ꞙɭɔ ⟅ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭэ ֭ſɭэ ⟅
   const n = noiseSrc(ctx);
   const bp = ctx.createBiquadFilter();
   bp.type = "bandpass";
@@ -119,7 +109,6 @@ export function tjurunga(ctx: AudioContext, out: AudioNode, t: number, dur: numb
   ng.connect(am);
   sources.push(n);
 
-// ⟨ j͑ʃɹ ŋᷠɹ ꞙɭı , ꞙɭɔ ⟅
   const hn = noiseSrc(ctx);
   const hhp = ctx.createBiquadFilter();
   hhp.type = "highpass";

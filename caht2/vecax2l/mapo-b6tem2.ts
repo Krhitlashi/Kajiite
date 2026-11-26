@@ -1,7 +1,5 @@
-// ≺⧼ ʃᴜ j͐ʃɹ ʌ j͑ʃɹ ɭʃɜ j͑ʃᴜᶗ‹ ꞁȷ̀ᴜ }ʃꞇ ʌ j͐ʃɹ ŋᷠɔ 🗺️ ⧽≻
-// ⟨ ſɭᴜ ſןᴜ , ſɭэ ɭʃᴜ , ꞙɭɿ , 📃 ⟩
-//   ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭɔ ,
-//   ſɭэ ɭʃᴜ , ꞙɭı , 📃 ⟩
+// ≺⧼ ŋᷠᴜ ſןɜ ɀ ɭʃɔ ŋᷠɹ 🧪 ⧽≻
+
 import * as THREE from "three";
 import { kf2Minimapon } from "../../kanta/tahaq/k6liqBal2.js";
 import type { Minimapo } from "../../kanta/tahaq/k6liqBal2.js";
@@ -13,7 +11,7 @@ interface FiksaS2k61o {
   kompiligitaj: number;
   hane3unak: number;
   hakxawa: ( THREE.WebGLRenderTarget | null )[];
-// ⟨ ſɭэ ſɭw , ꞙɭı , ⟅ ꞙɭɔ , 📃 ⟩
+
   densoj: number[];
 }
 
@@ -29,8 +27,6 @@ async function atendi( thaweni: () => boolean = () => true ): Promise<void> {
   }
 }
 
-// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
-//   ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 if ( typeof globalThis.ImageData === "undefined" ) {
   ( globalThis as unknown as Record<string, unknown> ).ImageData = class {
     constructor( public data: Uint8ClampedArray, public width: number, public height: number ) {}
@@ -88,8 +84,8 @@ function kf2Fikston( catsaraKagani?: ( qena: THREE.Scene ) => void ): {
     movantoj: {
       hanpco: [], has2kaj2: [], hapaga: { hapaga: [] }, hatemek: { hatemek: [] },
     },
-    traduki: ca3aq => ca3aq,
-    aplikiVacepu: () => {},
+    skakef: ca3aq => ca3aq,
+    k2reiVacepu: () => {},
   });
   return {
     bal2, s2k61o, kompaso, qena,
@@ -100,14 +96,12 @@ function kf2Fikston( catsaraKagani?: ( qena: THREE.Scene ) => void ): {
   };
 }
 
-// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭᴜ , 📃 ⟩
 const senpeto = kf2Fikston();
 senpeto.restarigi();
 await atendi();
 cel2nu( senpeto.s2k61o.habilde === 0o0 && senpeto.s2k61o.hane3unak === 0o0,
   "ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſɭɜ ʃᴜ j͐ʃɹ ʌ j͑ʃп́ꞇ ſɟᴜ ſȷᴜɔ˞" );
 
-// ⟨ ſɭɜ ᶗ‹ , ſɭэ ɭʃᴜ , 📃 ⟩
 const sukcesa = kf2Fikston();
 cel2nu( sukcesa.s2k61o.habilde === 0o0 && sukcesa.s2k61o.kompiligitaj === 0o0,
   "j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ʃᴜ j͐ʃɹ ｡ j͑ʃɜ j͑ʃᴜ ſᶘᴜ j͐ʃɔ ſᶘᴜ ʌ GPU" );
@@ -119,13 +113,11 @@ cel2nu( sukcesa.s2k61o.hane3unak === 0o1, "render target ｡ ſןɔ ʌ }ʃɔ ſ�
 cel2nu( sukcesa.s2k61o.hakxawa.at(-0o1) === null, "render target ʌ j͑ʃw ſןͷ̗ɔͷ̗ ꞁȷ̀ᴜꞇ ｡ ſןɔ ʌ }ʃɔ ſ̀ȷw }ʃᴜƽ" );
 cel2nu( sukcesa.bal2.tsekeBakita(), "ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ" );
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 const duopa = kf2Fikston();
 await Promise.all([ duopa.bal2.pretigi(), duopa.bal2.pretigi() ]);
 cel2nu( duopa.s2k61o.habilde === 0o1, "ſɭэ }ʃᴜ ɔı ｡ j͑ʃ'ɜ j͐ʃɔ ｡ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ɔı" );
 cel2nu( duopa.bal2.tsekeBakita(), "ſɭэ }ʃᴜ ɔı ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ" );
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɔ , 📃 ⟩
 const hidden = kf2Fikston();
 const dokumento = globalThis.document as unknown as { hidden?: boolean };
 dokumento.hidden = true;
@@ -134,7 +126,6 @@ cel2nu( hidden.s2k61o.habilde === 0o0 && !hidden.bal2.tsekeBakita(),
   "ſɟᴜ ſȷᴜɔ˞ ʌ ſɭɜ ʃɔ j͑ʃᴜꞇ ｡ ı],ɜ ſɭᴜʞ ſןɔ˞ᴜƴ ꞁȷ̀ᴜꞇ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ" );
 dokumento.hidden = false;
 
-// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 const malsukcesa = kf2Fikston();
 malsukcesa.s2k61o.fiasku = true;
 malsukcesa.bal2.pretigi();
@@ -148,7 +139,6 @@ malsukcesa.bal2.pretigi();
 await atendi(() => malsukcesa.s2k61o.habilde === 0o1);
 cel2nu( malsukcesa.s2k61o.habilde === 0o1, "j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭэ ֭ſɭэ ʌ j͑ʃ'ɔ ʃɜ j͐ʃɔ" );
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭц , 📃 ⟩
 const perdita = kf2Fikston();
 perdita.s2k61o.perdita = true;
 perdita.bal2.pretigi();
@@ -160,9 +150,6 @@ await atendi(() => perdita.s2k61o.habilde === 0o1);
 cel2nu( perdita.s2k61o.habilde === 0o1 && perdita.bal2.tsekeBakita(),
   "GPU ｡ j͑ʃwc̗ ɭʃᴜ ʌ j͑ʃᴜ ſɭᴜ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ" );
 
-// ⟨ ſɭэ ſɭw , ꞙɭɔ , 📃 ⟩
-// ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 const NEBULADENSOTSALETSA = 0o5 / 0o400;
 const nebula = kf2Fikston(( qena ) => {
   qena.fog = new THREE.FogExp2(0xc8d8d8, NEBULADENSOTSALETSA);

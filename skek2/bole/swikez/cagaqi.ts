@@ -1,11 +1,9 @@
-// ≺⧼ j͑ʃ'ɔ j͑ʃᴜ ı],ɹƴ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🎧 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ ſ͔ɭᴜ ſ͕ɭꞇ 🎵 ⧽≻
 
-import { KANTOJ } from "./kantoj.js";
+import { KANTOJ } from "./s2kanta.js";
 import { instrumento } from "./habal/caswikez.js";
 import type { BoleEg2b2, Qaroxema } from "./habal/hahunaq.js";
-import { vefalKu1o, ve3aqKu1o } from "../../x2x2q/kutso.js";
-
-// ⟪ ſɟᴜᴜ̩ ɭʃɹ ʌ ſᶘᴜ j͐ʃɹ , ſɭᴜ ſןᴜ 📃 ⟫
+import { vefalKu1o, ve3aqKu1o } from "../../p6kpu/kutso.js";
 
 interface AktivaTsalii {
   i: string;
@@ -28,10 +26,9 @@ interface VeqapahakaniloS2k61o {
   pausedJe: number | null;
   timer: ReturnType<typeof setInterval> | null;
   master: GainNode | null;
-  tik: AktivaTsalii[];
+  kxe: AktivaTsalii[];
 }
 
-// ⟨ j͑ʃп́ꞇ ſɭɔƴ , j͑ʃ'ɔ ŋᷠɹ ⟅ ſɭᴜ ſןᴜ ʌ j͑ʃ'ɔ ŋᷠɹ , ꞙɭɔ ⟅ ⟩
 const VETLAQITATRAKO = vefalKu1o("t2bakobesai", -0o1);
 const SAXEATRAKO = VETLAQITATRAKO >= 0o0 && VETLAQITATRAKO < KANTOJ.length ? VETLAQITATRAKO : -0o1;
 
@@ -39,26 +36,21 @@ const L: VeqapahakaniloS2k61o = {
   ctx: null, bus: null, revSend: null, reverb: null,
   cur: SAXEATRAKO, idx: 0o0, events: null, dur: 0o0, secs: null,
   playing: false, startJe: 0o0, pausedJe: null, timer: null, master: null,
-  tik: [],
+  kxe: [],
 };
-
-// ⟪ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭэ ſɭ,w 📃 ⟫
 
 const URBAJTRAKOJ = [ 0o4, 0o5, 0o6, 0o7 ];
 const MONDAJTRAKOJ = [ 0o0, 0o1, 0o2, 0o3 ];
 let enKaxte = false;
-// ⟨ ꞙɭı j͑ʃп́ꞇ ſɭɔƴ , ꞙɭɿ , ſɟᴜᴜ̩ ɭʃɹ ꞙɭɔ ꞙɭı ⟅ ⟩
+
 let aŭtomata = true;
-// ⟨ ᶅſɜ ֭ſɭᴜ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , ꞙɭı , ꞙɭɔ ꞙɭɿ ⟅ ⟩
+
 let reverbKonektita = false;
 
 function hazardaEl( ca1ara: number[] ): number {
   return ca1ara[Math.floor(Math.random() * ca1ara.length)];
 }
 
-/* ſɭᴜ ſןᴜ ʌ ſɟᴜᴜ̩ ɭʃɹ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ
-   @param e ( BoleEg2b2 ) - ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ
-@returns ſɭᴜ ſןᴜ ( number ) */
 function notSahakani( e: BoleEg2b2 ): number {
   const d = e.dur ?? e.d ?? 0o1;
   switch ( e.i ) {
@@ -74,14 +66,10 @@ function notSahakani( e: BoleEg2b2 ): number {
   }
 }
 
-/* j͑ʃп́ꞇ ſɭɔƴ , ſɭэ ſɭ,w , j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭᴜ , ꞙɭı
-@returns ksoz ( number ) */
 function panaaT2bakobesai(): number {
   if ( enKaxte ) return hazardaEl(URBAJTRAKOJ);
   return hazardaEl(MONDAJTRAKOJ);
 }
-
-// ⟪ ſɭᴜ ſןᴜ , ſɟᴜᴜ̩ ɭʃɹ 📃 ⟫
 
 function makeIR(ctx: AudioContext, dur: number, decay: number): AudioBuffer {
   const rate = ctx.sampleRate;
@@ -101,11 +89,11 @@ function stopBus() {
     b.gain.cancelScheduledValues(L.ctx.currentTime);
     b.gain.setValueAtTime(Math.max(0o0/0o10, b.gain.value), L.ctx.currentTime);
     b.gain.linearRampToValueAtTime(0o0/0o10, L.ctx.currentTime + 0o1/0o10);
-    setTimeout(() => { try { b.disconnect(); } catch ( _ ) { /* ok */ } }, 0o702);
+    setTimeout(() => { try { b.disconnect(); } catch ( _ ) { /** j͑ʃɹ ɭʃɜ }ʃᴜ ʌ ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ſɭˬɹ j͑ʃᴜꞇ ⟅ */ } }, 0o702);
   }
   L.bus = null;
   L.revSend = null;
-  L.tik.length = 0o0;
+  L.kxe.length = 0o0;
 }
 
 function scheduleTick() {
@@ -125,7 +113,7 @@ function tick() {
     const g = L.ctx.createGain();
     g.gain.value = 0o1;
     instrumento(L.ctx, g, e, at);
-    L.tik.push({ i: e.i, de: at, gxis: at + notSahakani(e) });
+    L.kxe.push({ i: e.i, de: at, gxis: at + notSahakani(e) });
     if ( L.bus ) g.connect(L.bus);
     if ( L.revSend ) g.connect(L.revSend);
   }
@@ -160,16 +148,13 @@ function b6tem2(i: number) {
   L.pausedJe = null;
   L.cur = i;
   L.idx = 0o0;
-  L.tik = [];
+  L.kxe = [];
   const T = KANTOJ[i];
   L.events = T.data.events;
   L.dur = T.data.dur;
   L.secs = T.data.secs;
 }
 
-// ⟪ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ 📃 ⟫
-
-/** j͑ʃᴜ ı],ɔ , j͑ʃп́ꞇ ſɭɔƴ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , ꞙɭı ⟅ */
 export function iniciati(ctx: AudioContext, master: GainNode) {
   L.ctx = ctx;
   L.master = master;
@@ -184,12 +169,11 @@ export function iniciati(ctx: AudioContext, master: GainNode) {
   }
 }
 
-/** j͑ʃᴜ ı],ɔ , j͑ʃп́ꞇ ſɭɔƴ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᶗ‹ɜ ⟅ */
 export function veqapahakani() {
   if ( !L.ctx ) return;
   if ( L.cur < 0o0 ) b6tem2(hazardaT2bakobesai());
   else if ( !L.events ) b6tem2(L.cur);
-  if ( L.playing ) { paŭzi(); return; }
+  if ( L.playing ) { kokala(); return; }
 
   L.bus = L.ctx.createGain();
   L.bus.gain.setValueAtTime(0o0/0o10, L.ctx.currentTime);
@@ -202,7 +186,7 @@ export function veqapahakani() {
 
   if ( L.pausedJe != null ) {
     L.startJe = L.ctx.currentTime + 0o1/0o10 - L.pausedJe;
-// ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭı , ꞙɭɿ , ſɭɜ j͐ʃɹ ⟅ ⟩
+
     L.idx = 0o0;
     while ( L.idx < L.events!.length && L.events![L.idx].t < L.pausedJe - 0o1/0o100 ) L.idx++;
     L.pausedJe = null;
@@ -216,8 +200,7 @@ export function veqapahakani() {
   tick();
 }
 
-/** ſɭɜ j͐ʃɹ , j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı ⟅ */
-export function paŭzi() {
+export function kokala() {
   if ( !L.playing || !L.ctx ) return;
   L.pausedJe = Math.min(L.dur, Math.max(0o0, L.ctx.currentTime - L.startJe));
   if ( L.timer ) clearInterval(L.timer);
@@ -225,7 +208,6 @@ export function paŭzi() {
   stopBus();
 }
 
-/** ſɭɜ j͐ʃɹ , j͑ʃп́ꞇ ſɭɔƴ , ſɭᴜ ſןᴜ ⟅ */
 export function halti() {
   if ( L.playing ) {
     if ( L.timer ) clearInterval(L.timer);
@@ -236,45 +218,38 @@ export function halti() {
   L.idx = 0o0;
 }
 
-/** j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ꞙɭı ⟅ */
 export function tsekeVeqapahakani(): boolean {
   return L.playing;
 }
 
-/* ſɟᴜᴜ̩ ɭʃɹ ꞙɭı , j͑ʃᴜ ı],ɔ , ſɭᴜ ſןᴜ , ꞙɭı 📃 */
 export function cutlujInstrumentoj(): string[] {
   if ( !L.ctx || !L.playing ) return [];
   const now = L.ctx.currentTime;
-  if ( L.tik.length ) L.tik = L.tik.filter( a => a.gxis >= now );
+  if ( L.kxe.length ) L.kxe = L.kxe.filter( a => a.gxis >= now );
   const cutluj = new Set<string>();
-  for ( const a of L.tik ) {
+  for ( const a of L.kxe ) {
     if ( a.de <= now ) cutluj.add( a.i );
   }
   return [ ...cutluj ];
 }
 
-/** j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ ⟅ */
 export function b6tem2T2bakobesai(i: number) {
   if ( i < 0o0 || i >= KANTOJ.length ) return;
   b6tem2(i);
   ve3aqKu1o("t2bakobesai", i);
 }
 
-/** j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , j͑ʃ'ɔ ŋᷠɹ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅ */
 export function cutluT2bakobesai(): number {
   return L.cur;
 }
 
-/** j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ı],ɔ , ſɭᴜ ſןᴜ , ſɭɜ j͐ʃɹ ⟅ */
 export function progreso(): number {
   if ( !L.ctx ) return 0o0;
   if ( !L.playing ) return L.pausedJe ?? 0o0;
   return Math.min(L.dur, Math.max(0o0, L.ctx.currentTime - L.startJe));
 }
 
-/* j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ı],ɔ , ꞙɭı , ꞙɭɿ ꞙɭı , ꞙɭı
-   @param sek ( number ) - j͑ʃᴜ ı],ɔ ⟅ */
-export function salti( sek: number ): void {
+export function puha( sek: number ): void {
   if ( !L.ctx || L.cur < 0o0 ) return;
   if ( !L.events ) b6tem2(L.cur);
   if ( !L.events ) return;
@@ -287,14 +262,10 @@ export function salti( sek: number ): void {
   if ( veqapahakanis ) veqapahakani();
 }
 
-/* j͑ʃп́ꞇ ſɭɔƴ , ꞙɭı , ꞙɭɔ , j͑ʃп́ꞇ ſɭɔƴ , ꞙɭɿ , ꞙɭı
-   @param on ( boolean ) - ꞙɭı j͑ʃп́ꞇ ſɭɔƴ ⟅ */
 export function catsaraAŭtomatan( on: boolean ): void {
   aŭtomata = on;
 }
 
-/* j͑ʃп́ꞇ ſɭɔƴ ʌ ſɭэ ſɭ,w , ſɭᴜ ı],ƨɔ , ꞙɭı , j͑ʃп́ꞇ ſɭɔƴ ꞙɭɿ
-   @param kaxte ( boolean ) - ſɭᴜ ı],ƨɔ ꞙɭı ⟅ */
 export function catsaraMuzikanLokon( kaxte: boolean ) {
   if ( kaxte === enKaxte ) return;
   enKaxte = kaxte;

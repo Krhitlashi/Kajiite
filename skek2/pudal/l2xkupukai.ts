@@ -1,10 +1,10 @@
-// ≺⧼ j͐ʃɹ ı],ƽw ſןw ſɭᴜꞇ 🪼 ⧽≻
-// ⟨ j͑ʃᴜꞇ ʌ ſɭᴜͷ̗ ɭʃɜƽ 📃 ⟩
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͐ʃɹ ı],ƽw ſןw ſɭᴜꞇ 📃 ⧽≻
+
 import * as THREE from "three";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
-import { tlunakKombohax2pan, aplikiLiixnPulson, gluuSurfacxon, kf2KombilanPukekn,
-  kf2Korpon, liixPulsaFazo, s2qenaR, sozaParto } from "./l2x-hax2x2q.js";
-import { kf2GelanCac2sex } from "../x2x2q/cac2sex/l2x-gelo.js";
+import { tlunakKombohax2pan, k2reiLiixnPulson, gluuSurfacxon, kf2KombilanPukekn,
+  kf2Korpon, liixPulsaFazo, s2qenaR, sozaParto } from "./l2x-soq.js";
+import { kf2GelanCac2sex } from "../p6kpu/cac2sex/l2x-gelo.js";
 
 const S2qena: [ number, number ][] = [
   [ 0o15/0o100, -0o10/0o10 ],
@@ -87,7 +87,7 @@ export function vepaqMalneton(cac2sex: THREE.CanvasTexture): PudalMalneto {
 }
 
 export function tlak2Beran(b: Paga, t: number): void {
-  const pulso = aplikiLiixnPulson(b, t);
+  const pulso = k2reiLiixnPulson(b, t);
   const h6w6o = 0o1 + Math.max(0o0, Math.sin(liixPulsaFazo(b, t) + 0o1/0o4)) * 0o2/0o10;
   const vertikalaAldono = 0o1 + ( h6w6o - 0o1 ) * 0o1/0o2;
   for ( const kek of b.hatahalaqaz ) {

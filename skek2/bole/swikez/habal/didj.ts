@@ -1,7 +1,7 @@
-// ≺⧼ ɭ(ꞇԏ͕ᴎ ꞁȷ̀ᴜꞇ ʌ ʃɜ j͐ʃɔ 🐘 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭ(ꞇԏ͕ᴎ 🎵 ⧽≻
+
 import { noiseSrc } from "./xetoh2.js";
 
-// ⟨ ſȷƽᴜ ʃɔ ʌ ꞙɭɔ ʌ ꞙɭɔ ⟅ ſᶘɔ ŋᷠɹ ŋᷠɹ ʌ j͑ʃᴜꞇ 📃 ⟩
 const ETA = 0o1/0o20000;
 
 export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1, toot = false) {
@@ -30,7 +30,6 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   lp.frequency.value = toot ? 0o2570 : 0o1300;
   lp.Q.value = 0o55/0o40;
 
-  // ⟨ ſɟᴜ ɭʃэ j͑ʃɔ ֭ſɭɔ }ʃꞇ ꞙɭıɔцɿ , ꞙɭıɿцэ , ꞙɭɔ ʌ ſɟɔ ɭʃɹ 📃 ⟩
   const f1 = ctx.createBiquadFilter();
   f1.type = "bandpass";
   f1.frequency.value = toot ? 0o1234 : 0o1032;
@@ -50,7 +49,7 @@ export function didj(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   lp.connect(mix);
   mix.connect(f1);
   f1.connect(g);
-  // ⟨ ſɟɔ ɭʃɹ ʌ ꞙɭɿ ʌ ꞙɭɔ ʌ j͑ʃ'ƽɹʞ , ꞙɭɩɔɔ , ꞙɭıɿɔɔ 📃 ⟩
+
   const f2g = ctx.createGain();
   f2g.gain.value = toot ? 0o6/0o10 : 0o3/0o100;
   mix.connect(f2);

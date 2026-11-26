@@ -1,8 +1,7 @@
-// ≺⧼ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜ }ʃꞇ 🧩 ⧽≻
+// ≺⧼ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɭɜ ı],ɹ ſ͕ɭɜ 🧩 ⧽≻
 import * as THREE from "three";
-import { vakox2qQoxaKefoujn } from "../../x2x2q/hakox2q.js";
+import { vakox2qQoxaKefoujn } from "../../p6kpu/hakox2q.js";
 
-// ⟪ ſɭɜ ı],ɹȝ ʌ ſɭɔƽ ʌ ꞁȷ̀ɹ ſɭꞇ 📃 ⟫
 export function kox2qKek(g: THREE.Group): void {
   const haca1ara = new Map<THREE.Material, { geoj: THREE.BufferGeometry[]; kastas: boolean }>();
   for ( const tsiizo of g.children ) {

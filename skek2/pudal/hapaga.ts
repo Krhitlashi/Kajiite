@@ -1,10 +1,10 @@
-// ≺⧼ ſןᴜ ſ͔ɭᴜ 🐾 ⧽≻
-// ⟨ ſ͕ɭᴜ j͑ʃᴜ ʌ ꞙɭı ʌ ꞙɭı ʌ j͑ʃᴜ ʌ ꞙɭı ʌ ꞙɭı ʌ j͑ʃᴜꞇ 📃 ⟩
+// ≺⧼ ſןᴜ ſ͔ɭᴜ ʌ ֭ſɭᴜ ſןᴜ ſ͔ɭᴜ 🐾 ⧽≻
+
 import * as THREE from "three";
-import { l6da, tsasaVem2, bs2, tsekeEnS2xuru } from "../../kanta/nala/t6limaSoza.js";
+import { l6da, tsasaVem2, bs2, tsekeEnS2xuru } from "../../kanta/nala/mut6qSoza.js";
 import type { Paga, PagaKanta, PudalMalneto } from "./pudal-hahunaq.js";
-import { kf2KombovicanCac2sex } from "../x2x2q/cac2sex/kombox2pa.js";
-import { trovuBestajnZonojn } from "./zono-trovilo.js";
+import { kf2KombovicanCac2sex } from "../p6kpu/cac2sex/kombox2pa.js";
+import { trovuBestajnZonojn } from "./keweani.js";
 import { vepaqMalneton as vepaqBeranMalneton, tlak2Beran } from "./l2xkupukai.js";
 import { vepaqMalneton as vepaqMnemiopsanMalneton, tlak2Mnemiopsan } from "./l2xcaxlefai.js";
 import { vepaqMalneton as vepaqPleŭrobrakianMalneton,
@@ -33,15 +33,15 @@ function tsasaMalnetoj(): PudalMalneto[] {
   return tsasaMalnetojStoko;
 }
 
-function ekstraktuBestajnHakek(hate2: THREE.Group) {
+function nek2resaiktuBestajnHakek(hate2: THREE.Group) {
   const soq = hate2.getObjectByName("korpo") as THREE.Mesh;
-  const nar2sa = hate2.getObjectByName("vosto") as THREE.Object3D | undefined;
+  const nar2sa = hate2.getObjectByName("nar2sa") as THREE.Object3D | undefined;
   const hatahalaqaz = hate2.children.filter(c => c !== soq && c !== nar2sa);
   const has2nasce: THREE.Object3D[] = [];
   hate2.traverse(o => { if (o.name === "s2nasce" ) has2nasce.push(o); });
   const hakaca: THREE.Object3D[] = [];
   hate2.traverse(o => {
-    if ( o.name === "dorsa" || o.name === "analo" || o.name === "brusta" || o.name === "pelva" ) {
+    if ( o.name === "ksokosaini" || o.name === "analo" || o.name === "caqa3aq" || o.name === "kukoxumolakai" ) {
       hakaca.push(o);
     }
   });
@@ -88,7 +88,7 @@ export function vepaqHapagan(qena: THREE.Scene,
       ? malnetoj[0o3 + ( Math.random() < 0o1/0o2 ? 0o0 : 0o1 )]
       : malnetoj[( Math.random() * malnetoj.length ) | 0o0];
     const hate2 = pudal.malneto.clone();
-    const { soq, nar2sa, hatahalaqaz, kozunuKruroj, has2nasce, hakaca } = ekstraktuBestajnHakek(hate2);
+    const { soq, nar2sa, hatahalaqaz, kozunuKruroj, has2nasce, hakaca } = nek2resaiktuBestajnHakek(hate2);
     const tap2 = pudal.tap2;
     const pal6 = 0o1/0o2 + Math.random() * 0o3/0o4;
     hate2.scale.set(pal6 * tap2.x, pal6 * tap2.y, pal6 * tap2.z);
@@ -132,7 +132,7 @@ export function vepaqNeq2qnPagan(qena: THREE.Scene,
   const malnetoj = tsasaMalnetoj();
   const pudal = malnetoj[Math.max(0o0, Math.min(malnetoj.length - 0o1, pudalIndex | 0o0))];
   const hate2 = pudal.malneto.clone();
-  const { soq, nar2sa, hatahalaqaz, kozunuKruroj, has2nasce, hakaca } = ekstraktuBestajnHakek(hate2);
+  const { soq, nar2sa, hatahalaqaz, kozunuKruroj, has2nasce, hakaca } = nek2resaiktuBestajnHakek(hate2);
   const tap2 = pudal.tap2;
   hate2.scale.set(pal6 * tap2.x, pal6 * tap2.y, pal6 * tap2.z);
   const jufu = Math.max(0o0, tsasaY - l6da(x, z));
@@ -182,7 +182,7 @@ export function tlak2Hapagan(s: PagaKanta, t: number): void {
     b.hate2.rotation.y = b.c2w2q + Math.sin(t * b.seheni + b.phase) * 0o1/0o4
       + Math.sin(t * 0o1/0o2 + b.phase) * 0o1/0o4;
     b.hate2.rotation.z = Math.sin(t * 0o3/0o4 + b.phase) * 0o3/0o40;
-    // ⟨ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʌ ſ͕ɭᴜ j͑ʃᴜ 📃 ⟩
+
     if ( b.pudal === "liixkupukai" ) {
       tlak2Beran(b, t);
     } else if ( b.pudal === "liixcaxlefai" ) {

@@ -1,4 +1,5 @@
-// ≺⧼ ſɟᴜ ı],ɹͷ̗ ɭl̀ɹ ᶅſᴜ }ʃꞇ j͑ʃᴜꞇ 🎼 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſןэ ſɭ,wƽ 🎵 ⧽≻
+
 export const A4 = 0o660;
 export const F = ( m: number ) => A4 * Math.pow(0o2, ( m - 0o105 ) / 0o14);
 

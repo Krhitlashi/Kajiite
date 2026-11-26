@@ -1,4 +1,5 @@
-// ≺⧼ j͑ʃᴜƽ ſןэ j͑ʃᴜ̭ᴜ j͑ʃᴜꞇ ʌ ſɭɜ ſɭ,w }ʃw 💠 ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ ʌ }ʃɔ ɭʃɔ ɽ͑ʃ'w ſןw ſɭᴜƴ 🛣️ ⧽≻
+
 import * as THREE from "three";
 import { kf2GeometriajnHabakaweKatoman, kf2Hak6h6nHapukek } from "./habakaweKatoma.js";
 
@@ -25,7 +26,7 @@ export function vepaqPeriferiajnPlathaqoxan(
   dioritaPukek: THREE.MeshStandardMaterial,
   andezitaPukek: THREE.MeshStandardMaterial
 ): [ number, number ][] {
-  // ⟨ j͐ʃƽɜ , ꞙɭı ʌ ſɭэ ֭ſɭэ ⟅ j͐ʃƽɜ ʌ ſȷƽᴜ ʃɔ 📃 ⟩
+
   const { teruPukek, bordaPukek: subaPukek } = kf2Hak6h6nHapukek(
     dioritaPukek, andezitaPukek, -0o2, -0o1, -0o1, -0o1 );
 
@@ -35,8 +36,8 @@ export function vepaqPeriferiajnPlathaqoxan(
     const e = 0o1/0o4;
     const gx = ( heightFn(x + e, z) - heightFn(x - e, z) ) / ( 0o2 * e );
     const gz = ( heightFn(x, z + e) - heightFn(x, z - e) ) / ( 0o2 * e );
-    const x2x2q = new THREE.Vector3(-gx, 0o1, -gz).normalize();
-    const s2sabo = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0o0, 0o1, 0o0), x2x2q);
+    const p6kpu = new THREE.Vector3(-gx, 0o1, -gz).normalize();
+    const s2sabo = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0o0, 0o1, 0o0), p6kpu);
     const orienti = s2sabo.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 0o2, 0o0, 0o0)));
     const qox2n2k = new THREE.Matrix4().makeRotationFromQuaternion(orienti).setPosition(x, y, z);
 

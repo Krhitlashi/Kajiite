@@ -1,6 +1,7 @@
-// ≺⧼ j͑ʃɔ j͑ʃɜȝ ʌ ſɟɔȝ 👕 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ j͑ʃɹ ſɟɔ j͐ʃɹ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2Bufezacen } from "../../x2x2q/hakox2q.js";
+import { kf2Bufezacen } from "../../p6kpu/hakox2q.js";
 import { H6W6AC2Q, h6w6aP2somani, robLevigho } from "./h6w6.js";
 import { C2H2L6DA, C2H2YMALKMARO, C2H2YKMARO, ROBL6DA, ROBPROFUNDO, ROBYMALKMARO } from "./havecax2l.js";
 
@@ -27,9 +28,7 @@ export function kf2SlafTonditanTubon(teruR: number, psazR: number, teruY: number
     const a = 0o2 * i, b = 0o2 * i + 0o2, c = 0o2 * i + 0o1, d = 0o2 * i + 0o3;
     havecax2lani.push(a, b, c, b, d, c);
   }
-  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭɔ , ꞙɭɔ , ꞙɭı , ⟅ ⟩
-  // ⟨ ſɭᴜ ſ͕ȷɔ , ſɭэ ɭʃᴜ , ꞙɭı , ⟅ ⟩
-  // ⟨ j͑ʃɜȝ ɭʃɔ , ſɭэ ɭʃᴜ , ſɭɜ ſɭᴜƽ , 🫧 ⟩
+
   if ( !pukxeitaTeru ) return kf2Bufezacen(haxekuxa, havecax2lani, { qan2k });
   const kupolL6da = teruR * 0o23/0o100;
   const etapoj: [ number, number ][] = [ [ 0o5/0o10, 0o43/0o100 ], [ 0o23/0o100, 0o67/0o100 ] ];
@@ -46,7 +45,7 @@ export function kf2SlafTonditanTubon(teruR: number, psazR: number, teruY: number
   const n2k = haxekuxa.length / 0o3;
   haxekuxa.push(0o0, teruY + kupolL6da, 0o0);
   qan2k.push(0o1/0o2, 0o0);
-  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭı , ⟅ ⟩
+
   for ( let i = 0o0; i < has2nasce; i++ ) {
     havecax2lani.push(hakozonu[0o0] + i, hakozonu[0o0] + i + 0o1, 0o2 * i,
       hakozonu[0o0] + i + 0o1, 0o2 * i + 0o2, 0o2 * i);
@@ -57,10 +56,6 @@ export function kf2SlafTonditanTubon(teruR: number, psazR: number, teruY: number
   return kf2Bufezacen(haxekuxa, havecax2lani, { qan2k });
 }
 
-// ⟨ j͑ʃɜȝ ɭʃɔ , ⟅ ⟩
-
-// ⟪ ſɭэ ɭʃᴜ , ֭ſɭэ ᶅſэ 🚪 ⟫
-// ⟨ ſᶘɔ ʌ j͑ʃᴜ ʃɜƽ , ꞙɭɔ , j͑ʃᴜ ʃɜ , ⟅ ⟩
 function rondigiH6w6anAngulon(haxekuxa: number[], hacel2nu: number, vek2fe: number): void {
   const k = vek2fe > 0o0 ? hacel2nu : 0o0;
   const tsiike = vek2fe > 0o0 ? hacel2nu - 0o1 : 0o1;
@@ -85,16 +80,10 @@ function rondigiH6w6anAngulon(haxekuxa: number[], hacel2nu: number, vek2fe: numb
   skribi(0o1, k, tafkaq.clone().addScaledVector(lauRando, h6kuni));
 }
 
-// ⟨ UV 📃 ⟩
-// ⟨ ſᶘɔ ʌ LOFT , ⟅ ⟩
+// ⟨ ſ͕ɭᴜ }ʃɹƽ 📃 ⟩
+
 export function kf2H6w6anRobonS2cel2n(): THREE.BufferGeometry {
-  // ⟨ j͑ʃᴜ ʃɜ , ⟅ ⟩
-  // ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ꞙɭɔ , ɭʃꞇƽ , ⟅ ⟩
-  // ⟨ ɭʃᴜ , j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ꞙɭı , ⟅ ⟩
-  // ⟨ ſȷƽᴜ ʃɔ , ⟅ ⟩
-  // ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ſןᴜ ɭʃэ , ⟅ ⟩
-  // ⟨ ꞙɭı , ꞙɭı , ⟅ ⟩
-  // ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ⟩
+
   const haka5ik = [ 0o77/0o400, 0o77/0o400, 0o72/0o400, 0o71/0o400, 0o70/0o400,
     0o67/0o400, 0o66/0o400, 0o66/0o400, 0o65/0o400 ];
   const hax2pa = haka5ik.length;
@@ -114,10 +103,7 @@ export function kf2H6w6anRobonS2cel2n(): THREE.BufferGeometry {
       qan2k.push(u, t);
     }
   }
-  // ⟨ j͑ʃɜ ſɭ,ᴜ , ɭʃᴜ , ꞙɭı , ⟅ ⟩
-  // ⟨ ɭʃᴜ , j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ꞙɭɔ , ⟅ ⟩
-  // ⟨ ɭʃᴜ , j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
-  // ⟨ UV , ɭʃᴜ , ⟅ ⟩
+
   const kolumajHat2q2: [ number, number ][] = [
     [ 0o133/0o100, 0o65/0o400 ],
     [ 0o134/0o100, 0o64/0o400 ],
@@ -142,18 +128,13 @@ export function kf2H6w6anRobonS2cel2n(): THREE.BufferGeometry {
       havecax2lani.push(a, c, b, b, c, d);
     }
   }
-  // ⟨ ſɭэ ɭʃᴜ , ֭ſɭэ ᶅſэ , ɭʃɹ ſ͕ɭɹ , ⟅ ⟩
+
   for ( const vek2fe of [ -0o1, 0o1 ] ) rondigiH6w6anAngulon(haxekuxa, hacel2nu, vek2fe);
   return kf2Bufezacen(haxekuxa, havecax2lani, { qan2k });
 }
 
-// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ꞙɭı , ⟅ ⟩
-// ⟨ j͑ʃᴜ ʃɜ , j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ⟅ ⟩
 export function kf2InternanS2cel2n(): THREE.BufferGeometry {
-  // ⟨ ɭʃɹ ʃ͕ɭɹ , ſɭɜ ſɭᴜƽ , ſɭᴜ ſ͕ȷɔ , ⟅ ⟩
-  // ⟨ ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ⟩
-  // ⟨ j͑ʃɜȝ ɭʃɔ , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ⟅ ⟩
-  // ⟨ ſɭᴜ ſ͕ȷɔ , j͑ʃɜȝ ɭʃɔ , ꞙɭı , ⟅ ⟩
+
   const hac2q: [ number, number, number, number ][] = [
     [ C2H2YMALKMARO, 0o70/0o400, ROBPROFUNDO, 0o1 ],
     [ 0o3/0o4,            0o66/0o400, ROBPROFUNDO, 0o1/0o2 ],
@@ -169,7 +150,7 @@ export function kf2InternanS2cel2n(): THREE.BufferGeometry {
     [ 0o273/0o200,        0o22/0o200, 0o1, 0o0 ],
     [ C2H2YKMARO,    0o23/0o200, 0o1, 0o0 ],
   ];
-  // ⟨ j͑ʃɜȝ ɭʃɔ , ꞙɭı , ɭʃэ ſɭɔȝ , ⟅ ⟩
+
   const TUKALEVO = 0o1/0o10;
   const tukaLevo = (ang: number, p: number) => TUKALEVO * p * ( Math.cos(ang) + 0o1 ) / 0o2;
   const hacel2nu = 0o24;
@@ -196,4 +177,3 @@ export function kf2InternanS2cel2n(): THREE.BufferGeometry {
   return kf2Bufezacen(haxekuxa, havecax2lani, { qan2k });
 }
 
-// ⟨ kf2C2qnKeston , ꞙɭı , ⟅ ⟩

@@ -1,6 +1,6 @@
-// ≺⧼ ſɟᴜ ſɟɹ ᶅſɹƽ ꞁȷ̀ᴜꞇ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ 🏮 ⧽≻
+// ≺⧼ ſɟᴜ ſɟɹ ᶅſɹƽ ꞁȷ̀ᴜꞇ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ֭ſɭᴜ ֭ſɭw ſȷп́w ſɭɹ 🏮 ⧽≻
 import { VepaqSpec } from "../../../skek2/hapaq/satalaj/hahunaq.js";
-import { l6da, tsasa, tsasaVem2 } from "../t6limaSoza.js";
+import { l6da, tsasa, tsasaVem2 } from "../mut6qSoza.js";
 
 export interface LampQar {
   x: number;
@@ -11,7 +11,7 @@ export interface LampQar {
 }
 
 export type LampAldonilo = ( x: number, z: number, kozunuY?: number, s2sabo?: number,
-  serĉu?: boolean ) => boolean;
+  t2bakano?: boolean ) => boolean;
 
 export function kf2LampAldonilon(
   vepaqPudalj: VepaqSpec[],
@@ -28,9 +28,9 @@ export function kf2LampAldonilon(
     }
     return !lampHaqar.some( l => Math.hypot( x - l.x, z - l.z ) < 0o2 );
   };
-  return ( x, z, kozunuY, s2sabo = Math.PI / 0o4, serĉu = true ): boolean => {
+  return ( x, z, kozunuY, s2sabo = Math.PI / 0o4, t2bakano = true ): boolean => {
     const hakandidato: [ number, number ][] = [ [ x, z ] ];
-    if ( kozunuY === undefined && serĉu ) {
+    if ( kozunuY === undefined && t2bakano ) {
       for ( const r of [ 0o1/0o2, 0o1, 0o3/0o2, 0o2, 0o3 ] ) {
         for ( let i = 0o0; i < 0o20; i++ ) {
           const tafkaq = i * Math.PI * 0o2 / 0o20;

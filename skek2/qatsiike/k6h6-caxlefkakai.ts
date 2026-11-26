@@ -1,4 +1,4 @@
-// ≺⧼ ſɭэ ֭ſɭэ 🛣️ ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ſɭэ ֭ſɭэ ᴜ̭ ı],ͷ̗ɔ ſȷƽᴜ ſɭᴜꞇ 🛣️ ⧽≻
 
 import { HAQAKAJ2OQASEFINI, QAKAJ2KOZUNUASEFINI } from "./qakaj2/hahunaq.js";
 

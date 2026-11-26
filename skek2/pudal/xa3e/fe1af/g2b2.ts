@@ -1,12 +1,11 @@
-// ≺⧼ ſȷɔ ſᶘᴜʞ j͑ʃᴜꞇ ʌ ſ͔ɭɹ ʃɹ 🌬 ⧽≻
-import * as THREE from "three";
-import { kf2HerbanKlinganCac2sex } from "../../../x2x2q/cac2sex/klinga-fe1af.js";
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſ͔ɭɹ ʃɹ 📃 ⧽≻
 
-// ⟪ ſȷɔ ſᶘᴜʞ , j͑ʃᴜ ſןᴜ , ꞙɭı 📃 ⟫
+import * as THREE from "three";
+import { kf2HerbanKlinganCac2sex } from "../../../p6kpu/cac2sex/klinga-fe1af.js";
+
 export const HERBAPUSANTOJ = 0o4;
 const HERBAPUSARADIO = 0o13/0o10;
 
-// ⟪ j͑ʃɹ ŋᷠɹ , ſȷɔ ſᶘᴜʞ , ⟅ 📃 ⟫
 interface TsiicaG2b2 {
   uTif: THREE.IUniform;
   uCatahaq: THREE.IUniform;
@@ -26,21 +25,18 @@ export interface TsiicaTavolo {
   cx: number;
   cz: number;
   plosteq: number;
-  // ⟨ ſȷɔ ſᶘᴜʞ , ꞙɭɿ j͑ʃ'ɔ ŋᷠɹ ⟅ ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭɿ , ꞙɭı ⟅
-  //   ſȷɔ ſᶘᴜʞ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭı , ꞙɭɿ , ⟅ 📃 ⟩
+
   gekare: THREE.BufferGeometry;
   malhatsiike: THREE.BufferGeometry;
-  // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ſɭɹ ſןᴜ , ꞙɭɔ , ſɭэ ɭʃᴜ , ſɭɹ ſןᴜ , ꞙɭı ,
-  //   ſɭэ ɭʃᴜ , ſȷɔ ſᶘᴜʞ , ſןᴜ ɭʃэ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ꞙɭɿ , ⟅ 📃 ⟩
+
   lodH6kuni: number;
   ka5ik: number;
   maltsiike: boolean;
 }
 export const hatsiicaTavoloj: TsiicaTavolo[] = [];
-// ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , j͑ʃᴜ ſɭᴜ , ⟅ ſɭᴜ ſןᴜ , j͑ʃᴜ ʃɜ , ꞙɭı , ꞙɭı ⟅ ⟩
+
 const HERBALODHISTEREZO = 0o6;
-// ⟨ ſɭᴜ j͑ʃᴜ ɭʃɹ , j͑ʃɜ ɭʃɹȝ , ⟅ ſɭɹ ſןᴜ , ꞙɭɔ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɔ ,
-//   ſɭɹ ſןᴜ , ꞙɭɿ , ꞙɭı , j͑ʃᴜ ſɭᴜ , ⟅ 📃 ⟩
+
 let tlakakaiTsiicaX = Infinity, tlakakaiTsiicaZ = Infinity;
 let tsiicaDevigita = true;
 
@@ -48,7 +44,6 @@ export function devigiHerbanGxisdatigon(): void {
   tsiicaDevigita = true;
 }
 
-// ⟪ ſןw ſɭɔƽ , ſȷɔ ſᶘᴜʞ 📃 ⟫
 export interface TsiicaMaterialajHasukf2qani {
   doklivo?: boolean;
   l6da?: number;
@@ -56,8 +51,6 @@ export interface TsiicaMaterialajHasukf2qani {
   pusxo?: number;
 }
 
-// ⟨ ſȷɔ ſᶘᴜʞ , j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , j͑ʃɜ ſɭ,ᴜ , ꞙɭı ⟅ ꞙɭı , ꞙɭı ,
-//   j͑ʃɜȝ ɭʃɔ , j͑ʃɜ ſɭ,ᴜ , GPU , ꞙɭı , ſןw ſɭɔƽ , ꞙɭı , j͑ʃɹ ŋᷠɹ , ꞙɭı ⟅ 📃 ⟩
 let defauxlaTsiicaTexture: THREE.CanvasTexture | null = null;
 
 export function kf2HerbanPukekn(plosteq = 0o100,
@@ -182,8 +175,7 @@ export function tlak2Fe1afn(t: number, x: number, z: number,
         surok.ka5ik ?? HERBAPUSARADIO, surok.g2sa ?? 0o1);
     }
   }
-  // ⟨ ſןw ſɭɔƽ , j͑ʃᴜ ı],ɔ , ſɭᴜ j͑ʃᴜ ɭʃɹ , ꞙɭɔ , ſɭɹ ſןᴜ ,
-  //   ſɭᴜ ſןᴜ , j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   if ( !tsiicaDevigita && x === tlakakaiTsiicaX && z === tlakakaiTsiicaZ ) return;
   tsiicaDevigita = false;
   tlakakaiTsiicaX = x; tlakakaiTsiicaZ = z;
@@ -194,9 +186,7 @@ export function tlak2Fe1afn(t: number, x: number, z: number,
     const plosteq = tanek.plosteq;
     tanek.cakamaha.visible = disto2 <= plosteq * plosteq;
     if ( !tanek.cakamaha.visible ) continue;
-    // ⟨ j͑ʃ'ɔ ŋᷠɹ , ꞙɭı , ꞙɭı , ſɭэ ſɭ,w , ꞙɭı , ꞙɭı ,
-    //   ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɹ ſןᴜ , ꞙɭı ,
-    //   ſɭᴜ ſןᴜ , ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ , ꞙɭı , ſȷɔ ſᶘᴜʞ , ⟅ 📃 ⟩
+
     const lod = tanek.lodH6kuni + tanek.ka5ik
       + ( tanek.maltsiike ? -HERBALODHISTEREZO : HERBALODHISTEREZO );
     const maltsiike = disto2 > lod * lod;

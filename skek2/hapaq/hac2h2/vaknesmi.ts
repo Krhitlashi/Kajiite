@@ -1,8 +1,8 @@
-// ≺⧼ ſɟɹ ֭ſɭɹ ʌ ſɭˬᴜȝ 🚀 ⧽≻
+// ≺⧼ ſɟɹ ֭ſɭɹ ʌ ſɭˬᴜȝ ʌ j͑ʃ'ᴜ ſɭc̗ɔ j͑ʃc̭ꞇ 🚀 ⧽≻
 import * as THREE from "three";
 import type { VepaqSpec } from "../satalaj/hahunaq.js";
-import { kf2Cawez2Qoxa } from "../../x2x2q/haqoxa.js";
-import { kf2Sexil2hanCac2sex, sexil2haCac2sex } from "../../x2x2q/cac2sex/sexil2ha-cana.js";
+import { kf2Cawez2Qoxa } from "../../p6kpu/haqoxa.js";
+import { kf2Sexil2hanCac2sex, sexil2haCac2sex } from "../../p6kpu/cac2sex/sexil2ha-cana.js";
 import { SXIPANIVELOJ, SXIPATIERO } from "../krasesxagxa-kosmosxipo.js";
 import { GOLD, GOLDWARM } from "./haqoxa.js";
 import { bohoAltecxo, type BohoInfo, type InternaEnirN2k, type C2h2Kanta } from "./hahunaq.js";
@@ -29,7 +29,7 @@ export function h2liInternanHate(hate2: THREE.Group): void {
   });
 }
 
-export function aplikiLitajnHaweh2(hate2: THREE.Group, tolaWeh2: number, kusenaWeh2: number): void {
+export function k2reiLitajnHaweh2(hate2: THREE.Group, tolaWeh2: number, kusenaWeh2: number): void {
   let tola: THREE.MeshStandardMaterial | null = null;
   let kusena: THREE.MeshStandardMaterial | null = null;
   hate2.traverse(( obj ) => {

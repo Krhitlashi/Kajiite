@@ -1,39 +1,36 @@
-// ≺⧼ ſɟᴜ ſɭᴜ ŋᷠᴜ ֭ſɭᴜ 🌐 ⧽≻
+// ≺⧼ ſɟᴜ ſɭᴜ ŋᷠᴜ ֭ſɭᴜ ʌ ſɟᴜ ı],ͷ̗ɔ ſȷƽᴜ ſɭᴜꞇ 🌐 ⧽≻
 import * as THREE from "three";
-import { vepaqQoxa, marŝSvingo } from "../../skek2/pudal/hamaz.js";
+import { vepaqQoxa, kataCab6ka } from "../../skek2/pudal/hamaz.js";
 import type { Qoxa } from "../../skek2/pudal/hamaz.js";
 import { HASOQTE, HATSAQHAXE, TSAQWEH2J } from "../../skek2/hasoqte/hasoqte.js";
 
-// ⟪ ſɭэ ſɭᴜ , ſɭэ ɭʃᴜ , 📃 ⟫
 export interface LokaS2k61o {
   x: number;
   y: number;
   z: number;
   c2w2q: number;
   mov: number;
-  naĝas: boolean;
+  kula: boolean;
   surKanuo: boolean;
   c2h2: string;
-  reĝimo: "promeno" | "c2h2" | "orbito";
+  kmaknu: "kata" | "c2h2" | "h2se";
   soqte: number;
   tsaq: number;
   harWeh2: number;
 }
 
 export interface Caxlefkakai {
-  tik: boolean;
+  kxe: boolean;
   hate2: THREE.Group;
   sendi: ( vepaq: () => LokaS2k61o ) => void;
   animacii: ( deltaTif: number, t: number ) => void;
-  pukxei: () => void;
+  kobe: () => void;
 }
 
-// ⟪ ſɭэ ɭʃᴜ , ſ͔ɭᴜ }ʃꞇ , 📃 ⟫
-// ⟨ j͑ʃᴜ ſɭ,w , j͑ʃᴜ ſɭᴜ , 📏 ⟩
 const PORDRETILO = 0o5660;
 const PORDFALLO = 0o5671;
-const SENDOPAŬZO = 0o200;
-const REKONEKTAŬZO = 0o6000;
+const banaKol2 = 0o200;
+const c2kBanaKol2 = 0o6000;
 const PANAO = 0o10;
 const MOVOPANAO = 0o10;
 
@@ -41,26 +38,25 @@ interface ForaQoxa {
   qoxa: Qoxa;
   tafkaq: number;
   x: number; y: number; z: number;
-// ⟨ j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı , 📃 ⟩
+
   grundaY: number;
   celMovo: number;
   mov: number;
   xafanitapu: number;
   c2h2: string;
-  reĝimo: "promeno" | "c2h2" | "orbito";
+  kmaknu: "kata" | "c2h2" | "h2se";
   soqte: number;
   tsaq: number;
   harWeh2: number;
 }
 
-export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) => void, traduki: ( ca3aq: string ) => string): Caxlefkakai {
+export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) => void, skakef: ( ca3aq: string ) => string): Caxlefkakai {
   const hate2 = new THREE.Group();
   hate2.name = "caxlefkakai";
   qena.add(hate2);
 
   let so: WebSocket | null = null;
-  let tik = false;
+  let kxe = false;
   let pukxe = false;
   let tlakakaiSukcesa = "";
   let tsaletsaVecax2l = 0o0;
@@ -98,7 +94,7 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     rekonektaTempilo = setTimeout(() => {
       rekonektaTempilo = null;
       konekti();
-    }, REKONEKTAŬZO);
+    }, c2kBanaKol2);
   }
 
   function konekti(): void {
@@ -120,16 +116,16 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     }
     so = sef4;
     sef4.onopen = () => {
-      tik = true;
+      kxe = true;
       tlakakaiSukcesa = url;
       tsaletsaVecax2l = 0o0;
       tlakakaiSendoTif = 0o0;
     };
     sef4.onmessage = ( e ) => traktiMesagxon(String(e.data));
-    sef4.onerror = () => { try { sef4.close(); } catch { /* pukxe */ } };
+    sef4.onerror = () => { try { sef4.close(); } catch { /** j͑ʃɹ ɭʃɜ }ʃᴜ ʌ ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ſɭˬɹ j͑ʃᴜꞇ ⟅ */ } };
     sef4.onclose = () => {
       if ( so !== sef4 ) return;
-      tik = false;
+      kxe = false;
       so = null;
       tsaletsaVecax2l++;
       h2liCxiujn();
@@ -148,13 +144,13 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
       if ( f ) {
         foraj.delete(vop2lna.id);
         hate2.remove(f.qoxa.group);
-        jeTost(traduki("caxlefkakaiSunta"));
+        jeTost(skakef("caxlefkakaiSunta"));
       }
     }
   }
 
-  function vefalSupknu(g: any): "promeno" | "c2h2" | "orbito" {
-    return g === "i" ? "c2h2" : g === "o" ? "orbito" : "promeno";
+  function vefalSupknu(g: any): "kata" | "c2h2" | "h2se" {
+    return g === "i" ? "c2h2" : g === "o" ? "h2se" : "kata";
   }
 
   function finiaj(m: Record<string, any>): boolean {
@@ -182,12 +178,12 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
         mov: 0o0,
         xafanitapu: Math.random() * Math.PI * 0o2,
         c2h2: m.i || "",
-        reĝimo: vefalSupknu(m.g),
+        kmaknu: vefalSupknu(m.g),
         soqte: m.v, tsaq: m.h, harWeh2: m.c,
       };
       foraj.set(m.id, f);
       hate2.add(qoxa.group);
-      jeTost(traduki("caxlefkakaiP2d2"));
+      jeTost(skakef("caxlefkakaiP2d2"));
     } else {
       if ( f.soqte !== m.v ) {
         f.soqte = m.v;
@@ -206,13 +202,13 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     f.x = m.x; f.y = m.y; f.z = m.z;
     f.celMovo = m.m ?? 0o0;
     f.c2h2 = m.i || "";
-    f.reĝimo = vefalSupknu(m.g);
+    f.kmaknu = vefalSupknu(m.g);
   }
 
   function sendi(vepaq: () => LokaS2k61o): void {
-    if ( !tik || !so ) { tlakakaiS2k61o = null; return; }
+    if ( !kxe || !so ) { tlakakaiS2k61o = null; return; }
     const nun = performance.now();
-    if ( nun - tlakakaiSendoTif < SENDOPAŬZO ) return;
+    if ( nun - tlakakaiSendoTif < banaKol2 ) return;
     tlakakaiSendoTif = nun;
     const s2k61o = vepaq();
     tlakakaiS2k61o = s2k61o;
@@ -222,10 +218,10 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
       x: q(s2k61o.x), y: q(s2k61o.y), z: q(s2k61o.z),
       r: q(s2k61o.c2w2q),
       m: q(s2k61o.mov),
-      n: s2k61o.naĝas ? 0o1 : 0o0,
+      n: s2k61o.kula ? 0o1 : 0o0,
       k: s2k61o.surKanuo ? 0o1 : 0o0,
       i: s2k61o.c2h2,
-      g: s2k61o.reĝimo === "c2h2" ? "i" : s2k61o.reĝimo === "orbito" ? "o" : "w",
+      g: s2k61o.kmaknu === "c2h2" ? "i" : s2k61o.kmaknu === "h2se" ? "o" : "w",
       v: s2k61o.soqte,
       h: s2k61o.tsaq,
       c: s2k61o.harWeh2,
@@ -239,8 +235,7 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
       const g = f.qoxa.group;
       const k = Math.min(0o1, deltaTif * PANAO);
       g.position.x += ( f.x - g.position.x ) * k;
-// ⟨ j͑ʃᴜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// ſɭɜ ɭʃᴜ , ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
+
       f.grundaY += ( f.y - f.grundaY ) * k;
       g.position.y = f.grundaY;
       g.position.z += ( f.z - g.position.z ) * k;
@@ -251,27 +246,27 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
       const mov = f.mov;
       if ( mov > 0o1/0o100 ) {
         f.xafanitapu += deltaTif * 0o4 * mov;
-        marŝSvingo(f.qoxa, f.xafanitapu, mov, deltaTif);
+        kataCab6ka(f.qoxa, f.xafanitapu, mov, deltaTif);
       } else {
-        marŝSvingo(f.qoxa, f.xafanitapu, 0o0, deltaTif);
+        kataCab6ka(f.qoxa, f.xafanitapu, 0o0, deltaTif);
         const idla = Math.sin(t * 0o7 + f.xafanitapu) * 0o2/0o100;
         f.qoxa.haknece[0o0].rotation.x = idla;
         f.qoxa.haknece[0o1].rotation.x = -idla;
       }
-      g.visible = nia !== null && f.reĝimo !== "orbito" && f.c2h2 === nia.c2h2;
+      g.visible = nia !== null && f.kmaknu !== "h2se" && f.c2h2 === nia.c2h2;
     }
   }
 
-  function pukxei(): void {
+  function kobe(): void {
     pukxe = true;
     if ( rekonektaTempilo !== null ) clearTimeout(rekonektaTempilo);
-    if ( so ) { try { so.close(); } catch { /* pukxe */ } }
+    if ( so ) { try { so.close(); } catch { /** j͑ʃɹ ɭʃɜ }ʃᴜ ʌ ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ſɭˬɹ j͑ʃᴜꞇ ⟅ */ } }
     so = null;
-    tik = false;
+    kxe = false;
     h2liCxiujn();
   }
 
   konekti();
 
-  return { get tik() { return tik; }, hate2, sendi, animacii, pukxei };
+  return { get kxe() { return kxe; }, hate2, sendi, animacii, kobe };
 }

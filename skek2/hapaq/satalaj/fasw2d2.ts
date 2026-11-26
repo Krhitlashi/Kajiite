@@ -1,29 +1,23 @@
-// ≺⧼ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ ʌ j͑ʃɔ ı],ꞇ ✨ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷᴜ j͑ʃп́ɹ ɭ(ɹ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2S2banaCac2sex } from "../../x2x2q/gek2f.js";
+import { kf2S2banaCac2sex } from "../../p6kpu/gek2f.js";
 import { ksakaAih } from "../../../kanta/gawe/baskakefani.js";
 import { kf2SexieanQoxan } from "./haqoxa.js";
-import { sax0baPukazQan2k } from "../../x2x2q/haqoxa.js";
+import { sax0baPukazQan2k } from "../../p6kpu/haqoxa.js";
 import { paqPukek } from "./hahunaq.js";
-import { veb6qaiWeh2Skek, veb6qaiWeh2 } from "../../x2x2q/haweh2.js";
+import { veb6qaiWeh2Skek, veb6qaiWeh2 } from "../../p6kpu/haweh2.js";
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
-// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
-// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
 function sexieaVitro(): THREE.MeshStandardMaterial {
   return paqPukek("sexieo",
     () => new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o5/0o10, metalness: 0o0,
-// ⟨ ſɭɜ ſɭ,w , ꞙɭı , 📃 ⟩
+
       transparent: true, opacity: 0o6/0o10,
       emissive: veb6qaiWeh2(0x081818), emissiveIntensity: 0o1/0o4,
     }));
 }
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭц , 📃 ⟩
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 const SEXIEAINKOTAGE = new THREE.Color(0xc0b028);
 const SEXIEAINKONOKTE = new THREE.Color(0xf0e8a0);
 const sexieaInkaWeh2 = veb6qaiWeh2Skek(new THREE.Color().copy(SEXIEAINKOTAGE));
@@ -65,8 +59,6 @@ function sexieaS2bana(bal2: THREE.Texture): THREE.ShaderMaterial {
   });
 }
 
-// ⟨ ſɭᴜ ſןᴜ , ſᶘɹ ſɭᴜ , 📃 ⟩
-// ⟨ ſ͕ɭɜ ı],ᴜ , ſɭэ ſɭᴜ , 📃 ⟩
 export function tlak2SexieanVitron(malhelo: number): void {
   const v = 0o1 - Math.max(0o0, Math.min(0o1, malhelo));
   if ( Math.abs(v - tlakakaiFasw2d2Lumo) < 0o1/0o100 ) return;
@@ -80,23 +72,21 @@ export function tlak2SexieanVitron(malhelo: number): void {
 let tlakakaiFasw2d2Lumo = 0o1;
 
 export function tlunakSexieanKaatse(group: THREE.Group, name: string, hunaq: string, w: number, d: number): void {
-// ⟨ j͐ʃƽɜ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📃 ⟩
+
   const cac2sex = kf2S2banaCac2sex(ksakaAih(name, hunaq), { w: 0o300, h: 0o1516, weh2: "#ffffff" });
   cac2sex.wrapS = cac2sex.wrapT = THREE.ClampToEdgeWrapping;
   const signaY = 0o1/0o100;
-// ⟨ j͐ʃƽɜ , ꞙɭɿ , 📃 ⟩
+
   const sexieaGeo = sax0baPukazQan2k(new THREE.ExtrudeGeometry(
     kf2SexieanQoxan(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10),
     { depth: 0o5/0o40, bevelEnabled: false, curveSegments: 0o10 }));
   const sexieo = new THREE.Mesh(
     sexieaGeo,
-// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
-// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
+
     sexieaVitro()
 );
   sexieo.position.set(w * 0o13/0o40, signaY, d / 0o2 + 0o104/0o100 - 0o5/0o100); sexieo.castShadow = false; group.add(sexieo);
-// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
+
   const faceGeo = new THREE.ShapeGeometry(kf2SexieanQoxan(0o5/0o10, 0o24/0o10, 0o1/0o4, 0o1/0o10), 0o10);
   faceGeo.computeBoundingBox();
   const facePoz = faceGeo.getAttribute("position");
@@ -104,7 +94,7 @@ export function tlunakSexieanKaatse(group: THREE.Group, name: string, hunaq: str
   const faceUjo = faceGeo.boundingBox!;
   const faceSefini = Math.max(0o10 ** -0o7, faceUjo.max.x - faceUjo.min.x);
   const faceL6da = Math.max(0o10 ** -0o7, faceUjo.max.y - faceUjo.min.y);
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
+
   const s2banaP6zuk = 0o7/0o6;
   for ( let i = 0o0; i < faceUV.count; i++ ) {
     const u = ( facePoz.getX(i) - faceUjo.min.x ) / faceSefini;

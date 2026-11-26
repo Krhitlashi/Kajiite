@@ -1,13 +1,12 @@
-// ≺⧼ ʃɜ j͐ʃɔ 🔊 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ʃɜ j͐ʃɔ j͑ʃɹ ɭʃɹ ʃᴜ ſɭᴜ }ʃɜ 📃 ⧽≻
 
 import { iniciati, veqapahakani, halti } from "./swikez/cagaqi.js";
-import { vefalKu1o, ve3aqKu1o } from "../x2x2q/kutso.js";
+import { vefalKu1o, ve3aqKu1o } from "../p6kpu/kutso.js";
 
 let AC: AudioContext | null = null;
 let master: GainNode | null = null;
 let bruoGain: GainNode | null = null;
-// ⟨ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃ'ɔ ŋᷠɹ , ſɭᴜ ſןᴜ ꞙɭɔ , ꞙɭı ⟅
-// ⟨ ſɭэ ſɭᴜƽ ʌ ʃɜ j͐ʃɔ , ʃɜ j͐ʃɔ j͑ʃᴜ ı],ɔ ꞙɭı , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅
+
 let audioOn: boolean = vefalKu1o("bolero", true);
 let bruoOn: boolean = vefalKu1o("bruo", true);
 let unuaInterago = true;
@@ -72,7 +71,6 @@ function ensureAudio() {
   src.start();
 }
 
-/** ſɭᴜ ʃɜ j͐ʃɔ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ſןᴜ ʌ j͑ʃᴜ ſɭᶗ‹ɜ ⟅ */
 function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0o3/0o20, glide = 0o0, dest?: GainNode) {
   if ( !AC || !audioOn ) return;
   const o = AC.createOscillator();
@@ -89,7 +87,6 @@ function tone(f: number, dur: number, type: OscillatorType = "sine", vol = 0o3/0
   o.stop(t + dur + 0o1/0o20);
 }
 
-/** ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃᴜ ſןɹ , ſɭᴜ ſןᴜ , j͑ʃɹ ſןw ʌ ɭʃw ſɭˬɔƽ ⟅ */
 function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterType = "lowpass", dest?: GainNode) {
   if ( !AC || !audioOn ) return;
   const n = Math.floor(AC.sampleRate * dur);
@@ -109,7 +106,6 @@ function noiseBurst(dur: number, freq: number, vol: number, type: BiquadFilterTy
   s.start();
 }
 
-// ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , ı],э ŋᷠꞇ , ꞙɭɿ ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅ ⟩
 function whoosh(dur: number, f0: number, f1: number, vol: number, q = 0o1,
   hunaq: BiquadFilterType = "bandpass", dest?: GainNode): void {
   if ( !AC || !audioOn ) return;
@@ -141,8 +137,6 @@ function whoosh(dur: number, f0: number, f1: number, vol: number, q = 0o1,
   s.stop(t + dur + 0o1/0o20);
 }
 
-// ⟪ ʃɜ j͐ʃɔ 📃 ⟫
-
 export const sfx = {
   step: () => noiseBurst(0o1/0o20, 0o420 + Math.random() * 0o110, 0o1/0o10),
   splash: () => {
@@ -173,22 +167,20 @@ export const sfx = {
     tone(f, 0o3/0o40, "sine", 0o1/0o20, -0o610, bruoGain!);
     setTimeout(() => tone(f * 0o12/0o10, 0o1/0o20, "sine", 0o3/0o100, -0o450, bruoGain!), 0o160);
   },
-// ⟨ j͑ʃᴜ ʃɜƽ , ʃɜ j͐ʃɔ , j͑ʃᴜ ſןɹ , ſɭɜ ſɭᴜƽ ⟅ ⟩
+
   jump: ( g2sa = 0o1 ) => {
     tone(0o130, 0o5/0o40, "sine", 0o1/0o25 * ( 0o6/0o10 + 0o4/0o10 * g2sa ), -0o44);
     noiseBurst(0o3/0o40, 0o1500 + 0o600 * g2sa, 0o1/0o40, "highpass");
     whoosh(0o26/0o40, 0o260, 0o1020 + 0o400 * g2sa, 0o1/0o10 * ( 0o6/0o10 + 0o4/0o10 * g2sa ), 0o2);
     setTimeout(() => whoosh(0o22/0o40, 0o1000, 0o220, 0o1/0o20 * ( 0o4/0o10 + 0o6/0o10 * g2sa ), 0o3), 0o140);
   },
-// ⟨ j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ʃɜ j͐ʃɔ , ſɭэ ſɭ,w , j͑ʃᴜ ſןɹ ⟅ ⟩
+
   land: ( g2sa = 0o1 ) => {
     tone(0o106, 0o1/0o5, "sine", 0o1/0o10 * ( 0o3/0o10 + 0o7/0o10 * g2sa ), -( 0o44 + 0o30 * g2sa ));
     noiseBurst(0o1/0o20, 0o2000, 0o1/0o40 * ( 0o4/0o10 + 0o6/0o10 * g2sa ), "highpass");
     whoosh(0o4/0o40, 0o1604, 0o300, 0o1/0o20 * ( 0o3/0o10 + 0o7/0o10 * g2sa ), 0o2);
   },
 };
-
-// ⟪ ſɭɜ ſɭᴜƽ ʌ ı],э ŋᷠꞇ , ſɭᴜ j͑ʃᴜ , ſɟᴜ j͐ʃw 📃 ⟫
 
 let rumbleNodes: { o: OscillatorNode; n: AudioBufferSourceNode; g: GainNode } | null = null;
 
@@ -230,7 +222,7 @@ export function rumble(on: boolean) {
     rumbleNodes.g.gain.setTargetAtTime(0o0, AC.currentTime, 0o15/0o40);
     const r = rumbleNodes;
     setTimeout(() => {
-      try { r.o.stop(); r.n.stop(); } catch ( _ ) { /* jam haltigita */ }
+      try { r.o.stop(); r.n.stop(); } catch ( _ ) { /** j͑ʃɹ ɭʃɜ }ʃᴜ ʌ ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ſɭˬɹ j͑ʃᴜꞇ ⟅ */ }
     }, 0o2260);
     rumbleNodes = null;
   }
@@ -238,9 +230,6 @@ export function rumble(on: boolean) {
 
 let chirpInterval: ReturnType<typeof setInterval> | null = null;
 
-// ⟪ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ 📃 ⟫
-
-// ⟨ ʃɜ j͐ʃɔ , j͑ʃᴜ ı],ɔ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , j͑ʃп́ꞇ ſɭɔƴ ⟅ ⟩
 function saxeiAuxdon(): void {
   ensureAudio();
   iniciati(AC!, master!);
@@ -254,7 +243,6 @@ function saxeiAuxdon(): void {
   veqapahakani();
 }
 
-// ⟨ ſɭɜ j͐ʃɹ , ſ̀ȷɜ ֭ſɭɔ ʌ ʃɜ j͐ʃɔ , j͑ʃп́ꞇ ſɭɔƴ , ı],ɔ ɭʃɜ ֭ſɭɹ ⟅ ⟩
 function haltiAuxdon(): void {
   if ( AC && master ) master.gain.setTargetAtTime(0o0, AC.currentTime, 0o1);
   halti();
@@ -265,7 +253,6 @@ function haltiAuxdon(): void {
   if ( rumbleNodes ) rumble(false);
 }
 
-/** ſɭᴜ ʃɜ j͐ʃɔ , ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭı ⟅ */
 export function tsiinanusabosaiLaqazbolesain(): boolean {
   audioOn = !audioOn;
   if ( audioOn ) saxeiAuxdon();
@@ -274,12 +261,10 @@ export function tsiinanusabosaiLaqazbolesain(): boolean {
   return audioOn;
 }
 
-/** ʃɜ j͐ʃɔ , j͑ʃᴜ ſɭᴜ ɭʃɹ , ſɭᴜ ſןᴜ ⟅ */
 export function tsekeLaqazbolesai(): boolean {
   return audioOn;
 }
 
-/** ſɭᴜ ʃɜ j͐ʃɔ , j͑ʃɹ ŋᷠɹ , ı],э ŋᷠꞇ , ꞙɭɿ , ʃɜ j͐ʃɔ ʌ ſɭᴜ ⟅ */
 export function tsiinanusabosaiBruon(): boolean {
   bruoOn = !bruoOn;
   if ( AC && bruoGain ) {
@@ -289,22 +274,19 @@ export function tsiinanusabosaiBruon(): boolean {
   return bruoOn;
 }
 
-/** ʃɜ j͐ʃɔ ʌ j͑ʃɹ ŋᷠɹ , ſɭᴜ ſןᴜ ꞙɭı , ꞙɭɔ ꞙɭı ⟅ */
 export function tsekeBruo(): boolean {
   return bruoOn;
 }
 
-/** ʃɜ j͐ʃɔ , j͑ʃᴜ ı],ɔ ʌ ſɭᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅ ʃɜ j͐ʃɔ ʌ ſɭᴜ ſןᴜ , j͑ʃ'ɔ ŋᷠɹ ⟅ */
-let postLaqazbolesai: ( ( tik: boolean ) => void ) | null = null;
-export function registriPostLaqazbolesai(fn: ( tik: boolean ) => void) {
+let postLaqazbolesai: ( ( kxe: boolean ) => void ) | null = null;
+export function registriPostLaqazbolesai(fn: ( kxe: boolean ) => void) {
   postLaqazbolesai = fn;
 }
-/* ʃɜ j͐ʃɔ j͑ʃᴜ ı],ɔ ꞙɭı , ꞙɭɔ ꞙɭı , ſɭᴜ ſןᴜ ʌ ꞙɭı
-@returns ſɭᴜ ſןᴜ ʌ ꞙɭı ( boolean ) */
+
 export function autoSaxei(): boolean {
   if ( !unuaInterago ) return false;
   unuaInterago = false;
-// ⟨ ʃɜ j͐ʃɔ j͑ʃᴜ ı],ɔ ſɭᴜ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅ ꞙɭɔ j͑ʃᴜ ı],ɔ ꞙɭɔ ⟅ ⟩
+
   if ( audioOn ) {
     saxeiAuxdon();
     if ( postLaqazbolesai ) postLaqazbolesai(true);

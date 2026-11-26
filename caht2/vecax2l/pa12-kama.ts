@@ -1,19 +1,12 @@
-// ≺⧼ ſןᴜ ſᶘɹ j͑ʃᴜꞇ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ j͑ʃ'ɔ ŋᷠɹ 🔬 ⧽≻
-// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , 📃 ⟩ , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭɿ , 📃 ⟩
-//
-// ſɭэ ɭʃᴜ , ⟅
-//   node hacaht2/vecax2l/vepaqu.mjs b6qaiQafej2-kama
-//   node --import ./caht2/vecax2l/ceh2kap2.mjs hacaht2/vecax2l/b6qaiQafej2-kama.mjs
+// ≺⧼ ſןᴜ ſᶘɹ ƽ ŋᷠᴜ 🧪 ⧽≻
+
 import { kf2Haknece, tamc2kTap2L6da } from "../../skek2/qatsiike/hak6h6/hapa12.js";
 import { K6H6ATRUAP2SOMANI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
-import { kf2Vecax2lanNala, n2kJe } from "./x2x2q.js";
+import { kf2Vecax2lanNala, n2kJe } from "./p6kpu.js";
 
 const nala = kf2Vecax2lanNala();
 const bal2 = nala.bal2;
 
-// ⟪ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭɿ , 📏 ⟫
 let hapu3ohk2 = 0o0, provitaj = 0o0;
 let kmaGpukaz = 0o0, kmaQar = "";
 for ( const k of nala.haveb6kek ) {
@@ -23,7 +16,7 @@ for ( const k of nala.haveb6kek ) {
   const b6qaiQafej2 = tamc2kTap2L6da(k.x, k.z, knece, nala.k6h6L6da);
   const hax2pa: string[] = [];
   for ( let i = 0o0; i < nala.hak6h6.length; i++ ) {
-// ⟨ ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩ , ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
+
     const s2qena = nala.s2qenaDe(i);
     let plosteq = Infinity, kmaS = 0o0;
     for ( let s = 0o0; s <= s2qena.sahakani; s += 0o1/0o10 ) {

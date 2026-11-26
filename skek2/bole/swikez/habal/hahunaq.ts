@@ -1,4 +1,5 @@
-// ≺⧼ ʃɜ j͐ʃɔ j͑ʃᴜꞇ ʌ ֭ſɭw }ʃᴜȝ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ֭ſɭᴜ ֭ſɭw }ʃᴜȝ 🎵 ⧽≻
+
 export interface BoleEg2b2 {
   t: number;
   i: string;

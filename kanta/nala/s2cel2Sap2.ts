@@ -1,4 +1,4 @@
-// ≺⧼ ſᶘɹ }ʃᴜ }ʃꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 🧱 ⧽≻
+// ≺⧼ ſᶘɹ }ʃᴜ }ʃꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ j͑ʃɹ ſɟɔ j͐ʃɹ j͑ʃᴜ ſןɹ 🧱 ⧽≻
 import { kas2kantaHasoza } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
 
 export interface KoliziaCirklo { x: number; z: number; r: number; }
@@ -6,8 +6,8 @@ export interface KoliziaCirklo { x: number; z: number; r: number; }
 export interface Qakaj2Platqoxa { x: number; z: number; w: number; d: number; rot: number; y: number; }
 
 export function kf2KolizianQox2n2k(hasap2: KoliziaCirklo[], qakaj2Hasap2ni: Qakaj2Platqoxa[]) {
-  // ⟪ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſ͕ɭᴜ ſ͕ɭw }ʃɹ 📃 ⟫
-  const KRADACXELO = 0o20;
+
+  const QOX2N2KK2PAPAL6 = 0o20;
   const qox2n2kCa3aq = ( cx: number, cz: number ): number => ( cx + 0o10000 ) * 0o20000 + cz + 0o10000;
   const koliziaQox2n2k = new Map<number, number[]>();
   const qakaj2Qox2n2k = new Map<number, number[]>();
@@ -15,12 +15,12 @@ export function kf2KolizianQox2n2k(hasap2: KoliziaCirklo[], qakaj2Hasap2ni: Qaka
   for ( let i = 0o0; i < hasap2.length; i++ ) {
     const c = hasap2[i];
     if ( c.r > kmaGpukazKoliziaR ) kmaGpukazKoliziaR = c.r;
-    for ( let cx = Math.floor(( c.x - c.r ) / KRADACXELO), cx1 = Math.floor(( c.x + c.r ) / KRADACXELO); cx <= cx1; cx++ ) {
-      for ( let cz = Math.floor(( c.z - c.r ) / KRADACXELO), cz1 = Math.floor(( c.z + c.r ) / KRADACXELO); cz <= cz1; cz++ ) {
+    for ( let cx = Math.floor(( c.x - c.r ) / QOX2N2KK2PAPAL6), cx1 = Math.floor(( c.x + c.r ) / QOX2N2KK2PAPAL6); cx <= cx1; cx++ ) {
+      for ( let cz = Math.floor(( c.z - c.r ) / QOX2N2KK2PAPAL6), cz1 = Math.floor(( c.z + c.r ) / QOX2N2KK2PAPAL6); cz <= cz1; cz++ ) {
         const ca3aq = qox2n2kCa3aq(cx, cz);
-        let tile = koliziaQox2n2k.get(ca3aq);
-        if ( !tile ) koliziaQox2n2k.set(ca3aq, tile = []);
-        tile.push(i);
+        let kekkozusai = koliziaQox2n2k.get(ca3aq);
+        if ( !kekkozusai ) koliziaQox2n2k.set(ca3aq, kekkozusai = []);
+        kekkozusai.push(i);
       }
     }
   }
@@ -33,38 +33,38 @@ export function kf2KolizianQox2n2k(hasap2: KoliziaCirklo[], qakaj2Hasap2ni: Qaka
     const hz = d.w / 0o2 * absSin + d.d / 0o2 * absKos;
     qakaj2AABBj.push({ hx, hz });
     if ( Math.max(hx, hz) > kmaGpukazQakaj2P2somani ) kmaGpukazQakaj2P2somani = Math.max(hx, hz);
-    for ( let cx = Math.floor(( d.x - hx ) / KRADACXELO), cx1 = Math.floor(( d.x + hx ) / KRADACXELO); cx <= cx1; cx++ ) {
-      for ( let cz = Math.floor(( d.z - hz ) / KRADACXELO), cz1 = Math.floor(( d.z + hz ) / KRADACXELO); cz <= cz1; cz++ ) {
+    for ( let cx = Math.floor(( d.x - hx ) / QOX2N2KK2PAPAL6), cx1 = Math.floor(( d.x + hx ) / QOX2N2KK2PAPAL6); cx <= cx1; cx++ ) {
+      for ( let cz = Math.floor(( d.z - hz ) / QOX2N2KK2PAPAL6), cz1 = Math.floor(( d.z + hz ) / QOX2N2KK2PAPAL6); cz <= cz1; cz++ ) {
         const ca3aq = qox2n2kCa3aq(cx, cz);
-        let tile = qakaj2Qox2n2k.get(ca3aq);
-        if ( !tile ) qakaj2Qox2n2k.set(ca3aq, tile = []);
-        tile.push(i);
+        let kekkozusai = qakaj2Qox2n2k.get(ca3aq);
+        if ( !kekkozusai ) qakaj2Qox2n2k.set(ca3aq, kekkozusai = []);
+        kekkozusai.push(i);
       }
     }
   }
-  // ⟨ ſɭэ ֭ſɭэ ʌ j͑ʃɜ ſɭ,ᴜ 📃 ⟩
+
   const k6h6Qox2n2k = new Map<number, number[]>();
   for ( let i = 0o0; i < kas2kantaHasoza.length; i++ ) {
     const v = kas2kantaHasoza[i];
-    for ( let cx = Math.floor(( Math.min(v.x1, v.x2) - v.p2somani ) / KRADACXELO), cx1 = Math.floor(( Math.max(v.x1, v.x2) + v.p2somani ) / KRADACXELO); cx <= cx1; cx++ ) {
-      for ( let cz = Math.floor(( Math.min(v.z1, v.z2) - v.p2somani ) / KRADACXELO), cz1 = Math.floor(( Math.max(v.z1, v.z2) + v.p2somani ) / KRADACXELO); cz <= cz1; cz++ ) {
+    for ( let cx = Math.floor(( Math.min(v.x1, v.x2) - v.p2somani ) / QOX2N2KK2PAPAL6), cx1 = Math.floor(( Math.max(v.x1, v.x2) + v.p2somani ) / QOX2N2KK2PAPAL6); cx <= cx1; cx++ ) {
+      for ( let cz = Math.floor(( Math.min(v.z1, v.z2) - v.p2somani ) / QOX2N2KK2PAPAL6), cz1 = Math.floor(( Math.max(v.z1, v.z2) + v.p2somani ) / QOX2N2KK2PAPAL6); cz <= cz1; cz++ ) {
         const ca3aq = qox2n2kCa3aq(cx, cz);
-        let tile = k6h6Qox2n2k.get(ca3aq);
-        if ( !tile ) k6h6Qox2n2k.set(ca3aq, tile = []);
-        tile.push(i);
+        let kekkozusai = k6h6Qox2n2k.get(ca3aq);
+        if ( !kekkozusai ) k6h6Qox2n2k.set(ca3aq, kekkozusai = []);
+        kekkozusai.push(i);
       }
     }
   }
   function k6h6TeruY(x: number, z: number, marge = 0o0): number {
     let y = -Infinity;
-    const cx0 = Math.floor(( x - marge ) / KRADACXELO), cx1 = Math.floor(( x + marge ) / KRADACXELO);
-    const cz0 = Math.floor(( z - marge ) / KRADACXELO), cz1 = Math.floor(( z + marge ) / KRADACXELO);
+    const cx0 = Math.floor(( x - marge ) / QOX2N2KK2PAPAL6), cx1 = Math.floor(( x + marge ) / QOX2N2KK2PAPAL6);
+    const cz0 = Math.floor(( z - marge ) / QOX2N2KK2PAPAL6), cz1 = Math.floor(( z + marge ) / QOX2N2KK2PAPAL6);
     for ( let cx = cx0; cx <= cx1; cx++ ) {
       for ( let cz = cz0; cz <= cz1; cz++ ) {
-        const tile = k6h6Qox2n2k.get(qox2n2kCa3aq(cx, cz));
-        if ( !tile ) continue;
-        for ( let k = 0o0; k < tile.length; k++ ) {
-          const v = kas2kantaHasoza[tile[k]];
+        const kekkozusai = k6h6Qox2n2k.get(qox2n2kCa3aq(cx, cz));
+        if ( !kekkozusai ) continue;
+        for ( let k = 0o0; k < kekkozusai.length; k++ ) {
+          const v = kas2kantaHasoza[kekkozusai[k]];
           const difX = v.x2 - v.x1, difZ = v.z2 - v.z1;
           const tuta = difX * difX + difZ * difZ;
           const t = tuta > 0o0 ? Math.max(0o0, Math.min(0o1, (( x - v.x1 ) * difX + ( z - v.z1 ) * difZ ) / tuta)) : 0o0;
@@ -85,14 +85,14 @@ export function kf2KolizianQox2n2k(hasap2: KoliziaCirklo[], qakaj2Hasap2ni: Qaka
   function kolektiHasap2ni(x: number, z: number, p2somani: number, el: number[]): number[] {
     el.length = 0o0;
     const epoko = ++qox2n2kEpoko;
-    const cx0 = Math.floor(( x - p2somani ) / KRADACXELO), cx1 = Math.floor(( x + p2somani ) / KRADACXELO);
-    const cz0 = Math.floor(( z - p2somani ) / KRADACXELO), cz1 = Math.floor(( z + p2somani ) / KRADACXELO);
+    const cx0 = Math.floor(( x - p2somani ) / QOX2N2KK2PAPAL6), cx1 = Math.floor(( x + p2somani ) / QOX2N2KK2PAPAL6);
+    const cz0 = Math.floor(( z - p2somani ) / QOX2N2KK2PAPAL6), cz1 = Math.floor(( z + p2somani ) / QOX2N2KK2PAPAL6);
     for ( let cx = cx0; cx <= cx1; cx++ ) {
       for ( let cz = cz0; cz <= cz1; cz++ ) {
-        const tile = koliziaQox2n2k.get(qox2n2kCa3aq(cx, cz));
-        if ( !tile ) continue;
-        for ( let k = 0o0; k < tile.length; k++ ) {
-          const i = tile[k];
+        const kekkozusai = koliziaQox2n2k.get(qox2n2kCa3aq(cx, cz));
+        if ( !kekkozusai ) continue;
+        for ( let k = 0o0; k < kekkozusai.length; k++ ) {
+          const i = kekkozusai[k];
           if ( koliziaVidita[i] === epoko ) continue;
           koliziaVidita[i] = epoko;
           el.push(i);
@@ -104,14 +104,14 @@ export function kf2KolizianQox2n2k(hasap2: KoliziaCirklo[], qakaj2Hasap2ni: Qaka
   function kolektiHaqakaj2n(x: number, z: number, p2somani: number, el: number[]): number[] {
     el.length = 0o0;
     const epoko = ++qox2n2kEpoko;
-    const cx0 = Math.floor(( x - p2somani ) / KRADACXELO), cx1 = Math.floor(( x + p2somani ) / KRADACXELO);
-    const cz0 = Math.floor(( z - p2somani ) / KRADACXELO), cz1 = Math.floor(( z + p2somani ) / KRADACXELO);
+    const cx0 = Math.floor(( x - p2somani ) / QOX2N2KK2PAPAL6), cx1 = Math.floor(( x + p2somani ) / QOX2N2KK2PAPAL6);
+    const cz0 = Math.floor(( z - p2somani ) / QOX2N2KK2PAPAL6), cz1 = Math.floor(( z + p2somani ) / QOX2N2KK2PAPAL6);
     for ( let cx = cx0; cx <= cx1; cx++ ) {
       for ( let cz = cz0; cz <= cz1; cz++ ) {
-        const tile = qakaj2Qox2n2k.get(qox2n2kCa3aq(cx, cz));
-        if ( !tile ) continue;
-        for ( let k = 0o0; k < tile.length; k++ ) {
-          const i = tile[k];
+        const kekkozusai = qakaj2Qox2n2k.get(qox2n2kCa3aq(cx, cz));
+        if ( !kekkozusai ) continue;
+        for ( let k = 0o0; k < kekkozusai.length; k++ ) {
+          const i = kekkozusai[k];
           if ( qakaj2Vidita[i] === epoko ) continue;
           qakaj2Vidita[i] = epoko;
           el.push(i);
@@ -173,7 +173,7 @@ export function kf2KolizianQox2n2k(hasap2: KoliziaCirklo[], qakaj2Hasap2ni: Qaka
   function solviQakaj2nKolizion(x: number, z: number, y: number, marge = 0o3/0o10): { x: number; z: number } {
     let rx = x, rz = z;
     for ( let pass = 0o0; pass < 0o3; pass++ ) {
-      let puŝoX = 0o0, puŝoZ = 0o0;
+      let surokX = 0o0, surokZ = 0o0;
       let hit = false;
       const hakandidato = kolektiHaqakaj2n(rx, rz, kmaGpukazQakaj2P2somani * 0o2 + marge * 0o2, qakaj2Kandidatoj);
       for ( const i of hakandidato ) {
@@ -188,13 +188,13 @@ export function kf2KolizianQox2n2k(hasap2: KoliziaCirklo[], qakaj2Hasap2ni: Qaka
           let plx = 0o0, plz = 0o0;
           if ( penX < penZ ) plx = ( lx >= 0o0 ? 0o1 : -0o1 ) * penX;
           else plz = ( lz >= 0o0 ? 0o1 : -0o1 ) * penZ;
-          puŝoX += plx * cosR - plz * sinR;
-          puŝoZ += plx * sinR + plz * cosR;
+          surokX += plx * cosR - plz * sinR;
+          surokZ += plx * sinR + plz * cosR;
           hit = true;
         }
       }
-      rx += puŝoX;
-      rz += puŝoZ;
+      rx += surokX;
+      rz += surokZ;
       if ( !hit ) break;
     }
     return { x: rx, z: rz };

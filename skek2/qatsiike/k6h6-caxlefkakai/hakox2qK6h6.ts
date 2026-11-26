@@ -1,4 +1,5 @@
-// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜ }ʃꞇ 🛣️ ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ֭ſɭᴜ ſɭɜ ı],ɹ ſ͕ɭƽэ ֭ſɭэ 🛣️ ⧽≻
+
 import type { K6h6N2k, K6h6CaxlefkakaiQakaj2, K6h6CaxlefkakaiK6h6 } from "./hahunaq.js";
 import { ALGLUARANDO, TOLERANCO } from "./hahunaq.js";
 import { HAQAKAJ2OQASEFINI, QAKAJ2KOZUNUASEFINI } from "../qakaj2/hahunaq.js";
@@ -68,11 +69,11 @@ export function qakaj2KonektasK6h6nS2nascen(
   a: K6h6N2k,
   b: K6h6N2k
 ): boolean {
-  const t6lima = qakaj2LandaS2nasce( qakaj2 );
+  const mut6q = qakaj2LandaS2nasce( qakaj2 );
   const p2somaniL = QAKAJ2KOZUNUASEFINI / 0o2;
-  const landaA: K6h6N2k = [ t6lima.x - t6lima.dx * p2somaniL, t6lima.z - t6lima.dz * p2somaniL ];
-  const landaB: K6h6N2k = [ t6lima.x + t6lima.dx * p2somaniL, t6lima.z + t6lima.dz * p2somaniL ];
-  const phaka = k6h6Phaka( t6lima.x, t6lima.z, a, b );
+  const landaA: K6h6N2k = [ mut6q.x - mut6q.dx * p2somaniL, mut6q.z - mut6q.dz * p2somaniL ];
+  const landaB: K6h6N2k = [ mut6q.x + mut6q.dx * p2somaniL, mut6q.z + mut6q.dz * p2somaniL ];
+  const phaka = k6h6Phaka( mut6q.x, mut6q.z, a, b );
   if ( phaka && phaka.d <= 0o1/0o10 ) return true;
   for ( const p of [ a, b ] ) {
     const surLando = k6h6Phaka( p[0o0], p[0o1], landaA, landaB );

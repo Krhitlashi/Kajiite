@@ -1,6 +1,7 @@
-// ≺⧼ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜ ֭ſɭэ ſɭэ ʌ ſɟɹ ֭ſɭɹ 🧱 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ɭʃw ſɭˬɔ ſɭᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2Cawez2Qoxa, kf2SexiQoxa, veb6qaiPukaz } from "../../x2x2q/haqoxa.js";
+import { kf2Cawez2Qoxa, kf2SexiQoxa, veb6qaiPukaz } from "../../p6kpu/haqoxa.js";
 
 export function vepaqTu5ekani1el2saiKunPilolaTruo(
   g: THREE.Group,
@@ -21,7 +22,6 @@ export function vepaqTu5ekani1el2saiKunPilolaTruo(
   const segSefini = tap2Sefini - ww / 0o2;
   const segL6da = l6da - ( fenLokY + hh );
 
-  // ⟨ ſɟᴜ j͑ʃᴜ ʌ ſɟɔȝ ʌ j͑ʃᴜ ʌ ſɭɜ ſɭ,w }ʃw 📃 ⟩
   const hate2 = new THREE.Group();
   hate2.position.set(cx, kozunuY, cz);
   hate2.rotation.y = s2sabo;
@@ -84,7 +84,7 @@ export function tlunakSahakananCah6k6(
   group: THREE.Group,
   cx: number, cz: number, kozunuY: number, l6da: number,
   tap2Sefini: number,
-  orientacio: "ne3ak2" | "neteru" | "maldekstra" | "dekstra",
+  orientacio: "ne3ak2" | "neteru" | "maldnek2resai" | "dnek2resai",
   muraPukek: THREE.MeshStandardMaterial,
   fenestraPukek: THREE.MeshStandardMaterial,
   joqaPukek: THREE.MeshStandardMaterial
@@ -96,10 +96,10 @@ export function tlunakSahakananCah6k6(
   const neteru = orientacio === "neteru";
   const ne3ak2 = orientacio === "ne3ak2";
   // ⟨ ſɟɹ ᶅſɹȝ ʌ ɭʃᴜ 📃 ⟩
-  const s2sabo = orientacio === "dekstra" ? -Math.PI / 0o2
-    : orientacio === "maldekstra" ? Math.PI / 0o2 : Math.PI;
+  const s2sabo = orientacio === "dnek2resai" ? -Math.PI / 0o2
+    : orientacio === "maldnek2resai" ? Math.PI / 0o2 : Math.PI;
   const ofseto = 0o3/0o40;
-  const aCx = neteru || ne3ak2 ? cx : cx + ( orientacio === "dekstra" ? -ofseto : ofseto );
+  const aCx = neteru || ne3ak2 ? cx : cx + ( orientacio === "dnek2resai" ? -ofseto : ofseto );
   const aCz = neteru ? cz + ofseto : ne3ak2 ? cz - ofseto : cz;
   const kof = 0o3/0o20;
   vepaqTu5ekani1el2saiKunPilolaTruo(group, tap2Sefini, kozunuY, l6da, kof, ww, hh, fenY, muraPukek, cx, cz, neteru ? 0o0 : s2sabo);
@@ -108,9 +108,9 @@ export function tlunakSahakananCah6k6(
   fen.position.set(aCx, fenY, aCz);
   if ( !neteru ) fen.rotation.y = s2sabo;
   group.add(fen);
-  // ⟨ j͑ʃɔ ı],ꞇ ʌ ſɟᴜ ֭ſɭэ ſɭэ ʌ j͑ʃᴜ jᷠᴜ 📃 ⟩
+
   const joqaSefini = 0o1/0o10, joqaKof = 0o1/0o20;
-  // ⟨ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩
+
   const liberoSahakani = tap2Sefini - ww / 0o2;
   const liberoC2na = Math.min(fenY - hh / 0o2 - kozunuY, kozunuY + l6da - fenY - hh / 0o2);
   const cet2Tik = hh * 0o1/0o2;
@@ -127,7 +127,7 @@ export function tlunakSahakananCah6k6(
   // ⟨ ſ͕ɭᴜ ʃэ ɭʃɔ ŋᷠɹ ʌ ſןɔ ſ͕ɭɔ }ʃꞇ 📃 ⟩
   const santa = 0o1/0o100;
   joqa.position.set(
-    neteru || ne3ak2 ? aCx : aCx + ( orientacio === "dekstra" ? -santa : santa ),
+    neteru || ne3ak2 ? aCx : aCx + ( orientacio === "dnek2resai" ? -santa : santa ),
     fenY,
     neteru ? aCz + santa : ne3ak2 ? aCz - santa : aCz);
   if ( !neteru ) joqa.rotation.y = s2sabo;

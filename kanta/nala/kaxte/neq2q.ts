@@ -1,6 +1,7 @@
-// ≺⧼ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ ʌ }ʃɔ ſ͕ɭɹȝ ꞁȷ̀ᴜ }ʃꞇ 📦 ⧽≻
+// ≺⧼ ʃᴜ j͐ʃɹ ʌ }ʃɔ ſ͕ɭɹȝ 🗺️ ⧽≻
+
 import * as THREE from "three";
-import { vakox2qMondajnHacakamaha } from "../../../skek2/x2x2q/hakox2q.js";
+import { vakox2qMondajnHacakamaha } from "../../../skek2/p6kpu/hakox2q.js";
 import { vepaqSatalon } from "../../../skek2/hapaq/satalaj-hapaq.js";
 import { TIPAJNIVELOJ } from "../../../skek2/hapaq/satalaj/hahunaq.js";
 import { PagaKanta, TemekKanta,
@@ -87,7 +88,7 @@ export function vepaqNeq2qnHatoxemani(
       }, qena, knasukf2qdalai, l6daFn);
     }
   }
-  // ⟨ ſɭɜ ı],ɹȝ ʌ j͑ʃᴜꞇ ʌ ſɟɔȝ 📃 ⟩
+
   const vetlaqotaj = new Set<THREE.Object3D>(knasukf2qdalai);
   const hamov = new Set<THREE.Object3D>();
   for ( const f of hanpco ) hamov.add(f.group);

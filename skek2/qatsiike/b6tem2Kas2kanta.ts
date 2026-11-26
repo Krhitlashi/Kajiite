@@ -1,6 +1,7 @@
-// ≺⧼ ı],ɔ ŋᷠᴜ }ʃꞇ 🛶 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ʃэ ɭʃɔ ŋᷠɹ ſɭᴜ j͑ʃɹ ſɭᴜ }ʃƨᴜ 📃 ⧽≻
+
 import * as THREE from "three";
-import { vakox2qQoxaKefoujn } from "../x2x2q/hakox2q.js";
+import { vakox2qQoxaKefoujn } from "../p6kpu/hakox2q.js";
 
 export interface S2tani {
   group: THREE.Group;

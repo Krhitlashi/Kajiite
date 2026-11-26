@@ -1,23 +1,23 @@
-// ≺⧼ ſɟɹ ֭ſɭɹ 🚪 ⧽≻
+// ≺⧼ ſɟɹ ֭ſɭɹ ʌ ֭ſɭᴜ ſɟɹ ֭ſɭɹ 🚪 ⧽≻
 
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import type { VepaqSpec } from "./satalaj/hahunaq.js";
 import { TIPARO } from "./satalaj/hahunaq.js";
-import { kf2JoqanKkaxten } from "./satalaj/enirejo.js";
-import { kf2S2banaCac2sex } from "../x2x2q/gek2f.js";
-import { kf2Cah6k6Pukek } from "../x2x2q/pukek.js";
-import { weh2Ruva, veHuna } from "../x2x2q/haweh2.js";
+import { kf2JoqanKkaxten } from "./satalaj/c2h2.js";
+import { kf2S2banaCac2sex } from "../p6kpu/gek2f.js";
+import { kf2Cah6k6Pukek } from "../p6kpu/pukek.js";
+import { weh2Ruva, veHuna } from "../p6kpu/haweh2.js";
 import { ksakaAih } from "../../kanta/gawe/baskakefani.js";
 import { kf2Mangxajxojn } from "../w2ta/m7x/raqa.js";
 import { tlunakF6f2n } from "../w2ta/m7x/tsasaG2b2.js";
 import { tlunakMangxCax2l, KEHUWEH2 } from "../w2ta/cax2loj.js";
-import { k2fKekkozusai } from "../x2x2q/cac2sex/kozu.js";
+import { k2fKekkozusai } from "../p6kpu/cac2sex/kozu.js";
 import { kf2RinganKozun, kf2Trah6ponPordTruon, GOLD, GOLDSOFT, GOLDWARM } from "./hac2h2/haqoxa.js";
 import { tlunakInternanW2tan, tlunakVendocax2ln } from "./hac2h2/w2ta.js";
 import { tlunakSahakananCah6k6 } from "./hac2h2/hatu5ekani1el2sai.js";
 import { kobesaiCu3un, restarigiC2h2 } from "./hac2h2/kanta.js";
-import { aplikiLitajnHaweh2, eniriSxipanC2h2 } from "./hac2h2/vaknesmi.js";
+import { k2reiLitajnHaweh2, eniriSxipanC2h2 } from "./hac2h2/vaknesmi.js";
 import { bohoAltecxo, ca3aqDePudal, type BohoInfo, type InternaEnirN2k, type C2h2Kanta } from "./hac2h2/hahunaq.js";
 
 export function eniriC2h2(
@@ -33,7 +33,7 @@ export function eniriC2h2(
   const ca3aq = ca3aqDePudal(spec);
   const restarigita = restarigiC2h2(sys, spec, gelesKagani, pordaTafkaq);
   if ( restarigita ) {
-    aplikiLitajnHaweh2(sys.currentGroup!, tolaWeh2, kusenaWeh2);
+    k2reiLitajnHaweh2(sys.currentGroup!, tolaWeh2, kusenaWeh2);
     return restarigita;
   }
   sys.cutluCa3aq = ca3aq;
@@ -86,18 +86,18 @@ export function eniriC2h2(
   const lignaPukek = new THREE.MeshStandardMaterial({ color: KEHUWEH2, roughness: 0o7/0o10 });
   const metalaPukek = new THREE.MeshStandardMaterial({ color: muraHunaq.catu5ek, metalness: 0o5/0o10, roughness: 0o5/0o10 });
 
-  const etaĝoj: { y: number; hw: number; hd: number; l6da: number; et: number }[] = [];
+  const kozuHaqar: { y: number; hw: number; hd: number; l6da: number; et: number }[] = [];
   for ( let j = sube; j >= 0o1; j-- ) {
     const redukto = j * 0o6/0o5;
-    etaĝoj.push({ y: -j * b6k61oL6daSub, hw: Math.max(0o3/0o2, w / 0o2 - redukto), hd: Math.max(0o3/0o2, d / 0o2 - redukto), l6da: b6k61oL6daSub, et: -j });
+    kozuHaqar.push({ y: -j * b6k61oL6daSub, hw: Math.max(0o3/0o2, w / 0o2 - redukto), hd: Math.max(0o3/0o2, d / 0o2 - redukto), l6da: b6k61oL6daSub, et: -j });
   }
   for ( let et = 0o0; et < havem2; et++ ) {
     const redukto = et * 0o6/0o5;
-    etaĝoj.push({ y: et * b6k61oL6da, hw: Math.max(0o3/0o2, w / 0o2 - redukto), hd: Math.max(0o3/0o2, d / 0o2 - redukto), l6da: b6k61oL6da, et });
+    kozuHaqar.push({ y: et * b6k61oL6da, hw: Math.max(0o3/0o2, w / 0o2 - redukto), hd: Math.max(0o3/0o2, d / 0o2 - redukto), l6da: b6k61oL6da, et });
   }
 
-  for ( const etaĝo of etaĝoj ) {
-    const { y, hw, hd, l6da, et } = etaĝo;
+  for ( const kozuEro of kozuHaqar ) {
+    const { y, hw, hd, l6da, et } = kozuEro;
 
     const pordKozunu = 0o233/0o100;
     const pordP2somani = pordKozunu / 0o2;
@@ -173,16 +173,16 @@ export function eniriC2h2(
         group.add(kopio);
       }
     } else {
-      // ⟨ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜ ֭ſɭэ ſɭэ 📃 ⟩
+
       tlunakSahakananCah6k6(group, 0o0, hd, y, l6da, hw, "ne3ak2", muraPukek, fenestraPukek, joqaPukek);
     }
 
     const kvarHakev = et === 0o0 && spec.type === "qaman2";
     if ( !kvarHakev ) tlunakSahakananCah6k6(group, 0o0, -hd, y, l6da, hw, "neteru", muraPukek, fenestraPukek, joqaPukek);
 
-    if ( !kvarHakev ) tlunakSahakananCah6k6(group, -hw, 0o0, y, l6da, hd, "maldekstra", muraPukek, fenestraPukek, joqaPukek);
+    if ( !kvarHakev ) tlunakSahakananCah6k6(group, -hw, 0o0, y, l6da, hd, "maldnek2resai", muraPukek, fenestraPukek, joqaPukek);
 
-    if ( !kvarHakev ) tlunakSahakananCah6k6(group, hw, 0o0, y, l6da, hd, "dekstra", muraPukek, fenestraPukek, joqaPukek);
+    if ( !kvarHakev ) tlunakSahakananCah6k6(group, hw, 0o0, y, l6da, hd, "dnek2resai", muraPukek, fenestraPukek, joqaPukek);
 
     const kolKof = 0o7/0o40;
     const kolL6da = l6da;
@@ -210,16 +210,15 @@ export function eniriC2h2(
     }
 
     const lampNombro = Math.max(0o1, Math.floor(hw) - 0o1);
-    // ⟨ = ꞙɭɔ ʌ ֭ſɭwʞ ᶅſw ſɭɹ ʌ ſȷwɔ˞ ʌ ſɭɔⰱ 📃 ⟩
+
     const lampSefini = 0o3/0o40;
     for ( let i = 0o0; i < lampNombro; i++ ) {
       const lx = -hw + ( i + 0o1 ) * hw * 0o2 / ( lampNombro + 0o1 );
-      // ⟨ = ʌ ֭ſɭwʞ ᶅſw ſɭɹ ʌ ſȷwɔ˞ ʌ ſɭɔⰱ 📃 ⟩
+
       const enPordaH6w6o = et === 0o0 && Math.abs(lx) - lampSefini < pordP2somani;
       const flankKaatse = Math.sign(lx) || 0o1;
       const lampY = y + l6da * 0o5/0o10;
-      // ⟨ = ꞙɭɔ ʌ ſɭw ʃᴜ ʌ ſɟᴜ ſɟɹ ᶅſɹƽ 📃 ⟩
-      // ⟨ ſɭᴜ ŋᷠᴜ ʌ ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ 📃 ⟩
+
       const knece = new THREE.Mesh(
         new THREE.CylinderGeometry(0o1/0o100, 0o1/0o100, 0o3/0o10, 0o6).rotateX(Math.PI / 0o2),
         joqaPukek

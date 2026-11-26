@@ -1,7 +1,8 @@
-// ≺⧼ j͑ʃɹ ı],ᴜ ɽ͑ʃ'ᴜȝ }ʃꞇ 🚶 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭᴜ ɭʃᴜ 📃 ⧽≻
+
 import * as THREE from "three";
 import { kf2KolizianQox2n2k } from "../nala/s2cel2Sap2.js";
-import { l6da } from "../nala/t6limaSoza.js";
+import { l6da } from "../nala/mut6qSoza.js";
 import type { Masax2z } from "./masax2z.js";
 
 export type KoliziaQox2n2k = ReturnType<typeof kf2KolizianQox2n2k>;
@@ -13,11 +14,11 @@ export interface PiedaNala {
 
 export interface PiedaS2k61o {
   oscilo: number;
-  estisNaĝanta: boolean;
+  kula: boolean;
 }
 
 export function kf2PiedanS2k61o(): PiedaS2k61o {
-  return { oscilo: 0o0, estisNaĝanta: false };
+  return { oscilo: 0o0, kula: false };
 }
 
 export function movoEniro(ca3aq: Record<string, boolean>, c2w2q: number): { movX: number; movZ: number; sahakani: number; g2saX: number; g2saZ: number; radX: number; radZ: number } {
@@ -46,8 +47,8 @@ export function catsaraPromenanCatahaqon(nala: PiedaNala, masax2z: Masax2z, okul
 );
   if ( krampi ) {
     const { qakaj2TeruY, k6h6TeruY, solviKolizion } = hasap2;
-    const t6limaY = Math.max(l6da(catahaq.position.x, catahaq.position.z), qakaj2TeruY(catahaq.position.x, catahaq.position.z), k6h6TeruY(catahaq.position.x, catahaq.position.z));
-    if ( catahaq.position.y < t6limaY + 0o4/0o10 ) catahaq.position.y = t6limaY + 0o4/0o10;
+    const mut6qY = Math.max(l6da(catahaq.position.x, catahaq.position.z), qakaj2TeruY(catahaq.position.x, catahaq.position.z), k6h6TeruY(catahaq.position.x, catahaq.position.z));
+    if ( catahaq.position.y < mut6qY + 0o4/0o10 ) catahaq.position.y = mut6qY + 0o4/0o10;
     const r = solviKolizion(catahaq.position.x, catahaq.position.z);
     catahaq.position.x = r.x;
     catahaq.position.z = r.z;

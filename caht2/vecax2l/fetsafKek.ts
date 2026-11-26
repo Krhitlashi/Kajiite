@@ -1,11 +1,11 @@
-// ≺⧼ ֭ſɭᴜ ſȷɔ ſᶘᴜʞ ʌ j͑ʃ'ɔ ſןᴜȝ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🌿 ⧽≻
-// ſᶘɜ , ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , ⟅ ſ͕ɭɜ ı],ᴜ , ꞙɭı , ꞙɭı , 📃 ⟩
-import * as THREE from "three";
-import { t6limaWeh2En } from "../../skek2/x2x2q/t6limaHaweh2.js";
-import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/t6limaSoza.js";
-import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+// ≺⧼ ſȷɔ ſᶘᴜ ſȷƽɔƽ 🧪 ⧽≻
 
-const N = 0o333333; // ſɭɹ ſȷɔ ꞙɭɿɿɿɿɿɿ
+import * as THREE from "three";
+import { mut6qWeh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
+import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6qSoza.js";
+import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
+
+const N = 0o333333;
 const HERBAMALHELIGO = 0o62 / 0o100;
 const NOMBRODAJXUROJ = 0o7;
 
@@ -18,7 +18,7 @@ const S = new THREE.Vector3();
 const Q = new THREE.Quaternion();
 const E = new THREE.Euler();
 const C = new THREE.Color();
-const t6limaWeh2 = new THREE.Color();
+const mut6qWeh2 = new THREE.Color();
 const G2J6 = new THREE.Color(0o1, 0o1, 0o1);
 
 interface ProvizoraTufo {
@@ -44,10 +44,9 @@ function vecax2l( ksaka: string, hatom6: number, fn: () => void ): void {
     if ( t1 - t0 < kmaXobe ) kmaXobe = t1 - t0;
   }
   const po = kmaXobe * 0o3641100 / ( N * hatom6 );
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${knak2fecajasai(alHe(kmaXobe), 0o6)} He ${knak2fecajasai(alHe(po / 0o3641100) * 0o100, 0o6)}He/0o100/ſɭw ʃᴜ`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${knak2fecajasai(tbo(kmaXobe), 0o6)} He ${knak2fecajasai(tbo(po / 0o3641100) * 0o100, 0o6)}He/0o100/ſɭw ʃᴜ`);
 }
 
-// ⟨ ſ͕ɭɜ ᶗ‹ , ſ͕ɭᴜ , ſɭᴜ ſ͕ɭᴜ , 📃 ⟩
 let cakamaha = new THREE.InstancedMesh(zace, pukek, N);
 vecax2l("compose + setMatrixJe", 0o1, () => {
   for ( let i = 0o0; i < N; i++ ) {
@@ -65,7 +64,6 @@ vecax2l("ſɭɹ ſᶘɔ ｡ compose", 0o1, () => {
   }
 });
 
-// ⟨ ſ͕ɭɜ ᶗ‹ , ſɭэ ſɭᴜ , ſɭᴜ ſ͕ɭᴜ , 📃 ⟩
 const qox2n2k = new Float32Array(N * 0o20);
 vecax2l("compose + ſɭɹʞ ɭʃɜ ſɭᴜ", 0o1, () => {
   const e = M.elements;
@@ -95,12 +93,12 @@ vecax2l("setXY", 0o1, () => {
   for ( let i = 0o0; i < N; i++ ) haga.setXY(i, 0.1, -0.1);
 });
 
-vecax2l("t6limaWeh2En + tsasaVem2Tsiike", 0o1, () => {
+vecax2l("mut6qWeh2En + tsasaVem2Tsiike", 0o1, () => {
   for ( let i = 0o0; i < N; i++ ) {
     const t = hatufo[i];
-    const t6lima = t6limaWeh2En(t6limaWeh2, t.y, t.x, t.z, t.haga, tsasaVem2Tsiike);
-    const t6limaLumo = Math.max(( t6lima.r + t6lima.g * 0o2 + t6lima.b ) * 0o1 / 0o4, 0o1 / 0o100);
-    C.copy(t6lima).multiplyScalar(t.nuanco * HERBAMALHELIGO / t6limaLumo).multiply(G2J6);
+    const mut6q = mut6qWeh2En(mut6qWeh2, t.y, t.x, t.z, t.haga, tsasaVem2Tsiike);
+    const mut6qLumo = Math.max(( mut6q.r + mut6q.g * 0o2 + mut6q.b ) * 0o1 / 0o4, 0o1 / 0o100);
+    C.copy(mut6q).multiplyScalar(t.nuanco * HERBAMALHELIGO / mut6qLumo).multiply(G2J6);
   }
 });
 

@@ -1,4 +1,4 @@
-// ≺⧼ ꞁȷ̀ɹ ɭʃᴜ ʌ ſɟɹ ֭ſɭɹ 🪑 ⧽≻
+// ≺⧼ ꞁȷ̀ɹ ɭʃᴜ ʌ ſɟɹ ֭ſɭɹ ʌ ᶅſɹ ɭʃᴜ 🪑 ⧽≻
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { tlunakMangxCax2l, tlunakCacap2baz2, tlunakCax2l } from "../../w2ta/cax2loj.js";

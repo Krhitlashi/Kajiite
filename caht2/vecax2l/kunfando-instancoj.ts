@@ -1,9 +1,10 @@
-// ≺⧼ ſןᶗ‹ɔⅎ ῌᶘɜ ʌ j͑ʃ'ɔ ſןᴜȝ ꞁȷ̀ᴜ }ʃꞇ ʌ j͐ʃɹ ŋᷠɔ 🧩 ⧽≻
+// ≺⧼ ſɭw }ʃʞᴜ }ʃԏ͕ɜ ꞁȷ̀ }ʃɔ˞ƨᴜ }ʃᴜ̭ɜᴎ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { vakox2qMondajnHacakamaha } from "../../skek2/x2x2q/hakox2q.js";
+import { vakox2qMondajnHacakamaha } from "../../skek2/p6kpu/hakox2q.js";
 import { tlak2Vidhaplosteq, registriVidlimon, spacigiInstancojn, vidhaplosteqMalŝalti }
   from "../../kanta/tahaq/vidlimo.js";
-import { knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+import { knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 function cel2nu( thaweni: boolean, vop2lna: string ): void {
   if ( !thaweni ) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${vop2lna}`);
@@ -36,7 +37,6 @@ cel2nu( disigo.hatanek === 0o1 && disigo.hakek === 0o2,
 cel2nu( qena.children.every(m2rap2 => ( m2rap2 as THREE.InstancedMesh ).geometry === zace ),
   "ſɭэ }ʃᴜ ｡ ſɭɜc̗ ɭʃɜ ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ ʃэ ｡ ſɟw ɭʃᴜ ʃэ" );
 
-// ⟨ ſןᶗ‹ɔⅎ ᶘɜ , ꞙɭı , ꞙɭı , j͑ʃᴜ ſɭ,w , ꞙɭɔ , 📃 ⟩
 const malsama = new THREE.Scene();
 malsama.add(new THREE.Mesh(new THREE.BoxGeometry(0o1, 0o1, 0o1), pukek));
 malsama.add(new THREE.Mesh(new THREE.BoxGeometry(0o2, 0o1, 0o1), pukek));
@@ -46,7 +46,6 @@ cel2nu( malsamaTseuni.kvoz === 0o2 && malsama.children.length === 0o2,
 
 console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɟw ɭʃᴜ ${knak2fecajasai(tseuni.ne3ak2, 0o0)} ʌ ${knak2fecajasai(tseuni.kvoz, 0o0)} ｡ ſɭᴜͷ̗ ɭʃɜƽ ɭʃᴜ ${knak2fecajasai(disigo.hakek, 0o0)} ｡ ſᶘᴜ j͐ʃɔ ſᶘᴜ`);
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , j͑ʃᴜ ſɭ,w , ֭ſɭэ ſɭw }ʃꞇ , ꞙɭı , ı],ᴜ ֭ſɭᴜ , ꞙɭı , 📃 ⟩
 const maltsiikeVecax2l = new THREE.BoxGeometry(0o2, 0o2, 0o2);
 const lodCakamaha = new THREE.Mesh(zace, pukek);
 lodCakamaha.userData.maltsiikeVecax2l = maltsiikeVecax2l;

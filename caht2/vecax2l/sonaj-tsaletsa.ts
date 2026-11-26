@@ -1,7 +1,6 @@
-// ≺⧼ ʃɜ j͐ʃɔ j͑ʃᴜꞇ ʌ ſןᶗ‹ɔⅎ ſᶘɜ 🗣️ ⧽≻
-// ⟨ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ Gawekiif -> IPA -> La3os
-// ſɟᴜᴜ̩ ɭʃ� ꞙɭı ʌ ꞙɭɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɟᴜᴜ̩ ɭʃɹ 📃 ⟩
-import { gkAlIpa, ipaAlGawe } from "../../kanta/gawe/sonaj-reguloj.js";
+// ≺⧼ j͑ʃɜ }ʃᴜ ɭl̀ꝛ̗ j͐ʃɔ ſᶘᴜ 🧪 ⧽≻
+
+import { gkAlIpa, ipaAlGawe } from "../../kanta/gawe/boleS2kanta.js";
 
 const PROK6H6: [ string, string ][] = [
   [ "vepaqNomo0", "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ" ],

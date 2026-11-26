@@ -1,14 +1,15 @@
-// ≺⧼ ſᶘꞇ }ʃɔ ı],ᴜ ſ̀ȷɔ 🟣 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ j͑ʃʞᴜ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2AsfanFc2qnCac2sex } from "../../x2x2q/cac2sex/asfa-fc2q.js";
-import { kf2AsfanTrunkanCac2sex } from "../../x2x2q/cac2sex/asfa-sost2cel2sai.js";
-import { kf2AsfanTrunkanBumpanCac2sex } from "../../x2x2q/cac2sex/asfa-sost2cel2sai-bumpo.js";
-import { kf2AsfanTronkoxabenCac2sex } from "../../x2x2q/cac2sex/asfa-sost2cel2sai-xabe.js";
+import { kf2AsfanFc2qnCac2sex } from "../../p6kpu/cac2sex/asfa-fc2q.js";
+import { kf2AsfanTrunkanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai.js";
+import { kf2AsfanTrunkanBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-bumpo.js";
+import { kf2AsfanTronkoxabenCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-xabe.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { vepaqAsfanRozeton, vepaqTavolanFc2qnKronon } from "./fhac2q.js";
 import { KRONALIBERO, PURPURAJTRUNKAJRADIOJ, kronaKa5ikLam2v } from "./hasoza.js";
 import { PunktaKp6taf, n2kKfekoc2kai, kf2Grok6h6n, hazardaGrovaQar, type Cel2Raqa } from "./raqa.js";
-import { bs2, type Bs2 } from "../../../kanta/nala/t6limaSoza.js";
+import { bs2, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
 
 export function vepaqAsfajnPlantojn(qena: THREE.Scene,
   vem2: number,
@@ -49,7 +50,7 @@ function vepaqPeriferianXabenAreon(qena: THREE.Scene,
   habs2Tu5ekomani?: readonly Bs2[]
 ): void {
   const sakxoCasacakai = kf2Xa3eHazardon(tk2ni);
-  // ⟨ j͑ʃͷ̗ᴜʞ ʌ ſɭᴜc̗ ɭʃɜ ʌ ꞙɭц 📃 ⟩
+
   const pukek = new THREE.MeshStandardMaterial({ map: cac2sex, alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 0o1 });
   const haxa3e = new THREE.InstancedMesh(
     vepaqAsfanRozeton(l6da, k2fe, h6w6o, kof), pukek, vem2);

@@ -1,30 +1,24 @@
-// ≺⧼ ſɭэ ֭ſɭэ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſןᴜ ſᶘɹ ʌ j͐ʃэ ɭ(ᴜ 🧪 ⧽≻
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
-// ſɭэ ֭ſɭэ , ꞙɭɿ ,
-// ſɭэ ֭ſɭэ , ꞙɭц , 📃 ⟩
-import { tikHaqakaj2 } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da } from "../../kanta/nala/t6limaSoza.js";
+// ≺⧼ ɭ(ɜ ſɭᴜ̩ᴜ ſɭэ ֭ſɭэ 🧪 ⧽≻
+
+import { tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da } from "../../kanta/nala/mut6qSoza.js";
 import { k6h6Veb6kekaP2somani } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
 import { kf2BazanK6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
 import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
 import { K6H6ADIORITAP2SOMANI,
   K6H6AEKSTERAP2SOMANI, K6H6ATRUAP2SOMANI, k6h6SefiniP2somani } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
 import { kf2Haknece, kf2Tap2jnPoligonojn } from "../../skek2/qatsiike/hak6h6/hapa12.js";
-import { tsasatlakak, kf2Vecax2lanNala } from "./x2x2q.js";
+import { tsasatlakak, kf2Vecax2lanNala } from "./p6kpu.js";
 import type { K6h6N2k } from "../../skek2/qatsiike/k6h6-caxlefkakai/hahunaq.js";
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
-// ⟨ ſɭэ ᶗ‹ , 📏 ⟩ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 const nala = kf2Vecax2lanNala(false);
 const HAKAS2KANTA = nala.hak6h6;
 const HAQAKAJ2 = tikHaqakaj2();
 const hascac6 = nala.hascac6;
 const haveb6kek = nala.haveb6kek;
 
-// ⟪ ſɭᴜ ſןᴜ , ꞙɭı , 📏 ⟫
 console.log("<( j͑ʃɔ ſȷꞇ }ʃꞇ ʌ ſɟɹƽ )>");
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+
 let mallarĝaj = 0o0;
 for ( const k of haveb6kek ) {
   let plosteq = 0o0, ksaka = "";
@@ -49,10 +43,6 @@ for ( const k of haveb6kek ) {
 }
 console.log(`  ſɟɹƽ ${haveb6kek.length} ｡ ſןᴜ ſᶘɹ ŋᷠɹ ŋᷠɹ ʌ ſɭэ ֭ſɭэ ${mallarĝaj}`);
 
-// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📏 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ꞙɭц ,
-// ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
 function enaPoligono( px: number, pz: number, pukaz: readonly [ number, number ][]): boolean {
   let ene = false;
   for ( let i = 0o0, j = pukaz.length - 0o1; i < pukaz.length; j = i++ ) {
@@ -80,8 +70,6 @@ for ( const k of haveb6kek ) {
 }
 console.log(`  ᶅſэ ſ͕ɭᴜ ʌ ſןᴜ ſᶘɹ ʌ ſןɔ ${qun2j}`);
 
-// ⟪ ſɭэ ֭ſɭэ , ꞙɭц , 📏 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
 console.log("<( j͐ʃэ ɭ(ᴜ ʌ ſɭэ ֭ſɭэ )>");
 const kozunu = kf2BazanK6h6L6dan(l6da);
 const k6h6L6da = nala.k6h6L6da;
@@ -109,7 +97,7 @@ for ( let i = 0o0; i < HAKAS2KANTA.length; i++ ) {
   for ( let j = 0o1; j < vop2ni.hal6da.length; j++ ) {
     const d = Math.abs(vop2ni.hal6da[j] - vop2ni.hal6da[j - 0o1]);
     if ( d > sl6da ) { sl6da = d; sl6daQar = vop2ni.haxekuxa[j].toFixed(0o1); }
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭı , 📃 ⟩
+
     if ( vop2ni.hal6da[j] < vop2ni.hal6da[j - 0o1] ) tikmaj++;
   }
   if ( maks > diferencoMaks ) { diferencoMaks = maks; diferencoQar = raqa; }
@@ -119,10 +107,8 @@ for ( let i = 0o0; i < HAKAS2KANTA.length; i++ ) {
 }
 console.log(`  j͑ʃ'ɔ ŋᷠɹ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${diferencoMaks.toFixed(0o2)} @${diferencoQar}`);
 
-// ⟪ ſןɔ˞ᴜƴ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📏 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 console.log("<( ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ )>");
-// ⟨ ſɭэ һɔ , ꞙɭɿ , 📃 ⟩
+
 function raqa( n2k: readonly K6h6N2k[], s: number ) {
   let kur = 0o0;
   for ( let k = 0o0; k < n2k.length - 0o1; k++ ) {
@@ -137,8 +123,8 @@ function raqa( n2k: readonly K6h6N2k[], s: number ) {
   return { x: p[0o0], z: p[0o1], latX: 0o0, latZ: 0o0 };
 }
 let tu5ekani1el2saiMaks = 0o0, tu5ekani1el2saiQar = "", tu5ekani1el2saiAkva = false;
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
-let t6limaLiftoMaks = 0o0, t6limaLiftoQar = "", ratĉetoMaks = 0o0, ratĉetoQar = "";
+
+let mut6qLiftoMaks = 0o0, mut6qLiftoQar = "", ratĉetoMaks = 0o0, ratĉetoQar = "";
 for ( let i = 0o0; i < HAKAS2KANTA.length; i++ ) {
   const n2k = hascac6[i];
   const flanka = k6h6SefiniP2somani( HAKAS2KANTA[i].sefini );
@@ -154,28 +140,26 @@ for ( let i = 0o0; i < HAKAS2KANTA.length; i++ ) {
       tu5ekani1el2saiQar = p.x.toFixed(0o1) + "," + p.z.toFixed(0o1);
       tu5ekani1el2saiAkva = Number.isFinite(tsasatlakak(p.x, p.z));
     }
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ſןɔ˞ᴜƴ , ꞙɭɔ , 📃 ⟩
+
     const lifto = kozunu(p.x, p.z) - psaz;
     const ratĉeto = vop2ni.hal6da[j] - kozunu(p.x, p.z);
-    if ( lifto > t6limaLiftoMaks ) { t6limaLiftoMaks = lifto; t6limaLiftoQar = p.x.toFixed(0o1) + "," + p.z.toFixed(0o1); }
+    if ( lifto > mut6qLiftoMaks ) { mut6qLiftoMaks = lifto; mut6qLiftoQar = p.x.toFixed(0o1) + "," + p.z.toFixed(0o1); }
     if ( ratĉeto > ratĉetoMaks ) { ratĉetoMaks = ratĉeto; ratĉetoQar = p.x.toFixed(0o1) + "," + p.z.toFixed(0o1); }
   }
 }
-console.log(`  j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ʌ ſɭɜ ſɭ,w ${t6limaLiftoMaks.toFixed(0o2)} @${t6limaLiftoQar}`);
+console.log(`  j͐ʃэ ɭ(ᴜ ɭl̀ᴜ ʌ ſɭɜ ſɭ,w ${mut6qLiftoMaks.toFixed(0o2)} @${mut6qLiftoQar}`);
 console.log(`  ɭʃɜ }ʃᴜ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${ratĉetoMaks.toFixed(0o2)} @${ratĉetoQar}`);
 console.log(`  ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ ſᶘɔ j͐ʃɹ j͑ʃᴜꞇ ɭl̀ᴜ ſןͷ̗ɜ j͑ʃƨɔȝ ${tu5ekani1el2saiMaks.toFixed(0o2)} @${tu5ekani1el2saiQar}` +
   ( tu5ekani1el2saiAkva ? " ｡ ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɜ ſɭ,ᴜ" : " ｡ ſɭɜ ſɭ,w ʌ j͑ʃɜ ſɭ,ᴜ" ));
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
+
 {
   const [ mx, mz ] = tu5ekani1el2saiQar.split(",").map(Number);
-  const t6lima = l6da(mx, mz);
-  console.log(`  ʌ ${tu5ekani1el2saiQar} ｡ ſɭɜ ſɭ,w ${t6lima.toFixed(0o2)}` +
+  const mut6q = l6da(mx, mz);
+  console.log(`  ʌ ${tu5ekani1el2saiQar} ｡ ſɭɜ ſɭ,w ${mut6q.toFixed(0o2)}` +
     ` ｡ ſɭэ ֭ſɭэ +ꞙɭц ${l6da(mx + 0o4, mz).toFixed(0o2)} ${l6da(mx - 0o4, mz).toFixed(0o2)}` +
     ` ｡ ſɭᴜc̗ ɭʃɜ +ꞙɭц ${l6da(mx, mz + 0o4).toFixed(0o2)} ${l6da(mx, mz - 0o4).toFixed(0o2)}`);
 }
 
-// ⟪ ſןɔ˞ᴜƴ , ꞙɭɩ , 📏 ⟫
-// ⟨ ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
 console.log("<( ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ )>");
 for ( const d of HAQAKAJ2 ) {
   const r = d.s2sabo ?? 0o0;

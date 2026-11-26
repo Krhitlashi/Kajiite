@@ -1,4 +1,5 @@
-// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ j͑ʃɹ }ʃᴜ j͑ʃᴜ̭ɔ 🧩 ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ֭ſɭᴜ j͑ʃɹ }ʃᴜ j͑ʃᴜ̭ɔ 🛣️ ⧽≻
+
 import * as THREE from "three";
 import { matricoPor, ANGULATSALETSALIRO, type Kas2kantaSiitsii, type Kas2kantaGeometriajHabakaweKatoma } from "./habakaweKatoma.js";
 import { kf2SegmentQoxaKefoun } from "./haqoxa.js";
@@ -7,24 +8,13 @@ import { rampaKuro, K6H6AEKSTERAP2SOMANI, K6H6AVEB6KEKAKMAERPONO, K6H6AKMARL6DA,
   K6H6ATRUAP2SOMANI } from "./havecax2l.js";
 import { kas2kantaHasoza } from "./hahunaq.js";
 
-// ⟪ ꞙɭı , j͑ʃᴜ ſɭ,w 📃 ⟫
 export interface SegmentaTseuni {
   xaqadi: number;
   z2hak: number;
 }
 
-// ⟪ }ʃɹƽ , ſןɔ˞ᴜƴ 📏 ⟫
-/* }ʃɹƽ , ꞙɭэ , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ɭʃᴜ ,
-    @param l6daA, l6daB ( number ) - ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-    @param ax, az, bx, bz ( number ) - ꞙɭı , ſɭэ ſɭᴜ ,
-    @param latX, latZ ( number ) - ꞙɭı , ꞙɭı ,
-    @param t6limaFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
-    @param kofBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
-@returns hatafkaq ( { hateru ; hapsaz } ) - ꞙɭı , ꞙɭı , ꞙɭэ , ꞙɭı , */
-// ⟨ ꞙɭı , ꞙɭı , 📃 ⟩ , ꞙɭı , ꞙɭı , ꞙɭɿ ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 function hatafkaqDeTreado(l6daA: number, l6daB: number, ax: number, az: number, bx: number, bz: number,
-  latX: number, latZ: number, t6limaFn: ( x: number, z: number ) => number,
+  latX: number, latZ: number, mut6qFn: ( x: number, z: number ) => number,
   kofBaza: number
 ): { hateru: [ number, number, number, number ]; hapsaz: [ number, number, number, number ] } {
   const hateru: [ number, number, number, number ] = [ l6daA, l6daA, l6daB, l6daB ];
@@ -32,18 +22,12 @@ function hatafkaqDeTreado(l6daA: number, l6daB: number, ax: number, az: number, 
   const hatafkaq: [ number, number ][] = [ [ ax - latX, az - latZ ], [ ax + latX, az + latZ ],
     [ bx + latX, bz + latZ ], [ bx - latX, bz - latZ ] ];
   for ( let i = 0o0; i < 0o4; i++ ) {
-    const t6lima = t6limaFn(hatafkaq[ i ][ 0o0 ], hatafkaq[ i ][ 0o1 ]);
-    hapsaz[ i ] = Math.min(hateru[ i ] - kofBaza, t6lima - ANGULATSALETSALIRO);
+    const mut6q = mut6qFn(hatafkaq[ i ][ 0o0 ], hatafkaq[ i ][ 0o1 ]);
+    hapsaz[ i ] = Math.min(hateru[ i ] - kofBaza, mut6q - ANGULATSALETSALIRO);
   }
   return { hateru, hapsaz };
 }
 
-// ⟪ ꞙɭı , }ʃɹƽ 📐 ⟫
-/* j͑ʃᴜ ſɭ,w , ꞙɭı , }ʃɹƽ , ꞙɭı ,
-    @param hatafkaq ( [ number , number , number , number ] ) - j͑ʃᴜ ſɭ,w , ꞙɭэ ,
-    @param g0, g1 ( number ) - ꞙɭı , ꞙɭı ,
-    @param eksteraP2somani ( number ) - ꞙɭı , ꞙɭı ,
-@returns hatskek2 ( [ number , number , number , number ] ) - ꞙɭı , ꞙɭı , */
 function siitsiiHatafkaq(hatafkaq: readonly [ number, number, number, number ],
   g0: number, g1: number, eksteraP2somani: number
 ): [ number, number, number, number ] {
@@ -54,63 +38,33 @@ function siitsiiHatafkaq(hatafkaq: readonly [ number, number, number, number ],
     miks(hatafkaq[ 0o3 ], hatafkaq[ 0o2 ], f1), miks(hatafkaq[ 0o3 ], hatafkaq[ 0o2 ], f0) ];
 }
 
-// ⟪ ſןɔ˞ᴜƴ , ꞙɭı 📏 ⟫
-/* ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ɭʃᴜ ,
-    @param ax, az ( number ) - ꞙɭı , ſןɔ˞ᴜƴ ,
-    @param bx, bz ( number ) - ꞙɭı , ſןɔ˞ᴜƴ ,
-    @param l6da ( number ) - ꞙɭı , j͑ʃᴜ ſɭ,w ,
-    @param fala ( number ) - j͑ʃᴜ ſɭ,w , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭɔ ,
-    @param hasiitsii ( Kas2kantaSiitsii [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param kofBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
-    @param t6limaFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
-    @param habakaweKatoma ( Kas2kantaGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ ,
-@returns hal6da ( [ number , number ] ) - j͑ʃᴜ ſɭ,w , ꞙɭɿ , */
-// ⟨ ꞙɭı , ꞙɭı , ſןɔ˞ᴜƴ 📃 ⟩ , ſןɔ˞ᴜƴ , ( ꞙɭı , ꞙɭı ) ,
-//   ꞙɭı , ſɭэ ֭ſɭэ , ( ꞙɭı , ꞙɭı ) , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭɿ , ⟅ ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ 📃 ⟩
-// ⟨ ꞙɭı , ꞙɭı , 📃 ⟩ , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅
-//   ꞙɭı , ꞙɭı , ſɭɜ ſɭ,w , ⟅ ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 function tlunakTreadon(ax: number, az: number, bx: number, bz: number, l6da: number,
   fala: number,
   hasiitsii: Kas2kantaSiitsii[],
   kofBaza: number,
-  t6limaFn: ( x: number, z: number ) => number,
+  mut6qFn: ( x: number, z: number ) => number,
   habakaweKatoma: Kas2kantaGeometriajHabakaweKatoma
 ): [ number, number ] {
   const difX = bx - ax, difZ = bz - az;
   const sahakani = Math.hypot(difX, difZ);
   const ndx = difX / sahakani, ndz = difZ / sahakani;
-  // ⟨ ꞙɭı , 📏 ⟩ , rampaKuro , K6H6ASTUPAF2K ,
-  //   ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   const f2k = fala === 0o0 ? 0o0 : Math.min( rampaKuro( fala ), sahakani );
   if ( f2k <= 0o1/0o1000 ) {
-    tlunakBokson(ax, az, bx, bz, l6da, l6da, hasiitsii, kofBaza, t6limaFn, habakaweKatoma);
+    tlunakBokson(ax, az, bx, bz, l6da, l6da, hasiitsii, kofBaza, mut6qFn, habakaweKatoma);
     return [ l6da, l6da ];
   }
-  // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , 📃 ⟩ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭɔ , ꞙɭı , ⟅ 📃 ⟩
+
   const px = bx - ndx * f2k, pz = bz - ndz * f2k;
-  tlunakBokson(ax, az, px, pz, l6da, l6da, hasiitsii, kofBaza, t6limaFn, habakaweKatoma);
-  tlunakBokson(px, pz, bx, bz, l6da, l6da - fala, hasiitsii, kofBaza, t6limaFn, habakaweKatoma);
+  tlunakBokson(ax, az, px, pz, l6da, l6da, hasiitsii, kofBaza, mut6qFn, habakaweKatoma);
+  tlunakBokson(px, pz, bx, bz, l6da, l6da - fala, hasiitsii, kofBaza, mut6qFn, habakaweKatoma);
   return [ l6da, l6da - fala ];
 }
 
-// ⟪ ſןɔ˞ᴜƴ , ꞙɭı 📦 ⟫
-/* ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ſɭɜ ɭʃᴜ ,
-    @param ax, az ( number ) - ꞙɭı , ꞙɭı ,
-    @param bx, bz ( number ) - ꞙɭı , ꞙɭı ,
-    @param l6daA, l6daB ( number ) - j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı ,
-    @param hasiitsii ( Kas2kantaSiitsii [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param kofBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
-    @param t6limaFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
-    @param habakaweKatoma ( Kas2kantaGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ */
 function tlunakBokson(ax: number, az: number, bx: number, bz: number, l6daA: number, l6daB: number,
   hasiitsii: Kas2kantaSiitsii[],
   kofBaza: number,
-  t6limaFn: ( x: number, z: number ) => number,
+  mut6qFn: ( x: number, z: number ) => number,
   habakaweKatoma: Kas2kantaGeometriajHabakaweKatoma
 ): void {
   const difX = bx - ax, difZ = bz - az;
@@ -119,7 +73,7 @@ function tlunakBokson(ax: number, az: number, bx: number, bz: number, l6daA: num
   const eksteraP2somani = kf2EksteranP2somani(hasiitsii);
   const ndx = difX / sahakani, ndz = difZ / sahakani;
   const latX = -ndz * eksteraP2somani, latZ = ndx * eksteraP2somani;
-  const hatafkaq = hatafkaqDeTreado(l6daA, l6daB, ax, az, bx, bz, latX, latZ, t6limaFn, kofBaza);
+  const hatafkaq = hatafkaqDeTreado(l6daA, l6daB, ax, az, bx, bz, latX, latZ, mut6qFn, kofBaza);
   kas2kantaHasoza.push({ x1: ax, z1: az, x2: bx, z2: bz, p2somani: eksteraP2somani,
     y0: l6daA, y1: l6daB, f2k: Math.abs( l6daB - l6daA ) > 0o1/0o1000 });
   for ( const siitsii of hasiitsii ) {
@@ -131,12 +85,6 @@ function tlunakBokson(ax: number, az: number, bx: number, bz: number, l6daA: num
   }
 }
 
-/* ꞙɭı , ſɭэ ֭ſɭэ , ſɭᴜ ſןᴜ , ꞙɭɔ , ſןɔ˞ᴜƴ ,
-    @param aX, aZ ( number ) - ꞙɭı , ſɭэ ſɭᴜ ,
-    @param bX, bZ ( number ) - ꞙɭı , ſɭэ ſɭᴜ ,
-    @param sahakani ( number ) - ꞙɭı , ſɭэ ſɭᴜ ,
-    @param haveb6kek ( [ number , number ] [ ] ) - ſɭᴜ ſןᴜ , }ʃɹƽ ,
-@returns hakek ( [ number , number , boolean ] [ ] ) - ꞙɭı , ꞙɭı , */
 export function kf2SegmentajnHakek(aX: number, aZ: number, bX: number, bZ: number,
   sahakani: number,
   haveb6kek: [ number, number ][]
@@ -148,12 +96,11 @@ export function kf2SegmentajnHakek(aX: number, aZ: number, bX: number, bZ: numbe
     const m6na = rx * ndx + rz * ndz;
     if ( m6na < -K6H6ATRUAP2SOMANI || m6na > sahakani + K6H6ATRUAP2SOMANI ) continue;
     const perpendikulara = Math.abs(rx * ndz - rz * ndx);
-    // ⟨ ꞙɭı , ſɭэ ſɭᴜ 📃 ⟩ , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ ,
+
     const xetonometlakak = m6na <= K6H6ATRUAP2SOMANI || m6na >= sahakani - K6H6ATRUAP2SOMANI;
     const perpendikularaTolero = ( xetonometlakak ? K6H6AEKSTERAP2SOMANI : 0o1/0o100 ) + 0o1/0o1000;
     if ( perpendikulara > perpendikularaTolero ) continue;
-    // ⟨ ꞙɭɔ , ꞙɭı , ꞙɭı , 📏 ⟩ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     const kuna = K6H6ATRUAP2SOMANI - K6H6AVEB6KEKAKMAERPONO;
     hah6k6.push([ Math.max(0o0, m6na - kuna ), Math.min(sahakani, m6na + kuna ) ]);
   }
@@ -170,22 +117,11 @@ export function kf2SegmentajnHakek(aX: number, aZ: number, bX: number, bZ: numbe
   return hakek;
 }
 
-// ⟪ ſןɔ˞ᴜƴ , ꞙɭı 📏 ⟫
-/* ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭı ,
-    @param x1, z1 ( number ) - ꞙɭı , ꞙɭı ,
-    @param x2, z2 ( number ) - ꞙɭı , ꞙɭı ,
-    @param hasiitsii ( Kas2kantaSiitsii [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param kofBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
-    @param heightFn ( function ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w ,
-    @param t6limaFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
-    @param habakaweKatoma ( Kas2kantaGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ ,
-    @param fala ( number ) - j͑ʃᴜ ſɭ,w , ꞙɭı , ſןɔ˞ᴜƴ , ꞙɭɔ ,
-@returns tseuni ( SegmentaTseuni | null ) - j͑ʃᴜ ſɭ,w , ꞙɭɿ , */
 export function vepaqUnuformajnStuparajnHas2nascen(x1: number, z1: number, x2: number, z2: number,
   hasiitsii: Kas2kantaSiitsii[],
   kofBaza: number,
   heightFn: ( x: number, z: number ) => number,
-  t6limaFn: ( x: number, z: number ) => number,
+  mut6qFn: ( x: number, z: number ) => number,
   habakaweKatoma: Kas2kantaGeometriajHabakaweKatoma,
   fala: number
 ): SegmentaTseuni | null {
@@ -193,27 +129,10 @@ export function vepaqUnuformajnStuparajnHas2nascen(x1: number, z1: number, x2: n
   const sahakani = Math.hypot(difX, difZ);
   if ( sahakani < 0o1/0o100 ) return null;
   const hateru = heightFn(( x1 + x2 ) / 0o2, ( z1 + z2 ) / 0o2) + K6H6AKMARL6DA;
-  const [ xaqadi, z2hak ] = tlunakTreadon(x1, z1, x2, z2, hateru, fala, hasiitsii, kofBaza, t6limaFn, habakaweKatoma);
+  const [ xaqadi, z2hak ] = tlunakTreadon(x1, z1, x2, z2, hateru, fala, hasiitsii, kofBaza, mut6qFn, habakaweKatoma);
   return { xaqadi, z2hak };
 }
 
-// ⟪ ſɭэ ֭ſɭэ , ſןɔ˞ᴜƴ 📃 ⟫
-/* ꞙɭı , ꞙɭı , ꞙɭı , ſɭэ ſɭᴜ ,
-    @param x1, z1 ( number ) - ꞙɭı , ꞙɭı ,
-    @param x2, z2 ( number ) - ꞙɭı , ꞙɭı ,
-    @param s0, s1 ( number ) - ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı ,
-    @param hasiitsii ( Kas2kantaSiitsii [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param hacaqasahax ( UnuformaTreado [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param habakaweKatoma ( Kas2kantaGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ ,
-    @param kofBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
-    @param t6limaFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
-@returns tseuni ( SegmentaTseuni | null ) - j͑ʃᴜ ſɭ,w , ꞙɭɿ , */
-// ⟨ ꞙɭı , ꞙɭɔ , ꞙɭı , 📏 ⟩ , ꞙɭı ,
-//   kf2UnuformajnHacaqasahaxn , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function vepaqS2nascenEnHabakaweKatoman(x1: number, z1: number, x2: number, z2: number,
   s0: number,
   s1: number,
@@ -221,7 +140,7 @@ export function vepaqS2nascenEnHabakaweKatoman(x1: number, z1: number, x2: numbe
   hacaqasahax: readonly UnuformaTreado[],
   habakaweKatoma: Kas2kantaGeometriajHabakaweKatoma,
   kofBaza: number,
-  t6limaFn: ( x: number, z: number ) => number
+  mut6qFn: ( x: number, z: number ) => number
 ): SegmentaTseuni | null {
   const difX = x2 - x1, difZ = z2 - z1;
   const sahakani = Math.hypot(difX, difZ);
@@ -238,32 +157,18 @@ export function vepaqS2nascenEnHabakaweKatoman(x1: number, z1: number, x2: numbe
     const ax = x1 + difX * f0, az = z1 + difZ * f0;
     const bx = x1 + difX * f1, bz = z1 + difZ * f1;
     const l6daA = l6daJe( a ), l6daB = l6daJe( b );
-    tlunakBokson( ax, az, bx, bz, l6daA, l6daB, hasiitsii, kofBaza, t6limaFn, habakaweKatoma );
+    tlunakBokson( ax, az, bx, bz, l6daA, l6daB, hasiitsii, kofBaza, mut6qFn, habakaweKatoma );
     if ( xaqadi === Infinity ) xaqadi = l6daA;
     z2hak = l6daB;
   }
   return xaqadi === Infinity ? null : { xaqadi, z2hak };
 }
 
-// ⟪ ſɭэ ֭ſɭэ , ꞙɭı , ( ſɟɹƽ ꞁȷ̀ᴜ }ʃw ) 📃 ⟫
-/* ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı ,
-    @param x1, z1 ( number ) - ꞙɭı , ꞙɭı ,
-    @param x2, z2 ( number ) - ꞙɭı , ꞙɭı ,
-    @param hasiitsii ( Kas2kantaSiitsii [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param kofBaza ( number ) - ſɭᴜ ſɭ,w , ꞙɭı ,
-    @param heightFn ( function ) - ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w ,
-    @param t6limaFn ( function ) - ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w ,
-    @param habakaweKatoma ( Kas2kantaGeometriajHabakaweKatoma ) - ɭl̀ɜ ſ͕ɭᴜ ,
-@returns tseuni ( SegmentaTseuni | null ) - j͑ʃᴜ ſɭ,w , ꞙɭɿ , */
-// ⟨ ſᶘɔ ʌ ꞙɭı , 📃 ⟩ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ꞙɭɔ , ſןɔ˞ᴜƴ ,
-//   ꞙɭɔ , ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ꞙɭı ,
-//   ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ſȷƽᴜ ʃɔ , ⟅
-//   ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
 export function vepaqGlatanS2nascen(x1: number, z1: number, x2: number, z2: number,
   hasiitsii: Kas2kantaSiitsii[],
   kofBaza: number,
   heightFn: ( x: number, z: number ) => number,
-  t6limaFn: ( x: number, z: number ) => number,
+  mut6qFn: ( x: number, z: number ) => number,
   habakaweKatoma: Kas2kantaGeometriajHabakaweKatoma
 ): SegmentaTseuni | null {
   const difX = x2 - x1, difZ = z2 - z1;
@@ -280,16 +185,16 @@ export function vepaqGlatanS2nascen(x1: number, z1: number, x2: number, z2: numb
     const hateru = Math.max(
       heightFn(px - latX, pz - latZ), heightFn(px + latX, pz + latZ))
       + 0o1/0o100 + kofBaza;
-    const minimumo = Math.min(
-      t6limaFn(px - latX, pz - latZ), t6limaFn(px, pz), t6limaFn(px + latX, pz + latZ));
-    hapxeutso.push({ s, hateru, psaz: Math.min(hateru - kofBaza, minimumo - ANGULATSALETSALIRO) });
+    const m2m2 = Math.min(
+      mut6qFn(px - latX, pz - latZ), mut6qFn(px, pz), mut6qFn(px + latX, pz + latZ));
+    hapxeutso.push({ s, hateru, psaz: Math.min(hateru - kofBaza, m2m2 - ANGULATSALETSALIRO) });
   }
   const qoxa = new THREE.Shape();
   qoxa.moveTo(hapxeutso[0o0].s, hapxeutso[0o0].psaz);
   for ( let i = 0o1; i < hapxeutso.length; i++ ) {
     const ne3ak2 = hapxeutso[i - 0o1];
     const cutlu = hapxeutso[i];
-    // ⟨ ꞙɭɔ , ſɭɜ ɭʃᴜ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     const ne3ak2Deko = ne3ak2.psaz >= ne3ak2.hateru - kofBaza - 0o1/0o10;
     const cutluDeko = cutlu.psaz >= cutlu.hateru - kofBaza - 0o1/0o10;
     if ( ne3ak2Deko !== cutluDeko ) qoxa.lineTo(cutlu.s, ne3ak2.psaz);
@@ -307,9 +212,7 @@ export function vepaqGlatanS2nascen(x1: number, z1: number, x2: number, z2: numb
     habakaweKatoma.tlunakani(zace, siitsii.pukek, qox2n2k);
   }
   const hateru = hapxeutso.map(s => s.hateru);
-  // ⟨ ꞙɭı , ꞙɭı , 📏 ⟩ , ꞙɭı , ꞙɭı , ꞙɭɿ ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
   for ( let i = 0o1; i < hapxeutso.length; i++ ) {
     const ne3ak2 = hapxeutso[i - 0o1];
     const cutlu = hapxeutso[i];
@@ -320,10 +223,6 @@ export function vepaqGlatanS2nascen(x1: number, z1: number, x2: number, z2: numb
   return { xaqadi: hateru[0o0], z2hak: hateru[hateru.length - 0o1] };
 }
 
-// ⟪ ꞙɭı , ꞙɭı 📏 ⟫
-/* ꞙɭı , ꞙɭı , ſɭэ ֭ſɭэ ,
-    @param hasiitsii ( Kas2kantaSiitsii [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-@returns p2somani ( number ) - ꞙɭı , ꞙɭı , */
 export function kf2EksteranP2somani( hasiitsii: readonly Kas2kantaSiitsii[] ): number {
   let p2somani = 0o0;
   for ( const siitsii of hasiitsii ) {

@@ -1,35 +1,27 @@
-// ≺⧼ ſןᴜ ɭʃэ ɭʃɔ 🥾 ⧽≻
+// ≺⧼ ſןᴜ ɭʃэ ɭʃɔ ʌ ſןᴜ ɭʃэ j͑ʃɜ ſ͕ɭƨɔ 🥾 ⧽≻
 import * as THREE from "three";
-import { vakox2qQoxaKefoujn, p6zukaSkatolajnUk6h6n } from "../../x2x2q/hakox2q.js";
+import { vakox2qQoxaKefoujn, p6zukaSkatolajnUk6h6n } from "../../p6kpu/hakox2q.js";
 import { superpuc2q, kf2RinganSurfacon } from "./haqoxa.js";
 
 // ⟪ ſןᴜ ɭʃэ ɭʃɔ 🥾 ⟫
 
-// ⟨ j͑ʃɜ ſɭ,ᴜ , ꞙɭɿ , ⟅ ⟩
 export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.BufferGeometry } {
-  // ⟨ ſɭэ ſɭ,w , ɭʃᴜʞ ꞁȷ̀ᴜ }ʃꞇ ɭʃᴜc̭ ſɟɔ j͑ʃᴜꞇ , ⟅ ⟩
-  // ⟨ ſןᴜ ɭʃэ , ɔ.ɔɔɿ , ſɭэ ſɭ,w , ⟅ ⟩
+
   const GRUNDO = -0o1/0o2 + 0o0/0o10;
   const PLANDAL6DA = 0o3/0o200;
   const PLANDAKMARO = GRUNDO + PLANDAL6DA;
-  // ⟨ ſɟɔȝ , ſןᴜ ɭʃэ , ⟅ ⟩
+
   const LEDAFUNDO = PLANDAKMARO - 0o1/0o100;
   const K = 0o20;
   const r = ( i: number ) => i / K * Math.PI * 0o2;
 
-  // ⟨ ſɭэ ɭʃᴜ , V ⟅ ⟩
-  // ⟨ ſɭэ ɭʃᴜ , ꞙɭı , ⟅ ⟩
   const KRESTA = 0o2/0o100;
   const kresto = (ang: number) => KRESTA * ( 0o1 - Math.sin(ang) ) / 0o2;
-  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭэ , ⟅ ⟩
+
   const ANGULANOĈO = 0o1/0o100;
   const angulaNoĉo = (ang: number) =>
     ANGULANOĈO * Math.pow(Math.abs(Math.sin(ang * 0o2)), 0o10);
-  // ⟨ ɭʃɜ ſɭɹȝ , ⟅ ⟩
-  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭɔ , ⟅ ⟩
-  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭı , ⟅ ⟩
-  // ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ⟩
-  // ⟨ ɭʃɜ ſɭɹȝ , ſɭɜ ſɭᴜƽ , ⟅ ⟩
+
   const RANDOY = -0o3/0o16;
   const RANDOA = 0o30/0o400;
   const RANDOB = 0o33/0o400;
@@ -43,12 +35,10 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
     [ -0o73/0o200,          0o27/0o400,     0o27/0o400,    0o0       ],
     [ -0o76/0o200,          0o16/0o400,     0o16/0o400,    0o0       ],
   ];
-  // ⟨ ɭʃɜ ſɭɹȝ , ſןᴜ ɭʃэ , ⟅ ⟩
-  // ⟨ ɭʃɜ ſɭɹȝ , ſɟɔȝ , ſןᴜ ɭʃэ , ⟅ ⟩
-  // ⟨ ᶅſw ſןɜ ɭʃɔ , ꞙɭı , ⟅ ⟩
+
   const sost2 = ( y: number, z: number ) => Array.from({ length: K },
     () => [ 0o0, y, z ] as [ number, number, number ] );
-  // ⟨ ɭʃᴜ , ꞙɭɔ , ɭʃᴜʞ , ⟅ ⟩
+
   const c2q = ( y: number, a: number, b: number, p = 0o0, noĉoj = true ) =>
     Array.from({ length: K }, ( _, i ) => {
       const ang = r(i);
@@ -61,8 +51,6 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
     sost2(stipajHat2q2[stipajHat2q2.length - 0o1][0o0], 0o0) ];
   const ŝhunaq = kf2RinganSurfacon(ŝtipajHat2q2);
 
-  // ⟨ ſןᴜ ɭʃэ , ꞙɭэ , ⟅ ⟩
-  // ⟨ ſןᴜ ɭʃэ , j͑ʃᴜ ʃɜ , ⟅ ⟩
   const hapat6Haqaroxema: [ number, number, number ][] = [
     [ -0o15/0o200, 0o10/0o200, -0o60/0o200 ],
     [ -0o11/0o200, 0o13/0o200, -0o56/0o200 ],
@@ -74,8 +62,7 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
     [  0o25/0o200, 0o12/0o200, -0o62/0o200 ],
     [  0o30/0o200, 0o7/0o200,  -0o63/0o200 ],
   ];
-  // ⟨ j͑ʃɜ j͐ʃɹ , ſןᴜ ɭʃэ , ⟅ ⟩
-  // ⟨ ſɟɔȝ , ſןᴜ ɭʃэ , ⟅ ⟩
+
   const hapat6Hat2q2 = [ sost2(hapat6Haqaroxema[0o0][0o2] / 0o2 + PLANDAKMARO / 0o2, hapat6Haqaroxema[0o0][0o0]),
     ...hapat6Haqaroxema.map(([ z, a, teru ]) => {
       const hh = ( teru - LEDAFUNDO ) / 0o2, yc = ( teru + LEDAFUNDO ) / 0o2;
@@ -88,9 +75,6 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
       hapat6Haqaroxema[hapat6Haqaroxema.length - 0o1][0o0]) ];
   const pat6 = kf2RinganSurfacon(hapat6Hat2q2);
 
-  // ⟨ ſןᴜ ɭʃэ , ⟅ ⟩
-  // ⟨ ſןᴜ ɭʃэ , j͑ʃᴜ ſɭ,w , ꞙɭı , ⟅ ⟩
-  // ⟨ ſןᴜ ɭʃэ , ꞙɭı , ⟅ ⟩
   const haqaroxemaKuntlakakj = ( etendo: number, largxo: number ): [ number, number, number ][] =>
     hapat6Haqaroxema.map(( sect, i ) => [ i === 0o0 ? sect[0o0] - etendo
       : i === hapat6Haqaroxema.length - 0o1 ? sect[0o0] + etendo : sect[0o0],
@@ -107,18 +91,17 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
     })),
     sost2(plandaYc, plandajHaqaroxema[plandajHaqaroxema.length - 0o1][0o0]),
   ]);
-  // ⟨ ſןᴜ ɭʃэ , ꞙɭı ( "welt" ) ⟩
+
   const plandaRando = kf2RinganSurfacon([
     sost2(PLANDAKMARO, pukazjHaqaroxema[0o0][0o0]),
     ...pukazjHaqaroxema.map(([ z, a ]) => Array.from({ length: K }, ( _, j ) => {
-      // ⟨ j͑ʃᴜ ʃɜ , ꞙɭɔ , ⟅ ⟩
+
       const [ x, y ] = superpuc2q(r(j), a + 0o1/0o200, 0o1/0o200, 0o4);
       return [ x, PLANDAKMARO + y, z ] as [ number, number, number ];
     })),
     sost2(PLANDAKMARO, pukazjHaqaroxema[pukazjHaqaroxema.length - 0o1][0o0]),
   ]);
-  // ⟨ ꞙɭı , ſןᴜ ɭʃэ , ⟅ ⟩
-  // ⟨ ꞙɭı , ⟅ ⟩
+
   const qaroxemaJe = ( z: number ): [ number, number ] => {
     for ( let i = 0o0; i + 0o1 < hapat6Haqaroxema.length; i++ ) {
       const a = hapat6Haqaroxema[i], b = hapat6Haqaroxema[i + 0o1];
@@ -139,12 +122,12 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
       new THREE.Vector3(Math.sign(x) * Math.pow(u, 0o3) / a, Math.pow(v, 0o3) / hh, 0o0)
         .normalize() ];
   };
-  // ⟨ j͑ʃɜ j͐ʃɹ , ɭʃꞇƽ ſןᴜ ɭʃэ j͑ʃᴜꞇ , ⟅ ⟩
+
   const KONTUROX = 0o13/0o400;
   const KONTUROZ = 0o37/0o400;
   const KONTUROCENTRO = 0o16/0o400;
   const KONTURODIKO = 0o3/0o400;
-  // ⟨ ꞙɭı , ⟅ ⟩
+
   const KONTUROL6DA = 0o1/0o200;
   const KONTUROPUNKTOJ = 0o40;
   const konturaN2k = ( ang: number ): [ THREE.Vector3, THREE.Vector3 ] => {
@@ -154,14 +137,14 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
   const konturajHat2q2: [ number, number, number ][][] = [];
   for ( let i = 0o0; i <= KONTUROPUNKTOJ; i++ ) {
     const ang = i / KONTUROPUNKTOJ * Math.PI * 0o2;
-    const [ n2k, x2x2q ] = konturaN2k(ang);
-    // ⟨ ꞙɭı , ⟅ ⟩
+    const [ n2k, p6kpu ] = konturaN2k(ang);
+
     const [ ne3ak2 ] = konturaN2k(ang - 0o1/0o20);
     const [ posta ] = konturaN2k(ang + 0o1/0o20);
     const c2w2q = posta.clone().sub(ne3ak2).normalize();
-    const vek2fe = x2x2q.clone().cross(c2w2q).normalize();
+    const vek2fe = p6kpu.clone().cross(c2w2q).normalize();
     const p2somani = vek2fe.clone().multiplyScalar(KONTURODIKO / 0o2);
-    const sozasai = x2x2q.clone().multiplyScalar(KONTUROL6DA);
+    const sozasai = p6kpu.clone().multiplyScalar(KONTUROL6DA);
     const c2h2 = n2k.clone().sub(p2somani), p6sca = n2k.clone().add(p2somani);
     konturajHat2q2.push([
       [ c2h2.x, c2h2.y, c2h2.z ],
@@ -171,8 +154,7 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
     ]);
   }
   const piedaRando = kf2RinganSurfacon(konturajHat2q2);
-  // ⟨ ɭʃᴜ , j͑ʃᴜ ʃɜƽ , ⟅ ⟩
-  // ⟨ ɭʃᴜ , ſɟɔȝ , ꞙɭɿ , ⟅ ⟩
+
   const KUFSUB = RANDOY - 0o1/0o50;
   const KUFKMARO = RANDOY + 0o3/0o200;
   const KUFELSTARO = 0o3/0o400;
@@ -183,7 +165,7 @@ export function kf2Botan(): { boto: THREE.BufferGeometry; akcentaj: THREE.Buffer
     c2q(RANDOY - 0o1/0o200, RANDOA - 0o1/0o100, RANDOB - 0o1/0o100, 0o1, false),
     sost2(RANDOY - 0o1/0o200, 0o0),
   ]);
-  // ⟨ ꞙɭэ , ſ͕ɭɜ ı],ᴜ , ꞙɭı , ⟅ ⟩
+
   const akcentaj = vakox2qQoxaKefoujn([ plando, plandaRando, piedaRando, krestaRando ]);
   p6zukaSkatolajnUk6h6n(akcentaj, 0o2);
 

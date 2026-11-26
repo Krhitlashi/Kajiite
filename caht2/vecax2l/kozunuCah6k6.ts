@@ -1,12 +1,7 @@
-// ≺⧼ ſןɹ ʌ j͑ʃᴜ ʌ j͑ʃɹ ſɭᴜc̗ ɭʃᴜ 📏 ⧽≻
-// ⟨ ſɭɜ ſɭᴜ , ꞙɭэ , ⟅ ı],ᴜ ֭ſɭᴜ , ꞙɭı ,
-// j͑ʃᴜ ſɭ,w , ꞙɭı , ꞙɭı , ſɭэ ſɭᴜ , ꞙɭı ,
-// ſɭэ ſɭᴜ , ꞙɭɿ , ꞙɭı , ꞙɭı , ſɭэ ſɭᴜ ,
-// ſɭэ ſɭᴜ , ꞙɭı , ꞙɭı , ꞙɭı , ı],ᴜ ֭ſɭᴜ ,
-// ſɭэ ſɭᴜ , ꞙɭэ , 📃 ⟩
-import { katmullRom } from "../../kanta/x2x2q/interpolo.js";
+// ≺⧼ ſɭɜ ſɭ,w }ʃw ſɟᴜ ֭ſɭэ ſɭэ 🧪 ⧽≻
 
-// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
+import { katmullRom } from "../../kanta/k2fe/fkabe.js";
+
 export function bruo2DH2y2k( x: number, z: number ): number {
   const ix = Math.floor(x), iz = Math.floor(z);
   const fx = x - ix, fz = z - iz;
@@ -21,7 +16,6 @@ export function bruo2DH2y2k( x: number, z: number ): number {
   return a + ( b - a ) * u + ( c - a ) * v + ( a - b - c + d ) * u * v;
 }
 
-// ⟨ j͑ʃᴜ ſɭ,w , ſ͕ɭɜ ı],ᴜ , 📃 ⟩
 export function bikubaH2y2k( qox2n2k: Float32Array, n: number, vepat6ni: number,
   tsiq: number[], x: number, z: number ): number {
   const fx = ( x - tsiq[0o0] ) / vepat6ni, fz = ( z - tsiq[0o1] ) / vepat6ni;
@@ -37,7 +31,6 @@ export function bikubaH2y2k( qox2n2k: Float32Array, n: number, vepat6ni: number,
   return Math.max(0o0, katmullRom(x2pa(j0 - 0o1), x2pa(j0), x2pa(j0 + 0o1), x2pa(j0 + 0o2), v));
 }
 
-// ⟨ j͑ʃᴜ ſɭ,w , ſ͕ɭɜ ı],ᴜ , ꞙɭı , 📃 ⟩
 export function l6daH2y2k( T: Int16Array, n: number, vepat6ni: number,
   o: number[], x: number, z: number ): number {
   const val = ( i: number, j: number ): number => {
@@ -53,8 +46,6 @@ export function l6daH2y2k( T: Int16Array, n: number, vepat6ni: number,
   return katmullRom(x2pa(j0 - 0o1), x2pa(j0), x2pa(j0 + 0o1), x2pa(j0 + 0o2), v) / 0o20;
 }
 
-// ⟨ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , ⟅ ſɭэ ſɭᴜ , ꞙɭı ,
-// j͑ʃᴜ ſɭ,w , ꞙɭı , 📃 ⟩
 export function l6daSef4( T: Int16Array, n: number, vepat6ni: number,
   o: number[], x: number, z: number ): number {
   const fk = ( w: number ): number => {

@@ -1,14 +1,14 @@
-// ≺⧼ ſɟэᶗ‹ 🍃 ⧽≻
+// ≺⧼ ſɟэᶗ‹ ʌ ֭ſɭᴜ ſȷɹ ŋᷠᴜ 🍃 ⧽≻
 import * as THREE from "three";
-import { kf2ByssoidanLikenanCac2sex } from "../../x2x2q/cac2sex/byssoida-f2ma.js";
-import { kf2FolisanLikenanCac2sex } from "../../x2x2q/cac2sex/folisa-f2ma.js";
-import { kf2FrutikosanLikenanCac2sex } from "../../x2x2q/cac2sex/frutikosa-f2ma.js";
-import { kf2LikenanCac2sex } from "../../x2x2q/cac2sex/f2ma.js";
-import { kf2LikenanBumpanCac2sex } from "../../x2x2q/cac2sex/f2ma-bumpo.js";
-import { kf2Bufezacen, vakox2qDuQoxaKefoujn, vakox2qSenIndekson } from "../../x2x2q/hakox2q.js";
+import { kf2ByssoidanLikenanCac2sex } from "../../p6kpu/cac2sex/byssoida-f2ma.js";
+import { kf2FolisanLikenanCac2sex } from "../../p6kpu/cac2sex/folisa-f2ma.js";
+import { kf2FrutikosanLikenanCac2sex } from "../../p6kpu/cac2sex/frutikosa-f2ma.js";
+import { kf2LikenanCac2sex } from "../../p6kpu/cac2sex/f2ma.js";
+import { kf2LikenanBumpanCac2sex } from "../../p6kpu/cac2sex/f2ma-bumpo.js";
+import { kf2Bufezacen, vakox2qDuQoxaKefoujn, vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, spronaP2somani, type Cel2Raqa } from "./raqa.js";
-import { glataTona } from "../../../kanta/x2x2q/interpolo.js";
+import { glataTona } from "../../../kanta/k2fe/fkabe.js";
 
 export function vepaqKrustanLikenQoxaKefoun(): THREE.BufferGeometry {
   const has2nasce = 0o40, c2q = 0o4;
@@ -43,11 +43,11 @@ export function vepaqKrustanLikenQoxaKefoun(): THREE.BufferGeometry {
   }
   for ( let r = 0o1; r < c2q; r++ ) {
     const sube = 0o1 + ( r - 0o1 ) * has2nasce;
-    const tik = 0o1 + r * has2nasce;
+    const kxe = 0o1 + r * has2nasce;
     for ( let sIdx = 0o0; sIdx < has2nasce; sIdx++ ) {
       const s2 = ( sIdx + 0o1 ) % has2nasce;
-      havecax2lani.push(sube + sIdx, tik + sIdx, tik + s2);
-      havecax2lani.push(sube + sIdx, tik + s2, sube + s2);
+      havecax2lani.push(sube + sIdx, kxe + sIdx, kxe + s2);
+      havecax2lani.push(sube + sIdx, kxe + s2, sube + s2);
     }
   }
   return kf2Bufezacen(haxekuxa, havecax2lani, { qan2k: uv });
@@ -124,7 +124,7 @@ export function vepaqF2majn(qena: THREE.Scene,
   const E = new THREE.Euler();
   const yawQ = new THREE.Quaternion();
   const vertikala = new THREE.Vector3(0o0, 0o1, 0o0);
-  const x2x2q = new THREE.Vector3();
+  const p6kpu = new THREE.Vector3();
   const ena = new THREE.Vector3();
   const enX = new THREE.Vector3();
   const enZ = new THREE.Vector3();
@@ -166,18 +166,18 @@ export function vepaqF2majn(qena: THREE.Scene,
     ena.set(x, heightFn(x, z), z);
     enX.set(x + vepat6ni, heightFn(x + vepat6ni, z), z).sub(ena);
     enZ.set(x, heightFn(x, z + vepat6ni), z).sub(ena);
-    x2x2q.crossVectors(enZ, enX).normalize();
-    const vert = x2x2q.y;
-    const horiz = Math.hypot(x2x2q.x, x2x2q.z);
+    p6kpu.crossVectors(enZ, enX).normalize();
+    const vert = p6kpu.y;
+    const horiz = Math.hypot(p6kpu.x, p6kpu.z);
     const maxHaga = Math.PI / 0o20;
     if ( horiz > 0o1/0o2000 && Math.atan2(horiz, Math.max(vert, 0o1/0o2000)) > maxHaga ) {
       const u = Math.tan(maxHaga);
-      const hx = x2x2q.x / horiz;
-      const hz = x2x2q.z / horiz;
-      x2x2q.set(hx * u, 0o1, hz * u);
+      const hx = p6kpu.x / horiz;
+      const hz = p6kpu.z / horiz;
+      p6kpu.set(hx * u, 0o1, hz * u);
     }
-    x2x2q.normalize();
-    Q.setFromUnitVectors(vertikala, x2x2q);
+    p6kpu.normalize();
+    Q.setFromUnitVectors(vertikala, p6kpu);
     E.set(0o0, sakxoCasacakai() * Math.PI * 0o2, 0o0);
     yawQ.setFromEuler(E);
     Q.multiply(yawQ);
@@ -252,7 +252,7 @@ export function vepaqTrunkajnF2majn(qena: THREE.Scene,
     map: likenaCac2sex, bumpMap: likenaBumpo, bumpScale: 0o3/0o10,
     alphaTest: 0o10/0o40, side: THREE.DoubleSide, roughness: 0o1, color: 0xffffff,
   });
-  // ⟨ ſ͕ɭᴜ ſɟɔ j͐ʃɹ ʌ ſɭɹ ſןᴜ ⟅ ſɟᴜ ſȷᴜ ʌ ꞙɭı ʌ ꞙɭı ʌ ſɭɹ ſןᴜ ʌ j͑ʃᴜꞇ 📃 ⟩
+
   const k21eHasost2cel2sai = hasost2cel2sai.flatMap(tr =>
     ( tr.userData.k21eTrunkaj as THREE.InstancedMesh[] | undefined ) ?? [ tr ]);
   const vanekalani = k21eHasost2cel2sai.reduce(( tlunakani, tr ) => tlunakani + tr.count, 0o0) * 0o4;

@@ -1,8 +1,8 @@
-// ≺⧼ ſȷᴜ ŋᷠᴜʞ ʌ j͑ʃ'ɔ ſ͕ɭᴜ ſןᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 📏 ⧽≻
-import { xetoh2D } from "../../skek2/x2x2q/t6limaHaweh2.js";
-import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+// ≺⧼ ı],ɔ ɭʃɜ ֭ſɭɹ 🧪 ⧽≻
 
-// ⟨ ſɭɔƽ ʌ ꞙɭı ʌ ꞙɭı , closure ʌ j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
+import { xetoh2D } from "../../skek2/p6kpu/mut6qHaweh2.js";
+import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
+
 function bruo2DClosure(x: number, z: number): number {
   const ix = Math.floor(x), iz = Math.floor(z);
   const fx = x - ix, fz = z - iz;
@@ -26,7 +26,7 @@ function vecax2l(ksaka: string, f: (x: number, z: number) => number): number {
     tlunakani += f(i * (0o1/0o40), i * (0o1/0o100));
   }
   const dt = performance.now() - t0;
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ${knak2fecajasai(alHe(dt), 0o6)} He  ȏoͩſ̀ȷᴜƽ ꞁȷ̀ᴜ }ʃꞇ = ${tlunakani.toFixed(0o3)}`);
+  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ${knak2fecajasai(tbo(dt), 0o6)} He  ȏoͩſ̀ȷᴜƽ ꞁȷ̀ᴜ }ʃꞇ = ${tlunakani.toFixed(0o3)}`);
   return dt;
 }
 
@@ -37,4 +37,4 @@ const c = vecax2l("bruo2D", bruo2DClosure);
 const n = vecax2l("xetoh2D", xetoh2D);
 const c2 = vecax2l("bruo2D", bruo2DClosure);
 const n2 = vecax2l("xetoh2D", xetoh2D);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) sost2 bruo2D=${knak2fecajasai(alHe(((c + c2) / 0o2)), 0o6)} He xetoh2D=${knak2fecajasai(alHe(((n + n2) / 0o2)), 0o6)} He`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) sost2 bruo2D=${knak2fecajasai(tbo(((c + c2) / 0o2)), 0o6)} He xetoh2D=${knak2fecajasai(tbo(((n + n2) / 0o2)), 0o6)} He`);

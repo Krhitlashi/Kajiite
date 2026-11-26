@@ -1,14 +1,14 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ 08 · ſɭɘᴜ ֭ſɭᴜ · ꞙɭээɔ ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ꞁȷ̀ɔⅎ 🎵 ⧽≻
 
 import type { BoleEg2b2, Qaroxema, SpuroDateno } from "../habal/hahunaq.js";
 import { F } from "../habal/p6zuk.js";
 import { HE, caxomani } from "../habal/tif.js";
-import { motifo, A1, A2, KB1, KB2, MAJC } from "./hax2x2q.js";
+import { motifo, A1, A2, KB1, KB2, MAJC } from "./tom6nu.js";
 
 export function buildTrack8(): SpuroDateno {
   const ev: BoleEg2b2[] = [];
   const secs: Qaroxema[] = [];
-  // ⟨ j͑ʃɔ ֭ſɭɔ }ʃꞇ ⟅ j͑ʃᴜꞇ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
+
   const BPQ = 0o40;
   const e8 = caxomani(BPQ), bar = e8 * 0o14;
   const f0 = F(0o44);

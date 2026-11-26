@@ -1,20 +1,19 @@
-// ≺⧼ ſɭƨw ֭ſɭᴜ j͑ʃᴜꞇ ʌ j͑ʃᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ ⛰️ ⧽≻
-// ſןᴜ ᶘɹ , ſɭɜ ſɭ,w , ꞙɭı , ſɭэ ɭʃᴜ , ꞙɭı ,
-// ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ ſןɔ˞ᴜƴ , ꞙɭı , ꞙɭɿ , 📃 ⟩
+// ≺⧼ ɭl̀ᴜ ſ͕ɭɜ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { xetoh2D, t6limaWeh2En, t6limaK6h6Weh2En }
-  from "../../skek2/x2x2q/t6limaHaweh2.js";
-import { l6da } from "../../kanta/nala/t6limaSoza.js";
-import { glataTona } from "../../kanta/x2x2q/interpolo.js";
-import { ka5ikH6kuni, NALAPSAZY } from "../../skek2/x2x2q/mapqoxa.js";
-import { tikBal2 } from "../../kanta/t6lima-havop2/mapregulo.js";
-import { jaqoRuvaKozunu } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { alHe, knak2fecajasai } from "../../kanta/x2x2q/s2cax2l.js";
+import { xetoh2D, mut6qWeh2En, mut6qK6h6Weh2En }
+  from "../../skek2/p6kpu/mut6qHaweh2.js";
+import { l6da } from "../../kanta/nala/mut6qSoza.js";
+import { glataTona } from "../../kanta/k2fe/fkabe.js";
+import { ka5ikH6kuni, NALAPSAZY } from "../../skek2/p6kpu/mapqoxa.js";
+import { kxeBal2 } from "../../kanta/mut6q-havop2/bal2S2kanta.js";
+import { jaqoRuvaKozunu } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 const NOMBRODAJXUROJ = 0o11;
-const tikBal2Havop2 = tikBal2();
-const bal2Qoxa = tikBal2Havop2.qoxa;
-const bal2Pal6 = tikBal2Havop2.pal6;
+const kxeBal2Havop2 = kxeBal2();
+const bal2Qoxa = kxeBal2Havop2.qoxa;
+const bal2Pal6 = kxeBal2Havop2.pal6;
 const NEBULTONO = new THREE.Color(0xc8d8d8);
 
 function jaqoL6da( px: number, pz: number, tk2ni: number ): number {
@@ -47,7 +46,7 @@ function jaqoWeh2En( natakatomasai: THREE.Color, y: number, x: number, z: number
   haga: number, malproksimo: number ): void {
   const negxaOndo = ( xetoh2D(x / 0o70, z / 0o70) - 0o1/0o2 ) * 0o16
     + ( xetoh2D(x / 0o16, z / 0o16) - 0o1/0o2 ) * 0o7;
-  t6limaWeh2En(natakatomasai, y + negxaOndo, x, z, haga);
+  mut6qWeh2En(natakatomasai, y + negxaOndo, x, z, haga);
   if ( malproksimo > 0o0 ) natakatomasai.lerp(NEBULTONO, malproksimo * 0o35/0o100);
 }
 
@@ -80,7 +79,6 @@ function krestaL6da( kozunuS: number, tk2ni: number ): ( ang: number ) => number
 
 interface RingaTseuni { haxekuxa: Float32Array; haweh2: Float32Array; hauv: Float32Array; havecax2lani: number[] }
 
-/** ſןɔ˞ᴜƴ , ꞙɭı , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ꞙɭı , */
 function h2y2kT2q2( kresto: ( ang: number ) => number, jufu: number, sl: number, sd: number,
   tk2ni: number, p6zukani: ( ang: number ) => number, malproksimo: number ): RingaTseuni {
   const hacel2nu = sl + 0o1, hax2pa = sd + 0o1, suprN = hacel2nu * hax2pa;
@@ -128,7 +126,7 @@ function h2y2kT2q2( kresto: ( ang: number ) => number, jufu: number, sl: number,
       jaqoWeh2En(jaqoWeh2, y, x, z, Math.hypot(dAng, dProf), malproksimo);
       haweh2[i * 0o3] = jaqoWeh2.r; haweh2[i * 0o3 + 0o1] = jaqoWeh2.g; haweh2[i * 0o3 + 0o2] = jaqoWeh2.b;
       const b = i + suprN;
-      t6limaK6h6Weh2En(jaqoWeh2, psaz, y);
+      mut6qK6h6Weh2En(jaqoWeh2, psaz, y);
       haweh2[b * 0o3] = jaqoWeh2.r; haweh2[b * 0o3 + 0o1] = jaqoWeh2.g; haweh2[b * 0o3 + 0o2] = jaqoWeh2.b;
     }
   }
@@ -141,7 +139,6 @@ function h2y2kT2q2( kresto: ( ang: number ) => number, jufu: number, sl: number,
   return { haxekuxa, haweh2, hauv, havecax2lani };
 }
 
-/** ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ſɭɜ ſɭᴜ , ꞙɭı , */
 function sef4T2q2( kresto: ( ang: number ) => number, jufu: number, sl: number, sd: number,
   tk2ni: number, p6zukani: ( ang: number ) => number, malproksimo: number ): RingaTseuni {
   const hacel2nu = sl + 0o1, hax2pa = sd + 0o1, suprN = hacel2nu * hax2pa;
@@ -152,7 +149,7 @@ function sef4T2q2( kresto: ( ang: number ) => number, jufu: number, sl: number, 
   const tonaProfundo = jufu / sd;
   const tonaTafkaq = 0o2 * Math.PI * ( bal2Pal6 + 0o100 ) / sl;
   const hal6da = new Float32Array(suprN);
-// ⟨ j͑ʃᴜ ſɭ,w , ꞙɭɿ , ⟅ ꞙɭı , ꞙɭı , 📃 ⟩
+
   const kX = new Float64Array(hacel2nu), kZ = new Float64Array(hacel2nu);
   const kNX = new Float64Array(hacel2nu), kNZ = new Float64Array(hacel2nu);
   const kP6zuk = new Float64Array(hacel2nu), kBordo = new Float64Array(hacel2nu);
@@ -197,7 +194,7 @@ function sef4T2q2( kresto: ( ang: number ) => number, jufu: number, sl: number, 
       jaqoWeh2En(jaqoWeh2, y, x, z, Math.hypot(dAng, dProf), malproksimo);
       haweh2[i * 0o3] = jaqoWeh2.r; haweh2[i * 0o3 + 0o1] = jaqoWeh2.g; haweh2[i * 0o3 + 0o2] = jaqoWeh2.b;
       const b = i + suprN;
-      t6limaK6h6Weh2En(jaqoWeh2, psaz, y);
+      mut6qK6h6Weh2En(jaqoWeh2, psaz, y);
       haweh2[b * 0o3] = jaqoWeh2.r; haweh2[b * 0o3 + 0o1] = jaqoWeh2.g; haweh2[b * 0o3 + 0o2] = jaqoWeh2.b;
     }
   }
@@ -249,9 +246,8 @@ for ( let r = 0o0; r < NOMBRODAJXUROJ; r++ ) {
   if ( dH2y2k < minM ) minM = dH2y2k;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) c2q ｡ j͑ʃᴜ ı],ɔ }ʃꞇ = ${knak2fecajasai(alHe(minM), 0o6)} He ｡ j͑ʃɔ ſȷэⅎ = ${knak2fecajasai(alHe(minN), 0o6)} He ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(minM / minN).toFixed(0o2)}x`);
+console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) c2q ｡ j͑ʃᴜ ı],ɔ }ʃꞇ = ${knak2fecajasai(tbo(minM), 0o6)} He ｡ j͑ʃɔ ſȷэⅎ = ${knak2fecajasai(tbo(minN), 0o6)} He ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(minM / minN).toFixed(0o2)}x`);
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ , ⟅ j͑ʃɜ ſɭ,ᴜ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📃 ⟩
 let h2y2kjHakekuxa = 0o0, sef4jHakekuxa = 0o0, h2y2kjTrianguloj = 0o0, sef4jTrianguloj = 0o0;
 for ( const [ sl, sd ] of [ [ 0o2000, 0o100 ], [ 0o2000, 0o60 ] ] as const ) {
   const suprN = ( sl + 0o1 ) * ( sd + 0o1 );

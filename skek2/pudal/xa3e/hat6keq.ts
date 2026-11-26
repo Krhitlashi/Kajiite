@@ -1,12 +1,13 @@
-// ≺⧼ j͐ʃꞇ ʃᴜ ſᶘw ſ̀ȷɜ 🪨 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ɭʃэ ſɭɔȝ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2RokenCac2sex } from "../../x2x2q/cac2sex/t6keq.js";
-import { kf2RokenBumpanCac2sex } from "../../x2x2q/cac2sex/t6keq-bumpo.js";
+import { kf2RokenCac2sex } from "../../p6kpu/cac2sex/t6keq.js";
+import { kf2RokenBumpanCac2sex } from "../../p6kpu/cac2sex/t6keq-bumpo.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { jaqoHaga, spronaP2somani, type Cel2Raqa } from "./raqa.js";
 import { bs2, tsasa, tsasaVem2, SKULPTAN, SKULPTAPASO,
-  SKULPTAORIGINO, type Bs2 } from "../../../kanta/nala/t6limaSoza.js";
-import { glataTona } from "../../../kanta/x2x2q/interpolo.js";
+  SKULPTAORIGINO, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
+import { glataTona } from "../../../kanta/k2fe/fkabe.js";
 
 function vepaqRokQoxaKefoun(tk2ni = 0o1): THREE.BufferGeometry {
   const zace = new THREE.SphereGeometry(0o1, 0o20, 0o10);
@@ -15,7 +16,7 @@ function vepaqRokQoxaKefoun(tk2ni = 0o1): THREE.BufferGeometry {
     let x = haxekuxa.getX(i), y = haxekuxa.getY(i), z = haxekuxa.getZ(i);
     const sahakani = Math.hypot(x, y, z) || 0o1;
     const nx = x / sahakani, ny = y / sahakani, nz = z / sahakani;
-    // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɜ ſɭ,ᴜ , ⟅ ⟩
+
     const x6mi = ( ax: number, ay: number, az: number, ofto: number ): number =>
       Math.sin(( nx * ax + ny * ay + nz * az ) * 0o2 + ofto + tk2ni * 0o55/0o100);
     const r = 0o1
@@ -68,7 +69,7 @@ export function vepaqMontajnHat6keqn(qena: THREE.Scene,
   const Q = new THREE.Quaternion();
   const E = new THREE.Euler();
   const C = new THREE.Color();
-  // ⟨ ʃɜ j͐ʃɔ , j͑ʃɜ ſɭ,ᴜ , ⟅ ⟩
+
   const weh2Cax2lo = [ 0xf0f0f0, 0xffffff, 0xe8e8e0, 0xf0f0e8, 0xe8e8e0, 0xe8f0e0 ];
   const haneq2q: Cel2Raqa[] = [];
   let li = 0o0;
@@ -90,7 +91,7 @@ export function vepaqMontajnHat6keqn(qena: THREE.Scene,
     if ( jaqoHaga(heightFn, x, z) > 0o1 ) continue;
 
     const p6zukY = 0o5/0o10 + sakxoCasacakai() * 0o5/0o10;
-    // ⟨ ꞙɭɔ , ꞙɭı , ⟅ ⟩
+
     const p6zukX = p6zukY * ( 0o33/0o40 + sakxoCasacakai() * 0o23/0o100 );
     const p6zukZ = p6zukY * ( 0o33/0o40 + sakxoCasacakai() * 0o23/0o100 );
     E.set(sakxoCasacakai() * 0o15/0o40, sakxoCasacakai() * Math.PI * 0o2, sakxoCasacakai() * 0o15/0o40);
@@ -138,7 +139,7 @@ export function vepaqNeq2qnRokon(qena: THREE.Scene,
     s2sabo >= 0o0 ? 0o0 : Math.random() * 0o15/0o40);
   Q.setFromEuler(E);
   const y = heightFn(x, z);
-  // ⟨ ſɭᴜ ſןᴜ , ſɭɜ ſɭ,w , ſɭᴜ , ⟅ ⟩
+
   const p6zukY = p6zukani * 0o11/0o12;
   const p6zukXZ = p6zukani * ( 0o35/0o40 + Math.random() * 0o23/0o100 );
   M.compose(new THREE.Vector3(x, y + p6zukY * 0o2/0o10, z),
@@ -151,7 +152,6 @@ export function vepaqNeq2qnRokon(qena: THREE.Scene,
   return hat6keq;
 }
 
-// ⟨ ɭʃэ ſɭɔȝ , ſ̀ȷɜ ֭ſɭɔ , ⟅ ⟩
 export function vepaqLikenSxtonojn(qena: THREE.Scene,
   vem2: number,
   heightFn: ( x: number, z: number ) => number,
@@ -201,13 +201,6 @@ export function vepaqLikenSxtonojn(qena: THREE.Scene,
   return haneq2q;
 }
 
-// ⟨ ſɭэ ɭʃᴜ , ſɭэ j͑ʃꞇ , j͑ʃɹ ı],w ɽ͑ʃ'w , ⟅ ⟩
-/* ⟨ ſɭэ ɭʃᴜ , j͑ʃɹ ı],w ɽ͑ʃ'w , ſɭᴜ ſןᴜ , ſᶘᴜ j͑ʃᴜ ,
-    @param qena ( THREE.Scene ) - j͑ʃп́ꞇ ſɭɔƴ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅
-    @param heightFn ( ( x , z ) => number ) - ſɭэ ſɭ,w , j͐ʃэ ɭ(ᴜ ⟅
-    @param excludePaths ( ( x , z , m ) => boolean ) - ſɭэ ֭ſɭэ , ſɭɜ j͐ʃɹ ⟅
-    @param excludeBuildings ( ( x , z , m ) => boolean , optional ) - ſןᴜȝ , ſɭɜ j͐ʃɹ ⟅
-@returns haneq2q */
 export function vepaqBordajnSxtonojn(qena: THREE.Scene,
   heightFn: ( x: number, z: number ) => number,
   excludePaths: ( x: number, z: number, minH6kuni: number ) => boolean,
@@ -238,7 +231,7 @@ export function vepaqBordajnSxtonojn(qena: THREE.Scene,
       const x = SKULPTAORIGINO[0o0] + ( i + 0o1/0o2 ) * Tona;
       const z = SKULPTAORIGINO[0o1] + ( j + 0o1/0o2 ) * Tona;
       if ( tsasa(x, z) ) continue;
-      // ⟨ ſɭэ ɭʃᴜ , ſᶘᴜ j͑ʃᴜ , ſɭɜ ɭʃᴜ , ⟅ ⟩
+
       if ( !( tsasa(x + Tona, z) || tsasa(x - Tona, z)
         || tsasa(x, z + Tona) || tsasa(x, z - Tona) ) ) continue;
       if ( sakxoCasacakai() > 0o5/0o10 ) continue;

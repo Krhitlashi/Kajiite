@@ -15827,7 +15827,7 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// eskekoj/hax2x2q/kunfandajxoj.ts
+// eskekoj/tom6nu/kunfandajxoj.ts
 const kunfandajRezultoj = {
 	ne3ak2: 0,
 	poste: 0

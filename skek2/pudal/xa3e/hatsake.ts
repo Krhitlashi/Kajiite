@@ -1,10 +1,10 @@
 // ≺⧼ ֭ſɭᴜ ſᶘᴜ ſɭɔ 🌾 ⧽≻
 import * as THREE from "three";
-import { kf2KavalErbanCac2sex } from "../../x2x2q/cac2sex/kavala-fe1af.js";
-import { kf2Bufezacen, vakox2qSenIndekson } from "../../x2x2q/hakox2q.js";
-import { bs2, type Bs2 } from "../../../kanta/nala/t6limaSoza.js";
+import { kf2KavalErbanCac2sex } from "../../p6kpu/cac2sex/sepo-fe1af.js";
+import { kf2Bufezacen, vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
+import { bs2, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
-import { veb6qaiWeh2Skek } from "../../x2x2q/haweh2.js";
+import { veb6qaiWeh2Skek } from "../../p6kpu/haweh2.js";
 
 function kf2RibitanS2nascen(rMaltik: number, rTeru: number, l6da: number,
   vek2fe: number, kresta: number): THREE.BufferGeometry {
@@ -41,7 +41,7 @@ function vepaqKanQoxaKefoun(hamaxema: number, kunBrancetoj: boolean, kunStrobilo
   const s2nasceL6da = 0o1 / hamaxema;
   const rKozunu = 0o3/0o40;
   const rTeru = 0o1/0o40;
-  // ⟨ ſɭɔ˞ꞇƽ , j͑ʃᴜ ſɭ,w , ꞙɭı ⟅ ⟩
+
   const vek2fe = 0o10;
   const kresta = kunBrancetoj ? 0o16/0o100 : 0o22/0o100;
   for ( let i = 0o0; i < hamaxema; i++ ) {
@@ -49,7 +49,7 @@ function vepaqKanQoxaKefoun(hamaxema: number, kunBrancetoj: boolean, kunStrobilo
     const r0 = rKozunu - ( rKozunu - rTeru ) * ( i / hamaxema );
     const r1 = rKozunu - ( rKozunu - rTeru ) * ( ( i + 0o1 ) / hamaxema );
     hakek.push(kf2RibitanS2nascen(r0, r1, s2nasceL6da, vek2fe, kresta).translate(0o0, y0, 0o0));
-    // ⟨ ſ͕ɭɜ ı],ᴜ , j͑ʃᴜ ſןᴜ , ⟅ ⟩
+
     if ( i > 0o0 ) {
       const ingaL6da = s2nasceL6da * 0o35/0o100;
       const kolumeto = new THREE.CylinderGeometry(r0 * 0o14/0o10, r0 * 0o11/0o10,
@@ -62,7 +62,7 @@ function vepaqKanQoxaKefoun(hamaxema: number, kunBrancetoj: boolean, kunStrobilo
         const eliro = 0o3/0o40 + 0o35/0o100 * ( i / hamaxema );
         for ( let b = 0o0; b < brancetoj; b++ ) {
           const ang = b / brancetoj * Math.PI * 0o2 + i * 0o3/0o10;
-          // ⟨ ɭʃɜ ſɭɹȝ , ſȷƽᴜ ʃɔ , ⟅ ⟩
+
           const xaqadi = sahakani * 0o43/0o100, p2sadi = sahakani * 0o43/0o100;
           const hatafkaq = [ eliro, eliro + 0o43/0o100 ];
           const hasahakani = [ xaqadi, p2sadi ];
@@ -91,8 +91,7 @@ function vepaqKanQoxaKefoun(hamaxema: number, kunBrancetoj: boolean, kunStrobilo
           }
         }
       } else {
-        // ⟨ j͑ʃп́ɔ ʌ j͑ʃᴜꞇ , j͑ʃͷ̗ᴜʞ , ⟅ ⟩
-        // ⟨ ſɭэ ɭʃᴜ , ꞙɭı , ſɭɔ˞ꞇƽ , ꞙɭı , ⟅ ⟩
+
         const hak6ta = vek2fe;
         const dentoL6da = s2nasceL6da * 0o55/0o100;
         for ( let d = 0o0; d < hak6ta; d++ ) {
@@ -129,7 +128,7 @@ function vepaqKanQoxaKefoun(hamaxema: number, kunBrancetoj: boolean, kunStrobilo
       .translate(0o0, 0o1 + 0o1/0o100, 0o0);
     hakek.push(n2k);
   }
-  // ⟨ ſɭɜ ſɭ,w }ʃw , ſןᴜ j͐ʃэ , ⟅ ⟩
+
   const zace = vakox2qSenIndekson(hakek);
   zace.scale(0o33/0o100, 0o1, 0o33/0o100);
   return zace;
@@ -172,8 +171,7 @@ function instanciiKavalerbojn(qena: THREE.Scene,
     const l6da = minL6da + sakxoCasacakai() * ( maxL6da - minL6da );
     E.set(0o0, sakxoCasacakai() * Math.PI * 0o2, ( sakxoCasacakai() - 0o4/0o10 ) * 0o4/0o10);
     Q.setFromEuler(E);
-    // ⟨ ſɭɜ ſɭ,w }ʃw , ſɭɜ ſɭ,w , ⟅ ⟩
-    // ⟨ ſןᴜ j͐ʃэ , ꞙɭı , ⟅ ⟩
+
     const y = heightFn(x, z);
     M.compose(new THREE.Vector3(x, y, z), Q, new THREE.Vector3(l6da, l6da, l6da));
     kavalerboj.setMatrixAt(ki, M);

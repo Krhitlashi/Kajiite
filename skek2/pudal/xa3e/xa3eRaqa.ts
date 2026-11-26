@@ -1,6 +1,7 @@
-// ≺⧼ ı],ᴜ ſ̀ȷɔ ʌ ſ͕ɭᴜ 🌳 ⧽≻
-import { tsasaVem2, bs2, type Bs2 } from "../../../kanta/nala/t6limaSoza.js";
-import { glataTona } from "../../../kanta/x2x2q/interpolo.js";
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ı],ᴜ ſ̀ȷɔ ɽ͑ʃ'ᴜ ſ͕ɭᴜ 📃 ⧽≻
+
+import { tsasaVem2, bs2, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
+import { glataTona } from "../../../kanta/k2fe/fkabe.js";
 import { KRONALIBERO, kronaKa5ikLam2v, kronaKa5ikPussxlefa } from "./hasoza.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { PunktaKp6taf, vesefestaf, jaqoHaga, spronaP2somani, type Cel2Raqa } from "./raqa.js";

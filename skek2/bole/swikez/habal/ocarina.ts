@@ -1,23 +1,13 @@
-// ≺⧼ ꞁȷ̀ɜ ſɟᴜ ɽ͑ʃ'ꞇ }ʃᴜ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🎺 ⧽≻
-// ⟨ ſɭᴜ ſ͕ȷɔ ʌ ʃɜ j͐ʃɔ ſɭᴜ , ꞙɭɿ ʌ j͑ʃɹ ſןw ꞙɭɔ ⟅
-// ⟨ j͑ʃɹ ŋᷠɹ ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı , j͑ʃɹ ŋᷠɹ ſᶘɹ ſɭɔ ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ꞁȷ̀ɜ ſɟᴜ ɽ͑ʃ'ꞇ }ʃᴜ 🎵 ⧽≻
+
 import { noiseSrc, startNoise, jetTurbulence } from "./xetoh2.js";
 import { devio, vap6zukani } from "./hakfeKx2keve.js";
 
-// ⟨ ſɭᴜ j͐ʃэ ɭ(ᴜ ꞙɭɔ ⟅ ʃɜ j͐ʃɔ ſᶘɔ ⟅
 const ETA = 0o1/0o20000;
 
-/* ʃɜ j͐ʃɔ ʌ ſɭᴜ ſ͕ȷɔ ⟅ j͑ʃɹ ŋᷠɹ ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı ⟅
-    @param ctx ( AudioContext ) - ʃɜ j͐ʃɔ
-    @param out ( AudioNode ) - ſɭᴜ ʃɔ ſןᴜ
-    @param t ( number ) - j͑ʃᴜ ı],ɔ
-    @param dur ( number ) - ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ
-    @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭᴜ ſ͕ȷɔ
-    @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ
-@returns void */
 export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1) {
   const p = f * vap6zukani(0o1/0o1000);
-  // ⟨ j͑ʃɹ ŋᷠɹ ꞙɭı , ꞙɭı , ꞙɭɔ ⟅
+
   const atako = 0o5/0o100 * vap6zukani(0o1/0o10);
   const tlakakani = 0o6/0o100 * vap6zukani(0o1/0o10);
   const g = ctx.createGain(), pk = 0o24/0o100 * vel;
@@ -28,7 +18,6 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   g.gain.linearRampToValueAtTime(0o0/0o10, t + dur + tlakakani);
   g.connect(out);
 
-  // ⟨ ſɭᴜ ſɭ,w , ꞙɭц , ꞙɭ8 ⟅ ꞙɭɔ ʃɜ j͐ʃɔ ⟅
   const tonoj: [ number, number, number, number ][] = [
     [ 0o1, 0o1, 0o3, 0o2/0o100 ],
     [ 0o2, 0o7/0o1000, 0o5, 0o3/0o100 ],
@@ -39,13 +28,12 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
     [ 0o7, 0o1/0o40000, 0o25, 0o5/0o100 ],
     [ 0o10, 0o1/0o40000, 0o31, 0o5/0o100 ],
   ];
-  // ⟨ ſɭᴜ ʃɔ ſןᴜ , ſɭᴜ j͑ʃᴜ , ⟅
+
   const ts = ctx.createGain();
   ts.gain.value = 0o1;
   const osc: OscillatorNode[] = [];
   const turbTaps: { cutoff: number; frac: number; node: GainNode }[] = [];
-  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı , ⟅
-  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ꞙɭı , ꞙɭɔ , j͑ʃɹ ŋᷠɹ ⟅
+
   const saxeni = 0o1 + devio(0o2/0o1000);
   const drivo = 0o1 + devio(0o3/0o1000);
   const falo = 0o177/0o200;
@@ -69,11 +57,9 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
     osc.push(o);
   }
 
-  // ⟨ j͑ʃ'ƽᴜ ɭl̀ɹ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſ̀ȷɜ ֭ſɭɔ ⟅
-  // ⟨ j͑ʃ'ƽᴜ ɭl̀ɹ ꞙɭꞟꞟ/ꞙɭıɔ , ʃɜ j͐ʃɔ ʌ ſɭᴜ ſɟᴜᴜ̩ ɭʃɹ , ꞙɭɔ ʃɜ j͐ʃɔ ꞙɭı ⟅
   const vib = ctx.createOscillator();
   vib.frequency.value = 0o55/0o10 * vap6zukani(0o1/0o10);
-  // ⟨ j͑ʃ'ƽᴜ ɭl̀ɹ ꞙɭı , ꞙɭɔ ⟅
+
   const vwob = ctx.createOscillator();
   vwob.frequency.value = 0o7/0o10 * vap6zukani(0o4/0o10);
   const vwg = ctx.createGain();
@@ -85,7 +71,7 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   vg.gain.linearRampToValueAtTime(p * 0o1/0o100 * vap6zukani(0o2/0o10), t + Math.min(0o12/0o100, dur * 0o3/0o10));
   vib.connect(vg);
   for ( const o of osc ) vg.connect(o.frequency);
-  // ⟨ j͑ʃɹ ŋᷠɹ , ſɭᴜ ſɭ,w , ꞙɭı ⟅
+
   jetTurbulence(ctx, t, t + dur + tlakakani + 0o1/0o100, turbTaps);
   const av = ctx.createGain();
   av.gain.setValueAtTime(0o0/0o10, t);
@@ -94,7 +80,6 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   vib.connect(av);
   av.connect(g.gain);
 
-  // ⟨ j͑ʃɹ ŋᷠɹ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅ ſɭᴜ ſ͕ȷɔ ⟅
   const mn = noiseSrc(ctx);
   const mlp = ctx.createBiquadFilter();
   mlp.type = "lowpass";
@@ -115,20 +100,20 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
   mlp.connect(mlp2);
   mlp2.connect(mg);
   mg.connect(ts.gain);
-  // ⟨ ꞙɭı , j͑ʃɹ ŋᷠɹ ⟅
+
   const vandro = ctx.createOscillator();
   vandro.frequency.value = 0o2/0o10 * vap6zukani(0o5/0o10);
   const vfg = ctx.createGain();
   vfg.gain.value = p * 0o2/0o100;
   vandro.connect(vfg);
   vfg.connect(mlp.frequency);
-  // ⟨ ſɭᴜ , ꞙɭэ ⟅ ʃɜ j͐ʃɔ ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ⟅
+
   const fono = noiseSrc(ctx);
   const flp = ctx.createBiquadFilter();
   flp.type = "lowpass";
   flp.frequency.value = 0o15000;
   flp.Q.value = 0o7/0o10;
-  // ⟨ j͑ʃɹ ŋᷠɹ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ⟅
+
   const fbrancoj: [ number, number, number ][] = [
     [ 0o1200, 0o12/0o10, 0o5/0o100 ],
     [ 0o2600, 0o11/0o10, 0o26/0o1000 ],
@@ -157,7 +142,6 @@ export function ocarina(ctx: AudioContext, out: AudioNode, t: number, dur: numbe
 
   ts.connect(g);
 
-  // ⟨ ſɭᴜ ſ͕ȷɔ , ꞙɭı , ⟅
   const room = noiseSrc(ctx);
   const rbp = ctx.createBiquadFilter();
   rbp.type = "bandpass";

@@ -1,15 +1,14 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ɔɩ · ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ · ꞙɭээɔ ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
-// ⟨ ſɭᴜ , j͑ʃп́ꞇ ſɭɔƴ , MP3 , ſɭᴜ ı],ƨɔ ʌ j͑ʃ'ɔ ŋᷠɹ ⟅ ⟩
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ꞁȷ̀ɔⅎ ꞁȷ̀э 🎵 ⧽≻
 
 import type { BoleEg2b2, Qaroxema, SpuroDateno } from "../habal/hahunaq.js";
 import { F } from "../habal/p6zuk.js";
 import { HE, caxomani } from "../habal/tif.js";
-import { motifo, U1, U2, U0, MINBB } from "./hax2x2q.js";
+import { motifo, U1, U2, U0, MINBB } from "./tom6nu.js";
 
 export function buildTrack6(): SpuroDateno {
   const ev: BoleEg2b2[] = [];
   const secs: Qaroxema[] = [];
-  // ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭıɔ ɭʃɜᴜ̩ ɭʃɜƽ ʌ ꞙɭı ⟅ ⟩
+
   const BPQ = 0o40;
   const e8 = caxomani(BPQ), bar = e8 * 0o14;
   const f0 = F(0o45);

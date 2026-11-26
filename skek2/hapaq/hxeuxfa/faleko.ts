@@ -1,10 +1,10 @@
-// ≺⧼ ɭ(ᴜ̭ꞇ ꞁȷ̀ᴜ }ʃꞇ 🪶 ⧽≻
+// ≺⧼ ɭ(ᴜ̭ꞇ ꞁȷ̀ᴜ }ʃꞇ ʌ ſȷᴜ j͐ʃɔ ſɭɜ 🪶 ⧽≻
 import * as THREE from "three";
 
 export function kf2Falekon(sost2: number, uCet2: number, uSubo: number, pukazBendo: number, largxo: number, rBot: number, rTop: number, H: number): THREE.BufferGeometry {
   const SEG = 0o20;
   const ARMA = 0o10;
-  const EPS = 0o1 / 0o200;
+  const M2M2 = 0o1 / 0o200;
   const cx = Math.cos(sost2), cz = Math.sin(sost2);
   const tx = -cz, tz = cx;
   const d = ( u: number ) => ( rBot - ( rBot - rTop ) * ( u / H ) ) * Math.SQRT1_2;
@@ -44,7 +44,7 @@ export function kf2Falekon(sost2: number, uCet2: number, uSubo: number, pukazBen
     for ( let s = -0o1; s <= 0o1; s += 0o2 ) {
       const x1 = x + px * largxo / 0o2 * s;
       const u1 = u + pu * largxo / 0o2 * s;
-      vertoj.push(cx * d(u1) + tx * x1 + EPS * cx, -H / 0o2 + u1, cz * d(u1) + tz * x1 + EPS * cz);
+      vertoj.push(cx * d(u1) + tx * x1 + M2M2 * cx, -H / 0o2 + u1, cz * d(u1) + tz * x1 + M2M2 * cz);
     }
   }
   for ( let i = 0o0; i < N; i++ ) {

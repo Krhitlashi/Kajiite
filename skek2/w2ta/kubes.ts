@@ -1,21 +1,18 @@
-// ≺⧼ ſɭɔ ʃɔɔ˞ ⭐ ⧽≻
+// ≺⧼ ſɭɔ ʃɔɔ˞ ʌ ſɭw ʃɔɔ˞ ⭐ ⧽≻
 import * as THREE from "three";
-import { kf2Bufezacen, vakox2qQoxaKefoujn } from "../x2x2q/hakox2q.js";
-import { vepaqSlaftexture, type SlafTextureQoxa } from "../x2x2q/cac2sex/keuxfhxesa-slaf.js";
+import { kf2Bufezacen, vakox2qQoxaKefoujn } from "../p6kpu/hakox2q.js";
+import { vepaqSlaftexture, type SlafTextureQoxa } from "../p6kpu/cac2sex/keuxfhxesa-slaf.js";
 
 export interface KekufxesoRaqa {
   x: number; z: number;
-  /** j͑ʃɹ j͑ʃᴜ ʃɜ */
+
   s2sabo?: number;
 }
 
-// ⟪ j͑ʃɜ j͑ʃƨɹ ſɭᴜ ſɭˬꞇƽ 📏 ⟫
 export const KEUXFHXESOKA5IK = 0o63/0o100;
 
-// ⟨ j͑ʃɜȝ ʌ j͐ʃэ ɭ(ᴜ j͑ʃᴜꞇ 📃 ⟩
 export const KEUXFHXESOL6DA = 0o36 / 0o10;
 
-// ⟨ ſ͕ɭᴜƣ̋ ꞁȷ̀ɜ ı],ɔ ŋᷠᴜ ſɭᴜ ſɭˬꞇƽ 📃 ⟩
 function qaroxemaKa5ik(ka5ik: number, tafkaq: number): number {
   const skek2Ka5ik = ka5ik * 0o45 / 0o100;
   return skek2Ka5ik
@@ -41,7 +38,6 @@ function xaha(u: number): number {
   return x * x * x * ( x * ( x * 0o6 - 0o17 ) + 0o12 );
 }
 
-// ⟨ ʃэȝ ꞁȷ̀ᴜꞇ ʌ ſ͕ɭɜ ı],ᴜ 📃 ⟩
 const B6QAI = 0o2 / 0o10;
 
 function slafS2qena(t: number): number {
@@ -55,8 +51,6 @@ function slafS2qena(t: number): number {
   return A * Math.sqrt(t) * ( 0o1 - m ) + soq * m;
 }
 
-/* j͑ʃͷ̗ᴜʞ ꞁȷ̀ᴜꞇ ʌ ſ͕ɭɜ ı],ᴜ
-@returns ſ͕ɭɜ ı],ᴜ */
 export function slafQoxa(): SlafTextureQoxa {
   const ka5ik = KEUXFHXESOKA5IK;
   return {
@@ -68,7 +62,6 @@ export function slafQoxa(): SlafTextureQoxa {
   };
 }
 
-// ⟪ ſ̀ȷɔ ſɭw ʃɔɔ˞ ꞁȷ̀ᴜꞇ ʌ j͑ʃɜȝ 📏 ⟫
 function tlekubesSoq(ka5ik: number, l6da: number, k2fe: number): THREE.BufferGeometry {
   const qaroxema = k6fSexi(ka5ik);
   const N = qaroxema.length;
@@ -76,7 +69,7 @@ function tlekubesSoq(ka5ik: number, l6da: number, k2fe: number): THREE.BufferGeo
   const sexiKekI = sexiKek.map(f => 0o1 / f);
   const xekuxa: number[] = [];
   const tahaqN2k: number[] = [];
-  // ⟨ }ʃɹƽ ꞁȷ̀ᴜͷ̗ ʌ ſɭэ ֭ſɭэ j͐ʃ ʌ ſɭɔƽ 📃 ⟩
+
   const x2pa = N + 0o1;
   for ( let i = 0o0; i <= k2fe; i++ ) {
     const u = i / k2fe;
@@ -89,7 +82,7 @@ function tlekubesSoq(ka5ik: number, l6da: number, k2fe: number): THREE.BufferGeo
       const p = qaroxema[jj];
       const rf = w * sexiKek[jj] + ( 0o1 - w );
       xekuxa.push(p.x * s * rf * sexiKekI[jj], y, p.y * s * rf * sexiKekI[jj]);
-      // ⟨ j͐ʃƽɜ j͑ʃᴜꞇ ʌ ſɭэ ֭ſɭэ 📃 ⟩
+
       tahaqN2k.push( j / N, t );
     }
   }
@@ -180,7 +173,7 @@ export function vepaqKekufxeso(kagani: THREE.Scene,
 
   const hate2 = new THREE.Group();
   if ( !pukekVepabok ) {
-    // ⟨ j͐ʃƽɜ j͑ʃᴜꞇ ʌ j͑ʃɜȝ 📃 ⟩
+
     textureVepabok = vepaqSlaftexture(slafQoxa());
     pukekVepabok = new THREE.MeshStandardMaterial({
       color: 0xffffff, roughness: 0o6 / 0o10, metalness: 0o0,

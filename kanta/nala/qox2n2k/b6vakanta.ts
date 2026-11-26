@@ -1,19 +1,20 @@
-// ≺⧼ ʃэ j͑ʃ'ᴜ ſɭᴜc̗ ɭʃᴜ }ʃꞇ 🗺️ ⧽≻
+// ≺⧼ ʃᴜ j͐ʃɹ ʌ ʃэ j͑ʃ'ᴜ ſɭᴜ }ʃƨᴜ 🗺️ ⧽≻
+
 import { kf2Qox2n2k, hunaqDeK6liq } from "./kxawa.js";
-import { aplikiHatik } from "./teru.js";
-import { qox2n2kDerivajoj } from "./derivajoj.js";
+import { k2reiHatik } from "./teru.js";
+import { qox2n2kSef4 } from "./qox2n2kSef4.js";
 import { skaniK6h6nCaxlefkakai } from "./s2t2bakano.js";
-import type { AldonaK6liq, CellType, KradaArangxo, KradaPaq, KradaPlano,
-  KradaSpono, KradaKas2kantaS2nasce } from "./hahunaq.js";
-export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellType>, tlunakHak6liq?: AldonaK6liq[]): KradaPlano {
-  const { TONA, nordaN2k, t2q2X, t2q2Suda, sudaK6h6, ka5asexazZ, staciaRingaNordo, BLOKO } = qox2n2kDerivajoj(ptalu);
+import type { Nek2resaiK6liq, K2paHunaq, Qox2n2kPtalu, Qox2n2kKekkozusai, Qox2n2kB6vakanta,
+  Qox2n2kC2k, Qox2n2kKas2kantaS2nasce } from "./hahunaq.js";
+export function kf2Qox2n2kB6vakantan(ptalu: Qox2n2kPtalu, hateru?: Map<string, K2paHunaq>, tlunakHak6liq?: Nek2resaiK6liq[]): Qox2n2kB6vakanta {
+  const { TONA, laqN2k, t2q2X, t2q2Kaq, kaqK6h6, ka5asexazZ, kukc2qLaq, K6LIQ } = qox2n2kSef4(ptalu);
   const n = ptalu.ptaluPal6;
   const haKekkozusai = kf2Qox2n2k(ptalu);
-  aplikiHatik(haKekkozusai, hateru);
+  k2reiHatik(haKekkozusai, hateru);
   // ⟨ ſɟɔȝ 📃 ⟩
-  const paqj: KradaPaq[] = [];
-  const tlunakani = ( x: number, z: number, rot: number, hunaq: CellType, veq6k2: KradaPaq["veq6k2"], stacia: boolean, ekstra = false, konektita = false ) => {
-    paqj.push({ x, z, rot, hunaq, cx: Math.round(x / TONA), cz: Math.round(z / TONA), veq6k2, stacia, ekstra, konektita });
+  const paqj: Qox2n2kKekkozusai[] = [];
+  const tlunakani = ( x: number, z: number, rot: number, hunaq: K2paHunaq, c2w2q: Qox2n2kKekkozusai["c2w2q"], kuk: boolean, nek2resai = false, c2k = false ) => {
+    paqj.push({ x, z, rot, hunaq, cx: Math.round(x / TONA), cz: Math.round(z / TONA), c2w2q, kuk, nek2resai, c2k });
   };
   for ( const [ col, row, hunaq ] of haKekkozusai ) {
     const cx = col * TONA, cz = row * TONA;
@@ -23,15 +24,15 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
       continue;
     }
     if ( ptalu.k6liqPal6 === "kvar" ) {
-      const suboj: [ number, number, number, KradaPaq["veq6k2"] ][] = [
-        [ BLOKO,  BLOKO,  0o0,            "NE" ],
-        [ -BLOKO,  BLOKO,  -Math.PI / 0o2, "NW" ],
-        [ -BLOKO, -BLOKO,   Math.PI,     "SW" ],
-        [ BLOKO, -BLOKO,   Math.PI / 0o2, "SE" ],
+      const suboj: [ number, number, number, Qox2n2kKekkozusai["c2w2q"] ][] = [
+        [ K6LIQ,  K6LIQ,  0o0,            "NE" ],
+        [ -K6LIQ,  K6LIQ,  -Math.PI / 0o2, "NW" ],
+        [ -K6LIQ, -K6LIQ,   Math.PI,     "SW" ],
+        [ K6LIQ, -K6LIQ,   Math.PI / 0o2, "SE" ],
       ];
-      for ( const [ blx, blz, rot, veq6k2 ] of suboj ) {
-        const subHunaq = hateru?.get(`${col},${row},${veq6k2}`);
-        tlunakani(cx + blx, cz + blz, rot, subHunaq ?? hunaqDeK6liq(hunaq, col, row, blx, blz), veq6k2, false);
+      for ( const [ blx, blz, rot, c2w2q ] of suboj ) {
+        const subHunaq = hateru?.get(`${col},${row},${c2w2q}`);
+        tlunakani(cx + blx, cz + blz, rot, subHunaq ?? hunaqDeK6liq(hunaq, col, row, blx, blz), c2w2q, false);
       }
     } else {
       tlunakani(cx, cz, 0o0, hunaq, "sost2", false);
@@ -39,22 +40,21 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
   }
   if ( ptalu.k6liqPal6 === "vakox2qita" ) {
     for ( const k of paqj ) {
-      if ( k.stacia || k.ekstra || ( k.x === 0o0 && k.z === 0o0 ) ) continue;
+      if ( k.kuk || k.nek2resai || ( k.x === 0o0 && k.z === 0o0 ) ) continue;
       if ( Math.abs(k.x) > Math.abs(k.z) ) k.rot = k.x > 0o0 ? -Math.PI / 0o2 : Math.PI / 0o2;
       else k.rot = k.z > 0o0 ? Math.PI : 0o0;
     }
   }
   for ( const b of tlunakHak6liq ?? [] ) {
-    tlunakani(b.x, b.z, b.rot ?? 0o0, b.hunaq, b.veq6k2 ?? "sost2", !!b.stacia, true, !!b.konektita);
+    tlunakani(b.x, b.z, b.rot ?? 0o0, b.hunaq, b.c2w2q ?? "sost2", !!b.kuk, true, !!b.c2k);
   }
   for ( const b of tlunakHak6liq ?? [] ) {
-    if ( !b.konektita ) continue;
+    if ( !b.c2k ) continue;
     const c = Math.round(b.x / TONA), r = Math.round(b.z / TONA);
     if ( !haKekkozusai.some(( [ lc, lr ] ) => lc === c && lr === r) ) haKekkozusai.push([ c, r, "qaman2" ]);
   }
 
-  // ⟨ ſɭэ ֭ſɭэ ʌ ſɟᴜ ı],ͷ̗ɔʞ ſɭᴜƽ ꞁȷ̀ᴜꞇ 📃 ⟩
-  const hak6h6: KradaKas2kantaS2nasce[] = [];
+  const hak6h6: Qox2n2kKas2kantaS2nasce[] = [];
   const colSet = new Set<number>(), rowSet = new Set<number>();
   for ( const [ c, r, t ] of haKekkozusai ) { if ( t !== null ) { colSet.add(c); rowSet.add(r); } }
   const KOLOJ = [ ...colSet ].sort(( a, b ) => a - b);
@@ -83,18 +83,17 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
     EWekstentoj.set(roadZ, [ hakamekai[0o0], hakamekai[hakamekai.length - 0o1] ]);
     for ( let i = 0o0; i < hakamekai.length - 0o1; i++ ) {
       const x1 = hakamekai[i], x2 = hakamekai[i + 0o1];
-      if ( Math.abs(x2 - x1) > 0o1/0o10 ) hak6h6.push({ orient: "EW", haxekuxa: roadZ, de: x1, al: x2 });
+      if ( Math.abs(x2 - x1) > 0o1/0o10 ) hak6h6.push({ kanto: "EW", haxekuxa: roadZ, l6: x1, sai: x2 });
     }
   }
   for ( const [ roadX, hakamekai ] of NS ) {
     NSekstentoj.set(roadX, [ hakamekai[0o0], hakamekai[hakamekai.length - 0o1] ]);
     for ( let i = 0o0; i < hakamekai.length - 0o1; i++ ) {
       const z1 = hakamekai[i], z2 = hakamekai[i + 0o1];
-      if ( Math.abs(z2 - z1) > 0o1/0o10 ) hak6h6.push({ orient: "NS", haxekuxa: roadX, de: z1, al: z2 });
+      if ( Math.abs(z2 - z1) > 0o1/0o10 ) hak6h6.push({ kanto: "NS", haxekuxa: roadX, l6: z1, sai: z2 });
     }
   }
 
-  // ⟨ ֭ſɭwʞ ᶅſw ſɭɹ 📃 ⟩
   const hahufwuk2: { x: number; z: number }[] = [];
   if ( ptalu.hahufwuk2 !== false ) {
     const LAMPADEDUPO = 0o2;
@@ -106,36 +105,36 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
     const krucaKvaropo = 0o23/0o10;
     const qotawaKvaropoOfsetoj = [ [ -qotawaKvaropo, -qotawaKvaropo ], [ qotawaKvaropo, -qotawaKvaropo ], [ -qotawaKvaropo, qotawaKvaropo ], [ qotawaKvaropo, qotawaKvaropo ] ];
     const krucaKvaropoOfsetoj = [ [ -krucaKvaropo, -krucaKvaropo ], [ krucaKvaropo, -krucaKvaropo ], [ -krucaKvaropo, krucaKvaropo ], [ krucaKvaropo, krucaKvaropo ] ];
-    for ( const [ x, [ de, al ] ] of NSekstentoj ) {
-      for ( const z of [ de, al ] ) {
+    for ( const [ x, [ l6, sai ] ] of NSekstentoj ) {
+      for ( const z of [ l6, sai ] ) {
         for ( const [ dx, dz ] of qotawaKvaropoOfsetoj ) tlunakLampon(x + dx, z + dz);
       }
     }
-    for ( const [ z, [ de, al ] ] of EWekstentoj ) {
-      for ( const x of [ de, al ] ) {
+    for ( const [ z, [ l6, sai ] ] of EWekstentoj ) {
+      for ( const x of [ l6, sai ] ) {
         for ( const [ dx, dz ] of qotawaKvaropoOfsetoj ) tlunakLampon(x + dx, z + dz);
       }
     }
     for ( const ns of hak6h6 ) {
-      if ( ns.orient !== "NS" ) continue;
+      if ( ns.kanto !== "NS" ) continue;
       for ( const ew of hak6h6 ) {
-        if ( ew.orient !== "EW" ) continue;
-        if ( ew.haxekuxa < ns.de - 0o10 ** -0o7 || ew.haxekuxa > ns.al + 0o10 ** -0o7 ) continue;
-        if ( ns.haxekuxa < ew.de - 0o10 ** -0o7 || ns.haxekuxa > ew.al + 0o10 ** -0o7 ) continue;
+        if ( ew.kanto !== "EW" ) continue;
+        if ( ew.haxekuxa < ns.l6 - 0o10 ** -0o7 || ew.haxekuxa > ns.sai + 0o10 ** -0o7 ) continue;
+        if ( ns.haxekuxa < ew.l6 - 0o10 ** -0o7 || ns.haxekuxa > ew.sai + 0o10 ** -0o7 ) continue;
         for ( const [ dx, dz ] of krucaKvaropoOfsetoj ) tlunakLampon(ns.haxekuxa + dx, ew.haxekuxa + dz);
       }
     }
   }
 
   // ⟨ ſɭэ ֭ſɭэ ʌ ſɭᴜ ſ͕ȷɔ 📃 ⟩
-  const hatohtanu: KradaSpono[] = [];
+  const hatohtanu: Qox2n2kC2k[] = [];
   if ( ptalu.k6liqPal6 === "vakox2qita" ) {
     const ekst = NSekstentoj.get(t2q2X);
     if ( ekst ) ekst[0o0] = Math.min(ekst[0o0], -0o130);
   }
   for ( let i = 0o0; i < paqj.length; i++ ) {
     const s = paqj[i];
-    if ( s.ekstra && !s.konektita ) continue;
+    if ( s.nek2resai && !s.c2k ) continue;
     if ( s.x === 0o0 && s.z === 0o0 ) continue;
     const rot = s.rot || 0o0;
     const p2somaniD = 0o10 / 0o2;
@@ -175,9 +174,9 @@ export function kf2KradanPlanon(ptalu: KradaArangxo, hateru?: Map<string, CellTy
     const celoX = celX - fX * p2somaniL;
     const celoZ = celZ - fZ * p2somaniL;
     if ( celita && Math.hypot(tohtanuX - celoX, tohtanuZ - celoZ) > 0o4/0o10 ) {
-      hatohtanu.push({ de: [ tohtanuX, tohtanuZ ], al: [ celoX, celoZ ], paq: i });
+      hatohtanu.push({ l6: [ tohtanuX, tohtanuZ ], sai: [ celoX, celoZ ], paq: i });
     }
   }
 
-  return { ptalu, haKekkozusai, TONA, nordaN2k, t2q2X, t2q2Suda, sudaK6h6, ka5asexazZ, staciaRingaNordo, paqj, hak6h6, hatohtanu, spurXoj: RETOX, spurZoj: RETOZ, caxlefkakaiX: RETOX, caxlefkakaiZ: RETOZ, hahufwuk2 };
+  return { ptalu, haKekkozusai, TONA, laqN2k, t2q2X, t2q2Kaq, kaqK6h6, ka5asexazZ, kukc2qLaq, paqj, hak6h6, hatohtanu, spurXoj: RETOX, spurZoj: RETOZ, caxlefkakaiX: RETOX, caxlefkakaiZ: RETOZ, hahufwuk2 };
 }

@@ -1,4 +1,5 @@
-// ≺⧼ ŋᷠᴜ j͑ʃw ɽ͑ʃ'ɜƽ ʌ ſȷɔ ſᶘᴜʞ 🌿 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷɔ ſᶘᴜ ſȷᴜ̩ ŋᷠᴜ j͑ʃw ɽ͑ʃ'ɜƽ 📃 ⧽≻
+
 import { HERBAPUSANTOJ } from "../../skek2/pudal/xa3e/fe1af/g2b2.js";
 import type { TsiicaPusanto } from "../../skek2/pudal/xa3e/fe1af/g2b2.js";
 import type { PagaKanta } from "../../skek2/pudal/pudal-hahunaq.js";
@@ -15,7 +16,6 @@ export interface HatsiicaHamasurok {
   kolekti( x: number, z: number ): readonly TsiicaPusanto[];
 }
 
-// ⟨ ꞙɭɔ ʌ ſןw ɭʃᴜ ʌ ꞙɭı ʌ ꞙɭı 📃 ⟩
 export function kf2HerbajnHamasurok( hasukf2qani: HatsiicaPusajHasukf2qani ): HatsiicaHamasurok {
   const { hanpco, hapaga, masax2z, promenas } = hasukf2qani;
   const tsiicaPusaProvizo: TsiicaPusanto[] = [

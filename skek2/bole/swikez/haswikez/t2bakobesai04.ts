@@ -1,44 +1,29 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ɔэ · j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ · ꞙɭɩɔɔ ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ꞁȷ̀ɔⅎ ꞁȷ̀эⅎ 🎵 ⧽≻
 
 import type { BoleEg2b2, Qaroxema, SpuroDateno } from "../habal/hahunaq.js";
 import { F, PENTA } from "../habal/p6zuk.js";
 import { HE, caxomani } from "../habal/tif.js";
-import { motifoS, treni } from "./hax2x2q.js";
+import { motifoS, treni } from "./tom6nu.js";
 
 export function buildTrack4(): SpuroDateno {
   const ev: BoleEg2b2[] = [];
   const secs: Qaroxema[] = [];
-  // ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭıɔ ɭʃɜᴜ̩ ɭʃɜƽ ʌ ꞙɭı , ꞙɭıɔ j͑ʃɹ ſןw ⟅ ⟩
+
   const e8 = caxomani(0o40), bar = e8 * 0o10;
   const P = PENTA;
   const ost = [ 0o0, 0o3, 0o1, 0o4, 0o2, 0o4, 0o1, 0o3 ];
   const SM: [ number, number, number ][] = [ [ 0o0, 0o5, 0o2 ], [ 0o2, 0o6, 0o1 ], [ 0o3, 0o7, 0o2 ], [ 0o5, 0o6, 0o1 ], [ 0o6, 0o5, 0o2 ], [ 0o10, 0o4, 0o2 ], [ 0o12, 0o5, 0o2 ], [ 0o14, 0o6, 0o3 ], [ 0o17, 0o5, 0o1 ] ];
 
-  // ⟪ ſɭᴜ ſןᴜ , Aisiakrhi , MIDI 🎹 📃 ⟫
-  // ⟨ Aisiakrhi , MIDI , D♭ major , ꞙɭı , ꞙɭɿ , A major pentatonic
-  //   ꞙɭı , ſɭᴜ ſןᴜ , j͑ʃᴜ ı],ɔ , ꞙɭı , ſᶘᴜ j͐ʃɹ , PENTA
-  //   ꞙɭɔ , ꞙɭı ſןэ ſɭ,wƽ , ꞙɭı , ꞙɭɿ , ſᶘᴜ j͐ʃɹ ⟅ ⟩
-  // ⟨ Bowgart , ſןɔ˞ᴜƴ , A#ɿ C#ц D#ц F#ц A#ɿ C#ц F3 , ꞙɭэ ſןɔ˞ᴜƴ , ꞙɭı ,
-  //   PENTA , ſןэ ſɭ,wƽ ɔ ɿ ц э ɔ ꞟ ⟅ ⟩
   const LBOWGART: number[] = [ 0o0, 0o2, 0o3, 0o4, 0o0, 0o5 ];
-  // ⟨ Ghazt , j͑ʃᴜ ſɭᴜ ɭʃɹ , C#э A#ц C#э G#ц F#э , ꞙɭı , ꞙɭɿ ſɭɜ ſɭᴜƽ ,
-  //   PENTA , ꞙɭэ ſᶘᴜ j͐ʃɹ , ſןэ ſɭ,wƽ ƨ ꞟ ƨ 9 ⟅ ⟩
+
   const LGHAZT: [ number, number, number ][] = [ [ 0o0, 0o7, 0o2 ], [ 0o2, 0o5, 0o2 ], [ 0o4, 0o7, 0o2 ], [ 0o6, 0o11, 0o2 ] ];
-  // ⟨ ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , Aisiakrhi , ſɭᴜ ſןᴜ ꞙɭээ–ꞙɭэƨ ⟅ Whisp , Dandidoo
-  //   F4 C#э G#э F4 , C#э G#э , C#э C#э F4 C#э , C#э F4 ⟅
-  //   PENTA , ſןэ ſɭ,wƽ ƨ ꞟ 8 ƨ , ꞟ 8 , ꞟ ꞟ ƨ ꞟ , ꞟ ƨ
-  //   C#э A3 E4 C#э , A3 E4 , A3 A3 C#э A3 , A3 C#э ⟅
-  //   ꞙɭ8 ɭʃɜᴜ̩ ɭʃɜƽ ʌ ꞙɭı , ꞙɭ8 ſɭᴜ ſןᴜ , ⟅ ⟩
+
   const LDANDIDOO: [ number, number ][] = [
     [ 0o0, 0o7 ], [ 0o1, 0o5 ], [ 0o2, 0o10 ], [ 0o3, 0o7 ],
     [ 0o11, 0o5 ], [ 0o12, 0o10 ],
     [ 0o20, 0o5 ], [ 0o21, 0o5 ], [ 0o22, 0o7 ], [ 0o23, 0o5 ],
     [ 0o31, 0o5 ], [ 0o32, 0o7 ],
   ];
-  // ⟨ ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ Reedling , ſɭᴜ ſןᴜ ꞙɭээ–ꞙɭэƨ ⟅ A#ɿ , C#ц F3 , D3 A2 , A2 ⟅
-  //   ꞙɭı , ꞙɭɿ ſɭɜ ſɭᴜƽ , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , ſᶘᴜ j͐ʃɹ ,
-  //   ſןэ ſɭ,wƽ , F#ɿ A2 C#ц B2 E2 ⟅ ꞙɭı , G#ц , E3 , ꞙɭɿ ſɭᴜ ,
-  //   ꞙɭ8 ɭʃɜᴜ̩ ɭʃɜƽ ꞙɭɿ , ꞙɭı ⟅ ⟩
 
   const ostinato = ( t0: number, shift: number, v: number ) => {
     for ( let k = 0o0; k < 0o10; k++ )
@@ -49,16 +34,12 @@ export function buildTrack4(): SpuroDateno {
     if ( dens ) for ( let k = 0o1; k < 0o10; k += 0o2 ) ev.push({ t: t0 + k * e8 + e8 / 0o2, i: "guiro", d: HE / 0o10, v: 0o13/0o40 });
   };
 
-  // ⟨ ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ Dandidoo , ꞙɭэ ſɭᴜ ſןᴜ ⟅ hiwe , ꞙɭ8 ɭʃɜᴜ̩ ɭʃɜƽ ,
-  //   siku , ſᶘᴜ j͐ʃɹ ꞙɭı , ſ̀ȷɜ ֭ſɭɔ , ꞙɭɔ , inanga , mbira ⟅ ⟩
   const dandidoo = ( t0: number ) => {
     treni( ev, t0, e8, P, LDANDIDOO, 0o37/0o40, 0o1 );
     for ( const [ p, dg ] of LDANDIDOO )
       ev.push({ t: t0 + p * e8, i: "siku", f: F( P[dg] ), d: e8 * 0o1, v: 0o63/0o100 });
   };
 
-  // ⟨ ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ Reedling , ꞙɭэ ſɭᴜ ſןᴜ ⟅ tlakak , ſᶘᴜ j͐ʃɹ , ꞙɭı ,
-  //   ꞙɭı , ꞙɭэꞟ , ꞙɭэɩ , j͑ʃɜ ɭʃɹȝ , ꞙɭı ⟅ ⟩
   const reedlingo = ( t0: number, tlakak: number ) => {
     const hatsal2: [ number, number, number ][] = [
       [ 0o0, P[0o4] - 0o14, 0o10 ],
@@ -72,13 +53,9 @@ export function buildTrack4(): SpuroDateno {
       ev.push({ t: t0 + p * e8, i: "hiwe", f: F( n ), d: l * e8, v: 0o33/0o40 });
   };
 
-  // ⟨ ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ ꞙɭээ , ꞙɭıɿ ɭʃɜᴜ̩ ɭʃɜƽ , ꞙɭц ⟅
-  //   Dandidoo , Reedling , ꞙɭэ ⟅ ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı ⟅
-  //   ꞙɭı , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , ꞙɭı , ꞙɭı , ꞙɭı ⟅
-  //   ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭı , ꞙɭɿ ⟅ ⟩
   const enTemo = ( b: number ) => b >= 0o44 && b < 0o60;
   const saxeoTemo = ( b: number ) => enTemo( b ) && b % 0o4 === 0o0;
-  // ⟨ ſᶘᴜ j͐ʃɹ ʌ ſɭɜ j͐ʃɹ , ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭı ⟅ ꞙɭı , ꞙɭı , F#ɿ , ꞙɭı ⟅ ⟩
+
   const BASOFINOJ = [ P[0o3], P[0o3] - 0o14, P[0o4] - 0o14 ];
   const sutlo = ( t0: number, k: number ) => {
     dandidoo( t0 );
@@ -91,8 +68,7 @@ export function buildTrack4(): SpuroDateno {
     ostinato(t0, 0o0, 0o43/0o100);
     pulse(t0, b >= 0o3);
     if ( b === 0o5 ) ev.push({ t: t0, i: "siku", f: F(P[0o5]), d: bar * 0o7/0o10, v: 0o33/0o40 });
-    // ⟨ Bowgart , ſןɔ˞ᴜƴ , ſɭᴜ ʃןᴜ , ꞙɭı ſɭᴜ ſןᴜ , ꞙɭı ſᶘᴜ j͐ʃɹ , Aisiakrhi
-    //   , ꞙɭꞟ ꞙɭ8 ɭʃɜᴜ̩ ɭʃɜƽ , ꞙɭı , inanga , ꞙɭı ⟅ ⟩
+
     ev.push({ t: t0, i: "hiwe", f: F(P[LBOWGART[b]]), d: bar * 0o5/0o10, v: 0o23/0o40 + b * 0o1/0o100 });
   }
 
@@ -102,10 +78,10 @@ export function buildTrack4(): SpuroDateno {
     ostinato(t0, b % 0o10, 0o43/0o100);
     pulse(t0, true);
     if ( b % 0o2 === 0o0 && b % 0o10 !== 0o4 ) motifoS(ev, t0, e8, P, SM, "siku", 0o63/0o100);
-    // ⟨ Ghazt , hiwe , ꞙɭı ſɭᴜ ſןᴜ , siku , ꞙɭı ſɭᴜ ſןᴜ , ꞙɭı , ꞙɭı ɭʃɜᴜ̩ ɭʃɜƽ ⟅ ⟩
+
     if ( b % 0o10 === 0o4 ) motifoS(ev, t0, e8, P, LGHAZT, "hiwe", 0o33/0o40);
     if ( b % 0o10 === 0o5 ) motifoS(ev, t0, e8, P, LGHAZT, "siku", 0o53/0o100, 0o11/0o10, 0o14);
-    // ⟨ hiwe , siku , ſɭᴜ ſןᴜ ɭʃᴜ , ꞙɭı , ſɭᴜ ʃןᴜ , ſɭɔ˞ɜⅎ , j͑ʃɹ ŋᷠɹ ⟅ ⟩
+
     if ( b % 0o4 === 0o1 && b % 0o10 !== 0o5 ) treni(ev, t0 + 0o3 * e8, e8, P, [ [ 0o0, 0o6 ], [ 0o2, 0o4 ], [ 0o3, 0o2 ] ], 0o33/0o40);
   }
 
@@ -121,8 +97,7 @@ export function buildTrack4(): SpuroDateno {
     if ( b % 0o2 === 0o0 ) ev.push({ t: t0 + 0o4 * e8, i: "kiiqflak", f: F(P[0o3]), d: HE / 0o3, v: 0o43/0o100 });
     if ( b % 0o4 === 0o0 ) ev.push({ t: t0, i: "siku", f: F(P[0o12]), d: bar * 0o163/0o100, v: 0o23/0o40 });
     if ( b % 0o4 === 0o2 ) ev.push({ t: t0 + 0o4 * e8, i: "siku", f: F(P[0o7]), d: e8 * 0o3, v: 0o43/0o100 });
-    // ⟨ hiwe , j͑ʃɹ ŋᷠɹ , ꞙɭı ſɭᴜ ſןᴜ , ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , ſןэ ſɭ,wƽ
-    //   , ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı ⟅ ⟩
+
     if ( b % 0o3 === 0o0 ) ev.push({ t: t0, i: "hiwe", f: F(P[b % 0o6 === 0o0 ? 0o0 : 0o2]), d: bar * 0o12/0o10, v: 0o25/0o40 });
     if ( b % 0o4 === 0o3 ) treni(ev, t0 + 0o5 * e8, e8, P, [ [ 0o0, 0o5 ], [ 0o2, 0o7 ] ], 0o33/0o40);
   }
@@ -131,20 +106,18 @@ export function buildTrack4(): SpuroDateno {
   for ( let b = 0o0; b < 0o10; b++ ) {
     const ab = 0o42 + b;
     const t0 = ab * bar;
-    const tik = enTemo( ab );
-    ostinato( t0, 0o3, tik ? 0o23/0o40 : 0o33/0o40 );
+    const kxe = enTemo( ab );
+    ostinato( t0, 0o3, kxe ? 0o23/0o40 : 0o33/0o40 );
     pulse( t0, true );
-    // ⟨ ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , mbira , j͐ʃэ ɭ(ᴜ , ſɭɜ ſɭᴜƽ , ꞙɭɔ ,
-    //   ſɭᴜ ʃןᴜ ⟅ ꞙɭı , siku , ꞙɭı , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ ⟅ ⟩
+
     for ( let p = 0o0; p < 0o10; p++ ) {
       const dg = Math.min( 0o12, ost[p] + ( p % 0o2 ? 0o0 : 0o2 ) );
-      const vm = tik ? ( p % 0o2 ? 0o31/0o100 : 0o25/0o100 ) : ( p % 0o2 ? 0o35/0o100 : 0o43/0o100 );
+      const vm = kxe ? ( p % 0o2 ? 0o31/0o100 : 0o25/0o100 ) : ( p % 0o2 ? 0o35/0o100 : 0o43/0o100 );
       ev.push({ t: t0 + p * e8 + ( p % 0o2 ? e8 / 0o2 : 0o0 ), i: "mbira", f: F( P[dg] + 0o14 ), d: e8 * 0o2, v: vm });
     }
-    if ( b % 0o2 === 0o0 && !tik ) motifoS( ev, t0, e8, P, SM, "siku", 0o55/0o100 );
-    if ( !tik ) {
-      // ⟨ ꞙɭı , ſᶘᴜ j͐ʃɹ , ꞙɭɿ , ꞙɭɔ , ſɭᴜ ʃןᴜ , ꞙɭэ ɭʃɜᴜ̩ ɭʃɜƽ , ſןэ ſɭ,wƽ
-      //   , ſןэ ſɭ,wƽ , ꞙɭɔ ſᶘᴜ j͐ʃɹ ꞙɭɿ , ⟅ ⟩
+    if ( b % 0o2 === 0o0 && !kxe ) motifoS( ev, t0, e8, P, SM, "siku", 0o55/0o100 );
+    if ( !kxe ) {
+
       const rr = b % 0o2 === 0o0 ? 0o2 : 0o4;
       treni( ev, t0, e8, P, [ [ 0o0, rr ], [ 0o2, rr + 0o1 ], [ 0o4, rr ], [ 0o6, rr + 0o1 ] ], 0o25/0o40, 0o1 );
     }
@@ -161,8 +134,7 @@ export function buildTrack4(): SpuroDateno {
     pulse( t0, true );
     for ( let p = 0o0; p < 0o10; p++ ) if ( p % 0o2 === 0o0 )
       ev.push({ t: t0 + p * e8, i: "mbira", f: F( P[ost[( p + 0o5 ) % 0o10]] + 0o14 ), d: e8 * 0o2, v: 0o33/0o100 });
-    // ⟨ ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ Dandidoo , ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ Reedling , ꞙɭı ,
-    //   Whisp , ꞙɭı , ꞙɭɔ , ꞙɭɿ ʃɔ ſᶘэ ſɭ,ɜ , mbira , j͐ʃэ ɭ(ᴜ , ⟅ ⟩
+
     if ( saxeoTemo( ab ) ) sutlo( t0, ( ab - 0o44 ) / 0o4 );
   }
 
@@ -170,8 +142,6 @@ export function buildTrack4(): SpuroDateno {
   const t0 = 0o57 * bar;
   [ [ 0o0, 0o0, 0o3 ], [ 0o3, 0o3, 0o2 ], [ 0o5, 0o1, 0o3 ] ].forEach(( [ p, dg, l ] ) => ev.push({ t: t0 + p * e8, i: "inanga", f: F(P[dg]), d: l * e8, v: 0o33/0o40, dur: l * e8 }));
   ev.push({ t: t0 + 0o6 * e8, i: "inanga", f: F(P[0o0] - 0o14), d: e8 * 0o2, v: 0o33/0o40, dur: e8 * 0o2 });
-  // ⟨ ſɭᴜ ſןᴜ ꞙɭꞟƨ , ꞙɭэ ɭʃɜᴜ̩ ɭʃɜƽ ꞙɭц ⟅ ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ Dandidoo ,
-  //   ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ F#ɿ , ꞙɭı ⟅ ꞙɭɔ , hiwe , ꞙɭı , ꞙɭı , ⟅ ⟩
 
   return { events: ev.sort(( a, b ) => a.t - b.t), dur: 0o600 * HE, secs };
 }

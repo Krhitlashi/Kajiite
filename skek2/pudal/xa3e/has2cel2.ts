@@ -1,10 +1,10 @@
-// ≺⧼ j͑ʃɹ ſɟɔ j͐ʃɹ 🐚 ⧽≻
-import * as THREE from "three";
-import { kf2AsfanS2cel2nCac2sex } from "../../x2x2q/cac2sex/asfa-s2cel2.js";
-import { kf2AsfanS2cel2nBumpanCac2sex } from "../../x2x2q/cac2sex/asfa-s2cel2-bumpo.js";
-import { vakox2qDuQoxaKefoujn } from "../../x2x2q/hakox2q.js";
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ j͑ʃɹ ſɟɔ j͐ʃɹ 📃 ⧽≻
 
-// ⟨ ſɭᴜ ı],ƨɔ , j͑ʃͷ̗ᴜʞ , ſɭэ ɭʃᴜ , ⟅ ⟩
+import * as THREE from "three";
+import { kf2AsfanS2cel2nCac2sex } from "../../p6kpu/cac2sex/asfa-s2cel2.js";
+import { kf2AsfanS2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-s2cel2-bumpo.js";
+import { vakox2qDuQoxaKefoujn } from "../../p6kpu/hakox2q.js";
+
 export function vepaqS2cel2nRingon(): THREE.BufferGeometry {
   const zace = new THREE.CylinderGeometry(0o16/0o40, 0o13/0o40, 0o1, 0o32, 0o6, true).translate(0o0, 0o1/0o2, 0o0);
   const haxekuxa = zace.attributes.position;
@@ -14,7 +14,7 @@ export function vepaqS2cel2nRingon(): THREE.BufferGeometry {
     const z = haxekuxa.getZ(i);
     const ang = Math.atan2(x, z);
     const l6ksabosai = Math.pow(( Math.cos(0o4 * ang) + 0o1 ) / 0o2, 0o2);
-    // ⟨ ſɭɜ ſɭ,w }ʃw , j͑ʃͷ̗ᴜʞ , ⟅ ⟩
+
     const kozunu = Math.pow(0o1 - y, 0o3);
     const vap6zukani = 0o1 + 0o1/0o10 * y * y + 0o1/0o20 * kozunu;
     const sef4Y = y + 0o2/0o5 * l6ksabosai * y - 0o45/0o100 * l6ksabosai * kozunu;
@@ -24,9 +24,6 @@ export function vepaqS2cel2nRingon(): THREE.BufferGeometry {
   return zace;
 }
 
-// ⟨ ſɟᴜ ı],ɔ ŋᷠᴜ , ꞙɭı , ⟅ ⟩
-// ⟨ ſɟᴜ ı],ɔ ŋᷠᴜ , ꞙɭɿ , ꞙɭı ⟅ ⟩
-// ⟨ j͑ʃᴜ ֭ſɭᴜƽ ɭʃɔ , ꞙɭı , ⟅ ⟩
 export function kf2S2cel2nRinganPukekn(ripetoY: number, taso: boolean,
   offsetY = 0o0): THREE.MeshStandardMaterial {
   const bal2 = kf2AsfanS2cel2nCac2sex();
@@ -38,8 +35,7 @@ export function kf2S2cel2nRinganPukekn(ripetoY: number, taso: boolean,
     klono.offset.set(0o0, offsetY);
     return klono;
   };
-  // ⟨ ſ͕ɭɜ ı],ᴜ , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ⟅ ⟩
-  // ⟨ ɭʃɹ ſ͕ɭɹ , j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ , ⟅ ⟩
+
   return new THREE.MeshStandardMaterial({
     map: uzi(bal2), bumpMap: uzi(reliefo), bumpScale: 0o1/0o50, color: 0xffffff,
     roughness: taso ? 0o63/0o100 : 0o53/0o100,
@@ -47,7 +43,6 @@ export function kf2S2cel2nRinganPukekn(ripetoY: number, taso: boolean,
   });
 }
 
-// ⟨ ɭʃɜ ſɭɹȝ , j͑ʃɜ j͐ʃɹ , ⟅ ⟩
 const TRUNKOPINTASAXEO = 0o7/0o10;
 export function sost2cel2saipintaS2qena(t: number): number {
   if ( t <= TRUNKOPINTASAXEO ) return 0o1;

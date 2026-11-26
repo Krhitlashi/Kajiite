@@ -1,9 +1,8 @@
-// ≺⧼ j͑ʃɜȝ ɭʃɔ 👕 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ j͑ʃɜ ſ͕ɭƨɔ 📃 ⧽≻
 
-import { weh2Ruva, veb6qaiW2d2 } from "../x2x2q/haweh2.js";
-import { baz2SexiaK6h6 } from "../x2x2q/cac2sex/mafezi.js";
+import { weh2Ruva, veb6qaiW2d2 } from "../p6kpu/haweh2.js";
+import { baz2SexiaK6h6 } from "../p6kpu/cac2sex/mafezi.js";
 
-// ⟪ j͑ʃɜȝ ɭʃɔ 📃 ⟫
 export interface Soqte {
   ksaka: string;
   soqteWeh2: number;
@@ -26,7 +25,6 @@ export const HASOQTE: Soqte[] = [
   { ksaka: "soqteWeh2Cyan", soqteWeh2: 0x38a8a8, tokhaxesai: 0xc8f0f0, c2h2: 0x185858, nascete: 0x2858a0, pat6te: 0x583818 },
 ];
 
-// ⟪ ſᶘᴜȝ ʌ ſןᴜ j͐ʃэ 📃 ⟫
 export interface TsaqHaxe {
   ksaka: string;
   weh2: number;
@@ -91,7 +89,6 @@ function c2qKen2q(kuns2bana: CanvasRenderingContext2D,
   kuns2bana.fill();
 }
 
-// ⟨ ſɭꞇ ı],ɹ ʌ ɭʃɔ ɽ͑ʃ'w }ʃꞇ 📃 ⟩
 export function kf2SoqteKix2(o: Soqte): HTMLCanvasElement {
   const p2t6zo = document.createElement("canvas");
   p2t6zo.width = 0o210; p2t6zo.height = 0o300;

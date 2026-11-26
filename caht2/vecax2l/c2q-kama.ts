@@ -1,7 +1,5 @@
-// ≺⧼ ſɟꞇ ʃɔ ſןw ſɭᴜƴ 🌗 ⧽≻
-// ⟨ ſɟᴜ ſןᴜ ɭʃэ , }ʃɹƽ , ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ ,
-// ꞙɭı , ſɭэ ſɭᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ≺⧼ ſɟɹ ſ͕ɭƽ ŋᷠᴜ 🧪 ⧽≻
+
 import * as THREE from "three";
 import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
 import type { Kas2kantaDitlakak } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
@@ -11,7 +9,6 @@ const DIORITO = 0xf80000, ANDEZITO = 0x0000f8;
 const TOLERO = 0o1 / 0o1000;
 let hatlohk2nik2p2 = 0o0;
 
-// ⟪ }ʃɹƽ , ſɭᴜ ſןᴜ , 📐 ⟫
 const qena = new THREE.Scene();
 const diorita = new THREE.MeshStandardMaterial({ color: DIORITO });
 const andezita = new THREE.MeshStandardMaterial({ color: ANDEZITO });
@@ -21,10 +18,7 @@ vepaqHak6h6n(qena, defs, () => 0o0, diorita, andezita, []);
 qena.updateMatrixWorld(true);
 
 const rc = new THREE.Raycaster();
-// ⟨ ſɭɹ ſןᴜ , ſɭᴜ ſןᴜ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
-// ꞙɭı , ⟅ ſɭэ ſɭᴜ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ſןᴜ ᶘɹ , ꞙɭı , 📃 ⟩
+
 function pukekJe( x: number, z: number ): string {
   rc.set(new THREE.Vector3(x, 0o120, z), new THREE.Vector3(0o0, -0o1, 0o0));
   const h = rc.intersectObjects(qena.children, true);
@@ -65,9 +59,6 @@ const senUv = qena.children.filter(o =>
 if ( senUv > 0o0 ) hatlohk2nik2p2 += senUv;
 console.log(`ſɟɹƽ ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${hatlohk2nik2p2} ｡ ſןɔ ʌ uv ${senUv} ｡ Mesh ${qena.children.length}`);
 
-// ⟪ ſɭᴜ ſןᴜ , ſȷƽᴜ ʃɔ , 📐 ⟫
-// ⟨ ſȷƽᴜ ʃɔ , }ʃɹƽ , ꞙɭɿ , 📏 ⟩ , ſɭᴜ ſןᴜ , ꞙɭı ,
-// ſɟᴜ ſןᴜ ɭʃэ , ſɭɹ ſןᴜ , ꞙɭı , 📃 ⟩
 const dockaW = 0o16 / 0o10, dockaL = 0o10;
 const p2somaniW = dockaW / 0o2, p2somaniL = dockaL / 0o2;
 const n2k = kf2Qakaj2nQoxan(dockaW, dockaL).getPoints();

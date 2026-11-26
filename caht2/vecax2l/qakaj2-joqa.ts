@@ -1,21 +1,15 @@
-// ≺⧼ ſɭэ ֭ſɭэ ʌ ſןᴜ ſᶘɹ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ʌ ſȷͷ̗ᴜƽ ꞁȷ̀ᴜꞇ ⚓ 🔬 ⧽≻
-// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ſɭэ ſɭᴜ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ ,
-// ſɭэ ֭ſɭэ , j͑ʃᴜ ſɭ,w , ꞙɭɿ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , ꞙɭı , 📃 ⟩
-//
-// ſɭэ ɭʃᴜ , ⟅
-//   node hacaht2/vecax2l/vepaqu.mjs qakaj2-joqa
-//   node --import ./caht2/vecax2l/ceh2kap2.mjs hacaht2/vecax2l/qakaj2-joqa.mjs
+// ≺⧼ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ᴎ ſ͕ɭᴜ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { tikHaqakaj2 } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/t6limaSoza.js";
+import { tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
 import { vepaqQakaj2n } from "../../skek2/qatsiike/qakaj2.js";
 import { kf2Qakaj2nStuparon } from "../../skek2/qatsiike/qakaj2/hatona.js";
 import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
 import { vepaqIntersekcajnHapa12n } from "../../skek2/qatsiike/hak6h6/hapa12.js";
 import { qakaj2L6daJe, tamc2kHavem2 } from "../../skek2/qatsiike/hak6h6/veb6kek-havem2.js";
 import { STUPARISERO, K6H6ATRUAP2SOMANI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
-import { kf2Vecax2lanNala } from "./x2x2q.js";
+import { kf2Vecax2lanNala } from "./p6kpu.js";
 import type { Kas2kantaDitlakak } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
 
 const nala = kf2Vecax2lanNala(false);
@@ -29,8 +23,7 @@ const dokHatoxemani = HAQAKAJ2.map(D => vepaqQakaj2n(qena, D.x, D.z, D.s2sabo ??
 
 const defs: Kas2kantaDitlakak[] = nala.hak6h6.map((v, i) =>
   ( { pts: nala.hascac6[ i ], w: v.sefini / 0o2, hateruni: true } as Kas2kantaDitlakak ));
-// ⟨ ſɟᴜ ſןᴜ ɭʃэ , ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , 📏 ⟩ , ɭʃэ ſɭɔ , ꞙɭɔ ,
-// ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ , ֭ſɭэ ſɭэ , ꞙɭɿ , ꞙɭɿ , 📃 ⟩
+
 for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
   const D = HAQAKAJ2[ i ], dok = dokHatoxemani[ i ];
   if ( dok.capat6aN2kj.length < 0o2 ) continue;
@@ -47,7 +40,7 @@ for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
   const capat6 = kf2Qakaj2nStuparon(saxeni, tlakakani, starto, dok.landejaY);
   if ( !capat6 ) continue;
   defs.push({ pts: capat6.n2k, w: dok.kozunuSefini, capat6: true,
-    heightFn: capat6.l6da, t6limaFn: l6da });
+    heightFn: capat6.l6da, mut6qFn: l6da });
 }
 vepaqHak6h6n(qena, defs, nala.k6h6L6da, t6g6, t6hna, nala.tamc2kHan2k,
   { tamc2kHac2w2q: nala.bal2.hac2w2q, tamc2kHanece3e: nala.bal2.hapukxe,
@@ -74,7 +67,7 @@ for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
   const dok = dokHatoxemani[ i ];
   const ca3aq = landX + "," + landZ;
   const reg = tamc2kHavem2.get(ca3aq);
-// ⟨ }ʃɹƽ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+
   let plosteq: { k: string; n: typeof reg } = { k: "", n: undefined };
   let dist = Infinity;
   for ( const [ k, n ] of tamc2kHavem2 ) {

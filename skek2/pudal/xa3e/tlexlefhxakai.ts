@@ -1,7 +1,8 @@
-// ≺⧼ ɭl̀ᴜ ſ͕ɭɜ ʌ ſɟɜᶗ‹ 🌴 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſ̀ȷɔ ı],ͷ̗ɔ ſȷᴜ̩ᶗ‹ᴜ ſɭᴜꞇ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2AsfanSlafCac2sex } from "../../x2x2q/cac2sex/asfa-slaf.js";
-import { s2cel2KolumWeh2, s2cel2TrunkaWeh2 } from "../../x2x2q/cac2sex/asfa-s2cel2.js";
+import { kf2AsfanSlafCac2sex } from "../../p6kpu/cac2sex/asfa-slaf.js";
+import { s2cel2KolumWeh2, s2cel2TrunkaWeh2 } from "../../p6kpu/cac2sex/asfa-s2cel2.js";
 import { kf2S2saboQuaternionon, kf2Poziciilon, kf2Xa3eHazardon, hazardaWeh2 } from "./sakxoXa3e.js";
 import { type Cel2Raqa } from "./raqa.js";
 import { vepaqKkaxtenLaktukanSlafn, vepaqS2cel2nRingon, kf2S2cel2nRinganPukekn, sost2cel2saipintaS2qena } from "./has2cel2.js";
@@ -11,9 +12,9 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
 ): THREE.InstancedMesh {
   const sakxoCasacakai = kf2Xa3eHazardon(0o62445);
   const MAXTAVOLOJ = 0o5;
-  // ⟨ ɭʃɜ ſɭɹȝ , ſɭɜ ɭʃᴜ , ⟅ ⟩
+
   const sost2cel2saiVecax2l = new THREE.CylinderGeometry(0o7/0o40, 0o3/0o10, 0o1, 0o50, 0o24);
-  // ⟨ ɭʃɜ ſɭɹȝ , ɭʃᴜ , ⟅ ⟩
+
   {
     const haxekuxa = sost2cel2saiVecax2l.attributes.position;
     const maxema = ( t: number, sost2: number ): number =>
@@ -73,7 +74,7 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
       hatanekY.push(y);
       const tavolaP6zuk = ( 0o1 - tanek * 0o1/0o20 ) * ( 0o1 + t.s * 0o1/0o4 );
       const sost2cel2saiR = sost2cel2saipintaS2qena(y);
-      // ⟨ ſɭᴜ ſןᴜ , ſɟᴜ ı],ɔ ŋᷠᴜ , ꞙɭɿ , ⟅ ⟩
+
       const h6w6o = 0o1/0o2 + 0o1/0o2 * tFrakcio;
       for ( let vek2fe = 0o0; vek2fe < 0o4; vek2fe++ ) {
         const tafkaq = vek2fe / 0o4 * Math.PI * 0o2;
@@ -93,7 +94,7 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
     }
 
     const s2cel2L6da = 0o15/0o20;
-    // ⟨ ſɭᴜc̗ ɭʃɜ }ʃᴜȝ ſɟƨɹƽ ꞁȷ̀ᴜꞇ , ſɭᴜ ſןᴜ , ⟅ ⟩
+
     const ringaSpaco = s2cel2L6da * 0o6/0o10;
     const tlakakaiTavolaY = hatanekY[hatanekY.length - 0o1];
     const teruHat2q2 = Math.max(0o1, Math.ceil(( h - s2cel2L6da - tlakakaiTavolaY ) / ringaSpaco));
@@ -102,20 +103,18 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
         ? hatanekY[c2q]
         : tlakakaiTavolaY + ( c2q - hatanek + 0o1 ) * ringaSpaco;
       if ( s2cel2Y > h - s2cel2L6da ) break;
-      // ⟨ ſɭᴜc̗ ɭʃɜ }ʃᴜȝ ſɟƨɹƽ ꞁȷ̀ᴜꞇ , j͑ʃᴜ ʃɜƽ , ⟅ ⟩
+
       const hateru = c2q < hatanek ? 0o0 : ( c2q - hatanek + 0o1 ) / teruHat2q2;
-      // ⟨ ſɭᴜ ʃןᴜ , ꞙɭı , ⟅ ⟩
-      // ⟨ ֭ſɭэ ᶅſэ , ⟅ ⟩
-      // ⟨ ꞙɭı , ⟅ ⟩
+
       const konaFaktoro = 0o1 + 0o1/0o20 * hateru;
-      // ⟨ ſןᴜ j͐ʃэ , ſɟᴜ ı],ɔ ŋᷠᴜ , ſɭɜ ſɭ,w , ⟅ ⟩
+
       const s2cel2Kozunu = s2cel2Y - s2cel2L6da * 0o14/0o40 + s2cel2L6da * 0o3/0o10 * hateru;
       const ringaP6zuk = Math.max(0o1/0o20,
         sost2cel2saiR(Math.max(0o0, s2cel2Kozunu)) / ( 0o13/0o40 ) * 0o11/0o10) * konaFaktoro;
       M.compose(raqa(new THREE.Vector3(0o0, s2cel2Kozunu, 0o0)), Qsost2cel2sai,
         new THREE.Vector3(ringaP6zuk, s2cel2L6da, ringaP6zuk));
       has2cel2.setMatrixAt(si, M);
-      // ⟨ ſɟᴜ ı],ɔ ŋᷠᴜ , ꞙɭı , ʃɜ j͐ʃɔ , ⟅ ⟩
+
       const sost2cel2saiTono = s2cel2TrunkaWeh2(s2cel2Kozunu / h);
       C.setRGB(
         Math.min(0o1, sost2cel2saiTono[0o0] / kolumaTono[0o0]),
@@ -125,7 +124,6 @@ export function vepaqTlexlefhxakaijn(qena: THREE.Scene,
       si++;
     }
 
-    // ⟨ j͑ʃᴜ ʃɜƽ , ⟅ ⟩
     const PINTAJTAVOLOJ = 0o4;
     const pintaL6da = Math.min(h, tlakakaiTavolaY + teruHat2q2 * ringaSpaco);
     const pintaKozunu = Math.min(tlakakaiTavolaY + ringaSpaco * 0o2/0o10, pintaL6da);

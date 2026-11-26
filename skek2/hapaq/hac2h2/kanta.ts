@@ -1,4 +1,5 @@
-// ≺⧼ ſɭᴜc̗ ɭʃᴜ ʌ ſɟɹ ֭ſɭɹ 🔄 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭᴜ }ʃƨᴜ 📃 ⧽≻
+
 import * as THREE from "three";
 import type { VepaqSpec } from "../satalaj/hahunaq.js";
 import { h2liInternanHate } from "./vaknesmi.js";

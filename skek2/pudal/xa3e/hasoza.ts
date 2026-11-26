@@ -1,4 +1,4 @@
-// ≺⧼ ֭ſɭᴜ j͑ʃɜ ſɭ,ᴜ j͑ʃᴜꞇ ʌ j͑ʃɹ ſɟᴜ ı],ɹͷ̗ 🌳 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ j͑ʃɜ ſɭ,ᴜ 📃 ⧽≻
 
 export const KRONAGEOMETRIARADIUSO = 0o37/0o100;
 export const TAVOLAPROPORCIO = 0o10/0o12;

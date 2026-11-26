@@ -1,4 +1,5 @@
-// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ ʌ j͑ʃɹ }ʃᴜ j͑ʃᴜ̭ɔ 🛣️ ⧽≻
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ֭ſɭᴜ j͑ʃɹ }ʃᴜ j͑ʃᴜ̭ɔ 🛣️ ⧽≻
+
 import type { K6h6N2k } from "./hahunaq.js";
 import { TOLERANCO } from "./hahunaq.js";
 import { k6h6Phaka } from "./qoxaKefou.js";

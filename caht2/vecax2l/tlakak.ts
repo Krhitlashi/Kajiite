@@ -1,8 +1,7 @@
-// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſןw ſɭᴜƴ ʌ ſןᴜ ſᶘɹ 🔬 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ , ſɭɹ ſןᴜ , ꞙɭı , ⟅ ſɭᴜ ſןᴜ , ꞙɭı , j͑ʃɜ j͑ʃƨɹ , ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , 📃 ⟩
-// ſɭэ ֭ſɭэ , ꞙɭɿ , ⟅ ſɭᴜ ſןᴜ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ꞙɭɿ , 📃 ⟩
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da } from "../../kanta/nala/t6limaSoza.js";
+// ≺⧼ ſ̀ȷᴜ ſɭᴜƽ 🧪 ⧽≻
+
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da } from "../../kanta/nala/mut6qSoza.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
 import { kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
 import { k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";

@@ -16,13 +16,13 @@ const SRC = join(ZACE, "kanta");
 // ſɭᴜ ſןᴜ , ꞙɭɿ ,
 // ſɭэ ᶗ‹ , ꞙɭɩ ,
 // ſɭэ ᶗ‹ , ꞙɭꞟ ,
-const manifesto = JSON.parse(await readFile(join(SRC, "t6lima-havop2", "manifesto.json"), "utf8"));
-const DOSIEROJ = manifesto.datumaj;
-const datumajNomoj = Object.keys(DOSIEROJ).map(n => n.replace(/\.ts$/, ""));
+const caqavop2Ca1ara = JSON.parse(await readFile(join(SRC, "mut6q-havop2", "caqavop2Ca1ara.json"), "utf8"));
+const DOSIEROJ = caqavop2Ca1ara.k2fe;
+const k2feKsaka = Object.keys(DOSIEROJ).map(n => n.replace(/\.ts$/, ""));
 // ⟪ ſɭэ ᶗ‹ , 📃 ⟫
-const REGISTRAJ = {
-  "mapoj.ts": manifesto.registraj["mapoj.ts"],
-  "aktiva.ts": [ new RegExp("^export \\* from \"\\./[a-z0-9\\-]+/(" + datumajNomoj.join("|") + ")\\.js\";", "m") ],
+const CA1ARA = {
+  "mapoj.ts": caqavop2Ca1ara.ca1ara["mapoj.ts"],
+  "aktiva.ts": [ new RegExp("^export \\* from \"\\./[a-z0-9\\-]+/(" + k2feKsaka.join("|") + ")\\.js\";", "m") ],
 };
 
 // ⟪ ſȷwɔ˞ , 📃 ⟫
@@ -44,10 +44,10 @@ function muzikaMarkilo(nomo) {
 }
 function markiloDe(nomo) {
   if ( typeof nomo !== "string" ) return null;
-  const datumo = /^t6lima-havop2\/([a-z0-9\-]{1,40})\/([a-z0-9\-]+\.ts)$/.exec(nomo);
+  const datumo = /^mut6q-havop2\/([a-z0-9\-]{1,40})\/([a-z0-9\-]+\.ts)$/.exec(nomo);
   if ( datumo ) return DOSIEROJ[datumo[2]] ?? null;
-  const registra = /^t6lima-havop2\/([a-z0-9\-]+\.ts)$/.exec(nomo);
-  if ( registra ) return REGISTRAJ[registra[1]] ?? null;
+  const registra = /^mut6q-havop2\/([a-z0-9\-]+\.ts)$/.exec(nomo);
+  if ( registra ) return CA1ARA[registra[1]] ?? null;
   return null;
 }
 function cxefaDe(nomo, teksto) {
@@ -139,5 +139,5 @@ function knak2fecajasai( n ) {
 const KVANTO_DOSIEROJ = knak2fecajasai(Object.keys(DOSIEROJ).length);
 
 hate.listen(PORD, "127.0.0.1", () => {
-  console.log("<( j͑ʃ'ɔ ſ̀ȷᴜȝ )> http://127.0.0.1:" + PORD + " → kanta/t6lima-havop2/<mapo>/ ( ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ " + KVANTO_DOSIEROJ + " ｡ ʃᴜ j͐ʃɹ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ) ｡ muziko/ → eskekoj/sonoj/muziko/ ( j͑ʃп́ꞇ ſᶘᴜ ɽ͑ʃ'ᴜ )");
+  console.log("<( j͑ʃ'ɔ ſ̀ȷᴜȝ )> http://127.0.0.1:" + PORD + " → kanta/mut6q-havop2/<mapo>/ ( ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ " + KVANTO_DOSIEROJ + " ｡ ʃᴜ j͐ʃɹ ʌ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ) ｡ muziko/ → eskekoj/sonoj/muziko/ ( j͑ʃп́ꞇ ſᶘᴜ ɽ͑ʃ'ᴜ )");
 });

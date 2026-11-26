@@ -1,14 +1,14 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ɔı · ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ · ꞙɭꞟɔɔ ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ꞁȷ̀ɔⅎꝛ̗ 🎵 ⧽≻
 
 import type { BoleEg2b2, Qaroxema, SpuroDateno } from "../habal/hahunaq.js";
 import { F, PENTE } from "../habal/p6zuk.js";
 import { HE, caxomani } from "../habal/tif.js";
-import { motifoS, treni } from "./hax2x2q.js";
+import { motifoS, treni } from "./tom6nu.js";
 
 export function buildTrack1(): SpuroDateno {
   const ev: BoleEg2b2[] = [];
   const secs: Qaroxema[] = [];
-  // ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭıɔ ɭʃɜᴜ̩ ɭʃɜƽ ʌ ꞙɭı , ꞙɭıɔ j͑ʃɹ ſןw ⟅ ⟩
+
   const e8 = caxomani(0o40), bar = e8 * 0o10;
   const S = PENTE;
   const arpA = [ 0o0, 0o2, 0o4, 0o2, 0o5, 0o4, 0o2, 0o1 ];
@@ -39,7 +39,7 @@ export function buildTrack1(): SpuroDateno {
     const t0 = ( 0o4 + b ) * bar;
     akompani(t0, arpA, b >= 0o6);
     if ( b % 0o2 === 0o0 ) motifoS(ev, t0, e8, S, M1, "siku", 0o63/0o100);
-    // ⟨ hiwe , ſɭᴜ ſןᴜ ʃɜ j͐ʃɔ , ꞙɭц ɭʃɜᴜ̩ ɭʃɜƽ , ſɭɜ j͐ʃɹ ʌ j͑ʃп́ꞇ ſɭɔƴ ⟅ ⟩
+
     if ( b >= 0o6 && b % 0o4 === 0o2 ) treni(ev, t0 + 0o3 * e8, e8, S, [ [ 0o0, 0o4 ], [ 0o2, 0o3 ], [ 0o3, 0o2 ] ], 0o35/0o40);
   }
 
@@ -50,7 +50,7 @@ export function buildTrack1(): SpuroDateno {
     if ( b % 0o4 === 0o0 ) motifoS(ev, t0, e8, S, M2, "ocarina", 0o63/0o100);
     else if ( b % 0o4 === 0o2 ) motifoS(ev, t0, e8, S, M3, "siku", 0o55/0o100);
     else if ( b % 0o4 === 0o3 ) motifoS(ev, t0, e8, S, M3, "ocarina", 0o43/0o100);
-    // ⟨ hiwe , ꞙɭц ɭʃɜᴜ̩ ɭʃɜƽ , ſɭɜ j͐ʃɹ ʌ ſɭᴜ ſ͕ȷɔ ⟅ ⟩
+
     if ( b % 0o4 === 0o2 ) treni(ev, t0 + 0o3 * e8, e8, S, [ [ 0o0, 0o5 ], [ 0o2, 0o4 ], [ 0o4, 0o3 ] ], 0o33/0o40);
   }
 
@@ -60,7 +60,7 @@ export function buildTrack1(): SpuroDateno {
     ev.push({ t: t0, i: "inanga", f: F(S[0o0] - 0o26), d: bar * 0o7/0o10, v: 0o25/0o40, dur: bar * 0o7/0o10 });
     for ( let k = 0o0; k < 0o10; k++ ) ev.push({ t: t0 + k * e8, i: "guiro", d: HE / 0o10, v: 0o4/0o10 + ( k / 0o10 ) * 0o23/0o40 });
     if ( b === 0o3 ) motifoS(ev, t0, e8, S, M3, "ocarina", 0o43/0o100);
-    // ⟨ hiwe , ſɭᴜ ʃɜ j͐ʃɔ , ꞙɭı ɭʃɜᴜ̩ ɭʃɜƽ , ſɭᴜ ſןᴜ ⟅ ⟩
+
     if ( b === 0o2 ) ev.push({ t: t0, i: "hiwe", f: F(S[0o1] - 0o14), d: bar * 0o6/0o10, v: 0o25/0o40 });
   }
 
@@ -72,7 +72,7 @@ export function buildTrack1(): SpuroDateno {
       motifoS(ev, t0, e8, S, M1, "siku", 0o55/0o100);
       motifoS(ev, t0, e8, S, M1H, "ocarina", 0o33/0o40);
     }
-    // ⟨ hiwe , ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭɿ ɭʃɜᴜ̩ ɭʃɜƽ , ſɭэ ſɭ,w ⟅ ⟩
+
     if ( b % 0o3 === 0o0 ) ev.push({ t: t0, i: "hiwe", f: F(S[0o0] - 0o14), d: bar * 0o12/0o10, v: 0o23/0o40 });
   }
 
@@ -82,7 +82,7 @@ export function buildTrack1(): SpuroDateno {
   ev.push({ t: t0, i: "inanga", f: F(S[0o0] - 0o26), d: 0o20 * e8, v: 0o33/0o40, dur: 0o20 * e8 });
   ev.push({ t: t0 + 0o10 * e8, i: "ocarina", f: F(S[0o7]), d: 0o6 * e8, v: 0o23/0o40 });
   ev.push({ t: t0 + 0o14 * e8, i: "guiro", d: e8 * 0o2, v: 0o23/0o40, cresc: 0o1 });
-  // ⟨ hiwe , ſɭɜ j͐ʃɹ , ſɭɜ ɭl̀ɹ ᶅſᴜ }ʃꞇ , j͑ʃᴜ ʃɜƽ , j͑ʃᴜ ſɭᴜ ɭʃɹ ⟅ ⟩
+
   ev.push({ t: t0, i: "hiwe", f: F(S[0o0] - 0o14), d: 0o13 * e8, v: 0o33/0o40 });
   ev.push({ t: t0 + 0o10 * e8, i: "hiwe", f: F(S[0o4] - 0o14), d: 0o6 * e8, v: 0o23/0o40 });
 

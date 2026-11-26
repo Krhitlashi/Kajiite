@@ -1,6 +1,4 @@
-// ≺⧼ ſɟɹƽ ꞁȷ̀ᴜ }ʃw j͑ʃᴜꞇ ʌ j͑ʃᴜ ֭ſɭᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɭэ ֭ſɭэ j͑ʃᴜꞇ 🌉 ⧽≻
-// ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ֭ſɭэ , ſȷƽᴜ ʃɔ , ⟅ ⟩
-//   ſɭэ ֭ſɭэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ʃɜ ſןɹ , ⟅ 📃 ⟩
+// ≺⧼ ſɭэ ֭ſɭэ ʌ ſɟɹ ſɭᴜ }ʃw ɘƣ̋ ſȷꞇ j͐ʃɜ 🛣️ ⧽≻
 
 import { K6H6ASEFINI, surGrid, k6h6SefiniP2somani } from "./havecax2l.js";
 import { ANGULATSALETSALIRO } from "./habakaweKatoma.js";
@@ -12,29 +10,19 @@ export interface C2kanuT2bakobesai {
 }
 
 export interface C2kanuS2qena {
-  /** ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſᶘᴜ j͑ʃᴜ */
+
   l6da: ( x: number, z: number ) => number;
-  /** ſɭɜ ɭʃᴜ , ſɭэ ֭ſɭэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw */
-  t6lima: ( x: number, z: number ) => number;
+
+  mut6q: ( x: number, z: number ) => number;
   t2bakobesai: C2kanuT2bakobesai[];
 }
 
-// ⟨ ſɭᴜ ſןᴜ , ſȷƽᴜ ʃɔ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı 📃 ⟩
 const PONTAMINIMUMO = 0o2;
 
-// ⟨ ſᶘᴜ j͑ʃᴜ , ſȷƽᴜ ʃɔ , ꞙɭı 📃 ⟩
 const PONTAAKVAARKECO = 0o4;
 
-// ⟨ ſᶘᴜ j͑ʃᴜ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw 📏 ⟩
-// ⟨ ſᶘᴜ j͑ʃᴜ , ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭɔ , ⟅ ꞙɭı ,
-//   ſɭэ ֭ſɭэ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ⟅ 📃 ⟩
 export const PONTABORDAMARĜENO = 0o4;
 
-/* ſᶘᴜ j͑ʃᴜ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
-    @param n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param sefini ( number ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param tsekeTsasa ( function ) - ſᶘᴜ j͑ʃᴜ , ꞙɭɔ , ꞙɭı ,
-@returns testi ( function ) - ſᶘᴜ j͑ʃᴜ , ꞙɭı , */
 export function kf2PontanAkvanTeston(
   n2k: readonly [ number, number ][],
   sefini: number,
@@ -64,10 +52,6 @@ export function kf2PontanAkvanTeston(
   };
 }
 
-// ⟪ ſᶘᴜ j͑ʃᴜ , ſȷƽᴜ ʃɔ , ꞙɭı 📏 ⟫
-/* ꞙɭı , ſᶘᴜ j͑ʃᴜ , ſȷƽᴜ ʃɔ ,
-    @param tsasa ( Float32Array ) - ſᶘᴜ j͑ʃᴜ , ꞙɭı , -Infinity ,
-@returns qaqun2 ( { start , end } | null ) - ꞙɭı , ꞙɭı , */
 function kmaSahaknAkvanQaqun2( tsasa: Float32Array ): { start: number; end: number } | null {
   let qaqun2: { start: number; end: number } | null = null;
   let saxeni = -0o1;
@@ -83,14 +67,6 @@ function kmaSahaknAkvanQaqun2( tsasa: Float32Array ): { start: number; end: numb
   return qaqun2;
 }
 
-/* ſɭэ ֭ſɭэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı ,
-    @param n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param sefini ( number ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param k6h6Teru ( function ) - ſɭɜ ſɭ,w , ſɭэ ֭ſɭэ ,
-    @param tsasaTeru ( function ) - ſᶘᴜ j͑ʃᴜ , ꞙɭı , -Infinity ,
-    @param pontaFinL6da ( function ) - ſɭᴜ ſןᴜ , ſɭэ ֭ſɭэ ,
-    @param l6da ( function , optional ) - ſɭɜ ſɭ,w , ſɭэ ſɭ,w ,
-@returns s2qena ( C2kanuS2qena ) - ſɭɜ ſɭ,w , ſɭɜ ɭʃᴜ , ſȷƽᴜ ʃɔ */
 export function vepaqPontanS2qena(
   n2k: readonly [ number, number ][],
   sefini: number,
@@ -115,11 +91,10 @@ export function vepaqPontanS2qena(
   if ( haqaroxema.length === 0o0 || tuta < PONTAMINIMUMO )
     return {
       l6da: ( x, z ) => k6h6Teru(x, z, sefini),
-      t6lima: ( x, z ) => ( l6da ? l6da(x, z) : k6h6Teru(x, z, sefini) ),
+      mut6q: ( x, z ) => ( l6da ? l6da(x, z) : k6h6Teru(x, z, sefini) ),
       t2bakobesai: []
     };
 
-  // ⟨ ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
   const hapxeutso = Math.max(0o20, Math.round(tuta * 0o2));
   const raqa = ( s: number ): [ number, number ] => {
     let k = 0o0;
@@ -139,13 +114,7 @@ export function vepaqPontanS2qena(
   const startL6da = pontaFinL6da(...raqa(0o0), sefini);
   const tlakakL6da = pontaFinL6da(...raqa(tuta), sefini);
   const tsasaQaqun2 = kmaSahaknAkvanQaqun2(tsasa);
-  // ⟨ ſɭэ ſɭ,w , ſȷƽᴜ ʃɔ , ꞙɭɔ , ꞙɭı , 📏 ⟩
-  // ⟨ ſᶘɔ ʌ ꞙɭı 📃 ⟩ , ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı ,
-  //   ſɭэ ֭ſɭэ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ſɭ,w , ꞙɭı ,
-  //   ꞙɭı , ꞙɭı , ꞙɭı , ꞙɭı , ⟅
-  //   ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ꞙɭı ,
-  //   ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſᶘᴜ j͑ʃᴜ , ⟅ 📃 ⟩
-  // ⟨ ꞙɭı , ꞙɭı , ⟅ ſȷƽᴜ ʃɔ , ꞙɭı , ⟅ 📃 ⟩
+
   const ankoroj: { s: number; delta: number }[] = [
     { s: 0o0, delta: startL6da - deka[ 0o0 ] }
   ];
@@ -166,23 +135,16 @@ export function vepaqPontanS2qena(
     deka[ i ] += a0.delta + ( a1.delta - a0.delta ) * t;
   }
   if ( tsasaQaqun2 ) {
-    // ⟪ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſȷƽᴜ ʃɔ 🌉 ⟫
-    // ⟨ ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
-    // ⟨ ſᶘɔ ʌ ꞙɭı 📃 ⟩ , ꞙɭı , ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
-    //   ſɭɜ ſɭ,w , ꞙɭı , ꞙɭı , ⟅ ſɟɹƽ ꞁȷ̀ᴜ }ʃw ,
-    //   ſȷƽᴜ ʃɔ , ꞙɭı , ꞙɭı , ꞙɭı ,
-    //   ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
+
     const qaqun2 = Math.max(0o1, tsasaQaqun2.end - tsasaQaqun2.start);
     const bordoA = Math.max(0o0, tsasaQaqun2.start - 0o1);
     const bordoB = Math.min(hapxeutso, tsasaQaqun2.end + 0o1);
-    // ⟨ ſɭɜ ſɭ,w , ſןɔ˞ᴜƴ , ꞙɭɔ ʌ ꞙɭı , ſɭэ ֭ſɭэ , ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı , ſɟɹƽ ꞁȷ̀ᴜ }ʃw ,
-    //   ſɭᴜ ſןᴜ , ꞙɭı , ſɭэ ֭ſɭэ , ⟅ 📃 ⟩
+
     deka[ bordoA ] = surGrid(deka[ bordoA ]);
     deka[ bordoB ] = surGrid(deka[ bordoB ]);
     const bankoA = deka[ bordoA ], bankoB = deka[ bordoB ];
     const tsasaSahakani = tuta * qaqun2 / hapxeutso;
-    // ⟨ ſȷƽᴜ ʃɔ , ſᶘᴜ j͑ʃᴜ , ꞙɭı 📃 ⟩
+
     let arkeĉo = PONTAAKVAARKECO * 0o1/0o10;
     for ( let i = tsasaQaqun2.start; i <= tsasaQaqun2.end; i++ ) {
       if ( tsasa[ i ] <= -Infinity ) continue;
@@ -190,13 +152,9 @@ export function vepaqPontanS2qena(
       const banko = bankoA + ( bankoB - bankoA ) * f;
       arkeĉo = Math.max(arkeĉo, tsasa[ i ] - banko);
     }
-    // ⟨ ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ꞙɭı , ſȷƽᴜ ʃɔ , ꞙɭı 📃 ⟩
-    //   ſɭэ ֭ſɭэ , ꞙɭı , ꞙɭı , ⟅ ſȷƽᴜ ʃɔ , ſᶘᴜ j͑ʃᴜ ,
+
     arkeĉo = Math.min(arkeĉo, Math.max(PONTAAKVAARKECO * 0o1/0o10, tsasaSahakani * 0o1/0o10));
-    // ⟨ ꞙɭı , ꞙɭı , ꞙɭı , 📃 ⟩
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ ꞙɭı ,
-    //   ꞙɭı , ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     for ( let i = tsasaQaqun2.start; i <= tsasaQaqun2.end; i++ ) {
       const f = ( i - tsasaQaqun2.start ) / qaqun2;
       const banko = bankoA + ( bankoB - bankoA ) * f;
@@ -226,14 +184,14 @@ export function vepaqPontanS2qena(
 
   const sStart = tsasaQaqun2 ? tuta * tsasaQaqun2.start / hapxeutso : -0o1;
   const sEnd = tsasaQaqun2 ? tuta * tsasaQaqun2.end / hapxeutso : -0o1;
-  const t6lima = ( x: number, z: number ): number => {
+  const mut6q = ( x: number, z: number ): number => {
     if ( !l6da ) return propraL6da(x, z);
     if ( sStart < 0o0 ) return propraL6da(x, z);
     const s = sPorN2k(x, z);
-    // ⟨ ſȷƽᴜ ʃɔ , ſɭэ ֭ſɭэ , ⟅ ꞙɭı , ꞙɭı , ⟅ 📃 ⟩
+
     if ( s >= sStart - 0o1/0o100 && s <= sEnd + 0o1/0o100 )
       return l6daJe(s) - K6H6ASEFINI + ANGULATSALETSALIRO - 0o1/0o200;
-    // ⟨ ſɭэ ֭ſɭэ , ſɭɜ ſɭ,w , ꞙɭı , ⟅ 📃 ⟩
+
     return propraL6da(x, z);
   };
 
@@ -243,13 +201,9 @@ export function vepaqPontanS2qena(
     t2bakobesai.push({ ax: a[0o0], az: a[0o1], bx: b[0o0], bz: b[0o1],
       deko: ( t: number ) => l6daJe(sStart + ( sEnd - sStart ) * t) });
   }
-  return { l6da: propraL6da, t6lima, t2bakobesai };
+  return { l6da: propraL6da, mut6q, t2bakobesai };
 }
 
-/* ſɭэ ֭ſɭэ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , ſȷƽᴜ ʃɔ ,
-    @param n2k ( [ number , number ] [ ] ) - ſɭэ ֭ſɭэ , ꞙɭı ,
-    @param tsekeTsasa ( function ) - ſᶘᴜ j͑ʃᴜ , ꞙɭı ,
-@returns havas ( boolean ) - ſɭэ ֭ſɭэ , ſᶘᴜ j͑ʃᴜ , ꞙɭı , */
 export function havasAkvanTrunkon(
   n2k: readonly [ number, number ][],
   tsekeTsasa: ( x: number, z: number ) => boolean

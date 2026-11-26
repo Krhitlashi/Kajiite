@@ -18941,18 +18941,18 @@ function mergeAttributes(attributes) {
 	if (gpuType !== void 0) result.gpuType = gpuType;
 	return result;
 }
-// eskekoj/hax2x2q/haqoxa.ts
+// eskekoj/tom6nu/haqoxa.ts
 function sax0baPukazQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv || qoxa.getAttribute("uv1")) return qoxa;
 	qoxa.setAttribute("uv1", uv.clone());
-	const x2x2q = qoxa.getAttribute("normal");
+	const p6kpu = qoxa.getAttribute("normal");
 	const bal2 = /* @__PURE__ */ new Map();
 	for (let i = 0; i < uv.count; i++) {
 		let kl = 0;
-		if (x2x2q) {
-			const ax = Math.abs(x2x2q.getX(i)), ay = Math.abs(x2x2q.getY(i)), az = Math.abs(x2x2q.getZ(i));
-			kl = ay >= ax && ay >= az ? x2x2q.getY(i) > 0 ? 1 : 2 : ax >= az ? x2x2q.getX(i) > 0 ? 3 : 4 : x2x2q.getZ(i) > 0 ? 5 : 6;
+		if (p6kpu) {
+			const ax = Math.abs(p6kpu.getX(i)), ay = Math.abs(p6kpu.getY(i)), az = Math.abs(p6kpu.getZ(i));
+			kl = ay >= ax && ay >= az ? p6kpu.getY(i) > 0 ? 1 : 2 : ax >= az ? p6kpu.getX(i) > 0 ? 3 : 4 : p6kpu.getZ(i) > 0 ? 5 : 6;
 		}
 		let ca1ara = bal2.get(kl);
 		if (!ca1ara) bal2.set(kl, ca1ara = []);
@@ -18974,7 +18974,7 @@ function sax0baPukazQan2k(qoxa) {
 	uv.needsUpdate = true;
 	return qoxa;
 }
-// eskekoj/hax2x2q/haweh2.ts
+// eskekoj/tom6nu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -19033,7 +19033,7 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// eskekoj/hax2x2q/hazardo.ts
+// eskekoj/tom6nu/hazardo.ts
 function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, pliigo) {
 	let skek = ruva >>> 0;
 	return () => {
@@ -19046,7 +19046,7 @@ function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, pliigo) {
 function kf2Sakxo(ruva, pliigo = 1831565813) {
 	return kf2SakxoRuva(ruva, 16, 64, pliigo);
 }
-// eskekoj/hax2x2q/cac2sex/mafezi.ts
+// eskekoj/tom6nu/cac2sex/mafezi.ts
 const konturajKampoj = /* @__PURE__ */ new Map();
 function k2fKonturanCac2sex(kunteksto, paletro, tk2ni, kolumnoj = 4, hax2pa = 4, reliefo = false) {
 	const { width: sefini, height: l6da } = kunteksto.canvas;
@@ -19178,7 +19178,7 @@ function kf2P2t6zoCac2sex(w, h, pentri, ripeto = [1, 1], haku1o = {}) {
 	if (haku1o.anisotropio) cac2sex.anisotropy = haku1o.anisotropio;
 	return cac2sex;
 }
-// eskekoj/hax2x2q/cac2sex/t6hna.ts
+// eskekoj/tom6nu/cac2sex/t6hna.ts
 const kf2T6hnaCac2sex = sxovu(() => {
 	const pal6 = 512;
 	return kf2P2t6zoCac2sex(pal6, pal6, (kunteksto) => {
@@ -19192,7 +19192,7 @@ const kf2T6hnaCac2sex = sxovu(() => {
 		anisotropio: 4
 	});
 });
-// eskekoj/hax2x2q/cac2sex/t6g6.ts
+// eskekoj/tom6nu/cac2sex/t6g6.ts
 const kf2T6g6Cac2sex = sxovu(() => {
 	const pal6 = 512;
 	return kf2P2t6zoCac2sex(pal6, pal6, (kunteksto) => {
@@ -19812,10 +19812,10 @@ function specimeniT6liman(n2k, p2somani, heightFn, akvaFn) {
 			const p = raqa(s + lauxa * h6kuni);
 			sost2 = Math.max(sost2, heightFn(p.x, p.z));
 			for (const [ofsX, ofsZ] of rondajOfsetoj) {
-				const t6lima = heightFn(p.x + ofsX, p.z + ofsZ);
-				randoSumo += t6lima;
+				const mut6q = heightFn(p.x + ofsX, p.z + ofsZ);
+				randoSumo += mut6q;
 				randoNombro++;
-				if (t6lima > randoKma) randoKma = t6lima;
+				if (mut6q > randoKma) randoKma = mut6q;
 			}
 		}
 		pukaz = randoNombro > 0 ? randoSumo / randoNombro : sost2;

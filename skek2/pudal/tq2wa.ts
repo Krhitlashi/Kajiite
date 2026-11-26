@@ -1,17 +1,15 @@
 // ≺⧼ ɭʃȝɹ ᶅſᴜ 🐟 ⧽≻
 import * as THREE from "three";
-import { kf2LoftoQoxa } from "../x2x2q/haqoxa.js";
+import { kf2LoftoQoxa } from "../p6kpu/haqoxa.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
-import { katmullRom } from "../../kanta/x2x2q/interpolo.js";
-import { kf2GlacifisanHaŭtanCac2sex } from "../x2x2q/cac2sex/glacifisa-hauxto.js";
-import { kf2GlacifisanNaĝilanCac2sex } from "../x2x2q/cac2sex/glacifisa-nagxilo.js";
+import { katmullRom } from "../../kanta/k2fe/fkabe.js";
+import { kf2GlacifisanHaŭtanCac2sex } from "../p6kpu/cac2sex/glacifisa-hauxto.js";
+import { kf2GlacifisanNaĝilanCac2sex } from "../p6kpu/cac2sex/glacifisa-nagxilo.js";
 
-// ⟪ ſɭᴜ ſɭ,ɔ ʌ ſɭˬꞇ ſ̀ȷᴜ ( Channichthyidae ) 📃 ⟫
-
-interface FiŝaKa5asexaz { z: number; rx: number; ry: number; }
+interface KazeKa5asexaz { z: number; rx: number; ry: number; }
 export
 const GLACIFISALONGO = 0o175/0o100;
-const GLACIFISAPROFILO: FiŝaKa5asexaz[] = [
+const GLACIFISAPROFILO: KazeKa5asexaz[] = [
   { z: 0o0,                rx: 0o2/0o100,  ry: 0o2/0o100 },
   { z: -0o1/0o10,        rx: 0o5/0o100,  ry: 0o6/0o100 },
   { z: -0o1/0o4,         rx: 0o7/0o100,  ry: 0o10/0o100 },
@@ -28,11 +26,11 @@ const GLACIFISAT2BANUZ = -0o27/0o100;
 const GLACIFISAKAPOZ = -0o1/0o2;
 const GLACIFISAMEZOZ = -0o13/0o10;
 
-function subdividuHaka5asexaz(haka5asexaz: FiŝaKa5asexaz[], poInterlota: number): FiŝaKa5asexaz[] {
-  const tseuni: FiŝaKa5asexaz[] = [];
+function subdividuHaka5asexaz(haka5asexaz: KazeKa5asexaz[], poInterlota: number): KazeKa5asexaz[] {
+  const tseuni: KazeKa5asexaz[] = [];
   const n = haka5asexaz.length;
   const je = ( i: number ) => haka5asexaz[Math.max(0o0, Math.min(n - 0o1, i))];
-  const skek2 = ( i: number, t: number, bok: ( s: FiŝaKa5asexaz ) => number ): number =>
+  const skek2 = ( i: number, t: number, bok: ( s: KazeKa5asexaz ) => number ): number =>
     katmullRom(bok(je(i - 0o1)), bok(je(i)), bok(je(i + 0o1)), bok(je(i + 0o2)), t);
   for ( let i = 0o0; i < n - 0o1; i++ ) {
     for ( let k = 0o0; k < poInterlota; k++ ) {
@@ -48,7 +46,7 @@ function subdividuHaka5asexaz(haka5asexaz: FiŝaKa5asexaz[], poInterlota: number
   return tseuni;
 }
 
-function kf2FiŝanTubon(haka5asexaz: FiŝaKa5asexaz[], hatafkaq: number, sahakani: number): THREE.BufferGeometry {
+function kf2KazenTubon(haka5asexaz: KazeKa5asexaz[], hatafkaq: number, sahakani: number): THREE.BufferGeometry {
   const haxekuxa: number[] = [];
   const qan2k: number[] = [];
   const havecax2lani: number[] = [];
@@ -84,7 +82,7 @@ function normaliguUk6h6n(zace: THREE.BufferGeometry): void {
   qan2k.needsUpdate = true;
 }
 
-function kf2Naĝilon(qoxa: THREE.Shape, pukek: THREE.Material,
+function kf2Kacan(qoxa: THREE.Shape, pukek: THREE.Material,
   x: number, y: number, z: number): THREE.Mesh {
   const zace = new THREE.ShapeGeometry(qoxa);
   normaliguUk6h6n(zace);
@@ -125,24 +123,24 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
 
   const densigitaj = subdividuHaka5asexaz(GLACIFISAPROFILO, 0o2);
   const jeZ = ( z: number ): number => densigitaj.findIndex(s => s.z <= z + 0o10 ** -0o4);
-  const tranĉi = ( de: number, ĝis: number ): FiŝaKa5asexaz[] => densigitaj.slice(de, ĝis + 0o1);
+  const cata = ( de: number, sai: number ): KazeKa5asexaz[] => densigitaj.slice(de, sai + 0o1);
   const kaptlakak = jeZ(GLACIFISAKAPOZ);
   const meztlakak = jeZ(GLACIFISAMEZOZ);
 
   const wopo = new THREE.Mesh(
-    kf2FiŝanTubon(tranĉi(0o0, kaptlakak), 0o20, GLACIFISALONGO), korpaPukek);
+    kf2KazenTubon(cata(0o0, kaptlakak), 0o20, GLACIFISALONGO), korpaPukek);
   wopo.name = "korpo";
   wopo.position.z = -( GLACIFISAPROFILO[0o0].z - GLACIFISALONGO * 0o1/0o2 );
   hate2.add(wopo);
 
   const sost2 = new THREE.Mesh(
-    kf2FiŝanTubon(tranĉi(kaptlakak, meztlakak), 0o20, GLACIFISALONGO), korpaPukek);
+    kf2KazenTubon(cata(kaptlakak, meztlakak), 0o20, GLACIFISALONGO), korpaPukek);
   sost2.name = "s2nasce";
   sost2.position.z = GLACIFISAKAPOZ;
   wopo.add(sost2);
 
   const nar2sa = new THREE.Mesh(
-    kf2FiŝanTubon(tranĉi(meztlakak, densigitaj.length - 0o1), 0o20, GLACIFISALONGO), korpaPukek);
+    kf2KazenTubon(cata(meztlakak, densigitaj.length - 0o1), 0o20, GLACIFISALONGO), korpaPukek);
   nar2sa.name = "s2nasce";
   nar2sa.position.z = GLACIFISAMEZOZ - GLACIFISAKAPOZ;
   sost2.add(nar2sa);
@@ -154,10 +152,10 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
   vostaQoxa.quadraticCurveTo(-0o14/0o100, -0o6/0o100, -0o16/0o100, -0o15/0o100);
   vostaQoxa.quadraticCurveTo(-0o11/0o100, -0o13/0o100, 0o0, -0o11/0o100);
   vostaQoxa.closePath();
-  const vostaNaĝilo = kf2Naĝilon(vostaQoxa, naĝilaPukek, 0o0, 0o0,
+  const vostaKaca = kf2Kacan(vostaQoxa, naĝilaPukek, 0o0, 0o0,
     -( GLACIFISALONGO + GLACIFISAMEZOZ));
-  vostaNaĝilo.name = "vosto";
-  nar2sa.add(vostaNaĝilo);
+  vostaKaca.name = "nar2sa";
+  nar2sa.add(vostaKaca);
 
   const duaDorsaQoxa = new THREE.Shape();
   duaDorsaQoxa.moveTo(0o0, 0o0);
@@ -165,8 +163,8 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
   duaDorsaQoxa.quadraticCurveTo(-0o56/0o100, 0o10/0o100, -0o67/0o100, 0o4/0o100);
   duaDorsaQoxa.lineTo(-0o67/0o100, 0o0);
   duaDorsaQoxa.closePath();
-  const duaDorsa = kf2Naĝilon(duaDorsaQoxa, naĝilaPukek, 0o0, 0o13/0o100, 0o0);
-  duaDorsa.name = "dorsa";
+  const duaDorsa = kf2Kacan(duaDorsaQoxa, naĝilaPukek, 0o0, 0o13/0o100, 0o0);
+  duaDorsa.name = "ksokosaini";
   sost2.add(duaDorsa);
 
   const analaQoxa = new THREE.Shape();
@@ -175,7 +173,7 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
   analaQoxa.quadraticCurveTo(-0o42/0o100, -0o7/0o100, -0o50/0o100, -0o3/0o100);
   analaQoxa.lineTo(-0o50/0o100, 0o0);
   analaQoxa.closePath();
-  const anala = kf2Naĝilon(analaQoxa, naĝilaPukek, 0o0, -0o13/0o100, -0o1/0o10);
+  const anala = kf2Kacan(analaQoxa, naĝilaPukek, 0o0, -0o13/0o100, -0o1/0o10);
   anala.name = "analo";
   sost2.add(anala);
 
@@ -184,8 +182,8 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
   unuaDorsaQoxa.quadraticCurveTo(-0o5/0o100, 0o14/0o100, -0o13/0o100, 0o11/0o100);
   unuaDorsaQoxa.lineTo(-0o22/0o100, 0o0);
   unuaDorsaQoxa.closePath();
-  const unuaDorsa = kf2Naĝilon(unuaDorsaQoxa, naĝilaPukek, 0o0, 0o12/0o100, -0o3/0o10);
-  unuaDorsa.name = "dorsa";
+  const unuaDorsa = kf2Kacan(unuaDorsaQoxa, naĝilaPukek, 0o0, 0o12/0o100, -0o3/0o10);
+  unuaDorsa.name = "ksokosaini";
   wopo.add(unuaDorsa);
 
   const t2banuZ = GLACIFISAT2BANUZ;
@@ -194,7 +192,7 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
   const t2banuVecax2l = new THREE.SphereGeometry(t2banuKa5asexaz.ry * 0o1/0o4, 0o10, 0o10);
   for ( const s of [ 0o1, -0o1 ] ) {
     const t2banu = new THREE.Mesh(t2banuVecax2l, t2banuPukek);
-    t2banu.name = "okulo";
+    t2banu.name = "t2banu";
     t2banu.position.set(s * t2banuKa5asexaz.rx * GLACIFISAT2BANUFLANKO,
       t2banuKa5asexaz.ry * GLACIFISAT2BANUFLANKO, t2banuZ);
     t2banu.scale.set(0o7/0o10, 0o1, 0o1);
@@ -204,41 +202,41 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
   const w6qaZ = -0o1/0o12;
   const w6qaKa5asexaz = densigitaj.reduce((najbara, ka5asexaz) =>
     Math.abs(ka5asexaz.z - w6qaZ) < Math.abs(najbara.z - w6qaZ) ? ka5asexaz : najbara);
-  const buŝo = new THREE.Mesh(
+  const w6qa = new THREE.Mesh(
     new THREE.CylinderGeometry(w6qaKa5asexaz.rx * 0o35/0o100, w6qaKa5asexaz.rx * 0o7/0o10,
       0o6/0o100, 0o12, 0o1, true), w6qaPukek);
-  buŝo.name = "tlace";
-  buŝo.rotation.x = Math.PI / 0o2;
-  buŝo.position.set(0o0, 0o0, w6qaZ);
-  wopo.add(buŝo);
+  w6qa.name = "tlace";
+  w6qa.rotation.x = Math.PI / 0o2;
+  w6qa.position.set(0o0, 0o0, w6qaZ);
+  wopo.add(w6qa);
 
-  const brustaQoxa = new THREE.Shape();
-  brustaQoxa.moveTo(0o0, 0o0);
-  brustaQoxa.quadraticCurveTo(-0o10/0o100, -0o11/0o100, -0o24/0o100, -0o13/0o100);
-  brustaQoxa.quadraticCurveTo(-0o37/0o100, -0o10/0o100, -0o33/0o100, 0o1/0o100);
-  brustaQoxa.quadraticCurveTo(-0o17/0o100, 0o6/0o100, -0o4/0o100, 0o3/0o100);
-  brustaQoxa.closePath();
+  const caqa3aqQoxa = new THREE.Shape();
+  caqa3aqQoxa.moveTo(0o0, 0o0);
+  caqa3aqQoxa.quadraticCurveTo(-0o10/0o100, -0o11/0o100, -0o24/0o100, -0o13/0o100);
+  caqa3aqQoxa.quadraticCurveTo(-0o37/0o100, -0o10/0o100, -0o33/0o100, 0o1/0o100);
+  caqa3aqQoxa.quadraticCurveTo(-0o17/0o100, 0o6/0o100, -0o4/0o100, 0o3/0o100);
+  caqa3aqQoxa.closePath();
   for ( const s of [ 0o1, -0o1 ] ) {
-    const brusta = kf2Naĝilon(brustaQoxa, naĝilaPukek, s * 0o10/0o100, -0o2/0o100, -0o45/0o100);
-    brusta.name = "brusta";
-    brusta.rotation.z = s * -( Math.PI / 0o2 + 0o3/0o10 );
-    brusta.rotation.y = s * -0o2/0o10;
-    brusta.userData.kozunuZ = brusta.rotation.z;
-    brusta.userData.kozunuY = brusta.rotation.y;
-    wopo.add(brusta);
+    const caqa3aq = kf2Kacan(caqa3aqQoxa, naĝilaPukek, s * 0o10/0o100, -0o2/0o100, -0o45/0o100);
+    caqa3aq.name = "caqa3aq";
+    caqa3aq.rotation.z = s * -( Math.PI / 0o2 + 0o3/0o10 );
+    caqa3aq.rotation.y = s * -0o2/0o10;
+    caqa3aq.userData.kozunuZ = caqa3aq.rotation.z;
+    caqa3aq.userData.kozunuY = caqa3aq.rotation.y;
+    wopo.add(caqa3aq);
   }
 
-  const pelvaQoxa = new THREE.Shape();
-  pelvaQoxa.moveTo(0o0, 0o0);
-  pelvaQoxa.quadraticCurveTo(-0o10/0o100, -0o7/0o100, -0o22/0o100, -0o12/0o100);
-  pelvaQoxa.quadraticCurveTo(-0o32/0o100, -0o10/0o100, -0o20/0o100, -0o3/0o100);
-  pelvaQoxa.closePath();
+  const kukoxumolakaiQoxa = new THREE.Shape();
+  kukoxumolakaiQoxa.moveTo(0o0, 0o0);
+  kukoxumolakaiQoxa.quadraticCurveTo(-0o10/0o100, -0o7/0o100, -0o22/0o100, -0o12/0o100);
+  kukoxumolakaiQoxa.quadraticCurveTo(-0o32/0o100, -0o10/0o100, -0o20/0o100, -0o3/0o100);
+  kukoxumolakaiQoxa.closePath();
   for ( const s of [ 0o1, -0o1 ] ) {
-    const pelva = kf2Naĝilon(pelvaQoxa, naĝilaPukek, s * 0o3/0o100, -0o15/0o100, -0o35/0o100);
-    pelva.name = "pelva";
-    pelva.rotation.z = s * 0o35/0o100;
-    pelva.userData.kozunuZ = pelva.rotation.z;
-    wopo.add(pelva);
+    const kukoxumolakai = kf2Kacan(kukoxumolakaiQoxa, naĝilaPukek, s * 0o3/0o100, -0o15/0o100, -0o35/0o100);
+    kukoxumolakai.name = "kukoxumolakai";
+    kukoxumolakai.rotation.z = s * 0o35/0o100;
+    kukoxumolakai.userData.kozunuZ = kukoxumolakai.rotation.z;
+    wopo.add(kukoxumolakai);
   }
 
   return {
@@ -249,12 +247,12 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
 }
 
 export function tlak2Tq2wan(b: Paga, t: number, dt: number): void {
-  // ⟨ ſɭw j͐ʃᴜ ʌ ſɭᴜ ſɭ,ɔ ʌ ſɭˬꞇ ſ̀ȷᴜ 📃 ⟩
+
   const vx = Math.cos(t * b.seheni + b.phase) * b.amplitudo * b.seheni;
   const vz = Math.cos(t * 0o3/0o4 + b.phase * 0o2) * 0o3/0o4;
-  let veq6k2 = Math.atan2(vx, vz) - b.c2w2q;
-  veq6k2 = Math.atan2(Math.sin(veq6k2), Math.cos(veq6k2));
-  const b6n = veq6k2 * Math.min(0o1, 0o4 * dt);
+  let c2w2q = Math.atan2(vx, vz) - b.c2w2q;
+  c2w2q = Math.atan2(Math.sin(c2w2q), Math.cos(c2w2q));
+  const b6n = c2w2q * Math.min(0o1, 0o4 * dt);
   b.c2w2q += b6n;
   b.b6n = b6n / dt;
   b.hate2.rotation.y = b.c2w2q;
@@ -281,7 +279,7 @@ export function tlak2Tq2wan(b: Paga, t: number, dt: number): void {
   for ( const kaca of b.hakaca ) {
     const kozunuZ = kaca.userData.kozunuZ as number | undefined;
     const kozunuY = kaca.userData.kozunuY as number | undefined;
-    if ( kaca.name === "brusta" && kozunuZ !== undefined ) {
+    if ( kaca.name === "caqa3aq" && kozunuZ !== undefined ) {
       const vek2fe = Math.sign(kozunuZ) || 0o1;
       const malfruo = kaca.position.x > 0o0 ? 0o0 : 0o2/0o10;
       const xafanitapu = remFazo + malfruo;
@@ -290,7 +288,7 @@ export function tlak2Tq2wan(b: Paga, t: number, dt: number): void {
         kaca.rotation.y = kozunuY + Math.cos(xafanitapu) * 0o3/0o10 * vek2fe;
       }
       kaca.rotation.x = Math.cos(xafanitapu) * 0o1/0o10;
-    } else if ( kaca.name === "pelva" && kozunuZ !== undefined ) {
+    } else if ( kaca.name === "kukoxumolakai" && kozunuZ !== undefined ) {
       kaca.rotation.x = Math.sin(t * 0o2 + b.phase) * 0o1/0o10;
       kaca.rotation.z = kozunuZ
         + Math.sin(t * 0o3/0o2 + b.phase + 0o6/0o10) * 0o1/0o20;

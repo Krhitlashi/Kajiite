@@ -1,10 +1,11 @@
-// ≺⧼ ſןᴜȝ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ 🏛️ ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃᴜ ɭʃᴜ j͐ʃᴜ ɭl̀ᴜ̩ ſןᴜȝ 📃 ⧽≻
+
 import * as THREE from "three";
-import { vakox2qQoxaKefoujn } from "../x2x2q/hakox2q.js";
-import { kf2KuhalPukek, kf2KevPukek } from "../x2x2q/pukek.js";
-import { kf2CibeKen2qQoxa, kf2F2kQan2k, kf2Xiix2qQan2k } from "../x2x2q/haqoxa.js";
+import { vakox2qQoxaKefoujn } from "../p6kpu/hakox2q.js";
+import { kf2KuhalPukek, kf2KevPukek } from "../p6kpu/pukek.js";
+import { kf2CibeKen2qQoxa, kf2F2kQan2k, kf2Xiix2qQan2k } from "../p6kpu/haqoxa.js";
 import { tlunakMangxCax2l, KEHUWEH2 } from "../w2ta/cax2loj.js";
-import { tlunakEnirejon } from "./satalaj/enirejo.js";
+import { tlunakEnirejon } from "./satalaj/c2h2.js";
 import { tlunakPilolCah6k6, fenestraMargxeno, fenestraPukek } from "./satalaj/cah6k6.js";
 import { kf2S2saboTavolon, MURAKLINO, SANKTEJABAZPA12L6DA,
   SANKTEJABAZPA12KROMO } from "./satalaj/haqoxa.js";
@@ -13,17 +14,8 @@ import { tlunakJoqanTubon } from "./satalaj/cel2nu.js";
 import { paqPukek, TIPARO, type VepaqSpec } from "./satalaj/hahunaq.js";
 import { tlunakSexieanKaatse } from "./satalaj/fasw2d2.js";
 
-// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , 📃 ⟩
 export interface TavolaVem2 { y: number; hw: number; hd: number; }
 
-/* ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-   j͑ʃᴜ j͐ʃɹ ｡ ſɭɹ ſȷɔ ｡
-   j͑ʃɜ ſɭ,ᴜ ｡ j͑ʃᴜ ｡
-    @param w ( number ) - j͑ʃɔ ſȷꞇ }ʃꞇ ｡
-    @param d ( number ) - j͑ʃэ ɭ(ᴜ ſןɔ˞ᴜƴ ｡
-    @param tiers ( number ) - j͑ʃᴜ ｡ j͑ʃ'ɔ ſɭɹ ſȷɔ ｡
-    @param b6k61oL6da ( number ) - j͑ʃᴜ ｡ j͑ʃэ ɭ(ᴜ ｡
-@returns ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡ y ｡ hw ｡ hd ｡ */
 export function hatanekHavem2(w: number, d: number, tiers: number, b6k61oL6da: number): TavolaVem2[] {
   const teruSefini = Math.max(0o215/0o100, w * 0o23/0o100);
   const teruProfundo = Math.max(0o20/0o10, d * 0o23/0o100);
@@ -36,7 +28,6 @@ export function hatanekHavem2(w: number, d: number, tiers: number, b6k61oL6da: n
   return havem2;
 }
 
-// ⟨ ſ͕ɭɜ ı],ᴜ , ɭl̀ɜ ſ͕ɭᴜ , 📃 ⟩
 const hatanekKashmemoroj = new Map<string, { hatu5ekani1el2sai: THREE.BufferGeometry; hajoqa: THREE.BufferGeometry }>();
 function hatanekHavecax2lani(w: number, d: number, tiers: number, b6k61oL6da: number): { hatu5ekani1el2sai: THREE.BufferGeometry; hajoqa: THREE.BufferGeometry } {
   const s2sabo = MURAKLINO;
@@ -45,7 +36,7 @@ function hatanekHavecax2lani(w: number, d: number, tiers: number, b6k61oL6da: nu
   for ( let i = 0o0; i < havem2.length; i++ ) {
     const { y, hw, hd } = havem2[ i ];
     const maltik = havem2[ i - 0o1 ], teru = havem2[ i + 0o1 ];
-// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , 📃 ⟩
+
     const teruK6liq = teru ? Math.min( 0o1, teru.hw / ( hw - s2sabo ), teru.hd / ( hd - s2sabo ) ) : 0o0;
     const subaK6liq = maltik ? Math.min( 0o1, ( maltik.hw - s2sabo ) / hw, ( maltik.hd - s2sabo ) / hd ) : 0o0;
     const tanek = kf2S2saboTavolon(hw, hd, hw - s2sabo, hd - s2sabo, b6k61oL6da,
@@ -65,14 +56,11 @@ export function bokTavolajnQoxaKefoujn(typeKey: string, w: number, d: number, ti
   }
   return g;
 }
-/* ſɭɜ ſɭ,w , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-    @param spec ( VepaqSpec ) - j͑ʃэ ɭl̀э ｡ ſןᴜ j͐ʃэ ｡
-    @param t6limaFn ( function , optional ) - ʃᴜ j͐ʃɹ ｡ j͑ʃэ ɭ(ᴜ ｡
-@returns l6da ( number ) - j͑ʃэ ɭ(ᴜ Y ｡ */
+
 function satalaBazaL6da(spec: VepaqSpec,
-  t6limaFn?: ( x: number, z: number ) => number): number {
+  mut6qFn?: ( x: number, z: number ) => number): number {
   const sost2 = spec.h0 || 0o0;
-  if ( spec.type !== "qaman2" || !t6limaFn ) return sost2;
+  if ( spec.type !== "qaman2" || !mut6qFn ) return sost2;
   const p2somaniX = ( spec.w + 0o72/0o100 ) / 0o2;
   const p2somaniZ = ( spec.d + 0o72/0o100 ) / 0o2;
   const kos = Math.cos(spec.rot), sin = Math.sin(spec.rot);
@@ -82,16 +70,16 @@ function satalaBazaL6da(spec: VepaqSpec,
       const lx = ix / 0o4 * p2somaniX, lz = iz / 0o4 * p2somaniZ;
       const wx = spec.x + kos * lx + sin * lz;
       const wz = spec.z - sin * lx + kos * lz;
-      l6da = Math.max(l6da, t6limaFn(wx, wz) + 0o1/0o100);
+      l6da = Math.max(l6da, mut6qFn(wx, wz) + 0o1/0o100);
     }
   }
   return l6da;
 }
 
 export function vepaqSatalon(spec: VepaqSpec, qena: THREE.Scene, knasukf2qdalai: THREE.Mesh[],
-  t6limaFn?: ( x: number, z: number ) => number): THREE.Group {
+  mut6qFn?: ( x: number, z: number ) => number): THREE.Group {
   const { havem2: tiers, b6k61oL6da, w, d, type: typeKey, name } = spec;
-  spec.h0 = satalaBazaL6da(spec, t6limaFn);
+  spec.h0 = satalaBazaL6da(spec, mut6qFn);
   const sube = spec.sube || 0o0;
   const teruSefini = Math.max(0o215/0o100, w * 0o23/0o100);
   const T = TIPARO[typeKey] || TIPARO.kap2;
@@ -104,8 +92,7 @@ export function vepaqSatalon(spec: VepaqSpec, qena: THREE.Scene, knasukf2qdalai:
     () => new THREE.MeshStandardMaterial({ color: muraWeh2, roughness: typeKey === "kasafeo" ? 0o41/0o100 : 0o3/0o4, metalness: 0o0, envMapIntensity: 0o0 }));
   const joqaPukek = paqPukek("joqa" + joqaWeh2,
     () => kf2KuhalPukek(joqaWeh2));
-// ⟨ ſןɔ˞ᴜƴ , ɭʃw ſɭˬɔƽ ꞁȷ̀ᴜ }ʃꞇ , 📃 ⟩
-// ⟨ ſןɔ˞ᴜƴ , ſɭᴜ ſןᴜ , 📃 ⟩
+
   const fasw2d2Kev = typeKey === "kasafeo" || typeKey === "ka5asexazxipo";
   const eniraPukek = fasw2d2Kev
     ? fenestraPukek()
@@ -153,27 +140,23 @@ export function vepaqSatalon(spec: VepaqSpec, qena: THREE.Scene, knasukf2qdalai:
       const dci = new THREE.Mesh(new THREE.SphereGeometry(0o5/0o40, 0o10, 0o6), eniraPukek);
       dci.position.set(sX * ( w / 0o2 + 0o15/0o10 ), 0o7/0o4 + 0o5/0o40, sZ * ( d / 0o2 + 0o15/0o10 )); group.add(dci);
     }
-// ⟨ ſɭɜ ſɭ,w , ſɭɜ ſɭᴜ , 📃 ⟩
+
     const roofY = tiers * b6k61oL6da;
     const c2q = new THREE.Mesh(new THREE.RingGeometry(0o5/0o20, 0o11/0o20, 0o40).rotateX(-Math.PI / 0o2), joqaPukek);
     c2q.position.y = roofY + 0o1/0o40; group.add(c2q);
   }
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
-// ⟨ ſɭэ ſɭᴜ , 📃 ⟩
-// ⟨ ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
-// ⟨ ſɭэ ſɭᴜ , ꞙɭɿ , 📃 ⟩
   const senEksterajHacah6k6 = typeKey === "kap2" || typeKey === "geqqa"
     || typeKey === "turo" || typeKey === "qaman2";
   if ( !senEksterajHacah6k6 ) {
     const fenL6da = Math.min(0o5/0o10, b6k61oL6da * 0o23/0o100);
     const vitro = fenestraPukek();
-// ⟨ ſɭэ ſɭᴜ , ꞙɭц , 📃 ⟩
+
     const facoLarga = Math.min(w / 0o2, d / 0o2) - s2sabo / 0o2;
     const fenMargxeno = fenestraMargxeno(facoLarga);
     for ( const { y, hw, hd } of hatanekHavem2(w, d, tiers, b6k61oL6da) ) {
       const faco = Math.min(hw, hd) - s2sabo / 0o2;
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+
       const tapu = faco * 0o2 - fenMargxeno * 0o2 >= fenL6da;
       if ( !tapu && faco < fenL6da * 0o1/0o2 + 0o1/0o10 ) continue;
       const yC = y + b6k61oL6da / 0o2;
@@ -198,7 +181,7 @@ export function vepaqSatalon(spec: VepaqSpec, qena: THREE.Scene, knasukf2qdalai:
     }
   }
   if ( sube > 0o0 && typeKey === "qaman2" ) {
-// ⟨ ſɭɜ ſɭ,w , ı],ᴜ ֭ſɭᴜ , 📃 ⟩
+
     const joqaW = w + SANKTEJABAZPA12KROMO, joqaD = d + SANKTEJABAZPA12KROMO;
     const kof = 0o1/0o2;
     const rHatafkaq = 0o1/0o2;

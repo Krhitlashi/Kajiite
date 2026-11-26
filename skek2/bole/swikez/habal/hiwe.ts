@@ -1,71 +1,35 @@
-// ≺⧼ ֭ſɭꞇ ᶅſɔ j͑ʃᴜꞇ ʌ ʃɜ j͐ʃɔ 🏹 ⧽≻
-// ⟨ ſɭɔ˞ɜⅎ , j͑ʃɜ ſɭ,ᴜ , ɭʃꞇƽ , ſɭᴜ ʃןᴜ , ſןᴜȝ ᶅſw ſɭɹ , ſɭɔ˞ɜⅎ ſɭᴜ ɭl̀ɹ ⟅
-//   ſɭɔ˞ɜⅎ , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , ꞙɭɔ ı],ɔ ɭʃɜ ֭ſɭɹ ⟅ ſɭɔ˞ɜⅎ , j͑ʃɹ ſןw ꞙɭɿ ⟅
-//   j͑ʃɹ ſןw , ɭʃэʞ , ſɭɜ ſɭᴜƽ , j͑ʃᴜ ſɭᴜ , j͑ʃɹ ſןw , j͑ʃɹ ſןw ʌ ſɭэ ɭʃᴜ ⟅
-//   ſɭɜ j͐ʃɹ , ʃɜ j͐ʃɔ , ſɭᴜ ʃןᴜ , ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɜ ſɭ,ᴜ ⟅
-//   j͑ʃᴜ ſɭᶗ‹ɜ , ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , j͑ʃɔ ֭ſɭɔ , ſɭэ ɭʃᴜ ɭʃᴜ , ſɭэ ɭʃᴜ ⟅
-// ⟨ ſɭɔ˞ɜⅎ , j͑ʃᴜ ʃɜ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭɜ ſɭᴜƽ , f ⟅
-//
-// ⟨ ꞙɭɔ ʃɜ j͐ʃɔ ſɟᴜ j͐ʃw ⟅ ⟩
-// ⟨ ſɭɔ˞ɜⅎ , ꞙɭɿ ſɟɹ ᶅſɹȝ , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭı , ſɭɜ ſɭᴜƽ
-//   j͑ʃᴜ ſɭᶗ‹ɜ , ꞙɭɔ , ꞙɭı ⟅ j͑ʃɹ ſןw , ꞙɭı , j͑ʃᴜ ı],ɔ ꞙɭı ,
-//   ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ʃןᴜ , ſɟɹ ᶅſɹȝ , ꞙɭɔ ⟅ j͑ʃᴜ ı],ɔ , ı],ɔ ɭʃɜ ֭ſɭɹ ,
-//   ſɭᴜ ſןᴜ ʌ ſɭᴜ , ſɭᴜ ʃɜ j͐ʃɔ ʌ j͑ʃᴜ ſןɹ , ꞙɭɔ ſɭᴜ ʃɜ j͐ʃɔ ʌ ɭl̀ɹ ⟅ j͑ʃɜ ſɭ,ᴜ
-//   ſןᴜȝ ᶅſw ſɭɹ , ɭʃэʞ , ꞙɭɔ ſɭᴜ ʃᶘɔ ⟅ 📃 ⟩
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ֭ſɭꞇ ᶅſɔ 🎵 ⧽≻
+
 import { noiseSrc, startNoise } from "./xetoh2.js";
 import { vap6zukani } from "./hakfeKx2keve.js";
 
-// ⟨ ʃɜ j͐ʃɔ ꞙɭɔ ſɭэ ֭ſɭэ ꞙɭɔ , ꞙɭɔ , ſɭᴜ ſןᴜ ʌ ſɭᴜ 🎶 ⧽
 const ETA = 0o1/0o20000;
 
-// ⟨ ſɭɔ˞ɜⅎ , ſ̀ȷɜ ֭ſɭɔ , j͑ʃɹ ſןw , ɭʃэʞ , ꞙɭı j͑ʃɹ ſןw ,
-//   ꞙɭɔ j͑ʃᴜ ſɭᴜ , j͑ʃɹ ſןw , j͑ʃɜ ſɭᴜƽ , ⟅
 const INHARMONIO = 0o1/0o4000;
 
-// ⟨ ſɭɔ˞ɜⅎ , ꞙɭɿ ſɟɹ ᶅſɹȝ , ꞙɭı ſɟɹ ᶅſɹȝ , ꞙɭı ɭl̀ɹ ᶅſᴜ }ʃꞇ ,
-//   j͑ʃɹ ſןw , ſɭɜ ſɭᴜƽ , ꞙɭɿ , j͑ʃᴜ ſɭᶗ‹ɜ ⟅ j͐ʃэ ɭ(ᴜ ꞙɭı ,
-//   ſɭᴜ ſןᴜ , ꞙɭɿ ſɟɹ ᶅſɹȝ , ⟅
 const DUPLEX = 0o6;
 
-// ⟨ j͑ʃɹ ſןw , ꞙɭı , ꞙɭı ɭʃэ ɭʃᴜ , ꞙɭı
-//   ꞙɭı , j͑ʃᴜ ſןɹ ɭl̀ɹ , ꞙɭɔ ⟅ ꞙɭɔ j͑ʃᴜ ı],ɔ ꞙɭı ⟅ ⟩
 const DISPERSO = 0o5/0o1000;
 
-/* ⟨ ʃɜ j͐ʃɔ ʌ hiwe , j͑ʃɜ ſɭ,ᴜ , ſɭᴜ ʃןᴜ , ſɭɔ˞ɜⅎ ⟅ ſןᴜȝ ᶅſw ſɭɹ ,
-   ſɭɔ˞ɜⅎ , ſɭᴜ ɭl̀ɹ , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , j͑ʃɹ ſןw , j͑ʃɹ ſןw ,
-   ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɜ ſɭ,ᴜ , ſɭᴜ ʃןᴜ ɭʃᴜ , ſɭᴜ ʃןᴜ , j͑ʃᴜ ſןɹ ,
-   ɭʃꞇƽ , ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , ꞙɭц , ꞙɭɔ , ſɭᴜ ſןᴜ ⟅
-   ſɭɜ j͐ʃɹ , ſɭᴜ ʃןᴜ , ı],ɔ ɭʃɜ ֭ſɭɹ , ɭʃɜ ɭʃɹȝ , ſɭɜ j͐ʃɹ , ꞙɭı ⟅
-    @param ctx ( AudioContext ) - ʃɜ j͐ʃɔ ʌ ſɭᴜ ſɭᴜ
-    @param out ( AudioNode ) - ſɭᴜ ʃɔ ſןᴜ
-    @param t ( number ) - j͑ʃᴜ ı],ɔ ʌ ſɭэ ɭʃᴜ
-    @param dur ( number ) - ſɭᴜ ſןᴜ ʌ ſɭᴜ ʃןᴜ
-    @param f ( number ) - ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ
-    @param vel ( number = ı , optional ) - ſ̀ȷɜ ֭ſɭɔ ʌ ſɭᴜ ʃןᴜ
-@returns void */
 export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, f: number, vel = 0o1) {
   const d = Math.max(0o1/0o10, dur) * vap6zukani(0o7/0o100);
   const tlakakani = t + d;
-  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ , ꞙɭı , ſɭᴜ ſןᴜ , ſɭᴜ ſɭ,w , j͑ʃᴜ ⟅ ⟩
+
   const p = f * vap6zukani(0o1/0o600);
   const atako = 0o1/0o70 * vap6zukani(0o2/0o10);
   const malatako = 0o30/0o1000;
   const vivo = 0o5/0o10 * vap6zukani(0o2/0o10);
-  // ⟨ ſɭᴜ ʃןᴜ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , j͑ʃᴜ ʃɜƽ , ꞙɭı ⟅ ꞙɭэ ſɭᴜ ,
-  //   ſɭᴜ ʃןᴜ , ꞙɭı , ʃɜ j͐ʃɔ ʌ ſɭᴜ ʃןᴜ ⟅ ⟩
+
   const gcamutsa = 0o1/0o600 * vap6zukani(0o5/0o10);
-  // ⟨ ſɭᴜ ʃןᴜ , ſ̀ȷɜ ֭ſɭɔ , ɭʃэʞ , ʃɜ j͐ʃɔ ⟅ ⟩
+
   const dci = 0o7/0o10 + 0o3/0o10 * vel;
-  // ⟨ ſɭᴜ ʃןᴜ , ſɭɔ˞ɜⅎ , ſɟɹƽ ꞁȷ̀ᴜ }ʃw , ſ̀ȷɜ ֭ſɭɔ , ꞙɭı ,
-  //   ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , j͑ʃɹ ſןw , ⟅ ⟩
+
   const raqa = 0o2/0o10 + Math.random() * 0o5/0o10;
 
   const g = ctx.createGain();
   g.gain.value = 0o30/0o100 * vel * vap6zukani(0o7/0o100);
   g.connect(out);
 
-  // ⟨ ſɭᴜ ſןᴜ ʌ ſɭᴜ , ꞙɭɿ ɭl̀ɹ ᶅſᴜ }ʃꞇ , ʃɜ j͐ʃɔ , j͑ʃᴜ ſɭᴜ ,
-  //   ꞙɭɔ ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭɔ˞ɜⅎ ꞙɭı ⟅ ⟩
   const soq = ctx.createBiquadFilter();
   soq.type = "peaking";
   soq.frequency.value = 0o240 * vap6zukani(0o15/0o100);
@@ -79,14 +43,10 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   soq.connect(korpo2);
   korpo2.connect(g);
 
-  // ⟨ ɭʃꞇƽ ſɭᴜ ʃןᴜ , ꞙɭɔ , ꞙɭц ı],э ŋᷠꞇ ɭʃɜ ⟅ j͐ʃэ ɭ(ᴜ , ꞙɭı ,
-  //   ʃɜ j͐ʃɔ ꞙɭɔ ı],ɔ ɭʃɜ ֭ſɭɹ , j͐ʃэ ɭ(ᴜ , ⟅
-  //   ꞙɭц ı],э ŋᷠꞇ , ꞙɭц , ꞙɭı , ſɭᴜ ſןᴜ ꞙɭı ⟅ ⟩
   const trem = ctx.createGain();
   trem.gain.value = 0o1;
   trem.connect(soq);
-  // ⟨ ſɭᴜ ʃןᴜ , ſɭэ ɭʃᴜ , ſɭᴜ ʃןᴜ , j͐ʃэ ɭ(ᴜ , ſɭɔ˞ɜⅎ , ꞙɭı ,
-  //   ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , j͑ʃɹ ſןw , ꞙɭɔ ı],ɔ ɭʃɜ ֭ſɭɹ ⟅ ⟩
+
   const hakzapawa = ctx.createGain();
   hakzapawa.gain.value = 0o1;
   hakzapawa.connect(trem);
@@ -107,8 +67,6 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     m.stop(tlakakani + vivo + 0o1/0o10);
   }
 
-  // ⟨ ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ , ɭʃꞇƽ , ſɭᴜ ʃןᴜ , ⟅ ꞙɭı ,
-  //   j͑ʃɹ ſןw ꞙɭı , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ⟩
   const vibro = ctx.createGain();
   vibro.gain.value = 0o1;
   const vibroj: [ number, number ][] = [
@@ -127,9 +85,6 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     v.stop(tlakakani + vivo + 0o1/0o10);
   }
 
-  // ⟨ ſɭɔ˞ɜⅎ , ʃɜ j͐ʃɔ ʌ ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ , ꞙɭı ,
-  //   j͑ʃɹ ſןw , ɭʃэʞ , ſɭɜ ſɭᴜƽ , ſɭɔ˞ɜⅎ , ſɭэ ɭʃᴜ ⟅
-  //   j͐ʃэ ɭ(ᴜ , j͑ʃɹ ſןw , j͑ʃɹ ſןw ʌ ſɭэ ɭʃᴜ ⟅ ⟩
   const hakek: { n: number; mul: number; s2karanu: number; detuno: number; malfruo: number }[] = [];
   let tlunakani = 0o0;
   for ( let n = 0o1; n <= 0o20; n++ ) {
@@ -137,8 +92,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     if ( p * mul > 0o10000 ) break;
     const maxema = 0o3/0o20 + 0o17/0o20 * Math.abs( Math.sin( n * Math.PI * raqa ) );
     const s2karanu = Math.pow( n, -0o11/0o10 ) * maxema;
-    // ⟨ j͑ʃɹ ſןw , ꞙɭɿ ſɟɹ ᶅſɹȝ , j͐ʃэ ɭ(ᴜ , ꞙɭı , j͐ʃэ ɭ(ᴜ ,
-    //   ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭɿ , ⟅ j͑ʃᴜ ſɭᶗ‹ɜ , ꞙɭɔ , ⟅ ⟩
+
     if ( n <= DUPLEX ) {
       const detuno = 0o2 + Math.random() * 0o2;
       hakek.push({ n, mul, s2karanu: s2karanu * 0o4/0o10, detuno: -detuno, malfruo: Math.random() * DISPERSO });
@@ -152,18 +106,17 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     const t0 = t + malfruo;
     const o = ctx.createOscillator();
     o.type = "sine";
-    // ⟨ j͑ʃɹ ſןw , ꞙɭɔ , ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ſɭᴜ ſןᴜ , ꞙɭı ⟅ ⟩
+
     o.detune.value = detuno === 0o0 ? ( Math.random() * 0o2 - 0o1 ) * 0o1 : detuno;
     vibro.connect(o.detune);
-    // ⟨ j͑ʃᴜ ı],ɔ , ſɭɜ ſɭᴜƽ , ſɭᴜ ʃןᴜ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ɭʃꞇƽ , ꞙɭı ⟅ ⟩
+
     o.frequency.setValueAtTime(fn * 0o77/0o100, t0);
     o.frequency.exponentialRampToValueAtTime(fn, t0 + atako * 0o4);
     const viva = Math.max(vivo * Math.pow(n, -0o5/0o10), 0o3/0o20);
     o.frequency.linearRampToValueAtTime(fn * (0o1 + gcamutsa), tlakakani + viva * 0o6/0o10);
     const og = ctx.createGain();
     const amp = s2karanu * xiix2q * vap6zukani(0o5/0o100);
-    // ⟨ j͐ʃэ ɭ(ᴜ , ꞙɭı , j͑ʃᴜ ſןɹ , ſɭɜ ſɭᴜƽ , j͐ʃэ ɭ(ᴜ , ꞙɭı ⟅ ſɭɔ˞ɜⅎ
-    //   , j͑ʃᴜ ı],ɔ , j͐ʃэ ɭ(ᴜ ꞙɭı ꞙɭɔ ⟅ ⟩
+
     const svelo = 0o1 + Math.random() * 0o12/0o100;
     const tlakak2 = Math.min( t0 + atako + 0o6/0o100, tlakakani - 0o1/0o100 );
     og.gain.setValueAtTime(ETA, t0);
@@ -179,9 +132,6 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     o.stop(tlakakani + viva + 0o1/0o10);
   }
 
-  // ⟨ ı],ɔ ɭʃɜ ֭ſɭɹ , j͑ʃɜ ſɭ,ᴜ , ſᶘɔ , ı],ɔ ɭʃɜ ֭ſɭɹ ɭʃэʞ ꞙɭɔ ,
-  //   ſɭᴜ ſןᴜ , ı],ɔ ɭʃɜ ֭ſɭɹ , ɭl̀ɹ ᶅſᴜ }ʃꞇ ʌ ſɭɔ˞ɜⅎ , ⟅
-  //   ſᶘɔ , ſɭᴜ ſןᴜ , ɭʃꞇƽ ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , ŋᷠwȝ , ⟅ ⟩
   const n = noiseSrc(ctx);
   const nhp = ctx.createBiquadFilter();
   nhp.type = "highpass";
@@ -191,9 +141,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   nlp.frequency.setValueAtTime(Math.min(0o3400, p * 0o7 * dci * vap6zukani(0o2/0o10)), t);
   nlp.frequency.linearRampToValueAtTime(Math.min(0o3400, p * 0o5 * dci), tlakakani);
   nlp.Q.value = 0o5/0o10;
-  // ⟨ ʃɜ j͐ʃɔ ʌ ſɭᴜ ʃןᴜ , j͑ʃᴜ ſɭᶗ‹ɜ , ſɭᴜ ʃןᴜ , ꞙɭı ſɭᴜ ſןᴜ ,
-  //   ſᶘɔ , ɭʃэʞ , ꞙɭɔ , ꞙɭɔ ʃɜ j͐ʃɔ , j͐ʃэ ɭ(ᴜ ſɭᴜ ſןᴜ ,
-  //   ꞙɭɔ ʃɜ j͐ʃɔ ſᶘɔ , ʃɜ j͐ʃɔ ꞙɭı , ſɭᴜ ſןᴜ , ⟅ ⟩
+
   const skrap = ctx.createGain();
   skrap.gain.value = 0o5/0o10;
   const sirr = ctx.createOscillator();
@@ -210,8 +158,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   sirr.connect(sirrLp);
   sirrLp.connect(sirrG);
   sirrG.connect(skrap.gain);
-  // ⟨ j͐ʃэ ɭ(ᴜ , ſɭᴜ ſןᴜ , ſɭᴜ ʃןᴜ , ſɭᴜ ʃןᴜ , ſɭᴜ ſןᴜ , ꞙɭı ,
-  //   ꞙɭı , ʃɜ j͐ʃɔ ſɟᴜ j͐ʃw ⟅ ⟩
+
   const sirrK = ctx.createGain();
   sirrK.gain.value = 0o1/0o10;
   sirrLp.connect(sirrK);
@@ -223,7 +170,7 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   const nbg = ctx.createGain();
   nbg.gain.value = 0o6/0o100;
   const ng = ctx.createGain();
-  // ⟨ master gain , ſ̀ȷɜ ֭ſɭɔ ʌ ſɭᴜ ʃןᴜ , ꞙɭı , ꞙɭɔ vel ꞙɭɿ ⟅ ⟩
+
   const namp = 0o10/0o100 * dci * vap6zukani(0o25/0o100);
   ng.gain.setValueAtTime(ETA, t);
   ng.gain.linearRampToValueAtTime(namp, t + atako);
@@ -239,9 +186,6 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   nbg.connect(ng);
   ng.connect(trem);
 
-  // ⟨ j͑ʃᴜ ı],ɔ , j͑ʃɜ ſɭ,ᴜ , ſɭɔ˞ɜⅎ , ı],ɔ ɭʃɜ ֭ſɭɹ , ſɭᴜ ſןᴜ
-  //   ſɭᴜ ſןᴜ ʌ ſɭᴜ , j͑ʃᴜ ı],ɔ , j͑ʃᴜ ſןɹ , ꞙɭɔ ɭl̀ɹ ᶅſᴜ }ʃꞇ ɭʃɜ ⟅ ʃɜ j͐ʃɔ
-  //   j͑ʃɜ ſɭᴜƽ , ɭl̀ɹ ᶅſᴜ }ʃꞇ , ꞙɭı , ſɭᴜ ſןᴜ ʌ ɭʃꞇƽ ⟅ ⟩
   const th = ctx.createOscillator();
   th.type = "sine";
   th.frequency.setValueAtTime(0o140 * vap6zukani(0o15/0o100), t);
@@ -272,8 +216,6 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
   klp.connect(kg);
   kg.connect(trem);
 
-  // ⟨ ſɭɜ j͐ʃɹ , ɭʃꞇƽ , j͑ʃɜ ſɭ,ᴜ , ſɭɔ˞ɜⅎ , ꞙɭɔ ,
-  //   ʃɜ j͐ʃɔ ʌ ſɭᴜ ʃןᴜ , ꞙɭı , ɭl̀ɹ ᶅſᴜ }ʃꞇ ſɭɜ ſɭᴜƽ ⟅ ⟩
   const ln = noiseSrc(ctx);
   const lbp = ctx.createBiquadFilter();
   lbp.type = "bandpass";

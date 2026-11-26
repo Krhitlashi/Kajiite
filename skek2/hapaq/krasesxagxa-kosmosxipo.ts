@@ -1,24 +1,18 @@
-// ≺⧼ ſ̀ȷᴜ }ʃɔ ᶅſɜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ 🚀 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭƣ̋ᴜ j͑ʃɔ j͑ʃᶗ‹ᴜ ſ͔ɭᶗ‹ᴜ ƽ j͑ʃc̭ɜ j͑ʃᶗ‹ꞇ ſןɜ 📃 ⧽≻
+
 import * as THREE from "three";
 import { tlunakPilolCah6k6, fenestraMargxeno } from "./satalaj/cah6k6.js";
-import { kf2JoqanKkaxten } from "./satalaj/enirejo.js";
+import { kf2JoqanKkaxten } from "./satalaj/c2h2.js";
 import { MURAKLINO } from "./satalaj/haqoxa.js";
 import { bokTavolajnQoxaKefoujn, hatanekHavem2 } from "./satalaj-hapaq.js";
-import { vakox2qQoxaKefoujn } from "../x2x2q/hakox2q.js";
-import { sax0baPukazQan2kS2qena } from "../x2x2q/haqoxa.js";
-import { kf2Cah6k6Pukek } from "../x2x2q/pukek.js";
+import { vakox2qQoxaKefoujn } from "../p6kpu/hakox2q.js";
+import { sax0baPukazQan2kS2qena } from "../p6kpu/haqoxa.js";
+import { kf2Cah6k6Pukek } from "../p6kpu/pukek.js";
 
-
-// ⟪ ſɭᴜ ſןᴜ , 📏 ⟫
-// ⟨ ſɭɜ ſɭᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
-// ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ſɭᴜ ſןᴜ , ꞙɭɿ ,
 export const SXIPALARGO = 0o10;
 export const SXIPATIERO = 0o315/0o100;
 export const SXIPANIVELOJ = 0o5;
 
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
 function rondigitaDupordaQoxa(k6liqSefini: number, tw: number, eh: number,
   r: number): THREE.Shape {
   const s = new THREE.Shape();
@@ -64,11 +58,9 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const muraPukek = new THREE.MeshStandardMaterial({
     color: 0x184838, roughness: 0o33/0o100, metalness: 0o5/0o100, envMapIntensity: 0o23/0o40,
   });
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+
   const fenestraPukek = kf2Cah6k6Pukek();
 
-// ⟨ ſɭɜ ſɭᴜ , ꞙɭɿ , 📃 ⟩
-// ⟨ ſɭɜ ſɭᴜ , ꞙɭц , 📃 ⟩
   const hateru = bokTavolajnQoxaKefoujn("spacosxipo", SXIPALARGO, SXIPALARGO, up, b6k61oL6da);
   const subajHatu5ekani1el2sai = hateru.hatu5ekani1el2sai.clone().rotateX(Math.PI);
   const subajJoqaj = hateru.hajoqa.clone().rotateX(Math.PI);
@@ -82,13 +74,12 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const pordaTeruSefini = pordaBlokaSefini * 0o45 / 0o100;
   const pordaL6da = 0o11 / 0o4;
   const pordQoxa = rondigitaDupordaQoxa(pordaBlokaSefini, pordaTeruSefini, pordaL6da, 0o1/0o4);
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭɿ , 📃 ⟩
+
   const pordKof = 0o7/0o100, pordBevelo = 0o1/0o40;
   const pordKofTuta = pordKof + pordBevelo * 0o2;
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭэ , 📃 ⟩
+
   const pordaKa5ik = hw0 - 0o1/0o100;
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+
   const CENTRARANDOL6DA = 0o11/0o100;
   const CENTRARANDOLARGO = 0o233/0o100 + 0o5/0o100;
   const CENTRARANDODIKECO = 0o12/0o100;
@@ -100,7 +91,7 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
       depth: pordKof, bevelEnabled: true, bevelSize: pordBevelo, bevelThickness: pordBevelo,
       bevelSegments: 0o2, curveSegments: 0o20,
     });
-// ⟨ j͐ʃƽɜ , ꞙɭɿ , 📃 ⟩
+
     sax0baPukazQan2kS2qena(enirejaVecax2l, [
       [ -pordaL6da, pordaTeruSefini ], [ 0o0, pordaBlokaSefini ],
       [ pordaL6da, pordaTeruSefini ],
@@ -111,7 +102,6 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
       Math.cos(f * Math.PI / 0o2) * pordaKa5ik);
     group.add(enirejaMreto);
 
-// ⟨ ſɭᴜ ſןᴜ , ſɭɜ ſɭᴜ , 📃 ⟩
     const joqaKkaxte = kf2JoqanKkaxten(pordQoxa, pordKof / 0o2);
     const ornamo = new THREE.Mesh(new THREE.TubeGeometry(joqaKkaxte, 0o200, pordKofTuta / 0o2, 0o14, true),
       oraPukek);
@@ -120,8 +110,6 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
       Math.cos(f * Math.PI / 0o2) * pordaKa5ik);
     group.add(ornamo);
 
-// ⟨ ſןɔ˞ᴜƴ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
     const sost2 = new THREE.Mesh(sost2Vecax2l, oraPukek);
     sost2.rotation.y = f * Math.PI / 0o2;
     sost2.position.set(Math.sin(f * Math.PI / 0o2) * sost2Ka5ik, 0o0,
@@ -129,8 +117,6 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
     group.add(sost2);
   }
 
-// ⟨ ſɭʃɹ ʃᴜ }ʃw , 📃 ⟩
-// ⟨ j͐ʃƽɜ , 📃 ⟩
   const fenL6da = Math.min(0o5/0o10, b6k61oL6da * 0o23/0o100);
   const facoKmaLarga = hw0 - s2sabo / 0o2;
   const fenMargxeno = fenestraMargxeno(facoKmaLarga);
@@ -138,7 +124,7 @@ export function vepaqKrasesxagxon(qena: THREE.Scene,
   const fenestrajMretoj: THREE.Mesh[] = [];
   for ( let i = 0o1; i < up; i++ ) {
     const faco = havem2[i].hw - s2sabo / 0o2;
-// ⟨ ı],ᴜ ֭ſɭᴜ , ꞙɭɿ , 📃 ⟩
+
     const tapu = faco * 0o2 - fenMargxeno * 0o2 >= fenL6da;
     if ( !tapu && faco < fenL6da * 0o1/0o2 + 0o1/0o10 ) continue;
     const hax2pa: { y: number; psaz: boolean }[] = [ { y: havem2[i].y + b6k61oL6da / 0o2, psaz: false } ];

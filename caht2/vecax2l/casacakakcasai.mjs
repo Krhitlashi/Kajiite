@@ -6,7 +6,7 @@ function subSemo(tk2ni, qar6xe) {
 	h ^= h >>> 11;
 	return h >>> 0;
 }
-// kantaoj/hax2x2q/interpolo.ts
+// kantaoj/tom6nu/interpolo.ts
 function glata(t) {
 	return t * t * (3 - 2 * t);
 }
@@ -212,11 +212,11 @@ function generiT6liman(tk2ni, n, vepat6ni, origino, vem2, enQoxa) {
 		jaqoSemoBazo: 83 / 64 + subSemo(tk2ni, KANALO_MONTARA_SEMO) % 2048 / 2048 * 64
 	};
 }
-// kantaoj/t6lima-havop2/cxefa/krado.ts
+// kantaoj/mut6q-havop2/geles/krado.ts
 const SKULPTA_ORIGINO = [-384, -384];
-// kantaoj/t6lima-havop2/cxefa/tsasa.ts
+// kantaoj/mut6q-havop2/geles/tsasa.ts
 const SKULPTA_AKVA_NIVELO = -288 / 64;
-// eskekoj/hax2x2q/mapqoxa.ts
+// eskekoj/tom6nu/mapqoxa.ts
 const TAFKAQ_PAL6 = 3 / 8;
 function qoxaPal6(qoxa, pal6) {
 	return qoxa === "c2q" ? pal6 : pal6 * TAFKAQ_PAL6;
@@ -246,22 +246,22 @@ function qoxaBsej2kuq(qoxa, pal6) {
 }
 function pukazX2x2qKa5ik(tltani) {
 	const n = tltani.length;
-	const x2x2q = [];
+	const p6kpu = [];
 	const haka5ik = [];
 	for (let i = 0; i < n; i++) {
 		const a = tltani[i], b = tltani[(i + 1) % n];
 		const mx = (a[0] + b[0]) / 2, mz = (a[1] + b[1]) / 2;
 		const d = Math.hypot(mx, mz) || 1;
-		x2x2q.push([mx / d, mz / d]);
+		p6kpu.push([mx / d, mz / d]);
 		haka5ik.push(d);
 	}
 	return {
-		x2x2q,
+		p6kpu,
 		haka5ik
 	};
 }
-function pukazBsej2kuq(x2x2q, haka5ik, x, z) {
-	for (let i = 0; i < x2x2q.length; i++) if (x2x2q[i][0] * x + x2x2q[i][1] * z > haka5ik[i] + 1 / 512) return false;
+function pukazBsej2kuq(p6kpu, haka5ik, x, z) {
+	for (let i = 0; i < p6kpu.length; i++) if (p6kpu[i][0] * x + p6kpu[i][1] * z > haka5ik[i] + 1 / 512) return false;
 	return true;
 }
 function ka5ikH6kuni(qoxa, pal6, tafkaq) {
@@ -269,7 +269,7 @@ function ka5ikH6kuni(qoxa, pal6, tafkaq) {
 	const ux = Math.cos(tafkaq), uz = Math.sin(tafkaq);
 	const rc = qoxaPal6(qoxa, pal6);
 	const tltani = qoxaTltani(qoxa, pal6);
-	const { x2x2q, haka5ik } = pukazX2x2qKa5ik(tltani);
+	const { p6kpu, haka5ik } = pukazX2x2qKa5ik(tltani);
 	const bsej2kuq = qoxaBsej2kuq(qoxa, pal6);
 	let kma = 0;
 	for (let i = 0; i < tltani.length; i++) {
@@ -278,14 +278,14 @@ function ka5ikH6kuni(qoxa, pal6, tafkaq) {
 		const determinanto = ux * dz - uz * dx;
 		if (Math.abs(determinanto) < 8 ** -10) continue;
 		const t = (a[0] * dz - a[1] * dx) / determinanto;
-		if (t > kma && pukazBsej2kuq(x2x2q, haka5ik, ux * t, uz * t)) kma = t;
+		if (t > kma && pukazBsej2kuq(p6kpu, haka5ik, ux * t, uz * t)) kma = t;
 	}
 	for (const p of bsej2kuq) {
 		const projekcio = ux * p[0] + uz * p[1];
 		const sub = projekcio * projekcio - (p[0] * p[0] + p[1] * p[1]) + rc * rc;
 		if (sub < 0) continue;
 		const t = projekcio + Math.sqrt(sub);
-		if (t > kma && pukazBsej2kuq(x2x2q, haka5ik, ux * t, uz * t)) kma = t;
+		if (t > kma && pukazBsej2kuq(p6kpu, haka5ik, ux * t, uz * t)) kma = t;
 	}
 	return kma;
 }
@@ -297,7 +297,7 @@ function h6kuniQoxa(qoxa, pal6, x, z) {
 function bsej2kuqQoxa(qoxa, pal6, x, z) {
 	return h6kuniQoxa(qoxa, pal6, x, z) <= 0;
 }
-// kantaoj/t6lima-havop2/bal2.ts
+// kantaoj/mut6q-havop2/bal2.ts
 const MAPOJ = [{
 	kodo: "cxefa",
 	ksaka: "Geles mapo",
@@ -305,7 +305,7 @@ const MAPOJ = [{
 	qoxa: "c2q",
 	grandeco: 384
 }];
-// kantaoj/t6lima-havop2/mapregulo.ts
+// kantaoj/mut6q-havop2/bal2S2kanta.ts
 function aktivaMapo() {
 	return MAPOJ.find((m) => m.aktiva) ?? MAPOJ[0];
 }
@@ -314,10 +314,10 @@ const mapo = aktivaMapo();
 const NOMBRO_DA_JXUROJ = 9;
 let kamasumo = 0;
 function kuri() {
-	const t6lima = generiT6liman(342391, 192, 4, SKULPTA_ORIGINO, SKULPTA_AKVA_NIVELO, (x, z) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z));
+	const mut6q = generiT6liman(342391, 192, 4, SKULPTA_ORIGINO, SKULPTA_AKVA_NIVELO, (x, z) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z));
 	let tlunakani = 0;
-	for (let i = 0; i < t6lima.akvaMasko.length; i += 9) tlunakani += t6lima.akvaMasko[i] + t6lima.habs2[i] * 3 + t6lima.hapaga[i] * 7;
-	for (let i = 0; i < 64; i++) tlunakani += t6lima.l6da(SKULPTA_ORIGINO[0] + i * 3, SKULPTA_ORIGINO[1] + i * 5);
+	for (let i = 0; i < mut6q.akvaMasko.length; i += 9) tlunakani += mut6q.akvaMasko[i] + mut6q.habs2[i] * 3 + mut6q.hapaga[i] * 7;
+	for (let i = 0; i < 64; i++) tlunakani += mut6q.l6da(SKULPTA_ORIGINO[0] + i * 3, SKULPTA_ORIGINO[1] + i * 5);
 	return tlunakani;
 }
 kamasumo = kuri();

@@ -1,11 +1,12 @@
-// ≺⧼ ſɭᴜ ı],ƨɔ j͑ʃᴜꞇ ʌ ֭ſɭw }ʃᴜȝ 🏙️ ⧽≻
+// ≺⧼ ʃᴜ j͐ʃɹ ʌ ֭ſɭᴜ ֭ſɭw }ʃᴜȝ 🗺️ ⧽≻
+
 import * as THREE from "three";
 import { VepaqSpec } from "../../../skek2/hapaq/satalaj/hahunaq.js";
 import { RiverData } from "../../../skek2/qatsiike/tsasa.js";
 import { PagaKanta, TemekKanta } from "../../../skek2/pudal/hapaga.js";
-import { MangxajxEro } from "../../../skek2/w2ta/m7x/hahunaq.js";
+import { M7xEro } from "../../../skek2/w2ta/m7x/hahunaq.js";
 import type { Kas2kantaDitlakak } from "../../../skek2/qatsiike/hak6h6/hahunaq.js";
-import type { AldonaK6liq } from "../qox2n2k/hahunaq.js";
+import type { Nek2resaiK6liq } from "../qox2n2k/hahunaq.js";
 import { HxeuxfaKanta } from "../../../skek2/hapaq/hxeuxfa/hahunaq.js";
 import { S2tani } from "../../../skek2/qatsiike/b6tem2Kas2kanta.js";
 import type { Qoxa, Soqte } from "../../../skek2/pudal/hamaz.js";
@@ -34,7 +35,7 @@ export interface UrbaKanta {
   lampKanta: HxeuxfaKanta;
   nebulKanta: NebulaKanta;
   has2kaj2: S2tani[];
-  tlexlefp2saiBeroj: MangxajxEro[];
+  tlexlefp2saiBeroj: M7xEro[];
   hanpco: Qoxa[];
   c2h2Kanta: C2h2Kanta;
   xipo: Krasesxagxo | null;
@@ -52,7 +53,7 @@ export interface Knat6keqanuKuba {
   ofsZ: number;
   kekufxeso?: boolean;
   hahufwuk2?: boolean;
-  tlunakHak6liq?: AldonaK6liq[];
+  tlunakHak6liq?: Nek2resaiK6liq[];
   hateru?: Record<string, string>;
 }
 

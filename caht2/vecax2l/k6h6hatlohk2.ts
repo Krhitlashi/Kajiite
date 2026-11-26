@@ -1,12 +1,11 @@
-// ≺⧼ ſɭэ ֭ſɭэ j͑ʃᴜꞇ ʌ ſןw ſɭᴜƴ ʌ j͑ʃᴜƽ ſןw ʌ ſɭɔ ᶅſɔ ꞁȷ̀ᴜ }ʃꞇ 🧪 ⧽≻
-// ⟨ ſɭэ ֭ſɭэ ʌ ſɟɔ ɭʃɹ ʌ j͑ʃ'ᴜ ſɭᴜ ⟅ ſ͕ɭᴜ ʃэ ɭʃɔ ʌ ſȷɔ ſᶘᴜʞ
-// ſ͔ɭɔ ſɭɹʞ ꞙɭı ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſɭˬɹ , ſɭɔ˞ɜƴ 📃 ⟩
+// ≺⧼ ſɭэ ֭ſɭэ ֭ſɭᴜ ſ̀ȷɜ ֭ſɭƽɹ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { vepaqKradanKaxten } from "../../kanta/nala/kaxte/krada-kaxte.js";
+import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { vepaqQox2n2kKaxten } from "../../kanta/nala/kaxte/qox2n2k-kaxte.js";
 import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
-import { kf2T6g6Pukek, kf2T6hnaPukek, kf2KuhalPukek } from "../../skek2/x2x2q/pukek.js";
+import { kf2T6g6Pukek, kf2T6hnaPukek, kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
 import { K6H6AEKSTERAP2SOMANI, K6H6ABORDASEFINI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
 
 const HAKAS2KANTA = tikHak6h6();
@@ -21,7 +20,7 @@ const oro = kf2KuhalPukek( 0xd8b058 );
 const qox2n2kHak6h6: [ number, number ][][] = [];
 const qox2n2kHaveb6kek: [ number, number ][] = [];
 for ( const u of HAKAXTE ) {
-  const kaxte = vepaqKradanKaxten( qena,
+  const kaxte = vepaqQox2n2kKaxten( qena,
     { ptaluPal6: u.ptaluPal6, k6liqPal6: u.k6liqPal6, kekufxeso: false, hahufwuk2: false },
     [ u.ofsX, u.ofsZ ], oro, u.tlunakHak6liq ?? [] );
   for ( const d of kaxte.kas2kantaHavop2ni ) qox2n2kHak6h6.push(d.pts);
@@ -46,7 +45,6 @@ function phaka( x: number, z: number, a: readonly [ number, number ], b: readonl
   return { d: Math.hypot(px - x, pz - z), x: px, z: pz };
 }
 
-// ⟨ ֭ſɭэ ſɭw }ʃꞇ ʌ j͑ʃᴜꞇ ʌ ſɭэ ֭ſɭэ ( ꞙɭɔ ʌ ꞙɭı ʌ ꞙɭı ) 📃 ⟩
 function c2c2k( e: [ number, number ], propra: number, has2tonome: [ number, number ][][] ): number {
   let plosteq = Infinity;
   for ( let wi = 0o0; wi < has2tonome.length; wi++ ) {

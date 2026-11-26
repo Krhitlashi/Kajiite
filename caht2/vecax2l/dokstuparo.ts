@@ -1,10 +1,8 @@
-// ≺⧼ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ j͑ʃᴜꞇ ʌ ſɟᴜ ſןᴜ ɭʃэ ʌ j͑ʃᴜ ſɟɹƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ſןᴜ ſᶘɹ 🔬 ⧽≻
-// ⟨ ſɟᴜ ſןᴜ ɭʃэ , ſɭᴜ ſןᴜ , ſɭэ ɭʃᴜ , ⟅ ſןɔ˞ᴜƴ , j͑ʃᴜ ſɭ,w , ꞙɭı ,
-// ſɟᴜ ſןᴜ ɭʃэ , ſɭᴜ ſןᴜ , ꞙɭɿ , ſɭᴜ ſןᴜ , ֭ſɭэ ſɭэ , ꞙɭı ,
-// ſןɔ˞ᴜƴ , ꞙɭı , ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ≺⧼ ɭ(ɜ ſɭɔ˞ƨw ſןᴜ ɽ͑ʃ'ɜ 🧪 ⧽≻
+
 import * as THREE from "three";
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/t6lima-havop2/tlohk2nikziisai.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/t6limaSoza.js";
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
 import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
 import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
 import { kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
@@ -56,7 +54,7 @@ function finL6da( x: number, z: number, sefini: number ): number {
 for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
   const d = HAQAKAJ2[i];
   const r = d.s2sabo ?? 0o0;
-// ⟨ ſɭᴜ ſןᴜ , ſɭэ ſɭ,w , 📃 ⟩
+
   const qakaj2 = vepaqQakaj2n(qena, d.x, d.z, r, k6h6L6da, tsasaVem2, d.jufu, l6da);
   if ( qakaj2.capat6aN2kj.length < 0o2 ) {
     console.log(`  ｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${i} ｡ ſןɔ ʌ ſɟᴜ ſןᴜ ɭʃэ ｡ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ${qakaj2.kozunuY.toFixed(0o2)} ｡ ᶅſэ ſ͕ɭᴜ ʌ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${qakaj2.landejaY.toFixed(0o2)}`);
@@ -65,9 +63,9 @@ for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
   const landaX = d.x + Math.sin(r) * ( d.jufu / 0o2 );
   const landaZ = d.z + Math.cos(r) * ( d.jufu / 0o2 );
   const sefini = qakaj2.kozunuSefini;
-// ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſɭ,w , ꞙɭı , 📏 ⟩
+
   const starto = qakaj2L6daJe(landaX, landaZ) ?? finL6da(landaX, landaZ, sefini);
-// ⟨ ſɟᴜ ſןᴜ ɭʃэ , ſɭэ ɭʃᴜ , ſɭᴜ ſןᴜ , 📃 ⟩
+
   const veb6kek = tsiike(landaX, landaZ, K6H6ATRUAP2SOMANI);
   let saxeni = qakaj2.capat6aN2kj[0o0];
   const tlakakani = qakaj2.capat6aN2kj[0o1];
@@ -77,7 +75,7 @@ for ( let i = 0o0; i < HAQAKAJ2.length; i++ ) {
     if ( sahakani > K6H6ATRUAP2SOMANI )
       saxeni = [ veb6kek.x + dx * K6H6ATRUAP2SOMANI / sahakani, veb6kek.z + dz * K6H6ATRUAP2SOMANI / sahakani ];
   }
-// ⟨ ı],ᴜ ֭ſɭᴜ , ſןɔ˞ᴜƴ , ꞙɭı , 📏 ⟩
+
   const capat6 = kf2Qakaj2nStuparon(saxeni, tlakakani, starto, qakaj2.landejaY);
   if ( !capat6 ) {
     console.log(`  ｡ ſ͕ɭᴜ ſɭᴜ ɭl̀ɹ ${i} ｡ ſןɔ ʌ ſɟᴜ ſןᴜ ɭʃэ ｡ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ${qakaj2.landejaY.toFixed(0o3)}`);

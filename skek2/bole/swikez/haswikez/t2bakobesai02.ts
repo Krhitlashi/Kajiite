@@ -1,4 +1,4 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ɔɿ · ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ · ꞙɭꞟɿɔ ɭʃɜᴜ̩ ɭʃɜƽ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ꞁȷ̀ɔⅎ ꞁȷ̀ɹ 🎵 ⧽≻
 
 import type { BoleEg2b2, Qaroxema, SpuroDateno } from "../habal/hahunaq.js";
 import { F, NYAM } from "../habal/p6zuk.js";
@@ -7,7 +7,7 @@ import { HE, caxomani } from "../habal/tif.js";
 export function buildTrack2(): SpuroDateno {
   const ev: BoleEg2b2[] = [];
   const secs: Qaroxema[] = [];
-  // ⟨ ſɭᴜ ſןᴜ ʌ ʃɜ j͐ʃɔ , ꞙɭıɔ ɭʃɜᴜ̩ ɭʃɜƽ ʌ ꞙɭı , ꞙɭıɿ j͑ʃɹ ſןw , mbira ⟅ ⟩
+
   const e8 = caxomani(0o40), bar = e8 * 0o14, f0 = 0o4425/0o40;
   const N = NYAM;
   const kush = [ 0o0, 0o4, 0o2, 0o5, 0o3, 0o6, 0o4, 0o7, 0o5, 0o3, 0o2, 0o4 ];

@@ -1,24 +1,25 @@
-// ≺⧼ ɭʃᴜ ſɭɔ˞ᴜͷ̗ ꞁȷ̀ᴜꞇ ʌ j͑ʃɹ ſɟɔ j͐ʃɹ 🌲 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ɭʃᴜ ſɭɔ˞ᴜͷ̗ 📃 ⧽≻
+
 import * as THREE from "three";
-import { kf2LarikanS2cel2nCac2sex } from "../../x2x2q/cac2sex/larika-s2cel2.js";
-import { kf2LarikanS2cel2nBumpanCac2sex } from "../../x2x2q/cac2sex/larika-s2cel2-bumpo.js";
-import { vakox2qSenIndekson } from "../../x2x2q/hakox2q.js";
+import { kf2LarikanS2cel2nCac2sex } from "../../p6kpu/cac2sex/larika-s2cel2.js";
+import { kf2LarikanS2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/larika-s2cel2-bumpo.js";
+import { vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
 import { KRONAGEOMETRIARADIUSO, TAVOLAPROPORCIO, kronaKa5ikLarika } from "./hasoza.js";
 import { kf2S2saboQuaternionon, kf2Poziciilon, hazardaWeh2, kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import type { Cel2Raqa } from "./raqa.js";
 import { kf2TrunkanQoxaKefoun } from "./hasost2cel2sai.js";
-import { hunanuWeh2 } from "../../x2x2q/haweh2.js";
+import { hunanuWeh2 } from "../../p6kpu/haweh2.js";
 
 function vepaqLarikanSlafranQoxaKefoun(pinglajHas2nasce = 0o3): { slafj: THREE.BufferGeometry; hatok2q: THREE.BufferGeometry } {
   const hakek: THREE.BufferGeometry[] = [];
-  const branĉajHakek: THREE.BufferGeometry[] = [];
-  // ⟨ j͑ʃᴜ ʃɜƽ , ⟅ ⟩
+  const tok2qjHakek: THREE.BufferGeometry[] = [];
+
   const L6DA = 0o1;
   const KERNABOT = 0o3/0o100;
   const KERNAKMA = 0o1/0o100;
   const lowak = new THREE.CylinderGeometry(KERNAKMA, KERNABOT, L6DA, 0o12, 0o3);
   lowak.translate(0o0, L6DA / 0o2, 0o0);
-  branĉajHakek.push(lowak);
+  tok2qjHakek.push(lowak);
   const eksteraR = ( t: number ): number => 0o1/0o2 * Math.pow(0o1 - t, 0o7/0o10) + 0o1/0o100;
   const kernaR = ( t: number ): number => KERNABOT + ( KERNAKMA - KERNABOT ) * t;
 
@@ -58,7 +59,7 @@ function vepaqLarikanSlafranQoxaKefoun(pinglajHas2nasce = 0o3): { slafj: THREE.B
       const vem2 = 0o5;
       for ( let j = 0o0; j < vem2; j++ ) {
         const t = j / ( vem2 - 0o1 ) - 0o5/0o10;
-        // ⟨ ᶅſᴜ , j͑ʃᴜ ſɭᶗ‹ɜ , ⟅ ⟩
+
         const s2sabo = t * s2saboM + ( sakxo() - 0o5/0o10 ) * 0o3/0o10;
         const pinglo = kf2PinglanKarteton(
           sahakani * ( 0o4/0o5 + sakxo() * 0o4/0o10 ), kof);
@@ -94,7 +95,7 @@ function vepaqLarikanSlafranQoxaKefoun(pinglajHas2nasce = 0o3): { slafj: THREE.B
       .translate(0o0, sahakani / 0o2, 0o0);
     branĉo.applyMatrix4(new THREE.Matrix4().makeRotationFromQuaternion(q));
     branĉo.translate(kozunuP.x, kozunuP.y, kozunuP.z);
-    branĉajHakek.push(branĉo);
+    tok2qjHakek.push(branĉo);
     for ( let j = 0o0; j < 0o4; j++ ) {
       const m6na = ( j + 0o1 ) / 0o4;
       const pinglaAkso = new THREE.Vector3(Math.cos(a) * 0o1/0o2,
@@ -113,7 +114,7 @@ function vepaqLarikanSlafranQoxaKefoun(pinglajHas2nasce = 0o3): { slafj: THREE.B
   teru.translate(0o0, L6DA, 0o0);
   hakek.push(teru);
   return { slafj: vakox2qSenIndekson(hakek),
-    hatok2q: vakox2qSenIndekson(branĉajHakek) };
+    hatok2q: vakox2qSenIndekson(tok2qjHakek) };
 }
 
 export function vepaqLarikon(qena: THREE.Scene,
@@ -131,19 +132,18 @@ export function vepaqLarikon(qena: THREE.Scene,
   const maltsiikeKronaVecax2l = vepaqLarikanSlafranQoxaKefoun(0o1).slafj;
   const kronaVecax2l = kronaHavecax2lani.slafj;
   kronaVecax2l.computeBoundingBox();
-  // ⟨ ᶅſᴜ , ꞙɭɿ , ⟅ ⟩
+
   const kronaPukek = new THREE.MeshStandardMaterial({
     color: 0xc8c068, roughness: 0o1,
     side: THREE.DoubleSide,
   });
   const MAKSTAVOLOJ = 0o4;
   const TAVOLAKOVRO = 0o3/0o4;
-  // ⟨ ɭʃɜ ſɭɹȝ , ꞙɭɔ , ⟅ ⟩
+
   const BRANCXETOJ = 0o3;
   const brancxetaVecax2l = new THREE.CylinderGeometry(0o1/0o100, 0o5/0o100, 0o1, 0o4)
     .translate(0o0, 0o1/0o2, 0o0);
-  // ⟨ ſɭэ ſɭ,w , ɭʃɜ ſɭɹȝ , frustum culling , mesh , ſɭэ ſɭ,w , ſɭᴜ ſןᴜ ,
-  //   mesh , ꞙɭı , ꞙɭɿ , ꞙɭı , ⟅ 📃 ⟩
+
   interface LarikaSukf2qaniraqasai {
     hasost2cel2sai: THREE.Matrix4[]; hasost2cel2saiHaweh2: THREE.Color[];
     hasoza: THREE.Matrix4[]; hasozaHaweh2: THREE.Color[];
@@ -169,9 +169,9 @@ export function vepaqLarikon(qena: THREE.Scene,
   const weh2Cax2lo = [ 0xf8f0d8, 0xe8e0c8, 0xf0e8d0, 0xe0d8c0 ];
 
   hacel2.forEach(( t, i ) => {
-    // ⟨ j͑ʃᴜ ʃɜ , ſɭɜ ſɭᴜƽ , ⟅ ⟩
+
     const h = (0o155/0o40 + t.s * 0o30/0o10) * (0o33/0o100 + sakxoCasacakai() * 0o10/0o10);
-    // ⟨ ɭʃɜ ſɭɹȝ , j͐ʃэ ɭ(ᴜ , ⟅ ⟩
+
     const sost2cel2saiSefini = 0o23/0o100 + h * 0o5/0o100;
     const Q = kf2S2saboQuaternionon(sakxoCasacakai, 0o3/0o20, sakxoCasacakai() * Math.PI * 0o2);
     const kozuni = new THREE.Vector3(t.x, t.h, t.z);
@@ -191,15 +191,13 @@ export function vepaqLarikon(qena: THREE.Scene,
     s2cel2Weh2.copy(C);
 
     const hatanek = 0o3 + ( ( sakxoCasacakai() * 0o2 ) | 0o0 );
-    // ⟨ ſןᴜ j͐ʃэ , ⟅ ⟩
-    // ⟨ j͑ʃᴜ ʃɜ , ſɭᴜ ſןᴜ , ⟅ ⟩
-    // ⟨ j͑ʃᴜ ʃɜƽ , j͐ʃэ ɭ(ᴜ , ⟅ ⟩
+
     const kronaKa5ik = Math.min(0o3/0o4 * kronaKa5ikLarika(t.s), 0o21/0o100 * h);
     const kozunuSefini = kronaKa5ik / KRONAGEOMETRIARADIUSO;
     const kronaMinimumaY = kronaVecax2l.boundingBox!.min.y;
     const kronaMaksimumaY = kronaVecax2l.boundingBox!.max.y;
     const qoxaKefouaL6da = kronaMaksimumaY - kronaMinimumaY;
-    // ⟨ ſɭᴜ ſןᴜ , j͑ʃᴜ ſןɹ , ⟅ ⟩
+
     const hatanekP6zukj: { sefini: number; l6da: number }[] = [];
     let sozaSumo = 0o0;
     for ( let k = 0o0; k < hatanek; k++ ) {
@@ -213,12 +211,12 @@ export function vepaqLarikon(qena: THREE.Scene,
     let ne3ak2Teru = h + 0o3/0o10 - sozaSumo;
     for ( let k = 0o0; k < MAKSTAVOLOJ; k++ ) {
       if ( k >= hatanek ) {
-        // ⟨ ſɭᴜ ſןᴜ , ꞙɭɔ , ꞙɭɔ , ſɭᴜ ſןᴜ , ꞙɭı , ⟅ ⟩
+
         hazardaWeh2(sakxoCasacakai, C, weh2Cax2lo);
         continue;
       }
       const { sefini: sozaSefini, l6da: sozaL6da } = hatanekP6zukj[k];
-      // ⟨ ſɭᴜ ſןᴜ , ſɭɜ j͐ʃɹ , ⟅ ⟩
+
       const kozunuY = ne3ak2Teru - ( k === 0o0 ? 0o0 : TAVOLAKOVRO * sozaL6da * qoxaKefouaL6da );
       const sost2Y = kozunuY - kronaMinimumaY * sozaL6da - sozaL6da * 0o1/0o100;
       M.compose(raqa(new THREE.Vector3(
@@ -233,7 +231,7 @@ export function vepaqLarikon(qena: THREE.Scene,
 
     for ( let b = 0o0; b < BRANCXETOJ; b++ ) {
       const ang = sakxoCasacakai() * Math.PI * 0o2;
-      // ⟨ ɭʃɜ ſɭɹȝ , ſɭɜ ɭʃᴜ , ⟅ ⟩
+
       const yBrancxo = h * ( 0o1/0o10 + b * 0o1/0o10
         + ( sakxoCasacakai() - 0o5/0o10 ) * 0o1/0o20 );
       const sahakani = ( 0o3/0o10 + sakxoCasacakai() * 0o1/0o2 ) * sost2cel2saiSefini;
@@ -246,13 +244,12 @@ export function vepaqLarikon(qena: THREE.Scene,
         Math.sin(ang) * sost2cel2saiR, yBrancxo, Math.cos(ang) * sost2cel2saiR)),
         Qb.premultiply(Q), new THREE.Vector3(sost2cel2saiSefini, sahakani, sost2cel2saiSefini));
       sukf2qaniraqasai.hatok2q.push(M.clone());
-      // ⟨ ɭʃɜ ſɭɹȝ , ᶅſɜ ֭ſɭᴜ , ꞙɭц , j͑ʃɜ j͐ʃɹ , ᶅſɔ ֭ſɭɹ , ⟅ ⟩
+
       sukf2qaniraqasai.brancxetojHaweh2.push(
         C.setHex(hunanuWeh2(s2cel2Weh2.getHex(), 0o3)).clone());
     }
   });
 
-  // ⟨ mesh , ꞙɭı , ſɭэ ɭʃᴜ , ⟅ 📃 ⟩
   let unuaTrunko: THREE.InstancedMesh | null = null;
   const k21eTrunkaj: THREE.InstancedMesh[] = [];
   for ( const sukf2qaniraqasai of hasukf2qaniraqasai.values() ) {
