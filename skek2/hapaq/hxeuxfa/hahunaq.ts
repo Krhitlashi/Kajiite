@@ -1,25 +1,25 @@
-// ≺⧼ ֭ſɭw }ʃᴜȝ ʌ ſɟᴜ ſɟɹ ᶅſɹƽ 🏮 ⧽≻
+// ≺⧼ ֭ſɭᶗ‹ɔⅎ ı],ʞᴜ ſ͕ɭɜ ı],ᴜ 📃 ⧽≻
 import * as THREE from "three";
 
-export interface HxeuxfaQar {
+export interface HxeuxfaRaqa {
   x: number; z: number; y: number;
-  /** ſɭɔ }ʃɹȝ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ , ſɭɜ ſɭ,w }ʃw ʌ ֭ſɭwʞ ᶅſw ſɭɹ ʌ ɭʃэᴜ̩ ſɭɹ ⟅ */
+  /** ⟪ ı],ɔ ŋᷠᴜ ʌ ſɭэ ı],ᴜʞ ʌ ⺓ ʌ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ⟅ 📃 ⟫ */
   s2sabo?: number;
 }
 
 export interface HxeuxfaKanta {
-  flamaEkst6lima: THREE.InstancedMesh;
-  flamaC2h2: THREE.InstancedMesh;
-  flamaKerno: THREE.InstancedMesh;
-  flamaHslal: THREE.InstancedMesh;
-  hslalPoLampo: number;
-  langajHakozunu: THREE.Vector3[];
-  langajFazoj: number[];
-  brilajHan2k: THREE.Points;
-  brilaPukek: THREE.ShaderMaterial;
-  n2kLumoj: THREE.PointLight[];
-  lumajHavecax2l: number[];
-  spots: THREE.Vector3[];
-  phases: number[];
-  panaiLumojn: ( x: number, z: number ) => void;
+  k6xafP6sca: THREE.InstancedMesh;
+  k6xafSost2: THREE.InstancedMesh;
+  k6xafLowak: THREE.InstancedMesh;
+  k6xafSlal: THREE.InstancedMesh;
+  slalK2fe: number;
+  slalHakozunu: THREE.Vector3[];
+  slalXafanitapu: number[];
+  t6fHan2k: THREE.Points;
+  t6fPukek: THREE.ShaderMaterial;
+  n2kTsije: THREE.PointLight[];
+  tsijeHavecax2l: number[];
+  k6xafRaqa: THREE.Vector3[];
+  xafanitapu: number[];
+  panaiTsijen: ( xekuxaX: number, xekuxaZ: number ) => void;
 }

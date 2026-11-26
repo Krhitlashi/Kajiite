@@ -1,11 +1,7 @@
-// ≺⧼ j͑ʃɔ ſɟᴜ ſɟɹ ᶅſɹƽ ʌ j͑ʃɔ ſɟɔȝ ʌ ſɟꞇ ʃɔ ſᶘꞇ ɭl̀ɔ 🏮 ⧽≻
-// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı , 📃 ⟩
-// ſᶘɹ ſɭᴜ , ſɭɜ ſɭᴜ , ꞙɭɿ ,
-// ſɭэ ſɭw , ꞙɭц ,
-// ſɭэ ſɭw , ıɔıɔıɔ , ꞙɭэ , 📃 ⟩
+// ≺⧼ ſᶘꞇ ɭl̀ɔ j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ 📃 ⧽≻
 import * as THREE from "three";
 
-// ⟪ ſɭэ ſɭw , 🎚️ ⟫
+// ⟪ ı],ɔ ŋᷠᴜ ʌ ſᶘꞇ ɭl̀ɔ ſɭɹ ſȷɔ ʌ ⺓ ʌ ſ͕ɭɜ ı],ᴜ ⟅ 📃 ⟫
 export interface SotlakakKu1o {
   tapu: number;
   cepuTeru: number;
@@ -16,7 +12,7 @@ export interface SotlakakKu1o {
   s2karanu: number;
 }
 
-// ⟨ ſɭэ ſɭᴜ , ɿꞟꞟ / ıɩ , ꞙɭɩ , 📃 ⟩
+// ⟪ j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ʌ ſ͕ɭɜ ı],ᴜ ʌ ⺓ ʌ ſɭɹ ſȷɔ ⟅ 📃 ⟫
 export const SO3AKAKTAJ2: SotlakakKu1o = {
   tapu: 0o3/0o4,
   cepuTeru: 0o2,
@@ -27,10 +23,7 @@ export const SO3AKAKTAJ2: SotlakakKu1o = {
   s2karanu: 0o1,
 };
 
-// ⟪ ſᶘɹ ſɭᴜ , 🕯️ ⟫
-// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı ,
-// ſᶘɹ ſɭᴜ , ꞙɭɿ ,
-// ſᶘɹ ſɭᴜ , ꞙɭц , 📃 ⟩
+// ⟪ ı],ɔ ŋᷠᴜ ʌ ſᶘꞇ ɭl̀ɔ ſɭɹ ſȷɔ ʌ ⺓ ʌ ſᶘꞇ ɭl̀ɔ ⟅ 📃 ⟫
 export interface Hufwuk2Tsije {
   weh2: number;
   tlohe: number;
@@ -40,14 +33,12 @@ export interface Hufwuk2Tsije {
 
 export const HUFWUK2TSIJE: Hufwuk2Tsije = {
   weh2: 0xf89838,
-  tlohe: 0o20,
+  tlohe: 0o7,
   h6kuni: 0o40,
   so3akak: 0o2,
 };
 
-// ⟪ ſɭэ ſɭᴜ , 📜 ⟫
-// ⟨ ſɭэ ſɭᴜ , ꞙɭı ,
-// ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
+// ⟪ ı],ɔ ŋᷠᴜ ʌ ſᶘꞇ ɭl̀ɔ ſȷэⅎ ʌ ⺓ ʌ ſ͕ɭɜ ı],ᴜ ⟅ 📃 ⟫
 export interface SotlakakEsxaq {
   tapu: string;
   cepuTeru: string;
@@ -58,9 +49,9 @@ export interface SotlakakEsxaq {
   s2karanu: string;
 }
 
-/* ſᶘɹ ſɭᴜ , ꞙɭı ,
-    @param v ( SotlakakEsxaq ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſɭɹ ｡
-@returns so3akakKek ｡ ( string )*/
+/* ſɭʞɹ ʌ ſᶘꞇ ɭl̀ɔ ſȷэⅎ ʌ ⺓ ʌ ſɭɹ ſȷɔ ⟅
+    @param v ( SotlakakEsxaq ) - ſᶘꞇ ɭl̀ɔ ſ͕ɭɜ ı],ᴜ ſȷэⅎ ｡
+@returns ſᶘꞇ ɭl̀ɔ ſȷэⅎ ｡ ( string ) ｡ */
 export function so3akakGLSL( v: SotlakakEsxaq ): string {
   return `
 float so3akakKek( const in vec3 surfacaXekuxa, const in vec3 lupaXekuxa, const in float cutoffDistance, const in float decayExponent ) {
@@ -77,7 +68,7 @@ float so3akakKek( const in vec3 surfacaXekuxa, const in vec3 lupaXekuxa, const i
 		float eksponenta = exp( ${v.nar2sa} * t * t );
 		distanceFalloff *= cah6k6 * mix( 1.0, eksponenta, t * t );
 	}
-// ⟨ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
+// ⟪ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ʌ ſᶘꞇ ɭl̀ɔ ʌ ⺓ ʌ ſɭɹ ſȷɔ ⟅ 📃 ⟫
 	float srgb = pow( clamp( distanceFalloff, 0.0, 1.0 ), 1.0 / 2.2 );
 	float vem2 = srgb * ${v.vem2};
 	float s2karanu = ( floor( vem2 ) + smoothstep( 0.0, ${v.las}, fract( vem2 ) ) ) / ${v.vem2};
@@ -86,28 +77,26 @@ float so3akakKek( const in vec3 surfacaXekuxa, const in vec3 lupaXekuxa, const i
 `;
 }
 
-// ⟨ ſɭэ ſɭᴜ , ꞙɭц , 📃 ⟩
+// ⟪ ſɭʞɹ ʌ ſȷэⅎ ʌ ⺓ ʌ ſɭɹ ſȷɔ ⟅ 📃 ⟫
 export function glslK2fe( n: number ): string {
   const s = n.toString();
   return s.includes( "." ) || s.includes( "e" ) ? s : s + ".0";
 }
 
-// ⟪ ſᶘɹ ſɭᴜ , 🎮 ⟫
-// ⟨ ſɭɜ ᶗ‹ , ꞙɭı ,
-// ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
-function c2kSotlakak( funkcio: string, s2bana = "" ): void {
+// ⟪ j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ʌ ſᶘꞇ ɭl̀ɔ ſȷэⅎ ʌ ⺓ ʌ ŋᷠᴜ ſɭʞɹ ⟅ 📃 ⟫
+function c2kSotlakak( kanta: string, s2bana = "" ): void {
   if ( THREE.ShaderChunk.lights_pars_begin.includes( "so3akakKek" ) ) return;
   THREE.ShaderChunk.lights_pars_begin = THREE.ShaderChunk.lights_pars_begin
-    .replace( "float getSpotAttenuation", s2bana + funkcio + "\nfloat getSpotAttenuation" )
+    .replace( "float getSpotAttenuation", s2bana + kanta + "\nfloat getSpotAttenuation" )
     .replace(
       "light.color *= getDistanceAttenuation( lightDistance, pointLight.distance, pointLight.decay );",
       "light.color *= so3akakKek( geometryPosition, pointLight.position, pointLight.distance, pointLight.decay );"
     );
 }
 
-/* ſᶘɹ ſɭᴜ , ꞙɭэ ,
-    @param ku1o ( SotlakakKu1o = SO3AKAKTAJ2 , optional ) - j͑ʃ'ɔ ŋᷠɹ ｡
-@returns void*/
+/* j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ʌ ſᶘꞇ ɭl̀ɔ ſȷэⅎ ʌ ⺓ ʌ ŋᷠᴜ ſɭʞɹ ⟅
+    @param ku1o ( SotlakakKu1o = SO3AKAKTAJ2 , optional ) - ſᶘꞇ ɭl̀ɔ ſ͕ɭɜ ı],ᴜ ſɭɹ ſȷɔ ｡
+@returns void */
 export function ku1oSotlakak( ku1o: SotlakakKu1o = SO3AKAKTAJ2 ): void {
   const fn = so3akakGLSL({
     tapu: glslK2fe( ku1o.tapu ),
@@ -121,9 +110,7 @@ export function ku1oSotlakak( ku1o: SotlakakKu1o = SO3AKAKTAJ2 ): void {
   c2kSotlakak( fn );
 }
 
-// ⟪ ſɭэ ſɭw , 🎚️ ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ ,
-// ſ͕ɭɜ ı],ᴜ , ꞙɭꞟ , 📃 ⟩
+// ⟪ ı],ɔ ŋᷠᴜ ʌ ſᶘꞇ ɭl̀ɔ ſ͕ɭɜ ı],ᴜ ſɭɹ ſȷɔ ʌ ⺓ ʌ ſ͕ɭɜ ı],ᴜ ⟅ 📃 ⟫
 export interface SotlakakUnihaqoxa {
   tapu: THREE.IUniform< number >;
   cepuTeru: THREE.IUniform< number >;
@@ -144,9 +131,9 @@ export const SO3AKAKKSAKAJ: SotlakakEsxaq = {
   s2karanu: "uLampaKvant",
 };
 
-/* ſɭэ ſɭw , ꞙɭı ,
-    @param ku1o ( SotlakakKu1o = SO3AKAKTAJ2 , optional ) - j͑ʃ'ɔ ŋᷠɹ ｡ ı ｡
-@returns j͑ʃ'ɔ ŋᷠɹ ｡ ( SotlakakUnihaqoxa ) ｡*/
+/* ſɭʞɹ ʌ ſᶘꞇ ɭl̀ɔ ſ͕ɭɜ ı],ᴜ ſɭɹ ſȷɔ ʌ ⺓ ʌ ſɭɹ ſȷɔ ⟅
+    @param ku1o ( SotlakakKu1o = SO3AKAKTAJ2 , optional ) - ſᶘꞇ ɭl̀ɔ ſ͕ɭɜ ı],ᴜ ſɭɹ ſȷɔ ｡
+@returns ſᶘꞇ ɭl̀ɔ ſ͕ɭɜ ı],ᴜ ſɭɹ ſȷɔ ｡ ( SotlakakUnihaqoxa ) ｡ */
 export function kf2SotlakakUnihaqoxan(
   ku1o: SotlakakKu1o = SO3AKAKTAJ2 ): SotlakakUnihaqoxa {
   return {
@@ -160,59 +147,58 @@ export function kf2SotlakakUnihaqoxan(
   };
 }
 
-/* ſɭэ ſɭw , ꞙɭɿ ,
-@returns void*/
+/* j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ʌ ſᶘꞇ ɭl̀ɔ ſȷэⅎ ʌ ⺓ ʌ ŋᷠᴜ ſɭʞɹ ⟅
+@returns void */
 export function ku1oPufosakanSotlakak(): void {
   const s2bana = Object.values( SO3AKAKKSAKAJ )
     .map( ( ksaka ) => `uniform float ${ksaka};` ).join( "\n" );
   c2kSotlakak( so3akakGLSL( SO3AKAKKSAKAJ ), s2bana + "\n" );
 }
 
-/* ſɭэ ſɭw , ꞙɭц ,
-    @param pukek ( THREE.MeshStandardMaterial ) - ſɟᴜ ſןᴜȝ ｡
-    @param unihaqoxa ( SotlakakUnihaqoxa ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡
-@returns ſɟᴜ ſןᴜȝ ( THREE.MeshStandardMaterial ) ｡*/
+/* j͑ʃ'ɔ ɭʃɔ ŋᷠɹ ʌ ſᶘꞇ ɭl̀ɔ ſȷэⅎ ʌ ⺓ ʌ ſןw ſɭɔƽ ⟅
+    @param pukek ( THREE.MeshStandardMaterial ) - ſןw ſɭɔƽ ｡
+    @param unihaqoxa ( SotlakakUnihaqoxa ) - ſᶘꞇ ɭl̀ɔ ſ͕ɭɜ ı],ᴜ ſɭɹ ſȷɔ ｡
+@returns ſןw ſɭɔƽ ｡ ( THREE.MeshStandardMaterial ) ｡ */
 export function c2kSotlakakUnihaqoxan( pukek: THREE.MeshStandardMaterial,
   unihaqoxa: SotlakakUnihaqoxa ): THREE.MeshStandardMaterial {
   const ne3ak2 = pukek.onBeforeCompile;
-  pukek.onBeforeCompile = ( shadero, k2fcakuk ) => {
-    ne3ak2.call( pukek, shadero, k2fcakuk );
-    shadero.uniforms[ SO3AKAKKSAKAJ.tapu ] = unihaqoxa.tapu;
-    shadero.uniforms[ SO3AKAKKSAKAJ.cepuTeru ] = unihaqoxa.cepuTeru;
-    shadero.uniforms[ SO3AKAKKSAKAJ.cepuPsaz ] = unihaqoxa.cepuPsaz;
-    shadero.uniforms[ SO3AKAKKSAKAJ.nar2sa ] = unihaqoxa.nar2sa;
-    shadero.uniforms[ SO3AKAKKSAKAJ.vem2 ] = unihaqoxa.vem2;
-    shadero.uniforms[ SO3AKAKKSAKAJ.las ] = unihaqoxa.las;
-    shadero.uniforms[ SO3AKAKKSAKAJ.s2karanu ] = unihaqoxa.s2karanu;
+  pukek.onBeforeCompile = ( glslKanta, k2fcakuk ) => {
+    ne3ak2.call( pukek, glslKanta, k2fcakuk );
+    glslKanta.uniforms[ SO3AKAKKSAKAJ.tapu ] = unihaqoxa.tapu;
+    glslKanta.uniforms[ SO3AKAKKSAKAJ.cepuTeru ] = unihaqoxa.cepuTeru;
+    glslKanta.uniforms[ SO3AKAKKSAKAJ.cepuPsaz ] = unihaqoxa.cepuPsaz;
+    glslKanta.uniforms[ SO3AKAKKSAKAJ.nar2sa ] = unihaqoxa.nar2sa;
+    glslKanta.uniforms[ SO3AKAKKSAKAJ.vem2 ] = unihaqoxa.vem2;
+    glslKanta.uniforms[ SO3AKAKKSAKAJ.las ] = unihaqoxa.las;
+    glslKanta.uniforms[ SO3AKAKKSAKAJ.s2karanu ] = unihaqoxa.s2karanu;
   };
   pukek.customProgramCacheKey = () => "lampaFaloVigla";
   return pukek;
 }
 
-// ⟪ ꞙɭɩ , 📐 ⟫
-/* ſᶘɹ ſɭᴜ , ꞙɭэ ,
-    @param tapu ( number ) - j͑ʃэ ɭ(ᴜ ｡ ſᶘɔ ɭl̀ɹȝ ｡
-    @param vy ( number ) - ſᶘɔ ɭl̀ɹȝ ｡ j͑ʃэ ɭ(ᴜ ｡
-    @param cutoff ( number ) - j͑ʃэ ɭ(ᴜ ｡ ſɭɜ ｡
-    @param decay ( number ) - j͑ʃ'ɔ ŋᷠɹ ｡ ſןɔ˞ᴜƴ ｡
-    @param a ( SotlakakKu1o ) - j͑ʃ'ɔ ŋᷠɹ ｡ j͑ʃᴜ ｡
-@returns ſᶘɔ ɭl̀ɹȝ sRGB ɔ ｡ ı ( number )*/
-export function so3akakSrgbJS( tapu: number, vy: number,
-  cutoff: number, decay: number, a: SotlakakKu1o ): number {
-  const l6da = -vy;
-  const vertikala = l6da > 0 ? l6da * a.cepuTeru : l6da * a.cepuPsaz;
+/* ſɭʞɹ ʌ ſᶘꞇ ɭl̀ɔ ſɭɹ ſȷɔ ʌ ⺓ ʌ ſɭɹ ſȷɔ ⟅
+    @param tapu ( number ) - ſ͕ɭɜ ı],ᴜ ſɭɹ ſȷɔ ｡
+    @param l6da ( number ) - ſɭᴜ ſןᴜ ｡
+    @param h6kuni ( number ) - ֭ſɭэ ſɭw }ʃꞇ ｡
+    @param so3akak ( number ) - j͑ʃɜ ſ̀ȷᴜ ſɭᴜƽ ｡
+    @param a ( SotlakakKu1o ) - ſᶘꞇ ɭl̀ɔ ſ͕ɭɜ ı],ᴜ ſɭɹ ſȷɔ ｡
+@returns ſᶘꞇ ɭl̀ɔ ſɭɹ ſȷɔ ｡ ( number ) ｡ */
+export function so3akakSrgbJS( tapu: number, l6da: number,
+  h6kuni: number, so3akak: number, a: SotlakakKu1o ): number {
+  const cepu = -l6da;
+  const vertikala = cepu > 0 ? cepu * a.cepuTeru : cepu * a.cepuPsaz;
   const kkaxte = Math.hypot( tapu * a.tapu, vertikala );
-  let falloff = 1 / Math.max( Math.pow( kkaxte, decay ), 0o1/0o144 );
-  if ( cutoff > 0 ) {
-    const t = Math.max( 0, Math.min( 1, kkaxte / cutoff ) );
+  let h6kuniVem2 = 1 / Math.max( Math.pow( kkaxte, so3akak ), 0o1/0o144 );
+  if ( h6kuni > 0 ) {
+    const t = Math.max( 0, Math.min( 1, kkaxte / h6kuni ) );
     const cah6k6 = Math.pow( Math.max( 0, Math.min( 1, 1 - Math.pow( t, 0o4 ) ) ), 0o2 );
-    const eksp = Math.exp( a.nar2sa * t * t );
-    falloff *= cah6k6 * ( 1 + ( eksp - 1 ) * t * t );
+    const eksponenta = Math.exp( a.nar2sa * t * t );
+    h6kuniVem2 *= cah6k6 * ( 1 + ( eksponenta - 1 ) * t * t );
   }
-  const srgb = Math.pow( Math.max( 0, Math.min( 1, falloff ) ), 0o5/0o11 );
+  const srgb = Math.pow( Math.max( 0, Math.min( 1, h6kuniVem2 ) ), 0o5/0o11 );
   const vem2 = srgb * a.havem2;
-  const fr = vem2 - Math.floor( vem2 );
-  const x = Math.max( 0, Math.min( 1, fr / a.las ) );
+  const vem2Nek = vem2 - Math.floor( vem2 );
+  const x = Math.max( 0, Math.min( 1, vem2Nek / a.las ) );
   const xaha = x * x * ( 3 - 2 * x );
   const s2karanu = ( Math.floor( vem2 ) + xaha ) / a.havem2;
   return srgb + ( s2karanu - srgb ) * a.s2karanu;

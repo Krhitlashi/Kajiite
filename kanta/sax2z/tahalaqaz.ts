@@ -31,7 +31,7 @@ import { alHe } from "../x2x2q/s2cax2l.js";
 import { kf2Rultemon } from "../tahaq/tlohk2nikziisai.js";
 import { MALPOTENCAAPARATO } from "../tahaq/scena/cak2p2.js";
 
-/* ſɭэ ſɭᴜ , j͑ʃɜ j͑ʃƨɹ , ꞙɭı ,
+/* ꞙɭı ɭ(ꞇ ʌ ſɭэ ſɭᴜ ʌ j͑ʃɜ j͑ʃƨɹ
     @param x ( number ) - j͑ʃэ ɭl̀э ｡ X ｡
     @param z ( number ) - j͑ʃэ ɭl̀э ｡ Z ｡
 @returns enKaxte ( boolean ) */
@@ -91,9 +91,9 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     lampKanta, nebulKanta, hanpco, c2h2Kanta, xipo,
   } = nala;
 
-// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı ,
-// ( ꞙɭɿ , ſןɔ˞ᴜƴ ) , 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ 📃 ⟫
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſɭᴜ ſןᴜ
+// ꞙɭɿ ɭ(ꞇ ʌ ſןɔ˞ᴜƴ 📃 ⟩
   if ( ( import.meta as unknown as { env?: { DEV?: boolean } } ).env?.DEV === true ) {
     ( window as unknown as { rigardi?: unknown } ).rigardi = {
       catahaq, hakama, masax2z,
@@ -116,9 +116,9 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     masax2z, mov, c2h2: c2h2Kanta, hapat6, ca3aq, x2paKfe, catsaraX2pa,
   });
 
-// ⟪ ſɭэ ſɭw , 📃 ⟫
+// ⟪ ſɭэ ſɭw 📃 ⟫
   const horlogxo = new THREE.Timer();
-// ⟨ ſɭэ ᶗ‹ , ꞙɭı , 📃 ⟩
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſɭэ ᶗ‹ 📃 ⟩
   horlogxo.connect(document);
   let haltigita = false;
   let joqaGeneracio = 0;
@@ -130,20 +130,20 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
   const ORBITAKMARE = new THREE.Vector3(0, 1, 0);
   const ORBITAOFSETA = new THREE.Vector3();
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ꞙɭɿ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
   let ekranaLargxo = innerWidth, ekranaL6da = innerHeight, aparataRatio = devicePixelRatio;
   const tlak2Ekranon = (): void => {
     ekranaLargxo = innerWidth; ekranaL6da = innerHeight; aparataRatio = devicePixelRatio;
   };
   window.addEventListener("resize", tlak2Ekranon);
-// ⟨ ſɭэ ᶗ‹ , ꞙɭц ,
-//   ſɭэ ᶗ‹ , ꞙɭэ , 📃 ⟩
+// ⟨ ꞙɭц ɭ(ꞇ ʌ ſɭэ ᶗ‹
+//   ꞙɭэ ɭ(ꞇ ʌ ſɭэ ᶗ‹ 📃 ⟩
   let b6tem2Finita = b6tem2Kfe.classList.contains("finita");
   new MutationObserver(() => {
     b6tem2Finita = b6tem2Kfe.classList.contains("finita");
   }).observe(b6tem2Kfe, { attributes: true, attributeFilter: [ "class" ] });
 
-// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ 📃 ⟫
   function vepaqRetilanS2k61o(): LokaS2k61o {
     const aspekto = vefalSoqte();
     const s2tani = masax2z.surS2tani;
@@ -167,23 +167,23 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     };
   }
 
-// ⟪ ſɭэ ſɭw , 📃 ⟫
+// ⟪ ſɭэ ſɭw 📃 ⟫
   const { kolekti: kolektiHerbajnHamasurok } = kf2HerbajnHamasurok({
     hanpco, hapaga,
     masax2z: () => masax2z.raqa,
     promenas: () => masax2z.supknu === "promeno" && !masax2z.surS2tani,
   });
 
-// ⟪ ſɭэ ſɭw , ꞙɭɿ , 📃 ⟫
-// ⟨ ſɭэ ᶗ‹ , ꞙɭц ,
-// ſɭэ ᶗ‹ , ꞙɭэ , 📃 ⟩
-/* ſɭэ ſɭw , ꞙɭı , */
+// ⟪ ꞙɭɿ ɭ(ꞇ ʌ ſɭэ ſɭw 📃 ⟫
+// ⟨ ꞙɭц ɭ(ꞇ ʌ ſɭэ ᶗ‹
+// ꞙɭэ ɭ(ꞇ ʌ ſɭэ ᶗ‹ 📃 ⟩
+/* ꞙɭı ɭ(ꞇ ʌ ſɭэ ſɭw */
   function halti(): void {
     haltigita = true;
     joqaGeneracio++;
   }
 
-/* ſɭэ ſɭw , ꞙɭɿ , */
+/* ꞙɭɿ ɭ(ꞇ ʌ ſɭэ ſɭw */
   function restarti(): void {
     if ( document.hidden ) return;
     haltigita = false;
@@ -195,12 +195,12 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
   function animacii(): void {
     if ( document.hidden ) { halti(); return; }
     rultif.catsaraFokuson(document.hasFocus());
-// ⟨ ſɭэ ᶗ‹ , ꞙɭɩ , 📃 ⟩
+// ⟨ ꞙɭɩ ɭ(ꞇ ʌ ſɭэ ᶗ‹ 📃 ⟩
     const mia = ++joqaGeneracio;
     const joqa = ( nun: number ): void => {
       if ( haltigita || mia !== joqaGeneracio ) return;
       requestAnimationFrame(joqa);
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
+// ⟨ ꞙɭꞟ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
       if ( rultif.bildigu(alHe(nun)) ) bildigi();
     };
     requestAnimationFrame(joqa);
@@ -208,7 +208,7 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
 
   document.addEventListener("visibilitychange", () => {
     if ( document.hidden ) { halti(); return; }
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
     tlak2Ekranon();
     restarti();
   });
@@ -216,24 +216,24 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
   window.addEventListener("focus", () => rultif.catsaraFokuson(true));
   window.addEventListener("pagehide", halti);
   window.addEventListener("pageshow", restarti);
-// ⟨ ſɭэ ᶗ‹ , ꞙɭɿ , 📃 ⟩
+// ⟨ ꞙɭɿ ɭ(ꞇ ʌ ſɭэ ᶗ‹ 📃 ⟩
   p2t6zo.addEventListener("webglcontextlost", ( e ) => {
     e.preventDefault();
-// ⟨ ſɭэ ᶗ‹ , ꞙɭц , 📃 ⟩
+// ⟨ ꞙɭц ɭ(ꞇ ʌ ſɭэ ᶗ‹ 📃 ⟩
     k2fcakuk.shadowMap.enabled = false;
     aparataRatio = Math.min(aparataRatio, 0o1);
     halti();
   });
   p2t6zo.addEventListener("webglcontextrestored", () => {
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭэ ,
-//   ſ͕ɭɜ ı],ᴜ , ꞙɭɩ , 📃 ⟩
+// ⟨ ꞙɭэ ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ
+//   ꞙɭɩ ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ 📃 ⟩
     horlogxo.reset();
     restarti();
   });
 
   let veb6qaiJoqaNombro = 0;
   let muzikaQarT = 0;
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭꞟ , 📃 ⟩
+// ⟨ ꞙɭꞟ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
   const KANAKAL2HAPERIODO = 0o14 * 0o20;
   function bildigi(): void {
     horlogxo.update();
@@ -259,11 +259,11 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     tlak2Hatemekn(hatemek, t);
     if ( xipo ) animaciiKrasesxagxon(xipo, t, false);
 
-// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ 📃 ⟫
     promenanto.tona(deltaTif, t);
     internanto.tona(deltaTif, t);
     kanuanto.tona(deltaTif, t);
-// ⟨ ſȷwɔ˞ , ꞙɭı , 📃 ⟩
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſȷwɔ˞ 📃 ⟩
     if ( t - muzikaQarT > 0o1/0o2 ) {
       muzikaQarT = t;
       catsaraMuzikanLokon(tsekeEnKaxte(masax2z.raqa.x, masax2z.raqa.z));
@@ -271,10 +271,10 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
 
     for ( const n of hanpco ) { if ( n.group.visible ) tlak2Npc(n, deltaTif, t, l6da, hapat6.hasap2.k6h6TeruY); }
 
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ꞙɭɿ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
     if ( masax2z.supknu === "promeno" && !masax2z.surS2tani ) {
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭц ,
-//   ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
+// ⟨ ꞙɭц ɭ(ꞇ ʌ ſɭᴜ ſןᴜ
+//   ꞙɭэ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
       const NPCMIN2 = ( 0o7/0o10 ) * ( 0o7/0o10 );
       const BESTAMIN2 = ( 0o5/0o10 ) * ( 0o5/0o10 );
       const MINIMA2 = ( 0o1/0o20000 ) * ( 0o1/0o20000 );
@@ -304,13 +304,13 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
       }
     }
 
-// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
+// ⟪ ſɭᴜ ſןᴜ 📃 ⟫
     if ( caxlefkakai.tik ) {
       caxlefkakai.sendi(vepaqRetilanS2k61o);
       caxlefkakai.animacii(deltaTif, t);
     }
 
-// ⟪ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟫
+// ⟪ ꞙɭɿ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟫
     masax2z.kameraH6kuni += ( masax2z.celH6kuni - masax2z.kameraH6kuni ) * Math.min(1, deltaTif * 0o10);
     if ( masax2z.celH6kuni < 0o1/0o20 ) masax2z.kameraH6kuni = 0;
     const vidasQoxa = masax2z.kameraH6kuni > 0o1/0o20 && ( masax2z.supknu === "promeno" || masax2z.supknu === "c2h2" );
@@ -339,18 +339,18 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
     const mapX = masax2z.supknu === "orbito" ? hakama.target.x : masax2z.raqa.x;
     const mapZ = masax2z.supknu === "orbito" ? hakama.target.z : masax2z.raqa.z;
     minimapo.tlak2(fx, fz, mapX, mapZ);
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ ,
-// ſɭᴜ ſןᴜ , ꞙɭц ,
-// ſɭᴜ ſןᴜ , ꞙɭэ , 📃 ⟩
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
+// ⟨ ꞙɭɿ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ
+// ꞙɭц ɭ(ꞇ ʌ ſɭᴜ ſןᴜ
+// ꞙɭэ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
     const movigxanta = masax2z.movoVem2 > 0o1/0o100;
     const ombraPeriodo = movigxanta ? ( deltaTif > 0o1/0o40 ? 0o4 : 0o2 ) : 0o6;
     ombraJoqa = ( ombraJoqa + 1 ) % ombraPeriodo;
     const ombroMovigxis = tlak2Ombron(mapX, mapZ);
     if ( ombroMovigxis || ombraJoqa === 0 ) k2fcakuk.shadowMap.needsUpdate = true;
-    lampKanta.panaiLumojn(mapX, mapZ);
-// ⟪ ſɭэ ſɭw , 📃 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɩ , 📃 ⟩
+    lampKanta.panaiTsijen(mapX, mapZ);
+// ⟪ ſɭэ ſɭw 📃 ⟫
+// ⟨ ꞙɭɩ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
     if ( masax2z.supknu !== "c2h2" ) {
       const fotilaX = catahaq.position.x, fotilaZ = catahaq.position.z;
       tlak2Fe1afn(t, fotilaX, fotilaZ, kolektiHerbajnHamasurok(fotilaX, fotilaZ));
@@ -384,13 +384,13 @@ export function kf2Animacion( hasukf2qani: AnimaciajHasukf2qani ): Animacio {
       hakama.update();
     }
 
-// ⟪ ſɭᴜ ſןᴜ , 📃 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭɿ , 📃 ⟩
+// ⟪ ſɭᴜ ſןᴜ 📃 ⟫
+// ⟨ ꞙɭɿ ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
     if ( masax2z.supknu !== "c2h2" ) tlak2Vidhaplosteq(catahaq.position.x, catahaq.position.z);
 
-// ⟪ ſ͕ɭɜ ı],ᴜ , 🎨 ⟫
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
-//   ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
+// ⟪ ſ͕ɭɜ ı],ᴜ 🎨 ⟫
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ
+//   ꞙɭɿ ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ 📃 ⟩
     veb6qaiSef4Qena(qena);
     if ( ++veb6qaiJoqaNombro % KANAKAL2HAPERIODO === 0 ) veb6qaiQena(qena, true);
 

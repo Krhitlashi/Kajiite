@@ -1,7 +1,7 @@
-// ≺⧼ ſɟᴜ ɭʃэ ֭ſɭэƽ ſɭэ ı],ᴜʞ ꞁȷ̀ᴜꞇ 🔥 ⧽≻
+// ≺⧼ ſɭэ ı],ᴜʞ ſ͕ɭɜ ı],ᴜ 📃 ⧽≻
 import * as THREE from "three";
-// ⟨ ֭ſɭw }ʃᴜ }ʃw ʌ ſɟᴜ ɭʃэ ֭ſɭэƽ ſɭэ ı],ᴜʞ ꞁȷ̀ᴜꞇ 📃 ⟩
-const FLAMAPROFILO: [ number, number ][] = [
+// ⟪ ſɭʞɹ ʌ ſ͕ɭɜ ı],ᴜ ʌ ⺓ ʌ ֭ſɭᴜ }ʃɹƽ ⟅ 📃 ⟫
+const K6XAFQOXA: [ number, number ][] = [
   [ 0o0/0o10, 0o0/0o10 ],
   [ 0o23/0o100, 0o0/0o10 ],
   [ 0o7/0o20, 0o1/0o20 ],
@@ -17,14 +17,14 @@ const FLAMAPROFILO: [ number, number ][] = [
   [ 0o0/0o10, 0o10/0o10 ],
 ];
 
-export const LANGAL6DA = 0o14/0o100;
+export const SLALL6DA = 0o14/0o100;
 
-// ⟨ j͐ʃэ ɭ(ᴜ ʌ ſןᴜ ſᶘɹ 📃 ⟩
-export const BOVLAL6DA = 0o15/0o100;
+// ⟪ ſɭʞɹ ʌ ſ͕ɭɜ ı],ᴜ ʌ ⺓ ʌ ſןᴜ ſᶘɹ ⟅ 📃 ⟫
+export const PATSIIL6DA = 0o15/0o100;
 
-export function kf2FlamanQoxaKefoun( l6da: number, sefini: number, ml: number,
+export function kf2K6xafQoxaKefoun( l6da: number, sefini: number, ml: number,
   tk2ni: number ): THREE.BufferGeometry {
-  const n2k = FLAMAPROFILO.map(( [ r, y ] ) =>
+  const n2k = K6XAFQOXA.map(( [ r, y ] ) =>
     new THREE.Vector2(r * sefini / 2, ( y - 0o1/0o2 ) * l6da));
   const zace = new THREE.LatheGeometry(n2k, 0o20);
   const haxekuxa = zace.attributes.position;

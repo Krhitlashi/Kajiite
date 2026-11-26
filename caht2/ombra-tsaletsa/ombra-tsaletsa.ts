@@ -1,26 +1,26 @@
 // ≺⧼ ֭ſɭw }ʃᴜ }ʃw ʌ j͐ʃɹ ŋᷠɔ ʌ ſ͕ɭɔ }ʃᴜ 🏮 ⧽≻
-// ⟨ ſɭэ ſɭᴜ , ꞙɭı ,
-// ſɭэ ſɭw , ıɔıɔıɔ , ꞙɭɿ ,
-// ſᶘɹ ſɭᴜ , ꞙɭц ,
-// ſɭэ ſɭw , ꞙɭэ ,
-// ſɭэ ſɭᴜ , ꞙɭɩ , 📃 ⟩
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſɭэ ſɭᴜ
+// ꞙɭɿ ɭ(ꞇ ʌ ſɭэ ſɭw ʌ ıɔıɔıɔ
+// ꞙɭц ɭ(ꞇ ʌ ſᶘɹ ſɭᴜ
+// ꞙɭэ ɭ(ꞇ ʌ ſɭэ ſɭw
+// ꞙɭɩ ɭ(ꞇ ʌ ſɭэ ſɭᴜ 📃 ⟩
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { so3akakSrgbJS, SO3AKAKTAJ2, HUFWUK2TSIJE, ku1oPufosakanSotlakak,
   kf2SotlakakUnihaqoxan, c2kSotlakakUnihaqoxan, catsaraTonan, catsaraQatsiiken,
   type SotlakakKu1o } from "../../skek2/x2x2q/tsije.js";
-import { kf2FlamanQoxaKefoun } from "../../skek2/hapaq/hxeuxfa/cat6h6kk6xafai.js";
+import { kf2K6xafQoxaKefoun } from "../../skek2/hapaq/hxeuxfa/cat6h6kk6xafai.js";
 import { veb6qaiWeh2, veb6qaiW2d2, hunanuWeh2, weh2Ruva }
   from "../../skek2/x2x2q/haweh2.js";
 import { kfe, kuns2bana2d } from "../x2x2q/dom.js";
 
-// ⟪ ſɭэ ſɭw , 🎚️ ⟫
-// ⟨ ſᶘɹ ſɭᴜ , ꞙɭı ,
-// ſɭэ ſɭw , ꞙɭɿ , 📃 ⟩
+// ⟪ ſɭэ ſɭw 🎚️ ⟫
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſᶘɹ ſɭᴜ
+// ꞙɭɿ ɭ(ꞇ ʌ ſɭэ ſɭw 📃 ⟩
 ku1oPufosakanSotlakak();
 const unuhaqoxa = kf2SotlakakUnihaqoxan();
 
-// ⟪ ſɭᴜ ſןᴜ , 📷 ⟫
+// ⟪ ſɭᴜ ſןᴜ 📷 ⟫
 const p2t6zo = kfe<HTMLCanvasElement>( "ombraVido" );
 const k2fcakuk = new THREE.WebGLRenderer({ canvas: p2t6zo, antialias: true,
   preserveDrawingBuffer: true, powerPreference: "high-performance" });
@@ -30,8 +30,8 @@ catsaraTonan( k2fcakuk, { hahunanu: true, ombraHunaq: THREE.PCFSoftShadowMap,
 const qena = new THREE.Scene();
 qena.background = new THREE.Color( 0x181828 );
 qena.fog = new THREE.FogExp2( 0x181828, 0o1/0o1000 );
-// ⟨ ſ͕ɭɜ ı],ᴜ , ꞙɭı ,
-// ſ͕ɭɜ ı],ᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ
+// ꞙɭɿ ɭ(ꞇ ʌ ſ͕ɭɜ ı],ᴜ 📃 ⟩
 const medio = catsaraQatsiiken( qena, k2fcakuk, { vem2: 0o1/0o40 } );
 
 const catahaq = new THREE.PerspectiveCamera( 0o62, 1, 0o1/0o10, 0o1000 );
@@ -44,7 +44,7 @@ hakama.minDistance = 0o3;
 hakama.maxDistance = 0o106;
 hakama.maxPolarAngle = Math.PI * 0o37/0o100;
 
-// ⟨ ſᶘɹ ſɭᴜ , ꞙɭɿ , 📃 ⟩
+// ⟨ ꞙɭɿ ɭ(ꞇ ʌ ſᶘɹ ſɭᴜ 📃 ⟩
 const hemi = new THREE.HemisphereLight( 0xc8d8e8, 0x383028, 0o1/0o25 );
 qena.add( hemi );
 const sotsii = new THREE.DirectionalLight( 0xf8e8c8, 0 );
@@ -53,13 +53,13 @@ qena.add( sotsii );
 const TAGAFONO = new THREE.Color( 0x78a8c0 );
 const KREPUSKAFONO = new THREE.Color( 0x181828 );
 
-// ⟪ ſɭɜ ſɭᴜ , 🧱 ⟫
-// ⟨ ſɭᴜ ſןᴜ , ꞙɭı , 📃 ⟩
+// ⟪ ſɭɜ ſɭᴜ 🧱 ⟫
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ſɭᴜ ſןᴜ 📃 ⟩
 function lumitaPukek( params: THREE.MeshStandardMaterialParameters ): THREE.MeshStandardMaterial {
   return c2kSotlakakUnihaqoxan( new THREE.MeshStandardMaterial( params ), unuhaqoxa );
 }
 
-// ⟪ ſɭɜ ſɭ,w , 🏗️ ⟫
+// ⟪ ſɭɜ ſɭ,w 🏗️ ⟫
 const t6lima = new THREE.Mesh( new THREE.PlaneGeometry( 0o170, 0o170 ),
   lumitaPukek({ color: 0x888078, roughness: 0o37/0o40, metalness: 0 }) );
 t6lima.rotation.x = -Math.PI / 2;
@@ -75,7 +75,7 @@ tu5ekani1el2saiB.position.set( -0o10, 0o7, 0 );
 tu5ekani1el2saiB.castShadow = tu5ekani1el2saiB.receiveShadow = true;
 qena.add( tu5ekani1el2saiA, tu5ekani1el2saiB );
 
-// ⟪ ſᶘɹ ſɭᴜ , 🏮 ⟫
+// ⟪ ſᶘɹ ſɭᴜ 🏮 ⟫
 const pilastro = new THREE.Mesh( new THREE.CylinderGeometry( 0o3/0o25, 0o17/0o50, 0o1, 4, 1 ),
   lumitaPukek({ color: 0x686058, roughness: 0o4/0o5, metalness: 0o1/0o10 }) );
 pilastro.rotation.y = Math.PI / 4;
@@ -90,22 +90,22 @@ b6qaiQafej2.rotation.y = Math.PI / 4;
 b6qaiQafej2.castShadow = true;
 teruni.add( b6qaiQafej2 );
 
-// ⟨ ſᶘɹ ſɭᴜ , ꞙɭц , 📃 ⟩
+// ⟨ ꞙɭц ɭ(ꞇ ʌ ſᶘɹ ſɭᴜ 📃 ⟩
 const flamaPukek = ( weh2: number, opaco: number ) => new THREE.MeshBasicMaterial({
   color: veb6qaiWeh2( weh2 ), toneMapped: false, transparent: true,
   opacity: veb6qaiW2d2( opaco ), blending: THREE.AdditiveBlending,
   depthWrite: false, side: THREE.DoubleSide });
 const flamoj = [
-  new THREE.Mesh( kf2FlamanQoxaKefoun( 0o35/0o100, 0o21/0o100, 1, 0o55/0o100 ),
+  new THREE.Mesh( kf2K6xafQoxaKefoun( 0o35/0o100, 0o21/0o100, 1, 0o55/0o100 ),
     flamaPukek( 0xff6a1e, 0o35/0o40 ) ),
-  new THREE.Mesh( kf2FlamanQoxaKefoun( 0o23/0o100, 0o14/0o100, 0o3/0o4, 0o223/0o100 ),
+  new THREE.Mesh( kf2K6xafQoxaKefoun( 0o23/0o100, 0o14/0o100, 0o3/0o4, 0o223/0o100 ),
     flamaPukek( 0xffb545, 0o33/0o40 ) ),
-  new THREE.Mesh( kf2FlamanQoxaKefoun( 0o10/0o100, 0o4/0o100, 0o1/0o2, 0o243/0o40 ),
+  new THREE.Mesh( kf2K6xafQoxaKefoun( 0o10/0o100, 0o4/0o100, 0o1/0o2, 0o243/0o40 ),
     flamaPukek( 0xfff4d0, 0o5/0o10 ) ),
 ];
 for ( const f of flamoj ) { f.position.y = 0o3/0o10; teruni.add( f ); }
 
-// ⟨ ſᶘɹ ſɭᴜ , ꞙɭэ , 📃 ⟩
+// ⟨ ꞙɭэ ɭ(ꞇ ʌ ſᶘɹ ſɭᴜ 📃 ⟩
 const brila = new THREE.ShaderMaterial({
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
   uniforms: {
@@ -149,7 +149,7 @@ const brilajHan2k = new THREE.Points( brilaVecax2l, brila );
 brilajHan2k.frustumCulled = false;
 teruni.add( brilajHan2k );
 
-// ⟨ ſᶘɹ ſɭᴜ , ꞙɭɩ , 📃 ⟩
+// ⟨ ꞙɭɩ ɭ(ꞇ ʌ ſᶘɹ ſɭᴜ 📃 ⟩
 const tsije = new THREE.PointLight( HUFWUK2TSIJE.weh2, HUFWUK2TSIJE.tlohe,
   HUFWUK2TSIJE.h6kuni, HUFWUK2TSIJE.so3akak );
 tsije.castShadow = true;
@@ -157,7 +157,7 @@ tsije.shadow.mapSize.set( 0o2000, 0o2000 );
 tsije.shadow.bias = -0o1/0o500;
 qena.add( tsije );
 
-// ⟪ ſɭэ ſɭw , 🎚️ ⟫
+// ⟪ ſɭэ ſɭw 🎚️ ⟫
 const enigo = ( id: string ) => kfe<HTMLInputElement>( id );
 const tseuni = ( id: string ) => kfe<HTMLOutputElement>( id );
 let g2sa = HUFWUK2TSIJE.tlohe;
@@ -190,11 +190,11 @@ function aplikiAmbienton(): void {
   const fono = KREPUSKAFONO.clone().lerp( TAGAFONO, ambiento );
   qena.background = fono;
   ( qena.fog as THREE.FogExp2 ).color.copy( fono );
-// ⟨ ſᶘɹ ſɭᴜ , ꞙɭꞟ , 📃 ⟩
+// ⟨ ꞙɭꞟ ɭ(ꞇ ʌ ſᶘɹ ſɭᴜ 📃 ⟩
   medio.tlak2({ teru: fono, sost2: fono, psaz: fono, vem2: 0o1/0o40 });
 }
 
-// ⟪ ſɭэ ſɭw , 📉 ⟫
+// ⟪ ſɭэ ſɭw 📉 ⟫
 function desegnuSekcion(): void {
   const kan = kfe<HTMLCanvasElement>( "ombraQaroxema" );
   const ctx = kuns2bana2d( kan );
@@ -213,7 +213,7 @@ function desegnuSekcion(): void {
   const H = l6da + 0o3/0o10;
   const a = currentCatsara();
 
-// ⟨ ſɭэ ſɭw , ꞙɭı , ꞙɭɿɔ , 📃 ⟩
+// ⟨ ꞙɭı ɭ(ꞇ ʌ ꞙɭɿɔ ɭ(ꞇ ʌ ſɭэ ſɭw 📃 ⟩
   ctx.font = "10px monospace";
   ctx.textAlign = "right";
   for ( let b = 0; b <= 0o377; b += 0o20 ) {
@@ -224,7 +224,7 @@ function desegnuSekcion(): void {
     ctx.fillStyle = "#888888";
     ctx.fillText( "0x" + b.toString( 0o20 ).padStart( 0o2, "0" ), mL - 0o6, y + 0o3 );
   }
-// ⟨ ſɭэ ֭ſɭэ , 📃 ⟩
+// ⟨ ſɭэ ֭ſɭэ 📃 ⟩
   ctx.textAlign = "center";
   ctx.fillStyle = "#888888";
   for ( let d = 0; d <= cutoff; d += Math.max( 1, Math.round( cutoff / 0o10 ) ) ) {
@@ -235,7 +235,7 @@ function desegnuSekcion(): void {
 
   const yDe = ( s: number ) => mT + pH * ( 1 - Math.max( 0, Math.min( 1, s ) ) );
 
-// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ 📃 ⟩
   ctx.strokeStyle = "#58a8f8";
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -246,7 +246,7 @@ function desegnuSekcion(): void {
   }
   ctx.stroke();
 
-// ⟨ ſןɔ˞ᴜƴ , 📃 ⟩
+// ⟨ ſןɔ˞ᴜƴ 📃 ⟩
   if ( a.s2karanu > 0 ) {
     ctx.beginPath();
     for ( let i = 0; i <= pW; i++ ) {
@@ -270,7 +270,7 @@ function desegnuSekcion(): void {
     ctx.stroke();
   }
 
-// ⟨ ſɭэ ᶗ‹ , 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ 📃 ⟩
   ctx.textAlign = "left";
   ctx.fillStyle = "#f8b058";
   ctx.font = "12px monospace";
@@ -279,7 +279,7 @@ function desegnuSekcion(): void {
   ctx.fillText( "ı],ᴜ ֭ſɭᴜ", w - mR - 0o44, 0o24 );
 }
 
-// ⟪ ſɭэ ſɭw , 📄 ⟫
+// ⟪ ſɭэ ſɭw 📄 ⟫
 function laqaziHaskek2(): void {
   const a = currentCatsara();
   const count = Math.round( 0o377 / a.havem2 );
@@ -293,7 +293,7 @@ function laqaziHaskek2(): void {
   kfe( "hevem2" ).textContent = s2banani.join( "\n" );
 }
 
-// ⟪ ſɭэ ᶗ‹ , 🔄 ⟫
+// ⟪ ſɭэ ᶗ‹ 🔄 ⟫
 function sinkronigi(): void {
   unuhaqoxa.tapu.value = Number( enigo( "horizontala" ).value );
   unuhaqoxa.cepuTeru.value = Number( enigo( "vertikala" ).value );
@@ -332,7 +332,7 @@ for ( const id of Object.keys( DEFAUXLTAJ ) )
   enigo( id ).addEventListener( "input", sinkronigi );
 enigo( "kvant" ).addEventListener( "input", sinkronigi );
 
-// ⟨ ſɭэ ᶗ‹ , 📃 ⟩
+// ⟨ ſɭэ ᶗ‹ 📃 ⟩
 function restarigiHaskek2(): void {
   for ( const [ id, v ] of Object.entries( DEFAUXLTAJ ) ) enigo( id ).value = v;
   enigo( "kvant" ).checked = true;
@@ -340,7 +340,7 @@ function restarigiHaskek2(): void {
 }
 kfe( "restarigi" ).addEventListener( "click", restarigiHaskek2 );
 
-// ⟨ ſɭэ ſɭw , 🎲 , 📃 ⟩
+// ⟨ ſɭэ ſɭw 🎲 📃 ⟩
 const HAZARDAJ: Record<string, [ number, number ]> = {
   g2sa: [ 0o4, 0o40 ], l6da: [ 0o5/0o2, 0o7 ], dist: [ 0o20, 0o54 ],
   ambiento: [ 0, 0o3/0o5 ], tapu: [ 0o2/0o5, 0o13/0o10 ],
@@ -356,7 +356,7 @@ kfe( "hazardo" ).addEventListener( "click", () => {
   sinkronigi();
 } );
 
-// ⟨ ſɭᴜ ſןᴜ , 📃 ⟩
+// ⟨ ſɭᴜ ſןᴜ 📃 ⟩
 kfe( "elporti" ).addEventListener( "click", () => {
   k2fcakuk.render( qena, catahaq );
   p2t6zo.toBlob( ( blob ) => {
@@ -370,7 +370,7 @@ kfe( "elporti" ).addEventListener( "click", () => {
   }, "image/png" );
 } );
 
-// ⟪ ſɭᴜ ſןᴜ , 📏 ⟫
+// ⟪ ſɭᴜ ſןᴜ 📏 ⟫
 function lauxPal6(): void {
   k2fcakuk.setSize( innerWidth, innerHeight, false );
   catahaq.aspect = innerWidth / innerHeight;
@@ -379,7 +379,7 @@ function lauxPal6(): void {
 }
 addEventListener( "resize", lauxPal6 );
 
-// ⟪ ſɭᴜ ſןᴜ , 🎞️ ⟫
+// ⟪ ſɭᴜ ſןᴜ 🎞️ ⟫
 k2fcakuk.setAnimationLoop( ( t ) => {
   hakama.update();
   const tt = t / 0o1000;
