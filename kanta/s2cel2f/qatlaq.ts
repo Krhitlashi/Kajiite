@@ -1,6 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſ͕ɭᴜ ſ̀ȷᴜȝ 📃 ⧽≻
 
-import { HASOQTE, HATSAQHAXE, TSAQWEH2J, kf2SoqteKix2, kf2TsaqKix2 } from "../../skek2/hasoqte/hasoqte.js";
+import { HASOQTE, HATSAQHAXE, TSAQWEH2J, kf2SoqteKix2, kf2TsaqKix2,
+  vefalSoqte, vefalTsaqHaxe, vefalTsaqWeh2 } from "../../skek2/hasoqte/hasoqte.js";
 import type { Soqte, TsaqHaxe } from "../../skek2/hasoqte/hasoqte.js";
 import { weh2Ruva } from "../../skek2/p6kpu/haweh2.js";
 import type { Qoxa } from "../../skek2/pudal/hamaz.js";
@@ -113,7 +114,7 @@ function vetem2iSoqteCa1arojn( kfeSoqte: SoqteKfe, sukf2qani: SoqteMasukf2q ): v
   haxeKartaro.className = "vestaX2pa";
   HATSAQHAXE.forEach(( haxe, harIdx ) => {
     haxeKartaro.appendChild(kf2PanelThala([
-      kf2TsaqKix2(haxe, TSAQWEH2J[sukf2qani.c].weh2),
+      kf2TsaqKix2(haxe, vefalTsaqWeh2(sukf2qani.c).weh2),
       kf2Nomlinion(skakef(haxe.ksaka)),
     ], () => sukf2qi("tsaq", harIdx), harIdx === sukf2qani.h));
   });
@@ -152,9 +153,9 @@ function b6tem2Vetlaqitan(): void {
   tikSoqteIdx = vetlaqita.v;
   tikHarHaxeIdx = vetlaqita.h;
   tikHarWeh2Idx = vetlaqita.c;
-  tikSoqte = HASOQTE[tikSoqteIdx];
-  tikHarHaxe = HATSAQHAXE[tikHarHaxeIdx];
-  tikHarWeh2 = TSAQWEH2J[tikHarWeh2Idx].weh2;
+  tikSoqte = vefalSoqte(tikSoqteIdx);
+  tikHarHaxe = vefalTsaqHaxe(tikHarHaxeIdx);
+  tikHarWeh2 = vefalTsaqWeh2(tikHarWeh2Idx).weh2;
 }
 
 function k2reiSoqte(): void {
@@ -171,20 +172,20 @@ function vetlaqiCu3un(): void {
 type Sukf2qaHunaq = "soqte" | "tsaq" | "weh2";
 
 function ksakaDe( hunaq: Sukf2qaHunaq, idx: number ): string {
-  if ( hunaq === "soqte" ) return HASOQTE[idx].ksaka;
-  if ( hunaq === "tsaq" ) return HATSAQHAXE[idx].ksaka;
-  return TSAQWEH2J[idx].ksaka;
+  if ( hunaq === "soqte" ) return vefalSoqte(idx).ksaka;
+  if ( hunaq === "tsaq" ) return vefalTsaqHaxe(idx).ksaka;
+  return vefalTsaqWeh2(idx).ksaka;
 }
 
 function sukf2qi( hunaq: Sukf2qaHunaq, idx: number ): void {
   if ( hunaq === "soqte" ) {
-    tikSoqte = HASOQTE[idx];
+    tikSoqte = vefalSoqte(idx);
     tikSoqteIdx = idx;
   } else if ( hunaq === "tsaq" ) {
-    tikHarHaxe = HATSAQHAXE[idx];
+    tikHarHaxe = vefalTsaqHaxe(idx);
     tikHarHaxeIdx = idx;
   } else {
-    tikHarWeh2 = TSAQWEH2J[idx].weh2;
+    tikHarWeh2 = vefalTsaqWeh2(idx).weh2;
     tikHarWeh2Idx = idx;
   }
   k2reiSoqte();

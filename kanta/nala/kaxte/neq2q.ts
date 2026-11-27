@@ -18,7 +18,7 @@ import { vepaqQoxa } from "../../../skek2/pudal/hamaz.js";
 import type { Qoxa } from "../../../skek2/pudal/hamaz.js";
 import { vepaqKrasesxagxon } from "../../../skek2/hapaq/krasesxagxa-kosmosxipo.js";
 import type { Krasesxagxo } from "../../../skek2/hapaq/krasesxagxa-kosmosxipo.js";
-import { HASOQTE } from "../../../skek2/hasoqte/hasoqte.js";
+import { vefalSoqte } from "../../../skek2/hasoqte/hasoqte.js";
 import type { Neq2qObjekto } from "./hahunaq.js";
 
 export function vepaqNeq2qnHatoxemani(
@@ -53,7 +53,7 @@ export function vepaqNeq2qnHatoxemani(
       const p = vepaqNeq2qnTemekn(qena, o.x, o.z, l6daFn, o.cabole ?? 0o4, s);
       if ( p ) hatemek.hatemek.push(p);
     } else if ( o.pudal === "npco" ) {
-      const v = HASOQTE[( o.soqte ?? 0o0 ) % HASOQTE.length];
+      const v = vefalSoqte(o.soqte ?? 0o0);
       const fig = vepaqQoxa(v, ( o.tsaqHaxe ?? 0o0 ) === 0o1 ? "tsaqSahakani" : "tsaqPsazai");
       const h = l6daFn(o.x, o.z);
       fig.group.position.set(o.x, h, o.z);

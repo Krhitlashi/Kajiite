@@ -50,6 +50,18 @@ export const TSAQWEH2J: TsaqWeh2[] = [
   { ksaka: "harWeh2Griza",   weh2: 0x889098 },
 ];
 
+export function vefalSoqte( idx: number ): Soqte {
+  return HASOQTE[idx % HASOQTE.length] || HASOQTE[0o0];
+}
+
+export function vefalTsaqHaxe( idx: number ): TsaqHaxe {
+  return HATSAQHAXE[idx % HATSAQHAXE.length] || HATSAQHAXE[0o0];
+}
+
+export function vefalTsaqWeh2( idx: number ): TsaqWeh2 {
+  return TSAQWEH2J[idx] || TSAQWEH2J[0o0];
+}
+
 // ⟨ ɭʃɜ ŋᷠэ 📃 ⟩
 export function ausexi(kuns2bana: CanvasRenderingContext2D,
   cX: number, cy: number, r: number, weh2: string

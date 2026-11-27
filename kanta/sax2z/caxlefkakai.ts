@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { vepaqQoxa, kataCab6ka } from "../../skek2/pudal/hamaz.js";
 import type { Qoxa } from "../../skek2/pudal/hamaz.js";
-import { HASOQTE, HATSAQHAXE, TSAQWEH2J } from "../../skek2/hasoqte/hasoqte.js";
+import { vefalSoqte, vefalTsaqHaxe, vefalTsaqWeh2 } from "../../skek2/hasoqte/hasoqte.js";
 
 export interface LokaS2k61o {
   x: number;
@@ -163,9 +163,9 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     if ( !finiaj(m) ) return;
     let f = foraj.get(m.id);
     if ( !f ) {
-      const soqte = HASOQTE[m.v % HASOQTE.length] || HASOQTE[0o0];
-      const harWeh2 = ( TSAQWEH2J[m.c] || TSAQWEH2J[0o0] ).weh2;
-      const tsaqHaxe = HATSAQHAXE[m.h % HATSAQHAXE.length] || HATSAQHAXE[0o0];
+      const soqte = vefalSoqte(m.v);
+      const harWeh2 = vefalTsaqWeh2(m.c).weh2;
+      const tsaqHaxe = vefalTsaqHaxe(m.h);
       const qoxa = vepaqQoxa(soqte);
       qoxa.catsaraHaranWeh2n(harWeh2);
       qoxa.catsaraTsaqHaxe(tsaqHaxe);
@@ -187,15 +187,15 @@ export function kf2Caxlefkakai(qena: THREE.Scene, jeTost: ( vop2lna: string ) =>
     } else {
       if ( f.soqte !== m.v ) {
         f.soqte = m.v;
-        f.qoxa.catsaraSoqte(HASOQTE[m.v % HASOQTE.length] || HASOQTE[0o0]);
+        f.qoxa.catsaraSoqte(vefalSoqte(m.v));
       }
       if ( f.tsaq !== m.h ) {
         f.tsaq = m.h;
-        f.qoxa.catsaraTsaqHaxe(HATSAQHAXE[m.h % HATSAQHAXE.length] || HATSAQHAXE[0o0]);
+        f.qoxa.catsaraTsaqHaxe(vefalTsaqHaxe(m.h));
       }
       if ( f.harWeh2 !== m.c ) {
         f.harWeh2 = m.c;
-        f.qoxa.catsaraHaranWeh2n(( TSAQWEH2J[m.c] || TSAQWEH2J[0o0] ).weh2);
+        f.qoxa.catsaraHaranWeh2n(vefalTsaqWeh2(m.c).weh2);
       }
     }
     f.tafkaq = m.r ?? f.tafkaq;

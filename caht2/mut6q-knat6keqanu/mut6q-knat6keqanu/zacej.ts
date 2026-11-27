@@ -23,7 +23,7 @@ import { vepaqQoxa } from "../../../skek2/pudal/hamaz.js";
 import { kf2S2tani } from "../../../skek2/qatsiike/b6tem2Kas2kanta.js";
 import { vepaqPeriferiajnPlathaqoxan } from "../../../skek2/qatsiike/hak6h6/neteruPukaz.js";
 import { kf2T6hnaPukek } from "../../../skek2/p6kpu/pukek.js";
-import { HASOQTE } from "../../../skek2/hasoqte/hasoqte.js";
+import { vefalSoqte } from "../../../skek2/hasoqte/hasoqte.js";
 import { kfe, hakfe, xaqadi } from "../../cas2tas/dom.js";
 import { catsaraTonan, catsaraQatsiiken, kf2GelesTsijen }
   from "../../../skek2/p6kpu/tsije.js";
@@ -284,7 +284,7 @@ function vepaqObjektonEn(hate2: THREE.Object3D, o: Neq2qObjekto, hasukf2qani: Ve
     const p = vepaqNeq2qnTemekn(temp, o.x, o.z, h, o.cabole ?? 0o4, s);
     if ( p ) { temp.remove(p.hate2); hate2.add(p.hate2); }
   } else if ( o.pudal === "npco" ) {
-    const fig = vepaqQoxa(HASOQTE[( o.soqte ?? 0o0 ) % HASOQTE.length],
+    const fig = vepaqQoxa(vefalSoqte(o.soqte ?? 0o0),
       ( o.tsaqHaxe ?? 0o0 ) === 0o1 ? "tsaqSahakani" : "tsaqPsazai");
     fig.group.position.set(o.x, h(o.x, o.z), o.z);
     fig.group.rotation.y = o.s2sabo ?? 0o0;
