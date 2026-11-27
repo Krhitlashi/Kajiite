@@ -1,7 +1,8 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſ͕ɭᴜ ſ̀ȷᴜȝ 📃 ⧽≻
+// ≺⧼ ſ͕ɭᴜ ſ̀ȷᴜȝ 👕 ⧽≻
 
-import { HASOQTE, HATSAQHAXE, TSAQWEH2J, kf2SoqteKix2, kf2TsaqKix2,
+import { HASOQTE, HATSAQHAXE, TSAQWEH2J, kf2TsaqKix2,
   vefalSoqte, vefalTsaqHaxe, vefalTsaqWeh2 } from "../../skek2/hasoqte/hasoqte.js";
+import { kf2SoqteKix2 } from "../../skek2/hasoqte/soqteKix2.js";
 import type { Soqte, TsaqHaxe } from "../../skek2/hasoqte/hasoqte.js";
 import { weh2Ruva } from "../../skek2/p6kpu/haweh2.js";
 import type { Qoxa } from "../../skek2/pudal/hamaz.js";
@@ -84,7 +85,7 @@ function vepaqSoqteKfon(): SoqteKfe {
   soqteQaroxema.className = "informQaroxema";
   soqteQaroxema.dataset.qaroxema = "hasoqte";
   const soqteCatsara = document.createElement("div");
-  soqteCatsara.className = "vestaX2pa";
+  soqteCatsara.className = "vestaVico";
   soqteQaroxema.appendChild(soqteCatsara);
 
   const haxeQaroxema = document.createElement("div");
@@ -111,7 +112,7 @@ function vetem2iSoqteCa1arojn( kfeSoqte: SoqteKfe, sukf2qani: SoqteMasukf2q ): v
   kfeSoqte.haxeCatsara.innerHTML = "";
   kfeSoqte.haxeCatsara.appendChild(kf2Ksakap2san("tsaqQaroxema"));
   const haxeKartaro = document.createElement("div");
-  haxeKartaro.className = "vestaX2pa";
+  haxeKartaro.className = "vestaVico";
   HATSAQHAXE.forEach(( haxe, harIdx ) => {
     haxeKartaro.appendChild(kf2PanelThala([
       kf2TsaqKix2(haxe, vefalTsaqWeh2(sukf2qani.c).weh2),
@@ -122,7 +123,7 @@ function vetem2iSoqteCa1arojn( kfeSoqte: SoqteKfe, sukf2qani: SoqteMasukf2q ): v
 
   kfeSoqte.haxeCatsara.appendChild(kf2Ksakap2san("harWeh2Qaroxema"));
   const weh2Kartaro = document.createElement("div");
-  weh2Kartaro.className = "vestaX2pa";
+  weh2Kartaro.className = "vestaVico";
   TSAQWEH2J.forEach(( harWeh2, weh2Idx ) => {
     const weh2Kfe = document.createElement("span");
     weh2Kfe.className = "harWeh2Kfe";

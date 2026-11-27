@@ -1,4 +1,4 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ꞁȷ̀ᴜꞇᴜ̩ 📃 ⧽≻
+// ≺⧼ ꞁȷ̀ᴜꞇᴜ̩ 💬 ⧽≻
 
 export const AIH: Record<string, string> = {
 

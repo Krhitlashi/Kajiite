@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭэ j͐ʃꞇ ſ͕ɭɀᴜ j͐ʃɹ 📃 ⧽≻
 
 import * as THREE from "three";
-import { HERBATAVOLANOMO } from "../../skek2/pudal/xa3e/fe1af/gazono.js";
+import { HERBATAVOLAKSAKA } from "../../skek2/pudal/xa3e/fe1af/fe1af.js";
 import { devigiHerbanGxisdatigon } from "../../skek2/pudal/xa3e/fe1af/g2b2.js";
 import { ts2na } from "../s2cel2f/ts2na.js";
 import { vidhaplosteqKol2, vidhaplosteqSaxe } from "./vidlimo.js";
@@ -109,7 +109,7 @@ export function kf2Minimapon(hasukf2qani: BAL2HASUKF2QANI): Minimapo {
 
         vidhaplosteqKol2();
         for ( const kub of qena.children ) {
-          if ( kub.name !== HERBATAVOLANOMO ) continue;
+          if ( kub.name !== HERBATAVOLAKSAKA ) continue;
           koben(kub);
         }
         for ( const kekPal6 of hanpco ) koben(kekPal6.group);

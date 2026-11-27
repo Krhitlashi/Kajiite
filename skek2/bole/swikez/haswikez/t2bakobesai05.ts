@@ -1,4 +1,4 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ꞁȷ̀ɔⅎɯ 🎵 ⧽≻
+// ≺⧼ ɭʃɹ ʃᴜ ſɭɜ ʃɔ j͑ʃᴜꞇ ꞁȷ̀ɔⅎɯ 🎵 ⧽≻
 
 import type { BoleEg2b2, Qaroxema, SpuroDateno } from "../habal/hahunaq.js";
 import { F } from "../habal/p6zuk.js";
@@ -23,9 +23,8 @@ export function buildTrack5(): SpuroDateno {
     }
     ev.push({ t: t0, i: "slenthem", f: F(am ? 0o56 : 0o61), d: e8 * 0o2, v: l2ha ? 0o35/0o40 : 0o33/0o40 });
     ev.push({ t: t0 + 0o6 * e8, i: "slenthem", f: F(am ? 0o65 : 0o54), d: e8 * 0o2, v: 0o33/0o40 });
-    if ( l2ha ) for ( let k = 0o0; k < 0o14; k++ ) {
-      const dg = Math.min(0o16, arp[k] + ( k % 0o2 ? 0o0 : 0o3 ));
-      ev.push({ t: t0 + k * e8 + ( k % 0o2 ? e8 / 0o2 : 0o0 ), i: "mbira", f: F(MINBB[dg] + 0o14), d: e8 * 0o2, v: k % 0o2 ? 0o35/0o100 : 0o43/0o100 });
+    if ( l2ha ) for ( let k = 0o0; k < 0o14; k += 0o4 ) {
+      ev.push({ t: t0 + k * e8, i: "mbira", f: F(MINBB[arp[k]]), d: e8 * 0o3, v: 0o20/0o100 });
     }
   };
 

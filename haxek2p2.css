@@ -98,6 +98,9 @@ html[lang="km"] #informo, html[lang="km"] #hasoqte, html[lang="km"] #lingvPopUp 
 #navPopUp { max-block-size:calc(100% - 160px); }
 #navPopUp.laqazi, #informo.laqazi, #hasoqte.laqazi, #lingvPopUp.laqazi { transform:none; }
 .menuPanel { position:relative; }
+#informo, #hasoqte { display:flex; flex-direction:column; overflow:hidden; }
+#informo > .menuIdenteco, #hasoqte > .menuIdenteco { flex:0 0 auto; }
+#informo > .informQaroxema, #hasoqte .informQaroxema { flex:1 1 auto; min-block-size:0; overflow:auto; overscroll-behavior:contain; }
 /* ⟪ ſɟᴜ ſᶘɹ }ʃᴜ ｡ ꞁȷ̀ɹ ꞁȷ̀ᴜȝ 📃 ⟫ */
 /* ⟨ ſɟᴜ ſᶘɹ }ʃᴜ ｡ <maxema> ｡
    <sabosuc2w2q> ｡ cakaxa ｡
@@ -108,7 +111,8 @@ html[lang="km"] #informo, html[lang="km"] #hasoqte, html[lang="km"] #lingvPopUp 
 #lingvPopUpVico { display:grid; grid-template-columns:1fr; align-content:stretch; }
 /* ⟨ ſɟᴜ ſᶘɹ }ʃᴜ ｡ 1fr ｡
    cakaxa ｡ ſɭɜ ｡ 📃 ⟩ */
-#informHacax2l > button, #informPaghoHacax2l > button, .vestaraHacax2l > button { flex:1 1 0; }
+#informHacax2l > button, #informPaghoHacax2l > button, .vestaraHacax2l > button { align-self:stretch; flex:1 1 0; }
+#informHacax2l, #informPaghoHacax2l, .vestaraHacax2l { align-self:center; flex:0 0 auto; inline-size:100%; block-size:auto; min-inline-size:0; min-block-size:0; }
 /* ⟨ ſɟᴜ ſᶘɹ }ʃᴜ ｡ ɿ ꞁȷ̀ɹ ｡ ц ｡ ɿ ｡
    maxema ｡ ɩ ｡ 📃 ⟩ */
 #navPopUpVico { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -134,7 +138,7 @@ html[lang="km"] #informo, html[lang="km"] #hasoqte, html[lang="km"] #lingvPopUp 
 /* ⟨ ſɟᴜ ſᶘɹ }ʃᴜ ｡ data-hasoqteUjo ｡
    display:contents ｡ 📃 ⟩ */
 .hasoqteUjo, .vestaraKorpo { display:contents; }
-.vestaVico, .kubapuc2qx2t2Vico { display:flex; justify-content:center; flex-wrap:wrap; }
+.vestaVico, .kubapuc2qx2t2Vico { display:flex; justify-content:center; flex-wrap:wrap; min-inline-size:0; }
 .haraCatsara { display:flex; flex-direction:column; }
 .vestaKardo { cursor:pointer; transition:transform .2336092301648s,border-color .2336092301648s; }
 .vestaKardo:hover { transform:translateY(-4px); border-color:var(--តានេក២); }

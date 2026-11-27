@@ -205,7 +205,7 @@ export function kf2Paneelojn( hasukf2qani: PanelajHasukf2qani ): Paneeloj {
   }
   informCatsiina.addEventListener("click", tsiinanusabosaiInformon);
 
-  ligiHavula(informo, "hapaq");
+  ligiHavula(informo, "konstruajxoj");
   window.addEventListener("lingvovasaka", () => {
     if ( informo.classList.contains("laqazi") ) vetem2iInformon();
   });

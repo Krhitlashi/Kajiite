@@ -22,7 +22,7 @@ function lafeVop2(): void {
 }
 
 const vop2Vula = kf2S2k61o("informPagho", lafeVop2);
-ligiHavula(document.getElementById("informPagho")!, "hapaq");
+ligiHavula(document.getElementById("informPagho")!, "konstruajxoj");
 ca12naVop2.addEventListener("click", () => vop2Vula.h6w6i());
 
 const soqte = kf2SoqteHakaman();

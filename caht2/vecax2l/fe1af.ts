@@ -1,7 +1,7 @@
 // ≺⧼ ſȷɔ ſᶘᴜʞ 📃 ⧽≻
 
 import * as THREE from "three";
-import { vepaqHerbanTavolon } from "../../skek2/pudal/xa3e/fe1af/gazono.js";
+import { vepaqHerbanTavolon } from "../../skek2/pudal/xa3e/fe1af/fe1af.js";
 import { kf2HerbanPukekn } from "../../skek2/pudal/xa3e/fe1af/g2b2.js";
 import { kf2HerbanKxa } from "../../skek2/pudal/xa3e/fe1af/hakxa.js";
 import { VALAJBIOMOJ, EBENAJAJBIOMOJ }

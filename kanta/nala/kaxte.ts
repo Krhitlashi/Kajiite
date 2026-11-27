@@ -39,7 +39,7 @@ import { vepaqSotlakaknHasost2cel2sain } from "../../skek2/pudal/xa3e/so3akak-ha
 import { vepaqCetkuojn, vepaqCakeojn } from "../../skek2/pudal/xa3e/hatsake.js";
 import { vepaqFe1afn,
   vepaqFe1afnCxirkauS2xuru } from "../../skek2/pudal/xa3e/fe1af/fetsafKek.js";
-import { vepaqHerbanTavolon } from "../../skek2/pudal/xa3e/fe1af/gazono.js";
+import { vepaqHerbanTavolon } from "../../skek2/pudal/xa3e/fe1af/fe1af.js";
 import { k6h6Teru, k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
 import { KEUXFHXESOKA5IK } from "../../skek2/w2ta/kubes.js";
 import {
