@@ -1,4 +1,4 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷƣ̋w ɭʃꞇ ſɭɜ j͑ʃᴜ ʞ ŋᷠᴜ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷɔ ſᶘᴜʞ ſȷɹ ŋᷠᴜ 📃 ⧽≻
 
 import * as THREE from "three";
 import { hunanu } from "../haweh2.js";
@@ -23,7 +23,7 @@ function tasoK6h6(tx: number, ty: number, rad: number): Path2D {
   return k6h6;
 }
 
-export const kf2FrutikosanLikenanCac2sex = p2somani((): THREE.CanvasTexture => {
+export const kf2Fe1afnLikenanCac2sex = p2somani((): THREE.CanvasTexture => {
   const s = 0o200;
   return kf2P2t6zoCac2sex(s, s, ( kuns2bana ) => {
     kuns2bana.clearRect(0o0, 0o0, s, s);

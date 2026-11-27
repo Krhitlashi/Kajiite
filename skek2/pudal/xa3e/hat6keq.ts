@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { kf2RokenCac2sex } from "../../p6kpu/cac2sex/t6keq.js";
-import { kf2RokenBumpanCac2sex } from "../../p6kpu/cac2sex/t6keq-bumpo.js";
+import { kf2RokenBumpanCac2sex } from "../../p6kpu/cac2sex/t6keq-tok.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { jaqoHaga, spronaP2somani, type Cel2Raqa } from "./raqa.js";
 import { bs2, tsasa, tsasaVem2, SKULPTAN, SKULPTAPASO,

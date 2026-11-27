@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { weh2Ruva, hunanu, tsije, hunanuWeh2 } from "../../p6kpu/haweh2.js";
-import { k2fFluanStrekon, baz2SexiaK6h6 } from "../../p6kpu/cac2sex/mafezi.js";
+import { k2fFluanStrekon, baz2SexiaK6h6 } from "../../p6kpu/cac2sex/pukek.js";
 import { ausexi, type Soqte } from "../../hasoqte/hasoqte.js";
 import { volviX, sxtofon, faldo, stebo, bordiKkaxten, c2qRombo } from "./p2t6zo.js";
 import { h6w6aP2somani } from "./h6w6.js";

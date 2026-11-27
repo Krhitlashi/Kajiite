@@ -1,13 +1,13 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſᶘw ֭ſɭᴜ 📃 ⧽≻
 
 import * as THREE from "three";
-import { k2fVas2flofajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
+import { k2fVas2lasajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
 
 export const kf2LederanCac2sex = p2somani((): THREE.CanvasTexture => {
   const s = 0o400;
   return kf2P2t6zoCac2sex(s, s, ( k ) => {
     k.fillStyle = "#d8d8d8"; k.fillRect(0o0, 0o0, s, s);
-    k2fVas2flofajnF2m2jn(k, s, s, 0o20,
+    k2fVas2lasajnF2m2jn(k, s, s, 0o20,
       [ "rgba(240,240,232,0.24)", "rgba(120,112,112,0.18)", "rgba(168,160,160,0.20)" ],
       0o10/0o100, 0o14/0o100);
     for ( let i = 0o0; i < 0o24; i++ ) {

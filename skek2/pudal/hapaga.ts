@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { l6da, tsasaVem2, bs2, tsekeEnS2xuru } from "../../kanta/nala/mut6qSoza.js";
 import type { Paga, PagaKanta, PudalMalneto } from "./pudal-hahunaq.js";
-import { kf2KombovicanCac2sex } from "../p6kpu/cac2sex/kombox2pa.js";
+import { kf2KombovicanCac2sex } from "../p6kpu/cac2sex/s2cascana.js";
 import { trovuBestajnZonojn } from "./keweani.js";
 import { vepaqMalneton as vepaqBeranMalneton, tlak2Beran } from "./l2xkupukai.js";
 import { vepaqMalneton as vepaqMnemiopsanMalneton, tlak2Mnemiopsan } from "./l2xcaxlefai.js";

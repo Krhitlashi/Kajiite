@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
-import { kf2KutiklanCac2sex } from "../p6kpu/cac2sex/marlaraksxa-kutiklo.js";
+import { kf2KehuanCac2sex } from "../p6kpu/cac2sex/kehu.js";
 
 const kruroBataAkso = new THREE.Vector3(0o0, 0o1, 0o0);
 const kruroBataKvaterniono = new THREE.Quaternion();
@@ -26,11 +26,11 @@ function kf2Artikon(n2k: THREE.Vector3, r: number): THREE.BufferGeometry {
 
 export function vepaqMarlaraksxanMalneton(): PudalMalneto {
   const hate2 = new THREE.Group();
-  const kutiklo = kf2KutiklanCac2sex();
+  const kehu = kf2KehuanCac2sex();
   const korpaPukek = new THREE.MeshStandardMaterial({
     color: 0xd8b890, transparent: true, opacity: 0o3/0o4,
     depthWrite: false, side: THREE.DoubleSide, roughness: 0o1/0o2,
-    map: kutiklo.weh2, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
+    map: kehu.weh2, bumpMap: kehu.reliefo, bumpScale: 0o1/0o50,
   });
 
   const zHas2nasce = [ 0o12/0o100, 0o2/0o100, -0o4/0o100, -0o12/0o100 ];
@@ -82,7 +82,7 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
     kf2Tubon(rostrajHan2k[0o2], w6qaN2k, 0o20/0o1000, 0o11/0o1000),
     kf2Artikon(w6qaN2k, 0o11/0o1000),
   ])!, new THREE.MeshStandardMaterial({ color: 0x584838, roughness: 0o3/0o4,
-    map: kutiklo.weh2, bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50 }));
+    map: kehu.weh2, bumpMap: kehu.reliefo, bumpScale: 0o1/0o50 }));
   rostrocet2.name = "rostrocet2";
   hate2.add(rostrocet2);
 
@@ -115,8 +115,8 @@ export function vepaqMarlaraksxanMalneton(): PudalMalneto {
   }
 
   const kruraPukek = new THREE.MeshStandardMaterial({
-    color: 0xd8b890, map: kutiklo.weh2,
-    bumpMap: kutiklo.reliefo, bumpScale: 0o1/0o50,
+    color: 0xd8b890, map: kehu.weh2,
+    bumpMap: kehu.reliefo, bumpScale: 0o1/0o50,
     transparent: false, opacity: 0o1,
     depthWrite: true, depthTest: true, side: THREE.DoubleSide,
     roughness: 0o1/0o2, emissive: 0x382818, emissiveIntensity: 0o1/0o10,

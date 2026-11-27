@@ -1,7 +1,7 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷͷ̗ɜ ſȷɔ˞ꞇ ɽ͑ʃ'ᴜȝ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͐ʃᴜɔ˞ ſȷɔ˞ꞇ ɽ͑ʃ'ᴜȝ 📃 ⧽≻
 
 import * as THREE from "three";
-import { k2fVas2flofajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
+import { k2fVas2lasajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
 
 export const kf2SxtofanBumpanCac2sex = p2somani((): THREE.CanvasTexture => {
   const s = 0o400;
@@ -25,7 +25,7 @@ export const kf2SxtofanBumpanCac2sex = p2somani((): THREE.CanvasTexture => {
         kuns2bana.fillRect(x, y, w, h);
       });
     }
-    k2fVas2flofajnF2m2jn(kuns2bana, s, s, 0o20,
+    k2fVas2lasajnF2m2jn(kuns2bana, s, s, 0o20,
       [ "rgba(224,224,224,0.10)", "rgba(64,64,64,0.12)", "rgba(136,136,136,0.10)" ],
       0o4/0o100, 0o10/0o100);
   }, [ 0o1, 0o1 ], { sRGB: false, peq2: 0o10 });

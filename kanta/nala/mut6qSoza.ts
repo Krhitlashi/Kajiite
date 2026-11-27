@@ -82,7 +82,7 @@ export function jaqoLaqRaq(x: number, z: number): number {
   if ( saqEliro <= 0o0 ) return 0o0;
   const raqEliro = 0o1 - glataTona(-0o366, -0o302, x);
   if ( raqEliro <= 0o0 ) return 0o0;
-  const vas2flof = Math.min(kaqEniro, laqEliro, saqEliro, raqEliro);
+  const vas2las = Math.min(kaqEniro, laqEliro, saqEliro, raqEliro);
 
   const dx1 = ( x + 0o370 ) / 0o56, dz1 = ( z - 0o126 ) / 0o56;
   const cet21 = 0o40 * Math.exp(-0o1/0o2 * ( dx1 * dx1 + dz1 * dz1 ));
@@ -92,7 +92,7 @@ export function jaqoLaqRaq(x: number, z: number): number {
   const cet23 = 0o16 * Math.exp(-0o1/0o2 * ( dx3 * dx3 + dz3 * dz3 ));
   const dxS = ( x + 0o354 ) / 0o42, dzS = ( z - 0o116 ) / 0o40;
   const selo = 0o14 * Math.exp(-0o1/0o2 * ( dxS * dxS + dzS * dzS ));
-  return Math.max(0o0, ( cet21 + cet22 + cet23 - selo ) * vas2flof);
+  return Math.max(0o0, ( cet21 + cet22 + cet23 - selo ) * vas2las);
 }
 
 export const K6SILAQRAQ1IQZ = 0o100;

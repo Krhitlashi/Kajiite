@@ -1,10 +1,10 @@
 // ≺⧼ ſɟэᶗ‹ ʌ ֭ſɭᴜ ſȷɹ ŋᷠᴜ 🍃 ⧽≻
 import * as THREE from "three";
-import { kf2ByssoidanLikenanCac2sex } from "../../p6kpu/cac2sex/byssoida-f2ma.js";
-import { kf2FolisanLikenanCac2sex } from "../../p6kpu/cac2sex/folisa-f2ma.js";
-import { kf2FrutikosanLikenanCac2sex } from "../../p6kpu/cac2sex/frutikosa-f2ma.js";
+import { kf2XcabenLikenanCac2sex } from "../../p6kpu/cac2sex/xcabe-f2ma.js";
+import { kf2FolisanLikenanCac2sex } from "../../p6kpu/cac2sex/slaf-f2ma.js";
+import { kf2Fe1afnLikenanCac2sex } from "../../p6kpu/cac2sex/fe1af-f2ma.js";
 import { kf2LikenanCac2sex } from "../../p6kpu/cac2sex/f2ma.js";
-import { kf2LikenanBumpanCac2sex } from "../../p6kpu/cac2sex/f2ma-bumpo.js";
+import { kf2LikenanBumpanCac2sex } from "../../p6kpu/cac2sex/f2ma-tok.js";
 import { kf2Bufezacen, vakox2qDuQoxaKefoujn, vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, spronaP2somani, type Cel2Raqa } from "./raqa.js";
@@ -53,7 +53,7 @@ export function vepaqKrustanLikenQoxaKefoun(): THREE.BufferGeometry {
   return kf2Bufezacen(haxekuxa, havecax2lani, { qan2k: uv });
 }
 
-export function vepaqFrutikosanLikenQoxaKefoun(): THREE.BufferGeometry {
+export function vepaqFe1afnLikenQoxaKefoun(): THREE.BufferGeometry {
   const hakek: THREE.BufferGeometry[] = [];
   const tuftoj = 0o4;
   for ( let t = 0o0; t < tuftoj; t++ ) {
@@ -72,7 +72,7 @@ export function vepaqFrutikosanLikenQoxaKefoun(): THREE.BufferGeometry {
   return vakox2qSenIndekson(hakek);
 }
 
-export function vepaqByssoidanLikenQoxaKefoun(): THREE.BufferGeometry {
+export function vepaqXcabenLikenQoxaKefoun(): THREE.BufferGeometry {
   const hakek: THREE.BufferGeometry[] = [];
   const k2fe = 0o3 + ( ( Math.random() * 0o3 ) | 0o0 );
   for ( let i = 0o0; i < k2fe; i++ ) {
@@ -107,9 +107,9 @@ export function vepaqF2majn(qena: THREE.Scene,
   const sakxoCasacakai = kf2Xa3eHazardon(0o72331);
 
   const haqoxa = [
-    { zace: vepaqFrutikosanLikenQoxaKefoun(), cac2sex: kf2FrutikosanLikenanCac2sex() },
+    { zace: vepaqFe1afnLikenQoxaKefoun(), cac2sex: kf2Fe1afnLikenanCac2sex() },
     { zace: vepaqKrustanLikenQoxaKefoun(), cac2sex: kf2FolisanLikenanCac2sex() },
-    { zace: vepaqByssoidanLikenQoxaKefoun(), cac2sex: kf2ByssoidanLikenanCac2sex() },
+    { zace: vepaqXcabenLikenQoxaKefoun(), cac2sex: kf2XcabenLikenanCac2sex() },
   ].map(( qoxa ) => {
     const caxlefkakai = new THREE.InstancedMesh(qoxa.zace,
       new THREE.MeshStandardMaterial({

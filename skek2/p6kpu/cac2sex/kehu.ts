@@ -1,9 +1,9 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ŋᷠᴜ ɽ͑ʃ'ͷ̗ᴜ ɽ͑ʃ'ᴜ ſɭɔ˞ᶗ‹ᴜ ƽ ɭʃꞇ ſɭͷ̗ɜ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭɔ ֭ſɭw 📃 ⧽≻
 
 import { kf2P2t6zoCac2sex } from "./pukek.js";
 import * as THREE from "three";
 
-export function kf2KutiklanCac2sex(): { weh2: THREE.CanvasTexture; reliefo: THREE.CanvasTexture } {
+export function kf2KehuanCac2sex(): { weh2: THREE.CanvasTexture; reliefo: THREE.CanvasTexture } {
   const s = 0o200;
   const desegnu = (reliefo: boolean) => kf2P2t6zoCac2sex(s, s, ( kuns2bana ) => {
     kuns2bana.fillStyle = reliefo ? "rgb(128,128,128)" : "rgb(208,176,136)";

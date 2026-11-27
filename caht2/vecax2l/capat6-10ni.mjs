@@ -24566,7 +24566,7 @@ function jaqoLaqRaq(x, z) {
 	if (saqEliro <= 0) return 0;
 	const raqEliro = 1 - glataTona(-246, -194, x);
 	if (raqEliro <= 0) return 0;
-	const vas2flof = Math.min(kaqEniro, laqEliro, saqEliro, raqEliro);
+	const vas2las = Math.min(kaqEniro, laqEliro, saqEliro, raqEliro);
 	const dx1 = (x + 248) / 46, dz1 = (z - 86) / 46;
 	const cet21 = 32 * Math.exp(-1 / 2 * (dx1 * dx1 + dz1 * dz1));
 	const dx2 = (x + 224) / 32, dz2 = (z - 68) / 32;
@@ -24575,7 +24575,7 @@ function jaqoLaqRaq(x, z) {
 	const cet23 = 14 * Math.exp(-1 / 2 * (dx3 * dx3 + dz3 * dz3));
 	const dxS = (x + 236) / 34, dzS = (z - 78) / 32;
 	const selo = 12 * Math.exp(-1 / 2 * (dxS * dxS + dzS * dzS));
-	return Math.max(0, (cet21 + cet22 + cet23 - selo) * vas2flof);
+	return Math.max(0, (cet21 + cet22 + cet23 - selo) * vas2las);
 }
 function k6siLaqRaqX(z) {
 	const maltikn = 1 - Math.max(0, Math.min(1, (z - -128) / 192));

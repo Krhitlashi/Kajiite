@@ -1,10 +1,10 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ʃⱷ̮̀ɔ˞ɔ˞ɜ ꞁȷ̀ꞇ ɭ(ᴜ ʞ ŋᷠᴜ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ı],ᴜ̭ᴜ ʃɔ ſȷɹ ŋᷠᴜ 📃 ⧽≻
 
 import * as THREE from "three";
 import { kf2Sakxo } from "../caq2q.js";
 import { k2fKonturanQoxan, kf2P2t6zoCac2sex, neregulaK6h6, p2somani } from "./pukek.js";
 
-export const kf2ByssoidanLikenanCac2sex = p2somani((): THREE.CanvasTexture => {
+export const kf2XcabenLikenanCac2sex = p2somani((): THREE.CanvasTexture => {
   const s = 0o200;
   return kf2P2t6zoCac2sex(s, s, ( kuns2bana ) => {
     kuns2bana.clearRect(0o0, 0o0, s, s);

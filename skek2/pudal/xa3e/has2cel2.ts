@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { kf2AsfanS2cel2nCac2sex } from "../../p6kpu/cac2sex/asfa-s2cel2.js";
-import { kf2AsfanS2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-s2cel2-bumpo.js";
+import { kf2AsfanS2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-s2cel2-tok.js";
 import { vakox2qDuQoxaKefoujn } from "../../p6kpu/hakox2q.js";
 
 export function vepaqS2cel2nRingon(): THREE.BufferGeometry {

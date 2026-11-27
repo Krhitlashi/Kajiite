@@ -1,6 +1,6 @@
 // ≺⧼ ſȷɔ ſᶘᴜʞ ʌ ſ͔ɭᴜ ſɭ,ɜ }ʃɜ 🟩 ⧽≻
 import * as THREE from "three";
-import { kf2HerbanTavolanKlinganCac2sex } from "../../../p6kpu/cac2sex/tavola-klinga-fe1af.js";
+import { kf2HerbanTavolanKlinganCac2sex } from "../../../p6kpu/cac2sex/kofa-kxa-fe1af.js";
 import { fe1afKekWeh2, nex2caFe1afKekWeh2, mut6qWeh2En } from "../../../p6kpu/mut6qHaweh2.js";
 import { veb6qaiWeh2Skek } from "../../../p6kpu/haweh2.js";
 import { vakox2qSenIndekson } from "../../../p6kpu/hakox2q.js";

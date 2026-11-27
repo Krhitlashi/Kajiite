@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ j͑ʃɜ ſ͕ɭƨɔ 📃 ⧽≻
 
 import { weh2Ruva, veb6qaiW2d2 } from "../p6kpu/haweh2.js";
-import { baz2SexiaK6h6 } from "../p6kpu/cac2sex/mafezi.js";
+import { baz2SexiaK6h6 } from "../p6kpu/cac2sex/pukek.js";
 
 export interface Soqte {
   ksaka: string;

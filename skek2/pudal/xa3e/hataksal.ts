@@ -1,8 +1,8 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ɭʃᴜ ſɭɔ˞ᴜͷ̗ 📃 ⧽≻
 
 import * as THREE from "three";
-import { kf2LarikanS2cel2nCac2sex } from "../../p6kpu/cac2sex/larika-s2cel2.js";
-import { kf2LarikanS2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/larika-s2cel2-bumpo.js";
+import { kf2LarikanS2cel2nCac2sex } from "../../p6kpu/cac2sex/taksal-s2cel2.js";
+import { kf2LarikanS2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/baksal-s2cel2-tok.js";
 import { vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
 import { KRONAGEOMETRIARADIUSO, TAVOLAPROPORCIO, kronaKa5ikLarika } from "./hasoza.js";
 import { kf2S2saboQuaternionon, kf2Poziciilon, hazardaWeh2, kf2Xa3eHazardon } from "./sakxoXa3e.js";
@@ -10,7 +10,7 @@ import type { Cel2Raqa } from "./raqa.js";
 import { kf2TrunkanQoxaKefoun } from "./hasost2cel2sai.js";
 import { hunanuWeh2 } from "../../p6kpu/haweh2.js";
 
-function vepaqLarikanSlafranQoxaKefoun(pinglajHas2nasce = 0o3): { slafj: THREE.BufferGeometry; hatok2q: THREE.BufferGeometry } {
+function vepaqLarikanSlafanQoxaKefoun(pinglajHas2nasce = 0o3): { slafj: THREE.BufferGeometry; hatok2q: THREE.BufferGeometry } {
   const hakek: THREE.BufferGeometry[] = [];
   const tok2qjHakek: THREE.BufferGeometry[] = [];
 
@@ -128,8 +128,8 @@ export function vepaqLarikon(qena: THREE.Scene,
   const hasost2cel2sai = new THREE.InstancedMesh(sost2cel2saiVecax2l, sost2cel2saiPukek, hacel2.length);
   if ( hacel2.length === 0o0 ) return hasost2cel2sai;
 
-  const kronaHavecax2lani = vepaqLarikanSlafranQoxaKefoun();
-  const maltsiikeKronaVecax2l = vepaqLarikanSlafranQoxaKefoun(0o1).slafj;
+  const kronaHavecax2lani = vepaqLarikanSlafanQoxaKefoun();
+  const maltsiikeKronaVecax2l = vepaqLarikanSlafanQoxaKefoun(0o1).slafj;
   const kronaVecax2l = kronaHavecax2lani.slafj;
   kronaVecax2l.computeBoundingBox();
 

@@ -3,8 +3,8 @@ import * as THREE from "three";
 import { kf2LoftoQoxa } from "../p6kpu/haqoxa.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
 import { katmullRom } from "../../kanta/k2fe/fkabe.js";
-import { kf2GlacifisanHaŭtanCac2sex } from "../p6kpu/cac2sex/5i3a-hauxto.js";
-import { kf2GlacifisanNaĝilanCac2sex } from "../p6kpu/cac2sex/5i3a-nagxilo.js";
+import { kf2GlacifisanHaŭtanCac2sex } from "../p6kpu/cac2sex/5i3a-kobe.js";
+import { kf2GlacifisanNaĝilanCac2sex } from "../p6kpu/cac2sex/5i3a-kaze.js";
 
 interface KazeKa5asexaz { z: number; rx: number; ry: number; }
 export

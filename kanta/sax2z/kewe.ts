@@ -29,7 +29,7 @@ import type { ScenaKanta } from "../tahaq/scena/hahunaq.js";
 import { registriVeb6kekitajnHacakamaha, registriVivantojn, spacigiInstancojn } from "../tahaq/vidlimo.js";
 import { kf2Vop2kekain } from "../s2cel2f/vop2kekai.js";
 import { veb6qaiQena, saxeVeb6qai } from "../../skek2/p6kpu/haweh2.js";
-import { fu36Cac2sexnWerejn } from "../../skek2/p6kpu/cac2sex/mafezi.js";
+import { fu36Cac2sexnWerejn } from "../../skek2/p6kpu/cac2sex/pukek.js";
 
 const bal2Havop2 = kxeBal2();
 const bal2Qoxa = bal2Havop2.qoxa;

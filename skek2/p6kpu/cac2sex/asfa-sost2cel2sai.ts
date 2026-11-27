@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ꞁȷ̀ᴜ j͑ʃʞᴜ ɔ˞ j͑ʃƨɹ ſɟɔ j͐ʃɹ j͑ʃᴜꞇ 📃 ⧽≻
 
 import * as THREE from "three";
-import { k2fVas2flofajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
+import { k2fVas2lasajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
 
 export interface AsfaSost2cel2saiSiitsii {
   y: number; l6da: number; sago: number; xafanitapu: number; cikloj: [ number, number ];
@@ -69,7 +69,7 @@ export const kf2AsfanTrunkanCac2sex = p2somani((): THREE.CanvasTexture => {
   const w = asfaTrunkaW, h = asfaTrunkaH;
   return kf2P2t6zoCac2sex(w, h, ( k ) => {
     k.fillStyle = "#282038"; k.fillRect(0o0, 0o0, w, h);
-    k2fVas2flofajnF2m2jn(k, w, h, 0o14,
+    k2fVas2lasajnF2m2jn(k, w, h, 0o14,
       [ "rgba(72,64,88,0.20)", "rgba(16,8,24,0.18)", "rgba(88,80,104,0.14)" ],
       0o10/0o100, 0o14/0o100);
     const sakp6scasai = generiAsfanTrunkanSakp6scasai();

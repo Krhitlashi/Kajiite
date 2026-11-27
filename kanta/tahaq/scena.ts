@@ -3,8 +3,8 @@ import * as THREE from "three";
 import { l6da, tsasaVem2, tsasaVem2Tsiike } from "../nala/mut6qSoza.js";
 import { glataTona } from "../k2fe/fkabe.js";
 import { kf2T6g6Pukek, kf2T6hnaPukek, kf2Cah6k6Pukek, kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
-import { kf2GrundanCac2sex } from "../../skek2/p6kpu/cac2sex/kozu2.js";
-import { kf2GrundanBumpanCac2sex } from "../../skek2/p6kpu/cac2sex/kozu2-bumpo.js";
+import { kf2GrundanCac2sex } from "../../skek2/p6kpu/cac2sex/kozu-cac2sex.js";
+import { kf2GrundanBumpanCac2sex } from "../../skek2/p6kpu/cac2sex/kozu-cac2sex-tok.js";
 import { kf2NebulTavolanCac2sex } from "../../skek2/p6kpu/cac2sex/f2m2sexazai-tanek.js";
 import { kf2KozuanCac2sex } from "../../skek2/p6kpu/cac2sex/mut6qSoza.js";
 import { xetoh2D, hagek2fhagasai, mut6qWeh2En,

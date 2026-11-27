@@ -1,21 +1,21 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſןɔ˞ᴜ ſɭ,ᶗ‹ᴜ ſ̀ȷɔ 📃 ⧽≻
 
 import * as THREE from "three";
-import { kf2ByssoidanLikenanCac2sex } from "../../p6kpu/cac2sex/byssoida-f2ma.js";
+import { kf2XcabenLikenanCac2sex } from "../../p6kpu/cac2sex/xcabe-f2ma.js";
 import { kf2XabenCac2sex } from "../../p6kpu/cac2sex/xabe.js";
-import { kf2FolisanLikenanCac2sex } from "../../p6kpu/cac2sex/folisa-f2ma.js";
-import { kf2FrutikosanLikenanCac2sex } from "../../p6kpu/cac2sex/frutikosa-f2ma.js";
+import { kf2FolisanLikenanCac2sex } from "../../p6kpu/cac2sex/slaf-f2ma.js";
+import { kf2Fe1afnLikenanCac2sex } from "../../p6kpu/cac2sex/fe1af-f2ma.js";
 import { kf2MuskanCac2sex } from "../../p6kpu/cac2sex/c6x.js";
 import { kf2AsfanFc2qnCac2sex } from "../../p6kpu/cac2sex/asfa-fc2q.js";
 import { kf2AsfanTrunkanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai.js";
-import { kf2AsfanTrunkanBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-bumpo.js";
+import { kf2AsfanTrunkanBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-tok.js";
 import { kf2AsfanTronkoxabenCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-xabe.js";
 import { bs2, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
 import { glataTona } from "../../../kanta/k2fe/fkabe.js";
 import { PURPURAJTRUNKAJRADIOJ, KRONALIBERO, kronaKa5ikLam2v } from "./hasoza.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, jaqoHaga, spronaP2somani, type Cel2Raqa } from "./raqa.js";
-import { vepaqKrustanLikenQoxaKefoun, vepaqFrutikosanLikenQoxaKefoun, vepaqByssoidanLikenQoxaKefoun } from "./haf2ma.js";
+import { vepaqKrustanLikenQoxaKefoun, vepaqFe1afnLikenQoxaKefoun, vepaqXcabenLikenQoxaKefoun } from "./haf2ma.js";
 import { vepaqXabenRozeton, vepaqAsfanRozeton, vepaqTavolanFc2qnKronon } from "./fhac2q.js";
 import { vepaqHerbanTufanQoxaKefoun } from "./fe1af/fetsafKek.js";
 import { kf2HerbanPukekn } from "./fe1af/g2b2.js";
@@ -61,14 +61,14 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
   const l6daKronoj = new THREE.InstancedMesh(l6daKronoVecax2l,
     new THREE.MeshStandardMaterial({ map: kf2AsfanTronkoxabenCac2sex(false), alphaTest: 0o4/0o10, side: THREE.DoubleSide, roughness: 0o1 }), vem2);
 
-  const haf2maFrutikozaj = new THREE.InstancedMesh(vepaqFrutikosanLikenQoxaKefoun(),
-    new THREE.MeshStandardMaterial({ map: kf2FrutikosanLikenanCac2sex(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
+  const haf2maFe1afaj = new THREE.InstancedMesh(vepaqFe1afnLikenQoxaKefoun(),
+    new THREE.MeshStandardMaterial({ map: kf2Fe1afnLikenanCac2sex(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
       transparent: true, depthWrite: false, roughness: 0o1 }), vem2);
   const haf2maSlafj = new THREE.InstancedMesh(vepaqKrustanLikenQoxaKefoun(),
     new THREE.MeshStandardMaterial({ map: kf2FolisanLikenanCac2sex(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
       transparent: true, depthWrite: false, roughness: 0o1 }), vem2);
-  const haf2maBisoidaj = new THREE.InstancedMesh(vepaqByssoidanLikenQoxaKefoun(),
-    new THREE.MeshStandardMaterial({ map: kf2ByssoidanLikenanCac2sex(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
+  const haf2maXcabaj = new THREE.InstancedMesh(vepaqXcabenLikenQoxaKefoun(),
+    new THREE.MeshStandardMaterial({ map: kf2XcabenLikenanCac2sex(), alphaTest: 0o15/0o40, side: THREE.DoubleSide,
       transparent: true, depthWrite: false, roughness: 0o1 }), vem2);
 
   const M = new THREE.Matrix4();
@@ -183,9 +183,9 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
       Q.multiply(yawQ);
       M.compose(P.set(x, y + 0o1/0o40, z), Q, S.setScalar(p6zukani));
       const loto = sakxoCasacakai();
-      if ( loto < 0o4/0o10 ) { haf2maFrutikozaj.setMatrixAt(lf++, M); }
+      if ( loto < 0o4/0o10 ) { haf2maFe1afaj.setMatrixAt(lf++, M); }
       else if ( loto < 0o7/0o10 ) { haf2maSlafj.setMatrixAt(lo++, M); }
-      else { haf2maBisoidaj.setMatrixAt(lb++, M); }
+      else { haf2maXcabaj.setMatrixAt(lb++, M); }
       li++;
     }
     haneq2qKp6taf.neq2q(x, z, [ x, z ]);
@@ -193,7 +193,7 @@ function instanciiSubkreskajxojn(qena: THREE.Scene,
 
   finigi(haxabe, fi); finigi(psazaij, mp); finigi(hasfa, pu);
   finigi(hafe1af, hi); finigi(hac6x, mi);
-  finigi(haf2maFrutikozaj, lf); finigi(haf2maSlafj, lo); finigi(haf2maBisoidaj, lb);
+  finigi(haf2maFe1afaj, lf); finigi(haf2maSlafj, lo); finigi(haf2maXcabaj, lb);
   finigi(l6daHasost2cel2sai, ta, true); finigi(l6daKronoj, ta, true);
 }
 

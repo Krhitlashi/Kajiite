@@ -1,7 +1,7 @@
 // ≺⧼ ſɭɔ ʃɔɔ˞ ʌ ſɭw ʃɔɔ˞ ⭐ ⧽≻
 import * as THREE from "three";
 import { kf2Bufezacen, vakox2qQoxaKefoujn } from "../p6kpu/hakox2q.js";
-import { vepaqSlaftexture, type SlafTextureQoxa } from "../p6kpu/cac2sex/keuxfhxesa-slaf.js";
+import { vepaqSlaftexture, type SlafTextureQoxa } from "../p6kpu/cac2sex/kubes-slaf.js";
 
 export interface KekufxesoRaqa {
   x: number; z: number;

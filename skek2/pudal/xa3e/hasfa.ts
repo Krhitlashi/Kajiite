@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { kf2AsfanFc2qnCac2sex } from "../../p6kpu/cac2sex/asfa-fc2q.js";
 import { kf2AsfanTrunkanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai.js";
-import { kf2AsfanTrunkanBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-bumpo.js";
+import { kf2AsfanTrunkanBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-tok.js";
 import { kf2AsfanTronkoxabenCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-xabe.js";
 import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
 import { vepaqAsfanRozeton, vepaqTavolanFc2qnKronon } from "./fhac2q.js";

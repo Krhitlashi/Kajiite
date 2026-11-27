@@ -1,9 +1,9 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃͷ̗ᴜ ſȷƣ̋ɜ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃͷ̗ᴜʞ 📃 ⧽≻
 import * as THREE from "three";
 import { vakox2qSenIndekson } from "../../../p6kpu/hakox2q.js";
 import { kf2Xa3eHazardon } from "../sakxoXa3e.js";
 
-export function vepaqLam2vnSlafranQoxaKefoun(slafjHas2nasce = 0o2): { maso: THREE.BufferGeometry; slafj: THREE.BufferGeometry } {
+export function vepaqLam2vnSlafanQoxaKefoun(slafjHas2nasce = 0o2): { maso: THREE.BufferGeometry; slafj: THREE.BufferGeometry } {
   const sakxo = kf2Xa3eHazardon(0o227334);
   const hakek: THREE.BufferGeometry[] = [];
   const slafjHakek: THREE.BufferGeometry[] = [];

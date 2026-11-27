@@ -24989,7 +24989,7 @@ function senAlfa(weh2) {
 	}
 	return "transparent";
 }
-function k2fVas2flofajnF2m2jn(kuns2bana, s, l6da, n, weh2Cax2lo, m2m2, amplekso, sakxo) {
+function k2fVas2lasajnF2m2jn(kuns2bana, s, l6da, n, weh2Cax2lo, m2m2, amplekso, sakxo) {
 	const sukf2qi = sakxo ?? hazard;
 	for (let i = 0; i < n; i++) {
 		const r = l6da * sukf2qi(m2m2, m2m2 + amplekso);
@@ -31635,7 +31635,7 @@ function jaqoLaqRaq(x, z) {
 	if (saqEliro <= 0) return 0;
 	const raqEliro = 1 - glataTona(-246, -194, x);
 	if (raqEliro <= 0) return 0;
-	const vas2flof = Math.min(kaqEniro, laqEliro, saqEliro, raqEliro);
+	const vas2las = Math.min(kaqEniro, laqEliro, saqEliro, raqEliro);
 	const dx1 = (x + 248) / 46, dz1 = (z - 86) / 46;
 	const cet21 = 32 * Math.exp(-1 / 2 * (dx1 * dx1 + dz1 * dz1));
 	const dx2 = (x + 224) / 32, dz2 = (z - 68) / 32;
@@ -31644,7 +31644,7 @@ function jaqoLaqRaq(x, z) {
 	const cet23 = 14 * Math.exp(-1 / 2 * (dx3 * dx3 + dz3 * dz3));
 	const dxS = (x + 236) / 34, dzS = (z - 78) / 32;
 	const selo = 12 * Math.exp(-1 / 2 * (dxS * dxS + dzS * dzS));
-	return Math.max(0, (cet21 + cet22 + cet23 - selo) * vas2flof);
+	return Math.max(0, (cet21 + cet22 + cet23 - selo) * vas2las);
 }
 function k6siLaqRaqX(z) {
 	const maltikn = 1 - Math.max(0, Math.min(1, (z - -128) / 192));
@@ -33241,8 +33241,8 @@ function vepaqGlacifisanMalneton() {
 		ampleksaMultoblo: 6 / 8
 	};
 }
-// ../../skek2/p6kpu/cac2sex/marlaraksxa-kutiklo.ts
-function kf2KutiklanCac2sex() {
+// ../../skek2/p6kpu/cac2sex/kehu.ts
+function kf2KehuanCac2sex() {
 	const s = 128;
 	const desegnu = (reliefo) => kf2P2t6zoCac2sex(s, s, (kuns2bana) => {
 		kuns2bana.fillStyle = reliefo ? "rgb(128,128,128)" : "rgb(208,176,136)";
@@ -33285,7 +33285,7 @@ function kf2Artikon(n2k, r) {
 }
 function vepaqMarlaraksxanMalneton() {
 	const hate2 = new Group();
-	const kutiklo = kf2KutiklanCac2sex();
+	const kehu = kf2KehuanCac2sex();
 	const korpaPukek = new MeshStandardMaterial({
 		color: 14203024,
 		transparent: true,
@@ -33293,8 +33293,8 @@ function vepaqMarlaraksxanMalneton() {
 		depthWrite: false,
 		side: 2,
 		roughness: 1 / 2,
-		map: kutiklo.weh2,
-		bumpMap: kutiklo.reliefo,
+		map: kehu.weh2,
+		bumpMap: kehu.reliefo,
 		bumpScale: 1 / 40
 	});
 	const zHas2nasce = [
@@ -33349,8 +33349,8 @@ function vepaqMarlaraksxanMalneton() {
 	const rostrocet2 = new Mesh(mergeGeometries([kf2Tubon(rostrajHan2k[2], w6qaN2k, 16 / 512, 9 / 512), kf2Artikon(w6qaN2k, 9 / 512)]), new MeshStandardMaterial({
 		color: 5785656,
 		roughness: 3 / 4,
-		map: kutiklo.weh2,
-		bumpMap: kutiklo.reliefo,
+		map: kehu.weh2,
+		bumpMap: kehu.reliefo,
 		bumpScale: 1 / 40
 	}));
 	rostrocet2.name = "rostrocet2";
@@ -33381,8 +33381,8 @@ function vepaqMarlaraksxanMalneton() {
 	}
 	const kruraPukek = new MeshStandardMaterial({
 		color: 14203024,
-		map: kutiklo.weh2,
-		bumpMap: kutiklo.reliefo,
+		map: kehu.weh2,
+		bumpMap: kehu.reliefo,
 		bumpScale: 1 / 40,
 		transparent: false,
 		opacity: 1,
@@ -35654,8 +35654,8 @@ function kf2TrunkanQoxaKefoun(sefiniKozunu, sefiniTeru, sefiniZace, has2nasce = 
 	zace.computeVertexNormals();
 	return zace;
 }
-// ../../skek2/pudal/xa3e/halam2v/slafro.ts
-function vepaqLam2vnSlafranQoxaKefoun(slafjHas2nasce = 2) {
+// ../../skek2/pudal/xa3e/halam2v/slaf.ts
+function vepaqLam2vnSlafanQoxaKefoun(slafjHas2nasce = 2) {
 	const sakxo = kf2Xa3eHazardon(77532);
 	const hakek = [];
 	const slafjHakek = [];
@@ -35731,8 +35731,8 @@ function vepaqQacel2n(qena, hacel2) {
 	});
 	const hasost2cel2sai = new InstancedMesh(sost2cel2saiVecax2l, sost2cel2saiPukek, hacel2.length);
 	if (hacel2.length === 0) return hasost2cel2sai;
-	const kronaHavecax2lani = vepaqLam2vnSlafranQoxaKefoun();
-	const maltsiikeSlafVecax2l = vepaqLam2vnSlafranQoxaKefoun(1).slafj;
+	const kronaHavecax2lani = vepaqLam2vnSlafanQoxaKefoun();
+	const maltsiikeSlafVecax2l = vepaqLam2vnSlafanQoxaKefoun(1).slafj;
 	const kronaPukek = new MeshStandardMaterial({
 		color: 8943704,
 		roughness: 1,
@@ -35803,7 +35803,7 @@ function vepaqQacel2n(qena, hacel2) {
 				sukf2qaniraqasai.hatok2q.push(M.clone());
 			}
 		};
-		const neq2qSlafrojn = (natakatomasai, tafkaq, p6zukani, s2sabo, slafWeh2, tok2qWeh2) => {
+		const neq2qSlafjn = (natakatomasai, tafkaq, p6zukani, s2sabo, slafWeh2, tok2qWeh2) => {
 			const slafQ = Q.clone().multiply(new Quaternion().setFromEuler(new Euler(0, -tafkaq, s2sabo, "YXZ")));
 			M.compose(raqa(natakatomasai), slafQ, new Vector3(p6zukani, p6zukani, p6zukani));
 			sukf2qaniraqasai.hasoza.push(M.clone());
@@ -35828,21 +35828,21 @@ function vepaqQacel2n(qena, hacel2) {
 			for (let j = 0; j < 3; j++) {
 				const m6na = 3 / 16 + j / 4;
 				const vek2fe = j % 2 === 0 ? 1 : -1;
-				neq2qSlafrojn(kkaxte.getPoint(m6na), a + vek2fe * 3 / 8, sPado * (3 / 4 + j / 16), -1 / 4 - j / 8, slafWeh2, tok2qWeh2);
+				neq2qSlafjn(kkaxte.getPoint(m6na), a + vek2fe * 3 / 8, sPado * (3 / 4 + j / 16), -1 / 4 - j / 8, slafWeh2, tok2qWeh2);
 			}
 			for (const vek2fe of [-1, 1]) {
 				const forkaTafkaq = a + vek2fe * 3 / 8;
 				const saxeni = kkaxte.getPoint(3 / 4);
 				const tlakakani = al.clone().add(new Vector3(Math.cos(forkaTafkaq) * rPado / 8, -h / 64, Math.sin(forkaTafkaq) * rPado / 8));
 				neq2qBranĉon(new QuadraticBezierCurve3(saxeni, saxeni.clone().lerp(tlakakani, 1 / 2).add(new Vector3(0, h / 128, 0)), tlakakani), (1 / 16 + t.s / 64) * (1 - vem2 * 3 / 4) * 3 / 8);
-				neq2qSlafrojn(tlakakani, forkaTafkaq, sPado, -3 / 4, slafWeh2, tok2qWeh2);
+				neq2qSlafjn(tlakakani, forkaTafkaq, sPado, -3 / 4, slafWeh2, tok2qWeh2);
 			}
 		}
 		const pintaWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loSlafj).clone();
 		const pintaBranĉaWeh2 = hazardaWeh2(sakxoCasacakai, C, weh2Cax2loMaso).clone();
 		for (let i = 0; i < 6; i++) {
 			const vertikala = i % 2 === 0;
-			neq2qSlafrojn(new Vector3(0, sost2cel2saiL6da - h * (vertikala ? 1 / 32 : 1 / 16), 0), i * oraTafkaq, slafraP6zuk * 1 / 2, vertikala ? Math.PI / 3 : 1 / 4, pintaWeh2, pintaBranĉaWeh2);
+			neq2qSlafjn(new Vector3(0, sost2cel2saiL6da - h * (vertikala ? 1 / 32 : 1 / 16), 0), i * oraTafkaq, slafraP6zuk * 1 / 2, vertikala ? Math.PI / 3 : 1 / 4, pintaWeh2, pintaBranĉaWeh2);
 		}
 	});
 	let unuaTrunko = null;
@@ -35910,7 +35910,7 @@ const kf2LarikanS2cel2nBumpanCac2sex = p2somani(() => {
 	});
 });
 // ../../skek2/pudal/xa3e/hataksal.ts
-function vepaqLarikanSlafranQoxaKefoun(pinglajHas2nasce = 3) {
+function vepaqLarikanSlafanQoxaKefoun(pinglajHas2nasce = 3) {
 	const hakek = [];
 	const tok2qjHakek = [];
 	const L6DA = 1;
@@ -36010,8 +36010,8 @@ function vepaqLarikon(qena, hacel2) {
 	});
 	const hasost2cel2sai = new InstancedMesh(sost2cel2saiVecax2l, sost2cel2saiPukek, hacel2.length);
 	if (hacel2.length === 0) return hasost2cel2sai;
-	const kronaHavecax2lani = vepaqLarikanSlafranQoxaKefoun();
-	const maltsiikeKronaVecax2l = vepaqLarikanSlafranQoxaKefoun(1).slafj;
+	const kronaHavecax2lani = vepaqLarikanSlafanQoxaKefoun();
+	const maltsiikeKronaVecax2l = vepaqLarikanSlafanQoxaKefoun(1).slafj;
 	const kronaVecax2l = kronaHavecax2lani.slafj;
 	kronaVecax2l.computeBoundingBox();
 	const kronaPukek = new MeshStandardMaterial({
@@ -38557,7 +38557,7 @@ const kf2LederanCac2sex = p2somani(() => {
 	return kf2P2t6zoCac2sex(s, s, (k) => {
 		k.fillStyle = "#d8d8d8";
 		k.fillRect(0, 0, s, s);
-		k2fVas2flofajnF2m2jn(k, s, s, 16, [
+		k2fVas2lasajnF2m2jn(k, s, s, 16, [
 			"rgba(240,240,232,0.24)",
 			"rgba(120,112,112,0.18)",
 			"rgba(168,160,160,0.20)"
@@ -38608,7 +38608,7 @@ const kf2LederanCac2sex = p2somani(() => {
 		}
 	}, [2, 2], { anisotropio: 4 });
 });
-// ../../skek2/p6kpu/cac2sex/flofSiraq.ts
+// ../../skek2/p6kpu/cac2sex/lassiraq.ts
 const kf2SxtofanBumpanCac2sex = p2somani(() => {
 	const s = 256;
 	return kf2P2t6zoCac2sex(s, s, (kuns2bana) => {
@@ -38631,7 +38631,7 @@ const kf2SxtofanBumpanCac2sex = p2somani(() => {
 				kuns2bana.fillRect(x, y, w, h);
 			});
 		}
-		k2fVas2flofajnF2m2jn(kuns2bana, s, s, 16, [
+		k2fVas2lasajnF2m2jn(kuns2bana, s, s, 16, [
 			"rgba(224,224,224,0.10)",
 			"rgba(64,64,64,0.12)",
 			"rgba(136,136,136,0.10)"
@@ -42416,8 +42416,8 @@ function neq2qHacel2CxirkauS2xuru(heightFn, vem2, cx, cz, caboleFn, tsasaVem2Fn,
 	}
 	return placed;
 }
-// ../../skek2/p6kpu/cac2sex/byssoida-f2ma.ts
-const kf2ByssoidanLikenanCac2sex = p2somani(() => {
+// ../../skek2/p6kpu/cac2sex/xcabe-f2ma.ts
+const kf2XcabenLikenanCac2sex = p2somani(() => {
 	const s = 128;
 	return kf2P2t6zoCac2sex(s, s, (kuns2bana) => {
 		kuns2bana.clearRect(0, 0, s, s);
@@ -42480,7 +42480,7 @@ const kf2FolisanLikenanCac2sex = p2somani(() => {
 		}
 	}, [1, 1], { g2b2: ClampToEdgeWrapping });
 });
-// ../../skek2/p6kpu/cac2sex/frutikosa-f2ma.ts
+// ../../skek2/p6kpu/cac2sex/fe1af-f2ma.ts
 function trunketaK6h6(x, kozuni, l6da, kkaxte, kof) {
 	const k6h6 = new Path2D();
 	const cet2X = x + kkaxte, cet2Y = kozuni - l6da;
@@ -42497,7 +42497,7 @@ function tasoK6h6(tx, ty, rad) {
 	k6h6.ellipse(tx, ty, rad, rad * 6 / 8, 0, 0, Math.PI * 2);
 	return k6h6;
 }
-const kf2FrutikosanLikenanCac2sex = p2somani(() => {
+const kf2Fe1afnLikenanCac2sex = p2somani(() => {
 	const s = 128;
 	return kf2P2t6zoCac2sex(s, s, (kuns2bana) => {
 		kuns2bana.clearRect(0, 0, s, s);
@@ -42648,7 +42648,7 @@ function vepaqKrustanLikenQoxaKefoun() {
 	}
 	return kf2Bufezacen(haxekuxa, havecax2lani, { qan2k: uv });
 }
-function vepaqFrutikosanLikenQoxaKefoun() {
+function vepaqFe1afnLikenQoxaKefoun() {
 	const hakek = [];
 	const tuftoj = 4;
 	for (let t = 0; t < tuftoj; t++) {
@@ -42665,7 +42665,7 @@ function vepaqFrutikosanLikenQoxaKefoun() {
 	}
 	return vakox2qSenIndekson(hakek);
 }
-function vepaqByssoidanLikenQoxaKefoun() {
+function vepaqXcabenLikenQoxaKefoun() {
 	const hakek = [];
 	const k2fe = 3 + (Math.random() * 3 | 0);
 	for (let i = 0; i < k2fe; i++) {
@@ -42690,16 +42690,16 @@ function vepaqF2majn(qena, vem2, heightFn, nearTrees, nearSxtonoj, excludeRivers
 	const sakxoCasacakai = kf2Xa3eHazardon(29913);
 	const haqoxa = [
 		{
-			zace: vepaqFrutikosanLikenQoxaKefoun(),
-			cac2sex: kf2FrutikosanLikenanCac2sex()
+			zace: vepaqFe1afnLikenQoxaKefoun(),
+			cac2sex: kf2Fe1afnLikenanCac2sex()
 		},
 		{
 			zace: vepaqKrustanLikenQoxaKefoun(),
 			cac2sex: kf2FolisanLikenanCac2sex()
 		},
 		{
-			zace: vepaqByssoidanLikenQoxaKefoun(),
-			cac2sex: kf2ByssoidanLikenanCac2sex()
+			zace: vepaqXcabenLikenQoxaKefoun(),
+			cac2sex: kf2XcabenLikenanCac2sex()
 		}
 	].map((qoxa) => {
 		return {
@@ -45082,7 +45082,7 @@ const kf2AsfanTrunkanCac2sex = p2somani(() => {
 	return kf2P2t6zoCac2sex(w, h, (k) => {
 		k.fillStyle = "#282038";
 		k.fillRect(0, 0, w, h);
-		k2fVas2flofajnF2m2jn(k, w, h, 12, [
+		k2fVas2lasajnF2m2jn(k, w, h, 12, [
 			"rgba(72,64,88,0.20)",
 			"rgba(16,8,24,0.18)",
 			"rgba(88,80,104,0.14)"
@@ -45413,8 +45413,8 @@ function instanciiSubkreskajxojn(qena, vem2, heightFn, sakxoCasacakai, provizi, 
 		side: 2,
 		roughness: 1
 	}), vem2);
-	const haf2maFrutikozaj = new InstancedMesh(vepaqFrutikosanLikenQoxaKefoun(), new MeshStandardMaterial({
-		map: kf2FrutikosanLikenanCac2sex(),
+	const haf2maFe1afaj = new InstancedMesh(vepaqFe1afnLikenQoxaKefoun(), new MeshStandardMaterial({
+		map: kf2Fe1afnLikenanCac2sex(),
 		alphaTest: 13 / 32,
 		side: 2,
 		transparent: true,
@@ -45429,8 +45429,8 @@ function instanciiSubkreskajxojn(qena, vem2, heightFn, sakxoCasacakai, provizi, 
 		depthWrite: false,
 		roughness: 1
 	}), vem2);
-	const haf2maBisoidaj = new InstancedMesh(vepaqByssoidanLikenQoxaKefoun(), new MeshStandardMaterial({
-		map: kf2ByssoidanLikenanCac2sex(),
+	const haf2maXcabaj = new InstancedMesh(vepaqXcabenLikenQoxaKefoun(), new MeshStandardMaterial({
+		map: kf2XcabenLikenanCac2sex(),
 		alphaTest: 13 / 32,
 		side: 2,
 		transparent: true,
@@ -45540,9 +45540,9 @@ function instanciiSubkreskajxojn(qena, vem2, heightFn, sakxoCasacakai, provizi, 
 			Q.multiply(yawQ);
 			M.compose(P.set(x, y + 1 / 32, z), Q, S.setScalar(p6zukani));
 			const loto = sakxoCasacakai();
-			if (loto < 4 / 8) haf2maFrutikozaj.setMatrixAt(lf++, M);
+			if (loto < 4 / 8) haf2maFe1afaj.setMatrixAt(lf++, M);
 			else if (loto < 7 / 8) haf2maSlafj.setMatrixAt(lo++, M);
-			else haf2maBisoidaj.setMatrixAt(lb++, M);
+			else haf2maXcabaj.setMatrixAt(lb++, M);
 			li++;
 		}
 		haneq2qKp6taf.neq2q(x, z, [x, z]);
@@ -45552,9 +45552,9 @@ function instanciiSubkreskajxojn(qena, vem2, heightFn, sakxoCasacakai, provizi, 
 	finigi(hasfa, pu);
 	finigi(hafe1af, hi);
 	finigi(hac6x, mi);
-	finigi(haf2maFrutikozaj, lf);
+	finigi(haf2maFe1afaj, lf);
 	finigi(haf2maSlafj, lo);
-	finigi(haf2maBisoidaj, lb);
+	finigi(haf2maXcabaj, lb);
 	finigi(l6daHasost2cel2sai, ta, true);
 	finigi(l6daKronoj, ta, true);
 }

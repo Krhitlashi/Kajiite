@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſ͔ɭɹ ʃɹ 📃 ⧽≻
 
 import * as THREE from "three";
-import { kf2HerbanKlinganCac2sex } from "../../../p6kpu/cac2sex/klinga-fe1af.js";
+import { kf2HerbanKlinganCac2sex } from "../../../p6kpu/cac2sex/kxa-fe1af.js";
 
 export const HERBAPUSANTOJ = 0o4;
 const HERBAPUSARADIO = 0o13/0o10;

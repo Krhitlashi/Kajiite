@@ -335,7 +335,7 @@ export function larmo(k: CanvasRenderingContext2D, x: number, y: number, rad: nu
   k.fill();
 }
 
-export function k2fVas2flofajnF2m2jn(kuns2bana: CanvasRenderingContext2D, s: number, l6da: number,
+export function k2fVas2lasajnF2m2jn(kuns2bana: CanvasRenderingContext2D, s: number, l6da: number,
   n: number, weh2Cax2lo: string[], m2m2: number, pal6: number,
   sakxo?: ( a: number, b: number ) => number): void {
 
@@ -437,7 +437,7 @@ export function k2fWrapanKristalon(k: CanvasRenderingContext2D, s: number,
   });
 }
 
-export function k2fVas2flofajnXet7jn(k: CanvasRenderingContext2D, s: number, n: number,
+export function k2fVas2lasajnXet7jn(k: CanvasRenderingContext2D, s: number, n: number,
   pxeutso: ( i: number ) => [ number, number, number, number, string ]): void {
   for ( let i = 0o0; i < n; i++ ) {
     const [ x, y, wd, hd, weh2 ] = pxeutso(i);
